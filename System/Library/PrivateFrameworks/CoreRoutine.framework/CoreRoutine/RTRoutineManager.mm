@@ -792,47 +792,47 @@ uint64_t __34__RTRoutineManager_defaultManager__block_invoke()
 
 - (RTRoutineManager)initWithRestorationIdentifier:(id)identifier targertUserSession:(BOOL)session
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v49.receiver = self;
-  v49.super_class = RTRoutineManager;
-  v7 = [(RTRoutineManager *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = RTRoutineManager;
+  v7 = [(RTRoutineManager *)&v48 init];
   if (v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       sessionCopy = session;
-      v43 = v7;
-      v44 = identifierCopy;
+      v42 = v7;
+      v43 = identifierCopy;
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v9 = [callStackSymbols countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v9 = [callStackSymbols countByEnumeratingWithState:&v44 objects:v51 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v46;
+        v11 = *v45;
         v12 = MEMORY[0x1E69E9C10];
         do
         {
           v13 = 0;
           do
           {
-            if (*v46 != v11)
+            if (*v45 != v11)
             {
               objc_enumerationMutation(callStackSymbols);
             }
 
-            v14 = *(*(&v45 + 1) + 8 * v13);
+            v14 = *(*(&v44 + 1) + 8 * v13);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
             {
               v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v51 = v14;
+                v50 = v14;
                 _os_log_debug_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -841,14 +841,14 @@ uint64_t __34__RTRoutineManager_defaultManager__block_invoke()
           }
 
           while (v10 != v13);
-          v10 = [callStackSymbols countByEnumeratingWithState:&v45 objects:v52 count:16];
+          v10 = [callStackSymbols countByEnumeratingWithState:&v44 objects:v51 count:16];
         }
 
         while (v10);
       }
 
-      v7 = v43;
-      identifierCopy = v44;
+      v7 = v42;
+      identifierCopy = v43;
       session = sessionCopy;
     }
 
@@ -902,7 +902,7 @@ uint64_t __34__RTRoutineManager_defaultManager__block_invoke()
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = identifierCopy;
+      v50 = identifierCopy;
       _os_log_impl(&dword_1BF1C4000, v32, OS_LOG_TYPE_DEFAULT, "creating _peopleDiscoveryRegistrant initWithConfigurationIdentifier %@", buf, 0xCu);
     }
 
@@ -924,7 +924,6 @@ uint64_t __34__RTRoutineManager_defaultManager__block_invoke()
     [(RTRoutineManager *)v22 createConnection];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -942,17 +941,15 @@ uint64_t __34__RTRoutineManager_defaultManager__block_invoke()
 
 void __37__RTRoutineManager__createConnection__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v8 = RTErrorConnectionCreate(*(a1 + 32), @"%@", a3, a4, a5, a6, a7, a8, a2);
   v9 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = v8;
+    v11 = v8;
     _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __37__RTRoutineManager__createConnection__block_invoke_413(uint64_t a1, void *a2, void *a3)
@@ -983,21 +980,21 @@ void __37__RTRoutineManager__createConnection__block_invoke_413(uint64_t a1, voi
 
 - (void)_launchTaskWithSelector:(SEL)selector remainingAttempts:(unint64_t)attempts proxyErrorHandler:(id)handler taskBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   blockCopy = block;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __90__RTRoutineManager__launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke;
-  v20[3] = &unk_1E80B3EC0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __90__RTRoutineManager__launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke;
+  v19[3] = &unk_1E80B3EC0;
   attemptsCopy = attempts;
   selectorCopy = selector;
-  v20[4] = self;
-  v21 = handlerCopy;
-  v22 = blockCopy;
+  v19[4] = self;
+  v20 = handlerCopy;
+  v21 = blockCopy;
   v12 = blockCopy;
   v13 = handlerCopy;
-  v14 = [(RTRoutineManager *)self _proxyForServicingSelector:selector withErrorHandler:v20];
+  v14 = [(RTRoutineManager *)self _proxyForServicingSelector:selector withErrorHandler:v19];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
@@ -1007,21 +1004,19 @@ void __37__RTRoutineManager__createConnection__block_invoke_413(uint64_t a1, voi
       v17 = NSStringFromClass(v16);
       v18 = NSStringFromSelector(selector);
       *buf = 138412546;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v18;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v18;
       _os_log_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_INFO, "%@, %@, running task block", buf, 0x16u);
     }
   }
 
   v12[2](v12, v14);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __90__RTRoutineManager__launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
   v5 = v4;
@@ -1029,20 +1024,19 @@ void __90__RTRoutineManager__launchTaskWithSelector_remainingAttempts_proxyError
   {
 
 LABEL_10:
-    v14 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = NSStringFromSelector(*(a1 + 64));
-      v20 = 138412802;
-      v21 = v18;
-      v22 = 2112;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_ERROR, "%@, %@, running proxy error handler, %@", &v20, 0x20u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = NSStringFromSelector(*(a1 + 64));
+      v17 = 138412802;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "%@, %@, running proxy error handler, %@", &v17, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1067,18 +1061,17 @@ LABEL_10:
     v8 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = NSStringFromSelector(*(a1 + 64));
-      v13 = *(a1 + 56) - 1;
-      v20 = 138412802;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v12;
-      v24 = 2048;
-      v25 = v13;
-      _os_log_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_INFO, "%@ retrying, %@, count, %lu", &v20, 0x20u);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = NSStringFromSelector(*(a1 + 64));
+      v12 = *(a1 + 56) - 1;
+      v17 = 138412802;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2048;
+      v22 = v12;
+      _os_log_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_INFO, "%@ retrying, %@, count, %lu", &v17, 0x20u);
     }
 
     v7 = *(a1 + 56);
@@ -1086,47 +1079,45 @@ LABEL_10:
 
   [*(a1 + 32) launchTaskWithSelector:*(a1 + 64) remainingAttempts:v7 - 1 proxyErrorHandler:*(a1 + 40) taskBlock:*(a1 + 48)];
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_proxyForServicingSelector:(SEL)selector asynchronous:(BOOL)asynchronous withErrorHandler:(id)handler
 {
   asynchronousCopy = asynchronous;
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke;
-  v39[3] = &unk_1E80B3EE8;
-  v39[4] = self;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke;
+  v38[3] = &unk_1E80B3EE8;
+  v38[4] = self;
   selectorCopy = selector;
   v9 = handlerCopy;
-  v40 = v9;
-  v10 = MEMORY[0x1BFB54DD0](v39);
-  v32 = MEMORY[0x1E69E9820];
-  v33 = 3221225472;
-  v34 = __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke_415;
-  v35 = &unk_1E80B3EE8;
+  v39 = v9;
+  v10 = MEMORY[0x1BFB54DD0](v38);
+  v31 = MEMORY[0x1E69E9820];
+  v32 = 3221225472;
+  v33 = __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke_415;
+  v34 = &unk_1E80B3EE8;
   selfCopy = self;
   selectorCopy2 = selector;
   v11 = v9;
-  v37 = v11;
-  v12 = MEMORY[0x1BFB54DD0](&v32);
-  if (![(RTRoutineManager *)self selectorIsAllowed:selector]&& ![(RTTokenBucket *)self->_clientThrottle operationAllowed:v32])
+  v36 = v11;
+  v12 = MEMORY[0x1BFB54DD0](&v31);
+  if (![(RTRoutineManager *)self selectorIsAllowed:selector]&& ![(RTTokenBucket *)self->_clientThrottle operationAllowed:v31])
   {
-    v46 = *MEMORY[0x1E696A578];
-    v47[0] = @"Client is exceeding maximum call rate!";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x1E696A578];
+    v46[0] = @"Client is exceeding maximum call rate!";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"RTErrorDomain" code:12 userInfo:v13];
     v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       dumpStatistics = [(RTTokenBucket *)self->_clientThrottle dumpStatistics];
       *buf = 138412546;
-      v43 = v14;
-      v44 = 2112;
-      v45 = dumpStatistics;
+      v42 = v14;
+      v43 = 2112;
+      v44 = dumpStatistics;
       _os_log_error_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_ERROR, "Error: %@, %@", buf, 0x16u);
     }
   }
@@ -1137,7 +1128,7 @@ LABEL_13:
   {
     v25 = @"no xpc connection";
 LABEL_17:
-    v28 = RTErrorConnectionCreate(selector, v25, v17, v18, v19, v20, v21, v22, v32);
+    v28 = RTErrorConnectionCreate(selector, v25, v17, v18, v19, v20, v21, v22, v31);
     (v10)[2](v10, v28);
 
     v27 = 0;
@@ -1173,20 +1164,18 @@ LABEL_17:
 
 LABEL_18:
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 void __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v9 = RTErrorConnectionCreate(*(a1 + 48), @"%@", a3, a4, a5, a6, a7, a8, a2);
   v10 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v14 = v9;
+    v13 = v9;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
   }
 
@@ -1195,19 +1184,17 @@ void __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHan
   {
     (*(v11 + 16))(v11, v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke_415(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = RTErrorConnectionCreate(*(a1 + 48), @"%@", a3, a4, a5, a6, a7, a8, a2);
   v10 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
   }
 
@@ -1218,17 +1205,15 @@ void __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHan
     block[1] = 3221225472;
     block[2] = __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke_416;
     block[3] = &unk_1E80B4118;
-    v15 = *(a1 + 40);
-    v14 = v9;
+    v14 = *(a1 + 40);
+    v13 = v9;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchTransitionsBetweenStartDate:(id)date endDate:(id)endDate handler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   handlerCopy = handler;
@@ -1242,7 +1227,7 @@ void __77__RTRoutineManager__proxyForServicingSelector_asynchronous_withErrorHan
 LABEL_8:
     v20 = @"startDate is required";
 LABEL_10:
-    v18 = RTErrorInvalidParameterCreate(a2, v20, v11, v12, v13, v14, v15, v16, v22);
+    v18 = RTErrorInvalidParameterCreate(a2, v20, v11, v12, v13, v14, v15, v16, v21);
     handlerCopy[2](handlerCopy, 0, v18);
     goto LABEL_11;
   }
@@ -1251,9 +1236,9 @@ LABEL_10:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v31 = "[RTRoutineManager fetchTransitionsBetweenStartDate:endDate:handler:]";
-    v32 = 1024;
-    v33 = 951;
+    v30 = "[RTRoutineManager fetchTransitionsBetweenStartDate:endDate:handler:]";
+    v31 = 1024;
+    v32 = 951;
     _os_log_error_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
   }
 
@@ -1269,25 +1254,23 @@ LABEL_3:
     goto LABEL_10;
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___block_invoke;
-  v28[3] = &unk_1E80B3F10;
-  v29 = handlerCopy;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___block_invoke_2;
-  v23[3] = &unk_1E80B3F38;
-  v24 = dateCopy;
-  v25 = endDateCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___block_invoke;
+  v27[3] = &unk_1E80B3F10;
+  v28 = handlerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___block_invoke_2;
+  v22[3] = &unk_1E80B3F38;
+  v23 = dateCopy;
+  v24 = endDateCopy;
   selfCopy = self;
-  v27 = v29;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v28 taskBlock:v23];
+  v26 = v28;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v27 taskBlock:v22];
 
-  v18 = v29;
+  v18 = v28;
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___block_invoke_2(void *a1, void *a2)
@@ -1324,7 +1307,7 @@ void __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___b
 
 - (void)fetchTripSegmentsWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1333,9 +1316,9 @@ void __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchTripSegmentsWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 979;
+      v20 = "[RTRoutineManager fetchTripSegmentsWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 979;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1350,23 +1333,21 @@ void __69__RTRoutineManager_fetchTransitionsBetweenStartDate_endDate_handler___b
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1413,7 +1394,7 @@ void __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke_
 
 - (void)fetchLocationsCountForTripSegmentWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1422,9 +1403,9 @@ void __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchLocationsCountForTripSegmentWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1001;
+      v20 = "[RTRoutineManager fetchLocationsCountForTripSegmentWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1001;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1439,23 +1420,21 @@ void __57__RTRoutineManager_fetchTripSegmentsWithOptions_handler___block_invoke_
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1499,7 +1478,7 @@ void __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler
 
 - (void)fetchLocationsForTripSegmentWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1508,9 +1487,9 @@ void __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchLocationsForTripSegmentWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1022;
+      v20 = "[RTRoutineManager fetchLocationsForTripSegmentWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1022;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1525,23 +1504,21 @@ void __73__RTRoutineManager_fetchLocationsCountForTripSegmentWithOptions_handler
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1588,7 +1565,7 @@ void __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___bl
 
 - (void)deleteTripSegmentWithUUID:(id)d handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1597,9 +1574,9 @@ void __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___bl
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager deleteTripSegmentWithUUID:handler:]";
-      v22 = 1024;
-      v23 = 1042;
+      v20 = "[RTRoutineManager deleteTripSegmentWithUUID:handler:]";
+      v21 = 1024;
+      v22 = 1042;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1614,23 +1591,21 @@ void __68__RTRoutineManager_fetchLocationsForTripSegmentWithOptions_handler___bl
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = dCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = dCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = dCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke(uint64_t a1)
@@ -1674,7 +1649,7 @@ void __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke_3(u
 
 - (void)fetchTripSegmentMetadataWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1683,9 +1658,9 @@ void __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke_3(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchTripSegmentMetadataWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1061;
+      v20 = "[RTRoutineManager fetchTripSegmentMetadataWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1061;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1700,23 +1675,21 @@ void __54__RTRoutineManager_deleteTripSegmentWithUUID_handler___block_invoke_3(u
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1763,7 +1736,7 @@ void __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_
 
 - (void)fetchVehiclesWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1772,9 +1745,9 @@ void __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchVehiclesWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1081;
+      v20 = "[RTRoutineManager fetchVehiclesWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1081;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1789,23 +1762,21 @@ void __64__RTRoutineManager_fetchTripSegmentMetadataWithOptions_handler___block_
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1852,7 +1823,7 @@ void __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke_3(ui
 
 - (void)fetchRoutineEnabledWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -1860,44 +1831,41 @@ void __53__RTRoutineManager_fetchVehiclesWithOptions_handler___block_invoke_3(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchRoutineEnabledWithHandler:]";
-      v15 = 1024;
-      v16 = 1099;
+      v13 = "[RTRoutineManager fetchRoutineEnabledWithHandler:]";
+      v14 = 1024;
+      v15 = 1099;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_439;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_439;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Unable to determine if CoreRoutine is enabled, returning enabled, NO, error, %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Unable to determine if CoreRoutine is enabled, returning enabled, NO, error, %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_439(uint64_t a1, void *a2)
@@ -1926,7 +1894,7 @@ void __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_2(uint
 
 - (void)fetchRoutineStateWithHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -1934,9 +1902,9 @@ void __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_2(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchRoutineStateWithHandler:]";
-      v21 = 1024;
-      v22 = 1115;
+      v19 = "[RTRoutineManager fetchRoutineStateWithHandler:]";
+      v20 = 1024;
+      v21 = 1115;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -1952,35 +1920,33 @@ void __51__RTRoutineManager_fetchRoutineEnabledWithHandler___block_invoke_2(uint
     _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "fetchRoutineStateWithHandler", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke;
-  v16[3] = &unk_1E80B4078;
-  v18 = v8;
-  v17 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke_441;
-  v13[3] = &unk_1E80B40F0;
-  v14 = v17;
-  v15 = v8;
-  v13[4] = self;
-  v11 = v17;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke;
+  v15[3] = &unk_1E80B4078;
+  v17 = v8;
+  v16 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke_441;
+  v12[3] = &unk_1E80B40F0;
+  v13 = v16;
+  v14 = v8;
+  v12[4] = self;
+  v11 = v16;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v15 taskBlock:v12];
 }
 
 void __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Unable to determine CoreRoutine's state, returning state, RTRoutineStateUnknown, error, %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Unable to determine CoreRoutine's state, returning state, RTRoutineStateUnknown, error, %@", &v9, 0xCu);
   }
 
   v5 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
@@ -1989,13 +1955,12 @@ void __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke(uint64_t
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     v8 = [v3 code];
-    v10 = 134349056;
-    v11 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v6, OS_SIGNPOST_INTERVAL_END, v7, "fetchRoutineStateWithHandler", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v9 = 134349056;
+    v10 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v6, OS_SIGNPOST_INTERVAL_END, v7, "fetchRoutineStateWithHandler", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__RTRoutineManager_fetchRoutineStateWithHandler___block_invoke_441(void *a1, void *a2)
@@ -2118,10 +2083,9 @@ uint64_t __50__RTRoutineManager_setRoutineEnabled_withHandler___block_invoke_4(u
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -2193,10 +2157,9 @@ uint64_t __44__RTRoutineManager_clearRoutineWithHandler___block_invoke_4(uint64_
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -2204,7 +2167,7 @@ uint64_t __44__RTRoutineManager_clearRoutineWithHandler___block_invoke_4(uint64_
 
 - (void)fetchCloudSyncAuthorizationState:(id)state
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (!stateCopy)
   {
@@ -2212,28 +2175,26 @@ uint64_t __44__RTRoutineManager_clearRoutineWithHandler___block_invoke_4(uint64_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchCloudSyncAuthorizationState:]";
-      v15 = 1024;
-      v16 = 1186;
+      v13 = "[RTRoutineManager fetchCloudSyncAuthorizationState:]";
+      v14 = 1024;
+      v15 = 1186;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = stateCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = stateCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 uint64_t __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke(uint64_t a1, uint64_t a2)
@@ -2285,11 +2246,9 @@ uint64_t __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke_
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 32);
-    v6 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v6();
+    return v4();
   }
 
   return result;
@@ -2297,7 +2256,7 @@ uint64_t __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke_
 
 - (void)updateCloudSyncProvisionedForAccount:(BOOL)account handler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -2305,29 +2264,27 @@ uint64_t __53__RTRoutineManager_fetchCloudSyncAuthorizationState___block_invoke_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "[RTRoutineManager updateCloudSyncProvisionedForAccount:handler:]";
-      v18 = 1024;
-      v19 = 1210;
+      v16 = "[RTRoutineManager updateCloudSyncProvisionedForAccount:handler:]";
+      v17 = 1024;
+      v18 = 1210;
       _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___block_invoke;
-  v14[3] = &unk_1E80B3F10;
-  v15 = handlerCopy;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___block_invoke_2;
-  v11[3] = &unk_1E80B4140;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___block_invoke;
+  v13[3] = &unk_1E80B3F10;
+  v14 = handlerCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___block_invoke_2;
+  v10[3] = &unk_1E80B4140;
   accountCopy = account;
-  v11[4] = self;
-  v12 = v15;
-  v9 = v15;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[4] = self;
+  v11 = v14;
+  v9 = v14;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v10];
 }
 
 uint64_t __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___block_invoke(uint64_t a1)
@@ -2379,10 +2336,9 @@ uint64_t __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___b
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -2390,7 +2346,7 @@ uint64_t __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___b
 
 - (void)fetchLearnedRoutesWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -2399,9 +2355,9 @@ uint64_t __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchLearnedRoutesWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1236;
+      v20 = "[RTRoutineManager fetchLearnedRoutesWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1236;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -2416,23 +2372,21 @@ uint64_t __65__RTRoutineManager_updateCloudSyncProvisionedForAccount_handler___b
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -2479,7 +2433,7 @@ void __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke
 
 - (void)fetchTripClusterMetadataWithOptions:(id)options handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -2488,9 +2442,9 @@ void __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager fetchTripClusterMetadataWithOptions:handler:]";
-      v22 = 1024;
-      v23 = 1257;
+      v20 = "[RTRoutineManager fetchTripClusterMetadataWithOptions:handler:]";
+      v21 = 1024;
+      v22 = 1257;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -2505,23 +2459,21 @@ void __58__RTRoutineManager_fetchLearnedRoutesWithOptions_handler___block_invoke
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = optionsCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = optionsCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -2568,7 +2520,7 @@ void __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_
 
 - (void)purgeTripClusterTable:(id)table handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   tableCopy = table;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -2577,9 +2529,9 @@ void __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager purgeTripClusterTable:handler:]";
-      v22 = 1024;
-      v23 = 1277;
+      v20 = "[RTRoutineManager purgeTripClusterTable:handler:]";
+      v21 = 1024;
+      v22 = 1277;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -2594,23 +2546,21 @@ void __64__RTRoutineManager_fetchTripClusterMetadataWithOptions_handler___block_
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = tableCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = tableCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = tableCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke(uint64_t a1)
@@ -2654,7 +2604,7 @@ void __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke_3(uint6
 
 - (void)purgeTripClusterWithClusterID:(id)d handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -2663,9 +2613,9 @@ void __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke_3(uint6
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager purgeTripClusterWithClusterID:handler:]";
-      v22 = 1024;
-      v23 = 1298;
+      v20 = "[RTRoutineManager purgeTripClusterWithClusterID:handler:]";
+      v21 = 1024;
+      v22 = 1298;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -2680,23 +2630,21 @@ void __50__RTRoutineManager_purgeTripClusterTable_handler___block_invoke_3(uint6
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __58__RTRoutineManager_purgeTripClusterWithClusterID_handler___block_invoke;
-  v18[3] = &unk_1E80B3F10;
-  v19 = handlerCopy;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __58__RTRoutineManager_purgeTripClusterWithClusterID_handler___block_invoke_2;
-  v14[3] = &unk_1E80B3F60;
-  v15 = dCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __58__RTRoutineManager_purgeTripClusterWithClusterID_handler___block_invoke;
+  v17[3] = &unk_1E80B3F10;
+  v18 = handlerCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __58__RTRoutineManager_purgeTripClusterWithClusterID_handler___block_invoke_2;
+  v13[3] = &unk_1E80B3F60;
+  v14 = dCopy;
   selfCopy = self;
-  v17 = v19;
-  v11 = v19;
+  v16 = v18;
+  v11 = v18;
   v12 = dCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
 }
 
 uint64_t __58__RTRoutineManager_purgeTripClusterWithClusterID_handler___block_invoke(uint64_t a1)
@@ -2799,7 +2747,7 @@ uint64_t __49__RTRoutineManager_fetchRemoteStatusWithHandler___block_invoke_4(vo
 
 - (void)startMonitoringRemoteStatusWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -2807,9 +2755,9 @@ uint64_t __49__RTRoutineManager_fetchRemoteStatusWithHandler___block_invoke_4(vo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager startMonitoringRemoteStatusWithHandler:]";
-      v15 = 1024;
-      v16 = 1339;
+      v13 = "[RTRoutineManager startMonitoringRemoteStatusWithHandler:]";
+      v14 = 1024;
+      v15 = 1339;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -2820,12 +2768,10 @@ uint64_t __49__RTRoutineManager_fetchRemoteStatusWithHandler___block_invoke_4(vo
   block[2] = __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invoke(uint64_t a1)
@@ -2850,16 +2796,16 @@ void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invok
 
 void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor remote status, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor remote status, error, %@", &v6, 0xCu);
     }
   }
 
@@ -2868,8 +2814,6 @@ void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invok
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invoke_444(uint64_t a1, void *a2)
@@ -2900,56 +2844,53 @@ void __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invok
 
 uint64_t __59__RTRoutineManager_startMonitoringRemoteStatusWithHandler___block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor remote status, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor remote status, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)stopMonitoringRemoteStatusWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[RTRoutineManager stopMonitoringRemoteStatusWithHandler:]";
-      v11 = 1024;
-      v12 = 1370;
+      v9 = "[RTRoutineManager stopMonitoringRemoteStatusWithHandler:]";
+      v10 = 1024;
+      v11 = 1370;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
   queue = [(RTRoutineManager *)self queue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke;
-  v8[3] = &unk_1E80B4208;
-  v8[4] = self;
-  v8[5] = a2;
-  dispatch_async(queue, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke;
+  v7[3] = &unk_1E80B4208;
+  v7[4] = self;
+  v7[5] = a2;
+  dispatch_async(queue, v7);
 }
 
 void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke(uint64_t a1)
@@ -2975,16 +2916,16 @@ void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke
 
 void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring of remote status, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring of remote status, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -2993,8 +2934,6 @@ void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke_447(uint64_t a1, void *a2)
@@ -3025,27 +2964,26 @@ void __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke
 
 uint64_t __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring of remote status, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring of remote status, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3063,7 +3001,7 @@ uint64_t __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_in
 
 - (void)fetchLookbackWindowStartDateWithLocation:(id)location handler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -3072,30 +3010,28 @@ uint64_t __58__RTRoutineManager_stopMonitoringRemoteStatusWithHandler___block_in
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchLookbackWindowStartDateWithLocation:handler:]";
-      v21 = 1024;
-      v22 = 1414;
+      v19 = "[RTRoutineManager fetchLookbackWindowStartDateWithLocation:handler:]";
+      v20 = 1024;
+      v21 = 1414;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = locationCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = locationCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler___block_invoke(uint64_t a1, void *a2)
@@ -3154,13 +3090,13 @@ uint64_t __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler
 
 - (void)enumerateObjectsWithOptions:(id)options usingBlock:(id)block
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   blockCopy = block;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 1;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 1;
   if (blockCopy)
   {
     if (optionsCopy)
@@ -3171,110 +3107,106 @@ uint64_t __69__RTRoutineManager_fetchLookbackWindowStartDateWithLocation_handler
       block[2] = __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke;
       block[3] = &unk_1E80B42A8;
       block[4] = self;
-      v25 = a2;
-      v23 = blockCopy;
-      v24 = &v26;
-      v22 = optionsCopy;
+      v24 = a2;
+      v22 = blockCopy;
+      v23 = &v25;
+      v21 = optionsCopy;
       dispatch_sync(queue, block);
     }
 
     else
     {
       v14 = MEMORY[0x1E696ABC0];
-      v30 = *MEMORY[0x1E696A578];
-      v31 = @"options is required";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x1E696A578];
+      v30 = @"options is required";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v16 = [v14 errorWithDomain:@"RTErrorDomain" code:7 userInfo:v15];
 
       v17 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v20 = NSStringFromSelector(a2);
+        v19 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v33 = v20;
-        v34 = 2112;
-        v35 = v16;
+        v32 = v19;
+        v33 = 2112;
+        v34 = v16;
         _os_log_error_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_ERROR, "%@, error, %@", buf, 0x16u);
       }
 
-      (*(blockCopy + 2))(blockCopy, 0, v16, v27 + 3);
+      (*(blockCopy + 2))(blockCopy, 0, v16, v26 + 3);
     }
   }
 
   else
   {
     v10 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
-    v37[0] = @"block is required";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x1E696A578];
+    v36[0] = @"block is required";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v12 = [v10 errorWithDomain:@"RTErrorDomain" code:7 userInfo:v11];
 
     v13 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
+      v18 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v33 = v19;
-      v34 = 2112;
-      v35 = v12;
+      v32 = v18;
+      v33 = 2112;
+      v34 = v12;
       _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "%@, error, %@", buf, 0x16u);
     }
   }
 
-  _Block_object_dispose(&v26, 8);
-
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke(uint64_t a1)
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 64);
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_2;
-  v51[3] = &unk_1E80B4258;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_2;
+  v44[3] = &unk_1E80B4258;
   v4 = *(a1 + 48);
   v5 = *(a1 + 56);
-  v52 = v4;
-  v53 = v5;
-  v6 = [v2 _proxyForServicingSelector:v3 asynchronous:0 withErrorHandler:v51];
+  v45 = v4;
+  v46 = v5;
+  v6 = [v2 _proxyForServicingSelector:v3 asynchronous:0 withErrorHandler:v44];
   if (!v6)
   {
-    v27 = MEMORY[0x1E696ABC0];
-    v60 = *MEMORY[0x1E696A578];
-    v61[0] = @"daemonProxy was nil";
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
-    v29 = [v27 errorWithDomain:@"RTErrorDomain" code:0 userInfo:v28];
+    v22 = MEMORY[0x1E696ABC0];
+    v53 = *MEMORY[0x1E696A578];
+    v54[0] = @"daemonProxy was nil";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+    v24 = [v22 errorWithDomain:@"RTErrorDomain" code:0 userInfo:v23];
 
-    v30 = *(*(a1 + 56) + 8);
     (*(*(a1 + 48) + 16))();
-
     goto LABEL_26;
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
-  v50 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy_;
-  v43 = __Block_byref_object_dispose_;
-  v44 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy_;
+  v42 = __Block_byref_object_dispose_;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy_;
+  v36 = __Block_byref_object_dispose_;
+  v37 = 0;
   aClass = [*(a1 + 40) enumeratedType];
   v7 = MEMORY[0x1E69E9C10];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
   *&v8 = 138412802;
-  v32 = v8;
+  v25 = v8;
   do
   {
     v9 = objc_autoreleasePoolPush();
@@ -3283,60 +3215,58 @@ void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invok
       v10 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v24 = NSStringFromClass(aClass);
-        v25 = [*(a1 + 40) batchSize];
-        v26 = v36[3];
-        *buf = v32;
-        v55 = v24;
-        v56 = 2048;
-        v57 = v25;
-        v58 = 2048;
-        v59 = v26;
+        v19 = NSStringFromClass(aClass);
+        v20 = [*(a1 + 40) batchSize];
+        v21 = v29[3];
+        *buf = v25;
+        v48 = v19;
+        v49 = 2048;
+        v50 = v20;
+        v51 = 2048;
+        v52 = v21;
         _os_log_debug_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_DEBUG, "iterating objects of type, %@, batch size, %lu, offset, %lu", buf, 0x20u);
       }
     }
 
     v11 = *(a1 + 40);
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v36[3], v32}];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_459;
-    v34[3] = &unk_1E80B4280;
-    v34[4] = &v45;
-    v34[5] = &v39;
-    v34[6] = &v35;
-    [v6 fetchEnumerableObjectsWithOptions:v11 offset:v12 reply:v34];
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v29[3], v25}];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_459;
+    v27[3] = &unk_1E80B4280;
+    v27[4] = &v38;
+    v27[5] = &v32;
+    v27[6] = &v28;
+    [v6 fetchEnumerableObjectsWithOptions:v11 offset:v12 reply:v27];
 
-    if (v40[5])
+    if (v33[5])
     {
       v13 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v23 = v40[5];
+        v18 = v33[5];
         *buf = 138412546;
-        v55 = aClass;
-        v56 = 2112;
-        v57 = v23;
+        v48 = aClass;
+        v49 = 2112;
+        v50 = v18;
         _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "received error while fetching stored of type %@, %@, breaking out.", buf, 0x16u);
       }
 
-      v14 = v40[5];
-      v15 = *(*(a1 + 56) + 8);
       (*(*(a1 + 48) + 16))();
       goto LABEL_11;
     }
 
-    if (![v46[5] count])
+    if (![v39[5] count])
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v20 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v55 = aClass;
-          v21 = v20;
-          v22 = "no more stored objects of type %@ to enumerate, breaking out.";
+          v48 = aClass;
+          v16 = v15;
+          v17 = "no more stored objects of type %@ to enumerate, breaking out.";
           goto LABEL_22;
         }
 
@@ -3344,27 +3274,24 @@ LABEL_23:
       }
 
 LABEL_11:
-      v16 = 0;
+      v14 = 0;
       goto LABEL_12;
     }
 
-    v17 = v46[5];
-    v18 = v40[5];
-    v19 = *(*(a1 + 56) + 8);
     (*(*(a1 + 48) + 16))();
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v20 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v55 = aClass;
-          v21 = v20;
-          v22 = "client set stop bit while enumerating stored objects of type %@, breaking out.";
+          v48 = aClass;
+          v16 = v15;
+          v17 = "client set stop bit while enumerating stored objects of type %@, breaking out.";
 LABEL_22:
-          _os_log_impl(&dword_1BF1C4000, v21, OS_LOG_TYPE_INFO, v22, buf, 0xCu);
+          _os_log_impl(&dword_1BF1C4000, v16, OS_LOG_TYPE_INFO, v17, buf, 0xCu);
           goto LABEL_23;
         }
 
@@ -3374,37 +3301,32 @@ LABEL_22:
       goto LABEL_11;
     }
 
-    v16 = 1;
+    v14 = 1;
 LABEL_12:
     objc_autoreleasePoolPop(v9);
   }
 
-  while ((v16 & 1) != 0);
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v39, 8);
+  while ((v14 & 1) != 0);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v38, 8);
 LABEL_26:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting synchronous proxy to enumerate stored locations, %@.", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting synchronous proxy to enumerate stored locations, %@.", &v5, 0xCu);
   }
 
-  v5 = *(*(a1 + 40) + 8);
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invoke_459(void *a1, void *a2, void *a3, void *a4)
@@ -3422,7 +3344,7 @@ void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invok
 
 - (void)enumerateStoredLocationsWithOptions:(id)options usingBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   blockCopy = block;
   if (blockCopy)
@@ -3433,8 +3355,8 @@ void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invok
     block[2] = __67__RTRoutineManager_enumerateStoredLocationsWithOptions_usingBlock___block_invoke;
     block[3] = &unk_1E80B4460;
     block[4] = self;
-    v15 = optionsCopy;
-    v16 = blockCopy;
+    v14 = optionsCopy;
+    v15 = blockCopy;
     dispatch_sync(queue, block);
   }
 
@@ -3444,31 +3366,29 @@ void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager enumerateStoredLocationsWithOptions:usingBlock:]";
-      v21 = 1024;
-      v22 = 1532;
+      v19 = "[RTRoutineManager enumerateStoredLocationsWithOptions:usingBlock:]";
+      v20 = 1024;
+      v21 = 1532;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: block (in %s:%d)", buf, 0x12u);
     }
 
-    v17 = *MEMORY[0x1E696A578];
-    v18 = @"An enumeration block is a required parameter.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17 = @"An enumeration block is a required parameter.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"RTErrorDomain" code:7 userInfo:v10];
     v12 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v11;
+      v19 = v11;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "An enumeration block is a required parameter, %@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateStoredLocationsWithOptions:(id)options usingBlock:(id)block
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   blockCopy = block;
   if (!blockCopy)
@@ -3476,123 +3396,123 @@ void __59__RTRoutineManager_enumerateObjectsWithOptions_usingBlock___block_invok
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v68 = 136315394;
-      *&v68[4] = "[RTRoutineManager _enumerateStoredLocationsWithOptions:usingBlock:]";
-      *&v68[12] = 1024;
-      *&v68[14] = 1552;
-      _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: block (in %s:%d)", v68, 0x12u);
+      *v67 = 136315394;
+      *&v67[4] = "[RTRoutineManager _enumerateStoredLocationsWithOptions:usingBlock:]";
+      *&v67[12] = 1024;
+      *&v67[14] = 1552;
+      _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: block (in %s:%d)", v67, 0x12u);
     }
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
   v10 = [[RTStoredLocationEnumerationContext alloc] initWithEnumerationOptions:optionsCopy];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke;
-  v53[3] = &unk_1E80B4258;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke;
+  v52[3] = &unk_1E80B4258;
   v11 = blockCopy;
-  v54 = v11;
-  v55 = &v56;
-  v44 = [(RTRoutineManager *)self _proxyForServicingSelector:a2 asynchronous:0 withErrorHandler:v53];
-  if (!v44)
+  v53 = v11;
+  v54 = &v55;
+  v43 = [(RTRoutineManager *)self _proxyForServicingSelector:a2 asynchronous:0 withErrorHandler:v52];
+  if (!v43)
   {
     goto LABEL_13;
   }
 
-  *v68 = 0;
-  *&v68[8] = v68;
-  *&v68[16] = 0x3032000000;
-  v69 = __Block_byref_object_copy_;
-  v70 = __Block_byref_object_dispose_;
-  v71 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
+  *v67 = 0;
+  *&v67[8] = v67;
+  *&v67[16] = 0x3032000000;
+  v68 = __Block_byref_object_copy_;
+  v69 = __Block_byref_object_dispose_;
+  v70 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
   if (([optionsCopy downsampleRequired] & 1) == 0)
   {
     *&v12 = 138412290;
-    v41 = v12;
+    v40 = v12;
     while (1)
     {
-      v16 = objc_autoreleasePoolPush();
+      v15 = objc_autoreleasePoolPush();
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
-        v17 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v16 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v42 = optionsCopy;
+          v41 = optionsCopy;
           options = [(RTStoredLocationEnumerationContext *)v10 options];
           dateInterval = [options dateInterval];
           options2 = [(RTStoredLocationEnumerationContext *)v10 options];
           [options2 horizontalAccuracy];
-          v29 = v28;
+          v28 = v27;
           options3 = [(RTStoredLocationEnumerationContext *)v10 options];
           batchSize = [options3 batchSize];
           offset = [(RTStoredLocationEnumerationContext *)v10 offset];
           *buf = 138413058;
-          v61 = dateInterval;
-          v62 = 2048;
-          v63 = v29;
-          v64 = 2048;
-          v65 = batchSize;
-          v66 = 2048;
-          v67 = offset;
-          _os_log_debug_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_DEBUG, "iterating stored locations between %@, horizontal accuracy, %lf, batch size, %lu, offset, %lu", buf, 0x2Au);
+          v60 = dateInterval;
+          v61 = 2048;
+          v62 = v28;
+          v63 = 2048;
+          v64 = batchSize;
+          v65 = 2048;
+          v66 = offset;
+          _os_log_debug_impl(&dword_1BF1C4000, v16, OS_LOG_TYPE_DEBUG, "iterating stored locations between %@, horizontal accuracy, %lf, batch size, %lu, offset, %lu", buf, 0x2Au);
 
-          optionsCopy = v42;
+          optionsCopy = v41;
         }
       }
 
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke_465;
-      v45[3] = &unk_1E80B42D0;
-      v45[4] = v68;
-      v45[5] = &v47;
-      [v44 fetchStoredLocationsWithContext:v10 reply:{v45, v41}];
-      (*(v11 + 2))(v11, *(*&v68[8] + 40), v48[5], v57 + 3);
-      if (*(v57 + 24) == 1)
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke_465;
+      v44[3] = &unk_1E80B42D0;
+      v44[4] = v67;
+      v44[5] = &v46;
+      [v43 fetchStoredLocationsWithContext:v10 reply:{v44, v40}];
+      (*(v11 + 2))(v11, *(*&v67[8] + 40), v47[5], v56 + 3);
+      if (*(v56 + 24) == 1)
       {
         break;
       }
 
-      if (v48[5])
+      if (v47[5])
       {
         options4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
         if (os_log_type_enabled(options4, OS_LOG_TYPE_ERROR))
         {
-          v33 = v48[5];
-          *buf = v41;
-          v61 = v33;
+          v32 = v47[5];
+          *buf = v40;
+          v60 = v32;
           _os_log_error_impl(&dword_1BF1C4000, options4, OS_LOG_TYPE_ERROR, "received error while fetching stored locations, %@, breaking out.", buf, 0xCu);
         }
 
         goto LABEL_27;
       }
 
-      if ([*(*&v68[8] + 40) count])
+      if ([*(*&v67[8] + 40) count])
       {
         offset2 = [(RTStoredLocationEnumerationContext *)v10 offset];
-        v23 = [*(*&v68[8] + 40) count];
-        v24 = [RTStoredLocationEnumerationContext alloc];
+        v22 = [*(*&v67[8] + 40) count];
+        v23 = [RTStoredLocationEnumerationContext alloc];
         options4 = [(RTStoredLocationEnumerationContext *)v10 options];
-        v25 = [(RTStoredLocationEnumerationContext *)v24 initWithEnumerationOptions:options4 offset:v23 + offset2];
+        v24 = [(RTStoredLocationEnumerationContext *)v23 initWithEnumerationOptions:options4 offset:v22 + offset2];
 
-        v21 = 1;
-        v10 = v25;
+        v20 = 1;
+        v10 = v24;
         goto LABEL_28;
       }
 
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
 LABEL_34:
-        v21 = 0;
+        v20 = 0;
         goto LABEL_35;
       }
 
@@ -3600,19 +3520,19 @@ LABEL_34:
       if (os_log_type_enabled(options4, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v19 = options4;
-        v20 = "no more stored locations to enumerate, breaking out.";
+        v18 = options4;
+        v19 = "no more stored locations to enumerate, breaking out.";
 LABEL_23:
-        _os_log_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_INFO, v20, buf, 2u);
+        _os_log_impl(&dword_1BF1C4000, v18, OS_LOG_TYPE_INFO, v19, buf, 2u);
       }
 
 LABEL_27:
-      v21 = 0;
+      v20 = 0;
 LABEL_28:
 
 LABEL_35:
-      objc_autoreleasePoolPop(v16);
-      if ((v21 & 1) == 0)
+      objc_autoreleasePoolPop(v15);
+      if ((v20 & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -3630,8 +3550,8 @@ LABEL_35:
     }
 
     *buf = 0;
-    v19 = options4;
-    v20 = "client set stop bit while enumerating stored locations, breaking out.";
+    v18 = options4;
+    v19 = "client set stop bit while enumerating stored locations, breaking out.";
     goto LABEL_23;
   }
 
@@ -3644,55 +3564,51 @@ LABEL_35:
       dateInterval2 = [options5 dateInterval];
       options6 = [(RTStoredLocationEnumerationContext *)v10 options];
       [options6 horizontalAccuracy];
-      v38 = v37;
+      v37 = v36;
       options7 = [(RTStoredLocationEnumerationContext *)v10 options];
       batchSize2 = [options7 batchSize];
       *buf = 138412802;
-      v61 = dateInterval2;
-      v62 = 2048;
-      v63 = v38;
-      v64 = 2048;
-      v65 = batchSize2;
+      v60 = dateInterval2;
+      v61 = 2048;
+      v62 = v37;
+      v63 = 2048;
+      v64 = batchSize2;
       _os_log_debug_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_DEBUG, "fetching downsampled locations between %@, horizontal accuracy, %lf, output size, %lu", buf, 0x20u);
     }
   }
 
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke_464;
-  v46[3] = &unk_1E80B42D0;
-  v46[4] = v68;
-  v46[5] = &v47;
-  [v44 fetchStoredLocationsWithContext:v10 reply:v46];
-  v14 = v57;
-  *(v57 + 24) = 1;
-  (*(v11 + 2))(v11, *(*&v68[8] + 40), v48[5], v14 + 3);
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke_464;
+  v45[3] = &unk_1E80B42D0;
+  v45[4] = v67;
+  v45[5] = &v46;
+  [v43 fetchStoredLocationsWithContext:v10 reply:v45];
+  v14 = v56;
+  *(v56 + 24) = 1;
+  (*(v11 + 2))(v11, *(*&v67[8] + 40), v47[5], v14 + 3);
 LABEL_12:
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v46, 8);
 
-  _Block_object_dispose(v68, 8);
+  _Block_object_dispose(v67, 8);
 LABEL_13:
 
-  _Block_object_dispose(&v56, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v55, 8);
 }
 
 void __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting synchronous proxy to enumerate stored locations, %@.", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting synchronous proxy to enumerate stored locations, %@.", &v5, 0xCu);
   }
 
-  v5 = *(*(a1 + 40) + 8);
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___block_invoke_464(uint64_t a1, void *a2, void *a3)
@@ -3725,7 +3641,7 @@ void __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___bl
 
 - (void)fetchRoutineModeFromLocation:(id)location withHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -3734,30 +3650,28 @@ void __68__RTRoutineManager__enumerateStoredLocationsWithOptions_usingBlock___bl
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchRoutineModeFromLocation:withHandler:]";
-      v21 = 1024;
-      v22 = 1622;
+      v19 = "[RTRoutineManager fetchRoutineModeFromLocation:withHandler:]";
+      v20 = 1024;
+      v21 = 1622;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = locationCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = locationCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_invoke_2(void *a1, void *a2)
@@ -3790,7 +3704,7 @@ void __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_inv
 
 - (void)fetchEstimatedLocationAtDate:(id)date handler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -3808,9 +3722,9 @@ void __61__RTRoutineManager_fetchRoutineModeFromLocation_withHandler___block_inv
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v22 = "[RTRoutineManager fetchEstimatedLocationAtDate:handler:]";
-    v23 = 1024;
-    v24 = 1641;
+    v21 = "[RTRoutineManager fetchEstimatedLocationAtDate:handler:]";
+    v22 = 1024;
+    v23 = 1641;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: date (in %s:%d)", buf, 0x12u);
   }
 
@@ -3821,31 +3735,29 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[RTRoutineManager fetchEstimatedLocationAtDate:handler:]";
-      v23 = 1024;
-      v24 = 1642;
+      v21 = "[RTRoutineManager fetchEstimatedLocationAtDate:handler:]";
+      v22 = 1024;
+      v23 = 1642;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_invoke;
-  v19[3] = &unk_1E80B3F10;
-  v20 = v9;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_invoke_2;
-  v15[3] = &unk_1E80B3F60;
-  v16 = dateCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_invoke;
+  v18[3] = &unk_1E80B3F10;
+  v19 = v9;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_invoke_2;
+  v14[3] = &unk_1E80B3F60;
+  v15 = dateCopy;
   selfCopy = self;
-  v18 = v20;
-  v12 = v20;
+  v17 = v19;
+  v12 = v19;
   v13 = dateCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
 }
 
 uint64_t __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -3903,7 +3815,7 @@ uint64_t __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_inv
 
 - (void)fetchEstimatedLocationAtDate:(id)date options:(id)options handler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   optionsCopy = options;
   handlerCopy = handler;
@@ -3922,9 +3834,9 @@ uint64_t __57__RTRoutineManager_fetchEstimatedLocationAtDate_handler___block_inv
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v27 = "[RTRoutineManager fetchEstimatedLocationAtDate:options:handler:]";
-    v28 = 1024;
-    v29 = 1665;
+    v26 = "[RTRoutineManager fetchEstimatedLocationAtDate:options:handler:]";
+    v27 = 1024;
+    v28 = 1665;
     _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: date (in %s:%d)", buf, 0x12u);
   }
 
@@ -3935,33 +3847,31 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[RTRoutineManager fetchEstimatedLocationAtDate:options:handler:]";
-      v28 = 1024;
-      v29 = 1666;
+      v26 = "[RTRoutineManager fetchEstimatedLocationAtDate:options:handler:]";
+      v27 = 1024;
+      v28 = 1666;
       _os_log_error_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___block_invoke;
-  v24[3] = &unk_1E80B3F10;
-  v25 = v12;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___block_invoke_2;
-  v19[3] = &unk_1E80B3F38;
-  v20 = dateCopy;
-  v21 = optionsCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___block_invoke;
+  v23[3] = &unk_1E80B3F10;
+  v24 = v12;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___block_invoke_2;
+  v18[3] = &unk_1E80B3F38;
+  v19 = dateCopy;
+  v20 = optionsCopy;
   selfCopy = self;
-  v23 = v25;
-  v15 = v25;
+  v22 = v24;
+  v15 = v24;
   v16 = optionsCopy;
   v17 = dateCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v18];
 }
 
 uint64_t __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -4020,29 +3930,27 @@ uint64_t __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___b
 
 - (void)fetchNextPredictedLocationsOfInterestWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[RTRoutineManager fetchNextPredictedLocationsOfInterestWithHandler:]";
-      v9 = 1024;
-      v10 = 1689;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "[RTRoutineManager fetchNextPredictedLocationsOfInterestWithHandler:]";
+      v8 = 1024;
+      v9 = 1689;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", &v6, 0x12u);
     }
   }
 
   [(RTRoutineManager *)self fetchNextPredictedLocationsOfInterestFromLocation:0 startDate:0 timeInterval:handlerCopy withHandler:-1.0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchNextPredictedLocationsOfInterestFromLocation:(id)location startDate:(id)date timeInterval:(double)interval withHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   dateCopy = date;
   handlerCopy = handler;
@@ -4052,33 +3960,31 @@ uint64_t __65__RTRoutineManager_fetchEstimatedLocationAtDate_options_handler___b
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "[RTRoutineManager fetchNextPredictedLocationsOfInterestFromLocation:startDate:timeInterval:withHandler:]";
-      v29 = 1024;
-      v30 = 1702;
+      v27 = "[RTRoutineManager fetchNextPredictedLocationsOfInterestFromLocation:startDate:timeInterval:withHandler:]";
+      v28 = 1024;
+      v29 = 1702;
       _os_log_error_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_startDate_timeInterval_withHandler___block_invoke;
-  v25[3] = &unk_1E80B3F10;
-  v26 = handlerCopy;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_startDate_timeInterval_withHandler___block_invoke_2;
-  v19[3] = &unk_1E80B4320;
-  v20 = locationCopy;
-  v21 = dateCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_startDate_timeInterval_withHandler___block_invoke;
+  v24[3] = &unk_1E80B3F10;
+  v25 = handlerCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_startDate_timeInterval_withHandler___block_invoke_2;
+  v18[3] = &unk_1E80B4320;
+  v19 = locationCopy;
+  v20 = dateCopy;
   intervalCopy = interval;
   selfCopy = self;
-  v23 = v26;
-  v15 = v26;
+  v22 = v25;
+  v15 = v25;
   v16 = dateCopy;
   v17 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v25 taskBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v18];
 }
 
 void __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_startDate_timeInterval_withHandler___block_invoke_2(double *a1, void *a2)
@@ -4116,7 +4022,7 @@ void __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_s
 
 - (void)fetchPredictedLocationsOfInterestAssociatedToTitle:(id)title location:(id)location calendarIdentifier:(id)identifier withHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   locationCopy = location;
   identifierCopy = identifier;
@@ -4127,34 +4033,32 @@ void __105__RTRoutineManager_fetchNextPredictedLocationsOfInterestFromLocation_s
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v30 = "[RTRoutineManager fetchPredictedLocationsOfInterestAssociatedToTitle:location:calendarIdentifier:withHandler:]";
-      v31 = 1024;
-      v32 = 1724;
+      v29 = "[RTRoutineManager fetchPredictedLocationsOfInterestAssociatedToTitle:location:calendarIdentifier:withHandler:]";
+      v30 = 1024;
+      v31 = 1724;
       _os_log_error_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_location_calendarIdentifier_withHandler___block_invoke;
-  v27[3] = &unk_1E80B3F10;
-  v28 = handlerCopy;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_location_calendarIdentifier_withHandler___block_invoke_2;
-  v21[3] = &unk_1E80B4348;
-  v22 = titleCopy;
-  v23 = locationCopy;
-  v24 = identifierCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_location_calendarIdentifier_withHandler___block_invoke;
+  v26[3] = &unk_1E80B3F10;
+  v27 = handlerCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_location_calendarIdentifier_withHandler___block_invoke_2;
+  v20[3] = &unk_1E80B4348;
+  v21 = titleCopy;
+  v22 = locationCopy;
+  v23 = identifierCopy;
   selfCopy = self;
-  v26 = v28;
-  v16 = v28;
+  v25 = v27;
+  v16 = v27;
   v17 = identifierCopy;
   v18 = locationCopy;
   v19 = titleCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v27 taskBlock:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v26 taskBlock:v20];
 }
 
 void __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_location_calendarIdentifier_withHandler___block_invoke_2(void *a1, void *a2)
@@ -4192,7 +4096,7 @@ void __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_
 
 - (void)fetchPredictedLocationsOfInterestOnDate:(id)date withHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -4201,30 +4105,28 @@ void __111__RTRoutineManager_fetchPredictedLocationsOfInterestAssociatedToTitle_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchPredictedLocationsOfInterestOnDate:withHandler:]";
-      v21 = 1024;
-      v22 = 1743;
+      v19 = "[RTRoutineManager fetchPredictedLocationsOfInterestOnDate:withHandler:]";
+      v20 = 1024;
+      v21 = 1743;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = dateCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = dateCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = dateCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler___block_invoke_2(void *a1, void *a2)
@@ -4260,7 +4162,7 @@ void __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler_
 
 - (void)startMonitoringVisitsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -4268,9 +4170,9 @@ void __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager startMonitoringVisitsWithHandler:]";
-      v15 = 1024;
-      v16 = 1761;
+      v13 = "[RTRoutineManager startMonitoringVisitsWithHandler:]";
+      v14 = 1024;
+      v15 = 1761;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -4281,12 +4183,10 @@ void __72__RTRoutineManager_fetchPredictedLocationsOfInterestOnDate_withHandler_
   block[2] = __53__RTRoutineManager_startMonitoringVisitsWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__RTRoutineManager_startMonitoringVisitsWithHandler___block_invoke(uint64_t a1)
@@ -4371,16 +4271,16 @@ void __40__RTRoutineManager_stopMonitoringVisits__block_invoke(uint64_t a1)
 
 void __40__RTRoutineManager_stopMonitoringVisits__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring visits, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring visits, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -4389,8 +4289,6 @@ void __40__RTRoutineManager_stopMonitoringVisits__block_invoke_2(uint64_t a1, vo
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__RTRoutineManager_stopMonitoringVisits__block_invoke_467(uint64_t a1, void *a2)
@@ -4421,27 +4319,26 @@ void __40__RTRoutineManager_stopMonitoringVisits__block_invoke_2_468(uint64_t a1
 
 uint64_t __40__RTRoutineManager_stopMonitoringVisits__block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring visits, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring visits, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4460,7 +4357,7 @@ uint64_t __40__RTRoutineManager_stopMonitoringVisits__block_invoke_3(uint64_t re
 
 - (void)startLeechingVisitsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -4468,9 +4365,9 @@ uint64_t __40__RTRoutineManager_stopMonitoringVisits__block_invoke_3(uint64_t re
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager startLeechingVisitsWithHandler:]";
-      v15 = 1024;
-      v16 = 1816;
+      v13 = "[RTRoutineManager startLeechingVisitsWithHandler:]";
+      v14 = 1024;
+      v15 = 1816;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -4481,12 +4378,10 @@ uint64_t __40__RTRoutineManager_stopMonitoringVisits__block_invoke_3(uint64_t re
   block[2] = __51__RTRoutineManager_startLeechingVisitsWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__RTRoutineManager_startLeechingVisitsWithHandler___block_invoke(uint64_t a1)
@@ -4571,16 +4466,16 @@ void __38__RTRoutineManager_stopLeechingVisits__block_invoke(uint64_t a1)
 
 void __38__RTRoutineManager_stopLeechingVisits__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching visits, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching visits, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -4589,8 +4484,6 @@ void __38__RTRoutineManager_stopLeechingVisits__block_invoke_2(uint64_t a1, void
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__RTRoutineManager_stopLeechingVisits__block_invoke_469(uint64_t a1, void *a2)
@@ -4621,27 +4514,26 @@ void __38__RTRoutineManager_stopLeechingVisits__block_invoke_2_470(uint64_t a1, 
 
 uint64_t __38__RTRoutineManager_stopLeechingVisits__block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching visits, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching visits, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4660,7 +4552,7 @@ uint64_t __38__RTRoutineManager_stopLeechingVisits__block_invoke_3(uint64_t resu
 
 - (void)startLeechingLowConfidenceVisitsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -4668,9 +4560,9 @@ uint64_t __38__RTRoutineManager_stopLeechingVisits__block_invoke_3(uint64_t resu
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager startLeechingLowConfidenceVisitsWithHandler:]";
-      v15 = 1024;
-      v16 = 1872;
+      v13 = "[RTRoutineManager startLeechingLowConfidenceVisitsWithHandler:]";
+      v14 = 1024;
+      v15 = 1872;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -4681,12 +4573,10 @@ uint64_t __38__RTRoutineManager_stopLeechingVisits__block_invoke_3(uint64_t resu
   block[2] = __64__RTRoutineManager_startLeechingLowConfidenceVisitsWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __64__RTRoutineManager_startLeechingLowConfidenceVisitsWithHandler___block_invoke(uint64_t a1)
@@ -4771,16 +4661,16 @@ void __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke(uint64
 
 void __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching low confidence visits, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching low confidence visits, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -4789,8 +4679,6 @@ void __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_2(uint
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_471(uint64_t a1, void *a2)
@@ -4821,27 +4709,26 @@ void __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_2_472(
 
 uint64_t __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching low confidence visits, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping leeching low confidence visits, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4860,7 +4747,7 @@ uint64_t __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_3(
 
 - (void)startMonitoringPlaceInferencesWithOptions:(id)options handler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -4869,27 +4756,25 @@ uint64_t __51__RTRoutineManager_stopLeechingLowConfidenceVisits__block_invoke_3(
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[RTRoutineManager startMonitoringPlaceInferencesWithOptions:handler:]";
-      v20 = 1024;
-      v21 = 1931;
+      v18 = "[RTRoutineManager startMonitoringPlaceInferencesWithOptions:handler:]";
+      v19 = 1024;
+      v20 = 1931;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
   queue = [(RTRoutineManager *)self queue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke;
-  v14[3] = &unk_1E80B4370;
-  v14[4] = self;
-  v15 = optionsCopy;
-  v16 = handlerCopy;
-  v17 = a2;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke;
+  v13[3] = &unk_1E80B4370;
+  v13[4] = self;
+  v14 = optionsCopy;
+  v15 = handlerCopy;
+  v16 = a2;
   v11 = handlerCopy;
   v12 = optionsCopy;
-  dispatch_async(queue, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v13);
 }
 
 void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke(uint64_t a1)
@@ -4917,16 +4802,16 @@ void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___
 
 void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor place inferences, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor place inferences, error, %@", &v6, 0xCu);
     }
   }
 
@@ -4935,8 +4820,6 @@ void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke_473(void *a1, void *a2)
@@ -4968,26 +4851,25 @@ void __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___
 
 uint64_t __70__RTRoutineManager_startMonitoringPlaceInferencesWithOptions_handler___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor place inferences, error, %@", &v6, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor place inferences, error, %@", &v5, 0xCu);
     }
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0, *(a1 + 32));
+    return (*(result + 16))(result, 0, *(a1 + 32));
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5027,16 +4909,16 @@ void __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke(uint64_t
 
 void __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor place inferences, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor place inferences, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -5045,8 +4927,6 @@ void __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_2(uint64
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_475(uint64_t a1, void *a2)
@@ -5077,27 +4957,26 @@ void __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_2_476(ui
 
 uint64_t __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor place inferences, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor place inferences, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5150,16 +5029,16 @@ uint64_t __49__RTRoutineManager_stopMonitoringPlaceInferences__block_invoke_3(ui
 
 void __57__RTRoutineManager_fetchStoredVisitsWithOptions_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v9 = 134349056;
-    v10 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchStoredVisitsWithOptions", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
+    v8 = 134349056;
+    v9 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchStoredVisitsWithOptions", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
   }
 
   v7 = *(a1 + 32);
@@ -5167,8 +5046,6 @@ void __57__RTRoutineManager_fetchStoredVisitsWithOptions_handler___block_invoke(
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__RTRoutineManager_fetchStoredVisitsWithOptions_handler___block_invoke_477(void *a1, void *a2)
@@ -5207,23 +5084,19 @@ void __57__RTRoutineManager_fetchStoredVisitsWithOptions_handler___block_invoke_
 
 uint64_t __57__RTRoutineManager_fetchStoredVisitsWithOptions_handler___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v10 = 134349056;
-    v11 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchStoredVisitsWithOptions", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchStoredVisitsWithOptions", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)processHindsightVisitsWithHandler:(id)handler
@@ -5295,7 +5168,7 @@ uint64_t __54__RTRoutineManager_processHindsightVisitsWithHandler___block_invoke
 
 - (void)fetchFinerGranularityInferredMapItemWithVisitIdentifier:(id)identifier handler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -5316,16 +5189,16 @@ uint64_t __54__RTRoutineManager_processHindsightVisitsWithHandler___block_invoke
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[RTRoutineManager fetchFinerGranularityInferredMapItemWithVisitIdentifier:handler:]";
-      v23 = 1024;
-      v24 = 2042;
+      v21 = "[RTRoutineManager fetchFinerGranularityInferredMapItemWithVisitIdentifier:handler:]";
+      v22 = 1024;
+      v23 = 2042;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A578];
-    v20 = @"requires a non-nil identifier.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19 = @"requires a non-nil identifier.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v10 = [v12 initWithDomain:@"RTErrorDomain" code:7 userInfo:v13];
 
     handlerCopy[2](handlerCopy, 0, v10);
@@ -5335,18 +5208,17 @@ LABEL_9:
   }
 
   queue = [(RTRoutineManager *)self queue];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __84__RTRoutineManager_fetchFinerGranularityInferredMapItemWithVisitIdentifier_handler___block_invoke;
-  v15[3] = &unk_1E80B4370;
-  v15[4] = self;
-  v18 = a2;
-  v17 = handlerCopy;
-  v16 = identifierCopy;
-  dispatch_async(queue, v15);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __84__RTRoutineManager_fetchFinerGranularityInferredMapItemWithVisitIdentifier_handler___block_invoke;
+  v14[3] = &unk_1E80B4370;
+  v14[4] = self;
+  v17 = a2;
+  v16 = handlerCopy;
+  v15 = identifierCopy;
+  dispatch_async(queue, v14);
 
 LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __84__RTRoutineManager_fetchFinerGranularityInferredMapItemWithVisitIdentifier_handler___block_invoke(uint64_t a1)
@@ -5521,7 +5393,7 @@ void __60__RTRoutineManager_fetchFormattedPostalAddressesFromMeCard___block_invo
 
 - (void)fetchPredictedContextWithOptions:(id)options completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -5530,30 +5402,28 @@ void __60__RTRoutineManager_fetchFormattedPostalAddressesFromMeCard___block_invo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchPredictedContextWithOptions:completionHandler:]";
-      v21 = 1024;
-      v22 = 2112;
+      v19 = "[RTRoutineManager fetchPredictedContextWithOptions:completionHandler:]";
+      v20 = 1024;
+      v21 = 2112;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completionHandler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = optionsCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = optionsCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 uint64_t __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -5600,32 +5470,31 @@ void __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler__
 
 uint64_t __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandler___block_invoke_4(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1[4])
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = a1[4];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while fetching predicted context, error, %@", &v6, 0xCu);
+      v4 = a1[4];
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while fetching predicted context, error, %@", &v5, 0xCu);
     }
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, a1[5], a1[4]);
+    return (*(result + 16))(result, a1[5], a1[4]);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)startMonitoringPredictedContextWithOptions:(id)options completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -5643,9 +5512,9 @@ uint64_t __71__RTRoutineManager_fetchPredictedContextWithOptions_completionHandl
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[RTRoutineManager startMonitoringPredictedContextWithOptions:completionHandler:]";
-    v22 = 1024;
-    v23 = 2137;
+    v20 = "[RTRoutineManager startMonitoringPredictedContextWithOptions:completionHandler:]";
+    v21 = 1024;
+    v22 = 2137;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: options (in %s:%d)", buf, 0x12u);
   }
 
@@ -5656,28 +5525,26 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager startMonitoringPredictedContextWithOptions:completionHandler:]";
-      v22 = 1024;
-      v23 = 2138;
+      v20 = "[RTRoutineManager startMonitoringPredictedContextWithOptions:completionHandler:]";
+      v21 = 1024;
+      v22 = 2138;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completionHandler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
   queue = [(RTRoutineManager *)self queue];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke;
-  v16[3] = &unk_1E80B4370;
-  v16[4] = self;
-  v17 = optionsCopy;
-  v18 = v9;
-  v19 = a2;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke;
+  v15[3] = &unk_1E80B4370;
+  v15[4] = self;
+  v16 = optionsCopy;
+  v17 = v9;
+  v18 = a2;
   v13 = v9;
   v14 = optionsCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v15);
 }
 
 void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke(uint64_t a1)
@@ -5705,16 +5572,16 @@ void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completio
 
 void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor predicted context, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor predicted context, error, %@", &v6, 0xCu);
     }
   }
 
@@ -5723,8 +5590,6 @@ void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completio
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke_484(void *a1, void *a2)
@@ -5756,55 +5621,52 @@ void __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completio
 
 uint64_t __81__RTRoutineManager_startMonitoringPredictedContextWithOptions_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor predicted context, error, %@", &v6, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while starting to monitor predicted context, error, %@", &v5, 0xCu);
     }
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0, *(a1 + 32));
+    return (*(result + 16))(result, 0, *(a1 + 32));
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)stopMonitoringPredictedContextWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[RTRoutineManager stopMonitoringPredictedContextWithHandler:]";
-      v11 = 1024;
-      v12 = 2170;
+      v9 = "[RTRoutineManager stopMonitoringPredictedContextWithHandler:]";
+      v10 = 1024;
+      v11 = 2170;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
   queue = [(RTRoutineManager *)self queue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke;
-  v8[3] = &unk_1E80B4208;
-  v8[4] = self;
-  v8[5] = a2;
-  dispatch_sync(queue, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke;
+  v7[3] = &unk_1E80B4208;
+  v7[4] = self;
+  v7[5] = a2;
+  dispatch_sync(queue, v7);
 }
 
 void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke(uint64_t a1)
@@ -5831,16 +5693,16 @@ void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_in
 
 void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor predicted context, error, %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor predicted context, error, %@", &v6, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -5849,8 +5711,6 @@ void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_in
       (*(v5 + 16))(v5, 0, v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke_486(uint64_t a1, void *a2)
@@ -5881,27 +5741,26 @@ void __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_in
 
 uint64_t __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___block_invoke_3(uint64_t result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor predicted context, error, %@", &v5, 0xCu);
+      v3 = *(v1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping to monitor predicted context, error, %@", &v4, 0xCu);
     }
 
     result = *(v1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0, *(v1 + 32));
+      return (*(result + 16))(result, 0, *(v1 + 32));
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5920,7 +5779,7 @@ uint64_t __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___bloc
 
 - (void)fetchPathToDiagnosticFilesWithOptions:(id)options handler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -5929,30 +5788,28 @@ uint64_t __62__RTRoutineManager_stopMonitoringPredictedContextWithHandler___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchPathToDiagnosticFilesWithOptions:handler:]";
-      v21 = 1024;
-      v22 = 2215;
+      v19 = "[RTRoutineManager fetchPathToDiagnosticFilesWithOptions:handler:]";
+      v20 = 1024;
+      v21 = 2215;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___block_invoke_2;
-  v13[3] = &unk_1E80B44D8;
-  v14 = optionsCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___block_invoke_2;
+  v12[3] = &unk_1E80B44D8;
+  v13 = optionsCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___block_invoke_2(void *a1, void *a2)
@@ -5994,16 +5851,14 @@ uint64_t __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___
     [*(a1 + 32) code];
   }
 
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)startMonitoringScenarioTriggerOfType:(unint64_t)type withHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6011,26 +5866,24 @@ uint64_t __66__RTRoutineManager_fetchPathToDiagnosticFilesWithOptions_handler___
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "[RTRoutineManager startMonitoringScenarioTriggerOfType:withHandler:]";
-      v18 = 1024;
-      v19 = 2238;
+      v16 = "[RTRoutineManager startMonitoringScenarioTriggerOfType:withHandler:]";
+      v17 = 1024;
+      v18 = 2238;
       _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
   queue = [(RTRoutineManager *)self queue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___block_invoke;
-  v12[3] = &unk_1E80B4500;
-  v12[4] = self;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___block_invoke;
+  v11[3] = &unk_1E80B4500;
+  v11[4] = self;
+  v12 = handlerCopy;
   typeCopy = type;
-  v15 = a2;
+  v14 = a2;
   v10 = handlerCopy;
-  dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v11);
 }
 
 void __69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___block_invoke(uint64_t a1)
@@ -6094,7 +5947,7 @@ void __69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___b
   dispatch_async(v4, block);
 }
 
-uint64_t __69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___block_invoke_5(void *a1)
+void *__69__RTRoutineManager_startMonitoringScenarioTriggerOfType_withHandler___block_invoke_5(void *a1)
 {
   result = [*(a1[4] + 144) registered];
   if (result && a1[5])
@@ -6136,20 +5989,18 @@ uint64_t __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invo
 
 void __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_error_impl(&dword_1BF1C4000, v3, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for scenario triggers, error, %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_1BF1C4000, v3, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for scenario triggers, error, %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_491(uint64_t a1, void *a2)
@@ -6178,25 +6029,23 @@ void __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_2
 
 void __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 32);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for scenario triggers, error, %@", &v5, 0xCu);
+      v3 = *(a1 + 32);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for scenario triggers, error, %@", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onScenarioTrigger:(id)trigger withError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (trigger)
   {
     scenarioTriggerRegistrant = self->_scenarioTriggerRegistrant;
@@ -6205,15 +6054,13 @@ void __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_3
     errorCopy = error;
     triggerCopy2 = trigger;
     v9 = [v6 arrayWithObjects:&triggerCopy count:1];
-    [(RTRoutineManagerRegistrantScenarioTrigger *)scenarioTriggerRegistrant onScenarioTriggers:v9 error:errorCopy, triggerCopy, v12];
+    [(RTRoutineManagerRegistrantScenarioTrigger *)scenarioTriggerRegistrant onScenarioTriggers:v9 error:errorCopy, triggerCopy, v11];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchMonitoredScenarioTriggerTypesWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6221,28 +6068,26 @@ void __56__RTRoutineManager_stopMonitoringScenarioTriggerOfType___block_invoke_3
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchMonitoredScenarioTriggerTypesWithHandler:]";
-      v15 = 1024;
-      v16 = 2293;
+      v13 = "[RTRoutineManager fetchMonitoredScenarioTriggerTypesWithHandler:]";
+      v14 = 1024;
+      v15 = 2293;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6274,7 +6119,7 @@ void __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___bloc
 
 - (void)fetchPredictedExitDatesFromLocation:(id)location onDate:(id)date withHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   dateCopy = date;
   handlerCopy = handler;
@@ -6284,32 +6129,30 @@ void __66__RTRoutineManager_fetchMonitoredScenarioTriggerTypesWithHandler___bloc
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTRoutineManager fetchPredictedExitDatesFromLocation:onDate:withHandler:]";
-      v26 = 1024;
-      v27 = 2312;
+      v24 = "[RTRoutineManager fetchPredictedExitDatesFromLocation:onDate:withHandler:]";
+      v25 = 1024;
+      v26 = 2312;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandler___block_invoke;
-  v22[3] = &unk_1E80B3F10;
-  v23 = handlerCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandler___block_invoke_2;
-  v17[3] = &unk_1E80B3F38;
-  v18 = locationCopy;
-  v19 = dateCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandler___block_invoke;
+  v21[3] = &unk_1E80B3F10;
+  v22 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandler___block_invoke_2;
+  v16[3] = &unk_1E80B3F38;
+  v17 = locationCopy;
+  v18 = dateCopy;
   selfCopy = self;
-  v21 = v23;
-  v13 = v23;
+  v20 = v22;
+  v13 = v22;
   v14 = dateCopy;
   v15 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v21 taskBlock:v16];
 }
 
 void __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandler___block_invoke_2(void *a1, void *a2)
@@ -6346,7 +6189,7 @@ void __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandl
 
 - (void)fetchPredictedLocationsOfInterestBetweenStartDate:(id)date endDate:(id)endDate withHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   handlerCopy = handler;
@@ -6356,32 +6199,30 @@ void __75__RTRoutineManager_fetchPredictedExitDatesFromLocation_onDate_withHandl
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTRoutineManager fetchPredictedLocationsOfInterestBetweenStartDate:endDate:withHandler:]";
-      v26 = 1024;
-      v27 = 2331;
+      v24 = "[RTRoutineManager fetchPredictedLocationsOfInterestBetweenStartDate:endDate:withHandler:]";
+      v25 = 1024;
+      v26 = 2331;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_endDate_withHandler___block_invoke;
-  v22[3] = &unk_1E80B3F10;
-  v23 = handlerCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_endDate_withHandler___block_invoke_2;
-  v17[3] = &unk_1E80B3F38;
-  v18 = dateCopy;
-  v19 = endDateCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_endDate_withHandler___block_invoke;
+  v21[3] = &unk_1E80B3F10;
+  v22 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_endDate_withHandler___block_invoke_2;
+  v16[3] = &unk_1E80B3F38;
+  v17 = dateCopy;
+  v18 = endDateCopy;
   selfCopy = self;
-  v21 = v23;
-  v13 = v23;
+  v20 = v22;
+  v13 = v22;
   v14 = endDateCopy;
   v15 = dateCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v21 taskBlock:v16];
 }
 
 void __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_endDate_withHandler___block_invoke_2(void *a1, void *a2)
@@ -6418,7 +6259,7 @@ void __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_en
 
 - (void)fetchLocationOfInterestWithIdentifier:(id)identifier withHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -6427,9 +6268,9 @@ void __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_en
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v26 = "[RTRoutineManager fetchLocationOfInterestWithIdentifier:withHandler:]";
-      v27 = 1024;
-      v28 = 2351;
+      v25 = "[RTRoutineManager fetchLocationOfInterestWithIdentifier:withHandler:]";
+      v26 = 1024;
+      v27 = 2351;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -6445,43 +6286,40 @@ void __90__RTRoutineManager_fetchPredictedLocationsOfInterestBetweenStartDate_en
     _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "fetchLocationOfInterestWithIdentifier", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke;
-  v22[3] = &unk_1E80B4078;
-  v24 = v11;
-  v23 = handlerCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke_493;
-  v17[3] = &unk_1E80B45E8;
-  v18 = identifierCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke;
+  v21[3] = &unk_1E80B4078;
+  v23 = v11;
+  v22 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke_493;
+  v16[3] = &unk_1E80B45E8;
+  v17 = identifierCopy;
   selfCopy = self;
-  v20 = v23;
-  v21 = v11;
-  v14 = v23;
+  v19 = v22;
+  v20 = v11;
+  v14 = v22;
   v15 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v21 taskBlock:v16];
 }
 
 void __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationOfInterestWithIdentifier", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationOfInterestWithIdentifier", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke_493(void *a1, void *a2)
@@ -6520,28 +6358,24 @@ void __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___
 
 uint64_t __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandler___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v10 = 134349056;
-    v11 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationOfInterestWithIdentifier", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationOfInterestWithIdentifier", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchLocationOfInterestAtLocation:(id)location withHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -6550,30 +6384,28 @@ uint64_t __70__RTRoutineManager_fetchLocationOfInterestWithIdentifier_withHandle
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchLocationOfInterestAtLocation:withHandler:]";
-      v21 = 1024;
-      v22 = 2372;
+      v19 = "[RTRoutineManager fetchLocationOfInterestAtLocation:withHandler:]";
+      v20 = 1024;
+      v21 = 2372;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = locationCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = locationCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___block_invoke_2(void *a1, void *a2)
@@ -6609,7 +6441,7 @@ void __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___bloc
 
 - (void)fetchLocationOfInterestForRegion:(id)region withHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -6618,30 +6450,28 @@ void __66__RTRoutineManager_fetchLocationOfInterestAtLocation_withHandler___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchLocationOfInterestForRegion:withHandler:]";
-      v21 = 1024;
-      v22 = 2389;
+      v19 = "[RTRoutineManager fetchLocationOfInterestForRegion:withHandler:]";
+      v20 = 1024;
+      v21 = 2389;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = regionCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = regionCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = regionCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block_invoke_2(void *a1, void *a2)
@@ -6677,7 +6507,7 @@ void __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block
 
 - (void)fetchLocationsOfInterestWithinDistance:(double)distance ofLocation:(id)location withHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -6686,31 +6516,29 @@ void __65__RTRoutineManager_fetchLocationOfInterestForRegion_withHandler___block
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[RTRoutineManager fetchLocationsOfInterestWithinDistance:ofLocation:withHandler:]";
-      v24 = 1024;
-      v25 = 2408;
+      v22 = "[RTRoutineManager fetchLocationsOfInterestWithinDistance:ofLocation:withHandler:]";
+      v23 = 1024;
+      v24 = 2408;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_withHandler___block_invoke;
-  v20[3] = &unk_1E80B3F10;
-  v21 = handlerCopy;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_withHandler___block_invoke_2;
-  v15[3] = &unk_1E80B45E8;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_withHandler___block_invoke;
+  v19[3] = &unk_1E80B3F10;
+  v20 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_withHandler___block_invoke_2;
+  v14[3] = &unk_1E80B45E8;
   distanceCopy = distance;
-  v16 = locationCopy;
+  v15 = locationCopy;
   selfCopy = self;
-  v18 = v21;
-  v12 = v21;
+  v17 = v20;
+  v12 = v20;
   v13 = locationCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v20 taskBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v14];
 }
 
 void __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_withHandler___block_invoke_2(double *a1, void *a2)
@@ -6747,7 +6575,7 @@ void __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_wi
 
 - (void)fetchLocationsOfInterestOfType:(int64_t)type withHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6755,9 +6583,9 @@ void __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_wi
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[RTRoutineManager fetchLocationsOfInterestOfType:withHandler:]";
-      v24 = 1024;
-      v25 = 2426;
+      v22 = "[RTRoutineManager fetchLocationsOfInterestOfType:withHandler:]";
+      v23 = 1024;
+      v24 = 2426;
       _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -6773,42 +6601,39 @@ void __82__RTRoutineManager_fetchLocationsOfInterestWithinDistance_ofLocation_wi
     _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "fetchLocationsOfInterestOfType", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke;
-  v19[3] = &unk_1E80B4078;
-  v21 = v10;
-  v20 = handlerCopy;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke_495;
-  v15[3] = &unk_1E80B4638;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke;
+  v18[3] = &unk_1E80B4078;
+  v20 = v10;
+  v19 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke_495;
+  v14[3] = &unk_1E80B4638;
   typeCopy = type;
-  v18 = v10;
-  v15[4] = self;
-  v16 = v20;
-  v13 = v20;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = v10;
+  v14[4] = self;
+  v15 = v19;
+  v13 = v19;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
 }
 
 void __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestOfType", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestOfType", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke_495(void *a1, void *a2)
@@ -6847,28 +6672,24 @@ void __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_i
 
 uint64_t __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v10 = 134349056;
-    v11 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestOfType", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestOfType", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchLocationsOfInterestVisitedSinceDate:(id)date withHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -6877,9 +6698,9 @@ uint64_t __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___blo
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v31 = "[RTRoutineManager fetchLocationsOfInterestVisitedSinceDate:withHandler:]";
-      v32 = 1024;
-      v33 = 2447;
+      v30 = "[RTRoutineManager fetchLocationsOfInterestVisitedSinceDate:withHandler:]";
+      v31 = 1024;
+      v32 = 2447;
       _os_log_error_impl(&dword_1BF1C4000, v20, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
 
@@ -6889,7 +6710,7 @@ uint64_t __63__RTRoutineManager_fetchLocationsOfInterestOfType_withHandler___blo
     }
 
 LABEL_10:
-    v19 = RTErrorInvalidParameterCreate(a2, @"sinceDate is required", v8, v9, v10, v11, v12, v13, v22[0]);
+    v19 = RTErrorInvalidParameterCreate(a2, @"sinceDate is required", v8, v9, v10, v11, v12, v13, v21[0]);
     handlerCopy[2](handlerCopy, 0, v19);
     goto LABEL_11;
   }
@@ -6911,44 +6732,41 @@ LABEL_3:
     _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "fetchLocationsOfInterestVisitedSinceDate", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke;
-  v27[3] = &unk_1E80B4078;
-  v29 = v16;
-  v28 = handlerCopy;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke_499;
-  v22[3] = &unk_1E80B45E8;
-  v23 = dateCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke;
+  v26[3] = &unk_1E80B4078;
+  v28 = v16;
+  v27 = handlerCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke_499;
+  v21[3] = &unk_1E80B45E8;
+  v22 = dateCopy;
   selfCopy = self;
-  v26 = v16;
-  v25 = v28;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v27 taskBlock:v22];
+  v25 = v16;
+  v24 = v27;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v26 taskBlock:v21];
 
-  v19 = v28;
+  v19 = v27;
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestVisitedSinceDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestVisitedSinceDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke_499(void *a1, void *a2)
@@ -6990,28 +6808,24 @@ void __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler
 
 uint64_t __73__RTRoutineManager_fetchLocationsOfInterestVisitedSinceDate_withHandler___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v10 = 134349056;
-    v11 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestVisitedSinceDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestVisitedSinceDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchLocationsOfInterestVisitedBetweenStartDate:(id)date endDate:(id)endDate withHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   handlerCopy = handler;
@@ -7031,9 +6845,9 @@ LABEL_9:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v37 = "[RTRoutineManager fetchLocationsOfInterestVisitedBetweenStartDate:endDate:withHandler:]";
-    v38 = 1024;
-    v39 = 2476;
+    v36 = "[RTRoutineManager fetchLocationsOfInterestVisitedBetweenStartDate:endDate:withHandler:]";
+    v37 = 1024;
+    v38 = 2476;
     _os_log_error_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
   }
 
@@ -7053,61 +6867,58 @@ LABEL_3:
   {
     v18 = @"endDate must be greater than or equal to startDate";
 LABEL_11:
-    v20 = RTErrorInvalidParameterCreate(a2, v18, v11, v12, v13, v14, v15, v16, v26);
+    v20 = RTErrorInvalidParameterCreate(a2, v18, v11, v12, v13, v14, v15, v16, v25);
     handlerCopy[2](handlerCopy, 0, v20);
     goto LABEL_12;
   }
 
-  v22 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-  v23 = os_signpost_id_generate(v22);
+  v21 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+  v22 = os_signpost_id_generate(v21);
 
-  v24 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-  v25 = v24;
-  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  v23 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+  v24 = v23;
+  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke;
-  v33[3] = &unk_1E80B4078;
-  v35 = v23;
-  v34 = handlerCopy;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke_503;
-  v27[3] = &unk_1E80B4320;
-  v28 = dateCopy;
-  v29 = endDateCopy;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke;
+  v32[3] = &unk_1E80B4078;
+  v34 = v22;
+  v33 = handlerCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke_503;
+  v26[3] = &unk_1E80B4320;
+  v27 = dateCopy;
+  v28 = endDateCopy;
   selfCopy = self;
-  v32 = v23;
-  v31 = v34;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v33 taskBlock:v27];
+  v31 = v22;
+  v30 = v33;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v32 taskBlock:v26];
 
-  v20 = v34;
+  v20 = v33;
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke_503(void *a1, void *a2)
@@ -7147,28 +6958,24 @@ void __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endD
 
 uint64_t __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_endDate_withHandler___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v10 = 134349056;
-    v11 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchLocationsOfInterestVisitedBetweenStartDate", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchAllLocationsOfInterestForSettingsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -7176,28 +6983,26 @@ uint64_t __88__RTRoutineManager_fetchLocationsOfInterestVisitedBetweenStartDate_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchAllLocationsOfInterestForSettingsWithHandler:]";
-      v15 = 1024;
-      v16 = 2512;
+      v13 = "[RTRoutineManager fetchAllLocationsOfInterestForSettingsWithHandler:]";
+      v14 = 1024;
+      v15 = 2512;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandler___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandler___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandler___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandler___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -7238,16 +7043,14 @@ uint64_t __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandle
     [*(a1 + 32) code];
   }
 
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)fetchLocationsOfInterestAssociatedToIdentifier:(id)identifier withHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -7256,30 +7059,28 @@ uint64_t __70__RTRoutineManager_fetchAllLocationsOfInterestForSettingsWithHandle
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchLocationsOfInterestAssociatedToIdentifier:withHandler:]";
-      v21 = 1024;
-      v22 = 2532;
+      v19 = "[RTRoutineManager fetchLocationsOfInterestAssociatedToIdentifier:withHandler:]";
+      v20 = 1024;
+      v21 = 2532;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __79__RTRoutineManager_fetchLocationsOfInterestAssociatedToIdentifier_withHandler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __79__RTRoutineManager_fetchLocationsOfInterestAssociatedToIdentifier_withHandler___block_invoke_2;
-  v13[3] = &unk_1E80B3F60;
-  v14 = identifierCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __79__RTRoutineManager_fetchLocationsOfInterestAssociatedToIdentifier_withHandler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __79__RTRoutineManager_fetchLocationsOfInterestAssociatedToIdentifier_withHandler___block_invoke_2;
+  v12[3] = &unk_1E80B3F60;
+  v13 = identifierCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __79__RTRoutineManager_fetchLocationsOfInterestAssociatedToIdentifier_withHandler___block_invoke_2(void *a1, void *a2)
@@ -7563,7 +7364,7 @@ uint64_t __75__RTRoutineManager_updateLocationOfInterestWithIdentifier_mapItem_h
 
 - (void)updateLocationOfInterestWithIdentifier:(id)identifier type:(int64_t)type handler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!identifierCopy)
@@ -7572,31 +7373,29 @@ uint64_t __75__RTRoutineManager_updateLocationOfInterestWithIdentifier_mapItem_h
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:type:handler:]";
-      v24 = 1024;
-      v25 = 2620;
+      v22 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:type:handler:]";
+      v23 = 1024;
+      v24 = 2620;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_handler___block_invoke;
-  v20[3] = &unk_1E80B3F10;
-  v21 = handlerCopy;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_handler___block_invoke_2;
-  v15[3] = &unk_1E80B45E8;
-  v16 = identifierCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_handler___block_invoke;
+  v19[3] = &unk_1E80B3F10;
+  v20 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_handler___block_invoke_2;
+  v14[3] = &unk_1E80B45E8;
+  v15 = identifierCopy;
   selfCopy = self;
-  v18 = v21;
+  v17 = v20;
   typeCopy = type;
-  v12 = v21;
+  v12 = v20;
   v13 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v20 taskBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v14];
 }
 
 uint64_t __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_handler___block_invoke(uint64_t a1)
@@ -7652,7 +7451,7 @@ uint64_t __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_hand
 
 - (void)updateLocationOfInterestWithIdentifier:(id)identifier customLabel:(id)label handler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   labelCopy = label;
   handlerCopy = handler;
@@ -7662,32 +7461,30 @@ uint64_t __72__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_hand
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:customLabel:handler:]";
-      v26 = 1024;
-      v27 = 2643;
+      v24 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:customLabel:handler:]";
+      v25 = 1024;
+      v26 = 2643;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLabel_handler___block_invoke;
-  v22[3] = &unk_1E80B3F10;
-  v23 = handlerCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLabel_handler___block_invoke_2;
-  v17[3] = &unk_1E80B3F38;
-  v18 = identifierCopy;
-  v19 = labelCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLabel_handler___block_invoke;
+  v21[3] = &unk_1E80B3F10;
+  v22 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLabel_handler___block_invoke_2;
+  v16[3] = &unk_1E80B3F38;
+  v17 = identifierCopy;
+  v18 = labelCopy;
   selfCopy = self;
-  v21 = v23;
-  v13 = v23;
+  v20 = v22;
+  v13 = v22;
   v14 = labelCopy;
   v15 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v21 taskBlock:v16];
 }
 
 uint64_t __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLabel_handler___block_invoke(uint64_t a1)
@@ -7743,7 +7540,7 @@ uint64_t __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLab
 
 - (void)updateLocationOfInterestWithIdentifier:(id)identifier type:(int64_t)type customLabel:(id)label handler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   labelCopy = label;
   handlerCopy = handler;
@@ -7753,33 +7550,31 @@ uint64_t __79__RTRoutineManager_updateLocationOfInterestWithIdentifier_customLab
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:type:customLabel:handler:]";
-      v29 = 1024;
-      v30 = 2667;
+      v27 = "[RTRoutineManager updateLocationOfInterestWithIdentifier:type:customLabel:handler:]";
+      v28 = 1024;
+      v29 = 2667;
       _os_log_error_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __84__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_customLabel_handler___block_invoke;
-  v25[3] = &unk_1E80B3F10;
-  v26 = handlerCopy;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __84__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_customLabel_handler___block_invoke_2;
-  v19[3] = &unk_1E80B4320;
-  v23 = v26;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __84__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_customLabel_handler___block_invoke;
+  v24[3] = &unk_1E80B3F10;
+  v25 = handlerCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __84__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_customLabel_handler___block_invoke_2;
+  v18[3] = &unk_1E80B4320;
+  v22 = v25;
   typeCopy = type;
-  v20 = identifierCopy;
-  v21 = labelCopy;
+  v19 = identifierCopy;
+  v20 = labelCopy;
   selfCopy = self;
-  v15 = v26;
+  v15 = v25;
   v16 = labelCopy;
   v17 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v25 taskBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v18];
 }
 
 uint64_t __84__RTRoutineManager_updateLocationOfInterestWithIdentifier_type_customLabel_handler___block_invoke(uint64_t a1)
@@ -8311,7 +8106,7 @@ uint64_t __66__RTRoutineManager_extendLifetimeOfVisitsWithIdentifiers_handler___
 
 - (void)fetchFamiliarityIndexResultsWithOptions:(id)options handler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -8329,9 +8124,9 @@ uint64_t __66__RTRoutineManager_extendLifetimeOfVisitsWithIdentifiers_handler___
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v22 = "[RTRoutineManager fetchFamiliarityIndexResultsWithOptions:handler:]";
-    v23 = 1024;
-    v24 = 2847;
+    v21 = "[RTRoutineManager fetchFamiliarityIndexResultsWithOptions:handler:]";
+    v22 = 1024;
+    v23 = 2847;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: options (in %s:%d)", buf, 0x12u);
   }
 
@@ -8342,31 +8137,29 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[RTRoutineManager fetchFamiliarityIndexResultsWithOptions:handler:]";
-      v23 = 1024;
-      v24 = 2848;
+      v21 = "[RTRoutineManager fetchFamiliarityIndexResultsWithOptions:handler:]";
+      v22 = 1024;
+      v23 = 2848;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler___block_invoke;
-  v19[3] = &unk_1E80B3F10;
-  v20 = v9;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler___block_invoke_2;
-  v15[3] = &unk_1E80B3F60;
-  v16 = optionsCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler___block_invoke;
+  v18[3] = &unk_1E80B3F10;
+  v19 = v9;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler___block_invoke_2;
+  v14[3] = &unk_1E80B3F60;
+  v15 = optionsCopy;
   selfCopy = self;
-  v18 = v20;
-  v12 = v20;
+  v17 = v19;
+  v12 = v19;
   v13 = optionsCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v14];
 }
 
 uint64_t __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler___block_invoke(uint64_t a1, uint64_t a2)
@@ -8424,7 +8217,7 @@ uint64_t __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler_
 
 - (void)fetchAuthorizedLocationStatus:(id)status
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   if (!statusCopy)
   {
@@ -8432,9 +8225,9 @@ uint64_t __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTRoutineManager fetchAuthorizedLocationStatus:]";
-      v21 = 1024;
-      v22 = 2871;
+      v19 = "[RTRoutineManager fetchAuthorizedLocationStatus:]";
+      v20 = 1024;
+      v21 = 2871;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -8450,37 +8243,35 @@ uint64_t __68__RTRoutineManager_fetchFamiliarityIndexResultsWithOptions_handler_
     _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "fetchAuthorizedLocationStatus", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke;
-  v16[3] = &unk_1E80B4078;
-  v18 = v8;
-  v17 = statusCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_517;
-  v13[3] = &unk_1E80B40F0;
-  v14 = v17;
-  v15 = v8;
-  v13[4] = self;
-  v11 = v17;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke;
+  v15[3] = &unk_1E80B4078;
+  v17 = v8;
+  v16 = statusCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_517;
+  v12[3] = &unk_1E80B40F0;
+  v13 = v16;
+  v14 = v8;
+  v12[4] = self;
+  v11 = v16;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v15 taskBlock:v12];
 }
 
 void __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v9 = 134349056;
-    v10 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchAuthorizedLocationStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
+    v8 = 134349056;
+    v9 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v5, OS_SIGNPOST_INTERVAL_END, v6, "fetchAuthorizedLocationStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
   }
 
   v7 = *(a1 + 32);
@@ -8488,8 +8279,6 @@ void __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke(uint64_
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_517(void *a1, void *a2)
@@ -8527,31 +8316,30 @@ void __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_2(uint6
 
 uint64_t __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v5 = [*(a1 + 32) code];
-    v8 = 134349056;
-    v9 = v5;
-    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchAuthorizedLocationStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = v5;
+    _os_signpost_emit_with_name_impl(&dword_1BF1C4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "fetchAuthorizedLocationStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 40), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 40), *(a1 + 32));
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)fetchLastVehicleEventsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -8559,28 +8347,26 @@ uint64_t __50__RTRoutineManager_fetchAuthorizedLocationStatus___block_invoke_3(u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchLastVehicleEventsWithHandler:]";
-      v15 = 1024;
-      v16 = 2896;
+      v13 = "[RTRoutineManager fetchLastVehicleEventsWithHandler:]";
+      v14 = 1024;
+      v15 = 2896;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __54__RTRoutineManager_fetchLastVehicleEventsWithHandler___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __54__RTRoutineManager_fetchLastVehicleEventsWithHandler___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __54__RTRoutineManager_fetchLastVehicleEventsWithHandler___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __54__RTRoutineManager_fetchLastVehicleEventsWithHandler___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __54__RTRoutineManager_fetchLastVehicleEventsWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -8710,19 +8496,19 @@ uint64_t __57__RTRoutineManager_vehicleEventAtLocation_notes_handler___block_inv
 
 void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(*(a1 + 40));
-      v8 = 138412546;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@ return error, %@", &v8, 0x16u);
+      v6 = NSStringFromSelector(*(a1 + 40));
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@ return error, %@", &v7, 0x16u);
     }
   }
 
@@ -8731,8 +8517,6 @@ void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke(uint
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_519(uint64_t a1, void *a2)
@@ -8750,18 +8534,18 @@ void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_519(
 
 void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(*(a1 + 48));
+      v6 = NSStringFromSelector(*(a1 + 48));
       *buf = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
       _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@ return error, %@", buf, 0x16u);
     }
   }
@@ -8771,10 +8555,8 @@ void __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_2(ui
   block[1] = 3221225472;
   block[2] = __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_520;
   block[3] = &unk_1E80B4700;
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   dispatch_async(v5, block);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__RTRoutineManager_clearAllVehicleEventsWithHandler___block_invoke_520(uint64_t a1)
@@ -8951,7 +8733,7 @@ void __64__RTRoutineManager_updateVehicleEventWithIdentifier_geoMapItem___block_
 
 - (void)startMonitoringVehicleEventsWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -8959,9 +8741,9 @@ void __64__RTRoutineManager_updateVehicleEventWithIdentifier_geoMapItem___block_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager startMonitoringVehicleEventsWithHandler:]";
-      v15 = 1024;
-      v16 = 3059;
+      v13 = "[RTRoutineManager startMonitoringVehicleEventsWithHandler:]";
+      v14 = 1024;
+      v15 = 3059;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -8972,12 +8754,10 @@ void __64__RTRoutineManager_updateVehicleEventWithIdentifier_geoMapItem___block_
   block[2] = __60__RTRoutineManager_startMonitoringVehicleEventsWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__RTRoutineManager_startMonitoringVehicleEventsWithHandler___block_invoke(uint64_t a1)
@@ -9012,7 +8792,7 @@ uint64_t __47__RTRoutineManager_stopMonitoringVehicleEvents__block_invoke(uint64
 
 - (void)fetchAutomaticVehicleEventDetectionSupportedWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -9020,28 +8800,26 @@ uint64_t __47__RTRoutineManager_stopMonitoringVehicleEvents__block_invoke(uint64
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchAutomaticVehicleEventDetectionSupportedWithHandler:]";
-      v15 = 1024;
-      v16 = 3089;
+      v13 = "[RTRoutineManager fetchAutomaticVehicleEventDetectionSupportedWithHandler:]";
+      v14 = 1024;
+      v15 = 3089;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __76__RTRoutineManager_fetchAutomaticVehicleEventDetectionSupportedWithHandler___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __76__RTRoutineManager_fetchAutomaticVehicleEventDetectionSupportedWithHandler___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __76__RTRoutineManager_fetchAutomaticVehicleEventDetectionSupportedWithHandler___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __76__RTRoutineManager_fetchAutomaticVehicleEventDetectionSupportedWithHandler___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __76__RTRoutineManager_fetchAutomaticVehicleEventDetectionSupportedWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -9158,7 +8936,7 @@ uint64_t __107__RTRoutineManager_userInteractionWithPredictedLocationOfInterest_
 
 - (void)startMonitoringForPeopleDiscovery:(id)discovery handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   discoveryCopy = discovery;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -9176,9 +8954,9 @@ uint64_t __107__RTRoutineManager_userInteractionWithPredictedLocationOfInterest_
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[RTRoutineManager startMonitoringForPeopleDiscovery:handler:]";
-    v22 = 1024;
-    v23 = 3149;
+    v20 = "[RTRoutineManager startMonitoringForPeopleDiscovery:handler:]";
+    v21 = 1024;
+    v22 = 3149;
     _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: configuration (in %s:%d)", buf, 0x12u);
   }
 
@@ -9189,9 +8967,9 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager startMonitoringForPeopleDiscovery:handler:]";
-      v22 = 1024;
-      v23 = 3150;
+      v20 = "[RTRoutineManager startMonitoringForPeopleDiscovery:handler:]";
+      v21 = 1024;
+      v22 = 3150;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -9199,24 +8977,22 @@ LABEL_7:
 LABEL_10:
   [(RTRoutineManager *)self setPeopleDiscoveryErrorHandler:v9];
   queue = [(RTRoutineManager *)self queue];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke;
-  v16[3] = &unk_1E80B4370;
-  v16[4] = self;
-  v17 = discoveryCopy;
-  v18 = v9;
-  v19 = a2;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke;
+  v15[3] = &unk_1E80B4370;
+  v15[4] = self;
+  v16 = discoveryCopy;
+  v17 = v9;
+  v18 = a2;
   v13 = v9;
   v14 = discoveryCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v15);
 }
 
 void __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 136) startMonitoringForPeopleDiscovery:*(a1 + 40)];
   if (v2)
   {
@@ -9224,7 +9000,7 @@ void __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_in
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v2;
+      v20 = v2;
       _os_log_error_impl(&dword_1BF1C4000, v3, OS_LOG_TYPE_ERROR, "Encountered error while starting monitoring for people discovery service, error, %@", buf, 0xCu);
     }
 
@@ -9239,33 +9015,31 @@ void __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_in
     {
       v6 = *(*(a1 + 32) + 136);
       *buf = 138412290;
-      v21 = v6;
+      v20 = v6;
       _os_log_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_DEFAULT, "_peopleDiscoveryRegistrant %@", buf, 0xCu);
     }
 
     v7 = *(a1 + 32);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_553;
-    v18[3] = &unk_1E80B3FB0;
-    v18[4] = v7;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_553;
+    v17[3] = &unk_1E80B3FB0;
+    v17[4] = v7;
     v8 = *(a1 + 56);
-    v19 = *(a1 + 48);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_2;
-    v13[3] = &unk_1E80B3F38;
-    v14 = v4;
+    v18 = *(a1 + 48);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_2;
+    v12[3] = &unk_1E80B3F38;
+    v13 = v4;
     v9 = *(a1 + 40);
     v10 = *(a1 + 32);
-    v15 = v9;
-    v16 = v10;
-    v17 = *(a1 + 48);
+    v14 = v9;
+    v15 = v10;
+    v16 = *(a1 + 48);
     v11 = v4;
-    [v7 _launchTaskWithSelector:v8 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v13];
+    [v7 _launchTaskWithSelector:v8 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_553(uint64_t a1, void *a2)
@@ -9307,15 +9081,14 @@ void __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_in
   dispatch_async(v4, block);
 }
 
-uint64_t __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_4(void *a1)
+void *__62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___block_invoke_4(uint64_t a1)
 {
-  result = [*(a1[4] + 136) registered];
+  result = [*(*(a1 + 32) + 136) registered];
   if (result)
   {
-    v3 = a1[5];
-    v4 = *(a1[6] + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -9323,7 +9096,7 @@ uint64_t __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___bloc
 
 - (void)stopMonitoringForPeopleDiscoveryWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -9331,9 +9104,9 @@ uint64_t __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___bloc
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager stopMonitoringForPeopleDiscoveryWithHandler:]";
-      v15 = 1024;
-      v16 = 3184;
+      v13 = "[RTRoutineManager stopMonitoringForPeopleDiscoveryWithHandler:]";
+      v14 = 1024;
+      v15 = 3184;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -9344,17 +9117,15 @@ uint64_t __62__RTRoutineManager_startMonitoringForPeopleDiscovery_handler___bloc
   block[2] = __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke;
   block[3] = &unk_1E80B4168;
   block[4] = self;
-  v11 = handlerCopy;
-  v12 = a2;
+  v10 = handlerCopy;
+  v11 = a2;
   v8 = handlerCopy;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 136) stopMonitoringForPeopleDiscovery];
   if (v2)
   {
@@ -9362,7 +9133,7 @@ void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v2;
+      v17 = v2;
       _os_log_error_impl(&dword_1BF1C4000, v3, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for people discovery service, error, %@", buf, 0xCu);
     }
 
@@ -9373,46 +9144,42 @@ void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_
   {
     v4 = [*(*(a1 + 32) + 136) configurationIdentifier];
     v5 = *(a1 + 48);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_554;
-    v15[3] = &unk_1E80B3F10;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_554;
+    v14[3] = &unk_1E80B3F10;
     v6 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_555;
-    v11[3] = &unk_1E80B3F60;
+    v15 = *(a1 + 40);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_555;
+    v10[3] = &unk_1E80B3F60;
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v12 = v4;
-    v13 = v7;
-    v14 = v8;
+    v11 = v4;
+    v12 = v7;
+    v13 = v8;
     v9 = v4;
-    [v6 _launchTaskWithSelector:v5 remainingAttempts:3 proxyErrorHandler:v15 taskBlock:v11];
+    [v6 _launchTaskWithSelector:v5 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_554(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for people discovery service, error, %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for people discovery service, error, %@", &v5, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_555(void *a1, void *a2)
@@ -9444,24 +9211,20 @@ void __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_
 
 uint64_t __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for people discovery service, error, %@", &v7, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_ERROR, "Encountered error while stopping monitoring for people discovery service, error, %@", &v5, 0xCu);
     }
-
-    v3 = *(a1 + 32);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)onDensityUpdate:(id)update error:(id)error
@@ -9474,7 +9237,7 @@ uint64_t __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___bl
 
 - (void)fetchCurrentPeopleDensity:(id)density
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   densityCopy = density;
   if (!densityCopy)
   {
@@ -9482,28 +9245,26 @@ uint64_t __64__RTRoutineManager_stopMonitoringForPeopleDiscoveryWithHandler___bl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[RTRoutineManager fetchCurrentPeopleDensity:]";
-      v15 = 1024;
-      v16 = 3228;
+      v13 = "[RTRoutineManager fetchCurrentPeopleDensity:]";
+      v14 = 1024;
+      v15 = 3228;
       _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completionHandler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __46__RTRoutineManager_fetchCurrentPeopleDensity___block_invoke;
-  v11[3] = &unk_1E80B3F10;
-  v12 = densityCopy;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __46__RTRoutineManager_fetchCurrentPeopleDensity___block_invoke_2;
-  v9[3] = &unk_1E80B4050;
-  v9[4] = self;
-  v10 = v12;
-  v7 = v12;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __46__RTRoutineManager_fetchCurrentPeopleDensity___block_invoke;
+  v10[3] = &unk_1E80B3F10;
+  v11 = densityCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __46__RTRoutineManager_fetchCurrentPeopleDensity___block_invoke_2;
+  v8[3] = &unk_1E80B4050;
+  v8[4] = self;
+  v9 = v11;
+  v7 = v11;
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __46__RTRoutineManager_fetchCurrentPeopleDensity___block_invoke_2(uint64_t a1, void *a2)
@@ -9609,23 +9370,19 @@ void __81__RTRoutineManager_fetchProximityHistoryFromStartDate_endDate_completio
   dispatch_async(v7, block);
 }
 
-uint64_t __81__RTRoutineManager_fetchProximityHistoryFromStartDate_endDate_completionHandler___block_invoke_3(void *a1)
+uint64_t __81__RTRoutineManager_fetchProximityHistoryFromStartDate_endDate_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchProximityHistoryFromStartDate called back, error: %@", &v8, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchProximityHistoryFromStartDate called back, error: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchProximityHistoryFromEventIDs:(id)ds completionHandler:(id)handler
@@ -9697,23 +9454,19 @@ void __72__RTRoutineManager_fetchProximityHistoryFromEventIDs_completionHandler_
   dispatch_async(v7, block);
 }
 
-uint64_t __72__RTRoutineManager_fetchProximityHistoryFromEventIDs_completionHandler___block_invoke_3(void *a1)
+uint64_t __72__RTRoutineManager_fetchProximityHistoryFromEventIDs_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchProximityHistoryFromEventIDs called back, error: %@", &v8, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchProximityHistoryFromEventIDs called back, error: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchPeopleCountEventsHistory:(id)history completionHandler:(id)handler
@@ -9785,23 +9538,19 @@ void __68__RTRoutineManager_fetchPeopleCountEventsHistory_completionHandler___bl
   dispatch_async(v7, block);
 }
 
-uint64_t __68__RTRoutineManager_fetchPeopleCountEventsHistory_completionHandler___block_invoke_3(void *a1)
+uint64_t __68__RTRoutineManager_fetchPeopleCountEventsHistory_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchPeopleCountEventsHistory called back, error: %@", &v8, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchPeopleCountEventsHistory called back, error: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchPeopleDensityHistoryFromStartDate:(id)date endDate:(id)endDate completionHandler:(id)handler
@@ -9877,23 +9626,19 @@ void __85__RTRoutineManager_fetchPeopleDensityHistoryFromStartDate_endDate_compl
   dispatch_async(v7, block);
 }
 
-uint64_t __85__RTRoutineManager_fetchPeopleDensityHistoryFromStartDate_endDate_completionHandler___block_invoke_3(void *a1)
+uint64_t __85__RTRoutineManager_fetchPeopleDensityHistoryFromStartDate_endDate_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchPeopleDensityHistoryFromStartDate called back, error: %@", &v8, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchPeopleDensityHistoryFromStartDate called back, error: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchContactScoresFromContactIDs:(id)ds completionHandler:(id)handler
@@ -9965,23 +9710,19 @@ void __71__RTRoutineManager_fetchContactScoresFromContactIDs_completionHandler__
   dispatch_async(v7, block);
 }
 
-uint64_t __71__RTRoutineManager_fetchContactScoresFromContactIDs_completionHandler___block_invoke_3(void *a1)
+uint64_t __71__RTRoutineManager_fetchContactScoresFromContactIDs_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchContactScoresFromContactIDs called back, error: %@", &v8, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEFAULT, "fetchContactScoresFromContactIDs called back, error: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  v5 = a1[4];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)addElevations:(id)elevations handler:(id)handler
@@ -10145,26 +9886,24 @@ void __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_2(ui
   dispatch_async(v7, block);
 }
 
-uint64_t __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_3(void *a1)
+uint64_t __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_3(uint64_t a1)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityElevation);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      *v6 = 0;
-      _os_log_debug_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEBUG, "RTRoutineManager: replying from fetchElevationsWithOptions:reply:.", v6, 2u);
+      *v4 = 0;
+      _os_log_debug_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_DEBUG, "RTRoutineManager: replying from fetchElevationsWithOptions:reply:.", v4, 2u);
     }
   }
 
-  v3 = a1[5];
-  v4 = a1[4];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)enumerateElevationsWithOptions:(id)options reply:(id)reply
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   replyCopy = reply;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
@@ -10185,8 +9924,8 @@ uint64_t __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_
     block[2] = __57__RTRoutineManager_enumerateElevationsWithOptions_reply___block_invoke;
     block[3] = &unk_1E80B4460;
     block[4] = self;
-    v16 = optionsCopy;
-    v17 = replyCopy;
+    v15 = optionsCopy;
+    v16 = replyCopy;
     dispatch_sync(queue, block);
   }
 
@@ -10196,31 +9935,29 @@ uint64_t __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[RTRoutineManager enumerateElevationsWithOptions:reply:]";
-      v22 = 1024;
-      v23 = 3389;
+      v20 = "[RTRoutineManager enumerateElevationsWithOptions:reply:]";
+      v21 = 1024;
+      v22 = 3389;
       _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: reply (in %s:%d)", buf, 0x12u);
     }
 
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @"An enumeration block is a required parameter.";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @"An enumeration block is a required parameter.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"RTErrorDomain" code:7 userInfo:v11];
     v13 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v12;
+      v20 = v12;
       _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "An enumeration block is a required parameter, %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateElevationsWithOptions:(id)options reply:(id)reply
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   replyCopy = reply;
   if (!replyCopy)
@@ -10229,120 +9966,115 @@ uint64_t __53__RTRoutineManager_fetchElevationsWithOptions_reply___block_invoke_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[RTRoutineManager _enumerateElevationsWithOptions:reply:]";
-      v20 = 1024;
-      v21 = 3409;
+      v18 = "[RTRoutineManager _enumerateElevationsWithOptions:reply:]";
+      v19 = 1024;
+      v20 = 3409;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: reply (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke;
-  v16[3] = &unk_1E80B3F10;
-  v17 = replyCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_564;
-  v13[3] = &unk_1E80B4050;
-  v14 = optionsCopy;
-  v15 = v17;
-  v10 = v17;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke;
+  v15[3] = &unk_1E80B3F10;
+  v16 = replyCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_564;
+  v12[3] = &unk_1E80B4050;
+  v13 = optionsCopy;
+  v14 = v16;
+  v10 = v16;
   v11 = optionsCopy;
-  [(RTRoutineManager *)self _launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self _launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v15 taskBlock:v12];
 }
 
 void __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting asynchronous proxy to enumerate stored locations, %@.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "received error while getting asynchronous proxy to enumerate stored locations, %@.", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_564(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy_;
-  v42 = __Block_byref_object_dispose_;
-  v43 = [[RTStoredElevationEnumerationContext alloc] initWithEnumerationOptions:*(a1 + 32)];
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = __Block_byref_object_copy_;
-  v36[4] = __Block_byref_object_dispose_;
   v37 = 0;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = __Block_byref_object_copy_;
-  v34[4] = __Block_byref_object_dispose_;
-  v35 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__565;
-  v32 = __Block_byref_object_dispose__566;
-  v33 = 0;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_567;
-  v21 = &unk_1E80B47C0;
-  v24 = v36;
-  v25 = v34;
-  v23 = *(a1 + 40);
-  v26 = &v28;
-  v27 = &v38;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy_;
+  v41 = __Block_byref_object_dispose_;
+  v42 = [[RTStoredElevationEnumerationContext alloc] initWithEnumerationOptions:*(a1 + 32)];
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy_;
+  v35[4] = __Block_byref_object_dispose_;
+  v36 = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x3032000000;
+  v33[3] = __Block_byref_object_copy_;
+  v33[4] = __Block_byref_object_dispose_;
+  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__565;
+  v31 = __Block_byref_object_dispose__566;
+  v32 = 0;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_567;
+  v20 = &unk_1E80B47C0;
+  v23 = v35;
+  v24 = v33;
+  v22 = *(a1 + 40);
+  v25 = &v27;
+  v26 = &v37;
   v4 = v3;
-  v22 = v4;
-  v5 = MEMORY[0x1BFB54DD0](&v18);
+  v21 = v4;
+  v5 = MEMORY[0x1BFB54DD0](&v17);
   v9 = MEMORY[0x1BFB54DD0](v5, v6, v7, v8);
-  v10 = v29[5];
-  v29[5] = v9;
+  v10 = v28[5];
+  v28[5] = v9;
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     v11 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [v39[5] options];
-      v14 = [v13 dateInterval];
-      v15 = [v39[5] options];
-      v16 = [v15 batchSize];
-      v17 = [v39[5] offset];
+      v12 = [v38[5] options];
+      v13 = [v12 dateInterval];
+      v14 = [v38[5] options];
+      v15 = [v14 batchSize];
+      v16 = [v38[5] offset];
       *buf = 138412802;
-      v45 = v14;
-      v46 = 2048;
-      v47 = v16;
-      v48 = 2048;
-      v49 = v17;
+      v44 = v13;
+      v45 = 2048;
+      v46 = v15;
+      v47 = 2048;
+      v48 = v16;
       _os_log_debug_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_DEBUG, "iterating stored elevations between %@, batch size, %lu, offset, %lu", buf, 0x20u);
     }
   }
 
-  [v4 fetchElevationsWithContext:v39[5] reply:{v5, v18, v19, v20, v21}];
+  [v4 fetchElevationsWithContext:v38[5] reply:{v5, v17, v18, v19, v20}];
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(v33, 8);
 
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(&v38, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 void __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke_567(uint64_t a1, void *a2, void *a3)
@@ -10408,14 +10140,14 @@ void __58__RTRoutineManager__enumerateElevationsWithOptions_reply___block_invoke
 
 void __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityBackgroundInertialOdometry);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "RTRoutineManager: error from fetchBackgroundInertialOdometrySamplesWithOptions:handler:, %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "RTRoutineManager: error from fetchBackgroundInertialOdometrySamplesWithOptions:handler:, %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -10423,8 +10155,6 @@ void __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_ha
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_handler___block_invoke_568(void *a1, void *a2)
@@ -10458,26 +10188,24 @@ void __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_ha
   dispatch_async(v7, block);
 }
 
-uint64_t __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_handler___block_invoke_3(void *a1)
+uint64_t __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOptions_handler___block_invoke_3(uint64_t a1)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityBackgroundInertialOdometry);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "RTRoutineManager: replying from fetchBackgroundInertialOdometrySamplesWithOptions:handler:.", v6, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "RTRoutineManager: replying from fetchBackgroundInertialOdometrySamplesWithOptions:handler:.", v4, 2u);
     }
   }
 
-  v3 = a1[5];
-  v4 = a1[4];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)addBackgroundInertialOdometrySamples:(id)samples handler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   samplesCopy = samples;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
@@ -10486,40 +10214,38 @@ uint64_t __78__RTRoutineManager_fetchBackgroundInertialOdometrySamplesWithOption
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67174657;
-      v20 = [samplesCopy count];
+      v19 = [samplesCopy count];
       _os_log_debug_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_DEBUG, "RTRoutineManager: invoked addBackgroundInertialOdometrySamples:handler: with %{private}d samples.", buf, 8u);
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke;
-  v17[3] = &unk_1E80B3F10;
-  v18 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke_569;
-  v13[3] = &unk_1E80B3F60;
-  v14 = samplesCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke;
+  v16[3] = &unk_1E80B3F10;
+  v17 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke_569;
+  v12[3] = &unk_1E80B3F60;
+  v13 = samplesCopy;
   selfCopy = self;
-  v16 = v18;
-  v10 = v18;
+  v15 = v17;
+  v10 = v17;
   v11 = samplesCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v12];
 }
 
 void __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityBackgroundInertialOdometry);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "RTRoutineManager: error from addBackgroundInertialOdometrySamples:handler:, %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "RTRoutineManager: error from addBackgroundInertialOdometrySamples:handler:, %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -10527,8 +10253,6 @@ void __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___block_invoke_569(void *a1, void *a2)
@@ -10566,18 +10290,17 @@ uint64_t __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___b
     v2 = _rt_log_facility_get_os_log(RTLogFacilityBackgroundInertialOdometry);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "RTRoutineManager: replying from addBackgroundInertialOdometrySamples:handler:.", v5, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "RTRoutineManager: replying from addBackgroundInertialOdometrySamples:handler:.", v4, 2u);
     }
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
 - (void)submitUserCurationForDate:(id)date newLabel:(id)label handler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   labelCopy = label;
   handlerCopy = handler;
@@ -10590,55 +10313,52 @@ uint64_t __65__RTRoutineManager_addBackgroundInertialOdometrySamples_handler___b
       v14 = NSStringFromClass(v13);
       v15 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2112;
-      v32 = v15;
+      v29 = v14;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_INFO, "%@: invoked %@", buf, 0x16u);
     }
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke;
-  v26[3] = &unk_1E80B3EE8;
-  v26[4] = self;
-  v28 = a2;
-  v27 = handlerCopy;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke_570;
-  v20[3] = &unk_1E80B4320;
-  v21 = dateCopy;
-  v22 = labelCopy;
-  v24 = v27;
-  v25 = a2;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke;
+  v25[3] = &unk_1E80B3EE8;
+  v25[4] = self;
+  v27 = a2;
+  v26 = handlerCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke_570;
+  v19[3] = &unk_1E80B4320;
+  v20 = dateCopy;
+  v21 = labelCopy;
+  v23 = v26;
+  v24 = a2;
   selfCopy = self;
-  v16 = v27;
+  v16 = v26;
   v17 = labelCopy;
   v18 = dateCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v26 taskBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v25 taskBlock:v19];
 }
 
 void __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = NSStringFromSelector(*(a1 + 48));
-    v11 = 138412802;
-    v12 = v9;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = NSStringFromSelector(*(a1 + 48));
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
     v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v9, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -10646,8 +10366,6 @@ void __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_i
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke_570(uint64_t a1, void *a2)
@@ -10686,33 +10404,29 @@ void __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_i
 
 uint64_t __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v10 = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v10, 0x16u);
+      v3 = objc_opt_class();
+      v4 = NSStringFromClass(v3);
+      v5 = NSStringFromSelector(*(a1 + 56));
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v7, 0x16u);
     }
   }
 
-  v7 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)submitUserCurationForVisitDateRange:(id)range newLabel:(id)label handler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   labelCopy = label;
   handlerCopy = handler;
@@ -10725,55 +10439,52 @@ uint64_t __63__RTRoutineManager_submitUserCurationForDate_newLabel_handler___blo
       v14 = NSStringFromClass(v13);
       v15 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2112;
-      v32 = v15;
+      v29 = v14;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_INFO, "%@: invoked %@", buf, 0x16u);
     }
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke;
-  v26[3] = &unk_1E80B3EE8;
-  v26[4] = self;
-  v28 = a2;
-  v27 = handlerCopy;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke_571;
-  v20[3] = &unk_1E80B4320;
-  v21 = rangeCopy;
-  v22 = labelCopy;
-  v24 = v27;
-  v25 = a2;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke;
+  v25[3] = &unk_1E80B3EE8;
+  v25[4] = self;
+  v27 = a2;
+  v26 = handlerCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke_571;
+  v19[3] = &unk_1E80B4320;
+  v20 = rangeCopy;
+  v21 = labelCopy;
+  v23 = v26;
+  v24 = a2;
   selfCopy = self;
-  v16 = v27;
+  v16 = v26;
   v17 = labelCopy;
   v18 = rangeCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v26 taskBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v25 taskBlock:v19];
 }
 
 void __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = NSStringFromSelector(*(a1 + 48));
-    v11 = 138412802;
-    v12 = v9;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = NSStringFromSelector(*(a1 + 48));
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
     v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v9, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -10781,8 +10492,6 @@ void __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke_571(uint64_t a1, void *a2)
@@ -10822,33 +10531,29 @@ void __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler
 
 uint64_t __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_handler___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v10 = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v10, 0x16u);
+      v3 = objc_opt_class();
+      v4 = NSStringFromClass(v3);
+      v5 = NSStringFromSelector(*(a1 + 56));
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v7, 0x16u);
     }
   }
 
-  v7 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)correctLabelForCurrentPlace:(id)place date:(id)date newLabel:(id)label handler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   placeCopy = place;
   dateCopy = date;
   labelCopy = label;
@@ -10861,22 +10566,20 @@ uint64_t __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_han
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
       v18 = NSStringFromSelector(a2);
-      v20 = 138412546;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v18;
-      _os_log_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_INFO, "%@: invoked %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v18;
+      _os_log_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_INFO, "%@: invoked %@", &v19, 0x16u);
     }
   }
 
   [(RTRoutineManager *)self correctLabelForVisitWithIdentifier:0 entryDate:dateCopy originalLabel:placeCopy newLabel:labelCopy handler:handlerCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)correctLabelForVisitWithIdentifier:(id)identifier entryDate:(id)date originalLabel:(id)label newLabel:(id)newLabel handler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   labelCopy = label;
@@ -10891,59 +10594,56 @@ uint64_t __73__RTRoutineManager_submitUserCurationForVisitDateRange_newLabel_han
       v20 = NSStringFromClass(v19);
       v21 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v40 = v20;
-      v41 = 2112;
-      v42 = v21;
+      v39 = v20;
+      v40 = 2112;
+      v41 = v21;
       _os_log_impl(&dword_1BF1C4000, v18, OS_LOG_TYPE_INFO, "%@: invoked %@", buf, 0x16u);
     }
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke;
-  v36[3] = &unk_1E80B3EE8;
-  v36[4] = self;
-  v38 = a2;
-  v37 = handlerCopy;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke_572;
-  v28[3] = &unk_1E80B47E8;
-  v29 = identifierCopy;
-  v30 = dateCopy;
-  v31 = labelCopy;
-  v32 = newLabelCopy;
-  v34 = v37;
-  v35 = a2;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke;
+  v35[3] = &unk_1E80B3EE8;
+  v35[4] = self;
+  v37 = a2;
+  v36 = handlerCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke_572;
+  v27[3] = &unk_1E80B47E8;
+  v28 = identifierCopy;
+  v29 = dateCopy;
+  v30 = labelCopy;
+  v31 = newLabelCopy;
+  v33 = v36;
+  v34 = a2;
   selfCopy = self;
-  v22 = v37;
+  v22 = v36;
   v23 = newLabelCopy;
   v24 = labelCopy;
   v25 = dateCopy;
   v26 = identifierCopy;
-  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v36 taskBlock:v28];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [(RTRoutineManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v35 taskBlock:v27];
 }
 
 void __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = NSStringFromSelector(*(a1 + 48));
-    v11 = 138412802;
-    v12 = v9;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = NSStringFromSelector(*(a1 + 48));
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
     v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "%@: error from %@, %@", &v9, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -10951,8 +10651,6 @@ void __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_origina
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke_572(uint64_t a1, void *a2)
@@ -10994,33 +10692,29 @@ void __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_origina
 
 uint64_t __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_originalLabel_newLabel_handler___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilityUserCuration);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v10 = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v10, 0x16u);
+      v3 = objc_opt_class();
+      v4 = NSStringFromClass(v3);
+      v5 = NSStringFromSelector(*(a1 + 56));
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1BF1C4000, v2, OS_LOG_TYPE_INFO, "%@: replying from %@", &v7, 0x16u);
     }
   }
 
-  v7 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchCurrentPredictedLocationsOfInterestLookingBack:(double)back lookingAhead:(double)ahead handler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -11030,8 +10724,8 @@ uint64_t __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_ori
     block[2] = __102__RTRoutineManager_Skyline__fetchCurrentPredictedLocationsOfInterestLookingBack_lookingAhead_handler___block_invoke;
     block[3] = &unk_1E80B4DC0;
     block[4] = self;
-    v15 = a2;
-    v14 = handlerCopy;
+    v14 = a2;
+    v13 = handlerCopy;
     backCopy = back;
     aheadCopy = ahead;
     dispatch_async(queue, block);
@@ -11043,14 +10737,12 @@ uint64_t __96__RTRoutineManager_correctLabelForVisitWithIdentifier_entryDate_ori
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[RTRoutineManager(Skyline) fetchCurrentPredictedLocationsOfInterestLookingBack:lookingAhead:handler:]";
-      v20 = 1024;
-      v21 = 21;
+      v18 = "[RTRoutineManager(Skyline) fetchCurrentPredictedLocationsOfInterestLookingBack:lookingAhead:handler:]";
+      v19 = 1024;
+      v20 = 21;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __102__RTRoutineManager_Skyline__fetchCurrentPredictedLocationsOfInterestLookingBack_lookingAhead_handler___block_invoke(uint64_t a1)
@@ -11075,7 +10767,7 @@ void __102__RTRoutineManager_Skyline__fetchCurrentPredictedLocationsOfInterestLo
 
 - (void)performBluePOIQueryLookingBack:(double)back lookingAhead:(double)ahead handler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -11085,8 +10777,8 @@ void __102__RTRoutineManager_Skyline__fetchCurrentPredictedLocationsOfInterestLo
     block[2] = __81__RTRoutineManager_Skyline__performBluePOIQueryLookingBack_lookingAhead_handler___block_invoke;
     block[3] = &unk_1E80B4DC0;
     block[4] = self;
-    v15 = a2;
-    v14 = handlerCopy;
+    v14 = a2;
+    v13 = handlerCopy;
     backCopy = back;
     aheadCopy = ahead;
     dispatch_async(queue, block);
@@ -11098,14 +10790,12 @@ void __102__RTRoutineManager_Skyline__fetchCurrentPredictedLocationsOfInterestLo
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[RTRoutineManager(Skyline) performBluePOIQueryLookingBack:lookingAhead:handler:]";
-      v20 = 1024;
-      v21 = 40;
+      v18 = "[RTRoutineManager(Skyline) performBluePOIQueryLookingBack:lookingAhead:handler:]";
+      v19 = 1024;
+      v20 = 40;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __81__RTRoutineManager_Skyline__performBluePOIQueryLookingBack_lookingAhead_handler___block_invoke(uint64_t a1)

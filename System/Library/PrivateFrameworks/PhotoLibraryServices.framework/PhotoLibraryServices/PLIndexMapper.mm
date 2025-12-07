@@ -122,7 +122,7 @@ LABEL_26:
   return v11 ^ 1;
 }
 
-uint64_t __80__PLIndexMapper_applyContainerChangeNotification_changeTypes_toFilteredIndexes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__80__PLIndexMapper_applyContainerChangeNotification_changeTypes_toFilteredIndexes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)

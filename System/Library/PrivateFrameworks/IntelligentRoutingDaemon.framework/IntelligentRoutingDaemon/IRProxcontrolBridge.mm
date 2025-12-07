@@ -296,40 +296,32 @@ void __26__IRProxcontrolBridge_run__block_invoke(uint64_t a1)
 
 void __49__IRProxcontrolBridge__createProxControlObserver__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEBUG, "#proxcontrol-bridge, PCLockscreenControlsObserver:deviceLost: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEBUG, "#proxcontrol-bridge, PCLockscreenControlsObserver:deviceLost: %@", v1, 0xCu);
 }
 
 void __49__IRProxcontrolBridge__createProxControlObserver__block_invoke_35_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEBUG, "#proxcontrol-bridge, PCLockscreenControlsObserver:deviceUpdated: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEBUG, "#proxcontrol-bridge, PCLockscreenControlsObserver:deviceUpdated: %@", v1, 0xCu);
 }
 
 void __49__IRProxcontrolBridge__createProxControlObserver__block_invoke_36_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25543D000, v5, v6, "#proxcontrol-bridge, [ErrorId - Prox control invalidated] PCLockscreenControlsObserver:invalidationHandler: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25543D000, v5, v6, "#proxcontrol-bridge, [ErrorId - Prox control invalidated] PCLockscreenControlsObserver:invalidationHandler: %@", v7, v8, v9, v10);
 }
 
 void __46__IRProxcontrolBridge__runProxControlObserver__block_invoke_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25543D000, v5, v6, "#proxcontrol-bridge, [ErrorId - Prox Control activation error] PCLockscreenControlsObserver:activateWithCompletion: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25543D000, v5, v6, "#proxcontrol-bridge, [ErrorId - Prox Control activation error] PCLockscreenControlsObserver:activateWithCompletion: %@", v7, v8, v9, v10);
 }
 
 @end

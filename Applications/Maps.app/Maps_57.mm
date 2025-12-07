@@ -1,3 +1,387 @@
+id sub_100962A1C(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = +[CarDisplayController sharedInstance];
+  v8 = [v7 platformController];
+  v9 = [v8 currentSession];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  if (v11)
+  {
+    v12 = [v11 navigationType];
+    v13 = [v11 currentTransportType];
+    if (![v11 isCarNavigationCompatible])
+    {
+      v32 = sub_100799BCC();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Mode coordinator will not create navigation incompatible mode for the map widget, because we don't support that yet.", buf, 2u);
+      }
+
+      v26 = 0;
+      goto LABEL_26;
+    }
+
+    v14 = v5;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v16 = v15;
+
+    if (!v16)
+    {
+      v74 = sub_10006D178();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315906;
+        v83 = "[CarChromeModeCoordinator _displayNavigationAnimated:]_block_invoke";
+        v84 = 2080;
+        v85 = "CarChromeModeCoordinator.m";
+        v86 = 1024;
+        *v87 = 1318;
+        *&v87[4] = 2080;
+        *&v87[6] = "carChromeViewController != nil";
+        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", buf, 0x26u);
+      }
+
+      if (sub_100E03634())
+      {
+        v75 = sub_10006D178();
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        {
+          v76 = +[NSThread callStackSymbols];
+          *buf = 138412290;
+          v83 = v76;
+          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+        }
+      }
+    }
+
+    if ([v16 sceneType] == 6)
+    {
+      v17 = [v16 view];
+      v18 = [v17 window];
+      v19 = [v18 _car_hybridInstrumentClusterLayout];
+
+      if (v19)
+      {
+        v20 = [v6 _maps_lastContextOfClass:objc_opt_class()];
+        if (!v20)
+        {
+          v21 = [CarHybridInstrumentClusterNavigationModeController alloc];
+          v22 = [v16 view];
+          [v22 window];
+          v23 = v6;
+          v25 = v24 = v12;
+          v26 = -[CarHybridInstrumentClusterNavigationModeController initWithPresentationType:](v21, "initWithPresentationType:", [v25 _car_hybridInstrumentClusterPresentationType]);
+
+          v12 = v24;
+          v6 = v23;
+LABEL_29:
+
+          goto LABEL_30;
+        }
+      }
+
+      else
+      {
+        v20 = [v6 _maps_lastContextOfClass:objc_opt_class()];
+        if (!v20)
+        {
+          v26 = objc_alloc_init(CarSmallWidgetNavigationModeController);
+LABEL_30:
+
+          if (!v26)
+          {
+LABEL_26:
+            v33 = 1;
+            goto LABEL_36;
+          }
+
+LABEL_34:
+          if ([v6 containsObject:v26])
+          {
+            v33 = 0;
+LABEL_36:
+            v41 = sub_100799BCC();
+            if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+            {
+LABEL_63:
+
+              v31 = [v6 _maps_subarrayToIndex:{objc_msgSend(v6, "indexOfObject:", v26)}];
+LABEL_76:
+
+              goto LABEL_77;
+            }
+
+            v80 = v5;
+            v42 = a1;
+            v43 = v13;
+            v44 = v26;
+            v79 = v6;
+            if (v33)
+            {
+              v45 = @"<nil>";
+LABEL_53:
+
+              if ((v12 - 1) > 3)
+              {
+                v61 = @"None";
+              }
+
+              else
+              {
+                v61 = *(&off_10162FF60 + (v12 - 1));
+              }
+
+              if ((v43 - 1) > 4)
+              {
+                v62 = @"Undefined";
+              }
+
+              else
+              {
+                v62 = *(&off_10162FF80 + (v43 - 1));
+              }
+
+              if (*(v42 + 40))
+              {
+                v63 = @"YES";
+              }
+
+              else
+              {
+                v63 = @"NO";
+              }
+
+              v64 = v63;
+              *buf = 138413058;
+              v83 = v45;
+              v84 = 2112;
+              v85 = v61;
+              v86 = 2112;
+              *v87 = v62;
+              *&v87[8] = 2112;
+              *&v87[10] = v64;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Will pop to existing %@ (navigationType:%@, transportType:%@, animated:%@)", buf, 0x2Au);
+
+              v6 = v79;
+              v5 = v80;
+              goto LABEL_63;
+            }
+
+            v57 = objc_opt_class();
+            v58 = NSStringFromClass(v57);
+            if (objc_opt_respondsToSelector())
+            {
+              v59 = [(CarSmallWidgetNavigationModeController *)v44 performSelector:"accessibilityIdentifier"];
+              v60 = v59;
+              if (v59 && ![v59 isEqualToString:v58])
+              {
+                v45 = [NSString stringWithFormat:@"%@<%p, %@>", v58, v44, v60];
+
+                goto LABEL_52;
+              }
+            }
+
+            v45 = [NSString stringWithFormat:@"%@<%p>", v58, v44];
+LABEL_52:
+
+            goto LABEL_53;
+          }
+
+          v46 = sub_100799BCC();
+          if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+          {
+LABEL_72:
+
+            v68 = [NSMutableArray arrayWithCapacity:2];
+            v69 = [v6 firstObject];
+            objc_opt_class();
+            isKindOfClass = objc_opt_isKindOfClass();
+
+            if (isKindOfClass)
+            {
+              v71 = [v6 firstObject];
+            }
+
+            else
+            {
+              v71 = objc_opt_new();
+            }
+
+            v72 = v71;
+            [v68 addObject:v71];
+
+            [v68 addObject:v26];
+            v31 = [v68 copy];
+
+            goto LABEL_76;
+          }
+
+          v81 = v5;
+          v77 = a1;
+          v47 = v13;
+          v48 = v26;
+          v49 = objc_opt_class();
+          v50 = NSStringFromClass(v49);
+          if (objc_opt_respondsToSelector())
+          {
+            v51 = [(CarSmallWidgetNavigationModeController *)v48 performSelector:"accessibilityIdentifier"];
+            v52 = v51;
+            if (v51 && ![v51 isEqualToString:v50])
+            {
+              v53 = v6;
+              v54 = v12;
+              v55 = [NSString stringWithFormat:@"%@<%p, %@>", v50, v48, v52];
+
+              goto LABEL_45;
+            }
+          }
+
+          v53 = v6;
+          v54 = v12;
+          v55 = [NSString stringWithFormat:@"%@<%p>", v50, v48];
+LABEL_45:
+
+          if ((v54 - 1) > 3)
+          {
+            v56 = @"None";
+          }
+
+          else
+          {
+            v56 = *(&off_10162FF60 + (v54 - 1));
+          }
+
+          v6 = v53;
+          if ((v47 - 1) > 4)
+          {
+            v65 = @"Undefined";
+          }
+
+          else
+          {
+            v65 = *(&off_10162FF80 + (v47 - 1));
+          }
+
+          if (*(v77 + 40))
+          {
+            v66 = @"YES";
+          }
+
+          else
+          {
+            v66 = @"NO";
+          }
+
+          v67 = v66;
+          *buf = 138413058;
+          v83 = v55;
+          v84 = 2112;
+          v85 = v56;
+          v86 = 2112;
+          *v87 = v65;
+          *&v87[8] = 2112;
+          *&v87[10] = v67;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "Will push %@ onto CarMapWidgetMapBrowsingModeController (navigationType:%@, transportType:%@, animated:%@)", buf, 0x2Au);
+
+          v5 = v81;
+          goto LABEL_72;
+        }
+      }
+    }
+
+    else
+    {
+      v20 = [v6 _maps_lastContextOfClass:objc_opt_class()];
+      if (!v20)
+      {
+        v34 = [CarMapWidgetNavigationModeController alloc];
+        v22 = [*(a1 + 32) carChromeViewController];
+        [v22 view];
+        v78 = v6;
+        v36 = v35 = v12;
+        [v36 window];
+        v37 = v5;
+        v38 = a1;
+        v40 = v39 = v13;
+        v26 = -[CarMapWidgetNavigationModeController initWithPresentationType:](v34, "initWithPresentationType:", [v40 _car_hybridInstrumentClusterPresentationType]);
+
+        v13 = v39;
+        a1 = v38;
+        v5 = v37;
+
+        v12 = v35;
+        v6 = v78;
+        goto LABEL_29;
+      }
+    }
+
+    v26 = v20;
+
+    goto LABEL_34;
+  }
+
+  v27 = sub_100799BCC();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Tried to display navigation mode, but currentSession was not a navigation session.", buf, 2u);
+  }
+
+  v28 = sub_10006D178();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315650;
+    v83 = "[CarChromeModeCoordinator _displayNavigationAnimated:]_block_invoke";
+    v84 = 2080;
+    v85 = "CarChromeModeCoordinator.m";
+    v86 = 1024;
+    *v87 = 1308;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
+  }
+
+  if (sub_100E03634())
+  {
+    v29 = sub_10006D178();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      v30 = +[NSThread callStackSymbols];
+      *buf = 138412290;
+      v83 = v30;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    }
+  }
+
+  v31 = v6;
+LABEL_77:
+
+  return v31;
+}
+
 id sub_1009633E8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v7 = a2;
@@ -735,9 +1119,9 @@ id sub_100965740(uint64_t a1, uint64_t a2, void *a3)
   return v10;
 }
 
-void sub_100965A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100965A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3635,12 +4019,13 @@ void sub_100986D90(uint64_t a1)
   }
 }
 
-void sub_10098736C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_10098736C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3672,9 +4057,9 @@ void sub_1009873C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-void sub_100987520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100987520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4091,9 +4476,9 @@ LABEL_25:
   [*(a1 + 40) _dispatchIfNeeded];
 }
 
-void sub_10098DB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10098DB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4588,9 +4973,9 @@ void sub_10099AD2C(uint64_t a1)
   }
 }
 
-void sub_10099B910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10099B910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5124,9 +5509,9 @@ void sub_10099E880(uint64_t a1)
   }
 }
 
-void sub_10099E9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10099E9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5138,9 +5523,9 @@ uint64_t sub_10099E9F0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10099F2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10099F2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5400,9 +5785,9 @@ void sub_1009A6EA0(uint64_t a1)
   }
 }
 
-void sub_1009A730C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009A730C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5645,12 +6030,12 @@ void sub_1009AABDC(uint64_t a1)
   [v2 collectionView:*(a1 + 32) didSelectItemAtIndexPath:*(a1 + 40)];
 }
 
-void sub_1009AD7EC(uint64_t a1)
+void sub_1009AD7EC(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 40);
-  v3 = [*(a1 + 32) configuration];
-  v2 = [v3 collectionView];
-  [v2 setAlpha:v1];
+  v3 = *(a1 + 40);
+  v5 = objc_msgSend_configuration(*(a1 + 32), a2);
+  v4 = [v5 collectionView];
+  [v4 setAlpha:v3];
 }
 
 uint64_t sub_1009AD858(uint64_t a1)
@@ -5728,7 +6113,7 @@ NSString *__cdecl sub_1009ADA20(id a1, MapsUIDiffableDataSourceOutlineNodeSnapsh
 
 NSString *__cdecl sub_1009ADA70(id a1, HomeOutlineSectionController *a2, unint64_t a3)
 {
-  v3 = [(HomeOutlineSectionController *)a2 configuration];
+  v3 = objc_msgSend_configuration(a2);
   v4 = [v3 sectionIdentifier];
 
   return v4;
@@ -5787,12 +6172,12 @@ HomeOutlineSectionControllerConfiguration *sub_1009AF0F4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [HomeOutlineSectionControllerConfiguration alloc];
-  v5 = [*(a1 + 32) configuration];
+  v5 = objc_msgSend_configuration(*(a1 + 32));
   v6 = [v5 collectionView];
   v7 = *(a1 + 32);
-  v8 = [v7 configuration];
+  v8 = objc_msgSend_configuration(v7);
   v9 = [v8 actionCoordinator];
-  v10 = [*(a1 + 32) configuration];
+  v10 = objc_msgSend_configuration(*(a1 + 32));
   v11 = [v10 homeActionDelegate];
   v12 = [*(a1 + 32) _storage];
   v13 = [(HomeOutlineSectionControllerConfiguration *)v4 initWithCollectionView:v6 sectionIdentifier:v3 delegate:v7 actionCoordinator:v9 homeActionDelegate:v11 storage:v12];
@@ -6059,9 +6444,9 @@ LABEL_17:
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1009B2490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1009B2490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7224,13 +7609,13 @@ void sub_1009C6B30(uint64_t a1)
   [v3 _dismiss];
 }
 
-void sub_1009C74C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1009C74C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  objc_destroyWeak((v11 + 40));
+  va_start(va, a17);
+  objc_destroyWeak((v18 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v10 + 40));
-  objc_destroyWeak((v12 - 72));
+  objc_destroyWeak((v17 + 40));
+  objc_destroyWeak((v19 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -7304,9 +7689,9 @@ double sub_1009C85DC(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_1009C9444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1009C9444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7419,11 +7804,11 @@ void sub_1009CA2F0(uint64_t a1)
   }
 }
 
-void sub_1009CA76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1009CA76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v6 - 96), 8);
+  _Block_object_dispose((v11 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7452,9 +7837,9 @@ id sub_1009CA818(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_1009CA924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009CA924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7539,9 +7924,9 @@ void sub_1009CBCC4(uint64_t a1)
   }
 }
 
-void sub_1009CC818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009CC818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7563,9 +7948,9 @@ void sub_1009CC830(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_1009CC980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009CC980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7583,9 +7968,9 @@ void sub_1009CC998(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_1009CCFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009CCFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7616,9 +8001,9 @@ void sub_1009CD634(uint64_t a1)
   [WeakRetained _requireReload];
 }
 
-void sub_1009CDC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1009CDC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8170,9 +8555,9 @@ UIFont *__cdecl sub_1009D63FC(id a1)
   return v2;
 }
 
-void sub_1009D73A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1009D73A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8264,16 +8649,16 @@ void sub_1009D8570(id a1)
   qword_10195E090 = v1;
 }
 
-void sub_1009D9874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1009D9874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8300,6 +8685,13 @@ void sub_1009DAD14(id a1)
   v1 = objc_opt_new();
   v2 = qword_10195E080;
   qword_10195E080 = v1;
+}
+
+void sub_1009DB868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1009DB8AC(uint64_t a1, void *a2)
@@ -8374,424 +8766,4 @@ void sub_1009DD1B8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained present];
-}
-
-void sub_1009DE490(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_1009DE4AC(uint64_t a1)
-{
-  v33 = objc_alloc_init(NSMutableArray);
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v31 = a1;
-  v2 = [*(a1 + 32) contexts];
-  v3 = [v2 reverseObjectEnumerator];
-
-  obj = v3;
-  v4 = [v3 countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v40;
-    while (2)
-    {
-      for (i = 0; i != v5; i = i + 1)
-      {
-        if (*v40 != v7)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v9 = *(*(&v39 + 1) + 8 * i);
-        if (objc_opt_respondsToSelector())
-        {
-          [v9 desiredSidebarContentControllers];
-        }
-
-        else
-        {
-          [*(*(v31 + 32) + 1112) objectForKey:v9];
-        }
-        v10 = ;
-        if ([v10 count])
-        {
-          v11 = +[NSIndexSet indexSetWithIndexesInRange:](NSIndexSet, "indexSetWithIndexesInRange:", 0, [v10 count]);
-          [v33 insertObjects:v10 atIndexes:v11];
-        }
-
-        if (objc_opt_respondsToSelector())
-        {
-          v6 |= [v9 prefersSidebarHidden];
-        }
-
-        if ((objc_opt_respondsToSelector() & 1) != 0 && [v9 wantsSidebarControl])
-        {
-
-          goto LABEL_20;
-        }
-      }
-
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-      if (v5)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  else
-  {
-    LOBYTE(v6) = 0;
-  }
-
-LABEL_20:
-
-  v12 = v31;
-  WeakRetained = objc_loadWeakRetained((v31 + 40));
-  v14 = *(v31 + 32);
-  if (v14)
-  {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    if (objc_opt_respondsToSelector())
-    {
-      v17 = [v14 performSelector:"accessibilityIdentifier"];
-      v18 = v17;
-      if (v17 && ![v17 isEqualToString:v16])
-      {
-        v19 = [NSString stringWithFormat:@"%@<%p, %@>", v16, v14, v18];
-
-        v12 = v31;
-        goto LABEL_26;
-      }
-
-      v12 = v31;
-    }
-
-    v19 = [NSString stringWithFormat:@"%@<%p>", v16, v14];
-LABEL_26:
-
-    goto LABEL_28;
-  }
-
-  v19 = @"<nil>";
-LABEL_28:
-
-  v20 = [NSString stringWithFormat:@"%@: sidebar show/hide animation", v19];
-  v21 = [WeakRetained addCompletionWaitBlockWithReason:v20];
-
-  v22 = [v33 count];
-  v23 = *(v12 + 32);
-  if (v22)
-  {
-    [*(v12 + 32) setSidebarViewControllers:v33];
-    v24 = *(v12 + 32);
-    v25 = [v24 _shouldHideSidebar] | v6;
-    v26 = objc_loadWeakRetained((v12 + 40));
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1009DE980;
-    v34[3] = &unk_10165F438;
-    v35 = v21;
-    v27 = v21;
-    [v24 hideSideBar:v25 & 1 animation:v26 completion:v34];
-
-    v28 = v35;
-  }
-
-  else
-  {
-    v29 = objc_loadWeakRetained((v12 + 40));
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_1009DE930;
-    v36[3] = &unk_10165D3A0;
-    v36[4] = *(v12 + 32);
-    v37 = v33;
-    v38 = v21;
-    v30 = v21;
-    [v23 hideSideBar:1 animation:v29 completion:v36];
-
-    v28 = v37;
-  }
-}
-
-uint64_t sub_1009DE930(uint64_t a1)
-{
-  [*(a1 + 32) setSidebarViewControllers:*(a1 + 40)];
-  v2 = *(*(a1 + 48) + 16);
-
-  return v2();
-}
-
-void sub_1009E0360(uint64_t a1)
-{
-  v2 = [*(a1 + 32) topContext];
-  v1 = [v2 actionCoordinator];
-  [v1 viewControllerPresentSearchEditing];
-}
-
-id sub_1009E0DB8(uint64_t a1)
-{
-  v2 = 0.200000003;
-  if (!*(a1 + 56))
-  {
-    v2 = 0.0;
-  }
-
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_1009E0E74;
-  v6[3] = &unk_101654728;
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v6[4] = *(a1 + 32);
-  v6[5] = v4;
-  v7 = *(a1 + 57);
-  [UIView animateWithDuration:v6 animations:v3 completion:v2];
-  return [*(a1 + 32) setNeedsUpdateComponent:@"mapInsets" animated:*(a1 + 56)];
-}
-
-void sub_1009E0E74(uint64_t a1)
-{
-  v2 = [*(a1 + 32) splitViewController];
-  [v2 setPreferredDisplayMode:*(a1 + 40)];
-
-  v3 = [*(a1 + 32) detailViewController];
-  v4 = [v3 view];
-  [v4 layoutIfNeeded];
-
-  v5 = *(a1 + 48);
-  if (v5)
-  {
-    v6 = 0.0;
-  }
-
-  else
-  {
-    v3 = [*(a1 + 32) splitViewController];
-    [v3 primaryColumnWidth];
-    v6 = sub_100019A44() + v7;
-  }
-
-  v8 = [*(a1 + 32) viewportSideBarWidthConstraint];
-  [v8 setConstant:v6];
-
-  if ((v5 & 1) == 0)
-  {
-  }
-
-  v9 = *(a1 + 48);
-  if (v9)
-  {
-    v10 = 0.0;
-  }
-
-  else
-  {
-    v13 = [*(a1 + 32) splitViewController];
-    [v13 primaryColumnWidth];
-    v10 = sub_100019A44() + v11;
-  }
-
-  v12 = [*(a1 + 32) mapViewInsetsSideBarWidthConstraint];
-  [v12 setConstant:v10];
-
-  if ((v9 & 1) == 0)
-  {
-  }
-}
-
-void sub_1009E12B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1009E12DC(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v3 = WeakRetained;
-    v2 = [WeakRetained topContext];
-    if (objc_opt_respondsToSelector())
-    {
-      [v2 sidebarDidUpdate];
-    }
-
-    WeakRetained = v3;
-  }
-}
-
-void sub_1009E1654(uint64_t a1)
-{
-  v2 = [*(a1 + 32) _currentContainerViewController];
-  if (v2)
-  {
-    v19 = v2;
-    v3 = [*(a1 + 32) mapView];
-    [v3 _edgeInsets];
-    v5 = v4;
-    v7 = v6;
-
-    if ([v19 isContaineeStackEmpty])
-    {
-      top = UIEdgeInsetsZero.top;
-      left = UIEdgeInsetsZero.left;
-      bottom = UIEdgeInsetsZero.bottom;
-      right = UIEdgeInsetsZero.right;
-    }
-
-    else
-    {
-      v12 = [*(a1 + 32) view];
-      v13 = [v12 effectiveUserInterfaceLayoutDirection];
-
-      v14 = -v5;
-      bottom = 0.0;
-      if (v13 == 1)
-      {
-        right = 0.0;
-      }
-
-      else
-      {
-        right = -v7;
-      }
-
-      if (v13 == 1)
-      {
-        left = v14;
-      }
-
-      else
-      {
-        left = 0.0;
-      }
-
-      top = 0.0;
-    }
-
-    v15 = [*(a1 + 32) floatingControlsOverlay];
-    v16 = [v15 floatingControlsViewController];
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v17 = v16;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    v18 = v17;
-
-    [v18 setAdditionalCompassEdgeInsets:{top, left, bottom, right}];
-    v2 = v19;
-  }
-}
-
-id sub_1009E1B44(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = [*(a1 + 32) toolbarController];
-  [v3 setLocationButtonEnabled:v2];
-
-  v4 = *(a1 + 40);
-  v5 = [*(a1 + 32) toolbarController];
-  [v5 setToggleSidebarButtonEnabled:v4];
-
-  v6 = *(a1 + 40);
-  v7 = [*(a1 + 32) toolbarController];
-  [v7 setMapModeButtonEnabled:v6];
-
-  v8 = *(a1 + 40);
-  v9 = [*(a1 + 32) toolbarController];
-  [v9 setRoutePlanningButtonEnabled:v8];
-
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) toolbarController];
-  [v11 setAddSubmenusEnabled:v10];
-
-  v12 = [*(a1 + 32) canEnter3dMode];
-  v13 = [*(a1 + 32) toolbarController];
-  [v13 setThirdDimensionButtonEnabled:v12];
-
-  v14 = *(a1 + 41);
-  v15 = [*(a1 + 32) toolbarController];
-  [v15 setLookAroundActive:v14];
-
-  if (_UISolariumEnabled())
-  {
-    v16 = *(a1 + 40);
-    v17 = [*(a1 + 32) splitViewController];
-    v18 = [v17 displayModeButtonItem];
-    [v18 setEnabled:v16];
-  }
-
-  v19 = *(a1 + 32);
-
-  return [v19 _updateShareButton];
-}
-
-id sub_1009E1CA8(uint64_t a1)
-{
-  v2 = [*(a1 + 32) splitViewController];
-  v3 = [v2 displayMode] == 2;
-
-  v4 = *(a1 + 32);
-
-  return [v4 notifySideBarVisibilityChanged:v3];
-}
-
-void sub_1009E1F9C(uint64_t a1)
-{
-  v2 = [*(*(a1 + 32) + 1112) keyEnumerator];
-  v3 = [v2 allObjects];
-
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v11;
-    do
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v11 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v10 + 1) + 8 * i);
-        if (([*(a1 + 40) containsObject:{v9, v10}] & 1) == 0)
-        {
-          [*(*(a1 + 32) + 1112) removeObjectForKey:v9];
-        }
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v6);
-  }
 }

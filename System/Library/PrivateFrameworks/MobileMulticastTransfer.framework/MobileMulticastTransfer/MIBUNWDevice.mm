@@ -173,7 +173,7 @@ void __60__MIBUNWDevice__sendOutgoingMessage_synchronous_shouldWait___block_invo
 
 - (void)_sendMessage:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
@@ -189,24 +189,22 @@ void __60__MIBUNWDevice__sendOutgoingMessage_synchronous_shouldWait___block_invo
     payload = [messageCopy payload];
     *buf = 138543874;
     selfCopy = self;
-    v16 = 1024;
-    v17 = type;
-    v18 = 2114;
-    v19 = payload;
+    v15 = 1024;
+    v16 = type;
+    v17 = 2114;
+    v18 = payload;
     _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending message of type: %u with payload: %{public}@", buf, 0x1Cu);
   }
 
   connection = self->_connection;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __29__MIBUNWDevice__sendMessage___block_invoke_8;
-  v12[3] = &unk_2798EBD20;
-  v12[4] = self;
-  v13 = messageCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __29__MIBUNWDevice__sendMessage___block_invoke_8;
+  v11[3] = &unk_2798EBD20;
+  v11[4] = self;
+  v12 = messageCopy;
   v10 = messageCopy;
-  [(MIBUNWConnection *)connection sendMessage:v10 withCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(MIBUNWConnection *)connection sendMessage:v10 withCompletion:v11];
 }
 
 void __29__MIBUNWDevice__sendMessage___block_invoke()
@@ -271,14 +269,13 @@ void __29__MIBUNWDevice__sendMessage___block_invoke_2()
 
 void __29__MIBUNWDevice__sendMessage___block_invoke_8_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send outgoing message: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send outgoing message: %{public}@", &v4, 0x16u);
 }
 
 @end

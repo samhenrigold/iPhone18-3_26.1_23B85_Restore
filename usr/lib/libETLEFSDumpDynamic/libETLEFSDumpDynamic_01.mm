@@ -353,7 +353,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)2>
   __cxa_throw(exception, MEMORY[0x29EDC9420], MEMORY[0x29EDC9378]);
 }
 
-void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](void **a1, __int128 *a2)
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](char **a1, __int128 *a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -362,14 +362,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v7 = v3 + 48;
 LABEL_3:
@@ -421,14 +419,11 @@ LABEL_3:
   *v14 = *a2;
   v15 = &v13[48 * v11];
   *(v14 + 2) = *(a2 + 2);
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v16 = *(a2 + 24);
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  a2[1] = 0uLL;
   *(v14 + 5) = *(a2 + 5);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   v7 = v14 + 48;
   v17 = *a1;
   v18 = a1[1] - *a1;
@@ -1240,22 +1235,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = LOBYTE(v9->__traits_.__loc_.__locale_);
+  v11 = *v9;
   if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
   {
     goto LABEL_54;
   }
 
   v10 = v11 - 48;
-  v12 = &v9->__traits_.__loc_.__locale_ + 1;
-  if ((&v9->__traits_.__loc_.__locale_ + 1) == a3)
+  v12 = (v9 + 1);
+  if ((v9 + 1) == a3)
   {
     goto LABEL_20;
   }
 
   while (1)
   {
-    v13 = *v12;
+    v13 = LOBYTE(v12->__traits_.__loc_.__locale_);
     if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
     {
       break;
@@ -1267,7 +1262,8 @@ LABEL_20:
     }
 
     v10 = v13 + 10 * v10 - 48;
-    if (++v12 == a3)
+    v12 = (v12 + 1);
+    if (v12 == a3)
     {
       goto LABEL_20;
     }
@@ -1284,8 +1280,8 @@ LABEL_21:
     goto LABEL_55;
   }
 
-  v14 = *v12;
-  v15 = (v12 + 1);
+  v14 = LOBYTE(v12->__traits_.__loc_.__locale_);
+  v15 = (&v12->__traits_.__loc_.__locale_ + 1);
   if (v14 == 44)
   {
     if (v15 == a3)
@@ -1296,8 +1292,8 @@ LABEL_21:
     v16 = LOBYTE(v15->__traits_.__loc_.__locale_);
     if ((v16 & 0xF8) == 0x30 || (v16 & 0xFE) == 0x38)
     {
-      v15 = (v12 + 2);
-      if (v12 + 2 == a3)
+      v15 = (&v12->__traits_.__loc_.__locale_ + 2);
+      if ((&v12->__traits_.__loc_.__locale_ + 2) == a3)
       {
         goto LABEL_55;
       }
@@ -1384,7 +1380,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v18 = (v12[1] == 125 ? v12 + 2 : v12);
+  v18 = BYTE1(v12->__traits_.__loc_.__locale_) == 125 ? &v12->__traits_.__loc_.__locale_ + 2 : v12;
   if (v12 == v18)
   {
     goto LABEL_55;
@@ -3195,20 +3191,20 @@ void sub_2977DEF90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_back_capacity(char **a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   v3 = v2 >= 0x2A;
   v4 = v2 - 42;
   if (v3)
   {
-    *(a1 + 32) = v4;
+    a1[4] = v4;
     goto LABEL_4;
   }
 
-  v7 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v8 = *(a1 + 8);
+  v7 = a1[2];
+  v6 = a1[3];
+  v8 = a1[1];
   v9 = v7 - v8;
   v10 = v6 - *a1;
   if (v7 - v8 < v10)
@@ -3223,9 +3219,9 @@ void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
     v44 = operator new(0xFC0uLL);
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, &v44);
 LABEL_4:
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     v44 = *v5;
-    *(a1 + 8) = v5 + 1;
+    a1[1] = v5 + 8;
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v44);
     return;
   }
@@ -3277,8 +3273,8 @@ LABEL_4:
     v17 = operator new(8 * v22);
     v18 = &v17[8 * v22];
     operator delete(v14);
-    v23 = *(a1 + 8);
-    v7 = *(a1 + 16);
+    v23 = a1[1];
+    v7 = a1[2];
     v14 = v17;
     *v17 = v16;
     v19 = v17 + 8;
@@ -3292,12 +3288,12 @@ LABEL_31:
     {
       v24 = v17;
 LABEL_30:
-      v25 = *(v7 - 8);
+      v25 = *(v7 - 1);
       v7 -= 8;
       *(v24 - 1) = v25;
       v20 = v24 - 8;
       v17 = v20;
-      if (v7 == *(a1 + 8))
+      if (v7 == a1[1])
       {
         goto LABEL_17;
       }
@@ -3407,9 +3403,9 @@ LABEL_16:
 LABEL_17:
   v21 = *a1;
   *a1 = v14;
-  *(a1 + 8) = v20;
-  *(a1 + 16) = v19;
-  *(a1 + 24) = v18;
+  a1[1] = v20;
+  a1[2] = v19;
+  a1[3] = v18;
   if (v21)
   {
 

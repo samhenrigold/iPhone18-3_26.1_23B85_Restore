@@ -178,11 +178,11 @@ uint64_t __74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_action
   return [v5 setActionBlock:v6];
 }
 
-uint64_t __74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_actionBlock___block_invoke_2(uint64_t result, int a2)
+id *__74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_actionBlock___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) scheduleDismiss];
+    return [result[4] scheduleDismiss];
   }
 
   return result;
@@ -194,11 +194,11 @@ void __74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_actionBloc
   [v1 setOnScreen:1];
 }
 
-uint64_t __74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_actionBlock___block_invoke_4(uint64_t result, int a2)
+id *__74__SUUIStatusBarAlertCenter_showMessage_withStyle_forDuration_actionBlock___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) scheduleDismiss];
+    return [result[4] scheduleDismiss];
   }
 
   return result;
@@ -239,16 +239,16 @@ void __35__SUUIStatusBarAlertCenter_dismiss__block_invoke(uint64_t a1)
   [v1 setOnScreen:0];
 }
 
-uint64_t __35__SUUIStatusBarAlertCenter_dismiss__block_invoke_2(uint64_t result, int a2)
+id *__35__SUUIStatusBarAlertCenter_dismiss__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setVisible:0];
-    v3 = [*(v2 + 32) rootViewController];
+    [result[4] setVisible:0];
+    v3 = [v2[4] rootViewController];
     [v3 setMessage:0];
 
-    v4 = *(v2 + 32);
+    v4 = v2[4];
 
     return [v4 setActionBlock:0];
   }

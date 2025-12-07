@@ -186,7 +186,7 @@
       lastObject = [appLayouts lastObject];
 
       v8 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:lastObject alignment:0 animated:1];
-      v9 = SBAppendSwitcherModifierResponse(v8, v5);
+      v9 = SBAppendSwitcherModifierResponse();
 
       v5 = v9;
     }
@@ -1091,7 +1091,7 @@ void __65__SBMixedGridSwitcherModifier_appLayoutsToCacheFullsizeSnapshots__block
   return cachedIndexOfFirstMainAppLayout;
 }
 
-uint64_t __71__SBMixedGridSwitcherModifier_indexOfFirstMainAppLayoutFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__71__SBMixedGridSwitcherModifier_indexOfFirstMainAppLayoutFromAppLayouts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 environment];
   if (result == 1)

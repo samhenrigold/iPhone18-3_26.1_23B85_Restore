@@ -74,16 +74,16 @@
 
 - (uint64_t)hk_waveformPathsWithPointsPerSecond:()HealthUI pointsPerMillivolt:minimumValueInMillivolts:maximumValueInMillivolts:
 {
+  *&a4 = *&a4 * 1000.0;
   *&a5 = *&a5 * 1000.0;
-  *&a6 = *&a6 * 1000.0;
-  return [self _hk_waveformPathsWithPointsPerSecond:2560 pointsPerMillivolt:0 maximumNumberOfValuesPerPath:0 shouldResetXValues:a3 initialValuesToOmit:a4 minimumValueInMicrovolts:a5 maximumValueInMicrovolts:a6];
+  return [self _hk_waveformPathsWithPointsPerSecond:2560 pointsPerMillivolt:0 maximumNumberOfValuesPerPath:0 shouldResetXValues:a2 initialValuesToOmit:a3 minimumValueInMicrovolts:a4 maximumValueInMicrovolts:a5];
 }
 
 - (uint64_t)hk_waveformPathsWithPointsPerSecond:()HealthUI pointsPerMillivolt:wrappingDuration:omittingInitialDuration:
 {
-  LODWORD(a7) = -1081711002;
-  LODWORD(a8) = 1073951539;
-  return [self hk_waveformPathsWithPointsPerSecond:a3 pointsPerMillivolt:a4 wrappingDuration:a5 omittingInitialDuration:a6 minimumValueInMillivolts:a7 maximumValueInMillivolts:a8];
+  LODWORD(a6) = -1081711002;
+  LODWORD(a7) = 1073951539;
+  return [self hk_waveformPathsWithPointsPerSecond:a2 pointsPerMillivolt:a3 wrappingDuration:a4 omittingInitialDuration:a5 minimumValueInMillivolts:a6 maximumValueInMillivolts:a7];
 }
 
 - (uint64_t)hk_waveformPathsWithPointsPerSecond:()HealthUI pointsPerMillivolt:wrappingDuration:omittingInitialDuration:minimumValueInMillivolts:maximumValueInMillivolts:
@@ -138,9 +138,9 @@
 
 - (uint64_t)hk_cardBackgroundColor
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 hk_defaultCardBackgroundColor];
+  return [v1 hk_defaultCardBackgroundColor];
 }
 
 - (id)hk_classificationTextColor

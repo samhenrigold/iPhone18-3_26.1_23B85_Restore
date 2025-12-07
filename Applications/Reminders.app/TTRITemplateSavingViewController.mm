@@ -104,7 +104,7 @@
     v7 = v6;
     sub_1002FA994(v7);
 
-    sub_1000079B4(v8, &qword_10076AE40);
+    sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
   }
 
   else
@@ -131,7 +131,7 @@
 
   sub_100379698();
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (_TtC9Reminders32TTRITemplateSavingViewController)initWithNibName:(id)name bundle:(id)bundle

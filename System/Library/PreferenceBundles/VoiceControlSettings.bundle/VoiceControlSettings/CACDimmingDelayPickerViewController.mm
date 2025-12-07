@@ -1,6 +1,7 @@
 @interface CACDimmingDelayPickerViewController
 - (BOOL)numericalPreferenceEnabled;
 - (double)numericalPreferenceValue;
+- (void)setNumericalPreferenceEnabledFromUser:(BOOL)user;
 - (void)setNumericalPreferenceValueFromUser:(double)user;
 @end
 
@@ -27,6 +28,13 @@
   overlayFadingEnabled = [v2 overlayFadingEnabled];
 
   return overlayFadingEnabled;
+}
+
+- (void)setNumericalPreferenceEnabledFromUser:(BOOL)user
+{
+  userCopy = user;
+  v4 = +[CACPreferences sharedPreferences];
+  [v4 setOverlayFadingEnabled:userCopy];
 }
 
 @end

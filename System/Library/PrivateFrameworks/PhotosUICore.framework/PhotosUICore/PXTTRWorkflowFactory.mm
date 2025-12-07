@@ -30,7 +30,7 @@
   v10 = swift_allocObject();
   *(v10 + 16) = selfCopy;
   *(v10 + 24) = fileUrls;
-  TTRWorkflow.present(in:completion:)();
+  TTRWorkflow.present(in:completion:)(controllerCopy, sub_1A440464C, v10);
 }
 
 + (void)presentDefaultWorkFlowInViewController:(id)controller withContext:(int64_t)context attachmentImageUrls:(id)urls
@@ -49,7 +49,7 @@
   v8 = swift_allocObject();
   *(v8 + 16) = selfCopy;
   *(v8 + 24) = 0;
-  TTRWorkflow.present(in:completion:)();
+  TTRWorkflow.present(in:completion:)(controllerCopy, sub_1A440464C, v8);
 }
 
 + (void)presentDefaultWorkFlowInViewController:(id)controller withContext:(int64_t)context attachmentFileUrls:(id)urls
@@ -68,7 +68,7 @@
   v8 = swift_allocObject();
   *(v8 + 16) = 0;
   *(v8 + 24) = selfCopy;
-  TTRWorkflow.present(in:completion:)();
+  TTRWorkflow.present(in:completion:)(controllerCopy, sub_1A440464C, v8);
 }
 
 - (PXTTRWorkflowFactory)init

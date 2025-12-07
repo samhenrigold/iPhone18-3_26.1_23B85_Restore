@@ -15,6 +15,8 @@
 - (void)homeManager:(id)manager didAddHome:(id)home;
 - (void)invitationResponseController:(id)controller stateDidChange:(unint64_t)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingInvitationJoiningHomeViewController
@@ -28,49 +30,50 @@
   v11 = @"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title";
   v12 = [v10 localizedStringForKey:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title" value:@"_" table:@"HOLocalizable"];
 
-  if ([@"_" isEqualToString:v12])
+  v13 = [@"_" isEqualToString:v12];
+  if (v13)
   {
-    v36 = delegateCopy;
-    v37 = helperCopy;
-    v38 = invitationCopy;
-    v42 = 0u;
+    v37 = delegateCopy;
+    v38 = helperCopy;
+    v39 = invitationCopy;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v13 = sub_1000335CC();
-    v14 = [v13 countByEnumeratingWithState:&v42 objects:v46 count:16];
-    if (v14)
+    v46 = 0u;
+    v14 = sub_1000335CC(v13);
+    v15 = [v14 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    if (v15)
     {
-      v15 = v14;
+      v16 = v15;
       helperCopy2 = helper;
-      v16 = *v43;
+      v17 = *v44;
 LABEL_4:
-      v17 = 0;
+      v18 = 0;
       while (1)
       {
-        if (*v43 != v16)
+        if (*v44 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v42 + 1) + 8 * v17);
-        v19 = +[NSBundle mainBundle];
-        v20 = [v19 localizedStringForKey:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title" value:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title" table:v18];
+        v19 = *(*(&v43 + 1) + 8 * v18);
+        v20 = +[NSBundle mainBundle];
+        v21 = [v20 localizedStringForKey:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title" value:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title" table:v19];
 
-        if (![(__CFString *)v20 isEqualToString:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title"])
+        if (![(__CFString *)v21 isEqualToString:@"HOIncomingInvitation_RestrictedGuest_JoiningHome_Title"])
         {
           break;
         }
 
-        if (v15 == ++v17)
+        if (v16 == ++v18)
         {
-          v15 = [v13 countByEnumeratingWithState:&v42 objects:v46 count:16];
-          if (v15)
+          v16 = [v14 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          if (v16)
           {
             goto LABEL_4;
           }
 
-          v20 = @"_";
+          v21 = @"_";
           break;
         }
       }
@@ -80,13 +83,13 @@ LABEL_4:
 
     else
     {
-      v20 = @"_";
+      v21 = @"_";
     }
 
-    v12 = v20;
-    helperCopy = v37;
-    invitationCopy = v38;
-    delegateCopy = v36;
+    v12 = v21;
+    helperCopy = v38;
+    invitationCopy = v39;
+    delegateCopy = v37;
   }
 
   if ([@"_" isEqualToString:v12])
@@ -100,43 +103,43 @@ LABEL_4:
   }
 
   homeName = [invitationCopy homeName];
-  v22 = [NSString stringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:0, homeName];
+  v23 = [NSString stringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:0, homeName];
 
-  v23 = [UIImage systemImageNamed:@"house.circle.fill"];
-  v41.receiver = self;
-  v41.super_class = HOOnboardingInvitationJoiningHomeViewController;
-  v24 = [(HOOnboardingInvitationJoiningHomeViewController *)&v41 initWithTitle:v22 detailText:0 icon:v23];
+  v24 = [UIImage systemImageNamed:@"house.circle.fill"];
+  v42.receiver = self;
+  v42.super_class = HOOnboardingInvitationJoiningHomeViewController;
+  v25 = [(HOOnboardingInvitationJoiningHomeViewController *)&v42 initWithTitle:v23 detailText:0 icon:v24];
 
-  if (v24)
+  if (v25)
   {
-    headerView = [(HOOnboardingInvitationJoiningHomeViewController *)v24 headerView];
+    headerView = [(HOOnboardingInvitationJoiningHomeViewController *)v25 headerView];
     [headerView setIconAccessibilityIdentifier:@"Home.Onboarding.Invitation.Guest.JoiningHome.Icon"];
 
-    headerView2 = [(HOOnboardingInvitationJoiningHomeViewController *)v24 headerView];
+    headerView2 = [(HOOnboardingInvitationJoiningHomeViewController *)v25 headerView];
     [headerView2 setTitleAccessibilityIdentifier:@"Home.Onboarding.Invitation.Guest.JoiningHome.Title"];
 
-    objc_storeStrong(&v24->_invitation, invitation);
-    objc_storeStrong(&v24->_invitationHelper, helper);
-    objc_storeWeak(&v24->_incomingInvitationDelegate, delegateCopy);
-    v27 = [[HUIncomingInvitationResponseController alloc] initWithDelegate:v24 invitation:invitationCopy];
-    responseController = v24->_responseController;
-    v24->_responseController = v27;
+    objc_storeStrong(&v25->_invitation, invitation);
+    objc_storeStrong(&v25->_invitationHelper, helper);
+    objc_storeWeak(&v25->_incomingInvitationDelegate, delegateCopy);
+    v28 = [[HUIncomingInvitationResponseController alloc] initWithDelegate:v25 invitation:invitationCopy];
+    responseController = v25->_responseController;
+    v25->_responseController = v28;
 
-    [(HOOnboardingInvitationJoiningHomeViewController *)v24 setModalInPresentation:1];
-    navigationItem = [(HOOnboardingInvitationJoiningHomeViewController *)v24 navigationItem];
+    [(HOOnboardingInvitationJoiningHomeViewController *)v25 setModalInPresentation:1];
+    navigationItem = [(HOOnboardingInvitationJoiningHomeViewController *)v25 navigationItem];
     [navigationItem setHidesBackButton:1];
 
-    v30 = +[HFHomeKitDispatcher sharedDispatcher];
-    [v30 addHomeManagerObserver:v24];
-    v31 = [[HOOnboardingInvitationJoinedHomeViewController alloc] initWithIncomingInvitation:invitationCopy delegate:delegateCopy];
-    joinedHomeVC = v24->_joinedHomeVC;
-    v24->_joinedHomeVC = v31;
+    v31 = +[HFHomeKitDispatcher sharedDispatcher];
+    [v31 addHomeManagerObserver:v25];
+    v32 = [[HOOnboardingInvitationJoinedHomeViewController alloc] initWithIncomingInvitation:invitationCopy delegate:delegateCopy];
+    joinedHomeVC = v25->_joinedHomeVC;
+    v25->_joinedHomeVC = v32;
 
-    delegate = [(HOOnboardingInvitationJoiningHomeViewController *)v24 delegate];
-    [(HOOnboardingInvitationJoinedHomeViewController *)v24->_joinedHomeVC setDelegate:delegate];
+    delegate = [(HOOnboardingInvitationJoiningHomeViewController *)v25 delegate];
+    [(HOOnboardingInvitationJoinedHomeViewController *)v25->_joinedHomeVC setDelegate:delegate];
   }
 
-  return v24;
+  return v25;
 }
 
 - (void)dealloc
@@ -159,6 +162,82 @@ LABEL_4:
 
   v4 = +[NSNotificationCenter defaultCenter];
   [v4 addObserver:self selector:"_handleAppDidEnterBackground" name:UIApplicationDidEnterBackgroundNotification object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = HOOnboardingInvitationJoiningHomeViewController;
+  [(HOOnboardingInvitationJoiningHomeViewController *)&v17 viewWillAppear:appear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    responseController = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+    [responseController state];
+    v6 = HUStringFromIncomingInvitationResponseControllerState();
+    responseController2 = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+    invitation = [responseController2 invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315650;
+    v19 = "[HOOnboardingInvitationJoiningHomeViewController viewWillAppear:]";
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%s) State is %@ for incoming invitation = %@.", buf, 0x20u);
+  }
+
+  [(HOOnboardingInvitationJoiningHomeViewController *)self setAcceptInvitationError:0];
+  [(HOOnboardingInvitationJoiningHomeViewController *)self setDidPushNextViewController:0];
+  v10 = +[UIColor systemGray4Color];
+  headerView = [(HOOnboardingInvitationJoiningHomeViewController *)self headerView];
+  [headerView setTintColor:v10];
+
+  responseController3 = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+  if ([responseController3 state] == 3)
+  {
+  }
+
+  else
+  {
+    responseController4 = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+    state = [responseController4 state];
+
+    if (state != 2)
+    {
+      [(HOOnboardingInvitationJoiningHomeViewController *)self _cancelTimer];
+      [(HOOnboardingInvitationJoiningHomeViewController *)self _startAddHomeTimeout];
+      responseController5 = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+      [responseController5 respondToInvitationWithResponse:1];
+      goto LABEL_8;
+    }
+  }
+
+  responseController5 = [(HOOnboardingInvitationJoiningHomeViewController *)self navigationController];
+  v16 = [responseController5 popToRootViewControllerAnimated:1];
+LABEL_8:
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    responseController = [(HOOnboardingInvitationJoiningHomeViewController *)self responseController];
+    invitation = [responseController invitation];
+    hf_prettyDescription = [invitation hf_prettyDescription];
+    *buf = 136315394;
+    v11 = "[HOOnboardingInvitationJoiningHomeViewController viewWillDisappear:]";
+    v12 = 2112;
+    v13 = hf_prettyDescription;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(%s) invitation = %@", buf, 0x16u);
+  }
+
+  v9.receiver = self;
+  v9.super_class = HOOnboardingInvitationJoiningHomeViewController;
+  [(HOOnboardingInvitationJoiningHomeViewController *)&v9 viewWillDisappear:disappearCopy];
+  [(HOOnboardingInvitationJoiningHomeViewController *)self _cancelTimer];
 }
 
 - (void)homeManager:(id)manager didAddHome:(id)home

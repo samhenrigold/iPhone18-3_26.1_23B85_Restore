@@ -1,9 +1,10 @@
 @interface RBSAssertionIdentifier
++ (RBSAssertionIdentifier)identifierWithClientPid:(int)pid;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (RBSAssertionIdentifier)init;
 - (RBSAssertionIdentifier)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithServerPid:(uint64_t)pid clientPid:(unint64_t)clientPid count:;
+- (_DWORD)_initWithServerPid:(uint64_t)pid clientPid:(unint64_t)clientPid count:;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
 
@@ -25,6 +26,17 @@
 
   v6 = desc;
   objc_sync_exit(selfCopy);
+
+  return v6;
+}
+
++ (RBSAssertionIdentifier)identifierWithClientPid:(int)pid
+{
+  v3 = *&pid;
+  v4 = [RBSAssertionIdentifier alloc];
+  v5 = getpid();
+  objc_opt_self();
+  v6 = [(RBSAssertionIdentifier *)v4 _initWithServerPid:v5 clientPid:v3 count:atomic_fetch_add_explicit(&_next___count, 1uLL, memory_order_relaxed)];
 
   return v6;
 }
@@ -63,7 +75,7 @@
   return v7;
 }
 
-- (id)_initWithServerPid:(uint64_t)pid clientPid:(unint64_t)clientPid count:
+- (_DWORD)_initWithServerPid:(uint64_t)pid clientPid:(unint64_t)clientPid count:
 {
   if (!self || (a2 >= 1 ? (v7 = __OFSUB__(pid, 1), v6 = pid - 1 < 0) : (v7 = 0, v6 = 1), v6 ^ v7))
   {

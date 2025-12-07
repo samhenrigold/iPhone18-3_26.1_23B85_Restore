@@ -64,15 +64,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v6 = toCopy;
   if (self->_accessoryNodesCountHistograms.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_accessoryNodesCountHistograms.list[v5];
       PBDataWriterWriteUint32Field();
-      toCopy = v7;
+      toCopy = v6;
       ++v5;
     }
 
@@ -82,7 +81,7 @@
   if (self->_sCntrsJoiner)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v6;
   }
 }
 

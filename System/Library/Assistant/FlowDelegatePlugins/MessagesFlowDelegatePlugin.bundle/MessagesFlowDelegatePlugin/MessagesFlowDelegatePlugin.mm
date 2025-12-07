@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for MessagesFlowDelegatePlugin()
+uint64_t type metadata accessor for MessagesFlowDelegatePlugin(uint64_t a1)
 {
   result = qword_80E0;
   if (!qword_80E0)
@@ -7,14 +7,6 @@ uint64_t type metadata accessor for MessagesFlowDelegatePlugin()
   }
 
   return result;
-}
-
-uint64_t sub_129C()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  swift_allocObject();
-  return sub_1308();
 }
 
 uint64_t sub_12D0()

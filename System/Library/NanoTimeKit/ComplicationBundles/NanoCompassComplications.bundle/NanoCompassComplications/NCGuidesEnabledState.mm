@@ -40,10 +40,10 @@
 
 - (NCGuidesEnabledState)init
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v54.receiver = self;
-  v54.super_class = NCGuidesEnabledState;
-  v2 = [(NCGuidesEnabledState *)&v54 init];
+  v56 = *MEMORY[0x277D85DE8];
+  v49.receiver = self;
+  v49.super_class = NCGuidesEnabledState;
+  v2 = [(NCGuidesEnabledState *)&v49 init];
   v3 = v2;
   if (v2)
   {
@@ -56,87 +56,87 @@
     globalGuideTypeEnabledStates = v3->_globalGuideTypeEnabledStates;
     v3->_globalGuideTypeEnabledStates = v6;
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_284E8B0A0, v8, &v50, v60, 16);
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_284E8B0A0, v8, &v45, v55, 16);
     if (v9)
     {
-      v13 = v9;
-      v14 = *v51;
-      v15 = MEMORY[0x277CBEC38];
+      v12 = v9;
+      v13 = *v46;
+      v14 = MEMORY[0x277CBEC38];
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v51 != v14)
+          if (*v46 != v13)
           {
             objc_enumerationMutation(&unk_284E8B0A0);
           }
 
-          v17 = *(*(&v50 + 1) + 8 * i);
-          v18 = objc_msgSend_integerValue(v17, v10, v11, v12);
-          v22 = objc_msgSend_NSStringFromNCGuideType_(v3, v19, v18, v20);
-          if (v22)
+          v16 = *(*(&v45 + 1) + 8 * i);
+          v17 = objc_msgSend_integerValue(v16, v10, v11);
+          v20 = objc_msgSend_NSStringFromNCGuideType_(v3, v18, v17);
+          if (v20)
           {
-            objc_msgSend_setObject_forKeyedSubscript_(v3->_guideTypeName, v21, v22, v17);
-            objc_msgSend_setObject_forKeyedSubscript_(v3->_globalGuideTypeEnabledStates, v23, v15, v22);
+            objc_msgSend_setObject_forKeyedSubscript_(v3->_guideTypeName, v19, v20, v16);
+            objc_msgSend_setObject_forKeyedSubscript_(v3->_globalGuideTypeEnabledStates, v21, v14, v20);
           }
         }
 
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_284E8B0A0, v10, &v50, v60, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_284E8B0A0, v10, &v45, v55, 16);
       }
 
-      while (v13);
+      while (v12);
     }
 
-    v24 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v27 = objc_msgSend_initWithSuiteName_(v24, v25, @"com.apple.compass", v26);
-    v30 = objc_msgSend_dictionaryForKey_(v27, v28, @"GlobalGuideTypeEnabledStates", v29);
-    v32 = v30;
-    if (v30)
+    v22 = objc_alloc(MEMORY[0x277CBEBD0]);
+    v24 = objc_msgSend_initWithSuiteName_(v22, v23, @"com.apple.compass");
+    v26 = objc_msgSend_dictionaryForKey_(v24, v25, @"GlobalGuideTypeEnabledStates");
+    v28 = v26;
+    if (v26)
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v46, v59, 16);
-      if (v33)
+      v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v41, v54, 16);
+      if (v29)
       {
-        v36 = v33;
-        v37 = *v47;
+        v31 = v29;
+        v32 = *v42;
         do
         {
-          for (j = 0; j != v36; ++j)
+          for (j = 0; j != v31; ++j)
           {
-            if (*v47 != v37)
+            if (*v42 != v32)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v28);
             }
 
-            v39 = *(*(&v46 + 1) + 8 * j);
-            v40 = v3->_globalGuideTypeEnabledStates;
-            v41 = objc_msgSend_objectForKeyedSubscript_(v32, v34, v39, v35);
-            objc_msgSend_setObject_forKey_(v40, v42, v41, v39);
+            v34 = *(*(&v41 + 1) + 8 * j);
+            v35 = v3->_globalGuideTypeEnabledStates;
+            v36 = objc_msgSend_objectForKeyedSubscript_(v28, v30, v34);
+            objc_msgSend_setObject_forKey_(v35, v37, v36, v34);
           }
 
-          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v46, v59, 16);
+          v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v30, &v41, v54, 16);
         }
 
-        while (v36);
+        while (v31);
       }
     }
 
-    v43 = NCLogForCategory(9uLL);
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v38 = NCLogForCategory(9uLL);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = v3->_globalGuideTypeEnabledStates;
+      v39 = v3->_globalGuideTypeEnabledStates;
       *buf = 136315394;
-      v56 = "[NCGuidesEnabledState init]";
-      v57 = 2112;
-      v58 = v44;
-      _os_log_impl(&dword_23BD26000, v43, OS_LOG_TYPE_DEFAULT, "%s: Initialized guide enabled states: %@", buf, 0x16u);
+      v51 = "[NCGuidesEnabledState init]";
+      v52 = 2112;
+      v53 = v39;
+      _os_log_impl(&dword_23BD26000, v38, OS_LOG_TYPE_DEFAULT, "%s: Initialized guide enabled states: %@", buf, 0x16u);
     }
   }
 
@@ -155,55 +155,55 @@
 - (void)_lock_saveGuideEnabledStatesToDefaults
 {
   v3 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v10 = objc_msgSend_initWithSuiteName_(v3, v4, @"com.apple.compass", v5);
-  objc_msgSend_setObject_forKey_(v10, v6, self->_globalGuideTypeEnabledStates, @"GlobalGuideTypeEnabledStates");
-  objc_msgSend_synchronize(v10, v7, v8, v9);
+  v8 = objc_msgSend_initWithSuiteName_(v3, v4, @"com.apple.compass");
+  objc_msgSend_setObject_forKey_(v8, v5, self->_globalGuideTypeEnabledStates, @"GlobalGuideTypeEnabledStates");
+  objc_msgSend_synchronize(v8, v6, v7);
 }
 
 - (void)setEnabled:(BOOL)enabled forGuideType:(int64_t)type
 {
-  v6 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, type, type);
-  v9 = objc_msgSend_objectForKeyedSubscript_(self->_guideTypeName, v7, v6, v8);
-  v10 = v9;
-  if (v9)
+  v6 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, type);
+  v8 = objc_msgSend_objectForKeyedSubscript_(self->_guideTypeName, v7, v6);
+  v9 = v8;
+  if (v8)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = sub_23BD2DAB4;
-    v16[3] = &unk_278B94080;
-    v16[4] = self;
-    v17 = v9;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_23BD2DAB4;
+    v13[3] = &unk_278B94080;
+    v13[4] = self;
+    v14 = v8;
     enabledCopy = enabled;
-    objc_msgSend__withLock_(self, v11, v16, v12);
-    objc_msgSend__backupEnabledStates(self, v13, v14, v15);
+    objc_msgSend__withLock_(self, v10, v13);
+    objc_msgSend__backupEnabledStates(self, v11, v12);
   }
 }
 
 - (BOOL)isEnabledForGuideType:(int64_t)type
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
-  v5 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, type, v3);
-  v8 = objc_msgSend_objectForKeyedSubscript_(self->_guideTypeName, v6, v5, v7);
-  v9 = v8;
-  if (v8)
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 1;
+  v4 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, type);
+  v6 = objc_msgSend_objectForKeyedSubscript_(self->_guideTypeName, v5, v4);
+  v7 = v6;
+  if (v6)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_23BD2DC30;
-    v14[3] = &unk_278B940A8;
-    v14[4] = self;
-    v15 = v8;
-    v16 = &v17;
-    objc_msgSend__withLock_(self, v10, v14, v11);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_23BD2DC30;
+    v11[3] = &unk_278B940A8;
+    v11[4] = self;
+    v12 = v6;
+    v13 = &v14;
+    objc_msgSend__withLock_(self, v8, v11);
   }
 
-  v12 = *(v18 + 24);
+  v9 = *(v15 + 24);
 
-  _Block_object_dispose(&v17, 8);
-  return v12;
+  _Block_object_dispose(&v14, 8);
+  return v9;
 }
 
 @end

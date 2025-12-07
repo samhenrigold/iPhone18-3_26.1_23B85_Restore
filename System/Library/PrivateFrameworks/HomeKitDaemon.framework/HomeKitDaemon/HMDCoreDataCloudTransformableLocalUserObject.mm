@@ -6,7 +6,7 @@
 
 + (void)_addUserForObjectWithID:(void *)d additionalUpdates:(void *)updates context:
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   v6 = a2;
   dCopy = d;
   updatesCopy = updates;
@@ -15,26 +15,26 @@
   v11 = +[_MKFUserAccessCode entity];
   v12 = [entity isKindOfEntity:v11];
 
-  v94 = entity;
-  v95 = dCopy;
+  v93 = entity;
+  v94 = dCopy;
   if (v12)
   {
     v13 = +[_MKFUser entity];
     propertiesByName = [v13 propertiesByName];
     v15 = [propertiesByName objectForKeyedSubscript:@"accessCode"];
-    v100 = v15;
-    v93 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:1];
+    v99 = v15;
+    v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
   }
 
   else
   {
-    v93 = MEMORY[0x277CBEBF8];
+    v92 = MEMORY[0x277CBEBF8];
   }
 
   v16 = v6;
-  v97 = updatesCopy;
-  v92 = v9;
-  v96 = objc_opt_self();
+  v96 = updatesCopy;
+  v91 = v9;
+  v95 = objc_opt_self();
   v17 = v16;
   entity2 = [(__CFString *)v17 entity];
   v19 = +[_MKFUser entity];
@@ -50,16 +50,16 @@ LABEL_5:
   }
 
   *&v21 = 138543618;
-  v91 = v21;
+  v90 = v21;
   objectID = v17;
   while (1)
   {
     v23 = objectID;
-    v25 = v97;
+    v25 = v96;
     v26 = objc_opt_self();
-    v99 = 0;
-    v27 = [v25 hmd_fetchExistingObjectWithID:v23 propertiesToFetch:MEMORY[0x277CBEBF8] error:&v99];
-    v28 = v99;
+    v98 = 0;
+    v27 = [v25 hmd_fetchExistingObjectWithID:v23 propertiesToFetch:MEMORY[0x277CBEBF8] error:&v98];
+    v28 = v98;
     if (v28)
     {
       v29 = objc_autoreleasePoolPush();
@@ -77,11 +77,11 @@ LABEL_12:
 
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v103 = v32;
-      v104 = 2114;
-      v105 = v23;
-      v106 = 2114;
-      v107 = v28;
+      v102 = v32;
+      v103 = 2114;
+      v104 = v23;
+      v105 = 2114;
+      v106 = v28;
       v33 = v31;
       v34 = "%{public}@Failed to fetch object with objectID %{public}@: %{public}@";
       v35 = 32;
@@ -102,10 +102,10 @@ LABEL_10:
       }
 
       v32 = HMFGetLogIdentifier();
-      *buf = v91;
-      v103 = v32;
-      v104 = 2114;
-      v105 = v23;
+      *buf = v90;
+      v102 = v32;
+      v103 = 2114;
+      v104 = v23;
       v33 = v31;
       v34 = "%{public}@Couldn't find object with objectID %{public}@";
       v35 = 22;
@@ -136,25 +136,10 @@ LABEL_10:
 
     v47 = v46;
 
-    if ((isKindOfClass & 1) == 0)
+    if ((isKindOfClass & 1) == 0 || ([v44 user], v48 = objc_claimAutoreleasedReturnValue(), v48, v36 = @"user", !v48) && (objc_msgSend(v44, "guest"), v49 = objc_claimAutoreleasedReturnValue(), v49, v36 = @"guest", !v49))
     {
-      goto LABEL_41;
-    }
 
-    user = [v44 user];
-
-    v36 = @"user";
-    if (!user)
-    {
-      guest = [v44 guest];
-
-      v36 = @"guest";
-      if (!guest)
-      {
-LABEL_41:
-
-        goto LABEL_12;
-      }
+      goto LABEL_12;
     }
 
 LABEL_13:
@@ -189,51 +174,51 @@ LABEL_13:
       }
     }
 
-    v101 = superentity;
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:{1, v91}];
-    v98 = 0;
-    v51 = [v25 hmd_fetchExistingObjectWithID:v23 propertiesToFetch:v50 error:&v98];
-    v52 = v98;
+    v100 = superentity;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:{1, v90}];
+    v97 = 0;
+    v51 = [v25 hmd_fetchExistingObjectWithID:v23 propertiesToFetch:v50 error:&v97];
+    v52 = v97;
 
     if (v52)
     {
       v64 = objc_autoreleasePoolPush();
-      v65 = v96;
+      v65 = v95;
       v66 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         v67 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v103 = v67;
-        v104 = 2114;
-        v105 = v23;
-        v106 = 2114;
-        v107 = v52;
+        v102 = v67;
+        v103 = 2114;
+        v104 = v23;
+        v105 = 2114;
+        v106 = v52;
         _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch object with objectID %{public}@: %{public}@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v64);
-      v69 = v94;
-      v68 = v95;
-      v70 = v93;
+      v69 = v93;
+      v68 = v94;
+      v70 = v92;
       goto LABEL_48;
     }
 
     if (!v51)
     {
       v71 = objc_autoreleasePoolPush();
-      v72 = v96;
+      v72 = v95;
       v73 = HMFGetOSLogHandle();
-      v69 = v94;
-      v68 = v95;
-      v70 = v93;
+      v69 = v93;
+      v68 = v94;
+      v70 = v92;
       if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
         v74 = HMFGetLogIdentifier();
-        *buf = v91;
-        v103 = v74;
-        v104 = 2114;
-        v105 = v23;
+        *buf = v90;
+        v102 = v74;
+        v103 = 2114;
+        v104 = v23;
         _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find object with objectID %{public}@", buf, 0x16u);
       }
 
@@ -269,17 +254,17 @@ LABEL_48:
     if (!v55)
     {
       v79 = objc_autoreleasePoolPush();
-      v80 = v96;
+      v80 = v95;
       v81 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
       {
         v82 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v103 = v82;
-        v104 = 2114;
-        v105 = superentity;
-        v106 = 2112;
-        v107 = v51;
+        v102 = v82;
+        v103 = 2114;
+        v104 = superentity;
+        v105 = 2112;
+        v106 = v51;
         _os_log_impl(&dword_229538000, v81, OS_LOG_TYPE_ERROR, "%{public}@Object value for '%{public}@' is not an object: %@", buf, 0x20u);
       }
 
@@ -309,17 +294,17 @@ LABEL_48:
   }
 
   v75 = objc_autoreleasePoolPush();
-  v76 = v96;
+  v76 = v95;
   v77 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
   {
     v78 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v103 = v78;
-    v104 = 2114;
-    v105 = superentity;
-    v106 = 2112;
-    v107 = v51;
+    v102 = v78;
+    v103 = 2114;
+    v104 = superentity;
+    v105 = 2112;
+    v106 = v51;
     _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_ERROR, "%{public}@Object has no value for '%{public}@': %@", buf, 0x20u);
   }
 
@@ -328,9 +313,9 @@ LABEL_55:
 
   v24 = 0;
 LABEL_56:
-  v69 = v94;
-  v68 = v95;
-  v70 = v93;
+  v69 = v93;
+  v68 = v94;
+  v70 = v92;
 LABEL_57:
 
   if (v24)
@@ -355,22 +340,20 @@ LABEL_57:
   else
   {
     v85 = objc_autoreleasePoolPush();
-    v86 = v92;
+    v86 = v91;
     v87 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
     {
       v88 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v103 = v88;
-      v104 = 2114;
-      v105 = v17;
+      v102 = v88;
+      v103 = 2114;
+      v104 = v17;
       _os_log_impl(&dword_229538000, v87, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find user for model with objectID %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v85);
   }
-
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 @end

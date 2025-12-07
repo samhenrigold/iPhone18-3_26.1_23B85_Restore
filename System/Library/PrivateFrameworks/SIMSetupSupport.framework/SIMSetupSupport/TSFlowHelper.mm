@@ -64,8 +64,8 @@
       while (v8);
     }
 
-    v14 = _TSLogDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = _TSLogDomain(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       +[TSFlowHelper unregisteredSelectedPlanItems:];
     }
@@ -79,98 +79,93 @@
     v31 = 0uLL;
     v28 = 0uLL;
     v29 = 0uLL;
-    v14 = itemsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v15)
+    v15 = itemsCopy;
+    v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v29;
+      v17 = v16;
+      v18 = *v29;
       do
       {
-        for (j = 0; j != v16; ++j)
+        for (j = 0; j != v17; ++j)
         {
-          if (*v29 != v17)
+          if (*v29 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * j);
-          if ([v19 isSelected])
+          v20 = *(*(&v28 + 1) + 8 * j);
+          if ([v20 isSelected])
           {
-            [array addObject:v19];
+            [array addObject:v20];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (void)registerIMessageWithPlanItems:(id)items
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "_slotForPlanItem:", *(*(&v14 + 1) + 8 * v10), v14)}];
+        v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "_slotForPlanItem:", *(*(&v13 + 1) + 8 * v10), v13)}];
         [array addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  [TSIDSSubscriptionSelector registerSlotsForIMessage:array];
-  v12 = _TSLogDomain();
+  v12 = _TSLogDomain([TSIDSSubscriptionSelector registerSlotsForIMessage:array]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     +[TSFlowHelper registerIMessageWithPlanItems:];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)hasTransferablePlanWithSameCarrierName:(id)name transferablePlans:(id)plans inBuddy:(BOOL)buddy matchingSODACarrierWebsheetTransferPlanIndex:(id)index
 {
   buddyCopy = buddy;
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   plansCopy = plans;
   indexCopy = index;
   if (!nameCopy || ([nameCopy plans], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), v12, !v13))
   {
-    v26 = 0;
+    v29 = 0;
     goto LABEL_27;
   }
 
@@ -178,33 +173,33 @@
   v15 = [plans objectAtIndexedSubscript:0];
   carrierName = [v15 carrierName];
 
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   v16 = plansCopy;
-  v17 = [v16 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (!v17)
   {
-    v26 = 0;
+    v29 = 0;
     goto LABEL_26;
   }
 
   v18 = v17;
-  v33 = buddyCopy;
-  v34 = indexCopy;
-  v35 = plansCopy;
-  v19 = *v38;
+  v35 = buddyCopy;
+  v36 = indexCopy;
+  v37 = plansCopy;
+  v19 = *v40;
   while (2)
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v38 != v19)
+      if (*v40 != v19)
       {
         objc_enumerationMutation(v16);
       }
 
-      v21 = *(*(&v37 + 1) + 8 * i);
+      v21 = *(*(&v39 + 1) + 8 * i);
       v22 = [v21 objectForKeyedSubscript:@"planItem"];
       carrierName2 = [v22 carrierName];
       v24 = [TSUtilities isCaseInsensitiveEqual:carrierName withString:carrierName2];
@@ -212,89 +207,92 @@
       if (v24)
       {
         v25 = [v16 indexOfObject:v21];
-        if ([v22 isAccountMemberTransferablePlan])
+        isAccountMemberTransferablePlan = [v22 isAccountMemberTransferablePlan];
+        if (isAccountMemberTransferablePlan)
         {
-          v27 = _TSLogDomain();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v30 = _TSLogDomain(isAccountMemberTransferablePlan);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v42 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
-            _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, "Account member has a transferrable plan with a SODA tether @%s", buf, 0xCu);
+            v44 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
+            _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "Account member has a transferrable plan with a SODA tether @%s", buf, 0xCu);
           }
 
-          v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
-          indexCopy = v34;
-          [v34 addObject:v28];
-          v26 = 0;
+          v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
+          indexCopy = v36;
+          [v36 addObject:v31];
+          v29 = 0;
         }
 
         else
         {
-          if (![v22 isOneClickTransferablePlan])
+          isOneClickTransferablePlan = [v22 isOneClickTransferablePlan];
+          if (!isOneClickTransferablePlan)
           {
-            if (![v22 isWebsheetTransferablePlan])
+            isWebsheetTransferablePlan = [v22 isWebsheetTransferablePlan];
+            if (!isWebsheetTransferablePlan)
             {
               goto LABEL_12;
             }
 
-            v31 = _TSLogDomain();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v33 = _TSLogDomain(isWebsheetTransferablePlan);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = @"post buddy";
-              if (v33)
+              v34 = @"post buddy";
+              if (v35)
               {
-                v32 = @"in buddy";
+                v34 = @"in buddy";
               }
 
               *buf = 138412802;
-              v42 = carrierName;
-              v43 = 2112;
-              v44 = v32;
-              v45 = 2080;
-              v46 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
-              _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "Websheet transferrable plan exists with same carrier name [%@] %@ @%s", buf, 0x20u);
+              v44 = carrierName;
+              v45 = 2112;
+              v46 = v34;
+              v47 = 2080;
+              v48 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
+              _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "Websheet transferrable plan exists with same carrier name [%@] %@ @%s", buf, 0x20u);
             }
 
-            plansCopy = v35;
-            if (!v33)
+            plansCopy = v37;
+            if (!v35)
             {
-              v26 = 1;
-              indexCopy = v34;
+              v29 = 1;
+              indexCopy = v36;
               goto LABEL_25;
             }
 
-            v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
-            indexCopy = v34;
-            [v34 addObject:v28];
-            v26 = 0;
+            v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
+            indexCopy = v36;
+            [v36 addObject:v31];
+            v29 = 0;
 LABEL_24:
 
 LABEL_25:
             goto LABEL_26;
           }
 
-          v28 = _TSLogDomain();
-          indexCopy = v34;
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v31 = _TSLogDomain(isOneClickTransferablePlan);
+          indexCopy = v36;
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v42 = carrierName;
-            v43 = 2080;
-            v44 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
-            _os_log_impl(&dword_262AA8000, v28, OS_LOG_TYPE_DEFAULT, "One click transferrable plan exists with same carrier name [%@] @%s", buf, 0x16u);
+            v44 = carrierName;
+            v45 = 2080;
+            v46 = "+[TSFlowHelper hasTransferablePlanWithSameCarrierName:transferablePlans:inBuddy:matchingSODACarrierWebsheetTransferPlanIndex:]";
+            _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "One click transferrable plan exists with same carrier name [%@] @%s", buf, 0x16u);
           }
 
-          v26 = 1;
+          v29 = 1;
         }
 
-        plansCopy = v35;
+        plansCopy = v37;
         goto LABEL_24;
       }
 
 LABEL_12:
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v18 = [v16 countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v18)
     {
       continue;
@@ -303,14 +301,13 @@ LABEL_12:
     break;
   }
 
-  v26 = 0;
-  plansCopy = v35;
-  indexCopy = v34;
+  v29 = 0;
+  plansCopy = v37;
+  indexCopy = v36;
 LABEL_26:
 
 LABEL_27:
-  v29 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v29;
 }
 
 + (id)getAccountMemberTransferablePlanWithSameCarrierName:(id)name transferablePlans:(id)plans
@@ -359,18 +356,19 @@ LABEL_27:
             if (!v20)
             {
               v21 = [v12 indexOfObject:v17];
-              if ([v18 isAccountMemberTransferablePlan])
+              isAccountMemberTransferablePlan = [v18 isAccountMemberTransferablePlan];
+              if (isAccountMemberTransferablePlan)
               {
-                v22 = _TSLogDomain();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+                v23 = _TSLogDomain(isAccountMemberTransferablePlan);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
                   v34 = "+[TSFlowHelper getAccountMemberTransferablePlanWithSameCarrierName:transferablePlans:]";
-                  _os_log_impl(&dword_262AA8000, v22, OS_LOG_TYPE_DEFAULT, "Account member has a transferrable plan with a SODA tether @%s", buf, 0xCu);
+                  _os_log_impl(&dword_262AA8000, v23, OS_LOG_TYPE_DEFAULT, "Account member has a transferrable plan with a SODA tether @%s", buf, 0xCu);
                 }
 
-                v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v21];
-                [array addObject:v23];
+                v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v21];
+                [array addObject:v24];
               }
             }
           }
@@ -385,8 +383,6 @@ LABEL_27:
       nameCopy = v27;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -487,20 +483,18 @@ void __79__TSFlowHelper_showBluetoothOffAlertForCrossPlatformTransfer_withCloseH
 
 + (void)unregisteredSelectedPlanItems:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSFlowHelper unregisteredSelectedPlanItems:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSFlowHelper unregisteredSelectedPlanItems:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 + (void)registerIMessageWithPlanItems:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "+[TSFlowHelper registerIMessageWithPlanItems:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "+[TSFlowHelper registerIMessageWithPlanItems:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 @end

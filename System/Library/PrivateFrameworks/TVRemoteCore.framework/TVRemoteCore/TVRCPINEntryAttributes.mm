@@ -11,13 +11,12 @@
 
 - (TVRCPINEntryAttributes)initWithDigitCount:(unint64_t)count
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(TVRCPINEntryAttributes *)self initWithGroupLengths:v5];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -51,31 +50,31 @@
 
 - (unint64_t)totalDigitCount
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_groupLengths;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) unsignedIntegerValue];
+        v5 += [*(*(&v9 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -86,7 +85,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -105,32 +103,32 @@
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"<%@ %p", objc_opt_class(), self];
   if ([(NSArray *)self->_groupLengths count])
   {
     [v3 appendString:@"; pattern="];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = self->_groupLengths;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       v8 = 1;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ((v8 & 1) == 0)
           {
             [v3 appendString:@"-"];
@@ -144,7 +142,7 @@
           v8 = 0;
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v8 = 0;
       }
 
@@ -154,8 +152,6 @@
 
   [v3 appendString:@">"];
   v12 = [v3 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

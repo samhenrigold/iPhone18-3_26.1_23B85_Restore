@@ -1,4 +1,6 @@
 @interface BKSHIDEventDeferringRule
++ (id)ruleForDeferringEventsMatchingPredicate:(id)predicate restrictedToEventDescriptors:(id)descriptors toTarget:(id)target withReason:(id)reason seed:(unsigned int)seed pid:(int)pid;
++ (id)ruleForDeferringEventsMatchingPredicate:(id)predicate toTarget:(id)target withReason:(id)reason seed:(unsigned int)seed pid:(int)pid;
 - (BKSHIDEventDeferringRule)init;
 - (BKSHIDEventDeferringRule)initWithCoder:(id)coder;
 - (BOOL)eventDescriptorIsRestricted:(id)restricted;
@@ -15,17 +17,16 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendObject:self->_identity withName:0];
-  v5 = [formatterCopy appendObject:self->_predicate withName:0];
-  restrictedToEventDescriptors = self->_restrictedToEventDescriptors;
-  if (restrictedToEventDescriptors)
+  v4 = [formatterCopy appendObject:? withName:?];
+  v5 = [formatterCopy appendObject:? withName:?];
+  if (self->_restrictedToEventDescriptors)
   {
-    v7 = [formatterCopy appendObject:restrictedToEventDescriptors withName:0];
+    v6 = [formatterCopy appendObject:? withName:?];
   }
 
   [formatterCopy appendRightArrow];
-  v8 = [formatterCopy appendObject:self->_target withName:0];
-  [formatterCopy appendString:self->_reason withName:@"reason"];
+  v7 = [formatterCopy appendObject:? withName:?];
+  [formatterCopy appendString:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -33,73 +34,57 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v16 = 1;
+    v6 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if (v5 != objc_opt_class())
+    if (v5 == objc_opt_class() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects())
     {
-      goto LABEL_8;
-    }
-
-    identity = self->_identity;
-    v7 = equalCopy->_identity;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_8;
-    }
-
-    predicate = self->_predicate;
-    v9 = equalCopy->_predicate;
-    if (BSEqualObjects() && (restrictedToEventDescriptors = self->_restrictedToEventDescriptors, v11 = equalCopy->_restrictedToEventDescriptors, BSEqualObjects()) && (target = self->_target, v13 = equalCopy->_target, BSEqualObjects()))
-    {
-      reason = self->_reason;
-      v15 = equalCopy->_reason;
-      v16 = BSEqualObjects();
+      v6 = BSEqualObjects();
     }
 
     else
     {
-LABEL_8:
-      v16 = 0;
+      v6 = 0;
     }
   }
 
-  return v16;
+  return v6;
 }
 
 - (BKSHIDEventDeferringRule)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   if (v5 == objc_opt_class())
   {
-    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"predicate"];
-    v9 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"descriptors"];
-    v10 = [MEMORY[0x1E695DFD8] setWithArray:v9];
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"target"];
-    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"reason"];
-    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ident"];
-    v15 = v14;
-    if (v8 && v12 && v13 && v14)
+    objc_opt_class();
+    v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v8 = [coderCopy decodeArrayOfObjectsOfClass:? forKey:?];
+    v9 = [MEMORY[0x1E695DFD8] setWithArray:?];
+    objc_opt_class();
+    v11 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v12 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v13 = [coderCopy decodeObjectOfClass:? forKey:?];
+    v14 = v13;
+    if (v7 && v11 && v12 && v13)
     {
-      self = [(BKSHIDEventDeferringRule *)self _initWithPredicate:v8 restrictedToEventDescriptors:v10 target:v12 reason:v13 identity:v14];
+      self = [BKSHIDEventDeferringRule _initWithPredicate:"_initWithPredicate:restrictedToEventDescriptors:target:reason:identity:" restrictedToEventDescriptors:? target:? reason:? identity:?];
       selfCopy = self;
     }
 
     else
     {
-      v21 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A250];
-      v25 = *MEMORY[0x1E696A588];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDeferringRule: invalid predicate, target or reason : predicate=%@ target=%@ reason=%@", v8, v12, v13];
-      v26[0] = v22;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-      v17 = [v21 errorWithDomain:v20 code:4866 userInfo:v16];
-      [coderCopy failWithError:v17];
+      v18 = MEMORY[0x1E696ABC0];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:v7, v11, v12];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v16 = [v18 errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
 
       selfCopy = 0;
     }
@@ -108,66 +93,56 @@ LABEL_8:
   else
   {
     v6 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696A250];
-    v23 = *MEMORY[0x1E696A588];
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDeferringRule: subclasses are not allowed : %@", objc_opt_class()];
-    v24 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v10 = [v6 errorWithDomain:v7 code:4866 userInfo:v9];
-    [coderCopy failWithError:v10];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v9 = [v6 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  predicate = self->_predicate;
   coderCopy = coder;
-  [coderCopy encodeObject:predicate forKey:@"predicate"];
+  [coderCopy encodeObject:? forKey:?];
   allObjects = [(NSSet *)self->_restrictedToEventDescriptors allObjects];
-  [coderCopy encodeObject:allObjects forKey:@"descriptors"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeObject:self->_target forKey:@"target"];
-  [coderCopy encodeObject:self->_reason forKey:@"reason"];
-  [coderCopy encodeObject:self->_identity forKey:@"ident"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (BOOL)eventDescriptorIsRestricted:(id)restricted
 {
-  v18 = *MEMORY[0x1E69E9840];
   restrictedCopy = restricted;
   if (restrictedCopy && [(NSSet *)self->_restrictedToEventDescriptors count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
     v5 = self->_restrictedToEventDescriptors;
-    v6 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [NSSet countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v14 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v13 + 1) + 8 * i) describes:{restrictedCopy, v13}])
+          if ([*(8 * i) describes:?])
           {
             v10 = 0;
             goto LABEL_14;
           }
         }
 
-        v7 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [NSSet countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
         if (v7)
         {
           continue;
@@ -186,7 +161,6 @@ LABEL_14:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -253,7 +227,7 @@ LABEL_14:
 
   if (!v19)
   {
-    if ([v8 isEqual:predicate2])
+    if ([v8 isEqual:?])
     {
       identity = [(BKSHIDEventDeferringRule *)selfCopy identity];
       seed = [identity seed];
@@ -283,7 +257,7 @@ LABEL_14:
 
 - (id)_initWithPredicate:(id)predicate restrictedToEventDescriptors:(id)descriptors target:(id)target reason:(id)reason identity:(id)identity
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   targetCopy = target;
@@ -292,32 +266,32 @@ LABEL_14:
   v18 = predicateCopy;
   if (!v18)
   {
-    v39 = MEMORY[0x1E696AEC0];
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    v42 = [v39 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"predicate", v41];
+    v38 = MEMORY[0x1E696AEC0];
+    v39 = objc_opt_class();
+    v40 = NSStringFromClass(v39);
+    v41 = [v38 stringWithFormat:@"predicate", v40];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v43 = NSStringFromSelector(a2);
-      v44 = objc_opt_class();
-      v45 = NSStringFromClass(v44);
+      v42 = NSStringFromSelector(a2);
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
       *buf = 138544642;
-      v107 = v43;
-      v108 = 2114;
-      v109 = v45;
-      v110 = 2048;
+      v106 = v42;
+      v107 = 2114;
+      v108 = v44;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 117;
-      v116 = 2114;
-      v117 = v42;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 117;
+      v115 = 2114;
+      v116 = v41;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v42 UTF8String];
+    [v41 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638B8ACLL);
@@ -327,39 +301,39 @@ LABEL_14:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v46 = MEMORY[0x1E696AEC0];
+    v45 = MEMORY[0x1E696AEC0];
     classForCoder = [v19 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v48 = NSStringFromClass(classForCoder);
-    v49 = objc_opt_class();
-    v50 = NSStringFromClass(v49);
-    v51 = [v46 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"predicate", v48, v50];
+    v47 = NSStringFromClass(classForCoder);
+    v48 = objc_opt_class();
+    v49 = NSStringFromClass(v48);
+    v50 = [v45 stringWithFormat:@"predicate", v47, v49];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v52 = NSStringFromSelector(a2);
-      v53 = objc_opt_class();
-      v54 = NSStringFromClass(v53);
+      v51 = NSStringFromSelector(a2);
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
       *buf = 138544642;
-      v107 = v52;
-      v108 = 2114;
-      v109 = v54;
-      v110 = 2048;
+      v106 = v51;
+      v107 = 2114;
+      v108 = v53;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 117;
-      v116 = 2114;
-      v117 = v51;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 117;
+      v115 = 2114;
+      v116 = v50;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v51 UTF8String];
+    [v50 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638B9E8);
@@ -368,32 +342,32 @@ LABEL_14:
   v20 = descriptorsCopy;
   if (!v20)
   {
-    v55 = MEMORY[0x1E696AEC0];
-    v56 = objc_opt_class();
-    v57 = NSStringFromClass(v56);
-    v58 = [v55 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"eventDescriptors", v57];
+    v54 = MEMORY[0x1E696AEC0];
+    v55 = objc_opt_class();
+    v56 = NSStringFromClass(v55);
+    v57 = [v54 stringWithFormat:@"eventDescriptors", v56];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v59 = NSStringFromSelector(a2);
-      v60 = objc_opt_class();
-      v61 = NSStringFromClass(v60);
+      v58 = NSStringFromSelector(a2);
+      v59 = objc_opt_class();
+      v60 = NSStringFromClass(v59);
       *buf = 138544642;
-      v107 = v59;
-      v108 = 2114;
-      v109 = v61;
-      v110 = 2048;
+      v106 = v58;
+      v107 = 2114;
+      v108 = v60;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 118;
-      v116 = 2114;
-      v117 = v58;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 118;
+      v115 = 2114;
+      v116 = v57;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v58 UTF8String];
+    [v57 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638BAFCLL);
@@ -403,39 +377,39 @@ LABEL_14:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v62 = MEMORY[0x1E696AEC0];
+    v61 = MEMORY[0x1E696AEC0];
     classForCoder2 = [v21 classForCoder];
     if (!classForCoder2)
     {
       classForCoder2 = objc_opt_class();
     }
 
-    v64 = NSStringFromClass(classForCoder2);
-    v65 = objc_opt_class();
-    v66 = NSStringFromClass(v65);
-    v67 = [v62 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"eventDescriptors", v64, v66];
+    v63 = NSStringFromClass(classForCoder2);
+    v64 = objc_opt_class();
+    v65 = NSStringFromClass(v64);
+    v66 = [v61 stringWithFormat:@"eventDescriptors", v63, v65];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v68 = NSStringFromSelector(a2);
-      v69 = objc_opt_class();
-      v70 = NSStringFromClass(v69);
+      v67 = NSStringFromSelector(a2);
+      v68 = objc_opt_class();
+      v69 = NSStringFromClass(v68);
       *buf = 138544642;
-      v107 = v68;
-      v108 = 2114;
-      v109 = v70;
-      v110 = 2048;
+      v106 = v67;
+      v107 = 2114;
+      v108 = v69;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 118;
-      v116 = 2114;
-      v117 = v67;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 118;
+      v115 = 2114;
+      v116 = v66;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v67 UTF8String];
+    [v66 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638BC38);
@@ -444,32 +418,32 @@ LABEL_14:
   v22 = targetCopy;
   if (!v22)
   {
-    v71 = MEMORY[0x1E696AEC0];
-    v72 = objc_opt_class();
-    v73 = NSStringFromClass(v72);
-    v74 = [v71 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"target", v73];
+    v70 = MEMORY[0x1E696AEC0];
+    v71 = objc_opt_class();
+    v72 = NSStringFromClass(v71);
+    v73 = [v70 stringWithFormat:@"target", v72];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v75 = NSStringFromSelector(a2);
-      v76 = objc_opt_class();
-      v77 = NSStringFromClass(v76);
+      v74 = NSStringFromSelector(a2);
+      v75 = objc_opt_class();
+      v76 = NSStringFromClass(v75);
       *buf = 138544642;
-      v107 = v75;
-      v108 = 2114;
-      v109 = v77;
-      v110 = 2048;
+      v106 = v74;
+      v107 = 2114;
+      v108 = v76;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 119;
-      v116 = 2114;
-      v117 = v74;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 119;
+      v115 = 2114;
+      v116 = v73;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v74 UTF8String];
+    [v73 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638BD50);
@@ -479,39 +453,39 @@ LABEL_14:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v78 = MEMORY[0x1E696AEC0];
+    v77 = MEMORY[0x1E696AEC0];
     classForCoder3 = [v23 classForCoder];
     if (!classForCoder3)
     {
       classForCoder3 = objc_opt_class();
     }
 
-    v80 = NSStringFromClass(classForCoder3);
-    v81 = objc_opt_class();
-    v82 = NSStringFromClass(v81);
-    v83 = [v78 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"target", v80, v82];
+    v79 = NSStringFromClass(classForCoder3);
+    v80 = objc_opt_class();
+    v81 = NSStringFromClass(v80);
+    v82 = [v77 stringWithFormat:@"target", v79, v81];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v84 = NSStringFromSelector(a2);
-      v85 = objc_opt_class();
-      v86 = NSStringFromClass(v85);
+      v83 = NSStringFromSelector(a2);
+      v84 = objc_opt_class();
+      v85 = NSStringFromClass(v84);
       *buf = 138544642;
-      v107 = v84;
-      v108 = 2114;
-      v109 = v86;
-      v110 = 2048;
+      v106 = v83;
+      v107 = 2114;
+      v108 = v85;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 119;
-      v116 = 2114;
-      v117 = v83;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 119;
+      v115 = 2114;
+      v116 = v82;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v83 UTF8String];
+    [v82 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638BE8CLL);
@@ -522,30 +496,30 @@ LABEL_14:
   v26 = objc_opt_class();
   if (!v24)
   {
-    v87 = NSStringFromClass(v26);
-    v88 = [v25 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v87];
+    v86 = NSStringFromClass(v26);
+    v87 = [v25 stringWithFormat:@"reason", v86];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v89 = NSStringFromSelector(a2);
-      v90 = objc_opt_class();
-      v91 = NSStringFromClass(v90);
+      v88 = NSStringFromSelector(a2);
+      v89 = objc_opt_class();
+      v90 = NSStringFromClass(v89);
       *buf = 138544642;
-      v107 = v89;
-      v108 = 2114;
-      v109 = v91;
-      v110 = 2048;
+      v106 = v88;
+      v107 = 2114;
+      v108 = v90;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 120;
-      v116 = 2114;
-      v117 = v88;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 120;
+      v115 = 2114;
+      v116 = v87;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v88 UTF8String];
+    [v87 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638BF94);
@@ -553,39 +527,39 @@ LABEL_14:
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v92 = MEMORY[0x1E696AEC0];
+    v91 = MEMORY[0x1E696AEC0];
     classForCoder4 = [v24 classForCoder];
     if (!classForCoder4)
     {
       classForCoder4 = objc_opt_class();
     }
 
-    v94 = NSStringFromClass(classForCoder4);
-    v95 = objc_opt_class();
-    v96 = NSStringFromClass(v95);
-    v97 = [v92 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v94, v96];
+    v93 = NSStringFromClass(classForCoder4);
+    v94 = objc_opt_class();
+    v95 = NSStringFromClass(v94);
+    v96 = [v91 stringWithFormat:@"reason", v93, v95];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v98 = NSStringFromSelector(a2);
-      v99 = objc_opt_class();
-      v100 = NSStringFromClass(v99);
+      v97 = NSStringFromSelector(a2);
+      v98 = objc_opt_class();
+      v99 = NSStringFromClass(v98);
       *buf = 138544642;
-      v107 = v98;
-      v108 = 2114;
-      v109 = v100;
-      v110 = 2048;
+      v106 = v97;
+      v107 = 2114;
+      v108 = v99;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 120;
-      v116 = 2114;
-      v117 = v97;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 120;
+      v115 = 2114;
+      v116 = v96;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v97 UTF8String];
+    [v96 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638C0CCLL);
@@ -594,36 +568,36 @@ LABEL_14:
   v27 = objc_opt_class();
   if (v27 != objc_opt_class())
   {
-    v101 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeferringRule cannot be subclassed"];
+    v100 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v102 = NSStringFromSelector(a2);
-      v103 = objc_opt_class();
-      v104 = NSStringFromClass(v103);
+      v101 = NSStringFromSelector(a2);
+      v102 = objc_opt_class();
+      v103 = NSStringFromClass(v102);
       *buf = 138544642;
-      v107 = v102;
-      v108 = 2114;
-      v109 = v104;
-      v110 = 2048;
+      v106 = v101;
+      v107 = 2114;
+      v108 = v103;
+      v109 = 2048;
       selfCopy9 = self;
-      v112 = 2114;
-      v113 = @"BKSHIDEventDeferringRule.m";
-      v114 = 1024;
-      v115 = 121;
-      v116 = 2114;
-      v117 = v101;
+      v111 = 2114;
+      v112 = @"BKSHIDEventDeferringRule.m";
+      v113 = 1024;
+      v114 = 121;
+      v115 = 2114;
+      v116 = v100;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v101 UTF8String];
+    [v100 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18638C1B4);
   }
 
-  v105.receiver = self;
-  v105.super_class = BKSHIDEventDeferringRule;
-  v28 = [(BKSHIDEventDeferringRule *)&v105 init];
+  v104.receiver = self;
+  v104.super_class = BKSHIDEventDeferringRule;
+  v28 = [(BKSHIDEventDeferringRule *)&v104 init];
   if (v28)
   {
     v29 = [v19 copy];
@@ -645,13 +619,12 @@ LABEL_14:
     objc_storeStrong(&v28->_identity, identity);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 - (BKSHIDEventDeferringRule)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventDeferringRule"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -676,6 +649,30 @@ LABEL_14:
   result = _bs_set_crash_log_message();
   __break(0);
   return result;
+}
+
++ (id)ruleForDeferringEventsMatchingPredicate:(id)predicate restrictedToEventDescriptors:(id)descriptors toTarget:(id)target withReason:(id)reason seed:(unsigned int)seed pid:(int)pid
+{
+  reasonCopy = reason;
+  targetCopy = target;
+  descriptorsCopy = descriptors;
+  predicateCopy = predicate;
+  v15 = [_BKSHIDEventDeferringRuleIdentity initWithSeed:"initWithSeed:pid:" pid:?];
+  v16 = [BKSHIDEventDeferringRule _initWithPredicate:"_initWithPredicate:restrictedToEventDescriptors:target:reason:identity:" restrictedToEventDescriptors:? target:? reason:? identity:?];
+
+  return v16;
+}
+
++ (id)ruleForDeferringEventsMatchingPredicate:(id)predicate toTarget:(id)target withReason:(id)reason seed:(unsigned int)seed pid:(int)pid
+{
+  v10 = MEMORY[0x1E695DFD8];
+  reasonCopy = reason;
+  targetCopy = target;
+  predicateCopy = predicate;
+  v14 = [v10 set];
+  v15 = [self ruleForDeferringEventsMatchingPredicate:? restrictedToEventDescriptors:? toTarget:? withReason:? seed:? pid:?];
+
+  return v15;
 }
 
 @end

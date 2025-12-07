@@ -45,32 +45,25 @@
   if ([(NSMutableArray *)self->_locationFingerprints count])
   {
     v4 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableArray count](self->_locationFingerprints, "count")}];
-    v11 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
     locationFingerprints = self->_locationFingerprints;
-    v6 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints, 0);
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = MEMORY[0];
       do
       {
-        v9 = 0;
-        do
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v12 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(locationFingerprints);
           }
 
-          [v4 addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * v9), "dictionaryRepresentation")}];
-          v9 = v9 + 1;
+          [v4 addObject:{objc_msgSend(*(8 * i), "dictionaryRepresentation")}];
         }
 
-        while (v7 != v9);
-        v7 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints);
       }
 
       while (v7);
@@ -89,7 +82,7 @@
   v10 = 0u;
   v11 = 0u;
   locationFingerprints = self->_locationFingerprints;
-  v4 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints, a2, &v8, v12, 16);
   if (v4)
   {
     v5 = v4;
@@ -106,7 +99,7 @@
         PBDataWriterWriteSubmessage();
       }
 
-      v5 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints);
     }
 
     while (v5);
@@ -138,7 +131,7 @@
   v15 = 0u;
   v16 = 0u;
   locationFingerprints = self->_locationFingerprints;
-  v7 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints, 0);
   if (v7)
   {
     v8 = v7;
@@ -160,7 +153,7 @@
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)locationFingerprints countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationFingerprints);
     }
 
     while (v8);
@@ -197,7 +190,7 @@
   v11 = 0u;
   v12 = 0u;
   v4 = *(from + 1);
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, a2, &v9, v13, 16);
   if (v5)
   {
     v6 = v5;
@@ -217,7 +210,7 @@
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4);
     }
 
     while (v6);

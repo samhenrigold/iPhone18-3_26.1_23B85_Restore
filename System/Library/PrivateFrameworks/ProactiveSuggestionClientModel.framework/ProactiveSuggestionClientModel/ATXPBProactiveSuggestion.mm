@@ -365,105 +365,82 @@
 {
   v3 = a2;
   v4 = v3;
-  if (!from)
+  if (from)
   {
-    goto LABEL_28;
-  }
-
-  v5 = *(v3 + 5);
-  v21 = v3;
-  if (v5)
-  {
-    objc_storeStrong((from + 40), v5);
-    v4 = v21;
-  }
-
-  v6 = OUTLINED_FUNCTION_1_4(v4, 8);
-  if (v6)
-  {
-    if (!v7)
+    v5 = v3[5];
+    v18 = v3;
+    if (v5)
     {
-      goto LABEL_10;
+      objc_storeStrong((from + 40), v5);
     }
 
-    [(ATXPBProactiveSuggestionClientModelSpecification *)v6 mergeFrom:v7];
-  }
-
-  else
-  {
-    if (!v7)
+    v6 = OUTLINED_FUNCTION_1_4(8);
+    if (v6)
     {
-      goto LABEL_10;
+      if (v7)
+      {
+        [(ATXPBProactiveSuggestionClientModelSpecification *)v6 mergeFrom:v7];
+      }
     }
 
-    objc_storeStrong((from + v9), v7);
-  }
-
-  v8 = v21;
-LABEL_10:
-  v10 = OUTLINED_FUNCTION_1_4(v8, 16);
-  if (v10)
-  {
-    if (!v11)
+    else if (v7)
     {
-      goto LABEL_16;
+      objc_storeStrong((from + v8), v7);
     }
 
-    [(ATXPBProactiveSuggestionExecutableSpecification *)v10 mergeFrom:v11];
-  }
-
-  else
-  {
-    if (!v11)
+    v9 = OUTLINED_FUNCTION_1_4(16);
+    if (v9)
     {
-      goto LABEL_16;
+      if (v10)
+      {
+        [(ATXPBProactiveSuggestionExecutableSpecification *)v9 mergeFrom:v10];
+      }
     }
 
-    objc_storeStrong((from + v13), v11);
-  }
+    else if (v10)
+    {
+      objc_storeStrong((from + v11), v10);
+    }
 
-  v12 = v21;
-LABEL_16:
-  v14 = OUTLINED_FUNCTION_1_4(v12, 32);
-  if (v14)
-  {
+    v12 = OUTLINED_FUNCTION_1_4(32);
+    if (v12)
+    {
+      if (v13)
+      {
+        [(ATXPBProactiveSuggestionUISpecification *)v12 mergeFrom:v13];
+      }
+    }
+
+    else if (v13)
+    {
+      objc_storeStrong((from + v14), v13);
+    }
+
+    v15 = OUTLINED_FUNCTION_1_4(24);
     if (v15)
     {
-      [(ATXPBProactiveSuggestionUISpecification *)v14 mergeFrom:v15];
-LABEL_21:
-      v16 = v21;
+      if (!v16)
+      {
+        goto LABEL_25;
+      }
+
+      [(ATXPBProactiveSuggestionScoreSpecification *)v15 mergeFrom:v16];
     }
-  }
 
-  else if (v15)
-  {
-    objc_storeStrong((from + v17), v15);
-    goto LABEL_21;
-  }
-
-  v18 = OUTLINED_FUNCTION_1_4(v16, 24);
-  if (v18)
-  {
-    if (!v19)
+    else
     {
-      goto LABEL_28;
+      if (!v16)
+      {
+        goto LABEL_25;
+      }
+
+      objc_storeStrong((from + v17), v16);
     }
 
-    [(ATXPBProactiveSuggestionScoreSpecification *)v18 mergeFrom:v19];
+    v4 = v18;
   }
 
-  else
-  {
-    if (!v19)
-    {
-      goto LABEL_28;
-    }
-
-    objc_storeStrong((from + v20), v19);
-  }
-
-  v4 = v21;
-LABEL_28:
+LABEL_25:
 }
 
 @end

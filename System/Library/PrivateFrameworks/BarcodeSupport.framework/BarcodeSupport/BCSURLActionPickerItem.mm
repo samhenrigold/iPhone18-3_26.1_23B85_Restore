@@ -208,11 +208,10 @@ LABEL_8:
 
 - (void)performActionWithFBOptions:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138477827;
-  v3 = a1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLAction: cannot open Home app with sensitive URL with error: %{private}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138477827;
+  v2 = a1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLAction: cannot open Home app with sensitive URL with error: %{private}@", &v1, 0xCu);
 }
 
 @end

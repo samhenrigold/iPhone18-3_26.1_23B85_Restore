@@ -44,7 +44,7 @@
   v24(v23 + v21, v28, v6);
   *(v23 + v22) = ObjCClassMetadata;
   *(v23 + ((v22 + 15) & 0xFFFFFFFFFFFFFFF8)) = radius;
-  sub_20CECF940(0, &qword_27C820940);
+  sub_20CECF940(0, &qword_27C820940, 0x277D757A0);
   v25 = sub_20D5659C8();
 
   v26 = *(v7 + 8);
@@ -123,7 +123,7 @@
   v22 = *(v5 + 32);
   v22(v21 + v19, v9, v4);
   v22(v21 + v20, v27, v4);
-  sub_20CECF940(0, &qword_27C81EC50);
+  sub_20CECF940(0, &qword_27C81EC50, off_277DB1410);
   v23 = sub_20D5659C8();
 
   v24 = *(v5 + 8);
@@ -155,7 +155,7 @@
   *(v15 + 48) = v13;
   *(v15 + 56) = type;
   *(v15 + 64) = radius;
-  sub_20CECF940(0, &qword_27C820940);
+  sub_20CECF940(0, &qword_27C820940, 0x277D757A0);
   v16 = sub_20D5659C8();
 
   return v16;
@@ -163,7 +163,7 @@
 
 + (void)_homePodDetailsViewControllerForMediaRoutingIdentifier:(NSString *)identifier deviceName:(NSString *)name mediaAccessoryItemType:(int64_t)type cornerRadius:(double)radius completionHandler:(id)handler
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v13 - 8);
   v15 = &v23 - v14;
   v16 = _Block_copy(handler);
@@ -196,7 +196,7 @@
   v8 = sub_20D567838();
   v10 = v9;
   v11 = sub_20D567838();
-  v13 = sub_20D091C20(radius, v8, v10, v11, v12, type);
+  v13 = sub_20D091C20(v8, v10, v11, v12, type, radius);
 
   return v13;
 }

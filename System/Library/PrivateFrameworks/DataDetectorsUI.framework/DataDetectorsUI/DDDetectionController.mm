@@ -409,18 +409,19 @@ void __74__DDDetectionController__startCoalescedURLification_clearPreviousResult
   [v3 dispatchScanQueryCreationWithCompletionBlock:v5];
 }
 
-uint64_t __74__DDDetectionController__startCoalescedURLification_clearPreviousResults___block_invoke_2(uint64_t a1, int a2)
+uint64_t __74__DDDetectionController__startCoalescedURLification_clearPreviousResults___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    __74__DDDetectionController__startCoalescedURLification_clearPreviousResults___block_invoke_2_cold_1(a1);
-    if (!a2)
+    __74__DDDetectionController__startCoalescedURLification_clearPreviousResults___block_invoke_2_cold_1();
+    if (!v2)
     {
       return [*(a1 + 32) cleanup];
     }
   }
 
-  else if (!a2)
+  else if (!v2)
   {
     return [*(a1 + 32) cleanup];
   }
@@ -601,10 +602,7 @@ void __43__DDDetectionController__enqueueOperation___block_invoke(uint64_t a1)
 
 uint64_t __56__DDDetectionController_cancelURLificationForContainer___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -643,41 +641,40 @@ uint64_t __48__DDDetectionController_containerWillBeRemoved___block_invoke(uint6
 
   else
   {
-    v5 = *MEMORY[0x277D04180];
     SubresultWithType = DDResultGetSubresultWithType();
     if (SubresultWithType)
     {
       DDResultGetRange();
-      v7 = v6;
-      if (v6 >= 1 && (SubResults = DDResultGetSubResults()) != 0 && (v9 = SubResults, Count = CFArrayGetCount(SubResults), Count >= 1))
+      v6 = v5;
+      if (v5 >= 1 && (SubResults = DDResultGetSubResults()) != 0 && (v8 = SubResults, Count = CFArrayGetCount(SubResults), Count >= 1))
       {
-        v11 = Count;
+        v10 = Count;
+        v11 = 0;
         v12 = 0;
-        v13 = 0;
-        v14 = *MEMORY[0x277D04150];
+        v13 = *MEMORY[0x277D04150];
         do
         {
-          CFArrayGetValueAtIndex(v9, v13);
-          v15 = DDResultGetType();
-          if (CFStringCompare(v15, v14, 0) == kCFCompareEqualTo)
+          CFArrayGetValueAtIndex(v8, v12);
+          v14 = DDResultGetType();
+          if (CFStringCompare(v14, v13, 0) == kCFCompareEqualTo)
           {
             DDResultGetRange();
-            v12 += v16;
+            v11 += v15;
           }
 
-          ++v13;
+          ++v12;
         }
 
-        while (v11 != v13);
-        v17 = v12 + 5;
+        while (v10 != v12);
+        v16 = v11 + 5;
       }
 
       else
       {
-        v17 = 5;
+        v16 = 5;
       }
 
-      LOBYTE(SubresultWithType) = v7 > 0 && v17 < v7;
+      LOBYTE(SubresultWithType) = v6 > 0 && v16 < v6;
     }
   }
 
@@ -686,7 +683,7 @@ uint64_t __48__DDDetectionController_containerWillBeRemoved___block_invoke(uint6
 
 - (void)_doURLification:(id)lification
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   lificationCopy = lification;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
@@ -701,23 +698,23 @@ uint64_t __48__DDDetectionController_containerWillBeRemoved___block_invoke(uint6
   container = [lificationCopy container];
   results = [lificationCopy results];
   tryCount = [lificationCopy tryCount];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy_;
-  v63 = __Block_byref_object_dispose_;
-  v64 = 0;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy_;
+  v62 = __Block_byref_object_dispose_;
+  v63 = 0;
   protectQueue = self->_protectQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __41__DDDetectionController__doURLification___block_invoke;
   block[3] = &unk_278290E90;
-  v58 = &v59;
+  v57 = &v58;
   block[4] = self;
   v10 = container;
-  v57 = v10;
+  v56 = v10;
   dispatch_sync(protectQueue, block);
-  if (v60[5] == lificationCopy && ([lificationCopy containerIsReady] & 1) != 0)
+  if (v59[5] == lificationCopy && ([lificationCopy containerIsReady] & 1) != 0)
   {
     isDiscarded = [lificationCopy isDiscarded];
     if (results)
@@ -742,93 +739,93 @@ uint64_t __48__DDDetectionController_containerWillBeRemoved___block_invoke(uint6
     {
       if (tryCount != -1 && [lificationCopy needsToStartOver])
       {
+        v15 = MEMORY[0x277D86220];
         v16 = MEMORY[0x277D86220];
-        v17 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           -[DDDetectionController _doURLification:].cold.4(lificationCopy, buf, [results count]);
         }
 
-        v18 = 1;
+        v17 = 1;
         goto LABEL_33;
       }
 
       if ([results count])
       {
-        v19 = self->_protectQueue;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __41__DDDetectionController__doURLification___block_invoke_38;
-        v53[3] = &unk_278290E68;
-        v53[4] = self;
-        v38 = v10;
-        v54 = v38;
-        v20 = results;
-        v55 = v20;
-        dispatch_sync(v19, v53);
+        v18 = self->_protectQueue;
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __41__DDDetectionController__doURLification___block_invoke_38;
+        v52[3] = &unk_278290E68;
+        v52[4] = self;
+        v37 = v10;
+        v53 = v37;
+        v19 = results;
+        v54 = v19;
+        dispatch_sync(v18, v52);
         doURLificationOnDocument = [lificationCopy doURLificationOnDocument];
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
         if (WeakRetained)
         {
-          v22 = objc_loadWeakRetained(&self->_delegate);
-          v23 = objc_opt_respondsToSelector();
+          v21 = objc_loadWeakRetained(&self->_delegate);
+          v22 = objc_opt_respondsToSelector();
 
-          if (v23)
+          if (v22)
           {
             context = [lificationCopy context];
             if ([lificationCopy needContinuation])
             {
-              v25 = 0;
+              v24 = 0;
             }
 
             else
             {
-              v25 = CFRetain([lificationCopy scanQuery]);
+              v24 = CFRetain([lificationCopy scanQuery]);
             }
 
-            v27 = dispatch_get_global_queue(-2, 0);
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = __41__DDDetectionController__doURLification___block_invoke_2;
-            v47[3] = &unk_278290F08;
-            v48 = v20;
+            v26 = dispatch_get_global_queue(-2, 0);
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __41__DDDetectionController__doURLification___block_invoke_2;
+            v46[3] = &unk_278290F08;
+            v47 = v19;
             selfCopy = self;
-            v50 = context;
-            v52 = v25;
-            v51 = v38;
-            v28 = context;
-            dispatch_async(v27, v47);
+            v49 = context;
+            v51 = v24;
+            v50 = v37;
+            v27 = context;
+            dispatch_async(v26, v46);
           }
         }
 
-        v26 = doURLificationOnDocument;
+        v25 = doURLificationOnDocument;
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v65 = @"kDataDetectorsUIURLificationHadDOMModification";
-      v30 = [MEMORY[0x277CCABB0] numberWithBool:v26];
-      v66 = v30;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-      [defaultCenter postNotificationName:@"DataDetectorsUIDidFinishURLificationNotification" object:v10 userInfo:v31];
+      v64 = @"kDataDetectorsUIURLificationHadDOMModification";
+      v29 = [MEMORY[0x277CCABB0] numberWithBool:v25];
+      v65 = v29;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      [defaultCenter postNotificationName:@"DataDetectorsUIDidFinishURLificationNotification" object:v10 userInfo:v30];
     }
 
-    v18 = 0;
+    v17 = 0;
 LABEL_33:
-    v32 = self->_protectQueue;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __41__DDDetectionController__doURLification___block_invoke_52;
-    v45[3] = &unk_278290BC8;
-    v45[4] = self;
-    v33 = v10;
-    v46 = v33;
-    dispatch_sync(v32, v45);
-    if (v18 && tryCount >= 2)
+    v31 = self->_protectQueue;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __41__DDDetectionController__doURLification___block_invoke_52;
+    v44[3] = &unk_278290BC8;
+    v44[4] = self;
+    v32 = v10;
+    v45 = v32;
+    dispatch_sync(v31, v44);
+    if (v17 && tryCount >= 2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -836,9 +833,9 @@ LABEL_33:
       }
     }
 
-    else if ((v18 | [lificationCopy needContinuation]) == 1)
+    else if ((v17 | [lificationCopy needContinuation]) == 1)
     {
-      if (v18)
+      if (v17)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
@@ -846,14 +843,14 @@ LABEL_33:
         }
 
         newOperationForStartingOver = [lificationCopy newOperationForStartingOver];
-        v35 = self->_protectQueue;
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __41__DDDetectionController__doURLification___block_invoke_53;
-        v43[3] = &unk_278290BC8;
-        v43[4] = self;
-        v44 = v33;
-        dispatch_sync(v35, v43);
+        v34 = self->_protectQueue;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __41__DDDetectionController__doURLification___block_invoke_53;
+        v42[3] = &unk_278290BC8;
+        v42[4] = self;
+        v43 = v32;
+        dispatch_sync(v34, v42);
       }
 
       else
@@ -861,17 +858,17 @@ LABEL_33:
         newOperationForStartingOver = [lificationCopy newOperationForContinuation];
       }
 
-      v36 = self->_protectQueue;
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __41__DDDetectionController__doURLification___block_invoke_2_54;
-      v40[3] = &unk_278290E68;
-      v40[4] = self;
-      v37 = newOperationForStartingOver;
-      v41 = v37;
-      v42 = v33;
-      dispatch_sync(v36, v40);
-      [(DDDetectionController *)self _startCoalescedURLification:v37 clearPreviousResults:0];
+      v35 = self->_protectQueue;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __41__DDDetectionController__doURLification___block_invoke_2_54;
+      v39[3] = &unk_278290E68;
+      v39[4] = self;
+      v36 = newOperationForStartingOver;
+      v40 = v36;
+      v41 = v32;
+      dispatch_sync(v35, v39);
+      [(DDDetectionController *)self _startCoalescedURLification:v36 clearPreviousResults:0];
     }
 
     [lificationCopy cleanup];
@@ -883,22 +880,18 @@ LABEL_33:
   v14 = MEMORY[0x277D86220];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    -[DDDetectionController _doURLification:].cold.3(lificationCopy, v60[5], buf, [results count]);
+    -[DDDetectionController _doURLification:].cold.3(lificationCopy, v59[5], buf, [results count]);
   }
 
   [lificationCopy cleanup];
 LABEL_16:
 
-  _Block_object_dispose(&v59, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v58, 8);
 }
 
 uint64_t __41__DDDetectionController__doURLification___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -923,19 +916,18 @@ void __41__DDDetectionController__doURLification___block_invoke_38(void *a1)
 
 void __41__DDDetectionController__doURLification___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v3 = 0;
     v4 = *MEMORY[0x277D04170];
-    v5 = *MEMORY[0x277D040E0];
-    v6 = MEMORY[0x277D86220];
-    for (i = [*(a1 + 32) objectAtIndex:{0, 138412546, v2}]; ; i = objc_msgSend(*(a1 + 32), "objectAtIndex:", v3, v21, v22))
+    v5 = MEMORY[0x277D86220];
+    for (i = [*(a1 + 32) objectAtIndex:{0, 138412546, v2}]; ; i = objc_msgSend(*(a1 + 32), "objectAtIndex:", v3, v18, v19))
     {
       SubresultWithType = i;
       Type = DDResultGetType();
-      v10 = CFStringCompare(Type, v4, 0);
-      if (v10)
+      v9 = CFStringCompare(Type, v4, 0);
+      if (v9)
       {
         SubResults = 0;
         if (!SubresultWithType)
@@ -954,38 +946,37 @@ void __41__DDDetectionController__doURLification___block_invoke_2(uint64_t a1)
         }
       }
 
-      v12 = *(a1 + 40);
       if ([objc_opt_class() _shouldConsiderResultForCoreRecents:SubresultWithType])
       {
         if (!SubResults)
         {
-          v13 = *(a1 + 32);
-          v14 = [*(a1 + 48) objectForKeyedSubscript:@"ReferenceDate"];
-          SubResults = findNearbyResultsInArray(v13, v3, 50, 200, v14);
+          v11 = *(a1 + 32);
+          v12 = [*(a1 + 48) objectForKeyedSubscript:@"ReferenceDate"];
+          SubResults = findNearbyResultsInArray(v11, v3, 50, 200, v12);
         }
 
         WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 72));
-        v16 = [WeakRetained detectionController:*(a1 + 40) coreRecentsWeightForResult:SubresultWithType fromScanQuery:*(a1 + 64) inContainer:*(a1 + 56) partOfSignature:v10 == kCFCompareEqualTo];
+        v14 = [WeakRetained detectionController:*(a1 + 40) coreRecentsWeightForResult:SubresultWithType fromScanQuery:*(a1 + 64) inContainer:*(a1 + 56) partOfSignature:v9 == kCFCompareEqualTo];
 
-        v17 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
-        if (v16)
+        v15 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+        if (v14)
         {
-          if (v17)
+          if (v15)
           {
-            *buf = v21;
-            v26 = SubresultWithType;
-            v27 = 2112;
-            v28 = v16;
-            _os_log_debug_impl(&dword_21AB70000, v6, OS_LOG_TYPE_DEBUG, "Magically adding result %@ to recents with score %@", buf, 0x16u);
+            *buf = v18;
+            v22 = SubresultWithType;
+            v23 = 2112;
+            v24 = v14;
+            _os_log_debug_impl(&dword_21AB70000, v5, OS_LOG_TYPE_DEBUG, "Magically adding result %@ to recents with score %@", buf, 0x16u);
           }
 
-          v18 = [MEMORY[0x277D04218] resultFromCoreResult:SubresultWithType];
-          [DDCoreRecents addResultToRecents:v18 associatedResults:SubResults weight:v16 context:*(a1 + 48) userInitiated:0];
+          v16 = [MEMORY[0x277D04218] resultFromCoreResult:SubresultWithType];
+          [DDCoreRecents addResultToRecents:v16 associatedResults:SubResults weight:v14 context:*(a1 + 48) userInitiated:0];
         }
 
-        else if (v17)
+        else if (v15)
         {
-          __41__DDDetectionController__doURLification___block_invoke_2_cold_1(v23, SubresultWithType, &v24);
+          __41__DDDetectionController__doURLification___block_invoke_2_cold_1(v20, SubresultWithType, &v20[4]);
         }
       }
 
@@ -997,13 +988,11 @@ LABEL_6:
     }
   }
 
-  v19 = *(a1 + 64);
-  if (v19)
+  v17 = *(a1 + 64);
+  if (v17)
   {
-    CFRelease(v19);
+    CFRelease(v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionsForResult:(__DDResult *)result context:(id)context
@@ -1115,7 +1104,8 @@ LABEL_5:
 - (BOOL)_shouldImmediatelyLaunchDefaultActionForURL:(id)l result:(__DDResult *)result
 {
   lCopy = l;
-  if (+[DDDetectionController largeScreenIdiom])
+  v7 = +[DDDetectionController largeScreenIdiom];
+  if (v7)
   {
 
     return 0;
@@ -1125,17 +1115,17 @@ LABEL_5:
   {
     if (result)
     {
-      [(DDDetectionController *)self _interactionDidStartForResult:result];
+      v7 = [(DDDetectionController *)self _interactionDidStartForResult:result];
     }
 
     else if (lCopy)
     {
-      [(DDDetectionController *)self _interactionDidStartForURL:lCopy];
+      v7 = [(DDDetectionController *)self _interactionDidStartForURL:lCopy];
     }
 
-    v8 = dd_callsRequireExternalPrompt();
+    v10 = dd_callsRequireExternalPrompt(v7, v8);
 
-    return v8;
+    return v10;
   }
 }
 
@@ -1161,7 +1151,7 @@ LABEL_5:
 
 - (__DDResult)_resultForIdentifier:(id)identifier forContainer:(id)container context:(id *)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   containerCopy = container;
   Main = CFRunLoopGetMain();
@@ -1170,30 +1160,30 @@ LABEL_5:
     [DDDetectionController _resultForIdentifier:forContainer:context:];
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = 0;
   protectQueue = self->_protectQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __67__DDDetectionController__resultForIdentifier_forContainer_context___block_invoke;
   block[3] = &unk_278290F30;
-  v35 = &v43;
+  v34 = &v42;
   block[4] = self;
   v12 = containerCopy;
-  v34 = v12;
-  v36 = &v37;
+  v33 = v12;
+  v35 = &v36;
   dispatch_sync(protectQueue, block);
-  v13 = v44[5];
+  v13 = v43[5];
   if (v13)
   {
     v14 = v13;
@@ -1201,27 +1191,27 @@ LABEL_5:
     if ([v15 count])
     {
       contextCopy = context;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v29 objects:v49 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v28 objects:v48 count:16];
       if (v17)
       {
-        v18 = *v30;
+        v18 = *v29;
         while (2)
         {
           v19 = 0;
           v20 = v14;
           do
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            integerValue = [*(*(&v29 + 1) + 8 * v19) integerValue];
+            integerValue = [*(*(&v28 + 1) + 8 * v19) integerValue];
             if (integerValue < 0 || integerValue >= [v20 count])
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1241,7 +1231,7 @@ LABEL_5:
           }
 
           while (v17 != v19);
-          v17 = [v16 countByEnumeratingWithState:&v29 objects:v49 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v28 objects:v48 count:16];
           if (v17)
           {
             continue;
@@ -1260,12 +1250,12 @@ LABEL_5:
       {
         v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v24 = v23;
-        if (v38[5])
+        if (v37[5])
         {
           [v23 addEntriesFromDictionary:?];
         }
 
-        [v24 setObject:v44[5] forKey:@"AllResults"];
+        [v24 setObject:v43[5] forKey:@"AllResults"];
         v25 = v24;
         *contextCopy = v24;
       }
@@ -1295,10 +1285,9 @@ LABEL_30:
     v22 = 0;
   }
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v42, 8);
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1309,10 +1298,7 @@ uint64_t __67__DDDetectionController__resultForIdentifier_forContainer_context__
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1[4] + 48) objectForKey:a1[5]];
-  v6 = *(a1[7] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 48) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1417,7 +1403,7 @@ LABEL_9:
 
 - (void)_cacheBusinessPhoneNumber:(id)number
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v5 = numberCopy;
   if (numberCopy && ([numberCopy containsString:@"@"] & 1) == 0)
@@ -1425,13 +1411,11 @@ LABEL_9:
     _bizService = [(DDDetectionController *)self _bizService];
     if (_bizService)
     {
-      v9[0] = v5;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = v5;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
       [_bizService warmCacheIfNecessaryForPhoneNumbers:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldImmediatelyShowActionSheetForCoreResult:(__DDResult *)result
@@ -1588,7 +1572,7 @@ LABEL_13:
 
 - (id)_businessItemForNumber:(id)number messageable:(BOOL *)messageable brand:(id *)brand
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   if (![numberCopy length] || (dd_handleIsChatBot(numberCopy) & 1) != 0 || ((objc_msgSend(MEMORY[0x277D75418], "currentDevice"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "userInterfaceIdiom"), v10, v11 <= 6) ? (v12 = ((1 << v11) & 0x43) == 0) : (v12 = 1), v12))
   {
@@ -1602,36 +1586,36 @@ LABEL_13:
     {
       date = [MEMORY[0x277CBEAA8] date];
       v14 = dispatch_group_create();
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x3032000000;
-      v47 = __Block_byref_object_copy_;
-      v48 = __Block_byref_object_dispose_;
-      v49 = 0;
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
       v43 = 0;
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x3032000000;
-      v37 = __Block_byref_object_copy_;
-      v38 = __Block_byref_object_dispose_;
+      v44 = &v43;
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy_;
+      v47 = __Block_byref_object_dispose_;
+      v48 = 0;
       v39 = 0;
+      v40 = &v39;
+      v41 = 0x2020000000;
+      v42 = 0;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x3032000000;
+      v36 = __Block_byref_object_copy_;
+      v37 = __Block_byref_object_dispose_;
+      v38 = 0;
       dispatch_group_enter(v14);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke;
-      v26[3] = &unk_278290FD0;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke;
+      v25[3] = &unk_278290FD0;
       v15 = v14;
-      v27 = v15;
-      v28 = _bizService;
-      v29 = numberCopy;
-      v30 = &v44;
-      v33 = brand != 0;
-      v31 = &v40;
-      v32 = &v34;
-      [v28 isBusinessRegisteredForPhoneNumber:v29 completion:v26];
+      v26 = v15;
+      v27 = _bizService;
+      v28 = numberCopy;
+      v29 = &v43;
+      v32 = brand != 0;
+      v30 = &v39;
+      v31 = &v33;
+      [v27 isBusinessRegisteredForPhoneNumber:v28 completion:v25];
       v16 = dispatch_time(0, 1000000000);
       if (dispatch_group_wait(v15, v16))
       {
@@ -1652,33 +1636,33 @@ LABEL_13:
         v17 = date;
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = v45[5];
-          v21 = *(v41 + 24);
+          v20 = v44[5];
+          v21 = *(v40 + 24);
           [date timeIntervalSinceNow];
           *buf = 67109632;
-          v51 = v20 != 0;
-          v52 = 1024;
-          v53 = v21;
-          v54 = 2048;
-          v55 = -v22;
+          v50 = v20 != 0;
+          v51 = 1024;
+          v52 = v21;
+          v53 = 2048;
+          v54 = -v22;
           _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Phone number properties business:%d messageable:%d duration:%f (BCS)", buf, 0x18u);
         }
 
         if (messageable)
         {
-          *messageable = *(v41 + 24);
+          *messageable = *(v40 + 24);
         }
 
-        v9 = v45[5];
+        v9 = v44[5];
         if (brand)
         {
-          *brand = v35[5];
+          *brand = v34[5];
         }
       }
 
-      _Block_object_dispose(&v34, 8);
-      _Block_object_dispose(&v40, 8);
-      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v43, 8);
     }
 
     else
@@ -1687,14 +1671,12 @@ LABEL_13:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v7 = v5;
   if (v5 || !a2)
@@ -1702,7 +1684,7 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
     if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = v7;
+      v27 = v7;
       _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable determine phone business status BCS: %@", buf, 0xCu);
     }
   }
@@ -1712,13 +1694,13 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
     dispatch_group_enter(*(a1 + 32));
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_2;
-    v24[3] = &unk_278290F58;
-    v26 = *(a1 + 56);
-    v25 = *(a1 + 32);
-    [v8 fetchBusinessItemForPhoneNumber:v9 completion:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_2;
+    v23[3] = &unk_278290F58;
+    v25 = *(a1 + 56);
+    v24 = *(a1 + 32);
+    [v8 fetchBusinessItemForPhoneNumber:v9 completion:v23];
   }
 
   if (*(a1 + 80) == 1)
@@ -1731,37 +1713,35 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
       v12 = *(a1 + 48);
       gotLoadHelper_x8__BSBrandServiceTypeOnDeviceSupport(v13);
       v15 = **(v14 + 1664);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_79;
-      v19[3] = &unk_278290FA8;
-      v20 = v11;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_79;
+      v18[3] = &unk_278290FA8;
+      v19 = v11;
       v16 = *(a1 + 48);
       v17 = *(a1 + 72);
-      v21 = v16;
-      v23 = v17;
-      v22 = *(a1 + 32);
-      [v20 isBrandRegisteredWithIdentifier:v12 forService:v15 completion:v19];
+      v20 = v16;
+      v22 = v17;
+      v21 = *(a1 + 32);
+      [v19 isBrandRegisteredWithIdentifier:v12 forService:v15 completion:v18];
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_2(uint64_t a1, void *a2, char a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a4;
   if (v9)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to fetch business details BCS: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to fetch business details BCS: %@", &v11, 0xCu);
     }
   }
 
@@ -1782,8 +1762,6 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DDDetectionController__businessItemForNumber_messageable_brand___block_invoke_79(uint64_t a1, int a2, uint64_t a3, double a4)
@@ -1879,7 +1857,7 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
 
 + (id)filterResults:(id)results forTypes:(unint64_t)types referenceDate:(id)date referenceTimeZone:(id)zone
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   dateCopy = date;
   zoneCopy = zone;
@@ -1888,48 +1866,46 @@ void __66__DDDetectionController__businessItemForNumber_messageable_brand___bloc
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v12];
     v14 = [DDOperation shouldUrlifyBlockForTypes:types];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v23 = resultsCopy;
+    v22 = resultsCopy;
     v15 = resultsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v24 + 1) + 8 * i);
+          v20 = *(*(&v23 + 1) + 8 * i);
           if ((v14)[2](v14, [v20 coreResult], dateCopy, zoneCopy))
           {
             [v13 addObject:v20];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v17);
     }
 
-    resultsCopy = v23;
+    resultsCopy = v22;
   }
 
   else
   {
     v13 = MEMORY[0x277CBEBF8];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2054,9 +2030,9 @@ void __61__DDDetectionController_WebKitBackEnd__resetResultsForFrame___block_inv
       if ([tapAndHoldSchemes containsObject:lowercaseString])
       {
         scheme3 = [absoluteLinkURL scheme];
-        v25 = [scheme3 isEqualToString:v14];
+        v24 = [scheme3 isEqualToString:v14];
 
-        if (!v25)
+        if (!v24)
         {
 LABEL_15:
           v16 = 0;
@@ -2086,7 +2062,6 @@ LABEL_15:
     documentView = [frameView documentView];
     selectedString = [documentView selectedString];
 
-    v20 = *context;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -2095,10 +2070,10 @@ LABEL_15:
 
     else
     {
-      v26 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:*context];
-      [v26 setObject:selectedString forKey:@"SelectedText"];
-      v27 = v26;
-      *context = v26;
+      v25 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:*context];
+      [v25 setObject:selectedString forKey:@"SelectedText"];
+      v26 = v25;
+      *context = v25;
     }
   }
 
@@ -2141,7 +2116,7 @@ LABEL_18:
 
 - (__DDResult)_resultForIdentifier:(id)identifier withResults:(id)results context:(id *)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   resultsCopy = results;
   v9 = resultsCopy;
@@ -2151,18 +2126,18 @@ LABEL_18:
     v11 = [identifierCopy componentsSeparatedByString:@"/"];
     if ([v11 count])
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v24 = v10;
+        v23 = v10;
         contextCopy = context;
-        v15 = *v27;
+        v15 = *v26;
         v16 = v10;
         while (2)
         {
@@ -2170,12 +2145,12 @@ LABEL_18:
           v10 = v16;
           do
           {
-            if (*v27 != v15)
+            if (*v26 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            integerValue = [*(*(&v26 + 1) + 8 * v17) integerValue];
+            integerValue = [*(*(&v25 + 1) + 8 * v17) integerValue];
             if (integerValue < 0 || integerValue >= [v10 count])
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -2195,7 +2170,7 @@ LABEL_18:
           }
 
           while (v14 != v17);
-          v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v14)
           {
             continue;
@@ -2204,7 +2179,7 @@ LABEL_18:
           break;
         }
 
-        v10 = v24;
+        v10 = v23;
         context = contextCopy;
       }
 
@@ -2248,7 +2223,6 @@ LABEL_26:
     v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2294,38 +2268,38 @@ LABEL_9:
 
 - (__DDResult)resultForURL:(id)l identifier:(id)identifier selectedText:(id)text results:(id)results context:(id)context extendedContext:(id *)extendedContext
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   lCopy = l;
   identifierCopy = identifier;
   textCopy = text;
   resultsCopy = results;
   contextCopy = context;
   v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(resultsCopy, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v18 = resultsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v42;
+    v21 = *v41;
     do
     {
       v22 = 0;
       do
       {
-        if (*v42 != v21)
+        if (*v41 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [v17 addObject:{objc_msgSend(*(*(&v41 + 1) + 8 * v22++), "coreResult", textCopy)}];
+        [v17 addObject:{objc_msgSend(*(*(&v40 + 1) + 8 * v22++), "coreResult", textCopy)}];
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v20);
@@ -2333,9 +2307,9 @@ LABEL_9:
 
   if (identifierCopy && [identifierCopy length])
   {
-    v40 = 0;
-    v23 = [(DDDetectionController *)self _resultForIdentifier:identifierCopy withResults:v17 context:&v40];
-    v24 = v40;
+    v39 = 0;
+    v23 = [(DDDetectionController *)self _resultForIdentifier:identifierCopy withResults:v17 context:&v39];
+    v24 = v39;
     v25 = contextCopy;
     if (v23)
     {
@@ -2363,9 +2337,9 @@ LABEL_9:
     goto LABEL_16;
   }
 
-  v39 = v24;
-  v23 = [(DDDetectionController *)self _resultForURL:lCopy withResults:v17 context:&v39];
-  v28 = v39;
+  v38 = v24;
+  v23 = [(DDDetectionController *)self _resultForURL:lCopy withResults:v17 context:&v38];
+  v28 = v38;
 
   v24 = v28;
 LABEL_15:
@@ -2416,7 +2390,6 @@ LABEL_20:
     v30 = textCopy;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -2724,27 +2697,27 @@ LABEL_10:
 
 - (id)_subResultAtIndex:(unint64_t)index ofResult:(id)result
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   subResults = [result subResults];
-  v6 = [subResults countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [subResults countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(subResults);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         range = [v10 range];
         if (index >= range && index - range < v12)
         {
@@ -2753,7 +2726,7 @@ LABEL_10:
         }
       }
 
-      v7 = [subResults countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [subResults countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -2761,8 +2734,6 @@ LABEL_10:
 
   v14 = 0;
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -3196,12 +3167,12 @@ uint64_t __78__DDDetectionController_TextKitBackEnd__interactionDidStartAtIndex_
 
 - (id)preferredTextAttributesForLinkAtCharacterIndex:(unint64_t)index ofStorage:(id)storage
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   storageCopy = storage;
-  v16 = 0;
-  if ([(DDDetectionController *)self shouldUseLightStyleAtIndex:index ofStorage:storageCopy moreHighlight:&v16])
+  v15 = 0;
+  if ([(DDDetectionController *)self shouldUseLightStyleAtIndex:index ofStorage:storageCopy moreHighlight:&v15])
   {
-    if (v16 == 1)
+    if (v15 == 1)
     {
       systemOrangeColor = [MEMORY[0x277D75348] systemOrangeColor];
     }
@@ -3226,19 +3197,17 @@ uint64_t __78__DDDetectionController_TextKitBackEnd__interactionDidStartAtIndex_
     }
 
     v13 = *MEMORY[0x277D741E8];
-    v17[0] = *MEMORY[0x277D741F0];
-    v17[1] = v13;
-    v18[0] = &unk_282C2BDE8;
-    v18[1] = systemOrangeColor;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[0] = *MEMORY[0x277D741F0];
+    v16[1] = v13;
+    v17[0] = &unk_282C2BDE8;
+    v17[1] = systemOrangeColor;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3278,69 +3247,47 @@ uint64_t __78__DDDetectionController_TextKitBackEnd__interactionDidStartAtIndex_
   [v4 handleFailureInMethod:a1 object:a2 file:@"DDDetectionController.m" lineNumber:208 description:@"DDOperation creation failed"];
 }
 
-void __74__DDDetectionController__startCoalescedURLification_clearPreviousResults___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)startURLificationForContainer:detectedTypes:options:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startURLificationForContainer:detectedTypes:options:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startURLificationForContainer:detectedTypes:options:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__DDDetectionController__enqueueOperation___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelURLificationForContainer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doURLification:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doURLification:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
@@ -3371,38 +3318,30 @@ void __43__DDDetectionController__enqueueOperation___block_invoke_cold_1(id *a1)
 
 - (void)_doURLification:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doURLification:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doURLification:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doURLification:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__DDDetectionController__doURLification___block_invoke_2_cold_1(uint8_t *buf, uint64_t a2, void *a3)
@@ -3421,51 +3360,39 @@ void __41__DDDetectionController__doURLification___block_invoke_2_cold_1(uint8_t
 
 - (void)_resultForIdentifier:forContainer:context:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resultForIdentifier:forContainer:context:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resultForIdentifier:forContainer:context:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resultForURL:(void *)a1 forContainer:context:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 scheme];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resultForURL:(void *)a1 forContainer:context:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 scheme];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -21,9 +21,9 @@
 
 - (void)queryData
 {
-  v35 = -3;
+  v31 = -3;
   outputStruct = 0;
-  if (IOConnectCallMethod(self->clpcConnect, 6u, 0, 0, 0, 0, 0, 0, &outputStruct, &v35))
+  if (IOConnectCallMethod(self->clpcConnect, 6u, 0, 0, 0, 0, 0, 0, &outputStruct, &v31))
   {
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
@@ -33,9 +33,9 @@
     return;
   }
 
-  if (v35 <= 0x6F)
+  if (v31 <= 0x6F)
   {
-    vm_deallocate(mach_task_self_, outputStruct, v35);
+    vm_deallocate(mach_task_self_, outputStruct, v31);
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
       sub_100051D4C();
@@ -45,7 +45,7 @@
   }
 
   v3 = outputStruct;
-  if (*(outputStruct + 8) == v35)
+  if (*(outputStruct + 8) == v31)
   {
     v4 = *(outputStruct + 24);
     v5 = mach_absolute_time();
@@ -55,16 +55,14 @@
     if (v4 >= *(v3 + 8))
     {
 LABEL_23:
-      if (v7 | v35)
+      if (v7 | v31)
       {
-        vm_deallocate(mach_task_self_, v7, v35);
+        vm_deallocate(mach_task_self_, v7, v31);
       }
 
       if (self->gpuChannels && self->gpuSubscription)
       {
         v27 = mach_absolute_time();
-        gpuSubscription = self->gpuSubscription;
-        gpuChannels = self->gpuChannels;
         Samples = IOReportCreateSamples();
         if (!Samples)
         {
@@ -76,12 +74,10 @@ LABEL_23:
           return;
         }
 
-        v31 = Samples;
-        lastGPUReading = self->lastGPUReading;
+        v29 = Samples;
         SamplesDelta = IOReportCreateSamplesDelta();
         CFRelease(self->lastGPUReading);
-        v34 = v27 - self->lastGPUReadingTimestamp;
-        self->lastGPUReading = v31;
+        self->lastGPUReading = v29;
         self->lastGPUReadingTimestamp = v27;
         IOReportIterate();
         if (SamplesDelta)
@@ -147,9 +143,9 @@ LABEL_23:
       {
         if (v11 != 13)
         {
-          if (v7 | v35)
+          if (v7 | v31)
           {
-            vm_deallocate(mach_task_self_, v7, v35);
+            vm_deallocate(mach_task_self_, v7, v31);
           }
 
           if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
@@ -183,7 +179,7 @@ LABEL_17:
     }
   }
 
-  vm_deallocate(mach_task_self_, outputStruct, v35);
+  vm_deallocate(mach_task_self_, outputStruct, v31);
   if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
   {
     sub_100051DE8();

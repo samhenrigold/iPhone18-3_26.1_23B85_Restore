@@ -6,6 +6,7 @@
 - (void)setDataSource:(id)source;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateUninstalledSources;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDUninstalledAppSourcesViewController
@@ -16,6 +17,14 @@
   v3.receiver = self;
   v3.super_class = WDUninstalledAppSourcesViewController;
   [(WDUninstalledAppSourcesViewController *)&v3 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WDUninstalledAppSourcesViewController;
+  [(WDUninstalledAppSourcesViewController *)&v4 viewWillAppear:appear];
+  [(WDUninstalledAppSourcesViewController *)self updateUninstalledSources];
 }
 
 - (void)setDataSource:(id)source
@@ -153,14 +162,12 @@ void __61__WDUninstalledAppSourcesViewController_uninistalledAppImage__block_inv
 
 - (void)tableView:(void *)a1 didSelectRowAtIndexPath:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 uninstalledSources];
-  v6 = 134217984;
-  v7 = [v4 count];
-  _os_log_fault_impl(&dword_251E85000, v3, OS_LOG_TYPE_FAULT, "The count of uninstalledSources in WDUninstalledAppSourcesViewController is unexpectedly %lu", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  v6 = [v4 count];
+  _os_log_fault_impl(&dword_251E85000, v3, OS_LOG_TYPE_FAULT, "The count of uninstalledSources in WDUninstalledAppSourcesViewController is unexpectedly %lu", &v5, 0xCu);
 }
 
 @end

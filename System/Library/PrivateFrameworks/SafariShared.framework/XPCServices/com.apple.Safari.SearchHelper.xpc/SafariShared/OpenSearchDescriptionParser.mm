@@ -55,7 +55,7 @@
 
 - (void)_startParsing
 {
-  v3 = sub_1000039F8();
+  v3 = sub_1000039F8(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     searchDescriptionURL = self->_searchDescriptionURL;
@@ -85,10 +85,10 @@
 - (void)_handleParsingError:(id)error
 {
   errorCopy = error;
-  v5 = sub_1000039F8();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = sub_1000039F8(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_100003AF0(v5, errorCopy);
+    sub_100003AF0(v6, errorCopy);
   }
 
   completionHandler = self->_completionHandler;
@@ -96,24 +96,24 @@
   {
     if (errorCopy)
     {
-      v10 = NSUnderlyingErrorKey;
-      v11 = errorCopy;
-      v7 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+      v11 = NSUnderlyingErrorKey;
+      v12 = errorCopy;
+      v8 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = [NSError errorWithDomain:@"OpenSearchDescriptionParserErrorDomain" code:1 userInfo:v7];
-    completionHandler[2](completionHandler, 0, v8);
+    v9 = [NSError errorWithDomain:@"OpenSearchDescriptionParserErrorDomain" code:1 userInfo:v8];
+    completionHandler[2](completionHandler, 0, v9);
 
     if (errorCopy)
     {
     }
 
-    v9 = self->_completionHandler;
+    v10 = self->_completionHandler;
     self->_completionHandler = 0;
   }
 }
@@ -121,21 +121,21 @@
 - (void)_handleNetworkError:(id)error
 {
   errorCopy = error;
-  v5 = sub_1000039F8();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = sub_1000039F8(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_100003B98(self, v5, errorCopy);
+    sub_100003B98(self, v6, errorCopy);
   }
 
   if (self->_completionHandler)
   {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10000168C;
-    v6[3] = &unk_1000083C0;
-    v6[4] = self;
-    v7 = errorCopy;
-    dispatch_async(&_dispatch_main_q, v6);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10000168C;
+    v7[3] = &unk_1000083C0;
+    v7[4] = self;
+    v8 = errorCopy;
+    dispatch_async(&_dispatch_main_q, v7);
   }
 }
 

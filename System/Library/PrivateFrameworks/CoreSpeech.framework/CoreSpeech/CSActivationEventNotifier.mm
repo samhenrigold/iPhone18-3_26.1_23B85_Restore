@@ -21,7 +21,7 @@
 
 - (id)_getHandlerFromHandlerID:(unint64_t)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerMap = self->_handlerMap;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:d];
   v5 = [(NSDictionary *)handlerMap objectForKey:v4];
@@ -38,9 +38,9 @@
     v7 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[CSActivationEventNotifier _getHandlerFromHandlerID:]";
-      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Using default activation client", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[CSActivationEventNotifier _getHandlerFromHandlerID:]";
+      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Using default activation client", &v10, 0xCu);
     }
 
     [v5 connect];
@@ -49,16 +49,14 @@
       v8 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315138;
-        v12 = "[CSActivationEventNotifier _getHandlerFromHandlerID:]";
-        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s activation client not exist", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[CSActivationEventNotifier _getHandlerFromHandlerID:]";
+        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s activation client not exist", &v10, 0xCu);
       }
 
       v5 = 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -82,20 +80,20 @@
 
 void __86__CSActivationEventNotifier_notifyActivationEvent_deviceId_activationInfo_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
     v6 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v9 = v6;
-      v10 = [v5 localizedDescription];
-      v11 = 136315394;
-      v12 = "[CSActivationEventNotifier notifyActivationEvent:deviceId:activationInfo:completion:]_block_invoke";
-      v13 = 2114;
-      v14 = v10;
-      _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s Cannot handle activation event : %{public}@", &v11, 0x16u);
+      v8 = v6;
+      v9 = [v5 localizedDescription];
+      v10 = 136315394;
+      v11 = "[CSActivationEventNotifier notifyActivationEvent:deviceId:activationInfo:completion:]_block_invoke";
+      v12 = 2114;
+      v13 = v9;
+      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Cannot handle activation event : %{public}@", &v10, 0x16u);
     }
   }
 
@@ -104,8 +102,6 @@ void __86__CSActivationEventNotifier_notifyActivationEvent_deviceId_activationIn
   {
     (*(v7 + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDeviceActivationEvent:(id)event completion:(id)completion
@@ -127,23 +123,21 @@ void __86__CSActivationEventNotifier_notifyActivationEvent_deviceId_activationIn
 
 uint64_t __68__CSActivationEventNotifier_notifyDeviceActivationEvent_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 localizedDescription];
-    v8 = 136315394;
-    v9 = "[CSActivationEventNotifier notifyDeviceActivationEvent:completion:]_block_invoke";
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSActivationEventNotifier notifyDeviceActivationEvent:completion:]_block_invoke";
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 40) _notifyActivationEvent:*(a1 + 32) completion:*(a1 + 48)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _notifyActivationEvent:*(a1 + 32) completion:*(a1 + 48)];
 }
 
 - (void)notifyActivationEvent:(id)event completion:(id)completion
@@ -165,30 +159,28 @@ uint64_t __68__CSActivationEventNotifier_notifyDeviceActivationEvent_completion_
 
 void __62__CSActivationEventNotifier_notifyActivationEvent_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 localizedDescription];
-    v9 = 136315394;
-    v10 = "[CSActivationEventNotifier notifyActivationEvent:completion:]_block_invoke";
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSActivationEventNotifier notifyActivationEvent:completion:]_block_invoke";
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v8, 0x16u);
   }
 
   v6 = *(a1 + 40);
   v7 = [*(a1 + 32) deviceActivationEvent];
   [v6 _notifyActivationEvent:v7 completion:*(a1 + 48)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyActivationEventSynchronously:(id)synchronously completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   synchronouslyCopy = synchronously;
   completionCopy = completion;
   v8 = *MEMORY[0x277D015D8];
@@ -196,17 +188,15 @@ void __62__CSActivationEventNotifier_notifyActivationEvent_completion___block_in
   {
     v9 = v8;
     localizedDescription = [synchronouslyCopy localizedDescription];
-    v13 = 136315394;
-    v14 = "[CSActivationEventNotifier notifyActivationEventSynchronously:completion:]";
-    v15 = 2114;
-    v16 = localizedDescription;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[CSActivationEventNotifier notifyActivationEventSynchronously:completion:]";
+    v14 = 2114;
+    v15 = localizedDescription;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event : %{public}@", &v12, 0x16u);
   }
 
   deviceActivationEvent = [synchronouslyCopy deviceActivationEvent];
   [(CSActivationEventNotifier *)self _notifyActivationEvent:deviceActivationEvent completion:completionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyActivationEvent:(id)event completion:(id)completion

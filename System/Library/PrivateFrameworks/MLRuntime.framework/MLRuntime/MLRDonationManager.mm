@@ -47,7 +47,7 @@ uint64_t __36__MLRDonationManager_defaultManager__block_invoke()
 
 - (void)encodeAndUploadToDediscoWithIdentifier:(id)identifier measurements:(id)measurements withEncodingSchemas:(id)schemas metadata:(id)metadata completion:(id)completion
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   measurementsCopy = measurements;
   schemasCopy = schemas;
@@ -63,11 +63,11 @@ uint64_t __36__MLRDonationManager_defaultManager__block_invoke()
 
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277D05640];
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = @"identifier must not be nil.";
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = @"identifier must not be nil.";
     v21 = MEMORY[0x277CBEAC0];
-    v22 = v40;
-    v23 = &v39;
+    v22 = v39;
+    v23 = &v38;
     goto LABEL_14;
   }
 
@@ -81,11 +81,11 @@ uint64_t __36__MLRDonationManager_defaultManager__block_invoke()
 
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277D05640];
-    v37 = *MEMORY[0x277CCA450];
-    v38 = @"measurements must be not be nil.";
+    v36 = *MEMORY[0x277CCA450];
+    v37 = @"measurements must be not be nil.";
     v21 = MEMORY[0x277CBEAC0];
-    v22 = &v38;
-    v23 = &v37;
+    v22 = &v37;
+    v23 = &v36;
     goto LABEL_14;
   }
 
@@ -99,11 +99,11 @@ uint64_t __36__MLRDonationManager_defaultManager__block_invoke()
 
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277D05640];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = @"encodingSchemas must be not be nil.";
+    v34 = *MEMORY[0x277CCA450];
+    v35 = @"encodingSchemas must be not be nil.";
     v21 = MEMORY[0x277CBEAC0];
-    v22 = &v36;
-    v23 = &v35;
+    v22 = &v35;
+    v23 = &v34;
 LABEL_14:
     v26 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:1];
     v27 = [v19 errorWithDomain:v20 code:1400 userInfo:v26];
@@ -118,29 +118,28 @@ LABEL_14:
   block[2] = __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measurements_withEncodingSchemas_metadata_completion___block_invoke;
   block[3] = &unk_279840A48;
   block[4] = self;
-  v30 = identifierCopy;
-  v31 = measurementsCopy;
-  v32 = schemasCopy;
-  v33 = metadataCopy;
-  v34 = completionCopy;
+  v29 = identifierCopy;
+  v30 = measurementsCopy;
+  v31 = schemasCopy;
+  v32 = metadataCopy;
+  v33 = completionCopy;
   dispatch_async(queue, block);
 
 LABEL_15:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measurements_withEncodingSchemas_metadata_completion___block_invoke(void *a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
-  v12[0] = a1[6];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = a1[6];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v5 = a1[7];
   v6 = a1[8];
-  v11 = 0;
-  v7 = [v2 record:v3 data:v4 encodingSchema:v5 metadata:v6 errorOut:&v11];
-  v8 = v11;
+  v10 = 0;
+  v7 = [v2 record:v3 data:v4 encodingSchema:v5 metadata:v6 errorOut:&v10];
+  v8 = v10;
 
   if (v8 || (v7 & 1) == 0)
   {
@@ -152,13 +151,11 @@ void __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measuremen
   }
 
   (*(a1[9] + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)record:(id)record data:(id)data encodingSchema:(id)schema metadata:(id)metadata errorOut:(id *)out
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dataCopy = data;
   schemaCopy = schema;
@@ -167,13 +164,13 @@ void __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measuremen
   if (os_log_type_enabled(coreChannel, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v31 = recordCopy;
-    v32 = 2112;
-    v33 = dataCopy;
-    v34 = 2112;
-    v35 = schemaCopy;
-    v36 = 2112;
-    v37 = metadataCopy;
+    v30 = recordCopy;
+    v31 = 2112;
+    v32 = dataCopy;
+    v33 = 2112;
+    v34 = schemaCopy;
+    v35 = 2112;
+    v36 = metadataCopy;
     _os_log_debug_impl(&dword_2577CB000, coreChannel, OS_LOG_TYPE_DEBUG, "Recording key=%@, data=%@, encodingSchema=%@, metadata=%@", buf, 0x2Au);
   }
 
@@ -197,31 +194,14 @@ void __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measuremen
 
     v24 = MEMORY[0x277CCA9B8];
     v25 = *MEMORY[0x277D05640];
-    v28 = *MEMORY[0x277CCA450];
-    v29 = @"The encodingSchema type has to be either decimal or fedstats.";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA450];
+    v28 = @"The encodingSchema type has to be either decimal or fedstats.";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     [v24 errorWithDomain:v25 code:1400 userInfo:v20];
     *out = v22 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
-}
-
-void __114__MLRDonationManager_encodeAndUploadToDediscoWithIdentifier_measurements_withEncodingSchemas_metadata_completion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)record:data:encodingSchema:metadata:errorOut:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

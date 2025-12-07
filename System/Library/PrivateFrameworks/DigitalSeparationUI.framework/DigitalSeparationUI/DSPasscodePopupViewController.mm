@@ -16,6 +16,7 @@
 - (void)_transitionToPasscodePaneWithState:(int64_t)state animationType:(unint64_t)type;
 - (void)acceptWeakPasscode:(BOOL)passcode;
 - (void)configurePasscodeOptionsSheet;
+- (void)configurePasscodeTypeUsingAnimations:(BOOL)animations;
 - (void)handleCurrentPasscodeEntry:(id)entry;
 - (void)handleNewPasscodeEntry:(id)entry;
 - (void)handlePasscodeConfirmationEntry:(id)entry;
@@ -224,6 +225,30 @@ LABEL_13:
   [(DSPasscodePopupViewController *)self _transitionToPasscodePaneWithState:passcodeState animationType:0];
 }
 
+- (void)configurePasscodeTypeUsingAnimations:(BOOL)animations
+{
+  animationsCopy = animations;
+  if ([(DSPasscodePopupViewController *)self usesSimplePasscodeEntry])
+  {
+    navigationItem = [(DSPasscodePopupViewController *)self navigationItem];
+    v5 = objc_alloc(MEMORY[0x277D751E0]);
+    navigationItem2 = DSUILocStringForKey(@"QUICK_EXIT");
+    delegate = [(DSPasscodePopupViewController *)self delegate];
+    v8 = [v5 initWithTitle:navigationItem2 style:0 target:delegate action:sel_quickExit];
+    [navigationItem setRightBarButtonItem:v8];
+  }
+
+  else
+  {
+    v9 = objc_alloc(MEMORY[0x277D751E0]);
+    v10 = DSUILocStringForKey(@"NEXT");
+    navigationItem = [v9 initWithTitle:v10 style:2 target:self action:sel_nextButtonTapped];
+
+    navigationItem2 = [(DSPasscodePopupViewController *)self navigationItem];
+    [navigationItem2 setRightBarButtonItem:navigationItem animated:animationsCopy];
+  }
+}
+
 - (void)_animatePasscodeViewTransition
 {
   passcodeInputView = [(DSPasscodePopupViewController *)self passcodeInputView];
@@ -409,9 +434,9 @@ void __56__DSPasscodePopupViewController_handleNewPasscodeEntry___block_invoke(u
   }
 
   v4 = [MEMORY[0x277D262A0] sharedConnection];
-  v10 = 0;
-  v5 = [v4 passcodeContext:v3 meetsCurrentConstraintsOutError:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [v4 passcodeContext:v3 meetsCurrentConstraintsOutError:&v9];
+  v6 = v9;
 
   if (!v5)
   {
@@ -423,17 +448,16 @@ LABEL_6:
   [*(a1 + 40) setPasscodeNew:*(a1 + 32)];
   [*(a1 + 40) setPasscodeContextNew:v3];
   [*(a1 + 40) usesSimplePasscodeEntry];
-  v7 = *(a1 + 32);
   IsPasswordWeak2 = SecPasswordIsPasswordWeak2();
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   if (IsPasswordWeak2)
   {
-    [v9 _showWeakWarningAlert];
+    [v8 _showWeakWarningAlert];
   }
 
   else
   {
-    [v9 _transitionToPasscodePaneWithState:2 animationType:3];
+    [v8 _transitionToPasscodePaneWithState:2 animationType:3];
   }
 
 LABEL_7:
@@ -441,7 +465,7 @@ LABEL_7:
 
 - (void)handlePasscodeDoesNotMeetConstraints:(id)constraints
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   constraintsCopy = constraints;
   passcodeView = [(DSPasscodePopupViewController *)self passcodeView];
   passcodeInputView = [passcodeView passcodeInputView];
@@ -457,9 +481,9 @@ LABEL_7:
     {
       v11 = v10;
       v12 = [constraintsCopy description];
-      v20 = 138543362;
-      v21 = v12;
-      _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Passcode did not meet constraint: %{public}@", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v12;
+      _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Passcode did not meet constraint: %{public}@", &v19, 0xCu);
 
 LABEL_7:
     }
@@ -478,15 +502,13 @@ LABEL_7:
       v11 = v15;
       sharedConnection = [v16 sharedConnection];
       localizedDescriptionOfCurrentPasscodeConstraints2 = [sharedConnection localizedDescriptionOfCurrentPasscodeConstraints];
-      v20 = 138543362;
-      v21 = localizedDescriptionOfCurrentPasscodeConstraints2;
-      _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Passcode did not meet constraints. Constraints are: %{public}@", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = localizedDescriptionOfCurrentPasscodeConstraints2;
+      _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Passcode did not meet constraints. Constraints are: %{public}@", &v19, 0xCu);
 
       goto LABEL_7;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePasscodeConfirmationEntry:(id)entry
@@ -641,7 +663,7 @@ void __47__DSPasscodePopupViewController__applyPasscode__block_invoke_2(uint64_t
   {
     if (*(a1 + 40) && os_log_type_enabled(DSLog_2, OS_LOG_TYPE_ERROR))
     {
-      __47__DSPasscodePopupViewController__applyPasscode__block_invoke_2_cold_1((a1 + 40));
+      __47__DSPasscodePopupViewController__applyPasscode__block_invoke_2_cold_1();
     }
 
     [*(a1 + 48) stopAnimating];
@@ -676,7 +698,7 @@ void __47__DSPasscodePopupViewController__applyPasscode__block_invoke_392(uint64
   v3 = a2;
   if (v3 && os_log_type_enabled(DSLog_2, OS_LOG_TYPE_ERROR))
   {
-    __47__DSPasscodePopupViewController__applyPasscode__block_invoke_392_cold_1(a1);
+    __47__DSPasscodePopupViewController__applyPasscode__block_invoke_392_cold_1();
   }
 
   v6[0] = MEMORY[0x277D85DD0];
@@ -1004,48 +1026,6 @@ void __67__DSPasscodePopupViewController_makeContextForPasscode_completion___blo
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __47__DSPasscodePopupViewController__applyPasscode__block_invoke_2_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__DSPasscodePopupViewController__applyPasscode__block_invoke_391_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __47__DSPasscodePopupViewController__applyPasscode__block_invoke_392_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeContextForPasscode:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeContextForPasscode:completion:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

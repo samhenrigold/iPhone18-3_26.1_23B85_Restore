@@ -9,7 +9,7 @@
 
 - (void)handleMessage:(id)message
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (handleMessage__onceToken != -1)
   {
@@ -35,12 +35,12 @@
       block[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_2;
       block[3] = &unk_1E82F8E68;
       block[4] = self;
-      v82 = v11;
+      v81 = v11;
       v13 = v11;
       v14 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, block);
       dispatch_async(queue, v14);
 
-      v15 = v82;
+      v15 = v81;
 LABEL_8:
 
       goto LABEL_9;
@@ -53,170 +53,170 @@ LABEL_8:
     {
       v18 = [messageCopy rootObjectOfClasses:handleMessage__allowedLocalSuggestions];
       v19 = self->_queue;
-      v79[0] = MEMORY[0x1E69E9820];
-      v79[1] = 3221225472;
-      v79[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_3;
-      v79[3] = &unk_1E82F8E68;
-      v79[4] = self;
-      v80 = v18;
+      v78[0] = MEMORY[0x1E69E9820];
+      v78[1] = 3221225472;
+      v78[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_3;
+      v78[3] = &unk_1E82F8E68;
+      v78[4] = self;
+      v79 = v18;
       v13 = v18;
-      v20 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, v79);
+      v20 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, v78);
       dispatch_async(v19, v20);
 
-      v15 = v80;
+      v15 = v79;
       goto LABEL_8;
     }
 
     name3 = [messageCopy name];
-    v23 = [name3 isEqualToString:@"DebugRanking"];
+    v22 = [name3 isEqualToString:@"DebugRanking"];
 
-    if (v23)
+    if (v22)
     {
       info2 = [messageCopy info];
-      v25 = [info2 objectForKeyedSubscript:@"RD"];
-      v26 = self->_queue;
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_32;
-      v77[3] = &unk_1E82F8E68;
-      v77[4] = self;
-      v78 = v25;
-      v27 = v25;
-      dispatch_async(v26, v77);
+      v24 = [info2 objectForKeyedSubscript:@"RD"];
+      v25 = self->_queue;
+      v76[0] = MEMORY[0x1E69E9820];
+      v76[1] = 3221225472;
+      v76[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_32;
+      v76[3] = &unk_1E82F8E68;
+      v76[4] = self;
+      v77 = v24;
+      v26 = v24;
+      dispatch_async(v25, v76);
     }
 
     else
     {
       name4 = [messageCopy name];
-      v29 = [name4 isEqualToString:@"SearchResults"];
+      v28 = [name4 isEqualToString:@"SearchResults"];
 
-      if (v29)
+      if (v28)
       {
         selfCopy = self;
         info3 = [messageCopy info];
-        v30 = [info3 objectForKeyedSubscript:@"TBC"];
-        intValue = [v30 intValue];
-        v32 = intValue;
+        v29 = [info3 objectForKeyedSubscript:@"TBC"];
+        intValue = [v29 intValue];
+        v31 = intValue;
 
-        v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:intValue];
-        v34 = MEMORY[0x1E695E738];
+        v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:intValue];
+        v33 = MEMORY[0x1E695E738];
         if (intValue)
         {
-          v35 = *MEMORY[0x1E695E738];
-          v36 = v32;
+          v34 = *MEMORY[0x1E695E738];
+          v35 = v31;
           do
           {
-            [v33 addObject:v35];
-            --v36;
+            [v32 addObject:v34];
+            --v35;
           }
 
-          while (v36);
+          while (v35);
         }
 
-        v74[0] = MEMORY[0x1E69E9820];
-        v74[1] = 3221225472;
-        v74[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_2_40;
-        v74[3] = &unk_1E82F9170;
-        v75 = messageCopy;
-        v37 = v33;
-        v76 = v37;
-        dispatch_apply(v32, 0, v74);
-        v38 = objc_opt_new();
+        v73[0] = MEMORY[0x1E69E9820];
+        v73[1] = 3221225472;
+        v73[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_2_40;
+        v73[3] = &unk_1E82F9170;
+        v74 = messageCopy;
+        v36 = v32;
+        v75 = v36;
+        dispatch_apply(v31, 0, v73);
+        v37 = objc_opt_new();
+        v69 = 0u;
         v70 = 0u;
         v71 = 0u;
         v72 = 0u;
-        v73 = 0u;
-        v39 = v37;
-        v40 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
-        if (v40)
+        v38 = v36;
+        v39 = [v38 countByEnumeratingWithState:&v69 objects:v82 count:16];
+        if (v39)
         {
-          v41 = v40;
-          v42 = 0;
-          v43 = *v71;
-          v44 = *v34;
+          v40 = v39;
+          v41 = 0;
+          v42 = *v70;
+          v43 = *v33;
           do
           {
-            for (i = 0; i != v41; ++i)
+            for (i = 0; i != v40; ++i)
             {
-              if (*v71 != v43)
+              if (*v70 != v42)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v38);
               }
 
-              v46 = *(*(&v70 + 1) + 8 * i);
-              if (v46 != v44)
+              v45 = *(*(&v69 + 1) + 8 * i);
+              if (v45 != v43)
               {
-                resultSections = [*(*(&v70 + 1) + 8 * i) resultSections];
-                [v38 addObjectsFromArray:resultSections];
+                resultSections = [*(*(&v69 + 1) + 8 * i) resultSections];
+                [v37 addObjectsFromArray:resultSections];
 
-                stableSections = [v46 stableSections];
+                stableSections = [v45 stableSections];
 
                 if (stableSections)
                 {
-                  stableSections2 = [v46 stableSections];
+                  stableSections2 = [v45 stableSections];
 
-                  v42 = stableSections2;
+                  v41 = stableSections2;
                 }
               }
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
+            v40 = [v38 countByEnumeratingWithState:&v69 objects:v82 count:16];
           }
 
-          while (v41);
+          while (v40);
         }
 
         else
         {
-          v42 = 0;
+          v41 = 0;
         }
 
-        v56 = [[SPResultSet alloc] initWithSections:v38 stableSections:v42];
-        v57 = selfCopy->_queue;
-        v67[0] = MEMORY[0x1E69E9820];
-        v67[1] = 3221225472;
-        v67[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_3_42;
-        v67[3] = &unk_1E82F9018;
-        v67[4] = selfCopy;
-        v68 = info3;
-        v69 = v56;
-        v58 = v56;
-        v59 = info3;
-        v60 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, v67);
-        dispatch_async(v57, v60);
+        v55 = [[SPResultSet alloc] initWithSections:v37 stableSections:v41];
+        v56 = selfCopy->_queue;
+        v66[0] = MEMORY[0x1E69E9820];
+        v66[1] = 3221225472;
+        v66[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_3_42;
+        v66[3] = &unk_1E82F9018;
+        v66[4] = selfCopy;
+        v67 = info3;
+        v68 = v55;
+        v57 = v55;
+        v58 = info3;
+        v59 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, v66);
+        dispatch_async(v56, v59);
       }
 
       else
       {
         name5 = [messageCopy name];
-        v51 = [name5 isEqualToString:@"SearchReset"];
+        v50 = [name5 isEqualToString:@"SearchReset"];
 
-        if (v51)
+        if (v50)
         {
-          v52 = self->_queue;
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_4;
-          v66[3] = &unk_1E82F8F28;
-          v66[4] = self;
-          dispatch_async(v52, v66);
+          v51 = self->_queue;
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 3221225472;
+          v65[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_4;
+          v65[3] = &unk_1E82F8F28;
+          v65[4] = self;
+          dispatch_async(v51, v65);
         }
 
         else
         {
           name6 = [messageCopy name];
-          v54 = [name6 isEqualToString:@"SearchError"];
+          v53 = [name6 isEqualToString:@"SearchError"];
 
-          if (v54)
+          if (v53)
           {
-            v55 = self->_queue;
-            v63[0] = MEMORY[0x1E69E9820];
-            v63[1] = 3221225472;
-            v63[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_5;
-            v63[3] = &unk_1E82F8E68;
-            v64 = messageCopy;
+            v54 = self->_queue;
+            v62[0] = MEMORY[0x1E69E9820];
+            v62[1] = 3221225472;
+            v62[2] = __36__SPDaemonQueryToken_handleMessage___block_invoke_5;
+            v62[3] = &unk_1E82F8E68;
+            v63 = messageCopy;
             selfCopy2 = self;
-            dispatch_async(v55, v63);
+            dispatch_async(v54, v62);
           }
         }
       }
@@ -224,8 +224,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__SPDaemonQueryToken_handleMessage___block_invoke()
@@ -258,9 +256,9 @@ void __36__SPDaemonQueryToken_handleMessage___block_invoke_2(uint64_t a1)
 
 void __36__SPDaemonQueryToken_handleMessage___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
-  v3 = SPLogForSPLogCategoryDefault();
+  v3 = SPLogForSPLogCategoryDefault(v2);
   v4 = v3;
   if (gSPLogDebugAsDefault)
   {
@@ -275,17 +273,15 @@ void __36__SPDaemonQueryToken_handleMessage___block_invoke_3(uint64_t a1)
   if (os_log_type_enabled(v3, v5))
   {
     v6 = *(a1 + 40);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1C81BF000, v4, v5, "Local suggestions: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1C81BF000, v4, v5, "Local suggestions: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 searchDaemonLocalSuggestionsData:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __36__SPDaemonQueryToken_handleMessage___block_invoke_32(uint64_t a1)
@@ -310,7 +306,7 @@ uint64_t __36__SPDaemonQueryToken_handleMessage___block_invoke_2_40(uint64_t a1,
 
 void __36__SPDaemonQueryToken_handleMessage___block_invoke_3_42(uint64_t a1)
 {
-  v31 = [*(a1 + 32) delegate];
+  v30 = [*(a1 + 32) delegate];
   if (objc_opt_respondsToSelector())
   {
     v2 = [*(a1 + 40) objectForKeyedSubscript:@"QDC"];
@@ -321,41 +317,40 @@ void __36__SPDaemonQueryToken_handleMessage___block_invoke_3_42(uint64_t a1)
       *(*(a1 + 32) + 33) = 1;
     }
 
-    v4 = *(a1 + 32);
-    v26 = v4;
-    v27 = *(a1 + 48);
-    v30 = [*(a1 + 40) objectForKeyedSubscript:@"QDR"];
-    v24 = [v30 BOOLValue];
-    v29 = [*(a1 + 40) objectForKeyedSubscript:@"QDP"];
+    v25 = *(a1 + 32);
+    v26 = *(a1 + 48);
+    v29 = [*(a1 + 40) objectForKeyedSubscript:@"QDR"];
     v23 = [v29 BOOLValue];
-    v28 = [*(a1 + 40) objectForKeyedSubscript:@"QFP"];
-    v21 = [v28 BOOLValue];
-    v25 = [*(a1 + 40) objectForKeyedSubscript:@"QDU"];
-    v20 = [v25 BOOLValue];
-    v22 = [*(a1 + 40) objectForKeyedSubscript:@"QDC"];
-    v19 = [v22 BOOLValue];
-    v5 = [*(a1 + 40) objectForKeyedSubscript:@"DTH"];
-    v18 = [v5 BOOLValue];
-    v6 = [*(a1 + 40) objectForKeyedSubscript:@"QNC"];
-    v7 = [v6 BOOLValue];
-    v8 = [*(a1 + 40) objectForKeyedSubscript:@"QFS"];
-    v9 = [v8 BOOLValue];
-    v10 = [*(a1 + 40) objectForKeyedSubscript:@"BT"];
-    [v10 doubleValue];
-    v12 = v11;
-    v13 = [*(a1 + 40) objectForKeyedSubscript:@"GES"];
-    v14 = [*(a1 + 40) objectForKeyedSubscript:@"SAS"];
-    v15 = [*(a1 + 40) objectForKeyedSubscript:@"SMIA"];
-    BYTE3(v17) = v9;
-    BYTE2(v17) = v7;
-    BYTE1(v17) = v18;
-    LOBYTE(v17) = v19;
-    [v31 searchDaemonQuery:v26 gotResultSet:v27 replace:v24 partiallyComplete:v23 priorityFastPath:v21 update:v20 complete:v12 delayedTopHit:v17 unchanged:v13 forceStable:v14 blendingDuration:v15 geoEntityString:? supportedAppScopes:? showMoreInAppInfo:?];
+    v28 = [*(a1 + 40) objectForKeyedSubscript:@"QDP"];
+    v22 = [v28 BOOLValue];
+    v27 = [*(a1 + 40) objectForKeyedSubscript:@"QFP"];
+    v20 = [v27 BOOLValue];
+    v24 = [*(a1 + 40) objectForKeyedSubscript:@"QDU"];
+    v19 = [v24 BOOLValue];
+    v21 = [*(a1 + 40) objectForKeyedSubscript:@"QDC"];
+    v18 = [v21 BOOLValue];
+    v4 = [*(a1 + 40) objectForKeyedSubscript:@"DTH"];
+    v17 = [v4 BOOLValue];
+    v5 = [*(a1 + 40) objectForKeyedSubscript:@"QNC"];
+    v6 = [v5 BOOLValue];
+    v7 = [*(a1 + 40) objectForKeyedSubscript:@"QFS"];
+    v8 = [v7 BOOLValue];
+    v9 = [*(a1 + 40) objectForKeyedSubscript:@"BT"];
+    [v9 doubleValue];
+    v11 = v10;
+    v12 = [*(a1 + 40) objectForKeyedSubscript:@"GES"];
+    v13 = [*(a1 + 40) objectForKeyedSubscript:@"SAS"];
+    v14 = [*(a1 + 40) objectForKeyedSubscript:@"SMIA"];
+    BYTE3(v16) = v8;
+    BYTE2(v16) = v6;
+    BYTE1(v16) = v17;
+    LOBYTE(v16) = v18;
+    [v30 searchDaemonQuery:v25 gotResultSet:v26 replace:v23 partiallyComplete:v22 priorityFastPath:v20 update:v19 complete:v11 delayedTopHit:v16 unchanged:v12 forceStable:v13 blendingDuration:v14 geoEntityString:? supportedAppScopes:? showMoreInAppInfo:?];
 
-    v16 = [*(a1 + 40) objectForKeyedSubscript:@"QDC"];
-    LODWORD(v15) = [v16 BOOLValue];
+    v15 = [*(a1 + 40) objectForKeyedSubscript:@"QDC"];
+    LODWORD(v14) = [v15 BOOLValue];
 
-    if (v15)
+    if (v14)
     {
       [*(a1 + 32) setQueryFinished:1];
     }

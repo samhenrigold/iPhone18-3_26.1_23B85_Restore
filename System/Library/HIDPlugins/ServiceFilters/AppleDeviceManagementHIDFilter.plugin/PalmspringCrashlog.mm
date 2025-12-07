@@ -198,7 +198,7 @@ LABEL_18:
     v16 = [objc_opt_class() log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_5AE0(directoryCopy, error);
+      sub_5AE0();
     }
 
     LOBYTE(v21) = 0;

@@ -10,6 +10,7 @@
 - (void)_updateState;
 - (void)buttonTapped:(id)tapped forEvent:(id)event;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SBContinuousExposeModuleViewController
@@ -68,6 +69,14 @@
 
   [v8 setContextMenuDelegate:self];
   [(SBContinuousExposeModuleViewController *)self _updateContinuousExposeMenuItems];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SBContinuousExposeModuleViewController;
+  [(SBContinuousExposeModuleViewController *)&v4 viewWillAppear:appear];
+  [(SBContinuousExposeModuleViewController *)self _updateState];
 }
 
 - (void)buttonTapped:(id)tapped forEvent:(id)event

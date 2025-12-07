@@ -220,15 +220,14 @@ uint64_t sub_100000C28(dispatch_once_t *context, uint64_t a2)
   }
 
   v6 = a2 - 16;
-  v7 = context[3];
   Instance = _CFRuntimeCreateInstance();
-  v9 = Instance;
+  v8 = Instance;
   if (Instance)
   {
     bzero((Instance + 16), v6);
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t sub_100000CA4(void *a1)
@@ -328,7 +327,7 @@ void sub_100000ED4(id a1)
   }
 }
 
-uint64_t sub_100000F80()
+BOOL sub_100000F80()
 {
   v34 = 0u;
   v35 = 0u;
@@ -555,7 +554,6 @@ uint64_t sub_1000015B4(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, ui
 LABEL_5:
     if (*(v11 + 16) >= 5)
     {
-      v14 = *(a1 + 24);
       sub_1000008C4(5u, v11, "RPSocket.cpp", 312, "set_client", 0, @"RPSocket %p: setting client. old: %p. new: %p", a8, a1);
     }
   }
@@ -1110,13 +1108,12 @@ LABEL_43:
 
 void sub_1000023D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = a1[29];
-  if (*v9 || v9[1])
+  if (*a1[29] != 0)
   {
-    v10 = a1[5];
-    if (v10)
+    v9 = a1[5];
+    if (v9)
     {
-      goto LABEL_7;
+      goto LABEL_6;
     }
 
     if (qword_1000101A0 != -1)
@@ -1124,22 +1121,19 @@ void sub_1000023D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
       dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
     }
 
-    v10 = qword_1000101A8;
+    v9 = qword_1000101A8;
     if (qword_1000101A8)
     {
-LABEL_7:
-      if (*(v10 + 16) >= 5)
+LABEL_6:
+      if (*(v9 + 16) >= 5)
       {
-        v11 = a1[29];
-        v13 = *v11;
-        v14 = v11[1];
-        sub_1000008C4(5u, v10, "RPSocket.cpp", 258, "reset_stats", 0, @"Reset stats for %@ after reading %lld bytes and writing %lld bytes\n", a8, a1[1]);
+        sub_1000008C4(5u, v9, "RPSocket.cpp", 258, "reset_stats", 0, @"Reset stats for %@ after reading %lld bytes and writing %lld bytes\n", a8, a1[1]);
       }
     }
 
-    v12 = a1[29];
-    *v12 = 0;
-    v12[1] = 0;
+    v10 = a1[29];
+    *v10 = 0;
+    v10[1] = 0;
   }
 }
 
@@ -1575,7 +1569,6 @@ LABEL_3:
 LABEL_5:
   if (qword_1000101A8 && *(qword_1000101A8 + 16) >= 5)
   {
-    v8 = *(a1 + 8);
     sub_1000008C4(5u, qword_1000101A8, "RPSocket.cpp", 165, "RPSocket", 0, @"Creating RPSocket: %p (_sockRef: %p)", v5, a1);
   }
 
@@ -1595,38 +1588,37 @@ LABEL_19:
     return result;
   }
 
-  sa_len = a2->sa_len;
   if (sa_family == 30)
   {
-    v7 = 28;
+    v6 = 28;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   if (sa_family == 2)
   {
-    v8 = 16;
+    v7 = 16;
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
   }
 
   if (a2->sa_len)
   {
-    v9 = a2->sa_len;
+    sa_len = a2->sa_len;
   }
 
   else
   {
-    v9 = v8;
+    sa_len = v7;
   }
 
-  result = getnameinfo(a2, v9, v11, 0x401u, v10, 0x20u, 10);
+  result = getnameinfo(a2, sa_len, v10, 0x401u, v9, 0x20u, 10);
   if (result)
   {
     if (a2->sa_family == 1 && a2->sa_len != 2)
@@ -1639,9 +1631,9 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (!v10[0] || *v10 == 48)
+  if (!v9[0] || *v9 == 48)
   {
-    v10[0] = 0;
+    v9[0] = 0;
   }
 
   return snprintf(v3, 0x401uLL, "%s%s%s%s%s");
@@ -1667,7 +1659,6 @@ uint64_t sub_1000032F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 LABEL_5:
     if (*(v9 + 16) >= 5)
     {
-      v18 = *(a1 + 8);
       sub_1000008C4(5u, v9, "RPSocket.cpp", 128, "~RPSocket", 0, @"Releasing RPSocket: %p (_sockRef: %p)", a8, a1);
     }
   }
@@ -1797,8 +1788,6 @@ void sub_1000036BC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 LABEL_5:
     if (*(v9 + 16) >= 5)
     {
-      v16 = a1[4];
-      v17 = a1[2];
       sub_1000008C4(5u, v9, "RPSocket.cpp", 228, "invoke", 0, @"RPSocket %p (ref: %p): got signal with event %d and current _cb: %p", a8, *(a1[3] + 16));
     }
   }
@@ -1832,7 +1821,6 @@ LABEL_5:
 LABEL_15:
       if (*(v14 + 16) >= 3)
       {
-        v15 = *(a1[3] + 16);
         sub_1000008C4(3u, v14, "RPSocket.cpp", 232, "invoke", 0, @"No client callback, missing event %d for socket %p", a8, a1[4]);
       }
     }
@@ -2113,14 +2101,15 @@ uint64_t sub_100003FBC(uint64_t a1, unint64_t a2)
   if (!a2)
   {
 LABEL_5:
-    if (accept(*(a1 + 240), 0, 0) != -1)
+    v9 = accept(*(a1 + 240), 0, 0);
+    if (v9 != -1)
     {
 
-      sub_1000028B0();
+      sub_1000028B0(v9, 2);
     }
 
-    v19 = *(a1 + 40);
-    if (v19)
+    v20 = *(a1 + 40);
+    if (v20)
     {
       goto LABEL_18;
     }
@@ -2130,21 +2119,21 @@ LABEL_5:
       dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
     }
 
-    v19 = qword_1000101A8;
+    v20 = qword_1000101A8;
     if (qword_1000101A8)
     {
 LABEL_18:
-      if (*(v19 + 16) >= 3)
+      if (*(v20 + 16) >= 3)
       {
-        v20 = __error();
-        v21 = strerror(*v20);
-        v12 = CFStringCreateWithCString(0, v21, 0x8000100u);
-        v14 = "RPSocket.cpp";
-        v28 = *(a1 + 8);
-        v15 = "accept";
-        v16 = @"accept for %@";
-        v17 = v19;
-        v18 = 1152;
+        v21 = __error();
+        v22 = strerror(*v21);
+        v13 = CFStringCreateWithCString(0, v22, 0x8000100u);
+        v15 = "RPSocket.cpp";
+        v29 = *(a1 + 8);
+        v16 = "accept";
+        v17 = @"accept for %@";
+        v18 = v20;
+        v19 = 1152;
         goto LABEL_20;
       }
     }
@@ -2170,13 +2159,13 @@ LABEL_18:
         dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
       }
 
-      v22 = qword_1000101A8;
+      v23 = qword_1000101A8;
       if (qword_1000101A8 && *(qword_1000101A8 + 16) >= 3)
       {
-        v23 = __error();
-        v24 = strerror(*v23);
-        v25 = CFStringCreateWithCString(0, v24, 0x8000100u);
-        sub_1000008C4(3u, v22, "Utilities.c", 210, "WaitSocket", v25, @"kevent", v26, v28);
+        v24 = __error();
+        v25 = strerror(*v24);
+        v26 = CFStringCreateWithCString(0, v25, 0x8000100u);
+        sub_1000008C4(3u, v23, "Utilities.c", 210, "WaitSocket", v26, @"kevent", v27, v29);
       }
 
       close(v6);
@@ -2198,19 +2187,19 @@ LABEL_18:
     dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
   }
 
-  v9 = qword_1000101A8;
+  v10 = qword_1000101A8;
   if (qword_1000101A8 && *(qword_1000101A8 + 16) >= 3)
   {
-    v10 = __error();
-    v11 = strerror(*v10);
-    v12 = CFStringCreateWithCString(0, v11, 0x8000100u);
-    v14 = "Utilities.c";
-    v15 = "WaitSocket";
-    v16 = @"kqueue";
-    v17 = v9;
-    v18 = 200;
+    v11 = __error();
+    v12 = strerror(*v11);
+    v13 = CFStringCreateWithCString(0, v12, 0x8000100u);
+    v15 = "Utilities.c";
+    v16 = "WaitSocket";
+    v17 = @"kqueue";
+    v18 = v10;
+    v19 = 200;
 LABEL_20:
-    sub_1000008C4(3u, v17, v14, v18, v15, v12, v16, v13, v28);
+    sub_1000008C4(3u, v18, v15, v19, v16, v13, v17, v14, v29);
   }
 
   return 0;
@@ -2281,17 +2270,14 @@ uint64_t sub_100004470(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 LABEL_5:
     if (*(v10 + 16) >= 5)
     {
-      v11 = *(v9 + 232);
-      v15 = *v11;
-      v16 = v11[1];
       sub_1000008C4(5u, v10, "RPSocket.cpp", 455, "FinalizeRPSocket", 0, @"Closed %@ after reading %lld bytes and writing %lld bytes\n", a8, a1);
     }
   }
 
   if (*(v9 + 208))
   {
-    v12 = *(v9 + 40);
-    if (v12)
+    v11 = *(v9 + 40);
+    if (v11)
     {
       goto LABEL_12;
     }
@@ -2301,13 +2287,13 @@ LABEL_5:
       dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
     }
 
-    v12 = qword_1000101A8;
+    v11 = qword_1000101A8;
     if (qword_1000101A8)
     {
 LABEL_12:
-      if (*(v12 + 16) >= 5)
+      if (*(v11 + 16) >= 5)
       {
-        sub_1000008C4(5u, v12, "RPSocket.cpp", 458, "FinalizeRPSocket", 0, @"Ending os transaction for %@\n", a8, a1);
+        sub_1000008C4(5u, v11, "RPSocket.cpp", 458, "FinalizeRPSocket", 0, @"Ending os transaction for %@\n", a8, a1);
       }
     }
 
@@ -2318,9 +2304,9 @@ LABEL_12:
   result = *(a1 + 16);
   if (result)
   {
-    v14 = *(*result + 88);
+    v13 = *(*result + 88);
 
-    return v14();
+    return v13();
   }
 
   return result;
@@ -2346,7 +2332,7 @@ void sub_1000046B4(id a1)
   }
 }
 
-uint64_t sub_100004744()
+uint64_t sub_100004744(const char *a1)
 {
   if (qword_1000101F8 != -1)
   {
@@ -2524,7 +2510,6 @@ void sub_100004C88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 LABEL_5:
     if (*(v9 + 16) >= 7)
     {
-      v10 = *(v8 + 8);
       sub_1000008C4(7u, v9, "RPSocket.cpp", 1320, "unpause_block_invoke", 0, @"got a %s connection for %@\n", a8, *(v8 + 240));
     }
   }
@@ -2633,7 +2618,7 @@ LABEL_52:
       {
         if (listen(v19, 128) != -1)
         {
-          sub_1000028B0();
+          sub_1000028B0(v19, 1);
         }
 
         if (qword_1000101A0 != -1)
@@ -2659,7 +2644,7 @@ LABEL_44:
 LABEL_45:
         if (v14)
         {
-          v30 = (sub_100000F80() & 1) == 0 && (MGGetBoolAnswer() & 1) != 0 && !v3;
+          v30 = !sub_100000F80() && (MGGetBoolAnswer() & 1) != 0 && !v3;
           v31 = (*(**(v14 + 16) + 56))(*(v14 + 16));
           qword_100010200 = CFSetCreateMutable(0, 0, &kCFTypeSetCallBacks);
           aBlock[0] = _NSConcreteStackBlock;
@@ -2761,8 +2746,8 @@ LABEL_26:
 
   else
   {
-    v12 = sub_100004744();
-    v14 = sub_100004744();
+    v12 = sub_100004744("com.apple.PurpleReverseProxy.Ctrl");
+    v14 = sub_100004744("com.apple.PurpleReverseProxy.Conn");
   }
 
   if (v12)
@@ -2805,7 +2790,7 @@ int *sub_1000055D0(const char *a1)
       free(fds);
       if (v8 != -1)
       {
-        sub_1000028B0();
+        sub_1000028B0(v8, 1);
       }
 
       return 0;
@@ -3545,10 +3530,10 @@ void sub_100006D00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
         if (CFEqual(v13, @"SetLogLevel"))
         {
-          v30 = 0;
-          if (sub_100000E6C(v10, @"Level", &v30))
+          v29 = 0;
+          if (sub_100000E6C(v10, @"Level", &v29))
           {
-            v24 = v30;
+            v24 = v29;
             if (qword_1000101A0 != -1)
             {
               dispatch_once_f(&qword_1000101A0, &qword_1000101A8, sub_1000007E4);
@@ -3583,7 +3568,6 @@ void sub_100006D00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
             *(qword_1000101A8 + 16) = v26;
             if (v26 >= 3)
             {
-              v29 = (&off_10000C470)[v26];
               sub_1000008C4(3u, v25, "Logging.c", 111, "SetDefaultLogLevel", 0, @"set default log level to %d (%s)\n", v12, v26);
             }
 

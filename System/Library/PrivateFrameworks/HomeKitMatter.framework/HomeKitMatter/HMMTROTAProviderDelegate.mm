@@ -25,60 +25,60 @@
 
 - (void)_refreshHAPFirmwareRevisionForAccessoryServer:(id)server retryCount:(int64_t)count completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   handlerCopy = handler;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v34 = serverCopy;
+  v33 = serverCopy;
   primaryAccessory = [serverCopy primaryAccessory];
   services = [primaryAccessory services];
 
-  v11 = [services countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v11 = [services countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v44;
+    v13 = *v43;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v44 != v13)
+        if (*v43 != v13)
         {
           objc_enumerationMutation(services);
         }
 
-        v15 = *(*(&v43 + 1) + 8 * i);
+        v15 = *(*(&v42 + 1) + 8 * i);
         type = [v15 type];
         v17 = [type isEqualToString:@"0000003E-0000-1000-8000-0026BB765291"];
 
         if (v17)
         {
           countCopy = count;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           characteristics = [v15 characteristics];
-          v19 = [characteristics countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v19 = [characteristics countByEnumeratingWithState:&v38 objects:v46 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v40;
+            v21 = *v39;
             while (2)
             {
               v22 = v8;
               for (j = 0; j != v20; ++j)
               {
-                if (*v40 != v21)
+                if (*v39 != v21)
                 {
                   objc_enumerationMutation(characteristics);
                 }
 
-                v24 = *(*(&v39 + 1) + 8 * j);
+                v24 = *(*(&v38 + 1) + 8 * j);
                 type2 = [v24 type];
                 v26 = [type2 isEqualToString:@"00000052-0000-1000-8000-0026BB765291"];
 
@@ -90,7 +90,7 @@
                 }
               }
 
-              v20 = [characteristics countByEnumeratingWithState:&v39 objects:v47 count:16];
+              v20 = [characteristics countByEnumeratingWithState:&v38 objects:v46 count:16];
               v8 = v22;
               if (v20)
               {
@@ -108,7 +108,7 @@ LABEL_20:
         }
       }
 
-      v12 = [services countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v12 = [services countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v12)
       {
         continue;
@@ -121,27 +121,25 @@ LABEL_20:
 LABEL_21:
 
   clientQueue = [(HMMTROTAProviderDelegate *)self clientQueue];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServer_retryCount_completionHandler___block_invoke;
-  v35[3] = &unk_2786EDE10;
-  v35[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServer_retryCount_completionHandler___block_invoke;
+  v34[3] = &unk_2786EDE10;
+  v34[4] = self;
   countCopy2 = count;
-  v36 = v34;
-  v37 = handlerCopy;
+  v35 = v33;
+  v36 = handlerCopy;
   v28 = handlerCopy;
-  v29 = v34;
-  [v29 fetchAndNotifyCharacteristics:v8 timeout:clientQueue completionQueue:v35 completionHandler:60.0];
-
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = v33;
+  [v29 fetchAndNotifyCharacteristics:v8 timeout:clientQueue completionQueue:v34 completionHandler:60.0];
 }
 
 void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServer_retryCount_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v29 = a1;
+  v28 = a1;
   if (v6)
   {
     v7 = *(a1 + 56);
@@ -154,18 +152,18 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
       if (v11)
       {
         v25 = HMFGetLogIdentifier();
-        v26 = *(v29 + 56);
+        v26 = *(v28 + 56);
         *buf = 138543874;
-        v37 = v25;
-        v38 = 2112;
-        v39 = v6;
-        v40 = 2048;
-        v41 = v26;
+        v36 = v25;
+        v37 = 2112;
+        v38 = v6;
+        v39 = 2048;
+        v40 = v26;
         _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Max retries reached to refresh FirmwareRevision: error: %@, retryCount:%ld", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v8);
-      (*(*(v29 + 48) + 16))();
+      (*(*(v28 + 48) + 16))();
     }
 
     else
@@ -173,44 +171,44 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        v13 = *(v29 + 56);
+        v13 = *(v28 + 56);
         *buf = 138543874;
-        v37 = v12;
-        v38 = 2112;
-        v39 = v6;
-        v40 = 2048;
-        v41 = v13;
+        v36 = v12;
+        v37 = 2112;
+        v38 = v6;
+        v39 = 2048;
+        v40 = v13;
         _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to refresh FirmwareRevision: error: %@, retryCount:%ld", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v8);
-      [*(v29 + 32) _refreshHAPFirmwareRevisionForAccessoryServer:*(v29 + 40) retryCount:*(v29 + 56) + 1 completionHandler:*(v29 + 48)];
+      [*(v28 + 32) _refreshHAPFirmwareRevisionForAccessoryServer:*(v28 + 40) retryCount:*(v28 + 56) + 1 completionHandler:*(v28 + 48)];
     }
   }
 
   else
   {
-    v28 = v5;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v27 = v5;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = v5;
-    v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v32;
+      v16 = *v31;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v32 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           v19 = objc_autoreleasePoolPush();
           v20 = *(a1 + 32);
           v21 = HMFGetOSLogHandle();
@@ -220,20 +218,20 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
             v23 = [v18 value];
             v24 = [v18 error];
             *buf = 138543874;
-            v37 = v22;
-            v38 = 2112;
-            v39 = v23;
-            v40 = 2112;
-            v41 = v24;
+            v36 = v22;
+            v37 = 2112;
+            v38 = v23;
+            v39 = 2112;
+            v40 = v24;
             _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Read completion contains tuple with value:%@ error: %@", buf, 0x20u);
 
-            a1 = v29;
+            a1 = v28;
           }
 
           objc_autoreleasePoolPop(v19);
         }
 
-        v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v15 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v15);
@@ -241,15 +239,13 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
 
     (*(*(a1 + 48) + 16))();
     v6 = 0;
-    v5 = v28;
+    v5 = v27;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyUpdateRequestTimerExpiredForAccessoryServer:(id)server
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -257,11 +253,11 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = serverCopy;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@applyUpdateRequestTimerExpiredForAccessoryServer for accessory %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = serverCopy;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@applyUpdateRequestTimerExpiredForAccessoryServer for accessory %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -269,31 +265,30 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
   [matterFirmwareUpdateStatus updateFirmwareUpdateStatus:0];
 
   [serverCopy setOtaApplyUpdateRequestTimer:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyUpdateTimerExpiredForAccessoryServer:(id)server softwareVersion:(id)version didTimeout:(id)timeout
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   versionCopy = version;
   timeoutCopy = timeout;
   softwareVersionNumber = [serverCopy softwareVersionNumber];
   [serverCopy setOtaUpdateToken:0];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke;
-  v37[3] = &unk_2786F0378;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke;
+  v36[3] = &unk_2786F0378;
   v12 = serverCopy;
-  v38 = v12;
+  v37 = v12;
   v13 = versionCopy;
-  v39 = v13;
+  v38 = v13;
   v14 = softwareVersionNumber;
-  v40 = v14;
+  v39 = v14;
   v15 = timeoutCopy;
-  v41 = v15;
+  v40 = v15;
   selfCopy = self;
-  v16 = MEMORY[0x2318887D0](v37);
+  v16 = MEMORY[0x2318887D0](v36);
   v17 = [v15 isEqualToNumber:&unk_283EE8088];
   v18 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -305,11 +300,11 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v44 = v22;
-      v45 = 2112;
-      v46 = v13;
-      v47 = 2112;
-      v48 = v12;
+      v43 = v22;
+      v44 = 2112;
+      v45 = v13;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Timed out applying update version %@ for Accessory %@", buf, 0x20u);
     }
 
@@ -327,11 +322,11 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v44 = v24;
-      v45 = 2112;
-      v46 = v13;
-      v47 = 2112;
-      v48 = v12;
+      v43 = v24;
+      v44 = 2112;
+      v45 = v13;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Successfully updated to version %@ without sending NotifyUpdateApplied command for accessory %@", buf, 0x20u);
     }
 
@@ -339,32 +334,30 @@ void __103__HMMTROTAProviderDelegate__refreshHAPFirmwareRevisionForAccessoryServ
     [v12 updateSoftwareVersion:v13];
     v25 = dispatch_group_create();
     dispatch_group_enter(v25);
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_43;
-    v35[3] = &unk_2786EF290;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_43;
+    v34[3] = &unk_2786EF290;
     v26 = v25;
-    v36 = v26;
-    [(HMMTROTAProviderDelegate *)selfCopy2 _refreshHAPFirmwareRevisionForAccessoryServer:v12 completionHandler:v35];
+    v35 = v26;
+    [(HMMTROTAProviderDelegate *)selfCopy2 _refreshHAPFirmwareRevisionForAccessoryServer:v12 completionHandler:v34];
     dispatch_group_enter(v26);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_2_44;
-    v33[3] = &unk_2786EF290;
-    v34 = v26;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_2_44;
+    v32[3] = &unk_2786EF290;
+    v33 = v26;
     v27 = v26;
-    [(HMMTROTAProviderDelegate *)selfCopy2 _refreshThreadCapabilitiesForAccessoryServer:v12 completion:v33];
+    [(HMMTROTAProviderDelegate *)selfCopy2 _refreshThreadCapabilitiesForAccessoryServer:v12 completion:v32];
     clientQueue = [(HMMTROTAProviderDelegate *)selfCopy2 clientQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_3;
     block[3] = &unk_2786EF5A8;
-    v31 = v12;
-    v32 = v16;
+    v30 = v12;
+    v31 = v16;
     dispatch_group_notify(v27, clientQueue, block);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke(uint64_t a1)
@@ -399,7 +392,7 @@ uint64_t __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServe
 
 void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_softwareVersion_didTimeout___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -410,19 +403,17 @@ void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_so
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@notifyDelegateOfNotifyUpdateWithPairing failed for accessory %@ with error: %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@notifyDelegateOfNotifyUpdateWithPairing failed for accessory %@ with error: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateUpdateToken
@@ -444,7 +435,7 @@ void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_so
 
 - (void)handleBDXQueryForNodeID:(id)d controller:(id)controller blockSize:(id)size blockIndex:(id)index bytesToSkip:(id)skip completion:(id)completion
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   sizeCopy = size;
@@ -461,13 +452,13 @@ void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_so
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v52 = v23;
-      v53 = 2112;
-      v54 = dCopy;
-      v55 = 2112;
-      v56 = sizeCopy;
-      v57 = 2112;
-      v58 = indexCopy;
+      v51 = v23;
+      v52 = 2112;
+      v53 = dCopy;
+      v54 = 2112;
+      v55 = sizeCopy;
+      v56 = 2112;
+      v57 = indexCopy;
       _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_INFO, "%{public}@Processing handleBDXQueryForNodeID command {nodeID = %@, blockSize: %@, blockIndex: %@}", buf, 0x2Au);
     }
 
@@ -481,37 +472,37 @@ void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_so
   {
     if (isFeatureMatteriPhoneOnlyPairingControlEnabled())
     {
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke;
-      v44[3] = &unk_2786EEE48;
-      v45 = v25;
-      v46 = skipCopy;
-      v47 = sizeCopy;
-      v48 = indexCopy;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke;
+      v43[3] = &unk_2786EEE48;
+      v44 = v25;
+      v45 = skipCopy;
+      v46 = sizeCopy;
+      v47 = indexCopy;
       selfCopy2 = self;
       v26 = completionCopy;
-      v37 = indexCopy;
+      v36 = indexCopy;
       v27 = completionCopy;
       v28 = sizeCopy;
       v29 = skipCopy;
       v30 = v26;
-      v50 = v26;
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke_36;
-      v39[3] = &unk_2786EDDE8;
-      v39[4] = self;
-      v40 = dCopy;
+      v49 = v26;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke_36;
+      v38[3] = &unk_2786EDDE8;
+      v38[4] = self;
+      v39 = dCopy;
+      v40 = v46;
       v41 = v47;
-      v42 = v48;
       v31 = v30;
       skipCopy = v29;
       sizeCopy = v28;
       completionCopy = v27;
-      indexCopy = v37;
-      v43 = v31;
-      [v45 queueAccessoryOperation:v44 highPriority:1 completion:v39];
+      indexCopy = v36;
+      v42 = v31;
+      [v44 queueAccessoryOperation:v43 highPriority:1 completion:v38];
     }
   }
 
@@ -524,24 +515,22 @@ void __97__HMMTROTAProviderDelegate_applyUpdateTimerExpiredForAccessoryServer_so
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v52 = v35;
-      v53 = 2112;
-      v54 = dCopy;
-      v55 = 2112;
-      v56 = 0;
+      v51 = v35;
+      v52 = 2112;
+      v53 = dCopy;
+      v54 = 2112;
+      v55 = 0;
       _os_log_impl(&dword_22AEAE000, v34, OS_LOG_TYPE_ERROR, "%{public}@No paired accessory found for nodeID %@ for accessory %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v32);
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) otaFileOffset];
   v3 = [v2 unsignedLongValue];
   v4 = [*(a1 + 40) unsignedLongLongValue] + v3;
@@ -549,9 +538,9 @@ void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSiz
   v6 = v4 + [*(a1 + 56) unsignedLongValue] * v5;
 
   v7 = [*(a1 + 32) otaFileHandle];
-  v21 = 0;
-  [v7 seekToOffset:v6 error:&v21];
-  v8 = v21;
+  v20 = 0;
+  [v7 seekToOffset:v6 error:&v20];
+  v8 = v20;
 
   if (v8)
   {
@@ -564,11 +553,11 @@ void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSiz
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6];
       v14 = *(a1 + 32);
       *buf = 138543874;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v13;
-      v26 = 2112;
-      v27 = v14;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v14;
       _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error seeking to offset %@ for accessory %@", buf, 0x20u);
     }
 
@@ -586,13 +575,11 @@ void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSiz
     v19 = [v18 availableData];
     (*(v17 + 16))(v17, v16, [v19 length] == 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSize_blockIndex_bytesToSkip_completion___block_invoke_36(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -605,29 +592,27 @@ void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSiz
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
       v10 = *(a1 + 56);
-      v12 = 138544386;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@handleBDXQueryForNodeID command {nodeID = %@, blockSize: %@, blockIndex: %@}. Error: %@", &v12, 0x34u);
+      v11 = 138544386;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@handleBDXQueryForNodeID command {nodeID = %@, blockSize: %@, blockIndex: %@}. Error: %@", &v11, 0x34u);
     }
 
     objc_autoreleasePoolPop(v4);
     (*(*(a1 + 64) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBDXTransferSessionEndForNodeID:(id)d controller:(id)controller error:(id)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   errorCopy = error;
@@ -637,13 +622,13 @@ void __107__HMMTROTAProviderDelegate_handleBDXQueryForNodeID_controller_blockSiz
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v32 = 138543874;
-    v33 = v14;
-    v34 = 2112;
-    v35 = dCopy;
-    v36 = 2112;
-    v37 = errorCopy;
-    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Processing handleBDXTransferSessionEndForNodeID command {nodeID = %@, error = %@}", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v14;
+    v33 = 2112;
+    v34 = dCopy;
+    v35 = 2112;
+    v36 = errorCopy;
+    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Processing handleBDXTransferSessionEndForNodeID command {nodeID = %@, error = %@}", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -664,15 +649,15 @@ LABEL_11:
     }
 
     v25 = HMFGetLogIdentifier();
-    v32 = 138543618;
-    v33 = v25;
-    v34 = 2112;
-    v35 = dCopy;
+    v31 = 138543618;
+    v32 = v25;
+    v33 = 2112;
+    v34 = dCopy;
     v26 = "%{public}@No paired accessory found for nodeID %@";
     v27 = v24;
     v28 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-    _os_log_impl(&dword_22AEAE000, v27, v28, v26, &v32, 0x16u);
+    _os_log_impl(&dword_22AEAE000, v27, v28, v26, &v31, 0x16u);
 
     goto LABEL_11;
   }
@@ -700,10 +685,10 @@ LABEL_10:
     }
 
     v25 = HMFGetLogIdentifier();
-    v32 = 138543618;
-    v33 = v25;
-    v34 = 2112;
-    v35 = v16;
+    v31 = 138543618;
+    v32 = v25;
+    v33 = 2112;
+    v34 = v16;
     v26 = "%{public}@Received ApplyUpdateRequest before BDXTransferSessionEnd for accessory %@";
     v27 = v24;
     v28 = OS_LOG_TYPE_INFO;
@@ -716,13 +701,13 @@ LABEL_10:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = HMFGetLogIdentifier();
-    v32 = 138543874;
-    v33 = v20;
-    v34 = 2112;
-    v35 = v16;
-    v36 = 2112;
-    v37 = errorCopy;
-    _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@BDX transfer failed for accessory %@, error = %@}", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v20;
+    v33 = 2112;
+    v34 = v16;
+    v35 = 2112;
+    v36 = errorCopy;
+    _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@BDX transfer failed for accessory %@, error = %@}", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v17);
@@ -731,13 +716,11 @@ LABEL_10:
 
   [v16 setOtaApplyUpdateRequestTimer:0];
 LABEL_14:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBDXTransferSessionBeginForNodeID:(id)d controller:(id)controller fileDesignator:(id)designator offset:(id)offset completion:(id)completion
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   designatorCopy = designator;
@@ -750,13 +733,13 @@ LABEL_14:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v61 = v20;
-    v62 = 2112;
-    v63 = dCopy;
-    v64 = 2112;
-    v65 = designatorCopy;
-    v66 = 2112;
-    v67 = offsetCopy;
+    v60 = v20;
+    v61 = 2112;
+    v62 = dCopy;
+    v63 = 2112;
+    v64 = designatorCopy;
+    v65 = 2112;
+    v66 = offsetCopy;
     _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@Processing handleBDXTransferSessionBeginForNodeID command {nodeID = %@, path = %@, offset = %@}", buf, 0x2Au);
   }
 
@@ -769,42 +752,42 @@ LABEL_14:
     v23 = [MEMORY[0x277CCA9F8] fileHandleForReadingAtPath:designatorCopy];
     if (v23)
     {
-      v59 = 0;
-      [v23 seekToOffset:objc_msgSend(offsetCopy error:{"unsignedLongValue"), &v59}];
-      v24 = v59;
+      v58 = 0;
+      [v23 seekToOffset:objc_msgSend(offsetCopy error:{"unsignedLongValue"), &v58}];
+      v24 = v58;
       if (v24)
       {
         v25 = v24;
-        v56 = controllerCopy;
+        v55 = controllerCopy;
         v26 = objc_autoreleasePoolPush();
         v27 = selfCopy;
         v28 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v55 = v26;
+          v54 = v26;
           v29 = designatorCopy;
           v31 = v30 = offsetCopy;
           *buf = 138544130;
-          v61 = v31;
-          v62 = 2112;
-          v63 = v29;
-          v64 = 2112;
-          v65 = v30;
-          v66 = 2112;
-          v67 = v22;
+          v60 = v31;
+          v61 = 2112;
+          v62 = v29;
+          v63 = 2112;
+          v64 = v30;
+          v65 = 2112;
+          v66 = v22;
           _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Error seeking file (%@) to offset %@ for accessory %@", buf, 0x2Au);
 
           offsetCopy = v30;
           designatorCopy = v29;
-          v26 = v55;
+          v26 = v54;
         }
 
         objc_autoreleasePoolPop(v26);
         v32 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD5120] code:1 userInfo:0];
         completionCopy[2](completionCopy, v32);
 
-        controllerCopy = v56;
+        controllerCopy = v55;
       }
 
       else
@@ -819,16 +802,16 @@ LABEL_14:
           if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v58 = designatorCopy;
+            v57 = designatorCopy;
             v47 = v46 = offsetCopy;
             *buf = 138543618;
-            v61 = v47;
-            v62 = 2112;
-            v63 = v22;
+            v60 = v47;
+            v61 = 2112;
+            v62 = v22;
             _os_log_impl(&dword_22AEAE000, v45, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected BDXTransferSessionBegin when we were waiting for ApplyUpdateRequest after a BDX transfer was previously completed for accessory %@", buf, 0x16u);
 
             offsetCopy = v46;
-            designatorCopy = v58;
+            designatorCopy = v57;
           }
 
           objc_autoreleasePoolPop(v43);
@@ -867,18 +850,18 @@ LABEL_14:
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v57 = offsetCopy;
+        v56 = offsetCopy;
         v41 = v40 = controllerCopy;
         *buf = 138543874;
-        v61 = v41;
-        v62 = 2112;
-        v63 = designatorCopy;
-        v64 = 2112;
-        v65 = v22;
+        v60 = v41;
+        v61 = 2112;
+        v62 = designatorCopy;
+        v63 = 2112;
+        v64 = v22;
         _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to open file using path '%@' for accessory %@", buf, 0x20u);
 
         controllerCopy = v40;
-        offsetCopy = v57;
+        offsetCopy = v56;
       }
 
       objc_autoreleasePoolPop(v37);
@@ -896,9 +879,9 @@ LABEL_14:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v61 = v36;
-      v62 = 2112;
-      v63 = dCopy;
+      v60 = v36;
+      v61 = 2112;
+      v62 = dCopy;
       _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@No paired accessory found for nodeID %@", buf, 0x16u);
     }
 
@@ -906,13 +889,11 @@ LABEL_14:
     v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD5120] code:1 userInfo:0];
     completionCopy[2](completionCopy, v23);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNotifyUpdateAppliedForNodeID:(id)d controller:(id)controller params:(id)params completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   paramsCopy = params;
@@ -925,26 +906,24 @@ LABEL_14:
     v17 = HMFGetLogIdentifier();
     updateToken = [paramsCopy updateToken];
     softwareVersion = [paramsCopy softwareVersion];
-    v21 = 138544130;
-    v22 = v17;
-    v23 = 2112;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = updateToken;
-    v27 = 2112;
-    v28 = softwareVersion;
-    _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing handleNotifyUpdateAppliedForNodeID command {nodeID = %@, updateToken = %@, newVersion = %@}, is simply returning OK without performing any additional processing.", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = v17;
+    v22 = 2112;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = updateToken;
+    v26 = 2112;
+    v27 = softwareVersion;
+    _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing handleNotifyUpdateAppliedForNodeID command {nodeID = %@, updateToken = %@, newVersion = %@}, is simply returning OK without performing any additional processing.", &v20, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v14);
   completionCopy[2](completionCopy, 0);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleApplyUpdateRequestForNodeID:(id)d controller:(id)controller params:(id)params completion:(id)completion
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   paramsCopy = params;
@@ -958,13 +937,13 @@ LABEL_14:
     updateToken = [paramsCopy updateToken];
     getNewVersion = [paramsCopy getNewVersion];
     *buf = 138544130;
-    v63 = v17;
-    v64 = 2112;
-    v65 = dCopy;
-    v66 = 2112;
-    v67 = updateToken;
-    v68 = 2112;
-    v69 = getNewVersion;
+    v62 = v17;
+    v63 = 2112;
+    v64 = dCopy;
+    v65 = 2112;
+    v66 = updateToken;
+    v67 = 2112;
+    v68 = getNewVersion;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing handleApplyUpdateRequestForNodeID command {nodeID = %@, updateToken = %@, newVersion = %@}", buf, 0x2Au);
   }
 
@@ -975,14 +954,14 @@ LABEL_14:
   v22 = objc_alloc_init(MEMORY[0x277CD5440]);
   if (v21)
   {
-    v56 = controllerCopy;
+    v55 = controllerCopy;
     otaUpdateToken = [v21 otaUpdateToken];
     updateToken2 = [paramsCopy updateToken];
     v25 = [otaUpdateToken isEqualToData:updateToken2];
 
     if (v25)
     {
-      v54 = dCopy;
+      v53 = dCopy;
       otaApplyUpdateRequestTimer = [v21 otaApplyUpdateRequestTimer];
 
       if (otaApplyUpdateRequestTimer)
@@ -1001,18 +980,18 @@ LABEL_14:
       v32 = objc_loadWeakRetained(&selfCopy->_browser);
       softwareUpdateProvider = [v32 softwareUpdateProvider];
       currentPairing = [v21 currentPairing];
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller_params_completion___block_invoke;
-      v57[3] = &unk_2786EDDC0;
-      v57[4] = selfCopy;
-      v58 = v21;
-      v61 = completionCopy;
-      v59 = v22;
-      v60 = paramsCopy;
-      [softwareUpdateProvider notifyDelegateOfApplyUpdateWithPairing:currentPairing requestParams:v31 completionHandler:v57];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller_params_completion___block_invoke;
+      v56[3] = &unk_2786EDDC0;
+      v56[4] = selfCopy;
+      v57 = v21;
+      v60 = completionCopy;
+      v58 = v22;
+      v59 = paramsCopy;
+      [softwareUpdateProvider notifyDelegateOfApplyUpdateWithPairing:currentPairing requestParams:v31 completionHandler:v56];
 
-      dCopy = v54;
+      dCopy = v53;
     }
 
     else
@@ -1024,19 +1003,19 @@ LABEL_14:
       {
         v42 = HMFGetLogIdentifier();
         [v21 otaUpdateToken];
-        v43 = v55 = dCopy;
+        v43 = v54 = dCopy;
         updateToken3 = [paramsCopy updateToken];
         *buf = 138544130;
-        v63 = v42;
-        v64 = 2112;
-        v65 = v43;
-        v66 = 2112;
-        v67 = updateToken3;
-        v68 = 2112;
-        v69 = v21;
+        v62 = v42;
+        v63 = 2112;
+        v64 = v43;
+        v65 = 2112;
+        v66 = updateToken3;
+        v67 = 2112;
+        v68 = v21;
         _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_ERROR, "%{public}@Provided token %@ doesn't match assigned token %@ for accessory %@ - Allow update", buf, 0x2Au);
 
-        dCopy = v55;
+        dCopy = v54;
       }
 
       objc_autoreleasePoolPop(v39);
@@ -1065,7 +1044,7 @@ LABEL_14:
       (*(completionCopy + 2))(completionCopy, v22, 0);
     }
 
-    controllerCopy = v56;
+    controllerCopy = v55;
   }
 
   else
@@ -1077,9 +1056,9 @@ LABEL_14:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v63 = v38;
-      v64 = 2112;
-      v65 = dCopy;
+      v62 = v38;
+      v63 = 2112;
+      v64 = dCopy;
       _os_log_impl(&dword_22AEAE000, v37, OS_LOG_TYPE_ERROR, "%{public}@No paired accessory for nodeID %@ - Allow update", buf, 0x16u);
     }
 
@@ -1087,13 +1066,11 @@ LABEL_14:
     [v22 setAction:&unk_283EE7FE0];
     (*(completionCopy + 2))(completionCopy, v22, 0);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller_params_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1105,13 +1082,13 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v40 = 138543874;
-      v41 = v10;
+      v38 = 138543874;
+      v39 = v10;
+      v40 = 2112;
+      v41 = v11;
       v42 = 2112;
-      v43 = v11;
-      v44 = 2112;
-      v45 = v6;
-      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@notifyDelegateOfApplyUpdateWithPairing failed for accessory %@ with error: %@", &v40, 0x20u);
+      v43 = v6;
+      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@notifyDelegateOfApplyUpdateWithPairing failed for accessory %@ with error: %@", &v38, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1149,13 +1126,13 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
           v19 = HMFGetLogIdentifier();
           v20 = [v5 action];
           v21 = *(a1 + 40);
-          v40 = 138543874;
-          v41 = v19;
+          v38 = 138543874;
+          v39 = v19;
+          v40 = 2112;
+          v41 = v20;
           v42 = 2112;
-          v43 = v20;
-          v44 = 2112;
-          v45 = v21;
-          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unknown action %@ for accessory %@ - Defaulting to allow update", &v40, 0x20u);
+          v43 = v21;
+          _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unknown action %@ for accessory %@ - Defaulting to allow update", &v38, 0x20u);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -1194,16 +1171,13 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
       [v37 updateFirmwareUpdateStatus:5];
     }
 
-    v38 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleQueryImageForNodeID:(id)d controller:(id)controller params:(id)params completion:(id)completion
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   paramsCopy = params;
@@ -1211,67 +1185,67 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
   v13 = objc_alloc_init(MEMORY[0x277CD5448]);
   string = [MEMORY[0x277CCAB68] string];
   protocolsSupported = [paramsCopy protocolsSupported];
-  v113[0] = MEMORY[0x277D85DD0];
-  v113[1] = 3221225472;
-  v113[2] = __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_completion___block_invoke;
-  v113[3] = &unk_2786EDD70;
-  v107 = string;
-  v114 = v107;
-  [protocolsSupported hmf_enumerateWithAutoreleasePoolUsingBlock:v113];
+  v112[0] = MEMORY[0x277D85DD0];
+  v112[1] = 3221225472;
+  v112[2] = __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_completion___block_invoke;
+  v112[3] = &unk_2786EDD70;
+  v106 = string;
+  v113 = v106;
+  [protocolsSupported hmf_enumerateWithAutoreleasePoolUsingBlock:v112];
 
   v16 = objc_autoreleasePoolPush();
   selfCopy = self;
   v18 = HMFGetOSLogHandle();
-  v106 = v13;
+  v105 = v13;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v94 = HMFGetLogIdentifier();
+    v93 = HMFGetLogIdentifier();
     vendorID = [paramsCopy vendorID];
     productID = [paramsCopy productID];
     [paramsCopy softwareVersion];
-    v20 = v102 = completionCopy;
+    v20 = v101 = completionCopy;
     protocolsSupported2 = [paramsCopy protocolsSupported];
-    v98 = v16;
+    v97 = v16;
     v21 = [protocolsSupported2 count];
     hardwareVersion = [paramsCopy hardwareVersion];
     location = [paramsCopy location];
     [paramsCopy requestorCanConsent];
-    v24 = v100 = selfCopy;
+    v24 = v99 = selfCopy;
     [paramsCopy metadataForProvider];
-    v104 = paramsCopy;
+    v103 = paramsCopy;
     v26 = v25 = dCopy;
     *buf = 138545922;
-    v116 = v94;
-    v117 = 2112;
-    v118 = v25;
-    v119 = 2112;
-    v120 = vendorID;
-    v121 = 2112;
-    v122 = productID;
-    v123 = 2112;
-    v124 = v20;
-    v125 = 2048;
-    v126 = v21;
-    v16 = v98;
-    v127 = 2112;
-    v128 = v107;
-    v129 = 2112;
-    v130 = hardwareVersion;
-    v131 = 2112;
-    v132 = location;
-    v133 = 2112;
-    v134 = v24;
-    v135 = 2112;
-    v136 = v26;
+    v115 = v93;
+    v116 = 2112;
+    v117 = v25;
+    v118 = 2112;
+    v119 = vendorID;
+    v120 = 2112;
+    v121 = productID;
+    v122 = 2112;
+    v123 = v20;
+    v124 = 2048;
+    v125 = v21;
+    v16 = v97;
+    v126 = 2112;
+    v127 = v106;
+    v128 = 2112;
+    v129 = hardwareVersion;
+    v130 = 2112;
+    v131 = location;
+    v132 = 2112;
+    v133 = v24;
+    v134 = 2112;
+    v135 = v26;
     _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Processing QueryImage command { nodeID = %@, vendorId = %@, productId = %@, softwareVersion = %@, protocolsSupported size = %lu, protocols[%@], hardwareVersion = %@, location = %@, requestorCanConsent = %@, metadataForProvider = %@ }", buf, 0x70u);
 
     dCopy = v25;
-    paramsCopy = v104;
+    paramsCopy = v103;
 
-    selfCopy = v100;
-    v13 = v106;
+    selfCopy = v99;
+    v13 = v105;
 
-    completionCopy = v102;
+    completionCopy = v101;
   }
 
   objc_autoreleasePoolPop(v16);
@@ -1293,17 +1267,17 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
         [paramsCopy productID];
         v81 = v80 = completionCopy;
         *buf = 138544130;
-        v116 = v78;
-        v117 = 2112;
-        v118 = dCopy;
-        v119 = 2112;
-        v120 = vendorID2;
-        v121 = 2112;
-        v122 = v81;
+        v115 = v78;
+        v116 = 2112;
+        v117 = dCopy;
+        v118 = 2112;
+        v119 = vendorID2;
+        v120 = 2112;
+        v121 = v81;
         _os_log_impl(&dword_22AEAE000, v77, OS_LOG_TYPE_ERROR, "%{public}@Unable to get browser ref for QueryImage request {nodeID=%@, vendorId=%@, productId=%@}", buf, 0x2Au);
 
         completionCopy = v80;
-        v13 = v106;
+        v13 = v105;
       }
 
       objc_autoreleasePoolPop(v75);
@@ -1316,8 +1290,8 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
     v29 = objc_loadWeakRetained(&selfCopy->_browser);
     v30 = [v29 accessoryServerWithNodeID:dCopy];
 
-    v101 = selfCopy;
-    v103 = completionCopy;
+    v100 = selfCopy;
+    v102 = completionCopy;
     if (v30)
     {
       currentPairing = [v30 currentPairing];
@@ -1337,19 +1311,19 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
       vendorID3 = [paramsCopy vendorID];
       productID2 = [paramsCopy productID];
       *buf = 138544130;
-      v116 = v35;
-      v117 = 2112;
-      v118 = dCopy;
-      v119 = 2112;
-      v120 = vendorID3;
-      v121 = 2112;
-      v122 = productID2;
+      v115 = v35;
+      v116 = 2112;
+      v117 = dCopy;
+      v118 = 2112;
+      v119 = vendorID3;
+      v120 = 2112;
+      v121 = productID2;
       _os_log_impl(&dword_22AEAE000, v34, OS_LOG_TYPE_INFO, "%{public}@Could not associate QueryImage request {nodeID=%@, vendorId=%@, productId=%@} to a paired accessory", buf, 0x2Au);
 
-      completionCopy = v103;
-      v13 = v106;
+      completionCopy = v102;
+      v13 = v105;
 
-      selfCopy = v101;
+      selfCopy = v100;
     }
 
     objc_autoreleasePoolPop(v32);
@@ -1362,7 +1336,7 @@ void __91__HMMTROTAProviderDelegate_handleApplyUpdateRequestForNodeID_controller
       {
         v85 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v116 = v85;
+        v115 = v85;
         _os_log_impl(&dword_22AEAE000, v84, OS_LOG_TYPE_ERROR, "%{public}@Cannot proceed if accessory server is nil, sending an error back to accessory", buf, 0xCu);
       }
 
@@ -1389,15 +1363,15 @@ LABEL_11:
         vendorID4 = [paramsCopy vendorID];
         productID3 = [paramsCopy productID];
         *buf = 138544386;
-        v116 = v42;
-        v117 = 2112;
-        v118 = v30;
-        v119 = 2112;
-        v120 = dCopy;
-        v121 = 2112;
-        v122 = vendorID4;
-        v123 = 2112;
-        v124 = productID3;
+        v115 = v42;
+        v116 = 2112;
+        v117 = v30;
+        v118 = 2112;
+        v119 = dCopy;
+        v120 = 2112;
+        v121 = vendorID4;
+        v122 = 2112;
+        v123 = productID3;
         _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_INFO, "%{public}@Found accessory %@ for QueryImage request {nodeID=%@, vendorId=%@, productId=%@} ", buf, 0x34u);
       }
 
@@ -1415,7 +1389,7 @@ LABEL_11:
         [v30 setOtaAnnounceTimer:0];
       }
 
-      v97 = dCopy;
+      v96 = dCopy;
       otaApplyUpdateRequestTimer = [v30 otaApplyUpdateRequestTimer];
 
       if (otaApplyUpdateRequestTimer)
@@ -1427,9 +1401,9 @@ LABEL_11:
         {
           v52 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v116 = v52;
-          v117 = 2112;
-          v118 = v30;
+          v115 = v52;
+          v116 = 2112;
+          v117 = v30;
           _os_log_impl(&dword_22AEAE000, v51, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected QueryImage when we were waiting for ApplyUpdateRequest after BDX transfer completed, resetting state for accessory %@", buf, 0x16u);
         }
 
@@ -1447,53 +1421,53 @@ LABEL_11:
       productID4 = [paramsCopy productID];
       softwareVersion2 = [paramsCopy softwareVersion];
       [paramsCopy hardwareVersion];
-      v59 = v95 = v40;
+      v59 = v94 = v40;
       location2 = [paramsCopy location];
       requestorCanConsent = [paramsCopy requestorCanConsent];
       metadataForProvider = [paramsCopy metadataForProvider];
       v63 = [(HMMTRSoftwareUpdateProviderQueryImageRequestParams *)v55 initWithVendorID:vendorID5 productId:productID4 softwareVersion:softwareVersion2 protocolsSupported:&unk_283EE9288 hardwareVersion:v59 location:location2 requestorCanConsent:requestorCanConsent metadataForProvider:metadataForProvider];
 
-      v64 = objc_loadWeakRetained(&v101->_browser);
+      v64 = objc_loadWeakRetained(&v100->_browser);
       softwareUpdateProvider = [v64 softwareUpdateProvider];
       currentPairing3 = [v30 currentPairing];
-      v108[0] = MEMORY[0x277D85DD0];
-      v108[1] = 3221225472;
-      v108[2] = __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_completion___block_invoke_21;
-      v108[3] = &unk_2786EDD98;
-      v108[4] = v95;
+      v107[0] = MEMORY[0x277D85DD0];
+      v107[1] = 3221225472;
+      v107[2] = __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_completion___block_invoke_21;
+      v107[3] = &unk_2786EDD98;
+      v107[4] = v94;
       v30 = v30;
-      v109 = v30;
-      v13 = v106;
-      v110 = v106;
-      completionCopy = v103;
-      v112 = v103;
-      v111 = paramsCopy;
-      [softwareUpdateProvider triggerQueryImageWithPairing:currentPairing3 accessoryInitiated:1 requestParams:v63 completionHandler:v108];
+      v108 = v30;
+      v13 = v105;
+      v109 = v105;
+      completionCopy = v102;
+      v111 = v102;
+      v110 = paramsCopy;
+      [softwareUpdateProvider triggerQueryImageWithPairing:currentPairing3 accessoryInitiated:1 requestParams:v63 completionHandler:v107];
 
-      dCopy = v97;
+      dCopy = v96;
     }
 
     else
     {
       [v13 setStatus:&unk_283EE8028];
       [v13 setDelayedActionTime:&unk_283EE9300];
-      v88 = objc_autoreleasePoolPush();
-      v89 = v33;
-      v90 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
+      v87 = objc_autoreleasePoolPush();
+      v88 = v33;
+      v89 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
       {
-        v91 = HMFGetLogIdentifier();
+        v90 = HMFGetLogIdentifier();
         delayedActionTime = [v13 delayedActionTime];
         *buf = 138543618;
-        v116 = v91;
-        v117 = 2112;
-        v118 = delayedActionTime;
-        _os_log_impl(&dword_22AEAE000, v90, OS_LOG_TYPE_INFO, "%{public}@Do not have pairing information for this accessory. Requesting accessory to check back again after %@ secs", buf, 0x16u);
+        v115 = v90;
+        v116 = 2112;
+        v117 = delayedActionTime;
+        _os_log_impl(&dword_22AEAE000, v89, OS_LOG_TYPE_INFO, "%{public}@Do not have pairing information for this accessory. Requesting accessory to check back again after %@ secs", buf, 0x16u);
 
-        v13 = v106;
+        v13 = v105;
       }
 
-      objc_autoreleasePoolPop(v88);
+      objc_autoreleasePoolPop(v87);
       completionCopy[2](completionCopy, v13, 0);
     }
 
@@ -1513,17 +1487,17 @@ LABEL_30:
     [paramsCopy productID];
     v73 = v72 = completionCopy;
     *buf = 138544130;
-    v116 = v70;
-    v117 = 2112;
-    v118 = dCopy;
-    v119 = 2112;
-    v120 = vendorID6;
-    v121 = 2112;
-    v122 = v73;
+    v115 = v70;
+    v116 = 2112;
+    v117 = dCopy;
+    v118 = 2112;
+    v119 = vendorID6;
+    v120 = 2112;
+    v121 = v73;
     _os_log_impl(&dword_22AEAE000, v69, OS_LOG_TYPE_ERROR, "%{public}@Accessory did not list BDXSynchronous as a supported protocol for QueryImage request {nodeID=%@, vendorId=%@, productId=%@}", buf, 0x2Au);
 
     completionCopy = v72;
-    v13 = v106;
+    v13 = v105;
   }
 
   objc_autoreleasePoolPop(v67);
@@ -1531,13 +1505,11 @@ LABEL_30:
   completionCopy[2](completionCopy, v13, 0);
   v74 = controllerCopy;
 LABEL_31:
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_completion___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1557,11 +1529,11 @@ void __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_
         {
           v55 = HMFGetLogIdentifier();
           v56 = *(a1 + 40);
-          v61 = 138543618;
-          v62 = v55;
-          v63 = 2112;
-          v64 = v56;
-          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update image not available for accessory %@", &v61, 0x16u);
+          v59 = 138543618;
+          v60 = v55;
+          v61 = 2112;
+          v62 = v56;
+          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update image not available for accessory %@", &v59, 0x16u);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -1581,13 +1553,13 @@ void __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_
           v24 = HMFGetLogIdentifier();
           v25 = *(a1 + 40);
           v26 = [v5 status];
-          v61 = 138543874;
-          v62 = v24;
+          v59 = 138543874;
+          v60 = v24;
+          v61 = 2112;
+          v62 = v25;
           v63 = 2112;
-          v64 = v25;
-          v65 = 2112;
-          v66 = v26;
-          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@QueryImage state %@ indicates that the download protocol is not supported for accessory %@", &v61, 0x20u);
+          v64 = v26;
+          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@QueryImage state %@ indicates that the download protocol is not supported for accessory %@", &v59, 0x20u);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -1608,11 +1580,11 @@ void __83__HMMTROTAProviderDelegate_handleQueryImageForNodeID_controller_params_
           {
             v21 = HMFGetLogIdentifier();
             v22 = *(a1 + 40);
-            v61 = 138543618;
-            v62 = v21;
-            v63 = 2112;
-            v64 = v22;
-            _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update provider is busy for accessory %@", &v61, 0x16u);
+            v59 = 138543618;
+            v60 = v21;
+            v61 = 2112;
+            v62 = v22;
+            _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update provider is busy for accessory %@", &v59, 0x16u);
           }
 
           objc_autoreleasePoolPop(v17);
@@ -1629,13 +1601,13 @@ LABEL_17:
           v29 = HMFGetLogIdentifier();
           v30 = *(a1 + 40);
           v31 = [v5 status];
-          v61 = 138543874;
-          v62 = v29;
+          v59 = 138543874;
+          v60 = v29;
+          v61 = 2112;
+          v62 = v30;
           v63 = 2112;
-          v64 = v30;
-          v65 = 2112;
-          v66 = v31;
-          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unknown QueryImage state %@ for accessory %@", &v61, 0x20u);
+          v64 = v31;
+          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unknown QueryImage state %@ for accessory %@", &v59, 0x20u);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -1646,11 +1618,11 @@ LABEL_17:
       {
         v32 = HMFGetLogIdentifier();
         v33 = *(a1 + 40);
-        v61 = 138543618;
-        v62 = v32;
-        v63 = 2112;
-        v64 = v33;
-        _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update image available for accessory %@", &v61, 0x16u);
+        v59 = 138543618;
+        v60 = v32;
+        v61 = 2112;
+        v62 = v33;
+        _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Software update image available for accessory %@", &v59, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -1671,13 +1643,13 @@ LABEL_17:
         {
           if (v41)
           {
-            v59 = HMFGetLogIdentifier();
-            v60 = *(a1 + 40);
-            v61 = 138543618;
-            v62 = v59;
-            v63 = 2112;
-            v64 = v60;
-            _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@User Consent Pending for accessory %@", &v61, 0x16u);
+            v57 = HMFGetLogIdentifier();
+            v58 = *(a1 + 40);
+            v59 = 138543618;
+            v60 = v57;
+            v61 = 2112;
+            v62 = v58;
+            _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@User Consent Pending for accessory %@", &v59, 0x16u);
           }
 
           objc_autoreleasePoolPop(v38);
@@ -1691,11 +1663,11 @@ LABEL_17:
         {
           v42 = HMFGetLogIdentifier();
           v43 = *(a1 + 40);
-          v61 = 138543618;
-          v62 = v42;
-          v63 = 2112;
-          v64 = v43;
-          _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@User Consent Pending, requestor can consent for accessory %@", &v61, 0x16u);
+          v59 = 138543618;
+          v60 = v42;
+          v61 = 2112;
+          v62 = v43;
+          _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@User Consent Pending, requestor can consent for accessory %@", &v59, 0x16u);
         }
 
         objc_autoreleasePoolPop(v38);
@@ -1725,20 +1697,19 @@ LABEL_17:
         v52 = HMFGetLogIdentifier();
         v53 = *(a1 + 40);
         v54 = [*(a1 + 48) updateToken];
-        v61 = 138543874;
-        v62 = v52;
+        v59 = 138543874;
+        v60 = v52;
+        v61 = 2112;
+        v62 = v53;
         v63 = 2112;
-        v64 = v53;
-        v65 = 2112;
-        v66 = v54;
-        _os_log_impl(&dword_22AEAE000, v51, OS_LOG_TYPE_INFO, "%{public}@Associated accessory %@ with update token %@", &v61, 0x20u);
+        v64 = v54;
+        _os_log_impl(&dword_22AEAE000, v51, OS_LOG_TYPE_INFO, "%{public}@Associated accessory %@ with update token %@", &v59, 0x20u);
       }
 
       objc_autoreleasePoolPop(v49);
     }
 
 LABEL_34:
-    v57 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
     goto LABEL_35;
   }
@@ -1750,13 +1721,13 @@ LABEL_34:
   {
     v10 = HMFGetLogIdentifier();
     v11 = *(a1 + 40);
-    v61 = 138543874;
-    v62 = v10;
+    v59 = 138543874;
+    v60 = v10;
+    v61 = 2112;
+    v62 = v11;
     v63 = 2112;
-    v64 = v11;
-    v65 = 2112;
-    v66 = v6;
-    _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error while trying to QueryImage for accessory %@: %@.", &v61, 0x20u);
+    v64 = v6;
+    _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error while trying to QueryImage for accessory %@: %@.", &v59, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1768,7 +1739,6 @@ LABEL_5:
   (*(v12 + 16))(v12, v13, v14);
 
 LABEL_35:
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTROTAProviderDelegate)initWithQueue:(id)queue browser:(id)browser
@@ -1802,10 +1772,11 @@ LABEL_35:
 
 uint64_t __39__HMMTROTAProviderDelegate_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v44 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v44;
+  logCategory__hmf_once_v44 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

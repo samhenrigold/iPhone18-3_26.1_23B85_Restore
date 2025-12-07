@@ -25,7 +25,7 @@
 
   selfCopy = self;
   NDOAppleCareNotificationsHandler.performCheck(in:withCompletion:)(v6, v8, v5, v9);
-  sub_100003430(v5);
+  sub_100003430(v5, v9);
 }
 
 - (void)handleNotification:(id)notification forTopic:(id)topic

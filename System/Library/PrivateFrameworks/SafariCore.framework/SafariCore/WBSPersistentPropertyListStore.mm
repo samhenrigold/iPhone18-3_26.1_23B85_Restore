@@ -65,55 +65,56 @@ LABEL_8:
   {
     v3 = objc_alloc(MEMORY[0x1E695DEF0]);
     backingStoreURL = self->_backingStoreURL;
-    v15 = 0;
-    v5 = [v3 initWithContentsOfURL:backingStoreURL options:0 error:&v15];
-    v6 = v15;
+    v19 = 0;
+    v5 = [v3 initWithContentsOfURL:backingStoreURL options:0 error:&v19];
+    v6 = v19;
     v7 = v6;
     if (v5)
     {
-      v14 = 0;
-      v8 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v14];
-      v9 = v14;
+      v18 = 0;
+      v8 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v18];
+      v9 = v18;
 
       if (v8)
       {
-        v10 = [v8 mutableCopy];
+        v12 = [v8 mutableCopy];
       }
 
       else
       {
-        v12 = WBS_LOG_CHANNEL_PREFIXPasswords();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v16 = WBS_LOG_CHANNEL_PREFIXPasswords(v10, v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          [(WBSPersistentPropertyListStore *)v12 _existingSavedData];
+          [(WBSPersistentPropertyListStore *)v16 _existingSavedData];
         }
 
-        v10 = 0;
+        v12 = 0;
       }
     }
 
     else
     {
-      if (([v6 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:260] & 1) == 0)
+      v13 = [v6 safari_matchesErrorDomain:*MEMORY[0x1E696A250] andCode:260];
+      if ((v13 & 1) == 0)
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXPasswords();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXPasswords(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [(WBSPersistentPropertyListStore *)v11 _existingSavedData];
+          [(WBSPersistentPropertyListStore *)v15 _existingSavedData];
         }
       }
 
-      v10 = 0;
+      v12 = 0;
       v9 = v7;
     }
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (id)allKeys
@@ -225,15 +226,16 @@ id __77__WBSPersistentPropertyListStore_initWithBackingStoreURL_fileResourceValu
 - (id)_dataRepresentation
 {
   store = self->_store;
-  v7 = 0;
-  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:store format:200 options:0 error:&v7];
-  v4 = v7;
+  v9 = 0;
+  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:store format:200 options:0 error:&v9];
+  v4 = v9;
+  v6 = v4;
   if (!v3)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXPasswords(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPersistentPropertyListStore *)v5 _dataRepresentation];
+      [(WBSPersistentPropertyListStore *)v7 _dataRepresentation];
     }
   }
 
@@ -423,22 +425,20 @@ uint64_t __57__WBSPersistentPropertyListStore_clearStoreSynchronously__block_inv
 
 - (void)_existingSavedData
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to read backing store: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to read backing store: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_dataRepresentation
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to encode backing store: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to encode backing store: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -9,6 +9,7 @@
 - (void)arrivalRegionTimerDidFire:(id)fire;
 - (void)changeState:(id)state;
 - (void)dealloc;
+- (void)evChargingStateMonitor:(id)monitor didChangeChargingState:(BOOL)state;
 - (void)evChargingStateMonitorShouldShowChargingInfo:(id)info;
 - (void)forceDepartureForCurrentLeg:(unint64_t)leg;
 - (void)parkedVehicleDetectorDidDetectParkedVehicle:(id)vehicle;
@@ -108,26 +109,24 @@
 
 - (id)captureStatePlistWithHints:(os_state_hints_s *)hints
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v15[0] = @"state";
+  v15[4] = *MEMORY[0x1E69E9840];
+  v14[0] = @"state";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:{-[_MNArrivalUpdaterState state](self->_currentState, "state", hints)}];
-  v16[0] = v4;
-  v15[1] = @"targetLegIndex";
+  v15[0] = v4;
+  v14[1] = @"targetLegIndex";
   v5 = MEMORY[0x1E696AD98];
   targetLeg = [(MNArrivalUpdater *)self targetLeg];
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(targetLeg, "legIndex")}];
-  v16[1] = v7;
-  v15[2] = @"isMonitoringWaypoint";
+  v15[1] = v7;
+  v14[2] = @"isMonitoringWaypoint";
   v8 = MEMORY[0x1E696AD98];
   evChargingStateMonitor = [(_MNArrivalUpdaterDetails *)self->_details evChargingStateMonitor];
   v10 = [v8 numberWithInt:evChargingStateMonitor != 0];
-  v16[2] = v10;
-  v15[3] = @"isCharging";
+  v15[2] = v10;
+  v14[3] = @"isCharging";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[_MNArrivalUpdaterDetails isEVCharging](self->_details, "isEVCharging")}];
-  v16[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }
@@ -153,6 +152,18 @@
   {
     v6 = objc_alloc_init(_MNArrivalUpdaterState_Parked);
     [(MNArrivalUpdater *)self changeState:v6];
+  }
+}
+
+- (void)evChargingStateMonitor:(id)monitor didChangeChargingState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(_MNArrivalUpdaterDetails *)self->_details isEVCharging]!= state)
+  {
+    [(_MNArrivalUpdaterDetails *)self->_details setIsEVCharging:stateCopy];
+    currentState = self->_currentState;
+
+    [(_MNArrivalUpdaterState *)currentState updateForEVChargingState:stateCopy];
   }
 }
 
@@ -236,7 +247,7 @@
 
 - (void)changeState:(id)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   p_currentState = &self->_currentState;
   currentState = self->_currentState;
@@ -245,9 +256,9 @@
     v9 = GEOFindOrCreateLog();
     if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 67109120;
-      LODWORD(v17) = [stateCopy state];
-      _os_log_impl(&dword_1D311E000, &v9->super, OS_LOG_TYPE_DEFAULT, "Arrival updater trying to change state to (%d), but is already in that state. This is allowed for now to support server auto advance.", &v16, 8u);
+      v15 = 67109120;
+      LODWORD(v16) = [stateCopy state];
+      _os_log_impl(&dword_1D311E000, &v9->super, OS_LOG_TYPE_DEFAULT, "Arrival updater trying to change state to (%d), but is already in that state. This is allowed for now to support server auto advance.", &v15, 8u);
     }
   }
 
@@ -281,24 +292,22 @@
         v14 = off_1E84307A8[state2];
       }
 
-      v16 = 138412546;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "Arrival updater change state: '%@' => '%@'", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "Arrival updater change state: '%@' => '%@'", &v15, 0x16u);
     }
 
     objc_storeStrong(p_currentState, state);
     [(_MNArrivalUpdaterState *)v9 onLeaveState:stateCopy];
     [stateCopy onEnterState:v9];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTimeoutRegions
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   timeoutRegions = self->_timeoutRegions;
   self->_timeoutRegions = 0;
 
@@ -314,27 +323,27 @@
       location = [navigationSessionState location];
 
       array = [MEMORY[0x1E695DF70] array];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v20 = arrivalParameters;
+      v19 = arrivalParameters;
       arrivalMapRegions = [arrivalParameters arrivalMapRegions];
-      v11 = [arrivalMapRegions countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [arrivalMapRegions countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(arrivalMapRegions);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             if ([v15 arrivalRegionAction] == 4)
             {
               v16 = [[MNArrivalRegionTimer alloc] initWithArrivalRegion:v15];
@@ -351,7 +360,7 @@
             }
           }
 
-          v12 = [arrivalMapRegions countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [arrivalMapRegions countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v12);
@@ -360,11 +369,9 @@
       v18 = self->_timeoutRegions;
       self->_timeoutRegions = array;
 
-      arrivalParameters = v20;
+      arrivalParameters = v19;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceDepartureForCurrentLeg:(unint64_t)leg
@@ -375,35 +382,35 @@
 
 - (void)updateForLocation:(id)location
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   [(MNArrivalUpdater *)self _updateForParkingDetectionRegion];
   [(_MNArrivalUpdaterState *)self->_currentState updateForLocation];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_timeoutRegions;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) updateForLocation:{locationCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v9++) updateForLocation:{locationCopy, v11}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -411,8 +418,6 @@
 
   evChargingStateMonitor = [(_MNArrivalUpdaterDetails *)self->_details evChargingStateMonitor];
   [evChargingStateMonitor updateForLocation:locationCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop

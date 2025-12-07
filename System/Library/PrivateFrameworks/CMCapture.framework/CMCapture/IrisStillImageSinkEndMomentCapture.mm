@@ -3,12 +3,12 @@
 
 @implementation IrisStillImageSinkEndMomentCapture
 
-uint64_t __captureSession_IrisStillImageSinkEndMomentCapture_block_invoke(double *a1)
+void *__captureSession_IrisStillImageSinkEndMomentCapture_block_invoke(double *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = [*(DerivedStorage + 784) movieFileSinkPipelineWithSinkID:*(a1 + 4)];
   v4 = [*(DerivedStorage + 784) stillImageSinkPipelineSessionStorageWithSinkID:*(a1 + 4)];
-  v58 = [v4 primaryCameraSourcePipeline];
+  v57 = [v4 primaryCameraSourcePipeline];
   v5 = *(*(a1 + 6) + 784);
   v6 = [(FigCaptureMovieFileSinkPipeline *)v3 videoSourceID];
   v7 = [v5 previewSinkPipelineWithSourceID:v6 sourceDeviceType:-[FigCaptureMovieFileSinkPipeline videoSourceDeviceType](v3)];
@@ -24,64 +24,64 @@ uint64_t __captureSession_IrisStillImageSinkEndMomentCapture_block_invoke(double
   }
 
   os_unfair_lock_unlock((v10 + 384));
-  v83[0] = 0;
-  cs_getMasterClockAndType(*(DerivedStorage + 784), v83, 0);
-  memset(&v82, 0, sizeof(v82));
-  HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v82, HostTimeClock);
-  v12 = [v4 previewSinkNode];
-  hostTime = v82;
-  v13 = CMClockConvertHostTimeToSystemUnits(&hostTime);
+  v82[0] = 0;
+  cs_getMasterClockAndType(*(DerivedStorage + 784), v82, 0);
   memset(&v81, 0, sizeof(v81));
+  HostTimeClock = CMClockGetHostTimeClock();
+  CMClockGetTime(&v81, HostTimeClock);
+  v12 = [v4 previewSinkNode];
+  hostTime = v81;
+  CMClockConvertHostTimeToSystemUnits(&hostTime);
+  memset(&v80, 0, sizeof(v80));
   if (v12)
   {
-    [v12 previewPTSDisplayedAtHostTime:v13 allowingExtrapolation:1];
-    memset(&v80, 0, sizeof(v80));
-    if (v81.flags)
+    objc_msgSend_previewPTSDisplayedAtHostTime_allowingExtrapolation_(v12);
+    memset(&v79, 0, sizeof(v79));
+    if (v80.flags)
     {
-      v80 = v81;
+      v79 = v80;
       goto LABEL_8;
     }
   }
 
   else
   {
-    memset(&v80, 0, sizeof(v80));
+    memset(&v79, 0, sizeof(v79));
   }
 
-  v14 = CMClockGetHostTimeClock();
-  hostTime = v82;
-  CMSyncConvertTime(&v80, &hostTime, v14, v83[0]);
+  v13 = CMClockGetHostTimeClock();
+  hostTime = v81;
+  CMSyncConvertTime(&v79, &hostTime, v13, v82[0]);
 LABEL_8:
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
-  v15 = [v3 pendingIrisRecordings];
-  v16 = [v15 countByEnumeratingWithState:&v76 objects:v75 count:16];
-  if (v16)
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v14 = [v3 pendingIrisRecordings];
+  v15 = [v14 countByEnumeratingWithState:&v75 objects:v74 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v77;
+    v16 = v15;
+    v17 = *v76;
 LABEL_10:
-    v19 = 0;
+    v18 = 0;
     while (1)
     {
-      if (*v77 != v18)
+      if (*v76 != v17)
       {
-        objc_enumerationMutation(v15);
+        objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v76 + 1) + 8 * v19);
-      if ([objc_msgSend(v20 "settings")] == *(a1 + 7))
+      v19 = *(*(&v75 + 1) + 8 * v18);
+      if ([objc_msgSend(v19 "settings")] == *(a1 + 7))
       {
         break;
       }
 
-      if (v17 == ++v19)
+      if (v16 == ++v18)
       {
-        v17 = [v15 countByEnumeratingWithState:&v76 objects:v75 count:16];
-        if (v17)
+        v16 = [v14 countByEnumeratingWithState:&v75 objects:v74 count:16];
+        if (v16)
         {
           goto LABEL_10;
         }
@@ -90,25 +90,25 @@ LABEL_10:
       }
     }
 
-    if (([objc_msgSend(v20 "settings")] & 1) == 0 && dword_1ED844050)
+    if (([objc_msgSend(v19 "settings")] & 1) == 0 && dword_1ED844050)
     {
-      LODWORD(v73.value) = 0;
+      LODWORD(v72.value) = 0;
       LOBYTE(type.value) = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    if (v20)
+    if (v19)
     {
-      if (([v20 isEmpty] & 1) == 0)
+      if (([v19 isEmpty] & 1) == 0)
       {
-        v22 = [v20 irisMovieInfo];
-        v23 = v22;
-        memset(&v73, 0, sizeof(v73));
-        if (v22)
+        v21 = [v19 irisMovieInfo];
+        v22 = v21;
+        memset(&v72, 0, sizeof(v72));
+        if (v21)
         {
-          [v22 stillImageCaptureTime];
+          objc_msgSend_stillImageCaptureTime(v21);
         }
 
         else
@@ -116,15 +116,15 @@ LABEL_10:
           memset(&hostTime, 0, sizeof(hostTime));
         }
 
-        lhs = v80;
-        CMTimeSubtract(&v73, &lhs, &hostTime);
+        lhs = v79;
+        CMTimeSubtract(&v72, &lhs, &hostTime);
         memset(&type, 0, sizeof(type));
         CMTimeMake(&type, 500, 1000);
-        if ((v73.flags & 1) == 0 || (hostTime = v73, lhs = type, CMTimeCompare(&hostTime, &lhs) < 0))
+        if ((v72.flags & 1) == 0 || (hostTime = v72, lhs = type, CMTimeCompare(&hostTime, &lhs) < 0))
         {
-          if (v23)
+          if (v22)
           {
-            [v23 stillImageCaptureTime];
+            objc_msgSend_stillImageCaptureTime(v22);
           }
 
           else
@@ -134,38 +134,38 @@ LABEL_10:
 
           rhs = type;
           CMTimeAdd(&hostTime, &lhs, &rhs);
-          v80 = hostTime;
+          v79 = hostTime;
           if (dword_1ED844050)
           {
             LODWORD(rhs.value) = 0;
-            v70 = OS_LOG_TYPE_DEFAULT;
-            v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v69 = OS_LOG_TYPE_DEFAULT;
+            v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             value = rhs.value;
-            if (os_log_type_enabled(v34, v70))
+            if (os_log_type_enabled(v33, v69))
             {
-              v36 = value;
+              v35 = value;
             }
 
             else
             {
-              v36 = value & 0xFFFFFFFE;
+              v35 = value & 0xFFFFFFFE;
             }
 
-            if (v36)
+            if (v35)
             {
-              v37 = *(*(a1 + 6) + 104);
-              hostTime = v80;
+              v36 = *(*(a1 + 6) + 104);
+              hostTime = v79;
               Seconds = CMTimeGetSeconds(&hostTime);
-              *&v39 = COERCE_DOUBLE([objc_msgSend(v20 "settings")]);
+              *&v38 = COERCE_DOUBLE([objc_msgSend(v19 "settings")]);
               LODWORD(lhs.value) = 136315906;
               *(&lhs.value + 4) = "captureSession_IrisStillImageSinkEndMomentCapture_block_invoke";
               LOWORD(lhs.flags) = 2114;
-              *(&lhs.flags + 2) = v37;
+              *(&lhs.flags + 2) = v36;
               HIWORD(lhs.epoch) = 2048;
-              v65 = Seconds;
-              v66 = 2048;
-              v67 = *&v39;
-              LODWORD(v56) = 42;
+              v64 = Seconds;
+              v65 = 2048;
+              v66 = *&v38;
+              LODWORD(v55) = 42;
               p_lhs = &lhs;
               _os_log_send_and_compose_impl();
             }
@@ -177,51 +177,51 @@ LABEL_10:
 
       if (dword_1ED844050)
       {
-        LODWORD(v73.value) = 0;
+        LODWORD(v72.value) = 0;
         LOBYTE(type.value) = 0;
-        v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v41 = v73.value;
-        if (os_log_type_enabled(v40, type.value))
+        v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v40 = v72.value;
+        if (os_log_type_enabled(v39, type.value))
         {
-          v42 = v41;
+          v41 = v40;
         }
 
         else
         {
-          v42 = v41 & 0xFFFFFFFE;
+          v41 = v40 & 0xFFFFFFFE;
         }
 
-        if (v42)
+        if (v41)
         {
-          v57 = *(*(a1 + 6) + 104);
-          *&v43 = COERCE_DOUBLE([objc_msgSend(v20 "settings")]);
-          v44 = v4;
-          v45 = v7;
-          if ([v20 isEmpty])
+          v56 = *(*(a1 + 6) + 104);
+          *&v42 = COERCE_DOUBLE([objc_msgSend(v19 "settings")]);
+          v43 = v4;
+          v44 = v7;
+          if ([v19 isEmpty])
           {
-            *&v46 = COERCE_DOUBLE(@"YES");
+            *&v45 = COERCE_DOUBLE(@"YES");
           }
 
           else
           {
-            *&v46 = COERCE_DOUBLE(@"NO");
+            *&v45 = COERCE_DOUBLE(@"NO");
           }
 
-          hostTime = v80;
-          v47 = CMTimeGetSeconds(&hostTime);
+          hostTime = v79;
+          v46 = CMTimeGetSeconds(&hostTime);
           LODWORD(lhs.value) = 136316162;
           *(&lhs.value + 4) = "captureSession_IrisStillImageSinkEndMomentCapture_block_invoke";
           LOWORD(lhs.flags) = 2114;
-          *(&lhs.flags + 2) = v57;
+          *(&lhs.flags + 2) = v56;
           HIWORD(lhs.epoch) = 2048;
-          v65 = *&v43;
-          v66 = 2112;
-          v67 = *&v46;
-          v7 = v45;
-          v4 = v44;
-          v68 = 2048;
-          v69 = v47;
-          LODWORD(v56) = 52;
+          v64 = *&v42;
+          v65 = 2112;
+          v66 = *&v45;
+          v7 = v44;
+          v4 = v43;
+          v67 = 2048;
+          v68 = v46;
+          LODWORD(v55) = 52;
           p_lhs = &lhs;
           _os_log_send_and_compose_impl();
         }
@@ -229,8 +229,8 @@ LABEL_10:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      hostTime = v80;
-      [v20 setMomentCaptureMovieRecordingMasterEndTime:{&hostTime, p_lhs, v56}];
+      hostTime = v79;
+      [v19 setMomentCaptureMovieRecordingMasterEndTime:{&hostTime, p_lhs, v55}];
       goto LABEL_56;
     }
   }
@@ -238,39 +238,39 @@ LABEL_10:
 LABEL_24:
   if (dword_1ED844050)
   {
-    LODWORD(v73.value) = 0;
+    LODWORD(v72.value) = 0;
     LOBYTE(type.value) = 0;
-    v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v25 = v73.value;
-    if (os_log_type_enabled(v24, type.value))
+    v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v24 = v72.value;
+    if (os_log_type_enabled(v23, type.value))
     {
-      v26 = v25;
+      v25 = v24;
     }
 
     else
     {
-      v26 = v25 & 0xFFFFFFFE;
+      v25 = v24 & 0xFFFFFFFE;
     }
 
-    if (v26)
+    if (v25)
     {
-      v27 = v4;
-      v28 = v7;
-      v29 = a1[7];
-      v30 = *(*(a1 + 6) + 104);
-      hostTime = v80;
-      v31 = CMTimeGetSeconds(&hostTime);
+      v26 = v4;
+      v27 = v7;
+      v28 = a1[7];
+      v29 = *(*(a1 + 6) + 104);
+      hostTime = v79;
+      v30 = CMTimeGetSeconds(&hostTime);
       LODWORD(lhs.value) = 136315906;
       *(&lhs.value + 4) = "captureSession_IrisStillImageSinkEndMomentCapture_block_invoke";
       LOWORD(lhs.flags) = 2114;
-      *(&lhs.flags + 2) = v30;
+      *(&lhs.flags + 2) = v29;
       HIWORD(lhs.epoch) = 2048;
-      v65 = v29;
-      v7 = v28;
-      v4 = v27;
-      v66 = 2048;
-      v67 = v31;
-      LODWORD(v56) = 42;
+      v64 = v28;
+      v7 = v27;
+      v4 = v26;
+      v65 = 2048;
+      v66 = v30;
+      LODWORD(v55) = 42;
       p_lhs = &lhs;
       _os_log_send_and_compose_impl();
     }
@@ -278,45 +278,45 @@ LABEL_24:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v32 = [(FigCaptureMovieFileSinkPipeline *)v3 irisStagingNode];
-  v33 = *(a1 + 7);
-  hostTime = v80;
-  [v32 setMomentCaptureMovieRecordingMasterEndTime:&hostTime forRequestWithSettingsID:v33];
+  v31 = [(FigCaptureMovieFileSinkPipeline *)v3 irisStagingNode];
+  v32 = *(a1 + 7);
+  hostTime = v79;
+  [v31 setMomentCaptureMovieRecordingMasterEndTime:&hostTime forRequestWithSettingsID:v32];
 LABEL_56:
-  [v7 setVideoStabilizationOverscanCropEnabled:0 momentMovieRecordingEnabled:{0, p_lhs, v56}];
+  [v7 setVideoStabilizationOverscanCropEnabled:0 momentMovieRecordingEnabled:{0, p_lhs, v55}];
   [v7 setSemanticStyleRenderingSuspended:0 animated:1];
   [v4 setVideoStabilizationOverscanCropEnabled:0];
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
-  v48 = [*(*(a1 + 6) + 784) cameraSourcePipelines];
-  v49 = [v48 countByEnumeratingWithState:&v60 objects:v59 count:16];
-  if (v49)
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v47 = [*(*(a1 + 6) + 784) cameraSourcePipelines];
+  v48 = [v47 countByEnumeratingWithState:&v59 objects:v58 count:16];
+  if (v48)
   {
-    v50 = v49;
-    v51 = *v61;
+    v49 = v48;
+    v50 = *v60;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v49; ++i)
       {
-        if (*v61 != v51)
+        if (*v60 != v50)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v47);
         }
 
-        [-[FigCaptureCameraSourcePipeline captureDevice](*(*(&v60 + 1) + 8 * i)) setTemporalNoiseReductionBand0StrengthModulation:0];
+        [-[FigCaptureCameraSourcePipeline captureDevice](*(*(&v59 + 1) + 8 * i)) setTemporalNoiseReductionBand0StrengthModulation:0];
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v60 objects:v59 count:16];
+      v49 = [v47 countByEnumeratingWithState:&v59 objects:v58 count:16];
     }
 
-    while (v50);
+    while (v49);
   }
 
-  v53 = [(FigCaptureCameraSourcePipeline *)v58 captureDevice];
-  [v53 setAutomaticallyAdjustsTorch:0];
-  result = [v53 setTorchLevel:0.0];
+  v52 = [(FigCaptureCameraSourcePipeline *)v57 captureDevice];
+  [v52 setAutomaticallyAdjustsTorch:0];
+  result = [v52 setTorchLevel:0.0];
   if (v3)
   {
     return cs_resetImageControlModeAndStreamSelection(v3, 1);

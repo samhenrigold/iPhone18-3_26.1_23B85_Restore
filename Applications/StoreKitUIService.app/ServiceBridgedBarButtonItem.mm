@@ -1,6 +1,7 @@
 @interface ServiceBridgedBarButtonItem
 + (id)itemFromItem:(id)item;
 - (ServiceBridgedNavigationItemProxy)proxyHandler;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setTitle:(id)title;
 @end
 
@@ -14,6 +15,13 @@
   v4[1] = itemCopy;
 
   return v4;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  [(UIBarButtonItem *)self->_underlyingBarButtonItem setEnabled:enabled];
+  proxyHandler = [(ServiceBridgedBarButtonItem *)self proxyHandler];
+  [proxyHandler navigationItemUpdated];
 }
 
 - (void)setTitle:(id)title

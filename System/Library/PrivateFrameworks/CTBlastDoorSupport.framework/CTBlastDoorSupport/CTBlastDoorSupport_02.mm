@@ -1,176 +1,3 @@
-uint64_t sub_24266404C(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-__n128 std::optional<ctb::chatbot::PostbackData>::optional[abi:ne200100](uint64_t a1, __n128 *a2)
-{
-  *a1 = 0;
-  *(a1 + 24) = 0;
-  if (a2[1].n128_u8[8] == 1)
-  {
-    result = *a2;
-    *(a1 + 16) = a2[1].n128_u64[0];
-    *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
-    a2->n128_u64[0] = 0;
-    *(a1 + 24) = 1;
-  }
-
-  return result;
-}
-
-__n128 ctb::bridging::makeOptional@<Q0>(ctb::bridging *this@<X0>, uint64_t a2@<X8>)
-{
-  result = *this;
-  *a2 = *this;
-  *(a2 + 16) = *(this + 2);
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *this = 0;
-  *(a2 + 24) = 1;
-  return result;
-}
-
-{
-  *a2 = *this;
-  *(a2 + 16) = *(this + 2);
-  v3 = *(this + 24);
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *this = 0;
-  *(this + 1) = 0;
-  *(a2 + 24) = v3;
-  *(a2 + 40) = *(this + 5);
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  result = *(this + 3);
-  *(a2 + 48) = result;
-  *(a2 + 64) = *(this + 8);
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  *(a2 + 72) = 1;
-  return result;
-}
-
-{
-  *a2 = *this;
-  *(a2 + 16) = *(this + 2);
-  *this = 0;
-  *(this + 1) = 0;
-  v3 = *(this + 24);
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(a2 + 24) = v3;
-  *(a2 + 40) = *(this + 5);
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  *(a2 + 64) = *(this + 8);
-  *(a2 + 48) = *(this + 3);
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  v4 = *(this + 72);
-  *(a2 + 88) = *(this + 11);
-  *(a2 + 72) = v4;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  *(this + 10) = 0;
-  *(this + 11) = 0;
-  v5 = *(this + 6);
-  *(a2 + 112) = *(this + 14);
-  *(a2 + 96) = v5;
-  *(this + 12) = 0;
-  *(this + 13) = 0;
-  v6 = *(this + 120);
-  *(a2 + 136) = *(this + 17);
-  *(a2 + 120) = v6;
-  *(this + 14) = 0;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  v7 = *(this + 9);
-  *(a2 + 160) = *(this + 20);
-  *(a2 + 144) = v7;
-  *(this + 18) = 0;
-  *(this + 19) = 0;
-  v8 = *(this + 168);
-  *(a2 + 184) = *(this + 23);
-  *(a2 + 168) = v8;
-  *(this + 20) = 0;
-  *(this + 21) = 0;
-  *(this + 22) = 0;
-  *(this + 23) = 0;
-  v9 = *(this + 12);
-  *(a2 + 208) = *(this + 26);
-  *(a2 + 192) = v9;
-  *(this + 24) = 0;
-  *(this + 25) = 0;
-  *(this + 26) = 0;
-  *(a2 + 216) = *(this + 216);
-  *(a2 + 232) = *(this + 232);
-  *(a2 + 248) = *(this + 31);
-  *(this + 29) = 0;
-  *(this + 30) = 0;
-  result = *(this + 16);
-  *(a2 + 256) = result;
-  *(a2 + 272) = *(this + 34);
-  *(this + 31) = 0;
-  *(this + 32) = 0;
-  *(this + 33) = 0;
-  *(this + 34) = 0;
-  *(a2 + 280) = 1;
-  return result;
-}
-
-{
-  *a2 = *this;
-  *(a2 + 16) = *(this + 2);
-  *this = 0;
-  *(this + 1) = 0;
-  v3 = *(this + 24);
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(a2 + 24) = v3;
-  *(a2 + 40) = *(this + 5);
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  *(a2 + 64) = *(this + 8);
-  *(a2 + 48) = *(this + 3);
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  result = *(this + 72);
-  *(a2 + 72) = result;
-  *(a2 + 88) = *(this + 11);
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  *(this + 10) = 0;
-  *(this + 11) = 0;
-  *(a2 + 96) = 1;
-  return result;
-}
-
-{
-  *a2 = *this;
-  result = *(this + 8);
-  *(a2 + 8) = result;
-  *(a2 + 24) = *(this + 3);
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(a2 + 32) = 1;
-  return result;
-}
-
 void ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(void **this)
 {
   if (*(this + 23) < 0)
@@ -179,10 +6,10 @@ void ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(void **this)
   }
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::User>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t std::vector<ctb::SIPConferenceInfo::User>::push_back[abi:ne200100](void *a1, uint64_t *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::SIPConferenceInfo::User>::__emplace_back_slow_path<ctb::SIPConferenceInfo::User const&>(a1, a2);
   }
@@ -193,14 +20,14 @@ uint64_t std::vector<ctb::SIPConferenceInfo::User>::push_back[abi:ne200100](uint
     result = v3 + 24;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::SIPConferenceInfo::Endpoint>::__emplace_back_slow_path<ctb::SIPConferenceInfo::Endpoint const&>(a1, a2);
   }
@@ -211,7 +38,7 @@ uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::push_back[abi:ne200100](
     result = v3 + 88;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -242,17 +69,17 @@ _BYTE *std::optional<ctb::SIPConferenceInfo::ReferredInfo>::optional[abi:ne20010
   return result;
 }
 
-uint64_t sub_242664250(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_242664250(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_2426642B8(uint64_t a1, uint64_t *a2)
+uint64_t sub_2426642B8(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -320,7 +147,7 @@ uint64_t sub_2426643A4(uint64_t a1)
   return 0;
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::User>::__construct_one_at_end[abi:ne200100]<ctb::SIPConferenceInfo::User const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<ctb::SIPConferenceInfo::User>::__construct_one_at_end[abi:ne200100]<ctb::SIPConferenceInfo::User const&>(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -331,21 +158,21 @@ uint64_t std::vector<ctb::SIPConferenceInfo::User>::__construct_one_at_end[abi:n
   return result;
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::User>::__emplace_back_slow_path<ctb::SIPConferenceInfo::User const&>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<ctb::SIPConferenceInfo::User>::__emplace_back_slow_path<ctb::SIPConferenceInfo::User const&>(void *a1, uint64_t *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -368,16 +195,16 @@ uint64_t std::vector<ctb::SIPConferenceInfo::User>::__emplace_back_slow_path<ctb
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<ctb::SIPConferenceInfo::Endpoint>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>(24 * v2, *a2, a2[1], 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 3));
+  std::vector<ctb::SIPConferenceInfo::Endpoint>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint*,ctb::SIPConferenceInfo::Endpoint*>((24 * v2), *a2, a2[1], 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 3));
   *&v16 = v16 + 24;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (v15 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::User>,ctb::SIPConferenceInfo::User*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -386,9 +213,9 @@ uint64_t std::vector<ctb::SIPConferenceInfo::User>::__emplace_back_slow_path<ctb
   return v13;
 }
 
-void sub_242664718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_242664718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ctb::SIPConferenceInfo::User>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -497,21 +324,21 @@ void sub_242664944(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::__emplace_back_slow_path<ctb::SIPConferenceInfo::Endpoint const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::__emplace_back_slow_path<ctb::SIPConferenceInfo::Endpoint const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x2E8BA2E8BA2E8BA3 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x2E8BA2E8BA2E8BALL)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x2E8BA2E8BA2E8BA3 * ((*(a1 + 16) - *a1) >> 3)) >= 0x1745D1745D1745DLL)
+  if ((0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3)) >= 0x1745D1745D1745DLL)
   {
     v6 = 0x2E8BA2E8BA2E8BALL;
   }
@@ -536,14 +363,14 @@ uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::__emplace_back_slow_path
   std::__optional_copy_base<ctb::SIPConferenceInfo::ReferredInfo,false>::__optional_copy_base[abi:ne200100]((v7 + 40), a2 + 40);
   *(v7 + 80) = *(a2 + 80);
   *&v16 = v16 + 88;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = v15 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctb::SIPConferenceInfo::Endpoint>,ctb::SIPConferenceInfo::Endpoint*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -552,12 +379,12 @@ uint64_t std::vector<ctb::SIPConferenceInfo::Endpoint>::__emplace_back_slow_path
   return v13;
 }
 
-void sub_242664AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_242664AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 24) == 1 && *(v4 + 23) < 0)
+  va_start(va, a7);
+  if (*(v7 + 24) == 1 && *(v7 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   std::__split_buffer<ctb::SIPConferenceInfo::Endpoint>::~__split_buffer(va);
@@ -610,8 +437,7 @@ uint64_t std::construct_at[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint,ctb::S
     v2 = *a2;
     *(result + 16) = *(a2 + 2);
     *result = v2;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     *(result + 24) = 1;
   }
@@ -628,8 +454,7 @@ uint64_t std::construct_at[abi:ne200100]<ctb::SIPConferenceInfo::Endpoint,ctb::S
       v4 = *(a2 + 40);
       *(result + 56) = *(a2 + 7);
       *(result + 40) = v4;
-      *(a2 + 6) = 0;
-      *(a2 + 7) = 0;
+      a2[3] = 0uLL;
       *(a2 + 5) = 0;
       *(result + 64) = 1;
     }
@@ -668,11 +493,11 @@ void std::__split_buffer<ctb::SIPConferenceInfo::Endpoint>::__destruct_at_end[ab
   }
 }
 
-uint64_t FileCryptoMaterial.Algorithm.init(rawValue:)@<X0>(BOOL *a1@<X8>)
+uint64_t FileCryptoMaterial.Algorithm.init(rawValue:)@<X0>(BOOL *a3@<X8>)
 {
-  v2 = sub_2426ABC60();
+  v4 = sub_2426ABC60();
 
-  *a1 = v2 != 0;
+  *a3 = v4 != 0;
   return result;
 }
 
@@ -683,18 +508,18 @@ uint64_t sub_242664D58()
   return sub_2426ABDD0();
 }
 
-uint64_t sub_242664DBC()
+uint64_t sub_242664DBC(uint64_t a1)
 {
   sub_2426ABDB0();
   sub_2426ABA50();
   return sub_2426ABDD0();
 }
 
-uint64_t sub_242664E08@<X0>(BOOL *a1@<X8>)
+uint64_t sub_242664E08@<X0>(BOOL *a2@<X8>)
 {
-  v2 = sub_2426ABC60();
+  v3 = sub_2426ABC60();
 
-  *a1 = v2 != 0;
+  *a2 = v3 != 0;
   return result;
 }
 
@@ -705,13 +530,13 @@ uint64_t FileCryptoMaterial.key.getter()
   return v1;
 }
 
-uint64_t sub_242664F58(uint64_t a1, unint64_t a2)
+uint64_t sub_242664F58(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -723,14 +548,14 @@ uint64_t FileCryptoMaterial.nonce.getter()
   return v1;
 }
 
-uint64_t sub_242664FE0(uint64_t a1, unint64_t a2)
+uint64_t sub_242664FE0(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_242664F58(a1, a2);
+    return sub_242664F58(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t FileCryptoMaterial.aad.getter()
@@ -783,11 +608,11 @@ uint64_t sub_2426650B0()
   return sub_2426ABDD0();
 }
 
-uint64_t sub_242665124()
+uint64_t sub_242665124(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2426ABDB0();
-  MEMORY[0x245D15D60](v1);
+  MEMORY[0x245D15D60](v2);
   return sub_2426ABDD0();
 }
 
@@ -823,10 +648,10 @@ uint64_t sub_242665168()
   }
 }
 
-uint64_t sub_2426651F4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_2426651F4@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_242666948(a1, a2);
-  *a3 = result;
+  result = sub_242666948(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -846,7 +671,7 @@ uint64_t sub_242665270(uint64_t a1)
 
 uint64_t FileCryptoMaterial.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5B40);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5B40, &qword_2426B41D0);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v18 - v5;
@@ -911,7 +736,7 @@ uint64_t FileCryptoMaterial.encode(to:)(void *a1)
 
 uint64_t FileCryptoMaterial.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5B58);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5B58, &qword_2426B41D8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v17 - v7;
@@ -1216,7 +1041,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t sub_242665E58(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL sub_242665E58(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -1342,7 +1167,7 @@ uint64_t _s18CTBlastDoorSupport18FileCryptoMaterialV2eeoiySbAC_ACtFZ_0(uint64_t 
   v11 = *(a2 + 56);
   v18 = *(a2 + 48);
   v19 = *(a2 + 64);
-  if ((sub_242665E58(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0)
+  if (!sub_242665E58(*a1, *(a1 + 8), *a2, *(a2 + 8)))
   {
     return 0;
   }
@@ -1380,7 +1205,7 @@ LABEL_13:
   v14 = sub_242665E58(v3, v2, v8, v7);
   sub_242666348(v8, v7);
   sub_242666348(v3, v2);
-  if ((v14 & 1) == 0)
+  if (!v14)
   {
     return 0;
   }
@@ -1457,30 +1282,28 @@ unint64_t sub_2426662A0()
   return result;
 }
 
-uint64_t sub_2426662F4(uint64_t a1, unint64_t a2)
+void sub_2426662F4(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
 
-uint64_t sub_242666348(uint64_t a1, unint64_t a2)
+void sub_242666348(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_2426662F4(a1, a2);
+    sub_2426662F4(a1, a2);
   }
-
-  return a1;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -1986,35 +1809,35 @@ uint64_t sub_242666B50()
   return sub_2426A9A00();
 }
 
-void sub_242666BD4()
+void sub_242666BD4(uint64_t a1)
 {
   if (qword_27ECB5458 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_2426A9A10();
-  __swift_project_value_buffer(v0, qword_27ECB5B90);
+  v1 = sub_2426A9A10();
+  __swift_project_value_buffer(v1, qword_27ECB5B90);
 
   oslog = sub_2426A99F0();
-  v1 = sub_2426ABB60();
+  v2 = sub_2426ABB60();
 
-  if (os_log_type_enabled(oslog, v1))
+  if (os_log_type_enabled(oslog, v2))
   {
-    v2 = swift_slowAlloc();
     v3 = swift_slowAlloc();
-    v8 = v3;
-    *v2 = 136315138;
+    v4 = swift_slowAlloc();
+    v9 = v4;
+    *v3 = 136315138;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C18);
-    v4 = sub_2426ABA20();
-    v6 = sub_242670C0C(v4, v5, &v8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C18, &qword_2426B46F0);
+    v5 = sub_2426ABA20();
+    v7 = sub_242670C0C(v5, v6, &v9);
 
-    *(v2 + 4) = v6;
-    _os_log_impl(&dword_242644000, oslog, v1, "Received response from diagnostic Reporter snapshot for %s", v2, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v3);
+    *(v3 + 4) = v7;
+    _os_log_impl(&dword_242644000, oslog, v2, "Received response from diagnostic Reporter snapshot for %s", v3, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v4);
+    MEMORY[0x245D163E0](v4, -1, -1);
     MEMORY[0x245D163E0](v3, -1, -1);
-    MEMORY[0x245D163E0](v2, -1, -1);
   }
 
   else
@@ -2051,61 +1874,61 @@ unint64_t type metadata accessor for AutoBugCaptureHelper()
   return result;
 }
 
-void sub_242666FE4()
+void sub_242666FE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (qword_27ECB5458 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_2426A9A10();
-  __swift_project_value_buffer(v0, qword_27ECB5B90);
-  v1 = sub_2426A99F0();
-  v2 = sub_2426ABB60();
-  if (os_log_type_enabled(v1, v2))
+  v8 = sub_2426A9A10();
+  __swift_project_value_buffer(v8, qword_27ECB5B90);
+  v9 = sub_2426A99F0();
+  v10 = sub_2426ABB60();
+  if (os_log_type_enabled(v9, v10))
   {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&dword_242644000, v1, v2, "Reporting error with ABC", v3, 2u);
-    MEMORY[0x245D163E0](v3, -1, -1);
+    v11 = swift_slowAlloc();
+    *v11 = 0;
+    _os_log_impl(&dword_242644000, v9, v10, "Reporting error with ABC", v11, 2u);
+    MEMORY[0x245D163E0](v11, -1, -1);
   }
 
-  v20 = [objc_allocWithZone(MEMORY[0x277D6AFC8]) init];
-  v4 = sub_2426ABA00();
-  v5 = sub_2426ABA00();
-  v6 = sub_2426ABA00();
-  v7 = sub_2426ABA00();
-  v8 = sub_2426ABA00();
-  v9 = [v20 signatureWithDomain:v4 type:v5 subType:v6 subtypeContext:v7 detectedProcess:v8 triggerThresholdValues:0];
+  v28 = [objc_allocWithZone(MEMORY[0x277D6AFC8]) init];
+  v12 = sub_2426ABA00();
+  v13 = sub_2426ABA00();
+  v14 = sub_2426ABA00();
+  v15 = sub_2426ABA00();
+  v16 = sub_2426ABA00();
+  v17 = [v28 signatureWithDomain:v12 type:v13 subType:v14 subtypeContext:v15 detectedProcess:v16 triggerThresholdValues:0];
 
-  if (v9)
+  if (v17)
   {
     aBlock[0] = 0;
-    v10 = v9;
+    v18 = v17;
     sub_2426AB9B0();
   }
 
-  v11 = v9;
-  v12 = sub_2426A99F0();
-  v13 = sub_2426ABB70();
+  v19 = v17;
+  v20 = sub_2426A99F0();
+  v21 = sub_2426ABB70();
 
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v20, v21))
   {
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    aBlock[0] = v15;
-    *v14 = 136315138;
-    aBlock[6] = v9;
-    v16 = v11;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C10);
-    v17 = sub_2426ABA20();
-    v19 = sub_242670C0C(v17, v18, aBlock);
+    v22 = swift_slowAlloc();
+    v23 = swift_slowAlloc();
+    aBlock[0] = v23;
+    *v22 = 136315138;
+    aBlock[6] = v17;
+    v24 = v19;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C10, &qword_2426B46E8);
+    v25 = sub_2426ABA20();
+    v27 = sub_242670C0C(v25, v26, aBlock);
 
-    *(v14 + 4) = v19;
-    _os_log_impl(&dword_242644000, v12, v13, "Couldn't parse signature: %s", v14, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v15);
-    MEMORY[0x245D163E0](v15, -1, -1);
-    MEMORY[0x245D163E0](v14, -1, -1);
+    *(v22 + 4) = v27;
+    _os_log_impl(&dword_242644000, v20, v21, "Couldn't parse signature: %s", v22, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v23);
+    MEMORY[0x245D163E0](v23, -1, -1);
+    MEMORY[0x245D163E0](v22, -1, -1);
   }
 
   else
@@ -2150,9 +1973,9 @@ uint64_t sub_2426676A8()
   return sub_2426A9A00();
 }
 
-uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2166,9 +1989,9 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000019, 0x80000002426AFC30, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000019, 0x80000002426AFC30, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2179,49 +2002,49 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CD8, MEMORY[0x282214C50]);
+  sub_242671E10(&qword_27ECB5CD8, MEMORY[0x282214C50], MEMORY[0x282214C48]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2232,7 +2055,7 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2244,7 +2067,7 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -2253,16 +2076,16 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -2273,28 +2096,28 @@ uint64_t sub_24266772C(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
+void sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
 {
-  v47 = a1;
+  v46 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
   }
 
   v6 = sub_2426A9A10();
-  v46 = __swift_project_value_buffer(v6, qword_27ECB5C20);
+  v45 = __swift_project_value_buffer(v6, qword_27ECB5C20);
   v7 = sub_2426A99F0();
   v8 = sub_2426ABB60();
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v48 = v10;
+    v47 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000011, 0x80000002426AFC10, &v48);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000011, 0x80000002426AFC10, &v47);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2305,53 +2128,53 @@ uint64_t sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CD0, MEMORY[0x2822148F0]);
+  sub_242671E10(&qword_27ECB5CD0, MEMORY[0x2822148F0], MEMORY[0x2822148E8]);
   sub_2426A99C0();
   if (v3)
   {
-    v45 = a2;
+    v44 = a2;
 
-    v48 = v3;
+    v47 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v43 = a3;
+      v42 = a3;
 
-      v40 = v38;
+      v39 = v37;
       MEMORY[0x28223BE20](v15);
-      v16 = (*(v12 + 32))(v38 - v14, v38 - v14, v11);
+      v16 = (*(v12 + 32))(v37 - v14, v37 - v14, v11);
       MEMORY[0x28223BE20](v16);
-      v17 = v38 - v14;
+      v17 = v37 - v14;
       v18 = *(v12 + 16);
-      v44 = v38 - v14;
-      v18(v38 - v14, v38 - v14, v11);
+      v43 = v37 - v14;
+      v18(v37 - v14, v37 - v14, v11);
       v19 = sub_2426A99F0();
       v20 = sub_2426ABB60();
       v21 = os_log_type_enabled(v19, v20);
-      v41 = v12;
-      v42 = v38;
-      v39 = v18;
+      v40 = v12;
+      v41 = v37;
+      v38 = v18;
       if (v21)
       {
         v22 = swift_slowAlloc();
-        v38[1] = v38;
+        v37[1] = v37;
         v23 = v22;
         v24 = swift_slowAlloc();
-        v38[2] = v12 + 16;
+        v37[2] = v12 + 16;
         v25 = v24;
         *v23 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v18(v26, v17, v11);
         v27 = _swift_stdlib_bridgeErrorToNSError();
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
         *(v23 + 4) = v27;
         *v25 = v27;
         _os_log_impl(&dword_242644000, v19, v20, "Detected a BlastDoor explosion: %@", v23, 0xCu);
@@ -2363,12 +2186,12 @@ uint64_t sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
       else
       {
 
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
       }
 
-      v29 = [v47 autoBugCaptureHelper];
-      v30 = v44;
+      v29 = [v46 autoBugCaptureHelper];
+      v30 = v43;
       v31 = v29;
       v32 = sub_2426ABA00();
       v33 = sub_2426ABA00();
@@ -2378,16 +2201,16 @@ uint64_t sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
 
       [v31 reportWithDomain:v32 type:v33 subtype:v34 subtypeContext:v35];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v39(v36, v30, v11);
+      v38(v36, v30, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
-      v46(v30, v11);
-      a3 = v43;
+      v45(v30, v11);
+      a3 = v42;
     }
 
-    v28 = v45;
+    v28 = v44;
   }
 
   else
@@ -2396,12 +2219,12 @@ uint64_t sub_242667D50(void *a1, uint64_t a2, unint64_t a3)
     v28 = a2;
   }
 
-  return sub_2426662F4(v28, a3);
+  sub_2426662F4(v28, a3);
 }
 
-uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
+void sub_242668374(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2415,9 +2238,9 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0x7373654D4D495043, 0xEB00000000656761, &v50);
+    *(v9 + 4) = sub_242670C0C(0x7373654D4D495043, 0xEB00000000656761, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2428,49 +2251,49 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CC8, MEMORY[0x282214728]);
+  sub_242671E10(&qword_27ECB5CC8, MEMORY[0x282214728], MEMORY[0x282214720]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2481,7 +2304,7 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2493,7 +2316,7 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -2502,16 +2325,16 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -2522,12 +2345,12 @@ uint64_t sub_242668374(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
+void sub_242668998(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2541,9 +2364,9 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0x4D534C4D4D495043, 0xEE00656761737365, &v50);
+    *(v9 + 4) = sub_242670C0C(0x4D534C4D4D495043, 0xEE00656761737365, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2554,49 +2377,49 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CC0, MEMORY[0x2822147F8]);
+  sub_242671E10(&qword_27ECB5CC0, MEMORY[0x2822147F8], MEMORY[0x2822147F0]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2607,7 +2430,7 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2619,7 +2442,7 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -2628,16 +2451,16 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -2648,12 +2471,12 @@ uint64_t sub_242668998(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
+void sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2667,9 +2490,9 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000013, 0x80000002426AFBF0, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000013, 0x80000002426AFBF0, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2680,49 +2503,49 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CB8, MEMORY[0x282214A88]);
+  sub_242671E10(&qword_27ECB5CB8, MEMORY[0x282214A88], MEMORY[0x282214A80]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2733,7 +2556,7 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2745,7 +2568,7 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -2754,16 +2577,16 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -2774,12 +2597,12 @@ uint64_t sub_242668FC0(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
+void sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2793,9 +2616,9 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0x54656C6946534C4DLL, 0xEF726566736E6172, &v50);
+    *(v9 + 4) = sub_242670C0C(0x54656C6946534C4DLL, 0xEF726566736E6172, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2806,49 +2629,49 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CB0, MEMORY[0x282214850]);
+  sub_242671E10(&qword_27ECB5CB0, MEMORY[0x282214850], MEMORY[0x282214848]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2859,7 +2682,7 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2871,7 +2694,7 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -2880,16 +2703,16 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -2900,12 +2723,12 @@ uint64_t sub_2426695E4(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
+void sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -2919,9 +2742,9 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000013, 0x80000002426AFBD0, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000013, 0x80000002426AFBD0, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -2932,49 +2755,49 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CA8, MEMORY[0x282214A70]);
+  sub_242671E10(&qword_27ECB5CA8, MEMORY[0x282214A70], MEMORY[0x282214A68]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -2985,7 +2808,7 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -2997,7 +2820,7 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -3006,16 +2829,16 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -3026,12 +2849,12 @@ uint64_t sub_242669C0C(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -3045,9 +2868,9 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0x6C65766E45534352, 0xEB0000000065706FLL, &v50);
+    *(v9 + 4) = sub_242670C0C(0x6C65766E45534352, 0xEB0000000065706FLL, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3058,49 +2881,49 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5CA0, MEMORY[0x282214758]);
+  sub_242671E10(&qword_27ECB5CA0, MEMORY[0x282214758], MEMORY[0x282214750]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -3111,7 +2934,7 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -3123,7 +2946,7 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -3132,16 +2955,16 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -3152,12 +2975,12 @@ uint64_t sub_24266A230(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -3171,9 +2994,9 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000019, 0x80000002426AFBB0, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000019, 0x80000002426AFBB0, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3184,49 +3007,49 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C98, MEMORY[0x282214C38]);
+  sub_242671E10(&qword_27ECB5C98, MEMORY[0x282214C38], MEMORY[0x282214C30]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -3237,7 +3060,7 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -3249,7 +3072,7 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -3258,16 +3081,16 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -3278,28 +3101,28 @@ uint64_t sub_24266A854(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
 {
-  v47 = a1;
+  v46 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
   }
 
   v6 = sub_2426A9A10();
-  v46 = __swift_project_value_buffer(v6, qword_27ECB5C20);
+  v45 = __swift_project_value_buffer(v6, qword_27ECB5C20);
   v7 = sub_2426A99F0();
   v8 = sub_2426ABB60();
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v48 = v10;
+    v47 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000011, 0x80000002426AFB90, &v48);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000011, 0x80000002426AFB90, &v47);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3310,53 +3133,53 @@ uint64_t sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C90, MEMORY[0x282214990]);
+  sub_242671E10(&qword_27ECB5C90, MEMORY[0x282214990], MEMORY[0x282214988]);
   sub_2426A99C0();
   if (v3)
   {
-    v45 = a2;
+    v44 = a2;
 
-    v48 = v3;
+    v47 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v43 = a3;
+      v42 = a3;
 
-      v40 = v38;
+      v39 = v37;
       MEMORY[0x28223BE20](v15);
-      v16 = (*(v12 + 32))(v38 - v14, v38 - v14, v11);
+      v16 = (*(v12 + 32))(v37 - v14, v37 - v14, v11);
       MEMORY[0x28223BE20](v16);
-      v17 = v38 - v14;
+      v17 = v37 - v14;
       v18 = *(v12 + 16);
-      v44 = v38 - v14;
-      v18(v38 - v14, v38 - v14, v11);
+      v43 = v37 - v14;
+      v18(v37 - v14, v37 - v14, v11);
       v19 = sub_2426A99F0();
       v20 = sub_2426ABB60();
       v21 = os_log_type_enabled(v19, v20);
-      v41 = v12;
-      v42 = v38;
-      v39 = v18;
+      v40 = v12;
+      v41 = v37;
+      v38 = v18;
       if (v21)
       {
         v22 = swift_slowAlloc();
-        v38[1] = v38;
+        v37[1] = v37;
         v23 = v22;
         v24 = swift_slowAlloc();
-        v38[2] = v12 + 16;
+        v37[2] = v12 + 16;
         v25 = v24;
         *v23 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v18(v26, v17, v11);
         v27 = _swift_stdlib_bridgeErrorToNSError();
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
         *(v23 + 4) = v27;
         *v25 = v27;
         _os_log_impl(&dword_242644000, v19, v20, "Detected a BlastDoor explosion: %@", v23, 0xCu);
@@ -3368,12 +3191,12 @@ uint64_t sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
       else
       {
 
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
       }
 
-      v29 = [v47 autoBugCaptureHelper];
-      v30 = v44;
+      v29 = [v46 autoBugCaptureHelper];
+      v30 = v43;
       v31 = v29;
       v32 = sub_2426ABA00();
       v33 = sub_2426ABA00();
@@ -3383,16 +3206,16 @@ uint64_t sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
 
       [v31 reportWithDomain:v32 type:v33 subtype:v34 subtypeContext:v35];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v39(v36, v30, v11);
+      v38(v36, v30, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
-      v46(v30, v11);
-      a3 = v43;
+      v45(v30, v11);
+      a3 = v42;
     }
 
-    v28 = v45;
+    v28 = v44;
   }
 
   else
@@ -3401,28 +3224,28 @@ uint64_t sub_24266AE78(void *a1, uint64_t a2, unint64_t a3)
     v28 = a2;
   }
 
-  return sub_2426662F4(v28, a3);
+  sub_2426662F4(v28, a3);
 }
 
-uint64_t sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
 {
-  v47 = a1;
+  v46 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
   }
 
   v6 = sub_2426A9A10();
-  v46 = __swift_project_value_buffer(v6, qword_27ECB5C20);
+  v45 = __swift_project_value_buffer(v6, qword_27ECB5C20);
   v7 = sub_2426A99F0();
   v8 = sub_2426ABB60();
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v48 = v10;
+    v47 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000010, 0x80000002426AFB70, &v48);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000010, 0x80000002426AFB70, &v47);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3433,53 +3256,53 @@ uint64_t sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C88, MEMORY[0x2822148C0]);
+  sub_242671E10(&qword_27ECB5C88, MEMORY[0x2822148C0], MEMORY[0x2822148B8]);
   sub_2426A99C0();
   if (v3)
   {
-    v45 = a2;
+    v44 = a2;
 
-    v48 = v3;
+    v47 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v43 = a3;
+      v42 = a3;
 
-      v40 = v38;
+      v39 = v37;
       MEMORY[0x28223BE20](v15);
-      v16 = (*(v12 + 32))(v38 - v14, v38 - v14, v11);
+      v16 = (*(v12 + 32))(v37 - v14, v37 - v14, v11);
       MEMORY[0x28223BE20](v16);
-      v17 = v38 - v14;
+      v17 = v37 - v14;
       v18 = *(v12 + 16);
-      v44 = v38 - v14;
-      v18(v38 - v14, v38 - v14, v11);
+      v43 = v37 - v14;
+      v18(v37 - v14, v37 - v14, v11);
       v19 = sub_2426A99F0();
       v20 = sub_2426ABB60();
       v21 = os_log_type_enabled(v19, v20);
-      v41 = v12;
-      v42 = v38;
-      v39 = v18;
+      v40 = v12;
+      v41 = v37;
+      v38 = v18;
       if (v21)
       {
         v22 = swift_slowAlloc();
-        v38[1] = v38;
+        v37[1] = v37;
         v23 = v22;
         v24 = swift_slowAlloc();
-        v38[2] = v12 + 16;
+        v37[2] = v12 + 16;
         v25 = v24;
         *v23 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v18(v26, v17, v11);
         v27 = _swift_stdlib_bridgeErrorToNSError();
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
         *(v23 + 4) = v27;
         *v25 = v27;
         _os_log_impl(&dword_242644000, v19, v20, "Detected a BlastDoor explosion: %@", v23, 0xCu);
@@ -3491,12 +3314,12 @@ uint64_t sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
       else
       {
 
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
       }
 
-      v29 = [v47 autoBugCaptureHelper];
-      v30 = v44;
+      v29 = [v46 autoBugCaptureHelper];
+      v30 = v43;
       v31 = v29;
       v32 = sub_2426ABA00();
       v33 = sub_2426ABA00();
@@ -3506,16 +3329,16 @@ uint64_t sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
 
       [v31 reportWithDomain:v32 type:v33 subtype:v34 subtypeContext:v35];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v39(v36, v30, v11);
+      v38(v36, v30, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
-      v46(v30, v11);
-      a3 = v43;
+      v45(v30, v11);
+      a3 = v42;
     }
 
-    v28 = v45;
+    v28 = v44;
   }
 
   else
@@ -3524,28 +3347,28 @@ uint64_t sub_24266B49C(void *a1, uint64_t a2, unint64_t a3)
     v28 = a2;
   }
 
-  return sub_2426662F4(v28, a3);
+  sub_2426662F4(v28, a3);
 }
 
-uint64_t sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
 {
-  v47 = a1;
+  v46 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
   }
 
   v6 = sub_2426A9A10();
-  v46 = __swift_project_value_buffer(v6, qword_27ECB5C20);
+  v45 = __swift_project_value_buffer(v6, qword_27ECB5C20);
   v7 = sub_2426A99F0();
   v8 = sub_2426ABB60();
   if (os_log_type_enabled(v7, v8))
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v48 = v10;
+    v47 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000012, 0x80000002426AFB50, &v48);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000012, 0x80000002426AFB50, &v47);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3556,53 +3379,53 @@ uint64_t sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C80, MEMORY[0x2822149D8]);
+  sub_242671E10(&qword_27ECB5C80, MEMORY[0x2822149D8], MEMORY[0x2822149D0]);
   sub_2426A99C0();
   if (v3)
   {
-    v45 = a2;
+    v44 = a2;
 
-    v48 = v3;
+    v47 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v43 = a3;
+      v42 = a3;
 
-      v40 = v38;
+      v39 = v37;
       MEMORY[0x28223BE20](v15);
-      v16 = (*(v12 + 32))(v38 - v14, v38 - v14, v11);
+      v16 = (*(v12 + 32))(v37 - v14, v37 - v14, v11);
       MEMORY[0x28223BE20](v16);
-      v17 = v38 - v14;
+      v17 = v37 - v14;
       v18 = *(v12 + 16);
-      v44 = v38 - v14;
-      v18(v38 - v14, v38 - v14, v11);
+      v43 = v37 - v14;
+      v18(v37 - v14, v37 - v14, v11);
       v19 = sub_2426A99F0();
       v20 = sub_2426ABB60();
       v21 = os_log_type_enabled(v19, v20);
-      v41 = v12;
-      v42 = v38;
-      v39 = v18;
+      v40 = v12;
+      v41 = v37;
+      v38 = v18;
       if (v21)
       {
         v22 = swift_slowAlloc();
-        v38[1] = v38;
+        v37[1] = v37;
         v23 = v22;
         v24 = swift_slowAlloc();
-        v38[2] = v12 + 16;
+        v37[2] = v12 + 16;
         v25 = v24;
         *v23 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v18(v26, v17, v11);
         v27 = _swift_stdlib_bridgeErrorToNSError();
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
         *(v23 + 4) = v27;
         *v25 = v27;
         _os_log_impl(&dword_242644000, v19, v20, "Detected a BlastDoor explosion: %@", v23, 0xCu);
@@ -3614,12 +3437,12 @@ uint64_t sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
       else
       {
 
-        v46 = *(v12 + 8);
-        v46(v17, v11);
+        v45 = *(v12 + 8);
+        v45(v17, v11);
       }
 
-      v29 = [v47 autoBugCaptureHelper];
-      v30 = v44;
+      v29 = [v46 autoBugCaptureHelper];
+      v30 = v43;
       v31 = v29;
       v32 = sub_2426ABA00();
       v33 = sub_2426ABA00();
@@ -3629,16 +3452,16 @@ uint64_t sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
 
       [v31 reportWithDomain:v32 type:v33 subtype:v34 subtypeContext:v35];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v39(v36, v30, v11);
+      v38(v36, v30, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
-      v46(v30, v11);
-      a3 = v43;
+      v45(v30, v11);
+      a3 = v42;
     }
 
-    v28 = v45;
+    v28 = v44;
   }
 
   else
@@ -3647,12 +3470,12 @@ uint64_t sub_24266BAC0(void *a1, uint64_t a2, unint64_t a3)
     v28 = a2;
   }
 
-  return sub_2426662F4(v28, a3);
+  sub_2426662F4(v28, a3);
 }
 
-uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -3666,9 +3489,9 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD000000000000017, 0x80000002426AFB30, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD000000000000017, 0x80000002426AFB30, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3679,49 +3502,49 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C78, MEMORY[0x282214B98]);
+  sub_242671E10(&qword_27ECB5C78, MEMORY[0x282214B98], MEMORY[0x282214B90]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -3732,7 +3555,7 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -3744,7 +3567,7 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -3753,16 +3576,16 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -3773,7 +3596,7 @@ uint64_t sub_24266C0E4(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
 void sub_24266C708(void (*a1)(void))
@@ -3810,7 +3633,7 @@ void sub_24266C708(void (*a1)(void))
     MEMORY[0x28223BE20](v8);
     v11 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v1);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
       v37 = v32;
@@ -3836,7 +3659,7 @@ void sub_24266C708(void (*a1)(void))
         v32[1] = v32;
         v21 = v20;
         *v19 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v15(v22, v14, v8);
         v23 = _swift_stdlib_bridgeErrorToNSError();
@@ -3868,7 +3691,7 @@ void sub_24266C708(void (*a1)(void))
 
       [v26 reportWithDomain:v27 type:v28 subtype:v29 subtypeContext:v30];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
       v34(v31, v25, v8);
       swift_willThrow();
@@ -3878,9 +3701,9 @@ void sub_24266C708(void (*a1)(void))
   }
 }
 
-uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -3894,9 +3717,9 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(1868983881, 0xE400000000000000, &v50);
+    *(v9 + 4) = sub_242670C0C(1868983881, 0xE400000000000000, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -3907,49 +3730,49 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C68, MEMORY[0x282214FC0]);
+  sub_242671E10(&qword_27ECB5C68, MEMORY[0x282214FC0], MEMORY[0x282214FB8]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -3960,7 +3783,7 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -3972,7 +3795,7 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -3981,16 +3804,16 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -4001,12 +3824,12 @@ uint64_t sub_24266CCA4(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -4020,9 +3843,9 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0xD00000000000001CLL, 0x80000002426AFB10, &v50);
+    *(v9 + 4) = sub_242670C0C(0xD00000000000001CLL, 0x80000002426AFB10, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -4033,49 +3856,49 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C60, MEMORY[0x282214D00]);
+  sub_242671E10(&qword_27ECB5C60, MEMORY[0x282214D00], MEMORY[0x282214CF8]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -4086,7 +3909,7 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -4098,7 +3921,7 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -4107,16 +3930,16 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -4127,12 +3950,12 @@ uint64_t sub_24266D2B8(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
+void sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
 {
-  v49 = a1;
+  v48 = a1;
   if (qword_27ECB5460 != -1)
   {
     swift_once();
@@ -4146,9 +3969,9 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v50 = v10;
+    v49 = v10;
     *v9 = 136315138;
-    *(v9 + 4) = sub_242670C0C(0x656B6F7665524D49, 0xE800000000000000, &v50);
+    *(v9 + 4) = sub_242670C0C(0x656B6F7665524D49, 0xE800000000000000, &v49);
     _os_log_impl(&dword_242644000, v7, v8, "Attempting to decode %s in BlastDoor", v9, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v10);
     MEMORY[0x245D163E0](v10, -1, -1);
@@ -4159,49 +3982,49 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C38, MEMORY[0x282215138]);
+  sub_242671E10(&qword_27ECB5C38, MEMORY[0x282215138], MEMORY[0x282215130]);
   sub_2426A99C0();
   if (v3)
   {
-    v48 = a2;
+    v47 = a2;
 
-    v50 = v3;
+    v49 = v3;
     v11 = sub_2426AB990();
     v12 = *(v11 - 8);
     v13 = *(v12 + 64);
     MEMORY[0x28223BE20](v11);
     v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
     MEMORY[0x245D16280](v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C40, &qword_2426B4710);
     if (swift_dynamicCast())
     {
-      v45 = &v40;
-      v46 = a3;
+      v44 = &v39;
+      v45 = a3;
 
-      v43 = &v40;
+      v42 = &v39;
       MEMORY[0x28223BE20](v15);
       v16 = v12;
-      v17 = &v40 - v14;
-      v18 = (*(v16 + 32))(&v40 - v14, &v40 - v14, v11);
-      v47 = &v40;
+      v17 = &v39 - v14;
+      v18 = (*(v16 + 32))(&v39 - v14, &v39 - v14, v11);
+      v46 = &v39;
       MEMORY[0x28223BE20](v18);
-      v19 = &v40 - v14;
+      v19 = &v39 - v14;
       v20 = *(v16 + 16);
       v20(v19, v17, v11);
       v21 = sub_2426A99F0();
       v22 = sub_2426ABB60();
       v23 = os_log_type_enabled(v21, v22);
-      v44 = v16;
-      v41 = v20;
-      v42 = v16 + 16;
+      v43 = v16;
+      v40 = v20;
+      v41 = v16 + 16;
       if (v23)
       {
         v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v40 = v17;
+        v39 = v17;
         v26 = v25;
         *v24 = 138412290;
-        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+        sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
         swift_allocError();
         v20(v27, v19, v11);
         v28 = _swift_stdlib_bridgeErrorToNSError();
@@ -4212,7 +4035,7 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
         _os_log_impl(&dword_242644000, v21, v22, "Detected a BlastDoor explosion: %@", v24, 0xCu);
         sub_2426711B8(v26);
         v30 = v26;
-        v17 = v40;
+        v17 = v39;
         MEMORY[0x245D163E0](v30, -1, -1);
         MEMORY[0x245D163E0](v24, -1, -1);
       }
@@ -4224,7 +4047,7 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
         v29(v19, v11);
       }
 
-      v32 = [v49 autoBugCaptureHelper];
+      v32 = [v48 autoBugCaptureHelper];
       v33 = sub_2426ABA00();
       v34 = sub_2426ABA00();
       v35 = sub_2426ABA00();
@@ -4233,16 +4056,16 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
 
       [v32 reportWithDomain:v33 type:v34 subtype:v35 subtypeContext:v36];
 
-      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150]);
+      sub_242671E10(&qword_27ECB5C48, MEMORY[0x282215150], MEMORY[0x282215160]);
       swift_allocError();
-      v41(v37, v17, v11);
+      v40(v37, v17, v11);
       swift_willThrow();
       swift_unknownObjectRelease();
       v29(v17, v11);
-      a3 = v46;
+      a3 = v45;
     }
 
-    v38 = v48;
+    v38 = v47;
 
     v31 = v38;
   }
@@ -4253,16 +4076,16 @@ uint64_t sub_24266D8DC(void *a1, uint64_t a2, unint64_t a3)
     v31 = a2;
   }
 
-  return sub_2426662F4(v31, a3);
+  sub_2426662F4(v31, a3);
 }
 
-uint64_t sub_24266DEF8()
+uint64_t sub_24266DEF8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_2426AAD50();
   sub_2426A99E0();
   swift_allocObject();
   sub_2426A99D0();
-  sub_242671E10(&qword_27ECB5C70, MEMORY[0x282214E08]);
+  sub_242671E10(&qword_27ECB5C70, MEMORY[0x282214E08], MEMORY[0x282214E00]);
   sub_2426A99B0();
 }
 
@@ -4274,7 +4097,7 @@ id sub_24266DFBC(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v9 = sub_24266772C(v2, a1, a2);
+  sub_24266772C(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v9);
@@ -4293,7 +4116,7 @@ id sub_24266DFBC(uint64_t a1, unint64_t a2)
   return v7;
 }
 
-uint64_t sub_24266E1AC(uint64_t a1, id a2)
+id sub_24266E1AC(uint64_t a1, id a2)
 {
   v3 = v2;
   v6 = sub_2426A9940();
@@ -4309,7 +4132,7 @@ uint64_t sub_24266E1AC(uint64_t a1, id a2)
   v13 = &v25 - v12;
   sub_242664F58(a1, a2);
   v14 = v27;
-  v15 = sub_242667D50(v3, a1, a2);
+  sub_242667D50(v3, a1, a2);
   if (v14)
   {
     return a2;
@@ -4367,20 +4190,20 @@ id sub_24266E498(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v9 = sub_242668374(v2, a1, a2);
+  sub_242668374(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v9);
     v10 = v16;
-    (*(v16 + 16))(&v13[-v8 - 8], &v13[-v8 - 8], v6);
-    sub_242685BF8(&v13[-v8 - 8], v15);
+    (*(v16 + 16))(&v12 - v8, &v12 - v8, v6);
+    sub_242685BF8(&v12 - v8, v15);
     ctb::CPIMMessage::CPIMMessage(v13, v15);
-    ctb::bridging::makeOptional(v13, v14);
-    ctb::CPIMMessage::~CPIMMessage(v13);
+    ctb::bridging::makeOptional(v14, v13);
+    ctb::CPIMMessage::~CPIMMessage(&v13[0].__r_.__value_.__l.__data_);
     v7 = [objc_allocWithZone(CTBCPIMMessageWrapper) initWithWrapped_];
     std::optional<ctb::CPIMMessage>::~optional(v14);
     ctb::CPIMMessage::~CPIMMessage(v15);
-    (*(v10 + 8))(&v13[-v8 - 8], v6);
+    (*(v10 + 8))(&v12 - v8, v6);
   }
 
   return v7;
@@ -4395,7 +4218,7 @@ id sub_24266E6AC(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v7);
   v10 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v11 = sub_242668998(v4, a1, a2);
+  sub_242668998(v4, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v11);
@@ -4405,7 +4228,7 @@ id sub_24266E6AC(uint64_t a1, unint64_t a2)
     v14 = *(v8 + 8);
     v14(v17 - v10, v7);
     v15 = std::vector<unsigned char>::vector[abi:ne200100](v17, v19);
-    ctb::bridging::makeOptional(v15, v18);
+    ctb::bridging::makeOptional(v18, v15);
     std::vector<unsigned char>::~vector[abi:ne200100](v17);
     v9 = [objc_allocWithZone(CTBCPIMMLSMessageWrapper) initWithWrapped_];
     std::optional<ctb::MLSFileTransfer>::~optional(v18);
@@ -4425,7 +4248,7 @@ id sub_24266E8A0(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v7);
   v10 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v11 = sub_242668FC0(v4, a1, a2);
+  sub_242668FC0(v4, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v11);
@@ -4435,7 +4258,7 @@ id sub_24266E8A0(uint64_t a1, unint64_t a2)
     v14 = *(v8 + 8);
     v14(v17 - v10, v7);
     v15 = std::vector<unsigned char>::vector[abi:ne200100](v17, v19);
-    ctb::bridging::makeOptional(v15, v18);
+    ctb::bridging::makeOptional(v18, v15);
     std::vector<unsigned char>::~vector[abi:ne200100](v17);
     v9 = [objc_allocWithZone(CTBServerMLSRCSContentWrapper) initWithWrapped_];
     std::optional<ctb::MLSFileTransfer>::~optional(v18);
@@ -4455,7 +4278,7 @@ id sub_24266EA94(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v7);
   v10 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v11 = sub_2426695E4(v4, a1, a2);
+  sub_2426695E4(v4, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v11);
@@ -4465,7 +4288,7 @@ id sub_24266EA94(uint64_t a1, unint64_t a2)
     v14 = *(v8 + 8);
     v14(v17 - v10, v7);
     v15 = std::vector<unsigned char>::vector[abi:ne200100](v17, v19);
-    ctb::bridging::makeOptional(v15, v18);
+    ctb::bridging::makeOptional(v18, v15);
     std::vector<unsigned char>::~vector[abi:ne200100](v17);
     v9 = [objc_allocWithZone(CTBMLSFileTransferWrapper) initWithWrapped_];
     std::optional<ctb::MLSFileTransfer>::~optional(v18);
@@ -4484,20 +4307,20 @@ id sub_24266EC88(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v9 = sub_242669C0C(v2, a1, a2);
+  sub_242669C0C(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v9);
     v10 = v16;
-    (*(v16 + 16))(&v13[-v8 - 8], &v13[-v8 - 8], v6);
-    sub_242691840(&v13[-v8 - 8], v15);
+    (*(v16 + 16))(&v13[-1] - v8, &v13[-1] - v8, v6);
+    sub_242691840(&v13[-1] - v8, v15);
     ctb::FileTransferDescriptor::FileTransferDescriptor(v13, v15);
     ctb::bridging::makeOptional(v13, v14);
     ctb::FileTransferDescriptor::~FileTransferDescriptor(v13);
     v7 = [objc_allocWithZone(CTBFileTransferDescriptorWrapper) initWithWrapped_];
     std::optional<ctb::FileTransferDescriptor>::~optional(v14);
     ctb::FileTransferDescriptor::~FileTransferDescriptor(v15);
-    (*(v10 + 8))(&v13[-v8 - 8], v6);
+    (*(v10 + 8))(&v13[-1] - v8, v6);
   }
 
   return v7;
@@ -4521,7 +4344,7 @@ unint64_t sub_24266F0E4(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v10);
   v12 = (v11 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v13 = sub_24266A854(v4, a1, a2);
+  sub_24266A854(v4, a1, a2);
   if (!v3)
   {
     v32 = 0;
@@ -4542,7 +4365,7 @@ unint64_t sub_24266F0E4(uint64_t a1, unint64_t a2)
     v19 = sub_24268F314(&v32 - v12);
     v20 = v10;
     v21 = sub_2426AA760();
-    sub_24268D30C(v21, v22, &v51);
+    sub_24268D30C(v21, v22, v51);
     v23 = v39;
     sub_2426AA750();
     v24 = v41;
@@ -4551,7 +4374,7 @@ unint64_t sub_24266F0E4(uint64_t a1, unint64_t a2)
     v27 = v26;
     (*(v43 + 8))(v24, v44);
     (*(v40 + 8))(v23, v42);
-    sub_24268D30C(v25, v27, &v52);
+    sub_24268D30C(v25, v27, v52);
     v28 = v53[1];
     v28(&v32 - v12, v20);
     v47[0] = v36;
@@ -4573,15 +4396,15 @@ unint64_t sub_24266F0E4(uint64_t a1, unint64_t a2)
   return a2;
 }
 
-id sub_24266F524(uint64_t a1, unint64_t x1_0)
+id sub_24266F524(uint64_t a1, unint64_t a2)
 {
   v6 = sub_2426AA030();
   v15 = *(v6 - 8);
   v7 = *(v15 + 64);
   MEMORY[0x28223BE20](v6);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-  sub_242664F58(a1, x1_0);
-  v9 = sub_24266AE78(v2, a1, x1_0);
+  sub_242664F58(a1, a2);
+  sub_24266AE78(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v9);
@@ -4589,8 +4412,8 @@ id sub_24266F524(uint64_t a1, unint64_t x1_0)
     (*(v15 + 16))(v12 - v8, v12 - v8, v6);
     sub_24266398C(v12 - v8, v14);
     ctb::SIPConferenceInfo::SIPConferenceInfo(v12, v14);
-    ctb::bridging::makeOptional(v12, v16, v13);
-    ctb::SIPConferenceInfo::~SIPConferenceInfo(v12);
+    ctb::bridging::makeOptional(v13, v12, v16);
+    ctb::SIPConferenceInfo::~SIPConferenceInfo(&v12[0].__r_.__value_.__l.__data_);
     v7 = [objc_allocWithZone(CTBSIPConferenceInfoWrapper) initWithWrapped_];
     std::optional<ctb::SIPConferenceInfo>::~optional(v13);
     ctb::SIPConferenceInfo::~SIPConferenceInfo(v14);
@@ -4608,14 +4431,14 @@ id sub_24266F714(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v10 = sub_24266B49C(v2, a1, a2);
+  sub_24266B49C(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v10);
     (*(v7 + 16))(v13 - v9, v13 - v9, v6);
     sub_24265397C(v13 - v9, &v15);
     v11 = ctb::chatbot::CategoryList::CategoryList(v13, &v15);
-    ctb::bridging::makeOptional(v11, v14);
+    ctb::bridging::makeOptional(v14, v11);
     ctb::SIPResourceLists::~SIPResourceLists(v13);
     v8 = [objc_allocWithZone(CTBSIPResourceListsWrapper) initWithWrapped_];
     std::optional<ctb::SIPResourceLists>::~optional(v14);
@@ -4634,7 +4457,7 @@ id sub_24266F8F4(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v10 = sub_24266BAC0(v2, a1, a2);
+  sub_24266BAC0(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v10);
@@ -4660,7 +4483,7 @@ id sub_24266FAD4(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v10 = sub_24266C0E4(v2, a1, a2);
+  sub_24266C0E4(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v10);
@@ -4781,13 +4604,13 @@ id sub_24266FCB4(uint64_t a1, uint64_t a2, unsigned int a3)
   else
   {
     MEMORY[0x28223BE20](v37);
-    v38 = v42 - v32;
+    v38 = (v42 - v32);
     v39 = v45;
     (v45[2])(v38, v33, v29);
     sub_242676360(v38, v53);
     std::optional<std::variant<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::optional[abi:ne200100](v51, v53);
     v40 = v39;
-    ctb::bridging::makeOptional(v51, v52);
+    ctb::bridging::makeOptional(v52, v51);
     std::optional<std::variant<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>>::~optional(v51);
     v30 = [objc_allocWithZone(CTBChatBotMessageWrapper) initWithWrapped_];
     std::optional<ctb::chatbot::Message>::~optional(v52);
@@ -4807,20 +4630,20 @@ id sub_2426703D8(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v9 = sub_24266CCA4(v2, a1, a2);
+  sub_24266CCA4(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v9);
     v10 = v16;
-    (*(v16 + 16))(&v13[-1] - v8, &v13[-1] - v8, v6);
-    sub_2426723CC(&v13[-1] - v8, v15);
+    (*(v16 + 16))(&v12 - v8, &v12 - v8, v6);
+    sub_2426723CC(&v12 - v8, v15);
     ctb::chatbot::RenderInformation::RenderInformation(v13, v15);
     ctb::bridging::makeOptional(v13, v14);
-    ctb::chatbot::RenderInformation::~RenderInformation(v13);
+    ctb::chatbot::RenderInformation::~RenderInformation(&v13[0].__r_.__value_.__l.__data_);
     v7 = [objc_allocWithZone(CTBChatBotRenderInformationWrapper) initWithWrapped_];
     std::optional<ctb::chatbot::RenderInformation>::~optional(v14);
     ctb::chatbot::RenderInformation::~RenderInformation(v15);
-    (*(v10 + 8))(&v13[-1] - v8, v6);
+    (*(v10 + 8))(&v12 - v8, v6);
   }
 
   return v7;
@@ -4834,19 +4657,19 @@ id sub_2426705C8(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v10 = sub_24266D2B8(v2, a1, a2);
+  sub_24266D2B8(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v10);
-    (*(v7 + 16))(&v13 - v9, &v13 - v9, v6);
-    sub_2426841A0(&v13 - v9, v16);
-    v11 = ctb::ClientAuthenticityRequest::ClientAuthenticityRequest(v14, v16);
-    ctb::bridging::makeOptional(v11, v15);
-    ctb::ClientAuthenticityRequest::~ClientAuthenticityRequest(&v14[0].__r_.__value_.__l.__data_);
+    (*(v7 + 16))(&v15 - v9, &v15 - v9, v6);
+    sub_2426841A0(&v15 - v9, v18);
+    v11 = ctb::ClientAuthenticityRequest::ClientAuthenticityRequest(v16, v18);
+    ctb::bridging::makeOptional(v17, v11);
+    ctb::ClientAuthenticityRequest::~ClientAuthenticityRequest(&v16[0].__r_.__value_.__l.__data_, v12);
     v8 = [objc_allocWithZone(CTBClientAuthenticityRequestWrapper) initWithWrapped_];
-    std::optional<ctb::ClientAuthenticityRequest>::~optional(v15);
-    ctb::ClientAuthenticityRequest::~ClientAuthenticityRequest(v16);
-    (*(v7 + 8))(&v13 - v9, v6);
+    std::optional<ctb::ClientAuthenticityRequest>::~optional(v17);
+    ctb::ClientAuthenticityRequest::~ClientAuthenticityRequest(v18, v13);
+    (*(v7 + 8))(&v15 - v9, v6);
   }
 
   return v8;
@@ -4860,7 +4683,7 @@ id sub_2426707A8(uint64_t a1, unint64_t a2)
   MEMORY[0x28223BE20](v6);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(a1, a2);
-  v10 = sub_24266D8DC(v2, a1, a2);
+  sub_24266D8DC(v2, a1, a2);
   if (!v3)
   {
     MEMORY[0x28223BE20](v10);
@@ -5407,14 +5230,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_242670DE4(uint64_t a1, unint64_t a2)
+void *sub_242670DE4(uint64_t a1, unint64_t a2)
 {
   v3 = sub_242670E30(a1, a2);
   sub_242670F60(&unk_2854F7178);
   return v3;
 }
 
-uint64_t sub_242670E30(uint64_t a1, unint64_t a2)
+void *sub_242670E30(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -5595,7 +5418,7 @@ void *sub_24267104C(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C58);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C58, &qword_2426B4720);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   v4[2] = a1;
@@ -5644,7 +5467,7 @@ char *sub_2426710C0(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C58);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C58, &qword_2426B4720);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -5678,7 +5501,7 @@ char *sub_2426710C0(char *result, int64_t a2, char a3, char *a4)
 
 uint64_t sub_2426711B8(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C50);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5C50, &qword_2426B4718);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -5783,18 +5606,18 @@ void **std::optional<ctb::chatbot::RenderInformation>::~optional(void **this)
   return this;
 }
 
-_BYTE *ctb::bridging::makeOptional@<X0>(ctb::bridging *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *ctb::bridging::makeOptional@<X0>(uint64_t *__return_ptr a1@<X8>, ctb::bridging *this@<X0>)
 {
-  result = a2;
-  *a2 = 0;
-  a2[336] = 0;
+  result = a1;
+  *a1 = 0;
+  *(a1 + 336) = 0;
   if (*(this + 336) == 1)
   {
-    result = std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2, this);
-    result[336] = 1;
+    result = std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, this);
+    *(result + 336) = 1;
   }
 
-  result[344] = 1;
+  *(result + 344) = 1;
   return result;
 }
 
@@ -5873,8 +5696,7 @@ __n128 ctb::bridging::makeOptional@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   *a2 = *a1;
   v3 = a1[1].n128_u64[0];
   v4 = a1[1].n128_u64[1];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   a2[1].n128_u64[0] = v3;
   a2[1].n128_u64[1] = v4;
@@ -5893,9 +5715,9 @@ uint64_t std::optional<ctb::SIPResourceLists>::~optional(uint64_t a1)
   return a1;
 }
 
-__n128 ctb::bridging::makeOptional@<Q0>(ctb::bridging *this@<X0>, SIPConferenceInfo a2@<0:X1>, uint64_t a3@<X8>)
+__n128 ctb::bridging::makeOptional@<Q0>(uint64_t *__return_ptr a1@<X8>, ctb::bridging *this@<X0>, SIPConferenceInfo a3@<0:X1>)
 {
-  v4 = std::__optional_move_base<ctb::SIPConferenceInfo::Description,false>::__optional_move_base[abi:ne200100](a3, this);
+  v4 = std::__optional_move_base<ctb::SIPConferenceInfo::Description,false>::__optional_move_base[abi:ne200100](a1, this);
   result = *(this + 72);
   *(v4 + 72) = result;
   *(v4 + 88) = *(this + 11);
@@ -6048,12 +5870,12 @@ void std::optional<ctb::FileTransferDescriptor>::~optional(uint64_t a1)
   }
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, uint64_t *a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *a2, a2[1], a2[1] - *a2);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   return a1;
 }
 
@@ -6109,12 +5931,6 @@ uint64_t ctb::bridging::makeOptional@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-{
-  result = std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a2, a1);
-  *(result + 336) = 1;
-  return result;
-}
-
 uint64_t std::optional<ctb::ProvisioningConfiguration>::~optional(uint64_t a1)
 {
   if (*(a1 + 1224) == 1)
@@ -6150,7 +5966,7 @@ uint64_t std::optional<ctb::ProvisioningConfiguration>::~optional(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_242671E10(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_242671E10(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6220,11 +6036,11 @@ LABEL_8:
   return result;
 }
 
-std::string *sub_242671F04(std::string *a1)
+std::string *sub_242671F04(std::string *a1, __int128 *a2)
 {
   a1->__r_.__value_.__s.__data_[0] = 0;
   a1[1].__r_.__value_.__s.__data_[0] = 0;
-  std::__optional_storage_base<std::string,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::string,false> const&>(a1);
+  std::__optional_storage_base<std::string,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::string,false> const&>(a1, a2);
   return a1;
 }
 
@@ -6256,13 +6072,13 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10_
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN3ctb15GeoPushLocationENS8_14CPIMMLSMessageENS8_19ServerMLSRCSContentENS8_15MLSFileTransferENS8_18CPMGroupManagementENS8_22FileTransferDescriptorENS8_7chatbot7MessageENS8_23IMCompositionIndicationENS8_25IMDispositionNotificationENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS8_17SIPConferenceInfoEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISQ_LNS0_6_TraitE1EEEEEvRSR_OT_EUlS10_E_JRKNS0_6__baseILSU_1EJS9_SA_SB_SC_SD_SE_SG_SH_SI_SO_SP_EEEEEEDcSZ_DpT0__0(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN3ctb15GeoPushLocationENS8_14CPIMMLSMessageENS8_19ServerMLSRCSContentENS8_15MLSFileTransferENS8_18CPMGroupManagementENS8_22FileTransferDescriptorENS8_7chatbot7MessageENS8_23IMCompositionIndicationENS8_25IMDispositionNotificationENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS8_17SIPConferenceInfoEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISQ_LNS0_6_TraitE1EEEEEvRSR_OT_EUlS10_E_JRKNS0_6__baseILSU_1EJS9_SA_SB_SC_SD_SE_SG_SH_SI_SO_SP_EEEEEEDcSZ_DpT0__0(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *a2, a2[1], a2[1] - *a2);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *a2, *(a2 + 8), *(a2 + 8) - *a2);
 }
 
 void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN3ctb15GeoPushLocationENS8_14CPIMMLSMessageENS8_19ServerMLSRCSContentENS8_15MLSFileTransferENS8_18CPMGroupManagementENS8_22FileTransferDescriptorENS8_7chatbot7MessageENS8_23IMCompositionIndicationENS8_25IMDispositionNotificationENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS8_17SIPConferenceInfoEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISQ_LNS0_6_TraitE1EEEEEvRSR_OT_EUlS10_E_JRKNS0_6__baseILSU_1EJS9_SA_SB_SC_SD_SE_SG_SH_SI_SO_SP_EEEEEEDcSZ_DpT0_(std::string **a1, __int128 *a2)
@@ -6288,7 +6104,7 @@ std::string *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5
   v3 = *a1;
   ctb::FileTransferDescriptor::FileDescriptor::FileDescriptor(*a1, a2);
   std::__optional_copy_base<ctb::FileTransferDescriptor::FileDescriptor,false>::__optional_copy_base[abi:ne200100]((v3 + 144), (a2 + 144));
-  return sub_242671F04((v3 + 296));
+  return sub_242671F04((v3 + 296), (a2 + 296));
 }
 
 void sub_242672114(_Unwind_Exception *a1)
@@ -6398,17 +6214,17 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm9EEE10__d
   }
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm10EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN3ctb15GeoPushLocationENS8_14CPIMMLSMessageENS8_19ServerMLSRCSContentENS8_15MLSFileTransferENS8_18CPMGroupManagementENS8_22FileTransferDescriptorENS8_7chatbot7MessageENS8_23IMCompositionIndicationENS8_25IMDispositionNotificationENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS8_17SIPConferenceInfoEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISQ_LNS0_6_TraitE1EEEEEvRSR_OT_EUlS10_E_JRKNS0_6__baseILSU_1EJS9_SA_SB_SC_SD_SE_SG_SH_SI_SO_SP_EEEEEEDcSZ_DpT0_(uint64_t *a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm10EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJN3ctb15GeoPushLocationENS8_14CPIMMLSMessageENS8_19ServerMLSRCSContentENS8_15MLSFileTransferENS8_18CPMGroupManagementENS8_22FileTransferDescriptorENS8_7chatbot7MessageENS8_23IMCompositionIndicationENS8_25IMDispositionNotificationENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS8_17SIPConferenceInfoEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISQ_LNS0_6_TraitE1EEEEEvRSR_OT_EUlS10_E_JRKNS0_6__baseILSU_1EJS9_SA_SB_SC_SD_SE_SG_SH_SI_SO_SP_EEEEEEDcSZ_DpT0_(std::string **a1, uint64_t a2)
 {
   v3 = *a1;
   v4 = std::__optional_copy_base<ctb::SIPConferenceInfo::Description,false>::__optional_copy_base[abi:ne200100](*a1, a2);
-  *(v3 + 80) = 0;
-  *(v3 + 88) = 0;
-  *(v4 + 72) = 0;
-  return std::vector<ctb::SIPConferenceInfo::User>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(v4 + 72, *(a2 + 72), *(a2 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 80) - *(a2 + 72)) >> 3));
+  v3[3].__r_.__value_.__l.__size_ = 0;
+  v3[3].__r_.__value_.__r.__words[2] = 0;
+  v4[3].__r_.__value_.__r.__words[0] = 0;
+  return std::vector<ctb::SIPConferenceInfo::User>::__init_with_size[abi:ne200100]<ctb::SIPConferenceInfo::User*,ctb::SIPConferenceInfo::User*>(&v4[3], *(a2 + 72), *(a2 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 80) - *(a2 + 72)) >> 3));
 }
 
-void std::vector<ctb::ClientAuthenticityRequest::Method>::__destroy_vector::operator()[abi:ne200100](void ***a1, void (*a2)(char *))
+void std::vector<ctb::ClientAuthenticityRequest::Method>::__destroy_vector::operator()[abi:ne200100](char ***a1, void (*a2)(char *))
 {
   v2 = *a1;
   v3 = **a1;
@@ -6436,7 +6252,7 @@ void std::vector<ctb::ClientAuthenticityRequest::Method>::__destroy_vector::oper
 
 void sub_2426723CC(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v4 - 8);
   v39 = v37 - v5;
   v6 = sub_2426AB590();
@@ -6444,30 +6260,30 @@ void sub_2426723CC(uint64_t a1@<X0>, void *a2@<X8>)
   v8 = v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2426AB350();
   sub_2426752B0(v8, v49);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE8, &qword_2426B47D0);
   v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v40 = a1;
   v12 = sub_2426AB360();
   MEMORY[0x28223BE20](v12);
-  sub_242664250(v11, v11, &qword_27ECB5CE8);
+  sub_242664250(v11, v11, &qword_27ECB5CE8, &qword_2426B47D0);
   v13 = sub_2426AB3B0();
   v14 = *(v13 - 8);
   v15 = (*(v14 + 48))(v11, 1, v13);
   if (v15 == 1)
   {
-    sub_2426642B8(v11, &qword_27ECB5CE8);
+    sub_2426642B8(v11, &qword_27ECB5CE8, &qword_2426B47D0);
     v45 = 0u;
     v46 = 0u;
     LOBYTE(v47[0]) = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.MenuItem_(0);
     v22 = v21;
-    v23 = sub_242676174(&qword_27ECB57F8, type metadata accessor for std.__1.optional_ctb.chatbot.MenuItem_);
+    v23 = sub_242676174(&qword_27ECB57F8, type metadata accessor for std.__1.optional_ctb.chatbot.MenuItem_, &unk_2426B2550);
     CxxOptional.init(nilLiteral:)(v22, v23);
     if (LOBYTE(v47[0]) != 1)
     {
-      sub_2426642B8(&v45, &qword_27ECB5CF0);
+      sub_2426642B8(&v45, &qword_27ECB5CF0, &qword_2426B47D8);
     }
   }
 
@@ -6484,29 +6300,29 @@ void sub_2426723CC(uint64_t a1@<X0>, void *a2@<X8>)
     sub_242682258(v19, &v41);
     v20 = *(v14 + 8);
     v20(v17, v13);
-    ctb::bridging::makeOptional(&v41, &v45);
+    ctb::bridging::makeOptional(&v45, &v41);
     ctb::chatbot::MenuItem::~MenuItem(&v41);
     v20(v17, v13);
-    sub_2426642B8(v11, &qword_27ECB5CE8);
+    sub_2426642B8(v11, &qword_27ECB5CE8, &qword_2426B47D0);
     LOBYTE(v47[0]) = 0;
     a2 = v38;
     ctb::ClientAuthenticityRequest::Parameter::Parameter(v48, &v45);
     std::optional<ctb::chatbot::MenuItem>::~optional(&v45, std::__variant_detail::__dtor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL1>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100], std::vector<ctb::chatbot::MenuL0Content>::__destroy_vector::operator()[abi:ne200100]);
   }
 
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CF8);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CF8, &qword_2426B47E0);
   v25 = *(*(v24 - 8) + 64);
   MEMORY[0x28223BE20](v24 - 8);
   v26 = v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   v27 = sub_2426AB370();
   MEMORY[0x28223BE20](v27);
-  sub_242664250(v26, v26, &qword_27ECB5CF8);
+  sub_242664250(v26, v26, &qword_27ECB5CF8, &qword_2426B47E0);
   v28 = sub_2426AAFF0();
   v29 = *(v28 - 8);
   v30 = (*(v29 + 48))(v26, 1, v28);
   if (v30 == 1)
   {
-    sub_2426642B8(v26, &qword_27ECB5CF8);
+    sub_2426642B8(v26, &qword_27ECB5CF8, &qword_2426B47E0);
     v41 = 2;
     v42 = 0u;
     v43 = 0u;
@@ -6526,7 +6342,7 @@ void sub_2426723CC(uint64_t a1@<X0>, void *a2@<X8>)
     (*(v29 + 16))(v32, v32, v28);
     sub_2426757EC(v32, &v41);
     (*(v29 + 8))(v32, v28);
-    sub_2426642B8(v26, &qword_27ECB5CF8);
+    sub_2426642B8(v26, &qword_27ECB5CF8, &qword_2426B47E0);
   }
 
   if (v41 == 2)
@@ -6539,7 +6355,7 @@ void sub_2426723CC(uint64_t a1@<X0>, void *a2@<X8>)
     v45.n128_u8[0] = 0;
     if (v41 != 2)
     {
-      sub_2426642B8(&v41, &qword_27ECB5D00);
+      sub_2426642B8(&v41, &qword_27ECB5D00, &qword_2426B47E8);
     }
   }
 
@@ -6601,7 +6417,7 @@ void **sub_242672B08@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
       v19 = v18;
 
       sub_24268D30C(v17, v19, &v50);
-      ctb::bridging::makeOptional(&v50, &v51);
+      ctb::bridging::makeOptional(v51, &v50);
       std::string::~string(&v50);
 
       v20 = sub_2426AB610();
@@ -6667,8 +6483,8 @@ void **sub_242672B08@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
       }
 
       *(v5 + 16) = v34 + 1;
-      ctb::chatbot::URIEntry::URIEntry(v5 + 40 * v34 + 32, &v51);
-      v6 = std::optional<std::string>::~optional(&v51);
+      ctb::chatbot::URIEntry::URIEntry(v5 + 40 * v34 + 32, v51);
+      v6 = std::optional<std::string>::~optional(v51);
       v10 += v41;
       v4 = v46 - 1;
     }
@@ -6692,9 +6508,9 @@ void **sub_242672B08@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     v36 = (v5 + 32);
     do
     {
-      ctb::chatbot::URIEntry::URIEntry(&v51, v36);
-      std::vector<ctb::chatbot::URIEntry>::push_back[abi:ne200100](&v50, &v51);
-      std::optional<std::string>::~optional(&v51);
+      ctb::chatbot::URIEntry::URIEntry(v51, v36);
+      std::vector<ctb::chatbot::URIEntry>::push_back[abi:ne200100](&v50, v51);
+      std::optional<std::string>::~optional(v51);
       v36 = (v36 + 40);
       --v35;
     }
@@ -6702,10 +6518,10 @@ void **sub_242672B08@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     while (v35);
   }
 
-  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v51, &v50);
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](v51, &v50);
   std::vector<ctb::chatbot::URIEntry>::~vector[abi:ne200100](&v50.__r_.__value_.__l.__data_);
-  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](v3, &v51);
-  return std::vector<ctb::chatbot::URIEntry>::~vector[abi:ne200100](&v51.__r_.__value_.__l.__data_);
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](v3, v51);
+  return std::vector<ctb::chatbot::URIEntry>::~vector[abi:ne200100](v51);
 }
 
 void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
@@ -6714,7 +6530,7 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   v4 = *(v72 - 8);
   MEMORY[0x28223BE20](v72);
   v62 = v58 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   v7 = MEMORY[0x28223BE20](v6 - 8);
   MEMORY[0x28223BE20](v7);
   v10 = *(a1 + 16);
@@ -6785,18 +6601,18 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
       sub_2426AACF0();
       sub_2426AB3D0();
       v33 = v71;
-      sub_242664250(v28, v71, &qword_27ECB5CE0);
+      sub_242664250(v28, v71, &qword_27ECB5CE0, &qword_2426B47C8);
       v34 = v72;
       if ((*v66)(v33, 1, v72) == 1)
       {
-        sub_2426642B8(v28, &qword_27ECB5CE0);
+        sub_2426642B8(v28, &qword_27ECB5CE0, &qword_2426B47C8);
         memset(v81, 0, 24);
         v81[24] = 1;
         memset(&v84, 0, sizeof(v84));
         std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v84);
         if (v81[24] != 1)
         {
-          sub_2426642B8(v81, &qword_27ECB5D10);
+          sub_2426642B8(v81, &qword_27ECB5D10, &qword_2426B47F8);
         }
       }
 
@@ -6807,7 +6623,7 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
         v36 = sub_2426A9850();
         sub_24268D30C(v36, v37, v81);
         (*v60)(v35, v34);
-        sub_2426642B8(v28, &qword_27ECB5CE0);
+        sub_2426642B8(v28, &qword_27ECB5CE0, &qword_2426B47C8);
         v81[24] = 0;
         std::string::basic_string[abi:ne200100](&v84, v81);
         std::string::~string(v81);
@@ -6821,7 +6637,7 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
         v41 = v39;
 
         sub_24268D30C(v40, v41, &v83);
-        ctb::bridging::makeOptional(&v83, v81);
+        ctb::bridging::makeOptional(v81, &v83);
         std::string::~string(&v83);
 
         v82 = 0;
@@ -6835,11 +6651,11 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
         v82 = 1;
         type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___(0);
         v43 = v42;
-        v44 = sub_242676174(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___);
+        v44 = sub_242676174(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___, &unk_2426B2508);
         CxxOptional.init(nilLiteral:)(v43, v44);
         if (v82 != 1)
         {
-          sub_2426642B8(v81, &qword_27ECB5B08);
+          sub_2426642B8(v81, &qword_27ECB5B08, &qword_2426B4198);
         }
       }
 
@@ -6921,7 +6737,7 @@ void **sub_242673010@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     do
     {
       ctb::chatbot::MediaEntry::MediaEntry(&v88, v56);
-      std::vector<ctb::chatbot::MediaEntry>::push_back[abi:ne200100](&v85, &v88);
+      std::vector<ctb::chatbot::MediaEntry>::push_back[abi:ne200100](v85.n128_u64, &v88);
       ctb::chatbot::MediaEntry::~MediaEntry(&v88);
       v56 = (v56 + 72);
       --v55;
@@ -7122,21 +6938,21 @@ void **sub_242673D84@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
 
 uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D38);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D38, &qword_2426B4820);
   v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v83 = a1;
   v7 = sub_2426AB130();
   MEMORY[0x28223BE20](v7);
-  sub_242664250(v6, v6, &qword_27ECB5D38);
+  sub_242664250(v6, v6, &qword_27ECB5D38, &qword_2426B4820);
   v8 = sub_2426AB1B0();
   v9 = *(v8 - 8);
   v10 = (*(v9 + 48))(v6, 1, v8);
   v82 = a2;
   if (v10 == 1)
   {
-    sub_2426642B8(v6, &qword_27ECB5D38);
+    sub_2426642B8(v6, &qword_27ECB5D38, &qword_2426B4820);
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
@@ -7147,11 +6963,11 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v95 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.CommunicationAddress_(0);
     v33 = v32;
-    v34 = sub_242676174(&qword_27ECB57C0, type metadata accessor for std.__1.optional_ctb.chatbot.CommunicationAddress_);
+    v34 = sub_242676174(&qword_27ECB57C0, type metadata accessor for std.__1.optional_ctb.chatbot.CommunicationAddress_, &unk_2426B2358);
     CxxOptional.init(nilLiteral:)(v33, v34);
     if (v95 != 1)
     {
-      sub_2426642B8(&v88, &qword_27ECB5D40);
+      sub_2426642B8(&v88, &qword_27ECB5D40, &qword_2426B4828);
     }
   }
 
@@ -7192,17 +7008,17 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     sub_242672B08(v30, v99);
     v31 = *(v9 + 8);
     v31(v14, v8);
-    ctb::bridging::makeOptional(&v96, &v88);
+    ctb::bridging::makeOptional(&v88, &v96);
     ctb::chatbot::CommunicationAddress::~CommunicationAddress(&v96.__r_.__value_.__l.__data_);
     v31(v75, v8);
-    sub_2426642B8(v6, &qword_27ECB5D38);
+    sub_2426642B8(v6, &qword_27ECB5D38, &qword_2426B4820);
     v95 = 0;
     a2 = v82;
     std::optional<ctb::chatbot::CommunicationAddress>::optional[abi:ne200100](&v96, &v88);
     std::optional<ctb::chatbot::CommunicationAddress>::~optional(&v88);
   }
 
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D48);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D48, &qword_2426B4830);
   v36 = *(*(v35 - 8) + 64);
   MEMORY[0x28223BE20](v35 - 8);
   v37 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7210,13 +7026,13 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v39 = sub_2426AB140();
   MEMORY[0x28223BE20](v39);
   v40 = &v74 - v37;
-  sub_242664250(&v74 - v37, &v74 - v37, &qword_27ECB5D48);
+  sub_242664250(&v74 - v37, &v74 - v37, &qword_27ECB5D48, &qword_2426B4830);
   v41 = sub_2426AB7D0();
   v42 = *(v41 - 8);
   v43 = (*(v42 + 48))(&v74 - v37, 1, v41);
   if (v43 == 1)
   {
-    sub_2426642B8(&v74 - v37, &qword_27ECB5D48);
+    sub_2426642B8(&v74 - v37, &qword_27ECB5D48, &qword_2426B4830);
     v88 = 0u;
     v89 = 0u;
     LOBYTE(v90) = 1;
@@ -7234,10 +7050,10 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     }
 
     sub_242673010(v46, v87);
-    ctb::bridging::makeOptional(v87, &v88);
+    ctb::bridging::makeOptional(&v88, v87);
     ctb::chatbot::MediaList::~MediaList(v87);
     (*(v42 + 8))(v45, v41);
-    sub_2426642B8(v38, &qword_27ECB5D48);
+    sub_2426642B8(v38, &qword_27ECB5D48, &qword_2426B4830);
     LOBYTE(v90) = 0;
   }
 
@@ -7245,11 +7061,11 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.MediaList_(0);
     v48 = v47;
-    v49 = sub_242676174(&qword_27ECB57B8, type metadata accessor for std.__1.optional_ctb.chatbot.MediaList_);
+    v49 = sub_242676174(&qword_27ECB57B8, type metadata accessor for std.__1.optional_ctb.chatbot.MediaList_, &unk_2426B2310);
     CxxOptional.init(nilLiteral:)(v48, v49);
     if (v90 != 1)
     {
-      sub_2426642B8(&v88, &qword_27ECB5D50);
+      sub_2426642B8(&v88, &qword_27ECB5D50, &qword_2426B4838);
     }
   }
 
@@ -7263,7 +7079,7 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   {
 
     sub_2426739E8(v50, v86);
-    ctb::bridging::makeOptional(v86, &v88);
+    ctb::bridging::makeOptional(&v88, v86);
     ctb::chatbot::OrgName::~OrgName(v86);
 
     LOBYTE(v90) = 0;
@@ -7278,29 +7094,29 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     LOBYTE(v90) = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.OrgName_(0);
     v52 = v51;
-    v53 = sub_242676174(&qword_27ECB57B0, type metadata accessor for std.__1.optional_ctb.chatbot.OrgName_);
+    v53 = sub_242676174(&qword_27ECB57B0, type metadata accessor for std.__1.optional_ctb.chatbot.OrgName_, &unk_2426B22C8);
     CxxOptional.init(nilLiteral:)(v52, v53);
     if ((v90 & 1) == 0)
     {
-      sub_2426642B8(&v88, &qword_27ECB5D58);
+      sub_2426642B8(&v88, &qword_27ECB5D58, &qword_2426B4840);
     }
   }
 
   v54 = sub_2426AB100();
   sub_2426835F0(v54, v55, v85);
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D60);
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D60, &qword_2426B4848);
   v57 = *(*(v56 - 8) + 64);
   MEMORY[0x28223BE20](v56 - 8);
   v58 = (v57 + 15) & 0xFFFFFFFFFFFFFFF0;
   v59 = sub_2426AB110();
   MEMORY[0x28223BE20](v59);
-  sub_242664250(&v74 - v58, &v74 - v58, &qword_27ECB5D60);
+  sub_242664250(&v74 - v58, &v74 - v58, &qword_27ECB5D60, &qword_2426B4848);
   v60 = sub_2426AADC0();
   v61 = *(v60 - 8);
   v62 = (*(v61 + 48))(&v74 - v58, 1, v60);
   if (v62 == 1)
   {
-    sub_2426642B8(&v74 - v58, &qword_27ECB5D60);
+    sub_2426642B8(&v74 - v58, &qword_27ECB5D60, &qword_2426B4848);
     v88 = 0u;
     v89 = 0u;
     LOBYTE(v90) = 1;
@@ -7316,10 +7132,10 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     MEMORY[0x28223BE20](v65);
     (*(v61 + 16))(&v74 - v64, &v74 - v64, v60);
     sub_242673D84(&v74 - v64, v84);
-    ctb::bridging::makeOptional(v84, &v88);
+    ctb::bridging::makeOptional(&v88, v84);
     ctb::chatbot::CategoryList::~CategoryList(v84);
     (*(v61 + 8))(&v74 - v64, v60);
-    sub_2426642B8(&v74 - v58, &qword_27ECB5D60);
+    sub_2426642B8(&v74 - v58, &qword_27ECB5D60, &qword_2426B4848);
     LOBYTE(v90) = 0;
     a2 = v82;
   }
@@ -7328,11 +7144,11 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CategoryList_(0);
     v67 = v66;
-    v68 = sub_242676174(&qword_27ECB57A8, type metadata accessor for std.__1.optional_ctb.chatbot.CategoryList_);
+    v68 = sub_242676174(&qword_27ECB57A8, type metadata accessor for std.__1.optional_ctb.chatbot.CategoryList_, &unk_2426B2280);
     CxxOptional.init(nilLiteral:)(v67, v68);
     if (v90 != 1)
     {
-      sub_2426642B8(&v88, &qword_27ECB5D68);
+      sub_2426642B8(&v88, &qword_27ECB5D68, &qword_2426B4850);
     }
   }
 
@@ -7344,7 +7160,7 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   type metadata accessor for std.__1.optional_ctb.chatbot.WebResources_(0);
   v70 = v69;
-  v71 = sub_242676174(&qword_27ECB57A0, type metadata accessor for std.__1.optional_ctb.chatbot.WebResources_);
+  v71 = sub_242676174(&qword_27ECB57A0, type metadata accessor for std.__1.optional_ctb.chatbot.WebResources_, &unk_2426B2238);
   CxxOptional.init(nilLiteral:)(v70, v71);
   v72 = sub_2426AB150();
   (*(*(v72 - 8) + 8))(v83, v72);
@@ -7362,28 +7178,28 @@ uint64_t sub_242673F88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 void sub_242674C3C(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D28);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D28, &qword_2426B4810);
   v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_2426AB160();
   MEMORY[0x28223BE20](v7);
-  sub_242664250(v6, v6, &qword_27ECB5D28);
+  sub_242664250(v6, v6, &qword_27ECB5D28, &qword_2426B4810);
   v8 = sub_2426AB150();
   v9 = *(v8 - 8);
   v10 = (*(v9 + 48))(v6, 1, v8);
   if (v10 == 1)
   {
-    sub_2426642B8(v6, &qword_27ECB5D28);
+    sub_2426642B8(v6, &qword_27ECB5D28, &qword_2426B4810);
     memset(v22, 0, sizeof(v22));
     v23 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.OrgDetails_(0);
     v15 = v14;
-    v16 = sub_242676174(&qword_27ECB57C8, type metadata accessor for std.__1.optional_ctb.chatbot.OrgDetails_);
+    v16 = sub_242676174(&qword_27ECB57C8, type metadata accessor for std.__1.optional_ctb.chatbot.OrgDetails_, &unk_2426B23A0);
     CxxOptional.init(nilLiteral:)(v15, v16);
     if (v23 != 1)
     {
-      sub_2426642B8(v22, &qword_27ECB5D30);
+      sub_2426642B8(v22, &qword_27ECB5D30, &qword_2426B4818);
     }
   }
 
@@ -7401,7 +7217,7 @@ void sub_242674C3C(uint64_t a1@<X0>, _BYTE *a2@<X8>)
     ctb::bridging::makeOptional(v24, v22);
     ctb::chatbot::OrgDetails::~OrgDetails(v24);
     (*(v9 + 8))(&v20 - v12, v8);
-    sub_2426642B8(v6, &qword_27ECB5D28);
+    sub_2426642B8(v6, &qword_27ECB5D28, &qword_2426B4810);
     v23 = 0;
     a2 = v21;
     std::optional<ctb::chatbot::OrgDetails>::optional[abi:ne200100](v24, v22);
@@ -7425,64 +7241,64 @@ uint64_t sub_242674FB8@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     v6 = *(v4 + 16);
     if (v6)
     {
-      v34 = a1;
-      v35 = a2;
-      v44.n128_u64[0] = MEMORY[0x277D84F90];
+      v32 = a1;
+      v33 = a2;
+      v42.n128_u64[0] = MEMORY[0x277D84F90];
       v7 = v4;
       sub_242684D98(0, v6, 0);
-      v5 = v44.n128_u64[0];
+      v5 = v42.n128_u64[0];
       v8 = sub_2426AAD80();
       v9 = v8;
       v10 = *(v8 - 8);
       v11 = *(v10 + 16);
-      v39 = v10 + 16;
-      v40 = v11;
+      v37 = v10 + 16;
+      v38 = v11;
       v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-      v33 = v7;
+      v31 = v7;
       v13 = v7 + v12;
       v14 = *(v10 + 64);
-      v37 = *(v10 + 72);
-      v38 = v14;
-      v36 = (v10 + 8);
+      v35 = *(v10 + 72);
+      v36 = v14;
+      v34 = (v10 + 8);
       do
       {
-        v41 = &v33;
+        v39 = &v31;
         v15 = v5;
-        v16 = v38;
+        v16 = v36;
         MEMORY[0x28223BE20](v8);
-        v17 = &v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v18 = v40;
-        v19 = (v40)(v17, v13, v9);
+        v17 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v18 = v38;
+        v19 = (v38)(v17, v13, v9);
         v5 = v15;
         MEMORY[0x28223BE20](v19);
         v18(v17, v17, v9);
         v20 = sub_2426AAD70();
-        sub_24268D30C(v20, v21, &v42);
+        sub_24268D30C(v20, v21, &v40);
         v22 = sub_2426AAD60();
-        sub_24268D30C(v22, v23, &v43);
-        v24 = *v36;
-        (*v36)(v17, v9);
+        sub_24268D30C(v22, v23, v41);
+        v24 = *v34;
+        (*v34)(v17, v9);
         v24(v17, v9);
-        v44.n128_u64[0] = v15;
+        v42.n128_u64[0] = v15;
         v26 = *(v15 + 16);
-        v25 = *(v44.n128_u64[0] + 24);
+        v25 = *(v42.n128_u64[0] + 24);
         if (v26 >= v25 >> 1)
         {
           sub_242684D98((v25 > 1), v26 + 1, 1);
-          v5 = v44.n128_u64[0];
+          v5 = v42.n128_u64[0];
         }
 
         *(v5 + 16) = v26 + 1;
-        ctb::chatbot::AddressEntry::AddressEntry(v5 + 48 * v26 + 32, &v42);
-        ctb::chatbot::AddressEntry::~AddressEntry(&v42.__r_.__value_.__l.__data_);
-        v13 += v37;
+        ctb::chatbot::AddressEntry::AddressEntry(v5 + 48 * v26 + 32, &v40);
+        ctb::chatbot::AddressEntry::~AddressEntry(&v40.__r_.__value_.__l.__data_);
+        v13 += v35;
         --v6;
       }
 
       while (v6);
 
-      a1 = v34;
-      a2 = v35;
+      a1 = v32;
+      a2 = v33;
     }
 
     else
@@ -7490,18 +7306,18 @@ uint64_t sub_242674FB8@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     }
   }
 
-  v44 = 0uLL;
-  v45 = 0;
-  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v44);
+  v42 = 0uLL;
+  v43 = 0;
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v42);
   v27 = *(v5 + 16);
   if (v27)
   {
     v28 = (v5 + 32);
     do
     {
-      ctb::chatbot::AddressEntry::AddressEntry(&v42, v28);
-      std::vector<ctb::chatbot::AddressEntry>::push_back[abi:ne200100](&v44, &v42);
-      ctb::chatbot::AddressEntry::~AddressEntry(&v42.__r_.__value_.__l.__data_);
+      ctb::chatbot::AddressEntry::AddressEntry(&v40, v28);
+      std::vector<ctb::chatbot::AddressEntry>::push_back[abi:ne200100](&v42, &v40);
+      ctb::chatbot::AddressEntry::~AddressEntry(&v40.__r_.__value_.__l.__data_);
       v28 += 3;
       --v27;
     }
@@ -7512,15 +7328,15 @@ uint64_t sub_242674FB8@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   v29 = sub_2426AB4F0();
   (*(*(v29 - 8) + 8))(a1, v29);
 
-  v30 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v42, &v44);
-  std::vector<ctb::chatbot::AddressEntry>::~vector[abi:ne200100](&v44, v30);
-  v31 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](a2, &v42);
-  return std::vector<ctb::chatbot::AddressEntry>::~vector[abi:ne200100](&v42, v31);
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v40, &v42);
+  std::vector<ctb::chatbot::AddressEntry>::~vector[abi:ne200100](&v42);
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](a2, &v40);
+  return std::vector<ctb::chatbot::AddressEntry>::~vector[abi:ne200100](&v40);
 }
 
 uint64_t sub_2426752B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v34 - v5;
   v7 = sub_2426AB180();
@@ -7542,30 +7358,30 @@ uint64_t sub_2426752B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_2426836A0(v6, v40);
   sub_2426AB530();
   sub_2426836A0(v6, v39);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D18);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D18, &qword_2426B4800);
   v19 = *(*(v18 - 8) + 64);
   MEMORY[0x28223BE20](v18 - 8);
   v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = sub_2426AB560();
   MEMORY[0x28223BE20](v21);
-  sub_242664250(v20, v20, &qword_27ECB5D18);
+  sub_242664250(v20, v20, &qword_27ECB5D18, &qword_2426B4800);
   v22 = sub_2426AB4F0();
   v23 = *(v22 - 8);
   v24 = (*(v23 + 48))(v20, 1, v22);
   if (v24 == 1)
   {
-    sub_2426642B8(v20, &qword_27ECB5D18);
+    sub_2426642B8(v20, &qword_27ECB5D18, &qword_2426B4800);
     memset(v36, 0, sizeof(v36));
     v37 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.AddressEntryList_(0);
     v29 = v28;
-    v30 = sub_242676174(&qword_27ECB57D0, type metadata accessor for std.__1.optional_ctb.chatbot.AddressEntryList_);
+    v30 = sub_242676174(&qword_27ECB57D0, type metadata accessor for std.__1.optional_ctb.chatbot.AddressEntryList_, &unk_2426B23E8);
     CxxOptional.init(nilLiteral:)(v29, v30);
     v31 = sub_2426AB590();
     (*(*(v31 - 8) + 8))(a1, v31);
     if (v37 != 1)
     {
-      sub_2426642B8(v36, &qword_27ECB5D20);
+      sub_2426642B8(v36, &qword_27ECB5D20, &qword_2426B4808);
     }
   }
 
@@ -7580,10 +7396,10 @@ uint64_t sub_2426752B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     MEMORY[0x28223BE20](v27);
     (*(v23 + 16))(&v34 - v26, &v34 - v26, v22);
     sub_242674FB8(&v34 - v26, v38);
-    ctb::bridging::makeOptional(v38, v36);
+    ctb::bridging::makeOptional(v36, v38);
     ctb::chatbot::WebResources::~WebResources(v38);
     (*(v23 + 8))(&v34 - v26, v22);
-    sub_2426642B8(v20, &qword_27ECB5D18);
+    sub_2426642B8(v20, &qword_27ECB5D18, &qword_2426B4800);
     v37 = 0;
     a2 = v35;
     v32 = sub_2426AB590();
@@ -7623,7 +7439,7 @@ void sub_2426757EC(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v45 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08, &qword_2426B47F0);
   v11 = MEMORY[0x28223BE20](v10 - 8);
   v13 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v11);
@@ -7666,15 +7482,15 @@ void sub_2426757EC(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v30 = v45;
       if (v50 != 1)
       {
-        sub_2426642B8(&v49, &qword_27ECB5D10);
+        sub_2426642B8(&v49, &qword_27ECB5D10, &qword_2426B47F8);
       }
     }
 
     sub_2426AB0C0();
-    sub_242664250(v15, v13, &qword_27ECB5D08);
+    sub_242664250(v15, v13, &qword_27ECB5D08, &qword_2426B47F0);
     if ((*(v30 + 48))(v13, 1, v7) == 1)
     {
-      sub_2426642B8(v15, &qword_27ECB5D08);
+      sub_2426642B8(v15, &qword_27ECB5D08, &qword_2426B47F0);
       memset(&v49, 0, sizeof(v49));
       v50 = 1;
       memset(&v47, 0, sizeof(v47));
@@ -7684,7 +7500,7 @@ void sub_2426757EC(uint64_t a1@<X0>, uint64_t a2@<X8>)
       (*(v25 + 8))(v23, v40);
       if (v50 != 1)
       {
-        sub_2426642B8(&v49, &qword_27ECB5D10);
+        sub_2426642B8(&v49, &qword_27ECB5D10, &qword_2426B47F8);
       }
     }
 
@@ -7698,7 +7514,7 @@ void sub_2426757EC(uint64_t a1@<X0>, uint64_t a2@<X8>)
       (*(v43 + 8))(v6, v44);
       sub_24268D30C(v34, v37, &v49);
       (*(v35 + 8))(v9, v7);
-      sub_2426642B8(v15, &qword_27ECB5D08);
+      sub_2426642B8(v15, &qword_27ECB5D08, &qword_2426B47F0);
       v50 = 0;
       v38 = sub_2426AAFF0();
       (*(*(v38 - 8) + 8))(v46, v38);
@@ -7851,7 +7667,7 @@ void ctb::bridging::makeOptional(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(v3 + 264) = 1;
 }
 
-uint64_t sub_242676174(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_242676174(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7926,7 +7742,7 @@ void std::vector<ctb::chatbot::OrgNameEntry>::__destroy_vector::operator()[abi:n
   }
 }
 
-uint64_t sub_242676360@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_242676360@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = sub_2426AAD50();
   v5 = *(v4 - 8);
@@ -7959,7 +7775,7 @@ uint64_t sub_242676360@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     sub_242679A64(*v7, &v23);
     ctb::bridging::makeMessageVariant(&v23, v24);
     ctb::chatbot::SuggestedChipList::~SuggestedChipList(&v23);
-    ctb::bridging::makeOptional(v24, a2);
+    ctb::bridging::makeOptional(a2, v24);
     std::variant<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>::~variant[abi:ne200100](v24);
     return (*(v5 + 8))(a1, v4);
   }
@@ -7968,11 +7784,11 @@ uint64_t sub_242676360@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   {
     type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__(0);
     v16 = v15;
-    v17 = sub_24267AFB8(&qword_27ECB5798, type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__);
+    v17 = sub_24267AFB8(&qword_27ECB5798, type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__, &unk_2426B21F0);
     CxxOptional.init(nilLiteral:)(v16, v17);
     v18 = *(v5 + 8);
     v18(a1, v4);
-    return (v18)(v7, v4);
+    return v18(v7, v4);
   }
 }
 
@@ -8006,7 +7822,7 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
   v70 = &v67 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
   v8 = &v67 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v74 = &v67 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
@@ -8088,7 +7904,7 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_(0);
     v35 = v34;
-    v36 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_);
+    v36 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_, &unk_2426B2040);
     CxxOptional.init(nilLiteral:)(v35, v36);
     v33 = v84 | (BYTE2(v84) << 16);
     LODWORD(v71) = HIBYTE(v84);
@@ -8145,7 +7961,7 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_(0);
     v53 = v52;
-    v54 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_);
+    v54 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_, &unk_2426B1FF8);
     CxxOptional.init(nilLiteral:)(v53, v54);
     v50 = v83 | (BYTE2(v83) << 16);
     LOBYTE(v51) = HIBYTE(v83);
@@ -8153,21 +7969,21 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
 
   sub_2426AB2F0();
   v55 = v74;
-  sub_242664250(v18, v74, &qword_27ECB5CE0);
+  sub_242664250(v18, v74, &qword_27ECB5CE0, &qword_2426B47C8);
   if ((*(v4 + 48))(v55, 1, v3) == 1)
   {
-    sub_2426642B8(v18, &qword_27ECB5CE0);
+    sub_2426642B8(v18, &qword_27ECB5CE0, &qword_2426B47C8);
     memset(v80, 0, sizeof(v80));
     v81 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_(0);
     v57 = v56;
-    v58 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_);
+    v58 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_, &unk_2426B1FB0);
     CxxOptional.init(nilLiteral:)(v57, v58);
     v59 = sub_2426AB300();
     (*(*(v59 - 8) + 8))(a1, v59);
     if (v81 != 1)
     {
-      sub_2426642B8(v80, &qword_27ECB5DA8);
+      sub_2426642B8(v80, &qword_27ECB5DA8, &qword_2426B4898);
     }
   }
 
@@ -8180,10 +7996,10 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
     sub_24268D30C(v61, v62, &v82);
     v63 = *(v4 + 8);
     v63(v60, v3);
-    ctb::bridging::makeOptional(&v82, v80);
+    ctb::bridging::makeOptional(v80, &v82);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v82.__r_.__value_.__l.__data_);
     v63(v8, v3);
-    sub_2426642B8(v18, &qword_27ECB5CE0);
+    sub_2426642B8(v18, &qword_27ECB5CE0, &qword_2426B47C8);
     v81 = 0;
     v64 = sub_2426AB300();
     (*(*(v64 - 8) + 8))(a1, v64);
@@ -8205,7 +8021,7 @@ uint64_t sub_2426767B4@<X0>(uint64_t a1@<X0>, int *a2@<X8>)
 
 uint64_t sub_2426771AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v37 - v5;
   v7 = sub_2426A9870();
@@ -8229,7 +8045,7 @@ uint64_t sub_2426771AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   {
     type metadata accessor for std.__1.optional_CUnsignedLong_(0);
     v22 = v21;
-    v23 = sub_24267AFB8(&qword_27ECB5770, type metadata accessor for std.__1.optional_CUnsignedLong_);
+    v23 = sub_24267AFB8(&qword_27ECB5770, type metadata accessor for std.__1.optional_CUnsignedLong_, &unk_2426B2088);
     CxxOptional.init(nilLiteral:)(v22, v23);
     v24 = v37;
     v25 = v38;
@@ -8398,7 +8214,7 @@ uint64_t sub_2426778BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   v67 = &v62[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v5);
   v71 = &v62[-v7];
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   v9 = MEMORY[0x28223BE20](v8 - 8);
   v70 = &v62[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v9);
@@ -8459,7 +8275,7 @@ uint64_t sub_2426778BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_(0);
     v30 = v29;
-    v31 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_);
+    v31 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_, &unk_2426B2040);
     CxxOptional.init(nilLiteral:)(v30, v31);
     v28 = v80 | (BYTE2(v80) << 16);
     LODWORD(v68) = HIBYTE(v80);
@@ -8518,7 +8334,7 @@ uint64_t sub_2426778BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_(0);
     v48 = v47;
-    v49 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_);
+    v49 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_, &unk_2426B1FF8);
     CxxOptional.init(nilLiteral:)(v48, v49);
     v44 = v79 | (BYTE2(v79) << 16);
     LOBYTE(v45) = HIBYTE(v79);
@@ -8527,21 +8343,21 @@ uint64_t sub_2426778BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 
   sub_2426AB240();
   v50 = v70;
-  sub_242664250(v12, v70, &qword_27ECB5CE0);
+  sub_242664250(v12, v70, &qword_27ECB5CE0, &qword_2426B47C8);
   if ((*(v4 + 48))(v50, 1, v3) == 1)
   {
-    sub_2426642B8(v12, &qword_27ECB5CE0);
+    sub_2426642B8(v12, &qword_27ECB5CE0, &qword_2426B47C8);
     memset(v76, 0, sizeof(v76));
     v77 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_(0);
     v52 = v51;
-    v53 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_);
+    v53 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_, &unk_2426B1FB0);
     CxxOptional.init(nilLiteral:)(v52, v53);
     v54 = sub_2426AB250();
     (*(*(v54 - 8) + 8))(a1, v54);
     if (v77 != 1)
     {
-      sub_2426642B8(v76, &qword_27ECB5DA8);
+      sub_2426642B8(v76, &qword_27ECB5DA8, &qword_2426B4898);
     }
   }
 
@@ -8554,10 +8370,10 @@ uint64_t sub_2426778BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     sub_24268D30C(v56, v57, &v78);
     v58 = *(v4 + 8);
     v58(v55, v3);
-    ctb::bridging::makeOptional(&v78, v76);
+    ctb::bridging::makeOptional(v76, &v78);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v78.__r_.__value_.__l.__data_);
     v58(v46, v3);
-    sub_2426642B8(v12, &qword_27ECB5CE0);
+    sub_2426642B8(v12, &qword_27ECB5CE0, &qword_2426B47C8);
     v77 = 0;
     v59 = sub_2426AB250();
     (*(*(v59 - 8) + 8))(a1, v59);
@@ -8586,7 +8402,7 @@ uint64_t sub_2426781C4@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
   v74 = &v69[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v5);
   v8 = &v69[-v7];
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v78 = &v69[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v10);
@@ -8671,7 +8487,7 @@ uint64_t sub_2426781C4@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_(0);
     v37 = v36;
-    v38 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_);
+    v38 = sub_24267AFB8(&qword_27ECB5768, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitleStyle_, &unk_2426B2040);
     CxxOptional.init(nilLiteral:)(v37, v38);
     v35 = v88 | (BYTE2(v88) << 16);
     LODWORD(v75) = HIBYTE(v88);
@@ -8730,7 +8546,7 @@ uint64_t sub_2426781C4@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_(0);
     v54 = v53;
-    v55 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_);
+    v55 = sub_24267AFB8(&qword_27ECB5760, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescriptionStyle_, &unk_2426B1FF8);
     CxxOptional.init(nilLiteral:)(v54, v55);
     v51 = v87 | (BYTE2(v87) << 16);
     LOBYTE(v52) = HIBYTE(v87);
@@ -8738,21 +8554,21 @@ uint64_t sub_2426781C4@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
 
   sub_2426AB200();
   v56 = v78;
-  sub_242664250(v18, v78, &qword_27ECB5CE0);
+  sub_242664250(v18, v78, &qword_27ECB5CE0, &qword_2426B47C8);
   if ((*(v4 + 48))(v56, 1, v3) == 1)
   {
-    sub_2426642B8(v18, &qword_27ECB5CE0);
+    sub_2426642B8(v18, &qword_27ECB5CE0, &qword_2426B47C8);
     memset(v84, 0, sizeof(v84));
     v85 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_(0);
     v58 = v57;
-    v59 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_);
+    v59 = sub_24267AFB8(&qword_27ECB5758, type metadata accessor for std.__1.optional_ctb.chatbot.CardStyle_, &unk_2426B1FB0);
     CxxOptional.init(nilLiteral:)(v58, v59);
     v60 = sub_2426AB210();
     (*(*(v60 - 8) + 8))(a1, v60);
     if (v85 != 1)
     {
-      sub_2426642B8(v84, &qword_27ECB5DA8);
+      sub_2426642B8(v84, &qword_27ECB5DA8, &qword_2426B4898);
     }
   }
 
@@ -8765,10 +8581,10 @@ uint64_t sub_2426781C4@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
     sub_24268D30C(v62, v63, &v86);
     v64 = *(v4 + 8);
     v64(v61, v3);
-    ctb::bridging::makeOptional(&v86, v84);
+    ctb::bridging::makeOptional(v84, &v86);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v86.__r_.__value_.__l.__data_);
     v64(v8, v3);
-    sub_2426642B8(v18, &qword_27ECB5CE0);
+    sub_2426642B8(v18, &qword_27ECB5CE0, &qword_2426B47C8);
     v85 = 0;
     v65 = sub_2426AB210();
     (*(*(v65 - 8) + 8))(a1, v65);
@@ -8849,20 +8665,20 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
   v72 = a6;
   v74 = a5;
   v75 = a4;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D70);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D70, &qword_2426B4860);
   v11 = *(*(v10 - 8) + 64);
   v12 = MEMORY[0x28223BE20](v10 - 8);
   v13 = v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v76 = a1;
   v14 = a2(v12);
   MEMORY[0x28223BE20](v14);
-  sub_242664250(v13, v13, &qword_27ECB5D70);
+  sub_242664250(v13, v13, &qword_27ECB5D70, &qword_2426B4860);
   v15 = sub_2426AB6C0();
   v16 = *(v15 - 8);
   v17 = (*(v16 + 48))(v13, 1, v15);
   if (v17 == 1)
   {
-    sub_2426642B8(v13, &qword_27ECB5D70);
+    sub_2426642B8(v13, &qword_27ECB5D70, &qword_2426B4860);
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
@@ -8878,12 +8694,12 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     v92 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.CardMedia_(0);
     v22 = v21;
-    v23 = sub_24267AFB8(&qword_27ECB5790, type metadata accessor for std.__1.optional_ctb.chatbot.CardMedia_);
+    v23 = sub_24267AFB8(&qword_27ECB5790, type metadata accessor for std.__1.optional_ctb.chatbot.CardMedia_, &unk_2426B21A8);
     CxxOptional.init(nilLiteral:)(v22, v23);
     v24 = v76;
     if (v92 != 1)
     {
-      sub_2426642B8(&v80, &qword_27ECB5D78);
+      sub_2426642B8(&v80, &qword_27ECB5D78, &qword_2426B4868);
     }
   }
 
@@ -8899,27 +8715,27 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     ctb::bridging::makeOptional(v93, &v80);
     ctb::chatbot::CardMedia::~CardMedia(v93);
     (*(v16 + 8))(v70 - v19, v15);
-    sub_2426642B8(v13, &qword_27ECB5D70);
+    sub_2426642B8(v13, &qword_27ECB5D70, &qword_2426B4860);
     v92 = 0;
     std::optional<ctb::chatbot::CardMedia>::optional[abi:ne200100](v93, &v80);
     std::optional<ctb::chatbot::CardMedia>::~optional(&v80);
     v24 = v76;
   }
 
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D80);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D80, &qword_2426B4870);
   v73 = v70;
   v26 = *(*(v25 - 8) + 64);
   v27 = MEMORY[0x28223BE20](v25 - 8);
   v28 = (v26 + 15) & 0xFFFFFFFFFFFFFFF0;
   v29 = a3(v27);
   MEMORY[0x28223BE20](v29);
-  sub_242664250(v70 - v28, v70 - v28, &qword_27ECB5D80);
+  sub_242664250(v70 - v28, v70 - v28, &qword_27ECB5D80, &qword_2426B4870);
   v30 = sub_2426AB6E0();
   v31 = *(v30 - 8);
   v32 = (*(v31 + 48))(v70 - v28, 1, v30);
   if (v32 == 1)
   {
-    sub_2426642B8(v70 - v28, &qword_27ECB5D80);
+    sub_2426642B8(v70 - v28, &qword_27ECB5D80, &qword_2426B4870);
     v80 = 0u;
     v81 = 0u;
     LOBYTE(v82) = 1;
@@ -8938,10 +8754,10 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     sub_24268D30C(v37, v38, &v79);
     v39 = *(v31 + 8);
     v39(v70 - v34, v30);
-    ctb::bridging::makeOptional(&v79, &v80);
+    ctb::bridging::makeOptional(&v80, &v79);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v79.__r_.__value_.__l.__data_);
     v39(v70 - v34, v30);
-    sub_2426642B8(v70 - v28, &qword_27ECB5D80);
+    sub_2426642B8(v70 - v28, &qword_27ECB5D80, &qword_2426B4870);
     LOBYTE(v82) = 0;
     v24 = v76;
   }
@@ -8950,11 +8766,11 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardTitle_(0);
     v41 = v40;
-    v42 = sub_24267AFB8(&qword_27ECB5788, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitle_);
+    v42 = sub_24267AFB8(&qword_27ECB5788, type metadata accessor for std.__1.optional_ctb.chatbot.CardTitle_, &unk_2426B2160);
     CxxOptional.init(nilLiteral:)(v41, v42);
     if (v82 != 1)
     {
-      sub_2426642B8(&v80, &qword_27ECB5D88);
+      sub_2426642B8(&v80, &qword_27ECB5D88, &qword_2426B4878);
     }
   }
 
@@ -8964,19 +8780,19 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     std::optional<std::string>::~optional(&v80);
   }
 
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D90);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D90, &qword_2426B4880);
   v44 = *(*(v43 - 8) + 64);
   v45 = MEMORY[0x28223BE20](v43 - 8);
   v46 = (v44 + 15) & 0xFFFFFFFFFFFFFFF0;
   v47 = v75(v45);
   MEMORY[0x28223BE20](v47);
-  sub_242664250(v70 - v46, v70 - v46, &qword_27ECB5D90);
+  sub_242664250(v70 - v46, v70 - v46, &qword_27ECB5D90, &qword_2426B4880);
   v48 = sub_2426AB010();
   v49 = *(v48 - 8);
   v50 = (*(v49 + 48))(v70 - v46, 1, v48);
   if (v50 == 1)
   {
-    sub_2426642B8(v70 - v46, &qword_27ECB5D90);
+    sub_2426642B8(v70 - v46, &qword_27ECB5D90, &qword_2426B4880);
     v80 = 0u;
     v81 = 0u;
     LOBYTE(v82) = 1;
@@ -8996,10 +8812,10 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     sub_24268D30C(v55, v56, &v78);
     v57 = *(v49 + 8);
     v57(v70 - v52, v48);
-    ctb::bridging::makeOptional(&v78, &v80);
+    ctb::bridging::makeOptional(&v80, &v78);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v78.__r_.__value_.__l.__data_);
     v57(v70 - v52, v48);
-    sub_2426642B8(v70 - v46, &qword_27ECB5D90);
+    sub_2426642B8(v70 - v46, &qword_27ECB5D90, &qword_2426B4880);
     LOBYTE(v82) = 0;
     v24 = v76;
   }
@@ -9008,11 +8824,11 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
   {
     type metadata accessor for std.__1.optional_ctb.chatbot.CardDescription_(0);
     v59 = v58;
-    v60 = sub_24267AFB8(&qword_27ECB5780, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescription_);
+    v60 = sub_24267AFB8(&qword_27ECB5780, type metadata accessor for std.__1.optional_ctb.chatbot.CardDescription_, &unk_2426B2118);
     v61 = CxxOptional.init(nilLiteral:)(v59, v60);
     if (v82 != 1)
     {
-      v61 = sub_2426642B8(&v80, &qword_27ECB5D98);
+      v61 = sub_2426642B8(&v80, &qword_27ECB5D98, &qword_2426B4888);
     }
   }
 
@@ -9026,7 +8842,7 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
   {
 
     sub_242679A64(v62, v77);
-    ctb::bridging::makeOptional(v77, &v80);
+    ctb::bridging::makeOptional(&v80, v77);
     ctb::chatbot::SuggestedChipList::~SuggestedChipList(v77);
 
     v63 = v72(0);
@@ -9043,13 +8859,13 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
     LOBYTE(v82) = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedChipList_(0);
     v65 = v64;
-    v66 = sub_24267AFB8(&qword_27ECB5778, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedChipList_);
+    v66 = sub_24267AFB8(&qword_27ECB5778, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedChipList_, &unk_2426B20D0);
     CxxOptional.init(nilLiteral:)(v65, v66);
     v67 = v72(0);
     (*(*(v67 - 8) + 8))(v24, v67);
     if (v82 != 1)
     {
-      sub_2426642B8(&v80, &qword_27ECB5DA0);
+      sub_2426642B8(&v80, &qword_27ECB5DA0, &qword_2426B4890);
     }
   }
 
@@ -9064,7 +8880,7 @@ uint64_t sub_242678FC0@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uin
   return std::optional<ctb::chatbot::SuggestedChipList>::~optional(v77);
 }
 
-uint64_t sub_242679A64@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_242679A64@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -9196,7 +9012,7 @@ LABEL_18:
     v28 = sub_2426AB3F0();
     v29 = MEMORY[0x245D15020](v28);
     sub_24268D30C(v29, v30, &v95);
-    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8, &qword_2426B48A0);
     v72 = v65;
     v32 = *(*(v31 - 8) + 64);
     MEMORY[0x28223BE20](v31 - 8);
@@ -9207,13 +9023,13 @@ LABEL_18:
     v71 = v65;
     MEMORY[0x28223BE20](v35);
     v36 = v65 - v33;
-    sub_242664250(v65 - v33, v65 - v33, &qword_27ECB5DB8);
+    sub_242664250(v65 - v33, v65 - v33, &qword_27ECB5DB8, &qword_2426B48A0);
     v37 = sub_2426AB5C0();
     v38 = *(v37 - 8);
     v39 = (*(v38 + 48))(v65 - v33, 1, v37);
     if (v39 == 1)
     {
-      sub_2426642B8(v65 - v33, &qword_27ECB5DB8);
+      sub_2426642B8(v65 - v33, &qword_27ECB5DB8, &qword_2426B48A0);
       memset(v92, 0, sizeof(v92));
       v93 = 1;
     }
@@ -9232,10 +9048,10 @@ LABEL_18:
       sub_24268D30C(v56, v57, &v94);
       v58 = *(v38 + 8);
       v58(v65 - v53, v37);
-      ctb::bridging::makeOptional(&v94, v92);
+      ctb::bridging::makeOptional(v92, &v94);
       ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v94.__r_.__value_.__l.__data_);
       v58(v65 - v53, v37);
-      sub_2426642B8(v34, &qword_27ECB5DB8);
+      sub_2426642B8(v34, &qword_27ECB5DB8, &qword_2426B48A0);
       v93 = 0;
     }
 
@@ -9246,12 +9062,12 @@ LABEL_18:
     {
       type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_(0);
       v60 = v59;
-      v61 = sub_24267AFB8(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_);
+      v61 = sub_24267AFB8(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_, &unk_2426B2430);
       CxxOptional.init(nilLiteral:)(v60, v61);
       (*(v69 + 8))(v68, v70);
       if (v93 != 1)
       {
-        sub_2426642B8(v92, &qword_27ECB5DC0);
+        sub_2426642B8(v92, &qword_27ECB5DC0, &qword_2426B48A8);
       }
     }
 
@@ -9284,8 +9100,7 @@ __n128 ctb::bridging::makeMessageVariant@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   result = *a1;
   *a2 = *a1;
   a2[1].n128_u64[0] = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   a2[20].n128_u32[2] = 2;
   return result;
@@ -9300,8 +9115,7 @@ __n128 ctb::bridging::makeMessageVariant@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   {
     a2[1] = a1[1];
     a2[2].n128_u64[0] = a1[2].n128_u64[0];
-    a1[1].n128_u64[1] = 0;
-    a1[2].n128_u64[0] = 0;
+    *(&a1[1] + 8) = 0uLL;
     a1[1].n128_u64[0] = 0;
     a2[2].n128_u8[8] = 1;
   }
@@ -9309,10 +9123,16 @@ __n128 ctb::bridging::makeMessageVariant@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   result = a1[3];
   a2[3] = result;
   a2[4].n128_u64[0] = a1[4].n128_u64[0];
-  a1[3].n128_u64[1] = 0;
-  a1[4].n128_u64[0] = 0;
+  *(&a1[3] + 8) = 0uLL;
   a1[3].n128_u64[0] = 0;
   a2[20].n128_u32[2] = 1;
+  return result;
+}
+
+uint64_t ctb::bridging::makeOptional@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>)
+{
+  result = std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, a2);
+  *(result + 336) = 1;
   return result;
 }
 
@@ -9350,9 +9170,9 @@ uint64_t sub_24267A518@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     sub_242678FC0(v19, MEMORY[0x282214F50], MEMORY[0x282214F58], MEMORY[0x282214F40], MEMORY[0x282214F48], MEMORY[0x282214F60], &v36);
     v20 = *(v10 + 8);
     v20(v12, v9);
-    ctb::bridging::makeMessageVariant(v35, v37);
+    ctb::bridging::makeMessageVariant(v37, v35);
     ctb::chatbot::CardMessage::~CardMessage(v35);
-    ctb::bridging::makeOptional(v37, v34);
+    ctb::bridging::makeOptional(v34, v37);
     std::variant<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>::~variant[abi:ne200100](v37);
     (*(v5 + 8))(a1, v4);
     return (v20)(v12, v9);
@@ -9375,7 +9195,7 @@ uint64_t sub_24267A518@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     sub_242677538(&v31 - v25, v35);
     ctb::bridging::makeMessageVariant(v35, v37);
     ctb::chatbot::CardCarouselMessage::~CardCarouselMessage(v35);
-    ctb::bridging::makeOptional(v37, v34);
+    ctb::bridging::makeOptional(v34, v37);
     std::variant<ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>::~variant[abi:ne200100](v37);
     (*(v5 + 8))(v33, v4);
     return (*(v23 + 8))(&v31 - v25, v22);
@@ -9385,11 +9205,11 @@ uint64_t sub_24267A518@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   {
     type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__(0);
     v28 = v27;
-    v29 = sub_24267AFB8(&qword_27ECB5798, type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__);
+    v29 = sub_24267AFB8(&qword_27ECB5798, type metadata accessor for std.__1.optional_std.__1.variant_ctb.chatbot.CardMessage_ ctb.chatbot.CardCarouselMessage_ ctb.chatbot.SuggestedChipList__, &unk_2426B21F0);
     CxxOptional.init(nilLiteral:)(v28, v29);
     v30 = *(v5 + 8);
     v30(a1, v4);
-    return v30(v7, v4);
+    return (v30)(v7, v4);
   }
 }
 
@@ -9403,10 +9223,10 @@ void ctb::chatbot::CardCarouselMessage::~CardCarouselMessage(void **this)
   }
 }
 
-uint64_t ctb::bridging::makeMessageVariant@<X0>(ctb::bridging *this@<X0>, uint64_t a2@<X8>)
+uint64_t *ctb::bridging::makeMessageVariant@<X0>(uint64_t *__return_ptr a1@<X8>, ctb::bridging *this@<X0>)
 {
-  result = std::__variant_detail::__union<(std::__variant_detail::_Trait)1,0ul,ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>::__union[abi:ne200100]<ctb::chatbot::CardMessage>(a2, this);
-  *(result + 328) = 0;
+  result = std::__variant_detail::__union<(std::__variant_detail::_Trait)1,0ul,ctb::chatbot::CardMessage,ctb::chatbot::CardCarouselMessage,ctb::chatbot::SuggestedChipList>::__union[abi:ne200100]<ctb::chatbot::CardMessage>(a1, this);
+  *(result + 82) = 0;
   return result;
 }
 
@@ -9488,8 +9308,7 @@ __n128 ctb::chatbot::CardCarouselLayout::CardCarouselLayout(uint64_t a1, __n128 
     result = a2[1];
     *(a1 + 32) = a2[2].n128_u64[0];
     *(a1 + 16) = result;
-    a2[1].n128_u64[1] = 0;
-    a2[2].n128_u64[0] = 0;
+    *(&a2[1] + 8) = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 40) = 1;
   }
@@ -9505,10 +9324,10 @@ void ctb::chatbot::CardCarouselLayout::~CardCarouselLayout(void **this)
   }
 }
 
-uint64_t std::vector<ctb::chatbot::SuggestedChip>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+_DWORD *std::vector<ctb::chatbot::SuggestedChip>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb::chatbot::SuggestedChip const&>(a1, a2);
   }
@@ -9517,11 +9336,11 @@ uint64_t std::vector<ctb::chatbot::SuggestedChip>::push_back[abi:ne200100](uint6
   {
     *v3 = *a2;
     std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedAction,ctb::chatbot::SuggestedReply>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100]((v3 + 2), (a2 + 2));
-    result = (v3 + 58);
-    *(a1 + 8) = v3 + 58;
+    result = v3 + 58;
+    a1[1] = (v3 + 58);
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -9553,7 +9372,7 @@ _DWORD *ctb::chatbot::SuggestedChip::SuggestedChip(_DWORD *a1, _DWORD *a2)
   return a1;
 }
 
-uint64_t sub_24267AFB8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_24267AFB8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9671,21 +9490,21 @@ uint64_t std::__variant_detail::__union<(std::__variant_detail::_Trait)1,0ul,ctb
   return a1;
 }
 
-uint64_t std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb::chatbot::SuggestedChip const&>(uint64_t a1, _DWORD *a2)
+uint64_t std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb::chatbot::SuggestedChip const&>(uint64_t *a1, _DWORD *a2)
 {
-  v2 = 0x34F72C234F72C235 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x34F72C234F72C235 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x11A7B9611A7B961)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x69EE58469EE5846ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x69EE58469EE5846ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x69EE58469EE5846ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x69EE58469EE5846ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x34F72C234F72C235 * ((*(a1 + 16) - *a1) >> 3)) >= 0x8D3DCB08D3DCB0)
+  if ((0x34F72C234F72C235 * ((a1[2] - *a1) >> 3)) >= 0x8D3DCB08D3DCB0)
   {
     v6 = 0x11A7B9611A7B961;
   }
@@ -9707,14 +9526,14 @@ uint64_t std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb:
   *v14 = *a2;
   std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedAction,ctb::chatbot::SuggestedReply>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](232 * v2 + 8, (a2 + 2));
   *&v15 = v15 + 232;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = v14 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctb::chatbot::SuggestedChip>,ctb::chatbot::SuggestedChip*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -9723,9 +9542,9 @@ uint64_t std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb:
   return v12;
 }
 
-void sub_24267B3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24267B3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ctb::chatbot::SuggestedChip>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9788,7 +9607,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chat
   if (v5 != -1)
   {
     v6 = a1;
-    result = (off_2854FAA60[v5])(&v6, a2);
+    result = (*(&off_2854FAA60 + v5))(&v6, a2);
     *(a1 + 216) = v5;
   }
 
@@ -9861,7 +9680,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chat
   if (v5 != -1)
   {
     v6 = a1;
-    result = (off_2854FAA70[v5])(&v6, a2);
+    result = (*(&off_2854FAA70 + v5))(&v6, a2);
     *(a1 + 136) = v5;
   }
 
@@ -9884,5 +9703,186 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatc
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
   *(a2 + 32) = 0;
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, __n128 *a2)
+{
+  v2 = *a1;
+  result = *a2;
+  v2[1].n128_u64[0] = a2[1].n128_u64[0];
+  *v2 = result;
+  *(a2 + 8) = 0uLL;
+  a2->n128_u64[0] = 0;
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(uint64_t *a1, __int128 *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  *(v2 + 16) = *(a2 + 2);
+  *v2 = v3;
+  *(a2 + 8) = 0uLL;
+  *a2 = 0;
+  result = *(a2 + 24);
+  *(v2 + 40) = *(a2 + 5);
+  *(v2 + 24) = result;
+  a2[2] = 0uLL;
+  *(a2 + 3) = 0;
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, uint64_t a2)
+{
+  v2 = *a1;
+  result = *a2;
+  v2[1].n128_u64[0] = *(a2 + 16);
+  *v2 = result;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  v2[1].n128_u8[8] = 0;
+  v2[3].n128_u8[0] = 0;
+  if (*(a2 + 48) == 1)
+  {
+    result = *(a2 + 24);
+    v2[2].n128_u64[1] = *(a2 + 40);
+    *(v2 + 24) = result;
+    *(a2 + 32) = 0;
+    *(a2 + 40) = 0;
+    *(a2 + 24) = 0;
+    v2[3].n128_u8[0] = 1;
+  }
+
+  v2[3].n128_u8[8] = 0;
+  v2[5].n128_u8[0] = 0;
+  if (*(a2 + 80) == 1)
+  {
+    result = *(a2 + 56);
+    v2[4].n128_u64[1] = *(a2 + 72);
+    *(v2 + 56) = result;
+    *(a2 + 64) = 0;
+    *(a2 + 72) = 0;
+    *(a2 + 56) = 0;
+    v2[5].n128_u8[0] = 1;
+  }
+
+  return result;
+}
+
+__n128 std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, uint64_t a2)
+{
+  v2 = *a1;
+  result = *a2;
+  v2[1].n128_u64[0] = *(a2 + 16);
+  *v2 = result;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  v2[1].n128_u8[8] = 0;
+  v2[3].n128_u8[0] = 0;
+  if (*(a2 + 48) == 1)
+  {
+    result = *(a2 + 24);
+    v2[2].n128_u64[1] = *(a2 + 40);
+    *(v2 + 24) = result;
+    *(a2 + 32) = 0;
+    *(a2 + 40) = 0;
+    *(a2 + 24) = 0;
+    v2[3].n128_u8[0] = 1;
+  }
+
+  return result;
+}
+
+__n128 std::__variant_detail::__alt<5ul,ctb::chatbot::SuggestedActionShowLocation>::__alt[abi:ne200100]<ctb::chatbot::SuggestedActionShowLocation>(__n128 *a1, uint64_t a2)
+{
+  result = *a2;
+  a1[1].n128_u64[0] = *(a2 + 16);
+  *a1 = result;
+  a1[1].n128_u8[8] = 0;
+  a1[3].n128_u8[0] = 0;
+  if (*(a2 + 48) == 1)
+  {
+    result = *(a2 + 24);
+    a1[2].n128_u64[1] = *(a2 + 40);
+    *(a1 + 24) = result;
+    *(a2 + 32) = 0;
+    *(a2 + 40) = 0;
+    *(a2 + 24) = 0;
+    a1[3].n128_u8[0] = 1;
+  }
+
+  a1[3].n128_u8[8] = 0;
+  a1[5].n128_u8[0] = 0;
+  if (*(a2 + 80) == 1)
+  {
+    result = *(a2 + 56);
+    a1[4].n128_u64[1] = *(a2 + 72);
+    *(a1 + 56) = result;
+    *(a2 + 64) = 0;
+    *(a2 + 72) = 0;
+    *(a2 + 56) = 0;
+    a1[5].n128_u8[0] = 1;
+  }
+
+  a1[5].n128_u8[8] = 0;
+  a1[7].n128_u8[0] = 0;
+  if (*(a2 + 112) == 1)
+  {
+    result = *(a2 + 88);
+    a1[6].n128_u64[1] = *(a2 + 104);
+    *(a1 + 88) = result;
+    *(a2 + 96) = 0;
+    *(a2 + 104) = 0;
+    *(a2 + 88) = 0;
+    a1[7].n128_u8[0] = 1;
+  }
+
+  return result;
+}
+
+__n128 std::__variant_detail::__alt<7ul,ctb::chatbot::SuggestedActionCalendar>::__alt[abi:ne200100]<ctb::chatbot::SuggestedActionCalendar>(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  *(a1 + 16) = *(a2 + 2);
+  *a1 = v2;
+  *(a2 + 8) = 0uLL;
+  *a2 = 0;
+  v3 = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 5);
+  *(a1 + 24) = v3;
+  a2[2] = 0uLL;
+  *(a2 + 3) = 0;
+  result = a2[3];
+  *(a1 + 64) = *(a2 + 8);
+  *(a1 + 48) = result;
+  *(a2 + 56) = 0uLL;
+  *(a2 + 6) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 96) = 0;
+  if (*(a2 + 96) == 1)
+  {
+    result = *(a2 + 72);
+    *(a1 + 88) = *(a2 + 11);
+    *(a1 + 72) = result;
+    a2[5] = 0uLL;
+    *(a2 + 9) = 0;
+    *(a1 + 96) = 1;
+  }
+
+  *(a1 + 104) = 0;
+  *(a1 + 128) = 0;
+  if (*(a2 + 128) == 1)
+  {
+    result = *(a2 + 104);
+    *(a1 + 120) = *(a2 + 15);
+    *(a1 + 104) = result;
+    a2[7] = 0uLL;
+    *(a2 + 13) = 0;
+    *(a1 + 128) = 1;
+  }
+
   return result;
 }

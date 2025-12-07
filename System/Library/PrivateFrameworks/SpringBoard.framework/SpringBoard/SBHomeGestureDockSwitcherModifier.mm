@@ -612,7 +612,7 @@ id __53__SBHomeGestureDockSwitcherModifier_debugDescription__block_invoke(uint64
 
 - (void)_applyPrototypeSettings
 {
-  v3 = SBMainScreenPointsPerMillimeter();
+  v3 = SBMainScreenPointsPerMillimeter(self, a2);
   homeGestureSettings = [(SBHomeGestureDockSwitcherModifier *)self homeGestureSettings];
   [homeGestureSettings minimumYDistanceForHomeOrAppSwitcher];
   *&kMinimumYDistanceForHomeOrAppSwitcher_3 = v3 * v4;

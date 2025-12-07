@@ -10,7 +10,7 @@
 {
   type metadata accessor for FrameDesc();
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   specialized static SILFlipBookTransitionPoint.parseTransitionPoints(_:_:)(v5, v6);
 

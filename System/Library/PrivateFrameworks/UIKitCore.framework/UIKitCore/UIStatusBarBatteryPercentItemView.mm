@@ -13,13 +13,13 @@
   rawData = [dataCopy rawData];
 
   v9 = [v7 initWithCString:rawData + 2112 encoding:4];
-  v10 = [v9 isEqualToString:self->_percentString];
-  if ((v10 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
+  if ((isEqualToString & 1) == 0)
   {
     objc_storeStrong(&self->_percentString, v9);
   }
 
-  return v10 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (id)accessibilityHUDRepresentation

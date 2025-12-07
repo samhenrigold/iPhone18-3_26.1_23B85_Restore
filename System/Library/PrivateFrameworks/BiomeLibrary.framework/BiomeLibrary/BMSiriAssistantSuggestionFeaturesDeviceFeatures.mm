@@ -302,7 +302,7 @@ LABEL_80:
 
 - (id)jsonDictionary
 {
-  v57[16] = *MEMORY[0x1E69E9840];
+  v56[16] = *MEMORY[0x1E69E9840];
   if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasConnectedToAirpods])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures connectedToAirpods](self, "connectedToAirpods")}];
@@ -357,17 +357,7 @@ LABEL_80:
 
   if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasHasAppleTV])
   {
-    v55 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasAppleTV](self, "hasAppleTV")}];
-  }
-
-  else
-  {
-    v55 = 0;
-  }
-
-  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasHasIPhone])
-  {
-    v54 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasIPhone](self, "hasIPhone")}];
+    v54 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasAppleTV](self, "hasAppleTV")}];
   }
 
   else
@@ -375,9 +365,9 @@ LABEL_80:
     v54 = 0;
   }
 
-  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasTotalNumDevices])
+  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasHasIPhone])
   {
-    v53 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures totalNumDevices](self, "totalNumDevices")}];
+    v53 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasIPhone](self, "hasIPhone")}];
   }
 
   else
@@ -385,27 +375,37 @@ LABEL_80:
     v53 = 0;
   }
 
+  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasTotalNumDevices])
+  {
+    v52 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures totalNumDevices](self, "totalNumDevices")}];
+  }
+
+  else
+  {
+    v52 = 0;
+  }
+
   currentDeviceType = [(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self currentDeviceType];
   currentBuildVersion = [(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self currentBuildVersion];
   distanceFromLatestBuild = [(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self distanceFromLatestBuild];
   if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasIsALargeFormatPhone])
   {
-    v49 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures isALargeFormatPhone](self, "isALargeFormatPhone")}];
-  }
-
-  else
-  {
-    v49 = 0;
-  }
-
-  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasHasAPasscode])
-  {
-    v48 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasAPasscode](self, "hasAPasscode")}];
+    v48 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures isALargeFormatPhone](self, "isALargeFormatPhone")}];
   }
 
   else
   {
     v48 = 0;
+  }
+
+  if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasHasAPasscode])
+  {
+    v47 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesDeviceFeatures hasAPasscode](self, "hasAPasscode")}];
+  }
+
+  else
+  {
+    v47 = 0;
   }
 
   if ([(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self hasSupportsSMSMEssaging])
@@ -418,109 +418,109 @@ LABEL_80:
     v10 = 0;
   }
 
-  v56[0] = @"connectedToAirpods";
+  v55[0] = @"connectedToAirpods";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42 = null;
-  v57[0] = null;
-  v56[1] = @"noiseCancellingMode";
+  v41 = null;
+  v56[0] = null;
+  v55[1] = @"noiseCancellingMode";
   null2 = noiseCancellingMode;
   if (!noiseCancellingMode)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = null2;
-  v57[1] = null2;
-  v56[2] = @"connectedToDevice";
+  v40 = null2;
+  v56[1] = null2;
+  v55[2] = @"connectedToDevice";
   null3 = connectedToDevice;
   if (!connectedToDevice)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40 = null3;
-  v57[2] = null3;
-  v56[3] = @"isInCarPlay";
+  v39 = null3;
+  v56[2] = null3;
+  v55[3] = @"isInCarPlay";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = null4;
-  v57[3] = null4;
-  v56[4] = @"hasWatch";
+  v38 = null4;
+  v56[3] = null4;
+  v55[4] = @"hasWatch";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = null5;
-  v57[4] = null5;
-  v56[5] = @"hasIPad";
+  v37 = null5;
+  v56[4] = null5;
+  v55[5] = @"hasIPad";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = null6;
-  v57[5] = null6;
-  v56[6] = @"hasHomePod";
+  v36 = null6;
+  v56[5] = null6;
+  v55[6] = @"hasHomePod";
   null7 = v9;
   if (!v9)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = null7;
-  v57[6] = null7;
-  v56[7] = @"hasAppleTV";
-  null8 = v55;
-  if (!v55)
+  v35 = null7;
+  v56[6] = null7;
+  v55[7] = @"hasAppleTV";
+  null8 = v54;
+  if (!v54)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44 = v9;
-  v57[7] = null8;
-  v56[8] = @"hasIPhone";
-  null9 = v54;
-  if (!v54)
+  v43 = v9;
+  v56[7] = null8;
+  v55[8] = @"hasIPhone";
+  null9 = v53;
+  if (!v53)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46 = v6;
-  v57[8] = null9;
-  v56[9] = @"totalNumDevices";
-  null10 = v53;
-  if (!v53)
+  v45 = v6;
+  v56[8] = null9;
+  v55[9] = @"totalNumDevices";
+  null10 = v52;
+  if (!v52)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v47 = v3;
-  v32 = null10;
-  v57[9] = null10;
-  v56[10] = @"currentDeviceType";
+  v46 = v3;
+  v31 = null10;
+  v56[9] = null10;
+  v55[10] = @"currentDeviceType";
   null11 = currentDeviceType;
   if (!currentDeviceType)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null9;
-  v35 = null8;
-  v45 = v7;
-  v57[10] = null11;
-  v56[11] = @"currentBuildVersion";
+  v33 = null9;
+  v34 = null8;
+  v44 = v7;
+  v56[10] = null11;
+  v55[11] = @"currentBuildVersion";
   null12 = currentBuildVersion;
   if (!currentBuildVersion)
   {
@@ -529,8 +529,8 @@ LABEL_80:
 
   v23 = v8;
   v24 = noiseCancellingMode;
-  v57[11] = null12;
-  v56[12] = @"distanceFromLatestBuild";
+  v56[11] = null12;
+  v55[12] = @"distanceFromLatestBuild";
   null13 = distanceFromLatestBuild;
   if (!distanceFromLatestBuild)
   {
@@ -538,41 +538,41 @@ LABEL_80:
   }
 
   v26 = connectedToDevice;
-  v57[12] = null13;
-  v56[13] = @"isALargeFormatPhone";
-  null14 = v49;
-  if (!v49)
+  v56[12] = null13;
+  v55[13] = @"isALargeFormatPhone";
+  null14 = v48;
+  if (!v48)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57[13] = null14;
-  v56[14] = @"hasAPasscode";
-  null15 = v48;
-  if (!v48)
+  v56[13] = null14;
+  v55[14] = @"hasAPasscode";
+  null15 = v47;
+  if (!v47)
   {
     null15 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57[14] = null15;
-  v56[15] = @"supportsSMSMEssaging";
+  v56[14] = null15;
+  v55[15] = @"supportsSMSMEssaging";
   null16 = v10;
   if (!v10)
   {
     null16 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57[15] = null16;
-  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:{16, v32}];
+  v56[15] = null16;
+  v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:{16, v31}];
   if (!v10)
   {
   }
 
-  if (!v48)
+  if (!v47)
   {
   }
 
-  if (!v49)
+  if (!v48)
   {
   }
 
@@ -588,17 +588,17 @@ LABEL_80:
   {
   }
 
+  if (!v52)
+  {
+  }
+
   if (!v53)
   {
   }
 
-  if (!v54)
+  if (v54)
   {
-  }
-
-  if (v55)
-  {
-    if (v44)
+    if (v43)
     {
       goto LABEL_84;
     }
@@ -607,7 +607,7 @@ LABEL_80:
   else
   {
 
-    if (v44)
+    if (v43)
     {
 LABEL_84:
       if (v23)
@@ -622,7 +622,7 @@ LABEL_84:
   if (v23)
   {
 LABEL_85:
-    if (v45)
+    if (v44)
     {
       goto LABEL_86;
     }
@@ -632,10 +632,10 @@ LABEL_85:
 
 LABEL_95:
 
-  if (v45)
+  if (v44)
   {
 LABEL_86:
-    if (v46)
+    if (v45)
     {
       goto LABEL_87;
     }
@@ -645,7 +645,7 @@ LABEL_86:
 
 LABEL_96:
 
-  if (v46)
+  if (v45)
   {
 LABEL_87:
     if (v26)
@@ -668,7 +668,7 @@ LABEL_88:
 
 LABEL_99:
 
-    if (v47)
+    if (v46)
     {
       goto LABEL_90;
     }
@@ -684,7 +684,7 @@ LABEL_98:
   }
 
 LABEL_89:
-  if (v47)
+  if (v46)
   {
     goto LABEL_90;
   }
@@ -692,17 +692,16 @@ LABEL_89:
 LABEL_100:
 
 LABEL_90:
-  v30 = *MEMORY[0x1E69E9840];
 
-  return v43;
+  return v42;
 }
 
 - (BMSiriAssistantSuggestionFeaturesDeviceFeatures)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v200[1] = *MEMORY[0x1E69E9840];
+  v199[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v168 = [dictionaryCopy objectForKeyedSubscript:@"connectedToAirpods"];
-  if (!v168 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v167 = [dictionaryCopy objectForKeyedSubscript:@"connectedToAirpods"];
+  if (!v167 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v7 = 0;
 LABEL_4:
@@ -714,38 +713,38 @@ LABEL_4:
       {
         if (!error)
         {
-          v166 = 0;
+          v165 = 0;
           selfCopy6 = 0;
           goto LABEL_67;
         }
 
-        v47 = v7;
-        v48 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v49 = *MEMORY[0x1E698F240];
-        v197 = *MEMORY[0x1E696A578];
+        v46 = v7;
+        v47 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v48 = *MEMORY[0x1E698F240];
+        v196 = *MEMORY[0x1E696A578];
         v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"noiseCancellingMode"];
-        v198 = v40;
-        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v198 forKeys:&v197 count:1];
-        v51 = v48;
-        v7 = v47;
-        v167 = v50;
-        v52 = [v51 initWithDomain:v49 code:2 userInfo:?];
-        v166 = 0;
+        v197 = v40;
+        v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v197 forKeys:&v196 count:1];
+        v50 = v47;
+        v7 = v46;
+        v166 = v49;
+        v51 = [v50 initWithDomain:v48 code:2 userInfo:?];
+        v165 = 0;
         selfCopy6 = 0;
-        *error = v52;
+        *error = v51;
         goto LABEL_66;
       }
 
-      v166 = v8;
+      v165 = v8;
     }
 
     else
     {
-      v166 = 0;
+      v165 = 0;
     }
 
-    v167 = [dictionaryCopy objectForKeyedSubscript:@"connectedToDevice"];
-    if (v167 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v166 = [dictionaryCopy objectForKeyedSubscript:@"connectedToDevice"];
+    if (v166 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       errorCopy = error;
       objc_opt_class();
@@ -758,34 +757,34 @@ LABEL_4:
           goto LABEL_66;
         }
 
-        v156 = v8;
-        v53 = v7;
-        v54 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v55 = *MEMORY[0x1E698F240];
-        v195 = *MEMORY[0x1E696A578];
-        v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"connectedToDevice"];
-        v196 = v56;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
-        v57 = v54;
-        v7 = v53;
-        v8 = v156;
-        v58 = [v57 initWithDomain:v55 code:2 userInfo:v9];
+        v155 = v8;
+        v52 = v7;
+        v53 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v54 = *MEMORY[0x1E698F240];
+        v194 = *MEMORY[0x1E696A578];
+        v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"connectedToDevice"];
+        v195 = v55;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
+        v56 = v53;
+        v7 = v52;
+        v8 = v155;
+        v57 = [v56 initWithDomain:v54 code:2 userInfo:v9];
         v40 = 0;
         selfCopy6 = 0;
-        *errorCopy = v58;
-        v11 = v56;
+        *errorCopy = v57;
+        v11 = v55;
 LABEL_65:
 
 LABEL_66:
         goto LABEL_67;
       }
 
-      v165 = v167;
+      v164 = v166;
     }
 
     else
     {
-      v165 = 0;
+      v164 = 0;
     }
 
     v9 = [dictionaryCopy objectForKeyedSubscript:@"isInCarPlay"];
@@ -798,25 +797,25 @@ LABEL_66:
         {
           v11 = 0;
           selfCopy6 = 0;
-          v40 = v165;
+          v40 = v164;
           goto LABEL_65;
         }
 
-        v59 = v7;
-        v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v61 = *MEMORY[0x1E698F240];
-        v193 = *MEMORY[0x1E696A578];
+        v58 = v7;
+        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v60 = *MEMORY[0x1E698F240];
+        v192 = *MEMORY[0x1E696A578];
         errorCopy2 = error;
-        v164 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isInCarPlay"];
-        v194 = v164;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
-        v62 = v60;
-        v7 = v59;
-        v63 = [v62 initWithDomain:v61 code:2 userInfo:v38];
+        v163 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isInCarPlay"];
+        v193 = v163;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
+        v61 = v59;
+        v7 = v58;
+        v62 = [v61 initWithDomain:v60 code:2 userInfo:v38];
         v11 = 0;
         selfCopy6 = 0;
-        *errorCopy2 = v63;
-        v40 = v165;
+        *errorCopy2 = v62;
+        v40 = v164;
         goto LABEL_64;
       }
 
@@ -838,107 +837,58 @@ LABEL_66:
       {
         if (!error)
         {
-          v164 = 0;
+          v163 = 0;
           selfCopy6 = 0;
-          v40 = v165;
+          v40 = v164;
           v38 = v12;
           self = selfCopy2;
           goto LABEL_64;
         }
 
-        v157 = v8;
-        v64 = v11;
-        v65 = v7;
-        v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v67 = *MEMORY[0x1E698F240];
-        v191 = *MEMORY[0x1E696A578];
+        v156 = v8;
+        v63 = v11;
+        v64 = v7;
+        v65 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v66 = *MEMORY[0x1E698F240];
+        v190 = *MEMORY[0x1E696A578];
         errorCopy3 = error;
-        v68 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v133 = objc_opt_class();
-        v69 = v68;
+        v67 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v132 = objc_opt_class();
+        v68 = v67;
         v38 = v12;
         self = selfCopy2;
-        v163 = [v69 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v133, @"hasWatch"];
-        v192 = v163;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
-        v70 = v66;
-        v7 = v65;
-        v11 = v64;
-        v8 = v157;
-        v71 = [v70 initWithDomain:v67 code:2 userInfo:v13];
-        v164 = 0;
+        v162 = [v68 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v132, @"hasWatch"];
+        v191 = v162;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v191 forKeys:&v190 count:1];
+        v69 = v65;
+        v7 = v64;
+        v11 = v63;
+        v8 = v156;
+        v70 = [v69 initWithDomain:v66 code:2 userInfo:v13];
+        v163 = 0;
         selfCopy6 = 0;
-        *errorCopy3 = v71;
-        v40 = v165;
+        *errorCopy3 = v70;
+        v40 = v164;
 LABEL_63:
 
 LABEL_64:
         goto LABEL_65;
       }
 
-      v160 = v12;
-      v164 = v12;
+      v159 = v12;
+      v163 = v12;
     }
 
     else
     {
-      v160 = v12;
-      v164 = 0;
+      v159 = v12;
+      v163 = 0;
     }
 
     [dictionaryCopy objectForKeyedSubscript:@"hasIPad"];
     v13 = self = selfCopy2;
-    v161 = v11;
+    v160 = v11;
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-    {
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        if (!error)
-        {
-          v163 = 0;
-          selfCopy6 = 0;
-          v40 = v165;
-          v38 = v160;
-          goto LABEL_63;
-        }
-
-        v158 = v8;
-        v72 = v11;
-        v73 = v7;
-        v74 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v75 = *MEMORY[0x1E698F240];
-        v189 = *MEMORY[0x1E696A578];
-        v162 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasIPad"];
-        v190 = v162;
-        v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v190 forKeys:&v189 count:1];
-        v77 = v74;
-        v7 = v73;
-        v11 = v72;
-        v8 = v158;
-        v159 = v76;
-        v78 = [v77 initWithDomain:v75 code:2 userInfo:?];
-        v163 = 0;
-        selfCopy6 = 0;
-        *error = v78;
-        v40 = v165;
-        v38 = v160;
-        goto LABEL_62;
-      }
-
-      v14 = v7;
-      v163 = v13;
-    }
-
-    else
-    {
-      v14 = v7;
-      v163 = 0;
-    }
-
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"hasHomePod"];
-    v159 = v15;
-    if (v15 && (v16 = v15, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -947,47 +897,96 @@ LABEL_64:
         {
           v162 = 0;
           selfCopy6 = 0;
-          v40 = v165;
-          v38 = v160;
-          v7 = v14;
-          goto LABEL_61;
+          v40 = v164;
+          v38 = v159;
+          goto LABEL_63;
         }
 
-        v81 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v82 = *MEMORY[0x1E698F240];
-        v187 = *MEMORY[0x1E696A578];
-        v154 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasHomePod"];
-        v188 = v154;
-        v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
-        v84 = v81;
-        v7 = v14;
-        v17 = v83;
-        v85 = [v84 initWithDomain:v82 code:2 userInfo:v83];
+        v157 = v8;
+        v71 = v11;
+        v72 = v7;
+        v73 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v74 = *MEMORY[0x1E698F240];
+        v188 = *MEMORY[0x1E696A578];
+        v161 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasIPad"];
+        v189 = v161;
+        v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+        v76 = v73;
+        v7 = v72;
+        v11 = v71;
+        v8 = v157;
+        v158 = v75;
+        v77 = [v76 initWithDomain:v74 code:2 userInfo:?];
         v162 = 0;
         selfCopy6 = 0;
-        *error = v85;
-        goto LABEL_135;
+        *error = v77;
+        v40 = v164;
+        v38 = v159;
+        goto LABEL_62;
       }
 
-      v162 = v16;
+      v14 = v7;
+      v162 = v13;
     }
 
     else
     {
+      v14 = v7;
       v162 = 0;
+    }
+
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"hasHomePod"];
+    v158 = v15;
+    if (v15 && (v16 = v15, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        if (!error)
+        {
+          v161 = 0;
+          selfCopy6 = 0;
+          v40 = v164;
+          v38 = v159;
+          v7 = v14;
+          goto LABEL_61;
+        }
+
+        v80 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v81 = *MEMORY[0x1E698F240];
+        v186 = *MEMORY[0x1E696A578];
+        v153 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasHomePod"];
+        v187 = v153;
+        v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
+        v83 = v80;
+        v7 = v14;
+        v17 = v82;
+        v84 = [v83 initWithDomain:v81 code:2 userInfo:v82];
+        v161 = 0;
+        selfCopy6 = 0;
+        *error = v84;
+        goto LABEL_135;
+      }
+
+      v161 = v16;
+    }
+
+    else
+    {
+      v161 = 0;
     }
 
     [dictionaryCopy objectForKeyedSubscript:@"hasAppleTV"];
     v17 = v7 = v14;
     if (!v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v146 = v13;
+      v145 = v13;
       selfCopy8 = self;
-      v154 = 0;
+      v153 = 0;
 LABEL_25:
       v19 = [dictionaryCopy objectForKeyedSubscript:@"hasIPhone"];
-      v149 = v17;
-      v152 = v19;
+      v148 = v17;
+      v151 = v19;
       if (v19 && (v20 = v19, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -995,119 +994,119 @@ LABEL_25:
         {
           if (!error)
           {
-            v153 = 0;
+            v152 = 0;
             selfCopy6 = 0;
-            v40 = v165;
-            v38 = v160;
+            v40 = v164;
+            v38 = v159;
             self = selfCopy8;
             goto LABEL_58;
           }
 
-          v91 = v7;
-          v92 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v93 = *MEMORY[0x1E698F240];
-          v183 = *MEMORY[0x1E696A578];
+          v90 = v7;
+          v91 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v92 = *MEMORY[0x1E698F240];
+          v182 = *MEMORY[0x1E696A578];
           self = selfCopy8;
-          v150 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasIPhone"];
-          v184 = v150;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-          v94 = v92;
-          v7 = v91;
-          v17 = v149;
-          v95 = [v94 initWithDomain:v93 code:2 userInfo:v21];
-          v153 = 0;
+          v149 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasIPhone"];
+          v183 = v149;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+          v93 = v91;
+          v7 = v90;
+          v17 = v148;
+          v94 = [v93 initWithDomain:v92 code:2 userInfo:v21];
+          v152 = 0;
           selfCopy6 = 0;
-          *error = v95;
+          *error = v94;
           goto LABEL_142;
         }
 
-        v153 = v20;
+        v152 = v20;
       }
 
       else
       {
-        v153 = 0;
+        v152 = 0;
       }
 
       [dictionaryCopy objectForKeyedSubscript:@"totalNumDevices"];
       v21 = self = selfCopy8;
-      v145 = v21;
+      v144 = v21;
       if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v150 = 0;
+        v149 = 0;
 LABEL_31:
         v22 = [dictionaryCopy objectForKeyedSubscript:@"currentDeviceType"];
-        v143 = v22;
+        v142 = v22;
         if (v22 && (v23 = v22, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
-          v79 = v9;
+          v78 = v9;
           selfCopy7 = self;
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (!error)
             {
-              v144 = 0;
+              v143 = 0;
               selfCopy6 = 0;
-              v40 = v165;
-              v38 = v160;
-              v17 = v149;
-              v21 = v145;
+              v40 = v164;
+              v38 = v159;
+              v17 = v148;
+              v21 = v144;
               goto LABEL_56;
             }
 
-            v102 = v7;
-            v103 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v104 = *MEMORY[0x1E698F240];
-            v179 = *MEMORY[0x1E696A578];
-            v142 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"currentDeviceType"];
-            v180 = v142;
-            v105 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-            v106 = v103;
-            v7 = v102;
-            v141 = v105;
-            v107 = [v106 initWithDomain:v104 code:2 userInfo:?];
-            v144 = 0;
+            v101 = v7;
+            v102 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v103 = *MEMORY[0x1E698F240];
+            v178 = *MEMORY[0x1E696A578];
+            v141 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"currentDeviceType"];
+            v179 = v141;
+            v104 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+            v105 = v102;
+            v7 = v101;
+            v140 = v104;
+            v106 = [v105 initWithDomain:v103 code:2 userInfo:?];
+            v143 = 0;
             selfCopy6 = 0;
-            *error = v107;
+            *error = v106;
             goto LABEL_148;
           }
 
-          v144 = v23;
-          v17 = v149;
-          v21 = v145;
+          v143 = v23;
+          v17 = v148;
+          v21 = v144;
         }
 
         else
         {
-          v144 = 0;
+          v143 = 0;
         }
 
         v24 = [dictionaryCopy objectForKeyedSubscript:@"currentBuildVersion"];
-        v141 = v24;
+        v140 = v24;
         if (!v24 || (v25 = v24, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v142 = 0;
+          v141 = 0;
           goto LABEL_37;
         }
 
-        v79 = v9;
+        v78 = v9;
         selfCopy7 = self;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v142 = v25;
-          v17 = v149;
-          v21 = v145;
+          v141 = v25;
+          v17 = v148;
+          v21 = v144;
 LABEL_37:
           v26 = [dictionaryCopy objectForKeyedSubscript:@"distanceFromLatestBuild"];
-          v138 = v26;
+          v137 = v26;
           if (!v26 || (v27 = v26, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v140 = 0;
+            v139 = 0;
 LABEL_40:
             v28 = [dictionaryCopy objectForKeyedSubscript:@"isALargeFormatPhone"];
-            v137 = v28;
+            v136 = v28;
             if (v28 && (v29 = v28, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -1115,43 +1114,43 @@ LABEL_40:
               {
                 if (!error)
                 {
-                  v139 = 0;
+                  v138 = 0;
                   selfCopy6 = 0;
-                  v40 = v165;
-                  v38 = v160;
+                  v40 = v164;
+                  v38 = v159;
                   goto LABEL_53;
                 }
 
-                v120 = v7;
-                v121 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v122 = *MEMORY[0x1E698F240];
-                v173 = *MEMORY[0x1E696A578];
-                v21 = v145;
-                v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isALargeFormatPhone"];
-                v174 = v136;
-                v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
-                v123 = v121;
-                v7 = v120;
-                v17 = v149;
-                v124 = [v123 initWithDomain:v122 code:2 userInfo:v39];
-                v139 = 0;
+                v119 = v7;
+                v120 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v121 = *MEMORY[0x1E698F240];
+                v172 = *MEMORY[0x1E696A578];
+                v21 = v144;
+                v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isALargeFormatPhone"];
+                v173 = v135;
+                v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+                v122 = v120;
+                v7 = v119;
+                v17 = v148;
+                v123 = [v122 initWithDomain:v121 code:2 userInfo:v39];
+                v138 = 0;
                 selfCopy6 = 0;
-                *error = v124;
-                v38 = v160;
+                *error = v123;
+                v38 = v159;
                 goto LABEL_52;
               }
 
-              v139 = v29;
+              v138 = v29;
             }
 
             else
             {
-              v139 = 0;
+              v138 = 0;
             }
 
             v30 = [dictionaryCopy objectForKeyedSubscript:@"hasAPasscode"];
-            v135 = v9;
-            v155 = v30;
+            v134 = v9;
+            v154 = v30;
             if (v30 && (v31 = v30, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -1159,41 +1158,41 @@ LABEL_40:
               {
                 if (!error)
                 {
-                  v136 = 0;
+                  v135 = 0;
                   selfCopy6 = 0;
-                  v38 = v160;
+                  v38 = v159;
                   goto LABEL_51;
                 }
 
                 v33 = v7;
-                v125 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v124 = objc_alloc(MEMORY[0x1E696ABC0]);
                 errorCopy4 = error;
-                v127 = *MEMORY[0x1E698F240];
-                v171 = *MEMORY[0x1E696A578];
+                v126 = *MEMORY[0x1E698F240];
+                v170 = *MEMORY[0x1E696A578];
                 v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasAPasscode"];
-                v172 = v36;
-                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v172 forKeys:&v171 count:1];
-                v128 = [v125 initWithDomain:v127 code:2 userInfo:v35];
-                v136 = 0;
+                v171 = v36;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+                v127 = [v124 initWithDomain:v126 code:2 userInfo:v35];
+                v135 = 0;
                 selfCopy6 = 0;
-                *errorCopy4 = v128;
+                *errorCopy4 = v127;
                 goto LABEL_50;
               }
 
-              v32 = v161;
+              v32 = v160;
               v33 = v7;
               v34 = v31;
             }
 
             else
             {
-              v32 = v161;
+              v32 = v160;
               v33 = v7;
               v34 = 0;
             }
 
             v35 = [dictionaryCopy objectForKeyedSubscript:@"supportsSMSMEssaging"];
-            v136 = v34;
+            v135 = v34;
             if (v35 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -1201,14 +1200,14 @@ LABEL_40:
               {
                 if (error)
                 {
-                  v134 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v133 = objc_alloc(MEMORY[0x1E696ABC0]);
                   errorCopy5 = error;
-                  v130 = *MEMORY[0x1E698F240];
-                  v169 = *MEMORY[0x1E696A578];
-                  v131 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"supportsSMSMEssaging"];
-                  v170 = v131;
-                  v132 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v170 forKeys:&v169 count:1];
-                  *errorCopy5 = [v134 initWithDomain:v130 code:2 userInfo:v132];
+                  v129 = *MEMORY[0x1E698F240];
+                  v168 = *MEMORY[0x1E696A578];
+                  v130 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"supportsSMSMEssaging"];
+                  v169 = v130;
+                  v131 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+                  *errorCopy5 = [v133 initWithDomain:v129 code:2 userInfo:v131];
                 }
 
                 v36 = 0;
@@ -1224,20 +1223,20 @@ LABEL_40:
               v36 = 0;
             }
 
-            self = [(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self initWithConnectedToAirpods:v33 noiseCancellingMode:v166 connectedToDevice:v165 isInCarPlay:v32 hasWatch:v164 hasIPad:v163 hasHomePod:v162 hasAppleTV:v154 hasIPhone:v153 totalNumDevices:v150 currentDeviceType:v144 currentBuildVersion:v142 distanceFromLatestBuild:v140 isALargeFormatPhone:v139 hasAPasscode:v34 supportsSMSMEssaging:v36];
+            self = [(BMSiriAssistantSuggestionFeaturesDeviceFeatures *)self initWithConnectedToAirpods:v33 noiseCancellingMode:v165 connectedToDevice:v164 isInCarPlay:v32 hasWatch:v163 hasIPad:v162 hasHomePod:v161 hasAppleTV:v153 hasIPhone:v152 totalNumDevices:v149 currentDeviceType:v143 currentBuildVersion:v141 distanceFromLatestBuild:v139 isALargeFormatPhone:v138 hasAPasscode:v34 supportsSMSMEssaging:v36];
             selfCopy6 = self;
 LABEL_50:
-            v38 = v160;
+            v38 = v159;
 
             v7 = v33;
-            v9 = v135;
-            v17 = v149;
-            v21 = v145;
+            v9 = v134;
+            v17 = v148;
+            v21 = v144;
 LABEL_51:
-            v39 = v155;
+            v39 = v154;
 LABEL_52:
 
-            v40 = v165;
+            v40 = v164;
 LABEL_53:
 
 LABEL_54:
@@ -1247,174 +1246,174 @@ LABEL_56:
 LABEL_57:
 
 LABEL_58:
-            v13 = v146;
+            v13 = v145;
 LABEL_59:
 
 LABEL_60:
 LABEL_61:
-            v11 = v161;
+            v11 = v160;
 LABEL_62:
 
             goto LABEL_63;
           }
 
-          v79 = v9;
+          v78 = v9;
           selfCopy7 = self;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v140 = v27;
-            v17 = v149;
-            v21 = v145;
+            v139 = v27;
+            v17 = v148;
+            v21 = v144;
             goto LABEL_40;
           }
 
           if (error)
           {
-            v114 = v7;
-            v115 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v116 = *MEMORY[0x1E698F240];
-            v175 = *MEMORY[0x1E696A578];
-            v139 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"distanceFromLatestBuild"];
-            v176 = v139;
-            v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
-            v118 = v115;
-            v7 = v114;
-            v137 = v117;
-            v119 = [v118 initWithDomain:v116 code:2 userInfo:?];
-            v140 = 0;
+            v113 = v7;
+            v114 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v115 = *MEMORY[0x1E698F240];
+            v174 = *MEMORY[0x1E696A578];
+            v138 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"distanceFromLatestBuild"];
+            v175 = v138;
+            v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
+            v117 = v114;
+            v7 = v113;
+            v136 = v116;
+            v118 = [v117 initWithDomain:v115 code:2 userInfo:?];
+            v139 = 0;
             selfCopy6 = 0;
-            *error = v119;
-            v40 = v165;
-            v9 = v79;
-            v38 = v160;
-            v17 = v149;
-            v21 = v145;
+            *error = v118;
+            v40 = v164;
+            v9 = v78;
+            v38 = v159;
+            v17 = v148;
+            v21 = v144;
             goto LABEL_53;
           }
 
-          v140 = 0;
+          v139 = 0;
           selfCopy6 = 0;
 LABEL_150:
           self = selfCopy7;
-          v40 = v165;
-          v9 = v79;
-          v38 = v160;
-          v17 = v149;
-          v21 = v145;
+          v40 = v164;
+          v9 = v78;
+          v38 = v159;
+          v17 = v148;
+          v21 = v144;
           goto LABEL_54;
         }
 
         if (error)
         {
-          v108 = v7;
-          v109 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v110 = *MEMORY[0x1E698F240];
-          v177 = *MEMORY[0x1E696A578];
-          v140 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"currentBuildVersion"];
-          v178 = v140;
-          v111 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v178 forKeys:&v177 count:1];
-          v112 = v109;
-          v7 = v108;
-          v138 = v111;
-          v113 = [v112 initWithDomain:v110 code:2 userInfo:?];
-          v142 = 0;
+          v107 = v7;
+          v108 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v109 = *MEMORY[0x1E698F240];
+          v176 = *MEMORY[0x1E696A578];
+          v139 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"currentBuildVersion"];
+          v177 = v139;
+          v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+          v111 = v108;
+          v7 = v107;
+          v137 = v110;
+          v112 = [v111 initWithDomain:v109 code:2 userInfo:?];
+          v141 = 0;
           selfCopy6 = 0;
-          *error = v113;
+          *error = v112;
           goto LABEL_150;
         }
 
-        v142 = 0;
+        v141 = 0;
         selfCopy6 = 0;
 LABEL_148:
         self = selfCopy7;
-        v40 = v165;
-        v9 = v79;
-        v38 = v160;
-        v17 = v149;
-        v21 = v145;
+        v40 = v164;
+        v9 = v78;
+        v38 = v159;
+        v17 = v148;
+        v21 = v144;
         goto LABEL_55;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v150 = v21;
+        v149 = v21;
         goto LABEL_31;
       }
 
       if (error)
       {
-        v96 = v7;
-        v97 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v98 = *MEMORY[0x1E698F240];
-        v181 = *MEMORY[0x1E696A578];
-        v144 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalNumDevices"];
-        v182 = v144;
-        v99 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-        v100 = v97;
-        v7 = v96;
-        v17 = v149;
-        v143 = v99;
-        v101 = [v100 initWithDomain:v98 code:2 userInfo:?];
-        v150 = 0;
+        v95 = v7;
+        v96 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v97 = *MEMORY[0x1E698F240];
+        v180 = *MEMORY[0x1E696A578];
+        v143 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalNumDevices"];
+        v181 = v143;
+        v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+        v99 = v96;
+        v7 = v95;
+        v17 = v148;
+        v142 = v98;
+        v100 = [v99 initWithDomain:v97 code:2 userInfo:?];
+        v149 = 0;
         selfCopy6 = 0;
-        *error = v101;
-        v40 = v165;
-        v38 = v160;
+        *error = v100;
+        v40 = v164;
+        v38 = v159;
         goto LABEL_56;
       }
 
-      v150 = 0;
+      v149 = 0;
       selfCopy6 = 0;
 LABEL_142:
-      v40 = v165;
-      v38 = v160;
+      v40 = v164;
+      v38 = v159;
       goto LABEL_57;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v146 = v13;
+      v145 = v13;
       selfCopy8 = self;
-      v154 = v17;
+      v153 = v17;
       goto LABEL_25;
     }
 
     if (error)
     {
-      v151 = v7;
-      v86 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v87 = *MEMORY[0x1E698F240];
-      v185 = *MEMORY[0x1E696A578];
-      v153 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasAppleTV"];
-      v186 = v153;
-      v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
-      v89 = v86;
-      v7 = v151;
-      v152 = v88;
-      v90 = [v89 initWithDomain:v87 code:2 userInfo:?];
-      v154 = 0;
+      v150 = v7;
+      v85 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v86 = *MEMORY[0x1E698F240];
+      v184 = *MEMORY[0x1E696A578];
+      v152 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasAppleTV"];
+      v185 = v152;
+      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v185 forKeys:&v184 count:1];
+      v88 = v85;
+      v7 = v150;
+      v151 = v87;
+      v89 = [v88 initWithDomain:v86 code:2 userInfo:?];
+      v153 = 0;
       selfCopy6 = 0;
-      *error = v90;
-      v40 = v165;
-      v38 = v160;
+      *error = v89;
+      v40 = v164;
+      v38 = v159;
       goto LABEL_59;
     }
 
-    v154 = 0;
+    v153 = 0;
     selfCopy6 = 0;
 LABEL_135:
-    v40 = v165;
-    v38 = v160;
+    v40 = v164;
+    v38 = v159;
     goto LABEL_60;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = v168;
+    v7 = v167;
     goto LABEL_4;
   }
 
@@ -1425,20 +1424,19 @@ LABEL_135:
     goto LABEL_68;
   }
 
-  v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v45 = *MEMORY[0x1E698F240];
-  v199 = *MEMORY[0x1E696A578];
-  v166 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"connectedToAirpods"];
-  v200[0] = v166;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v200 forKeys:&v199 count:1];
-  v46 = [v44 initWithDomain:v45 code:2 userInfo:v8];
+  v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v44 = *MEMORY[0x1E698F240];
+  v198 = *MEMORY[0x1E696A578];
+  v165 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"connectedToAirpods"];
+  v199[0] = v165;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v199 forKeys:&v198 count:1];
+  v45 = [v43 initWithDomain:v44 code:2 userInfo:v8];
   v7 = 0;
   selfCopy6 = 0;
-  *error = v46;
+  *error = v45;
 LABEL_67:
 
 LABEL_68:
-  v41 = *MEMORY[0x1E69E9840];
   return selfCopy6;
 }
 
@@ -1456,7 +1454,6 @@ LABEL_68:
   toCopy = to;
   if (self->_hasConnectedToAirpods)
   {
-    connectedToAirpods = self->_connectedToAirpods;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1472,43 +1469,36 @@ LABEL_68:
 
   if (self->_hasIsInCarPlay)
   {
-    isInCarPlay = self->_isInCarPlay;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasWatch)
   {
-    hasWatch = self->_hasWatch;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasIPad)
   {
-    hasIPad = self->_hasIPad;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasHomePod)
   {
-    hasHomePod = self->_hasHomePod;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasAppleTV)
   {
-    hasAppleTV = self->_hasAppleTV;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasIPhone)
   {
-    hasIPhone = self->_hasIPhone;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasTotalNumDevices)
   {
-    totalNumDevices = self->_totalNumDevices;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1529,19 +1519,16 @@ LABEL_68:
 
   if (self->_hasIsALargeFormatPhone)
   {
-    isALargeFormatPhone = self->_isALargeFormatPhone;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasAPasscode)
   {
-    hasAPasscode = self->_hasAPasscode;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasSupportsSMSMEssaging)
   {
-    supportsSMSMEssaging = self->_supportsSMSMEssaging;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -2322,86 +2309,82 @@ LABEL_154:
 
 + (id)protoFields
 {
-  v21[16] = *MEMORY[0x1E69E9840];
-  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"connectedToAirpods" number:1 type:12 subMessageClass:0];
-  v21[0] = v20;
-  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"noiseCancellingMode" number:2 type:13 subMessageClass:0];
-  v21[1] = v19;
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"connectedToDevice" number:3 type:13 subMessageClass:0];
-  v21[2] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isInCarPlay" number:5 type:12 subMessageClass:0];
-  v21[3] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasWatch" number:6 type:12 subMessageClass:0];
-  v21[4] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasIPad" number:7 type:12 subMessageClass:0];
-  v21[5] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasHomePod" number:8 type:12 subMessageClass:0];
-  v21[6] = v14;
+  v20[16] = *MEMORY[0x1E69E9840];
+  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"connectedToAirpods" number:1 type:12 subMessageClass:0];
+  v20[0] = v19;
+  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"noiseCancellingMode" number:2 type:13 subMessageClass:0];
+  v20[1] = v18;
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"connectedToDevice" number:3 type:13 subMessageClass:0];
+  v20[2] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isInCarPlay" number:5 type:12 subMessageClass:0];
+  v20[3] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasWatch" number:6 type:12 subMessageClass:0];
+  v20[4] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasIPad" number:7 type:12 subMessageClass:0];
+  v20[5] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasHomePod" number:8 type:12 subMessageClass:0];
+  v20[6] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasAppleTV" number:9 type:12 subMessageClass:0];
-  v21[7] = v2;
+  v20[7] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasIPhone" number:10 type:12 subMessageClass:0];
-  v21[8] = v3;
+  v20[8] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalNumDevices" number:11 type:2 subMessageClass:0];
-  v21[9] = v4;
+  v20[9] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"currentDeviceType" number:12 type:13 subMessageClass:0];
-  v21[10] = v5;
+  v20[10] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"currentBuildVersion" number:13 type:13 subMessageClass:0];
-  v21[11] = v6;
+  v20[11] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"distanceFromLatestBuild" number:14 type:13 subMessageClass:0];
-  v21[12] = v7;
+  v20[12] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isALargeFormatPhone" number:15 type:12 subMessageClass:0];
-  v21[13] = v8;
+  v20[13] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasAPasscode" number:16 type:12 subMessageClass:0];
-  v21[14] = v9;
+  v20[14] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"supportsSMSMEssaging" number:17 type:12 subMessageClass:0];
-  v21[15] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:16];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v20[15] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:16];
 
   return v11;
 }
 
 + (id)columns
 {
-  v21[16] = *MEMORY[0x1E69E9840];
-  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"connectedToAirpods" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
-  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"noiseCancellingMode" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"connectedToDevice" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isInCarPlay" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasWatch" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasIPad" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
+  v20[16] = *MEMORY[0x1E69E9840];
+  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"connectedToAirpods" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
+  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"noiseCancellingMode" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"connectedToDevice" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isInCarPlay" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasWatch" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasIPad" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasHomePod" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasAppleTV" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasIPhone" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalNumDevices" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:2 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"currentDeviceType" dataType:2 requestOnly:0 fieldNumber:12 protoDataType:13 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"currentDeviceType" dataType:2 requestOnly:0 fieldNumber:12 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"currentBuildVersion" dataType:2 requestOnly:0 fieldNumber:13 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"distanceFromLatestBuild" dataType:2 requestOnly:0 fieldNumber:14 protoDataType:13 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isALargeFormatPhone" dataType:0 requestOnly:0 fieldNumber:15 protoDataType:12 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isALargeFormatPhone" dataType:0 requestOnly:0 fieldNumber:15 protoDataType:12 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasAPasscode" dataType:0 requestOnly:0 fieldNumber:16 protoDataType:12 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"supportsSMSMEssaging" dataType:0 requestOnly:0 fieldNumber:17 protoDataType:12 convertedType:0];
-  v21[0] = v20;
-  v21[1] = v19;
-  v21[2] = v18;
-  v21[3] = v17;
-  v21[4] = v16;
-  v21[5] = v15;
-  v21[6] = v2;
-  v21[7] = v3;
-  v21[8] = v4;
-  v21[9] = v5;
-  v21[10] = v14;
-  v21[11] = v6;
-  v21[12] = v7;
-  v21[13] = v13;
-  v21[14] = v8;
-  v21[15] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:16];
+  v20[0] = v19;
+  v20[1] = v18;
+  v20[2] = v17;
+  v20[3] = v16;
+  v20[4] = v15;
+  v20[5] = v14;
+  v20[6] = v2;
+  v20[7] = v3;
+  v20[8] = v4;
+  v20[9] = v5;
+  v20[10] = v13;
+  v20[11] = v6;
+  v20[12] = v7;
+  v20[13] = v12;
+  v20[14] = v8;
+  v20[15] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:16];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

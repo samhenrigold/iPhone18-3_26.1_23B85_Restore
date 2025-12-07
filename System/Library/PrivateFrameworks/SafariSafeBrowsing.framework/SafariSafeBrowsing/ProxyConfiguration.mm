@@ -65,7 +65,7 @@
 
 - (void)applyToRequest:(id)request
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   proxy = [(ProxyConfiguration *)self proxy];
 
@@ -79,28 +79,28 @@
 
   if (deviceIdentificationToken)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     deviceIdentificationToken2 = [(ProxyConfiguration *)self deviceIdentificationToken];
     allKeys = [deviceIdentificationToken2 allKeys];
 
-    v10 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * v12);
+          v13 = *(*(&v16 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -118,14 +118,12 @@
         }
 
         while (v10 != v12);
-        v10 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

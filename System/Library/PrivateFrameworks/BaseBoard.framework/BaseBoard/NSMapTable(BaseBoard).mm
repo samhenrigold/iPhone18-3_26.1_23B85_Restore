@@ -10,18 +10,18 @@
 
 - (id)bs_safeObjectForKey:()BaseBoard ofType:
 {
-  v1 = [self objectForKey:?];
-  if (v1 && (objc_opt_isKindOfClass() & 1) != 0)
+  v4 = [self objectForKey:a3];
+  if (v4 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 - (void)bs_each:()BaseBoard
@@ -84,11 +84,11 @@
   {
     if (a4)
     {
-      return [self setObject:? forKey:?];
+      return [result setObject:? forKey:?];
     }
   }
 
-  return self;
+  return result;
 }
 
 - (id)bs_takeObjectForKey:()BaseBoard

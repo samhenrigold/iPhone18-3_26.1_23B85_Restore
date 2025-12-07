@@ -1685,7 +1685,7 @@ void __60__SiriSharedUICompactView_setAdditionalContentSnippetViews___block_invo
   [(SiriSharedUICompactView *)self _updateBottomPaddingAnimatedWithContext:v3 alongsideAnimations:v4];
 }
 
-uint64_t __62__SiriSharedUICompactView__textRequestViewVisibilityDidChange__block_invoke(uint64_t a1)
+void *__62__SiriSharedUICompactView__textRequestViewVisibilityDidChange__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) hidesTextRequestView];
   result = [*(*(a1 + 32) + 440) setHidden:v2];

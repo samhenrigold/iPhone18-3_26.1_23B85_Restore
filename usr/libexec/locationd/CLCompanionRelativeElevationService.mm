@@ -185,15 +185,15 @@
 
   if (self->fMotionStateCoprocessorDispatcher.__ptr_)
   {
-    v5 = sub_100023ED4(0);
+    v5 = sub_100023ED4(0, a2);
     sub_10095D9F8(v5, 30, self->fMotionStateCoprocessorDispatcher.__ptr_);
-    v6 = sub_100023ED4(0);
-    sub_10095D9F8(v6, 0, self->fMotionStateCoprocessorDispatcher.__ptr_);
-    v7 = self->fMotionStateCoprocessorDispatcher.__ptr_;
+    v7 = sub_100023ED4(0, v6);
+    sub_10095D9F8(v7, 0, self->fMotionStateCoprocessorDispatcher.__ptr_);
+    v8 = self->fMotionStateCoprocessorDispatcher.__ptr_;
     self->fMotionStateCoprocessorDispatcher.__ptr_ = 0;
-    if (v7)
+    if (v8)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v8 + 8))(v8);
     }
   }
 
@@ -417,49 +417,45 @@ LABEL_30:
         deltaPressure = p_fCurrentCalibrationEntry->deltaPressure;
         deltaElevation = p_fCurrentCalibrationEntry->deltaElevation;
         buf = 68290562;
-        v34 = 2082;
-        v35 = "";
-        v36 = 2050;
-        v37 = pressureBiasEstimate;
-        v38 = 2050;
-        v39 = watchPressure;
-        v40 = 2050;
-        v41 = v13;
-        v42 = 2050;
-        v43 = pressureBiasMeasurement;
-        v44 = 2050;
-        v45 = deltaPressure;
-        v46 = 2050;
-        v47 = deltaElevation;
+        v29 = 2082;
+        v30 = "";
+        v31 = 2050;
+        v32 = pressureBiasEstimate;
+        v33 = 2050;
+        v34 = watchPressure;
+        v35 = 2050;
+        v36 = v13;
+        v37 = 2050;
+        v38 = pressureBiasMeasurement;
+        v39 = 2050;
+        v40 = deltaPressure;
+        v41 = 2050;
+        v42 = deltaElevation;
         _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:[CLCompanionRelativeElevation] calculateRelativeElevationWithCompanionPressure, pressureBiasEstimate:%{public}f, watchPressure:%{public}f, companionPressure:%{public}f, pressureBiasMeasurement:%{public}f, deltaPressure:%{public}f, deltaElevation:%{public}f}", &buf, 0x4Eu);
       }
 
       watchPressureTimestamp = p_fCurrentCalibrationEntry->watchPressureTimestamp;
       v19 = p_fCurrentCalibrationEntry->deltaPressure;
       v20 = p_fCurrentCalibrationEntry->deltaElevation;
-      v28 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
       clients = [(CLCompanionRelativeElevationService *)self clients];
-      v22 = [(NSMutableSet *)clients countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients);
       if (v22)
       {
         v23 = v22;
-        v24 = *v29;
+        v24 = MEMORY[0];
         do
         {
           for (i = 0; i != v23; i = i + 1)
           {
-            if (*v29 != v24)
+            if (MEMORY[0] != v24)
             {
               objc_enumerationMutation(clients);
             }
 
-            [*(*(&v28 + 1) + 8 * i) onCompanionRelativeElevationUpdate:{watchPressureTimestamp, v19, v20}];
+            [*(8 * i) onCompanionRelativeElevationUpdate:{watchPressureTimestamp, v19, v20}];
           }
 
-          v23 = [(NSMutableSet *)clients countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients);
         }
 
         while (v23);
@@ -799,11 +795,11 @@ LABEL_30:
       isConnected = p_fCurrentCalibrationEntry->isConnected;
       isActive = p_fCurrentCalibrationEntry->isActive;
       *buf = 67109632;
-      *v17 = isConnected;
-      *&v17[4] = 1024;
-      *&v17[6] = isNearby;
-      LOWORD(v18) = 1024;
-      *(&v18 + 2) = isActive;
+      *v25 = isConnected;
+      *&v25[4] = 1024;
+      *&v25[6] = isNearby;
+      LOWORD(v26) = 1024;
+      *(&v26 + 2) = isActive;
       _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "[CLCompanionRelativeElevation] kNotificationCompanionDetailedConnectionUpdate, connected %d, nearby %d, active %d", buf, 0x14u);
     }
 
@@ -815,11 +811,18 @@ LABEL_30:
         sub_1018AD4DC();
       }
 
-      v14 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLCompanionRelativeElevationService onCompanionNotification:data:]", "%s\n", v14);
-      if (v14 != buf)
+      v14 = p_fCurrentCalibrationEntry->isNearby;
+      v15 = p_fCurrentCalibrationEntry->isActive;
+      v20 = 1024;
+      v21 = v14;
+      v22 = 1024;
+      v23 = v15;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4448, 2, "[CLCompanionRelativeElevation] kNotificationCompanionDetailedConnectionUpdate, connected %d, nearby %d, active %d", &v19, 20, 67109632);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLCompanionRelativeElevationService onCompanionNotification:data:]", "%s\n", v16);
+      if (v17 != buf)
       {
-        free(v14);
+        free(v17);
       }
     }
   }
@@ -840,9 +843,9 @@ LABEL_30:
       companionPressure = v5->companionPressure;
       companionPressureUncertainty = self->fCurrentCalibrationEntry.companionPressureUncertainty;
       *buf = 134218240;
-      *v17 = companionPressure;
-      *&v17[8] = 2048;
-      v18 = companionPressureUncertainty;
+      *v25 = companionPressure;
+      *&v25[8] = 2048;
+      v26 = companionPressureUncertainty;
       _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "[CLCompanionRelativeElevation] kNotificationCompanionFilteredPressure, pressure %f, unc %f", buf, 0x16u);
     }
 
@@ -864,11 +867,11 @@ LABEL_30:
         sub_1018AD4DC();
       }
 
-      v15 = qword_1025D4448;
+      v18 = qword_1025D4448;
       if (os_log_type_enabled(qword_1025D4448, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "[CLCompanionRelativeElevation] fPressureBiasEstimateStat is not ready", buf, 2u);
+        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_ERROR, "[CLCompanionRelativeElevation] fPressureBiasEstimateStat is not ready", buf, 2u);
       }
 
       if (sub_10000A100(121, 0))

@@ -3,6 +3,7 @@
 - (BOOL)acknowledgeAlarm:(id)alarm error:(id *)error;
 - (BOOL)acknowledgeAlarmWithName:(id)name error:(id *)error;
 - (BOOL)launchRemoteAppWithError:(id *)error;
+- (BOOL)registerAlarmWithName:(id)name type:(unsigned int)type duration:(unsigned int)duration repeats:(BOOL)repeats error:(id *)error;
 - (BOOL)unregisterAlarm:(id)alarm error:(id *)error;
 - (BOOL)unregisterAlarmWithName:(id)name error:(id *)error;
 - (CMMotionAlarmManager)initWithName:(id)name;
@@ -45,6 +46,20 @@
   }
 
   return qword_1ED71D318;
+}
+
+- (BOOL)registerAlarmWithName:(id)name type:(unsigned int)type duration:(unsigned int)duration repeats:(BOOL)repeats error:(id *)error
+{
+  repeatsCopy = repeats;
+  v9 = *&duration;
+  v10 = *&type;
+  v13 = [CMMotionAlarm alloc];
+  v15 = objc_msgSend_initWithName_type_duration_repeats_(v13, v14, name, v10, v9, repeatsCopy);
+  objc_msgSend_setManager_(v15, v16, self);
+  v19 = objc_msgSend_instance(CMMotionAlarmManagerInternal, v17, v18);
+  LOBYTE(error) = objc_msgSend__registerAlarm_error_(v19, v20, v15, error);
+
+  return error;
 }
 
 - (BOOL)unregisterAlarmWithName:(id)name error:(id *)error

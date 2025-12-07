@@ -29,7 +29,7 @@
   keyIdentifierCopy = keyIdentifier;
   contentCopy = content;
   v13 = PDOSTransactionCreate("PDExpressPassManager");
-  v14 = PDExpressTransactionQueue();
+  v14 = PDExpressTransactionQueue(v13);
   v19[0] = _NSConcreteStackBlock;
   v19[1] = 3221225472;
   v19[2] = sub_1001839E0;
@@ -53,7 +53,7 @@
   keyIdentifierCopy = keyIdentifier;
   contentCopy = content;
   v13 = PDOSTransactionCreate("PDExpressPassManager");
-  v14 = PDExpressTransactionQueue();
+  v14 = PDExpressTransactionQueue(v13);
   v19[0] = _NSConcreteStackBlock;
   v19[1] = 3221225472;
   v19[2] = sub_100183B24;
@@ -75,7 +75,7 @@
 {
   eventCopy = event;
   v5 = PDOSTransactionCreate("PDExpressPassManager");
-  v6 = PDExpressTransactionQueue();
+  v6 = PDExpressTransactionQueue(v5);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100183CB0;

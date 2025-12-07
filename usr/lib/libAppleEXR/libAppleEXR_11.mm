@@ -215,11 +215,11 @@ void Part::~Part(Part *this)
   *(this + 18) = 0;
 }
 
-unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
+unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, axr_flags_t a5)
 {
-  v73 = *MEMORY[0x29EDCA608];
-  ChunkLayout_Print(v72, 0x100uLL, *(this + 52));
-  v68 = a2;
+  v63 = *MEMORY[0x29EDCA608];
+  ChunkLayout_Print(v62, 0x100uLL, *(this + 52));
+  v58 = a2;
   if ((*(this + 164) & 0xF) == 2)
   {
     snprintf(__str, 0x100uLL, "{x: %u, y: %u}");
@@ -231,22 +231,22 @@ unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
   }
 
   name = axr_compression_get_name(*(this + 9));
-  v66 = *(this + 10);
-  v64 = *(this + 11);
-  v65 = *(this + 12);
-  v63 = *(this + 13);
-  v62 = *(this + 14);
-  v60 = *(this + 15);
-  v61 = *(this + 16);
-  v59 = *(this + 17);
+  v56 = *(this + 10);
+  v54 = *(this + 11);
+  v55 = *(this + 12);
+  v53 = *(this + 13);
+  v52 = *(this + 14);
+  v50 = *(this + 15);
+  v51 = *(this + 16);
+  v49 = *(this + 17);
   v8 = *(this + 39);
   v9 = *(this + 40);
   v10 = axr_line_order_get_name(*(this + 18));
-  v57 = COERCE_FLOAT(HIDWORD(*(this + 10)));
-  v58 = COERCE_FLOAT(*(this + 10));
-  v55 = (*(this + 24) * *(this + 25));
-  v56 = *(this + 22);
-  v54 = *(this + 23);
+  v47 = COERCE_FLOAT(HIDWORD(*(this + 10)));
+  v48 = COERCE_FLOAT(*(this + 10));
+  v45 = (*(this + 24) * *(this + 25));
+  v46 = *(this + 22);
+  v44 = *(this + 23);
   v11 = *(this + 26);
   v12 = *(this + 27);
   v13 = *(this + 28);
@@ -262,13 +262,13 @@ unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
   v23 = *(this + 8);
   v24 = *(this + 38);
   v25 = axr_level_mode_get_name(*(this + 164));
-  v53 = v21;
+  v43 = v21;
   v26 = a3;
-  v27 = snprintf(v68, a3, "\tcompression method:    %s\n\tdata window:           {X: [%d, %d], Y: [%d, %d]}\n\tdisplay window:        {X: [%d, %d], Y: [%d, %d]}\n\tlayout:                %s\n\ttile size:             { w: %u, h: %u }\n\tline order:            %s\n\tscreen window center:  {%f, %f}\n\tpixel aspect ratio:    %f\n\txDensity:              %f pixels per inch\n\tscreen window width:   %f\n\tchromaticities:        r: {%f, %f}     (x, y)\n\t                       g: {%f, %f}\n\t                       b: {%f, %f}\n\t                       w: {%f, %f}\n\tpreview:               {%u x %u} @ %p\n\tchannel count:         %u\n\tlayer count:           %u\n\tlevel mode:            %s\n\tmip levels:            %s\n", name, v66, v65, v64, v63, v62, v61, v60, v59, v72, v8, v9, v10, v58, v57, v56, v55, v54, v11, v12, v13, v14, v15, v16, v17, v18, v53, v22, v20, v23, v24, v25, __str);
+  v27 = snprintf(v58, a3, "\tcompression method:    %s\n\tdata window:           {X: [%d, %d], Y: [%d, %d]}\n\tdisplay window:        {X: [%d, %d], Y: [%d, %d]}\n\tlayout:                %s\n\ttile size:             { w: %u, h: %u }\n\tline order:            %s\n\tscreen window center:  {%f, %f}\n\tpixel aspect ratio:    %f\n\txDensity:              %f pixels per inch\n\tscreen window width:   %f\n\tchromaticities:        r: {%f, %f}     (x, y)\n\t                       g: {%f, %f}\n\t                       b: {%f, %f}\n\t                       w: {%f, %f}\n\tpreview:               {%u x %u} @ %p\n\tchannel count:         %u\n\tlayer count:           %u\n\tlevel mode:            %s\n\tmip levels:            %s\n", name, v56, v55, v54, v53, v52, v51, v50, v49, v62, v8, v9, v10, v48, v47, v46, v45, v44, v11, v12, v13, v14, v15, v16, v17, v18, v43, v22, v20, v23, v24, v25, __str);
   v28 = v27;
   if (*(this + 23))
   {
-    v28 = v27 + snprintf(&v68[v27], a3 - v27, "\tview:                  %s\n", *(this + 23));
+    v28 = v27 + snprintf(&v58[v27], a3 - v27, "\tview:                  %s\n", *(this + 23));
   }
 
   if (a3 > v28)
@@ -276,14 +276,14 @@ unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
     v29 = v19;
     if (*(this + 24))
     {
-      v28 += snprintf(&v68[v28], a3 - v28, "\tname:                  %s\n", *(this + 24));
+      v28 += snprintf(&v58[v28], a3 - v28, "\tname:                  %s\n", *(this + 24));
     }
 
     if (a3 > v28)
     {
       if (*(this + 25))
       {
-        v28 += snprintf(&v68[v28], a3 - v28, "\ttype:                  %s\n", *(this + 25));
+        v28 += snprintf(&v58[v28], a3 - v28, "\ttype:                  %s\n", *(this + 25));
       }
 
       if (v28 < a3)
@@ -293,52 +293,52 @@ unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
           v30 = 0;
           while (1)
           {
-            v28 += snprintf(&v68[v28], v26 - v28, "\n\tLayer %lu:\n", v30);
+            v28 += snprintf(&v58[v28], v26 - v28, "\n\tLayer %lu:\n", v30);
             if (v26 <= v28)
             {
               break;
             }
 
-            v28 += snprintf(&v68[v28], v26 - v28, "\t\tname:    %s\n", *(*(this + 18) + 24 * v30));
+            v28 += snprintf(&v58[v28], v26 - v28, "\t\tname:    %s\n", *(*(this + 18) + 24 * v30));
             if (v26 <= v28)
             {
               break;
             }
 
-            v28 += snprintf(&v68[v28], v26 - v28, "\t\tchannels: ");
+            v28 += snprintf(&v58[v28], v26 - v28, "\t\tchannels: ");
             if (v26 <= v28)
             {
               break;
             }
 
-            v36 = *(this + 18) + 24 * v30;
-            v37 = *(v36 + 16);
-            if (v37)
+            v31 = *(this + 18) + 24 * v30;
+            v32 = *(v31 + 16);
+            if (v32)
             {
-              Channel = Part::GetChannel(this, **(v36 + 8), a5, v31, v32, v33, v34, v35);
-              v28 += snprintf(&v68[v28], v26 - v28, "%s", &v29[*Channel]);
+              Channel = Part::GetChannel(this, **(v31 + 8), a5);
+              v28 += snprintf(&v58[v28], v26 - v28, "%s", &v29[*Channel]);
               if (v28 >= a3)
               {
                 return v28;
               }
 
-              if (v37 != 1)
+              if (v32 != 1)
               {
-                v44 = 1;
+                v34 = 1;
                 do
                 {
-                  v45 = Part::GetChannel(this, *(*(*(this + 18) + 24 * v30 + 8) + 4 * v44), a5, v39, v40, v41, v42, v43);
-                  v28 += snprintf(&v68[v28], a3 - v28, ", %s", &v29[*v45]);
+                  v35 = Part::GetChannel(this, *(*(*(this + 18) + 24 * v30 + 8) + 4 * v34), a5);
+                  v28 += snprintf(&v58[v28], a3 - v28, ", %s", &v29[*v35]);
                   if (v28 >= a3)
                   {
                     return v28;
                   }
                 }
 
-                while (v37 != ++v44);
+                while (v32 != ++v34);
               }
 
-              v28 += snprintf(&v68[v28], a3 - v28, "\n");
+              v28 += snprintf(&v58[v28], a3 - v28, "\n");
               if (v28 >= a3)
               {
                 return v28;
@@ -359,22 +359,22 @@ unint64_t Part::Print(Part *this, char *a2, size_t a3, char *a4, unint64_t a5)
 LABEL_26:
           if (*(this + 8))
           {
-            v46 = 0;
+            v36 = 0;
             while (1)
             {
-              v28 += snprintf(&v68[v28], v26 - v28, "\n\tChannel %lu:\n", v46);
+              v28 += snprintf(&v58[v28], v26 - v28, "\n\tChannel %lu:\n", v36);
               if (v26 <= v28)
               {
                 break;
               }
 
-              v28 += ChannelDescription::Print(*(*(this + 3) + 8 * v46), &v68[v28], v26 - v28, v29, a5);
+              v28 += ChannelDescription::Print(*(*(this + 3) + 8 * v36), &v58[v28], v26 - v28, v29, a5);
               if (v28 >= v26)
               {
                 break;
               }
 
-              if (++v46 >= *(this + 8))
+              if (++v36 >= *(this + 8))
               {
                 goto LABEL_31;
               }
@@ -384,37 +384,37 @@ LABEL_26:
           else
           {
 LABEL_31:
-            v28 += snprintf(&v68[v28], v26 - v28, "\n\tEXR attributes found:\n");
+            v28 += snprintf(&v58[v28], v26 - v28, "\n\tEXR attributes found:\n");
             if (v26 > v28)
             {
               if (*(this + 31))
               {
                 for (i = *(this + 30); i; i = i[5])
                 {
-                  v48 = i[3];
-                  v49 = &v29[*i];
-                  if (*i == v48)
+                  v38 = i[3];
+                  v39 = &v29[*i];
+                  if (*i == v38)
                   {
-                    v49 = 0;
-                    v51 = 0;
+                    v39 = 0;
+                    v41 = 0;
                   }
 
                   else
                   {
-                    v51 = &v29[i[1]];
+                    v41 = &v29[i[1]];
                   }
 
-                  if (*i == v48)
+                  if (*i == v38)
                   {
-                    v50 = 0;
+                    v40 = 0;
                   }
 
                   else
                   {
-                    v50 = &v29[v48];
+                    v40 = &v29[v38];
                   }
 
-                  v28 += snprintf(&v68[v28], a3 - v28, "\t\t%s %s  %lu bytes @ %p\n", v49, v51, i[2], v50);
+                  v28 += snprintf(&v58[v28], a3 - v28, "\t\t%s %s  %lu bytes @ %p\n", v39, v41, i[2], v40);
                   if (v28 >= a3)
                   {
                     break;
@@ -424,7 +424,7 @@ LABEL_31:
 
               else
               {
-                v28 += snprintf(&v68[v28], v26 - v28, "\t\t<None>\n");
+                v28 += snprintf(&v58[v28], v26 - v28, "\t\t<None>\n");
               }
             }
           }
@@ -487,11 +487,11 @@ LABEL_7:
       a8.n128_f32[0] = NAN;
     }
 
-    v12.i32[0] = *(this + 26);
+    v12.n128_u32[0] = *(this + 26);
     v13.n128_u32[0] = *(this + 27);
-    v12.i32[1] = *(this + 28);
-    v12.i32[2] = *(this + 30);
-    v12.i32[3] = *(this + 32);
+    v12.n128_u32[1] = *(this + 28);
+    v12.n128_u32[2] = *(this + 30);
+    v12.n128_u32[3] = *(this + 32);
     v13.n128_u32[1] = *(this + 29);
     v13.n128_u32[2] = *(this + 31);
     v13.n128_u32[3] = *(this + 33);
@@ -554,11 +554,11 @@ uint64_t ReadCompression(char *a1, Part *a2, Attribute *a3, axr_flags_t a4)
     return -6;
   }
 
-  v20 = a1[v8];
-  if (v20 < 8)
+  v14 = a1[v8];
+  if (v14 < 8)
   {
     result = 0;
-    *(a2 + 9) = v20;
+    *(a2 + 9) = v14;
     *(a3 + 4) = 1;
   }
 
@@ -571,7 +571,7 @@ uint64_t ReadCompression(char *a1, Part *a2, Attribute *a3, axr_flags_t a4)
 
     if (((kDefaultAXRLogFlags | v4) & 2) != 0)
     {
-      AXRLogError("compression method too new: %u", v12, v13, v14, v15, v16, v17, v18, v20);
+      AXRLogError("compression method too new: %u", v12, v14);
     }
 
     return -3;
@@ -580,35 +580,35 @@ uint64_t ReadCompression(char *a1, Part *a2, Attribute *a3, axr_flags_t a4)
   return result;
 }
 
-uint64_t ReadDataWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ReadDataWindow(char *a1, Part *a2, Attribute *a3, axr_flags_t a4)
 {
   if (*(a3 + 2) < 0x10uLL)
   {
     return -4;
   }
 
-  v9 = *(a3 + 3);
-  if (*a3 == v9)
+  v5 = *(a3 + 3);
+  if (*a3 == v5)
   {
-    v10 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v10 = &a1[v9];
+    v6 = &a1[v5];
   }
 
-  v11 = *v10;
-  v12 = *(v10 + 1);
-  v13 = *(v10 + 2);
-  v14 = *(v10 + 3);
-  if (v11 <= v13 && v12 <= v14)
+  v7 = *v6;
+  v8 = *(v6 + 1);
+  v9 = *(v6 + 2);
+  v10 = *(v6 + 3);
+  if (v7 <= v9 && v8 <= v10)
   {
     result = 0;
-    *(a2 + 10) = v11;
-    *(a2 + 11) = v12;
-    *(a2 + 12) = v13;
-    *(a2 + 13) = v14;
+    *(a2 + 10) = v7;
+    *(a2 + 11) = v8;
+    *(a2 + 12) = v9;
+    *(a2 + 13) = v10;
     *(a3 + 4) = 1;
   }
 
@@ -616,14 +616,14 @@ uint64_t ReadDataWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_t
   {
     if (GetFlagsOnceToken != -1)
     {
-      v17 = a4;
+      v12 = a4;
       [OS_axr_data debugDescription];
-      a4 = v17;
+      LODWORD(a4) = v12;
     }
 
     if (((kDefaultAXRLogFlags | a4) & 2) != 0)
     {
-      AXRLogError("data window xMin > xMax or yMin > yMax", a2, a3, a4, a5, a6, a7, a8, v16);
+      AXRLogError("data window xMin > xMax or yMin > yMax", a2);
     }
 
     return -6;
@@ -632,35 +632,35 @@ uint64_t ReadDataWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_t
   return result;
 }
 
-uint64_t ReadDisplayWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ReadDisplayWindow(char *a1, Part *a2, Attribute *a3, axr_flags_t a4)
 {
   if (*(a3 + 2) < 0x10uLL)
   {
     return -4;
   }
 
-  v9 = *(a3 + 3);
-  if (*a3 == v9)
+  v5 = *(a3 + 3);
+  if (*a3 == v5)
   {
-    v10 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v10 = &a1[v9];
+    v6 = &a1[v5];
   }
 
-  v11 = *v10;
-  v12 = *(v10 + 1);
-  v13 = *(v10 + 2);
-  v14 = *(v10 + 3);
-  if (v11 <= v13 && v12 <= v14)
+  v7 = *v6;
+  v8 = *(v6 + 1);
+  v9 = *(v6 + 2);
+  v10 = *(v6 + 3);
+  if (v7 <= v9 && v8 <= v10)
   {
     result = 0;
-    *(a2 + 14) = v11;
-    *(a2 + 15) = v12;
-    *(a2 + 16) = v13;
-    *(a2 + 17) = v14;
+    *(a2 + 14) = v7;
+    *(a2 + 15) = v8;
+    *(a2 + 16) = v9;
+    *(a2 + 17) = v10;
     *(a3 + 4) = 1;
   }
 
@@ -668,14 +668,14 @@ uint64_t ReadDisplayWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint6
   {
     if (GetFlagsOnceToken != -1)
     {
-      v17 = a4;
+      v12 = a4;
       [OS_axr_data debugDescription];
-      a4 = v17;
+      LODWORD(a4) = v12;
     }
 
     if (((kDefaultAXRLogFlags | a4) & 2) != 0)
     {
-      AXRLogError("display window xMin > xMax or yMin > yMax", a2, a3, a4, a5, a6, a7, a8, v16);
+      AXRLogError("display window xMin > xMax or yMin > yMax", a2);
     }
 
     return -6;
@@ -684,32 +684,32 @@ uint64_t ReadDisplayWindow(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t ReadLineOrder(unsigned __int8 *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ReadLineOrder(unsigned __int8 *a1, Part *a2, Attribute *a3, axr_flags_t a4)
 {
   if (!*(a3 + 2))
   {
     return -4;
   }
 
-  v8 = a1[*(a3 + 3)];
-  if (v8 < 3)
+  v4 = a1[*(a3 + 3)];
+  if (v4 < 3)
   {
     result = 0;
-    *(a2 + 18) = v8;
+    *(a2 + 18) = v4;
     *(a3 + 4) = 1;
   }
 
   else
   {
-    v9 = a4;
+    v5 = a4;
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v9) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v5) & 2) != 0)
     {
-      AXRLogError("line order > RANDOM_Y", a2, a3, a4, a5, a6, a7, a8, v11);
+      AXRLogError("line order > RANDOM_Y", a2);
     }
 
     return -6;
@@ -917,14 +917,14 @@ uint64_t ReadViewVersion(char *a1, Part *a2, Attribute *a3, uint64_t a4, uint64_
   {
     if (GetFlagsOnceToken != -1)
     {
-      v10 = a4;
+      v9 = a4;
       [OS_axr_data debugDescription];
-      a4 = v10;
+      a4 = v9;
     }
 
     if (((kDefaultAXRLogFlags | a4) & 2) != 0)
     {
-      AXRLogDebug("EXR view type > 1 not supported", a2, a3, a4, a5, a6, a7, a8, v9);
+      AXRLogDebug("EXR view type > 1 not supported", a2, a3, a4, a5, a6, a7, a8);
     }
 
     return -3;
@@ -1120,29 +1120,29 @@ void ChannelDescription::~ChannelDescription(ChannelDescription *this)
   }
 }
 
-uint64_t PrintChannel(char *a1, ReadChannel *a2, ReadChannel *a3, int *a4, const AXRData *a5, unint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintChannel(char *a1, ReadChannel *a2, ReadChannel *a3, int *a4, const AXRData *a5, unint64_t a6)
 {
-  v13 = *(a2 + 1);
-  if (v13)
+  v11 = *(a2 + 1);
+  if (v11)
   {
-    v14 = PrintChannel(a1, v13, a3, a4, a5, a6);
+    v12 = PrintChannel(a1, v11, a3, a4, a5, a6);
   }
 
   else
   {
-    v14 = 0;
+    v12 = 0;
   }
 
   ++*a3;
-  v15 = ReadChannel::Print(a2, &a1[v14], 4096 - v14, a4, a4, a5, a7, a8);
-  if ((v15 + v14) >= 0x1000)
+  v13 = ReadChannel::Print(a2, &a1[v12], 4096 - v12, a4, a4, a5);
+  if ((v13 + v12) >= 0x1000)
   {
     return 4096;
   }
 
   else
   {
-    return v15 + v14;
+    return v13 + v12;
   }
 }
 
@@ -1189,8 +1189,10 @@ axr_decoder_t axr_decoder_create(axr_data_t fileData, unint64_t partIndex, unint
     goto LABEL_24;
   }
 
-  if (axr_data_get_level_count(fileData, partIndex) <= levelIndex)
+  level_count = axr_data_get_level_count(fileData, partIndex);
+  if (level_count <= levelIndex)
   {
+    v15 = level_count;
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
@@ -1198,7 +1200,7 @@ axr_decoder_t axr_decoder_create(axr_data_t fileData, unint64_t partIndex, unint
 
     if (((kDefaultAXRLogFlags | flags) & 2) != 0)
     {
-      AXRLogError("axr_decoder_create: the level index %lu is out of bounds. [0, %lu]", v12, v13, v14, v15, v16, v17, v18, levelIndex);
+      AXRLogError("axr_decoder_create: the level index %lu is out of bounds. [0, %lu]", v9, levelIndex, v15 - 1);
     }
 
     while (1)
@@ -1209,36 +1211,36 @@ LABEL_24:
 LABEL_17:
       if (((kDefaultAXRLogFlags | flags) & 2) != 0)
       {
-        AXRLogError("axr_decoder_create: image index %lu out of bounds [0, %lu]", partIndex, levelIndex, flags, v4, v5, v6, v7, partIndex);
+        AXRLogError("axr_decoder_create: image index %lu out of bounds [0, %lu]", partIndex, partIndex, fileData[12].isa);
       }
     }
   }
 
   objc_opt_class();
-  v19 = _os_object_alloc();
-  if (v19)
+  v10 = _os_object_alloc();
+  if (v10)
   {
-    v20 = fileData;
-    *(v19 + 40) = partIndex;
-    *(v19 + 44) = levelIndex;
-    *(v19 + 32) = 0;
-    *(v19 + 16) = v20;
-    *(v19 + 24) = 0;
-    *(v19 + 80) = flags;
-    memset(&v24, 0, sizeof(v24));
-    axr_data_get_part_info(&v24, fileData, partIndex, axr_part_info_current);
-    *(v19 + 48) = 0;
+    v11 = fileData;
+    *(v10 + 40) = partIndex;
+    *(v10 + 44) = levelIndex;
+    *(v10 + 32) = 0;
+    *(v10 + 16) = v11;
+    *(v10 + 24) = 0;
+    *(v10 + 80) = flags;
+    memset(&v16, 0, sizeof(v16));
+    axr_data_get_part_info(&v16, fileData, partIndex, axr_part_info_current);
+    *(v10 + 48) = 0;
     if (levelIndex)
     {
       level_size = axr_data_get_level_size(fileData, partIndex, levelIndex);
-      v22 = HIDWORD(level_size);
+      v13 = HIDWORD(level_size);
     }
 
     else
     {
-      if (v24.dataWindow.xMax >= v24.dataWindow.xMin)
+      if (v16.dataWindow.xMax >= v16.dataWindow.xMin)
       {
-        LODWORD(level_size) = v24.dataWindow.xMax - v24.dataWindow.xMin + 1;
+        LODWORD(level_size) = v16.dataWindow.xMax - v16.dataWindow.xMin + 1;
       }
 
       else
@@ -1246,29 +1248,29 @@ LABEL_17:
         LODWORD(level_size) = 0;
       }
 
-      if (v24.dataWindow.yMax >= v24.dataWindow.yMin)
+      if (v16.dataWindow.yMax >= v16.dataWindow.yMin)
       {
-        LODWORD(v22) = v24.dataWindow.yMax - v24.dataWindow.yMin + 1;
+        LODWORD(v13) = v16.dataWindow.yMax - v16.dataWindow.yMin + 1;
       }
 
       else
       {
-        LODWORD(v22) = 0;
+        LODWORD(v13) = 0;
       }
     }
 
-    *(v19 + 56) = level_size;
-    *(v19 + 60) = v22;
-    *(v19 + 64) = v24.dataWindow;
-    *(v19 + 36) = axr_data_get_channel_count(fileData, partIndex);
+    *(v10 + 56) = level_size;
+    *(v10 + 60) = v13;
+    *(v10 + 64) = v16.dataWindow;
+    *(v10 + 36) = axr_data_get_channel_count(fileData, partIndex);
   }
 
-  return v19;
+  return v10;
 }
 
 axr_decoder_t axr_decoder_create_rgba(axr_data_t fileData, const char *layerName, unint64_t partIndex, unint64_t levelIndex, axr_flags_t flags)
 {
-  v88 = *MEMORY[0x29EDCA608];
+  v93 = *MEMORY[0x29EDCA608];
   if (layerName)
   {
     v9 = layerName;
@@ -1285,44 +1287,44 @@ axr_decoder_t axr_decoder_create_rgba(axr_data_t fileData, const char *layerName
       goto LABEL_54;
     }
 
-    v50 = layer_count;
-    v51 = 0;
+    v53 = layer_count;
+    v54 = 0;
     while (1)
     {
-      memset(&v87, 0, 24);
-      axr_data_get_layer_info(&v87, fileData, partIndex, v51, axr_layer_info_current);
-      v9 = *&v87.sampleType;
-      if (!*&v87.sampleType || !**&v87.sampleType)
+      memset(&v92, 0, 24);
+      axr_data_get_layer_info(&v92, fileData, partIndex, v54, axr_layer_info_current);
+      v9 = *&v92.sampleType;
+      if (!*&v92.sampleType || !**&v92.sampleType)
       {
         break;
       }
 
-      if (v50 == ++v51)
+      if (v53 == ++v54)
       {
         goto LABEL_52;
       }
     }
 
-    v11 = *&v87.sampleBits;
-    channel_count = *&v87.ySampling;
-    if (*&v87.sampleBits)
+    v11 = *&v92.sampleBits;
+    channel_count = *&v92.ySampling;
+    if (*&v92.sampleBits)
     {
       goto LABEL_53;
     }
 
 LABEL_52:
-    axr_data_get_layer_info(&v87, fileData, partIndex, 0, axr_layer_info_current);
-    v9 = *&v87.sampleType;
-    v11 = *&v87.sampleBits;
-    channel_count = *&v87.ySampling;
+    axr_data_get_layer_info(&v92, fileData, partIndex, 0, axr_layer_info_current);
+    v9 = *&v92.sampleType;
+    v11 = *&v92.sampleBits;
+    channel_count = *&v92.ySampling;
 LABEL_53:
     v10 = v9;
     if (!v9)
     {
 LABEL_54:
       channel_count = axr_data_get_channel_count(fileData, partIndex);
-      v53 = malloc_type_malloc(4 * channel_count, 0x100004052888210uLL);
-      if (!v53)
+      v56 = malloc_type_malloc(4 * channel_count, 0x100004052888210uLL);
+      if (!v56)
       {
         if (GetFlagsOnceToken != -1)
         {
@@ -1331,28 +1333,30 @@ LABEL_54:
 
         if (((kDefaultAXRLogFlags | flags) & 2) != 0)
         {
-          AXRLogDebug("axr_decoder_create_rgba: out of memory\n", v14, v15, v16, v17, v18, v19, v20, v77);
+          AXRLogDebug("axr_decoder_create_rgba: out of memory\n", v14, v15, v16, v17, v18, v19, v20);
         }
 
         return 0;
       }
 
-      v24 = v53;
+      v24 = v56;
       if (channel_count)
       {
-        v54 = 0;
+        v57 = 0;
+        v9 = "<NULL>";
         do
         {
-          v53[v54] = v54;
-          ++v54;
+          v56[v57] = v57;
+          ++v57;
         }
 
-        while (channel_count > v54);
-        v11 = v53;
+        while (channel_count > v57);
+        v11 = v56;
         goto LABEL_14;
       }
 
-LABEL_73:
+      v9 = "<NULL>";
+LABEL_74:
       if (GetFlagsOnceToken != -1)
       {
         AXRLogicalImageList::AXRLogicalImageList();
@@ -1360,12 +1364,13 @@ LABEL_73:
 
       if (((kDefaultAXRLogFlags | flags) & 2) == 0)
       {
-        goto LABEL_78;
+        goto LABEL_79;
       }
 
-      v77 = partIndex;
-      v52 = "axr_decoder_create_rgba: no channels found for part %lu, layerName: %s\n";
-      goto LABEL_77;
+      v80 = partIndex;
+      v81 = v9;
+      v55 = "axr_decoder_create_rgba: no channels found for part %lu, layerName: %s\n";
+      goto LABEL_78;
     }
   }
 
@@ -1376,30 +1381,30 @@ LABEL_73:
     v22 = v13 - 1;
     do
     {
-      axr_data_get_layer_info(&v87, fileData, partIndex, v21, axr_layer_info_current);
-      v10 = *&v87.sampleType;
-      v11 = *&v87.sampleBits;
-      channel_count = *&v87.ySampling;
+      axr_data_get_layer_info(&v92, fileData, partIndex, v21, axr_layer_info_current);
+      v10 = *&v92.sampleType;
+      v11 = *&v92.sampleBits;
+      channel_count = *&v92.ySampling;
     }
 
-    while (strcmp(*&v87.sampleType, v9) && v22 != v21++);
+    while (strcmp(*&v92.sampleType, v9) && v22 != v21++);
   }
 
   if (!v10 && !*v9)
   {
-    axr_data_get_layer_info(&v87, fileData, partIndex, 0, axr_layer_info_current);
-    v11 = *&v87.sampleBits;
-    channel_count = *&v87.ySampling;
+    axr_data_get_layer_info(&v92, fileData, partIndex, 0, axr_layer_info_current);
+    v11 = *&v92.sampleBits;
+    channel_count = *&v92.ySampling;
   }
 
   v24 = 0;
   if (!channel_count)
   {
-    goto LABEL_73;
+    goto LABEL_74;
   }
 
 LABEL_14:
-  v84 = v11;
+  v89 = v11;
   levelIndexa = levelIndex;
   v25 = 0;
   v26 = v11;
@@ -1407,13 +1412,13 @@ LABEL_14:
   do
   {
     v28 = *v26++;
-    axr_data_get_channel_info(&v87, fileData, partIndex, v28, axr_channel_info_current);
-    v25 |= 1 << SLOBYTE(v87.channelType);
+    axr_data_get_channel_info(&v92, fileData, partIndex, v28, axr_channel_info_current);
+    v25 |= 1 << SLOBYTE(v92.channelType);
     --v27;
   }
 
   while (v27);
-  v79 = v25;
+  v84 = v25;
   decoder = axr_decoder_create(fileData, partIndex, levelIndexa, flags);
   if (!decoder)
   {
@@ -1424,21 +1429,22 @@ LABEL_14:
 
     if (((kDefaultAXRLogFlags | flags) & 2) == 0)
     {
-      goto LABEL_78;
+      goto LABEL_79;
     }
 
-    v52 = "axr_decoder_create_rgba:  failed to create decoder\n";
-LABEL_77:
-    AXRLogDebug(v52, v14, v15, v16, v17, v18, v19, v20, v77);
+    v55 = "axr_decoder_create_rgba:  failed to create decoder\n";
 LABEL_78:
-    v48 = v24;
-    goto LABEL_79;
+    AXRLogDebug(v55, v14, v15, v16, v17, v18, v19, v20, v80, v81);
+LABEL_79:
+    v51 = v24;
+    goto LABEL_80;
   }
 
-  v78 = v24;
+  v82 = v24;
+  v83 = v9;
   v29 = 0;
-  v30 = v79;
-  v83 = channel_count;
+  v30 = v84;
+  v88 = channel_count;
   do
   {
     v31 = (&axr_decoder_create_rgba::kColorModels + 24 * v29);
@@ -1449,8 +1455,8 @@ LABEL_78:
 
     axr_decoder_clear_channel_list(decoder);
     v32 = 0;
-    v82 = 0;
-    v80 = v29;
+    v87 = 0;
+    v85 = v29;
     v33 = 3;
     if (v29 == 3)
     {
@@ -1458,30 +1464,31 @@ LABEL_78:
     }
 
     levelIndexb = v33;
+    v34 = v31 + 1;
     sampleType = -1;
     do
     {
-      v35 = v84;
-      v36 = channel_count;
+      v36 = v89;
+      v37 = channel_count;
       while (1)
       {
-        v38 = *v35++;
-        v37 = v38;
-        memset(&v87, 0, sizeof(v87));
-        axr_data_get_channel_info(&v87, fileData, partIndex, v38, axr_channel_info_current);
-        if (*(v31 + v32 + 2) == v87.channelType)
+        v39 = *v36++;
+        v38 = v39;
+        memset(&v92, 0, sizeof(v92));
+        axr_data_get_channel_info(&v92, fileData, partIndex, v39, axr_channel_info_current);
+        if (*(v34 + v32) == v92.channelType)
         {
           break;
         }
 
 LABEL_30:
-        if (!--v36)
+        if (!--v37)
         {
           goto LABEL_33;
         }
       }
 
-      if (sampleType != -1 && v87.sampleType != sampleType)
+      if (sampleType != -1 && v92.sampleType != sampleType)
       {
         if (GetFlagsOnceToken != -1)
         {
@@ -1490,44 +1497,75 @@ LABEL_30:
 
         if (((kDefaultAXRLogFlags | flags) & 2) != 0)
         {
-          name = axr_channel_type_get_name(v87.channelType);
-          axr_type_get_name(v87.sampleType);
-          axr_type_get_name(sampleType);
-          AXRLogDebug("axr_decoder_create_rgba: type of %s channel %s doesn't match other channels %s. Skipping...\n", v40, v41, v42, v43, v44, v45, v46, name);
+          name = axr_channel_type_get_name(v92.channelType);
+          v41 = axr_type_get_name(v92.sampleType);
+          v42 = axr_type_get_name(sampleType);
+          AXRLogDebug("axr_decoder_create_rgba: type of %s channel %s doesn't match other channels %s. Skipping...\n", v43, v44, v45, v46, v47, v48, v49, name, v41, v42);
         }
 
         goto LABEL_30;
       }
 
-      axr_decoder_append_channel(decoder, v37, flags);
-      sampleType = v87.sampleType;
-      ++v82;
+      axr_decoder_append_channel(decoder, v38, flags);
+      sampleType = v92.sampleType;
+      ++v87;
 LABEL_33:
       ++v32;
-      channel_count = v83;
+      channel_count = v88;
     }
 
     while (v32 != levelIndexb);
-    v47 = v84;
-    v30 = v79;
-    v29 = v80;
-    if (v82 == levelIndexb)
+    v50 = v89;
+    v9 = v83;
+    v30 = v84;
+    v29 = v85;
+    if (v87 == levelIndexb)
     {
-      if ((v79 & 0xF0) != 0)
+      if ((v84 & 0xF0) != 0)
       {
-        v55 = v83;
+        v58 = v88;
         do
         {
-          v57 = *v47++;
-          v56 = v57;
-          memset(&v87, 0, sizeof(v87));
-          axr_data_get_channel_info(&v87, fileData, partIndex, v57, axr_channel_info_current);
-          if (v87.channelType == axr_channel_type_alpha)
+          v60 = *v50++;
+          v59 = v60;
+          memset(&v92, 0, sizeof(v92));
+          axr_data_get_channel_info(&v92, fileData, partIndex, v60, axr_channel_info_current);
+          if (v92.channelType == axr_channel_type_alpha)
           {
-            if (sampleType == v87.sampleType)
+            if (sampleType == v92.sampleType)
             {
-LABEL_90:
-              axr_decoder_append_channel(decoder, v56, flags);
+LABEL_91:
+              axr_decoder_append_channel(decoder, v59, flags);
+              goto LABEL_92;
+            }
+
+            if (GetFlagsOnceToken != -1)
+            {
+              AXRLogicalImageList::AXRLogicalImageList();
+            }
+
+            if (((kDefaultAXRLogFlags | flags) & 2) != 0)
+            {
+              v61 = axr_channel_type_get_name(v92.channelType);
+              AXRLogDebug("axr_decoder_create_rgba: Skipping %s channel. Non-matching data type\n", v62, v63, v64, v65, v66, v67, v68, v61);
+            }
+          }
+
+          --v58;
+        }
+
+        while (v58);
+        v70 = v89;
+        do
+        {
+          v71 = *v70++;
+          v59 = v71;
+          memset(&v92, 0, sizeof(v92));
+          axr_data_get_channel_info(&v92, fileData, partIndex, v71, axr_channel_info_current);
+          if ((v92.channelType & 0xF0) != 0)
+          {
+            if (sampleType == v92.sampleType)
+            {
               goto LABEL_91;
             }
 
@@ -1538,38 +1576,8 @@ LABEL_90:
 
             if (((kDefaultAXRLogFlags | flags) & 2) != 0)
             {
-              v58 = axr_channel_type_get_name(v87.channelType);
-              AXRLogDebug("axr_decoder_create_rgba: Skipping %s channel. Non-matching data type\n", v59, v60, v61, v62, v63, v64, v65, v58);
-            }
-          }
-
-          --v55;
-        }
-
-        while (v55);
-        v67 = v84;
-        do
-        {
-          v68 = *v67++;
-          v56 = v68;
-          memset(&v87, 0, sizeof(v87));
-          axr_data_get_channel_info(&v87, fileData, partIndex, v68, axr_channel_info_current);
-          if ((v87.channelType & 0xF0) != 0)
-          {
-            if (sampleType == v87.sampleType)
-            {
-              goto LABEL_90;
-            }
-
-            if (GetFlagsOnceToken != -1)
-            {
-              AXRLogicalImageList::AXRLogicalImageList();
-            }
-
-            if (((kDefaultAXRLogFlags | flags) & 2) != 0)
-            {
-              v69 = axr_channel_type_get_name(v87.channelType);
-              AXRLogDebug("axr_decoder_create_rgba: Skipping %s channel. Non-matching data type\n", v70, v71, v72, v73, v74, v75, v76, v69);
+              v72 = axr_channel_type_get_name(v92.channelType);
+              AXRLogDebug("axr_decoder_create_rgba: Skipping %s channel. Non-matching data type\n", v73, v74, v75, v76, v77, v78, v79, v72);
             }
           }
 
@@ -1579,8 +1587,8 @@ LABEL_90:
         while (channel_count);
       }
 
-LABEL_91:
-      free(v78);
+LABEL_92:
+      free(v82);
       return decoder;
     }
 
@@ -1596,12 +1604,12 @@ LABEL_35:
 
   if (((kDefaultAXRLogFlags | flags) & 2) != 0)
   {
-    AXRLogDebug("axr_decoder_create_rgba: no channels found for part %lu, layerName: %s matching recognized colorModels\n", v14, v15, v16, v17, v18, v19, v20, partIndex);
+    AXRLogDebug("axr_decoder_create_rgba: no channels found for part %lu, layerName: %s matching recognized colorModels\n", v14, v15, v16, v17, v18, v19, v20, partIndex, v9);
   }
 
-  v48 = v78;
-LABEL_79:
-  free(v48);
+  v51 = v82;
+LABEL_80:
+  free(v51);
   return 0;
 }
 
@@ -1621,77 +1629,77 @@ axr_error_t axr_decoder_append_channel(axr_decoder_t decoder, uint32_t channelIn
 {
   isa = decoder[2].isa;
   isa_low = LODWORD(decoder[5].isa);
-  v13 = *(isa + 11);
+  v8 = *(isa + 11);
   if (isa_low)
   {
-    v14 = v13 == 0;
+    v9 = v8 == 0;
   }
 
   else
   {
-    v14 = 1;
+    v9 = 1;
   }
 
-  if (!v14)
+  if (!v9)
   {
-    v15 = 1;
+    v10 = 1;
     do
     {
-      v13 = *(v13 + 1);
-      if (v15 >= isa_low)
+      v8 = *(v8 + 1);
+      if (v10 >= isa_low)
       {
         break;
       }
 
-      ++v15;
+      ++v10;
     }
 
-    while (v13);
+    while (v8);
   }
 
-  if (v13)
+  if (v8)
   {
-    LOBYTE(isa_low) = channelIndex;
-    Part::GetChannel(v13, channelIndex, flags, v3, v4, v5, v6, v7);
-    v23 = LODWORD(decoder[5].isa);
-    v24 = *(isa + 11);
-    if (v23 && v24)
+    isa_low = channelIndex;
+    Part::GetChannel(v8, channelIndex, flags);
+    v12 = LODWORD(decoder[5].isa);
+    v13 = *(isa + 11);
+    if (v12 && v13)
     {
-      v25 = 1;
+      v14 = 1;
       do
       {
-        v24 = *(v24 + 1);
-        if (v25 >= v23)
+        v13 = *(v13 + 1);
+        if (v14 >= v12)
         {
           break;
         }
 
-        ++v25;
+        ++v14;
       }
 
-      while (v24);
+      while (v13);
     }
 
-    if (v24)
+    if (v13)
     {
-      Part::GetChannel(v24, channelIndex, flags, v18, v19, v20, v21, v22);
+      Part::GetChannel(v13, channelIndex, flags);
       operator new();
     }
 
-    v26 = decoder[5].isa;
+    v15 = LODWORD(decoder[5].isa);
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    AXRLogError("Error: image index %lu out of range [0,%lu]", v16, v17, v18, v19, v20, v21, v22, v26);
+    AXRLogError("Error: image index %lu out of range [0,%lu]", v11, v15, *(isa + 12) - 1);
     while (1)
     {
       __break(1u);
 LABEL_22:
       [OS_axr_data debugDescription];
 LABEL_17:
-      AXRLogError("Error: image index %lu out of range [0,%lu]", *&channelIndex, flags, v3, v4, v5, v6, v7, isa_low);
+      AXRLogError("Error: image index %lu out of range [0,%lu]", *&channelIndex, isa_low, *(isa + 12) - 1);
     }
   }
 
@@ -1705,39 +1713,40 @@ LABEL_17:
 
 axr_error_t axr_decoder_set_subregion(axr_decoder_t d, uint32_t xOrigin, uint32_t yOrigin, uint32_t xSize, uint32_t ySize, axr_flags_t flags)
 {
-  v8 = flags;
+  v6 = flags;
   isa = d[2].isa;
   isa_low = LODWORD(d[5].isa);
-  v16 = *(isa + 11);
+  v14 = *(isa + 11);
   if (isa_low)
   {
-    v17 = v16 == 0;
+    v15 = v14 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
-  if (!v17)
+  if (!v15)
   {
-    v18 = 1;
+    v16 = 1;
     do
     {
-      v16 = *(v16 + 1);
-      if (v18 >= isa_low)
+      v14 = *(v14 + 1);
+      if (v16 >= isa_low)
       {
         break;
       }
 
-      ++v18;
+      ++v16;
     }
 
-    while (v16);
+    while (v14);
   }
 
-  if (!v16)
+  if (!v14)
   {
+    v22 = isa;
     if (GetFlagsOnceToken != -1)
     {
       goto LABEL_23;
@@ -1745,14 +1754,15 @@ axr_error_t axr_decoder_set_subregion(axr_decoder_t d, uint32_t xOrigin, uint32_
 
     while (1)
     {
-      AXRLogError("Error: image index %lu out of range [0,%lu]", *&xOrigin, *&yOrigin, *&xSize, *&ySize, flags, v6, v7, isa_low);
+      AXRLogError("Error: image index %lu out of range [0,%lu]", *&xOrigin, isa_low, *(v22 + 12) - 1);
       __break(1u);
 LABEL_23:
       [OS_axr_data debugDescription];
     }
   }
 
-  ImageSize = Part::GetImageSize(v16, HIDWORD(d[5].isa), *(isa + 5), *&xSize, *&ySize, flags, v6, v7);
+  ImageSize = Part::GetImageSize(v14, HIDWORD(d[5].isa), *(isa + 5));
+  v19 = ImageSize;
   if (xSize + xOrigin > ImageSize)
   {
     if (GetFlagsOnceToken != -1)
@@ -1760,14 +1770,15 @@ LABEL_23:
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v8) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v6) & 2) != 0)
     {
-      AXRLogError("ROI x:[%d, %d] extends off right edge of data window. (width = %u)", v20, v21, v22, v23, v24, v25, v26, LODWORD(d[8].isa) + xOrigin);
+      AXRLogError("ROI x:[%d, %d] extends off right edge of data window. (width = %u)", v18, LODWORD(d[8].isa) + xOrigin, xSize + xOrigin + LODWORD(d[8].isa) - 1, v19);
     }
 
     return -1;
   }
 
+  v20 = HIDWORD(ImageSize);
   if (ySize + yOrigin > HIDWORD(ImageSize))
   {
     if (GetFlagsOnceToken != -1)
@@ -1775,9 +1786,9 @@ LABEL_23:
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v8) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v6) & 2) != 0)
     {
-      AXRLogError("ROI y:[%d, %d] extends off bottom edge of data window. (height = %u)", v20, v21, v22, v23, v24, v25, v26, LODWORD(d[9].isa) + yOrigin);
+      AXRLogError("ROI y:[%d, %d] extends off bottom edge of data window. (height = %u)", v18, LODWORD(d[9].isa) + yOrigin, ySize + yOrigin + LODWORD(d[9].isa) - 1, v20);
     }
 
     return -1;
@@ -1815,52 +1826,52 @@ void *__cdecl axr_decoder_create_colorspace(void *decoder, axr_flags_t flags, vo
 
       if (((kDefaultAXRLogFlags | flags) & 2) != 0)
       {
-        AXRLogDebug("axr_decoder_create_colorspace: no channels have been appended", flags, options, v3, v4, v5, v6, v7, v15);
+        AXRLogDebug("axr_decoder_create_colorspace: no channels have been appended", flags, options, v3, v4, v5, v6, v7);
       }
     }
 
     v14 = (*(v13 + 2) + 16);
 
-    return AXRData::CreateColorSpaceForImage(v14, v13, options, flags, 0, v5, v6, v7, v8, v9, v10);
+    return AXRData::CreateColorSpaceForImage(v14, v13, options, flags, 0, v8, v9, v10);
   }
 
   return decoder;
 }
 
-uint64_t AXRData::CreateColorSpaceForImage(AXRData *this, axr_decoder *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, __n128 a11)
+uint64_t AXRData::CreateColorSpaceForImage(AXRData *this, axr_decoder *a2, uint64_t a3, axr_flags_t a4, int a5, double a6, double a7, __n128 a8)
 {
-  v11 = *(a2 + 10);
-  v12 = *(this + 9);
-  if (v11)
+  v8 = *(a2 + 10);
+  v9 = *(this + 9);
+  if (v8)
   {
-    v13 = v12 == 0;
+    v10 = v9 == 0;
   }
 
   else
   {
-    v13 = 1;
+    v10 = 1;
   }
 
-  if (!v13)
+  if (!v10)
   {
-    v14 = 1;
+    v11 = 1;
     do
     {
-      v12 = *(v12 + 1);
-      if (v14 >= v11)
+      v9 = *(v9 + 1);
+      if (v11 >= v8)
       {
         break;
       }
 
-      ++v14;
+      ++v11;
     }
 
-    while (v12);
+    while (v9);
   }
 
-  if (!v12)
+  if (!v9)
   {
-    v16 = *(a2 + 10);
+    v14 = *(a2 + 10);
     if (GetFlagsOnceToken != -1)
     {
       goto LABEL_14;
@@ -1868,14 +1879,14 @@ uint64_t AXRData::CreateColorSpaceForImage(AXRData *this, axr_decoder *a2, uint6
 
     while (1)
     {
-      AXRLogError("Error: image index %lu out of range [0,%lu]", a2, a3, a4, a5, a6, a7, a8, v16);
+      AXRLogError("Error: image index %lu out of range [0,%lu]", a2, v14, *(this + 10) - 1);
       __break(1u);
 LABEL_14:
       [OS_axr_data debugDescription];
     }
   }
 
-  return Part::CreateColorSpace(v12, a2, a3, a4, a5, a9, a10, a11);
+  return Part::CreateColorSpace(v9, a2, a3, a4, a5, a6, a7, a8);
 }
 
 void *__cdecl axr_decoder_create_rgba_colorspace(void *decoder, axr_flags_t flags, void *options)
@@ -1892,13 +1903,13 @@ void *__cdecl axr_decoder_create_rgba_colorspace(void *decoder, axr_flags_t flag
 
       if (((kDefaultAXRLogFlags | flags) & 2) != 0)
       {
-        AXRLogDebug("axr_decoder_create_colorspace: no channels have been appended", flags, options, v3, v4, v5, v6, v7, v15);
+        AXRLogDebug("axr_decoder_create_colorspace: no channels have been appended", flags, options, v3, v4, v5, v6, v7);
       }
     }
 
     v14 = (*(v13 + 2) + 16);
 
-    return AXRData::CreateColorSpaceForImage(v14, v13, options, flags, 1, v5, v6, v7, v8, v9, v10);
+    return AXRData::CreateColorSpaceForImage(v14, v13, options, flags, 1, v8, v9, v10);
   }
 
   return decoder;
@@ -1948,58 +1959,59 @@ LABEL_7:
     return decoder;
   }
 
-  v10 = decoder;
+  v4 = decoder;
   if (version >= 2)
   {
-    v11 = *&decoder[1].subregion.origin.y;
+    v5 = *&decoder[1].subregion.origin.y;
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v11) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v5) & 2) != 0)
     {
-      AXRLogError("Error: axr_decoder_get_info: You must pass axr_decoder_info_current here.", *&version, v3, v4, v5, v6, v7, v8, v19);
+      AXRLogError("Error: axr_decoder_get_info: You must pass axr_decoder_info_current here.", *&version);
     }
 
     goto LABEL_7;
   }
 
-  v12 = *&decoder->levelIndex;
-  retstr->data = v12;
-  width = v10[2].size.width;
+  v6 = *&decoder->levelIndex;
+  retstr->data = v6;
+  width = v4[2].size.width;
   retstr->partIndex = width;
-  v14 = *(v12 + 11);
+  v8 = *(v6 + 11);
   if (width)
   {
-    v15 = v14 == 0;
+    v9 = v8 == 0;
   }
 
   else
   {
-    v15 = 1;
+    v9 = 1;
   }
 
-  if (!v15)
+  if (!v9)
   {
-    v16 = 1;
+    v10 = 1;
     do
     {
-      v14 = *(v14 + 8);
-      if (v16 >= width)
+      v8 = *(v8 + 8);
+      if (v10 >= width)
       {
         break;
       }
 
-      ++v16;
+      ++v10;
     }
 
-    while (v14);
+    while (v8);
   }
 
-  if (!v14)
+  if (!v8)
   {
-    v18 = width;
+    v12 = v6;
+    v13 = width;
     if (GetFlagsOnceToken != -1)
     {
       goto LABEL_19;
@@ -2007,19 +2019,19 @@ LABEL_7:
 
     while (1)
     {
-      AXRLogError("Error: image index %lu out of range [0,%lu]", width, v3, v4, v5, v6, v7, v8, v18);
+      AXRLogError("Error: image index %lu out of range [0,%lu]", width, v13, *(v12 + 12) - 1);
       __break(1u);
 LABEL_19:
       [OS_axr_data debugDescription];
     }
   }
 
-  height = v10[2].size.height;
-  retstr->levelMode = *(v14 + 164);
+  height = v4[2].size.height;
+  retstr->levelMode = *(v8 + 164);
   retstr->levelIndex = height;
-  decoder = axr_data_get_level_size(v12, width, height);
+  decoder = axr_data_get_level_size(v6, width, height);
   retstr->levelSize = decoder;
-  retstr->subregion = v10[3];
+  retstr->subregion = v4[3];
   return decoder;
 }
 
@@ -2030,12 +2042,12 @@ axr_channel_info_t *__cdecl axr_decoder_get_channel_info(axr_channel_info_t *__r
     goto LABEL_18;
   }
 
-  v10 = decoder;
-  v11 = *&decoder->name[56];
-  v12 = *&decoder->name[8];
-  if (v12 <= channelIndex)
+  v5 = decoder;
+  v6 = *&decoder->name[56];
+  v7 = *&decoder->name[8];
+  if (v7 <= channelIndex)
   {
-    LOBYTE(retstr) = channelIndex;
+    retstr = channelIndex;
     if (GetFlagsOnceToken == -1)
     {
       goto LABEL_28;
@@ -2051,9 +2063,9 @@ axr_channel_info_t *__cdecl axr_decoder_get_channel_info(axr_channel_info_t *__r
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v11) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v6) & 2) != 0)
     {
-      AXRLogError("axr_decoder_get_channel_info: version must be set to axr_channel_info_current", channelIndex, *&version, v4, v5, v6, v7, v8, v30);
+      AXRLogError("axr_decoder_get_channel_info: version must be set to axr_channel_info_current", channelIndex);
     }
 
     while (1)
@@ -2062,35 +2074,35 @@ axr_channel_info_t *__cdecl axr_decoder_get_channel_info(axr_channel_info_t *__r
 LABEL_35:
       [OS_axr_data debugDescription];
 LABEL_28:
-      if (((kDefaultAXRLogFlags | v11) & 2) != 0)
+      if (((kDefaultAXRLogFlags | v6) & 2) != 0)
       {
-        AXRLogError("axr_decoder_get_channel_info: channelIndex %lu out of bounds [0, %u]", channelIndex, *&version, v4, v5, v6, v7, v8, retstr);
+        AXRLogError("axr_decoder_get_channel_info: channelIndex %lu out of bounds [0, %u]", channelIndex, retstr, *&v5->name[8]);
       }
     }
   }
 
-  v13 = (v12 - 1);
-  v14 = *decoder->name;
-  if (v13 > channelIndex && v14 != 0)
+  v8 = (v7 - 1);
+  v9 = *decoder->name;
+  if (v8 > channelIndex && v9 != 0)
   {
-    v16 = v13 - 1;
+    v11 = v8 - 1;
     do
     {
-      v14 = *(v14 + 1);
-      if (v16 <= channelIndex)
+      v9 = *(v9 + 1);
+      if (v11 <= channelIndex)
       {
         break;
       }
 
-      --v16;
+      --v11;
     }
 
-    while (v14);
+    while (v9);
   }
 
-  if (v14)
+  if (v9)
   {
-    if (*(v14 + 24))
+    if (*(v9 + 24))
     {
       *&retstr->name[224] = 0u;
       *&retstr->name[208] = 0u;
@@ -2109,49 +2121,49 @@ LABEL_28:
       *&retstr->sampleBits = 0u;
       *&retstr->name[240] = 0u;
       *retstr->name = 0u;
-      v17 = *(v14 + 2);
-      *&retstr->sampleType = v17;
-      retstr->sampleBits = axr_type_get_size(v17);
+      v12 = *(v9 + 2);
+      *&retstr->sampleType = v12;
+      retstr->sampleBits = axr_type_get_size(v12);
       *&retstr->xSampling = 0x100000001;
       name = axr_channel_type_get_name(retstr->channelType);
       decoder = strncpy(retstr->name, name, 0x100uLL);
-      v23 = *v10->name;
-      if (v23)
+      v14 = *v5->name;
+      if (v14)
       {
-        v24 = *v10->name;
-        while (*(v14 + 24))
+        v15 = *v5->name;
+        while (*(v9 + 24))
         {
-          v24 = *(v24 + 8);
-          if (!v24)
+          v15 = *(v15 + 8);
+          if (!v15)
           {
             return decoder;
           }
         }
 
-        if (*(v23 + 24))
+        if (*(v14 + 24))
         {
-          v28 = -1;
+          v19 = -1;
         }
 
         else
         {
-          v28 = *v23;
+          v19 = *v14;
         }
 
-        decoder = AXRData::GetChannel((*&v10->ySampling + 16), *&v10->name[16], v28, v11, v19, v20, v21, v22);
-        v29 = *&decoder->name[80];
+        decoder = AXRData::GetChannel((*&v5->ySampling + 16), *&v5->name[16], v19, v6);
+        v20 = *&decoder->name[80];
         retstr->xSampling = *&decoder->name[56];
-        retstr->ySampling = v29;
+        retstr->ySampling = v20;
       }
     }
 
     else
     {
-      v25 = *v14;
-      v26 = *&decoder->ySampling;
-      v27 = *&v10->name[16];
+      v16 = *v9;
+      v17 = *&decoder->ySampling;
+      v18 = *&v5->name[16];
 
-      return axr_data_get_channel_info(retstr, v26, v27, v25, axr_channel_info_current);
+      return axr_data_get_channel_info(retstr, v17, v18, v16, axr_channel_info_current);
     }
   }
 
@@ -2181,29 +2193,28 @@ LABEL_18:
   return decoder;
 }
 
-uint64_t AXRData::GetChannel(AXRData *this, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AXRData::GetChannel(AXRData *this, unint64_t a2, unint64_t a3, axr_flags_t a4)
 {
-  v8 = *(this + 9);
-  if (a2 && v8)
+  v4 = *(this + 9);
+  if (a2 && v4)
   {
-    v9 = 1;
+    v5 = 1;
     do
     {
-      v8 = *(v8 + 1);
-      if (v9 >= a2)
+      v4 = *(v4 + 1);
+      if (v5 >= a2)
       {
         break;
       }
 
-      ++v9;
+      ++v5;
     }
 
-    while (v8);
+    while (v4);
   }
 
-  if (!v8)
+  if (!v4)
   {
-    v11 = a2;
     if (GetFlagsOnceToken != -1)
     {
       goto LABEL_12;
@@ -2211,14 +2222,14 @@ uint64_t AXRData::GetChannel(AXRData *this, unint64_t a2, unint64_t a3, uint64_t
 
     while (1)
     {
-      AXRLogError("Error: image index %lu out of range [0,%lu]", a2, a3, a4, a5, a6, a7, a8, v11);
+      AXRLogError("Error: image index %lu out of range [0,%lu]", a2, a2, *(this + 10) - 1);
       __break(1u);
 LABEL_12:
       [OS_axr_data debugDescription];
     }
   }
 
-  return Part::GetChannel(v8, a3, a4, a4, a5, a6, a7, a8);
+  return Part::GetChannel(v4, a3, a4);
 }
 
 axr_data_t axr_decoder_get_data(axr_data_t data)
@@ -2231,9 +2242,9 @@ axr_data_t axr_decoder_get_data(axr_data_t data)
   return data;
 }
 
-uint64_t ReadChannel::Print(ReadChannel *this, char *a2, size_t a3, int a4, const AXRData *a5, unint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ReadChannel::Print(ReadChannel *this, char *a2, size_t a3, int a4, const AXRData *a5, unint64_t a6)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (*(this + 24))
   {
     axr_channel_type_get_name(*(this + 5));
@@ -2243,8 +2254,6 @@ uint64_t ReadChannel::Print(ReadChannel *this, char *a2, size_t a3, int a4, cons
 
   else
   {
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
@@ -2257,9 +2266,11 @@ uint64_t ReadChannel::Print(ReadChannel *this, char *a2, size_t a3, int a4, cons
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    *__str = 0u;
+    v14 = 0u;
     v15 = 0u;
-    Channel = AXRData::GetChannel(a5, a6, *this, 0, a5, a6, a7, a8);
+    *__str = 0u;
+    v13 = 0u;
+    Channel = AXRData::GetChannel(a5, a6, *this, axr_flags_default);
     ChannelDescription::CopyName(Channel, a5, __str, 0x100uLL);
     axr_channel_type_get_name(*(this + 5));
     axr_type_get_name(*(this + 4));
@@ -2284,7 +2295,7 @@ uint64_t RowCompressor::ReadData(void *a1, uint64_t a2)
   *(a2 + 200) = v5 * v4;
   (*(*a1 + 56))(a1);
   v7 = (*(*a1 + 48))(a1, a2);
-  v8 = ((v7 + 63) & 0xFFFFFFFFFFFFFFC0);
+  v8 = (v7 + 63) & 0xFFFFFFFFFFFFFFC0;
   *(a2 + 144) = v8;
   *(a2 + 160) = -1;
   LODWORD(v9) = *(a2 + 12) >> 3;
@@ -2389,7 +2400,7 @@ uint64_t RowCompressor::ReadData(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t *Deinterleave<unsigned short,1>(uint64_t *result, __n128 **a2, unint64_t a3, uint64_t a4, uint64_t a5, int8x16_t a6)
+uint64_t *Deinterleave<unsigned short,1>(uint64_t *result, int8x16_t **a2, unint64_t a3, uint64_t a4, uint64_t a5, int8x16_t a6)
 {
   v6 = *result;
   if (HIDWORD(a3))
@@ -2426,9 +2437,9 @@ uint64_t *Deinterleave<unsigned short,1>(uint64_t *result, __n128 **a2, unint64_
           v14 = *v11;
           v11 += 8;
           a6.i64[0] = v14;
-          v10->n128_u32[0] = vmovn_s16(a6).u32[0];
+          v10->i32[0] = vmovn_s16(a6).u32[0];
           a6 = vrev16q_s8(a6);
-          *(v10->n128_u32 + v8) = vmovn_s16(a6).u32[0];
+          *(v10->i32 + v8) = vmovn_s16(a6).u32[0];
           v10 = (v10 + 4);
           v12 -= 4;
         }
@@ -2441,8 +2452,8 @@ uint64_t *Deinterleave<unsigned short,1>(uint64_t *result, __n128 **a2, unint64_
         v15 = *v11;
         v16 = *(v11 + 1);
         v11 += 2;
-        v10->n128_u8[0] = v15;
-        v10->n128_u8[v8] = v16;
+        v10->i8[0] = v15;
+        v10->i8[v8] = v16;
         v10 = (v10 + 1);
       }
 
@@ -3111,7 +3122,7 @@ uint64_t *Deinterleave<unsigned int,3>(uint64_t *result, uint64_t *a2, unint64_t
           v22[1] = vuzp1q_s8(v45.val[2], v46.val[2]);
           a7 = vuzp2q_s8(a9, v44.val[2]);
           a8 = vuzp2q_s8(v45.val[2], v46.val[2]);
-          v30 = &v22->i8[v13];
+          v30 = (v22 + v13);
           v17 += 32;
           v19 -= 16;
           *v30 = a7;
@@ -4140,7 +4151,7 @@ LABEL_19:
   return v8;
 }
 
-void EncoderLayer::CreateEncoderLayer(EncoderLayer *this, const char *a2, int a3, int a4, char a5, const axr_channel_type_t *a6, axr_channel_type_t *a7, unint64_t a8, __int128 a9, void (*a10)(unint64_t), unint64_t a11, unint64_t a12, axr_flags_t a13)
+void EncoderLayer::CreateEncoderLayer(EncoderLayer *this, const char *a2, int a3, int a4, char a5, const axr_channel_type_t *a6, axr_channel_type_t *a7, unint64_t a8, __int128 a9, void (*a11)(unint64_t), unint64_t a12, unint64_t a13, axr_flags_t a14)
 {
   if (a8)
   {
@@ -4161,14 +4172,14 @@ void EncoderLayer::CreateEncoderLayer(EncoderLayer *this, const char *a2, int a3
       }
 
       v21 += v24;
-      v22 = (v22 + 1);
+      ++v22;
     }
 
     while (a8 != v22);
     v25 = malloc_type_malloc(v20 + 16 * a8 + v21 + 81, 0x10B0040EC9C193FuLL);
     if (v25)
     {
-      EncoderLayer::EncoderLayer(v25, this, v18, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+      EncoderLayer::EncoderLayer(v25, this, v18, a3, a4, a5, a6, a7, a8, a9, a11, a12);
     }
 
     else
@@ -4178,9 +4189,9 @@ void EncoderLayer::CreateEncoderLayer(EncoderLayer *this, const char *a2, int a3
         Part::GetImageSize();
       }
 
-      if (((kDefaultAXRLogFlags | a12) & 2) != 0)
+      if (((kDefaultAXRLogFlags | a13) & 2) != 0)
       {
-        AXRLogDebug("axr_part_append_layer error: out of memory", v26, v27, v28, v29, v30, v31, v32, v33);
+        AXRLogDebug("axr_part_append_layer error: out of memory", v26, v27, v28, v29, v30, v31, v32);
       }
     }
   }
@@ -4268,154 +4279,154 @@ void EncoderLayer::EncoderLayer(EncoderLayer *this, const char *a2, axr_type_t a
   EncoderLayer::SetColorSpaceModel(this, a11);
 }
 
-void TileDecoder::TileDecoder(TileDecoder *this, axr_decoder *a2, const Part *a3, uint64_t a4, axr_error_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void TileDecoder::TileDecoder(TileDecoder *this, axr_decoder *a2, const Part *a3, axr_flags_t a4, axr_error_t *a5)
 {
   *this = &unk_2A1DE96E8;
   *(this + 1) = a4;
   *(this + 2) = a2;
   *(this + 3) = a3;
-  v11 = *(a2 + 2);
+  v8 = *(a2 + 2);
   *a5 = axr_error_success;
-  v13 = *(v11 + 24);
-  v12 = *(v11 + 32);
-  *(this + 4) = v13;
-  *(this + 5) = v12;
-  ImageSize = Part::GetImageSize(a3, *(a2 + 11), a4, a4, a5, a6, a7, a8);
-  v15 = *(*(this + 3) + 156);
-  *(this + 7) = v15;
+  v10 = *(v8 + 24);
+  v9 = *(v8 + 32);
+  *(this + 4) = v10;
+  *(this + 5) = v9;
+  ImageSize = Part::GetImageSize(a3, *(a2 + 11), a4);
+  v12 = *(*(this + 3) + 156);
+  *(this + 7) = v12;
+  if (v12 <= 1)
+  {
+    v13 = 1;
+  }
+
+  else
+  {
+    v13 = v12;
+  }
+
+  v14 = ImageSize + v13 - 1;
+  v15 = HIDWORD(v12);
+  if (v14 < ImageSize)
+  {
+    v16 = (v14 - 0xFFFFFFFF / v13 * v13) / v13 + 0xFFFFFFFF / v13;
+  }
+
+  else
+  {
+    v16 = v14 / v13;
+  }
+
+  v17 = *(this + 2);
+  v18 = v17[12];
+  v19 = v17[13];
+  v20 = v17[15];
+  v21 = v18 / v13;
+  v22 = (v17[14] + v18 - (v17[14] != 0)) / v13;
+  *(this + 25) = v16;
+  *(this + 26) = v22 - v18 / v13 + 1;
   if (v15 <= 1)
   {
-    v16 = 1;
+    LODWORD(v15) = 1;
   }
 
-  else
+  v23 = v19 / v15;
+  *(this + 28) = v21;
+  *(this + 29) = v19 / v15;
+  v24 = (v20 + v19 - (v20 != 0)) / v15;
+  *(this + 27) = v24 - v19 / v15 + 1;
+  v25 = malloc_type_calloc(v17[8], 0x10uLL, 0x20040A4A59CD2uLL);
+  *(this + 8) = v25;
+  if (v25)
   {
-    v16 = v15;
-  }
-
-  v17 = ImageSize + v16 - 1;
-  v18 = HIDWORD(v15);
-  if (v17 < ImageSize)
-  {
-    v19 = (v17 - 0xFFFFFFFF / v16 * v16) / v16 + 0xFFFFFFFF / v16;
-  }
-
-  else
-  {
-    v19 = v17 / v16;
-  }
-
-  v20 = *(this + 2);
-  v21 = v20[12];
-  v22 = v20[13];
-  v23 = v20[15];
-  v24 = v21 / v16;
-  v25 = (v20[14] + v21 - (v20[14] != 0)) / v16;
-  *(this + 25) = v19;
-  *(this + 26) = v25 - v21 / v16 + 1;
-  if (v18 <= 1)
-  {
-    LODWORD(v18) = 1;
-  }
-
-  v26 = v22 / v18;
-  *(this + 28) = v24;
-  *(this + 29) = v22 / v18;
-  v27 = (v23 + v22 - (v23 != 0)) / v18;
-  *(this + 27) = v27 - v22 / v18 + 1;
-  v28 = malloc_type_calloc(v20[8], 0x10uLL, 0x20040A4A59CD2uLL);
-  *(this + 8) = v28;
-  if (v28)
-  {
-    v54 = v25;
-    v55 = a5;
+    v46 = v22;
+    v47 = a5;
     *(this + 18) = 0;
-    v34 = *(this + 2);
-    v35 = *(v34 + 24);
-    if (v35)
+    v26 = *(this + 2);
+    v27 = *(v26 + 24);
+    if (v27)
     {
-      v36 = 0;
-      v37 = 0x8000000000000000;
-      v38 = 0x7FFFFFFFFFFFFFFFLL;
+      v28 = 0;
+      v29 = 0x8000000000000000;
+      v30 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
-        v39 = (*(*(this + 2) + 32) + ~v36);
-        v28[2 * v39] = v35;
-        if (!*(v35 + 24))
+        v31 = (*(*(this + 2) + 32) + ~v28);
+        v25[2 * v31] = v27;
+        if (!*(v27 + 24))
         {
-          v40 = *v35;
-          if ((v40 & 0x80000000) == 0)
+          v32 = *v27;
+          if ((v32 & 0x80000000) == 0)
           {
-            Channel = Part::GetChannel(*(this + 3), *v35, *(this + 1), v29, v30, v31, v32, v33);
-            v28 = *(this + 8);
-            v28[2 * v39 + 1] = Channel;
-            if (v38 >= v40)
+            Channel = Part::GetChannel(*(this + 3), *v27, *(this + 1));
+            v25 = *(this + 8);
+            v25[2 * v31 + 1] = Channel;
+            if (v30 >= v32)
             {
-              v38 = v40;
+              v30 = v32;
             }
 
-            if (v37 <= v40)
+            if (v29 <= v32)
             {
-              v37 = v40;
+              v29 = v32;
             }
 
-            v36 = *(this + 18);
+            v28 = *(this + 18);
           }
         }
 
-        *(this + 18) = ++v36;
-        v35 = *(v35 + 1);
+        *(this + 18) = ++v28;
+        v27 = *(v27 + 1);
       }
 
-      while (v35);
-      v34 = *(this + 2);
+      while (v27);
+      v26 = *(this + 2);
     }
 
     else
     {
-      v36 = 0;
-      LODWORD(v37) = 0;
-      LODWORD(v38) = -1;
+      v28 = 0;
+      LODWORD(v29) = 0;
+      LODWORD(v30) = -1;
     }
 
-    if (v36 == *(v34 + 32))
+    if (v28 == *(v26 + 32))
     {
-      *(this + 19) = v38;
-      *(this + 20) = v37;
-      v42 = *(this + 14);
-      v43 = *(this + 15);
-      v44 = *(v34 + 44);
-      v45 = *(v34 + 48);
-      v46 = v45 - v42 * v24;
-      v47 = *(a2 + 15);
-      v48 = v42 + v42 * v54 - (v45 + *(a2 + 14));
-      v49 = *(v34 + 52);
-      *(this + 21) = v49 - v43 * v26;
-      *(this + 22) = v46;
-      *(this + 23) = v48;
-      *(this + 24) = v43 + v43 * v27 - (v49 + v47);
-      v50 = *(this + 3);
-      *(this + 6) = *(v50 + 256);
+      *(this + 19) = v30;
+      *(this + 20) = v29;
+      v34 = *(this + 14);
+      v35 = *(this + 15);
+      v36 = *(v26 + 44);
+      v37 = *(v26 + 48);
+      v38 = v37 - v34 * v21;
+      v39 = *(a2 + 15);
+      v40 = v34 + v34 * v46 - (v37 + *(a2 + 14));
+      v41 = *(v26 + 52);
+      *(this + 21) = v41 - v35 * v23;
+      *(this + 22) = v38;
+      *(this + 23) = v40;
+      *(this + 24) = v35 + v35 * v24 - (v41 + v39);
+      v42 = *(this + 3);
+      *(this + 6) = *(v42 + 256);
       *(this + 30) = 0;
-      if (v44)
+      if (v36)
       {
-        v51 = 0;
-        v52 = *(v50 + 280);
+        v43 = 0;
+        v44 = *(v42 + 280);
         do
         {
-          v53 = *v52++;
-          v51 += *v53;
-          --v44;
+          v45 = *v44++;
+          v43 += *v45;
+          --v36;
         }
 
-        while (v44);
-        *(this + 30) = v51;
+        while (v36);
+        *(this + 30) = v43;
       }
     }
 
     else
     {
-      *v55 = axr_error_data_corrupted;
+      *v47 = axr_error_data_corrupted;
     }
   }
 
@@ -4433,7 +4444,7 @@ void TileDecoder::ReadPixelsBlock(TileDecoder *this, unint64_t a2)
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  TileDecoder::GetThreadTileInfo(v3, a2, &v26);
+  TileDecoder::GetThreadTileInfo(&v26, v3, a2);
   if (*(&v26 + 1))
   {
     v4 = v26 == 0;
@@ -4527,149 +4538,175 @@ LABEL_11:
   }
 }
 
-uint64_t TileDecoder::GetThreadTileInfo@<X0>(TileDecoder *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_296B60660(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
+{
+  if (a2 == 2)
+  {
+    v15 = *__cxa_begin_catch(a1);
+    v16 = *(v14 + 8);
+    if (GetFlagsOnceToken != -1)
+    {
+      AXRLogicalImageList::AXRLogicalImageList();
+    }
+
+    if (((kDefaultAXRLogFlags | v16) & 2) != 0)
+    {
+      axr_error_get_name(v15);
+      AXRLogDebug("Error decoding tile %lu: %s\n", v17, v18, v19, v20, v21, v22, v23);
+    }
+
+    v24 = 0;
+    atomic_compare_exchange_strong((v13 + 8), &v24, v15);
+    __cxa_end_catch();
+    JUMPOUT(0x296B60620);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+char *TileDecoder::GetThreadTileInfo@<X0>(char **__return_ptr a1@<X8>, TileDecoder *this@<X0>, unint64_t a3@<X1>)
 {
   v6 = *(this + 25);
   v7 = *(this + 26);
-  v8 = a2 / v7;
-  v9 = a2 / v7 * v7;
-  v10 = a2 % v7;
-  v11 = a2 % v7 + *(this + 28);
-  v12 = a2 / v7 + *(this + 29);
-  v42 = 0;
-  v39 = v11 + v12 * v6;
-  Chunk = Part::GetChunk(*(this + 3), *(this + 4), *(this + 5), *(*(this + 2) + 44), v39, &v42);
-  if (v7 <= a2)
-  {
-    v41 = 0;
-  }
-
-  else
-  {
-    v41 = *(this + 21);
-  }
-
-  if (v8 + 1 == *(this + 27))
-  {
-    v18 = *(this + 24);
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  v19 = *(this + 18);
-  v40 = v18;
-  v20 = 0;
-  if (v19)
-  {
-    v21 = (*(this + 15) + *(this + 15) * v12 + ~v18);
-    v22 = (*(this + 8) + 8);
-    do
-    {
-      v23 = *v22;
-      if (*v22)
-      {
-        v24 = *(*(v23 + 40) + 8 * *(*(this + 2) + 44));
-        if (*(v24 + 12) - 1 >= v21)
-        {
-          v25 = v21;
-        }
-
-        else
-        {
-          v25 = *(v24 + 12) - 1;
-        }
-
-        v26 = v24 + 8 * v10;
-        if (*(v23 + 104) == 1)
-        {
-          v27 = (*(v26 + 24) + 8 * v25);
-        }
-
-        else
-        {
-          v28 = (v25 * *(v23 + 108)) >> *(v23 + 112);
-          v29 = *(v24 + 20) - 1;
-          if (v28 >= v29)
-          {
-            LODWORD(v28) = v29;
-          }
-
-          v27 = (*(v26 + 24) + 8 * v28);
-        }
-
-        v30 = (v27[1] + *v27);
-        if (v20 <= v30)
-        {
-          v20 = v30;
-        }
-      }
-
-      v22 += 2;
-      --v19;
-    }
-
-    while (v19);
-  }
-
-  result = Part::GetImageSize(*(this + 3), *(*(this + 2) + 44), *(this + 1), v13, v14, v15, v16, v17);
-  v32 = v42;
-  *a3 = Chunk;
-  *(a3 + 8) = v32;
-  *(a3 + 16) = v20;
-  *(a3 + 24) = __PAIR64__(v12, v11);
-  *(a3 + 32) = v39;
-  if (a2 == v9)
-  {
-    v33 = 0;
-  }
-
-  else
-  {
-    v33 = *(this + 14) * v10 - *(this + 22);
-  }
-
-  *(a3 + 36) = v33;
-  if (v7 <= a2)
-  {
-    v34 = *(this + 15) * v8 - *(this + 21);
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
-  *(a3 + 40) = v34;
-  if (a2 == v9)
-  {
-    v35 = *(this + 22);
-  }
-
-  else
-  {
-    v35 = 0;
-  }
-
-  *(a3 + 44) = v35;
-  if (v10 + 1 == *(this + 26))
-  {
-    v36 = *(this + 23);
-  }
-
-  else
+  v8 = a3 / v7;
+  v9 = a3 / v7 * v7;
+  v10 = a3 % v7;
+  v11 = a3 % v7 + *(this + 28);
+  v12 = a3 / v7 + *(this + 29);
+  v37 = 0;
+  v34 = v11 + v12 * v6;
+  Chunk = Part::GetChunk(*(this + 3), *(this + 4), *(this + 5), *(*(this + 2) + 44), v34, &v37);
+  if (v7 <= a3)
   {
     v36 = 0;
   }
 
-  *(a3 + 48) = v36;
-  *(a3 + 52) = v41;
-  v37 = *(*(this + 2) + 44);
-  *(a3 + 56) = v40;
-  *(a3 + 60) = v37;
-  *(a3 + 64) = result;
+  else
+  {
+    v36 = *(this + 21);
+  }
+
+  if (v8 + 1 == *(this + 27))
+  {
+    v13 = *(this + 24);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = *(this + 18);
+  v35 = v13;
+  v15 = 0;
+  if (v14)
+  {
+    v16 = (*(this + 15) + *(this + 15) * v12 + ~v13);
+    v17 = (*(this + 8) + 8);
+    do
+    {
+      v18 = *v17;
+      if (*v17)
+      {
+        v19 = *(*(v18 + 40) + 8 * *(*(this + 2) + 44));
+        if (*(v19 + 12) - 1 >= v16)
+        {
+          v20 = v16;
+        }
+
+        else
+        {
+          v20 = *(v19 + 12) - 1;
+        }
+
+        v21 = v19 + 8 * v10;
+        if (*(v18 + 104) == 1)
+        {
+          v22 = (*(v21 + 24) + 8 * v20);
+        }
+
+        else
+        {
+          v23 = (v20 * *(v18 + 108)) >> *(v18 + 112);
+          v24 = *(v19 + 20) - 1;
+          if (v23 >= v24)
+          {
+            LODWORD(v23) = v24;
+          }
+
+          v22 = (*(v21 + 24) + 8 * v23);
+        }
+
+        v25 = (v22[1] + *v22);
+        if (v15 <= v25)
+        {
+          v15 = v25;
+        }
+      }
+
+      v17 += 2;
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  result = Part::GetImageSize(*(this + 3), *(*(this + 2) + 44), *(this + 1));
+  v27 = v37;
+  *a1 = Chunk;
+  a1[1] = v27;
+  a1[2] = v15;
+  a1[3] = __PAIR64__(v12, v11);
+  *(a1 + 8) = v34;
+  if (a3 == v9)
+  {
+    v28 = 0;
+  }
+
+  else
+  {
+    v28 = *(this + 14) * v10 - *(this + 22);
+  }
+
+  *(a1 + 9) = v28;
+  if (v7 <= a3)
+  {
+    v29 = *(this + 15) * v8 - *(this + 21);
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  *(a1 + 10) = v29;
+  if (a3 == v9)
+  {
+    v30 = *(this + 22);
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  *(a1 + 11) = v30;
+  if (v10 + 1 == *(this + 26))
+  {
+    v31 = *(this + 23);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  *(a1 + 12) = v31;
+  *(a1 + 13) = v36;
+  v32 = *(*(this + 2) + 44);
+  *(a1 + 14) = v35;
+  *(a1 + 15) = v32;
+  a1[8] = result;
   return result;
 }
 
@@ -4897,7 +4934,7 @@ void TileDecoder::ReadPixelsBlockGrayToRGBA(TileDecoder *this, unint64_t a2)
   v28 = 0u;
   v29 = 0u;
   memset(v27, 0, sizeof(v27));
-  TileDecoder::GetThreadTileInfo(v3, a2, v27);
+  TileDecoder::GetThreadTileInfo(v27, v3, a2);
   if (*(&v27[0] + 1))
   {
     v4 = *&v27[0] == 0;
@@ -4982,6 +5019,32 @@ void TileDecoder::ReadPixelsBlockGrayToRGBA(TileDecoder *this, unint64_t a2)
       }
     }
   }
+}
+
+void sub_296B60FD4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
+{
+  if (a2 == 2)
+  {
+    v15 = *__cxa_begin_catch(a1);
+    v16 = *(v14 + 8);
+    if (GetFlagsOnceToken != -1)
+    {
+      AXRLogicalImageList::AXRLogicalImageList();
+    }
+
+    if (((kDefaultAXRLogFlags | v16) & 2) != 0)
+    {
+      axr_error_get_name(v15);
+      AXRLogDebug("Error decoding tile %lu: %s\n", v17, v18, v19, v20, v21, v22, v23);
+    }
+
+    v24 = 0;
+    atomic_compare_exchange_strong((v13 + 8), &v24, v15);
+    __cxa_end_catch();
+    JUMPOUT(0x296B60FB0);
+  }
+
+  __clang_call_terminate(a1);
 }
 
 uint64_t convertYtoYYYA<unsigned short>(uint64_t a1, uint64_t a2, int32x2_t *a3, uint64_t a4, int32x2_t *a5, double a6)
@@ -5439,128 +5502,128 @@ uint64_t convertYAtoYYYA<unsigned int>(uint64_t a1, uint64_t a2, int32x2_t *a3, 
   return result;
 }
 
-unint64_t TileDecoder::ReadPixels(TileDecoder *this, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5)
+unint64_t TileDecoder::ReadPixels(TileDecoder *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v12 = (*(*this + 32))(this, *(this + 6));
-  v11[1] = 0;
-  result = TileDecoder::MakeReadPixelsArgs(this, a4, a5, &v12, 0, v11, v8, v9, 0.0);
+  v10 = (*(*this + 32))(this, *(this + 6), a3);
+  v9[1] = 0;
+  result = TileDecoder::MakeReadPixelsArgs(this, a4, a5, &v10, 0, v9, 0.0);
   if (!result)
   {
-    return LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadPixelsBlock, v11, (*(this + 26) * *(this + 27)), *(this + 1));
+    return LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadPixelsBlock, v9, (*(this + 26) * *(this + 27)), *(this + 1));
   }
 
   return result;
 }
 
-uint64_t TileDecoder::MakeReadPixelsArgs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+uint64_t TileDecoder::MakeReadPixelsArgs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, double a7)
 {
-  v9 = *(a1 + 72);
-  if (!v9)
+  v7 = *(a1 + 72);
+  if (!v7)
   {
 LABEL_5:
-    v13 = *(a1 + 8);
+    v11 = *(a1 + 8);
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v13) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v11) & 2) != 0)
     {
-      AXRLogError("All channels are constant. In this case, AppleEXR doesn't have a sample type to use to create the pixel.", a2, a3, a4, a5, a6, a7, a8, v26);
+      AXRLogError("All channels are constant. In this case, AppleEXR doesn't have a sample type to use to create the pixel.", a2);
     }
 
     return -1;
   }
 
-  v10 = *(a1 + 64);
-  v11 = v10 + 8;
-  v12 = *(a1 + 72);
-  while (!*v11)
+  v8 = *(a1 + 64);
+  v9 = v8 + 8;
+  v10 = *(a1 + 72);
+  while (!*v9)
   {
-    v11 += 16;
-    if (!--v12)
+    v9 += 16;
+    if (!--v10)
     {
       goto LABEL_5;
     }
   }
 
-  v15 = 0;
-  v16 = 0;
-  v17 = *(*v11 + 72);
-  v19 = *(v10 + 8);
-  v18 = (v10 + 8);
-  v20 = v19 == 0;
+  v13 = 0;
+  v14 = 0;
+  v15 = *(*v9 + 72);
+  v17 = *(v8 + 8);
+  v16 = (v8 + 8);
+  v18 = v17 == 0;
   do
   {
-    v21 = *v18;
-    if (!*v18)
+    v19 = *v16;
+    if (!*v16)
     {
       goto LABEL_32;
     }
 
-    if (v21[18] != v17)
+    if (v19[18] != v15)
     {
-      TileDecoder::MakeReadPixelsArgs(a1, &v27, a3, a4, a5, a6, a7, a8);
-      return v27;
+      TileDecoder::MakeReadPixelsArgs(a1, &v24);
+      return v24;
     }
 
-    v22 = v21[20];
-    if (v15)
+    v20 = v19[20];
+    if (v13)
     {
       if (a5)
       {
-        if (v15 >= v22)
+        if (v13 >= v20)
         {
-          v15 = v22;
+          v13 = v20;
         }
 
         else
         {
-          v15 = v15;
+          v13 = v13;
         }
 
-        v23 = v21[26];
-        if (!v16)
+        v21 = v19[26];
+        if (!v14)
         {
 LABEL_29:
-          v20 = 0;
-          v16 = v23;
+          v18 = 0;
+          v14 = v21;
           goto LABEL_32;
         }
 
-        v22 = v15;
+        v20 = v13;
 LABEL_22:
-        v20 = 0;
-        if (v16 >= v23)
+        v18 = 0;
+        if (v14 >= v21)
         {
-          v16 = v23;
+          v14 = v21;
         }
 
         goto LABEL_31;
       }
 
-      if (v22 != v15)
+      if (v20 != v13)
       {
-        TileDecoder::MakeReadPixelsArgs(a1, &v27, a3, a4, a5, a6, a7, a8);
-        return v27;
+        TileDecoder::MakeReadPixelsArgs(a1, &v24);
+        return v24;
       }
 
-      v23 = v21[26];
-      if (!v16)
+      v21 = v19[26];
+      if (!v14)
       {
         goto LABEL_29;
       }
 
-      v22 = v15;
+      v20 = v13;
     }
 
     else
     {
-      v23 = v21[26];
-      if (!v16)
+      v21 = v19[26];
+      if (!v14)
       {
-        v20 = 0;
-        v16 = v23;
+        v18 = 0;
+        v14 = v21;
         goto LABEL_31;
       }
 
@@ -5570,52 +5633,52 @@ LABEL_22:
       }
     }
 
-    if (v23 != v16)
+    if (v21 != v14)
     {
-      TileDecoder::MakeReadPixelsArgs(a1, &v27, a3, a4, a5, a6, a7, a8);
-      return v27;
+      TileDecoder::MakeReadPixelsArgs(a1, &v24);
+      return v24;
     }
 
-    v20 = 0;
+    v18 = 0;
 LABEL_31:
-    v15 = v22;
+    v13 = v20;
 LABEL_32:
-    v18 += 2;
-    --v9;
+    v16 += 2;
+    --v7;
   }
 
-  while (v9);
+  while (v7);
   if (*(*(a1 + 24) + 72) == 1 && (*(a1 + 8) & 8) == 0)
   {
     a2 += (*(*(a1 + 16) + 60) - 1) * a3;
     a3 = -a3;
   }
 
-  v14 = 0;
+  v12 = 0;
   *a6 = a1;
   atomic_store(0, (a6 + 8));
   *(a6 + 16) = a2;
   *(a6 + 24) = a3;
   *(a6 + 32) = a4;
-  *(a6 + 40) = a9;
-  if (v17 == 1)
+  *(a6 + 40) = a7;
+  if (v15 == 1)
   {
-    v24 = 2;
+    v22 = 2;
   }
 
   else
   {
-    v24 = 4;
+    v22 = 4;
   }
 
-  *(a6 + 48) = v24;
-  *(a6 + 52) = v15;
-  *(a6 + 56) = v16;
-  *(a6 + 60) = v20;
-  return v14;
+  *(a6 + 48) = v22;
+  *(a6 + 52) = v13;
+  *(a6 + 56) = v14;
+  *(a6 + 60) = v18;
+  return v12;
 }
 
-unint64_t LaunchBlocks<ReadPixelsArgs>(void (__cdecl *a1)(void *, size_t), unint64_t *a2, unint64_t a3, char a4)
+unint64_t LaunchBlocks<ReadPixelsArgs>(void (__cdecl *a1)(void *, size_t), unint64_t *a2, size_t a3, char a4)
 {
   if ((a4 & 4) != 0)
   {
@@ -5656,7 +5719,7 @@ unint64_t LaunchBlocks<ReadPixelsArgs>(void (__cdecl *a1)(void *, size_t), unint
   v16 = v14 + v15 - 1;
   if (v16 < v14)
   {
-    (LaunchBlocks<ReadPixelsArgs>)();
+    LaunchBlocks<ReadPixelsArgs>(v15, v14 + v15, context);
     v17 = context[0];
   }
 
@@ -5711,8 +5774,8 @@ LABEL_43:
     v26 = v18 + a3 - 1;
     if (v26 < a3)
     {
-      LaunchBlocks<ReadPixelsArgs>(v18);
-      v27 = context[4];
+      LaunchBlocks<ReadPixelsArgs>(v18, v18 + a3, &v38);
+      v27 = v38;
     }
 
     else
@@ -5775,12 +5838,12 @@ LABEL_43:
 
 unint64_t TileDecoder::ReadGrayscaleRGBAPixels(TileDecoder *this, double a2, uint64_t a3, uint64_t a4)
 {
-  v12 = (*(*this + 32))(this, *(this + 6));
-  v11[1] = 0;
-  result = TileDecoder::MakeReadPixelsArgs(this, a3, a4, &v12, 0, v11, v8, v9, a2);
+  v10 = (*(*this + 32))(this, *(this + 6));
+  v9[1] = 0;
+  result = TileDecoder::MakeReadPixelsArgs(this, a3, a4, &v10, 0, v9, a2);
   if (!result)
   {
-    return LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadPixelsBlockGrayToRGBA, v11, (*(this + 26) * *(this + 27)), *(this + 1));
+    return LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadPixelsBlockGrayToRGBA, v9, (*(this + 26) * *(this + 27)), *(this + 1));
   }
 
   return result;
@@ -5795,21 +5858,21 @@ void TileDecoder::ReadYccBlock(TileDecoder *this, unint64_t a2)
 
   v3 = *this;
   v4 = *(*this + 8);
-  v79 = 0;
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
+  v78 = 0;
   v76 = 0u;
-  TileDecoder::GetThreadTileInfo(v3, a2, &v75);
-  if (!*(&v75 + 1) || !v75 || (v78 + HIDWORD(v77)) >= *(v3 + 56))
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  TileDecoder::GetThreadTileInfo(&v74, v3, a2);
+  if (!*(&v74 + 1) || !v74 || (v77 + HIDWORD(v76)) >= *(v3 + 56))
   {
     return;
   }
 
-  v13 = DWORD2(v78) + DWORD1(v78);
+  v13 = DWORD2(v77) + DWORD1(v77);
   v14 = *(v3 + 60);
-  v15 = DWORD2(v78) + DWORD1(v78) >= v14 ? 0 : DWORD1(v77);
-  v16 = v13 >= v14 ? 0 : DWORD2(v77);
+  v15 = DWORD2(v77) + DWORD1(v77) >= v14 ? 0 : DWORD1(v76);
+  v16 = v13 >= v14 ? 0 : DWORD2(v76);
   if (v13 >= v14)
   {
     return;
@@ -5830,7 +5893,7 @@ void TileDecoder::ReadYccBlock(TileDecoder *this, unint64_t a2)
       }
     }
 
-    v12.n128_u64[0] = vmin_u32(vmls_s32(*(*(*(*(*(v17 + 8) + v20) + 40) + 8 * HIDWORD(v78)) + 16), *(*(*(v17 + 8) + v20) + 48), *(&v76 + 8)), *(*(*(v17 + 8) + v20) + 48));
+    v12.n128_u64[0] = vmin_u32(vmls_s32(*(*(*(*(*(v17 + 8) + v20) + 40) + 8 * HIDWORD(v77)) + 16), *(*(*(v17 + 8) + v20) + 48), *(&v75 + 8)), *(*(*(v17 + 8) + v20) + 48));
   }
 
   else
@@ -5850,7 +5913,7 @@ LABEL_43:
 
     if (((kDefaultAXRLogFlags | v4) & 2) != 0)
     {
-      AXRLogDebug("Error: chroma x sampling rate must be 1 or 2", v5, v6, v7, v8, v9, v10, v11, v59);
+      AXRLogDebug("Error: chroma x sampling rate must be 1 or 2", v5, v6, v7, v8, v9, v10, v11);
     }
 
     return;
@@ -5896,26 +5959,26 @@ LABEL_23:
     goto LABEL_43;
   }
 
-  v65 = v12;
-  v64 = *(this + 12);
-  v60 = *(this + 27);
-  v61 = *(this + 26);
-  AXRBufferPool::allocate(this + 26, v74);
-  AXRBufferPool::allocate(this + 27, v73);
-  v70[0] = 0;
-  v70[1] = 0;
-  v72 = 0;
+  v64 = v12;
+  v63 = *(this + 12);
+  v59 = *(this + 27);
+  v60 = *(this + 26);
+  AXRBufferPool::allocate(this + 26, v73);
+  AXRBufferPool::allocate(this + 27, v72);
+  v69[0] = 0;
+  v69[1] = 0;
   v71 = 0;
-  TileDecoder::GetChannelTileInfo(v18, &v75, v22, v23, v70);
+  v70 = 0;
+  TileDecoder::GetChannelTileInfo(v18, &v74, v22, v23, v69);
   v26 = 0;
   v27 = 0;
   v28 = v17[14];
-  if (v78 + HIDWORD(v77) < v28)
+  if (v77 + HIDWORD(v76) < v28)
   {
     v29 = v17[15];
-    if (DWORD2(v78) + DWORD1(v78) < v29)
+    if (DWORD2(v77) + DWORD1(v77) < v29)
     {
-      v26 = ~v78 - HIDWORD(v77) + v28 + 1;
+      v26 = ~v77 - HIDWORD(v76) + v28 + 1;
     }
 
     else
@@ -5923,9 +5986,9 @@ LABEL_23:
       v26 = 0;
     }
 
-    if (DWORD2(v78) + DWORD1(v78) < v29)
+    if (DWORD2(v77) + DWORD1(v77) < v29)
     {
-      v27 = ~DWORD2(v78) - DWORD1(v78) + v29 + 1;
+      v27 = ~DWORD2(v77) - DWORD1(v77) + v29 + 1;
     }
 
     else
@@ -5935,26 +5998,26 @@ LABEL_23:
   }
 
   v30 = v17[18] * v26;
-  v31 = v65;
+  v31 = v64;
   if ((v30 & 0xFFFFFFFF00000000) != 0 || (v32 = *(this + 12), v33 = v32 * v30, (v33 & 0xFFFFFFFF00000000) != 0))
   {
     exception = __cxa_allocate_exception(8uLL);
     *exception = -6;
   }
 
-  v62 = v27;
-  v63 = v26;
-  v34 = HIDWORD(v71) * v18[18];
+  v61 = v27;
+  v62 = v26;
+  v34 = HIDWORD(v70) * v18[18];
   if ((v34 & 0xFFFFFFFF00000000) != 0 || (v35 = v34 * v32, (v35 & 0xFFFFFFFF00000000) != 0))
   {
     v57 = __cxa_allocate_exception(8uLL);
     *v57 = -6;
   }
 
-  v66 = v33;
-  if ((*(*v17 + 64))(v17, &v75, v31))
+  v65 = v33;
+  if ((*(*v17 + 64))(v17, &v74, v31))
   {
-    CompressedDataPtr = AXRChunkHeader::GetCompressedDataPtr(v75, *(*(v17 + 3) + 208), *(&v75 + 1));
+    CompressedDataPtr = AXRChunkHeader::GetCompressedDataPtr(v74, *(*(v17 + 3) + 208), *(&v74 + 1));
     if (!CompressedDataPtr)
     {
       v58 = __cxa_allocate_exception(8uLL);
@@ -5963,71 +6026,71 @@ LABEL_23:
 
     if (*(v3 + 72) == 1)
     {
-      TileDecoder::ExtractPlane_Uncompressed(v17, CompressedDataPtr, *(&v75 + 1), *(v3 + 64), &v75, v74[0], v44, v66);
+      TileDecoder::ExtractPlane_Uncompressed(v17, CompressedDataPtr, *(&v74 + 1), *(v3 + 64), &v74, v73[0], v44, v65);
     }
 
     else
     {
-      TileDecoder::Interleave_Uncompressed(v17, CompressedDataPtr, *(&v75 + 1), &v75, 1u, 1u, v74[0], v45, v66);
+      TileDecoder::Interleave_Uncompressed(v17, CompressedDataPtr, *(&v74 + 1), &v74, 1u, 1u, v73[0], v45, v65);
     }
 
-    TileDecoder::Interleave_Uncompressed(v18, CompressedDataPtr, *(&v75 + 1), &v75, v22, v23, v73[0], v47, v35);
+    TileDecoder::Interleave_Uncompressed(v18, CompressedDataPtr, *(&v74 + 1), &v74, v22, v23, v72[0], v47, v35);
   }
 
   else
   {
-    v69 = **(this + 4);
+    v68 = **(this + 4);
     if (*(this + 60) == 1)
     {
+      v66 = 0;
       v67 = 0;
-      v68 = 0;
     }
 
     else
     {
-      (*(**this + 24))(&v67);
-    }
-
-    if (v74[0])
-    {
-      if (v17[18] == 1)
-      {
-        (*(*v17 + 48))(v17, v67, v69, *(v17 + 8), &v75, v74[0], v61, v33);
-      }
-
-      else
-      {
-        (*(*v17 + 40))(v17, v67, v69, &v75, 1, 1);
-      }
+      (*(**this + 24))(&v66);
     }
 
     if (v73[0])
     {
-      if (v18[18] == 1)
+      if (v17[18] == 1)
       {
-        (*(*v18 + 48))(v18, v67, v69, *(v18 + 8), &v75, v73[0], v60, v35);
+        (*(*v17 + 48))(v17, v66, v68, *(v17 + 8), &v74, v73[0], v60, v33);
       }
 
       else
       {
-        (*(*v18 + 40))(v18, v67, v69, &v75, v22, v23);
+        (*(*v17 + 40))(v17, v66, v68, &v74, 1, 1);
       }
     }
 
-    v48 = v67;
-    v67 = 0;
-    if (v48 && v68)
+    if (v72[0])
+    {
+      if (v18[18] == 1)
+      {
+        (*(*v18 + 48))(v18, v66, v68, *(v18 + 8), &v74, v72[0], v59, v35);
+      }
+
+      else
+      {
+        (*(*v18 + 40))(v18, v66, v68, &v74, v22, v23);
+      }
+    }
+
+    v48 = v66;
+    v66 = 0;
+    if (v48 && v67)
     {
       free(v48);
     }
   }
 
-  if (v74[0])
+  if (v73[0])
   {
-    if (v73[0])
+    if (v72[0])
     {
       v49 = *(this + 3);
-      v50 = (v64 * v15 * *(v3 + 72));
+      v50 = (v63 * v15 * *(v3 + 72));
       v51 = *(this + 2) + v49 * v16;
       v52 = *(this + 12);
       v36.i64[0] = *(this + 13);
@@ -6038,23 +6101,23 @@ LABEL_23:
         {
           if (v22 == 1)
           {
-            YCCAtoRGBA<half,1u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41, v62, v23);
+            YCCAtoRGBA<half,1u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41, v61, v23);
           }
 
           else
           {
-            YCCAtoRGBA<half,2u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, *v36.i64, v37, *v38.i64, *v39.i64, *v40.i64, v41, v62, v23);
+            YCCAtoRGBA<half,2u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, *v36.i64, v37, *v38.i64, *v39.i64, *v40.i64, v41, v61, v23);
           }
         }
 
         else if (v22 == 1)
         {
-          YCCAtoRGBA<float,1u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i64, v43, v62, v23);
+          YCCAtoRGBA<float,1u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i64, v43, v61, v23);
         }
 
         else
         {
-          YCCAtoRGBA<float,2u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i64, v43, v62, v23);
+          YCCAtoRGBA<float,2u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, *v36.i64, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i64, v43, v61, v23);
         }
       }
 
@@ -6062,23 +6125,23 @@ LABEL_23:
       {
         if (v22 == 1)
         {
-          YCCtoRGBA<half,1u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, v36, v37, *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i8, v62, v23);
+          YCCtoRGBA<half,1u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, v36, v37, *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], *v42.i8, v61, v23);
         }
 
         else
         {
-          YCCtoRGBA<half,2u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, v36, v37, *v38.i64, v39, *v40.i64, v41.n128_f64[0], *v42.i8, v62, v23);
+          YCCtoRGBA<half,2u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, v36, v37, *v38.i64, v39, *v40.i64, v41.n128_f64[0], *v42.i8, v61, v23);
         }
       }
 
       else if (v22 == 1)
       {
-        YCCtoRGBA<float,1u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, v36, v37, v38, v39, v40, v41, v42, *v43.i8, v62, v23);
+        YCCtoRGBA<float,1u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, v36, v37, v38, v39, v40, v41, v42, *v43.i8, v61, v23);
       }
 
       else
       {
-        YCCtoRGBA<float,2u>(v74[0], v66, v73[0], v35, (v51 + v50), v49, v53, v63, v36, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], v42, v62, v23);
+        YCCtoRGBA<float,2u>(v73[0], v65, v72[0], v35, (v51 + v50), v49, v53, v62, v36, v37.n128_f64[0], *v38.i64, *v39.i64, *v40.i64, v41.n128_f64[0], v42, v61, v23);
       }
 
       goto LABEL_80;
@@ -6088,19 +6151,19 @@ LABEL_23:
   else
   {
 LABEL_80:
-    v54 = v73[0];
-    v73[0] = 0;
-    if (v54 && v73[1])
+    v54 = v72[0];
+    v72[0] = 0;
+    if (v54 && v72[1])
     {
       free(v54);
     }
   }
 
-  v55 = v74[0];
-  v74[0] = 0;
+  v55 = v73[0];
+  v73[0] = 0;
   if (v55)
   {
-    if (v74[1])
+    if (v73[1])
     {
       free(v55);
     }
@@ -6131,11 +6194,11 @@ void sub_296B6239C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-void YCCAtoRGBA<half,1u>(const __int16 *a1, uint64_t a2, const __int16 *a3, uint64_t a4, __int16 *a5, uint64_t a6, uint64_t a7, unsigned int a8, double _D0, double a10, double a11, double a12, double a13, __n128 a14, int a15, unsigned int a16)
+void YCCAtoRGBA<half,1u>(int32x4_t *result, uint64_t a2, int32x4_t *a3, uint64_t a4, __int16 *a5, uint64_t a6, uint64_t a7, unsigned int a8, double _D0, double a10, double a11, double a12, double a13, __n128 a14, int a15, unsigned int a16)
 {
   __asm { FCVT            H0, D0 }
 
-  v57 = _H0;
+  v57[0] = _H0;
   if (a15)
   {
     v26 = 0;
@@ -6143,10 +6206,10 @@ void YCCAtoRGBA<half,1u>(const __int16 *a1, uint64_t a2, const __int16 *a3, uint
     do
     {
       v55 = a3;
-      v56 = a1;
+      v56 = result;
       v28 = a5;
       v29 = a3;
-      v30 = a1;
+      v30 = result;
       v31 = a8;
       v54 = a5;
       if (a8 >= 0x10)
@@ -6167,11 +6230,9 @@ void YCCAtoRGBA<half,1u>(const __int16 *a1, uint64_t a2, const __int16 *a3, uint
       {
         do
         {
-          v32 = *v30;
-          v30 += 8;
+          v32 = *v30++;
           v33 = v32;
-          v34 = *v29;
-          v29 += 8;
+          v34 = *v29++;
           v35 = vcvtq_f32_f16(vmovn_s32(v33));
           v36 = vcvtq_f32_f16(vmovn_s32(v34));
           v37 = vmlaq_f32(v35, vcvtq_f32_f16(*&vuzp2q_s16(v34, v33)), v35);
@@ -6222,7 +6283,7 @@ void YCCAtoRGBA<half,1u>(const __int16 *a1, uint64_t a2, const __int16 *a3, uint
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
+      result = (result + a2);
       if (v27 + 1 < a16)
       {
         ++v27;
@@ -6241,11 +6302,11 @@ void YCCAtoRGBA<half,1u>(const __int16 *a1, uint64_t a2, const __int16 *a3, uint
   }
 }
 
-void YCCAtoRGBA<half,2u>(const __int16 *a1, uint64_t a2, int32x4_t *a3, uint64_t a4, __int16 *a5, uint64_t a6, uint64_t a7, unsigned int a8, double _D0, int32x4_t a10, double a11, double a12, double a13, __n128 a14, int a15, unsigned int a16)
+void YCCAtoRGBA<half,2u>(int32x4_t *result, uint64_t a2, int32x4_t *a3, uint64_t a4, __int16 *a5, uint64_t a6, uint64_t a7, unsigned int a8, double _D0, int32x4_t a10, double a11, double a12, double a13, __n128 a14, int a15, unsigned int a16)
 {
   __asm { FCVT            H0, D0 }
 
-  v62 = _H0;
+  v62[0] = _H0;
   if (a15)
   {
     v26 = 0;
@@ -6253,10 +6314,10 @@ void YCCAtoRGBA<half,2u>(const __int16 *a1, uint64_t a2, int32x4_t *a3, uint64_t
     do
     {
       v60 = a3;
-      v61 = a1;
+      v61 = result;
       v28 = a5;
       v29 = a3;
-      v30 = a1;
+      v30 = result;
       v31 = a8;
       v59 = a5;
       if (a8 >= 0x10)
@@ -6277,8 +6338,7 @@ void YCCAtoRGBA<half,2u>(const __int16 *a1, uint64_t a2, int32x4_t *a3, uint64_t
       {
         do
         {
-          v32 = *v30;
-          v30 += 8;
+          v32 = *v30++;
           v33 = v32;
           v61 = v30;
           v32.i64[0] = v29->i64[0];
@@ -6339,7 +6399,7 @@ void YCCAtoRGBA<half,2u>(const __int16 *a1, uint64_t a2, int32x4_t *a3, uint64_t
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
+      result = (result + a2);
       if (v27 + 1 < a16)
       {
         ++v27;
@@ -6358,10 +6418,10 @@ void YCCAtoRGBA<half,2u>(const __int16 *a1, uint64_t a2, int32x4_t *a3, uint64_t
   }
 }
 
-void YCCAtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, int32x4_t a16, int a17, unsigned int a18)
+void YCCAtoRGBA<float,1u>(int32x4_t *result, uint64_t a2, int32x4_t *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, int32x4_t a16, int a17, unsigned int a18)
 {
   v19 = a9;
-  v64 = v19;
+  v64[0] = v19;
   if (a17)
   {
     v25 = 0;
@@ -6369,10 +6429,10 @@ void YCCAtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
     do
     {
       v62 = a3;
-      v63 = a1;
+      v63 = result;
       v27 = a5;
       v28 = a3;
-      v29 = a1;
+      v29 = result;
       v30 = a8;
       v61 = a5;
       if (a8 >= 0x10)
@@ -6453,7 +6513,7 @@ void YCCAtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
+      result = (result + a2);
       if (v26 + 1 < a18)
       {
         ++v26;
@@ -6461,7 +6521,7 @@ void YCCAtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
 
       else
       {
-        a3 += a4;
+        a3 = (a3 + a4);
         v26 = 0;
       }
 
@@ -6472,10 +6532,10 @@ void YCCAtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 }
 
-void YCCAtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, int32x4_t a16, int a17, unsigned int a18)
+void YCCAtoRGBA<float,2u>(int32x4_t *result, uint64_t a2, int32x4_t *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, int32x4_t a16, int a17, unsigned int a18)
 {
   v19 = a9;
-  v66 = v19;
+  v66[0] = v19;
   if (a17)
   {
     v25 = 0;
@@ -6483,10 +6543,10 @@ void YCCAtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t 
     do
     {
       v64 = a3;
-      v65 = a1;
+      v65 = result;
       v27 = a5;
       v28 = a3;
-      v29 = a1;
+      v29 = result;
       v30 = a8;
       v63 = a5;
       if (a8 >= 0x10)
@@ -6568,7 +6628,7 @@ void YCCAtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t 
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
+      result = (result + a2);
       if (v26 + 1 < a18)
       {
         ++v26;
@@ -6695,7 +6755,7 @@ char *YCCtoRGBA<half,1u>(char *result, uint64_t a2, char *a3, uint64_t a4, char 
   return result;
 }
 
-void YCCtoRGBA<half,2u>(char *a1, uint64_t a2, char *a3, uint64_t a4, char *a5, uint64_t a6, uint64_t a7, unsigned int a8, float32x4_t _Q0, __n128 a10, double a11, int32x4_t a12, double a13, double a14, float32x2_t a15, int a16, unsigned int a17)
+void YCCtoRGBA<half,2u>(char *result, uint64_t a2, char *a3, uint64_t a4, char *a5, uint64_t a6, uint64_t a7, unsigned int a8, float32x4_t _Q0, __n128 a10, double a11, int32x4_t a12, double a13, double a14, float32x2_t a15, int a16, unsigned int a17)
 {
   __asm { FCVT            H0, D0 }
 
@@ -6707,7 +6767,7 @@ void YCCtoRGBA<half,2u>(char *a1, uint64_t a2, char *a3, uint64_t a4, char *a5, 
     do
     {
       v58 = a3;
-      __src = a1;
+      __src = result;
       v29 = a8;
       v57 = a5;
       if (a8 >= 0x10)
@@ -6786,7 +6846,7 @@ void YCCtoRGBA<half,2u>(char *a1, uint64_t a2, char *a3, uint64_t a4, char *a5, 
       }
 
       a5 += a6;
-      a1 += a2;
+      result += a2;
       if (v28 + 1 < a17)
       {
         ++v28;
@@ -6805,25 +6865,25 @@ void YCCtoRGBA<half,2u>(char *a1, uint64_t a2, char *a3, uint64_t a4, char *a5, 
   }
 }
 
-void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, int32x4_t a9, int32x4_t a10, int32x4_t a11, int32x4_t a12, int32x4_t a13, int32x4_t a14, float32x4_t a15, float32x2_t a16, int a17, unsigned int a18)
+void YCCtoRGBA<float,1u>(char *result, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, int32x4_t a9, int32x4_t q1_0, int32x4_t q2_0, int32x4_t a12, int32x4_t a13, int32x4_t a14, float32x4_t a15, float32x2_t a16, int a10, unsigned int a11)
 {
   *a9.i32 = *a9.i64;
   v49[0] = a9.i32[0];
-  if (a17)
+  if (a10)
   {
     v23 = 0;
     v24 = 0;
     do
     {
       v47 = a3;
-      v48 = a1;
+      v48 = result;
       v25 = a8;
       v46 = a5;
       if (a8 >= 0x10)
       {
         do
         {
-          a9 = _YCCtoRGBA<float,1u,16>(&v48, &v47, &v46, a7, v49, *a9.i64, *a10.i64, *a11.i64, *a12.i64, *a13.i64, *a14.i64, *a15.i64, a16);
+          a9 = _YCCtoRGBA<float,1u,16>(&v48, &v47, &v46, a7, v49, *a9.i64, *q1_0.i64, *q2_0.i64, *a12.i64, *a13.i64, *a14.i64, *a15.i64, a16);
           v25 -= 16;
         }
 
@@ -6836,7 +6896,7 @@ void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t
         v27 = v47;
         v28 = v48;
         a9.i32[0] = v49[0];
-        a10 = vdupq_lane_s32(*a9.i8, 0);
+        q1_0 = vdupq_lane_s32(*a9.i8, 0);
         do
         {
           v29 = *v28++;
@@ -6846,15 +6906,15 @@ void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t
           a15 = vmlaq_f32(v29, v51.val[0], v29);
           v51.val[0].i32[0] = *(a7 + 8);
           v51.val[1].i32[0] = *a7;
-          a11 = vmulq_n_f32(vmlsq_lane_f32(vmlsq_lane_f32(v29, v30, *v51.val[1].f32, 0), a15, *v51.val[0].f32, 0), COERCE_FLOAT(*(a7 + 4)));
+          q2_0 = vmulq_n_f32(vmlsq_lane_f32(vmlsq_lane_f32(v29, v30, *v51.val[1].f32, 0), a15, *v51.val[0].f32, 0), COERCE_FLOAT(*(a7 + 4)));
           v51.val[0] = vzip1q_s32(v30, a15);
-          a14 = vzip1q_s32(a11, a9);
+          a14 = vzip1q_s32(q2_0, a9);
           a14.i32[3] = a9.i32[0];
           v31 = v26 + 16;
           vst2q_f32(v26, *(&a14 - 1));
           v32 = v26 + 8;
           a12 = vzip2q_s32(v30, a15);
-          a13 = vzip2q_s32(a11, a10);
+          a13 = vzip2q_s32(q2_0, q1_0);
           vst2q_f32(v32, *a12.i8);
           v26 = v31;
           v25 -= 4;
@@ -6873,7 +6933,7 @@ void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t
         memcpy(&__dst, v48, 4 * v25);
         memcpy(v44, v47, 8 * v25);
         v33 = v44;
-        v50 = vld2q_f32(v33);
+        v50 = vld2q_f32(v33->f32);
         v34 = vmlaq_f32(__dst, v50.val[1], __dst);
         v35 = vmlaq_f32(__dst, v50.val[0], __dst);
         v50.val[0].i32[0] = *(a7 + 8);
@@ -6895,8 +6955,8 @@ void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
-      if (v24 + 1 < a18)
+      result += a2;
+      if (v24 + 1 < a11)
       {
         ++v24;
       }
@@ -6910,14 +6970,14 @@ void YCCtoRGBA<float,1u>(float32x4_t *a1, uint64_t a2, const float *a3, uint64_t
       ++v23;
     }
 
-    while (v23 != a17);
+    while (v23 != a10);
   }
 }
 
-void YCCtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, int32x4_t a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15, int a16, unsigned int a17)
+void YCCtoRGBA<float,2u>(char *result, uint64_t a2, int32x4_t *a3, uint64_t a4, float *a5, uint64_t a6, uint64_t a7, unsigned int a8, int32x4_t a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15, int a16, unsigned int a17)
 {
-  *&v17 = *a9.i64;
-  v60[0] = v17;
+  v17 = *a9.i64;
+  *v60 = v17;
   if (a16)
   {
     v23 = 0;
@@ -6925,7 +6985,7 @@ void YCCtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t a
     do
     {
       v58 = a3;
-      v59 = a1;
+      v59 = result;
       v25 = a8;
       v57 = a5;
       if (a8 >= 0x10)
@@ -7008,7 +7068,7 @@ void YCCtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t a
       }
 
       a5 = (a5 + a6);
-      a1 = (a1 + a2);
+      result += a2;
       if (v24 + 1 < a17)
       {
         ++v24;
@@ -7027,62 +7087,62 @@ void YCCtoRGBA<float,2u>(float32x4_t *a1, uint64_t a2, int32x4_t *a3, uint64_t a
   }
 }
 
-uint64_t TileDecoder::ReadYccRGBAPixels(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *objecta, axr_decoder *a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, axr_error_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+axr_error_t TileDecoder::ReadYccRGBAPixels(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *objecta, axr_decoder *a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, unint64_t a42, axr_error_t a43, void (**a44)(void), uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   STACK[0x618] = *MEMORY[0x29EDCA608];
-  v73 = axr_decoder_copy(*(a1 + 16));
-  if (!v73)
+  v70 = axr_decoder_copy(*(a1 + 16));
+  if (!v70)
   {
     return -5;
   }
 
-  v74 = v73;
-  v179 = axr_decoder_copy(*(a1 + 16));
-  if (!v179)
+  v71 = v70;
+  v166 = axr_decoder_copy(*(a1 + 16));
+  if (!v166)
   {
-    os_release(v74);
+    os_release(v71);
     return -5;
   }
 
   a43 = axr_error_success;
-  v75 = v74 + 3;
-  isa = v74[3].isa;
+  v72 = v71 + 3;
+  isa = v71[3].isa;
   if (isa)
   {
     if (*(isa + 5) == 9)
     {
-      v77 = 0;
-      v78 = v74[3].isa;
+      v74 = 0;
+      v75 = v71[3].isa;
 LABEL_12:
-      if (v77)
+      if (v74)
       {
-        v80 = (v77 + 8);
+        v77 = (v74 + 8);
       }
 
       else
       {
-        v80 = v74 + 3;
+        v77 = v71 + 3;
       }
 
-      v80->isa = *(v78 + 8);
-      *(v78 + 1) = 0;
-      --LODWORD(v74[4].isa);
-      isa = v74[3].isa;
+      v77->isa = *(v75 + 8);
+      *(v75 + 1) = 0;
+      --LODWORD(v71[4].isa);
+      isa = v71[3].isa;
     }
 
     else
     {
-      v78 = v74[3].isa;
+      v75 = v71[3].isa;
       while (1)
       {
-        v77 = v78;
-        v78 = *(v78 + 1);
-        if (!v78)
+        v74 = v75;
+        v75 = *(v75 + 1);
+        if (!v75)
         {
           break;
         }
 
-        if (*(v78 + 5) == 9)
+        if (*(v75 + 5) == 9)
         {
           goto LABEL_12;
         }
@@ -7093,23 +7153,23 @@ LABEL_12:
     {
       if (*(isa + 5) == 8)
       {
-        v81 = 0;
+        v78 = 0;
 LABEL_21:
-        if (v81)
+        if (v78)
         {
-          v75 = (v81 + 8);
+          v72 = (v78 + 8);
         }
 
-        v75->isa = *(isa + 8);
+        v72->isa = *(isa + 8);
         *(isa + 1) = 0;
-        --LODWORD(v74[4].isa);
+        --LODWORD(v71[4].isa);
       }
 
       else
       {
         while (1)
         {
-          v81 = isa;
+          v78 = isa;
           isa = *(isa + 1);
           if (!isa)
           {
@@ -7127,149 +7187,149 @@ LABEL_21:
 
   else
   {
-    v78 = 0;
+    v75 = 0;
   }
 
-  v82 = (v179 + 24);
-  v83 = *(v179 + 3);
-  object = v74;
-  if (v83)
+  v79 = (v166 + 24);
+  v80 = *(v166 + 3);
+  object = v71;
+  if (v80)
   {
-    if (*(v83 + 20) == 10)
+    if (*(v80 + 20) == 10)
     {
-      v84 = 0;
-      v85 = *(v179 + 3);
+      v81 = 0;
+      v82 = *(v166 + 3);
 LABEL_31:
-      if (v84)
+      if (v81)
       {
-        v86 = (v84 + 8);
+        v83 = (v81 + 8);
       }
 
       else
       {
-        v86 = (v179 + 24);
+        v83 = (v166 + 24);
       }
 
-      *v86 = *(v85 + 8);
-      *(v85 + 8) = 0;
-      --*(v179 + 8);
-      v83 = *(v179 + 3);
+      *v83 = *(v82 + 8);
+      *(v82 + 8) = 0;
+      --*(v166 + 8);
+      v80 = *(v166 + 3);
     }
 
     else
     {
-      v85 = *(v179 + 3);
+      v82 = *(v166 + 3);
       while (1)
       {
-        v84 = v85;
-        v85 = *(v85 + 8);
-        if (!v85)
+        v81 = v82;
+        v82 = *(v82 + 8);
+        if (!v82)
         {
           break;
         }
 
-        if (*(v85 + 20) == 10)
+        if (*(v82 + 20) == 10)
         {
           goto LABEL_31;
         }
       }
     }
 
-    if (v83)
+    if (v80)
     {
-      v87 = *(v83 + 20);
-      if (v87 == 4)
+      v84 = *(v80 + 20);
+      if (v84 == 4)
       {
         goto LABEL_53;
       }
 
-      v88 = v83;
+      v85 = v80;
       while (1)
       {
-        v89 = v88;
-        v88 = *(v88 + 8);
-        if (!v88)
+        v86 = v85;
+        v85 = *(v85 + 8);
+        if (!v85)
         {
           break;
         }
 
-        if (*(v88 + 20) == 4)
+        if (*(v85 + 20) == 4)
         {
           goto LABEL_54;
         }
       }
 
-      if (v87 == 5)
+      if (v84 == 5)
       {
         goto LABEL_53;
       }
 
-      v88 = v83;
+      v85 = v80;
       while (1)
       {
-        v89 = v88;
-        v88 = *(v88 + 8);
-        if (!v88)
+        v86 = v85;
+        v85 = *(v85 + 8);
+        if (!v85)
         {
           break;
         }
 
-        if (*(v88 + 20) == 5)
+        if (*(v85 + 20) == 5)
         {
           goto LABEL_54;
         }
       }
 
-      if (v87 == 6)
+      if (v84 == 6)
       {
         goto LABEL_53;
       }
 
-      v88 = v83;
+      v85 = v80;
       while (1)
       {
-        v89 = v88;
-        v88 = *(v88 + 8);
-        if (!v88)
+        v86 = v85;
+        v85 = *(v85 + 8);
+        if (!v85)
         {
           break;
         }
 
-        if (*(v88 + 20) == 6)
+        if (*(v85 + 20) == 6)
         {
           goto LABEL_54;
         }
       }
 
-      if (v87 == 7)
+      if (v84 == 7)
       {
 LABEL_53:
-        v89 = 0;
-        v88 = v83;
+        v86 = 0;
+        v85 = v80;
 LABEL_54:
-        if (v89)
+        if (v86)
         {
-          v82 = (v89 + 8);
+          v79 = (v86 + 8);
         }
 
-        *v82 = *(v88 + 8);
-        *(v88 + 8) = 0;
-        --*(v179 + 8);
+        *v79 = *(v85 + 8);
+        *(v85 + 8) = 0;
+        --*(v166 + 8);
       }
 
       else
       {
-        v88 = v83;
+        v85 = v80;
         while (1)
         {
-          v89 = v88;
-          v88 = *(v88 + 8);
-          if (!v88)
+          v86 = v85;
+          v85 = *(v85 + 8);
+          if (!v85)
           {
             break;
           }
 
-          if (*(v88 + 20) == 7)
+          if (*(v85 + 20) == 7)
           {
             goto LABEL_54;
           }
@@ -7282,366 +7342,366 @@ LABEL_54:
 
   else
   {
-    v85 = 0;
+    v82 = 0;
   }
 
-  v88 = 0;
+  v85 = 0;
 LABEL_57:
-  v90 = *(a1 + 72);
-  if (v90)
+  v87 = *(a1 + 72);
+  if (v87)
   {
-    v91 = 0;
-    v92 = *(a1 + 60);
-    v93 = *(a1 + 24);
-    v94 = *(v93 + 52);
-    LODWORD(v93) = *(v93 + 44);
-    v95 = __OFSUB__(v94, v93);
-    v96 = v94 - v93;
-    if (v96 < 0 != v95)
+    v88 = 0;
+    v89 = *(a1 + 60);
+    v90 = *(a1 + 24);
+    v91 = *(v90 + 52);
+    LODWORD(v90) = *(v90 + 44);
+    v92 = __OFSUB__(v91, v90);
+    v93 = v91 - v90;
+    if (v93 < 0 != v92)
     {
-      v97 = 0;
+      v94 = 0;
     }
 
     else
     {
-      v97 = v96 + 1;
+      v94 = v93 + 1;
     }
 
-    if (v92 >= v97)
+    if (v89 >= v94)
     {
-      v92 = v97;
+      v89 = v94;
     }
 
-    v98 = v92 - 1;
-    v99 = (*(a1 + 64) + 8);
+    v95 = v89 - 1;
+    v96 = (*(a1 + 64) + 8);
     do
     {
-      v100 = *v99;
-      if (*v99)
+      v97 = *v96;
+      if (*v96)
       {
-        v101 = *(*(v100 + 40) + 8 * *(*(a1 + 16) + 44));
-        v102 = *(v101 + 12) - 1;
-        if (v102 >= v98)
+        v98 = *(*(v97 + 40) + 8 * *(*(a1 + 16) + 44));
+        v99 = *(v98 + 12) - 1;
+        if (v99 >= v95)
         {
-          v102 = v98;
+          v99 = v95;
         }
 
-        if (*(v100 + 104) == 1)
+        if (*(v97 + 104) == 1)
         {
-          v103 = (*(v101 + 24) + 8 * v102);
+          v100 = (*(v98 + 24) + 8 * v99);
         }
 
         else
         {
-          v104 = (v102 * *(v100 + 108)) >> *(v100 + 112);
-          if (v104 >= *(v101 + 20) - 1)
+          v101 = (v99 * *(v97 + 108)) >> *(v97 + 112);
+          if (v101 >= *(v98 + 20) - 1)
           {
-            LODWORD(v104) = *(v101 + 20) - 1;
+            LODWORD(v101) = *(v98 + 20) - 1;
           }
 
-          v103 = (*(v101 + 24) + 8 * v104);
+          v100 = (*(v98 + 24) + 8 * v101);
         }
 
-        v105 = (v103[1] + *v103);
-        if (v91 <= v105)
+        v102 = (v100[1] + *v100);
+        if (v88 <= v102)
         {
-          v91 = v105;
+          v88 = v102;
         }
       }
 
-      v99 += 2;
-      --v90;
+      v96 += 2;
+      --v87;
     }
 
-    while (v90);
+    while (v87);
   }
 
   else
   {
-    v91 = 0;
+    v88 = 0;
   }
 
   a41 = a2;
-  a42 = v91;
+  a42 = v88;
   a13 = 0;
   a21 = 0;
   a29 = 0;
   a38 = 0;
   a39 = 0;
   a42 = (*(*a1 + 32))(a1, *(a1 + 48));
-  v107 = *(a1 + 104);
-  v106 = *(a1 + 108);
-  v175 = a4;
+  v104 = *(a1 + 104);
+  v103 = *(a1 + 108);
+  v162 = a4;
   vars0 = a3;
-  PixelsArgs = TileDecoder::MakeReadPixelsArgs(a1, a3, a4, &a42, 1, &a12, v108, v109, a5);
+  PixelsArgs = TileDecoder::MakeReadPixelsArgs(a1, a3, a4, &a42, 1, &a12, a5);
   a43 = PixelsArgs;
   if (PixelsArgs == axr_error_success)
   {
-    v110 = (*(*a1 + 56))(a1);
-    TileDecoder_storage::Init(&a68, v110, object, *(a1 + 24), *(a1 + 8), &a43, v111, v112);
-    vars8 = v113;
-    a36 = v113;
+    v105 = (*(*a1 + 56))(a1);
+    TileDecoder_storage::Init(&a65, v105, object, *(a1 + 24), *(a1 + 8), &a43);
+    vars8 = v106;
+    a36 = v106;
     PixelsArgs = a43;
     if (a43 == axr_error_success)
     {
-      v114 = (*(*a1 + 56))(a1);
-      TileDecoder_storage::Init(&a44, v114, v179, *(a1 + 24), *(a1 + 8), &a43, v115, v116);
-      a37 = v117;
+      v107 = (*(*a1 + 56))(a1);
+      TileDecoder_storage::Init(&a44, v107, v166, *(a1 + 24), *(a1 + 8), &a43);
+      a37 = v108;
       PixelsArgs = a43;
       if (a43 == axr_error_success)
       {
-        v174 = v117;
-        v120 = *(object + 8);
-        if (!v120)
+        v161 = v108;
+        v109 = *(object + 8);
+        if (!v109)
         {
           goto LABEL_139;
         }
 
-        v121 = 0;
-        v122 = 0;
-        v169 = (v107 * v106);
-        v170 = 0;
-        v172 = axr_type_half;
-        v173 = 0x100000001;
-        v123 = 8;
-        v124 = v117;
+        v110 = 0;
+        v111 = 0;
+        v156 = (v104 * v103);
+        v157 = 0;
+        v159 = axr_type_half;
+        v160 = 0x100000001;
+        v112 = 8;
+        v113 = v108;
         do
         {
-          v125 = *(*(vars8 + 64) + v123);
-          if (v125)
+          v114 = *(*(vars8 + 64) + v112);
+          if (v114)
           {
-            v126 = v122;
-            v127 = v125[20];
-            v128 = *(a1 + 56);
-            HIDWORD(v173) = v127;
-            if (v127 <= 1)
+            v115 = v111;
+            v116 = v114[20];
+            v117 = *(a1 + 56);
+            HIDWORD(v160) = v116;
+            if (v116 <= 1)
             {
-              v127 = 1;
+              v116 = 1;
             }
 
-            v129 = __CFADD__(v127 - 1, v128);
-            v130 = v127 - 1 + v128;
-            if (v129)
+            v118 = __CFADD__(v116 - 1, v117);
+            v119 = v116 - 1 + v117;
+            if (v118)
             {
-              v131 = (v130 - 0xFFFFFFFF / v127 * v127) / v127 + 0xFFFFFFFF / v127;
-            }
-
-            else
-            {
-              v131 = v130 / v127;
-            }
-
-            v132 = v125[26];
-            v133 = *(a1 + 60);
-            LODWORD(v173) = v132;
-            if (v132 <= 1)
-            {
-              v132 = 1;
-            }
-
-            v129 = __CFADD__(v132 - 1, v133);
-            v134 = v132 - 1 + v133;
-            if (v129)
-            {
-              v135 = (v134 - 0xFFFFFFFF / v132 * v132) / v132 + 0xFFFFFFFF / v132;
+              v120 = (v119 - 0xFFFFFFFF / v116 * v116) / v116 + 0xFFFFFFFF / v116;
             }
 
             else
             {
-              v135 = v134 / v132;
+              v120 = v119 / v116;
             }
 
-            v172 = v125[18];
-            v122 = v126 + v135 * v131 * axr_type_get_size(v172);
-            v120 = *(object + 8);
-            v124 = v174;
+            v121 = v114[26];
+            v122 = *(a1 + 60);
+            LODWORD(v160) = v121;
+            if (v121 <= 1)
+            {
+              v121 = 1;
+            }
+
+            v118 = __CFADD__(v121 - 1, v122);
+            v123 = v121 - 1 + v122;
+            if (v118)
+            {
+              v124 = (v123 - 0xFFFFFFFF / v121 * v121) / v121 + 0xFFFFFFFF / v121;
+            }
+
+            else
+            {
+              v124 = v123 / v121;
+            }
+
+            v159 = v114[18];
+            v111 = v115 + v124 * v120 * axr_type_get_size(v159);
+            v109 = *(object + 8);
+            v113 = v161;
           }
 
           else
           {
-            ++v170;
+            ++v157;
           }
 
-          ++v121;
-          v123 += 16;
+          ++v110;
+          v112 += 16;
         }
 
-        while (v121 < v120);
-        if (v170)
+        while (v110 < v109);
+        if (v157)
         {
-          v136 = *(a1 + 56);
-          v137 = HIDWORD(v173);
-          if (HIDWORD(v173) <= 1)
+          v125 = *(a1 + 56);
+          v126 = HIDWORD(v160);
+          if (HIDWORD(v160) <= 1)
           {
-            v137 = 1;
+            v126 = 1;
           }
 
-          v129 = __CFADD__(v137 - 1, v136);
-          v138 = v137 - 1 + v136;
-          if (v129)
+          v118 = __CFADD__(v126 - 1, v125);
+          v127 = v126 - 1 + v125;
+          if (v118)
           {
-            v139 = (v138 - 0xFFFFFFFF / v137 * v137) / v137 + 0xFFFFFFFF / v137;
-          }
-
-          else
-          {
-            v139 = v138 / v137;
-          }
-
-          v140 = *(a1 + 60);
-          v141 = v173;
-          if (v173 <= 1)
-          {
-            v141 = 1;
-          }
-
-          v129 = __CFADD__(v141 - 1, v140);
-          v142 = v141 - 1 + v140;
-          if (v129)
-          {
-            v143 = (v142 - 0xFFFFFFFF / v141 * v141) / v141 + 0xFFFFFFFF / v141;
+            v128 = (v127 - 0xFFFFFFFF / v126 * v126) / v126 + 0xFFFFFFFF / v126;
           }
 
           else
           {
-            v143 = v142 / v141;
+            v128 = v127 / v126;
           }
 
-          v122 += v170 * v139 * v143 * axr_type_get_size(v172);
+          v129 = *(a1 + 60);
+          v130 = v160;
+          if (v160 <= 1)
+          {
+            v130 = 1;
+          }
+
+          v118 = __CFADD__(v130 - 1, v129);
+          v131 = v130 - 1 + v129;
+          if (v118)
+          {
+            v132 = (v131 - 0xFFFFFFFF / v130 * v130) / v130 + 0xFFFFFFFF / v130;
+          }
+
+          else
+          {
+            v132 = v131 / v130;
+          }
+
+          v111 += v157 * v128 * v132 * axr_type_get_size(v159);
         }
 
-        v144 = vars0;
-        if (!v122)
+        v133 = vars0;
+        if (!v111)
         {
           goto LABEL_139;
         }
 
-        a38 = v122;
-        v145 = *(v179 + 8);
-        if (!v145)
+        a38 = v111;
+        v134 = *(v166 + 8);
+        if (!v134)
         {
           goto LABEL_139;
         }
 
-        v146 = 0;
-        v171 = 0;
-        v147 = 0;
-        v148 = 8;
+        v135 = 0;
+        v158 = 0;
+        v136 = 0;
+        v137 = 8;
         do
         {
-          v149 = *(*(v124 + 64) + v148);
-          if (v149)
+          v138 = *(*(v113 + 64) + v137);
+          if (v138)
           {
-            v150 = v149[20];
-            v151 = *(a1 + 56);
-            HIDWORD(v173) = v150;
-            if (v150 <= 1)
+            v139 = v138[20];
+            v140 = *(a1 + 56);
+            HIDWORD(v160) = v139;
+            if (v139 <= 1)
             {
-              v150 = 1;
+              v139 = 1;
             }
 
-            v152 = v151 + v150 - 1;
-            if (v152 < v151)
+            v141 = v140 + v139 - 1;
+            if (v141 < v140)
             {
-              v153 = (v152 - 0xFFFFFFFF / v150 * v150) / v150 + 0xFFFFFFFF / v150;
-            }
-
-            else
-            {
-              v153 = v152 / v150;
-            }
-
-            v154 = v149[26];
-            v155 = *(a1 + 60);
-            LODWORD(v173) = v154;
-            if (v154 <= 1)
-            {
-              v154 = 1;
-            }
-
-            v129 = __CFADD__(v154 - 1, v155);
-            v156 = v154 - 1 + v155;
-            if (v129)
-            {
-              v157 = (v156 - 0xFFFFFFFF / v154 * v154) / v154 + 0xFFFFFFFF / v154;
+              v142 = (v141 - 0xFFFFFFFF / v139 * v139) / v139 + 0xFFFFFFFF / v139;
             }
 
             else
             {
-              v157 = v156 / v154;
+              v142 = v141 / v139;
             }
 
-            v172 = v149[18];
-            v147 += v157 * v153 * axr_type_get_size(v172);
-            v145 = *(v179 + 8);
-            v144 = vars0;
-            v124 = v174;
+            v143 = v138[26];
+            v144 = *(a1 + 60);
+            LODWORD(v160) = v143;
+            if (v143 <= 1)
+            {
+              v143 = 1;
+            }
+
+            v118 = __CFADD__(v143 - 1, v144);
+            v145 = v143 - 1 + v144;
+            if (v118)
+            {
+              v146 = (v145 - 0xFFFFFFFF / v143 * v143) / v143 + 0xFFFFFFFF / v143;
+            }
+
+            else
+            {
+              v146 = v145 / v143;
+            }
+
+            v159 = v138[18];
+            v136 += v146 * v142 * axr_type_get_size(v159);
+            v134 = *(v166 + 8);
+            v133 = vars0;
+            v113 = v161;
           }
 
           else
           {
-            ++v171;
+            ++v158;
           }
 
-          ++v146;
-          v148 += 16;
+          ++v135;
+          v137 += 16;
         }
 
-        while (v146 < v145);
-        if (v171)
+        while (v135 < v134);
+        if (v158)
         {
-          v158 = *(a1 + 56);
-          v159 = HIDWORD(v173);
-          if (HIDWORD(v173) <= 1)
+          v147 = *(a1 + 56);
+          v148 = HIDWORD(v160);
+          if (HIDWORD(v160) <= 1)
           {
-            v159 = 1;
+            v148 = 1;
           }
 
-          v129 = __CFADD__(v159 - 1, v158);
-          v160 = v159 - 1 + v158;
-          if (v129)
+          v118 = __CFADD__(v148 - 1, v147);
+          v149 = v148 - 1 + v147;
+          if (v118)
           {
-            v161 = (v160 - 0xFFFFFFFF / v159 * v159) / v159 + 0xFFFFFFFF / v159;
-          }
-
-          else
-          {
-            v161 = v160 / v159;
-          }
-
-          v162 = *(a1 + 60);
-          v163 = v173;
-          if (v173 <= 1)
-          {
-            v163 = 1;
-          }
-
-          v129 = __CFADD__(v163 - 1, v162);
-          v164 = v163 - 1 + v162;
-          if (v129)
-          {
-            v165 = (v164 - 0xFFFFFFFF / v163 * v163) / v163 + 0xFFFFFFFF / v163;
+            v150 = (v149 - 0xFFFFFFFF / v148 * v148) / v148 + 0xFFFFFFFF / v148;
           }
 
           else
           {
-            v165 = v164 / v163;
+            v150 = v149 / v148;
           }
 
-          v147 += v171 * v161 * v165 * axr_type_get_size(v172);
-          v144 = vars0;
+          v151 = *(a1 + 60);
+          v152 = v160;
+          if (v160 <= 1)
+          {
+            v152 = 1;
+          }
+
+          v118 = __CFADD__(v152 - 1, v151);
+          v153 = v152 - 1 + v151;
+          if (v118)
+          {
+            v154 = (v153 - 0xFFFFFFFF / v152 * v152) / v152 + 0xFFFFFFFF / v152;
+          }
+
+          else
+          {
+            v154 = v153 / v152;
+          }
+
+          v136 += v158 * v150 * v154 * axr_type_get_size(v159);
+          v133 = vars0;
         }
 
-        if (v147)
+        if (v136)
         {
-          a39 = v147;
-          PixelsArgs = TileDecoder::MakeReadPixelsArgs(vars8, v144, v175, &a38, 0, &a20, v118, v119, a5);
+          a39 = v136;
+          PixelsArgs = TileDecoder::MakeReadPixelsArgs(vars8, v133, v162, &a38, 0, &a20, a5);
           if (PixelsArgs == axr_error_success)
           {
-            PixelsArgs = TileDecoder::MakeReadPixelsArgs(a37, vars0, v175, &a39, 0, &a28, v166, v167, a5);
+            PixelsArgs = TileDecoder::MakeReadPixelsArgs(a37, vars0, v162, &a39, 0, &a28, a5);
             if (PixelsArgs == axr_error_success)
             {
-              PixelsArgs = LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadYccBlock, &a12, v169, *(a1 + 8));
+              PixelsArgs = LaunchBlocks<ReadPixelsArgs>(TileDecoder::ReadYccBlock, &a12, v156, *(a1 + 8));
             }
           }
         }
@@ -7655,24 +7715,24 @@ LABEL_139:
     }
   }
 
-  if (v88)
-  {
-    *(v88 + 8) = *(v179 + 3);
-    *(v179 + 3) = v88;
-    ++*(v179 + 8);
-  }
-
   if (v85)
   {
-    *(v85 + 8) = *(v179 + 3);
-    *(v179 + 3) = v85;
-    ++*(v179 + 8);
+    *(v85 + 8) = *(v166 + 3);
+    *(v166 + 3) = v85;
+    ++*(v166 + 8);
   }
 
-  if (v78)
+  if (v82)
   {
-    *(v78 + 1) = *(object + 3);
-    *(object + 3) = v78;
+    *(v82 + 8) = *(v166 + 3);
+    *(v166 + 3) = v82;
+    ++*(v166 + 8);
+  }
+
+  if (v75)
+  {
+    *(v75 + 1) = *(object + 3);
+    *(object + 3) = v75;
     ++*(object + 8);
   }
 
@@ -7684,20 +7744,20 @@ LABEL_139:
   }
 
   os_release(object);
-  os_release(v179);
+  os_release(v166);
   (*a44)(&a44);
-  (*a68)(&a68);
+  (*a65)(&a65);
   return PixelsArgs;
 }
 
 void sub_296B63FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void (**a57)(void))
 {
-  (*a57)(&a57);
+  (*a57)(&a57, a2, a3, a4, a5, a6, a7, a8);
   (*STACK[0x240])(&STACK[0x240]);
   _Unwind_Resume(a1);
 }
 
-void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a3, const Part *a4, uint64_t a5, axr_error_t *a6, uint64_t a7, uint64_t a8)
+void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a3, const Part *a4, axr_flags_t a5, axr_error_t *a6)
 {
   if (a2 <= 3)
   {
@@ -7710,8 +7770,8 @@ void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a
           return;
         }
 
-        TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-        v9 = &unk_2A1DE93E8;
+        TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+        v7 = &unk_2A1DE93E8;
       }
 
       else
@@ -7721,8 +7781,8 @@ void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a
           return;
         }
 
-        TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-        v9 = &unk_2A1DE9498;
+        TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+        v7 = &unk_2A1DE9498;
       }
 
       goto LABEL_24;
@@ -7735,8 +7795,8 @@ void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a
         return;
       }
 
-      TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-      v9 = &unk_2A1DE9338;
+      TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+      v7 = &unk_2A1DE9338;
       goto LABEL_24;
     }
 
@@ -7747,10 +7807,10 @@ void TileDecoder_storage::Init(TileDecoder_storage *this, int a2, axr_decoder *a
         return;
       }
 
-      TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-      v9 = &unk_2A1DE94F0;
+      TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+      v7 = &unk_2A1DE94F0;
 LABEL_24:
-      *v8 = v9;
+      *v6 = v7;
       return;
     }
 
@@ -7766,8 +7826,8 @@ LABEL_24:
         return;
       }
 
-      TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-      v9 = &unk_2A1DE9548;
+      TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+      v7 = &unk_2A1DE9548;
     }
 
     else
@@ -7777,8 +7837,8 @@ LABEL_24:
         return;
       }
 
-      TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-      v9 = &unk_2A1DE9390;
+      TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+      v7 = &unk_2A1DE9390;
     }
 
     goto LABEL_24;
@@ -7793,9 +7853,9 @@ LABEL_24:
         return;
       }
 
-      TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-      v8[16] = -1;
-      v9 = &unk_2A1DE9440;
+      TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+      v6[16] = -1;
+      v7 = &unk_2A1DE9440;
       goto LABEL_24;
     }
 
@@ -7806,9 +7866,9 @@ LABEL_28:
 
   if (this)
   {
-    TileDecoder::TileDecoder(this, a3, a4, a5, a6, a6, a7, a8);
-    *v10 = &unk_2A1DE95A0;
-    v10[16] = -1;
+    TileDecoder::TileDecoder(this, a3, a4, a5, a6);
+    *v8 = &unk_2A1DE95A0;
+    v8[16] = -1;
   }
 }
 
@@ -7821,7 +7881,7 @@ void TileDecoder::ReadPlanesBlock(TileDecoder *this, unint64_t a2)
   v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  TileDecoder::GetThreadTileInfo(v3, a2, &v29);
+  TileDecoder::GetThreadTileInfo(&v29, v3, a2);
   if ((DWORD1(v32) + DWORD2(v32)) < *(v3 + 60) && (v32 + HIDWORD(v31)) < *(v3 + 56))
   {
     v28 = *v4;
@@ -7950,30 +8010,56 @@ void TileDecoder::ReadPlanesBlock(TileDecoder *this, unint64_t a2)
   }
 }
 
-unint64_t TileDecoder::ReadPlanes(TileDecoder *this, axr_pixel_data_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_296B645E0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
-  v10 = *(this + 18);
-  if (v10)
+  if (a2 == 2)
   {
-    v11 = (*(this + 8) + 8);
-    while (*v11)
+    v12 = *__cxa_begin_catch(a1);
+    v13 = *(v11 + 8);
+    if (GetFlagsOnceToken != -1)
     {
-      v11 += 2;
-      if (!--v10)
+      AXRLogicalImageList::AXRLogicalImageList();
+    }
+
+    if (((kDefaultAXRLogFlags | v13) & 2) != 0)
+    {
+      axr_error_get_name(v12);
+      AXRLogDebug("Error decoding tile %lu: %s\n", v14, v15, v16, v17, v18, v19, v20);
+    }
+
+    v21 = 0;
+    atomic_compare_exchange_strong((v10 + 8), &v21, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x296B6459CLL);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+unint64_t TileDecoder::ReadPlanes(TileDecoder *this, axr_pixel_data_t *a2)
+{
+  v4 = *(this + 18);
+  if (v4)
+  {
+    v5 = (*(this + 8) + 8);
+    while (*v5)
+    {
+      v5 += 2;
+      if (!--v4)
       {
         goto LABEL_5;
       }
     }
 
-    v13 = *(this + 1);
+    v7 = *(this + 1);
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v13) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v7) & 2) != 0)
     {
-      AXRLogError("AppleEXR does not support generation of planar data to hold a constant.\n(e.g. using axr_decoder_append_constant_value_channel())\nWhile in general, allocation of entire plane to hold a constant should\nbe considered wasteful, this may be done with memset_pattern4()\nwhen it can not be otherwise avoided.\n", a2, a3, a4, a5, a6, a7, a8, v14);
+      AXRLogError("AppleEXR does not support generation of planar data to hold a constant.\n(e.g. using axr_decoder_append_constant_value_channel())\nWhile in general, allocation of entire plane to hold a constant should\nbe considered wasteful, this may be done with memset_pattern4()\nwhen it can not be otherwise avoided.\n", a2);
     }
 
     return -1;
@@ -7982,16 +8068,16 @@ unint64_t TileDecoder::ReadPlanes(TileDecoder *this, axr_pixel_data_t *a2, uint6
   else
   {
 LABEL_5:
-    v16 = (*(*this + 32))(this, *(this + 6));
-    v15[0] = this;
-    v15[1] = 0;
-    v15[2] = &v16;
-    v15[3] = a2;
-    return LaunchBlocks<ReadPlanesArgs>(TileDecoder::ReadPlanesBlock, v15, (*(this + 27) * *(this + 26)), *(this + 1));
+    v9 = (*(*this + 32))(this, *(this + 6));
+    v8[0] = this;
+    v8[1] = 0;
+    v8[2] = &v9;
+    v8[3] = a2;
+    return LaunchBlocks<ReadPlanesArgs>(TileDecoder::ReadPlanesBlock, v8, (*(this + 27) * *(this + 26)), *(this + 1));
   }
 }
 
-unint64_t LaunchBlocks<ReadPlanesArgs>(void (__cdecl *a1)(void *, size_t), unint64_t *a2, unint64_t a3, char a4)
+unint64_t LaunchBlocks<ReadPlanesArgs>(void (__cdecl *a1)(void *, size_t), unint64_t *a2, size_t a3, char a4)
 {
   if ((a4 & 4) != 0)
   {
@@ -8032,7 +8118,7 @@ unint64_t LaunchBlocks<ReadPlanesArgs>(void (__cdecl *a1)(void *, size_t), unint
   v16 = v14 + v15 - 1;
   if (v16 < v14)
   {
-    LaunchBlocks<ReadPixelsArgs>(v15);
+    LaunchBlocks<ReadPixelsArgs>(v15, v14 + v15, context);
     v17 = context[0];
   }
 
@@ -8087,8 +8173,8 @@ LABEL_43:
     v26 = v18 + a3 - 1;
     if (v26 < a3)
     {
-      LaunchBlocks<ReadPixelsArgs>(v18);
-      v27 = context[4];
+      LaunchBlocks<ReadPixelsArgs>(v18, v18 + a3, &v38);
+      v27 = v38;
     }
 
     else
@@ -8149,34 +8235,34 @@ LABEL_43:
   return atomic_load(a2 + 1);
 }
 
-uint64_t TileDecoder::IsInterleavedValid(TileDecoder *this, unsigned int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TileDecoder::IsInterleavedValid(TileDecoder *this, unsigned int *a2, unsigned int *a3)
 {
-  v9 = *(this + 18);
-  if (v9 > 4 || v9 == 3)
+  v4 = *(this + 18);
+  if (v4 > 4 || v4 == 3)
   {
-    v11 = *(this + 1);
+    v6 = *(this + 1);
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v11) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v6) & 2) != 0)
     {
-      v12 = "Error: axr_decoder_read_pixels is limited to 1, 2 or 4 channel result images";
+      v7 = "Error: axr_decoder_read_pixels is limited to 1, 2 or 4 channel result images";
 LABEL_32:
-      AXRLogError(v12, a2, a3, a4, a5, a6, a7, a8, name);
+      AXRLogError(v7, a2, name, v20);
     }
   }
 
   else
   {
-    v13 = *(this + 8);
-    v14 = v13[1];
-    v15 = *(*v13 + 16);
-    if (v14)
+    v8 = *(this + 8);
+    v9 = v8[1];
+    v10 = *(*v8 + 16);
+    if (v9)
     {
-      *a2 = *(v14 + 80);
-      LODWORD(v14) = *(v14 + 104);
+      *a2 = *(v9 + 80);
+      LODWORD(v9) = *(v9 + 104);
     }
 
     else
@@ -8184,72 +8270,72 @@ LABEL_32:
       *a2 = 0;
     }
 
-    *a3 = v14;
-    v16 = *(this + 18);
-    if (v16 < 2)
+    *a3 = v9;
+    v11 = *(this + 18);
+    if (v11 < 2)
     {
       return 0;
     }
 
-    v17 = 0;
-    v18 = 1;
-    while ((v15 == 1) != (*(v13[v17 + 2] + 16) != 1))
+    v12 = 0;
+    v13 = 1;
+    while ((v10 == 1) != (*(v8[v12 + 2] + 16) != 1))
     {
-      v19 = v13[v17 + 3];
-      if (v19)
+      v14 = v8[v12 + 3];
+      if (v14)
       {
-        v20 = *(v19 + 80);
+        v15 = *(v14 + 80);
         if (*a2)
         {
-          if (*a2 != v20)
+          if (*a2 != v15)
           {
             TileDecoder::IsInterleavedValid();
-            return v25;
+            return v21;
           }
         }
 
         else
         {
-          *a2 = v20;
+          *a2 = v15;
         }
 
-        v21 = *(v19 + 104);
+        v16 = *(v14 + 104);
         if (*a3)
         {
-          if (*a3 != v21)
+          if (*a3 != v16)
           {
             TileDecoder::IsInterleavedValid();
-            return v25;
+            return v21;
           }
         }
 
         else
         {
-          *a3 = v21;
+          *a3 = v16;
         }
 
-        v16 = *(this + 18);
+        v11 = *(this + 18);
       }
 
-      ++v18;
-      v17 += 2;
-      if (v18 >= v16)
+      ++v13;
+      v12 += 2;
+      if (v13 >= v11)
       {
         return 0;
       }
     }
 
-    v23 = *(this + 1);
+    v18 = *(this + 1);
     if (GetFlagsOnceToken != -1)
     {
       [OS_axr_data debugDescription];
     }
 
-    if (((kDefaultAXRLogFlags | v23) & 2) != 0)
+    if (((kDefaultAXRLogFlags | v18) & 2) != 0)
     {
       name = axr_type_get_name(*(**(this + 8) + 16));
-      axr_type_get_name(*(*(*(this + 8) + v17 * 8 + 16) + 16));
-      v12 = "Error: axr_decoder_read_pixels requires that all channels have the same data size.\n\t%s vs %s";
+      v20 = axr_type_get_name(*(*(*(this + 8) + v12 * 8 + 16) + 16));
+      v7 = "Error: axr_decoder_read_pixels requires that all channels have the same data size.\n\t%s vs %s";
       goto LABEL_32;
     }
   }
@@ -8844,7 +8930,7 @@ void Read2_NoCompression<unsigned int,(StreamType)1,(StreamType)0>(uint64_t a1, 
           v35 = a8;
         }
 
-        v36 = v31;
+        i64 = v31;
         if (v35 >= 4)
         {
           v37 = 0;
@@ -8867,7 +8953,7 @@ LABEL_34:
             v40 = *(v51[0] + v37);
             v41 = vzip1q_s32(v40, v50);
             v41.i32[3] = v50.i32[0];
-            v36 = v39 + 2;
+            i64 = v39[2].i64;
             *v39 = v41;
             v39[1] = vzip2q_s32(v40, v48);
             v34 = v38 + 4;
@@ -8882,7 +8968,7 @@ LABEL_34:
           }
 
           v34 = v38;
-          v36 = v39;
+          i64 = v39;
         }
 
 LABEL_24:
@@ -8899,8 +8985,7 @@ LABEL_24:
 
             LODWORD(v45) = *(v51[0] + v44);
             HIDWORD(v45) = v32;
-            v36->i64[0] = v45;
-            v36 = (v36 + 8);
+            *i64++ = v45;
             v44 += 4;
             --v43;
           }
@@ -8911,7 +8996,7 @@ LABEL_24:
 
         if (a8 > v34)
         {
-          bzero(v36, 8 * (a8 - v34));
+          bzero(i64, 8 * (a8 - v34));
         }
       }
 
@@ -9145,7 +9230,7 @@ void Read2_NoCompression<unsigned int,(StreamType)0,(StreamType)1>(uint64_t a1, 
           v33 = a9;
         }
 
-        v34 = v29;
+        i64 = v29;
         if (v33 >= 4)
         {
           v35 = 0;
@@ -9168,7 +9253,7 @@ LABEL_34:
             v38 = *(v49[0] + v35);
             v39 = vzip1q_s32(v48, v38);
             v39.i32[2] = v48.i32[0];
-            v34 = v37 + 2;
+            i64 = v37[2].i64;
             *v37 = v39;
             v37[1] = vzip2q_s32(v47, v38);
             v32 = v36 + 4;
@@ -9183,7 +9268,7 @@ LABEL_34:
           }
 
           v32 = v36;
-          v34 = v37;
+          i64 = v37;
         }
 
 LABEL_24:
@@ -9201,8 +9286,7 @@ LABEL_24:
 
             LODWORD(v44) = v48.i32[0];
             HIDWORD(v44) = *(v49[0] + v42);
-            v34->i64[0] = v44;
-            v34 = (v34 + 8);
+            *i64++ = v44;
             v43 += 4;
             v42 += 4;
             --v41;
@@ -9214,7 +9298,7 @@ LABEL_24:
 
         if (a9 > v32)
         {
-          bzero(v34, 8 * (a9 - v32));
+          bzero(i64, 8 * (a9 - v32));
         }
       }
 
@@ -9835,7 +9919,7 @@ void Read4_NoCompression<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,
 
   else
   {
-    LODWORD(v34) = _D3;
+    v34 = _D3;
     if (v33)
     {
       a5.i32[0] = _Q0.i32[0];
@@ -9843,7 +9927,7 @@ void Read4_NoCompression<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,
 
     else
     {
-      *a5.i32 = v34;
+      a5.i32[0] = v34;
     }
   }
 
@@ -9866,7 +9950,7 @@ void Read4_NoCompression<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,
         v47 = a17;
         do
         {
-          v45 = (v47 + 16);
+          v45 = v47 + 16;
           vst2q_f32(v47, *v40.i8);
           v48 = v47 + 8;
           vst2q_f32(v48, *v40.i8);
@@ -9891,7 +9975,8 @@ void Read4_NoCompression<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,
       {
         do
         {
-          *v45++ = v43;
+          *v45 = v43;
+          v45 += 4;
           --v50;
         }
 

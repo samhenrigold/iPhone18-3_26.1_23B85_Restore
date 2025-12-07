@@ -102,23 +102,22 @@
 
 - (id)modelBackedObjects
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)backingStoreObjectsWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [(HMDAccountHandle *)self modelObjectWithChangeType:type version:version];
   v5 = v4;
   if (v4)
   {
-    v9[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -126,14 +125,12 @@
     v6 = MEMORY[0x277CBEBF8];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [(HMDAccountHandle *)self modelParentIdentifier:type];
 
   if (v6)
@@ -144,7 +141,7 @@
     v10 = [(HMDBackingStoreModelObject *)v7 initWithObjectChangeType:type uuid:modelIdentifier parentUUID:modelParentIdentifier];
 
     v11 = [(HMDAccountHandle *)self URI];
-    v12 = [v11 copy];
+    v12 = objc_msgSend_copy(v11);
     [(HMDAccountHandleModel *)v10 setIdsURI:v12];
 
     v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccountHandle isLocal](self, "isLocal")}];
@@ -159,16 +156,14 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Account handle is missing parent identifier, returning nil", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Account handle is missing parent identifier, returning nil", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     v10 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -179,7 +174,7 @@
   if (!self->_modelParentIdentifier)
   {
     v10 = identifierCopy;
-    v5 = [identifierCopy copy];
+    v5 = objc_msgSend_copy(identifierCopy);
     modelParentIdentifier = self->_modelParentIdentifier;
     self->_modelParentIdentifier = v5;
 
@@ -206,12 +201,12 @@
   if (v7)
   {
     uuid = [modelCopy uuid];
-    v9 = [uuid copy];
+    v9 = objc_msgSend_copy(uuid);
     modelIdentifier = v7->_modelIdentifier;
     v7->_modelIdentifier = v9;
 
     parentUUID = [modelCopy parentUUID];
-    v12 = [parentUUID copy];
+    v12 = objc_msgSend_copy(parentUUID);
     modelParentIdentifier = v7->_modelParentIdentifier;
     v7->_modelParentIdentifier = v12;
   }
@@ -221,7 +216,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -241,10 +236,10 @@
 
   if (v13)
   {
-    v44 = updatedCopy;
+    v43 = updatedCopy;
     selfCopy = self;
     v15 = v13;
-    v43 = messageCopy;
+    v42 = messageCopy;
     v16 = messageCopy;
     transactionResult = [v16 transactionResult];
     if (![transactionResult source] && !-[HMDAccountHandle isLocallyTracked](selfCopy, "isLocallyTracked"))
@@ -271,60 +266,60 @@
     {
       if ([v20 diff:v15 differingFields:0])
       {
-        v41 = v15;
+        v40 = v15;
         v21 = objc_autoreleasePoolPush();
         v22 = selfCopy;
         v23 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v24 = v39 = v21;
+          v24 = v38 = v21;
           *buf = 138543362;
-          v46 = v24;
+          v45 = v24;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating account handle", buf, 0xCu);
 
-          v21 = v39;
+          v21 = v38;
         }
 
         objc_autoreleasePoolPop(v21);
-        idsURI = [v41 idsURI];
+        idsURI = [v40 idsURI];
         URI = v22->_URI;
         v22->_URI = idsURI;
 
-        local = [v41 local];
+        local = [v40 local];
         v22->_local = [local BOOLValue];
 
-        v15 = v41;
+        v15 = v40;
         [transactionResult markChanged];
       }
     }
 
     else
     {
-      v42 = v15;
+      v41 = v15;
       v33 = objc_autoreleasePoolPush();
       v34 = selfCopy;
       v35 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v36 = v40 = v33;
+        v36 = v39 = v33;
         *buf = 138543362;
-        v46 = v36;
+        v45 = v36;
         _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Unable to retrieve model for updated account handle", buf, 0xCu);
 
-        v33 = v40;
+        v33 = v39;
       }
 
       objc_autoreleasePoolPop(v33);
       v37 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
       [v16 respondWithError:v37];
 
-      v15 = v42;
+      v15 = v41;
     }
 
-    messageCopy = v43;
-    updatedCopy = v44;
+    messageCopy = v42;
+    updatedCopy = v43;
   }
 
   else
@@ -336,12 +331,12 @@
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v46 = v31;
-      v47 = 2112;
-      v48 = v11;
-      v49 = 2112;
-      v50 = objc_opt_class();
-      v32 = v50;
+      v45 = v31;
+      v46 = 2112;
+      v47 = v11;
+      v48 = 2112;
+      v49 = objc_opt_class();
+      v32 = v49;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated:newValues:message:]", buf, 0x20u);
     }
 
@@ -349,13 +344,11 @@
     selfCopy = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:selfCopy];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -364,21 +357,19 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = removedCopy;
-    v19 = 2112;
-    v20 = objc_opt_class();
-    v12 = v20;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved:message:]", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = removedCopy;
+    v18 = 2112;
+    v19 = objc_opt_class();
+    v12 = v19;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved:message:]", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   [messageCopy respondWithError:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -504,42 +495,30 @@ LABEL_11:
 
 void __27__HMDAccountHandle_contact__block_invoke(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   if (HMDAccountHandleModelIdentifierNamespaceUUIDString_block_invoke_onceToken != -1)
   {
     dispatch_once(&HMDAccountHandleModelIdentifierNamespaceUUIDString_block_invoke_onceToken, &__block_literal_global_115638);
   }
 
-  v19 = *(a1 + 32);
-  v2 = [v19 type];
+  v17 = *(a1 + 32);
+  v2 = [v17 type];
   if (v2 == 1)
   {
     v8 = MEMORY[0x277CBDA58];
-    v6 = [v19 URI];
+    v6 = [v17 URI];
     v9 = [v6 unprefixedURI];
     v7 = [v8 predicateForContactsMatchingEmailAddress:v9];
 
-    goto LABEL_7;
-  }
-
-  if (v2 == 2)
-  {
-    v3 = MEMORY[0x277CBDB70];
-    v4 = [v19 URI];
-    v5 = [v4 unprefixedURI];
-    v6 = [v3 phoneNumberWithStringValue:v5];
-
-    v7 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:v6];
 LABEL_7:
-
     if (v7)
     {
       v10 = *MEMORY[0x277CBCFC0];
-      v20[0] = *MEMORY[0x277CBD098];
-      v20[1] = v10;
+      v18[0] = *MEMORY[0x277CBD098];
+      v18[1] = v10;
       v11 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-      v20[2] = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+      v18[2] = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
 
       v13 = [HMDAccountHandleModelIdentifierNamespaceUUIDString_block_invoke_store unifiedContactsMatchingPredicate:v7 keysToFetch:v12 error:0];
       if (([v13 hmf_isEmpty] & 1) == 0)
@@ -551,11 +530,19 @@ LABEL_7:
       }
     }
 
-    v17 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  if (v2 == 2)
+  {
+    v3 = MEMORY[0x277CBDB70];
+    v4 = [v17 URI];
+    v5 = [v4 unprefixedURI];
+    v6 = [v3 phoneNumberWithStringValue:v5];
+
+    v7 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:v6];
+    goto LABEL_7;
+  }
 }
 
 void __27__HMDAccountHandle_contact__block_invoke_2()
@@ -593,12 +580,12 @@ void __27__HMDAccountHandle_contact__block_invoke_2()
 
 - (id)attributeDescriptions
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDAccountHandle *)self identifier];
   uUIDString = [identifier UUIDString];
   v6 = [v3 initWithName:@"ID" value:uUIDString];
-  v22[0] = v6;
+  v21[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDAccountHandle *)self type];
   v9 = @"Unknown";
@@ -618,20 +605,18 @@ void __27__HMDAccountHandle_contact__block_invoke_2()
   }
 
   v11 = [v7 initWithName:@"TP" value:v10];
-  v22[1] = v11;
+  v21[1] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccountHandle *)self isLocal];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"LC" value:v13];
-  v22[2] = v14;
+  v21[2] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   value = [(HMDAccountHandle *)self value];
   v17 = +[HMDAccountHandleFormatter defaultFormatter];
   v18 = [v15 initWithName:@"VA" value:value options:0 formatter:v17];
-  v22[3] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v21[3] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
 
   return v19;
 }
@@ -804,7 +789,7 @@ LABEL_6:
       identifier = v7->_identifier;
       v7->_identifier = v14;
 
-      v16 = [v9 copy];
+      v16 = objc_msgSend_copy(v9);
       URI = v7->_URI;
       v7->_URI = v16;
 
@@ -850,10 +835,9 @@ LABEL_6:
 
 void __31__HMDAccountHandle_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_115697;
-  logCategory__hmf_once_v10_115697 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_115697;
+  logCategory__hmf_once_v10_115697 = v0;
 }
 
 + (id)accountHandleForDestination:(id)destination

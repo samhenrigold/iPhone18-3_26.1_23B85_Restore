@@ -5,6 +5,7 @@
 - (id)getUCMClientFromList:(int)list;
 - (void)addUCMClient:(id)client;
 - (void)dealloc;
+- (void)deleteUCMClient:(int)client;
 - (void)enableFrequencyUpdatesForMic:(id)mic;
 - (void)enableHomeKitTimer:(id)timer;
 - (void)enableULFrequencyUpdates:(id)updates;
@@ -18,6 +19,7 @@
 - (void)timerHandler:(id)handler;
 - (void)updateBTConnectedDevices:(WCM_BTConnections *)devices;
 - (void)updateControllerSession:(id)session ofId:(int)id;
+- (void)updateWirelessBtLoad:(unsigned int)load;
 @end
 
 @implementation WCM_UCMClientManager
@@ -36,6 +38,20 @@
   [(NSMutableArray *)self->mUCMClientContexts removeObject:clientCopy];
 
   [(WCM_UCMClientManager *)self existingContexts];
+}
+
+- (void)deleteUCMClient:(int)client
+{
+  v4 = [(WCM_UCMClientManager *)self getUCMClientFromList:*&client];
+  v5 = v4;
+  if (v4)
+  {
+    v6 = v4;
+    v4 = [(WCM_UCMClientManager *)self removeUCMClient:v4];
+    v5 = v6;
+  }
+
+  _objc_release_x1(v4, v5);
 }
 
 - (void)updateBTConnectedDevices:(WCM_BTConnections *)devices
@@ -325,6 +341,31 @@ LABEL_11:
       }
 
       while (v7);
+    }
+  }
+}
+
+- (void)updateWirelessBtLoad:(unsigned int)load
+{
+  [WCM_Logging logLevel:2 message:@"updateWirelessBtLoad load: %u", *&load];
+  self->mCurrentBtLoad = load;
+  homeKitReportingTimer = [(WCM_UCMClientManager *)self homeKitReportingTimer];
+  if (homeKitReportingTimer)
+  {
+    v6 = homeKitReportingTimer;
+    homeKitReportingTimer2 = [(WCM_UCMClientManager *)self homeKitReportingTimer];
+    isValid = [homeKitReportingTimer2 isValid];
+
+    if (isValid)
+    {
+      mMaximumBtLoad = self->mMaximumBtLoad;
+      mCurrentBtLoad = self->mCurrentBtLoad;
+      if (mCurrentBtLoad > mMaximumBtLoad)
+      {
+        mMaximumBtLoad = mMaximumBtLoad & 0xFFFF0000 | self->mCurrentBtLoad;
+      }
+
+      self->mMaximumBtLoad = mMaximumBtLoad & 0xFFFF00FF | (BYTE1(mCurrentBtLoad) << 8);
     }
   }
 }

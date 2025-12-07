@@ -273,14 +273,12 @@ LABEL_5:
 
 - (id)buildDescriptions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69CA3A0];
   numberOfActionsString = [(SSShortcutResultBuilder *)self numberOfActionsString];
   v4 = [v2 textWithString:numberOfActionsString];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -350,18 +348,18 @@ void __39__SSShortcutResultBuilder_buildCommand__block_invoke()
 
 - (id)buildButtonItems
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   if ([(SSShortcutResultBuilder *)self resultShadowsSettingResult])
   {
     v3 = objc_opt_new();
-    v13.receiver = self;
-    v13.super_class = SSShortcutResultBuilder;
-    buildCommand = [(SSResultBuilder *)&v13 buildCommand];
+    v12.receiver = self;
+    v12.super_class = SSShortcutResultBuilder;
+    buildCommand = [(SSResultBuilder *)&v12 buildCommand];
     [v3 setCommand:buildCommand];
 
-    v15[0] = v3;
+    v14[0] = v3;
     v5 = MEMORY[0x1E695DEC8];
-    v6 = v15;
+    v6 = v14;
 LABEL_5:
     buildButtonItems = [v5 arrayWithObjects:v6 count:1];
 
@@ -371,22 +369,21 @@ LABEL_5:
   if ([(SSShortcutResultBuilder *)self isAlarmResult])
   {
     v3 = objc_opt_new();
-    v12.receiver = self;
-    v12.super_class = SSShortcutResultBuilder;
-    buildCommand2 = [(SSResultBuilder *)&v12 buildCommand];
+    v11.receiver = self;
+    v11.super_class = SSShortcutResultBuilder;
+    buildCommand2 = [(SSResultBuilder *)&v11 buildCommand];
     [v3 setCommand:buildCommand2];
 
-    v14 = v3;
+    v13 = v3;
     v5 = MEMORY[0x1E695DEC8];
-    v6 = &v14;
+    v6 = &v13;
     goto LABEL_5;
   }
 
-  v11.receiver = self;
-  v11.super_class = SSShortcutResultBuilder;
-  buildButtonItems = [(SSResultBuilder *)&v11 buildButtonItems];
+  v10.receiver = self;
+  v10.super_class = SSShortcutResultBuilder;
+  buildButtonItems = [(SSResultBuilder *)&v10 buildButtonItems];
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return buildButtonItems;
 }
@@ -405,7 +402,7 @@ LABEL_7:
 
 - (id)buildTrailingThumbnail
 {
-  if (SSSpotlightUIPlusEnabled())
+  if (SSSpotlightUIPlusEnabled(self, a2))
   {
     v3 = 0;
     goto LABEL_21;

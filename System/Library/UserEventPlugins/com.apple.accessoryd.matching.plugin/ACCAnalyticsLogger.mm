@@ -1,5 +1,6 @@
 @interface ACCAnalyticsLogger
 + (id)databasePathForUser:(int)user;
++ (id)loggerForUser:(int)user;
 + (int64_t)fuzzyDaysSinceDate:(id)date;
 + (void)addBuiltInFieldsToEvent:(id)event;
 - (BOOL)_onQueuePostJSON:(id)n error:(id *)error httpStatusCode:(int64_t *)code;
@@ -9,6 +10,7 @@
 - (id)eventDictForEventName:(id)name withAttributes:(id)attributes;
 - (id)eventDictWithBlacklistedFieldsStrippedFrom:(id)from;
 - (id)getLoggingJSON:(BOOL)n error:(id *)error;
+- (id)initForUser:(int)user;
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler;
 - (void)_logEventNamed:(id)named withAttributes:(id)attributes;
 - (void)logEventNamed:(id)named withAttributes:(id)attributes;
@@ -18,6 +20,37 @@
 @end
 
 @implementation ACCAnalyticsLogger
+
++ (id)loggerForUser:(int)user
+{
+  v3 = *&user;
+  if (objc_opt_class() == self)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *v8 = 0;
+      _os_log_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] attempt to instatiate abstract class ACCEventLogger", v8, 2u);
+    }
+
+    v6 = 0;
+  }
+
+  else
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v6 = objc_getAssociatedObject(selfCopy, "ACCAnalyticsLoggerInstance");
+    if (!v6)
+    {
+      v6 = [[selfCopy alloc] initForUser:v3];
+      objc_setAssociatedObject(selfCopy, "ACCAnalyticsLoggerInstance", v6, &stru_2E8.segname[9]);
+    }
+
+    objc_sync_exit(selfCopy);
+  }
+
+  return v6;
+}
 
 + (id)databasePathForUser:(int)user
 {
@@ -60,6 +93,126 @@
   }
 
   return 30;
+}
+
+- (id)initForUser:(int)user
+{
+  v3 = *&user;
+  v53.receiver = self;
+  v53.super_class = ACCAnalyticsLogger;
+  v4 = [(ACCAnalyticsLogger *)&v53 init];
+  v5 = v4;
+  if (v4)
+  {
+    v4->_user = v3;
+    v6 = +[NSMutableArray array];
+    pluginEventsBeforeFirstUnlock = v5->_pluginEventsBeforeFirstUnlock;
+    v5->_pluginEventsBeforeFirstUnlock = v6;
+
+    v8 = +[NSMutableArray array];
+    accessorydEventsBeforeFirstUnlock = v5->_accessorydEventsBeforeFirstUnlock;
+    v5->_accessorydEventsBeforeFirstUnlock = v8;
+
+    v10 = objc_alloc_init(NSLock);
+    eventCacheLock = v5->_eventCacheLock;
+    v5->_eventCacheLock = v10;
+
+    v12 = [ACCAnalyticsLogger databasePathForUser:v3];
+    v13 = [ACCAnalyticsLoggerSQLiteStore storeWithPath:v12 schema:@"CREATE TABLE IF NOT EXISTS all_events (\nid INTEGER PRIMARY KEY AUTOINCREMENT, \ntimestamp REAL, data BLOB\n)\nCREATE TRIGGER IF NOT EXISTS maintain_ring_buffer_all_events AFTER INSERT ON all_events\nBEGIN\nDELETE FROM all_events WHERE id != NEW.id AND id % 999 = NEW.id % 999;\nEND;\nCREATE TABLE IF NOT EXISTS success_count (\nevent_type STRING PRIMARY KEY, \nsuccess_count INTEGER, \nwrap_failure_count INTEGER\n);\n"];;
+    database = v5->_database;
+    v5->_database = v13;
+
+    v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v16 = dispatch_queue_create("com.apple.accessoryd.eventLogging", v15);
+    queue = v5->_queue;
+    v5->_queue = v16;
+
+    v18 = dispatch_queue_create("com.apple.accessoryd.eventLoggingQueue", 0);
+    loggingQueue = v5->_loggingQueue;
+    v5->_loggingQueue = v18;
+
+    isInternalBuild = systemInfo_isInternalBuild(v20, v21);
+    v23 = 259200;
+    if (isInternalBuild)
+    {
+      v23 = 86400;
+    }
+
+    v5->_secondsBetweenUploads = v23;
+    v5->_secondsBetweenUploadError = 3600;
+    v24 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/CoreAccessories.framework"];
+    v25 = [v24 pathForResource:@"ACCAnalyticsLogging" ofType:@"plist"];
+    v26 = [NSDictionary dictionaryWithContentsOfFile:v25];
+
+    v27 = [v26 objectForKeyedSubscript:@"figaro_topic"];
+    figaroTopicName = v5->_figaroTopicName;
+    v5->_figaroTopicName = v27;
+
+    v29 = [v26 objectForKeyedSubscript:@"figaro_uploadURL"];
+    v30 = [NSURL URLWithString:v29];
+    p_figaroUploadURL = &v5->_figaroUploadURL;
+    figaroUploadURL = v5->_figaroUploadURL;
+    v5->_figaroUploadURL = v30;
+
+    v33 = [v26 objectForKeyedSubscript:@"figaro_bagURL"];
+    v34 = [NSURL URLWithString:v33];
+    figaroBagURL = v5->_figaroBagURL;
+    v5->_figaroBagURL = v34;
+
+    v36 = [v26 valueForKey:@"figaro_allowInsecureCertificate"];
+    *(v5 + 88) = *(v5 + 88) & 0xFE | [v36 BOOLValue];
+
+    v37 = [v26 objectForKeyedSubscript:@"figaro_endpointDomain"];
+    v38 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.accessory.eventLogging"];
+    v39 = [v38 stringForKey:@"figaro_topic"];
+    if (v39)
+    {
+      objc_storeStrong(&v5->_figaroTopicName, v39);
+    }
+
+    v52 = v39;
+    v40 = [v38 stringForKey:@"figaro_uploadURL"];
+    v41 = [NSURL URLWithString:v40];
+
+    if (v41)
+    {
+      objc_storeStrong(&v5->_figaroUploadURL, v41);
+    }
+
+    v42 = [v38 stringForKey:@"figaro_bagURL"];
+    v43 = [NSURL URLWithString:v42];
+
+    if (v43)
+    {
+      objc_storeStrong(&v5->_figaroBagURL, v43);
+    }
+
+    *(v5 + 88) |= [v38 BOOLForKey:@"figaro_allowInsecureCertificate"];
+    v44 = [v38 stringForKey:@"figaro_endpointDomain"];
+    v46 = v44;
+    if (v44)
+    {
+      v47 = v44;
+
+      v37 = v47;
+    }
+
+    if (systemInfo_isInternalBuild(v44, v45))
+    {
+
+      *(v5 + 88) |= 8u;
+      v37 = @"xp-qa.apple.com";
+      if (!v5->_figaroUploadURL)
+      {
+        v48 = [NSString stringWithFormat:@"https://%@/report/2/%@", @"xp-qa.apple.com", v5->_figaroTopicName];
+        v49 = [NSURL URLWithString:v48];
+        v50 = *p_figaroUploadURL;
+        *p_figaroUploadURL = v49;
+      }
+    }
+  }
+
+  return v5;
 }
 
 - (void)logEventNamed:(id)named withAttributes:(id)attributes
@@ -687,10 +840,7 @@ void __59__ACCAnalyticsLogger_eventDictForEventName_withAttributes___block_invok
 
 uint64_t __41__ACCAnalyticsLogger_datePropertyForKey___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) datePropertyForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) datePropertyForKey:a1[5]];
 
   return _objc_release_x1();
 }

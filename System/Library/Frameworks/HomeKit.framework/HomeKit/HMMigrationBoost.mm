@@ -20,7 +20,7 @@
 
 void __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -28,7 +28,7 @@ void __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke(
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Sending boost message after daemon disconnect", buf, 0xCu);
   }
 
@@ -39,21 +39,19 @@ void __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke(
   v9 = [v7 initWithTarget:v8];
   v10 = [v6 messageWithName:@"HMHM.upgradeToHH2Boost" destination:v9 payload:0];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke_4;
-  v13[3] = &unk_1E754CD98;
-  v13[4] = *(a1 + 32);
-  [v10 setResponseHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke_4;
+  v12[3] = &unk_1E754CD98;
+  v12[4] = *(a1 + 32);
+  [v10 setResponseHandler:v12];
   v11 = [*(a1 + 32) messageDispatcher];
   [v11 sendMessage:v10 completionHandler:0];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -62,61 +60,55 @@ void __57__HMMigrationBoost__handleDaemonInterruptedNotification___block_invoke_
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response to boost message: %@, error: %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response to boost message: %@, error: %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   [*(a1 + 32) stopBoost];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopBoost
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@No longer waiting for daemon disconnect to trigger a boost", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@No longer waiting for daemon disconnect to trigger a boost", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   notificationCenter = [(HMMigrationBoost *)selfCopy notificationCenter];
   [notificationCenter removeObserver:selfCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startBoost
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Waiting for daemon disconnect to trigger a boost", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Waiting for daemon disconnect to trigger a boost", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   notificationCenter = [(HMMigrationBoost *)selfCopy notificationCenter];
   [notificationCenter addObserver:selfCopy selector:sel__handleDaemonInterruptedNotification_ name:@"HMDaemonDisconnectedNotification" object:0];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (HMMigrationBoost)initWithMessageTarget:(id)target notificationCenter:(id)center messageDispatcher:(id)dispatcher queue:(id)queue

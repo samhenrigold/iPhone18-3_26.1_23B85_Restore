@@ -7,9 +7,9 @@ void sub_100000E74(id a1)
   qword_1000086B0 = v2;
 }
 
-void sub_100001060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -105,27 +105,25 @@ void sub_1000019B0(id *a1)
   *(&v7 + 1) = v6;
   *&v8 = v3;
   *(&v8 + 1) = v4;
-  v18 = v8;
-  v19 = v7;
+  v16 = v8;
+  v17 = v7;
   dispatch_group_notify(v2, &_dispatch_main_q, block);
   v9 = qword_1000086D0;
-  v10 = a1[4];
+  v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v12 = a1[4];
-  v13 = objc_opt_class();
-  qword_1000086D0 = v13;
-  if (v9 != v11)
+  qword_1000086D0 = v11;
+  if (v9 != v10)
   {
-    if (v13)
+    if (v11)
     {
       dispatch_group_enter(v2);
-      v14 = dispatch_time(0, 10000000);
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100001D94;
-      v15[3] = &unk_1000043D8;
-      v16 = v2;
-      dispatch_after(v14, &_dispatch_main_q, v15);
+      v12 = dispatch_time(0, 10000000);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100001D94;
+      v13[3] = &unk_1000043D8;
+      v14 = v2;
+      dispatch_after(v12, &_dispatch_main_q, v13);
     }
 
     else

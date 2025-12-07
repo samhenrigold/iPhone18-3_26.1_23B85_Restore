@@ -128,7 +128,7 @@
   sub_10000C824(v4 + v5, v7);
   sub_10000C888(v7, v7[3]);
   [v4 bounds];
-  sub_100156B68(&qword_100929E60, v6, type metadata accessor for OfferButton);
+  sub_100156B68(&qword_100929E60, v6, type metadata accessor for OfferButton, &unk_1007ADF58);
   sub_10074AE74();
 
   sub_10000C620(v7);
@@ -144,7 +144,7 @@
   swift_beginAccess();
   sub_10000C824(v2 + v3, v5);
   sub_10000C888(v5, v5[3]);
-  sub_100156B68(&qword_100929E60, v4, type metadata accessor for OfferButton);
+  sub_100156B68(&qword_100929E60, v4, type metadata accessor for OfferButton, &unk_1007ADF58);
   sub_10074AE94();
 
   sub_10000C620(v5);

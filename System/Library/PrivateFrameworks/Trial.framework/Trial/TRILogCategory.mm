@@ -10,9 +10,11 @@ uint64_t __TRILogCategory_ClientFramework_block_invoke()
     dispatch_once(&qword_280ACAEC0, &__block_literal_global_18);
   }
 
-  TRILogCategory_ClientFramework_log = os_log_create(_MergedGlobals_15, "_");
+  v0 = os_log_create(_MergedGlobals_15, "_");
+  v1 = TRILogCategory_ClientFramework_log;
+  TRILogCategory_ClientFramework_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __TRILogCategory_Daemon_block_invoke()

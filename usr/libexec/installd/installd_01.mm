@@ -86,22 +86,20 @@ void sub_100057F2C(void *a1)
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
-void sub_100057FC4(void *a1, unsigned int *a2)
+void sub_100057FC4(void *a1)
 {
-  v3 = [a1 path];
-  v4 = *a2;
+  v1 = [a1 path];
   sub_10002A5B4();
   sub_10002A588();
-  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x18u);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x18u);
 }
 
-void sub_100058068(void *a1, unsigned int *a2)
+void sub_100058068(void *a1)
 {
-  v3 = [a1 path];
-  v4 = *a2;
+  v1 = [a1 path];
   sub_10002A5B4();
   sub_10002A588();
-  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x18u);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x18u);
 }
 
 void sub_10005810C(void *a1)
@@ -341,14 +339,11 @@ void sub_10005981C()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_1000598A4(uint64_t *a1, uint64_t *a2, uint64_t a3)
+void sub_1000598A4(uint64_t a1, void *a2)
 {
-  v4 = *a1;
-  v5 = *a2;
-  v11 = MIStringForInstallationDomain();
-  v12 = *(*(*a3 + 8) + 40);
+  v7 = MIStringForInstallationDomain();
   sub_10002A588();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x2Au);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void sub_10005997C()
@@ -376,13 +371,6 @@ void sub_100059A84()
   sub_100052BFC();
   sub_10002A588();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
-}
-
-void sub_100059B0C(uint64_t a1, uint64_t a2)
-{
-  v7 = *(*a2 + 40);
-  sub_10002A588();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x26u);
 }
 
 void sub_100059BB8()

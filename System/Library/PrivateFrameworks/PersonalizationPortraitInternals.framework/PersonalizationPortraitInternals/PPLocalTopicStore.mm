@@ -78,37 +78,36 @@
 
 - (id)topicCacheSandboxExtensionToken:(id *)token
 {
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   v5 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
   }
 
-  v6 = *MEMORY[0x277D861B8];
   [(NSString *)self->_cachePath cStringUsingEncoding:4];
-  v7 = sandbox_extension_issue_file_to_process();
-  if (v7)
+  v6 = sandbox_extension_issue_file_to_process();
+  if (v6)
   {
-    v8 = v7;
-    v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:{v7, v11, v12}];
-    free(v8);
+    v7 = v6;
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:{v6, v10, v11}];
+    free(v7);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)clearTopicScoresCache:(id *)cache
@@ -164,50 +163,50 @@
 
 void __77__PPLocalTopicStore_computeAndCacheTopicScoresWithShouldContinueBlock_error___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   atomic_store(0, (*(a1 + 32) + 64));
   if ((*(*(a1 + 40) + 16))())
   {
     v2 = objc_opt_new();
     [v2 setRemoveNearDuplicates:1];
     v3 = *(a1 + 32);
-    v37 = 0;
-    v4 = [v3 rankedTopicsWithQuery:v2 error:&v37];
-    v5 = v37;
-    v6 = v37;
+    v36 = 0;
+    v4 = [v3 rankedTopicsWithQuery:v2 error:&v36];
+    v5 = v36;
+    v6 = v36;
     if (!(*(*(a1 + 40) + 16))())
     {
 LABEL_26:
 
-      goto LABEL_27;
+      return;
     }
 
     if (v4)
     {
       obj = v5;
-      v30 = v6;
-      v31 = v2;
+      v29 = v6;
+      v30 = v2;
       v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v4, "count")}];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v8 = v4;
-      v9 = [v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v34;
+        v11 = *v33;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v34 != v11)
+            if (*v33 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v33 + 1) + 8 * i);
+            v13 = *(*(&v32 + 1) + 8 * i);
             v14 = [v13 item];
             v15 = [v14 topicIdentifier];
 
@@ -217,14 +216,14 @@ LABEL_26:
             [v7 setObject:v17 forKeyedSubscript:v15];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
         }
 
         while (v10);
       }
 
-      v6 = v30;
-      v2 = v31;
+      v6 = v29;
+      v2 = v30;
       v5 = obj;
     }
 
@@ -240,7 +239,7 @@ LABEL_26:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = v6;
+        v38 = v6;
         _os_log_error_impl(&dword_23224A000, v18, OS_LOG_TYPE_ERROR, "Iterating over PPTopicStore failed: %@", buf, 0xCu);
       }
     }
@@ -261,10 +260,10 @@ LABEL_25:
       v21 = [v20 UUIDString];
       v18 = [v19 stringByAppendingFormat:@".new-%@", v21];
 
-      v32 = 0;
-      v22 = [MEMORY[0x277D425D8] fileBackedDataWithPropertyList:v7 writtenToPath:v18 format:1 error:&v32];
-      v23 = v32;
-      v6 = v32;
+      v31 = 0;
+      v22 = [MEMORY[0x277D425D8] fileBackedDataWithPropertyList:v7 writtenToPath:v18 format:1 error:&v31];
+      v23 = v31;
+      v6 = v31;
       objc_storeStrong((*(a1 + 32) + 72), v23);
       if (v22)
       {
@@ -279,7 +278,7 @@ LABEL_25:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v39 = v6;
+          v38 = v6;
           _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "Could not serialize and write plist: %@", buf, 0xCu);
         }
       }
@@ -287,14 +286,11 @@ LABEL_25:
 
     goto LABEL_25;
   }
-
-LABEL_27:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processFeedback:(id)feedback
 {
-  v219 = *MEMORY[0x277D85DE8];
+  v218 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   mappingId = [feedbackCopy mappingId];
 
@@ -306,7 +302,7 @@ LABEL_27:
       goto LABEL_99;
     }
 
-    v144 = v4;
+    v143 = v4;
     feedbackItems = [v4 feedbackItems];
     v6 = [PPLocalTopicStore _feedbackItemsByItemString:feedbackItems];
 
@@ -315,46 +311,46 @@ LABEL_27:
     v9 = [v7 initWithArray:allKeys];
 
     v10 = objc_opt_new();
-    mappingId2 = [v144 mappingId];
+    mappingId2 = [v143 mappingId];
     if (!mappingId2)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:sel__processMappedTopicPendingFeedback_ object:self file:@"PPLocalTopicStore.m" lineNumber:1790 description:@"Mapping ID was previously checked to be nonnull. Check for memory corruption"];
     }
 
-    v142 = objc_opt_new();
-    timestamp = [v144 timestamp];
-    [v142 setScoringDate:timestamp];
+    v141 = objc_opt_new();
+    timestamp = [v143 timestamp];
+    [v141 setScoringDate:timestamp];
 
-    timestamp2 = [v144 timestamp];
-    [v142 setToDate:timestamp2];
+    timestamp2 = [v143 timestamp];
+    [v141 setToDate:timestamp2];
 
-    [v142 setMinimumComponentCount:1];
-    clientBundleId = [v144 clientBundleId];
+    [v141 setMinimumComponentCount:1];
+    clientBundleId = [v143 clientBundleId];
     v14 = [PPFeedbackExclusionProvider excludedBundleIdsForClientBundleId:clientBundleId domain:0];
-    [v142 setExcludingSourceBundleIds:v14];
+    [v141 setExcludingSourceBundleIds:v14];
 
-    v186 = 0;
-    v182[0] = MEMORY[0x277D85DD0];
-    v182[1] = 3221225472;
-    v182[2] = __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke;
-    v182[3] = &unk_278977510;
-    v139 = v9;
+    v185 = 0;
+    v181[0] = MEMORY[0x277D85DD0];
+    v181[1] = 3221225472;
+    v181[2] = __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke;
+    v181[3] = &unk_278977510;
+    v138 = v9;
+    v182 = v138;
+    v139 = v10;
     v183 = v139;
-    v140 = v10;
-    v184 = v140;
-    v166 = v6;
-    v185 = v166;
-    v15 = [(PPLocalTopicStore *)self iterScoresForTopicMapping:mappingId2 query:v142 error:&v186 block:v182];
-    v138 = v186;
+    v165 = v6;
+    v184 = v165;
+    v15 = [(PPLocalTopicStore *)self iterScoresForTopicMapping:mappingId2 query:v141 error:&v185 block:v181];
+    v137 = v185;
     if (!v15)
     {
       oslog = pp_default_log_handle();
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v213) = 138412290;
-        *(&v213 + 4) = v138;
-        _os_log_error_impl(&dword_23224A000, oslog, OS_LOG_TYPE_ERROR, "_processMappedTopicPendingFeedback: error from iterScoresForTopicMapping: %@", &v213, 0xCu);
+        LODWORD(v212) = 138412290;
+        *(&v212 + 4) = v137;
+        _os_log_error_impl(&dword_23224A000, oslog, OS_LOG_TYPE_ERROR, "_processMappedTopicPendingFeedback: error from iterScoresForTopicMapping: %@", &v212, 0xCu);
       }
 
       goto LABEL_98;
@@ -362,58 +358,58 @@ LABEL_27:
 
     oslog = objc_opt_new();
     v16 = objc_opt_new();
-    v161 = [(PPLocalTopicStore *)self _topicTransformForId:mappingId2];
-    v180 = 0u;
-    v181 = 0u;
-    v178 = 0u;
+    v160 = [(PPLocalTopicStore *)self _topicTransformForId:mappingId2];
     v179 = 0u;
-    obj = v139;
-    v168 = [obj countByEnumeratingWithState:&v178 objects:v196 count:16];
-    if (v168)
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    obj = v138;
+    v167 = [obj countByEnumeratingWithState:&v177 objects:v195 count:16];
+    if (v167)
     {
-      v163 = *v179;
+      v162 = *v178;
       do
       {
-        for (i = 0; i != v168; ++i)
+        for (i = 0; i != v167; ++i)
         {
-          if (*v179 != v163)
+          if (*v178 != v162)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v178 + 1) + 8 * i);
+          v18 = *(*(&v177 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
-          if ([v18 length] && (objc_msgSend(v161, "containsMappedTopic:", v18) & 1) != 0)
+          if ([v18 length] && (objc_msgSend(v160, "containsMappedTopic:", v18) & 1) != 0)
           {
-            v19 = [v166 objectForKeyedSubscript:v18];
+            v19 = [v165 objectForKeyedSubscript:v18];
             [oslog addObjectsFromArray:v19];
           }
 
           else
           {
-            v176 = 0u;
-            v177 = 0u;
-            v174 = 0u;
             v175 = 0u;
-            v19 = [v166 objectForKeyedSubscript:v18];
-            v20 = [v19 countByEnumeratingWithState:&v174 objects:&v192 count:16];
+            v176 = 0u;
+            v173 = 0u;
+            v174 = 0u;
+            v19 = [v165 objectForKeyedSubscript:v18];
+            v20 = [v19 countByEnumeratingWithState:&v173 objects:&v191 count:16];
             if (v20)
             {
-              v21 = *v175;
+              v21 = *v174;
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v175 != v21)
+                  if (*v174 != v21)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v23 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:&stru_284759D38 itemFeedbackType:{objc_msgSend(*(*(&v174 + 1) + 8 * j), "itemFeedbackType")}];
+                  v23 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:&stru_284759D38 itemFeedbackType:{objc_msgSend(*(*(&v173 + 1) + 8 * j), "itemFeedbackType")}];
                   [v16 addObject:v23];
                 }
 
-                v20 = [v19 countByEnumeratingWithState:&v174 objects:&v192 count:16];
+                v20 = [v19 countByEnumeratingWithState:&v173 objects:&v191 count:16];
               }
 
               while (v20);
@@ -423,18 +419,18 @@ LABEL_27:
           objc_autoreleasePoolPop(context);
         }
 
-        v168 = [obj countByEnumeratingWithState:&v178 objects:v196 count:16];
+        v167 = [obj countByEnumeratingWithState:&v177 objects:v195 count:16];
       }
 
-      while (v168);
+      while (v167);
     }
 
     if ([oslog count])
     {
       v24 = objc_alloc(MEMORY[0x277D3A328]);
-      timestamp3 = [v144 timestamp];
-      clientIdentifier = [v144 clientIdentifier];
-      clientBundleId2 = [v144 clientBundleId];
+      timestamp3 = [v143 timestamp];
+      clientIdentifier = [v143 clientIdentifier];
+      clientBundleId2 = [v143 clientBundleId];
       v28 = [v24 initWithFeedbackItems:oslog timestamp:timestamp3 clientIdentifier:clientIdentifier clientBundleId:clientBundleId2 mappingId:mappingId2];
 
       [PPFeedbackStorage logFeedback:v28 domain:0 domainStatus:4 inBackground:1];
@@ -443,95 +439,95 @@ LABEL_27:
     if ([v16 count])
     {
       v29 = objc_alloc(MEMORY[0x277D3A328]);
-      timestamp4 = [v144 timestamp];
-      clientIdentifier2 = [v144 clientIdentifier];
-      clientBundleId3 = [v144 clientBundleId];
+      timestamp4 = [v143 timestamp];
+      clientIdentifier2 = [v143 clientIdentifier];
+      clientBundleId3 = [v143 clientBundleId];
       v33 = [v29 initWithFeedbackItems:v16 timestamp:timestamp4 clientIdentifier:clientIdentifier2 clientBundleId:clientBundleId3 mappingId:mappingId2];
 
       [PPFeedbackStorage logFeedback:v33 domain:0 domainStatus:3 inBackground:1];
     }
 
-    if (![v140 count])
+    if (![v139 count])
     {
 LABEL_97:
 
 LABEL_98:
-      v4 = v144;
+      v4 = v143;
       goto LABEL_99;
     }
 
     v34 = objc_alloc(MEMORY[0x277D3A328]);
-    timestamp5 = [v144 timestamp];
-    clientIdentifier3 = [v144 clientIdentifier];
-    clientBundleId4 = [v144 clientBundleId];
-    v137 = [v34 initWithFeedbackItems:v140 timestamp:timestamp5 clientIdentifier:clientIdentifier3 clientBundleId:clientBundleId4 mappingId:mappingId2];
+    timestamp5 = [v143 timestamp];
+    clientIdentifier3 = [v143 clientIdentifier];
+    clientBundleId4 = [v143 clientBundleId];
+    v136 = [v34 initWithFeedbackItems:v139 timestamp:timestamp5 clientIdentifier:clientIdentifier3 clientBundleId:clientBundleId4 mappingId:mappingId2];
 
-    [PPFeedbackStorage logFeedback:v137 domain:0 domainStatus:5 inBackground:1];
-    feedbackItems2 = [v137 feedbackItems];
-    clientBundleId5 = [v144 clientBundleId];
-    clientIdentifier4 = [v144 clientIdentifier];
-    [PPFeedbackUtils recordUserEventsFromFeedback:v144 matchingFeedbackItems:feedbackItems2 clientBundleId:clientBundleId5 clientIdentifier:clientIdentifier4 domain:0];
+    [PPFeedbackStorage logFeedback:v136 domain:0 domainStatus:5 inBackground:1];
+    feedbackItems2 = [v136 feedbackItems];
+    clientBundleId5 = [v143 clientBundleId];
+    clientIdentifier4 = [v143 clientIdentifier];
+    [PPFeedbackUtils recordUserEventsFromFeedback:v143 matchingFeedbackItems:feedbackItems2 clientBundleId:clientBundleId5 clientIdentifier:clientIdentifier4 domain:0];
 
-    timestamp6 = [v144 timestamp];
-    clientIdentifier5 = [v144 clientIdentifier];
-    clientBundleId6 = [v144 clientBundleId];
-    v44 = v140;
-    v136 = timestamp6;
-    v135 = clientIdentifier5;
-    v134 = clientBundleId6;
+    timestamp6 = [v143 timestamp];
+    clientIdentifier5 = [v143 clientIdentifier];
+    clientBundleId6 = [v143 clientBundleId];
+    v44 = v139;
+    v135 = timestamp6;
+    v134 = clientIdentifier5;
+    v133 = clientBundleId6;
     v45 = mappingId2;
     v46 = v44;
-    v147 = v45;
+    v146 = v45;
     v47 = objc_opt_new();
-    v211 = 0u;
-    v212 = 0u;
-    *v209 = 0u;
     v210 = 0u;
-    v145 = v46;
-    v149 = [v145 countByEnumeratingWithState:v209 objects:&v213 count:16];
-    if (v149)
+    v211 = 0u;
+    *v208 = 0u;
+    v209 = 0u;
+    v144 = v46;
+    v148 = [v144 countByEnumeratingWithState:v208 objects:&v212 count:16];
+    if (v148)
     {
-      v146 = *v210;
+      v145 = *v209;
       do
       {
         v48 = 0;
         do
         {
-          if (*v210 != v146)
+          if (*v209 != v145)
           {
             v49 = v48;
-            objc_enumerationMutation(v145);
+            objc_enumerationMutation(v144);
             v48 = v49;
           }
 
-          v154 = v48;
-          v50 = *(*&v209[8] + 8 * v48);
-          v156 = objc_autoreleasePoolPush();
+          v153 = v48;
+          v50 = *(*&v208[8] + 8 * v48);
+          v155 = objc_autoreleasePoolPush();
           itemString = [v50 itemString];
-          v191 = 0;
-          v164 = [(PPLocalTopicStore *)self unmapMappedTopicIdentifier:itemString mappingIdentifier:v147 error:&v191];
-          obja = v191;
-          if (v164)
+          v190 = 0;
+          v163 = [(PPLocalTopicStore *)self unmapMappedTopicIdentifier:itemString mappingIdentifier:v146 error:&v190];
+          obja = v190;
+          if (v163)
           {
-            v189 = 0u;
-            v190 = 0u;
-            v187 = 0u;
             v188 = 0u;
-            contexta = v164;
-            v51 = [contexta countByEnumeratingWithState:&v187 objects:v207 count:16];
+            v189 = 0u;
+            v186 = 0u;
+            v187 = 0u;
+            contexta = v163;
+            v51 = [contexta countByEnumeratingWithState:&v186 objects:v206 count:16];
             if (v51)
             {
-              v52 = *v188;
+              v52 = *v187;
               do
               {
                 for (k = 0; k != v51; ++k)
                 {
-                  if (*v188 != v52)
+                  if (*v187 != v52)
                   {
                     objc_enumerationMutation(contexta);
                   }
 
-                  v54 = *(*(&v187 + 1) + 8 * k);
+                  v54 = *(*(&v186 + 1) + 8 * k);
                   v55 = objc_autoreleasePoolPush();
                   v56 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Q%@", v54];
                   v57 = [v47 objectForKeyedSubscript:v56];
@@ -550,7 +546,7 @@ LABEL_98:
                   objc_autoreleasePoolPop(v55);
                 }
 
-                v51 = [contexta countByEnumeratingWithState:&v187 objects:v207 count:16];
+                v51 = [contexta countByEnumeratingWithState:&v186 objects:v206 count:16];
               }
 
               while (v51);
@@ -563,29 +559,29 @@ LABEL_98:
             if (os_log_type_enabled(contexta, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v202 = itemString;
-              v203 = 2112;
-              v204 = v147;
-              v205 = 2112;
-              v206 = obja;
+              v201 = itemString;
+              v202 = 2112;
+              v203 = v146;
+              v204 = 2112;
+              v205 = obja;
               _os_log_error_impl(&dword_23224A000, contexta, OS_LOG_TYPE_ERROR, "Error while getting unmapped topics for mapped topic %@ under mapping %@: %@", buf, 0x20u);
             }
           }
 
-          objc_autoreleasePoolPop(v156);
-          v48 = v154 + 1;
+          objc_autoreleasePoolPop(v155);
+          v48 = v153 + 1;
         }
 
-        while (v154 + 1 != v149);
-        v149 = [v145 countByEnumeratingWithState:v209 objects:&v213 count:16];
+        while (v153 + 1 != v148);
+        v148 = [v144 countByEnumeratingWithState:v208 objects:&v212 count:16];
       }
 
-      while (v149);
+      while (v148);
     }
 
     v62 = objc_opt_new();
-    [v62 setScoringDate:v136];
-    [v62 setToDate:v136];
+    [v62 setScoringDate:v135];
+    [v62 setToDate:v135];
     [v62 setOrderByIdentifier:1];
     v63 = objc_alloc(MEMORY[0x277CBEB98]);
     allKeys2 = [v47 allKeys];
@@ -593,53 +589,53 @@ LABEL_98:
     [v62 setMatchingTopicIds:v65];
 
     v66 = objc_opt_new();
-    v207[0] = 0;
-    v207[1] = v207;
-    v207[2] = 0x3032000000;
-    v207[3] = __Block_byref_object_copy__20434;
-    v207[4] = __Block_byref_object_dispose__20435;
-    v208 = &stru_284759D38;
-    *&v187 = 0;
-    *&v213 = MEMORY[0x277D85DD0];
-    *(&v213 + 1) = 3221225472;
-    v214 = __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDate_clientIdentifier_clientBundleId_mappingId___block_invoke;
-    v215 = &unk_278977538;
-    v218 = v207;
+    v206[0] = 0;
+    v206[1] = v206;
+    v206[2] = 0x3032000000;
+    v206[3] = __Block_byref_object_copy__20434;
+    v206[4] = __Block_byref_object_dispose__20435;
+    v207 = &stru_284759D38;
+    *&v186 = 0;
+    *&v212 = MEMORY[0x277D85DD0];
+    *(&v212 + 1) = 3221225472;
+    v213 = __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDate_clientIdentifier_clientBundleId_mappingId___block_invoke;
+    v214 = &unk_278977538;
+    v217 = v206;
     v67 = v47;
-    v216 = v67;
+    v215 = v67;
     v68 = v66;
-    v217 = v68;
-    v69 = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v62 error:&v187 block:&v213];
-    v70 = v187;
+    v216 = v68;
+    v69 = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v62 error:&v186 block:&v212];
+    v70 = v186;
     if (v69)
     {
       if (![v68 count])
       {
 LABEL_92:
 
-        _Block_object_dispose(v207, 8);
-        v207[0] = 0;
-        v129 = [(PPLocalTopicStore *)self _logFeedbackSessionsWithFeedback:v137 error:v207];
-        v130 = v207[0];
+        _Block_object_dispose(v206, 8);
+        v206[0] = 0;
+        v129 = [(PPLocalTopicStore *)self _logFeedbackSessionsWithFeedback:v136 error:v206];
+        v130 = v206[0];
         if ((v129 & 1) == 0)
         {
           v131 = pp_topics_log_handle();
           if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v213) = 138412290;
-            *(&v213 + 4) = v130;
-            _os_log_error_impl(&dword_23224A000, v131, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: error generating sessions %@", &v213, 0xCu);
+            LODWORD(v212) = 138412290;
+            *(&v212 + 4) = v130;
+            _os_log_error_impl(&dword_23224A000, v131, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: error generating sessions %@", &v212, 0xCu);
           }
         }
 
         goto LABEL_97;
       }
 
-      v71 = [objc_alloc(MEMORY[0x277D3A328]) initWithFeedbackItems:v68 timestamp:v136 clientIdentifier:v135 clientBundleId:v134 mappingId:v147];
+      v71 = [objc_alloc(MEMORY[0x277D3A328]) initWithFeedbackItems:v68 timestamp:v135 clientIdentifier:v134 clientBundleId:v133 mappingId:v146];
       [(PPTopicStorage *)self->_storage donateTopicFeedback:v71];
       v72 = objc_opt_new();
-      [v72 setClientId:v135];
-      [v72 setMappingId:v147];
+      [v72 setClientId:v134];
+      [v72 setMappingId:v146];
       concatenatedTreatmentNames = [(PPTrialWrapper *)self->_trialWrapper concatenatedTreatmentNames];
       [v72 setActiveTreatments:concatenatedTreatmentNames];
 
@@ -652,9 +648,9 @@ LABEL_92:
       v71 = pp_default_log_handle();
       if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
-        *v209 = 138412290;
-        *&v209[4] = v70;
-        _os_log_error_impl(&dword_23224A000, v71, OS_LOG_TYPE_ERROR, "_processTopicPendingFeedback: error from iterTopicRecordsWithQuery: %@", v209, 0xCu);
+        *v208 = 138412290;
+        *&v208[4] = v70;
+        _os_log_error_impl(&dword_23224A000, v71, OS_LOG_TYPE_ERROR, "_processTopicPendingFeedback: error from iterTopicRecordsWithQuery: %@", v208, 0xCu);
       }
     }
 
@@ -664,7 +660,7 @@ LABEL_92:
   v4 = feedbackCopy;
   if (self)
   {
-    v157 = v4;
+    v156 = v4;
     feedbackItems3 = [v4 feedbackItems];
     v76 = [PPLocalTopicStore _feedbackItemsByItemString:feedbackItems3];
 
@@ -673,72 +669,72 @@ LABEL_92:
     v79 = [v77 initWithArray:allKeys3];
 
     v80 = objc_opt_new();
-    v155 = objc_opt_new();
-    timestamp7 = [v157 timestamp];
-    [v155 setScoringDate:timestamp7];
+    v154 = objc_opt_new();
+    timestamp7 = [v156 timestamp];
+    [v154 setScoringDate:timestamp7];
 
-    timestamp8 = [v157 timestamp];
-    [v155 setToDate:timestamp8];
+    timestamp8 = [v156 timestamp];
+    [v154 setToDate:timestamp8];
 
-    [v155 setOrderByIdentifier:1];
-    clientBundleId7 = [v157 clientBundleId];
+    [v154 setOrderByIdentifier:1];
+    clientBundleId7 = [v156 clientBundleId];
     v84 = [PPFeedbackExclusionProvider excludedBundleIdsForClientBundleId:clientBundleId7 domain:0];
-    [v155 setExcludingSourceBundleIds:v84];
+    [v154 setExcludingSourceBundleIds:v84];
 
     v85 = objc_alloc(MEMORY[0x277CBEB98]);
-    feedbackItems4 = [v157 feedbackItems];
+    feedbackItems4 = [v156 feedbackItems];
     v87 = [feedbackItems4 _pas_proxyArrayWithMapping:&__block_literal_global_390_20443];
     v88 = [v85 initWithArray:v87];
-    [v155 setMatchingTopicIds:v88];
+    [v154 setMatchingTopicIds:v88];
 
-    *&v187 = 0;
-    *(&v187 + 1) = &v187;
-    *&v188 = 0x3032000000;
-    *(&v188 + 1) = __Block_byref_object_copy__20434;
-    *&v189 = __Block_byref_object_dispose__20435;
-    *(&v189 + 1) = &stru_284759D38;
-    *&v178 = 0;
-    v196[0] = MEMORY[0x277D85DD0];
-    v196[1] = 3221225472;
-    v196[2] = __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke_2;
-    v196[3] = &unk_2789774E8;
-    v200 = &v187;
+    *&v186 = 0;
+    *(&v186 + 1) = &v186;
+    *&v187 = 0x3032000000;
+    *(&v187 + 1) = __Block_byref_object_copy__20434;
+    *&v188 = __Block_byref_object_dispose__20435;
+    *(&v188 + 1) = &stru_284759D38;
+    *&v177 = 0;
+    v195[0] = MEMORY[0x277D85DD0];
+    v195[1] = 3221225472;
+    v195[2] = __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke_2;
+    v195[3] = &unk_2789774E8;
+    v199 = &v186;
     osloga = v80;
-    v197 = osloga;
-    v167 = v76;
-    v198 = v167;
-    v150 = v79;
-    v199 = v150;
-    LOBYTE(v76) = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v155 error:&v178 block:v196];
-    v148 = v178;
+    v196 = osloga;
+    v166 = v76;
+    v197 = v166;
+    v149 = v79;
+    v198 = v149;
+    LOBYTE(v76) = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v154 error:&v177 block:v195];
+    v147 = v177;
     if (v76)
     {
       if ([osloga count])
       {
         v89 = objc_alloc(MEMORY[0x277D3A328]);
-        timestamp9 = [v157 timestamp];
-        clientIdentifier6 = [v157 clientIdentifier];
-        clientBundleId8 = [v157 clientBundleId];
-        mappingId3 = [v157 mappingId];
+        timestamp9 = [v156 timestamp];
+        clientIdentifier6 = [v156 clientIdentifier];
+        clientBundleId8 = [v156 clientBundleId];
+        mappingId3 = [v156 mappingId];
         v94 = [v89 initWithFeedbackItems:osloga timestamp:timestamp9 clientIdentifier:clientIdentifier6 clientBundleId:clientBundleId8 mappingId:mappingId3];
 
         [PPFeedbackStorage logFeedback:v94 domain:0 domainStatus:2 inBackground:1];
         feedbackItems5 = [v94 feedbackItems];
-        clientBundleId9 = [v157 clientBundleId];
-        clientIdentifier7 = [v157 clientIdentifier];
-        [PPFeedbackUtils recordUserEventsFromFeedback:v157 matchingFeedbackItems:feedbackItems5 clientBundleId:clientBundleId9 clientIdentifier:clientIdentifier7 domain:0];
+        clientBundleId9 = [v156 clientBundleId];
+        clientIdentifier7 = [v156 clientIdentifier];
+        [PPFeedbackUtils recordUserEventsFromFeedback:v156 matchingFeedbackItems:feedbackItems5 clientBundleId:clientBundleId9 clientIdentifier:clientIdentifier7 domain:0];
 
-        *&v174 = 0;
-        LOBYTE(clientBundleId9) = [(PPLocalTopicStore *)self _logFeedbackSessionsWithFeedback:v94 error:&v174];
-        v98 = v174;
+        *&v173 = 0;
+        LOBYTE(clientBundleId9) = [(PPLocalTopicStore *)self _logFeedbackSessionsWithFeedback:v94 error:&v173];
+        v98 = v173;
         if ((clientBundleId9 & 1) == 0)
         {
           v99 = pp_topics_log_handle();
           if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v213) = 138412290;
-            *(&v213 + 4) = v98;
-            _os_log_error_impl(&dword_23224A000, v99, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: failed in session logging: %@", &v213, 0xCu);
+            LODWORD(v212) = 138412290;
+            *(&v212 + 4) = v98;
+            _os_log_error_impl(&dword_23224A000, v99, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: failed in session logging: %@", &v212, 0xCu);
           }
         }
 
@@ -747,26 +743,26 @@ LABEL_92:
 
       objb = objc_opt_new();
       v100 = objc_opt_new();
-      v194 = 0u;
-      v195 = 0u;
-      v192 = 0u;
       v193 = 0u;
-      v162 = v150;
-      v101 = [v162 countByEnumeratingWithState:&v192 objects:&v213 count:16];
+      v194 = 0u;
+      v191 = 0u;
+      v192 = 0u;
+      v161 = v149;
+      v101 = [v161 countByEnumeratingWithState:&v191 objects:&v212 count:16];
       if (v101)
       {
-        v165 = *v193;
+        v164 = *v192;
         do
         {
-          v170 = v101;
-          for (m = 0; m != v170; ++m)
+          v169 = v101;
+          for (m = 0; m != v169; ++m)
           {
-            if (*v193 != v165)
+            if (*v192 != v164)
             {
-              objc_enumerationMutation(v162);
+              objc_enumerationMutation(v161);
             }
 
-            v103 = *(*(&v192 + 1) + 8 * m);
+            v103 = *(*(&v191 + 1) + 8 * m);
             contextb = objc_autoreleasePoolPush();
             v104 = MEMORY[0x277CCAC68];
             v105 = v103;
@@ -776,29 +772,29 @@ LABEL_92:
 
             if (v107 == 0x7FFFFFFFFFFFFFFFLL && v109 == 0)
             {
-              v211 = 0u;
-              v212 = 0u;
-              *v209 = 0u;
               v210 = 0u;
-              v111 = [v167 objectForKeyedSubscript:v105];
-              v112 = [v111 countByEnumeratingWithState:v209 objects:v207 count:16];
+              v211 = 0u;
+              *v208 = 0u;
+              v209 = 0u;
+              v111 = [v166 objectForKeyedSubscript:v105];
+              v112 = [v111 countByEnumeratingWithState:v208 objects:v206 count:16];
               if (v112)
               {
-                v113 = *v210;
+                v113 = *v209;
                 do
                 {
                   for (n = 0; n != v112; ++n)
                   {
-                    if (*v210 != v113)
+                    if (*v209 != v113)
                     {
                       objc_enumerationMutation(v111);
                     }
 
-                    v115 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:&stru_284759D38 itemFeedbackType:{objc_msgSend(*(*&v209[8] + 8 * n), "itemFeedbackType")}];
+                    v115 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:&stru_284759D38 itemFeedbackType:{objc_msgSend(*(*&v208[8] + 8 * n), "itemFeedbackType")}];
                     [v100 addObject:v115];
                   }
 
-                  v112 = [v111 countByEnumeratingWithState:v209 objects:v207 count:16];
+                  v112 = [v111 countByEnumeratingWithState:v208 objects:v206 count:16];
                 }
 
                 while (v112);
@@ -807,14 +803,14 @@ LABEL_92:
 
             else
             {
-              v111 = [v167 objectForKeyedSubscript:v105];
+              v111 = [v166 objectForKeyedSubscript:v105];
               [objb addObjectsFromArray:v111];
             }
 
             objc_autoreleasePoolPop(contextb);
           }
 
-          v101 = [v162 countByEnumeratingWithState:&v192 objects:&v213 count:16];
+          v101 = [v161 countByEnumeratingWithState:&v191 objects:&v212 count:16];
         }
 
         while (v101);
@@ -823,10 +819,10 @@ LABEL_92:
       if ([objb count])
       {
         v116 = objc_alloc(MEMORY[0x277D3A328]);
-        timestamp10 = [v157 timestamp];
-        clientIdentifier8 = [v157 clientIdentifier];
-        clientBundleId10 = [v157 clientBundleId];
-        mappingId4 = [v157 mappingId];
+        timestamp10 = [v156 timestamp];
+        clientIdentifier8 = [v156 clientIdentifier];
+        clientBundleId10 = [v156 clientBundleId];
+        mappingId4 = [v156 mappingId];
         v121 = [v116 initWithFeedbackItems:objb timestamp:timestamp10 clientIdentifier:clientIdentifier8 clientBundleId:clientBundleId10 mappingId:mappingId4];
 
         [PPFeedbackStorage logFeedback:v121 domain:0 domainStatus:2 inBackground:1];
@@ -835,10 +831,10 @@ LABEL_92:
       if ([v100 count])
       {
         v122 = objc_alloc(MEMORY[0x277D3A328]);
-        timestamp11 = [v157 timestamp];
-        clientIdentifier9 = [v157 clientIdentifier];
-        clientBundleId11 = [v157 clientBundleId];
-        mappingId5 = [v157 mappingId];
+        timestamp11 = [v156 timestamp];
+        clientIdentifier9 = [v156 clientIdentifier];
+        clientBundleId11 = [v156 clientBundleId];
+        mappingId5 = [v156 mappingId];
         v127 = [v122 initWithFeedbackItems:v100 timestamp:timestamp11 clientIdentifier:clientIdentifier9 clientBundleId:clientBundleId11 mappingId:mappingId5];
 
         [PPFeedbackStorage logFeedback:v127 domain:0 domainStatus:0 inBackground:1];
@@ -852,46 +848,44 @@ LABEL_92:
       v128 = pp_default_log_handle();
       if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v213) = 138412290;
-        *(&v213 + 4) = v148;
-        _os_log_error_impl(&dword_23224A000, v128, OS_LOG_TYPE_ERROR, "_processTopicPendingFeedback: error from iterTopicRecordsWithQuery: %@", &v213, 0xCu);
+        LODWORD(v212) = 138412290;
+        *(&v212 + 4) = v147;
+        _os_log_error_impl(&dword_23224A000, v128, OS_LOG_TYPE_ERROR, "_processTopicPendingFeedback: error from iterTopicRecordsWithQuery: %@", &v212, 0xCu);
       }
     }
 
-    _Block_object_dispose(&v187, 8);
-    v4 = v157;
+    _Block_object_dispose(&v186, 8);
+    v4 = v156;
   }
 
 LABEL_99:
-
-  v132 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_feedbackItemsByItemString:(void *)string
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v2 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = stringCopy;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         itemString = [v8 itemString];
         v11 = [v2 objectForKeyedSubscript:itemString];
@@ -908,13 +902,11 @@ LABEL_99:
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -958,7 +950,7 @@ void __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke
 
 - (uint64_t)_logFeedbackSessionsWithFeedback:(void *)feedback error:
 {
-  v158 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   v4 = a2;
   clientBundleId = [v4 clientBundleId];
   v6 = [PPFeedbackUtils shouldSample:clientBundleId];
@@ -982,8 +974,8 @@ void __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke
   [v7 setFeedbackMetadata:v8];
 
   feedbackItems = [v4 feedbackItems];
-  v125 = objc_opt_new();
-  v121 = objc_opt_new();
+  v124 = objc_opt_new();
+  v120 = objc_opt_new();
   v9 = objc_opt_new();
   [v9 setLimit:1000];
   clientBundleId2 = [v4 clientBundleId];
@@ -1003,9 +995,9 @@ void __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke
     [v9 setExcludingSourceBundleIds:0];
   }
 
-  v147 = 0;
-  v17 = [self rankedTopicsWithQuery:v9 error:&v147];
-  v18 = v147;
+  v146 = 0;
+  v17 = [self rankedTopicsWithQuery:v9 error:&v146];
+  v18 = v146;
   v19 = v18;
   if (!v17)
   {
@@ -1019,44 +1011,44 @@ void __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v157 = v19;
+      v156 = v19;
       _os_log_error_impl(&dword_23224A000, v65, OS_LOG_TYPE_ERROR, "logFeedbackSessionsWithFeedback: nil result from rankedTopicsWithQuery: %@", buf, 0xCu);
     }
 
-    v148 = 0;
+    v147 = 0;
     goto LABEL_90;
   }
 
   feedbackCopy = feedback;
-  v116 = v18;
-  v109 = v9;
-  v119 = v7;
-  v114 = v4;
-  v120 = objc_opt_new();
+  v115 = v18;
+  v108 = v9;
+  v118 = v7;
+  v113 = v4;
+  v119 = objc_opt_new();
+  v142 = 0u;
   v143 = 0u;
   v144 = 0u;
   v145 = 0u;
-  v146 = 0u;
-  v108 = v17;
+  v107 = v17;
   obj = v17;
-  v20 = [obj countByEnumeratingWithState:&v143 objects:v155 count:16];
+  v20 = [obj countByEnumeratingWithState:&v142 objects:v154 count:16];
   if (!v20)
   {
     goto LABEL_21;
   }
 
   v21 = v20;
-  v22 = *v144;
+  v22 = *v143;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v144 != v22)
+      if (*v143 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v143 + 1) + 8 * i);
+      v24 = *(*(&v142 + 1) + 8 * i);
       v25 = objc_autoreleasePoolPush();
       item = [v24 item];
       topicIdentifier = [item topicIdentifier];
@@ -1075,10 +1067,10 @@ void __58__PPLocalTopicStore__processPortraitTopicPendingFeedback___block_invoke
         topicIdentifier3 = [item3 topicIdentifier];
         item = [topicIdentifier3 substringFromIndex:1];
 
-        topicIdentifier = [v121 numberFromString:item];
+        topicIdentifier = [v120 numberFromString:item];
         if (topicIdentifier)
         {
-          [v120 addObject:topicIdentifier];
+          [v119 addObject:topicIdentifier];
         }
       }
 
@@ -1086,35 +1078,35 @@ LABEL_19:
       objc_autoreleasePoolPop(v25);
     }
 
-    v21 = [obj countByEnumeratingWithState:&v143 objects:v155 count:16];
+    v21 = [obj countByEnumeratingWithState:&v142 objects:v154 count:16];
   }
 
   while (v21);
 LABEL_21:
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
   v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   v33 = feedbackItems;
-  v117 = [v33 countByEnumeratingWithState:&v139 objects:v154 count:16];
-  if (v117)
+  v116 = [v33 countByEnumeratingWithState:&v138 objects:v153 count:16];
+  if (v116)
   {
-    v115 = *v140;
-    v4 = v114;
-    v7 = v119;
+    v114 = *v139;
+    v4 = v113;
+    v7 = v118;
     v34 = 0x27896F000;
-    v112 = v33;
+    v111 = v33;
 LABEL_23:
     v35 = 0;
     while (1)
     {
-      if (*v140 != v115)
+      if (*v139 != v114)
       {
         objc_enumerationMutation(v33);
       }
 
-      v36 = *(*(&v139 + 1) + 8 * v35);
+      v36 = *(*(&v138 + 1) + 8 * v35);
       v37 = objc_autoreleasePoolPush();
       isMapped = [v4 isMapped];
       itemString = [v36 itemString];
@@ -1139,15 +1131,15 @@ LABEL_23:
           v42 = v47;
         }
 
-        v48 = [v121 numberFromString:v42];
+        v48 = [v120 numberFromString:v42];
         if (v48)
         {
           v49 = v48;
           obja = v35;
-          v118 = v37;
-          v152 = v48;
-          v153 = &unk_284786120;
-          v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v153 forKeys:&v152 count:1];
+          v117 = v37;
+          v151 = v48;
+          v152 = &unk_284786120;
+          v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v152 forKeys:&v151 count:1];
 
           v42 = v50;
           goto LABEL_34;
@@ -1155,15 +1147,15 @@ LABEL_23:
 
 LABEL_46:
 
-        v7 = v119;
+        v7 = v118;
       }
 
       objc_autoreleasePoolPop(v37);
       v35 = v35 + 1;
-      if (v35 == v117)
+      if (v35 == v116)
       {
-        v117 = [v33 countByEnumeratingWithState:&v139 objects:v154 count:16];
-        if (v117)
+        v116 = [v33 countByEnumeratingWithState:&v138 objects:v153 count:16];
+        if (v116)
         {
           goto LABEL_23;
         }
@@ -1174,51 +1166,51 @@ LABEL_46:
 
     obja = v35;
     mappingId = [v4 mappingId];
-    v138 = v116;
-    v42 = [self unmapMappedTopicIdentifier:v40 mappingIdentifier:mappingId error:&v138];
-    v19 = v138;
+    v137 = v115;
+    v42 = [self unmapMappedTopicIdentifier:v40 mappingIdentifier:mappingId error:&v137];
+    v19 = v137;
 
     if (!v42)
     {
       v66 = pp_topics_log_handle();
-      v17 = v108;
+      v17 = v107;
       if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v157 = v19;
+        v156 = v19;
         _os_log_error_impl(&dword_23224A000, v66, OS_LOG_TYPE_ERROR, "logFeedbackSessionsWithFeedback: nil result from unmapMappedTopicIdentifier: %@", buf, 0xCu);
       }
 
-      v148 = 0;
+      v147 = 0;
       objc_autoreleasePoolPop(v37);
-      v7 = v119;
+      v7 = v118;
       goto LABEL_89;
     }
 
-    v118 = v37;
-    v116 = v19;
+    v117 = v37;
+    v115 = v19;
 LABEL_34:
-    v136 = 0u;
-    v137 = 0u;
-    v134 = 0u;
     v135 = 0u;
-    v51 = v120;
-    v52 = [v51 countByEnumeratingWithState:&v134 objects:v151 count:16];
+    v136 = 0u;
+    v133 = 0u;
+    v134 = 0u;
+    v51 = v119;
+    v52 = [v51 countByEnumeratingWithState:&v133 objects:v150 count:16];
     if (v52)
     {
       v53 = v52;
       v54 = 0;
-      v55 = *v135;
+      v55 = *v134;
 LABEL_36:
       v56 = 0;
       while (1)
       {
-        if (*v135 != v55)
+        if (*v134 != v55)
         {
           objc_enumerationMutation(v51);
         }
 
-        v57 = *(*(&v134 + 1) + 8 * v56);
+        v57 = *(*(&v133 + 1) + 8 * v56);
         v58 = [v42 objectForKeyedSubscript:v57];
 
         if (v58)
@@ -1228,11 +1220,11 @@ LABEL_36:
           v61 = [v59 initWithFormat:@"Q%@", stringValue];
 
           v62 = [PPFeedbackUtils feedbackItemForPPFeedbackItem:v36];
-          v63 = [v125 objectForKeyedSubscript:v61];
+          v63 = [v124 objectForKeyedSubscript:v61];
           if (!v63)
           {
             v63 = objc_opt_new();
-            [v125 setObject:v63 forKeyedSubscript:v61];
+            [v124 setObject:v63 forKeyedSubscript:v61];
           }
 
           [v63 addObject:v62];
@@ -1246,7 +1238,7 @@ LABEL_36:
 
         if (v53 == ++v56)
         {
-          v53 = [v51 countByEnumeratingWithState:&v134 objects:v151 count:16];
+          v53 = [v51 countByEnumeratingWithState:&v133 objects:v150 count:16];
           if (v53)
           {
             goto LABEL_36;
@@ -1257,39 +1249,39 @@ LABEL_36:
       }
     }
 
-    v33 = v112;
-    v4 = v114;
+    v33 = v111;
+    v4 = v113;
     v34 = 0x27896F000;
-    v37 = v118;
+    v37 = v117;
     v35 = obja;
     goto LABEL_46;
   }
 
-  v7 = v119;
+  v7 = v118;
   v34 = 0x27896F000uLL;
 LABEL_59:
 
   v67 = objc_opt_new();
+  v129 = 0u;
   v130 = 0u;
   v131 = 0u;
   v132 = 0u;
-  v133 = 0u;
-  v68 = v125;
-  v69 = [v68 countByEnumeratingWithState:&v130 objects:v150 count:16];
+  v68 = v124;
+  v69 = [v68 countByEnumeratingWithState:&v129 objects:v149 count:16];
   if (v69)
   {
     v70 = v69;
-    v71 = *v131;
+    v71 = *v130;
     do
     {
       for (j = 0; j != v70; ++j)
       {
-        if (*v131 != v71)
+        if (*v130 != v71)
         {
           objc_enumerationMutation(v68);
         }
 
-        v73 = *(*(&v130 + 1) + 8 * j);
+        v73 = *(*(&v129 + 1) + 8 * j);
         [v67 addObject:v73];
         v74 = objc_opt_new();
         LODWORD(v75) = -1.0;
@@ -1300,7 +1292,7 @@ LABEL_59:
         [v7 addScoredItems:v76];
       }
 
-      v70 = [v68 countByEnumeratingWithState:&v130 objects:v150 count:16];
+      v70 = [v68 countByEnumeratingWithState:&v129 objects:v149 count:16];
     }
 
     while (v70);
@@ -1311,18 +1303,18 @@ LABEL_59:
   {
     v79 = [v68 count];
     *buf = 134283521;
-    v157 = v79;
+    v156 = v79;
     _os_log_impl(&dword_23224A000, v78, OS_LOG_TYPE_INFO, "Feedback logging: retrieved features for %{private}lu topics: ", buf, 0xCu);
   }
 
   v80 = objc_opt_new();
   [v80 setLimit:1000];
-  clientBundleId4 = [v114 clientBundleId];
+  clientBundleId4 = [v113 clientBundleId];
   if (clientBundleId4)
   {
     v82 = objc_autoreleasePoolPush();
     v83 = objc_alloc(MEMORY[0x277CBEB98]);
-    clientBundleId5 = [v114 clientBundleId];
+    clientBundleId5 = [v113 clientBundleId];
     v85 = [v83 initWithObjects:{clientBundleId5, 0}];
 
     objc_autoreleasePoolPop(v82);
@@ -1334,49 +1326,40 @@ LABEL_59:
     [v80 setExcludingSourceBundleIds:0];
   }
 
-  v113 = v67;
+  v112 = v67;
   [v80 setMatchingTopicIds:v67];
   objb = v80;
   [self topicRecordsWithQuery:v80 error:feedbackCopy];
+  v125 = 0u;
   v126 = 0u;
   v127 = 0u;
-  v128 = 0u;
-  v86 = v129 = 0u;
-  v87 = [v86 countByEnumeratingWithState:&v126 objects:v149 count:16];
+  v86 = v128 = 0u;
+  v87 = [v86 countByEnumeratingWithState:&v125 objects:v148 count:16];
   if (v87)
   {
     v88 = v87;
     v89 = 0;
-    v90 = *v127;
+    v90 = *v126;
     while (2)
     {
       for (k = 0; k != v88; ++k)
       {
-        if (*v127 != v90)
+        if (*v126 != v90)
         {
           objc_enumerationMutation(v86);
         }
 
-        v92 = *(*(&v126 + 1) + 8 * k);
+        v92 = *(*(&v125 + 1) + 8 * k);
         v93 = *(v34 + 2296);
         source = [v92 source];
         bundleId = [source bundleId];
         LODWORD(v93) = [v93 shouldSampleExtraction:bundleId];
 
-        if (!v93)
-        {
-          goto LABEL_80;
-        }
-
-        topic = [v92 topic];
-        topicIdentifier4 = [topic topicIdentifier];
-        v98 = [v68 objectForKey:topicIdentifier4];
-
-        if (v98)
+        if (v93 && ([v92 topic], v96 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v96, "topicIdentifier"), v97 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v68, "objectForKey:", v97), v98 = objc_claimAutoreleasedReturnValue(), v98, v97, v96, v98))
         {
           if (v89 > 0x63)
           {
-            v7 = v119;
+            v7 = v118;
             v34 = 0x27896F000;
             goto LABEL_86;
           }
@@ -1391,21 +1374,20 @@ LABEL_59:
 
           [v92 initialScore];
           [v99 setScore:?];
-          v7 = v119;
-          [v119 addExtractedDonations:v99];
+          v7 = v118;
+          [v118 addExtractedDonations:v99];
           ++v89;
         }
 
         else
         {
-LABEL_80:
-          v7 = v119;
+          v7 = v118;
         }
 
         v34 = 0x27896F000;
       }
 
-      v88 = [v86 countByEnumeratingWithState:&v126 objects:v149 count:16];
+      v88 = [v86 countByEnumeratingWithState:&v125 objects:v148 count:16];
       if (v88)
       {
         continue;
@@ -1426,7 +1408,7 @@ LABEL_86:
   if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
   {
     *buf = 134283521;
-    v157 = v89;
+    v156 = v89;
     _os_log_impl(&dword_23224A000, v103, OS_LOG_TYPE_INFO, "Feedback logging: logged %{private}lu topic records: ", buf, 0xCu);
   }
 
@@ -1434,20 +1416,19 @@ LABEL_86:
   mEMORY[0x277D41DA8] = [MEMORY[0x277D41DA8] sharedInstance];
   [mEMORY[0x277D41DA8] logMessage:v7];
 
-  v148 = 1;
-  v33 = v113;
-  v4 = v114;
-  v17 = v108;
-  v19 = v116;
+  v147 = 1;
+  v33 = v112;
+  v4 = v113;
+  v17 = v107;
+  v19 = v115;
 LABEL_89:
 
-  v9 = v109;
+  v9 = v108;
 LABEL_90:
 
-  v16 = v148;
+  v16 = v147;
 LABEL_91:
 
-  v105 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1470,7 +1451,7 @@ void __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke(u
 
 - (PPTopicTransform)_topicTransformForId:(uint64_t)id
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (id)
   {
@@ -1488,7 +1469,7 @@ void __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke(u
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "Loading topic transform file from: %@", buf, 0xCu);
       }
 
@@ -1500,7 +1481,7 @@ void __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke(u
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v5;
+        v14 = v5;
         _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "Cannot locate asset path for transform resource: %@", buf, 0xCu);
       }
 
@@ -1513,14 +1494,12 @@ void __56__PPLocalTopicStore__processMappedTopicPendingFeedback___block_invoke(u
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDate_clientIdentifier_clientBundleId_mappingId___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 topic];
   v5 = [v4 clusterIdentifier];
@@ -1533,34 +1512,34 @@ void __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDat
 
     if ((v9 & 1) == 0)
     {
-      v24 = v3;
+      v23 = v3;
       v10 = [v3 topic];
       v11 = [v10 topicIdentifier];
       v12 = *(*(a1 + 48) + 8);
       v13 = *(v12 + 40);
       *(v12 + 40) = v11;
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       obj = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 48) + 8) + 40)];
-      v14 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v14)
       {
         v15 = v14;
-        v26 = *v28;
+        v25 = *v27;
         do
         {
           v16 = 0;
           do
           {
-            if (*v28 != v26)
+            if (*v27 != v25)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v27 + 1) + 8 * v16);
+            v17 = *(*(&v26 + 1) + 8 * v16);
             v18 = objc_autoreleasePoolPush();
             v19 = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 48) + 8) + 40)];
             v20 = [v19 countForObject:v17];
@@ -1579,33 +1558,31 @@ void __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDat
           }
 
           while (v16 != v15);
-          v15 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v15);
       }
 
-      v3 = v24;
+      v3 = v23;
     }
   }
 
   else
   {
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerUniversalSearchSpotlightFeedback:(id)feedback completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   v7 = pp_topics_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138739971;
-    v14 = feedbackCopy;
+    v13 = feedbackCopy;
     _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPTopic universal search spotlight feedback received: %{sensitive}@", buf, 0xCu);
   }
 
@@ -1615,15 +1592,13 @@ void __115__PPLocalTopicStore__mappedTopicsFilterPendingFeedbackItems_scoringDat
   block[2] = __73__PPLocalTopicStore_registerUniversalSearchSpotlightFeedback_completion___block_invoke;
   block[3] = &unk_2789790A8;
   v9 = feedbackCopy;
-  v12 = v9;
+  v11 = v9;
   dispatch_async(v8, block);
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__PPLocalTopicStore_registerUniversalSearchSpotlightFeedback_completion___block_invoke(uint64_t a1)
@@ -1636,7 +1611,7 @@ void __73__PPLocalTopicStore_registerUniversalSearchSpotlightFeedback_completion
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   isMapped = [feedbackCopy isMapped];
@@ -1649,8 +1624,8 @@ void __73__PPLocalTopicStore_registerUniversalSearchSpotlightFeedback_completion
       goto LABEL_5;
     }
 
-    v14 = 138739971;
-    v15 = feedbackCopy;
+    v13 = 138739971;
+    v14 = feedbackCopy;
     v10 = "Mapped Topic feedback received: %{sensitive}@";
   }
 
@@ -1661,12 +1636,12 @@ void __73__PPLocalTopicStore_registerUniversalSearchSpotlightFeedback_completion
       goto LABEL_5;
     }
 
-    v14 = 138739971;
-    v15 = feedbackCopy;
+    v13 = 138739971;
+    v14 = feedbackCopy;
     v10 = "Topic feedback received: %{sensitive}@";
   }
 
-  _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, v10, &v14, 0xCu);
+  _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, v10, &v13, 0xCu);
 LABEL_5:
 
   v11 = objc_opt_new();
@@ -1677,8 +1652,6 @@ LABEL_5:
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDonationErrorForReason:(int64_t)reason errorCode:(unint64_t)code source:(id)source
@@ -1712,7 +1685,7 @@ void __64__PPLocalTopicStore_logDonationErrorForReason_errorCode_source___block_
 
 - (BOOL)clearWithError:(id *)error deletedCount:(unint64_t *)count
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = [(PPTopicStorage *)self->_storage clearWithError:error deletedCount:count];
   v7 = v6;
   if (error && !v6)
@@ -1720,15 +1693,14 @@ void __64__PPLocalTopicStore_logDonationErrorForReason_errorCode_source___block_
     v8 = pp_topics_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *error;
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "clearWithError error: %@", &v12, 0xCu);
+      v10 = *error;
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "clearWithError error: %@", &v11, 0xCu);
     }
   }
 
   [(PPLocalTopicStore *)self topicInvalidationCallback];
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1748,7 +1720,7 @@ void __64__PPLocalTopicStore_logDonationErrorForReason_errorCode_source___block_
 
 void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1758,33 +1730,31 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
 
   PPPostNotification("com.apple.proactive.PersonalizationPortrait.topicsInvalidated");
   v3 = *(a1 + 32);
-  v11 = 0;
-  v4 = [v3 computeAndCacheTopicScores:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [v3 computeAndCacheTopicScores:&v10];
+  v5 = v10;
   if ((v4 & 1) == 0)
   {
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v5;
+      v12 = v5;
       _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPLocalTopicStore had an error while trying to refresh the cache after topic invalidation: %@", buf, 0xCu);
     }
 
     v7 = *(a1 + 32);
-    v10 = v5;
-    [v7 clearTopicScoresCache:&v10];
-    v8 = v10;
+    v9 = v5;
+    [v7 clearTopicScoresCache:&v9];
+    v8 = v9;
 
     v5 = v8;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)cloudSyncWithError:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   userKnowledgeStore = [MEMORY[0x277CFE208] userKnowledgeStore];
   if (userKnowledgeStore)
   {
@@ -1797,13 +1767,13 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
 
     v7 = objc_opt_new();
     storage = self->_storage;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __40__PPLocalTopicStore_cloudSyncWithError___block_invoke;
-    v29[3] = &unk_278977450;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __40__PPLocalTopicStore_cloudSyncWithError___block_invoke;
+    v28[3] = &unk_278977450;
     v9 = v7;
-    v30 = v9;
-    [(PPTopicStorage *)storage exportRecordsToDKWithShouldContinueBlock:v29];
+    v29 = v9;
+    [(PPTopicStorage *)storage exportRecordsToDKWithShouldContinueBlock:v28];
     v10 = pp_topics_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
@@ -1811,9 +1781,9 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
       _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEFAULT, "cloudSyncWithError: synchronizing _DKKnowledgeStore", buf, 2u);
     }
 
-    v28 = 0;
-    v11 = [userKnowledgeStore synchronizeWithError:&v28];
-    v12 = v28;
+    v27 = 0;
+    v11 = [userKnowledgeStore synchronizeWithError:&v27];
+    v12 = v27;
     if (v11)
     {
       v13 = pp_topics_log_handle();
@@ -1846,9 +1816,9 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
       {
         v21 = objc_alloc(MEMORY[0x277CCA9B8]);
         v22 = *MEMORY[0x277D3A580];
-        v31 = *MEMORY[0x277CCA450];
-        v32 = v20;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x277CCA450];
+        v31 = v20;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         *error = [v21 initWithDomain:v22 code:1 userInfo:v23];
       }
 
@@ -1856,7 +1826,7 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v34 = v20;
+        v33 = v20;
         _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
     }
@@ -1868,9 +1838,9 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
     {
       v15 = objc_alloc(MEMORY[0x277CCA9B8]);
       v16 = *MEMORY[0x277D3A580];
-      v35 = *MEMORY[0x277CCA450];
-      v36[0] = @"Unable to connect to _DKKnowledgeStore";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x277CCA450];
+      v35[0] = @"Unable to connect to _DKKnowledgeStore";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
       *error = [v15 initWithDomain:v16 code:1 userInfo:v17];
     }
 
@@ -1878,14 +1848,13 @@ void __46__PPLocalTopicStore_topicInvalidationCallback__block_invoke(uint64_t a1
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = @"Unable to connect to _DKKnowledgeStore";
+      v33 = @"Unable to connect to _DKKnowledgeStore";
       _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     v11 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2114,7 +2083,7 @@ void __45__PPLocalTopicStore_flushDonationsWithError___block_invoke(uint64_t a1,
 - (BOOL)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score exactMatchesInSourceText:(id)text error:(id *)error
 {
   syncCopy = sync;
-  v147 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   sourceCopy = source;
   textCopy = text;
@@ -2151,7 +2120,7 @@ LABEL_3:
     *&buf[12] = 2112;
     *&buf[14] = sourceCopy;
     *&buf[22] = 2112;
-    v141 = v20;
+    v140 = v20;
     _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore received a donation of %tu topics from source: %@, algorithm: %@", buf, 0x20u);
   }
 
@@ -2201,28 +2170,28 @@ LABEL_15:
 
   v27 = 1;
 LABEL_16:
-  v116 = topicsCopy;
-  v117 = textCopy;
-  v115 = sourceCopy;
+  v115 = topicsCopy;
+  v116 = textCopy;
+  v114 = sourceCopy;
   if (algorithm == 5 && ([sourceCopy documentId], v31 = objc_claimAutoreleasedReturnValue(), v32 = *MEMORY[0x277D3A6E0], v33 = objc_msgSend(v31, "hasPrefix:", *MEMORY[0x277D3A6E0]), v31, v33))
   {
-    v114 = v27;
+    v113 = v27;
     v34 = topicsCopy;
     v35 = sourceCopy;
     v36 = v35;
-    v113 = v34;
+    v112 = v34;
     if (self)
     {
-      v121 = v35;
-      v123 = objc_opt_new();
+      v120 = v35;
+      v122 = objc_opt_new();
       v37 = [(PPTrialWrapper *)self->_trialWrapper plistForFactorName:@"PhotosTopicMap.plist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
+      v128 = 0u;
       v129 = 0u;
       v130 = 0u;
       v131 = 0u;
-      v132 = 0u;
       v38 = v34;
-      v39 = [v38 countByEnumeratingWithState:&v129 objects:buf count:16];
-      v112 = v32;
+      v39 = [v38 countByEnumeratingWithState:&v128 objects:buf count:16];
+      v111 = v32;
       if (!v39)
       {
         v42 = 1;
@@ -2230,21 +2199,21 @@ LABEL_16:
       }
 
       v40 = v39;
-      v41 = *v130;
-      v120 = *MEMORY[0x277D3A580];
-      v119 = *MEMORY[0x277D3A588];
+      v41 = *v129;
+      v119 = *MEMORY[0x277D3A580];
+      v118 = *MEMORY[0x277D3A588];
       v42 = 1;
       while (1)
       {
         v43 = 0;
         do
         {
-          if (*v130 != v41)
+          if (*v129 != v41)
           {
             objc_enumerationMutation(v38);
           }
 
-          v44 = *(*(&v129 + 1) + 8 * v43);
+          v44 = *(*(&v128 + 1) + 8 * v43);
           item = [v44 item];
           topicIdentifier = [item topicIdentifier];
           v47 = [v37 objectForKeyedSubscript:topicIdentifier];
@@ -2260,7 +2229,7 @@ LABEL_16:
             [v44 score];
             v53 = [v51 initWithItem:v52 score:?];
 
-            [v123 addObject:v53];
+            [v122 addObject:v53];
 LABEL_32:
 
             goto LABEL_33;
@@ -2271,9 +2240,9 @@ LABEL_32:
           {
             item3 = [v44 item];
             topicIdentifier3 = [item3 topicIdentifier];
-            *v136 = 138739971;
-            v137 = topicIdentifier3;
-            _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_INFO, "PPLocalTopicStore: got unmatched photos topic: %{sensitive}@", v136, 0xCu);
+            *v135 = 138739971;
+            v136 = topicIdentifier3;
+            _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_INFO, "PPLocalTopicStore: got unmatched photos topic: %{sensitive}@", v135, 0xCu);
           }
 
           if (error)
@@ -2282,23 +2251,23 @@ LABEL_32:
             item4 = [v44 item];
             topicIdentifier4 = [item4 topicIdentifier];
             v60 = [topicIdentifier4 length];
-            bundleId5 = [v121 bundleId];
+            bundleId5 = [v120 bundleId];
             v50 = [v57 initWithFormat:@"No unmapping found for Photos topic to QID: topic.length:%tu donated from %@", v60, bundleId5];
 
             v62 = pp_topics_log_handle();
             if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
-              *v136 = 138412290;
-              v137 = v50;
-              _os_log_error_impl(&dword_23224A000, v62, OS_LOG_TYPE_ERROR, "%@", v136, 0xCu);
+              *v135 = 138412290;
+              v136 = v50;
+              _os_log_error_impl(&dword_23224A000, v62, OS_LOG_TYPE_ERROR, "%@", v135, 0xCu);
             }
 
             v63 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v134 = v119;
-            v135 = v50;
-            v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+            v133 = v118;
+            v134 = v50;
+            v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
             v42 = 0;
-            *error = [v63 initWithDomain:v120 code:3 userInfo:v53];
+            *error = [v63 initWithDomain:v119 code:3 userInfo:v53];
             goto LABEL_32;
           }
 
@@ -2308,22 +2277,22 @@ LABEL_33:
         }
 
         while (v40 != v43);
-        v64 = [v38 countByEnumeratingWithState:&v129 objects:buf count:16];
+        v64 = [v38 countByEnumeratingWithState:&v128 objects:buf count:16];
         v40 = v64;
         if (!v64)
         {
 LABEL_69:
 
           v99 = objc_alloc(MEMORY[0x277D3A4D8]);
-          v36 = v121;
-          bundleId6 = [v121 bundleId];
-          groupId = [v121 groupId];
-          documentId = [v121 documentId];
-          v103 = [documentId stringByReplacingOccurrencesOfString:v112 withString:&stru_284759D38];
-          date = [v121 date];
+          v36 = v120;
+          bundleId6 = [v120 bundleId];
+          groupId = [v120 groupId];
+          documentId = [v120 documentId];
+          v103 = [documentId stringByReplacingOccurrencesOfString:v111 withString:&stru_284759D38];
+          date = [v120 date];
           v105 = [v99 initWithBundleId:bundleId6 groupId:groupId documentId:v103 date:date];
 
-          v29 = [(PPLocalTopicStore *)self donateTopics:v123 source:v105 algorithm:5 cloudSync:v114 sentimentScore:0 exactMatchesInSourceText:error error:score]& v42;
+          v29 = [(PPLocalTopicStore *)self donateTopics:v122 source:v105 algorithm:5 cloudSync:v113 sentimentScore:0 exactMatchesInSourceText:error error:score]& v42;
           goto LABEL_70;
         }
       }
@@ -2332,9 +2301,9 @@ LABEL_69:
     LOBYTE(v29) = 0;
 LABEL_70:
 
-    sourceCopy = v115;
-    topicsCopy = v116;
-    textCopy = v117;
+    sourceCopy = v114;
+    topicsCopy = v115;
+    textCopy = v116;
   }
 
   else
@@ -2345,30 +2314,30 @@ LABEL_70:
     if (self)
     {
       v67 = objc_opt_new();
+      v128 = 0u;
       v129 = 0u;
       v130 = 0u;
       v131 = 0u;
-      v132 = 0u;
       v68 = v66;
-      v69 = [v68 countByEnumeratingWithState:&v129 objects:buf count:16];
+      v69 = [v68 countByEnumeratingWithState:&v128 objects:buf count:16];
       if (v69)
       {
         v70 = v69;
-        v71 = *v130;
+        v71 = *v129;
         do
         {
           for (i = 0; i != v70; ++i)
           {
-            if (*v130 != v71)
+            if (*v129 != v71)
             {
               objc_enumerationMutation(v68);
             }
 
-            first = [*(*(&v129 + 1) + 8 * i) first];
+            first = [*(*(&v128 + 1) + 8 * i) first];
             [v67 addObject:first];
           }
 
-          v70 = [v68 countByEnumeratingWithState:&v129 objects:buf count:16];
+          v70 = [v68 countByEnumeratingWithState:&v128 objects:buf count:16];
         }
 
         while (v70);
@@ -2385,18 +2354,18 @@ LABEL_70:
           if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
           {
             v78 = [v67 count];
-            *v136 = 134218240;
-            v137 = v78;
-            v138 = 2048;
-            v139 = v75 - v76;
-            _os_log_impl(&dword_23224A000, v77, OS_LOG_TYPE_INFO, "PPLocalTopicStore filtering scored topic list from %tu to %tu", v136, 0x16u);
+            *v135 = 134218240;
+            v136 = v78;
+            v137 = 2048;
+            v138 = v75 - v76;
+            _os_log_impl(&dword_23224A000, v77, OS_LOG_TYPE_INFO, "PPLocalTopicStore filtering scored topic list from %tu to %tu", v135, 0x16u);
           }
 
           v79 = [objc_alloc(MEMORY[0x277CCAB58]) initWithIndexesInRange:{0, objc_msgSend(v67, "count")}];
           [v79 removeIndexes:v74];
           selfCopy = [v68 objectsAtIndexes:v79];
 
-          textCopy = v117;
+          textCopy = v116;
         }
 
         else
@@ -2415,26 +2384,26 @@ LABEL_70:
     {
       v80 = objc_opt_new();
       v81 = objc_opt_new();
+      v124 = 0u;
       v125 = 0u;
       v126 = 0u;
       v127 = 0u;
-      v128 = 0u;
       v82 = selfCopy;
-      v83 = [v82 countByEnumeratingWithState:&v125 objects:v133 count:16];
+      v83 = [v82 countByEnumeratingWithState:&v124 objects:v132 count:16];
       if (v83)
       {
         v84 = v83;
-        v85 = *v126;
+        v85 = *v125;
         do
         {
           for (j = 0; j != v84; ++j)
           {
-            if (*v126 != v85)
+            if (*v125 != v85)
             {
               objc_enumerationMutation(v82);
             }
 
-            v87 = *(*(&v125 + 1) + 8 * j);
+            v87 = *(*(&v124 + 1) + 8 * j);
             first2 = [v87 first];
             [v80 addObject:first2];
 
@@ -2442,18 +2411,18 @@ LABEL_70:
             [v81 addObject:second];
           }
 
-          v84 = [v82 countByEnumeratingWithState:&v125 objects:v133 count:16];
+          v84 = [v82 countByEnumeratingWithState:&v124 objects:v132 count:16];
         }
 
         while (v84);
       }
 
-      sourceCopy = v115;
-      v29 = [(PPTopicStorage *)self->_storage donateTopics:v80 source:v115 algorithm:algorithmCopy cloudSync:v27 decayRate:v81 sentimentScore:error exactMatchesInSourceText:0.0 error:score];
+      sourceCopy = v114;
+      v29 = [(PPTopicStorage *)self->_storage donateTopics:v80 source:v114 algorithm:algorithmCopy cloudSync:v27 decayRate:v81 sentimentScore:error exactMatchesInSourceText:0.0 error:score];
       if (v29)
       {
-        bundleId7 = [v115 bundleId];
-        groupId2 = [v115 groupId];
+        bundleId7 = [v114 bundleId];
+        groupId2 = [v114 groupId];
         v92 = v80;
         v93 = bundleId7;
         v94 = groupId2;
@@ -2461,21 +2430,21 @@ LABEL_70:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __70__PPLocalTopicStore__logDonationForTopics_bundleId_algorithm_groupId___block_invoke;
-        v141 = &unk_2789774A0;
+        v140 = &unk_2789774A0;
         v96 = v93;
-        v142 = v96;
+        v141 = v96;
         selfCopy2 = self;
         v97 = v92;
-        v144 = v97;
-        v146 = algorithmCopy;
+        v143 = v97;
+        v145 = algorithmCopy;
         v98 = v94;
-        v145 = v98;
+        v144 = v98;
         dispatch_async(v95, buf);
 
         [(_PASLock *)self->_lock runWithLockAcquired:&__block_literal_global_361];
       }
 
-      textCopy = v117;
+      textCopy = v116;
     }
 
     else
@@ -2483,12 +2452,11 @@ LABEL_70:
       LOBYTE(v29) = 1;
     }
 
-    topicsCopy = v116;
+    topicsCopy = v115;
   }
 
 LABEL_71:
 
-  v106 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -2591,14 +2559,14 @@ void __68__PPLocalTopicStore__coalesceScoredTopics_exactMatchesInSourceText___bl
 
 - (id)topicExtractionsFromText:(id)text clientProcessName:(id)name error:(id *)error
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   textCopy = text;
   nameCopy = name;
   v9 = pp_topics_log_handle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v75 = [textCopy length];
+    v72 = [textCopy length];
     _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore: topicExtractionsFromText called with text length %tu", buf, 0xCu);
   }
 
@@ -2609,9 +2577,9 @@ void __68__PPLocalTopicStore__coalesceScoredTopics_exactMatchesInSourceText___bl
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     topicRecords = [v11 topicRecords];
-    v56 = [topicRecords count];
+    v53 = [topicRecords count];
     *buf = 134217984;
-    v75 = v56;
+    v72 = v53;
     _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "PPLocalTopicStore: topicExtractionsFromText found %tu topics", buf, 0xCu);
   }
 
@@ -2619,30 +2587,30 @@ void __68__PPLocalTopicStore__coalesceScoredTopics_exactMatchesInSourceText___bl
 
   if (topicRecords2)
   {
-    v58 = nameCopy;
-    v59 = textCopy;
+    v55 = nameCopy;
+    v56 = textCopy;
     v14 = objc_opt_new();
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v57 = v11;
+    v54 = v11;
     topicRecords3 = [v11 topicRecords];
-    v16 = [topicRecords3 countByEnumeratingWithState:&v64 objects:v73 count:16];
+    v16 = [topicRecords3 countByEnumeratingWithState:&v61 objects:v70 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v65;
+      v18 = *v62;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v65 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(topicRecords3);
           }
 
-          v20 = *(*(&v64 + 1) + 8 * i);
+          v20 = *(*(&v61 + 1) + 8 * i);
           v21 = objc_alloc(MEMORY[0x277D3A498]);
           topic = [v20 topic];
           [v20 initialScore];
@@ -2650,7 +2618,7 @@ void __68__PPLocalTopicStore__coalesceScoredTopics_exactMatchesInSourceText___bl
           [v14 addObject:v23];
         }
 
-        v17 = [topicRecords3 countByEnumeratingWithState:&v64 objects:v73 count:16];
+        v17 = [topicRecords3 countByEnumeratingWithState:&v61 objects:v70 count:16];
       }
 
       while (v17);
@@ -2659,140 +2627,135 @@ void __68__PPLocalTopicStore__coalesceScoredTopics_exactMatchesInSourceText___bl
     if (self)
     {
       v24 = [(PPLocalTopicStore *)self _coalesceScoredTopics:v14 exactMatchesInSourceText:0];
-      v25 = 0x277CBE000uLL;
-      v26 = objc_opt_new();
+      v25 = objc_opt_new();
+      v65 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v27 = v24;
-      v28 = [v27 countByEnumeratingWithState:&v68 objects:buf count:16];
-      if (v28)
+      v26 = v24;
+      v27 = [v26 countByEnumeratingWithState:&v65 objects:buf count:16];
+      if (v27)
       {
-        v29 = v28;
-        v30 = *v69;
+        v28 = v27;
+        v29 = *v66;
         do
         {
-          for (j = 0; j != v29; ++j)
+          for (j = 0; j != v28; ++j)
           {
-            if (*v69 != v30)
+            if (*v66 != v29)
             {
-              objc_enumerationMutation(v27);
+              objc_enumerationMutation(v26);
             }
 
-            first = [*(*(&v68 + 1) + 8 * j) first];
-            [v26 addObject:first];
+            first = [*(*(&v65 + 1) + 8 * j) first];
+            [v25 addObject:first];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v68 objects:buf count:16];
+          v28 = [v26 countByEnumeratingWithState:&v65 objects:buf count:16];
         }
 
-        while (v29);
+        while (v28);
       }
 
-      v33 = v26;
-      if ([v33 count])
+      v32 = v25;
+      if ([v32 count])
       {
-        v34 = [(PPTopicBlocklist *)self->_blocklist indicesOfBlockedTopicsInScoredTopicArray:v33];
-        if ([v34 count])
+        v33 = [(PPTopicBlocklist *)self->_blocklist indicesOfBlockedTopicsInScoredTopicArray:v32];
+        if ([v33 count])
         {
+          v34 = [v32 count];
           v35 = [v33 count];
-          v36 = [v34 count];
-          v37 = pp_topics_log_handle();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+          v36 = pp_topics_log_handle();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
-            v38 = [v33 count];
+            v37 = [v32 count];
             *buf = 134218240;
-            v75 = v38;
-            v76 = 2048;
-            v77 = v35 - v36;
-            _os_log_impl(&dword_23224A000, v37, OS_LOG_TYPE_INFO, "PPLocalTopicStore filtering scored topic list from %tu to %tu", buf, 0x16u);
+            v72 = v37;
+            v73 = 2048;
+            v74 = v34 - v35;
+            _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_INFO, "PPLocalTopicStore filtering scored topic list from %tu to %tu", buf, 0x16u);
           }
 
-          v39 = [objc_alloc(MEMORY[0x277CCAB58]) initWithIndexesInRange:{0, objc_msgSend(v33, "count")}];
-          [v39 removeIndexes:v34];
-          v40 = [v33 objectsAtIndexes:v39];
+          v38 = [objc_alloc(MEMORY[0x277CCAB58]) initWithIndexesInRange:{0, objc_msgSend(v32, "count")}];
+          [v38 removeIndexes:v33];
+          v39 = [v32 objectsAtIndexes:v38];
         }
 
         else
         {
-          v40 = v33;
+          v39 = v32;
         }
 
-        v11 = v57;
+        v11 = v54;
       }
 
       else
       {
-        v33 = v33;
-        v40 = v33;
-        v11 = v57;
+        v32 = v32;
+        v39 = v32;
+        v11 = v54;
       }
     }
 
     else
     {
-      v33 = 0;
-      v40 = 0;
-      v11 = v57;
-      v25 = 0x277CBE000;
+      v32 = 0;
+      v39 = 0;
+      v11 = v54;
     }
 
-    v42 = pp_topics_log_handle();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v41 = pp_topics_log_handle();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v40 count];
+      v42 = [v39 count];
       *buf = 134217984;
-      v75 = v43;
-      _os_log_impl(&dword_23224A000, v42, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore: topicExtractionsFromText finished coalescing and filtering with blocklist, %tu topics remain", buf, 0xCu);
+      v72 = v42;
+      _os_log_impl(&dword_23224A000, v41, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore: topicExtractionsFromText finished coalescing and filtering with blocklist, %tu topics remain", buf, 0xCu);
     }
 
-    v44 = [v40 sortedArrayUsingComparator:&__block_literal_global_339];
+    v43 = [v39 sortedArrayUsingComparator:&__block_literal_global_339];
 
-    v45 = *(v25 + 2840);
-    v41 = objc_opt_new();
+    v40 = objc_opt_new();
+    v57 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v46 = v44;
-    v47 = [v46 countByEnumeratingWithState:&v60 objects:v72 count:16];
-    if (v47)
+    v44 = v43;
+    v45 = [v44 countByEnumeratingWithState:&v57 objects:v69 count:16];
+    if (v45)
     {
-      v48 = v47;
-      v49 = *v61;
+      v46 = v45;
+      v47 = *v58;
       do
       {
-        for (k = 0; k != v48; ++k)
+        for (k = 0; k != v46; ++k)
         {
-          if (*v61 != v49)
+          if (*v58 != v47)
           {
-            objc_enumerationMutation(v46);
+            objc_enumerationMutation(v44);
           }
 
-          scoredTopic = [*(*(&v60 + 1) + 8 * k) scoredTopic];
+          scoredTopic = [*(*(&v57 + 1) + 8 * k) scoredTopic];
           item = [scoredTopic item];
-          [v41 addObject:item];
+          [v40 addObject:item];
         }
 
-        v48 = [v46 countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v57 objects:v69 count:16];
       }
 
-      while (v48);
+      while (v46);
     }
 
-    nameCopy = v58;
-    textCopy = v59;
+    nameCopy = v55;
+    textCopy = v56;
   }
 
   else
   {
-    v41 = MEMORY[0x277CBEBF8];
+    v40 = MEMORY[0x277CBEBF8];
   }
 
-  v53 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2812,7 +2775,7 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
 
 - (id)topicRecordsWithQuery:(id)query error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = pp_topics_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -2823,22 +2786,22 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
     toDate = [queryCopy toDate];
     v12 = [toDate description];
     *buf = 134218498;
-    v22 = limit;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v12;
+    v21 = limit;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "topicRecordsWithQuery called with limit %tu and date range: %@ - %@", buf, 0x20u);
   }
 
   v13 = objc_opt_new();
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __49__PPLocalTopicStore_topicRecordsWithQuery_error___block_invoke;
-  v19[3] = &unk_278979120;
-  v20 = v13;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __49__PPLocalTopicStore_topicRecordsWithQuery_error___block_invoke;
+  v18[3] = &unk_278979120;
+  v19 = v13;
   v14 = v13;
-  if ([(PPLocalTopicStore *)self iterTopicRecordsWithQuery:queryCopy error:error block:v19])
+  if ([(PPLocalTopicStore *)self iterTopicRecordsWithQuery:queryCopy error:error block:v18])
   {
     v15 = v14;
   }
@@ -2850,13 +2813,12 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
 
   v16 = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)iterTopicRecordsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
   [(PPLocalTopicStore *)self _logParametersForQuery:queryCopy client:0 method:@"iterTopicRecordsWithQuery"];
@@ -2873,7 +2835,7 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
     *&buf[12] = 2112;
     *&buf[14] = v13;
     *&buf[22] = 2112;
-    v42 = v15;
+    v41 = v15;
     _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEFAULT, "iterTopicRecordsWithQuery called with limit %tu and date range: %@ - %@", buf, 0x20u);
   }
 
@@ -2897,40 +2859,40 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v42 = 0;
-    v39[0] = 0;
-    v39[1] = v39;
-    v39[2] = 0x2020000000;
-    v40 = 0;
+    v41 = 0;
+    v38[0] = 0;
+    v38[1] = v38;
+    v38[2] = 0x2020000000;
+    v39 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke;
     aBlock[3] = &unk_278977398;
-    v37 = v39;
+    v36 = v38;
     aBlock[4] = self;
     v21 = v20;
-    v34 = v21;
-    v36 = blockCopy;
-    v38 = buf;
-    v35 = queryCopy;
+    v33 = v21;
+    v35 = blockCopy;
+    v37 = buf;
+    v34 = queryCopy;
     v22 = _Block_copy(aBlock);
     storage = self->_storage;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke_2;
-    v29[3] = &unk_2789773C0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke_2;
+    v28[3] = &unk_2789773C0;
     v24 = v21;
-    v30 = v24;
+    v29 = v24;
     v25 = v22;
-    v31 = v25;
-    v32 = v39;
-    v26 = [(PPTopicStorage *)storage iterTopicRecordsWithQuery:v16 error:error block:v29];
+    v30 = v25;
+    v31 = v38;
+    v26 = [(PPTopicStorage *)storage iterTopicRecordsWithQuery:v16 error:error block:v28];
     if (v26)
     {
       v25[2](v25);
     }
 
-    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v38, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -2939,29 +2901,28 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
     LOBYTE(v26) = 1;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (void)_logParametersForQuery:(void *)query client:(void *)client method:
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   v7 = a2;
   queryCopy = query;
   clientCopy = client;
   if (self)
   {
-    v25 = clientCopy;
+    v24 = clientCopy;
     context = objc_autoreleasePoolPush();
-    v26[0] = @"client";
+    v25[0] = @"client";
     null = queryCopy;
     if (!queryCopy)
     {
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v27[0] = null;
-    v26[1] = @"excludedBundleIds";
+    v26[0] = null;
+    v25[1] = @"excludedBundleIds";
     excludingSourceBundleIds = [v7 excludingSourceBundleIds];
     allObjects = [excludingSourceBundleIds allObjects];
     v13 = [allObjects _pas_componentsJoinedByString:@""];;
@@ -2976,8 +2937,8 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
       v15 = &stru_284759D38;
     }
 
-    v27[1] = v15;
-    v26[2] = @"includedBundleIds";
+    v26[1] = v15;
+    v25[2] = @"includedBundleIds";
     matchingSourceBundleIds = [v7 matchingSourceBundleIds];
     allObjects2 = [matchingSourceBundleIds allObjects];
     v18 = [allObjects2 _pas_componentsJoinedByString:@""];;
@@ -2992,24 +2953,22 @@ uint64_t __70__PPLocalTopicStore_topicExtractionsFromText_clientProcessName_erro
       v20 = &stru_284759D38;
     }
 
-    v27[2] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
-    [v23 logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.TopicQueryReceived" payload:v21 inBackground:0];
+    v26[2] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    [v22 logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.TopicQueryReceived" payload:v21 inBackground:0];
 
     if (!queryCopy)
     {
     }
 
     objc_autoreleasePoolPop(context);
-    clientCopy = v25;
+    clientCopy = v24;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
   {
@@ -3027,9 +2986,9 @@ void __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invok
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           *buf = 134218240;
-          v27 = [v5 count];
-          v28 = 2048;
-          v29 = v7 - v8;
+          v24 = [v5 count];
+          v25 = 2048;
+          v26 = v7 - v8;
           _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_INFO, "PPLocalTopicStore filtering topic record list from %tu to %tu", buf, 0x16u);
         }
 
@@ -3037,43 +2996,41 @@ void __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invok
       }
     }
 
-    v23 = 0u;
-    v24 = 0u;
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = *(a1 + 40);
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v19;
 LABEL_11:
       v14 = 0;
       while (1)
       {
-        if (*v22 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
-        v16 = *(*(a1 + 64) + 8);
         (*(*(a1 + 56) + 16))(*(a1 + 56));
         ++*(*(*(a1 + 72) + 8) + 24);
-        v17 = *(*(a1 + 64) + 8);
-        if (*(v17 + 24))
+        v15 = *(*(a1 + 64) + 8);
+        if (*(v15 + 24))
         {
-          v18 = 1;
+          v16 = 1;
         }
 
         else
         {
-          v19 = *(*(*(a1 + 72) + 8) + 24);
-          v18 = v19 == [*(a1 + 48) limit];
-          v17 = *(*(a1 + 64) + 8);
+          v17 = *(*(*(a1 + 72) + 8) + 24);
+          v16 = v17 == [*(a1 + 48) limit];
+          v15 = *(*(a1 + 64) + 8);
         }
 
-        *(v17 + 24) = v18;
+        *(v15 + 24) = v16;
         if (*(*(*(a1 + 64) + 8) + 24))
         {
           break;
@@ -3081,7 +3038,7 @@ LABEL_11:
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v12)
           {
             goto LABEL_11;
@@ -3095,10 +3052,9 @@ LABEL_11:
 
   [*(a1 + 40) removeAllObjects];
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) addObject:a2];
   result = [*(a1 + 32) count];
@@ -3113,7 +3069,7 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
 
 - (id)unmapMappedTopicIdentifier:(id)identifier mappingIdentifier:(id)mappingIdentifier error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   mappingIdentifierCopy = mappingIdentifier;
   v10 = [(PPLocalTopicStore *)self _topicTransformForId:mappingIdentifierCopy];
@@ -3123,26 +3079,24 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
   {
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D3A580];
-    v19 = *MEMORY[0x277CCA470];
+    v18 = *MEMORY[0x277CCA470];
     mappingIdentifierCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Mapped topic ID (%@) not found in this mapping (%@).", identifierCopy, mappingIdentifierCopy];
-    v20[0] = mappingIdentifierCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = mappingIdentifierCopy;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v13 errorWithDomain:v14 code:3 userInfo:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)scoresForTopicMapping:(id)mapping query:(id)query error:(id *)error clientProcessName:(id)name
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   queryCopy = query;
   nameCopy = name;
   [(PPLocalTopicStore *)self _logParametersForQuery:queryCopy client:nameCopy method:@"scoresForTopicMapping"];
-  v58 = 0;
+  v57 = 0;
   v12 = mappingCopy;
   v13 = queryCopy;
   v14 = nameCopy;
@@ -3151,17 +3105,17 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
   if (self)
   {
     v16 = -[PPEvictingMinPriorityQueue initWithCapacity:]([PPEvictingMinPriorityQueue alloc], "initWithCapacity:", [v13 limit]);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __81__PPLocalTopicStore__defaultScoresForTopicMapping_query_clientProcessName_error___block_invoke;
-    v59[3] = &unk_2789795B0;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __81__PPLocalTopicStore__defaultScoresForTopicMapping_query_clientProcessName_error___block_invoke;
+    v58[3] = &unk_2789795B0;
     v17 = v16;
-    v60 = v17;
+    v59 = v17;
     selfCopy2 = self;
     v19 = v13;
     v20 = v13;
     v21 = v15;
-    [(PPLocalTopicStore *)selfCopy2 _defaultIterScoresForTopicMapping:v12 query:v20 error:&v58 clientProcessName:v15 block:v59];
+    [(PPLocalTopicStore *)selfCopy2 _defaultIterScoresForTopicMapping:v12 query:v20 error:&v57 clientProcessName:v15 block:v58];
     v22 = objc_alloc(MEMORY[0x277CBEB38]);
     [(PPEvictingMinPriorityQueue *)v17 count];
     v24 = [v22 initWithCapacity:v23];
@@ -3195,7 +3149,7 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
 
   v32 = v21;
 
-  v33 = v58;
+  v33 = v57;
   -[PPLocalTopicStore _petLoggingForMappedTopicQuery:mappingId:count:clientProcessName:hasError:](selfCopy, v19, v12, [v24 count], v21, v24 == 0);
   v34 = [v24 count];
   v35 = +[PPConfiguration sharedInstance];
@@ -3209,53 +3163,51 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
 
   else
   {
-    v51 = v33;
-    v52 = v12;
+    v50 = v33;
+    v51 = v12;
     context = objc_autoreleasePoolPush();
     v37 = [v24 keysSortedByValueUsingComparator:&__block_literal_global_317];
     v38 = objc_opt_new();
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     v39 = +[PPConfiguration sharedInstance];
-    v49 = v37;
+    v48 = v37;
     v40 = [v37 subarrayWithRange:{0, objc_msgSend(v39, "maxNumberMappedTopics")}];
 
-    v41 = [v40 countByEnumeratingWithState:&v54 objects:v61 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v53 objects:v60 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v55;
+      v43 = *v54;
       do
       {
         for (i = 0; i != v42; ++i)
         {
-          if (*v55 != v43)
+          if (*v54 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          v45 = *(*(&v54 + 1) + 8 * i);
+          v45 = *(*(&v53 + 1) + 8 * i);
           v46 = [v24 objectForKeyedSubscript:v45];
           [v38 setObject:v46 forKeyedSubscript:v45];
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v54 objects:v61 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v53 objects:v60 count:16];
       }
 
       while (v42);
     }
 
-    v12 = v52;
-    [(PPLocalTopicStore *)selfCopy _dpLoggingForMappingId:v52 mappedTopics:v38];
+    v12 = v51;
+    [(PPLocalTopicStore *)selfCopy _dpLoggingForMappingId:v51 mappedTopics:v38];
 
     objc_autoreleasePoolPop(context);
-    v33 = v51;
+    v33 = v50;
     v32 = v21;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -3284,7 +3236,7 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
 
 - (void)_dpLoggingForMappingId:(void *)id mappedTopics:
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   idCopy = id;
   if (self)
@@ -3299,19 +3251,19 @@ uint64_t __59__PPLocalTopicStore_iterTopicRecordsWithQuery_error_block___block_i
     {
       if (![v7 isEqualToString:@"podcasts-topics"])
       {
-        v34 = [v7 isEqualToString:@"high-level-topics"];
-        if (v34)
+        v33 = [v7 isEqualToString:@"high-level-topics"];
+        if (v33)
         {
-          v35 = @"HighLevelTopic";
+          v34 = @"HighLevelTopic";
         }
 
         else
         {
-          v35 = 0;
+          v34 = 0;
         }
 
-        v9 = v35;
-        if (!v34)
+        v9 = v34;
+        if (!v33)
         {
 LABEL_18:
 
@@ -3319,7 +3271,7 @@ LABEL_18:
         }
 
 LABEL_7:
-        v36 = v5;
+        v35 = v5;
         v10 = objc_alloc(MEMORY[0x277CCACA8]);
         currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
         localeIdentifier = [currentLocale localeIdentifier];
@@ -3334,27 +3286,27 @@ LABEL_7:
         [v18 nextDouble];
         v20 = v19;
 
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         allKeys = [idCopy allKeys];
-        v22 = [allKeys countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v22 = [allKeys countByEnumeratingWithState:&v36 objects:v41 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v38;
+          v24 = *v37;
           v25 = 0.0;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v38 != v24)
+              if (*v37 != v24)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v27 = *(*(&v37 + 1) + 8 * i);
+              v27 = *(*(&v36 + 1) + 8 * i);
               v28 = objc_autoreleasePoolPush();
               v29 = [idCopy objectForKeyedSubscript:v27];
               [v29 doubleValue];
@@ -3363,8 +3315,8 @@ LABEL_7:
               if (v25 / v17 >= v20)
               {
                 v31 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v13];
-                v41 = v27;
-                v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+                v40 = v27;
+                v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
                 [v31 record:v32];
 
                 objc_autoreleasePoolPop(v28);
@@ -3374,7 +3326,7 @@ LABEL_7:
               objc_autoreleasePoolPop(v28);
             }
 
-            v23 = [allKeys countByEnumeratingWithState:&v37 objects:v42 count:16];
+            v23 = [allKeys countByEnumeratingWithState:&v36 objects:v41 count:16];
             if (v23)
             {
               continue;
@@ -3386,7 +3338,7 @@ LABEL_7:
 
 LABEL_17:
 
-        v5 = v36;
+        v5 = v35;
         goto LABEL_18;
       }
 
@@ -3398,8 +3350,6 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 id __57__PPLocalTopicStore__dpLoggingForMappingId_mappedTopics___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3467,85 +3417,85 @@ void __81__PPLocalTopicStore__defaultScoresForTopicMapping_query_clientProcessNa
 
 - (uint64_t)_defaultIterScoresForTopicMapping:(void *)mapping query:(void *)query error:(void *)error clientProcessName:(void *)name block:
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v11 = a2;
   mappingCopy = mapping;
   errorCopy = error;
   nameCopy = name;
   selfCopy = self;
-  v63 = [(PPLocalTopicStore *)self _topicTransformForId:v11];
-  outputTopicCount = [v63 outputTopicCount];
+  v62 = [(PPLocalTopicStore *)self _topicTransformForId:v11];
+  outputTopicCount = [v62 outputTopicCount];
   if (outputTopicCount && [mappingCopy limit])
   {
-    v55 = [mappingCopy copy];
-    [v55 setLimit:-1];
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 0;
+    v54 = [mappingCopy copy];
+    [v54 setLimit:-1];
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 0;
     v13 = objc_opt_new();
     v14 = objc_opt_new();
-    v68 = 0;
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clientProcessName_block___block_invoke;
-    v64[3] = &unk_278977308;
-    v54 = v13;
-    v65 = v54;
-    v57 = v14;
-    v66 = v57;
-    v67 = &v69;
-    v59 = [selfCopy iterScoredTopicsWithQuery:v55 error:&v68 clientProcessName:0 block:v64];
-    v53 = v68;
-    if (v59)
+    v67 = 0;
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clientProcessName_block___block_invoke;
+    v63[3] = &unk_278977308;
+    v53 = v13;
+    v64 = v53;
+    v56 = v14;
+    v65 = v56;
+    v66 = &v68;
+    v58 = [selfCopy iterScoredTopicsWithQuery:v54 error:&v67 clientProcessName:0 block:v63];
+    v52 = v67;
+    if (v58)
     {
-      v15 = v57;
-      mutableBytes = [v57 mutableBytes];
-      [v63 applyFeatureSmoothing:mutableBytes vectorLength:v70[6]];
-      v17 = v57;
-      mutableBytes2 = [v57 mutableBytes];
-      [v63 applyFeatureScaling:mutableBytes2 vectorLength:v70[6]];
-      v19 = v57;
-      mutableBytes3 = [v57 mutableBytes];
-      [v63 applyFeatureNormalization:mutableBytes3 vectorLength:v70[6]];
-      v21 = v54;
-      mutableBytes4 = [v54 mutableBytes];
-      v23 = v57;
-      mutableBytes5 = [v57 mutableBytes];
-      v52 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4 * outputTopicCount];
-      v51 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:2 * outputTopicCount];
-      v25 = v52;
-      mutableBytes6 = [v52 mutableBytes];
-      v27 = v51;
+      v15 = v56;
+      mutableBytes = [v56 mutableBytes];
+      [v62 applyFeatureSmoothing:mutableBytes vectorLength:v69[6]];
+      v17 = v56;
+      mutableBytes2 = [v56 mutableBytes];
+      [v62 applyFeatureScaling:mutableBytes2 vectorLength:v69[6]];
+      v19 = v56;
+      mutableBytes3 = [v56 mutableBytes];
+      [v62 applyFeatureNormalization:mutableBytes3 vectorLength:v69[6]];
+      v21 = v53;
+      mutableBytes4 = [v53 mutableBytes];
+      v23 = v56;
+      mutableBytes5 = [v56 mutableBytes];
+      v51 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4 * outputTopicCount];
+      v50 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:2 * outputTopicCount];
+      v25 = v51;
+      mutableBytes6 = [v51 mutableBytes];
+      v27 = v50;
       v28 = mappingCopy;
-      mutableBytes7 = [v51 mutableBytes];
-      if (v70[6] >= 1)
+      mutableBytes7 = [v50 mutableBytes];
+      if (v69[6] >= 1)
       {
         v31 = 0;
         do
         {
           LODWORD(v30) = *(mutableBytes5 + 4 * v31);
-          [v63 addWeightedTopicScoreToBuffer:mutableBytes6 countNonZeroComponentsInBuffer:mutableBytes7 qid:*(mutableBytes4 + 4 * v31++) score:v30];
+          [v62 addWeightedTopicScoreToBuffer:mutableBytes6 countNonZeroComponentsInBuffer:mutableBytes7 qid:*(mutableBytes4 + 4 * v31++) score:v30];
         }
 
-        while (v31 < v70[6]);
+        while (v31 < v69[6]);
       }
 
-      [v63 applyOutputScaling:mutableBytes6 vectorLength:outputTopicCount];
+      [v62 applyOutputScaling:mutableBytes6 vectorLength:outputTopicCount];
       if ([mappingCopy scoreWithBiases])
       {
-        [v63 addBias:mutableBytes6];
+        [v62 addBias:mutableBytes6];
       }
 
-      [v63 applyOutputActivation:mutableBytes6];
+      [v62 applyOutputActivation:mutableBytes6];
       v32 = 0;
-      v61 = 0;
+      v60 = 0;
       buf[0] = 0;
       v33 = outputTopicCount;
       while (1)
       {
         v34 = *(mutableBytes6 + 4 * v32);
-        [v63 threshold];
+        [v62 threshold];
         if (v34 <= v35)
         {
           goto LABEL_22;
@@ -3566,17 +3516,17 @@ void __81__PPLocalTopicStore__defaultScoresForTopicMapping_query_clientProcessNa
 LABEL_21:
         objc_autoreleasePoolPop(v37);
         v28 = mappingCopy;
-        ++v61;
+        ++v60;
 LABEL_22:
         if (v33 == ++v32)
         {
-          [(PPLocalTopicStore *)selfCopy _petLoggingForMappedTopicQuery:v28 mappingId:v11 count:v61 clientProcessName:errorCopy hasError:0];
+          [(PPLocalTopicStore *)selfCopy _petLoggingForMappedTopicQuery:v28 mappingId:v11 count:v60 clientProcessName:errorCopy hasError:0];
 
           goto LABEL_30;
         }
       }
 
-      [v63 payloadForTopic:v32];
+      [v62 payloadForTopic:v32];
       v39 = v38 = mappingCopy;
       if (!v39)
       {
@@ -3616,52 +3566,51 @@ LABEL_20:
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v74 = v53;
+      v73 = v52;
       _os_log_impl(&dword_23224A000, v46, OS_LOG_TYPE_DEFAULT, "Encountered an error iterating scored topics: %@", buf, 0xCu);
     }
 
     v47 = mappingCopy;
     if (query)
     {
-      v48 = v53;
-      *query = v53;
+      v48 = v52;
+      *query = v52;
       v47 = mappingCopy;
     }
 
     [(PPLocalTopicStore *)selfCopy _petLoggingForMappedTopicQuery:v47 mappingId:v11 count:0 clientProcessName:errorCopy hasError:1];
 LABEL_30:
 
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v68, 8);
   }
 
   else
   {
-    v59 = 1;
+    v58 = 1;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-  return v59;
+  return v58;
 }
 
 void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clientProcessName_block___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 item];
   v5 = [v4 topicIdentifier];
   v6 = [v5 length];
-  if (v6 < 0xC && (v12 = 0, v11 = 0, [v5 getBytes:&v11 maxLength:11 usedLength:0 encoding:1 options:0 range:0 remainingRange:{v6, 0}], v11 == 81))
+  if (v6 < 0xC && (v11 = 0, v10 = 0, [v5 getBytes:&v10 maxLength:11 usedLength:0 encoding:1 options:0 range:0 remainingRange:{v6, 0}], v10 == 81))
   {
-    v7 = atol(&v11 + 1);
+    v7 = atol(&v10 + 1);
 
-    LODWORD(v11) = v7;
+    LODWORD(v10) = v7;
     if (v7 != -1)
     {
-      [*(a1 + 32) appendBytes:&v11 length:4];
+      [*(a1 + 32) appendBytes:&v10 length:4];
       [v3 score];
       *&v8 = v8;
-      v10 = LODWORD(v8);
-      [*(a1 + 40) appendBytes:&v10 length:4];
+      v9 = LODWORD(v8);
+      [*(a1 + 40) appendBytes:&v9 length:4];
       ++*(*(*(a1 + 48) + 8) + 24);
     }
   }
@@ -3669,8 +3618,6 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
   else
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)iterScoresForTopicMapping:(id)mapping query:(id)query error:(id *)error block:(id)block
@@ -3685,7 +3632,7 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
 
 - (BOOL)iterScoredTopicsWithQuery:(id)query error:(id *)error clientProcessName:(id)name block:(id)block
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   nameCopy = name;
   blockCopy = block;
@@ -3704,14 +3651,14 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
   v14 = v13;
 
   objc_opt_self();
-  v68 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
+  v67 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
   objc_opt_self();
-  v66 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
+  v65 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
   v15 = 0;
-  if (v68 && v66)
+  if (v67 && v65)
   {
-    v16 = [PPStreamingTopicScorer sourceStatsNeededForBytecode:v68];
-    v15 = [PPStreamingTopicScorer sourceStatsNeededForBytecode:v66]| v16;
+    v16 = [PPStreamingTopicScorer sourceStatsNeededForBytecode:v67];
+    v15 = [PPStreamingTopicScorer sourceStatsNeededForBytecode:v65]| v16;
   }
 
   storage = self->_storage;
@@ -3720,58 +3667,58 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
   objc_autoreleasePoolPop(v18);
   v20 = [(PPTopicStorage *)storage sourceStats:v15 withExcludedAlgorithms:v19];
 
-  v103[0] = 0;
-  v103[1] = v103;
-  v103[2] = 0x3032000000;
-  v103[3] = __Block_byref_object_copy__20434;
-  v103[4] = __Block_byref_object_dispose__20435;
-  v104 = 0;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x2020000000;
-  v102 = 0;
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x2020000000;
+  v102[0] = 0;
+  v102[1] = v102;
+  v102[2] = 0x3032000000;
+  v102[3] = __Block_byref_object_copy__20434;
+  v102[4] = __Block_byref_object_dispose__20435;
+  v103 = 0;
   v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = 0;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 0;
   v21 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"PPLocalTopicStore-processing" qosClass:qos_class_self()];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke;
   aBlock[3] = &unk_278977268;
   aBlock[4] = self;
-  v62 = v14;
-  v87 = v62;
-  v67 = queryCopy;
-  v88 = v67;
-  v63 = v20;
+  v61 = v14;
+  v86 = v61;
+  v66 = queryCopy;
+  v87 = v66;
+  v62 = v20;
+  v88 = v62;
+  v91 = v102;
+  v92 = &v94;
+  v93 = &v98;
+  v63 = v21;
   v89 = v63;
-  v92 = v103;
-  v93 = &v95;
-  v94 = &v99;
-  v64 = v21;
-  v90 = v64;
-  v61 = blockCopy;
-  v91 = v61;
+  v60 = blockCopy;
+  v90 = v60;
   v22 = _Block_copy(aBlock);
-  *v108 = 0;
-  *&v108[8] = v108;
-  *&v108[16] = 0x3032000000;
-  *&v108[24] = __Block_byref_object_copy__20434;
-  v109 = __Block_byref_object_dispose__20435;
-  v110 = 0;
-  v84[0] = 0;
-  v84[1] = v84;
-  v84[2] = 0x3032000000;
-  v84[3] = __Block_byref_object_copy__20434;
-  v84[4] = __Block_byref_object_dispose__20435;
-  v85 = 0;
-  v82[0] = 0;
-  v82[1] = v82;
-  v82[2] = 0x3032000000;
-  v82[3] = __Block_byref_object_copy__20434;
-  v82[4] = __Block_byref_object_dispose__20435;
-  v83 = 0;
+  *v107 = 0;
+  *&v107[8] = v107;
+  *&v107[16] = 0x3032000000;
+  *&v107[24] = __Block_byref_object_copy__20434;
+  v108 = __Block_byref_object_dispose__20435;
+  v109 = 0;
+  v83[0] = 0;
+  v83[1] = v83;
+  v83[2] = 0x3032000000;
+  v83[3] = __Block_byref_object_copy__20434;
+  v83[4] = __Block_byref_object_dispose__20435;
+  v84 = 0;
+  v81[0] = 0;
+  v81[1] = v81;
+  v81[2] = 0x3032000000;
+  v81[3] = __Block_byref_object_copy__20434;
+  v81[4] = __Block_byref_object_dispose__20435;
+  v82 = 0;
   v23 = pp_topics_signpost_handle();
   v24 = os_signpost_id_generate(v23);
 
@@ -3785,31 +3732,31 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
 
   v27 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"PPLocalTopicStore-scoring" qosClass:qos_class_self()];
   v28 = dispatch_semaphore_create(64);
-  v29 = [v67 copy];
+  v29 = [v66 copy];
   [v29 setOrderByIdentifier:1];
   [v29 setRemoveNearDuplicates:1];
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_286;
-  v74[3] = &unk_2789772B8;
-  v79 = v108;
-  v80 = v84;
-  v81 = v82;
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_286;
+  v73[3] = &unk_2789772B8;
+  v78 = v107;
+  v79 = v83;
+  v80 = v81;
   v30 = v28;
-  v75 = v30;
+  v74 = v30;
   v31 = v27;
-  v76 = v31;
+  v75 = v31;
   v32 = v22;
   selfCopy = self;
-  v78 = v32;
-  v33 = v74;
+  v77 = v32;
+  v33 = v73;
   v34 = [v29 copy];
   [v34 setLimit:-1];
-  v105 = 0;
-  v69 = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v34 error:&v105 block:v33];
+  v104 = 0;
+  v68 = [(PPLocalTopicStore *)self iterTopicRecordsWithQuery:v34 error:&v104 block:v33];
 
-  v35 = v105;
-  if (v69)
+  v35 = v104;
+  if (v68)
   {
     v36 = 0;
   }
@@ -3820,7 +3767,7 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v107 = v35;
+      v106 = v35;
       _os_log_error_impl(&dword_23224A000, v37, OS_LOG_TYPE_ERROR, "_unlimitedTopicRecordsWithQuery: nil result from iterTopicRecordsWithQuery: %@", buf, 0xCu);
     }
 
@@ -3833,10 +3780,10 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
   block[1] = 3221225472;
   block[2] = __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_291;
   block[3] = &unk_2789772E0;
-  v72 = v84;
+  v71 = v83;
   v40 = v32;
-  v71 = v40;
-  v73 = v82;
+  v70 = v40;
+  v72 = v81;
   dispatch_sync(v31, block);
   v41 = pp_topics_signpost_handle();
   v42 = v41;
@@ -3846,46 +3793,46 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
     _os_signpost_emit_with_name_impl(&dword_23224A000, v42, OS_SIGNPOST_INTERVAL_END, v24, "PPLocalTopicStore.iterScoredTopicsWithQuery.aggregation", "", buf, 2u);
   }
 
-  _Block_object_dispose(v82, 8);
-  _Block_object_dispose(v84, 8);
+  _Block_object_dispose(v81, 8);
+  _Block_object_dispose(v83, 8);
 
-  _Block_object_dispose(v108, 8);
-  if (v69)
+  _Block_object_dispose(v107, 8);
+  if (v68)
   {
-    v43 = atomic_load(v96 + 6);
-    v44 = atomic_load(v100 + 6);
+    v43 = atomic_load(v95 + 6);
+    v44 = atomic_load(v99 + 6);
     v45 = pp_topics_log_handle();
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = atomic_load(v96 + 6);
+      v46 = atomic_load(v95 + 6);
       v47 = +[PPConfiguration sharedInstance];
       [v47 scoreThresholdForTopic];
-      *v108 = 67109632;
-      *&v108[4] = v46;
-      *&v108[8] = 2048;
-      *&v108[10] = v48;
-      *&v108[18] = 2048;
-      *&v108[20] = v44 + v43;
-      _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore: filtered %d items below threshold of %f out of %tu total.", v108, 0x1Cu);
+      *v107 = 67109632;
+      *&v107[4] = v46;
+      *&v107[8] = 2048;
+      *&v107[10] = v48;
+      *&v107[18] = 2048;
+      *&v107[20] = v44 + v43;
+      _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_DEFAULT, "PPLocalTopicStore: filtered %d items below threshold of %f out of %tu total.", v107, 0x1Cu);
     }
 
-    v49 = atomic_load(v100 + 6);
-    v50 = v67;
+    v49 = atomic_load(v99 + 6);
+    v50 = v66;
     v51 = nameCopy;
     v52 = +[PPMetricsUtils loggingQueue];
     v53 = v49;
-    *v108 = MEMORY[0x277D85DD0];
-    *&v108[8] = 3221225472;
-    *&v108[16] = __74__PPLocalTopicStore__petLoggingForQuery_count_clientProcessName_hasError___block_invoke;
-    *&v108[24] = &unk_278979850;
+    *v107 = MEMORY[0x277D85DD0];
+    *&v107[8] = 3221225472;
+    *&v107[16] = __74__PPLocalTopicStore__petLoggingForQuery_count_clientProcessName_hasError___block_invoke;
+    *&v107[24] = &unk_278979850;
     v54 = v51;
-    v109 = v54;
-    v112 = v53;
+    v108 = v54;
+    v111 = v53;
     v55 = v50;
-    v113 = 0;
-    v110 = v55;
+    v112 = 0;
+    v109 = v55;
     selfCopy2 = self;
-    dispatch_async(v52, v108);
+    dispatch_async(v52, v107);
   }
 
   else
@@ -3893,9 +3840,9 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
     v56 = pp_default_log_handle();
     if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
-      *v108 = 138412290;
-      *&v108[4] = v39;
-      _os_log_error_impl(&dword_23224A000, v56, OS_LOG_TYPE_ERROR, "Error encountered while scoring named entities: %@", v108, 0xCu);
+      *v107 = 138412290;
+      *&v107[4] = v39;
+      _os_log_error_impl(&dword_23224A000, v56, OS_LOG_TYPE_ERROR, "Error encountered while scoring named entities: %@", v107, 0xCu);
     }
 
     if (error)
@@ -3905,12 +3852,11 @@ void __91__PPLocalTopicStore__defaultIterScoresForTopicMapping_query_error_clien
     }
   }
 
-  _Block_object_dispose(&v95, 8);
-  _Block_object_dispose(&v99, 8);
-  _Block_object_dispose(v103, 8);
+  _Block_object_dispose(&v94, 8);
+  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(v102, 8);
 
-  v58 = *MEMORY[0x277D85DE8];
-  return v69;
+  return v68;
 }
 
 void __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3945,7 +3891,7 @@ void __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_b
 
 void __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_286(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(*(a1 + 64) + 8) + 40);
   v5 = [v3 topic];
@@ -3984,10 +3930,10 @@ void __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_b
     block[1] = 3221225472;
     block[2] = __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_2_287;
     block[3] = &unk_278977290;
-    v40 = *(a1 + 56);
-    v37 = v8;
-    v38 = v9;
-    v39 = *(a1 + 32);
+    v39 = *(a1 + 56);
+    v36 = v8;
+    v37 = v9;
+    v38 = *(a1 + 32);
     dispatch_async(v13, block);
 
 LABEL_8:
@@ -4025,10 +3971,10 @@ LABEL_15:
       v26 = pp_default_log_handle();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
-        v34 = [v3 topic];
-        v35 = [v34 topicIdentifier];
+        v33 = [v3 topic];
+        v34 = [v33 topicIdentifier];
         *buf = 138412290;
-        v42 = v35;
+        v41 = v34;
         _os_log_fault_impl(&dword_23224A000, v26, OS_LOG_TYPE_FAULT, "Topic record unexpectedly had nil cluster identifier while aggregating for scoring. %@", buf, 0xCu);
       }
 
@@ -4049,20 +3995,16 @@ LABEL_15:
 
   [v7 addObject:v3];
 LABEL_16:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_291(void *a1)
+void *__77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_291(uint64_t a1)
 {
-  result = [*(*(a1[5] + 8) + 40) count];
+  result = [*(*(*(a1 + 40) + 8) + 40) count];
   if (result)
   {
-    v3 = *(*(a1[5] + 8) + 40);
-    v4 = *(*(a1[6] + 8) + 40);
-    v5 = *(a1[4] + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -4102,14 +4044,12 @@ void __74__PPLocalTopicStore__petLoggingForQuery_count_clientProcessName_hasErro
   [v8 trackScalarForMessage:v9];
 }
 
-intptr_t __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_2_287(void *a1)
+intptr_t __77__PPLocalTopicStore_iterScoredTopicsWithQuery_error_clientProcessName_block___block_invoke_2_287(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return dispatch_semaphore_signal(v4);
+  return dispatch_semaphore_signal(v2);
 }
 
 - (id)rankedTopicsWithQuery:(id)query error:(id *)error clientProcessName:(id)name
@@ -4165,7 +4105,7 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
 - (id)scoreTopics:(id)topics scoringDate:(id)date decayRate:(double)rate strictFiltering:(BOOL)filtering sourceStats:(id)stats decayedFeedbackCounts:(id)counts streamingScorer:(id *)scorer mlModel:(id)self0
 {
   filteringCopy = filtering;
-  v141 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   dateCopy = date;
   statsCopy = stats;
@@ -4176,26 +4116,26 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
     goto LABEL_52;
   }
 
-  v123 = topicsCopy;
+  v122 = topicsCopy;
   v20 = topicsCopy;
-  v129 = dateCopy;
+  v128 = dateCopy;
   v21 = statsCopy;
   v22 = countsCopy;
   if (!self)
   {
-    v128 = v21;
+    v127 = v21;
     v24 = 0;
     goto LABEL_51;
   }
 
-  v121 = countsCopy;
-  v122 = statsCopy;
-  v120 = objc_autoreleasePoolPush();
+  v120 = countsCopy;
+  v121 = statsCopy;
+  v119 = objc_autoreleasePoolPush();
   selfCopy = self;
   if (v21)
   {
-    v127 = 0;
-    v128 = v21;
+    v126 = 0;
+    v127 = v21;
     v23 = 0;
   }
 
@@ -4213,41 +4153,41 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
       v27 = [PPStreamingTopicScorer sourceStatsNeededForBytecode:v26]| v28;
     }
 
-    v127 = v26;
+    v126 = v26;
     storage = self->_storage;
     v30 = objc_autoreleasePoolPush();
     v31 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{&unk_284784770, 0}];
     objc_autoreleasePoolPop(v30);
-    v128 = [(PPTopicStorage *)storage sourceStats:v27 withExcludedAlgorithms:v31];
+    v127 = [(PPTopicStorage *)storage sourceStats:v27 withExcludedAlgorithms:v31];
   }
 
   v32 = [v20 objectAtIndexedSubscript:0];
   topic = [v32 topic];
 
   v34 = objc_alloc(MEMORY[0x277D3A530]);
-  v119 = topic;
+  v118 = topic;
   topicIdentifier = [topic topicIdentifier];
   v36 = [v20 objectAtIndexedSubscript:0];
-  v125 = [v34 initWithTopicIdentifier:topicIdentifier mostRelevantRecord:v36];
+  v124 = [v34 initWithTopicIdentifier:topicIdentifier mostRelevantRecord:v36];
 
   v37 = *scorer;
-  v126 = v23;
+  v125 = v23;
   if (!*scorer)
   {
     v38 = [PPStreamingTopicScorer alloc];
-    v118 = v129;
-    v39 = v128;
-    if (v38 && (*v138 = v38, *&v138[8] = PPStreamingTopicScorer, (v40 = objc_msgSendSuper2(v138, sel_init)) != 0))
+    v117 = v128;
+    v39 = v127;
+    if (v38 && (*v137 = v38, *&v137[8] = PPStreamingTopicScorer, (v40 = objc_msgSendSuper2(v137, sel_init)) != 0))
     {
       v41 = v40;
-      v117 = filteringCopy;
+      v116 = filteringCopy;
       objc_opt_self();
       v42 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Agg.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
       if (v42)
       {
         v43 = v42;
-        v115 = v22;
-        v116 = dateCopy;
+        v114 = v22;
+        v115 = dateCopy;
         objc_opt_self();
         v44 = [PPScoreInterpreterBytecode bytecodeFromFactorName:@"PP2StageModel_TP_Final.plplist" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
         if (v44)
@@ -4264,7 +4204,7 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
           v41[2] = v50;
 
           v52 = [PPScoreDict alloc];
-          v114 = v45;
+          v113 = v45;
           v53 = objc_opt_new();
           v54 = [(PPScoreDict *)v52 initWithScoreInputSet:v53];
 
@@ -4286,7 +4226,7 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
           [(PPScoreDict *)v54 setScalarValue:11 forIndex:v61];
           *&v62 = [v39 recordCount];
           [(PPScoreDict *)v54 setScalarValue:23 forIndex:v62];
-          *&v63 = v117;
+          *&v63 = v116;
           [(PPScoreDict *)v54 setScalarValue:16 forIndex:v63];
           v64 = MEMORY[0x277CBEAF8];
           currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
@@ -4295,15 +4235,15 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
           v68 = [v67 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
           [(PPScoreDict *)v54 setObject:v68 forIndex:5];
 
-          v69 = v118;
-          [(PPScoreDict *)v54 setObject:v118 forIndex:7];
+          v69 = v117;
+          [(PPScoreDict *)v54 setObject:v117 forIndex:7];
           earliestDate = [v39 earliestDate];
           [(PPScoreDict *)v54 setObject:earliestDate forIndex:9];
 
           latestDate = [v39 latestDate];
           [(PPScoreDict *)v54 setObject:latestDate forIndex:10];
 
-          v72 = v114;
+          v72 = v113;
           v73 = v41[3];
           v41[3] = v54;
         }
@@ -4313,27 +4253,27 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
           v72 = v43;
           v47 = v41;
           v41 = 0;
-          v69 = v118;
+          v69 = v117;
         }
 
         v74 = v41;
 
         v41 = v47;
-        v22 = v115;
-        dateCopy = v116;
+        v22 = v114;
+        dateCopy = v115;
       }
 
       else
       {
         v74 = 0;
-        v69 = v118;
+        v69 = v117;
       }
     }
 
     else
     {
       v74 = 0;
-      v69 = v118;
+      v69 = v117;
     }
 
     v75 = *scorer;
@@ -4375,43 +4315,43 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
   if (topicScoringUsesHybrid)
   {
     v90 = [(NSCache *)selfCopy->_modelCache objectForKey:@"scoring_model"];
-    v91 = v125;
+    v91 = v124;
     if (!v90)
     {
       trialWrapper = selfCopy->_trialWrapper;
-      *&v130 = 0;
-      v90 = [(PPTrialWrapper *)trialWrapper mlModelForModelName:@"PPModel_TP.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS" error:&v130];
-      v93 = v130;
+      *&v129 = 0;
+      v90 = [(PPTrialWrapper *)trialWrapper mlModelForModelName:@"PPModel_TP.mlmodelc" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS" error:&v129];
+      v93 = v129;
       if (v93)
       {
         v94 = pp_topics_log_handle();
         if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
         {
-          *v138 = 138412802;
-          *&v138[4] = v93;
-          *&v138[12] = 2112;
-          *&v138[14] = @"PPModel_TP.mlmodelc";
-          v139 = 2112;
-          v140 = @"PERSONALIZATION_PORTRAIT_TOPICS";
-          _os_log_error_impl(&dword_23224A000, v94, OS_LOG_TYPE_ERROR, "PPlocalTopciStore: error %@ in retrieving %@ model with namespace %@", v138, 0x20u);
+          *v137 = 138412802;
+          *&v137[4] = v93;
+          *&v137[12] = 2112;
+          *&v137[14] = @"PPModel_TP.mlmodelc";
+          v138 = 2112;
+          v139 = @"PERSONALIZATION_PORTRAIT_TOPICS";
+          _os_log_error_impl(&dword_23224A000, v94, OS_LOG_TYPE_ERROR, "PPlocalTopciStore: error %@ in retrieving %@ model with namespace %@", v137, 0x20u);
         }
 
-        v91 = v125;
+        v91 = v124;
       }
 
       if (!v90)
       {
-        v112 = pp_topics_log_handle();
-        if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+        v111 = pp_topics_log_handle();
+        if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
         {
-          *v138 = 0;
-          _os_log_error_impl(&dword_23224A000, v112, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: unable to locate ML model.", v138, 2u);
+          *v137 = 0;
+          _os_log_error_impl(&dword_23224A000, v111, OS_LOG_TYPE_ERROR, "PPLocalTopicStore: unable to locate ML model.", v137, 2u);
         }
 
         v24 = 0;
-        countsCopy = v121;
-        statsCopy = v122;
-        v97 = v120;
+        countsCopy = v120;
+        statsCopy = v121;
+        v97 = v119;
         goto LABEL_49;
       }
 
@@ -4422,26 +4362,26 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
     [(PPLocalTopicStore *)v89 finalScoreFromRecordsUsingHybrid:v20 streamingScorer:*scorer mlModel:v90];
     v96 = v95;
 
-    v97 = v120;
+    v97 = v119;
   }
 
   else
   {
-    v132 = 0u;
-    v133 = 0u;
-    v130 = 0u;
     v131 = 0u;
+    v132 = 0u;
+    v129 = 0u;
+    v130 = 0u;
     v98 = v20;
-    v99 = [v98 countByEnumeratingWithState:&v130 objects:v138 count:16];
+    v99 = [v98 countByEnumeratingWithState:&v129 objects:v137 count:16];
     if (v99)
     {
       v100 = v99;
-      v101 = *v131;
+      v101 = *v130;
       do
       {
         for (i = 0; i != v100; ++i)
         {
-          if (*v131 != v101)
+          if (*v130 != v101)
           {
             objc_enumerationMutation(v98);
           }
@@ -4449,7 +4389,7 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
           [(PPStreamingTopicScorer *)*scorer addRecord:?];
         }
 
-        v100 = [v98 countByEnumeratingWithState:&v130 objects:v138 count:16];
+        v100 = [v98 countByEnumeratingWithState:&v129 objects:v137 count:16];
       }
 
       while (v100);
@@ -4465,8 +4405,8 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
       v96 = 0.0;
     }
 
-    v97 = v120;
-    v91 = v125;
+    v97 = v119;
+    v91 = v124;
   }
 
   v103 = +[PPConfiguration sharedInstance];
@@ -4490,67 +4430,65 @@ void __67__PPLocalTopicStore_rankedTopicsWithQuery_error_clientProcessName___blo
     if (v96 < v107)
     {
       v108 = pp_topics_log_handle();
-      countsCopy = v121;
-      v109 = v126;
+      countsCopy = v120;
+      v109 = v125;
       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
       {
-        v113 = v107;
+        v112 = v107;
         if (!topicScoringUsesHybrid)
         {
-          v113 = 0.0;
+          v112 = 0.0;
         }
 
         *buf = 134218240;
-        v135 = v96;
-        v136 = 2048;
-        v137 = v113;
+        v134 = v96;
+        v135 = 2048;
+        v136 = v112;
         _os_log_debug_impl(&dword_23224A000, v108, OS_LOG_TYPE_DEBUG, "Portrait Scoring, filtering out score of %f below threshold of %f", buf, 0x16u);
       }
 
       v24 = 0;
-      statsCopy = v122;
+      statsCopy = v121;
       goto LABEL_50;
     }
   }
 
   v24 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v91 score:v96];
-  countsCopy = v121;
-  statsCopy = v122;
+  countsCopy = v120;
+  statsCopy = v121;
 LABEL_49:
-  v109 = v126;
+  v109 = v125;
 LABEL_50:
 
   objc_autoreleasePoolPop(v97);
 LABEL_51:
 
-  topicsCopy = v123;
+  topicsCopy = v122;
 LABEL_52:
-
-  v110 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (double)finalScoreFromRecordsUsingHybrid:(id)hybrid streamingScorer:(id)scorer mlModel:(id)model
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hybridCopy = hybrid;
   scorerCopy = scorer;
   modelCopy = model;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v10 = [hybridCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v10 = [hybridCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(hybridCopy);
         }
@@ -4558,19 +4496,19 @@ LABEL_52:
         [(PPStreamingTopicScorer *)scorerCopy addRecord:?];
       }
 
-      v11 = [hybridCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v11 = [hybridCopy countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v11);
   }
 
-  v27 = 0;
-  *&v14 = [PPStreamingTopicScorer getFinalScoreWithAggregationResultOut:scorerCopy finalResultOut:&v27];
-  if (v27)
+  v26 = 0;
+  *&v14 = [PPStreamingTopicScorer getFinalScoreWithAggregationResultOut:scorerCopy finalResultOut:&v26];
+  if (v26)
   {
-    v26 = 0;
-    v15 = [modelCopy predictionFromFeatures:v27 error:{&v26, v14}];
-    v16 = v26;
+    v25 = 0;
+    v15 = [modelCopy predictionFromFeatures:v26 error:{&v25, v14}];
+    v16 = v25;
     if (v15)
     {
       v17 = [v15 featureValueForName:@"computed_score"];
@@ -4598,7 +4536,7 @@ LABEL_52:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v33 = v16;
+        v32 = v16;
         _os_log_fault_impl(&dword_23224A000, v17, OS_LOG_TYPE_FAULT, "PPTopicStore: unable to retrieve prediction %@", buf, 0xCu);
       }
     }
@@ -4615,7 +4553,6 @@ LABEL_52:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -4649,7 +4586,7 @@ LABEL_52:
 
 - (PPLocalTopicStore)initWithStorage:(id)storage trialWrapper:(id)wrapper
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   wrapperCopy = wrapper;
   if (!storageCopy)
@@ -4658,9 +4595,9 @@ LABEL_52:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PPLocalTopicStore.m" lineNumber:169 description:{@"Invalid parameter not satisfying: %@", @"storage"}];
   }
 
-  v42.receiver = self;
-  v42.super_class = PPLocalTopicStore;
-  _initFromSubclass = [(PPTopicStore *)&v42 _initFromSubclass];
+  v41.receiver = self;
+  v41.super_class = PPLocalTopicStore;
+  _initFromSubclass = [(PPTopicStore *)&v41 _initFromSubclass];
   v11 = _initFromSubclass;
   if (_initFromSubclass)
   {
@@ -4682,28 +4619,28 @@ LABEL_52:
 
     objc_initWeak(&location, v11);
     trialWrapper = v11->_trialWrapper;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __50__PPLocalTopicStore_initWithStorage_trialWrapper___block_invoke;
-    v39[3] = &unk_2789797B8;
-    objc_copyWeak(&v40, &location);
-    v20 = [(PPTrialWrapper *)trialWrapper addUpdateHandlerForNamespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS" block:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __50__PPLocalTopicStore_initWithStorage_trialWrapper___block_invoke;
+    v38[3] = &unk_2789797B8;
+    objc_copyWeak(&v39, &location);
+    v20 = [(PPTrialWrapper *)trialWrapper addUpdateHandlerForNamespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS" block:v38];
     v21 = objc_autoreleasePoolPush();
     parentDirectory = [(PPTopicStorage *)v11->_storage parentDirectory];
     v23 = [parentDirectory stringByAppendingPathComponent:@"Topics"];
 
     objc_autoreleasePoolPop(v21);
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v38 = 0;
-    v25 = [defaultManager createDirectoryAtPath:v23 withIntermediateDirectories:1 attributes:0 error:&v38];
-    v26 = v38;
+    v37 = 0;
+    v25 = [defaultManager createDirectoryAtPath:v23 withIntermediateDirectories:1 attributes:0 error:&v37];
+    v26 = v37;
     if ((v25 & 1) == 0)
     {
       v27 = pp_default_log_handle();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v44 = v26;
+        v43 = v26;
         _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "PPLocalTopicStore had an error while trying to create the cache directory: %@", buf, 0xCu);
       }
     }
@@ -4722,11 +4659,10 @@ LABEL_52:
     cacheAsyncUpdateQueue = v11->_cacheAsyncUpdateQueue;
     v11->_cacheAsyncUpdateQueue = v33;
 
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -4748,30 +4684,30 @@ void __50__PPLocalTopicStore_initWithStorage_trialWrapper___block_invoke(uint64_
 
 + (id)recordsForTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   sourceCopy = source;
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(topicsCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = topicsCopy;
-  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = objc_opt_new();
         item = [v14 item];
         [v15 setTopic:item];
@@ -4789,13 +4725,11 @@ void __50__PPLocalTopicStore_initWithStorage_trialWrapper___block_invoke(uint64_
         [v9 addObject:v15];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

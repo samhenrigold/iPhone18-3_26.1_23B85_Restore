@@ -11,7 +11,6 @@
 - (void)attemptUnblockWithCompletion:(id)completion;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
-- (void)filterState;
 - (void)setBrowserAuditToken:(id *)token;
 - (void)unblockWithCompletion:(id)completion;
 - (void)userDidCancel;
@@ -107,7 +106,7 @@ void __39__WebFilterEvaluator_sharedBloomFilter__block_invoke()
   }
 }
 
-uint64_t __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = __WFDefaultLog();
   if (!a2)
@@ -263,7 +262,7 @@ LABEL_7:
         v17 = __WFDefaultLog();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          [WebFilterEvaluator addData:?];
+          [WebFilterEvaluator addData:];
         }
 
         return self->_buffer;
@@ -291,7 +290,7 @@ LABEL_7:
           v24 = __WFDefaultLog();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            [WebFilterEvaluator addData:?];
+            [WebFilterEvaluator addData:];
           }
 
           return v23;
@@ -304,7 +303,7 @@ LABEL_7:
             v22 = __WFDefaultLog();
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
-              [WebFilterEvaluator addData:?];
+              [WebFilterEvaluator addData:];
             }
           }
 
@@ -313,7 +312,7 @@ LABEL_7:
             v25 = __WFDefaultLog();
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
-              [WebFilterEvaluator addData:?];
+              [WebFilterEvaluator addData:];
             }
           }
 
@@ -331,7 +330,7 @@ LABEL_7:
                 v35 = __WFDefaultLog();
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
                 {
-                  [WebFilterEvaluator addData:?];
+                  [WebFilterEvaluator addData:];
                 }
 
                 v26 = [(WebFilterEvaluator *)self blockPageForPageWithTitle:self->_pageTitle origURL:self->_url];
@@ -343,7 +342,7 @@ LABEL_7:
               v36 = __WFDefaultLog();
               if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
               {
-                [WebFilterEvaluator addData:?];
+                [WebFilterEvaluator addData:];
               }
 
               return v23;
@@ -352,7 +351,7 @@ LABEL_7:
             v28 = __WFDefaultLog();
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
-              [WebFilterEvaluator addData:?];
+              [WebFilterEvaluator addData:];
             }
           }
 
@@ -361,7 +360,7 @@ LABEL_7:
             v27 = __WFDefaultLog();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              [WebFilterEvaluator addData:?];
+              [WebFilterEvaluator addData:];
             }
           }
         }
@@ -388,7 +387,7 @@ LABEL_7:
             v34 = __WFDefaultLog();
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
-              [WebFilterEvaluator addData:?];
+              [WebFilterEvaluator addData:];
             }
 
             return v23;
@@ -397,7 +396,7 @@ LABEL_7:
           v29 = __WFDefaultLog();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
-            [WebFilterEvaluator addData:?];
+            [WebFilterEvaluator addData:];
           }
         }
       }
@@ -405,7 +404,7 @@ LABEL_7:
       v30 = __WFDefaultLog();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [WebFilterEvaluator addData:?];
+        [WebFilterEvaluator addData:];
       }
     }
 
@@ -423,7 +422,7 @@ LABEL_7:
   v3 = __WFDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    [(WebFilterEvaluator *)self filterState];
+    [WebFilterEvaluator filterState];
   }
 
   return self->_filterState;
@@ -727,42 +726,24 @@ void __39__WebFilterEvaluator_sharedBloomFilter__block_invoke_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)blockPageForPageWithTitle:origURL:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)blockPageForPageWithTitle:(void *)a1 origURL:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 remoteViewController];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "WFRemotePINEntryViewController is %s", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)blockPageForPageWithTitle:origURL:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "WFRemotePINEntryViewController is %s", v3, 0xCu);
 }
 
 - (void)blockPageForPageWithTitle:(os_log_t)log origURL:.cold.4(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136446723;
-  v5 = "[WebFilterEvaluator blockPageForPageWithTitle:origURL:]";
-  v6 = 2113;
-  v7 = a1;
-  v8 = 2113;
-  v9 = a2;
-  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** Error %{public}s: nil block page for title %{private}@, URL %{private}@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136446723;
+  v4 = "[WebFilterEvaluator blockPageForPageWithTitle:origURL:]";
+  v5 = 2113;
+  v6 = a1;
+  v7 = 2113;
+  v8 = a2;
+  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** Error %{public}s: nil block page for title %{private}@, URL %{private}@", &v3, 0x20u);
 }
 
 void __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke_cold_1()
@@ -781,20 +762,16 @@ void __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke_c
 
 void __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addData:.cold.1()
@@ -804,192 +781,139 @@ void __56__WebFilterEvaluator_blockPageForPageWithTitle_origURL___block_invoke_c
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)addData:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)addData:.cold.2()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_272D73000, v3, v4, "WebFilterEvaluator:addData: %{private}@ is not blocked: '%{private}@' is not explicit");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_272D73000, v0, v1, "WebFilterEvaluator:addData: %{private}@ is not blocked: '%{private}@' is not explicit");
 }
 
-- (void)addData:(uint64_t *)a1 .cold.3(uint64_t *a1)
+- (void)addData:.cold.3()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_272D73000, v3, v4, "WebFilterEvaluator:addData: Getting block page for %{private}@ with title %{private}@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_272D73000, v0, v1, "WebFilterEvaluator:addData: Getting block page for %{private}@ with title %{private}@");
 }
 
-- (void)addData:(uint64_t *)a1 .cold.4(uint64_t *a1)
+- (void)addData:.cold.4()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_272D73000, v3, v4, "WebFilterEvaluator:addData: %{private}@ is blocked: '%{private}@' is explicit");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_272D73000, v0, v1, "WebFilterEvaluator:addData: %{private}@ is blocked: '%{private}@' is explicit");
 }
 
-- (void)addData:(uint64_t *)a1 .cold.5(uint64_t *a1)
+- (void)addData:.cold.5()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.6(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.7(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.8(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.9(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.10(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_272D73000, v3, v4, "WebFilterEvaluator:addData: '%{private}@' at %{private}@ is not blocked");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.11(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:(uint64_t *)a1 .cold.12(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addData:.cold.13()
-{
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)filterState
+- (void)addData:.cold.6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(self + 8);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)addData:.cold.7()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)addData:.cold.8()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)addData:.cold.9()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)addData:.cold.10()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_7(&dword_272D73000, v0, v1, "WebFilterEvaluator:addData: '%{private}@' at %{private}@ is not blocked");
+}
+
+- (void)addData:.cold.11()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)addData:.cold.12()
+{
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __51__WebFilterEvaluator_attemptUnblockWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unblockWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WebFilterEvaluator_unblockWithCompletion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WebFilterEvaluator_unblockWithCompletion___block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __44__WebFilterEvaluator_unblockWithCompletion___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WebFilterEvaluator_userEnteredCorrectPIN__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WebFilterEvaluator_userDidCancel__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WebFilterEvaluator_userDidCancel__block_invoke_cold_2(NSObject *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CCA9B8] errorWithDomain:@"WFPINEntryErrorDomain" code:2 userInfo:0];
-  v3[0] = 136446466;
+  v2[0] = 136446466;
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(&dword_272D73000, a1, OS_LOG_TYPE_ERROR, "%{public}s completion: error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272D73000, a1, OS_LOG_TYPE_ERROR, "%{public}s completion: error: %@", v2, 0x16u);
 }
 
 @end

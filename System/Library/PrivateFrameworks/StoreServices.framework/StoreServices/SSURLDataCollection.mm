@@ -8,53 +8,51 @@
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v4) && _os_feature_enabled_impl())
   {
-    v4 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v4)
+    v5 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v5)
     {
-      v4 = +[SSLogConfig sharedConfig];
+      v5 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v4 shouldLog];
-    if ([v4 shouldLogToDisk])
+    shouldLog = [v5 shouldLog];
+    if ([v5 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      v7 = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      v7 = shouldLog;
     }
 
-    oSLogObject = [v4 OSLogObject];
+    oSLogObject = [v5 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v6;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v6 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       v21 = 136446210;
       v22 = "+[SSURLDataCollection collectURLSessionDataWithBlock:]";
-      LODWORD(v18) = 12;
-      v9 = _os_log_send_and_compose_impl();
 
-      if (!v9)
+      if (!v10)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v21, v18}];
-      free(v9);
-      SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+      free(v10);
+      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
     }
 
     goto LABEL_15;
@@ -63,16 +61,16 @@ LABEL_15:
 LABEL_16:
   if (blockCopy)
   {
-    v16 = SSXPCCreateMessageDictionary(199);
-    v17 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-    if (v17)
+    v17 = SSXPCCreateMessageDictionary(199);
+    v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+    if (v18)
     {
       v19[0] = MEMORY[0x1E69E9820];
       v19[1] = 3221225472;
       v19[2] = __54__SSURLDataCollection_collectURLSessionDataWithBlock___block_invoke;
       v19[3] = &unk_1E84AE2D8;
       v20 = blockCopy;
-      [(SSXPCConnection *)v17 sendMessage:v16 withReply:v19];
+      [(SSXPCConnection *)v18 sendMessage:v17 withReply:v19];
     }
 
     else

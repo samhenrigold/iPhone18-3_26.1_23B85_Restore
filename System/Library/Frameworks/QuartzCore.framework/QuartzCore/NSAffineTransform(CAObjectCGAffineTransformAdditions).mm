@@ -8,13 +8,13 @@
 {
   if (self)
   {
-    [self transformStruct];
+    objc_msgSend_transformStruct(self, a2);
   }
 
-  *a2 = 0u;
-  a2[1] = 0u;
+  *a3 = 0u;
+  a3[1] = 0u;
   result = 0.0;
-  a2[2] = 0u;
+  a3[2] = 0u;
   return result;
 }
 

@@ -135,7 +135,7 @@
   v20 = 0u;
   v21 = 0u;
   worklist = self->_worklist;
-  v4 = [(NSMutableArray *)worklist countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(worklist, a2, &v20, v29, 16);
   if (v4)
   {
     v5 = v4;
@@ -215,7 +215,7 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)worklist countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(worklist);
     }
 
     while (v5);

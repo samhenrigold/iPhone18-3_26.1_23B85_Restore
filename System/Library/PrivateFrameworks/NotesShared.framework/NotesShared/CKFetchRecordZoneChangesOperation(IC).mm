@@ -27,13 +27,13 @@
 
 - (id)ic_shortLoggingDescription
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   operationID = [self operationID];
-  v6 = [v2 stringWithFormat:@"<%@ %@>", v4, operationID];
+  v7 = [v3 stringWithFormat:@"<%@ %@>", v5, operationID];
 
-  return v6;
+  return v7;
 }
 
 - (uint64_t)ic_removeAllCompletionBlocks

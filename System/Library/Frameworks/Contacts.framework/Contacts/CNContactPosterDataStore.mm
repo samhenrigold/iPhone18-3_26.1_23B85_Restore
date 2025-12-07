@@ -106,9 +106,11 @@
 
 uint64_t __62__CNContactPosterDataStore_currentProcessLacksPosterAPIAccess__block_invoke(uint64_t a1)
 {
-  currentProcessLacksPosterAPIAccess_cn_once_object_2 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "currentProcessLacksPosterAPIAccess_impl")}];
+  v1 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "currentProcessLacksPosterAPIAccess_impl")}];
+  v2 = currentProcessLacksPosterAPIAccess_cn_once_object_2;
+  currentProcessLacksPosterAPIAccess_cn_once_object_2 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (BOOL)currentProcessLacksPosterAPIAccess_impl

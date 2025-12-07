@@ -345,16 +345,16 @@ void __56__PXPeopleRecoCollectionViewController__initWithPerson___block_invoke_2
   [v23 requestImageForItemAtIndex:v22 targetSize:v25 displayScale:v18 imageBlock:{v20, v16}];
 }
 
-void __56__PXPeopleRecoCollectionViewController__initWithPerson___block_invoke_3(uint64_t a1, void *a2)
+void __56__PXPeopleRecoCollectionViewController__initWithPerson___block_invoke_3(uint64_t a1, void *a2, double a3, double a4, double a5, double a6)
 {
-  v3 = a2;
+  v7 = a2;
   *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = v3;
+  v8 = *(a1 + 40);
+  v9 = v7;
   px_dispatch_on_main_queue();
 }
 
-uint64_t __56__PXPeopleRecoCollectionViewController__initWithPerson___block_invoke_4(uint64_t a1)
+void *__56__PXPeopleRecoCollectionViewController__initWithPerson___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 56))

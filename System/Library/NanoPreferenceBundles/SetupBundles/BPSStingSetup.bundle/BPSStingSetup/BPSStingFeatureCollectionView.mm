@@ -49,28 +49,28 @@
 - (CGSize)_findLargestCell:(id)cell withCell:(id)withCell
 {
   withCellCopy = withCell;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
   obj = [(BPSStingFeatureCollectionView *)self proActivities];
-  v6 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v34;
     v9 = 0.0;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v33 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v33 + 1) + 8 * i);
         actionType = [v12 actionType];
         integerValue = [actionType integerValue];
 
@@ -92,7 +92,7 @@
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v7);
@@ -112,31 +112,31 @@
 
   if (fmod(v25, v9) < 12.0)
   {
-    v26 = bps_setup_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = bps_setup_log(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "width too close to removing peek, make it a bit wider", buf, 2u);
+      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "width too close to removing peek, make it a bit wider", buf, 2u);
     }
 
     v9 = v9 + 12.0;
   }
 
-  v27 = bps_setup_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = bps_setup_log(v26);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v39.width = v9;
-    v39.height = v10;
-    v28 = NSStringFromCGSize(v39);
+    v40.width = v9;
+    v40.height = v10;
+    v29 = NSStringFromCGSize(v40);
     *buf = 138412290;
-    v37 = v28;
-    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "preferred cell size is: %@", buf, 0xCu);
+    v38 = v29;
+    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "preferred cell size is: %@", buf, 0xCu);
   }
 
-  v29 = v9;
-  v30 = v10;
-  result.height = v30;
-  result.width = v29;
+  v30 = v9;
+  v31 = v10;
+  result.height = v31;
+  result.width = v30;
   return result;
 }
 

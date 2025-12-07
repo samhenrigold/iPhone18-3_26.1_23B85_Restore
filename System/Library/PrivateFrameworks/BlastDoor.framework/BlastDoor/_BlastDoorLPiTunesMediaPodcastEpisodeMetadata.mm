@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPiTunesMediaPodcastEpisodeMetadata)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = _BlastDoorLPiTunesMediaPodcastEpisodeMetadata;
-  v5 = [(_BlastDoorLPiTunesMediaPodcastEpisodeMetadata *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = _BlastDoorLPiTunesMediaPodcastEpisodeMetadata;
+  v5 = [(_BlastDoorLPiTunesMediaPodcastEpisodeMetadata *)&v26 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"storeFrontIdentifier");
@@ -55,7 +55,6 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -114,11 +113,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v18.receiver = self;
-  v18.super_class = _BlastDoorLPiTunesMediaPodcastEpisodeMetadata;
-  if ([(_BlastDoorLPiTunesMediaPodcastEpisodeMetadata *)&v18 isEqual:equalCopy])
+  v17.receiver = self;
+  v17.super_class = _BlastDoorLPiTunesMediaPodcastEpisodeMetadata;
+  if ([(_BlastDoorLPiTunesMediaPodcastEpisodeMetadata *)&v17 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -156,7 +155,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

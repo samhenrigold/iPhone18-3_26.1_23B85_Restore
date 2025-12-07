@@ -135,4 +135,16 @@ uint64_t __52__SKUISlideshowDismissalAnimator_animateTransition___block_invoke_2
   return result;
 }
 
+- (void)transitionDuration:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISlideshowDismissalAnimator transitionDuration:]";
+}
+
+- (void)animateTransition:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISlideshowDismissalAnimator animateTransition:]";
+}
+
 @end

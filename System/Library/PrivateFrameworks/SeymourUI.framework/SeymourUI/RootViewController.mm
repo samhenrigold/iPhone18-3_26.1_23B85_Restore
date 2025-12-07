@@ -29,7 +29,7 @@
 {
   appearingCopy = appearing;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RootViewController();
+  v7.super_class = type metadata accessor for RootViewController(0);
   v4 = v7.receiver;
   [(RootViewController *)&v7 viewIsAppearing:appearingCopy];
   [*(*(*&v4[OBJC_IVAR____TtC9SeymourUI18RootViewController_dataProvider] + 48) + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView) contentOffset];
@@ -52,19 +52,19 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RootViewController();
+  v5.super_class = type metadata accessor for RootViewController(0);
   v4 = v5.receiver;
   [(RootViewController *)&v5 viewDidDisappear:disappearCopy];
   v4[OBJC_IVAR____TtC9SeymourUI18RootViewController_engagementPresentability] = 2;
-  sub_20BE8F2DC(&qword_27C76FCE8, type metadata accessor for RootViewController);
-  sub_20BE8F2DC(&unk_27C76FCF0, type metadata accessor for RootViewController);
+  sub_20BE8F2DC(&qword_27C76FCE8, type metadata accessor for RootViewController, &protocol conformance descriptor for RootViewController);
+  sub_20BE8F2DC(&unk_27C76FCF0, type metadata accessor for RootViewController, &protocol conformance descriptor for RootViewController);
   sub_20C139374();
 }
 
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for RootViewController();
+  v10.super_class = type metadata accessor for RootViewController(0);
   v2 = v10.receiver;
   [(RootViewController *)&v10 viewDidLayoutSubviews];
   v3 = *(*&v2[OBJC_IVAR____TtC9SeymourUI18RootViewController_dataProvider] + 48);

@@ -24,6 +24,7 @@
 - (id)_localizedStopByPerson:(void *)person detailTextForDirectlySharedResources:(void *)resources isBlocking:;
 - (id)_localizedStopByPerson:(void *)person detailTextForIndirectlySharedResources:(void *)resources isBlocking:;
 - (id)attributedStopByPerson:(uint64_t)person direction:(void *)direction format:(void *)format namedResourceList:(int)list isBlocking:;
+- (id)initWithSourceName:(void *)name localizationBundle:;
 - (id)localizedAlertDetailForSelectedPeople:(id)people;
 - (id)localizedAlertTextForPerson:(id)person;
 - (id)localizedDetailTextByType:(id)type;
@@ -40,7 +41,6 @@
 - (id)stopByPerson:(uint64_t)person direction:(void *)direction format:(void *)format namedResources:(int)resources isBlocking:;
 - (id)stopByPersonLocKey:(void *)key resourceTypes:(char)types isBlocking:;
 - (int64_t)priority;
-- (uint64_t)initWithSourceName:(void *)name localizationBundle:;
 - (uint64_t)localizationBundle;
 - (uint64_t)sourceName;
 - (uint64_t)sourceProperties;
@@ -104,7 +104,7 @@ uint64_t __37__DSSourceDescriptor_descriptorCache__block_invoke()
   }
 }
 
-- (uint64_t)initWithSourceName:(void *)name localizationBundle:
+- (id)initWithSourceName:(void *)name localizationBundle:
 {
   v6 = a2;
   nameCopy = name;
@@ -128,11 +128,11 @@ uint64_t __37__DSSourceDescriptor_descriptorCache__block_invoke()
     if (v8)
     {
       objc_storeStrong(v8 + 1, a2);
-      objc_storeStrong((self + 16), name);
-      v9 = [*(self + 16) URLForResource:@"SourceDescriptors" withExtension:@"plist"];
+      objc_storeStrong(self + 2, name);
+      v9 = [self[2] URLForResource:@"SourceDescriptors" withExtension:@"plist"];
       v10 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v9];
-      v11 = *(self + 24);
-      *(self + 24) = v10;
+      v11 = self[3];
+      self[3] = v10;
     }
   }
 
@@ -151,7 +151,7 @@ uint64_t __37__DSSourceDescriptor_descriptorCache__block_invoke()
 
 + (id)sourceDescriptorForSource:(id)source localizationBundle:(id)bundle
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   bundleCopy = bundle;
   os_unfair_lock_lock(&kDescriptorCacheLock);
@@ -180,25 +180,24 @@ uint64_t __37__DSSourceDescriptor_descriptorCache__block_invoke()
       [DSSourceDescriptor sourceDescriptorForSource:a2 localizationBundle:self];
     }
 
-    v15 = MEMORY[0x277CBEAD8];
-    v16 = *MEMORY[0x277CCA5A0];
-    v20[0] = @"sourceName";
-    v20[1] = @"localizationBundle";
-    v21[0] = sourceCopy;
-    v21[1] = bundleCopy;
-    v20[2] = @"cached";
-    v21[2] = v10;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
-    v18 = [v15 exceptionWithName:v16 reason:@"No source descriptor for provided source name and bundle" userInfo:v17];
-    v19 = v18;
+    v14 = MEMORY[0x277CBEAD8];
+    v15 = *MEMORY[0x277CCA5A0];
+    v19[0] = @"sourceName";
+    v19[1] = @"localizationBundle";
+    v20[0] = sourceCopy;
+    v20[1] = bundleCopy;
+    v19[2] = @"cached";
+    v20[2] = v10;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v17 = [v14 exceptionWithName:v15 reason:@"No source descriptor for provided source name and bundle" userInfo:v16];
+    v18 = v17;
 
-    objc_exception_throw(v18);
+    objc_exception_throw(v17);
   }
 
 LABEL_5:
   v12 = v10;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -570,35 +569,35 @@ LABEL_4:
 
 - (id)sharedResourcesByResourceType:(uint64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v22 = v4;
+  v21 = v4;
   if (type)
   {
     v5 = v4;
     [MEMORY[0x277CBEB38] dictionary];
     objc_claimAutoreleasedReturnValue();
     *&v6 = OUTLINED_FUNCTION_23();
+    v22 = v6;
     v23 = v6;
     v24 = v6;
     v25 = v6;
-    v26 = v6;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           v13 = [(DSSourceDescriptor *)type resourceTypeFromResource:v12];
           if ([(__CFString *)v13 isEqualToString:@"RESOURCE"])
           {
@@ -624,7 +623,7 @@ LABEL_4:
           [v2 setObject:v17 forKeyedSubscript:v13];
         }
 
-        v9 = OUTLINED_FUNCTION_26(v18, v19, &v23, v27);
+        v9 = OUTLINED_FUNCTION_26(v18, v19, &v22, v26);
       }
 
       while (v9);
@@ -636,58 +635,56 @@ LABEL_4:
     v2 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)peopleByResourceType:(uint64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v21 = v4;
+  v20 = v4;
   if (type)
   {
     v5 = v4;
     [MEMORY[0x277CBEB38] dictionary];
     objc_claimAutoreleasedReturnValue();
     *&v6 = OUTLINED_FUNCTION_23();
+    v29 = v6;
     v30 = v6;
     v31 = v6;
     v32 = v6;
-    v33 = v6;
     obj = [v5 allPeople];
-    v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v24)
+    v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v23)
     {
-      v23 = *v31;
+      v22 = *v30;
       do
       {
         v7 = 0;
         do
         {
-          if (*v31 != v23)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = v7;
-          v8 = *(*(&v30 + 1) + 8 * v7);
+          v24 = v7;
+          v8 = *(*(&v29 + 1) + 8 * v7);
+          v25 = 0u;
           v26 = 0u;
           v27 = 0u;
           v28 = 0u;
-          v29 = 0u;
           v9 = [v8 sharedResourcesForSourceName:*(type + 8)];
-          v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v27;
+            v12 = *v26;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v27 != v12)
+                if (*v26 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
@@ -717,20 +714,20 @@ LABEL_4:
                 [v2 setObject:v18 forKeyedSubscript:v14];
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v11);
           }
 
-          v7 = v25 + 1;
+          v7 = v24 + 1;
         }
 
-        while (v25 + 1 != v24);
-        v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        while (v24 + 1 != v23);
+        v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
   }
 
@@ -739,14 +736,12 @@ LABEL_4:
     v2 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)resourceTypeOrder
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v1 = *(self + 8);
@@ -761,8 +756,8 @@ LABEL_4:
 
     else
     {
-      v10[0] = @"RESOURCES";
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = @"RESOURCES";
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     }
 
     v7 = v6;
@@ -772,8 +767,6 @@ LABEL_4:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -849,25 +842,25 @@ LABEL_4:
 
 - (id)localizedAlertDetailForSelectedPeople:(id)people
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   v6 = [MEMORY[0x277CBEB58] set];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v7 = peopleCopy;
-  v8 = [v7 countByEnumeratingWithState:&v50 objects:v57 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v56 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
+    v10 = *v50;
     do
     {
       v11 = 0;
       do
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
@@ -882,14 +875,14 @@ LABEL_4:
           sourceName = 0;
         }
 
-        v13 = [*(*(&v50 + 1) + 8 * v11) sharedResourcesForSourceName:sourceName];
+        v13 = [*(*(&v49 + 1) + 8 * v11) sharedResourcesForSourceName:sourceName];
         [v6 unionSet:v13];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v14 = [v7 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v14 = [v7 countByEnumeratingWithState:&v49 objects:v56 count:16];
       v9 = v14;
     }
 
@@ -918,7 +911,7 @@ LABEL_4:
   if (v23)
   {
     firstObject = [v7 firstObject];
-    v49 = v15;
+    v48 = v15;
     if (self)
     {
       localizationBundle = self->_localizationBundle;
@@ -935,12 +928,12 @@ LABEL_4:
     v29 = [(__CFString *)v21 localizedAttributedStringForKey:v28 value:&stru_285B9D7E0 table:0];
 
     v30 = objc_alloc(MEMORY[0x277CCA898]);
-    v55 = *MEMORY[0x277CCA290];
+    v54 = *MEMORY[0x277CCA290];
     termsOfAddress = [firstObject termsOfAddress];
-    v54 = termsOfAddress;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-    v56 = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v53 = termsOfAddress;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+    v55 = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
     OUTLINED_FUNCTION_24();
     OUTLINED_FUNCTION_6();
     v35 = [v34 initWithFormat:? options:? locale:? context:?];
@@ -963,7 +956,7 @@ LABEL_4:
       string3 = [v35 string];
     }
 
-    v15 = v49;
+    v15 = v48;
   }
 
   else
@@ -999,8 +992,6 @@ LABEL_4:
 
     v17 = v40;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return string3;
 }
@@ -1064,26 +1055,26 @@ LABEL_4:
 
 - (id)localizedDetailTextByType:(id)type
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   allPeople = [typeCopy allPeople];
   v9 = [MEMORY[0x277CBEB58] set];
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   allPeople2 = [typeCopy allPeople];
-  v11 = [allPeople2 countByEnumeratingWithState:&v86 objects:v95 count:16];
+  v11 = [allPeople2 countByEnumeratingWithState:&v85 objects:v94 count:16];
   if (v11)
   {
     v12 = v11;
-    v4 = *v87;
+    v4 = *v86;
     do
     {
       v13 = 0;
       do
       {
-        if (*v87 != v4)
+        if (*v86 != v4)
         {
           objc_enumerationMutation(allPeople2);
         }
@@ -1098,7 +1089,7 @@ LABEL_4:
           sourceName = 0;
         }
 
-        [*(*(&v86 + 1) + 8 * v13) sharedResourcesForSourceName:sourceName];
+        [*(*(&v85 + 1) + 8 * v13) sharedResourcesForSourceName:sourceName];
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_22() unionSet:v3];
 
@@ -1106,7 +1097,7 @@ LABEL_4:
       }
 
       while (v12 != v13);
-      v17 = OUTLINED_FUNCTION_26(v15, v16, &v86, v95);
+      v17 = OUTLINED_FUNCTION_26(v15, v16, &v85, v94);
       v12 = v17;
     }
 
@@ -1124,20 +1115,20 @@ LABEL_4:
   {
     [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
     objc_claimAutoreleasedReturnValue();
-    v27 = [OUTLINED_FUNCTION_12() objectForKeyedSubscript:?];
-    v28 = [v27 count];
+    v26 = [OUTLINED_FUNCTION_12() objectForKeyedSubscript:?];
+    v27 = [v26 count];
 
-    v78 = v5;
-    if (v28 == 1)
+    v77 = v5;
+    if (v27 == 1)
     {
-      v29 = MEMORY[0x277CCACA8];
+      v28 = MEMORY[0x277CCACA8];
       anyObject = [v9 anyObject];
       [(DSSourceDescriptor *)self resourceTypeFromResource:anyObject];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_21();
-      v31 = [v29 stringWithFormat:@"DETAIL_TEXT_SINGLE_%@_WITH_NAME"];
+      v30 = [v28 stringWithFormat:@"DETAIL_TEXT_SINGLE_%@_WITH_NAME"];
 
-      v32 = v31;
+      v31 = v30;
       if (self)
       {
         localizationBundle = self->_localizationBundle;
@@ -1148,135 +1139,135 @@ LABEL_4:
         localizationBundle = 0;
       }
 
-      v81 = localizationBundle;
-      v34 = [(DSSourceDescriptor *)self localizableKey:v31];
+      v80 = localizationBundle;
+      v33 = [(DSSourceDescriptor *)self localizableKey:v30];
       OUTLINED_FUNCTION_19();
-      v36 = [v35 localizedStringForKey:? value:? table:?];
+      v35 = [v34 localizedStringForKey:? value:? table:?];
 
-      v82 = v32;
-      v37 = [(DSSourceDescriptor *)self localizableKey:v32];
-      v38 = v36;
-      v74 = [v36 isEqualToString:v37];
+      v81 = v31;
+      v36 = [(DSSourceDescriptor *)self localizableKey:v31];
+      v37 = v35;
+      v73 = [v35 isEqualToString:v36];
 
       anyObject2 = [v9 anyObject];
       displayName = [anyObject2 displayName];
 
-      if ((v74 & 1) == 0 && [displayName length])
+      if ((v73 & 1) == 0 && [displayName length])
       {
-        v41 = v38;
-        v24 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v38, objc_msgSend(allPeople, "count"), displayName];
+        v40 = v37;
+        v24 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v37, objc_msgSend(allPeople, "count"), displayName];
 LABEL_37:
 
         goto LABEL_17;
       }
 
-      v59 = @"SINGLE";
-      v5 = v78;
+      v58 = @"SINGLE";
+      v5 = v77;
     }
 
     else
     {
-      v59 = @"MULTIPLE";
+      v58 = @"MULTIPLE";
     }
 
-    v60 = MEMORY[0x277CCACA8];
-    v94[0] = v59;
-    v94[1] = v5;
-    v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
-    v62 = [v61 componentsJoinedByString:@"_"];
-    v63 = [v60 stringWithFormat:@"DETAIL_TEXT_%@", v62];
+    v59 = MEMORY[0x277CCACA8];
+    v93[0] = v58;
+    v93[1] = v5;
+    v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+    v61 = [v60 componentsJoinedByString:@"_"];
+    v62 = [v59 stringWithFormat:@"DETAIL_TEXT_%@", v61];
 
     if (self)
     {
-      v64 = self->_localizationBundle;
+      v63 = self->_localizationBundle;
     }
 
     else
     {
-      v64 = 0;
+      v63 = 0;
     }
 
-    v65 = v64;
-    v66 = OUTLINED_FUNCTION_25();
-    v82 = v63;
-    v67 = [(DSSourceDescriptor *)v66 localizableKey:v63];
-    v68 = [OUTLINED_FUNCTION_24() localizedStringForKey:? value:? table:?];
+    v64 = v63;
+    v65 = OUTLINED_FUNCTION_25();
+    v81 = v62;
+    v66 = [(DSSourceDescriptor *)v65 localizableKey:v62];
+    v67 = [OUTLINED_FUNCTION_24() localizedStringForKey:? value:? table:?];
 
-    v69 = MEMORY[0x277CCACA8];
+    v68 = MEMORY[0x277CCACA8];
     displayName = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
-    v70 = [v18 objectForKeyedSubscript:displayName];
-    v24 = [v69 localizedStringWithFormat:v68, objc_msgSend(v70, "count")];
+    v69 = [v18 objectForKeyedSubscript:displayName];
+    v24 = [v68 localizedStringWithFormat:v67, objc_msgSend(v69, "count")];
 
-    v41 = v68;
+    v40 = v67;
     goto LABEL_37;
   }
 
   if ([v19 count] == 2)
   {
-    v83 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
-    v79 = [v19 objectForKeyedSubscript:v83];
-    v42 = [v79 count];
-    v43 = @"SINGLE";
-    if (v42 != 1)
+    v82 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
+    v78 = [v19 objectForKeyedSubscript:v82];
+    v41 = [v78 count];
+    v42 = @"SINGLE";
+    if (v41 != 1)
     {
-      v43 = @"MULTIPLE";
+      v42 = @"MULTIPLE";
     }
 
-    v93[0] = v43;
+    v92[0] = v42;
     [v21 objectAtIndexedSubscript:1];
     objc_claimAutoreleasedReturnValue();
-    v44 = [OUTLINED_FUNCTION_12() objectForKeyedSubscript:?];
-    v45 = [v44 count];
-    v46 = @"SINGLE";
-    if (v45 != 1)
+    v43 = [OUTLINED_FUNCTION_12() objectForKeyedSubscript:?];
+    v44 = [v43 count];
+    v45 = @"SINGLE";
+    if (v44 != 1)
     {
-      v46 = @"MULTIPLE";
+      v45 = @"MULTIPLE";
     }
 
-    v93[1] = v46;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+    v92[1] = v45;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
 
-    v84 = MEMORY[0x277CCACA8];
-    v75 = [v47 objectAtIndexedSubscript:0];
-    v92[0] = v75;
-    v72 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
-    v92[1] = v72;
-    v80 = v47;
-    v71 = [v47 objectAtIndexedSubscript:1];
-    v92[2] = v71;
-    v48 = [v21 objectAtIndexedSubscript:1];
-    v92[3] = v48;
-    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:4];
-    [v49 componentsJoinedByString:@"_"];
+    v83 = MEMORY[0x277CCACA8];
+    v74 = [v46 objectAtIndexedSubscript:0];
+    v91[0] = v74;
+    v71 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
+    v91[1] = v71;
+    v79 = v46;
+    v70 = [v46 objectAtIndexedSubscript:1];
+    v91[2] = v70;
+    v47 = [v21 objectAtIndexedSubscript:1];
+    v91[3] = v47;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:4];
+    [v48 componentsJoinedByString:@"_"];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_21();
-    v85 = [v84 stringWithFormat:@"DETAIL_TEXT_%@"];
+    v84 = [v83 stringWithFormat:@"DETAIL_TEXT_%@"];
 
-    v77 = allPeople;
+    v76 = allPeople;
     if (self)
     {
-      v50 = self->_localizationBundle;
+      v49 = self->_localizationBundle;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
-    v51 = v50;
-    v52 = OUTLINED_FUNCTION_25();
-    v53 = [(DSSourceDescriptor *)v52 localizableKey:v85];
-    v54 = [OUTLINED_FUNCTION_24() localizedStringForKey:? value:? table:?];
+    v50 = v49;
+    v51 = OUTLINED_FUNCTION_25();
+    v52 = [(DSSourceDescriptor *)v51 localizableKey:v84];
+    v53 = [OUTLINED_FUNCTION_24() localizedStringForKey:? value:? table:?];
 
-    v73 = MEMORY[0x277CCACA8];
-    v76 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
-    v55 = [v18 objectForKeyedSubscript:v76];
-    v56 = [v55 count];
-    v57 = [v21 objectAtIndexedSubscript:1];
-    v58 = [v18 objectForKeyedSubscript:v57];
-    v24 = [v73 localizedStringWithFormat:v54, v56, objc_msgSend(v58, "count")];
+    v72 = MEMORY[0x277CCACA8];
+    v75 = [OUTLINED_FUNCTION_18() objectAtIndexedSubscript:?];
+    v54 = [v18 objectForKeyedSubscript:v75];
+    v55 = [v54 count];
+    v56 = [v21 objectAtIndexedSubscript:1];
+    v57 = [v18 objectForKeyedSubscript:v56];
+    v24 = [v72 localizedStringWithFormat:v53, v55, objc_msgSend(v57, "count")];
 
-    allPeople = v77;
+    allPeople = v76;
   }
 
   else
@@ -1284,9 +1275,9 @@ LABEL_37:
     v22 = DSLogSourceDescriptor;
     if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_FAULT))
     {
-      v90 = 138543362;
-      v91 = v21;
-      OUTLINED_FUNCTION_5(&dword_248C40000, v22, v23, "More than 2 resource types are not supported: %{public}@", &v90);
+      v89 = 138543362;
+      v90 = v21;
+      OUTLINED_FUNCTION_5(&dword_248C40000, v22, v23, "More than 2 resource types are not supported: %{public}@", &v89);
     }
 
     v24 = 0;
@@ -1294,14 +1285,12 @@ LABEL_37:
 
 LABEL_17:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (id)localizedPublicSharingDetailTextByType:(id)type
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   allPublicResources = [type allPublicResources];
   v4 = [MEMORY[0x277CBEB98] setWithArray:?];
   v5 = [(DSSourceDescriptor *)self sharedResourcesByResourceType:v4];
@@ -1311,56 +1300,56 @@ LABEL_17:
   v7 = [(DSSourceDescriptor *)self orderedResourceTypes:allKeys];
 
   array = [MEMORY[0x277CBEB18] array];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   v9 = v7;
-  v45 = [v9 countByEnumeratingWithState:&v55 objects:v62 count:16];
-  if (v45)
+  v44 = [v9 countByEnumeratingWithState:&v54 objects:v61 count:16];
+  if (v44)
   {
-    v10 = *v56;
-    v47 = v5;
-    v49 = v9;
-    v43 = *v56;
+    v10 = *v55;
+    v46 = v5;
+    v48 = v9;
+    v42 = *v55;
     do
     {
       v11 = 0;
       do
       {
-        if (*v56 != v10)
+        if (*v55 != v10)
         {
           objc_enumerationMutation(v9);
         }
 
-        v46 = v11;
-        v12 = [v5 objectForKeyedSubscript:*(*(&v55 + 1) + 8 * v11)];
+        v45 = v11;
+        v12 = [v5 objectForKeyedSubscript:*(*(&v54 + 1) + 8 * v11)];
+        v50 = 0u;
         v51 = 0u;
         v52 = 0u;
         v53 = 0u;
-        v54 = 0u;
         obj = v12;
-        v13 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+        v13 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v52;
+          v15 = *v51;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v52 != v15)
+              if (*v51 != v15)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v51 + 1) + 8 * i);
+              v17 = *(*(&v50 + 1) + 8 * i);
               displayName = [v17 displayName];
               if (!displayName || (v19 = displayName, [v17 displayName], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "length"), v20, v19, !v21))
               {
                 v27 = MEMORY[0x277CCACA8];
-                v9 = v49;
-                v28 = [v49 componentsJoinedByString:@"_"];
+                v9 = v48;
+                v28 = [v48 componentsJoinedByString:@"_"];
                 v29 = [v27 stringWithFormat:@"PUBLIC_SHARING_DETAIL_TEXT_%@", v28];
 
                 if (selfCopy)
@@ -1373,12 +1362,12 @@ LABEL_17:
                   localizationBundle = 0;
                 }
 
-                v5 = v47;
+                v5 = v46;
                 v31 = localizationBundle;
                 v32 = [(DSSourceDescriptor *)selfCopy localizableKey:v29];
                 v33 = [(NSBundle *)v31 localizedStringForKey:v32 value:&stru_285B9D7E0 table:0];
 
-                if ([v47 count] == 1)
+                if ([v46 count] == 1)
                 {
                   v26 = allPublicResources;
                   v25 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v33, objc_msgSend(allPublicResources, "count")];
@@ -1386,18 +1375,18 @@ LABEL_17:
 
                 else
                 {
-                  if ([v47 count] == 2)
+                  if ([v46 count] == 2)
                   {
                     v34 = MEMORY[0x277CCACA8];
-                    v35 = [v49 objectAtIndexedSubscript:0];
-                    v36 = [v47 objectForKeyedSubscript:v35];
+                    v35 = [v48 objectAtIndexedSubscript:0];
+                    v36 = [v46 objectForKeyedSubscript:v35];
                     v37 = [v36 count];
-                    [v49 objectAtIndexedSubscript:1];
+                    [v48 objectAtIndexedSubscript:1];
                     objc_claimAutoreleasedReturnValue();
                     v38 = [OUTLINED_FUNCTION_12() objectForKeyedSubscript:?];
                     v25 = [v34 localizedStringWithFormat:v33, v37, objc_msgSend(v38, "count")];
 
-                    v9 = v49;
+                    v9 = v48;
                   }
 
                   else
@@ -1405,9 +1394,9 @@ LABEL_17:
                     v39 = DSLogSourceDescriptor;
                     if (OUTLINED_FUNCTION_27())
                     {
-                      v59 = 138543362;
-                      v60 = v49;
-                      OUTLINED_FUNCTION_5(&dword_248C40000, v39, v40, "More than 2 resource types are not supported: %{public}@", &v59);
+                      v58 = 138543362;
+                      v59 = v48;
+                      OUTLINED_FUNCTION_5(&dword_248C40000, v39, v40, "More than 2 resource types are not supported: %{public}@", &v58);
                     }
 
                     v25 = 0;
@@ -1429,7 +1418,7 @@ LABEL_17:
               [array addObject:v24];
             }
 
-            v14 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+            v14 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
             if (v14)
             {
               continue;
@@ -1439,31 +1428,29 @@ LABEL_17:
           }
         }
 
-        v11 = v46 + 1;
-        v5 = v47;
-        v9 = v49;
-        v10 = v43;
+        v11 = v45 + 1;
+        v5 = v46;
+        v9 = v48;
+        v10 = v42;
       }
 
-      while (v46 + 1 != v45);
-      v45 = [v49 countByEnumeratingWithState:&v55 objects:v62 count:16];
+      while (v45 + 1 != v44);
+      v44 = [v48 countByEnumeratingWithState:&v54 objects:v61 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   v25 = [DSUtilities localizedDetailStringWithTruncationFromArray:array withType:@"com.apple.DigitalSeparation.Resources"];
   v26 = allPublicResources;
 LABEL_29:
 
-  v41 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)_localizedStopByPerson:(void *)person detailTextForDirectlySharedResources:(void *)resources isBlocking:
 {
-  v303[1] = *MEMORY[0x277D85DE8];
+  v299[1] = *MEMORY[0x277D85DE8];
   v8 = a2;
   personCopy = person;
   v10 = personCopy;
@@ -1475,137 +1462,137 @@ LABEL_29:
       goto LABEL_3;
     }
 
-    v14 = OUTLINED_FUNCTION_20();
-    v16 = [(DSSourceDescriptor *)v14 sharedResourcesByResourceType:v15];
-    [v16 allKeys];
+    v13 = OUTLINED_FUNCTION_20();
+    v15 = [(DSSourceDescriptor *)v13 sharedResourcesByResourceType:v14];
+    [v15 allKeys];
     objc_claimAutoreleasedReturnValue();
-    v17 = OUTLINED_FUNCTION_14();
-    v272 = [(DSSourceDescriptor *)v17 orderedResourceTypes:v18];
+    v16 = OUTLINED_FUNCTION_14();
+    v268 = [(DSSourceDescriptor *)v16 orderedResourceTypes:v17];
 
-    v19 = [v8 shareDirectionForSourceName:*(self + 8)];
-    v20 = OUTLINED_FUNCTION_20();
-    v22 = [(DSSourceDescriptor *)v20 localizedNameListForResources:v21];
-    v23 = v22;
-    if ((~v19 & 3) != 0)
+    v18 = [v8 shareDirectionForSourceName:*(self + 8)];
+    v19 = OUTLINED_FUNCTION_20();
+    v21 = [(DSSourceDescriptor *)v19 localizedNameListForResources:v20];
+    v22 = v21;
+    if ((~v18 & 3) != 0)
     {
-      if (v19)
+      if (v18)
       {
         if (string == 1)
         {
           [v10 anyObject];
           objc_claimAutoreleasedReturnValue();
-          v37 = OUTLINED_FUNCTION_3_0();
-          v38 = [(DSSourceDescriptor *)v37 resourceTypeFromResource:v19];
-          v289 = v38;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v289 count:1];
-          v40 = OUTLINED_FUNCTION_9();
-          v27 = [(DSSourceDescriptor *)v40 stopByPersonLocKey:v41 resourceTypes:v42 isBlocking:v43];
+          v36 = OUTLINED_FUNCTION_3_0();
+          v37 = [(DSSourceDescriptor *)v36 resourceTypeFromResource:v18];
+          v285 = v37;
+          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v285 count:1];
+          v39 = OUTLINED_FUNCTION_9();
+          v26 = [(DSSourceDescriptor *)v39 stopByPersonLocKey:v40 resourceTypes:v41 isBlocking:v42];
 
-          v44 = *(self + 16);
-          v45 = OUTLINED_FUNCTION_3_0();
-          v46 = [(DSSourceDescriptor *)v45 localizableKey:v27];
-          v47 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
+          v43 = *(self + 16);
+          v44 = OUTLINED_FUNCTION_3_0();
+          v45 = [(DSSourceDescriptor *)v44 localizableKey:v26];
+          v46 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
 
-          v19 = [(DSSourceDescriptor *)self namedValueForLocKey:v27];
-          if (![v19 length] || !objc_msgSend(v23, "length"))
+          v18 = [(DSSourceDescriptor *)self namedValueForLocKey:v26];
+          if (![v18 length] || !objc_msgSend(v22, "length"))
           {
-            v48 = OUTLINED_FUNCTION_4();
-            v50 = 1;
+            v47 = OUTLINED_FUNCTION_4();
+            v49 = 1;
 LABEL_23:
-            v32 = v47;
-            v61 = [(DSSourceDescriptor *)v48 attributedStopByPerson:v49 direction:v50 format:v47 namedResourceList:0 isBlocking:resources];
+            v31 = v46;
+            v60 = [(DSSourceDescriptor *)v47 attributedStopByPerson:v48 direction:v49 format:v46 namedResourceList:0 isBlocking:resources];
 LABEL_61:
-            string = [v61 string];
+            string = [v60 string];
 
             goto LABEL_77;
           }
 
-          [objc_alloc(MEMORY[0x277CCA898]) initWithString:v19];
-          v159 = v19;
+          [objc_alloc(MEMORY[0x277CCA898]) initWithString:v18];
+          v155 = v18;
           OUTLINED_FUNCTION_3_0();
 LABEL_60:
           OUTLINED_FUNCTION_15();
-          v61 = [(DSSourceDescriptor *)v169 attributedStopByPerson:v170 direction:v171 format:v172 namedResourceList:v173 isBlocking:v174];
+          v60 = [(DSSourceDescriptor *)v165 attributedStopByPerson:v166 direction:v167 format:v168 namedResourceList:v169 isBlocking:v170];
 
-          v19 = v159;
-          v32 = v47;
+          v18 = v155;
+          v31 = v46;
           goto LABEL_61;
         }
 
-        v265 = v22;
-        v78 = OUTLINED_FUNCTION_11();
-        v82 = [(DSSourceDescriptor *)v78 stopByPersonLocKey:v79 resourceTypes:v80 isBlocking:v81];
-        v83 = *(self + 16);
-        v84 = OUTLINED_FUNCTION_3_0();
-        v85 = [(DSSourceDescriptor *)v84 localizableKey:v82];
-        v268 = [OUTLINED_FUNCTION_1_1() localizedStringForKey:? value:? table:?];
+        v261 = v21;
+        v76 = OUTLINED_FUNCTION_11();
+        v80 = [(DSSourceDescriptor *)v76 stopByPersonLocKey:v77 resourceTypes:v78 isBlocking:v79];
+        v81 = *(self + 16);
+        v82 = OUTLINED_FUNCTION_3_0();
+        v83 = [(DSSourceDescriptor *)v82 localizableKey:v80];
+        v264 = [OUTLINED_FUNCTION_1_1() localizedStringForKey:? value:? table:?];
 
-        v86 = OUTLINED_FUNCTION_10();
-        [(DSSourceDescriptor *)v86 namedValueForLocKey:v87];
+        v84 = OUTLINED_FUNCTION_10();
+        [(DSSourceDescriptor *)v84 namedValueForLocKey:v85];
         objc_claimAutoreleasedReturnValue();
         if ([OUTLINED_FUNCTION_22() count] == 1)
         {
-          v262 = v19;
-          v23 = v265;
-          if (![v268 length] || !objc_msgSend(v265, "length"))
+          v258 = v18;
+          v22 = v261;
+          if (![v264 length] || !objc_msgSend(v261, "length"))
           {
-            v88 = MEMORY[0x277CCACA8];
+            v86 = MEMORY[0x277CCACA8];
             displayGivenName = [v8 displayGivenName];
-            string = [v88 localizedStringWithFormat:v268, string, displayGivenName];
+            string = [v86 localizedStringWithFormat:v264, string, displayGivenName];
 
-            v32 = v268;
+            v31 = v264;
 LABEL_75:
-            v27 = v266;
+            v26 = v262;
             goto LABEL_76;
           }
 
           OUTLINED_FUNCTION_4();
           OUTLINED_FUNCTION_15();
-          string = [(DSSourceDescriptor *)v203 stopByPerson:v204 direction:v205 format:v206 namedResources:v207 isBlocking:v208];
+          string = [(DSSourceDescriptor *)v199 stopByPerson:v200 direction:v201 format:v202 namedResources:v203 isBlocking:v204];
         }
 
         else
         {
-          v23 = v265;
-          if ([v16 count] == 2)
+          v22 = v261;
+          if ([v15 count] == 2)
           {
-            v116 = [OUTLINED_FUNCTION_2_1(2 v116];
-            v123 = [v16 objectForKeyedSubscript:v116];
-            v124 = [v123 count];
+            v113 = [OUTLINED_FUNCTION_2_1(2 v113];
+            v120 = [v15 objectForKeyedSubscript:v113];
+            v121 = [v120 count];
             [v8 displayGivenName];
-            v125 = v263 = v19;
+            v122 = v259 = v18;
             [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
             objc_claimAutoreleasedReturnValue();
-            v126 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
-            string = [v249 localizedStringWithFormat:v270, v124, v125, objc_msgSend(v126, "count")];
+            v123 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
+            string = [v245 localizedStringWithFormat:v266, v121, v122, objc_msgSend(v123, "count")];
 
-            v32 = v270;
-            v19 = v263;
+            v31 = v266;
+            v18 = v259;
 
 LABEL_64:
-            v27 = v266;
+            v26 = v262;
             goto LABEL_77;
           }
 
-          v160 = DSLogSourceDescriptor;
-          v161 = OUTLINED_FUNCTION_27();
-          if (v161)
+          v156 = DSLogSourceDescriptor;
+          v157 = OUTLINED_FUNCTION_27();
+          if (v157)
           {
-            OUTLINED_FUNCTION_13(5.8381e-34, v161, v162, v163, v164, v165, v166, v167, v168, v217, v220, v224, v227, v228, v231, v235, v240, v246, v254, v261, v265, v266, v268, v272);
-            OUTLINED_FUNCTION_5(&dword_248C40000, v160, v215, "More than 2 resource types are not supported: %{public}@", v290);
+            OUTLINED_FUNCTION_13(5.8381e-34, v157, v158, v159, v160, v161, v162, v163, v164, v213, v216, v220, v223, v224, v227, v231, v236, v242, v250, v257, v261, v262, v264, v268);
+            OUTLINED_FUNCTION_5(&dword_248C40000, v156, v211, "More than 2 resource types are not supported: %{public}@", v286);
           }
 
           string = 0;
         }
 
-        v27 = v266;
-        v32 = v268;
+        v26 = v262;
+        v31 = v264;
 LABEL_77:
 
         goto LABEL_10;
       }
 
-      if ((v19 & 2) == 0)
+      if ((v18 & 2) == 0)
       {
         string = 0;
 LABEL_10:
@@ -1617,163 +1604,161 @@ LABEL_10:
       {
         [v10 anyObject];
         objc_claimAutoreleasedReturnValue();
-        v51 = OUTLINED_FUNCTION_3_0();
-        v52 = [(DSSourceDescriptor *)v51 resourceTypeFromResource:v19];
-        v288 = v52;
-        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v288 count:1];
-        v54 = OUTLINED_FUNCTION_9();
-        v27 = [(DSSourceDescriptor *)v54 stopByPersonLocKey:v55 resourceTypes:v56 isBlocking:v57];
+        v50 = OUTLINED_FUNCTION_3_0();
+        v51 = [(DSSourceDescriptor *)v50 resourceTypeFromResource:v18];
+        v284 = v51;
+        v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v284 count:1];
+        v53 = OUTLINED_FUNCTION_9();
+        v26 = [(DSSourceDescriptor *)v53 stopByPersonLocKey:v54 resourceTypes:v55 isBlocking:v56];
 
-        v58 = *(self + 16);
-        v59 = OUTLINED_FUNCTION_3_0();
-        v60 = [(DSSourceDescriptor *)v59 localizableKey:v27];
-        v47 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
+        v57 = *(self + 16);
+        v58 = OUTLINED_FUNCTION_3_0();
+        v59 = [(DSSourceDescriptor *)v58 localizableKey:v26];
+        v46 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
 
-        v19 = [(DSSourceDescriptor *)self namedValueForLocKey:v27];
-        if (![v19 length] || !objc_msgSend(v23, "length"))
+        v18 = [(DSSourceDescriptor *)self namedValueForLocKey:v26];
+        if (![v18 length] || !objc_msgSend(v22, "length"))
         {
-          v48 = OUTLINED_FUNCTION_4();
-          v50 = 2;
+          v47 = OUTLINED_FUNCTION_4();
+          v49 = 2;
           goto LABEL_23;
         }
 
-        [objc_alloc(MEMORY[0x277CCA898]) initWithString:v19];
-        v159 = v19;
+        [objc_alloc(MEMORY[0x277CCA898]) initWithString:v18];
+        v155 = v18;
         OUTLINED_FUNCTION_3_0();
         goto LABEL_60;
       }
 
-      v264 = v22;
-      v90 = OUTLINED_FUNCTION_11();
-      v94 = [(DSSourceDescriptor *)v90 stopByPersonLocKey:v91 resourceTypes:v92 isBlocking:v93];
-      v95 = *(self + 16);
-      v96 = OUTLINED_FUNCTION_3_0();
-      v69 = [(DSSourceDescriptor *)v96 localizableKey:v94];
-      v267 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
+      v260 = v21;
+      v88 = OUTLINED_FUNCTION_11();
+      v92 = [(DSSourceDescriptor *)v88 stopByPersonLocKey:v89 resourceTypes:v90 isBlocking:v91];
+      v93 = *(self + 16);
+      v94 = OUTLINED_FUNCTION_3_0();
+      v68 = [(DSSourceDescriptor *)v94 localizableKey:v92];
+      v263 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
 
-      v97 = OUTLINED_FUNCTION_10();
-      [(DSSourceDescriptor *)v97 namedValueForLocKey:v98];
+      v95 = OUTLINED_FUNCTION_10();
+      [(DSSourceDescriptor *)v95 namedValueForLocKey:v96];
       objc_claimAutoreleasedReturnValue();
       if ([OUTLINED_FUNCTION_22() count] == 1)
       {
-        v23 = v264;
-        v262 = v19;
-        if (![v19 length] || !objc_msgSend(v264, "length"))
+        v22 = v260;
+        v258 = v18;
+        if (![v18 length] || !objc_msgSend(v260, "length"))
         {
-          v99 = objc_alloc(MEMORY[0x277CCA898]);
-          v100 = *MEMORY[0x277CCA290];
-          v27 = v266;
+          v97 = objc_alloc(MEMORY[0x277CCA898]);
+          v26 = v262;
           if (resources)
           {
-            v286 = *MEMORY[0x277CCA290];
+            v282 = *MEMORY[0x277CCA290];
             termsOfAddress = [v8 termsOfAddress];
-            v285 = termsOfAddress;
-            v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v285 count:1];
-            v287 = v74;
-            v75 = MEMORY[0x277CBEAC0];
-            v76 = &v287;
-            v77 = &v286;
+            v281 = termsOfAddress;
+            v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v281 count:1];
+            v283 = v72;
+            v73 = MEMORY[0x277CBEAC0];
+            v74 = &v283;
+            v75 = &v282;
             goto LABEL_38;
           }
 
-          v283 = *MEMORY[0x277CCA290];
+          v279 = *MEMORY[0x277CCA290];
           termsOfAddress = [v8 termsOfAddress];
-          v282 = termsOfAddress;
-          v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v282 count:1];
-          v284 = v74;
-          v156 = MEMORY[0x277CBEAC0];
-          v157 = &v284;
-          v158 = &v283;
+          v278 = termsOfAddress;
+          v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v278 count:1];
+          v280 = v72;
+          v152 = MEMORY[0x277CBEAC0];
+          v153 = &v280;
+          v154 = &v279;
           goto LABEL_66;
         }
 
         goto LABEL_80;
       }
 
-      v23 = v264;
-      if ([v16 count] == 2)
+      v22 = v260;
+      if ([v15 count] == 2)
       {
-        v262 = v19;
+        v258 = v18;
         if (resources)
         {
-          v127 = v267;
-          string2 = [v267 string];
-          v129 = [string2 containsString:@"%#"];
+          v124 = v263;
+          string2 = [v263 string];
+          v126 = [string2 containsString:@"%#"];
 
           objc_alloc(MEMORY[0x277CCA898]);
-          v130 = *MEMORY[0x277CCA290];
-          if (v129)
+          if (v126)
           {
-            v280 = *MEMORY[0x277CCA290];
+            v276 = *MEMORY[0x277CCA290];
             termsOfAddress2 = [v8 termsOfAddress];
-            v279 = termsOfAddress2;
-            v242 = [MEMORY[0x277CBEA60] arrayWithObjects:&v279 count:1];
-            v281 = v242;
-            v131 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v281 forKeys:&v280 count:1];
-            v132 = [OUTLINED_FUNCTION_2_1(v131 v132];
-            v233 = [v16 objectForKeyedSubscript:?];
-            v229 = [v233 count];
-            v139 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
-            v140 = [v16 objectForKeyedSubscript:v139];
-            v141 = [v140 count];
+            v275 = termsOfAddress2;
+            v238 = [MEMORY[0x277CBEA60] arrayWithObjects:&v275 count:1];
+            v277 = v238;
+            v127 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v277 forKeys:&v276 count:1];
+            v128 = [OUTLINED_FUNCTION_2_1(v127 v128];
+            v229 = [v15 objectForKeyedSubscript:?];
+            v225 = [v229 count];
+            v135 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
+            v136 = [v15 objectForKeyedSubscript:v135];
+            v137 = [v136 count];
             displayGivenName2 = [v8 displayGivenName];
             OUTLINED_FUNCTION_6();
-            v144 = [v143 initWithFormat:v229 options:v141 locale:displayGivenName2 context:?];
+            v140 = [v139 initWithFormat:v225 options:v137 locale:displayGivenName2 context:?];
 
-            v145 = v243;
-            v146 = v237;
+            v141 = v239;
+            v142 = v233;
           }
 
           else
           {
-            v277 = *MEMORY[0x277CCA290];
+            v273 = *MEMORY[0x277CCA290];
             termsOfAddress3 = [v8 termsOfAddress];
-            v276 = termsOfAddress3;
-            v145 = [MEMORY[0x277CBEA60] arrayWithObjects:&v276 count:1];
-            v278 = v145;
-            v146 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v278 forKeys:&v277 count:1];
-            v132 = [v8 displayGivenName];
+            v272 = termsOfAddress3;
+            v141 = [MEMORY[0x277CBEA60] arrayWithObjects:&v272 count:1];
+            v274 = v141;
+            v142 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v274 forKeys:&v273 count:1];
+            v128 = [v8 displayGivenName];
             OUTLINED_FUNCTION_6();
-            v144 = [v202 initWithFormat:v132 options:? locale:? context:?];
+            v140 = [v198 initWithFormat:v128 options:? locale:? context:?];
           }
 
-          v32 = v127;
+          v31 = v124;
         }
 
         else
         {
-          v234 = objc_alloc(MEMORY[0x277CCA898]);
-          v274 = *MEMORY[0x277CCA290];
+          v230 = objc_alloc(MEMORY[0x277CCA898]);
+          v270 = *MEMORY[0x277CCA290];
           termsOfAddress4 = [v8 termsOfAddress];
-          v273 = termsOfAddress4;
-          v244 = [MEMORY[0x277CBEA60] arrayWithObjects:&v273 count:1];
-          v275 = v244;
-          v238 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v275 forKeys:&v274 count:1];
+          v269 = termsOfAddress4;
+          v240 = [MEMORY[0x277CBEA60] arrayWithObjects:&v269 count:1];
+          v271 = v240;
+          v234 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v271 forKeys:&v270 count:1];
           displayGivenName3 = [v8 displayGivenName];
-          v190 = [OUTLINED_FUNCTION_2_1(displayGivenName3 v190];
-          v197 = [v16 objectForKeyedSubscript:v190];
-          v198 = [v197 count];
-          v199 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
-          v200 = [v16 objectForKeyedSubscript:v199];
-          v223 = v198;
-          v226 = [v200 count];
-          v132 = displayGivenName3;
-          v32 = v271;
+          v186 = [OUTLINED_FUNCTION_2_1(displayGivenName3 v186];
+          v193 = [v15 objectForKeyedSubscript:v186];
+          v194 = [v193 count];
+          v195 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
+          v196 = [v15 objectForKeyedSubscript:v195];
+          v219 = v194;
+          v222 = [v196 count];
+          v128 = displayGivenName3;
+          v31 = v267;
           OUTLINED_FUNCTION_6();
-          v144 = [v201 initWithFormat:displayGivenName3 options:v223 locale:v226 context:?];
+          v140 = [v197 initWithFormat:displayGivenName3 options:v219 locale:v222 context:?];
 
-          v146 = v239;
-          v145 = v245;
+          v142 = v235;
+          v141 = v241;
         }
 
-        v188 = termsOfAddress3;
+        v184 = termsOfAddress3;
         goto LABEL_74;
       }
 
-      v147 = DSLogSourceDescriptor;
-      v148 = OUTLINED_FUNCTION_27();
-      v32 = v267;
-      if (!v148)
+      v143 = DSLogSourceDescriptor;
+      v144 = OUTLINED_FUNCTION_27();
+      v31 = v263;
+      if (!v144)
       {
 LABEL_63:
         string = 0;
@@ -1786,197 +1771,194 @@ LABEL_63:
       if (string == 1)
       {
         anyObject = [v10 anyObject];
-        v25 = [(DSSourceDescriptor *)self resourceTypeFromResource:anyObject];
-        v303[0] = v25;
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v303 count:1];
-        v27 = [(DSSourceDescriptor *)self stopByPersonLocKey:v26 resourceTypes:resources isBlocking:?];
+        v24 = [(DSSourceDescriptor *)self resourceTypeFromResource:anyObject];
+        v299[0] = v24;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v299 count:1];
+        v26 = [(DSSourceDescriptor *)self stopByPersonLocKey:v25 resourceTypes:resources isBlocking:?];
 
-        v28 = *(self + 16);
-        v29 = OUTLINED_FUNCTION_3_0();
-        v30 = [(DSSourceDescriptor *)v29 localizableKey:v27];
+        v27 = *(self + 16);
+        v28 = OUTLINED_FUNCTION_3_0();
+        v29 = [(DSSourceDescriptor *)v28 localizableKey:v26];
         OUTLINED_FUNCTION_19();
-        v32 = [v31 localizedStringForKey:? value:? table:?];
+        v31 = [v30 localizedStringForKey:? value:? table:?];
 
-        v19 = [(DSSourceDescriptor *)self namedValueForLocKey:v27];
-        if ([v32 length] && objc_msgSend(v23, "length"))
+        v18 = [(DSSourceDescriptor *)self namedValueForLocKey:v26];
+        if ([v31 length] && objc_msgSend(v22, "length"))
         {
-          v33 = OUTLINED_FUNCTION_4();
-          v35 = v19;
-          v36 = v23;
+          v32 = OUTLINED_FUNCTION_4();
+          v34 = v18;
+          v35 = v22;
         }
 
         else
         {
-          v33 = OUTLINED_FUNCTION_4();
-          v35 = v32;
-          v36 = 0;
+          v32 = OUTLINED_FUNCTION_4();
+          v34 = v31;
+          v35 = 0;
         }
 
-        string = [(DSSourceDescriptor *)v33 stopByPerson:v34 direction:3 format:v35 namedResources:v36 isBlocking:resources];
+        string = [(DSSourceDescriptor *)v32 stopByPerson:v33 direction:3 format:v34 namedResources:v35 isBlocking:resources];
         goto LABEL_77;
       }
 
-      v264 = v22;
-      v62 = OUTLINED_FUNCTION_11();
-      v66 = [(DSSourceDescriptor *)v62 stopByPersonLocKey:v63 resourceTypes:v64 isBlocking:v65];
-      v67 = *(self + 16);
-      v68 = OUTLINED_FUNCTION_3_0();
-      v69 = [(DSSourceDescriptor *)v68 localizableKey:v66];
-      v267 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
+      v260 = v21;
+      v61 = OUTLINED_FUNCTION_11();
+      v65 = [(DSSourceDescriptor *)v61 stopByPersonLocKey:v62 resourceTypes:v63 isBlocking:v64];
+      v66 = *(self + 16);
+      v67 = OUTLINED_FUNCTION_3_0();
+      v68 = [(DSSourceDescriptor *)v67 localizableKey:v65];
+      v263 = [OUTLINED_FUNCTION_1_1() localizedAttributedStringForKey:? value:? table:?];
 
-      v70 = OUTLINED_FUNCTION_10();
-      [(DSSourceDescriptor *)v70 namedValueForLocKey:v71];
+      v69 = OUTLINED_FUNCTION_10();
+      [(DSSourceDescriptor *)v69 namedValueForLocKey:v70];
       objc_claimAutoreleasedReturnValue();
       if ([OUTLINED_FUNCTION_22() count] == 1)
       {
-        v23 = v264;
-        v262 = v19;
-        if (![v19 length] || !objc_msgSend(v264, "length"))
+        v22 = v260;
+        v258 = v18;
+        if (![v18 length] || !objc_msgSend(v260, "length"))
         {
-          v72 = objc_alloc(MEMORY[0x277CCA898]);
-          v73 = *MEMORY[0x277CCA290];
-          v27 = v266;
+          v71 = objc_alloc(MEMORY[0x277CCA898]);
+          v26 = v262;
           if (resources)
           {
-            v301 = *MEMORY[0x277CCA290];
+            v297 = *MEMORY[0x277CCA290];
             termsOfAddress = [v8 termsOfAddress];
-            v300 = termsOfAddress;
-            v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v300 count:1];
-            v302 = v74;
-            v75 = MEMORY[0x277CBEAC0];
-            v76 = &v302;
-            v77 = &v301;
+            v296 = termsOfAddress;
+            v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v296 count:1];
+            v298 = v72;
+            v73 = MEMORY[0x277CBEAC0];
+            v74 = &v298;
+            v75 = &v297;
 LABEL_38:
-            [v75 dictionaryWithObjects:v76 forKeys:v77 count:1];
+            [v73 dictionaryWithObjects:v74 forKeys:v75 count:1];
             objc_claimAutoreleasedReturnValue();
             displayGivenName4 = [OUTLINED_FUNCTION_7() displayGivenName];
-            v218 = string;
-            v221 = displayGivenName4;
+            v214 = string;
+            v217 = displayGivenName4;
 LABEL_67:
             OUTLINED_FUNCTION_6();
-            v176 = [v175 initWithFormat:v218 options:v221 locale:? context:?];
+            v172 = [v171 initWithFormat:v214 options:v217 locale:? context:?];
 
 LABEL_68:
-            string = [v176 string];
+            string = [v172 string];
 
-            v32 = v267;
+            v31 = v263;
 LABEL_76:
-            v19 = v262;
+            v18 = v258;
             goto LABEL_77;
           }
 
-          v298 = *MEMORY[0x277CCA290];
+          v294 = *MEMORY[0x277CCA290];
           termsOfAddress = [v8 termsOfAddress];
-          v297 = termsOfAddress;
-          v74 = [MEMORY[0x277CBEA60] arrayWithObjects:&v297 count:1];
-          v299 = v74;
-          v156 = MEMORY[0x277CBEAC0];
-          v157 = &v299;
-          v158 = &v298;
+          v293 = termsOfAddress;
+          v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v293 count:1];
+          v295 = v72;
+          v152 = MEMORY[0x277CBEAC0];
+          v153 = &v295;
+          v154 = &v294;
 LABEL_66:
-          [v156 dictionaryWithObjects:v157 forKeys:v158 count:1];
+          [v152 dictionaryWithObjects:v153 forKeys:v154 count:1];
           objc_claimAutoreleasedReturnValue();
           displayGivenName4 = [OUTLINED_FUNCTION_7() displayGivenName];
-          v218 = displayGivenName4;
-          v221 = string;
+          v214 = displayGivenName4;
+          v217 = string;
           goto LABEL_67;
         }
 
 LABEL_80:
-        [objc_alloc(MEMORY[0x277CCA898]) initWithString:v19];
+        [objc_alloc(MEMORY[0x277CCA898]) initWithString:v18];
         OUTLINED_FUNCTION_3_0();
         OUTLINED_FUNCTION_15();
-        v176 = [(DSSourceDescriptor *)v209 attributedStopByPerson:v210 direction:v211 format:v212 namedResourceList:v213 isBlocking:v214];
+        v172 = [(DSSourceDescriptor *)v205 attributedStopByPerson:v206 direction:v207 format:v208 namedResourceList:v209 isBlocking:v210];
 
-        v27 = v266;
+        v26 = v262;
         goto LABEL_68;
       }
 
-      v23 = v264;
-      if ([v16 count] == 2)
+      v22 = v260;
+      if ([v15 count] == 2)
       {
-        v102 = objc_alloc(MEMORY[0x277CCA898]);
+        v99 = objc_alloc(MEMORY[0x277CCA898]);
         if (resources)
         {
-          v295 = *MEMORY[0x277CCA290];
+          v291 = *MEMORY[0x277CCA290];
           termsOfAddress5 = [v8 termsOfAddress];
-          v294 = termsOfAddress5;
-          v247 = [MEMORY[0x277CBEA60] arrayWithObjects:&v294 count:1];
-          v296 = v247;
-          v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
-          [OUTLINED_FUNCTION_2_1(v103 v104];
+          v290 = termsOfAddress5;
+          v243 = [MEMORY[0x277CBEA60] arrayWithObjects:&v290 count:1];
+          v292 = v243;
+          v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v292 forKeys:&v291 count:1];
+          [OUTLINED_FUNCTION_2_1(v100 v101];
           objc_claimAutoreleasedReturnValue();
-          v179 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
-          v111 = [v179 count];
-          v236 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
-          v112 = [v16 objectForKeyedSubscript:?];
-          [v112 count];
+          v175 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
+          v108 = [v175 count];
+          v232 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
+          v109 = [v15 objectForKeyedSubscript:?];
+          [v109 count];
           displayGivenName5 = [OUTLINED_FUNCTION_7() displayGivenName];
-          v222 = v102;
-          v225 = displayGivenName5;
-          v219 = v111;
+          v218 = v99;
+          v221 = displayGivenName5;
+          v215 = v108;
           resourcesCopy = resources;
-          v115 = v232;
+          v112 = v228;
         }
 
         else
         {
-          v292 = *MEMORY[0x277CCA290];
+          v288 = *MEMORY[0x277CCA290];
           termsOfAddress6 = [v8 termsOfAddress];
-          v291 = termsOfAddress6;
-          v252 = [MEMORY[0x277CBEA60] arrayWithObjects:&v291 count:1];
-          v293 = v252;
-          v177 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v293 forKeys:&v292 count:1];
+          v287 = termsOfAddress6;
+          v248 = [MEMORY[0x277CBEA60] arrayWithObjects:&v287 count:1];
+          v289 = v248;
+          v173 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v288 count:1];
           displayGivenName6 = [v8 displayGivenName];
-          v179 = [OUTLINED_FUNCTION_2_1(displayGivenName6 v179];
-          v236 = [v16 objectForKeyedSubscript:?];
-          v186 = [v236 count];
-          v115 = v177;
-          v112 = [(uint8_t *)v290 objectAtIndexedSubscript:1];
-          displayGivenName5 = [v16 objectForKeyedSubscript:v112];
-          v222 = v186;
-          v225 = [displayGivenName5 count];
+          v175 = [OUTLINED_FUNCTION_2_1(displayGivenName6 v175];
+          v232 = [v15 objectForKeyedSubscript:?];
+          v182 = [v232 count];
+          v112 = v173;
+          v109 = [(uint8_t *)v286 objectAtIndexedSubscript:1];
+          displayGivenName5 = [v15 objectForKeyedSubscript:v109];
+          v218 = v182;
+          v221 = [displayGivenName5 count];
           resourcesCopy = displayGivenName6;
-          v219 = displayGivenName6;
+          v215 = displayGivenName6;
         }
 
-        v32 = v269;
+        v31 = v265;
         OUTLINED_FUNCTION_6();
-        v144 = [v187 initWithFormat:v219 options:v222 locale:v225 context:?];
+        v140 = [v183 initWithFormat:v215 options:v218 locale:v221 context:?];
 
-        v188 = v257;
+        v184 = v253;
 LABEL_74:
 
-        string = [v144 string];
+        string = [v140 string];
 
         goto LABEL_75;
       }
 
-      v147 = DSLogSourceDescriptor;
-      v148 = OUTLINED_FUNCTION_27();
-      v32 = v267;
-      if (!v148)
+      v143 = DSLogSourceDescriptor;
+      v144 = OUTLINED_FUNCTION_27();
+      v31 = v263;
+      if (!v144)
       {
         goto LABEL_63;
       }
     }
 
-    OUTLINED_FUNCTION_13(5.8381e-34, v148, v149, v150, v151, v152, v153, v154, v155, v217, v220, v224, v227, v228, v231, v235, v240, v246, v254, v261, v264, v266, v267, v272);
-    OUTLINED_FUNCTION_5(&dword_248C40000, v147, v216, "More than 2 resource types are not supported: %{public}@", v290);
+    OUTLINED_FUNCTION_13(5.8381e-34, v144, v145, v146, v147, v148, v149, v150, v151, v213, v216, v220, v223, v224, v227, v231, v236, v242, v250, v257, v260, v262, v263, v268);
+    OUTLINED_FUNCTION_5(&dword_248C40000, v143, v212, "More than 2 resource types are not supported: %{public}@", v286);
     goto LABEL_63;
   }
 
   string = 0;
 LABEL_3:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return string;
 }
 
 - (id)localizedNameListForResources:(uint64_t)resources
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (resources)
   {
@@ -1987,36 +1969,36 @@ LABEL_3:
     v6 = [(DSSourceDescriptor *)resources sharedResourcesByResourceType:v3];
     if ([v6 count] == 1)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       obj = v3;
-      v7 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v7 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v38;
-        v33 = v6;
-        v34 = v3;
+        v9 = *v37;
+        v32 = v6;
+        v33 = v3;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v38 != v9)
+            if (*v37 != v9)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v37 + 1) + 8 * i);
+            v11 = *(*(&v36 + 1) + 8 * i);
             displayName = [v11 displayName];
             if (![displayName length])
             {
 
 LABEL_21:
               v22 = 0;
-              v6 = v33;
-              v3 = v34;
+              v6 = v32;
+              v3 = v33;
               goto LABEL_28;
             }
 
@@ -2032,8 +2014,8 @@ LABEL_21:
             v16 = MEMORY[0x277CCACA8];
             if (v15 == 2)
             {
-              v6 = v33;
-              allKeys = [v33 allKeys];
+              v6 = v32;
+              allKeys = [v32 allKeys];
               [allKeys objectAtIndexedSubscript:0];
               objc_claimAutoreleasedReturnValue();
               OUTLINED_FUNCTION_17();
@@ -2049,11 +2031,11 @@ LABEL_21:
               if (v26)
               {
                 v29 = DSLogSourceDescriptor;
-                v3 = v34;
+                v3 = v33;
                 if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v42 = v24;
+                  v41 = v24;
                   _os_log_error_impl(&dword_248C40000, v29, OS_LOG_TYPE_ERROR, "No loc key present matching %@", buf, 0xCu);
                 }
               }
@@ -2064,7 +2046,7 @@ LABEL_21:
 
                 [array addObject:v30];
                 v27 = v30;
-                v3 = v34;
+                v3 = v33;
               }
 
               goto LABEL_27;
@@ -2078,9 +2060,9 @@ LABEL_21:
             [array addObject:v18];
           }
 
-          v8 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-          v6 = v33;
-          v3 = v34;
+          v8 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v6 = v32;
+          v3 = v33;
           if (v8)
           {
             continue;
@@ -2104,7 +2086,7 @@ LABEL_27:
         if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v42 = v6;
+          v41 = v6;
           _os_log_impl(&dword_248C40000, v20, OS_LOG_TYPE_INFO, "2 resource types are not supported for enumeration: %{public}@", buf, 0xCu);
         }
       }
@@ -2112,7 +2094,7 @@ LABEL_27:
       else if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v42 = v6;
+        v41 = v6;
         OUTLINED_FUNCTION_5(&dword_248C40000, v20, v21, "More than 2 resource types are not supported: %{public}@", buf);
       }
 
@@ -2126,8 +2108,6 @@ LABEL_28:
   {
     v22 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -2175,7 +2155,7 @@ LABEL_28:
 
 - (__CFString)namedValueForLocKey:(uint64_t)key
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (key)
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", a2, @"WITH_NAME"];
@@ -2188,7 +2168,7 @@ LABEL_28:
       if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v4;
+        v10 = v4;
         _os_log_error_impl(&dword_248C40000, v6, OS_LOG_TYPE_ERROR, "No loc key found named %@", buf, 0xCu);
       }
 
@@ -2205,8 +2185,6 @@ LABEL_28:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2261,7 +2239,7 @@ LABEL_28:
 
 - (id)attributedStopByPerson:(uint64_t)person direction:(void *)direction format:(void *)format namedResourceList:(int)list isBlocking:
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v12 = a2;
   directionCopy = direction;
   formatCopy = format;
@@ -2271,31 +2249,30 @@ LABEL_28:
     if (formatCopy)
     {
       v16 = objc_alloc(MEMORY[0x277CCA898]);
-      v17 = *MEMORY[0x277CCA290];
       if (person != 1 && list)
       {
-        v34 = *MEMORY[0x277CCA290];
+        v32 = *MEMORY[0x277CCA290];
         termsOfAddress = [v12 termsOfAddress];
-        v33 = termsOfAddress;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-        v35[0] = v19;
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+        v31 = termsOfAddress;
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+        v33[0] = v18;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
         objc_claimAutoreleasedReturnValue();
         displayGivenName = [OUTLINED_FUNCTION_7() displayGivenName];
-        v26 = v15;
+        v24 = v15;
 LABEL_9:
         OUTLINED_FUNCTION_6();
-        self = [v23 initWithFormat:v26 options:? locale:? context:?];
+        self = [v22 initWithFormat:v24 options:? locale:? context:?];
 
         goto LABEL_10;
       }
 
-      v31 = *MEMORY[0x277CCA290];
+      v29 = *MEMORY[0x277CCA290];
       termsOfAddress = [v12 termsOfAddress];
-      v30 = termsOfAddress;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-      v32 = v19;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v28 = termsOfAddress;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v30 = v18;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       objc_claimAutoreleasedReturnValue();
       displayGivenName2 = [OUTLINED_FUNCTION_7() displayGivenName];
       displayGivenName = displayGivenName2;
@@ -2303,32 +2280,30 @@ LABEL_9:
 
     else
     {
-      v21 = objc_alloc(MEMORY[0x277CCA898]);
-      v28 = *MEMORY[0x277CCA290];
+      v20 = objc_alloc(MEMORY[0x277CCA898]);
+      v26 = *MEMORY[0x277CCA290];
       termsOfAddress = [v12 termsOfAddress];
-      v27 = termsOfAddress;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-      v29 = v19;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v25 = termsOfAddress;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v27 = v18;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
       objc_claimAutoreleasedReturnValue();
       displayGivenName2 = [OUTLINED_FUNCTION_7() displayGivenName];
       displayGivenName = displayGivenName2;
     }
 
-    v26 = displayGivenName2;
+    v24 = displayGivenName2;
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return self;
 }
 
 - (id)_localizedStopByPerson:(void *)person detailTextForIndirectlySharedResources:(void *)resources isBlocking:
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   v8 = a2;
   personCopy = person;
   v10 = personCopy;
@@ -2340,17 +2315,17 @@ LABEL_10:
       goto LABEL_3;
     }
 
-    v14 = OUTLINED_FUNCTION_20();
-    v16 = [(DSSourceDescriptor *)v14 sharedResourcesByResourceType:v15];
-    [v16 allKeys];
+    v13 = OUTLINED_FUNCTION_20();
+    v15 = [(DSSourceDescriptor *)v13 sharedResourcesByResourceType:v14];
+    [v15 allKeys];
     objc_claimAutoreleasedReturnValue();
-    v17 = OUTLINED_FUNCTION_14();
-    v19 = [(DSSourceDescriptor *)v17 orderedResourceTypes:v18];
+    v16 = OUTLINED_FUNCTION_14();
+    v18 = [(DSSourceDescriptor *)v16 orderedResourceTypes:v17];
 
-    v20 = OUTLINED_FUNCTION_20();
-    [(DSSourceDescriptor *)v20 localizedNameListForResources:v21];
-    v58 = v57 = v19;
-    if (v58)
+    v19 = OUTLINED_FUNCTION_20();
+    [(DSSourceDescriptor *)v19 localizedNameListForResources:v20];
+    v57 = v56 = v18;
+    if (v57)
     {
       resourcesCopy = 1;
     }
@@ -2364,64 +2339,64 @@ LABEL_10:
     {
       [v10 anyObject];
       objc_claimAutoreleasedReturnValue();
-      v23 = OUTLINED_FUNCTION_14();
-      v25 = [(DSSourceDescriptor *)v23 resourceTypeFromResource:v24];
-      v61[0] = v25;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
-      v27 = OUTLINED_FUNCTION_9();
-      v31 = [(DSSourceDescriptor *)v27 stopByPersonLocKey:v28 resourceTypes:v29 isBlocking:v30];
+      v22 = OUTLINED_FUNCTION_14();
+      v24 = [(DSSourceDescriptor *)v22 resourceTypeFromResource:v23];
+      v60[0] = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+      v26 = OUTLINED_FUNCTION_9();
+      v30 = [(DSSourceDescriptor *)v26 stopByPersonLocKey:v27 resourceTypes:v28 isBlocking:v29];
     }
 
     else
     {
-      v31 = [(DSSourceDescriptor *)self stopByPersonLocKey:v19 resourceTypes:resources isBlocking:?];
+      v30 = [(DSSourceDescriptor *)self stopByPersonLocKey:v18 resourceTypes:resources isBlocking:?];
     }
 
-    v32 = *(self + 16);
-    v33 = [(DSSourceDescriptor *)self localizableKey:v31];
+    v31 = *(self + 16);
+    v32 = [(DSSourceDescriptor *)self localizableKey:v30];
     OUTLINED_FUNCTION_19();
-    v35 = [v34 localizedStringForKey:? value:? table:?];
+    v34 = [v33 localizedStringForKey:? value:? table:?];
 
-    v36 = [(DSSourceDescriptor *)self namedValueForLocKey:v31];
-    if ([v16 count] != 1)
+    v35 = [(DSSourceDescriptor *)self namedValueForLocKey:v30];
+    if ([v15 count] != 1)
     {
-      if ([v16 count] == 2)
+      if ([v15 count] == 2)
       {
-        v56 = MEMORY[0x277CCACA8];
+        v55 = MEMORY[0x277CCACA8];
         if (resources)
         {
-          v54 = [v57 objectAtIndexedSubscript:0];
-          v52 = [v16 objectForKeyedSubscript:v54];
-          v51 = [v52 count];
+          v53 = [v56 objectAtIndexedSubscript:0];
+          v51 = [v15 objectForKeyedSubscript:v53];
+          v50 = [v51 count];
           [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
           objc_claimAutoreleasedReturnValue();
-          v40 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
-          v41 = [v40 count];
+          v39 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
+          v40 = [v39 count];
           displayGivenName = [v8 displayGivenName];
-          v11 = [v56 localizedStringWithFormat:v35, v51, v41, displayGivenName];
+          v11 = [v55 localizedStringWithFormat:v34, v50, v40, displayGivenName];
         }
 
         else
         {
           displayGivenName2 = [v8 displayGivenName];
-          v55 = [v57 objectAtIndexedSubscript:0];
-          v53 = [v16 objectForKeyedSubscript:v55];
-          v46 = [v53 count];
-          [v57 objectAtIndexedSubscript:1];
+          v54 = [v56 objectAtIndexedSubscript:0];
+          v52 = [v15 objectForKeyedSubscript:v54];
+          v45 = [v52 count];
+          [v56 objectAtIndexedSubscript:1];
           objc_claimAutoreleasedReturnValue();
-          v47 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
-          v11 = [v56 localizedStringWithFormat:v35, displayGivenName2, v46, objc_msgSend(v47, "count")];
+          v46 = [OUTLINED_FUNCTION_5_0() objectForKeyedSubscript:?];
+          v11 = [v55 localizedStringWithFormat:v34, displayGivenName2, v45, objc_msgSend(v46, "count")];
         }
       }
 
       else
       {
-        v43 = DSLogSourceDescriptor;
+        v42 = DSLogSourceDescriptor;
         if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_FAULT))
         {
-          v59 = 138543362;
-          v60 = v57;
-          OUTLINED_FUNCTION_5(&dword_248C40000, v43, v44, "More than 2 resource types are not supported: %{public}@", &v59);
+          v58 = 138543362;
+          v59 = v56;
+          OUTLINED_FUNCTION_5(&dword_248C40000, v42, v43, "More than 2 resource types are not supported: %{public}@", &v58);
         }
 
         v11 = 0;
@@ -2430,21 +2405,21 @@ LABEL_10:
       goto LABEL_29;
     }
 
-    if ([v36 length] && objc_msgSend(v58, "length"))
+    if ([v35 length] && objc_msgSend(v57, "length"))
     {
-      v48 = OUTLINED_FUNCTION_4();
-      v11 = [(DSSourceDescriptor *)v48 stopByPerson:v49 direction:4 format:v36 namedResources:v58 isBlocking:resources];
+      v47 = OUTLINED_FUNCTION_4();
+      v11 = [(DSSourceDescriptor *)v47 stopByPerson:v48 direction:4 format:v35 namedResources:v57 isBlocking:resources];
       goto LABEL_29;
     }
 
-    v37 = MEMORY[0x277CCACA8];
+    v36 = MEMORY[0x277CCACA8];
     displayGivenName3 = [v8 displayGivenName];
-    v39 = displayGivenName3;
+    v38 = displayGivenName3;
     if (resources)
     {
       if (v11 != 1)
       {
-        [v37 localizedStringWithFormat:v35, v11, displayGivenName3];
+        [v36 localizedStringWithFormat:v34, v11, displayGivenName3];
         v11 = LABEL_27:;
 
 LABEL_29:
@@ -2454,24 +2429,22 @@ LABEL_29:
 
     else
     {
-      v50 = v11;
+      v49 = v11;
     }
 
-    [v37 localizedStringWithFormat:v35, displayGivenName3, v50];
+    [v36 localizedStringWithFormat:v34, displayGivenName3, v49];
     goto LABEL_27;
   }
 
   v11 = 0;
 LABEL_3:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)_localizedStopByPerson:(void *)person isBlocking:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (self)
@@ -2479,27 +2452,27 @@ LABEL_3:
     v7 = [v5 sharedResourcesForSourceName:self[1]];
     v8 = [MEMORY[0x277CBEB58] set];
     v9 = [MEMORY[0x277CBEB58] set];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
-          if (([v6 shareDirectionForSharedResource:{v15, v24}] & 4) != 0)
+          v15 = *(*(&v23 + 1) + 8 * i);
+          if (([v6 shareDirectionForSharedResource:{v15, v23}] & 4) != 0)
           {
             v16 = v9;
           }
@@ -2512,7 +2485,7 @@ LABEL_3:
           v17 = [v16 addObject:v15];
         }
 
-        v12 = OUTLINED_FUNCTION_26(v17, v18, &v24, v28);
+        v12 = OUTLINED_FUNCTION_26(v17, v18, &v23, v27);
       }
 
       while (v12);
@@ -2531,17 +2504,15 @@ LABEL_3:
       [array addObject:v20];
     }
 
-    self = [array componentsJoinedByString:{@" ", v24}];
+    self = [array componentsJoinedByString:{@" ", v23}];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return self;
 }
 
 - (id)localizedAlertTextForPerson:(id)person
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     localizationBundle = self->_localizationBundle;
@@ -2558,12 +2529,12 @@ LABEL_3:
   v9 = [(NSBundle *)v6 localizedAttributedStringForKey:v8 value:&stru_285B9D7E0 table:0];
 
   v10 = objc_alloc(MEMORY[0x277CCA898]);
-  v22 = *MEMORY[0x277CCA290];
+  v21 = *MEMORY[0x277CCA290];
   termsOfAddress = [personCopy termsOfAddress];
-  v21 = termsOfAddress;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v23[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v20 = termsOfAddress;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v22[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   displayName = [personCopy displayName];
   displayName2 = [personCopy displayName];
 
@@ -2571,8 +2542,6 @@ LABEL_3:
   v17 = [v16 initWithFormat:displayName options:displayName2 locale:? context:?];
 
   string = [v17 string];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -2612,11 +2581,11 @@ LABEL_3:
 
 - (id)localizedStopAllAlertDetailForPeople:(id)people
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   array = [MEMORY[0x277CBEB18] array];
   v7 = [(DSSourceDescriptor *)self _sharedResourcesForPeople:peopleCopy isOwnedByUser:1];
-  v34 = v7;
+  v33 = v7;
   if ([v7 count])
   {
     [array addObject:@"OUTGOING"];
@@ -2690,20 +2659,20 @@ LABEL_3:
   if (v8 && v15)
   {
     v25 = MEMORY[0x277CCACA8];
-    v33 = v15;
+    v32 = v15;
   }
 
   else
   {
     if (v15)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:v24, v15, v33, v34];
+      [MEMORY[0x277CCACA8] stringWithFormat:v24, v15, v32, v33];
       goto LABEL_19;
     }
 
     if (!v8)
     {
-      v29 = DSLogSourceDescriptor;
+      v28 = DSLogSourceDescriptor;
       if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_FAULT))
       {
         if (self)
@@ -2716,10 +2685,10 @@ LABEL_3:
           sourceName = 0;
         }
 
-        v35 = 138543362;
-        v36 = sourceName;
-        v31 = v29;
-        OUTLINED_FUNCTION_5(&dword_248C40000, v31, v32, "Could not support resource specific alert detail for source: %{public}@", &v35);
+        v34 = 138543362;
+        v35 = sourceName;
+        v30 = v28;
+        OUTLINED_FUNCTION_5(&dword_248C40000, v30, v31, "Could not support resource specific alert detail for source: %{public}@", &v34);
 
         v26 = 0;
       }
@@ -2735,66 +2704,64 @@ LABEL_3:
     v25 = MEMORY[0x277CCACA8];
   }
 
-  [v25 stringWithFormat:v24, v8, v33, v34];
+  [v25 stringWithFormat:v24, v8, v32, v33];
   v26 = LABEL_19:;
 LABEL_20:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (void)_sharedResourcesForPeople:(int)people isOwnedByUser:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v22 = v5;
+  v21 = v5;
   if (self)
   {
     v6 = v5;
     [MEMORY[0x277CBEB58] set];
     objc_claimAutoreleasedReturnValue();
     *&v7 = OUTLINED_FUNCTION_23();
+    v28 = v7;
     v29 = v7;
     v30 = v7;
     v31 = v7;
-    v32 = v7;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v24 = *v30;
+      v23 = *v29;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v24)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v29 + 1) + 8 * i);
+          v11 = *(*(&v28 + 1) + 8 * i);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           v12 = [v11 sharedResourcesForSourceName:self[1]];
-          v13 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v26;
+            v15 = *v25;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v26 != v15)
+                if (*v25 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v25 + 1) + 8 * j);
+                v17 = *(*(&v24 + 1) + 8 * j);
                 v18 = [v11 shareDirectionForSharedResource:v17];
                 v19 = (v18 & 0xFFFFFFFFFFFFFFFELL) == 2;
                 if (!people)
@@ -2808,28 +2775,26 @@ LABEL_20:
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v14);
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v9);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return self;
 }
 
 - (id)_locKeyForResources:(void *)resources withDescriptorKey:
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   if (self)
   {
@@ -2851,9 +2816,9 @@ LABEL_20:
       v13 = v12;
 
       v14 = MEMORY[0x277CCACA8];
-      v40[0] = v13;
-      v40[1] = v9;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+      v39[0] = v13;
+      v39[1] = v9;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
       v16 = [v15 componentsJoinedByString:@"_"];
       v17 = [v14 stringWithFormat:resourcesCopy, v16];
     }
@@ -2865,9 +2830,9 @@ LABEL_20:
         v31 = DSLogSourceDescriptor;
         if (os_log_type_enabled(DSLogSourceDescriptor, OS_LOG_TYPE_FAULT))
         {
-          v36 = 138543362;
-          v37 = v8;
-          OUTLINED_FUNCTION_5(&dword_248C40000, v31, v32, "More than 2 resource types are not supported: %{public}@", &v36);
+          v35 = 138543362;
+          v36 = v8;
+          OUTLINED_FUNCTION_5(&dword_248C40000, v31, v32, "More than 2 resource types are not supported: %{public}@", &v35);
         }
 
         v17 = 0;
@@ -2876,7 +2841,7 @@ LABEL_20:
 
       v18 = [v8 objectAtIndexedSubscript:0];
       v19 = [v6 objectForKeyedSubscript:v18];
-      v35 = resourcesCopy;
+      v34 = resourcesCopy;
       if ([v19 count] == 1)
       {
         v20 = @"SINGLE";
@@ -2887,7 +2852,7 @@ LABEL_20:
         v20 = @"MULTIPLE";
       }
 
-      v39[0] = v20;
+      v38[0] = v20;
       v21 = [v8 objectAtIndexedSubscript:1];
       v22 = [v6 objectForKeyedSubscript:v21];
       if ([v22 count] == 1)
@@ -2900,23 +2865,23 @@ LABEL_20:
         v23 = @"MULTIPLE";
       }
 
-      v39[1] = v23;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+      v38[1] = v23;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
 
       v24 = MEMORY[0x277CCACA8];
       v25 = [v9 objectAtIndexedSubscript:0];
-      v38[0] = v25;
+      v37[0] = v25;
       v26 = [v8 objectAtIndexedSubscript:0];
-      v38[1] = v26;
+      v37[1] = v26;
       v27 = [OUTLINED_FUNCTION_8() objectAtIndexedSubscript:?];
-      v38[2] = v27;
+      v37[2] = v27;
       v28 = [v8 objectAtIndexedSubscript:1];
-      v38[3] = v28;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+      v37[3] = v28;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
       v30 = [v29 componentsJoinedByString:@"_"];
-      v17 = [v24 stringWithFormat:v35, v30];
+      v17 = [v24 stringWithFormat:v34, v30];
 
-      resourcesCopy = v35;
+      resourcesCopy = v34;
     }
 
 LABEL_18:
@@ -2926,34 +2891,32 @@ LABEL_18:
   v17 = 0;
 LABEL_19:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)localizedStopByTypeSubtitleForSharingType:(id)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   [MEMORY[0x277CBEB58] set];
   objc_claimAutoreleasedReturnValue();
   *&v6 = OUTLINED_FUNCTION_23();
-  *(&v24 + 1) = *(&v6 + 1);
+  *(&v23 + 1) = *(&v6 + 1);
+  v24 = v6;
   v25 = v6;
   v26 = v6;
-  v27 = v6;
   allPeople = [typeCopy allPeople];
-  v8 = [allPeople countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [allPeople countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(allPeople);
         }
@@ -2968,14 +2931,14 @@ LABEL_19:
           sourceName = 0;
         }
 
-        v13 = [*(*(&v24 + 1) + 8 * v11) sharedResourcesForSourceName:sourceName];
+        v13 = [*(*(&v23 + 1) + 8 * v11) sharedResourcesForSourceName:sourceName];
         [v3 unionSet:v13];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v16 = OUTLINED_FUNCTION_26(v14, v15, &v24, v28);
+      v16 = OUTLINED_FUNCTION_26(v14, v15, &v23, v27);
       v9 = v16;
     }
 
@@ -2995,17 +2958,15 @@ LABEL_19:
       localizationBundle = 0;
     }
 
-    v22 = localizationBundle;
-    v23 = [(DSSourceDescriptor *)self localizableKey:v17];
-    v18 = [(NSBundle *)v22 localizedStringForKey:v23 value:&stru_285B9D7E0 table:0];
+    v21 = localizationBundle;
+    v22 = [(DSSourceDescriptor *)self localizableKey:v17];
+    v18 = [(NSBundle *)v21 localizedStringForKey:v22 value:&stru_285B9D7E0 table:0];
   }
 
   else
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

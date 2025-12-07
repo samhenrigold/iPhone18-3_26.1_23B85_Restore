@@ -67,48 +67,46 @@ id __63__HFAccessoryCategoryStatusItem_initWithHome_room_valueSource___block_inv
 
 uint64_t __57__HFAccessoryCategoryStatusItem_accessoryTypeGroupFilter__block_invoke(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32))
   {
-    v49 = 0u;
-    v50 = 0u;
+    v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v5 = [v3 actions];
-    v6 = [v5 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v44 objects:v50 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v48;
-      v9 = 0x277CD1000uLL;
-      v37 = v4;
+      v8 = *v45;
+      v34 = v4;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v48 != v8)
+          if (*v45 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v47 + 1) + 8 * i);
-          v12 = *(v9 + 2472);
+          v10 = *(*(&v44 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v13 = [v11 characteristic];
-            v14 = [v13 service];
+            v11 = [v10 characteristic];
+            v12 = objc_msgSend_service(v11);
 
-            v15 = *(a1 + 32);
-            v16 = [v14 hf_accessoryType];
-            LOBYTE(v15) = [v15 containsType:v16];
+            v13 = *(a1 + 32);
+            v14 = [v12 hf_accessoryType];
+            LOBYTE(v13) = [v13 containsType:v14];
 
-            if (v15)
+            if (v13)
             {
-              v31 = 1;
-              v4 = v37;
+              v28 = 1;
+              v4 = v34;
               goto LABEL_33;
             }
           }
@@ -118,67 +116,67 @@ uint64_t __57__HFAccessoryCategoryStatusItem_accessoryTypeGroupFilter__block_inv
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v17 = v11;
+              v15 = v10;
+              v40 = 0u;
+              v41 = 0u;
+              v42 = 0u;
               v43 = 0u;
-              v44 = 0u;
-              v45 = 0u;
-              v46 = 0u;
-              v18 = [v17 mediaProfiles];
-              v36 = [v18 countByEnumeratingWithState:&v43 objects:v52 count:16];
-              if (v36)
+              v16 = [v15 mediaProfiles];
+              v33 = [v16 countByEnumeratingWithState:&v40 objects:v49 count:16];
+              if (v33)
               {
-                v19 = *v44;
-                v38 = v5;
-                v33 = v7;
-                v34 = v8;
-                v35 = v17;
-                v32 = *v44;
+                v17 = *v41;
+                v35 = v5;
+                v30 = v7;
+                v31 = v8;
+                v32 = v15;
+                v29 = *v41;
                 do
                 {
-                  v20 = 0;
+                  v18 = 0;
                   do
                   {
-                    if (*v44 != v19)
+                    if (*v41 != v17)
                     {
-                      objc_enumerationMutation(v18);
+                      objc_enumerationMutation(v16);
                     }
 
-                    v21 = *(*(&v43 + 1) + 8 * v20);
+                    v19 = *(*(&v40 + 1) + 8 * v18);
+                    v36 = 0u;
+                    v37 = 0u;
+                    v38 = 0u;
                     v39 = 0u;
-                    v40 = 0u;
-                    v41 = 0u;
-                    v42 = 0u;
-                    v22 = [v21 accessories];
-                    v23 = [v22 countByEnumeratingWithState:&v39 objects:v51 count:16];
-                    if (v23)
+                    v20 = [v19 accessories];
+                    v21 = [v20 countByEnumeratingWithState:&v36 objects:v48 count:16];
+                    if (v21)
                     {
-                      v24 = v23;
-                      v25 = *v40;
+                      v22 = v21;
+                      v23 = *v37;
                       while (2)
                       {
-                        for (j = 0; j != v24; ++j)
+                        for (j = 0; j != v22; ++j)
                         {
-                          if (*v40 != v25)
+                          if (*v37 != v23)
                           {
-                            objc_enumerationMutation(v22);
+                            objc_enumerationMutation(v20);
                           }
 
-                          v27 = *(a1 + 32);
-                          v28 = [*(*(&v39 + 1) + 8 * j) hf_accessoryType];
-                          LOBYTE(v27) = [v27 containsType:v28];
+                          v25 = *(a1 + 32);
+                          v26 = [*(*(&v36 + 1) + 8 * j) hf_accessoryType];
+                          LOBYTE(v25) = [v25 containsType:v26];
 
-                          if (v27)
+                          if (v25)
                           {
 
-                            v31 = 1;
-                            v4 = v37;
-                            v5 = v38;
+                            v28 = 1;
+                            v4 = v34;
+                            v5 = v35;
                             goto LABEL_33;
                           }
                         }
 
-                        v24 = [v22 countByEnumeratingWithState:&v39 objects:v51 count:16];
-                        if (v24)
+                        v22 = [v20 countByEnumeratingWithState:&v36 objects:v48 count:16];
+                        if (v22)
                         {
                           continue;
                         }
@@ -187,28 +185,27 @@ uint64_t __57__HFAccessoryCategoryStatusItem_accessoryTypeGroupFilter__block_inv
                       }
                     }
 
-                    ++v20;
-                    v5 = v38;
-                    v7 = v33;
-                    v8 = v34;
-                    v9 = 0x277CD1000;
-                    v19 = v32;
+                    ++v18;
+                    v5 = v35;
+                    v7 = v30;
+                    v8 = v31;
+                    v17 = v29;
                   }
 
-                  while (v20 != v36);
-                  v17 = v35;
-                  v36 = [v18 countByEnumeratingWithState:&v43 objects:v52 count:16];
+                  while (v18 != v33);
+                  v15 = v32;
+                  v33 = [v16 countByEnumeratingWithState:&v40 objects:v49 count:16];
                 }
 
-                while (v36);
+                while (v33);
               }
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v47 objects:v53 count:16];
-        v31 = 0;
-        v4 = v37;
+        v7 = [v5 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v28 = 0;
+        v4 = v34;
       }
 
       while (v7);
@@ -216,7 +213,7 @@ uint64_t __57__HFAccessoryCategoryStatusItem_accessoryTypeGroupFilter__block_inv
 
     else
     {
-      v31 = 0;
+      v28 = 0;
     }
 
 LABEL_33:
@@ -224,11 +221,10 @@ LABEL_33:
 
   else
   {
-    v31 = 1;
+    v28 = 1;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v28;
 }
 
 - (id)sortedActionSetItemsWithProvider:(id)provider
@@ -276,7 +272,7 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
 
     else
     {
-      v10 = [WeakRetained home];
+      v10 = objc_msgSend_home(WeakRetained);
       v8 = [(HFReorderableHomeKitItemList *)v6 initWithApplicationDataContainer:v10 category:@"categoryActionSets"];
     }
 
@@ -325,7 +321,7 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v47[3] = *MEMORY[0x277D85DE8];
+  v46[3] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   room = [(HFStatusItem *)self room];
   accessories = [room accessories];
@@ -337,8 +333,8 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
 
   else
   {
-    home = [(HFStatusItem *)self home];
-    accessories2 = [home accessories];
+    v3 = objc_msgSend_home(self);
+    accessories2 = [v3 accessories];
   }
 
   if (+[HFUtilities isPressDemoModeEnabled])
@@ -348,8 +344,8 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
     hf_demoModeAccessories2 = hf_demoModeAccessories;
     if (!hf_demoModeAccessories)
     {
-      home = [(HFStatusItem *)self home];
-      hf_demoModeAccessories2 = [home hf_demoModeAccessories];
+      v3 = objc_msgSend_home(self);
+      hf_demoModeAccessories2 = [v3 hf_demoModeAccessories];
     }
 
     v13 = [accessories2 arrayByAddingObjectsFromArray:hf_demoModeAccessories2];
@@ -361,12 +357,12 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
     accessories2 = v13;
   }
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke;
-  v45[3] = &unk_277DF3888;
-  v45[4] = self;
-  v14 = [accessories2 na_firstObjectPassingTest:v45];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke;
+  v44[3] = &unk_277DF3888;
+  v44[4] = self;
+  v14 = [accessories2 na_firstObjectPassingTest:v44];
   v15 = v14 == 0;
 
   if (v15 && [(HFAccessoryCategoryStatusItem *)self hidesWithNoAccessories])
@@ -377,14 +373,14 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
     v19 = [v18 na_flatMap:&__block_literal_global_18];
 
     v20 = MEMORY[0x277D2C900];
-    v46[0] = @"hidden";
-    v46[1] = @"dependentServiceTypes";
-    v47[0] = MEMORY[0x277CBEC38];
-    v47[1] = v19;
-    v46[2] = @"dependentHomeKitClasses";
+    v45[0] = @"hidden";
+    v45[1] = @"dependentServiceTypes";
+    v46[0] = MEMORY[0x277CBEC38];
+    v46[1] = v19;
+    v45[2] = @"dependentHomeKitClasses";
     v21 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v47[2] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+    v46[2] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
     v23 = [HFItemUpdateOutcome outcomeWithResults:v22];
     v24 = [v20 futureWithResult:v23];
   }
@@ -405,37 +401,35 @@ void __66__HFAccessoryCategoryStatusItem_sortedActionSetItemsWithProvider___bloc
     {
       v28 = objc_alloc_init(MEMORY[0x277D2C900]);
       statusItems = [(HFAccessoryCategoryStatusItem *)self statusItems];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_4;
-      v43[3] = &unk_277DF4310;
-      v44 = optionsCopy;
-      v30 = [statusItems na_map:v43];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_4;
+      v42[3] = &unk_277DF4310;
+      v43 = optionsCopy;
+      v30 = [statusItems na_map:v42];
 
       v31 = MEMORY[0x277D2C900];
       mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
       v33 = [v31 combineAllFutures:v30 ignoringErrors:1 scheduler:mainThreadScheduler];
 
       objc_initWeak(&location, self);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_5;
-      v39[3] = &unk_277DF4360;
-      objc_copyWeak(&v41, &location);
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_5;
+      v38[3] = &unk_277DF4360;
+      objc_copyWeak(&v40, &location);
       v34 = v28;
-      v40 = v34;
-      v35 = [v33 addCompletionBlock:v39];
-      v36 = v40;
+      v39 = v34;
+      v35 = [v33 addCompletionBlock:v38];
+      v36 = v39;
       v19 = v34;
 
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v40);
       objc_destroyWeak(&location);
 
       v24 = v19;
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -534,74 +528,72 @@ uint64_t __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block
 
 void __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__2;
-    v38 = __Block_byref_object_dispose__2;
-    v39 = [MEMORY[0x277CBEB58] set];
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__2;
-    v32 = __Block_byref_object_dispose__2;
-    v33 = [MEMORY[0x277CBEB58] set];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__2;
-    v26 = __Block_byref_object_dispose__2;
-    v27 = [MEMORY[0x277CBEB58] set];
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__2;
+    v37 = __Block_byref_object_dispose__2;
+    v38 = [MEMORY[0x277CBEB58] set];
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__2;
+    v31 = __Block_byref_object_dispose__2;
+    v32 = [MEMORY[0x277CBEB58] set];
     v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__2;
+    v25 = __Block_byref_object_dispose__2;
+    v26 = [MEMORY[0x277CBEB58] set];
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     v8 = [WeakRetained statusItems];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_31;
-    v17[3] = &unk_277DF4338;
-    v17[4] = &v18;
-    v17[5] = &v22;
-    v17[6] = &v34;
-    v17[7] = &v28;
-    [v8 na_each:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_31;
+    v16[3] = &unk_277DF4338;
+    v16[4] = &v17;
+    v16[5] = &v21;
+    v16[6] = &v33;
+    v16[7] = &v27;
+    [v8 na_each:v16];
 
     v9 = [MEMORY[0x277CBEB38] dictionary];
-    [v9 setObject:v29[5] forKeyedSubscript:@"dependentHomeKitObjects"];
-    [v9 setObject:v35[5] forKeyedSubscript:@"dependentServiceTypes"];
-    [v9 setObject:v23[5] forKeyedSubscript:@"representedHomeKitObjects"];
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v19[3]];
+    [v9 setObject:v28[5] forKeyedSubscript:@"dependentHomeKitObjects"];
+    [v9 setObject:v34[5] forKeyedSubscript:@"dependentServiceTypes"];
+    [v9 setObject:v22[5] forKeyedSubscript:@"representedHomeKitObjects"];
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v18[3]];
     [v9 setObject:v10 forKeyedSubscript:@"state"];
 
     v11 = *(a1 + 32);
     v12 = [HFItemUpdateOutcome outcomeWithResults:v9];
     [v11 finishWithResult:v12];
 
-    _Block_object_dispose(&v18, 8);
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v21, 8);
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v33, 8);
   }
 
   else
   {
     v13 = *(a1 + 32);
-    v40 = @"hidden";
-    v41[0] = MEMORY[0x277CBEC38];
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = @"hidden";
+    v40[0] = MEMORY[0x277CBEC38];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     v15 = [HFItemUpdateOutcome outcomeWithResults:v14];
     [v13 finishWithResult:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HFAccessoryCategoryStatusItem__subclass_updateWithOptions___block_invoke_31(void *a1, void *a2)

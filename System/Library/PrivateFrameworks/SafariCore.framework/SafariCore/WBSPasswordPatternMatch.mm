@@ -227,24 +227,24 @@ void __74__WBSPasswordPatternMatch_compactDescriptionWithMatchedStringColumnWidt
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v15[5] = *MEMORY[0x1E69E9840];
+  v14[5] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
-  v14[0] = @"type";
+  v13[0] = @"type";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_type];
   matchedSubstring = self->_matchedSubstring;
-  v15[0] = v4;
-  v15[1] = matchedSubstring;
-  v14[1] = @"matchedSubstring";
-  v14[2] = @"rangeLocation";
+  v14[0] = v4;
+  v14[1] = matchedSubstring;
+  v13[1] = @"matchedSubstring";
+  v13[2] = @"rangeLocation";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_range.location];
-  v15[2] = v6;
-  v14[3] = @"rangeLength";
+  v14[2] = v6;
+  v13[3] = @"rangeLength";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_range.length];
-  v15[3] = v7;
-  v14[4] = @"guessesRequired";
+  v14[3] = v7;
+  v13[4] = @"guessesRequired";
   v8 = [MEMORY[0x1E696AD98] numberWithDouble:self->_guessesRequired];
-  v15[4] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
   v10 = [v3 dictionaryWithDictionary:v9];
 
   userInfo = self->_userInfo;
@@ -252,8 +252,6 @@ void __74__WBSPasswordPatternMatch_compactDescriptionWithMatchedStringColumnWidt
   {
     [v10 setObject:userInfo forKeyedSubscript:@"userInfo"];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

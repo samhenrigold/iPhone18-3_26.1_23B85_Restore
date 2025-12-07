@@ -17,6 +17,7 @@
 - (id)scene;
 - (void)_setBaseGeometry:(id)geometry;
 - (void)_syncObjCModel;
+- (void)boneIndices;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)setBaseGeometry:(SCNGeometry *)baseGeometry;
@@ -94,7 +95,7 @@ void __21__SCNSkinner_dealloc__block_invoke(uint64_t a1)
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  Copy = C3DSkinnerCreateCopy(self->_skinner);
+  Copy = C3DSkinnerCreateCopy(self->_skinner, a2);
   v5 = [[SCNSkinner alloc] initWithSkinnerRef:Copy];
   CFRelease(Copy);
   [(SCNSkinner *)v5 _setSkeleton:[(SCNSkinner *)self skeleton]];
@@ -154,9 +155,9 @@ void __21__SCNSkinner_dealloc__block_invoke(uint64_t a1)
   }
 }
 
-double __26__SCNSkinner_setSkeleton___block_invoke(uint64_t a1)
+void __26__SCNSkinner_setSkeleton___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) skinnerRef];
   v3 = *(a1 + 40);
   if (!v3)
@@ -168,44 +169,47 @@ double __26__SCNSkinner_setSkeleton___block_invoke(uint64_t a1)
   v5 = *(a1 + 40);
   if (v4)
   {
-    if (!C3DSkinnerTransposeSkeleton(v2, [v5 nodeRef]) && !C3DSkinnerTransposeSkeletonUsingNodeNames(v2, objc_msgSend(*(a1 + 40), "nodeRef")))
+    if (!C3DSkinnerTransposeSkeleton(v2, [v5 nodeRef]))
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v6 = C3DSkinnerTransposeSkeletonUsingNodeNames(v2, [*(a1 + 40) nodeRef]);
+      if (!v6)
       {
-        v9 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        v12 = 138412546;
-        v13 = v8;
-        v14 = 2112;
-        v15 = v9;
-        _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Failed to transpose skeleton\nold skeleton: %@\nnew skeleton: %@", &v12, 0x16u);
+        v8 = scn_default_log(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = *(a1 + 40);
+          v9 = *(a1 + 48);
+          v13 = 138412546;
+          v14 = v9;
+          v15 = 2112;
+          v16 = v10;
+          _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Failed to transpose skeleton\nold skeleton: %@\nnew skeleton: %@", &v13, 0x16u);
+        }
       }
     }
 
-    return result;
+    return;
   }
 
   if (!v5)
   {
     C3DSkinnerSetJoints(v2, 0);
 LABEL_11:
-    v11 = v2;
-    v10 = 0;
+    v12 = v2;
+    v11 = 0;
     goto LABEL_12;
   }
 
-  v10 = [v5 nodeRef];
-  v11 = v2;
+  v11 = [v5 nodeRef];
+  v12 = v2;
 LABEL_12:
 
-  *&result = C3DSkinnerSetSkeleton(v11, v10).n128_u64[0];
-  return result;
+  C3DSkinnerSetSkeleton(v12, v11);
 }
 
 - (void)setBaseGeometry:(SCNGeometry *)baseGeometry
 {
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNSkinner setBaseGeometry:];
@@ -227,13 +231,13 @@ LABEL_12:
 
 + (__C3DSkinner)_createSkinnerWithBones:(id)bones boneWeights:(id)weights boneIndices:(id)indices baseGeometry:(id)geometry
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v9 = [bones count];
   v10 = v9;
   if (v9 < 2)
   {
-    v19 = C3DSkinCreateWith(0, v9, 0, [geometry __CFObject]);
-    C3DSkinSetMaxInfluencesPerVertex(v19, 1);
+    v25 = C3DSkinCreateWith(0, v9, 0, [geometry __CFObject]);
+    C3DSkinSetMaxInfluencesPerVertex(v25, 1);
   }
 
   else
@@ -244,10 +248,11 @@ LABEL_12:
     v14 = [objc_msgSend(indices "data")];
     bytesPerComponent2 = [indices bytesPerComponent];
     vectorCount = [indices vectorCount];
-    if (vectorCount != [weights vectorCount] || (v17 = v12 / v11 / bytesPerComponent, v14 / v11 / bytesPerComponent2 != v17))
+    vectorCount2 = [weights vectorCount];
+    if (vectorCount != vectorCount2 || (v19 = v12 / v11 / bytesPerComponent, v14 / v11 / bytesPerComponent2 != v19))
     {
-      v21 = scn_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v28 = scn_default_log(vectorCount2, v18);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         +[SCNSkinner _createSkinnerWithBones:boneWeights:boneIndices:baseGeometry:];
       }
@@ -255,10 +260,11 @@ LABEL_12:
       return 0;
     }
 
-    if (![weights floatComponents] || objc_msgSend(weights, "bytesPerComponent") != 4)
+    floatComponents = [weights floatComponents];
+    if (!floatComponents || (floatComponents = [weights bytesPerComponent], floatComponents != 4))
     {
-      v23 = scn_default_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v30 = scn_default_log(floatComponents, v21);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         +[SCNSkinner _createSkinnerWithBones:boneWeights:boneIndices:baseGeometry:];
       }
@@ -266,10 +272,11 @@ LABEL_12:
       return 0;
     }
 
-    if ([indices bytesPerComponent] >= 3)
+    bytesPerComponent3 = [indices bytesPerComponent];
+    if (bytesPerComponent3 >= 3)
     {
-      v18 = scn_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v24 = scn_default_log(bytesPerComponent3, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         +[SCNSkinner _createSkinnerWithBones:boneWeights:boneIndices:baseGeometry:];
       }
@@ -279,10 +286,11 @@ LABEL_12:
 
     dataStride = [indices dataStride];
     componentsPerVector = [indices componentsPerVector];
-    if (dataStride != [indices bytesPerComponent] * componentsPerVector)
+    bytesPerComponent4 = [indices bytesPerComponent];
+    if (dataStride != bytesPerComponent4 * componentsPerVector)
     {
-      v45 = scn_default_log();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v57 = scn_default_log(bytesPerComponent4, v34);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         +[SCNSkinner _createSkinnerWithBones:boneWeights:boneIndices:baseGeometry:];
       }
@@ -292,10 +300,11 @@ LABEL_12:
 
     dataStride2 = [weights dataStride];
     componentsPerVector2 = [weights componentsPerVector];
-    if (dataStride2 != [weights bytesPerComponent] * componentsPerVector2)
+    bytesPerComponent5 = [weights bytesPerComponent];
+    if (dataStride2 != bytesPerComponent5 * componentsPerVector2)
     {
-      v46 = scn_default_log();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v58 = scn_default_log(bytesPerComponent5, v38);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         +[SCNSkinner _createSkinnerWithBones:boneWeights:boneIndices:baseGeometry:];
       }
@@ -303,181 +312,184 @@ LABEL_12:
       return 0;
     }
 
-    v28 = v17 * v11;
-    v19 = C3DSkinCreateWith(v11, v10, v17 * v11, [geometry __CFObject]);
-    C3DSkinSetMaxInfluencesPerVertex(v19, v17);
-    v48 = 0;
-    v49 = 0;
-    v47 = 0;
-    C3DSkinGetVertexWeightsPointers(v19, &v49, &v48, &v47);
-    if (v49 && (v11 & 0x8000000000000000) == 0)
+    v39 = v19 * v11;
+    v25 = C3DSkinCreateWith(v11, v10, v19 * v11, [geometry __CFObject]);
+    C3DSkinSetMaxInfluencesPerVertex(v25, v19);
+    v60 = 0;
+    v61 = 0;
+    v59 = 0;
+    C3DSkinGetVertexWeightsPointers(v25, &v61, &v60, &v59);
+    if (v61 && (v11 & 0x8000000000000000) == 0)
     {
-      v29 = 0;
-      v30 = vdupq_n_s64(v11);
-      v31 = (v11 & 0x7FFFFFFFFFFFFFFELL) + 2;
-      v32 = xmmword_21C27F640;
-      v33 = (v49 + 8);
-      v34 = vdupq_n_s64(2uLL);
+      v40 = 0;
+      v41 = vdupq_n_s64(v11);
+      v42 = (v11 & 0x7FFFFFFFFFFFFFFELL) + 2;
+      v43 = xmmword_21C27F640;
+      v44 = (v61 + 8);
+      v45 = vdupq_n_s64(2uLL);
       do
       {
-        v35 = vmovn_s64(vcgeq_u64(v30, v32));
-        if (v35.i8[0])
+        v46 = vmovn_s64(vcgeq_u64(v41, v43));
+        if (v46.i8[0])
         {
-          *(v33 - 1) = v29 * v17;
+          *(v44 - 1) = v40 * v19;
         }
 
-        if (v35.i8[4])
+        if (v46.i8[4])
         {
-          *v33 = (v29 | 1) * v17;
+          *v44 = (v40 | 1) * v19;
         }
 
-        v29 += 2;
-        v32 = vaddq_s64(v32, v34);
-        v33 += 2;
-        v31 -= 2;
+        v40 += 2;
+        v43 = vaddq_s64(v43, v45);
+        v44 += 2;
+        v42 -= 2;
       }
 
-      while (v31);
+      while (v42);
     }
 
-    v36 = [objc_msgSend(indices "data")];
-    v37 = [objc_msgSend(indices "data")];
-    v38 = [objc_msgSend(weights "data")];
-    bytesPerComponent3 = [indices bytesPerComponent];
-    if (v28 >= 1)
+    v47 = [objc_msgSend(indices "data")];
+    v48 = [objc_msgSend(indices "data")];
+    v49 = [objc_msgSend(weights "data")];
+    bytesPerComponent6 = [indices bytesPerComponent];
+    if (v39 >= 1)
     {
-      v40 = bytesPerComponent3;
-      for (i = 0; i < v28; ++i)
+      v52 = bytesPerComponent6;
+      for (i = 0; i < v39; ++i)
       {
-        if (v40 == 1)
+        if (v52 == 1)
         {
-          v42 = *(v36 + i);
+          v54 = *(v47 + i);
         }
 
         else
         {
-          v42 = *(v37 + 2 * i);
+          v54 = *(v48 + 2 * i);
         }
 
-        *(v48 + 2 * i) = v42;
-        if (v47)
+        *(v60 + 2 * i) = v54;
+        if (v59)
         {
-          *(v47 + 4 * i) = *(v38 + 4 * i);
+          *(v59 + 4 * i) = *(v49 + 4 * i);
         }
 
-        if (v42 < 0)
+        if (v54 < 0)
         {
-          v43 = scn_default_log();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v55 = scn_default_log(bytesPerComponent6, v51);
+          bytesPerComponent6 = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+          if (bytesPerComponent6)
           {
-            v44 = *(v48 + 2 * i);
+            v56 = *(v60 + 2 * i);
             *buf = 67109120;
-            v51 = v44;
-            _os_log_error_impl(&dword_21BEF7000, v43, OS_LOG_TYPE_ERROR, "Error: skinner: invalid index (%d)", buf, 8u);
+            v63 = v56;
+            _os_log_error_impl(&dword_21BEF7000, v55, OS_LOG_TYPE_ERROR, "Error: skinner: invalid index (%d)", buf, 8u);
           }
 
-          *(v48 + 2 * i) = -1;
+          *(v60 + 2 * i) = -1;
         }
       }
     }
 
-    C3DSkinPackWeightAndIndices(v19);
+    C3DSkinPackWeightAndIndices(v25);
   }
 
-  v20 = C3DSkinnerCreateWithSkin(v19);
-  CFRelease(v19);
-  return v20;
+  v27 = C3DSkinnerCreateWithSkin(v25, v26);
+  CFRelease(v25);
+  return v27;
 }
 
 + (__C3DSkinner)_createSkinnerWithCompressedData:(id)data bonesCount:(unint64_t)count vertexCount:(unint64_t)vertexCount
 {
   if ([data count] != 3)
   {
-    if ([data count] != 1)
+    v20 = [data count];
+    if (v20 != 1)
     {
-      v18 = scn_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v22 = scn_default_log(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        [(SCNSkinner *)v18 _createSkinnerWithCompressedData:v19 bonesCount:v20 vertexCount:v21, v22, v23, v24, v25];
+        [(SCNSkinner *)v22 _createSkinnerWithCompressedData:v23 bonesCount:v24 vertexCount:v25, v26, v27, v28, v29];
       }
     }
 
-    v11 = [data objectAtIndexedSubscript:0];
-    v12 = [v11 length];
+    v13 = [data objectAtIndexedSubscript:0];
+    v14 = [v13 length];
     v8 = 0;
-    v10 = 0;
-    v9 = 1;
+    v12 = 0;
+    v11 = 1;
     goto LABEL_14;
   }
 
   v8 = [data objectAtIndexedSubscript:0];
-  if ([v8 length] == vertexCount)
+  v9 = [v8 length];
+  if (v9 == vertexCount)
   {
-    v9 = 1;
-    v10 = [data objectAtIndexedSubscript:1];
-    v11 = [data objectAtIndexedSubscript:2];
-    v12 = [v11 length];
+    v11 = 1;
+    v12 = [data objectAtIndexedSubscript:1];
+    v13 = [data objectAtIndexedSubscript:2];
+    v14 = [v13 length];
     if (v8)
     {
       bytes = [v8 bytes];
       if (vertexCount)
       {
-        v14 = 1;
+        v16 = 1;
         vertexCountCopy = vertexCount;
         do
         {
-          v17 = *bytes++;
-          v16 = v17;
-          if (v14 <= v17)
+          v19 = *bytes++;
+          v18 = v19;
+          if (v16 <= v19)
           {
-            v14 = v16;
+            v16 = v18;
           }
 
           --vertexCountCopy;
         }
 
         while (vertexCountCopy);
-        v9 = 0;
+        v11 = 0;
 LABEL_15:
-        v26 = C3DSkinCreateWith(vertexCount, count, v12, 0);
-        C3DSkinSetMaxInfluencesPerVertex(v26, v14);
+        v30 = C3DSkinCreateWith(vertexCount, count, v14, 0);
+        C3DSkinSetMaxInfluencesPerVertex(v30, v16);
         if (count < 2)
         {
 LABEL_55:
-          v32 = C3DSkinnerCreateWithSkin(v26);
-          CFRelease(v26);
-          return v32;
+          v37 = C3DSkinnerCreateWithSkin(v30, v31);
+          CFRelease(v30);
+          return v37;
         }
 
-        v58 = 0;
-        v59 = 0;
-        v57 = 0;
-        C3DSkinGetVertexWeightsPointers(v26, &v59, &v58, &v57);
-        if (v9)
+        v64 = 0;
+        v65 = 0;
+        v63 = 0;
+        C3DSkinGetVertexWeightsPointers(v30, &v65, &v64, &v63);
+        if (v11)
         {
           if (vertexCount)
           {
-            v27 = 0;
-            v28 = v59;
+            v32 = 0;
+            v33 = v65;
             vertexCountCopy2 = vertexCount;
             do
             {
-              if (v27 >= v12)
+              if (v32 >= v14)
               {
-                v30 = v12 - 1;
+                v35 = v14 - 1;
               }
 
               else
               {
-                v30 = v27;
+                v35 = v32;
               }
 
-              if (v27 < v12)
+              if (v32 < v14)
               {
-                ++v27;
+                ++v32;
               }
 
-              *v28++ = v30;
+              *v33++ = v35;
               --vertexCountCopy2;
             }
 
@@ -491,14 +503,14 @@ LABEL_55:
           bytes2 = [v8 bytes];
           if (vertexCount)
           {
-            v27 = 0;
-            v34 = v59;
+            v32 = 0;
+            v39 = v65;
             vertexCountCopy3 = vertexCount;
             do
             {
-              *v34++ = v27;
-              v36 = *bytes2++;
-              v27 += v36;
+              *v39++ = v32;
+              v41 = *bytes2++;
+              v32 += v41;
               --vertexCountCopy3;
             }
 
@@ -507,107 +519,107 @@ LABEL_55:
           }
         }
 
-        v27 = 0;
+        v32 = 0;
 LABEL_34:
-        v59[vertexCount] = v27;
-        bytes3 = [v11 bytes];
-        if (v10)
+        v65[vertexCount] = v32;
+        bytes3 = [v13 bytes];
+        if (v12)
         {
-          v38 = [v10 length] / v12;
-          if (v38 == 2)
+          v43 = [v12 length];
+          if (v43 / v14 == 2)
           {
-            bytes4 = [v10 bytes];
-            if (v12 >= 1)
+            bytes4 = [v12 bytes];
+            if (v14 >= 1)
             {
-              v49 = v57;
-              v48 = v58;
+              v55 = v63;
+              v54 = v64;
               do
               {
-                v50 = *bytes3++;
-                *v48++ = v50;
-                v51 = *bytes4++;
-                *v49++ = v51 / 65535.0;
-                --v12;
+                v56 = *bytes3++;
+                *v54++ = v56;
+                v57 = *bytes4++;
+                *v55++ = v57 / 65535.0;
+                --v14;
               }
 
-              while (v12);
+              while (v14);
             }
           }
 
-          else if (v38 == 1)
+          else if (v43 / v14 == 1)
           {
-            bytes5 = [v10 bytes];
-            if (v12 >= 1)
+            bytes5 = [v12 bytes];
+            if (v14 >= 1)
             {
-              v41 = v57;
-              v40 = v58;
+              v47 = v63;
+              v46 = v64;
               do
               {
-                v42 = *bytes3++;
-                *v40++ = v42;
-                v43 = *bytes5++;
-                *v41++ = v43 / 255.0;
-                --v12;
+                v48 = *bytes3++;
+                *v46++ = v48;
+                v49 = *bytes5++;
+                *v47++ = v49 / 255.0;
+                --v14;
               }
 
-              while (v12);
+              while (v14);
             }
           }
 
           else
           {
-            v52 = scn_default_log();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+            v58 = scn_default_log(v43, v44);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
               +[SCNSkinner _createSkinnerWithCompressedData:bonesCount:vertexCount:];
             }
 
-            if (v12 >= 1)
+            if (v14 >= 1)
             {
-              v54 = v57;
-              v53 = v58;
+              v60 = v63;
+              v59 = v64;
               do
               {
-                v55 = *bytes3++;
-                *v53++ = v55;
-                *v54++ = 1.0;
-                --v12;
+                v61 = *bytes3++;
+                *v59++ = v61;
+                *v60++ = 1.0;
+                --v14;
               }
 
-              while (v12);
+              while (v14);
             }
           }
         }
 
-        else if (v12 >= 1)
+        else if (v14 >= 1)
         {
-          v45 = v57;
-          v44 = v58;
+          v51 = v63;
+          v50 = v64;
           do
           {
-            v46 = *bytes3++;
-            *v44++ = v46;
-            *v45++ = 1.0;
-            --v12;
+            v52 = *bytes3++;
+            *v50++ = v52;
+            *v51++ = 1.0;
+            --v14;
           }
 
-          while (v12);
+          while (v14);
         }
 
-        C3DSkinPackWeightAndIndices(v26);
+        C3DSkinPackWeightAndIndices(v30);
         goto LABEL_55;
       }
 
-      v9 = 0;
+      v11 = 0;
     }
 
 LABEL_14:
-    LOWORD(v14) = 1;
+    LOWORD(v16) = 1;
     goto LABEL_15;
   }
 
-  v31 = scn_default_log();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v36 = scn_default_log(v9, v10);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     +[SCNSkinner _createSkinnerWithCompressedData:bonesCount:vertexCount:];
   }
@@ -617,10 +629,10 @@ LABEL_14:
 
 + (SCNSkinner)skinnerWithBaseGeometry:(SCNGeometry *)baseGeometry bones:(NSArray *)bones boneInverseBindTransforms:(NSArray *)boneInverseBindTransforms boneWeights:(SCNGeometrySource *)boneWeights boneIndices:(SCNGeometrySource *)boneIndices
 {
-  if (!bones || ![(NSArray *)bones count])
+  if (!bones || (v12 = self, (self = [(NSArray *)bones count]) == 0))
   {
-    v18 = scn_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = scn_default_log(self, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       +[SCNSkinner skinnerWithBaseGeometry:bones:boneInverseBindTransforms:boneWeights:boneIndices:];
     }
@@ -630,8 +642,8 @@ LABEL_14:
 
   if (!baseGeometry)
   {
-    v19 = scn_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(self, a2);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       +[SCNSkinner skinnerWithBaseGeometry:bones:boneInverseBindTransforms:boneWeights:boneIndices:];
     }
@@ -640,10 +652,11 @@ LABEL_14:
   }
 
   v13 = [(NSArray *)bones count];
-  if (v13 != [(NSArray *)boneInverseBindTransforms count])
+  v14 = [(NSArray *)boneInverseBindTransforms count];
+  if (v13 != v14)
   {
-    v20 = scn_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = scn_default_log(v14, v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       +[SCNSkinner skinnerWithBaseGeometry:bones:boneInverseBindTransforms:boneWeights:boneIndices:];
     }
@@ -651,46 +664,47 @@ LABEL_14:
     return 0;
   }
 
-  v14 = [self _createSkinnerWithBones:bones boneWeights:boneWeights boneIndices:boneIndices baseGeometry:baseGeometry];
-  if (!v14)
+  v16 = [v12 _createSkinnerWithBones:bones boneWeights:boneWeights boneIndices:boneIndices baseGeometry:baseGeometry];
+  if (!v16)
   {
     return 0;
   }
 
-  v15 = v14;
-  v16 = [[self alloc] initWithSkinnerRef:v14];
-  CFRelease(v15);
-  [v16 setBones:bones];
-  [v16 setBoneInverseBindTransforms:boneInverseBindTransforms];
-  [v16 _setBaseGeometry:baseGeometry];
-  [v16 _setSkeleton:_commonAncessor_0(bones)];
+  v17 = v16;
+  v18 = [[v12 alloc] initWithSkinnerRef:v16];
+  CFRelease(v17);
+  [v18 setBones:bones];
+  [v18 setBoneInverseBindTransforms:boneInverseBindTransforms];
+  [v18 _setBaseGeometry:baseGeometry];
+  [v18 _setSkeleton:_commonAncessor_0(bones)];
 
-  return v16;
+  return v18;
 }
 
 + (id)_skinnerWithBaseGeometry:(id)geometry skinnableGeometry:(id)skinnableGeometry bones:(id)bones boneInverseBindTransforms:(id)transforms bindMatrix:(SCNMatrix4 *)matrix
 {
-  Mesh = C3DGeometryGetMesh([skinnableGeometry geometryRef]);
+  geometryRef = [skinnableGeometry geometryRef];
+  Mesh = C3DGeometryGetMesh(geometryRef, v13);
   result = C3DSkinCreateWithSkinnableMesh(Mesh, [bones count]);
   if (result)
   {
-    v14 = result;
-    v15 = C3DSkinnerCreateWithSkin(result);
-    CFRelease(v14);
-    v16 = [[self alloc] initWithSkinnerRef:v15];
-    CFRelease(v15);
-    [v16 setBones:bones];
-    [v16 setBoneInverseBindTransforms:transforms];
-    v17 = *&matrix->m21;
-    v19[0] = *&matrix->m11;
-    v19[1] = v17;
-    v18 = *&matrix->m41;
-    v19[2] = *&matrix->m31;
-    v19[3] = v18;
-    [v16 setBaseGeometryBindTransform:v19];
-    [v16 _setBaseGeometry:geometry];
-    [v16 _setSkeleton:_commonAncessor_0(bones)];
-    return v16;
+    v17 = result;
+    v18 = C3DSkinnerCreateWithSkin(result, v16);
+    CFRelease(v17);
+    v19 = [[self alloc] initWithSkinnerRef:v18];
+    CFRelease(v18);
+    [v19 setBones:bones];
+    [v19 setBoneInverseBindTransforms:transforms];
+    v20 = *&matrix->m21;
+    v22[0] = *&matrix->m11;
+    v22[1] = v20;
+    v21 = *&matrix->m41;
+    v22[2] = *&matrix->m31;
+    v22[3] = v21;
+    [v19 setBaseGeometryBindTransform:v22];
+    [v19 _setBaseGeometry:geometry];
+    [v19 _setSkeleton:_commonAncessor_0(bones)];
+    return v19;
   }
 
   return result;
@@ -700,10 +714,10 @@ LABEL_14:
 {
   *retstr = SCNMatrix4Identity;
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   result = C3DGeometryGetOverrideMaterial(self->_skinner);
@@ -713,10 +727,10 @@ LABEL_14:
     C3DMatrix4x4ToSCNMatrix4(DefaultShapeMatrix, retstr);
   }
 
-  if (v6)
+  if (v7)
   {
 
-    return C3DSceneUnlock(v6);
+    return C3DSceneUnlock(v7, v9);
   }
 
   return result;
@@ -725,338 +739,340 @@ LABEL_14:
 - (void)setBaseGeometryBindTransform:(SCNMatrix4 *)baseGeometryBindTransform
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
   if (OverrideMaterial)
   {
-    v8 = OverrideMaterial;
+    v10 = OverrideMaterial;
+    v14 = 0u;
+    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    C3DMatrix4x4FromSCNMatrix4(&v10, baseGeometryBindTransform);
-    v9[0] = v10;
-    v9[1] = v11;
-    v9[2] = v12;
-    v9[3] = v13;
-    C3DSkinSetDefaultShapeMatrix(v8, v9);
+    C3DMatrix4x4FromSCNMatrix4(&v12, baseGeometryBindTransform);
+    v11[0] = v12;
+    v11[1] = v13;
+    v11[2] = v14;
+    v11[3] = v15;
+    C3DSkinSetDefaultShapeMatrix(v10, v11);
   }
 
-  if (v6)
+  if (v7)
   {
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 }
 
 - (SCNGeometrySource)boneWeights
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   if (C3DSkinnerHasOnlyOneJoint(self->_skinner))
   {
-    v5 = 0;
-    if (!v4)
+    v7 = 0;
+    if (!v5)
     {
-      return v5;
+      return v7;
     }
 
     goto LABEL_28;
   }
 
-  v32 = v4;
+  v34 = v5;
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
   MTLVertexFormat = C3DMeshSourceGetMTLVertexFormat(OverrideMaterial);
   MaxInfluencesPerVertex = C3DSkinGetMaxInfluencesPerVertex(OverrideMaterial);
-  v38 = 0;
-  v39 = 0;
-  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v38, 0, &v39);
-  v31 = 4 * MTLVertexFormat * MaxInfluencesPerVertex;
-  v35 = malloc_type_malloc(v31, 0x100004052888210uLL);
-  v37 = MTLVertexFormat;
+  v40 = 0;
+  v41 = 0;
+  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v40, 0, &v41);
+  v33 = 4 * MTLVertexFormat * MaxInfluencesPerVertex;
+  v37 = malloc_type_malloc(v33, 0x100004052888210uLL);
+  v39 = MTLVertexFormat;
   if (MTLVertexFormat >= 1)
   {
-    v9 = 0;
-    v10 = 0;
     v11 = 0;
-    v12 = v38;
-    v13 = v39;
-    v14 = *v38;
-    v15 = 4 * (MaxInfluencesPerVertex & ~(MaxInfluencesPerVertex >> 63));
-    v33 = -MaxInfluencesPerVertex;
-    v34 = MaxInfluencesPerVertex;
-    v16 = v35;
-    v17 = &v35[v15 / 4];
+    v12 = 0;
+    v13 = 0;
+    v14 = v40;
+    v15 = v41;
+    v16 = *v40;
+    v17 = 4 * (MaxInfluencesPerVertex & ~(MaxInfluencesPerVertex >> 63));
+    v35 = -MaxInfluencesPerVertex;
+    v36 = MaxInfluencesPerVertex;
+    v18 = v37;
+    v19 = &v37[v17 / 4];
     do
     {
-      v18 = v14;
-      v14 = v12[++v9];
-      v19 = v14 - v18;
-      if (v14 - v18 >= MaxInfluencesPerVertex)
+      v20 = v16;
+      v16 = v14[++v11];
+      v21 = v16 - v20;
+      if (v16 - v20 >= MaxInfluencesPerVertex)
       {
-        v20 = MaxInfluencesPerVertex;
+        v22 = MaxInfluencesPerVertex;
       }
 
       else
       {
-        v20 = v14 - v18;
+        v22 = v16 - v20;
       }
 
-      if (v20 < 1)
+      if (v22 < 1)
       {
-        v20 = 0;
-        v21 = 0.0;
+        v22 = 0;
+        v23 = 0.0;
       }
 
       else
       {
-        v10 += v20;
-        v21 = 0.0;
-        v22 = v16;
-        v23 = v20;
+        v12 += v22;
+        v23 = 0.0;
+        v24 = v18;
+        v25 = v22;
         do
         {
-          v24 = *(v13 + 4 * v11);
-          v21 = v21 + v24;
-          ++v11;
-          *v22++ = v24;
-          --v23;
+          v26 = *(v15 + 4 * v13);
+          v23 = v23 + v26;
+          ++v13;
+          *v24++ = v26;
+          --v25;
         }
 
-        while (v23);
+        while (v25);
       }
 
-      if (MaxInfluencesPerVertex > v20)
+      if (MaxInfluencesPerVertex > v22)
       {
-        v25 = 4 * (MaxInfluencesPerVertex - v20);
-        v36 = v10;
-        v26 = v9;
-        bzero(&v35[v10], v25);
-        v9 = v26;
-        MaxInfluencesPerVertex = v34;
-        v10 = v36 + v34 - v20;
+        v27 = 4 * (MaxInfluencesPerVertex - v22);
+        v38 = v12;
+        v28 = v11;
+        bzero(&v37[v12], v27);
+        v11 = v28;
+        MaxInfluencesPerVertex = v36;
+        v12 = v38 + v36 - v22;
       }
 
-      if (v19 > MaxInfluencesPerVertex && v21 > 0.0 && MaxInfluencesPerVertex >= 1)
+      if (v21 > MaxInfluencesPerVertex && v23 > 0.0 && MaxInfluencesPerVertex >= 1)
       {
-        v28 = v33;
+        v30 = v35;
         do
         {
-          *&v17[4 * v28] = *&v17[4 * v28] / v21;
+          *&v19[4 * v30] = *&v19[4 * v30] / v23;
         }
 
-        while (!__CFADD__(v28++, 1));
+        while (!__CFADD__(v30++, 1));
       }
 
-      v16 = (v16 + v15);
-      v17 += v15;
+      v18 = (v18 + v17);
+      v19 += v17;
     }
 
-    while (v9 != v37);
+    while (v11 != v39);
   }
 
-  v5 = +[SCNGeometrySource geometrySourceWithData:semantic:vectorCount:floatComponents:componentsPerVector:bytesPerComponent:dataOffset:dataStride:](SCNGeometrySource, "geometrySourceWithData:semantic:vectorCount:floatComponents:componentsPerVector:bytesPerComponent:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v35 length:v31 freeWhenDone:1], @"kGeometrySourceSemanticBoneWeights", v37, 1, MaxInfluencesPerVertex, 4, 0, 0);
-  v4 = v32;
-  if (v32)
+  v7 = +[SCNGeometrySource geometrySourceWithData:semantic:vectorCount:floatComponents:componentsPerVector:bytesPerComponent:dataOffset:dataStride:](SCNGeometrySource, "geometrySourceWithData:semantic:vectorCount:floatComponents:componentsPerVector:bytesPerComponent:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v37 length:v33 freeWhenDone:1], @"kGeometrySourceSemanticBoneWeights", v39, 1, MaxInfluencesPerVertex, 4, 0, 0);
+  v5 = v34;
+  if (v34)
   {
 LABEL_28:
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v6);
   }
 
-  return v5;
+  return v7;
 }
 
 - (SCNGeometrySource)boneIndices
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   if (C3DSkinnerHasOnlyOneJoint(self->_skinner))
   {
-    v5 = 0;
-    if (!v4)
+    v7 = 0;
+    if (!v5)
     {
-      return v5;
+      return v7;
     }
 
     goto LABEL_28;
   }
 
-  v41 = v4;
+  v45 = v5;
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
   MaxInfluencesPerVertex = C3DSkinGetMaxInfluencesPerVertex(OverrideMaterial);
   MTLVertexFormat = C3DMeshSourceGetMTLVertexFormat(OverrideMaterial);
-  v44 = 0;
-  v45 = 0;
-  v40 = OverrideMaterial;
-  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v44, &v45, 0);
-  v9 = malloc_type_malloc(2 * MaxInfluencesPerVertex * MTLVertexFormat, 0x1000040BDFB0063uLL);
-  v42 = v9;
-  v43 = MTLVertexFormat;
+  v48 = 0;
+  v49 = 0;
+  v44 = OverrideMaterial;
+  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v48, &v49, 0);
+  v11 = malloc_type_malloc(2 * MaxInfluencesPerVertex * MTLVertexFormat, 0x1000040BDFB0063uLL);
+  v46 = v11;
+  v47 = MTLVertexFormat;
   if (MTLVertexFormat < 1)
   {
-    v12 = 0;
-    v11 = 0;
+    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v13 = v44;
-    v14 = v45;
-    v15 = *v44;
-    v16 = v9;
+    v13 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = v48;
+    v17 = v49;
+    v18 = *v48;
+    v19 = v11;
     do
     {
-      v17 = v15;
-      v15 = v13[++v10];
-      v18 = v15 - v17;
-      if (v18 >= MaxInfluencesPerVertex)
+      v20 = v18;
+      v18 = v16[++v13];
+      v21 = v18 - v20;
+      if (v21 >= MaxInfluencesPerVertex)
       {
-        v19 = MaxInfluencesPerVertex;
+        v22 = MaxInfluencesPerVertex;
       }
 
       else
       {
-        v19 = v18;
+        v22 = v21;
       }
 
-      if (v19 < 1)
+      if (v22 < 1)
       {
-        v19 = 0;
+        v22 = 0;
       }
 
       else
       {
-        v11 += v19;
-        v20 = v16;
-        v21 = v19;
+        v14 += v22;
+        v23 = v19;
+        v24 = v22;
         do
         {
-          v22 = *(v14 + 2 * v12++);
-          *v20 = v22;
-          v20 += 2;
-          --v21;
+          v25 = *(v17 + 2 * v15++);
+          *v23 = v25;
+          v23 += 2;
+          --v24;
         }
 
-        while (v21);
+        while (v24);
       }
 
-      if (MaxInfluencesPerVertex > v19)
+      if (MaxInfluencesPerVertex > v22)
       {
-        bzero(&v42[2 * v11], 2 * (MaxInfluencesPerVertex - v19));
-        v11 = v11 + MaxInfluencesPerVertex - v19;
+        bzero(&v46[2 * v14], 2 * (MaxInfluencesPerVertex - v22));
+        v14 = v14 + MaxInfluencesPerVertex - v22;
       }
 
-      v16 += 2 * (MaxInfluencesPerVertex & ~(MaxInfluencesPerVertex >> 63));
+      v19 += 2 * (MaxInfluencesPerVertex & ~(MaxInfluencesPerVertex >> 63));
     }
 
-    while (v10 != v43);
+    while (v13 != v47);
   }
 
-  if (v12 > C3DSkinGetWeightsCount(v40))
+  WeightsCount = C3DSkinGetWeightsCount(v44, v12);
+  if (v15 > WeightsCount)
   {
-    v23 = scn_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v28 = scn_default_log(WeightsCount, v27);
+    WeightsCount = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
+    if (WeightsCount)
     {
-      [(SCNSkinner *)v23 boneIndices:v24];
+      [(SCNSkinner *)v28 boneIndices:v27];
     }
   }
 
-  if (v11 != v43 * MaxInfluencesPerVertex)
+  if (v14 != v47 * MaxInfluencesPerVertex)
   {
-    v31 = scn_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v35 = scn_default_log(WeightsCount, v27);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
-      [(SCNSkinner *)v31 boneIndices:v32];
+      [(SCNSkinner *)v35 boneIndices:v36];
     }
   }
 
-  v5 = +[SCNGeometrySource _geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:](SCNGeometrySource, "_geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v42 length:2 * v43 * MaxInfluencesPerVertex freeWhenDone:1], @"kGeometrySourceSemanticBoneIndices", v43, 14, MaxInfluencesPerVertex, 0, 0);
-  v4 = v41;
-  if (v41)
+  v7 = +[SCNGeometrySource _geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:](SCNGeometrySource, "_geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v46 length:2 * v47 * MaxInfluencesPerVertex freeWhenDone:1], @"kGeometrySourceSemanticBoneIndices", v47, 14, MaxInfluencesPerVertex, 0, 0);
+  v5 = v45;
+  if (v45)
   {
 LABEL_28:
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v6);
   }
 
-  return v5;
+  return v7;
 }
 
 - (NSArray)boneInverseBindTransforms
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
-  v6 = OverrideMaterial;
+  v8 = OverrideMaterial;
   if (OverrideMaterial)
   {
-    LODWORD(v7) = C3DSkinGetJointsCount(OverrideMaterial);
-    InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v6);
-    v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:v7];
-    if (v7 >= 1)
+    LODWORD(v9) = C3DSkinGetJointsCount(OverrideMaterial);
+    InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v8);
+    v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:v9];
+    if (v9 >= 1)
     {
-      v7 = v7;
+      v9 = v9;
       do
       {
+        v15 = 0u;
+        v16 = 0u;
         v13 = 0u;
         v14 = 0u;
-        v11 = 0u;
-        v12 = 0u;
-        C3DMatrix4x4ToSCNMatrix4(InverseBindMatricesPtr, &v11);
-        v10[0] = v11;
-        v10[1] = v12;
-        v10[2] = v13;
-        v10[3] = v14;
-        -[NSArray addObject:](v6, "addObject:", [MEMORY[0x277CCAE60] valueWithSCNMatrix4:v10]);
+        C3DMatrix4x4ToSCNMatrix4(InverseBindMatricesPtr, &v13);
+        v12[0] = v13;
+        v12[1] = v14;
+        v12[2] = v15;
+        v12[3] = v16;
+        -[NSArray addObject:](v8, "addObject:", [MEMORY[0x277CCAE60] valueWithSCNMatrix4:v12]);
         InverseBindMatricesPtr += 64;
-        --v7;
+        --v9;
       }
 
-      while (v7);
+      while (v9);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)setBoneInverseBindTransforms:(id)transforms
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
     OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
     if (!OverrideMaterial)
     {
 LABEL_13:
-      C3DSceneUnlock(v6);
+      C3DSceneUnlock(v7, v9);
       return;
     }
   }
@@ -1070,34 +1086,35 @@ LABEL_13:
     }
   }
 
-  v8 = OverrideMaterial;
+  v10 = OverrideMaterial;
   JointsCount = C3DSkinGetJointsCount(OverrideMaterial);
-  if ([transforms count] == JointsCount)
+  v12 = [transforms count];
+  if (v12 == JointsCount)
   {
-    InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v8);
+    InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v10);
     if (JointsCount)
     {
-      v11 = InverseBindMatricesPtr;
+      v15 = InverseBindMatricesPtr;
       for (i = 0; i != JointsCount; ++i)
       {
-        v13 = [transforms objectAtIndex:{i, 0, 0, 0, 0, 0, 0, 0, 0}];
-        if (v13)
+        v17 = [transforms objectAtIndex:{i, 0, 0, 0, 0, 0, 0, 0, 0}];
+        if (v17)
         {
-          [v13 SCNMatrix4Value];
+          objc_msgSend_SCNMatrix4Value(v17);
         }
 
         else
         {
-          memset(v15, 0, sizeof(v15));
+          memset(v19, 0, sizeof(v19));
         }
 
-        C3DMatrix4x4FromSCNMatrix4(v11, v15);
-        v11 += 4;
+        C3DMatrix4x4FromSCNMatrix4(v15, v19);
+        v15 += 4;
       }
     }
 
-    C3DSkinInverseBindMatricesHaveChanged(v8);
-    if (v6)
+    C3DSkinInverseBindMatricesHaveChanged(v10);
+    if (v7)
     {
       goto LABEL_13;
     }
@@ -1105,10 +1122,10 @@ LABEL_13:
 
   else
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = scn_default_log(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(SCNSkinner *)JointsCount setBoneInverseBindTransforms:transforms, v14];
+      [(SCNSkinner *)JointsCount setBoneInverseBindTransforms:transforms, v18];
     }
   }
 }
@@ -1116,59 +1133,59 @@ LABEL_13:
 - (NSArray)bones
 {
   sceneRef = [(SCNSkinner *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  v5 = [C3DSkinnerGetJoints(self->_skinner) copy];
-  v6 = [v5 count];
-  v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:v6];
-  if (v6)
+  v6 = [C3DSkinnerGetJoints(self->_skinner) copy];
+  v7 = [v6 count];
+  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:v7];
+  if (v7)
   {
-    for (i = 0; i != v6; ++i)
+    for (i = 0; i != v7; ++i)
     {
-      -[NSArray addObject:](v7, "addObject:", +[SCNNode nodeWithNodeRef:](SCNNode, "nodeWithNodeRef:", [v5 objectAtIndex:i]));
+      -[NSArray addObject:](v8, "addObject:", +[SCNNode nodeWithNodeRef:](SCNNode, "nodeWithNodeRef:", [v6 objectAtIndex:i]));
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v10);
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)setBones:(id)bones
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(bones, "count")}];
-  v13 = 0u;
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v6 = [bones countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v17 = 0u;
+  v18 = 0u;
+  v6 = [bones countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(bones);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         [v5 addObject:{objc_msgSend(v10, "nodeRef")}];
         [v10 setIsJoint:1];
       }
 
-      v7 = [bones countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [bones countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1177,10 +1194,10 @@ LABEL_13:
   sceneRef = [(SCNSkinner *)self sceneRef];
   if (sceneRef)
   {
-    v12 = sceneRef;
-    C3DSceneLock(sceneRef);
+    v13 = sceneRef;
+    C3DSceneLock(sceneRef, v12);
     C3DSkinnerSetJoints(self->_skinner, v5);
-    C3DSceneUnlock(v12);
+    C3DSceneUnlock(v13, v14);
   }
 
   else
@@ -1191,23 +1208,23 @@ LABEL_13:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   [coder encodeObject:-[SCNSkinner skeleton](self forKey:{"skeleton"), @"skeleton"}];
   [coder encodeObject:-[SCNSkinner baseGeometry](self forKey:{"baseGeometry"), @"baseGeometry"}];
   if (self)
   {
-    [(SCNSkinner *)self baseGeometryBindTransform];
+    objc_msgSend_baseGeometryBindTransform(self);
   }
 
   else
   {
-    v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
+    v39 = 0u;
   }
 
-  SCNEncodeSCNMatrix4(coder, @"baseGeometryBindTransform", &v37);
+  SCNEncodeSCNMatrix4(coder, @"baseGeometryBindTransform", &v38);
   bones = [(SCNSkinner *)self bones];
   [coder encodeObject:bones forKey:@"bones"];
   if ([(NSArray *)bones count]>= 2)
@@ -1216,53 +1233,53 @@ LABEL_13:
     {
       OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
       MTLVertexFormat = C3DMeshSourceGetMTLVertexFormat(OverrideMaterial);
-      WeightsCount = C3DSkinGetWeightsCount(OverrideMaterial);
+      WeightsCount = C3DSkinGetWeightsCount(OverrideMaterial, v8);
       MaxInfluencesPerVertex = C3DSkinGetMaxInfluencesPerVertex(OverrideMaterial);
+      v37 = 0;
+      *&v38 = 0;
       v36 = 0;
-      *&v37 = 0;
-      v35 = 0;
-      C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v36, &v35, &v37);
-      v10 = [MEMORY[0x277CBEB28] dataWithLength:WeightsCount];
-      bytes = [v10 bytes];
+      C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v37, &v36, &v38);
+      v11 = [MEMORY[0x277CBEB28] dataWithLength:WeightsCount];
+      bytes = [v11 bytes];
       if (WeightsCount >= 1)
       {
-        v12 = bytes;
+        v14 = bytes;
         for (i = 0; i != WeightsCount; ++i)
         {
-          v14 = v35;
-          if (*(v35 + 2 * i) >= 0x100u)
+          v16 = v36;
+          if (*(v36 + 2 * i) >= 0x100u)
           {
-            v15 = scn_default_log();
-            v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-            v14 = v35;
-            if (v16)
+            v17 = scn_default_log(bytes, v13);
+            bytes = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+            v16 = v36;
+            if (bytes)
             {
-              v17 = *(v35 + 2 * i);
+              v18 = *(v36 + 2 * i);
               *buf = 67109120;
-              v42 = v17;
-              _os_log_error_impl(&dword_21BEF7000, v15, OS_LOG_TYPE_ERROR, "Error: Bones index too large for compressed representation : %d", buf, 8u);
-              v14 = v35;
+              v43 = v18;
+              _os_log_error_impl(&dword_21BEF7000, v17, OS_LOG_TYPE_ERROR, "Error: Bones index too large for compressed representation : %d", buf, 8u);
+              v16 = v36;
             }
           }
 
-          *(v12 + i) = *(v14 + 2 * i);
+          *(v14 + i) = *(v16 + 2 * i);
         }
       }
 
       if (MaxInfluencesPerVertex <= 1)
       {
-        v28 = [MEMORY[0x277CBEA60] arrayWithObject:v10];
+        v29 = [MEMORY[0x277CBEA60] arrayWithObject:v11];
       }
 
       else
       {
-        v20 = [MEMORY[0x277CBEB28] dataWithLength:MTLVertexFormat];
-        bytes2 = [v20 bytes];
+        v21 = [MEMORY[0x277CBEB28] dataWithLength:MTLVertexFormat];
+        bytes2 = [v21 bytes];
         if (MTLVertexFormat >= 1)
         {
           for (j = 0; j != MTLVertexFormat; ++j)
           {
-            *(bytes2 + j) = *(v36 + 8 * j + 8) - *(v36 + 8 * j);
+            *(bytes2 + j) = *(v37 + 8 * j + 8) - *(v37 + 8 * j);
           }
         }
 
@@ -1270,63 +1287,63 @@ LABEL_13:
         bytes3 = [weightsCount bytes];
         if (WeightsCount >= 1)
         {
-          v25 = v37;
+          v26 = v38;
           do
           {
-            v26 = *v25++;
-            v27 = rintf(v26 * 65535.0);
-            if (v27 >= 0xFFFF)
+            v27 = *v26++;
+            v28 = rintf(v27 * 65535.0);
+            if (v28 >= 0xFFFF)
             {
-              v27 = 0xFFFF;
+              v28 = 0xFFFF;
             }
 
-            *bytes3++ = v27 & ~(v27 >> 31);
+            *bytes3++ = v28 & ~(v28 >> 31);
             --WeightsCount;
           }
 
           while (WeightsCount);
         }
 
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:{v20, weightsCount, v10, 0}];
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:{v21, weightsCount, v11, 0}];
       }
 
-      boneIndices = v28;
-      v19 = @"compressedSkinData";
+      boneIndices = v29;
+      v20 = @"compressedSkinData";
     }
 
     else
     {
       [coder encodeObject:-[SCNSkinner boneWeights](self forKey:{"boneWeights"), @"boneWeights"}];
       boneIndices = [(SCNSkinner *)self boneIndices];
-      v19 = @"boneIndices";
+      v20 = @"boneIndices";
     }
 
-    [coder encodeObject:boneIndices forKey:v19];
+    [coder encodeObject:boneIndices forKey:v20];
   }
 
   boneInverseBindTransforms = [(SCNSkinner *)self boneInverseBindTransforms];
-  v30 = [(NSArray *)boneInverseBindTransforms count];
-  if (v30)
+  v31 = [(NSArray *)boneInverseBindTransforms count];
+  if (v31)
   {
-    v31 = v30;
-    for (k = 0; k != v31; ++k)
+    v32 = v31;
+    for (k = 0; k != v32; ++k)
     {
-      v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"baseGeometryBindTransform-%d", k];
-      v34 = [(NSArray *)boneInverseBindTransforms objectAtIndex:k];
-      if (v34)
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"baseGeometryBindTransform-%d", k];
+      v35 = [(NSArray *)boneInverseBindTransforms objectAtIndex:k];
+      if (v35)
       {
-        [v34 SCNMatrix4Value];
+        objc_msgSend_SCNMatrix4Value(v35);
       }
 
       else
       {
-        v39 = 0u;
         v40 = 0u;
-        v37 = 0u;
+        v41 = 0u;
         v38 = 0u;
+        v39 = 0u;
       }
 
-      SCNEncodeSCNMatrix4(coder, v33, &v37);
+      SCNEncodeSCNMatrix4(coder, v34, &v38);
     }
   }
 }
@@ -1407,7 +1424,7 @@ LABEL_13:
 {
   __CFObject = [(SCNSkinner *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -1420,6 +1437,20 @@ LABEL_13:
   }
 
   return result;
+}
+
++ (void)_createSkinnerWithCompressedData:(uint64_t)a3 bonesCount:(uint64_t)a4 vertexCount:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "skinCompressedData.count == 1";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. skinner: invalid compressed data", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)boneIndices
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "w == numberOfInfluence * vertexCount";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. boneIndices - failed to deindex (2)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setBoneInverseBindTransforms:(NSObject *)a3 .cold.1(__int16 a1, void *a2, NSObject *a3)

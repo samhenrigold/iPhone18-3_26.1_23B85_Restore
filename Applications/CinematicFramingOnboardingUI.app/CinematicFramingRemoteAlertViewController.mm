@@ -6,8 +6,10 @@
 - (void)dismissRemoteAlert;
 - (void)handleControlCenterButton:(id)button;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)welcomeControllerDidDisappear:(id)disappear;
 @end
 
@@ -40,6 +42,50 @@
     [(CinematicFramingRemoteAlertViewController *)self setTargetBundleIdentifier:@"com.apple.facetime"];
     [(CinematicFramingRemoteAlertViewController *)self setCinematicFramingControlMode:1];
     [(CinematicFramingRemoteAlertViewController *)self setFirstEverCinematicFramingAlert:0];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(CinematicFramingRemoteAlertViewController *)self configureWindow];
+  v9.receiver = self;
+  v9.super_class = CinematicFramingRemoteAlertViewController;
+  [(CinematicFramingRemoteAlertViewController *)&v9 viewDidAppear:appearCopy];
+  presentedViewController = [(CinematicFramingRemoteAlertViewController *)self presentedViewController];
+
+  if (!presentedViewController)
+  {
+    createWelcomeController = [(CinematicFramingRemoteAlertViewController *)self createWelcomeController];
+    [createWelcomeController setDelegate:self];
+    view = [createWelcomeController view];
+    [view _setContinuousCornerRadius:10.0];
+
+    [createWelcomeController setModalPresentationStyle:2];
+    [(CinematicFramingRemoteAlertViewController *)self presentViewController:createWelcomeController animated:1 completion:0];
+  }
+
+  animationController = [(CinematicFramingRemoteAlertViewController *)self animationController];
+  [animationController startAnimation];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = CinematicFramingRemoteAlertViewController;
+  [(CinematicFramingRemoteAlertViewController *)&v8 viewWillDisappear:disappear];
+  animationController = [(CinematicFramingRemoteAlertViewController *)self animationController];
+  [animationController stopAnimation];
+
+  screenConfigurationChangeObserver = [(CinematicFramingRemoteAlertViewController *)self screenConfigurationChangeObserver];
+
+  if (screenConfigurationChangeObserver)
+  {
+    v6 = +[NSNotificationCenter defaultCenter];
+    screenConfigurationChangeObserver2 = [(CinematicFramingRemoteAlertViewController *)self screenConfigurationChangeObserver];
+    [v6 removeObserver:screenConfigurationChangeObserver2];
+
+    [(CinematicFramingRemoteAlertViewController *)self setScreenConfigurationChangeObserver:0];
   }
 }
 

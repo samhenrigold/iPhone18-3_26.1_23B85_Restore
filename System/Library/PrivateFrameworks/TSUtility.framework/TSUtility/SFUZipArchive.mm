@@ -167,7 +167,7 @@
 {
   v3 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   [[SFUZipRecordInputStream alloc] initWithDataRepresentation:self->mDataRepresentation];
-  [(SFUZipArchive *)self readEndOfCentralDirectoryFromInputStream:?];
+  objc_msgSend_readEndOfCentralDirectoryFromInputStream_(self);
 }
 
 - (void)collapseCommonRootDirectory
@@ -302,7 +302,7 @@ LABEL_17:
   {
     v14 = 0uLL;
     v15 = 0;
-    result = [(SFUZipArchive *)self readZip64EndOfCentralDirectoryFromInputStream:a4 eocdOffset:v16];
+    result = objc_msgSend_readZip64EndOfCentralDirectoryFromInputStream_eocdOffset_(self);
     if (*(&v14 + 1))
     {
       *&retstr->var0 = v14;

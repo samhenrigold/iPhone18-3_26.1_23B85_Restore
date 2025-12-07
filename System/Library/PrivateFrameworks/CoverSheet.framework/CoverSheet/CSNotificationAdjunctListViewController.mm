@@ -562,7 +562,7 @@ uint64_t __64__CSNotificationAdjunctListViewController__removeItem_animated___bl
   Height = CGRectGetHeight(v7);
   if (v3)
   {
-    [v3 _disappearedTransformForContentWithHeight:Height];
+    objc_msgSend__disappearedTransformForContentWithHeight_(v3, Height);
   }
 
   else

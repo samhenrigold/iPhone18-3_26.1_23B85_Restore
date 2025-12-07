@@ -27,27 +27,27 @@
 
 - (FCOfflineIssueList)initWithStoreDirectoryFileURL:(id)l appActivityMonitor:(id)monitor backgroundTaskable:(id)taskable
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   monitorCopy = monitor;
   taskableCopy = taskable;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectoryFileURL != nil"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectoryFileURL != nil"];
     *buf = 136315906;
-    v24 = "[FCOfflineIssueList initWithStoreDirectoryFileURL:appActivityMonitor:backgroundTaskable:]";
-    v25 = 2080;
-    v26 = "FCOfflineIssueList.m";
-    v27 = 1024;
-    v28 = 50;
-    v29 = 2114;
-    v30 = v21;
+    v23 = "[FCOfflineIssueList initWithStoreDirectoryFileURL:appActivityMonitor:backgroundTaskable:]";
+    v24 = 2080;
+    v25 = "FCOfflineIssueList.m";
+    v26 = 1024;
+    v27 = 50;
+    v28 = 2114;
+    v29 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v22.receiver = self;
-  v22.super_class = FCOfflineIssueList;
-  v11 = [(FCOfflineIssueList *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = FCOfflineIssueList;
+  v11 = [(FCOfflineIssueList *)&v21 init];
   if (v11)
   {
     v12 = +[FCKeyValueStoreSavePolicy defaultPolicy];
@@ -68,13 +68,12 @@
     v11->_observers = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)addIssueID:(id)d source:(int64_t)source
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -92,15 +91,15 @@
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues should always be added from a known source"];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues should always be added from a known source"];
         *buf = 136315906;
-        v21 = "[FCOfflineIssueList addIssueID:source:]";
-        v22 = 2080;
-        v23 = "FCOfflineIssueList.m";
-        v24 = 1024;
-        v25 = 92;
-        v26 = 2114;
-        v27 = v17;
+        v20 = "[FCOfflineIssueList addIssueID:source:]";
+        v21 = 2080;
+        v22 = "FCOfflineIssueList.m";
+        v23 = 1024;
+        v24 = 92;
+        v25 = 2114;
+        v26 = v16;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -148,25 +147,23 @@
     }
 
     [(FCKeyValueStore *)v15 setObject:v13 forKey:dCopy];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __40__FCOfflineIssueList_addIssueID_source___block_invoke_36;
-    v18[3] = &unk_1E7C36C58;
-    v18[4] = self;
-    v19 = dCopy;
-    FCPerformBlockOnMainThread(v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __40__FCOfflineIssueList_addIssueID_source___block_invoke_36;
+    v17[3] = &unk_1E7C36C58;
+    v17[4] = self;
+    v18 = dCopy;
+    FCPerformBlockOnMainThread(v17);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __40__FCOfflineIssueList_addIssueID_source___block_invoke_36(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -179,35 +176,33 @@ void __40__FCOfflineIssueList_addIssueID_source___block_invoke_36(uint64_t a1)
   }
 
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     v8 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = *(a1 + 32);
-        v18 = *(a1 + 40);
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+        v17 = *(a1 + 40);
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
         [v10 offlineIssueList:v11 didAddIssues:v12 removeIssues:v8];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)containsIssueID:(id)d
@@ -418,11 +413,11 @@ id __37__FCOfflineIssueList_removeIssueIDs___block_invoke(uint64_t a1, void *a2)
 
 void __37__FCOfflineIssueList_removeIssueIDs___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -435,31 +430,29 @@ void __37__FCOfflineIssueList_removeIssueIDs___block_invoke_2(uint64_t a1)
   }
 
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     v8 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * i) offlineIssueList:*(a1 + 32) didAddIssues:v8 removeIssues:*(a1 + 40)];
+        [*(*(&v10 + 1) + 8 * i) offlineIssueList:*(a1 + 32) didAddIssues:v8 removeIssues:*(a1 + 40)];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllIssues
@@ -478,11 +471,11 @@ void __37__FCOfflineIssueList_removeIssueIDs___block_invoke_2(uint64_t a1)
 
 void __37__FCOfflineIssueList_removeAllIssues__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -495,36 +488,34 @@ void __37__FCOfflineIssueList_removeAllIssues__block_invoke(uint64_t a1)
   }
 
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     v8 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * i) offlineIssueList:*(a1 + 32) didAddIssues:v8 removeIssues:*(a1 + 40)];
+        [*(*(&v10 + 1) + 8 * i) offlineIssueList:*(a1 + 32) didAddIssues:v8 removeIssues:*(a1 + 40)];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -543,13 +534,13 @@ void __37__FCOfflineIssueList_removeAllIssues__block_invoke(uint64_t a1)
     {
       observerCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%p is already an observer", observerCopy];
       *buf = 136315906;
-      v11 = "[FCOfflineIssueList addObserver:]";
-      v12 = 2080;
-      v13 = "FCOfflineIssueList.m";
-      v14 = 1024;
-      v15 = 227;
-      v16 = 2114;
-      v17 = observerCopy;
+      v10 = "[FCOfflineIssueList addObserver:]";
+      v11 = 2080;
+      v12 = "FCOfflineIssueList.m";
+      v13 = 1024;
+      v14 = 227;
+      v15 = 2114;
+      v16 = observerCopy;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       if (self)
@@ -573,26 +564,24 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v11 = "[FCOfflineIssueList addObserver:]";
-    v12 = 2080;
-    v13 = "FCOfflineIssueList.m";
-    v14 = 1024;
-    v15 = 223;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCOfflineIssueList addObserver:]";
+    v11 = 2080;
+    v12 = "FCOfflineIssueList.m";
+    v13 = 1024;
+    v14 = 223;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -612,19 +601,17 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v9 = "[FCOfflineIssueList removeObserver:]";
-    v10 = 2080;
-    v11 = "FCOfflineIssueList.m";
-    v12 = 1024;
-    v13 = 236;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "[FCOfflineIssueList removeObserver:]";
+    v9 = 2080;
+    v10 = "FCOfflineIssueList.m";
+    v11 = 1024;
+    v12 = 236;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

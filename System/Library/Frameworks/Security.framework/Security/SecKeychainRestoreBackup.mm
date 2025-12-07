@@ -16,7 +16,7 @@ uint64_t ___SecKeychainRestoreBackup_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t ___SecKeychainRestoreBackup_block_invoke_2(void *a1, CFTypeRef *a2)
+uint64_t ___SecKeychainRestoreBackup_block_invoke_2(void *a1, CFErrorRef *a2)
 {
   if (gSecurityd && *(gSecurityd + 64))
   {

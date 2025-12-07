@@ -1,6 +1,7 @@
 @interface NeRDTapToManager
 + (void)cleanDataVolumeIfNeeded;
 + (void)cleanFilesUnderFolder:(id)folder logger:(id)logger;
+- (BOOL)_queue_draw:(id)_queue_draw withDrawType:(int)type;
 - (BOOL)_queue_drawAnimation:(id)animation withRefreshTime:(int)time;
 - (BOOL)draw:(id)draw withDrawType:(int)type;
 - (BOOL)drawImageFromPath:(id)path withMapFromPath:(id)fromPath;
@@ -386,7 +387,7 @@ void __29__NeRDTapToManager_activate___block_invoke(uint64_t a1)
       block[3] = &unk_100099400;
       v11 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v41 = v11;
+      v34 = v11;
       dispatch_async(v10, block);
     }
 
@@ -456,12 +457,12 @@ LABEL_21:
 
       v21 = [*(a1 + 32) clientQueue];
       v22 = v21;
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = __29__NeRDTapToManager_activate___block_invoke_437;
-      v39[3] = &unk_100099428;
-      v39[4] = *(a1 + 32);
-      v23 = v39;
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = __29__NeRDTapToManager_activate___block_invoke_437;
+      v32[3] = &unk_100099428;
+      v32[4] = *(a1 + 32);
+      v23 = v32;
       goto LABEL_33;
     }
 
@@ -475,18 +476,18 @@ LABEL_21:
 
   CFRelease(v15);
   *buf = v24;
-  setAnimationRefreshTime(42000, v25, v26, v27, v28, v29, v30, v31);
-  v32 = [*(a1 + 32) setNeRDUIStepDisplayData:5 params:buf];
-  v33 = [*(a1 + 32) logger];
-  v34 = [v33 oslog];
+  setAnimationRefreshTime(42000);
+  v25 = [*(a1 + 32) setNeRDUIStepDisplayData:5 params:buf];
+  v26 = [*(a1 + 32) logger];
+  v27 = [v26 oslog];
 
-  v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
-  if (v32)
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+  if (v25)
   {
-    if (v35)
+    if (v28)
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "activate set onFirstScreen YES", v38, 2u);
+      *v31 = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "activate set onFirstScreen YES", v31, 2u);
     }
 
     [*(a1 + 32) setOnFirstScreen:1];
@@ -496,24 +497,24 @@ LABEL_21:
 
   else
   {
-    if (v35)
+    if (v28)
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Unable to show tap-to pairing UI\n", v38, 2u);
+      *v31 = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Unable to show tap-to pairing UI\n", v31, 2u);
     }
 
-    v36 = [*(a1 + 32) clientCompletion];
+    v29 = [*(a1 + 32) clientCompletion];
 
-    if (v36)
+    if (v29)
     {
       v21 = [*(a1 + 32) clientQueue];
       v22 = v21;
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = __29__NeRDTapToManager_activate___block_invoke_438;
-      v37[3] = &unk_100099428;
-      v37[4] = *(a1 + 32);
-      v23 = v37;
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = __29__NeRDTapToManager_activate___block_invoke_438;
+      v30[3] = &unk_100099428;
+      v30[4] = *(a1 + 32);
+      v23 = v30;
 LABEL_33:
       dispatch_async(v21, v23);
     }
@@ -557,17 +558,64 @@ void __29__NeRDTapToManager_activate___block_invoke_438(uint64_t a1)
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543618;
-    v19 = animationCopy;
-    v20 = 1024;
+    v11 = 138543618;
+    v12 = animationCopy;
+    v13 = 1024;
     timeCopy = time;
-    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Displaying animation %{public}@ with refresh time %d", &v18, 0x12u);
+    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Displaying animation %{public}@ with refresh time %d", &v11, 0x12u);
   }
 
-  setAnimationRefreshTime(time, v9, v10, v11, v12, v13, v14, v15);
-  v16 = [(NeRDTapToManager *)self _queue_draw:animationCopy withDrawType:5];
+  setAnimationRefreshTime(time);
+  v9 = [(NeRDTapToManager *)self _queue_draw:animationCopy withDrawType:5];
 
-  return v16;
+  return v9;
+}
+
+- (BOOL)_queue_draw:(id)_queue_draw withDrawType:(int)type
+{
+  v4 = *&type;
+  _queue_drawCopy = _queue_draw;
+  logger = [(NeRDTapToManager *)self logger];
+  oslog = [logger oslog];
+
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v20 = _queue_drawCopy;
+    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Displaying %{public}@", buf, 0xCu);
+  }
+
+  v9 = [_queue_drawCopy length];
+  v10 = &v17 - ((v9 + 16) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v10, v9 + 1);
+  strlcpy(v10, [_queue_drawCopy UTF8String], objc_msgSend(_queue_drawCopy, "length") + 1);
+  v18 = v10;
+  v11 = [(NeRDTapToManager *)self setNeRDUIStepDisplayData:v4 params:&v18];
+  logger2 = [(NeRDTapToManager *)self logger];
+  oslog2 = [logger2 oslog];
+
+  v14 = os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT);
+  if (v11)
+  {
+    if (v14)
+    {
+      *buf = 138543362;
+      v20 = _queue_drawCopy;
+      v15 = "Successfully displayed %{public}@";
+LABEL_8:
+      _os_log_impl(&_mh_execute_header, oslog2, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
+    }
+  }
+
+  else if (v14)
+  {
+    *buf = 138543362;
+    v20 = _queue_drawCopy;
+    v15 = "Unable to show UI: %{public}@";
+    goto LABEL_8;
+  }
+
+  return v11;
 }
 
 - (BOOL)draw:(id)draw withDrawType:(int)type
@@ -812,7 +860,7 @@ void __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke(uint64_t 
   {
     v4 = [*(a1 + 40) eventType];
     *buf = 67240192;
-    *v69 = v4;
+    *v68 = v4;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Got event %{public}d from setupKit", buf, 8u);
   }
 
@@ -828,7 +876,7 @@ void __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke(uint64_t 
     {
       v9 = [*(a1 + 40) error];
       *buf = 138543362;
-      *v69 = v9;
+      *v68 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Got error from SetupKit: %{public}@", buf, 0xCu);
     }
 
@@ -843,8 +891,8 @@ void __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke(uint64_t 
       block[3] = &unk_100099450;
       v12 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v66 = v12;
-      v67 = v5;
+      v65 = v12;
+      v66 = v5;
       dispatch_async(v11, block);
     }
 
@@ -856,103 +904,103 @@ void __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke(uint64_t 
   {
     if (v13 == 20)
     {
-      v32 = [*(a1 + 32) logger];
-      v33 = [v32 oslog];
+      v31 = [*(a1 + 32) logger];
+      v32 = [v31 oslog];
 
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Remote device setup complete", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Remote device setup complete", buf, 2u);
       }
 
       [*(a1 + 32) setShowingSetup:0];
-      v34 = [*(a1 + 32) setupCompletion];
+      v33 = [*(a1 + 32) setupCompletion];
 
-      v35 = *(a1 + 32);
-      if (v34)
+      v34 = *(a1 + 32);
+      if (v33)
       {
-        v36 = [v35 clientQueue];
-        v37 = v36;
-        v62[0] = _NSConcreteStackBlock;
-        v62[1] = 3221225472;
-        v62[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_463;
-        v62[3] = &unk_1000994E0;
-        v62[4] = *(a1 + 32);
-        v63 = v5;
-        v38 = v62;
+        v35 = [v34 clientQueue];
+        v36 = v35;
+        v61[0] = _NSConcreteStackBlock;
+        v61[1] = 3221225472;
+        v61[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_463;
+        v61[3] = &unk_1000994E0;
+        v61[4] = *(a1 + 32);
+        v62 = v5;
+        v37 = v61;
       }
 
       else
       {
-        if ([v35 supportsMessaging])
+        if ([v34 supportsMessaging])
         {
           return;
         }
 
-        v57 = [*(a1 + 32) clientCompletion];
+        v56 = [*(a1 + 32) clientCompletion];
 
-        if (!v57)
+        if (!v56)
         {
           return;
         }
 
-        v36 = [*(a1 + 32) clientQueue];
-        v37 = v36;
-        v60[0] = _NSConcreteStackBlock;
-        v60[1] = 3221225472;
-        v60[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_464;
-        v60[3] = &unk_1000994E0;
-        v60[4] = *(a1 + 32);
-        v61 = v5;
-        v38 = v60;
+        v35 = [*(a1 + 32) clientQueue];
+        v36 = v35;
+        v59[0] = _NSConcreteStackBlock;
+        v59[1] = 3221225472;
+        v59[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_464;
+        v59[3] = &unk_1000994E0;
+        v59[4] = *(a1 + 32);
+        v60 = v5;
+        v37 = v59;
       }
 
 LABEL_37:
-      dispatch_async(v36, v38);
+      dispatch_async(v35, v37);
 
       return;
     }
 
     if (v13 == 30)
     {
-      v50 = [*(a1 + 32) logger];
-      v51 = [v50 oslog];
+      v49 = [*(a1 + 32) logger];
+      v50 = [v49 oslog];
 
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Invalidation event", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Invalidation event", buf, 2u);
       }
 
-      v52 = [*(a1 + 32) invalidationSemaphore];
-      dispatch_semaphore_signal(v52);
+      v51 = [*(a1 + 32) invalidationSemaphore];
+      dispatch_semaphore_signal(v51);
       goto LABEL_45;
     }
 
     if (v13 != 40)
     {
 LABEL_31:
-      v39 = [*(a1 + 32) logger];
-      v20 = [v39 oslog];
+      v38 = [*(a1 + 32) logger];
+      v19 = [v38 oslog];
 
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = [*(a1 + 40) eventType];
+        v39 = [*(a1 + 40) eventType];
         *buf = 67109120;
-        *v69 = v40;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Unsupported event received from setupKit: %d", buf, 8u);
+        *v68 = v39;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Unsupported event received from setupKit: %d", buf, 8u);
       }
 
       goto LABEL_41;
     }
 
-    v21 = [*(a1 + 32) logger];
-    v22 = [v21 oslog];
+    v20 = [*(a1 + 32) logger];
+    v21 = [v20 oslog];
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "connection started", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "connection started", buf, 2u);
     }
 
     +[NeRDTapToManager cleanDataVolumeIfNeeded];
@@ -967,50 +1015,50 @@ LABEL_31:
     {
       if (v13 == 140)
       {
-        v48 = [*(a1 + 32) logger];
-        v49 = [v48 oslog];
+        v47 = [*(a1 + 32) logger];
+        v48 = [v47 oslog];
 
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "AuthCompletionHandler called with success", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "AuthCompletionHandler called with success", buf, 2u);
         }
 
-        v20 = [*(a1 + 32) managerQueue];
-        v64[0] = _NSConcreteStackBlock;
-        v64[1] = 3221225472;
-        v64[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_462;
-        v64[3] = &unk_100099428;
-        v64[4] = *(a1 + 32);
-        dispatch_async(v20, v64);
+        v19 = [*(a1 + 32) managerQueue];
+        v63[0] = _NSConcreteStackBlock;
+        v63[1] = 3221225472;
+        v63[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_462;
+        v63[3] = &unk_100099428;
+        v63[4] = *(a1 + 32);
+        dispatch_async(v19, v63);
         goto LABEL_41;
       }
 
       if (v13 == 300)
       {
-        v20 = *(a1 + 40);
-        v23 = [*(a1 + 32) logger];
-        v24 = [v23 oslog];
+        v19 = *(a1 + 40);
+        v22 = [*(a1 + 32) logger];
+        v23 = [v22 oslog];
 
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = [v20 basicConfig];
+          v24 = [v19 basicConfig];
           *buf = 138543362;
-          *v69 = v25;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Remote device sent config: %{public}@", buf, 0xCu);
+          *v68 = v24;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Remote device sent config: %{public}@", buf, 0xCu);
         }
 
-        v26 = [v20 basicConfig];
-        v27 = [v26 objectForKeyedSubscript:@"NeRDSupportsMessaging"];
-        [*(a1 + 32) setSupportsMessaging:{objc_msgSend(v27, "BOOLValue")}];
+        v25 = [v19 basicConfig];
+        v26 = [v25 objectForKeyedSubscript:@"NeRDSupportsMessaging"];
+        [*(a1 + 32) setSupportsMessaging:{objc_msgSend(v26, "BOOLValue")}];
 
-        v28 = [v20 basicConfig];
-        v29 = [v28 objectForKeyedSubscript:@"NeRDSupportsOOBMessaging"];
-        [*(a1 + 32) setSupportsOOBMessaging:{objc_msgSend(v29, "BOOLValue")}];
+        v27 = [v19 basicConfig];
+        v28 = [v27 objectForKeyedSubscript:@"NeRDSupportsOOBMessaging"];
+        [*(a1 + 32) setSupportsOOBMessaging:{objc_msgSend(v28, "BOOLValue")}];
 
-        v30 = [v20 basicConfig];
-        v31 = [v30 objectForKeyedSubscript:@"NeRDSupportsSlowRoll"];
-        [*(a1 + 32) setSupportsSlowRoll:{objc_msgSend(v31, "BOOLValue")}];
+        v29 = [v19 basicConfig];
+        v30 = [v29 objectForKeyedSubscript:@"NeRDSupportsSlowRoll"];
+        [*(a1 + 32) setSupportsSlowRoll:{objc_msgSend(v30, "BOOLValue")}];
 
         [*(a1 + 32) setSupportsEACS:0];
         [*(a1 + 32) setOldClient:{objc_msgSend(*(a1 + 32), "supportsMessaging") ^ 1}];
@@ -1033,28 +1081,27 @@ LABEL_31:
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Got request to present code", buf, 2u);
         }
 
-        v16 = *(a1 + 40);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = *(a1 + 32);
-          v18 = *(a1 + 40);
-          [v17 setShowingPIN:1];
-          v19 = *(a1 + 32);
-          v20 = [v18 password];
-          [v19 showPassCodeHandler:v20];
+          v16 = *(a1 + 32);
+          v17 = *(a1 + 40);
+          [v16 setShowingPIN:1];
+          v18 = *(a1 + 32);
+          v19 = [v17 password];
+          [v18 showPassCodeHandler:v19];
 
 LABEL_41:
           return;
         }
 
-        v56 = [*(a1 + 32) logger];
-        v52 = [v56 oslog];
+        v55 = [*(a1 + 32) logger];
+        v51 = [v55 oslog];
 
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Unexpected event class for AuthenticationRequest event", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Unexpected event class for AuthenticationRequest event", buf, 2u);
         }
 
 LABEL_45:
@@ -1065,49 +1112,49 @@ LABEL_45:
       goto LABEL_31;
     }
 
-    v41 = [*(a1 + 32) logger];
-    v42 = [v41 oslog];
+    v40 = [*(a1 + 32) logger];
+    v41 = [v40 oslog];
 
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [*(a1 + 32) setupCompleted];
-      v44 = [*(a1 + 32) clientCompletion];
-      v45 = objc_retainBlock(v44);
+      v42 = [*(a1 + 32) setupCompleted];
+      v43 = [*(a1 + 32) clientCompletion];
+      v44 = objc_retainBlock(v43);
       *buf = 67109378;
-      *v69 = v43;
-      *&v69[4] = 2114;
-      *&v69[6] = v45;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "connection ended, self.setupCompleted:%d self.clientCompletion:%{public}@", buf, 0x12u);
+      *v68 = v42;
+      *&v68[4] = 2114;
+      *&v68[6] = v44;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "connection ended, self.setupCompleted:%d self.clientCompletion:%{public}@", buf, 0x12u);
     }
 
     [*(a1 + 32) setConnectionValid:0];
-    v46 = [*(a1 + 32) setupCompleted];
-    v47 = *(a1 + 32);
-    if (v46)
+    v45 = [*(a1 + 32) setupCompleted];
+    v46 = *(a1 + 32);
+    if (v45)
     {
-      v36 = [v47 clientQueue];
-      v37 = v36;
-      v58[0] = _NSConcreteStackBlock;
-      v58[1] = 3221225472;
-      v58[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_465;
-      v58[3] = &unk_1000994E0;
-      v58[4] = *(a1 + 32);
-      v59 = v5;
-      v38 = v58;
+      v35 = [v46 clientQueue];
+      v36 = v35;
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_465;
+      v57[3] = &unk_1000994E0;
+      v57[4] = *(a1 + 32);
+      v58 = v5;
+      v37 = v57;
       goto LABEL_37;
     }
 
-    if ([v47 showingSetup] && !objc_msgSend(*(a1 + 32), "oldClient") || objc_msgSend(*(a1 + 32), "showingPIN") && objc_msgSend(*(a1 + 32), "oldClient"))
+    if ([v46 showingSetup] && !objc_msgSend(*(a1 + 32), "oldClient") || objc_msgSend(*(a1 + 32), "showingPIN") && objc_msgSend(*(a1 + 32), "oldClient"))
     {
-      v53 = [*(a1 + 32) logger];
-      v54 = [v53 oslog];
+      v52 = [*(a1 + 32) logger];
+      v53 = [v52 oslog];
 
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v55 = [*(a1 + 32) oldClient];
+        v54 = [*(a1 + 32) oldClient];
         *buf = 67109120;
-        *v69 = v55;
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "connection ended, still in setup, old client:%d, activate", buf, 8u);
+        *v68 = v54;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "connection ended, still in setup, old client:%d, activate", buf, 8u);
       }
 
       [*(a1 + 32) activate:0];
@@ -1140,11 +1187,11 @@ id __48__NeRDTapToManager__setupKitServerEventHandler___block_invoke_462(uint64_
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Displaying spinner", v14, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Displaying spinner", v7, 2u);
   }
 
-  setAnimationRefreshTime(25000, v6, v7, v8, v9, v10, v11, v12);
+  setAnimationRefreshTime(25000);
   return [*(a1 + 32) setNeRDUIStepDisplayData:3 params:0];
 }
 
@@ -1968,8 +2015,8 @@ void __54__NeRDTapToManager_tapToManagerRegisterForButtonPress__block_invoke(uin
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "No need to register for button press\n", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "No need to register for button press\n", &v20, 2u);
     }
 
     return;
@@ -1983,9 +2030,9 @@ void __54__NeRDTapToManager_tapToManagerRegisterForButtonPress__block_invoke(uin
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v21 = 134217984;
-      v22 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "calling IOHIDEventSystemCreate for %p", &v21, 0xCu);
+      v20 = 134217984;
+      v21 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "calling IOHIDEventSystemCreate for %p", &v20, 0xCu);
     }
 
     [*(a1 + 32) setHidEventSystem:IOHIDEventSystemCreate()];
@@ -1995,17 +2042,17 @@ void __54__NeRDTapToManager_tapToManagerRegisterForButtonPress__block_invoke(uin
   v10 = *(a1 + 32);
   if (!v9)
   {
-    v17 = [v10 logger];
-    v14 = [v17 oslog];
+    v16 = [v10 logger];
+    v13 = [v16 oslog];
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 32);
-      v21 = 134217984;
-      v22 = v18;
-      v19 = "ERROR: HIDEventSystem object not allocated for %p";
+      v17 = *(a1 + 32);
+      v20 = 134217984;
+      v21 = v17;
+      v18 = "ERROR: HIDEventSystem object not allocated for %p";
 LABEL_18:
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v19, &v21, 0xCu);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v18, &v20, 0xCu);
     }
 
 LABEL_19:
@@ -2014,32 +2061,31 @@ LABEL_19:
   }
 
   [v10 hidEventSystem];
-  v11 = *(a1 + 32);
-  v12 = IOHIDEventSystemOpen();
-  v13 = [*(a1 + 32) logger];
-  v14 = [v13 oslog];
+  v11 = IOHIDEventSystemOpen();
+  v12 = [*(a1 + 32) logger];
+  v13 = [v12 oslog];
 
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (!v12)
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  if (!v11)
   {
-    if (v15)
+    if (v14)
     {
-      v20 = *(a1 + 32);
-      v21 = 134217984;
-      v22 = v20;
-      v19 = "IOHIDEventSystemOpen failed for %p";
+      v19 = *(a1 + 32);
+      v20 = 134217984;
+      v21 = v19;
+      v18 = "IOHIDEventSystemOpen failed for %p";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if (v15)
+  if (v14)
   {
-    v16 = *(a1 + 32);
-    v21 = 134217984;
-    v22 = v16;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Registered %p for button events", &v21, 0xCu);
+    v15 = *(a1 + 32);
+    v20 = 134217984;
+    v21 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Registered %p for button events", &v20, 0xCu);
   }
 
   [*(a1 + 32) setRegisteredForButtonPress:1];

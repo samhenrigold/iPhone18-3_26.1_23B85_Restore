@@ -90,7 +90,7 @@
   }
 }
 
-uint64_t __27__JFXLRUCache_setCapacity___block_invoke(uint64_t a1)
+void *__27__JFXLRUCache_setCapacity___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 8) = *(a1 + 40);
   do

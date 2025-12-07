@@ -15,7 +15,7 @@
 
 - (void)_endMonitoring
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   numberOfTransactions = self->_numberOfTransactions;
   if (numberOfTransactions == 1)
   {
@@ -23,35 +23,35 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v17 = "[CSSiriQueueMonitor _endMonitoring]";
+      v16 = "[CSSiriQueueMonitor _endMonitoring]";
       _os_log_debug_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
     }
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     allValues = [(NSMutableDictionary *)self->_observersByIdentifier allValues];
-    v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) stop];
+          [*(*(&v10 + 1) + 8 * v9++) stop];
         }
 
         while (v7 != v9);
-        v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -61,12 +61,11 @@
   }
 
   self->_numberOfTransactions = numberOfTransactions - 1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginMonitoring
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   numberOfTransactions = self->_numberOfTransactions;
   if (!numberOfTransactions)
   {
@@ -74,35 +73,35 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v17 = "[CSSiriQueueMonitor _beginMonitoring]";
+      v16 = "[CSSiriQueueMonitor _beginMonitoring]";
       _os_log_debug_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
     }
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     allValues = [(NSMutableDictionary *)self->_observersByIdentifier allValues];
-    v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) startWithQueue:self->_queue];
+          [*(*(&v10 + 1) + 8 * v9++) startWithQueue:self->_queue];
         }
 
         while (v7 != v9);
-        v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -112,7 +111,6 @@
   }
 
   self->_numberOfTransactions = numberOfTransactions + 1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeQueue:(id)queue
@@ -133,7 +131,7 @@
 
 - (void)_addQueue:(id)queue heartBeatInterval:(double)interval timeoutInterval:(double)timeoutInterval timeoutHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   v11 = MEMORY[0x277CCACA8];
   handlerCopy = handler;
@@ -145,11 +143,11 @@
     v15 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315394;
-      v19 = "[CSSiriQueueMonitor _addQueue:heartBeatInterval:timeoutInterval:timeoutHandler:]";
-      v20 = 2112;
-      v21 = queueCopy;
-      _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s Queue %@ is already being observed.", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[CSSiriQueueMonitor _addQueue:heartBeatInterval:timeoutInterval:timeoutHandler:]";
+      v19 = 2112;
+      v20 = queueCopy;
+      _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s Queue %@ is already being observed.", &v17, 0x16u);
     }
   }
 
@@ -161,18 +159,16 @@
   {
     [(_CSSiriQueueObserver *)v16 startWithQueue:self->_queue];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endMonitoring
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[CSSiriQueueMonitor endMonitoring]";
+    v7 = "[CSSiriQueueMonitor endMonitoring]";
     _os_log_debug_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -183,17 +179,16 @@
   block[3] = &unk_2784C6FD0;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginMonitoring
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[CSSiriQueueMonitor beginMonitoring]";
+    v7 = "[CSSiriQueueMonitor beginMonitoring]";
     _os_log_debug_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -204,7 +199,6 @@
   block[3] = &unk_2784C6FD0;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeQueue:(id)queue

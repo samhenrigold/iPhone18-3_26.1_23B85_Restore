@@ -19,7 +19,7 @@
   v7 = v6;
   v8 = sub_1B7800FA8();
   selfCopy = self;
-  PIIStringProcessor.redact(from:forCountryCodes:)(v5, v7, v8, &v12);
+  PIIStringProcessor.redact(from:forCountryCodes:)(v5, v7, v8, v12);
 
   if (v13 == 1)
   {
@@ -27,7 +27,7 @@
 
   else
   {
-    sub_1B7223CC4();
+    sub_1B7223CC4(v12[0], v12[1]);
   }
 
   v10 = sub_1B7800838();

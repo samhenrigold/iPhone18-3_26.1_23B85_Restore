@@ -3,6 +3,8 @@
 - (id)_notificationNameForInState:(BOOL)state;
 - (id)assertInState;
 - (int)_notificationTokenForInState:(BOOL)state;
+- (void)_registerDarwinNotificationForInState:(BOOL)state;
+- (void)_unregisterDarwinNotificationForInstate:(BOOL)instate;
 - (void)handleAssertionFailureWithReason:(id)reason error:(id)error;
 - (void)handleAssertionSuccessWithReason:(id)reason;
 - (void)startMonitoring;
@@ -78,6 +80,41 @@
   self->_isInState = 0;
 }
 
+- (void)_registerDarwinNotificationForInState:(BOOL)state
+{
+  stateCopy = state;
+  v5 = [(MechanismAssertionWithDarwinNotifications *)self _notificationTokenForInState:?];
+  v6 = [(MechanismAssertionWithDarwinNotifications *)self _notificationNameForInState:stateCopy];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"received %@", v6];
+  objc_initWeak(&location, self);
+  uTF8String = [v6 UTF8String];
+  queue = [MEMORY[0x277CD47C8] queue];
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __83__MechanismAssertionWithDarwinNotifications__registerDarwinNotificationForInState___block_invoke;
+  handler[3] = &unk_278A62E38;
+  objc_copyWeak(&v17, &location);
+  v18 = stateCopy;
+  v10 = v7;
+  v16 = v10;
+  v11 = notify_register_dispatch(uTF8String, v5, queue, handler);
+
+  if (v11)
+  {
+    mechanism = [(MechanismAssertion *)self mechanism];
+    request = [mechanism request];
+    v14 = [request log];
+
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      [(MechanismAssertionWithDarwinNotifications *)v6 _registerDarwinNotificationForInState:v11, v14];
+    }
+  }
+
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&location);
+}
+
 void __83__MechanismAssertionWithDarwinNotifications__registerDarwinNotificationForInState___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -98,6 +135,16 @@ void __83__MechanismAssertionWithDarwinNotifications__registerDarwinNotification
     }
 
     WeakRetained = v6;
+  }
+}
+
+- (void)_unregisterDarwinNotificationForInstate:(BOOL)instate
+{
+  v3 = *[(MechanismAssertionWithDarwinNotifications *)self _notificationTokenForInState:instate];
+  if (v3)
+  {
+
+    notify_cancel(v3);
   }
 }
 
@@ -130,13 +177,12 @@ void __83__MechanismAssertionWithDarwinNotifications__registerDarwinNotification
 
 - (void)_registerDarwinNotificationForInState:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_fault_impl(&dword_238B95000, log, OS_LOG_TYPE_FAULT, "Failed to register %{public}@: %u", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_fault_impl(&dword_238B95000, log, OS_LOG_TYPE_FAULT, "Failed to register %{public}@: %u", &v3, 0x12u);
 }
 
 @end

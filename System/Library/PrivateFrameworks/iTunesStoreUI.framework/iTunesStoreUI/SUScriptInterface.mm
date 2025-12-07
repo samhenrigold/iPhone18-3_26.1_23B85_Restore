@@ -286,7 +286,7 @@
   return v2;
 }
 
-uint64_t __61__SUScriptInterface_SUScriptTestingAdditions__launchedToTest__block_invoke(uint64_t a1)
+void *__61__SUScriptInterface_SUScriptTestingAdditions__launchedToTest__block_invoke(uint64_t a1)
 {
   result = [*MEMORY[0x1E69DDA98] launchedToTest];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -305,7 +305,7 @@ uint64_t __61__SUScriptInterface_SUScriptTestingAdditions__launchedToTest__block
   return v2;
 }
 
-uint64_t __60__SUScriptInterface_SUScriptTestingAdditions__isRunningTest__block_invoke(uint64_t a1)
+void *__60__SUScriptInterface_SUScriptTestingAdditions__isRunningTest__block_invoke(uint64_t a1)
 {
   result = [*MEMORY[0x1E69DDA98] isRunningTest];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -639,7 +639,7 @@ LABEL_6:
 
 void __58__SUScriptInterface_acknowledgePrivacyLinkWithIdentifier___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained URLBag];
 
@@ -652,41 +652,45 @@ void __58__SUScriptInterface_acknowledgePrivacyLinkWithIdentifier___block_invoke
       v13 = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v14 = v13 | 2;
+        LODWORD(v14) = v13 | 2;
       }
 
       else
       {
-        v14 = v13;
+        LODWORD(v14) = v13;
       }
 
       v15 = [v6 OSLogObject];
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
 
       if (v14)
       {
-        *v23 = 138543618;
-        *&v23[4] = objc_opt_class();
-        *&v23[12] = 2080;
-        *&v23[14] = "[SUScriptInterface acknowledgePrivacyLinkWithIdentifier:]_block_invoke";
-        v16 = *&v23[4];
-        LODWORD(v22) = 22;
-        v17 = _os_log_send_and_compose_impl();
+        v22 = 138543618;
+        v23 = objc_opt_class();
+        v24 = 2080;
+        v25 = "[SUScriptInterface acknowledgePrivacyLinkWithIdentifier:]_block_invoke";
+        v16 = v23;
+        v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, v15, 16, "%{public}@: %s failed to load the privacy URL for privacy acknowledgement.", &v22, 22);
 
         if (!v17)
         {
-          goto LABEL_31;
+          goto LABEL_34;
         }
 
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, v23, v22, *v23, *&v23[8], v24}];
+        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
         free(v17);
         SSFileLog();
       }
 
-      goto LABEL_31;
+      goto LABEL_34;
     }
 
     v6 = v5;
@@ -694,86 +698,94 @@ void __58__SUScriptInterface_acknowledgePrivacyLinkWithIdentifier___block_invoke
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v23 = 138543362;
-      *&v23[4] = objc_opt_class();
-      v11 = *&v23[4];
-      LODWORD(v22) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v11 = v23;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 0, "%{public}@: acknowledging privacy consent", &v22, 12);
 
       if (!v12)
       {
-LABEL_13:
+LABEL_14:
 
         [MEMORY[0x1E69D4988] acknowledgePrivacyLinkWithIdentifier:*(a1 + 40) URL:v6];
-LABEL_31:
+LABEL_34:
 
-        goto LABEL_32;
+        goto LABEL_35;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v23, v22, *v23}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v4 = [MEMORY[0x1E69D4938] sharedConfig];
   v18 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v19 = v18 | 2;
+    LODWORD(v19) = v18 | 2;
   }
 
   else
   {
-    v19 = v18;
+    LODWORD(v19) = v18;
   }
 
   v6 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v19 = v19;
+  }
+
+  else
   {
     v19 &= 2u;
   }
 
   if (!v19)
   {
-    goto LABEL_31;
+    goto LABEL_34;
   }
 
-  *v23 = 138543618;
-  *&v23[4] = objc_opt_class();
-  *&v23[12] = 2080;
-  *&v23[14] = "[SUScriptInterface acknowledgePrivacyLinkWithIdentifier:]_block_invoke";
-  v20 = *&v23[4];
-  LODWORD(v22) = 22;
-  v21 = _os_log_send_and_compose_impl();
+  v22 = 138543618;
+  v23 = objc_opt_class();
+  v24 = 2080;
+  v25 = "[SUScriptInterface acknowledgePrivacyLinkWithIdentifier:]_block_invoke";
+  v20 = v23;
+  v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, v6, 16, "%{public}@: %s failed to load the bag for privacy acknowledgement.", &v22, 22);
 
   if (v21)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, v23, v22, *v23, *&v23[8], v24}];
+    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
     free(v21);
     SSFileLog();
-    goto LABEL_31;
+    goto LABEL_34;
   }
 
-LABEL_32:
+LABEL_35:
 }
 
 - (void)addiTunesPassWithCompletionFunction:(id)function
@@ -839,125 +851,133 @@ void __57__SUScriptInterface_addiTunesPassWithCompletionFunction___block_invoke_
 
 - (id)currentAttestationVersion
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy_;
-  v25 = __Block_byref_object_dispose_;
-  v26 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
   v3 = dispatch_semaphore_create(0);
   v4 = objc_alloc_init(MEMORY[0x1E69D48A8]);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __46__SUScriptInterface_currentAttestationVersion__block_invoke;
-  v18[3] = &unk_1E8164458;
-  v18[4] = self;
-  v20 = &v21;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __46__SUScriptInterface_currentAttestationVersion__block_invoke;
+  v17[3] = &unk_1E8164458;
+  v17[4] = self;
+  v19 = &v20;
   v5 = v3;
-  v19 = v5;
-  [v4 getCurrentACLVersionWithCompletion:v18];
+  v18 = v5;
+  [v4 getCurrentACLVersionWithCompletion:v17];
   v6 = dispatch_time(0, 3000000000);
   if (dispatch_semaphore_wait(v5, v6))
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v8) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
     v11 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v8) = v8 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v8 = v8;
     }
 
-    if (shouldLog)
+    else
+    {
+      v8 &= 2u;
+    }
+
+    if (v8)
     {
       v12 = objc_opt_class();
-      v27 = 138543362;
-      v28 = v12;
+      v26 = 138543362;
+      v27 = v12;
       v13 = v12;
-      LODWORD(v17) = 12;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, v11, 16, "%{public}@: Timed out while fetching ACL version", &v26, 12);
 
       if (!v14)
       {
-LABEL_10:
+LABEL_11:
 
-        goto LABEL_11;
+        goto LABEL_12;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v27, v17}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-LABEL_11:
-  v15 = v22[5];
+LABEL_12:
+  v15 = v21[5];
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
 
 void __46__SUScriptInterface_currentAttestationVersion__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (!v7)
   {
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v8 = [MEMORY[0x1E69D4938] sharedConfig];
   v9 = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = v9 | 2;
+    LODWORD(v10) = v9 | 2;
   }
 
   else
   {
-    v10 = v9;
+    LODWORD(v10) = v9;
   }
 
   v11 = [v8 OSLogObject];
-  if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-  *v15 = 138543618;
-  *&v15[4] = objc_opt_class();
-  *&v15[12] = 2114;
-  *&v15[14] = v7;
-  v12 = *&v15[4];
-  LODWORD(v14) = 22;
-  v13 = _os_log_send_and_compose_impl();
+  v14 = 138543618;
+  v15 = objc_opt_class();
+  v16 = 2114;
+  v17 = v7;
+  v12 = v15;
+  v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v11, 16, "%{public}@: Failed to retrieve ACL version with error: %{public}@", &v14, 22);
 
   if (v13)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, v15, v14, *v15, *&v15[16], v16}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
-LABEL_13:
+LABEL_14:
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
@@ -1047,7 +1067,7 @@ void __64__SUScriptInterface__finishCreditCardReaderWithOutput_callback___block_
 
 - (void)openFamilyCircleSetupWithClientName:(id)name completionFunction:(id)function
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   functionCopy = function;
   objc_opt_class();
@@ -1081,16 +1101,15 @@ void __64__SUScriptInterface__finishCreditCardReaderWithOutput_callback___block_
       goto LABEL_23;
     }
 
-    v20 = 138543362;
-    v21 = functionCopy;
-    LODWORD(v17) = 12;
-    v12 = _os_log_send_and_compose_impl();
+    v19 = 138543362;
+    v20 = functionCopy;
+    v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "openFamilyCircleSetup called with invalid completion function: %{public}@. Aborting.", &v19, 12);
 
     if (v12)
     {
       v13 = MEMORY[0x1E696AEC0];
 LABEL_22:
-      oSLogObject = [v13 stringWithCString:v12 encoding:{4, &v20, v17}];
+      oSLogObject = [v13 stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
 LABEL_23:
@@ -1133,10 +1152,9 @@ LABEL_24:
       goto LABEL_23;
     }
 
-    v20 = 138543362;
-    v21 = nameCopy;
-    LODWORD(v17) = 12;
-    v12 = _os_log_send_and_compose_impl();
+    v19 = 138543362;
+    v20 = nameCopy;
+    v12 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "openFamilyCircleSetup called with invalid client name: %{public}@. Aborting.", &v19, 12);
 
     if (v12)
     {
@@ -1147,8 +1165,8 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v18 = functionCopy;
-  v19 = nameCopy;
+  v17 = functionCopy;
+  v18 = nameCopy;
   WebThreadRunOnMainThread();
 
 LABEL_25:
@@ -1156,80 +1174,79 @@ LABEL_25:
 
 void __76__SUScriptInterface_openFamilyCircleSetupWithClientName_completionFunction___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [[SUScriptFunction alloc] initWithScriptObject:*(a1 + 32)];
-  [(SUScriptFunction *)v2 setThisObject:*(a1 + 40)];
-  v3 = objc_alloc(getFACircleContextClass());
-  v4 = getFACircleEventTypeInitiate();
-  v5 = [v3 initWithEventType:v4];
+  v3 = [(SUScriptFunction *)v2 setThisObject:*(a1 + 40)];
+  v4 = objc_alloc(getFACircleContextClass(v3));
+  v5 = getFACircleEventTypeInitiate(v4);
+  v6 = [v4 initWithEventType:v5];
 
-  [v5 setClientName:*(a1 + 48)];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v6 = objc_alloc(getFACircleStateControllerClass());
-  v7 = [*(a1 + 40) parentViewController];
-  v27 = [v6 initWithPresenter:v7];
+  v7 = [v6 setClientName:*(a1 + 48)];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v8 = objc_alloc(getFACircleStateControllerClass(v7));
+  v9 = [*(a1 + 40) parentViewController];
+  v28 = [v8 initWithPresenter:v9];
 
-  v8 = [MEMORY[0x1E69D4938] sharedConfig];
-  v9 = [v8 shouldLog];
-  v10 = [v8 shouldLogToDisk];
-  v11 = [v8 OSLogObject];
-  v12 = v11;
-  if (v10)
+  v10 = [MEMORY[0x1E69D4938] sharedConfig];
+  v11 = [v10 shouldLog];
+  v12 = [v10 shouldLogToDisk];
+  v13 = [v10 OSLogObject];
+  v14 = v13;
+  if (v12)
   {
-    v9 |= 2u;
+    v11 |= 2u;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v9;
+    v15 = v11;
   }
 
   else
   {
-    v13 = v9 & 2;
+    v15 = v11 & 2;
   }
 
-  if (!v13)
+  if (!v15)
   {
     goto LABEL_9;
   }
 
-  v14 = v23[5];
-  v28 = 138543618;
-  v29 = v14;
-  v30 = 2114;
-  v31 = v5;
-  LODWORD(v18) = 22;
-  v15 = _os_log_send_and_compose_impl();
+  v16 = v24[5];
+  v29 = 138543618;
+  v30 = v16;
+  v31 = 2114;
+  v32 = v6;
+  v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, v14, 0, "Calling [FACircleStateController performOperationWithContext:completion:] on %{public}@ with context: %{public}@.", &v29, 22);
 
-  if (v15)
+  if (v17)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v28, v18}];
-    free(v15);
+    v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+    free(v17);
     SSFileLog();
 LABEL_9:
   }
 
-  v16 = v23[5];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __76__SUScriptInterface_openFamilyCircleSetupWithClientName_completionFunction___block_invoke_81;
-  v19[3] = &unk_1E81644F8;
-  v21 = &v22;
-  v17 = v2;
-  v20 = v17;
-  [v16 performOperationWithContext:v5 completion:v19];
+  v18 = v24[5];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __76__SUScriptInterface_openFamilyCircleSetupWithClientName_completionFunction___block_invoke_81;
+  v20[3] = &unk_1E81644F8;
+  v22 = &v23;
+  v19 = v2;
+  v21 = v19;
+  [v18 performOperationWithContext:v6 completion:v20];
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 void __76__SUScriptInterface_openFamilyCircleSetupWithClientName_completionFunction___block_invoke_81(uint64_t a1, int a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [MEMORY[0x1E69D4938] sharedConfig];
   v7 = [v6 shouldLog];
@@ -1266,19 +1283,17 @@ void __76__SUScriptInterface_openFamilyCircleSetupWithClientName_completionFunct
     v12 = "YES";
   }
 
-  v25 = 138543874;
-  v26 = v11;
-  v27 = 2082;
-  v28 = v12;
-  v29 = 2114;
-  v30 = v5;
-  LODWORD(v23) = 32;
-  v22 = &v25;
-  v13 = _os_log_send_and_compose_impl();
+  v24 = 138543874;
+  v25 = v11;
+  v26 = 2082;
+  v27 = v12;
+  v28 = 2114;
+  v29 = v5;
+  v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v9, 0, "Completion handler for [FACircleStateController performOperationWithContext:completion:] on %{public}@ invoked with success: %{public}s and error: %{public}@.", &v24, 32);
 
   if (v13)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v25, v23}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     v22 = v9;
     SSFileLog();
@@ -1307,15 +1322,15 @@ LABEL_12:
   }
 
   v19 = *v17;
-  v24[0] = v19;
+  v23[0] = v19;
   v20 = v16;
   if (!v16)
   {
     v20 = [MEMORY[0x1E69E2FB0] undefined];
   }
 
-  v24[1] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:{2, v22}];
+  v23[1] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:{2, v22}];
   [v18 callWithArguments:v21];
 
   if (!v16)
@@ -1446,171 +1461,188 @@ void __36__SUScriptInterface_dispatchXEvent___block_invoke(uint64_t a1)
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v22 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v22 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v22 &= 2u;
+      v23 = v23;
     }
 
-    if (v22)
+    else
     {
-      v24 = objc_opt_class();
-      v45 = 138543362;
-      v46 = v24;
-      v25 = v24;
-      LODWORD(v36) = 12;
-      v26 = _os_log_send_and_compose_impl();
+      v23 &= 2u;
+    }
 
-      if (!v26)
+    if (v23)
+    {
+      v25 = objc_opt_class();
+      v45 = 138543362;
+      v46 = v25;
+      v26 = v25;
+      v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: [FetchAppleCardMetadata] Failed for no callback function.", &v45, 12, v37, v38, v39, v40);
+
+      if (!v27)
       {
-        goto LABEL_39;
+        goto LABEL_42;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v45, v36, v37, v38, v39, v40}];
-      free(v26);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
+      free(v27);
       SSFileLog();
     }
 
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
-  if ([MEMORY[0x1E69E4728] shouldUseExtendedEnrollment])
+  shouldUseExtendedEnrollment = [MEMORY[0x1E69E4728] shouldUseExtendedEnrollment];
+  if (shouldUseExtendedEnrollment)
   {
-    appleCardIconString = [(objc_class *)getAMSUICardMetadataClass() appleCardIconString];
+    appleCardIconString = [getAMSUICardMetadataClass(shouldUseExtendedEnrollment) appleCardIconString];
     mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v14) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v14) = shouldLog2;
     }
 
     oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
-    v15 = oSLogObject2;
+    v16 = oSLogObject2;
     if (appleCardIconString)
     {
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v13 &= 2u;
+        v14 = v14;
       }
 
-      if (v13)
+      else
       {
-        v16 = objc_opt_class();
-        v45 = 138543362;
-        v46 = v16;
-        v17 = v16;
-        LODWORD(v36) = 12;
-        v18 = _os_log_send_and_compose_impl();
+        v14 &= 2u;
+      }
 
-        if (!v18)
+      if (v14)
+      {
+        v17 = objc_opt_class();
+        v45 = 138543362;
+        v46 = v17;
+        v18 = v17;
+        v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, v16, 0, "%{public}@: [FetchAppleCardMetadata] Successfully retrieved the card icon", &v45, 12, v37, v38, v39, v40);
+
+        if (!v19)
         {
-LABEL_19:
+LABEL_20:
 
           v43 = @"cardArtwork";
           v44 = appleCardIconString;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-          (v9)[2](v9, v19, 0);
-LABEL_47:
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          (v9)[2](v9, v20, 0);
+LABEL_51:
 
-          goto LABEL_48;
+          goto LABEL_52;
         }
 
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v45, v36, v37, v38, v39, v40}];
-        free(v18);
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+        free(v19);
         SSFileLog();
       }
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v13 &= 2u;
+      v14 = v14;
     }
 
-    if (v13)
+    else
     {
-      v33 = objc_opt_class();
+      v14 &= 2u;
+    }
+
+    if (v14)
+    {
+      v34 = objc_opt_class();
       v45 = 138543362;
-      v46 = v33;
-      v34 = v33;
-      LODWORD(v36) = 12;
-      v35 = _os_log_send_and_compose_impl();
+      v46 = v34;
+      v35 = v34;
+      v36 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, v16, 16, "%{public}@: [FetchAppleCardMetadata] Failed for no card icon.", &v45, 12, v37, v38, v39, v40);
 
-      if (!v35)
+      if (!v36)
       {
-LABEL_46:
+LABEL_50:
 
-        v19 = ISError();
-        (v9)[2](v9, 0, v19);
-        goto LABEL_47;
+        v20 = ISError();
+        (v9)[2](v9, 0, v20);
+        goto LABEL_51;
       }
 
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:{4, &v45, v36, v37, v38, v39, v40}];
-      free(v35);
+      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:4];
+      free(v36);
       SSFileLog();
     }
 
-    goto LABEL_46;
+    goto LABEL_50;
   }
 
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog3 = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v28 = shouldLog3 | 2;
+    LODWORD(v29) = shouldLog3 | 2;
   }
 
   else
   {
-    v28 = shouldLog3;
+    LODWORD(v29) = shouldLog3;
   }
 
   oSLogObject3 = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    v28 &= 2u;
+    v29 = v29;
   }
 
-  if (!v28)
+  else
   {
-    goto LABEL_38;
+    v29 &= 2u;
   }
 
-  v30 = objc_opt_class();
+  if (!v29)
+  {
+    goto LABEL_41;
+  }
+
+  v31 = objc_opt_class();
   v45 = 138543362;
-  v46 = v30;
-  v31 = v30;
-  LODWORD(v36) = 12;
-  v32 = _os_log_send_and_compose_impl();
+  v46 = v31;
+  v32 = v31;
+  v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "%{public}@: [FetchAppleCardMetadata] Failed for feature not enabled.", &v45, 12, v37, v38, v39, v40);
 
-  if (v32)
+  if (v33)
   {
-    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v32 encoding:{4, &v45, v36, v37, v38, v39, v40}];
-    free(v32);
+    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
+    free(v33);
     SSFileLog();
-LABEL_38:
+LABEL_41:
   }
 
-LABEL_39:
+LABEL_42:
 
   [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
   appleCardIconString = ISError();
   (v9)[2](v9, 0, appleCardIconString);
-LABEL_48:
+LABEL_52:
 }
 
 void __53__SUScriptInterface_fetchAppleCardMetadata_callback___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1649,14 +1681,14 @@ void __53__SUScriptInterface_fetchAppleCardMetadata_callback___block_invoke(uint
   from[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   objc_initWeak(&location, self);
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __41__SUScriptInterface_fetchWalletCardData___block_invoke;
-  v35[3] = &unk_1E8164548;
-  objc_copyWeak(&v37, &location);
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __41__SUScriptInterface_fetchWalletCardData___block_invoke;
+  v34[3] = &unk_1E8164548;
+  objc_copyWeak(&v36, &location);
   v5 = dataCopy;
-  v36 = v5;
-  v6 = MEMORY[0x1C6916C70](v35);
+  v35 = v5;
+  v6 = MEMORY[0x1C6916C70](v34);
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -1664,94 +1696,102 @@ void __53__SUScriptInterface_fetchAppleCardMetadata_callback___block_invoke(uint
     v5 = 0;
   }
 
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy_;
-  v33[4] = __Block_byref_object_dispose_;
-  v34 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy_;
+  v32[4] = __Block_byref_object_dispose_;
+  v33 = 0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v12) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
     v15 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v12) = v12 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v12 = v12;
     }
 
-    if (shouldLog)
+    else
+    {
+      v12 &= 2u;
+    }
+
+    if (v12)
     {
       v16 = objc_opt_class();
       LODWORD(from[0]) = 138543362;
       *(from + 4) = v16;
       v17 = v16;
-      LODWORD(v26) = 12;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, v15, 16, "%{public}@: [FetchWalletCardData] Failed for no callback function.", from, 12);
 
       if (!v18)
       {
-        goto LABEL_24;
+        goto LABEL_26;
       }
 
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, from, v26}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   if (([MEMORY[0x1E69E4728] shouldUseExtendedEnrollment] & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog2 = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v19) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk2 = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject2 = [mEMORY[0x1E69D4938] OSLogObject];
     v22 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v19) = v19 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v19 = v19;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v19 &= 2u;
+    }
+
+    if (v19)
     {
       v23 = objc_opt_class();
       LODWORD(from[0]) = 138543362;
       *(from + 4) = v23;
       v24 = v23;
-      LODWORD(v26) = 12;
-      v25 = _os_log_send_and_compose_impl();
+      v25 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, v22, 16, "%{public}@: [FetchWalletCardData] Failed for feature not enabled.", from, 12);
 
       if (!v25)
       {
-LABEL_24:
+LABEL_26:
 
         [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
         v9 = ISError();
         (v6)[2](v6, 0, v9);
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, from, v26}];
+      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
       free(v25);
       SSFileLog();
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v7 = objc_alloc(MEMORY[0x1E69E4770]);
@@ -1759,26 +1799,26 @@ LABEL_24:
   v9 = [v7 initWithBagContext:v8];
 
   objc_initWeak(from, v9);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __41__SUScriptInterface_fetchWalletCardData___block_invoke_119;
-  v27[3] = &unk_1E8164598;
-  objc_copyWeak(&v31, &location);
-  objc_copyWeak(&v32, from);
-  v30 = v33;
-  v28 = @"Fetch Wallet Card Data Error";
-  v29 = v6;
-  [v9 setCompletionBlock:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __41__SUScriptInterface_fetchWalletCardData___block_invoke_119;
+  v26[3] = &unk_1E8164598;
+  objc_copyWeak(&v30, &location);
+  objc_copyWeak(&v31, from);
+  v29 = v32;
+  v27 = @"Fetch Wallet Card Data Error";
+  v28 = v6;
+  [v9 setCompletionBlock:v26];
   mainQueue = [MEMORY[0x1E69E4798] mainQueue];
   [mainQueue addOperation:v9];
 
-  objc_destroyWeak(&v32);
   objc_destroyWeak(&v31);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(from);
-LABEL_25:
+LABEL_27:
 
-  _Block_object_dispose(v33, 8);
-  objc_destroyWeak(&v37);
+  _Block_object_dispose(v32, 8);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
 }
 
@@ -1813,24 +1853,29 @@ void __41__SUScriptInterface_fetchWalletCardData___block_invoke(uint64_t a1, voi
       {
 LABEL_5:
         [v19 setObject:v15 forKeyedSubscript:{@"brokerURL", v45}];
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
-LABEL_16:
+LABEL_17:
       v25 = [MEMORY[0x1E69D4938] sharedConfig];
       v26 = [v25 shouldLog];
       if ([v25 shouldLogToDisk])
       {
-        v27 = v26 | 2;
+        LODWORD(v27) = v26 | 2;
       }
 
       else
       {
-        v27 = v26;
+        LODWORD(v27) = v26;
       }
 
       v28 = [v25 OSLogObject];
-      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        v27 = v27;
+      }
+
+      else
       {
         v27 &= 2u;
       }
@@ -1842,16 +1887,15 @@ LABEL_16:
         v57 = v29;
         v49 = v29;
         LODWORD(v47) = 12;
-        v46 = &v56;
-        v30 = _os_log_send_and_compose_impl();
+        v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1C21AF000, v28, 16, "%{public}@: [FetchWalletCardData] Did not find broker URL.", &v56, v47);
 
         if (!v30)
         {
-LABEL_25:
+LABEL_27:
 
           v19 = v53;
           v17 = v54;
-LABEL_26:
+LABEL_28:
           v51 = v15;
           v52 = v12;
           if (v17)
@@ -1861,7 +1905,7 @@ LABEL_26:
             v33 = v5;
             [v19 setObject:v17 forKeyedSubscript:@"paymentServicesURL"];
             v34 = v17;
-LABEL_38:
+LABEL_41:
             v41 = v19;
             v42 = [[SUScriptDictionary alloc] initWithDictionary:v19];
             v55[0] = v42;
@@ -1876,23 +1920,28 @@ LABEL_38:
             v10 = v31;
             v11 = v51;
             v9 = v52;
-            goto LABEL_39;
+            goto LABEL_42;
           }
 
           v35 = [MEMORY[0x1E69D4938] sharedConfig];
           v36 = [v35 shouldLog];
           if ([v35 shouldLogToDisk])
           {
-            v37 = v36 | 2;
+            LODWORD(v37) = v36 | 2;
           }
 
           else
           {
-            v37 = v36;
+            LODWORD(v37) = v36;
           }
 
           v38 = [v35 OSLogObject];
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            v37 = v37;
+          }
+
+          else
           {
             v37 &= 2u;
           }
@@ -1904,51 +1953,56 @@ LABEL_38:
             v57 = v39;
             v50 = v39;
             LODWORD(v47) = 12;
-            v40 = _os_log_send_and_compose_impl();
+            v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1C21AF000, v38, 16, "%{public}@: [FetchWalletCardData] Did not find payment services URL.", &v56, v47);
 
             if (!v40)
             {
-LABEL_37:
+LABEL_40:
               v31 = v13;
               v32 = WeakRetained;
               v33 = v5;
 
               v19 = v53;
               v34 = v54;
-              goto LABEL_38;
+              goto LABEL_41;
             }
 
-            v38 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:{4, &v56, v47}];
+            v38 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:4];
             free(v40);
             SSFileLog();
           }
 
-          goto LABEL_37;
+          goto LABEL_40;
         }
 
-        v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v56, v47}];
+        v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
         free(v30);
         v46 = v28;
         SSFileLog();
       }
 
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
     v20 = [MEMORY[0x1E69D4938] sharedConfig];
     v21 = [v20 shouldLog];
     if ([v20 shouldLogToDisk])
     {
-      v22 = v21 | 2;
+      LODWORD(v22) = v21 | 2;
     }
 
     else
     {
-      v22 = v21;
+      LODWORD(v22) = v21;
     }
 
     v23 = [v20 OSLogObject];
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v22 = v22;
+    }
+
+    else
     {
       v22 &= 2u;
     }
@@ -1958,22 +2012,20 @@ LABEL_37:
       v56 = 138543362;
       v57 = objc_opt_class();
       v48 = v57;
-      LODWORD(v47) = 12;
-      v45 = &v56;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1C21AF000, v23, 16, "%{public}@: [FetchWalletCardData] Did not find card data.", &v56, 12);
 
       if (!v24)
       {
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      v23 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v56, v47}];
+      v23 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
       free(v24);
       v45 = v23;
       SSFileLog();
     }
 
-LABEL_15:
+LABEL_16:
     v19 = v53;
     v17 = v54;
     if (v15)
@@ -1981,7 +2033,7 @@ LABEL_15:
       goto LABEL_5;
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v9 = [[SUScriptError alloc] initWithError:v6];
@@ -1990,7 +2042,7 @@ LABEL_15:
   v58[1] = v9;
   v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
   [(SUScriptFunction *)v8 callWithArguments:v11];
-LABEL_39:
+LABEL_42:
 
   [(SUScriptFunction *)v8 setThisObject:0];
 }
@@ -2007,23 +2059,28 @@ void __41__SUScriptInterface_fetchWalletCardData___block_invoke_119(uint64_t a1)
     v6 = [v4 valueForKey:@"applepay-merchant-id"];
     if (v6)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
     v7 = [MEMORY[0x1E69D4938] sharedConfig];
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -2033,15 +2090,13 @@ void __41__SUScriptInterface_fetchWalletCardData___block_invoke_119(uint64_t a1)
       v45 = 138543362;
       v46 = objc_opt_class();
       v11 = v46;
-      LODWORD(v42) = 12;
-      v40 = &v45;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 16, "%{public}@: [FetchWalletCardData] Did not find merchant ID.", &v45, 12);
 
       if (!v12)
       {
-LABEL_12:
-
 LABEL_13:
+
+LABEL_14:
         v13 = [v5 valueForKey:{@"countryCode", v40}];
         v14 = [v13 uppercaseString];
 
@@ -2049,24 +2104,29 @@ LABEL_13:
         {
           if (v6)
           {
-            goto LABEL_47;
+            goto LABEL_51;
           }
 
-LABEL_36:
+LABEL_39:
           v28 = [MEMORY[0x1E69D4938] sharedConfig];
           v29 = [v28 shouldLog];
           if ([v28 shouldLogToDisk])
           {
-            v30 = v29 | 2;
+            LODWORD(v30) = v29 | 2;
           }
 
           else
           {
-            v30 = v29;
+            LODWORD(v30) = v29;
           }
 
           v31 = [v28 OSLogObject];
-          if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            v30 = v30;
+          }
+
+          else
           {
             v30 &= 2u;
           }
@@ -2078,38 +2138,43 @@ LABEL_36:
             v46 = v32;
             v33 = v32;
             LODWORD(v42) = 12;
-            v34 = _os_log_send_and_compose_impl();
+            v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_1C21AF000, v31, 16, "%{public}@: [FetchWalletCardData] Failed for bad arguments.", &v45, v42);
 
             if (!v34)
             {
-LABEL_45:
+LABEL_49:
 
               [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
-              goto LABEL_46;
+              goto LABEL_50;
             }
 
-            v31 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:{4, &v45, v42}];
+            v31 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:4];
             free(v34);
             SSFileLog();
           }
 
-          goto LABEL_45;
+          goto LABEL_49;
         }
 
         v21 = [MEMORY[0x1E69D4938] sharedConfig];
         v22 = [v21 shouldLog];
         if ([v21 shouldLogToDisk])
         {
-          v23 = v22 | 2;
+          LODWORD(v23) = v22 | 2;
         }
 
         else
         {
-          v23 = v22;
+          LODWORD(v23) = v22;
         }
 
         v24 = [v21 OSLogObject];
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          v23 = v23;
+        }
+
+        else
         {
           v23 &= 2u;
         }
@@ -2121,83 +2186,86 @@ LABEL_45:
           v46 = v25;
           v26 = v25;
           LODWORD(v42) = 12;
-          v41 = &v45;
-          v27 = _os_log_send_and_compose_impl();
+          v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, v24, 16, "%{public}@: [FetchWalletCardData] Did not find store front country code.", &v45, v42);
 
           if (!v27)
           {
-LABEL_35:
+LABEL_38:
 
-            goto LABEL_36;
+            goto LABEL_39;
           }
 
-          v24 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:{4, &v45, v42}];
+          v24 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
           free(v27);
           v41 = v24;
           SSFileLog();
         }
 
-        goto LABEL_35;
+        goto LABEL_38;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v45, v42}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       v40 = v10;
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v15 = [MEMORY[0x1E69D4938] sharedConfig];
   v16 = [v15 shouldLog];
   if ([v15 shouldLogToDisk])
   {
-    v17 = v16 | 2;
+    LODWORD(v17) = v16 | 2;
   }
 
   else
   {
-    v17 = v16;
+    LODWORD(v17) = v16;
   }
 
   v18 = [v15 OSLogObject];
-  if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
 
   if (!v17)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v45 = 138543362;
   v46 = objc_opt_class();
   v19 = v46;
-  LODWORD(v42) = 12;
-  v20 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, v18, 16, "%{public}@: [FetchWalletCardData] Failed to load bag.", &v45, 12);
 
   if (v20)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v45, v42}];
+    v18 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
     free(v20);
     SSFileLog();
-LABEL_24:
+LABEL_26:
   }
 
   v14 = 0;
   v6 = 0;
-LABEL_46:
+LABEL_50:
   v35 = ISError();
   v36 = *(*(a1 + 48) + 8);
   v37 = *(v36 + 40);
   *(v36 + 40) = v35;
 
-LABEL_47:
+LABEL_51:
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    (*(*(a1 + 40) + 16))();
+    (*(*(a1 + 40) + 16))(*(a1 + 40));
   }
 
   else
@@ -2216,7 +2284,7 @@ LABEL_47:
 
 void __41__SUScriptInterface_fetchWalletCardData___block_invoke_127(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2225,52 +2293,56 @@ void __41__SUScriptInterface_fetchWalletCardData___block_invoke_127(uint64_t a1,
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v14 = 138543618;
-      *&v14[4] = objc_opt_class();
-      *&v14[12] = 2114;
-      *&v14[14] = v6;
-      v11 = *&v14[4];
-      LODWORD(v13) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v6;
+      v11 = v14;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 16, "%{public}@: [FetchWalletCardData] Data promise failed with error: %{public}@", &v13, 22);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v14, v13, *v14, *&v14[16], v15}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
-  (*(*(a1 + 40) + 16))();
+LABEL_13:
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 - (void)fetchWalletCardMetadata:(id)metadata callback:(id)callback
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   callbackCopy = callback;
   objc_opt_class();
@@ -2281,47 +2353,50 @@ LABEL_12:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v49 = 138543362;
-      v50 = objc_opt_class();
-      v13 = v50;
-      LODWORD(v42) = 12;
-      v41 = &v49;
-      v14 = _os_log_send_and_compose_impl();
+      v50 = 138543362;
+      v51 = objc_opt_class();
+      v13 = v51;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: [FetchWalletCardMetadata] Failed for no callback function.", &v50, 12);
 
       if (!v14)
       {
-LABEL_11:
+LABEL_12:
 
         [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v49, v42}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
-      v41 = oSLogObject;
+      v42 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
   if (![MEMORY[0x1E69E4728] shouldUseExtendedEnrollment])
   {
     v19 = [[SUScriptFunction alloc] initWithScriptObject:callbackCopy];
@@ -2329,13 +2404,13 @@ LABEL_12:
     v18 = ISError();
     v22 = [[SUScriptError alloc] initWithError:v18];
     undefined = [MEMORY[0x1E69E2FB0] undefined];
-    v47[0] = undefined;
-    v47[1] = v22;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+    v48[0] = undefined;
+    v48[1] = v22;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
     [(SUScriptFunction *)v19 callWithArguments:v24];
 
     [(SUScriptFunction *)v19 setThisObject:0];
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   objc_opt_class();
@@ -2353,7 +2428,7 @@ LABEL_12:
   }
 
   copyJavaScriptContext = [(SUScriptInterface *)self copyJavaScriptContext];
-  v44 = metadataCopy;
+  v45 = metadataCopy;
   v16 = [metadataCopy copyArrayOrDictionaryWithContext:copyJavaScriptContext];
   JSGlobalContextRelease(copyJavaScriptContext);
   objc_opt_class();
@@ -2386,20 +2461,20 @@ LABEL_12:
     if (v29)
     {
       v30 = objc_opt_class();
-      v49 = 138543362;
-      v50 = v30;
+      v50 = 138543362;
+      v51 = v30;
       v31 = v30;
-      LODWORD(v42) = 12;
-      v18 = _os_log_send_and_compose_impl();
+      LODWORD(v43) = 12;
+      v18 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: [FetchWalletCardMetadata] Configured without parameter dictionary", &v50, v43);
 
       v16 = v25;
       if (!v18)
       {
         v22 = 0;
-        goto LABEL_34;
+        goto LABEL_35;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v49, v42}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
@@ -2411,9 +2486,9 @@ LABEL_12:
 
     v22 = 0;
     v18 = 0;
-LABEL_34:
+LABEL_35:
     v19 = 0;
-    goto LABEL_35;
+    goto LABEL_36;
   }
 
   v17 = v16;
@@ -2423,40 +2498,40 @@ LABEL_34:
   mEMORY[0x1E69D4938]2 = [v17 objectForKeyedSubscript:@"size"];
 
   v22 = [v20 numberWithInteger:{objc_msgSend(mEMORY[0x1E69D4938]2, "integerValue")}];
-LABEL_35:
+LABEL_36:
 
-  v32 = [(objc_class *)getAMSUICardMetadataClass() metadataForPassTypeIdentifier:v19 serialNumber:v18 cardArtworkSize:v22];
+  v33 = [getAMSUICardMetadataClass(v32) metadataForPassTypeIdentifier:v19 serialNumber:v18 cardArtworkSize:v22];
   if (isKindOfClass)
   {
-    v33 = [[SUScriptFunction alloc] initWithScriptObject:callbackCopy];
-    [(SUScriptFunction *)v33 setThisObject:self];
-    v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __54__SUScriptInterface_fetchWalletCardMetadata_callback___block_invoke;
-    v45[3] = &unk_1E81645C0;
-    v46 = v34;
-    v43 = v34;
-    [v32 enumerateObjectsUsingBlock:v45];
-    v35 = [v43 copy];
-    v48[0] = v35;
+    v34 = [[SUScriptFunction alloc] initWithScriptObject:callbackCopy];
+    [(SUScriptFunction *)v34 setThisObject:self];
+    v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __54__SUScriptInterface_fetchWalletCardMetadata_callback___block_invoke;
+    v46[3] = &unk_1E81645C0;
+    v47 = v35;
+    v44 = v35;
+    [v33 enumerateObjectsUsingBlock:v46];
+    v36 = [v44 copy];
+    v49[0] = v36;
     [MEMORY[0x1E69E2FB0] undefined];
-    v36 = v32;
-    v37 = callbackCopy;
-    v39 = v38 = v16;
-    v48[1] = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
-    [(SUScriptFunction *)v33 callWithArguments:v40];
+    v37 = v33;
+    v38 = callbackCopy;
+    v40 = v39 = v16;
+    v49[1] = v40;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+    [(SUScriptFunction *)v34 callWithArguments:v41];
 
-    v16 = v38;
-    callbackCopy = v37;
-    v32 = v36;
+    v16 = v39;
+    callbackCopy = v38;
+    v33 = v37;
 
-    [(SUScriptFunction *)v33 setThisObject:0];
+    [(SUScriptFunction *)v34 setThisObject:0];
   }
 
-  metadataCopy = v44;
-LABEL_38:
+  metadataCopy = v45;
+LABEL_39:
 }
 
 void __54__SUScriptInterface_fetchWalletCardMetadata_callback___block_invoke(uint64_t a1, void *a2)
@@ -2550,46 +2625,46 @@ void __52__SUScriptInterface_handleDialogPropertyListString___block_invoke(uint6
   return guid;
 }
 
-void __31__SUScriptInterface_openWallet__block_invoke()
+void __31__SUScriptInterface_openWallet__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v0 = [ISWeakLinkedClassForString() isPassLibraryAvailable];
-  v1 = [MEMORY[0x1E698C968] sharedConfig];
-  v2 = [v1 OSLogObject];
-  v3 = v2;
-  if (v0)
+  v14 = *MEMORY[0x1E69E9840];
+  v1 = [ISWeakLinkedClassForString() isPassLibraryAvailable];
+  v2 = [MEMORY[0x1E698C968] sharedConfig];
+  v3 = [v2 OSLogObject];
+  v4 = v3;
+  if (v1)
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v4 = v12;
-      _os_log_impl(&dword_1C21AF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: OpenWallet: Will open Wallet", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v5 = v13;
+      _os_log_impl(&dword_1C21AF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: OpenWallet: Will open Wallet", &v12, 0xCu);
     }
 
-    v5 = [MEMORY[0x1E69DC938] currentDevice];
-    v6 = [v5 userInterfaceIdiom];
+    v6 = [MEMORY[0x1E69DC938] currentDevice];
+    v7 = [v6 userInterfaceIdiom];
 
-    v7 = @"shoebox://";
-    if (v6 == 1)
+    v8 = @"shoebox://";
+    if (v7 == 1)
     {
-      v7 = @"prefs:root=PASSBOOK";
+      v8 = @"prefs:root=PASSBOOK";
     }
 
-    v8 = MEMORY[0x1E6963608];
-    v9 = v7;
-    v1 = [v8 defaultWorkspace];
-    v3 = [MEMORY[0x1E695DFF8] URLWithString:v9];
+    v9 = MEMORY[0x1E6963608];
+    v10 = v8;
+    v2 = [v9 defaultWorkspace];
+    v4 = [MEMORY[0x1E695DFF8] URLWithString:v10];
 
-    [v1 openSensitiveURL:v3 withOptions:0];
+    [v2 openSensitiveURL:v4 withOptions:0];
   }
 
-  else if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v10 = v12;
-    _os_log_impl(&dword_1C21AF000, v3, OS_LOG_TYPE_ERROR, "%{public}@: OpenWallet: PassKit not available", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v11 = v13;
+    _os_log_impl(&dword_1C21AF000, v4, OS_LOG_TYPE_ERROR, "%{public}@: OpenWallet: PassKit not available", &v12, 0xCu);
   }
 }
 
@@ -2625,87 +2700,95 @@ void __31__SUScriptInterface_openWallet__block_invoke()
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v17) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
     v20 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v17) = v17 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v17 = v17;
     }
 
-    if (shouldLog)
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
     {
       v21 = objc_opt_class();
       v72 = 138543362;
       v73 = v21;
       v22 = v21;
-      LODWORD(v64) = 12;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, v20, 16, "%{public}@: [PaymentSetupFeatureSupported] Failed for no callback function.", &v72, 12);
 
       if (!v23)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v72, v64}];
+      v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   if (([MEMORY[0x1E69E4728] shouldUseUpsellEnrollment] & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog2 = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v24) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk2 = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject2 = [mEMORY[0x1E69D4938] OSLogObject];
     v27 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v24) = v24 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v24 = v24;
     }
 
-    if (!shouldLog2)
+    else
     {
-      goto LABEL_29;
+      v24 &= 2u;
+    }
+
+    if (!v24)
+    {
+      goto LABEL_31;
     }
 
     v28 = objc_opt_class();
     v72 = 138543362;
     v73 = v28;
     v29 = v28;
-    LODWORD(v64) = 12;
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1C21AF000, v27, 16, "%{public}@: [PaymentSetupFeatureSupported] Failed for feature not enabled.", &v72, 12);
 
     if (v30)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v72, v64}];
+      v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog();
-LABEL_29:
+LABEL_31:
     }
 
-LABEL_21:
+LABEL_22:
 
     [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
     v15 = ISError();
     (v9)[2](v9, 0, v15);
-LABEL_69:
+LABEL_75:
 
-    goto LABEL_70;
+    goto LABEL_76;
   }
 
   ams_sharedAccountStore = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
@@ -2717,40 +2800,44 @@ LABEL_69:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog3 = [mEMORY[0x1E69D4938]2 shouldLog];
+      LODWORD(v39) = [mEMORY[0x1E69D4938]2 shouldLog];
       shouldLogToDisk3 = [mEMORY[0x1E69D4938]2 shouldLogToDisk];
       oSLogObject3 = [mEMORY[0x1E69D4938]2 OSLogObject];
       v14 = oSLogObject3;
       if (shouldLogToDisk3)
       {
-        shouldLog3 |= 2u;
+        LODWORD(v39) = v39 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog3 &= 2u;
+        v39 = v39;
       }
 
-      if (shouldLog3)
+      else
+      {
+        v39 &= 2u;
+      }
+
+      if (v39)
       {
         v42 = objc_opt_class();
         v72 = 138543362;
         v73 = v42;
         v43 = v42;
-        LODWORD(v64) = 12;
-        v15 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_1C21AF000, v14, 0, "%{public}@: [PaymentSetupFeatureSupported] No parameters dictionary supplied", &v72, 12);
 
         if (!v15)
         {
-          goto LABEL_58;
+          goto LABEL_63;
         }
 
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v72, v64}];
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
         free(v15);
         SSFileLog();
       }
 
-      goto LABEL_56;
+      goto LABEL_61;
     }
 
     mEMORY[0x1E69D4938]2 = supportedCopy;
@@ -2762,13 +2849,13 @@ LABEL_69:
     {
       v14 = v14;
       v15 = v14;
-LABEL_57:
+LABEL_62:
 
-LABEL_58:
+LABEL_63:
       v52 = [v15 objectForKeyedSubscript:@"referrerIdentifier"];
       if (v52)
       {
-LABEL_68:
+LABEL_74:
         v61 = objc_alloc_init(MEMORY[0x1E69E4790]);
         v65[0] = MEMORY[0x1E69E9820];
         v65[1] = 3221225472;
@@ -2781,126 +2868,139 @@ LABEL_68:
         mainQueue = [MEMORY[0x1E69E4798] mainQueue];
         [mainQueue addOperation:v61];
 
-        goto LABEL_69;
+        goto LABEL_75;
       }
 
       mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog4 = [mEMORY[0x1E69D4938]3 shouldLog];
+      LODWORD(v54) = [mEMORY[0x1E69D4938]3 shouldLog];
       shouldLogToDisk4 = [mEMORY[0x1E69D4938]3 shouldLogToDisk];
       oSLogObject4 = [mEMORY[0x1E69D4938]3 OSLogObject];
       v57 = oSLogObject4;
       if (shouldLogToDisk4)
       {
-        shouldLog4 |= 2u;
+        LODWORD(v54) = v54 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog4 &= 2u;
+        v54 = v54;
       }
 
-      if (shouldLog4)
+      else
+      {
+        v54 &= 2u;
+      }
+
+      if (v54)
       {
         v58 = objc_opt_class();
         v72 = 138543362;
         v73 = v58;
         v59 = v58;
         LODWORD(v64) = 12;
-        v60 = _os_log_send_and_compose_impl();
+        v60 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &dword_1C21AF000, v57, 0, "%{public}@: [PaymentSetupFeatureSupported] No referrerIdentifier supplied", &v72, v64);
 
         if (!v60)
         {
-LABEL_67:
+LABEL_73:
 
-          goto LABEL_68;
+          goto LABEL_74;
         }
 
-        v57 = [MEMORY[0x1E696AEC0] stringWithCString:v60 encoding:{4, &v72, v64}];
+        v57 = [MEMORY[0x1E696AEC0] stringWithCString:v60 encoding:4];
         free(v60);
         SSFileLog();
       }
 
-      goto LABEL_67;
+      goto LABEL_73;
     }
 
     mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog5 = [mEMORY[0x1E69D4938]4 shouldLog];
+    LODWORD(v45) = [mEMORY[0x1E69D4938]4 shouldLog];
     shouldLogToDisk5 = [mEMORY[0x1E69D4938]4 shouldLogToDisk];
     oSLogObject5 = [mEMORY[0x1E69D4938]4 OSLogObject];
     v48 = oSLogObject5;
     if (shouldLogToDisk5)
     {
-      shouldLog5 |= 2u;
+      LODWORD(v45) = v45 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog5 &= 2u;
+      v45 = v45;
     }
 
-    if (shouldLog5)
+    else
+    {
+      v45 &= 2u;
+    }
+
+    if (v45)
     {
       v49 = objc_opt_class();
       v72 = 138543362;
       v73 = v49;
       v50 = v49;
-      LODWORD(v64) = 12;
-      v51 = _os_log_send_and_compose_impl();
+      v51 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &dword_1C21AF000, v48, 0, "%{public}@: [PaymentSetupFeatureSupported] Did not serialize parameters dictionary", &v72, 12);
 
       if (!v51)
       {
-LABEL_55:
+LABEL_60:
 
-LABEL_56:
+LABEL_61:
         v15 = 0;
-        goto LABEL_57;
+        goto LABEL_62;
       }
 
-      v48 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, &v72, v64}];
+      v48 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
       free(v51);
       SSFileLog();
     }
 
-    goto LABEL_55;
+    goto LABEL_60;
   }
 
   mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
-  shouldLog6 = [mEMORY[0x1E69D4938]5 shouldLog];
+  LODWORD(v32) = [mEMORY[0x1E69D4938]5 shouldLog];
   shouldLogToDisk6 = [mEMORY[0x1E69D4938]5 shouldLogToDisk];
   oSLogObject6 = [mEMORY[0x1E69D4938]5 OSLogObject];
   v35 = oSLogObject6;
   if (shouldLogToDisk6)
   {
-    shouldLog6 |= 2u;
+    LODWORD(v32) = v32 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
   {
-    shouldLog6 &= 2u;
+    v32 = v32;
   }
 
-  if (!shouldLog6)
+  else
   {
-    goto LABEL_38;
+    v32 &= 2u;
+  }
+
+  if (!v32)
+  {
+    goto LABEL_41;
   }
 
   v36 = objc_opt_class();
   v72 = 138543362;
   v73 = v36;
   v37 = v36;
-  LODWORD(v64) = 12;
-  v38 = _os_log_send_and_compose_impl();
+  v38 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_1C21AF000, v35, 16, "%{public}@: [PaymentSetupFeatureSupported] Failed for no combined account.", &v72, 12);
 
   if (v38)
   {
-    v35 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v72, v64}];
+    v35 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
     free(v38);
     SSFileLog();
-LABEL_38:
+LABEL_41:
   }
 
   (v9)[2](v9, &unk_1F41EA948, 0);
-LABEL_70:
+LABEL_76:
 
   objc_destroyWeak(&v70);
   objc_destroyWeak(&location);
@@ -3028,7 +3128,7 @@ void __65__SUScriptInterface_performPurchaseAnimationForIdentifier_style___block
 
 - (id)presentPrivacyViewControllerWithIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -3058,44 +3158,48 @@ LABEL_4:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
 
     if (v23)
     {
-      v30 = 138543618;
-      v31 = objc_opt_class();
-      v32 = 2080;
-      v33 = "[SUScriptInterface presentPrivacyViewControllerWithIdentifier:]";
-      v25 = v31;
-      LODWORD(v27) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v29 = 138543618;
+      v30 = objc_opt_class();
+      v31 = 2080;
+      v32 = "[SUScriptInterface presentPrivacyViewControllerWithIdentifier:]";
+      v25 = v30;
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: %s failed to load the bag for privacy presentation.", &v29, 22);
 
       if (!v26)
       {
-LABEL_33:
+LABEL_35:
 
         v4 = *MEMORY[0x1E695E4C0];
-        goto LABEL_34;
+        goto LABEL_36;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v30, v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
   v11 = [uRLBag valueForKey:@"privacyAcknowledgementUrl"];
@@ -3105,53 +3209,57 @@ LABEL_33:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v17 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v17 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
     oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v30 = 138543362;
-      v31 = objc_opt_class();
-      v19 = v31;
-      LODWORD(v27) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v29 = 138543362;
+      v30 = objc_opt_class();
+      v19 = v30;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 16, "%{public}@: Failed to load the privacy URL for privacy presentation.", &v29, 12);
 
       if (!v20)
       {
-LABEL_22:
+LABEL_23:
 
         v4 = *MEMORY[0x1E695E4C0];
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v30, v27}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v13 = v12;
-  v28 = identifierCopy;
-  v29 = v13;
+  v27 = identifierCopy;
+  v28 = v13;
   v14 = v13;
   WebThreadRunOnMainThread();
   v4 = *MEMORY[0x1E695E4D0];
 
-LABEL_23:
-LABEL_34:
+LABEL_24:
+LABEL_36:
 
 LABEL_5:
 
@@ -3165,37 +3273,41 @@ void __64__SUScriptInterface_presentPrivacyViewControllerWithIdentifier___block_
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v6 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v10 = 138543362;
+  v11 = objc_opt_class();
+  v6 = v11;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%{public}@: presenting privacy consent", &v10, 12);
 
   if (v7)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v11, v10, v11}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   v8 = [MEMORY[0x1E69D4988] viewControllerForPrivacySplashWithIdentifier:*(a1 + 40) URL:*(a1 + 48)];
@@ -3238,37 +3350,41 @@ void __56__SUScriptInterface_presentPrivacySplashWithIdentifier___block_invoke(u
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v6 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v10 = 138543362;
+  v11 = objc_opt_class();
+  v6 = v11;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%{public}@: presenting OnBoardingKit privacy consent", &v10, 12);
 
   if (v7)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v11, v10, v11}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   v8 = [MEMORY[0x1E69B7D58] presenterForPrivacySplashWithIdentifier:*(a1 + 40)];
@@ -3318,7 +3434,7 @@ LABEL_9:
 
 - (void)redeemCodes:(id)codes params:(id)params completion:(id)completion
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   codesCopy = codes;
   paramsCopy = params;
   completionCopy = completion;
@@ -3333,157 +3449,165 @@ LABEL_9:
       v13 = [paramsCopy copyArrayOrDictionaryWithContext:copyJavaScriptContext];
       JSGlobalContextRelease(copyJavaScriptContext);
       objc_opt_class();
-      v45 = v12;
+      v46 = v12;
       if (objc_opt_isKindOfClass())
       {
         v14 = v12;
-        goto LABEL_33;
+        goto LABEL_36;
       }
 
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v25 = shouldLog | 2;
+        v26 = shouldLog | 2;
       }
 
       else
       {
-        v25 = shouldLog;
+        v26 = shouldLog;
       }
 
       oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        v27 = v25;
+        v28 = v26;
       }
 
       else
       {
-        v27 = v25 & 2;
+        v28 = v26 & 2;
       }
 
-      if (v27)
+      if (v28)
       {
-        v49 = 138543362;
-        v50 = objc_opt_class();
-        v28 = paramsCopy;
-        v29 = v50;
-        LODWORD(v43) = 12;
-        v42 = &v49;
-        v30 = _os_log_send_and_compose_impl();
+        v50 = 138543362;
+        v51 = objc_opt_class();
+        v29 = paramsCopy;
+        v30 = v51;
+        v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Invalid redeem codes.", &v50, 12);
 
-        paramsCopy = v28;
-        if (!v30)
+        paramsCopy = v29;
+        if (!v31)
         {
-LABEL_32:
+LABEL_35:
 
           [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
           v14 = 0;
-LABEL_33:
+LABEL_36:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v31 = v13;
-LABEL_46:
-            v40 = [objc_alloc(MEMORY[0x1E69D49B0]) initWithRedeemCodes:v14];
+            v32 = v13;
+LABEL_49:
+            v41 = [objc_alloc(MEMORY[0x1E69D49B0]) initWithRedeemCodes:v14];
             authenticationContext = [(SUScriptInterface *)self authenticationContext];
-            [v40 setAuthenticationContext:authenticationContext];
+            [v41 setAuthenticationContext:authenticationContext];
 
-            [v40 setHeadless:0];
-            [v40 setParams:v31];
-            v46[0] = MEMORY[0x1E69E9820];
-            v46[1] = 3221225472;
-            v46[2] = __51__SUScriptInterface_redeemCodes_params_completion___block_invoke;
-            v46[3] = &unk_1E8164688;
-            v47 = completionCopy;
+            [v41 setHeadless:0];
+            [v41 setParams:v32];
+            v47[0] = MEMORY[0x1E69E9820];
+            v47[1] = 3221225472;
+            v47[2] = __51__SUScriptInterface_redeemCodes_params_completion___block_invoke;
+            v47[3] = &unk_1E8164688;
+            v48 = completionCopy;
             selfCopy = self;
-            [v40 startWithRedeemResponseBlock:v46];
+            [v41 startWithRedeemResponseBlock:v47];
 
-            goto LABEL_47;
+            goto LABEL_50;
           }
 
-          v44 = paramsCopy;
+          v45 = paramsCopy;
           mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
           shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
           if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
           {
-            v34 = shouldLog2 | 2;
+            v35 = shouldLog2 | 2;
           }
 
           else
           {
-            v34 = shouldLog2;
+            v35 = shouldLog2;
           }
 
           oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
           if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            v36 = v34;
+            v37 = v35;
           }
 
           else
           {
-            v36 = v34 & 2;
+            v37 = v35 & 2;
           }
 
-          if (v36)
+          if (v37)
           {
-            v37 = objc_opt_class();
-            v49 = 138543362;
-            v50 = v37;
-            v38 = v37;
-            LODWORD(v43) = 12;
-            v39 = _os_log_send_and_compose_impl();
+            v38 = objc_opt_class();
+            v50 = 138543362;
+            v51 = v38;
+            v39 = v38;
+            LODWORD(v44) = 12;
+            v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: No redeem params.", &v50, v44);
 
-            if (!v39)
+            if (!v40)
             {
-LABEL_45:
+LABEL_48:
 
-              v31 = 0;
-              paramsCopy = v44;
-              goto LABEL_46;
+              v32 = 0;
+              paramsCopy = v45;
+              goto LABEL_49;
             }
 
-            oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:{4, &v49, v43}];
-            free(v39);
+            oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:4];
+            free(v40);
             SSFileLog();
           }
 
-          goto LABEL_45;
+          goto LABEL_48;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v49, v43}];
-        free(v30);
-        v42 = oSLogObject;
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v31 encoding:4];
+        free(v31);
+        v43 = oSLogObject;
         SSFileLog();
       }
 
-      goto LABEL_32;
+      goto LABEL_35;
     }
 
     mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
     if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
     {
-      v20 = shouldLog3 | 2;
+      LODWORD(v22) = shouldLog3 | 2;
     }
 
     else
     {
-      v20 = shouldLog3;
+      LODWORD(v22) = shouldLog3;
     }
 
     oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
     {
-      v20 &= 2u;
+      v22 = v22;
     }
 
-    if (!v20)
+    else
     {
-      goto LABEL_20;
+      v22 &= 2u;
     }
+
+    if (!v22)
+    {
+      goto LABEL_23;
+    }
+
+    v50 = 138543362;
+    v51 = objc_opt_class();
+    v19 = v51;
+    v20 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "%{public}@: Invalid redeem completion block.", &v50, 12);
   }
 
   else
@@ -3492,42 +3616,48 @@ LABEL_45:
     shouldLog4 = [mEMORY[0x1E69D4938]3 shouldLog];
     if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
     {
-      v17 = shouldLog4 | 2;
+      LODWORD(v17) = shouldLog4 | 2;
     }
 
     else
     {
-      v17 = shouldLog4;
+      LODWORD(v17) = shouldLog4;
     }
 
     oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (!v17)
     {
-      goto LABEL_20;
+      goto LABEL_23;
     }
+
+    v50 = 138543362;
+    v51 = objc_opt_class();
+    v19 = v51;
+    v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "%{public}@: Invalid redeem codes.", &v50, 12);
   }
 
-  v49 = 138543362;
-  v50 = objc_opt_class();
-  v21 = v50;
-  LODWORD(v43) = 12;
-  v22 = _os_log_send_and_compose_impl();
+  v23 = v20;
 
-  if (v22)
+  if (v23)
   {
-    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v49, v43}];
-    free(v22);
+    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+    free(v23);
     SSFileLog();
-LABEL_20:
+LABEL_23:
   }
 
   [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
-LABEL_47:
+LABEL_50:
 }
 
 void __51__SUScriptInterface_redeemCodes_params_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3882,50 +4012,54 @@ LABEL_5:
 
 - (void)startListeningForAuthenticationTokenWithCallback:(id)callback
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [MEMORY[0x1E69E2F88] throwException:@"Failed to listen for authentication token - nil callback"];
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-  v15 = 138543362;
-  v16 = objc_opt_class();
-  v9 = v16;
-  LODWORD(v12) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v14 = 138543362;
+  v15 = objc_opt_class();
+  v9 = v15;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] Starting listener for incoming authentication token", &v14, 12);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v15, v12}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   hsaTokenQueue = self->_hsaTokenQueue;
@@ -3934,10 +4068,10 @@ LABEL_10:
   block[2] = __70__SUScriptInterface_startListeningForAuthenticationTokenWithCallback___block_invoke;
   block[3] = &unk_1E81644A8;
   block[4] = self;
-  v14 = callbackCopy;
+  v13 = callbackCopy;
   dispatch_sync(hsaTokenQueue, block);
 
-LABEL_13:
+LABEL_14:
 }
 
 void __70__SUScriptInterface_startListeningForAuthenticationTokenWithCallback___block_invoke(uint64_t a1)
@@ -3966,56 +4100,60 @@ void __70__SUScriptInterface_startListeningForAuthenticationTokenWithCallback___
 
 void __70__SUScriptInterface_startListeningForAuthenticationTokenWithCallback___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v10 = *(*(*(a1 + 40) + 8) + 40);
   v11 = [MEMORY[0x1E69D4938] sharedConfig];
   v12 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = v12 | 2;
+    LODWORD(v13) = v12 | 2;
   }
 
   else
   {
-    v13 = v12;
+    LODWORD(v13) = v12;
   }
 
   v14 = [v11 OSLogObject];
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  v27 = 138543362;
-  v28 = objc_opt_class();
-  v15 = v28;
-  LODWORD(v24) = 12;
-  v16 = _os_log_send_and_compose_impl();
+  v26 = 138543362;
+  v27 = objc_opt_class();
+  v15 = v27;
+  v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, v14, 0, "[%{public}@] Received incoming authentication token", &v26, 12);
 
   if (v16)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v27, v24}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  v26[0] = a5;
-  v26[1] = a2;
-  v26[2] = a3;
-  v26[3] = a4;
+  v25[0] = a5;
+  v25[1] = a2;
+  v25[2] = a3;
+  v25[3] = a4;
   v17 = MEMORY[0x1E695DEC8];
   v18 = a4;
   v19 = a3;
   v20 = a2;
   v21 = a5;
-  v22 = [v17 arrayWithObjects:v26 count:4];
-  v25 = *(a1 + 32);
+  v22 = [v17 arrayWithObjects:v25 count:4];
+  v24 = *(a1 + 32);
   v23 = v22;
   WebThreadRunOnMainThread();
 }
@@ -4048,31 +4186,35 @@ void __56__SUScriptInterface_stopListeningForAuthenticationToken__block_invoke(u
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
     v5 = [v2 OSLogObject];
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
 
     if (v4)
     {
-      LODWORD(v9) = 138543362;
-      *(&v9 + 4) = objc_opt_class();
-      v6 = *(&v9 + 4);
-      LODWORD(v8) = 12;
-      v7 = _os_log_send_and_compose_impl();
+      v8 = 138543362;
+      v9 = objc_opt_class();
+      v6 = v9;
+      v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "[%{public}@] Stopping listener for incoming authentication token", &v8, 12);
 
       if (!v7)
       {
-LABEL_11:
+LABEL_12:
 
         HSAAuthenticationUnregisterIncomingAuthenticationTokenBlockWithIdentifier();
         CFRelease(*(*(a1 + 32) + 240));
@@ -4080,12 +4222,12 @@ LABEL_11:
         return;
       }
 
-      v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v9, v8, v9}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
       free(v7);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 }
 
@@ -4127,40 +4269,44 @@ LABEL_11:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v15) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
     v18 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v15 = v15;
     }
 
-    if (shouldLog)
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
     {
       v19 = objc_opt_class();
       *from = 138543362;
       *&from[4] = v19;
       v20 = v19;
-      LODWORD(v92) = 12;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, v18, 16, "%{public}@: [AuthorizeEnrollment] Failed for no callback function.", from, 12);
 
       if (!v21)
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, from, v92}];
+      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   if ([MEMORY[0x1E69E4728] shouldUseExtendedEnrollment])
@@ -4199,21 +4345,26 @@ LABEL_11:
     if (v113[5])
     {
       mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
+      LODWORD(v33) = [mEMORY[0x1E69D4938]2 shouldLog];
       shouldLogToDisk2 = [mEMORY[0x1E69D4938]2 shouldLogToDisk];
       oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
       v36 = oSLogObject2;
       if (shouldLogToDisk2)
       {
-        shouldLog2 |= 2u;
+        LODWORD(v33) = v33 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        shouldLog2 &= 2u;
+        v33 = v33;
       }
 
-      if (shouldLog2)
+      else
+      {
+        v33 &= 2u;
+      }
+
+      if (v33)
       {
         v37 = objc_opt_class();
         v38 = v113[5];
@@ -4222,145 +4373,156 @@ LABEL_11:
         v123 = 2114;
         v124 = v38;
         v39 = v37;
-        LODWORD(v92) = 22;
-        v40 = _os_log_send_and_compose_impl();
+        v40 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_1C21AF000, v36, 16, "%{public}@: [AuthorizeEnrollment] Failed. Error: %{public}@", from, 22);
 
         if (!v40)
         {
-LABEL_42:
+LABEL_45:
 
           [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
           v9[2](v9, 0, v113[5]);
-          goto LABEL_97;
+          goto LABEL_105;
         }
 
-        v36 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:{4, from, v92}];
+        v36 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:4];
         free(v40);
         SSFileLog();
       }
 
-      goto LABEL_42;
+      goto LABEL_45;
     }
 
     v97 = [v13 objectForKeyedSubscript:@"paymentSession"];
     if (v97)
     {
-LABEL_53:
+LABEL_57:
       v96 = [v13 objectForKeyedSubscript:{@"passTypeIdentifier", v88}];
       if (v96)
       {
-        goto LABEL_63;
+        goto LABEL_68;
       }
 
       mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
+      LODWORD(v50) = [mEMORY[0x1E69D4938]3 shouldLog];
       shouldLogToDisk3 = [mEMORY[0x1E69D4938]3 shouldLogToDisk];
       oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
       v53 = oSLogObject3;
       if (shouldLogToDisk3)
       {
-        shouldLog3 |= 2u;
+        LODWORD(v50) = v50 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog3 &= 2u;
+        v50 = v50;
       }
 
-      if (shouldLog3)
+      else
+      {
+        v50 &= 2u;
+      }
+
+      if (v50)
       {
         v54 = objc_opt_class();
         *from = 138543362;
         *&from[4] = v54;
         v55 = v54;
         LODWORD(v92) = 12;
-        v89 = from;
-        v56 = _os_log_send_and_compose_impl();
+        v56 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &dword_1C21AF000, v53, 0, "%{public}@: [AuthorizeEnrollment] Did not find pass type identifier", from, v92);
 
         if (!v56)
         {
-LABEL_62:
+LABEL_67:
 
-LABEL_63:
+LABEL_68:
           v95 = [v13 objectForKeyedSubscript:{@"passSerialNumber", v89}];
           if (v95)
           {
-            goto LABEL_73;
+            goto LABEL_79;
           }
 
           mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
-          shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
+          LODWORD(v58) = [mEMORY[0x1E69D4938]4 shouldLog];
           shouldLogToDisk4 = [mEMORY[0x1E69D4938]4 shouldLogToDisk];
           oSLogObject4 = [mEMORY[0x1E69D4938]4 OSLogObject];
           v61 = oSLogObject4;
           if (shouldLogToDisk4)
           {
-            shouldLog4 |= 2u;
+            LODWORD(v58) = v58 | 2;
           }
 
-          if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog4 &= 2u;
+            v58 = v58;
           }
 
-          if (shouldLog4)
+          else
+          {
+            v58 &= 2u;
+          }
+
+          if (v58)
           {
             v62 = objc_opt_class();
             *from = 138543362;
             *&from[4] = v62;
             v63 = v62;
             LODWORD(v92) = 12;
-            v90 = from;
-            v64 = _os_log_send_and_compose_impl();
+            v64 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &dword_1C21AF000, v61, 0, "%{public}@: [AuthorizeEnrollment] Did not find pass serial number", from, v92);
 
             if (!v64)
             {
-LABEL_72:
+LABEL_78:
 
-LABEL_73:
+LABEL_79:
               v94 = [v13 objectForKeyedSubscript:{@"metrics", v90}];
               if (v94)
               {
-                goto LABEL_83;
+                goto LABEL_90;
               }
 
               mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
-              shouldLog5 = [mEMORY[0x1E69D4938]5 shouldLog];
+              LODWORD(v66) = [mEMORY[0x1E69D4938]5 shouldLog];
               shouldLogToDisk5 = [mEMORY[0x1E69D4938]5 shouldLogToDisk];
               oSLogObject5 = [mEMORY[0x1E69D4938]5 OSLogObject];
               v69 = oSLogObject5;
               if (shouldLogToDisk5)
               {
-                shouldLog5 |= 2u;
+                LODWORD(v66) = v66 | 2;
               }
 
-              if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
               {
-                shouldLog5 &= 2u;
+                v66 = v66;
               }
 
-              if (shouldLog5)
+              else
+              {
+                v66 &= 2u;
+              }
+
+              if (v66)
               {
                 v70 = objc_opt_class();
                 *from = 138543362;
                 *&from[4] = v70;
                 v71 = v70;
                 LODWORD(v92) = 12;
-                v91 = from;
-                v72 = _os_log_send_and_compose_impl();
+                v72 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &dword_1C21AF000, v69, 0, "%{public}@: [AuthorizeEnrollment] Did not find metrics dictionary", from, v92);
 
                 if (!v72)
                 {
-LABEL_82:
+LABEL_89:
 
-LABEL_83:
+LABEL_90:
                   v99 = [v13 objectForKeyedSubscript:{@"confirmationStyle", v91}];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
                     mEMORY[0x1E69D4938]6 = [v13 objectForKeyedSubscript:@"confirmationStyle"];
                     unsignedIntegerValue = [mEMORY[0x1E69D4938]6 unsignedIntegerValue];
-LABEL_96:
+LABEL_104:
 
                     v81 = objc_alloc(MEMORY[0x1E69E4770]);
                     v82 = [MEMORY[0x1E69D49F8] contextWithBagType:0];
@@ -4395,7 +4557,7 @@ LABEL_96:
                     objc_destroyWeak(&v110);
                     objc_destroyWeak(from);
 
-                    goto LABEL_97;
+                    goto LABEL_105;
                   }
 
                   objc_opt_class();
@@ -4403,157 +4565,169 @@ LABEL_96:
                   {
                     mEMORY[0x1E69D4938]6 = [v13 objectForKeyedSubscript:@"confirmationStyle"];
                     unsignedIntegerValue = [mEMORY[0x1E69D4938]6 intValue];
-                    goto LABEL_96;
+                    goto LABEL_104;
                   }
 
                   mEMORY[0x1E69D4938]6 = [MEMORY[0x1E69D4938] sharedConfig];
-                  shouldLog6 = [mEMORY[0x1E69D4938]6 shouldLog];
+                  LODWORD(v74) = [mEMORY[0x1E69D4938]6 shouldLog];
                   shouldLogToDisk6 = [mEMORY[0x1E69D4938]6 shouldLogToDisk];
                   oSLogObject6 = [mEMORY[0x1E69D4938]6 OSLogObject];
                   v77 = oSLogObject6;
                   if (shouldLogToDisk6)
                   {
-                    shouldLog6 |= 2u;
+                    LODWORD(v74) = v74 | 2;
                   }
 
-                  if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
                   {
-                    shouldLog6 &= 2u;
+                    v74 = v74;
                   }
 
-                  if (shouldLog6)
+                  else
+                  {
+                    v74 &= 2u;
+                  }
+
+                  if (v74)
                   {
                     v78 = objc_opt_class();
                     *from = 138412290;
                     *&from[4] = v78;
                     v79 = v78;
                     LODWORD(v92) = 12;
-                    v80 = _os_log_send_and_compose_impl();
+                    v80 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &dword_1C21AF000, v77, 16, "%@: [AuthorizeEnrollment] Did not de-serialize confirmationStyle", from, v92);
 
                     if (!v80)
                     {
-LABEL_95:
+LABEL_103:
                       unsignedIntegerValue = 0;
-                      goto LABEL_96;
+                      goto LABEL_104;
                     }
 
-                    v77 = [MEMORY[0x1E696AEC0] stringWithCString:v80 encoding:{4, from, v92}];
+                    v77 = [MEMORY[0x1E696AEC0] stringWithCString:v80 encoding:4];
                     free(v80);
                     SSFileLog();
                   }
 
-                  goto LABEL_95;
+                  goto LABEL_103;
                 }
 
-                v69 = [MEMORY[0x1E696AEC0] stringWithCString:v72 encoding:{4, from, v92}];
+                v69 = [MEMORY[0x1E696AEC0] stringWithCString:v72 encoding:4];
                 free(v72);
                 v91 = v69;
                 SSFileLog();
               }
 
-              goto LABEL_82;
+              goto LABEL_89;
             }
 
-            v61 = [MEMORY[0x1E696AEC0] stringWithCString:v64 encoding:{4, from, v92}];
+            v61 = [MEMORY[0x1E696AEC0] stringWithCString:v64 encoding:4];
             free(v64);
             v90 = v61;
             SSFileLog();
           }
 
-          goto LABEL_72;
+          goto LABEL_78;
         }
 
-        v53 = [MEMORY[0x1E696AEC0] stringWithCString:v56 encoding:{4, from, v92}];
+        v53 = [MEMORY[0x1E696AEC0] stringWithCString:v56 encoding:4];
         free(v56);
         v89 = v53;
         SSFileLog();
       }
 
-      goto LABEL_62;
+      goto LABEL_67;
     }
 
     mEMORY[0x1E69D4938]7 = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog7 = [mEMORY[0x1E69D4938]7 shouldLog];
+    LODWORD(v42) = [mEMORY[0x1E69D4938]7 shouldLog];
     shouldLogToDisk7 = [mEMORY[0x1E69D4938]7 shouldLogToDisk];
     oSLogObject7 = [mEMORY[0x1E69D4938]7 OSLogObject];
     v45 = oSLogObject7;
     if (shouldLogToDisk7)
     {
-      shouldLog7 |= 2u;
+      LODWORD(v42) = v42 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog7 &= 2u;
+      v42 = v42;
     }
 
-    if (shouldLog7)
+    else
+    {
+      v42 &= 2u;
+    }
+
+    if (v42)
     {
       v46 = objc_opt_class();
       *from = 138543362;
       *&from[4] = v46;
       v47 = v46;
-      LODWORD(v92) = 12;
-      v88 = from;
-      v48 = _os_log_send_and_compose_impl();
+      v48 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &dword_1C21AF000, v45, 0, "%{public}@: [AuthorizeEnrollment] Did not find payment session", from, 12);
 
       if (!v48)
       {
-LABEL_52:
+LABEL_56:
 
-        goto LABEL_53;
+        goto LABEL_57;
       }
 
-      v45 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:{4, from, v92}];
+      v45 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:4];
       free(v48);
       v88 = v45;
       SSFileLog();
     }
 
-    goto LABEL_52;
+    goto LABEL_56;
   }
 
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-  shouldLog8 = [mEMORY[0x1E69D4938] shouldLog];
+  LODWORD(v22) = [mEMORY[0x1E69D4938] shouldLog];
   shouldLogToDisk8 = [mEMORY[0x1E69D4938] shouldLogToDisk];
   oSLogObject8 = [mEMORY[0x1E69D4938] OSLogObject];
   v25 = oSLogObject8;
   if (shouldLogToDisk8)
   {
-    shouldLog8 |= 2u;
+    LODWORD(v22) = v22 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_ERROR))
   {
-    shouldLog8 &= 2u;
+    v22 = v22;
   }
 
-  if (!shouldLog8)
+  else
   {
-    goto LABEL_28;
+    v22 &= 2u;
+  }
+
+  if (!v22)
+  {
+    goto LABEL_30;
   }
 
   v26 = objc_opt_class();
   *from = 138543362;
   *&from[4] = v26;
   v27 = v26;
-  LODWORD(v92) = 12;
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1C21AF000, v25, 16, "%{public}@: [AuthorizeEnrollment] Failed for feature not enabled.", from, 12);
 
   if (v28)
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, from, v92}];
+    v25 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
     free(v28);
     SSFileLog();
-LABEL_28:
+LABEL_30:
   }
 
-LABEL_20:
+LABEL_21:
 
   [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
   v13 = ISError();
   (v9)[2](v9, 0, v13);
-LABEL_97:
+LABEL_105:
 
   _Block_object_dispose(&v112, 8);
   objc_destroyWeak(&v120);
@@ -4613,16 +4787,21 @@ void __72__SUScriptInterface_authorizeApplePayEnrollmentWithParameters_callback_
     v24 = [v23 shouldLog];
     if ([v23 shouldLogToDisk])
     {
-      v25 = v24 | 2;
+      LODWORD(v25) = v24 | 2;
     }
 
     else
     {
-      v25 = v24;
+      LODWORD(v25) = v24;
     }
 
     v26 = [v23 OSLogObject];
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v25 = v25;
+    }
+
+    else
     {
       v25 &= 2u;
     }
@@ -4632,29 +4811,27 @@ void __72__SUScriptInterface_authorizeApplePayEnrollmentWithParameters_callback_
       *buf = 138543362;
       v72 = objc_opt_class();
       v27 = v72;
-      LODWORD(v64) = 12;
-      v63 = buf;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1C21AF000, v26, 16, "%{public}@: [AuthorizeEnrollment] Failed to load bag.", buf, 12);
 
       if (!v28)
       {
-LABEL_32:
+LABEL_35:
 
         v29 = ISError();
         v7 = 0;
         v30 = *(*(a1 + 96) + 8);
         v16 = *(v30 + 40);
         *(v30 + 40) = v29;
-        goto LABEL_33;
+        goto LABEL_36;
       }
 
-      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, buf, v64}];
+      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
       free(v28);
       v63 = v26;
       SSFileLog();
     }
 
-    goto LABEL_32;
+    goto LABEL_35;
   }
 
   v6 = [v4 valueForKey:@"countryCode"];
@@ -4666,16 +4843,21 @@ LABEL_32:
     v9 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v10) = v9 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v10) = v9;
     }
 
     v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -4685,49 +4867,52 @@ LABEL_32:
       *buf = 138543362;
       v72 = objc_opt_class();
       v12 = v72;
-      LODWORD(v64) = 12;
-      v63 = buf;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v11, 16, "%{public}@: [AuthorizeEnrollment] Failed to lookup country code", buf, 12);
 
       if (!v13)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, buf, v64}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       v63 = v11;
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
+LABEL_14:
   v14 = [v5 valueForKey:{@"currencyCode", v63}];
   v15 = [v14 uppercaseString];
 
   if (v15)
   {
-    goto LABEL_43;
+    goto LABEL_47;
   }
 
   v16 = [MEMORY[0x1E69D4938] sharedConfig];
   v17 = [v16 shouldLog];
   if ([v16 shouldLogToDisk])
   {
-    v18 = v17 | 2;
+    LODWORD(v18) = v17 | 2;
   }
 
   else
   {
-    v18 = v17;
+    LODWORD(v18) = v17;
   }
 
   v19 = [v16 OSLogObject];
-  if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  {
+    v18 = v18;
+  }
+
+  else
   {
     v18 &= 2u;
   }
@@ -4739,42 +4924,46 @@ LABEL_13:
     v72 = v20;
     v21 = v20;
     LODWORD(v64) = 12;
-    v63 = buf;
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, v19, 16, "%{public}@: [AuthorizeEnrollment] Failed to lookup currency code", buf, v64);
 
     if (!v22)
     {
-      goto LABEL_33;
+      goto LABEL_36;
     }
 
-    v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, buf, v64}];
+    v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     free(v22);
     v63 = v19;
     SSFileLog();
   }
 
-LABEL_33:
+LABEL_36:
   v31 = [MEMORY[0x1E69D4938] sharedConfig];
   v32 = [v31 shouldLog];
   if ([v31 shouldLogToDisk])
   {
-    v33 = v32 | 2;
+    LODWORD(v33) = v32 | 2;
   }
 
   else
   {
-    v33 = v32;
+    LODWORD(v33) = v32;
   }
 
   v34 = [v31 OSLogObject];
-  if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    v33 = v33;
+  }
+
+  else
   {
     v33 &= 2u;
   }
 
   if (!v33)
   {
-    goto LABEL_41;
+    goto LABEL_45;
   }
 
   v35 = objc_opt_class();
@@ -4782,27 +4971,26 @@ LABEL_33:
   v72 = v35;
   v36 = v35;
   LODWORD(v64) = 12;
-  v63 = buf;
-  v37 = _os_log_send_and_compose_impl();
+  v37 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_1C21AF000, v34, 0, "%{public}@: [AuthorizeEnrollment] No currency code, falling back to device locale", buf, v64);
 
   if (v37)
   {
-    v34 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:{4, buf, v64}];
+    v34 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:4];
     free(v37);
     v63 = v34;
     SSFileLog();
-LABEL_41:
+LABEL_45:
   }
 
   v38 = [MEMORY[0x1E695DF58] currentLocale];
   v15 = [v38 currencyCode];
 
-LABEL_43:
+LABEL_47:
   if (*(*(*(a1 + 96) + 8) + 40))
   {
-LABEL_60:
+LABEL_65:
     (*(*(a1 + 88) + 16))();
-    goto LABEL_61;
+    goto LABEL_66;
   }
 
   if (!*(a1 + 40) || !*(a1 + 48) || !*(a1 + 56) || !v7 || !v15 || !*(a1 + 64))
@@ -4811,16 +4999,21 @@ LABEL_60:
     v40 = [v39 shouldLog];
     if ([v39 shouldLogToDisk])
     {
-      v41 = v40 | 2;
+      LODWORD(v41) = v40 | 2;
     }
 
     else
     {
-      v41 = v40;
+      LODWORD(v41) = v40;
     }
 
     v42 = [v39 OSLogObject];
-    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      v41 = v41;
+    }
+
+    else
     {
       v41 &= 2u;
     }
@@ -4832,21 +5025,20 @@ LABEL_60:
       v72 = v43;
       v44 = v43;
       LODWORD(v64) = 12;
-      v63 = buf;
-      v45 = _os_log_send_and_compose_impl();
+      v45 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &dword_1C21AF000, v42, 16, "%{public}@: [AuthorizeEnrollment] Failed for bad arguments.", buf, v64);
 
       if (!v45)
       {
-        goto LABEL_59;
+        goto LABEL_64;
       }
 
-      v42 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:{4, buf, v64}];
+      v42 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:4];
       free(v45);
       v63 = v42;
       SSFileLog();
     }
 
-LABEL_59:
+LABEL_64:
     [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
     v46 = ISError();
     v47 = *(*(a1 + 96) + 8);
@@ -4855,7 +5047,7 @@ LABEL_59:
 
     if (*(*(*(a1 + 96) + 8) + 40))
     {
-      goto LABEL_60;
+      goto LABEL_65;
     }
   }
 
@@ -4942,7 +5134,7 @@ LABEL_59:
   v70 = *(a1 + 88);
   [v62 addFinishBlock:v69];
 
-LABEL_61:
+LABEL_66:
 }
 
 void __72__SUScriptInterface_authorizeApplePayEnrollmentWithParameters_callback___block_invoke_306(uint64_t a1, void *a2, void *a3)
@@ -4956,51 +5148,55 @@ void __72__SUScriptInterface_authorizeApplePayEnrollmentWithParameters_callback_
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      LODWORD(v14) = 138543362;
-      *(&v14 + 4) = objc_opt_class();
-      v11 = *(&v14 + 4);
-      LODWORD(v13) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      v13 = 138543362;
+      v14 = objc_opt_class();
+      v11 = v14;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 16, "%{public}@: [AuthorizeEnrollment] Failed for no payment object", &v13, 12);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v14, v13, v14}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
-  (*(*(a1 + 40) + 16))();
+LABEL_13:
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 - (void)dismissSafariViewControllerAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
@@ -5029,14 +5225,13 @@ LABEL_12:
     goto LABEL_10;
   }
 
-  v11[0] = 67109120;
-  v11[1] = animatedCopy;
-  LODWORD(v10) = 8;
-  v9 = _os_log_send_and_compose_impl();
+  v10[0] = 67109120;
+  v10[1] = animatedCopy;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "JS-originated dismissal of SFSafariViewController, animated==%i.", v10);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v11, v10}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -5082,16 +5277,14 @@ LABEL_10:
     v28 = identifierCopy;
     v29 = 1024;
     v30 = animatedCopy;
-    LODWORD(v22) = 28;
-    v21 = &v25;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "JS-originated presentation of SFSafariViewController with urlString==%@, identifier==%@, animated==%i.", &v25, 28);
 
     if (!v14)
     {
       goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v25, v22}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
     free(v14);
     v21 = oSLogObject;
     SSFileLog();
@@ -5127,14 +5320,14 @@ LABEL_11:
     {
       LOWORD(v25) = 0;
       LODWORD(v22) = 2;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "Script SFSafariViewController presentation must pass in identifier.", &v25, v22);
 
       if (!v20)
       {
         goto LABEL_23;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v25, v22}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
@@ -6184,40 +6377,44 @@ void __30__SUScriptInterface_userAgent__block_invoke(uint64_t a1)
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    LODWORD(v17) = [mEMORY[0x1E69D4938] shouldLog];
     shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
     v20 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v17) = v17 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v17 = v17;
     }
 
-    if (shouldLog)
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (v17)
     {
       v21 = objc_opt_class();
       v68 = 138543362;
       v69 = v21;
       v22 = v21;
-      LODWORD(v61) = 12;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, v20, 16, "%{public}@: [SignupInWallet] Failed for no callback function.", &v68, 12);
 
       if (!v23)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v68, v61}];
+      v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   if ([MEMORY[0x1E69E4728] shouldUseUpsellEnrollment])
@@ -6231,40 +6428,44 @@ void __30__SUScriptInterface_userAgent__block_invoke(uint64_t a1)
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-        shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
+        LODWORD(v39) = [mEMORY[0x1E69D4938]2 shouldLog];
         shouldLogToDisk2 = [mEMORY[0x1E69D4938]2 shouldLogToDisk];
         oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
         v14 = oSLogObject2;
         if (shouldLogToDisk2)
         {
-          shouldLog2 |= 2u;
+          LODWORD(v39) = v39 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog2 &= 2u;
+          v39 = v39;
         }
 
-        if (shouldLog2)
+        else
+        {
+          v39 &= 2u;
+        }
+
+        if (v39)
         {
           v42 = objc_opt_class();
           v68 = 138543362;
           v69 = v42;
           v43 = v42;
-          LODWORD(v61) = 12;
-          v15 = _os_log_send_and_compose_impl();
+          v15 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_1C21AF000, v14, 0, "%{public}@: [SignupInWallet] No parameters dictionary supplied", &v68, 12);
 
           if (!v15)
           {
-            goto LABEL_58;
+            goto LABEL_63;
           }
 
-          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v68, v61}];
+          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
           free(v15);
           SSFileLog();
         }
 
-        goto LABEL_56;
+        goto LABEL_61;
       }
 
       mEMORY[0x1E69D4938]2 = walletCopy;
@@ -6276,182 +6477,199 @@ void __30__SUScriptInterface_userAgent__block_invoke(uint64_t a1)
       {
         v14 = v14;
         v15 = v14;
-LABEL_57:
+LABEL_62:
 
-LABEL_58:
+LABEL_63:
         v52 = [v15 objectForKeyedSubscript:@"referrerIdentifier"];
         if (v52)
         {
-LABEL_68:
+LABEL_74:
           v62 = v52;
           v63 = v9;
           WebThreadRunOnMainThread();
 
-          goto LABEL_69;
+          goto LABEL_75;
         }
 
         mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-        shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
+        LODWORD(v54) = [mEMORY[0x1E69D4938]3 shouldLog];
         shouldLogToDisk3 = [mEMORY[0x1E69D4938]3 shouldLogToDisk];
         oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
         v57 = oSLogObject3;
         if (shouldLogToDisk3)
         {
-          shouldLog3 |= 2u;
+          LODWORD(v54) = v54 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v54 = v54;
         }
 
-        if (shouldLog3)
+        else
+        {
+          v54 &= 2u;
+        }
+
+        if (v54)
         {
           v58 = objc_opt_class();
           v68 = 138543362;
           v69 = v58;
           v59 = v58;
           LODWORD(v61) = 12;
-          v60 = _os_log_send_and_compose_impl();
+          v60 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &dword_1C21AF000, v57, 0, "%{public}@: [SignupInWallet] No referrerIdentifier supplied", &v68, v61);
 
           if (!v60)
           {
-LABEL_67:
+LABEL_73:
 
-            goto LABEL_68;
+            goto LABEL_74;
           }
 
-          v57 = [MEMORY[0x1E696AEC0] stringWithCString:v60 encoding:{4, &v68, v61}];
+          v57 = [MEMORY[0x1E696AEC0] stringWithCString:v60 encoding:4];
           free(v60);
           SSFileLog();
         }
 
-        goto LABEL_67;
+        goto LABEL_73;
       }
 
       mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
+      LODWORD(v45) = [mEMORY[0x1E69D4938]4 shouldLog];
       shouldLogToDisk4 = [mEMORY[0x1E69D4938]4 shouldLogToDisk];
       oSLogObject4 = [mEMORY[0x1E69D4938]4 OSLogObject];
       v48 = oSLogObject4;
       if (shouldLogToDisk4)
       {
-        shouldLog4 |= 2u;
+        LODWORD(v45) = v45 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog4 &= 2u;
+        v45 = v45;
       }
 
-      if (shouldLog4)
+      else
+      {
+        v45 &= 2u;
+      }
+
+      if (v45)
       {
         v49 = objc_opt_class();
         v68 = 138543362;
         v69 = v49;
         v50 = v49;
-        LODWORD(v61) = 12;
-        v51 = _os_log_send_and_compose_impl();
+        v51 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &dword_1C21AF000, v48, 0, "%{public}@: [SignupInWallet] Did not serialize parameters dictionary", &v68, 12);
 
         if (!v51)
         {
-LABEL_55:
+LABEL_60:
 
-LABEL_56:
+LABEL_61:
           v15 = 0;
-          goto LABEL_57;
+          goto LABEL_62;
         }
 
-        v48 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, &v68, v61}];
+        v48 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
         free(v51);
         SSFileLog();
       }
 
-      goto LABEL_55;
+      goto LABEL_60;
     }
 
     mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
-    shouldLog5 = [mEMORY[0x1E69D4938]5 shouldLog];
+    LODWORD(v32) = [mEMORY[0x1E69D4938]5 shouldLog];
     shouldLogToDisk5 = [mEMORY[0x1E69D4938]5 shouldLogToDisk];
     oSLogObject5 = [mEMORY[0x1E69D4938]5 OSLogObject];
     v35 = oSLogObject5;
     if (shouldLogToDisk5)
     {
-      shouldLog5 |= 2u;
+      LODWORD(v32) = v32 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
     {
-      shouldLog5 &= 2u;
+      v32 = v32;
     }
 
-    if (shouldLog5)
+    else
+    {
+      v32 &= 2u;
+    }
+
+    if (v32)
     {
       v36 = objc_opt_class();
       v68 = 138543362;
       v69 = v36;
       v37 = v36;
-      LODWORD(v61) = 12;
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_1C21AF000, v35, 16, "%{public}@: [SignupInWallet] Failed for no combined account.", &v68, 12);
 
       if (!v38)
       {
-LABEL_39:
+LABEL_42:
 
         v15 = ISError();
         (v9)[2](v9, 0, v15);
-        goto LABEL_69;
+        goto LABEL_75;
       }
 
-      v35 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v68, v61}];
+      v35 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
       free(v38);
       SSFileLog();
     }
 
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-  shouldLog6 = [mEMORY[0x1E69D4938] shouldLog];
+  LODWORD(v24) = [mEMORY[0x1E69D4938] shouldLog];
   shouldLogToDisk6 = [mEMORY[0x1E69D4938] shouldLogToDisk];
   oSLogObject6 = [mEMORY[0x1E69D4938] OSLogObject];
   v27 = oSLogObject6;
   if (shouldLogToDisk6)
   {
-    shouldLog6 |= 2u;
+    LODWORD(v24) = v24 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
   {
-    shouldLog6 &= 2u;
+    v24 = v24;
   }
 
-  if (!shouldLog6)
+  else
   {
-    goto LABEL_29;
+    v24 &= 2u;
+  }
+
+  if (!v24)
+  {
+    goto LABEL_31;
   }
 
   v28 = objc_opt_class();
   v68 = 138543362;
   v69 = v28;
   v29 = v28;
-  LODWORD(v61) = 12;
-  v30 = _os_log_send_and_compose_impl();
+  v30 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1C21AF000, v27, 16, "%{public}@: [SignupInWallet] Failed for feature not enabled.", &v68, 12);
 
   if (v30)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v68, v61}];
+    v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
     free(v30);
     SSFileLog();
-LABEL_29:
+LABEL_31:
   }
 
-LABEL_21:
+LABEL_22:
 
   [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
   v15 = ISError();
   (v9)[2](v9, 0, v15);
-LABEL_69:
+LABEL_75:
 
   objc_destroyWeak(&v66);
   objc_destroyWeak(&location);
@@ -6737,13 +6955,12 @@ void __45__SUScriptInterface_signupInWallet_callback___block_invoke_2(uint64_t a
     goto LABEL_10;
   }
 
-  v11[0] = 0;
-  LODWORD(v10) = 2;
-  v9 = _os_log_send_and_compose_impl();
+  v10[0] = 0;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "SFSafariViewController did complete initial load.", v10, 2);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v11, v10}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -6780,13 +6997,12 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v11[0] = 0;
-  LODWORD(v10) = 2;
-  v9 = _os_log_send_and_compose_impl();
+  v10[0] = 0;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "SFSafariViewController did finish.", v10, 2);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v11, v10}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -7967,7 +8183,7 @@ LABEL_22:
 
 void __89__SUScriptInterface_SUAuthentication__authenticateAppleIdWithUsername_password_callback___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) parentViewController];
   if (!v2)
   {
@@ -7975,55 +8191,59 @@ void __89__SUScriptInterface_SUAuthentication__authenticateAppleIdWithUsername_p
     v6 = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = v6 | 2;
+      LODWORD(v7) = v6 | 2;
     }
 
     else
     {
-      v7 = v6;
+      LODWORD(v7) = v6;
     }
 
     v8 = [v5 OSLogObject];
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      v14 = 138543362;
-      v15 = objc_opt_class();
-      v9 = v15;
-      LODWORD(v12) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v13 = 138543362;
+      v14 = objc_opt_class();
+      v9 = v14;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, v8, 16, "[%{public}@]: Failed to perform apple id auth. Missing required presenting view controller", &v13, 12);
 
       if (!v10)
       {
-LABEL_12:
+LABEL_13:
 
         v3 = [[SUScriptFunction alloc] initWithScriptObject:*(a1 + 56)];
         [(SUScriptFunction *)v3 setThisObject:*(a1 + 32)];
-        v13 = @"fail";
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+        v12 = @"fail";
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
         [(SUScriptFunction *)v3 callWithArguments:v11];
 
         [(SUScriptFunction *)v3 setThisObject:0];
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v14, v12}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v3 = [[SUScriptAppleIdAuthenticationOperation alloc] initWithUsername:*(a1 + 40) password:*(a1 + 48) viewController:v2];
   v4 = [[SUScriptOperation alloc] initWithOperation:v3 callback:*(a1 + 56)];
   [*(*(a1 + 32) + 192) enqueueOperation:v4];
 
-LABEL_13:
+LABEL_14:
 }
 
 - (id)makeAccount
@@ -8305,46 +8525,50 @@ LABEL_11:
 
 - (void)dismissWindowsWithOptions:(id)options
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69D4938];
   optionsCopy = options;
   sharedConfig = [v3 sharedConfig];
   shouldLog = [sharedConfig shouldLog];
   if ([sharedConfig shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [sharedConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2082;
-  *&v12[14] = "[SUScriptInterface(SUNavigation) dismissWindowsWithOptions:]";
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v11 = 138543618;
+  v12 = objc_opt_class();
+  v13 = 2082;
+  v14 = "[SUScriptInterface(SUNavigation) dismissWindowsWithOptions:]";
+  v9 = v12;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] JS called method: %{public}s", &v11, 22);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, v12, v11, *v12, *&v12[16], v13}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [SUScriptWindow dismissWindowsWithOptions:optionsCopy];
@@ -8401,48 +8625,52 @@ LABEL_9:
 
 - (void)openURL:(id)l
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69D4938];
   lCopy = l;
   sharedConfig = [v4 sharedConfig];
   shouldLog = [sharedConfig shouldLog];
   if ([sharedConfig shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [sharedConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    *v15 = 138543618;
-    *&v15[4] = objc_opt_class();
-    *&v15[12] = 2082;
-    *&v15[14] = "[SUScriptInterface(SUNavigation) openURL:]";
-    v10 = *&v15[4];
-    LODWORD(v14) = 22;
-    v11 = _os_log_send_and_compose_impl();
+    v14 = 138543618;
+    v15 = objc_opt_class();
+    v16 = 2082;
+    v17 = "[SUScriptInterface(SUNavigation) openURL:]";
+    v10 = v15;
+    v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] JS called method: %{public}s", &v14, 22);
 
     if (!v11)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v15, v14, *v15, *&v15[16], v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
   }
 
-LABEL_10:
+LABEL_11:
   v12 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:lCopy];
 
   if (v12)
@@ -8571,44 +8799,48 @@ void __49__SUScriptInterface_SUNavigation__viewController__block_invoke(uint64_t
 
 - (void)dismissSheet
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v11 = 138543618;
-  *&v11[4] = objc_opt_class();
-  *&v11[12] = 2082;
-  *&v11[14] = "[SUScriptInterface(SUNavigation) dismissSheet]";
-  v7 = *&v11[4];
-  LODWORD(v10) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v10 = 138543618;
+  v11 = objc_opt_class();
+  v12 = 2082;
+  v13 = "[SUScriptInterface(SUNavigation) dismissSheet]";
+  v7 = v11;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] JS called method: %{public}s", &v10, 22);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v11, v10, *v11, *&v11[16]}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   viewController = [(SUScriptInterface *)self viewController];
@@ -8617,44 +8849,48 @@ LABEL_9:
 
 - (void)goBack
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2082;
-  *&v12[14] = "[SUScriptInterface(SUNavigation) goBack]";
-  v7 = *&v12[4];
-  LODWORD(v11) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v11 = 138543618;
+  v12 = objc_opt_class();
+  v13 = 2082;
+  v14 = "[SUScriptInterface(SUNavigation) goBack]";
+  v7 = v12;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] JS called method: %{public}s", &v11, 22);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v12, v11, *v12, *&v12[16]}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   viewController = [(SUScriptInterface *)self viewController];
@@ -8665,48 +8901,52 @@ LABEL_9:
 
 - (void)gotoStoreURL:(id)l ofType:(id)type withAuthentication:(BOOL)authentication forceAuthentication:(BOOL)forceAuthentication
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   typeCopy = type;
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (!v11)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  v19 = 138543874;
-  v20 = objc_opt_class();
-  v21 = 2082;
-  v22 = "[SUScriptInterface(SUNavigation) gotoStoreURL:ofType:withAuthentication:forceAuthentication:]";
-  v23 = 2114;
-  v24 = lCopy;
-  v13 = v20;
-  LODWORD(v16) = 32;
-  v14 = _os_log_send_and_compose_impl();
+  v18 = 138543874;
+  v19 = objc_opt_class();
+  v20 = 2082;
+  v21 = "[SUScriptInterface(SUNavigation) gotoStoreURL:ofType:withAuthentication:forceAuthentication:]";
+  v22 = 2114;
+  v23 = lCopy;
+  v13 = v19;
+  v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%{public}@] JS called method: %{public}s url: %{public}@", &v18, 32);
 
   if (v14)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v19, v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   objc_opt_class();
@@ -8717,8 +8957,8 @@ LABEL_9:
       v15 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:lCopy];
       if (v15)
       {
-        v17 = typeCopy;
-        v18 = v15;
+        v16 = typeCopy;
+        v17 = v15;
         WebThreadRunOnMainThread();
       }
     }
@@ -8784,15 +9024,21 @@ void __94__SUScriptInterface_SUNavigation__gotoStoreURL_ofType_withAuthenticatio
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -8803,15 +9049,13 @@ void __94__SUScriptInterface_SUNavigation__gotoStoreURL_ofType_withAuthenticatio
       v17 = objc_opt_class();
       v18 = 2112;
       v19 = v5;
-      LODWORD(v15) = 22;
-      v14 = &v16;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 1, "%@: Pinging %@", &v16, 22);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v16, v15}];
-        free(v10);
-        v14 = v11;
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        v15 = v12;
         SSFileLog();
       }
     }
@@ -8822,9 +9066,9 @@ void __94__SUScriptInterface_SUNavigation__gotoStoreURL_ofType_withAuthenticatio
 
   else
   {
-    v13 = MEMORY[0x1E69E2F88];
+    v14 = MEMORY[0x1E69E2F88];
 
-    [v13 throwException:@"Invalid argument"];
+    [v14 throwException:@"Invalid argument"];
   }
 }
 
@@ -8921,40 +9165,45 @@ void __75__SUScriptInterface_SUProtocolAdditions__handleProtocolPropertyListStri
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+  v6 = [v3 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
-    v7 = *(a1 + 48);
+    v7 = objc_opt_class();
+    v8 = *(a1 + 48);
     v12 = 138412546;
-    v13 = v6;
+    v13 = v7;
     v14 = 2112;
-    v15 = v7;
-    LODWORD(v11) = 22;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v15 = v8;
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, v6, 2, "%@: Following redirect from protocol: %@", &v12, 22);
+    if (v9)
     {
-      v9 = v8;
-      [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v12, v11}];
-      free(v9);
+      v10 = v9;
+      [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
       SSFileLog();
     }
   }
 
-  v10 = [objc_alloc(MEMORY[0x1E69D4A08]) initWithURL:{objc_msgSend(*(a1 + 48), "schemeSwizzledURL")}];
-  [v2 reloadWithURLRequestProperties:v10];
+  v11 = [objc_alloc(MEMORY[0x1E69D4A08]) initWithURL:{objc_msgSend(*(a1 + 48), "schemeSwizzledURL")}];
+  [v2 reloadWithURLRequestProperties:v11];
 }
 
 void __75__SUScriptInterface_SUProtocolAdditions__handleProtocolPropertyListString___block_invoke_96(uint64_t a1)
@@ -9327,15 +9576,21 @@ uint64_t __52__SUScriptInterface_SUScriptWindowAdditions__window__block_invoke(u
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -9346,28 +9601,27 @@ uint64_t __52__SUScriptInterface_SUScriptWindowAdditions__window__block_invoke(u
       v16 = objc_opt_class();
       v17 = 2112;
       v18 = v5;
-      LODWORD(v14) = 22;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Add external downloads from URL: %@", &v15, 22);
+      if (v10)
       {
-        v10 = v9;
-        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v15, v14}];
-        free(v10);
+        v11 = v10;
+        [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
         SSFileLog();
       }
     }
 
-    v11 = objc_alloc(MEMORY[0x1E69D48E0]);
-    v12 = [v11 initWithURLRequest:{objc_msgSend(MEMORY[0x1E695AC68], "requestWithURL:", v5)}];
-    [v12 setManifestFormat:1];
-    [v12 start];
+    v12 = objc_alloc(MEMORY[0x1E69D48E0]);
+    v13 = [v12 initWithURLRequest:{objc_msgSend(MEMORY[0x1E695AC68], "requestWithURL:", v5)}];
+    [v13 setManifestFormat:1];
+    [v13 start];
   }
 
   else
   {
-    v13 = MEMORY[0x1E69E2F88];
+    v14 = MEMORY[0x1E69E2F88];
 
-    [v13 throwException:@"Invalid argument"];
+    [v14 throwException:@"Invalid argument"];
   }
 }
 
@@ -9554,13 +9808,13 @@ void __108__SUScriptInterface_SUScriptComposeReviewViewControllerAdditions__comp
   [(SUComposeReviewViewController *)v4 prepareWithCompletionBlock:v5];
 }
 
-uint64_t __108__SUScriptInterface_SUScriptComposeReviewViewControllerAdditions__composeReviewWithURL_itemIdentifier_type___block_invoke_2(uint64_t result, int a2)
+id *__108__SUScriptInterface_SUScriptComposeReviewViewControllerAdditions__composeReviewWithURL_itemIdentifier_type___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) parentViewController];
-    v4 = *(v2 + 40);
+    v3 = [result[4] parentViewController];
+    v4 = v2[5];
 
     return [v3 presentViewController:v4 animated:1 completion:0];
   }
@@ -9871,15 +10125,21 @@ void __149__SUScriptInterface_SUMediaPlayerViewControllerAdditions__showMediaPla
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
-    if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v5 = [v2 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -9888,13 +10148,12 @@ void __149__SUScriptInterface_SUMediaPlayerViewControllerAdditions__showMediaPla
     {
       v9 = 138412290;
       v10 = objc_opt_class();
-      LODWORD(v7) = 12;
-      v5 = _os_log_send_and_compose_impl();
-      if (v5)
+      v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%@: Ignoring show media player while player already visible", &v9, 12);
+      if (v6)
       {
-        v6 = v5;
-        [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v9, v7}];
-        free(v6);
+        v7 = v6;
+        [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+        free(v7);
         SSFileLog();
       }
     }
@@ -9951,7 +10210,7 @@ void __149__SUScriptInterface_SUMediaPlayerViewControllerAdditions__showMediaPla
   return array;
 }
 
-uint64_t __60__SUScriptInterface_SUScriptAudioPlayer__activeAudioPlayers__block_invoke(uint64_t a1)
+void *__60__SUScriptInterface_SUScriptAudioPlayer__activeAudioPlayers__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = [+[SUAudioPlayerSessionManager sessionManager](SUAudioPlayerSessionManager "sessionManager")];
@@ -9977,7 +10236,7 @@ uint64_t __60__SUScriptInterface_SUScriptAudioPlayer__activeAudioPlayers__block_
         v7 = [[SUScriptAudioPlayer alloc] initWithURL:*(*(&v8 + 1) + 8 * v6) keyURL:0 certificateURL:0];
         [*(a1 + 32) addObject:v7];
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

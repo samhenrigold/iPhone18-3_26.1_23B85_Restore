@@ -143,7 +143,7 @@ uint64_t __96__SBShelfZoomTransitionModifier_initWithTransitionID_direction_from
   v8.super_class = SBShelfZoomTransitionModifier;
   v4 = [(SBTransitionSwitcherModifier *)&v8 handleGestureEvent:event];
   interruptAndEndTransition = [(SBTransitionSwitcherModifier *)self interruptAndEndTransition];
-  v6 = SBAppendSwitcherModifierResponse(v4, interruptAndEndTransition);
+  v6 = SBAppendSwitcherModifierResponse();
 
   return v6;
 }
@@ -155,7 +155,7 @@ uint64_t __96__SBShelfZoomTransitionModifier_initWithTransitionID_direction_from
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v12 transitionWillBegin];
   direction = self->_direction;
   v5 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v6 = SBAppendSwitcherModifierResponse(v5, transitionWillBegin);
+  v6 = SBAppendSwitcherModifierResponse();
 
   v7 = [SBUpdateLayoutSwitcherEventResponse alloc];
   if (direction == 1)
@@ -169,7 +169,7 @@ uint64_t __96__SBShelfZoomTransitionModifier_initWithTransitionID_direction_from
   }
 
   v9 = [(SBUpdateLayoutSwitcherEventResponse *)v7 initWithOptions:10 updateMode:v8];
-  v10 = SBAppendSwitcherModifierResponse(v9, v6);
+  v10 = SBAppendSwitcherModifierResponse();
 
   return v10;
 }
@@ -182,7 +182,7 @@ uint64_t __96__SBShelfZoomTransitionModifier_initWithTransitionID_direction_from
   if (self->_direction == 1)
   {
     v4 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionDidEnd);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v5;
   }

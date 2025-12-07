@@ -23,7 +23,7 @@
 
 - (id)computeScaleForCandidates:(id)candidates locationHistory:(id)history motionActivity:(id)activity currentLocation:(id)location currentTime:(double)time lastVisitExitTime:(double)exitTime isInTransition:(BOOL)transition
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   historyCopy = history;
   locationCopy = location;
@@ -34,9 +34,9 @@
     {
       v19 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v104 = v19;
-      v105 = 2048;
-      v106 = [historyCopy count];
+      v103 = v19;
+      v104 = 2048;
+      v105 = [historyCopy count];
       v20 = "[%@] skip Direction scal factor, not enough buffered location, location count, %lu";
       v21 = v18;
       v22 = 22;
@@ -56,7 +56,7 @@ LABEL_10:
     {
       v19 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v104 = v19;
+      v103 = v19;
       v20 = "[%@] skip Direction scal factor, not in transition";
       v21 = v18;
       v22 = 12;
@@ -105,34 +105,34 @@ LABEL_11:
 
       if (v51 >= v54)
       {
-        v90 = v49;
-        v91 = historyCopy;
-        v96 = [PCLocationUtils vectorFrom:v49 to:locationCopy];
+        v89 = v49;
+        v90 = historyCopy;
+        v95 = [PCLocationUtils vectorFrom:v49 to:locationCopy];
         dictionary = [MEMORY[0x1E695DF90] dictionary];
+        v98 = 0u;
         v99 = 0u;
         v100 = 0u;
         v101 = 0u;
-        v102 = 0u;
-        v92 = candidatesCopy;
+        v91 = candidatesCopy;
         v58 = candidatesCopy;
         v59 = dictionary;
         obj = [v58 objectEnumerator];
-        v98 = [obj countByEnumeratingWithState:&v99 objects:v115 count:16];
-        if (v98)
+        v97 = [obj countByEnumeratingWithState:&v98 objects:v114 count:16];
+        if (v97)
         {
-          v60 = *v100;
-          v93 = v59;
-          v95 = *v100;
+          v60 = *v99;
+          v92 = v59;
+          v94 = *v99;
           do
           {
-            for (i = 0; i != v98; ++i)
+            for (i = 0; i != v97; ++i)
             {
-              if (*v100 != v60)
+              if (*v99 != v60)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v62 = *(*(&v99 + 1) + 8 * i);
+              v62 = *(*(&v98 + 1) + 8 * i);
               coordinate = [v62 coordinate];
               [locationCopy distanceTo:coordinate];
               v65 = v64;
@@ -147,7 +147,7 @@ LABEL_11:
                 coordinate2 = [v62 coordinate];
                 v69 = [v71 vectorFrom:locationCopy to:coordinate2];
 
-                [*(v46 + 2176) cosineSimilarityBetween:v96 and:v69];
+                [*(v46 + 2176) cosineSimilarityBetween:v95 and:v69];
                 v74 = v73;
                 [PCDynamicsUtils directionFactorFromCosineSimilarity:?];
                 v76 = 1.0 - v75;
@@ -168,26 +168,26 @@ LABEL_11:
                   v86 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
                   [(PCDynamicsWindowContext *)v32 travelTimeSec];
                   *buf = 138413570;
-                  v104 = v81;
-                  v105 = 2112;
-                  v106 = v86;
-                  v107 = 2048;
-                  v108 = v74;
-                  v109 = 2048;
-                  v110 = v87;
-                  v111 = 2048;
-                  v112 = v51;
-                  v113 = 2048;
-                  v114 = v78;
+                  v103 = v81;
+                  v104 = 2112;
+                  v105 = v86;
+                  v106 = 2048;
+                  v107 = v74;
+                  v108 = 2048;
+                  v109 = v87;
+                  v110 = 2048;
+                  v111 = v51;
+                  v112 = 2048;
+                  v113 = v78;
                   _os_log_impl(&dword_1CEE74000, visitIdentifier2, OS_LOG_TYPE_INFO, "[%@] Computed direction factor for loiID: %@, cosine similarity: %.2f, travel duration(s), %.2f, travel Distance(m), %.2f, direction scale factor: %.2f", buf, 0x3Eu);
 
                   locationCopy = v84;
                   self = selfCopy;
                   v46 = v82;
-                  v59 = v93;
+                  v59 = v92;
                 }
 
-                v60 = v95;
+                v60 = v94;
               }
 
               else
@@ -198,16 +198,16 @@ LABEL_11:
               }
             }
 
-            v98 = [obj countByEnumeratingWithState:&v99 objects:v115 count:16];
+            v97 = [obj countByEnumeratingWithState:&v98 objects:v114 count:16];
           }
 
-          while (v98);
+          while (v97);
         }
 
         v44 = [v59 copy];
-        historyCopy = v91;
-        candidatesCopy = v92;
-        v49 = v90;
+        historyCopy = v90;
+        candidatesCopy = v91;
+        v49 = v89;
       }
 
       else
@@ -217,9 +217,9 @@ LABEL_11:
         {
           v56 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v104 = v56;
-          v105 = 2048;
-          v106 = *&v51;
+          v103 = v56;
+          v104 = 2048;
+          v105 = *&v51;
           _os_log_impl(&dword_1CEE74000, v55, OS_LOG_TYPE_INFO, "[%@] skip Direction scal factor, traveled distance: %.2f too low", buf, 0x16u);
         }
 
@@ -234,7 +234,7 @@ LABEL_11:
     {
       v39 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v104 = v39;
+      v103 = v39;
       v41 = "[%@] skip Direction scal factor, can't find window start fix";
       v42 = v38;
       v43 = 12;
@@ -250,9 +250,9 @@ LABEL_11:
       v39 = NSStringFromSelector(a2);
       [(PCDynamicsWindowContext *)v32 travelTimeSec];
       *buf = 138412546;
-      v104 = v39;
-      v105 = 2048;
-      v106 = v40;
+      v103 = v39;
+      v104 = 2048;
+      v105 = v40;
       v41 = "[%@] skip Direction scal factor, travelTime: %.2f too short";
       v42 = v38;
       v43 = 22;
@@ -265,7 +265,6 @@ LABEL_19:
 LABEL_35:
 
 LABEL_36:
-  v88 = *MEMORY[0x1E69E9840];
 
   return v44;
 }

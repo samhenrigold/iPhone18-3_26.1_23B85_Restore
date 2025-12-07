@@ -677,7 +677,7 @@ void __58__STAllowanceDetailListController__editListButtonPressed___block_invoke
 
 - (id)createBudgetedItemSpecifiers
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   allowance = [(STAllowanceDetailListController *)self allowance];
   v5 = objc_alloc(MEMORY[0x277CBEB70]);
@@ -861,9 +861,9 @@ void __58__STAllowanceDetailListController__editListButtonPressed___block_invoke
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v93 = v53;
-              v94 = 2112;
-              v95 = v52;
+              v92 = v53;
+              v93 = 2112;
+              v94 = v52;
               _os_log_error_impl(&dword_264BA2000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to extract high level domain for URL: %@. Creating initial for host instead: %@", buf, 0x16u);
             }
           }

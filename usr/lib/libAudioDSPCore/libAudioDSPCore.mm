@@ -24,7 +24,7 @@ double IR::IRCoordinates::reset(IR::IRCoordinates *this)
   return result;
 }
 
-_BYTE *IR::IRCoordinates::getParameterString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *IR::IRCoordinates::getParameterString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 8)
   {
@@ -39,7 +39,7 @@ _BYTE *IR::IRCoordinates::getParameterString@<X0>(unsigned int a1@<W0>, _BYTE *a
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -53,13 +53,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -203,20 +203,20 @@ void sub_296B9E868(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
@@ -382,20 +382,20 @@ void sub_296B9EBCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE6resizeEmRKDF16_(void *a1, unint64_t a2, __int16 *a3, int16x4_t a4)
+void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE6resizeEmRKDF16_(void *result, unint64_t a2, __int16 *a3, int8x8_t a4)
 {
-  v4 = (a1[1] - *a1) >> 1;
+  v4 = (result[1] - *result) >> 1;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(a1, a2 - v4, a3, a4);
+    _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(result, a2 - v4, a3, a4);
   }
 }
 
@@ -652,7 +652,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(uint64_t a1, unint64_t a2, __int16 *a3, int16x4_t a4)
+void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(uint64_t a1, unint64_t a2, __int16 *a3, int8x8_t a4)
 {
   v7 = *(a1 + 8);
   v6 = *(a1 + 16);
@@ -676,29 +676,29 @@ void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(uint64_t a1,
           *(v18 - 4) = a4.i16[0];
         }
 
-        if (vuzp1_s8(vuzp1_s16(v20, a4), *&a4).i8[1])
+        if (vuzp1_s8(vuzp1_s16(v20, *&a4), a4).i8[1])
         {
           *(v18 - 3) = a4.i16[0];
         }
 
-        if (vuzp1_s8(vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_296C19AA0)))), *&a4).i8[2])
+        if (vuzp1_s8(vuzp1_s16(*&a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_296C19AA0)))), a4).i8[2])
         {
           *(v18 - 2) = a4.i16[0];
           *(v18 - 1) = a4.i16[0];
         }
 
         v21 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_296C19AD0)));
-        if (vuzp1_s8(*&a4, vuzp1_s16(v21, a4)).i32[1])
+        if (vuzp1_s8(a4, vuzp1_s16(v21, *&a4)).i32[1])
         {
           *v18 = a4.i16[0];
         }
 
-        if (vuzp1_s8(*&a4, vuzp1_s16(v21, a4)).i8[5])
+        if (vuzp1_s8(a4, vuzp1_s16(v21, *&a4)).i8[5])
         {
           v18[1] = a4.i16[0];
         }
 
-        if (vuzp1_s8(*&a4, vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_296C19AC0))))).i8[6])
+        if (vuzp1_s8(a4, vuzp1_s16(*&a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_296C19AC0))))).i8[6])
         {
           v18[2] = a4.i16[0];
           v18[3] = a4.i16[0];
@@ -771,29 +771,29 @@ void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE8__appendEmRKDF16_(uint64_t a1,
         *(v28 - 4) = a4.i16[0];
       }
 
-      if (vuzp1_s8(vuzp1_s16(v30, a4), *&a4).i8[1])
+      if (vuzp1_s8(vuzp1_s16(v30, *&a4), a4).i8[1])
       {
         *(v28 - 3) = a4.i16[0];
       }
 
-      if (vuzp1_s8(vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v27, vorrq_s8(v29, xmmword_296C19AA0)))), *&a4).i8[2])
+      if (vuzp1_s8(vuzp1_s16(*&a4, vmovn_s64(vcgeq_u64(v27, vorrq_s8(v29, xmmword_296C19AA0)))), a4).i8[2])
       {
         *(v28 - 2) = a4.i16[0];
         *(v28 - 1) = a4.i16[0];
       }
 
       v31 = vmovn_s64(vcgeq_u64(v27, vorrq_s8(v29, xmmword_296C19AD0)));
-      if (vuzp1_s8(*&a4, vuzp1_s16(v31, a4)).i32[1])
+      if (vuzp1_s8(a4, vuzp1_s16(v31, *&a4)).i32[1])
       {
         *v28 = a4.i16[0];
       }
 
-      if (vuzp1_s8(*&a4, vuzp1_s16(v31, a4)).i8[5])
+      if (vuzp1_s8(a4, vuzp1_s16(v31, *&a4)).i8[5])
       {
         v28[1] = a4.i16[0];
       }
 
-      if (vuzp1_s8(*&a4, vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v27, vorrq_s8(v29, xmmword_296C19AC0))))).i8[6])
+      if (vuzp1_s8(a4, vuzp1_s16(*&a4, vmovn_s64(vcgeq_u64(v27, vorrq_s8(v29, xmmword_296C19AC0))))).i8[6])
       {
         v28[2] = a4.i16[0];
         v28[3] = a4.i16[0];
@@ -829,8 +829,9 @@ void _ZNSt3__19allocatorIDF16_E17allocate_at_leastB8ne200100Em(uint64_t a1, uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t IR::FFTFilterTranspose::Implementation::initialize(IR::FFTFilterTranspose::Implementation *this, int a2, int a3, unsigned int a4, int a5, int a6, int a7, char a8, BOOL a9, BOOL a10)
+uint64_t IR::FFTFilterTranspose::Implementation::initialize(IR::FFTFilterTranspose::Implementation *this, int a2, int a3, unsigned int a4, uint64_t a5, int a6, int a7, char a8, BOOL a9, BOOL a10)
 {
+  v13 = a5;
   if (*(this + 45) == 1)
   {
     (*(*this + 32))(this);
@@ -893,7 +894,7 @@ LABEL_16:
     goto LABEL_31;
   }
 
-  if (a5)
+  if (v13)
   {
     v19 = *(this + 2);
     if (v19 <= v18)
@@ -913,7 +914,7 @@ LABEL_16:
     }
   }
 
-  if (a5)
+  if (v13)
   {
     *(this + 5) = *(this + 3);
     v23 = *(this + 64);
@@ -1078,14 +1079,14 @@ LABEL_31:
     for (i = 0; i != 3; ++i)
     {
       v64 = &v62[32 * i];
-      caulk::pooled_semaphore_mutex::_lock((v64 + 24));
+      caulk::pooled_semaphore_mutex::_lock((v64 + 3));
       std::vector<IR::FFTFilterKernel<float>>::resize(v64, a4);
       if (a4)
       {
         IR::FFTFilterKernel<float>::initialize();
       }
 
-      caulk::pooled_semaphore_mutex::_unlock((v64 + 24));
+      caulk::pooled_semaphore_mutex::_unlock((v64 + 3));
     }
   }
 
@@ -1215,24 +1216,24 @@ void std::vector<std::vector<DSPSplitComplex>>::resize(void *a1, unint64_t a2)
   }
 }
 
-void std::vector<DSPSplitComplex>::resize(void *a1, unint64_t a2)
+void std::vector<DSPSplitComplex>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<DSPSplitComplex>::__append(a1, a2 - v2);
+    std::vector<DSPSplitComplex>::__append(result, a2 - v2);
   }
 }
 
-void *std::vector<IR::FFTFilterKernel<float>>::resize(void *a1, unint64_t a2)
+unint64_t *std::vector<IR::FFTFilterKernel<float>>::resize(unint64_t *a1, unint64_t a2)
 {
   result = a1[1];
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((result - *a1) >> 3);
@@ -1860,7 +1861,7 @@ void IR::FFTFilterTranspose::Implementation::firFilterMultipleInput(IR::FFTFilte
 
 uint64_t IR::FFTFilterTranspose::Implementation::processMultipleInputs(IR::FFTFilterTranspose::Implementation *this, float *const *a2, float *const *a3, uint64_t a4, unsigned int a5, unsigned int a6, IR::ComplexDataCircBuffer *a7)
 {
-  v87 = *MEMORY[0x29EDCA608];
+  v104 = *MEMORY[0x29EDCA608];
   if (*(this + 45) != 1)
   {
     return 4294956429;
@@ -1875,6 +1876,7 @@ uint64_t IR::FFTFilterTranspose::Implementation::processMultipleInputs(IR::FFTFi
       return 4294967246;
     }
 
+    v9 = this;
     if (*(this + 6) != a6 || a6 > a5)
     {
       return 4294967246;
@@ -1884,19 +1886,20 @@ uint64_t IR::FFTFilterTranspose::Implementation::processMultipleInputs(IR::FFTFi
     {
       if (*(this + 44) == 1)
       {
-        if (caulk::pooled_semaphore_mutex::try_lock((*(this + 20) + 24)))
+        this = caulk::pooled_semaphore_mutex::try_lock((*(this + 20) + 24));
+        if (this)
         {
-          *(this + 19) = *(this + 20);
+          *(v9 + 19) = *(v9 + 20);
         }
 
-        *(this + 44) = 0;
+        *(v9 + 44) = 0;
       }
 
-      if (*(this + 4))
+      if (*(v9 + 4))
       {
-        v75[1] = v75;
-        MEMORY[0x2A1C7C4A8]();
-        v15 = v75 - ((v14 + 15) & 0xFFFFFFFF0);
+        v92[1] = v92;
+        MEMORY[0x2A1C7C4A8](this);
+        v15 = v92 - ((v14 + 15) & 0xFFFFFFFF0);
         if (v14 >= 0x200)
         {
           v16 = 512;
@@ -1907,340 +1910,352 @@ uint64_t IR::FFTFilterTranspose::Implementation::processMultipleInputs(IR::FFTFi
           v16 = v14;
         }
 
-        bzero(v75 - ((v14 + 15) & 0xFFFFFFFF0), v16);
-        v17 = *(this + 6);
+        bzero(v92 - ((v14 + 15) & 0xFFFFFFFF0), v16);
+        v17 = *(v9 + 6);
         v18 = 8 * v17;
-        MEMORY[0x2A1C7C4A8]();
+        MEMORY[0x2A1C7C4A8](v19);
         if ((8 * v17) >= 0x200)
         {
-          v19 = 512;
+          v20 = 512;
         }
 
         else
         {
-          v19 = 8 * v17;
+          v20 = 8 * v17;
         }
 
-        bzero(v75 - ((v18 + 15) & 0xFFFFFFFF0), v19);
+        bzero(v92 - ((v18 + 15) & 0xFFFFFFFF0), v20);
         if (v17)
         {
           memcpy(v15, a2, 8 * v17);
-          memcpy(v75 - ((v18 + 15) & 0xFFFFFFFF0), a3, 8 * v17);
+          memcpy(v92 - ((v18 + 15) & 0xFFFFFFFF0), a3, 8 * v17);
         }
 
-        v78 = (v75 - ((v18 + 15) & 0xFFFFFFFF0));
-        if (!a7 || IR::ComplexDataCircBuffer::getNumOutputChannels(a7) != *(this + 6) || IR::ComplexDataCircBuffer::getNumFFTBuffers(a7) < *(this + 4))
+        v95 = (v92 - ((v18 + 15) & 0xFFFFFFFF0));
+        if (!a7 || IR::ComplexDataCircBuffer::getNumOutputChannels(a7) != *(v9 + 6) || IR::ComplexDataCircBuffer::getNumFFTBuffers(a7) < *(v9 + 4))
         {
           return 4294967246;
         }
 
         CircularIndex = IR::ComplexDataCircBuffer::getCircularIndex(a7);
-        *(this + 9) = IR::ComplexDataCircBuffer::getFFTProcPos(a7);
-        v84 = v15;
-        v25 = v78;
-        v79 = v8;
-        v76 = a7;
+        *(v9 + 9) = IR::ComplexDataCircBuffer::getFFTProcPos(a7);
+        v101 = v15;
+        v26 = v95;
+        v96 = v8;
+        v93 = a7;
         while (1)
         {
-          v26 = *(this + 3);
-          v82 = *(this + 9);
-          LODWORD(v83) = v26;
-          v27 = v26 - v82;
-          if (v27 >= v7)
+          v27 = *(v9 + 3);
+          v99 = *(v9 + 9);
+          LODWORD(v100) = v27;
+          v28 = v27 - v99;
+          if (v28 >= v7)
           {
-            v28 = v7;
+            v29 = v7;
           }
 
           else
           {
-            v28 = v27;
+            v29 = v28;
           }
 
-          if (*(this + 46) == 1 && *(this + 6))
+          if (*(v9 + 46) == 1 && *(v9 + 6))
           {
-            v29 = 0;
             v30 = 0;
+            v31 = 0;
             do
             {
-              memcpy((*(*(this + 61) + v29) + 4 * *(this + 9)), *&v15[8 * v30++], 4 * v28);
-              v29 += 24;
+              memcpy((*(*(v9 + 61) + v30) + 4 * *(v9 + 9)), *&v15[8 * v31++], 4 * v29);
+              v30 += 24;
             }
 
-            while (v30 < *(this + 6));
+            while (v31 < *(v9 + 6));
           }
 
-          if (*(this + 47) == 1)
+          if (*(v9 + 47) == 1)
           {
-            v31 = *(this + 20);
-            if (v31 != *(this + 19) && (*(this + 460) & 1) == 0 && !*(this + 9))
+            v32 = *(v9 + 20);
+            if (v32 != *(v9 + 19) && (*(v9 + 460) & 1) == 0 && !*(v9 + 9))
             {
-              v32 = (v31 + 24);
-              if (caulk::pooled_semaphore_mutex::try_lock((v31 + 24)))
+              v33 = (v32 + 24);
+              if (caulk::pooled_semaphore_mutex::try_lock((v32 + 24)))
               {
-                v33 = *(this + 19);
-                v34 = *(this + 20);
-                if (v34 != v33)
+                v34 = *(v9 + 19);
+                v35 = *(v9 + 20);
+                if (v35 != v34)
                 {
-                  *(this + 18) = v33;
-                  *(this + 19) = v34;
-                  v35 = *(this + 8);
-                  if (v35)
+                  *(v9 + 18) = v34;
+                  *(v9 + 19) = v35;
+                  v36 = *(v9 + 8);
+                  if (v36)
                   {
-                    *(this + 10) = v35;
-                    *(this + 146) ^= 1u;
+                    *(v9 + 10) = v36;
+                    *(v9 + 146) ^= 1u;
 LABEL_53:
-                    if (v28 >= v35)
+                    if (v29 >= v36)
                     {
-                      v36 = v35;
+                      v37 = v36;
                     }
 
                     else
                     {
-                      v36 = v28;
+                      v37 = v29;
                     }
 
-                    if ((*(this + 5) || (*(this + 46) & 1) == 0) && *(this + 6))
+                    if ((*(v9 + 5) || (*(v9 + 46) & 1) == 0) && *(v9 + 6))
                     {
-                      v77 = v7;
-                      v37 = 0;
-                      v38 = *(this + 8);
-                      v39 = -1.0 / v38;
-                      v40 = v35 / v38;
-                      v41 = -(-1.0 / v38);
-                      v80 = 4 * (v28 - v36);
-                      v42 = 1;
+                      v94 = v7;
+                      v38 = 0;
+                      v39 = *(v9 + 8);
+                      v40 = -1.0 / v39;
+                      v41 = v36 / v39;
+                      v42 = -(-1.0 / v39);
+                      v97 = 4 * (v29 - v37);
+                      v43 = 1;
                       do
                       {
-                        v43 = *&v15[8 * v37];
-                        v44 = (*(*(this + 58) + 24 * (v42 - 1)) + 4 * *(this + 9));
-                        __Step = v41;
-                        __Start = 1.0 - v40;
-                        vDSP_vrampmul(v43, 1, &__Start, &__Step, v44, 1, v36);
-                        if (v35 < v28)
+                        v44 = *&v15[8 * v38];
+                        v45 = (*(*(v9 + 58) + 24 * (v43 - 1)) + 4 * *(v9 + 9));
+                        __Step = v42;
+                        __Start = 1.0 - v41;
+                        vDSP_vrampmul(v44, 1, &__Start, &__Step, v45, 1, v37);
+                        if (v36 < v29)
                         {
-                          memcpy((*(*(this + 58) + 24 * (v42 - 1)) + 4 * *(this + 9) + 4 * v36), &v43[v36], v80);
+                          memcpy((*(*(v9 + 58) + 24 * (v43 - 1)) + 4 * *(v9 + 9) + 4 * v37), &v44[v37], v97);
                         }
 
-                        v45 = (*(*(this + 58) + 24 * v42) + 4 * *(this + 9));
-                        __Step = v39;
-                        __Start = v40;
-                        vDSP_vrampmul(v43, 1, &__Start, &__Step, v45, 1, v36);
-                        if (v35 < v28)
+                        v46 = (*(*(v9 + 58) + 24 * v43) + 4 * *(v9 + 9));
+                        __Step = v40;
+                        __Start = v41;
+                        vDSP_vrampmul(v44, 1, &__Start, &__Step, v46, 1, v37);
+                        if (v36 < v29)
                         {
-                          vDSP_vclr((*(*(this + 58) + 24 * v42) + 4 * *(this + 9) + 4 * v36), 1, (v28 - v36));
+                          vDSP_vclr((*(*(v9 + 58) + 24 * v43) + 4 * *(v9 + 9) + 4 * v37), 1, (v29 - v37));
                         }
 
-                        ++v37;
-                        v42 += 2;
-                        v15 = v84;
+                        ++v38;
+                        v43 += 2;
+                        v15 = v101;
                       }
 
-                      while (v37 < *(this + 6));
-                      v35 = *(this + 10);
-                      v7 = v77;
-                      v25 = v78;
+                      while (v38 < *(v9 + 6));
+                      v36 = *(v9 + 10);
+                      v7 = v94;
+                      v26 = v95;
                     }
 
-                    *(this + 10) = v35 - v36;
-                    if (v35 == v36)
+                    *(v9 + 10) = v36 - v37;
+                    if (v36 == v37)
                     {
-                      v46 = v28;
-                      if (*(this + 462) == 1)
+                      v47 = v29;
+                      if (*(v9 + 462) == 1)
                       {
-                        v47 = *(this + 5);
-                        if (v47 >= *(this + 3))
+                        v48 = *(v9 + 5);
+                        if (v48 >= *(v9 + 3))
                         {
-                          v47 = *(this + 3);
+                          v48 = *(v9 + 3);
                         }
 
-                        v46 = v47 + v36;
+                        v47 = v48 + v37;
                       }
 
-                      *(this + 114) = v46;
-                      *(this + 461) = 0;
+                      *(v9 + 114) = v47;
+                      *(v9 + 461) = 0;
                     }
 
-                    *(this + 460) = 1;
-                    a7 = v76;
+                    *(v9 + 460) = 1;
+                    a7 = v93;
                     goto LABEL_78;
                   }
 
-                  v32 = (v33 + 24);
+                  v33 = (v34 + 24);
                 }
 
-                caulk::pooled_semaphore_mutex::_unlock(v32);
+                caulk::pooled_semaphore_mutex::_unlock(v33);
               }
             }
           }
 
-          v35 = *(this + 10);
-          if (v35)
+          v36 = *(v9 + 10);
+          if (v36)
           {
             goto LABEL_53;
           }
 
-          if (!*(this + 5) && (*(this + 46) & 1) != 0)
+          if (!*(v9 + 5) && (*(v9 + 46) & 1) != 0)
           {
             goto LABEL_80;
           }
 
-          if (*(this + 6))
+          if (*(v9 + 6))
           {
-            v48 = 0;
-            v49 = 1;
+            v49 = 0;
+            v50 = 1;
             do
             {
-              memcpy((*(*(this + 58) + 24 * (v49 - 1)) + 4 * *(this + 9)), *&v15[8 * v48], 4 * v28);
-              vDSP_vclr((*(*(this + 58) + 24 * v49) + 4 * *(this + 9)), 1, v28);
-              ++v48;
-              v49 += 2;
+              memcpy((*(*(v9 + 58) + 24 * (v50 - 1)) + 4 * *(v9 + 9)), *&v15[8 * v49], 4 * v29);
+              vDSP_vclr((*(*(v9 + 58) + 24 * v50) + 4 * *(v9 + 9)), 1, v29);
+              ++v49;
+              v50 += 2;
             }
 
-            while (v48 < *(this + 6));
+            while (v49 < *(v9 + 6));
           }
 
 LABEL_78:
-          if (*(this + 5))
+          if (*(v9 + 5))
           {
-            IR::FFTFilterTranspose::Implementation::firFilterMultipleInput(this, v25, v28, v79);
-            v50 = *(this + 6);
+            IR::FFTFilterTranspose::Implementation::firFilterMultipleInput(v9, v26, v29, v96);
+            v51 = *(v9 + 6);
             goto LABEL_85;
           }
 
 LABEL_80:
-          if (!*(this + 6))
+          if (!*(v9 + 6))
           {
             goto LABEL_89;
           }
 
-          v51 = 0;
+          v52 = 0;
           do
           {
-            v52 = v25[v51];
-            vDSP_vclr(v52, 1, v28);
-            if (v83 != v82)
+            v53 = v26[v52];
+            vDSP_vclr(v53, 1, v29);
+            if (v100 != v99)
             {
-              *v52 = 0.00000011921;
+              *v53 = 0.00000011921;
             }
 
-            ++v51;
-            v50 = *(this + 6);
+            ++v52;
+            v51 = *(v9 + 6);
           }
 
-          while (v51 < v50);
+          while (v52 < v51);
 LABEL_85:
-          if (v50)
+          if (v51)
           {
-            v53 = v25;
-            v54 = v15;
+            v54 = v26;
+            v55 = v15;
             do
             {
-              *v54++ += 4 * v28;
-              *v53++ += v28;
-              --v50;
+              *v55++ += 4 * v29;
+              *v54++ += v29;
+              --v51;
             }
 
-            while (v50);
+            while (v51);
             goto LABEL_90;
           }
 
 LABEL_89:
-          LOBYTE(v50) = 1;
+          LOBYTE(v51) = 1;
 LABEL_90:
-          v55 = *(this + 9) + v28;
-          *(this + 9) = v55;
-          if (v55 >= *(this + 3))
+          v56 = *(v9 + 9) + v29;
+          *(v9 + 9) = v56;
+          if (v56 >= *(v9 + 3))
           {
-            if (*(this + 46) == 1)
+            if (*(v9 + 46) == 1)
             {
-              v56 = CircularIndex;
-              if (*(this + 460) && (*(this + 461) & 1) == 0)
+              v57 = CircularIndex;
+              if (*(v9 + 460) && (*(v9 + 461) & 1) == 0)
               {
-                if ((v50 & 1) == 0)
+                if ((v51 & 1) == 0)
                 {
-                  IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 61));
-                  (*(*this + 112))(this, **(this + 26), this + 280, *(this + 3), 0.5);
-                  (*(*this + 112))(this, **(this + 26), this + 296, *(this + 3), -0.5);
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
-                  IR::FFTFilterTranspose::Implementation::dualFFTBlockConvolution();
+                  IR::FFTFilterTranspose::Implementation::forwardTransform(v9, **(v9 + 26), **(v9 + 61));
+                  (*(*v9 + 112))(v9, **(v9 + 26), v9 + 280, *(v9 + 3), 0.5);
+                  (*(*v9 + 112))(v9, **(v9 + 26), v9 + 296, *(v9 + 3), -0.5);
+                  v71 = **(v9 + 18);
+                  v72 = **(v9 + 19);
+                  FFTBufferVec = IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
+                  IR::FFTFilterTranspose::Implementation::dualFFTBlockConvolution(v9, (v9 + 280), (v9 + 296), v71, v72, FFTBufferVec, CircularIndex);
                 }
 
-                if (!*(this + 10) && !*(this + 5))
+                if (!*(v9 + 10) && !*(v9 + 5))
                 {
-                  *(this + 114) -= *(this + 3);
+                  *(v9 + 114) -= *(v9 + 3);
                 }
 
-                *(this + 461) = 1;
+                *(v9 + 461) = 1;
               }
 
-              else if ((v50 & 1) == 0)
+              else if ((v51 & 1) == 0)
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 61));
-                IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
-                IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v9, **(v9 + 26), **(v9 + 61));
+                v58 = **(v9 + 26);
+                v59 = **(v9 + 19);
+                v60 = IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
+                IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v9, v58, v59, v60, CircularIndex);
               }
             }
 
             else
             {
-              v56 = CircularIndex;
-              if (*(this + 460))
+              v57 = CircularIndex;
+              if (*(v9 + 460))
               {
-                v77 = v7;
-                if ((v50 & 1) == 0)
+                v94 = v7;
+                v61 = a7;
+                if ((v51 & 1) == 0)
                 {
-                  IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 58));
-                  IR::FFTFilterTranspose::Implementation::forwardTransform(this, *(*(this + 26) + 24), *(*(this + 58) + 24));
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
-                  IR::FFTFilterTranspose::Implementation::dualFFTBlockConvolution();
+                  IR::FFTFilterTranspose::Implementation::forwardTransform(v9, **(v9 + 26), **(v9 + 58));
+                  IR::FFTFilterTranspose::Implementation::forwardTransform(v9, *(*(v9 + 26) + 24), *(*(v9 + 58) + 24));
+                  v62 = *(v9 + 26);
+                  v63 = v62[3];
+                  v64 = *v62;
+                  v65 = **(v9 + 18);
+                  v66 = **(v9 + 19);
+                  v67 = IR::ComplexDataCircBuffer::getFFTBufferVec(v61, 0);
+                  IR::FFTFilterTranspose::Implementation::dualFFTBlockConvolution(v9, v63, v64, v65, v66, v67, CircularIndex);
                 }
 
-                LODWORD(v7) = v77;
-                if (!*(this + 10) && !*(this + 5))
+                LODWORD(v7) = v94;
+                if (!*(v9 + 10) && !*(v9 + 5))
                 {
-                  *(this + 114) -= *(this + 3);
+                  *(v9 + 114) -= *(v9 + 3);
                 }
               }
 
-              else if ((v50 & 1) == 0)
+              else if ((v51 & 1) == 0)
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 58));
-                IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
-                IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v9, **(v9 + 26), **(v9 + 58));
+                v68 = **(v9 + 26);
+                v69 = **(v9 + 19);
+                v70 = IR::ComplexDataCircBuffer::getFFTBufferVec(a7, 0);
+                IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v9, v68, v69, v70, CircularIndex);
               }
             }
 
-            if (v56 + 1 == IR::ComplexDataCircBuffer::getNumFFTBuffers(a7))
+            if (v57 + 1 == IR::ComplexDataCircBuffer::getNumFFTBuffers(a7))
             {
-              v57 = 0;
+              v74 = 0;
             }
 
             else
             {
-              v57 = v56 + 1;
+              v74 = v57 + 1;
             }
 
-            CircularIndex = v57;
-            *(this + 9) = 0;
-            if (*(this + 460) == 1)
+            CircularIndex = v74;
+            *(v9 + 9) = 0;
+            if (*(v9 + 460) == 1)
             {
-              v15 = v84;
-              v25 = v78;
-              if (!*(this + 10) && *(this + 114) <= 0)
+              v15 = v101;
+              v26 = v95;
+              if (!*(v9 + 10) && *(v9 + 114) <= 0)
               {
-                *(this + 460) = 0;
-                caulk::pooled_semaphore_mutex::_unlock((*(this + 18) + 24));
+                *(v9 + 460) = 0;
+                caulk::pooled_semaphore_mutex::_unlock((*(v9 + 18) + 24));
               }
             }
 
             else
             {
-              v15 = v84;
-              v25 = v78;
+              v15 = v101;
+              v26 = v95;
             }
           }
 
-          v7 = (v7 - v28);
+          v7 = (v7 - v29);
           if (!v7)
           {
             return 0;
@@ -2248,134 +2263,134 @@ LABEL_90:
         }
       }
 
-      if (*(this + 47) != 1)
+      if (*(v9 + 47) != 1)
       {
         goto LABEL_123;
       }
 
-      v21 = *(this + 20);
-      if (v21 == *(this + 19) || (*(this + 460) & 1) != 0 || !caulk::pooled_semaphore_mutex::try_lock((v21 + 24)))
+      v22 = *(v9 + 20);
+      if (v22 == *(v9 + 19) || (*(v9 + 460) & 1) != 0 || !caulk::pooled_semaphore_mutex::try_lock((v22 + 24)))
       {
         goto LABEL_123;
       }
 
-      v22 = *(this + 19);
-      v23 = *(this + 20);
-      if (v23 == v22)
+      v23 = *(v9 + 19);
+      v24 = *(v9 + 20);
+      if (v24 == v23)
       {
-        v58 = (v21 + 24);
+        v75 = (v22 + 24);
       }
 
       else
       {
-        *(this + 18) = v22;
-        *(this + 19) = v23;
-        v24 = *(this + 8);
-        if (v24)
+        *(v9 + 18) = v23;
+        *(v9 + 19) = v24;
+        v25 = *(v9 + 8);
+        if (v25)
         {
-          *(this + 10) = v24;
-          *(this + 146) ^= 1u;
+          *(v9 + 10) = v25;
+          *(v9 + 146) ^= 1u;
 LABEL_123:
-          v59 = *(this + 10);
-          v60 = v7;
-          if (v59)
+          v76 = *(v9 + 10);
+          v77 = v7;
+          if (v76)
           {
-            if (v59 >= v7)
+            if (v76 >= v7)
             {
-              v61 = v7;
+              v78 = v7;
             }
 
             else
             {
-              v61 = v59;
+              v78 = v76;
             }
 
-            if (*(this + 6))
+            if (*(v9 + 6))
             {
-              v79 = v8;
-              v62 = v7;
-              v63 = 0;
-              v64 = *(this + 8);
-              v65 = -1.0 / v64;
-              v66 = v59 / v64;
-              v67 = -(-1.0 / v64);
-              v84 = (v62 - v61);
-              v83 = 4 * v84;
-              v68 = 1;
+              v96 = v8;
+              v79 = v7;
+              v80 = 0;
+              v81 = *(v9 + 8);
+              v82 = -1.0 / v81;
+              v83 = v76 / v81;
+              v84 = -(-1.0 / v81);
+              v101 = (v79 - v78);
+              v100 = 4 * v101;
+              v85 = 1;
               do
               {
-                v69 = a2[v63];
-                v70 = *(*(this + 58) + 24 * (v68 - 1));
-                __Step = v67;
-                __Start = 1.0 - v66;
-                vDSP_vrampmul(v69, 1, &__Start, &__Step, v70, 1, v61);
-                if (v59 < v60)
+                v86 = a2[v80];
+                v87 = *(*(v9 + 58) + 24 * (v85 - 1));
+                __Step = v84;
+                __Start = 1.0 - v83;
+                vDSP_vrampmul(v86, 1, &__Start, &__Step, v87, 1, v78);
+                if (v76 < v77)
                 {
-                  memcpy((*(*(this + 58) + 24 * (v68 - 1)) + 4 * v61), &a2[v63][v61], v83);
+                  memcpy((*(*(v9 + 58) + 24 * (v85 - 1)) + 4 * v78), &a2[v80][v78], v100);
                 }
 
-                v71 = a2[v63];
-                v72 = *(*(this + 58) + 24 * v68);
-                __Step = v65;
-                __Start = v66;
-                vDSP_vrampmul(v71, 1, &__Start, &__Step, v72, 1, v61);
-                if (v59 < v60)
+                v88 = a2[v80];
+                v89 = *(*(v9 + 58) + 24 * v85);
+                __Step = v82;
+                __Start = v83;
+                vDSP_vrampmul(v88, 1, &__Start, &__Step, v89, 1, v78);
+                if (v76 < v77)
                 {
-                  vDSP_vclr((*(*(this + 58) + 24 * v68) + 4 * v61), 1, v84);
+                  vDSP_vclr((*(*(v9 + 58) + 24 * v85) + 4 * v78), 1, v101);
                 }
 
-                ++v63;
-                v68 += 2;
+                ++v80;
+                v85 += 2;
               }
 
-              while (v63 < *(this + 6));
-              v59 = *(this + 10);
-              v8 = v79;
+              while (v80 < *(v9 + 6));
+              v76 = *(v9 + 10);
+              v8 = v96;
             }
 
-            *(this + 10) = v59 - v61;
-            if (v59 == v61)
+            *(v9 + 10) = v76 - v78;
+            if (v76 == v78)
             {
-              if (*(this + 462) == 1)
+              if (*(v9 + 462) == 1)
               {
-                LODWORD(v61) = *(this + 5) + v61;
+                LODWORD(v78) = *(v9 + 5) + v78;
               }
 
-              *(this + 114) = v61;
+              *(v9 + 114) = v78;
             }
 
-            *(this + 460) = 1;
+            *(v9 + 460) = 1;
           }
 
-          else if (*(this + 6))
+          else if (*(v9 + 6))
           {
-            v73 = 0;
-            v74 = 1;
+            v90 = 0;
+            v91 = 1;
             do
             {
-              memcpy(*(*(this + 58) + 24 * (v74 - 1)), a2[v73], 4 * v7);
-              vDSP_vclr(*(*(this + 58) + 24 * v74), 1, v7);
-              ++v73;
-              v74 += 2;
+              memcpy(*(*(v9 + 58) + 24 * (v91 - 1)), a2[v90], 4 * v7);
+              vDSP_vclr(*(*(v9 + 58) + 24 * v91), 1, v7);
+              ++v90;
+              v91 += 2;
             }
 
-            while (v73 < *(this + 6));
+            while (v90 < *(v9 + 6));
           }
 
-          IR::FFTFilterTranspose::Implementation::firFilterMultipleInput(this, a3, v60, v8);
-          if (*(this + 460) == 1 && !*(this + 10) && *(this + 114) <= 0)
+          IR::FFTFilterTranspose::Implementation::firFilterMultipleInput(v9, a3, v77, v8);
+          if (*(v9 + 460) == 1 && !*(v9 + 10) && *(v9 + 114) <= 0)
           {
-            *(this + 460) = 0;
-            caulk::pooled_semaphore_mutex::_unlock((*(this + 18) + 24));
+            *(v9 + 460) = 0;
+            caulk::pooled_semaphore_mutex::_unlock((*(v9 + 18) + 24));
           }
 
           return 0;
         }
 
-        v58 = (v22 + 24);
+        v75 = (v23 + 24);
       }
 
-      caulk::pooled_semaphore_mutex::_unlock(v58);
+      caulk::pooled_semaphore_mutex::_unlock(v75);
       goto LABEL_123;
     }
 
@@ -2387,7 +2402,7 @@ LABEL_123:
 
 uint64_t IR::FFTFilterTranspose::Implementation::process(IR::FFTFilterTranspose::Implementation *this, const float *__I, float *const *a3, unsigned int a4, unsigned int a5, IR::ComplexDataCircBuffer *a6)
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v81 = *MEMORY[0x29EDCA608];
   if (*(this + 45) != 1)
   {
     return 4294956429;
@@ -2397,7 +2412,13 @@ uint64_t IR::FFTFilterTranspose::Implementation::process(IR::FFTFilterTranspose:
   if (a4)
   {
     v7 = a5;
-    if (!a5 || *(this + 6) != a5)
+    if (!a5)
+    {
+      return 4294967246;
+    }
+
+    v8 = this;
+    if (*(this + 6) != a5)
     {
       return 4294967246;
     }
@@ -2406,18 +2427,19 @@ uint64_t IR::FFTFilterTranspose::Implementation::process(IR::FFTFilterTranspose:
     {
       if (*(this + 44) == 1)
       {
-        if (caulk::pooled_semaphore_mutex::try_lock((*(this + 20) + 24)))
+        this = caulk::pooled_semaphore_mutex::try_lock((*(this + 20) + 24));
+        if (this)
         {
-          *(this + 19) = *(this + 20);
+          *(v8 + 19) = *(v8 + 20);
         }
 
-        *(this + 44) = 0;
+        *(v8 + 44) = 0;
       }
 
-      if (*(this + 4))
+      if (*(v8 + 4))
       {
-        MEMORY[0x2A1C7C4A8]();
-        v13 = v60 - ((v12 + 15) & 0xFFFFFFFF0);
+        MEMORY[0x2A1C7C4A8](this);
+        v13 = v76 - ((v12 + 15) & 0xFFFFFFFF0);
         if (v12 >= 0x200)
         {
           v14 = 512;
@@ -2428,26 +2450,26 @@ uint64_t IR::FFTFilterTranspose::Implementation::process(IR::FFTFilterTranspose:
           v14 = v12;
         }
 
-        bzero(v60 - ((v12 + 15) & 0xFFFFFFFF0), v14);
-        v15 = *(this + 6);
+        bzero(v76 - ((v12 + 15) & 0xFFFFFFFF0), v14);
+        v15 = *(v8 + 6);
         if (v15)
         {
           memcpy(v13, a3, 8 * v15);
         }
 
-        if (!a6 || IR::ComplexDataCircBuffer::getNumOutputChannels(a6) != *(this + 6) || IR::ComplexDataCircBuffer::getNumFFTBuffers(a6) < *(this + 4))
+        if (!a6 || IR::ComplexDataCircBuffer::getNumOutputChannels(a6) != *(v8 + 6) || IR::ComplexDataCircBuffer::getNumFFTBuffers(a6) < *(v8 + 4))
         {
           return 4294967246;
         }
 
-        v60[1] = v60;
+        v76[1] = v76;
         CircularIndex = IR::ComplexDataCircBuffer::getCircularIndex(a6);
-        *(this + 9) = IR::ComplexDataCircBuffer::getFFTProcPos(a6);
-        v61 = v7;
+        *(v8 + 9) = IR::ComplexDataCircBuffer::getFFTProcPos(a6);
+        v77 = v7;
         while (1)
         {
-          v23 = *(this + 9);
-          v24 = *(this + 3) - v23;
+          v23 = *(v8 + 9);
+          v24 = *(v8 + 3) - v23;
           if (v24 >= v6)
           {
             v25 = v6;
@@ -2458,30 +2480,30 @@ uint64_t IR::FFTFilterTranspose::Implementation::process(IR::FFTFilterTranspose:
             v25 = v24;
           }
 
-          if (*(this + 46) == 1)
+          if (*(v8 + 46) == 1)
           {
-            memcpy((**(this + 61) + 4 * v23), __I, 4 * v25);
+            memcpy((**(v8 + 61) + 4 * v23), __I, 4 * v25);
           }
 
-          if (*(this + 47) == 1)
+          if (*(v8 + 47) == 1)
           {
-            v26 = *(this + 20);
-            if (v26 != *(this + 19) && (*(this + 460) & 1) == 0 && !*(this + 9))
+            v26 = *(v8 + 20);
+            if (v26 != *(v8 + 19) && (*(v8 + 460) & 1) == 0 && !*(v8 + 9))
             {
               v27 = (v26 + 24);
               if (caulk::pooled_semaphore_mutex::try_lock((v26 + 24)))
               {
-                v28 = *(this + 19);
-                v29 = *(this + 20);
+                v28 = *(v8 + 19);
+                v29 = *(v8 + 20);
                 if (v29 != v28)
                 {
-                  *(this + 18) = v28;
-                  *(this + 19) = v29;
-                  v30 = *(this + 8);
+                  *(v8 + 18) = v28;
+                  *(v8 + 19) = v29;
+                  v30 = *(v8 + 8);
                   if (v30)
                   {
-                    *(this + 10) = v30;
-                    *(this + 146) ^= 1u;
+                    *(v8 + 10) = v30;
+                    *(v8 + 146) ^= 1u;
 LABEL_45:
                     if (v25 >= v30)
                     {
@@ -2493,51 +2515,51 @@ LABEL_45:
                       v31 = v25;
                     }
 
-                    if (*(this + 5) || (*(this + 46) & 1) == 0)
+                    if (*(v8 + 5) || (*(v8 + 46) & 1) == 0)
                     {
-                      v32 = *(this + 8);
+                      v32 = *(v8 + 8);
                       v33 = -1.0 / v32;
                       v34 = v30 / v32;
-                      v35 = (**(this + 58) + 4 * *(this + 9));
+                      v35 = (**(v8 + 58) + 4 * *(v8 + 9));
                       __Step = -(-1.0 / v32);
                       __Start = 1.0 - v34;
                       vDSP_vrampmul(__I, 1, &__Start, &__Step, v35, 1, v31);
                       if (v30 < v25)
                       {
-                        memcpy((**(this + 58) + 4 * *(this + 9) + 4 * v31), &__I[v31], 4 * (v25 - v31));
+                        memcpy((**(v8 + 58) + 4 * *(v8 + 9) + 4 * v31), &__I[v31], 4 * (v25 - v31));
                       }
 
-                      v36 = (*(*(this + 58) + 24) + 4 * *(this + 9));
+                      v36 = (*(*(v8 + 58) + 24) + 4 * *(v8 + 9));
                       __Step = v33;
                       __Start = v34;
                       vDSP_vrampmul(__I, 1, &__Start, &__Step, v36, 1, v31);
                       if (v30 < v25)
                       {
-                        vDSP_vclr((*(*(this + 58) + 24) + 4 * *(this + 9) + 4 * v31), 1, (v25 - v31));
+                        vDSP_vclr((*(*(v8 + 58) + 24) + 4 * *(v8 + 9) + 4 * v31), 1, (v25 - v31));
                       }
                     }
 
-                    v37 = *(this + 10) - v31;
-                    *(this + 10) = v37;
+                    v37 = *(v8 + 10) - v31;
+                    *(v8 + 10) = v37;
                     if (!v37)
                     {
                       v38 = v25;
-                      if (*(this + 462) == 1)
+                      if (*(v8 + 462) == 1)
                       {
-                        v39 = *(this + 3);
-                        if (v39 >= *(this + 5))
+                        v39 = *(v8 + 3);
+                        if (v39 >= *(v8 + 5))
                         {
-                          v39 = *(this + 5);
+                          v39 = *(v8 + 5);
                         }
 
                         v38 = v39 + v31;
                       }
 
-                      *(this + 114) = v38;
-                      *(this + 461) = 0;
+                      *(v8 + 114) = v38;
+                      *(v8 + 461) = 0;
                     }
 
-                    *(this + 460) = 1;
+                    *(v8 + 460) = 1;
                     goto LABEL_64;
                   }
 
@@ -2549,37 +2571,37 @@ LABEL_45:
             }
           }
 
-          v30 = *(this + 10);
+          v30 = *(v8 + 10);
           if (v30)
           {
             goto LABEL_45;
           }
 
-          if (!*(this + 5) && (*(this + 46) & 1) != 0)
+          if (!*(v8 + 5) && (*(v8 + 46) & 1) != 0)
           {
             goto LABEL_66;
           }
 
-          memcpy((**(this + 58) + 4 * *(this + 9)), __I, 4 * v25);
-          vDSP_vclr((*(*(this + 58) + 24) + 4 * *(this + 9)), 1, v25);
+          memcpy((**(v8 + 58) + 4 * *(v8 + 9)), __I, 4 * v25);
+          vDSP_vclr((*(*(v8 + 58) + 24) + 4 * *(v8 + 9)), 1, v25);
 LABEL_64:
-          if (*(this + 5))
+          if (*(v8 + 5))
           {
             v40 = __I;
-            IR::FFTFilterTranspose::Implementation::firFilterSingleInput(this, v13, v25, v7);
-            v41 = *(this + 6);
+            IR::FFTFilterTranspose::Implementation::firFilterSingleInput(v8, v13, v25, v7);
+            v41 = *(v8 + 6);
             goto LABEL_69;
           }
 
 LABEL_66:
-          if (*(this + 6))
+          if (*(v8 + 6))
           {
             v40 = __I;
             v42 = 0;
             do
             {
               vDSP_vclr(*&v13[8 * v42++], 1, v25);
-              v41 = *(this + 6);
+              v41 = *(v8 + 6);
             }
 
             while (v42 < v41);
@@ -2602,83 +2624,93 @@ LABEL_69:
 
           __I += v25;
 LABEL_74:
-          v44 = *(this + 9) + v25;
-          *(this + 9) = v44;
-          if (v44 >= *(this + 3))
+          v44 = *(v8 + 9) + v25;
+          *(v8 + 9) = v44;
+          if (v44 >= *(v8 + 3))
           {
-            v45 = *(this + 46);
-            v46 = *(this + 460);
-            v62 = __I;
+            v45 = *(v8 + 46);
+            v46 = *(v8 + 460);
+            v78 = __I;
             if (v45 == 1)
             {
-              if (v46 && (*(this + 461) & 1) == 0)
+              if (v46 && (*(v8 + 461) & 1) == 0)
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 61));
-                (*(*this + 112))(this, **(this + 26), this + 280, *(this + 3), 0.5);
-                if (*(this + 6))
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v8, **(v8 + 26), **(v8 + 61));
+                (*(*v8 + 112))(v8, **(v8 + 26), v8 + 280, *(v8 + 3), 0.5);
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v60 = **(v8 + 18);
+                  FFTBufferVec = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, (v8 + 280), v60, FFTBufferVec, CircularIndex);
                 }
 
-                (*(*this + 112))(this, **(this + 26), this + 296, *(this + 3), -0.5);
-                if (*(this + 6))
+                (*(*v8 + 112))(v8, **(v8 + 26), v8 + 296, *(v8 + 3), -0.5);
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v62 = **(v8 + 19);
+                  v63 = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, (v8 + 296), v62, v63, CircularIndex);
                 }
 
-                if (!*(this + 10) && !*(this + 5))
+                if (!*(v8 + 10) && !*(v8 + 5))
                 {
-                  *(this + 114) -= *(this + 3);
+                  *(v8 + 114) -= *(v8 + 3);
                 }
 
-                *(this + 461) = 1;
+                *(v8 + 461) = 1;
               }
 
               else
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 61));
-                if (*(this + 6))
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v8, **(v8 + 26), **(v8 + 61));
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v47 = **(v8 + 26);
+                  v48 = **(v8 + 19);
+                  v49 = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, v47, v48, v49, CircularIndex);
                 }
               }
             }
 
             else
             {
-              v47 = *(this + 26);
+              v50 = *(v8 + 26);
               if (v46)
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, v47[3], *(*(this + 58) + 24));
-                if (*(this + 6))
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v8, v50[3], *(*(v8 + 58) + 24));
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v51 = *(*(v8 + 26) + 24);
+                  v52 = **(v8 + 18);
+                  v53 = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, v51, v52, v53, CircularIndex);
                 }
 
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, **(this + 26), **(this + 58));
-                if (*(this + 6))
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v8, **(v8 + 26), **(v8 + 58));
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v54 = **(v8 + 26);
+                  v55 = **(v8 + 19);
+                  v56 = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, v54, v55, v56, CircularIndex);
                 }
 
-                if (!*(this + 10) && !*(this + 5))
+                if (!*(v8 + 10) && !*(v8 + 5))
                 {
-                  *(this + 114) -= *(this + 3);
+                  *(v8 + 114) -= *(v8 + 3);
                 }
               }
 
               else
               {
-                IR::FFTFilterTranspose::Implementation::forwardTransform(this, *v47, **(this + 58));
-                if (*(this + 6))
+                IR::FFTFilterTranspose::Implementation::forwardTransform(v8, *v50, **(v8 + 58));
+                if (*(v8 + 6))
                 {
-                  IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
-                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution();
+                  v57 = **(v8 + 26);
+                  v58 = **(v8 + 19);
+                  v59 = IR::ComplexDataCircBuffer::getFFTBufferVec(a6, 0);
+                  IR::FFTFilterTranspose::Implementation::fftBlockConvolution(v8, v57, v58, v59, CircularIndex);
                 }
               }
             }
@@ -2693,22 +2725,22 @@ LABEL_74:
               ++CircularIndex;
             }
 
-            *(this + 9) = 0;
-            if (*(this + 460) == 1)
+            *(v8 + 9) = 0;
+            if (*(v8 + 460) == 1)
             {
-              v7 = v61;
-              __I = v62;
-              if (!*(this + 10) && *(this + 114) <= 0)
+              v7 = v77;
+              __I = v78;
+              if (!*(v8 + 10) && *(v8 + 114) <= 0)
               {
-                *(this + 460) = 0;
-                caulk::pooled_semaphore_mutex::_unlock((*(this + 18) + 24));
+                *(v8 + 460) = 0;
+                caulk::pooled_semaphore_mutex::_unlock((*(v8 + 18) + 24));
               }
             }
 
             else
             {
-              v7 = v61;
-              __I = v62;
+              v7 = v77;
+              __I = v78;
             }
           }
 
@@ -2721,109 +2753,109 @@ LABEL_74:
       }
 
       v17 = __I;
-      if (*(this + 47) != 1)
+      if (*(v8 + 47) != 1)
       {
         goto LABEL_111;
       }
 
-      v18 = *(this + 20);
-      if (v18 == *(this + 19) || (*(this + 460) & 1) != 0 || !caulk::pooled_semaphore_mutex::try_lock((v18 + 24)))
+      v18 = *(v8 + 20);
+      if (v18 == *(v8 + 19) || (*(v8 + 460) & 1) != 0 || !caulk::pooled_semaphore_mutex::try_lock((v18 + 24)))
       {
         goto LABEL_111;
       }
 
-      v19 = *(this + 19);
-      v20 = *(this + 20);
+      v19 = *(v8 + 19);
+      v20 = *(v8 + 20);
       if (v20 == v19)
       {
-        v48 = (v18 + 24);
+        v64 = (v18 + 24);
       }
 
       else
       {
-        *(this + 18) = v19;
-        *(this + 19) = v20;
-        v21 = *(this + 8);
+        *(v8 + 18) = v19;
+        *(v8 + 19) = v20;
+        v21 = *(v8 + 8);
         if (v21)
         {
-          *(this + 10) = v21;
-          *(this + 146) ^= 1u;
+          *(v8 + 10) = v21;
+          *(v8 + 146) ^= 1u;
 LABEL_111:
-          v49 = *(this + 10);
-          if (v49)
+          v65 = *(v8 + 10);
+          if (v65)
           {
-            v50 = *(this + 8);
-            v51 = -1.0 / v50;
-            v52 = v49 / v50;
-            v53 = -(-1.0 / v50);
-            v54 = **(this + 58);
-            if (v49 >= v6)
+            v66 = *(v8 + 8);
+            v67 = -1.0 / v66;
+            v68 = v65 / v66;
+            v69 = -(-1.0 / v66);
+            v70 = **(v8 + 58);
+            if (v65 >= v6)
             {
-              v55 = v6;
+              v71 = v6;
             }
 
             else
             {
-              v55 = v49;
+              v71 = v65;
             }
 
-            __Step = v53;
-            __Start = 1.0 - v52;
-            vDSP_vrampmul(v17, 1, &__Start, &__Step, v54, 1, v55);
-            v56 = *(this + 58);
-            if (v49 >= v6)
+            __Step = v69;
+            __Start = 1.0 - v68;
+            vDSP_vrampmul(v17, 1, &__Start, &__Step, v70, 1, v71);
+            v72 = *(v8 + 58);
+            if (v65 >= v6)
             {
-              v58 = v56[3];
-              __Step = v51;
-              __Start = v52;
-              vDSP_vrampmul(v17, 1, &__Start, &__Step, v58, 1, v55);
+              v74 = v72[3];
+              __Step = v67;
+              __Start = v68;
+              vDSP_vrampmul(v17, 1, &__Start, &__Step, v74, 1, v71);
             }
 
             else
             {
-              memcpy((*v56 + 4 * v55), &v17[v55], 4 * (v6 - v55));
-              v57 = *(*(this + 58) + 24);
-              __Step = v51;
-              __Start = v52;
-              vDSP_vrampmul(v17, 1, &__Start, &__Step, v57, 1, v55);
-              vDSP_vclr((*(*(this + 58) + 24) + 4 * v55), 1, v6 - v55);
+              memcpy((*v72 + 4 * v71), &v17[v71], 4 * (v6 - v71));
+              v73 = *(*(v8 + 58) + 24);
+              __Step = v67;
+              __Start = v68;
+              vDSP_vrampmul(v17, 1, &__Start, &__Step, v73, 1, v71);
+              vDSP_vclr((*(*(v8 + 58) + 24) + 4 * v71), 1, v6 - v71);
             }
 
-            v59 = *(this + 10) - v55;
-            *(this + 10) = v59;
-            if (!v59)
+            v75 = *(v8 + 10) - v71;
+            *(v8 + 10) = v75;
+            if (!v75)
             {
-              if (*(this + 462) == 1)
+              if (*(v8 + 462) == 1)
               {
-                LODWORD(v55) = *(this + 5) + v55;
+                LODWORD(v71) = *(v8 + 5) + v71;
               }
 
-              *(this + 114) = v55;
+              *(v8 + 114) = v71;
             }
 
-            *(this + 460) = 1;
+            *(v8 + 460) = 1;
           }
 
           else
           {
-            memcpy(**(this + 58), v17, 4 * v6);
-            vDSP_vclr(*(*(this + 58) + 24), 1, v6);
+            memcpy(**(v8 + 58), v17, 4 * v6);
+            vDSP_vclr(*(*(v8 + 58) + 24), 1, v6);
           }
 
-          IR::FFTFilterTranspose::Implementation::firFilterSingleInput(this, a3, v6, v7);
-          if (*(this + 460) == 1 && !*(this + 10) && *(this + 114) <= 0)
+          IR::FFTFilterTranspose::Implementation::firFilterSingleInput(v8, a3, v6, v7);
+          if (*(v8 + 460) == 1 && !*(v8 + 10) && *(v8 + 114) <= 0)
           {
-            *(this + 460) = 0;
-            caulk::pooled_semaphore_mutex::_unlock((*(this + 18) + 24));
+            *(v8 + 460) = 0;
+            caulk::pooled_semaphore_mutex::_unlock((*(v8 + 18) + 24));
           }
 
           return 0;
         }
 
-        v48 = (v19 + 24);
+        v64 = (v19 + 24);
       }
 
-      caulk::pooled_semaphore_mutex::_unlock(v48);
+      caulk::pooled_semaphore_mutex::_unlock(v64);
       goto LABEL_111;
     }
 
@@ -3198,7 +3230,7 @@ void std::allocator<DSPSplitComplex>::allocate_at_least[abi:ne200100](uint64_t a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<IR::FFTFilterKernel<float>>::__append(void *result, unint64_t a2)
+unint64_t *std::vector<IR::FFTFilterKernel<float>>::__append(unint64_t *result, unint64_t a2)
 {
   v3 = result[1];
   v2 = result[2];
@@ -3243,9 +3275,9 @@ void *std::vector<IR::FFTFilterKernel<float>>::__append(void *result, unint64_t 
   return result;
 }
 
-void sub_296BA3058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BA3058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<IR::FFTFilterKernel<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3260,7 +3292,7 @@ void std::allocator<IR::FFTFilterKernel<float>>::allocate_at_least[abi:ne200100]
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR::FFTFilterKernel<float>>,IR::FFTFilterKernel<float>*>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR::FFTFilterKernel<float>>,IR::FFTFilterKernel<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -3487,7 +3519,7 @@ LABEL_11:
       MEMORY[0x29C25F8D0](v20, "Could not construct");
     }
 
-    applesauce::CF::make_DictionaryRef(&v21, &v22);
+    applesauce::CF::make_DictionaryRef(&v22, &v21);
     v18 = v22;
     v25 = v22;
     v22 = 0;
@@ -3527,23 +3559,24 @@ LABEL_11:
   }
 }
 
-void sub_296BA381C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_296BA381C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  __cxa_free_exception(v11);
-  applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(&a10);
+  va_start(va, a9);
+  __cxa_free_exception(v10);
+  applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   if (IR::getIRDataLog(void)::onceToken != -1)
   {
     IR::IRData::Implementation::readIRPlist();
   }
 
-  v13 = IR::getIRDataLog(void)::gLog;
+  v12 = IR::getIRDataLog(void)::gLog;
   if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_ERROR))
   {
-    IR::IRData::Implementation::readIRPlist(v13, v14, v15, v16, v17, v18, v19, v20);
+    IR::IRData::Implementation::readIRPlist(v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  *v10 = 0;
+  *v9 = 0;
   __cxa_end_catch();
   JUMPOUT(0x296BA374CLL);
 }
@@ -3559,20 +3592,20 @@ void sub_296BA38BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-CFTypeID applesauce::CF::make_DictionaryRef@<X0>(CFDataRef *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::make_DictionaryRef@<X0>(uint64_t *__return_ptr a1@<X8>, CFDataRef *this@<X0>)
 {
   if (!*this)
   {
     goto LABEL_10;
   }
 
-  v4 = CFPropertyListCreateWithData(0, *this, 0, 0, 0);
-  if (!v4)
+  v3 = CFPropertyListCreateWithData(0, *this, 0, 0, 0);
+  if (!v3)
   {
     result = CFDictionaryGetTypeID();
     if (!result)
     {
-      *a2 = 0;
+      *a1 = 0;
       return result;
     }
 
@@ -3581,21 +3614,21 @@ LABEL_10:
     applesauce::CF::construct_error(exception);
   }
 
-  v5 = v4;
-  v6 = CFGetTypeID(v4);
-  if (v6 != CFDictionaryGetTypeID())
+  v4 = v3;
+  v5 = CFGetTypeID(v3);
+  if (v5 != CFDictionaryGetTypeID())
   {
-    CFRelease(v5);
+    CFRelease(v4);
     goto LABEL_10;
   }
 
-  *a2 = v5;
-  v7 = CFGetTypeID(v5);
+  *a1 = v4;
+  v6 = CFGetTypeID(v4);
   result = CFDictionaryGetTypeID();
-  if (v7 != result)
+  if (v6 != result)
   {
-    v9 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x29C25F8D0](v9, "Could not construct");
+    v8 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x29C25F8D0](v8, "Could not construct");
   }
 
   return result;
@@ -3634,7 +3667,7 @@ void applesauce::CF::DataRef::~DataRef(const void **this)
   }
 }
 
-void IR::IRData::Implementation::extractIRDataTypePlist(const __CFDictionary **a1@<X0>, int a2@<W1>, _DWORD *a3@<X2>, const __CFDictionary **a4@<X8>)
+void IR::IRData::Implementation::extractIRDataTypePlist(const void **a1@<X0>, int a2@<W1>, _DWORD *a3@<X2>, CFTypeRef *a4@<X8>)
 {
   v6 = *a1;
   if (!a2 || !v6)
@@ -3646,7 +3679,7 @@ void IR::IRData::Implementation::extractIRDataTypePlist(const __CFDictionary **a
 
   cf = 0;
   v24 = @"ImpulseResponses";
-  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(v6, &v24, &cf, &theArray);
+  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&cf, &theArray, v6, &v24);
   if (cf)
   {
     CFRelease(cf);
@@ -3745,10 +3778,11 @@ LABEL_27:
   }
 }
 
-void sub_296BA3C8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12)
+void sub_296BA3C8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  applesauce::CF::DictionaryRef::~DictionaryRef(v12);
-  applesauce::CF::ArrayRef::~ArrayRef(&a12);
+  va_start(va, a11);
+  applesauce::CF::DictionaryRef::~DictionaryRef(v11);
+  applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -3857,18 +3891,18 @@ void applesauce::CF::URLRef::~URLRef(const void **this)
 
 void IR::IRData::Implementation::readIRPlist(IR::IRData::Implementation *this@<X0>, CFTypeRef *a2@<X8>)
 {
-  v7 = 0;
-  v5 = *this;
+  v6 = 0;
+  v4 = *this;
   if (*this)
   {
     CFRetain(*this);
   }
 
-  v6 = v5;
-  IR::IRData::Implementation::readIRPlist(&v6, &v7, *(this + 10), a2);
-  if (v5)
+  v5 = v4;
+  IR::IRData::Implementation::readIRPlist(&v5, &v6, *(this + 10), a2);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
@@ -3881,14 +3915,14 @@ void IR::IRData::~IRData(IR::IRData::Implementation **this)
   std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](this, 0);
 }
 
-void IR::IRData::Implementation::Implementation(uint64_t a1, int a2, int a3, char a4, int a5, int a6, int a7, uint64_t *a8, float a9, float a10, uint64_t *a11, uint64_t *a12, int a13, const void **a14, const void **a15)
+void IR::IRData::Implementation::Implementation(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, float a8, float a9, uint64_t a10, uint64_t a11, uint64_t a12, unsigned int a13, const void **a14, const void **a15)
 {
-  *a1 = a9;
-  *(a1 + 4) = a9;
+  *a1 = a8;
+  *(a1 + 4) = a8;
   *(a1 + 8) = a2;
   *(a1 + 12) = 0;
   *(a1 + 16) = a3;
-  *(a1 + 20) = a10;
+  *(a1 + 20) = a9;
   *(a1 + 24) = a4;
   *(a1 + 28) = a5;
   *(a1 + 32) = a6;
@@ -3901,24 +3935,24 @@ void IR::IRData::Implementation::Implementation(uint64_t a1, int a2, int a3, cha
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(a1 + 88, *a8, a8[1], (a8[1] - *a8) >> 2);
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>((a1 + 88), *a10, *(a10 + 8), (*(a10 + 8) - *a10) >> 2);
   *(a1 + 112) = 0u;
   *(a1 + 128) = 0u;
   *(a1 + 144) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 136, *a11, a11[1], (a11[1] - *a11) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 136), *a11, *(a11 + 8), (*(a11 + 8) - *a11) >> 2);
   *(a1 + 160) = 0u;
   *(a1 + 208) = 0u;
   *(a1 + 224) = 0;
   *(a1 + 176) = 0u;
   *(a1 + 192) = 0u;
-  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(a1 + 208, *a12, a12[1], (a12[1] - *a12) >> 2);
+  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>((a1 + 208), *a12, *(a12 + 8), (*(a12 + 8) - *a12) >> 2);
   IR::IRCoordinates::IRCoordinates((a1 + 232));
   *(a1 + 336) = 0;
   *(a1 + 304) = 0u;
   *(a1 + 320) = 0u;
   *(a1 + 272) = 0u;
   *(a1 + 288) = 0u;
-  IR::IRDataAttributes::IRDataAttributes(a1 + 344, &stru_2A1DECFF0, a3, a4, a13, 0, a9);
+  IR::IRDataAttributes::IRDataAttributes(a1 + 344, &stru_2A1DECFF0, a3, a4, a13, 0, a8);
   *(a1 + 496) = a13 == 1;
   *(a1 + 500) = 0;
   *(a1 + 512) = 0;
@@ -4018,8 +4052,12 @@ void sub_296BA419C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, const __CFString *a2, int a3, char a4, int a5, int a6, float a7)
+uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, float a7)
 {
+  v7 = a6;
+  v8 = a5;
+  v9 = a4;
+  v10 = a3;
   cf = CFURLCreateWithString(0, a2, 0);
   if (!cf)
   {
@@ -4027,7 +4065,7 @@ uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, const __CFString *a
     MEMORY[0x29C25F8D0](exception, "Could not construct");
   }
 
-  IR::IRDataAttributes::IRDataAttributes(a1, &cf, a3, a4, 0, 0, a5, a6, a7);
+  IR::IRDataAttributes::IRDataAttributes(a1, &cf, v10, v9, 0, 0, v8, v7, a7);
   if (cf)
   {
     CFRelease(cf);
@@ -4036,9 +4074,9 @@ uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, const __CFString *a
   return a1;
 }
 
-void sub_296BA4364(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BA4364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -4062,7 +4100,7 @@ void applesauce::CF::StringRef::~StringRef(const void **this)
 
 int *IR::IRData::Implementation::getEmptyIRDataNode(IR::IRData::Implementation *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     IR::IRData::Implementation::getEmptyIRDataNode();
   }
@@ -4070,7 +4108,7 @@ int *IR::IRData::Implementation::getEmptyIRDataNode(IR::IRData::Implementation *
   return &dword_2A18B8200;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4119,13 +4157,13 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t IR::IRData::Implementation::Implementation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, unsigned int a6, uint64_t *a7, uint64_t *a8, float a9, const __CFDictionary **a10, uint64_t a11, unsigned int a12, char a13, int a14, int a15, uint64_t *a16)
+uint64_t IR::IRData::Implementation::Implementation(uint64_t a1, uint64_t a2, void *a3, const void **a4, uint64_t a5, unsigned int a6, const void **a7, const void **a8, float a9, const __CFDictionary **a10, uint64_t a11, unsigned int a12, unsigned __int8 a13, int a14, unsigned int a15, uint64_t *a16)
 {
   *a1 = a9;
   *(a1 + 4) = a9;
@@ -4143,19 +4181,19 @@ uint64_t IR::IRData::Implementation::Implementation(uint64_t a1, uint64_t a2, ui
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   v95 = (a1 + 88);
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(a1 + 88, *a4, a4[1], (a4[1] - *a4) >> 2);
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>((a1 + 88), *a4, a4[1], (a4[1] - *a4) >> 2);
   *(a1 + 112) = 0u;
   *(a1 + 128) = 0u;
   *(a1 + 144) = 0u;
   v96 = (a1 + 112);
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 136, *a7, a7[1], (a7[1] - *a7) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 136), *a7, a7[1], (a7[1] - *a7) >> 2);
   *(a1 + 160) = 0u;
   *(a1 + 208) = 0u;
   *(a1 + 224) = 0;
   *(a1 + 176) = 0u;
   *(a1 + 192) = 0u;
   v94 = (a1 + 208);
-  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(a1 + 208, *a8, a8[1], (a8[1] - *a8) >> 2);
+  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>((a1 + 208), *a8, a8[1], (a8[1] - *a8) >> 2);
   IR::IRCoordinates::IRCoordinates((a1 + 232));
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
@@ -4231,7 +4269,7 @@ uint64_t IR::IRData::Implementation::Implementation(uint64_t a1, uint64_t a2, ui
 
   v31 = *a2;
   v32 = *(a2 + 8);
-  if (*a2 == v32 || (v33 = *a3, v34 = *(a3 + 8), *a3 == v34) || (v36 = *a4, v35 = a4[1], *a4 == v35) || (v37 = *a7, v38 = a7[1], *a7 == v38) || (v39 = *a8, v40 = a8[1], *a8 == v40))
+  if (*a2 == v32 || (v33 = *a3, v34 = a3[1], *a3 == v34) || (v36 = *a4, v35 = a4[1], *a4 == v35) || (v37 = *a7, v38 = a7[1], *a7 == v38) || (v39 = *a8, v40 = a8[1], *a8 == v40))
   {
     if (IR::getIRDataLog(void)::onceToken != -1)
     {
@@ -4838,7 +4876,7 @@ LABEL_21:
           v30 = a3;
         }
 
-        v6 += 4 * v30;
+        v6 += v30;
       }
 
       v31 = 0;
@@ -4862,11 +4900,11 @@ LABEL_21:
         if (vuzp1_s16(a5, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v34, xmmword_296C19AA0)))).i32[1])
         {
           *v33 = a5.i32[0];
-          v33[1] = a5.i32[0];
+          *(v33 + 1) = a5.i32[0];
         }
 
         v31 += 4;
-        v33 += 4;
+        v33 += 16;
       }
 
       while (((v18 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v31);
@@ -4956,7 +4994,7 @@ LABEL_21:
   return v36;
 }
 
-uint64_t IR::IRData::Implementation::createSizeDimension(uint64_t a1, void *a2, const __CFArray **a3, int a4)
+uint64_t IR::IRData::Implementation::createSizeDimension(uint64_t a1, uint64_t *a2, const __CFArray **a3, int a4)
 {
   v14 = *MEMORY[0x29EDCA608];
   std::chrono::system_clock::now();
@@ -5133,14 +5171,14 @@ void IR::IRData::Implementation::findDimensionsWithMoreThanOneNode(IR::IRData::I
   }
 }
 
-void sub_296BA69FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296BA69FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void IR::IRData::Implementation::Implementation(uint64_t a1, const IR::IRDataAttributes *a2)
+void IR::IRData::Implementation::Implementation(uint64_t a1, applesauce::CF::URLRef *a2, CFDataRef *a3, uint64_t *a4)
 {
   *(a1 + 16) = 0;
   *(a1 + 28) = 0u;
@@ -5184,16 +5222,16 @@ void sub_296BA9C7C(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-const void *applesauce::CF::StringRef::from_get@<X0>(const void *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::StringRef::from_get@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CFRetain(this);
-    *a2 = v4;
-    v5 = CFGetTypeID(v4);
+    *a1 = v3;
+    v4 = CFGetTypeID(v3);
     this = CFStringGetTypeID();
-    if (v5 != this)
+    if (v4 != this)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -5202,7 +5240,7 @@ const void *applesauce::CF::StringRef::from_get@<X0>(const void *this@<X0>, void
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return this;
@@ -5242,7 +5280,7 @@ void applesauce::CF::TypeRefPair::~TypeRefPair(applesauce::CF::TypeRefPair *this
   }
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -5529,20 +5567,20 @@ void IR::calculateFadeInWindow(std::vector<int>::size_type __sz, std::vector<int
   }
 }
 
-void std::vector<short>::resize(void *a1, unint64_t a2)
+void std::vector<short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<short>::__append(a1, a2 - v2);
+    std::vector<short>::__append(result, a2 - v2);
   }
 }
 
@@ -5628,9 +5666,9 @@ uint64_t IR::IRData::Implementation::computeAverageIR(IR::IRData::Implementation
   return result;
 }
 
-void sub_296BAAE14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAAE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5764,9 +5802,9 @@ uint64_t IR::IRData::Implementation::getFilterLength(IR::IRData::Implementation 
   return v13;
 }
 
-void sub_296BAB004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAB004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -5817,12 +5855,12 @@ LABEL_11:
   return v4;
 }
 
-void sub_296BAB10C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAB10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::DictionaryRef>::~optional(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
@@ -5830,20 +5868,20 @@ void sub_296BAB10C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void IR::IRData::Implementation::getUserData(IR::IRData::Implementation *this@<X0>, void *a2@<X8>)
 {
-  IR::IRData::Implementation::readIRPlist(this, &v6);
-  if (v6)
+  IR::IRData::Implementation::readIRPlist(this, &v5);
+  if (v5)
   {
     cf = 0;
-    v5 = @"UserData";
-    applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v6, &v5, &cf, a2);
+    v4 = @"UserData";
+    applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v5, &v4, &cf, a2);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v6)
+    if (v5)
     {
-      CFRelease(v6);
+      CFRelease(v5);
     }
   }
 
@@ -5855,46 +5893,46 @@ void IR::IRData::Implementation::getUserData(IR::IRData::Implementation *this@<X
 
 void IR::IRData::Implementation::getIRDataTypes(CFTypeRef *this@<X0>, std::vector<unsigned int> *a2@<X8>)
 {
-  v32 = 0;
-  v4 = *this;
+  v31 = 0;
+  v3 = *this;
   if (*this)
   {
     CFRetain(*this);
   }
 
-  v30 = v4;
-  IR::IRData::Implementation::readIRPlist(&v30, &v32, 0, &v31);
-  if (v4)
+  v29 = v3;
+  IR::IRData::Implementation::readIRPlist(&v29, &v31, 0, &v30);
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  if (!v31)
+  if (!v30)
   {
     goto LABEL_15;
   }
 
   theArray = @"ImpulseResponses";
-  if (!applesauce::CF::details::has_key<__CFString const*>(v31, &theArray))
+  if (!applesauce::CF::details::has_key<__CFString const*>(v30, &theArray))
   {
     goto LABEL_15;
   }
 
-  if (!v31)
+  if (!v30)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x29C25F8D0](exception, "Could not construct");
   }
 
   cf = 0;
-  v28 = @"ImpulseResponses";
-  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(v31, &v28, &cf, &theArray);
+  v27 = @"ImpulseResponses";
+  applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&cf, &theArray, v30, &v27);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v5 = theArray;
+  v4 = theArray;
   if (!theArray)
   {
 LABEL_15:
@@ -5907,112 +5945,112 @@ LABEL_15:
   a2->__begin_ = 0;
   a2->__end_ = 0;
   a2->__end_cap_.__value_ = 0;
-  Count = CFArrayGetCount(v5);
+  Count = CFArrayGetCount(v4);
   std::vector<IR::IRDataType>::reserve(a2, Count);
-  v7 = theArray;
+  v6 = theArray;
   if (!theArray)
   {
     goto LABEL_16;
   }
 
-  v8 = CFArrayGetCount(theArray);
-  v9 = v8;
-  v10 = theArray;
+  v7 = CFArrayGetCount(theArray);
+  v8 = v7;
+  v9 = theArray;
   if (!theArray)
   {
-    v11 = 0;
-    if (!v8)
+    v10 = 0;
+    if (!v7)
     {
       goto LABEL_41;
     }
 
 LABEL_20:
-    v12 = 0;
+    v11 = 0;
     do
     {
-      if (v7 == v10 && v11 == v12)
+      if (v6 == v9 && v10 == v11)
       {
         break;
       }
 
-      applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(v7, v12, &v28);
-      if (!v28)
+      applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>(v6, v11, &v27);
+      if (!v27)
       {
-        v25 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x29C25F8D0](v25, "Could not construct");
+        v24 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x29C25F8D0](v24, "Could not construct");
       }
 
       cf = @"Type";
-      v13 = applesauce::CF::details::find_at_key_or_optional<unsigned int,__CFString const*>(v28, &cf);
-      if ((v13 & 0x100000000) != 0 && v13 <= 4)
+      v12 = applesauce::CF::details::find_at_key_or_optional<unsigned int,__CFString const*>(v27, &cf);
+      if ((v12 & 0x100000000) != 0 && v12 <= 4)
       {
         end = a2->__end_;
         value = a2->__end_cap_.__value_;
         if (end >= value)
         {
           begin = a2->__begin_;
-          v18 = end - a2->__begin_;
-          v19 = v18 >> 2;
-          v20 = (v18 >> 2) + 1;
-          if (v20 >> 62)
+          v17 = end - a2->__begin_;
+          v18 = v17 >> 2;
+          v19 = (v17 >> 2) + 1;
+          if (v19 >> 62)
           {
             std::vector<float>::__throw_length_error[abi:ne200100]();
           }
 
-          v21 = value - begin;
-          if (v21 >> 1 > v20)
+          v20 = value - begin;
+          if (v20 >> 1 > v19)
           {
-            v20 = v21 >> 1;
+            v19 = v20 >> 1;
           }
 
-          v22 = v21 >= 0x7FFFFFFFFFFFFFFCLL;
-          v23 = 0x3FFFFFFFFFFFFFFFLL;
-          if (!v22)
+          v21 = v20 >= 0x7FFFFFFFFFFFFFFCLL;
+          v22 = 0x3FFFFFFFFFFFFFFFLL;
+          if (!v21)
           {
-            v23 = v20;
+            v22 = v19;
           }
 
+          if (v22)
+          {
+            std::allocator<float>::allocate_at_least[abi:ne200100](a2, v22);
+          }
+
+          *(4 * v18) = v12;
+          v15 = (4 * v18 + 4);
+          memcpy(0, begin, v17);
+          v23 = a2->__begin_;
+          a2->__begin_ = 0;
+          a2->__end_ = v15;
+          a2->__end_cap_.__value_ = 0;
           if (v23)
           {
-            std::allocator<float>::allocate_at_least[abi:ne200100](a2, v23);
-          }
-
-          *(4 * v19) = v13;
-          v16 = 4 * v19 + 4;
-          memcpy(0, begin, v18);
-          v24 = a2->__begin_;
-          a2->__begin_ = 0;
-          a2->__end_ = v16;
-          a2->__end_cap_.__value_ = 0;
-          if (v24)
-          {
-            operator delete(v24);
+            operator delete(v23);
           }
         }
 
         else
         {
-          *end = v13;
-          v16 = (end + 4);
+          *end = v12;
+          v15 = end + 1;
         }
 
-        a2->__end_ = v16;
+        a2->__end_ = v15;
       }
 
-      if (v28)
+      if (v27)
       {
-        CFRelease(v28);
+        CFRelease(v27);
       }
 
-      ++v12;
+      ++v11;
     }
 
-    while (v9 != v12);
+    while (v8 != v11);
     goto LABEL_41;
   }
 
-  v11 = CFArrayGetCount(theArray);
-  if (v9)
+  v10 = CFArrayGetCount(theArray);
+  if (v8)
   {
     goto LABEL_20;
   }
@@ -6024,27 +6062,27 @@ LABEL_41:
   }
 
 LABEL_16:
-  if (v31)
+  if (v30)
   {
-    CFRelease(v31);
+    CFRelease(v30);
   }
 }
 
-void sub_296BAB49C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAB49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, const void *);
+  v10 = va_arg(va2, void);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
-  v4 = *v2;
-  if (*v2)
+  v5 = *v3;
+  if (*v3)
   {
-    *(v2 + 8) = v4;
-    operator delete(v4);
+    *(v3 + 8) = v5;
+    operator delete(v5);
   }
 
   applesauce::CF::ArrayRef::~ArrayRef(va1);
@@ -6067,24 +6105,24 @@ void std::vector<IR::IRDataType>::reserve(std::vector<unsigned int> *this, std::
 
 void IR::IRData::Implementation::getGlobalUserData(CFTypeRef *this@<X0>, void *a2@<X8>)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v10 = 0;
-  v4 = *this;
+  v11 = *MEMORY[0x29EDCA608];
+  v9 = 0;
+  v3 = *this;
   if (*this)
   {
     CFRetain(*this);
   }
 
-  v8 = v4;
-  IR::IRData::Implementation::readIRPlist(&v8, &v10, 0, &v9);
-  if (v4)
+  v7 = v3;
+  IR::IRData::Implementation::readIRPlist(&v7, &v9, 0, &v8);
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  if (v9 && (*buf = @"ImpulseResponses", (applesauce::CF::details::has_key<__CFString const*>(v9, buf) & 1) != 0))
+  if (v8 && (*buf = @"ImpulseResponses", (applesauce::CF::details::has_key<__CFString const*>(v8, buf) & 1) != 0))
   {
-    if (!v9)
+    if (!v8)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -6092,7 +6130,7 @@ void IR::IRData::Implementation::getGlobalUserData(CFTypeRef *this@<X0>, void *a
 
     *buf = @"UserData";
     cf = 0;
-    applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v9, buf, &cf, a2);
+    applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v8, buf, &cf, a2);
     if (cf)
     {
       CFRelease(cf);
@@ -6106,20 +6144,20 @@ void IR::IRData::Implementation::getGlobalUserData(CFTypeRef *this@<X0>, void *a
       IR::IRData::Implementation::readIRPlist();
     }
 
-    v5 = IR::getIRDataLog(void)::gLog;
+    v4 = IR::getIRDataLog(void)::gLog;
     if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       *&buf[4] = "getGlobalUserData";
-      _os_log_impl(&dword_296B9D000, v5, OS_LOG_TYPE_DEFAULT, "IRData::%s: Not a consolidated IR file, use IRData::getUserData() instead.", buf, 0xCu);
+      _os_log_impl(&dword_296B9D000, v4, OS_LOG_TYPE_DEFAULT, "IRData::%s: Not a consolidated IR file, use IRData::getUserData() instead.", buf, 0xCu);
     }
 
     *a2 = 0;
   }
 
-  if (v9)
+  if (v8)
   {
-    CFRelease(v9);
+    CFRelease(v8);
   }
 }
 
@@ -6147,9 +6185,9 @@ float IR::IRData::Implementation::getOriginalSampleRate(IR::IRData::Implementati
   return result;
 }
 
-void sub_296BAB868(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAB868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -6224,9 +6262,9 @@ const __CFDictionary *IR::IRData::Implementation::isConsolidatedIR(IR::IRData::I
   return v2;
 }
 
-void sub_296BAB9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BAB9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -6253,7 +6291,7 @@ uint64_t IR::IRData::Implementation::hasType(IR::IRDataAttributes *a1, int a2)
 
     cf = 0;
     v16 = @"ImpulseResponses";
-    applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(v18, &v16, &cf, &theArray);
+    applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&cf, &theArray, v18, &v16);
     if (cf)
     {
       CFRelease(cf);
@@ -6369,17 +6407,17 @@ LABEL_28:
   return v8;
 }
 
-void sub_296BABC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_296BABC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, const void *);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   IR::IRDataAttributes::~IRDataAttributes(va1);
   _Unwind_Resume(a1);
 }
 
-CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Implementation *this, const IR::IRData *a2, CFTypeRef cf, const void *a4, const __CFString *a5)
+CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Implementation **this, IR::IRData::Implementation **a2, void *cf, uint64_t *a4, const __CFString *a5)
 {
   v59[1] = *MEMORY[0x29EDCA608];
   v9 = CFGetTypeID(cf);
@@ -6399,7 +6437,7 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
 
     else
     {
-      applesauce::CF::StringRef::from_get(&stru_2A1DECFF0, &v55);
+      applesauce::CF::StringRef::from_get(&v55, &stru_2A1DECFF0);
     }
 
     v53 = CFStringCreateWithBytes(0, "HRIR_ITDMod", 11, 0x8000100u, 0);
@@ -6409,7 +6447,7 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
       MEMORY[0x29C25F8D0](v38, "Could not construct");
     }
 
-    SerializedIRData = IR::IRData::Implementation::createSerializedIRData(this);
+    SerializedIRData = IR::IRData::Implementation::createSerializedIRData(this, 1, 0);
     v52 = SerializedIRData;
     if (SerializedIRData)
     {
@@ -6429,7 +6467,7 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
       MEMORY[0x29C25F8D0](v39, "Could not construct");
     }
 
-    v24 = IR::IRData::Implementation::createSerializedIRData(a2);
+    v24 = IR::IRData::Implementation::createSerializedIRData(a2, 1, 0);
     v50 = v24;
     if (v24)
     {
@@ -6449,7 +6487,7 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
       MEMORY[0x29C25F8D0](v40, "Could not construct");
     }
 
-    applesauce::CF::DictionaryRef::from_get(cf, &v48);
+    applesauce::CF::DictionaryRef::from_get(&v48, cf);
     v26 = cfa;
     if (cfa)
     {
@@ -6471,7 +6509,7 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
       MEMORY[0x29C25F8D0](v41, "Could not construct");
     }
 
-    applesauce::CF::StringRef::from_get(a4, &v46);
+    applesauce::CF::StringRef::from_get(&v46, a4);
     v28 = v47;
     if (v47)
     {
@@ -6603,42 +6641,42 @@ CFDataRef IR::IRData::Implementation::createSoundProfilePack(IR::IRData::Impleme
   return Data;
 }
 
-void sub_296BAC248(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, const void *a24, const void *a25, const void *a26, const void *a27, uint64_t a28, uint64_t a29, char a30, int a31, const void *a32, __int16 a33, char a34, char a35)
+void sub_296BAC248(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, const void *a24, const void *a28, const void *a29, const void *a30, uint64_t a31, uint64_t a32, char a33, int a34, const void *a35, __int16 a36, char a37, char a38)
 {
   __cxa_free_exception(v36);
   applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(&a24);
-  applesauce::CF::StringRef::~StringRef(&a25);
-  applesauce::CF::DataRef::~DataRef(&a26);
-  applesauce::CF::StringRef::~StringRef(&a27);
-  while (v35 != &a33)
+  applesauce::CF::StringRef::~StringRef(&a28);
+  applesauce::CF::DataRef::~DataRef(&a29);
+  applesauce::CF::StringRef::~StringRef(&a30);
+  while (v35 != &a36)
   {
     v35 = (v35 - 16);
     applesauce::CF::TypeRefPair::~TypeRefPair(v35);
   }
 
-  applesauce::CF::StringRef::~StringRef(&a32);
+  applesauce::CF::StringRef::~StringRef(&a35);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRData::Implementation::createSerializedIRData(uint64_t a1)
+CFDataRef IR::IRData::Implementation::createSerializedIRData(IR::IRData::Implementation **a1, int a2, int a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v1 = *a1;
+  v21 = *MEMORY[0x29EDCA608];
+  v3 = *a1;
   if (*(*a1 + 24))
   {
-    LODWORD(__N) = v1[2];
-    v3 = v1[7];
-    v15 = v1[8];
-    memset(&v14[3], 0, 72);
-    std::vector<float>::vector[abi:ne200100](v14, (v15 * __N));
-    std::vector<float>::vector[abi:ne200100](&v13, v3);
+    LODWORD(__N) = v3[2];
+    v5 = v3[7];
+    v17 = v3[8];
+    memset(&v16[3], 0, 72);
+    std::vector<float>::vector[abi:ne200100](v16, (v17 * __N));
+    std::vector<float>::vector[abi:ne200100](&v15, v5);
     if (*(*a1 + 496))
     {
-      v17 = 0;
+      v19 = 0;
       operator new();
     }
 
-    v18 = 0;
+    v20 = 0;
     operator new();
   }
 
@@ -6647,10 +6685,10 @@ uint64_t IR::IRData::Implementation::createSerializedIRData(uint64_t a1)
     IR::getIRDataLog();
   }
 
-  v4 = IR::getIRDataLog(void)::gLog;
+  v6 = IR::getIRDataLog(void)::gLog;
   if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_ERROR))
   {
-    IR::IRData::Implementation::createSerializedIRData(v4, v5, v6, v7, v8, v9, v10, v11);
+    IR::IRData::Implementation::createSerializedIRData(v6, v7, v8, v9, v10, v11, v12, v13);
   }
 
   return 0;
@@ -6665,10 +6703,10 @@ void sub_296BACFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  while (v72 != &a72)
+  while (v67 != &a67)
   {
-    v72 = (v72 - 16);
-    applesauce::CF::TypeRefPair::~TypeRefPair(v72);
+    v67 = (v67 - 16);
+    applesauce::CF::TypeRefPair::~TypeRefPair(v67);
   }
 
   applesauce::CF::DictionaryRef::~DictionaryRef(&a25);
@@ -6691,8 +6729,8 @@ void sub_296BACFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a46);
   }
 
-  a72 = &a49;
-  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](&a72);
+  a67 = &a49;
+  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](&a67);
   applesauce::CF::DictionaryRef::~DictionaryRef(&a52);
   applesauce::CF::DictionaryRef::~DictionaryRef(&a55);
   if (a56)
@@ -6707,12 +6745,12 @@ void sub_296BACFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a59);
   }
 
-  a72 = &a62;
-  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a72);
-  a72 = &a65;
-  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a72);
-  a72 = &a68;
-  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a72);
+  a67 = &a62;
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a67);
+  a67 = &a65;
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a67);
+  a67 = &a66;
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&a67);
   _Unwind_Resume(a1);
 }
 
@@ -6735,16 +6773,16 @@ void *applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesa
   return a1;
 }
 
-const void *applesauce::CF::DictionaryRef::from_get@<X0>(const void *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::DictionaryRef::from_get@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CFRetain(this);
-    *a2 = v4;
-    v5 = CFGetTypeID(v4);
+    *a1 = v3;
+    v4 = CFGetTypeID(v3);
     this = CFDictionaryGetTypeID();
-    if (v5 != this)
+    if (v4 != this)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -6753,7 +6791,7 @@ const void *applesauce::CF::DictionaryRef::from_get@<X0>(const void *this@<X0>, 
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return this;
@@ -6817,7 +6855,7 @@ CFDictionaryRef IR::IRData::Implementation::createSoundProfileMetaDataDictionary
     MEMORY[0x29C25F8D0](v27, "Could not construct");
   }
 
-  applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(v35, IR::kCloudIRDataKey_Version, &v32, &v33);
+  applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(&v32, &v33, v35, IR::kCloudIRDataKey_Version);
   applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::StringRef>(v36, IR::kCloudIRDataKey_Version, &v33);
   if (!v35)
   {
@@ -6832,7 +6870,7 @@ CFDictionaryRef IR::IRData::Implementation::createSoundProfileMetaDataDictionary
     MEMORY[0x29C25F8D0](v29, "Could not construct");
   }
 
-  applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(v35, &IR::kCloudIRDataKey_DeviceName, &v30, &cf);
+  applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(&v30, &cf, v35, &IR::kCloudIRDataKey_DeviceName);
   applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::StringRef>(v37, &IR::kCloudIRDataKey_DeviceName, &cf);
   v34[0] = v36;
   v34[1] = 2;
@@ -6880,7 +6918,7 @@ CFDictionaryRef IR::IRData::Implementation::createSoundProfileMetaDataDictionary
   return CFDictionaryRef;
 }
 
-void sub_296BAD758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, const void *a11, const void *a12, uint64_t a13, uint64_t a14, const void *a15, char a16)
+void sub_296BAD758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, const void *a11, const void *a12, uint64_t a13, uint64_t a14, const void *a15, char a16)
 {
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a9);
   applesauce::CF::StringRef::~StringRef(&a12);
@@ -6917,27 +6955,27 @@ void IR::IRData::Implementation::getSoundProfileVersion(IR::IRData::Implementati
       IR::getIRDataLog();
     }
 
-    v8 = IR::getIRDataLog(void)::gLog;
+    v7 = IR::getIRDataLog(void)::gLog;
     if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_ERROR))
     {
-      IR::IRData::Implementation::getSoundProfileVersion(v8, v9, v10, v11, v12, v13, v14, v15);
+      IR::IRData::Implementation::getSoundProfileVersion(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
     goto LABEL_15;
   }
 
-  v5 = CFPropertyListCreateWithData(0, this, 1uLL, 0, 0);
-  if (!v5)
+  v4 = CFPropertyListCreateWithData(0, this, 1uLL, 0, 0);
+  if (!v4)
   {
     if (IR::getIRDataLog(void)::onceToken != -1)
     {
       IR::getIRDataLog();
     }
 
-    v16 = IR::getIRDataLog(void)::gLog;
+    v15 = IR::getIRDataLog(void)::gLog;
     if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_ERROR))
     {
-      IR::IRData::Implementation::getSoundProfileVersion(v16, v17, v18, v19, v20, v21, v22, v23);
+      IR::IRData::Implementation::getSoundProfileVersion(v15, v16, v17, v18, v19, v20, v21, v22);
     }
 
 LABEL_15:
@@ -6947,10 +6985,10 @@ LABEL_15:
     return;
   }
 
-  v6 = v5;
-  v27 = v5;
-  v7 = CFGetTypeID(v5);
-  if (v7 != CFDictionaryGetTypeID())
+  v5 = v4;
+  v26 = v4;
+  v6 = CFGetTypeID(v4);
+  if (v6 != CFDictionaryGetTypeID())
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -6958,20 +6996,21 @@ LABEL_15:
 
   __p[0] = 0;
   __p[1] = 0;
-  v26 = 0;
-  applesauce::CF::at_or<std::string,char const* const&>(v6, IR::kCloudIRDataKey_Version, __p, a2);
-  if (SHIBYTE(v26) < 0)
+  v25 = 0;
+  applesauce::CF::at_or<std::string,char const* const&>(__p, a2, v5, IR::kCloudIRDataKey_Version);
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__p[0]);
   }
 
-  CFRelease(v6);
+  CFRelease(v5);
 }
 
-void sub_296BADA64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12)
+void sub_296BADA64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  __cxa_free_exception(v12);
-  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(&a12);
+  va_start(va, a11);
+  __cxa_free_exception(v11);
+  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -6988,7 +7027,7 @@ uint64_t IR::IRData::Implementation::createDictionaryIRData(unsigned int **this,
     memset(v19, 0, sizeof(v19));
     memset(v18, 0, sizeof(v18));
     std::vector<float>::vector[abi:ne200100](v21, v12);
-    std::vector<std::vector<float>>::vector[abi:ne200100](v17, v14);
+    std::vector<std::vector<float>>::vector[abi:ne200100](v17, v14, v21);
     if (v21[0])
     {
       v21[1] = v21[0];
@@ -7013,13 +7052,15 @@ uint64_t IR::IRData::Implementation::createDictionaryIRData(unsigned int **this,
   return 0;
 }
 
-void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(uint64_t a1, void *a2, void *a3, const void **a4)
 {
   __p[11] = *MEMORY[0x29EDCA608];
   std::vector<std::vector<float>>::resize(a2, 0);
   std::vector<std::vector<float>>::resize(a3, 0);
   std::vector<std::vector<std::vector<float>>>::resize(a4, 0);
-  std::vector<float>::vector[abi:ne200100](__p, *(a1 + 28));
+  v7 = *(a1 + 28);
+  v8 = 0;
+  std::vector<float>::vector[abi:ne200100](__p, v7, &v8);
   if (*(a1 + 496))
   {
     __p[6] = 0;
@@ -7030,9 +7071,10 @@ void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(uint64_t a1
   operator new();
 }
 
-void sub_296BAE364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_296BAE364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](&a18);
+  va_start(va, a17);
+  std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](va);
   if (__p)
   {
     operator delete(__p);
@@ -7091,13 +7133,13 @@ applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[
   return a1;
 }
 
-uint64_t IR::IRData::Implementation::createSerializedIRData(uint64_t *a1)
+CFDataRef IR::IRData::Implementation::createSerializedIRData(IR::IRData::Implementation ***a1, int a2, int a3)
 {
-  v2 = *a1;
-  if (v2)
+  v4 = *a1;
+  if (v4)
   {
 
-    return IR::IRData::Implementation::createSerializedIRData(v2);
+    return IR::IRData::Implementation::createSerializedIRData(v4, a2, a3);
   }
 
   else
@@ -7107,29 +7149,30 @@ uint64_t IR::IRData::Implementation::createSerializedIRData(uint64_t *a1)
       IR::getIRDataLog();
     }
 
-    v4 = IR::getIRDataLog(void)::gLog;
+    v6 = IR::getIRDataLog(void)::gLog;
     if (os_log_type_enabled(IR::getIRDataLog(void)::gLog, OS_LOG_TYPE_ERROR))
     {
-      IR::IRData::Implementation::createSerializedIRData(v4, v5, v6, v7, v8, v9, v10, v11);
+      IR::IRData::Implementation::createSerializedIRData(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
     return 0;
   }
 }
 
-uint64_t IR::IRData::Implementation::forEachNode(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t IR::IRData::Implementation::forEachNode(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
   v15 = *MEMORY[0x29EDCA608];
   if (a3)
   {
+    v6 = a4;
     result = std::function<void ()(IR::IRDataNode &,unsigned int)>::operator()(a2, a3, a4);
     v8 = *(a3 + 72);
     v9 = *(a3 + 80);
     while (v8 != v9)
     {
       std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::__value_func[abi:ne200100](v13, a2);
-      IR::IRData::Implementation::forEachNode(v5, v13, v8, (a4 + 1));
+      IR::IRData::Implementation::forEachNode(v5, v13, v8, (v6 + 1));
       result = std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](v13);
       v8 += 120;
     }
@@ -7157,13 +7200,14 @@ uint64_t IR::IRData::Implementation::forEachNode(uint64_t result, uint64_t a2, u
   v15 = *MEMORY[0x29EDCA608];
   if (a3)
   {
+    v6 = a4;
     result = std::function<void ()(IR::IRDataNode const&,unsigned int)>::operator()(a2, a3, a4);
     v8 = *(a3 + 72);
     v9 = *(a3 + 80);
     while (v8 != v9)
     {
       std::__function::__value_func<void ()(IR::IRDataNode const&,unsigned int)>::__value_func[abi:ne200100](v13, a2);
-      IR::IRData::Implementation::forEachNode(v5, v13, v8, (a4 + 1));
+      IR::IRData::Implementation::forEachNode(v5, v13, v8, (v6 + 1));
       result = std::__function::__value_func<void ()(IR::IRDataNode const&,unsigned int)>::~__value_func[abi:ne200100](v13);
       v8 += 120;
     }
@@ -7186,20 +7230,20 @@ uint64_t IR::IRData::Implementation::forEachNode(uint64_t result, uint64_t a2, u
   return result;
 }
 
-void sub_296BAE64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296BAE64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<applesauce::CF::DictionaryRef>::push_back[abi:ne200100](void *a1, CFTypeRef *a2)
+uint64_t std::vector<applesauce::CF::DictionaryRef>::push_back[abi:ne200100](const void ***a1, CFTypeRef *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
   if (v5 >= v4)
   {
-    v8 = (v5 - *a1) >> 3;
+    v8 = v5 - *a1;
     if ((v8 + 1) >> 61)
     {
       std::vector<float>::__throw_length_error[abi:ne200100]();
@@ -7241,16 +7285,16 @@ uint64_t std::vector<applesauce::CF::DictionaryRef>::push_back[abi:ne200100](voi
   else
   {
     result = std::construct_at[abi:ne200100]<applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef const&,applesauce::CF::DictionaryRef*>(a1[1], a2);
-    v7 = v5 + 8;
+    v7 = v5 + 1;
   }
 
   a1[1] = v7;
   return result;
 }
 
-void sub_296BAE75C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BAE75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::DictionaryRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7315,7 +7359,7 @@ CFMutableDataRef IR::IRData::Implementation::createSerializedIRDataWithNoise(IR:
           if (v13)
           {
             memset(&__p, 0, 24);
-            applesauce::CF::at_or<std::string,char const(&)[18]>(v8, "CoefficientFormat", &__p, &v127);
+            applesauce::CF::at_or<std::string,char const(&)[18]>(&__p, &v127, v8, "CoefficientFormat");
             if (SHIBYTE(__p.__x_[5]) < 0)
             {
               operator delete(*__p.__x_);
@@ -7374,7 +7418,7 @@ LABEL_68:
                   }
 
                   memset(&v126, 0, sizeof(v126));
-                  applesauce::CF::at_or<std::string,char const(&)[12]>(v128, "DelayFormat", &v126, &__p);
+                  applesauce::CF::at_or<std::string,char const(&)[12]>(&v126, &__p, v128, "DelayFormat");
                   if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(v127.__r_.__value_.__l.__data_);
@@ -7405,7 +7449,7 @@ LABEL_78:
                       v76 = applesauce::CF::DictionaryRef::operator->(&v128);
                       *__p.__x_ = @"Dimensions";
                       v126.__begin_ = 0;
-                      applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(*v76, &__p, &v126, &v125);
+                      applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(&v126, &v125, *v76, &__p);
                       applesauce::CF::ArrayRef::~ArrayRef(&v126.__begin_);
                       applesauce::CF::ArrayRef_proxy::ArrayRef_proxy(&__p, &v125);
                       size = applesauce::CF::get_size(**__p.__x_, v77);
@@ -7995,7 +8039,7 @@ void sub_296BAF778(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::IRData::Implementation::insertIRDataInTree(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, __n128 *a5, __n128 *a6, unsigned int a7, void *a8)
+void IR::IRData::Implementation::insertIRDataInTree(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, __n128 *a5, __n128 *a6, unsigned int a7, void *a8)
 {
   v8 = a8;
   v9 = a7;
@@ -8198,9 +8242,9 @@ LABEL_43:
     v28 = *(v20 + 32);
     LODWORD(v36[0]) = IR::IRCoordinates::get(a3, 1u);
     std::vector<float>::push_back[abi:ne200100]((v28 + 64), v36);
-    std::vector<std::vector<float>>::push_back[abi:ne200100](*(v20 + 32) + 112, a5);
+    std::vector<std::vector<float>>::push_back[abi:ne200100]((*(v20 + 32) + 112), a5);
     std::vector<std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>>::push_back[abi:ne200100]((*(v20 + 32) + 88), a4);
-    std::vector<std::vector<float>>::push_back[abi:ne200100](*(v20 + 32) + 184, a6);
+    std::vector<std::vector<float>>::push_back[abi:ne200100]((*(v20 + 32) + 184), a6);
     if ((v9 & 0x80000000) == 0 && v9 < ((v8[1] - *v8) >> 2))
     {
       v29 = *(*v8 + 4 * v9);
@@ -8231,14 +8275,14 @@ LABEL_43:
   }
 }
 
-void sub_296BAFCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296BAFCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   IR::IRDataNode::~IRDataNode(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<IR::IRDataNode>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<IR::IRDataNode>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -8371,7 +8415,7 @@ uint64_t std::vector<IR::IRDataNode>::insert(uint64_t *a1, uint64_t a2, uint64_t
   return v4;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8420,17 +8464,17 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -8472,8 +8516,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8490,14 +8534,14 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -8551,7 +8595,7 @@ void **std::vector<std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>>::pu
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8650,7 +8694,7 @@ void IR::IRData::Implementation::recursiveGetCoordinateTree(uint64_t a1, void *a
     do
     {
       std::vector<float>::push_back[abi:ne200100]((a4 + 8), v8 - 18);
-      if (*v8 != v8[1])
+      if (*v8 != *(v8 + 1))
       {
         v11 = 6;
         __p = 0u;
@@ -8669,8 +8713,8 @@ void IR::IRData::Implementation::recursiveGetCoordinateTree(uint64_t a1, void *a
         IR::IRData::Implementation::recursiveGetCoordinateTree(a1, v8, v7, v9 - 56);
       }
 
-      v10 = v8 + 6;
-      v8 += 15;
+      v10 = v8 + 12;
+      v8 += 30;
     }
 
     while (v10 != v4);
@@ -8772,7 +8816,7 @@ void IR::IRData::Implementation::insertInCoordinateTree(void *a1, uint64_t a2, u
         {
           v23 = *(a3 + 32);
           v22 = (a3 + 32);
-          v24 = v23 + 56 * ((v21 - *(v22 - 3)) >> 2);
+          v24 = v23 + 56 * (&v21[-*(v22 - 3)] >> 2);
           v25 = 6;
           __p = 0u;
           v27 = 0u;
@@ -8796,9 +8840,9 @@ void IR::IRData::Implementation::insertInCoordinateTree(void *a1, uint64_t a2, u
   }
 }
 
-void sub_296BB07C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BB07C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRCoordinateTree::~IRCoordinateTree(va);
   _Unwind_Resume(a1);
 }
@@ -8849,7 +8893,7 @@ uint64_t std::vector<IR::IRCoordinateTree>::push_back[abi:ne200100](uint64_t *a1
   return result;
 }
 
-float *std::vector<float>::insert(void *a1, char *__src, float *a3)
+char *std::vector<float>::insert(void *a1, char *__src, float *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -8863,7 +8907,7 @@ float *std::vector<float>::insert(void *a1, char *__src, float *a3)
       std::vector<float>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 1 > v11)
     {
@@ -9040,7 +9084,7 @@ uint64_t std::vector<IR::IRCoordinateTree>::insert(uint64_t *a1, uint64_t a2, ui
     std::vector<IR::IRCoordinateTree>::__move_range(a1, a2, v6, a2 + 56);
     *v4 = *a3;
     std::vector<float>::__move_assign(v4 + 8, (a3 + 8));
-    std::vector<IR::IRCoordinateTree>::__vdeallocate((v4 + 32));
+    std::vector<IR::IRCoordinateTree>::__vdeallocate(v4 + 32);
     *(v4 + 32) = *(a3 + 32);
     *(v4 + 48) = *(a3 + 48);
     *(a3 + 32) = 0;
@@ -9051,26 +9095,24 @@ uint64_t std::vector<IR::IRCoordinateTree>::insert(uint64_t *a1, uint64_t a2, ui
   return v4;
 }
 
-void sub_296BB0C3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BB0C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<IR::IRCoordinateTree>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<IR::IRCoordinates>::reserve(void *result, unint64_t a2)
+void std::vector<IR::IRCoordinates>::reserve(void *a1, unint64_t a2)
 {
-  if (0x8E38E38E38E38E39 * ((result[2] - *result) >> 2) < a2)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x71C71C71C71C71DLL)
     {
-      std::allocator<IR::IRCoordinates>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<IR::IRCoordinates>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 BOOL AUSM::ExclusionZone::isInExclusionZone@<W0>(AUSM::ExclusionZone *this@<X0>, float a2@<S0>, float a3@<S1>, float a4@<S2>, float a5@<S3>, BOOL a6@<W8>)
@@ -9288,21 +9330,21 @@ float IR::IRData::Implementation::estimateAverageDelay(IR::IRData::Implementatio
   return v4 / v3;
 }
 
-void sub_296BB0FEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BB0FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(IR::IRDataNode const&,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_296BB1100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296BB1100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(IR::IRDataNode const&,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRData::Implementation::getBooleanFromDictionary(const __CFDictionary **a1, const __CFString *a2, int a3)
+uint64_t IR::IRData::Implementation::getBooleanFromDictionary(const __CFDictionary **a1, const UInt8 *a2, int a3)
 {
   v5 = *a1;
   if (!v5)
@@ -9311,7 +9353,7 @@ uint64_t IR::IRData::Implementation::getBooleanFromDictionary(const __CFDictiona
   }
 
   v6 = a2;
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,std::string const&>(v5, a2, &v20);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,std::string const&>(&v20, v5, a2);
   if (v21 == 1)
   {
     v6 = v20;
@@ -9416,10 +9458,11 @@ LABEL_28:
   return v6 & 1;
 }
 
-void sub_296BB1350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296BB1350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   std::optional<applesauce::CF::NumberRef>::~optional(&a9);
-  std::optional<applesauce::CF::BooleanRef>::~optional(&a11);
+  std::optional<applesauce::CF::BooleanRef>::~optional(va);
   _Unwind_Resume(a1);
 }
 
@@ -9467,29 +9510,29 @@ uint64_t IR::IRData::Implementation::printNodes(IR::IRData::Implementation *this
   return std::__function::__value_func<void ()(IR::IRDataNode &,unsigned int)>::~__value_func[abi:ne200100](v6);
 }
 
-void IR::IRData::Implementation::generatePanningIRData(IR::IRData::Implementation *this@<X0>, float a2@<S0>, IR::IRData::Implementation *a3@<X1>, IR *a4@<X2>, uint64_t a5@<X3>, float *a6@<X4>, void *a7@<X8>)
+void IR::IRData::Implementation::generatePanningIRData(IR::IRData::Implementation *this@<X0>, IR::IRData::Implementation *a2@<X1>, float a3@<S0>, IR *a4@<X2>, uint64_t a5@<X3>, float *a6@<X4>, __int128 *a7@<X8>)
 {
   if (this == 6619138)
   {
-    IR::IRData::Implementation::generateStereoPanningIRData(a3, a2, a3, a4, a5, a6);
+    IR::IRData::Implementation::generateStereoPanningIRData(a2, a2, a4, a5, a6);
   }
 
-  IR::IRData::Implementation::generateMultiChannelPanningIRData(this, a2, a3, a4, a5, a7);
+  IR::IRData::Implementation::generateMultiChannelPanningIRData(this, a3, a2, a4, a5, a7);
 }
 
-void IR::IRData::Implementation::generateStereoPanningIRData(IR::IRData::Implementation *this, float a2, BOOL a3, uint64_t a4, uint64_t a5, float *a6)
+void IR::IRData::Implementation::generateStereoPanningIRData(IR::IRData::Implementation *this, void x1_0, BOOL a3, void x3_0, float *a5)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  IR::generateGrid(2, this, a6, v8);
-  v9 = 1;
-  memset(v8, 0, sizeof(v8));
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v8, &v9, &v10, 2uLL);
-  v12 = 0x43B4000000000000;
+  *v12 = *MEMORY[0x29EDCA608];
+  IR::generateGrid(v7, 2, this, a5);
+  v8 = 1;
   memset(v7, 0, sizeof(v7));
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v7, &v12, &v13, 2uLL);
-  v11 = 0x100000001;
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v7, &v8, &v9, 2uLL);
+  v11 = 0x43B4000000000000;
+  memset(v6, 0, sizeof(v6));
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v6, &v11, v12, 2uLL);
+  v10 = 0x100000001;
   memset(__p, 0, sizeof(__p));
-  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(__p, &v11, &v12, 2uLL);
+  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(__p, &v10, &v11, 2uLL);
   operator new();
 }
 
@@ -9517,138 +9560,143 @@ void sub_296BB1C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::IRData::Implementation::generateMultiChannelPanningIRData(IR::IRData::Implementation *this@<X0>, float a2@<S0>, int a3@<W1>, IR *a4@<X2>, int a5@<W3>, void *a6@<X8>)
+void IR::IRData::Implementation::generateMultiChannelPanningIRData(IR::IRData::Implementation *this@<X0>, float a2@<S0>, int a3@<W1>, IR *a4@<X2>, uint64_t a5@<X3>, __int128 *a6@<X8>)
 {
+  v6 = a5;
   v9 = this;
-  v52[2] = *MEMORY[0x29EDCA608];
-  v46 = this;
-  v45 = a2;
+  v58[2] = *MEMORY[0x29EDCA608];
+  v51 = this;
+  v50 = a2;
   v11 = IR::IRDataLoader::instance(this);
-  IR::IRDataLoader::getCustomLayoutFromTag(v11, v9, v43);
-  if (v44 == 1)
+  IR::IRDataLoader::getCustomLayoutFromTag(v48, v11, v9);
+  if (v49 == 1)
   {
-    GetChannelLayoutSphericalCoordinates(v43[0], &v37, v12);
+    GetChannelLayoutSphericalCoordinates(&v42, v48[0], v12);
   }
 
   else
   {
-    GetChannelLayoutSphericalCoordinates(v9, &v37);
+    GetChannelLayoutSphericalCoordinates(&v42, v9);
   }
 
-  if (v44 == 1)
+  if (v49 == 1)
   {
-    GetChannelLayoutChannelLabels(v43[0], &v35);
+    GetChannelLayoutChannelLabels(&v40, v48[0]);
   }
 
   else
   {
-    GetChannelLayoutChannelLabels(v46, &v35);
+    GetChannelLayoutChannelLabels(&v40, v51);
   }
 
-  v33 = 0;
-  v32 = 0;
-  v34 = 0;
-  v13 = v36 - v35;
-  v14 = (v36 - v35) >> 2;
+  v38 = 0;
+  v37 = 0;
+  v39 = 0;
+  v13 = v41 - v40;
+  v14 = (v41 - v40) >> 2;
   v15 = v14 - 1;
-  LODWORD(v31.__begin_) = v14 - 1;
+  LODWORD(v36.__begin_) = v14 - 1;
   if (v14 >= 1)
   {
     do
     {
-      if ((IsLFEChannelLabel(*(v35 + v15)) & 1) != 0 || (LODWORD(begin_low) = v31.__begin_, *(v41 + SLODWORD(v31.__begin_)) == 0.0))
+      if ((IsLFEChannelLabel(*(v40 + v15)) & 1) != 0 || (LODWORD(begin_low) = v36.__begin_, *(v46 + SLODWORD(v36.__begin_)) == 0.0))
       {
-        std::vector<int>::push_back[abi:ne200100](&v32, &v31);
-        begin_low = SLODWORD(v31.__begin_);
-        v17 = v37 + 4 * SLODWORD(v31.__begin_);
-        v18 = v38 - (v17 + 4);
-        if (v38 != v17 + 4)
+        std::vector<int>::push_back[abi:ne200100](&v37, &v36);
+        begin_low = SLODWORD(v36.__begin_);
+        v17 = v42 + 4 * SLODWORD(v36.__begin_);
+        v18 = v43 - (v17 + 4);
+        if (v43 != v17 + 4)
         {
-          memmove(v37 + 4 * SLODWORD(v31.__begin_), v17 + 4, v38 - (v17 + 4));
-          begin_low = SLODWORD(v31.__begin_);
+          memmove(v42 + 4 * SLODWORD(v36.__begin_), v17 + 4, v43 - (v17 + 4));
+          begin_low = SLODWORD(v36.__begin_);
         }
 
-        v38 = &v17[v18];
-        v19 = v39 + 4 * begin_low;
-        v20 = v40 - (v19 + 4);
-        if (v40 != v19 + 4)
+        v43 = &v17[v18];
+        v19 = v44 + 4 * begin_low;
+        v20 = v45 - (v19 + 4);
+        if (v45 != v19 + 4)
         {
-          memmove(v39 + 4 * begin_low, v19 + 4, v40 - (v19 + 4));
-          LODWORD(begin_low) = v31.__begin_;
+          memmove(v44 + 4 * begin_low, v19 + 4, v45 - (v19 + 4));
+          LODWORD(begin_low) = v36.__begin_;
         }
 
-        v40 = &v19[v20];
+        v45 = &v19[v20];
       }
 
       v15 = begin_low - 1;
-      LODWORD(v31.__begin_) = begin_low - 1;
+      LODWORD(v36.__begin_) = begin_low - 1;
     }
 
     while (begin_low > 0);
-    v13 = v36 - v35;
+    v13 = v41 - v40;
   }
 
   if ((v13 >> 2))
   {
-    HOA::HOA(&v31, a4, a5, 0);
-    HOA::createDecoder(&v31, &v37, &v39, 0, 0);
-    IR::generateGrid(a4, a3, v21, v30);
-    v28 = 0;
-    v29 = 1;
-    v27 = 0;
-    v26 = 0;
-    v24 = v13 >> 2;
-    v25 = 2;
-    v51 = 1;
-    memset(v30, 0, sizeof(v30));
-    std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v30, &v51, v52, 2uLL);
-    v49 = 0x43B4000000000000;
+    HOA::HOA(&v36, a4, v6, 0);
+    HOA::createDecoder(&v36, &v42, &v44, 0, 0);
+    IR::generateGrid(v34, a4, a3, v21);
+    v22 = v35;
+    v32 = 0;
+    v33 = 1;
+    v31 = 0;
+    v30 = 0;
+    v28 = v13 >> 2;
+    v29 = 2;
+    v57 = 1;
+    memset(v34, 0, sizeof(v34));
+    std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v34, &v57, v58, 2uLL);
+    v55 = 0x43B4000000000000;
     memset(__C, 0, sizeof(__C));
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__C, &v49, &v50, 2uLL);
-    v47 = 0x100000001;
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__C, &v55, v56, 2uLL);
+    v53 = 0x100000001;
     memset(__p, 0, sizeof(__p));
-    std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(__p, &v47, &v48, 2uLL);
-    std::allocate_shared[abi:ne200100]<IR::IRData const,std::allocator<IR::IRData>,float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,0>();
+    std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(__p, &v53, &v54, 2uLL);
+    v25 = v22;
+    v23 = 0;
+    cf = 0;
+    std::allocate_shared[abi:ne200100]<IR::IRData const,std::allocator<IR::IRData>,float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,0>(&v52, &v50, &v33, &v32, &v31, &v30, &v29, &v28, &v51, v34, __C, __p, &v25, &v23, &cf);
   }
 
   *a6 = 0;
-  a6[1] = 0;
-  if (v32)
-  {
-    v33 = v32;
-    operator delete(v32);
-  }
-
-  if (v35)
-  {
-    v36 = v35;
-    operator delete(v35);
-  }
-
-  if (v41)
-  {
-    v42 = v41;
-    operator delete(v41);
-  }
-
-  if (v39)
-  {
-    v40 = v39;
-    operator delete(v39);
-  }
-
+  *(a6 + 1) = 0;
   if (v37)
   {
     v38 = v37;
     operator delete(v37);
   }
 
-  if (v44 == 1)
+  if (v40)
   {
-    if (v43[0])
+    v41 = v40;
+    operator delete(v40);
+  }
+
+  if (v46)
+  {
+    v47 = v46;
+    operator delete(v46);
+  }
+
+  if (v44)
+  {
+    v45 = v44;
+    operator delete(v44);
+  }
+
+  if (v42)
+  {
+    v43 = v42;
+    operator delete(v42);
+  }
+
+  if (v49 == 1)
+  {
+    if (v48[0])
     {
-      v43[1] = v43[0];
-      operator delete(v43[0]);
+      v48[1] = v48[0];
+      operator delete(v48[0]);
     }
   }
 }
@@ -9715,95 +9763,52 @@ void sub_296BB2788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void IR::IRData::IRData(void *a1)
+void sub_296BB2A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  *a1 = 0;
-  operator new();
-}
-
-{
-  *a1 = 0;
-  std::make_unique[abi:ne200100]<IR::IRData::Implementation,float &,unsigned int &,unsigned int &,float &,BOOL &,unsigned int &,unsigned int &,unsigned int &,std::vector<IR::IRCoordinateType> const&,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,IR::IRSphericalInterpolation &,applesauce::CF::DictionaryRef &,applesauce::CF::DictionaryRef &,0>();
-}
-
-{
-  IR::IRData::IRData(a1);
-}
-
-{
-  *a1 = 0;
-  operator new();
-}
-
-{
-  IR::IRData::IRData(a1);
-}
-
-void sub_296BB2A88(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DataRef::~DataRef(va);
-  MEMORY[0x29C25FC20](v3, 0x10F0C40E38F14B0);
-  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v2, 0);
+  MEMORY[0x29C25FC20](v4, 0x10F0C40E38F14B0);
+  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v3, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_296BB2CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void IR::IRData::IRData(void *a1, int a2, int a3, char a4, int a5, int a6, int a7, uint64_t a8, float a9, float a10, uint64_t a11, uint64_t a12, uint64_t a13, CFTypeRef *a14, CFTypeRef *a15)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, const void *);
+  v15 = a14;
+  v16 = a15;
+  v24 = a9;
+  v22 = a3;
+  v23 = a2;
+  v21 = a10;
+  v20 = a4;
+  v18 = a6;
+  v19 = a5;
+  v17 = a7;
+  *a1 = 0;
+  std::make_unique[abi:ne200100]<IR::IRData::Implementation,float &,unsigned int &,unsigned int &,float &,BOOL &,unsigned int &,unsigned int &,unsigned int &,std::vector<IR::IRCoordinateType> const&,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,IR::IRSphericalInterpolation &,applesauce::CF::DictionaryRef &,applesauce::CF::DictionaryRef &,0>(&v24, &v23, &v22, &v21, &v20, &v19, &v18, &v17, a8, a11, a12, &a13, v15, v16);
+}
+
+{
+  IR::IRData::IRData(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
+}
+
+void sub_296BB2CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, const void *);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
-  MEMORY[0x29C25FC20](v9, 0x10F0C40E38F14B0);
+  MEMORY[0x29C25FC20](v16, 0x10F0C40E38F14B0);
   _Unwind_Resume(a1);
 }
 
-void sub_296BB2E34(_Unwind_Exception *a1)
+void IR::IRData::IRData(void *a1, uint64_t a2, void *a3, uint64_t *a4, uint64_t a5, unsigned int a6, uint64_t *a7, uint64_t *a8, float a9, uint64_t *a10, uint64_t a11, unsigned int a12, unsigned __int8 a13, int a14, unsigned int a15, uint64_t a16)
 {
-  MEMORY[0x29C25FC20](v2, 0x10F0C40E38F14B0);
-  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v1, 0);
-  _Unwind_Resume(a1);
+  *a1 = 0;
+  operator new();
 }
 
-void sub_296BB2EFC(_Unwind_Exception *a1)
 {
-  MEMORY[0x29C25FC20](v2, 0x10F0C40E38F14B0);
-  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v1, 0);
-  _Unwind_Resume(a1);
-}
-
-void IR::IRData::extractIRDataTypePlist(CFTypeRef *a1@<X0>, int a2@<W1>, _DWORD *a3@<X2>, const __CFDictionary **a4@<X8>)
-{
-  v7 = *a1;
-  if (*a1)
-  {
-    CFRetain(*a1);
-  }
-
-  cf = v7;
-  IR::IRData::Implementation::extractIRDataTypePlist(&cf, a2, a3, a4);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_296BB3004(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  applesauce::CF::DictionaryRef::~DictionaryRef(va);
-  _Unwind_Resume(a1);
-}
-
-CFTypeRef IR::IRData::Implementation::getDescription@<X0>(CFTypeRef this@<X0>, void *a2@<X8>)
-{
-  v3 = *(this + 36);
-  if (v3)
-  {
-    this = CFRetain(*(this + 36));
-  }
-
-  *a2 = v3;
-  return this;
+  IR::IRData::IRData(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }

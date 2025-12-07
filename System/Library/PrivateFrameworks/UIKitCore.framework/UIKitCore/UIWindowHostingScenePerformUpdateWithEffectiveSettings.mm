@@ -32,9 +32,9 @@ void ___UIWindowHostingScenePerformUpdateWithEffectiveSettings_block_invoke_2(ui
   [v7 _enumerateWindowsIncludingInternalWindows:1 onlyVisibleWindows:1 asCopy:0 stopped:0 withBlock:v6];
 }
 
-uint64_t ___UIWindowHostingScenePerformUpdateWithEffectiveSettings_block_invoke_3(uint64_t result, void *a2)
+void *___UIWindowHostingScenePerformUpdateWithEffectiveSettings_block_invoke_3(void *result, void *a2)
 {
-  if (!*(*(result + 32) + 152))
+  if (!*(result[4] + 152))
   {
     return [a2 layoutIfNeeded];
   }

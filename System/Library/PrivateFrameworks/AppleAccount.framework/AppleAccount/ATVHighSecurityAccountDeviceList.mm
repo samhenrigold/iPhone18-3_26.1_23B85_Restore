@@ -15,17 +15,17 @@
 
 - (id)urlRequest
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = ATVHighSecurityAccountDeviceList;
-  urlRequest = [(AARequest *)&v22 urlRequest];
+  v24 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = ATVHighSecurityAccountDeviceList;
+  urlRequest = [(AARequest *)&v21 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
   aa_password = [(ACAccount *)self->super._account aa_password];
   if (aa_password && (v6 = aa_password, [(ACAccount *)self->super._account username], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(aa_password);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -42,7 +42,7 @@
 
   else
   {
-    username = _AALogSystem();
+    username = _AALogSystem(aa_password);
     if (os_log_type_enabled(username, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -58,8 +58,7 @@
 
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v15];
   [v4 addValue:v16 forHTTPHeaderField:@"Authorization"];
-  [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  v17 = _AALogSystem();
+  v17 = _AALogSystem([v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"]);
   v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
   if (v13)
   {
@@ -74,11 +73,9 @@
   {
     v19 = [v4 valueForHTTPHeaderField:@"Authorization"];
     *buf = 138412290;
-    v24 = v19;
+    v23 = v19;
     _os_log_impl(&dword_1B6F6A000, v17, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

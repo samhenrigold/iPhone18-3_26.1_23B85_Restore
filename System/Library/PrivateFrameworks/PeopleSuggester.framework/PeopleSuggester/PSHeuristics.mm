@@ -125,12 +125,11 @@ void __90___PSHeuristics_hyperRecentViewedThreadHeuristicSuggestionProxiesForInt
 {
   v3 = a2;
   v4 = [_PSSuggestionProxy alloc];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [(_PSSuggestionProxy *)v4 initWithBundleID:@"com.apple.MobileSMS" interactionRecipients:v3 contactID:0 reason:@"Hyper-recent opened thread - PS Rewrite" reasonType:v7];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [(_PSSuggestionProxy *)v4 initWithBundleID:@"com.apple.MobileSMS" interactionRecipients:v3 contactID:0 reason:@"Hyper-recent opened thread - PS Rewrite" reasonType:v6];
 
-  [*(*(*(a1 + 40) + 8) + 40) addObject:v8];
+  [*(*(*(a1 + 40) + 8) + 40) addObject:v7];
 }
 
 BOOL __132___PSHeuristics_hyperRecentHeuristicSuggestionProxiesForInteractionStatistics_forStatName_withRecencyMargin_maxNumberOfSuggestions___block_invoke(uint64_t a1, uint64_t a2)
@@ -164,7 +163,7 @@ _PSSuggestionProxy *__132___PSHeuristics_hyperRecentHeuristicSuggestionProxiesFo
 {
   if (*(a1 + 56) <= a3)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
@@ -173,13 +172,12 @@ _PSSuggestionProxy *__132___PSHeuristics_hyperRecentHeuristicSuggestionProxiesFo
     v5 = [_PSSuggestionProxy alloc];
     v6 = [*(a1 + 32) bundleIdForConversationId:v4];
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Hyper-recent heuristic (%@) - PS Rewrite", *(a1 + 40)];
-    v8 = *(a1 + 48);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [(_PSSuggestionProxy *)v5 initWithBundleID:v6 interactionRecipients:v4 contactID:0 reason:v7 reasonType:v10];
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [(_PSSuggestionProxy *)v5 initWithBundleID:v6 interactionRecipients:v4 contactID:0 reason:v7 reasonType:v9];
   }
 
-  return v11;
+  return v10;
 }
 
 id __62___PSHeuristics_peopleAwareSuggestionProxiesForDetectedFaces___block_invoke(uint64_t a1, uint64_t a2)
@@ -230,19 +228,17 @@ double __108___PSHeuristics_heuristicsFromInteractionsStatistics_forStatsNames_t
 
 void __108___PSHeuristics_heuristicsFromInteractionsStatistics_forStatsNames_threshold_maxNumberOfSuggestions_reason___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v11 = v3;
-  v5 = [*(a1 + 32) valueOrDefaultValueForFeature:? forConversationId:?];
-  [v5 doubleValue];
-  v7 = v6;
-  v8 = *(*(*(a1 + 48) + 8) + 24);
+  v9 = a2;
+  v3 = [*(a1 + 32) valueOrDefaultValueForFeature:? forConversationId:?];
+  [v3 doubleValue];
+  v5 = v4;
+  v6 = *(*(*(a1 + 48) + 8) + 24);
 
-  if (v7 > v8)
+  if (v5 > v6)
   {
-    v9 = [*(a1 + 32) valueOrDefaultValueForFeature:v11 forConversationId:*(a1 + 40)];
-    [v9 doubleValue];
-    *(*(*(a1 + 48) + 8) + 24) = v10;
+    v7 = [*(a1 + 32) valueOrDefaultValueForFeature:v9 forConversationId:*(a1 + 40)];
+    [v7 doubleValue];
+    *(*(*(a1 + 48) + 8) + 24) = v8;
   }
 }
 
@@ -253,17 +249,16 @@ BOOL __108___PSHeuristics_heuristicsFromInteractionsStatistics_forStatsNames_thr
   v7 = *(v5 + 16);
   v8 = a3;
   v9 = v7(v5, v6, a2);
-  v10 = *(a1 + 32);
-  v11 = (*(*(a1 + 40) + 16))();
+  v10 = (*(*(a1 + 40) + 16))();
 
-  return v9 < v11;
+  return v9 < v10;
 }
 
 _PSSuggestionProxy *__108___PSHeuristics_heuristicsFromInteractionsStatistics_forStatsNames_threshold_maxNumberOfSuggestions_reason___block_invoke_5(uint64_t a1, void *a2, unint64_t a3)
 {
   if (*(a1 + 56) <= a3)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
@@ -271,14 +266,13 @@ _PSSuggestionProxy *__108___PSHeuristics_heuristicsFromInteractionsStatistics_fo
     v4 = a2;
     v5 = [_PSSuggestionProxy alloc];
     v6 = [*(a1 + 32) bundleIdForConversationId:v4];
-    v8 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [(_PSSuggestionProxy *)v5 initWithBundleID:v6 interactionRecipients:v4 contactID:0 reason:v8 reasonType:v10];
+    v7 = *(a1 + 40);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [(_PSSuggestionProxy *)v5 initWithBundleID:v6 interactionRecipients:v4 contactID:0 reason:v7 reasonType:v9];
   }
 
-  return v11;
+  return v10;
 }
 
 BOOL __98___PSHeuristics_hyperRecentHeuristicSuggestionProxiesWithReferenceDate_predictionContextBundleId___block_invoke(uint64_t a1, void *a2)

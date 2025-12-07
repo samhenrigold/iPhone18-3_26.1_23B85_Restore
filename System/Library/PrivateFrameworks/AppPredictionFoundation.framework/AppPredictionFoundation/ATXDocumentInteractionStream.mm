@@ -35,10 +35,10 @@ void __112__ATXDocumentInteractionStream_enumerateDocumentInteractionEventsFromS
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __112__ATXDocumentInteractionStream_enumerateDocumentInteractionEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_cold_1(v2, v4);
+      __112__ATXDocumentInteractionStream_enumerateDocumentInteractionEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -136,14 +136,14 @@ void __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_inv
   v11 = [v10 bundleIdentifier];
   v12 = [(ATXFileIdentityWithMetadata *)v6 initWithItemURL:v4 bookmarkData:v8 dateLastOpened:0 dateModified:0 dateCreated:0 bundleIdentifier:v11];
 
-  v41 = 0;
-  v38 = v12;
-  v13 = [(ATXFileIdentityWithMetadata *)v12 resolveItemURLWithError:&v41];
-  v14 = v41;
+  v42 = 0;
+  v39 = v12;
+  v13 = [(ATXFileIdentityWithMetadata *)v12 resolveItemURLWithError:&v42];
+  v14 = v42;
   v15 = v14;
   if (!v13 || v14)
   {
-    v16 = __atxlog_handle_default();
+    v16 = __atxlog_handle_default(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_invoke_3_cold_1();
@@ -155,45 +155,45 @@ void __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_inv
 
   v18 = [MEMORY[0x277CCAA00] defaultManager];
   v19 = [v13 path];
-  v40 = 0;
-  v20 = [v18 attributesOfItemAtPath:v19 error:&v40];
-  v21 = v40;
+  v41 = 0;
+  v20 = [v18 attributesOfItemAtPath:v19 error:&v41];
+  v21 = v41;
 
-  v36 = v15;
-  v37 = v13;
-  v34 = v20;
-  v35 = v21;
+  v37 = v15;
+  v38 = v13;
+  v35 = v20;
+  v36 = v21;
   if (!v20 || v21)
   {
-    v25 = __atxlog_handle_default();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_invoke_3_cold_2(v13, v21, v25);
+      __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_invoke_3_cold_2(v13, v21, v26);
     }
 
-    v22 = v4;
+    v23 = v4;
 
+    v25 = 0;
     v24 = 0;
-    v23 = 0;
   }
 
   else
   {
-    v22 = v4;
-    v23 = [v20 objectForKeyedSubscript:{*MEMORY[0x277CCA150], v20, 0, v15, v37}];
-    v24 = [v20 objectForKeyedSubscript:*MEMORY[0x277CCA108]];
+    v23 = v4;
+    v24 = [v20 objectForKeyedSubscript:{*MEMORY[0x277CCA150], v20, 0, v15, v38}];
+    v25 = [v20 objectForKeyedSubscript:*MEMORY[0x277CCA108]];
   }
 
-  v26 = [ATXFileIdentityWithMetadata alloc];
-  v27 = v9;
-  v28 = [v9 first];
-  v29 = [v28 bookmarkData];
-  v30 = [v9 second];
-  v31 = [v27 first];
-  v32 = [v31 bundleIdentifier];
-  v33 = [(ATXFileIdentityWithMetadata *)v26 initWithItemURL:v22 bookmarkData:v29 dateLastOpened:v30 dateModified:v23 dateCreated:v24 bundleIdentifier:v32];
+  v27 = [ATXFileIdentityWithMetadata alloc];
+  v28 = v9;
+  v29 = [v9 first];
+  v30 = [v29 bookmarkData];
+  v31 = [v9 second];
+  v32 = [v28 first];
+  v33 = [v32 bundleIdentifier];
+  v34 = [(ATXFileIdentityWithMetadata *)v27 initWithItemURL:v23 bookmarkData:v30 dateLastOpened:v31 dateModified:v24 dateCreated:v25 bundleIdentifier:v33];
 
-  [*(a1 + 32) addObject:v33];
+  [*(a1 + 32) addObject:v34];
 }
 
 - (void)enumerateDocumentInteractionEventsFromStartDate:(uint64_t)a1 endDate:(uint64_t)a2 filterBlock:limit:block:.cold.1(uint64_t a1, uint64_t a2)
@@ -204,33 +204,28 @@ void __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_inv
 
 void __112__ATXDocumentInteractionStream_enumerateDocumentInteractionEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXDocumentInteractionStream: Error querying document interaction stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXDocumentInteractionStream: Error querying document interaction stream: %@", &v4, 0xCu);
 }
 
 void __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_invoke_3_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
-  v4 = v0;
-  _os_log_error_impl(&dword_226368000, v1, OS_LOG_TYPE_ERROR, "Failed to resolve bookmark for URL %@, falling back to original url: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_226368000, v1, OS_LOG_TYPE_ERROR, "Failed to resolve bookmark for URL %@, falling back to original url: %@", v2, 0x16u);
 }
 
 void __61__ATXDocumentInteractionStream_getDocumentsOpenedInLastMonth__block_invoke_3_cold_2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 path];
   OUTLINED_FUNCTION_0_4();
-  v8 = a2;
-  _os_log_error_impl(&dword_226368000, a3, OS_LOG_TYPE_ERROR, "Failed to get attributes for file %@: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_error_impl(&dword_226368000, a3, OS_LOG_TYPE_ERROR, "Failed to get attributes for file %@: %@", v6, 0x16u);
 }
 
 @end

@@ -135,7 +135,7 @@ uint64_t __53__BRCContainerMetadataSyncPersistedState_description__block_invoke(
 
 - (void)updateWithServerChangeToken:(id)token requestID:(unint64_t)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -149,17 +149,17 @@ uint64_t __53__BRCContainerMetadataSyncPersistedState_description__block_invoke(
   {
     if (requestID)
     {
-      v13 = brc_bread_crumbs();
-      v14 = brc_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v12 = brc_bread_crumbs();
+      v13 = brc_default_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v15 = 138412802;
-        v16 = selfCopy;
-        v17 = 2048;
+        v14 = 138412802;
+        v15 = selfCopy;
+        v16 = 2048;
         dCopy = d;
-        v19 = 2112;
-        v20 = v13;
-        _os_log_fault_impl(&dword_223E7A000, v14, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _requestID == 0 %@: got request ID: %llu%@", &v15, 0x20u);
+        v18 = 2112;
+        v19 = v12;
+        _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _requestID == 0 %@: got request ID: %llu%@", &v14, 0x20u);
       }
     }
 
@@ -167,8 +167,6 @@ uint64_t __53__BRCContainerMetadataSyncPersistedState_description__block_invoke(
   }
 
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)containerMetadataWasReset

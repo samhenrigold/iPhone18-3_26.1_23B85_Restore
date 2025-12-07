@@ -17,9 +17,9 @@
 
 - (BOOL)isStale
 {
-  v24 = *MEMORY[0x1E69E9840];
-  memset(&v21, 0, sizeof(v21));
-  if (fstat(self->_fd, &v21))
+  v23 = *MEMORY[0x1E69E9840];
+  memset(&v20, 0, sizeof(v20));
+  if (fstat(self->_fd, &v20))
   {
     v3 = __biome_log_for_category(2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -30,7 +30,7 @@
     goto LABEL_27;
   }
 
-  if (v21.st_nlink)
+  if (v20.st_nlink)
   {
     v3 = bm_fd_get_path(self->_fd);
     path = [(BMFileAttributes *)self->_attributes path];
@@ -38,7 +38,7 @@
 
     if (v5)
     {
-      if ((v21.st_mode & 0xF000) != 0x4000 || v21.st_nlink > 2u)
+      if ((v20.st_mode & 0xF000) != 0x4000 || v20.st_nlink > 2u)
       {
         goto LABEL_19;
       }
@@ -72,9 +72,9 @@
         goto LABEL_27;
       }
 
-      memset(&v23, 0, 512);
-      v20 = 0;
-      v9 = readdir_r(v7, &v23, &v20);
+      memset(&v22, 0, 512);
+      v19 = 0;
+      v9 = readdir_r(v7, &v22, &v19);
       if (v9)
       {
         v10 = __biome_log_for_category(2);
@@ -95,7 +95,7 @@
         }
       }
 
-      v13 = v20;
+      v13 = v19;
       os_unfair_lock_unlock(&self->_lock);
       if (v13)
       {
@@ -103,7 +103,7 @@ LABEL_19:
         v14 = 0;
 LABEL_28:
 
-        goto LABEL_29;
+        return v14;
       }
     }
 
@@ -112,20 +112,14 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v14 = 1;
-LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
-  return v14;
+  return 1;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  v8 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 - (BMFileHandle)initWithFileDescriptor:(int)descriptor attributes:(id)attributes
@@ -191,7 +185,7 @@ LABEL_29:
 
 - (id)readDataWithError:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (!self->_initialized)
   {
     [BMFileHandle readDataWithError:];
@@ -216,23 +210,21 @@ LABEL_29:
     }
 
     v7 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"Unspecified failure";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"Unspecified failure";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     *error = [v7 errorWithDomain:@"BiomeStorageError" code:0 userInfo:v8];
   }
 
   error = 0;
 LABEL_9:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (BOOL)overwriteWithData:(id)data error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!self->_initialized)
   {
@@ -249,9 +241,9 @@ LABEL_9:
     }
 
     v9 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A578];
-    v14[0] = @"Unspecified failure";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Unspecified failure";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v9 errorWithDomain:@"BiomeStorageError" code:0 userInfo:v10];
 
 LABEL_8:
@@ -267,7 +259,6 @@ LABEL_8:
   LOBYTE(error) = [v8 writeData:dataCopy error:error];
 LABEL_9:
 
-  v11 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -318,7 +309,7 @@ LABEL_9:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -334,10 +325,10 @@ LABEL_9:
     {
       v6 = *__error();
       v7 = MEMORY[0x1E696ABC0];
-      v12 = *MEMORY[0x1E696A578];
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xpc_fd_create failed: %s", strerror(v6), v12];
-      v13[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x1E696A578];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xpc_fd_create failed: %s", strerror(v6), v11];
+      v12[0] = v8;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       v10 = [v7 errorWithDomain:@"BiomeStorageError" code:7 userInfo:v9];
       [coderCopy failWithError:v10];
     }
@@ -348,17 +339,13 @@ LABEL_9:
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BiomeStorageError" code:4 userInfo:0];
     [coderCopy failWithError:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nsFileHandle
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readDataWithError:.cold.1()
@@ -379,11 +366,9 @@ LABEL_9:
 
 - (void)isStale
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performWithInProcessLock:.cold.1()

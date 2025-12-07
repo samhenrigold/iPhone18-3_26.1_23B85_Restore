@@ -777,7 +777,7 @@ void __80__UIInterfaceActionRepresentationView__applyVisualStyleToMinimumSizeCon
 
         v19 = v18;
 
-        if ([v15 isEqual:v19])
+        if (objc_msgSend_isEqual_(v15))
         {
           if ((objc_opt_respondsToSelector() & 1) == 0 || (objc_opt_respondsToSelector() & 1) == 0 || ([v7 fillColor], v20 = objc_claimAutoreleasedReturnValue(), -[UIInterfaceActionVisualBackgroundDisplaying fillColor](v6, "fillColor"), v21 = objc_claimAutoreleasedReturnValue(), v22 = _deferringTokenEqualToToken(v20, v21), v21, v20, v22))
           {
@@ -795,9 +795,9 @@ void __80__UIInterfaceActionRepresentationView__applyVisualStyleToMinimumSizeCon
             v32 = (filters2 ? filters2 : v26);
             v33 = v32;
 
-            v34 = [v28 isEqual:v33];
+            isEqual = objc_msgSend_isEqual_(v28);
             v15 = v40;
-            if (v34)
+            if (isEqual)
             {
               [v7 _cornerRadius];
               v36 = v35;

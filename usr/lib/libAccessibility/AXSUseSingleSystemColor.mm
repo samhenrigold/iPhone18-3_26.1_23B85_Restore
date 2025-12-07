@@ -3,7 +3,7 @@
 
 @implementation AXSUseSingleSystemColor
 
-uint64_t ___AXSUseSingleSystemColor_block_invoke()
+void *___AXSUseSingleSystemColor_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -52,7 +52,7 @@
     *(v5 + 7) = v18;
     *(v5 + 8) = v19;
     *(v5 + 6) = v17;
-    sub_21D0CF7E0(v22, &qword_27CE5FEF8);
+    sub_21D0CF7E0(v22, &qword_27CE5FEF8, &unk_21DC22A10);
   }
 }
 

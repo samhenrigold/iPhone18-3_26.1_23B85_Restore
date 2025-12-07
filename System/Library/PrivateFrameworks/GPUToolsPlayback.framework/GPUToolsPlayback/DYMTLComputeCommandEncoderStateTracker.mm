@@ -72,20 +72,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = DYMTLComputeCommandEncoderStateTracker;
-  if ([(DYMTLComputeCommandEncoderStateTracker *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = DYMTLComputeCommandEncoderStateTracker;
+  if ([(DYMTLComputeCommandEncoderStateTracker *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    computeEncoder = self->_computeEncoder;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 - (void)setBytes:(const void *)bytes length:(unint64_t)length atIndex:(unint64_t)index
@@ -601,26 +600,25 @@ void __71__DYMTLComputeCommandEncoderStateTracker_applyToEncoder_rawBytesBlock__
       v8 = 0;
     }
 
-    v13 = v7;
+    v12 = v7;
     [v6 setBuffer:v7 offset:v8 atIndex:a3];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = (*(*(a1 + 40) + 16))();
-    v11 = *(a1 + 32);
+    v9 = (*(*(a1 + 40) + 16))();
+    v10 = *(a1 + 32);
     if (*a2 || !*(a2 + 8))
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = *(a2 + 16);
+      v11 = *(a2 + 16);
     }
 
-    [v11 setBytes:v10 length:v12 atIndex:a3];
+    [v10 setBytes:v9 length:v11 atIndex:a3];
   }
 }
 

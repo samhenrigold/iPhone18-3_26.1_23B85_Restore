@@ -110,7 +110,7 @@ LABEL_7:
 
 - (NSData)userHandle
 {
-  API::WebAuthenticationAssertionResponse::userHandle(self->_response.m_storage.data, &v7);
+  API::WebAuthenticationAssertionResponse::userHandle(&v7, &self->_response);
   v2 = v7;
   if (!v7)
   {
@@ -176,7 +176,7 @@ LABEL_7:
 
 - (NSData)credentialID
 {
-  API::WebAuthenticationAssertionResponse::credentialID(self->_response.m_storage.data, &v7);
+  API::WebAuthenticationAssertionResponse::credentialID(&v7, &self->_response);
   v2 = v7;
   if (!v7)
   {

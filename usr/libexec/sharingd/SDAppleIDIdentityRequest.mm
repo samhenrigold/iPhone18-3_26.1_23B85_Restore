@@ -31,61 +31,75 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_activated)
   {
-    sub_100173DC4();
-  }
-
-  else if (self->_invalidated)
-  {
-    sub_100173D6C(dword_100971998);
+    sub_100173DC4(v3, v4, v5);
   }
 
   else
   {
-    if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+    v6 = dword_100971998;
+    if (self->_invalidated)
     {
-      sub_100173D34();
-    }
-
-    if (self->_certificateToken && self->_privateKeyPersistentReference)
-    {
-      if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
-      {
-        sub_100173D50();
-      }
-
-      [(SDAppleIDIdentityRequest *)self _sendFetchCertificateRequest];
+      sub_100173D6C(dword_100971998, v4, v5);
     }
 
     else
     {
-      [(SDAppleIDIdentityRequest *)self _sendCreateCertificateRequest];
-    }
+      if (dword_100971998 <= 30)
+      {
+        if (dword_100971998 != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          v6 = sub_100173D34(v6, v4, v5);
+        }
+      }
 
-    self->_activated = 1;
+      if (self->_certificateToken && self->_privateKeyPersistentReference)
+      {
+        if (dword_100971998 <= 30)
+        {
+          if (dword_100971998 != -1 || (v6 = _LogCategory_Initialize(), v6))
+          {
+            sub_100173D50(v6, v4, v5);
+          }
+        }
+
+        [(SDAppleIDIdentityRequest *)self _sendFetchCertificateRequest];
+      }
+
+      else
+      {
+        [(SDAppleIDIdentityRequest *)self _sendCreateCertificateRequest];
+      }
+
+      self->_activated = 1;
+    }
   }
 }
 
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
+  v5 = dword_100971998;
   if (self->_invalidated)
   {
-    sub_100173E40(dword_100971998);
+    sub_100173E40(dword_100971998, v3, v4);
   }
 
   else
   {
-    if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+    if (dword_100971998 <= 30)
     {
-      sub_100173E24();
+      if (dword_100971998 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_100173E24(v5, v3, v4);
+      }
     }
 
     createDelayTimer = self->_createDelayTimer;
     if (createDelayTimer)
     {
-      v4 = createDelayTimer;
-      dispatch_source_cancel(v4);
-      v5 = self->_createDelayTimer;
+      v7 = createDelayTimer;
+      dispatch_source_cancel(v7);
+      v8 = self->_createDelayTimer;
       self->_createDelayTimer = 0;
     }
 
@@ -97,9 +111,9 @@
     fetchDelayTimer = self->_fetchDelayTimer;
     if (fetchDelayTimer)
     {
-      v8 = fetchDelayTimer;
-      dispatch_source_cancel(v8);
-      v9 = self->_fetchDelayTimer;
+      v11 = fetchDelayTimer;
+      dispatch_source_cancel(v11);
+      v12 = self->_fetchDelayTimer;
       self->_fetchDelayTimer = 0;
     }
 
@@ -110,19 +124,19 @@
 
     if (self->_activated)
     {
-      v16 = NSLocalizedDescriptionKey;
-      v11 = [NSString stringWithUTF8String:DebugGetErrorString()];
-      v12 = v11;
-      v13 = @"?";
-      if (v11)
+      v19 = NSLocalizedDescriptionKey;
+      v14 = [NSString stringWithUTF8String:DebugGetErrorString()];
+      v15 = v14;
+      v16 = @"?";
+      if (v14)
       {
-        v13 = v11;
+        v16 = v14;
       }
 
-      v17 = v13;
-      v14 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-      v15 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-6723 userInfo:v14];
-      [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v15];
+      v20 = v16;
+      v17 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-6723 userInfo:v17];
+      [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v18];
     }
 
     self->_invalidated = 1;
@@ -196,7 +210,7 @@ LABEL_20:
 
   if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
-    sub_100173EF4();
+    sub_100173EF4(infoCopy);
   }
 
   CFStringGetTypeID();
@@ -236,7 +250,7 @@ LABEL_14:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_100971998 <= 90 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
-    sub_100173F34();
+    sub_100173F34(errorCopy);
   }
 
   if (NSErrorToOSStatus() == -6712 && self->_fetchRetryCount <= 2)
@@ -283,23 +297,23 @@ LABEL_14:
     v30 = errorCopy;
     v12 = 0;
     v9 = 0;
-    goto LABEL_57;
+    goto LABEL_58;
   }
 
   if (!infoCopy)
   {
     sub_100174068();
     v9 = 0;
-LABEL_52:
+LABEL_53:
     v12 = 0;
-    goto LABEL_56;
+    goto LABEL_57;
   }
 
   CFStringGetTypeID();
   v9 = CFDictionaryGetTypedValue();
   if (!v9)
   {
-    goto LABEL_51;
+    goto LABEL_52;
   }
 
   altDSID = self->_altDSID;
@@ -311,9 +325,9 @@ LABEL_52:
 
   if (([v9 isEqualToString:altDSID] & 1) == 0)
   {
-LABEL_51:
+LABEL_52:
     sub_100173F74();
-    goto LABEL_52;
+    goto LABEL_53;
   }
 
   CFStringGetTypeID();
@@ -321,17 +335,17 @@ LABEL_51:
   v12 = v11;
   if (!v11 || ([v11 isEqualToString:self->_certificateToken] & 1) == 0)
   {
-LABEL_59:
+LABEL_60:
     sub_100173F74();
-LABEL_56:
-    v30 = v33;
-    if (!v33)
+LABEL_57:
+    v30 = v31;
+    if (!v31)
     {
       goto LABEL_37;
     }
 
-LABEL_57:
-    [(SDAppleIDIdentityRequest *)self _handleCertificateFetchResponseError:v30, v31, v32];
+LABEL_58:
+    [(SDAppleIDIdentityRequest *)self _handleCertificateFetchResponseError:v30];
 
     goto LABEL_37;
   }
@@ -372,9 +386,7 @@ LABEL_18:
       v17 = *(&off_1008D1EF0 + certificateStatus);
     }
 
-    v31 = certificateStatus;
-    v32 = v17;
-    LogPrintF();
+    LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _handleCertificateFetchResponseWithInfo:error:]", 60, "### Certificate status %d/%@\n", certificateStatus, v17);
 LABEL_35:
     if (self->_createRetryCount < 3)
     {
@@ -382,9 +394,9 @@ LABEL_35:
       goto LABEL_37;
     }
 
-LABEL_55:
-    sub_10017401C(&v33);
-    goto LABEL_56;
+LABEL_56:
+    sub_10017401C(&v31);
+    goto LABEL_57;
   }
 
   switch(Int64Ranged)
@@ -427,7 +439,7 @@ LABEL_55:
         }
       }
 
-      goto LABEL_59;
+      goto LABEL_60;
     case 2:
       if (dword_100971998 > 60)
       {
@@ -458,11 +470,11 @@ LABEL_41:
               v29 = 60;
             }
 
-            [(SDAppleIDIdentityRequest *)self _scheduleFetchRetryWithDelay:v29, v31, v32];
+            [(SDAppleIDIdentityRequest *)self _scheduleFetchRetryWithDelay:v29];
             goto LABEL_37;
           }
 
-          goto LABEL_55;
+          goto LABEL_56;
         }
 
         v16 = self->_certificateStatus;
@@ -483,9 +495,7 @@ LABEL_41:
         v16 = 2;
       }
 
-      v31 = v16;
-      v32 = v15;
-      LogPrintF();
+      LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _handleCertificateFetchResponseWithInfo:error:]", 60, "### Certificate status %d/%@\n", v16, v15);
       goto LABEL_41;
   }
 
@@ -502,12 +512,17 @@ LABEL_22:
       certificateStatus = self->_certificateStatus;
     }
 
-    if (certificateStatus <= 5)
+    if (certificateStatus > 5)
+    {
+      v18 = @"?";
+    }
+
+    else
     {
       v18 = *(&off_1008D1EF0 + certificateStatus);
     }
 
-    LogPrintF();
+    LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _handleCertificateFetchResponseWithInfo:error:]", 60, "### Certificate status %d/%@ isn't handled yet\n", certificateStatus, v18);
   }
 
 LABEL_37:
@@ -521,8 +536,8 @@ LABEL_37:
   if (error)
   {
     v10 = 0;
-    v38 = 0;
-    v39 = 0;
+    v34 = 0;
+    v35 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
@@ -533,8 +548,8 @@ LABEL_37:
   if (!resultCopy)
   {
     v10 = 0;
-    v38 = 0;
-    v39 = 0;
+    v34 = 0;
+    v35 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
@@ -547,11 +562,11 @@ LABEL_37:
     sub_10017412C();
   }
 
-  if (!self->_altDSID || (p_appleID = &self->_appleID, !self->_appleID) || !self->_privateKeyPersistentReference)
+  if (!self->_altDSID || !self->_appleID || !self->_privateKeyPersistentReference)
   {
     v10 = 0;
-    v38 = 0;
-    v39 = 0;
+    v34 = 0;
+    v35 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
@@ -559,67 +574,63 @@ LABEL_37:
     goto LABEL_43;
   }
 
-  v15 = SFAppleIDExpirationDateForCertificate();
-  v16 = 0;
-  if (v15 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+  v14 = SFAppleIDExpirationDateForCertificate();
+  v15 = 0;
+  if (v14 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
     sub_10017414C();
   }
 
-  [(NSDate *)self->_certificateExpirationDate timeIntervalSinceDate:v16];
-  if (v16)
+  [(NSDate *)self->_certificateExpirationDate timeIntervalSinceDate:v15];
+  if (v15)
   {
-    if (v17 < 0.0)
+    if (v16 < 0.0)
     {
-      v17 = -v17;
+      v16 = -v16;
     }
 
-    if (v17 > 2592000.0 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+    if (v16 > 2592000.0 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
     {
-      v36 = v16;
-      certificateExpirationDate = self->_certificateExpirationDate;
-      LogPrintF();
+      LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _handleCertificate:intermediateCertificate:withTrustResult:error:]", 60, "### Large certificate expiration date discrepancy. Certificate=%@; Response=%@\n", v15, self->_certificateExpirationDate);
     }
   }
 
-  v18 = SFAppleIDExpirationDateForCertificate();
-  v19 = 0;
+  v17 = SFAppleIDExpirationDateForCertificate();
+  v18 = 0;
   v9 = &NSURLAuthenticationMethodServerTrust_ptr;
-  if (v18 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+  if (v17 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
     sub_100174180();
   }
 
-  [v19 timeIntervalSinceNow];
-  v21 = v20;
-  if (v20 < 7776000.0 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+  [v18 timeIntervalSinceNow];
+  v20 = v19;
+  if (v19 < 7776000.0 && dword_100971998 <= 60 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
-    certificateExpirationDate = *&v21;
-    v36 = v19;
-    LogPrintF();
+    LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _handleCertificate:intermediateCertificate:withTrustResult:error:]", 60, "### Intermediate certificate expiration date warning: expiration date: %@, time interval since now: %lf", v18, *&v20);
   }
 
-  v39 = v19;
-  v22 = SFAppleIDCommonNameForCertificate();
-  v23 = 0;
-  v38 = v23;
-  if (v22)
+  v35 = v18;
+  v21 = SFAppleIDCommonNameForCertificate();
+  v22 = 0;
+  v34 = v22;
+  if (v21)
   {
-    v13 = v16;
+    v13 = v15;
     v10 = 0;
     v11 = 0;
     v12 = 0;
-    error = v22;
+    error = v21;
     goto LABEL_43;
   }
 
-  v24 = v23;
-  if (([v23 hasPrefix:@"com.apple.idms.appleid."] & 1) == 0)
+  v23 = v22;
+  if (([v22 hasPrefix:@"com.apple.idms.appleid."] & 1) == 0)
   {
-    v13 = v16;
+    v13 = v15;
     if (dword_100971998 <= 90 && (dword_100971998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001741B4();
+      sub_1001741B4(v34);
     }
 
     v10 = 0;
@@ -628,13 +639,13 @@ LABEL_37:
     goto LABEL_43;
   }
 
-  v25 = [NSString stringWithFormat:@"Apple ID authorization certificate for %@", *p_appleID];
+  v24 = [NSString stringWithFormat:@"Apple ID authorization certificate for %@", self->_appleID];
   error = SFAppleIDAddCertificateToKeychain();
   v12 = 0;
 
   if (error)
   {
-    v13 = v16;
+    v13 = v15;
     v10 = 0;
 LABEL_42:
     v11 = 0;
@@ -643,7 +654,7 @@ LABEL_42:
 
   if (![v12 length])
   {
-    v13 = v16;
+    v13 = v15;
     v10 = 0;
 LABEL_66:
     v11 = 0;
@@ -656,85 +667,87 @@ LABEL_66:
     sub_1001741F4(&self->_appleID);
   }
 
-  v26 = *p_appleID;
   error = SFAppleIDAddCertificateToKeychain();
-  v27 = 0;
-  v10 = v27;
+  v25 = 0;
+  v10 = v25;
   if (error)
   {
-    v13 = v16;
+    v13 = v15;
     goto LABEL_42;
   }
 
-  if (![v27 length])
+  if (![v25 length])
   {
-    v13 = v16;
+    v13 = v15;
     goto LABEL_66;
   }
 
-  v34 = v39;
+  v32 = v35;
   if (dword_100971998 <= 50 && (dword_100971998 != -1 || _LogCategory_Initialize()))
   {
     sub_100174238(&self->_appleID);
   }
 
   v11 = +[NSDate date];
-  v35 = [[SFAppleIDIdentity alloc] initWithAppleID:self->_appleID altDSID:self->_altDSID];
-  if (v35)
+  v33 = [[SFAppleIDIdentity alloc] initWithAppleID:self->_appleID altDSID:self->_altDSID];
+  if (v33)
   {
-    v30 = v35;
-    [v35 setAccountIdentifier:v24];
-    [v30 setCertificateExpirationDate:self->_certificateExpirationDate];
-    [v30 setCertificatePersistentReference:v12];
-    [v30 setIntermediateCertificateExpirationDate:v39];
-    [v30 setIntermediateCertificatePersistentReference:v10];
-    [v30 setLastValidationAttemptDate:v11];
-    [v30 setLastValidationDate:v11];
-    [v30 setModificationDate:v11];
-    [v30 setPrivateKeyPersistentReference:self->_privateKeyPersistentReference];
-    [v30 setSerialNumber:self->_certificateSerialNumber];
-    [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:v30 error:0];
+    v28 = v33;
+    [v33 setAccountIdentifier:v23];
+    [v28 setCertificateExpirationDate:self->_certificateExpirationDate];
+    [v28 setCertificatePersistentReference:v12];
+    [v28 setIntermediateCertificateExpirationDate:v35];
+    [v28 setIntermediateCertificatePersistentReference:v10];
+    [v28 setLastValidationAttemptDate:v11];
+    [v28 setLastValidationDate:v11];
+    [v28 setModificationDate:v11];
+    [v28 setPrivateKeyPersistentReference:self->_privateKeyPersistentReference];
+    [v28 setSerialNumber:self->_certificateSerialNumber];
+    [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:v28 error:0];
     goto LABEL_46;
   }
 
-  v13 = v16;
+  v13 = v15;
   error = -6728;
 LABEL_43:
   errorCopy = error;
-  v40 = NSLocalizedDescriptionKey;
-  v29 = [v9[266] stringWithUTF8String:DebugGetErrorString()];
-  v30 = v29;
-  v31 = @"?";
-  if (v29)
+  v36 = NSLocalizedDescriptionKey;
+  v27 = [v9[266] stringWithUTF8String:DebugGetErrorString()];
+  v28 = v27;
+  v29 = @"?";
+  if (v27)
   {
-    v31 = v29;
+    v29 = v27;
   }
 
-  v41 = v31;
-  certificateExpirationDate = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1, v36, certificateExpirationDate];
-  v33 = [NSError errorWithDomain:NSOSStatusErrorDomain code:errorCopy userInfo:certificateExpirationDate];
-  [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v33];
+  v37 = v29;
+  v30 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+  v31 = [NSError errorWithDomain:NSOSStatusErrorDomain code:errorCopy userInfo:v30];
+  [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v31];
 
-  v16 = v13;
-  v24 = v38;
-  v34 = v39;
+  v15 = v13;
+  v23 = v34;
+  v32 = v35;
 LABEL_46:
 }
 
 - (void)_handleCreateTimerFired
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100971998 <= 20 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+  if (dword_100971998 <= 20)
   {
-    sub_10017427C();
+    if (dword_100971998 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_10017427C(v3, v4, v5);
+    }
   }
 
   createDelayTimer = self->_createDelayTimer;
   if (createDelayTimer)
   {
-    v4 = createDelayTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_createDelayTimer;
+    v7 = createDelayTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_createDelayTimer;
     self->_createDelayTimer = 0;
   }
 
@@ -744,17 +757,20 @@ LABEL_46:
 - (void)_handleFetchTimerFired
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100971998 <= 20 && (dword_100971998 != -1 || _LogCategory_Initialize()))
+  if (dword_100971998 <= 20)
   {
-    sub_100174298();
+    if (dword_100971998 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100174298(v3, v4, v5);
+    }
   }
 
   fetchDelayTimer = self->_fetchDelayTimer;
   if (fetchDelayTimer)
   {
-    v4 = fetchDelayTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_fetchDelayTimer;
+    v7 = fetchDelayTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_fetchDelayTimer;
     self->_fetchDelayTimer = 0;
   }
 
@@ -766,33 +782,32 @@ LABEL_46:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_appleID)
   {
-    certificatePEM = self->_certificatePEM;
-    v4 = SFAppleIDCreateCertificateWithPEMString();
-    if (!v4)
+    v3 = SFAppleIDCreateCertificateWithPEMString();
+    if (!v3)
     {
-      v4 = -6762;
+      v3 = -6762;
     }
   }
 
   else
   {
-    v4 = -6709;
+    v3 = -6709;
   }
 
-  v5 = v4;
-  v11 = NSLocalizedDescriptionKey;
-  v6 = [NSString stringWithUTF8String:DebugGetErrorString()];
-  v7 = v6;
-  v8 = @"?";
-  if (v6)
+  v4 = v3;
+  v10 = NSLocalizedDescriptionKey;
+  v5 = [NSString stringWithUTF8String:DebugGetErrorString()];
+  v6 = v5;
+  v7 = @"?";
+  if (v5)
   {
-    v8 = v6;
+    v7 = v5;
   }
 
-  v12 = v8;
-  v9 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v10 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v5 userInfo:v9];
-  [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v10];
+  v11 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v9 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v4 userInfo:v8];
+  [(SDAppleIDIdentityRequest *)self _responseHandlerWithIdentity:0 error:v9];
 }
 
 - (void)_handleKeyPairAvailable
@@ -879,28 +894,27 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_createDelayTimer)
   {
-    sub_1001742B4(dword_100971998);
+    sub_1001742B4(dword_100971998, v5, v6);
   }
 
   else
   {
     if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
     {
-      sub_10017430C();
+      sub_10017430C(delay);
     }
 
-    v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     createDelayTimer = self->_createDelayTimer;
-    self->_createDelayTimer = v4;
+    self->_createDelayTimer = v7;
 
-    v6 = self->_createDelayTimer;
+    v9 = self->_createDelayTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100173240;
     handler[3] = &unk_1008CDEA0;
     handler[4] = self;
-    dispatch_source_set_event_handler(v6, handler);
-    v7 = self->_createDelayTimer;
+    dispatch_source_set_event_handler(v9, handler);
     SFDispatchTimerSet();
     dispatch_resume(self->_createDelayTimer);
   }
@@ -911,28 +925,27 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_fetchDelayTimer)
   {
-    sub_10017434C(dword_100971998);
+    sub_10017434C(dword_100971998, v5, v6);
   }
 
   else
   {
     if (dword_100971998 <= 30 && (dword_100971998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001743A4();
+      sub_1001743A4(delay);
     }
 
-    v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     fetchDelayTimer = self->_fetchDelayTimer;
-    self->_fetchDelayTimer = v4;
+    self->_fetchDelayTimer = v7;
 
-    v6 = self->_fetchDelayTimer;
+    v9 = self->_fetchDelayTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100173358;
     handler[3] = &unk_1008CDEA0;
     handler[4] = self;
-    dispatch_source_set_event_handler(v6, handler);
-    v7 = self->_fetchDelayTimer;
+    dispatch_source_set_event_handler(v9, handler);
     SFDispatchTimerSet();
     dispatch_resume(self->_fetchDelayTimer);
   }
@@ -941,13 +954,14 @@ LABEL_10:
 - (void)_scheduleCreateRetryWithDelay:(unint64_t)delay
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  ++self->_createRetryCount;
+  createRetryCount = self->_createRetryCount + 1;
+  self->_createRetryCount = createRetryCount;
   if (dword_100971998 <= 50)
   {
     if (dword_100971998 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _scheduleCreateRetryWithDelay:]", 50, "Scheduling create retry %d with delay %u seconds.\n", createRetryCount, delay);
       goto LABEL_5;
     }
 
@@ -966,13 +980,14 @@ LABEL_5:
 - (void)_scheduleFetchRetryWithDelay:(unint64_t)delay
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  ++self->_fetchRetryCount;
+  fetchRetryCount = self->_fetchRetryCount + 1;
+  self->_fetchRetryCount = fetchRetryCount;
   if (dword_100971998 <= 50)
   {
     if (dword_100971998 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(&dword_100971998, "[SDAppleIDIdentityRequest _scheduleFetchRetryWithDelay:]", 50, "Scheduling fetch retry %d with delay %u seconds.\n", fetchRetryCount, delay);
       goto LABEL_5;
     }
 
@@ -993,13 +1008,13 @@ LABEL_5:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_appleID)
   {
-    v7 = -6705;
+    v6 = -6705;
     goto LABEL_14;
   }
 
   if (self->_certificateCreateTask)
   {
-    v7 = -6762;
+    v6 = -6762;
     goto LABEL_14;
   }
 
@@ -1010,16 +1025,15 @@ LABEL_5:
 
     if (deviceWasUnlockedOnce)
     {
-      appleID = self->_appleID;
-      v6 = dispatch_get_global_queue(0, 0);
+      v5 = dispatch_get_global_queue(0, 0);
       SFAppleIDCreateKeyPair();
 
       return;
     }
 
-    v7 = 201226;
+    v6 = 201226;
 LABEL_14:
-    sub_1001743E4(v7, self);
+    sub_1001743E4(v6, self);
     return;
   }
 

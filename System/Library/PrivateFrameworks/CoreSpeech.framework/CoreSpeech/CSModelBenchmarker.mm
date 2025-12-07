@@ -23,7 +23,7 @@
 {
   audioInjectionEngine = self->_audioInjectionEngine;
   lCopy = l;
-  +[CSFAudioStreamBasicDescriptionFactory lpcmMonoInterleavedASBD];
+  objc_msgSend_lpcmMonoInterleavedASBD(CSFAudioStreamBasicDescriptionFactory);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_10008298C;

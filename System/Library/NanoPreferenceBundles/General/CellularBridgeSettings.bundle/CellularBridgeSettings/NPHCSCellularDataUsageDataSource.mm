@@ -195,7 +195,7 @@
     [v41[5] setUsageDisplayString:v32];
 
     v33 = [usageCopy systemServiceDataUsageForPeriod:0];
-    v34 = nph_general_log();
+    v34 = nph_general_log(v33);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;

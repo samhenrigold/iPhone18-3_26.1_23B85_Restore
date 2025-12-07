@@ -46,10 +46,10 @@
 
 - (VCMediaStreamGroup)initWithConfig:(id)config
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = VCMediaStreamGroup;
-  v4 = [(VCObject *)&v28 init];
+  v45 = *MEMORY[0x1E69E9840];
+  v30.receiver = self;
+  v30.super_class = VCMediaStreamGroup;
+  v4 = [(VCObject *)&v30 init];
   if (!v4)
   {
     goto LABEL_30;
@@ -114,15 +114,15 @@ LABEL_30:
         jbTargetEstimatorSynchronizer = v4->_jbTargetEstimatorSynchronizer;
         v14 = FourccToCStr([config syncGroupID]);
         *buf = 136316162;
-        v30 = v11;
-        v31 = 2080;
-        v32 = "[VCMediaStreamGroup initWithConfig:]";
-        v33 = 1024;
-        v34 = 96;
-        v35 = 2048;
-        v36 = jbTargetEstimatorSynchronizer;
-        v37 = 2080;
-        v38 = v14;
+        v32 = v11;
+        v33 = 2080;
+        v34 = "[VCMediaStreamGroup initWithConfig:]";
+        v35 = 1024;
+        v36 = 96;
+        v37 = 2048;
+        v38 = jbTargetEstimatorSynchronizer;
+        v39 = 2080;
+        v40 = v14;
         v15 = " [%s] %s:%d Create Stream Group with TargetEstimatorSynchronizer=%p syncGroupID=%s";
         v16 = v12;
         v17 = 48;
@@ -153,19 +153,19 @@ LABEL_20:
         v20 = v4->_jbTargetEstimatorSynchronizer;
         v21 = FourccToCStr([config syncGroupID]);
         *buf = 136316674;
-        v30 = v18;
-        v31 = 2080;
-        v32 = "[VCMediaStreamGroup initWithConfig:]";
-        v33 = 1024;
-        v34 = 96;
-        v35 = 2112;
-        v36 = v10;
-        v37 = 2048;
-        v38 = v4;
+        v32 = v18;
+        v33 = 2080;
+        v34 = "[VCMediaStreamGroup initWithConfig:]";
+        v35 = 1024;
+        v36 = 96;
+        v37 = 2112;
+        v38 = v10;
         v39 = 2048;
-        v40 = v20;
-        v41 = 2080;
-        v42 = v21;
+        v40 = v4;
+        v41 = 2048;
+        v42 = v20;
+        v43 = 2080;
+        v44 = v21;
         v15 = " [%s] %s:%d %@(%p) Create Stream Group with TargetEstimatorSynchronizer=%p syncGroupID=%s";
         v16 = v19;
         v17 = 68;
@@ -180,10 +180,11 @@ LABEL_20:
     goto LABEL_30;
   }
 
-  v4->_perfTimers = objc_alloc_init(MEMORY[0x1E6986620]);
-  v22 = micro();
-  v4->_creationTime = v22;
-  VCPerfTimingUtilsSetStartForKeyOnceWithTime(v4->_perfTimers, 20, v22);
+  v22 = objc_alloc_init(MEMORY[0x1E6986620]);
+  v4->_perfTimers = v22;
+  v24 = micro(v22, v23);
+  v4->_creationTime = v24;
+  VCPerfTimingUtilsSetStartForKeyOnceWithTime(v4->_perfTimers, 20, v24);
   VCPerfTimingUtilsSetStartForKeyOnceWithTime(v4->_perfTimers, 16, v4->_creationTime);
   [(VCMediaStreamGroup *)v4 registerMediaStreamNotificationDelegate];
   v4->_syncGroupID = [config syncGroupID];
@@ -201,22 +202,22 @@ LABEL_20:
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCMediaStreamGroup-initialized");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v24 = VRTraceErrorLogLevelToCSTR();
-    v25 = *MEMORY[0x1E6986650];
+    v26 = VRTraceErrorLogLevelToCSTR();
+    v27 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       logPrefix = [(VCObject *)v4 logPrefix];
       *buf = 136316162;
-      v30 = v24;
-      v31 = 2080;
-      v32 = "[VCMediaStreamGroup initWithConfig:]";
-      v33 = 1024;
-      v34 = 120;
-      v35 = 2048;
-      v36 = v4;
-      v37 = 2112;
-      v38 = logPrefix;
-      _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCMediaStreamGroup-initialized (%p) %@", buf, 0x30u);
+      v32 = v26;
+      v33 = 2080;
+      v34 = "[VCMediaStreamGroup initWithConfig:]";
+      v35 = 1024;
+      v36 = 120;
+      v37 = 2048;
+      v38 = v4;
+      v39 = 2112;
+      v40 = logPrefix;
+      _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCMediaStreamGroup-initialized (%p) %@", buf, 0x30u);
     }
   }
 
@@ -671,7 +672,7 @@ void __44__VCMediaStreamGroup_callDelegateWithBlock___block_invoke(uint64_t a1)
 - (void)setupPerfTimersWithMediaKeyIndex:(id)index perfTimerIndexToStart:(int)start
 {
   v11 = *MEMORY[0x1E69E9840];
-  v7 = micro();
+  v7 = micro(self, a2);
   stateQueue = self->_stateQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -684,7 +685,7 @@ void __44__VCMediaStreamGroup_callDelegateWithBlock___block_invoke(uint64_t a1)
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __77__VCMediaStreamGroup_setupPerfTimersWithMediaKeyIndex_perfTimerIndexToStart___block_invoke(uint64_t a1)
+void *__77__VCMediaStreamGroup_setupPerfTimersWithMediaKeyIndex_perfTimerIndexToStart___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!*(v2 + 280))
@@ -777,10 +778,10 @@ double __49__VCMediaStreamGroup_firstMediaFrameReceivedTime__block_invoke(uint64
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __40__VCMediaStreamGroup_setEnabledAtStart___block_invoke(uint64_t result)
+void *__40__VCMediaStreamGroup_setEnabledAtStart___block_invoke(void *result)
 {
-  *(*(result + 32) + 416) = *(result + 40);
-  v1 = *(result + 32);
+  *(result[4] + 416) = *(result + 40);
+  v1 = result[4];
   if ((*(v1 + 416) & 1) == 0)
   {
     return [*(v1 + 240) removeTimingForKey:20];
@@ -1177,16 +1178,16 @@ LABEL_13:
 - (void)perfTimerStarted
 {
   dispatch_assert_queue_V2(self->_stateQueue);
-  v3 = micro();
+  v5 = micro(v3, v4);
   self->_ignoreMKINotifications = 0;
   if ([(TimingCollection *)self->_perfTimers hasKey:20])
   {
-    [(TimingCollection *)self->_perfTimers setStopTime:20 forKey:v3];
+    [(TimingCollection *)self->_perfTimers setStopTime:20 forKey:v5];
   }
 
   perfTimers = self->_perfTimers;
 
-  [(TimingCollection *)perfTimers setStartTime:21 forKey:v3];
+  [(TimingCollection *)perfTimers setStartTime:21 forKey:v5];
 }
 
 - (id)start
@@ -1283,7 +1284,7 @@ LABEL_13:
   return v8;
 }
 
-uint64_t __26__VCMediaStreamGroup_stop__block_invoke(uint64_t a1)
+void *__26__VCMediaStreamGroup_stop__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2[79])
@@ -1365,7 +1366,7 @@ uint64_t __26__VCMediaStreamGroup_stop__block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __27__VCMediaStreamGroup_pause__block_invoke(uint64_t a1)
+void *__27__VCMediaStreamGroup_pause__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) pauseMediaStreams];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1426,7 +1427,7 @@ uint64_t __27__VCMediaStreamGroup_pause__block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __28__VCMediaStreamGroup_resume__block_invoke(uint64_t a1)
+void *__28__VCMediaStreamGroup_resume__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) resumeMediaStreams];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1547,7 +1548,7 @@ uint64_t __28__VCMediaStreamGroup_resume__block_invoke(uint64_t a1)
 
 - (void)reportParticipantsPerfTimings
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (self->_haveReportedPerfTimers)
   {
@@ -1564,23 +1565,23 @@ uint64_t __28__VCMediaStreamGroup_resume__block_invoke(uint64_t a1)
   }
 
   [(VCMediaStreamGroup *)self streamGroupID];
-  v8[0] = @"VCMSStreamGroup";
-  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:reportingStreamGroupFromStreamGroupID()];
-  v8[1] = @"VCSPIDSID";
+  v9[0] = @"VCMSStreamGroup";
+  v10[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:reportingStreamGroupFromStreamGroupID()];
+  v9[1] = @"VCSPIDSID";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_idsParticipantID];
-  v8[2] = @"VCSPUUID";
+  v9[2] = @"VCSPUUID";
   participantUUID = self->_participantUUID;
   if (!participantUUID)
   {
     participantUUID = @"Unknown";
   }
 
-  v9[1] = v3;
-  v9[2] = participantUUID;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v10[1] = v3;
+  v10[2] = participantUUID;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
   perfTimers = self->_perfTimers;
   reportingAgent = [(VCObject *)self reportingAgent];
-  VCPerfTimingUtilsReport(perfTimers, reportingAgent, v7);
+  VCPerfTimingUtilsReport(perfTimers, reportingAgent, 0, v5, v8);
 }
 
 - (BOOL)handleEncryptionInfoChange:(id)change
@@ -2033,7 +2034,7 @@ LABEL_22:
   return [OUTLINED_FUNCTION_15_15() AVConferenceServiceError:? detailedCode:? filePath:? description:? reason:?];
 }
 
-uint64_t __27__VCMediaStreamGroup_start__block_invoke(uint64_t a1)
+void *__27__VCMediaStreamGroup_start__block_invoke(uint64_t a1)
 {
   v3 = *(a1 + 32);
   if (v3[79])

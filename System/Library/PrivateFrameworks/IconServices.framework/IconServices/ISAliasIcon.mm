@@ -35,7 +35,7 @@ uint64_t __24__ISAliasIcon_aliasUUID__block_invoke()
 
 - (ISAliasIcon)initWithAliasURL:(id)l
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([lCopy __is__isSymLink])
   {
@@ -48,17 +48,17 @@ uint64_t __24__ISAliasIcon_aliasUUID__block_invoke()
     v11 = [lCopy __is_resourceValuesForKeys:iconInitWithURLProperties error:0];
 
     v12 = [ISAliasIcon _iconForValues:v11];
-    v21.receiver = self;
-    v21.super_class = ISAliasIcon;
-    v13 = [(ISConcreteIcon *)&v21 initWithDigest:v8];
+    v20.receiver = self;
+    v20.super_class = ISAliasIcon;
+    v13 = [(ISConcreteIcon *)&v20 initWithDigest:v8];
     v14 = v13;
     if (v13)
     {
       objc_storeStrong(&v13->_icon, v12);
       objc_storeStrong(&v14->_alias, l);
       v15 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.system.alias"];
-      v25[0] = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+      v24[0] = v15;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
       decorations = v14->_decorations;
       v14->_decorations = v16;
     }
@@ -69,22 +69,21 @@ uint64_t __24__ISAliasIcon_aliasUUID__block_invoke()
     v8 = [MEMORY[0x1E695DFF8] bookmarkDataWithContentsOfURL:lCopy error:0];
     if (!v8)
     {
-      v18 = _ISDefaultLog();
+      v18 = _ISDefaultLog(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = 0;
+        v23 = 0;
         _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_DEFAULT, "Could not read bookmark from alias file with error: %@", buf, 0xCu);
       }
     }
 
     v11 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.system.alias"];
-    v22 = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     v14 = [(ISAliasIcon *)self initWithBookmarkData:v8 decorations:v12];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -107,41 +106,41 @@ uint64_t __24__ISAliasIcon_aliasUUID__block_invoke()
   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v18 = [v15 _IF_UUIDByXORingUUIDs:v17];
 
-  if (([v12 _IF_BOOLForKey:*MEMORY[0x1E695DB68]] & 1) != 0 || objc_msgSend(v12, "_IF_BOOLForKey:", *MEMORY[0x1E695DBC8]))
+  v19 = [v12 _IF_BOOLForKey:*MEMORY[0x1E695DB68]];
+  if ((v19 & 1) != 0 || (v19 = [v12 _IF_BOOLForKey:*MEMORY[0x1E695DBC8]], v19))
   {
-    v19 = _ISDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = _ISDefaultLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [ISAliasIcon initWithBookmarkData:decorations:];
     }
 
     if (decorationsCopy)
     {
-      v20 = decorationsCopy;
+      v21 = decorationsCopy;
     }
 
     else
     {
-      v20 = MEMORY[0x1E695E0F0];
+      v21 = MEMORY[0x1E695E0F0];
     }
 
-    v21 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.system.alias"];
-    decorationsCopy = [v20 arrayByAddingObject:v21];
+    v22 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.system.alias"];
+    decorationsCopy = [v21 arrayByAddingObject:v22];
   }
 
   v26.receiver = self;
   v26.super_class = ISAliasIcon;
-  v22 = [(ISConcreteIcon *)&v26 initWithDigest:v18];
-  v23 = v22;
-  if (v22)
+  v23 = [(ISConcreteIcon *)&v26 initWithDigest:v18];
+  v24 = v23;
+  if (v23)
   {
-    objc_storeStrong(&v22->_icon, v13);
-    objc_storeStrong(&v23->_alias, data);
-    objc_storeStrong(&v23->_decorations, decorationsCopy);
+    objc_storeStrong(&v23->_icon, v13);
+    objc_storeStrong(&v24->_alias, data);
+    objc_storeStrong(&v24->_decorations, decorationsCopy);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v24;
 }
 
 - (ISAliasIcon)initWithCoder:(id)coder
@@ -171,18 +170,16 @@ uint64_t __24__ISAliasIcon_aliasUUID__block_invoke()
 
 void __29__ISAliasIcon_initWithCoder___block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = initWithCoder__classes_0;
   initWithCoder__classes_0 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -199,23 +196,19 @@ void __29__ISAliasIcon_initWithCoder___block_invoke()
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   Class = object_getClass(self);
-  Name = class_getName(Class);
-  icon = self->_icon;
-  v7 = [v3 initWithFormat:@"<%s %p> Icon: %@, Alias: %@", Name, self, icon, self->_alias];
+  v5 = [v3 initWithFormat:@"<%s %p> Icon: %@, Alias: %@", class_getName(Class), self, self->_icon, self->_alias];
 
-  return v7;
+  return v5;
 }
 
 - (void)resolve
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   OUTLINED_FUNCTION_0_0();
-  v9 = 2112;
-  v10 = a2;
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = 2112;
+  v9 = a2;
 }
 
 - (ISConcreteIcon)icon
@@ -257,61 +250,63 @@ void __29__ISAliasIcon_initWithCoder___block_invoke()
 + (id)_iconForValues:(id)values
 {
   valuesCopy = values;
-  if ([valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DB70]])
+  v4 = [valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DB70]];
+  if (v4)
   {
-    v4 = _ISDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = _ISDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       +[ISAliasIcon(Factory) _iconForValues:];
     }
 
-    v5 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DA88]];
-    if (!v5)
+    v6 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DA88]];
+    if (!v6)
     {
-      v5 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
+      v6 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
     }
 
-    pathExtension = [MEMORY[0x1E695DFF8] fileURLWithPath:v5];
-    v7 = [[ISBundleIcon alloc] initWithBundleURL:pathExtension];
+    pathExtension = [MEMORY[0x1E695DFF8] fileURLWithPath:v6];
+    v8 = [[ISBundleIcon alloc] initWithBundleURL:pathExtension];
     goto LABEL_16;
   }
 
   if ([valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DBA0]])
   {
-    v5 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
-    pathExtension = [v5 pathExtension];
-    v8 = _ISDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v6 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
+    pathExtension = [v6 pathExtension];
+    v9 = _ISDefaultLog(pathExtension);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       +[ISAliasIcon(Factory) _iconForValues:];
     }
 
-    v9 = [ISTagIcon alloc];
-    v10 = MEMORY[0x1E6963868];
+    v10 = [ISTagIcon alloc];
+    v11 = MEMORY[0x1E6963868];
 LABEL_15:
-    v7 = [(ISTagIcon *)v9 initWithFileExtension:pathExtension baseType:*v10];
+    v8 = [(ISTagIcon *)v10 initWithFileExtension:pathExtension baseType:*v11];
     goto LABEL_16;
   }
 
   if ([valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DBB8]])
   {
-    v5 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
-    pathExtension = [v5 pathExtension];
-    v11 = _ISDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v6 = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
+    pathExtension = [v6 pathExtension];
+    v12 = _ISDefaultLog(pathExtension);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       +[ISAliasIcon(Factory) _iconForValues:];
     }
 
-    v9 = [ISTagIcon alloc];
-    v10 = MEMORY[0x1E6963800];
+    v10 = [ISTagIcon alloc];
+    v11 = MEMORY[0x1E6963800];
     goto LABEL_15;
   }
 
-  if ([valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DB78]])
+  v14 = [valuesCopy _IF_BOOLForKey:*MEMORY[0x1E695DB78]];
+  if (v14)
   {
-    v16 = _ISDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _ISDefaultLog(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       +[ISAliasIcon(Factory) _iconForValues:];
     }
@@ -319,22 +314,22 @@ LABEL_15:
     pathExtension = [valuesCopy _IF_stringForKey:*MEMORY[0x1E695DC40]];
     if (pathExtension)
     {
-      v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathExtension isDirectory:1];
-      v17 = +[ISCustomIconManager sharedInstance];
-      v18 = [v17 specialFolderTypeForURL:v5];
+      v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathExtension isDirectory:1];
+      v19 = +[ISCustomIconManager sharedInstance];
+      v20 = [v19 specialFolderTypeForURL:v6];
 
-      if (v18)
+      if (v20)
       {
-        v19 = _ISDefaultLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v22 = _ISDefaultLog(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           +[ISAliasIcon(Factory) _iconForValues:];
         }
 
-        v12 = [[ISTypeIcon alloc] initWithType:v18];
+        v13 = [[ISTypeIcon alloc] initWithType:v20];
 LABEL_17:
 
-        if (v12)
+        if (v13)
         {
           goto LABEL_21;
         }
@@ -345,28 +340,28 @@ LABEL_17:
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    v20 = [ISTypeIcon alloc];
-    v7 = [(ISTypeIcon *)v20 initWithType:*MEMORY[0x1E69637D0]];
+    v23 = [ISTypeIcon alloc];
+    v8 = [(ISTypeIcon *)v23 initWithType:*MEMORY[0x1E69637D0]];
 LABEL_16:
-    v12 = v7;
+    v13 = v8;
     goto LABEL_17;
   }
 
 LABEL_18:
-  v13 = _ISDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = _ISDefaultLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     +[ISAliasIcon(Factory) _iconForValues:];
   }
 
-  v14 = [ISTypeIcon alloc];
-  v12 = [(ISTypeIcon *)v14 initWithType:*MEMORY[0x1E6963800]];
+  v16 = [ISTypeIcon alloc];
+  v13 = [(ISTypeIcon *)v16 initWithType:*MEMORY[0x1E6963800]];
 LABEL_21:
 
-  return v12;
+  return v13;
 }
 
 - (void)initWithBookmarkData:decorations:.cold.1()

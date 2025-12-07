@@ -1,4 +1,9 @@
 @interface MRSendCommandResultStatus
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code;
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code customData:(id)data type:(id)type;
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code dialog:(id)dialog;
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code dialog:(id)dialog error:(id)error;
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code error:(id)error;
 + (id)successStatus;
 - (MRSendCommandResultStatus)initWithProtobuf:(id)protobuf;
 - (MRSendCommandResultStatus)initWithStatusType:(int64_t)type statusCode:(unsigned int)code dialog:(id)dialog customData:(id)data customDataType:(id)dataType error:(id)error;
@@ -31,6 +36,59 @@ void __42__MRSendCommandResultStatus_successStatus__block_invoke(uint64_t a1)
   v1 = [objc_alloc(*(a1 + 32)) initWithStatusType:1 statusCode:0 dialog:0 customData:0 customDataType:0 error:0];
   v2 = successStatus_successStatus;
   successStatus_successStatus = v1;
+}
+
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code
+{
+  if (code)
+  {
+    successStatus = [[self alloc] initWithStatusType:1 statusCode:*&code dialog:0 customData:0 customDataType:0 error:0];
+  }
+
+  else
+  {
+    successStatus = [self successStatus];
+  }
+
+  return successStatus;
+}
+
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code error:(id)error
+{
+  v4 = *&code;
+  errorCopy = error;
+  v7 = [[self alloc] initWithStatusType:3 statusCode:v4 dialog:0 customData:0 customDataType:0 error:errorCopy];
+
+  return v7;
+}
+
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code dialog:(id)dialog
+{
+  v4 = *&code;
+  dialogCopy = dialog;
+  v7 = [[self alloc] initWithStatusType:2 statusCode:v4 dialog:dialogCopy customData:0 customDataType:0 error:0];
+
+  return v7;
+}
+
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code dialog:(id)dialog error:(id)error
+{
+  v6 = *&code;
+  errorCopy = error;
+  dialogCopy = dialog;
+  v10 = [[self alloc] initWithStatusType:2 statusCode:v6 dialog:dialogCopy customData:0 customDataType:0 error:errorCopy];
+
+  return v10;
+}
+
++ (MRSendCommandResultStatus)statusWithCode:(unsigned int)code customData:(id)data type:(id)type
+{
+  v6 = *&code;
+  typeCopy = type;
+  dataCopy = data;
+  v10 = [[self alloc] initWithStatusType:999 statusCode:v6 dialog:0 customData:dataCopy customDataType:typeCopy error:0];
+
+  return v10;
 }
 
 - (MRSendCommandResultStatus)initWithStatusType:(int64_t)type statusCode:(unsigned int)code dialog:(id)dialog customData:(id)data customDataType:(id)dataType error:(id)error

@@ -58,7 +58,7 @@ id __66__NAFuture_HMDUtilities__combineAllFuturesFlatteningArrayResults___block_
 
 id __66__NAFuture_HMDUtilities__combineAllFuturesFlatteningArrayResults___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -69,13 +69,11 @@ id __66__NAFuture_HMDUtilities__combineAllFuturesFlatteningArrayResults___block_
 
   else
   {
-    v8[0] = v2;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v2;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   v5 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

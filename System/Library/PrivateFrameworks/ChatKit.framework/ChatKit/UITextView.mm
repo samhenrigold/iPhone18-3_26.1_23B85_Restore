@@ -3,7 +3,7 @@
 
 @implementation UITextView
 
-uint64_t __113__UITextView_SupportsDynamicallyTogglingAllowsTextAnimations__ck_supportsDynamicallyTogglingAllowsTextAnimations__block_invoke(uint64_t a1)
+void *__113__UITextView_SupportsDynamicallyTogglingAllowsTextAnimations__ck_supportsDynamicallyTogglingAllowsTextAnimations__block_invoke(uint64_t a1)
 {
   if (objc_opt_respondsToSelector())
   {

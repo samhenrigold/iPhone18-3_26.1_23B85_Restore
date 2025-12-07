@@ -22,48 +22,44 @@
   }
 
   v9 = OBJC_IVAR____TtC20BackgroundAppRefresh38BackgroundAppRefreshSettingsController_backgroundAppRefreshSettingsListState;
-  refreshed = type metadata accessor for BackgroundAppRefreshSettingsListState();
-  v11 = *(refreshed + 48);
-  v12 = *(refreshed + 52);
+  type metadata accessor for BackgroundAppRefreshSettingsListState(0);
   swift_allocObject();
   bundleCopy = bundle;
   *&self->PSViewController_opaque[v9] = sub_AB2C();
   if (name)
   {
-    v14 = sub_12EBC();
+    v11 = sub_12EBC();
   }
 
   else
   {
-    v14 = 0;
+    v11 = 0;
   }
 
-  v17.receiver = self;
-  v17.super_class = ObjectType;
-  v15 = [(BackgroundAppRefreshSettingsController *)&v17 initWithNibName:v14 bundle:bundleCopy];
+  v14.receiver = self;
+  v14.super_class = ObjectType;
+  v12 = [(BackgroundAppRefreshSettingsController *)&v14 initWithNibName:v11 bundle:bundleCopy];
 
-  return v15;
+  return v12;
 }
 
 - (_TtC20BackgroundAppRefresh38BackgroundAppRefreshSettingsController)initWithCoder:(id)coder
 {
   ObjectType = swift_getObjectType();
   v6 = OBJC_IVAR____TtC20BackgroundAppRefresh38BackgroundAppRefreshSettingsController_backgroundAppRefreshSettingsListState;
-  refreshed = type metadata accessor for BackgroundAppRefreshSettingsListState();
-  v8 = *(refreshed + 48);
-  v9 = *(refreshed + 52);
+  type metadata accessor for BackgroundAppRefreshSettingsListState(0);
   swift_allocObject();
   coderCopy = coder;
   *&self->PSViewController_opaque[v6] = sub_AB2C();
-  v13.receiver = self;
-  v13.super_class = ObjectType;
-  v11 = [(BackgroundAppRefreshSettingsController *)&v13 initWithCoder:coderCopy];
+  v10.receiver = self;
+  v10.super_class = ObjectType;
+  v8 = [(BackgroundAppRefreshSettingsController *)&v10 initWithCoder:coderCopy];
 
-  if (v11)
+  if (v8)
   {
   }
 
-  return v11;
+  return v8;
 }
 
 @end

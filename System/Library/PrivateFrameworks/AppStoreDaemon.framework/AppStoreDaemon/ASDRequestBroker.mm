@@ -73,44 +73,43 @@
 
 - (id)description
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = ASDRequestBroker;
-  v3 = [(ASDRequestBroker *)&v17 description];
+  v18 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = ASDRequestBroker;
+  v3 = [(ASDRequestBroker *)&v16 description];
   v4 = [v3 mutableCopy];
 
   [v4 appendString:@" {"];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   activeRequests = [(ASDRequestBroker *)self activeRequests];
-  v6 = [activeRequests countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [activeRequests countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(activeRequests);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) description];
+        v10 = [*(*(&v12 + 1) + 8 * i) description];
         [v4 appendFormat:@"\n\t%@", v10];
       }
 
-      v7 = [activeRequests countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [activeRequests countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [v4 appendString:@"\n}"];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -163,7 +162,7 @@ uint64_t __54__ASDRequestBroker_cancelAllRequestsWithErrorHandler___block_invoke
 
 - (void)markRequestAsActive:(void *)active
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (active)
   {
@@ -173,12 +172,12 @@ uint64_t __54__ASDRequestBroker_cancelAllRequestsWithErrorHandler___block_invoke
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v3;
-      v9 = v11;
-      _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@]: Marking request active: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v3;
+      v8 = v10;
+      _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@]: Marking request active: %{public}@", &v9, 0x16u);
     }
 
     requestID = [v3 requestID];
@@ -186,13 +185,11 @@ uint64_t __54__ASDRequestBroker_cancelAllRequestsWithErrorHandler___block_invoke
 
     objc_sync_exit(activeCopy);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markRequestAsComplete:(void *)complete
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (complete)
   {
@@ -202,12 +199,12 @@ uint64_t __54__ASDRequestBroker_cancelAllRequestsWithErrorHandler___block_invoke
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v3;
-      v9 = v11;
-      _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@]: Marking request completed: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v3;
+      v8 = v10;
+      _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@]: Marking request completed: %{public}@", &v9, 0x16u);
     }
 
     requestID = [v3 requestID];
@@ -215,8 +212,6 @@ uint64_t __54__ASDRequestBroker_cancelAllRequestsWithErrorHandler___block_invoke
 
     objc_sync_exit(completeCopy);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitRequest:(id)request withReplyHandler:(id)handler

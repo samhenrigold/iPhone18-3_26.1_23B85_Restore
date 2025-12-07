@@ -767,19 +767,20 @@ void __47__ICLayoutManager_contentSizeCategoryDidChange__block_invoke(uint64_t a
 
 uint64_t __46__ICLayoutManager_zoomFactorOrInsetsDidChange__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v6 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v3 = [*(a1 + 32) viewControllerForTextAttachmentNoCreate:v5];
+    v4 = [*(a1 + 32) viewControllerForTextAttachmentNoCreate:v6];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 zoomFactorOrInsetsDidChange];
+      [v4 zoomFactorOrInsetsDidChange];
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](isKindOfClass);
 }
 
 - (id)drawTodoViewForListRange:(_NSRange)range paragraphStyle:(id)style checkmarkHighlightValue:(id)value atPoint:(CGPoint)point
@@ -1765,7 +1766,9 @@ void __51__ICLayoutManager_updateSubviewsForCharacterRange___block_invoke(uint64
 {
   supplementalViewControllers = [self supplementalViewControllers];
   allKeys = [supplementalViewControllers allKeys];
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v3, v4, "Cleaning up remaining view controllers after clearing supplemental views: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = allKeys;
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v3, v4, "Cleaning up remaining view controllers after clearing supplemental views: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)clearAllTodoSupplementalViews
@@ -2858,26 +2861,26 @@ uint64_t __43__ICLayoutManager_updateInlineDrawingViews__block_invoke(uint64_t a
 {
   v5 = a2;
   objc_opt_class();
-  v13 = ICDynamicCast();
+  v14 = ICDynamicCast();
 
-  if (v13)
+  if (v14)
   {
-    v6 = [*(a1 + 32) viewProviderForTextAttachment:v13 characterIndex:a3];
-    v7 = [v6 view];
-    if ([v7 conformsToProtocol:&unk_28282EE70] && (objc_opt_respondsToSelector() & 1) != 0)
+    v7 = [*(a1 + 32) viewProviderForTextAttachment:v14 characterIndex:a3];
+    v8 = [v7 view];
+    if ([v8 conformsToProtocol:&unk_28282EE70] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v8 = [v13 attachment];
-      v9 = [v8 managedObjectContext];
-      [v9 ic_refreshObject:v8 mergeChanges:1];
+      v9 = [v14 attachment];
+      v10 = [v9 managedObjectContext];
+      [v10 ic_refreshObject:v9 mergeChanges:1];
 
-      v10 = [v8 inlineDrawingModel];
-      v11 = [v10 newDrawingFromMergeableData];
+      v11 = [v9 inlineDrawingModel];
+      v12 = [v11 newDrawingFromMergeableData];
 
-      [v7 drawingDataDidChange:v11];
+      [v8 drawingDataDidChange:v12];
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v6);
 }
 
 - (id)editingTextView
@@ -3575,7 +3578,9 @@ void __64__ICLayoutManager_invalidateLayoutAfterAttachmentViewTypeChange__block_
 - (void)removeClearingControllerForView:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 className];
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v2, v3, "View identifier was nil when clearing view of type: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v2, v3, "View identifier was nil when clearing view of type: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __65__ICLayoutManager_attachmentInlineDrawingMergeableDataDidChange___block_invoke_cold_1(uint64_t a1, NSObject *a2)

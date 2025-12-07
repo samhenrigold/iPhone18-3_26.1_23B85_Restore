@@ -1,10 +1,21 @@
 @interface FATManager
 - (BOOL)isEOFCluster:(unint64_t)cluster;
+- (FATManager)initWithDevice:(id)device info:(id)info ops:(id)ops usingCache:(BOOL)cache;
+- (id)metaWriteToFATs:(void *)ts startingAt:(int64_t)at forceSyncWrite:(BOOL)write;
 - (id)syncMetaReadFromFAT:(void *)t startingAt:(int64_t)at;
 - (id)updateFATStats;
+- (int64_t)getRWOffsetForClusterEntry:(unsigned int)entry;
+- (unint64_t)getOffsetForCluster:(unsigned int)cluster inFatBlock:(id)block;
+- (unint64_t)getOffsetForClusterEntry:(unsigned int)entry;
 - (unsigned)clustersPerBlock;
+- (void)allocateClusters:(unsigned int)clusters allowPartial:(BOOL)partial zeroFill:(BOOL)fill mustBeContig:(BOOL)contig replyHandler:(id)handler;
+- (void)allocateClusters:(unsigned int)clusters forItem:(id)item allowPartial:(BOOL)partial mustBeContig:(BOOL)contig zeroFill:(BOOL)fill replyHandler:(id)handler;
 - (void)allocateClusters:(unsigned int)clusters searchFromCluster:(unsigned int)cluster allowPartial:(BOOL)partial zeroFill:(BOOL)fill mustBeContig:(BOOL)contig replyHandler:(id)handler;
+- (void)allocateClustersInBlock:(void *)block numClusters:(unsigned int)clusters startingAtCluster:(unsigned int)cluster startOffset:(unsigned int)offset mustBeContig:(BOOL)contig replyHandler:(id)handler;
 - (void)clusterChainLength:(id)length replyHandler:(id)handler;
+- (void)countFreeClustersInBlock:(id)block startingAt:(unsigned int)at replyHandler:(id)handler;
+- (void)fatIterator:(unsigned int)iterator replyHandler:(id)handler;
+- (void)findFreeClustersInBlock:(id)block ofLength:(unsigned int)length contig:(BOOL)contig startCluster:(unsigned int)cluster replyHandler:(id)handler;
 - (void)findNextFreeCluster:(unsigned int)cluster replyHandler:(id)handler;
 - (void)freeClusterFrom:(unsigned int)from numClusters:(unsigned int)clusters replyHandler:(id)handler;
 - (void)freeClusters:(unsigned int)clusters ofItem:(id)item replyHandler:(id)handler;
@@ -15,6 +26,63 @@
 @end
 
 @implementation FATManager
+
+- (FATManager)initWithDevice:(id)device info:(id)info ops:(id)ops usingCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  opsCopy = ops;
+  infoCopy = info;
+  deviceCopy = device;
+  device = [(FATManager *)self device];
+  bSDName = [device BSDName];
+  v15 = [NSString stringWithFormat:@"%@.%s", bSDName, "fatQueue"];
+
+  [(FATManager *)self setUseCache:cacheCopy];
+  [(FATManager *)self setDevice:deviceCopy];
+
+  [(FATManager *)self setFsInfo:infoCopy];
+  [(FATManager *)self setFsOps:opsCopy];
+
+  v16 = dispatch_queue_create([v15 UTF8String], &_dispatch_queue_attr_concurrent);
+  [(FATManager *)self setFatQueue:v16];
+
+  fatQueue = [(FATManager *)self fatQueue];
+
+  if (fatQueue)
+  {
+    fsInfo = [(FATManager *)self fsInfo];
+    fatSize = [fsInfo fatSize];
+
+    if (fatSize <= 0x3000)
+    {
+      fsInfo2 = [(FATManager *)self fsInfo];
+      -[FATManager setRwSize:](self, "setRwSize:", [fsInfo2 fatSize]);
+    }
+
+    else
+    {
+      [(FATManager *)self setRwSize:12288];
+    }
+
+    updateFATStats = [(FATManager *)self updateFATStats];
+
+    if (!updateFATStats)
+    {
+      selfCopy = self;
+      goto LABEL_10;
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+  {
+    sub_1000321F8();
+  }
+
+  selfCopy = 0;
+LABEL_10:
+
+  return selfCopy;
+}
 
 - (unsigned)clustersPerBlock
 {
@@ -37,6 +105,40 @@
   {
     return v6;
   }
+}
+
+- (unint64_t)getOffsetForClusterEntry:(unsigned int)entry
+{
+  v3 = *&entry;
+  fsInfo = [(FATManager *)self fsInfo];
+  fatOffset = [fsInfo fatOffset];
+  fsOps = [(FATManager *)self fsOps];
+  v8 = fatOffset + [fsOps fatEntryOffsetForCluster:v3];
+
+  return v8;
+}
+
+- (int64_t)getRWOffsetForClusterEntry:(unsigned int)entry
+{
+  v3 = *&entry;
+  fsOps = [(FATManager *)self fsOps];
+  LODWORD(v3) = [fsOps fatEntryOffsetForCluster:v3];
+
+  fsInfo = [(FATManager *)self fsInfo];
+  fatOffset = [fsInfo fatOffset];
+  v8 = fatOffset + v3 - v3 % [(FATManager *)self rwSize];
+
+  return v8;
+}
+
+- (unint64_t)getOffsetForCluster:(unsigned int)cluster inFatBlock:(id)block
+{
+  v4 = *&cluster;
+  blockCopy = block;
+  v7 = [(FATManager *)self getOffsetForClusterEntry:v4];
+  startOffset = [blockCopy startOffset];
+
+  return v7 - startOffset;
 }
 
 - (id)syncMetaReadFromFAT:(void *)t startingAt:(int64_t)at
@@ -64,6 +166,60 @@
   v17 = [Utilities syncMetaReadFromDevice:device into:t startingAt:at length:rwSize];
 
   return v17;
+}
+
+- (id)metaWriteToFATs:(void *)ts startingAt:(int64_t)at forceSyncWrite:(BOOL)write
+{
+  writeCopy = write;
+  v9 = at + [(FATManager *)self rwSize];
+  fsInfo = [(FATManager *)self fsInfo];
+  fatOffset = [fsInfo fatOffset];
+  fsInfo2 = [(FATManager *)self fsInfo];
+  v13 = &fatOffset[[fsInfo2 fatSize]];
+
+  if (v9 <= v13)
+  {
+    rwSize = [(FATManager *)self rwSize];
+  }
+
+  else
+  {
+    fsInfo3 = [(FATManager *)self fsInfo];
+    fatOffset2 = [fsInfo3 fatOffset];
+    fsInfo4 = [(FATManager *)self fsInfo];
+    rwSize = &fatOffset2[[fsInfo4 fatSize] - at];
+  }
+
+  fsInfo5 = [(FATManager *)self fsInfo];
+  numOfFATs = [fsInfo5 numOfFATs];
+
+  if (numOfFATs)
+  {
+    v20 = 0;
+    v21 = 0;
+    v22 = writeCopy;
+    do
+    {
+      device = [(FATManager *)self device];
+      fsInfo6 = [(FATManager *)self fsInfo];
+      v25 = +[Utilities metaWriteToDevice:from:startingAt:length:forceSyncWrite:](Utilities, "metaWriteToDevice:from:startingAt:length:forceSyncWrite:", device, ts, at + [fsInfo6 fatSize] * v20, rwSize, v22);
+
+      ++v20;
+      fsInfo7 = [(FATManager *)self fsInfo];
+      LODWORD(fsInfo6) = [fsInfo7 numOfFATs];
+
+      v21 = v25;
+    }
+
+    while (v20 < fsInfo6);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  return v25;
 }
 
 - (id)updateFATStats
@@ -201,6 +357,355 @@ LABEL_19:
   return v14;
 }
 
+- (void)countFreeClustersInBlock:(id)block startingAt:(unsigned int)at replyHandler:(id)handler
+{
+  v6 = *&at;
+  blockCopy = block;
+  handlerCopy = handler;
+  v8 = [(FATManager *)self getOffsetForClusterEntry:v6];
+  v9 = v8 - [blockCopy startOffset];
+  data = [blockCopy data];
+  mutableBytes = [data mutableBytes];
+
+  fsOps = [(FATManager *)self fsOps];
+  numBytesPerClusterInFat = [fsOps numBytesPerClusterInFat];
+
+  fsInfo = [(FATManager *)self fsInfo];
+  maxValidCluster = [fsInfo maxValidCluster];
+
+  v15 = 0;
+  v16 = 1;
+  if (v9 >= [(FATManager *)self rwSize])
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+    if (maxValidCluster >= v6)
+    {
+      LODWORD(v17) = 0;
+      LODWORD(v15) = 0;
+      do
+      {
+        fsOps2 = [(FATManager *)self fsOps];
+        v19 = [fsOps2 getNextClusterFromEntryForCluster:v6 entry:&mutableBytes[v9]];
+
+        if (v19 | v15)
+        {
+          v15 = v15;
+        }
+
+        else
+        {
+          v15 = v6;
+        }
+
+        v20 = v19 == 0;
+        if (v19)
+        {
+          v17 = v17;
+        }
+
+        else
+        {
+          v17 = (v17 + 1);
+        }
+
+        v6 = (v6 + 1);
+        if (numBytesPerClusterInFat)
+        {
+          v9 += numBytesPerClusterInFat;
+        }
+
+        else
+        {
+          v21 = [(FATManager *)self getOffsetForClusterEntry:v6];
+          v9 = v21 - [blockCopy startOffset];
+        }
+
+        v16 = v20 & v16;
+      }
+
+      while (v9 < [(FATManager *)self rwSize]&& maxValidCluster >= v6);
+    }
+  }
+
+  handlerCopy[2](handlerCopy, v17, v15, v16);
+}
+
+- (void)findFreeClustersInBlock:(id)block ofLength:(unsigned int)length contig:(BOOL)contig startCluster:(unsigned int)cluster replyHandler:(id)handler
+{
+  v8 = *&cluster;
+  v10 = *&length;
+  blockCopy = block;
+  handlerCopy = handler;
+  if (v8)
+  {
+    v13 = [(FATManager *)self getOffsetForClusterEntry:v8];
+    if (v13 < [blockCopy startOffset] || (v14 = objc_msgSend(blockCopy, "startOffset"), v13 > v14 + -[FATManager rwSize](self, "rwSize")))
+    {
+LABEL_4:
+      (*(handlerCopy + 2))(handlerCopy, 0, 0);
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+    startOffset = [blockCopy startOffset];
+    fsInfo = [(FATManager *)self fsInfo];
+    v17 = startOffset - [fsInfo fatOffset];
+    v18 = [(FATManager *)self clustersPerBlock]* v17;
+    rwSize = [(FATManager *)self rwSize];
+
+    if (rwSize <= v18)
+    {
+      v8 = v18 / rwSize;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  v20 = [(FATManager *)self getOffsetForClusterEntry:v8];
+  v21 = v20 - [blockCopy startOffset];
+  if (v21 >= [(FATManager *)self rwSize])
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = 0;
+    v23 = v8;
+    do
+    {
+      fsInfo2 = [(FATManager *)self fsInfo];
+      maxValidCluster = [fsInfo2 maxValidCluster];
+
+      if (maxValidCluster < v23)
+      {
+        break;
+      }
+
+      data = [blockCopy data];
+      mutableBytes = [data mutableBytes];
+
+      fsOps = [(FATManager *)self fsOps];
+      LODWORD(mutableBytes) = [fsOps getNextClusterFromEntryForCluster:v23 entry:&mutableBytes[v21]];
+
+      if (mutableBytes)
+      {
+        if (contig)
+        {
+          goto LABEL_4;
+        }
+
+        if (v22)
+        {
+          break;
+        }
+
+        v23 = (v23 + 1);
+        v8 = v23;
+      }
+
+      else
+      {
+        v22 = (v22 + 1);
+        if (v22 == v10)
+        {
+          (*(handlerCopy + 2))(handlerCopy, v8, v10);
+          goto LABEL_21;
+        }
+
+        v23 = (v23 + 1);
+      }
+
+      v29 = [(FATManager *)self getOffsetForClusterEntry:v23];
+      v21 = v29 - [blockCopy startOffset];
+    }
+
+    while (v21 < [(FATManager *)self rwSize]);
+  }
+
+  (*(handlerCopy + 2))(handlerCopy, v8, v22);
+LABEL_21:
+}
+
+- (void)allocateClustersInBlock:(void *)block numClusters:(unsigned int)clusters startingAtCluster:(unsigned int)cluster startOffset:(unsigned int)offset mustBeContig:(BOOL)contig replyHandler:(id)handler
+{
+  v9 = *&cluster;
+  handlerCopy = handler;
+  v14 = (v9 + 1);
+  v15 = [(FATManager *)self getRWOffsetForClusterEntry:v9];
+  v16 = block + [(FATManager *)self getOffsetForClusterEntry:v9]- offset;
+  if (!clusters)
+  {
+    v21 = 0;
+    v20 = 0;
+    LODWORD(v18) = v9;
+    goto LABEL_6;
+  }
+
+  v49 = handlerCopy;
+  fsInfo = [(FATManager *)self fsInfo];
+  if ([fsInfo maxValidCluster] < v9)
+  {
+    v18 = 0;
+    v50 = 0;
+    v19 = v9;
+LABEL_4:
+    v20 = v18;
+
+    LODWORD(v18) = v19;
+    handlerCopy = v49;
+    v21 = v50;
+LABEL_6:
+    if (v18 != v9 || v21)
+    {
+      v18 = v20;
+    }
+
+    else
+    {
+      v22 = handlerCopy;
+      v23 = [(FATManager *)self getRWOffsetForClusterEntry:v9];
+      v24 = v23 + [(FATManager *)self rwSize];
+      v25 = [(FATManager *)self getRWOffsetForClusterEntry:v14];
+      v21 = 0;
+      v26 = v24 == v25;
+      handlerCopy = v22;
+      if (v26)
+      {
+        v18 = v9;
+      }
+
+      else
+      {
+        v18 = v20;
+      }
+    }
+
+    goto LABEL_25;
+  }
+
+  v47 = v15;
+  v48 = v16;
+  v45 = 0;
+  clustersCopy = clusters;
+  v27 = 0;
+  v50 = 0;
+  v28 = v9;
+  while (2)
+  {
+    v18 = v28;
+    if ([(FATManager *)self getRWOffsetForClusterEntry:v28]!= v47)
+    {
+      v19 = v18;
+      v18 = v45;
+      v16 = v48;
+      goto LABEL_4;
+    }
+
+    rwSize = [(FATManager *)self rwSize];
+
+    if (v27 >= rwSize)
+    {
+      v16 = v48;
+      handlerCopy = v49;
+      v21 = v50;
+      v20 = v45;
+      goto LABEL_6;
+    }
+
+    fsOps = [(FATManager *)self fsOps];
+    v16 = v48;
+    v31 = [fsOps getNextClusterFromEntryForCluster:v18 entry:v48];
+
+    if (!v31)
+    {
+      v14 = (v18 + 1);
+      v32 = [(FATManager *)self getOffsetForClusterEntry:v14];
+      if (v50 + 1 == clustersCopy)
+      {
+        fsOps2 = [(FATManager *)self fsOps];
+        fsInfo2 = [(FATManager *)self fsInfo];
+        [fsOps2 setFatEntryForCluster:v18 entry:v48 withValue:{objc_msgSend(fsInfo2, "FATMask")}];
+
+        v21 = clustersCopy;
+        handlerCopy = v49;
+LABEL_25:
+        (*(handlerCopy + 2))(handlerCopy, 0, v21, v18, v16);
+        goto LABEL_26;
+      }
+
+      ++v50;
+      while (1)
+      {
+        v27 = v32 - offset;
+        if (v32 - offset >= -[FATManager rwSize](self, "rwSize") || (-[FATManager fsInfo](self, "fsInfo"), v33 = objc_claimAutoreleasedReturnValue(), v34 = [v33 maxValidCluster], v33, v34 < v14))
+        {
+          fsOps3 = [(FATManager *)self fsOps];
+          fsInfo3 = [(FATManager *)self fsInfo];
+          v16 = v48;
+          [fsOps3 setFatEntryForCluster:v18 entry:v48 withValue:{objc_msgSend(fsInfo3, "FATMask")}];
+
+          handlerCopy = v49;
+          v21 = v50;
+          goto LABEL_25;
+        }
+
+        v16 = block + v27;
+        fsOps4 = [(FATManager *)self fsOps];
+        v36 = [fsOps4 getNextClusterFromEntryForCluster:v14 entry:v16];
+
+        if (!v36)
+        {
+          break;
+        }
+
+        v14 = (v14 + 1);
+        v32 = [(FATManager *)self getOffsetForClusterEntry:v14];
+      }
+
+      fsOps5 = [(FATManager *)self fsOps];
+      fsInfo4 = [(FATManager *)self fsInfo];
+      [fsOps5 setFatEntryForCluster:v18 entry:v48 withValue:{objc_msgSend(fsInfo4, "FATMask") & v14}];
+
+      fsInfo = [(FATManager *)self fsInfo];
+      maxValidCluster = [fsInfo maxValidCluster];
+      v48 = block + v27;
+      v45 = v18;
+      v28 = v14;
+      v19 = v14;
+      if (maxValidCluster >= v14)
+      {
+        continue;
+      }
+
+      goto LABEL_4;
+    }
+
+    break;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+  {
+    sub_100032318();
+  }
+
+  v42 = fs_errorForPOSIXError();
+  (*(v49 + 2))(v49, v42, 0, 0, 0);
+
+  handlerCopy = v49;
+LABEL_26:
+}
+
 - (void)allocateClusters:(unsigned int)clusters searchFromCluster:(unsigned int)cluster allowPartial:(BOOL)partial zeroFill:(BOOL)fill mustBeContig:(BOOL)contig replyHandler:(id)handler
 {
   handlerCopy = handler;
@@ -217,6 +722,87 @@ LABEL_19:
   contigCopy = contig;
   v15 = handlerCopy;
   dispatch_barrier_sync(fatQueue, v16);
+}
+
+- (void)allocateClusters:(unsigned int)clusters allowPartial:(BOOL)partial zeroFill:(BOOL)fill mustBeContig:(BOOL)contig replyHandler:(id)handler
+{
+  contigCopy = contig;
+  fillCopy = fill;
+  partialCopy = partial;
+  v10 = *&clusters;
+  handlerCopy = handler;
+  v13 = handlerCopy;
+  if (v10)
+  {
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10001C444;
+    v14[3] = &unk_100051190;
+    v15 = handlerCopy;
+    [(FATManager *)self allocateClusters:v10 searchFromCluster:0 allowPartial:partialCopy zeroFill:fillCopy mustBeContig:contigCopy replyHandler:v14];
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, 0);
+  }
+}
+
+- (void)allocateClusters:(unsigned int)clusters forItem:(id)item allowPartial:(BOOL)partial mustBeContig:(BOOL)contig zeroFill:(BOOL)fill replyHandler:(id)handler
+{
+  fillCopy = fill;
+  contigCopy = contig;
+  partialCopy = partial;
+  v12 = *&clusters;
+  itemCopy = item;
+  handlerCopy = handler;
+  v16 = [[NSMutableData alloc] initWithLength:{-[FATManager rwSize](self, "rwSize")}];
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = sub_10001C128;
+  v26[4] = sub_10001C138;
+  v27 = 0;
+  if (v12)
+  {
+    if ([itemCopy numberOfClusters])
+    {
+      lastCluster = [itemCopy lastCluster];
+      fsInfo = [(FATManager *)self fsInfo];
+      if ([fsInfo maxValidCluster] == lastCluster)
+      {
+        v19 = 0;
+      }
+
+      else
+      {
+        v19 = [itemCopy lastCluster] + 1;
+      }
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10001C678;
+    v20[3] = &unk_1000511B8;
+    v21 = itemCopy;
+    selfCopy = self;
+    v25 = v26;
+    v23 = v16;
+    v24 = handlerCopy;
+    [(FATManager *)self allocateClusters:v12 searchFromCluster:v19 allowPartial:partialCopy zeroFill:fillCopy mustBeContig:contigCopy replyHandler:v20];
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, 0);
+  }
+
+  _Block_object_dispose(v26, 8);
 }
 
 - (void)freeClusters:(unsigned int)clusters ofItem:(id)item replyHandler:(id)handler
@@ -251,6 +837,87 @@ LABEL_19:
   v12 = handlerCopy;
   v10 = handlerCopy;
   dispatch_barrier_sync(fatQueue, block);
+}
+
+- (void)fatIterator:(unsigned int)iterator replyHandler:(id)handler
+{
+  v4 = *&iterator;
+  handlerCopy = handler;
+  v7 = [[FATBlock alloc] initWithOffset:0 andLength:[(FATManager *)self rwSize]];
+  v8 = 1;
+  v9 = v4;
+  do
+  {
+LABEL_2:
+    v10 = [(FATManager *)self getRWOffsetForClusterEntry:v4];
+    [(FATBlock *)v7 setStartOffset:[(FATManager *)self getRWOffsetForClusterEntry:v4]];
+    data = [(FATBlock *)v7 data];
+    v12 = -[FATManager syncMetaReadFromFAT:startingAt:](self, "syncMetaReadFromFAT:startingAt:", [data mutableBytes], v10);
+
+    if (v12)
+    {
+      handlerCopy[2](handlerCopy, v12, v9, v8, 0);
+
+      goto LABEL_17;
+    }
+
+    v13 = [(FATManager *)self getOffsetForCluster:v4 inFatBlock:v7];
+  }
+
+  while (v13 >= [(FATManager *)self rwSize]);
+  v14 = v4;
+  while (1)
+  {
+    data2 = [(FATBlock *)v7 data];
+    mutableBytes = [data2 mutableBytes];
+
+    fsOps = [(FATManager *)self fsOps];
+    v4 = [fsOps getNextClusterFromEntryForCluster:v14 entry:&mutableBytes[v13]];
+
+    if (!v4)
+    {
+      break;
+    }
+
+    if ([(FATManager *)self isEOFCluster:v4])
+    {
+      (handlerCopy)[2](handlerCopy, 0, v9, v8, v4);
+      goto LABEL_17;
+    }
+
+    if (v14 + 1 == v4)
+    {
+      v8 = (v8 + 1);
+    }
+
+    else
+    {
+      if ((handlerCopy[2])(handlerCopy, 0, v9, v8, v4))
+      {
+        goto LABEL_17;
+      }
+
+      v8 = 1;
+      v9 = v4;
+    }
+
+    v13 = [(FATManager *)self getOffsetForCluster:v4 inFatBlock:v7];
+    v14 = v4;
+    if (v13 >= [(FATManager *)self rwSize])
+    {
+      goto LABEL_2;
+    }
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10003264C();
+  }
+
+  v18 = fs_errorForPOSIXError();
+  handlerCopy[2](handlerCopy, v18, 0, 0, 0);
+
+LABEL_17:
 }
 
 - (void)getContigClusterChainLengthStartingAt:(unsigned int)at replyHandler:(id)handler

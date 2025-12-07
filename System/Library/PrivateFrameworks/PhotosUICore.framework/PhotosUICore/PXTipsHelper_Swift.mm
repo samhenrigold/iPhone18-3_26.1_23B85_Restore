@@ -19,10 +19,10 @@
   v3 = (self + OBJC_IVAR___PXTipsHelper_Swift_presentedTipID);
   *v3 = 0;
   v3[1] = 0;
-  swift_unknownObjectWeakInit();
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for PXTipsHelper();
-  return [(PXTipsHelper_Swift *)&v5 init];
+  v4 = swift_unknownObjectWeakInit();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for PXTipsHelper(v4, v5);
+  return [(PXTipsHelper_Swift *)&v7 init];
 }
 
 + (uint64_t)setup

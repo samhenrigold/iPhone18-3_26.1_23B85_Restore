@@ -102,7 +102,7 @@ void __52__SUScriptMediaPickerController_initWithMediaTypes___block_invoke(uint6
   return v2;
 }
 
-uint64_t __59__SUScriptMediaPickerController_allowsPickingMultipleItems__block_invoke(uint64_t a1)
+void *__59__SUScriptMediaPickerController_allowsPickingMultipleItems__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 40) + 8) + 24) = result;

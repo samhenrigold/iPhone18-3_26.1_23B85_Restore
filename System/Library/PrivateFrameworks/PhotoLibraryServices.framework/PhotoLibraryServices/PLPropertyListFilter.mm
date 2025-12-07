@@ -128,7 +128,7 @@ LABEL_7:
   v25 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   blockCopy = block;
-  v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(arrayCopy)];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
@@ -188,7 +188,7 @@ LABEL_11:
     while (v11);
   }
 
-  if ([v9 count] && !objc_msgSend(v8, "count"))
+  if (objc_msgSend_count(v9) && !objc_msgSend_count(v8))
   {
     v18 = 0;
   }
@@ -206,7 +206,7 @@ LABEL_11:
   blockCopy = block;
   v7 = MEMORY[0x1E695DF90];
   dictionaryCopy = dictionary;
-  v9 = [v7 dictionaryWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v9 = [v7 dictionaryWithCapacity:objc_msgSend_count(dictionaryCopy)];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __48__PLPropertyListFilter__filterDictionary_block___block_invoke;
@@ -217,9 +217,9 @@ LABEL_11:
   v16 = v10;
   v11 = blockCopy;
   [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v15];
-  v12 = [dictionaryCopy count];
+  v12 = objc_msgSend_count(dictionaryCopy);
 
-  if (v12 && ![v10 count])
+  if (v12 && !objc_msgSend_count(v10))
   {
     v13 = 0;
   }

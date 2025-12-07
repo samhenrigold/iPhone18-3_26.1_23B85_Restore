@@ -11,11 +11,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = specialized RaceMapViewDelegate.mapView(_:rendererFor:)();
+  v8 = specialized RaceMapViewDelegate.mapView(_:rendererFor:)(overlay);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (id)mapView:(id)view viewForAnnotation:(id)annotation
@@ -23,11 +23,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = specialized RaceMapViewDelegate.mapView(_:viewFor:)();
+  v8 = specialized RaceMapViewDelegate.mapView(_:viewFor:)(annotation);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (_TtC9WorkoutUI19RaceMapViewDelegate)init

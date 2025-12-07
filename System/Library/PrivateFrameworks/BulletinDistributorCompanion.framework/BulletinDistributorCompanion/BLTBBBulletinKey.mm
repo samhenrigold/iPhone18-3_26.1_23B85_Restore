@@ -76,9 +76,11 @@ uint64_t __55__BLTBBBulletinKey_initWithSectionID_publisherMatchID___block_invok
   v1 = initWithSectionID_publisherMatchID__cache;
   initWithSectionID_publisherMatchID__cache = v0;
 
-  initWithSectionID_publisherMatchID__cacheQueue = dispatch_queue_create("com.apple.Carousel.bulletinKeyCache", 0);
+  v2 = dispatch_queue_create("com.apple.Carousel.bulletinKeyCache", 0);
+  v3 = initWithSectionID_publisherMatchID__cacheQueue;
+  initWithSectionID_publisherMatchID__cacheQueue = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 void __55__BLTBBBulletinKey_initWithSectionID_publisherMatchID___block_invoke_2(uint64_t a1)

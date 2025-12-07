@@ -55,18 +55,18 @@
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPLink dealloc");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPLink dealloc", v4, v5, v6, v7, v8, v13.receiver);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPLink dealloc");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPLink dealloc", v9, v10, v11, v12, v13.receiver);
       }
     }
   }
 
   [(IDSTCPLink *)self invalidate];
-  v4.receiver = self;
-  v4.super_class = IDSTCPLink;
-  [(IDSTCPLink *)&v4 dealloc];
+  v13.receiver = self;
+  v13.super_class = IDSTCPLink;
+  [(IDSTCPLink *)&v13 dealloc];
 }
 
 - (void)invalidate
@@ -74,18 +74,18 @@
   v3 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "invalidate", v9, 2u);
+    *v18 = 0;
+    _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "invalidate", v18, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"invalidate");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"invalidate", v4, v5, v6, v7, v8, *v18);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"invalidate");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"invalidate", v9, v10, v11, v12, *v18);
       }
     }
   }
@@ -96,9 +96,9 @@
     do
     {
       var12 = conns->var12;
-      v6 = conns->var3 - 1;
-      conns->var3 = v6;
-      if (!v6)
+      v15 = conns->var3 - 1;
+      conns->var3 = v15;
+      if (!v15)
       {
         sub_1A7B448FC(conns);
       }
@@ -114,7 +114,7 @@
   if (getPacketLength)
   {
     _Block_release(getPacketLength);
-    v8 = self->_getPacketLength;
+    v17 = self->_getPacketLength;
     self->_getPacketLength = 0;
   }
 }
@@ -153,7 +153,7 @@
 
 - (IDSTCPConnection_)_getIDSTCPConnection:(id *)connection
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   conns = self->_conns;
   if (conns)
   {
@@ -172,31 +172,31 @@
 LABEL_5:
     *&v5 = 0xAAAAAAAAAAAAAAAALL;
     *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v26 = v5;
-    v27 = v5;
-    v24 = v5;
-    v25 = v5;
+    v35 = v5;
+    v36 = v5;
+    v33 = v5;
+    v34 = v5;
+    v31 = v5;
+    v32 = v5;
+    *__str = v5;
+    v30 = v5;
+    *v21 = v5;
     v22 = v5;
     v23 = v5;
-    *__str = v5;
-    v21 = v5;
-    *v12 = v5;
-    v13 = v5;
-    v14 = v5;
-    v15 = v5;
-    v16 = v5;
-    v17 = v5;
-    v18 = v5;
-    v19 = v5;
+    v24 = v5;
+    v25 = v5;
+    v26 = v5;
+    v27 = v5;
+    v28 = v5;
     SAToIPPortString(__str, 0x80uLL, &connection->var18);
-    SAToIPPortString(v12, 0x80uLL, &connection->var19);
+    SAToIPPortString(v21, 0x80uLL, &connection->var19);
     v6 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v9 = __str;
-      v10 = 2080;
-      v11 = v12;
+      v18 = __str;
+      v19 = 2080;
+      v20 = v21;
       _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "no connection from %s to %s", buf, 0x16u);
     }
 
@@ -204,10 +204,10 @@ LABEL_5:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"no connection from %s to %s");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"no connection from %s to %s", v7, v8, v9, v10, v11, __str);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"no connection from %s to %s");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"no connection from %s to %s", v12, v13, v14, v15, __str);
         }
       }
     }
@@ -221,34 +221,34 @@ LABEL_5:
 - (sockaddr)connect:(int)connect localAddress:(const sockaddr *)address portRange:(unsigned __int16)range remoteAddress:(const sockaddr *)remoteAddress clientUUID:(unsigned __int8)d[16] completionHandler:(id)handler
 {
   rangeCopy = range;
-  v95 = *MEMORY[0x1E69E9840];
+  v242 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self->_getPacketLength)
   {
     remoteAddressCopy = remoteAddress;
     *&v13 = 0xAAAAAAAAAAAAAAAALL;
     *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v83 = v13;
-    v84 = v13;
-    v81 = v13;
-    v82 = v13;
-    v79 = v13;
-    v80 = v13;
+    v230 = v13;
+    v231 = v13;
+    v228 = v13;
+    v229 = v13;
+    v226 = v13;
+    v227 = v13;
     *__str = v13;
-    v78 = v13;
-    v75 = v13;
-    v76 = v13;
-    v73 = v13;
-    v74 = v13;
-    v71 = v13;
-    v72 = v13;
-    *v69 = v13;
-    v70 = v13;
+    v225 = v13;
+    v222 = v13;
+    v223 = v13;
+    v220 = v13;
+    v221 = v13;
+    v218 = v13;
+    v219 = v13;
+    *v216 = v13;
+    v217 = v13;
     selfCopy = self;
     aBlock = handlerCopy;
-    v67 = 1;
+    v214 = 1;
     v14 = malloc_type_calloc(1uLL, 0x150uLL, 0x10A00409F0FFA38uLL);
-    v63 = handlerCopy;
+    v210 = handlerCopy;
     if (v14 && (v15 = sub_1A7C226B4(0x4000, 0), (*(v14 + 2) = v15) != 0) && (v16 = _IDSLinkPacketBufferCreate(), (*(v14 + 35) = v16) != 0))
     {
       if (address->sa_family == 30)
@@ -265,24 +265,24 @@ LABEL_5:
       *v14 = v18;
       if (v18 < 0)
       {
-        v33 = *__error();
-        IDSAssertNonFatalErrnoWithSource(v33, "TCPLink", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 356);
-        v34 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v69 = *__error();
+        IDSAssertNonFatalErrnoWithSource(v69, "TCPLink", "/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 356);
+        v70 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
-          *v89 = 67109120;
-          *&v89[4] = v33;
-          _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "socket failed: %d", v89, 8u);
+          *v236 = 67109120;
+          *&v236[4] = v69;
+          _os_log_impl(&dword_1A7AD9000, v70, OS_LOG_TYPE_DEFAULT, "socket failed: %d", v236, 8u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TCPLink", @"IDS", @"socket failed: %d");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"socket failed: %d", v71, v72, v73, v74, v75, v69);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"socket failed: %d");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"socket failed: %d", v76, v77, v78, v79, v69);
             }
           }
         }
@@ -291,19 +291,19 @@ LABEL_5:
       else
       {
         IDSCheckFileDescriptorUsageWithSource("IDSTCPLink.m", 361, 0);
-        v19 = (v14 + 24);
+        v19 = (v14 + 6);
         __memcpy_chk();
         *&v20 = 0xAAAAAAAAAAAAAAAALL;
         *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v93 = v20;
-        v94 = v20;
-        v91 = v20;
-        v92 = v20;
-        *&v89[32] = v20;
-        v90 = v20;
-        *v89 = v20;
-        *&v89[16] = v20;
-        if (v14[25] == 30)
+        v240 = v20;
+        v241 = v20;
+        v238 = v20;
+        v239 = v20;
+        *&v236[32] = v20;
+        v237 = v20;
+        *v236 = v20;
+        *&v236[16] = v20;
+        if (*(v14 + 25) == 30)
         {
           *buf = 1;
           setsockopt(*v14, 41, 27, buf, 4u);
@@ -317,23 +317,23 @@ LABEL_12:
         v24 = bswap32(v21) >> 16;
         while (1)
         {
-          v25 = v14[24];
-          v68 = v25;
+          v25 = *(v14 + 24);
+          v215 = v25;
           *(v14 + 13) = bswap32(v24 + v23) >> 16;
-          if (!bind(*v14, (v14 + 24), v25))
+          if (!bind(*v14, (v14 + 6), v25))
           {
             break;
           }
 
-          SAToIPPortString(v89, 0x80uLL, (v14 + 24));
+          SAToIPPortString(v236, 0x80uLL, (v14 + 6));
           v26 = *__error();
           v27 = OSLogHandleForTransportCategory();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v86 = v89;
-            v87 = 1024;
-            v88 = v26;
+            v233 = v236;
+            v234 = 1024;
+            v235 = v26;
             _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "failed to bind to %s, errno: %d", buf, 0x12u);
           }
 
@@ -341,14 +341,12 @@ LABEL_12:
           {
             if (_IDSShouldLogTransport())
             {
-              v56 = v89;
-              v57 = v26;
-              _IDSLogTransport(@"TCPLink", @"IDS", @"failed to bind to %s, errno: %d");
-              if (_IDSShouldLog())
+              v205 = v26;
+              _IDSLogTransport(@"TCPLink", @"IDS", @"failed to bind to %s, errno: %d", v28, v29, v30, v31, v32, v236);
+              if (_IDSShouldLog(0))
               {
-                v56 = v89;
-                v57 = v26;
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to bind to %s, errno: %d");
+                v205 = v26;
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to bind to %s, errno: %d", v33, v34, v35, v36, v236);
               }
             }
           }
@@ -366,47 +364,47 @@ LABEL_12:
           }
         }
 
-        if (!v21 && getsockname(*v14, (v14 + 24), &v68) < 0)
+        if (!v21 && getsockname(*v14, (v14 + 6), &v215) < 0)
         {
-          v46 = *__error();
-          v47 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          v145 = *__error();
+          v146 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            LODWORD(v86) = v46;
-            _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "getsockname failed: %d", buf, 8u);
+            LODWORD(v233) = v145;
+            _os_log_impl(&dword_1A7AD9000, v146, OS_LOG_TYPE_DEFAULT, "getsockname failed: %d", buf, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"getsockname failed: %d");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"getsockname failed: %d", v147, v148, v149, v150, v151, v145);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"getsockname failed: %d");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"getsockname failed: %d", v152, v153, v154, v155, v145);
               }
             }
           }
 
 LABEL_106:
-          v48 = *__error();
-          v49 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v156 = *__error();
+          v157 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
           {
-            *v89 = 67109120;
-            *&v89[4] = v48;
-            _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "bind failed: %d", v89, 8u);
+            *v236 = 67109120;
+            *&v236[4] = v156;
+            _os_log_impl(&dword_1A7AD9000, v157, OS_LOG_TYPE_DEFAULT, "bind failed: %d", v236, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"bind failed: %d");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"bind failed: %d", v158, v159, v160, v161, v162, v156);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"bind failed: %d");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"bind failed: %d", v163, v164, v165, v166, v156);
               }
             }
           }
@@ -414,46 +412,44 @@ LABEL_106:
           goto LABEL_30;
         }
 
-        SAToIPPortString(v89, 0x80uLL, (v14 + 24));
-        v35 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        SAToIPPortString(v236, 0x80uLL, (v14 + 6));
+        v80 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v86 = v89;
-          _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "bind to %s", buf, 0xCu);
+          v233 = v236;
+          _os_log_impl(&dword_1A7AD9000, v80, OS_LOG_TYPE_DEFAULT, "bind to %s", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v56 = v89;
-            _IDSLogTransport(@"TCPLink", @"IDS", @"bind to %s");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"bind to %s", v81, v82, v83, v84, v85, v236);
+            if (_IDSShouldLog(0))
             {
-              v56 = v89;
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"bind to %s");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"bind to %s", v86, v87, v88, v89, v236);
             }
           }
         }
 
-        if (setsockopt(*v14, 0xFFFF, 4130, &v67, 4u) < 0)
+        if (setsockopt(*v14, 0xFFFF, 4130, &v214, 4u) < 0)
         {
-          v36 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v90 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
           {
-            *v89 = 0;
-            _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "failed to turn on SO_NOSIGPIPE", v89, 2u);
+            *v236 = 0;
+            _os_log_impl(&dword_1A7AD9000, v90, OS_LOG_TYPE_DEFAULT, "failed to turn on SO_NOSIGPIPE", v236, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"failed to turn on SO_NOSIGPIPE");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"failed to turn on SO_NOSIGPIPE", v91, v92, v93, v94, v95, v200);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to turn on SO_NOSIGPIPE");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to turn on SO_NOSIGPIPE", v96, v97, v98, v99, v203);
               }
             }
           }
@@ -464,47 +460,47 @@ LABEL_106:
           *(v14 + 41) = _Block_copy(aBlock);
         }
 
-        *(v14 + 2) = 1;
+        v14[2] = 1;
         *(v14 + 40) = selfCopy;
         *(v14 + 37) = p_counters;
-        *(v14 + 3) = [(IDSTCPLink *)selfCopy isSSL:v56];
+        v14[3] = [(IDSTCPLink *)selfCopy isSSL];
         __memcpy_chk();
-        *(v14 + 76) = connect;
-        v37 = *(v14 + 35);
-        v37[12] = connect;
-        memcpy(v37 + 14, v14 + 24, v14[24]);
-        memcpy(v37 + 46, remoteAddressCopy, remoteAddressCopy->sa_len);
+        v14[76] = connect;
+        v100 = *(v14 + 35);
+        v100[12] = connect;
+        memcpy(v100 + 14, v14 + 6, *(v14 + 24));
+        memcpy(v100 + 46, remoteAddressCopy, remoteAddressCopy->sa_len);
         if (!uuid_is_null(d))
         {
-          *&v89[29] = 0xAAAAAAAAAAAAAAAALL;
-          *&v43 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v43 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *v89 = v43;
-          *&v89[16] = v43;
-          uuid_unparse(d, v89);
+          *&v236[29] = 0xAAAAAAAAAAAAAAAALL;
+          *&v133 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v133 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *v236 = v133;
+          *&v236[16] = v133;
+          uuid_unparse(d, v236);
           if (setsockopt(*v14, 0xFFFF, 4360, d, 0x10u))
           {
-            v44 = *__error();
-            v45 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            v134 = *__error();
+            v135 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v86 = v89;
-              v87 = 1024;
-              v88 = v44;
-              _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "setsockopt SO_DELEGATED_UUID failed for %s, errno: %d", buf, 0x12u);
+              v233 = v236;
+              v234 = 1024;
+              v235 = v134;
+              _os_log_impl(&dword_1A7AD9000, v135, OS_LOG_TYPE_DEFAULT, "setsockopt SO_DELEGATED_UUID failed for %s, errno: %d", buf, 0x12u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                v58 = v44;
-                _IDSLogTransport(@"TCPLink", @"IDS", @"setsockopt SO_DELEGATED_UUID failed for %s, errno: %d");
-                if (_IDSShouldLog())
+                v205 = v134;
+                _IDSLogTransport(@"TCPLink", @"IDS", @"setsockopt SO_DELEGATED_UUID failed for %s, errno: %d", v136, v137, v138, v139, v140, v236);
+                if (_IDSShouldLog(0))
                 {
-                  v58 = v44;
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"setsockopt SO_DELEGATED_UUID failed for %s, errno: %d");
+                  v205 = v134;
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"setsockopt SO_DELEGATED_UUID failed for %s, errno: %d", v141, v142, v143, v144, v236);
                 }
               }
             }
@@ -512,48 +508,48 @@ LABEL_106:
 
           else
           {
-            v54 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v180 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v86 = v89;
-              _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "setsockopt SO_DELEGATED_UUID for %s", buf, 0xCu);
+              v233 = v236;
+              _os_log_impl(&dword_1A7AD9000, v180, OS_LOG_TYPE_DEFAULT, "setsockopt SO_DELEGATED_UUID for %s", buf, 0xCu);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"TCPLink", @"IDS", @"setsockopt SO_DELEGATED_UUID for %s");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"TCPLink", @"IDS", @"setsockopt SO_DELEGATED_UUID for %s", v181, v182, v183, v184, v185, v236);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"setsockopt SO_DELEGATED_UUID for %s");
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"setsockopt SO_DELEGATED_UUID for %s", v186, v187, v188, v189, v236);
                 }
               }
             }
           }
         }
 
-        v38 = fcntl(*v14, 3, 0, v58);
-        if (v38 < 0 || fcntl(*v14, 4, v38 | 4u) < 0)
+        v101 = fcntl(*v14, 3, 0, v205);
+        if (v101 < 0 || (v200 = v101 | 4u, fcntl(*v14, 4) < 0))
         {
-          v41 = *__error();
-          v42 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v122 = *__error();
+          v123 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
           {
-            *v89 = 67109120;
-            *&v89[4] = v41;
-            _os_log_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_DEFAULT, "fcntl failed: %d", v89, 8u);
+            *v236 = 67109120;
+            *&v236[4] = v122;
+            _os_log_impl(&dword_1A7AD9000, v123, OS_LOG_TYPE_DEFAULT, "fcntl failed: %d", v236, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"fcntl failed: %d");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"fcntl failed: %d", v124, v125, v126, v127, v128, v122);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"fcntl failed: %d");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"fcntl failed: %d", v129, v130, v131, v132, v122);
               }
             }
           }
@@ -563,21 +559,21 @@ LABEL_106:
         {
           if ((connect(*v14, remoteAddressCopy, remoteAddressCopy->sa_len) & 0x80000000) == 0)
           {
-            v39 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+            v102 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
             {
-              *v89 = 0;
-              _os_log_impl(&dword_1A7AD9000, v39, OS_LOG_TYPE_DEFAULT, "asynchronous connect succeeded synchronously", v89, 2u);
+              *v236 = 0;
+              _os_log_impl(&dword_1A7AD9000, v102, OS_LOG_TYPE_DEFAULT, "asynchronous connect succeeded synchronously", v236, 2u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"TCPLink", @"IDS", @"asynchronous connect succeeded synchronously");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"TCPLink", @"IDS", @"asynchronous connect succeeded synchronously", v103, v104, v105, v106, v107, v200);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"asynchronous connect succeeded synchronously");
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"asynchronous connect succeeded synchronously", v108, v109, v110, v111, v204);
                 }
               }
             }
@@ -585,63 +581,63 @@ LABEL_106:
             sub_1A7B44E80(v14);
 LABEL_80:
 
-            SAToIPPortString(__str, 0x80uLL, (v14 + 24));
-            SAToIPPortString(v69, 0x80uLL, (v14 + 152));
-            v40 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            SAToIPPortString(__str, 0x80uLL, (v14 + 6));
+            SAToIPPortString(v216, 0x80uLL, (v14 + 38));
+            v112 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
             {
-              *v89 = 136315394;
-              *&v89[4] = __str;
-              *&v89[12] = 2080;
-              *&v89[14] = v69;
-              _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "opening TCP connection from %s to %s", v89, 0x16u);
+              *v236 = 136315394;
+              *&v236[4] = __str;
+              *&v236[12] = 2080;
+              *&v236[14] = v216;
+              _os_log_impl(&dword_1A7AD9000, v112, OS_LOG_TYPE_DEFAULT, "opening TCP connection from %s to %s", v236, 0x16u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"TCPLink", @"IDS", @"opening TCP connection from %s to %s");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"TCPLink", @"IDS", @"opening TCP connection from %s to %s", v113, v114, v115, v116, v117, __str);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"opening TCP connection from %s to %s");
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"opening TCP connection from %s to %s", v118, v119, v120, v121, __str);
                 }
               }
             }
 
-            v30 = v63;
+            v57 = v210;
             *(v14 + 39) = selfCopy->_conns;
             selfCopy->_conns = v14;
             goto LABEL_45;
           }
 
-          v50 = *__error();
-          if (v50 == 36)
+          v167 = *__error();
+          if (v167 == 36)
           {
-            v51 = *v14;
-            v66[0] = MEMORY[0x1E69E9820];
-            v66[1] = 3221225472;
-            v66[2] = sub_1A7B44BA0;
-            v66[3] = &unk_1E77DD328;
-            v66[4] = v14;
-            IDSTransportThreadAddSocket(v51, 0, v66);
-            v52 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            v168 = *v14;
+            v213[0] = MEMORY[0x1E69E9820];
+            v213[1] = 3221225472;
+            v213[2] = sub_1A7B44BA0;
+            v213[3] = &unk_1E77DD328;
+            v213[4] = v14;
+            IDSTransportThreadAddSocket(v168, 0, v213);
+            v169 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
             {
-              v53 = *v14;
-              *v89 = 67109120;
-              *&v89[4] = v53;
-              _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "connect in progress for fd: %d", v89, 8u);
+              v170 = *v14;
+              *v236 = 67109120;
+              *&v236[4] = v170;
+              _os_log_impl(&dword_1A7AD9000, v169, OS_LOG_TYPE_DEFAULT, "connect in progress for fd: %d", v236, 8u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"TCPLink", @"IDS", @"connect in progress for fd: %d");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"TCPLink", @"IDS", @"connect in progress for fd: %d", v171, v172, v173, v174, v175, *v14);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect in progress for fd: %d");
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect in progress for fd: %d", v176, v177, v178, v179, *v14);
                 }
               }
             }
@@ -649,22 +645,22 @@ LABEL_80:
             goto LABEL_80;
           }
 
-          v55 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v190 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
           {
-            *v89 = 67109120;
-            *&v89[4] = v50;
-            _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEFAULT, "connect failed: %d", v89, 8u);
+            *v236 = 67109120;
+            *&v236[4] = v167;
+            _os_log_impl(&dword_1A7AD9000, v190, OS_LOG_TYPE_DEFAULT, "connect failed: %d", v236, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"connect failed: %d");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"connect failed: %d", v191, v192, v193, v194, v195, v167);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect failed: %d");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect failed: %d", v196, v197, v198, v199, v167);
               }
             }
           }
@@ -674,21 +670,21 @@ LABEL_80:
 
     else
     {
-      v28 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v37 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        *v89 = 0;
-        _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "out of memory", v89, 2u);
+        *v236 = 0;
+        _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "out of memory", v236, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"out of memory");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"out of memory", v38, v39, v40, v41, v42, v200);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"out of memory");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"out of memory", v43, v44, v45, v46, v200);
           }
         }
       }
@@ -703,46 +699,46 @@ LABEL_30:
     sub_1A7B448FC(v14);
 LABEL_31:
 
-    v29 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v47 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      *v89 = 0;
-      _os_log_impl(&dword_1A7AD9000, v29, OS_LOG_TYPE_DEFAULT, "failed to create connection", v89, 2u);
+      *v236 = 0;
+      _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "failed to create connection", v236, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"failed to create connection");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"failed to create connection", v48, v49, v50, v51, v52, v200);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to create connection");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to create connection", v53, v54, v55, v56, v201);
         }
       }
     }
 
     v19 = 0;
-    v30 = v63;
+    v57 = v210;
     goto LABEL_45;
   }
 
-  v31 = OSLogHandleForTransportCategory();
-  v30 = handlerCopy;
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v58 = OSLogHandleForTransportCategory();
+  v57 = handlerCopy;
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
-    *v89 = 0;
-    _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "link invalidated", v89, 2u);
+    *v236 = 0;
+    _os_log_impl(&dword_1A7AD9000, v58, OS_LOG_TYPE_DEFAULT, "link invalidated", v236, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated", v59, v60, v61, v62, v63, v200);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated", v64, v65, v66, v67, v202);
       }
     }
   }
@@ -755,14 +751,14 @@ LABEL_45:
 
 - (BOOL)disconnect:(sockaddr_in *)disconnect remoteAddress:(sockaddr_in *)address
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (!self->_getPacketLength)
   {
-    v14 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v23 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "link invalidated", v20, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "link invalidated", v40, 2u);
     }
 
     v13 = os_log_shim_legacy_logging_enabled();
@@ -777,14 +773,14 @@ LABEL_45:
       return v13;
     }
 
-    _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated");
-    v13 = _IDSShouldLog();
+    _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated", v24, v25, v26, v27, v28, v36);
+    v13 = _IDSShouldLog(0);
     if (!v13)
     {
       return v13;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated");
+    _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated", v29, v30, v31, v32, v37);
 LABEL_26:
     LOBYTE(v13) = 0;
     return v13;
@@ -792,26 +788,26 @@ LABEL_26:
 
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26 = v4;
-  v27 = v4;
-  v24 = v4;
-  v25 = v4;
-  v22 = v4;
-  v23 = v4;
-  *v20 = v4;
-  v21 = v4;
+  v46 = v4;
+  v47 = v4;
+  v44 = v4;
+  v45 = v4;
+  v42 = v4;
+  v43 = v4;
+  *v40 = v4;
+  v41 = v4;
   conns = self->_conns;
   p_conns = &self->_conns;
   v6 = conns;
   if (!conns)
   {
 LABEL_14:
-    SAToIPPortString(v20, 0x80uLL, address);
+    SAToIPPortString(v40, 0x80uLL, address);
     v12 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = v20;
+      v39 = v40;
       _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "no connection for %s", buf, 0xCu);
     }
 
@@ -827,14 +823,14 @@ LABEL_14:
       return v13;
     }
 
-    _IDSLogTransport(@"TCPLink", @"IDS", @"no connection for %s");
-    v13 = _IDSShouldLog();
+    _IDSLogTransport(@"TCPLink", @"IDS", @"no connection for %s", v14, v15, v16, v17, v18, v40);
+    v13 = _IDSShouldLog(0);
     if (!v13)
     {
       return v13;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"no connection for %s");
+    _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"no connection for %s", v19, v20, v21, v22, v40);
     goto LABEL_26;
   }
 
@@ -866,9 +862,9 @@ LABEL_14:
   }
 
   *p_var12 = v6->var12;
-  v16 = v6->var3 - 1;
-  v6->var3 = v16;
-  if (!v16)
+  v34 = v6->var3 - 1;
+  v6->var3 = v34;
+  if (!v34)
   {
     sub_1A7B448FC(v6);
   }
@@ -885,74 +881,74 @@ LABEL_14:
 
 - (unint64_t)sendPacketBufferArray:(id *)array arraySize:(int)size toDeviceUniqueID:(id)d cbuuid:(id)cbuuid
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dCopy = d;
   cbuuidCopy = cbuuid;
   v12 = cbuuidCopy;
   if (!self->_getPacketLength)
   {
-    v18 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v27 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "link invalidated", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "link invalidated", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"link invalidated", v28, v29, v30, v31, v32, v60);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"link invalidated", v33, v34, v35, v36, v62);
         }
       }
     }
 
-    v16 = 6;
+    v25 = 6;
     goto LABEL_28;
   }
 
   if (cbuuidCopy && ([cbuuidCopy isEqualToString:self->_cbuuid] & 1) == 0)
   {
-    v19 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v37 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       cbuuid = self->_cbuuid;
       *buf = 138412546;
-      v29 = v12;
-      v30 = 2112;
+      v64 = v12;
+      v65 = 2112;
       cbuuidCopy2 = cbuuid;
-      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "wrong device: %@ %@", buf, 0x16u);
+      _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "wrong device: %@ %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"wrong device: %@ %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"wrong device: %@ %@", v39, v40, v41, v42, v43, v12);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"wrong device: %@ %@");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"wrong device: %@ %@", v44, v45, v46, v47, v12);
         }
       }
     }
 
-    v16 = 10;
+    v25 = 10;
     goto LABEL_28;
   }
 
   if (size < 1)
   {
-    v16 = 11;
+    v25 = 11;
     goto LABEL_43;
   }
 
   v13 = [(IDSTCPLink *)self _getIDSTCPConnection:*array];
   if (!v13)
   {
-    v16 = 11;
+    v25 = 11;
     goto LABEL_41;
   }
 
@@ -970,20 +966,20 @@ LABEL_14:
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"drop packet");
-        v16 = 0;
-        if ((_IDSShouldLog() & 1) == 0)
+        _IDSLogTransport(@"TCPLink", @"IDS", @"drop packet", v16, v17, v18, v19, v20, v60);
+        v25 = 0;
+        if ((_IDSShouldLog(0) & 1) == 0)
         {
           goto LABEL_41;
         }
 
-        v17 = @"drop packet";
+        v26 = @"drop packet";
 LABEL_38:
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", v17);
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", v26, v21, v22, v23, v24, v61);
         goto LABEL_41;
       }
 
-      v16 = 0;
+      v25 = 0;
       goto LABEL_41;
     }
 
@@ -993,28 +989,28 @@ LABEL_38:
       arrayCopy = array;
       do
       {
-        v26 = *arrayCopy++;
-        v27 = bswap32(*(v26 + 16) + 3) >> 16;
-        IDSLinkPacketBufferAddBufferStart(v26, -8);
-        **v26 = 66327;
-        *(*v26 + 3) = v27;
+        v58 = *arrayCopy++;
+        v59 = bswap32(*(v58 + 16) + 3) >> 16;
+        IDSLinkPacketBufferAddBufferStart(v58, -8);
+        **v58 = 66327;
+        *(*v58 + 3) = v59;
         --sizeCopy;
       }
 
       while (sizeCopy);
     }
 
-    v16 = sub_1A7B43CA4(v14, array);
-    if (v16 == 14)
+    v25 = sub_1A7B43CA4(v14);
+    if (v25 == 14)
     {
       if (*(v14 + 5))
       {
-        v16 = 14;
+        v25 = 14;
       }
 
       else
       {
-        v16 = 0;
+        v25 = 0;
       }
     }
 
@@ -1027,27 +1023,27 @@ LABEL_28:
     goto LABEL_41;
   }
 
-  v21 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v48 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "connection closed", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "connection closed", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    _IDSLogTransport(@"TCPLink", @"IDS", @"connection closed");
-    v16 = 6;
-    if ((_IDSShouldLog() & 1) == 0)
+    _IDSLogTransport(@"TCPLink", @"IDS", @"connection closed", v49, v50, v51, v52, v53, v60);
+    v25 = 6;
+    if ((_IDSShouldLog(0) & 1) == 0)
     {
       goto LABEL_41;
     }
 
-    v17 = @"connection closed";
+    v26 = @"connection closed";
     goto LABEL_38;
   }
 
-  v16 = 6;
+  v25 = 6;
 LABEL_41:
   sizeCopy2 = size;
   do
@@ -1059,7 +1055,7 @@ LABEL_41:
   while (sizeCopy2);
 LABEL_43:
 
-  return v16;
+  return v25;
 }
 
 - (id)generateLinkReport:(double)report isCurrentLink:(BOOL)link
@@ -1106,7 +1102,7 @@ LABEL_43:
 
 - (void)setWiFiAssistState:(BOOL)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   conns = self->_conns;
   if (conns)
   {
@@ -1123,15 +1119,15 @@ LABEL_43:
 
     do
     {
-      if ([(NSIndexSet *)self->_cellularInterfaceIndices containsIndex:conns->var11, v11, v12, v13])
+      if ([(NSIndexSet *)self->_cellularInterfaceIndices containsIndex:conns->var11])
       {
         var0 = conns->var0;
-        v14 = v6;
-        v15 = stateCopy;
-        v8 = setsockopt(var0, 0xFFFF, 4387, &v14, 8u);
+        v20 = v6;
+        v21 = stateCopy;
+        v8 = setsockopt(var0, 0xFFFF, 4387, &v20, 8u);
         if (!v8)
         {
-          v8 = setsockopt(var0, 0xFFFF, 4373, &v15, 4u);
+          v8 = setsockopt(var0, 0xFFFF, 4373, &v21, 4u);
         }
 
         if (v8 == -1)
@@ -1141,26 +1137,22 @@ LABEL_43:
           {
             v10 = *__error();
             *buf = 136315650;
-            v17 = "[IDSTCPLink setWiFiAssistState:]";
-            v18 = 1024;
-            v19 = 1094;
-            v20 = 1024;
-            v21 = v10;
+            v23 = "[IDSTCPLink setWiFiAssistState:]";
+            v24 = 1024;
+            v25 = 1094;
+            v26 = 1024;
+            v27 = v10;
             _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d setsockopt failed %d", buf, 0x18u);
           }
 
           if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
           {
-            v12 = 1094;
-            v13 = *__error();
-            v11 = "[IDSTCPLink setWiFiAssistState:]";
-            _IDSLogTransport(@"TCPLink", @"IDS", @"%s:%d setsockopt failed %d");
-            if (_IDSShouldLog())
+            __error();
+            _IDSLogTransport(@"TCPLink", @"IDS", @"%s:%d setsockopt failed %d", v11, v12, v13, v14, v15, "[IDSTCPLink setWiFiAssistState:]");
+            if (_IDSShouldLog(0))
             {
-              v12 = 1094;
-              v13 = *__error();
-              v11 = "[IDSTCPLink setWiFiAssistState:]";
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"%s:%d setsockopt failed %d");
+              __error();
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"%s:%d setsockopt failed %d", v16, v17, v18, v19, "[IDSTCPLink setWiFiAssistState:]");
             }
           }
         }

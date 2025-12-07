@@ -45,12 +45,13 @@ void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttrib
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_cold_1(v6, v7);
+      __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_cold_1(v7, v8);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -58,18 +59,18 @@ void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttrib
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_34;
-    v11[3] = &unk_2782F3420;
-    v12 = *(a1 + 32);
-    v8 = v5;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v13 = v8;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_34;
+    v12[3] = &unk_2782F3420;
+    v13 = *(a1 + 32);
+    v9 = v5;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
     v14 = v9;
     v15 = v10;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    v16 = v11;
+    dispatch_async(MEMORY[0x277D85CD0], v12);
   }
 }
 
@@ -78,7 +79,7 @@ void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttrib
   v2 = a1 + 32;
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"altdsid"];
   v4 = [*(v2 + 8) memberForAltDSID:v3];
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_34_cold_1(v4, v2, v5);
@@ -222,25 +223,23 @@ void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttrib
 
 void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[FAAppleCashPresentationHandler presentPeerPaymentControllerWithAttributes:completion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error %s - %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[FAAppleCashPresentationHandler presentPeerPaymentControllerWithAttributes:completion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Error %s - %@", &v2, 0x16u);
 }
 
 void __88__FAAppleCashPresentationHandler_presentPeerPaymentControllerWithAttributes_completion___block_invoke_34_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_21BB35000, log, OS_LOG_TYPE_DEBUG, "Launching member %@ with attributes %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_21BB35000, log, OS_LOG_TYPE_DEBUG, "Launching member %@ with attributes %@", &v4, 0x16u);
 }
 
 @end

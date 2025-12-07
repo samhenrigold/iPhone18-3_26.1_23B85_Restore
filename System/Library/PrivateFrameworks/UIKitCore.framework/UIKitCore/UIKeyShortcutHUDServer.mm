@@ -3,11 +3,11 @@
 
 @implementation UIKeyShortcutHUDServer
 
-void __42___UIKeyShortcutHUDServer_sharedHUDServer__block_invoke()
+void __42___UIKeyShortcutHUDServer_sharedHUDServer__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals_1149;
-  _MergedGlobals_1149 = v0;
+  v1 = objc_opt_new();
+  v2 = _MergedGlobals_1149;
+  _MergedGlobals_1149 = v1;
 }
 
 uint64_t __101___UIKeyShortcutHUDServer_presentHUDWithConfiguration_inWindowScene_forConnection_completionHandler___block_invoke(uint64_t a1)

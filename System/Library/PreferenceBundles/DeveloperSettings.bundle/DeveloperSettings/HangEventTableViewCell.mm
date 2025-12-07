@@ -3,6 +3,7 @@
 - (CGSize)_disclosureIndicatorSize;
 - (HangEventTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)updateConfigurationUsingState:(id)state;
 - (void)updateConstraints;
 - (void)updateDurationFont;
@@ -364,6 +365,16 @@ LABEL_6:
   }
 
   return v3;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  [(HangEventTableViewCell *)self setNeedsUpdateConstraints];
+  v7.receiver = self;
+  v7.super_class = HangEventTableViewCell;
+  [(HangEventTableViewCell *)&v7 setEditing:editingCopy animated:animatedCopy];
 }
 
 @end

@@ -20,11 +20,13 @@
 - (void)didBootstrap:(BOOL)bootstrap info:(id)info error:(id)error;
 - (void)didDownload:(BOOL)download info:(id)info error:(id)error;
 - (void)didFind:(BOOL)find info:(id)info updateAvailable:(BOOL)available needsDownload:(BOOL)download error:(id)error;
+- (void)didFinish:(BOOL)finish info:(id)info error:(id)error;
 - (void)didPrepare:(BOOL)prepare info:(id)info error:(id)error;
 - (void)didRunStateWithInfo:(id)info;
 - (void)doneWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
 - (void)issueNotification:(id)notification;
+- (void)logv:(int)logv format:(id)format arguments:(char *)arguments;
 - (void)personalizationDone:(id)done response:(id)response error:(id)error;
 - (void)personalizationRequest:(id)request;
 - (void)progress:(double)progress;
@@ -462,18 +464,15 @@ LABEL_12:
 
 - (BOOL)isActive
 {
-  nextState = self->nextState;
-  stateMachineFilterName = self->stateMachineFilterName;
-  state = self->state;
   FudLog();
-  v3 = self->state;
-  v4 = (v3 - 2) < 9;
-  if (!v3)
+  state = self->state;
+  v4 = (state - 2) < 9;
+  if (!state)
   {
     v4 |= self->needsDeviceList;
   }
 
-  v5 = (v3 == 2) & v4;
+  v5 = (state == 2) & v4;
   if (self->nextState == -1)
   {
     v4 = v5;
@@ -496,12 +495,11 @@ LABEL_12:
       if (pluginInfo)
       {
         v11 = pluginInfo;
-        v12 = self->pluginInfo;
         ProgressWeightsFromPluginInfo = getProgressWeightsFromPluginInfo();
         self->pluginProgressWeights = ProgressWeightsFromPluginInfo;
         if (ProgressWeightsFromPluginInfo)
         {
-          v14 = ProgressWeightsFromPluginInfo;
+          v13 = ProgressWeightsFromPluginInfo;
         }
 
         if ([(NSDictionary *)self->pluginInfo objectForKey:@"AccessoryIdentifier"])
@@ -517,7 +515,6 @@ LABEL_12:
         }
       }
 
-      pluginProgressWeights = self->pluginProgressWeights;
       FudLog();
     }
 
@@ -529,7 +526,7 @@ LABEL_12:
     result = self->plugin;
     if (!result)
     {
-      [(FudStateMachine *)self setException:sub_10001D234(self, 3u, @"%s: failed to get plugin from delegate", v16, v17, v18, v19, v20, "[FudStateMachine loadPlugin]")];
+      [(FudStateMachine *)self setException:sub_10001D234(self, 3u, @"%s: failed to get plugin from delegate", v15, v16, v17, v18, v19, "[FudStateMachine loadPlugin]")];
       return self->plugin;
     }
   }
@@ -540,32 +537,27 @@ LABEL_12:
 - (void)runState
 {
   FudLog();
-  state = self->state;
-  if (state >= 0xC)
+  if (self->state >= 0xCu)
   {
-    v20 = self->state;
-    v9 = sub_10001D234(self, 9u, @"%s: invalid state: %d", v3, v4, v5, v6, v7, "[FudStateMachine runState]");
+    v8 = sub_10001D234(self, 9u, @"%s: invalid state: %d", v3, v4, v5, v6, v7, "[FudStateMachine runState]");
 LABEL_8:
-    [(FudStateMachine *)self setException:v9];
+    [(FudStateMachine *)self setException:v8];
     [(FudStateMachine *)self didRunStateWithInfo:0];
     goto LABEL_11;
   }
 
-  v10 = (&off_1000992C0)[4 * state + 3];
-  v11 = objc_opt_respondsToSelector();
-  v17 = self->state;
-  if ((v11 & 1) == 0)
+  v9 = objc_opt_respondsToSelector();
+  state = self->state;
+  if ((v9 & 1) == 0)
   {
-    v21 = (&off_1000992C0)[4 * v17];
-    v9 = sub_10001D234(self, 0xAu, @"%s: invalid selector for state %s", v12, v13, v14, v15, v16, "[FudStateMachine runState]");
+    v8 = sub_10001D234(self, 0xAu, @"%s: invalid selector for state %s", v10, v11, v12, v13, v14, "[FudStateMachine runState]");
     goto LABEL_8;
   }
 
-  self->nextState = v17;
-  if (v17 == LODWORD((&off_1000992C0)[4 * v17 + 2]))
+  self->nextState = state;
+  if (state == LODWORD((&off_1000992C0)[4 * state + 2]))
   {
     [(FudStateMachine *)self clearException];
-    stateMachineDelegate = self->stateMachineDelegate;
     if (objc_opt_respondsToSelector())
     {
       [(FudStateMachineDelegate *)self->stateMachineDelegate stepWillBegin:self->state stateMachine:self];
@@ -579,9 +571,9 @@ LABEL_8:
 
   selfCopy = self;
   dispatch_group_enter(qword_10009A9D8);
-  v22 = (&off_1000992C0)[4 * self->state];
+  v17 = (&off_1000992C0)[4 * self->state];
   FudLog();
-  [(FudStateMachine *)self performSelector:(&off_1000992C0)[4 * self->state + 3], "[FudStateMachine runState]", v22];
+  [(FudStateMachine *)self performSelector:(&off_1000992C0)[4 * self->state + 3], "[FudStateMachine runState]", v17];
 LABEL_11:
   FudLog();
 }
@@ -589,11 +581,10 @@ LABEL_11:
 - (void)didRunStateWithInfo:(id)info
 {
   state = self->state;
-  v17 = "[FudStateMachine didRunStateWithInfo:]";
+  v15 = "[FudStateMachine didRunStateWithInfo:]";
   FudLog();
   if ((self->state - 5) <= 1)
   {
-    plugin = self->plugin;
     if (objc_opt_respondsToSelector())
     {
       pluginForcedSilentUpdate = [(FudPlugin *)self->plugin shouldUpdateBeSilent:0, "[FudStateMachine didRunStateWithInfo:]"];
@@ -605,8 +596,8 @@ LABEL_11:
       pluginForcedSilentUpdate = self->pluginForcedSilentUpdate;
     }
 
-    v17 = "[FudStateMachine didRunStateWithInfo:]";
-    v18 = pluginForcedSilentUpdate;
+    v15 = "[FudStateMachine didRunStateWithInfo:]";
+    v16 = pluginForcedSilentUpdate;
     FudLog();
   }
 
@@ -622,13 +613,13 @@ LABEL_11:
   }
 
   self->busy = 0;
-  v9 = &(&off_1000992C0)[4 * state];
-  if (*(v9 + 4) != LODWORD((&off_1000992C0)[4 * nextState + 2]) || nextState != 11 && self->exception || (v10 = 0, state == 11) && nextState == 8)
+  v8 = &(&off_1000992C0)[4 * state];
+  if (*(v8 + 4) != LODWORD((&off_1000992C0)[4 * nextState + 2]) || nextState != 11 && self->exception || (v9 = 0, state == 11) && nextState == 8)
   {
-    v19 = [FudStateMachine stepName:"[FudStateMachine didRunStateWithInfo:]", v18];
+    v17 = [FudStateMachine stepName:"[FudStateMachine didRunStateWithInfo:]", v16];
     FudLog();
-    [(FudStateMachineDelegate *)self->stateMachineDelegate stepComplete:*(v9 + 4) stateMachine:self status:self->exception == 0 error:"[FudStateMachine didRunStateWithInfo:]" info:v19];
-    v10 = 1;
+    [(FudStateMachineDelegate *)self->stateMachineDelegate stepComplete:*(v8 + 4) stateMachine:self status:self->exception == 0 error:"[FudStateMachine didRunStateWithInfo:]" info:v17];
+    v9 = 1;
   }
 
   if (info)
@@ -636,37 +627,36 @@ LABEL_11:
     ProgressWeightsFromPluginInfo = getProgressWeightsFromPluginInfo();
     if (ProgressWeightsFromPluginInfo)
     {
-      v12 = ProgressWeightsFromPluginInfo;
+      v11 = ProgressWeightsFromPluginInfo;
 
-      self->pluginProgressWeights = v12;
+      self->pluginProgressWeights = v11;
     }
 
-    v13 = [info objectForKey:{@"DeviceClassRevision", v17}];
-    if (v13)
+    v12 = [info objectForKey:{@"DeviceClassRevision", v15}];
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
 
-      self->stateMachineRevision = v14;
+      self->stateMachineRevision = v13;
     }
   }
 
   dispatch_group_leave(qword_10009A9D8);
 
-  v15 = self->state;
-  v16 = *v9;
-  if (state == v15)
+  v14 = self->state;
+  if (state == v14)
   {
     FudLog();
   }
 
   else
   {
-    v20 = *v9;
-    v21 = (&off_1000992C0)[4 * v15];
+    v18 = *v8;
+    v19 = (&off_1000992C0)[4 * v14];
     FudLog();
-    if (!v10 || self->state == 1)
+    if (!v9 || self->state == 1)
     {
-      [(FudStateMachine *)self performNextStepWithOptions:self->pluginOptions, "[FudStateMachine didRunStateWithInfo:]", v20, v21];
+      [(FudStateMachine *)self performNextStepWithOptions:self->pluginOptions, "[FudStateMachine didRunStateWithInfo:]", v18, v19];
     }
   }
 
@@ -687,13 +677,11 @@ LABEL_11:
         return result;
       }
 
-      stateMachineFilterName = self->stateMachineFilterName;
       v21 = sub_10001D234(self, 5u, @"%s: failed to get filter for %@ from policy", v16, v17, v18, v19, v20, "[FudStateMachine getMatchingFilter]");
     }
 
     else
     {
-      v23 = self->stateMachineFilterName;
       v21 = sub_10001D234(self, 4u, @"%s: failed to get policy for %@ from storage", v10, v11, v12, v13, v14, "[FudStateMachine getMatchingFilter]");
     }
   }
@@ -748,13 +736,7 @@ LABEL_11:
   bootstrapCopy = bootstrap;
   FudLog();
   objc_sync_enter(self);
-  validCallback = self->validCallback;
-  if (validCallback)
-  {
-    v10 = self->validCallback;
-  }
-
-  if (validCallback == "didBootstrap:info:error:")
+  if (self->validCallback == "didBootstrap:info:error:")
   {
     self->validCallback = 0;
     objc_sync_exit(self);
@@ -764,7 +746,7 @@ LABEL_11:
       +[FudUtilities logFudAggd:status:info:value:](FudUtilities, "logFudAggd:status:info:value:", self->stateMachineFilterName, @"error", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"bootstrap.%@.%ld", [error domain], objc_msgSend(error, "code")), 1);
       if ([(FudStateMachine *)self getMatchingFilter])
       {
-        sub_10004C8FC(self, error, info, v11, v12, v13, v14, v15);
+        sub_10004C8FC(self, error, info, v9, v10, v11, v12, v13);
       }
     }
 
@@ -877,16 +859,10 @@ LABEL_14:
   downloadCopy = download;
   availableCopy = available;
   findCopy = find;
-  v35 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
+  v33 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
   FudLog();
   objc_sync_enter(self);
-  validCallback = self->validCallback;
-  if (validCallback)
-  {
-    v14 = self->validCallback;
-  }
-
-  if (validCallback == "didFind:info:updateAvailable:needsDownload:error:")
+  if (self->validCallback == "didFind:info:updateAvailable:needsDownload:error:")
   {
     self->validCallback = 0;
     objc_sync_exit(self);
@@ -895,15 +871,15 @@ LABEL_14:
       [(FudStateMachine *)self setException:error, "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]"];
       if (!findCopy)
       {
-        goto LABEL_27;
+        goto LABEL_25;
       }
     }
 
     else if (!findCopy)
     {
-      [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: Unspecified error from plugin", v15, v16, v17, v18, v19, "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]")];
-LABEL_27:
-      v36 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
+      [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: Unspecified error from plugin", v13, v14, v15, v16, v17, "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]")];
+LABEL_25:
+      v34 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
       exception = self->exception;
       FudLog();
       self->nextState = *(&off_1000992C0 + 8 * self->state + 3);
@@ -911,19 +887,19 @@ LABEL_27:
       {
         if ([objc_msgSend(error domain] && objc_msgSend(error, "code") == 1)
         {
-          v37 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
+          v35 = "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]";
           errorCopy = error;
           FudLog();
-          v32 = @"com.apple.fud.updateInterrupted";
+          v30 = @"com.apple.fud.updateInterrupted";
         }
 
         else
         {
-          v32 = @"com.apple.fud.updateFailed";
+          v30 = @"com.apple.fud.updateFailed";
         }
 
-        errorCopy = [NSString stringWithString:v32, v37, errorCopy];
-        v36 = errorCopy;
+        errorCopy = [NSString stringWithString:v30, v35, errorCopy];
+        v34 = errorCopy;
         exception = [(FudStateMachine *)self createEndOfUpdateDictForEvent:errorCopy info:info];
         FudLog();
         AnalyticsSendEvent();
@@ -932,9 +908,9 @@ LABEL_27:
         }
       }
 
-      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v36, exception];
+      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v34, exception];
       +[FudUtilities logFudAggd:status:info:value:](FudUtilities, "logFudAggd:status:info:value:", self->stateMachineFilterName, @"error", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"find.%@.%ld", [error domain], objc_msgSend(error, "code")), 1);
-LABEL_38:
+LABEL_36:
       workQueue = self->workQueue;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
@@ -960,10 +936,10 @@ LABEL_38:
             self->existingFWVersionOnAcc = 0;
           }
 
-          self->existingFWVersionOnAcc = [objc_msgSend(info objectForKeyedSubscript:{@"existingFWVersionOnAccessory", v35), "copy"}];
+          self->existingFWVersionOnAcc = [objc_msgSend(info objectForKeyedSubscript:{@"existingFWVersionOnAccessory", v33), "copy"}];
         }
 
-        if ([info objectForKeyedSubscript:{@"newFWVersion", v35}])
+        if ([info objectForKeyedSubscript:{@"newFWVersion", v33}])
         {
           newFWVersionAvailable = self->newFWVersionAvailable;
           if (newFWVersionAvailable)
@@ -977,29 +953,29 @@ LABEL_38:
       }
 
       stateMachinePluginName = self->stateMachinePluginName;
-      v41[3] = @"newFWVersion";
-      v42 = stateMachinePluginName;
-      v41[0] = @"pluginName";
-      v41[1] = @"modelName";
-      v43 = *&self->accessoryModelNumber;
-      v41[2] = @"existingFWVersionOnAccessory";
-      v44 = self->newFWVersionAvailable;
-      v23 = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:&v42 forKeys:v41 count:4, v35]];
+      v39[3] = @"newFWVersion";
+      v40 = stateMachinePluginName;
+      v39[0] = @"pluginName";
+      v39[1] = @"modelName";
+      v41 = *&self->accessoryModelNumber;
+      v39[2] = @"existingFWVersionOnAccessory";
+      v42 = self->newFWVersionAvailable;
+      v21 = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:&v40 forKeys:v39 count:4, v33]];
       if (downloadCopy)
       {
-        v24 = &(&off_1000992C0)[4 * self->state + 1];
-        v25 = @"mobileAsset";
+        v22 = &(&off_1000992C0)[4 * self->state + 1];
+        v23 = @"mobileAsset";
       }
 
       else
       {
         FudLog();
-        v25 = @"fileSystem";
-        v24 = &dword_1000993A8;
+        v23 = @"fileSystem";
+        v22 = &dword_1000993A8;
       }
 
-      self->nextState = *v24;
-      [(NSMutableDictionary *)v23 setObject:v25 forKey:@"sourceOfFirmware"];
+      self->nextState = *v22;
+      [(NSMutableDictionary *)v21 setObject:v23 forKey:@"sourceOfFirmware"];
       FudLog();
       AnalyticsSendEvent();
     }
@@ -1018,7 +994,7 @@ LABEL_38:
 
         else
         {
-          [(FudStateMachine *)self setException:sub_10001D234(self, 2u, @"%s: failed to get storage from delegate", v27, v28, v29, v30, v31, "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]")];
+          [(FudStateMachine *)self setException:sub_10001D234(self, 2u, @"%s: failed to get storage from delegate", v25, v26, v27, v28, v29, "[FudStateMachine didFind:info:updateAvailable:needsDownload:error:]")];
         }
       }
 
@@ -1028,7 +1004,7 @@ LABEL_38:
       }
     }
 
-    goto LABEL_38;
+    goto LABEL_36;
   }
 
   FudLog();
@@ -1061,22 +1037,16 @@ LABEL_38:
   downloadCopy = download;
   FudLog();
   objc_sync_enter(self);
-  validCallback = self->validCallback;
-  if (validCallback)
-  {
-    v10 = self->validCallback;
-  }
-
-  if (validCallback == "didDownload:info:error:")
+  if (self->validCallback == "didDownload:info:error:")
   {
     self->validCallback = 0;
     objc_sync_exit(self);
     if (downloadCopy)
     {
       getStorage = [(FudStateMachineDelegate *)self->stateMachineDelegate getStorage];
-      if (getStorage && (v17 = getStorage, (v18 = [getStorage getPolicyForPlugin:self->stateMachinePluginName]) != 0))
+      if (getStorage && (v15 = getStorage, (v16 = [getStorage getPolicyForPlugin:self->stateMachinePluginName]) != 0))
       {
-        [v17 recordSuccessfulRemoteFindForPolicy:v18 filter:self->stateMachineFilterName revision:self->stateMachineRevision date:0];
+        [v15 recordSuccessfulRemoteFindForPolicy:v16 filter:self->stateMachineFilterName revision:self->stateMachineRevision date:0];
       }
 
       else
@@ -1099,19 +1069,19 @@ LABEL_38:
         [(FudStateMachine *)self setException:error, "[FudStateMachine didDownload:info:error:]"];
         if ([objc_msgSend(error "domain")] && objc_msgSend(error, "code") == 1)
         {
-          v22 = "[FudStateMachine didDownload:info:error:]";
+          v20 = "[FudStateMachine didDownload:info:error:]";
           errorCopy = error;
           FudLog();
-          v19 = @"com.apple.fud.updateInterrupted";
+          v17 = @"com.apple.fud.updateInterrupted";
         }
 
         else
         {
-          v19 = @"com.apple.fud.updateFailed";
+          v17 = @"com.apple.fud.updateFailed";
         }
 
-        errorCopy = [NSString stringWithString:v19, v22, errorCopy];
-        v23 = errorCopy;
+        errorCopy = [NSString stringWithString:v17, v20, errorCopy];
+        v21 = errorCopy;
         errorCopy = [(FudStateMachine *)self createEndOfUpdateDictForEvent:errorCopy info:info];
         FudLog();
         AnalyticsSendEvent();
@@ -1122,10 +1092,10 @@ LABEL_38:
 
       else
       {
-        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v11, v12, v13, v14, v15, "[FudStateMachine didDownload:info:error:]")];
+        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v9, v10, v11, v12, v13, "[FudStateMachine didDownload:info:error:]")];
       }
 
-      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v23, errorCopy];
+      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v21, errorCopy];
       +[FudUtilities logFudAggd:status:info:value:](FudUtilities, "logFudAggd:status:info:value:", self->stateMachineFilterName, @"error", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"download.%@.%ld", [error domain], objc_msgSend(error, "code")), 1);
     }
 
@@ -1256,20 +1226,14 @@ LABEL_8:
   prepareCopy = prepare;
   FudLog();
   objc_sync_enter(self);
-  validCallback = self->validCallback;
-  if (validCallback)
-  {
-    v10 = self->validCallback;
-  }
-
-  if (validCallback == "didPrepare:info:error:")
+  if (self->validCallback == "didPrepare:info:error:")
   {
     self->validCallback = 0;
     objc_sync_exit(self);
-    v16 = &(&off_1000992C0)[4 * self->state];
+    v14 = &(&off_1000992C0)[4 * self->state];
     if (prepareCopy)
     {
-      self->nextState = *(v16 + 2);
+      self->nextState = *(v14 + 2);
       if (error)
       {
         FudLog();
@@ -1278,25 +1242,25 @@ LABEL_8:
 
     else
     {
-      self->nextState = *(v16 + 3);
+      self->nextState = *(v14 + 3);
       if (error)
       {
         [(FudStateMachine *)self setException:error, "[FudStateMachine didPrepare:info:error:]"];
         if ([objc_msgSend(error "domain")] && objc_msgSend(error, "code") == 1)
         {
-          v20 = "[FudStateMachine didPrepare:info:error:]";
+          v18 = "[FudStateMachine didPrepare:info:error:]";
           errorCopy = error;
           FudLog();
-          v17 = @"com.apple.fud.updateInterrupted";
+          v15 = @"com.apple.fud.updateInterrupted";
         }
 
         else
         {
-          v17 = @"com.apple.fud.updateFailed";
+          v15 = @"com.apple.fud.updateFailed";
         }
 
-        errorCopy = [NSString stringWithString:v17, v20, errorCopy];
-        v21 = errorCopy;
+        errorCopy = [NSString stringWithString:v15, v18, errorCopy];
+        v19 = errorCopy;
         errorCopy = [(FudStateMachine *)self createEndOfUpdateDictForEvent:errorCopy info:info];
         FudLog();
         AnalyticsSendEvent();
@@ -1307,10 +1271,10 @@ LABEL_8:
 
       else
       {
-        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v11, v12, v13, v14, v15, "[FudStateMachine didPrepare:info:error:]")];
+        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v9, v10, v11, v12, v13, "[FudStateMachine didPrepare:info:error:]")];
       }
 
-      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v21, errorCopy];
+      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v19, errorCopy];
       +[FudUtilities logFudAggd:status:info:value:](FudUtilities, "logFudAggd:status:info:value:", self->stateMachineFilterName, @"error", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"prepare.%@.%ld", [error domain], objc_msgSend(error, "code")), 1);
     }
 
@@ -1345,15 +1309,9 @@ LABEL_8:
       [getMatchingFilter filterName];
     }
 
-    else if (self->hasSleepAssertion)
-    {
-      sleepAssertionId = self->sleepAssertionId;
-    }
-
-    else if (!IOPMAssertionCreateWithName(@"PreventUserIdleSystemSleep", 0xFFu, @"com.apple.MobileAccessoryUpdater.SleepAssertionID", &self->sleepAssertionId))
+    else if (!self->hasSleepAssertion && !IOPMAssertionCreateWithName(@"PreventUserIdleSystemSleep", 0xFFu, @"com.apple.MobileAccessoryUpdater.SleepAssertionID", &self->sleepAssertionId))
     {
       self->hasSleepAssertion = 1;
-      v7 = self->sleepAssertionId;
     }
 
     FudLog();
@@ -1555,10 +1513,10 @@ LABEL_45:
 
 - (id)createBeginningOfUpdateDictForEvent:(id)event info:(id)info
 {
-  FudLog();
+  v7 = FudLog();
   if (info)
   {
-    if (event && (([event isEqualToString:{@"com.apple.fud.updateStarted", "-[FudStateMachine createBeginningOfUpdateDictForEvent:info:]"}] & 1) != 0 || (objc_msgSend(event, "isEqualToString:", @"com.apple.fud.updateResumed") & 1) != 0))
+    if (event && (([event isEqualToString:{@"com.apple.fud.updateStarted", "-[FudStateMachine createBeginningOfUpdateDictForEvent:info:]"}] & 1) != 0 || (v7 = objc_msgSend(event, "isEqualToString:", @"com.apple.fud.updateResumed"), (v7 & 1) != 0)))
     {
       if ([info objectForKeyedSubscript:@"transportType"] && -[FudStateMachine conformsToAllowedValuesForKey:value:](self, "conformsToAllowedValuesForKey:value:", @"transportType", objc_msgSend(info, "objectForKeyedSubscript:", @"transportType")))
       {
@@ -1597,17 +1555,17 @@ LABEL_45:
       }
 
       stateMachinePluginName = self->stateMachinePluginName;
-      v13[0] = @"pluginName";
-      v13[1] = @"modelName";
+      v14[0] = @"pluginName";
+      v14[1] = @"modelName";
       accessoryModelNumber = self->accessoryModelNumber;
-      v14[0] = stateMachinePluginName;
-      v14[1] = accessoryModelNumber;
-      v14[2] = self->transportType;
-      v13[2] = @"transportType";
-      v13[3] = @"existingFWVersionOnAccessory";
-      v13[4] = @"newFWVersion";
-      v15 = *&self->existingFWVersionOnAcc;
-      info = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:5]];
+      v15[0] = stateMachinePluginName;
+      v15[1] = accessoryModelNumber;
+      v15[2] = self->transportType;
+      v14[2] = @"transportType";
+      v14[3] = @"existingFWVersionOnAccessory";
+      v14[4] = @"newFWVersion";
+      v16 = *&self->existingFWVersionOnAcc;
+      info = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:5]];
       if (([event isEqualToString:@"com.apple.fud.updateStarted"] & 1) == 0 && objc_msgSend(event, "isEqualToString:", @"com.apple.fud.updateResumed"))
       {
         [info setObject:self->resumePercent forKey:@"resumingFromPercent"];
@@ -1617,14 +1575,14 @@ LABEL_45:
 
     else
     {
-      sub_10004CA7C();
+      sub_10004CA7C(v7);
       return 0;
     }
   }
 
   else
   {
-    sub_10004CA88();
+    sub_10004CA88(v7);
   }
 
   return info;
@@ -1637,7 +1595,7 @@ LABEL_45:
   if (self->hasSleepAssertion)
   {
     v9 = IOPMAssertionRelease(self->sleepAssertionId);
-    v26 = @"com.apple.MobileAccessoryUpdater.SleepAssertionID";
+    v24 = @"com.apple.MobileAccessoryUpdater.SleepAssertionID";
     sleepAssertionId = self->sleepAssertionId;
     errorCopy = v9;
     FudLog();
@@ -1650,20 +1608,14 @@ LABEL_45:
   }
 
   objc_sync_enter(self);
-  validCallback = self->validCallback;
-  if (validCallback)
-  {
-    v11 = self->validCallback;
-  }
-
-  if (validCallback == "didApply:info:error:")
+  if (self->validCallback == "didApply:info:error:")
   {
     self->validCallback = 0;
     objc_sync_exit(self);
-    v17 = &(&off_1000992C0)[4 * self->state];
+    v15 = &(&off_1000992C0)[4 * self->state];
     if (applyCopy)
     {
-      self->nextState = *(v17 + 2);
+      self->nextState = *(v15 + 2);
       [(FudStateMachine *)self createEndOfUpdateDictForEvent:@"com.apple.fud.updateCompleted" info:info, "[FudStateMachine didApply:info:error:]"];
       FudLog();
       AnalyticsSendEvent();
@@ -1675,13 +1627,13 @@ LABEL_45:
 
     else
     {
-      self->nextState = *(v17 + 3);
+      self->nextState = *(v15 + 3);
       if (error)
       {
         [(FudStateMachine *)self setException:error, "[FudStateMachine didApply:info:error:]"];
         if ([objc_msgSend(error "domain")] && objc_msgSend(error, "code") == -1)
         {
-          v21 = "[FudStateMachine didApply:info:error:]";
+          v19 = "[FudStateMachine didApply:info:error:]";
           errorCopy = error;
           FudLog();
           self->nextState = 9;
@@ -1689,19 +1641,19 @@ LABEL_45:
 
         if ([objc_msgSend(error domain] && objc_msgSend(error, "code") == 1)
         {
-          v22 = "[FudStateMachine didApply:info:error:]";
+          v20 = "[FudStateMachine didApply:info:error:]";
           errorCopy2 = error;
           FudLog();
-          v18 = @"com.apple.fud.updateInterrupted";
+          v16 = @"com.apple.fud.updateInterrupted";
         }
 
         else
         {
-          v18 = @"com.apple.fud.updateFailed";
+          v16 = @"com.apple.fud.updateFailed";
         }
 
-        errorCopy2 = [NSString stringWithString:v18, v22, errorCopy2];
-        v23 = errorCopy2;
+        errorCopy2 = [NSString stringWithString:v16, v20, errorCopy2];
+        v21 = errorCopy2;
         errorCopy = [(FudStateMachine *)self createEndOfUpdateDictForEvent:errorCopy2 info:info];
         FudLog();
         AnalyticsSendEvent();
@@ -1712,10 +1664,10 @@ LABEL_45:
 
       else
       {
-        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v12, v13, v14, v15, v16, "[FudStateMachine didApply:info:error:]")];
+        [(FudStateMachine *)self setException:sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v10, v11, v12, v13, v14, "[FudStateMachine didApply:info:error:]")];
       }
 
-      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v23, errorCopy];
+      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1, v21, errorCopy];
       +[FudUtilities logFudAggd:status:info:value:](FudUtilities, "logFudAggd:status:info:value:", self->stateMachineFilterName, @"error", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"apply.%@.%ld", [error domain], objc_msgSend(error, "code")), 1);
     }
 
@@ -1755,6 +1707,76 @@ LABEL_45:
     self->nextState = *(&off_1000992C0 + 8 * self->state + 3);
 
     [(FudStateMachine *)self didRunStateWithInfo:0];
+  }
+}
+
+- (void)didFinish:(BOOL)finish info:(id)info error:(id)error
+{
+  finishCopy = finish;
+  errorCopy = finish;
+  FudLog();
+  v21 = "[FudStateMachine didFinish:info:error:]";
+  FudLog();
+  objc_sync_enter(self);
+  if (self->validCallback == "didFinish:info:error:")
+  {
+    self->validCallback = 0;
+    objc_sync_exit(self);
+    v14 = &(&off_1000992C0)[4 * self->state];
+    if (finishCopy)
+    {
+      self->nextState = *(v14 + 2);
+      if (error)
+      {
+        v21 = "[FudStateMachine didFinish:info:error:]";
+        errorCopy = error;
+        FudLog();
+      }
+
+      stateMachineFilterName = self->stateMachineFilterName;
+      v16 = @"updates.success";
+      v17 = 0;
+    }
+
+    else
+    {
+      self->nextState = *(v14 + 3);
+      if (error)
+      {
+        selfCopy2 = self;
+        errorCopy2 = error;
+      }
+
+      else
+      {
+        errorCopy2 = sub_10001D234(self, 7u, @"%s: unspecified error from plugin", v9, v10, v11, v12, v13, "[FudStateMachine didFinish:info:error:]");
+        selfCopy2 = self;
+      }
+
+      [(FudStateMachine *)selfCopy2 setException:errorCopy2, v21, errorCopy, info];
+      [FudUtilities logFudAggd:self->stateMachineFilterName status:@"updates.failure" info:0 value:1];
+      v17 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"finish.%@.%ld", [error domain], objc_msgSend(error, "code"));
+      stateMachineFilterName = self->stateMachineFilterName;
+      v16 = @"error";
+    }
+
+    [FudUtilities logFudAggd:stateMachineFilterName status:v16 info:v17 value:1, v21, errorCopy];
+    workQueue = self->workQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100020220;
+    block[3] = &unk_100081788;
+    block[4] = self;
+    block[5] = info;
+    dispatch_group_async(qword_10009A9D8, workQueue, block);
+    FudLog();
+  }
+
+  else
+  {
+    FudLog();
+
+    objc_sync_exit(self);
   }
 }
 
@@ -1831,6 +1853,17 @@ LABEL_45:
   dispatch_group_async(qword_10009A9D8, workQueue, v4);
 }
 
+- (void)logv:(int)logv format:(id)format arguments:(char *)arguments
+{
+  v7 = *&logv;
+  stateMachineFilterName = self->stateMachineFilterName;
+  v10 = pthread_self();
+  [NSString stringWithFormat:@"<%@[%d] %p>: ", stateMachineFilterName, pthread_mach_thread_np(v10), self->plugin];
+  FudLog();
+
+  _FudLogv(v7, format, arguments);
+}
+
 - (void)encodeWithCoder:(id)coder
 {
   [coder encodeObject:self->stateMachinePluginName forKey:@"PluginName"];
@@ -1850,9 +1883,9 @@ LABEL_45:
 
 - (FudStateMachine)initWithCoder:(id)coder
 {
-  v10.receiver = self;
-  v10.super_class = FudStateMachine;
-  v4 = [(FudStateMachine *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = FudStateMachine;
+  v4 = [(FudStateMachine *)&v9 init];
   if (v4)
   {
     v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"PluginName"];
@@ -1862,7 +1895,6 @@ LABEL_45:
       v4->state = v6;
       if (v6 < 0xC)
       {
-        v9 = (&off_1000992C0)[4 * v6];
         FudLog();
         return v4;
       }
@@ -1879,12 +1911,11 @@ LABEL_45:
 
 - (void)issueNotification:(id)notification
 {
-  stateMachineDelegate = self->stateMachineDelegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->stateMachineDelegate;
+    stateMachineDelegate = self->stateMachineDelegate;
 
-    [(FudStateMachineDelegate *)v6 issueNotification:self request:notification];
+    [(FudStateMachineDelegate *)stateMachineDelegate issueNotification:self request:notification];
   }
 }
 

@@ -7,6 +7,7 @@
 - (void)setBigMessageWarningSize:(int64_t)size;
 - (void)setDaysAfterDownloadToDeleteMessagesFromServer:(int64_t)server;
 - (void)setDeletionPolicy:(int64_t)policy;
+- (void)setHasNotFinishedFirstTimeSync:(BOOL)sync;
 @end
 
 @implementation ECPOPAccount
@@ -72,6 +73,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasNotFinishedFirstTimeSync:(BOOL)sync
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:sync];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 @end

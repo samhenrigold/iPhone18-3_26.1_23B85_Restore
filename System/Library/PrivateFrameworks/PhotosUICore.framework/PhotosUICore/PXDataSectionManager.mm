@@ -289,7 +289,7 @@
   self->_previousDataSection = 0;
 }
 
-uint64_t __54__PXDataSectionManager__setDataSection_changeDetails___block_invoke(uint64_t a1)
+void *__54__PXDataSectionManager__setDataSection_changeDetails___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 96) identifier];
   result = [*(a1 + 40) identifier];

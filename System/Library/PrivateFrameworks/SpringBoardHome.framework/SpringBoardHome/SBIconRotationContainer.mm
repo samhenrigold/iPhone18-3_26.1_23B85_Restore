@@ -126,7 +126,7 @@ LABEL_11:
   v7.receiver = self;
   v7.super_class = SBIconRotationContainer;
   [(SBIconRotationContainer *)&v7 layoutSubviews];
-  [(SBIconRotationContainer *)self bounds];
+  objc_msgSend_bounds(self);
   UIRectGetCenter();
   v4 = v3;
   v6 = v5;

@@ -162,38 +162,19 @@ LABEL_22:
     v16 = restrictedSourceEntities;
     v17 = filter;
     statisticsOptions = self->_statisticsOptions;
-    if ((_HKStatisticsOptionAttenuateSamples() & statisticsOptions) == 0)
+    if ((_HKStatisticsOptionAttenuateSamples() & statisticsOptions) == 0 || ([MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB58]], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v14, "isEqual:", v19), v19, !v20) || (objc_msgSend(MEMORY[0x277CCD830], "_quantityTypeWithCode:", 272), v21 = objc_claimAutoreleasedReturnValue(), v22 = [HDStatisticsCollectionCalculatorAttenuatedDataSource alloc], -[HDQueryServer profile](self, "profile"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[HDStatisticsCollectionCalculatorAttenuatedDataSource initForProfile:quantityType:predicate:restrictedSourceEntities:attenuationType:](v22, "initForProfile:quantityType:predicate:restrictedSourceEntities:attenuationType:", v23, v14, v15, v16, v21), v23, v21, !v24))
     {
-      goto LABEL_12;
-    }
-
-    v19 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB58]];
-    v20 = [v14 isEqual:v19];
-
-    if (!v20)
-    {
-      goto LABEL_12;
-    }
-
-    v21 = [MEMORY[0x277CCD830] _quantityTypeWithCode:272];
-    v22 = [HDStatisticsCollectionCalculatorAttenuatedDataSource alloc];
-    profile2 = [(HDQueryServer *)self profile];
-    v24 = [(HDStatisticsCollectionCalculatorAttenuatedDataSource *)v22 initForProfile:profile2 quantityType:v14 predicate:v15 restrictedSourceEntities:v16 attenuationType:v21];
-
-    if (!v24)
-    {
-LABEL_12:
       v25 = [HDStatisticsCollectionCalculatorDefaultDataSource alloc];
-      profile3 = [(HDQueryServer *)self profile];
-      v24 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)v25 initForProfile:profile3 quantityType:v14 predicate:v15 restrictedSourceEntities:v16];
+      profile2 = [(HDQueryServer *)self profile];
+      v24 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)v25 initForProfile:profile2 quantityType:v14 predicate:v15 restrictedSourceEntities:v16];
     }
 
     [v24 setFilter:v17];
     [v24 setIncludeUnfrozenSeries:1];
 
     v27 = [HDStatisticsCollectionCalculatorDefaultSourceOrderProvider alloc];
-    profile4 = [(HDQueryServer *)self profile];
-    v29 = [(HDStatisticsCollectionCalculatorDefaultSourceOrderProvider *)v27 initWithProfile:profile4 quantityType:v14];
+    profile3 = [(HDQueryServer *)self profile];
+    v29 = [(HDStatisticsCollectionCalculatorDefaultSourceOrderProvider *)v27 initWithProfile:profile3 quantityType:v14];
 
     v30 = [HDStatisticsCollectionCalculator calculatorForQuantityType:v14 intervalCollection:0 options:self->_statisticsOptions mergeStrategy:self->_mergeStrategy];
     [v30 setDataSource:v24];

@@ -22,7 +22,7 @@
   }
 
   v8.receiver = self;
-  v8.super_class = type metadata accessor for DOCItemCollectionCandidateSource();
+  v8.super_class = type metadata accessor for DOCItemCollectionCandidateSource(0);
   [(DOCItemCollectionCandidateSource *)&v8 dealloc];
 }
 

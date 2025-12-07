@@ -5,43 +5,43 @@
 
 void __96__NSExtension_Intents___findAppsWithAnyIntentsExtensionCheckingSiriEnabledUseFilter_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v22 = a3;
+  v21 = a3;
   if (v4)
   {
     v5 = [v4 count];
     v6 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v5];
-    v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5];
+    v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v5];
   }
 
   else
   {
     v6 = 0;
-    v23 = 0;
+    v22 = 0;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         v13 = [v12 _plugIn];
         v14 = [v13 containingUrl];
 
@@ -73,7 +73,7 @@ void __96__NSExtension_Intents___findAppsWithAnyIntentsExtensionCheckingSiriEnab
                 if (v19)
                 {
 LABEL_19:
-                  [v23 addObject:v15];
+                  [v22 addObject:v15];
                 }
               }
             }
@@ -104,7 +104,7 @@ LABEL_20:
       }
 
       while (v9 != v11);
-      v20 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v20 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       v9 = v20;
     }
 
@@ -112,16 +112,15 @@ LABEL_20:
   }
 
   (*(*(a1 + 32) + 16))();
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __96__NSExtension_Intents___intents_findSiriEntitledAppsContainingAnIntentsExtensionWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v23 = a3;
+  v22 = a3;
   v5 = objc_alloc(MEMORY[0x1E695DFA8]);
-  v24 = v4;
+  v23 = v4;
   if (v4)
   {
     v6 = v4;
@@ -132,30 +131,30 @@ void __96__NSExtension_Intents___intents_findSiriEntitledAppsContainingAnIntents
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v25 = [v5 initWithArray:{v6, a1}];
+  v24 = [v5 initWithArray:{v6, a1}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v7 = [MEMORY[0x1E69635F8] enumeratorWithOptions:0];
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v8)
   {
     goto LABEL_15;
   }
 
   v9 = v8;
-  v10 = *v27;
+  v10 = *v26;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v27 != v10)
+      if (*v26 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v26 + 1) + 8 * i);
+      v12 = *(*(&v25 + 1) + 8 * i);
       v13 = [v12 supportedIntents];
       if ([v13 count])
       {
@@ -169,36 +168,34 @@ void __96__NSExtension_Intents___intents_findSiriEntitledAppsContainingAnIntents
         }
 
         v13 = [v12 compatibilityObject];
-        [v25 addObject:v13];
+        [v24 addObject:v13];
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v9);
 LABEL_15:
 
-  v17 = *(v22 + 32);
-  v18 = [v25 allObjects];
-  if ([v25 count])
+  v17 = *(v21 + 32);
+  v18 = [v24 allObjects];
+  if ([v24 count])
   {
     v19 = 0;
   }
 
   else
   {
-    v19 = v23;
+    v19 = v22;
   }
 
   (*(v17 + 16))(v17, v18, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __71__NSExtension_Intents___intents_findAppsWithAnIntentsServiceExtension___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = objc_alloc(MEMORY[0x1E695DFA8]);
@@ -213,26 +210,26 @@ void __71__NSExtension_Intents___intents_findAppsWithAnIntentsServiceExtension__
   }
 
   v8 = [v6 initWithArray:v7];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = [MEMORY[0x1E69635F8] enumeratorWithOptions:0];
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         v15 = [v14 supportedIntents];
         v16 = [v15 count];
 
@@ -243,7 +240,7 @@ void __71__NSExtension_Intents___intents_findAppsWithAnIntentsServiceExtension__
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -262,13 +259,11 @@ void __71__NSExtension_Intents___intents_findAppsWithAnIntentsServiceExtension__
   }
 
   (*(v18 + 16))(v18, v19, v20);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __103__NSExtension_Intents___matchExtensionsWithAttributes_extensionPointName_requireTrustCheck_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 count];
@@ -285,41 +280,39 @@ void __103__NSExtension_Intents___matchExtensionsWithAttributes_extensionPointNa
     v10 = MEMORY[0x1E696ABC0];
     v11 = *(a1 + 32);
     v12 = *MEMORY[0x1E696A578];
-    v15[0] = @"ExtensionPointName";
-    v15[1] = v12;
-    v16[0] = v11;
-    v16[1] = @"Unable to find an extension to run this intent. Is your intent listed in IntentsSupported in the extension Info.plist?";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[0] = @"ExtensionPointName";
+    v14[1] = v12;
+    v15[0] = v11;
+    v15[1] = @"Unable to find an extension to run this intent. Is your intent listed in IntentsSupported in the extension Info.plist?";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     v6 = [v10 errorWithDomain:@"INExtensionMatchingErrorDomain" code:3001 userInfo:v13];
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [*(a1 + 32) count];
   v9 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v30 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
-    v31 = 2112;
-    v32 = v7;
+    v29 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
+    v30 = 2112;
+    v31 = v7;
     _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s Attempting to retrieve specified extension with identifier: %@", buf, 0x16u);
   }
 
   v10 = a3 + 1;
-  v27 = *MEMORY[0x1E696A2E0];
-  v28 = v7;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  v25 = 0;
-  v12 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v11 error:&v25];
-  v13 = v25;
+  v26 = *MEMORY[0x1E696A2E0];
+  v27 = v7;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v24 = 0;
+  v12 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v11 error:&v24];
+  v13 = v24;
   v14 = [v12 firstObject];
 
   if (v13)
@@ -328,9 +321,9 @@ void __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_sh
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v30 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
-      v31 = 2112;
-      v32 = v13;
+      v29 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
+      v30 = 2112;
+      v31 = v13;
       _os_log_error_impl(&dword_18E991000, v15, OS_LOG_TYPE_ERROR, "%s Could not retrieve specified extension: %@", buf, 0x16u);
     }
   }
@@ -340,25 +333,25 @@ void __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_sh
     if (v14)
     {
       v18 = *(a1 + 48);
-      v26 = v14;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+      v25 = v14;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
       (*(v18 + 16))(v18, v19, 0);
 
       *a4 = 1;
       goto LABEL_10;
     }
 
-    v21 = INSiriLogContextIntents;
+    v20 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(a1 + 40);
-      v23 = v21;
-      v24 = [v22 extensionBundleId];
+      v21 = *(a1 + 40);
+      v22 = v20;
+      v23 = [v21 extensionBundleId];
       *buf = 136315394;
-      v30 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
-      v31 = 2112;
-      v32 = v24;
-      _os_log_error_impl(&dword_18E991000, v23, OS_LOG_TYPE_ERROR, "%s extensionWithIdentifier returned nil for identifier: %@", buf, 0x16u);
+      v29 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]_block_invoke";
+      v30 = 2112;
+      v31 = v23;
+      _os_log_error_impl(&dword_18E991000, v22, OS_LOG_TYPE_ERROR, "%s extensionWithIdentifier returned nil for identifier: %@", buf, 0x16u);
     }
   }
 
@@ -370,8 +363,6 @@ void __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_sh
   }
 
 LABEL_10:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke_43(uint64_t a1, void *a2, void *a3)

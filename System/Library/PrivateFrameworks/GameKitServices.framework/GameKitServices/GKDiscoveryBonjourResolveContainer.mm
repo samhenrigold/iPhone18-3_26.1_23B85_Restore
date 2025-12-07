@@ -20,45 +20,44 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
 
   self->_resolveCompletionHandler = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   serviceRefList = self->_serviceRefList;
-  v4 = [(NSMutableArray *)serviceRefList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)serviceRefList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(serviceRefList);
         }
 
-        pointerValue = [*(*(&v11 + 1) + 8 * i) pointerValue];
+        pointerValue = [*(*(&v10 + 1) + 8 * i) pointerValue];
         if (pointerValue)
         {
           DNSServiceRefDeallocate(pointerValue);
         }
       }
 
-      v5 = [(NSMutableArray *)serviceRefList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)serviceRefList countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10.receiver = self;
-  v10.super_class = GKDiscoveryBonjourResolveContainer;
-  [(GKDiscoveryBonjourResolveContainer *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = GKDiscoveryBonjourResolveContainer;
+  [(GKDiscoveryBonjourResolveContainer *)&v9 dealloc];
 }
 
 @end

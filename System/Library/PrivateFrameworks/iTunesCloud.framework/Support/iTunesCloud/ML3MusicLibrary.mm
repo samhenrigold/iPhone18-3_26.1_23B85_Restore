@@ -276,21 +276,8 @@
 
   v16 = longLongValue;
 
-  if (v16)
+  if (v16 || (([v8 objectForKey:v5], v17 = objc_claimAutoreleasedReturnValue(), v18 = _NSIsNSString(), objc_msgSend(v8, "objectForKey:", v5), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19, (v18 & 1) == 0) ? (v21 = objc_msgSend(v19, "unsignedLongLongValue")) : (v21 = objc_msgSend(v19, "longLongValue")), v16 = v21, v20, v17, v16))
   {
-    goto LABEL_10;
-  }
-
-  v17 = [v8 objectForKey:v5];
-  v18 = _NSIsNSString();
-  v19 = [v8 objectForKey:v5];
-  v20 = v19;
-  v21 = (v18 & 1) != 0 ? [v19 longLongValue] : objc_msgSend(v19, "unsignedLongLongValue");
-  v16 = v21;
-
-  if (v16)
-  {
-LABEL_10:
     if (unsignedIntValue != 256 && unsignedIntValue != 4096)
     {
       v22 = [NSString stringWithFormat:@"%llu", v16];

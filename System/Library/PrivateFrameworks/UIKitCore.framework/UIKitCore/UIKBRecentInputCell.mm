@@ -87,7 +87,7 @@
   {
     if (selectedCopy)
     {
-      v6 = +[UIColor blackColor];
+      v6 = objc_msgSend_blackColor(UIColor);
       goto LABEL_7;
     }
 

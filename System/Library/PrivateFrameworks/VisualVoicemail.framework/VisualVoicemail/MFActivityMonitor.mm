@@ -9,7 +9,7 @@
 + (id)currentTracebleMonitor
 {
   v2 = +[MFActivityMonitor currentMonitor];
-  v3 = sub_100030068();
+  v3 = sub_100030068(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

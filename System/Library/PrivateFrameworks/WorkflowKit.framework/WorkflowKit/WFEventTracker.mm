@@ -34,7 +34,7 @@ void __31__WFEventTracker_sharedTracker__block_invoke()
 
 - (void)trackEvent:(id)event
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v6 = getWFEventTrackerLogObject();
   v7 = os_signpost_id_generate(v6);
@@ -44,8 +44,8 @@ void __31__WFEventTracker_sharedTracker__block_invoke()
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 138412290;
-    v29 = objc_opt_class();
-    v10 = v29;
+    v28 = objc_opt_class();
+    v10 = v28;
     _os_signpost_emit_with_name_impl(&dword_1CA256000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "TrackEvent", "event=%{signpost.description:attribute}@", buf, 0xCu);
   }
 
@@ -75,30 +75,30 @@ void __31__WFEventTracker_sharedTracker__block_invoke()
       coreAnalyticsKey2 = [eventCopy coreAnalyticsKey];
       serializableEvent = [eventCopy serializableEvent];
       *buf = 136315906;
-      v29 = "[WFEventTracker trackEvent:]";
-      v30 = 2114;
-      v31 = v15;
-      v32 = 2114;
-      v33 = coreAnalyticsKey2;
-      v34 = 2114;
-      v35 = serializableEvent;
+      v28 = "[WFEventTracker trackEvent:]";
+      v29 = 2114;
+      v30 = v15;
+      v31 = 2114;
+      v32 = coreAnalyticsKey2;
+      v33 = 2114;
+      v34 = serializableEvent;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_INFO, "%s Logging event to CoreAnalytics %{public}@ using key %{public}@ %{public}@", buf, 0x2Au);
     }
 
     coreAnalyticsKey3 = [eventCopy coreAnalyticsKey];
-    v27 = eventCopy;
+    v26 = eventCopy;
     AnalyticsSendEventLazy();
 
-    v14 = v27;
+    v14 = v26;
   }
 
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     v20 = objc_opt_class();
     *buf = 136315394;
-    v29 = "[WFEventTracker trackEvent:]";
-    v30 = 2114;
-    v31 = v20;
+    v28 = "[WFEventTracker trackEvent:]";
+    v29 = 2114;
+    v30 = v20;
     v21 = v20;
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Unable to log event %{public}@ - invalid key", buf, 0x16u);
   }
@@ -110,8 +110,6 @@ void __31__WFEventTracker_sharedTracker__block_invoke()
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1CA256000, v23, OS_SIGNPOST_INTERVAL_END, v7, "TrackEvent", "", buf, 2u);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

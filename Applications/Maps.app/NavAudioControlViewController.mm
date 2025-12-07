@@ -52,10 +52,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_volumeLevelChangeHandler);
   v8 = *(self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_volumeLevelChangeHandler);
+  v9 = *(self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_volumeLevelChangeHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (id)dismissHandler
@@ -98,10 +99,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_dismissHandler);
   v8 = *(self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_dismissHandler);
+  v9 = *(self + OBJC_IVAR____TtC4Maps29NavAudioControlViewController_dismissHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (void)viewDidLoad

@@ -386,9 +386,9 @@ void __73__SUUIModalDocumentController_navigationDocumentForNavigationController
             objc_copyWeak(&v40, &v42);
             [(SUUIDocumentStackItem *)v15 setCompletionWithItemsHandler:v37];
             presentationType = [(SUUIDocumentStackItem *)reviewMetadataURLString presentationType];
-            v22 = [presentationType isEqualToString:0x286B00C00];
+            isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-            if (v22)
+            if (isEqualToString)
             {
               [(SUUIModalDocumentController *)self _pushPopoverStackItem:reviewMetadataURLString];
             }
@@ -496,12 +496,12 @@ LABEL_50:
 
         [(SUUIDocumentStackItem *)v15 setViewController:v24];
         presentationType2 = [(SUUIDocumentStackItem *)v15 presentationType];
-        if ([presentationType2 isEqualToString:0x286AFDC80])
+        if (objc_msgSend_isEqualToString_(presentationType2))
         {
           [(SUUIModalDocumentController *)self _pushOverlayStackItem:v15];
         }
 
-        else if ([presentationType2 isEqualToString:0x286B00C00])
+        else if (objc_msgSend_isEqualToString_(presentationType2))
         {
           [(SUUIModalDocumentController *)self _pushPopoverStackItem:v15];
         }
@@ -640,9 +640,9 @@ void __52__SUUIModalDocumentController_pushDocument_options___block_invoke_3(uin
 LABEL_11:
 
   presentationType = [v12 presentationType];
-  v18 = [presentationType isEqualToString:0x286AFDC80];
+  isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-  if (v18)
+  if (isEqualToString)
   {
     v19 = [SUUIDocumentContainerViewController alloc];
     clientContext = [(SUUIModalDocumentController *)self clientContext];
@@ -768,7 +768,7 @@ void __104__SUUIModalDocumentController_ensureOverlayNavigationControllerStackCo
 {
   v10 = a2;
   v3 = [v10 presentationType];
-  [v3 isEqualToString:0x286AFDC80];
+  objc_msgSend_isEqualToString_(v3);
 
   v4 = [*(a1 + 32) viewControllers];
   v5 = [v10 viewController];
@@ -1254,9 +1254,9 @@ uint64_t __79__SUUIModalDocumentController__dismissOverlayControllerWithStackIte
 
         v9 = *(*(&v14 + 1) + 8 * i);
         presentationType = [v9 presentationType];
-        v11 = [presentationType isEqualToString:0x286AFDC80];
+        isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-        if (v11)
+        if (isEqualToString)
         {
           [v3 addObject:v9];
         }
@@ -1282,12 +1282,12 @@ uint64_t __79__SUUIModalDocumentController__dismissOverlayControllerWithStackIte
   if (lastObject)
   {
     presentationType = [lastObject presentationType];
-    if ([presentationType isEqualToString:0x286AFDC80])
+    if (objc_msgSend_isEqualToString_(presentationType))
     {
       [(SUUIModalDocumentController *)self _popOverlayStackItem:v7 animated:documentCopy completion:completionCopy];
     }
 
-    else if ([presentationType isEqualToString:0x286B00C00])
+    else if (objc_msgSend_isEqualToString_(presentationType))
     {
       [(SUUIModalDocumentController *)self _popPopoverStackItem:v7 animated:documentCopy completion:completionCopy];
     }
@@ -1824,15 +1824,15 @@ uint64_t __59__SUUIModalDocumentController__pushDialogDocument_options___block_i
 - (void)_pushFamilySetupDocument:(id)document options:(id)options
 {
   documentCopy = document;
-  v6 = SUUIAccountsFramework();
-  v11 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v6));
-  v7 = SUUIAppleAccountUIFramework();
-  v8 = objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Aauifamilysetu.isa, v7));
-  aa_primaryAppleAccount = [v11 aa_primaryAppleAccount];
-  v10 = [v8 initWithAccount:aa_primaryAppleAccount store:v11];
+  v7 = SUUIAccountsFramework(documentCopy, v6);
+  v13 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v7));
+  v9 = SUUIAppleAccountUIFramework(v13, v8);
+  v10 = objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Aauifamilysetu.isa, v9));
+  aa_primaryAppleAccount = [v13 aa_primaryAppleAccount];
+  v12 = [v10 initWithAccount:aa_primaryAppleAccount store:v13];
 
-  [v10 setDelegate:self];
-  [(SUUIModalDocumentController *)self _pushSheetDocument:documentCopy viewController:v10];
+  [v12 setDelegate:self];
+  [(SUUIModalDocumentController *)self _pushSheetDocument:documentCopy viewController:v12];
 }
 
 - (void)_pushGiftDocument:(id)document options:(id)options
@@ -1888,7 +1888,7 @@ uint64_t __59__SUUIModalDocumentController__pushDialogDocument_options___block_i
   {
     overlayType = [itemCopy overlayType];
     viewController2 = [v5 viewController];
-    if ([overlayType isEqualToString:0x286AFD080] && objc_msgSend(v5, "usesNavigationControllerForModalPresentation"))
+    if (objc_msgSend_isEqualToString_(overlayType) && [v5 usesNavigationControllerForModalPresentation])
     {
       v10 = objc_alloc_init(_SUUIModalSheetNavigationController);
       WeakRetained = objc_loadWeakRetained(&self->_navigationControllerDelegate);
@@ -2358,7 +2358,7 @@ void __110__SUUIModalDocumentController__pushPopoverSheetDocument_viewController
   }
 
   sheetType = [itemCopy sheetType];
-  if ([sheetType isEqualToString:0x286B00C40])
+  if (objc_msgSend_isEqualToString_(sheetType))
   {
     [(_SUUIModalSheetNavigationController *)v17 setModalPresentationStyle:2];
   }

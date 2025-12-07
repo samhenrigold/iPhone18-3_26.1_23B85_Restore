@@ -10,7 +10,7 @@
 
 + (id)expandAliasedDomainsInAddress:(id)address
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if (off_1EF440708(&__block_literal_global_120, addressCopy))
   {
@@ -19,50 +19,50 @@
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = [objc_opt_class() aliasedDomains];
-    v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v23;
+      v7 = *v22;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v23 != v7)
+          if (*v22 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * i);
-          v20[0] = MEMORY[0x1E69E9820];
-          v20[1] = 3221225472;
-          v20[2] = __57__CNEmailAddressUtilities_expandAliasedDomainsInAddress___block_invoke;
-          v20[3] = &unk_1E6ED80E0;
+          v9 = *(*(&v21 + 1) + 8 * i);
+          v19[0] = MEMORY[0x1E69E9820];
+          v19[1] = 3221225472;
+          v19[2] = __57__CNEmailAddressUtilities_expandAliasedDomainsInAddress___block_invoke;
+          v19[3] = &unk_1E6ED80E0;
           v10 = addressCopy;
-          v21 = v10;
-          v11 = [v9 _cn_firstObjectPassingTest:v20];
+          v20 = v10;
+          v11 = [v9 _cn_firstObjectPassingTest:v19];
           if (v11)
           {
             v12 = v11;
             v13 = [v10 substringWithRange:{0, objc_msgSend(v10, "length") - objc_msgSend(v11, "length")}];
-            v18[0] = MEMORY[0x1E69E9820];
-            v18[1] = 3221225472;
-            v18[2] = __57__CNEmailAddressUtilities_expandAliasedDomainsInAddress___block_invoke_2;
-            v18[3] = &unk_1E6ED8108;
-            v19 = v13;
+            v17[0] = MEMORY[0x1E69E9820];
+            v17[1] = 3221225472;
+            v17[2] = __57__CNEmailAddressUtilities_expandAliasedDomainsInAddress___block_invoke_2;
+            v17[3] = &unk_1E6ED8108;
+            v18 = v13;
             v14 = v13;
-            v4 = [v9 _cn_map:v18];
+            v4 = [v9 _cn_map:v17];
 
             goto LABEL_13;
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v6 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v6)
         {
           continue;
@@ -72,13 +72,11 @@
       }
     }
 
-    v26 = addressCopy;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    v25 = addressCopy;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -169,11 +167,10 @@ uint64_t __48__CNEmailAddressUtilities_isStringEmailAddress___block_invoke(uint6
 
 + (void)makeEmailRegex
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1859F0000, a2, OS_LOG_TYPE_ERROR, "Error creating email address regex: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1859F0000, a2, OS_LOG_TYPE_ERROR, "Error creating email address regex: %{public}@", &v2, 0xCu);
 }
 
 @end

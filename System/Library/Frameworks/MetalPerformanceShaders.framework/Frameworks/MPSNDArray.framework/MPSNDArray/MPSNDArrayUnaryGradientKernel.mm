@@ -23,23 +23,20 @@
 
 - (MPSNDArray)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray sourceGradient:(MPSNDArray *)gradient gradientState:(MPSState *)state
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = sourceArray;
-  v8.receiver = self;
-  v8.super_class = MPSNDArrayUnaryGradientKernel;
-  result = -[MPSNDArrayMultiaryGradientKernel encodeToCommandBuffer:sourceArrays:sourceGradient:gradientState:](&v8, sel_encodeToCommandBuffer_sourceArrays_sourceGradient_gradientState_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1], gradient, state);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = sourceArray;
+  v7.receiver = self;
+  v7.super_class = MPSNDArrayUnaryGradientKernel;
+  return -[MPSNDArrayMultiaryGradientKernel encodeToCommandBuffer:sourceArrays:sourceGradient:gradientState:](&v7, sel_encodeToCommandBuffer_sourceArrays_sourceGradient_gradientState_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1], gradient, state);
 }
 
 - (void)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray sourceGradient:(MPSNDArray *)gradient gradientState:(MPSState *)state destinationArray:(MPSNDArray *)destination
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = sourceArray;
-  v8.receiver = self;
-  v8.super_class = MPSNDArrayUnaryGradientKernel;
-  -[MPSNDArrayMultiaryGradientKernel encodeToCommandBuffer:sourceArrays:sourceGradient:gradientState:destinationArray:](&v8, sel_encodeToCommandBuffer_sourceArrays_sourceGradient_gradientState_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1], gradient, state, destination);
-  v7 = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = sourceArray;
+  v7.receiver = self;
+  v7.super_class = MPSNDArrayUnaryGradientKernel;
+  -[MPSNDArrayMultiaryGradientKernel encodeToCommandBuffer:sourceArrays:sourceGradient:gradientState:destinationArray:](&v7, sel_encodeToCommandBuffer_sourceArrays_sourceGradient_gradientState_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1], gradient, state, destination);
 }
 
 @end

@@ -30,16 +30,16 @@
 
 - (BOOL)_assignCredentialManagerError:(uint64_t)error code:(void *)code description:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v8 = codeCopy;
   if (self)
   {
     if (codeCopy)
     {
-      v14 = *MEMORY[0x277CCA450];
-      v15[0] = codeCopy;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCA450];
+      v14[0] = codeCopy;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     }
 
     else
@@ -63,7 +63,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return self != 0;
 }
 
@@ -117,28 +116,26 @@ LABEL_7:
 
 - (id)_credentialKeyBaseAttributes
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v1 = *MEMORY[0x277CDC250];
     v2 = *MEMORY[0x277CDBED8];
-    v8[0] = *MEMORY[0x277CDC228];
-    v8[1] = v2;
+    v7[0] = *MEMORY[0x277CDC228];
+    v7[1] = v2;
     v3 = *MEMORY[0x277CDBF10];
-    v9[0] = v1;
-    v9[1] = v3;
-    v8[2] = *MEMORY[0x277CDBF30];
+    v8[0] = v1;
+    v8[1] = v3;
+    v7[2] = *MEMORY[0x277CDBF30];
     v4 = [@"com.apple.healthd.healthrecords.credential-key" dataUsingEncoding:4];
-    v9[2] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v8[2] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -151,9 +148,9 @@ LABEL_7:
     _credentialKeyBaseAttributes = [(HDLegacyClinicalCredentialManager *)self _credentialKeyBaseAttributes];
     v6 = [_credentialKeyBaseAttributes mutableCopy];
 
-    v21 = *MEMORY[0x277CDC558];
+    v20 = *MEMORY[0x277CDC558];
     result[0] = *MEMORY[0x277CBED28];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:result forKeys:&v21 count:1];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:result forKeys:&v20 count:1];
     [v6 addEntriesFromDictionary:v7];
 
     result[0] = 0;
@@ -190,92 +187,87 @@ LABEL_10:
 
   v14 = 0;
 LABEL_12:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (BOOL)unitTesting_storeCredentialKeyInKeychain:(id)keychain error:(id *)error
 {
-  v35[13] = *MEMORY[0x277D85DE8];
-  if (self)
+  v34[13] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    keychainCopy = keychain;
-    _credentialKeyBaseAttributes = [(HDLegacyClinicalCredentialManager *)self _credentialKeyBaseAttributes];
-    v8 = [_credentialKeyBaseAttributes mutableCopy];
+    return 0;
+  }
 
-    v9 = *MEMORY[0x277CDBFE0];
-    v35[0] = *MEMORY[0x277CDC008];
-    v10 = *MEMORY[0x277CDC018];
-    v34[0] = v9;
-    v34[1] = v10;
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:256];
-    v35[1] = v11;
-    v34[2] = *MEMORY[0x277CDBFA8];
-    v12 = [MEMORY[0x277CCABB0] numberWithInteger:256];
-    v13 = *MEMORY[0x277CDBF60];
-    v14 = *MEMORY[0x277CBED28];
-    v35[2] = v12;
-    v35[3] = v14;
-    v15 = *MEMORY[0x277CDBF50];
-    v34[3] = v13;
-    v34[4] = v15;
-    v16 = *MEMORY[0x277CDBF58];
-    v17 = *MEMORY[0x277CBED10];
-    v35[4] = v14;
-    v35[5] = v17;
-    v18 = *MEMORY[0x277CDBF68];
-    v34[5] = v16;
-    v34[6] = v18;
-    v19 = *MEMORY[0x277CDBF78];
-    v35[6] = v17;
-    v35[7] = v17;
-    v20 = *MEMORY[0x277CDBF80];
-    v34[7] = v19;
-    v34[8] = v20;
-    v21 = *MEMORY[0x277CDBFD0];
-    v34[9] = *MEMORY[0x277CDBF70];
-    v34[10] = v21;
-    v35[8] = v17;
-    v35[9] = v17;
-    v22 = *MEMORY[0x277CDC140];
-    v35[10] = v14;
-    v35[11] = v17;
-    v23 = *MEMORY[0x277CDC5E8];
-    v34[11] = v22;
-    v34[12] = v23;
-    v35[12] = keychainCopy;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:13];
+  keychainCopy = keychain;
+  _credentialKeyBaseAttributes = [(HDLegacyClinicalCredentialManager *)self _credentialKeyBaseAttributes];
+  v8 = [_credentialKeyBaseAttributes mutableCopy];
 
-    [v8 addEntriesFromDictionary:v24];
-    v25 = SecItemAdd(v8, 0);
-    if (v25)
+  v9 = *MEMORY[0x277CDBFE0];
+  v34[0] = *MEMORY[0x277CDC008];
+  v10 = *MEMORY[0x277CDC018];
+  v33[0] = v9;
+  v33[1] = v10;
+  v11 = [MEMORY[0x277CCABB0] numberWithInteger:256];
+  v34[1] = v11;
+  v33[2] = *MEMORY[0x277CDBFA8];
+  v12 = [MEMORY[0x277CCABB0] numberWithInteger:256];
+  v13 = *MEMORY[0x277CDBF60];
+  v14 = *MEMORY[0x277CBED28];
+  v34[2] = v12;
+  v34[3] = v14;
+  v15 = *MEMORY[0x277CDBF50];
+  v33[3] = v13;
+  v33[4] = v15;
+  v16 = *MEMORY[0x277CDBF58];
+  v17 = *MEMORY[0x277CBED10];
+  v34[4] = v14;
+  v34[5] = v17;
+  v18 = *MEMORY[0x277CDBF68];
+  v33[5] = v16;
+  v33[6] = v18;
+  v19 = *MEMORY[0x277CDBF78];
+  v34[6] = v17;
+  v34[7] = v17;
+  v20 = *MEMORY[0x277CDBF80];
+  v33[7] = v19;
+  v33[8] = v20;
+  v21 = *MEMORY[0x277CDBFD0];
+  v33[9] = *MEMORY[0x277CDBF70];
+  v33[10] = v21;
+  v34[8] = v17;
+  v34[9] = v17;
+  v22 = *MEMORY[0x277CDC140];
+  v34[10] = v14;
+  v34[11] = v17;
+  v23 = *MEMORY[0x277CDC5E8];
+  v33[11] = v22;
+  v33[12] = v23;
+  v34[12] = keychainCopy;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:13];
+
+  [v8 addEntriesFromDictionary:v24];
+  v25 = SecItemAdd(v8, 0);
+  if (v25)
+  {
+    if (v25 == -25299)
     {
-      if (v25 == -25299)
-      {
-        [(HDLegacyClinicalCredentialManager *)self _assignCredentialManagerError:error code:101 description:@"Credential key exists in Keychain."];
-      }
-
-      else
-      {
-        [(HDLegacyClinicalCredentialManager *)self _assignCredentialManagerError:error code:v26 format:@"Failed to add credential key. OSStatus: %d", v27, v28, v29, v30, v25];
-      }
-
-      v31 = 0;
+      [(HDLegacyClinicalCredentialManager *)self _assignCredentialManagerError:error code:101 description:@"Credential key exists in Keychain."];
     }
 
     else
     {
-      v31 = 1;
+      [(HDLegacyClinicalCredentialManager *)self _assignCredentialManagerError:error code:v26 format:@"Failed to add credential key. OSStatus: %d", v27, v28, v29, v30, v25];
     }
+
+    v31 = 0;
   }
 
   else
   {
-    v31 = 0;
+    v31 = 1;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -363,14 +355,14 @@ LABEL_12:
   dispatch_async(credentialKeyQueue, v7);
 }
 
-uint64_t __60__HDLegacyClinicalCredentialManager_setCachedCredentialKey___block_invoke(uint64_t a1)
+uint64_t __60__HDLegacyClinicalCredentialManager_setCachedCredentialKey___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 8);
-  *(v3 + 8) = v2;
+  v4 = objc_msgSend_copy(*(a1 + 40), a2);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 8);
+  *(v5 + 8) = v4;
 
-  return MEMORY[0x2821F96F8](v2, v4);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 @end

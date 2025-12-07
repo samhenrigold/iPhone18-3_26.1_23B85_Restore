@@ -82,11 +82,12 @@ LABEL_8:
 
 - (NSString)crlaxStyleInfoDescription
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    v3 = objc_opt_class();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"[CRLFillAccessibility crlaxStyleInfoDescription] is abstract. Please implement crlaxStyleInfoDescription in %@.", v4, v5, v6, v7, v8, v3))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    v4 = objc_opt_class();
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"[CRLFillAccessibility crlaxStyleInfoDescription] is abstract. Please implement crlaxStyleInfoDescription in %@.", v5, v6, v7, v8, v9, v4))
     {
       abort();
     }

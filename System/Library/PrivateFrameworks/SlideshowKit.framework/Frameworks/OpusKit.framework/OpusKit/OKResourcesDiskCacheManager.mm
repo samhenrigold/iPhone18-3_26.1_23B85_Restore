@@ -47,7 +47,7 @@
   return sharedManager_sharedManager;
 }
 
-OKResourcesDiskCacheManager *__44__OKResourcesDiskCacheManager_sharedManager__block_invoke()
+OKResourcesDiskCacheManager *__44__OKResourcesDiskCacheManager_sharedManager__block_invoke(uint64_t a1)
 {
   result = -[OKResourcesDiskCacheManager initWithBaseURL:]([OKResourcesDiskCacheManager alloc], "initWithBaseURL:", [objc_opt_class() _sharedResourcesDirectoryURL]);
   sharedManager_sharedManager = result;
@@ -372,7 +372,7 @@ void __53__OKResourcesDiskCacheManager_removeMediaItem_error___block_invoke_2(ui
   return v8;
 }
 
-uint64_t __70__OKResourcesDiskCacheManager_hasMetadataForMediaItem_metadata_error___block_invoke(uint64_t a1)
+void *__70__OKResourcesDiskCacheManager_hasMetadataForMediaItem_metadata_error___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -463,7 +463,7 @@ LABEL_12:
   return v8;
 }
 
-uint64_t __58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_invoke(void *a1)
+void *__58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[5];
@@ -478,7 +478,7 @@ uint64_t __58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_in
   return result;
 }
 
-uint64_t __58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:a2];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -512,7 +512,7 @@ uint64_t __58__OKResourcesDiskCacheManager_metadataForMediaItem_error___block_in
   return v7;
 }
 
-uint64_t __62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___block_invoke(uint64_t a1)
+void *__62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -527,7 +527,7 @@ uint64_t __62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___bloc
   return result;
 }
 
-uint64_t __62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) writeToFileURL:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -560,7 +560,7 @@ uint64_t __62__OKResourcesDiskCacheManager_setMetadata_forMediaItem_error___bloc
   return v6;
 }
 
-uint64_t __64__OKResourcesDiskCacheManager_removeMetadataForMediaItem_error___block_invoke(void *a1)
+void *__64__OKResourcesDiskCacheManager_removeMetadataForMediaItem_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[7];
@@ -649,7 +649,7 @@ void __64__OKResourcesDiskCacheManager_removeMetadataForMediaItem_error___block_
   return v8;
 }
 
-uint64_t __83__OKResourcesDiskCacheManager_hasThumbnailForMediaItem_resolution_thumbnail_error___block_invoke(void *a1)
+void *__83__OKResourcesDiskCacheManager_hasThumbnailForMediaItem_resolution_thumbnail_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[5];
@@ -733,7 +733,7 @@ void __83__OKResourcesDiskCacheManager_hasThumbnailForMediaItem_resolution_thumb
   return v8;
 }
 
-uint64_t __70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_error___block_invoke(void *a1)
+void *__70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[5];
@@ -749,7 +749,7 @@ uint64_t __70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_erro
   return result;
 }
 
-uint64_t __70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_error___block_invoke_2(uint64_t a1)
+uint64_t __70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = OFCGImageCreateWithURL();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -798,7 +798,7 @@ uint64_t __70__OKResourcesDiskCacheManager_thumbnailForMediaItem_resolution_erro
   return v14;
 }
 
-uint64_t __74__OKResourcesDiskCacheManager_setThumbnail_forMediaItem_resolution_error___block_invoke(uint64_t a1)
+void *__74__OKResourcesDiskCacheManager_setThumbnail_forMediaItem_resolution_error___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -876,7 +876,7 @@ LABEL_7:
   return v7;
 }
 
-uint64_t __76__OKResourcesDiskCacheManager_removeThumbnailForMediaItem_resolution_error___block_invoke(void *a1)
+void *__76__OKResourcesDiskCacheManager_removeThumbnailForMediaItem_resolution_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[7];
@@ -924,7 +924,7 @@ void __76__OKResourcesDiskCacheManager_removeThumbnailForMediaItem_resolution_er
   return v6;
 }
 
-uint64_t __66__OKResourcesDiskCacheManager_removeThumbnailsForMediaItem_error___block_invoke(void *a1)
+void *__66__OKResourcesDiskCacheManager_removeThumbnailsForMediaItem_error___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[7];

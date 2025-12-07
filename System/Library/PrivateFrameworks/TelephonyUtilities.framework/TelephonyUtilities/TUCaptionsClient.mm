@@ -1,9 +1,13 @@
 @interface TUCaptionsClient
 - (TUCaptionsClient)initWithDelegate:(id)delegate call:(id)call;
 - (void)callCenter:(id)center receivedCaptions:(id)captions;
+- (void)captionsClient:(id)client didDetectGibberish:(BOOL)gibberish;
+- (void)captionsClient:(id)client didDisableCaptions:(BOOL)captions error:(id)error;
+- (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error;
 - (void)captionsClient:(id)client didUpdateCaptions:(id)captions source:(int)source;
 - (void)captionsServerDidDie:(id)die;
 - (void)configureCaptions:(id)captions;
+- (void)enableCaptions:(BOOL)captions;
 @end
 
 @implementation TUCaptionsClient
@@ -46,6 +50,13 @@
   [avcCaptionsClient configureCaptions:captionsCopy];
 }
 
+- (void)enableCaptions:(BOOL)captions
+{
+  captionsCopy = captions;
+  avcCaptionsClient = [(TUCaptionsClient *)self avcCaptionsClient];
+  [avcCaptionsClient enableCaptions:captionsCopy];
+}
+
 - (void)captionsClient:(id)client didUpdateCaptions:(id)captions source:(int)source
 {
   captionsCopy = captions;
@@ -57,6 +68,47 @@
     v8 = [[TUCaptionsResult alloc] initWithAVCCaptionsResult:captionsCopy];
     delegate2 = [(TUCaptionsClient *)self delegate];
     [delegate2 captionsClient:self didUpdateCaptions:v8];
+  }
+}
+
+- (void)captionsClient:(id)client didDetectGibberish:(BOOL)gibberish
+{
+  gibberishCopy = gibberish;
+  delegate = [(TUCaptionsClient *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(TUCaptionsClient *)self delegate];
+    [delegate2 captionsClient:self didDetectGibberish:gibberishCopy];
+  }
+}
+
+- (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error
+{
+  captionsCopy = captions;
+  errorCopy = error;
+  delegate = [(TUCaptionsClient *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    delegate2 = [(TUCaptionsClient *)self delegate];
+    [delegate2 captionsClient:self didEnableCaptions:captionsCopy error:errorCopy];
+  }
+}
+
+- (void)captionsClient:(id)client didDisableCaptions:(BOOL)captions error:(id)error
+{
+  captionsCopy = captions;
+  errorCopy = error;
+  delegate = [(TUCaptionsClient *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    delegate2 = [(TUCaptionsClient *)self delegate];
+    [delegate2 captionsClient:self didDisableCaptions:captionsCopy error:errorCopy];
   }
 }
 
@@ -75,7 +127,7 @@
 
 - (void)captionsServerDidDie:(id)die
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [TUCaptionsClient captionsServerDidDie:v3];

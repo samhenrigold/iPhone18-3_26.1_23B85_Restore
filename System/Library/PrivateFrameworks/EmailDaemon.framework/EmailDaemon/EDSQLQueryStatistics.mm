@@ -7,22 +7,22 @@
 
 - (EDSQLQueryStatistics)initWithQuery:(id)query transactionLabel:(id)label firstRowExecutionTime:(id)time timePerRowExecutionTime:(id)executionTime totalExecutionTime:(id)totalExecutionTime
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   labelCopy = label;
   timeCopy = time;
   executionTimeCopy = executionTime;
   totalExecutionTimeCopy = totalExecutionTime;
-  v24.receiver = self;
-  v24.super_class = EDSQLQueryStatistics;
-  v18 = [(EDSQLQueryStatistics *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = EDSQLQueryStatistics;
+  v18 = [(EDSQLQueryStatistics *)&v23 init];
   v19 = v18;
   if (v18)
   {
     objc_storeStrong(&v18->_redactedQuery, query);
-    v25 = labelCopy;
-    v26[0] = &unk_1F45E6BB0;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = labelCopy;
+    v25[0] = &unk_1F45E6BB0;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     queryCountByTransactionLabel = v19->_queryCountByTransactionLabel;
     v19->_queryCountByTransactionLabel = v20;
 
@@ -35,7 +35,6 @@
     v19->_totalMaxExecutionTime = [totalExecutionTimeCopy unsignedIntegerValue];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

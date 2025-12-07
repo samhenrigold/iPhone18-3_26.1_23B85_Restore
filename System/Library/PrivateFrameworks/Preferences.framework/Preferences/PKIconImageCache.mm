@@ -134,16 +134,16 @@ void __36__PKIconImageCache_allImageIconKeys__block_invoke(uint64_t a1)
   *(v6 + 40) = v5;
 }
 
-id __58__PKIconImageCache__cacheKeyToGraphicIconIdentifierLookup__block_invoke()
+id __58__PKIconImageCache__cacheKeyToGraphicIconIdentifierLookup__block_invoke(uint64_t a1)
 {
   if (_block_invoke_na_once_token_1 != -1)
   {
     __58__PKIconImageCache__cacheKeyToGraphicIconIdentifierLookup__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_na_once_object_1;
+  v2 = _block_invoke_na_once_object_1;
 
-  return v1;
+  return v2;
 }
 
 void __58__PKIconImageCache__cacheKeyToGraphicIconIdentifierLookup__block_invoke_2()
@@ -178,16 +178,16 @@ void __58__PKIconImageCache__cacheKeyToGraphicIconIdentifierLookup__block_invoke
   _block_invoke_na_once_object_1 = v0;
 }
 
-id __64__PKIconImageCache__cacheKeyToApplicationBundleIdentifierLookup__block_invoke()
+id __64__PKIconImageCache__cacheKeyToApplicationBundleIdentifierLookup__block_invoke(uint64_t a1)
 {
   if (_block_invoke_2_na_once_token_2 != -1)
   {
     __64__PKIconImageCache__cacheKeyToApplicationBundleIdentifierLookup__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_2_na_once_object_2;
+  v2 = _block_invoke_2_na_once_object_2;
 
-  return v1;
+  return v2;
 }
 
 void __64__PKIconImageCache__cacheKeyToApplicationBundleIdentifierLookup__block_invoke_2()
@@ -240,16 +240,16 @@ void __64__PKIconImageCache__cacheKeyToApplicationBundleIdentifierLookup__block_
   _block_invoke_2_na_once_object_2 = v3;
 }
 
-id __77__PKIconImageCache__cacheKeysForApplicationIconsThatNeedJustInTimeEvaluation__block_invoke()
+id __77__PKIconImageCache__cacheKeysForApplicationIconsThatNeedJustInTimeEvaluation__block_invoke(uint64_t a1)
 {
   if (_block_invoke_3_na_once_token_3 != -1)
   {
     __77__PKIconImageCache__cacheKeysForApplicationIconsThatNeedJustInTimeEvaluation__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_3_na_once_object_3;
+  v2 = _block_invoke_3_na_once_object_3;
 
-  return v1;
+  return v2;
 }
 
 void __77__PKIconImageCache__cacheKeysForApplicationIconsThatNeedJustInTimeEvaluation__block_invoke_2()

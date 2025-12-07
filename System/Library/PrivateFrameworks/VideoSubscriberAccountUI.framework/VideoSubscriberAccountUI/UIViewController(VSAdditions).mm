@@ -177,46 +177,44 @@ LABEL_15:
 
 - (void)_forceViewReload
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   view = [self view];
   window = [view window];
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   subviews = [window subviews];
-  v4 = [subviews countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [subviews countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 removeFromSuperview];
         [window addSubview:v8];
       }
 
-      v5 = [subviews countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [subviews countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vs_makeFrontmostAnimated:()VSAdditions completion:
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a4;
   presentedViewController = [self presentedViewController];
 
@@ -228,11 +226,11 @@ LABEL_15:
       v9 = [self debugDescription];
       presentedViewController2 = [self presentedViewController];
       v11 = [presentedViewController2 debugDescription];
-      v14 = 138412546;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Warning: %@ is already presenting %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Warning: %@ is already presenting %@", &v13, 0x16u);
     }
 
     presentedViewController3 = [self presentedViewController];
@@ -243,8 +241,6 @@ LABEL_15:
   {
     v6[2](v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vs_makeTopmostInNavigationStack:()VSAdditions completion:

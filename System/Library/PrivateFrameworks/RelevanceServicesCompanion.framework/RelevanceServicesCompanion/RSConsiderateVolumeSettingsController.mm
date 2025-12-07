@@ -16,7 +16,7 @@
 
 - (RSConsiderateVolumeSettingsController)init
 {
-  *(&self->super.isa + OBJC_IVAR___RSConsiderateVolumeSettingsController_settingsController) = [objc_allocWithZone(type metadata accessor for ConsiderateVolumeSettingsController()) init];
+  *(&self->super.isa + OBJC_IVAR___RSConsiderateVolumeSettingsController_settingsController) = [objc_allocWithZone(type metadata accessor for ConsiderateVolumeSettingsController(0)) init];
   v4.receiver = self;
   v4.super_class = RSConsiderateVolumeSettingsController;
   return [(RSConsiderateVolumeSettingsController *)&v4 init];
@@ -24,7 +24,7 @@
 
 - (RSConsiderateVolumeSettingsController)initWithAlwaysSynchronize:(BOOL)synchronize
 {
-  v5 = objc_allocWithZone(type metadata accessor for ConsiderateVolumeSettingsController());
+  v5 = objc_allocWithZone(type metadata accessor for ConsiderateVolumeSettingsController(0));
   *(&self->super.isa + OBJC_IVAR___RSConsiderateVolumeSettingsController_settingsController) = ConsiderateVolumeSettingsController.init(alwaysSynchronize:)(synchronize);
   v7.receiver = self;
   v7.super_class = RSConsiderateVolumeSettingsController;
@@ -41,7 +41,6 @@
 
 - (void)setEnabled:(BOOL)enabled forCategory:(int64_t)category
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___RSConsiderateVolumeSettingsController_settingsController);
   if (category >= 5)
   {
     categoryCopy = 0;
@@ -78,7 +77,6 @@
 
   v4 = v2 + OBJC_IVAR____TtC26RelevanceServicesCompanion35ConsiderateVolumeSettingsController_cache;
   os_unfair_lock_lock((v2 + OBJC_IVAR____TtC26RelevanceServicesCompanion35ConsiderateVolumeSettingsController_cache));
-  v5 = *(v4 + 8);
 
   *(v4 + 8) = MEMORY[0x277D84F98];
   os_unfair_lock_unlock(v4);
@@ -102,11 +100,10 @@
 
 - (BOOL)hasActiveCategory
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___RSConsiderateVolumeSettingsController_settingsController);
   selfCopy = self;
-  LOBYTE(v2) = ConsiderateVolumeSettingsController.hasActiveCategory.getter();
+  active = ConsiderateVolumeSettingsController.hasActiveCategory.getter();
 
-  return v2 & 1;
+  return active & 1;
 }
 
 + (NSString)prefsDidChangeNotification

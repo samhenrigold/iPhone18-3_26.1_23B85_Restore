@@ -1,8 +1,11 @@
 @interface PPM2NamedEntityNewItemDonation
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)donationSourceAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsDonationSource:(id)source;
@@ -168,7 +171,6 @@ LABEL_13:
     goto LABEL_39;
   }
 
-  v5 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0 || self->_donationSource != *(equalCopy + 8))
@@ -211,7 +213,7 @@ LABEL_13:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 60);
+  v8 = *(equalCopy + 60);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 60) & 0x10) == 0)
@@ -219,7 +221,6 @@ LABEL_13:
       goto LABEL_39;
     }
 
-    v10 = *(equalCopy + 56);
     if (self->_newItem)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -261,27 +262,26 @@ LABEL_13:
     }
 
     has = self->_has;
-    v9 = *(equalCopy + 60);
+    v8 = *(equalCopy + 60);
   }
 
   if ((has & 0x20) == 0)
   {
-    if ((v9 & 0x20) == 0)
+    if ((v8 & 0x20) == 0)
     {
       goto LABEL_32;
     }
 
 LABEL_39:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_40;
   }
 
-  if ((v9 & 0x20) == 0)
+  if ((v8 & 0x20) == 0)
   {
     goto LABEL_39;
   }
 
-  v14 = *(equalCopy + 57);
   if (self->_userCreated)
   {
     if ((*(equalCopy + 57) & 1) == 0)
@@ -296,20 +296,20 @@ LABEL_39:
   }
 
 LABEL_32:
-  v12 = (v9 & 1) == 0;
+  v10 = (v8 & 1) == 0;
   if (has)
   {
-    if ((v9 & 1) == 0 || self->_rank != *(equalCopy + 1))
+    if ((v8 & 1) == 0 || self->_rank != *(equalCopy + 1))
     {
       goto LABEL_39;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_40:
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -444,14 +444,12 @@ LABEL_40:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    donationSource = self->_donationSource;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    category = self->_category;
     PBDataWriterWriteInt32Field();
   }
 
@@ -465,17 +463,15 @@ LABEL_40:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    newItem = self->_newItem;
     PBDataWriterWriteBOOLField();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
   }
 
@@ -484,17 +480,15 @@ LABEL_40:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x20) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x20) != 0)
   {
-    userCreated = self->_userCreated;
     PBDataWriterWriteBOOLField();
-    v10 = self->_has;
+    v6 = self->_has;
   }
 
-  if (v10)
+  if (v6)
   {
-    rank = self->_rank;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -746,6 +740,21 @@ LABEL_40:
   return v4;
 }
 
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278975938[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasAlgorithm:(BOOL)algorithm
 {
   if (algorithm)
@@ -910,6 +919,21 @@ LABEL_40:
   return v4;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278975888[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasCategory:(BOOL)category
 {
   if (category)
@@ -1069,6 +1093,21 @@ LABEL_40:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)donationSourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789757C0[string];
   }
 
   return v4;

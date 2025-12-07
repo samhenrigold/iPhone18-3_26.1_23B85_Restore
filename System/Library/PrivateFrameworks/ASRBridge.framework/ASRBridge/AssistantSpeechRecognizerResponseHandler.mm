@@ -84,7 +84,7 @@
   clientCopy = client;
   packageCopy = package;
   selfCopy = self;
-  sub_22327C29C(v12, v14, rcId, duration);
+  sub_22327C29C(v12, v14, rcId, packageCopy, duration);
 }
 
 - (void)localSpeechRecognizerClient:(id)client didAcceptedEagerResultWithRequestId:(id)id rcId:(unint64_t)rcId mitigationSignal:(BOOL)signal featuresToLog:(id)log

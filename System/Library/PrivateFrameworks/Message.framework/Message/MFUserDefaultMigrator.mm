@@ -41,11 +41,10 @@ void __28__MFUserDefaultMigrator_log__block_invoke(uint64_t a1)
 
 + (id)oldKeysToNewKeysMap
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"ReplyToSelf";
-  v6[0] = *MEMORY[0x1E699AB48];
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"ReplyToSelf";
+  v5[0] = *MEMORY[0x1E699AB48];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -59,26 +58,26 @@ void __28__MFUserDefaultMigrator_log__block_invoke(uint64_t a1)
 
 + (void)_migrateExtPropertiesPlist
 {
-  v42[4] = *MEMORY[0x1E69E9840];
-  v31 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:@"com.apple.mobilemail"];
-  dataContainerURL = [v31 dataContainerURL];
+  v38[4] = *MEMORY[0x1E69E9840];
+  v27 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:@"com.apple.mobilemail"];
+  dataContainerURL = [v27 dataContainerURL];
   path = [dataContainerURL path];
 
-  v32 = path;
+  v28 = path;
   if ([path length])
   {
     v4 = [@"com.apple.MailAccount-ExtProperties" stringByAppendingPathExtension:@"plist"];
     v5 = MEMORY[0x1E696AEC0];
-    v42[0] = path;
-    v42[1] = @"Library";
-    v42[2] = @"Preferences";
-    v42[3] = v4;
-    v29 = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:4];
-    v30 = [v5 pathWithComponents:v6];
+    v38[0] = path;
+    v38[1] = @"Library";
+    v38[2] = @"Preferences";
+    v38[3] = v4;
+    v25 = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
+    v26 = [v5 pathWithComponents:v6];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v8 = [defaultManager fileExistsAtPath:v30];
+    v8 = [defaultManager fileExistsAtPath:v26];
 
     v9 = +[MFUserDefaultMigrator log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -90,116 +89,111 @@ void __28__MFUserDefaultMigrator_log__block_invoke(uint64_t a1)
       }
 
       *buf = 138543618;
-      v39 = v10;
-      v40 = 2112;
-      v41 = v30;
+      v35 = v10;
+      v36 = 2112;
+      v37 = v26;
       _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "extPropertiesDomain %{public}@ at path: %@", buf, 0x16u);
     }
 
     if (v8)
     {
-      v11 = *MEMORY[0x1E695E8B8];
-      v12 = *MEMORY[0x1E695E898];
-      v28 = _CFPreferencesCopyValueWithContainer();
-      if ([v28 BOOLValue])
+      v24 = _CFPreferencesCopyValueWithContainer();
+      if ([v24 BOOLValue])
       {
-        v13 = +[MFUserDefaultMigrator log];
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v11 = +[MFUserDefaultMigrator log];
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "extPropertiesDomain already migrated to shared app group.", buf, 2u);
+          _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "extPropertiesDomain already migrated to shared app group.", buf, 2u);
         }
       }
 
       else
       {
-        v27 = _CFPreferencesCopyKeyListWithContainer();
-        if ([v27 count])
+        v23 = _CFPreferencesCopyKeyListWithContainer();
+        if ([v23 count])
         {
-          v15 = +[MFUserDefaultMigrator log];
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v13 = +[MFUserDefaultMigrator log];
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_DEFAULT, "Migrating extPropertiesDomain to shared app group.", buf, 2u);
+            _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Migrating extPropertiesDomain to shared app group.", buf, 2u);
           }
 
-          v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          v17 = v27;
-          v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
-          if (v18)
+          v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v31 = 0u;
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v15 = v23;
+          v16 = [v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v16)
           {
-            v19 = *v34;
+            v17 = *v30;
             do
             {
-              for (i = 0; i != v18; ++i)
+              for (i = 0; i != v16; ++i)
               {
-                if (*v34 != v19)
+                if (*v30 != v17)
                 {
-                  objc_enumerationMutation(v17);
+                  objc_enumerationMutation(v15);
                 }
 
-                v21 = *(*(&v33 + 1) + 8 * i);
-                v22 = _CFPreferencesCopyValueWithContainer();
-                [v16 setObject:v22 forKey:v21];
+                v19 = *(*(&v29 + 1) + 8 * i);
+                v20 = _CFPreferencesCopyValueWithContainer();
+                [v14 setObject:v20 forKey:v19];
                 _CFPreferencesSetValueWithContainer();
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+              v16 = [v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
             }
 
-            while (v18);
+            while (v16);
           }
 
           em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
-          [em_userDefaults setObject:v16 forKey:@"com.apple.MailAccount-ExtProperties"];
+          [em_userDefaults setObject:v14 forKey:@"com.apple.MailAccount-ExtProperties"];
 
-          v24 = +[MFUserDefaultMigrator log];
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v22 = +[MFUserDefaultMigrator log];
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v39 = v16;
-            _os_log_impl(&dword_1B0389000, v24, OS_LOG_TYPE_DEFAULT, "Migrated following extPropertiesDomain defaults to shared app group: %@", buf, 0xCu);
+            v35 = v14;
+            _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_DEFAULT, "Migrated following extPropertiesDomain defaults to shared app group: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v16 = +[MFUserDefaultMigrator log];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v14 = +[MFUserDefaultMigrator log];
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "No keys found to migrate in extPropertiesDomain.", buf, 2u);
+            _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "No keys found to migrate in extPropertiesDomain.", buf, 2u);
           }
         }
 
-        v25 = *MEMORY[0x1E695E4D0];
         _CFPreferencesSetValueWithContainer();
-        v13 = v27;
+        v11 = v23;
       }
     }
   }
 
   else
   {
-    v14 = +[MFUserDefaultMigrator log];
-    v29 = v14;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v12 = +[MFUserDefaultMigrator log];
+    v25 = v12;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "MobileMail container path not found - Skipping extProperties migration.", buf, 2u);
+      _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "MobileMail container path not found - Skipping extProperties migration.", buf, 2u);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)migratePreferencesToSharedAppGroup
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   oldKeysToNewKeysMap = [self oldKeysToNewKeysMap];
   [self migrateDefaultsFromOldKeysToNewKeys:oldKeysToNewKeysMap];
 
@@ -214,36 +208,36 @@ void __28__MFUserDefaultMigrator_log__block_invoke(uint64_t a1)
   em_userDefaults2 = [MEMORY[0x1E695E000] em_userDefaults];
   [em_userDefaults2 synchronize];
 
-  *v15 = 0xE00000001;
+  *v14 = 0xE00000001;
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   size = 0xAAAAAAAAAAAAAAAALL;
-  v8 = sysctl(v15, 3u, 0, &size, 0, 0);
+  v8 = sysctl(v14, 3u, 0, &size, 0, 0);
   if (!v8)
   {
     v9 = malloc_type_malloc(size, 0x10B2040B74D5165uLL);
-    v8 = sysctl(v15, 3u, v9, &size, 0, 0);
+    v8 = sysctl(v14, 3u, v9, &size, 0, 0);
     if (!v8)
     {
       if (size < 0x288)
       {
 LABEL_12:
         free(v9);
-        goto LABEL_6;
+        return 1;
       }
 
-      v12 = size / 0x288;
-      v13 = v9 + 243;
+      v11 = size / 0x288;
+      v12 = v9 + 243;
       while (1)
       {
-        v8 = *(v13 - 203);
-        if (v8 >= 1 && !strncmp("maild", v13, 0x10uLL))
+        v8 = *(v12 - 203);
+        if (v8 >= 1 && !strncmp("maild", v12, 0x10uLL))
         {
           break;
         }
 
-        v13 += 648;
-        if (!--v12)
+        v12 += 648;
+        if (!--v11)
         {
           goto LABEL_12;
         }
@@ -262,45 +256,41 @@ LABEL_5:
     kill(v8, 9);
   }
 
-LABEL_6:
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 + (void)migrateDefaults:(id)defaults
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   defaultsCopy = defaults;
-  v5 = [defaultsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [defaultsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(defaultsCopy);
         }
 
-        [self migratePropertyForOldKey:*(*(&v9 + 1) + 8 * v7) newKey:{*(*(&v9 + 1) + 8 * v7), v9}];
+        [self migratePropertyForOldKey:*(*(&v8 + 1) + 8 * v7) newKey:{*(*(&v8 + 1) + 8 * v7), v8}];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [defaultsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [defaultsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)migrateDefaultsFromOldKeysToNewKeys:(id)keys
@@ -315,7 +305,7 @@ LABEL_6:
 
 + (void)migratePropertyForOldKey:(id)key newKey:(id)newKey
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   newKeyCopy = newKey;
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
@@ -329,13 +319,13 @@ LABEL_6:
       v11 = +[MFUserDefaultMigrator log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412802;
-        v15 = keyCopy;
-        v16 = 2112;
-        v17 = newKeyCopy;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "Migrating %@ to %@ with default %@", &v14, 0x20u);
+        v13 = 138412802;
+        v14 = keyCopy;
+        v15 = 2112;
+        v16 = newKeyCopy;
+        v17 = 2112;
+        v18 = v10;
+        _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "Migrating %@ to %@ with default %@", &v13, 0x20u);
       }
 
       [em_userDefaults setObject:v10 forKey:newKeyCopy];
@@ -347,14 +337,12 @@ LABEL_6:
       v12 = +[MFUserDefaultMigrator log];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = keyCopy;
-        _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "No default for key %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = keyCopy;
+        _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "No default for key %@", &v13, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)currentDeviceIdentifer
@@ -363,11 +351,9 @@ LABEL_6:
   dataContainerURL = [v2 dataContainerURL];
   path = [dataContainerURL path];
 
-  v5 = *MEMORY[0x1E695E8B8];
-  v6 = *MEMORY[0x1E695E898];
-  v7 = _CFPreferencesCopyValueWithContainer();
+  v5 = _CFPreferencesCopyValueWithContainer();
 
-  return v7;
+  return v5;
 }
 
 + (id)mobileMailDefaultForKey:(id)key
@@ -377,12 +363,9 @@ LABEL_6:
   dataContainerURL = [v4 dataContainerURL];
   path = [dataContainerURL path];
 
-  v7 = *MEMORY[0x1E69B17F0];
-  v8 = *MEMORY[0x1E695E8B8];
-  v9 = *MEMORY[0x1E695E898];
-  v10 = _CFPreferencesCopyValueWithContainer();
+  v7 = _CFPreferencesCopyValueWithContainer();
 
-  return v10;
+  return v7;
 }
 
 + (void)removeMobileMailDefaultForKey:(id)key
@@ -392,9 +375,6 @@ LABEL_6:
   dataContainerURL = [v3 dataContainerURL];
   path = [dataContainerURL path];
 
-  v6 = *MEMORY[0x1E69B17F0];
-  v7 = *MEMORY[0x1E695E8B8];
-  v8 = *MEMORY[0x1E695E898];
   _CFPreferencesSetValueWithContainer();
   _CFPreferencesSynchronizeWithContainer();
 }

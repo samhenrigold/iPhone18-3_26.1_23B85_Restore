@@ -3,7 +3,7 @@
 + (BOOL)enumerateNodesWithPredicate:(id)predicate skipDeleted:(BOOL)deleted limit:(unint64_t)limit database:(id)database error:(id *)error enumerationHandler:(id)handler;
 + (BOOL)insertNodeWithID:(int64_t)d version:(int64_t)version slots:(unint64_t)slots deleted:(BOOL)deleted database:(id)database error:(id *)error;
 + (BOOL)updateNodeWithID:(int64_t)d version:(int64_t)version slots:(unint64_t)slots deleted:(BOOL)deleted database:(id)database error:(id *)error;
-+ (HDSimpleGraphNode)_nodeFromRow:database:error:;
++ (HDSimpleGraphNode)_nodeFromRow:(uint64_t)row database:(uint64_t)database error:;
 + (id)disambiguatedSQLForProperty:(id)property;
 + (id)joinClausesForProperty:(id)property;
 + (id)nodeEntityForeignKey;
@@ -179,7 +179,7 @@ uint64_t __89__HDSimpleGraphDatabaseNodeEntity_updateNodeWithID_version_slots_de
 + (BOOL)enumerateNodesWithPredicate:(id)predicate skipDeleted:(BOOL)deleted limit:(unint64_t)limit database:(id)database error:(id *)error enumerationHandler:(id)handler
 {
   deletedCopy = deleted;
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   databaseCopy = database;
   handlerCopy = handler;
@@ -193,23 +193,22 @@ uint64_t __89__HDSimpleGraphDatabaseNodeEntity_updateNodeWithID_version_slots_de
   }
 
   v20 = [self queryWithDatabase:databaseCopy predicate:predicateCopy limit:limit orderingTerms:0 groupBy:0];
-  v31[0] = @"rowid";
-  v31[1] = @"version";
-  v31[2] = @"slots";
-  v31[3] = @"deleted";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __115__HDSimpleGraphDatabaseNodeEntity_enumerateNodesWithPredicate_skipDeleted_limit_database_error_enumerationHandler___block_invoke;
-  v27[3] = &unk_2796B9838;
-  v29 = handlerCopy;
+  v30[0] = @"rowid";
+  v30[1] = @"version";
+  v30[2] = @"slots";
+  v30[3] = @"deleted";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __115__HDSimpleGraphDatabaseNodeEntity_enumerateNodesWithPredicate_skipDeleted_limit_database_error_enumerationHandler___block_invoke;
+  v26[3] = &unk_2796B9838;
+  v28 = handlerCopy;
   selfCopy = self;
-  v28 = databaseCopy;
+  v27 = databaseCopy;
   v22 = handlerCopy;
   v23 = databaseCopy;
-  v24 = [v20 enumerateProperties:v21 error:error enumerationHandler:v27];
+  v24 = [v20 enumerateProperties:v21 error:error enumerationHandler:v26];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -217,20 +216,20 @@ uint64_t __89__HDSimpleGraphDatabaseNodeEntity_updateNodeWithID_version_slots_de
 {
   errorCopy = error;
   rowCopy = row;
-  objc_opt_self();
-  v9 = +[HDSimpleGraphDatabaseNodeEntity _nodeFromRow:database:error:];
+  v10 = objc_opt_self();
+  v11 = [HDSimpleGraphDatabaseNodeEntity _nodeFromRow:v10 database:a2 error:?];
 
-  if (v9)
+  if (v11)
   {
-    v10 = errorCopy[2](errorCopy, v9, database);
+    v12 = errorCopy[2](errorCopy, v11, database);
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 + (id)nodeEntityForeignKey
@@ -322,16 +321,16 @@ LABEL_6:
   return v9;
 }
 
-+ (HDSimpleGraphNode)_nodeFromRow:database:error:
++ (HDSimpleGraphNode)_nodeFromRow:(uint64_t)row database:(uint64_t)database error:
 {
   objc_opt_self();
-  v0 = [HDSimpleGraphNode alloc];
-  v1 = HDSQLiteColumnAsInt64();
-  v2 = HDSQLiteColumnAsInt64();
+  v2 = [HDSimpleGraphNode alloc];
   v3 = HDSQLiteColumnAsInt64();
-  v4 = [(HDSimpleGraphNode *)v0 initWithRowID:v1 attributes:0 relationships:0 version:v2 slots:v3 deleted:HDSQLiteColumnAsInt64() != 0];
+  v4 = HDSQLiteColumnAsInt64();
+  v5 = HDSQLiteColumnAsInt64();
+  v6 = [(HDSimpleGraphNode *)v2 initWithRowID:v3 attributes:0 relationships:0 version:v4 slots:v5 deleted:HDSQLiteColumnAsInt64() != 0];
 
-  return v4;
+  return v6;
 }
 
 + (void)insertNodeWithID:version:slots:deleted:database:error:.cold.1()

@@ -189,258 +189,259 @@ LABEL_24:
 
 - (id)loadTranscriptText
 {
-  v94[3] = *MEMORY[0x1E69E9840];
+  v97[3] = *MEMORY[0x1E69E9840];
   _photoAttachmentStatusChatItem = [(CKPhotoAttachmentStatusChatItem *)self _photoAttachmentStatusChatItem];
   numberOfPhotos = [_photoAttachmentStatusChatItem numberOfPhotos];
   numberOfVideos = [_photoAttachmentStatusChatItem numberOfVideos];
-  v85 = _photoAttachmentStatusChatItem;
+  v88 = _photoAttachmentStatusChatItem;
   numberOfSavedAssets = [_photoAttachmentStatusChatItem numberOfSavedAssets];
+  v6 = numberOfSavedAssets;
   if (numberOfVideos + numberOfPhotos)
   {
     if (numberOfVideos)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = numberOfPhotos == 0;
+      v7 = numberOfPhotos == 0;
     }
 
-    v7 = 1;
+    v8 = 1;
     if (numberOfPhotos != 0 || numberOfVideos == 0)
     {
-      v7 = 2;
+      v8 = 2;
     }
 
-    if (!v6)
+    if (!v7)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = off_1E72F4390[v7];
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
-    v12 = [v9 localizedStringWithFormat:v11, numberOfVideos + numberOfPhotos];
+    v9 = off_1E72F4390[v8];
+    v10 = MEMORY[0x1E696AEC0];
+    v11 = CKFrameworkBundle(numberOfSavedAssets);
+    v12 = [v11 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = [v10 localizedStringWithFormat:v12, numberOfVideos + numberOfPhotos];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v15 = @"\u200F";
+      v16 = @"\u200F";
     }
 
     else
     {
-      v15 = @"\u200E";
+      v16 = @"\u200E";
     }
 
-    v16 = [(__CFString *)v15 stringByAppendingString:v12];
+    v17 = [(__CFString *)v16 stringByAppendingString:v13];
   }
 
   else
   {
-    v12 = CKFrameworkBundle();
-    v16 = [v12 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_ITEMS_FALLBACK_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = CKFrameworkBundle(numberOfSavedAssets);
+    v17 = [v13 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_ITEMS_FALLBACK_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v17 = v16;
+  v18 = v17;
 
-  v87 = v17;
-  if (numberOfSavedAssets)
+  v90 = v18;
+  if (v6)
   {
     if (numberOfVideos)
     {
-      v18 = 1;
+      v20 = 1;
     }
 
     else
     {
-      v18 = numberOfPhotos == 0;
+      v20 = numberOfPhotos == 0;
     }
 
-    v19 = 1;
+    v21 = 1;
     if (numberOfPhotos != 0 || numberOfVideos == 0)
     {
-      v19 = 2;
+      v21 = 2;
     }
 
-    if (v18)
+    if (v20)
     {
-      v20 = v19;
+      v22 = v21;
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    if (numberOfVideos + numberOfPhotos == numberOfSavedAssets)
+    if (numberOfVideos + numberOfPhotos == v6)
     {
-      v21 = CKFrameworkBundle();
-      v22 = v21;
-      if (v20 == 2)
+      v23 = CKFrameworkBundle(v19);
+      v24 = v23;
+      if (v22 == 2)
       {
-        v28 = [v21 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_ALL_ITEMS_SAVED" value:&stru_1F04268F8 table:@"ChatKit"];
-        v23 = 0x1E69DC000;
+        v30 = [v23 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_ALL_ITEMS_SAVED" value:&stru_1F04268F8 table:@"ChatKit"];
+        v25 = 0x1E69DC000;
       }
 
       else
       {
-        v23 = 0x1E69DC000uLL;
-        if (v20 == 1)
+        v25 = 0x1E69DC000uLL;
+        if (v22 == 1)
         {
-          v24 = @"PHOTO_ATTACHMENT_STATUS_ALL_VIDEOS_SAVED";
+          v26 = @"PHOTO_ATTACHMENT_STATUS_ALL_VIDEOS_SAVED";
         }
 
         else
         {
-          v24 = @"PHOTO_ATTACHMENT_STATUS_ALL_PHOTOS_SAVED";
+          v26 = @"PHOTO_ATTACHMENT_STATUS_ALL_PHOTOS_SAVED";
         }
 
-        v28 = [v21 localizedStringForKey:v24 value:&stru_1F04268F8 table:@"ChatKit"];
+        v30 = [v23 localizedStringForKey:v26 value:&stru_1F04268F8 table:@"ChatKit"];
       }
     }
 
     else
     {
-      v32 = off_1E72F43A8[v20];
-      v33 = MEMORY[0x1E696AEC0];
-      v34 = CKFrameworkBundle();
-      v35 = [v34 localizedStringForKey:v32 value:&stru_1F04268F8 table:@"ChatKit"];
-      v22 = [v33 localizedStringWithFormat:v35, numberOfSavedAssets];
+      v34 = off_1E72F43A8[v22];
+      v35 = MEMORY[0x1E696AEC0];
+      v36 = CKFrameworkBundle(v19);
+      v37 = [v36 localizedStringForKey:v34 value:&stru_1F04268F8 table:@"ChatKit"];
+      v24 = [v35 localizedStringWithFormat:v37, v6];
 
-      v23 = 0x1E69DC000uLL;
+      v25 = 0x1E69DC000uLL;
       mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection2 == 1)
       {
-        v38 = @"\u200F";
+        v40 = @"\u200F";
       }
 
       else
       {
-        v38 = @"\u200E";
+        v40 = @"\u200E";
       }
 
-      v28 = [(__CFString *)v38 stringByAppendingString:v22];
+      v30 = [(__CFString *)v40 stringByAppendingString:v24];
     }
 
-    v39 = MEMORY[0x1E696AEC0];
-    v40 = CKFrameworkBundle();
-    v41 = [v40 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_HAS_SAVED_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
-    v42 = [v39 stringWithFormat:v41, v17, v28];
+    v41 = MEMORY[0x1E696AEC0];
+    v43 = CKFrameworkBundle(v42);
+    v44 = [v43 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_HAS_SAVED_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v45 = [v41 stringWithFormat:v44, v18, v30];
 
-    sharedApplication = [*(v23 + 1640) sharedApplication];
+    sharedApplication = [*(v25 + 1640) sharedApplication];
     userInterfaceLayoutDirection3 = [sharedApplication userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection3 == 1)
     {
-      v45 = @"\u200F";
+      v48 = @"\u200F";
     }
 
     else
     {
-      v45 = @"\u200E";
+      v48 = @"\u200E";
     }
 
-    v86 = [(__CFString *)v45 stringByAppendingString:v42];
+    v89 = [(__CFString *)v48 stringByAppendingString:v45];
   }
 
   else
   {
-    v25 = MEMORY[0x1E696AEC0];
-    v26 = CKFrameworkBundle();
-    v27 = [v26 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
-    v28 = [v25 stringWithFormat:v27, v17];
+    v27 = MEMORY[0x1E696AEC0];
+    v28 = CKFrameworkBundle(v19);
+    v29 = [v28 localizedStringForKey:@"PHOTO_ATTACHMENT_STATUS_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v30 = [v27 stringWithFormat:v29, v18];
 
     mEMORY[0x1E69DC668]3 = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection4 = [mEMORY[0x1E69DC668]3 userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection4 == 1)
     {
-      v31 = @"\u200F";
+      v33 = @"\u200F";
     }
 
     else
     {
-      v31 = @"\u200E";
+      v33 = @"\u200E";
     }
 
-    v86 = [(__CFString *)v31 stringByAppendingString:v28];
+    v89 = [(__CFString *)v33 stringByAppendingString:v30];
   }
 
   defaultParagraphStyle = [MEMORY[0x1E69DB7D0] defaultParagraphStyle];
-  v47 = [defaultParagraphStyle mutableCopy];
+  v50 = [defaultParagraphStyle mutableCopy];
 
-  [v47 setAlignment:{2 * (-[CKPhotoAttachmentStatusChatItem transcriptOrientation](self, "transcriptOrientation") != 0)}];
-  [v47 setLineBreakMode:2];
-  v91 = *MEMORY[0x1E69DB648];
-  v81 = v91;
-  v48 = +[CKUIBehavior sharedBehaviors];
-  transcriptRegularFont = [v48 transcriptRegularFont];
-  v94[0] = transcriptRegularFont;
-  v92 = *MEMORY[0x1E69DB650];
-  v50 = v92;
+  [v50 setAlignment:{2 * (-[CKPhotoAttachmentStatusChatItem transcriptOrientation](self, "transcriptOrientation") != 0)}];
+  [v50 setLineBreakMode:2];
+  v94 = *MEMORY[0x1E69DB648];
+  v84 = v94;
   v51 = +[CKUIBehavior sharedBehaviors];
-  theme = [v51 theme];
+  transcriptRegularFont = [v51 transcriptRegularFont];
+  v97[0] = transcriptRegularFont;
+  v95 = *MEMORY[0x1E69DB650];
+  v53 = v95;
+  v54 = +[CKUIBehavior sharedBehaviors];
+  theme = [v54 theme];
   transcriptTextColor = [theme transcriptTextColor];
-  v93 = *MEMORY[0x1E69DB688];
-  v54 = v93;
-  v94[1] = transcriptTextColor;
-  v94[2] = v47;
-  v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:&v91 count:3];
+  v96 = *MEMORY[0x1E69DB688];
+  v57 = v96;
+  v97[1] = transcriptTextColor;
+  v97[2] = v50;
+  v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:&v94 count:3];
 
-  v56 = +[CKUIBehavior sharedBehaviors];
-  transcriptMessageStatusFont = [v56 transcriptMessageStatusFont];
+  v59 = +[CKUIBehavior sharedBehaviors];
+  transcriptMessageStatusFont = [v59 transcriptMessageStatusFont];
 
-  v58 = +[CKUIBehavior sharedBehaviors];
-  theme2 = [v58 theme];
+  v61 = +[CKUIBehavior sharedBehaviors];
+  theme2 = [v61 theme];
   attachmentBalloonActionColor = [theme2 attachmentBalloonActionColor];
 
-  v61 = objc_alloc(MEMORY[0x1E696AD40]);
-  v84 = v55;
-  v62 = v55;
-  v63 = v47;
-  v64 = [v61 initWithString:v86 attributes:v62];
-  string = [v64 string];
-  v66 = [string rangeOfString:v87];
-  v68 = v67;
+  v64 = objc_alloc(MEMORY[0x1E696AD40]);
+  v87 = v58;
+  v65 = v58;
+  v66 = v50;
+  v67 = [v64 initWithString:v89 attributes:v65];
+  string = [v67 string];
+  v69 = [string rangeOfString:v90];
+  v71 = v70;
 
-  v89[0] = v81;
-  v89[1] = v50;
-  v82 = transcriptMessageStatusFont;
-  v90[0] = transcriptMessageStatusFont;
-  v90[1] = attachmentBalloonActionColor;
-  v89[2] = v54;
-  v90[2] = v47;
-  v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:3];
-  if (v66 != 0x7FFFFFFFFFFFFFFFLL)
+  v92[0] = v84;
+  v92[1] = v53;
+  v85 = transcriptMessageStatusFont;
+  v93[0] = transcriptMessageStatusFont;
+  v93[1] = attachmentBalloonActionColor;
+  v92[2] = v57;
+  v93[2] = v50;
+  v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:v92 count:3];
+  if (v69 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    [v64 setAttributes:v69 range:{v66, v68}];
+    [v67 setAttributes:v72 range:{v69, v71}];
   }
 
-  string2 = [v64 string];
-  v71 = [string2 rangeOfString:@"__IMAGE_PLACEHOLDER__"];
-  v73 = v72;
+  string2 = [v67 string];
+  v74 = [string2 rangeOfString:@"__IMAGE_PLACEHOLDER__"];
+  v76 = v75;
 
-  if (v71 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v74 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v74 = MEMORY[0x1E69DCAD8];
-    v88 = attachmentBalloonActionColor;
-    v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
-    v76 = [v74 configurationWithPaletteColors:v75];
+    v77 = MEMORY[0x1E69DCAD8];
+    v91 = attachmentBalloonActionColor;
+    v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v91 count:1];
+    v79 = [v77 configurationWithPaletteColors:v78];
 
-    v77 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.grid.2x2.fill" withConfiguration:v76];
-    v78 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v77];
-    v79 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttachment:v78 attributes:v69];
-    [v64 replaceCharactersInRange:v71 withAttributedString:{v73, v79}];
+    v80 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.grid.2x2.fill" withConfiguration:v79];
+    v81 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v80];
+    v82 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttachment:v81 attributes:v72];
+    [v67 replaceCharactersInRange:v74 withAttributedString:{v76, v82}];
   }
 
-  return v64;
+  return v67;
 }
 
 - (CGSize)loadSizeThatFits:(CGSize)fits textAlignmentInsets:(UIEdgeInsets *)insets

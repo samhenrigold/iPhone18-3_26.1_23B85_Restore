@@ -247,7 +247,6 @@ LABEL_12:
     goto LABEL_30;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 64) & 0x10) == 0 || self->_version != *(equalCopy + 5))
@@ -259,7 +258,7 @@ LABEL_12:
   else if ((*(equalCopy + 64) & 0x10) != 0)
   {
 LABEL_30:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_31;
   }
 
@@ -317,7 +316,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v8 = (*(equalCopy + 64) & 4) == 0;
+  v7 = (*(equalCopy + 64) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_responseProcessingMillis != *(equalCopy + 3))
@@ -325,12 +324,12 @@ LABEL_30:
       goto LABEL_30;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_31:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -478,7 +477,6 @@ LABEL_12:
   toCopy = to;
   if ((*&self->_has & 0x10) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt64Field();
   }
 
@@ -495,7 +493,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    totalLatencyMillis = self->_totalLatencyMillis;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -515,7 +512,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  promptConstructionMillis = self->_promptConstructionMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -530,12 +526,10 @@ LABEL_10:
   }
 
 LABEL_17:
-  inferenceMillis = self->_inferenceMillis;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    responseProcessingMillis = self->_responseProcessingMillis;
     PBDataWriterWriteDoubleField();
   }
 

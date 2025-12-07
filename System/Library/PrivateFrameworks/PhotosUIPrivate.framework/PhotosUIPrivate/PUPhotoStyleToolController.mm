@@ -17,7 +17,6 @@
 - (void)increaseScrubberValue:(BOOL)value;
 - (void)mediaView:(id)view didZoom:(double)zoom;
 - (void)mediaViewDidScroll:(id)scroll;
-- (void)mediaViewIsReady;
 - (void)ppt_selectWithStyle:(id)style;
 - (void)previewingOriginalDidStart;
 - (void)previewingOriginalDidStop;
@@ -209,12 +208,6 @@
   return v3;
 }
 
-- (void)mediaViewIsReady
-{
-  selfCopy = self;
-  sub_1B3839FD4();
-}
-
 - (void)mediaView:(id)view didZoom:(double)zoom
 {
   viewCopy = view;
@@ -321,9 +314,10 @@
 
 - (void)ppt_selectWithStyle:(id)style
 {
-  sub_1B3C9C5E8();
+  v4 = sub_1B3C9C5E8();
+  v6 = v5;
   selfCopy = self;
-  sub_1B383B560();
+  sub_1B383B560(v4, v6);
 }
 
 @end

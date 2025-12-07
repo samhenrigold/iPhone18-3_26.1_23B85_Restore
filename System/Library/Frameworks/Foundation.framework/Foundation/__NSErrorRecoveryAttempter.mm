@@ -9,8 +9,8 @@
 {
   errorCopy = error;
   swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16RecoverableError_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16RecoverableError_pMd, &_s10Foundation16RecoverableError_pMR);
   swift_dynamicCast();
   v12 = v17;
   v13 = v18;
@@ -30,8 +30,8 @@
 - (BOOL)attemptRecoveryFromError:(id)error optionIndex:(int64_t)index
 {
   errorCopy = error;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16RecoverableError_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16RecoverableError_pMd, &_s10Foundation16RecoverableError_pMR);
   swift_dynamicCast();
   v6 = v10;
   v7 = v11;

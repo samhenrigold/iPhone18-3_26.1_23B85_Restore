@@ -9,6 +9,7 @@
 - (void)setContext_info:(id)context_info;
 - (void)setDebug:(id)debug;
 - (void)setDev_config:(id)dev_config;
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info;
 - (void)setExperiment:(id)experiment;
 - (void)setFeature_flags:(id)feature_flags;
 - (void)setGender:(id)gender;
@@ -108,6 +109,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_word_timing_info];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setVoice_name:(id)voice_name

@@ -28,7 +28,7 @@
     v5->_respectImageSizeClass = respectImageSizeClass;
 
     book4 = [controllerCopy book];
-    v5->_respectImageSizeClassIsPrefix = [book4 respectImageSizeClassIsPrefix];
+    v5->_respectImageSizeClassIsPrefix = objc_msgSend_respectImageSizeClassIsPrefix(book4);
   }
 
   return v5;

@@ -75,58 +75,59 @@ LABEL_6:
   toCopy = to;
   completionCopy = completion;
   quality = [sourceCopy quality];
-  v12 = BCImageCacheLog();
-  v13 = v12;
-  if (quality == 1)
+  v12 = quality;
+  v13 = BCImageCacheLog(quality);
+  v14 = v13;
+  if (v12 == 1)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1E6790(sourceCopy, toCopy, v13);
+      sub_1E6790(sourceCopy, toCopy, v14);
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v68 = sourceCopy;
-    v69 = 2112;
-    v70 = toCopy;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "BCCacheImageTransformer: \nTransforming:\n %@ \ninto:\n %@", buf, 0x16u);
+    v72 = sourceCopy;
+    v73 = 2112;
+    v74 = toCopy;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "BCCacheImageTransformer: \nTransforming:\n %@ \ninto:\n %@", buf, 0x16u);
   }
 
   processingOptions = [toCopy processingOptions];
-  v15 = [toCopy copy];
+  v16 = [toCopy copy];
   if (processingOptions)
   {
     image = [sourceCopy image];
-    [v15 setImage:image];
+    [v16 setImage:image];
 
-    [v15 setQuality:{+[BICDescribedImage transformedQualityFrom:](BICDescribedImage, "transformedQualityFrom:", objc_msgSend(sourceCopy, "quality"))}];
+    [v16 setQuality:{+[BICDescribedImage transformedQualityFrom:](BICDescribedImage, "transformedQualityFrom:", objc_msgSend(sourceCopy, "quality"))}];
     image2 = [sourceCopy image];
 
     if (image2)
     {
-      v18 = mainScreenScaleFactor();
-      v19 = +[BCCoverEffects effectIdentifierWithRTL:style:content:nightMode:](BCCoverEffects, "effectIdentifierWithRTL:style:content:nightMode:", ([toCopy processingOptions] >> 7) & 1, -[BCCacheImageTransformer coverEffectStyleForImage:](self, "coverEffectStyleForImage:", toCopy), -[BCCacheImageTransformer coverEffectsContentForImage:](self, "coverEffectsContentForImage:", toCopy), (objc_msgSend(toCopy, "processingOptions") >> 6) & 1);
+      v21 = mainScreenScaleFactor(v19, v20);
+      v22 = +[BCCoverEffects effectIdentifierWithRTL:style:content:nightMode:](BCCoverEffects, "effectIdentifierWithRTL:style:content:nightMode:", ([toCopy processingOptions] >> 7) & 1, -[BCCacheImageTransformer coverEffectStyleForImage:](self, "coverEffectStyleForImage:", toCopy), -[BCCacheImageTransformer coverEffectsContentForImage:](self, "coverEffectsContentForImage:", toCopy), (objc_msgSend(toCopy, "processingOptions") >> 6) & 1);
       [toCopy imageSize];
-      v21 = v20;
-      v23 = v22;
+      v24 = v23;
+      v26 = v25;
       [sourceCopy imageSize];
-      v25 = v24;
+      v28 = v27;
       [toCopy imageSize];
-      if (v25 < v26)
+      if (v28 < v29)
       {
         [sourceCopy imageSize];
-        v28 = v27;
+        v31 = v30;
         [toCopy imageSize];
-        if (v28 < v29 && [v15 quality] != 2)
+        if (v31 < v32 && [v16 quality] != 2)
         {
-          [v15 setQuality:101];
+          [v16 setQuality:101];
         }
       }
 
-      v30 = v21 / v18;
-      v31 = v23 / v18;
+      v33 = v24 / v21;
+      v34 = v26 / v21;
       processingOptions2 = [toCopy processingOptions];
       image3 = [sourceCopy image];
       cGImage = [image3 CGImage];
@@ -135,34 +136,34 @@ LABEL_6:
         cGImage = [(BCCacheImageTransformer *)self doRestrictedProcessing:cGImage];
       }
 
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3221225472;
-      v61[2] = sub_67CEC;
-      v61[3] = &unk_2CA1C0;
-      v66 = v18;
-      v62 = v15;
-      v63 = toCopy;
-      v64 = sourceCopy;
-      v65 = completionCopy;
-      [(BCCacheImageTransformer *)self _applyBookFilter:v19 toImage:cGImage size:v61 completion:v30, v31];
+      v65[0] = _NSConcreteStackBlock;
+      v65[1] = 3221225472;
+      v65[2] = sub_67CEC;
+      v65[3] = &unk_2CA1C0;
+      v70 = v21;
+      v66 = v16;
+      v67 = toCopy;
+      v68 = sourceCopy;
+      v69 = completionCopy;
+      [(BCCacheImageTransformer *)self _applyBookFilter:v22 toImage:cGImage size:v65 completion:v33, v34];
 
       goto LABEL_29;
     }
 
-    v56 = objc_retainBlock(completionCopy);
-    v19 = v56;
-    if (!v56)
+    v60 = objc_retainBlock(completionCopy);
+    v22 = v60;
+    if (!v60)
     {
       goto LABEL_29;
     }
 
-    v57 = v56[2];
+    v61 = v60[2];
 LABEL_28:
-    v57();
+    v61();
     goto LABEL_29;
   }
 
-  [v15 setQuality:{+[BICDescribedImage transformedQualityFrom:](BICDescribedImage, "transformedQualityFrom:", objc_msgSend(sourceCopy, "quality"))}];
+  [v16 setQuality:{+[BICDescribedImage transformedQualityFrom:](BICDescribedImage, "transformedQualityFrom:", objc_msgSend(sourceCopy, "quality"))}];
   image4 = [sourceCopy image];
   cGImage2 = [image4 CGImage];
 
@@ -171,55 +172,55 @@ LABEL_28:
     Width = CGImageGetWidth(cGImage2);
     Height = CGImageGetHeight(cGImage2);
     [toCopy imageSize];
-    v40 = v39;
+    v43 = v42;
     [toCopy imageSize];
-    v42 = v41;
+    v45 = v44;
     [sourceCopy imageSize];
-    v44 = v42 * v43;
-    [sourceCopy imageSize];
-    v46 = round(v44 / v45);
-    v47 = BCImageCacheLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    v47 = v45 * v46;
+    imageSize = [sourceCopy imageSize];
+    v50 = round(v47 / v49);
+    v51 = BCImageCacheLog(imageSize);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
     {
       identifier = [sourceCopy identifier];
       [sourceCopy imageSize];
-      NSStringFromCGSize(v75);
-      v49 = v60 = Height;
+      NSStringFromCGSize(v79);
+      v53 = v64 = Height;
       [toCopy imageSize];
-      v50 = NSStringFromCGSize(v76);
-      v77.width = v40;
-      v77.height = v46;
-      v51 = NSStringFromCGSize(v77);
+      v54 = NSStringFromCGSize(v80);
+      v81.width = v43;
+      v81.height = v50;
+      v55 = NSStringFromCGSize(v81);
       *buf = 138413058;
-      v68 = identifier;
-      v69 = 2112;
-      v70 = v49;
-      v71 = 2112;
-      v72 = v50;
+      v72 = identifier;
       v73 = 2112;
-      v74 = v51;
-      _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "BCCacheImageTransformer: image:%@, src %@, dest %@ -> final %@", buf, 0x2Au);
+      v74 = v53;
+      v75 = 2112;
+      v76 = v54;
+      v77 = 2112;
+      v78 = v55;
+      _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "BCCacheImageTransformer: image:%@, src %@, dest %@ -> final %@", buf, 0x2Au);
 
-      Height = v60;
+      Height = v64;
     }
 
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v53 = CGBitmapContextCreate(0, v40, v46, 8uLL, 0, DeviceRGB, 6u);
-    CGContextSetInterpolationQuality(v53, kCGInterpolationHigh);
-    v78.origin.x = 0.0;
-    v78.origin.y = 0.0;
-    v78.size.width = v40;
-    v78.size.height = v46;
-    CGContextDrawImage(v53, v78, cGImage2);
-    Image = CGBitmapContextCreateImage(v53);
-    CGContextRelease(v53);
+    v57 = CGBitmapContextCreate(0, v43, v50, 8uLL, 0, DeviceRGB, 6u);
+    CGContextSetInterpolationQuality(v57, kCGInterpolationHigh);
+    v82.origin.x = 0.0;
+    v82.origin.y = 0.0;
+    v82.size.width = v43;
+    v82.size.height = v50;
+    CGContextDrawImage(v57, v82, cGImage2);
+    Image = CGBitmapContextCreateImage(v57);
+    CGContextRelease(v57);
     CGColorSpaceRelease(DeviceRGB);
-    v55 = [BICImage imageWithCGImage:Image];
-    [v15 setImage:v55];
+    v59 = [BICImage imageWithCGImage:Image];
+    [v16 setImage:v59];
 
-    if (Width < v40 && Height < v46 && [v15 quality] != 2)
+    if (Width < v43 && Height < v50 && [v16 quality] != 2)
     {
-      [v15 setQuality:101];
+      [v16 setQuality:101];
     }
 
     CGImageRelease(Image);
@@ -228,16 +229,16 @@ LABEL_28:
   else
   {
     image5 = [sourceCopy image];
-    [v15 setImage:image5];
+    [v16 setImage:image5];
   }
 
-  [v15 setUnknownAspectRatio:0];
-  [BICCacheStats logDescribedImage:v15 withComment:@"CacheTransformWithProcessingOptionNone"];
-  v59 = objc_retainBlock(completionCopy);
-  v19 = v59;
-  if (v59)
+  [v16 setUnknownAspectRatio:0];
+  [BICCacheStats logDescribedImage:v16 withComment:@"CacheTransformWithProcessingOptionNone"];
+  v63 = objc_retainBlock(completionCopy);
+  v22 = v63;
+  if (v63)
   {
-    v57 = v59[2];
+    v61 = v63[2];
     goto LABEL_28;
   }
 
@@ -250,39 +251,39 @@ LABEL_29:
   width = size.width;
   completionCopy = completion;
   v12 = [(BCCacheImageTransformer *)self _bookFilter:filter];
-  v13 = v12;
+  v14 = v12;
   if (image && v12)
   {
-    v14 = mainScreenScaleFactor();
-    v15 = TUIPriorityDefault;
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_68028;
-    v23[3] = &unk_2CA1E8;
-    v23[4] = self;
-    v24 = completionCopy;
-    LODWORD(v16) = v15;
-    v17 = [v13 newOperationWithImage:image size:0 contentsScale:1 priority:0 options:v23 waitForCPUSynchronization:width logKey:height completion:{v14, v16}];
-    [v17 start];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_681A4;
-    v21[3] = &unk_2C7BE8;
-    v21[4] = self;
-    v22 = v17;
-    v18 = v17;
+    v15 = mainScreenScaleFactor(v12, v13);
+    v16 = TUIPriorityDefault;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_68028;
+    v24[3] = &unk_2CA1E8;
+    v24[4] = self;
+    v25 = completionCopy;
+    LODWORD(v17) = v16;
+    v18 = [v14 newOperationWithImage:image size:0 contentsScale:1 priority:0 options:v24 waitForCPUSynchronization:width logKey:height completion:{v15, v17}];
+    [v18 start];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_681A4;
+    v22[3] = &unk_2C7BE8;
+    v22[4] = self;
+    v23 = v18;
+    v19 = v18;
     os_unfair_lock_lock(&self->_accessLock);
-    sub_681A4(v21);
+    sub_681A4(v22);
     os_unfair_lock_unlock(&self->_accessLock);
   }
 
   else
   {
-    v19 = objc_retainBlock(completionCopy);
-    v20 = v19;
-    if (v19)
+    v20 = objc_retainBlock(completionCopy);
+    v21 = v20;
+    if (v20)
     {
-      (*(v19 + 2))(v19, image, 0, UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right);
+      (*(v20 + 2))(v20, image, 0, UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right);
     }
   }
 }

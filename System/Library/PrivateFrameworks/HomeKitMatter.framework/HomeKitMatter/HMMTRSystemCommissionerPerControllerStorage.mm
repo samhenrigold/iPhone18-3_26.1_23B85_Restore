@@ -19,7 +19,7 @@
 
 - (id)controller:(id)controller valueForKey:(id)key securityLevel:(unint64_t)level sharingType:(unint64_t)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   keyCopy = key;
   privateDataSource = [(HMMTRSystemCommissionerPerControllerStorage *)self privateDataSource];
@@ -29,9 +29,9 @@
   {
     v12 = MEMORY[0x277CCAAC8];
     v13 = MTRDeviceControllerStorageClasses();
-    v22 = 0;
-    v14 = [v12 unarchivedObjectOfClasses:v13 fromData:v11 error:&v22];
-    v15 = v22;
+    v21 = 0;
+    v14 = [v12 unarchivedObjectOfClasses:v13 fromData:v11 error:&v21];
+    v15 = v21;
 
     if (!v14)
     {
@@ -42,11 +42,11 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v24 = v19;
-        v25 = 2112;
-        v26 = keyCopy;
-        v27 = 2112;
-        v28 = v15;
+        v23 = v19;
+        v24 = 2112;
+        v25 = keyCopy;
+        v26 = 2112;
+        v27 = v15;
         _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive value for key %@ with error %@", buf, 0x20u);
       }
 
@@ -54,19 +54,18 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)controller:(id)controller storeValue:(id)value forKey:(id)key securityLevel:(unint64_t)level sharingType:(unint64_t)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   valueCopy = value;
   keyCopy = key;
-  v22 = 0;
-  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:valueCopy requiringSecureCoding:1 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:valueCopy requiringSecureCoding:1 error:&v21];
+  v14 = v21;
   if (v13)
   {
     privateDataSource = [(HMMTRSystemCommissionerPerControllerStorage *)self privateDataSource];
@@ -82,18 +81,17 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v19;
-      v25 = 2112;
-      v26 = keyCopy;
-      v27 = 2112;
-      v28 = v14;
+      v23 = v19;
+      v24 = 2112;
+      v25 = keyCopy;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to archive requested value for key %@ with error %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13 != 0;
 }
 
@@ -135,10 +133,11 @@
 
 uint64_t __58__HMMTRSystemCommissionerPerControllerStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v3_5161 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_5161;
+  logCategory__hmf_once_v3_5161 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

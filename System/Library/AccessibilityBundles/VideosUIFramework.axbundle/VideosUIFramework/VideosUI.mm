@@ -23,21 +23,17 @@ uint64_t __75__VideosUI_MultiPlayerContainerViewAccessibility__axAllMultiviewCon
 
 uint64_t __68__VideosUI_MultiPlayerContainerViewAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) mediaItemMetadataForProperty:@"TVPMediaItemMetadataCanonicalID"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) mediaItemMetadataForProperty:@"TVPMediaItemMetadataCanonicalID"];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __68__VideosUI_MultiPlayerContainerViewAccessibility_accessibilityLabel__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
 uint64_t __68__VideosUI_MultiPlayerContainerViewAccessibility_accessibilityLabel__block_invoke_3(uint64_t a1, void *a2)
@@ -191,17 +187,16 @@ id __69__VideosUI_MultiPlayerContainerViewAccessibility_removeFromSuperview__blo
 void __69__VideosUI_MultiPlayerContainerViewAccessibility_removeFromSuperview__block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) _accessibilityFindSubviewDescendantsPassingTest:&__block_literal_global_473];
-  v8[0] = MEMORY[0x29EDCA5F8];
-  v8[1] = 3221225472;
-  v8[2] = __69__VideosUI_MultiPlayerContainerViewAccessibility_removeFromSuperview__block_invoke_4;
-  v8[3] = &unk_29F31C018;
-  v9 = *(a1 + 40);
-  v3 = [v2 ax_containsObjectUsingBlock:v8];
+  v7[0] = MEMORY[0x29EDCA5F8];
+  v7[1] = 3221225472;
+  v7[2] = __69__VideosUI_MultiPlayerContainerViewAccessibility_removeFromSuperview__block_invoke_4;
+  v7[3] = &unk_29F31C018;
+  v8 = *(a1 + 40);
+  v3 = [v2 ax_containsObjectUsingBlock:v7];
   if ([v2 count] && (v3 & 1) == 0)
   {
     v4 = *MEMORY[0x29EDC7EA8];
     v5 = accessibilityLocalizedString(@"multiview.game.removed");
-    v7 = *(a1 + 48);
     v6 = AXCFormattedString();
     UIAccessibilityPostNotification(v4, v6);
   }
@@ -279,11 +274,10 @@ uint64_t __62__VideosUI_CardViewAccessibility_accessibilityAttributedValue__bloc
 
 uint64_t __51__VideosUI_CardViewAccessibility_accessibilityHint__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
 void __74__VideosUI_CanonicalBannerInfoViewAccessibility__axHeaderElementSwiftKeys__block_invoke()
@@ -294,31 +288,31 @@ void __74__VideosUI_CanonicalBannerInfoViewAccessibility__axHeaderElementSwiftKe
 
 id __91__VideosUI_CanonicalBannerInfoViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = [MEMORY[0x29EDB8DE8] array];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v4 = *(a1 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           objc_opt_class();
           v10 = [WeakRetained safeSwiftValueForKey:v9];
           v11 = __UIAccessibilityCastAsClass();
@@ -329,7 +323,7 @@ id __91__VideosUI_CanonicalBannerInfoViewAccessibility__accessibilityLoadAccessi
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -340,8 +334,6 @@ id __91__VideosUI_CanonicalBannerInfoViewAccessibility__accessibilityLoadAccessi
   {
     v3 = [MEMORY[0x29EDB8D80] array];
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -374,25 +366,23 @@ BOOL __93__VideosUI_SportsCanonicalBannerCellAccessibility__accessibilityLoadAcc
 
 uint64_t __93__VideosUI_SportsCanonicalBannerCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 48);
-  v8 = v3;
+  v6 = a2;
   if (objc_opt_isKindOfClass())
   {
-    v5 = *(*(a1 + 40) + 8);
-    if (*(v5 + 24) == 1)
+    v3 = *(*(a1 + 40) + 8);
+    if (*(v3 + 24) == 1)
     {
-      *(v5 + 24) = 1;
+      *(v3 + 24) = 1;
     }
 
     else
     {
-      v6 = [*(a1 + 32) accessibilityLabel];
-      *(*(*(a1 + 40) + 8) + 24) = v6 != 0;
+      v4 = [*(a1 + 32) accessibilityLabel];
+      *(*(*(a1 + 40) + 8) + 24) = v4 != 0;
     }
   }
 
-  else if ([v8 isAccessibilityElement])
+  else if ([v6 isAccessibilityElement])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
@@ -633,11 +623,10 @@ uint64_t __70__VideosUI_FloatingCardHostingCollectionViewCellAccessibility__axNo
 
 uint64_t __82__VideosUI_FloatingCardHostingCollectionViewCellAccessibility_accessibilityTraits__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
 @end

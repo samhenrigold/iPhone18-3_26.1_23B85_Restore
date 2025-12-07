@@ -30,16 +30,16 @@
 - (id)appendingWithIndex:(int64_t)index
 {
   selfCopy = self;
-  v4 = sub_1001D47E8();
+  v5 = sub_1001D47E8(index);
 
-  return v4;
+  return v5;
 }
 
 - (id)appending:(id)appending
 {
   appendingCopy = appending;
   selfCopy = self;
-  v6 = sub_1001D48AC();
+  v6 = sub_1001D48AC(appendingCopy);
 
   return v6;
 }

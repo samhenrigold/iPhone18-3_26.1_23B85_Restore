@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CCUIDisplayBackgroundViewControllerAccessibility
@@ -31,6 +32,14 @@
   v3.receiver = self;
   v3.super_class = CCUIDisplayBackgroundViewControllerAccessibility;
   [(CCUIDisplayBackgroundViewControllerAccessibility *)&v3 viewDidLoad];
+  [(CCUIDisplayBackgroundViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CCUIDisplayBackgroundViewControllerAccessibility;
+  [(CCUIDisplayBackgroundViewControllerAccessibility *)&v4 viewWillAppear:appear];
   [(CCUIDisplayBackgroundViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

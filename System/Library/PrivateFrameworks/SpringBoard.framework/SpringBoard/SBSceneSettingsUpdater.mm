@@ -220,7 +220,7 @@
     [SBSceneSettingsUpdater addObserver:];
   }
 
-  if ([(NSHashTable *)self->_observers containsObject:observerCopy])
+  if (objc_msgSend_containsObject_(self->_observers))
   {
     [(SBSceneSettingsUpdater *)a2 addObserver:observerCopy];
   }

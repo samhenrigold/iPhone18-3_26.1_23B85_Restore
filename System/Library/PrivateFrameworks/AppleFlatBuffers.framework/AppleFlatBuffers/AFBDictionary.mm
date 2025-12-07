@@ -62,17 +62,17 @@
 - (id)objectForKey:(id)key
 {
   keyCopy = key;
-  if (keyCopy && (keyClass = self->_keyClass, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (keyCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v6 = (*(self->_objectForValidKey + 2))();
+    v5 = (*(self->_objectForValidKey + 2))();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)keyEnumerator

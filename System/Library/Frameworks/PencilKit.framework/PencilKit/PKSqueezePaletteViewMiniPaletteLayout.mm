@@ -4,16 +4,16 @@
 - (double)_defaultToolsContentClipIndicatorAngle;
 - (double)toolAngle:(id)angle;
 - (id)_selectedTool;
+- (id)_updateMoreButtonConstraints;
+- (id)_updateMulticolorButtonConstraints;
 - (id)initWithUndoButton:(void *)button redoButton:(void *)redoButton drawingTools:(void *)tools selectedToolIndex:(void *)index eraserToolIndex:(void *)toolIndex visibleToolsCount:(void *)count multicolorButton:(double)multicolorButton moreButton:(void *)self0 startAngle:;
 - (uint64_t)_canSelectTool:(uint64_t)tool atIndex:;
-- (uint64_t)_updateClipIndicatorView;
-- (uint64_t)_updateMoreButtonConstraints;
-- (uint64_t)_updateMulticolorButtonConstraints;
 - (void)_handlePanGesture:(id)gesture;
 - (void)_performDrawingToolTapAction:(uint64_t)action;
 - (void)_performMoreButtonTapAction;
 - (void)_performMulticolorButtonTapAction;
 - (void)_selectTool:(uint64_t)tool;
+- (void)_updateClipIndicatorView;
 - (void)_updateColorUIStyle;
 - (void)expandedToolsLayout:(id)layout didChangeDrawingTools:(id)tools;
 - (void)handlePencilInteractionDidTap:(int64_t)tap;
@@ -666,12 +666,12 @@ LABEL_12:
         if (undoRedoLayout)
         {
           undoRedoLayout->_undoButtonAngle = self->_initialUndoButtonAngle;
-          [(PKSqueezePaletteViewUndoRedoLayout *)undoRedoLayout _updateUndoButtonConstraints];
+          [(PKSqueezePaletteViewUndoRedoLayout *)&undoRedoLayout->super.isa _updateUndoButtonConstraints];
           v42 = self->_undoRedoLayout;
           if (v42)
           {
             v42->_redoButtonAngle = self->_initialRedoButtonAngle;
-            [(PKSqueezePaletteViewUndoRedoLayout *)v42 _updateRedoButtonConstraints];
+            [(PKSqueezePaletteViewUndoRedoLayout *)&v42->super.isa _updateRedoButtonConstraints];
           }
         }
 
@@ -835,12 +835,12 @@ LABEL_51:
             if (v74)
             {
               v74->_undoButtonAngle = self->_initialUndoButtonAngle + v18 - self->_startPanGestureAngleOnArc;
-              [(PKSqueezePaletteViewUndoRedoLayout *)v74 _updateUndoButtonConstraints];
+              [(PKSqueezePaletteViewUndoRedoLayout *)&v74->super.isa _updateUndoButtonConstraints];
               v75 = self->_undoRedoLayout;
               if (v75)
               {
                 v75->_redoButtonAngle = self->_initialRedoButtonAngle + v18 - self->_startPanGestureAngleOnArc;
-                [(PKSqueezePaletteViewUndoRedoLayout *)v75 _updateRedoButtonConstraints];
+                [(PKSqueezePaletteViewUndoRedoLayout *)&v75->super.isa _updateRedoButtonConstraints];
               }
             }
 
@@ -916,12 +916,12 @@ void __59__PKSqueezePaletteViewMiniPaletteLayout__handlePanGesture___block_invok
   [WeakRetained bringSubviewToFront:v3];
 }
 
-- (uint64_t)_updateMulticolorButtonConstraints
+- (id)_updateMulticolorButtonConstraints
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 288));
+    WeakRetained = objc_loadWeakRetained(result + 36);
     v3 = WeakRetained;
     if (WeakRetained)
     {
@@ -933,11 +933,11 @@ void __59__PKSqueezePaletteViewMiniPaletteLayout__handlePanGesture___block_invok
       v4 = 0.0;
     }
 
-    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 104));
+    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 13));
     v7 = v6;
 
-    [*(v1 + 224) setConstant:v5];
-    v8 = *(v1 + 232);
+    [v1[28] setConstant:v5];
+    v8 = v1[29];
 
     return [v8 setConstant:v7];
   }
@@ -945,12 +945,12 @@ void __59__PKSqueezePaletteViewMiniPaletteLayout__handlePanGesture___block_invok
   return result;
 }
 
-- (uint64_t)_updateMoreButtonConstraints
+- (id)_updateMoreButtonConstraints
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 288));
+    WeakRetained = objc_loadWeakRetained(result + 36);
     v3 = WeakRetained;
     if (WeakRetained)
     {
@@ -962,11 +962,11 @@ void __59__PKSqueezePaletteViewMiniPaletteLayout__handlePanGesture___block_invok
       v4 = 0.0;
     }
 
-    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 112));
+    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 14));
     v7 = v6;
 
-    [*(v1 + 240) setConstant:v5];
-    v8 = *(v1 + 248);
+    [v1[30] setConstant:v5];
+    v8 = v1[31];
 
     return [v8 setConstant:v7];
   }
@@ -1340,7 +1340,7 @@ LABEL_13:
 
   self->_multicolorButtonAngle = v50 + (height + afterToolSpace) / v68;
 
-  [(PKSqueezePaletteViewMiniPaletteLayout *)self _updateMulticolorButtonConstraints];
+  [(PKSqueezePaletteViewMiniPaletteLayout *)&self->super.isa _updateMulticolorButtonConstraints];
   [(UIButton *)self->_moreButton setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIButton *)self->_moreButton addTarget:self action:sel__didTapMoreButton_ forControlEvents:64];
   v69 = objc_loadWeakRetained(&self->_paletteView);
@@ -1390,7 +1390,7 @@ LABEL_13:
 
   self->_moreButtonAngle = multicolorButtonAngle + (v84 + interButtonSpace) / v87;
 
-  [(PKSqueezePaletteViewMiniPaletteLayout *)self _updateMoreButtonConstraints];
+  [(PKSqueezePaletteViewMiniPaletteLayout *)&self->super.isa _updateMoreButtonConstraints];
   v129 = MEMORY[0x1E696ACD8];
   heightAnchor = [(PKSqueezePaletteMulticolorSwatchButton *)self->_multicolorButton heightAnchor];
   v89 = [heightAnchor constraintEqualToConstant:self->_buttonSize.height];
@@ -1483,7 +1483,7 @@ LABEL_13:
     v117 = 0.0;
   }
 
-  [(PKSqueezePaletteView *)v115 updateUIStartAngle:1 endAngle:v117 clockwise:self->_moreButtonAngle animated:?];
+  [(PKSqueezePaletteView *)v115 updateUIStartAngle:v117 endAngle:self->_moreButtonAngle clockwise:1u animated:?];
 
   objc_destroyWeak(&v135);
   _Block_object_dispose(&from, 8);
@@ -1592,23 +1592,23 @@ void __48__PKSqueezePaletteViewMiniPaletteLayout_setupUI__block_invoke_4(uint64_
   [v4 _pk_show];
 }
 
-- (uint64_t)_updateClipIndicatorView
+- (void)_updateClipIndicatorView
 {
   if (result)
   {
     v1 = result;
     v2 = *(result + 184);
-    v3 = *(result + 176);
-    result = v2 == 1 ? [v3 _pk_show] : objc_msgSend(v3, "_pk_hide");
-    if (*(v1 + 336))
+    v3 = result[22];
+    result = (v2 == 1 ? [v3 _pk_show] : objc_msgSend(v3, "_pk_hide"));
+    if (v1[42])
     {
-      WeakRetained = objc_loadWeakRetained((v1 + 288));
+      WeakRetained = objc_loadWeakRetained(v1 + 36);
       [WeakRetained bounds];
       UIRectGetCenter();
       v6 = v5;
       v8 = v7;
 
-      v9 = objc_loadWeakRetained((v1 + 288));
+      v9 = objc_loadWeakRetained(v1 + 36);
       v10 = v9;
       v11 = 0.0;
       if (v9)
@@ -1616,21 +1616,21 @@ void __48__PKSqueezePaletteViewMiniPaletteLayout_setupUI__block_invoke_4(uint64_
         v11 = v9[62];
       }
 
-      PKPointOnArc(v6, v8, v11, *(v1 + 256));
+      PKPointOnArc(v6, v8, v11, *(v1 + 32));
 
-      v12 = *(v1 + 176);
+      v12 = v1[22];
       v13 = *(MEMORY[0x1E695EFD0] + 16);
       *&v17.a = *MEMORY[0x1E695EFD0];
       *&v17.c = v13;
       *&v17.tx = *(MEMORY[0x1E695EFD0] + 32);
       [v12 setTransform:&v17];
 
-      v14 = objc_loadWeakRetained((v1 + 288));
+      v14 = objc_loadWeakRetained(v1 + 36);
       UIRectIntegralWithViewScale();
-      [*(v1 + 176) setFrame:?];
+      [v1[22] setFrame:?];
 
-      CGAffineTransformMakeRotation(&v16, *(v1 + 256) + -1.57079633);
-      v15 = *(v1 + 176);
+      CGAffineTransformMakeRotation(&v16, *(v1 + 32) + -1.57079633);
+      v15 = v1[22];
       v17 = v16;
       return [v15 setTransform:&v17];
     }
@@ -1710,8 +1710,8 @@ void __48__PKSqueezePaletteViewMiniPaletteLayout_setupUI__block_invoke_5(uint64_
   [(PKSqueezePaletteViewMiniPaletteLayout *)self _updateColorUIStyle];
   [(UIView *)self->_multicolorButton _pk_show];
   [(UIButton *)self->_moreButton _pk_show];
-  [(PKSqueezePaletteViewMiniPaletteLayout *)self _updateMulticolorButtonConstraints];
-  [(PKSqueezePaletteViewMiniPaletteLayout *)self _updateMoreButtonConstraints];
+  [(PKSqueezePaletteViewMiniPaletteLayout *)&self->super.isa _updateMulticolorButtonConstraints];
+  [(PKSqueezePaletteViewMiniPaletteLayout *)&self->super.isa _updateMoreButtonConstraints];
   CGAffineTransformMakeRotation(&v31, self->_moreButtonAngle + 1.57079633);
   moreButton = self->_moreButton;
   v30 = v31;
@@ -2008,7 +2008,7 @@ uint64_t __64__PKSqueezePaletteViewMiniPaletteLayout_willTransitionToLayout___bl
 {
   v38[1] = *MEMORY[0x1E69E9840];
   v5 = +[PKStatisticsManager sharedStatisticsManager];
-  [PKStatisticsManager recordPencilAction:v5 doubleTap:?];
+  [(PKStatisticsManager *)v5 recordPencilAction:tap doubleTap:1];
 
   if (tap > 2)
   {

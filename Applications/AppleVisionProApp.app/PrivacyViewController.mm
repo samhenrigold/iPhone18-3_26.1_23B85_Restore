@@ -10,14 +10,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10001DD64();
+  sub_10001DD64(selfCopy);
 }
 
 - (void)didTapContinueButton
 {
   selfCopy = self;
   sub_10007DAC4();
-  v2 = *&selfCopy->buttonHandler[OBJC_IVAR____TtC17AppleVisionProApp21PrivacyViewController_buttonHandler];
   (*&selfCopy->OBWelcomeController_opaque[OBJC_IVAR____TtC17AppleVisionProApp21PrivacyViewController_buttonHandler])();
 }
 

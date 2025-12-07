@@ -22,21 +22,18 @@
 
 - (NSString)itemIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant21FBAAddAttachmentsCell_itemIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant21FBAAddAttachmentsCell_itemIdentifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setItemIdentifier:(id)identifier
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant21FBAAddAttachmentsCell_itemIdentifier);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant21FBAAddAttachmentsCell_itemIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (UIMenu)menu
@@ -78,7 +75,7 @@
   v4[1] = 0xE000000000000000;
   *(self + OBJC_IVAR____TtC18Feedback_Assistant21FBAAddAttachmentsCell_button) = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FBAAddAttachmentsCell();
+  v8.super_class = type metadata accessor for FBAAddAttachmentsCell(self, a2);
   coderCopy = coder;
   v6 = [(FBAAddAttachmentsCell *)&v8 initWithCoder:coderCopy];
 

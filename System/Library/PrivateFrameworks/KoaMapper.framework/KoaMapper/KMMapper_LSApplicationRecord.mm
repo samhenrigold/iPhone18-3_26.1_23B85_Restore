@@ -8,48 +8,48 @@
 
 - (id)itemsFromExternalObject:(id)object additionalFields:(id)fields error:(id *)error
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v9 = [fields objectForKey:self->_languageCodeKey];
   v10 = v9;
   if (v9)
   {
-    v45 = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+    v44 = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
     4294967291 = [objectCopy localizedNameWithPreferredLocalizations:v11];
 
     builder = self->_builder;
     bundleIdentifier = [objectCopy bundleIdentifier];
-    v43 = 0;
-    v15 = [(KVItemBuilder *)builder setItemType:3 itemId:bundleIdentifier error:&v43];
-    v16 = v43;
+    v42 = 0;
+    v15 = [(KVItemBuilder *)builder setItemType:3 itemId:bundleIdentifier error:&v42];
+    v16 = v42;
     if (v15)
     {
       errorCopy = error;
       v17 = self->_builder;
       [objectCopy bundleIdentifier];
-      v38 = v42[2] = v16;
+      v37 = v41[2] = v16;
       v18 = [KVItemBuilder addFieldWithType:v17 value:"addFieldWithType:value:error:" error:100];
       v19 = v16;
 
-      v39 = 4294967291;
+      v38 = 4294967291;
       if (v18)
       {
         v20 = self->_builder;
         [objectCopy bundleVersion];
-        v36 = v42[1] = v19;
+        v35 = v41[1] = v19;
         v21 = [KVItemBuilder addFieldWithType:v20 value:"addFieldWithType:value:error:" error:103];
         v22 = v19;
 
         if (v21)
         {
           v23 = self->_builder;
-          v42[0] = v22;
-          v24 = [(KVItemBuilder *)v23 addFieldWithType:102 value:4294967291 error:v42];
-          v35 = v42[0];
+          v41[0] = v22;
+          v24 = [(KVItemBuilder *)v23 addFieldWithType:102 value:4294967291 error:v41];
+          v34 = v41[0];
 
           v25 = v24 == 0;
-          v22 = v35;
+          v22 = v34;
         }
 
         else
@@ -67,22 +67,22 @@
 
       if (!v25)
       {
-        v41 = v19;
-        v31 = [(KMMapper_LSApplicationRecord *)self addAlternativeNamesFor:objectCopy forLanguage:v10 error:&v41];
-        v32 = v41;
+        v40 = v19;
+        v30 = [(KMMapper_LSApplicationRecord *)self addAlternativeNamesFor:objectCopy forLanguage:v10 error:&v40];
+        v31 = v40;
 
-        if (v31)
+        if (v30)
         {
-          v33 = self->_builder;
-          v40 = v32;
-          v34 = [(KVItemBuilder *)v33 buildItemWithError:&v40];
-          v16 = v40;
+          v32 = self->_builder;
+          v39 = v31;
+          v33 = [(KVItemBuilder *)v32 buildItemWithError:&v39];
+          v16 = v39;
 
-          4294967291 = v39;
-          if (v34)
+          4294967291 = v38;
+          if (v33)
           {
-            v44 = v34;
-            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+            v43 = v33;
+            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
           }
 
           else
@@ -94,17 +94,17 @@
 
         else
         {
-          KMMapperSetBuilderError(errorCopy, v32);
+          KMMapperSetBuilderError(errorCopy, v31);
           v28 = 0;
-          v16 = v32;
-          4294967291 = v39;
+          v16 = v31;
+          4294967291 = v38;
         }
 
         goto LABEL_15;
       }
 
       v16 = v19;
-      4294967291 = v39;
+      4294967291 = v38;
       error = errorCopy;
     }
 
@@ -118,18 +118,16 @@
   else
   {
     v26 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA068];
+    v45 = *MEMORY[0x277CCA068];
     4294967291 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected additional field with type: %i", 4294967291];
-    v47[0] = 4294967291;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v46[0] = 4294967291;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v27 = [v26 errorWithDomain:@"com.apple.siri.koa.mapper" code:7 userInfo:v16];
     KVSetError();
   }
 
   v28 = 0;
 LABEL_15:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

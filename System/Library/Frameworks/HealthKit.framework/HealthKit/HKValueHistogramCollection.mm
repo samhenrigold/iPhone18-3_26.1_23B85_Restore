@@ -3,7 +3,6 @@
 - (HKValueHistogramCollection)initWithCoder:(id)coder;
 - (HKValueHistogramCollection)initWithQuantityRanges:(id)ranges valueHistogramsByDateIntervalIndex:(id)index anchorDate:(id)date intervalComponents:(id)components;
 - (NSArray)valueHistograms;
-- (id)description;
 - (id)valueHistogramForDate:(id)date;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -88,15 +87,6 @@
   }
 
   return v6;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  quantityRanges = self->_quantityRanges;
-  anchorDate = self->_anchorDate;
-  return [v3 stringWithFormat:@"<%@:%p quantityRanges=%@ valueHistograms=%@ anchorDate=%@ intervalComponents=%@>", v4, self, quantityRanges, self->_valueHistogramsByDateIntervalIndex, anchorDate, self->_intervalComponents];
 }
 
 - (HKValueHistogramCollection)initWithCoder:(id)coder

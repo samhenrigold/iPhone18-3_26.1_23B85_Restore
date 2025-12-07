@@ -14,35 +14,33 @@
     return 0;
   }
 
-  v4 = (*(self->_provider + 2))();
-  v5 = [v4 length];
-  v6 = 0;
-  if (v4)
+  v3 = (*(self->_provider + 2))();
+  v4 = [v3 length];
+  v5 = 0;
+  if (v3)
   {
-    v7 = v5;
-    if (v5 <= 0x8000)
+    v6 = v4;
+    if (v4 <= 0x8000)
     {
-      v6 = malloc_type_calloc(v5 + 200, 1uLL, 0x9C6C822CuLL);
-      v6->var0 = 1;
-      v6->var1.var1 = v7;
-      title = self->_title;
+      v5 = malloc_type_calloc(v4 + 200, 1uLL, 0x9C6C822CuLL);
+      v5->var0 = 1;
+      v5->var1.var1 = v6;
       __strlcpy_chk();
-      memcpy(v6->var4, [v4 bytes], v7);
+      memcpy(v5->var4, [v3 bytes], v6);
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)dealloc
 {
-  handle = self->_handle;
   os_state_remove_handler();
   dispatch_source_cancel(self->_signal);
   free(self->_title);
-  v4.receiver = self;
-  v4.super_class = _DiagnosticsHandler;
-  [(_DiagnosticsHandler *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = _DiagnosticsHandler;
+  [(_DiagnosticsHandler *)&v3 dealloc];
 }
 
 - (_DiagnosticsHandler)initWithSubsystem:(const char *)subsystem category:(const char *)category provider:(id)provider

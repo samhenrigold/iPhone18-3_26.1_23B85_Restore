@@ -118,7 +118,7 @@
 - (void)stickerDruidDragStarted
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = ms_defaultLog();
+  v2 = ms_defaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -134,7 +134,7 @@
 {
   v11 = *MEMORY[0x1E69E9840];
   stickerCopy = sticker;
-  v5 = ms_defaultLog();
+  v5 = ms_defaultLog(stickerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315138;

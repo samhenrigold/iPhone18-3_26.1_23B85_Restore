@@ -82,7 +82,7 @@
 
 - (id)descriptionDictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   uuid = self->_uuid;
   if (uuid)
@@ -129,32 +129,32 @@
   if (self->_rssiHistogram)
   {
     v12 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     allKeys = [(NSDictionary *)self->_rssiHistogram allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
+          v18 = *(*(&v22 + 1) + 8 * i);
           v19 = [(NSDictionary *)self->_rssiHistogram objectForKeyedSubscript:v18];
           stringValue = [v18 stringValue];
           [v12 setObject:v19 forKey:stringValue];
         }
 
-        v15 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -163,29 +163,27 @@
     [v3 setObject:v12 forKey:@"rssiHistogram"];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionDictionary = [(RTPeopleDensity *)self descriptionDictionary];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] dataWithJSONObject:descriptionDictionary options:3 error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACB0] dataWithJSONObject:descriptionDictionary options:3 error:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", buf, 0x16u);
     }
 
@@ -198,8 +196,6 @@
   }
 
   v7 = string;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -18,29 +18,29 @@
 
 - (void)loadRepresentationForArtworkCatalog:(MPArtworkCatalog *)catalog completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v17 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = catalog;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  __chkstk_darwin();
+  v8 = &v16 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  v10[2] = catalog;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &async function pointer to partial apply for @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:);
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &async function pointer to partial apply for @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:);
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &_sIeghH_IeAgH_TRTATu;
-  v14[5] = v13;
+  v13[4] = &_sIeghH_IeAgH_TRTATu;
+  v13[5] = v12;
   catalogCopy = catalog;
   selfCopy = self;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v9, &_sIeAgH_ytIeAgHr_TRTATu, v14);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v8, &_sIeAgH_ytIeAgHr_TRTATu, v13);
 }
 
 - (id)visualIdenticalityIdentifierForCatalog:(id)catalog

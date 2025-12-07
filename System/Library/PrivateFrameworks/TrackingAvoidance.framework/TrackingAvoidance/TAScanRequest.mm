@@ -35,60 +35,33 @@
 
 - (id)evaluateVisitEntry:(id)entry clock:(id)clock
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   clockCopy = clock;
   self->_interVisitScanCount = 0;
   scheduledScanRequest = self->_scheduledScanRequest;
   self->_scheduledScanRequest = 0;
 
-  if ([entryCopy isClosed])
+  if (([entryCopy isClosed] & 1) != 0 || (objc_msgSend(entryCopy, "getDisplayOnTimeUntilEndDate:", clockCopy), v10 = v9, -[TAScanRequestSettings minVisitEntryDisplayOnDuration](self->_settings, "minVisitEntryDisplayOnDuration"), v10 >= v11) || (lastScanRequestedDate = self->_lastScanRequestedDate) != 0 && (objc_msgSend(entryCopy, "representativeVisit"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "arrivalDate"), v14 = objc_claimAutoreleasedReturnValue(), v15 = -[NSDate compare:](lastScanRequestedDate, "compare:", v14), v14, v13, v15 != -1))
   {
-    goto LABEL_5;
-  }
-
-  [entryCopy getDisplayOnTimeUntilEndDate:clockCopy];
-  v10 = v9;
-  [(TAScanRequestSettings *)self->_settings minVisitEntryDisplayOnDuration];
-  if (v10 >= v11)
-  {
-    goto LABEL_5;
-  }
-
-  lastScanRequestedDate = self->_lastScanRequestedDate;
-  if (!lastScanRequestedDate)
-  {
-    goto LABEL_9;
-  }
-
-  representativeVisit = [entryCopy representativeVisit];
-  arrivalDate = [representativeVisit arrivalDate];
-  v15 = [(NSDate *)lastScanRequestedDate compare:arrivalDate];
-
-  if (v15 != -1)
-  {
-LABEL_5:
     v16 = 0;
   }
 
   else
   {
-LABEL_9:
-    v19 = [TAOutgoingRequests alloc];
-    v21 = @"ScanRequestReason";
-    v22[0] = @"VisitEntry";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v16 = [(TAOutgoingRequests *)v19 initWithRequestKey:@"RequestingAdditionalScans" additionalInformation:v20 date:clockCopy];
+    v18 = [TAOutgoingRequests alloc];
+    v20 = @"ScanRequestReason";
+    v21[0] = @"VisitEntry";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v16 = [(TAOutgoingRequests *)v18 initWithRequestKey:@"RequestingAdditionalScans" additionalInformation:v19 date:clockCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)evaluateInterVisitAfterVisitExit:(id)exit displayEvents:(id)events advertisements:(id)advertisements deviceRecord:(id)record clock:(id)clock
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   exitCopy = exit;
   eventsCopy = events;
   advertisementsCopy = advertisements;
@@ -118,36 +91,36 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v26 = advertisementsCopy;
-      v29 = [v26 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v29 = [v26 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v29)
       {
         v30 = v29;
-        v36 = v21;
-        v37 = eventsCopy;
-        v31 = *v39;
+        v35 = v21;
+        v36 = eventsCopy;
+        v31 = *v38;
         while (2)
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v39 != v31)
+            if (*v38 != v31)
             {
               objc_enumerationMutation(v26);
             }
 
-            v33 = *(*(&v38 + 1) + 8 * i);
-            if ([(TAScanRequest *)self shouldScanOnAdvertisement:v33 withDeviceRecord:recordCopy, v36, v37, v38])
+            v33 = *(*(&v37 + 1) + 8 * i);
+            if ([(TAScanRequest *)self shouldScanOnAdvertisement:v33 withDeviceRecord:recordCopy, v35, v36, v37])
             {
               [(TAScanRequest *)self scheduleInterVisitScanForAdvertisement:v33 deviceRecord:recordCopy clock:clockCopy];
               goto LABEL_18;
             }
           }
 
-          v30 = [v26 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          v30 = [v26 countByEnumeratingWithState:&v37 objects:v43 count:16];
           if (v30)
           {
             continue;
@@ -158,8 +131,8 @@ LABEL_22:
 
 LABEL_18:
         v27 = 0;
-        v21 = v36;
-        eventsCopy = v37;
+        v21 = v35;
+        eventsCopy = v36;
       }
 
       else
@@ -172,9 +145,9 @@ LABEL_18:
     {
       ++self->_interVisitScanCount;
       v25 = [TAOutgoingRequests alloc];
-      v42 = @"ScanRequestReason";
-      v43 = @"InterVisitImmediate";
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = @"ScanRequestReason";
+      v42 = @"InterVisitImmediate";
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       v27 = [(TAOutgoingRequests *)v25 initWithRequestKey:@"RequestingAdditionalScans" additionalInformation:v26 date:clockCopy];
     }
 
@@ -190,14 +163,12 @@ LABEL_18:
   v27 = 0;
 LABEL_23:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (id)evictScheduledInterVisitScanWithClock:(id)clock
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   clockCopy = clock;
   scheduledScanRequest = self->_scheduledScanRequest;
   if (scheduledScanRequest && [(NSDate *)scheduledScanRequest compare:clockCopy]!= NSOrderedDescending)
@@ -219,9 +190,9 @@ LABEL_23:
       {
         ++self->_interVisitScanCount;
         v12 = [TAOutgoingRequests alloc];
-        v18 = @"ScanRequestReason";
-        v19[0] = @"InterVisitScheduled";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+        v17 = @"ScanRequestReason";
+        v18[0] = @"InterVisitScheduled";
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
         v14 = [(TAOutgoingRequests *)v12 initWithRequestKey:@"RequestingAdditionalScans" additionalInformation:v13 date:clockCopy];
 
         goto LABEL_9;
@@ -231,8 +202,6 @@ LABEL_23:
 
   v14 = 0;
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

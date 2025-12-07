@@ -28,7 +28,7 @@
 
 - (__CFString)stringByRemovingNewlineCharacters
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
@@ -47,7 +47,7 @@
       v8 = [v3 objectAtIndex:0];
       v9 = [(__CFString *)v8 length];
       v10 = &stru_1F548B930;
-      v22 = v8;
+      v21 = v8;
       if (v9)
       {
         v10 = v8;
@@ -56,7 +56,7 @@
       v5 = v10;
       for (i = 1; i != v6; ++i)
       {
-        v12 = [v3 objectAtIndex:{i, v22}];
+        v12 = [v3 objectAtIndex:{i, v21}];
         if (-[__CFString length](v5, "length") && [v12 length])
         {
           v13 = [(__CFString *)v5 characterAtIndex:[(__CFString *)v5 length]- 1];
@@ -65,9 +65,9 @@
           {
             v15 = [(__CFString *)v5 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
             v16 = [v12 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-            v24[0] = v15;
-            v24[1] = v16;
-            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+            v23[0] = v15;
+            v23[1] = v16;
+            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
             v18 = [v17 componentsJoinedByString:@" "];
 
             v5 = v15;
@@ -80,9 +80,9 @@
 
           else
           {
-            v23[0] = v5;
-            v23[1] = v12;
-            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+            v22[0] = v5;
+            v22[1] = v12;
+            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
             v18 = [(__CFString *)v19 componentsJoinedByString:@" "];
 
             v5 = v19;
@@ -98,8 +98,6 @@
   {
     v5 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

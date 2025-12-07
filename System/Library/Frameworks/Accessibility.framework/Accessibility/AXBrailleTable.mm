@@ -36,7 +36,7 @@
 
 - (AXBrailleTable)initWithIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [objc_alloc(getBRLTTableClass()) initWithExternalIdentifier:identifierCopy];
   v6 = [[AXBrailleTable alloc] initWithBRLTTable:v5];
@@ -50,29 +50,29 @@
 
   else
   {
-    v21 = identifierCopy;
+    v20 = identifierCopy;
     selfCopy = self;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v10 = +[AXBrailleTable languageAgnosticTables];
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          brltTable = [*(*(&v23 + 1) + 8 * v14) brltTable];
+          brltTable = [*(*(&v22 + 1) + 8 * v14) brltTable];
           identifier = [brltTable identifier];
           identifier2 = [v5 identifier];
           v18 = [identifier isEqualToString:identifier2];
@@ -88,7 +88,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -100,11 +100,10 @@
 
     v9 = 0;
 LABEL_13:
-    identifierCopy = v21;
+    identifierCopy = v20;
     self = selfCopy;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -169,8 +168,8 @@ LABEL_13:
 
 + (id)supportedLocales
 {
-  tableEnumeratorWithSystemBundlePath = [(objc_class *)getBRLTTableEnumeratorClass() tableEnumeratorWithSystemBundlePath];
-  supportedLocales = [tableEnumeratorWithSystemBundlePath supportedLocales];
+  v2 = [getBRLTTableEnumeratorClass(self a2)];
+  supportedLocales = [v2 supportedLocales];
 
   return supportedLocales;
 }
@@ -200,64 +199,62 @@ LABEL_13:
   v30 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v3 = objc_opt_new();
-  [(objc_class *)getBRLTTableEnumeratorClass() tableEnumeratorWithSystemBundlePath];
+  [getBRLTTableEnumeratorClass(v3 v4)];
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v18 = v27 = 0u;
   obj = [v18 translatorBundles];
-  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v4)
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v25;
+    v6 = v5;
+    v7 = *v25;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v6)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v9 = [v18 tablesForLocale:localeCopy inBundle:v8];
-        v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
-        if (v10)
+        v10 = [v18 tablesForLocale:localeCopy inBundle:v9];
+        v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        if (v11)
         {
-          v11 = v10;
-          v12 = *v21;
+          v12 = v11;
+          v13 = *v21;
           do
           {
-            for (j = 0; j != v11; ++j)
+            for (j = 0; j != v12; ++j)
             {
-              if (*v21 != v12)
+              if (*v21 != v13)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v10);
               }
 
-              v14 = [[AXBrailleTable alloc] initWithBRLTTable:*(*(&v20 + 1) + 8 * j)];
-              [v3 addObject:v14];
+              v15 = [[AXBrailleTable alloc] initWithBRLTTable:*(*(&v20 + 1) + 8 * j)];
+              [v3 addObject:v15];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
-          while (v11);
+          while (v12);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -266,37 +263,35 @@ LABEL_13:
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
-  tableEnumeratorWithSystemBundlePath = [(objc_class *)getBRLTTableEnumeratorClass() tableEnumeratorWithSystemBundlePath];
+  v4 = [getBRLTTableEnumeratorClass(v2 v3)];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  languageAgnosticTables = [tableEnumeratorWithSystemBundlePath languageAgnosticTables];
-  v5 = [languageAgnosticTables countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  languageAgnosticTables = [v4 languageAgnosticTables];
+  v6 = [languageAgnosticTables countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v13;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v7)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(languageAgnosticTables);
         }
 
-        v9 = [[AXBrailleTable alloc] initWithBRLTTable:*(*(&v12 + 1) + 8 * i)];
-        [v2 addObject:v9];
+        v10 = [[AXBrailleTable alloc] initWithBRLTTable:*(*(&v12 + 1) + 8 * i)];
+        [v2 addObject:v10];
       }
 
-      v6 = [languageAgnosticTables countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [languageAgnosticTables countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

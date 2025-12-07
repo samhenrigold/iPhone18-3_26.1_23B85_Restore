@@ -369,9 +369,9 @@ LABEL_20:
   if (v5 <= -10.0)
   {
     v24 = 0;
-    v25[0] = &v24;
-    v25[1] = 0x2020000000;
-    v25[2] = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     v12 = [[BMPublisherOptions alloc] initWithStartDate:dateCopy endDate:0 maxEvents:20 lastN:0 reversed:1];
     v13 = BiomeLibrary();
     device = [v13 Device];
@@ -394,10 +394,10 @@ LABEL_20:
     v20 = [self log];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005D0A4(dateCopy, v25);
+      sub_10005D0A4();
     }
 
-    integerValue = *(v25[0] + 24);
+    integerValue = v25[3];
     _Block_object_dispose(&v24, 8);
   }
 
@@ -2498,48 +2498,32 @@ LABEL_12:
 {
   eventCopy = event;
   v4 = eventCopy;
-  if (!eventCopy)
+  if (eventCopy && ([eventCopy eventBody], (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, objc_msgSend(v4, "eventBody"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "hasInUseStatus"), v7, v6, v8))
   {
-    goto LABEL_7;
-  }
-
-  eventBody = [eventCopy eventBody];
-  if (!eventBody)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = eventBody;
-  eventBody2 = [v4 eventBody];
-  hasInUseStatus = [eventBody2 hasInUseStatus];
-
-  if (hasInUseStatus)
-  {
-    eventBody3 = [v4 eventBody];
-    if ([eventBody3 inUseStatus])
+    eventBody = [v4 eventBody];
+    if ([eventBody inUseStatus])
     {
       LOBYTE(v12) = 1;
     }
 
     else
     {
-      eventBody4 = [v4 eventBody];
-      if (([eventBody4 inUseStatus] & 2) != 0)
+      eventBody2 = [v4 eventBody];
+      if (([eventBody2 inUseStatus] & 2) != 0)
       {
         LOBYTE(v12) = 1;
       }
 
       else
       {
-        eventBody5 = [v4 eventBody];
-        v12 = ([eventBody5 inUseStatus] >> 4) & 1;
+        eventBody3 = [v4 eventBody];
+        v12 = ([eventBody3 inUseStatus] >> 4) & 1;
       }
     }
   }
 
   else
   {
-LABEL_7:
     LOBYTE(v12) = 1;
   }
 
@@ -2550,33 +2534,17 @@ LABEL_7:
 {
   eventCopy = event;
   v5 = eventCopy;
-  if (!eventCopy)
+  if (eventCopy && ([eventCopy eventBody], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(v5, "eventBody"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "hasInUseStatus"), v8, v7, v9))
   {
-    goto LABEL_5;
-  }
+    eventBody = [v5 eventBody];
+    [eventBody inUseStatus];
 
-  eventBody = [eventCopy eventBody];
-  if (!eventBody)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = eventBody;
-  eventBody2 = [v5 eventBody];
-  hasInUseStatus = [eventBody2 hasInUseStatus];
-
-  if (hasInUseStatus)
-  {
-    eventBody3 = [v5 eventBody];
-    [eventBody3 inUseStatus];
-
-    eventBody4 = [v5 eventBody];
-    v12 = [self isUserPresentWithDisplay:{objc_msgSend(eventBody4, "inUseStatus")}];
+    eventBody2 = [v5 eventBody];
+    v12 = [self isUserPresentWithDisplay:{objc_msgSend(eventBody2, "inUseStatus")}];
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

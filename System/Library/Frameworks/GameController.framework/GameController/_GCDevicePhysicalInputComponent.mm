@@ -16,7 +16,7 @@
 
 - (_GCDevicePhysicalInputComponent)initWithIdentifier:(id)identifier defaultPhysicalInput:(id)input
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   inputCopy = input;
   if (!inputCopy)
@@ -24,11 +24,10 @@
     [_GCDevicePhysicalInputComponent initWithIdentifier:a2 defaultPhysicalInput:self];
   }
 
-  v13[0] = inputCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = inputCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [(_GCDevicePhysicalInputComponent *)self initWithIdentifier:identifierCopy physicalInputs:v9];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

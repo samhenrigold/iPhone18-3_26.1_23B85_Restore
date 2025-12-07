@@ -5,9 +5,9 @@ void sub_1000013CC(id a1)
   _objc_release_x1();
 }
 
-void sub_100001884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -50,32 +50,31 @@ void sub_1000018C0(uint64_t a1)
 void sub_100001AC8(uint64_t a1)
 {
   v2 = [*(a1 + 32) _urlForMessageIdentifier:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  v4 = NPKSecureArchiveObject();
-  v5 = [v4 writeToURL:v2 atomically:1];
-  v6 = pk_RemotePassAction_log();
-  v7 = v6;
-  if (v5)
+  v3 = NPKSecureArchiveObject();
+  v4 = [v3 writeToURL:v2 atomically:1];
+  v5 = pk_RemotePassAction_log();
+  v6 = v5;
+  if (v4)
   {
-    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v8)
+    if (v7)
     {
-      v9 = pk_RemotePassAction_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = pk_RemotePassAction_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v11 = *(a1 + 40);
-        v10 = *(a1 + 48);
-        v17 = 138412546;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v11;
-        v12 = "Debug: Set object %@ for identifier %@";
-        v13 = v9;
-        v14 = OS_LOG_TYPE_DEBUG;
-        v15 = 22;
+        v10 = *(a1 + 40);
+        v9 = *(a1 + 48);
+        v16 = 138412546;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v10;
+        v11 = "Debug: Set object %@ for identifier %@";
+        v12 = v8;
+        v13 = OS_LOG_TYPE_DEBUG;
+        v14 = 22;
 LABEL_8:
-        _os_log_impl(&_mh_execute_header, v13, v14, v12, &v17, v15);
+        _os_log_impl(&_mh_execute_header, v12, v13, v11, &v16, v14);
         goto LABEL_9;
       }
 
@@ -85,19 +84,19 @@ LABEL_8:
 
   else
   {
-    v16 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v15 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-    if (v16)
+    if (v15)
     {
-      v9 = pk_RemotePassAction_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = pk_RemotePassAction_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v2;
-        v12 = "Error: Failed to write archive to url: %@";
-        v13 = v9;
-        v14 = OS_LOG_TYPE_ERROR;
-        v15 = 12;
+        v16 = 138412290;
+        v17 = v2;
+        v11 = "Error: Failed to write archive to url: %@";
+        v12 = v8;
+        v13 = OS_LOG_TYPE_ERROR;
+        v14 = 12;
         goto LABEL_8;
       }
 
@@ -301,16 +300,16 @@ LABEL_33:
   _Block_object_dispose(&v40, 8);
 }
 
-void sub_10000223C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000223C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000243C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000243C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -395,27 +394,26 @@ void sub_100006304(uint64_t a1, void *a2)
       goto LABEL_11;
     }
 
-    v10 = *(a1 + 48);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       goto LABEL_11;
     }
 
-    v11 = *(a1 + 48);
-    if (!v11)
+    v10 = *(a1 + 48);
+    if (!v10)
     {
       goto LABEL_11;
     }
 
-    v5 = v11;
-    v12 = *(a1 + 40);
-    v6 = [v11 serviceProviderData];
+    v5 = v10;
+    v11 = *(a1 + 40);
+    v6 = [v10 serviceProviderData];
     v7 = [*(a1 + 48) currencyAmount];
     v8 = [*(a1 + 48) passOrganizationName];
-    v13 = [*(a1 + 32) action];
-    v14 = [*(a1 + 48) passLocalizedDescription];
-    v9 = [v12 _serviceProviderPaymentRequestForSelectedItemWithServiceProviderData:v6 amount:v7 recipientName:v3 organization:v8 action:v13 forLocalizedPassName:v14];
+    v12 = [*(a1 + 32) action];
+    v13 = [*(a1 + 48) passLocalizedDescription];
+    v9 = [v11 _serviceProviderPaymentRequestForSelectedItemWithServiceProviderData:v6 amount:v7 recipientName:v3 organization:v8 action:v12 forLocalizedPassName:v13];
   }
 
   if (v9)
@@ -427,23 +425,23 @@ LABEL_14:
   }
 
 LABEL_11:
-  v15 = pk_RemotePassAction_log();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+  v14 = pk_RemotePassAction_log();
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-  if (v16)
+  if (v15)
   {
     v9 = pk_RemotePassAction_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 48);
-      v18 = *(a1 + 32);
-      v19 = 138412802;
-      v20 = 0;
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v18;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Error: Failed to construct a payment request (%@) for response: %@ to request: %@!", &v19, 0x20u);
+      v16 = *(a1 + 48);
+      v17 = *(a1 + 32);
+      v18 = 138412802;
+      v19 = 0;
+      v20 = 2112;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Error: Failed to construct a payment request (%@) for response: %@ to request: %@!", &v18, 0x20u);
     }
 
     goto LABEL_14;
@@ -549,73 +547,73 @@ void sub_100007D04(uint64_t a1)
   [*(a1 + 32) dismissWithCompletion:0];
 }
 
-void sub_100007F38(uint64_t a1)
+void sub_100007F38(uint64_t a1, uint64_t a2)
 {
-  v2 = pk_RemotePassAction_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v3 = pk_RemotePassAction_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v4)
   {
-    v4 = pk_RemotePassAction_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_RemotePassAction_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = objc_retainBlock(*(a1 + 56));
-      v12 = 138412802;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Notice: Payment authorization coordinator: %@ did authorize payment %@ with handler: %@", &v12, 0x20u);
-    }
-  }
-
-  v8 = *(*(a1 + 48) + 32);
-  if (v8)
-  {
-    (*(v8 + 16))(v8, 0, 0, 0);
-    v9 = *(a1 + 48);
-    v10 = *(v9 + 32);
-    *(v9 + 32) = 0;
-  }
-
-  v11 = objc_alloc_init(PKPaymentAuthorizationResult);
-  [v11 setStatus:1];
-  (*(*(a1 + 56) + 16))();
-}
-
-void sub_10000822C(uint64_t a1)
-{
-  v2 = pk_RemotePassAction_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-
-  if (v3)
-  {
-    v4 = pk_RemotePassAction_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = objc_retainBlock(*(a1 + 48));
-      v11 = 138412802;
-      v12 = v5;
-      v13 = 2112;
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = objc_retainBlock(*(a1 + 56));
+      v13 = 138412802;
       v14 = v6;
       v15 = 2112;
       v16 = v7;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Notice: Payment authorization coordinator: %@ did authorize purchase %@ with completion: %@", &v11, 0x20u);
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Notice: Payment authorization coordinator: %@ did authorize payment %@ with handler: %@", &v13, 0x20u);
+    }
+  }
+
+  v9 = *(*(a1 + 48) + 32);
+  if (v9)
+  {
+    (*(v9 + 16))(v9, 0, 0, 0);
+    v10 = *(a1 + 48);
+    v11 = *(v10 + 32);
+    *(v10 + 32) = 0;
+  }
+
+  v12 = objc_alloc_init(PKPaymentAuthorizationResult);
+  [v12 setStatus:1];
+  (*(*(a1 + 56) + 16))();
+}
+
+void sub_10000822C(uint64_t a1, uint64_t a2)
+{
+  v3 = pk_RemotePassAction_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+
+  if (v4)
+  {
+    v5 = pk_RemotePassAction_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = objc_retainBlock(*(a1 + 48));
+      v12 = 138412802;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Notice: Payment authorization coordinator: %@ did authorize purchase %@ with completion: %@", &v12, 0x20u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v9 = *(a1 + 40);
-  WeakRetained[24] = v9 != 0;
-  v10 = *(a1 + 48);
-  if (v10)
+  v10 = *(a1 + 40);
+  WeakRetained[24] = v10 != 0;
+  v11 = *(a1 + 48);
+  if (v11)
   {
-    (*(v10 + 16))(v10, v9 == 0);
+    (*(v11 + 16))(v11, v10 == 0);
   }
 }
 
@@ -626,7 +624,7 @@ void sub_100008E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100008E28(uint64_t a1, int a2)
+void sub_100008E28(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {

@@ -12,6 +12,7 @@
 - (void)configureForAlert;
 - (void)configureForSettings;
 - (void)doneTapped;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PDUDisclosureReviewViewController_iOS
@@ -56,6 +57,28 @@
   }
 
   return v9;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PDUDisclosureReviewViewController_iOS;
+  [(PDUDisclosureReviewViewController_iOS *)&v5 viewWillAppear:appear];
+  if (!self->_isConfigured)
+  {
+    variant = self->_variant;
+    if (variant == 1)
+    {
+      [(PDUDisclosureReviewViewController_iOS *)self configureForSettings];
+    }
+
+    else if (!variant)
+    {
+      [(PDUDisclosureReviewViewController_iOS *)self configureForAlert];
+    }
+
+    self->_isConfigured = 1;
+  }
 }
 
 - (void)configureForAlert
@@ -188,7 +211,7 @@ LABEL_8:
 
 - (id)footerForSettings
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   if (self->_obkBundleID)
   {
     tableView = [(PDUDisclosureReviewViewController_iOS *)self tableView];
@@ -203,18 +226,18 @@ LABEL_8:
     [defaultContentConfiguration setDirectionalLayoutMargins:{32.0, v7, v9}];
     [v4 setContentConfiguration:defaultContentConfiguration];
 
-    v47 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
+    v46 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
     borderlessButtonConfiguration = [MEMORY[0x277D75230] borderlessButtonConfiguration];
     v11 = MEMORY[0x277CCACA8];
     v12 = PDULocalizedString(@"SETTINGS_ABOUT_PRIVACY");
     v13 = PDULocalizedNameForBundle(self->_bundle);
-    v46 = [v11 stringWithFormat:v12, v13];
+    v45 = [v11 stringWithFormat:v12, v13];
 
     v14 = objc_alloc(MEMORY[0x277CCA898]);
-    v51 = *MEMORY[0x277D740A8];
-    v52[0] = v47;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-    v16 = [v14 initWithString:v46 attributes:v15];
+    v50 = *MEMORY[0x277D740A8];
+    v51[0] = v46;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v16 = [v14 initWithString:v45 attributes:v15];
     [borderlessButtonConfiguration setAttributedTitle:v16];
 
     [borderlessButtonConfiguration setTitleAlignment:1];
@@ -222,15 +245,15 @@ LABEL_8:
     [borderlessButtonConfiguration contentInsets];
     v18 = v17;
     [borderlessButtonConfiguration contentInsets];
-    v45 = borderlessButtonConfiguration;
+    v44 = borderlessButtonConfiguration;
     [borderlessButtonConfiguration setContentInsets:{v18, 0.0}];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __58__PDUDisclosureReviewViewController_iOS_footerForSettings__block_invoke;
-    v49[3] = &unk_279AA2790;
-    v49[4] = self;
-    v44 = [MEMORY[0x277D750C8] actionWithHandler:v49];
-    v19 = [MEMORY[0x277D75220] buttonWithConfiguration:borderlessButtonConfiguration primaryAction:v44];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __58__PDUDisclosureReviewViewController_iOS_footerForSettings__block_invoke;
+    v48[3] = &unk_279AA2790;
+    v48[4] = self;
+    v43 = [MEMORY[0x277D750C8] actionWithHandler:v48];
+    v19 = [MEMORY[0x277D75220] buttonWithConfiguration:borderlessButtonConfiguration primaryAction:v43];
     [v19 setTranslatesAutoresizingMaskIntoConstraints:0];
     contentView = [v4 contentView];
     [contentView addSubview:v19];
@@ -241,25 +264,25 @@ LABEL_8:
     contentView3 = [v4 contentView];
     layoutMarginsGuide = [contentView3 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-    v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v50[0] = v39;
+    v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v49[0] = v38;
     trailingAnchor = [v19 trailingAnchor];
     contentView4 = [v4 contentView];
     layoutMarginsGuide2 = [contentView4 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
-    v34 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v50[1] = v34;
+    v33 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
+    v49[1] = v33;
     topAnchor = [v19 topAnchor];
     contentView5 = [v4 contentView];
     topAnchor2 = [contentView5 topAnchor];
     v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v50[2] = v24;
+    v49[2] = v24;
     bottomAnchor = [v19 bottomAnchor];
     contentView6 = [v21 contentView];
     bottomAnchor2 = [contentView6 bottomAnchor];
     v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v50[3] = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
+    v49[3] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
     [contentView2 addConstraints:v29];
 
     contentView7 = [v21 contentView];
@@ -270,8 +293,6 @@ LABEL_8:
   {
     v21 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -376,16 +397,15 @@ LABEL_8:
   textProperties = [subtitleCellConfiguration textProperties];
   font = [textProperties font];
   [font pointSize];
-  v18 = *MEMORY[0x277D74420];
-  v19 = [v15 systemFontOfSize:? weight:?];
+  v18 = [v15 systemFontOfSize:? weight:?];
   textProperties2 = [subtitleCellConfiguration textProperties];
-  [textProperties2 setFont:v19];
+  [textProperties2 setFont:v18];
 
   [subtitleCellConfiguration setTextToSecondaryTextVerticalPadding:8.0];
   [subtitleCellConfiguration directionalLayoutMargins];
-  v22 = v21;
+  v21 = v20;
   [subtitleCellConfiguration directionalLayoutMargins];
-  [subtitleCellConfiguration setDirectionalLayoutMargins:{16.0, v22, 16.0}];
+  [subtitleCellConfiguration setDirectionalLayoutMargins:{16.0, v21, 16.0}];
   [v7 setContentConfiguration:subtitleCellConfiguration];
 
   return v7;

@@ -2,6 +2,7 @@
 + (id)filter;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphContactSuggestionEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphContactSuggestionEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)_readableStringForContactSuggestionProperty:(id)property;
 - (id)_stringForBiologicalSexMatch:(unint64_t)match;
 - (id)edgeDescription;
@@ -15,56 +16,56 @@
 
 - (id)_readableStringForContactSuggestionProperty:(id)property
 {
-  v13[23] = *MEMORY[0x277D85DE8];
-  v12[0] = @"gwnummmtshome";
-  v12[1] = @"gwnummentndaddrs";
-  v13[0] = @"SignalNumberOfMomentsAtHome";
-  v13[1] = @"SignalNumberOfMomentsAtMentionedAddress";
-  v12[2] = @"gwnumbdaymmt";
-  v12[3] = @"gwnummmtsclndrevents";
-  v13[2] = @"SignalNumberOfWeakBirthdayMomentsAroundBirthdayDate";
-  v13[3] = @"SignalNumberOfMomentsOverlappingWithCalendarEvents";
-  v12[4] = @"gwnumassts";
-  v12[5] = @"gwnumcmm";
-  v13[4] = @"SignalNumberOfAppearancesInSharedAssets";
-  v13[5] = @"SignalNumberOfSharedCMMWithPeople";
-  v12[6] = @"gwftfprntconf";
-  v12[7] = @"gwfprntsmatch";
-  v13[6] = @"SignalFacetimeFaceprintConfidence";
-  v13[7] = @"SignalContactFaceprintMatch";
-  v12[8] = @"gwsocialgrpsconf";
-  v12[9] = @"gwsocialgrps";
-  v13[8] = @"SignalSocialGroupsConfidence";
-  v13[9] = @"DebugSocialGroups";
-  v12[10] = @"gwmsggrps";
-  v12[11] = @"gwreldebug";
-  v13[10] = @"DebugMessageGroups";
-  v13[11] = @"SignalRelationships";
-  v12[12] = @"gwgenmatch";
-  v12[13] = @"gwscore";
-  v13[12] = @"SignalBiologicalSexMatch";
-  v13[13] = @"TotalContactScore";
-  v12[14] = @"bdayscore";
-  v12[15] = @"pbdayscore";
-  v13[14] = @"SignalBirthdayScore";
-  v13[15] = @"SignalPotentialBirthdayScore";
-  v12[16] = @"addscore";
-  v12[17] = @"maddscore";
-  v13[16] = @"SignalAddressScore";
-  v13[17] = @"SignalMentionedAddressScore";
-  v12[18] = @"calscore";
-  v12[19] = @"asstscore";
-  v13[18] = @"SignalCalendarScore";
-  v13[19] = @"SignalSharedAssetScore";
-  v12[20] = @"cmmscore";
-  v12[21] = @"relscore";
-  v13[20] = @"SignalSharedCMMScore";
-  v13[21] = @"SignalRelationshipScore";
-  v12[22] = @"scoremfp";
-  v13[22] = @"TotalScoreAfterMessageFrequencyPenalty";
+  v12[23] = *MEMORY[0x277D85DE8];
+  v11[0] = @"gwnummmtshome";
+  v11[1] = @"gwnummentndaddrs";
+  v12[0] = @"SignalNumberOfMomentsAtHome";
+  v12[1] = @"SignalNumberOfMomentsAtMentionedAddress";
+  v11[2] = @"gwnumbdaymmt";
+  v11[3] = @"gwnummmtsclndrevents";
+  v12[2] = @"SignalNumberOfWeakBirthdayMomentsAroundBirthdayDate";
+  v12[3] = @"SignalNumberOfMomentsOverlappingWithCalendarEvents";
+  v11[4] = @"gwnumassts";
+  v11[5] = @"gwnumcmm";
+  v12[4] = @"SignalNumberOfAppearancesInSharedAssets";
+  v12[5] = @"SignalNumberOfSharedCMMWithPeople";
+  v11[6] = @"gwftfprntconf";
+  v11[7] = @"gwfprntsmatch";
+  v12[6] = @"SignalFacetimeFaceprintConfidence";
+  v12[7] = @"SignalContactFaceprintMatch";
+  v11[8] = @"gwsocialgrpsconf";
+  v11[9] = @"gwsocialgrps";
+  v12[8] = @"SignalSocialGroupsConfidence";
+  v12[9] = @"DebugSocialGroups";
+  v11[10] = @"gwmsggrps";
+  v11[11] = @"gwreldebug";
+  v12[10] = @"DebugMessageGroups";
+  v12[11] = @"SignalRelationships";
+  v11[12] = @"gwgenmatch";
+  v11[13] = @"gwscore";
+  v12[12] = @"SignalBiologicalSexMatch";
+  v12[13] = @"TotalContactScore";
+  v11[14] = @"bdayscore";
+  v11[15] = @"pbdayscore";
+  v12[14] = @"SignalBirthdayScore";
+  v12[15] = @"SignalPotentialBirthdayScore";
+  v11[16] = @"addscore";
+  v11[17] = @"maddscore";
+  v12[16] = @"SignalAddressScore";
+  v12[17] = @"SignalMentionedAddressScore";
+  v11[18] = @"calscore";
+  v11[19] = @"asstscore";
+  v12[18] = @"SignalCalendarScore";
+  v12[19] = @"SignalSharedAssetScore";
+  v11[20] = @"cmmscore";
+  v11[21] = @"relscore";
+  v12[20] = @"SignalSharedCMMScore";
+  v12[21] = @"SignalRelationshipScore";
+  v11[22] = @"scoremfp";
+  v12[22] = @"TotalScoreAfterMessageFrequencyPenalty";
   v3 = MEMORY[0x277CBEAC0];
   propertyCopy = property;
-  v5 = [v3 dictionaryWithObjects:v13 forKeys:v12 count:23];
+  v5 = [v3 dictionaryWithObjects:v12 forKeys:v11 count:23];
   v6 = [v5 objectForKeyedSubscript:propertyCopy];
   v7 = v6;
   if (v6)
@@ -79,7 +80,6 @@
 
   v9 = v8;
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -126,29 +126,29 @@
 
 - (id)edgeDescription
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   propertyDictionary = [(PGGraphContactSuggestionEdge *)self propertyDictionary];
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = propertyDictionary;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         v10 = [(PGGraphContactSuggestionEdge *)self _readableStringForContactSuggestionProperty:v9];
         v11 = MEMORY[0x277CCACA8];
         v12 = [v4 objectForKeyedSubscript:v9];
@@ -165,7 +165,7 @@
         [array addObject:v15];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
@@ -173,76 +173,74 @@
 
   v16 = [array sortedArrayUsingSelector:sel_compare_];
   v17 = MEMORY[0x277CCACA8];
-  v24.receiver = self;
-  v24.super_class = PGGraphContactSuggestionEdge;
-  edgeDescription = [(PGGraphOptimizedEdge *)&v24 edgeDescription];
+  v23.receiver = self;
+  v23.super_class = PGGraphContactSuggestionEdge;
+  edgeDescription = [(PGGraphOptimizedEdge *)&v23 edgeDescription];
   v19 = [v16 componentsJoinedByString:{@", "}];
   v20 = [v17 stringWithFormat:@"%@ (%@)", edgeDescription, v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)propertyDictionary
 {
-  v35[25] = *MEMORY[0x277D85DE8];
-  v34[0] = @"confidence";
-  v33 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v35[0] = v33;
-  v34[1] = @"gwscore";
-  v32 = [MEMORY[0x277CCABB0] numberWithDouble:self->_contactScore];
-  v35[1] = v32;
-  v34[2] = @"gwnummmtshome";
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsAtHome];
-  v35[2] = v31;
-  v34[3] = @"gwnummentndaddrs";
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsAtMentionedAddress];
-  v35[3] = v30;
-  v34[4] = @"gwnumbdaymmt";
-  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfWeakBirthdayMomentsAroundBirthdayDate];
-  v35[4] = v29;
-  v34[5] = @"gwnummbdaymmt";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfWeakBirthdayMomentsAroundPotentialBirthdayDate];
-  v35[5] = v28;
-  v34[6] = @"gwnummmtsclndrevents";
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsOverlappingWithCalendarEvents];
-  v35[6] = v27;
-  v34[7] = @"gwnumassts";
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfAppearancesInSharedAssets];
-  v35[7] = v26;
-  v34[8] = @"gwnumcmm";
-  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfCMMMoments];
-  v35[8] = v25;
-  v34[9] = @"gwftfprntconf";
-  v24 = [MEMORY[0x277CCABB0] numberWithDouble:self->_facetimeFaceprintConfidence];
-  v35[9] = v24;
-  v34[10] = @"gwfprntsmatch";
+  v34[25] = *MEMORY[0x277D85DE8];
+  v33[0] = @"confidence";
+  v32 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
+  v34[0] = v32;
+  v33[1] = @"gwscore";
+  v31 = [MEMORY[0x277CCABB0] numberWithDouble:self->_contactScore];
+  v34[1] = v31;
+  v33[2] = @"gwnummmtshome";
+  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsAtHome];
+  v34[2] = v30;
+  v33[3] = @"gwnummentndaddrs";
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsAtMentionedAddress];
+  v34[3] = v29;
+  v33[4] = @"gwnumbdaymmt";
+  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfWeakBirthdayMomentsAroundBirthdayDate];
+  v34[4] = v28;
+  v33[5] = @"gwnummbdaymmt";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfWeakBirthdayMomentsAroundPotentialBirthdayDate];
+  v34[5] = v27;
+  v33[6] = @"gwnummmtsclndrevents";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfMomentsOverlappingWithCalendarEvents];
+  v34[6] = v26;
+  v33[7] = @"gwnumassts";
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfAppearancesInSharedAssets];
+  v34[7] = v25;
+  v33[8] = @"gwnumcmm";
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfCMMMoments];
+  v34[8] = v24;
+  v33[9] = @"gwftfprntconf";
+  v23 = [MEMORY[0x277CCABB0] numberWithDouble:self->_facetimeFaceprintConfidence];
+  v34[9] = v23;
+  v33[10] = @"gwfprntsmatch";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_contactFaceprintMatch];
-  v23 = v3;
+  v22 = v3;
   relationshipsDebug = self->_relationshipsDebug;
   if (!relationshipsDebug)
   {
     relationshipsDebug = &stru_2843F5C58;
   }
 
-  v35[10] = v3;
-  v35[11] = relationshipsDebug;
-  v34[11] = @"gwreldebug";
-  v34[12] = @"gwsocialgrpsconf";
+  v34[10] = v3;
+  v34[11] = relationshipsDebug;
+  v33[11] = @"gwreldebug";
+  v33[12] = @"gwsocialgrpsconf";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_socialGroupsConfidence];
-  v22 = v5;
+  v21 = v5;
   socialGroupsDebug = self->_socialGroupsDebug;
   if (!socialGroupsDebug)
   {
     socialGroupsDebug = &stru_2843F5C58;
   }
 
-  v35[12] = v5;
-  v35[13] = socialGroupsDebug;
+  v34[12] = v5;
+  v34[13] = socialGroupsDebug;
   messageGroupsDebug = self->_messageGroupsDebug;
-  v34[13] = @"gwsocialgrps";
-  v34[14] = @"gwmsggrps";
+  v33[13] = @"gwsocialgrps";
+  v33[14] = @"gwmsggrps";
   if (messageGroupsDebug)
   {
     v8 = messageGroupsDebug;
@@ -253,40 +251,38 @@
     v8 = &stru_2843F5C58;
   }
 
-  v35[14] = v8;
-  v34[15] = @"gwgenmatch";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_sexMatch];
-  v35[15] = v21;
-  v34[16] = @"bdayscore";
+  v34[14] = v8;
+  v33[15] = @"gwgenmatch";
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_sexMatch];
+  v34[15] = v20;
+  v33[16] = @"bdayscore";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_birthdayScore];
-  v35[16] = v9;
-  v34[17] = @"pbdayscore";
+  v34[16] = v9;
+  v33[17] = @"pbdayscore";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_potentialBirthdayScore];
-  v35[17] = v10;
-  v34[18] = @"addscore";
+  v34[17] = v10;
+  v33[18] = @"addscore";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_addressScore];
-  v35[18] = v11;
-  v34[19] = @"maddscore";
+  v34[18] = v11;
+  v33[19] = @"maddscore";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_mentionedAddressScore];
-  v35[19] = v12;
-  v34[20] = @"calscore";
+  v34[19] = v12;
+  v33[20] = @"calscore";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:self->_calendarScore];
-  v35[20] = v13;
-  v34[21] = @"asstscore";
+  v34[20] = v13;
+  v33[21] = @"asstscore";
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sharedAssetScore];
-  v35[21] = v14;
-  v34[22] = @"cmmscore";
+  v34[21] = v14;
+  v33[22] = @"cmmscore";
   v15 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sharedCMMScore];
-  v35[22] = v15;
-  v34[23] = @"relscore";
+  v34[22] = v15;
+  v33[23] = @"relscore";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:self->_relationshipScore];
-  v35[23] = v16;
-  v34[24] = @"scoremfp";
+  v34[23] = v16;
+  v33[24] = @"scoremfp";
   v17 = [MEMORY[0x277CCABB0] numberWithDouble:self->_scoreAfterMessagePenalty];
-  v35[24] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:25];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v34[24] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:25];
 
   return v18;
 }
@@ -299,267 +295,154 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"confidence"];
     v7 = v6;
-    if (v6)
+    v45 = 0;
+    if (!v6 || ([v6 doubleValue], v8 == self->_confidence))
     {
-      [v6 doubleValue];
-      if (v8 != self->_confidence)
+
+      v9 = [v5 objectForKeyedSubscript:@"gwscore"];
+      v7 = v9;
+      if (!v9 || ([v9 doubleValue], v10 == self->_contactScore))
       {
-        goto LABEL_53;
+
+        v11 = [v5 objectForKeyedSubscript:@"gwnummmtshome"];
+        v7 = v11;
+        if (!v11 || [v11 unsignedIntegerValue] == self->_numberOfMomentsAtHome)
+        {
+
+          v12 = [v5 objectForKeyedSubscript:@"gwnummentndaddrs"];
+          v7 = v12;
+          if (!v12 || [v12 unsignedIntegerValue] == self->_numberOfMomentsAtMentionedAddress)
+          {
+
+            v13 = [v5 objectForKeyedSubscript:@"gwnumbdaymmt"];
+            v7 = v13;
+            if (!v13 || [v13 unsignedIntegerValue] == self->_numberOfWeakBirthdayMomentsAroundBirthdayDate)
+            {
+
+              v14 = [v5 objectForKeyedSubscript:@"gwnummbdaymmt"];
+              v7 = v14;
+              if (!v14 || [v14 unsignedIntegerValue] == self->_numberOfWeakBirthdayMomentsAroundPotentialBirthdayDate)
+              {
+
+                v15 = [v5 objectForKeyedSubscript:@"gwnummmtsclndrevents"];
+                v7 = v15;
+                if (!v15 || [v15 unsignedIntegerValue] == self->_numberOfMomentsOverlappingWithCalendarEvents)
+                {
+
+                  v16 = [v5 objectForKeyedSubscript:@"gwnumassts"];
+                  v7 = v16;
+                  if (!v16 || [v16 unsignedIntegerValue] == self->_numberOfAppearancesInSharedAssets)
+                  {
+
+                    v17 = [v5 objectForKeyedSubscript:@"gwnumcmm"];
+                    v7 = v17;
+                    if (!v17 || [v17 unsignedIntegerValue] == self->_numberOfCMMMoments)
+                    {
+
+                      v18 = [v5 objectForKeyedSubscript:@"gwftfprntconf"];
+                      v7 = v18;
+                      if (!v18 || ([v18 doubleValue], v19 == self->_facetimeFaceprintConfidence))
+                      {
+
+                        v20 = [v5 objectForKeyedSubscript:@"gwfprntsmatch"];
+                        v7 = v20;
+                        if (!v20 || self->_contactFaceprintMatch == [v20 BOOLValue])
+                        {
+
+                          v21 = [v5 objectForKeyedSubscript:@"gwreldebug"];
+                          v7 = v21;
+                          if (!v21 || [v21 isEqual:self->_relationshipsDebug])
+                          {
+
+                            v22 = [v5 objectForKeyedSubscript:@"gwsocialgrpsconf"];
+                            v7 = v22;
+                            if (!v22 || ([v22 doubleValue], v23 == self->_socialGroupsConfidence))
+                            {
+
+                              v24 = [v5 objectForKeyedSubscript:@"gwsocialgrps"];
+                              v7 = v24;
+                              if (!v24 || [v24 isEqual:self->_socialGroupsDebug])
+                              {
+
+                                v25 = [v5 objectForKeyedSubscript:@"gwmsggrps"];
+                                v7 = v25;
+                                if (!v25 || [v25 isEqual:self->_messageGroupsDebug])
+                                {
+
+                                  v26 = [v5 objectForKeyedSubscript:@"gwgenmatch"];
+                                  v7 = v26;
+                                  if (!v26 || [v26 unsignedIntegerValue] == self->_sexMatch)
+                                  {
+
+                                    v27 = [v5 objectForKeyedSubscript:@"bdayscore"];
+                                    v7 = v27;
+                                    if (!v27 || ([v27 doubleValue], v28 == self->_birthdayScore))
+                                    {
+
+                                      v29 = [v5 objectForKeyedSubscript:@"pbdayscore"];
+                                      v7 = v29;
+                                      if (!v29 || ([v29 doubleValue], v30 == self->_potentialBirthdayScore))
+                                      {
+
+                                        v31 = [v5 objectForKeyedSubscript:@"addscore"];
+                                        v7 = v31;
+                                        if (!v31 || ([v31 doubleValue], v32 == self->_addressScore))
+                                        {
+
+                                          v33 = [v5 objectForKeyedSubscript:@"maddscore"];
+                                          v7 = v33;
+                                          if (!v33 || ([v33 doubleValue], v34 == self->_mentionedAddressScore))
+                                          {
+
+                                            v35 = [v5 objectForKeyedSubscript:@"calscore"];
+                                            v7 = v35;
+                                            if (!v35 || ([v35 doubleValue], v36 == self->_calendarScore))
+                                            {
+
+                                              v37 = [v5 objectForKeyedSubscript:@"asstscore"];
+                                              v7 = v37;
+                                              if (!v37 || ([v37 doubleValue], v38 == self->_sharedAssetScore))
+                                              {
+
+                                                v39 = [v5 objectForKeyedSubscript:@"cmmscore"];
+                                                v7 = v39;
+                                                if (!v39 || ([v39 doubleValue], v40 == self->_sharedCMMScore))
+                                                {
+
+                                                  v41 = [v5 objectForKeyedSubscript:@"relscore"];
+                                                  v7 = v41;
+                                                  if (!v41 || ([v41 doubleValue], v42 == self->_relationshipScore))
+                                                  {
+
+                                                    v43 = [v5 objectForKeyedSubscript:@"scoremfp"];
+                                                    v7 = v43;
+                                                    if (!v43 || ([v43 doubleValue], v44 == self->_scoreAfterMessagePenalty))
+                                                    {
+                                                      v45 = 1;
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"gwscore"];
-    v7 = v9;
-    if (v9)
-    {
-      [v9 doubleValue];
-      if (v10 != self->_contactScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v11 = [v5 objectForKeyedSubscript:@"gwnummmtshome"];
-    v7 = v11;
-    if (v11)
-    {
-      if ([v11 unsignedIntegerValue] != self->_numberOfMomentsAtHome)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"gwnummentndaddrs"];
-    v7 = v12;
-    if (v12)
-    {
-      if ([v12 unsignedIntegerValue] != self->_numberOfMomentsAtMentionedAddress)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v13 = [v5 objectForKeyedSubscript:@"gwnumbdaymmt"];
-    v7 = v13;
-    if (v13)
-    {
-      if ([v13 unsignedIntegerValue] != self->_numberOfWeakBirthdayMomentsAroundBirthdayDate)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v14 = [v5 objectForKeyedSubscript:@"gwnummbdaymmt"];
-    v7 = v14;
-    if (v14)
-    {
-      if ([v14 unsignedIntegerValue] != self->_numberOfWeakBirthdayMomentsAroundPotentialBirthdayDate)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v15 = [v5 objectForKeyedSubscript:@"gwnummmtsclndrevents"];
-    v7 = v15;
-    if (v15)
-    {
-      if ([v15 unsignedIntegerValue] != self->_numberOfMomentsOverlappingWithCalendarEvents)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v16 = [v5 objectForKeyedSubscript:@"gwnumassts"];
-    v7 = v16;
-    if (v16)
-    {
-      if ([v16 unsignedIntegerValue] != self->_numberOfAppearancesInSharedAssets)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v17 = [v5 objectForKeyedSubscript:@"gwnumcmm"];
-    v7 = v17;
-    if (v17)
-    {
-      if ([v17 unsignedIntegerValue] != self->_numberOfCMMMoments)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v18 = [v5 objectForKeyedSubscript:@"gwftfprntconf"];
-    v7 = v18;
-    if (v18)
-    {
-      [v18 doubleValue];
-      if (v19 != self->_facetimeFaceprintConfidence)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v20 = [v5 objectForKeyedSubscript:@"gwfprntsmatch"];
-    v7 = v20;
-    if (v20)
-    {
-      if (self->_contactFaceprintMatch != [v20 BOOLValue])
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v21 = [v5 objectForKeyedSubscript:@"gwreldebug"];
-    v7 = v21;
-    if (v21)
-    {
-      if (![v21 isEqual:self->_relationshipsDebug])
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v22 = [v5 objectForKeyedSubscript:@"gwsocialgrpsconf"];
-    v7 = v22;
-    if (v22)
-    {
-      [v22 doubleValue];
-      if (v23 != self->_socialGroupsConfidence)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v24 = [v5 objectForKeyedSubscript:@"gwsocialgrps"];
-    v7 = v24;
-    if (v24)
-    {
-      if (![v24 isEqual:self->_socialGroupsDebug])
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v25 = [v5 objectForKeyedSubscript:@"gwmsggrps"];
-    v7 = v25;
-    if (v25)
-    {
-      if (![v25 isEqual:self->_messageGroupsDebug])
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v26 = [v5 objectForKeyedSubscript:@"gwgenmatch"];
-    v7 = v26;
-    if (v26)
-    {
-      if ([v26 unsignedIntegerValue] != self->_sexMatch)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v27 = [v5 objectForKeyedSubscript:@"bdayscore"];
-    v7 = v27;
-    if (v27)
-    {
-      [v27 doubleValue];
-      if (v28 != self->_birthdayScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v29 = [v5 objectForKeyedSubscript:@"pbdayscore"];
-    v7 = v29;
-    if (v29)
-    {
-      [v29 doubleValue];
-      if (v30 != self->_potentialBirthdayScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v31 = [v5 objectForKeyedSubscript:@"addscore"];
-    v7 = v31;
-    if (v31)
-    {
-      [v31 doubleValue];
-      if (v32 != self->_addressScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v33 = [v5 objectForKeyedSubscript:@"maddscore"];
-    v7 = v33;
-    if (v33)
-    {
-      [v33 doubleValue];
-      if (v34 != self->_mentionedAddressScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v35 = [v5 objectForKeyedSubscript:@"calscore"];
-    v7 = v35;
-    if (v35)
-    {
-      [v35 doubleValue];
-      if (v36 != self->_calendarScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v37 = [v5 objectForKeyedSubscript:@"asstscore"];
-    v7 = v37;
-    if (v37)
-    {
-      [v37 doubleValue];
-      if (v38 != self->_sharedAssetScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v39 = [v5 objectForKeyedSubscript:@"cmmscore"];
-    v7 = v39;
-    if (v39)
-    {
-      [v39 doubleValue];
-      if (v40 != self->_sharedCMMScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v41 = [v5 objectForKeyedSubscript:@"relscore"];
-    v7 = v41;
-    if (v41)
-    {
-      [v41 doubleValue];
-      if (v42 != self->_relationshipScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v43 = [v5 objectForKeyedSubscript:@"scoremfp"];
-    v7 = v43;
-    if (!v43 || ([v43 doubleValue], v44 == self->_scoreAfterMessagePenalty))
-    {
-      v45 = 1;
-    }
-
-    else
-    {
-LABEL_53:
-      v45 = 0;
     }
   }
 
@@ -569,6 +452,30 @@ LABEL_53:
   }
 
   return v45;
+}
+
+- (PGGraphContactSuggestionEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphContactSuggestionEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
+
+  return v22;
 }
 
 - (PGGraphContactSuggestionEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties

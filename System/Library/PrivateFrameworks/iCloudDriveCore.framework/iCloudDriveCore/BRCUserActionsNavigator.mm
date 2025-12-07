@@ -28,7 +28,7 @@ uint64_t __43__BRCUserActionsNavigator_defaultNavigator__block_invoke()
 
 - (void)openShareURLInWebBrowser:(id)browser withReason:(id)reason
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   browserCopy = browser;
   reasonCopy = reason;
   v7 = reasonCopy;
@@ -101,18 +101,18 @@ LABEL_8:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v32 = v7;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = v21;
+    v31 = v7;
+    v32 = 2112;
+    v33 = v20;
+    v34 = 2112;
+    v35 = v21;
     _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] Opening in web browser (reason: %@) %@%@", buf, 0x20u);
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v29 = *MEMORY[0x277CC1DF0];
-  v30 = MEMORY[0x277CBEC38];
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = *MEMORY[0x277CC1DF0];
+  v29 = MEMORY[0x277CBEC38];
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v25 = [defaultWorkspace openURL:v20 withOptions:v24];
 
   if ((v25 & 1) == 0)
@@ -124,8 +124,6 @@ LABEL_8:
       [(BRCUserActionsNavigator *)v20 openShareURLInWebBrowser:v26 withReason:v27];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openiCloudSettings
@@ -158,48 +156,44 @@ LABEL_8:
 
 - (void)openShareURLInWebBrowser:withReason:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: shareURL%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: shareURL%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openShareURLInWebBrowser:withReason:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: redirectReason%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: redirectReason%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openShareURLInWebBrowser:(os_log_t)log withReason:.cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Can't open %@ using default web browser%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] Can't open %@ using default web browser%@", &v3, 0x16u);
 }
 
 - (void)openAppStoreForBundleID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_223E7A000, a2, 0x90u, "[ERROR] passed nil app bundle ID%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_223E7A000, a2, 0x90u, "[ERROR] passed nil app bundle ID%@", &v2, 0xCu);
 }
 
 @end

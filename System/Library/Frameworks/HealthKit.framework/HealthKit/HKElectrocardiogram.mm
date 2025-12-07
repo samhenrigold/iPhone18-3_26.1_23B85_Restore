@@ -185,7 +185,7 @@
 
 - (void)_enumerateDataForLead:(int64_t)lead block:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   samplingFrequency = [(HKElectrocardiogram *)self samplingFrequency];
 
@@ -195,27 +195,27 @@
     end = self->_reading._leads._v.__end_;
     while (begin != end)
     {
-      v10 = *begin;
-      if ((*(*begin + 60) & 1) != 0 && *(v10 + 56) == lead)
+      v12 = *begin;
+      if ((*(*begin + 60) & 1) != 0 && *(v12 + 56) == lead)
       {
-        v15 = *(v10 + 32);
-        if (*(v10 + 40) != v15)
+        v16 = *(v12 + 32);
+        if (*(v12 + 40) != v16)
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            v17[0] = 0;
-            blockCopy[2](blockCopy, v16, v17, *(v15 + 4 * v16));
-            if (v17[0])
+            v18[0] = 0;
+            blockCopy[2](blockCopy, v17, v18, *(v16 + 4 * v17));
+            if (v18[0])
             {
               break;
             }
 
-            ++v16;
-            v15 = *(v10 + 32);
+            ++v17;
+            v16 = *(v12 + 32);
           }
 
-          while (v16 < (*(v10 + 40) - v15) >> 2);
+          while (v17 < (*(v12 + 40) - v16) >> 2);
         }
 
         break;
@@ -227,17 +227,15 @@
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogHeartRhythm;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v8, v9);
+    v13 = HKLogHeartRhythm;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       uUID = [(HKObject *)self UUID];
       uUIDString = [uUID UUIDString];
-      [(HKElectrocardiogram *)uUIDString _enumerateDataForLead:v17 block:v11, uUID];
+      [(HKElectrocardiogram *)uUIDString _enumerateDataForLead:v18 block:v13, uUID];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)voltageMeasurementEnumerator
@@ -651,27 +649,27 @@ LABEL_24:
 
 - (NSArray)_localizedSymptoms
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = _HKPrivateElectrocardiogramSymptomsGetList([(HKElectrocardiogram *)self privateSymptoms]);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        integerValue = [*(*(&v15 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v14 + 1) + 8 * i) integerValue];
         v9 = 0;
         if (integerValue <= 15)
         {
@@ -773,13 +771,11 @@ LABEL_24:
 LABEL_29:
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

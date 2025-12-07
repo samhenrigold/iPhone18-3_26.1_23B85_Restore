@@ -51,16 +51,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFAccessoryProfileGroupItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  home = [(HFAccessoryProfileGroupItemProvider *)self home];
-  hf_allAccessoryProfiles = [home hf_allAccessoryProfiles];
+  v3 = objc_msgSend_home(self, a2);
+  hf_allAccessoryProfiles = [v3 hf_allAccessoryProfiles];
   filterOptions = [(HFAccessoryProfileGroupItemProvider *)self filterOptions];
   v6 = [HFAccessoryProfileFilter filterProfiles:hf_allAccessoryProfiles options:filterOptions];
 
@@ -154,16 +154,14 @@ id __50__HFAccessoryProfileGroupItemProvider_reloadItems__block_invoke_4(uint64_
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFAccessoryProfileGroupItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v8[1] = @"service";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFAccessoryProfileGroupItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v7[1] = @"service";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -183,8 +181,8 @@ id __50__HFAccessoryProfileGroupItemProvider_reloadItems__block_invoke_4(uint64_
   v8 = [HFAccessoryProfileGroupItem alloc];
   v9 = [MEMORY[0x277CBEB98] setWithArray:profilesCopy];
 
-  home = [(HFAccessoryProfileGroupItemProvider *)self home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v10 = objc_msgSend_home(self);
+  hf_characteristicValueManager = [v10 hf_characteristicValueManager];
   v12 = [(HFAccessoryProfileGroupItem *)v8 initWithProfiles:v9 groupIdentifier:identifierCopy valueSource:hf_characteristicValueManager];
 
   return v12;

@@ -13,7 +13,7 @@
   v6(self + v4, 1, 1, v5);
   v6(self + v4, 1, 1, v5);
   v7 = OBJC_IVAR____TtC26SensitiveContentAnalysisUI15RemoteViewModel__remoteViewConfig;
-  v8 = type metadata accessor for RemoteView.Config();
+  v8 = type metadata accessor for RemoteView.Config(0);
   v9 = *(*(v8 - 8) + 56);
   v9(self + v7, 1, 1, v8);
   v9(self + v7, 1, 1, v8);

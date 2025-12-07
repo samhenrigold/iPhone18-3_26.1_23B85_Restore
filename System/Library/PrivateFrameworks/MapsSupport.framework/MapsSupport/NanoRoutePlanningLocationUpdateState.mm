@@ -56,37 +56,38 @@
 {
   locationCopy = location;
   errorCopy = error;
-  if ([(NanoRoutePlanningState *)self isActive])
+  isActive = [(NanoRoutePlanningState *)self isActive];
+  if (isActive)
   {
-    v8 = sub_100053324();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_100053324(isActive);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478083;
-      v16 = locationCopy;
-      v17 = 2112;
-      v18 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Handle location:%{private}@, error:%@", buf, 0x16u);
+      v17 = locationCopy;
+      v18 = 2112;
+      v19 = errorCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Handle location:%{private}@, error:%@", buf, 0x16u);
     }
 
     if (locationCopy)
     {
-      v9 = [[GEOLocation alloc] initWithCLLocation:locationCopy];
+      v10 = [[GEOLocation alloc] initWithCLLocation:locationCopy];
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     manager = [(NanoRoutePlanningState *)self manager];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10000F214;
-    v12[3] = &unk_1000852E0;
-    v13 = errorCopy;
-    v14 = v9;
-    v11 = v9;
-    [manager updateWithBlock:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000F214;
+    v13[3] = &unk_1000852E0;
+    v14 = errorCopy;
+    v15 = v10;
+    v12 = v10;
+    [manager updateWithBlock:v13];
   }
 }
 

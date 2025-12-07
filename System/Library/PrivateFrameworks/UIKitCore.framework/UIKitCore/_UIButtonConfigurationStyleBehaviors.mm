@@ -64,14 +64,14 @@
 
 + (int64_t)glassMonochromaticTreatmentFromBaseColor:(id)color traitCollection:(id)collection
 {
-  v6 = type metadata accessor for _GlassBackgroundStyle();
+  v6 = type metadata accessor for _GlassBackgroundStyle(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   collectionCopy = collection;
   if (!color)
   {
     sub_188E1B6FC(v8);
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70, &unk_18A64FD50);
     if (!(*(*(v10 - 8) + 48))(v8, 2, v10))
     {
 

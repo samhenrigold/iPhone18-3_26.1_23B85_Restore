@@ -14,6 +14,7 @@
 - (NSString)name;
 - (NSUUID)identifier;
 - (id)listeningHistoryUpdateEnabledForUser:(id)user;
+- (id)setCurrentUserNeedsTokenRepair:(BOOL)repair;
 - (id)userWithIdentifier:(id)identifier;
 - (unint64_t)iTunesLibraryEnabledForUser:(id)user;
 - (unint64_t)mediaProfileEnabledForUser:(id)user;
@@ -282,6 +283,23 @@
   }
 
   return v14;
+}
+
+- (id)setCurrentUserNeedsTokenRepair:(BOOL)repair
+{
+  repairCopy = repair;
+  v5 = objc_alloc_init(AMSMutableBinaryPromise);
+  home = [(AMSDHomeKitHome *)self home];
+  currentUser = [home currentUser];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100064D50;
+  v10[3] = &unk_1002AFDD8;
+  v8 = v5;
+  v11 = v8;
+  [currentUser setNeedsiTunesMultiUserRepair:repairCopy completion:v10];
+
+  return v8;
 }
 
 - (id)userWithIdentifier:(id)identifier

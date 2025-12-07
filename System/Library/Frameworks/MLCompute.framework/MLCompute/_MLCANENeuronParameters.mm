@@ -1,8 +1,18 @@
 @interface _MLCANENeuronParameters
++ (id)neuronUnitParametersWith:(id)with neuronType:(int)type;
 - (_MLCANENeuronParameters)initWithNeuronParams:(id)params neuronType:(int)type;
 @end
 
 @implementation _MLCANENeuronParameters
+
++ (id)neuronUnitParametersWith:(id)with neuronType:(int)type
+{
+  v4 = *&type;
+  withCopy = with;
+  v7 = [[self alloc] initWithNeuronParams:withCopy neuronType:v4];
+
+  return v7;
+}
 
 - (_MLCANENeuronParameters)initWithNeuronParams:(id)params neuronType:(int)type
 {

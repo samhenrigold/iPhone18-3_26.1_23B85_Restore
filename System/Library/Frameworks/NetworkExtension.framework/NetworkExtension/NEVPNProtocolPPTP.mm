@@ -4,6 +4,7 @@
 - (__SCNetworkInterface)createInterface;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -31,6 +32,20 @@
   }
 
   return 0;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v11.receiver = self;
+  v11.super_class = NEVPNProtocolPPTP;
+  v8 = [(NEVPNProtocolPPP *)&v11 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  [v9 appendPrettyInt:-[NEVPNProtocolPPTP encryptionLevel](self withName:"encryptionLevel") andIndent:@"encryptionLevel" options:{v5, options}];
+
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

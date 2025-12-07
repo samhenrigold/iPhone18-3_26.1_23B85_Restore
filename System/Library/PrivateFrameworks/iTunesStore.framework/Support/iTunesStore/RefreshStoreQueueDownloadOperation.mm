@@ -45,11 +45,11 @@
 
 - (BOOL)_refreshDownload:(id)download error:(id *)error
 {
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
   v58 = 0;
-  v54 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
+  v57 = 0;
   v7 = [download valueForProperty:@"store_account_id"];
   v8 = [(RefreshStoreQueueDownloadOperation *)self _URLBagKeyForDownload:download];
   v9 = [download valueForProperty:@"store_transaction_id"];
@@ -79,167 +79,182 @@
       v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v15 shouldLog];
+    LODWORD(v16) = [v15 shouldLog];
     shouldLogToDisk = [v15 shouldLogToDisk];
     oSLogObject = [v15 OSLogObject];
+    v19 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v16) = v16 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v16 = v16;
     }
 
-    if (shouldLog)
+    else
     {
-      v19 = objc_opt_class();
+      v16 &= 2u;
+    }
+
+    if (v16)
+    {
+      v20 = objc_opt_class();
       downloadID = self->_downloadID;
-      v59 = 138412802;
-      v60 = v19;
-      v61 = 2048;
-      v62 = downloadID;
-      v63 = 2112;
-      v64 = v10;
-      LODWORD(v50) = 32;
-      v48 = &v59;
-      v21 = _os_log_send_and_compose_impl();
-      if (v21)
+      v62 = 138412802;
+      v63 = v20;
+      v64 = 2048;
+      v65 = downloadID;
+      v66 = 2112;
+      v67 = v10;
+      v22 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, v19, 1, "%@: Refreshing download: %lld / %@", &v62, 32);
+      if (v22)
       {
-        v22 = v21;
-        v23 = [NSString stringWithCString:v21 encoding:4, &v59, v50];
-        free(v22);
-        v48 = v23;
+        v23 = v22;
+        v24 = [NSString stringWithCString:v22 encoding:4];
+        free(v23);
+        v51 = v24;
         SSFileLog();
       }
     }
 
-    v24 = [(RefreshStoreQueueDownloadOperation *)self runSubOperation:v14 returningError:&v54, v48];
-    *(v56 + 24) = v24;
-    if (v24)
+    v25 = [(RefreshStoreQueueDownloadOperation *)self runSubOperation:v14 returningError:&v57, v51];
+    *(v59 + 24) = v25;
+    if (v25)
     {
       downloads = [(LoadDownloadQueueOperation *)v14 downloads];
       if ([(NSOrderedSet *)downloads count]== 1)
       {
-        v26 = [[Download alloc] initWithStoreDownload:[(NSOrderedSet *)downloads objectAtIndex:0]];
-        if (v26)
+        v27 = [[Download alloc] initWithStoreDownload:[(NSOrderedSet *)downloads objectAtIndex:0]];
+        if (v27)
         {
-          v27 = +[SSLogConfig sharedDaemonConfig];
-          if (!v27)
+          v28 = +[SSLogConfig sharedDaemonConfig];
+          if (!v28)
           {
-            v27 = +[SSLogConfig sharedConfig];
+            v28 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v27 shouldLog];
-          shouldLogToDisk2 = [v27 shouldLogToDisk];
-          oSLogObject2 = [v27 OSLogObject];
+          LODWORD(v29) = [v28 shouldLog];
+          shouldLogToDisk2 = [v28 shouldLogToDisk];
+          oSLogObject2 = [v28 OSLogObject];
+          v32 = oSLogObject2;
           if (shouldLogToDisk2)
           {
-            shouldLog2 |= 2u;
+            LODWORD(v29) = v29 | 2;
           }
 
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
           {
-            shouldLog2 &= 2u;
+            v29 = v29;
           }
 
-          if (shouldLog2)
+          else
           {
-            v52 = objc_opt_class();
-            v51 = self->_downloadID;
-            v31 = [download valueForProperty:@"store_download_key"];
-            v32 = [(Download *)v26 valueForProperty:@"store_download_key"];
-            v59 = 138413058;
-            v60 = v52;
-            v61 = 2048;
-            v62 = v51;
-            v63 = 2112;
-            v64 = v31;
-            v65 = 2112;
-            v66 = v32;
-            LODWORD(v50) = 42;
-            v49 = &v59;
-            v33 = _os_log_send_and_compose_impl();
-            if (v33)
+            v29 &= 2u;
+          }
+
+          if (v29)
+          {
+            v55 = objc_opt_class();
+            v54 = self->_downloadID;
+            v33 = [download valueForProperty:@"store_download_key"];
+            v34 = [(Download *)v27 valueForProperty:@"store_download_key"];
+            v62 = 138413058;
+            v63 = v55;
+            v64 = 2048;
+            v65 = v54;
+            v66 = 2112;
+            v67 = v33;
+            v68 = 2112;
+            v69 = v34;
+            LODWORD(v53) = 42;
+            v35 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, v32, 1, "%@: Refreshed download: %lld, changed download key from: %@ to: %@", &v62, v53);
+            if (v35)
             {
-              v34 = v33;
-              v35 = [NSString stringWithCString:v33 encoding:4, &v59, v50];
-              free(v34);
-              v49 = v35;
+              v36 = v35;
+              v37 = [NSString stringWithCString:v35 encoding:4];
+              free(v36);
+              v52 = v37;
               SSFileLog();
             }
           }
 
-          v53[0] = _NSConcreteStackBlock;
-          v53[1] = 3221225472;
-          v53[2] = sub_100210ED8;
-          v53[3] = &unk_10032C580;
-          v53[5] = v26;
-          v53[6] = &v55;
-          v53[4] = self;
+          v56[0] = _NSConcreteStackBlock;
+          v56[1] = 3221225472;
+          v56[2] = sub_100210ED8;
+          v56[3] = &unk_10032C580;
+          v56[5] = v27;
+          v56[6] = &v58;
+          v56[4] = self;
           [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase downloadsDatabase];
         }
       }
 
       else
       {
-        v36 = +[SSLogConfig sharedDaemonConfig];
-        if (!v36)
+        v38 = +[SSLogConfig sharedDaemonConfig];
+        if (!v38)
         {
-          v36 = +[SSLogConfig sharedConfig];
+          v38 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v36 shouldLog];
-        shouldLogToDisk3 = [v36 shouldLogToDisk];
-        oSLogObject3 = [v36 OSLogObject];
+        LODWORD(v39) = [v38 shouldLog];
+        shouldLogToDisk3 = [v38 shouldLogToDisk];
+        oSLogObject3 = [v38 OSLogObject];
+        v42 = oSLogObject3;
         if (shouldLogToDisk3)
         {
-          shouldLog3 |= 2u;
+          LODWORD(v39) = v39 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v39 = v39;
         }
 
-        if (shouldLog3)
+        else
         {
-          v40 = objc_opt_class();
-          v41 = [(NSOrderedSet *)downloads count];
-          v42 = self->_downloadID;
-          v59 = 138412802;
-          v60 = v40;
-          v61 = 2048;
-          v62 = v41;
-          v63 = 2048;
-          v64 = v42;
-          LODWORD(v50) = 32;
-          v43 = _os_log_send_and_compose_impl();
-          if (v43)
+          v39 &= 2u;
+        }
+
+        if (v39)
+        {
+          v43 = objc_opt_class();
+          v44 = [(NSOrderedSet *)downloads count];
+          v45 = self->_downloadID;
+          v62 = 138412802;
+          v63 = v43;
+          v64 = 2048;
+          v65 = v44;
+          v66 = 2048;
+          v67 = v45;
+          LODWORD(v53) = 32;
+          v46 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, v42, 0, "%@: Unexpected download count: %lu when refreshing download: %lld", &v62, v53);
+          if (v46)
           {
-            v44 = v43;
-            [NSString stringWithCString:v43 encoding:4, &v59, v50];
-            free(v44);
+            v47 = v46;
+            [NSString stringWithCString:v46 encoding:4];
+            free(v47);
             SSFileLog();
           }
         }
 
-        *(v56 + 24) = 0;
+        *(v59 + 24) = 0;
       }
     }
   }
 
-  v45 = v56;
-  v46 = *(v56 + 24);
-  if (error && (v56[3] & 1) == 0)
+  v48 = v59;
+  v49 = *(v59 + 24);
+  if (error && (v59[3] & 1) == 0)
   {
-    *error = v54;
-    v46 = *(v45 + 24);
+    *error = v57;
+    v49 = *(v48 + 24);
   }
 
-  _Block_object_dispose(&v55, 8);
-  return v46 & 1;
+  _Block_object_dispose(&v58, 8);
+  return v49 & 1;
 }
 
 - (id)_URLBagKeyForDownload:(id)download

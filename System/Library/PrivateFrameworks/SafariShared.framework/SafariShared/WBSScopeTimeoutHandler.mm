@@ -48,16 +48,16 @@
   return v16;
 }
 
-void __87__WBSScopeTimeoutHandler_initWithTimeout_autoBugCaptureDomain_detectedProcess_context___block_invoke(void *a1)
+void __87__WBSScopeTimeoutHandler_initWithTimeout_autoBugCaptureDomain_detectedProcess_context___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAutoBugCapture(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __87__WBSScopeTimeoutHandler_initWithTimeout_autoBugCaptureDomain_detectedProcess_context___block_invoke_cold_1(a1, v2);
+    __87__WBSScopeTimeoutHandler_initWithTimeout_autoBugCaptureDomain_detectedProcess_context___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = +[WBSAutomaticBugCaptureManager sharedManager];
-  [v3 capturePerformanceTimeoutWithDomain:a1[4] detectedProcess:a1[5] context:a1[6]];
+  v4 = +[WBSAutomaticBugCaptureManager sharedManager];
+  [v4 capturePerformanceTimeoutWithDomain:a1[4] detectedProcess:a1[5] context:a1[6]];
 }
 
 - (void)dealloc

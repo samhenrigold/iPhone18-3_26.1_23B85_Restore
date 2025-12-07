@@ -24,27 +24,23 @@
 
 - (id)hiddenParameterKeysForStaccato
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
-  v7[0] = @"operation";
-  v7[1] = @"state";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = @"operation";
+  v6[1] = @"state";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)defaultParameterStatesForStaccato
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"operation";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"operation";
   v2 = [(WFVariableSubstitutableParameterState *)[WFLinkEnumerationSubstitutableState alloc] initWithValue:@"toggle"];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

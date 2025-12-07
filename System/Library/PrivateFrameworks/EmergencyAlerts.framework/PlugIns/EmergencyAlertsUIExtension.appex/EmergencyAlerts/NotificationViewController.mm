@@ -24,6 +24,7 @@
 - (void)setupAlertWithNotification:(id)notification;
 - (void)setupTextsWithNotification:(id)notification;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation NotificationViewController
@@ -54,6 +55,23 @@
   }
 
   TUAddTelephonyCenterObserver();
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = qword_10000CD40;
+  if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "viewWillDisappear %p", buf, 0xCu);
+  }
+
+  v6.receiver = self;
+  v6.super_class = NotificationViewController;
+  [(NotificationViewController *)&v6 viewWillDisappear:disappearCopy];
+  TURemoveTelephonyCenterObserver();
 }
 
 - (CGSize)getImageBoundsForPhone
@@ -168,22 +186,15 @@
 
 - (void)setLabel:(id)label withText:(id)text isBold:(BOOL)bold
 {
-  v6 = &UIFontWeightBold;
-  if (!bold)
-  {
-    v6 = &UIFontWeightRegular;
-  }
-
-  v7 = *v6;
   textCopy = text;
   labelCopy = label;
   font = [labelCopy font];
   [font pointSize];
-  v11 = [UIFont systemFontOfSize:"systemFontOfSize:weight:" weight:?];
-  v13 = [NSDictionary dictionaryWithObject:v11 forKey:NSFontAttributeName];
+  v9 = [UIFont systemFontOfSize:"systemFontOfSize:weight:" weight:?];
+  v11 = [NSDictionary dictionaryWithObject:v9 forKey:NSFontAttributeName];
 
-  v12 = [[NSMutableAttributedString alloc] initWithString:textCopy attributes:v13];
-  [labelCopy setAttributedText:v12];
+  v10 = [[NSMutableAttributedString alloc] initWithString:textCopy attributes:v11];
+  [labelCopy setAttributedText:v10];
   [labelCopy setNumberOfLines:0];
   [labelCopy setLineBreakMode:0];
 }
@@ -246,17 +257,7 @@
 
     v6 = [receivedCopy objectForKey:kCTSMSAppleSafetyAlertData];
     v7 = [receivedCopy objectForKey:@"kCTSMSAppleSafetyAlertMissingForHash"];
-    if (!v7)
-    {
-      goto LABEL_9;
-    }
-
-    centerBody = [(NotificationViewController *)self centerBody];
-    text = [centerBody text];
-    v10 = ea_getHashForString(text);
-    v11 = [v7 isEqualToString:v10];
-
-    if (v11)
+    if (v7 && (-[NotificationViewController centerBody](self, "centerBody"), v8 = objc_claimAutoreleasedReturnValue(), [v8 text], v9 = objc_claimAutoreleasedReturnValue(), ea_getHashForString(v9), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v7, "isEqualToString:", v10), v10, v9, v8, v11))
     {
       v12 = qword_10000CD40;
       if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
@@ -269,109 +270,88 @@
       [safetyAlertSpinner setHidden:1];
     }
 
-    else
+    else if (v6)
     {
-LABEL_9:
-      if (v6)
+      v14 = [v6 objectForKeyedSubscript:@"CmamText"];
+      v15 = ea_getHashForString(v14);
+
+      v16 = [v6 objectForKeyedSubscript:@"CmamLongText"];
+      v17 = ea_getHashForString(v16);
+
+      if (v15 | v17)
       {
-        v14 = [v6 objectForKeyedSubscript:@"CmamText"];
-        v15 = ea_getHashForString(v14);
+        centerBody = [(NotificationViewController *)self centerBody];
+        text = [centerBody text];
+        v20 = ea_getHashForString(text);
 
-        v16 = [v6 objectForKeyedSubscript:@"CmamLongText"];
-        v17 = ea_getHashForString(v16);
-
-        if (v15 | v17)
+        v21 = v20;
+        if ([v20 isEqualToString:v15] & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", v17))
         {
-          centerBody2 = [(NotificationViewController *)self centerBody];
-          text2 = [centerBody2 text];
-          v20 = ea_getHashForString(text2);
-
-          v21 = v20;
-          if ([v20 isEqualToString:v15] & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", v17))
+          v22 = [v6 objectForKeyedSubscript:@"Instruction"];
+          v41 = v22;
+          if (ea_isValidString(v22) && (-[NotificationViewController centerBody](self, "centerBody"), v23 = objc_claimAutoreleasedReturnValue(), [v23 text], v40 = v15, v24 = v17, v25 = v21, v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "rangeOfString:", v22), v26, v21 = v25, v17 = v24, v15 = v40, v23, v27 == 0x7FFFFFFFFFFFFFFFLL))
           {
-            v22 = [v6 objectForKeyedSubscript:@"Instruction"];
-            v41 = v22;
-            if (!ea_isValidString(v22))
-            {
-              goto LABEL_34;
-            }
-
-            centerBody3 = [(NotificationViewController *)self centerBody];
-            [centerBody3 text];
-            v40 = v15;
-            v24 = v17;
-            v26 = v25 = v21;
-            v27 = [v26 rangeOfString:v22];
-
-            v21 = v25;
-            v17 = v24;
-            v15 = v40;
-
-            if (v27 == 0x7FFFFFFFFFFFFFFFLL)
-            {
-              instructionText = [(NotificationViewController *)self instructionText];
-              selfCopy2 = self;
-              v30 = instructionText;
-              v31 = v41;
-            }
-
-            else
-            {
-LABEL_34:
-              if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_ERROR))
-              {
-                sub_100003E64();
-              }
-
-              instructionText = [(NotificationViewController *)self instructionText];
-              v31 = &stru_1000084C0;
-              selfCopy2 = self;
-              v30 = instructionText;
-            }
-
-            [(NotificationViewController *)selfCopy2 setTextView:v30 withText:v31 isBold:0];
-
-            instructionText2 = [(NotificationViewController *)self instructionText];
-            [instructionText2 setTextAlignment:1];
-
-            v34 = [NSBundle bundleForClass:objc_opt_class()];
-            v35 = [v34 localizedStringForKey:@"ADDITIONAL_DETAILS" value:@"Additional Details" table:0];
-
-            additionalDetails = [(NotificationViewController *)self additionalDetails];
-            [(NotificationViewController *)self setLabel:additionalDetails withText:v35 isBold:1];
-
-            centerBody4 = [(NotificationViewController *)self centerBody];
-            text3 = [centerBody4 text];
-            ea_sendSafetyAlertTapIndication(text3, 1);
-
-            [(NotificationViewController *)self renderBasedOnScreenState];
+            instructionText = [(NotificationViewController *)self instructionText];
+            selfCopy2 = self;
+            v30 = instructionText;
+            v31 = v41;
           }
 
           else
           {
-            v39 = qword_10000CD40;
-            if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_ERROR))
             {
-              *v42 = 0;
-              _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Ignoring received apple safety alert...", v42, 2u);
+              sub_100003E64();
             }
+
+            instructionText = [(NotificationViewController *)self instructionText];
+            v31 = &stru_1000084C0;
+            selfCopy2 = self;
+            v30 = instructionText;
           }
+
+          [(NotificationViewController *)selfCopy2 setTextView:v30 withText:v31 isBold:0];
+
+          instructionText2 = [(NotificationViewController *)self instructionText];
+          [instructionText2 setTextAlignment:1];
+
+          v34 = [NSBundle bundleForClass:objc_opt_class()];
+          v35 = [v34 localizedStringForKey:@"ADDITIONAL_DETAILS" value:@"Additional Details" table:0];
+
+          additionalDetails = [(NotificationViewController *)self additionalDetails];
+          [(NotificationViewController *)self setLabel:additionalDetails withText:v35 isBold:1];
+
+          centerBody2 = [(NotificationViewController *)self centerBody];
+          text2 = [centerBody2 text];
+          ea_sendSafetyAlertTapIndication(text2, 1);
+
+          [(NotificationViewController *)self renderBasedOnScreenState];
         }
 
-        else if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_ERROR))
+        else
         {
-          sub_100003E30();
+          v39 = qword_10000CD40;
+          if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
+          {
+            *v42 = 0;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Ignoring received apple safety alert...", v42, 2u);
+          }
         }
       }
 
-      else
+      else if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_ERROR))
       {
-        v32 = qword_10000CD40;
-        if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
-        {
-          *v43 = 0;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Ignoring non safety alert content", v43, 2u);
-        }
+        sub_100003E30();
+      }
+    }
+
+    else
+    {
+      v32 = qword_10000CD40;
+      if (os_log_type_enabled(qword_10000CD40, OS_LOG_TYPE_DEFAULT))
+      {
+        *v43 = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Ignoring non safety alert content", v43, 2u);
       }
     }
   }
@@ -395,24 +375,13 @@ LABEL_34:
   userInfo2 = [content2 userInfo];
   v11 = [userInfo2 objectForKeyedSubscript:@"EffectiveTimestamp"];
 
-  if (!ea_isValidString(v7))
-  {
-    goto LABEL_4;
-  }
-
-  request3 = [dataCopy request];
-  content3 = [request3 content];
-  body = [content3 body];
-  v15 = [body rangeOfString:v7];
-
-  if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+  if (ea_isValidString(v7) && ([dataCopy request], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "content"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "body"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "rangeOfString:", v7), v14, v13, v12, v15 == 0x7FFFFFFFFFFFFFFFLL))
   {
     v16 = 1;
   }
 
   else
   {
-LABEL_4:
     v16 = ea_isValidString(v11);
   }
 

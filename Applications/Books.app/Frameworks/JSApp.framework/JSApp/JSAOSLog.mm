@@ -7,7 +7,7 @@
 + (void)logFault:(id)fault
 {
   faultCopy = fault;
-  v4 = JSALog();
+  v4 = JSALog(faultCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     sub_7EF64(faultCopy, v4);

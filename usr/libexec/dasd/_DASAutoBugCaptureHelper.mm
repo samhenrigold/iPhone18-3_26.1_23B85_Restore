@@ -260,7 +260,7 @@ LABEL_18:
 
     else
     {
-      if ([v19 count])
+      if (objc_msgSend_count(v19))
       {
         if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {

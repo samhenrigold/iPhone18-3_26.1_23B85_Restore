@@ -194,14 +194,14 @@
 {
   v11[4] = *MEMORY[0x277D85DE8];
   v9 = *a3;
-  *v10 = a3[1];
+  v10 = a3[1];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*a3];
   v11[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(&v9 + 1)];
   v11[1] = v4;
-  v5 = [MEMORY[0x277CCABB0] numberWithDouble:v10[0]];
+  v5 = [MEMORY[0x277CCABB0] numberWithDouble:*&v10];
   v11[2] = v5;
-  v6 = [MEMORY[0x277CCABB0] numberWithDouble:v10[1]];
+  v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(&v10 + 1)];
   v11[3] = v6;
   v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
 
@@ -212,7 +212,7 @@
 {
   v17[8] = *MEMORY[0x277D85DE8];
   v15 = a3[2];
-  *v16 = a3[3];
+  v16 = a3[3];
   v13 = *a3;
   v14 = a3[1];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*a3];
@@ -227,9 +227,9 @@
   v17[4] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:*(&v15 + 1)];
   v17[5] = v8;
-  v9 = [MEMORY[0x277CCABB0] numberWithDouble:v16[0]];
+  v9 = [MEMORY[0x277CCABB0] numberWithDouble:*&v16];
   v17[6] = v9;
-  v10 = [MEMORY[0x277CCABB0] numberWithDouble:v16[1]];
+  v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(&v16 + 1)];
   v17[7] = v10;
   v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:8];
 

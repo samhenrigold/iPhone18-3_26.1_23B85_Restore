@@ -56,14 +56,14 @@ void __20__ACDKeychain_cache__block_invoke(uint64_t a1)
   cache__keychainCache = v2;
 
   out_token = 0;
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __20__ACDKeychain_cache__block_invoke_2;
-  v5[3] = &__block_descriptor_40_e8_v12__0i8l;
-  v5[4] = *(a1 + 32);
-  notify_register_dispatch("com.apple.security.keychainchanged", &out_token, MEMORY[0x277D85CD0], v5);
-  v4 = _ACDKeychainLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __20__ACDKeychain_cache__block_invoke_2;
+  v6[3] = &__block_descriptor_40_e8_v12__0i8l;
+  v6[4] = *(a1 + 32);
+  v4 = notify_register_dispatch("com.apple.security.keychainchanged", &out_token, MEMORY[0x277D85CD0], v6);
+  v5 = _ACDKeychainLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __20__ACDKeychain_cache__block_invoke_cold_1();
   }
@@ -71,7 +71,7 @@ void __20__ACDKeychain_cache__block_invoke(uint64_t a1)
 
 void __20__ACDKeychain_cache__block_invoke_2(uint64_t a1)
 {
-  v2 = _ACDKeychainLogSystem();
+  v2 = _ACDKeychainLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __20__ACDKeychain_cache__block_invoke_2_cold_1();
@@ -237,47 +237,49 @@ LABEL_9:
     {
       if (errorCopy)
       {
-        [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:-25300 userInfo:0];
-        *errorCopy = v32 = 0;
+        v32 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:-25300 userInfo:0];
+        v33 = 0;
+        *errorCopy = v32;
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
     }
 
     else
     {
       v32 = v29;
+      v33 = v32;
     }
 
-    v40 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    v41 = _ACDKeychainLogSystem(v32);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v41 = ACHashedString();
+      v42 = ACHashedString();
       *buf = 134218754;
       v57 = v26;
       v58 = 2112;
       v59 = v25;
       v60 = 2112;
-      v61 = v41;
+      v61 = v42;
       v62 = 1024;
-      v63 = v32 != 0;
-      v42 = "ACDKeychainCache(syncState:%ld) hit for %@.%@: itemExist:%d";
+      v63 = v33 != 0;
+      v43 = "ACDKeychainCache(syncState:%ld) hit for %@.%@: itemExist:%d";
 LABEL_45:
-      _os_log_debug_impl(&dword_221D2F000, v40, OS_LOG_TYPE_DEBUG, v42, buf, 0x26u);
+      _os_log_debug_impl(&dword_221D2F000, v41, OS_LOG_TYPE_DEBUG, v43, buf, 0x26u);
     }
   }
 
   else
   {
     result = 0;
-    v33 = SecItemCopyMatching(Mutable, &result);
-    v34 = v33;
-    if (v33 || (v35 = result) == 0)
+    v34 = SecItemCopyMatching(Mutable, &result);
+    v35 = v34;
+    if (v34 || (v36 = result) == 0)
     {
-      if (v33 == -25300)
+      if (v34 == -25300)
       {
         cache2 = [self cache];
         null2 = [MEMORY[0x277CBEB68] null];
@@ -286,54 +288,55 @@ LABEL_45:
 
       if (errorCopy)
       {
-        [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v34 userInfo:0];
-        *errorCopy = v32 = 0;
+        v34 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v35 userInfo:0];
+        v33 = 0;
+        *errorCopy = v34;
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
     }
 
     else
     {
-      v36 = [result objectForKeyedSubscript:*MEMORY[0x277CDC5E8]];
-      v49 = v36;
-      if (v36)
+      v37 = [result objectForKeyedSubscript:*MEMORY[0x277CDC5E8]];
+      v49 = v37;
+      if (v37)
       {
-        v32 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v36 encoding:4];
+        v33 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v37 encoding:4];
         cache3 = [self cache];
-        [cache3 cacheData:v32 forService:v25 username:v28 syncState:v26];
+        [cache3 cacheData:v33 forService:v25 username:v28 syncState:v26];
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
 
-      v43 = [v35 objectForKeyedSubscript:*MEMORY[0x277CDC5F0]];
+      v44 = [v36 objectForKeyedSubscript:*MEMORY[0x277CDC5F0]];
 
-      if (v43)
+      if (v44)
       {
-        v44 = [[ACDKeychainItem alloc] initWithPersistentRef:v43 properties:v35];
-        [self _migrateKeychainItemIfNecessary:v44];
+        v45 = [[ACDKeychainItem alloc] initWithPersistentRef:v44 properties:v36];
+        [self _migrateKeychainItemIfNecessary:v45];
       }
     }
 
-    v40 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    v41 = _ACDKeychainLogSystem(v34);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v41 = ACHashedString();
+      v42 = ACHashedString();
       *buf = 134218754;
       v57 = v26;
       v58 = 2112;
       v59 = v25;
       v60 = 2112;
-      v61 = v41;
+      v61 = v42;
       v62 = 1024;
-      v63 = v32 != 0;
-      v42 = "ACDKeychainCache(syncState:%ld) miss for %@.%@: itemExist:%d";
+      v63 = v33 != 0;
+      v43 = "ACDKeychainCache(syncState:%ld) miss for %@.%@: itemExist:%d";
       goto LABEL_45;
     }
   }
@@ -343,14 +346,12 @@ LABEL_45:
     CFRelease(Mutable);
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v33;
 }
 
 + (void)updateItemForServiceName:(id)name username:(id)username accessGroup:(id)group newValues:(id)values options:(id)options error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   usernameCopy = username;
   groupCopy = group;
@@ -384,30 +385,30 @@ LABEL_5:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], groupCopy);
   }
 
-  v38 = groupCopy;
-  v41 = 0u;
+  v39 = groupCopy;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v20 = optionsCopy;
-  v21 = [v20 countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v40;
+    v23 = *v41;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v40 != v23)
+        if (*v41 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        CFDictionaryAddValue(Mutable, *(*(&v39 + 1) + 8 * i), [v20 valueForKey:{*(*(&v39 + 1) + 8 * i), attributesToUpdate}]);
+        CFDictionaryAddValue(Mutable, *(*(&v40 + 1) + 8 * i), [v20 valueForKey:{*(*(&v40 + 1) + 8 * i), attributesToUpdate}]);
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v22);
@@ -424,51 +425,52 @@ LABEL_5:
   {
     v29 = [(__CFDictionary *)attributesToUpdate objectForKeyedSubscript:*MEMORY[0x277CDC5E8]];
     v30 = [self _syncStateForKeychainDictionary:v20];
-    v28 = v38;
+    v31 = v30;
+    v28 = v39;
     if (v29)
     {
-      v31 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v29 encoding:4];
+      v32 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v29 encoding:4];
       cache3 = [self cache];
-      [cache3 cacheData:v31 forService:nameCopy username:usernameCopy syncState:v30];
+      [cache3 cacheData:v32 forService:nameCopy username:usernameCopy syncState:v31];
 
-      v33 = _ACDKeychainLogSystem();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v35 = _ACDKeychainLogSystem(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
-        v35 = ACHashedString();
+        v36 = ACHashedString();
         *buf = 134218498;
-        v44 = v30;
-        v45 = 2112;
-        v46 = nameCopy;
-        v47 = 2112;
-        v48 = v35;
-        v36 = v35;
-        _os_log_debug_impl(&dword_221D2F000, v33, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) update for %@.%@", buf, 0x20u);
+        v45 = v31;
+        v46 = 2112;
+        v47 = nameCopy;
+        v48 = 2112;
+        v49 = v36;
+        v37 = v36;
+        _os_log_debug_impl(&dword_221D2F000, v35, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) update for %@.%@", buf, 0x20u);
       }
     }
 
     else
     {
-      v31 = _ACDKeychainLogSystem();
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v32 = _ACDKeychainLogSystem(v30);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_22;
       }
 
-      v33 = ACHashedString();
+      v35 = ACHashedString();
       *buf = 134218498;
-      v44 = v30;
-      v45 = 2112;
-      v46 = nameCopy;
-      v47 = 2112;
-      v48 = v33;
-      _os_log_debug_impl(&dword_221D2F000, v31, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) update for %@.%@ has no data, ignoring", buf, 0x20u);
+      v45 = v31;
+      v46 = 2112;
+      v47 = nameCopy;
+      v48 = 2112;
+      v49 = v35;
+      _os_log_debug_impl(&dword_221D2F000, v32, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) update for %@.%@ has no data, ignoring", buf, 0x20u);
     }
 
 LABEL_22:
     goto LABEL_23;
   }
 
-  v28 = v38;
+  v28 = v39;
   if (error)
   {
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v26 userInfo:0];
@@ -476,13 +478,11 @@ LABEL_22:
 
 LABEL_23:
   CFRelease(Mutable);
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addItemWithServiceName:(id)name username:(id)username accessGroup:(id)group passwordData:(id)data options:(id)options error:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   usernameCopy = username;
   groupCopy = group;
@@ -517,49 +517,50 @@ LABEL_5:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], groupCopy);
   }
 
-  v41 = groupCopy;
-  v42 = dataCopy;
+  v42 = groupCopy;
+  v43 = dataCopy;
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC5E8], dataCopy);
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
+  v47 = 0u;
   v20 = optionsCopy;
-  v21 = [v20 countByEnumeratingWithState:&v45 objects:v57 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v46 objects:v58 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v46;
+    v23 = *v47;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v46 != v23)
+        if (*v47 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        CFDictionaryAddValue(Mutable, *(*(&v45 + 1) + 8 * i), [v20 valueForKey:*(*(&v45 + 1) + 8 * i)]);
+        CFDictionaryAddValue(Mutable, *(*(&v46 + 1) + 8 * i), [v20 valueForKey:*(*(&v46 + 1) + 8 * i)]);
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v45 objects:v57 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v46 objects:v58 count:16];
     }
 
     while (v22);
   }
 
-  v55 = 0x283538FB8;
+  v56 = 0x283538FB8;
   v25 = [MEMORY[0x277CCABB0] numberWithInteger:9];
-  v56 = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+  v57 = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
 
-  v44 = 0;
-  v27 = [MEMORY[0x277CCAC58] dataWithPropertyList:v26 format:100 options:0 error:&v44];
-  v28 = v44;
+  v45 = 0;
+  v27 = [MEMORY[0x277CCAC58] dataWithPropertyList:v26 format:100 options:0 error:&v45];
+  v28 = v45;
+  v29 = v28;
   if (v28 || !v27)
   {
-    v29 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = _ACDKeychainLogSystem(v28);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       +[ACDKeychain addItemWithServiceName:username:accessGroup:passwordData:options:error:];
     }
@@ -574,48 +575,46 @@ LABEL_5:
   [cache clearDataForService:nameCopy username:usernameCopy syncState:2];
 
   result = 0;
-  v31 = SecItemAdd(Mutable, &result);
+  v32 = SecItemAdd(Mutable, &result);
   cache2 = [self cache];
   [cache2 clearDataForService:nameCopy username:usernameCopy syncState:2];
 
-  if (v31)
+  if (v32)
   {
     if (errorCopy)
     {
-      *errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v31 userInfo:0];
+      *errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v32 userInfo:0];
     }
   }
 
   else
   {
-    v33 = [self _syncStateForKeychainDictionary:v20];
-    v34 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v42 encoding:4];
+    v34 = [self _syncStateForKeychainDictionary:v20];
+    v35 = [objc_alloc(MEMORY[0x277CB8FC8]) initWithData:v43 encoding:4];
     cache3 = [self cache];
-    [cache3 cacheData:v34 forService:nameCopy username:usernameCopy syncState:v33];
+    [cache3 cacheData:v35 forService:nameCopy username:usernameCopy syncState:v34];
 
-    v36 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v38 = _ACDKeychainLogSystem(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      v38 = ACHashedString();
+      v39 = ACHashedString();
       *buf = 134218498;
-      v50 = v33;
-      v51 = 2112;
-      v52 = nameCopy;
-      v53 = 2112;
-      v54 = v38;
-      v39 = v38;
-      _os_log_debug_impl(&dword_221D2F000, v36, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) add for %@.%@", buf, 0x20u);
+      v51 = v34;
+      v52 = 2112;
+      v53 = nameCopy;
+      v54 = 2112;
+      v55 = v39;
+      v40 = v39;
+      _os_log_debug_impl(&dword_221D2F000, v38, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) add for %@.%@", buf, 0x20u);
     }
   }
 
   CFRelease(Mutable);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)addSyncItemWithServiceName:(id)name username:(id)username accessGroup:(id)group options:(id)options extension:(id)extension error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   usernameCopy = username;
   groupCopy = group;
@@ -640,12 +639,12 @@ LABEL_5:
   }
 
 LABEL_6:
-  v33 = nameCopy;
+  v32 = nameCopy;
   v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", nameCopy, v18];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC228], *MEMORY[0x277CDC238]);
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBF20], usernameCopy);
-  v32 = v19;
+  v31 = v19;
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC120], v19);
   v21 = *MEMORY[0x277CBED28];
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBFC0], *MEMORY[0x277CBED28]);
@@ -655,29 +654,29 @@ LABEL_6:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], groupCopy);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v22 = optionsCopy;
-  v23 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v36;
+    v25 = *v35;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v36 != v25)
+        if (*v35 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        CFDictionaryAddValue(Mutable, *(*(&v35 + 1) + 8 * i), [v22 valueForKey:*(*(&v35 + 1) + 8 * i)]);
+        CFDictionaryAddValue(Mutable, *(*(&v34 + 1) + 8 * i), [v22 valueForKey:*(*(&v34 + 1) + 8 * i)]);
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v24);
@@ -689,7 +688,7 @@ LABEL_6:
   v28 = v27 == 0;
   if (error)
   {
-    v29 = v33;
+    v29 = v32;
     if (v27)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v27 userInfo:0];
@@ -699,12 +698,11 @@ LABEL_6:
 
   else
   {
-    v29 = v33;
+    v29 = v32;
   }
 
   CFRelease(Mutable);
 
-  v30 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -765,7 +763,7 @@ LABEL_6:
 
 + (BOOL)removeItemForServiceName:(id)name username:(id)username accessGroup:(id)group options:(id)options error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   usernameCopy = username;
   groupCopy = group;
@@ -805,30 +803,30 @@ LABEL_5:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], groupCopy);
   }
 
-  v35 = groupCopy;
-  v38 = 0u;
+  v36 = groupCopy;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v17 = optionsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v37;
+    v20 = *v38;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v37 != v20)
+        if (*v38 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        CFDictionaryAddValue(Mutable, *(*(&v36 + 1) + 8 * i), [v17 valueForKey:*(*(&v36 + 1) + 8 * i)]);
+        CFDictionaryAddValue(Mutable, *(*(&v37 + 1) + 8 * i), [v17 valueForKey:*(*(&v37 + 1) + 8 * i)]);
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
     while (v19);
@@ -841,55 +839,54 @@ LABEL_5:
   cache2 = [self cache];
   [cache2 clearDataForService:nameCopy username:usernameCopy syncState:2];
 
-  v25 = _ACDKeychainLogSystem();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v26 = _ACDKeychainLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    [ACDKeychain removeItemForServiceName:v23 username:v25 accessGroup:? options:? error:?];
+    [ACDKeychain removeItemForServiceName:v23 username:v26 accessGroup:? options:? error:?];
   }
 
   if (v23 != -25300 && v23)
   {
-    v30 = v35;
+    v32 = v36;
     if (error)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC8] code:v23 userInfo:0];
-      *error = v31 = 0;
+      *error = v33 = 0;
     }
 
     else
     {
-      v31 = 0;
+      v33 = 0;
     }
   }
 
   else
   {
-    v26 = [self _syncStateForKeychainDictionary:v17];
+    v27 = [self _syncStateForKeychainDictionary:v17];
     cache3 = [self cache];
     null = [MEMORY[0x277CBEB68] null];
-    [cache3 cacheData:null forService:nameCopy username:usernameCopy syncState:v26];
+    [cache3 cacheData:null forService:nameCopy username:usernameCopy syncState:v27];
 
-    v29 = _ACDKeychainLogSystem();
-    v30 = v35;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v31 = _ACDKeychainLogSystem(v30);
+    v32 = v36;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v34 = ACHashedString();
+      v35 = ACHashedString();
       *buf = 134218498;
-      v41 = v26;
-      v42 = 2112;
-      v43 = nameCopy;
-      v44 = 2112;
-      v45 = v34;
-      _os_log_debug_impl(&dword_221D2F000, v29, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) delete for %@.%@", buf, 0x20u);
+      v42 = v27;
+      v43 = 2112;
+      v44 = nameCopy;
+      v45 = 2112;
+      v46 = v35;
+      _os_log_debug_impl(&dword_221D2F000, v31, OS_LOG_TYPE_DEBUG, "ACDKeychainCache(syncState:%ld) delete for %@.%@", buf, 0x20u);
     }
 
-    v31 = 1;
+    v33 = 1;
   }
 
   CFRelease(Mutable);
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v33;
 }
 
 + (BOOL)removeTombstoneForServiceName:(id)name username:(id)username accessGroup:(id)group extension:(id)extension error:(id *)error
@@ -964,8 +961,8 @@ LABEL_6:
     v4 = result;
     CFRelease(result);
     CFRelease(Mutable);
-    v5 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _ACDKeychainLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       +[ACDKeychain keychainDeletedAccounts];
     }
@@ -1021,10 +1018,11 @@ uint64_t __42__ACDKeychain__knownMigratedKeychainItems__block_invoke()
 + (void)_migrateKeychainItemIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  if ([necessaryCopy hasCustomAccessControl])
+  hasCustomAccessControl = [necessaryCopy hasCustomAccessControl];
+  if (hasCustomAccessControl)
   {
-    v5 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _ACDKeychainLogSystem(hasCustomAccessControl);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       +[ACDKeychain _migrateKeychainItemIfNecessary:];
     }
@@ -1034,10 +1032,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ([self _isKnownMigratedKeychainItem:necessaryCopy])
+  v7 = [self _isKnownMigratedKeychainItem:necessaryCopy];
+  if (v7)
   {
-    v5 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _ACDKeychainLogSystem(v7);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       +[ACDKeychain _migrateKeychainItemIfNecessary:];
     }
@@ -1045,13 +1044,13 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v6 = +[ACDKeychainMigrator sharedInstance];
-  v7 = [v6 migrateKeychainItem:necessaryCopy toKeybag:0];
+  v8 = +[ACDKeychainMigrator sharedInstance];
+  v9 = [v8 migrateKeychainItem:necessaryCopy toKeybag:0];
 
-  if ((v7 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v5 = _ACDKeychainLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ACDKeychainLogSystem(v10);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[ACDKeychain _migrateKeychainItemIfNecessary:];
     }
@@ -1089,10 +1088,9 @@ LABEL_12:
 
 + (void)addItemWithServiceName:username:accessGroup:passwordData:options:error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "addItemWithServiceName failed to set current version on item %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "addItemWithServiceName failed to set current version on item %@", v1, 0xCu);
 }
 
 + (void)addSyncItemWithServiceName:username:accessGroup:options:extension:error:.cold.1()
@@ -1121,15 +1119,13 @@ LABEL_12:
 
 + (void)removeItemForServiceName:(NSObject *)a3 username:accessGroup:options:error:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithInt:a2];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_221D2F000, a3, OS_LOG_TYPE_DEBUG, "Keychain query - %@ with result - %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_221D2F000, a3, OS_LOG_TYPE_DEBUG, "Keychain query - %@ with result - %@", &v6, 0x16u);
 }
 
 + (void)removeTombstoneForServiceName:username:accessGroup:extension:error:.cold.1()
@@ -1142,37 +1138,30 @@ LABEL_12:
 
 + (void)keychainDeletedAccounts
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateKeychainItemIfNecessary:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Failed to migrate keychain item %@.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Failed to migrate keychain item %@.", v1, 0xCu);
 }
 
 + (void)_migrateKeychainItemIfNecessary:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateKeychainItemIfNecessary:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

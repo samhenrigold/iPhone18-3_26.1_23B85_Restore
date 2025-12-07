@@ -225,13 +225,12 @@ LABEL_7:
     v8 = 2 * index;
     while (1)
     {
-      v9 = self->_array[v7];
-      v10 = (*(self->_comparator + 2))();
+      v9 = (*(self->_comparator + 2))();
       indexCopy2 = v8 + 2;
       count = self->_count;
-      if (v10 < 0)
+      if (v9 < 0)
       {
-        if (v8 + 2 >= count || (array = self->_array, v15 = array[indexCopy2], v16 = array[v7], ((*(self->_comparator + 2))() & 0x8000000000000000) == 0))
+        if (v8 + 2 >= count || ((*(self->_comparator + 2))() & 0x8000000000000000) == 0)
         {
           indexCopy2 = v7;
         }
@@ -244,7 +243,6 @@ LABEL_7:
           break;
         }
 
-        v13 = self->_array[indexCopy2];
         if ((*(self->_comparator + 2))() >= 0)
         {
           indexCopy2 = index;
@@ -256,15 +254,15 @@ LABEL_7:
         break;
       }
 
-      v17 = self->_array;
-      v18 = v17[indexCopy2];
-      v17[index] = v18;
+      array = self->_array;
+      v13 = array[indexCopy2];
+      array[index] = v13;
       objects = self->_objects;
-      v20 = MEMORY[0x277CCABB0];
-      v21 = v18;
+      v15 = MEMORY[0x277CCABB0];
+      v16 = v13;
       selfCopy = self;
-      v23 = [v20 numberWithUnsignedInteger:index];
-      [(NSMapTable *)objects setObject:v23 forKey:v21];
+      v18 = [v15 numberWithUnsignedInteger:index];
+      [(NSMapTable *)objects setObject:v18 forKey:v16];
 
       v8 = 2 * indexCopy2;
       v7 = (2 * indexCopy2) | 1;
@@ -279,12 +277,12 @@ LABEL_7:
   indexCopy2 = index;
 LABEL_15:
   self->_array[indexCopy2] = downCopy;
-  v24 = self->_objects;
-  v25 = MEMORY[0x277CCABB0];
-  v28 = downCopy;
+  v19 = self->_objects;
+  v20 = MEMORY[0x277CCABB0];
+  v23 = downCopy;
   selfCopy2 = self;
-  v27 = [v25 numberWithUnsignedInteger:indexCopy2];
-  [(NSMapTable *)v24 setObject:v27 forKey:v28];
+  v22 = [v20 numberWithUnsignedInteger:indexCopy2];
+  [(NSMapTable *)v19 setObject:v22 forKey:v23];
 }
 
 - (void)_moveUpOrDown:(id)down index:(unint64_t)index
@@ -293,42 +291,41 @@ LABEL_15:
   if (!index)
   {
     selfCopy2 = self;
-    v11 = downCopy;
+    v10 = downCopy;
     indexCopy = 0;
     goto LABEL_8;
   }
 
-  v6 = *(self->_array + ((4 * index) & 0xFFFFFFFFFFFFFFF8));
-  v7 = (*(self->_comparator + 2))();
-  if (v7 == 1)
+  v6 = (*(self->_comparator + 2))();
+  if (v6 == 1)
   {
     [(BRCMinHeap *)self _moveUp:downCopy index:index];
     goto LABEL_11;
   }
 
-  if (!v7)
+  if (!v6)
   {
     self->_array[index] = downCopy;
     objects = self->_objects;
-    v14 = MEMORY[0x277CCABB0];
-    v15 = downCopy;
-    v16 = [v14 numberWithUnsignedInteger:index];
-    [(NSMapTable *)objects setObject:v16 forKey:v15];
+    v13 = MEMORY[0x277CCABB0];
+    v14 = downCopy;
+    v15 = [v13 numberWithUnsignedInteger:index];
+    [(NSMapTable *)objects setObject:v15 forKey:v14];
 
     goto LABEL_11;
   }
 
-  v8 = v7 == -1;
-  v9 = downCopy;
-  if (v8)
+  v7 = v6 == -1;
+  v8 = downCopy;
+  if (v7)
   {
     selfCopy2 = self;
-    v11 = downCopy;
+    v10 = downCopy;
     indexCopy = index;
 LABEL_8:
-    [(BRCMinHeap *)selfCopy2 _moveDown:v11 index:indexCopy];
+    [(BRCMinHeap *)selfCopy2 _moveDown:v10 index:indexCopy];
 LABEL_11:
-    v9 = downCopy;
+    v8 = downCopy;
   }
 }
 
@@ -456,47 +453,44 @@ LABEL_11:
 
 - (void)addObject:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _getIndex(self, o) == nil%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _getIndex(self, o) == nil%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObject:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _array[index] == o%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _array[index] == o%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectWeightChanged:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _array[index] == o%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _array[index] == o%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

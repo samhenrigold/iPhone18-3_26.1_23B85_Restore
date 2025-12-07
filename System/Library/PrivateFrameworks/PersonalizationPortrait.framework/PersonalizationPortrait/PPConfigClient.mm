@@ -225,13 +225,12 @@ void __39__PPConfigClient_variantNameWithError___block_invoke_2(uint64_t a1, voi
 
 void __32__PPConfigClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_3481;
-  sharedInstance__pasExprOnceResult_3481 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_3481;
+  sharedInstance__pasExprOnceResult_3481 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

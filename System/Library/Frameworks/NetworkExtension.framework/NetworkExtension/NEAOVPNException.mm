@@ -3,6 +3,7 @@
 - (BOOL)isLimitedToUDP;
 - (NEAOVPNException)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -10,34 +11,34 @@
 
 - (BOOL)isLimitedToUDP
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   limitToProtocols = [(NEAOVPNException *)self limitToProtocols];
-  v3 = [limitToProtocols countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [limitToProtocols countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(limitToProtocols);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) isEqualToString:@"UDP"])
+        if (objc_msgSend_isEqualToString_(*(*(&v9 + 1) + 8 * i)))
         {
           v7 = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [limitToProtocols countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [limitToProtocols countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -50,7 +51,24 @@
   v7 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
+  return v7;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  serviceName = [(NEAOVPNException *)self serviceName];
+  [v7 appendPrettyObject:serviceName withName:@"service-name" andIndent:v5 options:options];
+
+  bundleIdentifier = [(NEAOVPNException *)self bundleIdentifier];
+  [v7 appendPrettyObject:bundleIdentifier withName:@"bundle-identifier" andIndent:v5 options:options];
+
+  limitToProtocols = [(NEAOVPNException *)self limitToProtocols];
+  [v7 appendPrettyObject:limitToProtocols withName:@"limit-to-protocols" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEAOVPNException action](self withName:"action") andIndent:@"action" options:{v5, options}];
+
   return v7;
 }
 
@@ -65,13 +83,13 @@ LABEL_11:
   }
 
   serviceName2 = [(NEAOVPNException *)self serviceName];
-  if ([serviceName2 isEqualToString:@"AirPrint"])
+  if (objc_msgSend_isEqualToString_(serviceName2))
   {
     goto LABEL_7;
   }
 
   serviceName3 = [(NEAOVPNException *)self serviceName];
-  if ([serviceName3 isEqualToString:@"VoiceMail"])
+  if (objc_msgSend_isEqualToString_(serviceName3))
   {
 LABEL_6:
 
@@ -80,16 +98,16 @@ LABEL_7:
   }
 
   serviceName4 = [(NEAOVPNException *)self serviceName];
-  if ([serviceName4 isEqualToString:@"CellularServices"])
+  if (objc_msgSend_isEqualToString_(serviceName4))
   {
 
     goto LABEL_6;
   }
 
   serviceName5 = [(NEAOVPNException *)self serviceName];
-  v12 = [serviceName5 isEqualToString:@"DeviceCommunication"];
+  isEqualToString = objc_msgSend_isEqualToString_(serviceName5);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [NEConfiguration addError:errorsCopy toList:?];
     v9 = 0;

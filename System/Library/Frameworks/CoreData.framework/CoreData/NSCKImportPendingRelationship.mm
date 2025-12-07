@@ -2,6 +2,7 @@
 + (NSManagedObject)insertPendingRelationshipForFailedRelationship:(uint64_t)relationship forOperation:(uint64_t)operation inStore:(void *)store withManagedObjectContext:;
 + (uint64_t)entityPath;
 - (BOOL)needsDeleteBool;
+- (void)setNeedsDeleteBool:(BOOL)bool;
 @end
 
 @implementation NSCKImportPendingRelationship
@@ -11,6 +12,13 @@
   needsDelete = [(NSCKImportPendingRelationship *)self needsDelete];
 
   return [needsDelete BOOLValue];
+}
+
+- (void)setNeedsDeleteBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bool];
+
+  [(NSCKImportPendingRelationship *)self setNeedsDelete:v4];
 }
 
 + (NSManagedObject)insertPendingRelationshipForFailedRelationship:(uint64_t)relationship forOperation:(uint64_t)operation inStore:(void *)store withManagedObjectContext:
@@ -175,10 +183,11 @@ LABEL_28:
 + (uint64_t)entityPath
 {
   objc_opt_self();
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = +[PFCloudKitMetadataModel ancillaryModelNamespace];
-  v2 = objc_opt_class();
-  return [v0 stringWithFormat:@"%@/%@", v1, NSStringFromClass(v2)];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = +[PFCloudKitMetadataModel ancillaryModelNamespace];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  return objc_msgSend_stringWithFormat_(v1, v2, v4);
 }
 
 @end

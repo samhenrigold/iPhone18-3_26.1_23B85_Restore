@@ -239,12 +239,12 @@ LABEL_18:
   x = rect.origin.x;
   annotationCopy = annotation;
   CGContextSaveGState(context);
-  originalExifOrientation = [annotationCopy originalExifOrientation];
-  v12 = objc_getAssociatedObject(annotationCopy, @"com.apple.AnnotationKit.AnnotationImageHelperAdditionalExifHintKey");
-  v13 = v12;
-  if (v12)
+  [annotationCopy originalExifOrientation];
+  v11 = objc_getAssociatedObject(annotationCopy, @"com.apple.AnnotationKit.AnnotationImageHelperAdditionalExifHintKey");
+  v12 = v11;
+  if (v11)
   {
-    originalExifOrientation = [v12 integerValue];
+    [v11 integerValue];
   }
 
   memset(&v43, 0, sizeof(v43));
@@ -257,7 +257,8 @@ LABEL_18:
   v46.origin.y = y;
   v46.size.width = width;
   v46.size.height = height;
-  [AKGeometryHelper affineTransformForExifOrientation:originalExifOrientation aboutCenter:MidX, CGRectGetMidY(v46)];
+  MidY = CGRectGetMidY(v46);
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, MidY);
   transform = v43;
   CGContextConcatCTM(context, &transform);
   v44.width = 1.0;

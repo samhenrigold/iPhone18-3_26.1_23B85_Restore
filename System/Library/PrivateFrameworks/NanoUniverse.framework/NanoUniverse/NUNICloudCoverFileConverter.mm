@@ -50,7 +50,7 @@
   return privateQueue;
 }
 
-uint64_t __54__NUNICloudCoverFileConverter_convertFileAt_to_error___block_invoke(uint64_t a1)
+void *__54__NUNICloudCoverFileConverter_convertFileAt_to_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _convertFileAt:*(a1 + 40) to:*(a1 + 48) error:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -84,7 +84,7 @@ uint64_t __54__NUNICloudCoverFileConverter_convertFileAt_to_error___block_invoke
   return privateQueue;
 }
 
-uint64_t __55__NUNICloudCoverFileConverter_combineFilesAt_to_error___block_invoke(uint64_t a1)
+void *__55__NUNICloudCoverFileConverter_combineFilesAt_to_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _combineFilesAt:*(a1 + 40) to:*(a1 + 48) error:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;

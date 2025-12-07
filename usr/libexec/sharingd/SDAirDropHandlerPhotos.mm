@@ -1,4 +1,5 @@
 @interface SDAirDropHandlerPhotos
++ (id)suitableContentsDescriptionWithSenderName:(id)name itemsCount:(int64_t)count items:(id)items senderIsMe:(BOOL)me isVerifiableIdentity:(BOOL)identity hasPhotos:(BOOL)photos hasVideos:(BOOL)videos isModernProgress:(BOOL)self0 transferState:(unint64_t)self1;
 - (BOOL)canHandleTransfer;
 - (BOOL)supportsAutoOpen;
 - (BOOL)transferContainsAssetBundles:(id)bundles;
@@ -138,6 +139,188 @@ LABEL_21:
   v13 = +[SDAirDropHandlerPhotos suitableContentsDescriptionWithSenderName:itemsCount:items:senderIsMe:isVerifiableIdentity:hasPhotos:hasVideos:isModernProgress:transferState:](SDAirDropHandlerPhotos, "suitableContentsDescriptionWithSenderName:itemsCount:items:senderIsMe:isVerifiableIdentity:hasPhotos:hasVideos:isModernProgress:transferState:", senderName, totalSharedItemsCount, items, senderIsMe, isVerifiableIdentity, hasPhotos, v15, [transfer4 transferState]);
 
   return v13;
+}
+
++ (id)suitableContentsDescriptionWithSenderName:(id)name itemsCount:(int64_t)count items:(id)items senderIsMe:(BOOL)me isVerifiableIdentity:(BOOL)identity hasPhotos:(BOOL)photos hasVideos:(BOOL)videos isModernProgress:(BOOL)self0 transferState:(unint64_t)self1
+{
+  photosCopy = photos;
+  identityCopy = identity;
+  meCopy = me;
+  nameCopy = name;
+  itemsCopy = items;
+  v19 = itemsCopy;
+  if (!photosCopy || !videos)
+  {
+    if (photosCopy)
+    {
+      selfCopy2 = self;
+      v51 = meCopy;
+      v59 = @"PHOTO";
+      v31 = [NSNumber numberWithInteger:count];
+      v60 = v31;
+      v32 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+      v61 = v32;
+      v33 = &v61;
+    }
+
+    else
+    {
+      if (!videos)
+      {
+        v35 = 0;
+LABEL_31:
+        v41 = SFLocalizedStringForKey();
+        if (progress)
+        {
+          goto LABEL_32;
+        }
+
+LABEL_37:
+        countCopy = count;
+        goto LABEL_38;
+      }
+
+      selfCopy2 = self;
+      v51 = meCopy;
+      v56 = @"VIDEO";
+      v31 = [NSNumber numberWithInteger:count];
+      v57 = v31;
+      v32 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v58 = v32;
+      v33 = &v58;
+    }
+
+    v34 = [NSArray arrayWithObjects:v33 count:1];
+    v35 = [selfCopy2 alertMessageLocalizedKeyForTypeDicts:v34 senderIsMe:v51 isVerifiableIdentity:identityCopy isModernProgress:progress transferState:state];
+
+    goto LABEL_31;
+  }
+
+  selfCopy3 = self;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v20 = [itemsCopy countByEnumeratingWithState:&v52 objects:v67 count:16];
+  v49 = nameCopy;
+  v48 = identityCopy;
+  v50 = meCopy;
+  if (v20)
+  {
+    v21 = v20;
+    count = 0;
+    v22 = 0;
+    v23 = *v53;
+    do
+    {
+      for (i = 0; i != v21; i = i + 1)
+      {
+        if (*v53 != v23)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        v25 = *(*(&v52 + 1) + 8 * i);
+        type = [v25 type];
+        type2 = [v25 type];
+        v28 = SFIsPhotosAssetBundle();
+
+        if (v28)
+        {
+          subtype = [v25 subtype];
+
+          type = subtype;
+        }
+
+        if (SFIsImage())
+        {
+          count += [v25 count];
+        }
+
+        else if (SFIsVideo())
+        {
+          v22 += [v25 count];
+        }
+      }
+
+      v21 = [v19 countByEnumeratingWithState:&v52 objects:v67 count:16];
+    }
+
+    while (v21);
+  }
+
+  else
+  {
+    count = 0;
+    v22 = 0;
+  }
+
+  v64 = @"PHOTO";
+  v36 = [NSNumber numberWithInteger:count];
+  v65 = v36;
+  v37 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+  v66[0] = v37;
+  v62 = @"VIDEO";
+  v38 = [NSNumber numberWithInteger:v22];
+  v63 = v38;
+  v39 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+  v66[1] = v39;
+  v40 = [NSArray arrayWithObjects:v66 count:2];
+  v35 = [selfCopy3 alertMessageLocalizedKeyForTypeDicts:v40 senderIsMe:v50 isVerifiableIdentity:v48 isModernProgress:progress transferState:state];
+
+  v41 = SFLocalizedStringForKey();
+  if (count >= 2 && v22 >= 2)
+  {
+    nameCopy = v49;
+    if (progress)
+    {
+      countCopy = v22;
+LABEL_32:
+      [NSString localizedStringWithFormat:v41, count, countCopy, v46];
+      goto LABEL_40;
+    }
+
+    v46 = v22;
+    goto LABEL_37;
+  }
+
+  nameCopy = v49;
+  if (count >= 2)
+  {
+    if (progress)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (v22 < 2)
+  {
+    if (progress)
+    {
+      goto LABEL_39;
+    }
+  }
+
+  else
+  {
+    if (progress)
+    {
+      [NSString localizedStringWithFormat:v41, v22, countCopy, v46];
+      goto LABEL_40;
+    }
+
+    countCopy = v22;
+  }
+
+LABEL_38:
+  v44 = nameCopy;
+LABEL_39:
+  [NSString localizedStringWithFormat:v41, v44, countCopy, v46];
+  v42 = LABEL_40:;
+
+  return v42;
 }
 
 - (BOOL)supportsAutoOpen

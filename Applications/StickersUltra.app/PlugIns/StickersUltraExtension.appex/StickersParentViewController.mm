@@ -55,7 +55,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for StickersParentViewController();
+  v7.super_class = type metadata accessor for StickersParentViewController(0);
   [(BaseMessagesViewController *)&v7 dealloc];
 }
 
@@ -102,7 +102,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StickersParentViewController();
+  v7.super_class = type metadata accessor for StickersParentViewController(0);
   [(StickersParentViewController *)&v7 viewWillDisappear:disappearCopy];
 }
 
@@ -133,7 +133,7 @@
 
 - (void)_setPluginIdentifierToShow:(NSString *)show completion:(id)completion
 {
-  v7 = sub_100006D40(&unk_1000B2960);
+  v7 = sub_100006D40(&unk_1000B2960, &qword_10008D8D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -204,7 +204,7 @@
 - (id)defaultMessagesChildViewControllerForPresentationContext:(unint64_t)context
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for StickersParentViewController();
+  v9.super_class = type metadata accessor for StickersParentViewController(0);
   v4 = v9.receiver;
   v5 = [(BaseMessagesViewController *)&v9 defaultMessagesChildViewControllerForPresentationContext:context];
   result = [v5 view];
@@ -272,7 +272,7 @@
 - (void)_addStickerToStoreWithRepresentations:(id)representations completionWithStickerIDs:(id)ds
 {
   v5 = _Block_copy(ds);
-  sub_10000B77C(0, &unk_1000B22D0);
+  sub_10000B77C(0, &unk_1000B22D0, _UIStickerRepresentation_ptr);
   v6 = sub_10007D8E0();
   _Block_copy(v5);
   selfCopy = self;
@@ -288,7 +288,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v10 = _Block_copy(completion);
-  sub_10000B77C(0, &unk_1000B22D0);
+  sub_10000B77C(0, &unk_1000B22D0, _UIStickerRepresentation_ptr);
   v11 = sub_10007D8E0();
   v12 = swift_allocObject();
   *(v12 + 16) = v10;
@@ -304,7 +304,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v12 = _Block_copy(completion);
-  sub_10000B77C(0, &unk_1000B22D0);
+  sub_10000B77C(0, &unk_1000B22D0, _UIStickerRepresentation_ptr);
   v13 = sub_10007D8E0();
   v14 = swift_allocObject();
   *(v14 + 16) = v12;
@@ -392,14 +392,16 @@
   __chkstk_darwin(v9);
   v12 = &errorCopy - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10007C390();
-  sub_10007D7D0();
-  sub_10007D7D0();
+  v13 = sub_10007D7D0();
+  v15 = v14;
+  v16 = sub_10007D7D0();
+  v18 = v17;
   controllerCopy = controller;
   selfCopy = self;
-  v15 = sub_10002F840(v12);
+  v21 = sub_10002F840(v12, v13, v15, v16, v18);
   (*(v10 + 8))(v12, v9);
 
-  return v15;
+  return v21;
 }
 
 - (void)stickerCollectionViewController:(id)controller performTransitionForView:(id)view withImage:(id)image bounds:(CGRect)bounds
@@ -518,7 +520,7 @@
 
 - (void)openURL:(NSURL *)l pluginID:(NSString *)d completionHandler:(id)handler
 {
-  v9 = sub_100006D40(&unk_1000B2960);
+  v9 = sub_100006D40(&unk_1000B2960, &qword_10008D8D0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -547,7 +549,7 @@
 
 - (void)openURL:(NSURL *)l applicationIdentifier:(NSString *)identifier pluginID:(NSString *)d completionHandler:(id)handler
 {
-  v11 = sub_100006D40(&unk_1000B2960);
+  v11 = sub_100006D40(&unk_1000B2960, &qword_10008D8D0);
   __chkstk_darwin(v11 - 8);
   v13 = &v23 - v12;
   v14 = _Block_copy(handler);
@@ -578,7 +580,7 @@
 
 - (void)presentAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle completion:(id)completion
 {
-  v11 = sub_100006D40(&unk_1000B2960);
+  v11 = sub_100006D40(&unk_1000B2960, &qword_10008D8D0);
   __chkstk_darwin(v11 - 8);
   v13 = &v23 - v12;
   v14 = _Block_copy(completion);

@@ -71,21 +71,21 @@
 
 - (id)hf_home
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accessory = [self accessory];
-  home = [accessory home];
+  v5 = objc_msgSend_home(accessory);
 
-  if (!home)
+  if (!v5)
   {
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = 138412546;
+      v11 = NSStringFromSelector(a2);
+      v12 = 138412546;
       selfCopy = self;
-      v15 = 2112;
-      v16 = v12;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@:%@ nil home. Please file a radar against “Home App | New Bugs” with any info you have on what you were doing.", &v13, 0x16u);
+      v14 = 2112;
+      v15 = v11;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@:%@ nil home. Please file a radar against “Home App | New Bugs” with any info you have on what you were doing.", &v12, 0x16u);
     }
 
     if (+[HFUtilities isInternalInstall])
@@ -96,12 +96,10 @@
     }
 
     v9 = +[HFHomeKitDispatcher sharedDispatcher];
-    home = [v9 home];
+    v5 = objc_msgSend_home(v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return home;
+  return v5;
 }
 
 - (id)hf_parentRoom
@@ -182,7 +180,7 @@
 
 - (uint64_t)hf_supportsMusicAlarm
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   hf_backingAccessory = [self hf_backingAccessory];
   supportsMusicAlarm = [hf_backingAccessory supportsMusicAlarm];
 
@@ -200,14 +198,13 @@
     }
 
     v6 = [self description];
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Accessory Supports Music Alarm (%@) mediaProfileContainer (%@)", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Accessory Supports Music Alarm (%@) mediaProfileContainer (%@)", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return supportsMusicAlarm;
 }
 
@@ -241,25 +238,23 @@
 
 - (HFHomeKitSettingsAdapterManager)hf_settingsAdapterManager
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = objc_getAssociatedObject(self, a2);
   if (!v4)
   {
     v5 = HFLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "[HMMediaProfile(HFMediaAccessoryProfileAdditions) hf_settingsAdapterManager]";
-      v10 = 2112;
+      v7 = 136315394;
+      v8 = "[HMMediaProfile(HFMediaAccessoryProfileAdditions) hf_settingsAdapterManager]";
+      v9 = 2112;
       selfCopy = self;
-      _os_log_debug_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEBUG, "%s Creating new HFHomeKitSettingsAdapterManager for HMMediaProfile %@", &v8, 0x16u);
+      _os_log_debug_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEBUG, "%s Creating new HFHomeKitSettingsAdapterManager for HMMediaProfile %@", &v7, 0x16u);
     }
 
     v4 = [[HFHomeKitSettingsAdapterManager alloc] initWithHomeKitSettingsVendor:self];
     objc_setAssociatedObject(self, a2, v4, 1);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -328,77 +323,54 @@
 
 - (BOOL)hf_homePodIsCapableOfShowingSplitAccountError
 {
-  v45 = *MEMORY[0x277D85DE8];
-  if (+[HFUtilities isAMac])
+  v44 = *MEMORY[0x277D85DE8];
+  if (!+[HFUtilities isAMac](HFUtilities, "isAMac") && ([self hf_home], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isMultiUserEnabled"), v4, v5) && (objc_msgSend(self, "hf_backingAccessory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "hf_isHomePod"), v6, v7) && objc_msgSend(self, "hf_homePodSupportsMultiUser") && (objc_msgSend(self, "hf_home"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "hf_currentUserIsOwner"), v8, v9))
   {
-    goto LABEL_7;
-  }
-
-  hf_home = [self hf_home];
-  isMultiUserEnabled = [hf_home isMultiUserEnabled];
-
-  if (!isMultiUserEnabled)
-  {
-    goto LABEL_7;
-  }
-
-  hf_backingAccessory = [self hf_backingAccessory];
-  hf_isHomePod = [hf_backingAccessory hf_isHomePod];
-
-  if (!hf_isHomePod)
-  {
-    goto LABEL_7;
-  }
-
-  if ([self hf_homePodSupportsMultiUser] && (objc_msgSend(self, "hf_home"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "hf_currentUserIsOwner"), v8, v9))
-  {
-    hf_home2 = [self hf_home];
-    users = [hf_home2 users];
+    hf_home = [self hf_home];
+    users = [hf_home users];
     v12 = [users count] == 0;
   }
 
   else
   {
-LABEL_7:
     v12 = 0;
   }
 
   v13 = HFLogForCategory(5uLL);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v25 = NSStringFromSelector(a2);
-    v24 = +[HFUtilities isAMac];
-    hf_home3 = [self hf_home];
-    isMultiUserEnabled2 = [hf_home3 isMultiUserEnabled];
-    hf_backingAccessory2 = [self hf_backingAccessory];
-    hf_isHomePod2 = [hf_backingAccessory2 hf_isHomePod];
+    v24 = NSStringFromSelector(a2);
+    v23 = +[HFUtilities isAMac];
+    hf_home2 = [self hf_home];
+    isMultiUserEnabled = [hf_home2 isMultiUserEnabled];
+    hf_backingAccessory = [self hf_backingAccessory];
+    hf_isHomePod = [hf_backingAccessory hf_isHomePod];
     hf_homePodSupportsMultiUser = [self hf_homePodSupportsMultiUser];
+    hf_home3 = [self hf_home];
+    hf_currentUserIsOwner = [hf_home3 hf_currentUserIsOwner];
     hf_home4 = [self hf_home];
-    hf_currentUserIsOwner = [hf_home4 hf_currentUserIsOwner];
-    hf_home5 = [self hf_home];
-    users2 = [hf_home5 users];
+    users2 = [hf_home4 users];
     *buf = 138414338;
     selfCopy = self;
-    v29 = 2112;
-    v30 = v25;
-    v31 = 1024;
-    v32 = v12;
-    v33 = 1024;
-    v34 = v24;
-    v35 = 1024;
-    v36 = isMultiUserEnabled2;
-    v37 = 1024;
-    v38 = hf_isHomePod2;
-    v39 = 1024;
-    v40 = hf_homePodSupportsMultiUser;
-    v41 = 1024;
-    v42 = hf_currentUserIsOwner;
-    v43 = 1024;
-    v44 = [users2 count] == 0;
+    v28 = 2112;
+    v29 = v24;
+    v30 = 1024;
+    v31 = v12;
+    v32 = 1024;
+    v33 = v23;
+    v34 = 1024;
+    v35 = isMultiUserEnabled;
+    v36 = 1024;
+    v37 = hf_isHomePod;
+    v38 = 1024;
+    v39 = hf_homePodSupportsMultiUser;
+    v40 = 1024;
+    v41 = hf_currentUserIsOwner;
+    v42 = 1024;
+    v43 = [users2 count] == 0;
     _os_log_debug_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEBUG, "%@:%@: %{BOOL}d (Mac = %{BOOL}d, MU enabled = %{BOOL}d, is HomePod = %{BOOL}d, MU HomePod = %{BOOL}d, is Owner = %{BOOL}d, Home has users = %{BOOL}d,)", buf, 0x40u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -633,7 +605,7 @@ LABEL_7:
 
 - (id)hf_idsDeviceIdentifierWithError:()HFMediaAccessoryProfileAdditions
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v5 homeManager];
   hasOptedToHH2 = [homeManager hasOptedToHH2];
@@ -651,9 +623,9 @@ LABEL_7:
   v9 = HFLogForCategory(0x2AuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = v8;
-    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Performing IDS device lookup with service name %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v8;
+    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Performing IDS device lookup with service name %@", &v24, 0xCu);
   }
 
   v10 = [objc_alloc(MEMORY[0x277D18778]) initWithService:v8];
@@ -672,9 +644,9 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       accessory2 = [self accessory];
-      v25 = 138412290;
-      v26 = accessory2;
-      _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "Unable to obtain IDS Identifier for accessory: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = accessory2;
+      _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "Unable to obtain IDS Identifier for accessory: %@", &v24, 0xCu);
     }
 
     v16 = objc_opt_new();
@@ -696,8 +668,6 @@ LABEL_7:
 
     v14 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

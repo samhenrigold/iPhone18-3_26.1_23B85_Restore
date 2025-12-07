@@ -319,11 +319,11 @@ LABEL_62:
 
   if (v10 != begin)
   {
-    v22 = v21[-1].n128_u64[0];
+    v22 = *(v21 - 2);
     v23 = location - v22;
     if (location >= v22)
     {
-      v24 = v21[-1].n128_u64[1];
+      v24 = *(v21 - 1);
       if (v23 < v24)
       {
         if (location == v22)
@@ -333,7 +333,7 @@ LABEL_62:
 
         else
         {
-          v21[-1].n128_u64[1] = v23;
+          *(v21 - 1) = v23;
         }
 
         if (v15 >= v22 && v15 - v22 < v24)
@@ -697,7 +697,7 @@ LABEL_32:
   v8 = withCopy;
   if (self != withCopy && v6 == *MEMORY[0x277D81490] && v7 == *(MEMORY[0x277D81490] + 8))
   {
-    sub_276E17544(&self->super._rangeVector.__begin_, withCopy[1], withCopy[2], (withCopy[2] - withCopy[1]) >> 4);
+    sub_276E17544(&self->super._rangeVector, withCopy[1], withCopy[2], (withCopy[2] - withCopy[1]) >> 4);
   }
 
   v11 = objc_msgSend_rangeCount(withCopy, v7, v8);
@@ -750,7 +750,7 @@ LABEL_32:
   objc_msgSend_unionWith_(v6, v12, v10);
   if (v6 != self)
   {
-    sub_276E17544(&self->super._rangeVector.__begin_, *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 4);
+    sub_276E17544(&self->super._rangeVector, *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 4);
   }
 }
 

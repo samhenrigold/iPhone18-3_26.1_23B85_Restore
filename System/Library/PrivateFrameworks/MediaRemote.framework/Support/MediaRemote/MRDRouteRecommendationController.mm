@@ -15,12 +15,19 @@
 - (void)dismissAllBannerRequests;
 - (void)donatePickerChoiceFor:(id)for bundleIdentifier:(id)identifier contextIdentifier:(id)contextIdentifier;
 - (void)handOffQueueOrAirPlay:(id)play sourceEndpoint:(id)endpoint destinationEndpoint:(id)destinationEndpoint playerPath:(id)path completion:(id)completion;
+- (void)handleAutoRouteResult:(unint64_t)result forRoute:(id)route primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
+- (void)handleDeltaResult:(unint64_t)result forRoute:(id)route devicesToAdd:(id)add sourceEndpoint:(id)endpoint primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
 - (void)handlePlaybackStartForEndpoint:(id)endpoint bundleIdentifier:(id)identifier eligibleForRecommendationsOutsideApp:(BOOL)app;
+- (void)handleResult:(unint64_t)result forRoute:(id)route devices:(id)devices endpoint:(id)endpoint primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
+- (void)ingestMockedRecommendation:(id)recommendation classification:(int64_t)classification isCallToAction:(BOOL)action;
 - (void)mediaApplicationsInFocus:(id)focus;
 - (void)openRoutePickerForRouteUID:(id)d;
 - (void)performTopologyModificationToRoute:(id)route devices:(id)devices endpoint:(id)endpoint requestName:(id)name completion:(id)completion;
 - (void)remoteControl:(id)control completion:(id)completion;
 - (void)route:(id)route endpoint:(id)endpoint bundleIdentifier:(id)identifier emittedEvent:(unint64_t)event;
+- (void)sendEventForAutoRouteBannerResult:(unint64_t)result routeCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
+- (void)sendEventForCallToActionForRouteCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
+- (void)sendEventForOneTapSuggestionBannerResult:(unint64_t)result routeCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier;
 - (void)setASEToLocal;
 - (void)setRecommendedRoutes:(id)routes;
 - (void)setup;
@@ -402,8 +409,8 @@
     [(MRDRouteRecommendationController *)self dismissAllBannerRequests];
   }
 
-  routedBackgroundActivityManager = [(MRDRouteRecommendationController *)self routedBackgroundActivityManager];
-  [routedBackgroundActivityManager mediaApplicationsInFocus:focusCopy];
+  v21 = [(MRDRouteRecommendationController *)self routedBackgroundActivityManager:*v22];
+  [v21 mediaApplicationsInFocus:focusCopy];
 }
 
 - (void)_handleLayoutDidChangeNotification:(id)notification
@@ -635,6 +642,167 @@ LABEL_15:
   [v4 setChangeType:0];
   queue = [(MRDRouteRecommendationController *)self queue];
   [v4 perform:queue completion:&stru_1004C1610];
+}
+
+- (void)sendEventForOneTapSuggestionBannerResult:(unint64_t)result routeCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  candidateCopy = candidate;
+  identifierCopy = identifier;
+  contextIdentifierCopy = contextIdentifier;
+  if (result > 1)
+  {
+    if (result != 2)
+    {
+      v15 = 8;
+      if (result != 4)
+      {
+        v15 = 0;
+      }
+
+      if (result == 3)
+      {
+        v16 = 4;
+      }
+
+      else
+      {
+        v16 = v15;
+      }
+
+      goto LABEL_12;
+    }
+
+    v19 = _MRLogForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 0;
+      v20 = "[MRDRRC] banner long pressed, route picker will be shown, no banner events will be sent";
+      v21 = &v22;
+LABEL_17:
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 2u);
+      goto LABEL_18;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!result)
+  {
+    v19 = _MRLogForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      v20 = "[MRDRRC] banner not presented, no events will be sent";
+      v21 = buf;
+      goto LABEL_17;
+    }
+
+LABEL_18:
+
+    goto LABEL_19;
+  }
+
+  if (result == 1)
+  {
+    v16 = 3;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+LABEL_12:
+  v17 = [[IRMediaEvent alloc] initWithEventType:v16 eventSubType:0];
+  [v17 setBundleID:identifierCopy];
+  [v17 setIsOutsideApp:appCopy];
+  [v17 setContextIdentifier:contextIdentifierCopy];
+  recommender = [(MRDRouteRecommendationController *)self recommender];
+  [recommender addEvent:v17 forRouteCandidate:candidateCopy];
+
+LABEL_19:
+}
+
+- (void)sendEventForAutoRouteBannerResult:(unint64_t)result routeCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  candidateCopy = candidate;
+  identifierCopy = identifier;
+  contextIdentifierCopy = contextIdentifier;
+  if (result > 2)
+  {
+    v18 = result - 3 < 2;
+    goto LABEL_14;
+  }
+
+  if (result)
+  {
+    if (result == 1)
+    {
+      v18 = 2;
+    }
+
+    else
+    {
+      if (result == 2)
+      {
+        v15 = _MRLogForCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          v21 = 0;
+          v16 = "[MRDRRC] banner long pressed, route picker will be shown, no banner events will be sent";
+          v17 = &v21;
+LABEL_10:
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v16, v17, 2u);
+          goto LABEL_11;
+        }
+
+        goto LABEL_11;
+      }
+
+      v18 = 0;
+    }
+
+LABEL_14:
+    v19 = [[IRMediaEvent alloc] initWithEventType:v18 eventSubType:0];
+    [v19 setBundleID:identifierCopy];
+    [v19 setIsOutsideApp:appCopy];
+    [v19 setContextIdentifier:contextIdentifierCopy];
+    recommender = [(MRDRouteRecommendationController *)self recommender];
+    [recommender addEvent:v19 forRouteCandidate:candidateCopy];
+
+    goto LABEL_15;
+  }
+
+  v15 = _MRLogForCategory();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    v16 = "[MRDRRC] banner not presented, no events will be sent";
+    v17 = buf;
+    goto LABEL_10;
+  }
+
+LABEL_11:
+
+LABEL_15:
+}
+
+- (void)sendEventForCallToActionForRouteCandidate:(id)candidate bundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  contextIdentifierCopy = contextIdentifier;
+  identifierCopy = identifier;
+  candidateCopy = candidate;
+  v14 = [[IRMediaEvent alloc] initWithEventType:11 eventSubType:0];
+  [v14 setBundleID:identifierCopy];
+
+  [v14 setIsOutsideApp:appCopy];
+  [v14 setContextIdentifier:contextIdentifierCopy];
+
+  recommender = [(MRDRouteRecommendationController *)self recommender];
+  [recommender addEvent:v14 forRouteCandidate:candidateCopy];
 }
 
 - (void)airPlayTo:(id)to completion:(id)completion
@@ -1238,6 +1406,218 @@ LABEL_74:
 LABEL_75:
 }
 
+- (void)handleDeltaResult:(unint64_t)result forRoute:(id)route devicesToAdd:(id)add sourceEndpoint:(id)endpoint primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  routeCopy = route;
+  addCopy = add;
+  endpointCopy = endpoint;
+  identifierCopy = identifier;
+  contextIdentifierCopy = contextIdentifier;
+  [(MRDRouteRecommendationController *)self sendEventForOneTapSuggestionBannerResult:result routeCandidate:routeCopy bundleIdentifier:identifierCopy isOutsideApp:appCopy contextIdentifier:contextIdentifierCopy];
+  if (result == 2)
+  {
+    activeSystemEndpoint = [(MRDRouteRecommendationController *)self activeSystemEndpoint];
+    outputDeviceUIDs = [activeSystemEndpoint outputDeviceUIDs];
+    firstObject = [outputDeviceUIDs firstObject];
+    [(MRDRouteRecommendationController *)self openRoutePickerForRouteUID:firstObject];
+  }
+
+  else if (result == 1)
+  {
+    v41 = +[NSUUID UUID];
+    v19 = _MRLogForCategory();
+    v20 = [v41 hash];
+    if ((v20 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v21 = v20;
+      if (os_signpost_enabled(v19))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, v21, "ApplyRouteRecommendation", "", buf, 2u);
+      }
+    }
+
+    v40 = +[NSDate date];
+    v22 = +[NSUUID UUID];
+    uUIDString = [v22 UUIDString];
+
+    routeIdentifier = [routeCopy routeIdentifier];
+    debugName = [endpointCopy debugName];
+    v26 = MRAVOutputDeviceArrayDescription();
+    v27 = [NSString stringWithFormat:@"route=%@, sourceEndpoint=%@, devicesToAdd=%@", routeIdentifier, debugName, v26];
+
+    v28 = [[NSMutableString alloc] initWithFormat:@"%@<%@>", @"MRDRRC:TM/DeltaOTSBannerTapped", uUIDString];
+    v29 = v28;
+    if (v27)
+    {
+      [v28 appendFormat:@" for %@", v27];
+    }
+
+    v30 = _MRLogForCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v52 = v29;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
+    }
+
+    objc_initWeak(buf, endpointCopy);
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_1001AF5EC;
+    v43[3] = &unk_1004C1708;
+    objc_copyWeak(&v50, buf);
+    v44 = addCopy;
+    v31 = v27;
+    v45 = v31;
+    v46 = @"MRDRRC:TM/DeltaOTSBannerTapped";
+    v32 = uUIDString;
+    v47 = v32;
+    v33 = v40;
+    v48 = v33;
+    v34 = v41;
+    v49 = v34;
+    [endpointCopy addOutputDevices:v44 initiator:@"DeltaOTSBannerTapped" withReplyQueue:0 completion:v43];
+
+    objc_destroyWeak(&v50);
+    objc_destroyWeak(buf);
+  }
+
+  else if (result - 3 <= 1)
+  {
+    v38 = [(MRDRouteRecommendationController *)self shouldUseVideoSymbolForDevices:addCopy bundleIdentifier:identifierCopy];
+    mediaActivityManager = [(MRDRouteRecommendationController *)self mediaActivityManager];
+    [mediaActivityManager presentControlCenterCallToActionVideo:v38 completion:0];
+  }
+}
+
+- (void)handleResult:(unint64_t)result forRoute:(id)route devices:(id)devices endpoint:(id)endpoint primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  routeCopy = route;
+  devicesCopy = devices;
+  endpointCopy = endpoint;
+  identifierCopy = identifier;
+  [(MRDRouteRecommendationController *)self sendEventForOneTapSuggestionBannerResult:result routeCandidate:routeCopy bundleIdentifier:identifierCopy isOutsideApp:appCopy contextIdentifier:contextIdentifier];
+  if (result == 2)
+  {
+    activeSystemEndpoint = [(MRDRouteRecommendationController *)self activeSystemEndpoint];
+    outputDeviceUIDs = [activeSystemEndpoint outputDeviceUIDs];
+    firstObject = [outputDeviceUIDs firstObject];
+    [(MRDRouteRecommendationController *)self openRoutePickerForRouteUID:firstObject];
+
+LABEL_8:
+    goto LABEL_9;
+  }
+
+  if (result == 1)
+  {
+    v19 = +[NSUUID UUID];
+    v20 = _MRLogForCategory();
+    v21 = [v19 hash];
+    if ((v21 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v22 = v21;
+      if (os_signpost_enabled(v20))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_BEGIN, v22, "ApplyRouteRecommendation", "", buf, 2u);
+      }
+    }
+
+    routedBackgroundActivityManager = [(MRDRouteRecommendationController *)self routedBackgroundActivityManager];
+    [routedBackgroundActivityManager setOptimisticDevices:devicesCopy];
+
+    routedBackgroundActivityManager2 = [(MRDRouteRecommendationController *)self routedBackgroundActivityManager];
+    [routedBackgroundActivityManager2 setOptimisticRoute:routeCopy];
+
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1001AFB90;
+    v30[3] = &unk_1004C1530;
+    v30[4] = self;
+    v31 = devicesCopy;
+    v32 = v19;
+    activeSystemEndpoint = v19;
+    [(MRDRouteRecommendationController *)self performTopologyModificationToRoute:routeCopy devices:v31 endpoint:endpointCopy requestName:@"OTSBannerTapped" completion:v30];
+
+    goto LABEL_8;
+  }
+
+  if (result - 3 <= 1)
+  {
+    v28 = [(MRDRouteRecommendationController *)self shouldUseVideoSymbolForDevices:devicesCopy bundleIdentifier:identifierCopy];
+    mediaActivityManager = [(MRDRouteRecommendationController *)self mediaActivityManager];
+    [mediaActivityManager presentControlCenterCallToActionVideo:v28 completion:0];
+  }
+
+LABEL_9:
+}
+
+- (void)handleAutoRouteResult:(unint64_t)result forRoute:(id)route primaryBundleIdentifier:(id)identifier isOutsideApp:(BOOL)app contextIdentifier:(id)contextIdentifier
+{
+  appCopy = app;
+  routeCopy = route;
+  identifierCopy = identifier;
+  [(MRDRouteRecommendationController *)self sendEventForAutoRouteBannerResult:result routeCandidate:routeCopy bundleIdentifier:identifierCopy isOutsideApp:appCopy contextIdentifier:contextIdentifier];
+  if (result <= 1)
+  {
+    [(MRDRouteRecommendationController *)self stopAirPlayingAndRemoteControlling];
+    goto LABEL_14;
+  }
+
+  if (result == 2)
+  {
+    nodes = [routeCopy nodes];
+    anyObject = [nodes anyObject];
+    avOutputDeviceIdentifier = [anyObject avOutputDeviceIdentifier];
+    [(MRDRouteRecommendationController *)self openRoutePickerForRouteUID:avOutputDeviceIdentifier];
+  }
+
+  [(MRDRouteRecommendationController *)self setLastUnusedAutoRoute:routeCopy];
+  [(MRDRouteRecommendationController *)self setLastUnusedAutoRouteBundleIdentifier:identifierCopy];
+  v17 = +[MRDDisplayMonitor sharedMonitor];
+  if ([v17 displayOn])
+  {
+    v18 = +[MRDDisplayMonitor sharedMonitor];
+    presentedBundleIdentifiers = [v18 presentedBundleIdentifiers];
+    v20 = [presentedBundleIdentifiers containsObject:identifierCopy];
+
+    if (v20)
+    {
+      undoTimer = [(MRDRouteRecommendationController *)self undoTimer];
+
+      if (undoTimer)
+      {
+        [(MRDRouteRecommendationController *)self setUndoTimer:0];
+        v22 = _MRLogForCategory();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = 138412290;
+          v25 = identifierCopy;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[MRDRRC] cancelling existing timer, %@ is in focus", &v24, 0xCu);
+        }
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  undoTimer2 = [(MRDRouteRecommendationController *)self undoTimer];
+
+  if (!undoTimer2)
+  {
+    [(MRDRouteRecommendationController *)self setupTimerForRoute:routeCopy bundleIdentifier:identifierCopy];
+  }
+
+LABEL_14:
+}
+
 - (void)setupTimerForRoute:(id)route bundleIdentifier:(id)identifier
 {
   routeCopy = route;
@@ -1608,6 +1988,19 @@ LABEL_9:
   }
 
 LABEL_12:
+}
+
+- (void)ingestMockedRecommendation:(id)recommendation classification:(int64_t)classification isCallToAction:(BOOL)action
+{
+  actionCopy = action;
+  v8 = [MRIRRoute debugRouteWithDebugIdentifier:recommendation];
+  v9 = objc_alloc_init(MRDIRRouteRecommendation);
+  [(MRDIRRouteRecommendation *)v9 setRoute:v8];
+  [(MRDIRRouteRecommendation *)v9 setClassification:classification];
+  [(MRDIRRouteRecommendation *)v9 setCallToAction:actionCopy];
+  v11 = v9;
+  v10 = [NSArray arrayWithObjects:&v11 count:1];
+  [(MRDRouteRecommendationController *)self didReceiveNewRecommendations:v10 forBundleIdentifier:0];
 }
 
 - (id)_updateMediaControlsBlob:(id)blob sender:(id)sender

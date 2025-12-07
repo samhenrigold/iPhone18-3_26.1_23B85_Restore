@@ -3,12 +3,12 @@
 
 @implementation UIDynamicButton
 
-uint64_t __52___UIDynamicButton__appendDebugDescriptionToStream___block_invoke(uint64_t result)
+void *__52___UIDynamicButton__appendDebugDescriptionToStream___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1)
   {
-    v2 = *(result + 40);
+    v2 = result[5];
     v3 = _NSStringFromUIPhysicalButton(v1[3]);
     [v2 appendString:v3 withName:@"button"];
 

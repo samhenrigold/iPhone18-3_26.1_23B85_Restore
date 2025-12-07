@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100011708();
+  sub_100011708(selfCopy);
 }
 
 - (_TtC16TVSetupUIService25TVSetupDoneViewController)initWithContentView:(id)view

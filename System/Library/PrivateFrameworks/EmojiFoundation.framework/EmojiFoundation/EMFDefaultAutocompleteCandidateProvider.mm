@@ -146,48 +146,48 @@
 
 - (void)enumerateCandidatesMatchingPrefix:(id)prefix withEnumerationType:(int64_t)type maxCandidates:(unint64_t)candidates usingBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   blockCopy = block;
-  v10 = emf_signpost_get_log();
+  v10 = emf_signpost_get_log(blockCopy);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = emf_signpost_get_log();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = emf_signpost_get_log(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "YieldAutocompleteCandidates", &unk_1AF0BC4C3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "YieldAutocompleteCandidates", &unk_1AF0BC4C3, buf, 2u);
   }
 
-  v14 = [(EMFDefaultAutocompleteCandidateProvider *)self matchesForPrefix:prefixCopy usingAlgorithm:2];
-  v15 = emf_signpost_get_log();
-  v16 = v15;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v15 = [(EMFDefaultAutocompleteCandidateProvider *)self matchesForPrefix:prefixCopy usingAlgorithm:2];
+  v16 = emf_signpost_get_log(v15);
+  v17 = v16;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v16, OS_SIGNPOST_INTERVAL_END, v11, "YieldAutocompleteCandidates", &unk_1AF0BC4C3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v17, OS_SIGNPOST_INTERVAL_END, v11, "YieldAutocompleteCandidates", &unk_1AF0BC4C3, buf, 2u);
   }
 
   buf[0] = 0;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v17 = v14;
-  v18 = [v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v18)
+  v27 = 0u;
+  v18 = v15;
+  v19 = [v18 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = 0;
-    v21 = *v24;
+    v20 = v19;
+    v21 = 0;
+    v22 = *v25;
 LABEL_9:
-    v22 = 0;
+    v23 = 0;
     while (1)
     {
-      if (*v24 != v21)
+      if (*v25 != v22)
       {
-        objc_enumerationMutation(v17);
+        objc_enumerationMutation(v18);
       }
 
       if (buf[0])
@@ -195,11 +195,11 @@ LABEL_9:
         break;
       }
 
-      blockCopy[2](blockCopy, *(*(&v23 + 1) + 8 * v22), v20++, buf);
-      if (v19 == ++v22)
+      blockCopy[2](blockCopy, *(*(&v24 + 1) + 8 * v23), v21++, buf);
+      if (v20 == ++v23)
       {
-        v19 = [v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
-        if (v19)
+        v20 = [v18 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        if (v20)
         {
           goto LABEL_9;
         }

@@ -52,7 +52,7 @@ LABEL_3:
     static String._unconditionallyBridgeFromObjectiveC(_:)();
     v10 = &self->OBWelcomeController_opaque[OBJC_IVAR____TtC10FitnessAppP33_9E0A025B901D46F3218B1C9DD5770D5A31WorkoutOnboardingViewController_onContinue];
     *v10 = ASFriendListDisplayMode.id.getter;
-    *(v10 + 1) = 0;
+    v10[1] = 0;
     titleCopy = title;
     iconCopy = icon;
     v13 = String._bridgeToObjectiveC()();
@@ -62,7 +62,7 @@ LABEL_3:
   {
     v14 = &self->OBWelcomeController_opaque[OBJC_IVAR____TtC10FitnessAppP33_9E0A025B901D46F3218B1C9DD5770D5A31WorkoutOnboardingViewController_onContinue];
     *v14 = ASFriendListDisplayMode.id.getter;
-    *(v14 + 1) = 0;
+    v14[1] = 0;
     titleCopy2 = title;
     iconCopy2 = icon;
     v13 = 0;

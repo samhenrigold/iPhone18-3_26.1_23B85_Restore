@@ -73,15 +73,15 @@
 
 - (void)addFittingWidth:(double)width forCellID:(TSUCellCoord)d
 {
-  HIDWORD(v7[0]) = *&d.column;
-  v6 = sub_2210C3024(&self->_columnToMaxFittingWidths.__table_.__bucket_list_.__ptr_, v7 + 2);
+  HIDWORD(v7) = *&d.column;
+  v6 = sub_2210C3024(&self->_columnToMaxFittingWidths.__table_.__bucket_list_.__ptr_, &v7 + 2);
   if (v6 && *(v6 + 3) > width)
   {
     width = *(v6 + 3);
   }
 
-  v7[2] = v7 + 4;
-  *(sub_2210C30DC(&self->_columnToMaxFittingWidths.__table_.__bucket_list_.__ptr_, v7 + 2) + 3) = width;
+  v8 = &v7 + 2;
+  *(sub_2210C30DC(&self->_columnToMaxFittingWidths.__table_.__bucket_list_.__ptr_, &v7 + 2, &unk_2217E0231, &v8) + 3) = width;
 }
 
 - (void)enumerateFittingHeightsUsingBlock:(id)block

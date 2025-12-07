@@ -19,7 +19,7 @@ void ___PCSCKKSOutOfBandFetchIdentities_block_invoke(uint64_t a1, const void *a2
 
 void ___PCSCKKSOutOfBandFetchIdentities_block_invoke_62(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!v5 || a3)
   {
@@ -30,26 +30,26 @@ void ___PCSCKKSOutOfBandFetchIdentities_block_invoke_62(uint64_t a1, void *a2, u
   {
     Mutable = PCSIdentitySetCreateMutable(0);
     cf = 0;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = *(*(*(a1 + 40) + 8) + 40);
           v14 = [v12 publicKey];
           [v13 removeObject:v14];
@@ -88,7 +88,7 @@ void ___PCSCKKSOutOfBandFetchIdentities_block_invoke_62(uint64_t a1, void *a2, u
           CFRelease(v16);
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v9)
         {
           continue;
@@ -120,8 +120,6 @@ LABEL_24:
       CFRelease(v19);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

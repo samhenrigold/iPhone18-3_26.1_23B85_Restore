@@ -69,10 +69,10 @@
 {
   extensionCopy = extension;
   scriptCopy = script;
-  v8 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = WBS_LOG_CHANNEL_PREFIXExtensions(scriptCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [SFWebProcessPlugInPageExtensionController prepareJavaScriptWorldForSharingExtension:v8 javaScript:?];
+    [SFWebProcessPlugInPageExtensionController prepareJavaScriptWorldForSharingExtension:v9 javaScript:?];
   }
 
   world = [(NSMutableDictionary *)self->_extensionToScriptWorldMap objectForKey:extensionCopy];
@@ -84,40 +84,40 @@
 
   WeakRetained = objc_loadWeakRetained(&self->_browserContextController);
   mainFrame = [WeakRetained mainFrame];
-  v12 = [mainFrame jsContextForWorld:world];
+  v13 = [mainFrame jsContextForWorld:world];
 
-  v13 = [v12 evaluateScript:scriptCopy];
-  v14 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v14 = [v13 evaluateScript:scriptCopy];
+  v16 = WBS_LOG_CHANNEL_PREFIXExtensions(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_INFO, "Finished setting up JavaScript world", v15, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_INFO, "Finished setting up JavaScript world", v17, 2u);
   }
 }
 
 - (void)evaluateJavaScriptForSharingExtension:(id)extension extraArguments:(id)arguments completionHandler:(id)handler
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   argumentsCopy = arguments;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = WBS_LOG_CHANNEL_PREFIXExtensions(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [SFWebProcessPlugInPageExtensionController evaluateJavaScriptForSharingExtension:v11 extraArguments:? completionHandler:?];
+    [SFWebProcessPlugInPageExtensionController evaluateJavaScriptForSharingExtension:v12 extraArguments:? completionHandler:?];
   }
 
-  v12 = [(NSMutableDictionary *)self->_extensionToScriptWorldMap objectForKey:extensionCopy];
-  if (v12)
+  v14 = [(NSMutableDictionary *)self->_extensionToScriptWorldMap objectForKey:extensionCopy];
+  if (v14)
   {
     WeakRetained = objc_loadWeakRetained(&self->_browserContextController);
     mainFrame = [WeakRetained mainFrame];
-    v15 = [mainFrame jsContextForWorld:v12];
+    v17 = [mainFrame jsContextForWorld:v14];
 
-    globalObject = [v15 globalObject];
-    v17 = [globalObject valueForProperty:@"ExtensionPreprocessingJS"];
+    globalObject = [v17 globalObject];
+    v19 = [globalObject valueForProperty:@"ExtensionPreprocessingJS"];
 
-    if (([v17 isUndefined] & 1) != 0 || (objc_msgSend(v17, "valueForProperty:", @"run"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isUndefined"), v18, v19))
+    if (([v19 isUndefined] & 1) != 0 || (objc_msgSend(v19, "valueForProperty:", @"run"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isUndefined"), v20, v21))
     {
       handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F8]);
     }
@@ -128,42 +128,42 @@
       aBlock[1] = 3221225472;
       aBlock[2] = __116__SFWebProcessPlugInPageExtensionController_evaluateJavaScriptForSharingExtension_extraArguments_completionHandler___block_invoke;
       aBlock[3] = &unk_1E8493868;
-      v32 = handlerCopy;
-      v29 = _Block_copy(aBlock);
-      v21 = objc_alloc(MEMORY[0x1E695DF90]);
-      v34[0] = @"extensionName";
-      v34[1] = @"completionFunction";
-      v35[0] = extensionCopy;
-      v22 = _Block_copy(v29);
-      v35[1] = v22;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
-      v24 = [v21 initWithDictionary:v23];
+      v35 = handlerCopy;
+      v32 = _Block_copy(aBlock);
+      v23 = objc_alloc(MEMORY[0x1E695DF90]);
+      v37[0] = @"extensionName";
+      v37[1] = @"completionFunction";
+      v38[0] = extensionCopy;
+      v24 = _Block_copy(v32);
+      v38[1] = v24;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+      v26 = [v23 initWithDictionary:v25];
 
       if (argumentsCopy)
       {
-        [v24 setObject:argumentsCopy forKey:@"extraArguments"];
+        [v26 setObject:argumentsCopy forKey:@"extraArguments"];
       }
 
-      v25 = [v24 copy];
-      v26 = WBS_LOG_CHANNEL_PREFIXExtensions();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = [v26 copy];
+      v29 = WBS_LOG_CHANNEL_PREFIXExtensions(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v26, OS_LOG_TYPE_INFO, "Invoking extension's JavaScript", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v29, OS_LOG_TYPE_INFO, "Invoking extension's JavaScript", buf, 2u);
       }
 
-      v33 = v25;
-      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
-      v28 = [v17 invokeMethod:@"run" withArguments:v27];
+      v36 = v27;
+      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+      v31 = [v19 invokeMethod:@"run" withArguments:v30];
     }
   }
 
   else
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXExtensions(0, v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [SFWebProcessPlugInPageExtensionController evaluateJavaScriptForSharingExtension:v20 extraArguments:? completionHandler:?];
+      [SFWebProcessPlugInPageExtensionController evaluateJavaScriptForSharingExtension:v22 extraArguments:? completionHandler:?];
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -172,15 +172,15 @@
 
 void __116__SFWebProcessPlugInPageExtensionController_evaluateJavaScriptForSharingExtension_extraArguments_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 toDictionary];
-  v5 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXExtensions(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Script returned results to native code: %p", &v6, 0xCu);
+    v7 = 134217984;
+    v8 = v4;
+    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_INFO, "Script returned results to native code: %p", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();

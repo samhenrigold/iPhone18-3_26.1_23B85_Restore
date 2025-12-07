@@ -123,8 +123,6 @@ void __41__CBContainer_registerNotificationBlock___block_invoke(uint64_t a1)
     __os_log_helper_16_0_1_8_0(v4, *(*(a1 + 32) + 32));
     _os_log_debug_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEBUG, "notificationBlock = %p", v4, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotificationBlock

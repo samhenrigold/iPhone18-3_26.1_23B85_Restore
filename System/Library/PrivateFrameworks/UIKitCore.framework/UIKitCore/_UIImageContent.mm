@@ -244,13 +244,13 @@
     vectorGlyph2 = v12;
   }
 
-  v13 = 0;
+  isEqual = 0;
   if (vectorGlyph && vectorGlyph2)
   {
-    v13 = [vectorGlyph isEqual:vectorGlyph2];
+    isEqual = objc_msgSend_isEqual_(vectorGlyph);
   }
 
-  return v13;
+  return isEqual;
 }
 
 - (id)renditionWithSize:(CGSize)size scale:(double)scale renditionContext:(id)context

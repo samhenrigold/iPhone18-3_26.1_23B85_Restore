@@ -53,9 +53,9 @@
 
 - (NTKColtanResourceManager)initWithPixelFormat:(unint64_t)format
 {
-  v32.receiver = self;
-  v32.super_class = NTKColtanResourceManager;
-  v4 = [(NTKColtanResourceManager *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = NTKColtanResourceManager;
+  v4 = [(NTKColtanResourceManager *)&v33 init];
   if (v4)
   {
     v5 = objc_opt_new();
@@ -67,45 +67,45 @@
     v4->_device = v7;
 
     v9 = v4->_device;
-    v10 = sub_1200();
-    v11 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v10 error:0];
+    v11 = sub_1200(v10);
+    v12 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v11 error:0];
     library = v4->_library;
-    v4->_library = v11;
+    v4->_library = v12;
 
     v4->_pixelFormat = format;
-    v13 = +[CLKDevice currentDevice];
-    CLKScaledValueWithCompactLuxoDeviceMetrics();
-    *&v14 = v14;
-    v31 = LODWORD(v14);
+    v14 = +[CLKDevice currentDevice];
     CLKScaledValueWithCompactLuxoDeviceMetrics();
     *&v15 = v15;
-    v30 = LODWORD(v15);
+    v32 = LODWORD(v15);
     CLKScaledValueWithCompactLuxoDeviceMetrics();
     *&v16 = v16;
-    v29 = LODWORD(v16);
+    v31 = LODWORD(v16);
     CLKScaledValueWithCompactLuxoDeviceMetrics();
     *&v17 = v17;
-    v28 = LODWORD(v17);
+    v30 = LODWORD(v17);
     CLKScaledValueWithCompactLuxoDeviceMetrics();
     *&v18 = v18;
-    v27 = LODWORD(v18);
+    v29 = LODWORD(v18);
     CLKScaledValueWithCompactLuxoDeviceMetrics();
     *&v19 = v19;
-    v26 = LODWORD(v19);
-    [v13 screenBounds];
-    v21 = v20 / 162.0;
-    v25 = v21;
-    v22 = objc_opt_new();
+    v28 = LODWORD(v19);
+    CLKScaledValueWithCompactLuxoDeviceMetrics();
+    *&v20 = v20;
+    v27 = LODWORD(v20);
+    [v14 screenBounds];
+    v22 = v21 / 162.0;
+    v26 = v22;
+    v23 = objc_opt_new();
     layoutConstants = v4->_layoutConstants;
-    v4->_layoutConstants = v22;
+    v4->_layoutConstants = v23;
 
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v31 type:3 atIndex:3];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v30 type:3 atIndex:4];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v29 type:3 atIndex:5];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v27 type:3 atIndex:6];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v28 type:3 atIndex:7];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v26 type:3 atIndex:8];
-    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v25 type:3 atIndex:9];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v32 type:3 atIndex:3];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v31 type:3 atIndex:4];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v30 type:3 atIndex:5];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v28 type:3 atIndex:6];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v29 type:3 atIndex:7];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v27 type:3 atIndex:8];
+    [(MTLFunctionConstantValues *)v4->_layoutConstants setConstantValue:&v26 type:3 atIndex:9];
   }
 
   return v4;
@@ -378,29 +378,30 @@ LABEL_10:
 - (id)provideAtlasBacking:(id)backing
 {
   backingCopy = backing;
-  if ([backingCopy isEqualToString:@"Coltan-Hand"])
+  v4 = [backingCopy isEqualToString:@"Coltan-Hand"];
+  if (v4)
   {
-    v4 = sub_1200();
-    v5 = [v4 pathForResource:backingCopy ofType:@"art"];
-    if (v5)
+    v5 = sub_1200(v4);
+    v6 = [v5 pathForResource:backingCopy ofType:@"art"];
+    if (v6)
     {
-      v6 = v5;
-      v7 = [CLKUIAtlasBacking atlasBackingWithArt:v5 uuid:backingCopy];
+      v7 = v6;
+      v8 = [CLKUIAtlasBacking atlasBackingWithArt:v6 uuid:backingCopy];
 
       goto LABEL_8;
     }
 
-    v8 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_6AE4(backingCopy, v8);
+      sub_6AE4(backingCopy, v9);
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 @end

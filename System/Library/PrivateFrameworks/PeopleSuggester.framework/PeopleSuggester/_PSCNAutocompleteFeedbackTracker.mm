@@ -1,4 +1,7 @@
 @interface _PSCNAutocompleteFeedbackTracker
++ (id)defaultActionWithInteraction:(id)interaction trialID:(id)d isImplicit:(BOOL)implicit;
++ (id)defaultImpressionWithFeedback:(id)feedback bundleID:(id)d trialID:(id)iD isImplicit:(BOOL)implicit;
++ (id)defaultSubmodelImpressionWithFeedback:(id)feedback submodel:(id)submodel bundleID:(id)d trialID:(id)iD isImplicit:(BOOL)implicit;
 - (_PSCNAutocompleteFeedbackTracker)initWithInteractionIterator:(id)iterator maxSecondsBetweenImpressionAndAction:(int64_t)action shouldInferEnterAndExit:(BOOL)exit impressionLogger:(id)logger submodelImpressionLogger:(id)impressionLogger actionLogger:(id)actionLogger defaultForIsImplicit:(BOOL)implicit;
 - (void)annotateAction:(id)action withStatistics:(id)statistics;
 - (void)annotateImpression:(id)impression withStatistics:(id)statistics;
@@ -11,6 +14,211 @@
 @end
 
 @implementation _PSCNAutocompleteFeedbackTracker
+
++ (id)defaultImpressionWithFeedback:(id)feedback bundleID:(id)d trialID:(id)iD isImplicit:(BOOL)implicit
+{
+  implicitCopy = implicit;
+  v20[13] = *MEMORY[0x1E69E9840];
+  v19[0] = @"avgRankTapped";
+  v19[1] = @"avgRankUsed";
+  v20[0] = &unk_1F2D8C828;
+  v20[1] = &unk_1F2D8C828;
+  if (d)
+  {
+    dCopy = d;
+  }
+
+  else
+  {
+    dCopy = @"Unknown";
+  }
+
+  v20[2] = dCopy;
+  v19[2] = @"bundleID";
+  v19[3] = @"countSuggested";
+  v10 = MEMORY[0x1E696AD98];
+  iDCopy = iD;
+  dCopy2 = d;
+  suggestions = [feedback suggestions];
+  v14 = [v10 numberWithUnsignedInteger:{objc_msgSend(suggestions, "count")}];
+  v20[3] = v14;
+  v20[4] = &unk_1F2D8BCA0;
+  v19[4] = @"countTapped";
+  v19[5] = @"countUsed";
+  v20[5] = &unk_1F2D8BCA0;
+  v20[6] = &unk_1F2D8BCA0;
+  v19[6] = @"highestRankTapped";
+  v19[7] = @"highestRankUsed";
+  v20[7] = &unk_1F2D8BCA0;
+  v19[8] = @"isImplicit";
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:implicitCopy];
+  v19[9] = @"ledToAction";
+  v19[10] = @"lowestRankTapped";
+  v20[8] = v15;
+  v20[9] = &unk_1F2D8BCA0;
+  v20[10] = &unk_1F2D8BCA0;
+  v20[11] = &unk_1F2D8BCA0;
+  v19[11] = @"lowestRankUsed";
+  v19[12] = @"trialID";
+  if (iDCopy)
+  {
+    v16 = iDCopy;
+  }
+
+  else
+  {
+    v16 = @"Unknown";
+  }
+
+  v20[12] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:13];
+
+  return v17;
+}
+
++ (id)defaultSubmodelImpressionWithFeedback:(id)feedback submodel:(id)submodel bundleID:(id)d trialID:(id)iD isImplicit:(BOOL)implicit
+{
+  implicitCopy = implicit;
+  v24[14] = *MEMORY[0x1E69E9840];
+  v23[0] = @"avgRankTapped";
+  v23[1] = @"avgRankUsed";
+  v24[0] = &unk_1F2D8C828;
+  v24[1] = &unk_1F2D8C828;
+  if (d)
+  {
+    dCopy = d;
+  }
+
+  else
+  {
+    dCopy = @"Unknown";
+  }
+
+  v24[2] = dCopy;
+  v23[2] = @"bundleID";
+  v23[3] = @"countSuggested";
+  v12 = MEMORY[0x1E696AD98];
+  iDCopy = iD;
+  dCopy2 = d;
+  submodelCopy = submodel;
+  suggestions = [feedback suggestions];
+  v17 = [v12 numberWithUnsignedInteger:{objc_msgSend(suggestions, "count")}];
+  v24[3] = v17;
+  v24[4] = &unk_1F2D8BCA0;
+  v23[4] = @"countTapped";
+  v23[5] = @"countUsed";
+  v24[5] = &unk_1F2D8BCA0;
+  v24[6] = &unk_1F2D8BCA0;
+  v23[6] = @"highestRankTapped";
+  v23[7] = @"highestRankUsed";
+  v24[7] = &unk_1F2D8BCA0;
+  v23[8] = @"isImplicit";
+  v18 = [MEMORY[0x1E696AD98] numberWithBool:implicitCopy];
+  v23[9] = @"ledToAction";
+  v23[10] = @"lowestRankTapped";
+  v24[8] = v18;
+  v24[9] = &unk_1F2D8BCA0;
+  v24[10] = &unk_1F2D8BCA0;
+  v24[11] = &unk_1F2D8BCA0;
+  v23[11] = @"lowestRankUsed";
+  v23[12] = @"submodelID";
+  if (submodelCopy)
+  {
+    v19 = submodelCopy;
+  }
+
+  else
+  {
+    v19 = @"Unknown";
+  }
+
+  v23[13] = @"trialID";
+  if (iDCopy)
+  {
+    v20 = iDCopy;
+  }
+
+  else
+  {
+    v20 = @"Unknown";
+  }
+
+  v24[12] = v19;
+  v24[13] = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:14];
+
+  return v21;
+}
+
++ (id)defaultActionWithInteraction:(id)interaction trialID:(id)d isImplicit:(BOOL)implicit
+{
+  implicitCopy = implicit;
+  v20[11] = *MEMORY[0x1E69E9840];
+  v19[0] = @"actionName";
+  dCopy = d;
+  interactionCopy = interaction;
+  [interactionCopy mechanism];
+  v9 = mechanismToString();
+  v10 = v9;
+  if (v9)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = @"Unknown";
+  }
+
+  v20[0] = v11;
+  v19[1] = @"bundleID";
+  bundleId = [interactionCopy bundleId];
+
+  if (bundleId)
+  {
+    v13 = bundleId;
+  }
+
+  else
+  {
+    v13 = @"Unknown";
+  }
+
+  v20[1] = v13;
+  v20[2] = &unk_1F2D8BCA0;
+  v19[2] = @"countErasedHandles";
+  v19[3] = @"countTappedSuggestions";
+  v20[3] = &unk_1F2D8BCA0;
+  v20[4] = &unk_1F2D8BCA0;
+  v19[4] = @"countTimesVendedSuggestions";
+  v19[5] = @"countTypedHandles";
+  v20[5] = &unk_1F2D8BCA0;
+  v20[6] = &unk_1F2D8BCA0;
+  v19[6] = @"countUsedSuggestions";
+  v19[7] = @"countVendedSuggestions";
+  v20[7] = &unk_1F2D8BCA0;
+  v19[8] = @"isImplicit";
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:implicitCopy];
+  v15 = v14;
+  if (dCopy)
+  {
+    v16 = dCopy;
+  }
+
+  else
+  {
+    v16 = @"Unknown";
+  }
+
+  v20[8] = v14;
+  v20[9] = v16;
+  v19[9] = @"trialID";
+  v19[10] = @"usedSuggestions";
+  v20[10] = MEMORY[0x1E695E110];
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:11];
+
+  return v17;
+}
 
 - (_PSCNAutocompleteFeedbackTracker)initWithInteractionIterator:(id)iterator maxSecondsBetweenImpressionAndAction:(int64_t)action shouldInferEnterAndExit:(BOOL)exit impressionLogger:(id)logger submodelImpressionLogger:(id)impressionLogger actionLogger:(id)actionLogger defaultForIsImplicit:(BOOL)implicit
 {
@@ -228,7 +436,7 @@
 
 - (void)processFeedbackWithInferredEnterAndExit:(id)exit
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   exitCopy = exit;
   v5 = exitCopy;
   if (self->_stopTime)
@@ -258,9 +466,9 @@ LABEL_8:
   objc_storeStrong(&self->_followingInteractionPrevious, self->_followingInteraction);
   interactionIterator = self->_interactionIterator;
   reportTime = [v5 reportTime];
-  v10 = [(_PSCNAutocompleteFeedbackInteractionIterator *)interactionIterator fastForwardToDate:reportTime];
+  v9 = [(_PSCNAutocompleteFeedbackInteractionIterator *)interactionIterator fastForwardToDate:reportTime];
   followingInteraction = self->_followingInteraction;
-  self->_followingInteraction = v10;
+  self->_followingInteraction = v9;
 
   if (self->_accumulator)
   {
@@ -268,11 +476,11 @@ LABEL_8:
     {
       if ([v5 feedbackType] == 2 && !self->_inActionWindow)
       {
-        v14 = +[_PSLogging feedbackChannel];
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = +[_PSLogging feedbackChannel];
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v39) = 0;
-          _os_log_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Ended - received next vended suggestions event.", &v39, 2u);
+          LOWORD(v38) = 0;
+          _os_log_impl(&dword_1B5ED1000, v13, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Ended - received next vended suggestions event.", &v38, 2u);
         }
 
         [(_PSCNAutocompleteFeedbackTracker *)self logImpressionsFromAccumulator:self->_accumulator];
@@ -283,60 +491,60 @@ LABEL_8:
 
     else
     {
-      v12 = +[_PSLogging feedbackChannel];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = +[_PSLogging feedbackChannel];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
-        _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Ended - moved past previous interaction (action).", &v39, 2u);
+        LOWORD(v38) = 0;
+        _os_log_impl(&dword_1B5ED1000, v11, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Ended - moved past previous interaction (action).", &v38, 2u);
       }
 
       [(_PSCNAutocompleteFeedbackSessionAccumulator *)self->_accumulator updateWithInteraction:self->_followingInteractionPrevious];
       [(_PSCNAutocompleteFeedbackTracker *)self logImpressionsFromAccumulator:self->_accumulator];
       [(_PSCNAutocompleteFeedbackTracker *)self logActionFromAccumulator:self->_accumulator];
-      v13 = self->_accumulator;
+      v12 = self->_accumulator;
       self->_accumulator = 0;
 
       self->_inActionWindow = 0;
     }
   }
 
-  v16 = self->_followingInteraction;
-  v17 = +[_PSLogging feedbackChannel];
-  v18 = v17;
-  if (v16)
+  v15 = self->_followingInteraction;
+  v16 = +[_PSLogging feedbackChannel];
+  v17 = v16;
+  if (v15)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       dateFormatter = self->_dateFormatter;
       reportTime2 = [v5 reportTime];
-      v21 = [(NSDateFormatter *)dateFormatter stringFromDate:reportTime2];
+      v20 = [(NSDateFormatter *)dateFormatter stringFromDate:reportTime2];
       userIdentifier = [v5 userIdentifier];
       bundleIdentifier = [v5 bundleIdentifier];
       sourceBundleIdentifier = [v5 sourceBundleIdentifier];
       if ([v5 isImplicit])
       {
-        v25 = @"YES";
+        v24 = @"YES";
       }
 
       else
       {
-        v25 = @"NO";
+        v24 = @"NO";
       }
 
       feedbackType = [v5 feedbackType];
-      v39 = 138413570;
-      v40 = v21;
-      v41 = 2112;
-      v42 = userIdentifier;
-      v43 = 2112;
-      v44 = bundleIdentifier;
-      v45 = 2112;
-      v46 = sourceBundleIdentifier;
-      v47 = 2112;
-      v48 = v25;
-      v49 = 2048;
-      v50 = feedbackType;
-      _os_log_impl(&dword_1B5ED1000, v18, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Processing event reported on %@ for user %@, for %@, reported by %@, implicit=%@, of type %lu.", &v39, 0x3Eu);
+      v38 = 138413570;
+      v39 = v20;
+      v40 = 2112;
+      v41 = userIdentifier;
+      v42 = 2112;
+      v43 = bundleIdentifier;
+      v44 = 2112;
+      v45 = sourceBundleIdentifier;
+      v46 = 2112;
+      v47 = v24;
+      v48 = 2048;
+      v49 = feedbackType;
+      _os_log_impl(&dword_1B5ED1000, v17, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Processing event reported on %@ for user %@, for %@, reported by %@, implicit=%@, of type %lu.", &v38, 0x3Eu);
     }
 
     if (!self->_accumulator && [v5 feedbackType] == 2)
@@ -344,19 +552,19 @@ LABEL_8:
       startDate = [(_CDInteraction *)self->_followingInteraction startDate];
       reportTime3 = [v5 reportTime];
       [startDate timeIntervalSinceDate:reportTime3];
-      v30 = v29;
+      v29 = v28;
       maxSecondsBetweenImpressionAndAction = self->_maxSecondsBetweenImpressionAndAction;
 
-      v32 = +[_PSLogging feedbackChannel];
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
-      if (v30 <= maxSecondsBetweenImpressionAndAction)
+      v31 = +[_PSLogging feedbackChannel];
+      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+      if (v29 <= maxSecondsBetweenImpressionAndAction)
       {
-        if (v33)
+        if (v32)
         {
-          v36 = self->_maxSecondsBetweenImpressionAndAction;
-          v39 = 134217984;
-          v40 = v36;
-          _os_log_impl(&dword_1B5ED1000, v32, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Started - within %ld seconds of next interaction (action).", &v39, 0xCu);
+          v35 = self->_maxSecondsBetweenImpressionAndAction;
+          v38 = 134217984;
+          v39 = v35;
+          _os_log_impl(&dword_1B5ED1000, v31, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Started - within %ld seconds of next interaction (action).", &v38, 0xCu);
         }
 
         self->_inActionWindow = 1;
@@ -364,16 +572,16 @@ LABEL_8:
 
       else
       {
-        if (v33)
+        if (v32)
         {
-          LOWORD(v39) = 0;
-          _os_log_impl(&dword_1B5ED1000, v32, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Started - received vended suggestions event too far away from interaction (action).", &v39, 2u);
+          LOWORD(v38) = 0;
+          _os_log_impl(&dword_1B5ED1000, v31, OS_LOG_TYPE_DEFAULT, "_PSCNAutocompleteFeedbackTracker: Session Started - received vended suggestions event too far away from interaction (action).", &v38, 2u);
         }
       }
 
-      v37 = objc_opt_new();
-      v38 = self->_accumulator;
-      self->_accumulator = v37;
+      v36 = objc_opt_new();
+      v37 = self->_accumulator;
+      self->_accumulator = v36;
     }
 
     [(_PSCNAutocompleteFeedbackSessionAccumulator *)self->_accumulator updateWithFeedback:v5];
@@ -381,7 +589,7 @@ LABEL_8:
 
   else
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [(_PSCNAutocompleteFeedbackTracker *)self processFeedbackWithInferredEnterAndExit:v5];
     }
@@ -392,8 +600,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finish
@@ -411,24 +617,22 @@ LABEL_9:
 
 - (void)finishWithInferredEnterAndExit
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = *(self + 64);
   startDate = [*(self + 80) startDate];
   v3 = [v1 stringFromDate:startDate];
-  OUTLINED_FUNCTION_0_8(&dword_1B5ED1000, v4, v5, "_PSCNAutocompleteFeedbackTracker: Finished iterating through feedback events. Setting stop time to %@.", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0_8(&dword_1B5ED1000, v4, v5, "_PSCNAutocompleteFeedbackTracker: Finished iterating through feedback events. Setting stop time to %@.", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)processFeedbackWithInferredEnterAndExit:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 64);
   v3 = [a2 reportTime];
   v4 = [v2 stringFromDate:v3];
-  OUTLINED_FUNCTION_0_8(&dword_1B5ED1000, v5, v6, "_PSCNAutocompleteFeedbackTracker: Interaction (action) iterator exhausted. Setting stop time to %@.", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_8(&dword_1B5ED1000, v5, v6, "_PSCNAutocompleteFeedbackTracker: Interaction (action) iterator exhausted. Setting stop time to %@.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -435,42 +435,42 @@ LABEL_20:
   v20 = TSUDynamicCast();
   if (v20)
   {
-    v24 = objc_msgSend_seriesIndex(seriesCopy, v19, v21, v22, v23);
-    objc_msgSend_transformForRenderingElementForSeries_outElementSize_outClipRect_withInnerRadius_(v20, v25, v26, v27, v28, v24, size, rect, radiusCopy);
-    v31 = *&v62;
-    v32 = *&v63;
+    objc_msgSend_seriesIndex(seriesCopy, v19, v21, v22, v23);
+    objc_msgSend_transformForRenderingElementForSeries_outElementSize_outClipRect_withInnerRadius_(v20, v24, v25, v26);
+    v29 = *&v60;
+    v30 = *&v61;
     if (transform)
     {
-      v31 = *&v62;
-      *&transform->a = v61;
-      *&transform->c = v62;
-      v32 = *&v63;
-      *&transform->tx = v63;
+      v29 = *&v60;
+      *&transform->a = v59;
+      *&transform->c = v60;
+      v30 = *&v61;
+      *&transform->tx = v61;
     }
 
     if (locations)
     {
-      v33 = objc_msgSend_seriesIndex(seriesCopy, v29, v32, v31, v30);
-      *locations = objc_msgSend_knobsOfElementForSeries_withInnerRadius_(v20, v34, v35, v36, v37, v33, radiusCopy);
+      v31 = objc_msgSend_seriesIndex(seriesCopy, v27, v30, v29, v28);
+      *locations = objc_msgSend_knobsOfElementForSeries_withInnerRadius_(v20, v32, v33, v34, v35, v31, radiusCopy);
     }
 
-    v38 = objc_msgSend_seriesIndex(seriesCopy, v29, v32, v31, v30);
-    v43 = objc_msgSend_pathOfElementForSeries_outWedgeCenterPoint_withInnerRadius_(v20, v39, v40, v41, v42, v38, point, radiusCopy);
-    v44 = CGPathRetain(v43);
+    v36 = objc_msgSend_seriesIndex(seriesCopy, v27, v30, v29, v28);
+    v41 = objc_msgSend_pathOfElementForSeries_outWedgeCenterPoint_withInnerRadius_(v20, v37, v38, v39, v40, v36, point, radiusCopy);
+    v42 = CGPathRetain(v41);
   }
 
   else
   {
-    v45 = MEMORY[0x277D81150];
-    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v21, v22, v23, "[TSCHPieElementBuilder newElementPathInBody:forSeries:outTransform:outElementSize:outClipRect:outWedgeCenterPoint:outSelectionKnobLocations:withInnerRadius:]");
-    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHPieElementBuilder.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v52, v53, v54, v55, v46, v51, 293, 0, "invalid nil value for '%{public}s'", "pieLayoutItem");
+    v43 = MEMORY[0x277D81150];
+    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v21, v22, v23, "[TSCHPieElementBuilder newElementPathInBody:forSeries:outTransform:outElementSize:outClipRect:outWedgeCenterPoint:outSelectionKnobLocations:withInnerRadius:]");
+    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHPieElementBuilder.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v50, v51, v52, v53, v44, v49, 293, 0, "invalid nil value for '%{public}s'", "pieLayoutItem");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59);
-    v44 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
+    v42 = 0;
   }
 
-  return v44;
+  return v42;
 }
 
 @end

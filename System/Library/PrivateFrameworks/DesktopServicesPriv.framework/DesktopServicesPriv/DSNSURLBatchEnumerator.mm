@@ -26,7 +26,7 @@
 
 - (id)nextBatch
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   index = self->_index;
   if (index >= [(NSArray *)self->_urls count])
   {
@@ -56,14 +56,12 @@
     v12 = [(NSArray *)targetNames objectsAtIndexes:v11];
 
     self->_index += batchSize;
-    v16[0] = @"SourceURLs";
-    v16[1] = @"TargetNames";
-    v17[0] = v9;
-    v17[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"SourceURLs";
+    v15[1] = @"TargetNames";
+    v16[0] = v9;
+    v16[1] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -232,7 +232,7 @@ LABEL_9:
   result = self->_track->trackInspector;
   if (result)
   {
-    return [(CMTimeRange *)result timeRange];
+    return objc_msgSend_timeRange(result, a3);
   }
 
   *&retstr->start.epoch = 0u;
@@ -318,7 +318,7 @@ LABEL_9:
   result = self->_track->trackInspector;
   if (result)
   {
-    return [(CGAffineTransform *)result preferredTransform];
+    return objc_msgSend_preferredTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -332,7 +332,7 @@ LABEL_9:
   trackInspector = self->_track->trackInspector;
   if (trackInspector)
   {
-    [(AVAssetTrackInspector *)trackInspector minSampleDuration];
+    objc_msgSend_minSampleDuration(trackInspector, a3);
   }
 
   result = [objc_msgSend(+[AVAssetTrack mediaCharacteristicsForMediaTypes](AVAssetTrack "mediaCharacteristicsForMediaTypes")];
@@ -411,7 +411,7 @@ uint64_t __58__AVAssetTrack_loadSegmentForTrackTime_completionHandler___block_in
   if (result)
   {
     v5 = *trackTime;
-    return [(CMTime *)result samplePresentationTimeForTrackTime:&v5];
+    return objc_msgSend_samplePresentationTimeForTrackTime_(result, time, &v5);
   }
 
   else
@@ -436,12 +436,12 @@ uint64_t __58__AVAssetTrack_loadSegmentForTrackTime_completionHandler___block_in
   AVLoadValueAsynchronously(self, @"segments", v4);
 }
 
-uint64_t __73__AVAssetTrack_loadSamplePresentationTimeForTrackTime_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __73__AVAssetTrack_loadSamplePresentationTimeForTrackTime_completionHandler___block_invoke(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = a1[5];
+    v4 = *(a1[5] + 16);
     v11 = *MEMORY[0x1E6960C70];
     v12 = *(MEMORY[0x1E6960C70] + 16);
     return v4(v3, &v11, a2);
@@ -451,15 +451,13 @@ uint64_t __73__AVAssetTrack_loadSamplePresentationTimeForTrackTime_completionHan
   {
     v11 = 0uLL;
     v12 = 0;
-    v6 = *(a1 + 32);
+    v6 = a1[4];
     if (v6)
     {
-      v9 = *(a1 + 48);
-      v10 = *(a1 + 64);
-      [v6 samplePresentationTimeForTrackTime:&v9];
+      objc_msgSend_samplePresentationTimeForTrackTime_(v6, a1[6], a1[7], a1[8]);
     }
 
-    v7 = *(a1 + 40);
+    v7 = a1[5];
     v8 = *(v7 + 16);
     v9 = v11;
     v10 = v12;
@@ -697,9 +695,9 @@ uint64_t __61__AVAssetTrack_loadAssociatedTracksOfType_completionHandler___block
         v7 = *(*(&v14 + 1) + 8 * v6);
         if (v7)
         {
-          [*(*(&v14 + 1) + 8 * v6) timeMapping];
+          objc_msgSend_timeMapping(*(*(&v14 + 1) + 8 * v6));
           time1 = *(v12 + 8);
-          [v7 timeMapping];
+          objc_msgSend_timeMapping(v7);
         }
 
         else
@@ -761,7 +759,7 @@ uint64_t __61__AVAssetTrack_loadAssociatedTracksOfType_completionHandler___block
         v7 = *(*(&v10 + 1) + 8 * i);
         if (v7)
         {
-          [v7 timeMapping];
+          objc_msgSend_timeMapping(v7);
           if (v9)
           {
             continue;

@@ -869,7 +869,7 @@ LABEL_11:
 
   else
   {
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
   }
 
   v6 = v5;
@@ -1615,7 +1615,7 @@ LABEL_12:
 
   else
   {
-    textColor = +[UIColor blackColor];
+    textColor = objc_msgSend_blackColor(UIColor);
   }
 
   return textColor;
@@ -2034,9 +2034,9 @@ LABEL_24:
   textCopy = text;
   attributedText = [(UIFieldEditor *)self attributedText];
   v11 = [attributedText attributedSubstringFromRange:{location, length}];
-  v12 = [v11 isEqual:textCopy];
+  isEqual = objc_msgSend_isEqual_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     if (location)
     {
@@ -2147,18 +2147,18 @@ LABEL_17:
 LABEL_18:
 }
 
-uint64_t __89__UIFieldEditor__setAttributedTextInRange_replacementText_andSetCaretSelectionAfterText___block_invoke_2(uint64_t result, void *a2)
+void *__89__UIFieldEditor__setAttributedTextInRange_replacementText_andSetCaretSelectionAfterText___block_invoke_2(void *result, void *a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = *(result + 48);
-    v4 = *(result + 32);
+    v3 = result[6];
+    v4 = result[4];
     v5 = a2;
     v6 = [v4 length];
     v7 = [v5 isLowConfidence];
 
-    v8 = *(v2 + 40);
+    v8 = v2[5];
 
     return [v8 addTextAlternativesDisplayStyle:v7 toRange:{v3, v6}];
   }
@@ -2473,7 +2473,7 @@ LABEL_8:
 - (_NSRange)insertFilteredText:(id)text
 {
   textCopy = text;
-  v5 = [textCopy isEqualToString:@"\n"];
+  isEqualToString = objc_msgSend_isEqualToString_(textCopy);
   if ((*&self->_feFlags & 8) != 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_textField);
@@ -2486,7 +2486,7 @@ LABEL_8:
     }
   }
 
-  if (v5)
+  if (isEqualToString)
   {
     v9 = objc_loadWeakRetained(&self->_textField);
     v10 = objc_opt_respondsToSelector();

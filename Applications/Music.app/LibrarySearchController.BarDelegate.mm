@@ -17,11 +17,12 @@
   v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtCC5Music23LibrarySearchControllerP33_D5FA0BEF708D1E9261BCB607AD690C3E11BarDelegate_textDidChange);
   if (v8)
   {
+    v9 = *&selfCopy->text[OBJC_IVAR____TtCC5Music23LibrarySearchControllerP33_D5FA0BEF708D1E9261BCB607AD690C3E11BarDelegate_textDidChange];
 
-    sub_100030444(v8);
+    sub_100030444(v8, v9);
     v8(selfCopy);
 
-    sub_100020438(v8);
+    sub_100020438(v8, v9);
   }
 
   else

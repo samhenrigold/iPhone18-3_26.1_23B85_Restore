@@ -5,6 +5,7 @@
 - (id)init;
 - (shared_ptr<ServerSideAudioSwitchboard>)mServerSideSwitchboard;
 - (uint64_t)init;
+- (void)checkInForIsolatedAudioSharedResources:(unsigned int)resources with:(id)with;
 - (void)checkOutForIsolatedAudioSharedResources:(unsigned int)resources;
 - (void)getWorkgroupForIsolatedAudio:(unsigned int)audio with:(id)with;
 - (void)init;
@@ -59,33 +60,31 @@
 
 - (void)stopIsolatedAudioForUseCase:(unsigned int)case with:(id)with
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v7 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 136315394;
-    *&v10[4] = "IsolatedCoreAudioXPCService.mm";
-    *&v10[12] = 1024;
-    *&v10[14] = 141;
-    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - Stop", v10, 0x12u);
+    *v9 = 136315394;
+    *&v9[4] = "IsolatedCoreAudioXPCService.mm";
+    *&v9[12] = 1024;
+    *&v9[14] = 141;
+    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - Stop", v9, 0x12u);
   }
 
-  [(IsolatedCoreAudioXPCService *)self mServerSideSwitchboard];
-  v8 = ServerSideAudioSwitchboard::stopServerIOThread(*v10, case);
-  if (*&v10[8])
+  objc_msgSend_mServerSideSwitchboard(self);
+  v8 = ServerSideAudioSwitchboard::stopServerIOThread(*v9, case);
+  if (*&v9[8])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v10[8]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v9[8]);
   }
 
   withCopy[2](withCopy, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startIsolatedAudioForUseCase:(unsigned int)case atTime:(unint64_t)time with:(id)with
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v9 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -97,8 +96,8 @@
     _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - StartAtTime", buf, 0x12u);
   }
 
-  [(IsolatedCoreAudioXPCService *)self mServerSideSwitchboard];
-  ServerSideAudioSwitchboard::GetClientForIO(buf, *v19, case);
+  objc_msgSend_mServerSideSwitchboard(self);
+  ServerSideAudioSwitchboard::GetClientForIO(buf, *v18, case);
   if (buf[16] == 1)
   {
     v10 = *buf;
@@ -106,20 +105,20 @@
     if (*(v11 + 64) == 1)
     {
       atomic_store(0, (v11 + 65));
-      v12 = *(*v19 + 40);
+      v12 = *(*v18 + 40);
       v14 = *v10;
       v13 = v10[1];
-      v17 = v14;
-      v18 = v13;
+      v16 = v14;
+      v17 = v13;
       if (v13)
       {
         atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v15 = (*(*v12 + 64))(v12, &v17, time);
-      if (v18)
+      v15 = (*(*v12 + 64))(v12, &v16, time);
+      if (v17)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
       }
     }
 
@@ -139,60 +138,58 @@
     v15 = 4;
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   withCopy[2](withCopy, v15);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startIsolatedAudioForUseCase:(unsigned int)case with:(id)with
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v7 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "IsolatedCoreAudioXPCService.mm";
-    v32 = 1024;
-    v33 = 107;
+    v30 = "IsolatedCoreAudioXPCService.mm";
+    v31 = 1024;
+    v32 = 107;
     _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - Start", buf, 0x12u);
   }
 
-  [(IsolatedCoreAudioXPCService *)self mServerSideSwitchboard];
-  ServerSideAudioSwitchboard::GetClientForIO(&v27, v22, case);
-  v9 = v29;
-  if (v29 == 1)
+  objc_msgSend_mServerSideSwitchboard(self);
+  ServerSideAudioSwitchboard::GetClientForIO(&v26, v21, case);
+  v9 = v28;
+  if (v28 == 1)
   {
-    v10 = v27;
-    v11 = *(v27 + 16);
+    v10 = v26;
+    v11 = *(v26 + 16);
     if (*(v11 + 64))
     {
       atomic_store(0, (v11 + 65));
-      v12 = v22[5];
+      v12 = v21[5];
       v14 = *v10;
       v13 = *(v10 + 8);
       __p = v14;
-      v25 = v13;
+      v24 = v13;
       if (v13)
       {
         atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v15 = (*(*v12 + 56))(v12, &__p);
-      if (v25)
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
 LABEL_13:
-      if (v28)
+      if (v27)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
       }
 
       goto LABEL_15;
@@ -206,20 +203,20 @@ LABEL_13:
   v18.i64[0] = 0x5F0000005FLL;
   v18.i64[1] = 0x5F0000005FLL;
   v19 = vbsl_s8(vmovn_s32(vcgtq_u32(v18, vsraq_n_s32(v17, vshlq_n_s32(vmovl_u16(v16), 0x18uLL), 0x18uLL))), v16, 0x2E002E002E002ELL);
-  v26 = 4;
+  v25 = 4;
   LODWORD(__p) = vuzp1_s8(v19, v19).u32[0];
   BYTE4(__p) = 0;
   v20 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v31 = "ServerSideAudioSwitchboard.cpp";
-    v32 = 1024;
-    v33 = 55;
-    v34 = 2080;
+    v30 = "ServerSideAudioSwitchboard.cpp";
+    v31 = 1024;
+    v32 = 55;
+    v33 = 2080;
     p_p = &__p;
     _os_log_impl(&dword_255576000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideAudioSwitchboard::startServerIOThread IO not started for client %s", buf, 0x1Cu);
-    if (v26 < 0)
+    if (v25 < 0)
     {
       operator delete(__p);
     }
@@ -232,14 +229,12 @@ LABEL_13:
   }
 
 LABEL_15:
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
   withCopy[2](withCopy, v15);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWorkgroupForIsolatedAudio:(unsigned int)audio with:(id)with
@@ -256,7 +251,7 @@ LABEL_15:
     _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - getWorkgroupForIsolatedAudio", buf, 0x12u);
   }
 
-  [(IsolatedCoreAudioXPCService *)self mServerSideSwitchboard];
+  objc_msgSend_mServerSideSwitchboard(self);
   ServerSideAudioSwitchboard::GetClientForIO(buf, v13, audio);
   if (buf[16])
   {
@@ -295,7 +290,7 @@ LABEL_15:
 
 - (void)checkOutForIsolatedAudioSharedResources:(unsigned int)resources
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -306,24 +301,24 @@ LABEL_15:
     _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkOutForIsolatedAudioSharedResources", buf, 0x12u);
   }
 
-  [(IsolatedCoreAudioXPCService *)self mServerSideSwitchboard];
-  ServerSideAudioSwitchboard::GetClientForIO(buf, *v12, resources);
+  objc_msgSend_mServerSideSwitchboard(self);
+  ServerSideAudioSwitchboard::GetClientForIO(buf, *v11, resources);
   if (buf[16] == 1)
   {
-    v6 = *(*v12 + 40);
+    v6 = *(*v11 + 40);
     v7 = *buf;
     v8 = *(*buf + 8);
-    v10 = **buf;
-    v11 = v8;
+    v9 = **buf;
+    v10 = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(*v6 + 72))(v6, &v10);
-    if (v11)
+    (*(*v6 + 72))(v6, &v9);
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
     *(*(v7 + 16) + 64) = 0;
@@ -333,53 +328,342 @@ LABEL_15:
     }
   }
 
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+}
+
+- (void)checkInForIsolatedAudioSharedResources:(unsigned int)resources with:(id)with
+{
+  v4 = *&resources;
+  v53 = *MEMORY[0x277D85DE8];
+  withCopy = with;
+  v7 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 46;
+    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources", buf, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setUseCaseIDForCurrentConnection:v4];
+  objc_msgSend_mServerSideSwitchboard(self);
+  v8 = v43[1];
+  if (!v8)
+  {
+    goto LABEL_19;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
+  {
+    v10 = v4;
+    if (v8 <= v4)
+    {
+      v10 = v4 % v8;
+    }
+  }
+
+  else
+  {
+    v10 = (v8 - 1) & v4;
+  }
+
+  v11 = *(*v43 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_19:
+    (*(*v43[5] + 16))(&v45);
+    operator new();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v4)
+    {
+      break;
+    }
+
+    if (v9.u32[0] > 1uLL)
+    {
+      if (v13 >= v8)
+      {
+        v13 %= v8;
+      }
+    }
+
+    else
+    {
+      v13 &= v8 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_19;
+    }
+
+LABEL_18:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  if (*(v12 + 4) != v4)
+  {
+    goto LABEL_18;
+  }
+
+  v9.i32[0] = bswap32(v4);
+  v37 = vzip1_s8(v9, v9);
+  v38.i64[0] = 0x1F0000001FLL;
+  v38.i64[1] = 0x1F0000001FLL;
+  v39.i64[0] = 0x5F0000005FLL;
+  v39.i64[1] = 0x5F0000005FLL;
+  v40 = vbsl_s8(vmovn_s32(vcgtq_u32(v39, vsraq_n_s32(v38, vshlq_n_s32(vmovl_u16(v37), 0x18uLL), 0x18uLL))), v37, 0x2E002E002E002ELL);
+  HIBYTE(v48) = 4;
+  LODWORD(__p) = vuzp1_s8(v40, v40).u32[0];
+  BYTE4(__p) = 0;
+  v41 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    *&buf[4] = "ServerSideAudioSwitchboard.cpp";
+    *&buf[12] = 1024;
+    *&buf[14] = 121;
+    v51 = 2080;
+    p_p = &__p;
+    _os_log_impl(&dword_255576000, v41, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideAudioSwitchboard::addClientUseCase client %s already exists", buf, 0x1Cu);
+    if (SHIBYTE(v48) < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  if (v44)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+  }
+
+  v14 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 54;
+    _os_log_impl(&dword_255576000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources - after adding client", buf, 0x12u);
+  }
+
+  objc_msgSend_mServerSideSwitchboard(self);
+  ServerSideAudioSwitchboard::GetClientForIO(buf, *v46, v4);
+  if ((buf[16] & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  v17 = *buf;
+  v16 = *&buf[8];
+  if ((*(*buf + 64) & 1) == 0)
+  {
+    v23 = *(*buf + 24);
+    *buf = *(*buf + 16);
+    *&buf[8] = v23;
+    if (v23)
+    {
+      atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](&buf[16], v17 + 32);
+    v49 = 0;
+    operator new();
+  }
+
+  v15.i32[0] = bswap32(v4);
+  v18 = vzip1_s8(v15, v15);
+  v19.i64[0] = 0x1F0000001FLL;
+  v19.i64[1] = 0x1F0000001FLL;
+  v20.i64[0] = 0x5F0000005FLL;
+  v20.i64[1] = 0x5F0000005FLL;
+  v21 = vbsl_s8(vmovn_s32(vcgtq_u32(v20, vsraq_n_s32(v19, vshlq_n_s32(vmovl_u16(v18), 0x18uLL), 0x18uLL))), v18, 0x2E002E002E002ELL);
+  HIBYTE(v48) = 4;
+  LODWORD(__p) = vuzp1_s8(v21, v21).u32[0];
+  BYTE4(__p) = 0;
+  v22 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    *&buf[4] = "ServerSideAudioSwitchboard.cpp";
+    *&buf[12] = 1024;
+    *&buf[14] = 42;
+    v51 = 2080;
+    p_p = &__p;
+    _os_log_impl(&dword_255576000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideAudioSwitchboard::registerForIO client %s is already registered for IO", buf, 0x1Cu);
+    if (SHIBYTE(v48) < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  v24 = *(*v46 + 40);
+  v25 = *(v17 + 8);
+  __p = *v17;
+  *&v48 = v25;
+  if (v25)
+  {
+    atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v24 + 24))(v24, &__p);
+  if (v48)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+  }
+
+  v26 = *(*v46 + 40);
+  v27 = *(v17 + 8);
+  v43 = *v17;
+  v44 = v27;
+  if (v27)
+  {
+    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v26 + 40))(v26, &v43);
+  if (v44)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+  }
+
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  if (*&v46[8])
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v46[8]);
+  }
+
+  v28 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 56;
+    _os_log_impl(&dword_255576000, v28, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources - after registering", buf, 0x12u);
+  }
+
+  objc_msgSend_mServerSideSwitchboard(self);
+  ServerSideAudioSwitchboard::GetClientForIO(buf, *v46, v4);
+  if ((buf[16] & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  v29 = *&buf[8];
+  v30 = *(*buf + 16);
+  *(v30 + 64) = 1;
+  __p = (**(v30 + 24) | (**(v30 + 8) << 32));
+  v48 = *(v30 + 48);
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+  }
+
+  if (*&v46[8])
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v46[8]);
+  }
+
+  v31 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 58;
+    _os_log_impl(&dword_255576000, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources - after exporting", buf, 0x12u);
+  }
+
+  v32 = [IOThreadXPCSemaphoreTransporter semaphores:&__p];
+  v33 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 60;
+    _os_log_impl(&dword_255576000, v33, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources - after allocating semaphore transporter", buf, 0x12u);
+  }
+
+  v34 = [IOThreadXPCMappedMemoryTransporter memory:&v48];
+  v35 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    *&buf[4] = "IsolatedCoreAudioXPCService.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 62;
+    _os_log_impl(&dword_255576000, v35, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - checkInForIsolatedAudioSharedResources - after allocating memory transporter", buf, 0x12u);
+  }
+
+  withCopy[2](withCopy, v32, v34);
+  v36 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  {
+    *v46 = 136315394;
+    *&v46[4] = "IsolatedCoreAudioXPCService.mm";
+    *&v46[12] = 1024;
+    *&v46[14] = 70;
+    _os_log_impl(&dword_255576000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - after to reply in checkInForIsolatedAudioSharedResources", v46, 0x12u);
+  }
 }
 
 - (IsolatedCoreAudioXPCService)initWithClientReaper:(function<void)(int
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = [(IsolatedCoreAudioXPCService *)self init];
   if (v4)
   {
-    std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v7, a3);
-    [(IsolatedCoreAudioClientNSXPCListenerDelegate *)v4 setClientReaper:v7];
-    std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v7);
+    std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v6, a3);
+    [(IsolatedCoreAudioClientNSXPCListenerDelegate *)v4 setClientReaper:v6];
+    std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v6);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (IsolatedCoreAudioXPCService)init
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     buf[0] = 136315394;
     *&buf[1] = "IsolatedCoreAudioXPCService.mm";
-    v10 = 1024;
-    v11 = 18;
+    v9 = 1024;
+    v10 = 18;
     _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioXPCService - Normal INIT", buf, 0x12u);
   }
 
   v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286779AB8];
-  v8.receiver = self;
-  v8.super_class = IsolatedCoreAudioXPCService;
-  v5 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v8 initWithInterface:v4 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient"];
+  v7.receiver = self;
+  v7.super_class = IsolatedCoreAudioXPCService;
+  v5 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v7 initWithInterface:v4 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient"];
 
   if (v5)
   {
     operator new();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

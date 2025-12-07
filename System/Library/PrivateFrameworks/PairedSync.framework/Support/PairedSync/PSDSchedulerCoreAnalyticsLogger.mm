@@ -15,6 +15,7 @@
 - (void)didFinishSession:(id)session;
 - (void)didStartActivity:(id)activity;
 - (void)linkChangedToLinkType:(int64_t)type;
+- (void)logDurationForActivityWithIdentifier:(id)identifier bins:(int *)bins binCount:(int)count inSession:(id)session;
 - (void)saveSessionState;
 - (void)scheduler:(id)scheduler didUpdateSyncSessionWithUpdate:(id)update;
 - (void)scheduler:(id)scheduler willStartSyncSession:(id)session;
@@ -322,6 +323,61 @@
 
   v10 = objc_alloc_init(PSDSchedulerCoreAnalyticsSessionState);
   [(PSDSchedulerCoreAnalyticsLogger *)self setSessionState:v10];
+}
+
+- (void)logDurationForActivityWithIdentifier:(id)identifier bins:(int *)bins binCount:(int)count inSession:(id)session
+{
+  v7 = *&count;
+  identifierCopy = identifier;
+  sessionCopy = session;
+  sessionState = [(PSDSchedulerCoreAnalyticsLogger *)self sessionState];
+  v13 = [(PSDSchedulerCoreAnalyticsLogger *)self updatedIdentifierForActivityIdentifier:identifierCopy];
+  if ([sessionState hasDurationForActivity:identifierCopy milestone:1])
+  {
+    [sessionState durationForActivity:identifierCopy milestone:1];
+    v15 = v14;
+    v16 = vcvtpd_u64_f64(v14);
+    v17 = [(PSDSchedulerCoreAnalyticsLogger *)self binNameForDuration:bins bins:v7 count:?];
+    v27[0] = v13;
+    v26[0] = @"activityIdentifier";
+    v26[1] = @"duration";
+    v18 = [NSNumber numberWithUnsignedLongLong:v16];
+    v26[2] = @"distribution";
+    v27[1] = v18;
+    v27[2] = v17;
+    v19 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:3];
+    v20 = [v19 mutableCopy];
+
+    [sessionCopy syncSessionType];
+    v21 = NSStringfromPSYSyncSessionType();
+    [v20 setObject:v21 forKeyedSubscript:@"syncType"];
+
+    [(PSDSchedulerCoreAnalyticsLogger *)self _appendLinkInformationForActivity:identifierCopy inEventInfo:v20 forEventDuration:v15];
+    v22 = +[PSYRegistrySingleton registry];
+    getActiveDevice = [v22 getActiveDevice];
+
+    [(PSDSchedulerCoreAnalyticsLogger *)self _appendPairedWatchInforamtionToEvent:v20 withDevice:getActiveDevice];
+    [(PSDSchedulerCoreAnalyticsLogger *)self sendEvent:v20];
+
+LABEL_6:
+    goto LABEL_7;
+  }
+
+  v24 = psd_log();
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+
+  if (v25)
+  {
+    v20 = psd_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001B2F4(identifierCopy, v20);
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_7:
 }
 
 - (void)_appendLinkInformationForActivity:(id)activity inEventInfo:(id)info forEventDuration:(double)duration

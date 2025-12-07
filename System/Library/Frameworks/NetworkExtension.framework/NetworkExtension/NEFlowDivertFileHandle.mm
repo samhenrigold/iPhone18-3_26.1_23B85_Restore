@@ -101,19 +101,19 @@
 
 - (id)getUnitForSocket:(int)socket
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7 = 32;
-  v8 = 0;
-  v9 = 0u;
-  if (getpeername(socket, &v8, &v7))
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 32;
+  v7 = 0;
+  v8 = 0u;
+  if (getpeername(socket, &v7, &v6))
   {
     v1 = ne_log_obj();
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v5 = __error();
-      v6 = strerror(*v5);
+      v4 = __error();
+      v5 = strerror(*v4);
       *buf = 136315138;
-      v11 = v6;
+      v10 = v5;
       _os_log_error_impl(&dword_1BA83C000, v1, OS_LOG_TYPE_ERROR, "getpeername on control socket failed: %s", buf, 0xCu);
     }
 
@@ -122,17 +122,15 @@
 
   else
   {
-    v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&v8.sa_data[6]];
+    v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&v7.sa_data[6]];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)initFlowDivertControlSocketWithParams:(BOOL)params order:(int)order
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   KernelControlSocket = NEHelperGetKernelControlSocket();
   if ((KernelControlSocket & 0x80000000) != 0)
@@ -141,9 +139,9 @@
   }
 
   v6 = KernelControlSocket;
-  v18.receiver = self;
-  v18.super_class = NEFlowDivertFileHandle;
-  self = [(NEFileHandle *)&v18 initWithFileDescriptor:KernelControlSocket launchOwnerWhenReadable:1];
+  v17.receiver = self;
+  v17.super_class = NEFlowDivertFileHandle;
+  self = [(NEFileHandle *)&v17 initWithFileDescriptor:KernelControlSocket launchOwnerWhenReadable:1];
   if (!self)
   {
     goto LABEL_10;
@@ -166,10 +164,10 @@
     p_super = ne_log_obj();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      v16 = __error();
-      v17 = strerror(*v16);
+      v15 = __error();
+      v16 = strerror(*v15);
       *buf = 136315138;
-      v21 = v17;
+      v20 = v16;
       _os_log_error_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_ERROR, "Failed to send the FLOW_DIVERT_PKT_GROUP_INIT message: %s", buf, 0xCu);
     }
   }
@@ -199,7 +197,6 @@ LABEL_10:
     selfCopy = self;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

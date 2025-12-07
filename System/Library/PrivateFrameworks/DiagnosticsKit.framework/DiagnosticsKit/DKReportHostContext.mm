@@ -57,24 +57,24 @@ void __54__DKReportHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 
 - (void)startWithPayload:(id)payload completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[DKReportHostContext startWithPayload:completion:]";
+    v15 = "[DKReportHostContext startWithPayload:completion:]";
     _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   _auxiliaryConnection = [(DKReportHostContext *)self _auxiliaryConnection];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__DKReportHostContext_startWithPayload_completion___block_invoke;
-  v14[3] = &unk_278F6BFA8;
-  v14[4] = self;
-  v10 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__DKReportHostContext_startWithPayload_completion___block_invoke;
+  v13[3] = &unk_278F6BFA8;
+  v13[4] = self;
+  v10 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v13];
 
   _auxiliaryConnection2 = [(DKReportHostContext *)self _auxiliaryConnection];
   [_auxiliaryConnection2 setInterruptionHandler:&__block_literal_global_61];
@@ -96,8 +96,6 @@ void __54__DKReportHostContext__extensionAuxiliaryHostProtocol__block_invoke()
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DKReportHostContext_startWithPayload_completion___block_invoke(uint64_t a1, void *a2)
@@ -157,13 +155,12 @@ void __51__DKReportHostContext_startWithPayload_completion___block_invoke_2()
 
 void __51__DKReportHostContext_startWithPayload_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[DKReportHostContext startWithPayload:completion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "%s Failed to retrieve remote object proxy: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[DKReportHostContext startWithPayload:completion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "%s Failed to retrieve remote object proxy: %@", &v2, 0x16u);
 }
 
 @end

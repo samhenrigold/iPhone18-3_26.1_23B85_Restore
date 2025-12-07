@@ -186,11 +186,11 @@
 
 - (void)nextAccountState
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = 138543362;
-  v3 = objc_opt_class();
-  _os_log_error_impl(&dword_243550000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@: overriding account state to ineligible because the current user is data separated", &v2, 0xCu);
+  v3 = 138543362;
+  v4 = objc_opt_class();
+  _os_log_error_impl(&dword_243550000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@: overriding account state to ineligible because the current user is data separated", &v3, 0xCu);
 }
 
 @end

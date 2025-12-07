@@ -171,7 +171,7 @@
       v37 = appLayout;
       v39 = v38 = requestCopy;
       anyObject = [v39 anyObject];
-      v11[23] = [elements11 containsObject:anyObject] ^ 1;
+      v11[23] = objc_msgSend_containsObject_(elements11) ^ 1;
 
       requestCopy = v38;
       appLayout = v37;

@@ -87,14 +87,13 @@
 
 - (AVTAvatarFetchRequest)initWithCriteria:(int64_t)criteria identifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = MEMORY[0x277CBEA60];
   identifierCopy2 = identifier;
   v8 = [v6 arrayWithObjects:&identifierCopy count:1];
 
-  v9 = [(AVTAvatarFetchRequest *)self initWithCriteria:criteria identifiers:v8 excludedIdentifiers:MEMORY[0x277CBEBF8] fetchLimit:0, identifierCopy, v13];
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [(AVTAvatarFetchRequest *)self initWithCriteria:criteria identifiers:v8 excludedIdentifiers:MEMORY[0x277CBEBF8] fetchLimit:0, identifierCopy, v12];
   return v9;
 }
 

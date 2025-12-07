@@ -23,18 +23,18 @@
 
 - (CKAggregateZonePCSOperationInfo)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = CKAggregateZonePCSOperationInfo;
-  v5 = [(CKDatabaseOperationInfo *)&v21 initWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = CKAggregateZonePCSOperationInfo;
+  v5 = [(CKDatabaseOperationInfo *)&v20 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
     v7 = MEMORY[0x1E695DFD8];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v22, 2);
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v21, 2);
     v11 = objc_msgSend_setWithArray_(v7, v10, v9);
     v13 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v12, v11, @"sourceZoneIDs");
     sourceZoneIDs = v5->_sourceZoneIDs;
@@ -48,7 +48,6 @@
     objc_autoreleasePoolPop(v6);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

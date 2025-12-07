@@ -322,7 +322,7 @@ LABEL_8:
       anchors = self->anchors;
       if (anchors)
       {
-        [(CPCluster *)anchors clusterStatisticsAtIndex:v8];
+        objc_msgSend_clusterStatisticsAtIndex_(anchors);
         v14 = *(&v20 + 1);
       }
 
@@ -346,7 +346,7 @@ LABEL_8:
           rightHandSides = self->rightHandSides;
           if (rightHandSides)
           {
-            [(CPCluster *)rightHandSides clusterStatisticsAtIndex:v9];
+            objc_msgSend_clusterStatisticsAtIndex_(rightHandSides);
             v18 = v19;
           }
 
@@ -419,7 +419,7 @@ LABEL_8:
   rightHandSides = self->rightHandSides;
   if (rightHandSides)
   {
-    [rightHandSides clusterStatisticsAtIndex:*&at];
+    objc_msgSend_clusterStatisticsAtIndex_(rightHandSides, a2, *&at);
     rightHandSides = 56 * LODWORD(v11[0]);
   }
 
@@ -447,7 +447,7 @@ LABEL_8:
   anchors = self->anchors;
   if (anchors)
   {
-    [anchors clusterStatisticsAtIndex:*&at];
+    objc_msgSend_clusterStatisticsAtIndex_(anchors, a2, *&at);
     anchors = 56 * LODWORD(v11[0]);
   }
 
@@ -477,7 +477,7 @@ LABEL_8:
   rightHandSides = self->rightHandSides;
   if (rightHandSides)
   {
-    [(CPCluster *)rightHandSides clusterStatisticsAtIndex:*&from];
+    objc_msgSend_clusterStatisticsAtIndex_(rightHandSides, a2, *&from);
     v6 = 0uLL;
   }
 
@@ -486,7 +486,7 @@ LABEL_8:
   anchors = self->anchors;
   if (anchors)
   {
-    [(CPCluster *)anchors clusterStatisticsAtIndex:v4];
+    objc_msgSend_clusterStatisticsAtIndex_(anchors, a2, v4);
     v9 = *v16;
   }
 

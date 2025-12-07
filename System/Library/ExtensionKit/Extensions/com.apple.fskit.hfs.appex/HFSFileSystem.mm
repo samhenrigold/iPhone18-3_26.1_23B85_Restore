@@ -8,6 +8,7 @@
 
 - (void)getVolumeName:(int)name masterBlock:(HFSMasterDirectoryBlock *)block reply:(id)reply
 {
+  v6 = *&name;
   replyCopy = reply;
   v8 = 0;
   drSigWord = block->drSigWord;
@@ -30,7 +31,7 @@
     v8 = ((bswap32(block->drAlBlSt) >> 16) << 9) + (bswap32(block->drEmbedExtent.startBlock) >> 16) * bswap32(block->drAlBlkSiz);
   }
 
-  NameFromHFSPlusVolumeStartingAt = hfs_GetNameFromHFSPlusVolumeStartingAt(name, v8, v14, bswap32(*&block->drVN[4]));
+  NameFromHFSPlusVolumeStartingAt = hfs_GetNameFromHFSPlusVolumeStartingAt(v6, v8, v14, bswap32(*&block->drVN[4]));
   if (NameFromHFSPlusVolumeStartingAt == -3)
   {
     v12 = [NSString stringWithUTF8String:v14];

@@ -1,4 +1,4 @@
-BOOL DCSHasDefinitionForTerm(const void *ValueAtIndex, CFStringRef theString, CFRange range, uint64_t a4, void *a5)
+BOOL DCSHasDefinitionForTerm(DCSDictionary **ValueAtIndex, CFStringRef theString, CFRange range, uint64_t a4, DCSDictionary ***a5)
 {
   length = range.length;
   location = range.location;
@@ -63,8 +63,8 @@ LABEL_12:
 
     if (ValueAtIndex)
     {
-      v18 = *(ValueAtIndex + 2);
-      if (v18 && (DCSDictionary::isNetworkDictionary(*(ValueAtIndex + 2)) & 1) != 0)
+      v18 = ValueAtIndex[2];
+      if (v18 && (DCSDictionary::isNetworkDictionary(ValueAtIndex[2]) & 1) != 0)
       {
         MutableCopy = CFRetain(v9);
         if (v17 != 2)
@@ -95,7 +95,7 @@ LABEL_12:
     }
 
 LABEL_23:
-    v21 = *(ValueAtIndex + 2);
+    v21 = ValueAtIndex[2];
     if (!v21 || (v22 = DCSDictionary::searchByString(v21, MutableCopy)) == 0)
     {
 LABEL_29:
@@ -129,7 +129,7 @@ LABEL_32:
   if (ValueAtIndex)
   {
 LABEL_28:
-    v28 = *(ValueAtIndex + 2);
+    v28 = ValueAtIndex[2];
     goto LABEL_31;
   }
 
@@ -181,29 +181,29 @@ uint64_t DCSDictionaryIsSupportedDefinitionStyle(uint64_t result, uint64_t a2)
 
 void DCSNormalizeSearchStringWithOptionsAndLocale(__CFString *a1, uint64_t a2, const __CFLocale *a3)
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   if (Length >= 256)
   {
-    v54.length = Length - 255;
-    v54.location = 255;
-    CFStringDelete(a1, v54);
+    v53.length = Length - 255;
+    v53.location = 255;
+    CFStringDelete(a1, v53);
   }
 
   CFStringNormalize(a1, kCFStringNormalizationFormC);
-  v53[0] = 0;
+  v52[0] = 0;
   v7 = SyncSingleton<DCSEnvironment>::instance();
-  SubstituteCharactersTable = DCSEnvironment::getSubstituteCharactersTable(v7, v53);
+  SubstituteCharactersTable = DCSEnvironment::getSubstituteCharactersTable(v7, v52);
   if (!SubstituteCharactersTable)
   {
-    goto LABEL_58;
+    return;
   }
 
   v9 = SubstituteCharactersTable;
-  if (v53[0])
+  if (v52[0])
   {
     v10 = CFCharacterSetCreateWithCharactersInString(*MEMORY[0x277CBECE8], a1);
-    IsSupersetOfSet = CFCharacterSetIsSupersetOfSet(v53[0], v10);
+    IsSupersetOfSet = CFCharacterSetIsSupersetOfSet(v52[0], v10);
     CFRelease(v10);
     if (IsSupersetOfSet)
     {
@@ -211,27 +211,27 @@ void DCSNormalizeSearchStringWithOptionsAndLocale(__CFString *a1, uint64_t a2, c
     }
   }
 
-  v42 = a2;
-  v43 = a3;
+  v41 = a2;
+  v42 = a3;
   v12 = CFStringGetLength(a1);
-  v41 = &v39;
+  v40 = &v38;
   v13 = MEMORY[0x28223BE20](v12);
-  v15 = (&v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v46 = a1;
-  v49 = 0;
-  v50 = v13;
+  v15 = (&v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v45 = a1;
+  v48 = 0;
+  v49 = v13;
   CharactersPtr = CFStringGetCharactersPtr(a1);
   CStringPtr = 0;
-  v47 = CharactersPtr;
+  v46 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
   }
 
+  v50 = 0;
   v51 = 0;
-  v52 = 0;
-  v48 = CStringPtr;
-  v44 = v12 - 1;
+  v47 = CStringPtr;
+  v43 = v12 - 1;
   if (v12 < 1)
   {
     goto LABEL_55;
@@ -241,12 +241,12 @@ void DCSNormalizeSearchStringWithOptionsAndLocale(__CFString *a1, uint64_t a2, c
   v19 = 0;
   v20 = 1;
 LABEL_10:
-  v40 = v20;
+  v39 = v20;
   do
   {
-    v21 = v50;
+    v21 = v49;
     v22 = &v15[v19];
-    if (v50 <= v18)
+    if (v49 <= v18)
     {
       v24 = 0;
       *v22 = 0;
@@ -254,20 +254,20 @@ LABEL_10:
 
     else
     {
-      if (v47)
+      if (v46)
       {
-        v23 = v47[v49 + v18];
+        v23 = v46[v48 + v18];
       }
 
-      else if (v48)
+      else if (v47)
       {
-        v23 = v48[v49 + v18];
+        v23 = v47[v48 + v18];
       }
 
       else
       {
-        v25 = v51;
-        if (v52 <= v18 || v51 > v18)
+        v25 = v50;
+        if (v51 <= v18 || v50 > v18)
         {
           v27 = v18 - 4;
           if (v18 < 4)
@@ -275,17 +275,17 @@ LABEL_10:
             v27 = 0;
           }
 
-          if (v27 + 64 < v50)
+          if (v27 + 64 < v49)
           {
             v21 = v27 + 64;
           }
 
-          v51 = v27;
-          v52 = v21;
-          v55.length = v21 - v27;
-          v55.location = v49 + v27;
-          CFStringGetCharacters(v46, v55, buffer);
-          v25 = v51;
+          v50 = v27;
+          v51 = v21;
+          v54.length = v21 - v27;
+          v54.location = v48 + v27;
+          CFStringGetCharacters(v45, v54, buffer);
+          v25 = v50;
         }
 
         v23 = buffer[v18 - v25];
@@ -293,25 +293,25 @@ LABEL_10:
 
       v24 = v23;
       *v22 = v23;
-      if (v23 >> 10 == 54 && v18 < v44)
+      if (v23 >> 10 == 54 && v18 < v43)
       {
         v29 = v18 + 1;
-        v30 = v50;
-        if (v50 > v18 + 1)
+        v30 = v49;
+        if (v49 > v18 + 1)
         {
-          if (v47)
+          if (v46)
           {
-            v31 = v47[v49 + v29];
+            v31 = v46[v48 + v29];
           }
 
-          else if (v48)
+          else if (v47)
           {
-            v31 = v48[v49 + v29];
+            v31 = v47[v48 + v29];
           }
 
           else
           {
-            if (v52 <= v29 || (v32 = v51, v51 > v29))
+            if (v51 <= v29 || (v32 = v50, v50 > v29))
             {
               v33 = v18 - 3;
               if (v18 < 3)
@@ -319,17 +319,17 @@ LABEL_10:
                 v33 = 0;
               }
 
-              if (v33 + 64 < v50)
+              if (v33 + 64 < v49)
               {
                 v30 = v33 + 64;
               }
 
-              v51 = v33;
-              v52 = v30;
-              v56.length = v30 - v33;
-              v56.location = v49 + v33;
-              CFStringGetCharacters(v46, v56, buffer);
-              v32 = v51;
+              v50 = v33;
+              v51 = v30;
+              v55.length = v30 - v33;
+              v55.location = v48 + v33;
+              CFStringGetCharacters(v45, v55, buffer);
+              v32 = v50;
             }
 
             v31 = buffer[v29 - v32];
@@ -353,9 +353,9 @@ LABEL_48:
     {
       v36 = Value;
       v37 = CFStringGetLength(Value);
-      v57.location = 0;
-      v57.length = v37;
-      CFStringGetCharacters(v36, v57, &v15[v19]);
+      v56.location = 0;
+      v56.length = v37;
+      CFStringGetCharacters(v36, v56, &v15[v19]);
       v20 = 0;
       v19 += v37;
       v18 += v34;
@@ -372,28 +372,25 @@ LABEL_48:
   }
 
   while (v18 < v12);
-  if (v40)
+  if (v39)
   {
     goto LABEL_55;
   }
 
 LABEL_54:
-  v58.location = 0;
-  v58.length = v12;
-  CFStringDelete(a1, v58);
+  v57.location = 0;
+  v57.length = v12;
+  CFStringDelete(a1, v57);
   CFStringAppendCharacters(a1, v15, v19);
 LABEL_55:
-  a3 = v43;
-  LOBYTE(a2) = v42;
+  a3 = v42;
+  LOBYTE(a2) = v41;
 LABEL_56:
   CFStringTrimWhitespace(a1);
   if ((a2 & 1) == 0)
   {
     CFStringLowercase(a1, a3);
   }
-
-LABEL_58:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *DCSCopyDefinitionMarkup(DCSDictionary **a1, CFStringRef theString, CFRange range, uint64_t a4, void *a5)
@@ -653,7 +650,7 @@ LABEL_15:
 
     if (ValueAtIndex)
     {
-      v16 = *(ValueAtIndex + 2);
+      v16 = ValueAtIndex[2];
       if (v16)
       {
         if (DCSDictionary::isNetworkDictionary(v16))
@@ -662,7 +659,7 @@ LABEL_15:
           goto LABEL_25;
         }
 
-        v16 = *(ValueAtIndex + 2);
+        v16 = ValueAtIndex[2];
       }
     }
 
@@ -680,7 +677,7 @@ LABEL_15:
     }
 
 LABEL_25:
-    v19 = *(ValueAtIndex + 2);
+    v19 = ValueAtIndex[2];
     if (!v19)
     {
 LABEL_28:
@@ -703,7 +700,7 @@ LABEL_29:
   }
 
   v38 = v14;
-  v21 = *(ValueAtIndex + 2);
+  v21 = ValueAtIndex[2];
   if (!v21)
   {
     v24 = CFArrayGetCount(v14);
@@ -1729,31 +1726,8 @@ LABEL_97:
           {
 LABEL_84:
             v61 = v23;
-            if (!CFStringHasPrefix(v29, @"ال"))
+            if (!CFStringHasPrefix(v29, @"ال") || (Length = CFStringGetLength(v29), Length < 3) || ((v98.length = Length - 2, v98.location = 2, v63 = CFStringCreateWithSubstring(0, v29, v98), v99.length = CFStringGetLength(theString1), v99.location = 0, v64 = CFStringCompareWithOptionsAndLocale(theString1, v63, v99, 0x121uLL, v10), v100.length = CFStringGetLength(theStringa), v100.location = 0, v65 = CFStringCompareWithOptionsAndLocale(theStringa, v63, v100, 0x121uLL, v10), CFRelease(v63), v64) ? (v19 = 1) : (v19 = -1), v64 && v65))
             {
-              goto LABEL_91;
-            }
-
-            Length = CFStringGetLength(v29);
-            if (Length < 3)
-            {
-              goto LABEL_91;
-            }
-
-            v98.length = Length - 2;
-            v98.location = 2;
-            v63 = CFStringCreateWithSubstring(0, v29, v98);
-            v99.length = CFStringGetLength(theString1);
-            v99.location = 0;
-            v64 = CFStringCompareWithOptionsAndLocale(theString1, v63, v99, 0x121uLL, v10);
-            v100.length = CFStringGetLength(theStringa);
-            v100.location = 0;
-            v65 = CFStringCompareWithOptionsAndLocale(theStringa, v63, v100, 0x121uLL, v10);
-            CFRelease(v63);
-            v19 = v64 ? 1 : -1;
-            if (v64 && v65)
-            {
-LABEL_91:
               v66 = v5;
               if (DCSRecord::titleString(v4) && (v61[40] & 1) == 0)
               {
@@ -2137,7 +2111,7 @@ uint64_t DCSCopyRecordForReference(uint64_t a1, const __CFString *a2)
   }
 }
 
-void DCSSearchSessionCreate(uint64_t a1, const __CFString *a2)
+void DCSSearchSessionCreate(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *(SyncSingleton<DCSEnvironment>::instance() + 136) = 1;
   if (a1 && *(a1 + 16))
@@ -2148,17 +2122,17 @@ LABEL_8:
       operator new();
     }
 
-    v4 = *(a1 + 16);
+    v7 = *(a1 + 16);
   }
 
   else
   {
-    v4 = 0;
+    v7 = 0;
   }
 
   MutableCopy = CFStringCreateMutableCopy(0, 0, a2);
-  v6 = DCSDictionary::primaryLocale(v4);
-  DCSNormalizeSearchStringWithOptionsAndLocale(MutableCopy, 0, v6);
+  v9 = DCSDictionary::primaryLocale(v7);
+  DCSNormalizeSearchStringWithOptionsAndLocale(MutableCopy, 0, v9);
   goto LABEL_8;
 }
 
@@ -2350,7 +2324,7 @@ uint64_t DCSRecordCopyDefinition(uint64_t a1)
   return DCSRecord::copyData(v1);
 }
 
-DCSDictionary **DCSRecordCopyTextElements(uint64_t a1, const __CFArray *a2)
+__CFDictionary *DCSRecordCopyTextElements(uint64_t a1, const __CFArray *a2)
 {
   result = *(a1 + 16);
   if (result)
@@ -2386,99 +2360,91 @@ uint64_t DCSRecordGetAssociatedObj(uint64_t a1)
   }
 }
 
-const void *DCSDictionaryCreate(const __CFURL *a1)
+const __DCSDictionary *DCSDictionaryCreate(const __CFURL *a1)
 {
   v2 = SyncSingleton<DCSDictionaryManager>::instance();
   v3 = DCSDictionaryManager::dictionary(v2, a1, 0);
-  StartDownloadDictionaryIfRequired(v3);
+  StartDownloadDictionaryIfRequired(v3, v4, v5);
   return v3;
 }
 
-uint64_t StartDownloadDictionaryIfRequired(uint64_t result)
+void StartDownloadDictionaryIfRequired(const __DCSDictionary *a1, uint64_t a2, uint64_t a3)
 {
-  if (result)
+  if (a1)
   {
-    v1 = *(result + 16);
-    v2 = v1 ? *(v1 + 96) : 0;
-    result = DCSMAPrepareMobileAssetQuery();
-    if (result == 1)
+    v3 = *(a1 + 2);
+    v4 = v3 ? *(v3 + 96) : 0;
+    if (DCSMAPrepareMobileAssetQuery() == 1)
     {
 
-      return DCSDictionary::startGlobalDictionariesEnvironment(v2);
+      DCSDictionary::startGlobalDictionariesEnvironment(v4);
     }
   }
-
-  return result;
 }
 
-const void *DCSDictionaryCreateWithIdentifier(const __CFString *a1)
+const __DCSDictionary *DCSDictionaryCreateWithIdentifier(const __CFString *a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = SyncSingleton<DCSEnvironment>::instance();
   v3 = DCSEnvironment::copyAvailableDictionaries(v2);
-  if (v3)
+  if (!v3)
   {
-    v4 = v3;
-    Count = CFSetGetCount(v3);
-    MEMORY[0x28223BE20](Count);
-    v7 = (v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-    if (v6 >= 0x200)
-    {
-      v8 = 512;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v8 = v6;
-    }
-
-    bzero(v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
-    CFSetGetValues(v4, v7);
-    if (Count < 1)
-    {
-LABEL_12:
-      v11 = 0;
-    }
-
-    else
-    {
-      while (1)
-      {
-        if (*v7 && (v9 = *(*v7 + 2)) != 0)
-        {
-          v10 = DCSDictionary::identifier(v9);
-        }
-
-        else
-        {
-          v10 = 0;
-        }
-
-        if (CFStringCompare(a1, v10, 0) == kCFCompareEqualTo)
-        {
-          break;
-        }
-
-        ++v7;
-        if (!--Count)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      v11 = *v7;
-    }
-
-    CFRelease(v4);
-    StartDownloadDictionaryIfRequired(v11);
+  v4 = v3;
+  Count = CFSetGetCount(v3);
+  MEMORY[0x28223BE20](Count);
+  v7 = (v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  if (v6 >= 0x200)
+  {
+    v8 = 512;
   }
 
   else
   {
+    v8 = v6;
+  }
+
+  bzero(v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
+  CFSetGetValues(v4, v7);
+  if (Count < 1)
+  {
+LABEL_12:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  else
+  {
+    while (1)
+    {
+      if (*v7 && (v9 = *(*v7 + 2)) != 0)
+      {
+        v10 = DCSDictionary::identifier(v9);
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      if (CFStringCompare(a1, v10, 0) == kCFCompareEqualTo)
+      {
+        break;
+      }
+
+      ++v7;
+      if (!--Count)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    v11 = *v7;
+  }
+
+  CFRelease(v4);
+  StartDownloadDictionaryIfRequired(v11, v12, v13);
   return v11;
 }
 
@@ -2776,158 +2742,153 @@ uint64_t DCSDictionaryDownloadFinished(uint64_t a1)
 CFSetRef DCSCopyLanguagesOfPreparedDefaultDictionaries()
 {
   values[1] = *MEMORY[0x277D85DE8];
-  if (DCSMAPrepareMobileAssetQuery())
+  if (!DCSMAPrepareMobileAssetQuery())
   {
-    DCSDictionary::startGlobalDictionariesEnvironment(1);
-    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v1 = SyncSingleton<DCSEnvironment>::instance();
-    v2 = DCSEnvironment::copyActiveDictionaries(v1, 0);
-    if (v2)
-    {
-      v3 = v2;
-      Count = CFArrayGetCount(v2);
-      if (Count >= 1)
-      {
-        v5 = Count;
-        v6 = 0;
-        v7 = MEMORY[0x277CBF128];
-        do
-        {
-          ValueAtIndex = CFArrayGetValueAtIndex(v3, v6);
-          if (!ValueAtIndex)
-          {
-            goto LABEL_27;
-          }
-
-          v9 = ValueAtIndex;
-          v10 = ValueAtIndex[2];
-          if (!v10)
-          {
-            goto LABEL_27;
-          }
-
-          v11 = DCSDictionary::primaryLanguage(v10);
-          values[0] = v11;
-          if (v11)
-          {
-            CFDictionarySetValue(Mutable, v11, &stru_282F97070);
-          }
-
-          v12 = v9[2];
-          if (!v12)
-          {
-            goto LABEL_27;
-          }
-
-          v13 = DCSDictionary::identifier(v12);
-          if (!v13)
-          {
-            goto LABEL_27;
-          }
-
-          v14 = v13;
-          v15 = v9[2];
-          if (!v15 || !DCSDictionary::isLanguageDictionary(v15))
-          {
-            goto LABEL_27;
-          }
-
-          v16 = v9[2];
-          if (v16 && (v17 = DCSDictionary::languages(v16)) != 0)
-          {
-            v18 = v17;
-            v19 = CFArrayCreateMutable(0, 0, v7);
-            v20 = CFArrayGetCount(v18);
-            if (v20 >= 1)
-            {
-              v21 = v20;
-              for (i = 0; i != v21; ++i)
-              {
-                v23 = CFArrayGetValueAtIndex(v18, i);
-                Value = CFDictionaryGetValue(v23, @"DCSDictionaryIndexLanguage");
-                if (Value)
-                {
-                  CFArrayAppendValue(v19, Value);
-                }
-              }
-            }
-
-            if (CFArrayGetCount(v19) <= 0)
-            {
-              CFRelease(v19);
-              v7 = MEMORY[0x277CBF128];
-              goto LABEL_27;
-            }
-
-            v7 = MEMORY[0x277CBF128];
-            if (!v19)
-            {
-              goto LABEL_27;
-            }
-          }
-
-          else
-          {
-            if (!values[0])
-            {
-              goto LABEL_27;
-            }
-
-            v19 = CFArrayCreate(0, values, 1, v7);
-            if (!v19)
-            {
-              goto LABEL_27;
-            }
-          }
-
-          DCSMAUpdateLinguisticData(v14, v19, 1);
-          CFRelease(v19);
-LABEL_27:
-          ++v6;
-        }
-
-        while (v6 != v5);
-      }
-
-      CFRelease(v3);
-    }
-
-    v25 = CFDictionaryGetCount(Mutable);
-    if (v25 < 1)
-    {
-      v30 = 0;
-    }
-
-    else
-    {
-      v26 = v25;
-      MEMORY[0x28223BE20](v25);
-      v28 = (values - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-      if (v27 >= 0x200)
-      {
-        v29 = 512;
-      }
-
-      else
-      {
-        v29 = v27;
-      }
-
-      bzero(values - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0), v29);
-      CFDictionaryGetKeysAndValues(Mutable, v28, 0);
-      v30 = CFSetCreate(0, v28, v26, MEMORY[0x277CBF158]);
-    }
-
-    CFRelease(Mutable);
-    DCSDictionary::startGlobalDictionariesEnvironment(0);
+    return 0;
   }
 
-  else
+  DCSDictionary::startGlobalDictionariesEnvironment(1);
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v1 = SyncSingleton<DCSEnvironment>::instance();
+  v2 = DCSEnvironment::copyActiveDictionaries(v1, 0);
+  if (v2)
+  {
+    v3 = v2;
+    Count = CFArrayGetCount(v2);
+    if (Count >= 1)
+    {
+      v5 = Count;
+      v6 = 0;
+      v7 = MEMORY[0x277CBF128];
+      do
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(v3, v6);
+        if (!ValueAtIndex)
+        {
+          goto LABEL_27;
+        }
+
+        v9 = ValueAtIndex;
+        v10 = ValueAtIndex[2];
+        if (!v10)
+        {
+          goto LABEL_27;
+        }
+
+        v11 = DCSDictionary::primaryLanguage(v10);
+        values[0] = v11;
+        if (v11)
+        {
+          CFDictionarySetValue(Mutable, v11, &stru_282F97070);
+        }
+
+        v12 = v9[2];
+        if (!v12)
+        {
+          goto LABEL_27;
+        }
+
+        v13 = DCSDictionary::identifier(v12);
+        if (!v13)
+        {
+          goto LABEL_27;
+        }
+
+        v14 = v13;
+        v15 = v9[2];
+        if (!v15 || !DCSDictionary::isLanguageDictionary(v15))
+        {
+          goto LABEL_27;
+        }
+
+        v16 = v9[2];
+        if (v16 && (v17 = DCSDictionary::languages(v16)) != 0)
+        {
+          v18 = v17;
+          v19 = CFArrayCreateMutable(0, 0, v7);
+          v20 = CFArrayGetCount(v18);
+          if (v20 >= 1)
+          {
+            v21 = v20;
+            for (i = 0; i != v21; ++i)
+            {
+              v23 = CFArrayGetValueAtIndex(v18, i);
+              Value = CFDictionaryGetValue(v23, @"DCSDictionaryIndexLanguage");
+              if (Value)
+              {
+                CFArrayAppendValue(v19, Value);
+              }
+            }
+          }
+
+          if (CFArrayGetCount(v19) <= 0)
+          {
+            CFRelease(v19);
+            v7 = MEMORY[0x277CBF128];
+            goto LABEL_27;
+          }
+
+          v7 = MEMORY[0x277CBF128];
+          if (!v19)
+          {
+            goto LABEL_27;
+          }
+        }
+
+        else
+        {
+          if (!values[0])
+          {
+            goto LABEL_27;
+          }
+
+          v19 = CFArrayCreate(0, values, 1, v7);
+          if (!v19)
+          {
+            goto LABEL_27;
+          }
+        }
+
+        DCSMAUpdateLinguisticData(v14, v19, 1);
+        CFRelease(v19);
+LABEL_27:
+        ++v6;
+      }
+
+      while (v6 != v5);
+    }
+
+    CFRelease(v3);
+  }
+
+  v25 = CFDictionaryGetCount(Mutable);
+  if (v25 < 1)
   {
     v30 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v26 = v25;
+    MEMORY[0x28223BE20](v25);
+    v28 = (values - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
+    if (v27 >= 0x200)
+    {
+      v29 = 512;
+    }
+
+    else
+    {
+      v29 = v27;
+    }
+
+    bzero(values - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0), v29);
+    CFDictionaryGetKeysAndValues(Mutable, v28, 0);
+    v30 = CFSetCreate(0, v28, v26, MEMORY[0x277CBF158]);
+  }
+
+  CFRelease(Mutable);
+  DCSDictionary::startGlobalDictionariesEnvironment(0);
   return v30;
 }
 
@@ -2975,14 +2936,14 @@ LABEL_7:
   DCSActivateDictionaryPanel::_PanelIsBeingShown = v2;
 }
 
-uint64_t DCSCreateAppleWordEquivalenceList(uint64_t a1)
+uint64_t DCSCreateAppleWordEquivalenceList(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    return CreateWordEquivalenceList(a1);
+    return CreateWordEquivalenceList(result);
   }
 
-  return a1;
+  return result;
 }
 
 DIR *IterateDirectory(const char *a1, unsigned int (*a2)(char *, uint64_t, uint64_t), uint64_t a3)
@@ -3055,15 +3016,14 @@ BOOL ItemExistsAtPath(const char *a1, int a2)
 
 uint64_t ItemExistsAtURL(const __CFURL *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   result = CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024);
   if (result)
   {
     v3 = CFURLHasDirectoryPath(a1);
-    result = ItemExistsAtPath(buffer, v3);
+    return ItemExistsAtPath(buffer, v3);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3079,18 +3039,17 @@ void BuildWordBreakTable(CFStringRef str, CFRange range, const __CFLocale *a3, c
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
   if ((range.length & 0x8000000000000000) == 0)
   {
     memset(__b, 255, 8 * range.length + 8);
   }
 
-  v14.location = location;
-  v14.length = length;
-  v9 = CFStringCreateWithSubstring(0, str, v14);
-  v15.location = 0;
-  v15.length = length;
-  v10 = CFStringTokenizerCreate(0, v9, v15, 0x80uLL, a3);
+  v12.location = location;
+  v12.length = length;
+  v9 = CFStringCreateWithSubstring(0, str, v12);
+  v13.location = 0;
+  v13.length = length;
+  v10 = CFStringTokenizerCreate(0, v9, v13, 0x80uLL, a3);
   if (v10)
   {
     v11 = v10;
@@ -3103,14 +3062,12 @@ void BuildWordBreakTable(CFStringRef str, CFRange range, const __CFLocale *a3, c
     CFRelease(v11);
     CFRelease(v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 CFTypeRef CopyPreferredEnglishLanguage(CFLocaleIdentifier localeID)
 {
   keys[2] = *MEMORY[0x277D85DE8];
-  v21 = localeID;
+  v20 = localeID;
   ComponentsFromLocaleIdentifier = CFLocaleCreateComponentsFromLocaleIdentifier(0, localeID);
   v2 = *MEMORY[0x277CBEE98];
   v3 = MEMORY[0x277CBEED0];
@@ -3140,29 +3097,29 @@ LABEL_7:
   }
 
   v7 = 0;
-  v21 = LocaleIdentifierFromComponents;
+  v20 = LocaleIdentifierFromComponents;
 LABEL_8:
   CFRelease(v4);
 LABEL_9:
   keys[0] = *v3;
   keys[1] = v2;
   cf = 0;
-  v25 = 0;
+  v24 = 0;
   values = @"en";
-  v23 = @"US";
+  v22 = @"US";
   v8 = MEMORY[0x277CBF138];
   v9 = MEMORY[0x277CBF150];
   v10 = CFDictionaryCreate(0, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   cf = CFLocaleCreateLocaleIdentifierFromComponents(0, v10);
   CFRelease(v10);
   values = @"en";
-  v23 = @"GB";
+  v22 = @"GB";
   v11 = CFDictionaryCreate(0, keys, &values, 2, v8, v9);
-  v25 = CFLocaleCreateLocaleIdentifierFromComponents(0, v11);
+  v24 = CFLocaleCreateLocaleIdentifierFromComponents(0, v11);
   CFRelease(v11);
   v12 = MEMORY[0x277CBF128];
   v13 = CFArrayCreate(0, &cf, 2, MEMORY[0x277CBF128]);
-  v14 = CFArrayCreate(0, &v21, 1, v12);
+  v14 = CFArrayCreate(0, &v20, 1, v12);
   v15 = CFBundleCopyLocalizationsForPreferences(v13, v14);
   if (v15)
   {
@@ -3180,13 +3137,12 @@ LABEL_9:
   CFRelease(v13);
   CFRelease(v14);
   CFRelease(cf);
-  CFRelease(v25);
+  CFRelease(v24);
   if ((v7 & 1) == 0)
   {
     CFRelease(LocaleIdentifierFromComponents);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -3488,7 +3444,6 @@ CFArrayRef __GetScriptForLanguage_block_invoke()
   memcpy(__dst, off_27835A508, 0x3E0uLL);
   result = CFArrayCreate(0, __dst, 124, MEMORY[0x277CBF128]);
   GetScriptForLanguage__LatinLanguagesArray = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3536,76 +3491,69 @@ uint64_t ExtraNormalizeStringForArabic(__CFString *a1, int a2)
 
 BOOL ContainsLatinAlphabets(const __CFString *a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   MEMORY[0x28223BE20](Length);
-  v4 = (v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12.location = 0;
-  v12.length = Length;
-  CFStringGetCharacters(a1, v12, v4);
+  v4 = (v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10.location = 0;
+  v10.length = Length;
+  CFStringGetCharacters(a1, v10, v4);
   if (Length < 1)
   {
-    result = 0;
+    return 0;
   }
 
-  else if ((*v4 & 0xFFDFu) - 65 >= 0x1A)
+  if ((*v4 & 0xFFDFu) - 65 < 0x1A)
   {
-    v6 = 1;
-    do
-    {
-      v7 = v6;
-      if (Length == v6)
-      {
-        break;
-      }
+    return 1;
+  }
 
-      v8 = (v4[v6++] & 0xFFDF) - 65;
-      v9 = (v4[v7] & 0xFFDF) - 90 < 0;
+  v6 = 1;
+  do
+  {
+    v7 = v6;
+    if (Length == v6)
+    {
+      break;
     }
 
-    while (v8 > 0x19);
-    result = v7 < Length;
+    v8 = (v4[v6++] & 0xFFDF) - 65;
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v8 > 0x19);
+  return v7 < Length;
 }
 
 void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
   v4 = CFStringCreateMutableCopy(0, 0, a2);
   CFStringNormalize(MutableCopy, kCFStringNormalizationFormD);
   CFStringNormalize(v4, kCFStringNormalizationFormD);
   Length = CFStringGetLength(MutableCopy);
   MEMORY[0x28223BE20](Length);
-  v48 = MutableCopy;
-  v55.location = 0;
-  v55.length = Length;
-  v51 = &v45 - v6;
-  CFStringGetCharacters(MutableCopy, v55, (&v45 - v6));
+  v45 = MutableCopy;
+  v52.location = 0;
+  v52.length = Length;
+  v48 = v43 - v6;
+  CFStringGetCharacters(MutableCopy, v52, (v43 - v6));
   v7 = CFStringGetLength(v4);
   MEMORY[0x28223BE20](v7);
-  v47 = v4;
-  v56.location = 0;
-  v56.length = v7;
-  v50 = &v45 - v8;
-  CFStringGetCharacters(v4, v56, (&v45 - v8));
-  v53 = v7;
-  v46 = Length + 1 + (Length + 1) * v7;
+  v44 = v4;
+  v53.location = 0;
+  v53.length = v7;
+  v47 = v43 - v8;
+  CFStringGetCharacters(v4, v53, (v43 - v8));
+  v50 = v7;
+  v43[1] = Length + 1 + (Length + 1) * v7;
   MEMORY[0x28223BE20](v9);
-  v11 = (&v45 - v10);
-  v52 = Length;
+  v11 = (v43 - v10);
+  v49 = Length;
   if ((Length & 0x8000000000000000) == 0)
   {
-    v12 = vdupq_n_s64(v52);
-    v13 = (v52 & 0x7FFFFFFFFFFFFFFELL) + 2;
+    v12 = vdupq_n_s64(v49);
+    v13 = (v49 & 0x7FFFFFFFFFFFFFFELL) + 2;
     v14 = xmmword_21E5D1B80;
     v15 = v11 + 1;
     v16 = 1;
@@ -3632,14 +3580,14 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
     while (v13);
   }
 
-  v19 = v52;
-  if ((v53 & 0x8000000000000000) == 0)
+  v19 = v49;
+  if ((v50 & 0x8000000000000000) == 0)
   {
     v20 = 0;
-    v21 = vdupq_n_s64(v53);
-    v22 = (v53 & 0x7FFFFFFFFFFFFFFELL) + 2;
+    v21 = vdupq_n_s64(v50);
+    v22 = (v50 & 0x7FFFFFFFFFFFFFFELL) + 2;
     v23 = xmmword_21E5D1B80;
-    v24 = 16 * v52 + 16;
+    v24 = 16 * v49 + 16;
     v25 = vdupq_n_s64(2uLL);
     v26 = v11;
     do
@@ -3663,16 +3611,16 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
     while (v22 != v20);
   }
 
-  v49 = v11;
-  if (v52 >= 1)
+  v46 = v11;
+  if (v49 >= 1)
   {
-    v28 = v49 + 1;
+    v28 = v46 + 1;
     v29 = 1;
     do
     {
-      if (v53 >= 1)
+      if (v50 >= 1)
       {
-        v30 = *&v51[2 * v29 - 2];
+        v30 = *&v48[2 * v29 - 2];
         isDiacritic = _isDiacritic(v30);
         if (isDiacritic)
         {
@@ -3684,9 +3632,9 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
           v32 = 1.0;
         }
 
-        v33 = v50;
+        v33 = v47;
         v34 = v28;
-        v35 = v53;
+        v35 = v50;
         do
         {
           v37 = *v33++;
@@ -3737,13 +3685,11 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
       ++v28;
     }
 
-    while (v29++ != v52);
+    while (v29++ != v49);
   }
 
-  CFRelease(v48);
-  CFRelease(v47);
-  v43 = v49[v46 - 1];
-  v44 = *MEMORY[0x277D85DE8];
+  CFRelease(v45);
+  CFRelease(v44);
 }
 
 BOOL _isDiacritic(int a1)
@@ -3758,7 +3704,7 @@ BOOL _isDiacritic(int a1)
   return result;
 }
 
-uint64_t IsWorkingInDictionaryApp()
+uint64_t IsWorkingInDictionaryApp(uint64_t a1, uint64_t a2)
 {
   if (IsWorkingInDictionaryApp__OnceToken != -1)
   {
@@ -3771,7 +3717,7 @@ uint64_t IsWorkingInDictionaryApp()
 void DCSLog(int a1, CFStringRef format, ...)
 {
   va_start(va, format);
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (DCSLog__OnceToken != -1)
   {
     DCSLog_cold_1();
@@ -3820,14 +3766,12 @@ LABEL_13:
     if (os_log_type_enabled(v7, a1))
     {
       *buf = 138543362;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_21E58C000, v7, a1, "%{public}@", buf, 0xCu);
     }
 
     CFRelease(v6);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 os_log_t __DCSLog_block_invoke()
@@ -3844,173 +3788,179 @@ os_log_t __DCSLog_block_invoke()
 __CFArray *CreateWordEquivalenceList(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v50[1024] = *MEMORY[0x277D85DE8];
+  v49[1024] = *MEMORY[0x277D85DE8];
   v2 = _PrivateWEDictURL;
-  if ((_PrivateWEDictURL || (pthread_once(&CreateWordEquivalenceList::once_control, InitializeDictionaryStuff), (v2 = _PrivateWEDictURL) != 0)) && (v42 = IDXCreateIndexObject(0, v2, 0)) != 0)
+  if (!_PrivateWEDictURL)
   {
-    Length = CFStringGetLength(v1);
-    v37[1] = v37;
-    v4 = MEMORY[0x28223BE20](Length);
-    v6 = (v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-    MEMORY[0x28223BE20](v4);
-    v8 = v37 - ((v7 + 23) & 0xFFFFFFFFFFFFFFF0);
-    MutableCopy = CFStringCreateMutableCopy(0, 0, v1);
-    CFStringLowercase(MutableCopy, 0);
-    v51.location = 0;
-    v51.length = Length;
-    CFStringGetCharacters(MutableCopy, v51, v6);
-    CFRelease(MutableCopy);
-    v41 = v6;
-    v10 = v6[Length - 1];
-    if (v10 == 42)
+    pthread_once(&CreateWordEquivalenceList::once_control, InitializeDictionaryStuff);
+    v2 = _PrivateWEDictURL;
+    if (!_PrivateWEDictURL)
     {
-      v11 = Length - 1;
+      return 0;
     }
+  }
 
-    else
-    {
-      v11 = Length;
-    }
+  v41 = IDXCreateIndexObject(0, v2, 0);
+  if (!v41)
+  {
+    return 0;
+  }
 
-    v52.location = 0;
-    v52.length = v11;
-    v46 = v8;
-    BuildWordBreakTable(v1, v52, 0, v8);
-    v40 = v10;
-    if (v10 == 42)
-    {
-      *&v46[8 * Length - 8] = -1;
-    }
-
-    memset(v50, 0, 512);
-    Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    if (v11 >= 1)
-    {
-      v12 = 0;
-      v39 = @"IDXCommonPrefixMatch";
-      v13 = v46 + 8;
-      v38 = @"IDXPrefixMatch";
-      v14 = v11;
-      do
-      {
-        v43 = v14 - 1;
-        if (*&v46[8 * v12] == 1)
-        {
-          v15 = v42;
-          v44 = v11 - v12;
-          v45 = &v41[v12];
-          IDXSetSearchCharacters(v42, v45, v11 - v12, v39);
-          matched = IDXGetMatchDataPtr(v15, 1024, v50, v49);
-          v17 = matched;
-          if (matched)
-          {
-            if (matched >= 1)
-            {
-              v18 = v49;
-              v19 = v48;
-              v20 = v50;
-              v21 = matched;
-              do
-              {
-                v22 = *v20;
-                v23 = **v20 >> 1;
-                *v19 = v23;
-                v24 = v23 + v12;
-                if (v11 >= v24 && *&v46[8 * v24])
-                {
-                  AddSynonymsToArray(Mutable, 0, 0, v22, *v18);
-                }
-
-                ++v18;
-                ++v19;
-                ++v20;
-                --v21;
-              }
-
-              while (v21);
-            }
-          }
-
-          else
-          {
-            v25 = 0;
-            while (v43 != v25)
-            {
-              v26 = v25 + 1;
-              if (*&v13[8 * v25++])
-              {
-                goto LABEL_25;
-              }
-            }
-
-            v26 = v14;
-LABEL_25:
-            AddSynonymsToArray(Mutable, v45, v26, 0, 0);
-          }
-
-          if (v40 == 42)
-          {
-            v28 = v42;
-            IDXSetSearchCharacters(v42, v45, v44, v38);
-            v29 = IDXGetMatchDataPtr(v28, 1024, v50, v49);
-            if (v29 >= 1)
-            {
-              v30 = v29;
-              for (i = 0; i != v30; ++i)
-              {
-                v32 = v50[i];
-                if (v17 < 1)
-                {
-                  v33 = 0;
-                }
-
-                else
-                {
-                  v33 = 0;
-                  v34 = 0;
-                  do
-                  {
-                    if (v48[v33] == *v32 >> 1)
-                    {
-                      break;
-                    }
-
-                    v33 = ++v34;
-                  }
-
-                  while (v17 > v34);
-                }
-
-                if (v17 == v33)
-                {
-                  AddSynonymsToArray(Mutable, v45, v44 + 1, v32, v49[i]);
-                }
-              }
-            }
-          }
-        }
-
-        ++v12;
-        v13 += 8;
-        v14 = v43;
-      }
-
-      while (v12 != v11);
-    }
-
-    CFRelease(v42);
+  Length = CFStringGetLength(v1);
+  v36[1] = v36;
+  v4 = MEMORY[0x28223BE20](Length);
+  v6 = (v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v4);
+  v8 = v36 - ((v7 + 23) & 0xFFFFFFFFFFFFFFF0);
+  MutableCopy = CFStringCreateMutableCopy(0, 0, v1);
+  CFStringLowercase(MutableCopy, 0);
+  v50.location = 0;
+  v50.length = Length;
+  CFStringGetCharacters(MutableCopy, v50, v6);
+  CFRelease(MutableCopy);
+  v40 = v6;
+  v10 = v6[Length - 1];
+  if (v10 == 42)
+  {
+    v11 = Length - 1;
   }
 
   else
   {
-    Mutable = 0;
+    v11 = Length;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
+  v51.location = 0;
+  v51.length = v11;
+  v45 = v8;
+  BuildWordBreakTable(v1, v51, 0, v8);
+  v39 = v10;
+  if (v10 == 42)
+  {
+    *&v45[8 * Length - 8] = -1;
+  }
+
+  memset(v49, 0, 512);
+  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  if (v11 >= 1)
+  {
+    v12 = 0;
+    v38 = @"IDXCommonPrefixMatch";
+    v13 = v45 + 8;
+    v37 = @"IDXPrefixMatch";
+    v14 = v11;
+    do
+    {
+      v42 = v14 - 1;
+      if (*&v45[8 * v12] == 1)
+      {
+        v15 = v41;
+        v43 = v11 - v12;
+        v44 = &v40[v12];
+        IDXSetSearchCharacters(v41, v44, v11 - v12, v38);
+        matched = IDXGetMatchDataPtr(v15, 1024, v49, v48);
+        v17 = matched;
+        if (matched)
+        {
+          if (matched >= 1)
+          {
+            v18 = v48;
+            v19 = v47;
+            v20 = v49;
+            v21 = matched;
+            do
+            {
+              v22 = *v20;
+              v23 = **v20 >> 1;
+              *v19 = v23;
+              v24 = v23 + v12;
+              if (v11 >= v24 && *&v45[8 * v24])
+              {
+                AddSynonymsToArray(Mutable, 0, 0, v22, *v18);
+              }
+
+              ++v18;
+              ++v19;
+              ++v20;
+              --v21;
+            }
+
+            while (v21);
+          }
+        }
+
+        else
+        {
+          v25 = 0;
+          while (v42 != v25)
+          {
+            v26 = v25 + 1;
+            if (*&v13[8 * v25++])
+            {
+              goto LABEL_25;
+            }
+          }
+
+          v26 = v14;
+LABEL_25:
+          AddSynonymsToArray(Mutable, v44, v26, 0, 0);
+        }
+
+        if (v39 == 42)
+        {
+          v28 = v41;
+          IDXSetSearchCharacters(v41, v44, v43, v37);
+          v29 = IDXGetMatchDataPtr(v28, 1024, v49, v48);
+          if (v29 >= 1)
+          {
+            v30 = v29;
+            for (i = 0; i != v30; ++i)
+            {
+              v32 = v49[i];
+              if (v17 < 1)
+              {
+                v33 = 0;
+              }
+
+              else
+              {
+                v33 = 0;
+                v34 = 0;
+                do
+                {
+                  if (v47[v33] == *v32 >> 1)
+                  {
+                    break;
+                  }
+
+                  v33 = ++v34;
+                }
+
+                while (v17 > v34);
+              }
+
+              if (v17 == v33)
+              {
+                AddSynonymsToArray(Mutable, v44, v43 + 1, v32, v48[i]);
+              }
+            }
+          }
+        }
+      }
+
+      ++v12;
+      v13 += 8;
+      v14 = v42;
+    }
+
+    while (v12 != v11);
+  }
+
+  CFRelease(v41);
   return Mutable;
 }
 
-const __CFURL *InitializeDictionaryStuff(void)
+CFURLRef InitializeDictionaryStuff(void)
 {
   v0 = SyncSingleton<DCSEnvironment>::instance();
   FrameworkBundle = DCSEnvironment::getFrameworkBundle(v0);
@@ -4059,7 +4009,7 @@ void AddSynonymsToArray(__CFArray *a1, const unsigned __int16 *a2, CFIndex a3, c
 
 __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, unint64_t a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v6 = SyncSingleton<DCSEnvironment>::instance();
   v7 = DCSEnvironment::parentalControlCensoringContents(v6);
   v8 = DCSDictionary::XSLTData(a2);
@@ -4069,36 +4019,36 @@ __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, 
     size = 0;
     pthread_mutex_lock(&CopyTransformedTextFromXML::gGlobalLock);
     UTF8CString = CreateUTF8CString(a1);
-    v12 = xmlParseDoc(UTF8CString);
+    v11 = xmlParseDoc(UTF8CString);
     free(UTF8CString);
-    if (v12)
+    if (v11)
     {
-      v66[0] = "parental-control";
-      v13 = PredefinedCachedXSLTDoc(0);
-      v14 = "''";
+      v64[0] = "parental-control";
+      v12 = PredefinedCachedXSLTDoc(0);
+      v13 = "''";
       if (v7)
       {
-        v14 = "'1'";
+        v13 = "'1'";
       }
 
-      v63 = v14;
-      v15 = ApplyXSLT(v12, v13, 0, 1, v66, &v63);
+      v61 = v13;
+      v14 = ApplyXSLT(v11, v12, 0, 1, v64, &v61);
       if (v8)
       {
         BytePtr = CFDataGetBytePtr(v8);
         Length = CFDataGetLength(v8);
-        v18 = xmlParseMemory(BytePtr, Length);
-        v19 = xsltParseStylesheetDoc(v18);
+        v17 = xmlParseMemory(BytePtr, Length);
+        v18 = xsltParseStylesheetDoc(v17);
         Preference = DCSDictionaryGetPreference(*a2);
-        v21 = SyncSingleton<DCSEnvironment>::instance();
-        if (((a3 == 1) & DCSEnvironment::orientationVerticalAllowed(v21)) != 0)
+        v20 = SyncSingleton<DCSEnvironment>::instance();
+        if (((a3 == 1) & DCSEnvironment::orientationVerticalAllowed(v20)) != 0)
         {
-          v22 = @"1";
+          v21 = @"1";
         }
 
         else
         {
-          v22 = @"0";
+          v21 = @"0";
         }
 
         if (Preference)
@@ -4111,68 +4061,68 @@ __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, 
           MutableCopy = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         }
 
-        v25 = MutableCopy;
-        CFDictionarySetValue(MutableCopy, @"DCSAllowOrientationVertical", v22);
-        v26 = ApplyXSLT(v15, v19, v25, 0, 0, 0);
-        CFRelease(v25);
-        xmlFreeDoc(v15);
-        xsltFreeStylesheet(v19);
-        v15 = v26;
+        v24 = MutableCopy;
+        CFDictionarySetValue(MutableCopy, @"DCSAllowOrientationVertical", v21);
+        v25 = ApplyXSLT(v14, v18, v24, 0, 0, 0);
+        CFRelease(v24);
+        xmlFreeDoc(v14);
+        xsltFreeStylesheet(v18);
+        v14 = v25;
       }
 
       if (a3 - 1 > 1)
       {
-        v28 = 0;
+        v27 = 0;
       }
 
       else
       {
-        *v66 = xmmword_27835A988;
-        v67 = *off_27835A998;
-        v68 = "''";
-        if (a3 == 2 && BecomeEmptyBySimplification(v15))
+        *v64 = xmmword_27835A988;
+        v65 = *off_27835A998;
+        v66 = "''";
+        if (a3 == 2 && (BecomeEmptyBySimplification(v14) & 1) != 0)
         {
-          v27 = 1;
+          v26 = 1;
         }
 
         else
         {
-          v27 = a3;
+          v26 = a3;
         }
 
-        v29 = PredefinedCachedXSLTDoc(v27);
-        v30 = DCSDictionary::shortName(a2);
-        v31 = CFStringCreateWithFormat(0, 0, @"'%@'", v30);
-        v66[0] = CreateUTF8CString(v31);
-        CFRelease(v31);
-        v32 = DCSDictionary::baseURL(a2);
-        if (v32)
+        v28 = PredefinedCachedXSLTDoc(v26);
+        v29 = DCSDictionary::shortName(a2);
+        v30 = CFStringCreateWithFormat(0, 0, @"'%@'", v29);
+        v64[0] = CreateUTF8CString(v30);
+        CFRelease(v30);
+        v31 = DCSDictionary::baseURL(a2);
+        if (v31)
         {
-          v33 = CFURLGetString(v32);
-          v34 = CFURLCreateStringByReplacingPercentEscapes(0, v33, &stru_282F97070);
-          v35 = CFURLCreateStringByAddingPercentEscapes(0, v34, 0, @"'", 0x8000100u);
+          v32 = CFURLGetString(v31);
+          v33 = CFURLCreateStringByReplacingPercentEscapes(0, v32, &stru_282F97070);
+          v34 = CFURLCreateStringByAddingPercentEscapes(0, v33, 0, @"'", 0x8000100u);
+          CFRelease(v33);
+          v35 = CFStringCreateWithFormat(0, 0, @"'%@'", v34);
           CFRelease(v34);
-          v36 = CFStringCreateWithFormat(0, 0, @"'%@'", v35);
+          v36 = CreateUTF8CString(v35);
           CFRelease(v35);
-          v37 = CreateUTF8CString(v36);
-          CFRelease(v36);
         }
 
         else
         {
-          v37 = CreateUTF8CString(@"''");
+          v36 = CreateUTF8CString(@"''");
         }
 
-        v66[1] = v37;
+        v64[1] = v36;
         if (DCSDictionary::isLocalizableDictionary(a2))
         {
-          v38 = DCSDictionary::languages(a2);
-          if (v38)
+          v37 = DCSDictionary::languages(a2);
+          if (v37)
           {
-            v39 = v38;
-            if (CFArrayGetCount(v38))
+            v38 = v37;
+            if (CFArrayGetCount(v37))
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v39, 0);
+              ValueAtIndex = CFArrayGetValueAtIndex(v38, 0);
               if (ValueAtIndex)
               {
                 Value = CFDictionaryGetValue(ValueAtIndex, @"DCSDictionaryDescriptionLanguage");
@@ -4181,13 +4131,13 @@ __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, 
                   CanonicalLanguageIdentifierFromString = CFLocaleCreateCanonicalLanguageIdentifierFromString(0, Value);
                   if (CanonicalLanguageIdentifierFromString)
                   {
-                    v43 = CanonicalLanguageIdentifierFromString;
+                    v42 = CanonicalLanguageIdentifierFromString;
                     if (CFLocaleGetLanguageCharacterDirection(CanonicalLanguageIdentifierFromString) == kCFLocaleLanguageDirectionRightToLeft)
                     {
-                      *&v67 = "'1'";
+                      *&v65 = "'1'";
                     }
 
-                    CFRelease(v43);
+                    CFRelease(v42);
                   }
                 }
               }
@@ -4196,91 +4146,91 @@ __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, 
         }
 
         isAppearanceAwareDictionary = DCSDictionary::isAppearanceAwareDictionary(a2);
-        v45 = "'apple_appearance-incompliant'";
+        v44 = "'apple_appearance-incompliant'";
         if (isAppearanceAwareDictionary)
         {
-          v45 = "'apple_appearance-compliant'";
+          v44 = "'apple_appearance-compliant'";
         }
 
-        v68 = v45;
-        v46 = DCSDictionary::styleSheetContents(a2);
-        v28 = v46;
-        if (v46 && (Count = CFArrayGetCount(v46), Count >= 1))
+        v66 = v44;
+        v45 = DCSDictionary::styleSheetContents(a2);
+        v27 = v45;
+        if (v45 && (Count = CFArrayGetCount(v45), Count >= 1))
         {
-          v48 = Count;
-          for (i = 0; i != v48; ++i)
+          v47 = Count;
+          for (i = 0; i != v47; ++i)
           {
-            CFArrayGetValueAtIndex(v28, i);
-            *(&v67 + 1) = "'<!-- embedded_css_placeholder -->'";
-            v50 = ApplyXSLT(v15, v29, 0, 5, &off_27835A960, v66);
-            xmlFreeDoc(v15);
+            CFArrayGetValueAtIndex(v27, i);
+            *(&v65 + 1) = "'<!-- embedded_css_placeholder -->'";
+            v49 = ApplyXSLT(v14, v28, 0, 5, &off_27835A960, v64);
+            xmlFreeDoc(v14);
             if (!i)
             {
-              free(v66[0]);
-              v66[0] = "''";
-              free(v66[1]);
-              v66[1] = "''";
-              *&v67 = "''";
+              free(v64[0]);
+              v64[0] = "''";
+              free(v64[1]);
+              v64[1] = "''";
+              *&v65 = "''";
             }
 
-            v15 = v50;
+            v14 = v49;
           }
         }
 
         else
         {
-          v50 = v15;
+          v49 = v14;
         }
 
-        v15 = v50;
+        v14 = v49;
       }
 
-      xmlDocDumpMemory(v15, &mem, &size);
-      xmlFreeDoc(v12);
-      xmlFreeDoc(v15);
+      xmlDocDumpMemory(v14, &mem, &size);
+      xmlFreeDoc(v11);
+      xmlFreeDoc(v14);
       if (a3 == 3)
       {
-        v51 = xmlParseDoc(mem);
-        if (BecomeEmptyBySimplification(v51))
+        v50 = xmlParseDoc(mem);
+        if (BecomeEmptyBySimplification(v50))
         {
-          v52 = 4;
+          v51 = 4;
         }
 
         else
         {
-          v52 = 3;
+          v51 = 3;
         }
 
-        v53 = PredefinedCachedXSLTDoc(v52);
-        v54 = xsltApplyStylesheet(v53, v51, 0);
-        SanitizedText = ExtractSanitizedText(v54);
-        xmlFreeDoc(v51);
-        xmlFreeDoc(v54);
+        v52 = PredefinedCachedXSLTDoc(v51);
+        v53 = xsltApplyStylesheet(v52, v50, 0);
+        SanitizedText = ExtractSanitizedText(v53);
+        xmlFreeDoc(v50);
+        xmlFreeDoc(v53);
       }
 
       else
       {
-        v55 = CFStringCreateWithBytes(0, mem, size, 0x8000100u, 0);
-        SanitizedText = CFStringCreateMutableCopy(0, 0, v55);
-        CFRelease(v55);
-        if (v28)
+        v54 = CFStringCreateWithBytes(0, mem, size, 0x8000100u, 0);
+        SanitizedText = CFStringCreateMutableCopy(0, 0, v54);
+        CFRelease(v54);
+        if (v27)
         {
-          v56 = CFArrayGetCount(v28);
-          if (v56 >= 1)
+          v55 = CFArrayGetCount(v27);
+          if (v55 >= 1)
           {
-            v57 = v56;
-            for (j = 0; j != v57; ++j)
+            v56 = v55;
+            for (j = 0; j != v56; ++j)
             {
-              v59 = CFStringFind(SanitizedText, @"<!-- embedded_css_placeholder -->", 0);
-              if (!v59.length)
+              v58 = CFStringFind(SanitizedText, @"<!-- embedded_css_placeholder -->", 0);
+              if (!v58.length)
               {
                 break;
               }
 
-              v60 = CFArrayGetValueAtIndex(v28, j);
-              v61 = CFStringCreateWithFormat(0, 0, @"/*<![CDATA[*/ %@ /*]]>*/", v60);
-              CFStringReplace(SanitizedText, v59, v61);
-              CFRelease(v61);
+              v59 = CFArrayGetValueAtIndex(v27, j);
+              v60 = CFStringCreateWithFormat(0, 0, @"/*<![CDATA[*/ %@ /*]]>*/", v59);
+              CFStringReplace(SanitizedText, v58, v60);
+              CFRelease(v60);
             }
           }
         }
@@ -4295,13 +4245,11 @@ __CFString *CopyTransformedTextFromXML(const __CFString *a1, DCSDictionary *a2, 
     }
 
     pthread_mutex_unlock(&CopyTransformedTextFromXML::gGlobalLock);
-    v62 = *MEMORY[0x277D85DE8];
     return SanitizedText;
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     return CFRetain(a1);
   }
@@ -4355,115 +4303,113 @@ uint64_t PredefinedCachedXSLTDoc(unint64_t a1)
   return PredefinedCachedXSLTDoc(long)::_XSLTDoc[a1];
 }
 
-xmlDocPtr ApplyXSLT(xmlDocPtr doc, xsltStylesheetPtr style, CFDictionaryRef theDict, uint64_t a4, const char **a5, const char **a6)
+xmlDocPtr ApplyXSLT(xmlDocPtr doc, xsltStylesheetPtr style, CFDictionaryRef theDict, CFIndex a4, const char **a5, const char **a6)
 {
   Count = a4;
-  v33[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   if (theDict || a4 >= 1)
   {
     if (theDict)
     {
       Count = CFDictionaryGetCount(theDict);
-      v33[0] = 16 * Count;
-      v14 = malloc_type_malloc((16 * Count) | 8, 0x10040436913F5uLL);
-      MEMORY[0x28223BE20](v14);
-      v15 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
-      v16 = (v33 - v15);
+      v31[0] = 16 * Count;
+      v13 = malloc_type_malloc((16 * Count) | 8, 0x10040436913F5uLL);
+      MEMORY[0x28223BE20](v13);
+      v14 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
+      v15 = (v31 - v14);
       if ((8 * Count) >= 0x200)
       {
-        v17 = 512;
+        v16 = 512;
       }
 
       else
       {
-        v17 = 8 * Count;
+        v16 = 8 * Count;
       }
 
-      bzero(v33 - v15, v17);
-      MEMORY[0x28223BE20](v18);
-      v19 = (v33 - v15);
-      bzero(v33 - v15, v17);
-      CFDictionaryGetKeysAndValues(theDict, (v33 - v15), (v33 - v15));
+      bzero(v31 - v14, v16);
+      MEMORY[0x28223BE20](v17);
+      v18 = (v31 - v14);
+      bzero(v31 - v14, v16);
+      CFDictionaryGetKeysAndValues(theDict, (v31 - v14), (v31 - v14));
       if (Count >= 1)
       {
-        v20 = (v14 + 1);
-        v21 = Count;
+        v19 = (v13 + 1);
+        v20 = Count;
         do
         {
-          v22 = *v16++;
-          *(v20 - 1) = CreateUTF8CString(v22);
-          v23 = *v19++;
-          *v20 = CreateUTF8CString(v23);
-          v20 += 2;
-          --v21;
+          v21 = *v15++;
+          *(v19 - 1) = CreateUTF8CString(v21);
+          v22 = *v18++;
+          *v19 = CreateUTF8CString(v22);
+          v19 += 2;
+          --v20;
         }
 
-        while (v21);
+        while (v20);
       }
 
-      v24 = v33[0];
+      v23 = v31[0];
     }
 
     else
     {
-      v24 = 16 * a4;
-      v25 = malloc_type_malloc((16 * a4) | 8, 0x10040436913F5uLL);
-      v14 = v25;
+      v23 = 16 * a4;
+      v24 = malloc_type_malloc((16 * a4) | 8, 0x10040436913F5uLL);
+      v13 = v24;
       if (Count >= 1)
       {
-        v26 = 0;
-        v27 = v25 + 8;
+        v25 = 0;
+        v26 = v24 + 8;
         do
         {
-          *(v27 - 1) = a5[v26];
-          *v27 = a6[v26];
-          v27 += 2;
-          ++v26;
+          *(v26 - 1) = a5[v25];
+          *v26 = a6[v25];
+          v26 += 2;
+          ++v25;
         }
 
-        while (Count != v26);
+        while (Count != v25);
       }
     }
 
-    *(v14 + v24) = 0;
-    v28 = xsltApplyStylesheet(style, doc, v14);
+    *(v13 + v23) = 0;
+    v27 = xsltApplyStylesheet(style, doc, v13);
     if (theDict && Count >= 1)
     {
       if (2 * Count <= 1)
       {
-        v29 = 1;
+        v28 = 1;
       }
 
       else
       {
-        v29 = 2 * Count;
+        v28 = 2 * Count;
       }
 
-      v30 = v14;
+      v29 = v13;
       do
       {
-        v31 = *v30++;
-        free(v31);
-        --v29;
+        v30 = *v29++;
+        free(v30);
+        --v28;
       }
 
-      while (v29);
+      while (v28);
     }
 
-    free(v14);
-    v32 = *MEMORY[0x277D85DE8];
-    return v28;
+    free(v13);
+    return v27;
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     return xsltApplyStylesheet(style, doc, 0);
   }
 }
 
-BOOL BecomeEmptyBySimplification(_xmlDoc *a1)
+uint64_t BecomeEmptyBySimplification(_xmlDoc *a1)
 {
   v2 = PredefinedCachedXSLTDoc(3uLL);
   v3 = xsltApplyStylesheet(v2, a1, 0);
@@ -4614,25 +4560,25 @@ xmlDoc *CopySimplifiedTextFromWikipediaResult(const __CFString *a1)
 
 CFMutableDictionaryRef CopyXPathElementsArray(const __CFString *a1, const __CFDictionary *a2, const __CFDictionary *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&CopyXPathElementsArray::gGlobalLock);
   if (a1 && (UTF8CString = CreateUTF8CString(a1)) != 0 && (v7 = UTF8CString, v8 = xmlParseDoc(UTF8CString), free(v7), v8))
   {
-    v55 = v8;
+    v54 = v8;
     v9 = xmlXPathNewContext(v8);
-    v56 = 0;
+    v55 = 0;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
     v9 = 0;
-    v56 = 1;
+    v55 = 1;
   }
 
   Count = CFDictionaryGetCount(a2);
   MEMORY[0x28223BE20](Count);
-  v12 = (&v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = (&v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (v11 >= 0x200)
   {
     v13 = 512;
@@ -4643,10 +4589,10 @@ CFMutableDictionaryRef CopyXPathElementsArray(const __CFString *a1, const __CFDi
     v13 = v11;
   }
 
-  bzero(&v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v13);
+  bzero(&v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v13);
   CFDictionaryGetKeysAndValues(a2, v12, 0);
-  v62 = v12;
-  v63 = Count;
+  v61 = v12;
+  v62 = Count;
   if (a3)
   {
     if (v9)
@@ -4657,7 +4603,7 @@ CFMutableDictionaryRef CopyXPathElementsArray(const __CFString *a1, const __CFDi
         v15 = v14;
         v16 = a2;
         MEMORY[0x28223BE20](v14);
-        v18 = (&v52 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v18 = (&v51 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
         if (v17 >= 0x200)
         {
           v19 = 512;
@@ -4668,7 +4614,7 @@ CFMutableDictionaryRef CopyXPathElementsArray(const __CFString *a1, const __CFDi
           v19 = v17;
         }
 
-        bzero(&v52 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v19);
+        bzero(&v51 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v19);
         CFDictionaryGetKeysAndValues(a3, v18, 0);
         while (1)
         {
@@ -4721,8 +4667,8 @@ LABEL_25:
           if (!--v15)
           {
             a2 = v16;
-            v12 = v62;
-            Count = v63;
+            v12 = v61;
+            Count = v62;
             break;
           }
         }
@@ -4737,17 +4683,17 @@ LABEL_25:
   }
 
   v27 = 0;
-  v64 = @"DCSTextElementKeySensesWithAttributes";
-  v60 = @"DCSTextElementSenseKeyText";
-  v59 = @"DCSTextElementSenseKeyIsExplicit";
-  v58 = *MEMORY[0x277CBED10];
-  v53 = @"DCSTextElementKeySenses";
-  v54 = a2;
-  v61 = v9;
+  v63 = @"DCSTextElementKeySensesWithAttributes";
+  v59 = @"DCSTextElementSenseKeyText";
+  v58 = @"DCSTextElementSenseKeyIsExplicit";
+  v57 = *MEMORY[0x277CBED10];
+  v52 = @"DCSTextElementKeySenses";
+  v53 = a2;
+  v60 = v9;
   do
   {
     v28 = v12[v27];
-    v29 = CFStringCompare(v28, v64, 0);
+    v29 = CFStringCompare(v28, v63, 0);
     v30 = CFDictionaryGetValue(a2, v28);
     v31 = CreateUTF8CString(v30);
     if (!v31)
@@ -4807,8 +4753,8 @@ LABEL_50:
 
 LABEL_54:
               v45 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              CFDictionarySetValue(v45, v60, v41);
-              CFDictionarySetValue(v45, v59, v58);
+              CFDictionarySetValue(v45, v59, v41);
+              CFDictionarySetValue(v45, v58, v57);
               CFArrayAppendValue(v38, v45);
               CFRelease(v45);
             }
@@ -4845,10 +4791,10 @@ LABEL_52:
     }
 
     while (v35 != v37);
-    a2 = v54;
+    a2 = v53;
     if (v38)
     {
-      if (CFStringCompare(v28, v53, 0) && v29 && CFStringHasPrefix(v28, @"DCSTextElementKey"))
+      if (CFStringCompare(v28, v52, 0) && v29 && CFStringHasPrefix(v28, @"DCSTextElementKey"))
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v38, 0);
         v47 = Mutable;
@@ -4868,18 +4814,18 @@ LABEL_52:
 
 LABEL_64:
     xmlXPathFreeObject(v33);
-    v9 = v61;
-    v12 = v62;
-    Count = v63;
+    v9 = v60;
+    v12 = v61;
+    Count = v62;
 LABEL_65:
     ++v27;
   }
 
   while (v27 < Count);
 LABEL_66:
-  if ((v56 & 1) == 0)
+  if ((v55 & 1) == 0)
   {
-    xmlFreeDoc(v55);
+    xmlFreeDoc(v54);
   }
 
   v49 = Mutable;
@@ -4895,7 +4841,6 @@ LABEL_66:
   }
 
   pthread_mutex_unlock(&CopyXPathElementsArray::gGlobalLock);
-  v50 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -5068,7 +5013,7 @@ void IDXAccessMethodManager::~IDXAccessMethodManager(IDXAccessMethodManager *thi
   }
 }
 
-void *IDXAccessMethodManager::accessMethod(IDXAccessMethodManager *this, const __CFString *a2, IDXDictionaryPackage *a3)
+IDXAccessMethod *IDXAccessMethodManager::accessMethod(IDXAccessMethodManager *this, const __CFString *a2, IDXDictionaryPackage *a3)
 {
   if (!a2)
   {
@@ -5137,7 +5082,7 @@ uint64_t IDXAccessMethodManager::activateBuiltInAccessMethod(IDXAccessMethodMana
   return 0;
 }
 
-uint64_t IDXAccessMethodManager::searchPlugInAccessMethod(IDXAccessMethodManager *this, const __CFString *a2, IDXDictionaryPackage *a3)
+IDXPlugInAccessMethod *IDXAccessMethodManager::searchPlugInAccessMethod(IDXAccessMethodManager *this, const __CFString *a2, IDXDictionaryPackage *a3)
 {
   v4 = *(this + 2);
   if (v4 == 1)
@@ -5245,15 +5190,6 @@ uint64_t IDXBuiltInAccessMethod<TrieAccessContext>::release(uint64_t a1)
   return v1;
 }
 
-void IDXBuiltInAccessMethod<TrieAccessContext>::openIndexFile()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 uint64_t IDXBuiltInAccessMethod<TrieAccessContext>::closeIndexFile(int a1, IDXAccessContext *this)
 {
   result = IDXAccessContext::finalize(this);
@@ -5299,15 +5235,6 @@ uint64_t IDXBuiltInAccessMethod<HeapAccessContext>::release(uint64_t a1)
   v1 = (*(a1 + 168) - 1);
   *(a1 + 168) = v1;
   return v1;
-}
-
-void IDXBuiltInAccessMethod<HeapAccessContext>::openIndexFile()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 uint64_t IDXBuiltInAccessMethod<HeapAccessContext>::closeIndexFile(int a1, IDXAccessContext *this)
@@ -5357,15 +5284,6 @@ uint64_t IDXBuiltInAccessMethod<InspectorAccessContext>::release(uint64_t a1)
   return v1;
 }
 
-void IDXBuiltInAccessMethod<InspectorAccessContext>::openIndexFile()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 uint64_t IDXBuiltInAccessMethod<InspectorAccessContext>::closeIndexFile(int a1, IDXAccessContext *this)
 {
   result = IDXAccessContext::finalize(this);
@@ -5400,7 +5318,7 @@ void *IDXBuiltInAccessMethod_SetBridgeFunctionPtrs(void *result)
   return result;
 }
 
-const void *IDXDictionaryManager::dictionary(IDXDictionaryManager *this, CFURLRef relativeURL)
+IDXDictionaryPackage *IDXDictionaryManager::dictionary(IDXDictionaryManager *this, CFURLRef relativeURL)
 {
   if ((_initedCachedDictionaries & 1) == 0)
   {
@@ -5456,7 +5374,7 @@ uint64_t IDXDictionaryManager::remove(IDXDictionaryManager *this, CFAbsoluteTime
 
 uint64_t IDXDictionaryManager::clearInactiveCaches(IDXDictionaryManager *this)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v1 = _cachedDictionaries;
   pthread_rwlock_wrlock((_cachedDictionaries + 16));
   v2 = *(_cachedDictionaries + 8);
@@ -5466,7 +5384,7 @@ uint64_t IDXDictionaryManager::clearInactiveCaches(IDXDictionaryManager *this)
     Current = CFAbsoluteTimeGetCurrent();
     MEMORY[0x28223BE20](v5);
     v6 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
-    v7 = (v13 - v6);
+    v7 = (v12 - v6);
     if ((8 * Count) >= 0x200)
     {
       v8 = 512;
@@ -5477,11 +5395,11 @@ uint64_t IDXDictionaryManager::clearInactiveCaches(IDXDictionaryManager *this)
       v8 = 8 * Count;
     }
 
-    bzero(v13 - v6, v8);
+    bzero(v12 - v6, v8);
     MEMORY[0x28223BE20](v9);
-    v10 = (v13 - v6);
-    bzero(v13 - v6, v8);
-    CFDictionaryGetKeysAndValues(v2, (v13 - v6), (v13 - v6));
+    v10 = (v12 - v6);
+    bzero(v12 - v6, v8);
+    CFDictionaryGetKeysAndValues(v2, (v12 - v6), (v12 - v6));
     do
     {
       if (!*(*v7 + 44) && Current > *(*v7 + 40) + 300.0)
@@ -5502,9 +5420,7 @@ uint64_t IDXDictionaryManager::clearInactiveCaches(IDXDictionaryManager *this)
     while (Count);
   }
 
-  result = pthread_rwlock_unlock((v1 + 16));
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_rwlock_unlock((v1 + 16));
 }
 
 void sub_21E5A4458(_Unwind_Exception *exception_object, int a2)
@@ -6299,7 +6215,7 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
   v0 = _GetMobileAssetObjectInfo__ObjectInfoPtr;
   if (!_GetMobileAssetObjectInfo__ObjectInfoPtr)
   {
-    goto LABEL_116;
+    return 0;
   }
 
   v1 = objc_alloc_init(*_GetMobileAssetObjectInfo__ObjectInfoPtr);
@@ -6314,8 +6230,8 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
 
   v4 = [v2 results];
   v5 = 0x27835A000uLL;
-  v95 = v2;
-  v96 = v1;
+  v94 = v2;
+  v95 = v1;
   if (v4)
   {
     v6 = v4;
@@ -6324,10 +6240,10 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
     v9 = Mutable;
     if (Count >= 1)
     {
-      v103 = Mutable;
+      v102 = Mutable;
       v10 = 0;
-      v104 = sel_wasLocal;
-      v102 = sel_purgeSync;
+      v103 = sel_wasLocal;
+      v101 = sel_purgeSync;
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v6, v10);
@@ -6354,7 +6270,7 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
             Value = 0;
           }
 
-          v18 = [Value v104];
+          v18 = [Value v103];
           CFRelease(v16);
           if (v18)
           {
@@ -6369,7 +6285,7 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
                 if (v20)
                 {
                   v21 = v20;
-                  v22 = CFDictionaryGetValue(v103, v20);
+                  v22 = CFDictionaryGetValue(v102, v20);
                   if (!v22)
                   {
                     goto LABEL_23;
@@ -6383,13 +6299,13 @@ const __CFArray *DCSDictionaryAssetCopyInstalledDictionaries()
                     v23 = ValueAtIndex;
                   }
 
-                  [v23 v102];
+                  [v23 v101];
                   v26 = _GetAssetContentVersion(v23);
                   DCSLog(16, @"Purged duplicated old dictionary %@ (content ver = %ld)", v21, v26);
                   if (v25)
                   {
 LABEL_23:
-                    CFDictionarySetValue(v103, v21, ValueAtIndex);
+                    CFDictionarySetValue(v102, v21, ValueAtIndex);
                   }
                 }
               }
@@ -6402,7 +6318,7 @@ LABEL_23:
 
       while (Count != v10);
       v5 = 0x27835A000;
-      v9 = v103;
+      v9 = v102;
     }
   }
 
@@ -6421,20 +6337,20 @@ LABEL_23:
   else
   {
     MEMORY[0x28223BE20](v27);
-    v30 = (&v95 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v30 = (&v94 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
     CFDictionaryGetKeysAndValues(v9, 0, v30);
     v31 = CFArrayCreate(0, v30, v28, 0);
   }
 
   CFRelease(v9);
-  v101 = CFArrayCreateMutable(0, v28, MEMORY[0x277CBF128]);
+  v100 = CFArrayCreateMutable(0, v28, MEMORY[0x277CBF128]);
   if (v28 >= 1)
   {
     v32 = 0;
     v33 = *(v5 + 3512);
-    v102 = sel_initWithLocaleIdentifier_;
-    v103 = sel_localizedStringForLanguage_context_;
-    v104 = @"DCSDictionaryDescriptionLanguage";
+    v101 = sel_initWithLocaleIdentifier_;
+    v102 = sel_localizedStringForLanguage_context_;
+    v103 = @"DCSDictionaryDescriptionLanguage";
     do
     {
       v34 = CFArrayGetValueAtIndex(v31, v32);
@@ -6444,7 +6360,7 @@ LABEL_23:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
         {
-          DCSDictionaryAssetCopyInstalledDictionaries_cold_3(&buf, v106);
+          DCSDictionaryAssetCopyInstalledDictionaries_cold_3(buf, &buf[1]);
         }
 
         goto LABEL_59;
@@ -6476,7 +6392,7 @@ LABEL_23:
                 v43 = v42;
                 if (CFArrayGetCount(v42))
                 {
-                  v99 = CFArrayGetValueAtIndex(v43, 0);
+                  v98 = CFArrayGetValueAtIndex(v43, 0);
                   v44 = CFArrayGetCount(v43);
                   v45 = 0;
                   if (v44 >= 2)
@@ -6484,7 +6400,7 @@ LABEL_23:
                     v45 = CFArrayGetValueAtIndex(v43, 1);
                   }
 
-                  v100 = v45;
+                  v99 = v45;
                   MainBundle = CFBundleGetMainBundle();
                   if (MainBundle)
                   {
@@ -6500,11 +6416,11 @@ LABEL_23:
                         CFRelease(v51);
                         if (v52)
                         {
-                          v98 = objc_alloc_init(*v41);
+                          v97 = objc_alloc_init(*v41);
                           v53 = objc_alloc(v41[8]);
-                          v54 = [v53 v102];
+                          v54 = [v53 v101];
                           CFRelease(v52);
-                          v55 = [v54 v103];
+                          v55 = [v54 v102];
                           if (v55)
                           {
                             Copy = CFStringCreateCopy(0, v55);
@@ -6515,10 +6431,10 @@ LABEL_23:
                             Copy = 0;
                           }
 
-                          if (v100)
+                          if (v99)
                           {
-                            v99 = v54;
-                            v62 = [v54 v103];
+                            v98 = v54;
+                            v62 = [v54 v102];
                             if (v62)
                             {
                               v63 = CFStringCreateCopy(0, v62);
@@ -6529,11 +6445,11 @@ LABEL_23:
                               v63 = 0;
                             }
 
-                            v100 = CFStringCreateWithFormat(0, 0, @"%@-%@", Copy, v63);
+                            v99 = CFStringCreateWithFormat(0, 0, @"%@-%@", Copy, v63);
                             CFRelease(Copy);
                             CFRelease(v63);
-                            v54 = v99;
-                            Copy = v100;
+                            v54 = v98;
+                            Copy = v99;
                           }
 
                           if (Copy)
@@ -6564,12 +6480,12 @@ LABEL_56:
           CFDictionarySetValue(v39, @"sortKey", Copy);
           CFRelease(Copy);
           v58 = CFDictionaryGetValue(v35, @"Language");
-          if (v58 || (Languages = DCSDictionaryGetLanguages(v38)) != 0 && (v60 = Languages, CFArrayGetCount(Languages) >= 1) && (v61 = CFArrayGetValueAtIndex(v60, 0)) != 0 && (v58 = CFDictionaryGetValue(v61, v104)) != 0)
+          if (v58 || (Languages = DCSDictionaryGetLanguages(v38)) != 0 && (v60 = Languages, CFArrayGetCount(Languages) >= 1) && (v61 = CFArrayGetValueAtIndex(v60, 0)) != 0 && (v58 = CFDictionaryGetValue(v61, v103)) != 0)
           {
             CFDictionarySetValue(v39, @"language", v58);
           }
 
-          CFArrayAppendValue(v101, v39);
+          CFArrayAppendValue(v100, v39);
           CFRelease(v39);
         }
       }
@@ -6586,12 +6502,12 @@ LABEL_59:
     CFRelease(v31);
   }
 
-  v64 = v101;
-  v112.length = CFArrayGetCount(v101);
-  v112.location = 0;
-  CFArraySortValues(v64, v112, _ComparatorForSortingDictionary, 0);
+  v64 = v100;
+  v108.length = CFArrayGetCount(v100);
+  v108.location = 0;
+  CFArraySortValues(v64, v108, _ComparatorForSortingDictionary, 0);
   v65 = MEMORY[0x277CBF128];
-  v102 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  v101 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   v66 = CFArrayCreateMutable(0, 0, v65);
   v67 = CFArrayGetCount(v64);
   v68 = CFLocaleCopyPreferredLanguages();
@@ -6601,10 +6517,10 @@ LABEL_59:
     v70 = v69;
     v71 = 0;
     v72 = *MEMORY[0x277CBEED0];
-    v103 = *MEMORY[0x277CBEED8];
-    v98 = v69;
-    v99 = v66;
-    v97 = v68;
+    v102 = *MEMORY[0x277CBEED8];
+    v97 = v69;
+    v98 = v66;
+    v96 = v68;
     do
     {
       v73 = CFArrayGetValueAtIndex(v68, v71);
@@ -6613,10 +6529,10 @@ LABEL_59:
       {
         v75 = ComponentsFromLocaleIdentifier;
         v76 = CFDictionaryGetValue(ComponentsFromLocaleIdentifier, v72);
-        v104 = CFDictionaryGetValue(v75, v103);
+        v103 = CFDictionaryGetValue(v75, v102);
         if (v76)
         {
-          v100 = v75;
+          v99 = v75;
           if (v67 >= 1)
           {
             v77 = 0;
@@ -6644,24 +6560,24 @@ LABEL_94:
               if (CFStringCompare(v82, v76, 0) == kCFCompareEqualTo)
               {
                 v83 = CFDictionaryGetValue(v78, @"dictionaryRef");
-                v84 = CFDictionaryGetValue(v81, v103);
-                v85 = v102;
-                v113.length = CFArrayGetCount(v102);
-                v113.location = 0;
-                FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v85, v113, v83);
+                v84 = CFDictionaryGetValue(v81, v102);
+                v85 = v101;
+                v109.length = CFArrayGetCount(v101);
+                v109.location = 0;
+                FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v85, v109, v83);
                 v87 = FirstIndexOfValue;
-                if (v84 && v104)
+                if (v84 && v103)
                 {
-                  v88 = CFStringCompare(v84, v104, 0);
-                  v64 = v101;
+                  v88 = CFStringCompare(v84, v103, 0);
+                  v64 = v100;
                   if (v88 == kCFCompareEqualTo)
                   {
-                    v89 = v99;
-                    v114.length = CFArrayGetCount(v99);
-                    v114.location = 0;
-                    if (CFArrayContainsValue(v89, v114, v83))
+                    v89 = v98;
+                    v110.length = CFArrayGetCount(v98);
+                    v110.location = 0;
+                    if (CFArrayContainsValue(v89, v110, v83))
                     {
-                      v68 = v97;
+                      v68 = v96;
                       if (v87 == -1)
                       {
                         goto LABEL_97;
@@ -6671,21 +6587,21 @@ LABEL_94:
                     else
                     {
                       CFArrayAppendValue(v89, v83);
-                      v68 = v97;
+                      v68 = v96;
                       if (v87 != -1)
                       {
-                        CFArrayRemoveValueAtIndex(v102, v87);
+                        CFArrayRemoveValueAtIndex(v101, v87);
                       }
 
 LABEL_97:
-                      CFArrayAppendValue(v102, v83);
+                      CFArrayAppendValue(v101, v83);
                     }
                   }
                 }
 
                 else
                 {
-                  v64 = v101;
+                  v64 = v100;
                   if (FirstIndexOfValue == -1)
                   {
                     goto LABEL_97;
@@ -6696,7 +6612,7 @@ LABEL_97:
 
             else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
             {
-              DCSDictionaryAssetCopyInstalledDictionaries_cold_4(v107, v80, &v108);
+              DCSDictionaryAssetCopyInstalledDictionaries_cold_4(v105, v80, &v105[4]);
             }
 
             CFRelease(v81);
@@ -6704,16 +6620,16 @@ LABEL_97:
           }
 
 LABEL_100:
-          CFRelease(v100);
-          v70 = v98;
-          v66 = v99;
+          CFRelease(v99);
+          v70 = v97;
+          v66 = v98;
         }
 
         else
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
           {
-            DCSDictionaryAssetCopyInstalledDictionaries_cold_5(v109, v73, &v110);
+            DCSDictionaryAssetCopyInstalledDictionaries_cold_5(v106, v73, &v106[4]);
           }
 
           CFRelease(v75);
@@ -6733,16 +6649,16 @@ LABEL_100:
 
   CFRelease(v68);
   CFRelease(v66);
-  v3 = v102;
+  v3 = v101;
   if (v67 >= 1)
   {
     for (i = 0; i != v67; ++i)
     {
       v91 = CFArrayGetValueAtIndex(v64, i);
       v92 = CFDictionaryGetValue(v91, @"dictionaryRef");
-      v115.length = CFArrayGetCount(v3);
-      v115.location = 0;
-      if (!CFArrayContainsValue(v3, v115, v92))
+      v111.length = CFArrayGetCount(v3);
+      v111.location = 0;
+      if (!CFArrayContainsValue(v3, v111, v92))
       {
         CFArrayAppendValue(v3, v92);
       }
@@ -6750,18 +6666,16 @@ LABEL_100:
   }
 
   CFRelease(v64);
-  v2 = v95;
-  v1 = v96;
+  v2 = v94;
+  v1 = v95;
 LABEL_113:
 
   if (v3 && !CFArrayGetCount(v3))
   {
     CFRelease(v3);
-LABEL_116:
-    v3 = 0;
+    return 0;
   }
 
-  v93 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -6788,7 +6702,7 @@ CFComparisonResult _ComparatorForSortingDictionary(const __CFDictionary *a1, con
 
 __CFString *DCSMACopyDiagnosticLog()
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (_GetMobileAssetObjectInfo__DispatchOnceToken != -1)
   {
     DCSDictionaryAssetCopyInstalledDictionaries_cold_1();
@@ -6797,8 +6711,7 @@ __CFString *DCSMACopyDiagnosticLog()
   v0 = _GetMobileAssetObjectInfo__ObjectInfoPtr;
   if (!_GetMobileAssetObjectInfo__ObjectInfoPtr)
   {
-    result = 0;
-    goto LABEL_61;
+    return 0;
   }
 
   v1 = objc_alloc_init(*_GetMobileAssetObjectInfo__ObjectInfoPtr);
@@ -6969,9 +6882,9 @@ LABEL_40:
     {
       Copy = CFStringCreateCopy(0, @"OK");
       MutableCopy = CFStringCreateMutableCopy(0, 0, @"com.apple.MobileAsset.DictionaryServices.dictionary3iOS");
-      v51.length = CFStringGetLength(MutableCopy);
-      v51.location = 0;
-      CFStringFindAndReplace(MutableCopy, @".", @"_", v51, 0);
+      v50.length = CFStringGetLength(MutableCopy);
+      v50.location = 0;
+      CFStringFindAndReplace(MutableCopy, @".", @"_", v50, 0);
       v35 = CFStringCreateWithFormat(0, 0, @"/%@/%@.xml", MutableCopy, MutableCopy);
       CFRelease(MutableCopy);
       v36 = CFURLCreateCopyAppendingPathComponent(0, v9, v35, 0);
@@ -6987,15 +6900,15 @@ LABEL_40:
       {
         if (v37)
         {
-          v46 = @"OK";
+          v45 = @"OK";
         }
 
         else
         {
-          v46 = @"not exist";
+          v45 = @"not exist";
         }
 
-        v38 = CFStringCreateCopy(0, v46);
+        v38 = CFStringCreateCopy(0, v45);
       }
 
       CFRelease(v36);
@@ -7003,10 +6916,10 @@ LABEL_40:
       _LogMessage(@"Checking XML file existence in the server directory...%@", v38);
       if (!Copy)
       {
-        goto LABEL_65;
+        goto LABEL_64;
       }
 
-      goto LABEL_64;
+      goto LABEL_63;
     }
 
     Copy = CFStringCreateCopy(0, @"failed since the directory doesn't exist");
@@ -7016,11 +6929,11 @@ LABEL_40:
   v38 = 0;
   if (Copy)
   {
-LABEL_64:
+LABEL_63:
     CFRelease(Copy);
   }
 
-LABEL_65:
+LABEL_64:
   if (v38)
   {
     CFRelease(v38);
@@ -7041,7 +6954,7 @@ LABEL_65:
 
   else
   {
-    _LogMessage(@"(but accessing to www.apple.com was OK)", v47);
+    _LogMessage(@"(but accessing to www.apple.com was OK)", v46);
   }
 
 LABEL_42:
@@ -7079,12 +6992,15 @@ LABEL_43:
       {
         v40 = [CFArrayGetValueAtIndex(v28 i)];
         Value = CFDictionaryGetValue(v40, @"DictionaryIdentifier");
-        if (Value && CFStringCompare(Value, @"com.apple.dictionary.NOAD", 0) == kCFCompareEqualTo)
+        if (Value)
         {
-          v42 = CFDictionaryGetValue(v40, @"_CompatibilityVersion");
-          v43 = CFDictionaryGetValue(v40, @"_ContentVersion");
-          v44 = CFDictionaryGetValue(v40, @"_MasteredVersion");
-          _LogMessage(@"    CompatibilityVersion:%@, ContentVersion:%@, MasteredVersion:%@", v42, v43, v44);
+          if (CFStringCompare(Value, @"com.apple.dictionary.NOAD", 0) == kCFCompareEqualTo)
+          {
+            v42 = CFDictionaryGetValue(v40, @"_CompatibilityVersion");
+            v43 = CFDictionaryGetValue(v40, @"_ContentVersion");
+            v44 = CFDictionaryGetValue(v40, @"_MasteredVersion");
+            _LogMessage(@"    CompatibilityVersion:%@, ContentVersion:%@, MasteredVersion:%@", v42, v43, v44);
+          }
         }
       }
     }
@@ -7092,10 +7008,7 @@ LABEL_43:
     _LogMessage(@"%@", @"==== }");
   }
 
-  result = _LogMessage(0);
-LABEL_61:
-  v45 = *MEMORY[0x277D85DE8];
-  return result;
+  return _LogMessage(0);
 }
 
 __CFString *_LogMessage(CFStringRef format, ...)
@@ -7141,7 +7054,7 @@ LABEL_3:
 
 BOOL _CheckURL(const __CFURL *a1, CFStringRef *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     *a2 = 0;
@@ -7225,7 +7138,6 @@ LABEL_21:
   }
 
   CFRelease(Request);
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -8127,7 +8039,7 @@ void DCSMADownloadDictionaryAsset_XPC(const __CFDictionary *a1, int a2)
 
 void _SetDictionaryAssetIDToMessage(void *a1, const __CFDictionary *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = DCSMAGetAssetAttributes(a2);
   Value = CFDictionaryGetValue(v3, @"DictionaryIdentifier");
   if (!Value)
@@ -8137,7 +8049,6 @@ void _SetDictionaryAssetIDToMessage(void *a1, const __CFDictionary *a2)
 
   CFStringGetCString(Value, buffer, 255, 0x8000100u);
   xpc_dictionary_set_string(a1, "dictionaryID", buffer);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void DCSMAPurgeDictionaryAsset_XPC(const __CFDictionary *a1)
@@ -8229,7 +8140,7 @@ int64_t DCSMAGetAssetState_XPC(const __CFDictionary *a1)
 
 void DCSMAPrepareDefaultDictionaryAssets_XPC(const __CFArray *a1, const __CFArray *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v4, "command", "prepare_default_assets");
   if (a1)
@@ -8271,12 +8182,11 @@ void DCSMAPrepareDefaultDictionaryAssets_XPC(const __CFArray *a1, const __CFArra
   }
 
   xpc_release(v4);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void *DCSCopySharedPreferenceValue(const __CFString *a1, uint64_t a2, int64_t *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
@@ -8334,13 +8244,12 @@ void *DCSCopySharedPreferenceValue(const __CFString *a1, uint64_t a2, int64_t *a
   }
 
   xpc_release(v6);
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void DCSUpdateSharedPreferenceValue(const __CFString *a1, const void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v4, "command", "update_preference");
   if (a1)
@@ -8369,7 +8278,6 @@ void DCSUpdateSharedPreferenceValue(const __CFString *a1, const void *a2)
   }
 
   xpc_release(v4);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void DCSSynchronizeSharedPreference()
@@ -8653,12 +8561,12 @@ uint64_t IDXSetSearchString(uint64_t a1, const __CFString *a2, uint64_t a3)
 
 void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64_t, uint64_t), uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = (*(**(a1 + 16) + 112))(*(a1 + 16), *(a1 + 40));
   if (v6)
   {
-    memset(v21, 0, 512);
-    v7 = (*(**(a1 + 16) + 72))(*(a1 + 16), *(a1 + 40), 128, v21, v20);
+    memset(v20, 0, 512);
+    v7 = (*(**(a1 + 16) + 72))(*(a1 + 16), *(a1 + 40), 128, v20, v19);
     if (v7)
     {
       v8 = v7;
@@ -8666,8 +8574,8 @@ void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64
       {
         if (v8 >= 1)
         {
-          v9 = v20;
-          v10 = v21;
+          v9 = v19;
+          v10 = v20;
           do
           {
             v12 = *v10++;
@@ -8680,7 +8588,7 @@ void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64
           while (v8);
         }
 
-        v8 = (*(**(a1 + 16) + 72))(*(a1 + 16), *(a1 + 40), 128, v21, v20);
+        v8 = (*(**(a1 + 16) + 72))(*(a1 + 16), *(a1 + 40), 128, v20, v19);
       }
 
       while (v8);
@@ -8689,21 +8597,21 @@ void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64
 
   else
   {
-    *&v21[0] = 0x20000;
+    *&v20[0] = 0x20000;
     v14 = 1;
     do
     {
       MEMORY[0x28223BE20](v6);
-      v16 = v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
       if (!v14)
       {
-        v16 = malloc_type_malloc(*&v21[0], 0xF141F7F8uLL);
+        v16 = malloc_type_malloc(*&v20[0], 0xF141F7F8uLL);
       }
 
-      v20[0] = 0;
+      v19[0] = 0;
       while (1)
       {
-        v6 = (*(**(a1 + 16) + 80))(*(a1 + 16), *(a1 + 40), 0, *&v21[0], v16, v20, v21);
+        v6 = (*(**(a1 + 16) + 80))(*(a1 + 16), *(a1 + 40), 0, *&v20[0], v16, v19, v20);
         if (!v6)
         {
           break;
@@ -8715,7 +8623,7 @@ void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64
           v18 = 0;
           do
           {
-            a2(a1, &v16[*(v20[0] + v18)], *(v20[0] + v18 + 8), 1, a3);
+            a2(a1, &v16[*(v19[0] + v18)], *(v19[0] + v18 + 8), 1, a3);
             v18 += 16;
             --v17;
           }
@@ -8729,13 +8637,11 @@ void IDXPerformSearch(uint64_t a1, void (*a2)(uint64_t, char *, uint64_t, uint64
         free(v16);
       }
 
-      v14 = *&v21[0] <= 0x20000;
+      v14 = *&v20[0] <= 0x20000;
     }
 
-    while (*&v21[0]);
+    while (*&v20[0]);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t IDXGetMatchData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
@@ -8748,7 +8654,7 @@ uint64_t IDXGetMatchData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   return (*(**(a1 + 16) + 80))(*(a1 + 16), *(a1 + 40), a2, a3, a4, a5);
 }
 
-CFIndex IDXSetRequestFields(uint64_t a1, const __CFArray *a2)
+uint64_t IDXSetRequestFields(uint64_t a1, const __CFArray *a2)
 {
   v40 = *(a1 + 32);
   v3 = IDXIndexInfo::dataFields(v40);
@@ -8999,7 +8905,7 @@ uint64_t IDXGetFieldDataPtrs(uint64_t result, uint64_t a2, uint64_t a3, void *a4
   return result;
 }
 
-__CFData *IDXCreateFlattenData(uint64_t a1, const __CFDictionary *a2)
+CFMutableDataRef IDXCreateFlattenData(uint64_t a1, const __CFDictionary *a2)
 {
   v3 = *(a1 + 32);
   v4 = IDXIndexInfo::dataFields(v3);
@@ -9143,7 +9049,7 @@ uint64_t IDXBuildIndexWithRecords(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   }
 }
 
-void *IDXQueryAccessMethodInterface(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+IDXAccessMethod *IDXQueryAccessMethodInterface(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = SyncSingleton<IDXAccessMethodManager>::instance();
   result = IDXAccessMethodManager::accessMethod(v8, a1, 0);
@@ -9211,7 +9117,7 @@ CFStringRef _IDXIndexCopyDebugDesc(CFURLRef **a1)
   return v8;
 }
 
-uint64_t mtrie_open(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_OWORD *mtrie_open(uint64_t a1, uint64_t a2, unsigned int *a3, unint64_t a4)
 {
   v8 = malloc_type_malloc(0x48uLL, 0x10B004015DDB5A3uLL);
   if (v8)
@@ -9240,16 +9146,16 @@ marisa::grimoire::trie::LoudsTrie *mtrie_exact_match_search(uint64_t a1, const c
     }
 
     marisa::Agent::set_query(*(a1 + 40), a2, a3);
-    result = marisa::Trie::lookup(*(a1 + 32), *(a1 + 40));
+    result = marisa::Trie::lookup(*(a1 + 32), *(a1 + 40), v5, v6);
     if (!result)
     {
       return result;
     }
 
-    v5 = *(*(a1 + 40) + 36);
-    if (*(a1 + 24) > v5)
+    v7 = *(*(a1 + 40) + 36);
+    if (*(a1 + 24) > v7)
     {
-      return *(*(a1 + 16) + 4 * v5);
+      return *(*(a1 + 16) + 4 * v7);
     }
 
     else
@@ -9268,18 +9174,18 @@ uint64_t mtrie_build(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64
     return 0;
   }
 
-  marisa::Keyset::Keyset(v38);
+  marisa::Keyset::Keyset(v40);
   v10 = 0;
   do
   {
-    marisa::Keyset::push_back(v38, *(a3 + 8 * v10), *(a4 + 8 * v10), 1.0);
+    marisa::Keyset::push_back(v40, *(a3 + 8 * v10), *(a4 + 8 * v10), 1.0);
     ++v10;
   }
 
   while (a2 != v10);
-  marisa::Trie::build(*(a1 + 32), v38, 0x21203u);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v32);
-  marisa::write(&v33, *(a1 + 32));
+  marisa::Trie::build(*(a1 + 32), v40, 0x21203u);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v34);
+  marisa::write(&v35, *(a1 + 32));
   std::stringbuf::str();
   v11 = 4 * a2 + 28;
   if ((a2 & 1) == 0)
@@ -9287,10 +9193,10 @@ uint64_t mtrie_build(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64
     v11 = 4 * a2 + 24;
   }
 
-  v12 = v31;
-  if ((v31 & 0x80u) != 0)
+  v12 = v33;
+  if ((v33 & 0x80u) != 0)
   {
-    v12 = v30;
+    v12 = v32;
   }
 
   v13 = v12 + v11;
@@ -9308,10 +9214,10 @@ uint64_t mtrie_build(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64
 
   *(v14 + 8) = a2;
   *(v14 + 12) = v17;
-  v18 = v31;
-  if ((v31 & 0x80u) != 0)
+  v18 = v33;
+  if ((v33 & 0x80u) != 0)
   {
-    v18 = v30;
+    v18 = v32;
   }
 
   *(v14 + 16) = v18;
@@ -9323,38 +9229,38 @@ uint64_t mtrie_build(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64
   do
   {
     marisa::Agent::set_query(v19, *(a3 + 8 * v16), *(a4 + 8 * v16));
-    if ((marisa::Trie::lookup(*(a1 + 32), *(a1 + 40)) & 1) == 0)
+    if ((marisa::Trie::lookup(*(a1 + 32), *(a1 + 40), v20, v21) & 1) == 0)
     {
-      v24 = *MEMORY[0x277D85DF8];
-      v25 = "trie->_marisa_trie->lookup failed.\n";
-      v26 = 35;
+      v26 = *MEMORY[0x277D85DF8];
+      v27 = "trie->_marisa_trie->lookup failed.\n";
+      v28 = 35;
 LABEL_25:
-      fwrite(v25, v26, 1uLL, v24);
-      v23 = 0xFFFFFFFFLL;
+      fwrite(v27, v28, 1uLL, v26);
+      v25 = 0xFFFFFFFFLL;
       goto LABEL_26;
     }
 
     v19 = *(a1 + 40);
-    v20 = *(v19 + 36);
-    if (v20 >= a2)
+    v22 = *(v19 + 36);
+    if (v22 >= a2)
     {
-      v24 = *MEMORY[0x277D85DF8];
-      v25 = "wrong entry ID.\n";
-      v26 = 16;
+      v26 = *MEMORY[0x277D85DF8];
+      v27 = "wrong entry ID.\n";
+      v28 = 16;
       goto LABEL_25;
     }
 
-    v21 = *(a1 + 16);
-    *(v21 + 4 * v20) = *(a5 + 4 * v16++);
+    v23 = *(a1 + 16);
+    *(v23 + 4 * v22) = *(a5 + 4 * v16++);
   }
 
   while (a2 != v16);
   if (a2)
   {
-    *(v21 + 4 * a2) = 0;
+    *(v23 + 4 * a2) = 0;
   }
 
-  if ((v31 & 0x80u) == 0)
+  if ((v33 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -9365,44 +9271,44 @@ LABEL_25:
   }
 
   memcpy((*a1 + *(v15 + 12)), p_p, *(v15 + 16));
-  v23 = 0;
+  v25 = 0;
 LABEL_26:
-  if (v31 < 0)
+  if (v33 < 0)
   {
     operator delete(__p);
   }
 
-  v32[0] = *MEMORY[0x277D82818];
-  v27 = *(MEMORY[0x277D82818] + 72);
-  *(v32 + *(v32[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v33 = v27;
-  v34 = MEMORY[0x277D82878] + 16;
-  if (v36 < 0)
+  v34[0] = *MEMORY[0x277D82818];
+  v29 = *(MEMORY[0x277D82818] + 72);
+  *(v34 + *(v34[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v35 = v29;
+  v36 = MEMORY[0x277D82878] + 16;
+  if (v38 < 0)
   {
-    operator delete(v35[7].__locale_);
+    operator delete(v37[7].__locale_);
   }
 
-  v34 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v35);
+  v36 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v37);
   std::iostream::~basic_iostream();
-  MEMORY[0x223D5E580](&v37);
-  marisa::scoped_array<marisa::scoped_array<marisa::Key>>::~scoped_array(v40);
-  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v39);
-  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v38);
-  return v23;
+  MEMORY[0x223D5E580](&v39);
+  marisa::scoped_array<marisa::scoped_array<marisa::Key>>::~scoped_array(v42);
+  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v41);
+  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v40);
+  return v25;
 }
 
-void sub_21E5AB2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+void sub_21E5AB2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a25);
-  if (a9 < 0)
+  va_start(va, a30);
+  if (SHIBYTE(a14) < 0)
   {
-    operator delete(__p);
+    operator delete(a12);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10, MEMORY[0x277D82818]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x277D82818]);
   MEMORY[0x223D5E580](va);
-  marisa::Keyset::~Keyset((v25 - 192));
+  marisa::Keyset::~Keyset((v30 - 192));
   _Unwind_Resume(a1);
 }
 
@@ -9730,4 +9636,106 @@ CFURLRef CreateDictionaryComponentURL(const __CFURL *a1, uint64_t a2)
   v6 = CFURLCreateCopyAppendingPathComponent(0, a1, v4, a2 == 0);
   CFRelease(v5);
   return v6;
+}
+
+CFBundleRef CreateDictionaryBundleFromComponentURL(const __CFURL *a1)
+{
+  PathComponent = CFURLCopyLastPathComponent(a1);
+  if (CFStringCompare(PathComponent, @"/", 0))
+  {
+    v3 = a1;
+    while (1)
+    {
+      v4 = CFStringCompare(PathComponent, @"Contents", 0);
+      CFRelease(PathComponent);
+      v5 = CFURLCreateCopyDeletingLastPathComponent(0, v3);
+      if (v4 == kCFCompareEqualTo)
+      {
+        break;
+      }
+
+      if (v3 != a1)
+      {
+        CFRelease(v3);
+      }
+
+      PathComponent = CFURLCopyLastPathComponent(v5);
+      v3 = v5;
+      if (CFStringCompare(PathComponent, @"/", 0) == kCFCompareEqualTo)
+      {
+        v6 = 0;
+        v3 = v5;
+        goto LABEL_10;
+      }
+    }
+
+    v6 = CFBundleCreate(0, v5);
+    PathComponent = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+    v3 = a1;
+  }
+
+LABEL_10:
+  CFRelease(PathComponent);
+  if (v3 != a1)
+  {
+    CFRelease(v3);
+  }
+
+  return v6;
+}
+
+DIR *DeleteDirectoryAtPath(const std::__fs::filesystem::path *a1)
+{
+  memset(&v10, 0, sizeof(v10));
+  if (lstat(a1, &v10) < 0)
+  {
+    return 0;
+  }
+
+  if ((v10.st_mode & 0xF000) != 0x4000)
+  {
+    return !remove(a1, v2);
+  }
+
+  result = opendir(a1);
+  if (result)
+  {
+    v4 = result;
+    v5 = strlen(a1);
+    v6 = malloc_type_malloc(v5 + 256, 0x100004077774924uLL);
+    strlcpy(v6, a1, v5 + 256);
+    v7 = strlen(a1);
+    *(&v6->__pn_.__r_.__value_.__l.__data_ + v7) = 47;
+    v8 = &v6->__pn_.__r_.__value_.__s.__data_[v7 + 1];
+    while (1)
+    {
+      v9 = readdir(v4);
+      if (!v9)
+      {
+        break;
+      }
+
+      if (v9->d_name[0] != 46 || v9->d_name[1] && (v9->d_name[1] != 46 || v9->d_name[2]))
+      {
+        strlcpy(v8, v9->d_name, 0x100uLL);
+        if (!DeleteDirectoryAtPath(v6))
+        {
+          free(v6);
+          closedir(v4);
+          return 0;
+        }
+      }
+    }
+
+    free(v6);
+    closedir(v4);
+    return (rmdir(a1) >= 0);
+  }
+
+  return result;
 }

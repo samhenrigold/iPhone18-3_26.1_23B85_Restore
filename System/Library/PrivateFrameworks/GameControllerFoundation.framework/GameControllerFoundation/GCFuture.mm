@@ -3,6 +3,7 @@
 + (id)allocWithZone:(_NSZone *)zone;
 + (id)cancelledFuture;
 + (id)futureOnQueue:(id)queue withBlock:(id)block;
++ (id)futureOnQueue:(id)queue withOptions:(unsigned int)options block:(id)block;
 + (id)futureWithBlock:(id)block;
 + (id)futureWithError:(id)error;
 + (id)futureWithLabel:(id)label block:(id)block;
@@ -25,8 +26,10 @@
 - (id)result;
 - (id)resultIfFinished;
 - (id)thenOnQueue:(id)queue with:(id)with;
+- (id)thenOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block;
 - (id)thenOnQueue:(id)queue withResult:(id)result;
 - (id)thenSynchronouslyOnQueue:(id)queue with:(id)with;
+- (id)thenSynchronouslyOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block;
 - (id)thenSynchronouslyWith:(id)with;
 - (id)thenSynchronouslyWithResult:(id)result;
 - (id)thenWith:(id)with;
@@ -121,6 +124,22 @@
   return v8;
 }
 
++ (id)futureOnQueue:(id)queue withOptions:(unsigned int)options block:(id)block
+{
+  v7 = *&options;
+  queueCopy = queue;
+  blockCopy = block;
+  if (__creatorFrameKey(void)::onceToken != -1)
+  {
+    +[GCFuture futureWithBlock:];
+  }
+
+  pthread_setspecific(__creatorFrameKey(void)::key, v5);
+  v10 = [(GCFuture *)[_GCAsyncFuture alloc] initOnQueue:queueCopy withOptions:v7 block:blockCopy];
+
+  return v10;
+}
+
 + (id)futureWithError:(id)error
 {
   errorCopy = error;
@@ -177,16 +196,16 @@ uint64_t __27__GCFuture_cancelledFuture__block_invoke()
       +[GCFuture futureWithBlock:];
     }
 
-    pthread_setspecific(__creatorFrameKey(void)::key, v3);
-    __immutablePlaceholderFuture();
+    v7 = pthread_setspecific(__creatorFrameKey(void)::key, v3);
+    __immutablePlaceholderFuture(v7);
     return objc_claimAutoreleasedReturnValue();
   }
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = &OBJC_METACLASS___GCFuture;
-    return objc_msgSendSuper2(&v7, sel_allocWithZone_, zone);
+    v8.receiver = self;
+    v8.super_class = &OBJC_METACLASS___GCFuture;
+    return objc_msgSendSuper2(&v8, sel_allocWithZone_, zone);
   }
 }
 
@@ -199,16 +218,16 @@ uint64_t __27__GCFuture_cancelledFuture__block_invoke()
       +[GCFuture futureWithBlock:];
     }
 
-    pthread_setspecific(__creatorFrameKey(void)::key, v2);
-    __immutablePlaceholderFuture();
+    v5 = pthread_setspecific(__creatorFrameKey(void)::key, v2);
+    __immutablePlaceholderFuture(v5);
     return objc_claimAutoreleasedReturnValue();
   }
 
   else
   {
-    v5.receiver = self;
-    v5.super_class = &OBJC_METACLASS___GCFuture;
-    return objc_msgSendSuper2(&v5, sel_allocWithZone_, 0);
+    v6.receiver = self;
+    v6.super_class = &OBJC_METACLASS___GCFuture;
+    return objc_msgSendSuper2(&v6, sel_allocWithZone_, 0);
   }
 }
 
@@ -835,14 +854,6 @@ LABEL_22:
 LABEL_23:
 }
 
-uint64_t __78__GCFuture__observeFinishOnQueue_withOptions_qosClass_relativePriority_block___block_invoke(void *a1)
-{
-  v1 = a1[7];
-  v2 = a1[4];
-  v3 = a1[5];
-  return __GCFUTURE_IS_CALLING_OUT_TO_AN_OBSERVER__(a1[6]);
-}
-
 - (void)observeSuccess:(id)success
 {
   successCopy = success;
@@ -1225,6 +1236,13 @@ void __103__GCFuture__thenSynchronouslyRequiringState_onQueue_withOptions_qosCla
   }
 }
 
+- (id)thenOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block
+{
+  v8 = [(GCFuture *)self _thenRequiringState:-128 onQueue:queue withOptions:*&options qosClass:*&class relativePriority:*&priority label:label block:block];
+
+  return v8;
+}
+
 - (id)thenWith:(id)with
 {
   withCopy = with;
@@ -1529,6 +1547,13 @@ void __35__GCFuture_thenOnQueue_withResult___block_invoke_3(uint64_t a1, uint64_
   v7 = a4;
   v8 = [*(a1 + 32) future];
   [v8 _setState:a2 result:v9 error:v7];
+}
+
+- (id)thenSynchronouslyOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block
+{
+  v8 = [(GCFuture *)self _thenSynchronouslyRequiringState:-128 onQueue:queue withOptions:*&options qosClass:*&class relativePriority:*&priority label:label block:block];
+
+  return v8;
 }
 
 - (id)thenSynchronouslyOnQueue:(id)queue with:(id)with

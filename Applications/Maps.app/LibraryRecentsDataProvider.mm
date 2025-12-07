@@ -15,7 +15,7 @@
 
   swift_beginAccess();
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -23,7 +23,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   sub_100131CA8();
@@ -34,7 +34,7 @@
 - (void)storeDidChange:(id)change
 {
   v4 = *self->_TtCs12_SwiftObject_opaque;
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v10 - v6;
   v8 = type metadata accessor for TaskPriority();

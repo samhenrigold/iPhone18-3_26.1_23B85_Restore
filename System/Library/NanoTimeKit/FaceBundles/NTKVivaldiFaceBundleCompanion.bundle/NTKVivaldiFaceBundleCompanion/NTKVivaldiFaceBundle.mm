@@ -20,7 +20,7 @@
 
 - (id)heroFacesForDevice:(id)device
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if ([deviceCopy supportsPDRCapability:3669496134])
   {
@@ -31,22 +31,19 @@
   {
     v6 = [(NTKVivaldiFaceBundle *)self defaultFaceForDevice:deviceCopy];
     v7 = [objc_alloc(MEMORY[0x277D2C018]) initWithFace:v6 priority:100];
-    v10[0] = v7;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v7;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)galleryRowPrioritiesForDevice:(id)device
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = &unk_284EDFBD8;
-  v7[0] = &unk_284EDFBF0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = &unk_284EDFBD8;
+  v6[0] = &unk_284EDFBF0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

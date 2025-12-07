@@ -103,7 +103,7 @@ void __68__LiveFSValidationServiceSource_listener_shouldAcceptNewConnection___bl
 
 - (void)validation_allowValidation:(id)validation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   validationCopy = validation;
   mountPath = [(LiveFSFPExtensionHelper *)self->_fileProviderExtension mountPath];
   v6 = [mountPath URLByAppendingPathComponent:@"Validation"];
@@ -122,15 +122,13 @@ void __68__LiveFSValidationServiceSource_listener_shouldAcceptNewConnection___bl
     v11 = livefs_std_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[LiveFSValidationServiceSource validation_allowValidation:]";
-      _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_DEFAULT, "%s: about to return no", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[LiveFSValidationServiceSource validation_allowValidation:]";
+      _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_DEFAULT, "%s: about to return no", &v12, 0xCu);
     }
 
     validationCopy[2](validationCopy, 0, &unk_286815078);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

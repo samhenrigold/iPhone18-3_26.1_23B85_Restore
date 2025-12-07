@@ -2,6 +2,7 @@
 - (NSString)destinationAppDisplayID;
 - (int)destinationAppProcessID;
 - (void)setDestinationAppDisplayID:(id)d;
+- (void)setDestinationAppProcessID:(int)d;
 - (void)setOptionValue:(id)value forKey:(__CFString *)key;
 - (void)setOptionsData:(id)data;
 - (void)setSenderAppDisplayID:(id)d;
@@ -43,6 +44,34 @@
     playerPath2 = [(MRDRemoteControlCommand *)self playerPath];
     [playerPath2 setClient:client];
   }
+}
+
+- (void)setDestinationAppProcessID:(int)d
+{
+  v3 = *&d;
+  playerPath = [(MRDRemoteControlCommand *)self playerPath];
+  client = [playerPath client];
+
+  v6 = client;
+  if (client)
+  {
+    if (v3 < 1)
+    {
+      goto LABEL_6;
+    }
+
+    [client setProcessIdentifier:v3];
+  }
+
+  else
+  {
+    client = [[MRClient alloc] initWithProcessIdentifier:v3 bundleIdentifier:0];
+    playerPath2 = [(MRDRemoteControlCommand *)self playerPath];
+    [playerPath2 setClient:client];
+  }
+
+  v6 = client;
+LABEL_6:
 }
 
 - (int)destinationAppProcessID

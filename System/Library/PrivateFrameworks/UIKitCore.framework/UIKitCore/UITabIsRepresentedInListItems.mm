@@ -13,19 +13,19 @@ uint64_t ___UITabIsRepresentedInListItems_block_invoke(uint64_t a1, void *a2)
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
 @end

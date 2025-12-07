@@ -19,6 +19,7 @@
 - (void)dialogAlertPresenterDidDeactivateAlert:(id)alert;
 - (void)dialogAlertPresenterDidDisconnectFromAlert:(id)alert;
 - (void)dialogAlertPresenterDidInvalidateAlert:(id)alert;
+- (void)dismissPersistentChromeInDialog:(id)dialog success:(BOOL)success customAttribution:(id)attribution completionHandler:(id)handler;
 - (void)dismissPresentedContentForRunningContext:(id)context completionHandler:(id)handler;
 - (void)handleRemovedIgnoredNotifications:(id)notifications;
 - (void)logFinishDialogPresentationWithPresentedDialog:(id)dialog;
@@ -113,7 +114,7 @@
 
 void __54__WFDialogPresentationManager_screenOnStateDidChange___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) screenOn] & 1) == 0)
   {
     v2 = [*(a1 + 40) persistentRunningContext];
@@ -124,8 +125,8 @@ void __54__WFDialogPresentationManager_screenOnStateDidChange___block_invoke(uin
     }
   }
 
-  v29 = [*(a1 + 40) remoteAlertPresenter];
-  if (([v29 alertIsActive] & 1) != 0 && (objc_msgSend(*(a1 + 40), "presentedDialog"), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+  v27 = [*(a1 + 40) remoteAlertPresenter];
+  if (([v27 alertIsActive] & 1) != 0 && (objc_msgSend(*(a1 + 40), "presentedDialog"), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
     v5 = [*(a1 + 32) screenOn];
@@ -144,7 +145,7 @@ void __54__WFDialogPresentationManager_screenOnStateDidChange___block_invoke(uin
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v31 = "[WFDialogPresentationManager screenOnStateDidChange:]_block_invoke";
+          v29 = "[WFDialogPresentationManager screenOnStateDidChange:]_block_invoke";
           _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s Converting presented dialog into a notification, since the screen locked.", buf, 0xCu);
         }
 
@@ -162,53 +163,64 @@ void __54__WFDialogPresentationManager_screenOnStateDidChange___block_invoke(uin
 
       else
       {
-        v18 = [v6 context];
-        v19 = [v18 isShortcutsApp];
+        v17 = [v6 context];
+        v18 = [v17 isShortcutsApp];
 
-        if (v19)
+        if (v18)
         {
-          v20 = 3;
+          v19 = 3;
         }
 
         else
         {
-          v21 = [v6 context];
-          v22 = [v21 allowsDialogNotifications];
+          v20 = [v6 context];
+          v21 = [v20 allowsDialogNotifications];
 
-          if (v22)
+          if (v21)
           {
-            v20 = 0;
+            v19 = 0;
           }
 
           else
           {
-            v20 = 2;
+            v19 = 2;
           }
         }
 
-        v23 = [*(a1 + 40) presentedDialog];
-        v24 = [v23 completionHandler];
+        v22 = [*(a1 + 40) presentedDialog];
+        v23 = [v22 completionHandler];
 
-        if (v24)
+        if (v23)
         {
-          v25 = [*(a1 + 40) presentedDialog];
-          v26 = [v25 completionHandler];
-          v27 = [objc_alloc(MEMORY[0x277D79F38]) initWithResponseCode:v20];
-          (v26)[2](v26, v27);
+          v24 = [*(a1 + 40) presentedDialog];
+          v25 = [v24 completionHandler];
+          v26 = [objc_alloc(MEMORY[0x277D79F38]) initWithResponseCode:v19];
+          (v25)[2](v25, v26);
         }
 
         [*(a1 + 40) setPresentedDialog:0];
         [*(a1 + 40) queue_deactivateRemoteAlertAndInvalidateConnection];
       }
     }
-
-    v28 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v17 = *MEMORY[0x277D85DE8];
   }
+}
+
+- (void)dismissPersistentChromeInDialog:(id)dialog success:(BOOL)success customAttribution:(id)attribution completionHandler:(id)handler
+{
+  successCopy = success;
+  handlerCopy = handler;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_success_customAttribution_completionHandler___block_invoke;
+  v12[3] = &unk_2788FF680;
+  v12[4] = self;
+  v13 = handlerCopy;
+  v11 = handlerCopy;
+  [dialog dismissPersistentChromeWithSuccess:successCopy customAttribution:attribution completionHandler:v12];
 }
 
 void __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_success_customAttribution_completionHandler___block_invoke(uint64_t a1)
@@ -224,35 +236,33 @@ void __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_success_
   dispatch_async(v2, v4);
 }
 
-uint64_t __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_success_customAttribution_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_success_customAttribution_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = getWFDialogLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = getWFDialogLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
     v9 = "[WFDialogPresentationManager dismissPersistentChromeInDialog:success:customAttribution:completionHandler:]_block_invoke_2";
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Finished dismissing chrome after persistent mode completed", &v8, 0xCu);
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Finished dismissing chrome after persistent mode completed", &v8, 0xCu);
   }
 
-  v3 = [*(a1 + 32) persistentPresentationQueue];
-  [v3 removeAllObjects];
+  v4 = [*(a1 + 32) persistentPresentationQueue];
+  [v4 removeAllObjects];
 
-  v4 = [*(a1 + 32) queue_hasMoreDialogsToPresent];
-  v5 = *(a1 + 32);
-  if (v4)
+  v5 = [*(a1 + 32) queue_hasMoreDialogsToPresent];
+  v6 = *(a1 + 32);
+  if (v5)
   {
-    [v5 queue_presentNextDialog];
+    [v6 queue_presentNextDialog];
   }
 
   else
   {
-    [v5 queue_deactivateRemoteAlertAndInvalidateConnection];
+    [v6 queue_deactivateRemoteAlertAndInvalidateConnection];
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)completePersistentModeWithSuccess:(id)success runningContext:(id)context completion:(id)completion
@@ -272,28 +282,28 @@ uint64_t __107__WFDialogPresentationManager_dismissPersistentChromeInDialog_succ
   dispatch_async(queue, block);
 }
 
-void __91__WFDialogPresentationManager_completePersistentModeWithSuccess_runningContext_completion___block_invoke(uint64_t a1)
+void __91__WFDialogPresentationManager_completePersistentModeWithSuccess_runningContext_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = getWFDialogLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = getWFDialogLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315138;
     v13 = "[WFDialogPresentationManager completePersistentModeWithSuccess:runningContext:completion:]_block_invoke";
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Completing persistent mode", &v12, 0xCu);
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Completing persistent mode", &v12, 0xCu);
   }
 
-  v3 = [*(a1 + 32) shouldShowStatus];
-  v4 = *(a1 + 32);
-  if (v3)
+  v4 = [*(a1 + 32) shouldShowStatus];
+  v5 = *(a1 + 32);
+  if (v4)
   {
-    v5 = [v4 connectedStatusPresenter];
+    v6 = [v5 connectedStatusPresenter];
 
-    if (v5)
+    if (v6)
     {
       [*(a1 + 32) acquireStatusPresenterAssertionIfNecessary];
-      v6 = [*(a1 + 32) connectedStatusPresenter];
-      [v6 workflowStatusWorkflowDidFinishWithSuccess:{objc_msgSend(*(a1 + 40), "BOOLValue")}];
+      v7 = [*(a1 + 32) connectedStatusPresenter];
+      [v7 workflowStatusWorkflowDidFinishWithSuccess:{objc_msgSend(*(a1 + 40), "BOOLValue")}];
     }
 
     [*(a1 + 32) queue_clearPersistentModeStateIfNecessary];
@@ -301,27 +311,25 @@ void __91__WFDialogPresentationManager_completePersistentModeWithSuccess_running
 
   else
   {
-    v7 = [v4 persistentRunningAttribution];
+    v8 = [v5 persistentRunningAttribution];
     [*(a1 + 32) queue_clearPersistentModeStateIfNecessary];
-    v8 = [*(a1 + 32) connectedRemoteAlert];
+    v9 = [*(a1 + 32) connectedRemoteAlert];
 
-    v9 = *(a1 + 32);
-    if (v8)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      v10 = [*(a1 + 32) connectedRemoteAlert];
-      [v9 dismissPersistentChromeInDialog:v10 success:objc_msgSend(*(a1 + 40) customAttribution:"BOOLValue") completionHandler:{v7, *(a1 + 48)}];
+      v11 = [*(a1 + 32) connectedRemoteAlert];
+      [v10 dismissPersistentChromeInDialog:v11 success:objc_msgSend(*(a1 + 40) customAttribution:"BOOLValue") completionHandler:{v8, *(a1 + 48)}];
     }
 
     else
     {
-      [*(a1 + 32) setPersistentRunningAttribution:v7];
+      [*(a1 + 32) setPersistentRunningAttribution:v8];
       [*(a1 + 32) setCompletePersistentModeBlockAwaitingRemoteAlertReactivation:*(a1 + 48)];
       [*(a1 + 32) setCompletePersistentModeAwaitingRemoteAlertReactivationSuccess:{objc_msgSend(*(a1 + 40), "BOOLValue")}];
       [*(a1 + 32) activateRemoteAlert];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginPersistentModeWithRunningContext:(id)context attribution:(id)attribution completionHandler:(id)handler
@@ -346,7 +354,7 @@ void __91__WFDialogPresentationManager_completePersistentModeWithSuccess_running
 
 void __99__WFDialogPresentationManager_beginPersistentModeWithRunningContext_attribution_completionHandler___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) shouldShowStatus];
   v3 = *(a1 + 32);
   if (v2)
@@ -411,7 +419,7 @@ void __99__WFDialogPresentationManager_beginPersistentModeWithRunningContext_att
     {
 LABEL_24:
       (*(*(a1 + 56) + 16))();
-      goto LABEL_25;
+      return;
     }
 
     [*(a1 + 32) acquireStatusPresenterAssertionIfNecessary];
@@ -440,9 +448,9 @@ LABEL_22:
         v13 = getWFDialogLogObject();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 136315138;
-          v28 = "[WFDialogPresentationManager beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
-          _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Activating remote alert in persistent mode, because workflow started running", &v27, 0xCu);
+          v26 = 136315138;
+          v27 = "[WFDialogPresentationManager beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
+          _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Activating remote alert in persistent mode, because workflow started running", &v26, 0xCu);
         }
 
         [*(a1 + 32) activateRemoteAlert];
@@ -455,13 +463,10 @@ LABEL_22:
   v8 = getWFXPCRunnerLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    v27 = 136315138;
-    v28 = "[WFDialogPresentationManager beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
-    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_FAULT, "%s Already showing persistent UI. Running multiple shortcuts in persistent mode, concurrently, is not supported. This should've been caught in the run coordinator before starting the shortcut run, this shortcut won't run properly.", &v27, 0xCu);
+    v26 = 136315138;
+    v27 = "[WFDialogPresentationManager beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
+    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_FAULT, "%s Already showing persistent UI. Running multiple shortcuts in persistent mode, concurrently, is not supported. This should've been caught in the run coordinator before starting the shortcut run, this shortcut won't run properly.", &v26, 0xCu);
   }
-
-LABEL_25:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowStatus
@@ -507,7 +512,7 @@ uint64_t __64__WFDialogPresentationManager_assertion_didInvalidateWithError___bl
 
 void __73__WFDialogPresentationManager_acquireStatusPresenterAssertionIfNecessary__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statusPresenterAssertion];
   v3 = [v2 isValid];
 
@@ -515,23 +520,23 @@ void __73__WFDialogPresentationManager_acquireStatusPresenterAssertionIfNecessar
   {
     v4 = objc_alloc(MEMORY[0x277CC1E58]);
     v5 = *MEMORY[0x277D7A2F0];
-    v18 = 0;
-    v6 = [v4 initWithBundleIdentifier:v5 allowPlaceholder:0 personaUniqueString:&stru_2845DDD10 error:&v18];
-    v7 = v18;
+    v17 = 0;
+    v6 = [v4 initWithBundleIdentifier:v5 allowPlaceholder:0 personaUniqueString:&stru_2845DDD10 error:&v17];
+    v7 = v17;
     if (v6)
     {
       v8 = [MEMORY[0x277D46F60] identityForLSApplicationIdentity:v6];
       v9 = [MEMORY[0x277D47008] targetWithProcessIdentity:v8];
       v10 = objc_alloc(MEMORY[0x277D46DB8]);
       v11 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.shortcuts" name:@"RunningBackground"];
-      v19 = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       v13 = [v10 initWithExplanation:@"Shortcuts Status" target:v9 attributes:v12];
 
       [v13 addObserver:*(a1 + 32)];
-      v17 = 0;
-      LOBYTE(v12) = [v13 acquireWithError:&v17];
-      v14 = v17;
+      v16 = 0;
+      LOBYTE(v12) = [v13 acquireWithError:&v16];
+      v14 = v16;
 
       if ((v12 & 1) == 0)
       {
@@ -539,9 +544,9 @@ void __73__WFDialogPresentationManager_acquireStatusPresenterAssertionIfNecessar
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v21 = "[WFDialogPresentationManager acquireStatusPresenterAssertionIfNecessary]_block_invoke";
-          v22 = 2112;
-          v23 = v14;
+          v20 = "[WFDialogPresentationManager acquireStatusPresenterAssertionIfNecessary]_block_invoke";
+          v21 = 2112;
+          v22 = v14;
           _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_ERROR, "%s Failed to acquire assertion for view service to present status: error: %@", buf, 0x16u);
         }
       }
@@ -555,17 +560,15 @@ void __73__WFDialogPresentationManager_acquireStatusPresenterAssertionIfNecessar
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v21 = "[WFDialogPresentationManager acquireStatusPresenterAssertionIfNecessary]_block_invoke";
-        v22 = 2112;
-        v23 = v7;
+        v20 = "[WFDialogPresentationManager acquireStatusPresenterAssertionIfNecessary]_block_invoke";
+        v21 = 2112;
+        v22 = v7;
         _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_ERROR, "%s Unable to find identity for view service, bailing assertion acquiring: %@", buf, 0x16u);
       }
 
       v14 = v7;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)statusPresenterDidDisconnect
@@ -682,7 +685,7 @@ void __64__WFDialogPresentationManager_workflowStatusHostBeginConnection__block_
 
 void __70__WFDialogPresentationManager_dialogAlertPresenterDidInvalidateAlert___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dismissalReason];
 
   if (!v2)
@@ -708,9 +711,9 @@ void __70__WFDialogPresentationManager_dialogAlertPresenterDidInvalidateAlert___
       {
         if (v9)
         {
-          v17 = 136315138;
-          v18 = "[WFDialogPresentationManager dialogAlertPresenterDidInvalidateAlert:]_block_invoke";
-          _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution, since the remote alert was invalidated and the screen is still on", &v17, 0xCu);
+          v16 = 136315138;
+          v17 = "[WFDialogPresentationManager dialogAlertPresenterDidInvalidateAlert:]_block_invoke";
+          _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution, since the remote alert was invalidated and the screen is still on", &v16, 0xCu);
         }
 
         [*(a1 + 32) cancelWorkflow];
@@ -720,9 +723,9 @@ void __70__WFDialogPresentationManager_dialogAlertPresenterDidInvalidateAlert___
       {
         if (v9)
         {
-          v17 = 136315138;
-          v18 = "[WFDialogPresentationManager dialogAlertPresenterDidInvalidateAlert:]_block_invoke";
-          _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Sending cancelled dialog response, since the remote alert was invalidated and the screen is still on", &v17, 0xCu);
+          v16 = 136315138;
+          v17 = "[WFDialogPresentationManager dialogAlertPresenterDidInvalidateAlert:]_block_invoke";
+          _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Sending cancelled dialog response, since the remote alert was invalidated and the screen is still on", &v16, 0xCu);
         }
 
         v10 = [*(a1 + 32) presentedDialog];
@@ -749,8 +752,6 @@ void __70__WFDialogPresentationManager_dialogAlertPresenterDidInvalidateAlert___
       [*(a1 + 32) activateRemoteAlert];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dialogAlertPresenterDidDeactivateAlert:(id)alert
@@ -766,7 +767,7 @@ void __70__WFDialogPresentationManager_dialogAlertPresenterDidInvalidateAlert___
 
 uint64_t __70__WFDialogPresentationManager_dialogAlertPresenterDidDeactivateAlert___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) presentedDialog];
   v3 = [v2 context];
   v4 = [v3 allowsDialogNotifications];
@@ -796,9 +797,9 @@ uint64_t __70__WFDialogPresentationManager_dialogAlertPresenterDidDeactivateAler
     v16 = getWFDialogLogObject();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 136315138;
-      v27 = "[WFDialogPresentationManager dialogAlertPresenterDidDeactivateAlert:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_DEFAULT, "%s dialogAlertPresenterDidDeactivateAlert", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "[WFDialogPresentationManager dialogAlertPresenterDidDeactivateAlert:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_DEFAULT, "%s dialogAlertPresenterDidDeactivateAlert", &v25, 0xCu);
     }
   }
 
@@ -811,9 +812,9 @@ uint64_t __70__WFDialogPresentationManager_dialogAlertPresenterDidDeactivateAler
       v18 = getWFDialogLogObject();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 136315138;
-        v27 = "[WFDialogPresentationManager dialogAlertPresenterDidDeactivateAlert:]_block_invoke";
-        _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution, since the remote alert was deactivated and we already sent a response", &v26, 0xCu);
+        v25 = 136315138;
+        v26 = "[WFDialogPresentationManager dialogAlertPresenterDidDeactivateAlert:]_block_invoke";
+        _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution, since the remote alert was deactivated and we already sent a response", &v25, 0xCu);
       }
 
       [*(a1 + 32) cancelWorkflow];
@@ -836,9 +837,7 @@ uint64_t __70__WFDialogPresentationManager_dialogAlertPresenterDidDeactivateAler
     [*(a1 + 32) setPresentedDialog:0];
   }
 
-  result = [*(a1 + 32) queue_deactivateRemoteAlertAndInvalidateConnection];
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) queue_deactivateRemoteAlertAndInvalidateConnection];
 }
 
 - (void)dialogAlertPresenterDidDisconnectFromAlert:(id)alert
@@ -854,7 +853,7 @@ uint64_t __70__WFDialogPresentationManager_dialogAlertPresenterDidDeactivateAler
 
 uint64_t __74__WFDialogPresentationManager_dialogAlertPresenterDidDisconnectFromAlert___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) presentedDialog];
 
   if (v2)
@@ -862,9 +861,9 @@ uint64_t __74__WFDialogPresentationManager_dialogAlertPresenterDidDisconnectFrom
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[WFDialogPresentationManager dialogAlertPresenterDidDisconnectFromAlert:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_ERROR, "%s Connection unexpectedly invalidated while a dialog was presented. Sending a cancelled response.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[WFDialogPresentationManager dialogAlertPresenterDidDisconnectFromAlert:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_ERROR, "%s Connection unexpectedly invalidated while a dialog was presented. Sending a cancelled response.", &v8, 0xCu);
     }
 
     v4 = [*(a1 + 32) presentedDialog];
@@ -875,9 +874,7 @@ uint64_t __74__WFDialogPresentationManager_dialogAlertPresenterDidDisconnectFrom
     [*(a1 + 32) setPresentedDialog:0];
   }
 
-  result = [*(a1 + 32) queue_connectedRemoteAlertDidDisconnect];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) queue_connectedRemoteAlertDidDisconnect];
 }
 
 - (void)dialogAlertPresenter:(id)presenter didConnectToAlert:(id)alert
@@ -896,47 +893,45 @@ uint64_t __74__WFDialogPresentationManager_dialogAlertPresenterDidDisconnectFrom
 
 - (void)cancelWorkflow
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   presentedDialog = [(WFDialogPresentationManager *)self presentedDialog];
   context = [presentedDialog context];
 
   if (context)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     connectedRunners = [(WFDialogPresentationManager *)self connectedRunners];
-    v6 = [connectedRunners countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [connectedRunners countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(connectedRunners);
           }
 
-          remoteObjectProxy = [*(*(&v12 + 1) + 8 * v9) remoteObjectProxy];
+          remoteObjectProxy = [*(*(&v11 + 1) + 8 * v9) remoteObjectProxy];
           [remoteObjectProxy presenterRequestedWorkflowStopForContext:context];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [connectedRunners countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [connectedRunners countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestDismissalWithReason:(id)reason
@@ -955,83 +950,79 @@ uint64_t __74__WFDialogPresentationManager_dialogAlertPresenterDidDisconnectFrom
 
 uint64_t __58__WFDialogPresentationManager_requestDismissalWithReason___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D7A7E0];
-  v5 = a1 + 32;
-  v3 = *(a1 + 32);
-  v4 = *(v5 + 8);
-  if (v4)
+  v20 = *MEMORY[0x277D85DE8];
+  v4 = a1 + 32;
+  v2 = *(a1 + 32);
+  v3 = *(v4 + 8);
+  if (v3)
   {
-    v6 = v4;
+    v5 = v3;
   }
 
   else
   {
-    v6 = *MEMORY[0x277D7A7E0];
+    v5 = *MEMORY[0x277D7A7E0];
   }
 
-  [v3 setDismissalReason:v6];
-  v7 = [*(a1 + 32) presentedDialog];
+  [v2 setDismissalReason:v5];
+  v6 = [*(a1 + 32) presentedDialog];
 
-  if (v7)
+  if (v6)
   {
-    v8 = getWFDialogLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = getWFDialogLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315138;
-      v21 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s Sending cancelled dialog response, since user cancelled the dialog", &v20, 0xCu);
+      v18 = 136315138;
+      v19 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s Sending cancelled dialog response, since user cancelled the dialog", &v18, 0xCu);
     }
 
-    v9 = [*(a1 + 32) presentedDialog];
-    v10 = [v9 response];
+    v8 = [*(a1 + 32) presentedDialog];
+    v9 = [v8 response];
 
-    v11 = *(a1 + 32);
-    if (v10)
+    v10 = *(a1 + 32);
+    if (v9)
     {
-      [v11 cancelWorkflow];
+      [v10 cancelWorkflow];
     }
 
     else
     {
-      v12 = [v11 presentedDialog];
-      v13 = [v12 completionHandler];
-      v14 = [objc_alloc(MEMORY[0x277D79F38]) initWithCancelled:1];
-      (v13)[2](v13, v14);
+      v11 = [v10 presentedDialog];
+      v12 = [v11 completionHandler];
+      v13 = [objc_alloc(MEMORY[0x277D79F38]) initWithCancelled:1];
+      (v12)[2](v12, v13);
 
       [*(a1 + 32) setPresentedDialog:0];
     }
   }
 
-  v15 = [*(a1 + 32) queue_hasMoreDialogsToPresent];
-  v16 = getWFDialogLogObject();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-  if (v15)
+  v14 = [*(a1 + 32) queue_hasMoreDialogsToPresent];
+  v15 = getWFDialogLogObject();
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  if (v14)
   {
-    if (v17)
+    if (v16)
     {
-      v20 = 136315138;
-      v21 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_DEFAULT, "%s Presenting another dialog, even though the user cancelled the current one, since it's likely from another shortcut.", &v20, 0xCu);
+      v18 = 136315138;
+      v19 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Presenting another dialog, even though the user cancelled the current one, since it's likely from another shortcut.", &v18, 0xCu);
     }
 
-    result = [*(a1 + 32) queue_presentNextDialog];
+    return [*(a1 + 32) queue_presentNextDialog];
   }
 
   else
   {
-    if (v17)
+    if (v16)
     {
-      v20 = 136315138;
-      v21 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_DEFAULT, "%s Dismissing the dialog, since the user cancelled.", &v20, 0xCu);
+      v18 = 136315138;
+      v19 = "[WFDialogPresentationManager requestDismissalWithReason:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Dismissing the dialog, since the user cancelled.", &v18, 0xCu);
     }
 
-    result = [*(a1 + 32) queue_deactivateRemoteAlertAndInvalidateConnection];
+    return [*(a1 + 32) queue_deactivateRemoteAlertAndInvalidateConnection];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)beginConnection
@@ -1113,7 +1104,7 @@ void __46__WFDialogPresentationManager_beginConnection__block_invoke(uint64_t a1
 
 void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) valueForEntitlement:@"com.apple.shortcuts.dialogpresentation"];
   v3 = [v2 BOOLValue];
 
@@ -1124,7 +1115,7 @@ void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
+      v22 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
       _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEFAULT, "%s Received incoming XPC connection", buf, 0xCu);
     }
 
@@ -1137,30 +1128,30 @@ void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___bloc
 
     v8 = *(a1 + 32);
     objc_initWeak(buf, *(a1 + 40));
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_207;
-    v19[3] = &unk_2788FEA10;
-    objc_copyWeak(&v21, buf);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_207;
+    v18[3] = &unk_2788FEA10;
+    objc_copyWeak(&v20, buf);
     v9 = v8;
-    v20 = v9;
-    [*(a1 + 32) setInterruptionHandler:v19];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_2;
-    v16 = &unk_2788FEA10;
-    objc_copyWeak(&v18, buf);
+    v19 = v9;
+    [*(a1 + 32) setInterruptionHandler:v18];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_2;
+    v15 = &unk_2788FEA10;
+    objc_copyWeak(&v17, buf);
     v10 = v9;
-    v17 = v10;
-    [*(a1 + 32) setInvalidationHandler:&v13];
+    v16 = v10;
+    [*(a1 + 32) setInvalidationHandler:&v12];
     [*(a1 + 32) resume];
     v11 = [*(a1 + 40) connectedRunners];
     [v11 addObject:*(a1 + 32)];
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -1169,62 +1160,56 @@ void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
+      v22 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
       _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_ERROR, "%s Rejecting incoming connection, since it is missing the com.apple.shortcuts.dialogpresentation entitlement", buf, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_207(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = getWFDialogLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v9 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
+    v8 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke";
     _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_ERROR, "%s XPC connection interrupted", buf, 0xCu);
   }
 
   v4 = [WeakRetained queue];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_208;
-  v6[3] = &unk_2788FFFC0;
-  v6[4] = WeakRetained;
-  v7 = *(a1 + 32);
-  dispatch_sync(v4, v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_208;
+  v5[3] = &unk_2788FFFC0;
+  v5[4] = WeakRetained;
+  v6 = *(a1 + 32);
+  dispatch_sync(v4, v5);
 }
 
 void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = getWFDialogLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v9 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke_2";
+    v8 = "[WFDialogPresentationManager listener:shouldAcceptNewConnection:]_block_invoke_2";
     _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_ERROR, "%s XPC connection invalidated", buf, 0xCu);
   }
 
   v4 = [WeakRetained queue];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_209;
-  v6[3] = &unk_2788FFFC0;
-  v6[4] = WeakRetained;
-  v7 = *(a1 + 32);
-  dispatch_sync(v4, v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_209;
+  v5[3] = &unk_2788FFFC0;
+  v5[4] = WeakRetained;
+  v6 = *(a1 + 32);
+  dispatch_sync(v4, v5);
 }
 
 void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___block_invoke_209(uint64_t a1)
@@ -1257,18 +1242,18 @@ void __66__WFDialogPresentationManager_listener_shouldAcceptNewConnection___bloc
   dispatch_async(queue, v13);
 }
 
-void __84__WFDialogPresentationManager_postNotificationWithRequest_presentationMode_context___block_invoke(uint64_t a1)
+void __84__WFDialogPresentationManager_postNotificationWithRequest_presentationMode_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
-  v2 = getWFDialogLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = getWFDialogLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 136315394;
     v20 = "[WFDialogPresentationManager postNotificationWithRequest:presentationMode:context:]_block_invoke";
     v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Posting notification for dialog request: %@", buf, 0x16u);
+    v22 = v4;
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Posting notification for dialog request: %@", buf, 0x16u);
   }
 
   if (*(a1 + 40))
@@ -1277,60 +1262,58 @@ void __84__WFDialogPresentationManager_postNotificationWithRequest_presentationM
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v4 = [*(a1 + 48) connectedRunners];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v5)
+    v5 = [*(a1 + 48) connectedRunners];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v15;
+      v7 = v6;
+      v8 = *v15;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v7)
+          if (*v15 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = [*(*(&v14 + 1) + 8 * i) remoteObjectProxy];
-          [v9 presenterRequestedWorkflowPauseForContext:*(a1 + 40) dialogRequest:*(a1 + 32) completionHandler:&__block_literal_global_1695];
+          v10 = [*(*(&v14 + 1) + 8 * i) remoteObjectProxy];
+          [v10 presenterRequestedWorkflowPauseForContext:*(a1 + 40) dialogRequest:*(a1 + 32) completionHandler:&__block_literal_global_1695];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
     if (*(a1 + 56) >= 3uLL)
     {
-      v10 = 3;
+      v11 = 3;
     }
 
     else
     {
-      v10 = *(a1 + 56);
+      v11 = *(a1 + 56);
     }
 
-    v11 = [*(a1 + 48) notificationManager];
-    [v11 postNotificationWithRequest:*(a1 + 32) presentationMode:v10 runningContext:*(a1 + 40)];
+    v12 = [*(a1 + 48) notificationManager];
+    [v12 postNotificationWithRequest:*(a1 + 32) presentationMode:v11 runningContext:*(a1 + 40)];
   }
 
   else
   {
-    v11 = getWFDialogLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = getWFDialogLogObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v12 = *(a1 + 32);
+      v13 = *(a1 + 32);
       *buf = 136315394;
       v20 = "[WFDialogPresentationManager postNotificationWithRequest:presentationMode:context:]_block_invoke";
       v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_FAULT, "%s Attempting to post notification for request: %@ with no running context", buf, 0x16u);
+      v22 = v13;
+      _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_FAULT, "%s Attempting to post notification for request: %@ with no running context", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateStatusPresenter
@@ -1366,34 +1349,31 @@ void __54__WFDialogPresentationManager_activateStatusPresenter__block_invoke(uin
 
 void __73__WFDialogPresentationManager_activateRemoteAlertTiedToBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) screenOnObserver];
   v3 = [v2 screenOn];
 
   if (v3)
   {
-    v7 = [*(a1 + 32) remoteAlertPresenter];
-    [v7 activateAlertInMainSceneOfApplicationWithBundleIdentifier:*(a1 + 40)];
-    v4 = *MEMORY[0x277D85DE8];
+    v5 = [*(a1 + 32) remoteAlertPresenter];
+    [v5 activateAlertInMainSceneOfApplicationWithBundleIdentifier:*(a1 + 40)];
   }
 
   else
   {
-    v5 = getWFDialogLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = getWFDialogLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[WFDialogPresentationManager activateRemoteAlertTiedToBundleIdentifier:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEFAULT, "%s Attempting to activate remote alert while the display is off, ignoring request", buf, 0xCu);
+      v7 = "[WFDialogPresentationManager activateRemoteAlertTiedToBundleIdentifier:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s Attempting to activate remote alert while the display is off, ignoring request", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)queue_clearPersistentModeStateIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   queue = [(WFDialogPresentationManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1408,7 +1388,7 @@ void __73__WFDialogPresentationManager_activateRemoteAlertTiedToBundleIdentifier
 
     if (!persistentRunningAttribution)
     {
-      goto LABEL_7;
+      return;
     }
   }
 
@@ -1416,46 +1396,41 @@ void __73__WFDialogPresentationManager_activateRemoteAlertTiedToBundleIdentifier
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     persistentRunningContext2 = [(WFDialogPresentationManager *)self persistentRunningContext];
-    v10 = 136315394;
-    v11 = "[WFDialogPresentationManager queue_clearPersistentModeStateIfNecessary]";
-    v12 = 2112;
-    v13 = persistentRunningContext2;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Clearing persistent state (%@)", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WFDialogPresentationManager queue_clearPersistentModeStateIfNecessary]";
+    v11 = 2112;
+    v12 = persistentRunningContext2;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Clearing persistent state (%@)", &v9, 0x16u);
   }
 
   [(WFDialogPresentationManager *)self setPersistentRunningContext:0];
   [(WFDialogPresentationManager *)self setPersistentRunningAttribution:0];
   persistentPresentationQueue = [(WFDialogPresentationManager *)self persistentPresentationQueue];
   [persistentPresentationQueue removeAllObjects];
-
-LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_deactivateRemoteAlertAndInvalidateConnection
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   queue = [(WFDialogPresentationManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v4 = getWFDialogLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[WFDialogPresentationManager queue_deactivateRemoteAlertAndInvalidateConnection]";
-    _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_INFO, "%s Deactivating remote alert, and invalidating the XPC connection.", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[WFDialogPresentationManager queue_deactivateRemoteAlertAndInvalidateConnection]";
+    _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_INFO, "%s Deactivating remote alert, and invalidating the XPC connection.", &v6, 0xCu);
   }
 
   [(WFDialogPresentationManager *)self queue_connectedRemoteAlertDidDisconnect];
   remoteAlertPresenter = [(WFDialogPresentationManager *)self remoteAlertPresenter];
   [remoteAlertPresenter deactivateAlert];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_presentNextDialog
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   queue = [(WFDialogPresentationManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1469,7 +1444,7 @@ LABEL_7:
     if (v7)
     {
       *buf = 136315138;
-      v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
+      v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
       _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Dequeueing dialog from transient queue.", buf, 0xCu);
     }
 
@@ -1481,7 +1456,7 @@ LABEL_7:
     if (v7)
     {
       *buf = 136315138;
-      v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
+      v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
       _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Dequeueing dialog from persistent queue.", buf, 0xCu);
     }
 
@@ -1505,25 +1480,25 @@ LABEL_7:
         {
           request = [firstObject request];
           *buf = 136315394;
-          v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
-          v26 = 2112;
-          v27 = request;
+          v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
+          v25 = 2112;
+          v26 = request;
           _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_DEFAULT, "%s Asking connected dialog to show request: %@", buf, 0x16u);
         }
 
         [(WFDialogPresentationManager *)self setPresentedDialog:firstObject];
         objc_initWeak(buf, self);
         request2 = [firstObject request];
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke;
-        v21[3] = &unk_2788FE9C0;
-        objc_copyWeak(&v23, buf);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke;
+        v20[3] = &unk_2788FE9C0;
+        objc_copyWeak(&v22, buf);
         v12 = firstObject;
-        v22 = v12;
-        [connectedRemoteAlert showDialogRequest:request2 completionHandler:v21];
+        v21 = v12;
+        [connectedRemoteAlert showDialogRequest:request2 completionHandler:v20];
 
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(&v22);
         objc_destroyWeak(buf);
         goto LABEL_21;
       }
@@ -1532,7 +1507,7 @@ LABEL_7:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
+        v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
         v13 = "%s Attempted to present a dialog while another dialog is still visible. Ignoring.";
         v14 = v12;
         v15 = OS_LOG_TYPE_ERROR;
@@ -1547,7 +1522,7 @@ LABEL_17:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
+        v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
         v13 = "%s Unable to present any dialogs, since the UI process is not connected";
         v14 = v12;
         v15 = OS_LOG_TYPE_DEFAULT;
@@ -1564,13 +1539,11 @@ LABEL_21:
   if (os_log_type_enabled(connectedRemoteAlert, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[WFDialogPresentationManager queue_presentNextDialog]";
+    v24 = "[WFDialogPresentationManager queue_presentNextDialog]";
     _os_log_impl(&dword_23103C000, connectedRemoteAlert, OS_LOG_TYPE_DEFAULT, "%s Presentation queue is empty, so not presenting any dialogs.", buf, 0xCu);
   }
 
 LABEL_22:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke(uint64_t a1, void *a2)
@@ -1589,18 +1562,18 @@ void __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke(uin
   dispatch_async(v5, block);
 }
 
-void __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke_2(id *a1)
+void __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke_2(id *a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
-  v2 = getWFDialogLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = getWFDialogLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
+    v4 = a1[4];
     v13 = 136315394;
     v14 = "[WFDialogPresentationManager queue_presentNextDialog]_block_invoke_2";
     v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Received response from presented dialog: %@", &v13, 0x16u);
+    v16 = v4;
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Received response from presented dialog: %@", &v13, 0x16u);
   }
 
   if ([a1[4] shouldDismissDialogInTransientMode])
@@ -1610,57 +1583,56 @@ void __54__WFDialogPresentationManager_queue_presentNextDialog__block_invoke_2(i
 
   else
   {
-    v4 = a1[4];
-    v5 = [a1[5] presentedDialog];
-    [v5 setResponse:v4];
+    v5 = a1[4];
+    v6 = [a1[5] presentedDialog];
+    [v6 setResponse:v5];
   }
 
-  v6 = [a1[6] completionHandler];
-  (v6)[2](v6, a1[4]);
+  v7 = [a1[6] completionHandler];
+  (v7)[2](v7, a1[4]);
 
-  v7 = [a1[5] persistentPresentationQueue];
-  if ([v7 count])
+  v8 = [a1[5] persistentPresentationQueue];
+  if ([v8 count])
   {
 
 LABEL_9:
-    v10 = getWFDialogLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = getWFDialogLogObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 136315138;
       v14 = "[WFDialogPresentationManager queue_presentNextDialog]_block_invoke";
-      _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s There are more dialogs to present, so presenting the next one.", &v13, 0xCu);
+      _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s There are more dialogs to present, so presenting the next one.", &v13, 0xCu);
     }
 
     [a1[5] queue_presentNextDialog];
-    goto LABEL_12;
+    return;
   }
 
-  v8 = [a1[5] otherPresentationQueue];
-  v9 = [v8 count];
+  v9 = [a1[5] otherPresentationQueue];
+  v10 = [v9 count];
 
-  if (v9)
+  if (v10)
   {
     goto LABEL_9;
   }
 
-  if (([a1[4] isCancelled] & 1) == 0)
+  if ([a1[4] isCancelled])
   {
-    v12 = [a1[5] persistentRunningContext];
-    if (v12)
-    {
-
-      goto LABEL_12;
-    }
-
-    if (![a1[4] shouldDismissDialogInTransientMode])
-    {
-      goto LABEL_12;
-    }
+    goto LABEL_14;
   }
 
-  [a1[5] queue_deactivateRemoteAlertAndInvalidateConnection];
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = [a1[5] persistentRunningContext];
+  if (v12)
+  {
+
+    return;
+  }
+
+  if ([a1[4] shouldDismissDialogInTransientMode])
+  {
+LABEL_14:
+    [a1[5] queue_deactivateRemoteAlertAndInvalidateConnection];
+  }
 }
 
 - (void)dismissPresentedContentForRunningContext:(id)context completionHandler:(id)handler
@@ -1792,11 +1764,11 @@ void __90__WFDialogPresentationManager_dismissPresentedContentForRunningContext_
 
 void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completionHandler___block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
-    v52 = [MEMORY[0x277CCA890] currentHandler];
-    [v52 handleFailureInMethod:*(a1 + 64) object:*(a1 + 40) file:@"WFDialogPresentationManager.m" lineNumber:173 description:{@"Invalid parameter not satisfying: %@", @"context"}];
+    v50 = [MEMORY[0x277CCA890] currentHandler];
+    [v50 handleFailureInMethod:*(a1 + 64) object:*(a1 + 40) file:@"WFDialogPresentationManager.m" lineNumber:173 description:{@"Invalid parameter not satisfying: %@", @"context"}];
   }
 
   v2 = [*(a1 + 40) persistentRunningContext];
@@ -1811,7 +1783,7 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+      v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
       _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_DEFAULT, "%s Screen is off, so posting dialog request as a notification.", buf, 0xCu);
     }
 
@@ -1872,16 +1844,16 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
 
     v20 = [WFPresentedDialog alloc];
     v21 = *(a1 + 32);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __82__WFDialogPresentationManager_showDialogRequest_runningContext_completionHandler___block_invoke_194;
-    v54[3] = &unk_2788FE998;
-    v55 = *(a1 + 48);
-    v53 = *(a1 + 32);
-    v22 = v53.i64[0];
-    v56 = vextq_s8(v53, v53, 8uLL);
-    v57 = *(a1 + 56);
-    v23 = [(WFPresentedDialog *)v20 initWithRequest:v7 presentationMode:v4 runningContext:v21 completionHandler:v54];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __82__WFDialogPresentationManager_showDialogRequest_runningContext_completionHandler___block_invoke_194;
+    v52[3] = &unk_2788FE998;
+    v53 = *(a1 + 48);
+    v51 = *(a1 + 32);
+    v22 = v51.i64[0];
+    v54 = vextq_s8(v51, v51, 8uLL);
+    v55 = *(a1 + 56);
+    v23 = [(WFPresentedDialog *)v20 initWithRequest:v7 presentationMode:v4 runningContext:v21 completionHandler:v52];
     v24 = getWFDialogLogObject();
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
     if (v4)
@@ -1890,9 +1862,9 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
       {
         v26 = *(a1 + 48);
         *buf = 136315394;
-        v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
-        v60 = 2112;
-        v61 = v26;
+        v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
+        v58 = 2112;
+        v59 = v26;
         _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_DEFAULT, "%s Adding %@ to persistent presentation queue.", buf, 0x16u);
       }
 
@@ -1905,9 +1877,9 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
       {
         v28 = *(a1 + 48);
         *buf = 136315394;
-        v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
-        v60 = 2112;
-        v61 = v28;
+        v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+        v58 = 2112;
+        v59 = v28;
         _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_DEFAULT, "%s Adding %@ to transient presentation queue.", buf, 0x16u);
       }
 
@@ -1935,7 +1907,7 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+            v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
             _os_log_impl(&dword_23103C000, v36, OS_LOG_TYPE_DEFAULT, "%s There's a presented dialog. We are ignoring it and moving on because the presented dialog already has a response and shouldDismissDialogInTransientMode was NO, which means it was likely just waiting for a followup.", buf, 0xCu);
           }
 
@@ -1943,48 +1915,47 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
         }
       }
 
-      v37 = *(a1 + 48);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v39 = [*(a1 + 40) remoteAlertPresenter];
-      v40 = [v39 alertIsActive];
+      v38 = [*(a1 + 40) remoteAlertPresenter];
+      v39 = [v38 alertIsActive];
 
-      if ((v40 & 1) == 0)
+      if ((v39 & 1) == 0)
       {
-        v41 = getWFDialogLogObject();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        v40 = getWFDialogLogObject();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
-          _os_log_impl(&dword_23103C000, v41, OS_LOG_TYPE_INFO, "%s No remote alert is active, so activating one.", buf, 0xCu);
+          v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+          _os_log_impl(&dword_23103C000, v40, OS_LOG_TYPE_INFO, "%s No remote alert is active, so activating one.", buf, 0xCu);
         }
 
         if (isKindOfClass)
         {
-          v42 = *(a1 + 48);
-          if (v42)
+          v41 = *(a1 + 48);
+          if (v41)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v43 = v42;
+              v42 = v41;
             }
 
             else
             {
-              v43 = 0;
+              v42 = 0;
             }
           }
 
           else
           {
-            v43 = 0;
+            v42 = 0;
           }
 
-          v44 = v43;
+          v43 = v42;
 
-          v45 = [v44 applicationBundleIdentifier];
-          [*(a1 + 40) activateRemoteAlertTiedToBundleIdentifier:v45];
+          v44 = [v43 applicationBundleIdentifier];
+          [*(a1 + 40) activateRemoteAlertTiedToBundleIdentifier:v44];
         }
 
         else
@@ -1993,27 +1964,27 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
         }
       }
 
-      v46 = [*(a1 + 40) connectedRemoteAlert];
-      if (v46)
+      v45 = [*(a1 + 40) connectedRemoteAlert];
+      if (v45)
       {
-        v47 = v46;
-        v48 = [*(a1 + 40) presentedDialog];
-        if (v48)
+        v46 = v45;
+        v47 = [*(a1 + 40) presentedDialog];
+        if (v47)
         {
         }
 
         else
         {
-          v49 = [*(a1 + 40) queue_hasMoreDialogsToPresent];
+          v48 = [*(a1 + 40) queue_hasMoreDialogsToPresent];
 
-          if (v49)
+          if (v48)
           {
-            v50 = getWFDialogLogObject();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+            v49 = getWFDialogLogObject();
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v59 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
-              _os_log_impl(&dword_23103C000, v50, OS_LOG_TYPE_INFO, "%s There is a connected remote alert, so asking it to present a dialog.", buf, 0xCu);
+              v57 = "[WFDialogPresentationManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+              _os_log_impl(&dword_23103C000, v49, OS_LOG_TYPE_INFO, "%s There is a connected remote alert, so asking it to present a dialog.", buf, 0xCu);
             }
 
             [*(a1 + 40) queue_presentNextDialog];
@@ -2022,8 +1993,6 @@ void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completi
       }
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __82__WFDialogPresentationManager_showDialogRequest_runningContext_completionHandler___block_invoke_194(uint64_t a1, void *a2)
@@ -2149,7 +2118,7 @@ void __49__WFDialogPresentationManager_hasPersistentState__block_invoke(uint64_t
 
 - (void)queue_connectedRemoteAlertDidDisconnect
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queue = [(WFDialogPresentationManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -2157,32 +2126,32 @@ void __49__WFDialogPresentationManager_hasPersistentState__block_invoke(uint64_t
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[WFDialogPresentationManager queue_connectedRemoteAlertDidDisconnect]";
+    v17 = "[WFDialogPresentationManager queue_connectedRemoteAlertDidDisconnect]";
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s Connected remote alert did disconnect", buf, 0xCu);
   }
 
   [(WFDialogPresentationManager *)self setConnectedRemoteAlert:0];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   contentDismissalCompletionHandlers = [(WFDialogPresentationManager *)self contentDismissalCompletionHandlers];
-  v6 = [contentDismissalCompletionHandlers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [contentDismissalCompletionHandlers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(contentDismissalCompletionHandlers);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (v10)
         {
           (*(v10 + 16))();
@@ -2192,13 +2161,11 @@ void __49__WFDialogPresentationManager_hasPersistentState__block_invoke(uint64_t
       }
 
       while (v7 != v9);
-      v7 = [contentDismissalCompletionHandlers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [contentDismissalCompletionHandlers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedIgnoredNotifications:(id)notifications

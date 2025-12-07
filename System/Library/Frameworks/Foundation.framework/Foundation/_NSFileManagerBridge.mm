@@ -701,32 +701,33 @@ LABEL_9:
 {
   if (user)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)(user);
-    v5 = v4;
+    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)(user);
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  _FileManagerImpl.homeDirectory(forUser:)(v5, v11);
+  _FileManagerImpl.homeDirectory(forUser:)(v4, v6, v12);
 
-  if (v11[0])
+  if (v12[0])
   {
-    v7 = v11[1];
+    v8 = v12[1];
     ObjectType = swift_getObjectType();
-    v9 = (*(v7 + 432))(ObjectType, v7);
+    v10 = (*(v8 + 432))(ObjectType, v8);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (_NSFileManagerBridge)init

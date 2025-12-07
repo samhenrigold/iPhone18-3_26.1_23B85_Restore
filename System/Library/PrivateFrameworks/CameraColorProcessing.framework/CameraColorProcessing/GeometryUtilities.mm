@@ -15,57 +15,57 @@
 
 + (void)getTransformCropRectFromSensorCoordsToValidBufferCoordsWithMetadata:(CGFloat)metadata@<D0> validBufferRect:(CGFloat)rect@<D1>
 {
-  selfCopy = self;
+  v13 = a2;
   objc_opt_self();
-  v37 = 0;
-  v12 = MEMORY[0x1E695EFD0];
-  v13 = *(MEMORY[0x1E695EFD0] + 16);
-  *a2 = *MEMORY[0x1E695EFD0];
-  *(a2 + 16) = v13;
-  *(a2 + 32) = *(v12 + 32);
-  v14 = *(MEMORY[0x1E695F058] + 16);
-  v36.origin = *MEMORY[0x1E695F058];
-  v36.size = v14;
-  v15 = [selfCopy cmi_intValueForKey:*MEMORY[0x1E69910C8] defaultValue:0 found:&v37];
-  if ((v37 & 1) != 0 && (v16 = v15, v17 = [selfCopy cmi_intValueForKey:*MEMORY[0x1E69910C0] defaultValue:0 found:&v37], v37 == 1) && (v18 = v17, FigCFDictionaryGetCGRectIfPresent()) && (!CGRectIsEmpty(v36) ? (v19 = v36.origin.x / v16, v21 = v36.origin.y / v18, v20 = v36.size.width / v16, v22 = v36.size.height / v18) : (v19 = 0.0, v20 = 1.0, v21 = 0.0, v22 = 1.0), (v38.origin.x = v19, v38.origin.y = v21, v38.size.width = v20, v38.size.height = v22, !CGRectIsEmpty(v38)) && ((v39.origin.x = metadata, v39.origin.y = rect, v39.size.width = a5, v39.size.height = a6, !CGRectIsEmpty(v39)) ? (v23 = metadata / a5, v25 = rect / a6, v24 = a5 / a5, v26 = a6 / a6) : (v23 = 0.0, v24 = 1.0, v25 = 0.0, v26 = 1.0), v40.origin.x = v23, v40.origin.y = v25, v40.size.width = v24, v40.size.height = v26, !CGRectIsEmpty(v40))))
+  v39 = 0;
+  v14 = MEMORY[0x1E695EFD0];
+  v15 = *(MEMORY[0x1E695EFD0] + 16);
+  *a3 = *MEMORY[0x1E695EFD0];
+  *(a3 + 16) = v15;
+  *(a3 + 32) = *(v14 + 32);
+  v16 = *(MEMORY[0x1E695F058] + 16);
+  v38.origin = *MEMORY[0x1E695F058];
+  v38.size = v16;
+  v17 = [v13 cmi_intValueForKey:*MEMORY[0x1E69910C8] defaultValue:0 found:&v39];
+  if ((v39 & 1) != 0 && (v18 = v17, v19 = [v13 cmi_intValueForKey:*MEMORY[0x1E69910C0] defaultValue:0 found:&v39], v39 == 1) && (v20 = v19, FigCFDictionaryGetCGRectIfPresent()) && (!CGRectIsEmpty(v38) ? (v21 = v38.origin.x / v18, v23 = v38.origin.y / v20, v22 = v38.size.width / v18, v24 = v38.size.height / v20) : (v21 = 0.0, v22 = 1.0, v23 = 0.0, v24 = 1.0), (v40.origin.x = v21, v40.origin.y = v23, v40.size.width = v22, v40.size.height = v24, !CGRectIsEmpty(v40)) && ((v41.origin.x = metadata, v41.origin.y = rect, v41.size.width = a6, v41.size.height = a7, !CGRectIsEmpty(v41)) ? (v25 = metadata / a6, v27 = rect / a7, v26 = a6 / a6, v28 = a7 / a7) : (v25 = 0.0, v26 = 1.0, v27 = 0.0, v28 = 1.0), v42.origin.x = v25, v42.origin.y = v27, v42.size.width = v26, v42.size.height = v28, !CGRectIsEmpty(v42))))
   {
-    v27 = *(a2 + 16);
-    *&v35.a = *a2;
-    *&v35.c = v27;
-    *&v35.tx = *(a2 + 32);
-    CGAffineTransformTranslate(a2, &v35, v23, v25);
-    v28 = *(a2 + 16);
-    *&v34.a = *a2;
-    *&v34.c = v28;
-    *&v34.tx = *(a2 + 32);
-    CGAffineTransformScale(&v35, &v34, v24, v26);
-    v29 = *&v35.c;
-    *a2 = *&v35.a;
-    *(a2 + 16) = v29;
-    *(a2 + 32) = *&v35.tx;
-    v30 = *(a2 + 16);
-    *&v34.a = *a2;
-    *&v34.c = v30;
-    *&v34.tx = *(a2 + 32);
-    CGAffineTransformScale(&v35, &v34, 1.0 / v20, 1.0 / v22);
-    v31 = *&v35.c;
-    *a2 = *&v35.a;
-    *(a2 + 16) = v31;
-    *(a2 + 32) = *&v35.tx;
-    v32 = *(a2 + 16);
-    *&v34.a = *a2;
-    *&v34.c = v32;
-    *&v34.tx = *(a2 + 32);
-    CGAffineTransformTranslate(&v35, &v34, -v19, -v21);
-    v33 = *&v35.c;
-    *a2 = *&v35.a;
-    *(a2 + 16) = v33;
-    *(a2 + 32) = *&v35.tx;
+    v29 = *(a3 + 16);
+    *&v37.a = *a3;
+    *&v37.c = v29;
+    *&v37.tx = *(a3 + 32);
+    CGAffineTransformTranslate(a3, &v37, v25, v27);
+    v30 = *(a3 + 16);
+    *&v36.a = *a3;
+    *&v36.c = v30;
+    *&v36.tx = *(a3 + 32);
+    CGAffineTransformScale(&v37, &v36, v26, v28);
+    v31 = *&v37.c;
+    *a3 = *&v37.a;
+    *(a3 + 16) = v31;
+    *(a3 + 32) = *&v37.tx;
+    v32 = *(a3 + 16);
+    *&v36.a = *a3;
+    *&v36.c = v32;
+    *&v36.tx = *(a3 + 32);
+    CGAffineTransformScale(&v37, &v36, 1.0 / v22, 1.0 / v24);
+    v33 = *&v37.c;
+    *a3 = *&v37.a;
+    *(a3 + 16) = v33;
+    *(a3 + 32) = *&v37.tx;
+    v34 = *(a3 + 16);
+    *&v36.a = *a3;
+    *&v36.c = v34;
+    *&v36.tx = *(a3 + 32);
+    CGAffineTransformTranslate(&v37, &v36, -v21, -v23);
+    v35 = *&v37.c;
+    *a3 = *&v37.a;
+    *(a3 + 16) = v35;
+    *(a3 + 32) = *&v37.tx;
   }
 
   else
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v7, *&v36.a, *&v36.b, LODWORD(v36.c), *&v36.d, *&v36.tx, LODWORD(v36.ty));
   }
 }
 

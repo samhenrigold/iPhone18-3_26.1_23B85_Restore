@@ -285,7 +285,7 @@ LABEL_30:
   if (!v43 && v15 && window)
   {
     v46 = PK_convertRectFromCoordinateSpaceToCoordinateSpace(spaceCopy, window, x, y, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8));
-    if ([(PKTextInputElementsFinder *)v46 _anyOtherWindowAboveWindow:v47 position:PKTextInputElementsFinder, window])
+    if ([PKTextInputElementsFinder _anyOtherWindowAboveWindow:window position:v46, v47])
     {
 
       v15 = 0;

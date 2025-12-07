@@ -147,7 +147,7 @@ LABEL_8:
         AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::setPipelineCommon(impl, *(*(*(impl + 1872) + 848) + 17200));
         if (!*(impl + 712))
         {
-          AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(impl + 24, 0x14u);
+          AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(impl + 24, 20);
         }
 
         v16 = *(*(impl + 48) + 1312) + *MEMORY[0x29EDC5638];

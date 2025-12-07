@@ -149,26 +149,26 @@ void __43__REFeatureValueCounter_readFromURL_error___block_invoke(uint64_t a1, v
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lCopy = l;
   pthread_rwlock_rdlock(&self->_lock);
-  v24 = [lCopy URLByAppendingPathComponent:@"index.idx"];
+  v23 = [lCopy URLByAppendingPathComponent:@"index.idx"];
   MEMORY[0x22AABBC00](__sb);
-  path = [v24 path];
+  path = [v23 path];
   v8 = path;
   [path UTF8String];
   std::filebuf::open();
 
-  v9 = v32;
-  if (v32)
+  v9 = v31;
+  if (v31)
   {
-    v28.__loc_ = 0;
-    v27 = MEMORY[0x277D82850] + 24;
-    v28.__vftable = (MEMORY[0x277D82850] + 64);
-    std::ios_base::init(&v28, __sb);
-    v29 = 0;
-    v30 = -1;
-    REFancyShrinkingDictionary::SaveModel(&self->_indicies, &v27);
+    v27.__loc_ = 0;
+    v26 = MEMORY[0x277D82850] + 24;
+    v27.__vftable = (MEMORY[0x277D82850] + 64);
+    std::ios_base::init(&v27, __sb);
+    v28 = 0;
+    v29 = -1;
+    REFancyShrinkingDictionary::SaveModel(&self->_indicies, &v26);
     std::ostream::flush();
     std::ostream::~ostream();
   }
@@ -202,15 +202,15 @@ void __43__REFeatureValueCounter_readFromURL_error___block_invoke(uint64_t a1, v
       while (v11 < self->_count);
     }
 
-    v26 = 0;
-    v15 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:0 error:&v26];
-    v16 = v26;
+    v25 = 0;
+    v15 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:0 error:&v25];
+    v16 = v25;
     if (v15)
     {
       v17 = [lCopy URLByAppendingPathComponent:@"values.dat"];
-      v25 = v16;
-      v18 = [v15 writeToURL:v17 options:1 error:&v25];
-      v19 = v25;
+      v24 = v16;
+      v18 = [v15 writeToURL:v17 options:1 error:&v24];
+      v19 = v24;
 
       if (error)
       {
@@ -262,7 +262,6 @@ LABEL_25:
   MEMORY[0x22AABBC10](__sb);
 
   pthread_rwlock_unlock(&self->_lock);
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

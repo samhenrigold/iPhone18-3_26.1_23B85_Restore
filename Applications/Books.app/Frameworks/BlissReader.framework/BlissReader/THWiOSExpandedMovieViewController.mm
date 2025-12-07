@@ -265,7 +265,7 @@
   [THWiOSExpandedMovieViewController viewWillTransitionToSize:"viewWillTransitionToSize:withTransitionCoordinator:" withTransitionCoordinator:?];
   if (coordinator)
   {
-    [coordinator targetTransform];
+    objc_msgSend_targetTransform(coordinator);
     if (CGAffineTransformIsIdentity(&v14))
     {
       [(THWiOSExpandedMovieViewController *)self bookViewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];

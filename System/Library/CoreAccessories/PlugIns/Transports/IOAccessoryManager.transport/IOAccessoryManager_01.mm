@@ -1,199 +1,3 @@
-uint64_t cpGetUpstreamAccessoryManager(io_registry_entry_t a1)
-{
-  parent = 0;
-  if (IORegistryEntryGetParentEntry(a1, "IOAccessory", &parent))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return parent;
-  }
-}
-
-uint64_t AuthCPI2CRead(mach_port_t a1, char a2, unsigned int a3, void *outputStruct)
-{
-  LOBYTE(input) = a2;
-  outputStructCnt = a3;
-  return IOConnectCallMethod(a1, 0xEu, &input, 1u, 0, 0, 0, 0, outputStruct, &outputStructCnt);
-}
-
-CFTypeRef OUTLINED_FUNCTION_0_9(io_registry_entry_t a1)
-{
-
-  return IORegistryEntryCreateCFProperty(a1, v1, v2, 0);
-}
-
-BOOL acc_policies_shouldFailAuthOnOOBPairingFailure(_BOOL8 result)
-{
-  if (result)
-  {
-    return *(result + 24) == 9;
-  }
-
-  return result;
-}
-
-uint64_t acc_policies_productTypeNeedsPreArmDeviceIdentity(const void *a1)
-{
-  if (a1)
-  {
-    v1 = CFGetTypeID(a1);
-    TypeID = CFStringGetTypeID();
-    if (v1 == TypeID)
-    {
-      v3 = OUTLINED_FUNCTION_0(TypeID, @"iPhone13,1");
-      v6 = v3 == kCFCompareEqualTo || (v4 = OUTLINED_FUNCTION_0(v3, @"iPhone13,2")) == kCFCompareEqualTo || (v5 = OUTLINED_FUNCTION_0(v4, @"iPhone13,3")) == kCFCompareEqualTo || OUTLINED_FUNCTION_0(v5, @"iPhone13,4") == kCFCompareEqualTo;
-      acc_policies_productTypeNeedsPreArmDeviceIdentity_modelNeedsPreArm = v6;
-    }
-  }
-
-  return acc_policies_productTypeNeedsPreArmDeviceIdentity_modelNeedsPreArm;
-}
-
-uint64_t acc_policies_deviceNeedsPreArmDeviceIdentity()
-{
-  v25 = *MEMORY[0x277D85DE8];
-  if (_MergedGlobals)
-  {
-    v17 = 0;
-    v19 = 0;
-  }
-
-  else
-  {
-    v0 = +[ACCUserDefaults sharedDefaults];
-    v1 = [v0 stringForKey:@"DeviceIdentityPreArmDateOverride"];
-
-    if (v1)
-    {
-      v2 = v1;
-      v3 = [MEMORY[0x277CBEA80] currentCalendar];
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: _parseDate", &v23, 2u);
-      }
-
-      v4 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-      v5 = [v2 stringByTrimmingCharactersInSet:v4];
-
-      v6 = [MEMORY[0x277CCA900] punctuationCharacterSet];
-      v7 = [v5 componentsSeparatedByCharactersInSet:v6];
-
-      v8 = [v7 count];
-      v9 = v8 > 2;
-      if (v8 < 3)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        v10 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-        v11 = [v7 objectAtIndexedSubscript:2];
-        [v10 setDay:{objc_msgSend(v11, "integerValue")}];
-
-        v12 = [v7 objectAtIndexedSubscript:1];
-        [v10 setMonth:{objc_msgSend(v12, "integerValue")}];
-
-        v13 = [v7 objectAtIndexedSubscript:0];
-        [v10 setYear:{objc_msgSend(v13, "integerValue")}];
-
-        v14 = [v3 dateFromComponents:v10];
-        v15 = v14;
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          v23 = 138412290;
-          v24 = v14;
-          _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: _parseDate: %@", &v23, 0xCu);
-        }
-      }
-    }
-
-    else
-    {
-      v14 = 0;
-      v9 = 0;
-    }
-
-    v16 = v14;
-    v17 = v16;
-    if (v9 && v16)
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: override", &v23, 2u);
-      }
-
-      objc_storeStrong(&qword_2812FEDF8, v14);
-      v18 = +[ACCUserDefaults sharedDefaults];
-      [v18 setObject:qword_2812FEDF8 forKey:@"PreArmDeviceIdentityDate"];
-    }
-
-    v19 = qword_2812FEDF8;
-    if (qword_2812FEDF8)
-    {
-      goto LABEL_19;
-    }
-
-    if (qword_2812FEE00 != -1)
-    {
-      dispatch_once(&qword_2812FEE00, &__block_literal_global_156);
-    }
-
-    v19 = qword_2812FEDF8;
-    if (qword_2812FEDF8)
-    {
-LABEL_19:
-      v20 = [MEMORY[0x277CBEAA8] date];
-      v19 = [v19 compare:v20] == -1;
-    }
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
-  return v19;
-}
-
-void __acc_policies_deviceNeedsPreArmDeviceIdentity_block_invoke()
-{
-  v0 = +[ACCUserDefaults sharedDefaults];
-  _MergedGlobals = [v0 BOOLForKey:@"DidPreArmDeviceIdentity"];
-
-  if ((_MergedGlobals & 1) == 0)
-  {
-    v1 = +[ACCUserDefaults sharedDefaults];
-    v2 = [v1 objectForKey:@"PreArmDeviceIdentityDate"];
-    v3 = qword_2812FEDF8;
-    qword_2812FEDF8 = v2;
-
-    if (!qword_2812FEDF8)
-    {
-      v13 = [MEMORY[0x277CBEA80] currentCalendar];
-      v4 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      [v4 setDay:1];
-      [v4 setMonth:3];
-      [v4 setYear:2021];
-      v5 = [v13 dateFromComponents:v4];
-      v6 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      [v6 setDay:1];
-      [v6 setMonth:9];
-      [v6 setYear:2021];
-      v7 = [v13 dateFromComponents:v6];
-      v8 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v5 endDate:v7];
-      [v8 duration];
-      v10 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v5 sinceDate:(arc4random() % v9)];
-      v11 = qword_2812FEDF8;
-      qword_2812FEDF8 = v10;
-
-      v12 = +[ACCUserDefaults sharedDefaults];
-      [v12 setObject:qword_2812FEDF8 forKey:@"PreArmDeviceIdentityDate"];
-    }
-  }
-}
-
 const __CFData *acc_policies_nfcTagUseKeys(const __CFData *result)
 {
   if (result)
@@ -211,38 +15,36 @@ const __CFData *acc_policies_nfcTagUseKeys(const __CFData *result)
 
 void notifyUserHSAIDDisabled_cold_1(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 1024;
-  v6 = a2;
-  _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 1024;
+  v5 = a2;
+  _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v2, 0x12u);
 }
 
 void notifyUserHSAIDDisabled_cold_2(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = [a1 intValue];
-  _os_log_debug_impl(&dword_233656000, a2, OS_LOG_TYPE_DEBUG, "Serial boot-arg value: %@, intValue:%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = [a1 intValue];
+  _os_log_debug_impl(&dword_233656000, a2, OS_LOG_TYPE_DEBUG, "Serial boot-arg value: %@, intValue:%d", &v3, 0x12u);
 }
 
 void __OOBPairingReceiveCallback_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "ERROR in receive callback - result = 0x%X", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "ERROR in receive callback - result = 0x%X", a5, a6, a7, a8, v8);
 }
 
 void __OOBPairingReceiveCallback_cold_5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "Could not process incoming OOB Pairing info/data, type=%d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "Could not process incoming OOB Pairing info/data, type=%d", a5, a6, a7, a8, v8);
 }
 
 uint64_t platform_systemInfo_copyUniqueDeviceID()
@@ -279,55 +81,49 @@ uint64_t platform_systemInfo_copyUniqueDeviceID()
 
 void _acc_sysdiagnose_authFailure_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to create sysdiagnose: %@\n", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to create sysdiagnose: %@\n", &v1, 0xCu);
 }
 
 void logModuleForTransport_cold_2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "unknown classType %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "unknown classType %d", v2, 8u);
 }
 
 void logObjectForModule_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 134218240;
+  *(&v6 + 4) = gLogObjects;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_233656000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
+  *v7 = v0;
+  OUTLINED_FUNCTION_1(&dword_233656000, MEMORY[0x277D86220], v1, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v2, v3, v4, v5, v6, DWORD2(v6), *&v7[2], v8);
 }
 
 void IOAccMgrNotifyEvent_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_10()
@@ -353,62 +149,30 @@ void IOAccMgrNotifyEvent_cold_12()
 
 void IOAccMgrNotifyEvent_cold_14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void IOAccMgrNotifyEvent_cold_17()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void IOAccMgrNotifyEvent_cold_18()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void IOAccMgrNotifyEvent_cold_19()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_24()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_27()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_cold_28()
@@ -420,16 +184,14 @@ void IOAccMgrNotifyEvent_cold_28()
 
 void IOAccMgrNotifyEvent_cold_31()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryIDBusHIDDeviceMatch_cold_1()
 {
-  v0 = logObjectForModule(3);
+  v0 = logObjectForModule(3u);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_5_0();
@@ -439,7 +201,7 @@ void __IOAccessoryIDBusHIDDeviceMatch_cold_1()
 
 void __IOAccessoryIDBusHIDDeviceMatch_cold_2()
 {
-  v0 = logObjectForModule(3);
+  v0 = logObjectForModule(3u);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_5_0();
@@ -447,46 +209,39 @@ void __IOAccessoryIDBusHIDDeviceMatch_cold_2()
   }
 }
 
-void __handleNotificationUarpStagingStatus_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __IOAMUpdateBatteryState_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 136315394;
+  *(&v7 + 4) = "void __IOAMUpdateBatteryState(void *, io_registry_entry_t)";
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_233656000, v0, v1, "%s IORegistryEntryCreateCFProperties failed: %08x", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  *v8 = v0;
+  OUTLINED_FUNCTION_1(&dword_233656000, v1, v2, "%s IORegistryEntryCreateCFProperties failed: %08x", v3, v4, v5, v6, v7, DWORD2(v7), *&v8[2], v9);
 }
 
 void EnableAccessoryPowerForPortService_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_233656000, v1, OS_LOG_TYPE_ERROR, "IOServiceOpen failed %#x, didn't set powerMode(%d)", v3, 0xEu);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_233656000, v1, OS_LOG_TYPE_ERROR, "IOServiceOpen failed %#x, didn't set powerMode(%d)", v2, 0xEu);
 }
 
 void EnableAccessoryPowerForPortService_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void logObjectForModule_cold_1_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1(&dword_233656000, MEMORY[0x277D86220], a3, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 134218240;
+  *&v8[4] = gLogObjects;
+  *&v8[12] = 1024;
+  *&v8[14] = gNumLogObjects;
+  OUTLINED_FUNCTION_1(&dword_233656000, MEMORY[0x277D86220], a3, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 const void *systemInfo_copyProductType()
@@ -584,21 +339,17 @@ LABEL_9:
 
 void __EASessionReceiveCallback_cold_2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "ERROR in receive callback - result = 0x%X", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "ERROR in receive callback - result = 0x%X", v2, 8u);
 }
 
 void __EASessionReceiveCallback_cold_5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 eaProtocol];
+  v6 = [a1 eaProtocol];
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __init_logging_signpost_modules_block_invoke_cold_1(uint8_t *buf, int a2, _DWORD *a3)
@@ -610,18 +361,18 @@ void __init_logging_signpost_modules_block_invoke_cold_1(uint8_t *buf, int a2, _
 
 uint64_t prefetchDeviceIdentityCertificates()
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valuePtr = 4;
   if (prefetchDeviceIdentityCertificates_needsPreArm == 1 && (v0 = systemInfo_copyProductType(), v1 = acc_policies_productTypeNeedsPreArmDeviceIdentity(v0), prefetchDeviceIdentityCertificates_needsPreArm = v1, v1) && (v2 = acc_policies_deviceNeedsPreArmDeviceIdentity(), prefetchDeviceIdentityCertificates_needsPreArm = v2, v2))
   {
     v3 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &valuePtr);
     v4 = MEMORY[0x277CBEB38];
-    v16[0] = @"Count";
-    v16[1] = @"RefreshInterval";
-    v17[0] = v3;
+    v15[0] = @"Count";
+    v15[1] = @"RefreshInterval";
+    v16[0] = v3;
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:86400.0];
-    v17[1] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v7 = [v4 dictionaryWithDictionary:v6];
 
     v8 = MFAADeviceIdentityCopyCertificate();
@@ -637,9 +388,9 @@ uint64_t prefetchDeviceIdentityCertificates()
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v19 = v9;
-        v20 = 1024;
-        v21 = v10;
+        v18 = v9;
+        v19 = 1024;
+        v20 = v10;
         _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
@@ -650,7 +401,7 @@ uint64_t prefetchDeviceIdentityCertificates()
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v19) = v8;
+      LODWORD(v18) = v8;
       _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Test DeviceIdentity: MFAADeviceIdentityCopyCertificate completed: %d\n", buf, 8u);
     }
   }
@@ -662,7 +413,6 @@ uint64_t prefetchDeviceIdentityCertificates()
     v8 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -896,7 +646,7 @@ uint64_t GetSerializedVerifyAclConstraintSize(int a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, void *a12)
+uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12)
 {
   if (!a3)
   {
@@ -1079,13 +829,13 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 20;
         while (*(a2 + 16))
         {
-          SerializedRequirementSize = GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
-          if (SerializedRequirementSize)
+          GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
+          if (v9)
           {
             break;
           }
 
-          OUTLINED_FUNCTION_8(SerializedRequirementSize, v10, v11, v12, v13, v14, v15, v16, v25, v26);
+          OUTLINED_FUNCTION_8(v9, v10, v11, v12, v13, v14, v15, v16, v25, v26);
         }
       }
 
@@ -1094,7 +844,7 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 24;
         while (*(a2 + 20))
         {
-          v17 = GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
+          GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
           if (v17)
           {
             break;
@@ -1110,100 +860,6 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
       *a3 = getRequirementDataSizeForVersion(a1, a2) + 16;
     }
   }
-}
-
-void SerializeRequirement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
-{
-  OUTLINED_FUNCTION_18_0();
-  a21 = v22;
-  a22 = v27;
-  v28 = v23;
-  a12 = 0;
-  if (v24)
-  {
-    v29 = v25;
-    if (v25)
-    {
-      v30 = v26;
-      if (v26)
-      {
-        v31 = v24;
-        GetSerializedRequirementSize(v23, v24, &a12);
-        if (!v32 && a12 <= *v30)
-        {
-          v41 = *v31;
-          v42 = v31[2];
-          RequirementDataSizeForVersion = getRequirementDataSizeForVersion(v28, v31);
-          *v29 = v41;
-          *(v29 + 8) = v42;
-          *(v29 + 12) = RequirementDataSizeForVersion;
-          if (*v31 <= 0x1Cu)
-          {
-            OUTLINED_FUNCTION_6_1();
-            if (!v36)
-            {
-              v37 = getRequirementDataSizeForVersion(v28, v31);
-              memcpy((v29 + 16), v31 + 4, v37);
-              v38 = v37 + 16;
-LABEL_9:
-              *v30 = v38;
-              goto LABEL_10;
-            }
-
-            if ((v35 & 0x30) != 0)
-            {
-              *(v29 + 16) = v31[4];
-              if (!v31[4])
-              {
-                v38 = 20;
-                goto LABEL_9;
-              }
-
-              v39 = 0;
-              v38 = 20;
-              while (!OUTLINED_FUNCTION_4_2())
-              {
-                v38 += a9;
-                if (++v39 >= v31[4])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-
-            else
-            {
-              if (v34 != 7)
-              {
-                goto LABEL_10;
-              }
-
-              *(v29 + 16) = *(v31 + 2);
-              if (!v31[5])
-              {
-                v38 = 24;
-                goto LABEL_9;
-              }
-
-              v40 = 0;
-              v38 = 24;
-              while (!OUTLINED_FUNCTION_4_2())
-              {
-                v38 += a9;
-                if (++v40 >= v31[5])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_10:
-  OUTLINED_FUNCTION_19_0();
 }
 
 uint64_t GetSerializedCredentialSize(_DWORD *a1, void *a2)
@@ -1392,7 +1048,7 @@ LABEL_15:
   OUTLINED_FUNCTION_11_1();
 }
 
-uint64_t CopyCredential(uint64_t a1, void **a2)
+uint64_t CopyCredential(unsigned int *a1, void **a2)
 {
   __dst = 0;
   v2 = 4294967293;
@@ -1409,7 +1065,7 @@ uint64_t CopyCredential(uint64_t a1, void **a2)
 
     else if (__dst)
     {
-      memcpy(__dst, a1, *(a1 + 28) + 32);
+      memcpy(__dst, a1, a1[7] + 32);
       v2 = 0;
       *a2 = __dst;
     }
@@ -1855,7 +1511,7 @@ LABEL_12:
   return v4;
 }
 
-void DeallocCredentialList(_DWORD **a1, unsigned int a2)
+void DeallocCredentialList(void *a1, unsigned int a2)
 {
   if (a1)
   {
@@ -2481,7 +2137,7 @@ uint64_t LibSer_SEPControlResponse_Serialize(void *__src, size_t __n, _DWORD *a3
   return result;
 }
 
-uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, void *a3, void *a4)
+uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, unsigned int **a3, void *a4)
 {
   if (!a1)
   {
@@ -2566,7 +2222,6 @@ uint64_t LibSer_ACMDeserializeSEPControlCode()
 
 uint64_t crypto_generateKeyFromSharedInfo(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, _OWORD *a7)
 {
-  v22 = *MEMORY[0x277D85DE8];
   if ((a1 - 3) < 0xFFFFFFFE)
   {
     OUTLINED_FUNCTION_7_0();
@@ -2692,7 +2347,6 @@ LABEL_31:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "crypto_generateKeyFromSharedInfo", v7);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2798,57 +2452,56 @@ uint64_t crypto_decryptText(uint64_t a1, uint64_t a2)
 
 uint64_t crypto_deriveKeyAndEncryptData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
 {
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_10_3();
-  if (v20)
+  if (v19)
   {
-    v21 = v15 == 0;
+    v20 = v14 == 0;
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
-  if (v21 || v16 == 0 || v17 == 0 || v18 == 0 || v19 == 0 || a10 == 0)
+  if (v20 || v15 == 0 || v16 == 0 || v17 == 0 || v18 == 0 || a10 == 0)
   {
     OUTLINED_FUNCTION_7_0();
   }
 
   else
   {
-    v27 = v12;
+    v26 = v11;
     if (a9)
     {
-      v32 = OUTLINED_FUNCTION_4_3(v12, v13, v14, v15, v16, v17, v18, v19, v33, v34, v35, v36, v37[0], v37[1]);
-      if (v32)
+      v30 = OUTLINED_FUNCTION_4_3(v11, v12, v13, v14, v15, v16, v17, v18, v31, v32, v33, v34, v35[0], v35[1]);
+      if (v30)
       {
-        v10 = v32;
+        v10 = v30;
       }
 
       else
       {
-        v10 = crypto_encryptText(v27, v37);
+        v10 = crypto_encryptText(v26, v35);
         if (!v10)
         {
-          acm_explicit_bzero(v37, 0x20uLL);
+          acm_explicit_bzero(v35, 0x20uLL);
         }
       }
     }
 
     else
     {
-      v28 = 32;
-      if (v12 != 1)
+      v27 = 32;
+      if (v11 != 1)
       {
-        v28 = 33;
+        v27 = 33;
       }
 
-      v29 = v28 + v18;
-      if (v29)
+      v28 = v27 + v17;
+      if (v28)
       {
         v10 = 0;
-        *a10 = v29;
+        *a10 = v28;
       }
 
       else
@@ -2859,62 +2512,60 @@ uint64_t crypto_deriveKeyAndEncryptData(uint64_t a1, uint64_t a2, uint64_t a3, u
   }
 
   OUTLINED_FUNCTION_5_2();
-  if (v20)
+  if (v19)
   {
     OUTLINED_FUNCTION_8_0();
-    printf("%s: %s: returning, err = %ld.\n", v33, v34, v35);
+    printf("%s: %s: returning, err = %ld.\n", v31, v32, v33);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t crypto_deriveKeyAndDecryptData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t *a10)
 {
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_10_3();
-  if (v20)
+  if (v19)
   {
-    v21 = v15 == 0;
+    v20 = v14 == 0;
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
-  if (v21 || v16 == 0 || v17 == 0 || v18 == 0 || a10 == 0)
+  if (v20 || v15 == 0 || v16 == 0 || v17 == 0 || a10 == 0)
   {
     OUTLINED_FUNCTION_7_0();
     goto LABEL_26;
   }
 
-  v26 = v12;
+  v25 = v11;
   if (!a9)
   {
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      if (v18 <= 0x1F)
+      if (v17 <= 0x1F)
       {
         goto LABEL_25;
       }
 
-      v27 = v18 - 32;
+      v26 = v17 - 32;
     }
 
     else
     {
-      v27 = v18 - 33;
-      if (v18 < 0x21)
+      v26 = v17 - 33;
+      if (v17 < 0x21)
       {
         goto LABEL_25;
       }
     }
 
-    if (v27)
+    if (v26)
     {
       v10 = 0;
-      *a10 = v27;
+      *a10 = v26;
       goto LABEL_26;
     }
 
@@ -2923,30 +2574,29 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v30 = OUTLINED_FUNCTION_4_3(v12, v13, v14, v15, v16, v17, v18, v19, v31, v32, v33, v34, v35[0], v35[1]);
-  if (v30)
+  v28 = OUTLINED_FUNCTION_4_3(v11, v12, v13, v14, v15, v16, v17, v18, v29, v30, v31, v32, v33[0], v33[1]);
+  if (v28)
   {
-    v10 = v30;
+    v10 = v28;
   }
 
   else
   {
-    v10 = crypto_decryptText(v26, v35);
+    v10 = crypto_decryptText(v25, v33);
     if (!v10)
     {
-      acm_explicit_bzero(v35, 0x20uLL);
+      acm_explicit_bzero(v33, 0x20uLL);
     }
   }
 
 LABEL_26:
   OUTLINED_FUNCTION_5_2();
-  if (v20)
+  if (v19)
   {
     OUTLINED_FUNCTION_8_0();
-    printf("%s: %s: returning, err = %ld.\n", v31, v32, v33);
+    printf("%s: %s: returning, err = %ld.\n", v29, v30, v31);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2986,19 +2636,19 @@ LABEL_8:
 
 void LibCall_ACMGlobalContextCredentialGetProperty_Block(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t *, uint64_t, _BYTE *, uint64_t *), uint64_t a2, int a3, int a4, uint64_t a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMGlobalContextCredentialGetProperty_Block");
   }
 
-  bzero(v19, 0x100uLL);
-  v17 = 256;
+  bzero(v18, 0x100uLL);
+  v16 = 256;
   if (a1)
   {
-    v18 = 0;
-    v16 = 8;
-    Property_Serialize = LibSer_GlobalContextCredentialGetProperty_Serialize(a3, a4, &v18, &v16);
+    v17 = 0;
+    v15 = 8;
+    Property_Serialize = LibSer_GlobalContextCredentialGetProperty_Serialize(a3, a4, &v17, &v15);
     if (Property_Serialize)
     {
 LABEL_7:
@@ -3006,9 +2656,9 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    if (v16 == 8)
+    if (v15 == 8)
     {
-      Property_Serialize = a1(a2, 27, 0, &v18, 8, v19, &v17);
+      Property_Serialize = a1(a2, 27, 0, &v17, 8, v18, &v16);
       goto LABEL_7;
     }
 
@@ -3041,8 +2691,6 @@ LABEL_8:
   {
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMGlobalContextCredentialGetProperty_Block", v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t LibCall_ACMContextVerifyPolicyWithPreflight_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -3126,14 +2774,14 @@ int *LibCall_ACMContextVerifyPolicyEx_Block(uint64_t a1, uint64_t a2, uint64_t a
 
 uint64_t LibCall_ACMGetEnvironmentVariable_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMGetEnvironmentVariable_Block");
   }
 
-  memset(v18, 0, sizeof(v18));
-  v17 = 128;
+  memset(v17, 0, sizeof(v17));
+  v16 = 128;
   if (!a4)
   {
     v14 = 70;
@@ -3152,8 +2800,8 @@ uint64_t LibCall_ACMGetEnvironmentVariable_Block(uint64_t a1, uint64_t a2, uint6
       goto LABEL_11;
     }
 
-    v17 = 2048;
-    v9 = LibCall_ACMGetEnvironmentVariable(a1, a2, 36, v8, &v17);
+    v16 = 2048;
+    v9 = LibCall_ACMGetEnvironmentVariable(a1, a2, 36, v8, &v16);
     if (!v9)
     {
       v10 = OUTLINED_FUNCTION_0_5();
@@ -3171,7 +2819,7 @@ LABEL_10:
 
   else
   {
-    v9 = LibCall_ACMGetEnvironmentVariable(a1, a2, a3, v18, &v17);
+    v9 = LibCall_ACMGetEnvironmentVariable(a1, a2, a3, v17, &v16);
     if (!v9)
     {
       v12 = OUTLINED_FUNCTION_0_5();
@@ -3187,7 +2835,6 @@ LABEL_11:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMGetEnvironmentVariable_Block", v9);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3197,17 +2844,17 @@ uint64_t LibCall_ACMTRMLoadState_Block(uint64_t a1)
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMTRMLoadState_Block");
   }
 
-  bzero(v14, 0x2000uLL);
-  v13 = 0x2000;
+  bzero(v13, 0x2000uLL);
+  v12 = 0x2000;
   if (v3)
   {
-    v7 = LibCall_ACMTRMLoadState(v6, v5, v14, &v13);
+    v7 = LibCall_ACMTRMLoadState(v6, v5, v13, &v12);
     if (v7)
     {
       v10 = 70;
@@ -3232,7 +2879,6 @@ uint64_t LibCall_ACMTRMLoadState_Block(uint64_t a1)
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMTRMLoadState_Block", v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3240,13 +2886,13 @@ uint64_t LibCall_ACMContextUnloadToImage_Block(uint64_t a1)
 {
   MEMORY[0x28223BE20](a1);
   v2 = v1;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextUnloadToImage_Block");
   }
 
-  bzero(v10, 0x1000uLL);
+  bzero(v9, 0x1000uLL);
   if (v2)
   {
     LibCall_ACMContextUnloadToImage();
@@ -3275,11 +2921,10 @@ uint64_t LibCall_ACMContextUnloadToImage_Block(uint64_t a1)
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextUnloadToImage_Block", v4);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, void *a3, void *__src, size_t __n)
+uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, size_t *a3, void *__src, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3333,7 +2978,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, void *a3, void *__dst, size_t __n)
+uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, size_t *a3, void *__dst, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -4259,38 +3904,37 @@ void ACMContextAddCredentialWithScope(int a1, int a2, int a3, int a4, int a5, in
 {
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_22();
-  v28 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_4();
-  if (v29 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v28 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_6();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v30, v31, v32, v33, v34, 0x16u);
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
   }
 
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_7_0();
-  if (v27 && (v35 & 1) == 0)
+  if (v27 && (v34 & 1) == 0)
   {
-    if (init() || (v36 = OUTLINED_FUNCTION_3_5(), GetSerializedAddCredentialSize(v36, v37, v38, v39)))
+    if (init() || (v35 = OUTLINED_FUNCTION_3_5(), GetSerializedAddCredentialSize(v35, v36, v37, v38)))
     {
       OUTLINED_FUNCTION_24();
     }
 
     else
     {
-      v40 = acm_mem_alloc_data(size);
-      acm_mem_alloc_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 333, "ACMContextAddCredentialWithScope");
-      if (v40)
+      v39 = acm_mem_alloc_data(size);
+      acm_mem_alloc_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 333, "ACMContextAddCredentialWithScope");
+      if (v39)
       {
-        v41 = OUTLINED_FUNCTION_3_5();
-        if (!SerializeAddCredential(v41, v42, v43, v40, v44))
+        v40 = OUTLINED_FUNCTION_3_5();
+        if (!SerializeAddCredential(v40, v41, v42, v39, v43))
         {
-          OUTLINED_FUNCTION_17_2(v26, 5, v45, v46, size);
+          OUTLINED_FUNCTION_17_2(v26, 5, v44, v45, size);
         }
 
-        acm_mem_free_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 346, "ACMContextAddCredentialWithScope");
-        acm_mem_free_data(v40, size);
+        acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 346, "ACMContextAddCredentialWithScope");
+        acm_mem_free_data(v39, size);
       }
 
       else
@@ -4301,20 +3945,18 @@ void ACMContextAddCredentialWithScope(int a1, int a2, int a3, int a4, int a5, in
   }
 
   OUTLINED_FUNCTION_26();
-  if (v47 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v48, v49, v50, v51, v52, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28();
 }
 
 uint64_t ACMContextRemoveCredentialsByTypeAndScope(_OWORD *a1, int a2, int a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_16_1();
@@ -4378,7 +4020,6 @@ uint64_t ACMContextRemoveCredentialsByTypeAndScope(_OWORD *a1, int a2, int a3)
     _os_log_impl(v29, v30, v31, v32, v33, 0x20u);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -4386,38 +4027,37 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
 {
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_22();
-  v28 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_4();
-  if (v29 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v28 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_6();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v30, v31, v32, v33, v34, 0x16u);
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
   }
 
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_7_0();
-  if (v27 && (v35 & 1) == 0)
+  if (v27 && (v34 & 1) == 0)
   {
-    if (init() || (v36 = OUTLINED_FUNCTION_3_5(), GetSerializedRemoveCredentialSize(v36, v37, v38, v39)))
+    if (init() || (v35 = OUTLINED_FUNCTION_3_5(), GetSerializedRemoveCredentialSize(v35, v36, v37, v38)))
     {
       OUTLINED_FUNCTION_24();
     }
 
     else
     {
-      v40 = acm_mem_alloc_data(size);
-      acm_mem_alloc_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 465, "ACMContextRemoveCredentialsByValueAndScope");
-      if (v40)
+      v39 = acm_mem_alloc_data(size);
+      acm_mem_alloc_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 465, "ACMContextRemoveCredentialsByValueAndScope");
+      if (v39)
       {
-        v41 = OUTLINED_FUNCTION_3_5();
-        if (!SerializeRemoveCredential(v41))
+        v40 = OUTLINED_FUNCTION_3_5();
+        if (!SerializeRemoveCredential(v40, v41, v42, v39, v43))
         {
-          OUTLINED_FUNCTION_17_2(v26, 6, v42, v43, size);
+          OUTLINED_FUNCTION_17_2(v26, 6, v44, v45, size);
         }
 
-        acm_mem_free_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 478, "ACMContextRemoveCredentialsByValueAndScope");
-        acm_mem_free_data(v40, size);
+        acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 478, "ACMContextRemoveCredentialsByValueAndScope");
+        acm_mem_free_data(v39, size);
       }
 
       else
@@ -4428,41 +4068,40 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
   }
 
   OUTLINED_FUNCTION_26();
-  if (v44 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v45, v46, v47, v48, v49, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28();
 }
 
 uint64_t ACMGlobalContextRemoveCredentialsByType(int a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v18 = 136315394;
-    v19 = "ACMLib";
+    v17 = 136315394;
+    v18 = "ACMLib";
     OUTLINED_FUNCTION_9_3();
-    v20 = "ACMGlobalContextRemoveCredentialsByType";
+    v19 = "ACMGlobalContextRemoveCredentialsByType";
     OUTLINED_FUNCTION_4_5();
     _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 
-  v17 = 0;
-  v7 = ACMContextCreateWithFlags(&v17, 0);
+  v16 = 0;
+  v7 = ACMContextCreateWithFlags(&v16, 0);
   if (!v7)
   {
-    v7 = ACMContextRemoveCredentialsByTypeAndScope(v17, a1, 2);
+    v7 = ACMContextRemoveCredentialsByTypeAndScope(v16, a1, 2);
   }
 
   v8 = v7;
-  if (v17)
+  if (v16)
   {
-    ACMContextDelete(v17, 1);
+    ACMContextDelete(v16, 1);
   }
 
   if (v8)
@@ -4478,21 +4117,19 @@ uint64_t ACMGlobalContextRemoveCredentialsByType(int a1)
   if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_15_3();
-    v19 = "ACMLib";
+    v18 = "ACMLib";
     OUTLINED_FUNCTION_13_3();
-    v20 = "ACMGlobalContextRemoveCredentialsByType";
+    v19 = "ACMGlobalContextRemoveCredentialsByType";
     OUTLINED_FUNCTION_1_5();
     OUTLINED_FUNCTION_4_5();
     _os_log_impl(v10, v11, v12, v13, v14, 0x20u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t ACMContextRemovePassphraseCredentialsByPurposeAndScope(_OWORD *a1, int a2, int a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_16_1();
@@ -4556,7 +4193,6 @@ uint64_t ACMContextRemovePassphraseCredentialsByPurposeAndScope(_OWORD *a1, int 
     _os_log_impl(v29, v30, v31, v32, v33, 0x20u);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -4564,39 +4200,38 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
 {
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_22();
-  v28 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_4();
-  if (v29 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v28 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_6();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v30, v31, v32, v33, v34, 0x16u);
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
   }
 
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_7_0();
-  if (v27 && (v35 & 1) == 0)
+  if (v27 && (v34 & 1) == 0)
   {
-    if (init() || (v36 = OUTLINED_FUNCTION_3_5(), GetSerializedReplacePassphraseCredentialSize(v36, v37, v38, v39)))
+    if (init() || (v35 = OUTLINED_FUNCTION_3_5(), GetSerializedReplacePassphraseCredentialSize(v35, v36, v37, v38)))
     {
       OUTLINED_FUNCTION_24();
     }
 
     else
     {
-      v40 = acm_mem_alloc_data(size);
-      acm_mem_alloc_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 546, "ACMContextReplacePassphraseCredentialsWithScope");
-      if (v40)
+      v39 = acm_mem_alloc_data(size);
+      acm_mem_alloc_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 546, "ACMContextReplacePassphraseCredentialsWithScope");
+      if (v39)
       {
-        v41 = OUTLINED_FUNCTION_3_5();
-        if (!SerializeReplacePassphraseCredential(v41))
+        v40 = OUTLINED_FUNCTION_3_5();
+        if (!SerializeReplacePassphraseCredential(v40, v41, v42, v39, v43))
         {
-          OUTLINED_FUNCTION_17_2(v26, 15, v42, v43, size);
+          OUTLINED_FUNCTION_17_2(v26, 15, v44, v45, size);
         }
 
-        bzero(v40, size);
-        acm_mem_free_info("<data>", v40, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 560, "ACMContextReplacePassphraseCredentialsWithScope");
-        acm_mem_free_data(v40, size);
+        bzero(v39, size);
+        acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 560, "ACMContextReplacePassphraseCredentialsWithScope");
+        acm_mem_free_data(v39, size);
       }
 
       else
@@ -4607,84 +4242,81 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
   }
 
   OUTLINED_FUNCTION_26();
-  if (v44 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v45, v46, v47, v48, v49, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28();
 }
 
 uint64_t ACMContextContainsPassphraseCredentialWithPurpose(_OWORD *a1, int a2, int a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_4();
-  if (v8 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v7 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_6();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
+    _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
   }
 
   if (a1)
   {
-    v14 = init();
-    if (v14)
+    v13 = init();
+    if (v13)
     {
-      v29 = v14;
+      v28 = v13;
     }
 
     else
     {
-      v15 = acm_mem_alloc_data(0x18uLL);
+      v14 = acm_mem_alloc_data(0x18uLL);
       OUTLINED_FUNCTION_18_1();
-      acm_mem_alloc_info(v16, v17, v18, v19, 597, v20);
-      if (v15)
+      acm_mem_alloc_info(v15, v16, v17, v18, 597, v19);
+      if (v14)
       {
-        *v15 = *a1;
-        v15[4] = a2;
-        v15[5] = a3;
+        *v14 = *a1;
+        v14[4] = a2;
+        v14[5] = a3;
         OUTLINED_FUNCTION_21();
-        v28 = performCommand(v21, v22, v23, v24, v25, v26, v27);
-        if (v28)
+        v27 = performCommand(v20, v21, v22, v23, v24, v25, v26);
+        if (v27)
         {
-          v29 = v28;
+          v28 = v27;
         }
 
         else
         {
-          v29 = 4294967289;
+          v28 = 4294967289;
         }
 
         OUTLINED_FUNCTION_18_1();
-        acm_mem_free_info(v30, v31, v32, v33, 611, v34);
-        acm_mem_free_data(v15, 0x18uLL);
+        acm_mem_free_info(v29, v30, v31, v32, 611, v33);
+        acm_mem_free_data(v14, 0x18uLL);
       }
 
       else
       {
-        v29 = 4294967292;
+        v28 = 4294967292;
       }
     }
   }
 
   else
   {
-    v29 = 4294967293;
+    v28 = 4294967293;
   }
 
   if (*(v3 + 2516) <= 0x46u && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_7();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v35, v36, v37, v38, v39, 0x20u);
+    _os_log_impl(v34, v35, v36, v37, v38, 0x20u);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v28;
 }
 
 void ACMCredentialGetProperty()
@@ -4692,7 +4324,6 @@ void ACMCredentialGetProperty()
   OUTLINED_FUNCTION_29();
   v1 = v0;
   v3 = v2;
-  v23 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_9_3();
@@ -4727,13 +4358,11 @@ void ACMCredentialGetProperty()
     _os_log_impl(v17, v18, v19, v20, v21, 0x20u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28();
 }
 
 void ACMRequirementGetSubrequirements(int *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_5_4();
@@ -4796,8 +4425,6 @@ void ACMRequirementGetSubrequirements(int *a1, uint64_t a2)
     OUTLINED_FUNCTION_8_1();
     _os_log_impl(v19, v20, v21, v22, v23, 0x16u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void ACMRequirementGetProperty()
@@ -4805,7 +4432,6 @@ void ACMRequirementGetProperty()
   OUTLINED_FUNCTION_29();
   v1 = v0;
   v3 = v2;
-  v22 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_9_3();
@@ -4839,13 +4465,11 @@ void ACMRequirementGetProperty()
     _os_log_impl(v16, v17, v18, v19, v20, 0x20u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28();
 }
 
 uint64_t ACMRequirementGetProperties(int *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_16_1();
@@ -4872,8 +4496,8 @@ uint64_t ACMRequirementGetProperties(int *a1, uint64_t a2)
         v14 = 200;
         goto LABEL_12;
       case 3:
-        v22 = OUTLINED_FUNCTION_11_3();
-        v23(v22, 100);
+        v21 = OUTLINED_FUNCTION_11_3();
+        v22(v21, 100);
         (*(a2 + 16))(a2, 300, a1 + 5, 8);
         (*(a2 + 16))(a2, 302, a1 + 9, 8);
         (*(a2 + 16))(a2, 301);
@@ -4912,13 +4536,12 @@ LABEL_13:
     _os_log_impl(v15, v16, v17, v18, v19, 0x20u);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t ACMContextGetDataEx(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *size_4 = 136315394;
@@ -4928,16 +4551,16 @@ uint64_t ACMContextGetDataEx(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", size_4, 0x16u);
   }
 
-  HIDWORD(v25) = 0;
-  v24 = 4;
+  HIDWORD(v24) = 0;
+  v23 = 4;
   v10 = OUTLINED_FUNCTION_10_4();
-  v11 = LibCall_ACMContextGetData(v10, &v22, a1, a2, 1, a3, a4, &v25 + 4, &v24, v21, a1, 0, v24, v25, *size_4, *&size_4[8], *&size_4[16], v27, v28, v29, v30, v31, v32, v33, v34, v35);
+  v11 = LibCall_ACMContextGetData(v10, &v21, a1, a2, 1, a3, a4, &v24 + 4, &v23, v20, a1, 0, v23, v24, *size_4, *&size_4[8], *&size_4[16], v26, v27, v28, v29, v30, v31, v32, v33, v34);
   if (!v11)
   {
-    v12 = HIDWORD(v25);
-    if (HIDWORD(v25))
+    v12 = HIDWORD(v24);
+    if (HIDWORD(v24))
     {
-      v13 = acm_mem_alloc_data(HIDWORD(v25));
+      v13 = acm_mem_alloc_data(HIDWORD(v24));
       acm_mem_alloc_info("<data>", v13, v12, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 1182, "ACMContextGetDataEx");
       if (!v13)
       {
@@ -4946,17 +4569,17 @@ uint64_t ACMContextGetDataEx(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
         goto LABEL_15;
       }
 
-      v23 = HIDWORD(v25);
+      v22 = HIDWORD(v24);
       v14 = OUTLINED_FUNCTION_10_4();
-      v15 = LibCall_ACMContextGetData(v14, &v21, a1, a2, 0, a3, a4, v13, &v23, a1, v22, v23, v24, v25, *size_4, *&size_4[8], *&size_4[16], v27, v28, v29, v30, v31, v32, v33, v34, v35);
+      v15 = LibCall_ACMContextGetData(v14, &v20, a1, a2, 0, a3, a4, v13, &v22, a1, v21, v22, v23, v24, *size_4, *&size_4[8], *&size_4[16], v26, v27, v28, v29, v30, v31, v32, v33, v34);
       v16 = v15;
       if (a5 && !v15)
       {
-        (*(a5 + 16))(a5, v13, v23);
+        (*(a5 + 16))(a5, v13, v22);
       }
 
-      v17 = HIDWORD(v25);
-      acm_mem_free_info("<data>", v13, HIDWORD(v25), "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 1196, "ACMContextGetDataEx");
+      v17 = HIDWORD(v24);
+      acm_mem_free_info("<data>", v13, HIDWORD(v24), "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 1196, "ACMContextGetDataEx");
       acm_mem_free_data(v13, v17);
       if (v16)
       {
@@ -4985,11 +4608,10 @@ LABEL_15:
     *&size_4[12] = 2080;
     *&size_4[14] = "ACMContextGetDataEx";
     *&size_4[22] = 2048;
-    v27 = v16;
+    v26 = v16;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", size_4, 0x20u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -5048,7 +4670,6 @@ _BYTE *LibCall_BuildCommand(char a1, char a2, char a3, const void *a4, size_t a5
 
 uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(void), uint64_t a2, void *a3, uint64_t a4, _BYTE *a5, int a6)
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextCreate");
@@ -5065,7 +4686,7 @@ uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(void), uint64_t a2, void *a3, u
       goto LABEL_20;
     }
 
-    memset(v18, 0, sizeof(v18));
+    memset(v17, 0, sizeof(v17));
     if (a6)
     {
       OUTLINED_FUNCTION_7_2();
@@ -5075,7 +4696,7 @@ uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(void), uint64_t a2, void *a3, u
       {
         v6 = 0;
 LABEL_16:
-        *v12 = *v18;
+        *v12 = *v17;
         v12[4] = 0;
         *a3 = v12;
         if (a5)
@@ -5130,7 +4751,6 @@ LABEL_20:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextCreate", v6);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5159,7 +4779,7 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
         v19 += 6;
         if (!--v18)
         {
-          goto LABEL_23;
+          goto LABEL_22;
         }
       }
 
@@ -5175,15 +4795,10 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
         v22 = 0;
       }
 
-      if (v22)
+      if (v22 && !a11)
       {
-        if (!a11)
-        {
-          v17 = 4294967293;
-          goto LABEL_35;
-        }
-
-        v22 = *v20 == 0;
+        v17 = 4294967293;
+        goto LABEL_34;
       }
     }
 
@@ -5192,11 +4807,11 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
       v17 = 4294967293;
       if (a6 || a7)
       {
-        goto LABEL_35;
+        goto LABEL_34;
       }
     }
 
-LABEL_23:
+LABEL_22:
     OUTLINED_FUNCTION_22_0();
     SerializedVerifyPolicySize = GetSerializedVerifyPolicySize();
     if (SerializedVerifyPolicySize)
@@ -5282,7 +4897,7 @@ LABEL_23:
     }
   }
 
-LABEL_35:
+LABEL_34:
   if (v17 && v42)
   {
     Util_DeallocRequirement(v42);
@@ -5358,21 +4973,20 @@ unsigned int *LibCall_ACMCredentialGetType(unsigned int *result)
   return result;
 }
 
-void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__src, size_t a4)
+void LibCall_ACMCredentialSetProperty(int *a1, uint64_t a2, _OWORD *__src, size_t a4)
 {
   if (!a1 || (__src != 0) != (a4 != 0))
   {
     return;
   }
 
-  v5 = a1;
   if (!a4)
   {
     switch(a2)
     {
       case 300:
         OUTLINED_FUNCTION_17_3();
-        if (v72)
+        if (v68)
         {
           v8 = v7 == 3;
         }
@@ -5389,66 +5003,61 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
 
         goto LABEL_50;
       case 301:
-        v53 = *a1;
+      case 303:
+      case 305:
         return;
       case 302:
         OUTLINED_FUNCTION_17_3();
-        if (v72)
+        if (v68)
         {
-          v48 = v47 == 3;
+          v47 = v46 == 3;
         }
 
         else
         {
-          v48 = 0;
+          v47 = 0;
         }
 
-        if (!v48)
+        if (!v47)
         {
           return;
         }
 
-        goto LABEL_143;
-      case 303:
-        v52 = *a1;
-        return;
+        goto LABEL_140;
       case 304:
         OUTLINED_FUNCTION_17_3();
-        if (v72)
+        if (v68)
         {
-          v26 = v25 == 3;
+          v25 = v24 == 3;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
 
-        if (v26)
+        if (v25)
         {
-          *(v5 + 185) = OUTLINED_FUNCTION_16_2(v22, v23, v24);
+          *(a1 + 185) = OUTLINED_FUNCTION_16_2(v21, v22, v23);
         }
 
-        return;
-      case 305:
-        v58 = *a1;
         return;
       case 306:
         OUTLINED_FUNCTION_34();
-        if (!v72 & v71)
+        if (!v68 & v67)
         {
-          v63 = 0;
+          v59 = 0;
         }
 
         else
         {
-          v63 = v62 == 3;
+          v59 = v58 == 3;
         }
 
-        if (v63)
+        if (v59)
         {
-          memcpy((v5 + 209), v61, a4);
-          *(v5 + 205) = a4;
+          memcpy(a1 + 209, v57, a4);
+          *(a1 + 205) = a4;
         }
 
         return;
@@ -5462,42 +5071,40 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
     case 5:
       if (a4 == 4)
       {
-        OUTLINED_FUNCTION_29_0(a1, a2, __src);
-        *(v5 + 12) = v78;
+        OUTLINED_FUNCTION_29_0();
+        a1[3] = v74;
       }
 
       return;
     case 0x3E9:
       OUTLINED_FUNCTION_34();
-      if (!v72 & v71)
+      if (!v68 & v67)
       {
-        v75 = 0;
+        v71 = 0;
       }
 
       else
       {
-        v75 = v74 == 21;
+        v71 = v70 == 21;
       }
 
-      if (v75)
+      if (v71)
       {
-        memcpy((v5 + 36), v73, a4);
-        *(v5 + 32) = a4;
+        memcpy(a1 + 9, v69, a4);
+        a1[8] = a4;
       }
 
       return;
     case 0x65:
       if (a4 == 4)
       {
-        v9 = *a1;
-        a1 = 4294967293;
-        switch(v9)
+        switch(*a1)
         {
           case 1:
           case 3:
           case 9:
           case 10:
-            goto LABEL_158;
+            goto LABEL_155;
           case 2:
           case 4:
           case 5:
@@ -5506,9 +5113,9 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
           case 8:
             return;
           default:
-            if (v9 == 18)
+            if (*a1 == 18)
             {
-              goto LABEL_158;
+              goto LABEL_155;
             }
 
             break;
@@ -5522,26 +5129,26 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
         return;
       }
 
-      goto LABEL_146;
+      goto LABEL_143;
     case 0xC8:
       OUTLINED_FUNCTION_34();
-      if (!v17 & v16)
+      if (!v16 & v15)
       {
-        v20 = 0;
+        v19 = 0;
       }
 
       else
       {
-        v20 = v19 == 2;
+        v19 = v18 == 2;
       }
 
-      if (!v20)
+      if (!v19)
       {
         return;
       }
 
-      *(v5 + 36) = a4;
-      v21 = (v5 + 40);
+      a1[9] = a4;
+      v20 = a1 + 10;
       goto LABEL_69;
     case 0xC9:
       if (a4 != 4 || *a1 != 2)
@@ -5549,9 +5156,9 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
         return;
       }
 
-LABEL_158:
-      OUTLINED_FUNCTION_29_0(a1, a2, __src);
-      *(v5 + 32) = v77;
+LABEL_155:
+      OUTLINED_FUNCTION_29_0();
+      a1[8] = v73;
       return;
     case 0x190:
       if (a4 != 32 || *a1 != 7)
@@ -5559,92 +5166,90 @@ LABEL_158:
         return;
       }
 
-      goto LABEL_121;
+      goto LABEL_119;
     case 0x191:
       if (a4 == 24 && *a1 == 7)
       {
-        v50 = OUTLINED_FUNCTION_16_2(a1, a2, __src);
-        *(v5 + 80) = *(v51 + 16);
-        *(v5 + 64) = v50;
+        v49 = OUTLINED_FUNCTION_16_2(a1, a2, __src);
+        *(a1 + 10) = *(v50 + 16);
+        *(a1 + 4) = v49;
       }
 
       return;
     case 0x1F5:
       OUTLINED_FUNCTION_17_3();
-      if (v10)
+      if (v9)
       {
-        v15 = v14 == 10;
+        v14 = v13 == 10;
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      if (v15)
+      if (v14)
       {
 LABEL_50:
-        *(v5 + 36) = OUTLINED_FUNCTION_16_2(v11, v12, v13);
+        *(a1 + 9) = OUTLINED_FUNCTION_16_2(v10, v11, v12);
       }
 
       return;
     case 0x1F6:
       OUTLINED_FUNCTION_17_3();
-      if (v64)
+      if (v60)
       {
-        v69 = v68 == 10;
+        v65 = v64 == 10;
       }
 
       else
       {
-        v69 = 0;
+        v65 = 0;
       }
 
-      if (v69)
+      if (v65)
       {
-LABEL_143:
-        *(v5 + 52) = OUTLINED_FUNCTION_16_2(v65, v66, v67);
+LABEL_140:
+        *(a1 + 13) = OUTLINED_FUNCTION_16_2(v61, v62, v63);
       }
 
       return;
     case 0x1F7:
       OUTLINED_FUNCTION_17_3();
-      if (v41)
+      if (v40)
       {
-        v46 = v45 == 10;
+        v45 = v44 == 10;
       }
 
       else
       {
-        v46 = 0;
+        v45 = 0;
       }
 
-      if (v46)
+      if (v45)
       {
-        *(v5 + 68) = OUTLINED_FUNCTION_16_2(v42, v43, v44);
+        *(a1 + 17) = OUTLINED_FUNCTION_16_2(v41, v42, v43);
       }
 
       return;
     case 0x259:
-      v40 = *a1 == 12 || *a1 == 15;
-      a1 = 4294967293;
-      if (a4 != 4 || !v40)
+      v39 = *a1 == 12 || *a1 == 15;
+      if (a4 != 4 || !v39)
       {
         return;
       }
 
-      goto LABEL_158;
+      goto LABEL_155;
     case 0x25A:
-      v60 = *a1 == 12 || *a1 == 15;
-      a1 = 4294967293;
-      if (a4 != 4 || !v60)
+      v56 = *a1 == 12 || *a1 == 15;
+      if (a4 != 4 || !v56)
       {
         return;
       }
 
-LABEL_146:
-      OUTLINED_FUNCTION_29_0(a1, a2, __src);
-      *(v5 + 36) = v70;
+LABEL_143:
+      OUTLINED_FUNCTION_29_0();
+      a1[9] = v66;
       return;
   }
 
@@ -5653,19 +5258,19 @@ LABEL_146:
     if (a2 == 801)
     {
       OUTLINED_FUNCTION_17_3();
-      if (v33)
+      if (v32)
       {
-        v38 = v37 == 17;
+        v37 = v36 == 17;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
-      if (v38)
+      if (v37)
       {
-        *(v5 + 32) = OUTLINED_FUNCTION_16_2(v34, v35, v36);
+        *(a1 + 2) = OUTLINED_FUNCTION_16_2(v33, v34, v35);
       }
 
       return;
@@ -5675,10 +5280,10 @@ LABEL_146:
     {
       if (a4 == 65 && *a1 == 17)
       {
-        v21 = (a1 + 48);
-        v31 = __src;
-        v32 = 65;
-        goto LABEL_110;
+        v20 = a1 + 12;
+        v30 = __src;
+        v31 = 65;
+        goto LABEL_108;
       }
 
       return;
@@ -5694,21 +5299,21 @@ LABEL_146:
           switch(v6)
           {
             case 3:
-              *(a1 + 100) = 16;
+              a1[25] = 16;
               break;
             case 9:
-              *(a1 + 36) = 16;
+              a1[9] = 16;
               break;
             case 1:
-              *(a1 + 40) = 16;
+              a1[10] = 16;
               break;
             default:
               return;
           }
         }
 
-        v79 = OUTLINED_FUNCTION_16_2(a1, a2, __src);
-        *v80 = v79;
+        v75 = OUTLINED_FUNCTION_16_2(a1, a2, __src);
+        *v76 = v75;
       }
 
       return;
@@ -5719,33 +5324,33 @@ LABEL_146:
       return;
     }
 
-LABEL_121:
-    v57 = *(__src + 1);
-    *(a1 + 32) = *__src;
-    *(a1 + 48) = v57;
+LABEL_119:
+    v54 = __src[1];
+    *(a1 + 2) = *__src;
+    *(a1 + 3) = v54;
     return;
   }
 
   OUTLINED_FUNCTION_34();
-  if (!v28 & v27)
+  if (!v27 & v26)
   {
-    v30 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v30 = v29 == 13;
+    v29 = v28 == 13;
   }
 
-  if (v30)
+  if (v29)
   {
-    *(v5 + 32) = a4;
-    v21 = (v5 + 36);
+    a1[8] = a4;
+    v20 = a1 + 9;
 LABEL_69:
-    v31 = v18;
-    v32 = a4;
-LABEL_110:
-    memcpy(v21, v31, v32);
+    v30 = v17;
+    v31 = a4;
+LABEL_108:
+    memcpy(v20, v30, v31);
   }
 }
 
@@ -6093,7 +5698,7 @@ uint64_t LibCall_ACMRequirementGetPriority(uint64_t result)
   return result;
 }
 
-uint64_t LibCall_ACMRequirementGetPropertyData(unsigned int *a1, int a2, unsigned int **a3, unint64_t *a4)
+uint64_t LibCall_ACMRequirementGetPropertyData(int *a1, int a2, int **a3, unint64_t *a4)
 {
   v6 = 4294967293;
   if (a1 && a3 && a4)
@@ -6103,69 +5708,69 @@ uint64_t LibCall_ACMRequirementGetPropertyData(unsigned int *a1, int a2, unsigne
       switch(a2)
       {
         case 300:
-          v9 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v10 = v9 + 5;
+          v10 = (v9 + 20);
           goto LABEL_34;
         case 301:
-          v19 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v18 = v19 + 13;
+          v18 = (v19 + 52);
           goto LABEL_62;
         case 302:
-          v13 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v10 = v13 + 9;
+          v10 = (v13 + 36);
           goto LABEL_34;
         case 303:
-          v16 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
           v14 = 0;
-          v17 = v16 + 21;
+          v17 = (v16 + 84);
           break;
         case 304:
-          v12 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
-          if (v12[3] < 0x9C)
+          if (*(v12 + 12) < 0x9Cu)
           {
             return 4294967282;
           }
 
-          v11 = v12 + 41;
+          v11 = (v12 + 164);
           goto LABEL_77;
         case 305:
-          v20 = OUTLINED_FUNCTION_21_0(a1);
+          OUTLINED_FUNCTION_21_0();
           if (!v5)
           {
             return 4294967293;
           }
 
-          if (v20[3] < 0x9C)
+          if (*(v20 + 12) < 0x9Cu)
           {
             return 4294967282;
           }
 
-          v11 = v20 + 42;
+          v11 = (v20 + 168);
           goto LABEL_77;
         case 306:
           if (*a1 != 24)
@@ -6420,7 +6025,7 @@ uint64_t LibCall_ACMKernDoubleClickNotify()
 
 uint64_t LibCall_ACMContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64_t, void, __n128 *, uint64_t, uint64_t, uint64_t, double), uint64_t a2, __n128 *a3, unsigned __int32 a4, unsigned __int32 a5, uint64_t a6, uint64_t a7)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextCredentialGetProperty");
@@ -6436,18 +6041,18 @@ uint64_t LibCall_ACMContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64
       {
         if (a7)
         {
-          v21 = 0uLL;
-          v22 = 0;
-          v20 = 24;
-          Property_Serialize = LibSer_ContextCredentialGetProperty_Serialize(a3, a4, a5, &v21, &v20);
+          v20 = 0uLL;
+          v21 = 0;
+          v19 = 24;
+          Property_Serialize = LibSer_ContextCredentialGetProperty_Serialize(a3, a4, a5, &v20, &v19);
           if (v15)
           {
             v7 = v15;
           }
 
-          else if (v20 == 24)
+          else if (v19 == 24)
           {
-            v7 = a1(a2, 33, 0, &v21, 24, a6, a7, Property_Serialize);
+            v7 = a1(a2, 33, 0, &v20, 24, a6, a7, Property_Serialize);
           }
 
           else
@@ -6465,7 +6070,6 @@ uint64_t LibCall_ACMContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextCredentialGetProperty", v7);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6512,7 +6116,7 @@ void LibCall_ACMSetEnvironmentVariable()
   v10 = v9;
   v12 = v11;
   v13 = v0;
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     v0 = printf("%s: %s: called.\n", "ACM", "LibCall_ACMSetEnvironmentVariable");
@@ -6532,7 +6136,7 @@ void LibCall_ACMSetEnvironmentVariable()
   if (!v14)
   {
     MEMORY[0x28223BE20](v0);
-    v15 = (v18 - ((v2 + 59) & 0xFFFFFFFFFFFFFFF0));
+    v15 = (v17 - ((v2 + 59) & 0xFFFFFFFFFFFFFFF0));
     bzero(v15, v2 + 44);
     *v15 = v12;
     v15[1] = 2;
@@ -6578,7 +6182,6 @@ LABEL_20:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSetEnvironmentVariable", v13);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -6625,7 +6228,7 @@ void LibCall_ACMContextLoadFromImage()
   v8 = v7;
   v10 = v9;
   v11 = v2;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextLoadFromImage");
@@ -6638,31 +6241,31 @@ void LibCall_ACMContextLoadFromImage()
     acm_mem_alloc_info("ACMHandleWithPayload", v12, 20, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1479, "LibCall_ACMContextLoadFromImage");
     if (v12)
     {
-      bzero(v22, 0x1005uLL);
-      v21 = 1;
-      *&v22[1] = 6;
-      v23 = v6;
+      bzero(v21, 0x1005uLL);
+      v20 = 1;
+      *&v21[1] = 6;
+      v22 = v6;
       __memcpy_chk();
-      bzero(v18, 0x118uLL);
-      v17 = 280;
-      v13 = v11(v10, 48, 0, &v21, 4102, v18, &v17);
+      bzero(v17, 0x118uLL);
+      v16 = 280;
+      v13 = v11(v10, 48, 0, &v20, 4102, v17, &v16);
       if (v13)
       {
         v0 = v13;
       }
 
-      else if (v17 < 0x18)
+      else if (v16 < 0x18)
       {
         v0 = -5;
       }
 
       else
       {
-        if (v18[0])
+        if (v17[0])
         {
           v0 = 0;
-          v14 = v20;
-          *v12 = v19;
+          v14 = v19;
+          *v12 = v18;
           v12[4] = v14;
           *v4 = v12;
           goto LABEL_11;
@@ -6688,7 +6291,6 @@ LABEL_11:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextLoadFromImage", v0);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -6701,7 +6303,7 @@ void LibCall_ACMContextUnloadToImage()
   v7 = v6;
   v9 = v8;
   v10 = v1;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextUnloadToImage");
@@ -6710,38 +6312,38 @@ void LibCall_ACMContextUnloadToImage()
   v11 = -3;
   if (v10 && v5 && v3)
   {
-    v21 = 0uLL;
-    v20 = 1310721;
+    v20 = 0uLL;
+    v19 = 1310721;
     if (v7)
     {
-      v21 = *v7;
+      v20 = *v7;
     }
 
     else
     {
-      v21 = 0uLL;
+      v20 = 0uLL;
     }
 
-    bzero(v17, 0x1106uLL);
-    *v16 = 4358;
-    v12 = v10(v9, 49, 0, &v20, 20, v17, v16);
+    bzero(v16, 0x1106uLL);
+    *v15 = 4358;
+    v12 = v10(v9, 49, 0, &v19, 20, v16, v15);
     if (v12)
     {
       v11 = v12;
     }
 
-    else if (*v16 < 6uLL)
+    else if (*v15 < 6uLL)
     {
       v11 = -5;
     }
 
-    else if (v17[0])
+    else if (v16[0])
     {
-      v15 = v18;
-      v11 = Util_ReadFromBuffer(v17, *v16, &v15, v5, __n);
+      v14 = v17;
+      v11 = Util_ReadFromBuffer(v16, *v15, &v14, v5, __n);
       if (!v11)
       {
-        *v3 = v15 - v18;
+        *v3 = v14 - v17;
       }
     }
 
@@ -6757,14 +6359,12 @@ void LibCall_ACMContextUnloadToImage()
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextUnloadToImage", v11);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
-uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5, uint64_t a6)
+uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_8_2();
-  v20 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextCopyData");
@@ -6780,8 +6380,6 @@ uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, __int128 *a3, uint
       {
         if (a6 == 16)
         {
-          v18 = *a3;
-          v19 = *a5;
           OUTLINED_FUNCTION_2_7();
           v11 = v6();
         }
@@ -6793,10 +6391,9 @@ uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, __int128 *a3, uint
   if (v12)
   {
     OUTLINED_FUNCTION_5_5();
-    printf("%s: %s: returning, err = %ld.\n", v15, v16, v17);
+    printf("%s: %s: returning, err = %ld.\n", v14, v15, v16);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -6806,7 +6403,7 @@ void LibCall_ACMPublishTrustedAccessories()
   v2 = v1;
   v4 = v3;
   v6 = v5;
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMPublishTrustedAccessories");
@@ -6818,7 +6415,7 @@ void LibCall_ACMPublishTrustedAccessories()
     if ((v2 & 0xF) == 0 && v2 <= 0x100 && (v9 & 1) == 0)
     {
       MEMORY[0x28223BE20](v7);
-      v10 = (v12 - ((v2 + 23) & 0xFFFFFFFFFFFFFFF0));
+      v10 = (v11 - ((v2 + 23) & 0xFFFFFFFFFFFFFFF0));
       bzero(v10, v2 | 8);
       *v10 = 1;
       v10[1] = v2;
@@ -6851,13 +6448,12 @@ void LibCall_ACMPublishTrustedAccessories()
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMPublishTrustedAccessories", v0);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
 uint64_t LibCall_ACMContextGetInfo(uint64_t (*a1)(uint64_t, uint64_t, void, int *, uint64_t, int *, unint64_t *), uint64_t a2, __int128 *a3, int a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextGetInfo");
@@ -6866,26 +6462,26 @@ uint64_t LibCall_ACMContextGetInfo(uint64_t (*a1)(uint64_t, uint64_t, void, int 
   v10 = 4294967293;
   if (a3 && a1 && a5)
   {
-    v18 = 1;
-    v20 = a4;
-    v19 = *a3;
-    bzero(&v16, 0x8CuLL);
-    v15 = 140;
-    v11 = a1(a2, 46, 0, &v18, 24, &v16, &v15);
+    v17 = 1;
+    v19 = a4;
+    v18 = *a3;
+    bzero(&v15, 0x8CuLL);
+    v14 = 140;
+    v11 = a1(a2, 46, 0, &v17, 24, &v15, &v14);
     if (v11)
     {
       v10 = v11;
     }
 
-    else if (v15 < 0xC)
+    else if (v14 < 0xC)
     {
       v10 = 4294967291;
     }
 
-    else if (v16)
+    else if (v15)
     {
       v10 = 0;
-      *a5 = v17;
+      *a5 = v16;
     }
 
     else
@@ -6900,11 +6496,10 @@ uint64_t LibCall_ACMContextGetInfo(uint64_t (*a1)(uint64_t, uint64_t, void, int 
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextGetInfo", v10);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, unsigned __int8 a9, uint64_t a10, int a11, unsigned int a12, BOOL *a13, uint64_t *a14)
+uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, BOOL *a13, uint64_t *a14)
 {
   OUTLINED_FUNCTION_35();
   if (gACMLoggingLevel <= 0xAu)
@@ -7046,7 +6641,7 @@ void LibCall_ACMSecCredentialProviderEnrollmentStateChangedForUser(uint64_t a1, 
   v32 = v31;
   v34 = v33;
   OUTLINED_FUNCTION_8_2();
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSecCredentialProviderEnrollmentStateChangedForUser");
@@ -7077,8 +6672,8 @@ void LibCall_ACMSecCredentialProviderEnrollmentStateChangedForUser(uint64_t a1, 
           {
             v37 = v32;
             MEMORY[0x28223BE20](v36);
-            v38 = v41 - ((v32 + 51) & 0x1FFFFFFF0);
-            bzero(v41 - ((v37 + 51) & 0x1FFFFFFF0), v37 + 36);
+            v38 = v40 - ((v32 + 51) & 0x1FFFFFFF0);
+            bzero(v40 - ((v37 + 51) & 0x1FFFFFFF0), v37 + 36);
             *v38 = v26;
             *(v38 + 4) = *v24;
             *(v38 + 20) = *v30;
@@ -7101,7 +6696,6 @@ void LibCall_ACMSecCredentialProviderEnrollmentStateChangedForUser(uint64_t a1, 
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSecCredentialProviderEnrollmentStateChangedForUser", v22);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -7112,20 +6706,20 @@ uint64_t LibCall_ACMSecSetBuiltinBiometry(uint64_t a1, uint64_t a2)
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry");
   }
 
-  OUTLINED_FUNCTION_18_2();
-  OUTLINED_FUNCTION_37();
+  v3 = OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_37(v3, v4, 30, v5, v6, v7, v8);
   OUTLINED_FUNCTION_11_2();
-  if (v3)
+  if (v9)
   {
-    v4 = 10;
+    v10 = 10;
   }
 
   else
   {
-    v4 = 70;
+    v10 = 70;
   }
 
-  if (v4 >= gACMLoggingLevel)
+  if (v10 >= gACMLoggingLevel)
   {
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry", a2);
   }
@@ -7135,17 +6729,17 @@ uint64_t LibCall_ACMSecSetBuiltinBiometry(uint64_t a1, uint64_t a2)
 
 uint64_t LibCall_ACMSecContextGetUnlockSecret(uint64_t (*a1)(void, void, void, void, void, void, void), uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5, void *a6, size_t *a7, _BYTE *a8)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSecContextGetUnlockSecret");
   }
 
-  memset(v31, 0, sizeof(v31));
-  v29 = 64;
+  memset(v30, 0, sizeof(v30));
+  v28 = 64;
   v16 = 129;
-  bzero(v30, 0x81uLL);
-  v28 = 129;
+  bzero(v29, 0x81uLL);
+  v27 = 129;
   if (!a3)
   {
 LABEL_19:
@@ -7158,8 +6752,8 @@ LABEL_19:
   {
     if ((a4 != 0) == (a5 != 0))
     {
-      LibSer_GetUnlockSecret_Serialize(a3, a4, a5, v31, &v29);
-      if (UnlockSecretResponse_Deserialize || (UnlockSecretResponse_Deserialize = a1(a2, 50, 0, v31, v29, v30, &v28), UnlockSecretResponse_Deserialize) || (__n = 0, __src = 0, v25 = 0, UnlockSecretResponse_Deserialize = LibSer_GetUnlockSecretResponse_Deserialize(v30, v28, &__src, &__n, &v25), UnlockSecretResponse_Deserialize))
+      LibSer_GetUnlockSecret_Serialize(a3, a4, a5, v30, &v28);
+      if (UnlockSecretResponse_Deserialize || (UnlockSecretResponse_Deserialize = a1(a2, 50, 0, v30, v28, v29, &v27), UnlockSecretResponse_Deserialize) || (__n = 0, __src = 0, v24 = 0, UnlockSecretResponse_Deserialize = LibSer_GetUnlockSecretResponse_Deserialize(v29, v27, &__src, &__n, &v24), UnlockSecretResponse_Deserialize))
       {
         v16 = UnlockSecretResponse_Deserialize;
       }
@@ -7177,7 +6771,7 @@ LABEL_19:
           memcpy(a6, __src, __n);
           v16 = 0;
           *a7 = v18;
-          *a8 = v25;
+          *a8 = v24;
         }
 
         else
@@ -7197,17 +6791,16 @@ LABEL_14:
   if (v19)
   {
     OUTLINED_FUNCTION_5_5();
-    printf("%s: %s: returning, err = %ld.\n", v22, v23, v24);
+    printf("%s: %s: returning, err = %ld.\n", v21, v22, v23);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 void LibCall_ACMSEPControl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, unint64_t *a21)
 {
   OUTLINED_FUNCTION_14_3();
-  v51 = v21;
+  v50 = v21;
   v23 = v22;
   v25 = v24;
   v27 = v26;
@@ -7215,15 +6808,15 @@ void LibCall_ACMSEPControl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   v31 = v30;
   v33 = v32;
   v35 = v34;
-  v56[128] = *MEMORY[0x277D85DE8];
+  v55[128] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSEPControl");
   }
 
-  v55 = 0;
-  bzero(v56, 0x400uLL);
-  v54 = 1024;
+  v54 = 0;
+  bzero(v55, 0x400uLL);
+  v53 = 1024;
   if (!v35)
   {
     goto LABEL_17;
@@ -7242,8 +6835,8 @@ LABEL_17:
     goto LABEL_21;
   }
 
-  v50 = v35;
-  Size = LibSer_SEPControl_GetSize(v29, v25, v23, &v55, v36, v37, v38, v39);
+  v49 = v35;
+  Size = LibSer_SEPControl_GetSize(v29, v25, v23, &v54, v36, v37, v38, v39);
   if (Size)
   {
 LABEL_18:
@@ -7254,16 +6847,16 @@ LABEL_25:
   }
 
   MEMORY[0x28223BE20](Size);
-  v43 = &v50 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = &v49 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v43, v42);
-  LibSer_SEPControl_Serialize(v27, v25, v23, v31, v29, v43, &v55, v44, v50, v51, v52, v53, v54, v55, v56[0], v56[1], v56[2], v56[3], v56[4], v56[5]);
+  LibSer_SEPControl_Serialize(v27, v25, v23, v31, v29, v43, &v54, v44, v49, v50, v51, v52, v53, v54, v55[0], v55[1], v55[2], v55[3], v55[4], v55[5]);
   if (v45)
   {
     LODWORD(v27) = v45;
     goto LABEL_20;
   }
 
-  LODWORD(v27) = v50(v33, 51, 0, v43, v55, v56, &v54);
+  LODWORD(v27) = v49(v33, 51, 0, v43, v54, v55, &v53);
   if (v27)
   {
 LABEL_20:
@@ -7272,30 +6865,30 @@ LABEL_20:
   }
 
   v46 = 10;
-  v47 = v51;
-  if (!v51 || !a21)
+  v47 = v50;
+  if (!v50 || !a21)
   {
     goto LABEL_21;
   }
 
+  v51 = 0;
   v52 = 0;
-  v53 = 0;
-  LODWORD(Size) = LibSer_SEPControlResponse_Deserialize(v56, v54, &v53, &v52);
+  LODWORD(Size) = LibSer_SEPControlResponse_Deserialize(v55, v53, &v52, &v51);
   if (Size)
   {
     goto LABEL_18;
   }
 
-  v48 = v52;
-  if (*a21 < v52)
+  v48 = v51;
+  if (*a21 < v51)
   {
     LODWORD(v27) = -20;
     goto LABEL_25;
   }
 
-  if (v53)
+  if (v52)
   {
-    memcpy(v47, v53, v52);
+    memcpy(v47, v52, v51);
   }
 
   LODWORD(v27) = 0;
@@ -7307,7 +6900,6 @@ LABEL_21:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSEPControl", v27);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 

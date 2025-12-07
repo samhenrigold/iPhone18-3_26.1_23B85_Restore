@@ -793,12 +793,12 @@ LABEL_27:
 
 - (id)_introController
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"WHATS_NEW_IN_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v5 = [[_CKOBWelcomeController alloc] initWithTitle:v4 detailText:0 icon:0];
   boldButton = [_CKOBBoldTrayButton boldButton];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(boldButton);
   v8 = [v7 localizedStringForKey:@"CONTINUE" value:&stru_1F04268F8 table:@"ChatKit"];
   [boldButton setTitle:v8 forState:0];
 
@@ -811,49 +811,49 @@ LABEL_27:
     v10 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_NameAndPhoto"];
     v11 = [v10 imageWithRenderingMode:2];
 
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v5 addBulletedListItemWithTitle:v13 description:v15 image:v11];
+    v13 = CKFrameworkBundle(v12);
+    v14 = [v13 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v15 = CKFrameworkBundle(v14);
+    v16 = [v15 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v5 addBulletedListItemWithTitle:v14 description:v16 image:v11];
   }
 
-  v16 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Memoji"];
-  v17 = [v16 imageWithRenderingMode:2];
+  v17 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Memoji"];
+  v18 = [v17 imageWithRenderingMode:2];
 
-  v18 = CKFrameworkBundle();
-  v19 = [v18 localizedStringForKey:@"WHATS_NEW_ANIMOJI_STICKER_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"WHATS_NEW_ANIMOJI_STICKER_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v5 addBulletedListItemWithTitle:v19 description:v21 image:v17];
+  v20 = CKFrameworkBundle(v19);
+  v21 = [v20 localizedStringForKey:@"WHATS_NEW_ANIMOJI_STICKER_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v22 = CKFrameworkBundle(v21);
+  v23 = [v22 localizedStringForKey:@"WHATS_NEW_ANIMOJI_STICKER_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v5 addBulletedListItemWithTitle:v21 description:v23 image:v18];
 
-  v22 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Search"];
+  v24 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Search"];
 
-  v23 = [v22 imageWithRenderingMode:2];
+  v25 = [v24 imageWithRenderingMode:2];
 
-  v24 = CKFrameworkBundle();
-  v25 = [v24 localizedStringForKey:@"WHATS_NEW_LINK_AND_ATTACHMENT_SEARCH_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v26 = CKFrameworkBundle();
-  v27 = [v26 localizedStringForKey:@"WHATS_NEW_LINK_AND_ATTACHMENT_SEARCH_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v5 addBulletedListItemWithTitle:v25 description:v27 image:v23];
+  v27 = CKFrameworkBundle(v26);
+  v28 = [v27 localizedStringForKey:@"WHATS_NEW_LINK_AND_ATTACHMENT_SEARCH_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v29 = CKFrameworkBundle(v28);
+  v30 = [v29 localizedStringForKey:@"WHATS_NEW_LINK_AND_ATTACHMENT_SEARCH_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v5 addBulletedListItemWithTitle:v28 description:v30 image:v25];
 
   return v5;
 }
 
 - (id)_rcsEncryptionOptInOnboardingController
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v5 = [[_CKOBWelcomeController alloc] initWithTitle:v4 detailText:0 icon:0];
   boldButton = [_CKOBBoldTrayButton boldButton];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(boldButton);
   v8 = [v7 localizedStringForKey:@"ENROLL" value:&stru_1F04268F8 table:@"ChatKit"];
   [boldButton setTitle:v8 forState:0];
 
   [boldButton addTarget:self action:sel__enrollInRCSEncryptionTest forControlEvents:64];
   boldButton2 = [_CKOBBoldTrayButton boldButton];
-  v10 = CKFrameworkBundle();
+  v10 = CKFrameworkBundle(boldButton2);
   v11 = [v10 localizedStringForKey:@"SKIP" value:&stru_1F04268F8 table:@"ChatKit"];
   [boldButton2 setTitle:v11 forState:0];
 
@@ -864,17 +864,17 @@ LABEL_27:
   buttonTray2 = [v5 buttonTray];
   [buttonTray2 addButton:boldButton2];
 
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_TITLE_1" value:&stru_1F04268F8 table:@"ChatKit"];
-  v16 = CKFrameworkBundle();
-  v17 = [v16 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_DESCRIPTION_1" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v5 addBulletedListItemWithTitle:v15 description:v17 symbolName:@"message.and.message.fill"];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_TITLE_1" value:&stru_1F04268F8 table:@"ChatKit"];
+  v17 = CKFrameworkBundle(v16);
+  v18 = [v17 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_DESCRIPTION_1" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v5 addBulletedListItemWithTitle:v16 description:v18 symbolName:@"message.and.message.fill"];
 
-  v18 = CKFrameworkBundle();
-  v19 = [v18 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_TITLE_2" value:&stru_1F04268F8 table:@"ChatKit"];
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_DESCRIPTION_2" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v5 addBulletedListItemWithTitle:v19 description:v21 symbolName:@"info.circle.fill"];
+  v20 = CKFrameworkBundle(v19);
+  v21 = [v20 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_TITLE_2" value:&stru_1F04268F8 table:@"ChatKit"];
+  v22 = CKFrameworkBundle(v21);
+  v23 = [v22 localizedStringForKey:@"RCS_ENCRYPTION_ONBOARDING_MESSAGE_DESCRIPTION_2" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v5 addBulletedListItemWithTitle:v21 description:v23 symbolName:@"info.circle.fill"];
 
   return v5;
 }
@@ -1074,40 +1074,39 @@ void __57__CKOnboardingController_startNicknameOnboardingIfNeeded__block_invoke_
   if (!appleIntelligenceOnboardingController)
   {
     _appleIntelligenceIconImage = [(CKOnboardingController *)self _appleIntelligenceIconImage];
-    v4 = CKFrameworkBundle();
-    v26 = [v4 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v4 = CKFrameworkBundle(_appleIntelligenceIconImage);
+    v29 = [v4 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v5 = [[_CKOBWelcomeController alloc] initWithTitle:v26 detailText:0 icon:_appleIntelligenceIconImage contentLayout:2];
-    v6 = CKFrameworkBundle();
-    v24 = [v6 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SUMMARIES_BULLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v5 = [[_CKOBWelcomeController alloc] initWithTitle:v29 detailText:0 icon:_appleIntelligenceIconImage contentLayout:2];
+    v6 = CKFrameworkBundle(v5);
+    v27 = [v6 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SUMMARIES_BULLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v7 = CKFrameworkBundle();
-    v23 = [v7 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SUMMARIES_BULLET_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(v7);
+    v26 = [v8 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SUMMARIES_BULLET_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v8 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(v9);
     configurationPreferringMulticolor = [MEMORY[0x1E69DCAD8] configurationPreferringMulticolor];
-    v22 = [MEMORY[0x1E69DCAB8] imageNamed:@"text.line.2.summary" inBundle:v8 withConfiguration:configurationPreferringMulticolor];
+    v25 = [MEMORY[0x1E69DCAB8] imageNamed:@"text.line.2.summary" inBundle:v10 withConfiguration:configurationPreferringMulticolor];
     tertiaryLabelColor = [MEMORY[0x1E69DC888] tertiaryLabelColor];
-    [(OBWelcomeController *)v5 addBulletedListItemWithTitle:v24 description:v23 image:v22 tintColor:tertiaryLabelColor];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SMART_REPLIES_BULLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11 = CKFrameworkBundle([(OBWelcomeController *)v5 addBulletedListItemWithTitle:v27 description:v26 image:v25 tintColor:tertiaryLabelColor]);
+    v12 = [v11 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SMART_REPLIES_BULLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v11 = CKFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SMART_REPLIES_BULLET_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = CKFrameworkBundle(v13);
+    v15 = [v14 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_MESSAGE_SMART_REPLIES_BULLET_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
     configurationPreferringMulticolor2 = [MEMORY[0x1E69DCAD8] configurationPreferringMulticolor];
-    v14 = [MEMORY[0x1E69DCAB8] imageNamed:@"arrowshape.turn.up.left" inBundle:v8 withConfiguration:configurationPreferringMulticolor2];
-    [(OBWelcomeController *)v5 addBulletedListItemWithTitle:v10 description:v12 image:v14];
+    v17 = [MEMORY[0x1E69DCAB8] imageNamed:@"arrowshape.turn.up.left" inBundle:v10 withConfiguration:configurationPreferringMulticolor2];
+    [(OBWelcomeController *)v5 addBulletedListItemWithTitle:v12 description:v15 image:v17];
     boldButton = [_CKOBBoldTrayButton boldButton];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_CONTINUE_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
-    [boldButton setTitle:v17 forState:0];
+    v19 = CKFrameworkBundle(boldButton);
+    v20 = [v19 localizedStringForKey:@"APPLE_INTELLIGENCE_ONBOARDING_CONTINUE_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
+    [boldButton setTitle:v20 forState:0];
 
     [boldButton addTarget:self action:sel_completedOnboarding forControlEvents:64];
     buttonTray = [(OBWelcomeController *)v5 buttonTray];
     [buttonTray addButton:boldButton];
 
-    v19 = self->_appleIntelligenceOnboardingController;
+    v22 = self->_appleIntelligenceOnboardingController;
     self->_appleIntelligenceOnboardingController = v5;
 
     appleIntelligenceOnboardingController = self->_appleIntelligenceOnboardingController;
@@ -1217,7 +1216,7 @@ LABEL_5:
   }
 }
 
-void *__58__CKOnboardingController__fetchMemojiWithCompletionBlock___block_invoke()
+uint64_t (*__58__CKOnboardingController__fetchMemojiWithCompletionBlock___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("AVTUIAreAvatarsSupported", @"AvatarUI");
   _fetchMemojiWithCompletionBlock___AVTUIAreAvatarsSupported = result;
@@ -1292,7 +1291,7 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
 
 - (OBWelcomeFullCenterContentController)_memojiCreationController
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   p_memojiCreationController = &self->_memojiCreationController;
   memojiCreationController = self->_memojiCreationController;
   if (memojiCreationController)
@@ -1302,77 +1301,77 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
 
   else
   {
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(self);
     v7 = [v6 localizedStringForKey:@"WHATS_NEW_MEMOJI_CREATION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"WHATS_NEW_MEMOJI_CREATION_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v9 = CKFrameworkBundle(v8);
+    v10 = [v9 localizedStringForKey:@"WHATS_NEW_MEMOJI_CREATION_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v42 = v9;
-    v43 = v7;
-    v4 = [[_CKOBWelcomeFullCenterContentController alloc] initWithTitle:v7 detailText:v9 symbolName:0 contentLayout:3];
-    v10 = _CKAVTAvatarEditorSplashVideo();
-    v11 = [MEMORY[0x1E6988100] playerWithPlayerItem:v10];
-    [v11 setAllowsExternalPlayback:0];
-    [(CKOnboardingController *)self setMemojiVideoPlayer:v11];
-    v41 = v10;
-    v12 = [MEMORY[0x1E69880E8] playerLooperWithPlayer:v11 templateItem:v10];
-    [(CKOnboardingController *)self setMemojiVideoPlayerLooper:v12];
+    v43 = v10;
+    v44 = v7;
+    v4 = [[_CKOBWelcomeFullCenterContentController alloc] initWithTitle:v7 detailText:v10 symbolName:0 contentLayout:3];
+    v11 = _CKAVTAvatarEditorSplashVideo();
+    v12 = [MEMORY[0x1E6988100] playerWithPlayerItem:v11];
+    [v12 setAllowsExternalPlayback:0];
+    [(CKOnboardingController *)self setMemojiVideoPlayer:v12];
+    v42 = v11;
+    v13 = [MEMORY[0x1E69880E8] playerLooperWithPlayer:v12 templateItem:v11];
+    [(CKOnboardingController *)self setMemojiVideoPlayerLooper:v13];
 
-    v13 = objc_alloc_init(_CKAVPlayerViewController);
-    view = [v13 view];
+    v14 = objc_alloc_init(_CKAVPlayerViewController);
+    view = [v14 view];
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [view setBackgroundColor:clearColor];
 
-    [v13 setPlayer:v11];
-    [v13 setShowsPlaybackControls:0];
-    [(OBWelcomeFullCenterContentController *)v4 addChildViewController:v13];
-    view2 = [v13 view];
+    [v14 setPlayer:v12];
+    [v14 setShowsPlaybackControls:0];
+    [(OBWelcomeFullCenterContentController *)v4 addChildViewController:v14];
+    view2 = [v14 view];
     [(OBWelcomeFullCenterContentController *)v4 setCenteredContentView:view2];
 
-    view3 = [v13 view];
+    view3 = [v14 view];
     [view3 setTranslatesAutoresizingMaskIntoConstraints:0];
     if (!CKIsRunningInMacCatalyst())
     {
       leadingAnchor = [view3 leadingAnchor];
       view4 = [(OBWelcomeFullCenterContentController *)v4 view];
       leadingAnchor2 = [view4 leadingAnchor];
-      v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v45[0] = v17;
+      v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v46[0] = v18;
       trailingAnchor = [view3 trailingAnchor];
       view5 = [(OBWelcomeFullCenterContentController *)v4 view];
       trailingAnchor2 = [view5 trailingAnchor];
-      v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v45[1] = v21;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
-      v22 = v40 = v11;
+      v22 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v46[1] = v22;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+      v23 = v41 = v12;
 
-      [MEMORY[0x1E696ACD8] activateConstraints:v22];
+      [MEMORY[0x1E696ACD8] activateConstraints:v23];
       heightAnchor = [view3 heightAnchor];
       view6 = [(OBWelcomeFullCenterContentController *)v4 view];
       widthAnchor = [view6 widthAnchor];
-      v26 = [heightAnchor constraintEqualToAnchor:widthAnchor];
+      v27 = [heightAnchor constraintEqualToAnchor:widthAnchor];
 
-      LODWORD(v27) = 1132068864;
-      [v26 setPriority:v27];
-      [v26 setActive:1];
+      LODWORD(v28) = 1132068864;
+      [v27 setPriority:v28];
+      [v27 setActive:1];
 
-      v11 = v40;
+      v12 = v41;
     }
 
     boldButton = [_CKOBBoldTrayButton boldButton];
-    v29 = CKFrameworkBundle();
-    v30 = [v29 localizedStringForKey:@"GET_STARTED" value:&stru_1F04268F8 table:@"ChatKit"];
-    [boldButton setTitle:v30 forState:0];
+    v30 = CKFrameworkBundle(boldButton);
+    v31 = [v30 localizedStringForKey:@"GET_STARTED" value:&stru_1F04268F8 table:@"ChatKit"];
+    [boldButton setTitle:v31 forState:0];
 
     [boldButton addTarget:self action:sel_presentMemojiSetup forControlEvents:64];
     buttonTray = [(OBWelcomeFullCenterContentController *)v4 buttonTray];
     [buttonTray addButton:boldButton];
 
     linkButton = [_CKOBLinkTrayButton linkButton];
-    v33 = CKFrameworkBundle();
-    v34 = [v33 localizedStringForKey:@"WHATS_NEW_SETUP_LATER_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
-    [linkButton setTitle:v34 forState:0];
+    v34 = CKFrameworkBundle(linkButton);
+    v35 = [v34 localizedStringForKey:@"WHATS_NEW_SETUP_LATER_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
+    [linkButton setTitle:v35 forState:0];
 
     [linkButton addTarget:self action:sel_pushNameAndPhotoSharingIntroStepIfNeeded forControlEvents:64];
     buttonTray2 = [(OBWelcomeFullCenterContentController *)v4 buttonTray];
@@ -1428,70 +1427,72 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
 
 - (id)_nameAndPhotoSharingIntroController
 {
-  v3 = CKFrameworkBundle();
-  v26 = [v3 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v3 = CKFrameworkBundle(self);
+  v29 = [v3 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v4 = CKFrameworkBundle();
-  v25 = [v4 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  v5 = CKFrameworkBundle(v4);
+  v28 = [v5 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v5 = [[CKNicknameIntroViewController alloc] initWithTitle:v26 detailText:v25 icon:0 contentLayout:1];
+  v6 = [[CKNicknameIntroViewController alloc] initWithTitle:v29 detailText:v28 icon:0 contentLayout:1];
   contactForNicknameOnboarding = [(CKOnboardingController *)self contactForNicknameOnboarding];
-  v6 = [CKNicknamePreviewView alloc];
+  v7 = [CKNicknamePreviewView alloc];
   avatarRecord = [(CKOnboardingController *)self avatarRecord];
-  v8 = [(CKNicknamePreviewView *)v6 initWithContact:contactForNicknameOnboarding avatarRecord:avatarRecord];
+  v9 = [(CKNicknamePreviewView *)v7 initWithContact:contactForNicknameOnboarding avatarRecord:avatarRecord];
 
-  avatarItemProviderConfiguration = [(CKNicknamePreviewView *)v8 avatarItemProviderConfiguration];
+  avatarItemProviderConfiguration = [(CKNicknamePreviewView *)v9 avatarItemProviderConfiguration];
   [(CKOnboardingController *)self setAvatarItemProviderConfiguration:avatarItemProviderConfiguration];
 
-  contentView = [(CKNicknameIntroViewController *)v5 contentView];
-  [contentView addSubview:v8];
+  contentView = [(CKNicknameIntroViewController *)v6 contentView];
+  [contentView addSubview:v9];
 
-  [(CKNicknameIntroViewController *)v5 setNicknamePreviewView:v8];
-  [(CKNicknamePreviewView *)v8 setNeedsLayout];
-  [(CKNicknamePreviewView *)v8 layoutIfNeeded];
-  [(CKNicknamePreviewView *)v8 sizeToFit];
-  v11 = objc_alloc_init(CKOnboardingBoldButtonProvider);
-  boldButton = [(CKOnboardingBoldButtonProvider *)v11 boldButton];
-  LODWORD(contentView) = CKIsRunningInMacCatalyst();
-  v13 = CKFrameworkBundle();
-  v14 = v13;
+  [(CKNicknameIntroViewController *)v6 setNicknamePreviewView:v9];
+  [(CKNicknamePreviewView *)v9 setNeedsLayout];
+  [(CKNicknamePreviewView *)v9 layoutIfNeeded];
+  [(CKNicknamePreviewView *)v9 sizeToFit];
+  v12 = objc_alloc_init(CKOnboardingBoldButtonProvider);
+  boldButton = [(CKOnboardingBoldButtonProvider *)v12 boldButton];
+  v14 = CKIsRunningInMacCatalyst();
+  LODWORD(contentView) = v14;
+  v15 = CKFrameworkBundle(v14);
+  v16 = v15;
   if (contentView)
   {
-    v15 = @"CONTINUE";
+    v17 = @"CONTINUE";
   }
 
   else
   {
-    v15 = @"CHOOSE_NAME_AND_PHOTO";
+    v17 = @"CHOOSE_NAME_AND_PHOTO";
   }
 
-  v16 = [v13 localizedStringForKey:v15 value:&stru_1F04268F8 table:@"ChatKit"];
-  [boldButton setTitle:v16 forState:0];
+  v18 = [v15 localizedStringForKey:v17 value:&stru_1F04268F8 table:@"ChatKit"];
+  [boldButton setTitle:v18 forState:0];
 
   [boldButton addTarget:self action:sel_pushNameAndPhotoSharingConfigDataStep forControlEvents:64];
-  buttonTray = [(CKNicknameIntroViewController *)v5 buttonTray];
+  buttonTray = [(CKNicknameIntroViewController *)v6 buttonTray];
   [buttonTray addButton:boldButton];
 
   linkButton = [_CKOBLinkTrayButton linkButton];
-  if (CKIsRunningInMacCatalyst())
+  v21 = CKIsRunningInMacCatalyst();
+  if (v21)
   {
-    v19 = @"WHATS_NEW_SETUP_LATER";
+    v22 = @"WHATS_NEW_SETUP_LATER";
   }
 
   else
   {
-    v19 = @"WHATS_NEW_SETUP_LATER_SETTINGS";
+    v22 = @"WHATS_NEW_SETUP_LATER_SETTINGS";
   }
 
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:v19 value:&stru_1F04268F8 table:@"ChatKit"];
-  [linkButton setTitle:v21 forState:0];
+  v23 = CKFrameworkBundle(v21);
+  v24 = [v23 localizedStringForKey:v22 value:&stru_1F04268F8 table:@"ChatKit"];
+  [linkButton setTitle:v24 forState:0];
 
   [linkButton addTarget:self action:sel_showAppleIntelligenceOnboardingStepIfNeeded forControlEvents:64];
-  buttonTray2 = [(CKNicknameIntroViewController *)v5 buttonTray];
+  buttonTray2 = [(CKNicknameIntroViewController *)v6 buttonTray];
   [buttonTray2 addButton:linkButton];
 
-  return v5;
+  return v6;
 }
 
 - (void)pushNameAndPhotoSharingIntroStepIfNeeded
@@ -1735,7 +1736,7 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
     v4 = [[_CKOBWelcomeController alloc] initWithTitle:&stru_1F04268F8 detailText:&stru_1F04268F8 icon:0];
     v54 = objc_alloc_init(CKOnboardingBoldButtonProvider);
     boldButton = [(CKOnboardingBoldButtonProvider *)v54 boldButton];
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(boldButton);
     v7 = [v6 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
     [boldButton setTitle:v7 forState:0];
 
@@ -1745,7 +1746,7 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
     [buttonTray addButton:boldButton];
 
     linkButton = [_CKOBLinkTrayButton linkButton];
-    v10 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(linkButton);
     v52 = [v10 localizedStringForKey:@"WHATS_NEW_SETUP_EDIT_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
 
     [linkButton setTitle:v52 forState:0];
@@ -1991,7 +1992,7 @@ uint64_t __68__CKOnboardingController__presentMemojiCreationIfNeeded_skipAction_
     }
   }
 
-  [(CKOnboardingController *)self setPendingMeCardSharingResult:0, *v16];
+  [(CKOnboardingController *)self setPendingMeCardSharingResult:0, *v16, *&v16[8]];
   _userDefaults = [(CKOnboardingController *)self _userDefaults];
   v12 = [MEMORY[0x1E695DF00] now];
   [_userDefaults setObject:v12 forKey:@"OnboardingFinishTime"];

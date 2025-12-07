@@ -17,7 +17,7 @@
 
 - (BOOL)validate
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   inputArray = [(_ANERequest *)self inputArray];
   v5 = [inputArray count];
 
@@ -59,13 +59,13 @@
     {
       outputArray2 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v68 = outputArray2;
-      v69 = 2048;
-      *v70 = v5;
-      *&v70[8] = 2048;
-      *&v70[10] = v7;
-      *&v70[18] = 1024;
-      *&v70[20] = 255;
+      v67 = outputArray2;
+      v68 = 2048;
+      *v69 = v5;
+      *&v69[8] = 2048;
+      *&v69[10] = v7;
+      *&v69[18] = 1024;
+      *&v69[20] = 255;
       v30 = "%@: Either inputArray[%lu] or outputArray[%lu] count is greater than kANEMaxBuffers=%d";
 LABEL_24:
       _os_log_error_impl(&dword_1AD246000, v24, OS_LOG_TYPE_ERROR, v30, buf, 0x26u);
@@ -112,17 +112,17 @@ LABEL_24:
               outputIndexArray3 = [(_ANERequest *)self outputIndexArray];
               v31 = [outputIndexArray3 objectAtIndexedSubscript:v17];
               *buf = 138413314;
-              v68 = outputArray2;
-              v69 = 1024;
-              *v70 = i;
-              *&v70[4] = 2112;
-              *&v70[6] = v31;
-              *&v70[14] = 2048;
-              *&v70[16] = unsignedIntegerValue2;
-              *&v70[24] = 1024;
-              *&v70[26] = 254;
+              v67 = outputArray2;
+              v68 = 1024;
+              *v69 = i;
+              *&v69[4] = 2112;
+              *&v69[6] = v31;
+              *&v69[14] = 2048;
+              *&v69[16] = unsignedIntegerValue2;
+              *&v69[24] = 1024;
+              *&v69[26] = 254;
               v32 = "%@: outputIndexArray[%u]=%@ length=%lu exceeds kANERequestMaxSymbolIndex=%d";
-              goto LABEL_66;
+              goto LABEL_65;
             }
           }
 
@@ -140,13 +140,13 @@ LABEL_24:
             outputArray2 = NSStringFromSelector(a2);
             outputIndexArray3 = [(_ANERequest *)self procedureIndex];
             *buf = 138413058;
-            v68 = outputArray2;
-            v69 = 2112;
-            *v70 = outputIndexArray3;
-            *&v70[8] = 2048;
-            *&v70[10] = unsignedIntegerValue3;
-            *&v70[18] = 1024;
-            *&v70[20] = 128;
+            v67 = outputArray2;
+            v68 = 2112;
+            *v69 = outputIndexArray3;
+            *&v69[8] = 2048;
+            *&v69[10] = unsignedIntegerValue3;
+            *&v69[18] = 1024;
+            *&v69[20] = 128;
             v27 = "%@: self.procedureIndex=%@ length=%lu exceeds kANEMaxProcedures=%d";
             v28 = v24;
             v29 = 38;
@@ -154,84 +154,84 @@ LABEL_24:
           }
 
           perfStatsArray = [(_ANERequest *)self perfStatsArray];
-          v36 = [perfStatsArray count];
+          v35 = [perfStatsArray count];
 
-          if (v36)
+          if (v35)
           {
             v24 = [MEMORY[0x1E695E0F8] mutableCopy];
-            for (j = 0; j != v36; ++j)
+            for (j = 0; j != v35; ++j)
             {
               perfStatsArray2 = [(_ANERequest *)self perfStatsArray];
-              v39 = [perfStatsArray2 objectAtIndexedSubscript:j];
-              statType = [v39 statType];
+              v38 = [perfStatsArray2 objectAtIndexedSubscript:j];
+              statType = [v38 statType];
 
               if (statType >= 3)
               {
-                v59 = +[_ANELog common];
-                if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                v58 = +[_ANELog common];
+                if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
                 {
-                  v61 = NSStringFromSelector(a2);
+                  v60 = NSStringFromSelector(a2);
                   *buf = 138413314;
-                  v68 = v61;
-                  v69 = 2048;
-                  *v70 = j;
-                  *&v70[8] = 2048;
-                  *&v70[10] = statType;
-                  *&v70[18] = 2048;
-                  *&v70[20] = 0;
-                  *&v70[28] = 2048;
-                  v71 = 2;
-                  _os_log_error_impl(&dword_1AD246000, v59, OS_LOG_TYPE_ERROR, "%@: self.perfStatsArray[%lu].statType=%ld is invalid. Expected: (%ld - %ld)", buf, 0x34u);
+                  v67 = v60;
+                  v68 = 2048;
+                  *v69 = j;
+                  *&v69[8] = 2048;
+                  *&v69[10] = statType;
+                  *&v69[18] = 2048;
+                  *&v69[20] = 0;
+                  *&v69[28] = 2048;
+                  v70 = 2;
+                  _os_log_error_impl(&dword_1AD246000, v58, OS_LOG_TYPE_ERROR, "%@: self.perfStatsArray[%lu].statType=%ld is invalid. Expected: (%ld - %ld)", buf, 0x34u);
                 }
 
                 goto LABEL_36;
               }
 
-              v41 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
-              v42 = [v24 objectForKey:v41];
+              v40 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
+              v41 = [v24 objectForKey:v40];
 
-              v43 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
-              if (v42)
+              v42 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
+              if (v41)
               {
-                v44 = [v24 objectForKeyedSubscript:v43];
-                longValue = [v44 longValue];
+                v43 = [v24 objectForKeyedSubscript:v42];
+                longValue = [v43 longValue];
 
-                v43 = [MEMORY[0x1E696AD98] numberWithLong:longValue + 1];
-                v46 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
-                [v24 setObject:v43 forKeyedSubscript:v46];
+                v42 = [MEMORY[0x1E696AD98] numberWithLong:longValue + 1];
+                v45 = [MEMORY[0x1E696AD98] numberWithInteger:statType];
+                [v24 setObject:v42 forKeyedSubscript:v45];
               }
 
               else
               {
-                [v24 setObject:&unk_1F2254488 forKey:v43];
+                [v24 setObject:&unk_1F2254488 forKey:v42];
               }
             }
 
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
             v63 = 0u;
+            v64 = 0u;
+            v61 = 0u;
+            v62 = 0u;
             v24 = v24;
-            v47 = [v24 countByEnumeratingWithState:&v62 objects:v66 count:16];
-            if (v47)
+            v46 = [v24 countByEnumeratingWithState:&v61 objects:v65 count:16];
+            if (v46)
             {
-              v48 = v47;
-              v49 = *v63;
+              v47 = v46;
+              v48 = *v62;
               while (2)
               {
-                for (k = 0; k != v48; ++k)
+                for (k = 0; k != v47; ++k)
                 {
-                  if (*v63 != v49)
+                  if (*v62 != v48)
                   {
                     objc_enumerationMutation(v24);
                   }
 
-                  v51 = *(*(&v62 + 1) + 8 * k);
-                  v52 = [v24 objectForKeyedSubscript:v51, v62];
-                  if ([v52 longValue] >= 2)
+                  v50 = *(*(&v61 + 1) + 8 * k);
+                  v51 = [v24 objectForKeyedSubscript:v50, v61];
+                  if ([v51 longValue] >= 2)
                   {
-                    v60 = +[_ANELog common];
-                    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                    v59 = +[_ANELog common];
+                    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                     {
                       [(_ANERequest *)a2 validate];
                     }
@@ -240,8 +240,8 @@ LABEL_24:
                   }
                 }
 
-                v48 = [v24 countByEnumeratingWithState:&v62 objects:v66 count:16];
-                if (v48)
+                v47 = [v24 countByEnumeratingWithState:&v61 objects:v65 count:16];
+                if (v47)
                 {
                   continue;
                 }
@@ -253,16 +253,15 @@ LABEL_24:
 
           sharedEvents = [(_ANERequest *)self sharedEvents];
           signalEvents = [sharedEvents signalEvents];
-          v55 = [signalEvents count];
+          v54 = [signalEvents count];
 
           sharedEvents2 = [(_ANERequest *)self sharedEvents];
           waitEvents = [sharedEvents2 waitEvents];
-          v58 = [waitEvents count];
+          v57 = [waitEvents count];
 
-          if (v55 <= 0x40 && v58 < 0x41)
+          if (v54 <= 0x40 && v57 < 0x41)
           {
-            result = 1;
-            goto LABEL_37;
+            return 1;
           }
 
           v24 = +[_ANELog common];
@@ -270,13 +269,13 @@ LABEL_24:
           {
             outputArray2 = NSStringFromSelector(a2);
             *buf = 138413058;
-            v68 = outputArray2;
-            v69 = 2048;
-            *v70 = v55;
-            *&v70[8] = 2048;
-            *&v70[10] = v58;
-            *&v70[18] = 1024;
-            *&v70[20] = 64;
+            v67 = outputArray2;
+            v68 = 2048;
+            *v69 = v54;
+            *&v69[8] = 2048;
+            *&v69[10] = v57;
+            *&v69[18] = 1024;
+            *&v69[20] = 64;
             v30 = "%@: Either signalEvents[%lu] or waitEvents[%lu] count exceeds kANEMaxEvents=%d";
             goto LABEL_24;
           }
@@ -295,17 +294,17 @@ LABEL_24:
       outputIndexArray3 = [(_ANERequest *)self inputIndexArray];
       v31 = [outputIndexArray3 objectAtIndexedSubscript:v12];
       *buf = 138413314;
-      v68 = outputArray2;
-      v69 = 1024;
-      *v70 = v13;
-      *&v70[4] = 2112;
-      *&v70[6] = v31;
-      *&v70[14] = 2048;
-      *&v70[16] = unsignedIntegerValue;
-      *&v70[24] = 1024;
-      *&v70[26] = 254;
+      v67 = outputArray2;
+      v68 = 1024;
+      *v69 = v13;
+      *&v69[4] = 2112;
+      *&v69[6] = v31;
+      *&v69[14] = 2048;
+      *&v69[16] = unsignedIntegerValue;
+      *&v69[24] = 1024;
+      *&v69[26] = 254;
       v32 = "%@: inputIndexArray[%u]=%@ length=%lu exceeds kANERequestMaxSymbolIndex=%d";
-LABEL_66:
+LABEL_65:
       _os_log_error_impl(&dword_1AD246000, v24, OS_LOG_TYPE_ERROR, v32, buf, 0x2Cu);
 
       goto LABEL_31;
@@ -317,13 +316,13 @@ LABEL_66:
       outputArray2 = [(_ANERequest *)self outputArray];
       outputIndexArray3 = [(_ANERequest *)self outputIndexArray];
       *buf = 138413058;
-      v68 = outputArray2;
-      v69 = 2112;
-      *v70 = outputIndexArray3;
-      *&v70[8] = 2048;
-      *&v70[10] = v7;
-      *&v70[18] = 2048;
-      *&v70[20] = v11;
+      v67 = outputArray2;
+      v68 = 2112;
+      *v69 = outputIndexArray3;
+      *&v69[8] = 2048;
+      *&v69[10] = v7;
+      *&v69[18] = 2048;
+      *&v69[20] = v11;
       v27 = "outputArray and outputIndexArray size mismatch. outputArray = %@ : outputIndexArray = %@ outputArray.count = %lu : outputIndexArray.count = %lu";
 LABEL_29:
       v28 = v24;
@@ -344,13 +343,13 @@ LABEL_32:
       outputArray2 = [(_ANERequest *)self inputArray];
       outputIndexArray3 = [(_ANERequest *)self inputIndexArray];
       *buf = 138413058;
-      v68 = outputArray2;
-      v69 = 2112;
-      *v70 = outputIndexArray3;
-      *&v70[8] = 2048;
-      *&v70[10] = v5;
-      *&v70[18] = 2048;
-      *&v70[20] = v9;
+      v67 = outputArray2;
+      v68 = 2112;
+      *v69 = outputIndexArray3;
+      *&v69[8] = 2048;
+      *&v69[10] = v5;
+      *&v69[18] = 2048;
+      *&v69[20] = v9;
       v27 = "inputArray and inputIndexArray size mismatch. inputArray = %@ : inputIndexArray = %@ inputArray.count = %lu : inputIndexArray.count = %lu";
       goto LABEL_29;
     }
@@ -358,10 +357,7 @@ LABEL_32:
 
 LABEL_36:
 
-  result = 0;
-LABEL_37:
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (_ANERequest)initWithInputs:(id)inputs inputIndices:(id)indices outputs:(id)outputs outputIndices:(id)outputIndices weightsBuffer:(id)buffer perfStats:(id)stats procedureIndex:(id)index sharedEvents:(id)self0 transactionHandle:(id)self1
@@ -526,10 +522,13 @@ LABEL_37:
 
 - (void)validate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_3(&dword_1AD246000, v0, v1, "No input or output buffers. inputArray.count = %lu : outputArray.count = %lu", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = NSStringFromSelector(self);
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2048;
+  longValue = [a2 longValue];
+  _os_log_error_impl(&dword_1AD246000, a3, OS_LOG_TYPE_ERROR, "%@: Multiple _ANEPerformanceStatsIOSurface of type %ld, only pne _ANEPerformanceStatsIOSurface of each type expected", &v6, 0x16u);
 }
 
 @end

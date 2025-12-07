@@ -8,17 +8,16 @@
 
 - (_BlastDoorLPSummarizedLinkMetadata)initWithCoder:(id)coder
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = _BlastDoorLPSummarizedLinkMetadata;
-  v3 = [(_BlastDoorLPSummarizedLinkMetadata *)&v8 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = _BlastDoorLPSummarizedLinkMetadata;
+  v3 = [(_BlastDoorLPSummarizedLinkMetadata *)&v7 init];
   v4 = v3;
   if (v3)
   {
     v5 = v3;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -36,11 +35,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v8.receiver = self;
-  v8.super_class = _BlastDoorLPSummarizedLinkMetadata;
-  if ([(_BlastDoorLPSummarizedLinkMetadata *)&v8 isEqual:equalCopy])
+  v7.receiver = self;
+  v7.super_class = _BlastDoorLPSummarizedLinkMetadata;
+  if ([(_BlastDoorLPSummarizedLinkMetadata *)&v7 isEqual:equalCopy])
   {
     isKindOfClass = 1;
   }
@@ -51,7 +50,6 @@
     isKindOfClass = objc_opt_isKindOfClass();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 

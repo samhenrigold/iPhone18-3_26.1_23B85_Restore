@@ -6,10 +6,9 @@
 
 - (void)run
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (+[ISSoftwareMap currentMapIsValid])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(ISOperation *)self setSuccess:1];
   }
@@ -25,32 +24,36 @@
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      v6 &= 2u;
+      v5 = v5;
     }
 
-    if (v6)
+    else
     {
-      v28 = 138412290;
-      v29 = objc_opt_class();
-      LODWORD(v27) = 12;
-      v25 = &v28;
-      v7 = _os_log_send_and_compose_impl();
+      v5 &= 2u;
+    }
+
+    if (v5)
+    {
+      v29 = 138412290;
+      v30 = objc_opt_class();
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Loading software map", &v29, 12);
       if (v7)
       {
         v8 = v7;
-        v9 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{4, &v28, v27}];
+        v9 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
         free(v8);
-        v25 = v9;
+        v26 = v9;
         SSFileLog();
       }
     }
@@ -68,38 +71,43 @@
       shouldLog2 = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        v14 = shouldLog2 | 2;
+        LODWORD(v14) = shouldLog2 | 2;
       }
 
       else
       {
-        v14 = shouldLog2;
+        LODWORD(v14) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x277D69B38]3 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
 
       if (v14)
       {
-        v15 = objc_opt_class();
-        v28 = 138412290;
-        v29 = v15;
-        LODWORD(v27) = 12;
-        v26 = &v28;
-        v16 = _os_log_send_and_compose_impl();
-        if (v16)
+        v16 = objc_opt_class();
+        v29 = 138412290;
+        v30 = v16;
+        LODWORD(v28) = 12;
+        v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%@: Loaded software map", &v29, v28);
+        if (v17)
         {
-          v17 = v16;
-          v18 = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, &v28, v27}];
-          free(v17);
-          v26 = v18;
+          v18 = v17;
+          v19 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
+          free(v18);
+          v27 = v19;
           SSFileLog();
         }
       }
 
-      [ISSoftwareMap setCurrentMap:v10, v26];
+      [ISSoftwareMap setCurrentMap:v10, v27];
       [(ISOperation *)self setSuccess:1];
     }
 
@@ -113,37 +121,41 @@
       shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        v21 = shouldLog3 | 2;
+        LODWORD(v21) = shouldLog3 | 2;
       }
 
       else
       {
-        v21 = shouldLog3;
+        LODWORD(v21) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x277D69B38]3 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = v21;
+      }
+
+      else
       {
         v21 &= 2u;
       }
 
       if (v21)
       {
-        v22 = objc_opt_class();
-        v28 = 138412290;
-        v29 = v22;
-        LODWORD(v27) = 12;
-        v23 = _os_log_send_and_compose_impl();
-        if (v23)
+        v23 = objc_opt_class();
+        v29 = 138412290;
+        v30 = v23;
+        LODWORD(v28) = 12;
+        v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_275BC3000, oSLogObject3, 0, "%@: Could not load software map", &v29, v28);
+        if (v24)
         {
-          v24 = v23;
-          [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:{4, &v28, v27}];
-          free(v24);
+          v25 = v24;
+          [MEMORY[0x277CCACA8] stringWithCString:v24 encoding:4];
+          free(v25);
           SSFileLog();
         }
       }
     }
-
-    v19 = *MEMORY[0x277D85DE8];
   }
 }
 

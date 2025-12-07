@@ -71,7 +71,7 @@ uint64_t __75___NUStyleTransferApplyProcessor_processWithInputs_arguments_output
   v20 = [*(a1 + 32) metalTexture];
   [v3 setInputTexture:v20];
 
-  [*(a1 + 32) region];
+  objc_msgSend_region(*(a1 + 32));
   [v3 setInputImageRect:{NURectFlipYOrigin(v21, v22, v23, v24, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144))}];
   v25 = [*(a1 + 40) metalTexture];
   [v3 setInputLinearSystemCoefficientsTexture:v25];
@@ -89,7 +89,7 @@ uint64_t __75___NUStyleTransferApplyProcessor_processWithInputs_arguments_output
     v29 = [v28 metalTexture];
     [v3 setInputDeltaMapTexture:v29];
 
-    [*(a1 + 56) region];
+    objc_msgSend_region(*(a1 + 56));
     [v3 setInputDeltaMapImageRect:{NURectFlipYOrigin(v30, v31, v32, v33, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144))}];
   }
 
@@ -106,7 +106,7 @@ uint64_t __75___NUStyleTransferApplyProcessor_processWithInputs_arguments_output
   v37 = [*(a1 + 80) metalTexture];
   [v3 setOutputTexture:v37];
 
-  [*(a1 + 80) region];
+  objc_msgSend_region(*(a1 + 80));
   [v3 setOutputImageRect:{NURectFlipYOrigin(v38, v39, v40, v41, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144))}];
   v42 = [v3 prepareToProcess:6];
   if (v42)

@@ -7,6 +7,7 @@
 - (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator;
 - (void)beginRecovery:(id)recovery;
 - (void)dealloc;
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion;
 - (void)retrieveInflatedDevices:(id)devices;
 @end
 
@@ -72,32 +73,32 @@
 
 - (void)_updateEventWithDevices:(id)devices withDevices:(id)withDevices
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   withDevicesCopy = withDevices;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v8 = [withDevicesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [withDevicesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(withDevicesCopy);
         }
 
-        v10 += [*(*(&v20 + 1) + 8 * i) remainingAttempts];
+        v10 += [*(*(&v19 + 1) + 8 * i) remainingAttempts];
       }
 
-      v9 = [withDevicesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [withDevicesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -119,8 +120,6 @@
 
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:v10];
   [devicesCopy setObject:v18 forKeyedSubscript:*MEMORY[0x277CFD778]];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInteractiveRecoverStartEvent:(id)event withDevices:(id)devices
@@ -302,9 +301,30 @@ void __44__CDPDRecoveryFlowController_beginRecovery___block_invoke_2(uint64_t a1
   [*(a1 + 32) beginInteractiveRecoveryForDevices:*(a1 + 48) isUsingMultipleICSC:*(a1 + 56) usingValidator:*(*(a1 + 32) + 8)];
 }
 
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion
+{
+  cCopy = c;
+  completionCopy = completion;
+  handlerCopy = handler;
+  devicesCopy = devices;
+  v12 = [CDPDDeviceSecretValidator alloc];
+  context = [(CDPRecoveryFlowContext *)self->_recoveryContext context];
+  v14 = [(CDPDDeviceSecretValidator *)v12 initWithContext:context delegate:self];
+
+  [(CDPDDeviceSecretValidator *)v14 setIsUsingMultipleICSC:cCopy];
+  [(CDPDDeviceSecretValidator *)v14 setValidSecretHandler:handlerCopy];
+
+  v15 = [(CDPDRecoveryFlowController *)self _escapeOfferForDevices:devicesCopy];
+  [(CDPDDeviceSecretValidator *)v14 setSupportedEscapeOfferMask:v15];
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v14);
+  }
+}
+
 - (unint64_t)_escapeOfferForDevices:(id)devices
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -315,24 +335,18 @@ void __44__CDPDRecoveryFlowController_beginRecovery___block_invoke_2(uint64_t a1
   v6 = [devicesCopy count];
   if (v6 < 2)
   {
-    result = 16;
+    return 16;
   }
 
-  else
+  v7 = _CDPLogSystem();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 136315138;
-      v11 = "[CDPDRecoveryFlowController _escapeOfferForDevices:]";
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%s Escape available: other devices", &v10, 0xCu);
-    }
-
-    result = 18;
+    v9 = 136315138;
+    v10 = "[CDPDRecoveryFlowController _escapeOfferForDevices:]";
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%s Escape available: other devices", &v9, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 18;
 }
 
 - (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator
@@ -425,68 +439,42 @@ void __54__CDPDRecoveryFlowController_retrieveInflatedDevices___block_invoke(uin
   (*(*(a1 + 40) + 16))();
 }
 
-void __44__CDPDRecoveryFlowController_beginRecovery___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_escapeOfferForDevices:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = [a1 recoveryContext];
   v5 = [v4 context];
   v6 = [v3 numberWithInteger:{objc_msgSend(v5, "type")}];
-  v8 = 136315394;
-  v9 = "[CDPDRecoveryFlowController _escapeOfferForDevices:]";
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "%s Context Type: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315394;
+  v8 = "[CDPDRecoveryFlowController _escapeOfferForDevices:]";
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "%s Context Type: %@", &v7, 0x16u);
 }
 
 - (void)beginInteractiveRecoveryForDevices:(void *)a1 isUsingMultipleICSC:usingValidator:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 hasNumericSecret];
-  v8 = [a1 numericSecretLength];
+  v7 = [a1 numericSecretLength];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginInteractiveRecoveryForDevices:(void *)a1 isUsingMultipleICSC:(uint64_t)a2 usingValidator:.cold.2(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   [*(a2 + 16) hasPeersForRemoteApproval];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginInteractiveRecoveryForDevices:(uint64_t)a1 isUsingMultipleICSC:usingValidator:.cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 16) context];
   [v1 walrusStatus];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __54__CDPDRecoveryFlowController_retrieveInflatedDevices___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -151,7 +151,7 @@ void __56__PLSearchOCRUtilities__wordsFromString_usingTokenizer___block_invoke(u
 
           v13 = *(*(&v24 + 1) + 8 * i);
           v14 = [self _ocrTextLineCandidatesFromTextBlockObservation:v13 tokenizer:v7 allowLowConfidence:confidenceCopy];
-          if ([v14 count])
+          if (objc_msgSend_count(v14))
           {
             v15 = [PLSearchOCRTextLine alloc];
             [v13 boundingBox];
@@ -201,7 +201,7 @@ void __56__PLSearchOCRUtilities__wordsFromString_usingTokenizer___block_invoke(u
     v31 = objc_opt_new();
     v5 = [PLSearchOCRUtilities _ocrTextLinesFromDocumentObservation:observationCopy allowLowConfidence:1];
     v28 = observationCopy;
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       _textFoundLine = [self _textFoundLine];
       v7 = [v5 arrayByAddingObject:_textFoundLine];
@@ -326,7 +326,7 @@ void __56__PLSearchOCRUtilities__wordsFromString_usingTokenizer___block_invoke(u
     v29 = objc_opt_new();
     v5 = [PLSearchOCRUtilities ocrTextLinesFromDocumentObservation:observationCopy];
     v26 = observationCopy;
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       _textFoundLine = [self _textFoundLine];
       v7 = [v5 arrayByAddingObject:_textFoundLine];

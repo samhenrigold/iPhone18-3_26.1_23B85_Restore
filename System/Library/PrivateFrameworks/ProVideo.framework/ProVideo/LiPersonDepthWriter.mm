@@ -279,7 +279,7 @@ void __71__LiPersonDepthWriter_sharedRenderPipelineStateWithDevice_sampleCount__
   return +[LiPersonDepthWriter sharedDepthStencilStateWithDevice:]::depthState;
 }
 
-uint64_t __57__LiPersonDepthWriter_sharedDepthStencilStateWithDevice___block_invoke(uint64_t a1)
+void *__57__LiPersonDepthWriter_sharedDepthStencilStateWithDevice___block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(MEMORY[0x277CD6D60]);
   [v2 setDepthCompareFunction:3];

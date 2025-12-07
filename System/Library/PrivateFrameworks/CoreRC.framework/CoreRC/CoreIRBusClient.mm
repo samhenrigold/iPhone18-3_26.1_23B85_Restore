@@ -23,7 +23,7 @@
 
   if (gLogCategory_CoreRCXPC <= 50 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreIRBusClient addDeviceWithType:matching:error:]", 50, "CoreIRBus addDeviceWithType:matching:error: type=%d matchingDict=%@\n", type, matching);
   }
 
   v15[0] = MEMORY[0x277D85DD0];
@@ -100,8 +100,7 @@ uint64_t __52__CoreIRBusClient_addDeviceWithType_matching_error___block_invoke_2
 
   if (gLogCategory_CoreRCXPC <= 50 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    [session owningDevice];
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "-[CoreIRBusClient addDeviceWithType:matching:learningSession:error:]", 50, "CoreIRBus addDeviceWithType:matching:learningSession:error: type=%d matchingDict=%@, session=%@, owner=%@\n", type, matching, session, [session owningDevice]);
   }
 
   v17[0] = MEMORY[0x277D85DD0];
@@ -174,7 +173,7 @@ uint64_t __68__CoreIRBusClient_addDeviceWithType_matching_learningSession_error_
 
   if (gLogCategory_CoreRCXPC <= 50 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRBusClient deleteDevice:error:];
+    [CoreIRBusClient deleteDevice:device error:?];
   }
 
   v10[0] = MEMORY[0x277D85DD0];
@@ -223,20 +222,19 @@ uint64_t __38__CoreIRBusClient_deleteDevice_error___block_invoke_2(uint64_t a1, 
 
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v14 = objc_opt_class();
-    selfCopy = self;
-    LogPrintF();
+    v11 = objc_opt_class();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreIRBusClient setPairState:forAppleRemote:error:]", 10, "%@ %@ setPairState:forAppleRemote:error:\n", v11, self);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __53__CoreIRBusClient_setPairState_forAppleRemote_error___block_invoke;
-  v16[3] = &unk_278EA2938;
-  v17 = stateCopy;
-  v16[4] = manager;
-  v16[5] = remote;
-  v11 = CoreRCWaitForAsyncOperation(error, v16);
-  if (v11)
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __53__CoreIRBusClient_setPairState_forAppleRemote_error___block_invoke;
+  v15[3] = &unk_278EA2938;
+  v16 = stateCopy;
+  v15[4] = manager;
+  v15[5] = remote;
+  v12 = CoreRCWaitForAsyncOperation(error, v15);
+  if (v12)
   {
     if (stateCopy)
     {
@@ -248,20 +246,20 @@ uint64_t __38__CoreIRBusClient_deleteDevice_error___block_invoke_2(uint64_t a1, 
       remoteCopy = 0;
     }
 
-    LOBYTE(v11) = [(CoreIRBus *)self setPairedAppleRemote:remoteCopy error:error, v14, selfCopy];
+    LOBYTE(v12) = [(CoreIRBus *)self setPairedAppleRemote:remoteCopy error:error];
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t __52__CoreIRBusClient_addDeviceWithType_matching_error___block_invoke_2_cold_1(uint64_t *a1)
+void *__52__CoreIRBusClient_addDeviceWithType_matching_error___block_invoke_2_cold_1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6712 userInfo:0];
   *a1 = result;
   return result;
 }
 
-uint64_t __38__CoreIRBusClient_deleteDevice_error___block_invoke_2_cold_1(uint64_t *a1)
+void *__38__CoreIRBusClient_deleteDevice_error___block_invoke_2_cold_1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6700 userInfo:0];
   *a1 = result;

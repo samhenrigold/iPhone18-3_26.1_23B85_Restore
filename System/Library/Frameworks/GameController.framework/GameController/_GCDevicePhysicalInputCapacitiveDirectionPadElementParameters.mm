@@ -2,10 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (_GCDevicePhysicalInputCapacitiveDirectionPadElementParameters)init;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)touchedSources;
 - (uint64_t)eventTouchedValueField;
 - (uint64_t)setEventTouchedValueField:(uint64_t)result;
 - (void)setTouchedSources:(void *)sources;
+- (void)touchedSources;
 @end
 
 @implementation _GCDevicePhysicalInputCapacitiveDirectionPadElementParameters
@@ -49,7 +49,7 @@
   return result;
 }
 
-- (id)touchedSources
+- (void)touchedSources
 {
   selfCopy = self;
   if (self)

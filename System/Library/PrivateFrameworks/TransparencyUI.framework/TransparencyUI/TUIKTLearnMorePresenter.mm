@@ -41,11 +41,10 @@ uint64_t __31__TUIKTLearnMorePresenter_init__block_invoke()
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 uint64_t __34__TUIKTLearnMorePresenter_dealloc__block_invoke()
@@ -81,22 +80,20 @@ uint64_t __63__TUIKTLearnMorePresenter_presentWithPresentingViewController___blo
 
 - (void)init
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 - (void)presentWithPresentingViewController:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_26F50B000, v2, OS_LOG_TYPE_DEBUG, "%s presentingViewController = %{public}@ on %{public}@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_26F50B000, v2, OS_LOG_TYPE_DEBUG, "%s presentingViewController = %{public}@ on %{public}@", v3, 0x20u);
 }
 
 @end

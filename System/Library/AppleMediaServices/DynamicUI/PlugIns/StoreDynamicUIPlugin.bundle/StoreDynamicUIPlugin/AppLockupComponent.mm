@@ -31,7 +31,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1A184();
+  sub_1A184(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

@@ -1,986 +1,4 @@
-id sub_100114094(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  dispatch_assert_queue_V2(*(a1 + 136));
-  v2 = [*(a1 + 144) count];
-  sub_1000EC910(a1, 1013, @"%u available", v3, v4, v5, v6, v7, v2);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v8 = *(a1 + 144);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v15;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v15 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        [*(*(&v14 + 1) + 8 * v12) cancelWithReason:@"Cancelling all links"];
-        v12 = v12 + 1;
-      }
-
-      while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    }
-
-    while (v10);
-  }
-
-  sub_10010073C(a1, 0);
-  [*(a1 + 144) removeAllObjects];
-  return v2;
-}
-
-void sub_1001141F4(uint64_t a1, int a2)
-{
-  dispatch_assert_queue_V2(*(a1 + 136));
-  if (*(a1 + 17) != a2)
-  {
-    sub_1000EC910(a1, 1033, @"%d -> %d", v4, v5, v6, v7, v8, *(a1 + 17));
-    *(a1 + 17) = a2;
-    if (a2)
-    {
-      sub_1000F2504(a1, @"Device setup in progress", v9, v10, v11, v12, v13, v14, v26);
-    }
-
-    if (*(a1 + 8) == 1 && (*(a1 + 17) & 1) == 0)
-    {
-      dispatch_assert_queue_V2(*(a1 + 136));
-      objc_opt_self();
-      if (qword_1002290C0 != -1)
-      {
-        dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
-      }
-
-      v15 = qword_1002290B8;
-      v16 = v15;
-      if (v15)
-      {
-        v17 = *(v15 + 6);
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      v27 = v17;
-
-      v18 = v27;
-      if (v27 && (v19 = v27[3], dispatch_assert_queue_V2(v19), v19, v18 = v27, *(v27 + 10) >= 1))
-      {
-        v20 = *(a1 + 15);
-
-        if ((v20 & 1) == 0)
-        {
-          v21 = *(a1 + 96);
-          v22 = _NRCopyLogObjectForNRUUID();
-          IsLevelEnabled = _NRLogIsLevelEnabled();
-
-          if (IsLevelEnabled)
-          {
-            v24 = *(a1 + 96);
-            v25 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
-          }
-
-          [a1 preferWiFiRequestAvailable];
-        }
-      }
-
-      else
-      {
-      }
-    }
-  }
-}
-
-void sub_1001143D0(uint64_t a1, void *a2)
-{
-  v6 = a2;
-  if (a1)
-  {
-    dispatch_assert_queue_V2(*(a1 + 136));
-    if (v6)
-    {
-      [*(a1 + 200) addObject:v6];
-    }
-
-    else
-    {
-      v3 = sub_1000E83DC();
-      IsLevelEnabled = _NRLogIsLevelEnabled();
-
-      if (IsLevelEnabled)
-      {
-        v5 = sub_1000E83DC();
-        _NRLogWithArgs();
-      }
-    }
-  }
-}
-
-uint64_t sub_10011447C(uint64_t a1, const char *a2, void *a3)
-{
-  v5 = a3;
-  v6 = *(a1 + 32);
-  if (v6)
-  {
-    v7 = *(v6 + 96);
-  }
-
-  v8 = _NRCopyLogObjectForNRUUID();
-  IsLevelEnabled = _NRLogIsLevelEnabled();
-
-  if (IsLevelEnabled)
-  {
-    v10 = *(a1 + 32);
-    if (v10)
-    {
-      v11 = *(v10 + 96);
-    }
-
-    v12 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
-  }
-
-  if (!strcmp(a2, kNRXPCCommNotificationTypeXPCommDictionary))
-  {
-    if (xpc_get_type(v5) == &_xpc_type_dictionary)
-    {
-      v20 = _CFXPCCreateCFObjectFromXPCObject();
-      v21 = *(*(a1 + 40) + 8);
-      v22 = *(v21 + 40);
-      *(v21 + 40) = v20;
-
-      v23 = *(a1 + 32);
-      if (v23)
-      {
-        v24 = *(v23 + 96);
-      }
-
-      v25 = _NRCopyLogObjectForNRUUID();
-      v26 = _NRLogIsLevelEnabled();
-
-      if (v26)
-      {
-        v27 = *(a1 + 32);
-        if (v27)
-        {
-          v27 = v27[12];
-        }
-
-        v28 = v27;
-        v19 = _NRCopyLogObjectForNRUUID();
-        v30 = *(*(*(a1 + 40) + 8) + 40);
-        _NRLogWithArgs();
-
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      v13 = *(a1 + 32);
-      if (v13)
-      {
-        v14 = *(v13 + 96);
-      }
-
-      v15 = _NRCopyLogObjectForNRUUID();
-      v16 = _NRLogIsLevelEnabled();
-
-      if (v16)
-      {
-        v17 = *(a1 + 32);
-        if (v17)
-        {
-          v18 = *(v17 + 96);
-        }
-
-        v19 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
-LABEL_21:
-      }
-    }
-  }
-
-  return 1;
-}
-
-void sub_100114680(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (a1 && *(a1 + 14) == 1)
-  {
-    v4 = [*(a1 + 184) count];
-    if (!v3 || v4)
-    {
-      v47 = v3;
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
-      v67 = 0u;
-      v48 = *(a1 + 192);
-      v52 = [v48 countByEnumeratingWithState:&v66 objects:v72 count:16];
-      if (v52)
-      {
-        v51 = *v67;
-        v50 = kNRXPCCommNotificationTypeXPCommDictionary;
-        v49 = nrXPCKeyXPCCommNotification;
-        do
-        {
-          v8 = 0;
-          do
-          {
-            if (*v67 != v51)
-            {
-              objc_enumerationMutation(v48);
-            }
-
-            v9 = *(*(&v66 + 1) + 8 * v8);
-            v10 = xpc_dictionary_create(0, 0, 0);
-            if (!v10)
-            {
-              if (qword_100229160 != -1)
-              {
-                dispatch_once(&qword_100229160, &stru_1001FBC40);
-              }
-
-              v38 = qword_100229158;
-              IsLevelEnabled = _NRLogIsLevelEnabled();
-
-              if (!IsLevelEnabled)
-              {
-                goto LABEL_48;
-              }
-
-              goto LABEL_47;
-            }
-
-            v11 = v10;
-            v12 = xpc_dictionary_create(0, 0, 0);
-            if (!v12)
-            {
-              if (qword_100229160 != -1)
-              {
-                dispatch_once(&qword_100229160, &stru_1001FBC40);
-              }
-
-              v40 = qword_100229158;
-              v41 = _NRLogIsLevelEnabled();
-
-              if (!v41)
-              {
-                goto LABEL_48;
-              }
-
-              goto LABEL_47;
-            }
-
-            v13 = v12;
-            v56 = v8;
-            v53 = _CFXPCCreateXPCObjectFromCFObject();
-            xpc_dictionary_set_value(v13, v50, v53);
-            v54 = v13;
-            xpc_dictionary_set_value(v11, v49, v13);
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v14 = *(a1 + 184);
-            v15 = [v14 countByEnumeratingWithState:&v62 objects:v71 count:16];
-            if (v15)
-            {
-              v16 = v15;
-              v17 = *v63;
-              do
-              {
-                for (i = 0; i != v16; i = i + 1)
-                {
-                  if (*v63 != v17)
-                  {
-                    objc_enumerationMutation(v14);
-                  }
-
-                  xpc_connection_send_message(*(*(&v62 + 1) + 8 * i), v11);
-                  v19 = *(a1 + 96);
-                  v20 = _NRCopyLogObjectForNRUUID();
-                  v21 = _NRLogIsLevelEnabled();
-
-                  if (v21)
-                  {
-                    v22 = *(a1 + 96);
-                    v23 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
-                  }
-                }
-
-                v16 = [v14 countByEnumeratingWithState:&v62 objects:v71 count:16];
-              }
-
-              while (v16);
-            }
-
-            v8 = v56 + 1;
-          }
-
-          while ((v56 + 1) != v52);
-          v52 = [v48 countByEnumeratingWithState:&v66 objects:v72 count:16];
-        }
-
-        while (v52);
-      }
-
-      [*(a1 + 192) removeAllObjects];
-      v3 = v47;
-      if (v47)
-      {
-        v24 = xpc_dictionary_create(0, 0, 0);
-        if (!v24 || (v25 = v24, (v26 = xpc_dictionary_create(0, 0, 0)) == 0))
-        {
-          while (1)
-          {
-            v45 = sub_1000E83DC();
-            v46 = _NRLogIsLevelEnabled();
-
-            if (v46)
-            {
-LABEL_47:
-              v42 = sub_1000E83DC();
-              _NRLogWithArgs();
-            }
-
-LABEL_48:
-            _os_log_pack_size();
-            __chkstk_darwin();
-            v43 = *__error();
-            v44 = _os_log_pack_fill();
-            sub_1000F4320(v44, "nr_xpc_dictionary_create");
-            sub_1000E83DC();
-            _NRLogAbortWithPack();
-          }
-        }
-
-        v27 = v26;
-        v55 = _CFXPCCreateXPCObjectFromCFObject();
-        xpc_dictionary_set_value(v27, kNRXPCCommNotificationTypeXPCommDictionary, v55);
-        v57 = v27;
-        xpc_dictionary_set_value(v25, nrXPCKeyXPCCommNotification, v27);
-        v60 = 0u;
-        v61 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v28 = *(a1 + 184);
-        v29 = [v28 countByEnumeratingWithState:&v58 objects:v70 count:16];
-        if (v29)
-        {
-          v30 = v29;
-          v31 = *v59;
-          do
-          {
-            for (j = 0; j != v30; j = j + 1)
-            {
-              if (*v59 != v31)
-              {
-                objc_enumerationMutation(v28);
-              }
-
-              xpc_connection_send_message(*(*(&v58 + 1) + 8 * j), v25);
-              v33 = *(a1 + 96);
-              v34 = _NRCopyLogObjectForNRUUID();
-              v35 = _NRLogIsLevelEnabled();
-
-              if (v35)
-              {
-                v36 = *(a1 + 96);
-                v37 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
-              }
-            }
-
-            v30 = [v28 countByEnumeratingWithState:&v58 objects:v70 count:16];
-          }
-
-          while (v30);
-        }
-
-        v3 = v47;
-      }
-    }
-
-    else
-    {
-      v5 = *(a1 + 192);
-      if (!v5)
-      {
-        v6 = objc_alloc_init(NSMutableArray);
-        v7 = *(a1 + 192);
-        *(a1 + 192) = v6;
-
-        v5 = *(a1 + 192);
-      }
-
-      [v5 addObject:v3];
-    }
-  }
-}
-
-void sub_100114D18(_BYTE *a1, int a2)
-{
-  if (a1)
-  {
-    v2 = a2;
-    if (a1[68] != a2 && a1[14] == 1 && a1[47] == 1 && a1[49] == 1)
-    {
-      if (qword_100229160 != -1)
-      {
-        dispatch_once(&qword_100229160, &stru_1001FBC40);
-      }
-
-      if (_NRLogIsLevelEnabled())
-      {
-        if (qword_100229160 != -1)
-        {
-          dispatch_once(&qword_100229160, &stru_1001FBC40);
-        }
-
-        _NRLogWithArgs();
-      }
-
-      a1[68] = v2;
-
-      sub_1000FAEC0(a1);
-    }
-  }
-}
-
-void sub_100114E3C(void *a1)
-{
-  if (a1[4])
-  {
-    v2 = +[NRPairedDeviceRegistry sharedInstance];
-    v3 = [v2 deviceForBluetoothID:a1[4]];
-    if (!v3)
-    {
-      v49 = a1[5];
-      if (v49)
-      {
-        v50 = *(v49 + 96);
-      }
-
-      v51 = _NRCopyLogObjectForNRUUID();
-      IsLevelEnabled = _NRLogIsLevelEnabled();
-
-      if (IsLevelEnabled)
-      {
-        v53 = a1[5];
-        if (v53)
-        {
-          v53 = v53[12];
-        }
-
-        v54 = v53;
-        v55 = _NRCopyLogObjectForNRUUID();
-        v74 = a1[6];
-        _NRLogWithArgs();
-      }
-
-      v56 = a1[5];
-      if (v56)
-      {
-        *(v56 + 11) = 0;
-      }
-
-      goto LABEL_51;
-    }
-
-    v4 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.system.prefs" pairedDevice:v3];
-    if (!v4)
-    {
-      v5 = a1[5];
-      if (v5)
-      {
-        v6 = *(v5 + 96);
-      }
-
-      v7 = _NRCopyLogObjectForNRUUID();
-      v8 = _NRLogIsLevelEnabled();
-
-      if (v8)
-      {
-        v9 = a1[5];
-        if (v9)
-        {
-          v10 = *(v9 + 96);
-        }
-
-        v11 = _NRCopyLogObjectForNRUUID();
-        v65 = 8909;
-        v69 = v3;
-        v57 = "";
-        v61 = "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2";
-        _NRLogWithArgs();
-      }
-
-      v12 = a1[5];
-      if (v12)
-      {
-        *(v12 + 11) = 0;
-      }
-    }
-
-    v13 = [v4 copyKeyList];
-    v14 = a1[5];
-    if (v14)
-    {
-      v15 = *(v14 + 96);
-    }
-
-    v16 = _NRCopyLogObjectForNRUUID();
-    v17 = _NRLogIsLevelEnabled();
-
-    if (v17)
-    {
-      v18 = a1[5];
-      if (v18)
-      {
-        v19 = *(v18 + 96);
-      }
-
-      v20 = _NRCopyLogObjectForNRUUID();
-      v66 = 8914;
-      v70 = v13;
-      v58 = "";
-      v62 = "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2";
-      _NRLogWithArgs();
-    }
-
-    v77 = 0;
-    v21 = [v4 BOOLForKey:@"PerpetualMeadowStandaloneWiFiEnabled" keyExistsAndHasValidFormat:&v77, v58, v62, v66, v70];
-    v22 = a1[5];
-    if (v22)
-    {
-      v23 = *(v22 + 96);
-    }
-
-    v24 = _NRCopyLogObjectForNRUUID();
-    v25 = _NRLogIsLevelEnabled();
-
-    if (v25)
-    {
-      v26 = a1[5];
-      if (v26)
-      {
-        v27 = *(v26 + 96);
-      }
-
-      v28 = _NRCopyLogObjectForNRUUID();
-      v71 = v21;
-      v75 = v77;
-      v67 = 8919;
-      v59 = "";
-      v63 = "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2";
-      _NRLogWithArgs();
-    }
-
-    v77 = 0;
-    v29 = [v4 BOOLForKey:@"PerpetualMeadowStandaloneCellularEnabled" keyExistsAndHasValidFormat:&v77, v59, v63, v67, v71, v75];
-    v30 = a1[5];
-    if (v30)
-    {
-      v31 = *(v30 + 96);
-    }
-
-    v32 = _NRCopyLogObjectForNRUUID();
-    v33 = _NRLogIsLevelEnabled();
-
-    if (v33)
-    {
-      v34 = a1[5];
-      if (v34)
-      {
-        v35 = *(v34 + 96);
-      }
-
-      v36 = _NRCopyLogObjectForNRUUID();
-      v72 = v29;
-      v76 = v77;
-      v68 = 8924;
-      v60 = "";
-      v64 = "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2";
-      _NRLogWithArgs();
-    }
-
-    [v4 invalidate];
-    v37 = a1[5];
-    if (v37)
-    {
-      v38 = *(v37 + 11);
-      *(v37 + 11) = (v21 | v29) & 1;
-      v39 = a1[5];
-      if (v39)
-      {
-        if ((*(v39 + 11) ^ v38))
-        {
-          v40 = *(v39 + 96);
-          goto LABEL_34;
-        }
-      }
-
-      else if (v38)
-      {
-LABEL_34:
-        v41 = _NRCopyLogObjectForNRUUID();
-        v42 = _NRLogIsLevelEnabled();
-
-        if (v42)
-        {
-          v43 = a1[5];
-          if (v43)
-          {
-            v43 = v43[12];
-          }
-
-          v44 = v43;
-          v45 = _NRCopyLogObjectForNRUUID();
-          v46 = a1[5];
-          if (v46)
-          {
-            v47 = *(v46 + 11) & 1;
-          }
-
-          v73 = a1[6];
-          _NRLogWithArgs();
-        }
-      }
-    }
-
-LABEL_51:
-    return;
-  }
-
-  v48 = a1[5];
-  if (v48)
-  {
-    *(v48 + 11) = 0;
-  }
-}
-
-void sub_1001152AC(id a1)
-{
-  v1 = _NRCopySerialQueueAttr();
-  v2 = dispatch_queue_create("com.apple.networkrelay.NanoRegistry", v1);
-
-  if (!v2)
-  {
-    v4 = sub_1000E83DC();
-    IsLevelEnabled = _NRLogIsLevelEnabled();
-
-    if (IsLevelEnabled)
-    {
-      v6 = sub_1000E83DC();
-      _NRLogWithArgs();
-    }
-
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v7 = *__error();
-    v8 = _os_log_pack_fill();
-    *v8 = 136446466;
-    *(v8 + 4) = "nr_dispatch_queue_create";
-    *(v8 + 12) = 2080;
-    *(v8 + 14) = "com.apple.networkrelay.NanoRegistry";
-    sub_1000E83DC();
-    _NRLogAbortWithPack();
-  }
-
-  v3 = qword_100229148;
-  qword_100229148 = v2;
-}
-
-void *sub_100115508(void *a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v16.receiver = a1;
-  v16.super_class = NRDIDSKeyManager;
-  v1 = objc_msgSendSuper2(&v16, "init");
-  if (!v1)
-  {
-    v8 = sub_10011573C();
-    IsLevelEnabled = _NRLogIsLevelEnabled();
-
-    if (IsLevelEnabled)
-    {
-      v10 = sub_10011573C();
-      _NRLogWithArgs();
-    }
-
-    goto LABEL_10;
-  }
-
-  v2 = v1;
-  v3 = sub_100003490();
-  v4 = v2[2];
-  v2[2] = v3;
-
-  v5 = objc_alloc_init(NSMutableDictionary);
-  v6 = v2[6];
-  v2[6] = v5;
-
-  if (!v2[6])
-  {
-    v11 = sub_10011573C();
-    v12 = _NRLogIsLevelEnabled();
-
-    if (v12)
-    {
-      v13 = sub_10011573C();
-      _NRLogWithArgs();
-    }
-
-LABEL_10:
-    _os_log_pack_size();
-    v14 = *__error();
-    v15 = _os_log_pack_fill();
-    *v15 = 136446210;
-    *(v15 + 4) = "[NRDIDSKeyManager initInternal]";
-    sub_10011573C();
-    _NRLogAbortWithPack();
-    return 0;
-  }
-
-  return v2;
-}
-
-id sub_10011573C()
-{
-  if (qword_100229180 != -1)
-  {
-    dispatch_once(&qword_100229180, &stru_1001FBD48);
-  }
-
-  v1 = qword_100229178;
-
-  return v1;
-}
-
-void sub_100115790(id a1)
-{
-  v1 = os_log_create("com.apple.networkrelay", "");
-  v2 = qword_100229178;
-  qword_100229178 = v1;
-
-  _objc_release_x1(v1, v2);
-}
-
-void sub_1001157D4(id a1)
-{
-  v1 = sub_100115508([NRDIDSKeyManager alloc]);
-  v2 = qword_100229168;
-  qword_100229168 = v1;
-
-  _objc_release_x1(v1, v2);
-}
-
-uint64_t sub_100115814(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (a1)
-  {
-    dispatch_assert_queue_V2(*(a1 + 16));
-    v4 = [v3 fullIdentity];
-    if (v4)
-    {
-      a1 = *(v4 + 3);
-      if (a1)
-      {
-        CFRetain(*(v4 + 3));
-        goto LABEL_5;
-      }
-
-      v8 = sub_10011573C();
-      IsLevelEnabled = _NRLogIsLevelEnabled();
-
-      if (IsLevelEnabled)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v6 = sub_10011573C();
-      v7 = _NRLogIsLevelEnabled();
-
-      if (v7)
-      {
-LABEL_9:
-        v10 = sub_10011573C();
-        _NRLogWithArgs();
-      }
-    }
-
-    a1 = 0;
-  }
-
-LABEL_5:
-
-  return a1;
-}
-
-uint64_t sub_1001158E4(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (a1)
-  {
-    dispatch_assert_queue_V2(*(a1 + 16));
-    v4 = [v3 publicIdentity];
-    if (v4)
-    {
-      a1 = *(v4 + 2);
-      if (a1)
-      {
-        CFRetain(*(v4 + 2));
-        goto LABEL_5;
-      }
-
-      v8 = sub_10011573C();
-      IsLevelEnabled = _NRLogIsLevelEnabled();
-
-      if (IsLevelEnabled)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v6 = sub_10011573C();
-      v7 = _NRLogIsLevelEnabled();
-
-      if (v7)
-      {
-LABEL_9:
-        v10 = sub_10011573C();
-        _NRLogWithArgs();
-      }
-    }
-
-    a1 = 0;
-  }
-
-LABEL_5:
-
-  return a1;
-}
-
-void sub_1001159B4(uint64_t a1, int a2)
-{
-  if (a1)
-  {
-    dispatch_assert_queue_V2(*(a1 + 16));
-    if (*(a1 + 8) == 1)
-    {
-      if (a2)
-      {
-        *(a1 + 9) = 1;
-      }
-    }
-
-    else
-    {
-      *(a1 + 8) = 1;
-      if (!*(a1 + 56))
-      {
-        v4 = objc_alloc_init(NRAnalyticsKeyManager);
-        v5 = *(a1 + 56);
-        *(a1 + 56) = v4;
-      }
-
-      sub_1000059A8(0, 5500, &stru_1001FDE68, 0);
-      v6 = nr_absolute_time();
-      v7 = *(a1 + 56);
-      if (v7)
-      {
-        *(v7 + 24) = v6;
-      }
-
-      if (qword_100229188 != -1)
-      {
-        dispatch_once(&qword_100229188, &stru_1001FBD68);
-      }
-
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_100115AE4;
-      block[3] = &unk_1001FD3C8;
-      block[4] = a1;
-      dispatch_async(qword_100229190, block);
-    }
-  }
-}
-
-uint64_t sub_100115AE4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (qword_100229188 != -1)
-  {
-    dispatch_once(&qword_100229188, &stru_1001FBD68);
-  }
-
-  return IDSLocalPairingGetPairingRecordsWithCompletionBlock();
-}
-
-void sub_100115B84(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v10 = v9;
-  v11 = *(a1 + 32);
-  if (v11)
-  {
-    v12 = *(v11 + 16);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100115C84;
-  v16[3] = &unk_1001FCE28;
-  v16[4] = v11;
-  v17 = v9;
-  v18 = v7;
-  v19 = v8;
-  v13 = v8;
-  v14 = v7;
-  v15 = v10;
-  dispatch_async(v12, v16);
-}
-
-id sub_100115C84(uint64_t a1)
+void sub_100115C84(uint64_t a1)
 {
   v1 = a1;
   v2 = *(a1 + 32);
@@ -1015,34 +33,33 @@ id sub_100115C84(uint64_t a1)
   v13 = *(v1 + 48);
   if (!*(v1 + 40) && v13 && *(v1 + 56))
   {
-    v97 = *(v1 + 56);
     sub_100116C78(*(v1 + 32), 5501, @"%@ %@", v6, v7, v8, v9, v10, *(v1 + 48));
-    v18 = *(v1 + 32);
-    if (v18 && ((v19 = *(v18 + 56)) == 0 || (*(v19 + 16) = 1, (v18 = *(v1 + 32)) != 0)))
+    v17 = *(v1 + 32);
+    if (v17 && ((v18 = *(v17 + 56)) == 0 || (*(v18 + 16) = 1, (v17 = *(v1 + 32)) != 0)))
     {
-      v20 = *(v18 + 56);
+      v19 = *(v17 + 56);
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    [v20 submit];
-    v21 = *(v1 + 32);
-    v22 = *(v1 + 48);
+    [v19 submit];
+    v20 = *(v1 + 32);
+    v21 = *(v1 + 48);
+    v22 = &qword_100229000;
     v23 = &qword_100229000;
-    v24 = &qword_100229000;
-    if (v21)
+    if (v20)
     {
-      dispatch_assert_queue_V2(*(v21 + 16));
-      if (v22)
+      dispatch_assert_queue_V2(*(v20 + 16));
+      if (v21)
       {
-        *&v111 = 0;
-        v25 = [v22 fullIdentityClassD:&v111];
-        v26 = v111;
-        v27 = v26;
-        if (!v25 || v26)
+        *&v102 = 0;
+        v24 = [v21 fullIdentityClassD:&v102];
+        v25 = v102;
+        v26 = v25;
+        if (!v24 || v25)
         {
           if (qword_100229180 != -1)
           {
@@ -1056,17 +73,13 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v98 = 132;
-            v99 = v27;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100229178, 16, "%s%.30s:%-4d Failed to ingest IDS local classD identity: %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 132, v26);
           }
         }
 
         else
         {
-          v28 = sub_100115814(v21, v25);
+          v27 = sub_100115814(v20, v24);
           if (qword_100229180 != -1)
           {
             dispatch_once(&qword_100229180, &stru_1001FBD48);
@@ -1079,13 +92,13 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v29 = qword_100229178;
-            if (v28)
+            v28 = qword_100229178;
+            if (v27)
             {
-              v116[0] = 0;
+              v107[0] = 0;
               SecKeyCopyPublicBytes();
-              v30 = v116[0];
-              v116[0] = 0;
+              v29 = v107[0];
+              v107[0] = 0;
               LogString = _NRKeyCreateLogString();
             }
 
@@ -1094,25 +107,21 @@ id sub_100115C84(uint64_t a1)
               LogString = @"[nil]";
             }
 
-            v98 = 128;
-            v99 = LogString;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v28, 0, "%s%.30s:%-4d Ingested IDS local classD identity %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 128, LogString);
           }
 
-          objc_storeStrong((v21 + 24), v25);
-          if (v28)
+          objc_storeStrong((v20 + 24), v24);
+          if (v27)
           {
-            CFRelease(v28);
+            CFRelease(v27);
           }
         }
 
-        v115 = 0;
-        v32 = [v22 fullIdentityClassC:&v115];
-        v33 = v115;
-        v34 = v33;
-        if (!v32 || v33)
+        v106 = 0;
+        v31 = [v21 fullIdentityClassC:&v106];
+        v32 = v106;
+        v33 = v32;
+        if (!v31 || v32)
         {
           if (qword_100229180 != -1)
           {
@@ -1126,17 +135,13 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v98 = 147;
-            v99 = v34;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100229178, 16, "%s%.30s:%-4d Failed to ingest IDS local classC identity: %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 147, v33);
           }
         }
 
         else
         {
-          v35 = sub_100115814(v21, v32);
+          v34 = sub_100115814(v20, v31);
           if (qword_100229180 != -1)
           {
             dispatch_once(&qword_100229180, &stru_1001FBD48);
@@ -1149,40 +154,36 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v36 = qword_100229178;
-            if (v35)
+            v35 = qword_100229178;
+            if (v34)
             {
-              v116[0] = 0;
+              v107[0] = 0;
               SecKeyCopyPublicBytes();
-              v37 = v116[0];
-              v116[0] = 0;
-              v38 = _NRKeyCreateLogString();
+              v36 = v107[0];
+              v107[0] = 0;
+              v37 = _NRKeyCreateLogString();
             }
 
             else
             {
-              v38 = @"[nil]";
+              v37 = @"[nil]";
             }
 
-            v98 = 143;
-            v99 = v38;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v35, 0, "%s%.30s:%-4d Ingested IDS local classC identity %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 143, v37);
           }
 
-          objc_storeStrong((v21 + 32), v32);
-          if (v35)
+          objc_storeStrong((v20 + 32), v31);
+          if (v34)
           {
-            CFRelease(v35);
+            CFRelease(v34);
           }
         }
 
-        v110 = 0;
-        v39 = [v22 fullIdentityClassA:&v110];
-        v40 = v110;
-        v41 = v40;
-        if (!v39 || v40)
+        v101 = 0;
+        v38 = [v21 fullIdentityClassA:&v101];
+        v39 = v101;
+        v40 = v39;
+        if (!v38 || v39)
         {
           if (qword_100229180 != -1)
           {
@@ -1196,17 +197,13 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v98 = 162;
-            v99 = v41;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100229178, 16, "%s%.30s:%-4d Failed to ingest IDS local classA identity: %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 162, v40);
           }
         }
 
         else
         {
-          v42 = sub_100115814(v21, v39);
+          v41 = sub_100115814(v20, v38);
           if (qword_100229180 != -1)
           {
             dispatch_once(&qword_100229180, &stru_1001FBD48);
@@ -1219,93 +216,88 @@ id sub_100115C84(uint64_t a1)
               dispatch_once(&qword_100229180, &stru_1001FBD48);
             }
 
-            v43 = qword_100229178;
-            if (v42)
+            v42 = qword_100229178;
+            if (v41)
             {
-              v116[0] = 0;
+              v107[0] = 0;
               SecKeyCopyPublicBytes();
-              v44 = v116[0];
-              v116[0] = 0;
-              v45 = _NRKeyCreateLogString();
+              v43 = v107[0];
+              v107[0] = 0;
+              v44 = _NRKeyCreateLogString();
             }
 
             else
             {
-              v45 = @"[nil]";
+              v44 = @"[nil]";
             }
 
-            v98 = 158;
-            v99 = v45;
-            v95 = "";
-            v97 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v42, 0, "%s%.30s:%-4d Ingested IDS local classA identity %@", "", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]", 158, v44);
           }
 
-          objc_storeStrong((v21 + 40), v39);
-          if (v42)
+          objc_storeStrong((v20 + 40), v38);
+          if (v41)
           {
-            CFRelease(v42);
+            CFRelease(v41);
           }
         }
 
+        v22 = &qword_100229000;
         v23 = &qword_100229000;
-        v24 = &qword_100229000;
       }
 
       else
       {
-        v89 = sub_10011573C();
+        v86 = sub_10011573C();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v91 = sub_10011573C();
-          v95 = "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]";
-          _NRLogWithArgs();
+          v88 = sub_10011573C();
+          _NRLogWithArgs(v88, 17, "%s called with null localDeviceRecord", "[NRDIDSKeyManager ingestIDSLocalDeviceRecord:]");
         }
       }
     }
 
-    v46 = *(v1 + 32);
-    v47 = *(v1 + 56);
-    if (v46)
+    v45 = *(v1 + 32);
+    v46 = *(v1 + 56);
+    if (v45)
     {
-      v105 = v46;
-      dispatch_assert_queue_V2(*(v46 + 16));
-      if (v47)
+      v96 = v45;
+      dispatch_assert_queue_V2(*(v45 + 16));
+      if (v46)
       {
-        v101 = v47;
-        v102 = v1;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        obj = v47;
-        v48 = v46;
-        v104 = [obj countByEnumeratingWithState:&v111 objects:v116 count:16];
-        if (v104)
+        v92 = v46;
+        v93 = v1;
+        v104 = 0u;
+        v105 = 0u;
+        v102 = 0u;
+        v103 = 0u;
+        obj = v46;
+        v47 = v45;
+        v95 = [obj countByEnumeratingWithState:&v102 objects:v107 count:16];
+        if (v95)
         {
-          v103 = *v112;
+          v94 = *v103;
           do
           {
-            for (i = 0; i != v104; i = i + 1)
+            for (i = 0; i != v95; i = i + 1)
             {
-              if (*v112 != v103)
+              if (*v103 != v94)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v52 = *(*(&v111 + 1) + 8 * i);
-              v51 = [obj objectForKeyedSubscript:{v52, v95, v97, v98, v99, v100}];
-              v53 = [*(v48 + 48) objectForKeyedSubscript:v52];
+              v52 = *(*(&v102 + 1) + 8 * i);
+              v51 = [obj objectForKeyedSubscript:v52];
+              v53 = [*(v47 + 48) objectForKeyedSubscript:v52];
               if (!v53)
               {
                 v53 = objc_alloc_init(NRDIDSKMDeviceRecord);
               }
 
-              v110 = 0;
-              v54 = [v51 publicIdentityClassD:&v110];
-              v55 = v110;
+              v101 = 0;
+              v54 = [v51 publicIdentityClassD:&v101];
+              v55 = v101;
               v56 = v55;
               if (v54)
               {
@@ -1317,51 +309,45 @@ id sub_100115C84(uint64_t a1)
                 v57 = 0;
               }
 
-              v107 = v51;
+              v98 = v51;
               if (v57)
               {
-                v60 = sub_1001158E4(v48, v54);
-                if (v23[48] != -1)
+                v60 = sub_1001158E4(v47, v54);
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v61 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v62 = v24[47];
-                  v63 = [v52 UUIDString];
+                  v61 = v23[47];
+                  v62 = [v52 UUIDString];
                   if (v60)
                   {
-                    v115 = 0;
+                    v106 = 0;
                     SecKeyCopyPublicBytes();
-                    v64 = v115;
-                    v115 = 0;
-                    v65 = _NRKeyCreateLogString();
+                    v63 = v106;
+                    v106 = 0;
+                    v64 = _NRKeyCreateLogString();
 
-                    v48 = v105;
+                    v47 = v96;
                   }
 
                   else
                   {
-                    v65 = @"[nil]";
+                    v64 = @"[nil]";
                   }
 
-                  v99 = v63;
-                  v100 = v65;
-                  v98 = 187;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(v61, 0, "%s%.30s:%-4d Ingested IDS remote classD identity for BT<%@> %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 187, v62, v64);
 
+                  v22 = &qword_100229000;
                   v23 = &qword_100229000;
-                  v24 = &qword_100229000;
-                  v51 = v107;
+                  v51 = v98;
                 }
 
                 if (v53)
@@ -1377,249 +363,222 @@ id sub_100115C84(uint64_t a1)
 
               else
               {
-                if (v23[48] != -1)
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v58 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v59 = v24[47];
-                  v99 = [v52 UUIDString];
-                  v100 = v56;
-                  v98 = 192;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  v58 = v23[47];
+                  v59 = [v52 UUIDString];
+                  _NRLogWithArgs(v58, 16, "%s%.30s:%-4d Failed to ingest IDS remote classD identity for bluetoothUUID %@: %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 192, v59, v56);
 
-                  v48 = v105;
-                  v51 = v107;
+                  v47 = v96;
+                  v51 = v98;
                 }
               }
 
-              v109 = 0;
-              v66 = [v51 publicIdentityClassC:&v109];
-              v67 = v109;
-              v68 = v67;
-              if (!v66 || v67)
+              v100 = 0;
+              v65 = [v51 publicIdentityClassC:&v100];
+              v66 = v100;
+              v67 = v66;
+              if (!v65 || v66)
               {
-                if (v23[48] != -1)
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v75 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v76 = v24[47];
-                  v99 = [v52 UUIDString];
-                  v100 = v68;
-                  v98 = 208;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  v73 = v23[47];
+                  v74 = [v52 UUIDString];
+                  _NRLogWithArgs(v73, 16, "%s%.30s:%-4d Failed to ingest IDS remote classC identity for bluetoothUUID %@: %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 208, v74, v67);
 
-                  v48 = v105;
-                  v51 = v107;
+                  v47 = v96;
+                  v51 = v98;
                 }
               }
 
               else
               {
-                v69 = sub_1001158E4(v48, v66);
-                if (v23[48] != -1)
+                v68 = sub_1001158E4(v47, v65);
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v70 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v71 = v24[47];
-                  v72 = [v52 UUIDString];
-                  if (v69)
+                  v69 = v23[47];
+                  v70 = [v52 UUIDString];
+                  if (v68)
                   {
-                    v115 = 0;
+                    v106 = 0;
                     SecKeyCopyPublicBytes();
-                    v73 = v115;
-                    v115 = 0;
-                    v74 = _NRKeyCreateLogString();
+                    v71 = v106;
+                    v106 = 0;
+                    v72 = _NRKeyCreateLogString();
 
-                    v48 = v105;
+                    v47 = v96;
                   }
 
                   else
                   {
-                    v74 = @"[nil]";
+                    v72 = @"[nil]";
                   }
 
-                  v99 = v72;
-                  v100 = v74;
-                  v98 = 203;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(v69, 0, "%s%.30s:%-4d Ingested IDS remote classC identity for BT<%@> %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 203, v70, v72);
 
+                  v22 = &qword_100229000;
                   v23 = &qword_100229000;
-                  v24 = &qword_100229000;
-                  v51 = v107;
+                  v51 = v98;
                 }
 
                 if (v53)
                 {
-                  objc_storeStrong(&v53->_remoteIDSClassCIdentity, v66);
+                  objc_storeStrong(&v53->_remoteIDSClassCIdentity, v65);
                 }
 
-                if (v69)
+                if (v68)
                 {
-                  CFRelease(v69);
+                  CFRelease(v68);
                 }
               }
 
-              v108 = 0;
-              v77 = [v51 publicIdentityClassA:&v108];
-              v78 = v108;
-              v79 = v78;
-              if (!v77 || v78)
+              v99 = 0;
+              v75 = [v51 publicIdentityClassA:&v99];
+              v76 = v99;
+              v77 = v76;
+              if (!v75 || v76)
               {
-                if (v23[48] != -1)
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v86 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v50 = v24[47];
-                  v99 = [v52 UUIDString];
-                  v100 = v79;
-                  v98 = 224;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  v49 = v23[47];
+                  v50 = [v52 UUIDString];
+                  _NRLogWithArgs(v49, 16, "%s%.30s:%-4d Failed to ingest IDS remote classA identity for bluetoothUUID %@: %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 224, v50, v77);
 
-                  v48 = v105;
-                  v51 = v107;
+                  v47 = v96;
+                  v51 = v98;
                 }
               }
 
               else
               {
-                v80 = sub_1001158E4(v48, v77);
-                if (v23[48] != -1)
+                v78 = sub_1001158E4(v47, v75);
+                if (v22[48] != -1)
                 {
                   dispatch_once(&qword_100229180, &stru_1001FBD48);
                 }
 
-                v81 = v24[47];
                 if (_NRLogIsLevelEnabled())
                 {
-                  if (v23[48] != -1)
+                  if (v22[48] != -1)
                   {
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  v82 = v24[47];
-                  v83 = [v52 UUIDString];
-                  if (v80)
+                  v79 = v23[47];
+                  v80 = [v52 UUIDString];
+                  if (v78)
                   {
-                    v115 = 0;
+                    v106 = 0;
                     SecKeyCopyPublicBytes();
-                    v84 = v115;
-                    v115 = 0;
-                    v85 = _NRKeyCreateLogString();
+                    v81 = v106;
+                    v106 = 0;
+                    v82 = _NRKeyCreateLogString();
 
-                    v48 = v105;
+                    v47 = v96;
                   }
 
                   else
                   {
-                    v85 = @"[nil]";
+                    v82 = @"[nil]";
                   }
 
-                  v99 = v83;
-                  v100 = v85;
-                  v98 = 219;
-                  v95 = "";
-                  v97 = "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]";
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(v79, 0, "%s%.30s:%-4d Ingested IDS remote classA identity for BT<%@> %@", "", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]", 219, v80, v82);
 
+                  v22 = &qword_100229000;
                   v23 = &qword_100229000;
-                  v24 = &qword_100229000;
-                  v51 = v107;
+                  v51 = v98;
                 }
 
                 if (v53)
                 {
-                  objc_storeStrong(&v53->_remoteIDSClassAIdentity, v77);
+                  objc_storeStrong(&v53->_remoteIDSClassAIdentity, v75);
                 }
 
-                if (v80)
+                if (v78)
                 {
-                  CFRelease(v80);
+                  CFRelease(v78);
                 }
               }
 
-              [*(v48 + 48) setObject:v53 forKeyedSubscript:v52];
+              [*(v47 + 48) setObject:v53 forKeyedSubscript:v52];
             }
 
-            v104 = [obj countByEnumeratingWithState:&v111 objects:v116 count:16];
+            v95 = [obj countByEnumeratingWithState:&v102 objects:v107 count:16];
           }
 
-          while (v104);
+          while (v95);
         }
 
-        v47 = v101;
-        v1 = v102;
+        v46 = v92;
+        v1 = v93;
       }
 
       else
       {
-        v92 = sub_10011573C();
-        v93 = _NRLogIsLevelEnabled();
+        v89 = sub_10011573C();
+        v90 = _NRLogIsLevelEnabled();
 
-        if (v93)
+        if (v90)
         {
-          v94 = sub_10011573C();
-          _NRLogWithArgs();
+          v91 = sub_10011573C();
+          _NRLogWithArgs(v91, 17, "%s called with null pairedDevicesRecords", "[NRDIDSKeyManager ingestIDSPairedDevicesRecords:]");
         }
       }
     }
 
-    result = *(v1 + 32);
-    if (result)
+    v83 = *(v1 + 32);
+    if (v83)
     {
-      result = sub_100116D00(result, 0);
-      v87 = *(v1 + 32);
-      if (v87)
+      sub_100116D00(v83, 0);
+      v84 = *(v1 + 32);
+      if (v84)
       {
-        if (*(v87 + 9) == 1)
+        if (*(v84 + 9) == 1)
         {
-          *(v87 + 9) = 0;
-          v88 = *(v1 + 32);
+          *(v84 + 9) = 0;
+          v85 = *(v1 + 32);
 
-          return sub_1001159B4(v88, 0);
+          sub_1001159B4(v85, 0);
         }
       }
     }
@@ -1627,7 +586,6 @@ id sub_100115C84(uint64_t a1)
 
   else
   {
-    v96 = *(v1 + 56);
     sub_100116C78(*(v1 + 32), 5502, @"%@ %@ %@", v6, v7, v8, v9, v10, v13);
     v14 = *(v1 + 32);
     if (v14 && ((v15 = *(v14 + 56)) == 0 || (*(v15 + 16) = 0, (v14 = *(v1 + 32)) != 0)))
@@ -1640,10 +598,8 @@ id sub_100115C84(uint64_t a1)
       v16 = 0;
     }
 
-    return [v16 submit];
+    [v16 submit];
   }
-
-  return result;
 }
 
 void sub_100116C78(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -1663,33 +619,33 @@ void sub_100116D00(uint64_t a1, int a2)
   {
     v3 = a1;
     dispatch_assert_queue_V2(*(a1 + 16));
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
-    v93 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
     v4 = *(v3 + 48);
-    v63 = [v4 countByEnumeratingWithState:&v92 objects:v99 count:16];
-    if (v63)
+    v58 = [v4 countByEnumeratingWithState:&v87 objects:v94 count:16];
+    if (v58)
     {
       v5 = 0;
       v6 = 0;
-      v61 = *v93;
-      v67 = a2;
-      v62 = v4;
-      v66 = v3;
+      v56 = *v88;
+      v62 = a2;
+      v57 = v4;
+      v61 = v3;
       do
       {
         v7 = 0;
         do
         {
-          if (*v93 != v61)
+          if (*v88 != v56)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v92 + 1) + 8 * v7);
+          v8 = *(*(&v87 + 1) + 8 * v7);
           v9 = *(v3 + 48);
-          v65 = v8;
+          v60 = v8;
           v10 = [v9 objectForKeyedSubscript:v8];
 
           if (v10)
@@ -1702,27 +658,27 @@ void sub_100116D00(uint64_t a1, int a2)
             v11 = 0;
           }
 
-          v64 = v7;
+          v59 = v7;
           v12 = [v11 copy];
-          v88 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v91 = 0u;
+          v83 = 0u;
+          v84 = 0u;
+          v85 = 0u;
+          v86 = 0u;
           obj = v12;
-          v75 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
-          if (v75)
+          v70 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
+          if (v70)
           {
-            v74 = *v89;
+            v69 = *v84;
             do
             {
-              for (i = 0; i != v75; i = i + 1)
+              for (i = 0; i != v70; i = i + 1)
               {
-                if (*v89 != v74)
+                if (*v84 != v69)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v14 = *(*(&v88 + 1) + 8 * i);
+                v14 = *(*(&v83 + 1) + 8 * i);
                 if (v14)
                 {
                   v15 = *(v14 + 9) != 4;
@@ -1738,13 +694,13 @@ void sub_100116D00(uint64_t a1, int a2)
                 v17 = *(v3 + 24);
                 if (!v17)
                 {
-                  goto LABEL_46;
+                  goto LABEL_44;
                 }
 
                 if (!v10)
                 {
 
-LABEL_46:
+LABEL_44:
                   if (v14)
                   {
                     if (*(v14 + 8))
@@ -1772,7 +728,7 @@ LABEL_46:
 
                 if (!v18)
                 {
-                  goto LABEL_46;
+                  goto LABEL_44;
                 }
 
                 if (v15)
@@ -1780,14 +736,14 @@ LABEL_46:
                   v19 = *(v3 + 32);
                   if (!v19)
                   {
-                    goto LABEL_46;
+                    goto LABEL_44;
                   }
 
                   v20 = v10[2];
 
                   if (!v20)
                   {
-                    goto LABEL_46;
+                    goto LABEL_44;
                   }
                 }
 
@@ -1796,14 +752,14 @@ LABEL_46:
                   v21 = *(v3 + 40);
                   if (!v21)
                   {
-                    goto LABEL_46;
+                    goto LABEL_44;
                   }
 
                   v22 = v10[3];
 
                   if (!v22)
                   {
-                    goto LABEL_46;
+                    goto LABEL_44;
                   }
                 }
 
@@ -1819,24 +775,15 @@ LABEL_46:
                     dispatch_once(&qword_100229180, &stru_1001FBD48);
                   }
 
-                  if (v14)
-                  {
-                    v23 = *(v14 + 9);
-                  }
-
-                  v24 = qword_100229178;
+                  v23 = qword_100229178;
                   String = NRDataProtectionClassCreateString();
-                  v60 = v65;
-                  v58 = 347;
-                  v56 = "";
-                  v57 = "[NRDIDSKeyManager checkOutstandingQueriesForceQueryIDS:]";
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(v23, 0, "%s%.30s:%-4d Completing query for %@ BT<%@>", "", "[NRDIDSKeyManager checkOutstandingQueriesForceQueryIDS:]", 347, String, v60);
                 }
 
-                v71 = v6;
-                v72 = v5;
-                v70 = *(v3 + 24);
-                v69 = *(v3 + 32);
+                v66 = v6;
+                v67 = v5;
+                v65 = *(v3 + 24);
+                v64 = *(v3 + 32);
                 v25 = v3;
                 v26 = *(v3 + 40);
                 v27 = v10[1];
@@ -1853,7 +800,7 @@ LABEL_46:
                   v30 = 0;
                 }
 
-                [v10[4] removeObject:{v14, v56, v57, v58, String, v60}];
+                [v10[4] removeObject:v14];
                 if (![v10[4] count])
                 {
                   v32 = v10[4];
@@ -1865,43 +812,43 @@ LABEL_46:
                 block[1] = 3221225472;
                 block[2] = sub_1001175B8;
                 block[3] = &unk_1001FBCD8;
-                v86 = v29;
-                v87 = v30;
-                v81 = v70;
-                v82 = v69;
-                v83 = v26;
-                v84 = v27;
-                v85 = v28;
-                v68 = v29;
+                v81 = v29;
+                v82 = v30;
+                v76 = v65;
+                v77 = v64;
+                v78 = v26;
+                v79 = v27;
+                v80 = v28;
+                v63 = v29;
                 v34 = v28;
                 v35 = v27;
                 v36 = v26;
-                v37 = v69;
-                v38 = v70;
+                v37 = v64;
+                v38 = v65;
                 v39 = v30;
                 dispatch_async(v33, block);
 
-                v3 = v66;
-                a2 = v67;
-                v6 = v71;
-                v5 = v72;
+                v3 = v61;
+                a2 = v62;
+                v6 = v66;
+                v5 = v67;
               }
 
-              v75 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
+              v70 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
             }
 
-            while (v75);
+            while (v70);
           }
 
-          v7 = v64 + 1;
-          v4 = v62;
+          v7 = v59 + 1;
+          v4 = v57;
         }
 
-        while ((v64 + 1) != v63);
-        v63 = [v62 countByEnumeratingWithState:&v92 objects:v99 count:16];
+        while ((v59 + 1) != v58);
+        v58 = [v57 countByEnumeratingWithState:&v87 objects:v94 count:16];
       }
 
-      while (v63);
+      while (v58);
 
       if (v5)
       {
@@ -1924,12 +871,12 @@ LABEL_46:
         }
 
         v40 = qword_1002294C0;
-        v96[0] = _NSConcreteStackBlock;
-        v96[1] = 3221225472;
-        v96[2] = sub_1001175D8;
-        v96[3] = &unk_1001FBCB0;
-        v96[4] = v3;
-        v41 = v96;
+        v91[0] = _NSConcreteStackBlock;
+        v91[1] = 3221225472;
+        v91[2] = sub_1001175D8;
+        v91[3] = &unk_1001FBCB0;
+        v91[4] = v3;
+        v41 = v91;
         if (v40)
         {
           dispatch_assert_queue_V2(v40[2]);
@@ -1945,7 +892,7 @@ LABEL_46:
               dispatch_once(&qword_1002294D8, &stru_1001FD2C0);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002294D0, 0, "%s%.30s:%-4d Registering for IDS key manager data protection class updates", "", "[NRDKeyManager registerForIDSKeyManagerUpdates:]", 113);
           }
 
           v42 = objc_retainBlock(v41);
@@ -1955,7 +902,7 @@ LABEL_46:
           sub_100180B5C(v40);
         }
 
-        goto LABEL_68;
+        goto LABEL_65;
       }
     }
 
@@ -1963,26 +910,26 @@ LABEL_46:
     {
     }
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v40 = *(v3 + 48);
-    v44 = [(dispatch_queue_t *)v40 countByEnumeratingWithState:&v76 objects:v97 count:16];
+    v44 = [(dispatch_queue_t *)v40 countByEnumeratingWithState:&v71 objects:v92 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v77;
-LABEL_73:
+      v46 = *v72;
+LABEL_70:
       v47 = 0;
       while (1)
       {
-        if (*v77 != v46)
+        if (*v72 != v46)
         {
           objc_enumerationMutation(v40);
         }
 
-        v48 = *(*(&v76 + 1) + 8 * v47);
+        v48 = *(*(&v71 + 1) + 8 * v47);
         v49 = *(v3 + 48);
         v50 = [v49 objectForKeyedSubscript:v48];
         v51 = v50;
@@ -2000,22 +947,22 @@ LABEL_73:
 
         if (v45 == ++v47)
         {
-          v45 = [(dispatch_queue_t *)v40 countByEnumeratingWithState:&v76 objects:v97 count:16];
+          v45 = [(dispatch_queue_t *)v40 countByEnumeratingWithState:&v71 objects:v92 count:16];
           if (v45)
           {
-            goto LABEL_73;
+            goto LABEL_70;
           }
 
-          goto LABEL_81;
+          goto LABEL_78;
         }
       }
 
-LABEL_68:
+LABEL_65:
 
       return;
     }
 
-LABEL_81:
+LABEL_78:
 
     dispatch_assert_queue_V2(*(v3 + 16));
     if (*(v3 + 10) == 1)
@@ -2044,7 +991,7 @@ LABEL_81:
             dispatch_once(&qword_1002294D8, &stru_1001FD2C0);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002294D0, 0, "%s%.30s:%-4d Unregistering for IDS key manager data protection class updates", "", "[NRDKeyManager unregisterForIDSKeyManagerUpdates]", 121);
         }
 
         v55 = v54[3];
@@ -2059,7 +1006,7 @@ LABEL_81:
   }
 }
 
-uint64_t sub_1001175D8(uint64_t a1)
+void sub_1001175D8(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2)
@@ -2075,7 +1022,7 @@ uint64_t sub_1001175D8(uint64_t a1)
   dispatch_assert_queue_V2(v3);
   v4 = *(a1 + 32);
 
-  return sub_100116D00(v4, 1);
+  sub_100116D00(v4, 1);
 }
 
 void sub_100117628(id a1)
@@ -2091,17 +1038,17 @@ void sub_100117628(id a1)
     if (IsLevelEnabled)
     {
       v6 = sub_10011573C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v6, 16, "%s%.30s:%-4d ABORTING: dispatch_queue_create(%s) failed", "", "nr_dispatch_queue_create", 196, "terminusd.IdentityServices.pairingRecords");
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v7 = *__error();
-    v8 = _os_log_pack_fill();
-    *v8 = 136446466;
-    *(v8 + 4) = "nr_dispatch_queue_create";
-    *(v8 + 12) = 2080;
-    *(v8 + 14) = "terminusd.IdentityServices.pairingRecords";
+    v7 = _os_log_pack_size();
+    v8 = &v11 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "%{public}s dispatch_queue_create(%s) failed");
+    *v10 = 136446466;
+    *(v10 + 4) = "nr_dispatch_queue_create";
+    *(v10 + 12) = 2080;
+    *(v10 + 14) = "terminusd.IdentityServices.pairingRecords";
     sub_10011573C();
     _NRLogAbortWithPack();
   }
@@ -2110,9 +1057,10 @@ void sub_100117628(id a1)
   qword_100229190 = v2;
 }
 
-void sub_1001177A8(uint64_t a1, void *a2, unsigned __int8 a3, void *a4)
+void sub_1001177A8(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v31 = a2;
+  v5 = a3;
+  v40 = a2;
   v7 = a4;
   dispatch_assert_queue_V2(*(a1 + 16));
   if (v7)
@@ -2121,7 +1069,7 @@ void sub_1001177A8(uint64_t a1, void *a2, unsigned __int8 a3, void *a4)
     if (v8)
     {
       v10 = v8;
-      v8->_minDataProtectionClass = a3;
+      v8->_minDataProtectionClass = v5;
       objc_setProperty_nonatomic_copy(v8, v9, v7, 16);
       if (qword_100229180 != -1)
       {
@@ -2137,76 +1085,88 @@ void sub_1001177A8(uint64_t a1, void *a2, unsigned __int8 a3, void *a4)
 
         v11 = qword_100229178;
         String = NRDataProtectionClassCreateString();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v11, 0, "%s%.30s:%-4d Adding query %p for %@ BT<%@>", "", "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]", 412, v10, String, v40);
       }
 
-      v12 = [*(a1 + 48) objectForKeyedSubscript:{v31, v31}];
-      if (v12 || (v12 = objc_alloc_init(NRDIDSKMDeviceRecord)) != 0)
+      v13 = [*(a1 + 48) objectForKeyedSubscript:{v40, v40}];
+      if (v13 || (v13 = objc_alloc_init(NRDIDSKMDeviceRecord)) != 0)
       {
-        v13 = v12;
-        outstandingQueries = v12->_outstandingQueries;
-        if (outstandingQueries || (v15 = objc_alloc_init(NSMutableArray), v16 = v13->_outstandingQueries, v13->_outstandingQueries = v15, v16, (outstandingQueries = v13->_outstandingQueries) != 0))
+        v14 = v13;
+        outstandingQueries = v13->_outstandingQueries;
+        if (outstandingQueries || (v16 = objc_alloc_init(NSMutableArray), v17 = v14->_outstandingQueries, v14->_outstandingQueries = v16, v17, (outstandingQueries = v14->_outstandingQueries) != 0))
         {
           [(NSMutableArray *)outstandingQueries addObject:v10];
-          [*(a1 + 48) setObject:v13 forKeyedSubscript:v31];
+          [*(a1 + 48) setObject:v14 forKeyedSubscript:v40];
           sub_100116D00(a1, 0);
 
 LABEL_14:
           goto LABEL_15;
         }
 
-        v25 = sub_10011573C();
+        v33 = sub_10011573C();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v27 = sub_10011573C();
-          _NRLogWithArgs();
+          v35 = sub_10011573C();
+          _NRLogWithArgs(v35, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (deviceRecord.outstandingQueries) != ((void*)0)", "", "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]", 421);
         }
+
+        v36 = _os_log_pack_size();
+        v37 = &v40 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v38 = __error();
+        v39 = _os_log_pack_fill(v37, v36, *v38, &_mh_execute_header, "%{public}s Assertion Failed: (deviceRecord.outstandingQueries) != ((void*)0)");
+        *v39 = 136446210;
+        *(v39 + 4) = "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]";
+LABEL_30:
+        sub_10011573C();
+        _NRLogAbortWithPack();
       }
 
-      else
+      v27 = sub_10011573C();
+      v28 = _NRLogIsLevelEnabled();
+
+      if (v28)
       {
-        v22 = sub_10011573C();
-        v23 = _NRLogIsLevelEnabled();
-
-        if (v23)
-        {
-          v24 = sub_10011573C();
-          _NRLogWithArgs();
-        }
+        v29 = sub_10011573C();
+        _NRLogWithArgs(v29, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (deviceRecord) != ((void*)0)", "", "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]", 417);
       }
+
+      v30 = _os_log_pack_size();
+      v31 = &v40 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = *__error();
+      v26 = _os_log_pack_fill(v31, v30, v32, &_mh_execute_header, "%{public}s Assertion Failed: (deviceRecord) != ((void*)0)", v40);
     }
 
     else
     {
-      v19 = sub_10011573C();
-      v20 = _NRLogIsLevelEnabled();
+      v20 = sub_10011573C();
+      v21 = _NRLogIsLevelEnabled();
 
-      if (v20)
+      if (v21)
       {
-        v21 = sub_10011573C();
-        _NRLogWithArgs();
+        v22 = sub_10011573C();
+        _NRLogWithArgs(v22, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (outstandingQuery) != ((void*)0)", "", "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]", 407);
       }
+
+      v23 = _os_log_pack_size();
+      v24 = &v40 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v25 = *__error();
+      v26 = _os_log_pack_fill(v24, v23, v25, &_mh_execute_header, "%{public}s Assertion Failed: (outstandingQuery) != ((void*)0)", v40);
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v28 = *__error();
-    v29 = _os_log_pack_fill();
-    *v29 = 136446210;
-    *(v29 + 4) = "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]";
-    sub_10011573C();
-    _NRLogAbortWithPack();
+    *v26 = 136446210;
+    *(v26 + 4) = "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]";
+    goto LABEL_30;
   }
 
-  v17 = sub_10011573C();
-  v18 = _NRLogIsLevelEnabled();
+  v18 = sub_10011573C();
+  v19 = _NRLogIsLevelEnabled();
 
-  if (v18)
+  if (v19)
   {
     v10 = sub_10011573C();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v10, 17, "%s called with null completionBlock", "[NRDIDSKeyManager internalQueryIDSKeysForBluetoothUUID:minDataProtectionClass:completionBlock:]");
     goto LABEL_14;
   }
 
@@ -2219,8 +1179,8 @@ void sub_100117C3C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
   v14 = a3;
   v15 = a4;
   v16 = a5;
-  v90 = a6;
-  v89 = a7;
+  v87 = a6;
+  v86 = a7;
   v17 = *(a1 + 32);
   if (v17)
   {
@@ -2231,7 +1191,7 @@ void sub_100117C3C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
     }
 
 LABEL_67:
-    v79 = sub_10011573C();
+    v80 = sub_10011573C();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -2239,7 +1199,9 @@ LABEL_67:
       goto LABEL_55;
     }
 
-    goto LABEL_68;
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null localIDSClassDIdentity");
+    goto LABEL_69;
   }
 
   dispatch_assert_queue_V2(0);
@@ -2259,9 +1221,9 @@ LABEL_3:
       goto LABEL_55;
     }
 
-LABEL_68:
-    v81 = sub_10011573C();
-    _NRLogWithArgs();
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null remoteIDSClassDIdentity");
+LABEL_69:
 
     goto LABEL_55;
   }
@@ -2274,28 +1236,32 @@ LABEL_68:
 
   if (!v14)
   {
-    v71 = sub_10011573C();
-    v72 = _NRLogIsLevelEnabled();
+    v72 = sub_10011573C();
+    v73 = _NRLogIsLevelEnabled();
 
-    if (!v72)
+    if (!v73)
     {
       goto LABEL_55;
     }
 
-    goto LABEL_68;
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null localIDSClassCIdentity");
+    goto LABEL_69;
   }
 
-  if (!v90)
+  if (!v87)
   {
-    v73 = sub_10011573C();
-    v74 = _NRLogIsLevelEnabled();
+    v74 = sub_10011573C();
+    v75 = _NRLogIsLevelEnabled();
 
-    if (!v74)
+    if (!v75)
     {
       goto LABEL_55;
     }
 
-    goto LABEL_68;
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null remoteIDSClassCIdentity");
+    goto LABEL_69;
   }
 
   if (v18 != 1)
@@ -2305,39 +1271,43 @@ LABEL_68:
 
   if (!v15)
   {
-    v75 = sub_10011573C();
-    v76 = _NRLogIsLevelEnabled();
+    v76 = sub_10011573C();
+    v77 = _NRLogIsLevelEnabled();
 
-    if (!v76)
+    if (!v77)
     {
       goto LABEL_55;
     }
 
-    goto LABEL_68;
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null localIDSClassAIdentity");
+    goto LABEL_69;
   }
 
-  if (!v89)
+  if (!v86)
   {
-    v77 = sub_10011573C();
-    v78 = _NRLogIsLevelEnabled();
+    v78 = sub_10011573C();
+    v79 = _NRLogIsLevelEnabled();
 
-    if (!v78)
+    if (!v79)
     {
       goto LABEL_55;
     }
 
-    goto LABEL_68;
+    v71 = sub_10011573C();
+    _NRLogWithArgs(v71, 17, "%s called with null remoteIDSClassAIdentity");
+    goto LABEL_69;
   }
 
 LABEL_10:
   v19 = sub_1001158E4(*(a1 + 32), v16);
   v20 = sub_100115814(*(a1 + 32), v13);
   v21 = *(a1 + 40);
-  v93 = 0;
-  v88 = v13;
-  v22 = [v16 signAndProtectData:v21 withSigner:v13 error:&v93];
-  v23 = v93;
-  v86 = v16;
+  v90 = 0;
+  v85 = v13;
+  v22 = [v16 signAndProtectData:v21 withSigner:v13 error:&v90];
+  v23 = v90;
+  v83 = v16;
   if (v23 || !v22)
   {
     if (qword_100229180 != -1)
@@ -2352,14 +1322,11 @@ LABEL_10:
         dispatch_once(&qword_100229180, &stru_1001FBD48);
       }
 
-      v82 = *(a1 + 48);
-      v84 = v23;
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229178, 17, "Failed to encrypt and sign classD TLV for %@: %@", *(a1 + 48), v23);
     }
 
     v31 = *(a1 + 32);
     v25 = [*(a1 + 48) UUIDString];
-    v84 = v23;
     sub_100116C78(v31, 5504, @"ClassD BT<%@>: %@", v32, v33, v34, v35, v36, v25);
   }
 
@@ -2371,15 +1338,15 @@ LABEL_10:
   }
 
   v37 = 0;
-  v87 = v14;
-  if (v14 && v90)
+  v84 = v14;
+  if (v14 && v87)
   {
     v38 = *(a1 + 56);
     if (v38)
     {
-      v92 = 0;
-      v37 = [v90 signAndProtectData:v38 withSigner:v14 error:&v92];
-      v39 = v92;
+      v89 = 0;
+      v37 = [v87 signAndProtectData:v38 withSigner:v14 error:&v89];
+      v39 = v89;
       if (v39 || !v37)
       {
         if (qword_100229180 != -1)
@@ -2394,14 +1361,11 @@ LABEL_10:
             dispatch_once(&qword_100229180, &stru_1001FBD48);
           }
 
-          v83 = *(a1 + 48);
-          v84 = v39;
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229178, 17, "Failed to encrypt and sign classC TLV for %@: %@", *(a1 + 48), v39);
         }
 
         v47 = *(a1 + 32);
         v41 = [*(a1 + 48) UUIDString];
-        v84 = v39;
         sub_100116C78(v47, 5504, @"ClassC BT<%@>: %@", v48, v49, v50, v51, v52, v41);
       }
 
@@ -2420,15 +1384,15 @@ LABEL_10:
   }
 
   v53 = 0;
-  if (v15 && v89)
+  if (v15 && v86)
   {
     v54 = *(a1 + 64);
     if (v54)
     {
-      v91 = 0;
-      v53 = [v89 signAndProtectData:v54 withSigner:v15 error:&v91];
-      v55 = v91;
-      v85 = v15;
+      v88 = 0;
+      v53 = [v86 signAndProtectData:v54 withSigner:v15 error:&v88];
+      v55 = v88;
+      v82 = v15;
       if (v55 || !v53)
       {
         if (qword_100229180 != -1)
@@ -2443,9 +1407,7 @@ LABEL_10:
             dispatch_once(&qword_100229180, &stru_1001FBD48);
           }
 
-          v83 = *(a1 + 48);
-          v84 = v55;
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229178, 17, "Failed to encrypt and sign classA TLV for %@: %@", *(a1 + 48), v55);
         }
 
         v63 = *(a1 + 32);
@@ -2460,7 +1422,7 @@ LABEL_10:
         sub_100116C78(v56, 5503, @"ClassA BT<%@>", v58, v59, v60, v61, v62, v57);
       }
 
-      v15 = v85;
+      v15 = v82;
     }
 
     else
@@ -2480,9 +1442,9 @@ LABEL_10:
     CFRelease(v20);
   }
 
-  v14 = v87;
-  v13 = v88;
-  v16 = v86;
+  v14 = v84;
+  v13 = v85;
+  v16 = v83;
 LABEL_55:
 }
 
@@ -2500,7 +1462,7 @@ void sub_10011829C(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
     }
 
 LABEL_19:
-    v25 = sub_10011573C();
+    v26 = sub_10011573C();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -2508,7 +1470,9 @@ LABEL_19:
       goto LABEL_15;
     }
 
-    goto LABEL_20;
+    v25 = sub_10011573C();
+    _NRLogWithArgs(v25, 17, "%s called with null localIDSClassDIdentity");
+    goto LABEL_21;
   }
 
   dispatch_assert_queue_V2(0);
@@ -2528,17 +1492,17 @@ LABEL_3:
       goto LABEL_15;
     }
 
-LABEL_20:
-    v27 = sub_10011573C();
-    _NRLogWithArgs();
+    v25 = sub_10011573C();
+    _NRLogWithArgs(v25, 17, "%s called with null remoteIDSClassDIdentity");
+LABEL_21:
 
     goto LABEL_15;
   }
 
   v10 = a1[5];
-  v29 = 0;
-  v11 = [v7 verifyAndExposeData:v10 withSigner:v8 error:&v29];
-  v17 = v29;
+  v28 = 0;
+  v11 = [v7 verifyAndExposeData:v10 withSigner:v8 error:&v28];
+  v17 = v28;
   if (v17 || !v11)
   {
     if (qword_100229180 != -1)
@@ -2553,8 +1517,7 @@ LABEL_20:
         dispatch_once(&qword_100229180, &stru_1001FBD48);
       }
 
-      v28 = a1[6];
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229178, 17, "Failed to decrypt and check classD TLV for %@: %@", a1[6], v17);
     }
 
     sub_100116C78(a1[4], 5506, @"ClassD BT<%@>: %@", v18, v19, v20, v21, v22, a1[6]);
@@ -2584,7 +1547,7 @@ void sub_1001184A4(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5
     }
 
 LABEL_19:
-    v26 = sub_10011573C();
+    v27 = sub_10011573C();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -2592,7 +1555,9 @@ LABEL_19:
       goto LABEL_15;
     }
 
-    goto LABEL_20;
+    v26 = sub_10011573C();
+    _NRLogWithArgs(v26, 17, "%s called with null localIDSClassCIdentity");
+    goto LABEL_21;
   }
 
   dispatch_assert_queue_V2(0);
@@ -2612,17 +1577,17 @@ LABEL_3:
       goto LABEL_15;
     }
 
-LABEL_20:
-    v28 = sub_10011573C();
-    _NRLogWithArgs();
+    v26 = sub_10011573C();
+    _NRLogWithArgs(v26, 17, "%s called with null remoteIDSClassCIdentity");
+LABEL_21:
 
     goto LABEL_15;
   }
 
   v11 = a1[5];
-  v30 = 0;
-  v12 = [v8 verifyAndExposeData:v11 withSigner:v9 error:&v30];
-  v18 = v30;
+  v29 = 0;
+  v12 = [v8 verifyAndExposeData:v11 withSigner:v9 error:&v29];
+  v18 = v29;
   if (v18 || !v12)
   {
     if (qword_100229180 != -1)
@@ -2637,8 +1602,7 @@ LABEL_20:
         dispatch_once(&qword_100229180, &stru_1001FBD48);
       }
 
-      v29 = a1[6];
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229178, 17, "Failed to decrypt and check classC TLV for %@: %@", a1[6], v18);
     }
 
     sub_100116C78(a1[4], 5506, @"ClassC BT<%@>: %@", v19, v20, v21, v22, v23, a1[6]);
@@ -2668,7 +1632,7 @@ void sub_1001186AC(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5
     }
 
 LABEL_25:
-    v27 = sub_10011573C();
+    v28 = sub_10011573C();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -2676,7 +1640,9 @@ LABEL_25:
       goto LABEL_21;
     }
 
-    goto LABEL_26;
+    v27 = sub_10011573C();
+    _NRLogWithArgs(v27, 17, "%s called with null localIDSClassAIdentity");
+    goto LABEL_27;
   }
 
   dispatch_assert_queue_V2(0);
@@ -2696,17 +1662,17 @@ LABEL_3:
       goto LABEL_21;
     }
 
-LABEL_26:
-    v29 = sub_10011573C();
-    _NRLogWithArgs();
+    v27 = sub_10011573C();
+    _NRLogWithArgs(v27, 17, "%s called with null remoteIDSClassAIdentity");
+LABEL_27:
 
     goto LABEL_21;
   }
 
   v12 = a1[5];
-  v32 = 0;
-  v13 = [v9 verifyAndExposeData:v12 withSigner:v10 error:&v32];
-  v19 = v32;
+  v30 = 0;
+  v13 = [v9 verifyAndExposeData:v12 withSigner:v10 error:&v30];
+  v19 = v30;
   if (v19 || !v13)
   {
     if (qword_100229180 != -1)
@@ -2721,8 +1687,7 @@ LABEL_26:
         dispatch_once(&qword_100229180, &stru_1001FBD48);
       }
 
-      v31 = a1[6];
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229178, 16, "%s%.30s:%-4d Failed to decrypt and check classA TLV for BT<%@>: %@, remotePublicClassAKeys=%@", "", "[NRDIDSKeyManager decryptRemoteClassAKeysEncryptedWithIDS:bluetoothUUID:decryptCompletionBlock:]_block_invoke", 697, a1[6], v19, v13);
     }
 
     if (qword_100229180 != -1)
@@ -2737,8 +1702,7 @@ LABEL_26:
         dispatch_once(&qword_100229180, &stru_1001FBD48);
       }
 
-      v30 = a1[6];
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229178, 17, "Failed to decrypt and check classA TLV for %@: %@", a1[6], v19);
     }
 
     sub_100116C78(a1[4], 5506, @"ClassA BT<%@>: %@", v20, v21, v22, v23, v24, a1[6]);
@@ -2798,42 +1762,42 @@ id sub_1001190A4(uint64_t a1)
 
     else
     {
-      objc_opt_self();
-      v4 = sub_100003490();
-      dispatch_assert_queue_V2(v4);
+      v4 = objc_opt_self();
+      v5 = sub_100003490();
+      dispatch_assert_queue_V2(v5);
 
-      sub_1001619D8();
-      v20 = 0u;
+      sub_1001619D8(v4);
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v5 = qword_100229428;
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      if (v6)
+      v20 = 0u;
+      v6 = qword_100229428;
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v7)
       {
-        v7 = v6;
-        v8 = *v19;
+        v8 = v7;
+        v9 = *v20;
 LABEL_9:
-        v9 = 0;
+        v10 = 0;
         while (1)
         {
-          if (*v19 != v8)
+          if (*v20 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = [qword_100229428 objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v9)];
-          v11 = sub_100169428(v10);
-          v12 = !v10 || v11 == 0;
-          if (!v12 && (*(v10 + 48) & 2) != 0)
+          v11 = [qword_100229428 objectForKeyedSubscript:*(*(&v19 + 1) + 8 * v10)];
+          v12 = sub_100169428(v11);
+          v13 = !v11 || v12 == 0;
+          if (!v13 && (*(v11 + 48) & 2) != 0)
           {
             break;
           }
 
-          if (v7 == ++v9)
+          if (v8 == ++v10)
           {
-            v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
-            if (!v7)
+            v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            if (!v8)
             {
               goto LABEL_20;
             }
@@ -2842,18 +1806,18 @@ LABEL_9:
           }
         }
 
-        v13 = *(v10 + 40);
+        v14 = *(v11 + 40);
       }
 
       else
       {
 LABEL_20:
 
-        v10 = 0;
-        v13 = 0;
+        v11 = 0;
+        v14 = 0;
       }
 
-      v3 = v13;
+      v3 = v14;
 
       if (v3)
       {
@@ -2869,33 +1833,33 @@ LABEL_20:
             dispatch_once(&qword_1002291B0, &stru_1001FBE70);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002291A8, 0, "%s%.30s:%-4d overriding device ID to companion link", "", "copyDeviceIdentifierForAgentClient", 30);
         }
 
-        if (v10)
+        if (v11)
         {
-          v14 = *(v10 + 40);
+          v15 = *(v11 + 40);
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
 
-        v3 = v14;
+        v3 = v15;
       }
     }
 
     goto LABEL_32;
   }
 
-  v16 = sub_100119370();
+  v17 = sub_100119370();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     v1 = sub_100119370();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v1, 17, "%s called with null client", "copyDeviceIdentifierForAgentClient");
     v3 = 0;
 LABEL_32:
 
@@ -2939,7 +1903,7 @@ LABEL_23:
     if (IsLevelEnabled)
     {
       v17 = sub_100119370();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v17, 17, "%s called with null asName", "[NRApplicationServiceManager copyResolverPublicKeysForASName:]");
     }
 
     goto LABEL_23;
@@ -3038,9 +2002,9 @@ uint64_t sub_1001198B4(void *a1)
   return v4;
 }
 
-void sub_1001199C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001199C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3101,15 +2065,7 @@ void sub_10011A590(uint64_t a1, void *a2, void *a3)
       v16 = v9[8];
       v17 = v9[7];
       v18 = v14;
-      v32 = v16;
-      v33 = v17;
-      v28 = 1172;
-      v29 = v11;
-      v30 = v5;
-      v31 = v15;
-      v26 = "";
-      v27 = "[NRApplicationServiceManager setupListenerAgent]_block_invoke";
-      _NRLogWithArgs();
+      _NRLogWithArgs(v18, 0, "%s%.30s:%-4d received start advertise request for %@ (%p) from %@ (%@, %@)", "", "[NRApplicationServiceManager setupListenerAgent]_block_invoke", 1172, v11, v5, v15, v16, v17);
     }
 
     v19 = *(a1 + 32);
@@ -3123,15 +2079,15 @@ void sub_10011A590(uint64_t a1, void *a2, void *a3)
       v20 = 0;
     }
 
-    [v20 setObject:v9 forKeyedSubscript:{v11, v26, v27, v28, v29, v30, v31, v32, v33}];
+    [v20 setObject:v9 forKeyedSubscript:v11];
     v21 = +[NSUUID UUID];
-    v35[0] = 0;
-    v35[1] = 0;
-    [v21 getUUIDBytes:v35];
+    v27[0] = 0;
+    v27[1] = 0;
+    [v21 getUUIDBytes:v27];
     [v11 UTF8String];
     application_service = nw_endpoint_create_application_service();
-    v34[0] = 0;
-    v34[1] = 0;
+    v26[0] = 0;
+    v26[1] = 0;
     v23 = *(a1 + 32);
     if (v23)
     {
@@ -3143,7 +2099,7 @@ void sub_10011A590(uint64_t a1, void *a2, void *a3)
       v24 = 0;
     }
 
-    [v24 getUUIDBytes:v34];
+    [v24 getUUIDBytes:v26];
     nw_endpoint_set_agent_identifier();
     v25 = nw_array_create();
     nw_array_append();
@@ -3165,7 +2121,7 @@ void sub_10011A590(uint64_t a1, void *a2, void *a3)
         dispatch_once(&qword_1002291B0, &stru_1001FBE70);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received start advertise request without an appsvc name", "", "[NRApplicationServiceManager setupListenerAgent]_block_invoke", 1166);
     }
 
     v11 = 0;
@@ -3175,10 +2131,10 @@ void sub_10011A590(uint64_t a1, void *a2, void *a3)
 void sub_10011A8B4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -3191,22 +2147,22 @@ void sub_10011A8B4(uint64_t a1, void *a2)
   }
 
   v6 = [v5 allValues];
-  v7 = [v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v44;
+    v9 = *v38;
     do
     {
       v10 = 0;
       do
       {
-        if (*v44 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * v10);
+        v11 = *(*(&v37 + 1) + 8 * v10);
         if (v11)
         {
           if (v11[6] == v3)
@@ -3240,13 +2196,7 @@ LABEL_16:
 
             v15 = v13[2];
             v16 = qword_1002291A8;
-            v33 = v3;
-            v34 = v15;
-            v31 = 1200;
-            v32 = v14;
-            v29 = "";
-            v30 = "[NRApplicationServiceManager setupListenerAgent]_block_invoke_2";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v16, 0, "%s%.30s:%-4d received stop advertise request for %@ (%p) from %@", "", "[NRApplicationServiceManager setupListenerAgent]_block_invoke_2", 1200, v14, v3, v15);
           }
 
           v17 = *(a1 + 32);
@@ -3260,7 +2210,7 @@ LABEL_16:
             v18 = 0;
           }
 
-          [v18 setObject:0 forKeyedSubscript:{v14, v29, v30, v31, v32, v33, v34}];
+          [v18 setObject:0 forKeyedSubscript:v14];
           v19 = v13[7];
           v20 = v19;
           if (v19 && v19[11] == 1)
@@ -3269,10 +2219,10 @@ LABEL_16:
 
             if (v21)
             {
-              v41 = 0u;
-              v42 = 0u;
-              v39 = 0u;
-              v40 = 0u;
+              v35 = 0u;
+              v36 = 0u;
+              v33 = 0u;
+              v34 = 0u;
               v22 = *(a1 + 32);
               if (v22)
               {
@@ -3280,22 +2230,22 @@ LABEL_16:
               }
 
               v20 = v22;
-              v23 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+              v23 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
               if (v23)
               {
                 v24 = v23;
-                v35 = v3;
-                v25 = *v40;
+                v29 = v3;
+                v25 = *v34;
                 do
                 {
                   for (i = 0; i != v24; i = i + 1)
                   {
-                    if (*v40 != v25)
+                    if (*v34 != v25)
                     {
                       objc_enumerationMutation(v20);
                     }
 
-                    v27 = *(*(&v39 + 1) + 8 * i);
+                    v27 = *(*(&v33 + 1) + 8 * i);
                     if (v27)
                     {
                       v28 = *(v27 + 72);
@@ -3311,16 +2261,16 @@ LABEL_16:
                     block[2] = sub_10011B2EC;
                     block[3] = &unk_1001FD088;
                     block[4] = v27;
-                    v37 = v14;
-                    v38 = v13;
+                    v31 = v14;
+                    v32 = v13;
                     dispatch_async(v28, block);
                   }
 
-                  v24 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                  v24 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
                 }
 
                 while (v24);
-                v3 = v35;
+                v3 = v29;
               }
 
               goto LABEL_48;
@@ -3339,7 +2289,7 @@ LABEL_48:
       }
 
       while (v8 != v10);
-      v12 = [v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v12 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
       v8 = v12;
     }
 
@@ -3359,7 +2309,7 @@ LABEL_41:
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d no listen request for client", "", "[NRApplicationServiceManager setupListenerAgent]_block_invoke_2", 1195);
   }
 
 LABEL_50:
@@ -3500,13 +2450,13 @@ id sub_10011B080(void *a1)
 
   if (!a1[6])
   {
-    v21 = sub_100119370();
+    v18 = sub_100119370();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v23 = sub_100119370();
-      _NRLogWithArgs();
+      v20 = sub_100119370();
+      _NRLogWithArgs(v20, 17, "%s called with null self.client", "[NRASMRequest copyApplicationServiceName]");
     }
 
     return 0;
@@ -3518,15 +2468,14 @@ id sub_10011B080(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v3 = a1[6];
-      v4 = nw_agent_client_copy_browse_descriptor();
-      v5 = v4;
-      if (!v4)
+      v3 = nw_agent_client_copy_browse_descriptor();
+      v4 = v3;
+      if (!v3)
       {
         goto LABEL_25;
       }
 
-      application_service_name = nw_browse_descriptor_get_application_service_name(v4);
+      application_service_name = nw_browse_descriptor_get_application_service_name(v3);
       if (!application_service_name)
       {
         goto LABEL_25;
@@ -3538,39 +2487,38 @@ id sub_10011B080(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = a1[6];
-      v10 = nw_agent_client_copy_endpoint();
-      v5 = v10;
-      if (!v10)
+      v8 = nw_agent_client_copy_endpoint();
+      v4 = v8;
+      if (!v8)
       {
         goto LABEL_25;
       }
 
-      if (nw_endpoint_get_type(v10) != (nw_endpoint_type_url|nw_endpoint_type_host))
+      if (nw_endpoint_get_type(v8) != (nw_endpoint_type_url|nw_endpoint_type_host))
       {
-        if (nw_endpoint_get_type(v5) == nw_endpoint_type_address)
+        if (nw_endpoint_get_type(v4) == nw_endpoint_type_address)
         {
-          v13 = a1[5];
-          if (v13)
+          v10 = a1[5];
+          if (v10)
           {
             *uu = 0;
-            v25 = 0;
-            [v13 getUUIDBytes:uu];
+            v22 = 0;
+            [v10 getUUIDBytes:uu];
             if (!uuid_is_null(uu))
             {
-              v14 = nw_path_copy_path_for_client();
-              v15 = nw_path_copy_endpoint();
-              v16 = v15;
-              if (v15)
+              v11 = nw_path_copy_path_for_client();
+              v12 = nw_path_copy_endpoint();
+              v13 = v12;
+              if (v12)
               {
-                if (nw_endpoint_get_type(v15) == (nw_endpoint_type_url|nw_endpoint_type_host))
+                if (nw_endpoint_get_type(v12) == (nw_endpoint_type_url|nw_endpoint_type_host))
                 {
-                  v17 = nw_endpoint_get_application_service_name();
-                  if (v17)
+                  v14 = nw_endpoint_get_application_service_name();
+                  if (v14)
                   {
-                    v18 = [NSString stringWithUTF8String:v17];
-                    v19 = a1[3];
-                    a1[3] = v18;
+                    v15 = [NSString stringWithUTF8String:v14];
+                    v16 = a1[3];
+                    a1[3] = v15;
                   }
                 }
               }
@@ -3600,15 +2548,14 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v11 = a1[6];
-      v12 = nw_agent_client_copy_advertise_descriptor();
-      v5 = v12;
-      if (!v12)
+      v9 = nw_agent_client_copy_advertise_descriptor();
+      v4 = v9;
+      if (!v9)
       {
         goto LABEL_25;
       }
 
-      application_service_name = nw_advertise_descriptor_get_application_service_name(v12);
+      application_service_name = nw_advertise_descriptor_get_application_service_name(v9);
       if (!application_service_name)
       {
         goto LABEL_25;
@@ -3616,9 +2563,9 @@ LABEL_26:
     }
 
 LABEL_7:
-    v7 = [NSString stringWithUTF8String:application_service_name];
-    v8 = a1[3];
-    a1[3] = v7;
+    v6 = [NSString stringWithUTF8String:application_service_name];
+    v7 = a1[3];
+    a1[3] = v6;
 
     goto LABEL_25;
   }
@@ -3656,9 +2603,9 @@ LABEL_35:
     goto LABEL_31;
   }
 
-  v49.receiver = a1;
-  v49.super_class = NRASMRequest;
-  v5 = objc_msgSendSuper2(&v49, "init");
+  v53.receiver = a1;
+  v53.super_class = NRASMRequest;
+  v5 = objc_msgSendSuper2(&v53, "init");
   if (!v5)
   {
     v37 = sub_100119370();
@@ -3667,14 +2614,14 @@ LABEL_35:
     if (IsLevelEnabled)
     {
       v39 = sub_100119370();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v39, 16, "%s%.30s:%-4d ABORTING: [super init] failed", "", "[NRASMRequest initWithClient:]", 175);
     }
 
-    _os_log_pack_size();
-    v40 = *__error();
-    v41 = _os_log_pack_fill();
-    *v41 = 136446210;
-    *(v41 + 4) = "[NRASMRequest initWithClient:]";
+    v40 = _os_log_pack_size();
+    v41 = __error();
+    v42 = _os_log_pack_fill(&v43 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0), v40, *v41, &_mh_execute_header, "%{public}s [super init] failed");
+    *v42 = 136446210;
+    *(v42 + 4) = "[NRASMRequest initWithClient:]";
     sub_100119370();
     _NRLogAbortWithPack();
     goto LABEL_35;
@@ -3683,10 +2630,10 @@ LABEL_35:
   v6 = v5;
   objc_storeStrong(v5 + 6, a2);
   v7 = nw_agent_client_copy_path();
-  v52[0] = 0;
-  v52[1] = 0;
+  v56[0] = 0;
+  v56[1] = 0;
   nw_path_get_client_id();
-  v8 = [[NSUUID alloc] initWithUUIDBytes:v52];
+  v8 = [[NSUUID alloc] initWithUUIDBytes:v56];
   v9 = v6[4];
   v6[4] = v8;
 
@@ -3699,10 +2646,10 @@ LABEL_35:
   v15 = v6[7];
   v6[7] = v14;
 
-  v51[0] = 0;
-  v51[1] = 0;
+  v55[0] = 0;
+  v55[1] = 0;
   nw_parameters_get_parent_id();
-  v16 = [[NSUUID alloc] initWithUUIDBytes:v51];
+  v16 = [[NSUUID alloc] initWithUUIDBytes:v55];
   v17 = v6[5];
   v6[5] = v16;
 
@@ -3729,34 +2676,36 @@ LABEL_35:
     goto LABEL_27;
   }
 
-  v43 = v12;
-  v44 = v4;
+  v45 = v12;
+  v46 = v10;
+  v47 = v7;
+  v48 = v4;
   v20 = [v19 stringByReplacingOccurrencesOfString:@"com.apple.networkrelay.encoded" withString:&stru_1001FDE68];
 
-  v42 = v20;
+  v44 = v20;
   v21 = [v20 componentsSeparatedByString:@"."];
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v22 = [v21 countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v22 = [v21 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (!v22)
   {
     goto LABEL_26;
   }
 
   v23 = v22;
-  v24 = *v46;
+  v24 = *v50;
   do
   {
     for (i = 0; i != v23; i = i + 1)
     {
-      if (*v46 != v24)
+      if (*v50 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      v26 = *(*(&v45 + 1) + 8 * i);
+      v26 = *(*(&v49 + 1) + 8 * i);
       if ([v26 isEqualToString:@"c"])
       {
         v27 = v6[7];
@@ -3806,15 +2755,17 @@ LABEL_23:
       }
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v23 = [v21 countByEnumeratingWithState:&v49 objects:v54 count:16];
   }
 
   while (v23);
 LABEL_26:
 
-  v19 = v42;
-  v12 = v43;
-  v4 = v44;
+  v19 = v44;
+  v12 = v45;
+  v7 = v47;
+  v4 = v48;
+  v10 = v46;
   v18 = &dispatch_group_enter_ptr;
 LABEL_27:
 
@@ -3998,14 +2949,7 @@ void sub_10011BAC4(uint64_t a1, void *a2, void *a3)
         v14 = v9[2];
         v15 = v9[7];
         v16 = v13;
-        v35 = v14;
-        v36 = v15;
-        v33 = v12;
-        v34 = v5;
-        v31 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke";
-        v32 = 633;
-        v30 = "";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v16, 0, "%s%.30s:%-4d received start browse request for %@ (%p) from %@ (%@)", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke", 633, v12, v5, v14, v15);
       }
 
       v17 = *(a1 + 32);
@@ -4019,7 +2963,7 @@ void sub_10011BAC4(uint64_t a1, void *a2, void *a3)
         v18 = 0;
       }
 
-      v19 = [v18 objectForKeyedSubscript:{v12, v30, v31, v32, v33, v34, v35, v36}];
+      v19 = [v18 objectForKeyedSubscript:v12];
       if (!v19)
       {
         v19 = objc_alloc_init(NSMutableArray);
@@ -4038,35 +2982,35 @@ void sub_10011BAC4(uint64_t a1, void *a2, void *a3)
       }
 
       [v21 setObject:v19 forKeyedSubscript:v12];
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v22 = *(a1 + 32);
-      v38 = v6;
-      v39 = v5;
-      v37 = v9;
+      v31 = v6;
+      v32 = v5;
+      v30 = v9;
       if (v22)
       {
         v22 = v22[7];
       }
 
       v23 = v22;
-      v24 = [v23 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v43;
+        v26 = *v36;
         do
         {
           for (i = 0; i != v25; i = i + 1)
           {
-            if (*v43 != v26)
+            if (*v36 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v42 + 1) + 8 * i);
+            v28 = *(*(&v35 + 1) + 8 * i);
             if (v28)
             {
               v29 = *(v28 + 72);
@@ -4082,19 +3026,19 @@ void sub_10011BAC4(uint64_t a1, void *a2, void *a3)
             block[2] = sub_10011D76C;
             block[3] = &unk_1001FD060;
             block[4] = v28;
-            v41 = v12;
+            v34 = v12;
             dispatch_async(v29, block);
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v42 objects:v46 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v25);
       }
 
-      v6 = v38;
-      v5 = v39;
-      v9 = v37;
+      v6 = v31;
+      v5 = v32;
+      v9 = v30;
       goto LABEL_37;
     }
   }
@@ -4116,7 +3060,7 @@ void sub_10011BAC4(uint64_t a1, void *a2, void *a3)
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received start browse request without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke", 629);
   }
 
   v12 = 0;
@@ -4126,11 +3070,11 @@ LABEL_37:
 void sub_10011BE74(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v44 = a1;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v38 = a1;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -4138,21 +3082,21 @@ void sub_10011BE74(uint64_t a1, void *a2)
   }
 
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v56;
+    v8 = *v50;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v56 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(v44 + 32);
+        v11 = *(v38 + 32);
         if (v11)
         {
           v12 = *(v11 + 40);
@@ -4163,28 +3107,28 @@ void sub_10011BE74(uint64_t a1, void *a2)
           v12 = 0;
         }
 
-        v13 = [v12 objectForKeyedSubscript:*(*(&v55 + 1) + 8 * i)];
-        v51 = 0u;
-        v52 = 0u;
-        v53 = 0u;
-        v54 = 0u;
+        v13 = [v12 objectForKeyedSubscript:*(*(&v49 + 1) + 8 * i)];
+        v45 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v45 objects:v54 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v52;
+          v17 = *v46;
           while (2)
           {
             v18 = 0;
             do
             {
-              if (*v52 != v17)
+              if (*v46 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v51 + 1) + 8 * v18);
+              v19 = *(*(&v45 + 1) + 8 * v18);
               if (v19)
               {
                 if (v19[6] == v3)
@@ -4220,16 +3164,10 @@ LABEL_7:
 
                     v22 = v10[2];
                     v23 = qword_1002291A8;
-                    v41 = v3;
-                    v42 = v22;
-                    v39 = 672;
-                    v40 = v21;
-                    v37 = "";
-                    v38 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke_3";
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(v23, 0, "%s%.30s:%-4d received stop browse request for %@ (%p) from %@", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_3", 672, v21, v3, v22);
                   }
 
-                  v24 = *(v44 + 32);
+                  v24 = *(v38 + 32);
                   if (v24)
                   {
                     v25 = *(v24 + 40);
@@ -4240,11 +3178,11 @@ LABEL_7:
                     v25 = 0;
                   }
 
-                  v26 = [v25 objectForKeyedSubscript:{v21, v37, v38, v39, v40, v41, v42}];
+                  v26 = [v25 objectForKeyedSubscript:v21];
                   [v26 removeObject:v10];
                   if (![v26 count])
                   {
-                    v27 = *(v44 + 32);
+                    v27 = *(v38 + 32);
                     if (v27)
                     {
                       v28 = *(v27 + 40);
@@ -4256,33 +3194,33 @@ LABEL_7:
                     }
 
                     [v28 setObject:0 forKeyedSubscript:v21];
-                    v49 = 0u;
-                    v50 = 0u;
-                    v47 = 0u;
-                    v48 = 0u;
-                    v29 = *(v44 + 32);
-                    v43 = v26;
+                    v43 = 0u;
+                    v44 = 0u;
+                    v41 = 0u;
+                    v42 = 0u;
+                    v29 = *(v38 + 32);
+                    v37 = v26;
                     if (v29)
                     {
                       v29 = v29[7];
                     }
 
                     v30 = v29;
-                    v31 = [v30 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                    v31 = [v30 countByEnumeratingWithState:&v41 objects:v53 count:16];
                     if (v31)
                     {
                       v32 = v31;
-                      v33 = *v48;
+                      v33 = *v42;
                       do
                       {
                         for (j = 0; j != v32; j = j + 1)
                         {
-                          if (*v48 != v33)
+                          if (*v42 != v33)
                           {
                             objc_enumerationMutation(v30);
                           }
 
-                          v35 = *(*(&v47 + 1) + 8 * j);
+                          v35 = *(*(&v41 + 1) + 8 * j);
                           if (v35)
                           {
                             v36 = *(v35 + 72);
@@ -4298,17 +3236,17 @@ LABEL_7:
                           block[2] = sub_10011D760;
                           block[3] = &unk_1001FD060;
                           block[4] = v35;
-                          v46 = v21;
+                          v40 = v21;
                           dispatch_async(v36, block);
                         }
 
-                        v32 = [v30 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                        v32 = [v30 countByEnumeratingWithState:&v41 objects:v53 count:16];
                       }
 
                       while (v32);
                     }
 
-                    v26 = v43;
+                    v26 = v37;
                   }
                 }
 
@@ -4326,7 +3264,7 @@ LABEL_7:
                       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                     }
 
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received stop browse request without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_3", 669);
                   }
                 }
 
@@ -4337,7 +3275,7 @@ LABEL_7:
             }
 
             while (v16 != v18);
-            v20 = [v14 countByEnumeratingWithState:&v51 objects:v60 count:16];
+            v20 = [v14 countByEnumeratingWithState:&v45 objects:v54 count:16];
             v16 = v20;
             if (v20)
             {
@@ -4352,7 +3290,7 @@ LABEL_8:
         ;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
     while (v7);
@@ -4370,7 +3308,7 @@ LABEL_8:
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d no browse request for client", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_3", 663);
   }
 
 LABEL_67:
@@ -4382,7 +3320,7 @@ void sub_10011C3D4(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   v7 = sub_10011B31C([NRASMResolveRequest alloc], v5);
   v9 = v7;
-  v55 = v6;
+  v48 = v6;
   if (!v7)
   {
     sub_1001190A4(v5);
@@ -4412,7 +3350,7 @@ LABEL_57:
         dispatch_once(&qword_1002291B0, &stru_1001FBE70);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received start resolve request without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_5", 696);
     }
 
     v13 = 0;
@@ -4436,14 +3374,7 @@ LABEL_57:
     v15 = v9[2];
     v16 = v9[7];
     v17 = v14;
-    v50 = v15;
-    v51 = v16;
-    v48 = v13;
-    v49 = v5;
-    v46 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke_5";
-    v47 = 700;
-    v45 = "";
-    _NRLogWithArgs();
+    _NRLogWithArgs(v17, 0, "%s%.30s:%-4d received start resolve request for %@ (%p) from %@ (%@)", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_5", 700, v13, v5, v15, v16);
   }
 
   v18 = *(a1 + 32);
@@ -4457,37 +3388,37 @@ LABEL_57:
     v19 = 0;
   }
 
-  v20 = [v19 objectForKeyedSubscript:{v13, v45, v46, v47, v48, v49, v50, v51}];
+  v20 = [v19 objectForKeyedSubscript:v13];
   if (!v20)
   {
     v20 = objc_alloc_init(NSMutableArray);
   }
 
-  v53 = v20;
-  v54 = v5;
+  v46 = v20;
+  v47 = v5;
   if ([v20 count])
   {
-    v52 = a1;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
+    v45 = a1;
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v62 objects:v67 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v55 objects:v60 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v63;
+      v24 = *v56;
 LABEL_17:
       v25 = 0;
       while (1)
       {
-        if (*v63 != v24)
+        if (*v56 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v62 + 1) + 8 * v25);
+        v26 = *(*(&v55 + 1) + 8 * v25);
         if (v26)
         {
           if (v26[64])
@@ -4510,7 +3441,7 @@ LABEL_17:
         {
 
           [v21 addObject:v9];
-          v33 = *(v52 + 32);
+          v33 = *(v45 + 32);
           if (v33)
           {
             v34 = *(v33 + 48);
@@ -4521,7 +3452,7 @@ LABEL_17:
             v34 = 0;
           }
 
-          v35 = v53;
+          v35 = v46;
           [v34 setObject:v21 forKeyedSubscript:v13];
           if (qword_1002291B0 != -1)
           {
@@ -4535,7 +3466,7 @@ LABEL_17:
               dispatch_once(&qword_1002291B0, &stru_1001FBE70);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002291A8, 0, "%s%.30s:%-4d already has resolve request for %@ (%p)", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_5", 727, v13, v5);
           }
 
           goto LABEL_55;
@@ -4544,7 +3475,7 @@ LABEL_17:
 LABEL_18:
         if (v23 == ++v25)
         {
-          v23 = [v21 countByEnumeratingWithState:&v62 objects:v67 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v55 objects:v60 count:16];
           if (!v23)
           {
             break;
@@ -4556,8 +3487,8 @@ LABEL_18:
     }
 
     [v21 addObject:v9];
-    a1 = v52;
-    v36 = *(v52 + 32);
+    a1 = v45;
+    v36 = *(v45 + 32);
     if (v36)
     {
       v31 = *(v36 + 48);
@@ -4589,10 +3520,10 @@ LABEL_18:
   }
 
   [v31 setObject:v32 forKeyedSubscript:v13];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v37 = *(a1 + 32);
   if (v37)
   {
@@ -4600,21 +3531,21 @@ LABEL_18:
   }
 
   v38 = v37;
-  v39 = [v38 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  v39 = [v38 countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v59;
+    v41 = *v52;
     do
     {
       for (i = 0; i != v40; i = i + 1)
       {
-        if (*v59 != v41)
+        if (*v52 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v43 = *(*(&v58 + 1) + 8 * i);
+        v43 = *(*(&v51 + 1) + 8 * i);
         if (v43)
         {
           v44 = *(v43 + 72);
@@ -4630,18 +3561,18 @@ LABEL_18:
         block[2] = sub_10011D754;
         block[3] = &unk_1001FD060;
         block[4] = v43;
-        v57 = v13;
+        v50 = v13;
         dispatch_async(v44, block);
       }
 
-      v40 = [v38 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v40 = [v38 countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v40);
   }
 
-  v35 = v53;
-  v5 = v54;
+  v35 = v46;
+  v5 = v47;
 LABEL_55:
 
 LABEL_64:
@@ -4650,10 +3581,10 @@ LABEL_64:
 void sub_10011C9A8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -4661,16 +3592,16 @@ void sub_10011C9A8(uint64_t a1, void *a2)
   }
 
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v38;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v38 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
@@ -4686,28 +3617,28 @@ void sub_10011C9A8(uint64_t a1, void *a2)
           v11 = 0;
         }
 
-        v12 = [v11 objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
-        v33 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        v36 = 0u;
+        v12 = [v11 objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
+        v27 = 0u;
+        v28 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v13 = v12;
-        v14 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v34;
+          v16 = *v28;
           while (2)
           {
             v17 = 0;
             do
             {
-              if (*v34 != v16)
+              if (*v28 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v33 + 1) + 8 * v17);
+              v18 = *(*(&v27 + 1) + 8 * v17);
               if (v18)
               {
                 if (v18[6] == v3)
@@ -4743,13 +3674,7 @@ LABEL_7:
 
                     v21 = v9[2];
                     v22 = qword_1002291A8;
-                    v30 = v3;
-                    v31 = v21;
-                    v28 = 754;
-                    v29 = v20;
-                    v26 = "";
-                    v27 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke_7";
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(v22, 0, "%s%.30s:%-4d received stop resolve request for %@ (%p) from %@", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_7", 754, v20, v3, v21);
                   }
 
                   v23 = *(a1 + 32);
@@ -4763,7 +3688,7 @@ LABEL_7:
                     v24 = 0;
                   }
 
-                  v25 = [v24 objectForKeyedSubscript:{v20, v26, v27, v28, v29, v30, v31}];
+                  v25 = [v24 objectForKeyedSubscript:v20];
                   [v25 removeObject:v9];
                   sub_10011D508(*(a1 + 32), v20);
                 }
@@ -4782,7 +3707,7 @@ LABEL_7:
                       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                     }
 
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received stop resolve request without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_7", 751);
                   }
                 }
 
@@ -4793,7 +3718,7 @@ LABEL_7:
             }
 
             while (v15 != v17);
-            v19 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v19 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
             v15 = v19;
             if (v19)
             {
@@ -4808,7 +3733,7 @@ LABEL_8:
         ;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v6);
@@ -4826,7 +3751,7 @@ LABEL_8:
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d no resolve request for client", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_7", 745);
   }
 
 LABEL_50:
@@ -4834,8 +3759,8 @@ LABEL_50:
 
 void sub_10011CDC0(uint64_t a1, void *a2)
 {
-  v21 = a2;
-  v3 = sub_10011B31C([NRASMResolveRequest alloc], v21);
+  v14 = a2;
+  v3 = sub_10011B31C([NRASMResolveRequest alloc], v14);
   v4 = sub_10011B080(v3);
   if (v4)
   {
@@ -4859,14 +3784,7 @@ LABEL_7:
         v7 = v3[7];
 LABEL_8:
         v8 = v5;
-        v19 = v6;
-        v20 = v7;
-        v17 = v4;
-        v18 = v21;
-        v15 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke_8";
-        v16 = 781;
-        v14 = "";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v8, 0, "%s%.30s:%-4d received flow assert for %@ (%p) from %@ (%@)", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_8", 781, v4, v14, v6, v7);
 
 LABEL_9:
         if (v3)
@@ -4886,7 +3804,7 @@ LABEL_9:
           v10 = 0;
         }
 
-        v11 = [v10 objectForKeyedSubscript:{v4, v14, v15, v16, v17, v18, v19, v20}];
+        v11 = [v10 objectForKeyedSubscript:v4];
         if ([v11 count])
         {
           [v11 addObject:v3];
@@ -4918,11 +3836,11 @@ LABEL_9:
               dispatch_once(&qword_1002291B0, &stru_1001FBE70);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received unexpected flow assert for %@", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_8", 792, v4);
           }
         }
 
-        sub_10011AFC0(*(a1 + 32), v21, 0);
+        sub_10011AFC0(*(a1 + 32), v14, 0);
 
         goto LABEL_30;
       }
@@ -4955,7 +3873,7 @@ LABEL_9:
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received flow assert without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_8", 777);
   }
 
 LABEL_30:
@@ -4965,10 +3883,10 @@ void sub_10011D0BC(uint64_t a1, void *a2)
 {
   v3 = a2;
   sub_10011ADBC(*(a1 + 32), v3);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -4976,7 +3894,7 @@ void sub_10011D0BC(uint64_t a1, void *a2)
   }
 
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v5 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (!v5)
   {
 LABEL_38:
@@ -4986,25 +3904,25 @@ LABEL_38:
   }
 
   v6 = v5;
-  v7 = *v41;
+  v7 = *v34;
 LABEL_6:
   v8 = 0;
   while (1)
   {
-    if (*v41 != v7)
+    if (*v34 != v7)
     {
       objc_enumerationMutation(obj);
     }
 
     v10 = *(a1 + 32);
     v11 = v10 ? *(v10 + 48) : 0;
-    v12 = [v11 objectForKeyedSubscript:*(*(&v40 + 1) + 8 * v8)];
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
+    v12 = [v11 objectForKeyedSubscript:*(*(&v33 + 1) + 8 * v8)];
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v14)
     {
       break;
@@ -5015,7 +3933,7 @@ LABEL_25:
 LABEL_8:
     if (++v8 == v6)
     {
-      v6 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (!v6)
       {
         goto LABEL_38;
@@ -5026,17 +3944,17 @@ LABEL_8:
   }
 
   v15 = v14;
-  v16 = *v37;
+  v16 = *v30;
 LABEL_15:
   v17 = 0;
   while (1)
   {
-    if (*v37 != v16)
+    if (*v30 != v16)
     {
       objc_enumerationMutation(v13);
     }
 
-    v18 = *(*(&v36 + 1) + 8 * v17);
+    v18 = *(*(&v29 + 1) + 8 * v17);
     if (!v18)
     {
       break;
@@ -5050,7 +3968,7 @@ LABEL_15:
 LABEL_20:
     if (v15 == ++v17)
     {
-      v19 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v19 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
       v15 = v19;
       if (v19)
       {
@@ -5095,14 +4013,7 @@ LABEL_7:
         v22 = v9[7];
         v23 = v9[2];
         v24 = v21;
-        v33 = v23;
-        v34 = v22;
-        v31 = v20;
-        v32 = v3;
-        v29 = "[NRApplicationServiceManager setupResolverAgent]_block_invoke_9";
-        v30 = 826;
-        v28 = "";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v24, 0, "%s%.30s:%-4d received flow unassert for %@ (%p) from %@ (%@)", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_9", 826, v20, v3, v23, v22);
       }
 
       v25 = *(a1 + 32);
@@ -5116,7 +4027,7 @@ LABEL_7:
         v26 = 0;
       }
 
-      v27 = [v26 objectForKeyedSubscript:{v20, v28, v29, v30, v31, v32, v33, v34}];
+      v27 = [v26 objectForKeyedSubscript:v20];
       [v27 removeObject:v9];
       sub_10011D508(*(a1 + 32), v20);
     }
@@ -5135,7 +4046,7 @@ LABEL_7:
           dispatch_once(&qword_1002291B0, &stru_1001FBE70);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received flow unassert without an appsvc name", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_9", 821);
       }
     }
 
@@ -5155,7 +4066,7 @@ LABEL_39:
       dispatch_once(&qword_1002291B0, &stru_1001FBE70);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d received unexpected flow unassert for %@", "", "[NRApplicationServiceManager setupResolverAgent]_block_invoke_9", 815, v9);
   }
 
 LABEL_52:
@@ -5263,14 +4174,14 @@ void sub_10011DE24(uint64_t a1)
   v4 = &qword_100229000;
   if (!v2)
   {
-    goto LABEL_62;
+    goto LABEL_56;
   }
 
   v5 = *(v1 + 10);
 
   if (v5)
   {
-    goto LABEL_62;
+    goto LABEL_56;
   }
 
   objc_opt_self();
@@ -5282,107 +4193,97 @@ void sub_10011DE24(uint64_t a1)
   v6 = *(v1 + 64);
   v7 = qword_100229198;
   v8 = v6;
-  v55 = v7;
+  v47 = v7;
   if (!v7)
   {
-    goto LABEL_61;
+    goto LABEL_55;
   }
 
-  v54 = v8;
+  v46 = v8;
   if (!v8)
   {
-    v44 = sub_100119370();
+    v40 = sub_100119370();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     v8 = 0;
     if (IsLevelEnabled)
     {
-      v46 = sub_100119370();
-      _NRLogWithArgs();
+      v42 = sub_100119370();
+      _NRLogWithArgs(v42, 17, "%s called with null deviceID", "[NRApplicationServiceManager cancelAllFlowsForDeviceID:]");
 
       v8 = 0;
     }
 
-    goto LABEL_61;
+    goto LABEL_55;
   }
 
-  v53 = [NEPolicyResult dropWithFlags:4];
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  v45 = [NEPolicyResult dropWithFlags:4];
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = v7[15];
-  v9 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v9 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (!v9)
   {
-    v35 = obj;
-    goto LABEL_59;
+    v33 = obj;
+    goto LABEL_53;
   }
 
-  v51 = v1;
+  v43 = v1;
   v10 = 0;
-  v11 = *v61;
-  v12 = v54;
+  v11 = *v53;
+  v12 = v46;
   v13 = obj;
   v14 = v9;
-  v57 = *v61;
+  v49 = *v53;
   while (2)
   {
     v15 = 0;
-    v56 = v14;
+    v48 = v14;
     do
     {
-      if (*v61 != v11)
+      if (*v53 != v11)
       {
         objc_enumerationMutation(v13);
       }
 
-      v16 = *(*(&v60 + 1) + 8 * v15);
+      v16 = *(*(&v52 + 1) + 8 * v15);
       v17 = sub_10011903C(v16);
       v18 = [v17 isEqualToString:v12];
 
       if (v18)
       {
-        if (v16)
+        v19 = nw_agent_client_copy_endpoint();
+        if (v19)
         {
-          v19 = *(v16 + 16);
-        }
+          v20 = [NWAddressEndpoint endpointWithCEndpoint:v19];
+          v21 = [v20 addressFamily];
+          v22 = objc_alloc_init(NSMutableArray);
+          v23 = +[NEPolicyCondition allInterfaces];
+          [v22 addObject:v23];
 
-        v20 = nw_agent_client_copy_endpoint();
-        if (v20)
-        {
-          v21 = [NWAddressEndpoint endpointWithCEndpoint:v20];
-          v22 = [v21 addressFamily];
-          v23 = objc_alloc_init(NSMutableArray);
-          v24 = +[NEPolicyCondition allInterfaces];
-          [v23 addObject:v24];
-
-          if (v22 == 30)
+          if (v21 == 30)
           {
-            v25 = 128;
+            v24 = 128;
           }
 
           else
           {
-            v25 = 32;
+            v24 = 32;
           }
 
-          v58 = [NEPolicyCondition flowRemoteAddress:v21 prefix:v25, v47, v48, v49, v50];
-          [v23 addObject:?];
-          if (v16)
-          {
-            v26 = *(v16 + 16);
-          }
-
-          v27 = nw_agent_client_copy_parameters();
+          v50 = [NEPolicyCondition flowRemoteAddress:v20 prefix:v24];
+          [v22 addObject:?];
+          v25 = nw_agent_client_copy_parameters();
           pid = nw_parameters_get_pid();
           if (pid)
           {
-            v29 = [NEPolicyCondition effectivePID:pid];
-            [v23 addObject:v29];
+            v27 = [NEPolicyCondition effectivePID:pid];
+            [v22 addObject:v27];
           }
 
-          v30 = [[NEPolicy alloc] initWithOrder:1 result:v53 conditions:v23];
+          v28 = [[NEPolicy alloc] initWithOrder:1 result:v45 conditions:v22];
           if (v16)
           {
             *(v16 + 9) = 1;
@@ -5394,18 +4295,18 @@ void sub_10011DE24(uint64_t a1)
             dispatch_once(&qword_100229410, &stru_1001FCD98);
           }
 
-          v31 = qword_100229408;
-          v32 = v55[3];
-          v33 = sub_100159E00(v31, v32, v30);
+          v29 = qword_100229408;
+          v30 = v47[3];
+          v31 = sub_100159E00(v29, v30, v28);
           if (v16)
           {
-            objc_storeStrong((v16 + 24), v33);
+            objc_storeStrong((v16 + 24), v31);
           }
 
           v10 = 1;
-          v12 = v54;
+          v12 = v46;
           v13 = obj;
-          v14 = v56;
+          v14 = v48;
         }
 
         else
@@ -5427,23 +4328,19 @@ void sub_10011DE24(uint64_t a1)
 
           if (v16)
           {
-            v34 = *(v16 + 16);
+            v32 = *(v16 + 16);
           }
 
           else
           {
-            v34 = 0;
+            v32 = 0;
           }
 
-          v21 = qword_1002291A8;
-          v49 = 1270;
-          v50 = v34;
-          v47 = "";
-          v48 = "[NRApplicationServiceManager cancelAllFlowsForDeviceID:]";
-          _NRLogWithArgs();
+          v20 = qword_1002291A8;
+          _NRLogWithArgs(v20, 16, "%s%.30s:%-4d Failed to copy endpoint for agent client %@", "", "[NRApplicationServiceManager cancelAllFlowsForDeviceID:]", 1270, v32);
         }
 
-        v11 = v57;
+        v11 = v49;
 LABEL_16:
       }
 
@@ -5451,7 +4348,7 @@ LABEL_16:
     }
 
     while (v14 != v15);
-    v14 = [v13 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v52 objects:v56 count:16];
     if (v14)
     {
       continue;
@@ -5460,7 +4357,7 @@ LABEL_16:
     break;
   }
 
-  v1 = v51;
+  v1 = v43;
   v4 = &qword_100229000;
   v3 = &qword_100229000;
   if (v10)
@@ -5477,7 +4374,7 @@ LABEL_16:
         dispatch_once(&qword_1002291B0, &stru_1001FBE70);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291A8, 0, "%s%.30s:%-4d Defuncting flows for device %@", "", "[NRApplicationServiceManager cancelAllFlowsForDeviceID:]", 1300, v46);
     }
 
     objc_opt_self();
@@ -5486,49 +4383,47 @@ LABEL_16:
       dispatch_once(&qword_100229410, &stru_1001FCD98);
     }
 
-    v35 = qword_100229408;
-    sub_10015A52C(v35);
-LABEL_59:
+    v33 = qword_100229408;
+    sub_10015A52C(v33);
+LABEL_53:
   }
 
-  v8 = v54;
-LABEL_61:
+  v8 = v46;
+LABEL_55:
 
-LABEL_62:
+LABEL_56:
   *(v1 + 9) = 1;
-  v36 = *(v1 + 56);
-  v37 = _NRCopyLogObjectForNRUUID();
-  v38 = _NRLogIsLevelEnabled();
+  v34 = _NRCopyLogObjectForNRUUID();
+  v35 = _NRLogIsLevelEnabled();
 
-  if (v38)
+  if (v35)
   {
-    v39 = *(v1 + 56);
-    v40 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v36 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v36, 1, "%s%.30s:%-4d %@ cancel", "", "[NRApplicationServiceClient cancel]", 1384, v1);
   }
 
   objc_opt_self();
   if (v3[52] == -1)
   {
-    v41 = v4[51];
-    if (v41)
+    v37 = v4[51];
+    if (v37)
     {
-      goto LABEL_66;
+      goto LABEL_60;
     }
   }
 
   else
   {
     dispatch_once(&qword_1002291A0, &stru_1001FBD88);
-    v41 = v4[51];
-    if (v41)
+    v37 = v4[51];
+    if (v37)
     {
-LABEL_66:
-      v42 = v41[2];
-      v43 = v1;
-      v59 = v41;
-      dispatch_assert_queue_V2(v42);
-      [v59[7] removeObject:v43];
+LABEL_60:
+      v38 = v37[2];
+      v39 = v1;
+      v51 = v37;
+      dispatch_assert_queue_V2(v38);
+      [v51[7] removeObject:v39];
     }
   }
 }
@@ -5637,7 +4532,6 @@ uint64_t sub_10011E848(uint64_t a1, uint64_t a2, void *a3)
 
     if (v9)
     {
-      v10 = *(a1 + 40);
       nw_array_append();
     }
   }
@@ -5656,38 +4550,36 @@ nw_endpoint_t sub_10011E8EC(uint64_t a1, void *a2)
 
   if (!v3)
   {
-    v10 = sub_100119370();
+    v8 = sub_100119370();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v6 = sub_100119370();
-      _NRLogWithArgs();
+      v5 = sub_100119370();
+      _NRLogWithArgs(v5, 17, "%s called with null asName", "[NRApplicationServiceManager copyListenerEndpointForASName:]");
       goto LABEL_7;
     }
 
 LABEL_10:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_9;
   }
 
   v5 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v6 = v5;
   if (!v5)
   {
 LABEL_7:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
-  v7 = *(v5 + 48);
-  v8 = nw_agent_client_copy_path();
-  v9 = nw_path_copy_effective_local_endpoint(v8);
+  v6 = nw_agent_client_copy_path();
+  v7 = nw_path_copy_effective_local_endpoint(v6);
 
 LABEL_8:
 LABEL_9:
 
-  return v9;
+  return v7;
 }
 
 id *sub_10011E9B8(id *a1, void *a2, void *a3, void *a4)
@@ -5697,9 +4589,9 @@ id *sub_10011E9B8(id *a1, void *a2, void *a3, void *a4)
   v9 = a4;
   if (a1)
   {
-    v28.receiver = a1;
-    v28.super_class = NRApplicationServiceClient;
-    v10 = objc_msgSendSuper2(&v28, "init");
+    v30.receiver = a1;
+    v30.super_class = NRApplicationServiceClient;
+    v10 = objc_msgSendSuper2(&v30, "init");
     if (!v10)
     {
       v23 = sub_100119370();
@@ -5708,14 +4600,14 @@ id *sub_10011E9B8(id *a1, void *a2, void *a3, void *a4)
       if (IsLevelEnabled)
       {
         v25 = sub_100119370();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: [super init] failed", "", "[NRApplicationServiceClient initWithDelegate:delegateQueue:nrUUID:]", 1332);
       }
 
-      _os_log_pack_size();
-      v26 = *__error();
-      v27 = _os_log_pack_fill();
-      *v27 = 136446210;
-      *(v27 + 4) = "[NRApplicationServiceClient initWithDelegate:delegateQueue:nrUUID:]";
+      v26 = _os_log_pack_size();
+      v27 = __error();
+      v28 = _os_log_pack_fill(&v29 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0), v26, *v27, &_mh_execute_header, "%{public}s [super init] failed");
+      *v28 = 136446210;
+      *(v28 + 4) = "[NRApplicationServiceClient initWithDelegate:delegateQueue:nrUUID:]";
       sub_100119370();
       _NRLogAbortWithPack();
     }
@@ -5819,7 +4711,7 @@ LABEL_15:
     if (IsLevelEnabled)
     {
       v5 = sub_100119370();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v5, 17, "%s called with null interfaceName", "[NRApplicationServiceClient addInterfaceForApplicationService:]");
       goto LABEL_15;
     }
   }
@@ -5951,7 +4843,7 @@ LABEL_20:
         if (IsLevelEnabled)
         {
           v16 = sub_100119370();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v16, 17, "%s called with null asName", "[NRApplicationServiceManager shouldResolveASNameAfterClassCUnlock:]");
 
           IsLevelEnabled = 0;
         }
@@ -6095,7 +4987,7 @@ LABEL_32:
         if (IsLevelEnabled)
         {
           v24 = sub_100119370();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v24, 17, "%s called with null asName", "[NRApplicationServiceManager useOnlyLocalLinksForASName:]");
         }
 
         v4 = 0;
@@ -6234,7 +5126,7 @@ LABEL_32:
         if (IsLevelEnabled)
         {
           v24 = sub_100119370();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v24, 17, "%s called with null asName", "[NRApplicationServiceManager canSkipQRAssert:]");
         }
 
         v4 = 0;
@@ -6290,7 +5182,7 @@ id sub_10011FA74()
 
 void sub_10011FAC8(uint64_t a1)
 {
-  v43 = [*(a1 + 32) nrUUID];
+  v42 = [*(a1 + 32) nrUUID];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -6319,30 +5211,29 @@ void sub_10011FAC8(uint64_t a1)
         dispatch_once(&qword_1002291C0, &stru_1001FBE90);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Forcing interface availability event, as the underlying transport is still available", "", "[NRLinkManagerFixedInterface linkIsUnavailable:]_block_invoke", 333);
     }
 
     v5 = *(a1 + 40);
-    v6 = v43;
+    v6 = v42;
     if (!v5)
     {
       v29 = 0;
       goto LABEL_32;
     }
 
-    v7 = *(v5 + 24);
+    v7 = v5[3];
     dispatch_assert_queue_V2(v7);
 
     if (([v5 shouldCreateLinkForNRUUID:v6] & 1) == 0)
     {
-      v30 = *(v5 + 8);
       StringFromNRLinkType = createStringFromNRLinkType();
       [v5 reportEvent:3017 detailsFormat:@"unsupported link type: %@", StringFromNRLinkType];
       v29 = 0;
       goto LABEL_31;
     }
 
-    v8 = [*(v5 + 56) hostname];
+    v8 = [v5[7] hostname];
     objc_opt_self();
     if (qword_100228E88 != -1)
     {
@@ -6360,8 +5251,8 @@ void sub_10011FAC8(uint64_t a1)
     v12 = [NWAddressEndpoint endpointWithHostname:v8 port:v11];
 
     v13 = [NRLinkFixedInterface alloc];
-    v14 = *(v5 + 24);
-    v15 = *(v5 + 64);
+    v14 = v5[3];
+    v15 = v5[8];
     objc_opt_self();
     if (qword_100228E88 != -1)
     {
@@ -6388,7 +5279,7 @@ void sub_10011FAC8(uint64_t a1)
     v24 = v18;
     if (!v13)
     {
-      goto LABEL_47;
+      goto LABEL_48;
     }
 
     if (v19)
@@ -6399,9 +5290,9 @@ void sub_10011FAC8(uint64_t a1)
         {
           if (v22)
           {
-            v44.receiver = v13;
-            v44.super_class = NRLinkFixedInterface;
-            v25 = objc_msgSendSuper2(&v44, "initLinkWithQueue:linkDelegate:nrUUID:", v19, v20, v21);
+            v43.receiver = v13;
+            v43.super_class = NRLinkFixedInterface;
+            v25 = objc_msgSendSuper2(&v43, "initLinkWithQueue:linkDelegate:nrUUID:", v19, v20, v21);
             if (v25)
             {
               v26 = v25;
@@ -6427,67 +5318,76 @@ LABEL_32:
               goto LABEL_33;
             }
 
-            v36 = sub_10007478C();
+            v35 = sub_10007478C();
             IsLevelEnabled = _NRLogIsLevelEnabled();
 
             if (IsLevelEnabled)
             {
-              v38 = sub_10007478C();
-              _NRLogWithArgs();
+              v37 = sub_10007478C();
+              _NRLogWithArgs(v37, 17, "[NRLink initLinkWithQueue:] failed");
             }
 
             v13 = 0;
-LABEL_47:
+LABEL_48:
             v29 = 0;
             goto LABEL_29;
           }
 
           v34 = sub_10007478C();
-          v42 = _NRLogIsLevelEnabled();
+          v41 = _NRLogIsLevelEnabled();
 
-          if (!v42)
+          if (!v41)
           {
-            goto LABEL_47;
+            goto LABEL_48;
           }
+
+          v31 = sub_10007478C();
+          _NRLogWithArgs(v31, 17, "%s called with null fixedInterfaceName");
         }
 
         else
         {
           v33 = sub_10007478C();
-          v41 = _NRLogIsLevelEnabled();
+          v40 = _NRLogIsLevelEnabled();
 
-          if (!v41)
+          if (!v40)
           {
-            goto LABEL_47;
+            goto LABEL_48;
           }
+
+          v31 = sub_10007478C();
+          _NRLogWithArgs(v31, 17, "called with all-zero nrUUID");
         }
       }
 
       else
       {
         v32 = sub_10007478C();
-        v40 = _NRLogIsLevelEnabled();
+        v39 = _NRLogIsLevelEnabled();
 
-        if (!v40)
+        if (!v39)
         {
-          goto LABEL_47;
+          goto LABEL_48;
         }
+
+        v31 = sub_10007478C();
+        _NRLogWithArgs(v31, 17, "%s called with null nrUUID");
       }
     }
 
     else
     {
-      v31 = sub_10007478C();
-      v39 = _NRLogIsLevelEnabled();
+      v30 = sub_10007478C();
+      v38 = _NRLogIsLevelEnabled();
 
-      if (!v39)
+      if (!v38)
       {
-        goto LABEL_47;
+        goto LABEL_48;
       }
-    }
 
-    v35 = sub_10007478C();
-    _NRLogWithArgs();
+      v31 = sub_10007478C();
+      _NRLogWithArgs(v31, 17, "%s called with null queue");
+    }
 
     v29 = 0;
     goto LABEL_29;
@@ -6511,7 +5411,7 @@ void sub_100120214(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsSuspended:*(a1 + 32)];
   }
 
@@ -6529,9 +5429,7 @@ void sub_100120214(uint64_t a1)
         dispatch_once(&qword_1002291C0, &stru_1001FBE90);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291B8, 16, "%s%.30s:%-4d %@: link %@ is not in suspended state anymore", "", "[NRLinkManagerFixedInterface linkIsSuspended:]_block_invoke", 307, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6551,7 +5449,7 @@ void sub_100120514(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsReady:*(a1 + 32)];
   }
 
@@ -6569,9 +5467,7 @@ void sub_100120514(uint64_t a1)
         dispatch_once(&qword_1002291C0, &stru_1001FBE90);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291B8, 16, "%s%.30s:%-4d %@: link %@ is not in ready state anymore", "", "[NRLinkManagerFixedInterface linkIsReady:]_block_invoke", 284, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6591,7 +5487,7 @@ void sub_100120834(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsAvailable:*(a1 + 32)];
   }
 
@@ -6609,9 +5505,7 @@ void sub_100120834(uint64_t a1)
         dispatch_once(&qword_1002291C0, &stru_1001FBE90);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291B8, 16, "%s%.30s:%-4d %@: link %@ is not in initial state anymore", "", "[NRLinkManagerFixedInterface linkIsAvailable:]_block_invoke", 261, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6680,26 +5574,26 @@ void sub_10012167C(uint64_t a1)
     if (v2 == 2)
     {
       v3 = [*(a1 + 40) copy];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v4 = v3;
-      v5 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v42;
+        v7 = *v41;
         do
         {
           for (i = 0; i != v6; i = i + 1)
           {
-            if (*v42 != v7)
+            if (*v41 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v41 + 1) + 8 * i);
+            v9 = *(*(&v40 + 1) + 8 * i);
             if (([v9 ikeClassCEstablished] & 1) != 0 || objc_msgSend(v9, "ikeClassDEstablished"))
             {
               [v9 suspend];
@@ -6711,7 +5605,7 @@ void sub_10012167C(uint64_t a1)
             }
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
         }
 
         while (v6);
@@ -6722,96 +5616,95 @@ void sub_10012167C(uint64_t a1)
 
     if (v2 == 1)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      obj = sub_10016CD90();
-      v10 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      obj = sub_10016CD90(NRDLocalDevice);
+      v10 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
       if (v10)
       {
         v11 = v10;
-        v32 = *v38;
+        v31 = *v37;
         do
         {
           for (j = 0; j != v11; j = j + 1)
           {
-            if (*v38 != v32)
+            if (*v37 != v31)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v37 + 1) + 8 * j);
+            v16 = *(*(&v36 + 1) + 8 * j);
+            v32 = 0u;
             v33 = 0u;
             v34 = 0u;
             v35 = 0u;
-            v36 = 0u;
-            v18 = *(a1 + 40);
-            v19 = [v18 countByEnumeratingWithState:&v33 objects:v45 count:16];
-            if (!v19)
+            v17 = *(a1 + 40);
+            v18 = [v17 countByEnumeratingWithState:&v32 objects:v44 count:16];
+            if (!v18)
             {
 LABEL_34:
 
-              v18 = v17;
-              if ([a1 shouldCreateLinkForNRUUID:v18])
+              v17 = v16;
+              if ([a1 shouldCreateLinkForNRUUID:v17])
               {
-                v25 = sub_100163A30(NRDLocalDevice, v18);
-                StringFromNRLinkType = v25;
-                if (v25 && *(v25 + 11) == 1)
+                v24 = sub_100163A30(NRDLocalDevice, v17);
+                StringFromNRLinkType = v24;
+                if (v24 && *(v24 + 11) == 1)
                 {
-                  v15 = a1;
-                  v16 = @"link suspension in effect for non-nearby links";
+                  v14 = a1;
+                  v15 = @"link suspension in effect for non-nearby links";
 LABEL_21:
-                  [v15 reportEvent:3017 detailsFormat:v16, v30];
+                  [v14 reportEvent:3017 detailsFormat:v15, v29];
                 }
 
                 else
                 {
-                  v26 = [NRLinkQuickRelay alloc];
-                  v27 = *(a1 + 24);
-                  v28 = [(NRLinkQuickRelay *)v26 initLinkWithQueue:v27 linkDelegate:a1 nrUUID:v18];
+                  v25 = [NRLinkQuickRelay alloc];
+                  v26 = *(a1 + 24);
+                  v27 = [(NRLinkQuickRelay *)v25 initLinkWithQueue:v26 linkDelegate:a1 nrUUID:v17];
 
-                  if (!v28)
+                  if (!v27)
                   {
-                    v29 = [v18 UUIDString];
-                    [a1 reportEvent:3017 details:v29];
+                    v28 = [v17 UUIDString];
+                    [a1 reportEvent:3017 details:v28];
                   }
                 }
 
                 goto LABEL_23;
               }
 
-              v13 = *(a1 + 8);
               StringFromNRLinkType = createStringFromNRLinkType();
-              v30 = StringFromNRLinkType;
-              v15 = a1;
-              v16 = @"unsupported link type: %@";
+              v29 = StringFromNRLinkType;
+              v14 = a1;
+              v15 = @"unsupported link type: %@";
               goto LABEL_21;
             }
 
-            v20 = v19;
-            v21 = *v34;
+            v19 = v18;
+            v20 = *v33;
 LABEL_28:
-            v22 = 0;
+            v21 = 0;
             while (1)
             {
-              if (*v34 != v21)
+              if (*v33 != v20)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v17);
               }
 
-              v23 = [*(*(&v33 + 1) + 8 * v22) nrUUID];
-              v24 = [v23 isEqual:v17];
+              v22 = [*(*(&v32 + 1) + 8 * v21) nrUUID];
+              v23 = [v22 isEqual:v16];
 
-              if (v24)
+              if (v23)
               {
                 break;
               }
 
-              if (v20 == ++v22)
+              if (v19 == ++v21)
               {
-                v20 = [v18 countByEnumeratingWithState:&v33 objects:v45 count:16];
-                if (v20)
+                v19 = [v17 countByEnumeratingWithState:&v32 objects:v44 count:16];
+                if (v19)
                 {
                   goto LABEL_28;
                 }
@@ -6823,7 +5716,7 @@ LABEL_28:
 LABEL_23:
           }
 
-          v11 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v11 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
         }
 
         while (v11);
@@ -6844,7 +5737,7 @@ LABEL_23:
           dispatch_once(&qword_1002291D0, &stru_1001FBED8);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291C8, 1, "%s%.30s:%-4d No network to serve QuickRelay link. Deferring creation of link until we have a network", "", "[NRLinkManagerQuickRelay createLinkIfApplicable]", 172);
       }
     }
   }
@@ -6865,7 +5758,7 @@ void sub_100121BF0(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsReady:*(a1 + 32)];
   }
 
@@ -6883,9 +5776,7 @@ void sub_100121BF0(uint64_t a1)
         dispatch_once(&qword_1002291D0, &stru_1001FBED8);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291C8, 16, "%s%.30s:%-4d %@: link %@ is not in ready state anymore", "", "[NRLinkManagerQuickRelay linkIsReady:]_block_invoke", 251, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6905,7 +5796,7 @@ void sub_100121E34(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsSuspended:*(a1 + 32)];
   }
 
@@ -6923,9 +5814,7 @@ void sub_100121E34(uint64_t a1)
         dispatch_once(&qword_1002291D0, &stru_1001FBED8);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291C8, 16, "%s%.30s:%-4d %@: link %@ is not in suspended state anymore", "", "[NRLinkManagerQuickRelay linkIsSuspended:]_block_invoke", 236, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6945,7 +5834,7 @@ void sub_100122098(uint64_t a1)
       WeakRetained = 0;
     }
 
-    v6 = WeakRetained;
+    v4 = WeakRetained;
     [WeakRetained linkIsAvailable:*(a1 + 32)];
   }
 
@@ -6963,9 +5852,7 @@ void sub_100122098(uint64_t a1)
         dispatch_once(&qword_1002291D0, &stru_1001FBED8);
       }
 
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 32);
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291C8, 16, "%s%.30s:%-4d %@: link %@ is not in initial state anymore", "", "[NRLinkManagerQuickRelay linkIsAvailable:]_block_invoke", 222, *(a1 + 40), *(a1 + 32));
     }
   }
 }
@@ -6982,13 +5869,13 @@ void sub_1001224F8(uint64_t *a1)
     if (IsLevelEnabled)
     {
       v28 = sub_10012141C();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v28, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", "", "nr_xpc_array_create", 56, 0, 0);
     }
 
     v2 = _os_log_pack_size();
     v4 = v31 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-    v29 = *__error();
-    v30 = _os_log_pack_fill();
+    v29 = __error();
+    v30 = _os_log_pack_fill(v4, v2, *v29, &_mh_execute_header, "%{public}s xpc_array_create(%p, %u) failed");
     sub_10006BF98(v30, "nr_xpc_array_create");
     sub_10012141C();
     _NRLogAbortWithPack();
@@ -7056,7 +5943,7 @@ LABEL_20:
         }
 
         v24 = qword_1002291C8;
-        _NRLogWithArgs();
+        _NRLogWithArgs(v24, 17, "[[APSConnection alloc] initWithEnvironmentName:namedDelegatePort:queue:]");
       }
     }
 
@@ -7083,7 +5970,7 @@ LABEL_12:
       dispatch_once(&qword_1002291D0, &stru_1001FBED8);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291C8, 17, "nw_path_create_default_evaluator failed");
   }
 
 LABEL_16:
@@ -7115,7 +6002,7 @@ void sub_10012297C(uint64_t a1, void *a2)
         dispatch_once(&qword_1002291D0, &stru_1001FBED8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291C8, 1, "%s%.30s:%-4d received path update for QR link manager: %@", "", "[NRLinkManagerQuickRelay setup]_block_invoke", 136, v6);
     }
 
     objc_storeStrong(v5 + 7, a2);
@@ -7212,7 +6099,7 @@ LABEL_4:
     if (IsLevelEnabled)
     {
       v5 = sub_100123258();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v5, 17, "%s called with null btUUID", "[NRDevicePairingManagerContext getPairingCandidateWithBTUUID:]");
       a1 = 0;
       goto LABEL_4;
     }
@@ -7408,7 +6295,7 @@ void sub_1001236B4(id *a1, void *a2)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Sending lost message for %@", "", "[NRDevicePairingManagerContext sendLostPairingCandidate:]", 911, a1, v3);
     }
 
     v9 = xpc_dictionary_create(0, 0, 0);
@@ -7431,7 +6318,7 @@ void sub_1001236B4(id *a1, void *a2)
           goto LABEL_15;
         }
 
-        v29 = sub_100123258();
+        v30 = sub_100123258();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (!IsLevelEnabled)
@@ -7460,13 +6347,16 @@ LABEL_19:
               goto LABEL_20;
             }
 
-            v31 = sub_100123258();
-            v32 = _NRLogIsLevelEnabled();
+            v32 = sub_100123258();
+            v33 = _NRLogIsLevelEnabled();
 
-            if (!v32)
+            if (!v33)
             {
               goto LABEL_18;
             }
+
+            v29 = sub_100123258();
+            _NRLogWithArgs(v29, 17, "%s called with null uuid");
           }
 
           else
@@ -7478,17 +6368,17 @@ LABEL_19:
             {
               goto LABEL_18;
             }
-          }
 
-          v33 = sub_100123258();
-          _NRLogWithArgs();
+            v29 = sub_100123258();
+            _NRLogWithArgs(v29, 17, "%s called with null key");
+          }
 
           goto LABEL_18;
         }
 
         v26 = sub_100123258();
+        _NRLogWithArgs(v26, 17, "%s called with null uuid");
 LABEL_30:
-        _NRLogWithArgs();
 
         goto LABEL_15;
       }
@@ -7502,13 +6392,13 @@ LABEL_30:
       if (v20)
       {
         v21 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v21, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
       }
 
       v3 = _os_log_pack_size();
       v7 = &uuid[-((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-      v22 = *__error();
-      v23 = _os_log_pack_fill();
+      v22 = __error();
+      v23 = _os_log_pack_fill(v7, v3, *v22, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
       sub_1000F4320(v23, "nr_xpc_dictionary_create");
       sub_100123258();
       _NRLogAbortWithPack();
@@ -7523,6 +6413,7 @@ LABEL_30:
     }
 
     v26 = sub_100123258();
+    _NRLogWithArgs(v26, 17, "%s called with null key");
     goto LABEL_30;
   }
 
@@ -7547,15 +6438,10 @@ void sub_100123ADC(uint64_t a1, id *a2)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      v9 = v4;
-      v10 = *a2;
-      v8 = 1849;
-      v6 = "";
-      v7 = "+[NRDevicePairingCandidateContext invalidateIKESession:]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Invalidating IKE Session %@", "", "+[NRDevicePairingCandidateContext invalidateIKESession:]", 1849, v4, *a2);
     }
 
-    [*a2 setStateUpdateBlock:{0, v6, v7, v8, v9, v10}];
+    [*a2 setStateUpdateBlock:0];
     [*a2 setChildStateUpdateBlock:0];
     [*a2 setConfigurationUpdateBlock:0];
     [*a2 setTrafficSelectorUpdateBlock:0];
@@ -7589,7 +6475,7 @@ void sub_1001242E0(uint64_t a1, int a2)
 
         v4 = *(a1 + 88);
         v5 = qword_1002291E0;
-        _NRLogWithArgs();
+        _NRLogWithArgs(v5, 0, "%s%.30s:%-4d %@: Disconnecting from %@", "", "[NRDevicePairingCandidateContext disconnectPeripheralAndRemove:]", 2250, a1, v4);
       }
 
       WeakRetained = objc_loadWeakRetained((a1 + 16));
@@ -7666,8 +6552,8 @@ LABEL_8:
         }
 
         v20 = sub_100123258();
+        _NRLogWithArgs(v20, 17, "%s called with null uuid");
 LABEL_17:
-        _NRLogWithArgs();
 
         goto LABEL_8;
       }
@@ -7681,13 +6567,13 @@ LABEL_17:
       if (v14)
       {
         v15 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
       }
 
       WeakRetained = _os_log_pack_size();
       a2 = &uuid[-((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
+      v16 = __error();
+      v17 = _os_log_pack_fill(a2, WeakRetained, *v16, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
       sub_1000F4320(v17, "nr_xpc_dictionary_create");
       sub_100123258();
       _NRLogAbortWithPack();
@@ -7702,6 +6588,7 @@ LABEL_17:
     }
 
     v20 = sub_100123258();
+    _NRLogWithArgs(v20, 17, "%s called with null key");
     goto LABEL_17;
   }
 }
@@ -7723,14 +6610,14 @@ void sub_1001246D8(uint64_t a1, unsigned __int8 *a2, uint64_t a3, void *a4)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Sending result code %lld for operation %llu", "", "[NRDevicePairingManagerContext sendResultCode:forUpdateOperation:baseMessage:]", 667, a1, a2, a3);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 16));
     v9 = WeakRetained;
     if (!WeakRetained)
     {
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
     for (i = *(WeakRetained + 1); ; i = 0)
@@ -7775,13 +6662,16 @@ LABEL_17:
             break;
           }
 
-          v20 = sub_100123258();
+          v21 = sub_100123258();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (!IsLevelEnabled)
           {
             goto LABEL_17;
           }
+
+          v20 = sub_100123258();
+          _NRLogWithArgs(v20, 17, "%s called with null uuid");
         }
 
         else
@@ -7793,10 +6683,10 @@ LABEL_17:
           {
             goto LABEL_17;
           }
-        }
 
-        v22 = sub_100123258();
-        _NRLogWithArgs();
+          v20 = sub_100123258();
+          _NRLogWithArgs(v20, 17, "%s called with null key");
+        }
 
         goto LABEL_17;
       }
@@ -7807,17 +6697,17 @@ LABEL_17:
       if (v24)
       {
         v25 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
       }
 
       v7 = _os_log_pack_size();
       a2 = &uuid[-((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-      v26 = *__error();
-      v27 = _os_log_pack_fill();
+      v26 = __error();
+      v27 = _os_log_pack_fill(a2, v7, *v26, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
       sub_1000F4320(v27, "nr_xpc_dictionary_create");
       sub_100123258();
       _NRLogAbortWithPack();
-LABEL_27:
+LABEL_28:
       ;
     }
   }
@@ -7963,7 +6853,7 @@ void sub_100124A48(id *a1)
 
         WeakRetained = objc_loadWeakRetained(v11 + 3);
 LABEL_43:
-        _NRLogWithArgs();
+        _NRLogWithArgs(v27, 16, "%s%.30s:%-4d %@ currently owns the BT connections", "", "[NRDevicePairingManagerContext performNeededBTConnectionOperations]", 1394, WeakRetained);
       }
     }
   }
@@ -8077,7 +6967,7 @@ id *sub_100125108(id *a1, void *a2)
       if (IsLevelEnabled)
       {
         v8 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v8, 17, "%s called with null candidateUUID", "[NRDevicePairingManagerContext getPairingCandidateWithUUID:]");
       }
 
       a1 = 0;
@@ -8156,26 +7046,26 @@ void sub_10012536C(uint64_t a1)
 void sub_100125430(uint64_t a1)
 {
   v2 = sub_1001251C0(*(a1 + 32));
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v22 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 identifier];
         v12 = [v2 containsObject:v11];
 
@@ -8199,12 +7089,7 @@ void sub_100125430(uint64_t a1)
                 dispatch_once(&qword_1002291E8, &stru_1001FC218);
               }
 
-              v19 = v15;
-              v20 = v10;
-              v18 = 1423;
-              v16 = "";
-              v17 = "[NRDevicePairingManagerContext performNeededBTConnectionOperations]_block_invoke_2";
-              _NRLogWithArgs();
+              _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Connecting to %@", "", "[NRDevicePairingManagerContext performNeededBTConnectionOperations]_block_invoke_2", 1423, v15, v10);
             }
 
             objc_storeStrong((v15 + 88), v10);
@@ -8219,12 +7104,12 @@ void sub_100125430(uint64_t a1)
               v9 = 0;
             }
 
-            [v9 connectPeripheral:v10 options:{0, v16, v17, v18, v19, v20}];
+            [v9 connectPeripheral:v10 options:0];
           }
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
@@ -8268,7 +7153,7 @@ void sub_100126038(id *a1, void *a2)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Sending discovered message for %@", "", "[NRDevicePairingManagerContext sendDiscoveredPairingCandidate:]", 893, a1, v3);
     }
 
     v9 = xpc_dictionary_create(0, 0, 0);
@@ -8285,13 +7170,13 @@ void sub_100126038(id *a1, void *a2)
         if (v13)
         {
           *uuid = 0;
-          v40 = 0;
+          v41 = 0;
           [v13 getUUIDBytes:uuid];
           xpc_dictionary_set_uuid(a1, v11, uuid);
           goto LABEL_15;
         }
 
-        v30 = sub_100123258();
+        v31 = sub_100123258();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (!IsLevelEnabled)
@@ -8321,26 +7206,28 @@ LABEL_21:
                 goto LABEL_22;
               }
 
-              v35 = sub_100123258();
-              v36 = _NRLogIsLevelEnabled();
+              v36 = sub_100123258();
+              v37 = _NRLogIsLevelEnabled();
 
-              if (v36)
+              if (v37)
               {
-                v37 = sub_100123258();
-                _NRLogWithArgs();
+                v38 = sub_100123258();
+                _NRLogWithArgs(v38, 17, "Failed to archive %@: %@", v17, v19);
               }
 
-LABEL_38:
+LABEL_39:
               goto LABEL_20;
             }
 
-            v32 = sub_100123258();
-            v33 = _NRLogIsLevelEnabled();
+            v33 = sub_100123258();
+            v34 = _NRLogIsLevelEnabled();
 
-            if ((v33 & 1) == 0)
+            if ((v34 & 1) == 0)
             {
-              goto LABEL_38;
+              goto LABEL_39;
             }
+
+            v30 = "%s called with null object";
           }
 
           else
@@ -8350,19 +7237,21 @@ LABEL_38:
 
             if ((v29 & 1) == 0)
             {
-              goto LABEL_38;
+              goto LABEL_39;
             }
+
+            v30 = "%s called with null key";
           }
 
-          v34 = sub_100123258();
-          _NRLogWithArgs();
+          v35 = sub_100123258();
+          _NRLogWithArgs(v35, 17, v30, "nr_xpc_dictionary_set_nsobject");
 
-          goto LABEL_38;
+          goto LABEL_39;
         }
 
         v27 = sub_100123258();
+        _NRLogWithArgs(v27, 17, "%s called with null uuid");
 LABEL_32:
-        _NRLogWithArgs();
 
         goto LABEL_15;
       }
@@ -8376,13 +7265,13 @@ LABEL_32:
       if (v21)
       {
         v22 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v22, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
       }
 
       v3 = _os_log_pack_size();
       v7 = &uuid[-((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-      v23 = *__error();
-      v24 = _os_log_pack_fill();
+      v23 = __error();
+      v24 = _os_log_pack_fill(v7, v3, *v23, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
       sub_1000F4320(v24, "nr_xpc_dictionary_create");
       sub_100123258();
       _NRLogAbortWithPack();
@@ -8397,6 +7286,7 @@ LABEL_32:
     }
 
     v27 = sub_100123258();
+    _NRLogWithArgs(v27, 17, "%s called with null key");
     goto LABEL_32;
   }
 
@@ -8408,69 +7298,64 @@ void sub_1001264E4(uint64_t a1)
   v1 = *(a1 + 32);
   if (v1)
   {
-    if (v1[14])
+    if (*(v1 + 112))
     {
-      if (v1[19])
+      if (*(v1 + 152))
       {
-        v20 = 0u;
         v21 = 0u;
-        v18 = 0u;
+        v22 = 0u;
         v19 = 0u;
+        v20 = 0u;
         if (os_channel_get_next_slot())
         {
           do
           {
-            v17 = 0;
-            v2 = WORD1(v18);
-            v3 = (*(v1[19] + 8))(*v1[19], v19, WORD1(v18), &v17, 0, 0);
-            if (v17 < v2)
+            v18 = 0;
+            v2 = WORD1(v19);
+            v3 = (*(*(v1 + 152) + 8))(**(v1 + 152), v20, WORD1(v19), &v18, 0, 0);
+            if (v18 < v2)
             {
-              v5 = v3;
-              v6 = sub_100123258();
+              v4 = v3;
+              v5 = sub_100123258();
               IsLevelEnabled = _NRLogIsLevelEnabled();
 
-              v3 = v5;
+              v3 = v4;
               if (IsLevelEnabled)
               {
-                v8 = sub_100123258();
-                _NRLogWithArgs();
+                v7 = sub_100123258();
+                _NRLogWithArgs(v7, 17, "%@: Parser failed to handle full packet (%zu < %zu)", v1, v18, v2);
 
-                v3 = v5;
+                v3 = v4;
               }
             }
-
-            if ((v3 & 1) == 0)
-            {
-              break;
-            }
-
-            v4 = v1[14];
           }
 
-          while (os_channel_get_next_slot());
-          v9 = v1[14];
-          if (os_channel_advance_slot())
+          while ((v3 & 1) != 0 && os_channel_get_next_slot());
+          v8 = os_channel_advance_slot();
+          if (v8)
           {
+            v10 = v8;
             v11 = sub_100123258();
             v12 = _NRLogIsLevelEnabled();
 
             if (v12)
             {
               v13 = sub_100123258();
-              _NRLogWithArgs();
+              _NRLogWithArgs(v13, 17, "os_channel_advance_slot failed: %d", v10);
             }
           }
 
-          v10 = v1[13];
-          if (os_channel_sync())
+          v9 = os_channel_sync();
+          if (v9)
           {
-            v14 = sub_100123258();
-            v15 = _NRLogIsLevelEnabled();
+            v14 = v9;
+            v15 = sub_100123258();
+            v16 = _NRLogIsLevelEnabled();
 
-            if (v15)
+            if (v16)
             {
-              v16 = sub_100123258();
-              _NRLogWithArgs();
+              v17 = sub_100123258();
+              _NRLogWithArgs(v17, 17, "os_channel_advance_slot failed: %d", v14);
             }
           }
         }
@@ -8507,7 +7392,7 @@ uint64_t sub_1001266AC(uint64_t result)
 void sub_100126718(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v10 = a2;
+  v5 = a2;
   if (v2)
   {
     if (qword_1002291E8 != -1)
@@ -8522,15 +7407,10 @@ void sub_100126718(uint64_t a1, void *a2)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      v8 = v2;
-      v9 = v10;
-      v7 = 3656;
-      v5 = "";
-      v6 = "[NRDevicePairingCandidateContext processXPCCommDictionary:]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 2, "%s%.30s:%-4d %@: Received notification: %@", "", "[NRDevicePairingCandidateContext processXPCCommDictionary:]", 3656, v2, v5);
     }
 
-    v3 = [v10 objectForKeyedSubscript:{@"message", v5, v6, v7, v8, v9}];
+    v3 = [v5 objectForKeyedSubscript:@"message"];
     v4 = [v3 objectForKeyedSubscript:@"message-data"];
     if (v4)
     {
@@ -8560,14 +7440,14 @@ void sub_100126844(uint64_t a1)
 
   if ((byte_100229230 & 1) != 0 || *(a1 + 96))
   {
-    v47 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:13];
+    v43 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:13];
     if (qword_100229338 != -1)
     {
       dispatch_once(&qword_100229338, &stru_1001FC5F8);
     }
 
-    v46 = qword_100229330;
-    v2 = sub_1001472F0(1, v46, v47);
+    v42 = qword_100229330;
+    v2 = sub_1001472F0(1, v42, v43);
     if (qword_100229238 != -1)
     {
       dispatch_once(&qword_100229238, &stru_1001FC340);
@@ -8603,11 +7483,7 @@ LABEL_39:
             dispatch_once(&qword_1002291E8, &stru_1001FC218);
           }
 
-          v44 = 2095;
-          v45 = a1;
-          v42 = "";
-          v43 = "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Created pairing control session, connecting", "", "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]", 2095, a1);
         }
 
         v29 = *(a1 + 176);
@@ -8625,30 +7501,26 @@ LABEL_39:
               dispatch_once(&qword_1002291E8, &stru_1001FC218);
             }
 
-            v44 = 3671;
-            v45 = a1;
-            v42 = "";
-            v43 = "[NRDevicePairingCandidateContext setupIKECallbacksForControlSession]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Setting callbacks on control session", "", "[NRDevicePairingCandidateContext setupIKECallbacksForControlSession]", 3671, a1);
           }
 
-          [v29 setClientQueue:{*(a1 + 24), v42, v43, v44, v45}];
+          [v29 setClientQueue:*(a1 + 24)];
           objc_initWeak(&location, a1);
-          v52 = _NSConcreteStackBlock;
-          v53 = 3221225472;
-          v54 = sub_10012C17C;
-          v55 = &unk_1001FC090;
-          objc_copyWeak(&v57, &location);
-          v56 = a1;
-          [v29 setStateUpdateBlock:&v52];
-          v49[0] = _NSConcreteStackBlock;
-          v49[1] = 3221225472;
-          v49[2] = sub_10012C330;
-          v49[3] = &unk_1001FC0B8;
-          objc_copyWeak(&v50, &location);
-          [v29 setPrivateNotifyStatusEvent:v49];
-          objc_destroyWeak(&v50);
-          objc_destroyWeak(&v57);
+          v48 = _NSConcreteStackBlock;
+          v49 = 3221225472;
+          v50 = sub_10012C17C;
+          v51 = &unk_1001FC090;
+          objc_copyWeak(&v53, &location);
+          v52 = a1;
+          [v29 setStateUpdateBlock:&v48];
+          v45[0] = _NSConcreteStackBlock;
+          v45[1] = 3221225472;
+          v45[2] = sub_10012C330;
+          v45[3] = &unk_1001FC0B8;
+          objc_copyWeak(&v46, &location);
+          [v29 setPrivateNotifyStatusEvent:v45];
+          objc_destroyWeak(&v46);
+          objc_destroyWeak(&v53);
           objc_destroyWeak(&location);
         }
 
@@ -8663,7 +7535,7 @@ LABEL_39:
         if (IsLevelEnabled)
         {
           v32 = sub_100123258();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v32, 17, "%@: Failed to create pairing control session", a1);
         }
       }
 
@@ -8714,12 +7586,12 @@ LABEL_39:
           [v21 setForceUDPEncapsulation:1];
           [v21 setRemoteEndpoint:v19];
           [v21 setOutgoingInterfaceName:v20];
-          v52 = 0;
-          v53 = 0;
+          v48 = 0;
+          v49 = 0;
           v22 = [*(a1 + 32) uuid];
-          [v22 getUUIDBytes:&v52];
+          [v22 getUUIDBytes:&v48];
 
-          v23 = [[NSData alloc] initWithBytes:&v52 length:16];
+          v23 = [[NSData alloc] initWithBytes:&v48 length:16];
           v24 = [[NEIKEv2KeyIDIdentifier alloc] initWithKeyID:v23];
           [v2 setLocalIdentifier:v24];
 
@@ -8738,11 +7610,7 @@ LABEL_39:
           if (v40)
           {
             v41 = sub_100123258();
-            v44 = 2057;
-            v45 = a1;
-            v42 = "";
-            v43 = "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v41, 16, "%s%.30s:%-4d %@: Failed to create pairing control session, no outgoing interface name", "", "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]", 2057, a1);
           }
         }
 
@@ -8760,7 +7628,7 @@ LABEL_39:
       if (v37)
       {
         v38 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v38, 16, "%s%.30s:%-4d %@: Unable to create endpoint from %@", "", "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]", 2050, a1, v14);
       }
     }
 
@@ -8772,7 +7640,7 @@ LABEL_39:
       if (v34)
       {
         v35 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v35, 16, "%s%.30s:%-4d %@: Failed to create pairing control session, no peer endpoints present", "", "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]", 2043, a1);
 
 LABEL_55:
         return;
@@ -8794,7 +7662,7 @@ LABEL_55:
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Deferring connecting control session until pipe is connected", "", "[NRDevicePairingCandidateContext establishControlSessionIfNeeded]", 2029, a1);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 16));
@@ -8843,7 +7711,7 @@ void sub_100127188(uint64_t a1)
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Deferring connecting pairing session until pipe is connected", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2117, a1);
       }
 
       WeakRetained = objc_loadWeakRetained((a1 + 16));
@@ -8866,231 +7734,235 @@ void sub_100127188(uint64_t a1)
         goto LABEL_61;
       }
 
-LABEL_21:
       v6 = sub_100123258();
-      _NRLogWithArgs();
-LABEL_60:
-
-LABEL_61:
-      return;
+      _NRLogWithArgs(v6, 1, "%s%.30s:%-4d %@: Invalid sharedSecret for authMethod: %zu", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2125, a1, v3);
+      goto LABEL_60;
     }
 
-    if (v3 == 3)
+    switch(v3)
     {
-      v5 = sub_100145EB0();
-      if (!v5)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else
-    {
-      if (v3 == 2)
-      {
-        v6 = sub_100145D78();
-        if (!v6)
+      case 3:
+        v5 = sub_100145EB0();
+        if (v5)
         {
-          goto LABEL_34;
+LABEL_32:
+          v6 = v5;
+          v7 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
+          v8 = 0;
+          goto LABEL_38;
         }
 
-        v7 = [[NEIKEv2AuthenticationProtocol alloc] initWithSecurePassword:11001];
-        v8 = 1;
-LABEL_38:
-        v9 = sub_1001472F0(1, v6, v7);
-        [v9 setSharedSecret:v4];
-        if (v8)
+        break;
+      case 2:
+        v6 = sub_100145D78();
+        if (v6)
         {
-          v10 = sub_100127A30(v4, *(a1 + 256));
-          if (!v10)
+          v7 = [[NEIKEv2AuthenticationProtocol alloc] initWithSecurePassword:11001];
+          v8 = 1;
+LABEL_38:
+          v9 = sub_1001472F0(1, v6, v7);
+          [v9 setSharedSecret:v4];
+          if (v8)
           {
-            v36 = sub_100123258();
-            IsLevelEnabled = _NRLogIsLevelEnabled();
-
-            if (!IsLevelEnabled)
+            v10 = sub_100127A30(v4, *(a1 + 256));
+            if (!v10)
             {
+              v36 = sub_100123258();
+              IsLevelEnabled = _NRLogIsLevelEnabled();
+
+              if (!IsLevelEnabled)
+              {
+                goto LABEL_59;
+              }
+
+              v35 = sub_100123258();
+              _NRLogWithArgs(v35, 17, "%@: Failed to derive PPK", a1);
+              goto LABEL_67;
+            }
+
+            v11 = v10;
+            [v9 setPpk:v10];
+            [v9 setPpkMandatory:1];
+            [v9 setPpkIDType:1];
+          }
+
+          if (qword_100229238 != -1)
+          {
+            dispatch_once(&qword_100229238, &stru_1001FC340);
+          }
+
+          if (byte_100229230 == 1)
+          {
+            v51 = v7;
+            v12 = sub_10014EAC4(*(a1 + 64), 5u, 0);
+            if (![v12 count])
+            {
+              v38 = v12;
+              v39 = sub_100123258();
+              v40 = _NRLogIsLevelEnabled();
+
+              if (v40)
+              {
+                v41 = sub_100123258();
+                _NRLogWithArgs(v41, 16, "%s%.30s:%-4d %@: Failed to create pairing control session, no peer endpoints present", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2177, a1);
+              }
+
               goto LABEL_59;
             }
 
-            v35 = sub_100123258();
-            goto LABEL_67;
-          }
+            v48 = v12;
+            v13 = [v12 firstObject];
+            v14 = [v13 copy];
 
-          v11 = v10;
-          [v9 setPpk:v10];
-          [v9 setPpkMandatory:1];
-          [v9 setPpkIDType:1];
-        }
-
-        if (qword_100229238 != -1)
-        {
-          dispatch_once(&qword_100229238, &stru_1001FC340);
-        }
-
-        if (byte_100229230 == 1)
-        {
-          v51 = v7;
-          v12 = sub_10014EAC4(*(a1 + 64), 5u, 0);
-          if (![v12 count])
-          {
-            v38 = v12;
-            v39 = sub_100123258();
-            v40 = _NRLogIsLevelEnabled();
-
-            if (v40)
+            v49 = v14;
+            v15 = [v14 hostname];
+            v16 = sub_100015954(NRIKEv2Listener);
+            v17 = @"62743";
+            if (!v16)
             {
-              v41 = sub_100123258();
-              _NRLogWithArgs();
+              v17 = 0;
             }
 
-            goto LABEL_59;
-          }
+            v18 = v17;
+            v19 = [NWAddressEndpoint endpointWithHostname:v15 port:v18];
 
-          v48 = v12;
-          v13 = [v12 firstObject];
-          v14 = [v13 copy];
-
-          v49 = v14;
-          v15 = [v14 hostname];
-          v16 = sub_100015954();
-          v17 = @"62743";
-          if (!v16)
-          {
-            v17 = 0;
-          }
-
-          v18 = v17;
-          v19 = [NWAddressEndpoint endpointWithHostname:v15 port:v18];
-
-          if (!v19)
-          {
-            v42 = sub_100123258();
-            v43 = _NRLogIsLevelEnabled();
-
-            if (v43)
+            if (!v19)
             {
-              v44 = sub_100123258();
-              _NRLogWithArgs();
+              v42 = sub_100123258();
+              v43 = _NRLogIsLevelEnabled();
+
+              if (v43)
+              {
+                v44 = sub_100123258();
+                _NRLogWithArgs(v44, 16, "%s%.30s:%-4d %@: Unable to create endpoint from %@", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2184, a1, v49);
+              }
+
+              v7 = v51;
+              goto LABEL_59;
+            }
+
+            v20 = sub_10014EDA8(*(a1 + 64));
+            if (v20)
+            {
+              v21 = sub_100146274(1);
+              [v21 setRequestPPK:v8];
+              [v21 setRandomizeLocalPort:1];
+              [v21 setForceUDPEncapsulation:1];
+              [v21 setRemoteEndpoint:v19];
+              [v21 setOutgoingInterfaceName:v20];
+              v52[0] = 0;
+              v52[1] = 0;
+              v22 = sub_100127AA4(a1);
+              [v22 getUUIDBytes:v52];
+
+              v23 = [[NSData alloc] initWithBytes:v52 length:16];
+              v24 = [[NEIKEv2KeyIDIdentifier alloc] initWithKeyID:v23];
+              [v9 setLocalIdentifier:v24];
+
+              v25 = [[NEIKEv2Session alloc] initWithIKEConfig:v21 firstChildConfig:0 sessionConfig:v9 queue:*(a1 + 24) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKE-Pairing-Auth-Listener" packetDelegate:0];
+              v26 = *(a1 + 184);
+              *(a1 + 184) = v25;
+
+              v27 = v48;
+            }
+
+            else
+            {
+              v45 = sub_100123258();
+              v46 = _NRLogIsLevelEnabled();
+
+              v27 = v48;
+              if (v46)
+              {
+                v47 = sub_100123258();
+                _NRLogWithArgs(v47, 16, "%s%.30s:%-4d %@: Failed to create pairing control session, no outgoing interface name", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2191, a1);
+              }
             }
 
             v7 = v51;
-            goto LABEL_59;
-          }
-
-          v20 = sub_10014EDA8(*(a1 + 64));
-          if (v20)
-          {
-            v21 = sub_100146274(1);
-            [v21 setRequestPPK:v8];
-            [v21 setRandomizeLocalPort:1];
-            [v21 setForceUDPEncapsulation:1];
-            [v21 setRemoteEndpoint:v19];
-            [v21 setOutgoingInterfaceName:v20];
-            v52[0] = 0;
-            v52[1] = 0;
-            v22 = sub_100127AA4(a1);
-            [v22 getUUIDBytes:v52];
-
-            v23 = [[NSData alloc] initWithBytes:v52 length:16];
-            v24 = [[NEIKEv2KeyIDIdentifier alloc] initWithKeyID:v23];
-            [v9 setLocalIdentifier:v24];
-
-            v25 = [[NEIKEv2Session alloc] initWithIKEConfig:v21 firstChildConfig:0 sessionConfig:v9 queue:*(a1 + 24) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKE-Pairing-Auth-Listener" packetDelegate:0];
-            v26 = *(a1 + 184);
-            *(a1 + 184) = v25;
-
-            v27 = v48;
+            if (!v20)
+            {
+              goto LABEL_59;
+            }
           }
 
           else
           {
-            v45 = sub_100123258();
-            v46 = _NRLogIsLevelEnabled();
+            v28 = sub_100146274(1);
+            sub_100146C38(v28);
+            [v28 setRequestPPK:v8];
+            v29 = objc_alloc_init(NEIKEv2NULLIdentifier);
+            [v9 setLocalIdentifier:v29];
 
-            v27 = v48;
-            if (v46)
-            {
-              v47 = sub_100123258();
-              _NRLogWithArgs();
-            }
+            v30 = [[NEIKEv2Session alloc] initWithIKEConfig:v28 firstChildConfig:0 sessionConfig:v9 queue:*(a1 + 24) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKE-Pairing-Auth-Listener" packetDelegate:a1];
+            v31 = *(a1 + 184);
+            *(a1 + 184) = v30;
           }
 
-          v7 = v51;
-          if (!v20)
+          if (*(a1 + 184))
           {
+            if (qword_1002291E8 != -1)
+            {
+              dispatch_once(&qword_1002291E8, &stru_1001FC218);
+            }
+
+            if (_NRLogIsLevelEnabled())
+            {
+              v32 = sub_100123258();
+              _NRLogWithArgs(v32, 0, "%s%.30s:%-4d %@: Created pairing session, connecting", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2231, a1);
+            }
+
+            sub_100127AD4(a1);
+            [*(a1 + 184) connect];
             goto LABEL_59;
           }
-        }
 
-        else
-        {
-          v28 = sub_100146274(1);
-          sub_100146C38(v28);
-          [v28 setRequestPPK:v8];
-          v29 = objc_alloc_init(NEIKEv2NULLIdentifier);
-          [v9 setLocalIdentifier:v29];
+          v33 = sub_100123258();
+          v34 = _NRLogIsLevelEnabled();
 
-          v30 = [[NEIKEv2Session alloc] initWithIKEConfig:v28 firstChildConfig:0 sessionConfig:v9 queue:*(a1 + 24) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKE-Pairing-Auth-Listener" packetDelegate:a1];
-          v31 = *(a1 + 184);
-          *(a1 + 184) = v30;
-        }
-
-        if (*(a1 + 184))
-        {
-          if (qword_1002291E8 != -1)
+          if (!v34)
           {
-            dispatch_once(&qword_1002291E8, &stru_1001FC218);
+LABEL_59:
+
+            goto LABEL_60;
           }
 
-          if (_NRLogIsLevelEnabled())
-          {
-            v32 = sub_100123258();
-            _NRLogWithArgs();
-          }
+          v35 = sub_100123258();
+          _NRLogWithArgs(v35, 17, "%@: Failed to create pairing session", a1);
+LABEL_67:
 
-          sub_100127AD4(a1);
-          [*(a1 + 184) connect];
           goto LABEL_59;
         }
 
-        v33 = sub_100123258();
-        v34 = _NRLogIsLevelEnabled();
-
-        if (!v34)
+        break;
+      case 1:
+        v5 = sub_100145E14();
+        if (!v5)
         {
-LABEL_59:
-
-          goto LABEL_60;
+          break;
         }
 
-        v35 = sub_100123258();
-LABEL_67:
-        _NRLogWithArgs();
-
-        goto LABEL_59;
-      }
-
-      if (v3 != 1 || (v5 = sub_100145E14()) == 0)
-      {
-LABEL_34:
-        if (qword_1002291E8 != -1)
-        {
-          dispatch_once(&qword_1002291E8, &stru_1001FC218);
-        }
-
-        if (!_NRLogIsLevelEnabled())
-        {
-          goto LABEL_61;
-        }
-
-        goto LABEL_21;
-      }
+        goto LABEL_32;
+      default:
+        break;
     }
 
-    v6 = v5;
-    v7 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
-    v8 = 0;
-    goto LABEL_38;
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    if (!_NRLogIsLevelEnabled())
+    {
+      goto LABEL_61;
+    }
+
+    v6 = sub_100123258();
+    _NRLogWithArgs(v6, 16, "%s%.30s:%-4d %@: Invalid authMethod: %zu", "", "[NRDevicePairingCandidateContext establishPairingSessionIfNeeded]", 2146, a1, v3);
+LABEL_60:
+
+LABEL_61:
+    return;
   }
 
 LABEL_3:
@@ -9130,30 +8002,26 @@ void sub_100127AD4(uint64_t a1)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      v5 = 3718;
-      v6 = a1;
-      v3 = "";
-      v4 = "[NRDevicePairingCandidateContext setupIKECallbacksForPairingSession]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 1, "%s%.30s:%-4d %@: Setting callbacks on pairing session", "", "[NRDevicePairingCandidateContext setupIKECallbacksForPairingSession]", 3718, a1);
     }
 
-    [v2 setClientQueue:{*(a1 + 24), v3, v4, v5, v6}];
+    [v2 setClientQueue:*(a1 + 24)];
     objc_initWeak(&location, a1);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100127CC0;
-    v9[3] = &unk_1001FC0E0;
-    objc_copyWeak(&v10, &location);
-    [v2 setStateUpdateBlock:v9];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10012801C;
-    v7[3] = &unk_1001FC108;
-    objc_copyWeak(&v8, &location);
-    v7[4] = a1;
-    [v2 setPrivateNotifyStatusEvent:v7];
-    objc_destroyWeak(&v8);
-    objc_destroyWeak(&v10);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_100127CC0;
+    v5[3] = &unk_1001FC0E0;
+    objc_copyWeak(&v6, &location);
+    [v2 setStateUpdateBlock:v5];
+    v3[0] = _NSConcreteStackBlock;
+    v3[1] = 3221225472;
+    v3[2] = sub_10012801C;
+    v3[3] = &unk_1001FC108;
+    objc_copyWeak(&v4, &location);
+    v3[4] = a1;
+    [v2 setPrivateNotifyStatusEvent:v3];
+    objc_destroyWeak(&v4);
+    objc_destroyWeak(&v6);
     objc_destroyWeak(&location);
   }
 }
@@ -9184,7 +8052,7 @@ void sub_100127CC0(uint64_t a1, uint64_t a2, void *a3)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Pairing session received state update %zu error %@", "", "[NRDevicePairingCandidateContext setupIKECallbacksForPairingSession]_block_invoke", 3728, WeakRetained, a2, v25);
     }
 
     if (a2 == 2)
@@ -9301,9 +8169,9 @@ void sub_10012801C(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v55 = v3;
+    v52 = v3;
     v5 = [v3 sortedArrayUsingComparator:&stru_1001FC4F0];
-    v54 = a1;
+    v51 = a1;
     if (qword_1002291E8 != -1)
     {
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -9316,35 +8184,30 @@ void sub_10012801C(uint64_t a1, void *a2)
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      v51 = WeakRetained;
-      LogString = v5;
-      v50 = 3744;
-      v48 = "";
-      v49 = "[NRDevicePairingCandidateContext setupIKECallbacksForPairingSession]_block_invoke_2";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Pairing session got private notifies %@", "", "[NRDevicePairingCandidateContext setupIKECallbacksForPairingSession]_block_invoke_2", 3744, WeakRetained, v5);
     }
 
-    v59 = 0u;
-    v60 = 0u;
+    v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v57 objects:v63 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v54 objects:v60 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v58;
-      v56 = v6;
+      v9 = *v55;
+      v53 = v6;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v58 != v9)
+          if (*v55 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v57 + 1) + 8 * i);
+          v12 = *(*(&v54 + 1) + 8 * i);
           v13 = [v12 notifyStatus];
           v14 = [v12 notifyData];
           if (qword_1002291E8 != -1)
@@ -9360,13 +8223,7 @@ void sub_10012801C(uint64_t a1, void *a2)
             }
 
             v15 = qword_1002291E0;
-            LogString = v13;
-            v53 = [v14 length];
-            v50 = 3304;
-            v51 = WeakRetained;
-            v48 = "";
-            v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v15, 2, "%s%.30s:%-4d %@: Received notify code %u len %llu for pairing session", "", "-[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3304, WeakRetained, v13, [v14 length]);
           }
 
           if (v13 <= 50500)
@@ -9382,13 +8239,13 @@ void sub_10012801C(uint64_t a1, void *a2)
 
                 if (v13 == 50351)
                 {
-                  v18 = WeakRetained[31];
-                  v62[0] = _NSConcreteStackBlock;
-                  v62[1] = 3221225472;
-                  v62[2] = sub_10012A428;
-                  v62[3] = &unk_1001FC068;
-                  v62[4] = WeakRetained;
-                  sub_10016E894(NRDLocalDevice, v14, v18, v62);
+                  v18 = *(WeakRetained + 31);
+                  v59[0] = _NSConcreteStackBlock;
+                  v59[1] = 3221225472;
+                  v59[2] = sub_10012A428;
+                  v59[3] = &unk_1001FC068;
+                  v59[4] = WeakRetained;
+                  sub_10016E894(NRDLocalDevice, v14, v18, v59);
                   goto LABEL_13;
                 }
               }
@@ -9410,32 +8267,24 @@ void sub_10012801C(uint64_t a1, void *a2)
                       dispatch_once(&qword_1002291E8, &stru_1001FC218);
                     }
 
-                    v32 = qword_1002291E0;
-                    v51 = WeakRetained;
+                    v33 = qword_1002291E0;
                     LogString = _NRKeyCreateLogString();
-                    v50 = 3417;
-                    v48 = "";
-                    v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(v33, 0, "%s%.30s:%-4d %@: Received remote IDS device ID %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3417, WeakRetained, LogString);
                   }
 
-                  sub_1001756C0(NRDLocalDevice, v16, WeakRetained[31]);
+                  sub_1001756C0(NRDLocalDevice, v16, *(WeakRetained + 31));
                 }
 
                 else
                 {
-                  v38 = sub_100123258();
+                  v40 = sub_100123258();
                   IsLevelEnabled = _NRLogIsLevelEnabled();
 
                   if (IsLevelEnabled)
                   {
-                    v40 = sub_100123258();
-                    v51 = WeakRetained;
-                    LogString = _NRKeyCreateLogString();
-                    v50 = 3414;
-                    v48 = "";
-                    v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                    _NRLogWithArgs();
+                    v42 = sub_100123258();
+                    v43 = _NRKeyCreateLogString();
+                    _NRLogWithArgs(v42, 16, "%s%.30s:%-4d %@: Failed to decode remote IDS device ID %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3414, WeakRetained, v43);
                   }
                 }
 
@@ -9471,30 +8320,21 @@ void sub_10012801C(uint64_t a1, void *a2)
                           dispatch_once(&qword_1002291E8, &stru_1001FC218);
                         }
 
-                        v31 = qword_1002291E0;
-                        v51 = WeakRetained;
-                        LogString = v16;
-                        v50 = 3384;
-                        v48 = "";
-                        v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                        _NRLogWithArgs();
+                        v32 = qword_1002291E0;
+                        _NRLogWithArgs(v32, 0, "%s%.30s:%-4d %@: Received remote device name %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3384, WeakRetained, v16);
                       }
 
-                      sub_1001716D4(NRDLocalDevice, v16, WeakRetained[31]);
+                      sub_1001716D4(NRDLocalDevice, v16, *(WeakRetained + 31));
                       goto LABEL_121;
                     }
 
-                    v33 = sub_100123258();
-                    v34 = _NRLogIsLevelEnabled();
+                    v35 = sub_100123258();
+                    v36 = _NRLogIsLevelEnabled();
 
-                    if (v34)
+                    if (v36)
                     {
-                      v35 = sub_100123258();
-                      v51 = WeakRetained;
-                      LogString = v14;
-                      v50 = 3381;
-                      v48 = "";
-                      v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
+                      v37 = sub_100123258();
+                      _NRLogWithArgs(v37, 16, "%s%.30s:%-4d %@: Failed to decode remote device name %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3381, WeakRetained, v14);
                       goto LABEL_126;
                     }
                   }
@@ -9517,71 +8357,56 @@ void sub_10012801C(uint64_t a1, void *a2)
                         }
 
                         v17 = qword_1002291E0;
-                        v51 = WeakRetained;
-                        LogString = v16;
-                        v50 = 3395;
-                        v48 = "";
-                        v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                        _NRLogWithArgs();
+                        _NRLogWithArgs(v17, 0, "%s%.30s:%-4d %@: Received remote build version %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3395, WeakRetained, v16);
                       }
 
-                      sub_1001718D8(NRDLocalDevice, v16, WeakRetained[31]);
+                      sub_1001718D8(NRDLocalDevice, v16, *(WeakRetained + 31));
                       goto LABEL_121;
                     }
 
-                    v36 = sub_100123258();
-                    v37 = _NRLogIsLevelEnabled();
+                    v38 = sub_100123258();
+                    v39 = _NRLogIsLevelEnabled();
 
-                    if (v37)
+                    if (v39)
                     {
-                      v35 = sub_100123258();
-                      v51 = WeakRetained;
-                      LogString = v14;
-                      v50 = 3392;
-                      v48 = "";
-                      v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
+                      v37 = sub_100123258();
+                      _NRLogWithArgs(v37, 16, "%s%.30s:%-4d %@: Failed to decode remote build version %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3392, WeakRetained, v14);
 LABEL_126:
-                      _NRLogWithArgs();
                     }
                   }
 
 LABEL_121:
 
-                  v6 = v56;
+                  v6 = v53;
                   goto LABEL_14;
                 }
 
                 if (v13 != 48605)
                 {
-                  LOBYTE(v61) = 0;
+                  LOBYTE(v58) = 0;
                   if ([v14 length] == 1)
                   {
-                    [v14 getBytes:&v61 length:1];
+                    [v14 getBytes:&v58 length:1];
                     if (qword_1002291E8 != -1)
                     {
                       dispatch_once(&qword_1002291E8, &stru_1001FC218);
                     }
 
-                    v27 = qword_1002291E0;
-                    v28 = _NRLogIsLevelEnabled();
+                    v28 = qword_1002291E0;
+                    v29 = _NRLogIsLevelEnabled();
 
-                    if (v28)
+                    if (v29)
                     {
                       if (qword_1002291E8 != -1)
                       {
                         dispatch_once(&qword_1002291E8, &stru_1001FC218);
                       }
 
-                      v29 = qword_1002291E0;
-                      v51 = WeakRetained;
-                      LogString = v61;
-                      v50 = 3404;
-                      v48 = "";
-                      v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                      _NRLogWithArgs();
+                      v30 = qword_1002291E0;
+                      _NRLogWithArgs(v30, 0, "%s%.30s:%-4d %@: Received remote device type %u", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3404, WeakRetained, v58);
                     }
 
-                    sub_1001714EC(NRDLocalDevice, v61, WeakRetained[31]);
+                    sub_1001714EC(NRDLocalDevice, v58, *(WeakRetained + 31));
                   }
 
                   goto LABEL_14;
@@ -9600,12 +8425,7 @@ LABEL_91:
                     dispatch_once(&qword_1002291E8, &stru_1001FC218);
                   }
 
-                  v51 = WeakRetained;
-                  LogString = v13;
-                  v50 = 3516;
-                  v48 = "";
-                  v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: Pairing session received unexpected notify code %u", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3516, WeakRetained, v13);
                 }
 
                 goto LABEL_14;
@@ -9618,11 +8438,11 @@ LABEL_91:
 
               if (v13 == 48602)
               {
-                v61 = 0;
+                v58 = 0;
                 if ([v14 length] >= 2)
                 {
-                  [v14 getBytes:&v61 length:2];
-                  v21 = v61;
+                  [v14 getBytes:&v58 length:2];
+                  v21 = v58;
                   if (qword_1002291E8 != -1)
                   {
                     dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -9640,16 +8460,11 @@ LABEL_91:
                     }
 
                     v25 = qword_1002291E0;
-                    v51 = WeakRetained;
-                    LogString = v22;
-                    v50 = 3373;
-                    v48 = "";
-                    v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                    _NRLogWithArgs();
+                    _NRLogWithArgs(v25, 0, "%s%.30s:%-4d %@: Received remote terminus version %u", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3373, WeakRetained, v22);
                   }
 
-                  sub_100171304(NRDLocalDevice, v22, WeakRetained[31]);
-                  v6 = v56;
+                  sub_100171304(NRDLocalDevice, v22, *(WeakRetained + 31));
+                  v6 = v53;
                 }
 
                 goto LABEL_14;
@@ -9670,7 +8485,7 @@ LABEL_91:
 
               if (v13 == 50503)
               {
-                sub_100172AC4(NRDLocalDevice, v14, WeakRetained[31]);
+                sub_100172AC4(NRDLocalDevice, v14, *(WeakRetained + 31));
                 if (qword_1002291E8 != -1)
                 {
                   dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -9684,13 +8499,8 @@ LABEL_91:
                   }
 
                   v26 = qword_1002291E0;
-                  LogString = _NRKeyCreateLogString();
-                  v53 = WeakRetained[31];
-                  v50 = 3311;
-                  v51 = WeakRetained;
-                  v48 = "";
-                  v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-                  _NRLogWithArgs();
+                  v27 = _NRKeyCreateLogString();
+                  _NRLogWithArgs(v26, 0, "%s%.30s:%-4d %@: Plumbed BT OOBK=%@ %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3311, WeakRetained, v27, *(WeakRetained + 31));
                 }
 
                 goto LABEL_13;
@@ -9706,13 +8516,13 @@ LABEL_91:
 
               if (v13 == 50504)
               {
-                v11 = WeakRetained[31];
-                v69 = _NSConcreteStackBlock;
-                v70 = 3221225472;
-                v71 = sub_100129CD0;
-                v72 = &unk_1001FC068;
-                v73 = WeakRetained;
-                sub_10016F27C(NRDLocalDevice, v14, 1, v11, &v69);
+                v11 = *(WeakRetained + 31);
+                v66 = _NSConcreteStackBlock;
+                v67 = 3221225472;
+                v68 = sub_100129CD0;
+                v69 = &unk_1001FC068;
+                v70 = WeakRetained;
+                sub_10016F27C(NRDLocalDevice, v14, 1, v11, &v66);
 LABEL_13:
                 *(WeakRetained + 10) = 1;
                 goto LABEL_14;
@@ -9720,13 +8530,13 @@ LABEL_13:
 
               if (v13 == 50505)
               {
-                v19 = WeakRetained[31];
-                v64 = _NSConcreteStackBlock;
-                v65 = 3221225472;
-                v66 = sub_10012A07C;
-                v67 = &unk_1001FC068;
-                v68 = WeakRetained;
-                sub_10016F524(NRDLocalDevice, v14, 1, v19, &v64);
+                v19 = *(WeakRetained + 31);
+                v61 = _NSConcreteStackBlock;
+                v62 = 3221225472;
+                v63 = sub_10012A07C;
+                v64 = &unk_1001FC068;
+                v65 = WeakRetained;
+                sub_10016F524(NRDLocalDevice, v14, 1, v19, &v61);
                 goto LABEL_13;
               }
             }
@@ -9744,13 +8554,8 @@ LABEL_99:
                 dispatch_once(&qword_1002291E8, &stru_1001FC218);
               }
 
-              v30 = qword_1002291E0;
-              v51 = WeakRetained;
-              LogString = v13;
-              v50 = 3523;
-              v48 = "";
-              v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-              _NRLogWithArgs();
+              v31 = qword_1002291E0;
+              _NRLogWithArgs(v31, 16, "%s%.30s:%-4d %@: Received unknown notify code %u", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3523, WeakRetained, v13);
             }
 
             goto LABEL_14;
@@ -9786,8 +8591,8 @@ LABEL_99:
             goto LABEL_99;
           }
 
-          LOBYTE(v61) = 0;
-          [v14 getBytes:&v61 length:1];
+          LOBYTE(v58) = 0;
+          [v14 getBytes:&v58 length:1];
           if (qword_1002291E8 != -1)
           {
             dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -9801,26 +8606,21 @@ LABEL_99:
             }
 
             v20 = qword_1002291E0;
-            v51 = WeakRetained;
-            LogString = v61;
-            v50 = 3425;
-            v48 = "";
-            v49 = "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v20, 0, "%s%.30s:%-4d %@: Received Always On Wi-Fi supported: %u", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]", 3425, WeakRetained, v58);
           }
 
-          sub_100171ADC(NRDLocalDevice, v61 == 1, WeakRetained[31]);
+          sub_100171ADC(NRDLocalDevice, v58 == 1, *(WeakRetained + 31));
 LABEL_14:
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v57 objects:v63 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v54 objects:v60 count:16];
       }
 
       while (v8);
     }
 
-    v41 = *(v54 + 32);
-    if (v41 && *(v41 + 10) == 1)
+    v44 = *(v51 + 32);
+    if (v44 && *(v44 + 10) == 1)
     {
       if (qword_100229238 != -1)
       {
@@ -9829,15 +8629,15 @@ LABEL_14:
 
       if (byte_100229230 == 1)
       {
-        sub_100128FC4(v41);
-        sub_100123ADC(NRDevicePairingCandidateContext, (v41 + 176));
-        sub_100123ADC(NRDevicePairingCandidateContext, (v41 + 184));
+        sub_100128FC4(v44);
+        sub_100123ADC(NRDevicePairingCandidateContext, (v44 + 176));
+        sub_100123ADC(NRDevicePairingCandidateContext, (v44 + 184));
       }
 
       else
       {
-        *(v41 + 11) = 1;
-        v42 = [*(v41 + 96) peer];
+        *(v44 + 11) = 1;
+        v45 = [*(v44 + 96) peer];
         if (qword_1002291E8 != -1)
         {
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -9850,34 +8650,1271 @@ LABEL_14:
             dispatch_once(&qword_1002291E8, &stru_1001FC218);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Starting BT pairing to %@", "", "[NRDevicePairingCandidateContext advancePairingIfReady]", 2992, v44, v45);
         }
 
-        v43 = objc_loadWeakRetained((v41 + 16));
-        v44 = v43;
-        if (v43)
+        v46 = objc_loadWeakRetained((v44 + 16));
+        v47 = v46;
+        if (v46)
         {
-          v45 = *(v43 + 14);
+          v48 = *(v46 + 14);
         }
 
         else
         {
-          v45 = 0;
+          v48 = 0;
         }
 
-        v64 = CBPairingOptionsUseMITMAuthentication;
-        v65 = CBPairingOptionsDistributeIRK;
-        v69 = &__kCFBooleanTrue;
-        v70 = &__kCFBooleanTrue;
-        v46 = v45;
-        v47 = [NSDictionary dictionaryWithObjects:&v69 forKeys:&v64 count:2];
-        [v46 pairPeer:v42 options:v47];
+        v61 = CBPairingOptionsUseMITMAuthentication;
+        v62 = CBPairingOptionsDistributeIRK;
+        v66 = &__kCFBooleanTrue;
+        v67 = &__kCFBooleanTrue;
+        v49 = v48;
+        v50 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v61 count:2];
+        [v49 pairPeer:v45 options:v50];
 
-        sub_100123ADC(NRDevicePairingCandidateContext, (v41 + 176));
-        sub_100123ADC(NRDevicePairingCandidateContext, (v41 + 184));
+        sub_100123ADC(NRDevicePairingCandidateContext, (v44 + 176));
+        sub_100123ADC(NRDevicePairingCandidateContext, (v44 + 184));
       }
     }
 
-    v3 = v55;
+    v3 = v52;
   }
+}
+
+void sub_100128FC4(id val)
+{
+  v2 = val;
+  objc_initWeak(&location, val);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_1001293F4;
+  v24[3] = &unk_1001FBFA0;
+  objc_copyWeak(&v25, &location);
+  v3 = objc_retainBlock(v24);
+  if (!*(v2 + 31))
+  {
+    v15 = sub_100123258();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v17 = sub_100123258();
+      _NRLogWithArgs(v17, 17, "%@: Cannot register pairing candidate with no NRUUID", v2);
+    }
+  }
+
+  v4 = *(v2 + 31);
+  v5 = sub_100163B2C(NRDLocalDevice, v4, 0);
+
+  if (!v5)
+  {
+    v18 = sub_100123258();
+    v19 = _NRLogIsLevelEnabled();
+
+    if (v19)
+    {
+      v20 = sub_100123258();
+      _NRLogWithArgs(v20, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRDevicePairingCandidateContext registerDevice]", 2558);
+    }
+
+    v2 = _os_log_pack_size();
+    v3 = (&v24[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
+    v21 = __error();
+    v22 = _os_log_pack_fill(v3, v2, *v21, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v22 = 136446210;
+    *(v22 + 4) = "[NRDevicePairingCandidateContext registerDevice]";
+    sub_100123258();
+    _NRLogAbortWithPack();
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v6 = *(v2 + 5);
+  v4 = [v6 operationalProperties];
+
+  if (!v4)
+  {
+    v4 = +[NRDeviceOperationalProperties copyPropertiesForDefaultPairedPhone];
+  }
+
+  sub_10013E868(v4);
+  v1 = &qword_100229000;
+  if (qword_1002291E8 != -1)
+  {
+LABEL_16:
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  v7 = qword_1002291E0;
+  v8 = _NRLogIsLevelEnabled();
+
+  if (v8)
+  {
+    if (v1[61] != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v9 = qword_1002291E0;
+    v10 = v5[3];
+    _NRLogWithArgs(v9, 0, "%s%.30s:%-4d %@: Registering Device with nruuid:%@", "", "[NRDevicePairingCandidateContext registerDevice]", 2570, v2, v10);
+  }
+
+  v11 = v5[3];
+  sub_100171120(NRDLocalDevice, v11);
+
+  v12 = v5[3];
+  v13 = *(v2 + 5);
+  v14 = [v13 properties];
+  sub_100169CF4(NRDLocalDevice, v12, 0, 0, 0, 0, 0, [v14 isAltAccountPairing], 0, 1, *(v2 + 6), 0, 0, v4, 0, @"nr-modern-device-pairing-registration", v3);
+
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(&location);
+}
+
+void sub_1001293C4(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 96));
+  _Unwind_Resume(a1);
+}
+
+void sub_1001293F4(uint64_t a1, unsigned __int8 *a2, void *a3)
+{
+  v13 = a3;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d Completed peer registration with res %lld %@", "", "[NRDevicePairingCandidateContext registerDevice]_block_invoke", 2535, a2, v13);
+  }
+
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = WeakRetained;
+  if (WeakRetained)
+  {
+    if (sub_100123434(WeakRetained))
+    {
+      v7 = objc_loadWeakRetained(v6 + 2);
+      v8 = v7;
+      if (a2)
+      {
+        if (v7)
+        {
+          sub_1001246D8(v7, a2, 0xCuLL, 0);
+          sub_100129A18(v8);
+        }
+      }
+
+      else
+      {
+        sub_1001295DC(v7);
+      }
+
+      goto LABEL_13;
+    }
+
+    v11 = sub_100123258();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v8 = sub_100123258();
+      _NRLogWithArgs(v8, 16, "%s%.30s:%-4d %@: Pairing result for stale pairing request", "", "[NRDevicePairingCandidateContext registerDevice]_block_invoke", 2542, v6);
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v9 = sub_100123258();
+    v10 = _NRLogIsLevelEnabled();
+
+    if (v10)
+    {
+      v8 = sub_100123258();
+      _NRLogWithArgs(v8, 16, "%s%.30s:%-4d Invalid pairing candidate");
+LABEL_13:
+    }
+  }
+}
+
+void sub_1001295DC(uint64_t a1)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  v1 = a1;
+  v2 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 64)];
+  v3 = *(v1 + 8);
+  *(v1 + 8) = 0;
+
+  v4 = [NRDeviceIdentifier alloc];
+  if (v2)
+  {
+    v5 = *(v2 + 248);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = [v4 initWithUUID:v5];
+  v7 = [[NRPairedDevice alloc] initWithDeviceIdentifier:v6];
+  v8 = v7;
+  if (v2)
+  {
+    v9 = *(v2 + 40);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  [v7 setDevice:v9];
+  v10 = [v8 device];
+  [v10 setAuthData:0];
+
+  v11 = &v39;
+  v12 = xpc_dictionary_create(0, 0, 0);
+  if (!v12)
+  {
+    v23 = sub_100123258();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v25 = sub_100123258();
+      _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
+    }
+
+    v2 = _os_log_pack_size();
+    v1 = &uuid[-((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+    v26 = __error();
+    v27 = _os_log_pack_fill(v1, v2, *v26, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+    sub_1000F4320(v27, "nr_xpc_dictionary_create");
+    sub_100123258();
+    _NRLogAbortWithPack();
+    goto LABEL_25;
+  }
+
+  v13 = nrXPCKeyPairedDevice;
+  v11 = v12;
+  v14 = v8;
+  v8 = v14;
+  if (!v13)
+  {
+LABEL_25:
+    v28 = sub_100123258();
+    v29 = _NRLogIsLevelEnabled();
+
+    if (!v29)
+    {
+      goto LABEL_13;
+    }
+
+    v30 = sub_100123258();
+    _NRLogWithArgs(v30, 17, "%s called with null key");
+    goto LABEL_29;
+  }
+
+  if (v14)
+  {
+    *uuid = 0;
+    v15 = [NSKeyedArchiver archivedDataWithRootObject:v14 requiringSecureCoding:1 error:uuid];
+    v16 = *uuid;
+    if (v16 || ![v15 length])
+    {
+      v33 = sub_100123258();
+      v34 = _NRLogIsLevelEnabled();
+
+      if (v34)
+      {
+        v35 = sub_100123258();
+        _NRLogWithArgs(v35, 17, "Failed to archive %@: %@", v8, v16);
+      }
+    }
+
+    else
+    {
+      xpc_dictionary_set_data(v11, v13, [v15 bytes], objc_msgSend(v15, "length"));
+    }
+
+    goto LABEL_13;
+  }
+
+  v31 = sub_100123258();
+  v32 = _NRLogIsLevelEnabled();
+
+  if (v32)
+  {
+    v30 = sub_100123258();
+    _NRLogWithArgs(v30, 17, "%s called with null object");
+LABEL_29:
+  }
+
+LABEL_13:
+
+  if (v2)
+  {
+    v17 = [*(v2 + 32) cbUUID];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = nrXPCKeyBluetoothUUID;
+      v20 = v11;
+      if (v19)
+      {
+        *uuid = 0;
+        v41 = 0;
+        [v18 getUUIDBytes:uuid];
+        xpc_dictionary_set_uuid(v20, v19, uuid);
+      }
+
+      else
+      {
+        v36 = sub_100123258();
+        v37 = _NRLogIsLevelEnabled();
+
+        if (v37)
+        {
+          v38 = sub_100123258();
+          _NRLogWithArgs(v38, 17, "%s called with null key", "nr_xpc_dictionary_set_nsuuid");
+        }
+      }
+    }
+  }
+
+  sub_1001246D8(v1, 0, 0xCuLL, v11);
+  v21 = *(v1 + 17);
+  if (v21)
+  {
+    dispatch_source_cancel(v21);
+    v22 = *(v1 + 17);
+    *(v1 + 17) = 0;
+  }
+}
+
+void sub_100129A18(uint64_t a1)
+{
+  if (a1)
+  {
+    v17 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 64)];
+    v2 = *(a1 + 64);
+    *(a1 + 64) = 0;
+
+    v3 = v17;
+    if (v17)
+    {
+      sub_100123ADC(NRDevicePairingCandidateContext, (v17 + 184));
+      v4 = *(v17 + 40);
+      *(v17 + 40) = 0;
+
+      sub_1001242E0(v17, 0);
+      v5 = *(v17 + 272);
+      *(v17 + 272) = 0;
+
+      v6 = *(v17 + 264);
+      *(v17 + 264) = 0;
+
+      v7 = *(v17 + 216);
+      *(v17 + 216) = 0;
+
+      v8 = *(v17 + 224);
+      *(v17 + 224) = 0;
+
+      v9 = *(v17 + 232);
+      *(v17 + 232) = 0;
+
+      v10 = *(v17 + 240);
+      *(v17 + 240) = 0;
+
+      v3 = v17;
+      *(v17 + 10) = 0;
+      v11 = *(v17 + 248);
+      if (v11)
+      {
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 3221225472;
+        v18[2] = sub_100129BE4;
+        v18[3] = &unk_1001FBF50;
+        v18[4] = v17;
+        sub_10016BD8C(NRDLocalDevice, v11, v18);
+        v12 = *(v17 + 248);
+        *(v17 + 248) = 0;
+
+        v3 = v17;
+      }
+    }
+
+    v13 = *(a1 + 136);
+    if (v13)
+    {
+      dispatch_source_cancel(v13);
+      v14 = *(a1 + 136);
+      *(a1 + 136) = 0;
+
+      v3 = v17;
+    }
+
+    v15 = *(a1 + 112);
+    if (v15)
+    {
+      [v15 setDelegate:0];
+      v16 = *(a1 + 112);
+      *(a1 + 112) = 0;
+
+      v3 = v17;
+    }
+  }
+}
+
+void sub_100129BE4(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Device unregistered with res %lld %@", "", "[NRDevicePairingCandidateContext invalidatePairingState]_block_invoke", 1930, *(a1 + 32), a2, v5);
+  }
+}
+
+void sub_100129CD0(uint64_t a1, void *a2)
+{
+  v24 = a2;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Plumbed classD keys %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke", 3321, *(a1 + 32), v24);
+  }
+
+  if (v24)
+  {
+    v3 = v24[9];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v5 = *(a1 + 32);
+    v6 = qword_1002291E0;
+    if (v4)
+    {
+      v7 = *(v4 + 1);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v8 = v7;
+    v9 = sub_10015E4BC(v8);
+    LogString = _NRKeyCreateLogString();
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d %@: classDRemotePublicKey=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke", 3324, v5, LogString);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v11 = *(a1 + 32);
+    v12 = qword_1002291E0;
+    if (v4)
+    {
+      v13 = *(v4 + 2);
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = v13;
+    v15 = sub_10015E4BC(v14);
+    v16 = _NRKeyCreateLogString();
+    _NRLogWithArgs(v12, 0, "%s%.30s:%-4d %@: classDLocalPublicKey=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke", 3326, v11, v16);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v17 = *(a1 + 32);
+    v18 = qword_1002291E0;
+    if (v4)
+    {
+      v19 = *(v4 + 3);
+      v20 = v19;
+      if (v19)
+      {
+        v21 = *(v19 + 2);
+LABEL_33:
+        v22 = v21;
+        v23 = _NRKeyCreateLogString();
+        _NRLogWithArgs(v18, 0, "%s%.30s:%-4d %@: classDSharedSecret=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke", 3328, v17, v23);
+
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v21 = 0;
+    goto LABEL_33;
+  }
+
+LABEL_34:
+}
+
+void sub_10012A07C(uint64_t a1, void *a2)
+{
+  v24 = a2;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Plumbed classC keys %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_2", 3339, *(a1 + 32), v24);
+  }
+
+  if (v24)
+  {
+    v3 = v24[10];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v5 = *(a1 + 32);
+    v6 = qword_1002291E0;
+    if (v4)
+    {
+      v7 = *(v4 + 1);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v8 = v7;
+    v9 = sub_10015E4BC(v8);
+    LogString = _NRKeyCreateLogString();
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d %@: classCRemotePublicKey=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_2", 3342, v5, LogString);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v11 = *(a1 + 32);
+    v12 = qword_1002291E0;
+    if (v4)
+    {
+      v13 = *(v4 + 2);
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = v13;
+    v15 = sub_10015E4BC(v14);
+    v16 = _NRKeyCreateLogString();
+    _NRLogWithArgs(v12, 0, "%s%.30s:%-4d %@: classCLocalPublicKey=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_2", 3344, v11, v16);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v17 = *(a1 + 32);
+    v18 = qword_1002291E0;
+    if (v4)
+    {
+      v19 = *(v4 + 3);
+      v20 = v19;
+      if (v19)
+      {
+        v21 = *(v19 + 2);
+LABEL_33:
+        v22 = v21;
+        v23 = _NRKeyCreateLogString();
+        _NRLogWithArgs(v18, 0, "%s%.30s:%-4d %@: classCSharedSecret=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_2", 3346, v17, v23);
+
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v21 = 0;
+    goto LABEL_33;
+  }
+
+LABEL_34:
+}
+
+void sub_10012A428(uint64_t a1, void *a2)
+{
+  v17 = a2;
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Plumbed device identity %@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_3", 3356, *(a1 + 32), v17);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v3 = *(a1 + 32);
+    v4 = qword_1002291E0;
+    if (v17)
+    {
+      v5 = v17[8];
+      v6 = v5;
+      if (v5)
+      {
+        v7 = *(v5 + 1);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+      v7 = 0;
+    }
+
+    v8 = v7;
+    v9 = [v8 UUIDString];
+    _NRLogWithArgs(v4, 0, "%s%.30s:%-4d %@: deviceIdentityUUID=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_3", 3358, v3, v9);
+  }
+
+  if (qword_1002291E8 != -1)
+  {
+    dispatch_once(&qword_1002291E8, &stru_1001FC218);
+  }
+
+  if (_NRLogIsLevelEnabled())
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    v10 = *(a1 + 32);
+    v11 = qword_1002291E0;
+    if (v17)
+    {
+      v12 = v17[8];
+      v13 = v12;
+      if (v12)
+      {
+        v14 = *(v12 + 2);
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = 0;
+    }
+
+    v15 = v14;
+    LogString = _NRKeyCreateLogString();
+    _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@: deviceIdentityPublicKey=%@", "", "[NRDevicePairingCandidateContext handleNotifyCodeForPairingSession:payload:]_block_invoke_3", 3360, v10, LogString);
+  }
+}
+
+uint64_t sub_10012A6E4(uint64_t a1)
+{
+  v2 = *(a1 + 216);
+  if (v2)
+  {
+
+    goto LABEL_22;
+  }
+
+  if (qword_100229238 != -1)
+  {
+    dispatch_once(&qword_100229238, &stru_1001FC340);
+  }
+
+  if (byte_100229230)
+  {
+LABEL_22:
+    WeakRetained = objc_loadWeakRetained((a1 + 16));
+    v16 = [*(a1 + 32) cbUUID];
+    v17 = sub_100168BE8(NRDLocalDevice, v16, 0);
+    if (v17)
+    {
+      v18 = v17;
+      v19 = &qword_100229000;
+      if ((v17->_databaseFlags & 1) == 0)
+      {
+        if (qword_1002291E8 != -1)
+        {
+          dispatch_once(&qword_1002291E8, &stru_1001FC218);
+        }
+
+        if (_NRLogIsLevelEnabled())
+        {
+          if (qword_1002291E8 != -1)
+          {
+            dispatch_once(&qword_1002291E8, &stru_1001FC218);
+          }
+
+          _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Unregistered device %@ already exists", "", "[NRDevicePairingCandidateContext prepareLocalDeviceForPairing]", 2709, a1, v18);
+        }
+
+        v20 = v18->_nrUUID;
+        v80[0] = _NSConcreteStackBlock;
+        v80[1] = 3221225472;
+        v80[2] = sub_10012BBD8;
+        v80[3] = &unk_1001FBF50;
+        v80[4] = a1;
+        sub_10016BD8C(NRDLocalDevice, v20, v80);
+
+        goto LABEL_65;
+      }
+
+      if (qword_1002291E8 != -1)
+      {
+        dispatch_once(&qword_1002291E8, &stru_1001FC218);
+      }
+
+      if (_NRLogIsLevelEnabled())
+      {
+        if (qword_1002291E8 != -1)
+        {
+          dispatch_once(&qword_1002291E8, &stru_1001FC218);
+        }
+
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: Paired device %@ already exists", "", "[NRDevicePairingCandidateContext prepareLocalDeviceForPairing]", 2717, a1, v18);
+      }
+
+      v26 = v79;
+      v27 = xpc_dictionary_create(0, 0, 0);
+      if (v27)
+      {
+        v28 = nrXPCKeyBluetoothUUID;
+        v26 = v27;
+        v29 = v16;
+        v19 = v29;
+        if (v28)
+        {
+          if (v29)
+          {
+            *uuid = 0;
+            v83 = 0;
+            [v29 getUUIDBytes:uuid];
+            xpc_dictionary_set_uuid(v26, v28, uuid);
+            goto LABEL_45;
+          }
+
+          v70 = sub_100123258();
+          IsLevelEnabled = _NRLogIsLevelEnabled();
+
+          if (!IsLevelEnabled)
+          {
+LABEL_45:
+
+            v30 = nrXPCKeyNRUUID;
+            v31 = v18->_nrUUID;
+            v32 = v26;
+            v33 = v31;
+            v34 = v33;
+            if (v30)
+            {
+              if (v33)
+              {
+                *uuid = 0;
+                v83 = 0;
+                [(NSUUID *)v33 getUUIDBytes:uuid];
+                xpc_dictionary_set_uuid(v32, v30, uuid);
+LABEL_48:
+
+                if (WeakRetained)
+                {
+                  sub_1001246D8(WeakRetained, 0xFFFFFFFFFFFFF441, 0xCuLL, v32);
+                  sub_100129A18(WeakRetained);
+                }
+
+                v81 = 1;
+
+                goto LABEL_70;
+              }
+
+              v72 = sub_100123258();
+              v73 = _NRLogIsLevelEnabled();
+
+              if (!v73)
+              {
+                goto LABEL_48;
+              }
+
+              v69 = sub_100123258();
+              _NRLogWithArgs(v69, 17, "%s called with null uuid");
+            }
+
+            else
+            {
+              v67 = sub_100123258();
+              v68 = _NRLogIsLevelEnabled();
+
+              if (!v68)
+              {
+                goto LABEL_48;
+              }
+
+              v69 = sub_100123258();
+              _NRLogWithArgs(v69, 17, "%s called with null key");
+            }
+
+            goto LABEL_48;
+          }
+
+          v66 = sub_100123258();
+          _NRLogWithArgs(v66, 17, "%s called with null uuid");
+LABEL_95:
+
+          goto LABEL_45;
+        }
+      }
+
+      else
+      {
+        v59 = sub_100123258();
+        v60 = _NRLogIsLevelEnabled();
+
+        if (v60)
+        {
+          v61 = sub_100123258();
+          _NRLogWithArgs(v61, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
+        }
+
+        WeakRetained = _os_log_pack_size();
+        v16 = v79 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v62 = __error();
+        v63 = _os_log_pack_fill(v16, WeakRetained, *v62, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+        sub_1000F4320(v63, "nr_xpc_dictionary_create");
+        sub_100123258();
+        _NRLogAbortWithPack();
+      }
+
+      v64 = sub_100123258();
+      v65 = _NRLogIsLevelEnabled();
+
+      if (!v65)
+      {
+        goto LABEL_45;
+      }
+
+      v66 = sub_100123258();
+      _NRLogWithArgs(v66, 17, "%s called with null key");
+      goto LABEL_95;
+    }
+
+    v21 = v16;
+    v22 = objc_opt_self();
+    if (v21)
+    {
+      v23 = v22;
+      if (_NRIsUUIDNonZero())
+      {
+        v24 = sub_100003490();
+        dispatch_assert_queue_V2(v24);
+
+        sub_1001619D8(v23);
+        v25 = sub_100168BE8(v23, v21, 0);
+        if (v25)
+        {
+          v18 = v25;
+LABEL_64:
+
+LABEL_65:
+          nrUUID = v18->_nrUUID;
+          goto LABEL_66;
+        }
+
+        v18 = [NRDLocalDevice alloc];
+        if (v18 && (v35 = objc_alloc_init(NSUUID), v18 = sub_10015D20C(v18, v35), v35, v18, v18))
+        {
+          v36 = 0;
+          v37 = v18->_nrUUID;
+        }
+
+        else
+        {
+          v37 = 0;
+          v36 = 1;
+        }
+
+        v38 = v37;
+        if (qword_100229488 != -1)
+        {
+          dispatch_once(&qword_100229488, &stru_1001FD018);
+        }
+
+        if (_NRLogIsLevelEnabled())
+        {
+          if (qword_100229488 != -1)
+          {
+            dispatch_once(&qword_100229488, &stru_1001FD018);
+          }
+
+          _NRLogWithArgs(qword_100229480, 0, "%s%.30s:%-4d Creating new ephemeral local device with random %@ for Bluetooth query %@", "", "+[NRDLocalDevice createEphemeralLocalDeviceForBluetoothUUID:]", 2328, v38, v21);
+        }
+
+        if ((v36 & 1) == 0)
+        {
+          v18->_isEphemeral = 1;
+          if (!v18->_isEmptyPairing)
+          {
+            v18->_isEmptyPairing = 1;
+            sub_10015D3F4(v18);
+          }
+
+          [(NRDLocalDevice *)v18 setBluetoothUUID:v21];
+          [qword_100229428 setObject:v18 forKeyedSubscript:v38];
+          v39 = v18->_nrUUID;
+          v40 = [(NRDLocalDevice *)v18 description];
+          sub_1000059A8(v39, 5000, v40, 0);
+
+          goto LABEL_64;
+        }
+
+        [(NRDLocalDevice *)v18 setBluetoothUUID:v21];
+        [qword_100229428 setObject:v18 forKeyedSubscript:v38];
+
+        if (v18)
+        {
+          goto LABEL_65;
+        }
+
+LABEL_85:
+        nrUUID = 0;
+LABEL_66:
+        objc_storeStrong((a1 + 248), nrUUID);
+        v42 = *(a1 + 248);
+        v43 = sub_10016D388(NRDLocalDevice, v42);
+        v44 = *(a1 + 240);
+        *(a1 + 240) = v43;
+
+        if (*(a1 + 240))
+        {
+          v45 = *(a1 + 248);
+          v79[0] = _NSConcreteStackBlock;
+          v79[1] = 3221225472;
+          v79[2] = sub_10012BCC4;
+          v79[3] = &unk_1001FBFF0;
+          v79[4] = a1;
+          sub_10016D738(NRDLocalDevice, v45, 3, 1, v79);
+          if (*(a1 + 224))
+          {
+            if (*(a1 + 232))
+            {
+              v81 = 1;
+LABEL_70:
+
+              return v81;
+            }
+
+            v52 = sub_100123258();
+            v53 = _NRLogIsLevelEnabled();
+
+            if (v53)
+            {
+              v49 = sub_100123258();
+              _NRLogWithArgs(v49, 16, "%s%.30s:%-4d %@: Failed to get Class C keys", "", "[NRDevicePairingCandidateContext prepareLocalDeviceForPairing]", 2755, a1);
+              goto LABEL_77;
+            }
+
+LABEL_78:
+            v81 = 0;
+            goto LABEL_70;
+          }
+
+          v50 = sub_100123258();
+          v51 = _NRLogIsLevelEnabled();
+
+          if (!v51)
+          {
+            goto LABEL_78;
+          }
+
+          v49 = sub_100123258();
+          _NRLogWithArgs(v49, 16, "%s%.30s:%-4d %@: Failed to get Class D keys", "", "[NRDevicePairingCandidateContext prepareLocalDeviceForPairing]", 2751, a1);
+        }
+
+        else
+        {
+          v47 = sub_100123258();
+          v48 = _NRLogIsLevelEnabled();
+
+          if (!v48)
+          {
+            goto LABEL_78;
+          }
+
+          v49 = sub_100123258();
+          _NRLogWithArgs(v49, 16, "%s%.30s:%-4d %@: Failed to get device identity payload", "", "[NRDevicePairingCandidateContext prepareLocalDeviceForPairing]", 2733, a1);
+        }
+
+LABEL_77:
+
+        goto LABEL_78;
+      }
+
+      v57 = sub_10015B480();
+      v58 = _NRLogIsLevelEnabled();
+
+      if (v58)
+      {
+        v56 = sub_10015B480();
+        _NRLogWithArgs(v56, 17, "called with all-zero bluetoothUUID");
+        goto LABEL_83;
+      }
+    }
+
+    else
+    {
+      v54 = sub_10015B480();
+      v55 = _NRLogIsLevelEnabled();
+
+      if (v55)
+      {
+        v56 = sub_10015B480();
+        _NRLogWithArgs(v56, 17, "%s called with null bluetoothUUID", "+[NRDLocalDevice createEphemeralLocalDeviceForBluetoothUUID:]");
+LABEL_83:
+      }
+    }
+
+    v18 = 0;
+    goto LABEL_85;
+  }
+
+  v3 = [*(a1 + 96) peer];
+  if (!v3)
+  {
+    v74 = sub_100123258();
+    v75 = _NRLogIsLevelEnabled();
+
+    if (v75)
+    {
+      v76 = sub_100123258();
+      _NRLogWithArgs(v76, 16, "%s%.30s:%-4d %@: Can't retrieve BTOOBK with no peer", "", "[NRDevicePairingCandidateContext prepareForBluetoothPairing]", 2662, a1);
+    }
+
+    return 0;
+  }
+
+  v4 = v3;
+  v5 = objc_loadWeakRetained((a1 + 16));
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5[14];
+    if (v7)
+    {
+      goto LABEL_12;
+    }
+
+    v8 = v6[11];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v8;
+  v7 = [v9 sharedPairingAgent];
+
+  [v7 setDelegate:v6];
+  if (v6)
+  {
+    objc_storeStrong(v6 + 14, v7);
+  }
+
+LABEL_12:
+  [v7 setOOBPairingEnabled:1 forPeer:v4];
+  v10 = [v7 retrieveOOBDataForPeer:v4];
+  if (v10)
+  {
+    if (qword_1002291E8 != -1)
+    {
+      dispatch_once(&qword_1002291E8, &stru_1001FC218);
+    }
+
+    if (_NRLogIsLevelEnabled())
+    {
+      if (qword_1002291E8 != -1)
+      {
+        dispatch_once(&qword_1002291E8, &stru_1001FC218);
+      }
+
+      v11 = qword_1002291E0;
+      LogString = _NRKeyCreateLogString();
+      _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@: Retrieved BTOOBK %@", "", "[NRDevicePairingCandidateContext prepareForBluetoothPairing]", 2685, a1, LogString);
+    }
+
+    v13 = v10;
+    v14 = *(a1 + 216);
+    *(a1 + 216) = v13;
+    goto LABEL_20;
+  }
+
+  v77 = sub_100123258();
+  v78 = _NRLogIsLevelEnabled();
+
+  if (v78)
+  {
+    v14 = sub_100123258();
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d %@: Failed to retrieve BTOOBK", "", "[NRDevicePairingCandidateContext prepareForBluetoothPairing]", 2681, a1);
+LABEL_20:
+  }
+
+  if (v10)
+  {
+    goto LABEL_22;
+  }
+
+  return 0;
 }

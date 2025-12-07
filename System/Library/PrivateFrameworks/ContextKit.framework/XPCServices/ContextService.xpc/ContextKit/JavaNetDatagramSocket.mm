@@ -16,9 +16,12 @@
 - (void)close;
 - (void)connectWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)connectWithJavaNetSocketAddress:(id)address;
+- (void)createSocketWithInt:(int)int withJavaNetInetAddress:(id)address;
 - (void)dealloc;
 - (void)disconnect;
+- (void)onBindWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)onClose;
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)onDisconnect;
 - (void)receiveWithJavaNetDatagramPacket:(id)packet;
 - (void)sendWithJavaNetDatagramPacket:(id)packet;
@@ -86,6 +89,28 @@
   }
 
   [(JavaNetDatagramSocketImpl *)impl onDisconnect];
+}
+
+- (void)createSocketWithInt:(int)int withJavaNetInetAddress:(id)address
+{
+  v5 = *&int;
+  objc_sync_enter(self);
+  if (JavaNetDatagramSocket_factory_)
+  {
+    createDatagramSocketImpl = [JavaNetDatagramSocket_factory_ createDatagramSocketImpl];
+  }
+
+  else
+  {
+    createDatagramSocketImpl = new_JavaNetPlainDatagramSocketImpl_init();
+  }
+
+  JreStrongAssign(&self->impl_, createDatagramSocketImpl);
+  [(JavaNetDatagramSocketImpl *)self->impl_ create];
+  [(JavaNetDatagramSocketImpl *)self->impl_ bindWithInt:v5 withJavaNetInetAddress:address];
+  self->isBound_ = 1;
+
+  objc_sync_exit(self);
 }
 
 - (id)getLocalAddress
@@ -429,6 +454,18 @@ LABEL_9:
   self->isBound_ = 1;
 }
 
+- (void)onBindWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  self->isBound_ = 1;
+  impl = self->impl_;
+  if (!impl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetDatagramSocketImpl *)impl onBindWithJavaNetInetAddress:address withInt:*&int];
+}
+
 - (void)connectWithJavaNetSocketAddress:(id)address
 {
   if (!address)
@@ -479,6 +516,21 @@ LABEL_15:
   [(JavaNetDatagramSocketImpl *)impl connectWithJavaNetInetAddress:self->address_ withInt:getPort];
 
   objc_sync_exit(lock);
+}
+
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  v4 = *&int;
+  self->isConnected_ = 1;
+  JreStrongAssign(&self->address_, address);
+  self->port_ = v4;
+  impl = self->impl_;
+  if (!impl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNetDatagramSocketImpl *)impl onConnectWithJavaNetInetAddress:address withInt:v4];
 }
 
 - (void)connectWithJavaNetInetAddress:(id)address withInt:(int)int

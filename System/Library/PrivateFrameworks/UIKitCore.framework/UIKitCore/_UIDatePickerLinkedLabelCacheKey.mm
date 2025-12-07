@@ -52,21 +52,29 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else if ([(_UIDatePickerLinkedLabelCacheKey *)equalCopy isMemberOfClass:objc_opt_class()])
   {
     v5 = equalCopy;
-    v6 = self->_height == v5->_height && [(UIFont *)self->_font isEqual:v5->_font]&& [(NSString *)self->_text isEqualToString:v5->_text];
+    if (self->_height == v5[3] && objc_msgSend_isEqual_(self->_font))
+    {
+      isEqualToString = objc_msgSend_isEqualToString_(self->_text);
+    }
+
+    else
+    {
+      isEqualToString = 0;
+    }
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 @end

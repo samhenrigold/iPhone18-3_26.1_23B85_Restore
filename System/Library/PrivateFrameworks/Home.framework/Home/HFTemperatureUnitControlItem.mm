@@ -72,14 +72,12 @@
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   temperatureUnitCharacteristicType = [(HFTemperatureUnitControlItem *)self temperatureUnitCharacteristicType];
-  v9 = temperatureUnitCharacteristicType;
-  v10[0] = valueCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = temperatureUnitCharacteristicType;
+  v9[0] = valueCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }

@@ -10,6 +10,7 @@
 - (unint64_t)displayFlags;
 - (unint64_t)responseFlags;
 - (void)_setResponseFlags:(unint64_t)flags responseInformation:(id)information;
+- (void)setShowInLockScreen:(BOOL)screen;
 - (void)setUserInfo:(id)info;
 @end
 
@@ -198,6 +199,46 @@ LABEL_5:
   v8 = objc_msgSend_intValue(v5, v6, v7) != 0;
 
   return v8;
+}
+
+- (void)setShowInLockScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  v5 = objc_msgSend_displayInformation(self, a2, screen);
+  allocatora = objc_msgSend_mutableCopy(v5, v6, v7);
+
+  Mutable = allocatora;
+  if (!allocatora)
+  {
+    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  }
+
+  v10 = *MEMORY[0x1E695EE68];
+  allocator = Mutable;
+  if (screenCopy)
+  {
+    v11 = MEMORY[0x1E695E118];
+    objc_msgSend_setObject_forKey_(Mutable, v8, MEMORY[0x1E695E118], v10);
+    objc_msgSend_setObject_forKey_(allocator, v12, v11, @"SBUserNotificationAllowInStark");
+  }
+
+  else
+  {
+    objc_msgSend_removeObjectForKey_(Mutable, v8, v10);
+    objc_msgSend_removeObjectForKey_(allocator, v15, @"SBUserNotificationAllowInStark");
+  }
+
+  v17 = objc_msgSend_count(allocator, v13, v14);
+  reserved = self->_reserved;
+  if (v17)
+  {
+    objc_msgSend_setObject_forKey_(reserved, v16, allocator, @"DisplayInformation");
+  }
+
+  else
+  {
+    objc_msgSend_removeObjectForKey_(reserved, v16, @"DisplayInformation");
+  }
 }
 
 - (BOOL)usesNotificationCenter

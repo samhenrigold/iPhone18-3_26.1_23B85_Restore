@@ -9,9 +9,7 @@
 {
   if (self->_handler != handler)
   {
-    v5 = [handler copy];
-    handler = self->_handler;
-    self->_handler = v5;
+    self->_handler = [handler copy];
 
     MEMORY[0x2821F96F8]();
   }

@@ -55,116 +55,119 @@
 {
   identifierCopy = identifier;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  if (gc_isInternalBuild())
+  v6 = objc_sync_enter(selfCopy);
+  isInternalBuild = gc_isInternalBuild(v6, v7);
+  if (isInternalBuild)
   {
-    v25 = getGCDLogger();
-    [_GCDaemonSettings anonymizedIdentifierForControllerIdentifier:v25];
+    v32 = getGCDLogger(isInternalBuild);
+    [(_GCDaemonSettings *)v32 anonymizedIdentifierForControllerIdentifier:identifierCopy];
   }
 
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
-  v8 = [MEMORY[0x1E696AD98] numberWithLong:vcvtmd_s64_f64(v7 / 86400.0 / 91.0)];
-  v9 = [(NSUserDefaults *)selfCopy->_defaults objectForKey:@"anonymizedIdentifiers"];
-  v10 = v9;
-  if (v9)
+  v11 = [MEMORY[0x1E696AD98] numberWithLong:vcvtmd_s64_f64(v10 / 86400.0 / 91.0)];
+  v12 = [(NSUserDefaults *)selfCopy->_defaults objectForKey:@"anonymizedIdentifiers"];
+  v13 = v12;
+  if (v12)
   {
-    v11 = [v9 objectForKeyedSubscript:@"currentCycle"];
-    v12 = [v11 isEqualToNumber:v8];
-    if (v12)
+    v14 = [v12 objectForKeyedSubscript:@"currentCycle"];
+    v15 = [v14 isEqualToNumber:v11];
+    if (v15)
     {
-      v13 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v10];
+      v16 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v13];
     }
 
     else
     {
-      v13 = [(_GCDaemonSettings *)selfCopy newAnonymizedIdentifiersDictionary:v8];
+      v16 = [(_GCDaemonSettings *)selfCopy newAnonymizedIdentifiersDictionary:v11];
     }
 
-    v14 = v13;
-    v15 = v12 ^ 1;
+    v17 = v16;
+    v18 = v15 ^ 1;
   }
 
   else
   {
-    v14 = [(_GCDaemonSettings *)selfCopy newAnonymizedIdentifiersDictionary:v8];
-    v15 = 1;
+    v17 = [(_GCDaemonSettings *)selfCopy newAnonymizedIdentifiersDictionary:v11];
+    v18 = 1;
   }
 
-  v16 = MEMORY[0x1E695DF90];
-  v17 = [v14 objectForKeyedSubscript:@"identifiers"];
-  v18 = [v16 dictionaryWithDictionary:v17];
+  v19 = MEMORY[0x1E695DF90];
+  v20 = [v17 objectForKeyedSubscript:@"identifiers"];
+  v21 = [v19 dictionaryWithDictionary:v20];
 
-  v19 = [v18 objectForKeyedSubscript:identifierCopy];
+  v22 = [v21 objectForKeyedSubscript:identifierCopy];
 
-  if (!v19)
+  if (!v22)
   {
-    v20 = [v14 objectForKeyedSubscript:@"nextIdentifier"];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"controller-%@", v20];
-    [v18 setObject:v21 forKeyedSubscript:identifierCopy];
+    v23 = [v17 objectForKeyedSubscript:@"nextIdentifier"];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"controller-%@", v23];
+    [v21 setObject:v24 forKeyedSubscript:identifierCopy];
 
-    v22 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v20, "intValue") + 1}];
-    [v14 setObject:v22 forKeyedSubscript:@"nextIdentifier"];
+    v25 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v23, "intValue") + 1}];
+    [v17 setObject:v25 forKeyedSubscript:@"nextIdentifier"];
 
-    v15 = 1;
+    v18 = 1;
   }
 
-  [v14 setObject:v18 forKeyedSubscript:@"identifiers"];
-  if (v15)
+  v26 = [v17 setObject:v21 forKeyedSubscript:@"identifiers"];
+  if (v18)
   {
-    if (gc_isInternalBuild())
+    v28 = gc_isInternalBuild(v26, v27);
+    if (v28)
     {
-      v26 = getGCDLogger();
-      [_GCDaemonSettings anonymizedIdentifierForControllerIdentifier:v26];
+      v33 = getGCDLogger(v28);
+      [(_GCDaemonSettings *)v33 anonymizedIdentifierForControllerIdentifier:v17];
     }
 
-    [(NSUserDefaults *)selfCopy->_defaults setObject:v14 forKey:@"anonymizedIdentifiers"];
+    [(NSUserDefaults *)selfCopy->_defaults setObject:v17 forKey:@"anonymizedIdentifiers"];
   }
 
-  else if (gc_isInternalBuild())
+  else
   {
-    v27 = getGCDLogger();
-    [_GCDaemonSettings anonymizedIdentifierForControllerIdentifier:v27];
+    v29 = gc_isInternalBuild(v26, v27);
+    if (v29)
+    {
+      v34 = getGCDLogger(v29);
+      [(_GCDaemonSettings *)v34 anonymizedIdentifierForControllerIdentifier:v13];
+    }
   }
 
-  v23 = [v18 objectForKeyedSubscript:identifierCopy];
+  v30 = [v21 objectForKeyedSubscript:identifierCopy];
 
   objc_sync_exit(selfCopy);
 
-  return v23;
+  return v30;
 }
 
-- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.1(NSObject *a1)
+- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.1(NSObject *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v2, v3, "anonymizedIdentifierForControllerIdentifier: %@", v4, v5, v6, v7, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = a2;
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v4, v5, "anonymizedIdentifierForControllerIdentifier: %@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.2(NSObject *a1)
+- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.2(NSObject *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v2, v3, "Values didn't change. Stored anonymizedIdentifiers are: %@", v4, v5, v6, v7, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = a2;
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v4, v5, "Values didn't change. Stored anonymizedIdentifiers are: %@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.3(NSObject *a1)
+- (void)anonymizedIdentifierForControllerIdentifier:(NSObject *)a1 .cold.3(NSObject *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v2, v3, "Storing the following anonymizedIdentifiers: %@", v4, v5, v6, v7, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = a2;
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v4, v5, "Storing the following anonymizedIdentifiers: %@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

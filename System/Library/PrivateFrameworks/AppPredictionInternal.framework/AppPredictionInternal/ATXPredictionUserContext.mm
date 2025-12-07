@@ -97,8 +97,8 @@
 
 - (id)jsonDict
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v16[0] = @"lastUnlockDate";
+  v16[5] = *MEMORY[0x277D85DE8];
+  v15[0] = @"lastUnlockDate";
   lastUnlockDate = [(ATXPredictionUserContext *)self lastUnlockDate];
   if (lastUnlockDate)
   {
@@ -117,10 +117,10 @@
     lastAppLaunch = @"nil";
   }
 
-  v17[0] = v6;
-  v17[1] = lastAppLaunch;
-  v16[1] = @"lastAppLaunch";
-  v16[2] = @"lastAppLaunchDate";
+  v16[0] = v6;
+  v16[1] = lastAppLaunch;
+  v15[1] = @"lastAppLaunch";
+  v15[2] = @"lastAppLaunchDate";
   lastAppLaunchDate = [(ATXPredictionUserContext *)self lastAppLaunchDate];
   if (lastAppLaunchDate)
   {
@@ -139,11 +139,11 @@
     secondMostRecentAppLaunch = @"nil";
   }
 
-  v17[2] = v9;
-  v17[3] = secondMostRecentAppLaunch;
+  v16[2] = v9;
+  v16[3] = secondMostRecentAppLaunch;
   lastAppActionLaunch = self->_lastAppActionLaunch;
-  v16[3] = @"secondMostRecentAppLaunch";
-  v16[4] = @"lastAppActionLaunch";
+  v15[3] = @"secondMostRecentAppLaunch";
+  v15[4] = @"lastAppActionLaunch";
   if (lastAppActionLaunch)
   {
     v12 = lastAppActionLaunch;
@@ -154,8 +154,8 @@
     v12 = @"nil";
   }
 
-  v17[4] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v16[4] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
   if (lastAppLaunchDate)
   {
   }
@@ -163,8 +163,6 @@
   if (lastUnlockDate)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -207,46 +205,47 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ATXPredictionUserContext *)self initWithProto:v8];
+      [(ATXPredictionUserContext *)self initWithProto:v9];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  if ([v5 hasLastUnlockDate])
+  v6 = protoCopy;
+  if ([v6 hasLastUnlockDate])
   {
-    v6 = objc_alloc(MEMORY[0x277CBEAA8]);
-    [v5 lastUnlockDate];
-    v7 = [v6 initWithTimeIntervalSince1970:?];
+    v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+    [v6 lastUnlockDate];
+    v8 = [v7 initWithTimeIntervalSince1970:?];
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if ([v5 hasLastAppLaunchDate])
+  if ([v6 hasLastAppLaunchDate])
   {
-    v10 = objc_alloc(MEMORY[0x277CBEAA8]);
-    [v5 lastAppLaunchDate];
-    v11 = [v10 initWithTimeIntervalSince1970:?];
+    v11 = objc_alloc(MEMORY[0x277CBEAA8]);
+    [v6 lastAppLaunchDate];
+    v12 = [v11 initWithTimeIntervalSince1970:?];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  lastAppLaunch = [v5 lastAppLaunch];
-  secondMostRecentAppLaunch = [v5 secondMostRecentAppLaunch];
-  lastAppActionLaunch = [v5 lastAppActionLaunch];
-  self = [(ATXPredictionUserContext *)self initWithLastUnlockDate:v7 lastAppLaunch:lastAppLaunch lastAppLaunchDate:v11 secondMostRecentAppLaunch:secondMostRecentAppLaunch lastAppActionLaunch:lastAppActionLaunch];
+  lastAppLaunch = [v6 lastAppLaunch];
+  secondMostRecentAppLaunch = [v6 secondMostRecentAppLaunch];
+  lastAppActionLaunch = [v6 lastAppActionLaunch];
+  self = [(ATXPredictionUserContext *)self initWithLastUnlockDate:v8 lastAppLaunch:lastAppLaunch lastAppLaunchDate:v12 secondMostRecentAppLaunch:secondMostRecentAppLaunch lastAppActionLaunch:lastAppActionLaunch];
 
   selfCopy = self;
 LABEL_14:
@@ -357,14 +356,12 @@ LABEL_8:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionUserContext proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionUserContext proto", &v5, 0xCu);
 }
 
 @end

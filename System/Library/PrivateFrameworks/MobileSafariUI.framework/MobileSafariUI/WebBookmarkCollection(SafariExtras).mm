@@ -7,21 +7,21 @@
 
 + (id)mainBookmarkCollection
 {
-  v0 = mainBookmarkCollection;
+  v2 = mainBookmarkCollection;
   if (!mainBookmarkCollection)
   {
     safariBookmarkCollection = [MEMORY[0x277D7B5A8] safariBookmarkCollection];
-    v2 = mainBookmarkCollection;
+    v4 = mainBookmarkCollection;
     mainBookmarkCollection = safariBookmarkCollection;
 
-    if (!mainBookmarkCollection || ([MEMORY[0x277CCAB98] defaultCenter], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "addObserver:selector:name:object:", mainBookmarkCollection, sel_receivedBookmarksDidChangeNotification_, *MEMORY[0x277D7B608], 0), objc_msgSend(v3, "addObserver:selector:name:object:", mainBookmarkCollection, sel_receivedBookmarksDidChangeNotification_, *MEMORY[0x277D7B618], 0), v3, (v0 = mainBookmarkCollection) == 0))
+    if (!mainBookmarkCollection || ([MEMORY[0x277CCAB98] defaultCenter], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "addObserver:selector:name:object:", mainBookmarkCollection, sel_receivedBookmarksDidChangeNotification_, *MEMORY[0x277D7B608], 0), objc_msgSend(v5, "addObserver:selector:name:object:", mainBookmarkCollection, sel_receivedBookmarksDidChangeNotification_, *MEMORY[0x277D7B618], 0), v5, (v2 = mainBookmarkCollection) == 0))
     {
-      +[WebBookmarkCollection _startBookmarkCollectionOpenRetryTimer];
-      v0 = mainBookmarkCollection;
+      +[(WebBookmarkCollection *)self];
+      v2 = mainBookmarkCollection;
     }
   }
 
-  return v0;
+  return v2;
 }
 
 - (id)bookmarksInFavoritesList

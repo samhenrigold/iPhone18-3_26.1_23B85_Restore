@@ -34,27 +34,27 @@
 
 - (void)_addressFromResult:(id)result attributes:(id)attributes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [result subResults];
-  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         type = [v10 type];
         v12 = [type isEqualToString:@"Street"];
 
@@ -82,13 +82,11 @@ LABEL_11:
         [(QPDataDetectorsParser *)self _addressFromResult:v10 attributes:attributesCopy];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_emailAddressFromResult:(id)result attributes:(id)attributes
@@ -294,33 +292,31 @@ LABEL_11:
 
 - (void)enumerateEntitiesInString:(id)string options:(id)options withBlock:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   blockCopy = block;
   context = objc_autoreleasePoolPush();
-  v24 = stringCopy;
+  v23 = stringCopy;
   [MEMORY[0x1E6999A88] scanString:stringCopy range:0 configuration:{objc_msgSend(stringCopy, "length"), self->_config}];
-  v32 = 0u;
-  v33 = 0u;
+  v29 = 0u;
   v30 = 0u;
-  obj = v31 = 0u;
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v27 = 0u;
+  obj = v28 = 0u;
+  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
-    v9 = *v31;
-    v25 = *MEMORY[0x1E69999D0];
-    v26 = *MEMORY[0x1E69999C8];
+    v9 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
+        v11 = *(*(&v27 + 1) + 8 * v10);
         range = [v11 range];
         v14 = v13;
         if ([v11 category] == 1)
@@ -371,7 +367,7 @@ LABEL_11:
 
           else if ([v11 category] == 5)
           {
-            v14 = [v24 length];
+            v14 = [v23 length];
             v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
             [(QPDataDetectorsParser *)self _trackingNumberFromResult:v11 attributes:v20];
             range = 0;
@@ -386,11 +382,11 @@ LABEL_11:
 
         if ([v18 count])
         {
-          v29 = 0;
+          v26 = 0;
           type2 = [v11 type];
-          blockCopy[2](blockCopy, type2, range, v14, v18, &v29);
+          blockCopy[2](blockCopy, type2, range, v14, v18, &v26);
 
-          if (v29)
+          if (v26)
           {
 
             goto LABEL_29;
@@ -401,7 +397,7 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v21 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v21 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v8 = v21;
     }
 
@@ -411,16 +407,15 @@ LABEL_11:
 LABEL_29:
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateDatesInString:(id)string options:(id)options withBlock:(id)block
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   optionsCopy = options;
   blockCopy = block;
-  v79 = optionsCopy;
+  v78 = optionsCopy;
   v8 = [optionsCopy objectForKeyedSubscript:kQPQueryParserOptionReferenceCalendarKey];
   v9 = v8;
   if (v8)
@@ -451,12 +446,12 @@ LABEL_29:
   v15 = v14;
   if (v14)
   {
-    v91 = v14;
+    v87 = v14;
   }
 
   else
   {
-    v91 = [MEMORY[0x1E695DF00] now];
+    v87 = [MEMORY[0x1E695DF00] now];
   }
 
   v16 = [optionsCopy objectForKeyedSubscript:kQPQueryParserOptionIgnoreFutureDatesKey];
@@ -472,9 +467,9 @@ LABEL_29:
     v19 = MEMORY[0x1E695E110];
   }
 
-  v85 = v19;
+  v83 = v19;
 
-  v20 = [v79 objectForKeyedSubscript:kQPQueryParserOptionIgnorePastDatesKey];
+  v20 = [v78 objectForKeyedSubscript:kQPQueryParserOptionIgnorePastDatesKey];
   v21 = v20;
   if (v20)
   {
@@ -486,9 +481,9 @@ LABEL_29:
     v22 = v18;
   }
 
-  v75 = v22;
+  v74 = v22;
 
-  v23 = [v79 objectForKeyedSubscript:kQPQueryParserOptionResolveDatesInFutureKey];
+  v23 = [v78 objectForKeyedSubscript:kQPQueryParserOptionResolveDatesInFutureKey];
   v24 = v23;
   if (v23)
   {
@@ -500,9 +495,9 @@ LABEL_29:
     v25 = v18;
   }
 
-  v81 = v25;
+  v80 = v25;
 
-  v26 = [v79 objectForKeyedSubscript:kQPQueryParserOptionResolveDatesInPastKey];
+  v26 = [v78 objectForKeyedSubscript:kQPQueryParserOptionResolveDatesInPastKey];
   v27 = v26;
   if (v26)
   {
@@ -514,57 +509,54 @@ LABEL_29:
     v28 = v18;
   }
 
-  v82 = v28;
+  v81 = v28;
 
   v29 = objc_alloc_init(MEMORY[0x1E696AB78]);
   [v29 setCalendar:v11];
   [v29 setLocale:currentLocale];
-  v117 = -1;
-  v116 = -1;
-  v115 = -1;
-  v114 = -1;
   v113 = -1;
-  v30 = MEMORY[0x1C695AB50](v91);
-  CFCalendarDecomposeAbsoluteTime(v11, v30, "dMyEw", &v117, &v116, &v115, &v114, &v113);
-  v112 = 0;
-  v84 = v29;
-  v76 = [MEMORY[0x1E6999A88] scanString:stringCopy];
-  if ([v76 count])
+  v112 = -1;
+  v111 = -1;
+  v110 = -1;
+  v109 = -1;
+  v30 = MEMORY[0x1C695AB50](v87);
+  CFCalendarDecomposeAbsoluteTime(v11, v30, "dMyEw", &v113, &v112, &v111, &v110, &v109);
+  v108 = 0;
+  v82 = v29;
+  v75 = [MEMORY[0x1E6999A88] scanString:stringCopy];
+  if ([v75 count])
   {
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    obj = v76;
-    v31 = [obj countByEnumeratingWithState:&v108 objects:v125 count:16];
+    v106 = 0u;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    obj = v75;
+    v31 = [obj countByEnumeratingWithState:&v104 objects:v121 count:16];
     if (!v31)
     {
       goto LABEL_99;
     }
 
-    v90 = v31;
-    v88 = *MEMORY[0x1E69999B0];
-    v89 = *v109;
-    v87 = *MEMORY[0x1E6999A48];
-    v83 = *MEMORY[0x1E69999B8];
+    v86 = v31;
+    v85 = *v105;
     while (1)
     {
-      for (i = 0; i != v90; ++i)
+      for (i = 0; i != v86; ++i)
       {
-        if (*v109 != v89)
+        if (*v105 != v85)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v108 + 1) + 8 * i);
-        v107 = 0;
+        v32 = *(*(&v104 + 1) + 8 * i);
+        v103 = 0;
         localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
-        v106 = 0;
-        v94 = v32;
-        v95 = [v32 dateFromReferenceDate:v91 referenceTimezone:localTimeZone timezoneRef:&v106 allDayRef:&v107];
-        v92 = v106;
+        v102 = 0;
+        v90 = v32;
+        v91 = [v32 dateFromReferenceDate:v87 referenceTimezone:localTimeZone timezoneRef:&v102 allDayRef:&v103];
+        v88 = v102;
 
-        if (v95)
+        if (v91)
         {
           [v32 coreResult];
           HasType = DDResultHasType();
@@ -578,40 +570,40 @@ LABEL_29:
             }
           }
 
-          v105 = -1;
-          v104 = -1;
-          v103 = -1;
-          v102 = -1;
           v101 = -1;
-          at = MEMORY[0x1C695AB50](v95);
-          v96 = 0u;
-          v97 = 0u;
-          v98 = 0u;
-          v99 = 0u;
+          v100 = -1;
+          v99 = -1;
+          v98 = -1;
+          v97 = -1;
+          at = MEMORY[0x1C695AB50](v91);
+          v92 = 0u;
+          v93 = 0u;
+          v94 = 0u;
+          v95 = 0u;
           subResults = [v32 subResults];
-          v36 = [subResults countByEnumeratingWithState:&v96 objects:v124 count:16];
+          v36 = [subResults countByEnumeratingWithState:&v92 objects:v120 count:16];
           if (!v36)
           {
             goto LABEL_44;
           }
 
-          v37 = *v97;
+          v37 = *v93;
           while (1)
           {
             for (j = 0; j != v36; ++j)
             {
-              if (*v97 != v37)
+              if (*v93 != v37)
               {
                 objc_enumerationMutation(subResults);
               }
 
-              v39 = *(*(&v96 + 1) + 8 * j);
+              v39 = *(*(&v92 + 1) + 8 * j);
               type = [v39 type];
               v41 = [type isEqualToString:@"RelativeDayOfWeek"];
 
               if (v41)
               {
-                CFCalendarDecomposeAbsoluteTime(v11, at, "E", &v102);
+                CFCalendarDecomposeAbsoluteTime(v11, at, "E", &v98);
                 continue;
               }
 
@@ -631,15 +623,15 @@ LABEL_29:
                 }
               }
 
-              CFCalendarDecomposeAbsoluteTime(v11, at, "dMy", &v105, &v104, &v103);
+              CFCalendarDecomposeAbsoluteTime(v11, at, "dMy", &v101, &v100, &v99);
             }
 
-            v36 = [subResults countByEnumeratingWithState:&v96 objects:v124 count:16];
+            v36 = [subResults countByEnumeratingWithState:&v92 objects:v120 count:16];
             if (!v36)
             {
 LABEL_44:
 
-              bOOLValue = [v85 BOOLValue];
+              bOOLValue = [v83 BOOLValue];
               if (at > v30)
               {
                 v46 = bOOLValue;
@@ -653,43 +645,43 @@ LABEL_44:
               if (v46 == 1)
               {
 LABEL_48:
-                v47 = v95;
+                v47 = v91;
                 goto LABEL_85;
               }
 
-              if ([v82 BOOLValue] && (v48 = at, at > v30))
+              if ([v81 BOOLValue] && (v48 = at, at > v30))
               {
-                if (v102 != -1)
+                if (v98 != -1)
                 {
-                  if (v101 != -1)
+                  if (v97 != -1)
                   {
                     v49 = 0xFFFFFFFFLL;
                     goto LABEL_60;
                   }
 
-                  CFCalendarDecomposeAbsoluteTime(v11, at, "wY", &v101, &v103);
-                  CFCalendarComposeAbsoluteTime(v11, &at, "wY", v101 - 1, v103);
+                  CFCalendarDecomposeAbsoluteTime(v11, at, "wY", &v97, &v99);
+                  CFCalendarComposeAbsoluteTime(v11, &at, "wY", v97 - 1, v99);
 LABEL_65:
-                  CFCalendarAddComponents(v11, &at, 0, "E", v50, v102 - 1);
+                  CFCalendarAddComponents(v11, &at, 0, "E", v50, v98 - 1);
                   goto LABEL_66;
                 }
 
-                if (v103 != -1)
+                if (v99 != -1)
                 {
                   CFCalendarAddComponents(v11, &at, 0, "y", at, 0xFFFFFFFFLL);
-                  CFCalendarDecomposeAbsoluteTime(v11, at, "Y", &v103);
+                  CFCalendarDecomposeAbsoluteTime(v11, at, "Y", &v99);
                 }
               }
 
-              else if ([v81 BOOLValue])
+              else if ([v80 BOOLValue])
               {
                 v48 = at;
-                if (at < v30 && v102 != -1)
+                if (at < v30 && v98 != -1)
                 {
-                  if (v101 == -1)
+                  if (v97 == -1)
                   {
-                    CFCalendarDecomposeAbsoluteTime(v11, at, "wY", &v101, &v103);
-                    CFCalendarComposeAbsoluteTime(v11, &at, "wY", v101 + 1, v103);
+                    CFCalendarDecomposeAbsoluteTime(v11, at, "wY", &v97, &v99);
+                    CFCalendarComposeAbsoluteTime(v11, &at, "wY", v97 + 1, v99);
                     goto LABEL_65;
                   }
 
@@ -697,32 +689,32 @@ LABEL_65:
 LABEL_60:
                   CFCalendarAddComponents(v11, &at, 0, "d", v48, v49);
 LABEL_66:
-                  CFCalendarDecomposeAbsoluteTime(v11, at, "wEY", &v101, &v102, &v103);
+                  CFCalendarDecomposeAbsoluteTime(v11, at, "wEY", &v97, &v98, &v99);
                 }
               }
 
               v51 = objc_alloc_init(MEMORY[0x1E695DF10]);
               v52 = objc_alloc_init(MEMORY[0x1E695DF90]);
-              if (v101 == -1)
+              if (v97 == -1)
               {
-                if (v105 != -1)
+                if (v101 != -1)
                 {
                   [v51 setDay:?];
-                  v56 = [MEMORY[0x1E696AD98] numberWithInt:v105];
+                  v56 = [MEMORY[0x1E696AD98] numberWithInt:v101];
                   [v52 setObject:v56 forKey:@"d"];
                 }
 
-                if (v104 != -1)
+                if (v100 != -1)
                 {
                   [v51 setMonth:?];
-                  v57 = [MEMORY[0x1E696AD98] numberWithInt:v104];
+                  v57 = [MEMORY[0x1E696AD98] numberWithInt:v100];
                   [v52 setObject:v57 forKey:@"M"];
                 }
 
-                if (v103 != -1)
+                if (v99 != -1)
                 {
                   [v51 setYear:?];
-                  v55 = [MEMORY[0x1E696AD98] numberWithInt:v103];
+                  v55 = [MEMORY[0x1E696AD98] numberWithInt:v99];
                   [v52 setObject:v55 forKey:@"y"];
 LABEL_76:
                 }
@@ -731,17 +723,17 @@ LABEL_76:
               else
               {
                 [v51 setWeekOfYear:?];
-                v53 = [MEMORY[0x1E696AD98] numberWithInt:v101];
+                v53 = [MEMORY[0x1E696AD98] numberWithInt:v97];
                 [v52 setObject:v53 forKey:@"w"];
 
-                [v51 setYearForWeekOfYear:v103];
-                v54 = [MEMORY[0x1E696AD98] numberWithInt:v103];
+                [v51 setYearForWeekOfYear:v99];
+                v54 = [MEMORY[0x1E696AD98] numberWithInt:v99];
                 [v52 setObject:v54 forKey:@"Y"];
 
-                if (v102 != -1)
+                if (v98 != -1)
                 {
                   [v51 setWeekday:?];
-                  v55 = [MEMORY[0x1E696AD98] numberWithInt:v102];
+                  v55 = [MEMORY[0x1E696AD98] numberWithInt:v98];
                   [v52 setObject:v55 forKey:@"E"];
                   goto LABEL_76;
                 }
@@ -749,7 +741,7 @@ LABEL_76:
 
               if (![v52 count])
               {
-                v47 = v95;
+                v47 = v91;
 LABEL_84:
 
                 goto LABEL_85;
@@ -757,32 +749,32 @@ LABEL_84:
 
               v47 = [(__CFCalendar *)v11 dateFromComponents:v51];
 
-              [v84 setDateStyle:4];
-              [v84 setTimeStyle:0];
-              v58 = [v84 stringFromDate:v47];
+              [v82 setDateStyle:4];
+              [v82 setTimeStyle:0];
+              v58 = [v82 stringFromDate:v47];
               v59 = v58;
               if (!v58)
               {
                 goto LABEL_82;
               }
 
-              v122[0] = kQPParseAttributeValueDateDisplayKey;
-              v122[1] = kQPParseAttributeValueDateComponentsKey;
-              v123[0] = v58;
-              v123[1] = v52;
-              v122[2] = kQPParseAttributeValueDateTypeKey;
-              v122[3] = kQPParseAttributeValueDateTemporalModifierKey;
-              v123[2] = &unk_1F45F8EA0;
-              v123[3] = &unk_1F45F8EB8;
-              v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:v122 count:4];
+              v118[0] = kQPParseAttributeValueDateDisplayKey;
+              v118[1] = kQPParseAttributeValueDateComponentsKey;
+              v119[0] = v58;
+              v119[1] = v52;
+              v118[2] = kQPParseAttributeValueDateTypeKey;
+              v118[3] = kQPParseAttributeValueDateTemporalModifierKey;
+              v119[2] = &unk_1F45F8EA0;
+              v119[3] = &unk_1F45F8EB8;
+              v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v119 forKeys:v118 count:4];
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
               {
-                -[QPDataDetectorsParser enumerateDatesInString:options:withBlock:].cold.1(buf, [obj count], &v121);
+                -[QPDataDetectorsParser enumerateDatesInString:options:withBlock:].cold.1(buf, [obj count], &v117);
               }
 
-              range = [v94 range];
-              blockCopy[2](blockCopy, v60, range, v62, &v112);
-              v63 = v112;
+              range = [v90 range];
+              blockCopy[2](blockCopy, v60, range, v62, &v108);
+              v63 = v108;
 
               if ((v63 & 1) == 0)
               {
@@ -801,8 +793,8 @@ LABEL_99:
 LABEL_85:
       }
 
-      v90 = [obj countByEnumeratingWithState:&v108 objects:v125 count:16];
-      if (!v90)
+      v86 = [obj countByEnumeratingWithState:&v104 objects:v121 count:16];
+      if (!v86)
       {
         goto LABEL_99;
       }
@@ -829,27 +821,27 @@ LABEL_85:
         if ([v68 count])
         {
           v70 = [(__CFCalendar *)v11 dateFromComponents:obj];
-          [v84 setDateStyle:4];
-          [v84 setTimeStyle:0];
-          v71 = [v84 stringFromDate:v70];
+          [v82 setDateStyle:4];
+          [v82 setTimeStyle:0];
+          v71 = [v82 stringFromDate:v70];
           v72 = v71;
           if (v71)
           {
-            v118[0] = kQPParseAttributeValueDateDisplayKey;
-            v118[1] = kQPParseAttributeValueDateComponentsKey;
-            v119[0] = v71;
-            v119[1] = v68;
-            v118[2] = kQPParseAttributeValueDateTypeKey;
-            v118[3] = kQPParseAttributeValueDateTemporalModifierKey;
-            v119[2] = &unk_1F45F8EA0;
-            v119[3] = &unk_1F45F8EB8;
-            v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v119 forKeys:v118 count:4];
+            v114[0] = kQPParseAttributeValueDateDisplayKey;
+            v114[1] = kQPParseAttributeValueDateComponentsKey;
+            v115[0] = v71;
+            v115[1] = v68;
+            v114[2] = kQPParseAttributeValueDateTypeKey;
+            v114[3] = kQPParseAttributeValueDateTemporalModifierKey;
+            v115[2] = &unk_1F45F8EA0;
+            v115[3] = &unk_1F45F8EB8;
+            v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:v114 count:4];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
             {
-              -[QPDataDetectorsParser enumerateDatesInString:options:withBlock:].cold.2(buf, [v76 count]);
+              -[QPDataDetectorsParser enumerateDatesInString:options:withBlock:].cold.2(buf, [v75 count]);
             }
 
-            blockCopy[2](blockCopy, v73, 0, [stringCopy length], &v112);
+            blockCopy[2](blockCopy, v73, 0, [stringCopy length], &v108);
           }
         }
 
@@ -859,8 +851,6 @@ LABEL_85:
   }
 
 LABEL_100:
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateDatesInString:(uint8_t *)buf options:(uint64_t)a2 withBlock:(void *)a3 .cold.1(uint8_t *buf, uint64_t a2, void *a3)

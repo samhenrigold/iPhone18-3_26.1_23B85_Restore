@@ -83,7 +83,7 @@ void __56__DYStandardPluginDirectoryProvider__developerDirectory__block_invoke(u
 
 - (void)enumerateDirectories:(id)directories
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   uRLByStandardizingPath = [(NSURL *)[(NSBundle *)self->_bundle bundleURL] URLByStandardizingPath];
   if (self->_includeBundleDirectory)
@@ -104,38 +104,36 @@ void __56__DYStandardPluginDirectoryProvider__developerDirectory__block_invoke(u
       v7 = [(NSDictionary *)[(NSBundle *)self->_bundle infoDictionary] objectForKey:@"CFBundleName"];
       v8 = [(DYPluginDirectoryProvider *)self getPlatformDirectoriesWithBundleName:v7];
       (*(directories + 2))(directories, -[NSURL URLByAppendingPathComponent:](self->super._developerDirectory, "URLByAppendingPathComponent:", [MEMORY[0x277CCACA8] stringWithFormat:@"Library/%@/PlugIns", v7]));
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v15;
+        v11 = *v14;
         do
         {
           v12 = 0;
           do
           {
-            if (*v15 != v11)
+            if (*v14 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            (*(directories + 2))(directories, *(*(&v14 + 1) + 8 * v12++));
+            (*(directories + 2))(directories, *(*(&v13 + 1) + 8 * v12++));
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v10);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

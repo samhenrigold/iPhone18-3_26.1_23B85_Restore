@@ -33,29 +33,27 @@
 
 + (id)createPersistentEntityForBuilderIdentifier:(id)identifier seriesType:(id)type state:(int64_t)state profile:(id)profile error:(id *)error
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   typeCopy = type;
-  v27[0] = @"uuid";
-  v27[1] = @"state";
-  v27[2] = @"series_type";
+  v26[0] = @"uuid";
+  v26[1] = @"state";
+  v26[2] = @"series_type";
   v14 = MEMORY[0x277CBEA60];
   profileCopy = profile;
-  v16 = [v14 arrayWithObjects:v27 count:3];
+  v16 = [v14 arrayWithObjects:v26 count:3];
   database = [profileCopy database];
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __99__HDSeriesBuilderEntity_createPersistentEntityForBuilderIdentifier_seriesType_state_profile_error___block_invoke;
-  v23[3] = &unk_278613AE8;
-  v25 = typeCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __99__HDSeriesBuilderEntity_createPersistentEntityForBuilderIdentifier_seriesType_state_profile_error___block_invoke;
+  v22[3] = &unk_278613AE8;
+  v24 = typeCopy;
   stateCopy = state;
-  v24 = identifierCopy;
+  v23 = identifierCopy;
   v18 = typeCopy;
   v19 = identifierCopy;
-  v20 = [self insertOrReplaceEntity:0 healthDatabase:database properties:v16 error:error bindingHandler:v23];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [self insertOrReplaceEntity:0 healthDatabase:database properties:v16 error:error bindingHandler:v22];
 
   return v20;
 }
@@ -151,11 +149,11 @@ BOOL __75__HDSeriesBuilderEntity_freezeSeriesWithIdentifier_metadata_profile_err
         v12 = objc_msgSendSuper2(&v24, sel_init);
         if (v12)
         {
-          v17 = [v15 copy];
+          v17 = objc_msgSend_copy(v15);
           identifier = v12->_identifier;
           v12->_identifier = v17;
 
-          v19 = [v16 copy];
+          v19 = objc_msgSend_copy(v16);
           metadata = v12->_metadata;
           v12->_metadata = v19;
 
@@ -190,30 +188,29 @@ BOOL __75__HDSeriesBuilderEntity_freezeSeriesWithIdentifier_metadata_profile_err
 
 - (int64_t)stateWithTransaction:(id)transaction error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v17[0] = @"state";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v16[0] = @"state";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v8 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __52__HDSeriesBuilderEntity_stateWithTransaction_error___block_invoke;
-  v12[3] = &unk_278618B98;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v7 database:v8 error:error handler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __52__HDSeriesBuilderEntity_stateWithTransaction_error___block_invoke;
+  v11[3] = &unk_278618B98;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v7 database:v8 error:error handler:v11];
 
-  v9 = v14[3];
-  _Block_object_dispose(&v13, 8);
+  v9 = v13[3];
+  _Block_object_dispose(&v12, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t __52__HDSeriesBuilderEntity_stateWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __52__HDSeriesBuilderEntity_stateWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = HDSQLiteColumnWithNameAsInt64();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -222,64 +219,61 @@ uint64_t __52__HDSeriesBuilderEntity_stateWithTransaction_error___block_invoke(u
 
 - (BOOL)setBuilderState:(int64_t)state transaction:(id)transaction error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v15[0] = @"state";
+  v14[1] = *MEMORY[0x277D85DE8];
+  v14[0] = @"state";
   v8 = MEMORY[0x277CBEA60];
   transactionCopy = transaction;
-  v10 = [v8 arrayWithObjects:v15 count:1];
+  v10 = [v8 arrayWithObjects:v14 count:1];
   v11 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59__HDSeriesBuilderEntity_setBuilderState_transaction_error___block_invoke;
-  v14[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
-  v14[4] = state;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v10 database:v11 error:error bindingHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__HDSeriesBuilderEntity_setBuilderState_transaction_error___block_invoke;
+  v13[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
+  v13[4] = state;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v10 database:v11 error:error bindingHandler:v13];
 
-  v12 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (id)metadataWithTransaction:(id)transaction error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__96;
-  v17 = __Block_byref_object_dispose__96;
-  v18 = 0;
-  v19[0] = @"metadata";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__96;
+  v16 = __Block_byref_object_dispose__96;
+  v17 = 0;
+  v18[0] = @"metadata";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v8 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke;
-  v12[3] = &unk_278618B98;
-  v12[4] = &v13;
-  [(HDSQLiteEntity *)self getValuesForProperties:v7 database:v8 error:error handler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke;
+  v11[3] = &unk_278618B98;
+  v11[4] = &v12;
+  [(HDSQLiteEntity *)self getValuesForProperties:v7 database:v8 error:error handler:v11];
 
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
-void __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke(uint64_t a1)
+void __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = HDSQLiteColumnWithNameAsData();
-  v2 = [HDCodableMetadataDictionary decodeMetadataFromData:v5];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v7 = HDSQLiteColumnWithNameAsData();
+  v4 = [HDCodableMetadataDictionary decodeMetadataFromData:v7];
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 - (BOOL)insertMetadata:(id)metadata transaction:(id)transaction error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   transactionCopy = transaction;
   v10 = [(HDSeriesBuilderEntity *)self metadataWithTransaction:transactionCopy error:error];
@@ -306,21 +300,21 @@ void __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke(ui
     v16 = v15;
 
     [v16 addEntriesFromDictionary:metadataCopy];
-    v17 = [v16 copy];
+    v17 = objc_msgSend_copy(v16);
     if (self)
     {
-      v26[0] = @"metadata";
+      v25[0] = @"metadata";
       v18 = MEMORY[0x277CBEA60];
       v19 = transactionCopy;
-      v20 = [v18 arrayWithObjects:v26 count:1];
+      v20 = [v18 arrayWithObjects:v25 count:1];
       v21 = [v19 databaseForEntity:self];
 
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __56__HDSeriesBuilderEntity__setMetadata_transaction_error___block_invoke;
-      v24[3] = &unk_278614508;
-      v25 = v17;
-      v12 = [(HDSQLiteEntity *)self updateProperties:v20 database:v21 error:error bindingHandler:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __56__HDSeriesBuilderEntity__setMetadata_transaction_error___block_invoke;
+      v23[3] = &unk_278614508;
+      v24 = v17;
+      v12 = [(HDSQLiteEntity *)self updateProperties:v20 database:v21 error:error bindingHandler:v23];
     }
 
     else
@@ -329,7 +323,6 @@ void __55__HDSeriesBuilderEntity_metadataWithTransaction_error___block_invoke(ui
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

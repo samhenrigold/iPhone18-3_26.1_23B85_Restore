@@ -395,7 +395,7 @@ LABEL_40:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: malloc error for a new node", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: malloc error for a new node", v2, v3, v4, v5);
 }
 
 - (void)returnBufferToPool:.cold.1()

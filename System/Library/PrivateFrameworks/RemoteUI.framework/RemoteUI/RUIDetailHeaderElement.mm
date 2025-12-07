@@ -8,7 +8,7 @@
 
 - (void)configureView:(id)view
 {
-  v44[10] = *MEMORY[0x277D85DE8];
+  v47[10] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if (objc_opt_respondsToSelector())
   {
@@ -60,46 +60,46 @@
     objc_initWeak(location, self);
     v19 = objc_loadWeakRetained(&self->_headerView);
     detailHeaderLabel = [v19 detailHeaderLabel];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __40__RUIDetailHeaderElement_configureView___block_invoke;
-    v40[3] = &unk_2782E81C8;
-    objc_copyWeak(&v41, location);
-    [detailHeaderLabel setAction:v40];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __40__RUIDetailHeaderElement_configureView___block_invoke;
+    v43[3] = &unk_2782E81C8;
+    objc_copyWeak(&v44, location);
+    [detailHeaderLabel setAction:v43];
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(location);
 LABEL_11:
     v21 = *MEMORY[0x277D76A08];
-    v43[0] = @"title1";
-    v43[1] = @"title2";
+    v46[0] = @"title1";
+    v46[1] = @"title2";
     v22 = *MEMORY[0x277D76A20];
-    v44[0] = v21;
-    v44[1] = v22;
+    v47[0] = v21;
+    v47[1] = v22;
     v23 = *MEMORY[0x277D76A28];
-    v43[2] = @"title3";
-    v43[3] = @"headline";
+    v46[2] = @"title3";
+    v46[3] = @"headline";
     v24 = *MEMORY[0x277D76988];
-    v44[2] = v23;
-    v44[3] = v24;
+    v47[2] = v23;
+    v47[3] = v24;
     v25 = *MEMORY[0x277D769D0];
-    v43[4] = @"subheadline";
-    v43[5] = @"body";
+    v46[4] = @"subheadline";
+    v46[5] = @"body";
     v26 = *MEMORY[0x277D76918];
-    v44[4] = v25;
-    v44[5] = v26;
+    v47[4] = v25;
+    v47[5] = v26;
     v27 = *MEMORY[0x277D76920];
-    v43[6] = @"callout";
-    v43[7] = @"footnote";
+    v46[6] = @"callout";
+    v46[7] = @"footnote";
     v28 = *MEMORY[0x277D76968];
-    v44[6] = v27;
-    v44[7] = v28;
-    v43[8] = @"caption1";
-    v43[9] = @"caption2";
+    v47[6] = v27;
+    v47[7] = v28;
+    v46[8] = @"caption1";
+    v46[9] = @"caption2";
     v29 = *MEMORY[0x277D76940];
-    v44[8] = *MEMORY[0x277D76938];
-    v44[9] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:10];
+    v47[8] = *MEMORY[0x277D76938];
+    v47[9] = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:10];
     attributes5 = [(RUIElement *)self attributes];
     v32 = [attributes5 objectForKeyedSubscript:@"textStyle"];
 
@@ -107,28 +107,34 @@ LABEL_11:
 
     if (v33)
     {
-      v34 = objc_loadWeakRetained(&self->_headerView);
-      detailHeaderLabel2 = [v34 detailHeaderLabel];
-      v36 = MEMORY[0x277D74300];
-      v37 = [v30 objectForKeyedSubscript:v32];
+      v36 = objc_loadWeakRetained(&self->_headerView);
+      detailHeaderLabel2 = [v36 detailHeaderLabel];
+      v38 = MEMORY[0x277D74300];
+      v39 = [v30 objectForKeyedSubscript:v32];
       traitCollection = [viewCopy traitCollection];
-      v39 = [v36 preferredFontForTextStyle:v37 compatibleWithTraitCollection:traitCollection];
-      [detailHeaderLabel2 setFont:v39];
+      v41 = [v38 preferredFontForTextStyle:v39 compatibleWithTraitCollection:traitCollection];
+      [detailHeaderLabel2 setFont:v41];
     }
 
     else
     {
-      if (!v32 || !_isInternalInstall())
+      if (!v32)
       {
         goto LABEL_14;
       }
 
-      v34 = _RUILoggingFacility();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      isInternalInstall = _isInternalInstall(v34, v35);
+      if (!isInternalInstall)
+      {
+        goto LABEL_14;
+      }
+
+      v36 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(location[0]) = 138412290;
         *(location + 4) = v32;
-        _os_log_impl(&dword_21B93D000, v34, OS_LOG_TYPE_DEFAULT, "'%@' is not a supported text style", location, 0xCu);
+        _os_log_impl(&dword_21B93D000, v36, OS_LOG_TYPE_DEFAULT, "'%@' is not a supported text style", location, 0xCu);
       }
     }
 

@@ -66,7 +66,7 @@
 - (void)removeObject:(id)object
 {
   objectCopy = object;
-  if (![(SBAlertItemsObjectQueue *)self containsObject:?])
+  if ((objc_msgSend_containsObject_(self) & 1) == 0)
   {
     [(SBAlertItemsObjectQueue *)a2 removeObject:?];
   }

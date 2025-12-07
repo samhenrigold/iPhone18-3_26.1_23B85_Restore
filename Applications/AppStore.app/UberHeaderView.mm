@@ -60,26 +60,26 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100115CA4(&qword_10096F618, 255, type metadata accessor for NSKeyValueChangeKey);
+  sub_100115CA4(&qword_10096F618, 255, type metadata accessor for NSKeyValueChangeKey, &unk_1007B0824);
   v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
   sub_10011450C(v10, v12, v18, v15, context);
 
-  sub_10002B894(v18, &unk_1009711D0);
+  sub_10002B894(v18, &unk_1009711D0, &unk_1007B1A10);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100114AD4(change);
+  sub_100114AD4(change, selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100114C20();
+  sub_100114C20(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -88,9 +88,9 @@ LABEL_8:
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1001151E0(event, x, y);
+  v11 = sub_1001151E0(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtC8AppStore14UberHeaderView)initWithFrame:(CGRect)frame

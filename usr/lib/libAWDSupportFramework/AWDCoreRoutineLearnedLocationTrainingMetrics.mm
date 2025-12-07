@@ -200,7 +200,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 8) != 0)
@@ -277,29 +277,29 @@ LABEL_8:
   if ([(NSMutableArray *)self->_visits count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_visits, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     visits = self->_visits;
-    v7 = [(NSMutableArray *)visits countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v7 = [(NSMutableArray *)visits countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(visits);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)visits countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v8 = [(NSMutableArray *)visits countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
@@ -311,29 +311,29 @@ LABEL_8:
   if ([(NSMutableArray *)self->_places count])
   {
     v11 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_places, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     places = self->_places;
-    v13 = [(NSMutableArray *)places countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v13 = [(NSMutableArray *)places countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(places);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v14 = [(NSMutableArray *)places countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v14 = [(NSMutableArray *)places countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v14);
@@ -359,7 +359,7 @@ LABEL_40:
       [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_placeCountDevice), @"placeCountDevice"}];
       if ((*&self->_has & 0x40) == 0)
       {
-        goto LABEL_31;
+        return dictionary;
       }
 
       goto LABEL_30;
@@ -385,18 +385,15 @@ LABEL_30:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_placeCountTotal), @"placeCountTotal"}];
   }
 
-LABEL_31:
-  v18 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -416,7 +413,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  trainedVisits = self->_trainedVisits;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -431,7 +427,6 @@ LABEL_4:
   }
 
 LABEL_30:
-  intervalSinceLastAttempt = self->_intervalSinceLastAttempt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -446,7 +441,6 @@ LABEL_5:
   }
 
 LABEL_31:
-  latency = self->_latency;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -461,97 +455,84 @@ LABEL_6:
   }
 
 LABEL_32:
-  locationsProcessed = self->_locationsProcessed;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    maxIntervalBetweenLocations = self->_maxIntervalBetweenLocations;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_8:
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   visits = self->_visits;
-  v7 = [(NSMutableArray *)visits countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)visits countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v34;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v9)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(visits);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)visits countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v7 = [(NSMutableArray *)visits countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   places = self->_places;
-  v13 = [(NSMutableArray *)places countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v13)
+  v11 = [(NSMutableArray *)places countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v30;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v15)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(places);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)places countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v12 = [(NSMutableArray *)places countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
-  v18 = self->_has;
-  if ((v18 & 0x80) != 0)
+  v15 = self->_has;
+  if ((v15 & 0x80) != 0)
   {
-    visitCountDevice = self->_visitCountDevice;
     PBDataWriterWriteUint32Field();
-    v18 = self->_has;
-    if ((v18 & 0x100) == 0)
+    v15 = self->_has;
+    if ((v15 & 0x100) == 0)
     {
 LABEL_24:
-      if ((v18 & 0x20) == 0)
+      if ((v15 & 0x20) == 0)
       {
         goto LABEL_25;
       }
 
-LABEL_36:
-      placeCountDevice = self->_placeCountDevice;
-      PBDataWriterWriteUint32Field();
-      if ((*&self->_has & 0x40) == 0)
-      {
-        goto LABEL_27;
-      }
-
-      goto LABEL_26;
+      goto LABEL_36;
     }
   }
 
@@ -560,24 +541,28 @@ LABEL_36:
     goto LABEL_24;
   }
 
-  visitCountTotal = self->_visitCountTotal;
   PBDataWriterWriteUint32Field();
-  v18 = self->_has;
-  if ((v18 & 0x20) != 0)
+  v15 = self->_has;
+  if ((v15 & 0x20) == 0)
   {
-    goto LABEL_36;
-  }
-
 LABEL_25:
-  if ((v18 & 0x40) != 0)
-  {
-LABEL_26:
-    placeCountTotal = self->_placeCountTotal;
-    PBDataWriterWriteUint32Field();
+    if ((v15 & 0x40) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_26;
   }
 
-LABEL_27:
-  v20 = *MEMORY[0x29EDCA608];
+LABEL_36:
+  PBDataWriterWriteUint32Field();
+  if ((*&self->_has & 0x40) == 0)
+  {
+    return;
+  }
+
+LABEL_26:
+  PBDataWriterWriteUint32Field();
 }
 
 - (void)copyTo:(id)to
@@ -740,7 +725,7 @@ LABEL_20:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -821,59 +806,59 @@ LABEL_7:
   }
 
 LABEL_8:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   visits = self->_visits;
-  v9 = [(NSMutableArray *)visits countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)visits countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(visits);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v6 addVisits:v13];
       }
 
-      v10 = [(NSMutableArray *)visits countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)visits countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   places = self->_places;
-  v15 = [(NSMutableArray *)places countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [(NSMutableArray *)places countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(places);
         }
 
-        v19 = [*(*(&v23 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
         [v6 addPlaces:v19];
       }
 
-      v16 = [(NSMutableArray *)places countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [(NSMutableArray *)places countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
@@ -898,7 +883,7 @@ LABEL_36:
       *(v6 + 84) |= 0x20u;
       if ((*&self->_has & 0x40) == 0)
       {
-        goto LABEL_27;
+        return v6;
       }
 
       goto LABEL_26;
@@ -926,8 +911,6 @@ LABEL_26:
     *(v6 + 84) |= 0x40u;
   }
 
-LABEL_27:
-  v21 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -958,7 +941,6 @@ LABEL_27:
   {
     if ((*(equal + 42) & 0x200) != 0)
     {
-      v8 = *(equal + 80);
       if (self->_trainedVisits)
       {
         if ((*(equal + 80) & 1) == 0)
@@ -1044,17 +1026,17 @@ LABEL_9:
     places = self->_places;
     if (!(places | *(equal + 7)) || (v5 = [(NSMutableArray *)places isEqual:?]) != 0)
     {
-      v11 = self->_has;
-      v12 = *(equal + 42);
-      if ((v11 & 0x80) != 0)
+      v10 = self->_has;
+      v11 = *(equal + 42);
+      if ((v10 & 0x80) != 0)
       {
-        if ((v12 & 0x80) == 0 || self->_visitCountDevice != *(equal + 16))
+        if ((v11 & 0x80) == 0 || self->_visitCountDevice != *(equal + 16))
         {
           goto LABEL_58;
         }
       }
 
-      else if ((v12 & 0x80) != 0)
+      else if ((v11 & 0x80) != 0)
       {
         goto LABEL_58;
       }
@@ -1072,23 +1054,23 @@ LABEL_9:
         goto LABEL_58;
       }
 
-      if ((v11 & 0x20) != 0)
+      if ((v10 & 0x20) != 0)
       {
-        if ((v12 & 0x20) == 0 || self->_placeCountDevice != *(equal + 11))
+        if ((v11 & 0x20) == 0 || self->_placeCountDevice != *(equal + 11))
         {
           goto LABEL_58;
         }
       }
 
-      else if ((v12 & 0x20) != 0)
+      else if ((v11 & 0x20) != 0)
       {
         goto LABEL_58;
       }
 
-      LOBYTE(v5) = (v12 & 0x40) == 0;
-      if ((v11 & 0x40) != 0)
+      LOBYTE(v5) = (v11 & 0x40) == 0;
+      if ((v10 & 0x40) != 0)
       {
-        if ((v12 & 0x40) == 0 || self->_placeCountTotal != *(equal + 12))
+        if ((v11 & 0x40) == 0 || self->_placeCountTotal != *(equal + 12))
         {
           goto LABEL_58;
         }
@@ -1239,7 +1221,7 @@ LABEL_18:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v5 = *(from + 42);
   if ((v5 & 8) != 0)
   {
@@ -1318,57 +1300,57 @@ LABEL_7:
   }
 
 LABEL_8:
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(from + 9);
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCoreRoutineLearnedLocationTrainingMetrics *)self addVisits:*(*(&v22 + 1) + 8 * i)];
+        [(AWDCoreRoutineLearnedLocationTrainingMetrics *)self addVisits:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(from + 7);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDCoreRoutineLearnedLocationTrainingMetrics *)self addPlaces:*(*(&v18 + 1) + 8 * j)];
+        [(AWDCoreRoutineLearnedLocationTrainingMetrics *)self addPlaces:*(*(&v17 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
@@ -1388,15 +1370,7 @@ LABEL_24:
         goto LABEL_25;
       }
 
-LABEL_36:
-      self->_placeCountDevice = *(from + 11);
-      *&self->_has |= 0x20u;
-      if ((*(from + 42) & 0x40) == 0)
-      {
-        goto LABEL_27;
-      }
-
-      goto LABEL_26;
+      goto LABEL_36;
     }
   }
 
@@ -1408,21 +1382,28 @@ LABEL_36:
   self->_visitCountTotal = *(from + 17);
   *&self->_has |= 0x100u;
   v16 = *(from + 42);
-  if ((v16 & 0x20) != 0)
+  if ((v16 & 0x20) == 0)
   {
-    goto LABEL_36;
-  }
-
 LABEL_25:
-  if ((v16 & 0x40) != 0)
-  {
-LABEL_26:
-    self->_placeCountTotal = *(from + 12);
-    *&self->_has |= 0x40u;
+    if ((v16 & 0x40) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_26;
   }
 
-LABEL_27:
-  v17 = *MEMORY[0x29EDCA608];
+LABEL_36:
+  self->_placeCountDevice = *(from + 11);
+  *&self->_has |= 0x20u;
+  if ((*(from + 42) & 0x40) == 0)
+  {
+    return;
+  }
+
+LABEL_26:
+  self->_placeCountTotal = *(from + 12);
+  *&self->_has |= 0x40u;
 }
 
 @end

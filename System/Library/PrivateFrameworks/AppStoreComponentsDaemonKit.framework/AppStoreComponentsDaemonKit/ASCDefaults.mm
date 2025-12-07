@@ -18,7 +18,12 @@
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)setDisableShutdownTimer:(BOOL)timer;
+- (void)setEnableWebInspector:(BOOL)inspector;
+- (void)setForceRightToLeftLayout:(BOOL)layout;
+- (void)setForceStandaloneWatch:(BOOL)watch;
 - (void)setObject:(id)object forKey:(id)key;
+- (void)setPreferInternalJS:(BOOL)s;
 @end
 
 @implementation ASCDefaults
@@ -191,6 +196,12 @@ uint64_t __29__ASCDefaults_daemonDefaults__block_invoke()
   return bOOLValue;
 }
 
+- (void)setForceRightToLeftLayout:(BOOL)layout
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:layout];
+  [(ASCDefaults *)self setObject:v4 forKey:@"ASCForceRightToLeftLayout"];
+}
+
 - (BOOL)disableShutdownTimer
 {
   objc_opt_class();
@@ -217,6 +228,12 @@ uint64_t __29__ASCDefaults_daemonDefaults__block_invoke()
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDisableShutdownTimer:(BOOL)timer
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:timer];
+  [(ASCDefaults *)self setObject:v4 forKey:@"ASCDisableShutdownTimer"];
 }
 
 - (NSNumber)overlaysRateLimitRequestsPerSecond
@@ -328,6 +345,12 @@ uint64_t __29__ASCDefaults_daemonDefaults__block_invoke()
   return bOOLValue;
 }
 
+- (void)setEnableWebInspector:(BOOL)inspector
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:inspector];
+  [(ASCDefaults *)self setObject:v4 forKey:@"ASCEnableWebInspector"];
+}
+
 - (BOOL)forceStandaloneWatch
 {
   objc_opt_class();
@@ -354,6 +377,12 @@ uint64_t __29__ASCDefaults_daemonDefaults__block_invoke()
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setForceStandaloneWatch:(BOOL)watch
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:watch];
+  [(ASCDefaults *)self setObject:v4 forKey:@"ASCForceStandaloneWatch"];
 }
 
 - (NSString)debugPackageURL
@@ -409,6 +438,12 @@ uint64_t __29__ASCDefaults_daemonDefaults__block_invoke()
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPreferInternalJS:(BOOL)s
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:s];
+  [(ASCDefaults *)self setObject:v4 forKey:@"ASCPreferInternalJS"];
 }
 
 - (NSString)jsVersion

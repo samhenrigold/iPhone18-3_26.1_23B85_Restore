@@ -4,13 +4,14 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
+- (void)setIsReconnecting:(BOOL)reconnecting;
 @end
 
 @implementation MNStartNavigationDetails
 
 - (id)description
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   selectedRouteIndex = self->_selectedRouteIndex;
   if (selectedRouteIndex >= [(NSArray *)self->_routes count])
@@ -23,35 +24,35 @@
     v5 = [(NSArray *)self->_routes objectAtIndexedSubscript:self->_selectedRouteIndex];
   }
 
-  v56 = v5;
+  v55 = v5;
   destination = [v5 destination];
   v7 = MEMORY[0x1E696AEC0];
-  v55 = destination;
+  v54 = destination;
   humanDescriptionWithAddressAndLatLng = [destination humanDescriptionWithAddressAndLatLng];
   v9 = [v7 stringWithFormat:@"destination: %@", humanDescriptionWithAddressAndLatLng];
   [array addObject:v9];
 
   array2 = [MEMORY[0x1E695DF70] array];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v11 = self->_routes;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v58;
+    v14 = *v57;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v58 != v14)
+        if (*v57 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        name = [*(*(&v57 + 1) + 8 * i) name];
+        name = [*(*(&v56 + 1) + 8 * i) name];
         v17 = name;
         if (name)
         {
@@ -68,7 +69,7 @@
         [array2 addObject:v19];
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v13);
@@ -117,7 +118,7 @@
   [array addObject:v30];
 
   v31 = MEMORY[0x1E696AEC0];
-  transportType = [v56 transportType];
+  transportType = [v55 transportType];
   if (transportType >= 7)
   {
     v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", transportType];
@@ -189,8 +190,6 @@
   [array addObject:v51];
 
   v52 = [array componentsJoinedByString:@"\n\t"];
-
-  v53 = *MEMORY[0x1E69E9840];
 
   return v52;
 }
@@ -369,6 +368,21 @@
   }
 
   return v5;
+}
+
+- (void)setIsReconnecting:(BOOL)reconnecting
+{
+  reconnectingCopy = reconnecting;
+  if (reconnecting && !self->_reconnectionDetails)
+  {
+    v5 = objc_alloc_init(MNStartNavigationReconnectionDetails);
+    reconnectionDetails = self->_reconnectionDetails;
+    self->_reconnectionDetails = v5;
+  }
+
+  v7 = self->_reconnectionDetails;
+
+  [(MNStartNavigationReconnectionDetails *)v7 setIsReconnecting:reconnectingCopy];
 }
 
 - (MNStartNavigationDetails)init

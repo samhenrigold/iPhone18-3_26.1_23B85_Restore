@@ -15,9 +15,9 @@
   aCopy = a;
   dCopy = d;
   contextCopy = context;
-  v29.receiver = self;
-  v29.super_class = PTOpticalFlow;
-  v16 = [(PTOpticalFlow *)&v29 init];
+  v31.receiver = self;
+  v31.super_class = PTOpticalFlow;
+  v16 = [(PTOpticalFlow *)&v31 init];
   v17 = v16;
   if (!v16)
   {
@@ -33,8 +33,8 @@
 
   if (!*&v17[2])
   {
-    v27 = _PTLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = _PTLogSystem(v20);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow initWithMetalContext:colorSize:lktPreset:allocateDisplacementFWD:needConversionBGRA2YUVA:inverseFlow:];
     }
@@ -42,15 +42,15 @@
     goto LABEL_14;
   }
 
-  v20 = [[PTLKTFlow alloc] initWithMetalContext:contextCopy width:v17[5].u32[0] height:v17[5].u32[1] nscales:0xFFFFFFFFLL];
-  v21 = v17[3];
-  v17[3] = v20;
-
+  v21 = [[PTLKTFlow alloc] initWithMetalContext:contextCopy width:v17[5].u32[0] height:v17[5].u32[1] nscales:0xFFFFFFFFLL];
   v22 = v17[3];
-  if (!v22)
+  v17[3] = v21;
+
+  v23 = v17[3];
+  if (!v23)
   {
-    v27 = _PTLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = _PTLogSystem(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow initWithMetalContext:colorSize:lktPreset:allocateDisplacementFWD:needConversionBGRA2YUVA:inverseFlow:];
     }
@@ -58,11 +58,11 @@
 LABEL_14:
 
 LABEL_15:
-    v26 = 0;
+    v28 = 0;
     goto LABEL_16;
   }
 
-  [v22 setIsInverse:v17[6].u8[1]];
+  [v23 setIsInverse:v17[6].u8[1]];
   [*&v17[3] setNeedConversionBGRA2YUVA:aCopy];
   [*&v17[3] setUseNonLocalRegularization:1];
   [*&v17[3] setIsBidirectional:0];
@@ -70,9 +70,9 @@ LABEL_15:
   if (dCopy)
   {
     textureUtil = [contextCopy textureUtil];
-    v24 = [textureUtil createWithWidth:v17[5].i32[0] height:v17[5].i32[1] pixelFormat:65];
-    v25 = v17[4];
-    v17[4] = v24;
+    v25 = [textureUtil createWithWidth:v17[5].i32[0] height:v17[5].i32[1] pixelFormat:65];
+    v26 = v17[4];
+    v17[4] = v25;
 
     if (v17[4])
     {
@@ -80,8 +80,8 @@ LABEL_15:
       goto LABEL_7;
     }
 
-    v27 = _PTLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = _PTLogSystem(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow initWithMetalContext:colorSize:lktPreset:allocateDisplacementFWD:needConversionBGRA2YUVA:inverseFlow:];
     }
@@ -90,25 +90,26 @@ LABEL_15:
   }
 
 LABEL_7:
-  v26 = v17;
+  v28 = v17;
 LABEL_16:
 
-  return v26;
+  return v28;
 }
 
 - (signed)estimateDisplacementStream:(id)stream index:(int)index doOpticalFlow:(BOOL)flow destRGBA:(id)a
 {
   v6 = [(PTLKTFlow *)self->_lktflowgpuContext estimateFlowStreamTex:a index:*&index doOpticalFlow:flow commandBuffer:stream];
+  v7 = v6;
   if (v6)
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow estimateDisplacementStream:index:doOpticalFlow:destRGBA:];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (signed)estimateDisplacementStream:(id)stream destRGBA:(id)a outDisplacement:(id)displacement
@@ -121,21 +122,21 @@ LABEL_16:
 
   if (displacement)
   {
-    v12 = _PTLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _PTLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow estimateDisplacementStream:destRGBA:outDisplacement:];
     }
 
-    v13 = -1;
+    v14 = -1;
   }
 
   else
   {
-    v13 = [(PTOpticalFlow *)self setDisplacementFWD:v9];
+    v14 = [(PTOpticalFlow *)self setDisplacementFWD:v9];
   }
 
-  return v13;
+  return v14;
 }
 
 - (signed)estimateDisplacementFWD:(id)d sourceRGBA:(id)a destRGBA:(id)bA
@@ -144,7 +145,7 @@ LABEL_16:
   v6 = v5;
   if (v5 << 16)
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow estimateDisplacementFWD:sourceRGBA:destRGBA:];
@@ -227,7 +228,7 @@ LABEL_16:
 
   else
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(dCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PTOpticalFlow setDisplacementFWD:];

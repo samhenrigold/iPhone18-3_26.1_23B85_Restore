@@ -3,7 +3,7 @@
 
 @implementation NUIContainerView(NUISubclassHelpers)
 
-- (uint64_t)visibilityDidChangeForArrangedSubview:()NUISubclassHelpers .cold.2(unsigned __int16 *a1, uint64_t a2)
+- (void)visibilityDidChangeForArrangedSubview:()NUISubclassHelpers .cold.2(unsigned __int16 *a1, uint64_t a2)
 {
   v2 = *a1;
   result = [(NUIContainerView *)a2 _countHiddenArrangesSubviews];

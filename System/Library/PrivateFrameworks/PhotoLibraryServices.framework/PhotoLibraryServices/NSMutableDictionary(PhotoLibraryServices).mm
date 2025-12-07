@@ -54,10 +54,10 @@
 {
   if (a3)
   {
-    return [self setObject:? forKey:?];
+    return [result setObject:? forKey:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

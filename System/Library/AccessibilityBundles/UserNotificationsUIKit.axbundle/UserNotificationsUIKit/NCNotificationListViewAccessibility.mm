@@ -322,7 +322,7 @@ LABEL_9:
 
 - (BOOL)accessibilityScrollToVisibleWithChild:(id)child
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v64 = *MEMORY[0x29EDCA608];
   childCopy = child;
   NSClassFromString(&cfstr_Uiscrollviewsc.isa);
   if (objc_opt_isKindOfClass())
@@ -354,22 +354,22 @@ LABEL_9:
     v26 = AXLogScrollToVisible();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      v68.origin.x = v15;
-      v68.origin.y = v17;
-      v68.size.width = v19;
-      v68.size.height = v21;
-      v59 = NSStringFromCGRect(v68);
-      v69.top = insets.top;
-      v69.left = v9;
-      v69.bottom = v11;
-      v69.right = v13;
-      v60 = NSStringFromUIEdgeInsets(v69);
+      v67.origin.x = v15;
+      v67.origin.y = v17;
+      v67.size.width = v19;
+      v67.size.height = v21;
+      v58 = NSStringFromCGRect(v67);
+      v68.top = insets.top;
+      v68.left = v9;
+      v68.bottom = v11;
+      v68.right = v13;
+      v59 = NSStringFromUIEdgeInsets(v68);
       LODWORD(insets.left) = 138412802;
-      *(&insets.left + 4) = v59;
+      *(&insets.left + 4) = v58;
       WORD2(insets.bottom) = 2112;
-      *(&insets.bottom + 6) = v60;
+      *(&insets.bottom + 6) = v59;
       HIWORD(insets.right) = 2048;
-      v64 = v25;
+      v63 = v25;
       _os_log_debug_impl(&dword_29C6DA000, v26, OS_LOG_TYPE_DEBUG, "Scrolling within notifications. Original: %@, computed using insets %@, with a modified topInset of %f", &insets.left, 0x20u);
     }
 
@@ -381,29 +381,29 @@ LABEL_9:
     v35 = AXLogScrollToVisible();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v70.origin.x = v28;
-      v70.origin.y = v30;
-      v70.size.width = v32;
-      v70.size.height = v34;
-      v61 = NSStringFromCGRect(v70);
+      v69.origin.x = v28;
+      v69.origin.y = v30;
+      v69.size.width = v32;
+      v69.size.height = v34;
+      v60 = NSStringFromCGRect(v69);
       LODWORD(insets.left) = 138412290;
-      *(&insets.left + 4) = v61;
+      *(&insets.left + 4) = v60;
       _os_log_debug_impl(&dword_29C6DA000, v35, OS_LOG_TYPE_DEBUG, "Expanded: %@", &insets.left, 0xCu);
     }
 
     [(NCNotificationListViewAccessibility *)self safeCGPointForKey:@"_minimumContentOffset"];
     v37 = v36;
-    v66.origin.x = v28;
-    v66.origin.y = v30;
-    v66.size.width = v32;
-    v66.size.height = v34;
-    if (CGRectGetMinY(v66) < v37)
+    v65.origin.x = v28;
+    v65.origin.y = v30;
+    v65.size.width = v32;
+    v65.size.height = v34;
+    if (CGRectGetMinY(v65) < v37)
     {
-      v67.origin.x = v28;
-      v67.origin.y = v30;
-      v67.size.width = v32;
-      v67.size.height = v34;
-      CGRectGetMinY(v67);
+      v66.origin.x = v28;
+      v66.origin.y = v30;
+      v66.size.width = v32;
+      v66.size.height = v34;
+      CGRectGetMinY(v66);
       UIRectInset();
       v39 = v38;
       v41 = v40;
@@ -412,13 +412,13 @@ LABEL_9:
       v46 = AXLogScrollToVisible();
       if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
-        v71.origin.x = v39;
-        v71.origin.y = v41;
-        v71.size.width = v43;
-        v71.size.height = v45;
-        v62 = NSStringFromCGRect(v71);
+        v70.origin.x = v39;
+        v70.origin.y = v41;
+        v70.size.width = v43;
+        v70.size.height = v45;
+        v61 = NSStringFromCGRect(v70);
         LODWORD(insets.left) = 138412290;
-        *(&insets.left + 4) = v62;
+        *(&insets.left + 4) = v61;
         _os_log_debug_impl(&dword_29C6DA000, v46, OS_LOG_TYPE_DEBUG, "Clipped on top: %@", &insets.left, 0xCu);
       }
     }
@@ -440,7 +440,6 @@ LABEL_9:
     v5 = [(NCNotificationListViewAccessibility *)self _accessibilityScrollToFrame:v55 forView:v48, v50, v52, v54];
   }
 
-  v57 = *MEMORY[0x29EDCA608];
   return v5;
 }
 

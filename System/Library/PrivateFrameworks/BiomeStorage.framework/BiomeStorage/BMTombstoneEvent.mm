@@ -172,8 +172,8 @@
 
 - (id)jsonDictionary
 {
-  v18[7] = *MEMORY[0x1E69E9840];
-  v17[0] = @"segmentName";
+  v17[7] = *MEMORY[0x1E69E9840];
+  v16[0] = @"segmentName";
   segmentName = self->_segmentName;
   null = segmentName;
   if (!segmentName)
@@ -181,14 +181,14 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"offset";
+  v17[0] = null;
+  v16[1] = @"offset";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:self->_offset];
-  v18[1] = v5;
-  v17[2] = @"length";
+  v17[1] = v5;
+  v16[2] = @"length";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:self->_length];
-  v18[2] = v6;
-  v17[3] = @"deletionReason";
+  v17[2] = v6;
+  v16[3] = @"deletionReason";
   v7 = self->_deletionReason - 1;
   if (v7 > 3)
   {
@@ -200,8 +200,8 @@
     v8 = off_1E8338B78[v7];
   }
 
-  v18[3] = v8;
-  v17[4] = @"policyID";
+  v17[3] = v8;
+  v16[4] = @"policyID";
   policyID = self->_policyID;
   null2 = policyID;
   if (!policyID)
@@ -209,11 +209,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null2;
-  v17[5] = @"eventTimestamp";
+  v17[4] = null2;
+  v16[5] = @"eventTimestamp";
   v11 = [MEMORY[0x1E696AD98] numberWithDouble:self->_eventTimestamp];
-  v18[5] = v11;
-  v17[6] = @"processName";
+  v17[5] = v11;
+  v16[6] = @"processName";
   processName = self->_processName;
   null3 = processName;
   if (!processName)
@@ -221,8 +221,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[6] = null3;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v17[6] = null3;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:7];
   if (!processName)
   {
   }
@@ -234,8 +234,6 @@
   if (!segmentName)
   {
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -323,11 +321,10 @@
 
 + (void)eventWithData:(int)a1 dataVersion:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Unable to decode BMTombstoneEvent with dataVersion %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Unable to decode BMTombstoneEvent with dataVersion %u", v2, 8u);
 }
 
 @end

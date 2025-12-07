@@ -240,36 +240,36 @@
 
 - (id)prs_arrayWithClass:()ParsecExtras forKey:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [self prs_arrayForKey:a4];
   if (v5)
   {
-    v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v5)];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v13 = [a3 alloc];
-            v14 = [v13 initWithData:{v12, v17}];
+            v14 = [v13 initWithData:{v12, v16}];
             if (v14)
             {
               [v6 addObject:v14];
@@ -277,7 +277,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -288,8 +288,6 @@
   {
     v6 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

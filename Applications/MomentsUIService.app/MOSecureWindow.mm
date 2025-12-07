@@ -8,12 +8,12 @@
 
 - (_TtC16MomentsUIService14MOSecureWindow)initWithCoder:(id)coder
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy16MomentsUIService24MOAngelControllerWrapperCGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy16MomentsUIService24MOAngelControllerWrapperCGMd, &_s7Combine9PublishedVy16MomentsUIService24MOAngelControllerWrapperCGMR);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = v10 - v6;
   v8 = OBJC_IVAR____TtC16MomentsUIService14MOSecureWindow__controller;
-  v10[1] = [objc_allocWithZone(type metadata accessor for MOAngelControllerWrapper()) init];
+  v10[1] = [objc_allocWithZone(type metadata accessor for MOAngelControllerWrapper(0)) init];
   Published.init(initialValue:)();
   (*(v5 + 32))(self + v8, v7, v4);
   result = _assertionFailure(_:_:file:line:flags:)();

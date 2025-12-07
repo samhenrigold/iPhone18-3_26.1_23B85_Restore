@@ -44,14 +44,14 @@
 - (void)saveDeviceInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[MSDNPIMaskValues saveDeviceInfo:]";
-    v10 = 2114;
-    v11 = infoCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - deviceInfo:  %{public}@", &v8, 0x16u);
+    v9 = 136315394;
+    v10 = "[MSDNPIMaskValues saveDeviceInfo:]";
+    v11 = 2114;
+    v12 = infoCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - deviceInfo:  %{public}@", &v9, 0x16u);
   }
 
   if (infoCopy)
@@ -64,12 +64,12 @@
 
   else
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[MSDNPIMaskValues saveDeviceInfo:]";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - Missing deviceInfo.", &v8, 0xCu);
+      v9 = 136315138;
+      v10 = "[MSDNPIMaskValues saveDeviceInfo:]";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s - Missing deviceInfo.", &v9, 0xCu);
     }
   }
 }
@@ -85,7 +85,7 @@
 
   else
   {
-    v7 = sub_100063A54();
+    v7 = sub_100063A54(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 136315138;

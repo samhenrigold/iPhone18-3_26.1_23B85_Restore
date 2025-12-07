@@ -6,7 +6,7 @@
 
 - (id)resultsWithDictionary:(id)dictionary error:(id *)error
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = [dictionaryCopy objectForKey:@"data"];
@@ -34,38 +34,38 @@
           v18 = v17;
           if (v17)
           {
-            v49 = v17;
+            v48 = v17;
             v19 = [v17 valueForKeyPath:@"relationships.children.data"];
             v17 = NMAPIArrayWithObject(v19, @"sectionsArray", error);
 
             v20 = v17;
             if (v17)
             {
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
               v56 = 0u;
-              v48 = v17;
+              v57 = 0u;
+              v54 = 0u;
+              v55 = 0u;
+              v47 = v17;
               obj = v17;
-              v53 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-              if (v53)
+              v52 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+              if (v52)
               {
-                v51 = v13;
-                v52 = *v56;
-                v46 = v11;
-                v47 = dictionaryCopy;
-                v54 = v7;
-                v45 = v15;
+                v50 = v13;
+                v51 = *v55;
+                v45 = v11;
+                v46 = dictionaryCopy;
+                v53 = v7;
+                v44 = v15;
                 while (2)
                 {
-                  for (i = 0; i != v53; ++i)
+                  for (i = 0; i != v52; ++i)
                   {
-                    if (*v56 != v52)
+                    if (*v55 != v51)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v22 = NMAPIDictionaryWithObject(*(*(&v55 + 1) + 8 * i), @"section", error);
+                    v22 = NMAPIDictionaryWithObject(*(*(&v54 + 1) + 8 * i), @"section", error);
                     if (!v22)
                     {
                       goto LABEL_36;
@@ -80,10 +80,10 @@
 
 LABEL_36:
                       v17 = 0;
-                      v11 = v46;
-                      dictionaryCopy = v47;
-                      v7 = v54;
-                      v15 = v45;
+                      v11 = v45;
+                      dictionaryCopy = v46;
+                      v7 = v53;
+                      v15 = v44;
                       goto LABEL_37;
                     }
 
@@ -97,10 +97,10 @@ LABEL_36:
                       v29 = [NMAPISectionResult alloc];
                       v30 = [v28 copy];
                       v31 = [(NMAPISectionResult *)v29 initWithSectionIdentifier:v25 sectionDictionary:v30 itemsArray:v27];
-                      [v54 addObject:v31];
+                      [v53 addObject:v31];
                     }
 
-                    v32 = [v23 valueForKeyPath:{@"relationships.contents.data", v45, v46, v47}];
+                    v32 = [v23 valueForKeyPath:{@"relationships.contents.data", v44, v45, v46}];
                     v33 = NMAPIOptionalArrayWithObject(v32, @"FeaturedStations", error);
 
                     if (v33)
@@ -110,7 +110,7 @@ LABEL_36:
                       v35 = [NMAPISectionResult alloc];
                       v36 = [v34 copy];
                       v37 = [(NMAPISectionResult *)v35 initWithSectionIdentifier:v25 sectionDictionary:v36 itemsArray:v33];
-                      [v54 addObject:v37];
+                      [v53 addObject:v37];
                     }
 
                     v38 = [v23 valueForKeyPath:@"attributes.links"];
@@ -119,18 +119,18 @@ LABEL_36:
                     if (v39)
                     {
                       v40 = [[NMAPISectionResult alloc] initWithSectionIdentifier:v25 sectionDictionary:v23 itemsArray:v39];
-                      [v54 addObject:v40];
+                      [v53 addObject:v40];
                     }
 
-                    v13 = v51;
+                    v13 = v50;
                   }
 
-                  v11 = v46;
-                  dictionaryCopy = v47;
-                  v7 = v54;
-                  v15 = v45;
-                  v53 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-                  if (v53)
+                  v11 = v45;
+                  dictionaryCopy = v46;
+                  v7 = v53;
+                  v15 = v44;
+                  v52 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+                  if (v52)
                   {
                     continue;
                   }
@@ -147,10 +147,10 @@ LABEL_36:
 
               v17 = [v7 copy];
 LABEL_37:
-              v20 = v48;
+              v20 = v47;
             }
 
-            v18 = v49;
+            v18 = v48;
           }
         }
 
@@ -167,8 +167,8 @@ LABEL_37:
         {
           *buf = 138412546;
           selfCopy = self;
-          v62 = 2112;
-          v63 = v13;
+          v61 = 2112;
+          v62 = v13;
           _os_log_impl(&dword_25B251000, v42, OS_LOG_TYPE_DEFAULT, "[NMAPIResponseParser] Invalid response for request (%@) due to unexpected type: %@", buf, 0x16u);
         }
 
@@ -195,8 +195,6 @@ LABEL_37:
   {
     v17 = 0;
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

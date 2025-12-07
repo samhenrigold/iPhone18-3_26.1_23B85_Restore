@@ -18,20 +18,22 @@
   bottom = insets.bottom;
   left = insets.left;
   top = insets.top;
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for NavigationBarContentView.DebugVisualizer();
-  v7 = v8.receiver;
-  [(UIView *)&v8 _safeAreaInsetsDidChangeFromOldInsets:top, left, bottom, right];
-  [v7 setNeedsLayout];
+  type metadata accessor for NavigationBarContentView.DebugVisualizer();
+  v10.receiver = self;
+  v10.super_class = v8;
+  selfCopy = self;
+  [(UIView *)&v10 _safeAreaInsetsDidChangeFromOldInsets:top, left, bottom, right];
+  [(UIView *)selfCopy setNeedsLayout:v10.receiver];
 }
 
 - (void)_clippedSafeAreaCornerInsetsDidChangeFromOldCornerInsets:(id)insets
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for NavigationBarContentView.DebugVisualizer();
-  v4 = v5.receiver;
-  [(UIView *)&v5 _clippedSafeAreaCornerInsetsDidChangeFromOldCornerInsets:insets.var1];
-  [v4 setNeedsLayout];
+  type metadata accessor for NavigationBarContentView.DebugVisualizer();
+  v7.receiver = self;
+  v7.super_class = v5;
+  selfCopy = self;
+  [(UIView *)&v7 _clippedSafeAreaCornerInsetsDidChangeFromOldCornerInsets:insets.var1];
+  [(UIView *)selfCopy setNeedsLayout:v7.receiver];
 }
 
 @end

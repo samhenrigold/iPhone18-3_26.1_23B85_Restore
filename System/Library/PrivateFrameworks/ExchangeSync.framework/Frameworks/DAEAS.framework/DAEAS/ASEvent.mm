@@ -22,7 +22,9 @@
 - (BOOL)isTombstoneEndTimeInFuture;
 - (BOOL)loadCalRecordForAccount:(id)account;
 - (BOOL)purgeAttendeesPendingDeletionForAccountID:(id)d;
+- (BOOL)saveDetachedEventsWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (BOOL)saveServerIDAndUidToCalendar;
+- (BOOL)saveToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (BOOL)setCalEventWithExistingRecord:(void *)record intoCalendar:(void *)calendar;
 - (BOOL)verifyExternalIdsForAccountID:(id)d;
 - (NSCalendarDate)endDateForCalFramework;
@@ -40,7 +42,9 @@
 - (id)uidGeneratedIfNecessaryWithLocalEvent:(void *)event forAccount:(id)account;
 - (int)CalCalendarItemStatus;
 - (int)_meetingResponseShouldUseEmail:(BOOL)email shouldFilterForEmail:(BOOL)forEmail;
+- (int)_nextAttendeeStatusWithOldStatus:(int)status account:(id)account;
 - (int)_nextAttendeeStatusWithOldStatus:(int)status meetingClassType:(int)type account:(id)account;
+- (int)_nextEventStatusWithOldStatus:(int)status account:(id)account;
 - (int)_nextEventStatusWithOldStatus:(int)status meetingClassType:(int)type account:(id)account;
 - (int)calAttendeePendingStatus;
 - (int)calAttendeeStatus;
@@ -449,7 +453,7 @@
 
 - (void)copySelfAttendeeGeneratedIfNecessaryWithLocalEvent:(void *)event forAccount:(id)account
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277D03988] + 6);
@@ -457,11 +461,11 @@
   {
     subject = self->_subject;
     serverID = [(ASChangedCollectionLeaf *)self serverID];
-    v27 = 138412546;
-    v28 = subject;
-    v29 = 2112;
-    v30 = serverID;
-    _os_log_impl(&dword_24A0AC000, v6, v7, "Event %@ %@ is looking for a self attendee", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = subject;
+    v28 = 2112;
+    v29 = serverID;
+    _os_log_impl(&dword_24A0AC000, v6, v7, "Event %@ %@ is looking for a self attendee", &v26, 0x16u);
   }
 
   Attendee = CalCalendarItemCopySelfAttendee();
@@ -514,11 +518,11 @@ LABEL_15:
         {
           v15 = self->_subject;
           serverID2 = [(ASChangedCollectionLeaf *)self serverID];
-          v27 = 138412546;
-          v28 = v15;
-          v29 = 2112;
-          v30 = serverID2;
-          _os_log_impl(&dword_24A0AC000, v14, v7, "Adding self attendee to event %@ %@", &v27, 0x16u);
+          v26 = 138412546;
+          v27 = v15;
+          v28 = 2112;
+          v29 = serverID2;
+          _os_log_impl(&dword_24A0AC000, v14, v7, "Adding self attendee to event %@ %@", &v26, 0x16u);
         }
 
         v17 = +[ASLocalDBHelper sharedInstance];
@@ -535,13 +539,13 @@ LABEL_15:
           emailAddress = [accountCopy emailAddress];
           v21 = self->_subject;
           serverID3 = [(ASChangedCollectionLeaf *)self serverID];
-          v27 = 138412802;
-          v28 = emailAddress;
-          v29 = 2112;
-          v30 = v21;
-          v31 = 2112;
-          v32 = serverID3;
-          _os_log_impl(&dword_24A0AC000, v19, v7, "Marking attendee %@ as DA-added self attendee for event %@ %@ ", &v27, 0x20u);
+          v26 = 138412802;
+          v27 = emailAddress;
+          v28 = 2112;
+          v29 = v21;
+          v30 = 2112;
+          v31 = serverID3;
+          _os_log_impl(&dword_24A0AC000, v19, v7, "Marking attendee %@ as DA-added self attendee for event %@ %@ ", &v26, 0x20u);
         }
 
         v23 = objc_opt_new();
@@ -554,7 +558,6 @@ LABEL_15:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return Attendee;
 }
 
@@ -577,7 +580,7 @@ LABEL_15:
 
 - (id)_attachmentFromAttachmentRef:(void *)ref
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   v6 = CalAttachmentCopyExternalID();
   [v5 setName:v6];
@@ -604,15 +607,13 @@ LABEL_15:
     {
       subject = self->_subject;
       clientId = [v5 clientId];
-      v18 = 138412546;
-      v19 = subject;
-      v20 = 2112;
-      v21 = clientId;
-      _os_log_impl(&dword_24A0AC000, v12, v13, "Local URL not found for event %@, attachment client Id %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = subject;
+      v19 = 2112;
+      v20 = clientId;
+      _os_log_impl(&dword_24A0AC000, v12, v13, "Local URL not found for event %@, attachment client Id %@", &v17, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -715,7 +716,7 @@ LABEL_15:
 
 - (void)_loadAttributesFromCalEvent:(void *)event forAccount:(id)account
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   protocol = [accountCopy protocol];
   useFloatingTimeForAllDayEvents = [protocol useFloatingTimeForAllDayEvents];
@@ -734,10 +735,10 @@ LABEL_15:
   v9 = [(ASEvent *)self uidGeneratedIfNecessaryWithLocalEvent:event forAccount:accountCopy];
   [(ASEvent *)self setLocalMask:CalEventGetModifiedProperties()];
   [(ASEvent *)self setItemStatus:CalCalendarItemGetStatus()];
-  v113 = CalCalendarItemCopyDescription();
-  if (v113)
+  v112 = CalCalendarItemCopyDescription();
+  if (v112)
   {
-    v10 = [v113 stringByConvertingLineEndingsTo:@"\r\n"];
+    v10 = [v112 stringByConvertingLineEndingsTo:@"\r\n"];
     [(ASEvent *)self setBody:v10];
   }
 
@@ -752,7 +753,7 @@ LABEL_15:
   }
 
   v14 = CalCalendarItemCopyAlarms();
-  v118 = v14;
+  v117 = v14;
   if ([v14 count] && objc_msgSend(v14, "count"))
   {
     v15 = 0;
@@ -766,8 +767,8 @@ LABEL_15:
       }
 
       ++v15;
-      v14 = v118;
-      if (v15 >= [v118 count])
+      v14 = v117;
+      if (v15 >= [v117 count])
       {
         goto LABEL_13;
       }
@@ -785,7 +786,7 @@ LABEL_13:
     [(ASEvent *)self setSubject:v18];
   }
 
-  v110 = v18;
+  v109 = v18;
   v19 = CalCalendarItemCopyOrganizer();
   if (v19)
   {
@@ -843,10 +844,10 @@ LABEL_28:
   }
 
 LABEL_29:
-  v108 = v24;
+  v107 = v24;
   [(ASEvent *)self setTimeZone:v24];
   v32 = CalCalendarItemCopyStartDate();
-  v111 = v32;
+  v110 = v32;
   if (useFloatingTimeForAllDayEvents)
   {
     v33 = v32;
@@ -855,17 +856,17 @@ LABEL_29:
   else
   {
     timeZone = [(ASEvent *)self timeZone];
-    v35 = [v111 dateWithCalendarFormat:0 timeZone:timeZone];
+    v35 = [v110 dateWithCalendarFormat:0 timeZone:timeZone];
     v36 = [(ASEvent *)self _transformedStartDateForActiveSync:v35 isFloating:IsFloating];
 
     v33 = v36;
   }
 
-  v109 = v33;
+  v108 = v33;
   [(ASEvent *)self setStartTime:?];
   v37 = MEMORY[0x277CBEAA8];
   CalEventGetEndDate();
-  v115 = [v37 dateWithTimeIntervalSinceReferenceDate:?];
+  v114 = [v37 dateWithTimeIntervalSinceReferenceDate:?];
   if (useFloatingTimeForAllDayEvents)
   {
     allDayEvent = [(ASEvent *)self allDayEvent];
@@ -873,54 +874,54 @@ LABEL_29:
 
     if (intValue)
     {
-      v114 = [v115 dateByAddingTimeInterval:1.0];
+      v113 = [v114 dateByAddingTimeInterval:1.0];
     }
 
     else
     {
-      v114 = v115;
+      v113 = v114;
     }
 
-    [(ASEvent *)self setEndTime:v114];
+    [(ASEvent *)self setEndTime:v113];
   }
 
   else
   {
     timeZone2 = [(ASEvent *)self timeZone];
-    v41 = [v115 dateWithCalendarFormat:0 timeZone:timeZone2];
-    v114 = [(ASEvent *)self _transformedEndDateForActiveSync:v41 isFloating:IsFloating];
+    v41 = [v114 dateWithCalendarFormat:0 timeZone:timeZone2];
+    v113 = [(ASEvent *)self _transformedEndDateForActiveSync:v41 isFloating:IsFloating];
 
-    [(ASEvent *)self setEndTime:v114];
+    [(ASEvent *)self setEndTime:v113];
   }
 
-  v112 = CalCalendarItemCopyRecurrences();
-  if ([v112 count])
+  v111 = CalCalendarItemCopyRecurrences();
+  if ([v111 count])
   {
-    v42 = [v112 objectAtIndexedSubscript:0];
+    v42 = [v111 objectAtIndexedSubscript:0];
 
     v43 = [[ASRecurrence alloc] initWithCalRecurrence:v42 parentEvent:self useFloatingTimeForAllDayEvents:useFloatingTimeForAllDayEvents];
     [(ASEvent *)self setRecurrence:v43];
   }
 
-  v123 = objc_opt_new();
-  v125 = CalCalendarItemCopyAttendees();
-  if ([v125 count])
+  v122 = objc_opt_new();
+  v124 = CalCalendarItemCopyAttendees();
+  if ([v124 count])
   {
     v44 = 0;
     type = *(MEMORY[0x277D03988] + 6);
-    v116 = *(MEMORY[0x277D03988] + 4);
+    v115 = *(MEMORY[0x277D03988] + 4);
     do
     {
-      v45 = [v125 objectAtIndexedSubscript:v44];
+      v45 = [v124 objectAtIndexedSubscript:v44];
 
       v46 = MEMORY[0x24C210580](v45);
       if (v46)
       {
         v47 = MEMORY[0x277CCAAC8];
         v48 = +[ASEvent attendeeExternalRepClasses];
-        v127 = 0;
-        v49 = [v47 unarchivedObjectOfClasses:v48 fromData:v46 error:&v127];
-        v50 = v127;
+        v126 = 0;
+        v49 = [v47 unarchivedObjectOfClasses:v48 fromData:v46 error:&v126];
+        v50 = v126;
 
         if (v49)
         {
@@ -937,9 +938,9 @@ LABEL_29:
                 subject = self->_subject;
                 serverID = [(ASChangedCollectionLeaf *)self serverID];
                 *buf = 138412546;
-                v129 = subject;
-                v130 = 2112;
-                v131 = serverID;
+                v128 = subject;
+                v129 = 2112;
+                v130 = serverID;
                 _os_log_impl(&dword_24A0AC000, v53, type, "Event %@ %@ contains DA added self attendee", buf, 0x16u);
               }
 
@@ -963,23 +964,23 @@ LABEL_29:
         {
           v49 = v50;
           v50 = DALoggingwithCategory();
-          if (os_log_type_enabled(v50, v116))
+          if (os_log_type_enabled(v50, v115))
           {
             *buf = 138412290;
-            v129 = v49;
-            _os_log_impl(&dword_24A0AC000, v50, v116, "Unable to decode attendee properties: %@", buf, 0xCu);
+            v128 = v49;
+            _os_log_impl(&dword_24A0AC000, v50, v115, "Unable to decode attendee properties: %@", buf, 0xCu);
           }
         }
       }
 
       v56 = [[ASAttendee alloc] initWithCalAttendee:v45 parentEvent:self];
-      [v123 addObject:v56];
+      [v122 addObject:v56];
 LABEL_56:
 
       ++v44;
     }
 
-    while (v44 < [v125 count]);
+    while (v44 < [v124 count]);
   }
 
   typea = CalCalendarItemCopyAttendeesPendingDeletion();
@@ -994,7 +995,7 @@ LABEL_56:
         v59 = [typea objectAtIndexedSubscript:v58];
 
         v60 = [[ASAttendee alloc] initWithCalAttendee:v59 parentEvent:self];
-        [v123 addObject:v60];
+        [v122 addObject:v60];
         [v57 addObject:v60];
 
         ++v58;
@@ -1006,7 +1007,7 @@ LABEL_56:
     [(ASEvent *)self setAttendeesPendingDeletion:v57];
   }
 
-  [(ASEvent *)self setAttendees:v123];
+  [(ASEvent *)self setAttendees:v122];
   v61 = CalCalendarItemCopyExceptionDatesAsCFDates();
   v62 = CalEventCopyDetachedEvents();
   if ([v61 count] || objc_msgSend(v62, "count"))
@@ -1119,9 +1120,9 @@ LABEL_56:
   {
     v92 = MEMORY[0x277CCAAC8];
     v93 = +[ASEvent calendarItemExternalRepClasses];
-    v126 = 0;
-    v94 = [v92 unarchivedObjectOfClasses:v93 fromData:v91 error:&v126];
-    v95 = v126;
+    v125 = 0;
+    v94 = [v92 unarchivedObjectOfClasses:v93 fromData:v91 error:&v125];
+    v95 = v125;
 
     if (!v94)
     {
@@ -1130,7 +1131,7 @@ LABEL_56:
       if (os_log_type_enabled(v96, v97))
       {
         *buf = 138412290;
-        v129 = v95;
+        v128 = v95;
         _os_log_impl(&dword_24A0AC000, v96, v97, "Unable to decode calendar item properties: %@", buf, 0xCu);
       }
     }
@@ -1162,7 +1163,6 @@ LABEL_56:
   [(ASEvent *)self _determineSelfnessWithLocalEvent:event forAccount:accountCopy];
 
 LABEL_97:
-  v107 = *MEMORY[0x277D85DE8];
 }
 
 - (ASEvent)init
@@ -1232,10 +1232,9 @@ LABEL_97:
   v4 = objc_opt_class();
   serverID = [(ASChangedCollectionLeaf *)self serverID];
   clientID = [(ASChangedCollectionLeaf *)self clientID];
-  subject = self->_subject;
-  v8 = [v3 stringWithFormat:@"<%@: [%@] [%@] [%@] [%@]>", v4, serverID, clientID, subject, self->_startTime];
+  v7 = [v3 stringWithFormat:@"<%@: [%@] [%@] [%@] [%@]>", v4, serverID, clientID, self->_subject, self->_startTime];
 
-  return v8;
+  return v7;
 }
 
 - (int)calAttendeeStatus
@@ -1319,6 +1318,19 @@ LABEL_97:
   return status;
 }
 
+- (int)_nextEventStatusWithOldStatus:(int)status account:(id)account
+{
+  v4 = *&status;
+  accountCopy = account;
+  v7 = [(ASEvent *)self _nextEventStatusWithOldStatus:v4 meetingClassType:1 account:accountCopy];
+  if (!v7)
+  {
+    v7 = ![(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy];
+  }
+
+  return v7;
+}
+
 - (int)_nextAttendeeStatusWithOldStatus:(int)status meetingClassType:(int)type account:(id)account
 {
   accountCopy = account;
@@ -1363,6 +1375,27 @@ LABEL_97:
   }
 
   return status;
+}
+
+- (int)_nextAttendeeStatusWithOldStatus:(int)status account:(id)account
+{
+  v4 = *&status;
+  accountCopy = account;
+  v7 = [(ASEvent *)self _nextAttendeeStatusWithOldStatus:v4 meetingClassType:1 account:accountCopy];
+  if (v7 == 7)
+  {
+    if ([(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy])
+    {
+      v7 = 7;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+  }
+
+  return v7;
 }
 
 - (int)_meetingResponseShouldUseEmail:(BOOL)email shouldFilterForEmail:(BOOL)forEmail
@@ -1496,31 +1529,1597 @@ LABEL_97:
   return record != 0;
 }
 
+- (BOOL)saveToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  propertiesCopy = properties;
+  v349 = *MEMORY[0x277D85DE8];
+  accountCopy = account;
+  protocol = [accountCopy protocol];
+  useFloatingTimeForAllDayEvents = [protocol useFloatingTimeForAllDayEvents];
+
+  protocol2 = [accountCopy protocol];
+  useInstanceIdForException = [protocol2 useInstanceIdForException];
+
+  v15 = 0x27EF33000uLL;
+  if (!record && (self->_isDTStampUpdateOnly || self->_isAttendeeUpdateOnly))
+  {
+    v39 = DALoggingwithCategory();
+    v42 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v39, v42))
+    {
+      isDTStampUpdateOnly = self->_isDTStampUpdateOnly;
+      isAttendeeUpdateOnly = self->_isAttendeeUpdateOnly;
+      *buf = 138412802;
+      *&buf[4] = self;
+      *&buf[12] = 1024;
+      *&buf[14] = isDTStampUpdateOnly;
+      *&buf[18] = 1024;
+      *&buf[20] = isAttendeeUpdateOnly;
+      _os_log_impl(&dword_24A0AC000, v39, v42, "Asked to save new event %@, but record is NULL, and one of _isDTStampUpdateOnly (%d) or _isAttendeeUpdateOnly (%d) is true.  Dropping this event on the floor", buf, 0x18u);
+    }
+
+    v45 = 0;
+    goto LABEL_302;
+  }
+
+  v16 = +[ASLocalDBHelper sharedInstance];
+  accountID = [accountCopy accountID];
+  [v16 calDatabaseForAccountID:accountID];
+
+  selfCopy = self;
+  localPropertiesCopy = localProperties;
+  v313 = propertiesCopy;
+  IsDefaultCalendarForStore = CalCalendarIsDefaultCalendarForStore();
+  if (record)
+  {
+    ModifiedProperties = CalEventGetModifiedProperties();
+    v18 = CalCalendarItemCopyExternalRepresentation();
+    if (!v18)
+    {
+      v304 = 0;
+      v302 = 0;
+      recordCopy = record;
+LABEL_32:
+      [(ASEvent *)self setCalEvent:recordCopy];
+      v300 = 1;
+      cf = recordCopy;
+      if (record)
+      {
+        goto LABEL_35;
+      }
+
+      goto LABEL_33;
+    }
+
+    v19 = v18;
+    v298 = accountCopy;
+    v20 = MEMORY[0x277CCAAC8];
+    v21 = +[ASEvent calendarItemExternalRepClasses];
+    v343 = 0;
+    v22 = [v20 unarchivedObjectOfClasses:v21 fromData:v19 error:&v343];
+    v23 = v343;
+
+    if (!v22)
+    {
+      v24 = DALoggingwithCategory();
+      v25 = *(MEMORY[0x277D03988] + 4);
+      if (os_log_type_enabled(v24, v25))
+      {
+        *buf = 138412290;
+        *&buf[4] = v23;
+        _os_log_impl(&dword_24A0AC000, v24, v25, "Unable to decode calendar item properties: %@", buf, 0xCu);
+      }
+    }
+
+    v26 = [v22 objectForKeyedSubscript:@"easExtraProperties"];
+    v304 = [v26 objectForKeyedSubscript:&unk_285D57D50];
+    v302 = [v26 objectForKeyedSubscript:&unk_285D57D68];
+    recordCopy2 = record;
+    ModifiedDate = CalCalendarItemCopyLastModifiedDate();
+    if (!ModifiedDate || (-[ASEvent dTStamp](selfCopy, "dTStamp"), (v29 = objc_claimAutoreleasedReturnValue()) == 0) || (v30 = v29, -[ASEvent dTStamp](selfCopy, "dTStamp"), v31 = objc_claimAutoreleasedReturnValue(), v32 = [ModifiedDate compare:v31], v31, localProperties = localPropertiesCopy, v30, v33 = v32 == 1, propertiesCopy = v313, !v33))
+    {
+
+      record = recordCopy2;
+      recordCopy = recordCopy2;
+      accountCopy = v298;
+      self = selfCopy;
+LABEL_30:
+      v15 = 0x27EF33000;
+      goto LABEL_32;
+    }
+
+    v34 = DALoggingwithCategory();
+    type = *(MEMORY[0x277D03988] + 5);
+    if (os_log_type_enabled(v34, type))
+    {
+      dTStamp = [(ASEvent *)selfCopy dTStamp];
+      *buf = 138412802;
+      *&buf[4] = ModifiedDate;
+      *&buf[12] = 2112;
+      *&buf[14] = dTStamp;
+      *&buf[22] = 2112;
+      *&buf[24] = selfCopy;
+      _os_log_impl(&dword_24A0AC000, v34, type, "Out of date timestamp.  cal db has (%@) I have (%@) - self is %@", buf, 0x20u);
+
+      propertiesCopy = v313;
+    }
+
+    self = selfCopy;
+    accountCopy = v298;
+    if (![(ASEvent *)selfCopy _bailIfNotNewestDataForAccount:v298])
+    {
+      record = recordCopy2;
+      recordCopy = recordCopy2;
+      localProperties = localPropertiesCopy;
+      goto LABEL_30;
+    }
+
+    v36 = DALoggingwithCategory();
+    if (os_log_type_enabled(v36, type))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24A0AC000, v36, type, "Not saving the in-memory event due to that out of date timestamp", buf, 2u);
+    }
+
+    v37 = CalCalendarItemCopyExternalID();
+    serverID = [(ASChangedCollectionLeaf *)selfCopy serverID];
+
+    v39 = v304;
+    if (!serverID || v37 && (-[ASChangedCollectionLeaf serverID](selfCopy, "serverID"), v40 = objc_claimAutoreleasedReturnValue(), v41 = [v40 isEqualToString:v37], v40, (v41 & 1) != 0))
+    {
+      if (CalCalendarItemGetStatus())
+      {
+LABEL_92:
+
+        v45 = 0;
+        goto LABEL_301;
+      }
+    }
+
+    else
+    {
+      serverID2 = [(ASChangedCollectionLeaf *)selfCopy serverID];
+      CalCalendarItemSetExternalID();
+
+      [(ASEvent *)selfCopy calEvent];
+      v91 = CalEventCopyDetachedEvents();
+      if ([v91 count])
+      {
+        v92 = 0;
+        do
+        {
+          v93 = [v91 objectAtIndexedSubscript:v92];
+
+          v94 = [[ASEventException alloc] initWithCalEvent:v93 originalEvent:selfCopy account:accountCopy];
+          v95 = [(ASEventException *)v94 serverIdForCalFrameworkWithParentEvent:selfCopy];
+          CalCalendarItemSetExternalID();
+
+          accountCopy = v298;
+          ++v92;
+        }
+
+        while (v92 < [v91 count]);
+      }
+
+      if (CalCalendarItemGetStatus())
+      {
+        goto LABEL_91;
+      }
+    }
+
+    CalCalendarItemSetStatus();
+LABEL_91:
+    v96 = +[ASLocalDBHelper sharedInstance];
+    accountID2 = [accountCopy accountID];
+    [v96 calSaveDatabaseForAccountID:accountID2];
+
+    goto LABEL_92;
+  }
+
+  Event = CalDatabaseCreateEvent();
+  if (Event)
+  {
+    recordCopy = Event;
+    ModifiedProperties = 0;
+    v304 = 0;
+    v302 = 0;
+    goto LABEL_32;
+  }
+
+  v300 = 0;
+  ModifiedProperties = 0;
+  v304 = 0;
+  cf = 0;
+  v302 = 0;
+LABEL_33:
+  if (calendar)
+  {
+    MEMORY[0x24C2106B0](calendar, cf);
+  }
+
+LABEL_35:
+  if (self->_dTStamp)
+  {
+    v48 = CalCalendarItemCopyLastModifiedDate();
+    v49 = self->_dTStamp;
+    if (v48)
+    {
+      [v48 compare:v49];
+    }
+
+    CalCalendarItemSetLastModifiedDate();
+  }
+
+  serverID3 = [(ASChangedCollectionLeaf *)self serverID];
+
+  if (serverID3)
+  {
+    if (useInstanceIdForException && ([(ASChangedCollectionLeaf *)self instanceID], v51 = objc_claimAutoreleasedReturnValue(), v51, v51))
+    {
+      v52 = MEMORY[0x277CCACA8];
+      serverID4 = [(ASChangedCollectionLeaf *)self serverID];
+      instanceID = [(ASChangedCollectionLeaf *)self instanceID];
+      serverID5 = [v52 stringWithFormat:@"%@%@%@", serverID4, @"<!ExceptionDate!>", instanceID];
+    }
+
+    else
+    {
+      serverID5 = [(ASChangedCollectionLeaf *)self serverID];
+    }
+
+    [(ASEvent *)self calEvent];
+    CalCalendarItemSetExternalID();
+  }
+
+  if (*(&self->super.super.super.isa + *(v15 + 3312)))
+  {
+    v56 = 0;
+    if (localProperties)
+    {
+      goto LABEL_288;
+    }
+
+    goto LABEL_289;
+  }
+
+  recordCopy3 = record;
+  if (self->_isAttendeeUpdateOnly)
+  {
+    v293 = 0;
+    v296 = 0;
+    goto LABEL_229;
+  }
+
+  allDayEvent = [(ASEvent *)self allDayEvent];
+  [allDayEvent BOOLValue];
+  v58 = cf;
+  CalEventSetAllDay();
+
+  body = [(ASEvent *)self body];
+
+  if (body)
+  {
+    if ([(ASEvent *)self bodyTruncated])
+    {
+      body3 = CalCalendarItemCopyDescription();
+      if (!body3 || (-[ASEvent body](self, "body"), v61 = objc_claimAutoreleasedReturnValue(), v62 = [body3 hasPrefix:v61], v61, (v62 & 1) == 0))
+      {
+        body2 = [(ASEvent *)self body];
+        CalCalendarItemSetDescription();
+      }
+    }
+
+    else
+    {
+      body3 = [(ASEvent *)self body];
+      CalCalendarItemSetDescription();
+    }
+
+    goto LABEL_64;
+  }
+
+  if ((propertiesCopy & 1) == 0)
+  {
+    CalCalendarItemSetDescription();
+    goto LABEL_64;
+  }
+
+  v64 = CalCalendarItemCopyDescription();
+  if (!v64)
+  {
+LABEL_64:
+    v296 = 0;
+    goto LABEL_65;
+  }
+
+  v65 = v64;
+  v66 = DALoggingwithCategory();
+  v67 = *(MEMORY[0x277D03988] + 7);
+  if (os_log_type_enabled(v66, v67))
+  {
+    *buf = 138412290;
+    *&buf[4] = self;
+    _os_log_impl(&dword_24A0AC000, v66, v67, "event %@ had local description over remote", buf, 0xCu);
+  }
+
+  CFRelease(v65);
+  v296 = 1;
+LABEL_65:
+  CalEventGetEndDate();
+  v69 = v68;
+  if (useFloatingTimeForAllDayEvents)
+  {
+    allDayEvent2 = [(ASEvent *)self allDayEvent];
+    intValue = [allDayEvent2 intValue];
+
+    endTime = [(ASEvent *)self endTime];
+    endDateForCalFramework = endTime;
+    if (intValue)
+    {
+      v74 = [endTime dateByAddingTimeInterval:-1.0];
+
+      endDateForCalFramework = v74;
+    }
+  }
+
+  else
+  {
+    endDateForCalFramework = [(ASEvent *)self endDateForCalFramework];
+  }
+
+  [endDateForCalFramework timeIntervalSinceReferenceDate];
+  CalEventSetEndDate();
+  [(ASEvent *)self timeZoneForCalFramework];
+  CalCalendarItemSetEndTimeZone();
+  v292 = endDateForCalFramework;
+  [endDateForCalFramework timeIntervalSinceReferenceDate];
+  v76 = 2 * (v69 != v75);
+  Location = CalCalendarItemCopyLocation();
+  location = [(ASEvent *)self location];
+
+  v299 = accountCopy;
+  if (!location)
+  {
+    if (propertiesCopy)
+    {
+      if (Location)
+      {
+        v81 = DALoggingwithCategory();
+        v82 = *(MEMORY[0x277D03988] + 7);
+        if (os_log_type_enabled(v81, v82))
+        {
+          *buf = 138412290;
+          *&buf[4] = self;
+          _os_log_impl(&dword_24A0AC000, v81, v82, "event %@ had local location over remote", buf, 0xCu);
+        }
+
+        v296 = 1;
+        goto LABEL_112;
+      }
+
+      goto LABEL_113;
+    }
+
+    CalCalendarItemSetLocation();
+    if (Location)
+    {
+      v76 |= 8u;
+    }
+
+    goto LABEL_111;
+  }
+
+  location2 = [(ASEvent *)self location];
+  isEmptyLocation = [location2 isEmptyLocation];
+
+  if ((isEmptyLocation & 1) == 0)
+  {
+    if (!Location)
+    {
+      Location = CalDatabaseCreateLocation();
+      CalCalendarItemSetLocation();
+    }
+
+    v83 = [ASLocation locationWithCalLocation:Location];
+    location3 = [(ASEvent *)self location];
+    v85 = [location3 isEqualToLocation:v83];
+
+    if (v85)
+    {
+      goto LABEL_110;
+    }
+
+    location4 = [(ASEvent *)self location];
+    annotation = [location4 annotation];
+
+    location5 = [(ASEvent *)self location];
+    v89 = location5;
+    *typea = v83;
+    if (annotation)
+    {
+      [location5 annotation];
+      CalLocationSetAddress();
+
+LABEL_102:
+      v76 |= 8u;
+      location6 = [(ASEvent *)self location];
+      displayName = [location6 displayName];
+
+      if (displayName)
+      {
+        location7 = [(ASEvent *)self location];
+        [location7 displayName];
+        CalLocationSetTitle();
+      }
+
+      else
+      {
+        CalLocationSetTitle();
+      }
+
+      v118 = accountCopy;
+      location8 = [(ASEvent *)self location];
+      latitude = [location8 latitude];
+      if (latitude)
+      {
+        v121 = latitude;
+        propertiesCopy = [(ASEvent *)self location];
+        longitude = [propertiesCopy longitude];
+
+        LODWORD(propertiesCopy) = v313;
+        if (longitude)
+        {
+          *buf = 0;
+          *&buf[8] = 0;
+          location9 = [(ASEvent *)self location];
+          latitude2 = [location9 latitude];
+          [latitude2 doubleValue];
+          *buf = v125;
+
+          location10 = [(ASEvent *)self location];
+          longitude2 = [location10 longitude];
+          [longitude2 doubleValue];
+          *&buf[8] = v128;
+        }
+      }
+
+      else
+      {
+      }
+
+      CalLocationSetCoordinates();
+      accountCopy = v118;
+      v83 = *typea;
+LABEL_110:
+
+LABEL_111:
+      if (Location)
+      {
+        goto LABEL_112;
+      }
+
+      goto LABEL_113;
+    }
+
+    street = [location5 street];
+    if (street)
+    {
+      v99 = street;
+      propertiesCopy = [(ASEvent *)self location];
+      country = [propertiesCopy country];
+      if (country)
+      {
+        v101 = country;
+        location11 = [(ASEvent *)self location];
+        city = [location11 city];
+        if (city)
+        {
+          v104 = city;
+          location12 = [(ASEvent *)self location];
+          state = [location12 state];
+
+          self = selfCopy;
+          accountCopy = v299;
+          LODWORD(propertiesCopy) = v313;
+          v58 = cf;
+          if (state)
+          {
+            v314 = MEMORY[0x277CCACA8];
+            location13 = [(ASEvent *)selfCopy location];
+            street2 = [location13 street];
+            propertiesCopy = [(ASEvent *)selfCopy location];
+            city2 = [propertiesCopy city];
+            location14 = [(ASEvent *)selfCopy location];
+            state2 = [location14 state];
+            location15 = [(ASEvent *)selfCopy location];
+            country2 = [location15 country];
+            v113 = street2;
+            v112 = [v314 stringWithFormat:@"%@, %@, %@, %@", street2, city2, state2, country2];
+
+            accountCopy = v299;
+            self = selfCopy;
+
+            v58 = cf;
+            LODWORD(propertiesCopy) = v313;
+
+            CalLocationSetAddress();
+            goto LABEL_102;
+          }
+
+LABEL_101:
+          CalLocationSetAddress();
+          goto LABEL_102;
+        }
+      }
+
+      LODWORD(propertiesCopy) = v313;
+      v58 = cf;
+    }
+
+    goto LABEL_101;
+  }
+
+  if (Location)
+  {
+    CalCalendarItemSetLocation();
+LABEL_112:
+    CFRelease(Location);
+  }
+
+LABEL_113:
+  v129 = CalCalendarItemCopyAlarms();
+  v130 = [v129 count];
+  if (propertiesCopy && (ModifiedProperties & 1) != 0)
+  {
+    if (!v130)
+    {
+      if (!self->_reminderMinsBefore)
+      {
+        goto LABEL_135;
+      }
+
+      v135 = DALoggingwithCategory();
+      v136 = *(MEMORY[0x277D03988] + 7);
+      if (!os_log_type_enabled(v135, v136))
+      {
+        goto LABEL_134;
+      }
+
+      *buf = 138412290;
+      *&buf[4] = self;
+      v137 = "event %@ had local alarm over remote";
+      goto LABEL_133;
+    }
+
+    if (v130 == 1)
+    {
+      if (!self->_reminderMinsBefore)
+      {
+        goto LABEL_123;
+      }
+
+      [v129 objectAtIndexedSubscript:0];
+
+      reminderMinsBefore = [(ASEvent *)self reminderMinsBefore];
+      v132 = -60 * [reminderMinsBefore intValue];
+
+      if (v132 != CalAlarmGetTriggerInterval())
+      {
+        v133 = DALoggingwithCategory();
+        v134 = *(MEMORY[0x277D03988] + 7);
+        if (os_log_type_enabled(v133, v134))
+        {
+          *buf = 138412290;
+          *&buf[4] = self;
+          _os_log_impl(&dword_24A0AC000, v133, v134, "event %@ had local alarm over remote", buf, 0xCu);
+        }
+
+        v296 = 1;
+      }
+
+      if (!self->_reminderMinsBefore)
+      {
+LABEL_123:
+        v135 = DALoggingwithCategory();
+        v136 = *(MEMORY[0x277D03988] + 7);
+        if (!os_log_type_enabled(v135, v136))
+        {
+LABEL_134:
+
+          v296 = 1;
+          goto LABEL_135;
+        }
+
+        *buf = 138412290;
+        *&buf[4] = self;
+        v137 = "event %@ had NO local alarm over remote";
+LABEL_133:
+        _os_log_impl(&dword_24A0AC000, v135, v136, v137, buf, 0xCu);
+        goto LABEL_134;
+      }
+    }
+  }
+
+  else
+  {
+    if (v130)
+    {
+      v138 = 0;
+      do
+      {
+        v139 = [v129 objectAtIndexedSubscript:v138];
+
+        MEMORY[0x24C210D40](v58, v139);
+        ++v138;
+      }
+
+      while (v138 < [v129 count]);
+    }
+
+    reminderMinsBefore2 = [(ASEvent *)self reminderMinsBefore];
+
+    if (reminderMinsBefore2)
+    {
+      Alarm = CalDatabaseCreateAlarm();
+      reminderMinsBefore3 = [(ASEvent *)self reminderMinsBefore];
+      [reminderMinsBefore3 intValue];
+      CalAlarmSetTriggerInterval();
+
+      CalCalendarItemAddAlarm();
+      CFRelease(Alarm);
+    }
+  }
+
+LABEL_135:
+
+  subject = [(ASEvent *)self subject];
+
+  if (subject)
+  {
+    [(ASEvent *)self subject];
+LABEL_142:
+    CalCalendarItemSetSummary();
+    goto LABEL_143;
+  }
+
+  if ((v313 & 1) == 0)
+  {
+    goto LABEL_142;
+  }
+
+  v144 = CalCalendarItemCopySummary();
+  if (v144)
+  {
+    v145 = v144;
+    v146 = DALoggingwithCategory();
+    v147 = *(MEMORY[0x277D03988] + 7);
+    if (os_log_type_enabled(v146, v147))
+    {
+      *buf = 138412290;
+      *&buf[4] = self;
+      _os_log_impl(&dword_24A0AC000, v146, v147, "event %@ had local summary over remote", buf, 0xCu);
+    }
+
+    CFRelease(v145);
+    v296 = 1;
+  }
+
+LABEL_143:
+  organizerName = [(ASEvent *)self organizerName];
+  if ([organizerName length])
+  {
+    v149 = 1;
+  }
+
+  else
+  {
+    organizerEmail = [(ASEvent *)self organizerEmail];
+    v149 = [organizerEmail length] != 0;
+  }
+
+  [(ASEvent *)self calEvent];
+  Organizer = CalCalendarItemCopyOrganizer();
+  v152 = [(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy];
+  if (!Organizer || v149)
+  {
+    if (!v149)
+    {
+      goto LABEL_165;
+    }
+
+    if (Organizer == 0 && !v152)
+    {
+      Organizer = CalDatabaseCreateOrganizer();
+      [(ASEvent *)self calEvent];
+      CalCalendarItemSetOrganizer();
+    }
+
+    if (Organizer)
+    {
+      MEMORY[0x24C210E70](Organizer, [(ASEvent *)self organizerName]);
+      MEMORY[0x24C210E80](Organizer, [(ASEvent *)self organizerEmail]);
+      [(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy];
+      CalOrganizerSetIsSelf();
+    }
+
+    v153 = [(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy];
+    if (!calendar || !v153)
+    {
+LABEL_165:
+      if (!Organizer)
+      {
+        goto LABEL_167;
+      }
+
+      goto LABEL_166;
+    }
+
+    v154 = CalCalendarCopyOwnerIdentityDisplayName();
+    organizerName2 = [(ASEvent *)self organizerName];
+    v156 = organizerName2;
+    if (v154)
+    {
+      if (!organizerName2)
+      {
+        goto LABEL_164;
+      }
+
+      organizerName3 = [(ASEvent *)self organizerName];
+      v158 = [v154 isEqualToString:organizerName3];
+
+      if (v158)
+      {
+        goto LABEL_164;
+      }
+    }
+
+    else
+    {
+
+      if (!v156)
+      {
+LABEL_164:
+
+        goto LABEL_165;
+      }
+    }
+
+    v159 = DALoggingwithCategory();
+    v160 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v159, v160))
+    {
+      organizerName4 = [(ASEvent *)self organizerName];
+      *buf = 138412546;
+      *&buf[4] = v154;
+      *&buf[12] = 2112;
+      *&buf[14] = organizerName4;
+      _os_log_impl(&dword_24A0AC000, v159, v160, "Updating calendar owner name from %@ to %@", buf, 0x16u);
+    }
+
+    [(ASEvent *)self organizerName];
+    CalCalendarSetOwnerIdentityDisplayName();
+    goto LABEL_164;
+  }
+
+  [(ASEvent *)self calEvent];
+  CalCalendarItemSetOrganizer();
+LABEL_166:
+  CFRelease(Organizer);
+LABEL_167:
+  CalEventGetStartDate();
+  v163 = v162;
+  if (useFloatingTimeForAllDayEvents)
+  {
+    [(ASEvent *)self startTime];
+  }
+
+  else
+  {
+    [(ASEvent *)self startDateForCalFramework];
+  }
+  v164 = ;
+  [v164 timeIntervalSinceReferenceDate];
+  [(ASEvent *)self timeZoneNameForCalFramework];
+  CalEventSetStartDateDirectly();
+  [v164 timeIntervalSinceReferenceDate];
+  v165 = v76 | 2;
+  if (v163 == v166)
+  {
+    v165 = v76;
+  }
+
+  v293 = v165;
+  if ((v165 & 2) != 0)
+  {
+    [(ASEvent *)self calEvent];
+    CalEventGetRawProposedStartDate();
+    if (v167 != *MEMORY[0x277CF78F0])
+    {
+      [(ASEvent *)self calEvent];
+      CalEventSetProposedStartDate();
+      [(ASEvent *)self calEvent];
+      CalEventSetResponseComment();
+    }
+  }
+
+  sensitivity = self->_sensitivity;
+  if (!sensitivity || [(NSNumber *)sensitivity intValue]<= 3)
+  {
+    [(ASEvent *)self calEvent];
+    CalCalendarItemSetPrivacyLevel();
+  }
+
+  v169 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
+  v170 = v169;
+  meetingStatus = self->_meetingStatus;
+  if (meetingStatus)
+  {
+    [v169 setObject:meetingStatus forKeyedSubscript:&unk_285D57D38];
+  }
+
+  responseRequested = self->_responseRequested;
+  if (responseRequested || (responseRequested = v304) != 0)
+  {
+    [v170 setObject:responseRequested forKeyedSubscript:&unk_285D57D50];
+  }
+
+  v173 = objc_opt_new();
+  v174 = v173;
+  if (self->_categories)
+  {
+    [v173 addObjectsFromArray:?];
+  }
+
+  if ([v174 count])
+  {
+    allObjects = [v174 allObjects];
+    [v170 setObject:allObjects forKeyedSubscript:&unk_285D57D68];
+  }
+
+  v289 = v174;
+  if (self->_disallowNewTimeProposal)
+  {
+    [(ASEvent *)self calEvent];
+    [(NSNumber *)self->_disallowNewTimeProposal BOOLValue];
+    CalEventSetDisallowProposeNewTime();
+  }
+
+  if (self->_onlineMeetingExternalLink)
+  {
+    v176 = MEMORY[0x277CBEBC0];
+    onlineMeetingExternalLink = [(ASEvent *)self onlineMeetingExternalLink];
+    v178 = [v176 URLWithString:onlineMeetingExternalLink];
+
+    [(ASEvent *)self calEvent];
+    CalEventSetConferenceURL();
+  }
+
+  [(ASEvent *)self calEvent];
+  v294 = CalCalendarItemCopyExternalRepresentation();
+  v291 = v164;
+  if (!v294)
+  {
+    goto LABEL_197;
+  }
+
+  v179 = v170;
+  v180 = MEMORY[0x277CCAAC8];
+  v181 = +[ASEvent calendarItemExternalRepClasses];
+  v342 = 0;
+  v182 = [v180 unarchivedObjectOfClasses:v181 fromData:v294 error:&v342];
+  v183 = v342;
+  v184 = [v182 mutableCopy];
+
+  if (!v184)
+  {
+    v186 = DALoggingwithCategory();
+    v187 = *(MEMORY[0x277D03988] + 4);
+    if (os_log_type_enabled(v186, v187))
+    {
+      *buf = 138412290;
+      *&buf[4] = v183;
+      _os_log_impl(&dword_24A0AC000, v186, v187, "Unable to decode calendar item properties: %@", buf, 0xCu);
+    }
+
+    v170 = v179;
+LABEL_197:
+    v185 = objc_opt_new();
+    goto LABEL_198;
+  }
+
+  v170 = v179;
+  v185 = v184;
+LABEL_198:
+  v290 = v170;
+  [v185 setObject:v170 forKeyedSubscript:@"easExtraProperties"];
+  v288 = v185;
+  v188 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v185];
+  [(ASEvent *)self calEvent];
+  v287 = v188;
+  CalCalendarItemSetExternalRepresentation();
+  typeb = objc_opt_new();
+  v189 = CalCalendarItemCopyAttachments();
+  if (!v189)
+  {
+    goto LABEL_218;
+  }
+
+  v190 = v189;
+  Count = CFArrayGetCount(v189);
+  if (Count < 1)
+  {
+    goto LABEL_217;
+  }
+
+  v191 = 0;
+  v301 = v190;
+  do
+  {
+    CFArrayGetValueAtIndex(v190, v191);
+    v192 = CalAttachmentCopyUUID();
+    v315 = CalAttachmentCopyExternalID();
+    v338 = 0u;
+    v339 = 0u;
+    v340 = 0u;
+    v341 = 0u;
+    attachments = [(ASEvent *)self attachments];
+    v194 = [attachments countByEnumeratingWithState:&v338 objects:v347 count:16];
+    if (!v194)
+    {
+
+LABEL_215:
+      CalCalendarItemRemoveAttachment();
+      goto LABEL_216;
+    }
+
+    v195 = v194;
+    v308 = v191;
+    v318 = 0;
+    v196 = *v339;
+    do
+    {
+      for (i = 0; i != v195; ++i)
+      {
+        if (*v339 != v196)
+        {
+          objc_enumerationMutation(attachments);
+        }
+
+        v198 = *(*(&v338 + 1) + 8 * i);
+        clientId = [v198 clientId];
+        if ([v192 isEqualToString:clientId])
+        {
+        }
+
+        else
+        {
+          [v198 name];
+          v200 = v192;
+          v202 = v201 = attachments;
+          v203 = [v315 isEqualToString:v202];
+
+          attachments = v201;
+          v192 = v200;
+
+          if (!v203)
+          {
+            continue;
+          }
+        }
+
+        name = [v198 name];
+        CalAttachmentSetExternalID();
+
+        displayName2 = [v198 displayName];
+        CalAttachmentSetFilename();
+
+        v206 = [v198 size];
+        CalAttachmentSetFileSize();
+
+        [typeb addObject:v198];
+        v318 = 1;
+      }
+
+      v195 = [attachments countByEnumeratingWithState:&v338 objects:v347 count:16];
+    }
+
+    while (v195);
+
+    v190 = v301;
+    v191 = v308;
+    if ((v318 & 1) == 0)
+    {
+      goto LABEL_215;
+    }
+
+LABEL_216:
+
+    ++v191;
+    self = selfCopy;
+  }
+
+  while (v191 != Count);
+LABEL_217:
+  CFRelease(v190);
+LABEL_218:
+  v336 = 0u;
+  v337 = 0u;
+  v334 = 0u;
+  v335 = 0u;
+  attachments2 = [(ASEvent *)self attachments];
+  v208 = [attachments2 countByEnumeratingWithState:&v334 objects:v346 count:16];
+  if (v208)
+  {
+    v209 = v208;
+    v210 = *v335;
+    do
+    {
+      for (j = 0; j != v209; ++j)
+      {
+        if (*v335 != v210)
+        {
+          objc_enumerationMutation(attachments2);
+        }
+
+        v212 = *(*(&v334 + 1) + 8 * j);
+        if (([typeb containsObject:v212] & 1) == 0)
+        {
+          method = [v212 method];
+          intValue2 = [method intValue];
+
+          if (intValue2 == 1)
+          {
+            CalDatabaseCreateAttachment();
+            name2 = [v212 name];
+            CalAttachmentSetExternalID();
+
+            displayName3 = [v212 displayName];
+            CalAttachmentSetFilename();
+
+            v217 = [v212 size];
+            CalAttachmentSetFileSize();
+
+            v218 = [MEMORY[0x277CBEBC0] URLWithString:@"http://localhost"];
+            CalAttachmentSetURL();
+            CalCalendarItemAddAttachment();
+          }
+        }
+      }
+
+      v209 = [attachments2 countByEnumeratingWithState:&v334 objects:v346 count:16];
+    }
+
+    while (v209);
+  }
+
+  accountCopy = v299;
+  localProperties = localPropertiesCopy;
+  propertiesCopy = v313;
+LABEL_229:
+  [(ASEvent *)self calEvent];
+  v219 = CalCalendarItemCopyAttendees();
+  [(ASEvent *)self calEvent];
+  v220 = CalCalendarItemCopyAttendeesPendingDeletion();
+  if (v219)
+  {
+    v221 = [v219 mutableCopy];
+  }
+
+  else
+  {
+    v221 = objc_opt_new();
+  }
+
+  v222 = v221;
+  if (v220)
+  {
+    [v221 addObjectsFromArray:v220];
+  }
+
+  if (-[ASEvent shouldUseInMemoryAttendeesForAccount:numExistingAttendees:](self, "shouldUseInMemoryAttendeesForAccount:numExistingAttendees:", accountCopy, [v222 count]))
+  {
+    v319 = v219;
+    *typec = v220;
+    selfCopy2 = self;
+    v224 = accountCopy;
+    v225 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:selfCopy2->_attendees];
+    v226 = objc_opt_new();
+    v330 = 0u;
+    v331 = 0u;
+    v332 = 0u;
+    v333 = 0u;
+    v227 = selfCopy2->_attendees;
+    v228 = [(NSArray *)v227 countByEnumeratingWithState:&v330 objects:v345 count:16];
+    if (v228)
+    {
+      v229 = v228;
+      v230 = *v331;
+      do
+      {
+        for (k = 0; k != v229; ++k)
+        {
+          if (*v331 != v230)
+          {
+            objc_enumerationMutation(v227);
+          }
+
+          v232 = *(*(&v330 + 1) + 8 * k);
+          email = [v232 email];
+          if (email)
+          {
+            [v226 setObject:v232 forKeyedSubscript:email];
+          }
+        }
+
+        v229 = [(NSArray *)v227 countByEnumeratingWithState:&v330 objects:v345 count:16];
+      }
+
+      while (v229);
+    }
+
+    accountCopy = v224;
+    if ([v222 count])
+    {
+      v234 = 0;
+      do
+      {
+        v235 = [v222 objectAtIndexedSubscript:v234];
+
+        v236 = MEMORY[0x24C210570](v235);
+        if (v236 && ([v226 objectForKeyedSubscript:v236], (v237 = objc_claimAutoreleasedReturnValue()) != 0))
+        {
+          v238 = v237;
+          [v237 setLocalId:MEMORY[0x24C210600](v235)];
+          [v225 removeObject:v238];
+          [v238 saveToCalendarWithParentASEvent:selfCopy existingRecord:-[ASEvent calEvent](selfCopy isDefaultCalendar:"calEvent") shouldMergeProperties:IsDefaultCalendarForStore outMergeDidChooseLocalProperties:v313 account:{localPropertiesCopy, accountCopy}];
+        }
+
+        else
+        {
+          [(ASEvent *)selfCopy calEvent];
+          CalCalendarItemRemoveAttendee();
+        }
+
+        ++v234;
+      }
+
+      while (v234 < [v222 count]);
+    }
+
+    allObjects2 = [v225 allObjects];
+    self = selfCopy;
+    localProperties = localPropertiesCopy;
+    if ([allObjects2 count])
+    {
+      v240 = 0;
+      do
+      {
+        v241 = [allObjects2 objectAtIndexedSubscript:v240];
+        [v241 saveToCalendarWithParentASEvent:selfCopy existingRecord:-[ASEvent calEvent](selfCopy isDefaultCalendar:"calEvent") shouldMergeProperties:IsDefaultCalendarForStore outMergeDidChooseLocalProperties:v313 account:{localPropertiesCopy, accountCopy}];
+
+        ++v240;
+      }
+
+      while (v240 < [allObjects2 count]);
+    }
+
+    propertiesCopy = v313;
+    v219 = v319;
+    v220 = *typec;
+  }
+
+  if (self->_isAttendeeUpdateOnly)
+  {
+    goto LABEL_287;
+  }
+
+  [(ASEvent *)self calEvent];
+  [(ASEvent *)self uidGeneratedIfNecessaryWithLocalEvent:[(ASEvent *)self calEvent] forAccount:accountCopy];
+  CalCalendarItemSetUniqueIdentifier();
+  if (!self->_shouldUpdateStatus || self->_calculateNextStatusAsIfMeetingRequest)
+  {
+    v242 = 0;
+    goto LABEL_259;
+  }
+
+  *typed = v220;
+  [(ASEvent *)self calEvent];
+  Status = CalCalendarItemGetStatus();
+  v316 = [(ASEvent *)self _nextEventStatusWithOldStatus:Status account:accountCopy];
+  v310 = Status;
+  if (!v316)
+  {
+    v242 = 0;
+    goto LABEL_340;
+  }
+
+  v248 = [(ASEvent *)self copySelfAttendeeGeneratedIfNecessaryWithLocalEvent:[(ASEvent *)self calEvent] forAccount:accountCopy];
+  if (v248)
+  {
+    v249 = v248;
+    Status = CalAttendeeGetStatus();
+    v250 = [(ASEvent *)self _nextAttendeeStatusWithOldStatus:Status account:accountCopy];
+    CalAttendeeGetPendingStatus();
+    CalAttendeeSetStatus();
+    CalAttendeeSetPendingStatus();
+    CFRelease(v249);
+    v242 = Status != v250;
+    v251 = DALoggingwithCategory();
+    v252 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v251, v252))
+    {
+      v253 = [(ASEvent *)self cachedOrganizerIsSelfWithAccount:accountCopy];
+      *buf = 67109888;
+      *&buf[4] = v250;
+      *&buf[8] = 1024;
+      *&buf[10] = v310;
+      *&buf[14] = 1024;
+      *&buf[16] = Status;
+      *&buf[20] = 1024;
+      *&buf[22] = v253;
+      _os_log_impl(&dword_24A0AC000, v251, v252, "Event: setting new attendee status %d, as I had old event status %d, attendee status %d, and organizerIsSelf is %d", buf, 0x1Au);
+    }
+
+    v254 = Status != 0;
+    propertiesCopy = v313;
+    LODWORD(Status) = v310;
+  }
+
+  else
+  {
+    v250 = [(ASEvent *)self _nextAttendeeStatusWithOldStatus:7 account:accountCopy];
+    v242 = 0;
+    v254 = 1;
+  }
+
+  if (Status == 1)
+  {
+    if (v316 != 3)
+    {
+      goto LABEL_316;
+    }
+
+    goto LABEL_313;
+  }
+
+  if (!Status)
+  {
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (v316 == 3 && (isKindOfClass & 1) != 0)
+    {
+LABEL_313:
+      if ((v250 & 0xFFFFFFFD) == 0)
+      {
+        goto LABEL_316;
+      }
+
+      v268 = DALoggingwithCategory();
+      LOBYTE(v269) = *(MEMORY[0x277D03988] + 6);
+      if (os_log_type_enabled(v268, v269))
+      {
+        *buf = 0;
+        v270 = "Event is going from Confirmed to Cancelled: setting NeedsNotification flag to YES";
+        goto LABEL_320;
+      }
+
+LABEL_321:
+
+      if (IsDefaultCalendarForStore)
+      {
+        [(ASEvent *)self calEvent];
+        CalEventSetNeedsNotification();
+      }
+
+      v272 = 0;
+      goto LABEL_341;
+    }
+  }
+
+LABEL_316:
+  protocol3 = [accountCopy protocol];
+  if ((v254 & [protocol3 serverCreatesEventChangesForInvitations]) == 1)
+  {
+
+    if (!v250)
+    {
+      v268 = DALoggingwithCategory();
+      v269 = *(MEMORY[0x277D03988] + 6);
+      if (os_log_type_enabled(v268, *(MEMORY[0x277D03988] + 6)))
+      {
+        *buf = 0;
+        v270 = "Event is moving the attendee status to Pending from non-Pending: setting NeedsNotification flag to YES";
+LABEL_320:
+        _os_log_impl(&dword_24A0AC000, v268, v269, v270, buf, 2u);
+      }
+
+      goto LABEL_321;
+    }
+  }
+
+  else
+  {
+  }
+
+  appointmentReplyTime = [(ASEvent *)self appointmentReplyTime];
+
+  if (appointmentReplyTime)
+  {
+    [(ASEvent *)self calEvent];
+    v274 = CalEventCopyEventActions();
+    v275 = v274;
+    if (v274 && CFArrayGetCount(v274))
+    {
+      if (CFArrayGetValueAtIndex(v275, 0))
+      {
+        v276 = CalEventActionCopyExternalRepresentation();
+        if (v276)
+        {
+          v277 = v276;
+          v278 = ASUnarchiveDate(@"emailDateReceived", v276);
+          if (v278 && [(NSDate *)self->_appointmentReplyTime compare:v278]== NSOrderedDescending)
+          {
+            v320 = v219;
+            v279 = accountCopy;
+            v280 = DALoggingwithCategory();
+            v281 = *(MEMORY[0x277D03988] + 6);
+            if (os_log_type_enabled(v280, v281))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_24A0AC000, v280, v281, "Event due to more recent appointmentReplyTime: setting NeedsNotification flag to NO", buf, 2u);
+            }
+
+            [(ASEvent *)self calEvent];
+            CalEventSetNeedsNotification();
+            accountCopy = v279;
+            propertiesCopy = v313;
+            v219 = v320;
+          }
+
+          CFRelease(v277);
+        }
+      }
+
+      goto LABEL_339;
+    }
+
+    v282 = DALoggingwithCategory();
+    v283 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v282, v283))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24A0AC000, v282, v283, "Event has appointmentReplyTime, but no event action. This is usually normal. If notification is not cleared when it should, this could be an edge case that has not been addressed.", buf, 2u);
+    }
+
+    if (v275)
+    {
+LABEL_339:
+      CFRelease(v275);
+    }
+  }
+
+LABEL_340:
+  v272 = 1;
+LABEL_341:
+  v284 = DALoggingwithCategory();
+  v285 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v284, v285))
+  {
+    *buf = 67109376;
+    *&buf[4] = v316;
+    *&buf[8] = 1024;
+    *&buf[10] = v310;
+    _os_log_impl(&dword_24A0AC000, v284, v285, "Event: setting new event status %d, as I had old event status %d", buf, 0xEu);
+  }
+
+  [(ASEvent *)self calEvent];
+  CalCalendarItemSetStatus();
+  if (v293)
+  {
+    v286 = v272;
+  }
+
+  else
+  {
+    v286 = 1;
+  }
+
+  if (recordCopy3)
+  {
+    v220 = *typed;
+    if ((v286 & 1) == 0)
+    {
+      [(ASEvent *)self calEvent];
+      CalEventAddInvitationChangedProperties();
+    }
+  }
+
+  else
+  {
+    v220 = *typed;
+  }
+
+LABEL_259:
+  busyStatus = self->_busyStatus;
+  if (busyStatus)
+  {
+    v244 = v242 || (propertiesCopy & 1) == 0 || (ModifiedProperties & 2) == 0;
+    intValue3 = [(NSNumber *)busyStatus intValue];
+    if (intValue3 == 3)
+    {
+      v246 = 3;
+      if (!v244)
+      {
+        goto LABEL_276;
+      }
+
+      goto LABEL_274;
+    }
+
+    if (intValue3 == 1)
+    {
+      v246 = 2;
+      if (!v244)
+      {
+        goto LABEL_276;
+      }
+
+      goto LABEL_274;
+    }
+
+    if (intValue3)
+    {
+      v246 = 0;
+      if (v244)
+      {
+        goto LABEL_274;
+      }
+
+LABEL_276:
+      if (self->_busyStatus)
+      {
+        [(ASEvent *)self calEvent];
+        if (CalCalendarItemGetAvailability() != v246)
+        {
+          v255 = DALoggingwithCategory();
+          v256 = *(MEMORY[0x277D03988] + 7);
+          if (os_log_type_enabled(v255, v256))
+          {
+            *buf = 138412290;
+            *&buf[4] = self;
+            _os_log_impl(&dword_24A0AC000, v255, v256, "event %@ had local availability different from server", buf, 0xCu);
+          }
+
+          v296 = 1;
+        }
+      }
+    }
+
+    else
+    {
+      v246 = 1;
+      if (!v244)
+      {
+        goto LABEL_276;
+      }
+
+LABEL_274:
+      [(ASEvent *)self calEvent];
+      CalCalendarItemSetAvailability();
+    }
+  }
+
+  [(ASEvent *)self _sanitizeLocalExceptionsForAccount:accountCopy];
+  recurrence = [(ASEvent *)self recurrence];
+
+  if (recurrence)
+  {
+    recurrence2 = [(ASEvent *)self recurrence];
+    [recurrence2 saveToCalendarWithParentASEvent:self existingRecord:-[ASEvent calEvent](self shouldMergeProperties:"calEvent") outMergeDidChooseLocalProperties:propertiesCopy useFloatingTimeForAllDayEvents:localProperties account:{useFloatingTimeForAllDayEvents, accountCopy}];
+  }
+
+  else
+  {
+    [(ASEvent *)self calEvent];
+    recurrence2 = CalCalendarItemCopyRecurrences();
+    if ([recurrence2 count])
+    {
+      v259 = 0;
+      do
+      {
+        [recurrence2 objectAtIndexedSubscript:v259];
+
+        [(ASEvent *)self calEvent];
+        CalCalendarItemRemoveRecurrence();
+        ++v259;
+      }
+
+      while (v259 < [recurrence2 count]);
+    }
+  }
+
+LABEL_287:
+  record = recordCopy3;
+  v56 = v296;
+  if (localProperties)
+  {
+LABEL_288:
+    *localProperties |= v56;
+  }
+
+LABEL_289:
+  v328 = 0u;
+  v329 = 0u;
+  v326 = 0u;
+  v327 = 0u;
+  v260 = self->_exceptions;
+  v261 = [(NSArray *)v260 countByEnumeratingWithState:&v326 objects:v344 count:16];
+  if (v261)
+  {
+    v262 = v261;
+    v263 = *v327;
+    do
+    {
+      for (m = 0; m != v262; ++m)
+      {
+        if (*v327 != v263)
+        {
+          objc_enumerationMutation(v260);
+        }
+
+        [*(*(&v326 + 1) + 8 * m) saveToCalendarWithParentASEvent:self existingRecord:objc_msgSend(*(*(&v326 + 1) + 8 * m) intoCalendar:"calEvent") shouldMergeProperties:calendar outMergeDidChooseLocalProperties:v313 account:{localProperties, accountCopy}];
+      }
+
+      v262 = [(NSArray *)v260 countByEnumeratingWithState:&v326 objects:v344 count:16];
+    }
+
+    while (v262);
+  }
+
+  v265 = v300 ^ 1;
+  if (record)
+  {
+    v265 = 1;
+  }
+
+  if ((v265 & 1) == 0)
+  {
+    CFRelease(cf);
+  }
+
+  v45 = 1;
+  v39 = v304;
+LABEL_301:
+
+LABEL_302:
+  return v45;
+}
+
 - (void)updateAttachmentsForAccountID:(id)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   attachments = [(ASEvent *)self attachments];
-  v6 = [attachments countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [attachments countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = +[ASLocalDBHelper sharedInstance];
         [v11 calDatabaseForAccountID:dCopy];
 
@@ -1537,42 +3136,40 @@ LABEL_97:
       }
 
       while (v7 != v9);
-      v7 = [attachments countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [attachments countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanitizeLocalExceptionsForAccount:(id)account
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSArray count](self->_exceptions, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   selfCopy = self;
   v5 = self->_exceptions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     v9 = *(MEMORY[0x277D03988] + 3);
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         exceptionStartTime = [(ASEventException *)v11 exceptionStartTime];
         if (exceptionStartTime)
         {
@@ -1586,15 +3183,15 @@ LABEL_97:
           if (os_log_type_enabled(exceptionStartTime2, v9))
           {
             *buf = 138412546;
-            v34 = v11;
-            v35 = 2112;
-            v36 = selfCopy;
+            v33 = v11;
+            v34 = 2112;
+            v35 = selfCopy;
             _os_log_impl(&dword_24A0AC000, exceptionStartTime2, v9, "Exception %@ with parent %@ has no start time.  Ignoring it", buf, 0x16u);
           }
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v7);
@@ -1628,7 +3225,7 @@ LABEL_97:
           if (os_log_type_enabled(v22, v17))
           {
             *buf = 138412290;
-            v34 = v19;
+            v33 = v19;
             _os_log_impl(&dword_24A0AC000, v22, v17, "Removing a local exception %@", buf, 0xCu);
           }
 
@@ -1663,45 +3260,86 @@ LABEL_97:
 
   allValues = [v4 allValues];
   [(ASEvent *)v14 setExceptions:allValues];
+}
 
+- (BOOL)saveDetachedEventsWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  propertiesCopy = properties;
   v26 = *MEMORY[0x277D85DE8];
+  accountCopy = account;
+  calEvent = [(ASEvent *)self calEvent];
+  if (calEvent)
+  {
+    v20 = calEvent;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v13 = self->_exceptions;
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v22;
+      do
+      {
+        for (i = 0; i != v15; ++i)
+        {
+          if (*v22 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          [*(*(&v21 + 1) + 8 * i) saveToCalendarWithParentASEvent:self existingRecord:objc_msgSend(*(*(&v21 + 1) + 8 * i) intoCalendar:"calEvent") shouldMergeProperties:calendar outMergeDidChooseLocalProperties:propertiesCopy account:{localProperties, accountCopy}];
+        }
+
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      }
+
+      while (v15);
+    }
+
+    calEvent = v20;
+  }
+
+  v18 = calEvent != 0;
+
+  return v18;
 }
 
 - (void)informExceptionsThatParentIsReadyForAccount:(id)account
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   accountCopy = account;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_exceptions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) takeValuesFromParentForAccount:{accountCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) takeValuesFromParentForAccount:{accountCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_determineSelfnessWithLocalEvent:(void *)event forAccount:(id)account
@@ -2203,32 +3841,32 @@ LABEL_51:
 
 - (BOOL)deleteFromCalendar
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_exceptions;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) deleteFromCalendar];
+        [*(*(&v9 + 1) + 8 * v7++) deleteFromCalendar];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -2240,7 +3878,6 @@ LABEL_51:
     CalRemoveEventAndDetachedEvents();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2257,7 +3894,7 @@ LABEL_51:
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v229 = *MEMORY[0x277D85DE8];
+  v228 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   taskManager = [taskCopy taskManager];
@@ -2398,7 +4035,7 @@ LABEL_15:
       {
         timeZone3 = [(ASEvent *)self timeZone];
         *buf = 138412290;
-        v228 = timeZone3;
+        v227 = timeZone3;
         _os_log_impl(&dword_24A0AC000, v53, v54, "Setting timeZone to Exchange equivalent of %@", buf, 0xCu);
       }
 
@@ -2690,7 +4327,7 @@ LABEL_76:
   }
 
 LABEL_95:
-  v193 = dTStamp;
+  v192 = dTStamp;
   if ([(ASEvent *)selfCopy3 itemStatus]== 3)
   {
     intValue3 = 4;
@@ -2733,33 +4370,33 @@ LABEL_95:
   [dataCopy appendTag:24 withIntContent:intValue3];
   if ([(NSArray *)selfCopy3->_attendees count])
   {
-    v219 = 0u;
-    v220 = 0u;
-    v217 = 0u;
     v218 = 0u;
+    v219 = 0u;
+    v216 = 0u;
+    v217 = 0u;
     v141 = selfCopy3->_attendees;
-    v142 = [(NSArray *)v141 countByEnumeratingWithState:&v217 objects:v226 count:16];
+    v142 = [(NSArray *)v141 countByEnumeratingWithState:&v216 objects:v225 count:16];
     if (v142)
     {
       v143 = v142;
       v144 = 0;
-      v145 = *v218;
+      v145 = *v217;
       do
       {
         for (i = 0; i != v143; ++i)
         {
-          if (*v218 != v145)
+          if (*v217 != v145)
           {
             objc_enumerationMutation(v141);
           }
 
-          if ([*(*(&v217 + 1) + 8 * i) status] != 6)
+          if ([*(*(&v216 + 1) + 8 * i) status] != 6)
           {
             ++v144;
           }
         }
 
-        v143 = [(NSArray *)v141 countByEnumeratingWithState:&v217 objects:v226 count:16];
+        v143 = [(NSArray *)v141 countByEnumeratingWithState:&v216 objects:v225 count:16];
       }
 
       while (v143);
@@ -2768,26 +4405,26 @@ LABEL_95:
       if (v144)
       {
         [dataCopy openProspectiveTag:7];
-        v215 = 0u;
-        v216 = 0u;
-        v213 = 0u;
         v214 = 0u;
+        v215 = 0u;
+        v212 = 0u;
+        v213 = 0u;
         v147 = selfCopy->_attendees;
-        v148 = [(NSArray *)v147 countByEnumeratingWithState:&v213 objects:v225 count:16];
+        v148 = [(NSArray *)v147 countByEnumeratingWithState:&v212 objects:v224 count:16];
         if (v148)
         {
           v149 = v148;
-          v150 = *v214;
+          v150 = *v213;
           do
           {
             for (j = 0; j != v149; ++j)
             {
-              if (*v214 != v150)
+              if (*v213 != v150)
               {
                 objc_enumerationMutation(v147);
               }
 
-              v152 = *(*(&v213 + 1) + 8 * j);
+              v152 = *(*(&v212 + 1) + 8 * j);
               if ([v152 status] != 6)
               {
                 [dataCopy openTag:8];
@@ -2796,7 +4433,7 @@ LABEL_95:
               }
             }
 
-            v149 = [(NSArray *)v147 countByEnumeratingWithState:&v213 objects:v225 count:16];
+            v149 = [(NSArray *)v147 countByEnumeratingWithState:&v212 objects:v224 count:16];
           }
 
           while (v149);
@@ -2841,58 +4478,58 @@ LABEL_128:
 
   [dataCopy switchToCodePage:17];
   [dataCopy openProspectiveTag:14];
-  v211 = 0u;
-  v212 = 0u;
-  v209 = 0u;
   v210 = 0u;
+  v211 = 0u;
+  v208 = 0u;
+  v209 = 0u;
   attachments2 = [(ASEvent *)selfCopy3 attachments];
-  v157 = [attachments2 countByEnumeratingWithState:&v209 objects:v224 count:16];
+  v157 = [attachments2 countByEnumeratingWithState:&v208 objects:v223 count:16];
   if (v157)
   {
     v158 = v157;
-    v159 = *v210;
+    v159 = *v209;
     do
     {
       for (k = 0; k != v158; ++k)
       {
-        if (*v210 != v159)
+        if (*v209 != v159)
         {
           objc_enumerationMutation(attachments2);
         }
 
-        v161 = *(*(&v209 + 1) + 8 * k);
+        v161 = *(*(&v208 + 1) + 8 * k);
         [dataCopy openProspectiveTag:28];
         [v161 appendActiveSyncDataForTask:taskCopy toData:dataCopy];
         [dataCopy closeProspectiveTag:28];
       }
 
-      v158 = [attachments2 countByEnumeratingWithState:&v209 objects:v224 count:16];
+      v158 = [attachments2 countByEnumeratingWithState:&v208 objects:v223 count:16];
     }
 
     while (v158);
   }
 
-  v207 = 0u;
-  v208 = 0u;
-  v205 = 0u;
   v206 = 0u;
+  v207 = 0u;
+  v204 = 0u;
+  v205 = 0u;
   deletedAttachmentsIDs2 = [(ASEvent *)selfCopy3 deletedAttachmentsIDs];
-  v163 = [deletedAttachmentsIDs2 countByEnumeratingWithState:&v205 objects:v223 count:16];
+  v163 = [deletedAttachmentsIDs2 countByEnumeratingWithState:&v204 objects:v222 count:16];
   if (v163)
   {
     v164 = v163;
-    v165 = *v206;
+    v165 = *v205;
     v166 = *(MEMORY[0x277D03988] + 4);
     do
     {
       for (m = 0; m != v164; ++m)
       {
-        if (*v206 != v165)
+        if (*v205 != v165)
         {
           objc_enumerationMutation(deletedAttachmentsIDs2);
         }
 
-        v168 = *(*(&v205 + 1) + 8 * m);
+        v168 = *(*(&v204 + 1) + 8 * m);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2909,13 +4546,13 @@ LABEL_128:
             v170 = objc_opt_class();
             v171 = NSStringFromClass(v170);
             *buf = 138412290;
-            v228 = v171;
+            v227 = v171;
             _os_log_impl(&dword_24A0AC000, v169, v166, "The attachment ID is not a string, but %@", buf, 0xCu);
           }
         }
       }
 
-      v164 = [deletedAttachmentsIDs2 countByEnumeratingWithState:&v205 objects:v223 count:16];
+      v164 = [deletedAttachmentsIDs2 countByEnumeratingWithState:&v204 objects:v222 count:16];
     }
 
     while (v164);
@@ -2928,29 +4565,29 @@ LABEL_152:
   if ([(NSArray *)selfCopy3->_categories count])
   {
     [dataCopy openTag:14];
-    v203 = 0u;
-    v204 = 0u;
-    v201 = 0u;
     v202 = 0u;
+    v203 = 0u;
+    v200 = 0u;
+    v201 = 0u;
     v172 = selfCopy3->_categories;
-    v173 = [(NSArray *)v172 countByEnumeratingWithState:&v201 objects:v222 count:16];
+    v173 = [(NSArray *)v172 countByEnumeratingWithState:&v200 objects:v221 count:16];
     if (v173)
     {
       v174 = v173;
-      v175 = *v202;
+      v175 = *v201;
       do
       {
         for (n = 0; n != v174; ++n)
         {
-          if (*v202 != v175)
+          if (*v201 != v175)
           {
             objc_enumerationMutation(v172);
           }
 
-          [dataCopy appendTag:15 withStringContent:*(*(&v201 + 1) + 8 * n)];
+          [dataCopy appendTag:15 withStringContent:*(*(&v200 + 1) + 8 * n)];
         }
 
-        v174 = [(NSArray *)v172 countByEnumeratingWithState:&v201 objects:v222 count:16];
+        v174 = [(NSArray *)v172 countByEnumeratingWithState:&v200 objects:v221 count:16];
       }
 
       while (v174);
@@ -2975,32 +4612,32 @@ LABEL_152:
   if ((([(NSArray *)selfCopy3->_exceptions count]!= 0) & includeExceptionsInParent) == 1)
   {
     [dataCopy openTag:20];
-    v199 = 0u;
-    v200 = 0u;
-    v197 = 0u;
     v198 = 0u;
+    v199 = 0u;
+    v196 = 0u;
+    v197 = 0u;
     v179 = selfCopy3->_exceptions;
-    v180 = [(NSArray *)v179 countByEnumeratingWithState:&v197 objects:v221 count:16];
+    v180 = [(NSArray *)v179 countByEnumeratingWithState:&v196 objects:v220 count:16];
     if (v180)
     {
       v181 = v180;
-      v182 = *v198;
+      v182 = *v197;
       do
       {
         for (ii = 0; ii != v181; ++ii)
         {
-          if (*v198 != v182)
+          if (*v197 != v182)
           {
             objc_enumerationMutation(v179);
           }
 
-          v184 = *(*(&v197 + 1) + 8 * ii);
+          v184 = *(*(&v196 + 1) + 8 * ii);
           [dataCopy openTag:19];
           [v184 appendActiveSyncDataForTask:taskCopy toWBXMLData:dataCopy];
           [dataCopy closeTag:19];
         }
 
-        v181 = [(NSArray *)v179 countByEnumeratingWithState:&v197 objects:v221 count:16];
+        v181 = [(NSArray *)v179 countByEnumeratingWithState:&v196 objects:v220 count:16];
       }
 
       while (v181);
@@ -3008,13 +4645,11 @@ LABEL_152:
 
     [dataCopy closeTag:20];
   }
-
-  v185 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCalEvent:(void *)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   calEvent = self->_calEvent;
   if (calEvent != event)
   {
@@ -3026,39 +4661,37 @@ LABEL_152:
     self->_calEvent = event;
     if (!event || (CFRetain(event), !self->_calEvent))
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v6 = self->_exceptions;
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           v10 = 0;
           do
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            [*(*(&v12 + 1) + 8 * v10++) setCalEvent:{0, v12}];
+            [*(*(&v11 + 1) + 8 * v10++) setCalEvent:{0, v11}];
           }
 
           while (v8 != v10);
-          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)loadCalRecordForAccount:(id)account
@@ -3118,24 +4751,12 @@ LABEL_152:
 
 - (BOOL)verifyExternalIdsForAccountID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientID = [(ASChangedCollectionLeaf *)self clientID];
 
-  if (!clientID)
+  if (!clientID || (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 calDatabaseForAccountID:dCopy], -[ASChangedCollectionLeaf clientID](self, "clientID"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "intValue"), v8 = CalDatabaseCopyCalendarItemWithRowID(), v7, v6, !v8))
   {
-    goto LABEL_7;
-  }
-
-  v6 = +[ASLocalDBHelper sharedInstance];
-  [v6 calDatabaseForAccountID:dCopy];
-  clientID2 = [(ASChangedCollectionLeaf *)self clientID];
-  [clientID2 intValue];
-  v8 = CalDatabaseCopyCalendarItemWithRowID();
-
-  if (!v8)
-  {
-LABEL_7:
     LOBYTE(v14) = 0;
     goto LABEL_18;
   }
@@ -3170,31 +4791,31 @@ LABEL_9:
 LABEL_6:
   v14 = 0;
 LABEL_10:
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v16 = self->_exceptions;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       v20 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v14 |= [*(*(&v23 + 1) + 8 * v20++) verifyExternalIdsForAccountID:{dCopy, v23}];
+        v14 |= [*(*(&v22 + 1) + 8 * v20++) verifyExternalIdsForAccountID:{dCopy, v22}];
       }
 
       while (v18 != v20);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v18);
@@ -3203,13 +4824,12 @@ LABEL_10:
   CFRelease(v8);
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
 - (BOOL)fillOutMissingExternalIdsForAccountID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
@@ -3221,19 +4841,7 @@ LABEL_18:
 
   clientID = [(ASChangedCollectionLeaf *)self clientID];
 
-  if (!clientID)
-  {
-    goto LABEL_23;
-  }
-
-  v8 = +[ASLocalDBHelper sharedInstance];
-  [v8 calDatabaseForAccountID:dCopy];
-
-  clientID2 = [(ASChangedCollectionLeaf *)self clientID];
-  [clientID2 intValue];
-  v10 = CalDatabaseCopyCalendarItemWithRowID();
-
-  if (v10)
+  if (clientID && (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v8 = objc_claimAutoreleasedReturnValue(), [v8 calDatabaseForAccountID:dCopy], v8, -[ASChangedCollectionLeaf clientID](self, "clientID"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "intValue"), v10 = CalDatabaseCopyCalendarItemWithRowID(), v9, v10))
   {
     v11 = CalCalendarItemCopyExternalID();
     serverID = [(ASChangedCollectionLeaf *)self serverID];
@@ -3256,7 +4864,7 @@ LABEL_18:
       {
         serverID2 = [(ASChangedCollectionLeaf *)self serverID];
         *buf = 138412290;
-        v31 = serverID2;
+        v30 = serverID2;
         _os_log_impl(&dword_24A0AC000, v15, v6, "Missing ServerID! Use the server id in pushedActions to set external ID: %@", buf, 0xCu);
       }
 
@@ -3264,29 +4872,29 @@ LABEL_18:
       CalCalendarItemSetExternalID();
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v18 = self->_exceptions;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v26;
+      v21 = *v25;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v26 != v21)
+          if (*v25 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v14 |= [*(*(&v25 + 1) + 8 * i) verifyExternalIdsForAccountID:{dCopy, v25}];
+          v14 |= [*(*(&v24 + 1) + 8 * i) verifyExternalIdsForAccountID:{dCopy, v24}];
         }
 
-        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v20);
@@ -3297,17 +4905,15 @@ LABEL_18:
 
   else
   {
-LABEL_23:
     LOBYTE(v14) = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
 - (void)loadClientIDs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(ASEvent *)self calEvent])
   {
     v3 = MEMORY[0x277CCACA8];
@@ -3321,37 +4927,35 @@ LABEL_23:
     v4 = 0;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_exceptions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         [v10 loadClientIDs];
         [v10 setParentClientID:v4];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSCalendarDate)startDateForCalFramework
@@ -3379,11 +4983,11 @@ LABEL_23:
 
 - (ASEvent)initWithCoder:(id)coder
 {
-  v103[2] = *MEMORY[0x277D85DE8];
+  v102[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v99.receiver = self;
-  v99.super_class = ASEvent;
-  v5 = [(ASChangedCollectionLeaf *)&v99 initWithCoder:coderCopy];
+  v98.receiver = self;
+  v98.super_class = ASEvent;
+  v5 = [(ASChangedCollectionLeaf *)&v98 initWithCoder:coderCopy];
   if (v5)
   {
     if (([coderCopy allowsKeyedCoding] & 1) == 0)
@@ -3426,36 +5030,36 @@ LABEL_23:
     v5->_categories = v23;
 
     v25 = MEMORY[0x277CBEB98];
-    v103[0] = objc_opt_class();
-    v103[1] = objc_opt_class();
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
+    v102[0] = objc_opt_class();
+    v102[1] = objc_opt_class();
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
     v27 = [v25 setWithArray:v26];
     v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"dTStamp"];
     dTStamp = v5->_dTStamp;
     v5->_dTStamp = v28;
 
     v30 = MEMORY[0x277CBEB98];
-    v102[0] = objc_opt_class();
-    v102[1] = objc_opt_class();
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
+    v101[0] = objc_opt_class();
+    v101[1] = objc_opt_class();
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
     v32 = [v30 setWithArray:v31];
     v33 = [coderCopy decodeObjectOfClasses:v32 forKey:@"endTime"];
     endTime = v5->_endTime;
     v5->_endTime = v33;
 
     v35 = MEMORY[0x277CBEB98];
-    v101[0] = objc_opt_class();
-    v101[1] = objc_opt_class();
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
+    v100[0] = objc_opt_class();
+    v100[1] = objc_opt_class();
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:2];
     v37 = [v35 setWithArray:v36];
     v38 = [coderCopy decodeObjectOfClasses:v37 forKey:@"startTime"];
     startTime = v5->_startTime;
     v5->_startTime = v38;
 
     v40 = MEMORY[0x277CBEB98];
-    v100[0] = objc_opt_class();
-    v100[1] = objc_opt_class();
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:2];
+    v99[0] = objc_opt_class();
+    v99[1] = objc_opt_class();
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:2];
     v42 = [v40 setWithArray:v41];
     v43 = [coderCopy decodeObjectOfClasses:v42 forKey:@"appointmentReplyTime"];
     appointmentReplyTime = v5->_appointmentReplyTime;
@@ -3554,7 +5158,6 @@ LABEL_23:
     v5->_proposedEndTime = v95;
   }
 
-  v97 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3610,12 +5213,15 @@ LABEL_23:
 - (void)setBody:(id)body
 {
   stringByTrimmingNotesJunk = [body stringByTrimmingNotesJunk];
+  v5 = stringByTrimmingNotesJunk;
   if (self->_body != stringByTrimmingNotesJunk)
   {
+    v6 = stringByTrimmingNotesJunk;
     objc_storeStrong(&self->_body, stringByTrimmingNotesJunk);
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](stringByTrimmingNotesJunk, v5);
 }
 
 - (BOOL)cachedOrganizerIsSelfWithAccount:(id)account
@@ -3631,35 +5237,35 @@ LABEL_23:
 
 - (BOOL)purgeAttendeesPendingDeletionForAccountID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([(ASEvent *)self calEvent])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v5 = self->_attendeesPendingDeletion;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v6)
     {
       v8 = v6;
       selfCopy = self;
       v9 = 0;
-      v10 = *v24;
+      v10 = *v23;
       v11 = *(MEMORY[0x277D03988] + 3);
       *&v7 = 67109120;
-      v21 = v7;
+      v20 = v7;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v5);
           }
 
-          localId = [*(*(&v23 + 1) + 8 * i) localId];
+          localId = [*(*(&v22 + 1) + 8 * i) localId];
           if (localId == -1)
           {
             v17 = DALoggingwithCategory();
@@ -3689,15 +5295,15 @@ LABEL_23:
               v18 = DALoggingwithCategory();
               if (os_log_type_enabled(v18, v11))
               {
-                *buf = v21;
-                v28 = v14;
+                *buf = v20;
+                v27 = v14;
                 _os_log_impl(&dword_24A0AC000, v18, v11, "Asked to purge an attendee with local id %d, but the db doesn't seem to have that one", buf, 8u);
               }
             }
           }
         }
 
-        v8 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v8 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v8);
@@ -3714,13 +5320,12 @@ LABEL_23:
     v9 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 - (BOOL)hasOccurrenceInTheFuture
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([(ASEvent *)self calEvent])
   {
     [(ASEvent *)self calEvent];
@@ -3739,17 +5344,17 @@ LABEL_23:
         v6 = [(ASTimeZone *)v8 initWithTZNameFromCalDB:name];
       }
 
-      v30[0] = 0;
-      v30[1] = 0;
-      date = [MEMORY[0x277CCA8F8] date];
-      [date setTimeZone:v6];
-      [date getGregorianDate:v30];
       v29[0] = 0;
       v29[1] = 0;
+      date = [MEMORY[0x277CCA8F8] date];
+      [date setTimeZone:v6];
+      [date getGregorianDate:v29];
+      v28[0] = 0;
+      v28[1] = 0;
       distantFuture = [MEMORY[0x277CCA8F8] distantFuture];
 
       [distantFuture setTimeZone:v6];
-      [distantFuture getGregorianDate:v29];
+      [distantFuture getGregorianDate:v28];
       [(ASEvent *)self calEvent];
       if (CalEventOccurrencesExistForEventInDateRange())
       {
@@ -3758,32 +5363,32 @@ LABEL_23:
 
       else
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         v20 = self->_exceptions;
-        v12 = [(NSArray *)v20 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v12 = [(NSArray *)v20 countByEnumeratingWithState:&v24 objects:v30 count:16];
         if (v12)
         {
-          v21 = *v26;
+          v21 = *v25;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v26 != v21)
+              if (*v25 != v21)
               {
                 objc_enumerationMutation(v20);
               }
 
-              if ([*(*(&v25 + 1) + 8 * i) hasOccurrenceInTheFuture])
+              if ([*(*(&v24 + 1) + 8 * i) hasOccurrenceInTheFuture])
               {
                 LOBYTE(v12) = 1;
                 goto LABEL_22;
               }
             }
 
-            v12 = [(NSArray *)v20 countByEnumeratingWithState:&v25 objects:v31 count:16];
+            v12 = [(NSArray *)v20 countByEnumeratingWithState:&v24 objects:v30 count:16];
             if (v12)
             {
               continue;
@@ -3829,7 +5434,6 @@ LABEL_22:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3847,7 +5451,7 @@ LABEL_22:
 
 - (BOOL)_selfIsMoreCorrectThanOtherEvent:(id)event account:(id)account
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   accountCopy = account;
   organizerEmail = [(ASEvent *)self organizerEmail];
@@ -3862,13 +5466,13 @@ LABEL_22:
       v14 = *(MEMORY[0x277D03988] + 6);
       if (os_log_type_enabled(dTStamp, v14))
       {
-        v33 = 138412546;
+        v32 = 138412546;
         selfCopy11 = eventCopy;
-        v35 = 2112;
+        v34 = 2112;
         selfCopy10 = self;
         v15 = "%@ beats %@ because it has an organizer";
 LABEL_14:
-        _os_log_impl(&dword_24A0AC000, dTStamp, v14, v15, &v33, 0x16u);
+        _os_log_impl(&dword_24A0AC000, dTStamp, v14, v15, &v32, 0x16u);
         goto LABEL_15;
       }
 
@@ -3883,9 +5487,9 @@ LABEL_14:
       v14 = *(MEMORY[0x277D03988] + 6);
       if (os_log_type_enabled(dTStamp, v14))
       {
-        v33 = 138412546;
+        v32 = 138412546;
         selfCopy11 = eventCopy;
-        v35 = 2112;
+        v34 = 2112;
         selfCopy10 = self;
         v15 = "%@ beats %@ because it has an organizer who isn't me";
         goto LABEL_14;
@@ -3906,21 +5510,21 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v33 = 138412546;
+      v32 = 138412546;
       selfCopy11 = self;
-      v35 = 2112;
+      v34 = 2112;
       selfCopy10 = eventCopy;
       v13 = "%@ beats %@ because it has an organizer who isn't me";
       goto LABEL_5;
     }
 
     attendees = [(ASEvent *)self attendees];
-    v21 = [attendees count];
+    v20 = [attendees count];
 
     attendees2 = [(ASEvent *)eventCopy attendees];
-    v23 = [attendees2 count];
+    v22 = [attendees2 count];
 
-    if (v21 && !v23)
+    if (v20 && !v22)
     {
       v10 = 1;
       dTStamp = DALoggingwithCategory();
@@ -3930,15 +5534,15 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v33 = 138412546;
+      v32 = 138412546;
       selfCopy11 = self;
-      v35 = 2112;
+      v34 = 2112;
       selfCopy10 = eventCopy;
       v13 = "%@ beats %@ because it has attendees";
       goto LABEL_5;
     }
 
-    if (!v21 && v23)
+    if (!v20 && v22)
     {
       dTStamp = DALoggingwithCategory();
       v14 = *(MEMORY[0x277D03988] + 6);
@@ -3947,9 +5551,9 @@ LABEL_15:
         goto LABEL_15;
       }
 
-      v33 = 138412546;
+      v32 = 138412546;
       selfCopy11 = eventCopy;
-      v35 = 2112;
+      v34 = 2112;
       selfCopy10 = self;
       v15 = "%@ beats %@ because it has attendees";
       goto LABEL_14;
@@ -3969,9 +5573,9 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v33 = 138412546;
+      v32 = 138412546;
       selfCopy11 = self;
-      v35 = 2112;
+      v34 = 2112;
       selfCopy10 = eventCopy;
       v13 = "%@ beats %@ because it has a recurrence";
       goto LABEL_5;
@@ -3986,9 +5590,9 @@ LABEL_15:
         goto LABEL_15;
       }
 
-      v33 = 138412546;
+      v32 = 138412546;
       selfCopy11 = eventCopy;
-      v35 = 2112;
+      v34 = 2112;
       selfCopy10 = self;
       v15 = "%@ beats %@ because it has a recurrence";
       goto LABEL_14;
@@ -3996,39 +5600,39 @@ LABEL_15:
 
     dTStamp = [(ASEvent *)self dTStamp];
     dTStamp2 = [(ASEvent *)eventCopy dTStamp];
-    v27 = dTStamp2;
+    v26 = dTStamp2;
     if (dTStamp && dTStamp2)
     {
-      v28 = [dTStamp compare:dTStamp2];
-      if (v28 == -1)
+      v27 = [dTStamp compare:dTStamp2];
+      if (v27 == -1)
       {
-        v29 = DALoggingwithCategory();
-        v31 = *(MEMORY[0x277D03988] + 6);
-        if (!os_log_type_enabled(v29, v31))
+        v28 = DALoggingwithCategory();
+        v30 = *(MEMORY[0x277D03988] + 6);
+        if (!os_log_type_enabled(v28, v30))
         {
           goto LABEL_45;
         }
 
-        v33 = 138412546;
+        v32 = 138412546;
         selfCopy11 = eventCopy;
-        v35 = 2112;
+        v34 = 2112;
         selfCopy10 = self;
-        v32 = "%@ beats %@ because it has an later dTStamp";
+        v31 = "%@ beats %@ because it has an later dTStamp";
         goto LABEL_44;
       }
 
-      if (v28 == 1)
+      if (v27 == 1)
       {
         v10 = 1;
-        v29 = DALoggingwithCategory();
-        v30 = *(MEMORY[0x277D03988] + 6);
-        if (os_log_type_enabled(v29, v30))
+        v28 = DALoggingwithCategory();
+        v29 = *(MEMORY[0x277D03988] + 6);
+        if (os_log_type_enabled(v28, v29))
         {
-          v33 = 138412546;
+          v32 = 138412546;
           selfCopy11 = self;
-          v35 = 2112;
+          v34 = 2112;
           selfCopy10 = eventCopy;
-          _os_log_impl(&dword_24A0AC000, v29, v30, "%@ beats %@ because it has a later dTStamp", &v33, 0x16u);
+          _os_log_impl(&dword_24A0AC000, v28, v29, "%@ beats %@ because it has a later dTStamp", &v32, 0x16u);
           v10 = 1;
         }
 
@@ -4036,9 +5640,9 @@ LABEL_15:
       }
     }
 
-    v29 = DALoggingwithCategory();
-    v31 = *(MEMORY[0x277D03988] + 6);
-    if (!os_log_type_enabled(v29, v31))
+    v28 = DALoggingwithCategory();
+    v30 = *(MEMORY[0x277D03988] + 6);
+    if (!os_log_type_enabled(v28, v30))
     {
 LABEL_45:
       v10 = 0;
@@ -4047,13 +5651,13 @@ LABEL_46:
       goto LABEL_16;
     }
 
-    v33 = 138412546;
+    v32 = 138412546;
     selfCopy11 = eventCopy;
-    v35 = 2112;
+    v34 = 2112;
     selfCopy10 = self;
-    v32 = "%@ beats %@ because it's the new kid on the block";
+    v31 = "%@ beats %@ because it's the new kid on the block";
 LABEL_44:
-    _os_log_impl(&dword_24A0AC000, v29, v31, v32, &v33, 0x16u);
+    _os_log_impl(&dword_24A0AC000, v28, v30, v31, &v32, 0x16u);
     goto LABEL_45;
   }
 
@@ -4062,25 +5666,24 @@ LABEL_44:
   v12 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(dTStamp, *(MEMORY[0x277D03988] + 6)))
   {
-    v33 = 138412546;
+    v32 = 138412546;
     selfCopy11 = self;
-    v35 = 2112;
+    v34 = 2112;
     selfCopy10 = eventCopy;
     v13 = "%@ beats %@ because it has an organizer";
 LABEL_5:
-    _os_log_impl(&dword_24A0AC000, dTStamp, v12, v13, &v33, 0x16u);
+    _os_log_impl(&dword_24A0AC000, dTStamp, v12, v13, &v32, 0x16u);
     v10 = 1;
   }
 
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)isEqualToEvent:(id)event
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = *(eventCopy + 21);
   if (v5 != self->_timeZone && ([(ASTimeZone *)v5 isEqual:?]& 1) == 0)
@@ -4094,15 +5697,15 @@ LABEL_16:
 
     v24 = *(eventCopy + 21);
     timeZone = self->_timeZone;
-    v66 = 67109634;
-    v67 = 2552;
-    v68 = 2112;
-    v69 = v24;
-    v70 = 2112;
-    v71 = timeZone;
+    v65 = 67109634;
+    v66 = 2552;
+    v67 = 2112;
+    v68 = v24;
+    v69 = 2112;
+    v70 = timeZone;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
 LABEL_84:
-    _os_log_impl(&dword_24A0AC000, v22, v23, v26, &v66, 0x1Cu);
+    _os_log_impl(&dword_24A0AC000, v22, v23, v26, &v65, 0x1Cu);
     goto LABEL_85;
   }
 
@@ -4118,12 +5721,12 @@ LABEL_84:
 
     v27 = *(eventCopy + 22);
     allDayEvent = self->_allDayEvent;
-    v66 = 67109634;
-    v67 = 2553;
-    v68 = 2112;
-    v69 = v27;
-    v70 = 2112;
-    v71 = allDayEvent;
+    v65 = 67109634;
+    v66 = 2553;
+    v67 = 2112;
+    v68 = v27;
+    v69 = 2112;
+    v70 = allDayEvent;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4140,12 +5743,12 @@ LABEL_84:
 
     v32 = *(eventCopy + 23);
     body = self->_body;
-    v66 = 67109634;
-    v67 = 2554;
-    v68 = 2112;
-    v69 = v32;
-    v70 = 2112;
-    v71 = body;
+    v65 = 67109634;
+    v66 = 2554;
+    v67 = 2112;
+    v68 = v32;
+    v69 = 2112;
+    v70 = body;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4168,17 +5771,17 @@ LABEL_84:
         v31 = @"NO";
       }
 
-      v66 = 67109634;
-      v67 = 2556;
-      v68 = 2112;
+      v65 = 67109634;
+      v66 = 2556;
+      v67 = 2112;
       if (bodyTruncated)
       {
         v29 = @"YES";
       }
 
-      v69 = v31;
-      v70 = 2112;
-      v71 = v29;
+      v68 = v31;
+      v69 = 2112;
+      v70 = v29;
       v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other _bodyTruncated of %@ vs. %@";
       goto LABEL_84;
     }
@@ -4198,12 +5801,12 @@ LABEL_84:
 
     v34 = *(eventCopy + 24);
     busyStatus = self->_busyStatus;
-    v66 = 67109634;
-    v67 = 2560;
-    v68 = 2112;
-    v69 = v34;
-    v70 = 2112;
-    v71 = busyStatus;
+    v65 = 67109634;
+    v66 = 2560;
+    v67 = 2112;
+    v68 = v34;
+    v69 = 2112;
+    v70 = busyStatus;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4220,12 +5823,12 @@ LABEL_84:
 
     v36 = *(eventCopy + 26);
     dTStamp = self->_dTStamp;
-    v66 = 67109634;
-    v67 = 2561;
-    v68 = 2112;
-    v69 = v36;
-    v70 = 2112;
-    v71 = dTStamp;
+    v65 = 67109634;
+    v66 = 2561;
+    v67 = 2112;
+    v68 = v36;
+    v69 = 2112;
+    v70 = dTStamp;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4242,12 +5845,12 @@ LABEL_84:
 
     v38 = *(eventCopy + 27);
     endTime = self->_endTime;
-    v66 = 67109634;
-    v67 = 2562;
-    v68 = 2112;
-    v69 = v38;
-    v70 = 2112;
-    v71 = endTime;
+    v65 = 67109634;
+    v66 = 2562;
+    v67 = 2112;
+    v68 = v38;
+    v69 = 2112;
+    v70 = endTime;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4264,12 +5867,12 @@ LABEL_84:
 
     v40 = *(eventCopy + 28);
     location = self->_location;
-    v66 = 67109634;
-    v67 = 2563;
-    v68 = 2112;
-    v69 = v40;
-    v70 = 2112;
-    v71 = location;
+    v65 = 67109634;
+    v66 = 2563;
+    v67 = 2112;
+    v68 = v40;
+    v69 = 2112;
+    v70 = location;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4286,12 +5889,12 @@ LABEL_84:
 
     v42 = *(eventCopy + 29);
     meetingStatus = self->_meetingStatus;
-    v66 = 67109634;
-    v67 = 2564;
-    v68 = 2112;
-    v69 = v42;
-    v70 = 2112;
-    v71 = meetingStatus;
+    v65 = 67109634;
+    v66 = 2564;
+    v67 = 2112;
+    v68 = v42;
+    v69 = 2112;
+    v70 = meetingStatus;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4308,12 +5911,12 @@ LABEL_84:
 
     v44 = *(eventCopy + 32);
     reminderMinsBefore = self->_reminderMinsBefore;
-    v66 = 67109634;
-    v67 = 2568;
-    v68 = 2112;
-    v69 = v44;
-    v70 = 2112;
-    v71 = reminderMinsBefore;
+    v65 = 67109634;
+    v66 = 2568;
+    v67 = 2112;
+    v68 = v44;
+    v69 = 2112;
+    v70 = reminderMinsBefore;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4330,12 +5933,12 @@ LABEL_84:
 
     v46 = *(eventCopy + 33);
     sensitivity = self->_sensitivity;
-    v66 = 67109634;
-    v67 = 2569;
-    v68 = 2112;
-    v69 = v46;
-    v70 = 2112;
-    v71 = sensitivity;
+    v65 = 67109634;
+    v66 = 2569;
+    v67 = 2112;
+    v68 = v46;
+    v69 = 2112;
+    v70 = sensitivity;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4352,12 +5955,12 @@ LABEL_84:
 
     v48 = *(eventCopy + 34);
     subject = self->_subject;
-    v66 = 67109634;
-    v67 = 2570;
-    v68 = 2112;
-    v69 = v48;
-    v70 = 2112;
-    v71 = subject;
+    v65 = 67109634;
+    v66 = 2570;
+    v67 = 2112;
+    v68 = v48;
+    v69 = 2112;
+    v70 = subject;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4374,12 +5977,12 @@ LABEL_84:
 
     v50 = *(eventCopy + 35);
     startTime = self->_startTime;
-    v66 = 67109634;
-    v67 = 2571;
-    v68 = 2112;
-    v69 = v50;
-    v70 = 2112;
-    v71 = startTime;
+    v65 = 67109634;
+    v66 = 2571;
+    v67 = 2112;
+    v68 = v50;
+    v69 = 2112;
+    v70 = startTime;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4396,12 +5999,12 @@ LABEL_84:
 
     v52 = *(eventCopy + 40);
     eventUID = self->_eventUID;
-    v66 = 67109634;
-    v67 = 2572;
-    v68 = 2112;
-    v69 = v52;
-    v70 = 2112;
-    v71 = eventUID;
+    v65 = 67109634;
+    v66 = 2572;
+    v67 = 2112;
+    v68 = v52;
+    v69 = 2112;
+    v70 = eventUID;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4418,12 +6021,12 @@ LABEL_84:
 
     v54 = *(eventCopy + 43);
     recurrence = self->_recurrence;
-    v66 = 67109634;
-    v67 = 2574;
-    v68 = 2112;
-    v69 = v54;
-    v70 = 2112;
-    v71 = recurrence;
+    v65 = 67109634;
+    v66 = 2574;
+    v67 = 2112;
+    v68 = v54;
+    v69 = 2112;
+    v70 = recurrence;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4439,12 +6042,12 @@ LABEL_84:
 
     v56 = *(eventCopy + 41);
     attendees = self->_attendees;
-    v66 = 67109634;
-    v67 = 2576;
-    v68 = 2112;
-    v69 = v56;
-    v70 = 2112;
-    v71 = attendees;
+    v65 = 67109634;
+    v66 = 2576;
+    v67 = 2112;
+    v68 = v56;
+    v69 = 2112;
+    v70 = attendees;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4460,12 +6063,12 @@ LABEL_84:
 
     v58 = *(eventCopy + 44);
     exceptions = self->_exceptions;
-    v66 = 67109634;
-    v67 = 2577;
-    v68 = 2112;
-    v69 = v58;
-    v70 = 2112;
-    v71 = exceptions;
+    v65 = 67109634;
+    v66 = 2577;
+    v67 = 2112;
+    v68 = v58;
+    v69 = 2112;
+    v70 = exceptions;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4482,12 +6085,12 @@ LABEL_84:
 
     v60 = *(eventCopy + 47);
     appointmentReplyTime = self->_appointmentReplyTime;
-    v66 = 67109634;
-    v67 = 2579;
-    v68 = 2112;
-    v69 = v60;
-    v70 = 2112;
-    v71 = appointmentReplyTime;
+    v65 = 67109634;
+    v66 = 2579;
+    v67 = 2112;
+    v68 = v60;
+    v69 = 2112;
+    v70 = appointmentReplyTime;
     v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
     goto LABEL_84;
   }
@@ -4501,12 +6104,12 @@ LABEL_84:
     {
       v62 = *(eventCopy + 38);
       onlineMeetingExternalLink = self->_onlineMeetingExternalLink;
-      v66 = 67109634;
-      v67 = 2581;
-      v68 = 2112;
-      v69 = v62;
-      v70 = 2112;
-      v71 = onlineMeetingExternalLink;
+      v65 = 67109634;
+      v66 = 2581;
+      v67 = 2112;
+      v68 = v62;
+      v69 = 2112;
+      v70 = onlineMeetingExternalLink;
       v26 = "Blowing out of isEqualToEvent on line %d , as I'm looking at other iVar of %@ vs. %@";
       goto LABEL_84;
     }
@@ -4520,13 +6123,12 @@ LABEL_85:
   v21 = 1;
 LABEL_86:
 
-  v64 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)eventByMergingInLosingEvent:(id)event account:(id)account
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   accountCopy = account;
   selfCopy = self;
@@ -4637,8 +6239,8 @@ LABEL_86:
   }
 
   appointmentReplyTime = [(ASEvent *)selfCopy appointmentReplyTime];
-  v60 = dTStamp;
-  v61 = body;
+  v59 = dTStamp;
+  v60 = body;
   if (appointmentReplyTime)
   {
     [v9 setAppointmentReplyTime:appointmentReplyTime];
@@ -4650,64 +6252,64 @@ LABEL_86:
     [v9 setAppointmentReplyTime:appointmentReplyTime2];
   }
 
-  v62 = accountCopy;
+  v61 = accountCopy;
   [v9 _determineSelfnessWithLocalEvent:objc_msgSend(v9 forAccount:{"calEvent"), accountCopy}];
   v39 = objc_opt_new();
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   exceptions = [eventCopy exceptions];
-  v41 = [exceptions countByEnumeratingWithState:&v67 objects:v84 count:16];
+  v41 = [exceptions countByEnumeratingWithState:&v66 objects:v83 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v68;
+    v43 = *v67;
     do
     {
       for (i = 0; i != v42; ++i)
       {
-        if (*v68 != v43)
+        if (*v67 != v43)
         {
           objc_enumerationMutation(exceptions);
         }
 
-        v45 = *(*(&v67 + 1) + 8 * i);
+        v45 = *(*(&v66 + 1) + 8 * i);
         exceptionStartTime = [v45 exceptionStartTime];
         [v39 setObject:v45 forKeyedSubscript:exceptionStartTime];
       }
 
-      v42 = [exceptions countByEnumeratingWithState:&v67 objects:v84 count:16];
+      v42 = [exceptions countByEnumeratingWithState:&v66 objects:v83 count:16];
     }
 
     while (v42);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   exceptions2 = [(ASEvent *)selfCopy exceptions];
-  v48 = [exceptions2 countByEnumeratingWithState:&v63 objects:v83 count:16];
+  v48 = [exceptions2 countByEnumeratingWithState:&v62 objects:v82 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v64;
+    v50 = *v63;
     do
     {
       for (j = 0; j != v49; ++j)
       {
-        if (*v64 != v50)
+        if (*v63 != v50)
         {
           objc_enumerationMutation(exceptions2);
         }
 
-        v52 = *(*(&v63 + 1) + 8 * j);
+        v52 = *(*(&v62 + 1) + 8 * j);
         exceptionStartTime2 = [v52 exceptionStartTime];
         [v39 setObject:v52 forKeyedSubscript:exceptionStartTime2];
       }
 
-      v49 = [exceptions2 countByEnumeratingWithState:&v63 objects:v83 count:16];
+      v49 = [exceptions2 countByEnumeratingWithState:&v62 objects:v82 count:16];
     }
 
     while (v49);
@@ -4721,21 +6323,19 @@ LABEL_86:
   if (os_log_type_enabled(v55, v56))
   {
     *buf = 134219266;
-    v72 = selfCopy;
-    v73 = 2112;
-    v74 = selfCopy;
-    v75 = 2048;
-    v76 = eventCopy;
-    v77 = 2112;
-    v78 = eventCopy;
-    v79 = 2048;
-    v80 = v9;
-    v81 = 2112;
-    v82 = v9;
+    v71 = selfCopy;
+    v72 = 2112;
+    v73 = selfCopy;
+    v74 = 2048;
+    v75 = eventCopy;
+    v76 = 2112;
+    v77 = eventCopy;
+    v78 = 2048;
+    v79 = v9;
+    v80 = 2112;
+    v81 = v9;
     _os_log_impl(&dword_24A0AC000, v55, v56, "Merged winner %p %@ and loser %p %@, and got %p %@", buf, 0x3Eu);
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -4774,43 +6374,41 @@ LABEL_86:
 
 - (void)setExceptions:(id)exceptions
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   exceptionsCopy = exceptions;
   if (self->_exceptions != exceptionsCopy)
   {
     objc_storeStrong(&self->_exceptions, exceptions);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = exceptionsCopy;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) setOriginalEvent:{self, v12}];
+          [*(*(&v11 + 1) + 8 * v10++) setOriginalEvent:{self, v11}];
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRecurrence:(id)recurrence

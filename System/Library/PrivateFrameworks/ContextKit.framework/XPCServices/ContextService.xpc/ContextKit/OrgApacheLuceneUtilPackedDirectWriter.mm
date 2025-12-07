@@ -53,7 +53,7 @@
     sub_100003648();
   }
 
-  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_ || (v3 = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_ byteCountWithInt:2 withInt:*(self + 44) withInt:*(self + 8)], (v4 = *(self + 24)) == 0))
+  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] || (v3 = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] byteCountWithInt:2 withInt:*(self + 44) withInt:*(self + 8)], (v4 = *(self + 24)) == 0))
   {
 LABEL_7:
     JreThrowNullPointerException();
@@ -69,8 +69,6 @@ LABEL_7:
 {
   if (self->count_ != self->numValues_)
   {
-    count = self->count_;
-    numValues = self->numValues_;
     v11 = JreStrcat("$J$J", a2, v2, v3, v4, v5, v6, v7, @"Wrong number of values added, expected: ");
     v12 = new_JavaLangIllegalStateException_initWithNSString_(v11);
     objc_exception_throw(v12);

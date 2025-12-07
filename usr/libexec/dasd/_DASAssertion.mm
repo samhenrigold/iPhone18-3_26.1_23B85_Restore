@@ -4,7 +4,9 @@
 - (BOOL)invalidateAndKillWithExplanation:(id)explanation code:(unint64_t)code error:(id *)error;
 - (BOOL)isValid;
 - (NSString)description;
+- (_DASAssertion)initWithRBSAssertion:(id)assertion forPid:(int)pid;
 - (id)_initWithUnderlyingAssertion:(id)assertion forPid:(int)pid;
+- (void)_callInvalidationHandler:(BOOL)handler;
 - (void)_callWarningHandler;
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error;
 - (void)assertionWillInvalidate:(id)invalidate;
@@ -31,6 +33,19 @@
   }
 
   return v9;
+}
+
+- (_DASAssertion)initWithRBSAssertion:(id)assertion forPid:(int)pid
+{
+  v4 = *&pid;
+  assertionCopy = assertion;
+  v7 = [(_DASAssertion *)self _initWithUnderlyingAssertion:assertionCopy forPid:v4];
+  if (v7)
+  {
+    [assertionCopy addObserver:v7];
+  }
+
+  return v7;
 }
 
 - (BOOL)acquireWithError:(id *)error
@@ -113,6 +128,50 @@
   isValid = [underlyingAssertion isValid];
 
   return isValid;
+}
+
+- (void)_callInvalidationHandler:(BOOL)handler
+{
+  handlerCopy = handler;
+  os_unfair_lock_lock(&self->_lock);
+  invalidationHandler = [(_DASAssertion *)self invalidationHandler];
+
+  if (invalidationHandler)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = log;
+      underlyingAssertion = [(_DASAssertion *)self underlyingAssertion];
+      v9 = underlyingAssertion;
+      v10 = @"NO";
+      if (handlerCopy)
+      {
+        v10 = @"YES";
+      }
+
+      v12 = 138412546;
+      v13 = underlyingAssertion;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Calling invalidation handler for assertion %@, server-initiated: %@", &v12, 0x16u);
+    }
+
+    invalidationHandler2 = [(_DASAssertion *)self invalidationHandler];
+    [(_DASAssertion *)self setInvalidationHandler:0];
+    [(_DASAssertion *)self setWarningHandler:0];
+    os_unfair_lock_unlock(&self->_lock);
+    if (invalidationHandler2)
+    {
+      invalidationHandler2[2](invalidationHandler2, handlerCopy);
+    }
+  }
+
+  else
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
 }
 
 - (void)_callWarningHandler

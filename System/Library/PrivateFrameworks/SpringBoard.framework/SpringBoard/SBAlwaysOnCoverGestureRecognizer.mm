@@ -47,7 +47,7 @@
 
 - (void)processHIDEvent:(__IOHIDEvent *)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (IOHIDEventGetType() != 1 || IOHIDEventGetIntegerValue() != 65280 || IOHIDEventGetIntegerValue() != 89)
   {
     return;
@@ -57,25 +57,27 @@
   v6 = Phase;
   if (Phase)
   {
-    v7 = 1.0;
-    if (IOHIDEventGetIntegerValue() >= 4)
+    IntegerValue = IOHIDEventGetIntegerValue();
+    v8 = 1.0;
+    if (IntegerValue >= 4)
     {
-      v7 = *IOHIDEventGetDataValue();
+      IntegerValue = IOHIDEventGetDataValue();
+      v8 = *IntegerValue;
     }
 
     minimumScreenCoverage = self->_minimumScreenCoverage;
-    v9 = SBLogCoverGesture();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v7 >= minimumScreenCoverage)
+    v10 = SBLogCoverGesture(IntegerValue);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v8 >= minimumScreenCoverage)
     {
-      if (v10)
+      if (v11)
       {
-        v13 = 134217984;
-        v14 = v7;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Cover gesture began with coverage %f", &v13, 0xCu);
+        v14 = 134217984;
+        v15 = v8;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Cover gesture began with coverage %f", &v14, 0xCu);
       }
 
-      [(SBAlwaysOnCoverGestureRecognizer *)self _gestureBeganWithEvent:event];
+      Phase = [(SBAlwaysOnCoverGestureRecognizer *)self _gestureBeganWithEvent:event];
       if ((v6 & 4) != 0)
       {
         goto LABEL_18;
@@ -84,11 +86,11 @@
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        v13 = 134217984;
-        v14 = v7;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Cover gesture rejected. Coverage %f below threshold.", &v13, 0xCu);
+        v14 = 134217984;
+        v15 = v8;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Cover gesture rejected. Coverage %f below threshold.", &v14, 0xCu);
       }
 
       if ((v6 & 4) != 0)
@@ -112,22 +114,22 @@ LABEL_6:
   }
 
 LABEL_18:
-  v11 = SBLogCoverGesture();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogCoverGesture(Phase);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Cover gesture ended.", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Cover gesture ended.", &v14, 2u);
   }
 
-  [(SBAlwaysOnCoverGestureRecognizer *)self _gestureEndedWithEvent:event];
+  Phase = [(SBAlwaysOnCoverGestureRecognizer *)self _gestureEndedWithEvent:event];
   if ((v6 & 8) != 0)
   {
 LABEL_21:
-    v12 = SBLogCoverGesture();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogCoverGesture(Phase);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Cover gesture canceled.", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Cover gesture canceled.", &v14, 2u);
     }
 
     [(SBAlwaysOnCoverGestureRecognizer *)self _gestureCanceledWithEvent:event];
@@ -138,48 +140,48 @@ LABEL_21:
 {
   IOHIDEventGetTimeStampOfType();
   mach_continuous_time();
-  BSTimeDifferenceFromMachTimeToMachTime();
-  v5 = self->_maximumCoverDuration - v4;
-  if (v5 <= 0.0)
+  v4 = BSTimeDifferenceFromMachTimeToMachTime();
+  v6 = self->_maximumCoverDuration - v5;
+  if (v6 <= 0.0)
   {
-    v14 = SBLogCoverGesture();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogCoverGesture(v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Cover gesture failed because event too old.", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Cover gesture failed because event too old.", v16, 2u);
     }
 
     selfCopy2 = self;
-    v13 = 3;
+    v14 = 3;
   }
 
   else
   {
     [(BSContinuousMachTimer *)self->_timer invalidate];
-    v6 = objc_alloc(MEMORY[0x277CF0BD8]);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = [v6 initWithIdentifier:v8];
+    v7 = objc_alloc(MEMORY[0x277CF0BD8]);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [v7 initWithIdentifier:v9];
     timer = self->_timer;
-    self->_timer = v9;
+    self->_timer = v10;
 
-    v11 = self->_timer;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __59__SBAlwaysOnCoverGestureRecognizer__gestureBeganWithEvent___block_invoke;
-    v16[3] = &unk_2783AC430;
-    v16[4] = self;
-    [(BSContinuousMachTimer *)v11 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v16 queue:v5 handler:0.1];
+    v12 = self->_timer;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __59__SBAlwaysOnCoverGestureRecognizer__gestureBeganWithEvent___block_invoke;
+    v17[3] = &unk_2783AC430;
+    v17[4] = self;
+    [(BSContinuousMachTimer *)v12 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v17 queue:v6 handler:0.1];
     selfCopy2 = self;
-    v13 = 1;
+    v14 = 1;
   }
 
-  [(SBAlwaysOnCoverGestureRecognizer *)selfCopy2 _setState:v13];
+  [(SBAlwaysOnCoverGestureRecognizer *)selfCopy2 _setState:v14];
 }
 
 uint64_t __59__SBAlwaysOnCoverGestureRecognizer__gestureBeganWithEvent___block_invoke(uint64_t a1)
 {
-  v2 = SBLogCoverGesture();
+  v2 = SBLogCoverGesture(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

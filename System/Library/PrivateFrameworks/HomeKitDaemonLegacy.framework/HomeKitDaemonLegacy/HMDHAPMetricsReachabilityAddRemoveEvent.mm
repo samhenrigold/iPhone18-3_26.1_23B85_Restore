@@ -14,7 +14,7 @@
   linkType = [(HMDHAPMetricsReachabilityAddRemoveEvent *)self linkType];
   [dictionary setObject:linkType forKey:@"linkType"];
 
-  v6 = [dictionary copy];
+  v6 = objc_msgSend_copy(dictionary);
 
   return v6;
 }

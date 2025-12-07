@@ -226,40 +226,41 @@ LABEL_13:
   tappedCopy = tapped;
   userInfo = [tappedCopy userInfo];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     deviceDetailUri = [userInfo deviceDetailUri];
-    v7 = [NSURL URLWithString:deviceDetailUri];
+    v8 = [NSURL URLWithString:deviceDetailUri];
 
-    if (v7)
+    if (v8)
     {
       objc_storeStrong(&self->_deviceRecentlyTapped, userInfo);
-      v8 = [[NSMutableURLRequest alloc] initWithURL:v7];
+      v10 = [[NSMutableURLRequest alloc] initWithURL:v8];
       deviceDetailHttpMethod = [userInfo deviceDetailHttpMethod];
-      [v8 setHTTPMethod:deviceDetailHttpMethod];
+      [v10 setHTTPMethod:deviceDetailHttpMethod];
 
       delegate = [(AAUIDeviceSpecifierProvider *)self delegate];
-      [delegate specifierProvider:self loadRequest:v8 withIdentifier:@"_AAUIRemotePageIdentifierTrustedDevice" specifier:tappedCopy];
+      [delegate specifierProvider:self loadRequest:v10 withIdentifier:@"_AAUIRemotePageIdentifierTrustedDevice" specifier:tappedCopy];
     }
 
     else
     {
-      v11 = _AAUILogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _AAUILogSystem(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Unable to load trusted-devices remote UI. We're missing the URL from the device info!", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Unable to load trusted-devices remote UI. We're missing the URL from the device info!", v14, 2u);
       }
     }
   }
 
   else
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Unable to load trusted-devices remote UI. We're missing the device info!", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Unable to load trusted-devices remote UI. We're missing the device info!", buf, 2u);
     }
   }
 }

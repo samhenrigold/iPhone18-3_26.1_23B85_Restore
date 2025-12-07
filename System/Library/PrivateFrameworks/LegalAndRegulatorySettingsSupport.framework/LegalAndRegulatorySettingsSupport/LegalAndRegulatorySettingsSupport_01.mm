@@ -1,3 +1,35 @@
+const char *get_type_string_0(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 100);
+  if (CMARK_NODE_TABLE == v2)
+  {
+    return "table";
+  }
+
+  if (CMARK_NODE_TABLE_ROW == v2)
+  {
+    if (**(a2 + 128))
+    {
+      return "table_header";
+    }
+
+    else
+    {
+      return "table_row";
+    }
+  }
+
+  else if (CMARK_NODE_TABLE_CELL == v2)
+  {
+    return "table_cell";
+  }
+
+  else
+  {
+    return "<unknown>";
+  }
+}
+
 BOOL can_contain_0(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = *(a2 + 100);
@@ -234,7 +266,7 @@ LABEL_18:
 
     else
     {
-      v15 = " \\\";
+      v15 = " \\\"";
     }
 
     v14(a2, a3, v15, 0, 0);
@@ -385,8 +417,9 @@ LABEL_13:
   }
 }
 
-_DWORD *html_render_0(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int16 a5)
+_DWORD *html_render_0(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v40 = *MEMORY[0x277D85DE8];
   v8 = *a2;
   v9 = *(a3 + 100);
@@ -401,7 +434,7 @@ _DWORD *html_render_0(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int16 a5)
       }
 
       cmark_strbuf_puts(v8, "<table");
-      if ((a5 & 2) != 0)
+      if ((v5 & 2) != 0)
       {
         start_line = cmark_node_get_start_line(a3);
         start_column = cmark_node_get_start_column(a3);
@@ -412,13 +445,13 @@ _DWORD *html_render_0(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int16 a5)
       }
 
       result = cmark_strbuf_putc(v8, 62);
-      v16 = *(a2 + 32) & 0xFE;
+      v16 = a2[4] & 0xFE;
 LABEL_9:
       *(a2 + 32) = v16;
       return result;
     }
 
-    if (*(a2 + 32))
+    if (a2[4])
     {
       v19 = *(v8 + 20);
       if (v19 && *(*(v8 + 8) + v19 - 1) != 10)
@@ -472,7 +505,7 @@ LABEL_9:
 
     if (a4 != 2)
     {
-      if ((*(a2 + 32) & 2) != 0)
+      if ((a2[4] & 2) != 0)
       {
         v33 = "</th>";
       }
@@ -491,7 +524,7 @@ LABEL_9:
       cmark_strbuf_putc(*a2, 10);
     }
 
-    if ((*(a2 + 32) & 2) != 0)
+    if ((a2[4] & 2) != 0)
     {
       v26 = "<th";
     }
@@ -539,7 +572,7 @@ LABEL_9:
         break;
       default:
 LABEL_81:
-        if ((a5 & 2) != 0)
+        if ((v5 & 2) != 0)
         {
           v35 = cmark_node_get_start_line(a3);
           v36 = cmark_node_get_start_column(a3);
@@ -552,7 +585,7 @@ LABEL_81:
         return cmark_strbuf_putc(v8, 62);
     }
 
-    html_table_add_align(v8, v31, a5);
+    html_table_add_align(v8, v31, v5);
     goto LABEL_81;
   }
 
@@ -575,7 +608,7 @@ LABEL_81:
       }
     }
 
-    else if ((*(a2 + 32) & 1) == 0)
+    else if ((a2[4] & 1) == 0)
     {
       cmark_strbuf_puts(v8, "<tbody>");
       v34 = *(v8 + 20);
@@ -606,7 +639,7 @@ LABEL_81:
     }
 
     result = cmark_strbuf_puts(v8, "</thead>");
-    v16 = *(a2 + 32) & 0xFD;
+    v16 = a2[4] & 0xFD;
     goto LABEL_9;
   }
 
@@ -646,7 +679,7 @@ void opaque_free(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     v4 = *(a3 + 128);
     v5 = (a2 + 16);
-    (*(a2 + 16))(*(v4 + 8));
+    (*(a2 + 16))(*(v4 + 8), a2);
   }
 
   else
@@ -761,17 +794,18 @@ uint64_t cmark_gfm_extensions_set_table_row_is_header(uint64_t result, int a2)
   return result;
 }
 
-unsigned __int16 *row_from_string(uint64_t (***a1)(uint64_t, uint64_t), uint64_t a2, int a3)
+unsigned __int16 *row_from_string(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = (**a1)(1, 16);
   *v6 = 0;
   *(v6 + 1) = 0;
-  v7 = _ext_scan_at(_scan_table_cell_end, a2, a3, 0);
-  while (v7 < a3)
+  v7 = _ext_scan_at(_scan_table_cell_end, a2, v3, 0);
+  while (v7 < v3)
   {
-    v8 = _ext_scan_at(_scan_table_cell, a2, a3, v7);
+    v8 = _ext_scan_at(_scan_table_cell, a2, v3, v7);
     v9 = v8 + v7;
-    v10 = _ext_scan_at(_scan_table_cell_end, a2, a3, v8 + v7);
+    v10 = _ext_scan_at(_scan_table_cell_end, a2, v3, v8 + v7);
     if (!(v8 | v10))
     {
       goto LABEL_10;
@@ -815,9 +849,9 @@ unsigned __int16 *row_from_string(uint64_t (***a1)(uint64_t, uint64_t), uint64_t
     if (!v11)
     {
 LABEL_10:
-      v17 = _ext_scan_at(_scan_table_row_end, a2, a3, v7);
+      v17 = _ext_scan_at(_scan_table_row_end, a2, v3, v7);
       v7 += v17;
-      if (!v17 || v7 == a3)
+      if (!v17 || v7 == v3)
       {
         break;
       }
@@ -826,30 +860,31 @@ LABEL_10:
       cmark_llist_free_full(*a1, *(v6 + 1), free_table_cell);
       *(v6 + 1) = 0;
       *v6 = 0;
-      v7 += _ext_scan_at(_scan_table_cell_end, a2, a3, v7);
+      v7 += _ext_scan_at(_scan_table_cell_end, a2, v3, v7);
     }
   }
 
   v18 = 0;
 LABEL_15:
-  if (v7 != a3 || ((*v6 != 0) & ~v18) == 0)
+  if (v7 != v3 || ((*v6 != 0) & ~v18) == 0)
   {
     v19 = *a1;
     cmark_llist_free_full(v19, *(v6 + 1), free_table_cell);
-    (v19[2])(v6);
+    (*(v19 + 16))(v6);
     return 0;
   }
 
   return v6;
 }
 
-uint64_t *unescape_pipes(uint64_t (**a1)(uint64_t, uint64_t), const void *a2, int a3)
+uint64_t *unescape_pipes(uint64_t (**a1)(uint64_t, uint64_t), const void *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = (*a1)(1, 24);
-  cmark_strbuf_init(a1, v6, a3 + 1);
-  cmark_strbuf_put(v6, a2, a3);
+  cmark_strbuf_init(a1, v6, (v3 + 1));
+  cmark_strbuf_put(v6, a2, v3);
   cmark_strbuf_putc(v6, 0);
-  if (a3 < 1)
+  if (v3 < 1)
   {
     v11 = 0;
   }
@@ -857,35 +892,30 @@ uint64_t *unescape_pipes(uint64_t (**a1)(uint64_t, uint64_t), const void *a2, in
   else
   {
     v7 = 0;
-    v8 = 0;
-    do
+    for (i = 0; i < v3; ++i)
     {
       v9 = v6[1];
-      v10 = *(v9 + v8);
+      v10 = *(v9 + i);
       if (v10 == 92)
       {
-        if (*(v9 + v8 + 1) == 124)
+        if (*(v9 + i + 1) == 124)
         {
-          ++v8;
+          ++i;
         }
 
-        LOBYTE(v10) = *(v9 + v8);
+        LOBYTE(v10) = *(v9 + i);
       }
 
       v11 = v7 + 1;
-      *(v9 + v7) = v10;
-      ++v8;
-      ++v7;
+      *(v9 + v7++) = v10;
     }
-
-    while (v8 < a3);
   }
 
   cmark_strbuf_truncate(v6, v11);
   return v6;
 }
 
-uint64_t free_table_cell(uint64_t a1, uint64_t *a2)
+uint64_t free_table_cell(uint64_t a1, void *a2)
 {
   cmark_strbuf_free(*a2);
   (*(a1 + 16))(*a2);
@@ -912,7 +942,7 @@ _DWORD *html_table_add_align(_DWORD *a1, char *a2, __int16 a3)
   return cmark_strbuf_puts(a1, "");
 }
 
-uint64_t houdini_unescape_ent(_DWORD *a1, char *__s1, int a3)
+uint64_t houdini_unescape_ent(_DWORD *a1, char *__s1, unsigned int a3)
 {
   if (a3 < 3)
   {
@@ -1092,26 +1122,27 @@ LABEL_42:
   return (v8 + 1);
 }
 
-uint64_t houdini_unescape_html(_DWORD *a1, uint64_t a2, int a3)
+uint64_t houdini_unescape_html(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
   if (a3 < 1)
   {
     return 1;
   }
 
+  v3 = a3;
   LODWORD(v6) = 0;
   v7 = a3;
   while (1)
   {
     v8 = v6;
-    if (a3 <= v6 + 1)
+    if (v3 <= v6 + 1)
     {
       v9 = v6 + 1;
     }
 
     else
     {
-      v9 = a3;
+      v9 = v3;
     }
 
     v6 = v6;
@@ -1147,14 +1178,14 @@ LABEL_14:
     if (v10 == 38)
     {
       v11 = v9 + 1;
-      v12 = houdini_unescape_ent(a1, (a2 + v11), a3 - v11);
+      v12 = houdini_unescape_ent(a1, (a2 + v11), v3 - v11);
       if (!v12)
       {
         cmark_strbuf_putc(a1, 38);
       }
 
       LODWORD(v6) = v12 + v11;
-      if (v12 + v11 < a3)
+      if (v12 + v11 < v3)
       {
         continue;
       }
@@ -1165,20 +1196,21 @@ LABEL_14:
 
   if (v10 == 38)
   {
-    cmark_strbuf_grow(a1, a3);
+    cmark_strbuf_grow(a1, v3);
     goto LABEL_13;
   }
 
   return 0;
 }
 
-_DWORD *houdini_unescape_html_f(_DWORD *a1, const void *a2, int a3)
+_DWORD *houdini_unescape_html_f(_DWORD *a1, const void *a2, uint64_t a3)
 {
+  v3 = a3;
   result = houdini_unescape_html(a1, a2, a3);
   if (!result)
   {
 
-    return cmark_strbuf_put(a1, a2, a3);
+    return cmark_strbuf_put(a1, a2, v3);
   }
 
   return result;

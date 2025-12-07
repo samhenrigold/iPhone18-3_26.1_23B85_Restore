@@ -42,11 +42,11 @@
 - (CGSize)collectionViewContentSizeForLayoutMode:(unint64_t)mode
 {
   _itemCount = [(CKAppStripLayout *)self _itemCount];
-  [(CKAppStripLayout *)self _specForLayoutMode:mode];
-  v6 = 0.0;
-  v7 = 0.0 * (_itemCount - 1) + 0.0 * _itemCount;
-  result.height = v6;
-  result.width = v7;
+  objc_msgSend__specForLayoutMode_(self);
+  v5 = 0.0;
+  v6 = 0.0 * (_itemCount - 1) + 0.0 * _itemCount;
+  result.height = v5;
+  result.width = v6;
   return result;
 }
 
@@ -142,118 +142,119 @@
   _favoritesCount = [(CKAppStripLayout *)self _favoritesCount];
   _recentsCount = [(CKAppStripLayout *)self _recentsCount];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[CKAppStripLayout _itemCount](self, "_itemCount")}];
-  v7 = 0x1E696A000uLL;
+  v8 = v6;
+  v9 = 0x1E696A000uLL;
   p_vtable = CKPhotosSearchResultsModeHeaderReusableView.vtable;
   if (_favoritesCount < 1)
   {
-    v10 = 0.0;
+    v12 = 0.0;
   }
 
   else
   {
-    v9 = 0;
-    v10 = 0.0;
+    v11 = 0;
+    v12 = 0.0;
     do
     {
-      v11 = [*(v7 + 3208) indexPathForItem:v9 inSection:0];
-      [p_vtable + 287 layoutAttributesForCellWithIndexPath:v11];
-      v12 = p_vtable;
-      v14 = v13 = v7;
-      [v14 setSize:{spec->var0.width, spec->var0.height}];
-      [v14 setFrame:{v10, 0.0, spec->var0.width, spec->var0.height}];
-      [v14 setShowsBorder:{-[CKAppStripLayout shouldShowCellBorders](self, "shouldShowCellBorders")}];
-      [v14 setAppStripSize:spec->var4];
-      [v6 addObject:v14];
-      v10 = v10 + spec->var3 + spec->var0.width;
+      v13 = [*(v9 + 3208) indexPathForItem:v11 inSection:0];
+      [p_vtable + 287 layoutAttributesForCellWithIndexPath:v13];
+      v14 = p_vtable;
+      v16 = v15 = v9;
+      [v16 setSize:{spec->var0.width, spec->var0.height}];
+      [v16 setFrame:{v12, 0.0, spec->var0.width, spec->var0.height}];
+      [v16 setShowsBorder:{-[CKAppStripLayout shouldShowCellBorders](self, "shouldShowCellBorders")}];
+      [v16 setAppStripSize:spec->var4];
+      [v8 addObject:v16];
+      v12 = v12 + spec->var3 + spec->var0.width;
 
-      v7 = v13;
-      p_vtable = v12;
+      v9 = v15;
+      p_vtable = v14;
 
-      ++v9;
+      ++v11;
     }
 
-    while (_favoritesCount != v9);
+    while (_favoritesCount != v11);
   }
 
-  if (CKIsRunningInCameraAppsClient())
+  if (CKIsRunningInCameraAppsClient(v6, v7))
   {
-    v15 = _recentsCount;
+    v17 = _recentsCount;
   }
 
   else
   {
-    v15 = _recentsCount;
+    v17 = _recentsCount;
     if (_recentsCount)
     {
-      v10 = v10 + spec->var1.width + spec->var2 * 2.0;
+      v12 = v12 + spec->var1.width + spec->var2 * 2.0;
     }
   }
 
-  if (v15 >= 1)
+  if (v17 >= 1)
   {
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v17; ++i)
     {
-      v17 = [*(v7 + 3208) indexPathForItem:i inSection:1];
-      v18 = [p_vtable + 287 layoutAttributesForCellWithIndexPath:v17];
-      [v18 setSize:{spec->var0.width, spec->var0.height}];
-      [v18 setFrame:{v10, 0.0, spec->var0.width, spec->var0.height}];
-      [v18 setShowsBorder:{-[CKAppStripLayout shouldShowCellBorders](self, "shouldShowCellBorders")}];
-      [v18 setAppStripSize:spec->var4];
-      [v6 addObject:v18];
-      v10 = v10 + spec->var3 + spec->var0.width;
+      v19 = [*(v9 + 3208) indexPathForItem:i inSection:1];
+      v20 = [p_vtable + 287 layoutAttributesForCellWithIndexPath:v19];
+      [v20 setSize:{spec->var0.width, spec->var0.height}];
+      [v20 setFrame:{v12, 0.0, spec->var0.width, spec->var0.height}];
+      [v20 setShowsBorder:{-[CKAppStripLayout shouldShowCellBorders](self, "shouldShowCellBorders")}];
+      [v20 setAppStripSize:spec->var4];
+      [v8 addObject:v20];
+      v12 = v12 + spec->var3 + spec->var0.width;
     }
   }
 
-  return v6;
+  return v8;
 }
 
 - (id)_generateSupplementryAttributesForSpec:(_Spec *)spec minified:(BOOL)minified
 {
   minifiedCopy = minified;
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   _favoritesCount = [(CKAppStripLayout *)self _favoritesCount];
   _recentsCount = [(CKAppStripLayout *)self _recentsCount];
-  v9 = CKIsRunningInCameraAppsClient();
-  v10 = MEMORY[0x1E695E0F0];
-  if (!v9 && _favoritesCount && _recentsCount)
+  v10 = CKIsRunningInCameraAppsClient(_recentsCount, v9);
+  v11 = MEMORY[0x1E695E0F0];
+  if (!v10 && _favoritesCount && _recentsCount)
   {
-    v11 = &OBJC_IVAR___CKAppStripLayout__magnifiedAttributes;
+    v12 = &OBJC_IVAR___CKAppStripLayout__magnifiedAttributes;
     if (minifiedCopy)
     {
-      v11 = &OBJC_IVAR___CKAppStripLayout__minifiedAttributes;
+      v12 = &OBJC_IVAR___CKAppStripLayout__minifiedAttributes;
     }
 
-    v12 = *(&self->super.super.isa + *v11);
-    v13 = [v12 objectAtIndex:_favoritesCount - 1];
-    v14 = [v12 objectAtIndex:_favoritesCount];
-    v15 = MEMORY[0x1E69DC858];
-    v16 = +[CKBrowserSwitcherFooterAccessoryCell supplementryViewKind];
-    v17 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:0];
-    v18 = [v15 layoutAttributesForSupplementaryViewOfKind:v16 withIndexPath:v17];
+    v13 = *(&self->super.super.isa + *v12);
+    v14 = [v13 objectAtIndex:_favoritesCount - 1];
+    v15 = [v13 objectAtIndex:_favoritesCount];
+    v16 = MEMORY[0x1E69DC858];
+    v17 = +[CKBrowserSwitcherFooterAccessoryCell supplementryViewKind];
+    v18 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:0];
+    v19 = [v16 layoutAttributesForSupplementaryViewOfKind:v17 withIndexPath:v18];
 
-    [v18 setSize:{spec->var1.width, spec->var1.height}];
-    v19 = *(MEMORY[0x1E695F058] + 8);
-    [v13 frame];
-    MaxX = CGRectGetMaxX(v26);
+    [v19 setSize:{spec->var1.width, spec->var1.height}];
+    v20 = *(MEMORY[0x1E695F058] + 8);
     [v14 frame];
-    v21 = MaxX + (CGRectGetMinX(v27) - MaxX) * 0.5 - spec->var1.width * 0.5;
+    MaxX = CGRectGetMaxX(v27);
+    [v15 frame];
+    v22 = MaxX + (CGRectGetMinX(v28) - MaxX) * 0.5 - spec->var1.width * 0.5;
     if (CKMainScreenScale_once_43 != -1)
     {
       [CKAppStripLayout _generateSupplementryAttributesForSpec:minified:];
     }
 
-    v22 = *&CKMainScreenScale_sMainScreenScale_43;
+    v23 = *&CKMainScreenScale_sMainScreenScale_43;
     if (*&CKMainScreenScale_sMainScreenScale_43 == 0.0)
     {
-      v22 = 1.0;
+      v23 = 1.0;
     }
 
-    [v18 setFrame:{round(v21 * v22) / v22, v19, spec->var1.width, spec->var1.height}];
-    v24[0] = v18;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    [v19 setFrame:{round(v22 * v23) / v23, v20, spec->var1.width, spec->var1.height}];
+    v25[0] = v19;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   }
 
-  return v10;
+  return v11;
 }
 
 - (_Spec)_specForLayoutMode:(SEL)mode

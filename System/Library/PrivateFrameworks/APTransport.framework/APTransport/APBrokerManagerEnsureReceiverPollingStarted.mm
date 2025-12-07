@@ -8,7 +8,7 @@ uint64_t ___APBrokerManagerEnsureReceiverPollingStarted_block_invoke(uint64_t a1
   result = APBrokerGroupStartReceiverPolling(a3);
   if (result)
   {
-    return ___APBrokerManagerEnsureReceiverPollingStarted_block_invoke_cold_1();
+    return ___APBrokerManagerEnsureReceiverPollingStarted_block_invoke_cold_1(result);
   }
 
   return result;

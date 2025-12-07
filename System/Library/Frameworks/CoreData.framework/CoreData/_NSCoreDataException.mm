@@ -1,14 +1,14 @@
 @interface _NSCoreDataException
-+ (id)exceptionWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:;
++ (void)exceptionWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:;
 - (id)errorObjectWithUserInfo:(id)info;
-- (id)initWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:;
-- (uint64_t)_setDomain:(uint64_t)result;
+- (void)_setDomain:(void *)result;
 - (void)dealloc;
+- (void)initWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:;
 @end
 
 @implementation _NSCoreDataException
 
-+ (id)exceptionWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:
++ (void)exceptionWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:
 {
   v9 = objc_alloc(objc_opt_self());
   v10 = [(_NSCoreDataException *)v9 initWithName:a2 code:name reason:code userInfo:reason];
@@ -16,7 +16,7 @@
   return v10;
 }
 
-- (id)initWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:
+- (void)initWithName:(uint64_t)name code:(uint64_t)code reason:(void *)reason userInfo:
 {
   if (result)
   {
@@ -59,7 +59,7 @@
     result = objc_msgSendSuper2(&v14, sel_initWithName_reason_userInfo_, a2, code, reasonCopy);
     if (result)
     {
-      *(result + 5) = name;
+      result[5] = name;
     }
   }
 
@@ -73,17 +73,17 @@
   [(_NSCoreDataException *)&v3 dealloc];
 }
 
-- (uint64_t)_setDomain:(uint64_t)result
+- (void)_setDomain:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 48);
+    v4 = result[6];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 48) = result;
+      v3[6] = result;
     }
   }
 

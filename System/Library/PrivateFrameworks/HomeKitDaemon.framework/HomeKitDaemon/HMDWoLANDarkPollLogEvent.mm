@@ -30,7 +30,7 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[HMDWoLANDarkPollLogEvent wolanVersion](self, "wolanVersion")}];
   [dictionary setObject:v10 forKeyedSubscript:@"wolanVersion"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }

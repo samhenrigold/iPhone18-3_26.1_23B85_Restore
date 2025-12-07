@@ -68,46 +68,45 @@
 - (ASDiscoveredDisplayItem)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v17.receiver = self;
-  v17.super_class = ASDiscoveredDisplayItem;
-  v7 = [(ASPickerDisplayItem *)&v17 initWithXPCObject:objectCopy error:error];
+  v10.receiver = self;
+  v10.super_class = ASDiscoveredDisplayItem;
+  v7 = [(ASPickerDisplayItem *)&v10 initWithXPCObject:objectCopy error:error];
   if (v7)
   {
     if (MEMORY[0x2383B4C90](objectCopy) == MEMORY[0x277D86468])
     {
       objc_opt_class();
       CUXPCDecodeObject();
-      v14 = v7;
+      v8 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [ASPickerDisplayItem initWithXPCObject:error error:&v18];
-    v14 = v18;
+    [ASPickerDisplayItem initWithXPCObject:error error:&v11];
+    v8 = v11;
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v6.receiver = self;
-  v6.super_class = ASDiscoveredDisplayItem;
+  v4.receiver = self;
+  v4.super_class = ASDiscoveredDisplayItem;
   objectCopy = object;
-  [(ASPickerDisplayItem *)&v6 encodeWithXPCObject:objectCopy];
-  accessory = self->_accessory;
+  [(ASPickerDisplayItem *)&v4 encodeWithXPCObject:objectCopy];
   CUXPCEncodeObject();
 }
 
@@ -164,36 +163,48 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  CUAppendF();
-  v4 = 0;
-  v5 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v4 = 8;
+  }
+
+  else
+  {
+    v4 = 12;
+  }
+
+  v15 = v4;
+  v14 = 0;
+  CUAppendF(&v14, &v15, "");
+  v5 = v14;
+  v6 = v5;
   accessory = self->_accessory;
   if (accessory)
   {
-    v12 = v4;
-    v11 = accessory;
-    CUAppendF();
-    v7 = v12;
+    v13 = v5;
+    v8 = accessory;
+    CUAppendF(&v13, &v15, "accessory [%@]", v8);
+    v9 = v13;
 
-    v5 = v7;
+    v6 = v9;
   }
 
-  v8 = &stru_28499D698;
-  if (v5)
+  v10 = &stru_28499D698;
+  if (v6)
   {
-    v8 = v5;
+    v10 = v6;
   }
 
-  v9 = v8;
+  v11 = v10;
 
-  return v9;
+  return v11;
 }
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
   v2 = objc_opt_class();
-  v9 = ASErrorF(1, "%@ init failed", v3, v4, v5, v6, v7, v8, v2);
-  [a1 failWithError:v9];
+  v3 = ASErrorF(1, "%@ init failed", v2);
+  [a1 failWithError:v3];
 }
 
 @end

@@ -20,6 +20,7 @@
 - (void)setMatrixEnabled:(unsigned __int8)enabled;
 - (void)setShaderBindings;
 - (void)setTarget:(GLKTextureTarget)target;
+- (void)setTextureIndex:(int)index;
 - (void)setUnit2dNameString:(char *)string;
 - (void)setUnitCubeNameString:(char *)string;
 @end
@@ -174,43 +175,108 @@
   return result;
 }
 
-- (void)setShaderBindings
+- (void)setTextureIndex:(int)index
 {
-  v15 = *MEMORY[0x277D85DE8];
-  params = 0;
-  glGetIntegerv(0x8B8Du, &params);
-  self->_unit2dLoc = glGetUniformLocation(params, self->_unit2dNameString);
-  self->_unitCubeLoc = glGetUniformLocation(params, self->_unitCubeNameString);
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
+  v3 = *&index;
+  v21 = *MEMORY[0x277D85DE8];
+  self->_textureIndex = index;
+  snprintf(__str, 0x3FuLL, "unit2d[%d]", index);
+  [(GLKEffectPropertyTexture *)self setUnit2dNameString:__str];
+  snprintf(__str, 0x3FuLL, "unitCube[%d]", self->_textureIndex);
+  [(GLKEffectPropertyTexture *)self setUnitCubeNameString:__str];
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   texGenArray = self->_texGenArray;
-  v4 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v9 objects:v14 count:16];
-  if (v4)
+  v6 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
   {
-    v5 = v4;
-    v6 = *v10;
+    v7 = v6;
+    v8 = *v16;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v10 != v6)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(texGenArray);
         }
 
-        [*(*(&v9 + 1) + 8 * i) setShaderBindings];
+        [*(*(&v15 + 1) + 8 * i) setTextureIndex:v3];
       }
 
-      v5 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v7 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v7);
+  }
+
+  _setMasks_0(self);
+  _normalizedNormalsMask(*(self->super._prv + 4));
+  _vNormalEyeMask(*(self->super._prv + 4));
+  _texturingEnabledMask(*(self->super._prv + 4));
+  _vPositionEyeMask(*(self->super._prv + 4));
+  _useTexCoordAttribMask(*(self->super._prv + 4));
+  self->_allFshMasks.n0 = 0;
+  self->_allFshMasks.n1 = 0;
+  v10 = _staticFshVPositionMask_0;
+  v11 = _staticFshVPositionMask_1;
+  textureIndex = self->_textureIndex;
+  self->_allFshMasks.n0 = _staticFshVPositionMask_0;
+  self->_allFshMasks.n1 = v11;
+  v13 = &_staticFshMasks_1[2 * textureIndex + 1];
+  v14 = 24;
+  do
+  {
+    v10 |= *(v13 - 1);
+    v11 |= *v13;
+    self->_allFshMasks.n0 = v10;
+    self->_allFshMasks.n1 = v11;
+    v13 += 6;
+    --v14;
+  }
+
+  while (v14);
+  [(GLKEffectProperty *)self setDirtyUniforms:0x200000];
+}
+
+- (void)setShaderBindings
+{
+  v14 = *MEMORY[0x277D85DE8];
+  params = 0;
+  glGetIntegerv(0x8B8Du, &params);
+  self->_unit2dLoc = glGetUniformLocation(params, self->_unit2dNameString);
+  self->_unitCubeLoc = glGetUniformLocation(params, self->_unitCubeNameString);
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  texGenArray = self->_texGenArray;
+  v4 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v8 objects:v13 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v9;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(texGenArray);
+        }
+
+        [*(*(&v8 + 1) + 8 * i) setShaderBindings];
+      }
+
+      v5 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(GLKEffectProperty *)self setDirtyUniforms:0x200000];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setStaticMasksWithVshRoot:(id)root fshRoot:(id)fshRoot
@@ -258,7 +324,7 @@
   masks->n1 = v5;
   v6 = vbicq_s8(*mask, __PAIR128__(_staticFshVPositionMask_1, _staticFshVPositionMask_0));
   *mask = v6;
-  v7 = &_staticFshMasks_1;
+  v7 = _staticFshMasks_1;
   do
   {
     for (i = 0; i != 144; i += 6)
@@ -687,7 +753,7 @@ LABEL_6:
 
 - (void)bind
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_enabled)
   {
     glActiveTexture(self->_textureIndex + 33984);
@@ -712,36 +778,34 @@ LABEL_6:
       [(GLKEffectProperty *)self setDirtyUniforms:0];
     }
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     texGenArray = self->_texGenArray;
-    v5 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(texGenArray);
           }
 
-          [*(*(&v10 + 1) + 8 * i) bind];
+          [*(*(&v9 + 1) + 8 * i) bind];
         }
 
-        v6 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSMutableArray *)texGenArray countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2283C4();
+  sub_2283C4(selfCopy);
 }
 
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes

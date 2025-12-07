@@ -140,7 +140,6 @@
 
 uint64_t __45__ImpoExpoService__supportArchivingOfObject___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(a1 + 32);
   result = objc_opt_isKindOfClass();
   if (result)
   {
@@ -153,7 +152,7 @@ uint64_t __45__ImpoExpoService__supportArchivingOfObject___block_invoke(uint64_t
 
 - (BOOL)importItemUnderName:(id)name item:(id)item
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   itemCopy = item;
   if (!itemCopy)
@@ -168,9 +167,9 @@ LABEL_8:
     v13 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = itemCopy;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unable to import unsupported object %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = itemCopy;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unable to import unsupported object %@", &v15, 0xCu);
     }
 
     goto LABEL_8;
@@ -193,22 +192,21 @@ LABEL_8:
   }
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)archiveAndImportItemUnderName:(id)name item:(id)item
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   itemCopy = item;
   if (itemCopy)
   {
     if ([ImpoExpoService _supportArchivingOfObject:itemCopy])
     {
-      v20 = 0;
-      v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:itemCopy requiringSecureCoding:1 error:&v20];
-      v9 = v20;
+      v19 = 0;
+      v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:itemCopy requiringSecureCoding:1 error:&v19];
+      v9 = v19;
       v10 = v9;
       if (!v8 || v9)
       {
@@ -216,9 +214,9 @@ LABEL_9:
         if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v22 = nameCopy;
-          v23 = 2112;
-          v24 = v10;
+          v21 = nameCopy;
+          v22 = 2112;
+          v23 = v10;
           _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Failed to archive object named %@ : %@", buf, 0x16u);
         }
       }
@@ -241,7 +239,7 @@ LABEL_16:
           v16 = v14;
           uTF8String = [nameCopy UTF8String];
           *buf = 136315138;
-          v22 = uTF8String;
+          v21 = uTF8String;
           _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Object with name %s was successfully archived but save failed.", buf, 0xCu);
         }
 
@@ -256,7 +254,7 @@ LABEL_16:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = itemCopy;
+      v21 = itemCopy;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Unable to archive and import unsupported object %@", buf, 0xCu);
     }
   }
@@ -264,7 +262,6 @@ LABEL_16:
   v11 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -287,7 +284,7 @@ LABEL_17:
 
 - (id)exportItemUnderName:(id)name lastUpdated:(id *)updated verificationBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   blockCopy = block;
   v10 = [(ImpoExpoService *)self _locateRecord:nameCopy createMissing:0];
@@ -306,9 +303,9 @@ LABEL_17:
     v14 = +[ImpoExpoService _supportedClasses];
     v15 = objc_alloc(MEMORY[0x277CCAAC8]);
     v16 = [v11 map];
-    v29 = 0;
-    v17 = [v15 initForReadingFromData:v16 error:&v29];
-    v18 = v29;
+    v28 = 0;
+    v17 = [v15 initForReadingFromData:v16 error:&v28];
+    v18 = v28;
 
     if (!v17 || v18)
     {
@@ -318,9 +315,9 @@ LABEL_17:
         v22 = v21;
         v23 = [v18 description];
         *buf = 138412546;
-        v31 = nameCopy;
-        v32 = 2112;
-        v33 = v23;
+        v30 = nameCopy;
+        v31 = 2112;
+        v32 = v23;
         _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Failed to unarchive object named %@, removing the item.  Error: %@", buf, 0x16u);
       }
 
@@ -345,16 +342,16 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v27 = otherLogHandle;
+      v26 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = nameCopy;
-        _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "Verification of the unarchived object named %@ failed, removing the item", buf, 0xCu);
+        v30 = nameCopy;
+        _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Verification of the unarchived object named %@ failed, removing the item", buf, 0xCu);
       }
 
-      v28 = [MEMORY[0x277CBEB98] setWithObject:nameCopy];
-      [(ImpoExpoService *)self deleteItemsWithNames:v28];
+      v27 = [MEMORY[0x277CBEB98] setWithObject:nameCopy];
+      [(ImpoExpoService *)self deleteItemsWithNames:v27];
     }
 
     v20 = 0;
@@ -363,23 +360,21 @@ LABEL_15:
 
 LABEL_16:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)exportAndUnarchiveItemUnderName:(id)name lastUpdated:(id *)updated verificationBlock:(id)block
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   blockCopy = block;
   v10 = [(ImpoExpoService *)self exportItemUnderName:nameCopy lastUpdated:updated verificationBlock:0];
   if (v10)
   {
     v11 = +[ImpoExpoService _supportedClasses];
-    v28 = 0;
-    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v11 fromData:v10 error:&v28];
-    v13 = v28;
+    v27 = 0;
+    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v11 fromData:v10 error:&v27];
+    v13 = v27;
     v14 = v13;
     if (v12)
     {
@@ -419,8 +414,8 @@ LABEL_17:
         v18 = [v14 description];
         *buf = 138412546;
         uTF8String = nameCopy;
-        v31 = 2112;
-        v32 = v18;
+        v30 = 2112;
+        v31 = v18;
         _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to unarchive object with name %@, removing the item.  Error :%@", buf, 0x16u);
       }
     }
@@ -447,7 +442,6 @@ LABEL_17:
 LABEL_18:
   v25 = v22;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -548,7 +542,7 @@ LABEL_12:
 
 void __58__ImpoExpoService_listItemsNameWithPrefix_sortDescriptor___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 identifier];
   if ([v4 hasSuffix:*(a1 + 32)])
@@ -578,14 +572,12 @@ void __58__ImpoExpoService_listItemsNameWithPrefix_sortDescriptor___block_invoke
   {
     v13 = v12;
     v14 = [v3 identifier];
-    v16 = 136315138;
-    v17 = [v14 UTF8String];
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "non-compliant identifier: %s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = [v14 UTF8String];
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "non-compliant identifier: %s", &v15, 0xCu);
   }
 
 LABEL_7:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)deleteItemsWithNames:(id)names

@@ -21,7 +21,7 @@
 
 - (void)addToHistogramForBundleId:(id)id location:(id)location feedback:(id)feedback withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   locationCopy = location;
   feedbackCopy = feedback;
@@ -50,20 +50,18 @@
 
     else
     {
-      v23 = *MEMORY[0x277CCA450];
-      v24[0] = @"Invalid argument for location or feedback";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23[0] = @"Invalid argument for location or feedback";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXNotificationDigestFeedbackInspector" code:-1 userInfo:v20];
       (replyCopy)[2](replyCopy, v21);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHistogramValueForBundleId:(id)id location:(id)location feedback:(id)feedback value:(id)value withReply:(id)reply
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   locationCopy = location;
   feedbackCopy = feedback;
@@ -74,8 +72,8 @@
   {
     alltimeMarqueeAppearanceHistogram = [v17 alltimeMarqueeAppearanceHistogram];
     v19 = MEMORY[0x277CBEB98];
-    v57[0] = idCopy;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
+    v56[0] = idCopy;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
     v21 = [v19 setWithArray:v20];
     [alltimeMarqueeAppearanceHistogram removeBundleIds:v21];
 
@@ -92,81 +90,79 @@
     v24 = [(ATXNotificationDigestFeedbackInspector *)self _histogramKeyForLocation:locationCopy feedback:feedbackCopy];
     if (v24)
     {
-      v43 = replyCopy;
-      v44 = valueCopy;
-      v45 = feedbackCopy;
-      v46 = locationCopy;
+      v42 = replyCopy;
+      v43 = valueCopy;
+      v44 = feedbackCopy;
+      v45 = locationCopy;
       v25 = [v17 feedbackDictionaryForBundleId:idCopy];
-      v47 = v17;
+      v46 = v17;
       digestFeedbackHistogram = [v17 digestFeedbackHistogram];
       v27 = MEMORY[0x277CBEB98];
-      v48 = idCopy;
-      v54 = idCopy;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v47 = idCopy;
+      v53 = idCopy;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
       v29 = [v27 setWithArray:v28];
       [digestFeedbackHistogram removeBundleIds:v29];
 
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v30 = v25;
-      v31 = [v30 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v48 objects:v52 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v50;
+        v33 = *v49;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v50 != v33)
+            if (*v49 != v33)
             {
               objc_enumerationMutation(v30);
             }
 
-            v35 = *(*(&v49 + 1) + 8 * i);
+            v35 = *(*(&v48 + 1) + 8 * i);
             if (([v35 isEqualToString:v24] & 1) == 0 && (objc_msgSend(v35, "isEqualToString:", @"marquee_alltimeAppearance") & 1) == 0)
             {
-              digestFeedbackHistogram2 = [v47 digestFeedbackHistogram];
+              digestFeedbackHistogram2 = [v46 digestFeedbackHistogram];
               v37 = [MEMORY[0x277CBEAA8] now];
               v38 = [v30 objectForKeyedSubscript:v35];
               [v38 floatValue];
-              [digestFeedbackHistogram2 addLaunchWithBundleId:v48 date:v37 category:v35 weight:?];
+              [digestFeedbackHistogram2 addLaunchWithBundleId:v47 date:v37 category:v35 weight:?];
             }
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v49 objects:v53 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v48 objects:v52 count:16];
         }
 
         while (v32);
       }
 
-      v17 = v47;
-      digestFeedbackHistogram3 = [v47 digestFeedbackHistogram];
+      v17 = v46;
+      digestFeedbackHistogram3 = [v46 digestFeedbackHistogram];
       v40 = [MEMORY[0x277CBEAA8] now];
-      valueCopy = v44;
-      [v44 floatValue];
-      idCopy = v48;
-      [digestFeedbackHistogram3 addLaunchWithBundleId:v48 date:v40 category:v24 weight:?];
+      valueCopy = v43;
+      [v43 floatValue];
+      idCopy = v47;
+      [digestFeedbackHistogram3 addLaunchWithBundleId:v47 date:v40 category:v24 weight:?];
 
-      replyCopy = v43;
-      v43[2](v43, 0);
-      feedbackCopy = v45;
-      locationCopy = v46;
+      replyCopy = v42;
+      v42[2](v42, 0);
+      feedbackCopy = v44;
+      locationCopy = v45;
     }
 
     else
     {
-      v55 = *MEMORY[0x277CCA450];
-      v56 = @"Invalid argument for location or feedback";
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v54 = *MEMORY[0x277CCA450];
+      v55 = @"Invalid argument for location or feedback";
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
       v41 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXNotificationDigestFeedbackInspector" code:-1 userInfo:v30];
       (replyCopy)[2](replyCopy, v41);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearHistogramWithShouldResetBookmarks:(BOOL)bookmarks reply:(id)reply

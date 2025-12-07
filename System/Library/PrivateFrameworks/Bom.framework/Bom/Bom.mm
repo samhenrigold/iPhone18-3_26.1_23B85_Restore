@@ -1,9 +1,9 @@
 void *BOMCFStringGetUTF8String(const __CFString *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
@@ -11,31 +11,25 @@ void *BOMCFStringGetUTF8String(const __CFString *a1)
   {
     if (CFStringGetCString(a1, buffer, 1024, 0x8000100u))
     {
-      v8 = strlen(buffer);
-      v9 = BOM_malloc(v8 + 1);
-      if (v9)
+      v7 = strlen(buffer);
+      v8 = BOM_malloc(v7 + 1);
+      if (v8)
       {
-        v10 = v9;
-        memmove(v9, buffer, v8 + 1);
-LABEL_12:
-        v11 = *MEMORY[0x277D85DE8];
-        return v10;
+        v9 = v8;
+        memmove(v8, buffer, v7 + 1);
+        return v9;
       }
     }
 
-LABEL_11:
-    v10 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   v4 = strlen(CStringPtr);
   v5 = BOM_malloc(v4 + 1);
   if (!v5)
   {
-    goto LABEL_11;
+    return 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return memmove(v5, v3, v4 + 1);
 }
@@ -311,7 +305,7 @@ uint64_t BOM_strrncmp(const char *a1, const char *a2, size_t a3)
   return strncmp(&a1[v6 - v8], &a2[v7 - v8], v9);
 }
 
-uint64_t pkzip_crypto_init(int *a1, char *__s)
+size_t pkzip_crypto_init(unsigned int *a1, char *__s)
 {
   v2 = __s;
   *a1 = 0x2345678912345678;
@@ -333,7 +327,7 @@ uint64_t pkzip_crypto_init(int *a1, char *__s)
   return result;
 }
 
-uint64_t pkzip_crypto_update(int *a1, uint64_t a2)
+uint64_t pkzip_crypto_update(unsigned int *a1, uint64_t a2)
 {
   v2 = PKZip_crctab[(*a1 ^ a2)] ^ (*a1 >> 8);
   v3 = 134775813 * (a1[1] + v2) + 1;
@@ -343,7 +337,7 @@ uint64_t pkzip_crypto_update(int *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t pkzip_crypto_decrypt_buffer(int *a1, unsigned __int8 *a2, uint64_t a3)
+uint64_t pkzip_crypto_decrypt_buffer(unsigned int *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -459,13 +453,13 @@ char *BOMStackPush(char *result, uint64_t a2)
     result = *result;
     if (result)
     {
-      v5 = v2[1];
-      v4 = v2[2];
+      v5 = *(v2 + 1);
+      v4 = *(v2 + 2);
       v6 = v4 + 1;
       if (v4 + 1 < v5)
       {
 LABEL_9:
-        v2[2] = v6;
+        *(v2 + 2) = v6;
         *&result[8 * v4] = a2;
         return result;
       }
@@ -478,12 +472,12 @@ LABEL_9:
           v7 = 0xFFFFFFFLL;
         }
 
-        v2[1] = v7;
+        *(v2 + 1) = v7;
         result = BOM_realloczero(result, 8 * v5, 8 * v7);
         *v2 = result;
         if (result)
         {
-          v4 = v2[2];
+          v4 = *(v2 + 2);
           v6 = v4 + 1;
           goto LABEL_9;
         }
@@ -530,14 +524,14 @@ void *darc_format_entry_new(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void darc_format_entry_free(void *__b)
+void darc_format_entry_free(_DWORD *__b)
 {
-  if (__b && *__b == 1853125241 && *(__b + 16) == 2037544037)
+  if (__b && *__b == 1853125241 && __b[16] == 2037544037)
   {
-    v2 = __b[5];
+    v2 = *(__b + 5);
     if (v2)
     {
-      if (*(__b + 8))
+      if (__b[8])
       {
         v3 = 0;
         v4 = 0;
@@ -545,16 +539,16 @@ void darc_format_entry_free(void *__b)
         {
           if (*&v2[v3])
           {
-            platform_free(__b[1], *&v2[v3]);
-            v2 = __b[5];
+            platform_free(*(__b + 1), *&v2[v3]);
+            v2 = *(__b + 5);
             *&v2[v3] = 0;
           }
 
           *&v2[v3 + 8] = 0;
           if (*&v2[v3 + 16])
           {
-            platform_free(__b[1], *&v2[v3 + 16]);
-            v2 = __b[5];
+            platform_free(*(__b + 1), *&v2[v3 + 16]);
+            v2 = *(__b + 5);
             *&v2[v3 + 16] = 0;
           }
 
@@ -563,13 +557,13 @@ void darc_format_entry_free(void *__b)
           v3 += 32;
         }
 
-        while (v4 < *(__b + 8));
+        while (v4 < __b[8]);
       }
 
-      platform_free(__b[1], v2);
+      platform_free(*(__b + 1), v2);
     }
 
-    v5 = __b[1];
+    v5 = *(__b + 1);
     platform_memset(v5, __b, 0, 0x48uLL);
 
     platform_free(v5, __b);
@@ -956,7 +950,7 @@ __CFArray *BOMPatternListFromStringList(const void *a1)
 
 __CFArray *BOMPatternListExtractFromFile(const char *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = fopen(a1, "r");
   if (v2)
   {
@@ -1016,16 +1010,15 @@ LABEL_11:
     v11 = BOMExceptionHandlerMessage("can't open %s for reading: %s\n", a1, v10);
     v12 = __error();
     _BOMExceptionHandlerCall(v11, 0, "/Library/Caches/com.apple.xbs/Sources/Bom/Common/BOMPatternList.c", 130, *v12);
-    Mutable = 0;
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 __CFArray *BOMPatternListExtractFromStrings(int a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, 0);
   if (Mutable)
   {
@@ -1052,7 +1045,7 @@ __CFArray *BOMPatternListExtractFromStrings(int a1, uint64_t a2)
 LABEL_13:
       if (++v6 == a1)
       {
-        goto LABEL_14;
+        return Mutable;
       }
     }
 
@@ -1086,8 +1079,6 @@ LABEL_9:
     }
   }
 
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -1180,7 +1171,7 @@ LABEL_12:
 
 uint64_t _BOMFileInit(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     a3 = BomSys_default();
@@ -1191,7 +1182,7 @@ uint64_t _BOMFileInit(uint64_t a1, int a2, void *a3)
   *(a1 + 88) = v5;
   if (!v5)
   {
-    goto LABEL_44;
+    return 0xFFFFFFFFLL;
   }
 
   switch(a2)
@@ -1222,55 +1213,54 @@ LABEL_12:
     {
       case 4:
         v14 = BOM_malloczero(8uLL);
-        if (!v14)
+        if (v14)
         {
-          goto LABEL_44;
+          v15 = v14;
+          result = 0;
+          *v15 = 0;
+          *(a1 + 8) = v15;
+          return result;
         }
 
-        v15 = v14;
-        result = 0;
-        *v15 = 0;
-        *(a1 + 8) = v15;
-        break;
+        return 0xFFFFFFFFLL;
       case 5:
         result = pthread_once(&gBufferPoolOnce, _initBufferPool);
-        if (!result)
+        if (result)
         {
-          v16 = BOMBufferAllocate(gBOMAsyncBufferSize);
-          if (v16)
+          return result;
+        }
+
+        v16 = BOMBufferAllocate(gBOMAsyncBufferSize);
+        if (!v16)
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        BOMBufferPoolAddBuffer(gBufferPool, v16);
+        *(a1 + 96) = BOMBufferFIFOCreate();
+        *(a1 + 104) = 0;
+        *(a1 + 232) = 0;
+        if (!pthread_mutex_init((a1 + 168), 0) && !pthread_cond_init((a1 + 120), 0))
+        {
+          memset(&v20, 0, sizeof(v20));
+          v18 = qos_class_self();
+          if (pthread_attr_init(&v20))
           {
-            BOMBufferPoolAddBuffer(gBufferPool, v16);
-            *(a1 + 96) = BOMBufferFIFOCreate();
-            *(a1 + 104) = 0;
-            *(a1 + 232) = 0;
-            if (!pthread_mutex_init((a1 + 168), 0) && !pthread_cond_init((a1 + 120), 0))
-            {
-              memset(&v22, 0, sizeof(v22));
-              v20 = qos_class_self();
-              if (pthread_attr_init(&v22))
-              {
-                v13 = 0;
-              }
-
-              else if (pthread_attr_set_qos_class_np(&v22, v20, 0))
-              {
-                v13 = 0;
-              }
-
-              else
-              {
-                v13 = &v22;
-              }
-
-              v21 = _asyncReadThread;
-              goto LABEL_77;
-            }
-
-            goto LABEL_43;
+            v13 = 0;
           }
 
-LABEL_44:
-          result = 0xFFFFFFFFLL;
+          else if (pthread_attr_set_qos_class_np(&v20, v18, 0))
+          {
+            v13 = 0;
+          }
+
+          else
+          {
+            v13 = &v20;
+          }
+
+          v19 = _asyncReadThread;
+          return pthread_create((a1 + 112), v13, v19, a1) != 0;
         }
 
         break;
@@ -1278,160 +1268,148 @@ LABEL_44:
         result = pthread_once(&gBufferPoolOnce, _initBufferPool);
         if (result)
         {
-          break;
+          return result;
         }
 
         v11 = BOMBufferAllocate(gBOMAsyncBufferSize);
-        if (v11)
+        if (!v11)
         {
-          BOMBufferPoolAddBuffer(gBufferPool, v11);
-          *(a1 + 96) = BOMBufferFIFOCreate();
-          *(a1 + 104) = 0;
-          *(a1 + 232) = 0;
-          if (!pthread_mutex_init((a1 + 168), 0) && !pthread_cond_init((a1 + 120), 0))
-          {
-            memset(&v22, 0, sizeof(v22));
-            v12 = qos_class_self();
-            if (pthread_attr_init(&v22))
-            {
-              v13 = 0;
-            }
-
-            else if (pthread_attr_set_qos_class_np(&v22, v12, 0))
-            {
-              v13 = 0;
-            }
-
-            else
-            {
-              v13 = &v22;
-            }
-
-            v21 = _asyncWriteThread;
-LABEL_77:
-            result = pthread_create((a1 + 112), v13, v21, a1) != 0;
-            break;
-          }
-
-LABEL_43:
-          result = 1;
-          break;
+          return 0xFFFFFFFFLL;
         }
 
-        goto LABEL_44;
-      default:
+        BOMBufferPoolAddBuffer(gBufferPool, v11);
+        *(a1 + 96) = BOMBufferFIFOCreate();
+        *(a1 + 104) = 0;
+        *(a1 + 232) = 0;
+        if (!pthread_mutex_init((a1 + 168), 0) && !pthread_cond_init((a1 + 120), 0))
+        {
+          memset(&v20, 0, sizeof(v20));
+          v12 = qos_class_self();
+          if (pthread_attr_init(&v20))
+          {
+            v13 = 0;
+          }
+
+          else if (pthread_attr_set_qos_class_np(&v20, v12, 0))
+          {
+            v13 = 0;
+          }
+
+          else
+          {
+            v13 = &v20;
+          }
+
+          v19 = _asyncWriteThread;
+          return pthread_create((a1 + 112), v13, v19, a1) != 0;
+        }
+
         break;
+      default:
+        return result;
     }
 
-LABEL_45:
-    v17 = *MEMORY[0x277D85DE8];
+    return 1;
+  }
+
+  if ((v7 - 1) < 2)
+  {
+    if (v6 != 1)
+    {
+      if (v6 == 2)
+      {
+
+        return _BOMFileSetupBzip2(a1, 1);
+      }
+
+      if (v6 != 4)
+      {
+        return 0;
+      }
+
+      *(a1 + 32) = 1;
+    }
+
+    *(&v20.__sig + 7) = 196608;
+    v20.__sig = 559903;
+    if (_BOMFileSetupGzip(a1, 1, 1))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    if (_BOMFileWriteRaw(a1, &v20, 10) <= 9)
+    {
+      deflateEnd(*(a1 + 40));
+      return 0xFFFFFFFFLL;
+    }
+
+    return 0;
+  }
+
+  if (v7 && v7 != 3)
+  {
     return result;
   }
 
-  if ((v7 - 1) >= 2)
+  if (((1 << v6) & 0x16) == 0)
   {
-    if (v7 && v7 != 3)
+    goto LABEL_62;
+  }
+
+  *(&v20.__sig + 7) = 0;
+  v20.__sig = 0;
+  Raw = _BOMFileReadRaw(a1, &v20, 11);
+  if (Raw == -1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v10 = *(a1 + 32);
+  if (v10 == 1)
+  {
+    if (LOBYTE(v20.__sig) != 31)
     {
-      goto LABEL_45;
-    }
-
-    if (((1 << v6) & 0x16) == 0)
-    {
-LABEL_62:
-      if (v6 == 2)
-      {
-        result = _BOMFileSetupBzip2(a1, 0);
-        goto LABEL_45;
-      }
-
-      if (v6 == 1)
-      {
-        result = _BOMFileSetupGzip(a1, 0, 1);
-        goto LABEL_45;
-      }
-
-LABEL_65:
-      result = 0;
-      goto LABEL_45;
-    }
-
-    *(&v22.__sig + 7) = 0;
-    v22.__sig = 0;
-    Raw = _BOMFileReadRaw(a1, &v22, 11);
-    if (Raw != -1)
-    {
-      v10 = *(a1 + 32);
-      if (v10 == 1)
-      {
-        if (LOBYTE(v22.__sig) != 31)
-        {
 LABEL_60:
-          v19 = 0;
-          goto LABEL_61;
-        }
-      }
+      v17 = 0;
+      goto LABEL_61;
+    }
+  }
 
-      else if (v10 != 4 || LOBYTE(v22.__sig) != 31)
-      {
-        if (v10 != 2 && v10 != 4 || LOBYTE(v22.__sig) != 66 || BYTE1(v22.__sig) != 90 || BYTE2(v22.__sig) != 104)
-        {
-          goto LABEL_60;
-        }
-
-        v19 = 2;
-        goto LABEL_61;
-      }
-
-      if (BYTE1(v22.__sig) != 139 || BYTE2(v22.__sig) != 8)
-      {
-        goto LABEL_60;
-      }
-
-      v19 = 1;
-LABEL_61:
-      *(a1 + 32) = v19;
-      *(a1 + 72) = Raw;
-      *(a1 + 80) = 1;
-      memcpy(*(a1 + 88), &v22, Raw);
-      v6 = *(a1 + 32);
-      goto LABEL_62;
+  else if (v10 != 4 || LOBYTE(v20.__sig) != 31)
+  {
+    if (v10 != 2 && v10 != 4 || LOBYTE(v20.__sig) != 66 || BYTE1(v20.__sig) != 90 || BYTE2(v20.__sig) != 104)
+    {
+      goto LABEL_60;
     }
 
-    goto LABEL_44;
+    v17 = 2;
+    goto LABEL_61;
   }
 
-  if (v6 == 1)
+  if (BYTE1(v20.__sig) != 139 || BYTE2(v20.__sig) != 8)
   {
-    goto LABEL_34;
+    goto LABEL_60;
   }
 
+  v17 = 1;
+LABEL_61:
+  *(a1 + 32) = v17;
+  *(a1 + 72) = Raw;
+  *(a1 + 80) = 1;
+  memcpy(*(a1 + 88), &v20, Raw);
+  v6 = *(a1 + 32);
+LABEL_62:
   if (v6 != 2)
   {
-    if (v6 != 4)
+    if (v6 == 1)
     {
-      goto LABEL_65;
+      return _BOMFileSetupGzip(a1, 0, 1);
     }
 
-    *(a1 + 32) = 1;
-LABEL_34:
-    *(&v22.__sig + 7) = 196608;
-    v22.__sig = 559903;
-    if (!_BOMFileSetupGzip(a1, 1, 1))
-    {
-      if (_BOMFileWriteRaw(a1, &v22, 10) > 9)
-      {
-        goto LABEL_65;
-      }
-
-      deflateEnd(*(a1 + 40));
-    }
-
-    goto LABEL_44;
+    return 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return _BOMFileSetupBzip2(a1, 1);
+  return _BOMFileSetupBzip2(a1, 0);
 }
 
 void _freeBOMFile(void *a1)
@@ -1566,111 +1544,105 @@ uint64_t BOMFileNewMirrorWithSys(void *a1, void *a2)
 uint64_t BOMFileOpenWithSys(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void (**a6)(void, uint64_t, uint64_t, uint64_t))
 {
   v6 = a6;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (!a6)
   {
     v6 = BomSys_default();
   }
 
-  v22 = 25202;
+  v21 = 25202;
   result = (v6[2])(v6[1], a2, a3, a4);
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  memset(v18, 0, sizeof(v18));
-  if (result == -1)
+  v20 = 0u;
+  v18 = 0u;
+  memset(v17, 0, sizeof(v17));
+  if (result != -1)
   {
-    goto LABEL_19;
-  }
-
-  v13 = result;
-  result = (v6[11])(v6[1], result, v18);
-  if (result == -1)
-  {
-    goto LABEL_19;
-  }
-
-  v14 = WORD2(v18[0]) & 0xF000;
-  if (v14 == 0x8000)
-  {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    memset(v23, 0, sizeof(v23));
-    if (!(v6[14])(v6[1], v13, v23) && !(DWORD2(v24) ^ 0x73666361 | BYTE12(v24)))
+    v13 = result;
+    result = (v6[11])(v6[1], result, v17);
+    if (result != -1)
     {
-      v17[0] = 0u;
-      DWORD1(v17[0]) = 3;
-      v17[1] = v19;
-      v6[5](v6[1], v13, 42, v17);
-    }
-  }
+      v14 = WORD2(v17[0]) & 0xF000;
+      if (v14 == 0x8000)
+      {
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        memset(v22, 0, sizeof(v22));
+        if (!(v6[14])(v6[1], v13, v22) && !(DWORD2(v23) ^ 0x73666361 | BYTE12(v23)))
+        {
+          v16[0] = 0u;
+          DWORD1(v16[0]) = 3;
+          v16[1] = v18;
+          v6[5](v6[1], v13, 42, v16);
+        }
+      }
 
-  else if (v14 == 0x4000)
-  {
-    *__error() = 21;
-LABEL_18:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_19;
-  }
+      else if (v14 == 0x4000)
+      {
+        *__error() = 21;
+        return 0xFFFFFFFFLL;
+      }
 
-  if (a3)
-  {
-    BYTE2(v22) = 0;
-    v15 = 25207;
-  }
+      if (a3)
+      {
+        BYTE2(v21) = 0;
+        v15 = 25207;
+      }
 
-  else
-  {
-    if ((a3 & 2) == 0)
-    {
+      else
+      {
+        if ((a3 & 2) == 0)
+        {
+LABEL_16:
+          result = BOMFileNewFromFDWithSys(a1, v13, a5, &v21, v6);
+          if (!result)
+          {
+            return result;
+          }
+
+          (v6[4])(v6[1], v13);
+          return 0xFFFFFFFFLL;
+        }
+
+        BYTE2(v21) = 0;
+        v15 = 25185;
+      }
+
+      LOWORD(v21) = v15;
       goto LABEL_16;
     }
-
-    BYTE2(v22) = 0;
-    v15 = 25185;
   }
 
-  LOWORD(v22) = v15;
-LABEL_16:
-  result = BOMFileNewFromFDWithSys(a1, v13, a5, &v22, v6);
-  if (result)
-  {
-    (v6[4])(v6[1], v13);
-    goto LABEL_18;
-  }
-
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t BOMFileClose(uint64_t a1)
+uint64_t BOMFileClose(int *a1)
 {
   if (!a1)
   {
@@ -1680,7 +1652,7 @@ uint64_t BOMFileClose(uint64_t a1)
   v2 = *a1;
   if ((*a1 - 1) <= 1)
   {
-    v3 = *(a1 + 32);
+    v3 = a1[8];
     if (v3 == 1)
     {
       if (_BOMFileFinishGzipCompression(a1, 1))
@@ -1691,7 +1663,7 @@ uint64_t BOMFileClose(uint64_t a1)
 
     else if (v3 == 2)
     {
-      v4 = *(a1 + 40);
+      v4 = *(a1 + 5);
       if (v4->avail_out)
       {
         goto LABEL_41;
@@ -1701,7 +1673,7 @@ uint64_t BOMFileClose(uint64_t a1)
       while (1)
       {
         v19 = 0x20000 - v4->avail_out;
-        v20 = *(a1 + 48);
+        v20 = *(a1 + 6);
         while (v19)
         {
           v21 = _BOMFileWriteRaw(a1, v20, v19);
@@ -1713,7 +1685,7 @@ uint64_t BOMFileClose(uint64_t a1)
           }
         }
 
-        v4->next_out = *(a1 + 48);
+        v4->next_out = *(a1 + 6);
         v4->avail_out = 0x20000;
         if (!v5)
         {
@@ -1746,16 +1718,16 @@ LABEL_41:
 
   if (v2 == 3 || v2 == 0)
   {
-    v7 = *(a1 + 32);
+    v7 = a1[8];
     if (v7 == 2)
     {
-      v9 = *(a1 + 40);
-      v8 = *(a1 + 48);
+      v9 = *(a1 + 5);
+      v8 = *(a1 + 6);
       v10 = *(v9 + 8);
-      *(a1 + 72) = v10;
-      *(a1 + 80) = 0;
+      *(a1 + 9) = v10;
+      a1[20] = 0;
       memmove(v8, *v9, v10);
-      if (BZ2_bzDecompressEnd(*(a1 + 40)))
+      if (BZ2_bzDecompressEnd(*(a1 + 5)))
       {
         return 0xFFFFFFFFLL;
       }
@@ -1778,14 +1750,14 @@ LABEL_41:
   }
 
 LABEL_20:
-  if (v2 - 5 <= 1)
+  if ((v2 - 5) <= 1)
   {
     if (v2 == 6)
     {
-      v11 = *(a1 + 104);
+      v11 = *(a1 + 13);
       if (v11)
       {
-        *(a1 + 104) = 0;
+        *(a1 + 13) = 0;
       }
 
       else
@@ -1796,17 +1768,17 @@ LABEL_20:
       }
 
       *(v11 + 12) |= 1u;
-      BOMBufferFIFOEnqueue(*(a1 + 96), v11);
-      if (pthread_mutex_lock((a1 + 168)))
+      BOMBufferFIFOEnqueue(*(a1 + 12), v11);
+      if (pthread_mutex_lock((a1 + 42)))
       {
         return 0xFFFFFFFFLL;
       }
 
-      v15 = *(a1 + 232);
+      v15 = a1[58];
       if (!v15)
       {
         v15 = 1;
-        *(a1 + 232) = 1;
+        a1[58] = 1;
       }
 
       if (gBOMAsyncDebug != 1)
@@ -1817,20 +1789,20 @@ LABEL_20:
       fwrite("waiting for async write thread to finish...", 0x2BuLL, 1uLL, *MEMORY[0x277D85DF8]);
       while (1)
       {
-        v15 = *(a1 + 232);
+        v15 = a1[58];
 LABEL_52:
         if (v15 == 2)
         {
           break;
         }
 
-        if (pthread_cond_wait((a1 + 120), (a1 + 168)))
+        if (pthread_cond_wait((a1 + 30), (a1 + 42)))
         {
           return 0xFFFFFFFFLL;
         }
       }
 
-      if (pthread_mutex_unlock((a1 + 168)) || pthread_join(*(a1 + 112), 0))
+      if (pthread_mutex_unlock((a1 + 42)) || pthread_join(*(a1 + 14), 0))
       {
         return 0xFFFFFFFFLL;
       }
@@ -1840,9 +1812,9 @@ LABEL_52:
         fwrite("async write thread terminated. Draining FIFO...", 0x2FuLL, 1uLL, *MEMORY[0x277D85DF8]);
       }
 
-      while (BOMBufferFIFOCount(*(a1 + 96)))
+      while (BOMBufferFIFOCount(*(a1 + 12)))
       {
-        v22 = BOMBufferFIFODequeue(*(a1 + 96));
+        v22 = BOMBufferFIFODequeue(*(a1 + 12));
         BOMBufferPoolReturnBuffer(gBufferPool, v22);
       }
 
@@ -1854,29 +1826,29 @@ LABEL_52:
 
     else
     {
-      if (pthread_mutex_lock((a1 + 168)))
+      if (pthread_mutex_lock((a1 + 42)))
       {
         return 0xFFFFFFFFLL;
       }
 
-      v12 = *(a1 + 104);
+      v12 = *(a1 + 13);
       if (v12)
       {
         BOMBufferPoolReturnBuffer(gBufferPool, v12);
-        *(a1 + 104) = 0;
+        *(a1 + 13) = 0;
       }
 
-      while (BOMBufferFIFOCount(*(a1 + 96)))
+      while (BOMBufferFIFOCount(*(a1 + 12)))
       {
-        v13 = BOMBufferFIFODequeue(*(a1 + 96));
+        v13 = BOMBufferFIFODequeue(*(a1 + 12));
         BOMBufferPoolReturnBuffer(gBufferPool, v13);
       }
 
-      v14 = *(a1 + 232);
+      v14 = a1[58];
       if (!v14)
       {
         v14 = 1;
-        *(a1 + 232) = 1;
+        a1[58] = 1;
       }
 
       if (gBOMAsyncDebug != 1)
@@ -1887,27 +1859,27 @@ LABEL_52:
       fwrite("waiting for async read thread to finish...", 0x2AuLL, 1uLL, *MEMORY[0x277D85DF8]);
       while (1)
       {
-        v14 = *(a1 + 232);
+        v14 = a1[58];
 LABEL_64:
         if (v14 == 2)
         {
           break;
         }
 
-        if (pthread_cond_wait((a1 + 120), (a1 + 168)))
+        if (pthread_cond_wait((a1 + 30), (a1 + 42)))
         {
           return 0xFFFFFFFFLL;
         }
       }
 
-      if (pthread_mutex_unlock((a1 + 168)) || pthread_join(*(a1 + 112), 0))
+      if (pthread_mutex_unlock((a1 + 42)) || pthread_join(*(a1 + 14), 0))
       {
         return 0xFFFFFFFFLL;
       }
 
-      while (BOMBufferFIFOCount(*(a1 + 96)))
+      while (BOMBufferFIFOCount(*(a1 + 12)))
       {
-        v23 = BOMBufferFIFODequeue(*(a1 + 96));
+        v23 = BOMBufferFIFODequeue(*(a1 + 12));
         BOMBufferPoolReturnBuffer(gBufferPool, v23);
       }
 
@@ -1921,53 +1893,52 @@ LABEL_64:
   }
 
 LABEL_74:
-  if (*(a1 + 32) != 3)
+  if (a1[8] != 3)
   {
     goto LABEL_77;
   }
 
-  v24 = *(a1 + 40);
   if (!CloseStreamCompressor())
   {
-    *(a1 + 40) = 0;
+    *(a1 + 5) = 0;
 LABEL_77:
     v16 = 0;
-    v25 = *a1;
+    v24 = *a1;
     if (*a1 > 2)
     {
-      if (v25 - 5 < 2)
+      if (v24 - 5 < 2)
       {
-        v16 = BOMFileClose(*(a1 + 8));
+        v16 = BOMFileClose(*(a1 + 1));
 LABEL_87:
-        *(a1 + 8) = 0;
+        *(a1 + 1) = 0;
         goto LABEL_88;
       }
 
-      if (v25 != 3)
+      if (v24 != 3)
       {
         goto LABEL_88;
       }
 
-      CFReadStreamClose(*(a1 + 8));
+      CFReadStreamClose(*(a1 + 1));
     }
 
     else
     {
-      if (v25 < 2)
+      if (v24 < 2)
       {
-        v16 = (*(*(a1 + 272) + 32))(*(*(a1 + 272) + 8), *(a1 + 8));
-        *(a1 + 8) = -1;
+        v16 = (*(*(a1 + 34) + 32))(*(*(a1 + 34) + 8), a1[2]);
+        a1[2] = -1;
 LABEL_88:
         _freeBOMFile(a1);
         return v16;
       }
 
-      if (v25 != 2)
+      if (v24 != 2)
       {
         goto LABEL_88;
       }
 
-      CFWriteStreamClose(*(a1 + 8));
+      CFWriteStreamClose(*(a1 + 1));
     }
 
     v16 = 0;
@@ -2352,7 +2323,7 @@ LABEL_17:
   return v6;
 }
 
-CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
+CFIndex BOMFileWrite(int *a1, UInt8 *a2, unint64_t a3)
 {
   if (!a1)
   {
@@ -2375,17 +2346,18 @@ CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
       return -1;
     }
 
-    if (!**(a1 + 8))
+    v7 = **(a1 + 1);
+    if (!v7)
     {
       return v3;
     }
 
-    v7 = 8;
-    while (BOMFileWrite() == v3)
+    v8 = 8;
+    while (BOMFileWrite(v7, v4, v3) == v3)
     {
-      v8 = *(*(a1 + 8) + v7);
-      v7 += 8;
-      if (!v8)
+      v7 = *(*(a1 + 1) + v8);
+      v8 += 8;
+      if (!v7)
       {
         return v3;
       }
@@ -2402,7 +2374,7 @@ CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
 
   while (1)
   {
-    v11 = *(a1 + 104);
+    v11 = *(a1 + 13);
     if (v11)
     {
       v12 = v11[1];
@@ -2414,7 +2386,7 @@ CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
       v12 = 0;
       v11[1] = 0;
       v11[2] = 0;
-      *(a1 + 104) = v11;
+      *(a1 + 13) = v11;
     }
 
     if (v3 >= *v11 - v12)
@@ -2436,14 +2408,14 @@ CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
       goto LABEL_25;
     }
 
-    if (pthread_mutex_lock((a1 + 168)))
+    if (pthread_mutex_lock((a1 + 42)))
     {
       goto LABEL_26;
     }
 
-    v16 = *(a1 + 232);
-    v15 = *(a1 + 236);
-    if (pthread_mutex_unlock((a1 + 168)))
+    v16 = a1[58];
+    v15 = a1[59];
+    if (pthread_mutex_unlock((a1 + 42)))
     {
       goto LABEL_26;
     }
@@ -2453,8 +2425,8 @@ CFIndex BOMFileWrite(uint64_t a1, UInt8 *a2, CFIndex a3)
       break;
     }
 
-    BOMBufferFIFOEnqueue(*(a1 + 96), v11);
-    *(a1 + 104) = 0;
+    BOMBufferFIFOEnqueue(*(a1 + 12), v11);
+    *(a1 + 13) = 0;
 LABEL_25:
     v4 += v13;
     v3 -= v13;
@@ -2471,7 +2443,7 @@ LABEL_25:
   }
 
 LABEL_26:
-  *(a1 + 16) = vaddq_s64(*(a1 + 16), vdupq_n_s64(v10));
+  *(a1 + 1) = vaddq_s64(*(a1 + 1), vdupq_n_s64(v10));
   return v10;
 }
 
@@ -2494,39 +2466,39 @@ CFIndex _BOMFileDirectWrite(uint64_t a1, UInt8 *buffer, CFIndex bufferLength)
   {
     if (v6 == 2)
     {
-      v14 = *(a1 + 40);
-      v14->next_in = buffer;
-      v14->avail_in = bufferLength;
+      v13 = *(a1 + 40);
+      v13->next_in = buffer;
+      v13->avail_in = bufferLength;
       if (bufferLength)
       {
-        if (v14->avail_out)
+        if (v13->avail_out)
         {
           goto LABEL_36;
         }
 
-        for (i = 0x20000; ; i = 0x20000 - v14->avail_out)
+        for (i = 0x20000; ; i = 0x20000 - v13->avail_out)
         {
-          v18 = *(a1 + 48);
+          v17 = *(a1 + 48);
           while (i)
           {
-            v19 = _BOMFileWriteRaw(a1, v18, i);
-            v18 += v19;
-            i -= v19;
-            if (v19 < 0)
+            v18 = _BOMFileWriteRaw(a1, v17, i);
+            v17 += v18;
+            i -= v18;
+            if (v18 < 0)
             {
               return -1;
             }
           }
 
-          v14->avail_out = 0x20000;
-          v14->next_out = *(a1 + 48);
-          if (!v14->avail_in)
+          v13->avail_out = 0x20000;
+          v13->next_out = *(a1 + 48);
+          if (!v13->avail_in)
           {
             break;
           }
 
 LABEL_36:
-          if (BZ2_bzCompress(v14, 0) > 1)
+          if (BZ2_bzCompress(v13, 0) > 1)
           {
             return -1;
           }
@@ -2544,11 +2516,10 @@ LABEL_36:
     v10 = 0;
     while (v4)
     {
-      v11 = *(a1 + 40);
-      v12 = WriteToStreamCompressor();
-      v10 += v12;
-      v4 -= v12;
-      if (v12 < 0)
+      v11 = WriteToStreamCompressor();
+      v10 += v11;
+      v4 -= v11;
+      if (v11 < 0)
       {
         return -1;
       }
@@ -2576,13 +2547,13 @@ LABEL_36:
 
         for (j = 0x20000; ; j = 0x20000 - v8->avail_out)
         {
-          v16 = *(a1 + 48);
+          v15 = *(a1 + 48);
           while (j)
           {
-            v17 = _BOMFileWriteRaw(a1, v16, j);
-            v16 += v17;
-            j -= v17;
-            if (v17 < 0)
+            v16 = _BOMFileWriteRaw(a1, v15, j);
+            v15 += v16;
+            j -= v16;
+            if (v16 < 0)
             {
               return -1;
             }
@@ -2610,10 +2581,10 @@ LABEL_25:
     v10 = 0;
     while (v4)
     {
-      v13 = _BOMFileWriteRaw(a1, buffer, v4);
-      v10 += v13;
-      v4 -= v13;
-      if (v13 < 0)
+      v12 = _BOMFileWriteRaw(a1, buffer, v4);
+      v10 += v12;
+      v4 -= v12;
+      if (v12 < 0)
       {
         return -1;
       }
@@ -2626,89 +2597,59 @@ LABEL_33:
   return v4;
 }
 
-uint64_t BOMFileSeek()
+double BOMFileSeek()
 {
   v0 = MEMORY[0x28223BE20]();
-  v3 = v1;
-  v4 = v0;
-  v20 = *MEMORY[0x277D85DE8];
-  v5 = v0->i32[0];
-  result = -1;
-  if (v5 <= 2)
+  v4 = v1;
+  v5 = v0;
+  v21 = *MEMORY[0x277D85DE8];
+  v6 = *v0;
+  if (*v0 > 2)
   {
-    if (v5)
+    if (v6 <= 4)
     {
-      if (v5 != 1)
+      if (v6 != 3)
       {
-        if (v5 != 2)
+        if ((v1 & 0x8000000000000000) == 0 && v2 == 1)
         {
-          goto LABEL_60;
-        }
-
-        goto LABEL_41;
-      }
-
-      if (v4[2].i32[0])
-      {
-LABEL_41:
-        if (v2 != 1)
-        {
-          if (v2)
+          if (**(v0 + 8))
           {
-            goto LABEL_60;
-          }
+            v7 = 8;
+            while (1)
+            {
+              *v3.i64 = BOMFileSeek();
+              if (v8 == -1)
+              {
+                break;
+              }
 
-          v3 = v1 - v4[1].i64[0];
-        }
-
-        if (v3 < 1)
-        {
-          goto LABEL_60;
-        }
-
-        bzero(__dst, 0x20000uLL);
-        while (v3)
-        {
-          if (v3 >= 0x20000)
-          {
-            v13 = 0x20000;
+              v9 = *(v5[1] + v7);
+              v7 += 8;
+              if (!v9)
+              {
+                goto LABEL_10;
+              }
+            }
           }
 
           else
           {
-            v13 = v3;
-          }
-
-          v14 = _BOMFileDirectWrite(v4, __dst, v13);
-          v3 -= v14;
-          if (v14 < 0)
-          {
-            goto LABEL_51;
+LABEL_10:
+            v5[2] += v4;
           }
         }
 
-        goto LABEL_52;
+        return *v3.i64;
       }
-    }
 
-    else if (v4[2].i32[0])
-    {
       goto LABEL_19;
     }
 
-    result = (*(v4[17].i64[0] + 64))(*(v4[17].i64[0] + 8), v4->u32[2], v1, v2);
-    v4[1].i64[0] = result;
-    v4[1].i64[1] = result;
-    goto LABEL_60;
-  }
-
-  if (v5 > 4)
-  {
-    if (v5 != 5)
+    if (v6 != 5)
     {
-      if (v5 != 6)
+      if (v6 != 6)
       {
-        goto LABEL_60;
+        return *v3.i64;
       }
 
       goto LABEL_41;
@@ -2718,141 +2659,141 @@ LABEL_41:
     {
       if (v2)
       {
-        v3 = -1;
-        goto LABEL_55;
-      }
-
-      v3 = v1 - v4[1].i64[0];
-    }
-
-    if ((v3 & 0x8000000000000000) == 0)
-    {
-      if (!v3)
-      {
-        goto LABEL_60;
-      }
-
-      while (v3 >= 1)
-      {
-        if (v3 >= 0x20000)
-        {
-          v11 = 0x20000;
-        }
-
-        else
-        {
-          v11 = v3;
-        }
-
-        v12 = _BOMFileAsyncRead(v4, __dst, v11);
-        v3 -= v12;
-        if (v12 <= 0)
-        {
-LABEL_51:
-          result = -1;
-          goto LABEL_60;
-        }
-      }
-
-      goto LABEL_52;
-    }
-
+        v4 = -1;
 LABEL_55:
-    v15 = v4[6].i64[1];
-    if (v15)
-    {
-      v16 = *(v15 + 24);
-      if (v16)
-      {
-        if (*(v15 + 8) + v3 != 0 && v16 + *(v15 + 8) + v3 >= v16)
+        v17 = *(v0 + 104);
+        if (v17)
         {
-          *(v15 + 8) += v3;
-          v17 = vaddq_s64(v4[1], vdupq_n_s64(v3));
-          v4[1] = v17;
-          result = v17.i64[0];
+          v18 = *(v17 + 24);
+          if (v18)
+          {
+            if (*(v17 + 8) + v4 != 0 && v18 + *(v17 + 8) + v4 >= v18)
+            {
+              *(v17 + 8) += v4;
+              v3 = vaddq_s64(*(v0 + 16), vdupq_n_s64(v4));
+              *(v0 + 16) = v3;
+            }
+          }
         }
+
+        return *v3.i64;
       }
+
+      v4 = v1 - *(v0 + 16);
     }
 
-    goto LABEL_60;
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+      if (v4)
+      {
+        do
+        {
+          if (v4 < 1)
+          {
+            break;
+          }
+
+          v12 = v4 >= 0x20000 ? 0x20000 : v4;
+          v13 = _BOMFileAsyncRead(v5, __dst, v12);
+          v4 -= v13;
+        }
+
+        while (v13 > 0);
+      }
+
+      return *v3.i64;
+    }
+
+    goto LABEL_55;
   }
 
-  if (v5 == 3)
+  if (v6)
   {
+    if (v6 != 1)
+    {
+      if (v6 != 2)
+      {
+        return *v3.i64;
+      }
+
+      goto LABEL_41;
+    }
+
+    if (*(v0 + 32))
+    {
+LABEL_41:
+      if (v2 != 1)
+      {
+        if (v2)
+        {
+          return *v3.i64;
+        }
+
+        v4 = v1 - *(v0 + 16);
+      }
+
+      if (v4 >= 1)
+      {
+        bzero(__dst, 0x20000uLL);
+        do
+        {
+          if (!v4)
+          {
+            break;
+          }
+
+          v14 = v4 >= 0x20000 ? 0x20000 : v4;
+          v15 = _BOMFileDirectWrite(v5, __dst, v14);
+          v4 -= v15;
+        }
+
+        while ((v15 & 0x8000000000000000) == 0);
+      }
+
+      return *v3.i64;
+    }
+
+LABEL_53:
+    v16 = (*(*(v0 + 272) + 64))(*(*(v0 + 272) + 8), *(v0 + 8), v1, v2);
+    v5[2] = v16;
+    v5[3] = v16;
+    return *v3.i64;
+  }
+
+  if (!*(v0 + 32))
+  {
+    goto LABEL_53;
+  }
+
 LABEL_19:
-    if (v2 != 1)
-    {
-      if (v2)
-      {
-        goto LABEL_60;
-      }
-
-      v3 = v1 - v4[1].i64[0];
-    }
-
-    if (v3 < 1)
-    {
-      goto LABEL_60;
-    }
-
-    while (v3 >= 1)
-    {
-      if (v3 >= 0x20000)
-      {
-        v9 = 0x20000;
-      }
-
-      else
-      {
-        v9 = v3;
-      }
-
-      v10 = _BOMFileDirectRead(v4, __dst, v9);
-      v3 -= v10;
-      if (v10 <= 0)
-      {
-        goto LABEL_51;
-      }
-    }
-
-LABEL_52:
-    result = v4[1].i64[0];
-    goto LABEL_60;
-  }
-
-  if ((v1 & 0x8000000000000000) == 0 && v2 == 1)
+  if (v2 != 1)
   {
-    if (*v4->i64[1])
+    if (v2)
     {
-      v7 = 8;
-      while (1)
-      {
-        result = BOMFileSeek();
-        if (result == -1)
-        {
-          break;
-        }
-
-        v8 = *(v4->i64[1] + v7);
-        v7 += 8;
-        if (!v8)
-        {
-          goto LABEL_10;
-        }
-      }
+      return *v3.i64;
     }
 
-    else
-    {
-LABEL_10:
-      result = v4[1].i64[0] + v3;
-      v4[1].i64[0] = result;
-    }
+    v4 = v1 - *(v0 + 16);
   }
 
-LABEL_60:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  if (v4 >= 1)
+  {
+    do
+    {
+      if (v4 < 1)
+      {
+        break;
+      }
+
+      v10 = v4 >= 0x20000 ? 0x20000 : v4;
+      v11 = _BOMFileDirectRead(v5, __dst, v10);
+      v4 -= v11;
+    }
+
+    while (v11 > 0);
+  }
+
+  return *v3.i64;
 }
 
 uint64_t BOMFileOffset(uint64_t result)
@@ -3155,26 +3096,25 @@ uint64_t BOMFileSetAFSCCompression(uint64_t a1)
     return 0xFFFFFFFFLL;
   }
 
-  v3 = *(a1 + 8);
   StreamCompressor = CreateStreamCompressor();
   if (!StreamCompressor)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v5 = StreamCompressor;
+  v4 = StreamCompressor;
   result = 0;
   *(a1 + 32) = 3;
-  *(a1 + 40) = v5;
+  *(a1 + 40) = v4;
   return result;
 }
 
-uint64_t BOMFileSetKeys(uint64_t a1, _BYTE *a2)
+uint64_t BOMFileSetKeys(uint64_t a1, char *a2)
 {
   *(a1 + 256) = a2 != 0;
   if (a2)
   {
-    init_keys(a1 + 244, a2);
+    init_keys((a1 + 244), a2);
   }
 
   return a1 + 244;
@@ -3548,7 +3488,7 @@ LABEL_19:
   return 0;
 }
 
-uint64_t decrypt_buffer(uint64_t result, int a2, int *a3)
+unsigned __int8 *decrypt_buffer(unsigned __int8 *result, int a2, unsigned int *a3)
 {
   if (a2)
   {
@@ -3622,20 +3562,17 @@ void _BOMFatalException(uint64_t a1, const char *a2, int a3, int a4)
   abort();
 }
 
-uint64_t _defaultHandler(uint64_t *a1)
+uint64_t _defaultHandler(uint64_t a1)
 {
-  v2 = *(a1 + 6);
+  v2 = *(a1 + 24);
   v3 = *MEMORY[0x277D85DF8];
   if (v2)
   {
-    v7 = *a1;
-    v6 = a1[2];
     result = fprintf(v3, "[%s:%u] %s\n");
   }
 
   else
   {
-    v5 = *a1;
     result = fprintf(v3, "%s\n");
   }
 
@@ -3739,7 +3676,7 @@ LABEL_5:
   return v3;
 }
 
-uint64_t posix_checksum(int a1, _DWORD *a2, uint64_t a3)
+uint64_t posix_checksum(int a1, _DWORD *a2, unint64_t a3)
 {
   v6 = malloc_type_malloc(0x20000uLL, 0x30693639uLL);
   if (v6)
@@ -3751,7 +3688,7 @@ uint64_t posix_checksum(int a1, _DWORD *a2, uint64_t a3)
       v8 = 0;
       do
       {
-        if ((a3 - v8) >= 0x20000)
+        if (a3 - v8 >= 0x20000)
         {
           v9 = 0x20000;
         }
@@ -3780,7 +3717,7 @@ uint64_t posix_checksum(int a1, _DWORD *a2, uint64_t a3)
       {
         CNCRCUpdate();
         v10 = a3 > 0xFF;
-        a3 >>= 8;
+        a3 = a3 >> 8;
       }
 
       while (v10);
@@ -3803,7 +3740,7 @@ uint64_t posix_checksum(int a1, _DWORD *a2, uint64_t a3)
   }
 }
 
-uint64_t BOMCRC32ForFileDesc(int a1, _DWORD *a2, uint64_t a3)
+uint64_t BOMCRC32ForFileDesc(int a1, _DWORD *a2, unint64_t a3)
 {
   if ((a1 - 1) > 0xFFFFFFFD || a2 == 0)
   {
@@ -3913,8 +3850,9 @@ uint64_t BOMCRC32ForBufferSegmentFinal(unsigned __int8 *a1, unsigned int *a2, ui
   return v6;
 }
 
-_DWORD *_BOMBomGetFSObjectWithBlockID(uint64_t a1, unsigned int a2)
+_DWORD *_BOMBomGetFSObjectWithBlockID(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = BOMStreamWithBlockID(*(a1 + 8), a2, 0, 0);
   if (v4)
   {
@@ -3931,7 +3869,7 @@ _DWORD *_BOMBomGetFSObjectWithBlockID(uint64_t a1, unsigned int a2)
   v7 = *(a1 + 40);
   if (v7)
   {
-    v11 = bswap32(a2);
+    v11 = bswap32(v2);
     v10 = 0;
     if (BOMTreeGetValueSize(v7, &v11, 4uLL, &v10))
     {
@@ -3963,7 +3901,7 @@ uint64_t BOMBomPathsTree(uint64_t result)
   return result;
 }
 
-char *BOMBomOpenWithSys(char *a1, int a2, void *a3)
+char *BOMBomOpenWithSys(char *a1, uint64_t a2, void *a3)
 {
   v3 = a3;
   if (!a3)
@@ -4145,7 +4083,7 @@ uint64_t BOMBomFree(uint64_t a1)
   return 0;
 }
 
-_DWORD *BOMBomOpenWithStorage(_DWORD *a1, int a2)
+_DWORD *BOMBomOpenWithStorage(_DWORD *a1, uint64_t a2)
 {
   NamedBlock = BOMStorageGetNamedBlock(a1, "BomInfo");
   if (NamedBlock)
@@ -4202,7 +4140,7 @@ _DWORD *BOMBomOpenWithStorage(_DWORD *a1, int a2)
   return 0;
 }
 
-void *BOMBomNewWithStorage(_DWORD *a1)
+unsigned int *BOMBomNewWithStorage(_DWORD *a1)
 {
   if (a1)
   {
@@ -4234,29 +4172,8 @@ void *BOMBomNewWithStorage(_DWORD *a1)
   *v2 = 1;
   v2[1] = v1;
   v4 = BOMStorageNewNamedBlock(v1, "BomInfo");
-  if (!v4)
+  if (!v4 || (v5 = BOMStreamWithBlockID(v2[1], v4, (16 * *(v2 + 12)) | 0xC, 1)) == 0 || (v6 = v5, BOMStreamWriteUInt32(v5, 1u), BOMStreamWriteUInt32(v6, *v2), _writeArchInfo(v2, v6), BOMStreamFree(v6), v2[2] = BOMTreeNewWithName(v1, "Paths"), v2[3] = BOMBomHLIndexNew(v1), v7 = BOMBomVIndexNew(v1), v2[4] = v7, !v2[2]) || !v2[3] || !v7 || (v8 = BOMTreeNewWithName(v1, "Size64"), (v2[5] = v8) == 0))
   {
-    goto LABEL_13;
-  }
-
-  v5 = BOMStreamWithBlockID(v2[1], v4, (16 * *(v2 + 12)) | 0xC, 1);
-  if (!v5)
-  {
-    goto LABEL_13;
-  }
-
-  v6 = v5;
-  BOMStreamWriteUInt32(v5, 1u);
-  BOMStreamWriteUInt32(v6, *v2);
-  _writeArchInfo(v2, v6);
-  BOMStreamFree(v6);
-  v2[2] = BOMTreeNewWithName(v1, "Paths");
-  v2[3] = BOMBomHLIndexNew(v1);
-  v7 = BOMBomVIndexNew(v1);
-  v2[4] = v7;
-  if (!v2[2] || !v2[3] || !v7 || (v8 = BOMTreeNewWithName(v1, "Size64"), (v2[5] = v8) == 0))
-  {
-LABEL_13:
     BOMBomFree(v2);
     return 0;
   }
@@ -4288,7 +4205,7 @@ uint64_t _writeArchInfo(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *BOMBomNewWithSys(const char *a1, unsigned int (**a2)(void, const char *, uint64_t))
+unsigned int *BOMBomNewWithSys(char *a1, unsigned int (**a2)(void, char *, uint64_t))
 {
   v2 = a2;
   if (a2)
@@ -4334,58 +4251,55 @@ BOOL BOMBomFSObjectExistsAtPath(uint64_t a1, uint64_t a2)
   {
     if (a2)
     {
-      return _valueAtPath(a1) != 0;
+      return _valueAtPath(a1, a2) != 0;
     }
   }
 
   return result;
 }
 
-unsigned int *_valueAtPath(uint64_t a1)
+unsigned int *_valueAtPath(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v10 = 0;
   __stringp = &v12;
   __strlcpy_chk();
-  v2 = strsep(&__stringp, "/");
-  if (v2)
+  v3 = strsep(&__stringp, "/");
+  if (v3)
   {
-    v3 = v2;
-    v4 = 0;
+    v4 = v3;
+    v5 = 0;
     while (1)
     {
-      v5 = BOMNewPathKey(v4, v3, &v10);
-      if (!v5)
+      v6 = BOMNewPathKey(v5, v4, &v10);
+      if (!v6)
       {
         break;
       }
 
-      v6 = v5;
-      Value = BOMTreeGetValue(*(a1 + 16), v5, v10);
-      free(v6);
+      v7 = v6;
+      Value = BOMTreeGetValue(*(a1 + 16), v6, v10);
+      free(v7);
       if (Value)
       {
-        v4 = BOMPathIDFromPathKey(Value);
-        v3 = strsep(&__stringp, "/");
-        if (v3)
+        v5 = BOMPathIDFromPathKey(Value);
+        v4 = strsep(&__stringp, "/");
+        if (v4)
         {
           continue;
         }
       }
 
-      goto LABEL_8;
+      return Value;
     }
   }
 
-  Value = 0;
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
-  return Value;
+  return 0;
 }
 
-uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
+uint64_t BOMBomNewFromBom(char *a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   Sys = BOMStorageGetSys(*(a2 + 8));
   v5 = BOMBomNewWithSys(a1, Sys);
   v6 = v5;
@@ -4394,7 +4308,7 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
     goto LABEL_43;
   }
 
-  BOMTreeSetDensePacking(v5[2], 1);
+  BOMTreeSetDensePacking(*(v5 + 2), 1);
   v7 = BOMHardLinkTableNew();
   if (!v7)
   {
@@ -4403,7 +4317,7 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
 
   v8 = v7;
   *bytes = 0;
-  v39 = 0;
+  v38 = 0;
   v9 = BOMTreeIteratorNew(*(a2 + 16), 0, 0, 0);
   if (!v9)
   {
@@ -4447,9 +4361,9 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
 
     if (BOMStorageCopyFromBlock(*(a2 + 8), v14, v12))
     {
-      v36 = BOMExceptionHandlerMessage("_copyFilesFromBomToBomInOrder failed while getting data (pid=%u bid=%u)", v15, v14);
-      v37 = __error();
-      _BOMFatalException(v36, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 985, *v37);
+      v35 = BOMExceptionHandlerMessage("_copyFilesFromBomToBomInOrder failed while getting data (pid=%u bid=%u)", v15, v14);
+      v36 = __error();
+      _BOMFatalException(v35, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 985, *v36);
     }
 
     v18 = BOMStorageNewBlock(*(v6 + 8));
@@ -4463,12 +4377,12 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
     if (v19 >= 2)
     {
       v20 = v19;
-      v38 = 0;
+      v37 = 0;
       BOMHardLinkTableSet(v8, 0, v14, bytes, 4);
       v21 = 0;
       while (1)
       {
-        if (BOMBomHLIndexGet(*(a2 + 24), v14, v21, v41, &v38))
+        if (BOMBomHLIndexGet(*(a2 + 24), v14, v21, v40, &v37))
         {
           v27 = *MEMORY[0x277D85DF8];
           v28 = "can't get hardlink data\n";
@@ -4476,7 +4390,7 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
           goto LABEL_33;
         }
 
-        if (BOMBomHLIndexSet(*(v6 + 24), *bytes, v41, v38))
+        if (BOMBomHLIndexSet(*(v6 + 24), *bytes, v40, v37))
         {
           break;
         }
@@ -4493,11 +4407,11 @@ uint64_t BOMBomNewFromBom(const char *a1, uint64_t a2)
     }
 
 LABEL_22:
-    v22 = BOMNewPathValue(v15, *bytes, &v39);
+    v22 = BOMNewPathValue(v15, *bytes, &v38);
     v23 = *(v6 + 16);
     v24 = BOMTreeIteratorKey(v10);
     v25 = BOMTreeIteratorKeySize(v10);
-    if (BOMTreeSetValue(v23, v24, v25, v22, v39))
+    if (BOMTreeSetValue(v23, v24, v25, v22, v38))
     {
       if (v22)
       {
@@ -4543,13 +4457,12 @@ LABEL_34:
 LABEL_43:
     if (!v6)
     {
-      goto LABEL_45;
+      return v6;
     }
 
 LABEL_44:
     BOMBomFree(v6);
-    v6 = 0;
-    goto LABEL_45;
+    return 0;
   }
 
 LABEL_37:
@@ -4576,8 +4489,6 @@ LABEL_37:
   }
 
   *v6 = *a2;
-LABEL_45:
-  v34 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4640,12 +4551,12 @@ LABEL_9:
   return v7;
 }
 
-unsigned int *BOMBomNewFromBomWithOptions(const char *a1, uint64_t *a2, char a3, const char **a4, const char **a5)
+unsigned int *BOMBomNewFromBomWithOptions(char *a1, void *a2, char a3, const char **a4, const char **a5)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_91;
+    return 0;
   }
 
   Sys = BOMStorageGetSys(a2[1]);
@@ -4653,9 +4564,7 @@ unsigned int *BOMBomNewFromBomWithOptions(const char *a1, uint64_t *a2, char a3,
   if (a1 && !(*(Sys + 184))(*(Sys + 8), a1, 6) && (*(v11 + 224))(*(v11 + 8), a1))
   {
     fprintf(*MEMORY[0x277D85DF8], "can't unlink %s\n", a1);
-LABEL_91:
-    v12 = 0;
-    goto LABEL_92;
+    return 0;
   }
 
   v12 = BOMBomNewWithSys(a1, v11);
@@ -4678,8 +4587,8 @@ LABEL_91:
           BOMFSObjectFree(RootFSObject);
           if (v23)
           {
-            v79 = a5;
-            v80 = a3;
+            v78 = a5;
+            v79 = a3;
             Count = CFArrayGetCount(v21);
             v25 = BOMBomEnumeratorNext(v23);
             if (v25)
@@ -4736,8 +4645,8 @@ LABEL_17:
 
 LABEL_19:
             BOMBomEnumeratorFree(v23);
-            a3 = v80;
-            a5 = v79;
+            a3 = v79;
+            a5 = v78;
           }
         }
       }
@@ -4756,11 +4665,11 @@ LABEL_19:
         ;
       }
 
-      v81 = BOM_malloczero(32 * v34);
+      v80 = BOM_malloczero(32 * v34);
       if (v34)
       {
         v36 = v34;
-        v37 = v81 + 2;
+        v37 = v80 + 2;
         while (1)
         {
           v38 = *a4;
@@ -4851,7 +4760,7 @@ LABEL_19:
         }
 
         fprintf(*MEMORY[0x277D85DF8], "can't get arch info for '%s'", v38);
-        v55 = v81;
+        v55 = v80;
       }
 
       else
@@ -4860,7 +4769,7 @@ LABEL_57:
         v53 = BOMBomGetRootFSObject(v12);
         v54 = BOMBomEnumeratorNew(v12, v53);
         BOMFSObjectFree(v53);
-        v55 = v81;
+        v55 = v80;
         if (v54)
         {
           v56 = BOMBomEnumeratorNext(v54);
@@ -4892,7 +4801,7 @@ LABEL_70:
                     }
                   }
 
-                  v63 = v81 + 2;
+                  v63 = v80 + 2;
                   v64 = v34;
                   while (Arch != *(v63 - 2) || (*(v63 - 1) & 1) == 0 && ((*v63 ^ ArchSubtype) & 0xFFFFFF) != 0)
                   {
@@ -4903,7 +4812,7 @@ LABEL_70:
                     }
                   }
 
-                  if (!BOMFSObjectThinKeepingArchsAndSubArchs(v57, v81, v34))
+                  if (!BOMFSObjectThinKeepingArchsAndSubArchs(v57, v80, v34))
                   {
                     v65 = BOMFSObjectBlockID(v57);
                     if (!_BOMBomSetFSObjectWithBlockID(v12, v57, v65))
@@ -4951,7 +4860,7 @@ LABEL_71:
                 if (v34)
                 {
                   v72 = &v67[3 * v70];
-                  v73 = v81 + 2;
+                  v73 = v80 + 2;
                   v74 = v34;
                   while (*v72 != *(v73 - 2) || (*(v73 - 1) & 1) == 0 && ((*v73 ^ *(v72 + 1)) & 0xFFFFFF) != 0)
                   {
@@ -4985,33 +4894,31 @@ LABEL_87:
     }
   }
 
-LABEL_92:
-  v77 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-uint64_t _copyFilesFromBomToBom(uint64_t *a1, unsigned int *a2, const __CFArray *a3, char *a4, char *a5, unsigned int a6, unsigned int a7, CFDictionaryRef *a8, char a9)
+uint64_t _copyFilesFromBomToBom(void *a1, unsigned int *a2, const __CFArray *a3, char *a4, char *a5, unsigned int a6, unsigned int a7, void *a8, char a9)
 {
   v9 = a8;
-  v92 = *MEMORY[0x277D85DE8];
-  v82 = a8;
+  v90 = *MEMORY[0x277D85DE8];
+  v80 = a8;
   if (!a8)
   {
-    v82 = BOMHardLinkTableNew();
+    v80 = BOMHardLinkTableNew();
   }
 
-  v89 = 0;
-  v90 = 0;
-  v88 = 0;
   v87 = 0;
-  v16 = BOMNewPathKey(a6, "", &v90);
+  v88 = 0;
+  v86 = 0;
+  v85 = 0;
+  v16 = BOMNewPathKey(a6, "", &v88);
   if (!v16)
   {
     v18 = 0;
     goto LABEL_11;
   }
 
-  v17 = BOMTreeIteratorNew(a1[2], v16, v90, 0);
+  v17 = BOMTreeIteratorNew(a1[2], v16, v88, 0);
   free(v16);
   if (!v17)
   {
@@ -5032,229 +4939,227 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v66 = a7;
-  v67 = 0;
-  v84 = 0;
-  v21 = a5;
+  v64 = a7;
+  v65 = 0;
+  v82 = 0;
+  v20 = a5;
   v18 = 0;
-  __dst = v21;
-  v73 = (a4 - v21);
-  v69 = a1;
-  v70 = v9;
-  v83 = a6;
+  __dst = v20;
+  v71 = (a4 - v20);
+  v67 = a1;
+  v68 = v9;
+  v81 = a6;
   do
   {
-    v22 = BOMTreeIteratorKey(v17);
-    if (BOMPathIDFromPathKey(v22) != a6)
+    v21 = BOMTreeIteratorKey(v17);
+    if (BOMPathIDFromPathKey(v21) != a6)
     {
       break;
     }
 
-    v23 = a2;
-    v24 = BOMShortNameFromPathKey(v22);
-    v25 = BOMTreeIteratorValue(v17);
-    v26 = BOMBlockIDFromPathValue(v25);
-    v27 = BOMPathIDFromPathKey(v25);
-    v28 = BOMStorageSizeOfBlock(a1[1], v26);
-    if (v28 > v84)
+    v22 = a2;
+    v23 = BOMShortNameFromPathKey(v21);
+    v24 = BOMTreeIteratorValue(v17);
+    v25 = BOMBlockIDFromPathValue(v24);
+    v26 = BOMPathIDFromPathKey(v24);
+    v27 = BOMStorageSizeOfBlock(a1[1], v25);
+    if (v27 > v82)
     {
       if (v18)
       {
         free(v18);
       }
 
-      v18 = BOM_malloc(v28);
-      v84 = v28;
+      v18 = BOM_malloc(v27);
+      v82 = v27;
     }
 
-    if (BOMStorageCopyFromBlock(a1[1], v26, v18))
+    if (BOMStorageCopyFromBlock(a1[1], v25, v18))
     {
       fprintf(*MEMORY[0x277D85DF8], "can't unarchive %s. skipping...\n", a4);
       goto LABEL_24;
     }
 
-    v76 = v27;
-    v81 = BOMFSObjectTypeFromRawData(v18);
-    strlcpy(__dst, v24, (v73 + 1025));
-    v75 = strlen(v24);
-    v88 = 0;
+    v74 = v26;
+    v79 = BOMFSObjectTypeFromRawData(v18);
+    strlcpy(__dst, v23, (v71 + 1025));
+    v73 = strlen(v23);
+    v86 = 0;
     if (!a9)
     {
-      v74 = 0;
-      v78 = 0;
-      v79 = 1;
-      a2 = v23;
+      v72 = 0;
+      v76 = 0;
+      v77 = 1;
+      a2 = v22;
       goto LABEL_41;
     }
 
-    a2 = v23;
-    v29 = _valueAtPath(v23);
-    if (!v29)
+    a2 = v22;
+    v28 = _valueAtPath(v22, a4);
+    if (!v28)
     {
-      v74 = 0;
-      v78 = 0;
-      v79 = 1;
+      v72 = 0;
+      v76 = 0;
+      v77 = 1;
       goto LABEL_41;
     }
 
-    v30 = v29;
-    v31 = BOMPathIDFromPathKey(v29);
-    v88 = BOMBlockIDFromPathValue(v30);
-    if (BOMStorageCopyFromBlockRange(*(v23 + 8), v88, 0, 1uLL, &v86))
+    v29 = v28;
+    v30 = BOMPathIDFromPathKey(v28);
+    v86 = BOMBlockIDFromPathValue(v29);
+    if (BOMStorageCopyFromBlockRange(*(v22 + 1), v86, 0, 1uLL, &v84))
     {
-      v32 = BOMExceptionHandlerMessage("BOMStorageCopyFromBlockRange(storage=%p, bid=%u, location=%u, length=%u, data=%p) failed!", *(v23 + 8), v88, 0, 1, &v86);
-      v33 = __error();
-      _BOMExceptionHandlerCall(v32, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 743, *v33);
+      v31 = BOMExceptionHandlerMessage("BOMStorageCopyFromBlockRange(storage=%p, bid=%u, location=%u, length=%u, data=%p) failed!", *(v22 + 1), v86, 0, 1, &v84);
+      v32 = __error();
+      _BOMExceptionHandlerCall(v31, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 743, *v32);
     }
 
-    v34 = BOMFSObjectTypeFromRawData(&v86);
-    v78 = v34;
-    if (BOMBomHLIndexCount(*(v23 + 24), v88))
+    v33 = BOMFSObjectTypeFromRawData(&v84);
+    v76 = v33;
+    if (BOMBomHLIndexCount(*(v22 + 3), v86))
     {
-      if (v34 == 1)
+      if (v33 == 1)
       {
-        v35 = v31;
-        v74 = 1;
-        v79 = 0;
-        v80 = v88;
-        v78 = 1;
-        v9 = v70;
+        v34 = v30;
+        v72 = 1;
+        v77 = 0;
+        v78 = v86;
+        v76 = 1;
+        v9 = v68;
       }
 
       else
       {
-        v79 = 0;
-        v74 = 1;
-        v9 = v70;
+        v77 = 0;
+        v72 = 1;
+        v9 = v68;
 LABEL_41:
-        v80 = 0;
-        v35 = *a2;
-        *a2 = v35 + 1;
+        v78 = 0;
+        v34 = (*a2)++;
       }
 
-      if (v81 != 1 || !BOMBomHLIndexCount(a1[3], v26))
+      if (v79 != 1 || !BOMBomHLIndexCount(a1[3], v25))
       {
-        v71 = 0;
-        v88 = BOMStorageNewBlock(*(a2 + 1));
+        v69 = 0;
+        v86 = BOMStorageNewBlock(*(a2 + 1));
 LABEL_47:
-        v72 = 1;
+        v70 = 1;
         goto LABEL_51;
       }
 
-      v87 = 0;
-      BOMHardLinkTableGetPathAndData(v82, 0, v26, __s, &v87);
-      if (v87)
+      v85 = 0;
+      BOMHardLinkTableGetPathAndData(v80, 0, v25, __s, &v85);
+      if (v85)
       {
-        v36 = *v87;
-        v71 = 1;
+        v35 = *v85;
+        v69 = 1;
       }
 
       else
       {
-        v36 = BOMStorageNewBlock(*(a2 + 1));
-        v71 = 0;
+        v35 = BOMStorageNewBlock(*(a2 + 1));
+        v69 = 0;
       }
 
-      v72 = 0;
-      v88 = v36;
+      v70 = 0;
+      v86 = v35;
       goto LABEL_51;
     }
 
-    v35 = v31;
-    if (v81 != 1)
+    v34 = v30;
+    if (v79 != 1)
     {
-      v79 = 0;
-      v80 = 0;
-      v74 = 1;
-      v71 = 0;
+      v77 = 0;
+      v78 = 0;
       v72 = 1;
-      v9 = v70;
+      v69 = 0;
+      v70 = 1;
+      v9 = v68;
       goto LABEL_51;
     }
 
-    v9 = v70;
-    if (!BOMBomHLIndexCount(a1[3], v26))
+    v9 = v68;
+    if (!BOMBomHLIndexCount(a1[3], v25))
     {
-      v79 = 0;
-      v80 = 0;
-      v71 = 0;
-      v74 = 1;
+      v77 = 0;
+      v78 = 0;
+      v69 = 0;
+      v72 = 1;
       goto LABEL_47;
     }
 
-    v87 = 0;
-    BOMHardLinkTableGetPathAndData(v82, 0, v26, __s, &v87);
-    v79 = 0;
-    v80 = 0;
-    v71 = v87 != 0;
-    v72 = 0;
-    v74 = 1;
+    v85 = 0;
+    BOMHardLinkTableGetPathAndData(v80, 0, v25, __s, &v85);
+    v77 = 0;
+    v78 = 0;
+    v69 = v85 != 0;
+    v70 = 0;
+    v72 = 1;
 LABEL_51:
-    if (!v88 || !v35)
+    if (!v86 || !v34)
     {
       goto LABEL_25;
     }
 
-    v37 = a3;
+    v36 = a3;
     if (a3)
     {
-      v38 = v35;
+      v37 = v34;
       Count = CFArrayGetCount(a3);
       if (Count < 1)
       {
-        v44 = 0;
+        v43 = 0;
       }
 
       else
       {
-        v40 = Count;
-        v41 = 0;
+        v39 = Count;
+        v40 = 0;
         while (1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v37, v41);
+          ValueAtIndex = CFArrayGetValueAtIndex(v36, v40);
           if (ValueAtIndex)
           {
-            v43 = BOMPatternMatch(ValueAtIndex, a4);
-            if (v43)
+            v42 = BOMPatternMatch(ValueAtIndex, a4);
+            if (v42)
             {
               break;
             }
           }
 
-          ++v41;
-          v37 = a3;
-          if (v40 == v41)
+          ++v40;
+          v36 = a3;
+          if (v39 == v40)
           {
-            v44 = 0;
+            v43 = 0;
             goto LABEL_64;
           }
         }
 
-        v44 = v43;
+        v43 = v42;
 LABEL_64:
-        v9 = v70;
+        v9 = v68;
       }
 
-      v35 = v38;
-      if (v81 == 2)
+      v34 = v37;
+      if (v79 == 2)
       {
-        if (v44)
+        if (v43)
         {
-          v45 = 0;
+          v44 = 0;
         }
 
         else
         {
-          v45 = a3;
+          v44 = a3;
         }
 
-        LOBYTE(v65) = v74;
-        a1 = v69;
-        v46 = _copyFilesFromBomToBom(v69, v23, v45, a4, &__dst[v75], v76, v35, v82, v65) != 0;
-        if (!v44)
+        a1 = v67;
+        v45 = _copyFilesFromBomToBom(v67, v22, v44, a4, &__dst[v73], v74, v34, v80, v72) != 0;
+        if (!v43)
         {
 LABEL_72:
-          if (!v46)
+          if (!v45)
           {
             goto LABEL_24;
           }
@@ -5263,138 +5168,137 @@ LABEL_72:
 
       else
       {
-        v46 = 0;
-        a1 = v69;
-        if (!v44)
+        v45 = 0;
+        a1 = v67;
+        if (!v43)
         {
           goto LABEL_72;
         }
       }
     }
 
-    else if (v81 == 2)
+    else if (v79 == 2)
     {
-      LOBYTE(v65) = v74;
-      _copyFilesFromBomToBom(a1, v23, 0, a4, &__dst[v75], v76, v35, v82, v65);
+      _copyFilesFromBomToBom(a1, v22, 0, a4, &__dst[v73], v74, v34, v80, v72);
     }
 
-    v68 = v35;
-    v47 = v79;
-    if (v78 == 2)
+    v66 = v34;
+    v46 = v77;
+    if (v76 == 2)
     {
-      v48 = v79;
+      v47 = v77;
     }
 
     else
     {
-      v48 = 1;
+      v47 = 1;
     }
 
-    a2 = v23;
-    if (v48 == 1)
+    a2 = v22;
+    if (v47 == 1)
     {
-      if ((v79 & 1) == 0)
+      if ((v77 & 1) == 0)
       {
-        if (v80)
+        if (v78)
         {
-          v49 = v80;
+          v48 = v78;
         }
 
         else
         {
-          v49 = v88;
+          v48 = v86;
         }
 
-        FSObjectWithBlockID = _BOMBomGetFSObjectWithBlockID(v23, v49);
+        FSObjectWithBlockID = _BOMBomGetFSObjectWithBlockID(v22, v48);
         if (FSObjectWithBlockID)
         {
-          v51 = FSObjectWithBlockID;
-          _removeArchInfoForFSObject(v23, FSObjectWithBlockID);
-          BOMFSObjectFree(v51);
+          v50 = FSObjectWithBlockID;
+          _removeArchInfoForFSObject(v22, FSObjectWithBlockID);
+          BOMFSObjectFree(v50);
         }
 
-        v47 = v79;
-        if (v80)
+        v46 = v77;
+        if (v78)
         {
-          v52 = strlen(a4) + 1;
-          v47 = v79;
-          BOMBomHLIndexRemove(*(v23 + 24), v80, a4, v52);
-          if (!BOMBomHLIndexCount(*(v23 + 24), v80))
+          v51 = strlen(a4) + 1;
+          v46 = v77;
+          BOMBomHLIndexRemove(*(v22 + 3), v78, a4, v51);
+          if (!BOMBomHLIndexCount(*(v22 + 3), v78))
           {
-            BOMStorageFreeBlock(*(v23 + 8), v80);
+            BOMStorageFreeBlock(*(v22 + 1), v78);
           }
         }
       }
 
-      if (BOMStorageSetBlockData(*(v23 + 8), v88, v18, v28))
+      if (BOMStorageSetBlockData(*(v22 + 1), v86, v18, v27))
       {
         fprintf(*MEMORY[0x277D85DF8], "can't archive %s. skipping...\n", a4);
         goto LABEL_25;
       }
 
-      v53 = _BOMBomGetFSObjectWithBlockID(v23, v88);
-      if (v53)
+      v52 = _BOMBomGetFSObjectWithBlockID(v22, v86);
+      if (v52)
       {
-        v54 = v53;
-        _addArchInfoForFSObject(v23, v53);
-        BOMFSObjectFree(v54);
+        v53 = v52;
+        _addArchInfoForFSObject(v22, v52);
+        BOMFSObjectFree(v53);
       }
     }
 
-    if (v80)
+    if (v78)
     {
-      v55 = 1;
+      v54 = 1;
     }
 
     else
     {
-      v55 = v47;
+      v54 = v46;
     }
 
-    if (v55 != 1)
+    if (v54 != 1)
     {
       goto LABEL_97;
     }
 
-    v56 = BOMTreeIteratorKey(v17);
-    v57 = BOMShortNameFromPathKey(v56);
-    v58 = BOMNewPathKey(v66, v57, &v90);
-    v59 = BOMNewPathValue(v68, v88, &v89);
-    v60 = BOMTreeSetValue(*(v23 + 16), v58, v90, v59, v89);
+    v55 = BOMTreeIteratorKey(v17);
+    v56 = BOMShortNameFromPathKey(v55);
+    v57 = BOMNewPathKey(v64, v56, &v88);
+    v58 = BOMNewPathValue(v66, v86, &v87);
+    v59 = BOMTreeSetValue(*(v22 + 2), v57, v88, v58, v87);
+    free(v57);
     free(v58);
-    free(v59);
-    if (!v60)
+    if (!v59)
     {
-      v67 = 1;
-      v9 = v70;
-      a2 = v23;
+      v65 = 1;
+      v9 = v68;
+      a2 = v22;
 LABEL_97:
-      a6 = v83;
-      if ((v72 & 1) == 0)
+      a6 = v81;
+      if ((v70 & 1) == 0)
       {
-        if (v71)
+        if (v69)
         {
-          v61 = *(a2 + 3);
+          v60 = *(a2 + 3);
           if (__s[0])
           {
-            v62 = strlen(__s);
-            BOMBomHLIndexSet(v61, v88, __s, v62 + 1);
-            v63 = strlen(a4);
-            v9 = v70;
-            BOMBomHLIndexSet(*(a2 + 3), v88, a4, v63 + 1);
-            BOMHardLinkTableSetPathAndData(v82, 0, v26, "", &v88, 4uLL);
+            v61 = strlen(__s);
+            BOMBomHLIndexSet(v60, v86, __s, v61 + 1);
+            v62 = strlen(a4);
+            v9 = v68;
+            BOMBomHLIndexSet(*(a2 + 3), v86, a4, v62 + 1);
+            BOMHardLinkTableSetPathAndData(v80, 0, v25, "", &v86, 4uLL);
           }
 
           else
           {
-            v64 = strlen(a4);
-            BOMBomHLIndexSet(v61, v88, a4, v64 + 1);
+            v63 = strlen(a4);
+            BOMBomHLIndexSet(v60, v86, a4, v63 + 1);
           }
         }
 
         else
         {
-          BOMHardLinkTableSetPathAndData(v82, 0, v26, a4, &v88, 4uLL);
+          BOMHardLinkTableSetPathAndData(v80, 0, v25, a4, &v86, 4uLL);
         }
       }
 
@@ -5402,19 +5306,19 @@ LABEL_97:
     }
 
     fprintf(*MEMORY[0x277D85DF8], "can't set path info for %s. skipping...\n", a4);
-    v9 = v70;
+    v9 = v68;
 LABEL_24:
-    a2 = v23;
+    a2 = v22;
 LABEL_25:
-    a6 = v83;
+    a6 = v81;
 LABEL_26:
     BOMTreeIteratorNext(v17);
   }
 
   while (!BOMTreeIteratorIsAtEnd(v17));
   BOMTreeIteratorFree(v17);
-  LOBYTE(v16) = v67;
-  if (v67)
+  LOBYTE(v16) = v65;
+  if (v65)
   {
     *(a2 + 64) = 1;
   }
@@ -5422,7 +5326,7 @@ LABEL_26:
 LABEL_11:
   if (!v9)
   {
-    BOMHardLinkTableFree(v82);
+    BOMHardLinkTableFree(v80);
   }
 
   if (v18)
@@ -5430,75 +5334,88 @@ LABEL_11:
     free(v18);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t _copyVariantsFromBomToBom(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v9 = result;
     result = BOMBomVIndexCount(*(result + 32), 0, 0, 0, a5, a6, a7, a8);
-    v38 = result;
+    v37 = result;
     if (result >= 1)
     {
       v11 = 0;
-      v39 = 0;
+      v38 = 0;
       do
       {
-        BOMBomVIndexGet(*(v9 + 32), 0, 0, 0, v11, v43, 0x64uLL, v10);
-        result = BOMBomVIndexCount(*(v9 + 32), v43, 0, 0, v12, v13, v14, v15);
+        BOMBomVIndexGet(*(v9 + 32), 0, 0, 0, v11, v42, 0x64uLL, v10);
+        result = BOMBomVIndexCount(*(v9 + 32), v42, 0, 0, v12, v13, v14, v15);
         if (result >= 1)
         {
           v16 = result;
-          for (i = 0; i != v16; ++i)
+          v17 = 0;
+          do
           {
-            BOMBomVIndexGet(*(v9 + 32), v43, 0, 0, i, v42, 0x64uLL, v10);
-            result = BOMBomVIndexCount(*(v9 + 32), v43, v42, 0, v18, v19, v20, v21);
+            BOMBomVIndexGet(*(v9 + 32), v42, 0, 0, v17, v41, 0x64uLL, v10);
+            result = BOMBomVIndexCount(*(v9 + 32), v42, v41, 0, v18, v19, v20, v21);
             if (result >= 1)
             {
               v22 = result;
-              for (j = 0; j != v22; ++j)
+              v23 = 0;
+              do
               {
-                BOMBomVIndexGet(*(v9 + 32), v43, v42, 0, j, v41, 0x64uLL, v10);
-                v28 = BOMBomVIndexCount(*(v9 + 32), v43, v42, v41, v24, v25, v26, v27);
+                BOMBomVIndexGet(*(v9 + 32), v42, v41, 0, v23, v40, 0x64uLL, v10);
+                v28 = BOMBomVIndexCount(*(v9 + 32), v42, v41, v40, v24, v25, v26, v27);
                 if (v28 >= 1)
                 {
                   v32 = v28;
-                  for (k = 0; k != v32; ++k)
+                  v33 = 0;
+                  do
                   {
-                    v34 = BOMBomVIndexGet(*(v9 + 32), v43, v42, v41, k, v40, 0x64uLL, v31);
-                    if (a2 && !v34 && !BOMBomVIndexSet(*(a2 + 32), v43, v42, v41, v40, v29, v30, v31))
+                    v34 = BOMBomVIndexGet(*(v9 + 32), v42, v41, v40, v33, v39, 0x64uLL, v31);
+                    if (a2 && !v34 && !BOMBomVIndexSet(*(a2 + 32), v42, v41, v40, v39, v29, v30, v31))
                     {
                       *(a2 + 64) = 1;
                     }
+
+                    v33 = (v33 + 1);
                   }
+
+                  while (v32 != v33);
                 }
 
-                result = BOMBomVIndexGetApproxDiskSpace(*(a2 + 32), v43, v42, v41, &v39, v29, v30, v31);
+                result = BOMBomVIndexGetApproxDiskSpace(*(a2 + 32), v42, v41, v40, &v38, v29, v30, v31);
                 if (!result)
                 {
-                  result = BOMBomVIndexSetApproxDiskSpace(*(a2 + 32), v43, v42, v41, v39, v35, v36, v10);
+                  result = BOMBomVIndexSetApproxDiskSpace(*(a2 + 32), v42, v41, v40, v38, v35, v36, v10);
                 }
+
+                v23 = (v23 + 1);
               }
+
+              while (v23 != v22);
             }
+
+            v17 = (v17 + 1);
           }
+
+          while (v17 != v16);
         }
 
-        ++v11;
+        v11 = (v11 + 1);
       }
 
-      while (v11 != v38);
+      while (v11 != v37);
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-__CFArray *_patternListForArchAndLangs(uint64_t a1, const char **a2, const char **a3, int a4)
+const __CFArray *_patternListForArchAndLangs(uint64_t a1, const char **a2, const char **a3, int a4)
 {
   v10 = BOMPatternListNew();
   if (!v10)
@@ -5566,14 +5483,14 @@ char *BOMBomNewFromDirectoryWithSys(char *a1, char *a2, uint64_t a3, unsigned in
   v8 = getenv("BOMBomNewFromDirectory_parallel");
   if (v8 && *v8 == 48 && !v8[1])
   {
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
-    v100 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     block = 0u;
     if (!a4)
     {
@@ -5583,9 +5500,9 @@ char *BOMBomNewFromDirectoryWithSys(char *a1, char *a2, uint64_t a3, unsigned in
     if (a4[10](a4[1], a2, &block))
     {
       v9 = *MEMORY[0x277D85DF8];
-      v54 = __error();
-      v94 = a2;
-      v96 = strerror(*v54);
+      v42 = __error();
+      v80 = a2;
+      v82 = strerror(*v42);
       v11 = "can't stat %s (%s)\n";
       goto LABEL_50;
     }
@@ -5598,26 +5515,26 @@ char *BOMBomNewFromDirectoryWithSys(char *a1, char *a2, uint64_t a3, unsigned in
     a1 = BOMBomNewWithSys(a1, a4);
     if (a1)
     {
-      v56 = BOMHardLinkTableNew();
-      if (v56)
+      v44 = BOMHardLinkTableNew();
+      if (v44)
       {
-        v57 = v56;
-        a4[38](a4[1], &v118, 1025);
+        v45 = v44;
+        a4[38](a4[1], &v104, 1025);
         if (!(a4[39])(a4[1], a2))
         {
           __strlcpy_chk();
-          v58 = strlen(__s);
-          if (!_visitDir(a1, __s, &__s[v58], 0, v57, a3))
+          v46 = strlen(__s);
+          if (!_visitDir(a1, __s, &__s[v46], 0, v45, a3))
           {
-            BOMHardLinkTableFree(v57);
-            (a4[39])(a4[1], &v118);
-            goto LABEL_60;
+            BOMHardLinkTableFree(v45);
+            (a4[39])(a4[1], &v104);
+            return a1;
           }
         }
       }
 
       BOMBomFree(a1);
-      goto LABEL_59;
+      return 0;
     }
   }
 
@@ -5628,188 +5545,186 @@ char *BOMBomNewFromDirectoryWithSys(char *a1, char *a2, uint64_t a3, unsigned in
       if (!a2)
       {
         fwrite("directory_path is NULL\n", 0x17uLL, 1uLL, *MEMORY[0x277D85DF8]);
-LABEL_59:
-        a1 = 0;
-        goto LABEL_60;
+        return 0;
       }
 
-      memset(&v118, 0, sizeof(v118));
-      if (stat(a2, &v118))
+      memset(&v104, 0, sizeof(v104));
+      if (stat(a2, &v104))
       {
         v9 = *MEMORY[0x277D85DF8];
         v10 = __error();
-        v94 = a2;
-        v96 = strerror(*v10);
+        v80 = a2;
+        v82 = strerror(*v10);
         v11 = "Could not stat %s: %s\n";
 LABEL_50:
-        v55 = v9;
+        v43 = v9;
 LABEL_58:
-        fprintf(v55, v11, v94, v96);
-        goto LABEL_59;
+        fprintf(v43, v11, v80, v82);
+        return 0;
       }
 
-      if ((v118.st_mode & 0xF000) == 0x4000)
+      if ((v104.st_mode & 0xF000) == 0x4000)
       {
         *__s = 0;
-        v111 = __s;
-        v112 = 0x6000000000;
-        v113 = 0u;
-        v114 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v117 = 0;
+        v97 = __s;
+        v98 = 0x6000000000;
+        v99 = 0u;
+        v100 = 0u;
+        v101 = 0u;
+        v102 = 0u;
+        v103 = 0;
         values = *MEMORY[0x277CBED28];
         keys[0] = @"disableLexicographicSort";
         v12 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        if (!v12 || (v13 = v12, v14 = BOMCopierSourceNew(a2, v12, 0, 0), *(v111 + 3) = v14, CFRelease(v13), !*(v111 + 3)))
+        if (!v12 || (v13 = v12, v14 = BOMCopierSourceNew(a2, v12, 0, 0), *(v97 + 3) = v14, CFRelease(v13), !*(v97 + 3)))
         {
-          v61 = *MEMORY[0x277D85DF8];
-          v62 = "Could not create BOMCopierSource\n";
-          v63 = 33;
+          v48 = *MEMORY[0x277D85DF8];
+          v49 = "Could not create BOMCopierSource\n";
+          v50 = 33;
           goto LABEL_62;
         }
 
         global_queue = dispatch_get_global_queue(0, 0);
         if (!global_queue)
         {
-          v61 = *MEMORY[0x277D85DF8];
-          v62 = "Could not get the global queue\n";
-          v63 = 31;
+          v48 = *MEMORY[0x277D85DF8];
+          v49 = "Could not get the global queue\n";
+          v50 = 31;
           goto LABEL_62;
         }
 
         v16 = global_queue;
         v17 = dispatch_group_create();
-        *(v111 + 6) = v17;
+        *(v97 + 6) = v17;
         if (!v17)
         {
-          v61 = *MEMORY[0x277D85DF8];
-          v62 = "Could not create dispatch group\n";
-          v63 = 32;
+          v48 = *MEMORY[0x277D85DF8];
+          v49 = "Could not create dispatch group\n";
+          v50 = 32;
           goto LABEL_62;
         }
 
-        *(v111 + 7) = BOMStackNew();
+        *(v97 + 7) = BOMStackNew();
         v18 = BOMHardLinkTableNew();
-        *(v111 + 9) = v18;
+        *(v97 + 9) = v18;
         if (v18)
         {
           v19 = malloc_type_calloc(1uLL, 0x400uLL, 0x16D468D4uLL);
-          v26 = v111;
-          *(v111 + 10) = v19;
+          v20 = v97;
+          *(v97 + 10) = v19;
           if (!v19)
           {
-            v61 = *MEMORY[0x277D85DF8];
-            v62 = "Could not create empty hardlink path\n";
-            v63 = 37;
+            v48 = *MEMORY[0x277D85DF8];
+            v49 = "Could not create empty hardlink path\n";
+            v50 = 37;
             goto LABEL_62;
           }
 
-          v109 = 0;
-          v27 = BOMCopierSourceNext(*(v26 + 3), &v109, v20, v21, v22, v23, v24, v25);
-          if (v27)
+          v95 = 0;
+          v21 = BOMCopierSourceNext(*(v20 + 3), &v95);
+          if (v21)
           {
-            v28 = v27;
-            v29 = 1;
+            v22 = v21;
+            v23 = 1;
             while (1)
             {
-              v30 = malloc_type_calloc(1uLL, 0x50uLL, 0x1030040C9A1E1CFuLL);
-              if (!v30)
+              v24 = malloc_type_calloc(1uLL, 0x50uLL, 0x1030040C9A1E1CFuLL);
+              if (!v24)
               {
-                v61 = *MEMORY[0x277D85DF8];
-                v62 = "Could not allocate entry node\n";
-                v63 = 30;
+                v48 = *MEMORY[0x277D85DF8];
+                v49 = "Could not allocate entry node\n";
+                v50 = 30;
                 goto LABEL_62;
               }
 
-              v31 = v30;
-              *v30 = v28;
-              v32 = v111;
-              if (*(v111 + 4))
+              v25 = v24;
+              *v24 = v22;
+              v26 = v97;
+              if (*(v97 + 4))
               {
-                v33 = v111 + 40;
-                *(*(v111 + 5) + 72) = v30;
+                v27 = v97 + 40;
+                *(*(v97 + 5) + 72) = v24;
               }
 
               else
               {
-                *(v111 + 4) = v30;
-                v33 = v32 + 40;
+                *(v97 + 4) = v24;
+                v27 = v26 + 40;
               }
 
-              *v33 = v30;
-              Type = BOMCopierSourceEntryGetType(v28);
-              v41 = v111;
-              v42 = *(v111 + 8);
-              if (v42)
+              *v27 = v24;
+              Type = BOMCopierSourceEntryGetType(v22);
+              v29 = v97;
+              v30 = *(v97 + 8);
+              if (v30)
               {
-                *(v31 + 4) = *v42;
+                *(v25 + 4) = *v30;
                 if (Type != 13)
                 {
-                  *(v31 + 5) = v29;
-                  v44 = v31 + 5;
-                  ++v29;
+                  *(v25 + 5) = v23;
+                  v32 = v25 + 5;
+                  ++v23;
                   if (Type == 6)
                   {
-                    BOMStackPush(*(v41 + 7), v42);
-                    *(v111 + 8) = 0;
+                    BOMStackPush(*(v29 + 7), v30);
+                    *(v97 + 8) = 0;
                     goto LABEL_31;
                   }
 
                   goto LABEL_36;
                 }
 
-                free(v42);
-                v41 = v111;
-                *(v111 + 8) = 0;
+                free(v30);
+                v29 = v97;
+                *(v97 + 8) = 0;
               }
 
               else if (Type != 13)
               {
-                *(v31 + 5) = v29;
-                v44 = v31 + 5;
-                ++v29;
+                *(v25 + 5) = v23;
+                v32 = v25 + 5;
+                ++v23;
                 if (Type == 6)
                 {
 LABEL_31:
-                  v45 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
-                  *(v111 + 8) = v45;
-                  if (!v45)
+                  v33 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
+                  *(v97 + 8) = v33;
+                  if (!v33)
                   {
-                    v89 = *MEMORY[0x277D85DF8];
-                    v92 = __error();
-                    v95 = strerror(*v92);
-                    v91 = "Could not create parent element: %s\n";
+                    v76 = *MEMORY[0x277D85DF8];
+                    v79 = __error();
+                    v81 = strerror(*v79);
+                    v78 = "Could not create parent element: %s\n";
                     goto LABEL_115;
                   }
 
-                  *v45 = *v44;
-                  ActualPath = BOMCopierSourceEntryGetActualPath(v28);
+                  *v33 = *v32;
+                  ActualPath = BOMCopierSourceEntryGetActualPath(v22);
                   if (access(ActualPath, 1))
                   {
-                    v89 = *MEMORY[0x277D85DF8];
-                    v90 = __error();
-                    v95 = ActualPath;
-                    v96 = strerror(*v90);
-                    v91 = "Could not access %s: %s\n";
+                    v76 = *MEMORY[0x277D85DF8];
+                    v77 = __error();
+                    v81 = ActualPath;
+                    v82 = strerror(*v77);
+                    v78 = "Could not access %s: %s\n";
 LABEL_115:
-                    fprintf(v89, v91, v95, v96);
+                    fprintf(v76, v78, v81, v82);
                     goto LABEL_63;
                   }
 
 LABEL_33:
-                  dispatch_group_enter(*(v111 + 6));
-                  v47 = *(v111 + 6);
+                  dispatch_group_enter(*(v97 + 6));
+                  v35 = *(v97 + 6);
                   *&block = MEMORY[0x277D85DD0];
                   *(&block + 1) = 0x40000000;
-                  *&v99 = __BOMBomNewFromDirectory_parallel_block_invoke;
-                  *(&v99 + 1) = &unk_278D133B8;
-                  LOWORD(v102) = a3;
-                  *&v101 = a4;
-                  *(&v101 + 1) = v31;
-                  *&v100 = __s;
-                  *(&v100 + 1) = v28;
-                  dispatch_group_async(v47, v16, &block);
+                  *&v85 = __BOMBomNewFromDirectory_parallel_block_invoke;
+                  *(&v85 + 1) = &unk_278D133B8;
+                  LOWORD(v88) = a3;
+                  *&v87 = a4;
+                  *(&v87 + 1) = v25;
+                  *&v86 = __s;
+                  *(&v86 + 1) = v22;
+                  dispatch_group_async(v35, v16, &block);
                   goto LABEL_34;
                 }
 
@@ -5818,32 +5733,32 @@ LABEL_36:
                 {
                   if (Type == 8)
                   {
-                    if (BOMCopierSourceEntryGetHardlinkCount(*v31) >= 2)
+                    if (BOMCopierSourceEntryGetHardlinkCount(*v25) >= 2)
                     {
-                      Device = BOMCopierSourceEntryGetDevice(*v31);
-                      Inode = BOMCopierSourceEntryGetInode(*v31);
-                      *(v31 + 8) = Device;
-                      v31[5] = Inode;
-                      v108 = 0;
-                      v97 = Device;
-                      v50 = Device;
-                      v51 = Inode;
-                      if (!BOMHardLinkTableGetPathAndData(*(v111 + 9), v50, Inode, *(v111 + 10), &v108))
+                      Device = BOMCopierSourceEntryGetDevice(*v25);
+                      Inode = BOMCopierSourceEntryGetInode(*v25);
+                      *(v25 + 8) = Device;
+                      v25[5] = Inode;
+                      v94 = 0;
+                      v83 = Device;
+                      v38 = Device;
+                      v39 = Inode;
+                      if (!BOMHardLinkTableGetPathAndData(*(v97 + 9), v38, Inode, *(v97 + 10), &v94))
                       {
-                        *(v31 + 25) = 1;
-                        Path = BOMCopierSourceEntryGetPath(v28);
-                        v107 = 0;
-                        v107 = *v108 + 1;
-                        BOMHardLinkTableSetPathAndData(*(v111 + 9), v97, v51, Path, &v107, 4uLL);
-                        *(v31 + 7) = v107;
+                        *(v25 + 25) = 1;
+                        Path = BOMCopierSourceEntryGetPath(v22);
+                        v93 = 0;
+                        v93 = *v94 + 1;
+                        BOMHardLinkTableSetPathAndData(*(v97 + 9), v83, v39, Path, &v93, 4uLL);
+                        *(v25 + 7) = v93;
                         goto LABEL_34;
                       }
 
-                      v52 = BOMCopierSourceEntryGetPath(v28);
-                      v107 = 1;
-                      BOMHardLinkTableSetPathAndData(*(v111 + 9), v97, v51, v52, &v107, 4uLL);
-                      *(v31 + 24) = 1;
-                      *(v31 + 7) = v107;
+                      v40 = BOMCopierSourceEntryGetPath(v22);
+                      v93 = 1;
+                      BOMHardLinkTableSetPathAndData(*(v97 + 9), v83, v39, v40, &v93, 4uLL);
+                      *(v25 + 24) = 1;
+                      *(v25 + 7) = v93;
                     }
                   }
 
@@ -5861,222 +5776,221 @@ LABEL_36:
                 goto LABEL_33;
               }
 
-              v43 = BOMStackPop(*(v41 + 7));
-              *(v111 + 8) = v43;
+              v31 = BOMStackPop(*(v29 + 7));
+              *(v97 + 8) = v31;
 LABEL_34:
-              v109 = 0;
-              v28 = BOMCopierSourceNext(*(v111 + 3), &v109, v35, v36, v37, v38, v39, v40);
-              if (!v28)
+              v95 = 0;
+              v22 = BOMCopierSourceNext(*(v97 + 3), &v95);
+              if (!v22)
               {
                 goto LABEL_71;
               }
             }
           }
 
-          v29 = 1;
+          v23 = 1;
 LABEL_71:
-          if (v109)
+          if (v95)
           {
-            v64 = *MEMORY[0x277D85DF8];
-            Message = BOMCopierErrorGetMessage(v109);
-            fprintf(v64, "Could not get next entry: %s\n", Message);
-            BOMCopierErrorFree(v109);
+            v51 = *MEMORY[0x277D85DF8];
+            Message = BOMCopierErrorGetMessage(v95);
+            fprintf(v51, "Could not get next entry: %s\n", Message);
+            BOMCopierErrorFree(v95);
             goto LABEL_63;
           }
 
-          dispatch_group_wait(*(v111 + 6), 0xFFFFFFFFFFFFFFFFLL);
-          v66 = *(v111 + 4);
-          while (v66)
+          dispatch_group_wait(*(v97 + 6), 0xFFFFFFFFFFFFFFFFLL);
+          v53 = *(v97 + 4);
+          while (v53)
           {
-            v67 = v66;
-            v66 = *(v66 + 72);
-            if (!*(v67 + 8) && *(v67 + 52) == 1 && *(v67 + 56) && *(v67 + 64))
+            v54 = v53;
+            v53 = *(v53 + 72);
+            if (!*(v54 + 8) && *(v54 + 52) == 1 && *(v54 + 56) && *(v54 + 64))
             {
-              v68 = BOMFSObjectNewFromPathWithSys(*(v67 + 56), a3, a4);
-              if (!v68)
+              v55 = BOMFSObjectNewFromPathWithSys(*(v54 + 56), a3, a4);
+              if (!v55)
               {
                 fprintf(*MEMORY[0x277D85DF8], "Could not make second attempt to create BOMFSObject for %s\n");
                 goto LABEL_63;
               }
 
-              v69 = v68;
-              BOMFSObjectSetPathName(v68, *(v67 + 64), 1);
-              *(v67 + 8) = v69;
-              v70 = *(v67 + 64);
-              if (v70)
+              v56 = v55;
+              BOMFSObjectSetPathName(v55, *(v54 + 64), 1);
+              *(v54 + 8) = v56;
+              v57 = *(v54 + 64);
+              if (v57)
               {
-                free(v70);
-                *(v67 + 64) = 0;
+                free(v57);
+                *(v54 + 64) = 0;
               }
 
-              v71 = *(v67 + 56);
-              if (v71)
+              v58 = *(v54 + 56);
+              if (v58)
               {
-                free(v71);
-                *(v67 + 56) = 0;
+                free(v58);
+                *(v54 + 56) = 0;
               }
 
-              *(v67 + 52) = 0;
+              *(v54 + 52) = 0;
             }
           }
 
-          v72 = BOMBomNewWithSys(a1, 0);
-          v73 = v111;
-          *(v111 + 11) = v72;
-          if (!v72)
+          v59 = BOMBomNewWithSys(a1, 0);
+          v60 = v97;
+          *(v97 + 11) = v59;
+          if (!v59)
           {
-            v61 = *MEMORY[0x277D85DF8];
-            v62 = "Could not create empty bom\n";
-            v63 = 27;
+            v48 = *MEMORY[0x277D85DF8];
+            v49 = "Could not create empty bom\n";
+            v50 = 27;
             goto LABEL_62;
           }
 
-          v74 = *(v73 + 4);
-          if (v74)
+          v61 = *(v60 + 4);
+          if (v61)
           {
             while (1)
             {
-              v75 = v74;
-              v74 = *(v74 + 72);
-              if (v75[1] || *(v75 + 25))
+              v62 = v61;
+              v61 = *(v61 + 72);
+              if (v62[1] || *(v62 + 25))
               {
-                v76 = BOMCopierSourceEntryGetType(*v75);
-                if (v76 != 13)
+                v63 = BOMCopierSourceEntryGetType(*v62);
+                if (v63 != 13)
                 {
-                  v77 = v76;
-                  v78 = BOMCopierSourceEntryGetPath(*v75);
-                  v107 = 0;
-                  if (*(v75 + 25))
+                  v64 = v63;
+                  v65 = BOMCopierSourceEntryGetPath(*v62);
+                  v93 = 0;
+                  if (*(v62 + 25))
                   {
-                    v109 = 0;
-                    if (BOMHardLinkTableGetPathAndData(*(v111 + 9), *(v75 + 8), v75[5], *(v111 + 10), &v109))
+                    v95 = 0;
+                    if (BOMHardLinkTableGetPathAndData(*(v97 + 9), *(v62 + 8), v62[5], *(v97 + 10), &v95))
                     {
-                      v61 = *MEMORY[0x277D85DF8];
-                      v62 = "Could not get entry for hardlink node\n";
+                      v48 = *MEMORY[0x277D85DF8];
+                      v49 = "Could not get entry for hardlink node\n";
                       goto LABEL_68;
                     }
 
-                    v107 = *v109;
+                    v93 = *v95;
                   }
 
                   else
                   {
-                    v79 = BOMStorageNewBlock(*(*(v111 + 11) + 8));
-                    v107 = v79;
-                    if (!v79)
+                    v66 = BOMStorageNewBlock(*(*(v97 + 11) + 8));
+                    v93 = v66;
+                    if (!v66)
                     {
-                      v61 = *MEMORY[0x277D85DF8];
-                      v62 = "Could not get storage block for fso\n";
-                      v63 = 36;
+                      v48 = *MEMORY[0x277D85DF8];
+                      v49 = "Could not get storage block for fso\n";
+                      v50 = 36;
                       goto LABEL_62;
                     }
 
-                    *(v75 + 12) = v79;
-                    if (_BOMBomSetFSObjectWithBlockID(*(v111 + 11), v75[1], v79))
+                    *(v62 + 12) = v66;
+                    if (_BOMBomSetFSObjectWithBlockID(*(v97 + 11), v62[1], v66))
                     {
                       fprintf(*MEMORY[0x277D85DF8], "Could not archive fso for %s\n");
                       goto LABEL_63;
                     }
 
-                    if ((v77 & 0xFFFFFFFE) == 8)
+                    if ((v64 & 0xFFFFFFFE) == 8)
                     {
-                      _addArchInfoForFSObject(*(v111 + 11), v75[1]);
+                      _addArchInfoForFSObject(*(v97 + 11), v62[1]);
                     }
 
-                    if (*(v75 + 24) == 1)
+                    if (*(v62 + 24) == 1)
                     {
-                      v109 = 0;
-                      if (BOMHardLinkTableGetPathAndData(*(v111 + 9), *(v75 + 8), v75[5], *(v111 + 10), &v109))
+                      v95 = 0;
+                      if (BOMHardLinkTableGetPathAndData(*(v97 + 9), *(v62 + 8), v62[5], *(v97 + 10), &v95))
                       {
-                        v61 = *MEMORY[0x277D85DF8];
-                        v62 = "Could not lookup count for hardlink origin\n";
-                        v63 = 43;
+                        v48 = *MEMORY[0x277D85DF8];
+                        v49 = "Could not lookup count for hardlink origin\n";
+                        v50 = 43;
                         goto LABEL_62;
                       }
 
-                      BOMHardLinkTableSetPathAndData(*(v111 + 9), *(v75 + 8), v75[5], v78, &v107, 4uLL);
+                      BOMHardLinkTableSetPathAndData(*(v97 + 9), *(v62 + 8), v62[5], v65, &v93, 4uLL);
                     }
                   }
 
-                  Name = BOMCopierSourceEntryGetName(*v75);
-                  v109 = 0;
-                  v81 = BOMNewPathKey(*(v75 + 4), Name, &v109);
-                  if (!v81)
+                  Name = BOMCopierSourceEntryGetName(*v62);
+                  v95 = 0;
+                  v68 = BOMNewPathKey(*(v62 + 4), Name, &v95);
+                  if (!v68)
                   {
-                    v93 = *(v75 + 4);
                     fprintf(*MEMORY[0x277D85DF8], "Could not create path key for %u %s\n");
                     goto LABEL_63;
                   }
 
-                  v82 = v81;
-                  v108 = 0;
-                  v83 = BOMNewPathValue(*(v75 + 5), v107, &v108);
-                  if (!v83)
+                  v69 = v68;
+                  v94 = 0;
+                  v70 = BOMNewPathValue(*(v62 + 5), v93, &v94);
+                  if (!v70)
                   {
-                    fprintf(*MEMORY[0x277D85DF8], "Could not create path value for %u %u\n", *(v75 + 5), v107);
-                    free(v82);
+                    fprintf(*MEMORY[0x277D85DF8], "Could not create path value for %u %u\n", *(v62 + 5), v93);
+                    free(v69);
                     goto LABEL_63;
                   }
 
-                  v84 = v83;
-                  v85 = BOMTreeSetValue(*(*(v111 + 11) + 16), v82, v109, v83, v108);
-                  free(v82);
-                  free(v84);
-                  if (v85)
+                  v71 = v70;
+                  v72 = BOMTreeSetValue(*(*(v97 + 11) + 16), v69, v95, v70, v94);
+                  free(v69);
+                  free(v71);
+                  if (v72)
                   {
                     fprintf(*MEMORY[0x277D85DF8], "Could not set path info for %s\n");
                     goto LABEL_63;
                   }
 
-                  if (*(v75 + 25) == 1)
+                  if (*(v62 + 25) == 1)
                   {
-                    if (*(v75 + 7) == 2)
+                    if (*(v62 + 7) == 2)
                     {
-                      v86 = strlen(*(v111 + 10));
-                      BOMBomHLIndexSet(*(*(v111 + 11) + 24), v107, *(v111 + 10), v86 + 1);
+                      v73 = strlen(*(v97 + 10));
+                      BOMBomHLIndexSet(*(*(v97 + 11) + 24), v93, *(v97 + 10), v73 + 1);
                     }
 
-                    v87 = strlen(v78);
-                    BOMBomHLIndexSet(*(*(v111 + 11) + 24), v107, v78, v87 + 1);
+                    v74 = strlen(v65);
+                    BOMBomHLIndexSet(*(*(v97 + 11) + 24), v93, v65, v74 + 1);
                   }
                 }
               }
 
-              if (!v74)
+              if (!v61)
               {
-                v72 = *(v111 + 11);
+                v59 = *(v97 + 11);
                 break;
               }
             }
           }
 
-          *v72 = v29;
-          v88 = v111;
-          a1 = *(v111 + 11);
-          *(v111 + 11) = 0;
-          release_discovery_state((v88 + 24));
+          *v59 = v23;
+          v75 = v97;
+          a1 = *(v97 + 11);
+          *(v97 + 11) = 0;
+          release_discovery_state(v75 + 3);
         }
 
         else
         {
-          v61 = *MEMORY[0x277D85DF8];
-          v62 = "Could not create empty hardlink table\n";
+          v48 = *MEMORY[0x277D85DF8];
+          v49 = "Could not create empty hardlink table\n";
 LABEL_68:
-          v63 = 38;
+          v50 = 38;
 LABEL_62:
-          fwrite(v62, v63, 1uLL, v61);
+          fwrite(v49, v50, 1uLL, v48);
 LABEL_63:
-          release_discovery_state((v111 + 24));
+          release_discovery_state(v97 + 3);
           a1 = 0;
         }
 
         _Block_object_dispose(__s, 8);
-        goto LABEL_60;
+        return a1;
       }
 
 LABEL_57:
-      v55 = *MEMORY[0x277D85DF8];
-      v94 = a2;
+      v43 = *MEMORY[0x277D85DF8];
+      v80 = a2;
       v11 = "%s is not a directory\n";
       goto LABEL_58;
     }
@@ -6084,86 +5998,83 @@ LABEL_57:
     fwrite("bom_path is NULL\n", 0x11uLL, 1uLL, *MEMORY[0x277D85DF8]);
   }
 
-LABEL_60:
-  v59 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 char *BOMBomNewFromDirectoryWithOptions(char *a1, char *a2, uint64_t a3, char a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16.rlim_cur = 0;
-  v16.rlim_max = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.rlim_cur = 0;
+  v14.rlim_max = 0;
   if (a4)
   {
-    if (getrlimit(8, &v16) || (*v17 = 0x1D00000001, rlim_max = 0, v14 = 4, sysctl(v17, 2u, &rlim_max, &v14, 0, 0)))
+    if (getrlimit(8, &v14))
     {
-      v7 = 0;
+      return 0;
+    }
+
+    *v15 = 0x1D00000001;
+    rlim_max = 0;
+    v12 = 4;
+    if (sysctl(v15, 2u, &rlim_max, &v12, 0, 0))
+    {
+      return 0;
+    }
+
+    rlim_max_low = rlim_max;
+    if (v14.rlim_max < rlim_max)
+    {
+      rlim_max = v14.rlim_max;
+      rlim_max_low = SLODWORD(v14.rlim_max);
+    }
+
+    if (v14.rlim_cur >= rlim_max_low)
+    {
+      v7 = BOMBomNewFromDirectoryWithSys(a1, a2, a3, 0);
     }
 
     else
     {
-      rlim_max_low = rlim_max;
-      if (v16.rlim_max < rlim_max)
+      v11 = v14;
+      if (v14.rlim_cur + 2304 < rlim_max_low)
       {
-        rlim_max = v16.rlim_max;
-        rlim_max_low = SLODWORD(v16.rlim_max);
+        rlim_max_low = v14.rlim_cur + 2304;
       }
 
-      if (v16.rlim_cur >= rlim_max_low)
+      v11.rlim_cur = rlim_max_low;
+      v10 = setrlimit(8, &v11);
+      v7 = BOMBomNewFromDirectoryWithSys(a1, a2, a3, 0);
+      if (v10)
       {
-        v7 = BOMBomNewFromDirectoryWithSys(a1, a2, a3, 0);
+        return v7;
       }
-
-      else
-      {
-        v13 = v16;
-        if (v16.rlim_cur + 2304 < rlim_max_low)
-        {
-          rlim_max_low = v16.rlim_cur + 2304;
-        }
-
-        v13.rlim_cur = rlim_max_low;
-        v12 = setrlimit(8, &v13);
-        v7 = BOMBomNewFromDirectoryWithSys(a1, a2, a3, 0);
-        if (v12)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      setrlimit(8, &v16);
     }
 
-LABEL_5:
-    v8 = *MEMORY[0x277D85DE8];
+    setrlimit(8, &v14);
     return v7;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return BOMBomNewFromDirectoryWithSys(a1, a2, a3, 0);
 }
 
-uint64_t _visitDir(unsigned int *a1, const char *a2, char *a3, unsigned int a4, CFDictionaryRef *a5, uint64_t a6)
+uint64_t _visitDir(unsigned int *a1, char *a2, char *a3, unsigned int a4, CFDictionaryRef *a5, uint64_t a6)
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
+  v62 = *MEMORY[0x277D85DE8];
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  *v53 = 0u;
-  v50 = 0;
-  v51 = 0;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  *v52 = 0u;
   v49 = 0;
-  v12 = *a1;
-  *a1 = v12 + 1;
+  v50 = 0;
+  v48 = 0;
+  v12 = (*a1)++;
   Sys = BOMStorageGetSys(*(a1 + 1));
-  if ((*(Sys + 80))(*(Sys + 8), ".", v53))
+  if ((*(Sys + 80))(*(Sys + 8), ".", v52))
   {
     goto LABEL_49;
   }
@@ -6172,24 +6083,22 @@ uint64_t _visitDir(unsigned int *a1, const char *a2, char *a3, unsigned int a4, 
   if (!v14)
   {
     fprintf(*MEMORY[0x277D85DF8], "can't read %s. skipping...\n");
-LABEL_7:
-    result = 0;
-    goto LABEL_51;
+    return 0;
   }
 
   v15 = v14;
   v16 = BOMStorageNewBlock(*(a1 + 1));
-  v52 = v16;
+  v51 = v16;
   if (!v16)
   {
-    goto LABEL_50;
+    return 1;
   }
 
   if (_BOMBomSetFSObjectWithBlockID(a1, v15, v16))
   {
 LABEL_5:
     fprintf(*MEMORY[0x277D85DF8], "can't archive %s. skipping...\n", a2);
-    goto LABEL_50;
+    return 1;
   }
 
   BOMFSObjectFree(v15);
@@ -6215,15 +6124,15 @@ LABEL_5:
     v20 = v18 + 1;
   }
 
-  v21 = BOMNewPathKey(a4, v20, &v50);
-  v22 = BOMNewPathValue(v12, v52, &v49);
-  v23 = BOMTreeSetValue(*(a1 + 2), v21, v50, v22, v49);
+  v21 = BOMNewPathKey(a4, v20, &v49);
+  v22 = BOMNewPathValue(v12, v51, &v48);
+  v23 = BOMTreeSetValue(*(a1 + 2), v21, v49, v22, v48);
   free(v21);
   free(v22);
   if (v23)
   {
     fprintf(*MEMORY[0x277D85DF8], "can't set path info for %s. skipping...\n");
-    goto LABEL_7;
+    return 0;
   }
 
   v24 = (*(Sys + 272))(*(Sys + 8), ".");
@@ -6231,7 +6140,7 @@ LABEL_5:
   {
 LABEL_49:
     perror(a2);
-    goto LABEL_50;
+    return 1;
   }
 
   v25 = v24;
@@ -6240,13 +6149,13 @@ LABEL_49:
   v27 = (*(Sys + 288))(*(Sys + 8), v24);
   if (!v27)
   {
-LABEL_52:
+LABEL_51:
     (*(Sys + 280))(*(Sys + 8), v25);
-    goto LABEL_7;
+    return 0;
   }
 
   v28 = v27;
-  v48 = v25;
+  v47 = v25;
   while (1)
   {
     if (_ignore_readdir_entry(v28))
@@ -6255,23 +6164,23 @@ LABEL_52:
     }
 
     strlcpy(v26, (v28 + 21), a2 - v26 + 1025);
-    if ((*(Sys + 96))(*(Sys + 8), v28 + 21, v53))
+    if ((*(Sys + 96))(*(Sys + 8), v28 + 21, v52))
     {
-      goto LABEL_53;
+      goto LABEL_52;
     }
 
-    v29 = v53[1] & 0xF000;
+    v29 = v52[1] & 0xF000;
     if (v29 == 0x4000)
     {
       break;
     }
 
-    v51 = 0;
-    v30 = v29 == 0x8000 && HIWORD(v53[1]) >= 2u;
-    if (v30 && (__s[0] = 0, BOMHardLinkTableGetPathAndData(a5, v53[0], *&v53[2], __s, &v51), v51))
+    v50 = 0;
+    v30 = v29 == 0x8000 && HIWORD(v52[1]) >= 2u;
+    if (v30 && (__s[0] = 0, BOMHardLinkTableGetPathAndData(a5, v52[0], *&v52[2], __s, &v50), v50))
     {
-      v47 = 0;
-      v52 = *v51;
+      v46 = 0;
+      v51 = *v50;
     }
 
     else
@@ -6284,10 +6193,10 @@ LABEL_52:
 
       v32 = v31;
       v33 = BOMStorageNewBlock(*(a1 + 1));
-      v52 = v33;
+      v51 = v33;
       if (!v33)
       {
-        goto LABEL_54;
+        goto LABEL_53;
       }
 
       if (_BOMBomSetFSObjectWithBlockID(a1, v32, v33))
@@ -6297,33 +6206,33 @@ LABEL_52:
 
       _addArchInfoForFSObject(a1, v32);
       BOMFSObjectFree(v32);
-      v47 = 1;
+      v46 = 1;
     }
 
     v34 = (*a1)++;
-    v35 = BOMNewPathKey(v12, (v28 + 21), &v50);
-    v36 = BOMNewPathValue(v34, v52, &v49);
-    v37 = BOMTreeSetValue(*(a1 + 2), v35, v50, v36, v49);
+    v35 = BOMNewPathKey(v12, (v28 + 21), &v49);
+    v36 = BOMNewPathValue(v34, v51, &v48);
+    v37 = BOMTreeSetValue(*(a1 + 2), v35, v49, v36, v48);
     free(v35);
     free(v36);
     if (v37)
     {
       fprintf(*MEMORY[0x277D85DF8], "can't set path info for %s. skipping...\n", a2);
-      v25 = v48;
+      v25 = v47;
     }
 
     else
     {
-      v25 = v48;
-      if ((v53[1] & 0xF000) != 0x8000 || HIWORD(v53[1]) < 2u)
+      v25 = v47;
+      if ((v52[1] & 0xF000) != 0x8000 || HIWORD(v52[1]) < 2u)
       {
         goto LABEL_39;
       }
 
-      if (v47)
+      if (v46)
       {
-        v38 = v53[0];
-        v39 = *&v53[2];
+        v38 = v52[0];
+        v39 = *&v52[2];
         v40 = a5;
         v41 = a2;
       }
@@ -6334,29 +6243,29 @@ LABEL_52:
         if (!__s[0])
         {
           v45 = strlen(a2);
-          BOMBomHLIndexSet(v42, v52, a2, v45 + 1);
+          BOMBomHLIndexSet(v42, v51, a2, v45 + 1);
           goto LABEL_39;
         }
 
         v43 = strlen(__s);
-        BOMBomHLIndexSet(v42, v52, __s, v43 + 1);
+        BOMBomHLIndexSet(v42, v51, __s, v43 + 1);
         v44 = strlen(a2) + 1;
-        v25 = v48;
-        BOMBomHLIndexSet(*(a1 + 3), v52, a2, v44);
-        v38 = v53[0];
-        v39 = *&v53[2];
+        v25 = v47;
+        BOMBomHLIndexSet(*(a1 + 3), v51, a2, v44);
+        v38 = v52[0];
+        v39 = *&v52[2];
         v40 = a5;
         v41 = "";
       }
 
-      BOMHardLinkTableSetPathAndData(v40, v38, v39, v41, &v52, 4uLL);
+      BOMHardLinkTableSetPathAndData(v40, v38, v39, v41, &v51, 4uLL);
     }
 
 LABEL_39:
     v28 = (*(Sys + 288))(*(Sys + 8), v25);
     if (!v28)
     {
-      goto LABEL_52;
+      goto LABEL_51;
     }
   }
 
@@ -6364,7 +6273,7 @@ LABEL_39:
   {
     if (_visitDir(a1, a2, &v26[*(v28 + 18)], v12, a5, a6))
     {
-      goto LABEL_54;
+      goto LABEL_53;
     }
 
     if (!(*(Sys + 312))(*(Sys + 8), ".."))
@@ -6373,18 +6282,14 @@ LABEL_39:
     }
   }
 
-LABEL_53:
+LABEL_52:
   perror(a2);
-LABEL_54:
+LABEL_53:
   (*(Sys + 280))(*(Sys + 8), v25);
-LABEL_50:
-  result = 1;
-LABEL_51:
-  v46 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t BOMBomCommit(uint64_t a1)
+uint64_t BOMBomCommit(unsigned int *a1)
 {
   if (!a1)
   {
@@ -6396,14 +6301,14 @@ uint64_t BOMBomCommit(uint64_t a1)
     return 0;
   }
 
-  NamedBlock = BOMStorageGetNamedBlock(*(a1 + 8), "BomInfo");
+  NamedBlock = BOMStorageGetNamedBlock(*(a1 + 1), "BomInfo");
   if (!NamedBlock)
   {
     return 1;
   }
 
   v3 = 1;
-  v4 = BOMStreamWithBlockID(*(a1 + 8), NamedBlock, (16 * *(a1 + 48)) | 0xC, 1);
+  v4 = BOMStreamWithBlockID(*(a1 + 1), NamedBlock, (16 * a1[12]) | 0xC, 1);
   if (v4)
   {
     v5 = v4;
@@ -6412,31 +6317,31 @@ uint64_t BOMBomCommit(uint64_t a1)
     _writeArchInfo(a1, v5);
     if (!BOMStreamFree(v5))
     {
-      v6 = *(a1 + 16);
+      v6 = *(a1 + 2);
       if (v6)
       {
         BOMTreeCommit(v6);
       }
 
-      v7 = *(a1 + 24);
+      v7 = *(a1 + 3);
       if (v7)
       {
         BOMBomHLIndexCommit(v7);
       }
 
-      v8 = *(a1 + 32);
+      v8 = *(a1 + 4);
       if (v8)
       {
         BOMBomVIndexCommit(v8);
       }
 
-      v9 = *(a1 + 40);
+      v9 = *(a1 + 5);
       if (v9)
       {
         BOMTreeCommit(v9);
       }
 
-      if (!BOMStorageCommit(*(a1 + 8)))
+      if (!BOMStorageCommit(*(a1 + 1)))
       {
         v3 = 0;
         *(a1 + 64) = 0;
@@ -6521,7 +6426,7 @@ uint64_t BOMBomFSObjectCount(uint64_t result)
   return result;
 }
 
-char *BOMBomGetRootFSObject(uint64_t a1)
+uint64_t **BOMBomGetRootFSObject(uint64_t a1)
 {
   if (!a1)
   {
@@ -6589,7 +6494,7 @@ char *BOMBomGetRootFSObject(uint64_t a1)
 uint64_t BOMBomGetFSObjectAtPath(uint64_t a1, char *__s)
 {
   v2 = 0;
-  v18 = 0;
+  v19 = 0;
   if (a1 && __s)
   {
     v5 = strlen(__s);
@@ -6607,14 +6512,14 @@ uint64_t BOMBomGetFSObjectAtPath(uint64_t a1, char *__s)
         {
           v10 = v9;
           v11 = v8;
-          v12 = BOMNewPathKey(v9, v8, &v18);
+          v12 = BOMNewPathKey(v9, v8, &v19);
           if (!v12)
           {
             break;
           }
 
           v13 = v12;
-          Value = BOMTreeGetValue(*(a1 + 16), v12, v18);
+          Value = BOMTreeGetValue(*(a1 + 16), v12, v19);
           free(v13);
           if (!Value)
           {
@@ -6626,6 +6531,7 @@ uint64_t BOMBomGetFSObjectAtPath(uint64_t a1, char *__s)
           if (!v8)
           {
             v15 = BOMBlockIDFromPathValue(Value);
+            v16 = v15;
             FSObjectWithBlockID = _BOMBomGetFSObjectWithBlockID(a1, v15);
             v2 = FSObjectWithBlockID;
             if (FSObjectWithBlockID)
@@ -6634,7 +6540,7 @@ uint64_t BOMBomGetFSObjectAtPath(uint64_t a1, char *__s)
               BOMFSObjectSetShortName(v2, v11, 1);
               BOMFSObjectSetPathID(v2, v9);
               BOMFSObjectSetParentPathID(v2, v10);
-              BOMFSObjectSetBlockID(v2, v15);
+              BOMFSObjectSetBlockID(v2, v16);
             }
 
             goto LABEL_12;
@@ -6656,11 +6562,11 @@ LABEL_12:
   return v2;
 }
 
-uint64_t BOMBomInsertFSObject(unint64_t a1, unsigned int *a2, int a3)
+uint64_t BOMBomInsertFSObject(unsigned int *a1, unsigned int *a2, int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
   result = 0xFFFFFFFFLL;
   if (a1 && a2)
   {
@@ -6670,12 +6576,11 @@ uint64_t BOMBomInsertFSObject(unint64_t a1, unsigned int *a2, int a3)
     if (v8)
     {
       *v8 = 0;
-      v9 = _valueAtPath(a1);
+      v9 = _valueAtPath(a1, __s);
       if (!v9)
       {
         fprintf(*MEMORY[0x277D85DF8], "parent directory %s does not exist\n", __s);
-        result = 401;
-        goto LABEL_26;
+        return 401;
       }
 
       v10 = BOMPathIDFromPathKey(v9);
@@ -6687,47 +6592,45 @@ uint64_t BOMBomInsertFSObject(unint64_t a1, unsigned int *a2, int a3)
     }
 
     v11 = BOMFSObjectShortName(a2);
-    v12 = _valueAtPath(a1);
+    v12 = _valueAtPath(a1, v7);
     if (v12)
     {
       if (!a3)
       {
-        goto LABEL_25;
+        return 0;
       }
 
       v13 = v12;
       v14 = BOMPathIDFromPathKey(v12);
       v15 = BOMBlockIDFromPathValue(v13);
-      if (BOMStorageCopyFromBlockRange(*(a1 + 8), v15, 0, 1uLL, &__dst))
+      if (BOMStorageCopyFromBlockRange(*(a1 + 1), v15, 0, 1uLL, &__dst))
       {
-        v26 = BOMExceptionHandlerMessage("BOMBomInsertFSObject failed while getting data for '%s' (parentPathID=%u pathID=%u bid=%u)", v11, v10, v14, v15);
-        v27 = __error();
-        _BOMFatalException(v26, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 3022, *v27);
+        v25 = BOMExceptionHandlerMessage("BOMBomInsertFSObject failed while getting data for '%s' (parentPathID=%u pathID=%u bid=%u)", v11, v10, v14, v15);
+        v26 = __error();
+        _BOMFatalException(v25, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 3022, *v26);
       }
 
       v16 = BOMFSObjectTypeFromRawData(&__dst);
       v17 = BOMFSObjectType(a2);
       if (v17 == 2 && v16 != 2)
       {
-        result = 402;
-        goto LABEL_26;
+        return 402;
       }
 
       if (v17 != 2 && v16 == 2)
       {
-        result = 403;
-        goto LABEL_26;
+        return 403;
       }
 
       FSObjectWithBlockID = _BOMBomGetFSObjectWithBlockID(a1, v15);
       if (FSObjectWithBlockID)
       {
-        v24 = FSObjectWithBlockID;
+        v23 = FSObjectWithBlockID;
         _removeArchInfoForFSObject(a1, FSObjectWithBlockID);
-        BOMFSObjectFree(v24);
+        BOMFSObjectFree(v23);
       }
 
-      if (!BOMBomHLIndexCount(*(a1 + 24), v15) || (v25 = strlen(v7), BOMBomHLIndexRemove(*(a1 + 24), v15, v7, v25 + 1), !BOMBomHLIndexCount(*(a1 + 24), v15)))
+      if (!BOMBomHLIndexCount(*(a1 + 3), v15) || (v24 = strlen(v7), BOMBomHLIndexRemove(*(a1 + 3), v15, v7, v24 + 1), !BOMBomHLIndexCount(*(a1 + 3), v15)))
       {
         v18 = 1;
         goto LABEL_15;
@@ -6739,40 +6642,35 @@ uint64_t BOMBomInsertFSObject(unint64_t a1, unsigned int *a2, int a3)
       v14 = (*a1)++;
     }
 
-    v15 = BOMStorageNewBlock(*(a1 + 8));
+    v15 = BOMStorageNewBlock(*(a1 + 1));
     v18 = 0;
 LABEL_15:
     if (_BOMBomSetFSObjectWithBlockID(a1, a2, v15))
     {
       fprintf(*MEMORY[0x277D85DF8], "can't archive %s\n", v7);
-      result = 404;
-      goto LABEL_26;
+      return 404;
     }
 
     _addArchInfoForFSObject(a1, a2);
     if ((v18 & 1) == 0)
     {
-      v19 = BOMNewPathKey(v10, v11, &v30);
-      v20 = BOMNewPathValue(v14, v15, &v29);
-      v21 = BOMTreeSetValue(*(a1 + 16), v19, v30, v20, v29);
+      v19 = BOMNewPathKey(v10, v11, &v29);
+      v20 = BOMNewPathValue(v14, v15, &v28);
+      v21 = BOMTreeSetValue(*(a1 + 2), v19, v29, v20, v28);
       free(v19);
       free(v20);
       if (v21)
       {
         fprintf(*MEMORY[0x277D85DF8], "can't set path info for %s.\n", v7);
-        result = 405;
-        goto LABEL_26;
+        return 405;
       }
     }
 
     *(a1 + 64) = 1;
-    BOMBomVIndexInvalidateDiskSpace(*(a1 + 32));
-LABEL_25:
-    result = 0;
+    BOMBomVIndexInvalidateDiskSpace(*(a1 + 4));
+    return 0;
   }
 
-LABEL_26:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6842,44 +6740,51 @@ LABEL_14:
   return result;
 }
 
-uint64_t _BOMBomSetFSObjectWithBlockID(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t _BOMBomSetFSObjectWithBlockID(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   v3 = 0xFFFFFFFFLL;
-  if (a1 && a2 && a3)
+  if (a1)
   {
-    v7 = BOMStorageSizeOfBlock(*(a1 + 8), a3);
-    v8 = BOMFSObjectArchiveLength(a2);
-    if (v8 < 1)
+    if (a2)
     {
-      return 0;
-    }
-
-    else
-    {
-      v9 = BOMStreamWithBlockID(*(a1 + 8), a3, v8, 1);
-      v10 = v9;
-      if (v9 && !BOMFSObjectArchive(v9, a2))
+      v5 = a3;
+      if (a3)
       {
-        v3 = 0;
-      }
-
-      BOMStreamFree(v10);
-      if (*(a1 + 40))
-      {
-        v14 = bswap32(a3);
-        v11 = BOMFSObjectSize(a2);
-        if (v11 < 0x100000000)
+        v7 = BOMStorageSizeOfBlock(*(a1 + 8), a3);
+        v8 = BOMFSObjectArchiveLength(a2);
+        if (v8 < 1)
         {
-          if (v7)
-          {
-            BOMTreeRemoveValue(*(a1 + 40), &v14, 4uLL);
-          }
+          return 0;
         }
 
         else
         {
-          v13 = bswap64(v11);
-          BOMTreeSetValue(*(a1 + 40), &v14, 4uLL, &v13, 8);
+          v9 = BOMStreamWithBlockID(*(a1 + 8), v5, v8, 1);
+          v10 = v9;
+          if (v9 && !BOMFSObjectArchive(v9, a2))
+          {
+            v3 = 0;
+          }
+
+          BOMStreamFree(v10);
+          if (*(a1 + 40))
+          {
+            v14 = bswap32(v5);
+            v11 = BOMFSObjectSize(a2);
+            if (v11 < 0x100000000)
+            {
+              if (v7)
+              {
+                BOMTreeRemoveValue(*(a1 + 40), &v14, 4uLL);
+              }
+            }
+
+            else
+            {
+              v13 = bswap64(v11);
+              BOMTreeSetValue(*(a1 + 40), &v14, 4uLL, &v13, 8);
+            }
+          }
         }
       }
     }
@@ -6960,7 +6865,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t BOMBomRemoveFSObject(unint64_t a1, unsigned int *a2)
+uint64_t BOMBomRemoveFSObject(uint64_t a1, unsigned int *a2)
 {
   v2 = 0;
   if (a1 && a2)
@@ -7098,9 +7003,9 @@ LABEL_11:
   return Value;
 }
 
-uint64_t BOMBomMergeIntoBomWithPatternList(uint64_t *a1, uint64_t a2, const __CFArray *a3)
+uint64_t BOMBomMergeIntoBomWithPatternList(void *a1, uint64_t a2, const __CFArray *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   __s[0] = 0;
   v3 = 1;
   if (a1 && a2)
@@ -7117,32 +7022,33 @@ uint64_t BOMBomMergeIntoBomWithPatternList(uint64_t *a1, uint64_t a2, const __CF
       _copyFilesFromBomToBom(a1, a2, a3, __s, &__s[v7], 0, 0, 0, 1);
       _copyVariantsFromBomToBom(a1, a2, v8, v9, v10, v11, v12, v13);
       BOMBomVIndexInvalidateDiskSpace(*(a2 + 32));
-      v3 = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t BOMBomMaskWithBom(unint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = 1;
-  if (a1 && a2)
+  if (a1)
   {
-    v6[0] = 0;
-    v5[0] = 0;
-    _maskWithBom(a1, v6, v6, 0, a2, v5, v5, 0);
-    BOMBomVIndexInvalidateDiskSpace(*(a1 + 32));
-    result = 0;
+    if (a2)
+    {
+      v5[0] = 0;
+      v4[0] = 0;
+      _maskWithBom(a1, v5, v5, 0, a2, v4, v4, 0);
+      BOMBomVIndexInvalidateDiskSpace(*(a1 + 32));
+      return 0;
+    }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-BOOL _maskWithBom(unint64_t a1, char *a2, char *a3, unsigned int a4, uint64_t a5, const char *a6, char *a7, unsigned int a8)
+BOOL _maskWithBom(unint64_t a1, char *a2, char *a3, unsigned int a4, uint64_t a5, char *a6, char *a7, unsigned int a8)
 {
   v52 = 0;
   v16 = BOMNewPathKey(a4, "", &v52);
@@ -7186,7 +7092,7 @@ LABEL_37:
       v23 = a7;
       v24 = 0;
       __dst = v23;
-      v42 = a6 - v23;
+      v42 = (a6 - v23);
       while (2)
       {
         if (!BOMTreeIteratorIsAtEnd(v21))
@@ -7250,7 +7156,7 @@ LABEL_34:
             }
 
             strlcpy(a3, v27, __s1 - a3 + 1025);
-            strlcpy(__dst, v24, v42 + 1025);
+            strlcpy(__dst, v24, (v42 + 1025));
             if (v30 == 2)
             {
               v32 = __s1;
@@ -7312,24 +7218,20 @@ LABEL_24:
 
 CFIndex BOMBomMaskWithPatternList(unint64_t a1, CFArrayRef theArray)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = 1;
-  if (a1)
+  if (a1 && theArray)
   {
-    if (theArray)
+    result = CFArrayGetCount(theArray);
+    if (result)
     {
-      result = CFArrayGetCount(theArray);
-      if (result)
-      {
-        v6[0] = 0;
-        _maskWithPatternList(a1, theArray, v6, v6, 0);
-        BOMBomVIndexInvalidateDiskSpace(*(a1 + 32));
-        result = 0;
-      }
+      v5[0] = 0;
+      _maskWithPatternList(a1, theArray, v5, v5, 0);
+      BOMBomVIndexInvalidateDiskSpace(*(a1 + 32));
+      return 0;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7449,25 +7351,25 @@ LABEL_21:
   return 0;
 }
 
-CFDictionaryRef *BOMBomApproximateBytesRepresentedWithBlockSize64(CFDictionaryRef *result, unsigned int a2)
+CFDictionaryRef *BOMBomApproximateBytesRepresentedWithBlockSize64(CFDictionaryRef *result, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = 0;
   if (result)
   {
+    v2 = a2;
     v3 = result;
     result = BOMHardLinkTableNew();
     if (result)
     {
       v4 = result;
-      v7[0] = 0;
-      _sizeBom(v3, result, v7, v7, 0, a2, &v6);
+      v6[0] = 0;
+      _sizeBom(v3, result, v6, v6, 0, v2, &v5);
       BOMHardLinkTableFree(v4);
-      result = v6;
+      return v5;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7570,88 +7472,84 @@ uint64_t BOMFSObjectGetHardlinkCount(uint64_t a1, uint64_t a2)
   return BOMBomHLIndexCount(v6, v5);
 }
 
-uint64_t BOMFSObjectGetHardlinkPath(uint64_t a1, uint64_t a2, unsigned int a3, char *a4)
+uint64_t BOMFSObjectGetHardlinkPath(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   result = 0;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a1 && a4)
   {
     v7 = *(a1 + 24);
-    if (!v7)
+    if (v7)
     {
-LABEL_7:
-      result = 0;
-      goto LABEL_8;
-    }
-
-    result = BOMFSObjectBlockID(a2);
-    if (result)
-    {
-      v9 = result;
-      if (BOMBomHLIndexCount(v7, result) > a3)
+      v8 = a3;
+      result = BOMFSObjectBlockID(a2);
+      if (!result)
       {
-        v11 = 0;
-        if (!BOMBomHLIndexGet(v7, v9, a3, __source, &v11))
-        {
-          strlcpy(a4, __source, 0x400uLL);
-          result = 1;
-          goto LABEL_8;
-        }
+        return result;
       }
 
-      goto LABEL_7;
+      v9 = result;
+      if (BOMBomHLIndexCount(v7, result) > v8)
+      {
+        v10 = 0;
+        if (!BOMBomHLIndexGet(v7, v9, v8, __source, &v10))
+        {
+          strlcpy(a4, __source, 0x400uLL);
+          return 1;
+        }
+      }
     }
+
+    return 0;
   }
 
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t BOMBomLinkToPathFromPath(uint64_t a1, char *a2, uint64_t a3)
+uint64_t BOMBomLinkToPathFromPath(unsigned int *a1, char *a2, uint64_t a3)
 {
   FSObjectAtPath = BOMBomGetFSObjectAtPath(a1, a2);
 
   return BOMBomLinkToFSObjectFromPath(a1, FSObjectAtPath, a3);
 }
 
-uint64_t BOMBomLinkToFSObjectFromPath(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t BOMBomLinkToFSObjectFromPath(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
   v28 = *MEMORY[0x277D85DE8];
   v3 = 1;
   if (!a2 || !a1 || !a3)
   {
-    goto LABEL_21;
+    return v3;
   }
 
-  v5 = a2;
+  v6 = a2;
   v25 = 0;
   v26 = 0;
-  v6 = BOMFSObjectBlockID(a2);
-  v7 = v6;
-  if (v6)
+  v7 = BOMFSObjectBlockID(a2);
+  v8 = v7;
+  if (v7)
   {
-    v8 = v6;
+    v9 = v7;
 LABEL_6:
-    if (BOMFSObjectType(v5) != 1 || _valueAtPath(a1))
+    if (BOMFSObjectType(v6) != 1 || _valueAtPath(a1, a3))
     {
       FSObjectAtPath = 0;
       goto LABEL_9;
     }
 
     __strlcpy_chk();
-    v13 = strrchr(__s, 47);
-    v14 = v13;
-    if (v13)
+    v14 = strrchr(__s, 47);
+    v15 = v14;
+    if (v14)
     {
-      *v13 = 0;
+      *v14 = 0;
       FSObjectAtPath = BOMBomGetFSObjectAtPath(a1, __s);
-      *v14++ = 47;
+      *v15++ = 47;
       if (!FSObjectAtPath)
       {
 LABEL_9:
         v3 = 1;
-        if (v7)
+        if (v8)
         {
           goto LABEL_10;
         }
@@ -7671,25 +7569,25 @@ LABEL_9:
 
     v17 = BOMFSObjectPathID(FSObjectAtPath);
     v18 = (*a1)++;
-    v19 = BOMNewPathKey(v17, v14, &v26);
-    v20 = BOMNewPathValue(v18, v8, &v25);
-    v21 = BOMTreeSetValue(*(a1 + 16), v19, v26, v20, v25);
+    v19 = BOMNewPathKey(v17, v15, &v26);
+    v20 = BOMNewPathValue(v18, v9, &v25);
+    v21 = BOMTreeSetValue(*(a1 + 2), v19, v26, v20, v25);
     free(v19);
     free(v20);
     if (!v21)
     {
       v22 = strlen(__s);
-      BOMBomHLIndexSet(*(a1 + 24), v8, __s, v22 + 1);
-      v23 = BOMFSObjectPathName(v5);
+      BOMBomHLIndexSet(*(a1 + 3), v9, __s, v22 + 1);
+      v23 = BOMFSObjectPathName(v6);
       v24 = strlen(v23);
-      BOMBomHLIndexSet(*(a1 + 24), v8, v23, v24 + 1);
+      BOMBomHLIndexSet(*(a1 + 3), v9, v23, v24 + 1);
       v3 = 0;
-      if (v7)
+      if (v8)
       {
 LABEL_10:
         if (!FSObjectAtPath)
         {
-          goto LABEL_21;
+          return v3;
         }
 
         goto LABEL_20;
@@ -7701,38 +7599,36 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v10 = BOMFSObjectPathName(v5);
-  v11 = BOMBomGetFSObjectAtPath(a1, v10);
-  if (!v11)
+  v11 = BOMFSObjectPathName(v6);
+  v12 = BOMBomGetFSObjectAtPath(a1, v11);
+  if (!v12)
   {
-    goto LABEL_21;
+    return v3;
   }
 
-  v5 = v11;
-  v12 = BOMFSObjectBlockID(v11);
-  if (v12)
+  v6 = v12;
+  v13 = BOMFSObjectBlockID(v12);
+  if (v13)
   {
-    v8 = v12;
+    v9 = v13;
     goto LABEL_6;
   }
 
   FSObjectAtPath = 0;
 LABEL_19:
-  BOMFSObjectFree(v5);
+  BOMFSObjectFree(v6);
   if (FSObjectAtPath)
   {
 LABEL_20:
     BOMFSObjectFree(FSObjectAtPath);
   }
 
-LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t BOMBomDumpLinks(uint64_t result)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = *(result + 24);
@@ -7743,7 +7639,7 @@ uint64_t BOMBomDumpLinks(uint64_t result)
       {
         v2 = result;
         v3 = 0;
-        v8 = 0;
+        v7 = 0;
         do
         {
           result = BOMBomHLIndexBlock(v1, v3);
@@ -7756,10 +7652,10 @@ uint64_t BOMBomDumpLinks(uint64_t result)
             {
               for (i = 0; i != v5; ++i)
               {
-                result = BOMBomHLIndexGet(v1, v4, i, v9, &v8);
+                result = BOMBomHLIndexGet(v1, v4, i, v8, &v7);
                 if (!result)
                 {
-                  result = printf("    %s\n", v9);
+                  result = printf("    %s\n", v8);
                 }
               }
             }
@@ -7773,11 +7669,10 @@ uint64_t BOMBomDumpLinks(uint64_t result)
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t BOMBomVariantAdd(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVariantAdd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   result = 1;
   if (a1 && a2 && a3 && a4 && a5)
@@ -7815,7 +7710,7 @@ uint64_t BOMBomVariantCount(uint64_t result, char *a2, uint64_t a3, uint64_t a4,
   return result;
 }
 
-uint64_t BOMBomVariantGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsigned int a5, char *a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVariantGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, char *a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -7828,7 +7723,7 @@ uint64_t BOMBomVariantGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsig
   }
 }
 
-uint64_t BOMBomVariantRemove(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVariantRemove(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -7841,229 +7736,225 @@ uint64_t BOMBomVariantRemove(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, co
   }
 }
 
-uint64_t BOMBomApproximateBytesRepresentedByVariantWithBlockSize(uint64_t *a1, char *a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int a6)
+uint64_t BOMBomApproximateBytesRepresentedByVariantWithBlockSize(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int a6)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v80 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    if (BOMBomVIndexDiskSpaceInfoIsValid(a1[4]))
-    {
-      goto LABEL_45;
-    }
-
-    value = 0;
-    Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, 0);
-    if (!Mutable)
-    {
-      goto LABEL_45;
-    }
-
-    theDict = Mutable;
-    v71 = a2;
-    v17 = BOMBomVIndexCount(a1[4], 0, 0, 0, v16, v12, v13, v14);
-    v19 = v17;
-    v72 = a3;
-    if (v17 < 101)
-    {
-      if (v17 < 1)
-      {
-LABEL_19:
-        v69 = a4;
-        v70 = a5;
-        Count = CFDictionaryGetCount(theDict);
-        v46 = BOM_malloczero(8 * Count + 8);
-        CFDictionaryGetKeysAndValues(theDict, v46, 0);
-        v47 = BOM_malloczero(8 * Count + 8);
-        v74 = BOMBomEnumeratorNew(a1, 0);
-        v48 = BOMBomEnumeratorNext(v74);
-        if (v48)
-        {
-          v49 = v48;
-          v50 = a6;
-          do
-          {
-            v51 = BOMFSObjectPathName(v49);
-            v52 = BOMFSObjectSize(v49);
-            if (v52 % v50)
-            {
-              v53 = v50 - v52 % v50;
-            }
-
-            else
-            {
-              v53 = 0;
-            }
-
-            v54 = v53 + v52;
-            if (Count < 1)
-            {
-              goto LABEL_33;
-            }
-
-            v55 = 0;
-            v56 = 1;
-            do
-            {
-              while (BOMPatternListMatch(v46[v55], v51))
-              {
-                v56 = 0;
-                v47[v55] += v54;
-                if (Count - 1 == v55++)
-                {
-                  goto LABEL_34;
-                }
-              }
-
-              ++v55;
-            }
-
-            while (Count != v55);
-            if (v56)
-            {
-LABEL_33:
-              v47[Count] += v54;
-            }
-
-LABEL_34:
-            BOMFSObjectFree(v49);
-            v49 = BOMBomEnumeratorNext(v74);
-          }
-
-          while (v49);
-        }
-
-        BOMBomEnumeratorFree(v74);
-        if (Count < 1)
-        {
-          BOMBomVIndexSetApproxDiskSpace(a1[4], 0, 0, 0, v47[Count], v58, v59, v60);
-          free(v47);
-          a4 = v69;
-          a5 = v70;
-          v62 = theDict;
-        }
-
-        else
-        {
-          v61 = 0;
-          a4 = v69;
-          a5 = v70;
-          v62 = theDict;
-          do
-          {
-            value = CFDictionaryGetValue(theDict, v46[v61]);
-            BOMBomVIndexSetApproxDiskSpaceWithKey(a1[4], value, v47[v61++]);
-          }
-
-          while (Count != v61);
-          BOMBomVIndexSetApproxDiskSpace(a1[4], 0, 0, 0, v47[Count], v63, v64, v65);
-          free(v47);
-          do
-          {
-            value = CFDictionaryGetValue(theDict, *v46);
-            free(value);
-            v66 = *v46++;
-            CFRelease(v66);
-            --Count;
-          }
-
-          while (Count);
-        }
-
-        v67 = v62;
-LABEL_44:
-        CFRelease(v67);
-        a2 = v71;
-        a3 = v72;
-LABEL_45:
-        result = BOMBomVIndexGetApproxDiskSpace(a1[4], a2, a3, a4, a5, v12, v13, v14);
-        goto LABEL_46;
-      }
-    }
-
-    else
-    {
-      v20 = BOMExceptionHandlerMessage("_computeVariantSizes(bom=%p, blockSize=%u): catcnt(%d) > catmax(%d)!", a1, a6, v17, 100);
-      v21 = __error();
-      _BOMExceptionHandlerCall(v20, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 3818, *v21);
-    }
-
-    v23 = 0;
-    v73 = v19;
-    while (1)
-    {
-      BOMBomVIndexGet(a1[4], 0, 0, 0, v23, v80, 0x64uLL, v18);
-      v28 = BOMBomVIndexCount(a1[4], v80, 0, 0, v24, v25, v26, v27);
-      if (v28 >= 1)
-      {
-        break;
-      }
-
-LABEL_18:
-      if (++v23 == v73)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    v29 = v28;
-    v30 = 0;
-    while (1)
-    {
-      BOMBomVIndexGet(a1[4], v80, 0, 0, v30, v79, 0x64uLL, v18);
-      v35 = BOMBomVIndexCount(a1[4], v80, v79, 0, v31, v32, v33, v34);
-      if (v35 >= 1)
-      {
-        break;
-      }
-
-LABEL_17:
-      if (++v30 == v29)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    v36 = v35;
-    v37 = 0;
-    while (1)
-    {
-      cf = 0;
-      BOMBomVIndexGet(a1[4], v80, v79, 0, v37, v78, 0x64uLL, v18);
-      if (BOMBomVIndexDiskSpaceKey(a1[4], v80, v79, v78, &value, v38, v39, v40))
-      {
-        break;
-      }
-
-      if (BOMBomVIndexGetList(a1[4], v80, v79, v78, &cf, v41, v42, v43))
-      {
-        break;
-      }
-
-      v44 = BOMPatternListFromStringList(cf);
-      CFRelease(cf);
-      if (!v44)
-      {
-        break;
-      }
-
-      CFDictionarySetValue(theDict, v44, value);
-      if (v36 == ++v37)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v67 = theDict;
-    goto LABEL_44;
+    return 1;
   }
 
-  result = 1;
-LABEL_46:
-  v68 = *MEMORY[0x277D85DE8];
-  return result;
+  if (!BOMBomVIndexDiskSpaceInfoIsValid(a1[4]))
+  {
+    value = 0;
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, 0);
+    if (Mutable)
+    {
+      theDict = Mutable;
+      v70 = a2;
+      v17 = BOMBomVIndexCount(a1[4], 0, 0, 0, v16, v12, v13, v14);
+      v19 = v17;
+      v71 = a3;
+      if (v17 < 101)
+      {
+        if (v17 < 1)
+        {
+LABEL_19:
+          v68 = a4;
+          v69 = a5;
+          Count = CFDictionaryGetCount(theDict);
+          v46 = BOM_malloczero(8 * Count + 8);
+          CFDictionaryGetKeysAndValues(theDict, v46, 0);
+          v47 = BOM_malloczero(8 * Count + 8);
+          v73 = BOMBomEnumeratorNew(a1, 0);
+          v48 = BOMBomEnumeratorNext(v73);
+          if (v48)
+          {
+            v49 = v48;
+            v50 = a6;
+            do
+            {
+              v51 = BOMFSObjectPathName(v49);
+              v52 = BOMFSObjectSize(v49);
+              if (v52 % v50)
+              {
+                v53 = v50 - v52 % v50;
+              }
+
+              else
+              {
+                v53 = 0;
+              }
+
+              v54 = v53 + v52;
+              if (Count < 1)
+              {
+                goto LABEL_33;
+              }
+
+              v55 = 0;
+              v56 = 1;
+              do
+              {
+                while (BOMPatternListMatch(v46[v55], v51))
+                {
+                  v56 = 0;
+                  v47[v55] += v54;
+                  if (Count - 1 == v55++)
+                  {
+                    goto LABEL_34;
+                  }
+                }
+
+                ++v55;
+              }
+
+              while (Count != v55);
+              if (v56)
+              {
+LABEL_33:
+                v47[Count] += v54;
+              }
+
+LABEL_34:
+              BOMFSObjectFree(v49);
+              v49 = BOMBomEnumeratorNext(v73);
+            }
+
+            while (v49);
+          }
+
+          BOMBomEnumeratorFree(v73);
+          if (Count < 1)
+          {
+            BOMBomVIndexSetApproxDiskSpace(a1[4], 0, 0, 0, v47[Count], v58, v59, v60);
+            free(v47);
+            a4 = v68;
+            a5 = v69;
+            v62 = theDict;
+          }
+
+          else
+          {
+            v61 = 0;
+            a4 = v68;
+            a5 = v69;
+            v62 = theDict;
+            do
+            {
+              value = CFDictionaryGetValue(theDict, v46[v61]);
+              BOMBomVIndexSetApproxDiskSpaceWithKey(a1[4], value, v47[v61++]);
+            }
+
+            while (Count != v61);
+            BOMBomVIndexSetApproxDiskSpace(a1[4], 0, 0, 0, v47[Count], v63, v64, v65);
+            free(v47);
+            do
+            {
+              value = CFDictionaryGetValue(theDict, *v46);
+              free(value);
+              v66 = *v46++;
+              CFRelease(v66);
+              --Count;
+            }
+
+            while (Count);
+          }
+
+          v67 = v62;
+LABEL_44:
+          CFRelease(v67);
+          a2 = v70;
+          a3 = v71;
+          return BOMBomVIndexGetApproxDiskSpace(a1[4], a2, a3, a4, a5, v12, v13, v14);
+        }
+      }
+
+      else
+      {
+        v20 = BOMExceptionHandlerMessage("_computeVariantSizes(bom=%p, blockSize=%u): catcnt(%d) > catmax(%d)!", a1, a6, v17, 100);
+        v21 = __error();
+        _BOMExceptionHandlerCall(v20, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Bom/BOMBom.c", 3818, *v21);
+      }
+
+      v23 = 0;
+      v72 = v19;
+      while (1)
+      {
+        BOMBomVIndexGet(a1[4], 0, 0, 0, v23, v79, 0x64uLL, v18);
+        v28 = BOMBomVIndexCount(a1[4], v79, 0, 0, v24, v25, v26, v27);
+        if (v28 >= 1)
+        {
+          break;
+        }
+
+LABEL_18:
+        v23 = (v23 + 1);
+        if (v23 == v72)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      v29 = v28;
+      v30 = 0;
+      while (1)
+      {
+        BOMBomVIndexGet(a1[4], v79, 0, 0, v30, v78, 0x64uLL, v18);
+        v35 = BOMBomVIndexCount(a1[4], v79, v78, 0, v31, v32, v33, v34);
+        if (v35 >= 1)
+        {
+          break;
+        }
+
+LABEL_17:
+        v30 = (v30 + 1);
+        if (v30 == v29)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      v36 = v35;
+      v37 = 0;
+      while (1)
+      {
+        cf = 0;
+        BOMBomVIndexGet(a1[4], v79, v78, 0, v37, v77, 0x64uLL, v18);
+        if (BOMBomVIndexDiskSpaceKey(a1[4], v79, v78, v77, &value, v38, v39, v40))
+        {
+          break;
+        }
+
+        if (BOMBomVIndexGetList(a1[4], v79, v78, v77, &cf, v41, v42, v43))
+        {
+          break;
+        }
+
+        v44 = BOMPatternListFromStringList(cf);
+        CFRelease(cf);
+        if (!v44)
+        {
+          break;
+        }
+
+        CFDictionarySetValue(theDict, v44, value);
+        v37 = (v37 + 1);
+        if (v36 == v37)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v67 = theDict;
+      goto LABEL_44;
+    }
+  }
+
+  return BOMBomVIndexGetApproxDiskSpace(a1[4], a2, a3, a4, a5, v12, v13, v14);
 }
 
-uint64_t BOMBomApproximateBytesRepresentedByVariantWithBlockSize64(uint64_t *a1, char *a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6)
+uint64_t BOMBomApproximateBytesRepresentedByVariantWithBlockSize64(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6)
 {
   v8 = 0;
   result = BOMBomApproximateBytesRepresentedByVariantWithBlockSize(a1, a2, a3, a4, &v8, a6);
@@ -8071,7 +7962,7 @@ uint64_t BOMBomApproximateBytesRepresentedByVariantWithBlockSize64(uint64_t *a1,
   return result;
 }
 
-uint64_t BOMBomApproximateBytesRepresentedByVariant64(uint64_t *a1, char *a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t BOMBomApproximateBytesRepresentedByVariant64(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v7 = 0;
   result = BOMBomApproximateBytesRepresentedByVariantWithBlockSize(a1, a2, a3, a4, &v7, 0x200u);
@@ -8093,7 +7984,7 @@ uint64_t BOMBomApproximateBytesRepresentedByVariantIsValid(uint64_t result)
   return result;
 }
 
-uint64_t BOMBomEInsertFSObject(unint64_t a1, uint64_t a2, unsigned int a3, unsigned int *a4)
+uint64_t BOMBomEInsertFSObject(unsigned int *a1, unsigned __int8 *a2, unsigned int a3, unsigned int *a4)
 {
   v4 = 1;
   if (!a1 || !a2)
@@ -8112,7 +8003,7 @@ uint64_t BOMBomEInsertFSObject(unint64_t a1, uint64_t a2, unsigned int a3, unsig
   }
 
   v12 = v11;
-  Value = BOMTreeGetValue(*(a1 + 16), v11, v25);
+  Value = BOMTreeGetValue(*(a1 + 2), v11, v25);
   v14 = Value;
   if (Value)
   {
@@ -8136,7 +8027,7 @@ uint64_t BOMBomEInsertFSObject(unint64_t a1, uint64_t a2, unsigned int a3, unsig
   else
   {
     v20 = (*a1)++;
-    v17 = BOMStorageNewBlock(*(a1 + 8));
+    v17 = BOMStorageNewBlock(*(a1 + 1));
   }
 
   if (_BOMBomSetFSObjectWithBlockID(a1, a2, v17))
@@ -8159,7 +8050,7 @@ LABEL_17:
   free(v12);
   v12 = BOMNewPathKey(a3, v10, &v25);
   v21 = BOMNewPathValue(v20, v17, &v24);
-  if (!BOMTreeSetValue(*(a1 + 16), v12, v25, v21, v24))
+  if (!BOMTreeSetValue(*(a1 + 2), v12, v25, v21, v24))
   {
 LABEL_14:
     *(a1 + 64) = 1;
@@ -8193,7 +8084,7 @@ LABEL_18:
   return v4;
 }
 
-uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsigned int a4)
+uint64_t BOMBomELinkFromPathToPath(unsigned int *a1, const char *a2, char *a3, unsigned int a4)
 {
   v4 = 1;
   if (a2)
@@ -8202,7 +8093,7 @@ uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsign
     {
       if (a3)
       {
-        v9 = _valueAtPath(a1);
+        v9 = _valueAtPath(a1, a2);
         if (v9)
         {
           v10 = BOMBlockIDFromPathValue(v9);
@@ -8226,7 +8117,7 @@ uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsign
             if (v14)
             {
               v15 = v14;
-              Value = BOMTreeGetValue(*(a1 + 16), v14, v25);
+              Value = BOMTreeGetValue(*(a1 + 2), v14, v25);
               v17 = Value;
               if (Value)
               {
@@ -8242,7 +8133,7 @@ uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsign
                 v18 = v24;
               }
 
-              if (BOMTreeSetValue(*(a1 + 16), v15, v25, v19, v18))
+              if (BOMTreeSetValue(*(a1 + 2), v15, v25, v19, v18))
               {
                 v4 = 1;
               }
@@ -8250,9 +8141,9 @@ uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsign
               else
               {
                 v21 = strlen(a3);
-                BOMBomHLIndexSet(*(a1 + 24), v11, a3, v21 + 1);
+                BOMBomHLIndexSet(*(a1 + 3), v11, a3, v21 + 1);
                 v22 = strlen(a2);
-                BOMBomHLIndexSet(*(a1 + 24), v11, a2, v22 + 1);
+                BOMBomHLIndexSet(*(a1 + 3), v11, a2, v22 + 1);
                 v4 = 0;
               }
 
@@ -8276,7 +8167,7 @@ uint64_t BOMBomELinkFromPathToPath(uint64_t a1, const char *a2, char *a3, unsign
   return v4;
 }
 
-uint64_t _BOMBomPrintDiagnostics(uint64_t result)
+void *_BOMBomPrintDiagnostics(void *result)
 {
   if (result)
   {
@@ -8352,7 +8243,7 @@ void _addPathsToList(uint64_t a1, char *a2, __CFArray *a3, const char **a4, uint
 {
   v8 = a6;
   v9 = a5;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v14 = BOMBomVIndexCount(*(a1 + 32), a2, 0, 0, a5, a6, a7, a8);
   if (v14)
   {
@@ -8401,65 +8292,63 @@ LABEL_15:
           if (!BOMBomVIndexGetList(*(a1 + 32), a2, __s2, v19, &cf, v20, v21, v15))
           {
             v24 = cf;
-            v30.location = BOMCFArrayMaxRange(cf);
-            v30.length = v25;
-            CFArrayAppendArray(a3, v24, v30);
+            v29.location = BOMCFArrayMaxRange(cf);
+            v29.length = v25;
+            CFArrayAppendArray(a3, v24, v29);
             CFRelease(cf);
           }
         }
       }
 
 LABEL_6:
-      ++v17;
+      v17 = (v17 + 1);
     }
 
     while (v17 != v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-void release_discovery_state(uint64_t a1)
+void release_discovery_state(void **result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 24);
+    v2 = result[3];
     if (v2)
     {
       dispatch_group_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
-      dispatch_release(*(a1 + 24));
-      *(a1 + 24) = 0;
+      dispatch_release(result[3]);
+      result[3] = 0;
     }
 
-    v3 = *(a1 + 56);
+    v3 = result[7];
     if (v3)
     {
       free(v3);
-      *(a1 + 56) = 0;
+      result[7] = 0;
     }
 
-    v4 = *(a1 + 48);
+    v4 = result[6];
     if (v4)
     {
       BOMHardLinkTableFree(v4);
-      *(a1 + 48) = 0;
+      result[6] = 0;
     }
 
-    v5 = *(a1 + 64);
+    v5 = result[8];
     if (v5)
     {
       BOMBomFree(v5);
-      *(a1 + 64) = 0;
+      result[8] = 0;
     }
 
-    v6 = *(a1 + 40);
+    v6 = result[5];
     if (v6)
     {
       free(v6);
-      *(a1 + 40) = 0;
+      result[5] = 0;
     }
 
-    v7 = *(a1 + 32);
+    v7 = result[4];
     if (v7)
     {
       while (1)
@@ -8471,24 +8360,24 @@ void release_discovery_state(uint64_t a1)
         }
 
         free(v8);
-        v7 = *(a1 + 32);
+        v7 = result[4];
       }
 
-      BOMStackFree(*(a1 + 32));
-      *(a1 + 32) = 0;
+      BOMStackFree(result[4]);
+      result[4] = 0;
     }
 
-    v9 = *(a1 + 8);
+    v9 = result[1];
     if (v9)
     {
       do
       {
-        v10 = *(v9 + 72);
-        v11 = *(v9 + 8);
+        v10 = v9[9];
+        v11 = v9[1];
         if (v11)
         {
           BOMFSObjectFree(v11);
-          *(v9 + 8) = 0;
+          v9[1] = 0;
         }
 
         BOMCopierSourceEntryFree(*v9);
@@ -8499,12 +8388,12 @@ void release_discovery_state(uint64_t a1)
       while (v10);
     }
 
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    if (*a1)
+    result[1] = 0;
+    result[2] = 0;
+    if (*result)
     {
-      BOMCopierSourceFree(*a1);
-      *a1 = 0;
+      BOMCopierSourceFree(*result);
+      *result = 0;
     }
   }
 }
@@ -8543,17 +8432,18 @@ void BOMHardLinkTableFree(const void **a1)
   }
 }
 
-void BOMHardLinkTableSet(CFDictionaryRef *a1, int a2, uint64_t a3, UInt8 *bytes, CFIndex length)
+void BOMHardLinkTableSet(CFDictionaryRef *a1, uint64_t a2, uint64_t a3, UInt8 *bytes, CFIndex length)
 {
   if (a1)
   {
+    v6 = a2;
     if (bytes)
     {
       v8 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, length);
       if (v8)
       {
         v9 = v8;
-        BOMHardLinkTableSetCFData(a1, a2, a3, v8);
+        BOMHardLinkTableSetCFData(a1, v6, a3, v8);
 
         CFRelease(v9);
       }
@@ -8767,12 +8657,10 @@ uint64_t BOMHardLinkTableGetPathAndData(CFDictionaryRef *a1, int a2, uint64_t a3
 
 void *BOMFSEnumeratorNewWithSys(uint64_t a1, __int16 a2, char a3, void (**a4)(void, uint64_t, uint64_t))
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-LABEL_8:
-    v8 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v8 = BOM_malloczero(0x420uLL);
@@ -8798,22 +8686,20 @@ LABEL_8:
       *(v8 + 4) = a2;
       *(v8 + 10) = a3;
       a4[38](a4[1], (v8 + 3), 1025);
-      v16[0] = ".";
-      v16[1] = 0;
-      v15 = fts_open(v16, 92, _sort);
-      *v8 = v15;
-      if (v15)
+      v15[0] = ".";
+      v15[1] = 0;
+      v14 = fts_open(v15, 92, _sort);
+      *v8 = v14;
+      if (v14)
       {
-        goto LABEL_9;
+        return v8;
       }
     }
 
     free(v8);
-    goto LABEL_8;
+    return 0;
   }
 
-LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -8909,7 +8795,7 @@ void BOMFSEnumeratorFree(FTS **a1)
   }
 }
 
-_DWORD *BOMBomVIndexNew(uint64_t a1)
+unsigned int *BOMBomVIndexNew(uint64_t a1)
 {
   v2 = BOM_malloczero(0x30uLL);
   v3 = v2;
@@ -8917,36 +8803,13 @@ _DWORD *BOMBomVIndexNew(uint64_t a1)
   {
     *v2 = 1;
     v4 = BOMStorageNewNamedBlock(a1, "VIndex");
-    if (!v4)
-    {
-      goto LABEL_7;
-    }
-
-    *(v3 + 2) = a1;
-    v3[6] = v4;
-    v5 = BOMStorageNewBlock(a1);
-    if (!v5)
-    {
-      goto LABEL_7;
-    }
-
-    v6 = v5;
-    v7 = BOMTreeNewWithOptions(a1, v5, "VIndex", 0x80u, 0);
-    if (!v7)
-    {
-      goto LABEL_7;
-    }
-
-    *(v3 + 1) = v7;
-    v8 = BOMStreamWithBlockID(*(v3 + 2), v3[6], 0xDuLL, 1);
-    if (v8 && (v9 = v8, BOMStreamWriteUInt32(v8, *v3), BOMStreamWriteUInt32(v9, v6), BOMStreamWriteUInt32(v9, v3[7]), BOMStreamWriteUInt8(v9, *(v3 + 33)), !BOMStreamFlush(v9)))
+    if (v4 && (*(v3 + 2) = a1, v3[6] = v4, v5 = BOMStorageNewBlock(a1), v5) && (v6 = v5, (v7 = BOMTreeNewWithOptions(a1, v5, "VIndex", 0x80u, 0)) != 0) && (*(v3 + 1) = v7, (v8 = BOMStreamWithBlockID(*(v3 + 2), v3[6], 0xDuLL, 1)) != 0) && (v9 = v8, BOMStreamWriteUInt32(v8, *v3), BOMStreamWriteUInt32(v9, v6), BOMStreamWriteUInt32(v9, v3[7]), BOMStreamWriteUInt8(v9, *(v3 + 33)), !BOMStreamFlush(v9)))
     {
       BOMStreamFree(v9);
     }
 
     else
     {
-LABEL_7:
       BOMBomVIndexFree(v3);
       return 0;
     }
@@ -8983,36 +8846,14 @@ uint64_t BOMBomVIndexFree(_BYTE *a1)
   return 0;
 }
 
-void *BOMBomVIndexOpen(uint64_t a1, char a2)
+void *BOMBomVIndexOpen(uint64_t a1, uint64_t a2)
 {
   v4 = BOM_malloczero(0x30uLL);
   if (v4)
   {
     NamedBlock = BOMStorageGetNamedBlock(a1, "VIndex");
-    if (!NamedBlock)
+    if (!NamedBlock || (v4[2] = a1, *(v4 + 6) = NamedBlock, (v6 = BOMStreamWithBlockID(a1, NamedBlock, 0xDuLL, 0)) == 0) || (v7 = v6, *v4 = BOMStreamReadUInt32(v6), UInt32 = BOMStreamReadUInt32(v7), *(v4 + 7) = BOMStreamReadUInt32(v7), *(v4 + 33) = BOMStreamReadUInt8(v7), BOMStreamFree(v7), v9 = BOMTreeOpen(a1, UInt32, a2), (v4[1] = v9) == 0))
     {
-      goto LABEL_5;
-    }
-
-    v4[2] = a1;
-    *(v4 + 6) = NamedBlock;
-    v6 = BOMStreamWithBlockID(a1, NamedBlock, 0xDuLL, 0);
-    if (!v6)
-    {
-      goto LABEL_5;
-    }
-
-    v7 = v6;
-    *v4 = BOMStreamReadUInt32(v6);
-    UInt32 = BOMStreamReadUInt32(v7);
-    *(v4 + 7) = BOMStreamReadUInt32(v7);
-    *(v4 + 33) = BOMStreamReadUInt8(v7);
-    BOMStreamFree(v7);
-    v9 = BOMTreeOpen(a1, UInt32, a2);
-    v4[1] = v9;
-    if (!v9)
-    {
-LABEL_5:
       BOMBomVIndexFree(v4);
       return 0;
     }
@@ -9056,7 +8897,7 @@ uint64_t BOMBomVIndexCommit(uint64_t a1)
 
 uint64_t BOMBomVIndexCopyFromVIndex(uint64_t a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     if (BOMTreeCount(*(a1 + 8)) || BOMCKTreeBuildKey(__s, v4, v5, v6, v7, v8, v9, v10, "path"))
@@ -9066,23 +8907,23 @@ uint64_t BOMBomVIndexCopyFromVIndex(uint64_t a1, uint64_t a2)
 
     else
     {
-      v18 = strlen(__s);
-      v19 = *(a1 + 16);
-      v20 = *(a2 + 16);
+      v17 = strlen(__s);
+      v18 = *(a1 + 16);
+      v19 = *(a2 + 16);
       v11 = BOMTreeIteratorNew(*(a2 + 8), 0, 0, 0);
       if (v11)
       {
         BOMTreeSetDensePacking(*(a1 + 8), 1);
         while (!BOMTreeIteratorIsAtEnd(v11))
         {
-          v21 = BOMTreeIteratorKey(v11);
-          if (BOM_strrncmp(v21, __s, v18))
+          v20 = BOMTreeIteratorKey(v11);
+          if (BOM_strrncmp(v20, __s, v17))
           {
-            v22 = *(a1 + 8);
-            v23 = BOMTreeIteratorKeySize(v11);
-            v24 = BOMTreeIteratorValue(v11);
-            v25 = BOMTreeIteratorValueSize(v11);
-            if (BOMTreeSetValue(v22, v21, v23, v24, v25))
+            v21 = *(a1 + 8);
+            v22 = BOMTreeIteratorKeySize(v11);
+            v23 = BOMTreeIteratorValue(v11);
+            v24 = BOMTreeIteratorValueSize(v11);
+            if (BOMTreeSetValue(v21, v20, v22, v23, v24))
             {
               goto LABEL_6;
             }
@@ -9090,9 +8931,9 @@ uint64_t BOMBomVIndexCopyFromVIndex(uint64_t a1, uint64_t a2)
 
           else
           {
-            v30 = 0;
-            v26 = strlen(v21) + 1;
-            Value = BOMTreeGetValue(*(a2 + 8), v21, v26);
+            v29 = 0;
+            v25 = strlen(v20) + 1;
+            Value = BOMTreeGetValue(*(a2 + 8), v20, v25);
             if (!Value)
             {
               v13 = 0;
@@ -9100,27 +8941,27 @@ uint64_t BOMBomVIndexCopyFromVIndex(uint64_t a1, uint64_t a2)
               goto LABEL_8;
             }
 
-            v12 = BOMTreeOpen(v20, bswap32(*Value), 0);
+            v12 = BOMTreeOpen(v19, bswap32(*Value), 0);
             if (!v12)
             {
               goto LABEL_7;
             }
 
-            v28 = BOMStorageNewBlock(v19);
-            v30 = v28;
-            if (!v28)
+            v27 = BOMStorageNewBlock(v18);
+            v29 = v27;
+            if (!v27)
             {
               goto LABEL_7;
             }
 
-            v29 = BOMTreeNewWithOptions(v19, v28, 0, 0x80u, 0);
-            v13 = v29;
-            if (!v29)
+            v28 = BOMTreeNewWithOptions(v18, v27, 0, 0x80u, 0);
+            v13 = v28;
+            if (!v28)
             {
               goto LABEL_8;
             }
 
-            BOMTreeSetDensePacking(v29, 1);
+            BOMTreeSetDensePacking(v28, 1);
             if (BOMTreeCopyToTree(v12, v13))
             {
               goto LABEL_8;
@@ -9128,8 +8969,8 @@ uint64_t BOMBomVIndexCopyFromVIndex(uint64_t a1, uint64_t a2)
 
             BOMTreeFree(v12);
             BOMTreeFree(v13);
-            v30 = bswap32(v30);
-            BOMTreeSetValue(*(a1 + 8), v21, v26, &v30, 4);
+            v29 = bswap32(v29);
+            BOMTreeSetValue(*(a1 + 8), v20, v25, &v29, 4);
           }
 
           BOMTreeIteratorNext(v11);
@@ -9157,7 +8998,7 @@ LABEL_8:
     v14 = 1;
     if (!a1)
     {
-      goto LABEL_19;
+      return v14;
     }
 
     v11 = 0;
@@ -9187,12 +9028,10 @@ LABEL_11:
     BOMTreeIteratorFree(v11);
   }
 
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-uint64_t BOMBomVIndexSet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVIndexSet(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = 1;
   if (a1)
@@ -9226,48 +9065,43 @@ uint64_t BOMBomVIndexSet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, const 
   return v8;
 }
 
-uint64_t _v_findTreeFor(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *_v_findTreeFor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a4 && a5 && a6)
   {
     v9 = a3;
-    v10 = a2;
     v12 = *(a1 + 16);
     if (BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a4))
     {
-      goto LABEL_5;
+      return 0;
     }
 
     v13 = strlen(__s) + 1;
     Value = BOMTreeGetValue(*(a1 + 8), __s, v13);
     if (Value)
     {
-      v8 = BOMTreeOpen(v12, bswap32(*Value), v10);
-      goto LABEL_8;
+      return BOMTreeOpen(v12, bswap32(*Value), a2);
     }
 
-    if (v9 && (v17 = BOMStorageNewBlock(v12)) != 0)
+    if (v9 && (v16 = BOMStorageNewBlock(v12), v16))
     {
-      v18 = v17;
-      v8 = BOMTreeNewWithOptions(v12, v17, 0, 0x80u, 0);
+      v17 = v16;
+      v8 = BOMTreeNewWithOptions(v12, v16, 0, 0x80u, 0);
       if (v8)
       {
-        v19 = bswap32(v18);
-        BOMTreeSetValue(*(a1 + 8), __s, v13, &v19, 4);
+        v18 = bswap32(v17);
+        BOMTreeSetValue(*(a1 + 8), __s, v13, &v18, 4);
       }
     }
 
     else
     {
-LABEL_5:
-      v8 = 0;
+      return 0;
     }
   }
 
-LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -9294,17 +9128,18 @@ uint64_t BOMBomVIndexCount(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint
   return BOMCKTreeCount(*(a1 + 8), v11, v12, v13, v14, v15, v16, v17, a2);
 }
 
-uint64_t BOMBomVIndexGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsigned int a5, char *a6, size_t a7, uint64_t a8)
+uint64_t BOMBomVIndexGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, char *a6, size_t a7, uint64_t a8)
 {
   result = 1;
   if (a1 && a6)
   {
+    v12 = a5;
     *a6 = 0;
     TreeFor = _v_findTreeFor(a1, 0, 0, a2, a3, a4, a7, a8);
     if (TreeFor)
     {
       v21 = TreeFor;
-      if (BOMTreeCount(TreeFor) <= a5)
+      if (BOMTreeCount(TreeFor) <= v12)
       {
         return 1;
       }
@@ -9315,7 +9150,7 @@ uint64_t BOMBomVIndexGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsign
         return 1;
       }
 
-      for (i = v22; a5; --a5)
+      for (i = v22; v12; --v12)
       {
         BOMTreeIteratorNext(i);
       }
@@ -9328,7 +9163,7 @@ uint64_t BOMBomVIndexGet(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsign
 
     else
     {
-      v25 = BOMCKTreeGet(*(a1 + 8), a5, v15, v16, v17, v18, v19, v20, a2);
+      v25 = BOMCKTreeGet(*(a1 + 8), v12, v15, v16, v17, v18, v19, v20, a2);
       strlcpy(a6, v25, a7);
     }
 
@@ -9451,9 +9286,9 @@ LABEL_27:
   return v8;
 }
 
-uint64_t BOMBomVIndexRemove(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVIndexRemove(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = 1;
   if (a1 && a2 && a3 && a4)
   {
@@ -9480,15 +9315,14 @@ uint64_t BOMBomVIndexRemove(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, con
           }
         }
 
-        break;
+        return v8;
       }
 
       v16 = strlen(a5);
       v17 = BOMTreeRemoveValue(v15, a5, v16 + 1);
       if (v17)
       {
-        v8 = v17;
-        break;
+        return v17;
       }
 
       v18 = BOMTreeCount(v15);
@@ -9497,22 +9331,20 @@ uint64_t BOMBomVIndexRemove(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, con
       *(a1 + 32) = 1;
       if (v18)
       {
-        v8 = 0;
-        break;
+        return 0;
       }
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t BOMBomVIndexGetApproxDiskSpace(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVIndexGetApproxDiskSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_12;
+    return 1;
   }
 
   if (!a2 && !a3 && !a4)
@@ -9521,68 +9353,64 @@ uint64_t BOMBomVIndexGetApproxDiskSpace(uint64_t a1, char *a2, uint64_t a3, uint
     v11 = *(a1 + 28);
 LABEL_6:
     *a5 = v11;
-    goto LABEL_13;
+    return result;
   }
 
   result = 1;
   if (a4 && a2 && a3 && a5)
   {
     *a5 = 0;
-    if (!BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a2))
+    if (BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a2))
     {
-      v13 = strlen(__s) + 1;
-      if (*(a1 + 40))
-      {
-        value = 0;
-        v14 = CFDataCreate(*MEMORY[0x277CBECE8], __s, v13);
-        if (!v14)
-        {
-          v16 = *MEMORY[0x277D85DF8];
-          v17 = __error();
-          v18 = strerror(*v17);
-          fprintf(v16, "CFDataCreate: %s\n", v18);
-          goto LABEL_12;
-        }
-
-        v15 = v14;
-        if (CFDictionaryGetValueIfPresent(*(a1 + 40), v14, &value))
-        {
-          *a5 = value;
-          CFRelease(v15);
-          result = 0;
-          goto LABEL_13;
-        }
-
-        CFRelease(v15);
-      }
-
-      v19 = BOMTreeGetValue(*(a1 + 8), __s, v13);
-      if (v19)
-      {
-        v20 = v19;
-        result = 0;
-        v11 = bswap32(*v20);
-        goto LABEL_6;
-      }
+      return 1;
     }
 
-LABEL_12:
-    result = 1;
+    v12 = strlen(__s) + 1;
+    if (*(a1 + 40))
+    {
+      value = 0;
+      v13 = CFDataCreate(*MEMORY[0x277CBECE8], __s, v12);
+      if (!v13)
+      {
+        v15 = *MEMORY[0x277D85DF8];
+        v16 = __error();
+        v17 = strerror(*v16);
+        fprintf(v15, "CFDataCreate: %s\n", v17);
+        return 1;
+      }
+
+      v14 = v13;
+      if (CFDictionaryGetValueIfPresent(*(a1 + 40), v13, &value))
+      {
+        *a5 = value;
+        CFRelease(v14);
+        return 0;
+      }
+
+      CFRelease(v14);
+    }
+
+    v18 = BOMTreeGetValue(*(a1 + 8), __s, v12);
+    if (v18)
+    {
+      v19 = v18;
+      result = 0;
+      v11 = bswap32(*v19);
+      goto LABEL_6;
+    }
+
+    return 1;
   }
 
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t BOMBomVIndexSetApproxDiskSpace(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVIndexSetApproxDiskSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-LABEL_10:
-    result = 1;
-    goto LABEL_11;
+    return 1;
   }
 
   v8 = a5;
@@ -9591,7 +9419,7 @@ LABEL_10:
     result = 0;
     *(a1 + 28) = a5;
     *(a1 + 32) = 257;
-    goto LABEL_11;
+    return result;
   }
 
   result = 1;
@@ -9599,15 +9427,12 @@ LABEL_10:
   {
     if (!BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a2))
     {
-      result = BOMBomVIndexSetApproxDiskSpaceWithKey(a1, __s, v8);
-      goto LABEL_11;
+      return BOMBomVIndexSetApproxDiskSpaceWithKey(a1, __s, v8);
     }
 
-    goto LABEL_10;
+    return 1;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9657,25 +9482,32 @@ uint64_t BOMBomVIndexSetApproxDiskSpaceWithKey(uint64_t a1, char *__s, unsigned 
   return result;
 }
 
-uint64_t BOMBomVIndexDiskSpaceKey(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMBomVIndexDiskSpaceKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = 1;
   if (a1 && a2 && a3 && a4)
   {
-    if (BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a2) || (v11 = strlen(__s) + 1, v12 = BOM_malloc(v11), (*a5 = v12) == 0))
+    if (BOMCKTreeBuildKey(__s, a2, a3, a4, a5, a6, a7, a8, a2))
     {
-      result = 1;
+      return 1;
+    }
+
+    v11 = strlen(__s) + 1;
+    v12 = BOM_malloc(v11);
+    *a5 = v12;
+    if (!v12)
+    {
+      return 1;
     }
 
     else
     {
       memmove(v12, __s, v11);
-      result = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9691,7 +9523,7 @@ uint64_t BOMBomVIndexDiskSpaceInfoIsValid(uint64_t result)
 
 uint64_t _BOMBomVIndexPrintDiagnostics(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v8 = result;
@@ -9716,7 +9548,7 @@ uint64_t _BOMBomVIndexPrintDiagnostics(uint64_t result, uint64_t a2, uint64_t a3
             result = BOMTreeGetValue(*(v8 + 8), v14, (v15 + 1));
             if (!result)
             {
-              goto LABEL_11;
+              return result;
             }
 
             v16 = result;
@@ -9724,7 +9556,7 @@ uint64_t _BOMBomVIndexPrintDiagnostics(uint64_t result, uint64_t a2, uint64_t a3
             result = BOMTreeOpen(v17, bswap32(*v16), 0);
             if (!result)
             {
-              goto LABEL_11;
+              return result;
             }
 
             v18 = result;
@@ -9747,12 +9579,147 @@ uint64_t _BOMBomVIndexPrintDiagnostics(uint64_t result, uint64_t a2, uint64_t a3
         fprintf(*v10, "     leaf   : %d (%d)\n", 0, 0);
         fprintf(*v10, "     branch : %d (%d)\n", 0, 0);
         fprintf(*v10, "   key size : %zd\n", 0);
-        result = fprintf(*v10, "   data size: %zd\n", 0);
+        return fprintf(*v10, "   data size: %zd\n", 0);
       }
     }
   }
 
-LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+double byte_stream_new(uint64_t a1, uint64_t a2)
+{
+  if (!a2)
+  {
+    v3 = platform_calloc(a1, 1uLL, 0x50uLL);
+    if (v3)
+    {
+      *v3 = 1651733613;
+      v3[1] = a1;
+      *&result = 0x200000002;
+      v3[2] = 0x200000002;
+      *(v3 + 18) = 1836348258;
+    }
+  }
+
+  return result;
+}
+
+void byte_stream_free(_DWORD *__b)
+{
+  if (__b && *__b == 1651733613 && __b[18] == 1836348258)
+  {
+    v2 = *(__b + 7);
+    if (v2)
+    {
+      platform_free(*(__b + 1), v2);
+    }
+
+    v3 = *(__b + 1);
+    platform_memset(v3, __b, 0, 0x50uLL);
+
+    platform_free(v3, __b);
+  }
+}
+
+uint64_t byte_stream_attach(uint64_t result, uint64_t a2, unint64_t a3)
+{
+  if (result && *result == 1651733613 && *(result + 72) == 1836348258)
+  {
+    if (a3 < 0xE8D4A51001)
+    {
+      *(result + 24) = 0;
+      *(result + 40) = a3;
+      *(result + 48) = 0;
+      *(result + 32) = a2;
+    }
+
+    else
+    {
+      *(result + 24) = 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t byte_stream_exception(uint64_t a1)
+{
+  if (a1 && *a1 == 1651733613 && *(a1 + 72) == 1836348258)
+  {
+    v1 = *(a1 + 24);
+  }
+
+  else
+  {
+    v1 = 0;
+  }
+
+  return v1 & 1;
+}
+
+_DWORD *byte_stream_set_byte_order(_DWORD *result, int a2)
+{
+  if (result && *result == 1651733613 && result[18] == 1836348258)
+  {
+    result[5] = a2;
+  }
+
+  return result;
+}
+
+uint64_t byte_stream_read_uint8(uint64_t a1)
+{
+  if (a1 && *a1 == 1651733613 && *(a1 + 72) == 1836348258 && (*(a1 + 24) & 1) == 0)
+  {
+    v1 = *(a1 + 48);
+    v2 = v1 + 1;
+    if ((v1 + 1) <= *(a1 + 40))
+    {
+      v3 = *(*(a1 + 32) + v1);
+      *(a1 + 48) = v2;
+      return v3;
+    }
+
+    *(a1 + 24) = 1;
+  }
+
+  return 255;
+}
+
+uint64_t byte_stream_read_uint16(uint64_t a1)
+{
+  if (a1)
+  {
+    if (*a1 != 1651733613 || *(a1 + 72) != 1836348258 || (*(a1 + 24) & 1) != 0)
+    {
+      return -1;
+    }
+
+    v2 = *(a1 + 48);
+    if ((v2 + 2) > *(a1 + 40))
+    {
+      *(a1 + 24) = 1;
+      return -1;
+    }
+
+    __dst = 0;
+    platform_memcpy(*(a1 + 8), &__dst, (*(a1 + 32) + v2), 2uLL);
+    *(a1 + 48) += 2;
+    v5 = bswap32(__dst) >> 16;
+    if (*(a1 + 16) == *(a1 + 20))
+    {
+      return __dst;
+    }
+
+    else
+    {
+      return v5;
+    }
+  }
+
+  else
+  {
+    return -1;
+  }
 }

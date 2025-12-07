@@ -1,6 +1,6 @@
 uint64_t getPDAK(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -95,7 +95,7 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v19 = v10;
+      v18 = v10;
       v12 = v11;
       v13 = OS_LOG_TYPE_ERROR;
 LABEL_32:
@@ -123,20 +123,19 @@ LABEL_32:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v19 = 0;
+      v18 = 0;
       v12 = v14;
       v13 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_32;
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t getAttestationToPDAK(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -253,7 +252,7 @@ LABEL_18:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v22 = v13;
+      v21 = v13;
       v15 = v14;
       v16 = OS_LOG_TYPE_ERROR;
 LABEL_35:
@@ -281,20 +280,19 @@ LABEL_35:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v22 = 0;
+      v21 = 0;
       v15 = v17;
       v16 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_35;
     }
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
-uint64_t getDummy0PSDData(void *a1, void *a2)
+uint64_t getDummy0PSDData(void *a1, uint64_t *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -345,16 +343,16 @@ LABEL_24:
   v6[12] = 2;
   *(v6 + 13) = 0;
   *(v6 + 307215) = 1;
-  v16 = 614501;
+  v15 = 614501;
   v8 = calloc(1uLL, 0x96065uLL);
   if (v8)
   {
     v9 = v8;
-    v10 = encryptFDRDataInternal(v7, 0x96011uLL, v8, &v16, 0);
+    v10 = encryptFDRDataInternal(v7, 0x96011uLL, v8, &v15, 0);
     if (!v10)
     {
       *a1 = v9;
-      *a2 = v16;
+      *a2 = v15;
       free(v7);
       if (OSLogInit_onceToken != -1)
       {
@@ -375,12 +373,12 @@ LABEL_24:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v18 = 0;
+        v17 = 0;
         _os_log_impl(&dword_299F4E000, v11, OS_LOG_TYPE_DEFAULT, "getDummy0PSDData -> %d\n", buf, 8u);
-        v12 = 0;
+        return 0;
       }
 
-      goto LABEL_20;
+      return v12;
     }
 
     v12 = v10;
@@ -401,29 +399,27 @@ LABEL_27:
 
   if (__osLogPearlLibTrace)
   {
-    v15 = __osLogPearlLibTrace;
+    v14 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v15 = v4;
+    v14 = v4;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v18 = v12;
-    _os_log_impl(&dword_299F4E000, v15, OS_LOG_TYPE_ERROR, "getDummy0PSDData -> %d\n", buf, 8u);
+    v17 = v12;
+    _os_log_impl(&dword_299F4E000, v14, OS_LOG_TYPE_ERROR, "getDummy0PSDData -> %d\n", buf, 8u);
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t generateAndVerifyAriesHostAuthorization()
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -442,14 +438,14 @@ uint64_t generateAndVerifyAriesHostAuthorization()
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "generateAndVerifyAriesHostAuthorization\n", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "generateAndVerifyAriesHostAuthorization\n", &v8, 2u);
   }
 
   v2 = initialize();
   if (v2)
   {
-    generateAndVerifyAriesHostAuthorization_cold_2(v2, v2, &v9);
+    generateAndVerifyAriesHostAuthorization_cold_2(v2, v2, &v8);
   }
 
   else
@@ -461,10 +457,10 @@ uint64_t generateAndVerifyAriesHostAuthorization()
       goto LABEL_10;
     }
 
-    generateAndVerifyAriesHostAuthorization_cold_3(v3, v3, &v9);
+    generateAndVerifyAriesHostAuthorization_cold_3(v3, v3, &v8);
   }
 
-  v4 = v9;
+  v4 = v8;
 LABEL_10:
   if (_connect)
   {
@@ -486,12 +482,12 @@ LABEL_10:
 
     if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
     {
-      v9 = 67109120;
-      v10 = v4;
+      v8 = 67109120;
+      v9 = v4;
       v5 = v0;
       v6 = OS_LOG_TYPE_ERROR;
 LABEL_25:
-      _os_log_impl(&dword_299F4E000, v5, v6, "generateAndVerifyAriesHostAuthorization -> %d\n", &v9, 8u);
+      _os_log_impl(&dword_299F4E000, v5, v6, "generateAndVerifyAriesHostAuthorization -> %d\n", &v8, 8u);
     }
   }
 
@@ -509,15 +505,14 @@ LABEL_25:
 
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 67109120;
-      v10 = 0;
+      v8 = 67109120;
+      v9 = 0;
       v5 = v0;
       v6 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_25;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -541,10 +536,11 @@ void __OSLogInit_block_invoke()
   objc_storeStrong(&__osLogPearlLibTrace, v2);
 }
 
-void OUTLINED_FUNCTION_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_12@<W0>(NSObject *a1@<X8>)
@@ -562,10 +558,11 @@ BOOL OUTLINED_FUNCTION_12@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void OUTLINED_FUNCTION_13(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_13(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_14@<W0>(NSObject *a1@<X8>)
@@ -583,10 +580,11 @@ BOOL OUTLINED_FUNCTION_14@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void OUTLINED_FUNCTION_18(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_18(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL OUTLINED_FUNCTION_19@<W0>(NSObject *a1@<X8>)
@@ -602,13 +600,6 @@ BOOL OUTLINED_FUNCTION_19@<W0>(NSObject *a1@<X8>)
   }
 
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-}
-
-void OUTLINED_FUNCTION_25()
-{
-  *v1 = 258;
-  *v0 = 0;
-  v3 = *(v2 - 56);
 }
 
 void OUTLINED_FUNCTION_29(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -632,17 +623,11 @@ BOOL OUTLINED_FUNCTION_30@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void OUTLINED_FUNCTION_35()
+void OUTLINED_FUNCTION_41(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  *v1 = v3;
-  *v0 = v2;
-  v5 = *(v4 - 88);
-}
+  va_start(va, a14);
 
-void OUTLINED_FUNCTION_41(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
-{
-
-  _os_log_impl(a1, v15, OS_LOG_TYPE_ERROR, a4, &buf, 8u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 BOOL OUTLINED_FUNCTION_42@<W0>(NSObject *a1@<X8>)
@@ -692,7 +677,7 @@ BOOL OUTLINED_FUNCTION_44@<W0>(NSObject *a1@<X8>)
 
 void getSavageProvisioningData_cold_2()
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", "fileURL", 0, "", "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m", 511);
   if (OSLogInit_onceToken != -1)
   {
@@ -701,23 +686,21 @@ void getSavageProvisioningData_cold_2()
 
   if (OUTLINED_FUNCTION_43(__osLogPearlLib))
   {
-    v4 = 136316162;
-    v5 = "fileURL";
+    v3 = 136316162;
+    v4 = "fileURL";
     OUTLINED_FUNCTION_3_0();
-    v6 = "";
-    v7 = v1;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+    v5 = "";
+    v6 = v1;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
     OUTLINED_FUNCTION_20();
-    v9 = 511;
-    OUTLINED_FUNCTION_29(&dword_299F4E000, v0, v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v4);
+    v8 = 511;
+    OUTLINED_FUNCTION_29(&dword_299F4E000, v0, v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v3);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void getSavageProvisioningData_cold_3()
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", "pathString", 0, "", "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m", 509);
   if (OSLogInit_onceToken != -1)
   {
@@ -726,24 +709,22 @@ void getSavageProvisioningData_cold_3()
 
   if (OUTLINED_FUNCTION_43(__osLogPearlLib))
   {
-    v4 = 136316162;
-    v5 = "pathString";
+    v3 = 136316162;
+    v4 = "pathString";
     OUTLINED_FUNCTION_3_0();
-    v6 = "";
-    v7 = v1;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+    v5 = "";
+    v6 = v1;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
     OUTLINED_FUNCTION_20();
-    v9 = 509;
-    OUTLINED_FUNCTION_29(&dword_299F4E000, v0, v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v4);
+    v8 = 509;
+    OUTLINED_FUNCTION_29(&dword_299F4E000, v0, v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v3);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void allocateAndMapObjectS3C1_cold_20()
 {
   OUTLINED_FUNCTION_31();
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     dispatch_once(&OSLogInit_onceToken, &__block_literal_global_0);
@@ -762,14 +743,13 @@ void allocateAndMapObjectS3C1_cold_20()
   v3 = v2;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = 0;
-    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "allocateAndMapObjectS3C1 -> 0x%x\n", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = 0;
+    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "allocateAndMapObjectS3C1 -> 0x%x\n", v4, 8u);
   }
 
   *v1 = 0;
   *v0 = v3;
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 CFErrorRef createCFErrorWithDomain(uint64_t a1, unsigned int a2, uint64_t a3, const __CFString *a4)
@@ -1058,57 +1038,55 @@ LABEL_25:
 
 uint64_t YonkersDevice::CheckProvisioningStatus(YonkersDevice *this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = 3758097136;
   *buffer = 0;
-  v19 = 0;
-  memset(v17, 0, sizeof(v17));
-  v3 = *MEMORY[0x29EDB8ED8];
-  v4 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersUID");
-  if (v4)
+  v17 = 0;
+  memset(v15, 0, sizeof(v15));
+  v3 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersUID");
+  if (v3)
   {
-    v5 = v4;
-    v6 = CFGetTypeID(v4);
-    if (v6 != CFDataGetTypeID())
+    v4 = v3;
+    v5 = CFGetTypeID(v3);
+    if (v5 != CFDataGetTypeID())
     {
       goto LABEL_24;
     }
 
-    v21.location = 0;
-    v21.length = 16;
-    CFDataGetBytes(v5, v21, buffer);
-    CFRelease(v5);
+    v19.location = 0;
+    v19.length = 16;
+    CFDataGetBytes(v4, v19, buffer);
+    CFRelease(v4);
     *(this + 1) = bswap64(*buffer);
-    v7 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersFabRevision");
-    if (!v7)
+    v6 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersFabRevision");
+    if (!v6)
     {
-      v2 = 0;
-      goto LABEL_21;
+      return 0;
     }
 
-    v5 = v7;
-    v8 = CFGetTypeID(v7);
-    if (v8 != CFDataGetTypeID())
+    v4 = v6;
+    v7 = CFGetTypeID(v6);
+    if (v7 != CFDataGetTypeID())
     {
       v2 = 0;
       goto LABEL_24;
     }
 
-    BytePtr = CFDataGetBytePtr(v5);
+    BytePtr = CFDataGetBytePtr(v4);
     if (BytePtr)
     {
-      v10 = __rev16(*BytePtr);
+      v9 = __rev16(*BytePtr);
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
-    CFRelease(v5);
+    CFRelease(v4);
     for (i = 0; i != 5; ++i)
     {
-      if (v10 == dword_299F6F390[i])
+      if (v9 == dword_299F6F390[i])
       {
         *this = 0;
         goto LABEL_18;
@@ -1117,10 +1095,10 @@ uint64_t YonkersDevice::CheckProvisioningStatus(YonkersDevice *this)
 
     if (*this)
     {
-      v12 = 0;
-      while (v10 != dword_299F6F3A4[v12])
+      v11 = 0;
+      while (v9 != dword_299F6F3A4[v11])
       {
-        if (++v12 == 16)
+        if (++v11 == 16)
         {
           goto LABEL_18;
         }
@@ -1130,132 +1108,129 @@ uint64_t YonkersDevice::CheckProvisioningStatus(YonkersDevice *this)
     }
 
 LABEL_18:
-    v13 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersPubKeyHmac");
-    if (v13)
+    v12 = OUTLINED_FUNCTION_0_0(*(this + 11), @"YonkersPubKeyHmac");
+    if (v12)
     {
-      v5 = v13;
-      v14 = CFGetTypeID(v13);
-      if (v14 == CFDataGetTypeID())
+      v4 = v12;
+      v13 = CFGetTypeID(v12);
+      if (v13 == CFDataGetTypeID())
       {
-        v22.location = 0;
-        v22.length = 32;
-        CFDataGetBytes(v5, v22, v17);
-        CFRelease(v5);
+        v20.location = 0;
+        v20.length = 32;
+        CFDataGetBytes(v4, v20, v15);
+        CFRelease(v4);
         v2 = 0;
-        *(this + 2) = bswap64(*&v17[0]);
-        goto LABEL_21;
+        *(this + 2) = bswap64(*&v15[0]);
+        return v2;
       }
 
 LABEL_24:
-      CFRelease(v5);
+      CFRelease(v4);
     }
   }
 
-LABEL_21:
-  v15 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 uint64_t YonkersDevice::CreateCertInfoBlob(uint64_t a1, uint64_t a2)
 {
   v4 = 3758097136;
-  v5 = *MEMORY[0x29EDB8ED8];
-  v6 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersMNS");
-  if (!v6)
+  v5 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersMNS");
+  if (!v5)
   {
     return v4;
   }
 
-  v7 = v6;
-  v8 = CFGetTypeID(v6);
-  if (v8 != CFDataGetTypeID())
+  v6 = v5;
+  v7 = CFGetTypeID(v5);
+  if (v7 != CFDataGetTypeID())
   {
     goto LABEL_19;
   }
 
-  BytePtr = CFDataGetBytePtr(v7);
+  BytePtr = CFDataGetBytePtr(v6);
   if (BytePtr)
   {
-    v10 = *BytePtr;
-    if (v10 == 4)
+    v9 = *BytePtr;
+    if (v9 == 4)
     {
       *a2 = 0;
-      v10 = *BytePtr;
+      v9 = *BytePtr;
     }
 
-    if (v10 == 8)
+    if (v9 == 8)
     {
       *a2 = 1;
     }
   }
 
-  CFRelease(v7);
-  v11 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersChipID");
-  if (!v11)
+  CFRelease(v6);
+  v10 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersChipID");
+  if (!v10)
   {
     return v4;
   }
 
-  v7 = v11;
-  v12 = CFGetTypeID(v11);
-  if (v12 != CFDataGetTypeID())
+  v6 = v10;
+  v11 = CFGetTypeID(v10);
+  if (v11 != CFDataGetTypeID())
   {
     goto LABEL_19;
   }
 
-  v13 = CFDataGetBytePtr(v7);
-  if (v13)
+  v12 = CFDataGetBytePtr(v6);
+  if (v12)
   {
-    *(a2 + 4) = bswap32(*v13);
+    *(a2 + 4) = bswap32(*v12);
   }
 
-  CFRelease(v7);
-  v14 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersUID");
-  if (!v14)
+  CFRelease(v6);
+  v13 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersUID");
+  if (!v13)
   {
     return v4;
   }
 
-  v7 = v14;
-  v15 = CFGetTypeID(v14);
-  if (v15 != CFDataGetTypeID())
+  v6 = v13;
+  v14 = CFGetTypeID(v13);
+  if (v14 != CFDataGetTypeID())
   {
     goto LABEL_19;
+  }
+
+  v20.location = 0;
+  v20.length = 16;
+  CFDataGetBytes(v6, v20, (a2 + 8));
+  CFRelease(v6);
+  v15 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersPubKey");
+  if (!v15)
+  {
+    return v4;
+  }
+
+  v6 = v15;
+  v16 = CFGetTypeID(v15);
+  if (v16 != CFDataGetTypeID())
+  {
+LABEL_19:
+    CFRelease(v6);
+    return v4;
   }
 
   v21.location = 0;
-  v21.length = 16;
-  CFDataGetBytes(v7, v21, (a2 + 8));
-  CFRelease(v7);
-  v16 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersPubKey");
-  if (!v16)
+  v21.length = 64;
+  CFDataGetBytes(v6, v21, (a2 + 24));
+  CFRelease(v6);
+  v17 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersPubKeyHmac");
+  if (v17)
   {
-    return v4;
-  }
-
-  v7 = v16;
-  v17 = CFGetTypeID(v16);
-  if (v17 != CFDataGetTypeID())
-  {
-LABEL_19:
-    CFRelease(v7);
-    return v4;
-  }
-
-  v22.location = 0;
-  v22.length = 64;
-  CFDataGetBytes(v7, v22, (a2 + 24));
-  CFRelease(v7);
-  v18 = OUTLINED_FUNCTION_0_0(*(a1 + 44), @"YonkersPubKeyHmac");
-  if (v18)
-  {
-    v7 = v18;
-    v19 = CFGetTypeID(v18);
-    if (v19 == CFDataGetTypeID())
+    v6 = v17;
+    v18 = CFGetTypeID(v17);
+    if (v18 == CFDataGetTypeID())
     {
-      v23.location = 0;
-      v23.length = 32;
-      CFDataGetBytes(v7, v23, (a2 + 88));
+      v22.location = 0;
+      v22.length = 32;
+      CFDataGetBytes(v6, v22, (a2 + 88));
       v4 = 0;
     }
 
@@ -1268,138 +1243,137 @@ LABEL_19:
 uint64_t YonkersDevice::CreateDeviceInfoDict(YonkersDevice *this, __CFDictionary *a2)
 {
   v4 = 3758097136;
-  v5 = *MEMORY[0x29EDB8ED8];
-  v6 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersUID");
-  if (!v6)
+  v5 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersUID");
+  if (!v5)
   {
     return v4;
   }
 
-  v7 = v6;
-  v8 = CFGetTypeID(v6);
-  if (v8 != CFDataGetTypeID())
+  v6 = v5;
+  v7 = CFGetTypeID(v5);
+  if (v7 != CFDataGetTypeID())
   {
     goto LABEL_40;
   }
 
-  CFDictionaryAddValue(a2, *MEMORY[0x29EDCACA8], v7);
-  CFRelease(v7);
-  v9 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersNonce");
-  if (!v9)
+  CFDictionaryAddValue(a2, *MEMORY[0x29EDCACA8], v6);
+  CFRelease(v6);
+  v8 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersNonce");
+  if (!v8)
   {
     return v4;
   }
 
-  v7 = v9;
-  v10 = CFGetTypeID(v9);
-  if (v10 != CFDataGetTypeID())
+  v6 = v8;
+  v9 = CFGetTypeID(v8);
+  if (v9 != CFDataGetTypeID())
   {
     goto LABEL_40;
   }
 
-  CFDictionaryAddValue(a2, *MEMORY[0x29EDCACB8], v7);
-  CFRelease(v7);
-  v11 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersFabRevision");
-  if (!v11)
+  CFDictionaryAddValue(a2, *MEMORY[0x29EDCACB8], v6);
+  CFRelease(v6);
+  v10 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersFabRevision");
+  if (!v10)
   {
     return v4;
   }
 
-  v7 = v11;
-  v12 = CFGetTypeID(v11);
-  if (v12 != CFDataGetTypeID())
+  v6 = v10;
+  v11 = CFGetTypeID(v10);
+  if (v11 != CFDataGetTypeID())
   {
     goto LABEL_40;
   }
 
-  BytePtr = CFDataGetBytePtr(v7);
+  BytePtr = CFDataGetBytePtr(v6);
   if (BytePtr)
   {
-    v14 = __rev16(*BytePtr);
-    v29 = 1;
-    if ((v14 & 0xF7FF) != 0xD501)
+    v13 = __rev16(*BytePtr);
+    v28 = 1;
+    if ((v13 & 0xF7FF) != 0xD501)
     {
-      v15 = v14 == 53506 || v14 == 53570;
-      v16 = v15 || v14 == 59905;
-      if (!v16 && v14 != 61953)
+      v14 = v13 == 53506 || v13 == 53570;
+      v15 = v14 || v13 == 59905;
+      if (!v15 && v13 != 61953)
       {
-        v29 = 0;
+        v28 = 0;
       }
     }
 
-    *(this + 24) = v29;
-    SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCACB0], v14);
+    *(this + 24) = v28;
+    SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCACB0], v13);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  CFRelease(v7);
-  v18 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersChipID");
-  if (!v18)
+  CFRelease(v6);
+  v17 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersChipID");
+  if (!v17)
   {
     return v4;
   }
 
-  v7 = v18;
-  v19 = CFGetTypeID(v18);
-  if (v19 != CFDataGetTypeID())
+  v6 = v17;
+  v18 = CFGetTypeID(v17);
+  if (v18 != CFDataGetTypeID())
   {
 LABEL_40:
-    CFRelease(v7);
+    CFRelease(v6);
     return v4;
   }
 
-  v20 = CFDataGetBytePtr(v7);
-  if (v20)
+  v19 = CFDataGetBytePtr(v6);
+  if (v19)
   {
-    SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCACA0], bswap32(*v20));
+    SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCACA0], bswap32(*v19));
   }
 
-  CFRelease(v7);
-  v21 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersMNS");
-  if (v21)
+  CFRelease(v6);
+  v20 = OUTLINED_FUNCTION_1(*(this + 11), @"YonkersMNS");
+  if (v20)
   {
-    v7 = v21;
-    v22 = CFGetTypeID(v21);
-    if (v22 == CFDataGetTypeID())
+    v6 = v20;
+    v21 = CFGetTypeID(v20);
+    if (v21 == CFDataGetTypeID())
     {
-      v23 = CFDataGetBytePtr(v7);
-      if (v23)
+      v22 = CFDataGetBytePtr(v6);
+      if (v22)
       {
-        v24 = *v23;
-        if (v24 == 4)
+        v23 = *v22;
+        if (v23 == 4)
         {
           *(this + 25) = 0;
-          v24 = *v23;
+          v23 = *v22;
         }
 
-        if (v24 == 8)
+        if (v23 == 8)
         {
           *(this + 25) = 1;
         }
       }
 
-      v25 = 0;
-      v26 = &dword_299F6F3E4;
+      v24 = 0;
+      v25 = &dword_299F6F3E4;
       while (1)
       {
-        v27 = *v26++;
-        if (v14 == v27)
+        v26 = *v25++;
+        if (v13 == v26)
         {
           break;
         }
 
-        v25 -= 2;
-        if (v25 == -16)
+        v24 -= 2;
+        if (v24 == -16)
         {
           goto LABEL_39;
         }
       }
 
-      snprintf(this + 36, 2uLL, "%x", (*(this + 25) != 0) - v25);
+      snprintf(this + 36, 2uLL, "%x", (*(this + 25) != 0) - v24);
       *(this + 38) = 1;
 LABEL_39:
       SavageCFDictionarySetBoolean(a2, @"YonkersIsProvisioned", *(this + 8));
@@ -1414,27 +1388,26 @@ LABEL_39:
 
 uint64_t YonkersDevice::Fusing(YonkersDevice *this, unsigned int a2, const unsigned __int8 *a3, unsigned int a4)
 {
-  v11[3] = *MEMORY[0x29EDCA608];
+  v9[3] = *MEMORY[0x29EDCA608];
   if (*(this + 28))
   {
-    v8 = *(this + 7);
     v7 = SavageCamInterfaceSensorFusing();
     goto LABEL_7;
   }
 
   v5 = *(this + 12);
-  v11[2] = a2;
+  v9[2] = a2;
   v6 = 3758097090;
   if (a3)
   {
     if (a4)
     {
-      v11[0] = a3;
-      v11[1] = a4;
+      v9[0] = a3;
+      v9[1] = a4;
       v6 = 3758097084;
       if (v5)
       {
-        v7 = IOConnectCallScalarMethod(v5, 0x45u, v11, 3u, 0, 0);
+        v7 = IOConnectCallScalarMethod(v5, 0x45u, v9, 3u, 0, 0);
 LABEL_7:
         v6 = v7;
       }
@@ -1443,7 +1416,6 @@ LABEL_7:
 
   *(this + 1) = 0;
   YonkersDevice::CheckProvisioningStatus(this);
-  v9 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1901,7 +1873,7 @@ void JasmineIRUpdateController::getSignedCertificate(JasmineIRUpdateController *
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
   v4 = v3;
   v5 = v2;
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   *(v2 + 152) = v6;
   v7 = calloc(v6, 1uLL);
   *(v5 + 144) = v7;
@@ -1915,7 +1887,7 @@ void JasmineIRUpdateController::getSignedCertificate(JasmineIRUpdateController *
       v9 = 0;
       do
       {
-        bzero(v14, 0x1000uLL);
+        bzero(v13, 0x1000uLL);
         if (v9 >= v8)
         {
           v12 = v9;
@@ -1926,7 +1898,7 @@ void JasmineIRUpdateController::getSignedCertificate(JasmineIRUpdateController *
           v10 = 0;
           do
           {
-            v11 = snprintf(&v14[v10], 5uLL, " %02X ", *(*(v5 + 144) + v9++));
+            v11 = snprintf(&v13[v10], 5uLL, " %02X ", *(*(v5 + 144) + v9++));
             v12 = v9;
             if (v9 >= *(v5 + 152))
             {
@@ -1939,7 +1911,7 @@ void JasmineIRUpdateController::getSignedCertificate(JasmineIRUpdateController *
           while ((v10 + 5) < 0x1000);
         }
 
-        JasmineIRUpdateController::JasmineIRLog(v5, "\n JasmineIR: %s \n", v14);
+        JasmineIRUpdateController::JasmineIRLog(v5, "\n JasmineIR: %s \n", v13);
         v8 = *(v5 + 152);
         v9 = v12;
       }
@@ -1947,8 +1919,6 @@ void JasmineIRUpdateController::getSignedCertificate(JasmineIRUpdateController *
       while (v12 < v8);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t YonkersUpdateController::start(YonkersUpdateController *this, const __CFDictionary *a2)
@@ -2305,17 +2275,16 @@ LABEL_10:
 
 uint64_t YonkersUpdateController::eventCmdQueryInfo(YonkersUpdateController *this)
 {
-  v2 = *MEMORY[0x29EDB8ED8];
-  v3 = OUTLINED_FUNCTION_1_0();
+  v2 = OUTLINED_FUNCTION_1_0();
   *(this + 6) = OUTLINED_FUNCTION_1_0();
   if (*(this + 17) == 1)
   {
     YonkersUpdateController::YonkersLog(this, "%s: Begin Fusing \n", "eventCmdQueryInfo");
-    OUTLINED_FUNCTION_0_1(v4, *MEMORY[0x29EDCACF0]);
-    OUTLINED_FUNCTION_0_1(v5, *MEMORY[0x29EDCACE8]);
-    OUTLINED_FUNCTION_0_1(v6, *MEMORY[0x29EDCACD8]);
-    OUTLINED_FUNCTION_0_1(v7, *MEMORY[0x29EDCACC8]);
-    OUTLINED_FUNCTION_0_1(v8, *MEMORY[0x29EDCACD0]);
+    OUTLINED_FUNCTION_0_1(v3, *MEMORY[0x29EDCACF0]);
+    OUTLINED_FUNCTION_0_1(v4, *MEMORY[0x29EDCACE8]);
+    OUTLINED_FUNCTION_0_1(v5, *MEMORY[0x29EDCACD8]);
+    OUTLINED_FUNCTION_0_1(v6, *MEMORY[0x29EDCACC8]);
+    OUTLINED_FUNCTION_0_1(v7, *MEMORY[0x29EDCACD0]);
     DeviceInfoDict = YonkersDevice::PreFusing(*(this + 3), *(this + 38));
     if (DeviceInfoDict)
     {
@@ -2328,9 +2297,9 @@ uint64_t YonkersUpdateController::eventCmdQueryInfo(YonkersUpdateController *thi
   else if (*(this + 19) == 1)
   {
     YonkersUpdateController::YonkersLog(this, "%s: Begin Certification \n", "eventCmdQueryInfo");
-    OUTLINED_FUNCTION_0_1(v10, *MEMORY[0x29EDCACC8]);
-    OUTLINED_FUNCTION_0_1(v11, *MEMORY[0x29EDCACD0]);
-    OUTLINED_FUNCTION_0_1(v12, *MEMORY[0x29EDCACD8]);
+    OUTLINED_FUNCTION_0_1(v9, *MEMORY[0x29EDCACC8]);
+    OUTLINED_FUNCTION_0_1(v10, *MEMORY[0x29EDCACD0]);
+    OUTLINED_FUNCTION_0_1(v11, *MEMORY[0x29EDCACD8]);
     DeviceInfoDict = YonkersDevice::PreFusing(*(this + 3), *(this + 38));
     if (DeviceInfoDict)
     {
@@ -2343,18 +2312,18 @@ uint64_t YonkersUpdateController::eventCmdQueryInfo(YonkersUpdateController *thi
   else if (*(this + 21) == 1)
   {
     YonkersUpdateController::YonkersLog(this, "%s: Begin Personalization \n", "eventCmdQueryInfo");
-    OUTLINED_FUNCTION_0_1(v13, *MEMORY[0x29EDCACD0]);
-    OUTLINED_FUNCTION_0_1(v14, *MEMORY[0x29EDCAC98]);
-    OUTLINED_FUNCTION_0_1(v15, *MEMORY[0x29EDCACC8]);
+    OUTLINED_FUNCTION_0_1(v12, *MEMORY[0x29EDCACD0]);
+    OUTLINED_FUNCTION_0_1(v13, *MEMORY[0x29EDCAC98]);
+    OUTLINED_FUNCTION_0_1(v14, *MEMORY[0x29EDCACC8]);
     YonkersUpdateController::YonkersLog(this, "%s: Finished pre-personalizing \n");
   }
 
-  DeviceInfoDict = YonkersDevice::CreateDeviceInfoDict(*(this + 3), v3);
+  DeviceInfoDict = YonkersDevice::CreateDeviceInfoDict(*(this + 3), v2);
   if (DeviceInfoDict)
   {
 LABEL_31:
     YonkersMeasurementTags = DeviceInfoDict;
-    if (!v3)
+    if (!v2)
     {
       return YonkersMeasurementTags;
     }
@@ -2362,48 +2331,48 @@ LABEL_31:
     goto LABEL_29;
   }
 
-  v16 = *(this + 3);
-  if (*(this + 35) == 1 && !*(v16 + 8) && !*(this + 17) && !*(this + 19) && *(this + 21) == 1)
+  v15 = *(this + 3);
+  if (*(this + 35) == 1 && !*(v15 + 8) && !*(this + 17) && !*(this + 19) && *(this + 21) == 1)
   {
-    v17 = *(this + 39);
-    v18 = v17 == 4 || v17 == 2;
-    if (v18)
+    v16 = *(this + 39);
+    v17 = v16 == 4 || v16 == 2;
+    if (v17)
     {
-      v18 = *(v16 + 24) == 0;
-      *(v16 + 24) = *(v16 + 24) == 0;
-      if (v18)
+      v17 = *(v15 + 24) == 0;
+      *(v15 + 24) = *(v15 + 24) == 0;
+      if (v17)
       {
-        v19 = 59905;
+        v18 = 59905;
       }
 
       else
       {
-        v19 = 6657;
+        v18 = 6657;
       }
 
-      SavageCFDictionarySetInteger32(v3, *MEMORY[0x29EDCACB0], v19);
-      v17 = *(this + 39);
-      v16 = *(this + 3);
+      SavageCFDictionarySetInteger32(v2, *MEMORY[0x29EDCACB0], v18);
+      v16 = *(this + 39);
+      v15 = *(this + 3);
     }
 
-    if (v17 >= 3)
+    if (v16 >= 3)
     {
-      *(v16 + 25) = *(v16 + 25) == 0;
+      *(v15 + 25) = *(v15 + 25) == 0;
     }
   }
 
-  SavageCFDictionarySetBoolean(v3, @"YonkersIsYmgt", *(v16 + 24));
-  SavageCFDictionarySetBoolean(v3, *MEMORY[0x29EDCACC0], *(*(this + 3) + 25));
-  YonkersMeasurementTags = GetYonkersMeasurementTags(v3, this + 64);
+  SavageCFDictionarySetBoolean(v2, @"YonkersIsYmgt", *(v15 + 24));
+  SavageCFDictionarySetBoolean(v2, *MEMORY[0x29EDCACC0], *(*(this + 3) + 25));
+  YonkersMeasurementTags = GetYonkersMeasurementTags(v2, this + 64);
   if (!YonkersMeasurementTags)
   {
-    CFDictionarySetValue(*(this + 6), *MEMORY[0x29EDCAC68], v3);
+    CFDictionarySetValue(*(this + 6), *MEMORY[0x29EDCAC68], v2);
   }
 
-  if (v3)
+  if (v2)
   {
 LABEL_29:
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   return YonkersMeasurementTags;
@@ -2498,11 +2467,11 @@ uint64_t YonkersUpdateController::getTSSResponse(YonkersUpdateController *this)
 
 void YonkersUpdateController::formatAndStitchFiles(YonkersUpdateController *this)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v1 = *(this + 30);
   v2 = (v1 + 8223) & 0xFFFFFFE0;
   v3 = *(this + 22);
-  HIBYTE(v26) = 0;
+  HIBYTE(v25) = 0;
   if (*(this + 10) && *(this + 14))
   {
     v5 = 3 * v1;
@@ -2532,7 +2501,7 @@ void YonkersUpdateController::formatAndStitchFiles(YonkersUpdateController *this
       *(v10 + 7) = 0;
       YonkersUpdateController::YonkersLog(this, "%s -  certStartAddr=0x%08X, firmwareStartAddr=0x%08X, theCompletePatchFileLen=%d, signedCertificateLen=%d, firmwareDataLen=%d, 4cc=%s \n", "formatAndStitchFiles", 0x2000, v2, *(this + 35), *(this + 30), *(this + 22), (*(this + 3) + 36));
       v11 = 0;
-      v12 = &v26 + 3;
+      v12 = &v25 + 3;
       v13 = 4608;
       while (1)
       {
@@ -2562,7 +2531,7 @@ LABEL_16:
       {
         if (v16 + 3 > v14)
         {
-          goto LABEL_37;
+          return;
         }
 
         *(*(this + 18) + v16) = 18;
@@ -2651,9 +2620,6 @@ LABEL_26:
       }
     }
   }
-
-LABEL_37:
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void YonkersUpdateController::getSignedCertificate()
@@ -2700,175 +2666,173 @@ void YonkersUpdateController::validateSignatureLen()
 
 uint64_t SavageDevice::CheckProvisioningStatus(SavageDevice *this)
 {
-  v48 = *MEMORY[0x29EDCA608];
   v2 = 3758097136;
-  v3 = *MEMORY[0x29EDB8ED8];
-  v4 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageUID");
-  if (v4)
+  v3 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageUID");
+  if (v3)
   {
-    v5 = v4;
-    v6 = CFGetTypeID(v4);
-    if (v6 != CFDataGetTypeID())
+    v4 = v3;
+    v5 = CFGetTypeID(v3);
+    if (v5 != CFDataGetTypeID())
     {
       goto LABEL_36;
     }
 
-    v7 = OUTLINED_FUNCTION_0_2();
-    v49.length = 16;
-    CFDataGetBytes(v7, v49, v8);
-    CFRelease(v5);
+    v6 = OUTLINED_FUNCTION_0_2();
+    v46.length = 16;
+    CFDataGetBytes(v6, v46, v7);
+    CFRelease(v4);
     *(this + 7) = bswap64(0);
-    v9 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageMNS");
-    if (v9)
+    v8 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageMNS");
+    if (v8)
     {
-      v5 = v9;
-      v10 = CFGetTypeID(v9);
-      if (v10 != CFDataGetTypeID())
+      v4 = v8;
+      v9 = CFGetTypeID(v8);
+      if (v9 != CFDataGetTypeID())
       {
         goto LABEL_36;
       }
 
-      BytePtr = CFDataGetBytePtr(v5);
+      BytePtr = CFDataGetBytePtr(v4);
       if (BytePtr)
       {
-        v12 = *BytePtr;
-        if (v12 == 10 || v12 == 6)
+        v11 = *BytePtr;
+        if (v11 == 10 || v11 == 6)
         {
           *(this + 17) = 1;
         }
       }
 
-      CFRelease(v5);
-      v14 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageChipID");
-      if (v14)
+      CFRelease(v4);
+      v13 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageChipID");
+      if (v13)
       {
-        v5 = v14;
-        v15 = CFGetTypeID(v14);
-        if (v15 != CFDataGetTypeID())
+        v4 = v13;
+        v14 = CFGetTypeID(v13);
+        if (v14 != CFDataGetTypeID())
         {
           goto LABEL_36;
         }
 
-        v16 = OUTLINED_FUNCTION_0_2();
-        v50.length = 4;
-        CFDataGetBytes(v16, v50, v17);
+        v15 = OUTLINED_FUNCTION_0_2();
+        v47.length = 4;
+        CFDataGetBytes(v15, v47, v16);
         *(this + 28) = bswap32(*(this + 28));
-        CFRelease(v5);
-        v18 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageKCV");
-        if (v18)
+        CFRelease(v4);
+        v17 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageKCV");
+        if (v17)
         {
-          v5 = v18;
-          v19 = CFGetTypeID(v18);
-          if (v19 != CFDataGetTypeID())
+          v4 = v17;
+          v18 = CFGetTypeID(v17);
+          if (v18 != CFDataGetTypeID())
           {
             goto LABEL_36;
           }
 
-          v20 = OUTLINED_FUNCTION_0_2();
-          v51.length = 3;
-          CFDataGetBytes(v20, v51, v21);
-          CFRelease(v5);
-          v22 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageWrapOutputKey");
-          if (v22)
+          v19 = OUTLINED_FUNCTION_0_2();
+          v48.length = 3;
+          CFDataGetBytes(v19, v48, v20);
+          CFRelease(v4);
+          v21 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageWrapOutputKey");
+          if (v21)
           {
-            v23 = v22;
-            v24 = CFGetTypeID(v22);
-            if (v24 == CFDataGetTypeID())
+            v22 = v21;
+            v23 = CFGetTypeID(v21);
+            if (v23 == CFDataGetTypeID())
             {
-              v25 = OUTLINED_FUNCTION_0_2();
-              v52.length = 32;
-              CFDataGetBytes(v25, v52, v26);
+              v24 = OUTLINED_FUNCTION_0_2();
+              v49.length = 32;
+              CFDataGetBytes(v24, v49, v25);
             }
 
-            CFRelease(v23);
-            v27 = bswap64(0);
+            CFRelease(v22);
+            v26 = bswap64(0);
           }
 
           else
           {
-            v27 = 0;
+            v26 = 0;
           }
 
-          *(this + 12) = v27;
-          v28 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavagePubKeyHmac");
-          if (v28)
+          *(this + 12) = v26;
+          v27 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavagePubKeyHmac");
+          if (v27)
           {
-            v29 = v28;
-            v30 = CFGetTypeID(v28);
-            if (v30 == CFDataGetTypeID())
+            v28 = v27;
+            v29 = CFGetTypeID(v27);
+            if (v29 == CFDataGetTypeID())
             {
-              v31 = OUTLINED_FUNCTION_0_2();
-              v53.length = 32;
-              CFDataGetBytes(v31, v53, v32);
+              v30 = OUTLINED_FUNCTION_0_2();
+              v50.length = 32;
+              CFDataGetBytes(v30, v50, v31);
             }
 
-            CFRelease(v29);
-            v33 = bswap64(0);
+            CFRelease(v28);
+            v32 = bswap64(0);
           }
 
           else
           {
-            v33 = 0;
+            v32 = 0;
           }
 
-          *(this + 9) = v33;
-          v34 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKey");
-          if (v34)
+          *(this + 9) = v32;
+          v33 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKey");
+          if (v33)
           {
-            v5 = v34;
-            v35 = CFGetTypeID(v34);
-            if (v35 != CFDataGetTypeID())
+            v4 = v33;
+            v34 = CFGetTypeID(v33);
+            if (v34 != CFDataGetTypeID())
             {
               goto LABEL_36;
             }
 
-            *this = SavageSafeRetain(v5);
-            CFRelease(v5);
-            v36 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthSalt");
-            if (v36)
+            *this = SavageSafeRetain(v4);
+            CFRelease(v4);
+            v35 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthSalt");
+            if (v35)
             {
-              v5 = v36;
-              v37 = CFGetTypeID(v36);
-              if (v37 != CFDataGetTypeID())
+              v4 = v35;
+              v36 = CFGetTypeID(v35);
+              if (v36 != CFDataGetTypeID())
               {
                 goto LABEL_36;
               }
 
-              v38 = OUTLINED_FUNCTION_0_2();
-              v54.length = 16;
-              CFDataGetBytes(v38, v54, v39);
-              CFRelease(v5);
+              v37 = OUTLINED_FUNCTION_0_2();
+              v51.length = 16;
+              CFDataGetBytes(v37, v51, v38);
+              CFRelease(v4);
               *(this + 11) = bswap64(0);
-              v40 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthResponse");
-              if (v40)
+              v39 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthResponse");
+              if (v39)
               {
-                v5 = v40;
-                v41 = CFGetTypeID(v40);
-                if (v41 != CFDataGetTypeID())
+                v4 = v39;
+                v40 = CFGetTypeID(v39);
+                if (v40 != CFDataGetTypeID())
                 {
                   goto LABEL_36;
                 }
 
-                *(this + 1) = SavageSafeRetain(v5);
-                CFRelease(v5);
-                v42 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKeyHmac");
-                if (v42)
+                *(this + 1) = SavageSafeRetain(v4);
+                CFRelease(v4);
+                v41 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKeyHmac");
+                if (v41)
                 {
-                  v5 = v42;
-                  v43 = CFGetTypeID(v42);
-                  if (v43 == CFDataGetTypeID())
+                  v4 = v41;
+                  v42 = CFGetTypeID(v41);
+                  if (v42 == CFDataGetTypeID())
                   {
-                    v44 = OUTLINED_FUNCTION_0_2();
-                    v55.length = 32;
-                    CFDataGetBytes(v44, v55, v45);
-                    CFRelease(v5);
+                    v43 = OUTLINED_FUNCTION_0_2();
+                    v52.length = 32;
+                    CFDataGetBytes(v43, v52, v44);
+                    CFRelease(v4);
                     v2 = 0;
                     *(this + 10) = bswap64(0);
-                    goto LABEL_35;
+                    return v2;
                   }
 
 LABEL_36:
-                  CFRelease(v5);
+                  CFRelease(v4);
                 }
               }
             }
@@ -2878,8 +2842,6 @@ LABEL_36:
     }
   }
 
-LABEL_35:
-  v46 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -2943,122 +2905,121 @@ LABEL_8:
 uint64_t SavageDevice::CreateDeviceInfoDict(SavageDevice *this, __CFDictionary *a2)
 {
   v3 = 3758097136;
-  v4 = *MEMORY[0x29EDB8ED8];
-  v5 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
-  if (v5)
+  v4 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
+  if (v4)
   {
-    v6 = v5;
-    v7 = CFGetTypeID(v5);
+    v5 = v4;
+    v6 = CFGetTypeID(v4);
     TypeID = CFDataGetTypeID();
-    if (v7 != TypeID)
+    if (v6 != TypeID)
     {
       goto LABEL_24;
     }
 
     OUTLINED_FUNCTION_3(TypeID, *MEMORY[0x29EDCABD0]);
-    CFRelease(v6);
-    v9 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageNonce");
-    if (v9)
+    CFRelease(v5);
+    v8 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageNonce");
+    if (v8)
     {
-      v6 = v9;
-      v10 = CFGetTypeID(v9);
-      v11 = CFDataGetTypeID();
-      if (v10 != v11)
+      v5 = v8;
+      v9 = CFGetTypeID(v8);
+      v10 = CFDataGetTypeID();
+      if (v9 != v10)
       {
         goto LABEL_24;
       }
 
-      OUTLINED_FUNCTION_3(v11, *MEMORY[0x29EDCABB8]);
-      CFRelease(v6);
-      v12 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageChipID");
-      if (v12)
+      OUTLINED_FUNCTION_3(v10, *MEMORY[0x29EDCABB8]);
+      CFRelease(v5);
+      v11 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageChipID");
+      if (v11)
       {
-        v6 = v12;
-        v13 = CFGetTypeID(v12);
-        v14 = CFDataGetTypeID();
-        if (v13 != v14)
+        v5 = v11;
+        v12 = CFGetTypeID(v11);
+        v13 = CFDataGetTypeID();
+        if (v12 != v13)
         {
           goto LABEL_24;
         }
 
-        OUTLINED_FUNCTION_3(v14, *MEMORY[0x29EDCABB0]);
-        CFRelease(v6);
-        v15 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageDeviceRev");
-        if (v15)
+        OUTLINED_FUNCTION_3(v13, *MEMORY[0x29EDCABB0]);
+        CFRelease(v5);
+        v14 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageDeviceRev");
+        if (v14)
         {
-          v6 = v15;
-          v16 = CFGetTypeID(v15);
-          v17 = CFDataGetTypeID();
-          if (v16 != v17)
+          v5 = v14;
+          v15 = CFGetTypeID(v14);
+          v16 = CFDataGetTypeID();
+          if (v15 != v16)
           {
             goto LABEL_24;
           }
 
-          OUTLINED_FUNCTION_3(v17, *MEMORY[0x29EDCABC8]);
-          BytePtr = CFDataGetBytePtr(v6);
+          OUTLINED_FUNCTION_3(v16, *MEMORY[0x29EDCABC8]);
+          BytePtr = CFDataGetBytePtr(v5);
           if (BytePtr)
           {
             *(this + 68) = (*BytePtr & 0xF0) == 160;
           }
 
-          CFRelease(v6);
-          v19 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageMNS");
-          if (v19)
+          CFRelease(v5);
+          v18 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageMNS");
+          if (v18)
           {
-            v6 = v19;
-            v20 = CFGetTypeID(v19);
-            if (v20 != CFDataGetTypeID())
+            v5 = v18;
+            v19 = CFGetTypeID(v18);
+            if (v19 != CFDataGetTypeID())
             {
               goto LABEL_24;
             }
 
-            v21 = CFDataGetBytePtr(v6);
-            if (v21)
+            v20 = CFDataGetBytePtr(v5);
+            if (v20)
             {
-              v22 = *v21;
-              if (v22 == 6)
+              v21 = *v20;
+              if (v21 == 6)
               {
                 *(this + 69) = 0;
-                v22 = *v21;
+                v21 = *v20;
               }
 
-              if (v22 == 10)
+              if (v21 == 10)
               {
                 *(this + 69) = 1;
               }
             }
 
-            CFRelease(v6);
-            v23 = *MEMORY[0x29EDBB118];
-            v24 = IOServiceNameMatching("ApplePearlSEPDriver");
-            MatchingService = IOServiceGetMatchingService(v23, v24);
+            CFRelease(v5);
+            v22 = *MEMORY[0x29EDBB118];
+            v23 = IOServiceNameMatching("ApplePearlSEPDriver");
+            MatchingService = IOServiceGetMatchingService(v22, v23);
             v3 = MatchingService;
             if (MatchingService)
             {
-              v26 = OUTLINED_FUNCTION_2(MatchingService, @"FDRDataEncryptionKey");
-              if (!v26)
+              v25 = OUTLINED_FUNCTION_2(MatchingService, @"FDRDataEncryptionKey");
+              if (!v25)
               {
 LABEL_22:
                 IOObjectRelease(v3);
                 return 0;
               }
 
-              v6 = v26;
-              v27 = CFGetTypeID(v26);
-              if (v27 == CFDataGetTypeID())
+              v5 = v25;
+              v26 = CFGetTypeID(v25);
+              if (v26 == CFDataGetTypeID())
               {
-                v28 = OUTLINED_FUNCTION_0_2();
-                v31.length = 32;
-                CFDataGetBytes(v28, v31, v29);
+                v27 = OUTLINED_FUNCTION_0_2();
+                v30.length = 32;
+                CFDataGetBytes(v27, v30, v28);
                 *(this + 18) = 1;
-                CFRelease(v6);
+                CFRelease(v5);
                 goto LABEL_22;
               }
 
               IOObjectRelease(v3);
               v3 = 0;
 LABEL_24:
-              CFRelease(v6);
+              CFRelease(v5);
             }
           }
         }
@@ -3071,27 +3032,26 @@ LABEL_24:
 
 uint64_t SavageDevice::Fusing(SavageDevice *this, unsigned int a2, const unsigned __int8 *a3, unsigned int a4)
 {
-  v11[3] = *MEMORY[0x29EDCA608];
+  v9[3] = *MEMORY[0x29EDCA608];
   if (*(this + 105))
   {
-    v8 = *(this + 16);
     v7 = SavageCamInterfaceSensorFusing();
     goto LABEL_7;
   }
 
   v5 = *(this + 31);
-  v11[2] = a2;
+  v9[2] = a2;
   v6 = 3758097090;
   if (a3)
   {
     if (a4)
     {
-      v11[0] = a3;
-      v11[1] = a4;
+      v9[0] = a3;
+      v9[1] = a4;
       v6 = 3758097084;
       if (v5)
       {
-        v7 = IOConnectCallScalarMethod(v5, 2u, v11, 3u, 0, 0);
+        v7 = IOConnectCallScalarMethod(v5, 2u, v9, 3u, 0, 0);
 LABEL_7:
         v6 = v7;
       }
@@ -3100,170 +3060,165 @@ LABEL_7:
 
   *(this + 7) = 0;
   SavageDevice::CheckProvisioningStatus(this);
-  v9 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t SavageDevice::AuthFlow(SavageDevice *this, unsigned int a2, const unsigned __int8 *a3)
 {
-  v4 = *(this + 16);
-  v5 = SavageCamInterfaceSensorAuth();
+  v4 = SavageCamInterfaceSensorAuth();
   SavageDevice::CheckProvisioningStatus(this);
-  return v5;
+  return v4;
 }
 
 uint64_t JasmineIRDevice::CheckProvisioningStatus(JasmineIRDevice *this)
 {
-  v41 = *MEMORY[0x29EDCA608];
   v2 = 3758097136;
-  v3 = *MEMORY[0x29EDB8ED8];
-  v4 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageUID");
-  if (v4)
+  v3 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageUID");
+  if (v3)
   {
-    v5 = v4;
-    v6 = CFGetTypeID(v4);
-    if (v6 != CFDataGetTypeID())
+    v4 = v3;
+    v5 = CFGetTypeID(v3);
+    if (v5 != CFDataGetTypeID())
     {
       goto LABEL_29;
     }
 
-    v7 = OUTLINED_FUNCTION_0_2();
-    v42.length = 16;
-    CFDataGetBytes(v7, v42, v8);
-    CFRelease(v5);
+    v6 = OUTLINED_FUNCTION_0_2();
+    v39.length = 16;
+    CFDataGetBytes(v6, v39, v7);
+    CFRelease(v4);
     *(this + 7) = bswap64(0);
-    v9 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageFabRevision");
-    if (!v9)
+    v8 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageFabRevision");
+    if (!v8)
     {
-      v2 = 0;
-      goto LABEL_26;
+      return 0;
     }
 
-    v5 = v9;
-    v10 = CFGetTypeID(v9);
-    if (v10 != CFDataGetTypeID())
+    v4 = v8;
+    v9 = CFGetTypeID(v8);
+    if (v9 != CFDataGetTypeID())
     {
       v2 = 0;
       goto LABEL_29;
     }
 
-    CFDataGetBytePtr(v5);
-    CFRelease(v5);
-    v11 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageChipID");
-    if (v11)
+    CFDataGetBytePtr(v4);
+    CFRelease(v4);
+    v10 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageChipID");
+    if (v10)
     {
-      v5 = v11;
-      v12 = CFGetTypeID(v11);
-      if (v12 != CFDataGetTypeID())
+      v4 = v10;
+      v11 = CFGetTypeID(v10);
+      if (v11 != CFDataGetTypeID())
       {
         goto LABEL_29;
       }
 
-      v13 = OUTLINED_FUNCTION_0_2();
-      v43.length = 4;
-      CFDataGetBytes(v13, v43, v14);
-      CFRelease(v5);
-      v15 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageWrapOutputKey");
-      if (v15)
+      v12 = OUTLINED_FUNCTION_0_2();
+      v40.length = 4;
+      CFDataGetBytes(v12, v40, v13);
+      CFRelease(v4);
+      v14 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageWrapOutputKey");
+      if (v14)
       {
-        v16 = v15;
-        v17 = CFGetTypeID(v15);
-        if (v17 == CFDataGetTypeID())
+        v15 = v14;
+        v16 = CFGetTypeID(v14);
+        if (v16 == CFDataGetTypeID())
         {
-          v18 = OUTLINED_FUNCTION_0_2();
-          v44.length = 32;
-          CFDataGetBytes(v18, v44, v19);
+          v17 = OUTLINED_FUNCTION_0_2();
+          v41.length = 32;
+          CFDataGetBytes(v17, v41, v18);
         }
 
-        CFRelease(v16);
-        v20 = bswap64(0);
+        CFRelease(v15);
+        v19 = bswap64(0);
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      *(this + 11) = v20;
-      v21 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavagePubKeyHmac");
-      if (v21)
+      *(this + 11) = v19;
+      v20 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavagePubKeyHmac");
+      if (v20)
       {
-        v22 = v21;
-        v23 = CFGetTypeID(v21);
-        if (v23 == CFDataGetTypeID())
+        v21 = v20;
+        v22 = CFGetTypeID(v20);
+        if (v22 == CFDataGetTypeID())
         {
-          v24 = OUTLINED_FUNCTION_0_2();
-          v45.length = 32;
-          CFDataGetBytes(v24, v45, v25);
+          v23 = OUTLINED_FUNCTION_0_2();
+          v42.length = 32;
+          CFDataGetBytes(v23, v42, v24);
         }
 
-        CFRelease(v22);
-        v26 = bswap64(0);
+        CFRelease(v21);
+        v25 = bswap64(0);
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
-      *(this + 8) = v26;
-      v27 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKey");
-      if (v27)
+      *(this + 8) = v25;
+      v26 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKey");
+      if (v26)
       {
-        v5 = v27;
-        v28 = CFGetTypeID(v27);
-        if (v28 != CFDataGetTypeID())
+        v4 = v26;
+        v27 = CFGetTypeID(v26);
+        if (v27 != CFDataGetTypeID())
         {
           goto LABEL_29;
         }
 
-        *this = SavageSafeRetain(v5);
-        CFRelease(v5);
-        v29 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthSalt");
-        if (v29)
+        *this = SavageSafeRetain(v4);
+        CFRelease(v4);
+        v28 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthSalt");
+        if (v28)
         {
-          v5 = v29;
-          v30 = CFGetTypeID(v29);
-          if (v30 != CFDataGetTypeID())
+          v4 = v28;
+          v29 = CFGetTypeID(v28);
+          if (v29 != CFDataGetTypeID())
           {
             goto LABEL_29;
           }
 
-          v31 = OUTLINED_FUNCTION_0_2();
-          v46.length = 16;
-          CFDataGetBytes(v31, v46, v32);
-          CFRelease(v5);
+          v30 = OUTLINED_FUNCTION_0_2();
+          v43.length = 16;
+          CFDataGetBytes(v30, v43, v31);
+          CFRelease(v4);
           *(this + 10) = bswap64(0);
-          v33 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthResponse");
-          if (v33)
+          v32 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthResponse");
+          if (v32)
           {
-            v5 = v33;
-            v34 = CFGetTypeID(v33);
-            if (v34 != CFDataGetTypeID())
+            v4 = v32;
+            v33 = CFGetTypeID(v32);
+            if (v33 != CFDataGetTypeID())
             {
               goto LABEL_29;
             }
 
-            *(this + 1) = SavageSafeRetain(v5);
-            CFRelease(v5);
-            v35 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKeyHmac");
-            if (v35)
+            *(this + 1) = SavageSafeRetain(v4);
+            CFRelease(v4);
+            v34 = OUTLINED_FUNCTION_0_0(*(this + 30), @"SavageAuthPubKeyHmac");
+            if (v34)
             {
-              v5 = v35;
-              v36 = CFGetTypeID(v35);
-              if (v36 == CFDataGetTypeID())
+              v4 = v34;
+              v35 = CFGetTypeID(v34);
+              if (v35 == CFDataGetTypeID())
               {
-                v37 = OUTLINED_FUNCTION_0_2();
-                v47.length = 32;
-                CFDataGetBytes(v37, v47, v38);
-                CFRelease(v5);
+                v36 = OUTLINED_FUNCTION_0_2();
+                v44.length = 32;
+                CFDataGetBytes(v36, v44, v37);
+                CFRelease(v4);
                 v2 = 0;
                 *(this + 9) = bswap64(0);
-                goto LABEL_26;
+                return v2;
               }
 
 LABEL_29:
-              CFRelease(v5);
+              CFRelease(v4);
             }
           }
         }
@@ -3271,111 +3226,108 @@ LABEL_29:
     }
   }
 
-LABEL_26:
-  v39 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 uint64_t JasmineIRDevice::CreateCertInfoBlob(uint64_t a1, uint64_t a2)
 {
   v4 = 3758097136;
-  v5 = *MEMORY[0x29EDB8ED8];
-  v6 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageMNS");
-  if (!v6)
+  v5 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageMNS");
+  if (!v5)
   {
     return v4;
   }
 
-  v7 = v6;
-  v8 = CFGetTypeID(v6);
-  if (v8 != CFDataGetTypeID())
+  v6 = v5;
+  v7 = CFGetTypeID(v5);
+  if (v7 != CFDataGetTypeID())
   {
     goto LABEL_19;
   }
 
-  BytePtr = CFDataGetBytePtr(v7);
+  BytePtr = CFDataGetBytePtr(v6);
   if (BytePtr)
   {
-    v10 = *BytePtr;
-    if (v10 == 222)
+    v9 = *BytePtr;
+    if (v9 == 222)
     {
       *a2 = 0;
-      v10 = *BytePtr;
+      v9 = *BytePtr;
     }
 
-    if (v10 == 173)
+    if (v9 == 173)
     {
       *a2 = 1;
     }
   }
 
-  CFRelease(v7);
-  v11 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageChipID");
-  if (!v11)
+  CFRelease(v6);
+  v10 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageChipID");
+  if (!v10)
   {
     return v4;
   }
 
-  v7 = v11;
-  v12 = CFGetTypeID(v11);
-  if (v12 != CFDataGetTypeID())
+  v6 = v10;
+  v11 = CFGetTypeID(v10);
+  if (v11 != CFDataGetTypeID())
   {
     goto LABEL_19;
   }
 
-  v13 = CFDataGetBytePtr(v7);
-  if (v13)
+  v12 = CFDataGetBytePtr(v6);
+  if (v12)
   {
-    *(a2 + 4) = bswap32(*v13);
+    *(a2 + 4) = bswap32(*v12);
   }
 
-  CFRelease(v7);
-  v14 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageUID");
-  if (!v14)
+  CFRelease(v6);
+  v13 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavageUID");
+  if (!v13)
   {
     return v4;
   }
 
-  v7 = v14;
-  v15 = CFGetTypeID(v14);
-  if (v15 != CFDataGetTypeID())
+  v6 = v13;
+  v14 = CFGetTypeID(v13);
+  if (v14 != CFDataGetTypeID())
   {
     goto LABEL_19;
+  }
+
+  v20.location = 0;
+  v20.length = 16;
+  CFDataGetBytes(v6, v20, (a2 + 8));
+  CFRelease(v6);
+  v15 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavagePubKey");
+  if (!v15)
+  {
+    return v4;
+  }
+
+  v6 = v15;
+  v16 = CFGetTypeID(v15);
+  if (v16 != CFDataGetTypeID())
+  {
+LABEL_19:
+    CFRelease(v6);
+    return v4;
   }
 
   v21.location = 0;
-  v21.length = 16;
-  CFDataGetBytes(v7, v21, (a2 + 8));
-  CFRelease(v7);
-  v16 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavagePubKey");
-  if (!v16)
+  v21.length = 64;
+  CFDataGetBytes(v6, v21, (a2 + 24));
+  CFRelease(v6);
+  v17 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavagePubKeyHmac");
+  if (v17)
   {
-    return v4;
-  }
-
-  v7 = v16;
-  v17 = CFGetTypeID(v16);
-  if (v17 != CFDataGetTypeID())
-  {
-LABEL_19:
-    CFRelease(v7);
-    return v4;
-  }
-
-  v22.location = 0;
-  v22.length = 64;
-  CFDataGetBytes(v7, v22, (a2 + 24));
-  CFRelease(v7);
-  v18 = OUTLINED_FUNCTION_0_0(*(a1 + 120), @"SavagePubKeyHmac");
-  if (v18)
-  {
-    v7 = v18;
-    v19 = CFGetTypeID(v18);
-    if (v19 == CFDataGetTypeID())
+    v6 = v17;
+    v18 = CFGetTypeID(v17);
+    if (v18 == CFDataGetTypeID())
     {
-      v23.location = 0;
-      v23.length = 32;
-      CFDataGetBytes(v7, v23, (a2 + 88));
+      v22.location = 0;
+      v22.length = 32;
+      CFDataGetBytes(v6, v22, (a2 + 88));
       v4 = 0;
     }
 
@@ -3388,158 +3340,157 @@ LABEL_19:
 uint64_t JasmineIRDevice::CreateDeviceInfoDict(JasmineIRDevice *this, __CFDictionary *a2)
 {
   v4 = 3758097136;
-  v5 = *MEMORY[0x29EDB8ED8];
-  v6 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
-  if (v6)
+  v5 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
+  if (v5)
   {
-    v7 = v6;
-    v8 = CFGetTypeID(v6);
-    if (v8 != CFDataGetTypeID())
+    v6 = v5;
+    v7 = CFGetTypeID(v5);
+    if (v7 != CFDataGetTypeID())
     {
       goto LABEL_35;
     }
 
-    CFDictionaryAddValue(a2, *MEMORY[0x29EDCAB28], v7);
-    CFRelease(v7);
-    v9 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
-    if (v9)
+    CFDictionaryAddValue(a2, *MEMORY[0x29EDCAB28], v6);
+    CFRelease(v6);
+    v8 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageUID");
+    if (v8)
     {
-      v7 = v9;
-      v10 = CFGetTypeID(v9);
-      if (v10 != CFDataGetTypeID())
+      v6 = v8;
+      v9 = CFGetTypeID(v8);
+      if (v9 != CFDataGetTypeID())
       {
         goto LABEL_35;
       }
 
-      CFDictionaryAddValue(a2, *MEMORY[0x29EDCAAB8], v7);
-      CFRelease(v7);
-      v11 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageNonce");
-      if (v11)
+      CFDictionaryAddValue(a2, *MEMORY[0x29EDCAAB8], v6);
+      CFRelease(v6);
+      v10 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageNonce");
+      if (v10)
       {
-        v7 = v11;
-        v12 = CFGetTypeID(v11);
-        if (v12 != CFDataGetTypeID())
+        v6 = v10;
+        v11 = CFGetTypeID(v10);
+        if (v11 != CFDataGetTypeID())
         {
           goto LABEL_35;
         }
 
-        CFDictionaryAddValue(a2, *MEMORY[0x29EDCAAC8], v7);
-        CFRelease(v7);
-        v13 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageFabRevision");
-        if (v13)
+        CFDictionaryAddValue(a2, *MEMORY[0x29EDCAAC8], v6);
+        CFRelease(v6);
+        v12 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageFabRevision");
+        if (v12)
         {
-          v7 = v13;
-          v14 = CFGetTypeID(v13);
-          if (v14 != CFDataGetTypeID())
+          v6 = v12;
+          v13 = CFGetTypeID(v12);
+          if (v13 != CFDataGetTypeID())
           {
             goto LABEL_35;
           }
 
-          BytePtr = CFDataGetBytePtr(v7);
+          BytePtr = CFDataGetBytePtr(v6);
           if (BytePtr)
           {
-            v16 = __rev16(*BytePtr);
-            SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCAAC0], v16);
+            v15 = __rev16(*BytePtr);
+            SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCAAC0], v15);
           }
 
           else
           {
-            v16 = 0;
+            v15 = 0;
           }
 
-          CFRelease(v7);
-          v17 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageChipID");
-          if (v17)
+          CFRelease(v6);
+          v16 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageChipID");
+          if (v16)
           {
-            v7 = v17;
-            v18 = CFGetTypeID(v17);
-            if (v18 != CFDataGetTypeID())
+            v6 = v16;
+            v17 = CFGetTypeID(v16);
+            if (v17 != CFDataGetTypeID())
             {
               goto LABEL_35;
             }
 
-            v19 = CFDataGetBytePtr(v7);
-            if (v19)
+            v18 = CFDataGetBytePtr(v6);
+            if (v18)
             {
-              SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCAAB0], bswap32(*v19));
+              SavageCFDictionarySetInteger32(a2, *MEMORY[0x29EDCAAB0], bswap32(*v18));
             }
 
-            CFRelease(v7);
-            v20 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageMNS");
-            if (v20)
+            CFRelease(v6);
+            v19 = OUTLINED_FUNCTION_2(*(this + 30), @"SavageMNS");
+            if (v19)
             {
-              v7 = v20;
-              v21 = CFGetTypeID(v20);
-              if (v21 != CFDataGetTypeID())
+              v6 = v19;
+              v20 = CFGetTypeID(v19);
+              if (v20 != CFDataGetTypeID())
               {
                 goto LABEL_35;
               }
 
-              v22 = CFDataGetBytePtr(v7);
-              if (v22 && *v22 == 173)
+              v21 = CFDataGetBytePtr(v6);
+              if (v21 && *v21 == 173)
               {
                 *(this + 96) = 1;
               }
 
-              v23 = 0;
-              v24 = &dword_299F6F460;
-              v25 = &dword_299F6F480;
+              v22 = 0;
+              v23 = &dword_299F6F460;
+              v24 = &dword_299F6F480;
               while (1)
               {
-                v26 = *v25++;
-                if (v16 == v26 || v16 == *v24)
+                v25 = *v24++;
+                if (v15 == v25 || v15 == *v23)
                 {
                   break;
                 }
 
-                v23 -= 2;
-                ++v24;
-                if (v23 == -16)
+                v22 -= 2;
+                ++v23;
+                if (v22 == -16)
                 {
                   goto LABEL_27;
                 }
               }
 
-              v27 = (*(this + 96) != 0) - v23;
-              snprintf(this + 107, 2uLL, "%x", v27);
-              snprintf(this + 112, 2uLL, "%x", v27);
+              v26 = (*(this + 96) != 0) - v22;
+              snprintf(this + 107, 2uLL, "%x", v26);
+              snprintf(this + 112, 2uLL, "%x", v26);
 LABEL_27:
-              if ((v16 | 0x10) != 0x90B0)
+              if ((v15 | 0x10) != 0x90B0)
               {
                 *(this + 109) = 0;
               }
 
               SavageCFDictionarySetBoolean(a2, @"JasmineIRIsProvisioned", *(this + 56));
-              v28 = *MEMORY[0x29EDBB118];
-              v29 = IOServiceNameMatching("ApplePearlSEPDriver");
-              MatchingService = IOServiceGetMatchingService(v28, v29);
+              v27 = *MEMORY[0x29EDBB118];
+              v28 = IOServiceNameMatching("ApplePearlSEPDriver");
+              MatchingService = IOServiceGetMatchingService(v27, v28);
               if (MatchingService)
               {
-                v31 = MatchingService;
-                v32 = OUTLINED_FUNCTION_2(MatchingService, @"FDRDataEncryptionKey");
-                v7 = v32;
-                if (v32)
+                v30 = MatchingService;
+                v31 = OUTLINED_FUNCTION_2(MatchingService, @"FDRDataEncryptionKey");
+                v6 = v31;
+                if (v31)
                 {
-                  v33 = CFGetTypeID(v32);
-                  if (v33 == CFDataGetTypeID())
+                  v32 = CFGetTypeID(v31);
+                  if (v32 == CFDataGetTypeID())
                   {
-                    v35.location = 0;
-                    v35.length = 32;
-                    CFDataGetBytes(v7, v35, this + 19);
+                    v34.location = 0;
+                    v34.length = 32;
+                    CFDataGetBytes(v6, v34, this + 19);
                     *(this + 18) = 1;
-                    CFRelease(v7);
-                    v7 = 0;
+                    CFRelease(v6);
+                    v6 = 0;
                   }
                 }
 
-                IOObjectRelease(v31);
+                IOObjectRelease(v30);
               }
 
               v4 = 0;
-              if (v7)
+              if (v6)
               {
 LABEL_35:
-                CFRelease(v7);
+                CFRelease(v6);
               }
             }
           }
@@ -3555,7 +3506,6 @@ uint64_t JasmineIRDevice::Fusing(JasmineIRDevice *this, unsigned int a2, const u
 {
   if (*(this + 98))
   {
-    v5 = *(this + 16);
     v4 = SavageCamInterfaceSensorFusing();
   }
 
@@ -3571,10 +3521,9 @@ uint64_t JasmineIRDevice::Fusing(JasmineIRDevice *this, unsigned int a2, const u
 
 uint64_t JasmineIRDevice::AuthFlow(JasmineIRDevice *this, unsigned int a2, const unsigned __int8 *a3)
 {
-  v4 = *(this + 16);
-  v5 = SavageCamInterfaceSensorAuth();
+  v4 = SavageCamInterfaceSensorAuth();
   JasmineIRDevice::CheckProvisioningStatus(this);
-  return v5;
+  return v4;
 }
 
 uint64_t JasmineIRDevice::JasmineIRDeviceOpen(uint64_t a1, _DWORD *a2)
@@ -4188,66 +4137,65 @@ LABEL_25:
 
 uint64_t SavageUpdateController::getTSSResponse(CFDictionaryRef *this)
 {
-  v12 = 0;
-  v2 = *MEMORY[0x29EDB8ED8];
+  v11 = 0;
   CFDictionaryGetValue(this[33], *MEMORY[0x29EDCABB0]);
-  v3 = AMFDRCreateInstanceString();
-  if (SavageCFStringToUInt32(v3, &v12, 16))
+  v2 = AMFDRCreateInstanceString();
+  if (SavageCFStringToUInt32(v2, &v11, 16))
   {
-    v4 = this[32];
-    if (v4)
+    v3 = this[32];
+    if (v3)
     {
-      if (v12 <= 0x5064)
+      if (v11 <= 0x5064)
       {
-        v5 = MEMORY[0x29EDCAC48];
+        v4 = MEMORY[0x29EDCAC48];
       }
 
       else
       {
-        v5 = MEMORY[0x29EDCAA70];
+        v4 = MEMORY[0x29EDCAA70];
       }
 
-      Value = CFDictionaryGetValue(v4, *v5);
-      if (Value && (v7 = Value, v8 = CFGetTypeID(Value), v8 == CFDataGetTypeID()))
+      Value = CFDictionaryGetValue(v3, *v4);
+      if (Value && (v6 = Value, v7 = CFGetTypeID(Value), v7 == CFDataGetTypeID()))
       {
-        BytePtr = CFDataGetBytePtr(v7);
-        CFDataGetLength(v7);
+        BytePtr = CFDataGetBytePtr(v6);
+        CFDataGetLength(v6);
         SavageUpdateController::getSignedCertificate(this, BytePtr);
         if (this[48])
         {
-          v10 = 0;
+          v9 = 0;
         }
 
         else
         {
-          v10 = 3;
+          v9 = 3;
         }
       }
 
       else
       {
-        v10 = 10;
+        v9 = 10;
       }
     }
 
     else
     {
-      v10 = 2;
+      v9 = 2;
     }
   }
 
   else
   {
-    v10 = 11;
+    v9 = 11;
   }
 
-  SavageUpdateController::SavageLog(this, "%s: - result = 0x%08X (chipID = 0x%08X) \n", "getTSSResponse", v10, v12);
-  if (v3)
+  SavageUpdateController::SavageLog(this, "%s: - result = 0x%08X (chipID = 0x%08X) \n", "getTSSResponse", v9, v11);
+  if (v2)
   {
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
-  return v10;
+  return v9;
 }
 
 size_t SavageUpdateController::getFirmware(SavageUpdateController *this)
@@ -4369,7 +4317,7 @@ void SavageUpdateController::validateSignatureLen()
   __assert_rtn("validateSignatureLen", "SavageUpdateController.cpp", 1159, "sigRLen >= MIN_SIG_LEN && sigRLen <= MAX_ACCEPTED_SIG_LEN");
 }
 
-uint64_t SavageUpdaterIsDone(uint64_t result, CFTypeRef *a2)
+BOOL SavageUpdaterIsDone(_BOOL8 result, CFTypeRef *a2)
 {
   if (!result)
   {

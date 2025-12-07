@@ -25,7 +25,7 @@
 
 - (void)_reportTimeStats
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   rep = self->_startTime.__d_.__rep_;
   v3 = self->_endTime.__d_.__rep_;
   if (qword_27EE84478 != -1)
@@ -40,21 +40,19 @@
     v7 = v6 / 60000000000;
     v8 = (v6 % 60000000000 * 0x112E0BE826D694B3) >> 64;
     id = self->_id;
-    v11 = 134218496;
-    v12 = id;
-    v13 = 1024;
-    v14 = v7;
-    v15 = 1024;
-    v16 = (v8 >> 26) + (v8 >> 63);
-    _os_log_impl(&dword_247F67000, v5, OS_LOG_TYPE_INFO, "[%llu] Lasted: %um:%us", &v11, 0x18u);
+    v10 = 134218496;
+    v11 = id;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 1024;
+    v15 = (v8 >> 26) + (v8 >> 63);
+    _os_log_impl(&dword_247F67000, v5, OS_LOG_TYPE_INFO, "[%llu] Lasted: %um:%us", &v10, 0x18u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportCallbackStats
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (qword_27EE84478 != -1)
   {
     sub_248030068();
@@ -66,21 +64,19 @@
     id = self->_id;
     callbackCalledCount = self->_callbackCalledCount;
     callbackNotificationCount = self->_callbackNotificationCount;
-    v8 = 134218496;
-    v9 = id;
-    v10 = 2048;
-    v11 = callbackCalledCount;
-    v12 = 2048;
-    v13 = callbackNotificationCount;
-    _os_log_impl(&dword_247F67000, v3, OS_LOG_TYPE_INFO, "[%llu] Callback: %llu calls (%llu notifications)", &v8, 0x20u);
+    v7 = 134218496;
+    v8 = id;
+    v9 = 2048;
+    v10 = callbackCalledCount;
+    v11 = 2048;
+    v12 = callbackNotificationCount;
+    _os_log_impl(&dword_247F67000, v3, OS_LOG_TYPE_INFO, "[%llu] Callback: %llu calls (%llu notifications)", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportStats
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataPulledSize = self->_dataPulledSize;
   v4 = dataPulledSize;
   if (dataPulledSize)
@@ -117,9 +113,9 @@
 
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f %s", v10 / exp2(v11 * 10.0), off_278EF4188[v11]];
     *buf = 134218242;
-    v18 = id;
-    v19 = 2112;
-    v20 = v12;
+    v17 = id;
+    v18 = 2112;
+    v19 = v12;
     _os_log_impl(&dword_247F67000, v7, OS_LOG_TYPE_INFO, "[%llu] Kernel: buffer size: %@", buf, 0x16u);
   }
 
@@ -134,18 +130,16 @@
     v14 = self->_id;
     numberOfPulls = self->_numberOfPulls;
     *buf = 134218498;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v6;
-    v21 = 2048;
-    v22 = numberOfPulls;
+    v17 = v14;
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2048;
+    v21 = numberOfPulls;
     _os_log_impl(&dword_247F67000, v13, OS_LOG_TYPE_INFO, "[%llu] Pulled: %@ (%llu pulls)", buf, 0x20u);
   }
 
   [(DTKPKperfAggregator *)self _reportTimeStats];
   [(DTKPKperfAggregator *)self _reportCallbackStats];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetStats
@@ -231,7 +225,7 @@
 
 - (id)start
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   std::recursive_mutex::lock(&self->_lock);
   _kernelCallbackInit = [(DTKPKperfAggregator *)self _kernelCallbackInit];
@@ -244,26 +238,25 @@
   else
   {
     [(DTKPKperfAggregator *)self _resetStats];
-    v9[0] = v9;
-    v9[1] = v9;
-    v9[2] = 0;
+    v8[0] = v8;
+    v8[1] = v8;
+    v8[2] = 0;
     live = kperf_buffer_create_live();
     selfCopy->_kperfBuffer = live;
     if (live)
     {
-      v11[0] = &unk_285A18D70;
-      v11[1] = &selfCopy;
-      v11[3] = v11;
+      v10[0] = &unk_285A18D70;
+      v10[1] = &selfCopy;
+      v10[3] = v10;
       operator new();
     }
 
     v5 = sub_247FF0B44(@"kperf_buffer_create_live failed.", -1);
     v4 = 0;
-    sub_247FC6AC0(v9);
+    sub_247FC6AC0(v8);
   }
 
   std::recursive_mutex::unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -420,45 +413,44 @@ LABEL_18:
 
 - (unsigned)_kernelCallbackImpl
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   ++self->_callbackCalledCount;
-  kperfBuffer = self->_kperfBuffer;
-  v4 = kperf_buffer_wait();
-  v5 = v4;
-  if (v4 == 35 || v4 == 0)
+  v3 = kperf_buffer_wait();
+  v4 = v3;
+  if (v3 == 35 || v3 == 0)
   {
-    v16 = 0;
-    v15 = 0;
-    [(DTKPKperfAggregator *)self _flushDataFromKernel:0 more:&v16 error:&v15];
-    v7 = v15;
-    if (v7)
+    v14 = 0;
+    v13 = 0;
+    [(DTKPKperfAggregator *)self _flushDataFromKernel:0 more:&v14 error:&v13];
+    v6 = v13;
+    if (v6)
     {
       if (qword_27EE84478 != -1)
       {
         sub_24803007C();
       }
 
-      v8 = qword_27EE84480;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = qword_27EE84480;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        localizedDescription = [v7 localizedDescription];
-        sub_248030100(localizedDescription, buf, v8);
+        localizedDescription = [v6 localizedDescription];
+        sub_248030100(localizedDescription, buf, v7);
       }
 
       [(DTKPKperfAggregator *)self _kernelCallbackError];
-      v10 = 2;
+      v9 = 2;
     }
 
-    else if (!v5 || (v16 & 1) != 0 || (v12 = [(DVTStreamManager *)self->_manager currentStreamSize], v12 >= [(DTKPConfiguration *)self->_config bufferSize]))
+    else if (!v4 || (v14 & 1) != 0 || (v11 = [(DVTStreamManager *)self->_manager currentStreamSize], v11 >= [(DTKPConfiguration *)self->_config bufferSize]))
     {
       [(DTKPKperfAggregator *)self _kernelCallbackNotifyCallblock:2];
-      v10 = 0;
+      v9 = 0;
       ++self->_callbackNotificationCount;
     }
 
     else
     {
-      v10 = 1;
+      v9 = 1;
     }
   }
 
@@ -469,18 +461,17 @@ LABEL_18:
       sub_248030068();
     }
 
-    v11 = qword_27EE84480;
+    v10 = qword_27EE84480;
     if (os_log_type_enabled(qword_27EE84480, OS_LOG_TYPE_ERROR))
     {
-      sub_248030158(v5, v11);
+      sub_248030158(v4, v10);
     }
 
     [(DTKPKperfAggregator *)self _kernelCallbackError];
-    v10 = 2;
+    return 2;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
 - (id)_kernelCallbackInit
@@ -521,7 +512,7 @@ LABEL_18:
 
 - (id)_kdebugReadWithMoreLocked:(BOOL *)locked error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (locked)
   {
     *locked = 0;
@@ -538,11 +529,11 @@ LABEL_18:
     v7 = bufferSize;
   }
 
-  v15 = v7;
+  v14 = v7;
   v8 = malloc_type_malloc(v7, 0xABA0F7E1uLL);
-  *v16 = xmmword_24803DAD0;
-  v17 = 0;
-  if (sysctl(v16, 3u, v8, &v15, 0, 0) < 0)
+  *v15 = xmmword_24803DAD0;
+  v16 = 0;
+  if (sysctl(v15, 3u, v8, &v14, 0, 0) < 0)
   {
     if (error)
     {
@@ -561,57 +552,54 @@ LABEL_18:
 
   else
   {
-    v15 <<= 6;
+    v14 <<= 6;
   }
 
   v9 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v8 length:? freeWhenDone:?];
-  if (locked && v7 - v15 <= 0x3FF)
+  if (locked && v7 - v14 <= 0x3FF)
   {
     *locked = 1;
   }
 
 LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_getKperfKernelBufferLocked:(BOOL *)locked error:(id *)error
 {
-  kperfBuffer = self->_kperfBuffer;
-  v7 = kperf_buffer_readdata_withmore();
-  if (v7 <= 0)
+  v5 = kperf_buffer_readdata_withmore();
+  if (v5 <= 0)
   {
-    v11 = v7;
-    v12 = 0;
-    if (error && v11)
+    v8 = v5;
+    v9 = 0;
+    if (error && v8)
     {
-      v10 = @"kperf_buffer_readdata_withmore failed.";
+      v7 = @"kperf_buffer_readdata_withmore failed.";
       goto LABEL_8;
     }
   }
 
   else
   {
-    v8 = self->_kperfBuffer;
-    v9 = kperf_buffer_getbuf();
-    if (error && v9)
+    v6 = kperf_buffer_getbuf();
+    if (error && v6)
     {
-      v10 = @"kperf_buffer_getbuf failed.";
+      v7 = @"kperf_buffer_getbuf failed.";
 LABEL_8:
-      v13 = sub_247FF0B44(v10, -6);
-      v14 = v13;
-      v12 = 0;
-      *error = v13;
+      v10 = sub_247FF0B44(v7, -6);
+      v11 = v10;
+      v9 = 0;
+      *error = v10;
       goto LABEL_10;
     }
 
-    v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:? length:? deallocator:?];
+    v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:? length:? deallocator:?];
   }
 
 LABEL_10:
 
-  return v12;
+  return v9;
 }
 
 - (id)_getKernelBufferLocked:(BOOL *)locked error:(id *)error

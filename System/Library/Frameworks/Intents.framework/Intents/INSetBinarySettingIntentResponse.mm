@@ -23,8 +23,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v19[4] = *MEMORY[0x1E69E9840];
-  v18[0] = @"code";
+  v18[4] = *MEMORY[0x1E69E9840];
+  v17[0] = @"code";
   code = [(INSetBinarySettingIntentResponse *)self code];
   v4 = code;
   if (code < 9)
@@ -39,8 +39,8 @@
     v6 = 0;
   }
 
-  v19[0] = null;
-  v18[1] = @"oldValue";
+  v18[0] = null;
+  v17[1] = @"oldValue";
   oldValue = [(INSetBinarySettingIntentResponse *)self oldValue];
   if ((oldValue - 1) > 2)
   {
@@ -53,8 +53,8 @@
   }
 
   v9 = v8;
-  v19[1] = v9;
-  v18[2] = @"updatedValue";
+  v18[1] = v9;
+  v17[2] = @"updatedValue";
   updatedValue = [(INSetBinarySettingIntentResponse *)self updatedValue];
   if ((updatedValue - 1) > 2)
   {
@@ -67,8 +67,8 @@
   }
 
   v12 = v11;
-  v19[2] = v12;
-  v18[3] = @"errorDetail";
+  v18[2] = v12;
+  v17[3] = @"errorDetail";
   errorDetail = [(INSetBinarySettingIntentResponse *)self errorDetail];
   null2 = errorDetail;
   if (!errorDetail)
@@ -76,8 +76,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[3] = null2;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[3] = null2;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
   if (!errorDetail)
   {
   }
@@ -85,8 +85,6 @@
   if (v4 >= 9)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -293,7 +291,7 @@
 
 - (INSetBinarySettingIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -311,21 +309,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSetBinarySettingIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INSetBinarySettingIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSetBinarySettingIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INSetBinarySettingIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

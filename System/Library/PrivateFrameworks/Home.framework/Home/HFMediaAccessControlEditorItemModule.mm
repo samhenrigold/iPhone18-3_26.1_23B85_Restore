@@ -8,6 +8,7 @@
 - (id)itemProviders;
 - (id)updateAccessControlDescriptor:(id)descriptor;
 - (void)home:(id)home didUpdateMediaPassword:(id)password;
+- (void)home:(id)home didUpdateMediaPeerToPeerEnabled:(BOOL)enabled;
 - (void)home:(id)home didUpdateMinimumMediaUserPrivilege:(int64_t)privilege;
 @end
 
@@ -69,7 +70,7 @@
 
 - (id)buildSectionsWithDisplayedItems:(id)items
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = objc_opt_new();
   v6 = MEMORY[0x277CBEB98];
@@ -85,27 +86,27 @@
   v15 = [v10 setWithObjects:{passwordEnableItem, passwordItem, 0}];
 
   v16 = [v15 intersectsSet:itemsCopy];
-  v39 = v9;
+  v38 = v9;
   v17 = 0;
   if ([v9 intersectsSet:itemsCopy])
   {
     v17 = [(HFItemSection *)[HFMutableItemSection alloc] initWithIdentifier:@"ACCESS_CONTROL_SECTION"];
     accessControlEditorItemProvider4 = [(HFMediaAccessControlEditorItemModule *)self accessControlEditorItemProvider];
     accessControlItems2 = [accessControlEditorItemProvider4 accessControlItems];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __72__HFMediaAccessControlEditorItemModule_buildSectionsWithDisplayedItems___block_invoke;
-    v42[3] = &unk_277DF4B70;
-    v43 = itemsCopy;
-    [accessControlItems2 na_filter:v42];
-    v27 = v26 = v5;
-    [(HFItemSection *)v17 setItems:v27];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __72__HFMediaAccessControlEditorItemModule_buildSectionsWithDisplayedItems___block_invoke;
+    v41[3] = &unk_277DF4B70;
+    v42 = itemsCopy;
+    [accessControlItems2 na_filter:v41];
+    v26 = v25 = v5;
+    [(HFItemSection *)v17 setItems:v26];
 
-    v5 = v26;
-    v28 = _HFLocalizedStringWithDefaultValue(@"HFMediaAccessControlItemDisplayTitle", @"HFMediaAccessControlItemDisplayTitle", 1);
-    [(HFItemSection *)v17 setHeaderTitle:v28];
+    v5 = v25;
+    v27 = _HFLocalizedStringWithDefaultValue(@"HFMediaAccessControlItemDisplayTitle", @"HFMediaAccessControlItemDisplayTitle", 1);
+    [(HFItemSection *)v17 setHeaderTitle:v27];
 
-    [v26 addObject:v17];
+    [v25 addObject:v17];
     if (!v16)
     {
 LABEL_3:
@@ -123,45 +124,43 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v38 = [(HFItemSection *)[HFMutableItemSection alloc] initWithIdentifier:@"ACCESS_CONTROL_PASSWORD_SECTION"];
+  v37 = [(HFItemSection *)[HFMutableItemSection alloc] initWithIdentifier:@"ACCESS_CONTROL_PASSWORD_SECTION"];
   accessControlEditorItemProvider5 = [(HFMediaAccessControlEditorItemModule *)self accessControlEditorItemProvider];
   [accessControlEditorItemProvider5 passwordEnableItem];
-  v30 = itemsCopy;
-  v31 = v15;
-  v33 = v32 = v5;
-  v44[0] = v33;
+  v29 = itemsCopy;
+  v30 = v15;
+  v32 = v31 = v5;
+  v43[0] = v32;
   accessControlEditorItemProvider6 = [(HFMediaAccessControlEditorItemModule *)self accessControlEditorItemProvider];
   passwordItem2 = [accessControlEditorItemProvider6 passwordItem];
-  v44[1] = passwordItem2;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v43[1] = passwordItem2;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
 
-  v5 = v32;
-  v15 = v31;
-  itemsCopy = v30;
+  v5 = v31;
+  v15 = v30;
+  itemsCopy = v29;
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __72__HFMediaAccessControlEditorItemModule_buildSectionsWithDisplayedItems___block_invoke_2;
-  v40[3] = &unk_277DF4B70;
-  v41 = v30;
-  v37 = [v36 na_filter:v40];
-  [(HFItemSection *)v38 setItems:v37];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __72__HFMediaAccessControlEditorItemModule_buildSectionsWithDisplayedItems___block_invoke_2;
+  v39[3] = &unk_277DF4B70;
+  v40 = v29;
+  v36 = [v35 na_filter:v39];
+  [(HFItemSection *)v37 setItems:v36];
 
-  [v5 addObject:v38];
-  v17 = v38;
-  if (v38)
+  [v5 addObject:v37];
+  v17 = v37;
+  if (v37)
   {
 LABEL_4:
     v18 = objc_opt_class();
-    home = [(HFMediaAccessControlEditorItemModule *)self home];
-    hf_accessControlDescriptor = [home hf_accessControlDescriptor];
+    v19 = objc_msgSend_home(self);
+    hf_accessControlDescriptor = [v19 hf_accessControlDescriptor];
     v21 = [v18 _descriptionFooterTextForAccessControlDescriptor:hf_accessControlDescriptor hasNonPeerToPeerMediaAccessories:{-[HFMediaAccessControlEditorItemModule _hasNonPeerToPeerMediaAccessories](self, "_hasNonPeerToPeerMediaAccessories")}];
     [(HFItemSection *)v17 setFooterTitle:v21];
   }
 
 LABEL_5:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -196,8 +195,8 @@ uint64_t __53__HFMediaAccessControlEditorItemModule_containsItem___block_invoke(
   v7 = [HFItemUpdateRequest requestToReloadItemProviders:itemProviders senderSelector:a2];
 
   objc_initWeak(&location, self);
-  home = [(HFMediaAccessControlEditorItemModule *)self home];
-  v9 = [home hf_updateAccessControlDescriptor:descriptorCopy];
+  v8 = objc_msgSend_home(self);
+  v9 = [v8 hf_updateAccessControlDescriptor:descriptorCopy];
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __70__HFMediaAccessControlEditorItemModule_updateAccessControlDescriptor___block_invoke;
@@ -229,8 +228,8 @@ void __70__HFMediaAccessControlEditorItemModule_updateAccessControlDescriptor___
 
 - (BOOL)_hasNonPeerToPeerMediaAccessories
 {
-  home = [(HFMediaAccessControlEditorItemModule *)self home];
-  accessories = [home accessories];
+  v2 = objc_msgSend_home(self, a2);
+  accessories = [v2 accessories];
   v4 = [accessories na_any:&__block_literal_global_51];
 
   return v4;
@@ -332,6 +331,15 @@ __CFString *__122__HFMediaAccessControlEditorItemModule__descriptionFooterTextFo
 }
 
 - (void)home:(id)home didUpdateMinimumMediaUserPrivilege:(int64_t)privilege
+{
+  v6 = [(HFMediaAccessControlEditorItemModule *)self itemProviders:home];
+  v9 = [HFItemUpdateRequest requestToReloadItemProviders:v6 senderSelector:a2];
+
+  itemUpdater = [(HFItemModule *)self itemUpdater];
+  v8 = [itemUpdater performItemUpdateRequest:v9];
+}
+
+- (void)home:(id)home didUpdateMediaPeerToPeerEnabled:(BOOL)enabled
 {
   v6 = [(HFMediaAccessControlEditorItemModule *)self itemProviders:home];
   v9 = [HFItemUpdateRequest requestToReloadItemProviders:v6 senderSelector:a2];

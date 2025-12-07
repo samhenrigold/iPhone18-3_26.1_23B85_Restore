@@ -79,7 +79,7 @@ void *PFUnderlyingErrorThatMatchesCodesByDomain(void *a1, void *a2)
   return v12;
 }
 
-unint64_t boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::priv_generic_find<char>(int a1, char *__s, uint64_t a3, uint64_t a4, unint64_t *a5)
+char *boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::priv_generic_find<char>(int a1, char *__s, uint64_t a3, uint64_t a4, unint64_t *a5)
 {
   v7 = strlen(__s);
   v8 = (a3 + 8);
@@ -503,13 +503,13 @@ void *boost::unordered::detail::table<boost::unordered::detail::map<boost::inter
   }
 
   v6 = v3 + 8 * a3 - v8 + v4;
-  v7 = (v8 - result);
+  v7 = v8 - result;
   if (v6 == 1)
   {
     v7 = 0;
   }
 
-  *result = &v7[v6];
+  *result = v7 + v6;
   return result;
 }
 
@@ -842,7 +842,7 @@ LABEL_66:
 
       else
       {
-        munmap((v47 - v49), &v49[v48]);
+        munmap((v47 - v49), &v48[v49]);
       }
     }
   }
@@ -858,7 +858,7 @@ LABEL_66:
 
     *v65 = 0xFFFFFFFFLL;
     memset(&v72, 0, 20);
-    v19 = open(*a3, 2562, *a6);
+    v19 = open(*a3, 2562, a3, *a6);
     v20 = v19;
     if (v19 < 0)
     {
@@ -960,9 +960,9 @@ LABEL_16:
   return result;
 }
 
-void sub_1B35C43A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B35C43A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   __cxa_end_catch();
   boost::interprocess::ipcdetail::file_wrapper::~file_wrapper(va);
   _Unwind_Resume(a1);
@@ -1078,7 +1078,7 @@ uint64_t boost::interprocess::ipcdetail::managed_open_or_create_impl<boost::inte
   return a1;
 }
 
-void *boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::basic_managed_mapped_file(void *a1, const char *a2)
+void *boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::basic_managed_mapped_file(void *a1, char *a2)
 {
   v6 = a2;
   *a1 = 0;
@@ -1088,7 +1088,7 @@ void *boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::r
   return a1;
 }
 
-BOOL PFArchiveFileMagicFound(const char *a1, const char *a2, char *__little, size_t __len, const char **a5)
+BOOL PFArchiveFileMagicFound(char *a1, const char *a2, char *__little, size_t __len, const char **a5)
 {
   v6 = __len;
   v21 = *MEMORY[0x1E69E9840];
@@ -1429,11 +1429,12 @@ CMSampleBufferRef StolenFigCaptureMetadataUtilitiesCreateQuickTimeMovieStillImag
   return v14;
 }
 
-void sub_1B35D0820(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1B35D0820(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  objc_destroyWeak((v28 + 40));
+  va_start(va, a27);
+  objc_destroyWeak((v27 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1505,16 +1506,16 @@ BOOL PFCameraAdjustmentsCropIsValid(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat 
   return !CGRectIsInfinite(v10);
 }
 
-void PFImageMetricComputeSSIMForCIImage(void *a1, void *a2)
+void PFImageMetricComputeSSIMForCIImage(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = a2;
-  v5 = os_signpost_id_make_with_pointer(MEMORY[0x1E69E9C10], v3);
-  v6 = v5 - 1;
-  if (v5 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+  v28 = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  v7 = a2;
+  v8 = os_signpost_id_make_with_pointer(MEMORY[0x1E69E9C10], v6);
+  v9 = v8 - 1;
+  if (v8 - 1 > 0xFFFFFFFFFFFFFFFDLL)
   {
-    v9 = MEMORY[0x1E69E9C10];
+    v12 = MEMORY[0x1E69E9C10];
   }
 
   else
@@ -1522,52 +1523,52 @@ void PFImageMetricComputeSSIMForCIImage(void *a1, void *a2)
     if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v5, "com.apple.mediaconversion.ssim", &unk_1B36B501D, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v8, "com.apple.mediaconversion.ssim", &unk_1B36B501D, buf, 2u);
     }
 
-    v7 = MEMORY[0x1E69E9C10];
-    v8 = MEMORY[0x1E69E9C10];
-    if (os_signpost_enabled(v7))
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = MEMORY[0x1E69E9C10];
+    if (os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v5, "com.apple.mediaconversion.ssim.decode-to-pixelbuffer", &unk_1B36B501D, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v8, "com.apple.mediaconversion.ssim.decode-to-pixelbuffer", &unk_1B36B501D, buf, 2u);
     }
   }
 
   pixelBufferOut = 0;
-  [v4 extent];
-  if (CVPixelBufferCreate(0, v10, v11, 0x34323066u, 0, &pixelBufferOut))
+  [v7 extent];
+  if (CVPixelBufferCreate(0, v13, v14, 0x34323066u, 0, &pixelBufferOut))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v4;
+      v27 = v7;
       _os_log_error_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to create pixel buffer for reference image %@", buf, 0xCu);
     }
   }
 
   else
   {
-    [v3 extent];
+    [v6 extent];
     texture = 0;
-    if (CVPixelBufferCreate(0, v12, v13, 0x34323066u, 0, &texture))
+    if (CVPixelBufferCreate(0, v15, v16, 0x34323066u, 0, &texture))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v3;
+        v27 = v6;
         _os_log_error_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to create pixel buffer for image %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v14 = [MEMORY[0x1E695F620] context];
-      [v14 render:v4 toCVPixelBuffer:pixelBufferOut];
-      [v14 render:v3 toCVPixelBuffer:texture];
-      if (v6 > 0xFFFFFFFFFFFFFFFDLL)
+      v17 = [MEMORY[0x1E695F620] context];
+      [v17 render:v7 toCVPixelBuffer:pixelBufferOut];
+      [v17 render:v6 toCVPixelBuffer:texture];
+      if (v9 > 0xFFFFFFFFFFFFFFFDLL)
       {
-        v17 = MEMORY[0x1E69E9C10];
+        v20 = MEMORY[0x1E69E9C10];
       }
 
       else
@@ -1575,26 +1576,26 @@ void PFImageMetricComputeSSIMForCIImage(void *a1, void *a2)
         if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v5, "com.apple.mediaconversion.ssim.decode-to-pixelbuffer", &unk_1B36B501D, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v8, "com.apple.mediaconversion.ssim.decode-to-pixelbuffer", &unk_1B36B501D, buf, 2u);
         }
 
-        v15 = MEMORY[0x1E69E9C10];
-        v16 = MEMORY[0x1E69E9C10];
-        if (os_signpost_enabled(v15))
+        v18 = MEMORY[0x1E69E9C10];
+        v19 = MEMORY[0x1E69E9C10];
+        if (os_signpost_enabled(v18))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v5, "com.apple.mediaconversion.ssim.compute-ssim", &unk_1B36B501D, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v8, "com.apple.mediaconversion.ssim.compute-ssim", &unk_1B36B501D, buf, 2u);
         }
       }
 
-      v18 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
 
       CMPhotoComputeSSIMForPixelBuffer();
-      v19 = v18;
-      if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(MEMORY[0x1E69E9C10]))
+      v22 = v21;
+      if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(MEMORY[0x1E69E9C10]))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v5, "com.apple.mediaconversion.ssim.compute-ssim", &unk_1B36B501D, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v8, "com.apple.mediaconversion.ssim.compute-ssim", &unk_1B36B501D, buf, 2u);
       }
 
       CVPixelBufferRelease(texture);
@@ -1603,11 +1604,11 @@ void PFImageMetricComputeSSIMForCIImage(void *a1, void *a2)
     CVPixelBufferRelease(pixelBufferOut);
   }
 
-  v20 = MEMORY[0x1E69E9C10];
-  if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(MEMORY[0x1E69E9C10]))
+  v23 = MEMORY[0x1E69E9C10];
+  if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v5, "com.apple.mediaconversion.ssim", &unk_1B36B501D, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, v8, "com.apple.mediaconversion.ssim", &unk_1B36B501D, buf, 2u);
   }
 }
 
@@ -1650,10 +1651,11 @@ __CFString *PFPosterMediaTypeStringWithType(unint64_t a1)
   }
 }
 
-void sub_1B35DC178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
+void sub_1B35DC178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
 {
+  va_start(va, a55);
   _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a56, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1679,7 +1681,7 @@ id _PFExportGIFRequestError(uint64_t a1, void *a2, void *a3)
   return v10;
 }
 
-uint64_t LayerIDMatchesOptions(void *a1, unint64_t a2, char a3)
+unint64_t LayerIDMatchesOptions(void *a1, unint64_t a2, char a3)
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = a1;
@@ -1754,33 +1756,33 @@ uint64_t LayerIDMatchesOptions(void *a1, unint64_t a2, char a3)
   return v6;
 }
 
-BOOL ReadImageFromURL(uint64_t a1, void *a2, int a3, void *a4)
+BOOL ReadImageFromURL(void *a1, void *a2, int a3, void *a4)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v6 = a2;
-  v7 = [MEMORY[0x1E695DF90] dictionary];
+  v20[1] = *MEMORY[0x1E69E9840];
+  v7 = a2;
   v8 = [MEMORY[0x1E695DF90] dictionary];
+  v9 = [MEMORY[0x1E695DF90] dictionary];
   if (a3)
   {
-    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6991B00]];
-    v18 = *MEMORY[0x1E69919F0];
-    v19[0] = &unk_1F2AAB860;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    [v8 setObject:v9 forKeyedSubscript:*MEMORY[0x1E6991AA0]];
+    [v8 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6991B00]];
+    v19 = *MEMORY[0x1E69919F0];
+    v20[0] = &unk_1F2AAB860;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    [v9 setObject:v10 forKeyedSubscript:*MEMORY[0x1E6991AA0]];
   }
 
-  ImageFromImageSource = _PLFigCreateImageFromImageSource(v6, v8, 0, 2, v7);
-  v11 = ImageFromImageSource;
+  ImageFromImageSource = _PLFigCreateImageFromImageSource(v7, v9, 0, 2, v8, a1);
+  v12 = ImageFromImageSource;
   if (a4 && ImageFromImageSource)
   {
-    v12 = MEMORY[0x1E696ABC0];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error reading image from disk, code: %d", ImageFromImageSource, *MEMORY[0x1E696A278]];
-    v17 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    *a4 = [v12 errorWithDomain:@"com.apple.PhotosFormats" code:3 userInfo:v14];
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error reading image from disk, code: %d", ImageFromImageSource, *MEMORY[0x1E696A278]];
+    v18 = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    *a4 = [v13 errorWithDomain:@"com.apple.PhotosFormats" code:3 userInfo:v15];
   }
 
-  return v11 == 0;
+  return v12 == 0;
 }
 
 void PFCreateGIFFromVideoURL(void *a1, void *a2, void *a3, void *a4)
@@ -1848,37 +1850,38 @@ uint64_t PFSharedFigDecodeSessionDiscardCachedBuffers()
   return MEMORY[0x1EEDF13D0](v1, 0, 1);
 }
 
-uint64_t _PLFigCreateImageFromImageSource(uint64_t a1, void *a2, int a3, int a4, void *a5)
+uint64_t _PLFigCreateImageFromImageSource(uint64_t a1, void *a2, int a3, uint64_t a4, void *a5, void *a6)
 {
-  v8 = a2;
-  v9 = a5;
-  v10 = [MEMORY[0x1E695DF90] dictionary];
-  v11 = *MEMORY[0x1E6991B10];
-  v12 = [v9 objectForKeyedSubscript:*MEMORY[0x1E6991B10]];
+  v7 = a4;
+  v9 = a2;
+  v10 = a5;
+  v11 = [MEMORY[0x1E695DF90] dictionary];
+  v12 = *MEMORY[0x1E6991B10];
+  v13 = [v10 objectForKeyedSubscript:*MEMORY[0x1E6991B10]];
 
-  if (!v12)
+  if (!v13)
   {
-    [v10 setObject:&unk_1F2AAB068 forKey:v11];
+    [v11 setObject:&unk_1F2AAB068 forKey:v12];
   }
 
-  if (a4 == 4)
+  if (v7 == 4)
   {
-    [v10 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6991AD0]];
-    v13 = [MEMORY[0x1E696AD98] numberWithInt:1111970369];
-    [v10 setObject:v13 forKey:*MEMORY[0x1E6991AE8]];
+    [v11 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6991AD0]];
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:1111970369];
+    [v11 setObject:v14 forKey:*MEMORY[0x1E6991AE8]];
   }
 
   if (a3)
   {
-    [v10 setObject:MEMORY[0x1E695E110] forKey:*MEMORY[0x1E6991AC8]];
+    [v11 setObject:MEMORY[0x1E695E110] forKey:*MEMORY[0x1E6991AC8]];
   }
 
-  [v10 addEntriesFromDictionary:v9];
-  v14 = [MEMORY[0x1E695DF90] dictionary];
-  v15 = v14;
-  if (v8)
+  [v11 addEntriesFromDictionary:v10];
+  v15 = [MEMORY[0x1E695DF90] dictionary];
+  v16 = v15;
+  if (v9)
   {
-    [v14 addEntriesFromDictionary:v8];
+    [v15 addEntriesFromDictionary:v9];
   }
 
   if (PFSharedFigDecodeSession_s_onceToken != -1)
@@ -1959,9 +1962,9 @@ LABEL_11:
   return v12 & 1;
 }
 
-void sub_1B35E171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B35E171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1983,7 +1986,7 @@ void __PFFigGetImageSourceImageIndexForContainerItemID_block_invoke(uint64_t a1,
   }
 }
 
-uint64_t PFFigJPEGDataFromImage(void *a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t PFFigJPEGDataFromImage(void *a1, uint64_t a2, void *a3, CFTypeRef a4)
 {
   v23[3] = *MEMORY[0x1E69E9840];
   v7 = a3;
@@ -2056,7 +2059,7 @@ LABEL_14:
   return v9;
 }
 
-uint64_t PFFigCopyImageDataToURLWithUpdatedProperties(void *a1, void *a2, uint64_t a3, void *a4)
+uint64_t PFFigCopyImageDataToURLWithUpdatedProperties(void *a1, void *a2, const void *a3, void *a4)
 {
   v16[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -2080,7 +2083,7 @@ uint64_t PFFigCopyImageDataToURLWithUpdatedProperties(void *a1, void *a2, uint64
   return v9;
 }
 
-uint64_t _PFFigCopyImageWithPropertiesAndContainerOptions(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
+uint64_t _PFFigCopyImageWithPropertiesAndContainerOptions(uint64_t a1, void *a2, void *a3, CFTypeRef a4, void *a5)
 {
   v20 = *MEMORY[0x1E69E9840];
   v9 = a2;
@@ -2121,7 +2124,7 @@ LABEL_9:
   return v13;
 }
 
-uint64_t PFFigCopyImageFileWithPropertiesToData(void *a1, void *a2, uint64_t a3, void *a4)
+uint64_t PFFigCopyImageFileWithPropertiesToData(void *a1, void *a2, const void *a3, void *a4)
 {
   v21[2] = *MEMORY[0x1E69E9840];
   v7 = a1;
@@ -2158,18 +2161,18 @@ uint64_t PFFigCopyImageFileWithPropertiesToData(void *a1, void *a2, uint64_t a3,
   return v10;
 }
 
-void sub_1B35E21DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B35E21DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _PFFigTranscodeImageToJPEG(float a1, uint64_t a2, void *a3, void *a4, void *a5)
+uint64_t _PFFigTranscodeImageToJPEG(uint64_t a1, void *a2, void *a3, void *a4, float a5)
 {
   v18[1] = *MEMORY[0x1E69E9840];
-  v8 = a4;
-  v9 = a5;
+  v8 = a3;
+  v9 = a4;
   if (PFSharedFigDecodeSession_s_onceToken != -1)
   {
     dispatch_once(&PFSharedFigDecodeSession_s_onceToken, &__block_literal_global_1357);
@@ -2191,11 +2194,11 @@ uint64_t _PFFigTranscodeImageToJPEG(float a1, uint64_t a2, void *a3, void *a4, v
       [v10 setObject:v9 forKeyedSubscript:*MEMORY[0x1E6991BF0]];
     }
 
-    if (a1 > 0.0)
+    if (a5 > 0.0)
     {
       [v10 setObject:&unk_1F2AAB0E0 forKeyedSubscript:*MEMORY[0x1E6991978]];
       v17 = *MEMORY[0x1E6991B90];
-      *&v13 = a1;
+      *&v13 = a5;
       v14 = [MEMORY[0x1E696AD98] numberWithFloat:v13];
       v18[0] = v14;
       v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
@@ -2206,7 +2209,7 @@ uint64_t _PFFigTranscodeImageToJPEG(float a1, uint64_t a2, void *a3, void *a4, v
     v12 = CMPhotoDecompressionContainerJFIFTranscode();
     if (!v12)
     {
-      *a3 = 0;
+      *a2 = 0;
     }
   }
 
@@ -2317,7 +2320,7 @@ id PFShuffledArrayWithRandomNumberGenerator(void *a1, void *a2)
   v4 = a1;
   if ([v4 count] >= 2)
   {
-    v5 = [v4 mutableCopy];
+    v5 = objc_msgSend_mutableCopy(v4);
 
     PFMutableArrayShuffleWithRandomNumberGenerator(v5, v3);
     v4 = v5;
@@ -2400,14 +2403,14 @@ void sub_1B35E3870(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-unint64_t boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::priv_find_impl<int>(uint64_t a1, char *a2)
+char *boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::priv_find_impl<int>(uint64_t a1, char *a2)
 {
   if (!a2)
   {
     __assert_rtn("priv_find_impl", "segment_manager.hpp", 731, "name != 0");
   }
 
-  v2 = *(MEMORY[0x1E69E5478] + 8) & 0x7FFFFFFFFFFFFFFFLL;
+  v2 = (*(MEMORY[0x1E69E5478] + 8) & 0x7FFFFFFFFFFFFFFFLL);
   v7 = vdupq_n_s64(4uLL);
   v8 = v2;
   v6 = &unk_1F2A8A108;
@@ -2609,7 +2612,7 @@ _BYTE *boost::unordered::detail::functions<boost::hash<boost::container::basic_s
   return result;
 }
 
-char *std::allocator_traits<boost::interprocess::allocator<boost::unordered::detail::node<boost::interprocess::allocator<pf::SceneGeographyNode,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneGeographyNode>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::deallocate[abi:ne200100](char *result, uint64_t *a2)
+void *std::allocator_traits<boost::interprocess::allocator<boost::unordered::detail::node<boost::interprocess::allocator<pf::SceneGeographyNode,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>> const,pf::SceneGeographyNode>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::deallocate[abi:ne200100](void *result, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2 + *a2;
@@ -2622,7 +2625,7 @@ char *std::allocator_traits<boost::interprocess::allocator<boost::unordered::det
 
     else
     {
-      v5 = &result[*result];
+      v5 = result + *result;
     }
 
     return boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_deallocate(v5, v3);
@@ -2631,7 +2634,7 @@ char *std::allocator_traits<boost::interprocess::allocator<boost::unordered::det
   return result;
 }
 
-char *boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<pf::SceneGeographyNode,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneGeographyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::destroy_node(uint64_t a1, char *a2)
+void *boost::unordered::detail::table<boost::unordered::detail::map<boost::interprocess::allocator<pf::SceneGeographyNode,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,pf::SceneGeographyNode,boost::hash<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>,std::equal_to<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>>>>::destroy_node(uint64_t a1, char *a2)
 {
   if (*a2 == 1)
   {
@@ -2718,12 +2721,12 @@ char *boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_famil
   if (a2)
   {
     v2 = result;
-    v3 = (a2 - 16);
+    v3 = a2 - 16;
     v4 = *(a2 - 8);
     v5 = &result[*(result + 4) + 55] & 0xFFFFFFFFFFFFFFF8;
     v6 = v5 - result;
     v7 = v5 + ((*(result + 6) - (v5 - result) - 8) & 0xFFFFFFFFFFFFFFF8);
-    if (v7 + 8 != a2 && ((*&v3[8 * v4 + 8] & 0x4000000000000000) != 0) != v4 >> 63)
+    if (v7 + 8 != a2 && ((*(v3 + 8 * v4 + 8) & 0x4000000000000000) != 0) != v4 >> 63)
     {
       goto LABEL_103;
     }
@@ -2748,7 +2751,7 @@ char *boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_famil
     v9 = *(a2 - 8);
     if (&result[v6 + 8] != v3 && (v9 & 0x4000000000000000) == 0)
     {
-      v11 = *&v3[-8 * *v3 + 8];
+      v11 = *(v3 - 8 * *v3 + 8);
       if (v11 < 0)
       {
         __assert_rtn("priv_is_prev_allocated", "rbtree_best_fit.hpp", 1218, "!prev->m_allocated");
@@ -2760,10 +2763,10 @@ char *boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_famil
       }
     }
 
-    v12 = (v7 - 8);
-    v13 = &v3[8 * v9];
-    v14 = *(v13 + 1);
-    if (v12 != v13 && ((*&v13[8 * v14 + 8] & 0x4000000000000000) != 0) != v14 >> 63)
+    v12 = v7 - 8;
+    v13 = v3 + 8 * v9;
+    v14 = *(v13 + 8);
+    if (v12 != v13 && ((*(v13 + 8 * v14 + 8) & 0x4000000000000000) != 0) != v14 >> 63)
     {
 LABEL_103:
       __assert_rtn("priv_is_allocated_block", "rbtree_best_fit.hpp", 1200, "allocated == next_block_prev_allocated");
@@ -2834,8 +2837,8 @@ LABEL_103:
       if ((v9 & 0x4000000000000000) == 0)
       {
         v3 -= 8 * *v3;
-        v30 = *(v3 + 1);
-        *(v3 + 1) = v30 & 0xC000000000000000 | (v30 + v9) & 0x3FFFFFFFFFFFFFFFLL;
+        v30 = *(v3 + 8);
+        *(v3 + 8) = v30 & 0xC000000000000000 | (v30 + v9) & 0x3FFFFFFFFFFFFFFFLL;
         if (((v30 + v9) & 0x3FFFFFFFFFFFFFFFuLL) <= 4)
         {
           __assert_rtn("priv_deallocate", "rbtree_best_fit.hpp", 1361, "block_to_insert->m_size >= BlockCtrlUnits");
@@ -2844,9 +2847,9 @@ LABEL_103:
 
       if ((v14 & 0x8000000000000000) == 0)
       {
-        v31 = *(v3 + 1);
-        v32 = (*(v13 + 1) + v31) & 0x3FFFFFFFFFFFFFFFLL;
-        *(v3 + 1) = v31 & 0xC000000000000000 | v32;
+        v31 = *(v3 + 8);
+        v32 = (*(v13 + 8) + v31) & 0x3FFFFFFFFFFFFFFFLL;
+        *(v3 + 8) = v31 & 0xC000000000000000 | v32;
         if (v32 <= 4)
         {
           __assert_rtn("priv_deallocate", "rbtree_best_fit.hpp", 1366, "block_to_insert->m_size >= BlockCtrlUnits");
@@ -3012,7 +3015,7 @@ LABEL_103:
         goto LABEL_101;
       }
 
-      v61 = *(v3 + 1);
+      v61 = *(v3 + 8);
       v62 = &v74[-3] + v54;
       if (v54 == 1)
       {
@@ -3082,11 +3085,11 @@ LABEL_103:
     v76 = v29 + v28;
     result = boost::intrusive::bstree_impl<boost::intrusive::bhtraits<boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::block_ctrl,boost::intrusive::rbtree_node_traits<boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,true>,(boost::intrusive::link_mode_type)0,boost::intrusive::dft_tag,3u>,void,void,unsigned long,true,(boost::intrusive::algo_types)5,void>::insert_equal(&v77, v2, &v76, v3);
 LABEL_101:
-    v70 = *(v3 + 1);
-    *(v3 + 1) = v70 & 0x7FFFFFFFFFFFFFFFLL;
-    v71 = &v3[8 * v70];
+    v70 = *(v3 + 8);
+    *(v3 + 8) = v70 & 0x7FFFFFFFFFFFFFFFLL;
+    v71 = (v3 + 8 * v70);
     v71[1] &= ~0x4000000000000000uLL;
-    *v71 = *(v3 + 1) & 0x3FFFFFFFFFFFFFFFLL;
+    *v71 = *(v3 + 8) & 0x3FFFFFFFFFFFFFFFLL;
   }
 
   return result;
@@ -3153,13 +3156,13 @@ char *boost::intrusive::bstree_impl<boost::intrusive::bhtraits<boost::interproce
   }
 
   v14 = v13 + v19;
-  v15 = (&v20 - a1);
+  v15 = &v20 - a1;
   if (v14 == 1)
   {
     v15 = 0;
   }
 
-  *a1 = &v15[v14];
+  *a1 = v15 + v14;
   return result;
 }
 
@@ -4311,13 +4314,13 @@ LABEL_97:
   }
 
   v73 = v72 + v75;
-  v74 = (&v85 - a1);
+  v74 = &v85 - a1;
   if (v73 == 1)
   {
     v74 = 0;
   }
 
-  *a1 = &v74[v73];
+  *a1 = v74 + v73;
   ++*a2;
   return result;
 }
@@ -4335,7 +4338,7 @@ char *boost::intrusive::rbtree_algorithms<boost::intrusive::rbtree_node_traits<b
   }
 
   *v4 &= ~2uLL;
-  v5 = (&v69 - a2);
+  v5 = &v69 - a2;
   v6 = *a2;
   while (1)
   {
@@ -4493,7 +4496,7 @@ char *boost::intrusive::rbtree_algorithms<boost::intrusive::rbtree_node_traits<b
             v40 = 0;
           }
 
-          v65 = &v37[v40];
+          v65 = v40 + v37;
           boost::intrusive::bstree_algorithms<boost::intrusive::rbtree_node_traits<boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,true>>::rotate_left_no_parent_fix(&v66, &v65);
           v41 = a2 - &v70;
           if (*a2 == 1)
@@ -4566,7 +4569,7 @@ char *boost::intrusive::rbtree_algorithms<boost::intrusive::rbtree_node_traits<b
             v49 = 0;
           }
 
-          v65 = &v37[v49];
+          v65 = v49 + v37;
           boost::intrusive::bstree_algorithms<boost::intrusive::rbtree_node_traits<boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,true>>::rotate_right_no_parent_fix(&v66, &v65);
           v50 = a2 - &v70;
           if (*a2 == 1)
@@ -4660,8 +4663,8 @@ char *boost::intrusive::rbtree_algorithms<boost::intrusive::rbtree_node_traits<b
       v32 = v5;
     }
 
-    v6 = &v32[v69];
-    *a2 = &v32[v69];
+    v6 = v32 + v69;
+    *a2 = v32 + v69;
   }
 
   if (v15 == 1)
@@ -5821,7 +5824,7 @@ char *boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_tra
     v6 = 0;
   }
 
-  v7 = (v6 + v5);
+  v7 = v6 + v5;
   v8 = *(v4 + 2);
   v9 = v4 + 16 - &v64;
   if (v8 == 1)
@@ -5928,7 +5931,7 @@ LABEL_24:
         v21 = 0;
       }
 
-      v22 = (v21 + v2);
+      v22 = v21 + v2;
       v65 = v22;
       if (v22 == 1)
       {
@@ -5947,7 +5950,7 @@ LABEL_24:
         v25 = 0;
       }
 
-      v26 = (v25 + v24);
+      v26 = v25 + v24;
       *result = v26;
       v27 = v26 == 1;
       v28 = &result[v26];
@@ -5988,8 +5991,8 @@ LABEL_24:
             v33 = result - &v65;
           }
 
-          v34 = &v26[v33];
-          v65 = &v26[v33];
+          v34 = v33 + v26;
+          v65 = v33 + v26;
           v35 = *v28 & 0xFFFFFFFFFFFFFFFDLL;
           v36 = v28 - &v64;
           if (v35 == 1)
@@ -6005,10 +6008,10 @@ LABEL_24:
 
           else
           {
-            v38 = (&v64 - result);
+            v38 = &v64 - result;
           }
 
-          v26 = &v38[v37];
+          v26 = v38 + v37;
           *result = v26;
           v28 = &result[v26];
           if (v26 == 1)
@@ -6062,7 +6065,7 @@ LABEL_24:
         v57 = v19;
       }
 
-      v65 = (v57 + v18);
+      v65 = v57 + v18;
       return boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_traits<boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,true>>::maximum(result, &v65);
     }
   }
@@ -6290,11 +6293,11 @@ char *boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_tra
   v6 = v5 + v4;
   if (v5 + v4 != 1)
   {
-    v7 = (v15 - a2);
+    v7 = v15 - a2;
     do
     {
-      v2 = &v7[v6];
-      *a2 = &v7[v6];
+      v2 = v6 + v7;
+      *a2 = v6 + v7;
       v8 = &v15[v6];
       if (v2 == 1)
       {
@@ -6331,7 +6334,7 @@ char *boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_tra
     v13 = 0;
   }
 
-  *result = &v2[v13];
+  *result = v13 + v2;
   return result;
 }
 
@@ -6358,11 +6361,11 @@ char *boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_tra
   v6 = v5 + v4;
   if (v5 + v4 != 1)
   {
-    v7 = (v15 - a2);
+    v7 = v15 - a2;
     do
     {
-      v2 = &v7[v6];
-      *a2 = &v7[v6];
+      v2 = v6 + v7;
+      *a2 = v6 + v7;
       v8 = &v15[v6];
       if (v2 == 1)
       {
@@ -6399,7 +6402,7 @@ char *boost::intrusive::bstree_algorithms_base<boost::intrusive::rbtree_node_tra
     v13 = 0;
   }
 
-  *result = &v2[v13];
+  *result = v13 + v2;
   return result;
 }
 
@@ -8444,7 +8447,7 @@ LABEL_23:
   {
     *&v19.st_dev = 0x1100000000;
     exception = __cxa_allocate_exception(0x28uLL);
-    boost::interprocess::interprocess_exception::interprocess_exception(exception, &v19);
+    boost::interprocess::interprocess_exception::interprocess_exception(exception, &v19.st_dev);
     goto LABEL_23;
   }
 
@@ -8470,7 +8473,7 @@ LABEL_23:
 LABEL_22:
     *&v19.st_mode = v18;
     exception = __cxa_allocate_exception(0x28uLL);
-    boost::interprocess::interprocess_exception::interprocess_exception(exception, &v19);
+    boost::interprocess::interprocess_exception::interprocess_exception(exception, &v19.st_dev);
     goto LABEL_23;
   }
 
@@ -8486,7 +8489,7 @@ uint64_t boost::interprocess::ipcdetail::managed_open_or_create_impl<boost::inte
   if (result)
   {
     v3 = *__error();
-    v8[0] = v3;
+    LODWORD(v8) = v3;
     v4 = &boost::interprocess::ec_table;
     v5 = 128;
     while (*v4 != v3)
@@ -8502,9 +8505,9 @@ uint64_t boost::interprocess::ipcdetail::managed_open_or_create_impl<boost::inte
 
     v6 = v4[1];
 LABEL_7:
-    v8[1] = v6;
+    HIDWORD(v8) = v6;
     exception = __cxa_allocate_exception(0x28uLL);
-    boost::interprocess::interprocess_exception::interprocess_exception(exception, v8);
+    boost::interprocess::interprocess_exception::interprocess_exception(exception, &v8);
   }
 
   return result;
@@ -9204,15 +9207,15 @@ uint64_t boost::interprocess::iset_index<boost::interprocess::ipcdetail::index_c
   return result;
 }
 
-void sub_1B35E9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B35E9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~basic_string(va1);
   boost::interprocess::basic_managed_heap_memory<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::~basic_managed_heap_memory(va);
 

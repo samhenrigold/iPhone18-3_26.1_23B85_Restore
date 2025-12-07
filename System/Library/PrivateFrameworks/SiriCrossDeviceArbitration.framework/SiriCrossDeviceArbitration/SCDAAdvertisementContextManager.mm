@@ -11,12 +11,12 @@
 
 - (void)reset
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[SCDAAdvertisementContextManager reset]";
+    v7 = "[SCDAAdvertisementContextManager reset]";
     _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -27,7 +27,6 @@
   block[3] = &unk_1E85D3850;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)triggerABCForType:(id)type subType:(id)subType context:(id)context
@@ -58,22 +57,20 @@ void __69__SCDAAdvertisementContextManager_triggerABCForType_subType_context___b
 
 void __69__SCDAAdvertisementContextManager_triggerABCForType_subType_context___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[SCDAAdvertisementContextManager triggerABCForType:subType:context:]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s #scda triggerABCForSubType failed: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[SCDAAdvertisementContextManager triggerABCForType:subType:context:]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s #scda triggerABCForSubType failed: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pushSCDAAdvertisementContext:(id)context completionHandler:(id)handler
@@ -95,28 +92,26 @@ void __69__SCDAAdvertisementContextManager_triggerABCForType_subType_context___b
 
 void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 136315394;
-    v10 = "[SCDAAdvertisementContextManager pushSCDAAdvertisementContext:completionHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v3;
+    v9 = "[SCDAAdvertisementContextManager pushSCDAAdvertisementContext:completionHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v3;
     _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #myriad Pushing Myriad advertisement context %@", buf, 0x16u);
   }
 
   v4 = [*(a1 + 40) _settingsConnection];
   v5 = *(a1 + 32);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completionHandler___block_invoke_1;
-  v7[3] = &unk_1E85D2F78;
-  v8 = *(a1 + 48);
-  [v4 pushSCDAAdvertisementContext:v5 completionHandler:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completionHandler___block_invoke_1;
+  v6[3] = &unk_1E85D2F78;
+  v7 = *(a1 + 48);
+  [v4 pushSCDAAdvertisementContext:v5 completionHandler:v6];
 }
 
 void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completionHandler___block_invoke_1(uint64_t a1, void *a2, void *a3)
@@ -149,7 +144,7 @@ void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completi
 
 void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 content];
   if (objc_opt_respondsToSelector())
@@ -172,21 +167,21 @@ void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completi
           v9 = SCDALogContextCore;
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
-            v11 = [v3 info];
-            v12 = v11;
-            if (!v11)
+            v10 = [v3 info];
+            v11 = v10;
+            if (!v10)
             {
-              v12 = [v4 deviceInfo];
+              v11 = [v4 deviceInfo];
             }
 
-            v13 = 136315650;
-            v14 = "[SCDAAdvertisementContextManager pushSCDAAdvertisementContext:completionHandler:]_block_invoke_2";
-            v15 = 2112;
-            v16 = v7;
-            v17 = 2112;
-            v18 = v12;
-            _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s #scda Dropped %@ from %@ because there's no device ID.", &v13, 0x20u);
-            if (!v11)
+            v12 = 136315650;
+            v13 = "[SCDAAdvertisementContextManager pushSCDAAdvertisementContext:completionHandler:]_block_invoke_2";
+            v14 = 2112;
+            v15 = v7;
+            v16 = 2112;
+            v17 = v11;
+            _os_log_error_impl(&dword_1DA758000, v9, OS_LOG_TYPE_ERROR, "%s #scda Dropped %@ from %@ because there's no device ID.", &v12, 0x20u);
+            if (!v10)
             {
             }
           }
@@ -194,8 +189,6 @@ void __82__SCDAAdvertisementContextManager_pushSCDAAdvertisementContext_completi
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetSettingsConnection

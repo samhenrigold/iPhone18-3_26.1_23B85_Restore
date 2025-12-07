@@ -86,41 +86,39 @@ id __42__WFAccountPickerParameter_possibleStates__block_invoke(uint64_t a1, void
 
 - (void)wasAddedToWorkflow
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = WFAccountPickerParameter;
-  [(WFAccountPickerParameter *)&v13 wasAddedToWorkflow];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = WFAccountPickerParameter;
+  [(WFAccountPickerParameter *)&v12 wasAddedToWorkflow];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   accounts = [(objc_class *)[(WFAccountPickerParameter *)self accountClass] accounts];
-  v4 = [accounts countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) refreshWithCompletionHandler:0];
+        [*(*(&v8 + 1) + 8 * v7++) refreshWithCompletionHandler:0];
       }
 
       while (v5 != v7);
-      v5 = [accounts countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -136,11 +134,11 @@ id __42__WFAccountPickerParameter_possibleStates__block_invoke(uint64_t a1, void
 
 - (WFAccountPickerParameter)initWithDefinition:(id)definition
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   definitionCopy = definition;
-  v23.receiver = self;
-  v23.super_class = WFAccountPickerParameter;
-  v5 = [(WFAccountPickerParameter *)&v23 initWithDefinition:definitionCopy];
+  v22.receiver = self;
+  v22.super_class = WFAccountPickerParameter;
+  v5 = [(WFAccountPickerParameter *)&v22 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"AccountClass"];
@@ -153,13 +151,13 @@ id __42__WFAccountPickerParameter_possibleStates__block_invoke(uint64_t a1, void
       {
         v11 = objc_opt_class();
         *buf = 136315906;
-        v25 = "WFEnforceClass";
-        v26 = 2114;
-        v27 = v8;
-        v28 = 2114;
-        v29 = v11;
-        v30 = 2114;
-        v31 = v7;
+        v24 = "WFEnforceClass";
+        v25 = 2114;
+        v26 = v8;
+        v27 = 2114;
+        v28 = v11;
+        v29 = 2114;
+        v30 = v7;
         v12 = v11;
         _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
@@ -178,21 +176,20 @@ id __42__WFAccountPickerParameter_possibleStates__block_invoke(uint64_t a1, void
 
     objc_initWeak(buf, v5);
     v15 = v5->_accountClass;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __47__WFAccountPickerParameter_initWithDefinition___block_invoke;
-    v21[3] = &unk_278C1EEF0;
-    objc_copyWeak(&v22, buf);
-    v16 = [(objc_class *)v15 addAccountObserver:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __47__WFAccountPickerParameter_initWithDefinition___block_invoke;
+    v20[3] = &unk_278C1EEF0;
+    objc_copyWeak(&v21, buf);
+    v16 = [(objc_class *)v15 addAccountObserver:v20];
     observer = v5->_observer;
     v5->_observer = v16;
 
     v18 = v5;
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

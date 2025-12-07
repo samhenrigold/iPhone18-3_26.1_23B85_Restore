@@ -2,6 +2,7 @@
 + (id)createFrom:(id)from forUseCase:(unsigned int)case error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (ExclaveAudioFormatBase)initWithExclaveUseCaseFormat:(const ExADUseCaseFormat *)format;
+- (ExclaveAudioFormatBase)initWithSampleRate:(unsigned int)rate andChannels:(unsigned int)channels andFrameSize:(unsigned int)size;
 - (id)initFormat:(id)format;
 @end
 
@@ -11,7 +12,7 @@
 {
   fromCopy = from;
   ExADUseCaseFormatForUseCaseFromEDT(fromCopy, case, error, v10);
-  if (v10[32])
+  if (v11)
   {
     v8 = [[ExclaveAudioFormatBase alloc] initWithExclaveUseCaseFormat:v10];
   }
@@ -112,6 +113,32 @@ LABEL_9:
   }
 
   return v5;
+}
+
+- (ExclaveAudioFormatBase)initWithSampleRate:(unsigned int)rate andChannels:(unsigned int)channels andFrameSize:(unsigned int)size
+{
+  v5 = *&size;
+  v6 = *&channels;
+  v7 = *&rate;
+  v16.receiver = self;
+  v16.super_class = ExclaveAudioFormatBase;
+  v8 = [(ExclaveAudioFormatBase *)&v16 init];
+  if (v8)
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v7];
+    sampleRate = v8->_sampleRate;
+    v8->_sampleRate = v9;
+
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+    channels = v8->_channels;
+    v8->_channels = v11;
+
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+    framesPerIO = v8->_framesPerIO;
+    v8->_framesPerIO = v13;
+  }
+
+  return v8;
 }
 
 @end

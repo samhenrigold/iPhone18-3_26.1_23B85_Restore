@@ -659,34 +659,25 @@ LABEL_51:
   payload = [(MCNewPayloadHandler *)self payload];
   v4 = EAPOLClientProfileGetInformation();
   v5 = v4;
-  if (!v4)
+  v12 = 0;
+  if (v4)
   {
-    goto LABEL_5;
-  }
+    v6 = kMCPayloadUUIDKey;
+    v7 = [v4 objectForKey:kMCPayloadUUIDKey];
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-  v6 = kMCPayloadUUIDKey;
-  v7 = [v4 objectForKey:kMCPayloadUUIDKey];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
+    {
+      v9 = [v5 objectForKey:v6];
+      uUID = [payload UUID];
+      v11 = [v9 isEqualToString:uUID];
 
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = [v5 objectForKey:v6];
-  uUID = [payload UUID];
-  v11 = [v9 isEqualToString:uUID];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v12 = 0;
+      if (v11)
+      {
+        v12 = 1;
+      }
+    }
   }
 
   return v12;
@@ -891,14 +882,13 @@ LABEL_19:
     if (v4)
     {
       v5 = v4;
-      v6 = self->_setAsideProfileID;
       if (EAPOLClientConfigurationGetProfileWithID())
       {
         if (EAPOLClientConfigurationSetSystemEthernetProfile())
         {
           if (EAPOLClientConfigurationSave())
           {
-            v7 = self->_setAsideProfileID;
+            v6 = self->_setAsideProfileID;
             self->_setAsideProfileID = 0;
 
 LABEL_20:
@@ -906,63 +896,63 @@ LABEL_20:
             return;
           }
 
-          v16 = _MCLogObjects[0];
-          if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_20;
-          }
-
-          v12 = v16;
-          *buf = 138543362;
-          v19 = objc_opt_class();
-          v13 = v19;
-          v14 = "%{public}@ EAPOLClientConfigurationSave() failed";
-        }
-
-        else
-        {
           v15 = _MCLogObjects[0];
           if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_20;
           }
 
-          v12 = v15;
+          v11 = v15;
           *buf = 138543362;
-          v19 = objc_opt_class();
-          v13 = v19;
-          v14 = "%{public}@ EAPOLClientConfigurationSetSystemEthernetProfile() failed";
+          v18 = objc_opt_class();
+          v12 = v18;
+          v13 = "%{public}@ EAPOLClientConfigurationSave() failed";
+        }
+
+        else
+        {
+          v14 = _MCLogObjects[0];
+          if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_20;
+          }
+
+          v11 = v14;
+          *buf = 138543362;
+          v18 = objc_opt_class();
+          v12 = v18;
+          v13 = "%{public}@ EAPOLClientConfigurationSetSystemEthernetProfile() failed";
         }
       }
 
       else
       {
-        v11 = _MCLogObjects[0];
+        v10 = _MCLogObjects[0];
         if (!os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_20;
         }
 
-        v12 = v11;
+        v11 = v10;
         *buf = 138543362;
-        v19 = objc_opt_class();
-        v13 = v19;
-        v14 = "%{public}@ EAPOLClientConfigurationGetProfileWithID() returned NULL";
+        v18 = objc_opt_class();
+        v12 = v18;
+        v13 = "%{public}@ EAPOLClientConfigurationGetProfileWithID() returned NULL";
       }
 
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
 
       goto LABEL_20;
     }
 
-    v8 = _MCLogObjects[0];
+    v7 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
-      v9 = v8;
+      v8 = v7;
       *buf = 138543362;
-      v19 = objc_opt_class();
-      v10 = v19;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@ EAPOLClientConfigurationCreateWithAuthorization() returned NULL", buf, 0xCu);
+      v18 = objc_opt_class();
+      v9 = v18;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@ EAPOLClientConfigurationCreateWithAuthorization() returned NULL", buf, 0xCu);
     }
   }
 

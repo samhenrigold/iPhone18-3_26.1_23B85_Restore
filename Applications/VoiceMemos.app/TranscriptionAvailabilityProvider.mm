@@ -22,19 +22,19 @@
 
 - (void)updateDeviceIsSupported
 {
-  sub_1000C773C(&unk_1002D1D90);
-  __chkstk_darwin();
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for TaskPriority();
-  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
+  v3 = sub_1000C773C(&unk_1002D1D90, &qword_1002422E0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v10 - v4;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   type metadata accessor for MainActor();
   selfCopy = self;
-  v7 = static MainActor.shared.getter();
-  v8 = swift_allocObject();
-  v8[2] = v7;
-  v8[3] = &protocol witness table for MainActor;
-  v8[4] = selfCopy;
-  sub_100179578(0, 0, v4, &unk_100247080, v8);
+  v8 = static MainActor.shared.getter();
+  v9 = swift_allocObject();
+  v9[2] = v8;
+  v9[3] = &protocol witness table for MainActor;
+  v9[4] = selfCopy;
+  sub_100179578(0, 0, v5, &unk_100247080, v9);
 }
 
 - (BOOL)deviceIsSupported

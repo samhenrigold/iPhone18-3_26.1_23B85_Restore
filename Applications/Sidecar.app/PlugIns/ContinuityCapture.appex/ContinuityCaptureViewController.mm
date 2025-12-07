@@ -18,9 +18,15 @@
 - (void)receivedItems:(id)items;
 - (void)requestDidFinish:(id)finish;
 - (void)requestDidStart:(id)start;
+- (void)setActive:(BOOL)active;
+- (void)setBackgrounded:(BOOL)backgrounded;
 - (void)sidecarServiceActive;
 - (void)updateRequestState;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ContinuityCaptureViewController
@@ -66,8 +72,8 @@
 {
   if (dword_100019EC8)
   {
-    v12 = 0;
-    v11 = 0;
+    v10 = 0;
+    v9 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -85,7 +91,7 @@
     dispatch_source_cancel(connectionInterruptTimer);
   }
 
-  v5 = [ContinuityCaptureRemoteUISystemStatus sharedInstance:v8];
+  v5 = +[ContinuityCaptureRemoteUISystemStatus sharedInstance];
   [(ContinuityCaptureRemoteUISystemStatus *)v5 removeObserver:self forKeyPath:CMContinuityCaptureSystemStatusPowerButtonPressedKVOKey context:0];
   v6 = +[ContinuityCaptureRemoteUISystemStatus sharedInstance];
   [(ContinuityCaptureRemoteUISystemStatus *)v6 removeObserver:self forKeyPath:CMContinuityCaptureCallStateKVOKey context:0];
@@ -97,9 +103,9 @@
     [(CMContinuityCaptureRemoteCompositeDevice *)self->_continuityCaptureDevice invalidate];
   }
 
-  v10.receiver = self;
-  v10.super_class = ContinuityCaptureViewController;
-  [(ContinuityCaptureViewController *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v8 dealloc];
 }
 
 - (void)loadView
@@ -143,6 +149,58 @@
   v6[4] = self;
   [v5 setTransitionHandler:v6];
   self->_layoutMonitor = [FBSDisplayLayoutMonitor monitorWithConfiguration:v5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8 = 0;
+  v7 = 0;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  v6.receiver = self;
+  v6.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v6 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8 = 0;
+  v7 = 0;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  v6.receiver = self;
+  v6.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v6 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v8 = 0;
+  v7 = 0;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  v6.receiver = self;
+  v6.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v8 = 0;
+  v7 = 0;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  v6.receiver = self;
+  v6.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v6 viewDidDisappear:disappearCopy];
 }
 
 - (void)incomingCall:(BOOL)call data:(id)data shouldDisplayNotification:(BOOL)notification
@@ -191,26 +249,26 @@
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (dword_100019EC8)
   {
-    v10 = 0;
-    v9 = 0;
+    v8 = 0;
+    v7 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:v5 value:v6) table:"localizedStringForKey:value:table:", @"ALERT_DISCONNECTED_TITLE", &stru_100014A90, 0], [+[NSBundle localizedStringForKey:"localizedStringForKey:value:table:"];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000066C8;
-  v8[3] = &unk_1000146D0;
-  v8[4] = self;
-  -[UIAlertController addAction:](v4, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"ALERT_DISCONNECTED_BUTTON_TITLE_DISCONNECT" table:&stru_100014A90, 0], 2, v8));
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_1000067FC;
-  v7[3] = &unk_1000146D0;
-  v7[4] = self;
-  -[UIAlertController addAction:](v4, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"ALERT_DISCONNECTED_BUTTON_TITLE_CANCEL" table:&stru_100014A90, 0], 1, v7));
+  v4 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"ALERT_DISCONNECTED_TITLE" table:&stru_100014A90, 0], [+[NSBundle localizedStringForKey:"localizedStringForKey:value:table:"];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_1000066C8;
+  v6[3] = &unk_1000146D0;
+  v6[4] = self;
+  -[UIAlertController addAction:](v4, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"ALERT_DISCONNECTED_BUTTON_TITLE_DISCONNECT" table:&stru_100014A90, 0], 2, v6));
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_1000067FC;
+  v5[3] = &unk_1000146D0;
+  v5[4] = self;
+  -[UIAlertController addAction:](v4, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"ALERT_DISCONNECTED_BUTTON_TITLE_CANCEL" table:&stru_100014A90, 0], 1, v5));
   [(ContinuityCaptureViewController *)self presentViewController:v4 animated:1 completion:0];
 }
 
@@ -220,14 +278,14 @@
   uiState = self->_uiState;
   if (dword_100019EC8)
   {
-    v18 = 0;
-    v17 = 0;
+    v16 = 0;
+    v15 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = [(ContinuityCaptureViewController *)self view:v15];
+  view = [(ContinuityCaptureViewController *)self view];
   connectionType = self->_connectionType;
   if (connectionType)
   {
@@ -244,7 +302,7 @@
     v7 = @"video.circle.fill";
   }
 
-  [v5 setImage:{+[UIImage systemImageNamed:](UIImage, "systemImageNamed:", v7)}];
+  [view setImage:{+[UIImage systemImageNamed:](UIImage, "systemImageNamed:", v7)}];
 LABEL_8:
   macName = [objc_msgSend(-[ContinuityCaptureViewController request](self "request")];
   if (![(NSString *)macName length])
@@ -262,7 +320,7 @@ LABEL_8:
     v9 = 2;
   }
 
-  [v5 setPauseButtonState:v9];
+  [view setPauseButtonState:v9];
   if ((uiState - 1) >= 2)
   {
     if (!uiState)
@@ -277,7 +335,7 @@ LABEL_8:
         v11 = [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"LABEL_CONNECTING_TO_MAC" table:&stru_100014A90, 0];
       }
 
-      [v5 setPrimaryText:v11];
+      [view setPrimaryText:v11];
     }
   }
 
@@ -293,7 +351,7 @@ LABEL_8:
       v10 = [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"LABEL_CONNECTED_TO_MAC" table:&stru_100014A90, 0];
     }
 
-    [v5 setPrimaryText:v10];
+    [view setPrimaryText:v10];
     v12 = self->_connectionType;
     if (v12 == 1)
     {
@@ -312,7 +370,7 @@ LABEL_8:
       v14 = @"LABEL_DISCONNECT_DESCRIPTION_CAMERA";
     }
 
-    [v5 setSecondaryText:{-[NSBundle localizedStringForKey:value:table:](v13, "localizedStringForKey:value:table:", v14, &stru_100014A90, 0)}];
+    [view setSecondaryText:{-[NSBundle localizedStringForKey:value:table:](v13, "localizedStringForKey:value:table:", v14, &stru_100014A90, 0)}];
   }
 }
 
@@ -357,12 +415,59 @@ LABEL_8:
   objc_sync_exit(self);
 }
 
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  if (dword_100019EC8)
+  {
+    v9 = 0;
+    v8 = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  v7.receiver = self;
+  v7.super_class = ContinuityCaptureViewController;
+  if ([(ContinuityCaptureViewController *)&v7 respondsToSelector:"setActive:"])
+  {
+    v6.receiver = self;
+    v6.super_class = ContinuityCaptureViewController;
+    [(ContinuityCaptureViewController *)&v6 setActive:activeCopy];
+  }
+
+  if (activeCopy)
+  {
+    [(ContinuityCaptureViewController *)self setBackgroundStyle:4];
+  }
+
+  self->_inactive = !activeCopy;
+  [(ContinuityCaptureViewController *)self _resolveUserPauseState];
+}
+
+- (void)setBackgrounded:(BOOL)backgrounded
+{
+  backgroundedCopy = backgrounded;
+  if (dword_100019EC8)
+  {
+    v8 = 0;
+    v7 = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  v6.receiver = self;
+  v6.super_class = ContinuityCaptureViewController;
+  [(ContinuityCaptureViewController *)&v6 setBackgrounded:backgroundedCopy];
+}
+
 - (void)requestDidStart:(id)start
 {
   if (dword_100019EC8)
   {
-    v11 = 0;
-    v10 = 0;
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -376,7 +481,7 @@ LABEL_8:
     self->_activeRequests = activeRequests;
   }
 
-  if ([(NSMutableArray *)activeRequests count:v7])
+  if ([(NSMutableArray *)activeRequests count])
   {
     [(NSMutableArray *)self->_activeRequests removeObjectAtIndex:0];
   }
@@ -396,8 +501,8 @@ LABEL_8:
 {
   if (dword_100019EC8)
   {
-    v12 = 0;
-    v11 = 0;
+    v10 = 0;
+    v9 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -407,13 +512,13 @@ LABEL_8:
   if ([(NSMutableArray *)self->_activeRequests count])
   {
     objc_sync_exit(self);
-    v6 = ([finish isCancelled] & 1) == 0 && (objc_msgSend(objc_msgSend(objc_msgSend(finish, "error"), "domain"), "isEqualToString:", @"SidecarErrorDomain") && (objc_msgSend(objc_msgSend(finish, "error"), "code") == -205 || objc_msgSend(objc_msgSend(finish, "error"), "code") == -204) || objc_msgSend(objc_msgSend(objc_msgSend(finish, "error", v7, v8), "domain"), "isEqualToString:", @"RPErrorDomain") && objc_msgSend(objc_msgSend(finish, "error"), "code") == -6753);
+    v6 = ([finish isCancelled] & 1) == 0 && (objc_msgSend(objc_msgSend(objc_msgSend(finish, "error"), "domain"), "isEqualToString:", @"SidecarErrorDomain") && (objc_msgSend(objc_msgSend(finish, "error"), "code") == -205 || objc_msgSend(objc_msgSend(finish, "error"), "code") == -204) || objc_msgSend(objc_msgSend(objc_msgSend(finish, "error"), "domain"), "isEqualToString:", @"RPErrorDomain") && objc_msgSend(objc_msgSend(finish, "error"), "code") == -6753);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000079A0;
     block[3] = &unk_1000146A8;
     block[4] = self;
-    v10 = v6;
+    v8 = v6;
     dispatch_async(&_dispatch_main_q, block);
   }
 
@@ -426,41 +531,40 @@ LABEL_8:
 
 - (void)receivedItems:(id)items
 {
-  v59 = 0;
-  v3 = &selRef__defaultButtonTextFont;
+  v55 = 0;
   if (dword_100019EC8)
   {
-    v58 = 0;
-    v57 = OS_LOG_TYPE_DEFAULT;
+    v54 = 0;
+    v53 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v5 = [items countByEnumeratingWithState:&v53 objects:v52 count:{16, v39, v41}];
-  if (v5)
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v4 = [items countByEnumeratingWithState:&v48 objects:v47 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v54;
-    v8 = kCMContinuityCaptureSidecarItemTypeMacName;
-    v44 = kCMContinuityCaptureSidecarItemTypeSessionGID;
-    v45 = kCMContinuityCaptureSidecarItemTypeStreamConfiguration;
+    v5 = v4;
+    v6 = *v49;
+    v7 = kCMContinuityCaptureSidecarItemTypeMacName;
+    v39 = kCMContinuityCaptureSidecarItemTypeSessionGID;
+    v40 = kCMContinuityCaptureSidecarItemTypeStreamConfiguration;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v5; i = i + 1)
       {
-        if (*v54 != v7)
+        if (*v49 != v6)
         {
           objc_enumerationMutation(items);
         }
 
-        v10 = *(*(&v53 + 1) + 8 * i);
-        objectValue = [v10 objectValue];
-        if ([objc_msgSend(v10 "type")])
+        v9 = *(*(&v48 + 1) + 8 * i);
+        objectValue = [v9 objectValue];
+        if ([objc_msgSend(v9 "type")])
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -472,186 +576,177 @@ LABEL_8:
               continue;
             }
 
-            v58 = 0;
-            v57 = OS_LOG_TYPE_DEFAULT;
-            v12 = v3[472];
-            v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v14 = v58;
-            if (os_log_type_enabled(v13, v57))
+            v54 = 0;
+            v53 = OS_LOG_TYPE_DEFAULT;
+            v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v12 = v54;
+            v13 = v53;
+            if (os_log_type_enabled(v11, v53))
             {
-              v15 = v14;
+              v14 = v12;
             }
 
             else
             {
-              v15 = v14 & 0xFFFFFFFE;
+              v14 = v12 & 0xFFFFFFFE;
             }
 
-            if (v15)
+            if (v14)
             {
               macName = self->_macName;
-              v48 = 136315394;
-              v49 = "[ContinuityCaptureViewController receivedItems:]";
-              v50 = 2112;
-              v51 = macName;
-              LODWORD(v42) = 22;
-              v40 = &v48;
-              _os_log_send_and_compose_impl();
+              v43 = 136315394;
+              v44 = "[ContinuityCaptureViewController receivedItems:]";
+              v45 = 2112;
+              v46 = macName;
+              LODWORD(v37) = 22;
+              _os_log_send_and_compose_impl(v14, 0, v52, 128, &_mh_execute_header, v11, v13, "<<<< ContinuityCaptureViewController >>>> %s: Received Mac Name: %@", &v43, v37);
             }
 
-            v38 = v3[472];
-            goto LABEL_47;
+            goto LABEL_46;
           }
         }
 
-        if ([objc_msgSend(v10 "type")])
+        if ([objc_msgSend(v9 "type")])
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v17 = objc_opt_class();
-            objc_sync_enter(v17);
+            v16 = objc_opt_class();
+            objc_sync_enter(v16);
 
-            v18 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:objectValue error:&v59];
-            self->_configForPreStreamStart = v18;
-            if (v18)
+            v17 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:objectValue error:&v55];
+            self->_configForPreStreamStart = v17;
+            if (v17)
             {
-              v19 = v18;
+              v18 = v17;
               if (dword_100019EC8)
               {
-                v58 = 0;
-                v57 = OS_LOG_TYPE_DEFAULT;
-                v20 = v3[472];
-                v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v22 = v58;
-                if (os_log_type_enabled(v21, v57))
+                v54 = 0;
+                v53 = OS_LOG_TYPE_DEFAULT;
+                v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v20 = v54;
+                v21 = v53;
+                if (os_log_type_enabled(v19, v53))
                 {
-                  v23 = v22;
+                  v22 = v20;
                 }
 
                 else
                 {
-                  v23 = v22 & 0xFFFFFFFE;
+                  v22 = v20 & 0xFFFFFFFE;
                 }
 
-                if (v23)
+                if (v22)
                 {
                   configForPreStreamStart = self->_configForPreStreamStart;
-                  v48 = 136315394;
-                  v49 = "[ContinuityCaptureViewController receivedItems:]";
-                  v50 = 2112;
-                  v51 = configForPreStreamStart;
-                  LODWORD(v42) = 22;
-                  v40 = &v48;
-                  _os_log_send_and_compose_impl();
+                  v43 = 136315394;
+                  v44 = "[ContinuityCaptureViewController receivedItems:]";
+                  v45 = 2112;
+                  v46 = configForPreStreamStart;
+                  LODWORD(v37) = 22;
+                  _os_log_send_and_compose_impl(v22, 0, v52, 128, &_mh_execute_header, v19, v21, "<<<< ContinuityCaptureViewController >>>> %s: Received _configForPreStreamStart %@ ", &v43, v37);
                 }
 
-                goto LABEL_48;
+                goto LABEL_47;
               }
             }
 
             else
             {
-              v58 = 0;
-              v57 = OS_LOG_TYPE_DEFAULT;
-              v34 = v3[472];
-              v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v36 = v58;
-              if (os_log_type_enabled(v35, v57))
+              v54 = 0;
+              v53 = OS_LOG_TYPE_DEFAULT;
+              v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v34 = v54;
+              v35 = v53;
+              if (os_log_type_enabled(v33, v53))
               {
-                v37 = v36;
+                v36 = v34;
               }
 
               else
               {
-                v37 = v36 & 0xFFFFFFFE;
+                v36 = v34 & 0xFFFFFFFE;
               }
 
-              if (v37)
+              if (v36)
               {
-                v48 = 136315394;
-                v49 = "[ContinuityCaptureViewController receivedItems:]";
-                v50 = 2112;
-                v51 = v59;
-                LODWORD(v42) = 22;
-                v40 = &v48;
-                _os_log_send_and_compose_impl();
+                v43 = 136315394;
+                v44 = "[ContinuityCaptureViewController receivedItems:]";
+                v45 = 2112;
+                v46 = v55;
+                LODWORD(v37) = 22;
+                _os_log_send_and_compose_impl(v36, 0, v52, 128, &_mh_execute_header, v33, v35, "<<<< ContinuityCaptureViewController >>>> %s: unarchivedObjectOfClass _configForPreStreamStart error: %@", &v43, v37);
               }
 
-LABEL_48:
+LABEL_47:
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v3 = &selRef__defaultButtonTextFont;
             }
 
-            objc_sync_exit(v17);
+            objc_sync_exit(v16);
             continue;
           }
         }
 
-        if (![objc_msgSend(v10 "type")])
+        if (![objc_msgSend(v9 "type")])
         {
-          v58 = 0;
-          v57 = OS_LOG_TYPE_DEFAULT;
-          v29 = v3[472];
-          v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v31 = v58;
-          if (os_log_type_enabled(v30, v57))
+          v54 = 0;
+          v53 = OS_LOG_TYPE_DEFAULT;
+          v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v29 = v54;
+          v30 = v53;
+          if (os_log_type_enabled(v28, v53))
           {
-            v32 = v31;
+            v31 = v29;
           }
 
           else
           {
-            v32 = v31 & 0xFFFFFFFE;
+            v31 = v29 & 0xFFFFFFFE;
           }
 
-          if (v32)
+          if (v31)
           {
-            type = [v10 type];
-            v48 = 136315394;
-            v49 = "[ContinuityCaptureViewController receivedItems:]";
-            v50 = 2112;
-            v51 = type;
-            LODWORD(v42) = 22;
-            v40 = &v48;
-            _os_log_send_and_compose_impl();
+            type = [v9 type];
+            v43 = 136315394;
+            v44 = "[ContinuityCaptureViewController receivedItems:]";
+            v45 = 2112;
+            v46 = type;
+            LODWORD(v37) = 22;
+            _os_log_send_and_compose_impl(v31, 0, v52, 128, &_mh_execute_header, v28, v30, "<<<< ContinuityCaptureViewController >>>> %s: Unexpected type: %@", &v43, v37);
           }
 
-          v3 = &selRef__defaultButtonTextFont;
-LABEL_47:
+LABEL_46:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
           continue;
         }
 
         if (dword_100019EC8)
         {
-          v58 = 0;
-          v57 = OS_LOG_TYPE_DEFAULT;
-          v25 = v3[472];
-          v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v27 = v58;
-          if (os_log_type_enabled(v26, v57))
+          v54 = 0;
+          v53 = OS_LOG_TYPE_DEFAULT;
+          v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v25 = v54;
+          v26 = v53;
+          if (os_log_type_enabled(v24, v53))
           {
-            v28 = v27;
+            v27 = v25;
           }
 
           else
           {
-            v28 = v27 & 0xFFFFFFFE;
+            v27 = v25 & 0xFFFFFFFE;
           }
 
-          if (v28)
+          if (v27)
           {
-            v48 = 136315394;
-            v49 = "[ContinuityCaptureViewController receivedItems:]";
-            v50 = 2112;
-            v51 = objectValue;
-            LODWORD(v42) = 22;
-            v40 = &v48;
-            _os_log_send_and_compose_impl();
+            v43 = 136315394;
+            v44 = "[ContinuityCaptureViewController receivedItems:]";
+            v45 = 2112;
+            v46 = objectValue;
+            LODWORD(v37) = 22;
+            _os_log_send_and_compose_impl(v27, 0, v52, 128, &_mh_execute_header, v24, v26, "<<<< ContinuityCaptureViewController >>>> %s: Received SessionID: %@", &v43, v37);
           }
 
-          v3 = &selRef__defaultButtonTextFont;
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
@@ -662,10 +757,10 @@ LABEL_47:
         }
       }
 
-      v6 = [items countByEnumeratingWithState:&v53 objects:v52 count:16];
+      v5 = [items countByEnumeratingWithState:&v48 objects:v47 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -680,14 +775,14 @@ LABEL_47:
 {
   if (dword_100019EC8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(ContinuityCaptureViewController *)self setBackgroundStyle:4, v4, v5];
+  [(ContinuityCaptureViewController *)self setBackgroundStyle:4];
 }
 
 - (void)_setConnectionInterruptTimer
@@ -729,8 +824,8 @@ LABEL_47:
   {
     if (dword_100019EC8)
     {
-      v18 = 0;
-      v17 = OS_LOG_TYPE_DEFAULT;
+      v16 = 0;
+      v15 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -742,8 +837,8 @@ LABEL_47:
     self->_isTerminating = 1;
     if (dword_100019EC8)
     {
-      v18 = 0;
-      v17 = OS_LOG_TYPE_DEFAULT;
+      v16 = 0;
+      v15 = OS_LOG_TYPE_DEFAULT;
       v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -761,39 +856,38 @@ LABEL_47:
       self->_connectionInterruptTimer = 0;
     }
 
-    [+[ContinuityCaptureRemoteUISystemStatus sharedInstance](ContinuityCaptureRemoteUISystemStatus releaseCurrentIdleSleepAssertion:v9];
+    [+[ContinuityCaptureRemoteUISystemStatus sharedInstance](ContinuityCaptureRemoteUISystemStatus releaseCurrentIdleSleepAssertion];
     [+[ContinuityCaptureShieldUIBackgroundActivityManager sharedInstance](ContinuityCaptureShieldUIBackgroundActivityManager updateState:"updateState:", 16];
     if (dword_100019EC8)
     {
-      v18 = 0;
-      v17 = OS_LOG_TYPE_DEFAULT;
+      v16 = 0;
+      v15 = OS_LOG_TYPE_DEFAULT;
       v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v7 = v18;
-      if (os_log_type_enabled(v6, v17))
+      v7 = v16;
+      v8 = v15;
+      if (os_log_type_enabled(v6, v15))
       {
-        v8 = v7;
+        v9 = v7;
       }
 
       else
       {
-        v8 = v7 & 0xFFFFFFFE;
+        v9 = v7 & 0xFFFFFFFE;
       }
 
-      if (v8)
+      if (v9)
       {
-        v13 = 136315394;
-        v14 = "[ContinuityCaptureViewController _terminate]";
-        v15 = 2048;
+        v10 = 136315394;
+        v11 = "[ContinuityCaptureViewController _terminate]";
+        v12 = 2048;
         selfCopy = self;
-        LODWORD(v12) = 22;
-        v10 = &v13;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(v9, 0, v14, 128, &_mh_execute_header, v6, v8, "<<<< ContinuityCaptureViewController >>>> %s: <%p complete request", &v10, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(ContinuityCaptureViewController *)self completeRequest:1, v10, v12];
+    [(ContinuityCaptureViewController *)self completeRequest:1];
   }
 }
 
@@ -817,33 +911,34 @@ LABEL_47:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (dword_100019EC8)
   {
-    v58 = 0;
-    v57 = OS_LOG_TYPE_DEFAULT;
+    v59 = 0;
+    v58 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([path isEqualToString:{CMContinuityCaptureRemoteCompositeStateKVOKey, v38, v41}])
+  if ([path isEqualToString:CMContinuityCaptureRemoteCompositeStateKVOKey])
   {
     v12 = [objc_msgSend(change objectForKeyedSubscript:{NSKeyValueChangeNewKey), "integerValue"}];
     if (dword_100019EC8)
     {
-      v58 = 0;
-      v57 = OS_LOG_TYPE_DEFAULT;
+      v59 = 0;
+      v58 = OS_LOG_TYPE_DEFAULT;
       v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v14 = v58;
-      if (os_log_type_enabled(v13, v57))
+      v14 = v59;
+      v15 = v58;
+      if (os_log_type_enabled(v13, v58))
       {
-        v15 = v14;
+        v16 = v14;
       }
 
       else
       {
-        v15 = v14 & 0xFFFFFFFE;
+        v16 = v14 & 0xFFFFFFFE;
       }
 
-      if (v15)
+      if (v16)
       {
         v51 = 136315650;
         v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
@@ -851,9 +946,8 @@ LABEL_47:
         selfCopy5 = self;
         v55 = 1024;
         LODWORD(v56) = v12;
-        LODWORD(v42) = 28;
-        v39 = &v51;
-        _os_log_send_and_compose_impl();
+        LODWORD(v43) = 28;
+        _os_log_send_and_compose_impl(v16, 0, v57, 128, &_mh_execute_header, v13, v15, "<<<< ContinuityCaptureViewController >>>> %s: <%p> State : %d", &v51, v43, LODWORD(v44.receiver));
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -864,7 +958,7 @@ LABEL_47:
     v50[2] = sub_100009488;
     v50[3] = &unk_100014720;
     v50[4] = self;
-    [+[ContinuityCaptureShieldUIBackgroundActivityManager updateState:v39], "updateState:withUserInteractionHandler:", v12, v50];
+    [+[ContinuityCaptureShieldUIBackgroundActivityManager sharedInstance](ContinuityCaptureShieldUIBackgroundActivityManager updateState:"updateState:withUserInteractionHandler:" withUserInteractionHandler:v12, v50];
     if (v12)
     {
       self->_uiState = 2;
@@ -890,8 +984,8 @@ LABEL_47:
         }
 
 LABEL_30:
-        v20 = v12 & 6;
-        if (v20 == 2)
+        v22 = v12 & 6;
+        if (v22 == 2)
         {
           self->_connectionType = 1;
           [(ContinuityCaptureViewController *)self _updateUI];
@@ -901,7 +995,7 @@ LABEL_30:
         {
           self->_connectionType = 0;
           [(ContinuityCaptureViewController *)self _updateUI];
-          if (!v20)
+          if (!v22)
           {
             return;
           }
@@ -910,26 +1004,27 @@ LABEL_30:
         layoutMonitor = self->_layoutMonitor;
         if (!layoutMonitor || ![(FBSDisplayLayoutMonitor *)layoutMonitor currentLayout])
         {
-          goto LABEL_70;
+          goto LABEL_69;
         }
 
         if (dword_100019EC8)
         {
-          v58 = 0;
-          v57 = OS_LOG_TYPE_DEFAULT;
-          v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v23 = v58;
-          if (os_log_type_enabled(v22, v57))
+          v59 = 0;
+          v58 = OS_LOG_TYPE_DEFAULT;
+          v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v25 = v59;
+          v26 = v58;
+          if (os_log_type_enabled(v24, v58))
           {
-            v24 = v23;
+            v27 = v25;
           }
 
           else
           {
-            v24 = v23 & 0xFFFFFFFE;
+            v27 = v25 & 0xFFFFFFFE;
           }
 
-          if (v24)
+          if (v27)
           {
             currentLayout = [(FBSDisplayLayoutMonitor *)self->_layoutMonitor currentLayout];
             v51 = 136315650;
@@ -939,8 +1034,7 @@ LABEL_30:
             v55 = 2114;
             v56 = currentLayout;
             LODWORD(v43) = 32;
-            v40 = &v51;
-            _os_log_send_and_compose_impl();
+            _os_log_send_and_compose_impl(v27, 0, v57, 128, &_mh_execute_header, v24, v26, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Evaluate current layout %{public}@", &v51, v43);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -950,30 +1044,30 @@ LABEL_30:
         v49 = 0u;
         v46 = 0u;
         v47 = 0u;
-        currentLayout2 = [-[FBSDisplayLayoutMonitor currentLayout](self->_layoutMonitor currentLayout];
-        v27 = [currentLayout2 countByEnumeratingWithState:&v46 objects:v45 count:16];
-        if (v27)
+        v29 = [-[FBSDisplayLayoutMonitor currentLayout](self->_layoutMonitor "currentLayout")];
+        v30 = [v29 countByEnumeratingWithState:&v46 objects:v45 count:16];
+        if (v30)
         {
-          v28 = v27;
-          v29 = *v47;
+          v31 = v30;
+          v32 = *v47;
 LABEL_45:
-          v30 = 0;
+          v33 = 0;
           while (1)
           {
-            if (*v47 != v29)
+            if (*v47 != v32)
             {
-              objc_enumerationMutation(currentLayout2);
+              objc_enumerationMutation(v29);
             }
 
-            if ([objc_msgSend(*(*(&v46 + 1) + 8 * v30) "bundleIdentifier")])
+            if ([objc_msgSend(*(*(&v46 + 1) + 8 * v33) "bundleIdentifier")])
             {
               break;
             }
 
-            if (v28 == ++v30)
+            if (v31 == ++v33)
             {
-              v28 = [currentLayout2 countByEnumeratingWithState:&v46 objects:v45 count:16];
-              if (v28)
+              v31 = [v29 countByEnumeratingWithState:&v46 objects:v45 count:16];
+              if (v31)
               {
                 goto LABEL_45;
               }
@@ -990,33 +1084,35 @@ LABEL_51:
           {
             if (dword_100019EC8)
             {
-              v58 = 0;
-              v57 = OS_LOG_TYPE_DEFAULT;
-              v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v36 = v58;
-              if (os_log_type_enabled(v35, v57))
+              v59 = 0;
+              v58 = OS_LOG_TYPE_DEFAULT;
+              v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v40 = v59;
+              v41 = v58;
+              if (os_log_type_enabled(v39, v58))
               {
-                v37 = v36;
+                v42 = v40;
               }
 
               else
               {
-                v37 = v36 & 0xFFFFFFFE;
+                v42 = v40 & 0xFFFFFFFE;
               }
 
-              if (!v37)
+              if (v42)
               {
-                goto LABEL_69;
+                v51 = 136315394;
+                v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
+                v53 = 2048;
+                selfCopy5 = self;
+                LODWORD(v43) = 22;
+                _os_log_send_and_compose_impl(v42, 0, v57, 128, &_mh_execute_header, v39, v41, "<<<< ContinuityCaptureViewController >>>> %s: <%p> enforce pause since sidecar is missing in current layout", &v51, v43);
               }
 
-              v51 = 136315394;
-              v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
-              v53 = 2048;
-              selfCopy5 = self;
-              goto LABEL_59;
+              goto LABEL_68;
             }
 
-LABEL_70:
+LABEL_69:
             self->_pendingStreamStartAfterResumeEvent = 0;
             return;
           }
@@ -1024,40 +1120,40 @@ LABEL_70:
 
         if (dword_100019EC8)
         {
-          v58 = 0;
-          v57 = OS_LOG_TYPE_DEFAULT;
-          v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v32 = v58;
-          if (os_log_type_enabled(v31, v57))
+          v59 = 0;
+          v58 = OS_LOG_TYPE_DEFAULT;
+          v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v35 = v59;
+          v36 = v58;
+          if (os_log_type_enabled(v34, v58))
           {
-            v33 = v32;
+            v37 = v35;
           }
 
           else
           {
-            v33 = v32 & 0xFFFFFFFE;
+            v37 = v35 & 0xFFFFFFFE;
           }
 
-          if (!v33)
+          if (v37)
           {
-            goto LABEL_69;
+            pendingStreamStartAfterResumeEvent = self->_pendingStreamStartAfterResumeEvent;
+            v51 = 136315650;
+            v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
+            v53 = 2048;
+            selfCopy5 = self;
+            v55 = 1024;
+            LODWORD(v56) = pendingStreamStartAfterResumeEvent;
+            LODWORD(v43) = 28;
+            _os_log_send_and_compose_impl(v37, 0, v57, 128, &_mh_execute_header, v34, v36, "<<<< ContinuityCaptureViewController >>>> %s: <%p> stream session started with sidecar app in current layout or _pendingStreamStartAfterResumeEvent %d", &v51, v43);
           }
 
-          pendingStreamStartAfterResumeEvent = self->_pendingStreamStartAfterResumeEvent;
-          v51 = 136315650;
-          v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
-          v53 = 2048;
-          selfCopy5 = self;
-          v55 = 1024;
-          LODWORD(v56) = pendingStreamStartAfterResumeEvent;
-LABEL_59:
-          _os_log_send_and_compose_impl();
-LABEL_69:
+LABEL_68:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          goto LABEL_70;
+          goto LABEL_69;
         }
 
-        goto LABEL_70;
+        goto LABEL_69;
       }
 
       self->_uiState = 0;
@@ -1076,35 +1172,34 @@ LABEL_69:
 
     if (dword_100019EC8)
     {
-      v58 = 0;
-      v57 = OS_LOG_TYPE_DEFAULT;
-      v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v17 = v58;
-      if (os_log_type_enabled(v16, v57))
+      v59 = 0;
+      v58 = OS_LOG_TYPE_DEFAULT;
+      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v18 = v59;
+      v19 = v58;
+      if (os_log_type_enabled(v17, v58))
       {
-        v18 = v17;
+        v20 = v18;
       }
 
       else
       {
-        v18 = v17 & 0xFFFFFFFE;
+        v20 = v18 & 0xFFFFFFFE;
       }
 
-      if (v18)
+      if (v20)
       {
         v51 = 136315394;
         v52 = "[ContinuityCaptureViewController _observeValueForKeyPath:ofObject:change:context:]";
         v53 = 2048;
         selfCopy5 = self;
-        LODWORD(v42) = 22;
-        v39 = &v51;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(v20, 0, v57, 128, &_mh_execute_header, v17, v19, "<<<< ContinuityCaptureViewController >>>> %s: <%p> power button pressed", &v51, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v19 = 56;
+    v21 = 56;
   }
 
   else
@@ -1122,11 +1217,11 @@ LABEL_69:
       return;
     }
 
-    v19 = 154;
+    v21 = 154;
   }
 
-  self->SidecarServiceViewController_opaque[v19] = 1;
-  [(ContinuityCaptureViewController *)self _resolveUserPauseState:v39];
+  self->SidecarServiceViewController_opaque[v21] = 1;
+  [(ContinuityCaptureViewController *)self _resolveUserPauseState];
 }
 
 - (void)_handleLayout:(id)layout ignoringStandby:(BOOL)standby
@@ -1134,8 +1229,8 @@ LABEL_69:
   standbyCopy = standby;
   if (dword_100019EC8)
   {
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1150,26 +1245,33 @@ LABEL_69:
       return;
     }
 
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v28 = v78;
-    if (os_log_type_enabled(v27, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v30 = v88;
+    v31 = v87;
+    if (os_log_type_enabled(v29, v87))
     {
-      v29 = v28;
+      v32 = v30;
     }
 
     else
     {
-      v29 = v28 & 0xFFFFFFFE;
+      v32 = v30 & 0xFFFFFFFE;
     }
 
-    if (!v29)
+    if (v32)
     {
-      goto LABEL_84;
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      _os_log_send_and_compose_impl(v32, 0, v86, 128, &_mh_execute_header, v29, v31, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring nil layout", &v80, 22);
     }
 
-    goto LABEL_70;
+LABEL_85:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return;
   }
 
   if (![layout displayBacklightLevel])
@@ -1179,89 +1281,95 @@ LABEL_69:
       return;
     }
 
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v31 = v78;
-    if (os_log_type_enabled(v30, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v34 = v88;
+    v35 = v87;
+    if (os_log_type_enabled(v33, v87))
     {
-      v32 = v31;
+      v36 = v34;
     }
 
     else
     {
-      v32 = v31 & 0xFFFFFFFE;
+      v36 = v34 & 0xFFFFFFFE;
     }
 
-    if (!v32)
+    if (v36)
     {
-      goto LABEL_84;
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      _os_log_send_and_compose_impl(v36, 0, v86, 128, &_mh_execute_header, v33, v35, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring layout with minimum (0) backlight level.", &v80, 22);
     }
 
-    goto LABEL_70;
+    goto LABEL_85;
   }
 
-  v70 = FBSDisplayLayoutElementSiriIdentifier;
-  v8 = [NSArray arrayWithObjects:&v70 count:1];
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
+  v79 = FBSDisplayLayoutElementSiriIdentifier;
+  v8 = [NSArray arrayWithObjects:&v79 count:1];
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   obj = [layout elements];
-  v9 = [obj countByEnumeratingWithState:&v66 objects:v65 count:16];
+  v9 = [obj countByEnumeratingWithState:&v75 objects:v74 count:16];
   if (v9)
   {
     v10 = v9;
-    v54 = sidecarLayoutValue;
+    v63 = sidecarLayoutValue;
     layoutCopy = layout;
-    selfCopy = self;
-    v57 = 0;
+    v62 = 80;
+    selfCopy3 = self;
+    v66 = 0;
     level = -1;
-    v11 = *v67;
+    v11 = *v76;
     v12 = SBSDisplayLayoutElementStandByIdentifier;
-    v58 = FBSDisplayLayoutElementLockScreenIdentifier;
-    v56 = SBSDisplayLayoutElementHomeScreenIdentifier;
+    v67 = FBSDisplayLayoutElementLockScreenIdentifier;
+    v65 = SBSDisplayLayoutElementHomeScreenIdentifier;
     level2 = -1;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v67 != v11)
+        if (*v76 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v66 + 1) + 8 * i);
+        v14 = *(*(&v75 + 1) + 8 * i);
         if (-[NSArray containsObject:](v8, "containsObject:", [v14 identifier]))
         {
           if (dword_100019EC8)
           {
-            v78 = 0;
-            v77 = OS_LOG_TYPE_DEFAULT;
+            v88 = 0;
+            v87 = OS_LOG_TYPE_DEFAULT;
             v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v16 = v78;
-            if (os_log_type_enabled(v15, v77))
+            v16 = v88;
+            v17 = v87;
+            if (os_log_type_enabled(v15, v87))
             {
-              v17 = v16;
+              v18 = v16;
             }
 
             else
             {
-              v17 = v16 & 0xFFFFFFFE;
+              v18 = v16 & 0xFFFFFFFE;
             }
 
-            if (v17)
+            if (v18)
             {
               identifier = [v14 identifier];
-              v71 = 136315650;
-              v72 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
-              v73 = 2048;
-              selfCopy4 = selfCopy;
-              v75 = 2112;
-              v76 = identifier;
-              LODWORD(v53) = 32;
-              v52 = &v71;
-              _os_log_send_and_compose_impl();
+              v80 = 136315650;
+              v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+              v82 = 2048;
+              selfCopy8 = selfCopy3;
+              v84 = 2112;
+              v85 = identifier;
+              LODWORD(v61) = 32;
+              _os_log_send_and_compose_impl(v18, 0, v86, 128, &_mh_execute_header, v15, v17, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring %@ in layout", &v80, v61);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1272,15 +1380,15 @@ LABEL_69:
         {
           if ([objc_msgSend(v14 "identifier")])
           {
-            v19 = !standbyCopy;
+            v20 = !standbyCopy;
           }
 
           else
           {
-            v19 = 1;
+            v20 = 1;
           }
 
-          if (v19)
+          if (v20)
           {
             if ([v14 level] > level)
             {
@@ -1294,12 +1402,12 @@ LABEL_69:
 
             else if ([objc_msgSend(v14 "identifier")])
             {
-              HIDWORD(v57) = 1;
+              HIDWORD(v66) = 1;
             }
 
             else if ([objc_msgSend(v14 "identifier")])
             {
-              LOBYTE(v57) = ([objc_msgSend(layoutCopy "elements")] == 1) | v57;
+              LOBYTE(v66) = ([objc_msgSend(layoutCopy "elements")] == 1) | v66;
             }
           }
 
@@ -1307,72 +1415,72 @@ LABEL_69:
           {
             if (dword_100019EC8)
             {
-              v78 = 0;
-              v77 = OS_LOG_TYPE_DEFAULT;
-              v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v21 = v78;
-              if (os_log_type_enabled(v20, v77))
+              v88 = 0;
+              v87 = OS_LOG_TYPE_DEFAULT;
+              v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v22 = v88;
+              v23 = v87;
+              if (os_log_type_enabled(v21, v87))
               {
-                v22 = v21;
+                v24 = v22;
               }
 
               else
               {
-                v22 = v21 & 0xFFFFFFFE;
+                v24 = v22 & 0xFFFFFFFE;
               }
 
-              if (v22)
+              if (v24)
               {
                 identifier2 = [v14 identifier];
-                v71 = 136315650;
-                v72 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
-                v73 = 2048;
-                selfCopy4 = selfCopy;
-                v75 = 2112;
-                v76 = identifier2;
-                LODWORD(v53) = 32;
-                v52 = &v71;
-                _os_log_send_and_compose_impl();
+                v80 = 136315650;
+                v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+                v82 = 2048;
+                selfCopy8 = selfCopy3;
+                v84 = 2112;
+                v85 = identifier2;
+                LODWORD(v61) = 32;
+                _os_log_send_and_compose_impl(v24, 0, v86, 128, &_mh_execute_header, v21, v23, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring %@ in layout in case of transition - will retry in 2s without ignoring", &v80, v61);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
-            v24 = dispatch_time(0, 2000000000);
+            v26 = dispatch_time(0, 2000000000);
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_10000A2FC;
             block[3] = &unk_100014630;
-            block[4] = selfCopy;
+            block[4] = selfCopy3;
             block[5] = v14;
-            dispatch_after(v24, &_dispatch_main_q, block);
+            dispatch_after(v26, &_dispatch_main_q, block);
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v66 objects:v65 count:16];
+      v10 = [obj countByEnumeratingWithState:&v75 objects:v74 count:16];
     }
 
     while (v10);
-    v25 = 1;
-    v26 = level2;
-    self = selfCopy;
+    v27 = 1;
+    v28 = level2;
+    self = selfCopy3;
     if (level2 != -1)
     {
-      selfCopy->_firstSidecarLayoutReceived = 1;
-      v25 = 0;
+      selfCopy3->_firstSidecarLayoutReceived = 1;
+      v27 = 0;
     }
 
-    sidecarLayoutValue = v54;
-    v33 = HIDWORD(v57);
+    sidecarLayoutValue = v63;
+    v37 = HIDWORD(v66);
   }
 
   else
   {
-    v33 = 0;
-    LOBYTE(v57) = 0;
-    v26 = -1;
-    v25 = 1;
+    v37 = 0;
+    LOBYTE(v66) = 0;
+    v28 = -1;
+    v27 = 1;
     level = -1;
   }
 
@@ -1383,169 +1491,183 @@ LABEL_69:
       return;
     }
 
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v37 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v38 = v78;
-    if (os_log_type_enabled(v37, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v42 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v43 = v88;
+    v44 = v87;
+    if (os_log_type_enabled(v42, v87))
     {
-      v39 = v38;
+      v45 = v43;
     }
 
     else
     {
-      v39 = v38 & 0xFFFFFFFE;
+      v45 = v43 & 0xFFFFFFFE;
     }
 
-    if (!v39)
+    if (v45)
     {
-      goto LABEL_84;
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      LODWORD(v61) = 22;
+      _os_log_send_and_compose_impl(v45, 0, v86, 128, &_mh_execute_header, v42, v44, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring layout. Haven't received first layout with Sidecar in it.", &v80, v61);
     }
 
-    goto LABEL_70;
+    goto LABEL_85;
   }
 
-  if ((v25 & v33) == 1)
+  if ((v27 & v37) == 1)
   {
     if (!dword_100019EC8)
     {
       return;
     }
 
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v35 = v78;
-    if (os_log_type_enabled(v34, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v38 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v39 = v88;
+    v40 = v87;
+    if (os_log_type_enabled(v38, v87))
     {
-      v36 = v35;
+      v41 = v39;
     }
 
     else
     {
-      v36 = v35 & 0xFFFFFFFE;
+      v41 = v39 & 0xFFFFFFFE;
     }
 
-    if (!v36)
+    if (v41)
     {
-      goto LABEL_84;
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      LODWORD(v61) = 22;
+      _os_log_send_and_compose_impl(v41, 0, v86, 128, &_mh_execute_header, v38, v40, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring layout. On Lock Screen without Sidecar.", &v80, v61);
     }
 
-    goto LABEL_70;
+    goto LABEL_85;
   }
 
   if (!self->_ignoreLayoutUpdatesAfterDeviceUnlock)
   {
-    goto LABEL_88;
+    goto LABEL_89;
   }
 
-  if ((v57 & 1) == 0)
+  if ((v66 & 1) == 0)
   {
     if (!dword_100019EC8)
     {
       return;
     }
 
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v43 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v44 = v78;
-    if (os_log_type_enabled(v43, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v50 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v51 = v88;
+    v52 = v87;
+    if (os_log_type_enabled(v50, v87))
     {
-      v45 = v44;
+      v53 = v51;
     }
 
     else
     {
-      v45 = v44 & 0xFFFFFFFE;
+      v53 = v51 & 0xFFFFFFFE;
     }
 
-    if (!v45)
+    if (v53)
     {
-      goto LABEL_84;
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      LODWORD(v61) = 22;
+      _os_log_send_and_compose_impl(v53, 0, v86, 128, &_mh_execute_header, v50, v52, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Ignoring layout. Interstitial updates after device unlock.", &v80, v61);
     }
 
-LABEL_70:
-    v71 = 136315394;
-    v72 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
-    v73 = 2048;
-    selfCopy4 = self;
-    _os_log_send_and_compose_impl();
-LABEL_84:
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    return;
+    goto LABEL_85;
   }
 
   self->_ignoreLayoutUpdatesAfterDeviceUnlock = 0;
   if (dword_100019EC8)
   {
-    v78 = 0;
-    v77 = OS_LOG_TYPE_DEFAULT;
-    v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v41 = v78;
-    if (os_log_type_enabled(v40, v77))
+    v88 = 0;
+    v87 = OS_LOG_TYPE_DEFAULT;
+    v46 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v47 = v88;
+    v48 = v87;
+    if (os_log_type_enabled(v46, v87))
     {
-      v42 = v41;
+      v49 = v47;
     }
 
     else
     {
-      v42 = v41 & 0xFFFFFFFE;
+      v49 = v47 & 0xFFFFFFFE;
     }
 
-    if (v42)
+    if (v49)
     {
-      v71 = 136315394;
-      v72 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
-      v73 = 2048;
-      selfCopy4 = self;
-      _os_log_send_and_compose_impl();
+      v80 = 136315394;
+      v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+      v82 = 2048;
+      selfCopy8 = self;
+      LODWORD(v61) = 22;
+      _os_log_send_and_compose_impl(v49, 0, v86, 128, &_mh_execute_header, v46, v48, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Layout updates after device unlock complete. Resume layout handling.", &v80, v61);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_88:
-    v47 = dword_100019EC8;
-    v46 = v26 >= level;
-    self->_sidecarLayoutValue = v46;
-    if (v47)
+LABEL_89:
+    v55 = dword_100019EC8;
+    v54 = v28 >= level;
+    self->_sidecarLayoutValue = v54;
+    if (v55)
     {
-      v78 = 0;
-      v77 = OS_LOG_TYPE_DEFAULT;
-      v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v49 = v78;
-      if (os_log_type_enabled(v48, v77))
+      v88 = 0;
+      v87 = OS_LOG_TYPE_DEFAULT;
+      v56 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v57 = v88;
+      v58 = v87;
+      if (os_log_type_enabled(v56, v87))
       {
-        v50 = v49;
+        v59 = v57;
       }
 
       else
       {
-        v50 = v49 & 0xFFFFFFFE;
+        v59 = v57 & 0xFFFFFFFE;
       }
 
-      if (v50)
+      if (v59)
       {
-        v51 = self->_sidecarLayoutValue;
-        v71 = 136315650;
-        v72 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
-        v73 = 2048;
-        selfCopy4 = self;
-        v75 = 1024;
-        LODWORD(v76) = v51;
-        _os_log_send_and_compose_impl();
+        v60 = self->_sidecarLayoutValue;
+        v80 = 136315650;
+        v81 = "[ContinuityCaptureViewController _handleLayout:ignoringStandby:]";
+        v82 = 2048;
+        selfCopy8 = self;
+        v84 = 1024;
+        LODWORD(v85) = v60;
+        LODWORD(v61) = 28;
+        _os_log_send_and_compose_impl(v59, 0, v86, 128, &_mh_execute_header, v56, v58, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Sidecar layout value: %d", &v80, v61, v62);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v46 = self->_sidecarLayoutValue;
+      v54 = self->_sidecarLayoutValue;
     }
 
-    goto LABEL_95;
+    goto LABEL_96;
   }
 
-  v46 = v26 >= level;
-  self->_sidecarLayoutValue = v46;
-LABEL_95:
-  if (sidecarLayoutValue != v46)
+  v54 = v28 >= level;
+  self->_sidecarLayoutValue = v54;
+LABEL_96:
+  if (sidecarLayoutValue != v54)
   {
     [(ContinuityCaptureViewController *)self _resolveUserPauseState];
   }
@@ -1556,8 +1678,8 @@ LABEL_95:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (dword_100019EC8)
   {
-    v17 = 0;
-    v16 = OS_LOG_TYPE_DEFAULT;
+    v16 = 0;
+    v15 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1587,7 +1709,6 @@ LABEL_13:
       goto LABEL_25;
     }
 
-    pauseButtonPressed = self->_pauseButtonPressed;
     if (self->_incomingCallDeclined)
     {
       if (!self->_pauseButtonPressed)
@@ -1600,7 +1721,7 @@ LABEL_13:
     {
       v9 = &kCMContinuityCaptureEventUserResume;
 LABEL_24:
-      [(CMContinuityCaptureRemoteCompositeDevice *)continuityCaptureDevice postEvent:*v9 entity:0 data:0, v10, v11];
+      [(CMContinuityCaptureRemoteCompositeDevice *)continuityCaptureDevice postEvent:*v9 entity:0 data:0];
       goto LABEL_25;
     }
 
@@ -1610,27 +1731,28 @@ LABEL_24:
 
   if (dword_100019EC8)
   {
-    v17 = 0;
-    v16 = OS_LOG_TYPE_DEFAULT;
+    v16 = 0;
+    v15 = OS_LOG_TYPE_DEFAULT;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v6 = v17;
-    if (os_log_type_enabled(v5, v16))
+    v6 = v16;
+    v7 = v15;
+    if (os_log_type_enabled(v5, v15))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 0xFFFFFFFE;
+      v8 = v6 & 0xFFFFFFFE;
     }
 
-    if (v7)
+    if (v8)
     {
-      v12 = 136315394;
-      v13 = "[ContinuityCaptureViewController _resolveUserPauseState]";
-      v14 = 2048;
+      v10 = 136315394;
+      v11 = "[ContinuityCaptureViewController _resolveUserPauseState]";
+      v12 = 2048;
       selfCopy = self;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(v8, 0, v14, 128, &_mh_execute_header, v5, v7, "<<<< ContinuityCaptureViewController >>>> %s: <%p> Skip since continuity capture session is not initialized", &v10, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();

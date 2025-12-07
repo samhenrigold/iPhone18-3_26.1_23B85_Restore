@@ -11,23 +11,24 @@
 
 - (IMFeatureFlagsTestSwizzler)initWithFeature:(SEL)feature enabled:(BOOL)enabled
 {
-  v34.receiver = self;
-  v34.super_class = IMFeatureFlagsTestSwizzler;
-  v6 = [(IMFeatureFlagsTestSwizzler *)&v34 init];
+  v36.receiver = self;
+  v36.super_class = IMFeatureFlagsTestSwizzler;
+  v6 = [(IMFeatureFlagsTestSwizzler *)&v36 init];
+  v8 = v6;
   if (!v6)
   {
-    return v6;
+    return v8;
   }
 
-  if ((IMIsRunningInUnitTesting() & 1) == 0)
+  if ((IMIsRunningInUnitTesting(v6, v7) & 1) == 0)
   {
-    v30 = MEMORY[0x1E695DF30];
-    v31 = @"IMFeatureFlagsNotRunningUnitTests";
-    v32 = @"Swizzling for testing is not permitted outside of testing.";
+    v32 = MEMORY[0x1E695DF30];
+    v33 = @"IMFeatureFlagsNotRunningUnitTests";
+    v34 = @"Swizzling for testing is not permitted outside of testing.";
     goto LABEL_24;
   }
 
-  v6->_enabled = enabled;
+  v8->_enabled = enabled;
   if (feature)
   {
     featureCopy = feature;
@@ -38,78 +39,78 @@
     featureCopy = 0;
   }
 
-  v6->_feature = featureCopy;
-  v8 = [[IMSwizzledMethod alloc] initWithClass:objc_opt_class() selector:feature];
-  originalMethod = v6->_originalMethod;
-  v6->_originalMethod = v8;
+  v8->_feature = featureCopy;
+  v10 = [[IMSwizzledMethod alloc] initWithClass:objc_opt_class() selector:feature];
+  originalMethod = v8->_originalMethod;
+  v8->_originalMethod = v10;
 
-  enabled = v6->_enabled;
-  p_testMethod = &v6->_testMethod;
-  v12 = MEMORY[0x1E696AEC0];
-  v13 = NSStringFromSelector(feature);
-  v14 = v13;
+  enabled = v8->_enabled;
+  p_testMethod = &v8->_testMethod;
+  v14 = MEMORY[0x1E696AEC0];
+  v15 = NSStringFromSelector(feature);
+  v16 = v15;
   if (enabled)
   {
-    v15 = [v12 stringWithFormat:@"%@_SwizzledOnForTests", v13];
-    v16 = NSSelectorFromString(v15);
-    v17 = sub_1A861F8F4;
+    v17 = [v14 stringWithFormat:@"%@_SwizzledOnForTests", v15];
+    v18 = NSSelectorFromString(v17);
+    v19 = sub_1A861F8F4;
   }
 
   else
   {
-    v15 = [v12 stringWithFormat:@"%@_SwizzledOffForTests", v13];
-    v16 = NSSelectorFromString(v15);
-    v17 = sub_1A861F8FC;
+    v17 = [v14 stringWithFormat:@"%@_SwizzledOffForTests", v15];
+    v18 = NSSelectorFromString(v17);
+    v19 = sub_1A861F8FC;
   }
 
-  v18 = v17;
-  if (v16)
+  v20 = v19;
+  if (v18)
   {
-    v19 = v16;
+    v21 = v18;
   }
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  *p_testMethod = v19;
+  *p_testMethod = v21;
 
-  v20 = +[IMFeatureFlags sharedFeatureFlags];
-  v21 = objc_opt_respondsToSelector();
+  v22 = +[IMFeatureFlags sharedFeatureFlags];
+  v23 = objc_opt_respondsToSelector();
 
-  if ((v21 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
-    v22 = objc_opt_class();
-    v23 = *p_testMethod ? *p_testMethod : 0;
-    if (!class_addMethod(v22, v23, v18, [(IMSwizzledMethod *)v6->_originalMethod typeEncoding]))
+    v24 = objc_opt_class();
+    v25 = *p_testMethod ? *p_testMethod : 0;
+    if (!class_addMethod(v24, v25, v20, [(IMSwizzledMethod *)v8->_originalMethod typeEncoding]))
     {
-      v30 = MEMORY[0x1E695DF30];
-      v31 = @"IMFeatureFlagsCreatingTestMethodFailed";
-      v32 = @"Creating test method failed";
+      v32 = MEMORY[0x1E695DF30];
+      v33 = @"IMFeatureFlagsCreatingTestMethodFailed";
+      v34 = @"Creating test method failed";
 LABEL_24:
-      v33 = [v30 exceptionWithName:v31 reason:v32 userInfo:0];
-      objc_exception_throw(v33);
+      v35 = [v32 exceptionWithName:v33 reason:v34 userInfo:0];
+      objc_exception_throw(v35);
     }
   }
 
-  v24 = [IMSwizzledMethod alloc];
-  v25 = objc_opt_class();
+  v26 = [IMSwizzledMethod alloc];
+  v27 = objc_opt_class();
   if (*p_testMethod)
   {
-    v26 = *p_testMethod;
+    v28 = *p_testMethod;
   }
 
   else
   {
-    v26 = 0;
+    v28 = 0;
   }
 
-  v27 = [(IMSwizzledMethod *)v24 initWithClass:v25 selector:v26];
-  replacementMethod = v6->_replacementMethod;
-  v6->_replacementMethod = v27;
+  v29 = [(IMSwizzledMethod *)v26 initWithClass:v27 selector:v28];
+  replacementMethod = v8->_replacementMethod;
+  v8->_replacementMethod = v29;
 
-  return v6;
+  return v8;
 }
 
 - (void)swizzle

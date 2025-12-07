@@ -90,14 +90,14 @@ uint64_t __43__SPSecureLocationsManager_remoteInterface__block_invoke()
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPSecureLocationsManager *)self setSession:v7];
 
-    v8 = LogCategory_SecureLocations();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_SecureLocations(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPSecureLocationsManager *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPSecureLocationsManager: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPSecureLocationsManager: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPSecureLocationsManager *)self session];
@@ -107,14 +107,12 @@ uint64_t __43__SPSecureLocationsManager_remoteInterface__block_invoke()
   session3 = [(SPSecureLocationsManager *)self session];
   proxy = [session3 proxy];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return proxy;
 }
 
 - (void)setLocationUpdateBlock:(id)block
 {
-  v3 = LogCategory_SecureLocations();
+  v3 = LogCategory_SecureLocations(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SPSecureLocationsManager setLocationUpdateBlock:];
@@ -123,7 +121,7 @@ uint64_t __43__SPSecureLocationsManager_remoteInterface__block_invoke()
 
 - (void)startMonitoringFailedSubscriptions:(id)subscriptions
 {
-  v3 = LogCategory_SecureLocations();
+  v3 = LogCategory_SecureLocations(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SPSecureLocationsManager startMonitoringFailedSubscriptions:];
@@ -273,7 +271,7 @@ void __55__SPSecureLocationsManager_publishLocation_completion___block_invoke(ui
 - (void)receivedLocationPayload:(id)payload completion:(id)completion
 {
   completionCopy = completion;
-  v6 = LogCategory_SecureLocations();
+  v6 = LogCategory_SecureLocations(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [SPSecureLocationsManager receivedLocationPayload:completion:];
@@ -299,7 +297,7 @@ void __63__SPSecureLocationsManager_receivedLocationPayload_completion___block_i
 - (void)receivedLocationCommand:(id)command completion:(id)completion
 {
   completionCopy = completion;
-  v6 = LogCategory_SecureLocations();
+  v6 = LogCategory_SecureLocations(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [SPSecureLocationsManager receivedLocationCommand:completion:];
@@ -325,7 +323,7 @@ void __63__SPSecureLocationsManager_receivedLocationCommand_completion___block_i
 - (void)shouldStartLocationMonitorWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = LogCategory_SecureLocations();
+  v5 = LogCategory_SecureLocations(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [SPSecureLocationsManager shouldStartLocationMonitorWithCompletion:];
@@ -450,11 +448,10 @@ void __61__SPSecureLocationsManager_stewiePublishStateWithCompletion___block_inv
 
 - (void)triggerStewieProactiveNotification
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"stewie:";
-  _os_log_error_impl(&dword_2643D0000, log, OS_LOG_TYPE_ERROR, "%@ feature disabled", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"stewie:";
+  _os_log_error_impl(&dword_2643D0000, log, OS_LOG_TYPE_ERROR, "%@ feature disabled", &v1, 0xCu);
 }
 
 - (void)shareCurrentKeyWithId:(id)id idsHandles:(id)handles completion:(id)completion

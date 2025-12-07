@@ -92,9 +92,9 @@ LABEL_28:
           goto LABEL_25;
         }
 
-        v15 = [v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v15)
+        if (!isEqual)
         {
 LABEL_26:
           LOBYTE(v7) = 0;

@@ -11,6 +11,8 @@
 - (void)_setKeychainSyncEnabled:(id)enabled withSpecifier:(id)specifier;
 - (void)_stopListeningForKeychainSyncStatusChangeNotification;
 - (void)dealloc;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -53,10 +55,47 @@
   [(ICSKeychainSyncViewController *)self setTitle:v4];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = ICSKeychainSyncViewController;
+  [(ICSKeychainSyncViewController *)&v12 viewDidAppear:appear];
+  [(ICSKeychainSyncViewController *)self _registerForKeychainSyncStatusChangeNotification];
+  objc_initWeak(&location, self);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  mainQueue = [MEMORY[0x277CCABD8] mainQueue];
+  v6 = *MEMORY[0x277D26178];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __47__ICSKeychainSyncViewController_viewDidAppear___block_invoke;
+  v9[3] = &unk_27A666378;
+  objc_copyWeak(&v10, &location);
+  v7 = [defaultCenter addObserverForName:v6 object:0 queue:mainQueue usingBlock:v9];
+  restrictionChangeNotificationObserver = self->_restrictionChangeNotificationObserver;
+  self->_restrictionChangeNotificationObserver = v7;
+
+  objc_destroyWeak(&v10);
+  objc_destroyWeak(&location);
+}
+
 void __47__ICSKeychainSyncViewController_viewDidAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained reloadSpecifiers];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self->_restrictionChangeNotificationObserver];
+
+  restrictionChangeNotificationObserver = self->_restrictionChangeNotificationObserver;
+  self->_restrictionChangeNotificationObserver = 0;
+
+  v7.receiver = self;
+  v7.super_class = ICSKeychainSyncViewController;
+  [(ICSKeychainSyncViewController *)&v7 viewDidDisappear:disappearCopy];
 }
 
 - (id)specifiers
@@ -77,7 +116,7 @@ void __47__ICSKeychainSyncViewController_viewDidAppear___block_invoke(uint64_t a
 
 - (id)_tobleroneKeychainSpecifiers
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v43[3] = *MEMORY[0x277D85DE8];
   v3 = 0x277D3F000uLL;
   v4 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DATACLASS_HEADER_GROUP"];
   v5 = MEMORY[0x277D3FAD8];
@@ -160,12 +199,10 @@ void __47__ICSKeychainSyncViewController_viewDidAppear___block_invoke(uint64_t a
   v40 = *MEMORY[0x277CB89C0];
   [(PSSpecifier *)self->_switchCellSpecifier setObject:*MEMORY[0x277CB89C0] forKeyedSubscript:*MEMORY[0x277D3FFB8]];
   [(PSSpecifier *)self->_switchCellSpecifier setObject:v40 forKeyedSubscript:@"com.apple.accountsui.dataclass"];
-  v44[0] = v4;
-  v44[1] = v9;
-  v44[2] = self->_switchCellSpecifier;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
-
-  v42 = *MEMORY[0x277D85DE8];
+  v43[0] = v4;
+  v43[1] = v9;
+  v43[2] = self->_switchCellSpecifier;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
 
   return v41;
 }
@@ -359,33 +396,32 @@ uint64_t __70__ICSKeychainSyncViewController__beginManateeUpgradeAndEnableKeycha
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __61__ICSKeychainSyncViewController__keychainSyncStatusDidChange__block_invoke(uint64_t a1)
+void *__61__ICSKeychainSyncViewController__keychainSyncStatusDidChange__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = LogSubsystem();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = LogSubsystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 1472);
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Received Keychain Sync status change notification. In the middle of toggling the switch? %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Received Keychain Sync status change notification. In the middle of toggling the switch? %d", v5, 8u);
   }
 
   result = *(a1 + 32);
   if ((*(result + 1472) & 1) == 0)
   {
-    [result _stopSpinnerInActiveSpecifier:*(result + 1456)];
+    [result _stopSpinnerInActiveSpecifier:*(result + 182)];
     [*(a1 + 32) reloadSpecifiers];
-    result = [*(a1 + 32) _reloadParentSpecifier];
+    return [*(a1 + 32) _reloadParentSpecifier];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_registerForKeychainSyncStatusChangeNotification
 {
-  v3 = LogSubsystem();
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -446,7 +482,7 @@ void __81__ICSKeychainSyncViewController__registerForKeychainSyncStatusChangeNot
 
 - (void)_stopListeningForKeychainSyncStatusChangeNotification
 {
-  v3 = LogSubsystem();
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

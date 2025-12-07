@@ -34,13 +34,13 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_24E90920C();
+  sub_24E90920C(occurredCopy);
 }
 
 - (void)parser:(id)parser didStartElement:(unint64_t)element attributes:(id)attributes
 {
   type metadata accessor for NqmlAttributeName(0);
-  sub_24E909FA4(&qword_27F2126A0, type metadata accessor for NqmlAttributeName);
+  sub_24E909FA4(&qword_27F2126A0, type metadata accessor for NqmlAttributeName, &unk_24F938FE4);
   v8 = sub_24F92AE38();
   parserCopy = parser;
   selfCopy = self;
@@ -56,16 +56,19 @@
 
 - (void)parser:(id)parser didFindCharacters:(id)characters
 {
-  sub_24F92B0D8();
+  v6 = sub_24F92B0D8();
+  v8 = v7;
   parserCopy = parser;
   selfCopy = self;
-  sub_24E9098D8();
+  sub_24E9098D8(v6, v8);
 }
 
 - (void)parserDidFindNewline:(id)newline
 {
+  v3 = *(&self->super.isa + OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_configuration);
+  v4 = *&self->parser[OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_configuration];
   selfCopy = self;
-  sub_24E907C20();
+  sub_24E907C20(v3, v4);
 }
 
 - (void)parser:(id)parser didStartListOfStyle:(unint64_t)style
@@ -84,21 +87,23 @@
 
 - (void)parserDidEndListElement:(id)element
 {
+  v3 = *(&self->super.isa + OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_configuration);
+  v4 = *&self->parser[OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_configuration];
   selfCopy = self;
-  sub_24E907C20();
-  v3 = *(&selfCopy->super.isa + OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_orderedListTracker);
-  if (v3)
+  sub_24E907C20(v3, v4);
+  v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtC12GameStoreKitP33_E5F5E586AE13EFB872781773A0CDC19F19NqmlStringGenerator_orderedListTracker);
+  if (v5)
   {
-    v4 = *(v3 + 16);
-    v5 = __OFADD__(v4, 1);
-    v6 = v4 + 1;
-    if (v5)
+    v6 = *(v5 + 16);
+    v7 = __OFADD__(v6, 1);
+    v8 = v6 + 1;
+    if (v7)
     {
       __break(1u);
       return;
     }
 
-    *(v3 + 16) = v6;
+    *(v5 + 16) = v8;
   }
 }
 

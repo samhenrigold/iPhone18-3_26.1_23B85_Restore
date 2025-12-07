@@ -1,13 +1,13 @@
-id _GetPowerMonitoringQueue()
+id _GetPowerMonitoringQueue(uint64_t a1)
 {
   if (_GetPowerMonitoringQueue_onceToken != -1)
   {
     _GetPowerMonitoringQueue_cold_1();
   }
 
-  v1 = sPowerMonitoringQueue;
+  v2 = sPowerMonitoringQueue;
 
-  return v1;
+  return v2;
 }
 
 __CFString *PCStringFromDate(void *a1)
@@ -38,16 +38,16 @@ uint64_t __PCPrefsQueue_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id PCPrefsQueue()
+id PCPrefsQueue(uint64_t a1)
 {
   if (PCPrefsQueue_onceToken != -1)
   {
     PCPrefsQueue_cold_1();
   }
 
-  v1 = PCPrefsQueue_prefsQueue;
+  v2 = PCPrefsQueue_prefsQueue;
 
-  return v1;
+  return v2;
 }
 
 void __loadPCPrefsIfNeeded_block_invoke(_BYTE *a1)
@@ -263,9 +263,10 @@ void __registerForPCPrefChanges_block_invoke()
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, _PCPrefsChangedNotification, @"PCPreferencesDidChangeNotificationInternal", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void loadPCPrefsIfNeeded(char a1, char a2)
+void loadPCPrefsIfNeeded(uint64_t a1, char a2)
 {
-  v4 = PCPrefsQueue();
+  v3 = a1;
+  v4 = PCPrefsQueue(a1);
   v5 = v4;
   if (v4)
   {
@@ -274,17 +275,17 @@ void loadPCPrefsIfNeeded(char a1, char a2)
     block[2] = __loadPCPrefsIfNeeded_block_invoke;
     block[3] = &__block_descriptor_35_e5_v8__0l;
     v7 = 1;
-    v8 = a1;
+    v8 = v3;
     v9 = a2;
     dispatch_sync(v4, block);
   }
 }
 
-double currentKeepAliveInterval(uint64_t a1)
+double currentKeepAliveInterval(void *a1)
 {
-  if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(a1[38], OS_LOG_TYPE_DEBUG))
   {
-    currentKeepAliveInterval_cold_1(a1);
+    currentKeepAliveInterval_cold_1();
   }
 
   return *a1;
@@ -294,7 +295,7 @@ uint64_t growthStage(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    growthStage_cold_1(a1);
+    growthStage_cold_1();
   }
 
   return *(a1 + 104);
@@ -304,13 +305,13 @@ uint64_t previousAction(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    previousAction_cold_1(a1);
+    previousAction_cold_1();
   }
 
   return *(a1 + 108);
 }
 
-double PCScheduledWakeRTCPrecision()
+double PCScheduledWakeRTCPrecision(uint64_t a1, uint64_t a2)
 {
   if (PCScheduledWakeRTCPrecision_onceToken != -1)
   {
@@ -320,21 +321,22 @@ double PCScheduledWakeRTCPrecision()
   return *&PCScheduledWakeRTCPrecision_scheduledWakeRTCPrecision;
 }
 
-void setIsServerOriginatedKeepAlive(uint64_t a1, char a2)
+void setIsServerOriginatedKeepAlive(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setIsServerOriginatedKeepAlive_cold_1(a1);
+    setIsServerOriginatedKeepAlive_cold_1();
   }
 
-  *(a1 + 8) = a2;
+  *(a1 + 8) = v2;
 }
 
 uint64_t countOfGrowthActions(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    countOfGrowthActions_cold_1(a1);
+    countOfGrowthActions_cold_1();
   }
 
   return *(a1 + 80);
@@ -429,56 +431,56 @@ LABEL_21:
   v11 = *(a1 + 304);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 312);
-    if (v12 >= 3)
+    v13 = *(a1 + 312);
+    if (v13 >= 3)
     {
-      v13 = &nil;
+      v14 = &nil;
     }
 
     else
     {
-      v13 = &off_279A1A348[v12];
+      v14 = &off_279A1A348[v13];
     }
 
-    v14 = *v13;
-    v15 = *(a1 + 316);
-    v16 = &off_279A1A348[v15];
-    if (v15 >= 3)
+    v15 = *v14;
+    v16 = *(a1 + 316);
+    v17 = &off_279A1A348[v16];
+    if (v16 >= 3)
     {
-      v16 = &nil;
+      v17 = &nil;
     }
 
-    v17 = *v16;
+    v18 = *v17;
     v83 = 136315650;
     v84 = (a1 + 176);
     v85 = 2080;
-    *v86 = v14;
+    *v86 = v15;
     *&v86[8] = 2080;
-    *&v86[10] = v17;
+    *&v86[10] = v18;
     _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "%s: adjustGrowthAlgorithmMode. {lastMode: %s, currentMode: %s}", &v83, 0x20u);
   }
 
   if (a2 == 3)
   {
-    v18 = *(a1 + 40);
-    if (v18 <= 0.0)
+    v19 = *(a1 + 40);
+    if (v19 <= 0.0)
     {
-      v18 = *(a1 + 16);
+      v19 = *(a1 + 16);
     }
 
-    _resetAlgorithmToInterval(a1, 2 * (v18 > 2.22044605e-16), v18);
-    goto LABEL_88;
+    _resetAlgorithmToInterval(a1, 2 * (v19 > 2.22044605e-16), v19);
+    return;
   }
 
-  v19 = *(a1 + 104);
-  if (v19 == 4)
+  v20 = *(a1 + 104);
+  if (v20 == 4)
   {
-    v20 = *(a1 + 160);
-    if (v20)
+    v21 = *(a1 + 160);
+    if (v21)
     {
-      v21 = time(0);
-      v22 = *v20;
-      v23 = *v20 - v21;
+      v22 = time(0);
+      v23 = *v21;
+      v24 = *v21 - v22;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         v83 = 136316674;
@@ -488,52 +490,52 @@ LABEL_21:
         *&v86[4] = 2080;
         *&v86[6] = "_NSDate_timeIntervalSinceNow";
         *&v86[14] = 2048;
-        *&v86[16] = v20;
+        *&v86[16] = v21;
         *&v86[24] = 2048;
-        *&v86[26] = v22;
+        *&v86[26] = v23;
         v87 = 2048;
-        v88 = v21;
+        v88 = v22;
         v89 = 2048;
-        v90 = v23;
+        v90 = v24;
         _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%p) %llu - %llu = %llu", &v83, 0x44u);
       }
 
-      v24 = *(a1 + 72);
-      v25 = *(a1 + 160);
-      if (v24 < v23)
+      v25 = *(a1 + 72);
+      v26 = *(a1 + 160);
+      if (v25 < v24)
       {
-        v26 = _NSDate_alloc_initWithTimeIntervalSinceNow("_processMinimumIntervalFallbackStateAction", 679, v24);
-        *(a1 + 160) = v26;
-        v27 = *(a1 + 304);
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v27 = _NSDate_alloc_initWithTimeIntervalSinceNow("_processMinimumIntervalFallbackStateAction", 679, v25);
+        *(a1 + 160) = v27;
+        v28 = *(a1 + 304);
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_40:
-          free(v25);
+          free(v26);
 LABEL_87:
           *(a1 + 312) = *(a1 + 316);
           *(a1 + 108) = a2;
-          goto LABEL_88;
+          return;
         }
 
-        v28 = *v25;
         v29 = *v26;
+        v30 = *v27;
         v83 = 136315650;
         v84 = (a1 + 176);
         v85 = 2048;
-        *v86 = v28;
+        *v86 = v29;
         *&v86[8] = 2048;
-        *&v86[10] = v29;
-        v30 = "%s: Unexpected _leaveMinimumIntervalFallbackStateDate %llu in MinimumIntervalFallbackState, changing to %llu";
-        v31 = v27;
-        v32 = 32;
+        *&v86[10] = v30;
+        v31 = "%s: Unexpected _leaveMinimumIntervalFallbackStateDate %llu in MinimumIntervalFallbackState, changing to %llu";
+        v32 = v28;
+        v33 = 32;
 LABEL_39:
-        _os_log_impl(&dword_25E3EF000, v31, OS_LOG_TYPE_DEFAULT, v30, &v83, v32);
+        _os_log_impl(&dword_25E3EF000, v32, OS_LOG_TYPE_DEFAULT, v31, &v83, v33);
         goto LABEL_40;
       }
 
-      v46 = time(0);
-      v47 = *v25;
-      v48 = *v25 - v46;
+      v47 = time(0);
+      v48 = *v26;
+      v49 = *v26 - v47;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         v83 = 136316674;
@@ -543,34 +545,34 @@ LABEL_39:
         *&v86[4] = 2080;
         *&v86[6] = "_NSDate_timeIntervalSinceNow";
         *&v86[14] = 2048;
-        *&v86[16] = v25;
+        *&v86[16] = v26;
         *&v86[24] = 2048;
-        *&v86[26] = v47;
+        *&v86[26] = v48;
         v87 = 2048;
-        v88 = v46;
+        v88 = v47;
         v89 = 2048;
-        v90 = v48;
+        v90 = v49;
         _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%p) %llu - %llu = %llu", &v83, 0x44u);
       }
 
-      if (v48 > 0)
+      if (v49 > 0)
       {
         goto LABEL_87;
       }
 
-      v49 = *(a1 + 304);
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v50 = *(a1 + 304);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         v83 = 136315138;
         v84 = (a1 + 176);
-        _os_log_impl(&dword_25E3EF000, v49, OS_LOG_TYPE_DEFAULT, "%s: leaveMinimumFallbackStateDate passed, acting", &v83, 0xCu);
+        _os_log_impl(&dword_25E3EF000, v50, OS_LOG_TYPE_DEFAULT, "%s: leaveMinimumFallbackStateDate passed, acting", &v83, 0xCu);
       }
 
       if (a2 != 2)
       {
         if (a2 == 1)
         {
-          v25 = *(a1 + 160);
+          v26 = *(a1 + 160);
           v68 = _NSDate_alloc_initWithTimeIntervalSinceNow("_processMinimumIntervalFallbackStateAction", 702, *(a1 + 72));
           *(a1 + 160) = v68;
           v69 = *(a1 + 304);
@@ -584,9 +586,9 @@ LABEL_39:
           v84 = (a1 + 176);
           v85 = 2048;
           *v86 = v70;
-          v30 = "%s: after previous MinimumIntervalFallbackState ends, extend leaveMinimumIntervalFallbackStateDate to %llu";
-          v31 = v69;
-          v32 = 22;
+          v31 = "%s: after previous MinimumIntervalFallbackState ends, extend leaveMinimumIntervalFallbackStateDate to %llu";
+          v32 = v69;
+          v33 = 22;
           goto LABEL_39;
         }
 
@@ -598,97 +600,98 @@ LABEL_39:
 
       free(*(a1 + 160));
       *(a1 + 160) = nil;
-      v50 = *(a1 + 112);
-      v51 = *(a1 + 48);
-      if (v51 <= 0.0)
+      v51 = *(a1 + 112);
+      v52 = *(a1 + 48);
+      if (v52 <= 0.0)
       {
-        v51 = *(a1 + 24);
+        v52 = *(a1 + 24);
       }
 
-      if (v50 <= v51)
-      {
-        goto LABEL_84;
-      }
-
-      setMaximumKeepAliveInterval(a1, v50);
-      v43 = *(a1 + 304);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      if (v51 <= v52)
       {
         goto LABEL_84;
       }
 
-      v52 = *(a1 + 112);
+      setMaximumKeepAliveInterval(a1, v51);
+      v44 = *(a1 + 304);
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_84;
+      }
+
+      v53 = *(a1 + 112);
       v83 = 136315394;
       v84 = (a1 + 176);
       v85 = 2048;
-      *v86 = v52;
-      v45 = "%s: Leave minimumIntervalFallbackState. Changing maximum keep alive interval back to %g";
+      *v86 = v53;
+      v46 = "%s: Leave minimumIntervalFallbackState. Changing maximum keep alive interval back to %g";
     }
 
     else
     {
-      v41 = *(a1 + 112);
-      v42 = *(a1 + 48);
-      if (v42 <= 0.0)
+      v42 = *(a1 + 112);
+      v43 = *(a1 + 48);
+      if (v43 <= 0.0)
       {
-        v42 = *(a1 + 24);
+        v43 = *(a1 + 24);
       }
 
-      if (v41 <= v42)
-      {
-        goto LABEL_84;
-      }
-
-      setMaximumKeepAliveInterval(a1, v41);
-      v43 = *(a1 + 304);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      if (v42 <= v43)
       {
         goto LABEL_84;
       }
 
-      v44 = *(a1 + 112);
+      setMaximumKeepAliveInterval(a1, v42);
+      v44 = *(a1 + 304);
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_84;
+      }
+
+      v45 = *(a1 + 112);
       v83 = 136315394;
       v84 = (a1 + 176);
       v85 = 2048;
-      *v86 = v44;
-      v45 = "%s: _leaveMinimumIntervalFallbackStateDate is nil. Leave minimumIntervalFallbackState. Changing maximum keep alive interval back to %g";
+      *v86 = v45;
+      v46 = "%s: _leaveMinimumIntervalFallbackStateDate is nil. Leave minimumIntervalFallbackState. Changing maximum keep alive interval back to %g";
     }
 
-    _os_log_impl(&dword_25E3EF000, v43, OS_LOG_TYPE_DEFAULT, v45, &v83, 0x16u);
+    _os_log_impl(&dword_25E3EF000, v44, OS_LOG_TYPE_DEFAULT, v46, &v83, 0x16u);
 LABEL_84:
     *(a1 + 104) = 1;
 LABEL_85:
-    v53 = a1;
-    v54 = a2;
+    v54 = a1;
+    v55 = a2;
 LABEL_86:
-    processNextAction(v53, v54);
+    processNextAction(v54, v55);
     goto LABEL_87;
   }
 
-  v33 = *(a1 + 48);
-  v34 = v33;
-  if (v33 <= 0.0)
+  v34 = *(a1 + 48);
+  v35 = v34;
+  if (v34 <= 0.0)
   {
-    v34 = *(a1 + 24);
+    v35 = *(a1 + 24);
   }
 
-  v35 = *(a1 + 40);
-  v36 = v35;
-  if (v35 <= 0.0)
+  v36 = *(a1 + 40);
+  v37 = v36;
+  if (v36 <= 0.0)
   {
-    v36 = *(a1 + 16);
+    v37 = *(a1 + 16);
   }
 
-  v37 = *&qword_27FCE4698;
-  if (v34 - v36 > *&qword_27FCE4698)
+  v12.n128_f64[0] = v35 - v37;
+  v38 = *&qword_27FCE4698;
+  if (v12.n128_f64[0] > *&qword_27FCE4698)
   {
-    if (v19 <= 2)
+    if (v20 <= 2)
     {
-      if (v19)
+      if (v20)
       {
-        if (v19 != 1)
+        if (v20 != 1)
         {
-          if (v19 != 2)
+          if (v20 != 2)
           {
             goto LABEL_87;
           }
@@ -696,17 +699,17 @@ LABEL_86:
           if (a2 == 2)
           {
 LABEL_53:
-            v38 = *(a1 + 152);
-            if (v38)
+            v39 = *(a1 + 152);
+            if (v39)
             {
-              if (_NSDate_timeIntervalSinceNow("_processSteadyStateAction", 609, v38) < 0.0)
+              if (_NSDate_timeIntervalSinceNow("_processSteadyStateAction", 609, v39) < 0.0)
               {
-                v39 = *(a1 + 304);
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+                v40 = *(a1 + 304);
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
                   v83 = 136315138;
                   v84 = (a1 + 176);
-                  _os_log_impl(&dword_25E3EF000, v39, OS_LOG_TYPE_DEFAULT, "%s: leaving the steady state and trying to grow again", &v83, 0xCu);
+                  _os_log_impl(&dword_25E3EF000, v40, OS_LOG_TYPE_DEFAULT, "%s: leaving the steady state and trying to grow again", &v83, 0xCu);
                 }
 
                 *(a1 + 104) = 1;
@@ -792,9 +795,9 @@ LABEL_53:
           }
 
           *(a1 + 104) = 3;
-LABEL_150:
-          v53 = a1;
-          v54 = 1;
+LABEL_149:
+          v54 = a1;
+          v55 = 1;
           goto LABEL_86;
         }
 
@@ -802,9 +805,9 @@ LABEL_150:
         {
           if (a2 == 1)
           {
-            _fallbackToLastSuccessfulKeepAliveInterval(a1);
+            _fallbackToLastSuccessfulKeepAliveInterval(a1, v12);
             *(a1 + 104) = 2;
-            goto LABEL_152;
+            goto LABEL_151;
           }
 
           if (a2)
@@ -828,9 +831,9 @@ LABEL_150:
                 _os_log_impl(&dword_25E3EF000, v78, OS_LOG_TYPE_DEFAULT, "%s: surpassed where the previous initial growth stopped at %g; reverting to initial growth.", &v83, 0x16u);
               }
 
-LABEL_118:
+LABEL_117:
               *(a1 + 104) = 0;
-              goto LABEL_152;
+              goto LABEL_151;
             }
           }
 
@@ -839,9 +842,9 @@ LABEL_118:
             *(a1 + 128) = v66;
           }
 
-          v62 = (v37 + v66);
+          v62 = (v38 + v66);
           v61 = a1;
-          goto LABEL_126;
+          goto LABEL_125;
         }
       }
 
@@ -849,8 +852,9 @@ LABEL_118:
       {
         if (a2 == 1)
         {
+          v12.n128_u64[0] = *a1;
           v71 = *a1;
-          _fallbackToLastSuccessfulKeepAliveInterval(a1);
+          _fallbackToLastSuccessfulKeepAliveInterval(a1, v12);
           v72 = *(a1 + 304);
           if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
           {
@@ -862,12 +866,12 @@ LABEL_118:
           *(a1 + 104) = 1;
           if (*a1 >= v71)
           {
-            goto LABEL_150;
+            goto LABEL_149;
           }
 
-LABEL_152:
-          v53 = a1;
-          v54 = 0;
+LABEL_151:
+          v54 = a1;
+          v55 = 0;
           goto LABEL_86;
         }
 
@@ -877,12 +881,12 @@ LABEL_152:
         }
 
         v63 = *a1;
-        if (v33 <= 0.0)
+        if (v34 <= 0.0)
         {
-          v33 = *(a1 + 24);
+          v34 = *(a1 + 24);
         }
 
-        if (v63 >= v33)
+        if (v63 >= v34)
         {
           *(a1 + 104) = 2;
         }
@@ -906,21 +910,21 @@ LABEL_152:
 
         v61 = a1;
         v62 = v65;
-LABEL_126:
+LABEL_125:
         v67 = 1;
-        goto LABEL_144;
+        goto LABEL_143;
       }
 
-LABEL_131:
+LABEL_130:
       if (*(a1 + 8) == 1)
       {
-        _fallbackToLastSuccessfulKeepAliveInterval(a1);
+        _fallbackToLastSuccessfulKeepAliveInterval(a1, v12);
       }
 
       goto LABEL_87;
     }
 
-    switch(v19)
+    switch(v20)
     {
       case 3:
         if (a2 != 2)
@@ -932,18 +936,18 @@ LABEL_131:
               goto LABEL_87;
             }
 
-            goto LABEL_118;
+            goto LABEL_117;
           }
 
           v62 = *a1 * *&qword_27FCE46B8;
           v61 = a1;
           v67 = 0;
-LABEL_144:
+LABEL_143:
           _setCurrentKeepAliveInterval(v61, v67, 1, v62);
           goto LABEL_87;
         }
 
-        goto LABEL_131;
+        goto LABEL_130;
       case 5:
         if (a2 == 1)
         {
@@ -954,7 +958,7 @@ LABEL_144:
           }
 
           v61 = a1;
-          goto LABEL_138;
+          goto LABEL_137;
         }
 
         break;
@@ -995,9 +999,9 @@ LABEL_144:
 
           v61 = a1;
           v62 = v58;
-LABEL_138:
+LABEL_137:
           v67 = 2;
-          goto LABEL_144;
+          goto LABEL_143;
         }
 
         break;
@@ -1016,36 +1020,34 @@ LABEL_138:
       *(a1 + 128) = *a1;
     }
 
-    goto LABEL_152;
+    goto LABEL_151;
   }
 
-  v40 = *(a1 + 304);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v41 = *(a1 + 304);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    if (v33 <= 0.0)
+    if (v34 <= 0.0)
     {
-      v33 = *(a1 + 24);
+      v34 = *(a1 + 24);
     }
 
-    if (v35 <= 0.0)
+    if (v36 <= 0.0)
     {
-      v35 = *(a1 + 16);
+      v36 = *(a1 + 16);
     }
 
     v83 = 136315906;
     v84 = (a1 + 176);
     v85 = 2048;
-    *v86 = v33;
+    *v86 = v34;
     *&v86[8] = 2048;
-    *&v86[10] = v35;
+    *&v86[10] = v36;
     *&v86[18] = 2048;
-    *&v86[20] = v37;
-    _os_log_impl(&dword_25E3EF000, v40, OS_LOG_TYPE_DEFAULT, "%s: moved into Steady State - %g - %g <= %g", &v83, 0x2Au);
+    *&v86[20] = v38;
+    _os_log_impl(&dword_25E3EF000, v41, OS_LOG_TYPE_DEFAULT, "%s: moved into Steady State - %g - %g <= %g", &v83, 0x2Au);
   }
 
   *(a1 + 104) = 2;
-LABEL_88:
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _stringForStage(unsigned int a1)
@@ -1059,21 +1061,21 @@ uint64_t _stringForStage(unsigned int a1)
   return *v1;
 }
 
-void _fallbackToLastSuccessfulKeepAliveInterval(double *a1)
+void _fallbackToLastSuccessfulKeepAliveInterval(double *result, __n128 a2)
 {
-  v1 = a1[7];
-  if (v1 > 2.22044605e-16 && v1 < *a1)
+  v2 = result[7];
+  if (v2 > 2.22044605e-16 && v2 < *result)
   {
-    _setCurrentKeepAliveInterval(a1, 0, 1, v1);
+    _setCurrentKeepAliveInterval(result, 0, 1, v2);
   }
 }
 
-void sub_25E3F4AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E3F4AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
-  _Block_object_dispose((v8 - 64), 8);
+  objc_sync_exit(v13);
+  _Block_object_dispose((v14 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1085,7 +1087,7 @@ void _powerChangedHandler(uint64_t a1, uint64_t a2, int a3, intptr_t a4)
   v19 = __Block_byref_object_copy__1;
   v20 = __Block_byref_object_dispose__1;
   v21 = 0;
-  v6 = _GetPowerMonitoringQueue();
+  v6 = _GetPowerMonitoringQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = ___powerChangedHandler_block_invoke;
@@ -1172,46 +1174,43 @@ LABEL_24:
   _Block_object_dispose(&v16, 8);
 }
 
-void sub_25E3F53D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E3F53D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t ___powerChangedHandler_block_invoke(uint64_t a1)
 {
-  v2 = [sPowerMonitoringTimers copy];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [sPowerMonitoringTimers copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void _CallTimersWithSelector(void *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = a1;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         v9 = [v7 _getTimerRunLoop];
         v10 = [v7 _getTimerMode];
@@ -1228,13 +1227,13 @@ void _CallTimersWithSelector(void *a1, uint64_t a2)
 
         if (v12)
         {
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = ___CallTimersWithSelector_block_invoke;
-          v16[3] = &unk_279A1A158;
-          v16[4] = v7;
-          v16[5] = a2;
-          [v7 _performBlockOnQueue:v16];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = ___CallTimersWithSelector_block_invoke;
+          v15[3] = &unk_279A1A158;
+          v15[4] = v7;
+          v15[5] = a2;
+          [v7 _performBlockOnQueue:v15];
         }
 
         else
@@ -1248,13 +1247,11 @@ void _CallTimersWithSelector(void *a1, uint64_t a2)
         objc_autoreleasePoolPop(v8);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25E3F8BBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -1417,8 +1414,9 @@ LABEL_7:
   return result;
 }
 
-const __CFNumber *_PCSettingsGetStyle(int a1, const __CFString *a2)
+const __CFNumber *_PCSettingsGetStyle(uint64_t a1, const __CFString *a2)
 {
+  v3 = a1;
   if (!a2)
   {
     _PCSettingsGetStyle_cold_1();
@@ -1429,8 +1427,8 @@ const __CFNumber *_PCSettingsGetStyle(int a1, const __CFString *a2)
     PCSettingsGetClassPushEnabled_cold_1();
   }
 
-  loadPCPrefsIfNeeded(a1 == 0, a1 == 1);
-  v4 = copyServiceIdentifierDictionary(a1, a2);
+  loadPCPrefsIfNeeded(v3 == 0, v3 == 1);
+  v4 = copyServiceIdentifierDictionary(v3, a2);
   if (!v4)
   {
     return 0;
@@ -1508,11 +1506,12 @@ LABEL_7:
   return v9;
 }
 
-void PCSettingsSetStyle(int a1, const __CFString *a2, int a3)
+void PCSettingsSetStyle(uint64_t a1, const __CFString *a2, int a3)
 {
   valuePtr = a3;
   if (a1)
   {
+    v4 = a1;
     v5 = [[PCDistributedLock alloc] initWithName:@"com.apple.persistentconnection.settings.lock"];
     [(PCDistributedLock *)v5 lock];
     if (registerForPCPrefChanges_onceToken != -1)
@@ -1520,9 +1519,9 @@ void PCSettingsSetStyle(int a1, const __CFString *a2, int a3)
       PCSettingsGetClassPushEnabled_cold_1();
     }
 
-    loadPCPrefsIfNeeded(0, a1 == 1);
+    loadPCPrefsIfNeeded(0, v4 == 1);
     v6 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    setServiceIdentifierKeyAndValue(a1, a2, @"PCStyle", v6);
+    setServiceIdentifierKeyAndValue(v4, a2, @"PCStyle", v6);
     CFRelease(v6);
     [(PCDistributedLock *)v5 unlock];
   }
@@ -1638,11 +1637,11 @@ void PCSettingsSetDefaultStyle(int a1, const __CFString *a2, int a3)
 
 void PCSettingsPurgeDictionariesExceptForCurrent(int a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v19 = [[PCDistributedLock alloc] initWithName:@"com.apple.persistentconnection.settings.lock"];
-    [(PCDistributedLock *)v19 lock];
+    v18 = [[PCDistributedLock alloc] initWithName:@"com.apple.persistentconnection.settings.lock"];
+    [(PCDistributedLock *)v18 lock];
     if (a1 == 1)
     {
       Copy = CFStringCreateCopy(0, @"com.apple.persistentconnection-mcc");
@@ -1665,26 +1664,26 @@ void PCSettingsPurgeDictionariesExceptForCurrent(int a1, void *a2)
     theArray = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
     Length = CFStringGetLength(@"PCServiceIdentifier-");
     context = objc_autoreleasePoolPush();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v7 = v5;
-    v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           if ([v12 hasPrefix:@"PCServiceIdentifier-"])
           {
             v13 = [v12 substringFromIndex:Length];
@@ -1697,7 +1696,7 @@ void PCSettingsPurgeDictionariesExceptForCurrent(int a1, void *a2)
           }
         }
 
-        v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
@@ -1717,10 +1716,8 @@ void PCSettingsPurgeDictionariesExceptForCurrent(int a1, void *a2)
 
     CFRelease(theArray);
     CFRelease(applicationID);
-    [(PCDistributedLock *)v19 unlock];
+    [(PCDistributedLock *)v18 unlock];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PCSettingsGetGlobalMCCForceManualWhenRoaming()
@@ -1837,10 +1834,10 @@ void PCSettingsSetForceManualWhenRoamingForMCCAccount(const __CFString *a1, int 
   [(PCDistributedLock *)v5 unlock];
 }
 
-void _PCPrefsChangedNotification()
+void _PCPrefsChangedNotification(uint64_t a1)
 {
-  v0 = PCPrefsQueue();
-  dispatch_sync(v0, &__block_literal_global_50);
+  v1 = PCPrefsQueue(a1);
+  dispatch_sync(v1, &__block_literal_global_50);
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
 
@@ -1854,10 +1851,11 @@ void __setPCPrefsNeedLoad_block_invoke()
   PCPrefsNeedLoadingConnectionClassMailContactsCalendars = 1;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x12u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x12u);
 }
 
 uint64_t __PCStringFromDate_block_invoke()
@@ -1871,16 +1869,16 @@ uint64_t __PCStringFromDate_block_invoke()
   return [v2 setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
 }
 
-id PCSharedSerialQueue()
+id PCSharedSerialQueue(uint64_t a1)
 {
   if (PCSharedSerialQueue_onceToken != -1)
   {
     PCSharedSerialQueue_cold_1();
   }
 
-  v1 = PCSharedSerialQueue_sQueue;
+  v2 = PCSharedSerialQueue_sQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PCSharedSerialQueue_block_invoke()
@@ -1893,7 +1891,7 @@ uint64_t __PCSharedSerialQueue_block_invoke()
 NSObject *PCCreateQueue(const char *a1)
 {
   v1 = dispatch_queue_create(a1, 0);
-  v2 = PCSharedSerialQueue();
+  v2 = PCSharedSerialQueue(v1);
   dispatch_set_target_queue(v1, v2);
 
   return v1;
@@ -1975,9 +1973,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E40BBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E40BBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1991,7 +1989,7 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 void __PCScheduledWakeRTCPrecision_block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/var/mobile/Library/Preferences/%@", @"com.apple.persistentconnection"];
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"PCScheduledWakeRTCPrecisionOverride", v0, &keyExistsAndHasValidFormat);
@@ -2012,21 +2010,19 @@ void __PCScheduledWakeRTCPrecision_block_invoke()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v8 = @"PCScheduledWakeRTCPrecisionOverride";
-      v9 = 2048;
-      v10 = v3;
+      v7 = @"PCScheduledWakeRTCPrecisionOverride";
+      v8 = 2048;
+      v9 = v3;
       _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ set. Setting PCScheduledWakeRTCPrecision to %g seconds.", buf, 0x16u);
     }
 
     PCScheduledWakeRTCPrecision_scheduledWakeRTCPrecision = *&v3;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __PCShouldUseSystemActivityAssertion_block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/var/mobile/Library/Preferences/%@", @"com.apple.persistentconnection"];
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"PCShouldUseSystemActivityAssertion", v0, &keyExistsAndHasValidFormat);
@@ -2043,16 +2039,14 @@ void __PCShouldUseSystemActivityAssertion_block_invoke()
       }
 
       *buf = 138543618;
-      v8 = @"PCShouldUseSystemActivityAssertion";
-      v9 = 2114;
-      v10 = v4;
+      v7 = @"PCShouldUseSystemActivityAssertion";
+      v8 = 2114;
+      v9 = v4;
       _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ set. Setting PCShouldUseSystemActivityAssertion to %{public}@.", buf, 0x16u);
     }
 
     PCShouldUseSystemActivityAssertion_shouldUse = v2 != 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
@@ -2062,15 +2056,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void initWith(uint64_t a1, char *__s, NSObject *a3, int a4, double a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v10 = strlen(__s);
   if (v10 >= 0x7F)
   {
@@ -2097,18 +2092,18 @@ void initWith(uint64_t a1, char *__s, NSObject *a3, int a4, double a5)
   if (os_log_type_enabled(a3, OS_LOG_TYPE_DEFAULT))
   {
     v13 = "NO";
-    v16 = 136315650;
-    v17 = a1 + 176;
+    v15 = 136315650;
+    v16 = a1 + 176;
     if (a4)
     {
       v13 = "YES";
     }
 
-    v18 = 2048;
-    v19 = a5;
-    v20 = 2080;
-    v21 = v13;
-    _os_log_impl(&dword_25E3EF000, a3, OS_LOG_TYPE_DEFAULT, "%s: Initialized with keepAliveInterval %g inInitialGrowth %s", &v16, 0x20u);
+    v17 = 2048;
+    v18 = a5;
+    v19 = 2080;
+    v20 = v13;
+    _os_log_impl(&dword_25E3EF000, a3, OS_LOG_TYPE_DEFAULT, "%s: Initialized with keepAliveInterval %g inInitialGrowth %s", &v15, 0x20u);
   }
 
   if (a4)
@@ -2122,26 +2117,25 @@ void initWith(uint64_t a1, char *__s, NSObject *a3, int a4, double a5)
   }
 
   _resetAlgorithmToInterval(a1, v14, a5);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL useIntervalIfImprovement(double *a1, double a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 38);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 15);
     v6 = *a1;
-    v12 = 136315906;
-    v13 = a1 + 22;
-    v14 = 2048;
-    v15 = a2;
-    v16 = 2048;
-    v17 = v5;
-    v18 = 2048;
-    v19 = v6;
-    _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: useIntervalIfImprovement %g   lastKeepAliveInterval: %g  currentKeepAliveInterval: %g", &v12, 0x2Au);
+    v11 = 136315906;
+    v12 = a1 + 22;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v5;
+    v17 = 2048;
+    v18 = v6;
+    _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: useIntervalIfImprovement %g   lastKeepAliveInterval: %g  currentKeepAliveInterval: %g", &v11, 0x2Au);
   }
 
   v7 = a1[15];
@@ -2160,24 +2154,22 @@ BOOL useIntervalIfImprovement(double *a1, double a2)
     _setCurrentKeepAliveInterval(a1, 0, 0, a2);
   }
 
-  result = v9 < a2;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 < a2;
 }
 
 void _resetAlgorithmToInterval(uint64_t a1, unsigned int a2, double a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 304);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315650;
-    v11 = a1 + 176;
-    v12 = 2048;
-    v13 = a3;
-    v14 = 2080;
-    v15 = _stringForStage(a2);
-    _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "%s: resetAlgorithmToInterval: %g state: %s", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = a1 + 176;
+    v11 = 2048;
+    v12 = a3;
+    v13 = 2080;
+    v14 = _stringForStage(a2);
+    _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "%s: resetAlgorithmToInterval: %g state: %s", &v9, 0x20u);
   }
 
   *(a1 + 104) = a2;
@@ -2199,14 +2191,13 @@ void _resetAlgorithmToInterval(uint64_t a1, unsigned int a2, double a3)
   }
 
   _setCurrentKeepAliveInterval(a1, 0, 1, a3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t isServerOriginatedKeepAlive(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    isServerOriginatedKeepAlive_cold_1(a1);
+    isServerOriginatedKeepAlive_cold_1();
   }
 
   return *(a1 + 8);
@@ -2223,13 +2214,13 @@ double minimumKeepAliveInterval(uint64_t a1)
   return result;
 }
 
-void setMinimumKeepAliveInterval(double *a1, double a2)
+void setMinimumKeepAliveInterval(uint64_t a1, double a2)
 {
-  a1[2] = a2;
-  v3 = a1[6];
+  *(a1 + 16) = a2;
+  v3 = *(a1 + 48);
   if (v3 <= 0.0)
   {
-    v3 = a1[3];
+    v3 = *(a1 + 24);
   }
 
   if (v3 < a2)
@@ -2253,23 +2244,23 @@ double maximumKeepAliveInterval(uint64_t a1)
   return result;
 }
 
-void setMaximumKeepAliveInterval(double *a1, double a2)
+void setMaximumKeepAliveInterval(uint64_t a1, double a2)
 {
   if (a2 <= 0.0)
   {
     setMaximumKeepAliveInterval_cold_1();
   }
 
-  a1[3] = a2;
-  v3 = a1[5];
+  *(a1 + 24) = a2;
+  v3 = *(a1 + 40);
   if (v3 <= 0.0)
   {
-    v3 = a1[2];
+    v3 = *(a1 + 16);
   }
 
   if (v3 > a2)
   {
-    setMinimumKeepAliveInterval(a1);
+    setMinimumKeepAliveInterval(a1, a2);
   }
 
   v4 = currentKeepAliveInterval(a1);
@@ -2281,7 +2272,7 @@ double serverStatsExpectedKeepAliveInterval(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    serverStatsExpectedKeepAliveInterval_cold_1(a1);
+    serverStatsExpectedKeepAliveInterval_cold_1();
   }
 
   return *(a1 + 32);
@@ -2291,7 +2282,7 @@ void setServerStatsExpectedKeepAliveInterval(uint64_t a1, double a2)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setServerStatsExpectedKeepAliveInterval_cold_1(a1);
+    setServerStatsExpectedKeepAliveInterval_cold_1();
   }
 
   *(a1 + 32) = a2;
@@ -2301,7 +2292,7 @@ double serverStatsMinKeepAliveInterval(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    serverStatsMinKeepAliveInterval_cold_1(a1);
+    serverStatsMinKeepAliveInterval_cold_1();
   }
 
   return *(a1 + 40);
@@ -2311,7 +2302,7 @@ void setServerStatsMinKeepAliveInterval(uint64_t a1, double a2)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setServerStatsMinKeepAliveInterval_cold_1(a1);
+    setServerStatsMinKeepAliveInterval_cold_1();
   }
 
   *(a1 + 40) = a2;
@@ -2321,7 +2312,7 @@ double serverStatsMaxKeepAliveInterval(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    serverStatsMaxKeepAliveInterval_cold_1(a1);
+    serverStatsMaxKeepAliveInterval_cold_1();
   }
 
   return *(a1 + 48);
@@ -2331,7 +2322,7 @@ void setServerStatsMaxKeepAliveInterval(uint64_t a1, double a2)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setServerStatsMaxKeepAliveInterval_cold_1(a1);
+    setServerStatsMaxKeepAliveInterval_cold_1();
   }
 
   *(a1 + 48) = a2;
@@ -2341,7 +2332,7 @@ double lastSuccessfulKeepAliveInterval(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    lastSuccessfulKeepAliveInterval_cold_1(a1);
+    lastSuccessfulKeepAliveInterval_cold_1();
   }
 
   return *(a1 + 56);
@@ -2349,30 +2340,28 @@ double lastSuccessfulKeepAliveInterval(uint64_t a1)
 
 void setLastSuccessfulKeepAliveInterval(uint64_t a1, double a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) != a2)
   {
     v4 = *(a1 + 304);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = a1 + 176;
-      v8 = 2048;
-      v9 = a2;
-      _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: setting lastSuccessfulKeepAliveInterval to %g seconds", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = a1 + 176;
+      v7 = 2048;
+      v8 = a2;
+      _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: setting lastSuccessfulKeepAliveInterval to %g seconds", &v5, 0x16u);
     }
 
     *(a1 + 56) = a2;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t minimumIntervalFallbackEnabled(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    minimumIntervalFallbackEnabled_cold_1(a1);
+    minimumIntervalFallbackEnabled_cold_1();
   }
 
   return *(a1 + 64);
@@ -2380,10 +2369,10 @@ uint64_t minimumIntervalFallbackEnabled(uint64_t a1)
 
 void setMinimumIntervalFallbackEnabled(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == a2)
   {
-    goto LABEL_10;
+    return;
   }
 
   *(a1 + 64) = a2;
@@ -2392,7 +2381,7 @@ void setMinimumIntervalFallbackEnabled(uint64_t a1, int a2)
   {
     if (a2)
     {
-      goto LABEL_10;
+      return;
     }
 
     goto LABEL_8;
@@ -2404,11 +2393,11 @@ void setMinimumIntervalFallbackEnabled(uint64_t a1, int a2)
     v5 = "YES";
   }
 
-  v8 = 136315394;
-  v9 = a1 + 176;
-  v10 = 2080;
-  v11 = v5;
-  _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: minimumIntervalFallbackEnabled changed to %s", &v8, 0x16u);
+  v7 = 136315394;
+  v8 = a1 + 176;
+  v9 = 2080;
+  v10 = v5;
+  _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: minimumIntervalFallbackEnabled changed to %s", &v7, 0x16u);
   if ((*(a1 + 64) & 1) == 0)
   {
 LABEL_8:
@@ -2419,36 +2408,34 @@ LABEL_8:
       *(a1 + 160) = nil;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t usingServerStatsAggressively(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    usingServerStatsAggressively_cold_1(a1);
+    usingServerStatsAggressively_cold_1();
   }
 
   return *(a1 + 65);
 }
 
-void setUsingServerStatsAggressively(uint64_t a1, char a2)
+void setUsingServerStatsAggressively(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setUsingServerStatsAggressively_cold_1(a1);
+    setUsingServerStatsAggressively_cold_1();
   }
 
-  *(a1 + 65) = a2;
+  *(a1 + 65) = v2;
 }
 
 double minimumIntervalFallbackStateTimeout(uint64_t a1)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    minimumIntervalFallbackStateTimeout_cold_1(a1);
+    minimumIntervalFallbackStateTimeout_cold_1();
   }
 
   return *(a1 + 72);
@@ -2458,7 +2445,7 @@ void setMinimumIntervalFallbackStateTimeout(uint64_t a1, double a2)
 {
   if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEBUG))
   {
-    setMinimumIntervalFallbackStateTimeout_cold_1(a1);
+    setMinimumIntervalFallbackStateTimeout_cold_1();
   }
 
   *(a1 + 72) = a2;
@@ -2466,80 +2453,78 @@ void setMinimumIntervalFallbackStateTimeout(uint64_t a1, double a2)
 
 double signalAvoidanceRange(double *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a1[11];
   v3 = *(a1 + 12);
   v4 = *(a1 + 38);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136316930;
-    v8 = "s/pc-msgrowth.c";
-    v9 = 1024;
-    v10 = 195;
-    v11 = 2080;
-    v12 = "signalAvoidanceRange";
-    v13 = 2048;
-    v14 = a1;
-    v15 = 2080;
-    v16 = a1 + 22;
-    v17 = 2080;
-    v18 = "signalAvoidanceRange";
-    v19 = 2048;
-    v20 = v2;
-    v21 = 2048;
-    v22 = v3;
-    _os_log_debug_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEBUG, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s() {%g,%g}", &v7, 0x4Eu);
+    v6 = 136316930;
+    v7 = "s/pc-msgrowth.c";
+    v8 = 1024;
+    v9 = 195;
+    v10 = 2080;
+    v11 = "signalAvoidanceRange";
+    v12 = 2048;
+    v13 = a1;
+    v14 = 2080;
+    v15 = a1 + 22;
+    v16 = 2080;
+    v17 = "signalAvoidanceRange";
+    v18 = 2048;
+    v19 = v2;
+    v20 = 2048;
+    v21 = v3;
+    _os_log_debug_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEBUG, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s() {%g,%g}", &v6, 0x4Eu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void setSignalAvoidanceRange(double *a1, double a2, double a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 38);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 11);
-    v9 = *(a1 + 12);
-    v10 = 136317442;
-    v11 = "s/pc-msgrowth.c";
-    v12 = 1024;
-    v13 = 201;
-    v14 = 2080;
-    v15 = "setSignalAvoidanceRange";
-    v16 = 2048;
-    v17 = a1;
-    v18 = 2080;
-    v19 = a1 + 22;
-    v20 = 2080;
-    v21 = "setSignalAvoidanceRange";
-    v22 = 2048;
-    v23 = a2;
-    v24 = 2048;
-    v25 = a3;
-    v26 = 2048;
-    v27 = v8;
-    v28 = 2048;
-    v29 = v9;
-    _os_log_debug_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEBUG, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s({%g,%g}) [{%g,%g}]", &v10, 0x62u);
+    v7 = *(a1 + 11);
+    v8 = *(a1 + 12);
+    v9 = 136317442;
+    v10 = "s/pc-msgrowth.c";
+    v11 = 1024;
+    v12 = 201;
+    v13 = 2080;
+    v14 = "setSignalAvoidanceRange";
+    v15 = 2048;
+    v16 = a1;
+    v17 = 2080;
+    v18 = a1 + 22;
+    v19 = 2080;
+    v20 = "setSignalAvoidanceRange";
+    v21 = 2048;
+    v22 = a2;
+    v23 = 2048;
+    v24 = a3;
+    v25 = 2048;
+    v26 = v7;
+    v27 = 2048;
+    v28 = v8;
+    _os_log_debug_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEBUG, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s({%g,%g}) [{%g,%g}]", &v9, 0x62u);
   }
 
   a1[11] = a2;
   a1[12] = a3;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void _setCurrentKeepAliveInterval(uint64_t a1, int a2, int a3, double a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 304);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 136315906;
-    v35 = a1 + 176;
-    v36 = 2048;
+    v33 = 136315906;
+    v34 = a1 + 176;
+    v35 = 2048;
     if (a3)
     {
       v9 = "YES";
@@ -2550,12 +2535,12 @@ void _setCurrentKeepAliveInterval(uint64_t a1, int a2, int a3, double a4)
       v9 = "NO";
     }
 
-    v37 = a4;
-    v38 = 1024;
-    *v39 = a2;
-    *&v39[4] = 2080;
-    *&v39[6] = v9;
-    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%s: setCurrentKeepAlive with interval %g varianceMode %u allowRoundup %s", &v34, 0x26u);
+    v36 = a4;
+    v37 = 1024;
+    *v38 = a2;
+    *&v38[4] = 2080;
+    *&v38[6] = v9;
+    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%s: setCurrentKeepAlive with interval %g varianceMode %u allowRoundup %s", &v33, 0x26u);
   }
 
   if (a4 <= 0.0)
@@ -2564,11 +2549,11 @@ void _setCurrentKeepAliveInterval(uint64_t a1, int a2, int a3, double a4)
     v10 = *(a1 + 304);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315394;
-      v35 = a1 + 176;
-      v36 = 2048;
-      v37 = a4;
-      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%s: override interval %g", &v34, 0x16u);
+      v33 = 136315394;
+      v34 = a1 + 176;
+      v35 = 2048;
+      v36 = a4;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%s: override interval %g", &v33, 0x16u);
     }
   }
 
@@ -2583,13 +2568,13 @@ void _setCurrentKeepAliveInterval(uint64_t a1, int a2, int a3, double a4)
     v12 = *(a1 + 304);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315394;
-      v35 = a1 + 176;
-      v36 = 2048;
-      v37 = v11;
+      v33 = 136315394;
+      v34 = a1 + 176;
+      v35 = 2048;
+      v36 = v11;
       v13 = "%s: override min interval %g";
 LABEL_19:
-      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, v13, &v34, 0x16u);
+      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, v13, &v33, 0x16u);
       goto LABEL_20;
     }
 
@@ -2607,10 +2592,10 @@ LABEL_19:
     v12 = *(a1 + 304);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315394;
-      v35 = a1 + 176;
-      v36 = 2048;
-      v37 = v11;
+      v33 = 136315394;
+      v34 = a1 + 176;
+      v35 = 2048;
+      v36 = v11;
       v13 = "%s: override max interval %g";
       goto LABEL_19;
     }
@@ -2638,8 +2623,8 @@ LABEL_20:
         v18 = *a1;
         if (os_log_type_enabled(*(a1 + 304), OS_LOG_TYPE_DEFAULT))
         {
-          v34 = 136315650;
-          v35 = a1 + 176;
+          v33 = 136315650;
+          v34 = a1 + 176;
           if (a4 <= v18)
           {
             *&v19 = COERCE_DOUBLE("NO");
@@ -2650,11 +2635,11 @@ LABEL_20:
             *&v19 = COERCE_DOUBLE("YES");
           }
 
-          v36 = 2080;
-          v37 = *&v19;
-          v38 = 2048;
-          *v39 = v15 + v14;
-          _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%s: signalAvoidanceRange contained, increasing %s, end %g", &v34, 0x20u);
+          v35 = 2080;
+          v36 = *&v19;
+          v37 = 2048;
+          *v38 = v15 + v14;
+          _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%s: signalAvoidanceRange contained, increasing %s, end %g", &v33, 0x20u);
         }
 
         v20 = *(a1 + 104);
@@ -2719,22 +2704,22 @@ LABEL_20:
           }
         }
 
-        v33 = *(a1 + 304);
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v32 = *(a1 + 304);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = 136316418;
-          v35 = a1 + 176;
-          v36 = 2048;
-          v37 = a4;
-          v38 = 2048;
-          *v39 = v24;
-          *&v39[8] = 2048;
-          *&v39[10] = v23;
-          v40 = 2048;
-          v41 = v22;
-          v42 = 2048;
-          v43 = v21;
-          _os_log_impl(&dword_25E3EF000, v33, OS_LOG_TYPE_DEFAULT, "%s: triggered signaling avoidance {interval: %g, adjustedInterval: %g, _signalAvoidanceRange.start: %g, _signalAvoidanceRange.duration: %g, roundUpRatio: %g}", &v34, 0x3Eu);
+          v33 = 136316418;
+          v34 = a1 + 176;
+          v35 = 2048;
+          v36 = a4;
+          v37 = 2048;
+          *v38 = v24;
+          *&v38[8] = 2048;
+          *&v38[10] = v23;
+          v39 = 2048;
+          v40 = v22;
+          v41 = 2048;
+          v42 = v21;
+          _os_log_impl(&dword_25E3EF000, v32, OS_LOG_TYPE_DEFAULT, "%s: triggered signaling avoidance {interval: %g, adjustedInterval: %g, _signalAvoidanceRange.start: %g, _signalAvoidanceRange.duration: %g, roundUpRatio: %g}", &v33, 0x3Eu);
         }
 
         goto LABEL_44;
@@ -2744,15 +2729,15 @@ LABEL_20:
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 136315906;
-    v35 = a1 + 176;
-    v36 = 2048;
-    v37 = a4;
-    v38 = 2048;
-    *v39 = v15;
-    *&v39[8] = 2048;
-    *&v39[10] = v14;
-    _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%s: no signal avoidance {interval: %g, _signalAvoidanceRange.start: %g, _signalAvoidanceRange.duration: %g}", &v34, 0x2Au);
+    v33 = 136315906;
+    v34 = a1 + 176;
+    v35 = 2048;
+    v36 = a4;
+    v37 = 2048;
+    *v38 = v15;
+    *&v38[8] = 2048;
+    *&v38[10] = v14;
+    _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%s: no signal avoidance {interval: %g, _signalAvoidanceRange.start: %g, _signalAvoidanceRange.duration: %g}", &v33, 0x2Au);
   }
 
   v24 = a4;
@@ -2775,97 +2760,93 @@ LABEL_44:
     v31 = *(a1 + 304);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315394;
-      v35 = a1 + 176;
-      v36 = 2048;
-      v37 = v24;
-      _os_log_impl(&dword_25E3EF000, v31, OS_LOG_TYPE_DEFAULT, "%s: setting current interval to %g seconds", &v34, 0x16u);
+      v33 = 136315394;
+      v34 = a1 + 176;
+      v35 = 2048;
+      v36 = v24;
+      _os_log_impl(&dword_25E3EF000, v31, OS_LOG_TYPE_DEFAULT, "%s: setting current interval to %g seconds", &v33, 0x16u);
       v30 = *a1;
     }
 
     *(a1 + 120) = v30;
     *a1 = v24;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 double _NSDate_timeIntervalSinceNow(uint64_t a1, int a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = time(0);
   v7 = *a3;
   v8 = *a3 - v6;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136316674;
-    v12 = a1;
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2080;
-    v16 = "_NSDate_timeIntervalSinceNow";
-    v17 = 2048;
-    v18 = a3;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v6;
-    v23 = 2048;
-    v24 = v8;
-    _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%p) %llu - %llu = %llu", &v11, 0x44u);
+    v10 = 136316674;
+    v11 = a1;
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2080;
+    v15 = "_NSDate_timeIntervalSinceNow";
+    v16 = 2048;
+    v17 = a3;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2048;
+    v21 = v6;
+    v22 = 2048;
+    v23 = v8;
+    _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%p) %llu - %llu = %llu", &v10, 0x44u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 double _steadyStateTimeout(double *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = fmax(*a1 * 24.0, 3600.0);
   v4 = *(a1 + 38);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = a1 + 22;
-    v9 = 2048;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v2;
-    _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: using a steady state timeout of %g for current interval %g", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = a1 + 22;
+    v8 = 2048;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v2;
+    _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "%s: using a steady state timeout of %g for current interval %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void *_NSDate_alloc_initWithTimeIntervalSinceNow(uint64_t a1, int a2, double a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136316162;
-    v10 = a1;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2080;
-    v14 = "_NSDate_alloc_initWithTimeIntervalSinceNow";
-    v15 = 2048;
-    v16 = a3;
-    v17 = 2048;
-    v18 = v6;
-    _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%g) malloc %p", &v9, 0x30u);
+    v8 = 136316162;
+    v9 = a1;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2080;
+    v13 = "_NSDate_alloc_initWithTimeIntervalSinceNow";
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v6;
+    _os_log_debug_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s():%d | %s(%g) malloc %p", &v8, 0x30u);
     if (!v6)
     {
-      goto LABEL_5;
+      return v6;
     }
   }
 
   else if (!v6)
   {
-    goto LABEL_5;
+    return v6;
   }
 
   *v6 = (time(0) + a3);
@@ -2874,8 +2855,6 @@ void *_NSDate_alloc_initWithTimeIntervalSinceNow(uint64_t a1, int a2, double a3)
     _NSDate_alloc_initWithTimeIntervalSinceNow_cold_1();
   }
 
-LABEL_5:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2886,236 +2865,174 @@ void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, os_log_t log, const char *a4, .
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x46u);
 }
 
-void currentKeepAliveInterval_cold_1(uint64_t *a1)
+void currentKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void isServerOriginatedKeepAlive_cold_1(uint64_t a1)
+void isServerOriginatedKeepAlive_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 8);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x40u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x40u);
 }
 
-void setIsServerOriginatedKeepAlive_cold_1(uint64_t a1)
+void setIsServerOriginatedKeepAlive_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 8);
-  LODWORD(v5) = 136316930;
-  *(&v5 + 4) = "s/pc-msgrowth.c";
-  LODWORD(v6) = 136314880;
-  *(&v6 + 4) = "setIsServerOriginatedKeepAlive";
+  LODWORD(v2) = 136316930;
+  *(&v2 + 4) = "s/pc-msgrowth.c";
+  LODWORD(v3) = 136314880;
+  *(&v3 + 4) = "setIsServerOriginatedKeepAlive";
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_10(&dword_25E3EF000, v2, v3, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s(%d) [%d]", v5, "s/pc-msgrowth.c" >> 32, v6, "setIsServerOriginatedKeepAlive" >> 32, v7, v8, v9, v10);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(&dword_25E3EF000, v0, v1, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s(%d) [%d]", v2, "s/pc-msgrowth.c" >> 32, v3, "setIsServerOriginatedKeepAlive" >> 32, v4, v5, v6, v7);
 }
 
-void serverStatsExpectedKeepAliveInterval_cold_1(uint64_t a1)
+void serverStatsExpectedKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void setServerStatsExpectedKeepAliveInterval_cold_1(uint64_t a1)
+void setServerStatsExpectedKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x4Eu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x4Eu);
 }
 
-void serverStatsMinKeepAliveInterval_cold_1(uint64_t a1)
+void serverStatsMinKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void setServerStatsMinKeepAliveInterval_cold_1(uint64_t a1)
+void setServerStatsMinKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x4Eu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x4Eu);
 }
 
-void serverStatsMaxKeepAliveInterval_cold_1(uint64_t a1)
+void serverStatsMaxKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void setServerStatsMaxKeepAliveInterval_cold_1(uint64_t a1)
+void setServerStatsMaxKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x4Eu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x4Eu);
 }
 
-void lastSuccessfulKeepAliveInterval_cold_1(uint64_t a1)
+void lastSuccessfulKeepAliveInterval_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void minimumIntervalFallbackEnabled_cold_1(uint64_t a1)
+void minimumIntervalFallbackEnabled_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 64);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x40u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x40u);
 }
 
-void usingServerStatsAggressively_cold_1(uint64_t a1)
+void usingServerStatsAggressively_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 65);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x40u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x40u);
 }
 
-void setUsingServerStatsAggressively_cold_1(uint64_t a1)
+void setUsingServerStatsAggressively_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 65);
-  LODWORD(v5) = 136316930;
-  *(&v5 + 4) = "s/pc-msgrowth.c";
-  LODWORD(v6) = 136314880;
-  *(&v6 + 4) = "etUsingServerStatsAggressively";
+  LODWORD(v2) = 136316930;
+  *(&v2 + 4) = "s/pc-msgrowth.c";
+  LODWORD(v3) = 136314880;
+  *(&v3 + 4) = "etUsingServerStatsAggressively";
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_10(&dword_25E3EF000, v2, v3, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s(%d) [%d]", v5, "s/pc-msgrowth.c" >> 32, v6, "etUsingServerStatsAggressively" >> 32, v7, v8, v9, v10);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10(&dword_25E3EF000, v0, v1, "[%15s:%-4d| %-30s] PCMSGA(%p) %s: %s(%d) [%d]", v2, "s/pc-msgrowth.c" >> 32, v3, "etUsingServerStatsAggressively" >> 32, v4, v5, v6, v7);
 }
 
-void minimumIntervalFallbackStateTimeout_cold_1(uint64_t a1)
+void minimumIntervalFallbackStateTimeout_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 72);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void setMinimumIntervalFallbackStateTimeout_cold_1(uint64_t a1)
+void setMinimumIntervalFallbackStateTimeout_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 72);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x4Eu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x4Eu);
 }
 
-void countOfGrowthActions_cold_1(uint64_t a1)
+void countOfGrowthActions_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 80);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x44u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x44u);
 }
 
-void growthStage_cold_1(uint64_t a1)
+void growthStage_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 104);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x40u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x40u);
 }
 
-void previousAction_cold_1(uint64_t a1)
+void previousAction_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 108);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x40u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void _NSDate_alloc_initWithTimeIntervalSinceNow_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x40u);
 }
 
 void _PCSettingsGetStyle_cold_1()

@@ -9,7 +9,7 @@
 {
   _renderCopy = _render;
   inputImage = [(NUProcessorCache *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v52.origin.x = v6;
   v52.origin.y = v7;
   v52.size.width = v8;
@@ -23,7 +23,7 @@
   v12 = +[NUPlatform currentPlatform];
   v13 = [v12 deviceForMetalDevice:device];
 
-  [_renderCopy region];
+  objc_msgSend_region(_renderCopy);
   v52.origin.x = v14;
   v52.origin.y = v15;
   v52.size.width = v16;
@@ -175,7 +175,7 @@ void __33__NUTiledProcessorCache__render___block_invoke(uint64_t a1)
     v39 = *(a1 + 72);
     [v31 writeTextureRegion:v14 device:v33 withBlock:v37];
     [*(a1 + 72) encodeSignalEvent:*(*(a1 + 32) + 24) value:++*(*(a1 + 32) + 96)];
-    v34 = +[NURegion region];
+    v34 = objc_msgSend_region(NURegion);
     v35 = *(*(a1 + 80) + 8);
     v36 = *(v35 + 40);
     *(v35 + 40) = v34;
@@ -194,7 +194,7 @@ void __33__NUTiledProcessorCache__render___block_invoke_2(uint64_t a1, void *a2)
   v6 = 0uLL;
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v18;
     v5 = v19;
   }
@@ -234,7 +234,7 @@ void __33__NUTiledProcessorCache__render___block_invoke_69(uint64_t a1, void *a2
   v6 = 0uLL;
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v18;
     v5 = v19;
   }

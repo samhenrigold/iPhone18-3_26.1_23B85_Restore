@@ -36,7 +36,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -54,8 +54,8 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v19 = objc_opt_class();
-          v11 = v19;
+          v18 = objc_opt_class();
+          v11 = v18;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -76,10 +76,10 @@ LABEL_10:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v19 = objc_opt_class();
-        v20 = 2112;
-        v21 = v5;
-        v11 = v19;
+        v18 = objc_opt_class();
+        v19 = 2112;
+        v20 = v5;
+        v11 = v18;
         v12 = "%{public}@ failed: %@";
         v13 = v10;
         v14 = OS_LOG_TYPE_DEFAULT;
@@ -98,11 +98,9 @@ LABEL_11:
     [(CalDAVScheduleTask *)self setScheduleResponse:rootElement];
   }
 
-  v17.receiver = self;
-  v17.super_class = CalDAVScheduleTask;
-  [(CoreDAVPostTask *)&v17 finishCoreDAVTaskWithError:v5];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = CalDAVScheduleTask;
+  [(CoreDAVPostTask *)&v16 finishCoreDAVTaskWithError:v5];
 }
 
 @end

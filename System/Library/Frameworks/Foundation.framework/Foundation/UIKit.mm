@@ -10,13 +10,13 @@ id __35__UIKit_PKSubsystem_sharedInstance__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __43__UIKit_PKSubsystem_beginUsing_withBundle___block_invoke(uint64_t result)
+id *__43__UIKit_PKSubsystem_beginUsing_withBundle___block_invoke(id *result)
 {
-  if ((*(*(result + 32) + 8) & 1) == 0)
+  if ((*(result[4] + 8) & 1) == 0)
   {
     v1 = result;
-    [*(result + 32) setInfoDictionary:{objc_msgSend(*(result + 40), "bundleInfoDictionary")}];
-    v2 = [objc_msgSend(*(*(v1 + 32) + 16) objectForKey:{@"NSExtension", "mutableCopy"}];
+    [result[4] setInfoDictionary:{objc_msgSend(result[5], "bundleInfoDictionary")}];
+    v2 = [objc_msgSend(*(v1[4] + 2) objectForKey:{@"NSExtension", "mutableCopy"}];
     if ([v2 objectForKey:@"NSExtensionMainStoryboard"])
     {
       v3 = 0;
@@ -57,7 +57,7 @@ LABEL_11:
     v6 = 0;
 LABEL_13:
     result = [_NSExtensionContextVendor _startListening:v6];
-    *(*(v1 + 32) + 8) = 1;
+    *(v1[4] + 8) = 1;
   }
 
   return result;

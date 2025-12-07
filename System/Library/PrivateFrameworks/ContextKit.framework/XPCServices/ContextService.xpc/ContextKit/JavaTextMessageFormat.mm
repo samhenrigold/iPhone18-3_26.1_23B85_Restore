@@ -27,7 +27,7 @@
 
 - (JavaTextMessageFormat)initWithNSString:(id)string withJavaUtilLocale:(id)locale
 {
-  JavaTextFormat_init(self, a2);
+  JavaTextFormat_init();
   JreStrongAssign(&self->locale_, locale);
   [(JavaTextMessageFormat *)self applyPatternWithNSString:string];
   return self;
@@ -36,7 +36,7 @@
 - (JavaTextMessageFormat)initWithNSString:(id)string
 {
   Default = JavaUtilLocale_getDefault();
-  JavaTextFormat_init(self, v6);
+  JavaTextFormat_init();
   JreStrongAssign(&self->locale_, Default);
   [(JavaTextMessageFormat *)self applyPatternWithNSString:string];
   return self;
@@ -53,19 +53,19 @@
   v5 = new_JavaLangStringBuffer_init();
   v6 = new_JavaTextParsePosition_initWithInt_(0);
   v7 = new_JavaUtilArrayList_init();
-  v24 = [IOSIntArray arrayWithLength:10];
-  v22 = new_JavaUtilArrayList_init();
+  v26 = [IOSIntArray arrayWithLength:10];
+  v24 = new_JavaUtilArrayList_init();
   if ([(JavaTextParsePosition *)v6 getIndex]>= v4)
   {
-    LODWORD(v25) = 0;
+    LODWORD(v27) = 0;
     v8 = -1;
   }
 
   else
   {
-    v25 = 0;
+    v27 = 0;
     v8 = -1;
-    v21 = v5;
+    v23 = v5;
     do
     {
       if (JavaTextFormat_upToWithNSString_withJavaTextParsePosition_withJavaLangStringBuffer_withChar_(string, v6, v5, 123))
@@ -75,8 +75,8 @@
         if (getIndex >= v4)
         {
 LABEL_25:
-          v20 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid argument number");
-          objc_exception_throw(v20);
+          v22 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid argument number");
+          objc_exception_throw(v22);
         }
 
         v11 = getIndex;
@@ -103,24 +103,24 @@ LABEL_25:
         }
 
         [(JavaTextParsePosition *)v6 setIndexWithInt:v11];
-        [(JavaUtilArrayList *)v22 addWithId:sub_1001E4CC4(self, string, v6)];
-        v15 = v24;
-        v14 = v25;
-        size = v24->super.size_;
-        if (v25 >= size)
+        [(JavaUtilArrayList *)v24 addWithId:sub_1001E4CC4(self, string, v6)];
+        v15 = v26;
+        v14 = v27;
+        size = v26->super.size_;
+        if (v27 >= size)
         {
           v17 = [IOSIntArray arrayWithLength:2 * size];
-          JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v24, 0, v17, 0, v24->super.size_);
-          v14 = v25;
+          JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v26, 0, v17, 0, v26->super.size_);
+          v14 = v27;
           size = v17->super.size_;
           v15 = v17;
         }
 
         v7 = v9;
-        v5 = v21;
+        v5 = v23;
         if (v14 < 0 || v14 >= size)
         {
-          IOSArray_throwOutOfBoundsWithMsg(size, v25);
+          IOSArray_throwOutOfBoundsWithMsg(size, v27);
         }
 
         *(&v15->super.size_ + v14 + 1) = v12;
@@ -129,8 +129,8 @@ LABEL_25:
           v8 = v12;
         }
 
-        v24 = v15;
-        v25 = (v14 + 1);
+        v26 = v15;
+        v27 = (v14 + 1);
       }
 
       [(JavaUtilArrayList *)v7 addWithId:[(JavaLangStringBuffer *)v5 description]];
@@ -142,23 +142,27 @@ LABEL_25:
 
   v18 = [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[(JavaUtilArrayList *)v7 size] type:NSString_class_()]];
   JreStrongAssign(&self->strings_, v18);
-  JreStrongAssign(&self->argumentNumbers_, v24);
-  v19 = [(JavaUtilArrayList *)v22 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v25 type:JavaTextFormat_class_()]];
-  JreStrongAssign(&self->formats_, v19);
-  self->maxOffset_ = v25 - 1;
+  v19 = JreStrongAssign(&self->argumentNumbers_, v26);
+  v21 = [(JavaUtilArrayList *)v24 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v27 type:JavaTextFormat_class_(v19, v20)]];
+  JreStrongAssign(&self->formats_, v21);
+  self->maxOffset_ = v27 - 1;
   self->maxArgumentIndex_ = v8;
 }
 
 - (id)clone
 {
-  v16.receiver = self;
-  v16.super_class = JavaTextMessageFormat;
-  clone = [(JavaTextFormat *)&v16 clone];
-  objc_opt_class();
-  if (clone && (objc_opt_isKindOfClass() & 1) == 0)
+  v18.receiver = self;
+  v18.super_class = JavaTextMessageFormat;
+  clone = [(JavaTextFormat *)&v18 clone];
+  isKindOfClass = objc_opt_class();
+  if (clone)
   {
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
+    {
 LABEL_20:
-    JreThrowClassCastException();
+      JreThrowClassCastException();
+    }
   }
 
   formats = self->formats_;
@@ -167,47 +171,47 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  v5 = [IOSObjectArray arrayWithLength:formats->super.size_ type:JavaTextFormat_class_()];
+  v7 = [IOSObjectArray arrayWithLength:formats->super.size_ type:JavaTextFormat_class_(isKindOfClass, v5)];
   size = self->formats_->super.size_;
-  v7 = (size - 1);
+  v9 = (size - 1);
   if (size - 1 >= 0)
   {
     do
     {
-      v8 = self->formats_;
-      v9 = v8->super.size_;
-      if (v7 >= v9)
+      v10 = self->formats_;
+      v11 = v10->super.size_;
+      if (v9 >= v11)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v9, v7);
+        IOSArray_throwOutOfBoundsWithMsg(v11, v9);
       }
 
-      if ((&v8->elementType_)[v7])
+      if ((&v10->elementType_)[v9])
       {
-        v10 = self->formats_;
-        v11 = v10->super.size_;
-        if (v7 >= v11)
+        v12 = self->formats_;
+        v13 = v12->super.size_;
+        if (v9 >= v13)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v11, v7);
+          IOSArray_throwOutOfBoundsWithMsg(v13, v9);
         }
 
-        v12 = (&v10->elementType_)[v7];
-        if (!v12)
+        v14 = (&v12->elementType_)[v9];
+        if (!v14)
         {
           goto LABEL_19;
         }
 
-        clone2 = [(IOSClass *)v12 clone];
+        clone2 = [(IOSClass *)v14 clone];
         objc_opt_class();
         if (clone2 && (objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_20;
         }
 
-        IOSObjectArray_Set(v5, v7, clone2);
+        IOSObjectArray_Set(v7, v9, clone2);
       }
     }
 
-    while (v7-- > 0);
+    while (v9-- > 0);
   }
 
   if (!clone)
@@ -216,7 +220,7 @@ LABEL_19:
     JreThrowNullPointerException();
   }
 
-  JreStrongAssign(clone + 4, v5);
+  JreStrongAssign(clone + 4, v7);
   return clone;
 }
 
@@ -403,7 +407,7 @@ LABEL_18:
 
 - (id)getFormatsByArgumentIndex
 {
-  v3 = [IOSObjectArray arrayWithLength:self->maxArgumentIndex_ + 1 type:JavaTextFormat_class_()];
+  v3 = [IOSObjectArray arrayWithLength:self->maxArgumentIndex_ + 1 type:JavaTextFormat_class_(self, a2)];
   if (self->maxOffset_ <= 0x7FFFFFFEu)
   {
     v4 = 0;
@@ -696,7 +700,7 @@ LABEL_25:
 
   v8 = v7;
   getIndex = [position getIndex];
-  v10 = [IOSObjectArray arrayWithLength:self->maxArgumentIndex_ + 1 type:NSObject_class_()];
+  v11 = [IOSObjectArray arrayWithLength:self->maxArgumentIndex_ + 1 type:NSObject_class_(getIndex, v10)];
   maxOffset = self->maxOffset_;
   if (maxOffset < 0)
   {
@@ -704,7 +708,7 @@ LABEL_25:
   }
 
   positionCopy = position;
-  v12 = 0;
+  v13 = 0;
   do
   {
     strings = self->strings_;
@@ -714,44 +718,44 @@ LABEL_25:
     }
 
     size = strings->super.size_;
-    if ((v12 & 0x80000000) != 0 || v12 >= size)
+    if ((v13 & 0x80000000) != 0 || v13 >= size)
     {
-      IOSArray_throwOutOfBoundsWithMsg(size, v12);
+      IOSArray_throwOutOfBoundsWithMsg(size, v13);
     }
 
-    v15 = (&strings->elementType_)[v12];
-    if (([string hasPrefix:v15 offset:getIndex] & 1) == 0)
+    v16 = (&strings->elementType_)[v13];
+    if (([string hasPrefix:v16 offset:getIndex] & 1) == 0)
     {
       positionCopy2 = positionCopy;
 LABEL_44:
-      v35 = getIndex;
+      v36 = getIndex;
       goto LABEL_45;
     }
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_47;
     }
 
-    v16 = [(IOSClass *)v15 length];
+    v17 = [(IOSClass *)v16 length];
     formats = self->formats_;
     if (!formats)
     {
       goto LABEL_47;
     }
 
-    v18 = v16;
-    v19 = formats->super.size_;
-    if ((v12 & 0x80000000) != 0 || v12 >= v19)
+    v19 = v17;
+    v20 = formats->super.size_;
+    if ((v13 & 0x80000000) != 0 || v13 >= v20)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v19, v12);
+      IOSArray_throwOutOfBoundsWithMsg(v20, v13);
     }
 
-    v20 = (&formats->elementType_)[v12];
-    if (v20)
+    v21 = (&formats->elementType_)[v13];
+    if (v21)
     {
-      [(JavaTextParsePosition *)v8 setIndexWithInt:getIndex + v18];
-      v21 = [(IOSClass *)v20 parseObjectWithNSString:string withJavaTextParsePosition:v8];
+      [(JavaTextParsePosition *)v8 setIndexWithInt:getIndex + v19];
+      v22 = [(IOSClass *)v21 parseObjectWithNSString:string withJavaTextParsePosition:v8];
       if ([(JavaTextParsePosition *)v8 getErrorIndex]!= -1)
       {
         goto LABEL_42;
@@ -762,40 +766,40 @@ LABEL_44:
 
     else
     {
-      v22 = v10;
-      v23 = v12 + 1;
-      v24 = self->strings_;
-      v25 = v24->super.size_;
-      if (v12 + 1 >= v25)
+      v23 = v11;
+      v24 = v13 + 1;
+      v25 = self->strings_;
+      v26 = v25->super.size_;
+      if (v13 + 1 >= v26)
       {
-        v21 = [string substring:getIndex + v18];
+        v22 = [string substring:getIndex + v19];
         getIndex = [string length];
       }
 
       else
       {
-        if (v23 < 0)
+        if (v24 < 0)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v25, (v12 + 1));
+          IOSArray_throwOutOfBoundsWithMsg(v26, (v13 + 1));
         }
 
-        v26 = [string indexOfString:(&v24->elementType_)[v23] fromIndex:getIndex + v18];
-        if (v26 == -1)
+        v27 = [string indexOfString:(&v25->elementType_)[v24] fromIndex:getIndex + v19];
+        if (v27 == -1)
         {
 LABEL_42:
-          v35 = (getIndex + v18);
+          v36 = getIndex + v19;
           positionCopy2 = positionCopy;
 LABEL_45:
-          [positionCopy2 setErrorIndexWithInt:v35];
+          [positionCopy2 setErrorIndexWithInt:v36];
           return 0;
         }
 
-        v27 = v26;
-        v21 = [string substring:getIndex + v18 endIndex:v26];
-        getIndex = v27;
+        v28 = v27;
+        v22 = [string substring:getIndex + v19 endIndex:v27];
+        getIndex = v28;
       }
 
-      v10 = v22;
+      v11 = v23;
     }
 
     argumentNumbers = self->argumentNumbers_;
@@ -804,55 +808,55 @@ LABEL_45:
       goto LABEL_47;
     }
 
-    v29 = argumentNumbers->super.size_;
-    if ((v12 & 0x80000000) != 0 || v12 >= v29)
+    v30 = argumentNumbers->super.size_;
+    if ((v13 & 0x80000000) != 0 || v13 >= v30)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v29, v12);
+      IOSArray_throwOutOfBoundsWithMsg(v30, v13);
     }
 
-    IOSObjectArray_Set(v10, *(&argumentNumbers->super.size_ + v12 + 1), v21);
-    v12 = (v12 + 1);
+    IOSObjectArray_Set(v11, *(&argumentNumbers->super.size_ + v13 + 1), v22);
+    v13 = (v13 + 1);
     maxOffset = self->maxOffset_;
   }
 
-  while (v12 <= maxOffset);
+  while (v13 <= maxOffset);
   position = positionCopy;
 LABEL_35:
-  v31 = self->strings_;
-  if (!v31)
+  v32 = self->strings_;
+  if (!v32)
   {
 LABEL_47:
     JreThrowNullPointerException();
   }
 
-  v32 = maxOffset + 1;
-  v33 = v31->super.size_;
-  if (v32 >= v33)
+  v33 = maxOffset + 1;
+  v34 = v32->super.size_;
+  if (v33 >= v34)
   {
     goto LABEL_41;
   }
 
   if (maxOffset <= -2)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v33, maxOffset + 1);
+    IOSArray_throwOutOfBoundsWithMsg(v34, maxOffset + 1);
   }
 
-  v34 = (&v31->elementType_)[v32];
-  if (![string hasPrefix:v34 offset:getIndex])
+  v35 = (&v32->elementType_)[v33];
+  if (![string hasPrefix:v35 offset:getIndex])
   {
     positionCopy2 = position;
     goto LABEL_44;
   }
 
-  if (!v34)
+  if (!v35)
   {
     goto LABEL_47;
   }
 
-  getIndex = getIndex + [(IOSClass *)v34 length];
+  getIndex = getIndex + [(IOSClass *)v35 length];
 LABEL_41:
   [position setIndexWithInt:getIndex];
-  return v10;
+  return v11;
 }
 
 - (void)setFormatWithInt:(int)int withJavaTextFormat:(id)format
@@ -1426,19 +1430,19 @@ LABEL_35:
   if (objc_opt_class() == self)
   {
     v2 = IOSClass_arrayType(+[IOSClass intClass], 1u);
-    v9[0] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"argumentNumbers", v2);
-    v3 = JavaTextFormat_class_();
-    v4 = IOSClass_arrayType(v3, 1u);
-    v9[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"formats", v4);
-    v5 = JavaUtilLocale_class_();
-    v9[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"locale", v5);
-    v9[3] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"maxOffset", +[IOSClass intClass]);
-    v6 = IOSClass_arrayType(+[IOSClass intClass], 1u);
-    v9[4] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"offsets", v6);
-    v7 = NSString_class_();
-    v9[5] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"pattern", v7);
-    v8 = [IOSObjectArray newArrayWithObjects:v9 count:6 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100554F18, v8);
+    v11[0] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"argumentNumbers", v2);
+    v4 = JavaTextFormat_class_(v11[0], v3);
+    v5 = IOSClass_arrayType(v4, 1u);
+    v11[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"formats", v5);
+    v6 = JavaUtilLocale_class_();
+    v11[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"locale", v6);
+    v11[3] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"maxOffset", +[IOSClass intClass]);
+    v7 = IOSClass_arrayType(+[IOSClass intClass], 1u);
+    v11[4] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"offsets", v7);
+    v8 = NSString_class_();
+    v12 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"pattern", v8);
+    v10 = [IOSObjectArray newArrayWithObjects:v11 count:6 type:JavaIoObjectStreamField_class_(v12, v9)];
+    JreStrongAssignAndConsume(&qword_100554F18, v10);
     atomic_store(1u, &JavaTextMessageFormat__initialized);
   }
 }

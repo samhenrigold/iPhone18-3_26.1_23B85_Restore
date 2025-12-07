@@ -48,7 +48,7 @@ uint64_t __44__PUIContinuityLayoutManager_sharedInstance__block_invoke(uint64_t 
 
 - (void)appDidLaunch
 {
-  v2 = _PUILoggingFacility();
+  v2 = _PUILoggingFacility(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -82,8 +82,8 @@ uint64_t __44__PUIContinuityLayoutManager_sharedInstance__block_invoke(uint64_t 
 
 void __60__PUIContinuityLayoutManager_createContinuityDisplayMonitor__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = _PUILoggingFacility();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = _PUILoggingFacility(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"No";
@@ -92,15 +92,13 @@ void __60__PUIContinuityLayoutManager_createContinuityDisplayMonitor__block_invo
       v6 = @"Yes";
     }
 
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "Received transition for continuity layout, is active: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "Received transition for continuity layout, is active: %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setIsMirroring:a3 != 0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

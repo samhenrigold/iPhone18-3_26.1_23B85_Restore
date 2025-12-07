@@ -9,39 +9,39 @@
 
 - (FlexLegacySongRendition)initWithSong:(id)song segments:(id)segments withOptions:(id)options
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
-  v85.receiver = self;
-  v85.super_class = FlexLegacySongRendition;
-  v10 = [(FMSongRendition *)&v85 initWithSong:song andOptions:options];
+  v84.receiver = self;
+  v84.super_class = FlexLegacySongRendition;
+  v10 = [(FMSongRendition *)&v84 initWithSong:song andOptions:options];
   v11 = v10;
   if (v10)
   {
     objc_storeStrong(&v10->_segments, segments);
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     v12 = segmentsCopy;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v81, v86, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v80, v85, 16);
     if (v14)
     {
       v19 = v14;
       v20 = 0;
-      v21 = *v82;
+      v21 = *v81;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v82 != v21)
+          if (*v81 != v21)
           {
             objc_enumerationMutation(v12);
           }
 
-          v20 += objc_msgSend_duration(*(*(&v81 + 1) + 8 * i), v15, v16, v17, v18, v81);
+          v20 += objc_msgSend_duration(*(*(&v80 + 1) + 8 * i), v15, v16, v17, v18, v80);
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v81, v86, 16);
+        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v80, v85, 16);
       }
 
       while (v19);
@@ -62,7 +62,7 @@
       if (v36)
       {
         objc_msgSend_setDurationOfSilence_(v11, v37, 0, v39, v40);
-        objc_msgSend_setDurationOfMusic_(v11, v41, v20, v42, v43, v81);
+        objc_msgSend_setDurationOfMusic_(v11, v41, v20, v42, v43, v80);
       }
 
       else
@@ -71,7 +71,7 @@
         objc_msgSend_setDurationOfSilence_(v11, v50, v49, v51, v52);
         v57 = objc_msgSend_duration(v11, v53, v54, v55, v56);
         v62 = v57 - objc_msgSend_durationOfSilence(v11, v58, v59, v60, v61);
-        objc_msgSend_setDurationOfMusic_(v11, v63, v62, v64, v65, v81);
+        objc_msgSend_setDurationOfMusic_(v11, v63, v62, v64, v65, v80);
       }
     }
 
@@ -81,14 +81,13 @@
       objc_msgSend_setDurationOfSilence_(v11, v46, 0, v47, v48);
     }
 
-    v66 = objc_msgSend__durationOfOutroForPlaylist_onlyUsedDuration_(FlexLegacySongRendition, v44, v12, 1, v45, v81);
+    v66 = objc_msgSend__durationOfOutroForPlaylist_onlyUsedDuration_(FlexLegacySongRendition, v44, v12, 1, v45, v80);
     objc_msgSend_setDurationOfUsedOutro_(v11, v67, v66, v68, v69);
     v72 = objc_msgSend__durationOfOutroForPlaylist_onlyUsedDuration_(FlexLegacySongRendition, v70, v12, 0, v71);
     objc_msgSend_setDurationOfFullOutro_(v11, v73, v72, v74, v75);
     objc_msgSend__buildTracksFromSegments_(v11, v76, v12, v77, v78);
   }
 
-  v79 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -527,24 +526,7 @@ LABEL_41:
   v61[6] = &v62;
   objc_msgSend_enumerateObjectsWithOptions_usingBlock_(v5, v6, 2, v61, v7);
   v12 = v63[5];
-  if (!v12)
-  {
-    goto LABEL_3;
-  }
-
-  memset(&v60, 0, sizeof(v60));
-  v13 = objc_msgSend_integerValue(v12, v8, v9, v10, v11);
-  v18 = objc_msgSend_song(self, v14, v15, v16, v17);
-  v23 = objc_msgSend_sampleRate(v18, v19, v20, v21, v22);
-  CMTimeMake(&v60, v13, v23);
-
-  memset(&v59, 0, sizeof(v59));
-  lhs = *(v75 + 4);
-  rhs = *(v69 + 4);
-  CMTimeAdd(&v59, &lhs, &rhs);
-  lhs = v60;
-  rhs = v59;
-  if (CMTimeCompare(&lhs, &rhs) < 0)
+  if (v12 && (memset(&v60, 0, sizeof(v60)), v13 = objc_msgSend_integerValue(v12, v8, v9, v10, v11), objc_msgSend_song(self, v14, v15, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend_sampleRate(v18, v19, v20, v21, v22), CMTimeMake(&v60, v13, v23), v18, memset(&v59, 0, sizeof(v59)), lhs = *(v75 + 4), rhs = *(v69 + 4), CMTimeAdd(&v59, &lhs, &rhs), lhs = v60, rhs = v59, CMTimeCompare(&lhs, &rhs) < 0))
   {
     v24 = objc_opt_new();
     v29 = objc_msgSend_song(self, v25, v26, v27, v28);
@@ -568,7 +550,6 @@ LABEL_41:
 
   else
   {
-LABEL_3:
     v24 = 0;
   }
 

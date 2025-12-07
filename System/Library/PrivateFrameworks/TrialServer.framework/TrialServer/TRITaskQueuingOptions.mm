@@ -68,7 +68,7 @@
 
 - (TRITaskQueuingOptions)initWithCoder:(id)coder
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"duplicateTaskResolution"];
   if (v5)
@@ -87,9 +87,9 @@ LABEL_6:
 
   if (([coderCopy containsValueForKey:@"duplicateTaskResolution"] & 1) == 0)
   {
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Missing serialized value for TRITaskQueuingOptions.duplicateTaskResolution";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Missing serialized value for TRITaskQueuingOptions.duplicateTaskResolution";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskQueuingOptionsOCNTErrorDomain" code:1 userInfo:v8];
     [coderCopy failWithError:v9];
 
@@ -101,7 +101,6 @@ LABEL_2:
   selfCopy = self;
 LABEL_7:
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

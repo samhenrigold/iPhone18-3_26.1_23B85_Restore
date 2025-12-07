@@ -86,19 +86,20 @@
 
 - (BOOL)getObjectValue:(id *)value forString:(id)string errorDescription:(id *)description
 {
-  v9 = NAN;
-  started = TSUDurationFormatterTimeIntervalFromStringWithCompactStyleStartUnit(string, &v9, 0, 0, [(OITSUDurationFormatter *)self compactStyleStartUnit], [(OITSUDurationFormatter *)self locale]);
+  v11 = NAN;
+  started = TSUDurationFormatterTimeIntervalFromStringWithCompactStyleStartUnit(string, &v11, 0, 0, [(OITSUDurationFormatter *)self compactStyleStartUnit], [(OITSUDurationFormatter *)self locale]);
+  v9 = started;
   if (started)
   {
-    *value = [MEMORY[0x277CCABB0] numberWithDouble:v9];
+    *value = [MEMORY[0x277CCABB0] numberWithDouble:v11];
   }
 
   else if (description)
   {
-    *description = [SFUBundle() localizedStringForKey:@"The time is invalid." value:&stru_286EE1130 table:@"TSUtility"];
+    *description = [SFUBundle(started v8)];
   }
 
-  return started;
+  return v9;
 }
 
 @end

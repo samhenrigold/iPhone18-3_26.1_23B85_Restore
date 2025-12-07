@@ -85,18 +85,18 @@
 - (void)createDirectories
 {
   v3 = +[IXFileManager defaultManager];
-  v31 = 0;
-  v4 = [(IXGlobalConfiguration *)self _dataStorageHomeURLWithError:&v31];
-  v5 = v31;
+  v33 = 0;
+  v4 = [(IXGlobalConfiguration *)self _dataStorageHomeURLWithError:&v33];
+  v5 = v33;
   v6 = v5;
   if (!v4)
   {
-    sub_100098124(&v32, buf);
+    sub_100098124(&v34, buf);
   }
 
-  v30 = v5;
-  v7 = [v4 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:&v30];
-  v8 = v30;
+  v32 = v5;
+  v7 = [v4 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:&v32];
+  v8 = v32;
 
   if ((v7 & 1) == 0)
   {
@@ -114,37 +114,46 @@
     }
   }
 
-  v29 = v8;
-  v11 = [(IXGlobalConfiguration *)self dataDirectoryWithError:&v29];
-  v12 = v29;
+  v31 = v8;
+  v11 = [(IXGlobalConfiguration *)self dataDirectoryWithError:&v31];
+  v12 = v31;
 
   if (!v11)
   {
-    sub_1000980B8(&v32, buf);
+    sub_1000980B8(&v34, buf);
   }
 
-  v28 = v12;
-  v13 = [v3 createDirectoryAtURL:v11 withIntermediateDirectories:1 mode:489 class:4 error:&v28];
-  v14 = v28;
+  v30 = v12;
+  v13 = [v3 createDirectoryAtURL:v11 withIntermediateDirectories:1 mode:489 class:4 error:&v30];
+  v14 = v30;
 
   if ((v13 & 1) == 0)
   {
-    v27 = 0;
-    v38 = 0u;
+    v29 = 0;
+    v40 = 0u;
+    v41 = 0u;
     v39 = 0u;
-    v37 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
     path2 = [v11 path];
-    v32 = 138412546;
-    v33 = path2;
-    v34 = 2112;
-    v35 = v14;
-    _os_log_send_and_compose_impl();
+    v34 = 138412546;
+    v35 = path2;
+    v36 = 2112;
+    v37 = v14;
+    _os_log_send_and_compose_impl(v23, &v29, buf, 80, &_mh_execute_header, &_os_log_default, 16, "Failed to create data directory at %@ : %@", &v34, 22);
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_18;
+    goto LABEL_21;
   }
 
   v15 = sub_1000031B0(off_100121958);
@@ -158,34 +167,43 @@
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: Created %@", buf, 0x16u);
   }
 
-  v26 = v14;
-  v17 = [(IXGlobalConfiguration *)self removabilityDirectoryWithError:&v26];
-  v18 = v26;
+  v28 = v14;
+  v17 = [(IXGlobalConfiguration *)self removabilityDirectoryWithError:&v28];
+  v18 = v28;
 
   if (!v17)
   {
-LABEL_18:
-    sub_10009804C(&v32, buf);
+LABEL_21:
+    sub_10009804C(&v34, buf);
   }
 
-  v25 = v18;
-  v19 = [v3 createDirectoryAtURL:v17 withIntermediateDirectories:1 mode:489 class:4 error:&v25];
-  v20 = v25;
+  v27 = v18;
+  v19 = [v3 createDirectoryAtURL:v17 withIntermediateDirectories:1 mode:489 class:4 error:&v27];
+  v20 = v27;
 
   if ((v19 & 1) == 0)
   {
-    v27 = 0;
-    v38 = 0u;
+    v29 = 0;
+    v40 = 0u;
+    v41 = 0u;
     v39 = 0u;
-    v37 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 2;
+    }
+
     path4 = [v17 path];
-    v32 = 138412546;
-    v33 = path4;
-    v34 = 2112;
-    v35 = v20;
-    _os_log_send_and_compose_impl();
+    v34 = 138412546;
+    v35 = path4;
+    v36 = 2112;
+    v37 = v20;
+    _os_log_send_and_compose_impl(v25, &v29, buf, 80, &_mh_execute_header, &_os_log_default, 16, "Failed to create removability directory at %@ : %@", &v34, 22);
 
     _os_crash_msg();
     __break(1u);
@@ -301,25 +319,32 @@ LABEL_18:
 {
   locationCopy = location;
   nameCopy = name;
-  v12 = 0;
-  v8 = [(IXGlobalConfiguration *)self promiseStagingRootForInstallLocation:locationCopy usingUniqueName:nameCopy error:&v12];
-  v9 = v12;
+  v15 = 0;
+  v8 = [(IXGlobalConfiguration *)self promiseStagingRootForInstallLocation:locationCopy usingUniqueName:nameCopy error:&v15];
+  v9 = v15;
   if (!v8)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v19 = 0u;
+    v14 = 0;
+    memset(v22, 0, sizeof(v22));
     v11 = v9;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v13 = 138412802;
-    v14 = locationCopy;
-    v15 = 2112;
-    v16 = nameCopy;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_send_and_compose_impl();
+    v12 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v16 = 138412802;
+    if (v12)
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    v17 = locationCopy;
+    v18 = 2112;
+    v19 = nameCopy;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_send_and_compose_impl(v13, &v14, v22, 80, &_mh_execute_header, &_os_log_default, 16, "Failed to get promise staging directory for install location %@ with uniqueName %@: %@", &v16, 32);
     _os_crash_msg();
     __break(1u);
   }

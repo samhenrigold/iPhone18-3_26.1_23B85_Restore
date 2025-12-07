@@ -79,12 +79,26 @@
   return v7;
 }
 
+- (void)listener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 processIdentifier];
+  OUTLINED_FUNCTION_4_6(&dword_1954A0000, v1, v2, "Receiving connection request from %d", v3, v4, v5, v6, v7);
+}
+
 - (void)listener:(void *)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
   v4 = *MEMORY[0x1E69E9840];
   v3[0] = 67109120;
   v3[1] = [a1 processIdentifier];
   _os_log_error_impl(&dword_1954A0000, a2, OS_LOG_TYPE_ERROR, "Rejecting connection from %d", v3, 8u);
+}
+
+- (void)listener:(void *)a1 shouldAcceptNewConnection:.cold.3(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 processIdentifier];
+  OUTLINED_FUNCTION_4_6(&dword_1954A0000, v1, v2, "Accepting connection from %d", v3, v4, v5, v6, v7);
 }
 
 @end

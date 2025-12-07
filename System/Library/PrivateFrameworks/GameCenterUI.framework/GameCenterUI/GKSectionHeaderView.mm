@@ -398,11 +398,13 @@ LABEL_11:
 
 - (void)rightButtonTouched:(id)touched
 {
-  touched;
+  touchedCopy = touched;
+  v5 = touchedCopy;
   if (self->_showAllAction)
   {
+    v13 = touchedCopy;
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v5 = mEMORY[0x277D75128];
+    v7 = mEMORY[0x277D75128];
     if (self->_showAllAction)
     {
       showAllAction = self->_showAllAction;
@@ -413,34 +415,36 @@ LABEL_11:
       showAllAction = 0;
     }
 
-    v9 = [mEMORY[0x277D75128] _gkTargetForAction:showAllAction viaResponder:self];
+    v11 = [mEMORY[0x277D75128] _gkTargetForAction:showAllAction viaResponder:self];
 
-    v10 = self->_showAllAction;
-    if (v10)
+    v12 = self->_showAllAction;
+    if (v12)
     {
-      [v9 v10];
+      [v11 v12];
     }
 
     else
     {
-      [v9 0];
+      [v11 0];
     }
+
+    goto LABEL_12;
   }
 
-  else
+  rightTarget = self->_rightTarget;
+  if (rightTarget)
   {
-    rightTarget = self->_rightTarget;
-    if (rightTarget)
+    rightAction = self->_rightAction;
+    if (rightAction)
     {
-      rightAction = self->_rightAction;
-      if (rightAction)
-      {
-        [rightTarget _gkPerformSelector:rightAction withObject:self];
-      }
+      v13 = v5;
+      rightTarget = [rightTarget _gkPerformSelector:rightAction withObject:self];
+LABEL_12:
+      v5 = v13;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](rightTarget, v5);
 }
 
 - (SEL)showAllAction

@@ -10,9 +10,9 @@
 {
   peerCopy = peer;
   replyCopy = reply;
-  v18.receiver = self;
-  v18.super_class = W5PeerStatusRequest;
-  v9 = [(W5PeerStatusRequest *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = W5PeerStatusRequest;
+  v9 = [(W5PeerStatusRequest *)&v19 init];
   v10 = v9;
   if (peerCopy && v9 && (objc_storeStrong(&v9->_peer, peer), replyCopy))
   {
@@ -38,13 +38,14 @@
     _currentVersion = sub_100098A04();
     if (os_log_type_enabled(_currentVersion, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315650;
-      v20 = "[W5PeerStatusRequest initWithPeer:reply:]";
-      v21 = 2080;
-      v22 = "W5PeerStatusRequest.m";
-      v23 = 1024;
-      v24 = 48;
-      _os_log_send_and_compose_impl();
+      v20 = 136315650;
+      v21 = "[W5PeerStatusRequest initWithPeer:reply:]";
+      v22 = 2080;
+      v23 = "W5PeerStatusRequest.m";
+      v24 = 1024;
+      v25 = 48;
+      LODWORD(v18) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, _currentVersion, 0, "[wifivelocity] %s (%s:%u) init error!", &v20, v18, LODWORD(v19.receiver));
     }
 
     v10 = 0;
@@ -76,15 +77,15 @@
     {
       if (v10)
       {
-        v16 = 136315906;
-        v17 = "[W5PeerStatusRequest handleResponse:]";
-        v18 = 2080;
-        v19 = "W5PeerStatusRequest.m";
-        v20 = 1024;
-        v21 = 62;
-        v22 = 2114;
-        v23 = error2;
-        _os_log_send_and_compose_impl();
+        v17 = 136315906;
+        v18 = "[W5PeerStatusRequest handleResponse:]";
+        v19 = 2080;
+        v20 = "W5PeerStatusRequest.m";
+        v21 = 1024;
+        v22 = 62;
+        v23 = 2114;
+        v24 = error2;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) peer status='%{public}@'", &v17, 38);
       }
 
       reply2 = [(W5PeerStatusRequest *)self reply];
@@ -95,23 +96,24 @@
     {
       if (v10)
       {
-        [(W5PeerStatusRequest *)self peer];
-        v16 = 136315906;
-        v17 = "[W5PeerStatusRequest handleResponse:]";
-        v18 = 2080;
-        v19 = "W5PeerStatusRequest.m";
-        v20 = 1024;
-        v21 = 65;
-        v23 = v22 = 2114;
-        _os_log_send_and_compose_impl();
+        peer = [(W5PeerStatusRequest *)self peer];
+        v17 = 136315906;
+        v18 = "[W5PeerStatusRequest handleResponse:]";
+        v19 = 2080;
+        v20 = "W5PeerStatusRequest.m";
+        v21 = 1024;
+        v22 = 65;
+        v23 = 2114;
+        v24 = peer;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) failed to retrieve status object from peer='%{public}@'", &v17, 38);
       }
 
       reply2 = [(W5PeerStatusRequest *)self reply];
-      v14 = NSLocalizedFailureReasonErrorKey;
-      v15 = @"W5PeerStatusResponseUndefinedError";
-      v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v13 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:15 userInfo:v12];
-      (reply2)[2](reply2, v13, 0);
+      v15 = NSLocalizedFailureReasonErrorKey;
+      v16 = @"W5PeerStatusResponseUndefinedError";
+      v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:15 userInfo:v13];
+      (reply2)[2](reply2, v14, 0);
     }
   }
 }

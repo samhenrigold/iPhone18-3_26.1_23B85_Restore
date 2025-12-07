@@ -13,6 +13,7 @@
 - (void)addClientConnection:(id)connection clientLink:(id)link;
 - (void)dealloc;
 - (void)performBlockOnAllClients:(id)clients excludingClient:(id)client;
+- (void)performBlockOnAllClients:(id)clients excludingCurrent:(BOOL)current;
 - (void)performBlockOnClientInfos:(id)infos excludeCurrent:(BOOL)current;
 - (void)performBlockOnCurrentClient:(id)client;
 - (void)removeClientConnection:(id)connection;
@@ -72,13 +73,13 @@
 
 - (void)startListening
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
+    v10 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming connection", &v11, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming connection", &v10, 0xCu);
   }
 
   [(NSXPCListener *)self->_connectionListener resume];
@@ -90,11 +91,11 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       lifecycleNotification2 = [(MTXPCConnectionInfo *)self->_info lifecycleNotification];
-      v11 = 138543618;
+      v10 = 138543618;
       selfCopy2 = self;
-      v13 = 2114;
-      v14 = lifecycleNotification2;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Listener %{public}@ posting lifecycle darwin notification %{public}@", &v11, 0x16u);
+      v12 = 2114;
+      v13 = lifecycleNotification2;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Listener %{public}@ posting lifecycle darwin notification %{public}@", &v10, 0x16u);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -102,8 +103,6 @@
     lifecycleNotification3 = [info lifecycleNotification];
     CFNotificationCenterPostNotification(DarwinNotifyCenter, lifecycleNotification3, 0, 0, 1u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -196,7 +195,7 @@ void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___
 
 void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = [v3 _xpcConnection];
@@ -224,16 +223,15 @@ void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v13 = WeakRetained;
-    v14 = 2114;
-    v15 = v3;
-    v16 = 2114;
-    v17 = v9;
+    v12 = WeakRetained;
+    v13 = 2114;
+    v14 = v3;
+    v15 = 2114;
+    v16 = v9;
     _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidation handler called for connection %{public}@ with error: %{public}@", buf, 0x20u);
   }
 
   [WeakRetained _didInvalidateConnection:v3];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___block_invoke_17(uint64_t a1)
@@ -244,13 +242,10 @@ void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___
 
 - (void)_didInterruptConnection
 {
-  v9 = *MEMORY[0x1E69E9840];
   info = [self info];
   machServiceName = [info machServiceName];
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didInvalidateConnection:(id)connection
@@ -292,7 +287,7 @@ void __70__MTXPCConnectionListenerProvider_listener_shouldAcceptNewConnection___
 
 void __66__MTXPCConnectionListenerProvider_addClientConnection_clientLink___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AE30] processInfo];
   if (*(a1 + 32))
   {
@@ -311,11 +306,11 @@ void __66__MTXPCConnectionListenerProvider_addClientConnection_clientLink___bloc
         {
           v9 = [*(a1 + 48) info];
           v10 = [v9 machServiceName];
-          v18 = 138543618;
-          v19 = v10;
-          v20 = 2114;
-          v21 = v4;
-          _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Already has XPC client: %{public}@", &v18, 0x16u);
+          v17 = 138543618;
+          v18 = v10;
+          v19 = 2114;
+          v20 = v4;
+          _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Already has XPC client: %{public}@", &v17, 0x16u);
         }
       }
 
@@ -325,11 +320,11 @@ void __66__MTXPCConnectionListenerProvider_addClientConnection_clientLink___bloc
         {
           v11 = [*(a1 + 48) info];
           v12 = [v11 machServiceName];
-          v18 = 138543618;
-          v19 = v12;
-          v20 = 2114;
-          v21 = v4;
-          _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding XPC client: %{public}@", &v18, 0x16u);
+          v17 = 138543618;
+          v18 = v12;
+          v19 = 2114;
+          v20 = v4;
+          _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding XPC client: %{public}@", &v17, 0x16u);
         }
 
         v7 = [*(a1 + 48) clients];
@@ -342,16 +337,14 @@ void __66__MTXPCConnectionListenerProvider_addClientConnection_clientLink___bloc
         v14 = [*(a1 + 48) info];
         v15 = [v14 machServiceName];
         v16 = *(*(a1 + 48) + 40);
-        v18 = 138543618;
-        v19 = v15;
-        v20 = 2114;
-        v21 = v16;
-        _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Current XPC clients: %{public}@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v15;
+        v19 = 2114;
+        v20 = v16;
+        _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Current XPC clients: %{public}@", &v17, 0x16u);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeClientConnection:(id)connection
@@ -370,27 +363,27 @@ void __66__MTXPCConnectionListenerProvider_addClientConnection_clientLink___bloc
 
 void __58__MTXPCConnectionListenerProvider_removeClientConnection___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = [*(a1 + 32) _connectedClients];
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = [v7 connection];
         v9 = *(a1 + 40);
 
@@ -402,9 +395,9 @@ void __58__MTXPCConnectionListenerProvider_removeClientConnection___block_invoke
             v11 = [*(a1 + 32) info];
             v12 = [v11 machServiceName];
             *buf = 138543618;
-            v24 = v12;
-            v25 = 2114;
-            v26 = v7;
+            v23 = v12;
+            v24 = 2114;
+            v25 = v7;
             _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing XPC client: %{public}@", buf, 0x16u);
           }
 
@@ -415,7 +408,7 @@ void __58__MTXPCConnectionListenerProvider_removeClientConnection___block_invoke
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -434,13 +427,11 @@ LABEL_13:
     v16 = [v15 machServiceName];
     v17 = *(*(a1 + 32) + 40);
     *buf = 138543618;
-    v24 = v16;
-    v25 = 2114;
-    v26 = v17;
+    v23 = v16;
+    v24 = 2114;
+    v25 = v17;
     _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Current XPC clients: %{public}@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)connectedClients
@@ -536,29 +527,29 @@ intptr_t __48__MTXPCConnectionListenerProvider_currentClient__block_invoke(uint6
 
 - (id)_currentClientForConnection:(id)connection
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   if (connectionCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     _connectedClients = [(MTXPCConnectionListenerProvider *)self _connectedClients];
-    v6 = [_connectedClients countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [_connectedClients countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(_connectedClients);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           connection = [v9 connection];
 
           if (connection == connectionCopy)
@@ -568,7 +559,7 @@ intptr_t __48__MTXPCConnectionListenerProvider_currentClient__block_invoke(uint6
           }
         }
 
-        v6 = [_connectedClients countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [_connectedClients countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -585,8 +576,6 @@ LABEL_12:
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -614,6 +603,19 @@ void __63__MTXPCConnectionListenerProvider_performBlockOnCurrentClient___block_i
   v2 = *(a1 + 48);
   v3 = [v4 clientLink];
   (*(v2 + 16))(v2, v3);
+}
+
+- (void)performBlockOnAllClients:(id)clients excludingCurrent:(BOOL)current
+{
+  currentCopy = current;
+  clientsCopy = clients;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __77__MTXPCConnectionListenerProvider_performBlockOnAllClients_excludingCurrent___block_invoke;
+  v8[3] = &unk_1E7B0F8F0;
+  v9 = clientsCopy;
+  v7 = clientsCopy;
+  [(MTXPCConnectionListenerProvider *)self performBlockOnClientInfos:v8 excludeCurrent:currentCopy];
 }
 
 void __77__MTXPCConnectionListenerProvider_performBlockOnAllClients_excludingCurrent___block_invoke(uint64_t a1, void *a2)
@@ -694,31 +696,31 @@ void __76__MTXPCConnectionListenerProvider_performBlockOnAllClients_excludingCli
 
 - (void)_performBlockOnClientInfos:(id)infos excludingClient:(id)client
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   infosCopy = infos;
   clientCopy = client;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _connectedClients = [(MTXPCConnectionListenerProvider *)self _connectedClients];
-  v9 = [_connectedClients countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [_connectedClients countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(_connectedClients);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
-        if (!clientCopy || ([*(*(&v15 + 1) + 8 * v12) isEqual:clientCopy] & 1) == 0)
+        v13 = *(*(&v14 + 1) + 8 * v12);
+        if (!clientCopy || ([*(*(&v14 + 1) + 8 * v12) isEqual:clientCopy] & 1) == 0)
         {
           infosCopy[2](infosCopy, v13);
         }
@@ -727,13 +729,11 @@ void __76__MTXPCConnectionListenerProvider_performBlockOnAllClients_excludingCli
       }
 
       while (v10 != v12);
-      v10 = [_connectedClients countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [_connectedClients countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -774,22 +774,18 @@ void __76__MTXPCConnectionListenerProvider_performBlockOnAllClients_excludingCli
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Connection %{public}@ not entitled", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Connection %{public}@ not entitled", &v2, 0xCu);
 }
 
 - (void)_didInvalidateConnection:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 info];
-  v8 = [v1 machServiceName];
+  v7 = [v1 machServiceName];
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -26,7 +26,7 @@
 
 - (id)copyEndpoint
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   service = [(NREndpoint *)self service];
   if (service)
   {
@@ -35,9 +35,9 @@
 
     if (usesASQUIC)
     {
-      v36[0] = 0;
-      v36[1] = 0;
-      MEMORY[0x25F8744B0](v36);
+      v30[0] = 0;
+      v30[1] = 0;
+      MEMORY[0x25F8744B0](v30);
       service2 = [(NREndpoint *)self service];
       [service2 UTF8String];
       application_service = nw_endpoint_create_application_service();
@@ -60,7 +60,7 @@ LABEL_27:
             nw_endpoint_set_device_id();
           }
 
-          goto LABEL_30;
+          return application_service;
         }
       }
 
@@ -106,12 +106,13 @@ LABEL_27:
       LOWORD(v24) = 0;
     }
 
-    *(v36 + 4) = 0uLL;
-    *(&v36[2] + 4) = 0;
-    LOWORD(v36[0]) = 7708;
-    WORD1(v36[0]) = v24;
-    [v23 getBytes:&v36[1] length:16];
-    v32 = [MEMORY[0x277CD91B8] endpointWithAddress:v36];
+    *(&v30[1] + 4) = 0;
+    *(v30 + 4) = 0;
+    *(&v30[2] + 4) = 0;
+    LOWORD(v30[0]) = 7708;
+    WORD1(v30[0]) = v24;
+    [v23 getBytes:&v30[1] length:16];
+    v27 = [MEMORY[0x277CD91B8] endpointWithAddress:v30];
   }
 
   else
@@ -123,28 +124,26 @@ LABEL_27:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj, OS_LOG_TYPE_ERROR))
     {
-      v30 = nrCopyLogObj_sNRLogObj;
+      v25 = nrCopyLogObj_sNRLogObj;
       if (v20 < 5 && ((0x1Bu >> v20) & 1) != 0)
       {
-        v31 = off_27996ADB0[v20];
+        v26 = off_27996ADB0[v20];
       }
 
       else
       {
-        v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown[%lld]", v20];
+        v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown[%lld]", v20];
       }
 
-      _NRLogWithArgs(v30, 16, "%s%.30s:%-4d Failed to resolve endpoint for %@ %@", v25, v26, v27, v28, v29, "");
+      _NRLogWithArgs(v25, 16, "%s%.30s:%-4d Failed to resolve endpoint for %@ %@", ", "NREndpointResolve"", 169, v18, v26);
     }
 
-    v32 = [MEMORY[0x277CD91B8] endpointWithHostname:@"::" port:v19];
+    v27 = [MEMORY[0x277CD91B8] endpointWithHostname:@"::" port:v19];
   }
 
-  v33 = v32;
+  v28 = v27;
 
-  application_service = [v33 copyCEndpoint];
-LABEL_30:
-  v34 = *MEMORY[0x277D85DE8];
+  application_service = [v28 copyCEndpoint];
   return application_service;
 }
 
@@ -181,7 +180,7 @@ LABEL_30:
 
 - (id)initInternalWithDeviceIdentifier:(void *)identifier portString:(int)string dataProtectionClass:(void *)class service:
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v9 = a2;
   identifierCopy = identifier;
   classCopy = class;
@@ -192,6 +191,40 @@ LABEL_30:
 
   if (!v9)
   {
+    v24 = nrCopyLogObj();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v28 = v24;
+      v29 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+
+      if (!v29)
+      {
+LABEL_21:
+        v31 = _os_log_pack_size();
+        v33 = &v56 - ((MEMORY[0x28223BE20](v31, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v34 = *__error();
+        v35 = _os_log_pack_fill(v33, v31, v34, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier");
+LABEL_28:
+        *v35 = 136446466;
+        *(v35 + 4) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
+        *(v35 + 12) = 2080;
+        *(v35 + 14) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
+        goto LABEL_32;
+      }
+    }
+
+    v30 = nrCopyLogObj();
+    _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", ", "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]", 227, "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]"");
+
+    goto LABEL_21;
+  }
+
+  if (!identifierCopy)
+  {
     v25 = nrCopyLogObj();
     if (sNRCopyLogToStdErr == 1)
     {
@@ -199,22 +232,27 @@ LABEL_30:
 
     else
     {
-      v29 = v25;
-      v30 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+      v36 = v25;
+      v37 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-      if (!v30)
+      if (!v37)
       {
-        goto LABEL_27;
+LABEL_24:
+        v39 = _os_log_pack_size();
+        v33 = &v56 - ((MEMORY[0x28223BE20](v39, v40) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v41 = *__error();
+        v35 = _os_log_pack_fill(v33, v39, v41, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL portString");
+        goto LABEL_28;
       }
     }
 
-    v31 = nrCopyLogObj();
-    _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", v32, v33, v34, v35, v36, "");
+    v38 = nrCopyLogObj();
+    _NRLogWithArgs(v38, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL portString", ", "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]", 228, "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]"");
 
-    goto LABEL_27;
+    goto LABEL_24;
   }
 
-  if (!identifierCopy)
+  if ((string - 5) <= 0xFFFFFFFD)
   {
     v26 = nrCopyLogObj();
     if (sNRCopyLogToStdErr == 1)
@@ -223,22 +261,30 @@ LABEL_30:
 
     else
     {
-      v37 = v26;
-      v38 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+      v42 = v26;
+      v43 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
 
-      if (!v38)
+      if (!v43)
       {
-        goto LABEL_27;
+LABEL_27:
+        v45 = _os_log_pack_size();
+        v33 = &v56 - ((MEMORY[0x28223BE20](v45, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v47 = *__error();
+        v35 = _os_log_pack_fill(v33, v45, v47, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL dataProtectionClass == NRDataProtectionClassC || dataProtectionClass == NRDataProtectionClassD");
+        goto LABEL_28;
       }
     }
 
-    v39 = nrCopyLogObj();
-    _NRLogWithArgs(v39, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL portString", v40, v41, v42, v43, v44, "");
+    v44 = nrCopyLogObj();
+    _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL dataProtectionClass == NRDataProtectionClassC || dataProtectionClass == NRDataProtectionClassD", ", "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]", 229, "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]"");
 
     goto LABEL_27;
   }
 
-  if ((string - 5) <= 0xFFFFFFFD)
+  v57.receiver = self;
+  v57.super_class = NREndpoint;
+  v12 = objc_msgSendSuper2(&v57, sel_init);
+  if (!v12)
   {
     v27 = nrCopyLogObj();
     if (sNRCopyLogToStdErr == 1)
@@ -247,64 +293,28 @@ LABEL_30:
 
     else
     {
-      v45 = v27;
-      v46 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+      v48 = v27;
+      v49 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
 
-      if (!v46)
+      if (!v49)
       {
-LABEL_27:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v53 = *__error();
-        v54 = _os_log_pack_fill();
-        *v54 = 136446466;
-        *(v54 + 4) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
-        *(v54 + 12) = 2080;
-        *(v54 + 14) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
-        goto LABEL_31;
-      }
-    }
-
-    v47 = nrCopyLogObj();
-    _NRLogWithArgs(v47, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL dataProtectionClass == NRDataProtectionClassC || dataProtectionClass == NRDataProtectionClassD", v48, v49, v50, v51, v52, "");
-
-    goto LABEL_27;
-  }
-
-  v66.receiver = self;
-  v66.super_class = NREndpoint;
-  v12 = objc_msgSendSuper2(&v66, sel_init);
-  if (!v12)
-  {
-    v28 = nrCopyLogObj();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v55 = v28;
-      v56 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-
-      if (!v56)
-      {
-LABEL_30:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v63 = *__error();
-        v64 = _os_log_pack_fill();
-        *v64 = 136446210;
-        *(v64 + 4) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
 LABEL_31:
-        v65 = nrCopyLogObj();
-        _NRLogAbortWithPack(v65);
+        v51 = _os_log_pack_size();
+        v33 = &v56 - ((MEMORY[0x28223BE20](v51, v52) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v53 = __error();
+        v54 = _os_log_pack_fill(v33, v51, *v53, &dword_25B98C000, "%{public}s [super init] failed");
+        *v54 = 136446210;
+        *(v54 + 4) = "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]";
+LABEL_32:
+        v55 = nrCopyLogObj();
+        _NRLogAbortWithPack(v55, v33);
       }
     }
 
-    v57 = nrCopyLogObj();
-    _NRLogWithArgs(v57, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v58, v59, v60, v61, v62, "");
+    v50 = nrCopyLogObj();
+    _NRLogWithArgs(v50, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NREndpoint initInternalWithDeviceIdentifier:portString:dataProtectionClass:service:]"", 230);
 
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   self = v12;
@@ -337,7 +347,6 @@ LABEL_31:
   *(self + 9) = bOOLValue;
 LABEL_10:
 
-  v23 = *MEMORY[0x277D85DE8];
   return self;
 }
 

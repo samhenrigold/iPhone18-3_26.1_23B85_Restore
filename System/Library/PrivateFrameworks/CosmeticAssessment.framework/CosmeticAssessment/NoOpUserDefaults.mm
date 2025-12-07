@@ -20,12 +20,12 @@
     memset(v4, 0, sizeof(v4));
   }
 
-  sub_247C27100(v4, &unk_27EE63300);
+  sub_247C27100(v4, &unk_27EE63300, &unk_247D23DF0);
 }
 
 - (void)setURL:(id)l forKey:(id)key
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE63220);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE63220, &unk_247D23BF0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v10 - v6;
   if (l)
@@ -41,7 +41,7 @@
     (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  sub_247C27100(v7, &qword_27EE63220);
+  sub_247C27100(v7, &qword_27EE63220, &unk_247D23BF0);
 }
 
 - (_TtC18CosmeticAssessmentP33_BE684D266D0968A7C25A12883B94DB4416NoOpUserDefaults)initWithSuiteName:(id)name

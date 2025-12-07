@@ -17,7 +17,7 @@
 
 - (id)deviceOwnerPersonUUIDWithIgnoreContactsLinking:(BOOL)linking
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1DE8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1DE8, &qword_22F992220);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   selfCopy = self;

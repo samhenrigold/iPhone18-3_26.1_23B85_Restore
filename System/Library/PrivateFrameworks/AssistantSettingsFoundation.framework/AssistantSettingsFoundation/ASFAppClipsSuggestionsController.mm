@@ -5,6 +5,9 @@
 - (BOOL)learnFromAppClipsEnabled;
 - (BOOL)suggestAppClipsEnabled;
 - (void)_synchronizeDisabledSpotlightApps;
+- (void)setLearnFromAppClipsEnabled:(BOOL)enabled;
+- (void)setShowInSearchEnabled:(BOOL)enabled;
+- (void)setSuggestAppClipsEnabled:(BOOL)enabled;
 @end
 
 @implementation ASFAppClipsSuggestionsController
@@ -30,20 +33,20 @@ uint64_t __52__ASFAppClipsSuggestionsController_sharedController__block_invoke()
 
 - (ASFAppClipsSuggestionsController)init
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v3 = getSPGetDisabledBundleSetSymbolLoc_ptr;
-  v15 = getSPGetDisabledBundleSetSymbolLoc_ptr;
+  v16 = getSPGetDisabledBundleSetSymbolLoc_ptr;
   if (!getSPGetDisabledBundleSetSymbolLoc_ptr)
   {
     v4 = SearchLibrary();
-    v13[3] = dlsym(v4, "SPGetDisabledBundleSet");
-    getSPGetDisabledBundleSetSymbolLoc_ptr = v13[3];
-    v3 = v13[3];
+    v14[3] = dlsym(v4, "SPGetDisabledBundleSet");
+    getSPGetDisabledBundleSetSymbolLoc_ptr = v14[3];
+    v3 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v3)
   {
     [ASFAvailableSuggestionAppsController _allVisibleAppBundleIds];
@@ -51,26 +54,27 @@ uint64_t __52__ASFAppClipsSuggestionsController_sharedController__block_invoke()
   }
 
   v5 = v3(1);
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v6 = getSPGetDisabledAppSetSymbolLoc_ptr;
-  v15 = getSPGetDisabledAppSetSymbolLoc_ptr;
+  v16 = getSPGetDisabledAppSetSymbolLoc_ptr;
   if (!getSPGetDisabledAppSetSymbolLoc_ptr)
   {
     v7 = SearchLibrary();
-    v13[3] = dlsym(v7, "SPGetDisabledAppSet");
-    getSPGetDisabledAppSetSymbolLoc_ptr = v13[3];
-    v6 = v13[3];
+    v14[3] = dlsym(v7, "SPGetDisabledAppSet");
+    getSPGetDisabledAppSetSymbolLoc_ptr = v14[3];
+    v6 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v6)
   {
 LABEL_9:
-    _allVisibleAppBundleIds = [ASFAvailableSuggestionAppsController _allVisibleAppBundleIds];
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(_allVisibleAppBundleIds);
+    [ASFAvailableSuggestionAppsController _allVisibleAppBundleIds];
+    v12 = v11;
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v12);
   }
 
   v8 = v6(1);
@@ -96,6 +100,14 @@ LABEL_9:
   return v10;
 }
 
+- (void)setLearnFromAppClipsEnabled:(BOOL)enabled
+{
+  CFPreferencesSetAppValue(@"SuggestionsLearnFromAppClips", [MEMORY[0x277CCABB0] numberWithBool:enabled], @"com.apple.suggestions");
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.suggestions.settingsChanged", 0, 0, 1u);
+}
+
 - (BOOL)learnFromAppClipsEnabled
 {
   v2 = CFPreferencesCopyAppValue(@"SuggestionsLearnFromAppClips", @"com.apple.suggestions");
@@ -113,6 +125,28 @@ LABEL_9:
   return bOOLValue;
 }
 
+- (void)setShowInSearchEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  disabledSpotlightBundles = self->_disabledSpotlightBundles;
+  if (enabled)
+  {
+    [(NSMutableSet *)disabledSpotlightBundles removeObject:@"com.apple.app-clips"];
+    [(NSMutableSet *)self->_disabledSpotlightApps removeObject:@"com.apple.app-clips"];
+  }
+
+  else
+  {
+    [(NSMutableSet *)disabledSpotlightBundles addObject:@"com.apple.app-clips"];
+    [(NSMutableSet *)self->_disabledSpotlightApps addObject:@"com.apple.app-clips"];
+  }
+
+  [(ASFAppClipsSuggestionsController *)self _synchronizeDisabledSpotlightApps];
+  notify_post("com.apple.spotlightui.prefschanged");
+
+  [ASFAssistantMetrics didDetailToggle:@"appsearch" bundleId:@"com.apple.app-clips" on:enabledCopy];
+}
+
 - (void)_synchronizeDisabledSpotlightApps
 {
   CFPreferencesSetAppValue(@"SBSearchDisabledBundles", [(NSMutableSet *)self->_disabledSpotlightBundles allObjects], @"com.apple.spotlightui");
@@ -121,6 +155,14 @@ LABEL_9:
   v4 = *MEMORY[0x277CBF010];
 
   CFPreferencesSynchronize(@"com.apple.spotlightui", v3, v4);
+}
+
+- (void)setSuggestAppClipsEnabled:(BOOL)enabled
+{
+  CFPreferencesSetAppValue(@"SuggestionsSuggestAppClips", [MEMORY[0x277CCABB0] numberWithBool:enabled], @"com.apple.suggestions");
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.suggestions.settingsChanged", 0, 0, 1u);
 }
 
 - (BOOL)suggestAppClipsEnabled

@@ -13,31 +13,31 @@ void __remoteXPCItem_Invalidate_block_invoke(uint64_t a1)
   }
 }
 
-void __papc_Invalidate_block_invoke()
+void __papc_Invalidate_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (v0)
+  v2 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v2)
   {
-    v1 = v0;
-    iapc_Invalidate();
+    v3 = v2;
+    iapc_Invalidate(v2);
 
-    CFRelease(v1);
+    CFRelease(v3);
   }
 }
 
-void __papm_Invalidate_block_invoke()
+void __papm_Invalidate_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (v0)
+  v2 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v2)
   {
-    v1 = v0;
-    iapm_Invalidate();
+    v3 = v2;
+    iapm_Invalidate(v2);
 
-    CFRelease(v1);
+    CFRelease(v3);
   }
 }
 
-uint64_t __papm_Invalidate_block_invoke_2()
+uint64_t __papm_Invalidate_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   CMNotificationCenterGetDefaultLocalCenter();
 
@@ -47,8 +47,9 @@ uint64_t __papm_Invalidate_block_invoke_2()
 void __playerairplay_Invalidate_block_invoke_7(uint64_t a1)
 {
   pap_setAirPlayState(*(a1 + 32), 0);
+  v2 = *(a1 + 32);
 
-  playerairplay_removeAndCleanupQueuedItemsOnAirPlayController();
+  playerairplay_removeAndCleanupQueuedItemsOnAirPlayController(v2);
 }
 
 void __itemairplay_Invalidate_block_invoke(uint64_t a1)

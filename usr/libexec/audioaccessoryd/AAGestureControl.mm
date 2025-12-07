@@ -6,6 +6,7 @@
 - (void)_aaControllerEnsureStopped;
 - (void)_activateCameraControlHIDService;
 - (void)_cancelCameraControlHIDService;
+- (void)_captureAppStatusChanged:(BOOL)changed;
 - (void)_connectedDeviceDiscoveryEnsureStarted;
 - (void)_connectedDeviceDiscoveryEnsureStopped;
 - (void)_connectedDeviceFound:(id)found;
@@ -107,7 +108,7 @@
     [(AAController *)v6 setRawGestureMessageHandler:v10];
     if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F5A24();
+      sub_1001F5A24(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -129,6 +130,54 @@
     [(AAController *)aaController invalidate];
     v4 = self->_aaController;
     self->_aaController = 0;
+  }
+}
+
+- (void)_captureAppStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1001F5B70(changedCopy, self);
+  }
+
+  self->_captureAppActive = changedCopy;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  allValues = [(NSMutableDictionary *)self->_devicesMap allValues];
+  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v13;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v13 != v8)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        v10 = *(*(&v12 + 1) + 8 * v9);
+        if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+        {
+          sub_1001F5BB8(v10, changedCopy);
+        }
+
+        [(AAGestureControl *)self _updateCameraGestureforDevice:v10];
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      v11 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = v11;
+    }
+
+    while (v11);
   }
 }
 
@@ -212,12 +261,10 @@ LABEL_6:
       v20 = [NSString stringWithFormat:@"%@%@", bluetoothAddress, @"-tacl"];
       if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
       {
-        v26 = getCurrentRoute;
-        v27 = v20;
-        LogPrintF();
+        LogPrintF(&dword_1002F7008, "[AAGestureControl _handleCameraControlGesture:forSide:forIdentifier:]", 30, "Route is currently %@, attempting route change to %@ for camera gesture tone", getCurrentRoute, v20);
       }
 
-      [v18 smartRoutingChangeRoute:{v20, v26, v27}];
+      [v18 smartRoutingChangeRoute:v20];
     }
 
     else
@@ -227,17 +274,21 @@ LABEL_6:
 
       if (v22 && dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F5C64();
+        sub_1001F5C64(getCurrentRoute);
       }
     }
 
     eventService = self->_eventService;
     if (eventService)
     {
-      [(HIDVirtualEventService *)eventService serviceID];
-      if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+      serviceID = [(HIDVirtualEventService *)eventService serviceID];
+      if (dword_1002F7008 <= 30)
       {
-        sub_1001F5CA4();
+        v25 = serviceID;
+        if (dword_1002F7008 != -1 || _LogCategory_Initialize())
+        {
+          sub_1001F5CA4(v25);
+        }
       }
 
       mach_absolute_time();
@@ -283,22 +334,23 @@ LABEL_50:
   remoteCameraControlConfig = [deviceCopy remoteCameraControlConfig];
   if (remoteCameraControlConfig >= 2)
   {
+    v5 = remoteCameraControlConfig;
     if (remoteCameraControlConfig == 3)
     {
-      v5 = 8;
+      v6 = 8;
     }
 
     else
     {
-      v5 = remoteCameraControlConfig == 2;
+      v6 = remoteCameraControlConfig == 2;
     }
 
     if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F5E48();
+      sub_1001F5E48(v5 == 2, v5 == 3);
     }
 
-    [(AAGestureControl *)self _sendRawGestureConfiguration:v5 withGestureStatus:self->_captureAppActive forAADevice:deviceCopy];
+    [(AAGestureControl *)self _sendRawGestureConfiguration:v6 withGestureStatus:self->_captureAppActive forAADevice:deviceCopy];
   }
 }
 
@@ -307,56 +359,64 @@ LABEL_50:
   p_connectedDiscovery = &self->_connectedDiscovery;
   if (!self->_connectedDiscovery)
   {
-    if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F7008 <= 30)
     {
-      sub_1001F5EB0();
+      if (dword_1002F7008 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F5EB0(self, a2, v2);
+      }
     }
 
-    v4 = objc_alloc_init(AADeviceManager);
-    [v4 setDispatchQueue:self->_dispatchQueue];
-    v5 = +[AAServicesDaemon sharedAAServicesDaemon];
-    [v4 setInternalServicesDaemon:v5];
+    v5 = objc_alloc_init(AADeviceManager);
+    [v5 setDispatchQueue:selfCopy->_dispatchQueue];
+    v6 = +[AAServicesDaemon sharedAAServicesDaemon];
+    [v5 setInternalServicesDaemon:v6];
 
-    [v4 setInterruptionHandler:&stru_1002BA8D0];
-    [v4 setInvalidationHandler:&stru_1002BA8F0];
+    [v5 setInterruptionHandler:&stru_1002BA8D0];
+    [v5 setInvalidationHandler:&stru_1002BA8F0];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000B5DD0;
+    v12[3] = &unk_1002B7820;
+    v12[4] = selfCopy;
+    [v5 setDeviceFoundHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_1000B5DD0;
+    v11[2] = sub_1000B5DDC;
     v11[3] = &unk_1002B7820;
-    v11[4] = self;
-    [v4 setDeviceFoundHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000B5DDC;
-    v10[3] = &unk_1002B7820;
-    v10[4] = self;
-    [v4 setDeviceLostHandler:v10];
-    objc_storeStrong(p_connectedDiscovery, v4);
-    connectedDiscovery = self->_connectedDiscovery;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000B5E6C;
-    v8[3] = &unk_1002B68A8;
-    v8[4] = self;
-    v9 = v4;
-    v7 = v4;
-    [(AADeviceManager *)connectedDiscovery activateWithCompletion:v8];
+    v11[4] = selfCopy;
+    [v5 setDeviceLostHandler:v11];
+    objc_storeStrong(p_connectedDiscovery, v5);
+    connectedDiscovery = selfCopy->_connectedDiscovery;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000B5E6C;
+    v9[3] = &unk_1002B68A8;
+    v9[4] = selfCopy;
+    v10 = v5;
+    v8 = v5;
+    [(AADeviceManager *)connectedDiscovery activateWithCompletion:v9];
   }
 }
 
 - (void)_connectedDeviceDiscoveryEnsureStopped
 {
-  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7008 <= 30)
   {
-    sub_1001F5FC8();
+    if (dword_1002F7008 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001F5FC8(self, a2, v2);
+    }
   }
 
-  connectedDiscovery = self->_connectedDiscovery;
+  connectedDiscovery = selfCopy->_connectedDiscovery;
   if (connectedDiscovery)
   {
     [(AADeviceManager *)connectedDiscovery invalidate];
-    v4 = self->_connectedDiscovery;
-    self->_connectedDiscovery = 0;
+    v5 = selfCopy->_connectedDiscovery;
+    selfCopy->_connectedDiscovery = 0;
   }
 }
 
@@ -370,11 +430,15 @@ LABEL_50:
   {
     identifier = [lostCopy identifier];
     [(NSMutableDictionary *)self->_devicesMap removeObjectForKey:identifier];
-    if (![(NSMutableDictionary *)self->_devicesMap count])
+    v7 = [(NSMutableDictionary *)self->_devicesMap count];
+    if (!v7)
     {
-      if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F7008 <= 30)
       {
-        sub_1001F5FE4();
+        if (dword_1002F7008 != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          sub_1001F5FE4(v7, v8, v9);
+        }
       }
 
       [(AAGestureControl *)self _observeCameraStatusEnsureStopped];
@@ -392,35 +456,34 @@ LABEL_50:
   identifierCopy = identifier;
   if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
   {
-    v10 = receivedCopy;
-    v11 = identifierCopy;
-    LogPrintF();
+    LogPrintF(&dword_1002F7008, "[AAGestureControl _rawGestureMessageReceived:fromDeviceIdentifier:]", 30, "Raw Gesture Message Received, inMessageData: %@ identifier: %@", receivedCopy, identifierCopy);
   }
 
-  if ([receivedCopy length] <= 1)
+  v8 = [receivedCopy length];
+  if (v8 <= 1)
   {
-    sub_1001F6094();
+    sub_1001F6094(v8, v9, v10);
   }
 
   else
   {
-    v12 = 0;
-    [receivedCopy getBytes:&v12 length:2];
-    v8 = v12;
-    v9 = HIBYTE(v12);
+    v13 = 0;
+    [receivedCopy getBytes:&v13 length:2];
+    v11 = v13;
+    v12 = HIBYTE(v13);
     if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F6000(v9, v8);
+      sub_1001F6000(v12, v11);
     }
 
-    if (v8 == 9 && v9 == 4)
+    if (v11 == 9 && v12 == 4)
     {
       [(AAGestureControl *)self _handleDualBudLongPressGestureForIdentifier:identifierCopy];
     }
 
     if (_os_feature_enabled_impl())
     {
-      [(AAGestureControl *)self _handleCameraControlGesture:v8 forSide:v9 forIdentifier:identifierCopy];
+      [(AAGestureControl *)self _handleCameraControlGesture:v11 forSide:v12 forIdentifier:identifierCopy];
     }
   }
 }
@@ -531,7 +594,7 @@ LABEL_50:
 {
   if (_os_feature_enabled_impl() && dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F61DC();
+    sub_1001F61DC(notification);
   }
 }
 
@@ -543,17 +606,23 @@ LABEL_50:
 
   if (v5)
   {
-    if (dword_1002F7008 <= 50 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7008 <= 50)
     {
-      sub_1001F6290();
+      if (dword_1002F7008 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        v6 = sub_1001F6290(v6, v7, v8);
+      }
     }
 
     farFieldSessionOnGoing = self->_farFieldSessionOnGoing;
     if (farFieldSessionOnGoing == 1)
     {
-      if (dword_1002F7008 <= 50 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F7008 <= 50)
       {
-        sub_1001F62AC();
+        if (dword_1002F7008 != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          sub_1001F62AC(v6, v7, v8);
+        }
       }
 
       goto LABEL_24;
@@ -571,35 +640,37 @@ LABEL_50:
         LOBYTE(farFieldSessionOnGoing) = self->_farFieldSessionOnGoing;
       }
 
-      v11 = farFieldSessionOnGoing;
-      LogPrintF();
+      LogPrintF(&dword_1002F7008, "[AAGestureControl _handleDualBudLongPressGestureForIdentifier:]", 50, "playing success sound as _farFieldSessionOnGoing == %i", farFieldSessionOnGoing);
     }
 
 LABEL_23:
     AudioServicesPlaySystemSoundWithOptions();
 LABEL_24:
-    [_LTTranslationToolKit startPersonalTranslationSession:&stru_1002BA930, v11];
+    [_LTTranslationToolKit startPersonalTranslationSession:&stru_1002BA930];
     goto LABEL_25;
   }
 
-  if (dword_1002F7008 <= 90 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F7008 <= 90)
   {
-    sub_1001F6234();
+    if (dword_1002F7008 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_1001F6234(v6, v7, v8);
+    }
   }
 
-  v7 = +[AADeviceManagerDaemon sharedAADeviceManagerDaemon];
-  availableDevices = [v7 availableDevices];
-  v9 = [availableDevices objectForKeyedSubscript:identifierCopy];
+  v10 = +[AADeviceManagerDaemon sharedAADeviceManagerDaemon];
+  availableDevices = [v10 availableDevices];
+  v12 = [availableDevices objectForKeyedSubscript:identifierCopy];
 
-  if (v9)
+  if (v12)
   {
-    v10 = +[AAFeatureOnboarding sharedInstance];
-    [v10 showAssetManagerDownloadPTAppNotificationForDevice:v9 withErrorHandler:&stru_1002BA910];
+    v13 = +[AAFeatureOnboarding sharedInstance];
+    [v13 showAssetManagerDownloadPTAppNotificationForDevice:v12 withErrorHandler:&stru_1002BA910];
   }
 
   else if (dword_1002F7008 <= 90 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F6250();
+    sub_1001F6250(identifierCopy);
   }
 
 LABEL_25:
@@ -618,7 +689,7 @@ LABEL_25:
 
   if (dword_1002F7008 <= 50 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F6380();
+    sub_1001F6380(intValue == 0, v14);
   }
 
   v8 = +[AAGestureControl sharedGestureControl];
@@ -748,14 +819,10 @@ LABEL_25:
         {
           if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
-            [(AAGestureControl *)self _updateCameraGestureforDevice:foundCopy, 0];
+            LogPrintF(&dword_1002F7008, "[AAGestureControl _connectedDeviceFound:]", 30, "Capture app already active updating device: %@", 0);
           }
 
-          else
-          {
-            [(AAGestureControl *)self _updateCameraGestureforDevice:foundCopy, v11];
-          }
+          [(AAGestureControl *)self _updateCameraGestureforDevice:foundCopy];
         }
       }
 

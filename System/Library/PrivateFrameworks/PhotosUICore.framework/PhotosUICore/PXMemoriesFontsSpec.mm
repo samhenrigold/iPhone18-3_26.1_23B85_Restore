@@ -214,7 +214,7 @@ void __46__PXMemoriesFontsSpec__fontSetByTitleFontName__block_invoke()
 {
   scaleCopy = scale;
   width = size.width;
-  result = _BaselineDistanceForFontSetSpecSetVariant(set, specSet);
+  result = _BaselineDistanceForFontSetSpecSetVariant(set, specSet, variant, size);
   if (scaleCopy)
   {
     v12 = round(width);
@@ -272,15 +272,15 @@ LABEL_13:
   width = size.width;
   v15 = _FontNameForFontSetSpecSetVariant(kind, set);
   v16 = [self capitalizationStyleForLabelKind:kind];
-  v17 = _FontSizeForFontSetSpecSetVariant(kind, set, specSet, variant);
-  v18 = _TrackingForSpecSet(kind, set);
-  v19 = _LineHeightForSpecSet(kind, set, specSet, variant);
+  v18 = _FontSizeForFontSetSpecSetVariant(kind, set, specSet, variant, v17);
+  v19 = _TrackingForSpecSet(kind, set);
+  v20 = _LineHeightForSpecSet(kind, set, specSet, variant);
   if (set && scaleCopy)
   {
-    v20 = 0.913999975;
+    v21 = 0.913999975;
     if (variant != 4)
     {
-      v20 = 1.0;
+      v21 = 1.0;
     }
 
     if (width <= 0.0)
@@ -300,41 +300,41 @@ LABEL_13:
 
     if (specSetCopy == 1)
     {
-      v23 = variant == 2;
-      v24 = &unk_1A53810A0;
+      v24 = variant == 2;
+      v25 = &unk_1A53810A0;
     }
 
     else
     {
-      v22 = 0.0;
+      v23 = 0.0;
       if (specSetCopy)
       {
 LABEL_14:
-        v20 = v20 * (width / v22);
+        v21 = v21 * (width / v23);
 LABEL_15:
-        v19 = round(v19 * v20);
-        v17 = round(v20 * v17);
+        v20 = round(v20 * v21);
+        v18 = round(v21 * v18);
         goto LABEL_16;
       }
 
-      v23 = variant == 4;
-      v24 = &unk_1A53810B0;
+      v24 = variant == 4;
+      v25 = &unk_1A53810B0;
     }
 
-    v22 = v24[v23];
+    v23 = v25[v24];
     goto LABEL_14;
   }
 
 LABEL_16:
-  v25 = objc_alloc_init(MEMORY[0x1E69DB7D8]);
-  [v25 setShadowBlurRadius:5.0];
-  v26 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.100000001];
-  [v25 setShadowColor:v26];
+  v26 = objc_alloc_init(MEMORY[0x1E69DB7D8]);
+  [v26 setShadowBlurRadius:5.0];
+  v27 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.100000001];
+  [v26 setShadowColor:v27];
 
-  [v25 setShadowOffset:{*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
-  v27 = [self textAttributesForFontName:v15 fontSize:v25 lineHeight:v16 tracking:v17 stroke:v19 shadow:v18 capitalizationStyle:0.0];
+  [v26 setShadowOffset:{*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
+  v28 = [self textAttributesForFontName:v15 fontSize:v26 lineHeight:v16 tracking:v18 stroke:v20 shadow:v19 capitalizationStyle:0.0];
 
-  return v27;
+  return v28;
 }
 
 + (id)textAttributesForFontName:(id)name fontSize:(double)size lineHeight:(double)height tracking:(double)tracking stroke:(double)stroke shadow:(id)shadow capitalizationStyle:(int64_t)style
@@ -348,7 +348,7 @@ LABEL_16:
     PXFontCreate();
   }
 
-  PXFloatApproximatelyEqualToFloat();
+  PXFloatApproximatelyEqualToFloat(height);
 }
 
 + (int64_t)numberOfLinesForLabelKind:(int64_t)kind

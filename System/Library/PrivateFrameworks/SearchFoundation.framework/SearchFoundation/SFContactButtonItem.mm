@@ -13,11 +13,11 @@
 
 - (SFContactButtonItem)initWithProtobuf:(id)protobuf
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v26.receiver = self;
-  v26.super_class = SFContactButtonItem;
-  v5 = [(SFContactButtonItem *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = SFContactButtonItem;
+  v5 = [(SFContactButtonItem *)&v25 init];
   if (v5)
   {
     contactIdentifier = [protobufCopy contactIdentifier];
@@ -49,32 +49,32 @@
       v13 = 0;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     actionTypesToShows2 = [protobufCopy actionTypesToShows];
-    v15 = [actionTypesToShows2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v15 = [actionTypesToShows2 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(actionTypesToShows2);
           }
 
-          if (*(*(&v22 + 1) + 8 * i))
+          if (*(*(&v21 + 1) + 8 * i))
           {
             [v13 addObject:?];
           }
         }
 
-        v16 = [actionTypesToShows2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [actionTypesToShows2 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v16);
@@ -89,7 +89,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

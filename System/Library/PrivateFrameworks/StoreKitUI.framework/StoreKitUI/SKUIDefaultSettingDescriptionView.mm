@@ -6,6 +6,7 @@
 + (void)requestLayoutForSettingDescription:(id)description width:(double)width context:(id)context;
 - (BOOL)hasDisclosureChevron;
 - (BOOL)setImage:(id)image forArtworkRequest:(id)request context:(id)context;
+- (void)hasDisclosureChevron;
 - (void)layoutSubviews;
 - (void)reloadWithSettingDescription:(id)description width:(double)width context:(id)context;
 - (void)setBackgroundColor:(id)color;
@@ -253,63 +254,8 @@ void __80__SKUIDefaultSettingDescriptionView_reloadWithSettingDescription_width_
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIDefaultSettingDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v27.receiver = self;
-  v27.super_class = SKUIDefaultSettingDescriptionView;
-  [(SKUIDefaultSettingDescriptionView *)&v27 layoutSubviews];
-  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-  userInterfaceLayoutDirection = [mEMORY[0x277D75128] userInterfaceLayoutDirection];
-
-  [(SKUIDefaultSettingDescriptionView *)self bounds];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  [(SKUISettingDescriptionView *)self layoutMargins];
-  if (userInterfaceLayoutDirection)
-  {
-    v23 = v22;
-  }
-
-  else
-  {
-    v23 = v21;
-  }
-
-  if (userInterfaceLayoutDirection)
-  {
-    v24 = v21;
-  }
-
-  else
-  {
-    v24 = v22;
-  }
-
-  v28.origin.x = v14;
-  v28.origin.y = v16;
-  v28.size.width = v18;
-  v28.size.height = v20;
-  v25 = CGRectGetWidth(v28) - v23 - v24;
-  v29.origin.x = v14;
-  v29.origin.y = v16;
-  v29.size.width = v18;
-  v29.size.height = v20;
-  [(SKUIViewReuseView *)self->_viewReuseView setFrame:v23, 0.0, v25, CGRectGetHeight(v29)];
-  viewElementView = self->_viewElementView;
-  [(SKUIViewReuseView *)self->_viewReuseView bounds];
-  [(UIView *)viewElementView setFrame:?];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultSettingDescriptionView layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -338,6 +284,48 @@ void __80__SKUIDefaultSettingDescriptionView_reloadWithSettingDescription_width_
   result.left = v4;
   result.top = v3;
   return result;
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDefaultSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDefaultSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDefaultSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDefaultSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
+}
+
+- (void)hasDisclosureChevron
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultSettingDescriptionView hasDisclosureChevron]";
+}
+
+- (void)reloadWithSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultSettingDescriptionView reloadWithSettingDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDefaultSettingDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

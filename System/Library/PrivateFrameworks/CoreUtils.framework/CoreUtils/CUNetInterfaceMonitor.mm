@@ -51,7 +51,7 @@
         ucat = self->_ucat;
       }
 
-      LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 0x5Au, "### No NW path", v5, v6, v7, v8, v88);
+      LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 90, "### No NW path", v5, v6, v7, v8, v88);
     }
 
 LABEL_25:
@@ -81,7 +81,7 @@ LABEL_29:
         v42 = self->_ucat;
       }
 
-      LogPrintF_safe(v42, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 0x1Eu, "Path not satisfied", v10, v11, v12, v13, v88);
+      LogPrintF_safe(v42, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 30, "Path not satisfied", v10, v11, v12, v13, v88);
     }
 
 LABEL_24:
@@ -105,7 +105,7 @@ LABEL_24:
         v43 = self->_ucat;
       }
 
-      LogPrintF_safe(v43, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 0x5Au, "### No primary interface", v15, v16, v17, v18, v88);
+      LogPrintF_safe(v43, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 90, "### No primary interface", v15, v16, v17, v18, v88);
     }
 
 LABEL_27:
@@ -132,7 +132,7 @@ LABEL_27:
         v44 = self->_ucat;
       }
 
-      LogPrintF_safe(v44, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 0x5Au, "### No interface name", v22, v23, v24, v25, v88);
+      LogPrintF_safe(v44, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 90, "### No interface name", v22, v23, v24, v25, v88);
     }
 
 LABEL_28:
@@ -167,7 +167,7 @@ LABEL_28:
   }
 
   v89 = NSPrintF("%#m", v28, v29, v30, v31, v32, v33, v34, v36);
-  LogPrintF_safe(v35, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 0x5Au, "### Get interface addresses failed: interface=%s, error=%@", v37, v38, v39, v40, v26);
+  LogPrintF_safe(v35, "[CUNetInterfaceMonitor _primaryIPChangedNW:]", 90, "### Get interface addresses failed: interface=%s, error=%@", v37, v38, v39, v40, v26);
 
 LABEL_87:
   v45 = 0;
@@ -393,7 +393,7 @@ LABEL_82:
         if (ucat->var0 != -1)
         {
 LABEL_5:
-          LogPrintF(ucat, "[CUNetInterfaceMonitor _primaryIPChanged:]", 0x5Au, "### GetPrimaryIP failed: %#m\n", v11, v12, v13, v14, v15);
+          LogPrintF(ucat, "[CUNetInterfaceMonitor _primaryIPChanged:]", 90, "### GetPrimaryIP failed: %#m\n", v11, v12, v13, v14, v15);
           return;
         }
 
@@ -439,7 +439,7 @@ LABEL_25:
               v23 = self->_ucat;
             }
 
-            LogPrintF(v23, "[CUNetInterfaceMonitor _primaryIPChanged:]", 0x1Eu, "PrimaryIPv4 changed: %##a\n", v18, v19, v20, v21, v46);
+            LogPrintF(v23, "[CUNetInterfaceMonitor _primaryIPChanged:]", 30, "PrimaryIPv4 changed: %##a\n", v18, v19, v20, v21, v46);
           }
 
 LABEL_29:
@@ -477,7 +477,7 @@ LABEL_41:
                     v28 = self->_ucat;
                   }
 
-                  LogPrintF(v28, "[CUNetInterfaceMonitor _primaryIPChanged:]", 0x1Eu, "PrimaryIPv6 changed: %##a\n", v24, v25, v26, v27, v45);
+                  LogPrintF(v28, "[CUNetInterfaceMonitor _primaryIPChanged:]", 30, "PrimaryIPv6 changed: %##a\n", v24, v25, v26, v27, v45);
                 }
 
 LABEL_45:
@@ -537,7 +537,7 @@ LABEL_63:
                   if (v43->var0 != -1)
                   {
 LABEL_58:
-                    LogPrintF(v43, "[CUNetInterfaceMonitor _primaryIPChanged:]", 0x1Eu, "PrimaryNetwork changed: %@\n", v39, v40, v41, v42, v34);
+                    LogPrintF(v43, "[CUNetInterfaceMonitor _primaryIPChanged:]", 30, "PrimaryNetwork changed: %@\n", v39, v40, v41, v42, v34);
                     goto LABEL_60;
                   }
 
@@ -623,7 +623,7 @@ LABEL_23:
     v17 = self->_ucat;
   }
 
-  LogPrintF(v17, "[CUNetInterfaceMonitor _primaryIPChanged:]", 0x5Au, "### PrimaryIP changed with no SCStore\n", v3, v4, v5, v6, v48);
+  LogPrintF(v17, "[CUNetInterfaceMonitor _primaryIPChanged:]", 90, "### PrimaryIP changed with no SCStore\n", v3, v4, v5, v6, v48);
 }
 
 - (void)_networkInterfacesChanged:(BOOL)changed
@@ -663,7 +663,7 @@ LABEL_23:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 0x5Au, "### Open socket failed: %#m\n", v11, v12, v13, v14, v15);
+    LogPrintF(ucat, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 90, "### Open socket failed: %#m\n", v11, v12, v13, v14, v15);
     return;
   }
 
@@ -715,7 +715,7 @@ LABEL_13:
   {
     v16 = self->_ucat;
 LABEL_15:
-    LogPrintF(v16, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 0x5Au, "### Get interface list failed: %#m\n", v6, v7, v8, v9, v10);
+    LogPrintF(v16, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 90, "### Get interface list failed: %#m\n", v6, v7, v8, v9, v10);
   }
 
 LABEL_21:
@@ -766,7 +766,7 @@ LABEL_44:
       if (v31->var0 != -1)
       {
 LABEL_37:
-        LogPrintF(v31, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 9u, "Network interface: Nm '%s', Type %s\n", v27, v28, v29, v30, ifa_name);
+        LogPrintF(v31, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 9, "Network interface: Nm '%s', Type %s\n", v27, v28, v29, v30, ifa_name);
         goto LABEL_38;
       }
 
@@ -837,7 +837,7 @@ LABEL_47:
         flags = self->_flags;
       }
 
-      LogPrintF(v44, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 0x1Eu, "Network interface flags changed: %#{flags} -> %#{flags}\n", v39, v40, v41, v42, flags);
+      LogPrintF(v44, "[CUNetInterfaceMonitor _networkInterfacesChanged:]", 30, "Network interface flags changed: %#{flags} -> %#{flags}\n", v39, v40, v41, v42, flags);
     }
 
 LABEL_58:
@@ -887,7 +887,7 @@ uint64_t __51__CUNetInterfaceMonitor__networkInterfacesChanged___block_invoke_2(
         ucat = self->_ucat;
       }
 
-      LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _ensureStopped]", 0x1Eu, "Monitoring stop SC", v2, v3, v4, v5, v10);
+      LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _ensureStopped]", 30, "Monitoring stop SC", v2, v3, v4, v5, v10);
     }
 
 LABEL_6:
@@ -914,7 +914,7 @@ LABEL_6:
       v8 = self->_ucat;
     }
 
-    LogPrintF_safe(v8, "[CUNetInterfaceMonitor _ensureStopped]", 0x1Eu, "Monitoring stop NW", v2, v3, v4, v5, v10);
+    LogPrintF_safe(v8, "[CUNetInterfaceMonitor _ensureStopped]", 30, "Monitoring stop NW", v2, v3, v4, v5, v10);
   }
 
 LABEL_13:
@@ -944,7 +944,7 @@ LABEL_13:
       ucat = self->_ucat;
     }
 
-    ucat = LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _ensureStartedNW]", 0x1Eu, "Monitoring start NW", v2, v3, v4, v5, v13);
+    ucat = LogPrintF_safe(ucat, "[CUNetInterfaceMonitor _ensureStartedNW]", 30, "Monitoring start NW", v2, v3, v4, v5, v13);
   }
 
 LABEL_7:
@@ -1058,7 +1058,7 @@ LABEL_33:
                 v41 = self->_ucat;
               }
 
-              LogPrintF(v41, "[CUNetInterfaceMonitor _ensureStartedSC]", 0x5Au, "### Monitoring start failed: %#m\n", v22, v23, v24, v25, v39);
+              LogPrintF(v41, "[CUNetInterfaceMonitor _ensureStartedSC]", 90, "### Monitoring start failed: %#m\n", v22, v23, v24, v25, v39);
             }
 
 LABEL_37:
@@ -1140,7 +1140,7 @@ LABEL_17:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetInterfaceMonitor _ensureStartedSC]", 0x1Eu, "Monitoring start SC", v4, v5, v6, v7, v42);
+    LogPrintF(ucat, "[CUNetInterfaceMonitor _ensureStartedSC]", 30, "Monitoring start SC", v4, v5, v6, v7, v42);
     goto LABEL_6;
   }
 }
@@ -1186,7 +1186,7 @@ LABEL_17:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetInterfaceMonitor _invalidated]", 0x1Eu, "Invalidated\n", v10, v11, v12, v13, v2);
+    LogPrintF(ucat, "[CUNetInterfaceMonitor _invalidated]", 30, "Invalidated\n", v10, v11, v12, v13, v2);
 LABEL_9:
     self->_invalidateDone = 1;
   }
@@ -1213,7 +1213,7 @@ LABEL_9:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetInterfaceMonitor _invalidate]", 0x1Eu, "Invalidate\n", v2, v3, v4, v5, v6);
+    LogPrintF(ucat, "[CUNetInterfaceMonitor _invalidate]", 30, "Invalidate\n", v2, v3, v4, v5, v6);
   }
 
 LABEL_6:
@@ -1268,7 +1268,7 @@ uint64_t __48__CUNetInterfaceMonitor_activateWithCompletion___block_invoke(uint6
   {
     v10 = *(v9 + 32);
 LABEL_3:
-    LogPrintF(v10, "[CUNetInterfaceMonitor activateWithCompletion:]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+    LogPrintF(v10, "[CUNetInterfaceMonitor activateWithCompletion:]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
     v9 = *(a1 + 32);
   }
 

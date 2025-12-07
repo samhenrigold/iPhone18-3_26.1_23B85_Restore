@@ -11,15 +11,21 @@
   v11 = _Block_copy(reply);
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
+    v12 = swift_allocObject();
+    *(v12 + 16) = v11;
     v11 = sub_1000055EC;
+  }
+
+  else
+  {
+    v12 = 0;
   }
 
   observerCopy = observer;
   bulletinCopy = bulletin;
   selfCopy = self;
-  sub_100004BA4(bulletin, sirensCopy, v11);
-  sub_1000055A4(v11);
+  sub_100004BA4(bulletin, sirensCopy, v11, v12);
+  sub_1000055A4(v11, v12);
 }
 
 - (_TtC18usernotificationsd16BulletinObserver)init

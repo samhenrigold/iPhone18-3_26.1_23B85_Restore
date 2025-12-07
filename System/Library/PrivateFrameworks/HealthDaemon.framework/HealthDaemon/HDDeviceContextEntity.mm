@@ -89,37 +89,37 @@ uint64_t __88__HDDeviceContextEntity_enumerateDeviceContextWithTransaction_error
 {
   v6 = a2;
   entityCopy = entity;
-  objc_opt_self();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__16;
-  v20 = __Block_byref_object_dispose__16;
-  v21 = 0;
-  v8 = +[HDDeviceContextEntity _propertiesForEntity];
+  v8 = objc_opt_self();
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__16;
+  v21 = __Block_byref_object_dispose__16;
+  v22 = 0;
+  v9 = +[(HDDeviceContextEntity *)v8];
   unprotectedDatabase = [entityCopy unprotectedDatabase];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__HDDeviceContextEntity__contextForEntity_transaction_error___block_invoke;
-  v13[3] = &unk_2786156E0;
-  v10 = entityCopy;
-  v14 = v10;
-  v15 = &v16;
-  LOBYTE(transaction) = [v6 getValuesForProperties:v8 database:unprotectedDatabase error:transaction handler:v13];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__HDDeviceContextEntity__contextForEntity_transaction_error___block_invoke;
+  v14[3] = &unk_2786156E0;
+  v11 = entityCopy;
+  v15 = v11;
+  v16 = &v17;
+  LOBYTE(transaction) = [v6 getValuesForProperties:v9 database:unprotectedDatabase error:transaction handler:v14];
 
   if (transaction)
   {
-    v11 = v17[5];
+    v12 = v18[5];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
 
-  return v11;
+  return v12;
 }
 
 + (id)insertDeviceContext:(id)context transaction:(id)transaction error:(id *)error
@@ -132,7 +132,7 @@ uint64_t __88__HDDeviceContextEntity_enumerateDeviceContextWithTransaction_error
   if (v11)
   {
     unprotectedDatabase = [transactionCopy unprotectedDatabase];
-    v13 = +[HDDeviceContextEntity _propertiesForEntity];
+    v13 = +[(HDDeviceContextEntity *)self];
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
     v18[2] = __63__HDDeviceContextEntity_insertDeviceContext_transaction_error___block_invoke;
@@ -175,10 +175,9 @@ uint64_t __88__HDDeviceContextEntity_enumerateDeviceContextWithTransaction_error
   v3[3] = @"currentOS_version";
   v3[4] = @"product_type_name";
   v3[5] = @"date_modified";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
 
-  return v0;
+  return v1;
 }
 
 uint64_t __63__HDDeviceContextEntity_insertDeviceContext_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
@@ -193,7 +192,7 @@ uint64_t __63__HDDeviceContextEntity_insertDeviceContext_transaction_error___blo
   v6 = *(a1 + 40);
   if (v6)
   {
-    [v6 currentOSVersion];
+    objc_msgSend_currentOSVersion(v6);
   }
 
   v7 = HKNSOperatingSystemVersionString();
@@ -334,7 +333,7 @@ LABEL_9:
 
 + (BOOL)updateSoftwareVersionForDeviceContext:(id)context transaction:(id)transaction error:(id *)error
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   transactionCopy = transaction;
   syncIdentity = [contextCopy syncIdentity];
@@ -345,10 +344,10 @@ LABEL_9:
     entity = [v11 entity];
     v13 = +[HDDeviceContextEntity _predicateForSyncEntityIdentity:](self, [entity persistentID]);
 
-    v25[0] = @"currentOS_version";
-    v25[1] = @"product_type_name";
-    v25[2] = @"date_modified";
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[0] = @"currentOS_version";
+    v24[1] = @"product_type_name";
+    v24[2] = @"date_modified";
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v15 = [transactionCopy databaseForEntityClass:self];
     v16 = [self updateProperties:v14 predicate:v13 database:v15 error:error bindingHandler:&__block_literal_global_15];
   }
@@ -377,13 +376,12 @@ LABEL_9:
     v16 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-uint64_t __81__HDDeviceContextEntity_updateSoftwareVersionForDeviceContext_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __81__HDDeviceContextEntity_updateSoftwareVersionForDeviceContext_transaction_error___block_invoke(uint64_t a1, const char *a2)
 {
-  [MEMORY[0x277CCDD30] currentOSVersionStruct];
+  objc_msgSend_currentOSVersionStruct(MEMORY[0x277CCDD30]);
   v3 = HKNSOperatingSystemVersionString();
   MEMORY[0x22AAC6BD0](a2, @"currentOS_version", v3);
 
@@ -406,7 +404,7 @@ uint64_t __81__HDDeviceContextEntity_updateSoftwareVersionForDeviceContext_trans
     entity = [v11 entity];
     v13 = +[HDDeviceContextEntity _predicateForSyncEntityIdentity:](self, [entity persistentID]);
 
-    v14 = +[HDDeviceContextEntity _propertiesForEntity];
+    v14 = +[(HDDeviceContextEntity *)self];
     v15 = [transactionCopy databaseForEntityClass:self];
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
@@ -437,7 +435,7 @@ uint64_t __63__HDDeviceContextEntity_updateDeviceContext_transaction_error___blo
   v6 = *(a1 + 40);
   if (v6)
   {
-    [v6 currentOSVersion];
+    objc_msgSend_currentOSVersion(v6);
   }
 
   v7 = HKNSOperatingSystemVersionString();
@@ -452,43 +450,41 @@ uint64_t __63__HDDeviceContextEntity_updateDeviceContext_transaction_error___blo
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"sync_identity_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"sync_identity_id";
   v2 = +[(HDHealthEntity *)HDSyncIdentityEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
-void __61__HDDeviceContextEntity__contextForEntity_transaction_error___block_invoke(uint64_t a1)
+void __61__HDDeviceContextEntity__contextForEntity_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19 = 0uLL;
-  v20 = 0;
-  v2 = HDSQLiteColumnWithNameAsString();
+  v21 = 0uLL;
+  v22 = 0;
+  v4 = HDSQLiteColumnWithNameAsString();
   HKNSOperatingSystemVersionFromString();
 
-  v3 = HDSQLiteColumnWithNameAsInt64();
-  v4 = *(a1 + 32);
-  v18 = 0;
-  v5 = [HDSyncIdentityEntity concreteIdentityForPersistentID:v3 transaction:v4 error:&v18];
-  v6 = v18;
-  if (v5)
+  v5 = HDSQLiteColumnWithNameAsInt64();
+  v6 = *(a1 + 32);
+  v20 = 0;
+  v7 = [HDSyncIdentityEntity concreteIdentityForPersistentID:v5 transaction:v6 error:&v20];
+  v8 = v20;
+  if (v7)
   {
-    v7 = [HDDeviceContext alloc];
-    v8 = HDSQLiteColumnWithNameAsInt64();
-    v9 = HDSQLiteColumnWithNameAsString();
-    v10 = HDSQLiteColumnWithNameAsString();
-    v11 = HDSQLiteColumnWithNameAsDate();
-    v12 = [v5 identity];
-    v16 = v19;
-    v17 = v20;
-    v13 = [(HDDeviceContext *)v7 initWithType:v8 productTypeName:v9 currentOSName:v10 currentOSVersion:&v16 modificationDate:v11 syncIdentity:v12];
-    v14 = *(*(a1 + 40) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v9 = [HDDeviceContext alloc];
+    v10 = HDSQLiteColumnWithNameAsInt64();
+    v11 = HDSQLiteColumnWithNameAsString();
+    v12 = HDSQLiteColumnWithNameAsString();
+    v13 = HDSQLiteColumnWithNameAsDate();
+    v14 = [v7 identity];
+    v18 = v21;
+    v19 = v22;
+    v15 = [(HDDeviceContext *)v9 initWithType:v10 productTypeName:v11 currentOSName:v12 currentOSVersion:&v18 modificationDate:v13 syncIdentity:v14];
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
 }
 

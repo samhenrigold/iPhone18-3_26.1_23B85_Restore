@@ -32,14 +32,14 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2745E42E4();
+  sub_2745E42E4(changeCopy, selfCopy, v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)actionNameDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2745E42F4();
+  sub_2745E42F4(changeCopy, selfCopy, v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)actionVisibleParametersDidChange:(id)change
@@ -53,14 +53,14 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2745E4834();
+  sub_2745E4834(changeCopy, selfCopy, v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)actionReloadAuxiliaryButton:(id)button
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_2745E4840();
+  sub_2745E4840(buttonCopy, selfCopy, v5, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)parameterAttributesDidChange:(id)change
@@ -82,10 +82,10 @@
   v4 = sub_274637D0C();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_274637CEC();
   selfCopy = self;
-  sub_2745E4D64();
+  sub_2745E4D64(v9);
 
   (*(v5 + 8))(v7, v4);
 }

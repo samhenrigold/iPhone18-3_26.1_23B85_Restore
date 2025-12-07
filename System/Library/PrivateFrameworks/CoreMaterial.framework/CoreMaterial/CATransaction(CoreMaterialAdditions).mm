@@ -26,7 +26,7 @@
       v6 = v9;
     }
 
-    [self setCompletionBlock:{v6, v10, v11, v12, v13}];
+    [self setCompletionBlock:{v10, v11, v12, v13}];
   }
 }
 

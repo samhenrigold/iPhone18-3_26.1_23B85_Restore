@@ -769,7 +769,7 @@ LABEL_10:
   v12 = 0u;
   v13 = 0u;
   v11 = 0u;
-  [(NavigationDisplay *)self cartographicConfigurationForTransportType:self->_transportType];
+  objc_msgSend_cartographicConfigurationForTransportType_(self, a2, self->_transportType);
   v3 = [_MKCartographicMapConfiguration alloc];
   v9[0] = v11;
   v9[1] = v12;
@@ -988,7 +988,7 @@ LABEL_14:
       isZoomEnabled = [v22 isZoomEnabled];
       _alwaysShowHeadingIndicator = [v22 _alwaysShowHeadingIndicator];
       _clearUserLocationOnLocationReset = [v22 _clearUserLocationOnLocationReset];
-      [v22 _userTrackingBehavior];
+      objc_msgSend__userTrackingBehavior(v22);
 
       v31 = isRotateEnabled;
       v32 = isCompassEnabled;

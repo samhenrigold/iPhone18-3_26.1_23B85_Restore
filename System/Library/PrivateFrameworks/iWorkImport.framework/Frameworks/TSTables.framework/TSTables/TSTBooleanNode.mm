@@ -35,41 +35,41 @@
   contextCopy = context;
   childrenCopy = children;
   objc_opt_class();
-  v14 = TSUDynamicCast();
-  if (!v14)
+  v13 = TSUDynamicCast();
+  if (!v13)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTBooleanNode initAsCopyOf:intoContext:children:]", v12, v13);
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v18, v19);
-    v22 = @"nil";
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTBooleanNode initAsCopyOf:intoContext:children:]", v12);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v17);
+    v20 = @"nil";
     if (ofCopy)
     {
-      v22 = ofCopy;
+      v20 = ofCopy;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v21, 59, 0, "Unexpected object in initAsCopyOf:... expected TSTBooleanNode, got %@", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v19, 59, 0, "Unexpected object in initAsCopyOf:... expected TSTBooleanNode, got %@", v20);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v30.receiver = self;
-  v30.super_class = TSTBooleanNode;
-  v27 = [(TSTExpressionNode *)&v30 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
-  v28 = v27;
-  if (v27)
+  v27.receiver = self;
+  v27.super_class = TSTBooleanNode;
+  v24 = [(TSTExpressionNode *)&v27 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
+  v25 = v24;
+  if (v24)
   {
-    v27[128] = v14[128];
+    v24[128] = v13[128];
   }
 
-  return v28;
+  return v25;
 }
 
 - (void)setValue:(BOOL)value
 {
-  objc_msgSend_willModify(self, a2, value, v3, v4);
+  objc_msgSend_willModify(self, a2, value, v3);
   self->_value = value;
-  v15 = objc_msgSend_tokenAttachment(self, v7, v8, v9, v10);
-  objc_msgSend_invalidate(v15, v11, v12, v13, v14);
+  v12 = objc_msgSend_tokenAttachment(self, v6, v7, v8);
+  objc_msgSend_invalidate(v12, v9, v10, v11);
 }
 
 - (TSTCSENodeData)recordHashesForSubexpressions:(id)subexpressions
@@ -103,136 +103,136 @@
 
 - (id)string
 {
-  v6 = objc_msgSend_context(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_objectLocale(v6, v7, v8, v9, v10);
+  v5 = objc_msgSend_context(self, a2, v2, v3);
+  v9 = objc_msgSend_objectLocale(v5, v6, v7, v8);
 
   if (self->_value)
   {
-    objc_msgSend_localizedStringForKey_value_table_(v11, v12, @"true", &stru_2834BADA0, @"TSTables");
+    objc_msgSend_localizedStringForKey_value_table_(v9, v10, @"true", &stru_2834BADA0, @"TSTables");
   }
 
   else
   {
-    objc_msgSend_localizedStringForKey_value_table_(v11, v12, @"false", &stru_2834BADA0, @"TSTables");
+    objc_msgSend_localizedStringForKey_value_table_(v9, v10, @"false", &stru_2834BADA0, @"TSTables");
   }
-  v13 = ;
+  v11 = ;
 
-  return v13;
+  return v11;
 }
 
 - (void)insertFormulaText:(id)text printingOptions:(unsigned int)options
 {
   optionsCopy = options;
   textCopy = text;
-  v10 = objc_msgSend_children(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_count(v10, v11, v12, v13, v14);
+  v9 = objc_msgSend_children(self, v6, v7, v8);
+  v13 = objc_msgSend_count(v9, v10, v11, v12);
 
-  if (v15)
+  if (v13)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSTBooleanNode insertFormulaText:printingOptions:]", v18, v19);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 122, 0, "BooleanNode shouldn't have any children");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTBooleanNode insertFormulaText:printingOptions:]", v16);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v20);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 122, 0, "BooleanNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
   }
 
   if (optionsCopy)
   {
-    v31 = objc_msgSend_whitespaceBefore(self, v16, v17, v18, v19);
+    v26 = objc_msgSend_whitespaceBefore(self, v14, v15, v16);
 
-    if (v31)
+    if (v26)
     {
-      v36 = objc_msgSend_whitespaceBefore(self, v32, v33, v34, v35);
-      objc_msgSend_takeText_(textCopy, v37, v36, v38, v39);
+      v30 = objc_msgSend_whitespaceBefore(self, v27, v28, v29);
+      objc_msgSend_takeText_(textCopy, v31, v30, v32);
     }
   }
 
-  v40 = [TSTWPTokenAttachment alloc];
-  v45 = objc_msgSend_context(self, v41, v42, v43, v44);
-  v48 = objc_msgSend_initWithContext_expressionNode_(v40, v46, v45, self, v47);
+  v33 = [TSTWPTokenAttachment alloc];
+  v37 = objc_msgSend_context(self, v34, v35, v36);
+  v39 = objc_msgSend_initWithContext_expressionNode_(v33, v38, v37, self);
 
-  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v49, v48, v50, v51);
+  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v40, v39, v41);
   if (optionsCopy)
   {
-    v56 = objc_msgSend_whitespaceAfter(self, v52, v53, v54, v55);
+    v45 = objc_msgSend_whitespaceAfter(self, v42, v43, v44);
 
-    if (v56)
+    if (v45)
     {
-      v61 = objc_msgSend_whitespaceAfter(self, v57, v58, v59, v60);
-      objc_msgSend_takeText_(textCopy, v62, v61, v63, v64);
+      v49 = objc_msgSend_whitespaceAfter(self, v46, v47, v48);
+      objc_msgSend_takeText_(textCopy, v50, v49, v51);
     }
   }
 }
 
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
-  v40 = objc_msgSend_children(self, a2, array, *&cell, table);
-  v11 = objc_msgSend_count(v40, v7, v8, v9, v10);
+  v33 = objc_msgSend_children(self, a2, array, *&cell, table);
+  v10 = objc_msgSend_count(v33, v7, v8, v9);
 
-  if (v11)
+  if (v10)
   {
-    v16 = MEMORY[0x277D81150];
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTBooleanNode buildASTNodeArray:hostCell:symbolTable:]", v14, v15);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v41, v20, 137, 0, "BooleanNode shouldn't have any children");
+    v14 = MEMORY[0x277D81150];
+    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTBooleanNode buildASTNodeArray:hostCell:symbolTable:]", v13);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTBooleanNode.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v34, v17, 137, 0, "BooleanNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
   }
 
-  TSCEASTBooleanElement::appendBooleanElement(array, self->_value, v13, v14, v15);
-  v30 = objc_msgSend_whitespaceBefore(self, v26, v27, v28, v29);
+  TSCEASTBooleanElement::appendBooleanElement(array, self->_value, v12, v13);
+  v25 = objc_msgSend_whitespaceBefore(self, v22, v23, v24);
 
-  if (v30)
+  if (v25)
   {
-    v42 = objc_msgSend_whitespaceBefore(self, v31, v32, v33, v34);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v42);
+    v35 = objc_msgSend_whitespaceBefore(self, v26, v27, v28);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v35);
   }
 
-  v35 = objc_msgSend_whitespaceAfter(self, v31, v32, v33, v34);
+  v29 = objc_msgSend_whitespaceAfter(self, v26, v27, v28);
 
-  if (v35)
+  if (v29)
   {
-    v43 = objc_msgSend_whitespaceAfter(self, v36, v37, v38, v39);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v43);
+    v36 = objc_msgSend_whitespaceAfter(self, v30, v31, v32);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v36);
   }
 }
 
 - (id)exportString
 {
-  v6 = objc_msgSend_context(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_objectLocale(v6, v7, v8, v9, v10);
+  v5 = objc_msgSend_context(self, a2, v2, v3);
+  v9 = objc_msgSend_objectLocale(v5, v6, v7, v8);
 
   if (self->_value)
   {
-    objc_msgSend_localizedTrueString(v11, v12, v13, v14, v15);
+    objc_msgSend_localizedTrueString(v9, v10, v11, v12);
   }
 
   else
   {
-    objc_msgSend_localizedFalseString(v11, v12, v13, v14, v15);
+    objc_msgSend_localizedFalseString(v9, v10, v11, v12);
   }
-  v16 = ;
+  v13 = ;
 
-  return v16;
+  return v13;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[200], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[200], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212C7198, off_2812E4498[200], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212C7198, off_2812E4498[200]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver

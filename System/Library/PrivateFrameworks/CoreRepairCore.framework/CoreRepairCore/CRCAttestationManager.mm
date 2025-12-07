@@ -7,7 +7,7 @@
 
 void __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_error___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a3;
   v10 = a4;
@@ -39,67 +39,67 @@ void __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_error__
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = v8;
+    v37 = v8;
     _os_log_impl(&dword_1CEDC5000, v13, OS_LOG_TYPE_DEFAULT, "Data:%@", buf, 0xCu);
   }
 
   if (v9)
   {
-    v28 = v10;
-    v29 = v9;
-    v30 = a1;
-    v31 = v8;
+    v27 = v10;
+    v28 = v9;
+    v29 = a1;
+    v30 = v8;
     v14 = v9;
     v15 = handleForCategory(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = v14;
+      v37 = v14;
       _os_log_impl(&dword_1CEDC5000, v15, OS_LOG_TYPE_DEFAULT, "Body:%@", buf, 0xCu);
     }
 
-    v27 = v14;
+    v26 = v14;
     v16 = [v14 allHeaderFields];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v17 = [v16 allKeys];
-    v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * i);
+          v22 = *(*(&v31 + 1) + 8 * i);
           v23 = handleForCategory(0);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             v24 = [v16 valueForKey:v22];
             *buf = 138412290;
-            v38 = v24;
+            v37 = v24;
             _os_log_impl(&dword_1CEDC5000, v23, OS_LOG_TYPE_DEFAULT, "value:%@", buf, 0xCu);
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v19);
     }
 
-    a1 = v30;
-    v8 = v31;
-    v10 = v28;
-    v9 = v29;
+    a1 = v29;
+    v8 = v30;
+    v10 = v27;
+    v9 = v28;
   }
 
   else
@@ -114,8 +114,6 @@ void __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_error__
   }
 
   dispatch_group_leave(*(*(a1[7] + 8) + 40));
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_error___block_invoke_225(uint64_t a1)
@@ -128,12 +126,12 @@ uint64_t __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_err
 
 - (BOOL)transformServerCertResponseUsing:(id)using serverCertResponseArray:(id *)array error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   usingCopy = using;
   v8 = [@"-----BEGIN CERTIFICATE-----" mutableCopy];
   v9 = [@"-----BEGIN CERTIFICATE-----" mutableCopy];
-  v37 = objc_opt_new();
-  v38 = usingCopy;
+  v36 = objc_opt_new();
+  v37 = usingCopy;
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:usingCopy encoding:4];
   v11 = [v10 componentsSeparatedByString:@"-----BEGIN CERTIFICATE-----"];
   v12 = v11;
@@ -154,31 +152,31 @@ uint64_t __71__CRCAttestationManager_sendChallengeRequestWith_serverResponse_err
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v15;
+      v41 = v15;
       _os_log_impl(&dword_1CEDC5000, v17, OS_LOG_TYPE_DEFAULT, "CAA leafRef : %@", buf, 0xCu);
     }
 
     v18 = handleForCategory(0);
-    v19 = v37;
+    v19 = v36;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v16;
+      v41 = v16;
       _os_log_impl(&dword_1CEDC5000, v18, OS_LOG_TYPE_DEFAULT, "CAA intermediateRef: %@", buf, 0xCu);
     }
 
     if (v15 && v16)
     {
-      [v37 addObject:v15];
+      [v36 addObject:v15];
 
-      [v37 addObject:v16];
+      [v36 addObject:v16];
     }
 
     if (arrayCopy)
     {
-      v20 = v37;
+      v20 = v36;
       v21 = 0;
-      *arrayCopy = v37;
+      *arrayCopy = v36;
     }
 
     else
@@ -209,12 +207,12 @@ LABEL_15:
   }
 
   v27 = MEMORY[0x1E696ABC0];
-  v39 = *MEMORY[0x1E696A578];
+  v38 = *MEMORY[0x1E696A578];
   v28 = MEMORY[0x1E696AEC0];
-  v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v38 encoding:4];
+  v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v37 encoding:4];
   v30 = [v28 stringWithFormat:@"CAA attestation failed:%@", v29];
-  v40 = v30;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+  v39 = v30;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
   v21 = [v27 errorWithDomain:@"com.apple.corerepair" code:-38 userInfo:v31];
 
   v32 = 0;
@@ -222,7 +220,7 @@ LABEL_15:
   v8 = v24;
   v9 = v23;
   v10 = v22;
-  v19 = v37;
+  v19 = v36;
   if (error)
   {
     goto LABEL_15;
@@ -230,45 +228,44 @@ LABEL_15:
 
 LABEL_16:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
 - (BOOL)sendCertIssueRequestWith:(id)with serverCertResponse:(id *)response error:(id *)error
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   withCopy = with;
   v8 = [CRFDRBaseDeviceHandler isFDRDataClassSupported:@"ChMf"];
   v9 = [MEMORY[0x1E695DFF8] URLWithString:@"https://sklaxm.apple.com/axiom/components/attest"];
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__2;
-  v64 = __Block_byref_object_dispose__2;
-  v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__2;
-  v58 = __Block_byref_object_dispose__2;
   v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__2;
-  v52 = __Block_byref_object_dispose__2;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__2;
+  v63 = __Block_byref_object_dispose__2;
+  v64 = 0;
   v53 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 1;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__2;
+  v57 = __Block_byref_object_dispose__2;
+  v58 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__2;
+  v51 = __Block_byref_object_dispose__2;
+  v52 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 1;
   v10 = dispatch_get_global_queue(0, 0);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__2;
-  v42 = __Block_byref_object_dispose__2;
-  v43 = dispatch_group_create();
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__2;
+  v41 = __Block_byref_object_dispose__2;
+  v42 = dispatch_group_create();
   if (!MGGetBoolAnswer())
   {
     v12 = 0;

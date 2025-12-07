@@ -1,46 +1,12 @@
-void CalDatabasePersistentChangeTrackingInitializeDB(uint64_t a1, void *a2, int a3)
-{
-  if (a3 <= 129)
-  {
-    CalPerformSQLWithConnection(a2, @"CREATE TABLE ClientCursor(    ROWID INTEGER PRIMARY KEY AUTOINCREMENT,     client_identifier TEXT,     store_id INTEGER,     latest_consumed_sequence_number INTEGER,     latest_consumed_timestamp REAL,     UNIQUE(client_identifier));");
-    CalPerformSQLWithConnection(a2, @"CREATE INDEX ClientCursorClientIdentifier ON ClientCursor(client_identifier); ");
-    CalPerformSQLWithConnection(a2, @"CREATE TABLE ClientSequence (client_identifier TEXT, sequence_number INTEGER, timestamp REAL);");
-    CalPerformSQLWithConnection(a2, @"CREATE INDEX ClientSequenceClientIdentifier ON ClientSequence(client_identifier); ");
-    CalPerformSQLWithConnection(a2, @"CREATE TABLE ClientCursorConsumed(   client_identifier TEXT,     consumed_entity_class INTEGER,     consumed_entity_id INTEGER,     consumed_change_id INTEGER,     sequence_number INTEGER);");
-    v4 = @"CREATE TRIGGER delete_clientcursor_consumed AFTER DELETE ON ClientCursor     BEGIN         DELETE FROM ClientCursorConsumed WHERE client_identifier = OLD.client_identifier;         DELETE FROM ClientSequence WHERE client_identifier = OLD.client_identifier;     END; ";
-    v5 = @"CREATE INDEX ClientCursorConsumedClientIdentifier ON ClientCursorConsumed(client_identifier); ";
-LABEL_5:
-    CalPerformSQLWithConnection(a2, v5);
-    goto LABEL_6;
-  }
-
-  if (a3 < 0x87)
-  {
-    v4 = @"ALTER TABLE ClientSequence ADD COLUMN     timestamp REAL; ";
-    v5 = @"ALTER TABLE ClientCursor ADD COLUMN     store_id INTEGER;";
-    goto LABEL_5;
-  }
-
-  if (a3 >= 0x4651)
-  {
-    return;
-  }
-
-  v4 = @"ALTER TABLE ClientSequence ADD COLUMN     timestamp REAL; ";
-LABEL_6:
-
-  CalPerformSQLWithConnection(a2, v4);
-}
-
 void CalDatabasePersistentChangeTrackingCopyToAuxDatabase(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __CalDatabasePersistentChangeTrackingCopyToAuxDatabase_block_invoke;
-  v12[3] = &__block_descriptor_40_e66_v16__0__CPSqliteStatement___CPSqliteConnection___sqlite3_stmt_dB_8l;
-  v12[4] = a2;
-  CalPerformSQLWithConnectionAndBindBlock(a1, 0, @"INSERT INTO aux.ClientCursor SELECT * FROM ClientCursor WHERE store_id IN (0, ?) AND client_identifier NOT IN (SELECT client_identifier FROM aux.ClientCursor)", v12);
+  v12 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __CalDatabasePersistentChangeTrackingCopyToAuxDatabase_block_invoke;
+  v11[3] = &__block_descriptor_40_e66_v16__0__CPSqliteStatement___CPSqliteConnection___sqlite3_stmt_dB_8l;
+  v11[4] = a2;
+  CalPerformSQLWithConnectionAndBindBlock(a1, 0, @"INSERT INTO aux.ClientCursor SELECT * FROM ClientCursor WHERE store_id IN (0, ?) AND client_identifier NOT IN (SELECT client_identifier FROM aux.ClientCursor)", v11);
   if (a1)
   {
     if (CDBLockingAssertionsEnabled)
@@ -112,19 +78,17 @@ LABEL_21:
     CalPerformSQLWithConnection(a1, @"INSERT INTO aux.ClientCursorConsumed SELECT * FROM ClientCursorConsumed");
     CalPerformSQLWithConnection(a1, @"INSERT INTO aux.ClientSequence SELECT * FROM ClientSequence");
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _CalDatabaseRegisterClientForPersistentChangeTracking(uint64_t a1, void *a2, sqlite3_int64 a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v6 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
   {
-    v32 = 138412290;
-    v33 = a2;
-    _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_INFO, "_CalDatabaseRegisterClientForPersistentChangeTracking - ClientIdentifier: [%@]", &v32, 0xCu);
+    v30 = 138412290;
+    v31 = a2;
+    _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_INFO, "_CalDatabaseRegisterClientForPersistentChangeTracking - ClientIdentifier: [%@]", &v30, 0xCu);
   }
 
   RecordStore = _CalDatabaseGetRecordStore(a1);
@@ -140,13 +104,13 @@ uint64_t _CalDatabaseRegisterClientForPersistentChangeTracking(uint64_t a1, void
   SequenceNumber = CPRecordStoreGetSequenceNumber();
   if (!a2)
   {
-    v28 = CDBLogHandle;
+    v27 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v32) = 0;
-      v29 = "_CalDatabaseRegisterClientForPersistentChangeTracking - ClientIdentifier is NULL";
+      LOWORD(v30) = 0;
+      v28 = "_CalDatabaseRegisterClientForPersistentChangeTracking - ClientIdentifier is NULL";
 LABEL_47:
-      _os_log_impl(&dword_1DEBB1000, v28, OS_LOG_TYPE_ERROR, v29, &v32, 2u);
+      _os_log_impl(&dword_1DEBB1000, v27, OS_LOG_TYPE_ERROR, v28, &v30, 2u);
     }
 
 LABEL_48:
@@ -156,16 +120,15 @@ LABEL_48:
     }
 
     os_unfair_lock_unlock((a1 + 80));
-    goto LABEL_51;
+    return SequenceNumber;
   }
 
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v12 = *(a1 + 24);
-    v13 = CPRecordStoreGetContext();
-    if (v13)
+    v12 = CPRecordStoreGetContext();
+    if (v12)
     {
-      os_unfair_lock_assert_owner(v13 + 20);
+      os_unfair_lock_assert_owner(v12 + 20);
     }
   }
 
@@ -174,62 +137,62 @@ LABEL_48:
   {
     if (*(Database + 104))
     {
-      v16 = CPRecordStoreGetContext();
-      if (v16)
+      v15 = CPRecordStoreGetContext();
+      if (v15)
       {
-        os_unfair_lock_assert_owner(v16 + 20);
+        os_unfair_lock_assert_owner(v15 + 20);
       }
     }
   }
 
-  v17 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
-  if (CDBLockingAssertionsEnabled == 1 && v17 != 0)
+  v16 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  if (CDBLockingAssertionsEnabled == 1 && v16 != 0)
   {
-    if (*v17)
+    if (*v16)
     {
-      if (*(*v17 + 104))
+      if (*(*v16 + 104))
       {
-        v19 = CPRecordStoreGetContext();
-        if (v19)
+        v18 = CPRecordStoreGetContext();
+        if (v18)
         {
-          os_unfair_lock_assert_owner(v19 + 20);
+          os_unfair_lock_assert_owner(v18 + 20);
         }
       }
     }
   }
 
-  v20 = CPSqliteConnectionStatementForSQL();
-  if (v20)
+  v19 = CPSqliteConnectionStatementForSQL();
+  if (v19)
   {
-    v21 = v20;
-    v22 = [a2 UTF8String];
-    if (v22)
+    v20 = v19;
+    v21 = [a2 UTF8String];
+    if (v21)
     {
-      v23 = v22;
-      if (*v22)
+      v22 = v21;
+      if (*v21)
       {
-        sqlite3_bind_text(*(v21 + 8), 1, v22, -1, 0);
-        sqlite3_bind_int64(*(v21 + 8), 2, a3);
-        sqlite3_bind_int(*(v21 + 8), 3, SequenceNumber);
-        sqlite3_bind_int(*(v21 + 8), 4, SequenceNumber);
-        sqlite3_bind_text(*(v21 + 8), 5, v23, -1, 0);
-        v24 = *(v21 + 8);
+        sqlite3_bind_text(*(v20 + 8), 1, v21, -1, 0);
+        sqlite3_bind_int64(*(v20 + 8), 2, a3);
+        sqlite3_bind_int(*(v20 + 8), 3, SequenceNumber);
+        sqlite3_bind_int(*(v20 + 8), 4, SequenceNumber);
+        sqlite3_bind_text(*(v20 + 8), 5, v22, -1, 0);
+        v23 = *(v20 + 8);
         Current = CFAbsoluteTimeGetCurrent();
-        sqlite3_bind_double(v24, 6, Current);
-        _CalDatabasePerformStatementWithWriteLock(a1, v21);
+        sqlite3_bind_double(v23, 6, Current);
+        _CalDatabasePerformStatementWithWriteLock(a1, v20);
         if (CDBLockingAssertionsEnabled == 1)
         {
-          if (*v21)
+          if (*v20)
           {
-            v26 = **v21;
-            if (v26)
+            v25 = **v20;
+            if (v25)
             {
-              if (*(v26 + 104))
+              if (*(v25 + 104))
               {
-                v27 = CPRecordStoreGetContext();
-                if (v27)
+                v26 = CPRecordStoreGetContext();
+                if (v26)
                 {
-                  os_unfair_lock_assert_owner(v27 + 20);
+                  os_unfair_lock_assert_owner(v26 + 20);
                 }
               }
             }
@@ -237,33 +200,31 @@ LABEL_48:
         }
 
         CPSqliteStatementReset();
-        goto LABEL_51;
+        return SequenceNumber;
       }
 
-      v28 = CDBLogHandle;
+      v27 = CDBLogHandle;
       if (!os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_48;
       }
 
-      LOWORD(v32) = 0;
-      v29 = "_CalDatabaseRegisterClientForPersistentChangeTracking - clientIdentifierCString string is empty";
+      LOWORD(v30) = 0;
+      v28 = "_CalDatabaseRegisterClientForPersistentChangeTracking - clientIdentifierCString string is empty";
       goto LABEL_47;
     }
 
-    v28 = CDBLogHandle;
+    v27 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v32) = 0;
-      v29 = "_CalDatabaseRegisterClientForPersistentChangeTracking - clientIdentifierCString is NULL";
+      LOWORD(v30) = 0;
+      v28 = "_CalDatabaseRegisterClientForPersistentChangeTracking - clientIdentifierCString is NULL";
       goto LABEL_47;
     }
 
     goto LABEL_48;
   }
 
-LABEL_51:
-  v30 = *MEMORY[0x1E69E9840];
   return SequenceNumber;
 }
 
@@ -280,7 +241,7 @@ uint64_t CalDatabaseRegisterClientForPersistentChangeTracking(os_unfair_lock_s *
   return v4;
 }
 
-uint64_t CalDatabaseRegisterClientForPersistentChangeTrackingInStore(os_unfair_lock_s *a1, void *a2)
+uint64_t CalDatabaseRegisterClientForPersistentChangeTrackingInStore(os_unfair_lock_s *a1, void *a2, uint64_t a3)
 {
   os_unfair_lock_lock(a1 + 20);
   CPRecordGetID();
@@ -295,19 +256,19 @@ uint64_t CalDatabaseRegisterClientForPersistentChangeTrackingInStore(os_unfair_l
   }
 
   RowidForRecordID = CPRecordStoreGetRowidForRecordID();
-  v8 = _CalDatabaseRegisterClientForPersistentChangeTracking(a1, a2, RowidForRecordID);
+  v9 = _CalDatabaseRegisterClientForPersistentChangeTracking(a1, a2, RowidForRecordID);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(a1 + 20);
   }
 
   os_unfair_lock_unlock(a1 + 20);
-  return v8;
+  return v9;
 }
 
 void _CalDatabaseAssociateSequenceNumberWithClient(uint64_t a1, void *a2, int a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (CDBLockingAssertionsEnabled)
@@ -385,17 +346,15 @@ void _CalDatabaseAssociateSequenceNumberWithClient(uint64_t a1, void *a2, int a3
   v15 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543618;
-    v18 = a2;
-    v19 = 1024;
-    v20 = a3;
-    _os_log_impl(&dword_1DEBB1000, v15, OS_LOG_TYPE_DEFAULT, "Recorded ClientSequence record with clientIdentifier = %{public}@, sequenceNumber = %d", &v17, 0x12u);
+    v16 = 138543618;
+    v17 = a2;
+    v18 = 1024;
+    v19 = a3;
+    _os_log_impl(&dword_1DEBB1000, v15, OS_LOG_TYPE_DEFAULT, "Recorded ClientSequence record with clientIdentifier = %{public}@, sequenceNumber = %d", &v16, 0x12u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t CalDatabaseGetChangedRecordIDsSinceSequenceNumberForClient(uint64_t a1, void *a2, int a3, void *a4, _BYTE *a5, _DWORD *a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9)
+uint64_t CalDatabaseGetChangedRecordIDsSinceSequenceNumberForClient(uint64_t a1, void *a2, uint64_t a3, void *a4, _BYTE *a5, _DWORD *a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9)
 {
   v28 = 0;
   v27 = 0;
@@ -480,29 +439,28 @@ uint64_t CalDatabaseGetChangedRecordIDsSinceSequenceNumberForClient(uint64_t a1,
 
 id _CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient(uint64_t a1, void *a2, int a3, void *a4, _BYTE *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, _DWORD *a9)
 {
-  v95 = a8;
-  v94 = a7;
-  v91 = a6;
-  v90 = a5;
-  v96 = a9;
-  v122 = *MEMORY[0x1E69E9840];
+  v93 = a8;
+  v92 = a7;
+  v89 = a6;
+  v88 = a5;
+  v94 = a9;
+  v120 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 80));
   v13 = [a2 UTF8String];
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
-  v115 = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x2020000000;
-  v111 = 0;
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x2020000000;
+  v117 = 0;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x2020000000;
+  v113 = 0;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x2020000000;
+  v109 = 0;
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v15 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -515,15 +473,15 @@ id _CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient(uint64_t a1, void
   {
     if (*(Database + 104))
     {
-      v19 = CPRecordStoreGetContext();
-      if (v19)
+      v18 = CPRecordStoreGetContext();
+      if (v18)
       {
-        os_unfair_lock_assert_owner(v19 + 20);
+        os_unfair_lock_assert_owner(v18 + 20);
       }
     }
   }
 
-  v20 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v19 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (__CalDatabaseBeginReadTransaction(a1, "read at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:711"))
   {
     RecordStore = _CalDatabaseGetRecordStore(a1);
@@ -531,74 +489,74 @@ id _CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient(uint64_t a1, void
     {
       if (RecordStore)
       {
-        v22 = CPRecordStoreGetContext();
-        if (v22)
+        v21 = CPRecordStoreGetContext();
+        if (v21)
         {
-          os_unfair_lock_assert_owner(v22 + 20);
+          os_unfair_lock_assert_owner(v21 + 20);
         }
       }
     }
 
     SequenceNumber = CPRecordStoreGetSequenceNumber();
-    v107 = 0;
+    v105 = 0;
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (v20)
+      if (v19)
       {
-        if (*v20)
+        if (*v19)
         {
-          if (*(*v20 + 104))
+          if (*(*v19 + 104))
           {
-            v23 = CPRecordStoreGetContext();
-            if (v23)
+            v22 = CPRecordStoreGetContext();
+            if (v22)
             {
-              os_unfair_lock_assert_owner(v23 + 20);
+              os_unfair_lock_assert_owner(v22 + 20);
             }
           }
         }
       }
     }
 
-    v24 = CPSqliteConnectionStatementForSQL();
-    v25 = v24;
-    if (v24)
+    v23 = CPSqliteConnectionStatementForSQL();
+    v24 = v23;
+    if (v23)
     {
-      sqlite3_bind_text(*(v24 + 8), 1, v13, -1, 0);
+      sqlite3_bind_text(*(v23 + 8), 1, v13, -1, 0);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v25)
+        if (*v24)
         {
-          v26 = **v25;
-          if (v26)
+          v25 = **v24;
+          if (v25)
           {
-            if (*(v26 + 104))
+            if (*(v25 + 104))
             {
-              v27 = CPRecordStoreGetContext();
-              if (v27)
+              v26 = CPRecordStoreGetContext();
+              if (v26)
               {
-                os_unfair_lock_assert_owner(v27 + 20);
+                os_unfair_lock_assert_owner(v26 + 20);
               }
             }
           }
         }
       }
 
-      v28 = CPSqliteStatementIntegerResult();
-      v29 = v28;
-      v31 = v28 == -1 || a3 > 0 && v28 > a3;
+      v27 = CPSqliteStatementIntegerResult();
+      v28 = v27;
+      v30 = v27 == -1 || a3 > 0 && v27 > a3;
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v25)
+        if (*v24)
         {
-          v35 = **v25;
-          if (v35)
+          v34 = **v24;
+          if (v34)
           {
-            if (*(v35 + 104))
+            if (*(v34 + 104))
             {
-              v36 = CPRecordStoreGetContext();
-              if (v36)
+              v35 = CPRecordStoreGetContext();
+              if (v35)
               {
-                os_unfair_lock_assert_owner(v36 + 20);
+                os_unfair_lock_assert_owner(v35 + 20);
               }
             }
           }
@@ -606,88 +564,88 @@ id _CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient(uint64_t a1, void
       }
 
       CPSqliteStatementReset();
-      if (v31)
+      if (v30)
       {
-        v88 = 0;
-        v37 = 1;
+        v86 = 0;
+        v36 = 1;
         goto LABEL_76;
       }
     }
 
     else
     {
-      v29 = -1;
+      v28 = -1;
     }
 
-    if (v29 != -1 && a3 == -1)
+    if (v28 != -1 && a3 == -1)
     {
-      v39 = v29;
-    }
-
-    else
-    {
-      v39 = a3;
-    }
-
-    LODWORD(v93) = v39;
-    v40 = *(a1 + 344);
-    if (v40 >= 0)
-    {
-      v41 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+      v38 = v28;
     }
 
     else
     {
-      v41 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+      v38 = a3;
     }
 
-    if (v40 >= 0)
+    LODWORD(v91) = v38;
+    v39 = *(a1 + 344);
+    if (v39 >= 0)
     {
-      v42 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
-    }
-
-    else
-    {
-      v42 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
-    }
-
-    v43 = generateNotInClause(a4);
-    v44 = v43;
-    if (v43)
-    {
-      v42 = [(__CFString *)v42 stringByAppendingFormat:@" AND store_id %@", v43];
-      v45 = [(__CFString *)v41 stringByAppendingFormat:@" AND store_id %@", v44];
-      v46 = [(__CFString *)v41 stringByAppendingFormat:@" AND record %@", v44];
+      v40 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
     }
 
     else
     {
-      v46 = v41;
-      v45 = v41;
+      v40 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+    }
+
+    if (v39 >= 0)
+    {
+      v41 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+    }
+
+    else
+    {
+      v41 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+    }
+
+    v42 = generateNotInClause(a4);
+    v43 = v42;
+    if (v42)
+    {
+      v41 = [(__CFString *)v41 stringByAppendingFormat:@" AND store_id %@", v42];
+      v44 = [(__CFString *)v40 stringByAppendingFormat:@" AND store_id %@", v43];
+      v45 = [(__CFString *)v40 stringByAppendingFormat:@" AND record %@", v43];
+    }
+
+    else
+    {
+      v45 = v40;
+      v44 = v40;
     }
 
     Mutable = CFDictionaryCreateMutable(0, 13, 0, MEMORY[0x1E695E9E8]);
-    v48 = *(a1 + 344);
-    v97[0] = MEMORY[0x1E69E9820];
-    v97[1] = 3221225472;
-    v97[2] = ___CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient_block_invoke;
-    v97[3] = &unk_1E8694B08;
-    v49 = v46;
+    v47 = *(a1 + 344);
+    v95[0] = MEMORY[0x1E69E9820];
+    v95[1] = 3221225472;
+    v95[2] = ___CalDatabaseGetChangedObjectIDsSinceSequenceNumberForClient_block_invoke;
+    v95[3] = &unk_1E8694B08;
+    v48 = v45;
+    v96 = v48;
+    v97 = v40;
+    v49 = v41;
     v98 = v49;
-    v99 = v41;
-    v50 = v42;
-    v100 = v50;
-    v51 = v45;
-    v105 = a1;
-    v106 = Mutable;
-    v101 = v51;
-    v102 = &v116;
-    v103 = &v112;
-    v104 = &v108;
-    _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a2, v93, v48, v97);
-    v88 = Mutable;
+    v50 = v44;
+    v103 = a1;
+    v104 = Mutable;
+    v99 = v50;
+    v100 = &v114;
+    v101 = &v110;
+    v102 = &v106;
+    _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a2, v91, v47, v95);
+    v86 = Mutable;
 
-    v37 = 0;
+    v36 = 0;
 LABEL_76:
     __CalDatabaseRollbackTransaction(a1, "rollback at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:840");
     if (CDBLockingAssertionsEnabled == 1)
@@ -696,14 +654,14 @@ LABEL_76:
     }
 
     os_unfair_lock_unlock((a1 + 80));
-    v52 = v88;
-    v87 = v37;
-    if (!v88)
+    v51 = v86;
+    v85 = v36;
+    if (!v86)
     {
-      v34 = 0;
-      v53 = v91;
-      v54 = v90;
-      if (!v90)
+      v33 = 0;
+      v52 = v89;
+      v53 = v88;
+      if (!v88)
       {
         goto LABEL_126;
       }
@@ -711,201 +669,201 @@ LABEL_76:
       goto LABEL_125;
     }
 
-    v53 = v91;
-    v54 = v90;
-    Count = CFDictionaryGetCount(v88);
-    v85[1] = v85;
+    v52 = v89;
+    v53 = v88;
+    Count = CFDictionaryGetCount(v86);
+    v83[1] = v83;
     MEMORY[0x1EEE9AC00]();
-    v56 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
+    v55 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
     if ((8 * Count) >= 0x200)
     {
-      v57 = 512;
+      v56 = 512;
     }
 
     else
     {
-      v57 = 8 * Count;
+      v56 = 8 * Count;
     }
 
-    bzero(v85 - v56, v57);
+    bzero(v83 - v55, v56);
     MEMORY[0x1EEE9AC00]();
-    bzero(v85 - v56, v57);
-    v93 = v85 - v56;
-    v92 = v85 - v56;
-    CFDictionaryGetKeysAndValues(v52, (v85 - v56), (v85 - v56));
-    v58 = v117[3];
-    v59 = v113[3] + v58;
-    v85[0] = 8 * (v109[3] + v59);
-    v60 = malloc_type_malloc(v85[0], 0x39730E45uLL);
-    if (v60)
+    bzero(v83 - v55, v56);
+    v91 = v83 - v55;
+    v90 = v83 - v55;
+    CFDictionaryGetKeysAndValues(v51, (v83 - v55), (v83 - v55));
+    v57 = v115[3];
+    v58 = v111[3] + v57;
+    v83[0] = 8 * (v107[3] + v58);
+    v59 = malloc_type_malloc(v83[0], 0x39730E45uLL);
+    if (v59)
     {
       if (Count >= 1)
       {
-        v89 = Count;
+        v87 = Count;
+        v60 = 0;
         v61 = 0;
-        v62 = 0;
         while (1)
         {
-          v63 = *&v93[8 * v61];
-          v64 = *&v92[8 * v61];
-          v65 = CFDictionaryGetCount(v64);
-          v66 = malloc_type_malloc(8 * v65, 0x100004000313F17uLL);
-          if (!v66)
+          v62 = *&v91[8 * v60];
+          v63 = *&v90[8 * v60];
+          v64 = CFDictionaryGetCount(v63);
+          v65 = malloc_type_malloc(8 * v64, 0x100004000313F17uLL);
+          if (!v65)
           {
             break;
           }
 
-          v67 = malloc_type_malloc(8 * v65, 0x100004000313F17uLL);
-          if (!v67)
+          v66 = malloc_type_malloc(8 * v64, 0x100004000313F17uLL);
+          if (!v66)
           {
-            v80 = CDBLogHandle;
+            v79 = CDBLogHandle;
             if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v121 = v65;
-              _os_log_impl(&dword_1DEBB1000, v80, OS_LOG_TYPE_ERROR, "Unable to allocate space for %zu object states", buf, 0xCu);
+              v119 = v64;
+              _os_log_impl(&dword_1DEBB1000, v79, OS_LOG_TYPE_ERROR, "Unable to allocate space for %zu object states", buf, 0xCu);
             }
 
-            free(v66);
+            free(v65);
             goto LABEL_115;
           }
 
-          CFDictionaryGetKeysAndValues(v64, v66, v67);
-          if (v65 >= 1)
+          CFDictionaryGetKeysAndValues(v63, v65, v66);
+          if (v64 >= 1)
           {
-            v68 = v67;
-            v69 = v66;
+            v67 = v66;
+            v68 = v65;
             do
             {
-              v71 = *v68++;
-              v70 = v71;
-              if (v71 <= 2)
+              v70 = *v67++;
+              v69 = v70;
+              if (v70 <= 2)
               {
-                if (v70 == 1)
+                if (v69 == 1)
                 {
                   goto LABEL_100;
                 }
 
-                if (v70 == 2)
+                if (v69 == 2)
                 {
-                  v75 = v58 + 1;
-                  v74 = v62;
-                  v73 = v59;
-                  v62 = v58;
+                  v74 = v57 + 1;
+                  v73 = v61;
+                  v72 = v58;
+                  v61 = v57;
                   goto LABEL_101;
                 }
               }
 
               else
               {
-                if (v70 == 6 || v70 == 4)
+                if (v69 == 6 || v69 == 4)
                 {
-                  v73 = v59 + 1;
-                  v74 = v62;
-                  v75 = v58;
-                  v62 = v59;
+                  v72 = v58 + 1;
+                  v73 = v61;
+                  v74 = v57;
+                  v61 = v58;
 LABEL_101:
-                  v76 = &v60[8 * v62];
-                  *v76 = v63;
-                  *(v76 + 1) = *v69;
-                  v62 = v74;
-                  v58 = v75;
-                  v59 = v73;
+                  v75 = &v59[8 * v61];
+                  *v75 = v62;
+                  *(v75 + 1) = *v68;
+                  v61 = v73;
+                  v57 = v74;
+                  v58 = v72;
                   goto LABEL_102;
                 }
 
-                if (v70 == 3)
+                if (v69 == 3)
                 {
 LABEL_100:
-                  v74 = v62 + 1;
-                  v75 = v58;
-                  v73 = v59;
+                  v73 = v61 + 1;
+                  v74 = v57;
+                  v72 = v58;
                   goto LABEL_101;
                 }
               }
 
 LABEL_102:
-              ++v69;
-              --v65;
+              ++v68;
+              --v64;
             }
 
-            while (v65);
+            while (v64);
           }
 
+          free(v65);
           free(v66);
-          free(v67);
-          if (++v61 == v89)
+          if (++v60 == v87)
           {
-            v77 = 0;
+            v76 = 0;
             goto LABEL_116;
           }
         }
 
-        v79 = CDBLogHandle;
+        v78 = CDBLogHandle;
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v121 = v65;
-          _os_log_impl(&dword_1DEBB1000, v79, OS_LOG_TYPE_ERROR, "Unable to allocate space for %zu object IDs", buf, 0xCu);
+          v119 = v64;
+          _os_log_impl(&dword_1DEBB1000, v78, OS_LOG_TYPE_ERROR, "Unable to allocate space for %zu object IDs", buf, 0xCu);
         }
 
 LABEL_115:
-        v77 = 1;
+        v76 = 1;
 LABEL_116:
-        v53 = v91;
-        v54 = v90;
-        v52 = v88;
+        v52 = v89;
+        v53 = v88;
+        v51 = v86;
 LABEL_117:
-        CFRelease(v52);
-        v81 = v77 ^ 1;
-        if (!v60)
+        CFRelease(v51);
+        v80 = v76 ^ 1;
+        if (!v59)
         {
-          v81 = 0;
+          v80 = 0;
         }
 
-        if (v81)
+        if (v80)
         {
-          v82 = objc_alloc(MEMORY[0x1E695DEF0]);
-          v34 = [v82 initWithBytesNoCopy:v60 length:v85[0] freeWhenDone:1];
+          v81 = objc_alloc(MEMORY[0x1E695DEF0]);
+          v33 = [v81 initWithBytesNoCopy:v59 length:v83[0] freeWhenDone:1];
         }
 
         else
         {
-          if (v60)
+          if (v59)
           {
-            free(v60);
+            free(v59);
           }
 
-          v34 = 0;
-          v87 = 1;
+          v33 = 0;
+          v85 = 1;
         }
 
-        if (!v54)
+        if (!v53)
         {
           goto LABEL_126;
         }
 
 LABEL_125:
-        *v54 = v87;
+        *v53 = v85;
 LABEL_126:
-        if (v53)
+        if (v52)
         {
-          *v53 = SequenceNumber;
+          *v52 = SequenceNumber;
+        }
+
+        if (v92)
+        {
+          *v92 = v115[3];
+        }
+
+        if (v93)
+        {
+          *v93 = v111[3];
         }
 
         if (v94)
         {
-          *v94 = v117[3];
-        }
-
-        if (v95)
-        {
-          *v95 = v113[3];
-        }
-
-        if (v96)
-        {
-          *v96 = v109[3];
+          *v94 = v107[3];
         }
 
         goto LABEL_134;
@@ -914,40 +872,40 @@ LABEL_126:
 
     else
     {
-      v78 = CDBLogHandle;
+      v77 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v121 = v85[0];
-        _os_log_impl(&dword_1DEBB1000, v78, OS_LOG_TYPE_ERROR, "Unable to allocated %zu bytes for returning changes", buf, 0xCu);
+        v119 = v83[0];
+        _os_log_impl(&dword_1DEBB1000, v77, OS_LOG_TYPE_ERROR, "Unable to allocated %zu bytes for returning changes", buf, 0xCu);
       }
     }
 
-    v77 = 0;
+    v76 = 0;
     goto LABEL_117;
   }
 
-  v32 = CDBLogHandle;
+  v31 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DEBB1000, v32, OS_LOG_TYPE_ERROR, "Couldn't start transaction before fetching changes since sequence number", buf, 2u);
+    _os_log_impl(&dword_1DEBB1000, v31, OS_LOG_TYPE_ERROR, "Couldn't start transaction before fetching changes since sequence number", buf, 2u);
   }
 
-  if (v94)
+  if (v92)
   {
-    *v94 = 0;
+    *v92 = 0;
   }
 
-  v33 = v96;
-  if (v95)
+  v32 = v94;
+  if (v93)
   {
-    *v95 = 0;
+    *v93 = 0;
   }
 
-  if (v33)
+  if (v32)
   {
-    *v33 = 0;
+    *v32 = 0;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -956,14 +914,13 @@ LABEL_126:
   }
 
   os_unfair_lock_unlock((a1 + 80));
-  v34 = 0;
+  v33 = 0;
 LABEL_134:
-  _Block_object_dispose(&v108, 8);
-  _Block_object_dispose(&v112, 8);
-  _Block_object_dispose(&v116, 8);
-  v83 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v114, 8);
 
-  return v34;
+  return v33;
 }
 
 void sub_1DEC7E1DC(_Unwind_Exception *a1)
@@ -986,7 +943,6 @@ uint64_t CalDatabaseGetChangedEKObjectsForClient(uint64_t a1, uint64_t a2, void 
   os_unfair_lock_lock((a1 + 80));
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v19 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -999,95 +955,95 @@ uint64_t CalDatabaseGetChangedEKObjectsForClient(uint64_t a1, uint64_t a2, void 
   {
     if (*(Database + 104))
     {
-      v23 = CPRecordStoreGetContext();
-      if (v23)
+      v22 = CPRecordStoreGetContext();
+      if (v22)
       {
-        os_unfair_lock_assert_owner(v23 + 20);
+        os_unfair_lock_assert_owner(v22 + 20);
       }
     }
   }
 
-  v24 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v23 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (__CalDatabaseBeginReadTransaction(a1, "read at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1094"))
   {
-    v67 = a5;
-    v70 = a2;
-    v71 = a8;
-    v73 = v17;
+    v66 = a5;
+    v69 = a2;
+    v70 = a8;
+    v72 = v17;
     RecordStore = _CalDatabaseGetRecordStore(a1);
     if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
     {
-      v27 = CPRecordStoreGetContext();
-      if (v27)
+      v26 = CPRecordStoreGetContext();
+      if (v26)
       {
-        os_unfair_lock_assert_owner(v27 + 20);
+        os_unfair_lock_assert_owner(v26 + 20);
       }
     }
 
     SequenceNumber = CPRecordStoreGetSequenceNumber();
-    v28 = -1;
-    v85 = -1;
-    LatestConsumedSequenceNumberForClient = _CalDatabaseGetLatestConsumedSequenceNumberForClient(v24, a3, &v85);
-    v30 = LatestConsumedSequenceNumberForClient;
-    v31 = v85;
+    v27 = -1;
+    v84 = -1;
+    LatestConsumedSequenceNumberForClient = _CalDatabaseGetLatestConsumedSequenceNumberForClient(v23, a3, &v84);
+    v29 = LatestConsumedSequenceNumberForClient;
+    v30 = v84;
     if (LatestConsumedSequenceNumberForClient)
     {
-      v32 = -1;
+      v31 = -1;
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
-    v33 = v85 == -1 && LatestConsumedSequenceNumberForClient == 0;
-    if ((LatestConsumedSequenceNumberForClient != 0) != v33)
+    v32 = v84 == -1 && LatestConsumedSequenceNumberForClient == 0;
+    if ((LatestConsumedSequenceNumberForClient != 0) != v32)
     {
-      v42 = v32;
+      v41 = v31;
       goto LABEL_67;
     }
 
     if (a6)
     {
-      if (v24)
+      if (v23)
       {
         if (CDBLockingAssertionsEnabled)
         {
-          if (*v24)
+          if (*v23)
           {
-            if (*(*v24 + 104))
+            if (*(*v23 + 104))
             {
-              v34 = CPRecordStoreGetContext();
-              if (v34)
+              v33 = CPRecordStoreGetContext();
+              if (v33)
               {
-                os_unfair_lock_assert_owner(v34 + 20);
+                os_unfair_lock_assert_owner(v33 + 20);
               }
             }
           }
         }
       }
 
-      v35 = CPSqliteConnectionStatementForSQL();
-      if (v35)
+      v34 = CPSqliteConnectionStatementForSQL();
+      if (v34)
       {
-        v36 = v35;
-        sqlite3_bind_int(*(v35 + 8), 1, v31);
-        sqlite3_bind_text(*(v36 + 8), 2, [a3 UTF8String], -1, 0);
+        v35 = v34;
+        sqlite3_bind_int(*(v34 + 8), 1, v30);
+        sqlite3_bind_text(*(v35 + 8), 2, [a3 UTF8String], -1, 0);
         *buf = a6;
-        v87 = 0xFFFFFFFF00000000;
+        v86 = 0xFFFFFFFF00000000;
         if (CDBLockingAssertionsEnabled == 1)
         {
-          if (*v36)
+          if (*v35)
           {
-            v37 = **v36;
-            if (v37)
+            v36 = **v35;
+            if (v36)
             {
-              if (*(v37 + 104))
+              if (*(v36 + 104))
               {
-                v38 = CPRecordStoreGetContext();
-                if (v38)
+                v37 = CPRecordStoreGetContext();
+                if (v37)
                 {
-                  os_unfair_lock_assert_owner(v38 + 20);
+                  os_unfair_lock_assert_owner(v37 + 20);
                 }
               }
             }
@@ -1095,161 +1051,161 @@ uint64_t CalDatabaseGetChangedEKObjectsForClient(uint64_t a1, uint64_t a2, void 
         }
 
         CPSqliteStatementSendResults();
-        v39 = HIDWORD(v87) - 1;
-        if (HIDWORD(v87) - 1 <= v31)
+        v38 = HIDWORD(v86) - 1;
+        if (HIDWORD(v86) - 1 <= v30)
         {
-          v39 = v31 + 1;
+          v38 = v30 + 1;
         }
 
-        v40 = SequenceNumber;
-        if (HIDWORD(v87) != -1)
+        v39 = SequenceNumber;
+        if (HIDWORD(v86) != -1)
         {
-          v40 = v39;
+          v39 = v38;
         }
 
         goto LABEL_57;
       }
 
-      v43 = CDBLogHandle;
+      v42 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DEBB1000, v43, OS_LOG_TYPE_ERROR, "Couldn't create statement for finding appropriate sequence number; using latest sequence number instead", buf, 2u);
+        _os_log_impl(&dword_1DEBB1000, v42, OS_LOG_TYPE_ERROR, "Couldn't create statement for finding appropriate sequence number; using latest sequence number instead", buf, 2u);
       }
     }
 
-    v40 = SequenceNumber;
+    v39 = SequenceNumber;
 LABEL_57:
-    v44 = *(a1 + 344);
-    if (v44 < 0)
+    v43 = *(a1 + 344);
+    if (v43 < 0)
     {
-      v45 = v40 < SequenceNumber;
-      if (v40 >= SequenceNumber)
+      v44 = v39 < SequenceNumber;
+      if (v39 >= SequenceNumber)
       {
-        v28 = -1;
+        v27 = -1;
       }
 
       else
       {
-        v28 = v40;
+        v27 = v39;
       }
     }
 
     else
     {
-      v45 = v40 < v44;
-      if (v40 >= v44)
+      v44 = v39 < v43;
+      if (v39 >= v43)
       {
-        v28 = *(a1 + 344);
+        v27 = *(a1 + 344);
       }
 
       else
       {
-        v28 = v40;
+        v27 = v39;
       }
     }
 
-    v42 = v45;
-    if (v31 == -1)
+    v41 = v44;
+    if (v30 == -1)
     {
-      v33 = 1;
+      v32 = 1;
     }
 
     else
     {
-      v33 = v45 & (a7 ^ 1);
+      v32 = v44 & (a7 ^ 1);
     }
 
 LABEL_67:
-    v17 = v73;
+    v17 = v72;
     if (a9)
     {
-      *a9 = v33;
+      *a9 = v32;
     }
 
-    v46 = 0;
-    if (v30 || v33 == 1)
+    v45 = 0;
+    if (v29 || v32 == 1)
     {
       goto LABEL_88;
     }
 
-    v66 = v42;
-    v47 = objc_opt_new();
-    if (v28 >= 0)
+    v65 = v41;
+    v46 = objc_opt_new();
+    if (v27 >= 0)
     {
-      v48 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+      v47 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
     }
 
     else
     {
-      v48 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+      v47 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
     }
 
-    if (v28 >= 0)
+    if (v27 >= 0)
     {
-      v49 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+      v48 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
     }
 
     else
     {
-      v49 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+      v48 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
     }
 
-    if (([v73 entityID] & 0x80000000) == 0)
+    if (([v72 entityID] & 0x80000000) == 0)
     {
-      if ([v73 entityType] == 6)
+      if ([v72 entityType] == 6)
       {
-        v50 = v49;
-        v51 = @"store_id";
+        v49 = v48;
+        v50 = @"store_id";
 LABEL_82:
-        v48 = [(__CFString *)v48 stringByAppendingFormat:@" AND %@ = ?", v51];
-        v64 = v51;
-        v49 = v50;
-        v52 = [(__CFString *)v50 stringByAppendingFormat:@" AND %@ = ?", v64];
-        v65 = [v73 entityID];
+        v47 = [(__CFString *)v47 stringByAppendingFormat:@" AND %@ = ?", v50];
+        v63 = v50;
+        v48 = v49;
+        v51 = [(__CFString *)v49 stringByAppendingFormat:@" AND %@ = ?", v63];
+        v64 = [v72 entityID];
 LABEL_84:
-        v53 = generateNotInClause(v67);
-        v54 = v53;
-        if (v53)
+        v52 = generateNotInClause(v66);
+        v53 = v52;
+        if (v52)
         {
-          [(__CFString *)v48 stringByAppendingFormat:@" AND store_id %@", v53];
-          v55 = v68 = v47;
+          [(__CFString *)v47 stringByAppendingFormat:@" AND store_id %@", v52];
+          v54 = v67 = v46;
 
-          v56 = [v52 stringByAppendingFormat:@" AND store_id %@", v54];
+          v55 = [v51 stringByAppendingFormat:@" AND store_id %@", v53];
 
-          v57 = [(__CFString *)v49 stringByAppendingFormat:@"AND record %@", v54];
-          v48 = v55;
-          v47 = v68;
-          v52 = v56;
+          v56 = [(__CFString *)v48 stringByAppendingFormat:@"AND record %@", v53];
+          v47 = v54;
+          v46 = v67;
+          v51 = v55;
         }
 
         else
         {
-          v57 = v49;
+          v56 = v48;
         }
 
-        v69 = v85;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __CalDatabaseGetChangedEKObjectsForClient_block_invoke;
-        v75[3] = &unk_1E8694AB8;
-        v17 = v73;
-        v76 = v73;
-        v77 = v57;
-        v78 = v49;
-        v79 = v48;
-        v82 = v70;
-        v83 = a1;
-        v80 = v52;
-        v84 = v65;
-        v46 = v47;
-        v81 = v46;
-        v58 = v52;
-        v59 = v48;
-        v60 = v57;
-        _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a3, v69, v28, v75);
+        v68 = v84;
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __CalDatabaseGetChangedEKObjectsForClient_block_invoke;
+        v74[3] = &unk_1E8694AB8;
+        v17 = v72;
+        v75 = v72;
+        v76 = v56;
+        v77 = v48;
+        v78 = v47;
+        v81 = v69;
+        v82 = a1;
+        v79 = v51;
+        v83 = v64;
+        v45 = v46;
+        v80 = v45;
+        v57 = v51;
+        v58 = v47;
+        v59 = v56;
+        _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a3, v68, v27, v74);
 
-        v42 = v66;
+        v41 = v65;
         v16 = a10;
 LABEL_88:
         __CalDatabaseRollbackTransaction(a1, "rollback at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1224");
@@ -1259,53 +1215,53 @@ LABEL_88:
         }
 
         os_unfair_lock_unlock((a1 + 80));
-        if (v71)
+        if (v70)
         {
-          v61 = SequenceNumber;
-          if (v28 != -1)
+          v60 = SequenceNumber;
+          if (v27 != -1)
           {
-            v61 = v28;
+            v60 = v27;
           }
 
-          *v71 = v61;
+          *v70 = v60;
         }
 
         if (v16)
         {
-          v62 = v33;
+          v61 = v32;
         }
 
         else
         {
-          v62 = 1;
+          v61 = 1;
         }
 
-        if ((v62 & 1) == 0)
+        if ((v61 & 1) == 0)
         {
-          *v16 = v46;
+          *v16 = v45;
         }
 
         goto LABEL_100;
       }
 
-      if ([v73 entityType] == 1)
+      if ([v72 entityType] == 1)
       {
-        v50 = v49;
-        v51 = @"calendar_id";
+        v49 = v48;
+        v50 = @"calendar_id";
         goto LABEL_82;
       }
     }
 
-    v65 = -1;
-    v52 = v49;
+    v64 = -1;
+    v51 = v48;
     goto LABEL_84;
   }
 
-  v41 = CDBLogHandle;
+  v40 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DEBB1000, v41, OS_LOG_TYPE_ERROR, "Couldn't start transaction to get changed ek objects", buf, 2u);
+    _os_log_impl(&dword_1DEBB1000, v40, OS_LOG_TYPE_ERROR, "Couldn't start transaction to get changed ek objects", buf, 2u);
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -1314,10 +1270,10 @@ LABEL_88:
   }
 
   os_unfair_lock_unlock((a1 + 80));
-  v42 = -1;
+  v41 = -1;
 LABEL_100:
 
-  return v42;
+  return v41;
 }
 
 uint64_t _CalDatabaseGetLatestConsumedSequenceNumberForClient(uint64_t a1, void *a2, _DWORD *a3)
@@ -1393,34 +1349,34 @@ uint64_t _CalDatabaseGetLatestConsumedSequenceNumberForClient(uint64_t a1, void 
 
 id generateNotInClause(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 count])
   {
     v2 = objc_msgSend(@"NOT IN ("), "mutableCopy";
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 appendFormat:@"%i, ", objc_msgSend(*(*(&v10 + 1) + 8 * i), "intValue")];
+          [v2 appendFormat:@"%i, ", objc_msgSend(*(*(&v9 + 1) + 8 * i), "intValue")];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -1433,8 +1389,6 @@ id generateNotInClause(void *a1)
   {
     v2 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -1548,7 +1502,7 @@ void _prepareBindingBlocksForFindingChangesOfEachEntityType(uint64_t a1, void *a
 
 void __CalDatabaseGetChangedEKObjectsForClient_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5, int a6)
 {
-  *(&v85[3] + 4) = *MEMORY[0x1E69E9840];
+  *(&v84[3] + 4) = *MEMORY[0x1E69E9840];
   v11 = a5;
   if (a2 != &kCalStoreClass || *(a1 + 32) == 0)
   {
@@ -1583,19 +1537,19 @@ LABEL_21:
 
           else
           {
-            v76[0] = MEMORY[0x1E69E9820];
-            v76[1] = 3221225472;
-            v76[2] = __CalDatabaseGetChangedEKObjectsForClient_block_invoke_2;
-            v76[3] = &unk_1E8694A90;
-            v77 = v11;
+            v75[0] = MEMORY[0x1E69E9820];
+            v75[1] = 3221225472;
+            v75[2] = __CalDatabaseGetChangedEKObjectsForClient_block_invoke_2;
+            v75[3] = &unk_1E8694A90;
+            v76 = v11;
             v17 = *(a1 + 96);
-            v78 = a6;
-            v79 = v17;
-            v18 = MEMORY[0x1E12C7520](v76);
+            v77 = a6;
+            v78 = v17;
+            v18 = MEMORY[0x1E12C7520](v75);
           }
 
           RecordStore = _CalDatabaseGetRecordStore(*(a1 + 88));
-          v75 = *(*(a1 + 88) + 172);
+          v74 = *(*(a1 + 88) + 172);
           v20 = *(a1 + 72);
           v21 = v18;
           if (_buildDictionariesWithChangeTablePropertiesForEntityType_onceToken != -1)
@@ -1614,7 +1568,7 @@ LABEL_21:
             {
               v32 = *a2;
               *buf = 136315138;
-              v85[0] = v32;
+              v84[0] = v32;
               v28 = "Unsupported record descriptor %s";
               v29 = v31;
               v30 = 12;
@@ -1626,7 +1580,7 @@ LABEL_80:
             goto LABEL_81;
           }
 
-          v65 = v22;
+          v64 = v22;
           v25 = *v24;
           if (*v24 < 1)
           {
@@ -1639,7 +1593,7 @@ LABEL_80:
             if (!v26)
             {
               v27 = CDBLogHandle;
-              v22 = v65;
+              v22 = v64;
               if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
@@ -1655,15 +1609,15 @@ LABEL_33:
             }
           }
 
-          v66 = v20;
-          v69 = v25;
-          v70 = a3;
-          v64 = v11;
-          v82 = 0;
-          v83 = 0;
-          v33 = v25;
-          v80 = 0;
+          v65 = v20;
+          v68 = v25;
+          v69 = a3;
+          v63 = v11;
           v81 = 0;
+          v82 = 0;
+          v33 = v25;
+          v79 = 0;
+          v80 = 0;
           if (RecordStore)
           {
             if (CDBLockingAssertionsEnabled)
@@ -1676,46 +1630,46 @@ LABEL_33:
             }
           }
 
-          LODWORD(v61) = v25;
-          v59 = *(v24 + 1);
-          v60 = v26;
-          v62 = v21;
-          v63 = v16;
+          LODWORD(v60) = v25;
+          v58 = *(v24 + 1);
+          v59 = v26;
+          v61 = v21;
+          v62 = v16;
           CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBindBlockAndPropertiesA();
-          v35 = v83;
+          v35 = v82;
+          v71 = v80;
           v72 = v81;
-          v73 = v82;
-          v68 = v80;
+          v67 = v79;
           v36 = *(v24 + 2);
           v37 = *(v24 + 3);
-          v74 = v66;
+          v73 = v65;
           v38 = v36;
           theArray = v35;
-          if (!v35 || !v73 || !v72 || (Count = CFArrayGetCount(v35), Count < 1))
+          if (!v35 || !v72 || !v71 || (Count = CFArrayGetCount(v35), Count < 1))
           {
 LABEL_64:
-
-            if (v83)
-            {
-              CFRelease(v83);
-            }
 
             if (v82)
             {
               CFRelease(v82);
             }
 
-            v11 = v64;
             if (v81)
             {
               CFRelease(v81);
             }
 
-            v21 = v62;
-            v16 = v63;
+            v11 = v63;
             if (v80)
             {
               CFRelease(v80);
+            }
+
+            v21 = v61;
+            v16 = v62;
+            if (v79)
+            {
+              CFRelease(v79);
             }
 
             if (v26)
@@ -1740,8 +1694,8 @@ LABEL_64:
               free(v26);
             }
 
-            v22 = v65;
-            v20 = v66;
+            v22 = v64;
+            v20 = v65;
             goto LABEL_80;
           }
 
@@ -1749,11 +1703,11 @@ LABEL_64:
           v40 = 0x1E696A000uLL;
           while (1)
           {
-            v41 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{v33 + 4, v59, v60, v61}];
+            v41 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{v33 + 4, v58, v59, v60}];
             ValueAtIndex = CFArrayGetValueAtIndex(theArray, v39);
-            v43 = CFArrayGetValueAtIndex(v73, v39);
-            v44 = CFArrayGetValueAtIndex(v72, v39);
-            v45 = [[CADObjectID alloc] initWithEntityType:v70 entityID:ValueAtIndex databaseID:v75];
+            v43 = CFArrayGetValueAtIndex(v72, v39);
+            v44 = CFArrayGetValueAtIndex(v71, v39);
+            v45 = [[CADObjectID alloc] initWithEntityType:v69 entityID:ValueAtIndex databaseID:v74];
             [v41 setObject:v45 forKeyedSubscript:@"record"];
 
             v46 = [*(v40 + 3480) numberWithInt:v43];
@@ -1762,19 +1716,19 @@ LABEL_64:
             v47 = [*(v40 + 3480) numberWithInt:v44];
             [v41 setObject:v47 forKeyedSubscript:@"ROWID"];
 
-            if (v68)
+            if (v67)
             {
-              v48 = [*(v40 + 3480) numberWithInt:{CFArrayGetValueAtIndex(v68, v39)}];
+              v48 = [*(v40 + 3480) numberWithInt:{CFArrayGetValueAtIndex(v67, v39)}];
               [v41 setObject:v48 forKeyedSubscript:@"sequence_number"];
             }
 
-            if (v69 >= 1)
+            if (v68 >= 1)
             {
               break;
             }
 
 LABEL_63:
-            [v74 addObject:v41];
+            [v73 addObject:v41];
 
             ++v39;
             v40 = 0x1E696A000;
@@ -1809,9 +1763,9 @@ LABEL_63:
                 if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109378;
-                  LODWORD(v85[0]) = v52;
-                  WORD2(v85[0]) = 2112;
-                  *(v85 + 6) = v50;
+                  LODWORD(v84[0]) = v52;
+                  WORD2(v84[0]) = 2112;
+                  *(v84 + 6) = v50;
                   _os_log_impl(&dword_1DEBB1000, v56, OS_LOG_TYPE_ERROR, "Unsupported type %i for key %@", buf, 0x12u);
                 }
 
@@ -1858,8 +1812,6 @@ LABEL_19:
   }
 
 LABEL_81:
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CalDatabaseGetChangedEKObjectsForClient_block_invoke_2(uint64_t a1, uint64_t a2)
@@ -1875,14 +1827,13 @@ uint64_t __CalDatabaseGetChangedEKObjectsForClient_block_invoke_2(uint64_t a1, u
 void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
 {
   v1 = a1;
-  v112 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(a1 + 20);
   if (__CalDatabaseBeginWriteTransaction(v1, "write at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1621"))
   {
     v2 = &CDBLockingAssertionsEnabled;
-    if (CDBLockingAssertionsEnabled == 1 && *(v1 + 24) != 0)
+    if (CDBLockingAssertionsEnabled == 1 && *&v1[6]._os_unfair_lock_opaque != 0)
     {
-      v4 = *(v1 + 24);
       Context = CPRecordStoreGetContext();
       if (Context)
       {
@@ -1895,62 +1846,62 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
     {
       if (*(Database + 104))
       {
-        v8 = CPRecordStoreGetContext();
-        if (v8)
+        v7 = CPRecordStoreGetContext();
+        if (v7)
         {
-          os_unfair_lock_assert_owner(v8 + 20);
+          os_unfair_lock_assert_owner(v7 + 20);
         }
       }
     }
 
-    v9 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
-    if (v9)
+    v8 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+    if (v8)
     {
-      v10 = v9;
-      v11 = os_signpost_id_generate(CDBPerfSignpostsHandle);
-      v12 = CDBPerfSignpostsHandle;
-      v13 = v12;
-      spid = v11;
-      v97 = v11 - 1;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v9 = v8;
+      v10 = os_signpost_id_generate(CDBPerfSignpostsHandle);
+      v11 = CDBPerfSignpostsHandle;
+      v12 = v11;
+      spid = v10;
+      v92 = v10 - 1;
+      if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DEBB1000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "ClearSuperfluousChanges", &unk_1DECC006F, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1DEBB1000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ClearSuperfluousChanges", &unk_1DECC006F, buf, 2u);
       }
 
-      v14 = [MEMORY[0x1E695DFA8] set];
+      v13 = [MEMORY[0x1E695DFA8] set];
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v10)
+        if (*v9)
         {
-          if (*(*v10 + 104))
+          if (*(*v9 + 104))
           {
-            v15 = CPRecordStoreGetContext();
-            if (v15)
+            v14 = CPRecordStoreGetContext();
+            if (v14)
             {
-              os_unfair_lock_assert_owner(v15 + 20);
+              os_unfair_lock_assert_owner(v14 + 20);
             }
           }
         }
       }
 
-      v16 = CPSqliteConnectionStatementForSQL();
-      if (v16)
+      v15 = CPSqliteConnectionStatementForSQL();
+      if (v15)
       {
-        v17 = v16;
+        v16 = v15;
         if (CDBLockingAssertionsEnabled == 1)
         {
-          if (*v16)
+          if (*v15)
           {
-            v18 = **v16;
-            if (v18)
+            v17 = **v15;
+            if (v17)
             {
-              if (*(v18 + 104))
+              if (*(v17 + 104))
               {
-                v19 = CPRecordStoreGetContext();
-                if (v19)
+                v18 = CPRecordStoreGetContext();
+                if (v18)
                 {
-                  os_unfair_lock_assert_owner(v19 + 20);
+                  os_unfair_lock_assert_owner(v18 + 20);
                 }
               }
             }
@@ -1960,17 +1911,17 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
         CPSqliteStatementSendResults();
         if (CDBLockingAssertionsEnabled == 1)
         {
-          if (*v17)
+          if (*v16)
           {
-            v20 = **v17;
-            if (v20)
+            v19 = **v16;
+            if (v19)
             {
-              if (*(v20 + 104))
+              if (*(v19 + 104))
               {
-                v21 = CPRecordStoreGetContext();
-                if (v21)
+                v20 = CPRecordStoreGetContext();
+                if (v20)
                 {
-                  os_unfair_lock_assert_owner(v21 + 20);
+                  os_unfair_lock_assert_owner(v20 + 20);
                 }
               }
             }
@@ -1980,58 +1931,77 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
         CPSqliteStatementReset();
       }
 
-      v98 = v1;
-      v99 = [MEMORY[0x1E695DF90] dictionary];
-      v107 = 0u;
-      v108 = 0u;
-      v109 = 0u;
-      v110 = 0u;
-      obj = v14;
-      v22 = [obj countByEnumeratingWithState:&v107 objects:buf count:16];
-      v23 = 0x1E695D000uLL;
-      if (v22)
+      v93 = v1;
+      v94 = [MEMORY[0x1E695DF90] dictionary];
+      v102 = 0u;
+      v103 = 0u;
+      v104 = 0u;
+      v105 = 0u;
+      obj = v13;
+      v21 = [obj countByEnumeratingWithState:&v102 objects:buf count:16];
+      v22 = 0x1E695D000uLL;
+      if (v21)
       {
-        v24 = v22;
-        v25 = *v108;
+        v23 = v21;
+        v24 = *v103;
         do
         {
-          v26 = 0;
-          v100 = v24;
+          v25 = 0;
+          v95 = v23;
           do
           {
-            if (*v108 != v25)
+            if (*v103 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v104 = *(*(&v107 + 1) + 8 * v26);
-            v27 = *(v23 + 3952);
-            v28 = objc_opt_new();
+            v99 = *(*(&v102 + 1) + 8 * v25);
+            v26 = objc_opt_new();
             if (*v2 == 1)
             {
-              if (*v10)
+              if (*v9)
               {
-                if (*(*v10 + 104))
+                if (*(*v9 + 104))
                 {
-                  v29 = CPRecordStoreGetContext();
-                  if (v29)
+                  v27 = CPRecordStoreGetContext();
+                  if (v27)
                   {
-                    os_unfair_lock_assert_owner(v29 + 20);
+                    os_unfair_lock_assert_owner(v27 + 20);
                   }
                 }
               }
             }
 
-            v30 = CPSqliteConnectionStatementForSQL();
-            if (v30)
+            v28 = CPSqliteConnectionStatementForSQL();
+            if (v28)
             {
-              v31 = v30;
-              sqlite3_bind_int(*(v30 + 8), 1, [v104 intValue]);
+              v29 = v28;
+              sqlite3_bind_int(*(v28 + 8), 1, [v99 intValue]);
               if (*v2 == 1)
               {
-                if (*v31)
+                if (*v29)
                 {
-                  v32 = **v31;
+                  v30 = **v29;
+                  if (v30)
+                  {
+                    if (*(v30 + 104))
+                    {
+                      v31 = CPRecordStoreGetContext();
+                      if (v31)
+                      {
+                        os_unfair_lock_assert_owner(v31 + 20);
+                      }
+                    }
+                  }
+                }
+              }
+
+              CPSqliteStatementSendResults();
+              if (*v2 == 1)
+              {
+                if (*v29)
+                {
+                  v32 = **v29;
                   if (v32)
                   {
                     if (*(v32 + 104))
@@ -2046,264 +2016,244 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
                 }
               }
 
-              CPSqliteStatementSendResults();
-              if (*v2 == 1)
-              {
-                if (*v31)
-                {
-                  v34 = **v31;
-                  if (v34)
-                  {
-                    if (*(v34 + 104))
-                    {
-                      v35 = CPRecordStoreGetContext();
-                      if (v35)
-                      {
-                        os_unfair_lock_assert_owner(v35 + 20);
-                      }
-                    }
-                  }
-                }
-              }
-
               CPSqliteStatementReset();
-              v36 = [v28 mutableCopy];
-              v37 = objc_alloc_init(EKPersistentChangeStoreInfo);
-              if ([v36 count])
+              v34 = [v26 mutableCopy];
+              v35 = objc_alloc_init(EKPersistentChangeStoreInfo);
+              if ([v34 count])
               {
-                v38 = v25;
-                v39 = v23;
-                v40 = v10;
-                v41 = v2;
-                v42 = [v36 objectAtIndexedSubscript:0];
-                v43 = [v42 clientIdentifier];
-                [(EKPersistentChangeStoreInfo *)v37 setMinConsumedClientIdentifier:v43];
+                v36 = v24;
+                v37 = v22;
+                v38 = v9;
+                v39 = v2;
+                v40 = [v34 objectAtIndexedSubscript:0];
+                v41 = [v40 clientIdentifier];
+                [(EKPersistentChangeStoreInfo *)v35 setMinConsumedClientIdentifier:v41];
 
-                -[EKPersistentChangeStoreInfo setMinConsumedSequenceNumber:](v37, "setMinConsumedSequenceNumber:", [v42 consumedSequenceNumber]);
-                if ([v36 count] < 2)
+                -[EKPersistentChangeStoreInfo setMinConsumedSequenceNumber:](v35, "setMinConsumedSequenceNumber:", [v40 consumedSequenceNumber]);
+                if ([v34 count] < 2)
                 {
-                  [(EKPersistentChangeStoreInfo *)v37 setSecondMinConsumedSequenceNumber:0x7FFFFFFFLL];
+                  [(EKPersistentChangeStoreInfo *)v35 setSecondMinConsumedSequenceNumber:0x7FFFFFFFLL];
                 }
 
                 else
                 {
-                  v44 = [v36 objectAtIndexedSubscript:1];
-                  -[EKPersistentChangeStoreInfo setSecondMinConsumedSequenceNumber:](v37, "setSecondMinConsumedSequenceNumber:", [v44 consumedSequenceNumber]);
+                  v42 = [v34 objectAtIndexedSubscript:1];
+                  -[EKPersistentChangeStoreInfo setSecondMinConsumedSequenceNumber:](v35, "setSecondMinConsumedSequenceNumber:", [v42 consumedSequenceNumber]);
                 }
 
-                v2 = v41;
-                v10 = v40;
-                v23 = v39;
-                v25 = v38;
-                v24 = v100;
+                v2 = v39;
+                v9 = v38;
+                v22 = v37;
+                v24 = v36;
+                v23 = v95;
               }
 
               else
               {
-                [(EKPersistentChangeStoreInfo *)v37 setMinConsumedSequenceNumber:0x7FFFFFFFLL];
+                [(EKPersistentChangeStoreInfo *)v35 setMinConsumedSequenceNumber:0x7FFFFFFFLL];
               }
 
-              if (v37)
+              if (v35)
               {
-                [v99 setObject:v37 forKey:v104];
+                [v94 setObject:v35 forKey:v99];
               }
             }
 
-            ++v26;
+            ++v25;
           }
 
-          while (v24 != v26);
-          v24 = [obj countByEnumeratingWithState:&v107 objects:buf count:16];
+          while (v23 != v25);
+          v23 = [obj countByEnumeratingWithState:&v102 objects:buf count:16];
         }
 
-        while (v24);
+        while (v23);
       }
 
-      v45 = v99;
-      v105 = [v99 objectForKey:&unk_1F59EFA10];
-      if (!v105)
+      v43 = v94;
+      v100 = [v94 objectForKey:&unk_1F59EFA10];
+      if (!v100)
       {
-        v105 = objc_alloc_init(EKPersistentChangeStoreInfo);
-        [(EKPersistentChangeStoreInfo *)v105 setMinConsumedSequenceNumber:0x7FFFFFFFLL];
+        v100 = objc_alloc_init(EKPersistentChangeStoreInfo);
+        [(EKPersistentChangeStoreInfo *)v100 setMinConsumedSequenceNumber:0x7FFFFFFFLL];
       }
 
-      [v99 removeObjectForKey:&unk_1F59EFA10];
-      v1 = v98;
-      v46 = _CalDatabaseCopyOfAllStores(v98);
-      if (v46)
+      [v94 removeObjectForKey:&unk_1F59EFA10];
+      v1 = v93;
+      v44 = _CalDatabaseCopyOfAllStores(v93);
+      if (v44)
       {
-        v47 = v46;
-        v101 = v10;
-        Count = CFArrayGetCount(v46);
-        v49 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        obja = [*(v23 + 3952) arrayWithCapacity:Count];
+        v45 = v44;
+        v96 = v9;
+        Count = CFArrayGetCount(v44);
+        v47 = objc_alloc_init(MEMORY[0x1E696AD60]);
+        obja = [*(v22 + 3952) arrayWithCapacity:Count];
         if (Count < 1)
         {
-          CFRelease(v47);
+          CFRelease(v45);
         }
 
         else
         {
-          v50 = 0;
-          v51 = 0;
+          v48 = 0;
+          v49 = 0;
           do
           {
-            CFArrayGetValueAtIndex(v47, v50);
+            CFArrayGetValueAtIndex(v45, v48);
             ID = CPRecordGetID();
-            v53 = [MEMORY[0x1E696AD98] numberWithInt:ID];
-            v54 = [v45 objectForKey:v53];
+            v51 = [MEMORY[0x1E696AD98] numberWithInt:ID];
+            v52 = [v43 objectForKey:v51];
 
-            if (!v54)
+            if (!v52)
             {
-              v54 = v105;
+              v52 = v100;
             }
 
-            if ([(EKPersistentChangeStoreInfo *)v54 minConsumedSequenceNumber]!= 0x7FFFFFFF)
+            if ([(EKPersistentChangeStoreInfo *)v52 minConsumedSequenceNumber]!= 0x7FFFFFFF)
             {
-              if (v51)
+              if (v49)
               {
-                [v49 appendString:@" OR "];
+                [v47 appendString:@" OR "];
               }
 
-              v55 = [(EKPersistentChangeStoreInfo *)v54 secondMinConsumedSequenceNumber];
-              v56 = [(EKPersistentChangeStoreInfo *)v54 minConsumedSequenceNumber];
-              v57 = [(EKPersistentChangeStoreInfo *)v54 minConsumedSequenceNumber];
-              v58 = v57;
-              if (v55 <= v56)
+              v53 = [(EKPersistentChangeStoreInfo *)v52 secondMinConsumedSequenceNumber];
+              v54 = [(EKPersistentChangeStoreInfo *)v52 minConsumedSequenceNumber];
+              v55 = [(EKPersistentChangeStoreInfo *)v52 minConsumedSequenceNumber];
+              v56 = v55;
+              if (v53 <= v54)
               {
-                [v49 appendFormat:@"((store_id == %d) AND (sequence_number <= %d))", ID, v57];
+                [v47 appendFormat:@"((store_id == %d) AND (sequence_number <= %d))", ID, v55];
               }
 
               else
               {
-                v59 = [(EKPersistentChangeStoreInfo *)v54 secondMinConsumedSequenceNumber];
-                v60 = [(EKPersistentChangeStoreInfo *)v54 minConsumedClientIdentifier];
-                [v49 appendFormat:@"((store_id == %d) AND ((sequence_number <= %d) OR ((sequence_number <= %d) AND (sequence_number IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier == %@", ID, v58, v59, v60];
+                v57 = [(EKPersistentChangeStoreInfo *)v52 secondMinConsumedSequenceNumber];
+                v58 = [(EKPersistentChangeStoreInfo *)v52 minConsumedClientIdentifier];
+                [v47 appendFormat:@"((store_id == %d) AND ((sequence_number <= %d) OR ((sequence_number <= %d) AND (sequence_number IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier == %@", ID, v56, v57, v58];
               }
 
-              v45 = v99;
-              v61 = [MEMORY[0x1E696AD98] numberWithInt:ID];
-              [obja addObject:v61];
+              v43 = v94;
+              v59 = [MEMORY[0x1E696AD98] numberWithInt:ID];
+              [obja addObject:v59];
 
-              v51 = 1;
+              v49 = 1;
             }
 
-            ++v50;
+            ++v48;
           }
 
-          while (Count != v50);
-          CFRelease(v47);
+          while (Count != v48);
+          CFRelease(v45);
           v2 = &CDBLockingAssertionsEnabled;
-          if (v51)
+          if (v49)
           {
-            [v49 appendString:@" OR "];
+            [v47 appendString:@" OR "];
           }
         }
 
-        objc_msgSend(v49, "appendString:", @"store_id NOT IN (");
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
-        v108 = 0u;
-        v64 = obja;
-        v65 = [v64 countByEnumeratingWithState:&v107 objects:buf count:16];
-        if (v65)
+        objc_msgSend(v47, "appendString:", @"store_id NOT IN (");
+        v104 = 0u;
+        v105 = 0u;
+        v102 = 0u;
+        v103 = 0u;
+        v61 = obja;
+        v62 = [v61 countByEnumeratingWithState:&v102 objects:buf count:16];
+        if (v62)
         {
-          v66 = v65;
-          v67 = 0;
-          v68 = *v108;
+          v63 = v62;
+          v64 = 0;
+          v65 = *v103;
           do
           {
-            for (i = 0; i != v66; ++i)
+            for (i = 0; i != v63; ++i)
             {
-              if (*v108 != v68)
+              if (*v103 != v65)
               {
-                objc_enumerationMutation(v64);
+                objc_enumerationMutation(v61);
               }
 
-              v70 = *(*(&v107 + 1) + 8 * i);
-              if (v67)
+              v67 = *(*(&v102 + 1) + 8 * i);
+              if (v64)
               {
-                [v49 appendString:{@", "}];
+                [v47 appendString:{@", "}];
               }
 
-              [v49 appendFormat:@"%i", objc_msgSend(v70, "intValue")];
-              v67 = 1;
+              [v47 appendFormat:@"%i", objc_msgSend(v67, "intValue")];
+              v64 = 1;
             }
 
-            v66 = [v64 countByEnumeratingWithState:&v107 objects:buf count:16];
+            v63 = [v61 countByEnumeratingWithState:&v102 objects:buf count:16];
           }
 
-          while (v66);
+          while (v63);
         }
 
-        [v49 appendString:@" OR sequence_number IS NULL"]);
-        v1 = v98;
-        if (*(v98 + 362))
+        [v47 appendString:@" OR sequence_number IS NULL"]);
+        v1 = v93;
+        if (*(v93 + 362))
         {
-          v71 = 1;
+          v68 = 1;
         }
 
         else
         {
-          v71 = 0;
+          v68 = 0;
         }
 
-        v72 = off_1ECDDF370;
-        if (!*(v98 + 362))
+        v69 = off_1ECDDF370;
+        if (!*(v93 + 362))
         {
-          v72 = __classesTrackingChanges;
+          v69 = __classesTrackingChanges;
         }
 
-        v73 = __classesTrackingChanges[v71];
-        if (v73)
+        v70 = __classesTrackingChanges[v68];
+        if (v70)
         {
-          v74 = v72 + 1;
+          v71 = v69 + 1;
           do
           {
-            v75 = *(v73 + 16);
-            if (v75 == 26 || v75 == 6)
+            v72 = *(v70 + 16);
+            if (v72 == 26 || v72 == 6)
             {
-              if (v105)
+              if (v100)
               {
-                v77 = [(EKPersistentChangeStoreInfo *)v105 minConsumedSequenceNumber];
+                v74 = [(EKPersistentChangeStoreInfo *)v100 minConsumedSequenceNumber];
               }
 
               else
               {
-                v77 = 0x7FFFFFFFLL;
+                v74 = 0x7FFFFFFFLL;
               }
 
-              v78 = [MEMORY[0x1E696AEC0] stringWithFormat:@"sequence_number <= %d", v77];
+              v75 = [MEMORY[0x1E696AEC0] stringWithFormat:@"sequence_number <= %d", v74];
             }
 
             else
             {
-              v78 = v49;
+              v75 = v47;
             }
 
-            v79 = v78;
-            RecordStore = _CalDatabaseGetRecordStore(v98);
+            v76 = v75;
+            RecordStore = _CalDatabaseGetRecordStore(v93);
             if (*v2 == 1 && RecordStore != 0)
             {
-              v82 = CPRecordStoreGetContext();
-              if (v82)
+              v79 = CPRecordStoreGetContext();
+              if (v79)
               {
-                os_unfair_lock_assert_owner(v82 + 20);
+                os_unfair_lock_assert_owner(v79 + 20);
               }
             }
 
             CPRecordStoreDeleteChangesForClassToSequenceNumberWhere();
 
-            v83 = *v74++;
-            v73 = v83;
+            v80 = *v71++;
+            v70 = v80;
           }
 
-          while (v83);
+          while (v80);
         }
 
-        v45 = v99;
-        v10 = v101;
+        v43 = v94;
+        v9 = v96;
       }
 
       if (_CalDatabaseClearSuperfluousChanges_onceToken != -1)
@@ -2311,45 +2261,38 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
         CalDatabaseClearSuperfluousChanges_cold_1();
       }
 
-      v84 = &_CalDatabaseClearSuperfluousChanges___clientSequenceDeleteQueryAuxDB;
-      if (!*(v1 + 362))
-      {
-        v84 = &_CalDatabaseClearSuperfluousChanges___clientSequenceDeleteQueryMainDB;
-      }
-
-      v85 = *v84;
       if (*v2 == 1)
       {
-        if (*v10)
+        if (*v9)
         {
-          if (*(*v10 + 104))
+          if (*(*v9 + 104))
           {
-            v86 = CPRecordStoreGetContext();
-            if (v86)
+            v81 = CPRecordStoreGetContext();
+            if (v81)
             {
-              os_unfair_lock_assert_owner(v86 + 20);
+              os_unfair_lock_assert_owner(v81 + 20);
             }
           }
         }
       }
 
-      v87 = CPSqliteConnectionStatementForSQL();
-      if (v87)
+      v82 = CPSqliteConnectionStatementForSQL();
+      if (v82)
       {
-        v88 = v87;
+        v83 = v82;
         if (*v2 == 1)
         {
-          if (*v87)
+          if (*v82)
           {
-            v89 = **v87;
-            if (v89)
+            v84 = **v82;
+            if (v84)
             {
-              if (*(v89 + 104))
+              if (*(v84 + 104))
               {
-                v90 = CPRecordStoreGetContext();
-                if (v90)
+                v85 = CPRecordStoreGetContext();
+                if (v85)
                 {
-                  os_unfair_lock_assert_owner(v90 + 20);
+                  os_unfair_lock_assert_owner(v85 + 20);
                 }
               }
             }
@@ -2359,17 +2302,17 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
         CPSqliteStatementPerform();
         if (*v2 == 1)
         {
-          if (*v88)
+          if (*v83)
           {
-            v91 = **v88;
-            if (v91)
+            v86 = **v83;
+            if (v86)
             {
-              if (*(v91 + 104))
+              if (*(v86 + 104))
               {
-                v92 = CPRecordStoreGetContext();
-                if (v92)
+                v87 = CPRecordStoreGetContext();
+                if (v87)
                 {
-                  os_unfair_lock_assert_owner(v92 + 20);
+                  os_unfair_lock_assert_owner(v87 + 20);
                 }
               }
             }
@@ -2379,20 +2322,20 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
         CPSqliteStatementReset();
       }
 
-      v93 = CDBPerfSignpostsHandle;
-      v94 = v93;
-      if (v97 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v93))
+      v88 = CDBPerfSignpostsHandle;
+      v89 = v88;
+      if (v92 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v88))
       {
-        *v106 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DEBB1000, v94, OS_SIGNPOST_INTERVAL_END, spid, "ClearSuperfluousChanges", &unk_1DECC006F, v106, 2u);
+        *v101 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DEBB1000, v89, OS_SIGNPOST_INTERVAL_END, spid, "ClearSuperfluousChanges", &unk_1DECC006F, v101, 2u);
       }
     }
 
-    v95 = CDBLogHandle;
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+    v90 = CDBLogHandle;
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DEBB1000, v95, OS_LOG_TYPE_DEBUG, "Committing after clearing superfluous changes.", buf, 2u);
+      _os_log_impl(&dword_1DEBB1000, v90, OS_LOG_TYPE_DEBUG, "Committing after clearing superfluous changes.", buf, 2u);
     }
 
     __CalDatabaseCommitTransaction(v1, "commit at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1631");
@@ -2402,15 +2345,15 @@ void CalDatabaseClearSuperfluousChanges(os_unfair_lock_s *a1)
     }
 
 LABEL_92:
-    os_unfair_lock_assert_owner((v1 + 80));
+    os_unfair_lock_assert_owner(v1 + 20);
     goto LABEL_93;
   }
 
-  v62 = CDBLogHandle;
+  v60 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DEBB1000, v62, OS_LOG_TYPE_ERROR, "Unable to start transaction before clearing superfluous changes.", buf, 2u);
+    _os_log_impl(&dword_1DEBB1000, v60, OS_LOG_TYPE_ERROR, "Unable to start transaction before clearing superfluous changes.", buf, 2u);
   }
 
   if (CDBLockingAssertionsEnabled)
@@ -2419,14 +2362,14 @@ LABEL_92:
   }
 
 LABEL_93:
-  os_unfair_lock_unlock((v1 + 80));
-  v63 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock(v1 + 20);
 }
 
-void CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(os_unfair_lock_s *a1, void *a2, int a3)
+void CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(os_unfair_lock_s *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   os_unfair_lock_lock(a1 + 20);
-  _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(a1, a2, a3);
+  _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(a1, a2, v3);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(a1 + 20);
@@ -2439,7 +2382,6 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
 {
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v7 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -2452,52 +2394,52 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
   {
     if (*(Database + 104))
     {
-      v11 = CPRecordStoreGetContext();
-      if (v11)
+      v10 = CPRecordStoreGetContext();
+      if (v10)
       {
-        os_unfair_lock_assert_owner(v11 + 20);
+        os_unfair_lock_assert_owner(v10 + 20);
       }
     }
   }
 
-  v12 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v11 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (__CalDatabaseBeginWriteTransaction(a1, "write at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1640"))
   {
-    v13 = [a2 UTF8String];
-    if (CDBLockingAssertionsEnabled == 1 && v12 != 0)
+    v12 = [a2 UTF8String];
+    if (CDBLockingAssertionsEnabled == 1 && v11 != 0)
     {
-      if (*v12)
+      if (*v11)
       {
-        if (*(*v12 + 104))
+        if (*(*v11 + 104))
         {
-          v15 = CPRecordStoreGetContext();
-          if (v15)
+          v14 = CPRecordStoreGetContext();
+          if (v14)
           {
-            os_unfair_lock_assert_owner(v15 + 20);
+            os_unfair_lock_assert_owner(v14 + 20);
           }
         }
       }
     }
 
-    v16 = CPSqliteConnectionStatementForSQL();
-    if (v16)
+    v15 = CPSqliteConnectionStatementForSQL();
+    if (v15)
     {
-      v17 = v16;
-      sqlite3_bind_text(*(v16 + 8), 1, v13, -1, 0);
-      sqlite3_bind_int(v17[1], 2, a3);
+      v16 = v15;
+      sqlite3_bind_text(*(v15 + 8), 1, v12, -1, 0);
+      sqlite3_bind_int(v16[1], 2, a3);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v17)
+        if (*v16)
         {
-          v18 = **v17;
-          if (v18)
+          v17 = **v16;
+          if (v17)
           {
-            if (*(v18 + 104))
+            if (*(v17 + 104))
             {
-              v19 = CPRecordStoreGetContext();
-              if (v19)
+              v18 = CPRecordStoreGetContext();
+              if (v18)
               {
-                os_unfair_lock_assert_owner(v19 + 20);
+                os_unfair_lock_assert_owner(v18 + 20);
               }
             }
           }
@@ -2507,17 +2449,17 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
       CPSqliteStatementPerform();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v17)
+        if (*v16)
         {
-          v20 = **v17;
-          if (v20)
+          v19 = **v16;
+          if (v19)
           {
-            if (*(v20 + 104))
+            if (*(v19 + 104))
             {
-              v21 = CPRecordStoreGetContext();
-              if (v21)
+              v20 = CPRecordStoreGetContext();
+              if (v20)
               {
-                os_unfair_lock_assert_owner(v21 + 20);
+                os_unfair_lock_assert_owner(v20 + 20);
               }
             }
           }
@@ -2532,10 +2474,10 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
     {
       if (RecordStore)
       {
-        v23 = CPRecordStoreGetContext();
-        if (v23)
+        v22 = CPRecordStoreGetContext();
+        if (v22)
         {
-          os_unfair_lock_assert_owner(v23 + 20);
+          os_unfair_lock_assert_owner(v22 + 20);
         }
       }
     }
@@ -2543,46 +2485,46 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
     SequenceNumber = CPRecordStoreGetSequenceNumber();
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (v12)
+      if (v11)
       {
-        if (*v12)
+        if (*v11)
         {
-          if (*(*v12 + 104))
+          if (*(*v11 + 104))
           {
-            v25 = CPRecordStoreGetContext();
-            if (v25)
+            v24 = CPRecordStoreGetContext();
+            if (v24)
             {
-              os_unfair_lock_assert_owner(v25 + 20);
+              os_unfair_lock_assert_owner(v24 + 20);
             }
           }
         }
       }
     }
 
-    v26 = CPSqliteConnectionStatementForSQL();
-    if (v26)
+    v25 = CPSqliteConnectionStatementForSQL();
+    if (v25)
     {
-      v27 = v26;
-      v28 = *(v26 + 8);
+      v26 = v25;
+      v27 = *(v25 + 8);
       Current = CFAbsoluteTimeGetCurrent();
-      sqlite3_bind_double(v28, 1, Current);
-      sqlite3_bind_int(v27[1], 2, a3);
-      sqlite3_bind_text(v27[1], 3, v13, -1, 0);
-      sqlite3_bind_int(v27[1], 4, SequenceNumber);
-      sqlite3_bind_text(v27[1], 5, v13, -1, 0);
+      sqlite3_bind_double(v27, 1, Current);
+      sqlite3_bind_int(v26[1], 2, a3);
+      sqlite3_bind_text(v26[1], 3, v12, -1, 0);
+      sqlite3_bind_int(v26[1], 4, SequenceNumber);
+      sqlite3_bind_text(v26[1], 5, v12, -1, 0);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v27)
+        if (*v26)
         {
-          v30 = **v27;
-          if (v30)
+          v29 = **v26;
+          if (v29)
           {
-            if (*(v30 + 104))
+            if (*(v29 + 104))
             {
-              v31 = CPRecordStoreGetContext();
-              if (v31)
+              v30 = CPRecordStoreGetContext();
+              if (v30)
               {
-                os_unfair_lock_assert_owner(v31 + 20);
+                os_unfair_lock_assert_owner(v30 + 20);
               }
             }
           }
@@ -2592,17 +2534,17 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
       CPSqliteStatementPerform();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v27)
+        if (*v26)
         {
-          v32 = **v27;
-          if (v32)
+          v31 = **v26;
+          if (v31)
           {
-            if (*(v32 + 104))
+            if (*(v31 + 104))
             {
-              v33 = CPRecordStoreGetContext();
-              if (v33)
+              v32 = CPRecordStoreGetContext();
+              if (v32)
               {
-                os_unfair_lock_assert_owner(v33 + 20);
+                os_unfair_lock_assert_owner(v32 + 20);
               }
             }
           }
@@ -2617,11 +2559,11 @@ void _CalDatabaseClearChangedObjectIDsUpToSequenceNumberForClient(uint64_t a1, v
 
   else
   {
-    v34 = CDBLogHandle;
+    v33 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v35 = 0;
-      _os_log_impl(&dword_1DEBB1000, v34, OS_LOG_TYPE_ERROR, "Unable to start transaction before cleaing changes", v35, 2u);
+      *v34 = 0;
+      _os_log_impl(&dword_1DEBB1000, v33, OS_LOG_TYPE_ERROR, "Unable to start transaction before cleaing changes", v34, 2u);
     }
   }
 }
@@ -2630,7 +2572,6 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
 {
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v3 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -2643,49 +2584,49 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
   {
     if (*(Database + 104))
     {
-      v7 = CPRecordStoreGetContext();
-      if (v7)
+      v6 = CPRecordStoreGetContext();
+      if (v6)
       {
-        os_unfair_lock_assert_owner(v7 + 20);
+        os_unfair_lock_assert_owner(v6 + 20);
       }
     }
   }
 
-  v8 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v7 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (__CalDatabaseBeginWriteTransaction(a1, "write at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1689"))
   {
-    if (CDBLockingAssertionsEnabled == 1 && v8 != 0)
+    if (CDBLockingAssertionsEnabled == 1 && v7 != 0)
     {
-      if (*v8)
+      if (*v7)
       {
-        if (*(*v8 + 104))
+        if (*(*v7 + 104))
         {
-          v10 = CPRecordStoreGetContext();
-          if (v10)
+          v9 = CPRecordStoreGetContext();
+          if (v9)
           {
-            os_unfair_lock_assert_owner(v10 + 20);
+            os_unfair_lock_assert_owner(v9 + 20);
           }
         }
       }
     }
 
-    v11 = CPSqliteConnectionStatementForSQL();
-    if (v11)
+    v10 = CPSqliteConnectionStatementForSQL();
+    if (v10)
     {
-      v12 = v11;
+      v11 = v10;
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v11)
+        if (*v10)
         {
-          v13 = **v11;
-          if (v13)
+          v12 = **v10;
+          if (v12)
           {
-            if (*(v13 + 104))
+            if (*(v12 + 104))
             {
-              v14 = CPRecordStoreGetContext();
-              if (v14)
+              v13 = CPRecordStoreGetContext();
+              if (v13)
               {
-                os_unfair_lock_assert_owner(v14 + 20);
+                os_unfair_lock_assert_owner(v13 + 20);
               }
             }
           }
@@ -2695,17 +2636,17 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
       CPSqliteStatementPerform();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v12)
+        if (*v11)
         {
-          v15 = **v12;
-          if (v15)
+          v14 = **v11;
+          if (v14)
           {
-            if (*(v15 + 104))
+            if (*(v14 + 104))
             {
-              v16 = CPRecordStoreGetContext();
-              if (v16)
+              v15 = CPRecordStoreGetContext();
+              if (v15)
               {
-                os_unfair_lock_assert_owner(v16 + 20);
+                os_unfair_lock_assert_owner(v15 + 20);
               }
             }
           }
@@ -2718,53 +2659,53 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
     RecordStore = _CalDatabaseGetRecordStore(a1);
     if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
     {
-      v19 = CPRecordStoreGetContext();
-      if (v19)
+      v18 = CPRecordStoreGetContext();
+      if (v18)
       {
-        os_unfair_lock_assert_owner(v19 + 20);
+        os_unfair_lock_assert_owner(v18 + 20);
       }
     }
 
     SequenceNumber = CPRecordStoreGetSequenceNumber();
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (v8)
+      if (v7)
       {
-        if (*v8)
+        if (*v7)
         {
-          if (*(*v8 + 104))
+          if (*(*v7 + 104))
           {
-            v21 = CPRecordStoreGetContext();
-            if (v21)
+            v20 = CPRecordStoreGetContext();
+            if (v20)
             {
-              os_unfair_lock_assert_owner(v21 + 20);
+              os_unfair_lock_assert_owner(v20 + 20);
             }
           }
         }
       }
     }
 
-    v22 = CPSqliteConnectionStatementForSQL();
-    if (v22)
+    v21 = CPSqliteConnectionStatementForSQL();
+    if (v21)
     {
-      v23 = v22;
-      v24 = *(v22 + 8);
+      v22 = v21;
+      v23 = *(v21 + 8);
       Current = CFAbsoluteTimeGetCurrent();
-      sqlite3_bind_double(v24, 1, Current);
-      sqlite3_bind_int(v23[1], 2, SequenceNumber);
+      sqlite3_bind_double(v23, 1, Current);
+      sqlite3_bind_int(v22[1], 2, SequenceNumber);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v23)
+        if (*v22)
         {
-          v26 = **v23;
-          if (v26)
+          v25 = **v22;
+          if (v25)
           {
-            if (*(v26 + 104))
+            if (*(v25 + 104))
             {
-              v27 = CPRecordStoreGetContext();
-              if (v27)
+              v26 = CPRecordStoreGetContext();
+              if (v26)
               {
-                os_unfair_lock_assert_owner(v27 + 20);
+                os_unfair_lock_assert_owner(v26 + 20);
               }
             }
           }
@@ -2774,17 +2715,17 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
       CPSqliteStatementPerform();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v23)
+        if (*v22)
         {
-          v28 = **v23;
-          if (v28)
+          v27 = **v22;
+          if (v27)
           {
-            if (*(v28 + 104))
+            if (*(v27 + 104))
             {
-              v29 = CPRecordStoreGetContext();
-              if (v29)
+              v28 = CPRecordStoreGetContext();
+              if (v28)
               {
-                os_unfair_lock_assert_owner(v29 + 20);
+                os_unfair_lock_assert_owner(v28 + 20);
               }
             }
           }
@@ -2796,39 +2737,38 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
 
     if (*(a1 + 362))
     {
-      v30 = 1;
+      v29 = 1;
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
-    v31 = off_1ECDDF370;
+    v30 = off_1ECDDF370;
     if (!*(a1 + 362))
     {
-      v31 = __classesTrackingChanges;
+      v30 = __classesTrackingChanges;
     }
 
-    if (__classesTrackingChanges[v30])
+    if (__classesTrackingChanges[v29])
     {
-      v32 = v31 + 1;
+      v31 = v30 + 1;
       do
       {
         if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
         {
-          v34 = *(a1 + 24);
-          v35 = CPRecordStoreGetContext();
-          if (v35)
+          v33 = CPRecordStoreGetContext();
+          if (v33)
           {
-            os_unfair_lock_assert_owner(v35 + 20);
+            os_unfair_lock_assert_owner(v33 + 20);
           }
         }
 
         CPRecordStoreDeleteChangesForClassToSequenceNumberWhere();
       }
 
-      while (*v32++);
+      while (*v31++);
     }
 
     __CalDatabaseCommitTransaction(a1, "commit at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1719");
@@ -2836,11 +2776,11 @@ void _CalDatabaseClearAllChangeHistoryForAllClients(uint64_t a1)
 
   else
   {
-    v37 = CDBLogHandle;
+    v35 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_1DEBB1000, v37, OS_LOG_TYPE_ERROR, "Unable to start transaction before cleaing change history", v38, 2u);
+      v36[0] = 0;
+      _os_log_impl(&dword_1DEBB1000, v35, OS_LOG_TYPE_ERROR, "Unable to start transaction before cleaing change history", v36, 2u);
     }
   }
 }
@@ -2857,54 +2797,55 @@ void CalDatabaseClearAllChangeHistoryForAllClients(os_unfair_lock_s *a1)
   os_unfair_lock_unlock(a1 + 20);
 }
 
-void CalDatabaseEnumerateUnconsumedObjectChangesForClient(os_unfair_lock_s *a1, void *a2, int a3, void *a4)
+void CalDatabaseEnumerateUnconsumedObjectChangesForClient(os_unfair_lock_s *a1, void *a2, uint64_t a3, void *a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v4 = a3;
+  v36 = *MEMORY[0x1E69E9840];
   v7 = a4;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__4;
-  v34 = __Block_byref_object_dispose__4;
-  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__4;
+  v33 = __Block_byref_object_dispose__4;
+  v34 = 0;
   os_unfair_lock_lock(a1 + 20);
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke;
-  v24[3] = &unk_1E8694AE0;
-  v25 = @"changedIDs";
-  v26 = @"changeTypes";
-  v27 = @"changeTableIDs";
-  v28 = @"sequenceNumbers";
-  v29 = &v30;
-  _CalDatabaseEnumerateUnconsumedObjectChangesForClient(a1, a2, a3, 0, v24);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke;
+  v23[3] = &unk_1E8694AE0;
+  v24 = @"changedIDs";
+  v25 = @"changeTypes";
+  v26 = @"changeTableIDs";
+  v27 = @"sequenceNumbers";
+  v28 = &v29;
+  _CalDatabaseEnumerateUnconsumedObjectChangesForClient(a1, a2, v4, 0, v23);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(a1 + 20);
   }
 
   os_unfair_lock_unlock(a1 + 20);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  obj = v31[5];
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v36 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  obj = v30[5];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v35 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [v11 integerValue];
-        v13 = [v31[5] objectForKeyedSubscript:v11];
+        v13 = [v30[5] objectForKeyedSubscript:v11];
         v14 = [v13 objectForKeyedSubscript:@"changedIDs"];
 
         v15 = [v13 objectForKeyedSubscript:@"changeTypes"];
@@ -2916,14 +2857,20 @@ void CalDatabaseEnumerateUnconsumedObjectChangesForClient(os_unfair_lock_s *a1, 
         v7[2](v7, v12, v14, v15, v16, v17);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v36 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v35 count:16];
     }
 
     while (v8);
   }
 
-  _Block_object_dispose(&v30, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v29, 8);
+}
+
+void sub_1DEC80CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
@@ -2938,7 +2885,6 @@ void _CalDatabaseEnumerateUnconsumedObjectChangesForClient(uint64_t a1, void *a2
   v9 = a5;
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v11 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -2951,74 +2897,74 @@ void _CalDatabaseEnumerateUnconsumedObjectChangesForClient(uint64_t a1, void *a2
   {
     if (*(Database + 104))
     {
-      v15 = CPRecordStoreGetContext();
-      if (v15)
+      v14 = CPRecordStoreGetContext();
+      if (v14)
       {
-        os_unfair_lock_assert_owner(v15 + 20);
+        os_unfair_lock_assert_owner(v14 + 20);
       }
     }
   }
 
-  v16 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v15 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (__CalDatabaseBeginReadTransaction(a1, "read at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1743"))
   {
     *buf = 0;
-    if (v16)
+    if (v15)
     {
       if (CDBLockingAssertionsEnabled)
       {
-        if (*v16)
+        if (*v15)
         {
-          if (*(*v16 + 104))
+          if (*(*v15 + 104))
           {
-            v17 = CPRecordStoreGetContext();
-            if (v17)
+            v16 = CPRecordStoreGetContext();
+            if (v16)
             {
-              os_unfair_lock_assert_owner(v17 + 20);
+              os_unfair_lock_assert_owner(v16 + 20);
             }
           }
         }
       }
     }
 
-    v18 = CPSqliteConnectionStatementForSQL();
-    if (v18)
+    v17 = CPSqliteConnectionStatementForSQL();
+    if (v17)
     {
-      v19 = v18;
-      sqlite3_bind_text(*(v18 + 8), 1, [a2 UTF8String], -1, 0);
+      v18 = v17;
+      sqlite3_bind_text(*(v17 + 8), 1, [a2 UTF8String], -1, 0);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v19)
+        if (*v18)
         {
-          v20 = **v19;
-          if (v20)
+          v19 = **v18;
+          if (v19)
           {
-            if (*(v20 + 104))
+            if (*(v19 + 104))
             {
-              v21 = CPRecordStoreGetContext();
-              if (v21)
+              v20 = CPRecordStoreGetContext();
+              if (v20)
               {
-                os_unfair_lock_assert_owner(v21 + 20);
+                os_unfair_lock_assert_owner(v20 + 20);
               }
             }
           }
         }
       }
 
-      v22 = CPSqliteStatementIntegerResult();
+      v21 = CPSqliteStatementIntegerResult();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v19)
+        if (*v18)
         {
-          v23 = **v19;
-          if (v23)
+          v22 = **v18;
+          if (v22)
           {
-            if (*(v23 + 104))
+            if (*(v22 + 104))
             {
-              v24 = CPRecordStoreGetContext();
-              if (v24)
+              v23 = CPRecordStoreGetContext();
+              if (v23)
               {
-                os_unfair_lock_assert_owner(v24 + 20);
+                os_unfair_lock_assert_owner(v23 + 20);
               }
             }
           }
@@ -3030,13 +2976,13 @@ void _CalDatabaseEnumerateUnconsumedObjectChangesForClient(uint64_t a1, void *a2
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     if (a3 == -1)
     {
       *buf = 0;
-      if (_CalDatabaseGetLatestConsumedSequenceNumberForClient(v16, a2, buf))
+      if (_CalDatabaseGetLatestConsumedSequenceNumberForClient(v15, a2, buf))
       {
         a3 = -1;
       }
@@ -3047,33 +2993,33 @@ void _CalDatabaseEnumerateUnconsumedObjectChangesForClient(uint64_t a1, void *a2
       }
     }
 
-    v26 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
-    v27 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+    v25 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
+    v26 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?)";
     if (a4)
     {
-      v28 = -1;
-      if (v22)
+      v27 = -1;
+      if (v21)
       {
 LABEL_44:
-        v27 = [(__CFString *)v27 stringByAppendingString:@" AND store_id = ?"];
-        v29 = [(__CFString *)v26 stringByAppendingString:@" AND store_id = ?"];
-        v30 = [(__CFString *)v26 stringByAppendingString:@" AND record = ?"];
-        v26 = v29;
+        v26 = [(__CFString *)v26 stringByAppendingString:@" AND store_id = ?"];
+        v28 = [(__CFString *)v25 stringByAppendingString:@" AND store_id = ?"];
+        v29 = [(__CFString *)v25 stringByAppendingString:@" AND record = ?"];
+        v25 = v28;
 LABEL_49:
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = ___CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke;
-        v34[3] = &unk_1E8694B58;
-        v35 = v27;
-        v36 = v26;
-        v40 = v22;
-        v37 = v30;
-        v39 = a1;
-        v38 = v9;
-        v31 = v30;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = ___CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke;
+        v33[3] = &unk_1E8694B58;
+        v34 = v26;
+        v35 = v25;
+        v39 = v21;
+        v36 = v29;
+        v38 = a1;
+        v37 = v9;
+        v30 = v29;
+        v31 = v25;
         v32 = v26;
-        v33 = v27;
-        _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a2, a3, v28, v34);
+        _prepareBindingBlocksForFindingChangesOfEachEntityType(a1, a2, a3, v27, v33);
         __CalDatabaseRollbackTransaction(a1, "rollback at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1812");
 
         goto LABEL_50;
@@ -3082,28 +3028,28 @@ LABEL_49:
 
     else
     {
-      v28 = *(a1 + 344);
-      if (v28 >= 0)
+      v27 = *(a1 + 344);
+      if (v27 >= 0)
       {
-        v27 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
-        v26 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+        v26 = @"sequence_number > ?  AND entity_type = ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
+        v25 = @"sequence_number > ?  AND sequence_number NOT IN (SELECT sequence_number FROM ClientSequence WHERE client_identifier = ?)  AND ROWID NOT IN (SELECT consumed_change_id FROM ClientCursorConsumed WHERE client_identifier = ? AND consumed_entity_class = ?) AND sequence_number <= ?";
       }
 
-      if (v22)
+      if (v21)
       {
         goto LABEL_44;
       }
     }
 
-    v30 = v26;
+    v29 = v25;
     goto LABEL_49;
   }
 
-  v25 = CDBLogHandle;
+  v24 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DEBB1000, v25, OS_LOG_TYPE_ERROR, "Couldn't start transaction to enumerate unconsumed changes.", buf, 2u);
+    _os_log_impl(&dword_1DEBB1000, v24, OS_LOG_TYPE_ERROR, "Couldn't start transaction to enumerate unconsumed changes.", buf, 2u);
   }
 
 LABEL_50:
@@ -3111,7 +3057,7 @@ LABEL_50:
 
 void __CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke(uint64_t a1, uint64_t a2, CFArrayRef theArray, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   if (theArray && CFArrayGetCount(theArray) >= 1)
   {
     if (!*(*(*(a1 + 64) + 8) + 40))
@@ -3122,29 +3068,26 @@ void __CalDatabaseEnumerateUnconsumedObjectChangesForClient_block_invoke(uint64_
       *(v13 + 40) = v12;
     }
 
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 40);
-    v22[0] = theArray;
-    v22[1] = a4;
-    v21 = *(a1 + 56);
-    v22[2] = a5;
-    v22[3] = a6;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v19 count:4];
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    v21[0] = theArray;
+    v21[1] = a4;
+    v20 = *(a1 + 56);
+    v21[2] = a5;
+    v21[3] = a6;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v18 count:4];
     v16 = *(*(*(a1 + 64) + 8) + 40);
     v17 = [MEMORY[0x1E696AD98] numberWithInt:a2];
     [v16 setObject:v15 forKeyedSubscript:v17];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void CalDatabaseClearIndividualChangeRowIDsForClient(uint64_t a1, void *a2, const __CFArray *a3, int a4)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 80));
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v9 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -3157,29 +3100,29 @@ void CalDatabaseClearIndividualChangeRowIDsForClient(uint64_t a1, void *a2, cons
   {
     if (*(Database + 104))
     {
-      v13 = CPRecordStoreGetContext();
-      if (v13)
+      v12 = CPRecordStoreGetContext();
+      if (v12)
       {
-        os_unfair_lock_assert_owner(v13 + 20);
+        os_unfair_lock_assert_owner(v12 + 20);
       }
     }
   }
 
-  v14 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v13 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
   if (!__CalDatabaseBeginWriteTransaction(a1, "write at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1893"))
   {
     NSLog(&cfstr_Caldatabaseper.isa, 0);
     goto LABEL_86;
   }
 
-  v47 = [a2 cStringUsingEncoding:4];
+  v45 = [a2 cStringUsingEncoding:4];
   if (a4 <= 99)
   {
-    v15 = &kCalAlarmClass;
+    v14 = &kCalAlarmClass;
     switch(a4)
     {
       case 1:
-        v15 = &kCalCalendarClass;
+        v14 = &kCalCalendarClass;
         goto LABEL_33;
       case 2:
       case 3:
@@ -3187,35 +3130,35 @@ void CalDatabaseClearIndividualChangeRowIDsForClient(uint64_t a1, void *a2, cons
       case 4:
         goto LABEL_33;
       case 5:
-        v15 = &kCalRecurrenceClass;
+        v14 = &kCalRecurrenceClass;
         goto LABEL_33;
       case 6:
-        v15 = &kCalStoreClass;
+        v14 = &kCalStoreClass;
         goto LABEL_33;
       case 7:
       case 8:
         goto LABEL_23;
       case 9:
-        v15 = &kCalEventActionClass;
+        v14 = &kCalEventActionClass;
         goto LABEL_33;
       case 10:
-        v15 = &kCalExceptionDateClass;
+        v14 = &kCalExceptionDateClass;
         goto LABEL_33;
       case 11:
-        v15 = &kCalAttachmentClass;
+        v14 = &kCalAttachmentClass;
         goto LABEL_33;
       case 15:
-        v15 = &kCalShareeClass;
+        v14 = &kCalShareeClass;
         goto LABEL_33;
       case 16:
       case 17:
       case 19:
         goto LABEL_22;
       case 21:
-        v15 = &kCalContactClass;
+        v14 = &kCalContactClass;
         goto LABEL_33;
       case 26:
-        v15 = &kCalAuxDatabaseClass;
+        v14 = &kCalAuxDatabaseClass;
         goto LABEL_33;
       default:
         goto LABEL_89;
@@ -3226,111 +3169,111 @@ void CalDatabaseClearIndividualChangeRowIDsForClient(uint64_t a1, void *a2, cons
   {
     case 'd':
 LABEL_23:
-      v15 = &kCalParticipantClass;
+      v14 = &kCalParticipantClass;
       goto LABEL_33;
     case 'e':
 LABEL_24:
-      v15 = &kCalEventClass;
+      v14 = &kCalEventClass;
 LABEL_33:
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*v15];
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT COUNT(*) FROM %@Changes WHERE ROWID = ? AND sequence_number > ?", v16];
-      v44 = v16;
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"INSERT INTO ClientCursorConsumed (client_identifier, consumed_entity_class, consumed_entity_id, consumed_change_id, sequence_number) VALUES (?, ?, (SELECT record FROM %@Changes WHERE ROWID = ? LIMIT 1), ?, (SELECT sequence_number FROM %@Changes WHERE ROWID = ?))", v16, v16];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*v14];
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT COUNT(*) FROM %@Changes WHERE ROWID = ? AND sequence_number > ?", v15];
+      v42 = v15;
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"INSERT INTO ClientCursorConsumed (client_identifier, consumed_entity_class, consumed_entity_id, consumed_change_id, sequence_number) VALUES (?, ?, (SELECT record FROM %@Changes WHERE ROWID = ? LIMIT 1), ?, (SELECT sequence_number FROM %@Changes WHERE ROWID = ?))", v15, v15];
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (v14)
+        if (v13)
         {
-          if (*v14)
+          if (*v13)
           {
-            if (*(*v14 + 104))
+            if (*(*v13 + 104))
             {
-              v19 = CPRecordStoreGetContext();
-              if (v19)
+              v18 = CPRecordStoreGetContext();
+              if (v18)
               {
-                os_unfair_lock_assert_owner(v19 + 20);
+                os_unfair_lock_assert_owner(v18 + 20);
               }
             }
           }
         }
       }
 
-      v46 = a4;
+      v44 = a4;
       value = a2;
-      v43 = v17;
-      v20 = CPSqliteConnectionStatementForSQL();
+      v41 = v16;
+      v19 = CPSqliteConnectionStatementForSQL();
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (v14)
+        if (v13)
         {
-          if (*v14)
+          if (*v13)
           {
-            if (*(*v14 + 104))
+            if (*(*v13 + 104))
             {
-              v21 = CPRecordStoreGetContext();
-              if (v21)
+              v20 = CPRecordStoreGetContext();
+              if (v20)
               {
-                os_unfair_lock_assert_owner(v21 + 20);
+                os_unfair_lock_assert_owner(v20 + 20);
               }
             }
           }
         }
       }
 
-      v42 = v18;
-      v22 = CPSqliteConnectionStatementForSQL();
-      v48 = -2;
-      if (v20)
+      v40 = v17;
+      v21 = CPSqliteConnectionStatementForSQL();
+      v46 = -2;
+      if (v19)
       {
-        v23 = v22;
-        if (v22)
+        v22 = v21;
+        if (v21)
         {
           if (a3)
           {
             Count = CFArrayGetCount(a3);
-            _CalDatabaseGetLatestConsumedSequenceNumberForClient(v14, a2, &v48);
+            _CalDatabaseGetLatestConsumedSequenceNumberForClient(v13, a2, &v46);
             if (Count >= 1)
             {
-              v25 = 0;
-              v26 = v48;
+              v24 = 0;
+              v25 = v46;
               do
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(a3, v25);
-                sqlite3_bind_int(v20[1], 1, ValueAtIndex);
-                sqlite3_bind_int(v20[1], 2, v26);
+                ValueAtIndex = CFArrayGetValueAtIndex(a3, v24);
+                sqlite3_bind_int(v19[1], 1, ValueAtIndex);
+                sqlite3_bind_int(v19[1], 2, v25);
                 *buf = 0;
                 if (CDBLockingAssertionsEnabled == 1)
                 {
-                  if (*v20)
+                  if (*v19)
                   {
-                    v28 = **v20;
-                    if (v28)
+                    v27 = **v19;
+                    if (v27)
                     {
-                      if (*(v28 + 104))
+                      if (*(v27 + 104))
                       {
-                        v29 = CPRecordStoreGetContext();
-                        if (v29)
+                        v28 = CPRecordStoreGetContext();
+                        if (v28)
                         {
-                          os_unfair_lock_assert_owner(v29 + 20);
+                          os_unfair_lock_assert_owner(v28 + 20);
                         }
                       }
                     }
                   }
                 }
 
-                v30 = CPSqliteStatementIntegerResult();
+                v29 = CPSqliteStatementIntegerResult();
                 if (CDBLockingAssertionsEnabled == 1)
                 {
-                  if (*v20)
+                  if (*v19)
                   {
-                    v31 = **v20;
-                    if (v31)
+                    v30 = **v19;
+                    if (v30)
                     {
-                      if (*(v31 + 104))
+                      if (*(v30 + 104))
                       {
-                        v32 = CPRecordStoreGetContext();
-                        if (v32)
+                        v31 = CPRecordStoreGetContext();
+                        if (v31)
                         {
-                          os_unfair_lock_assert_owner(v32 + 20);
+                          os_unfair_lock_assert_owner(v31 + 20);
                         }
                       }
                     }
@@ -3338,26 +3281,26 @@ LABEL_33:
                 }
 
                 CPSqliteStatementReset();
-                if (v30 >= 1)
+                if (v29 >= 1)
                 {
-                  sqlite3_bind_text(v23[1], 1, v47, -1, 0);
-                  sqlite3_bind_int(v23[1], 2, v46);
-                  sqlite3_bind_int(v23[1], 3, ValueAtIndex);
-                  sqlite3_bind_int(v23[1], 4, ValueAtIndex);
-                  sqlite3_bind_int(v23[1], 5, ValueAtIndex);
+                  sqlite3_bind_text(v22[1], 1, v45, -1, 0);
+                  sqlite3_bind_int(v22[1], 2, v44);
+                  sqlite3_bind_int(v22[1], 3, ValueAtIndex);
+                  sqlite3_bind_int(v22[1], 4, ValueAtIndex);
+                  sqlite3_bind_int(v22[1], 5, ValueAtIndex);
                   if (CDBLockingAssertionsEnabled == 1)
                   {
-                    if (*v23)
+                    if (*v22)
                     {
-                      v33 = **v23;
-                      if (v33)
+                      v32 = **v22;
+                      if (v32)
                       {
-                        if (*(v33 + 104))
+                        if (*(v32 + 104))
                         {
-                          v34 = CPRecordStoreGetContext();
-                          if (v34)
+                          v33 = CPRecordStoreGetContext();
+                          if (v33)
                           {
-                            os_unfair_lock_assert_owner(v34 + 20);
+                            os_unfair_lock_assert_owner(v33 + 20);
                           }
                         }
                       }
@@ -3367,17 +3310,17 @@ LABEL_33:
                   CPSqliteStatementPerform();
                   if (CDBLockingAssertionsEnabled == 1)
                   {
-                    if (*v23)
+                    if (*v22)
                     {
-                      v35 = **v23;
-                      if (v35)
+                      v34 = **v22;
+                      if (v34)
                       {
-                        if (*(v35 + 104))
+                        if (*(v34 + 104))
                         {
-                          v36 = CPRecordStoreGetContext();
-                          if (v36)
+                          v35 = CPRecordStoreGetContext();
+                          if (v35)
                           {
-                            os_unfair_lock_assert_owner(v36 + 20);
+                            os_unfair_lock_assert_owner(v35 + 20);
                           }
                         }
                       }
@@ -3387,16 +3330,16 @@ LABEL_33:
                   CPSqliteStatementReset();
                 }
 
-                ++v25;
+                ++v24;
               }
 
-              while (Count != v25);
+              while (Count != v24);
             }
           }
 
           else
           {
-            _CalDatabaseGetLatestConsumedSequenceNumberForClient(v14, a2, &v48);
+            _CalDatabaseGetLatestConsumedSequenceNumberForClient(v13, a2, &v46);
           }
         }
       }
@@ -3404,7 +3347,7 @@ LABEL_33:
       if (__CalDatabaseCommitTransaction(a1, "commit at /Library/Caches/com.apple.xbs/Sources/CalendarDatabase/CalendarDatabase/CalDatabasePersistentChangeTracking.m:1937"))
       {
         Mutable = *(a1 + 280);
-        v38 = v43;
+        v37 = v41;
         if (!Mutable)
         {
           Mutable = CFSetCreateMutable(0, 0, MEMORY[0x1E695E9F8]);
@@ -3416,30 +3359,30 @@ LABEL_33:
 
       else
       {
-        v39 = CDBLogHandle;
-        v38 = v43;
+        v38 = CDBLogHandle;
+        v37 = v41;
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v50 = 0;
-          _os_log_impl(&dword_1DEBB1000, v39, OS_LOG_TYPE_ERROR, "CalDatabasePersistentChangeTracking: unable to commit transaction (error %d)", buf, 8u);
+          v48 = 0;
+          _os_log_impl(&dword_1DEBB1000, v38, OS_LOG_TYPE_ERROR, "CalDatabasePersistentChangeTracking: unable to commit transaction (error %d)", buf, 8u);
         }
       }
 
       goto LABEL_86;
     case 'f':
 LABEL_22:
-      v15 = &kCalNotificationClass;
+      v14 = &kCalNotificationClass;
       goto LABEL_33;
   }
 
 LABEL_89:
-  v41 = CDBLogHandle;
+  v39 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v50 = a4;
-    _os_log_impl(&dword_1DEBB1000, v41, OS_LOG_TYPE_ERROR, "No class for entity type: %d", buf, 8u);
+    v48 = a4;
+    _os_log_impl(&dword_1DEBB1000, v39, OS_LOG_TYPE_ERROR, "No class for entity type: %d", buf, 8u);
   }
 
 LABEL_86:
@@ -3449,7 +3392,6 @@ LABEL_86:
   }
 
   os_unfair_lock_unlock((a1 + 80));
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 CFTypeRef CalDatabaseCopyAllRegisteredClientIdentifiersForPersistentChangeTracking(uint64_t a1)
@@ -3457,7 +3399,141 @@ CFTypeRef CalDatabaseCopyAllRegisteredClientIdentifiersForPersistentChangeTracki
   os_unfair_lock_lock((a1 + 80));
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v3 = *(a1 + 24);
+    Context = CPRecordStoreGetContext();
+    if (Context)
+    {
+      os_unfair_lock_assert_owner(Context + 20);
+    }
+  }
+
+  Database = CPRecordStoreGetDatabase();
+  if (CDBLockingAssertionsEnabled == 1 && Database != 0)
+  {
+    if (*(Database + 104))
+    {
+      v6 = CPRecordStoreGetContext();
+      if (v6)
+      {
+        os_unfair_lock_assert_owner(v6 + 20);
+      }
+    }
+  }
+
+  v7 = CPSqliteDatabaseConnectionForReadingWithSqlite3OpenFlags();
+  v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (CDBLockingAssertionsEnabled == 1 && v7 != 0)
+  {
+    if (*v7)
+    {
+      if (*(*v7 + 104))
+      {
+        v10 = CPRecordStoreGetContext();
+        if (v10)
+        {
+          os_unfair_lock_assert_owner(v10 + 20);
+        }
+      }
+    }
+  }
+
+  v11 = CPSqliteConnectionStatementForSQL();
+  if (v11)
+  {
+    v12 = v11;
+    if (CDBLockingAssertionsEnabled == 1)
+    {
+      if (*v11)
+      {
+        v13 = **v11;
+        if (v13)
+        {
+          if (*(v13 + 104))
+          {
+            v14 = CPRecordStoreGetContext();
+            if (v14)
+            {
+              os_unfair_lock_assert_owner(v14 + 20);
+            }
+          }
+        }
+      }
+    }
+
+    CPSqliteStatementSendResults();
+    if (CDBLockingAssertionsEnabled == 1)
+    {
+      if (*v12)
+      {
+        v15 = **v12;
+        if (v15)
+        {
+          if (*(v15 + 104))
+          {
+            v16 = CPRecordStoreGetContext();
+            if (v16)
+            {
+              os_unfair_lock_assert_owner(v16 + 20);
+            }
+          }
+        }
+      }
+    }
+
+    CPSqliteStatementReset();
+  }
+
+  if (CDBLockingAssertionsEnabled == 1)
+  {
+    os_unfair_lock_assert_owner((a1 + 80));
+  }
+
+  os_unfair_lock_unlock((a1 + 80));
+  v17 = CFRetain(v8);
+
+  return v17;
+}
+
+uint64_t __ClientRowHandler(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = sqlite3_column_text(*(a1 + 8), 0);
+  if (v4)
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
+    [v3 addObject:v5];
+  }
+
+  else
+  {
+    v6 = CDBLogHandle;
+    if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_ERROR, "__ClientRowHandler - clientIdentifier is nil", v8, 2u);
+    }
+  }
+
+  return 0;
+}
+
+CFTypeRef CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingInStore(os_unfair_lock_s *a1, uint64_t a2)
+{
+  os_unfair_lock_lock(a1 + 20);
+  ID = CPRecordGetID();
+  v4 = _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingWithStoreUID(a1, ID);
+  if (CDBLockingAssertionsEnabled == 1)
+  {
+    os_unfair_lock_assert_owner(a1 + 20);
+  }
+
+  os_unfair_lock_unlock(a1 + 20);
+  return v4;
+}
+
+CFTypeRef _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingWithStoreUID(uint64_t a1, int a2)
+{
+  if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
+  {
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -3499,11 +3575,12 @@ CFTypeRef CalDatabaseCopyAllRegisteredClientIdentifiersForPersistentChangeTracki
   if (v12)
   {
     v13 = v12;
+    sqlite3_bind_int(*(v12 + 8), 1, a2);
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (*v12)
+      if (*v13)
       {
-        v14 = **v12;
+        v14 = **v13;
         if (v14)
         {
           if (*(v14 + 104))
@@ -3541,59 +3618,17 @@ CFTypeRef CalDatabaseCopyAllRegisteredClientIdentifiersForPersistentChangeTracki
     CPSqliteStatementReset();
   }
 
-  if (CDBLockingAssertionsEnabled == 1)
-  {
-    os_unfair_lock_assert_owner((a1 + 80));
-  }
-
-  os_unfair_lock_unlock((a1 + 80));
   v18 = CFRetain(v9);
 
   return v18;
 }
 
-uint64_t __ClientRowHandler(uint64_t a1, void *a2)
+uint64_t CalDatabaseGetStoreForPersistentChangeTrackingClientIdentifier(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = sqlite3_column_text(*(a1 + 8), 0);
-  if (v4)
-  {
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
-    [v3 addObject:v5];
-  }
-
-  else
-  {
-    v6 = CDBLogHandle;
-    if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      *v8 = 0;
-      _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_ERROR, "__ClientRowHandler - clientIdentifier is nil", v8, 2u);
-    }
-  }
-
-  return 0;
-}
-
-CFTypeRef CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingInStore(os_unfair_lock_s *a1)
-{
-  os_unfair_lock_lock(a1 + 20);
-  ID = CPRecordGetID();
-  v3 = _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingWithStoreUID(a1, ID);
-  if (CDBLockingAssertionsEnabled == 1)
-  {
-    os_unfair_lock_assert_owner(a1 + 20);
-  }
-
-  os_unfair_lock_unlock(a1 + 20);
-  return v3;
-}
-
-CFTypeRef _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTrackingWithStoreUID(uint64_t a1, int a2)
-{
+  os_unfair_lock_lock((a1 + 80));
+  v4 = [a2 UTF8String];
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v4 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -3606,21 +3641,20 @@ CFTypeRef _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTracking
   {
     if (*(Database + 104))
     {
-      v8 = CPRecordStoreGetContext();
-      if (v8)
+      v9 = CPRecordStoreGetContext();
+      if (v9)
       {
-        os_unfair_lock_assert_owner(v8 + 20);
+        os_unfair_lock_assert_owner(v9 + 20);
       }
     }
   }
 
-  v9 = CPSqliteDatabaseConnectionForReadingWithSqlite3OpenFlags();
-  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (CDBLockingAssertionsEnabled == 1 && v9 != 0)
+  v10 = CPSqliteDatabaseConnectionForReadingWithSqlite3OpenFlags();
+  if (CDBLockingAssertionsEnabled == 1 && v10 != 0)
   {
-    if (*v9)
+    if (*v10)
     {
-      if (*(*v9 + 104))
+      if (*(*v10 + 104))
       {
         v12 = CPRecordStoreGetContext();
         if (v12)
@@ -3635,7 +3669,7 @@ CFTypeRef _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTracking
   if (v13)
   {
     v14 = v13;
-    sqlite3_bind_int(*(v13 + 8), 1, a2);
+    sqlite3_bind_text(*(v13 + 8), 1, v4, -1, 0);
     if (CDBLockingAssertionsEnabled == 1)
     {
       if (*v14)
@@ -3655,115 +3689,20 @@ CFTypeRef _CalDatabaseCopyRegisteredClientIdentifiersForPersistentChangeTracking
       }
     }
 
-    CPSqliteStatementSendResults();
+    v17 = CPSqliteStatementIntegerResult();
     if (CDBLockingAssertionsEnabled == 1)
     {
       if (*v14)
       {
-        v17 = **v14;
-        if (v17)
+        v18 = **v14;
+        if (v18)
         {
-          if (*(v17 + 104))
+          if (*(v18 + 104))
           {
-            v18 = CPRecordStoreGetContext();
-            if (v18)
+            v19 = CPRecordStoreGetContext();
+            if (v19)
             {
-              os_unfair_lock_assert_owner(v18 + 20);
-            }
-          }
-        }
-      }
-    }
-
-    CPSqliteStatementReset();
-  }
-
-  v19 = CFRetain(v10);
-
-  return v19;
-}
-
-uint64_t CalDatabaseGetStoreForPersistentChangeTrackingClientIdentifier(uint64_t a1, void *a2)
-{
-  os_unfair_lock_lock((a1 + 80));
-  v4 = [a2 UTF8String];
-  if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
-  {
-    v6 = *(a1 + 24);
-    Context = CPRecordStoreGetContext();
-    if (Context)
-    {
-      os_unfair_lock_assert_owner(Context + 20);
-    }
-  }
-
-  Database = CPRecordStoreGetDatabase();
-  if (CDBLockingAssertionsEnabled == 1 && Database != 0)
-  {
-    if (*(Database + 104))
-    {
-      v10 = CPRecordStoreGetContext();
-      if (v10)
-      {
-        os_unfair_lock_assert_owner(v10 + 20);
-      }
-    }
-  }
-
-  v11 = CPSqliteDatabaseConnectionForReadingWithSqlite3OpenFlags();
-  if (CDBLockingAssertionsEnabled == 1 && v11 != 0)
-  {
-    if (*v11)
-    {
-      if (*(*v11 + 104))
-      {
-        v13 = CPRecordStoreGetContext();
-        if (v13)
-        {
-          os_unfair_lock_assert_owner(v13 + 20);
-        }
-      }
-    }
-  }
-
-  v14 = CPSqliteConnectionStatementForSQL();
-  if (v14)
-  {
-    v15 = v14;
-    sqlite3_bind_text(*(v14 + 8), 1, v4, -1, 0);
-    if (CDBLockingAssertionsEnabled == 1)
-    {
-      if (*v15)
-      {
-        v16 = **v15;
-        if (v16)
-        {
-          if (*(v16 + 104))
-          {
-            v17 = CPRecordStoreGetContext();
-            if (v17)
-            {
-              os_unfair_lock_assert_owner(v17 + 20);
-            }
-          }
-        }
-      }
-    }
-
-    v18 = CPSqliteStatementIntegerResult();
-    if (CDBLockingAssertionsEnabled == 1)
-    {
-      if (*v15)
-      {
-        v19 = **v15;
-        if (v19)
-        {
-          if (*(v19 + 104))
-          {
-            v20 = CPRecordStoreGetContext();
-            if (v20)
-            {
-              os_unfair_lock_assert_owner(v20 + 20);
+              os_unfair_lock_assert_owner(v19 + 20);
             }
           }
         }
@@ -3775,7 +3714,7 @@ uint64_t CalDatabaseGetStoreForPersistentChangeTrackingClientIdentifier(uint64_t
 
   else
   {
-    v18 = 0xFFFFFFFFLL;
+    v17 = 0xFFFFFFFFLL;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -3784,7 +3723,7 @@ uint64_t CalDatabaseGetStoreForPersistentChangeTrackingClientIdentifier(uint64_t
   }
 
   os_unfair_lock_unlock((a1 + 80));
-  return v18;
+  return v17;
 }
 
 void CalRemoveClientForPersistentChangeTracking(uint64_t a1, void *a2)
@@ -3794,7 +3733,6 @@ void CalRemoveClientForPersistentChangeTracking(uint64_t a1, void *a2)
     os_unfair_lock_lock((a1 + 80));
     if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
     {
-      v5 = *(a1 + 24);
       Context = CPRecordStoreGetContext();
       if (Context)
       {
@@ -3807,49 +3745,49 @@ void CalRemoveClientForPersistentChangeTracking(uint64_t a1, void *a2)
     {
       if (*(Database + 104))
       {
-        v9 = CPRecordStoreGetContext();
-        if (v9)
+        v8 = CPRecordStoreGetContext();
+        if (v8)
         {
-          os_unfair_lock_assert_owner(v9 + 20);
+          os_unfair_lock_assert_owner(v8 + 20);
         }
       }
     }
 
-    v10 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
-    if (CDBLockingAssertionsEnabled == 1 && v10 != 0)
+    v9 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+    if (CDBLockingAssertionsEnabled == 1 && v9 != 0)
     {
-      if (*v10)
+      if (*v9)
       {
-        if (*(*v10 + 104))
+        if (*(*v9 + 104))
         {
-          v12 = CPRecordStoreGetContext();
-          if (v12)
+          v11 = CPRecordStoreGetContext();
+          if (v11)
           {
-            os_unfair_lock_assert_owner(v12 + 20);
+            os_unfair_lock_assert_owner(v11 + 20);
           }
         }
       }
     }
 
-    v13 = CPSqliteConnectionStatementForSQL();
-    if (v13)
+    v12 = CPSqliteConnectionStatementForSQL();
+    if (v12)
     {
-      v14 = v13;
-      sqlite3_bind_text(*(v13 + 8), 1, [a2 cStringUsingEncoding:4], -1, 0);
-      _CalDatabasePerformStatementWithWriteLock(a1, v14);
+      v13 = v12;
+      sqlite3_bind_text(*(v12 + 8), 1, [a2 cStringUsingEncoding:4], -1, 0);
+      _CalDatabasePerformStatementWithWriteLock(a1, v13);
       if (CDBLockingAssertionsEnabled == 1)
       {
-        if (*v14)
+        if (*v13)
         {
-          v15 = **v14;
-          if (v15)
+          v14 = **v13;
+          if (v14)
           {
-            if (*(v15 + 104))
+            if (*(v14 + 104))
             {
-              v16 = CPRecordStoreGetContext();
-              if (v16)
+              v15 = CPRecordStoreGetContext();
+              if (v15)
               {
-                os_unfair_lock_assert_owner(v16 + 20);
+                os_unfair_lock_assert_owner(v15 + 20);
               }
             }
           }
@@ -3870,11 +3808,10 @@ void CalRemoveClientForPersistentChangeTracking(uint64_t a1, void *a2)
 
 void CalDatabasePurgeIdlePersistentChangeTrackingClients(uint64_t a1, uint64_t a2, double a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 80));
   if (CDBLockingAssertionsEnabled == 1 && *(a1 + 24) != 0)
   {
-    v7 = *(a1 + 24);
     Context = CPRecordStoreGetContext();
     if (Context)
     {
@@ -3887,50 +3824,50 @@ void CalDatabasePurgeIdlePersistentChangeTrackingClients(uint64_t a1, uint64_t a
   {
     if (*(Database + 104))
     {
-      v11 = CPRecordStoreGetContext();
-      if (v11)
+      v10 = CPRecordStoreGetContext();
+      if (v10)
       {
-        os_unfair_lock_assert_owner(v11 + 20);
+        os_unfair_lock_assert_owner(v10 + 20);
       }
     }
   }
 
-  v12 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
-  v13 = [MEMORY[0x1E695DF70] array];
-  if (CDBLockingAssertionsEnabled == 1 && v12 != 0)
+  v11 = CPSqliteDatabaseConnectionForWritingWithSqlite3OpenFlags();
+  v12 = [MEMORY[0x1E695DF70] array];
+  if (CDBLockingAssertionsEnabled == 1 && v11 != 0)
   {
-    if (*v12)
+    if (*v11)
     {
-      if (*(*v12 + 104))
+      if (*(*v11 + 104))
       {
-        v15 = CPRecordStoreGetContext();
-        if (v15)
+        v14 = CPRecordStoreGetContext();
+        if (v14)
         {
-          os_unfair_lock_assert_owner(v15 + 20);
+          os_unfair_lock_assert_owner(v14 + 20);
         }
       }
     }
   }
 
-  v16 = CPSqliteConnectionStatementForSQL();
-  if (v16)
+  v15 = CPSqliteConnectionStatementForSQL();
+  if (v15)
   {
-    v17 = v16;
-    sqlite3_bind_double(*(v16 + 8), 1, a3);
-    sqlite3_bind_int(v17[1], 2, a2);
+    v16 = v15;
+    sqlite3_bind_double(*(v15 + 8), 1, a3);
+    sqlite3_bind_int(v16[1], 2, a2);
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (*v17)
+      if (*v16)
       {
-        v18 = **v17;
-        if (v18)
+        v17 = **v16;
+        if (v17)
         {
-          if (*(v18 + 104))
+          if (*(v17 + 104))
           {
-            v19 = CPRecordStoreGetContext();
-            if (v19)
+            v18 = CPRecordStoreGetContext();
+            if (v18)
             {
-              os_unfair_lock_assert_owner(v19 + 20);
+              os_unfair_lock_assert_owner(v18 + 20);
             }
           }
         }
@@ -3940,17 +3877,17 @@ void CalDatabasePurgeIdlePersistentChangeTrackingClients(uint64_t a1, uint64_t a
     CPSqliteStatementSendResults();
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (*v17)
+      if (*v16)
       {
-        v20 = **v17;
-        if (v20)
+        v19 = **v16;
+        if (v19)
         {
-          if (*(v20 + 104))
+          if (*(v19 + 104))
           {
-            v21 = CPRecordStoreGetContext();
-            if (v21)
+            v20 = CPRecordStoreGetContext();
+            if (v20)
             {
-              os_unfair_lock_assert_owner(v21 + 20);
+              os_unfair_lock_assert_owner(v20 + 20);
             }
           }
         }
@@ -3960,68 +3897,68 @@ void CalDatabasePurgeIdlePersistentChangeTrackingClients(uint64_t a1, uint64_t a
     CPSqliteStatementReset();
   }
 
-  if (![v13 count])
+  if (![v12 count])
   {
     goto LABEL_60;
   }
 
-  if (CDBLockingAssertionsEnabled == 1 && v12 != 0)
+  if (CDBLockingAssertionsEnabled == 1 && v11 != 0)
   {
-    if (*v12)
+    if (*v11)
     {
-      if (*(*v12 + 104))
+      if (*(*v11 + 104))
       {
-        v23 = CPRecordStoreGetContext();
-        if (v23)
+        v22 = CPRecordStoreGetContext();
+        if (v22)
         {
-          os_unfair_lock_assert_owner(v23 + 20);
+          os_unfair_lock_assert_owner(v22 + 20);
         }
       }
     }
   }
 
-  v24 = CPSqliteConnectionStatementForSQL();
-  if (v24)
+  v23 = CPSqliteConnectionStatementForSQL();
+  if (v23)
   {
-    v25 = v24;
-    v41 = 0u;
-    v42 = 0u;
+    v24 = v23;
     v39 = 0u;
     v40 = 0u;
-    v38 = v13;
-    v26 = v13;
-    v27 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
-    v37 = v27 != 0;
-    if (v27)
+    v37 = 0u;
+    v38 = 0u;
+    v36 = v12;
+    v25 = v12;
+    v26 = [v25 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v35 = v26 != 0;
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v40;
+      v27 = v26;
+      v28 = *v38;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v27; ++i)
         {
-          if (*v40 != v29)
+          if (*v38 != v28)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          v31 = *(*(&v39 + 1) + 8 * i);
-          NSLog(&cfstr_PurgingChangeT.isa, v31, *&a3, a2);
-          sqlite3_bind_text(*(v25 + 8), 1, [v31 cStringUsingEncoding:4], -1, 0);
-          _CalDatabasePerformStatementWithWriteLock(a1, v25);
+          v30 = *(*(&v37 + 1) + 8 * i);
+          NSLog(&cfstr_PurgingChangeT.isa, v30, *&a3, a2);
+          sqlite3_bind_text(*(v24 + 8), 1, [v30 cStringUsingEncoding:4], -1, 0);
+          _CalDatabasePerformStatementWithWriteLock(a1, v24);
           if (CDBLockingAssertionsEnabled == 1)
           {
-            if (*v25)
+            if (*v24)
             {
-              v32 = **v25;
-              if (v32)
+              v31 = **v24;
+              if (v31)
               {
-                if (*(v32 + 104))
+                if (*(v31 + 104))
                 {
-                  v33 = CPRecordStoreGetContext();
-                  if (v33)
+                  v32 = CPRecordStoreGetContext();
+                  if (v32)
                   {
-                    os_unfair_lock_assert_owner(v33 + 20);
+                    os_unfair_lock_assert_owner(v32 + 20);
                   }
                 }
               }
@@ -4031,20 +3968,20 @@ void CalDatabasePurgeIdlePersistentChangeTrackingClients(uint64_t a1, uint64_t a
           CPSqliteStatementReset();
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
 
-    v13 = v38;
-    v34 = v37;
+    v12 = v36;
+    v33 = v35;
   }
 
   else
   {
 LABEL_60:
-    v34 = 0;
+    v33 = 0;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -4054,13 +3991,11 @@ LABEL_60:
 
   os_unfair_lock_unlock((a1 + 80));
   CalDatabaseClearSuperfluousChanges(a1);
-  if (v34)
+  if (v33)
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CalDatabaseIdleChangeTrackingClientWasPurgedNotification", 0, 0, 1u);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __UnusedClientRowHandler(uint64_t a1, void *a2)
@@ -4229,14 +4164,14 @@ uint64_t ___prepareBindingBlocksForFindingChangesOfEachEntityType_block_invoke_2
 
 void ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke()
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v2 = __classesTrackingChanges[0];
   if (__classesTrackingChanges[0])
   {
     v3 = 1;
     *&v1 = 134218752;
-    v20 = v1;
+    v19 = v1;
     do
     {
       v4 = objc_opt_new();
@@ -4276,17 +4211,17 @@ void ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke()
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        LODWORD(v28) = 0;
-        v21[0] = v14;
-        v21[1] = 3221225472;
-        v21[2] = ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke_208;
-        v21[3] = &unk_1E8694B30;
-        v23 = buf;
-        v24 = v9;
-        v25 = v2;
-        v22 = v10;
-        v26 = v11;
-        [v4 enumerateIndexesUsingBlock:v21];
+        LODWORD(v27) = 0;
+        v20[0] = v14;
+        v20[1] = 3221225472;
+        v20[2] = ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke_208;
+        v20[3] = &unk_1E8694B30;
+        v22 = buf;
+        v23 = v9;
+        v24 = v2;
+        v21 = v10;
+        v25 = v11;
+        [v4 enumerateIndexesUsingBlock:v20];
         v15 = [MEMORY[0x1E696B098] valueWithPointer:v13];
         v16 = [MEMORY[0x1E696B098] valueWithPointer:v2];
         [v0 setObject:v15 forKeyedSubscript:v16];
@@ -4299,14 +4234,14 @@ void ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke()
         v17 = CDBLogHandle;
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *buf = v20;
+          *buf = v19;
           *&buf[4] = v13;
           *&buf[12] = 2048;
           *&buf[14] = v9;
           *&buf[22] = 2048;
-          v28 = v10;
-          v29 = 2048;
-          v30 = v11;
+          v27 = v10;
+          v28 = 2048;
+          v29 = v11;
           _os_log_impl(&dword_1DEBB1000, v17, OS_LOG_TYPE_ERROR, "Failed to allocate memory for changePropertiesByRecord mapping desc: %p, cstring: %p, nsstrings: %p, types: %p", buf, 0x2Au);
         }
 
@@ -4334,13 +4269,11 @@ void ___buildDictionariesWithChangeTablePropertiesForEntityType_block_invoke()
 
   v18 = _buildDictionariesWithChangeTablePropertiesForEntityType_changePropertiesByRecord;
   _buildDictionariesWithChangeTablePropertiesForEntityType_changePropertiesByRecord = v0;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1DEC82E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1DEC82E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4393,7 +4326,7 @@ uint64_t __RowInfoRowHandler(uint64_t a1, void *a2)
 
 void _CalCategoryLinkPrepareForSave(const void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (CDBLockingAssertionsEnabled)
@@ -4422,18 +4355,16 @@ void _CalCategoryLinkPrepareForSave(const void *a1)
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
       v6 = v5;
-      v9 = 134218242;
-      v10 = v4;
-      v11 = 2112;
+      v8 = 134218242;
+      v9 = v4;
+      v10 = 2112;
       DebugDescription = _CalEntityGetDebugDescription(a1);
-      _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_ERROR, "saving a category link with NULL category: relation=%p, record=%@", &v9, 0x16u);
+      _os_log_impl(&dword_1DEBB1000, v6, OS_LOG_TYPE_ERROR, "saving a category link with NULL category: relation=%p, record=%@", &v8, 0x16u);
     }
 
-    DatabaseForRecord = CalGetDatabaseForRecord();
+    DatabaseForRecord = CalGetDatabaseForRecord(a1);
     _CalDatabaseIntegrityError(DatabaseForRecord, @"Category link without category");
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void CalCategoryLinkInitializeTables(uint64_t a1, void *a2)
@@ -4444,7 +4375,7 @@ void CalCategoryLinkInitializeTables(uint64_t a1, void *a2)
   CalMigrationCreateTriggers(a2, &kCalCategoryLinkClass, &kCalCategoryLinkTriggers);
 }
 
-void CalCategoryLinkMigrateTables(uint64_t a1, void *a2, int a3)
+void CalCategoryLinkMigrateTables(uint64_t a1, void *a2, unsigned int a3)
 {
   if (a3 > 58)
   {
@@ -4555,16 +4486,16 @@ const void *_CalDatabaseCreateCategoryLinkWithOwnerAndCategory(uint64_t a1, cons
 
 uint64_t _CalCategoryLinkRemove(const void *a1)
 {
-  DatabaseForRecord = CalGetDatabaseForRecord();
+  DatabaseForRecord = CalGetDatabaseForRecord(a1);
 
   return _CalDatabaseRemoveEntity(DatabaseForRecord, a1);
 }
 
 void CalCategoryLinkRemove(const void *a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  DatabaseForRecord = CalGetDatabaseForRecord();
+  DatabaseForRecord = CalGetDatabaseForRecord(a1);
   _CalDatabaseRemoveEntity(DatabaseForRecord, a1);
   if (CDBLockingAssertionsEnabled == 1)
   {
@@ -4623,7 +4554,7 @@ CFTypeRef _CalCategoryLinkGetOwner(uint64_t a1)
 
 CFTypeRef CalCategoryLinkCopyCalendarItem(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Owner = _CalCategoryLinkGetOwner(a1);
   v4 = Owner;
@@ -4643,7 +4574,7 @@ CFTypeRef CalCategoryLinkCopyCalendarItem(uint64_t a1)
 
 void CalCategoryLinkSetCalendarItem(uint64_t a1, const void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4703,7 +4634,7 @@ CFTypeRef _CalCategoryLinkGetCategory(uint64_t a1)
 
 CFTypeRef CalCategoryLinkCopyCategory(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Category = _CalCategoryLinkGetCategory(a1);
   v4 = Category;
@@ -4723,7 +4654,7 @@ CFTypeRef CalCategoryLinkCopyCategory(uint64_t a1)
 
 void CalCategoryLinkSetCategory(uint64_t a1, const void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4754,7 +4685,7 @@ void CalCategoryLinkSetCategory(uint64_t a1, const void *a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalCategoryLinkSetGroup(uint64_t a1)
+uint64_t _CalCategoryLinkSetGroup(uint64_t a1, int a2)
 {
   if (a1)
   {
@@ -4920,7 +4851,7 @@ uint64_t _CalAttachmentPrepareForSave(uint64_t a1)
   return CPRecordUnloadProperty();
 }
 
-uint64_t _CalAttachmentPropertyDidChange(uint64_t result, unsigned int a2)
+uint64_t _CalAttachmentPropertyDidChange(uint64_t result, uint64_t a2)
 {
   if (a2 <= 2)
   {
@@ -4950,8 +4881,9 @@ uint64_t _CalAttachmentPropertyDidChange(uint64_t result, unsigned int a2)
   return result;
 }
 
-uint64_t _CalAttachmentPropertyWillChange(void *a1, int a2, uint64_t a3)
+uint64_t _CalAttachmentPropertyWillChange(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if (!a2 && a3 == -1)
   {
     if (a1)
@@ -4992,7 +4924,7 @@ uint64_t _CalAttachmentPropertyWillChange(void *a1, int a2, uint64_t a3)
   if (a2 != 6)
   {
 LABEL_36:
-    result = CalAttachmentToCalAttachmentFilePropertyMap(a2);
+    result = CalAttachmentToCalAttachmentFilePropertyMap(v4);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -5015,7 +4947,7 @@ LABEL_36:
   }
 
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
-  DatabaseForRecord = CalGetDatabaseForRecord();
+  DatabaseForRecord = CalGetDatabaseForRecord(a1);
   AttachmentFileWithUUID = _CalDatabaseGetAttachmentFileWithUUID(DatabaseForRecord, a3);
   if (!AttachmentFileWithUUID)
   {
@@ -5249,7 +5181,7 @@ LABEL_25:
 
 uint64_t CalAttachmentGetPropertyIDWithPropertyName(void *key)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = CalAttachmentGetPropertyIDWithPropertyName_sPropDict;
   if (!CalAttachmentGetPropertyIDWithPropertyName_sPropDict)
   {
@@ -5257,35 +5189,35 @@ uint64_t CalAttachmentGetPropertyIDWithPropertyName(void *key)
     if (!CalAttachmentGetPropertyIDWithPropertyName_sPropDict)
     {
       value = @"UUID";
-      v7 = 6;
-      v8 = @"externalID";
-      v9 = 3;
-      v10 = @"owner";
-      v11 = 22;
-      v12 = @"URLString";
-      v13 = 5;
-      v14 = @"fileNameRaw";
-      v15 = 9;
-      v16 = @"fileFormat";
-      v17 = 7;
-      v18 = @"flags";
-      v19 = 8;
-      v20 = @"localRelativePath";
-      v21 = 10;
-      v22 = @"fileSize";
-      v23 = 11;
-      v24 = @"XPropertiesData";
-      v25 = 1;
-      v26 = @"URLWrapperForPendingFileCopy";
-      v27 = 14;
-      v28 = @"shouldSetQuarantineAttributesOnCopiedFile";
-      v29 = 15;
-      v30 = @"externalModificationTag";
-      v31 = 4;
-      v32 = @"securityScopedLocalURLWrapper";
-      v33 = 16;
-      v34 = @"securityScopedLocalURLForArchivedDataWrapper";
-      v35 = 17;
+      v6 = 6;
+      v7 = @"externalID";
+      v8 = 3;
+      v9 = @"owner";
+      v10 = 22;
+      v11 = @"URLString";
+      v12 = 5;
+      v13 = @"fileNameRaw";
+      v14 = 9;
+      v15 = @"fileFormat";
+      v16 = 7;
+      v17 = @"flags";
+      v18 = 8;
+      v19 = @"localRelativePath";
+      v20 = 10;
+      v21 = @"fileSize";
+      v22 = 11;
+      v23 = @"XPropertiesData";
+      v24 = 1;
+      v25 = @"URLWrapperForPendingFileCopy";
+      v26 = 14;
+      v27 = @"shouldSetQuarantineAttributesOnCopiedFile";
+      v28 = 15;
+      v29 = @"externalModificationTag";
+      v30 = 4;
+      v31 = @"securityScopedLocalURLWrapper";
+      v32 = 16;
+      v33 = @"securityScopedLocalURLForArchivedDataWrapper";
+      v34 = 17;
       CalAttachmentGetPropertyIDWithPropertyName_sPropDict = _CalDBCreatePropertyMap(&value, 15);
       for (i = 224; i != -16; i -= 16)
       {
@@ -5299,16 +5231,13 @@ uint64_t CalAttachmentGetPropertyIDWithPropertyName(void *key)
   value = 0;
   if (CFDictionaryGetValueIfPresent(v2, key, &value))
   {
-    result = value;
+    return value;
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1DEC84A78(_Unwind_Exception *a1)
@@ -5342,15 +5271,15 @@ CFTypeRef _CalAttachmentHasValidParent(uint64_t a1)
   if (result)
   {
 
-    return _CalRecordStillExists();
+    return _CalRecordStillExists(result);
   }
 
   return result;
 }
 
-uint64_t _CalDatabaseRemoveAttachmentChangesInStoreToIndex(uint64_t a1, uint64_t a2)
+uint64_t _CalDatabaseRemoveAttachmentChangesInStoreToIndex(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = _CalAttachmentCreateChangeHistoryWhereClauseForStore(a1, a2);
+  v4 = _CalAttachmentCreateChangeHistoryWhereClauseForStore(a1, a2);
   RecordStore = _CalDatabaseGetRecordStore(a1);
   if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
   {
@@ -5361,13 +5290,13 @@ uint64_t _CalDatabaseRemoveAttachmentChangesInStoreToIndex(uint64_t a1, uint64_t
     }
   }
 
-  v7 = CPRecordStoreDeleteChangesForClassToIndexWhere();
-  if (v3)
+  v8 = CPRecordStoreDeleteChangesForClassToIndexWhere();
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
   }
 
-  return v7;
+  return v8;
 }
 
 const void *_CalDatabaseCreateAttachment(uint64_t a1)
@@ -5419,9 +5348,15 @@ const void *CalDatabaseCreateAttachment(os_unfair_lock_s *a1)
   return Attachment;
 }
 
-void *_CalAttachmentCopy(uint64_t a1, void *a2)
+void *_CalAttachmentCopy(void *a1, void *a2)
 {
-  DatabaseForRecord = CalGetDatabaseForRecord();
+  v3 = a1;
+  if (!a1)
+  {
+    a1 = a2;
+  }
+
+  DatabaseForRecord = CalGetDatabaseForRecord(a1);
   Attachment = _CalDatabaseCreateAttachment(DatabaseForRecord);
   v6 = Attachment;
   if (CDBLockingAssertionsEnabled == 1 && Attachment != 0)
@@ -5455,7 +5390,7 @@ void *_CalAttachmentCopy(uint64_t a1, void *a2)
   CPRecordSetProperty();
   AttachmentFileMakingIfNecessary = _CalAttachmentGetAttachmentFileMakingIfNecessary(a2);
   Store = _CalAttachmentFileGetStore(AttachmentFileMakingIfNecessary);
-  if (!a1 || (v12 = Store, Store == a1) || CalGetDatabaseForRecord() == DatabaseForRecord && v12 && (ID = CPRecordGetID(), ID == CPRecordGetID()))
+  if (!v3 || (v12 = Store, Store == v3) || CalGetDatabaseForRecord(a2) == DatabaseForRecord && v12 && (ID = CPRecordGetID(), ID == CPRecordGetID()))
   {
     _CalAttachmentFileAddAttachment(AttachmentFileMakingIfNecessary, v6);
     if (CDBLockingAssertionsEnabled == 1 && v6 != 0)
@@ -5535,7 +5470,7 @@ CFTypeRef _CalAttachmentGetAttachmentFileMakingIfNecessary(void *a1)
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (!AttachmentFile)
   {
-    DatabaseForRecord = CalGetDatabaseForRecord();
+    DatabaseForRecord = CalGetDatabaseForRecord(a1);
     AttachmentFile = _CalDatabaseCreateAttachmentFile(DatabaseForRecord);
     _CalAttachmentFileAddAttachment(AttachmentFile, a1);
     CFRelease(AttachmentFile);
@@ -5605,7 +5540,7 @@ uint64_t _CalAttachmentMarkDirty(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t _CalRemoveAttachment(void *a1)
+void *_CalRemoveAttachment(void *a1)
 {
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
@@ -5655,7 +5590,7 @@ uint64_t _CalRemoveAttachment(void *a1)
 
   else
   {
-    DatabaseForRecord = CalGetDatabaseForRecord();
+    DatabaseForRecord = CalGetDatabaseForRecord(a1);
 
     return _CalDatabaseRemoveEntity(DatabaseForRecord, a1);
   }
@@ -5717,7 +5652,7 @@ CFTypeRef _CalAttachmentGetOwner(uint64_t a1)
 
 void CalRemoveAttachment(void *a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRemoveAttachment(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -5728,7 +5663,7 @@ void CalRemoveAttachment(void *a1)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalInvalidateAttachmentsWithOwnerID(uint64_t a1)
+uint64_t _CalInvalidateAttachmentsWithOwnerID(uint64_t a1, int a2)
 {
   if (a1)
   {
@@ -5745,7 +5680,7 @@ uint64_t _CalInvalidateAttachmentsWithOwnerID(uint64_t a1)
   return CPRecordStoreInvalidateCachedInstancesOfClassWithBlock();
 }
 
-uint64_t _CalAttachmentSaveAddedRecords(uint64_t a1)
+uint64_t _CalAttachmentSaveAddedRecords(uint64_t a1, uint64_t a2)
 {
   RecordStore = _CalDatabaseGetRecordStore(a1);
   if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
@@ -5763,7 +5698,7 @@ uint64_t _CalAttachmentSaveAddedRecords(uint64_t a1)
 
 CFTypeRef CalAttachmentCopyAttachmentFile(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
@@ -5789,7 +5724,7 @@ uint64_t CalDatabaseCopyAttachmentChangesInStore(os_unfair_lock_s *a1, uint64_t 
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -5876,7 +5811,7 @@ uint64_t CalDatabaseRemoveAttachmentChangesInStoreToIndex(os_unfair_lock_s *a1, 
   v13 = 0;
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -5907,17 +5842,16 @@ uint64_t CalDatabaseRemoveAttachmentChangesInStoreToIndex(os_unfair_lock_s *a1, 
   return v6;
 }
 
-void sub_1DEC85A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC85A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __CalDatabaseRemoveAttachmentChangesInStoreToIndex_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  result = _CalDatabaseRemoveAttachmentChangesInStoreToIndex(*(a1 + 40), *(a1 + 48));
+  result = _CalDatabaseRemoveAttachmentChangesInStoreToIndex(*(a1 + 40), *(a1 + 48), *(a1 + 56));
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
@@ -5926,7 +5860,7 @@ uint64_t CalDatabaseCopyAttachmentChangesInCalendar(os_unfair_lock_s *a1, uint64
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -5980,7 +5914,7 @@ uint64_t CalDatabaseRemoveAttachmentChangesInCalendarToIndex(os_unfair_lock_s *a
   v14 = 0;
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -6017,9 +5951,9 @@ uint64_t CalDatabaseRemoveAttachmentChangesInCalendarToIndex(os_unfair_lock_s *a
   return v7;
 }
 
-void sub_1DEC85D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC85D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6036,8 +5970,6 @@ uint64_t __CalDatabaseRemoveAttachmentChangesInCalendarToIndex_block_invoke(uint
     }
   }
 
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 48);
   result = CPRecordStoreDeleteChangesForClassToIndexWhere();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -6069,9 +6001,9 @@ uint64_t CalDatabaseRemoveAttachmentChangesWithIndices(os_unfair_lock_s *a1, uin
   return v4;
 }
 
-void sub_1DEC85EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC85EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6088,13 +6020,12 @@ uint64_t __CalDatabaseRemoveAttachmentChangesWithIndices_block_invoke(void *a1)
     }
   }
 
-  v5 = a1[6];
   result = CPRecordStoreDeleteChangesForClassWithIndices();
   *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
-uint64_t _CalAttachmentGetWithUID(uint64_t a1)
+uint64_t _CalAttachmentGetWithUID(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -6111,15 +6042,15 @@ uint64_t _CalAttachmentGetWithUID(uint64_t a1)
   return CPRecordStoreGetInstanceOfClassWithUID();
 }
 
-const void *CalDatabaseCopyAttachmentWithUID(os_unfair_lock_s *a1)
+const void *CalDatabaseCopyAttachmentWithUID(os_unfair_lock_s *a1, uint64_t a2)
 {
   os_unfair_lock_lock(a1 + 20);
   RecordStore = _CalDatabaseGetRecordStore(a1);
-  v3 = _CalAttachmentGetWithUID(RecordStore);
-  v4 = v3;
-  if (v3)
+  v5 = _CalAttachmentGetWithUID(RecordStore, a2);
+  v6 = v5;
+  if (v5)
   {
-    CFRetain(v3);
+    CFRetain(v5);
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -6128,7 +6059,7 @@ const void *CalDatabaseCopyAttachmentWithUID(os_unfair_lock_s *a1)
   }
 
   os_unfair_lock_unlock(a1 + 20);
-  return v4;
+  return v6;
 }
 
 CFTypeRef CalDatabaseCopyAttachmentWithUUID(os_unfair_lock_s *a1, uint64_t a2)
@@ -6243,9 +6174,9 @@ uint64_t _CalAttachmentGetRecordID(uint64_t a1)
   return CPRecordGetProperty();
 }
 
-uint64_t CalAttachmentGetUID()
+uint64_t CalAttachmentGetUID(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   ID = CPRecordGetID();
   if (CDBLockingAssertionsEnabled == 1)
@@ -6279,7 +6210,7 @@ uint64_t _CalAttachmentCopyUUID(uint64_t a1)
 
 uint64_t CalAttachmentCopyUUID(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6306,9 +6237,9 @@ uint64_t CalAttachmentCopyUUID(uint64_t a1)
   return v4;
 }
 
-void CalAttachmentSetExternalID(uint64_t a1)
+void CalAttachmentSetExternalID(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6336,7 +6267,7 @@ void CalAttachmentSetExternalID(uint64_t a1)
 
 uint64_t CalAttachmentCopyExternalID(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6363,9 +6294,9 @@ uint64_t CalAttachmentCopyExternalID(uint64_t a1)
   return v4;
 }
 
-void CalAttachmentSetExternalModTag(uint64_t a1)
+void CalAttachmentSetExternalModTag(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6393,7 +6324,7 @@ void CalAttachmentSetExternalModTag(uint64_t a1)
 
 uint64_t CalAttachmentCopyExternalModTag(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6422,7 +6353,7 @@ uint64_t CalAttachmentCopyExternalModTag(uint64_t a1)
 
 void CalAttachmentSetURL(uint64_t a1, const __CFURL *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -6445,7 +6376,7 @@ void CalAttachmentSetURL(uint64_t a1, const __CFURL *a2)
   }
 
   CPRecordSetProperty();
-  _CalAttachmentSetFlag(a1);
+  _CalAttachmentSetFlag(a1, 1u, 0);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -6454,7 +6385,7 @@ void CalAttachmentSetURL(uint64_t a1, const __CFURL *a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalAttachmentSetFlag(uint64_t a1)
+uint64_t _CalAttachmentSetFlag(uint64_t a1, unsigned int a2, int a3)
 {
   if (a1)
   {
@@ -6478,10 +6409,10 @@ uint64_t _CalAttachmentSetFlag(uint64_t a1)
     {
       if (CPRecordGetStore())
       {
-        v3 = CPRecordStoreGetContext();
-        if (v3)
+        v5 = CPRecordStoreGetContext();
+        if (v5)
         {
-          os_unfair_lock_assert_owner(v3 + 20);
+          os_unfair_lock_assert_owner(v5 + 20);
         }
       }
     }
@@ -6492,7 +6423,7 @@ uint64_t _CalAttachmentSetFlag(uint64_t a1)
 
 CFURLRef CalAttachmentCopyURL(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6527,33 +6458,33 @@ CFURLRef CalAttachmentCopyURL(uint64_t a1)
   return result;
 }
 
-uint64_t CalAttachmentSetFileDataAndQuarantine(void *a1, void *a2)
+uint64_t CalAttachmentSetFileDataAndQuarantine(void *a1, void *a2, uint64_t a3)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   AttachmentFileMakingIfNecessary = _CalAttachmentGetAttachmentFileMakingIfNecessary(a1);
-  v6 = _CalAttachmentFileSetFileData(AttachmentFileMakingIfNecessary, a2);
+  v8 = _CalAttachmentFileSetFileData(AttachmentFileMakingIfNecessary, a2, a3);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
   }
 
   os_unfair_lock_unlock(RecordLock);
-  return v6;
+  return v8;
 }
 
-uint64_t _CalAttachmentSetFileData(void *a1, void *a2)
+uint64_t _CalAttachmentSetFileData(void *a1, void *a2, uint64_t a3)
 {
   AttachmentFileMakingIfNecessary = _CalAttachmentGetAttachmentFileMakingIfNecessary(a1);
 
-  return _CalAttachmentFileSetFileData(AttachmentFileMakingIfNecessary, a2);
+  return _CalAttachmentFileSetFileData(AttachmentFileMakingIfNecessary, a2, a3);
 }
 
-void CalAttachmentSetFlag(uint64_t a1)
+void CalAttachmentSetFlag(uint64_t a1, unsigned int a2, int a3)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  _CalAttachmentSetFlag(a1);
+  _CalAttachmentSetFlag(a1, a2, a3);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -6564,7 +6495,7 @@ void CalAttachmentSetFlag(uint64_t a1)
 
 BOOL CalAttachmentGetFlag(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6591,9 +6522,9 @@ BOOL CalAttachmentGetFlag(uint64_t a1, int a2)
   return (Property & a2) != 0;
 }
 
-void CalAttachmentSetFilename(uint64_t a1)
+void CalAttachmentSetFilename(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6633,7 +6564,7 @@ const __CFString *_CalAttachmentCopyFilename(uint64_t a1)
 
 const __CFString *CalAttachmentCopyFilename(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
@@ -6655,11 +6586,11 @@ const __CFString *CalAttachmentCopyFilename(uint64_t a1)
   return v4;
 }
 
-void CalAttachmentSetLocalRelativePath(uint64_t a1)
+void CalAttachmentSetLocalRelativePath(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  _CalAttachmentSetLocalRelativePath(a1);
+  _CalAttachmentSetLocalRelativePath(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -6668,7 +6599,7 @@ void CalAttachmentSetLocalRelativePath(uint64_t a1)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalAttachmentSetLocalRelativePath(uint64_t a1)
+uint64_t _CalAttachmentSetLocalRelativePath(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -6690,7 +6621,7 @@ uint64_t _CalAttachmentSetLocalRelativePath(uint64_t a1)
 
 uint64_t CalAttachmentCopyLocalRelativePath(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalAttachmentCopyLocalRelativePath(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -6724,7 +6655,7 @@ uint64_t _CalAttachmentCopyLocalRelativePath(uint64_t a1)
 
 uint64_t CalAttachmentCopyLocalURL(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
@@ -6772,7 +6703,7 @@ id _CalAttachmentCopyLocalURLForArchivedData(uint64_t a1)
 
 id CalAttachmentCopyLocalURLForArchivedData(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
@@ -6794,9 +6725,9 @@ id CalAttachmentCopyLocalURLForArchivedData(uint64_t a1)
   return v4;
 }
 
-void CalAttachmentSetFileSize(uint64_t a1)
+void CalAttachmentSetFileSize(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6824,7 +6755,7 @@ void CalAttachmentSetFileSize(uint64_t a1)
 
 uint64_t CalAttachmentCopyFileSize(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6851,9 +6782,9 @@ uint64_t CalAttachmentCopyFileSize(uint64_t a1)
   return v4;
 }
 
-void CalAttachmentSetFormat(uint64_t a1)
+void CalAttachmentSetFormat(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6881,7 +6812,7 @@ void CalAttachmentSetFormat(uint64_t a1)
 
 uint64_t CalAttachmentCopyFormat(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6910,7 +6841,7 @@ uint64_t CalAttachmentCopyFormat(uint64_t a1)
 
 void CalAttachmentSetXProperties(uint64_t a1, CFDataRef Data)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (Data)
   {
@@ -6948,7 +6879,7 @@ void CalAttachmentSetXProperties(uint64_t a1, CFDataRef Data)
 
 CFPropertyListRef CalAttachmentCopyXProperties(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -6987,7 +6918,7 @@ CFPropertyListRef CalAttachmentCopyXProperties(uint64_t a1)
 
 CFTypeRef CalAttachmentCopyOwner(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Owner = _CalAttachmentGetOwner(a1);
   v4 = Owner;
@@ -7007,7 +6938,7 @@ CFTypeRef CalAttachmentCopyOwner(uint64_t a1)
 
 void CalAttachmentSetURLForPendingFileCopy(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalAttachmentSetURLForPendingFileCopy(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -7056,7 +6987,7 @@ LABEL_9:
 
 uint64_t CalAttachmentCopyURLForPendingFileCopy(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalAttachmentCopyURLForPendingFileCopy(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -7091,9 +7022,9 @@ uint64_t _CalAttachmentCopyURLForPendingFileCopy(uint64_t a1)
   return v3;
 }
 
-void CalAttachmentSetDownloadStart(uint64_t a1)
+void CalAttachmentSetDownloadStart(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7121,7 +7052,7 @@ void CalAttachmentSetDownloadStart(uint64_t a1)
 
 CFTypeRef CalAttachmentCopyDownloadStart(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7158,9 +7089,9 @@ CFTypeRef CalAttachmentCopyDownloadStart(uint64_t a1)
   return v5;
 }
 
-void CalAttachmentSetDownloadTries(uint64_t a1)
+void CalAttachmentSetDownloadTries(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7188,7 +7119,7 @@ void CalAttachmentSetDownloadTries(uint64_t a1)
 
 uint64_t CalAttachmentGetDownloadTries(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7215,14 +7146,15 @@ uint64_t CalAttachmentGetDownloadTries(uint64_t a1)
   return IntegerProperty;
 }
 
-uint64_t CalLoadAttachmentPropertyFromFileProperty(uint64_t a1, int a2)
+CFTypeRef CalLoadAttachmentPropertyFromFileProperty(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   result = _CalAttachmentGetAttachmentFile(a1);
   if (result)
   {
-    if ((CalAttachmentToCalAttachmentFilePropertyMap(a2) & 0x80000000) != 0)
+    if ((CalAttachmentToCalAttachmentFilePropertyMap(v2) & 0x80000000) != 0)
     {
-      CalLoadAttachmentPropertyFromFileProperty_cold_1(a2);
+      CalLoadAttachmentPropertyFromFileProperty_cold_1(v2);
     }
 
     if (CDBLockingAssertionsEnabled == 1)
@@ -7275,23 +7207,23 @@ uint64_t CalAttachmentToCalAttachmentFilePropertyMap(int a1)
   }
 }
 
-void _CalAttachmentLoadLocalURLWrapper(uint64_t a1)
+void _CalAttachmentLoadLocalURLWrapper(uint64_t a1, uint64_t a2)
 {
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
   {
-    v3 = _CalAttachmentFileCopyLocalURL(AttachmentFile);
-    if (v3)
+    v4 = _CalAttachmentFileCopyLocalURL(AttachmentFile);
+    if (v4)
     {
-      v9 = v3;
-      v4 = [MEMORY[0x1E696AC08] defaultManager];
-      v5 = [v9 path];
-      v6 = [v4 fileExistsAtPath:v5];
+      v10 = v4;
+      v5 = [MEMORY[0x1E696AC08] defaultManager];
+      v6 = [v10 path];
+      v7 = [v5 fileExistsAtPath:v6];
 
-      if (v6)
+      if (v7)
       {
 
-        v7 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:v9 readonly:1];
+        v8 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:v10 readonly:1];
         if (a1)
         {
           if (CDBLockingAssertionsEnabled)
@@ -7312,30 +7244,30 @@ void _CalAttachmentLoadLocalURLWrapper(uint64_t a1)
 
       else
       {
-        v7 = v9;
-        v9 = v4;
+        v8 = v10;
+        v10 = v5;
       }
     }
   }
 }
 
-void _CalAttachmentLoadLocalURLForArchivedDataWrapper(uint64_t a1)
+void _CalAttachmentLoadLocalURLForArchivedDataWrapper(uint64_t a1, uint64_t a2)
 {
   AttachmentFile = _CalAttachmentGetAttachmentFile(a1);
   if (AttachmentFile)
   {
-    v3 = _CalAttachmentFileCopyLocalURLForArchivedData(AttachmentFile);
-    if (v3)
+    v4 = _CalAttachmentFileCopyLocalURLForArchivedData(AttachmentFile);
+    if (v4)
     {
-      v9 = v3;
-      v4 = [MEMORY[0x1E696AC08] defaultManager];
-      v5 = [v9 path];
-      v6 = [v4 fileExistsAtPath:v5];
+      v10 = v4;
+      v5 = [MEMORY[0x1E696AC08] defaultManager];
+      v6 = [v10 path];
+      v7 = [v5 fileExistsAtPath:v6];
 
-      if (v6)
+      if (v7)
       {
 
-        v7 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:v9 readonly:1];
+        v8 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:v10 readonly:1];
         if (a1)
         {
           if (CDBLockingAssertionsEnabled)
@@ -7356,14 +7288,14 @@ void _CalAttachmentLoadLocalURLForArchivedDataWrapper(uint64_t a1)
 
       else
       {
-        v7 = v9;
-        v9 = v4;
+        v8 = v10;
+        v10 = v5;
       }
     }
   }
 }
 
-uint64_t _CalAttachmentLoadStoreId(uint64_t a1)
+uint64_t _CalAttachmentLoadStoreId(uint64_t a1, uint64_t a2)
 {
   result = _CalAttachmentGetOwner(a1);
   if (result)
@@ -7393,7 +7325,7 @@ uint64_t _CalAttachmentLoadStoreId(uint64_t a1)
   return result;
 }
 
-uint64_t _CalAttachmentLoadCalendarId(uint64_t a1)
+uint64_t _CalAttachmentLoadCalendarId(uint64_t a1, uint64_t a2)
 {
   result = _CalAttachmentGetOwner(a1);
   if (result)
@@ -7441,7 +7373,7 @@ uint64_t _CalTaskPrepareForRemove(uint64_t a1)
   result = _CalCalendarItemHasAlarms(a1);
   if (result)
   {
-    DatabaseForRecord = CalGetDatabaseForRecord();
+    DatabaseForRecord = CalGetDatabaseForRecord(a1);
 
     return _CalDatabaseSetChangeFlags(DatabaseForRecord, 8);
   }
@@ -7451,7 +7383,7 @@ uint64_t _CalTaskPrepareForRemove(uint64_t a1)
 
 void CalRemoveTask(const void *a1)
 {
-  v2 = CalCopyDatabaseForRecord();
+  v2 = CalCopyDatabaseForRecord(a1);
   if (v2)
   {
     v3 = v2;
@@ -7480,9 +7412,9 @@ uint64_t CalDatabaseCopyTasksInStore(os_unfair_lock_s *a1, uint64_t a2)
 {
   if (a2)
   {
-    CalStoreGetUID();
+    UID = CalStoreGetUID(a2);
 
-    return CalDatabaseCopyCalendarItemsWithStoreID(a1, 3);
+    return CalDatabaseCopyCalendarItemsWithStoreID(a1, 3, UID);
   }
 
   else
@@ -7494,11 +7426,11 @@ uint64_t CalDatabaseCopyTasksInStore(os_unfair_lock_s *a1, uint64_t a2)
 
 os_unfair_lock_s *CalDatabaseCopyTaskWithSummaryAndDueDateInCalendarOrStore(os_unfair_lock_s *cf, const __CFString *a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v9 = cf;
-  if (a3 || a4)
+  v10 = a3;
+  if (a3 || (v10 = a4) != 0)
   {
-    result = CalCopyDatabaseForRecord();
-    v9 = result;
+    result = CalCopyDatabaseForRecord(v10);
+    cf = result;
     if (!result)
     {
       return result;
@@ -7519,17 +7451,17 @@ os_unfair_lock_s *CalDatabaseCopyTaskWithSummaryAndDueDateInCalendarOrStore(os_u
   SelectPrefix = CPRecordStoreCreateSelectPrefix();
   if (SelectPrefix)
   {
-    v13 = SelectPrefix;
+    v14 = SelectPrefix;
     CFStringAppend(SelectPrefix, @" WHERE summary = ?");
-    v14 = vabdd_f64(a5, *MEMORY[0x1E6993100]);
-    if (v14 >= 2.22044605e-16)
+    v15 = vabdd_f64(a5, *MEMORY[0x1E6993100]);
+    if (v15 >= 2.22044605e-16)
     {
-      CFStringAppend(v13, @" AND due_date = ?");
+      CFStringAppend(v14, @" AND due_date = ?");
     }
 
     if (a3)
     {
-      v15 = @" AND calendar_id = ?";
+      v16 = @" AND calendar_id = ?";
     }
 
     else
@@ -7537,9 +7469,9 @@ os_unfair_lock_s *CalDatabaseCopyTaskWithSummaryAndDueDateInCalendarOrStore(os_u
       if (!a4)
       {
 LABEL_15:
-        os_unfair_lock_lock(v9 + 20);
-        RecordStore = _CalDatabaseGetRecordStore(v9);
-        v17 = RecordStore;
+        os_unfair_lock_lock(cf + 20);
+        RecordStore = _CalDatabaseGetRecordStore(cf);
+        v18 = RecordStore;
         if (CDBLockingAssertionsEnabled == 1)
         {
           if (RecordStore)
@@ -7559,38 +7491,38 @@ LABEL_15:
           {
             if (*(Database + 104))
             {
-              v20 = CPRecordStoreGetContext();
-              if (v20)
+              v21 = CPRecordStoreGetContext();
+              if (v21)
               {
-                os_unfair_lock_assert_owner(v20 + 20);
+                os_unfair_lock_assert_owner(v21 + 20);
               }
             }
           }
         }
 
-        v21 = CPSqliteDatabaseStatementForReading();
-        if (!v21)
+        v22 = CPSqliteDatabaseStatementForReading();
+        if (!v22)
         {
-          v24 = 0;
+          v25 = 0;
           goto LABEL_42;
         }
 
-        v22 = v21;
-        v23 = *(v21 + 8);
+        v23 = v22;
+        v24 = *(v22 + 8);
         if (CStringFromCFString)
         {
-          sqlite3_bind_text(v23, 1, CStringFromCFString, -1, 0);
+          sqlite3_bind_text(v24, 1, CStringFromCFString, -1, 0);
         }
 
         else
         {
-          sqlite3_bind_null(v23, 1);
+          sqlite3_bind_null(v24, 1);
         }
 
-        if (v14 >= 2.22044605e-16)
+        if (v15 >= 2.22044605e-16)
         {
-          sqlite3_bind_int(*(v22 + 8), 2, a5);
-          v25 = 3;
+          sqlite3_bind_int(*(v23 + 8), 2, a5);
+          v26 = 3;
           if (!a3)
           {
             goto LABEL_35;
@@ -7599,7 +7531,7 @@ LABEL_15:
 
         else
         {
-          v25 = 2;
+          v26 = 2;
           if (!a3)
           {
 LABEL_35:
@@ -7610,45 +7542,45 @@ LABEL_35:
           }
         }
 
-        v26 = *(v22 + 8);
+        v27 = *(v23 + 8);
         ID = CPRecordGetID();
-        sqlite3_bind_int(v26, v25, ID);
+        sqlite3_bind_int(v27, v26, ID);
 LABEL_37:
         if (CDBLockingAssertionsEnabled == 1)
         {
-          if (v17)
+          if (v18)
           {
-            v28 = CPRecordStoreGetContext();
-            if (v28)
+            v29 = CPRecordStoreGetContext();
+            if (v29)
             {
-              os_unfair_lock_assert_owner(v28 + 20);
+              os_unfair_lock_assert_owner(v29 + 20);
             }
           }
         }
 
-        v24 = CPRecordStoreProcessStatementWithPropertyIndices();
+        v25 = CPRecordStoreProcessStatementWithPropertyIndices();
 LABEL_42:
         if (CDBLockingAssertionsEnabled == 1)
         {
-          os_unfair_lock_assert_owner(v9 + 20);
+          os_unfair_lock_assert_owner(cf + 20);
         }
 
-        os_unfair_lock_unlock(v9 + 20);
-        CFRelease(v13);
-        if (v24)
+        os_unfair_lock_unlock(cf + 20);
+        CFRelease(v14);
+        if (v25)
         {
-          if (CFArrayGetCount(v24) < 1)
+          if (CFArrayGetCount(v25) < 1)
           {
             ValueAtIndex = 0;
           }
 
           else
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v24, 0);
+            ValueAtIndex = CFArrayGetValueAtIndex(v25, 0);
             CFRetain(ValueAtIndex);
           }
 
-          CFRelease(v24);
+          CFRelease(v25);
           if (!CStringFromCFString)
           {
             goto LABEL_52;
@@ -7666,14 +7598,14 @@ LABEL_42:
 
         free(CStringFromCFString);
 LABEL_52:
-        CFRelease(v9);
+        CFRelease(cf);
         return ValueAtIndex;
       }
 
-      v15 = @" AND calendar_id IN (SELECT ROWID FROM Calendar WHERE store_id = ?)";
+      v16 = @" AND calendar_id IN (SELECT ROWID FROM Calendar WHERE store_id = ?)";
     }
 
-    CFStringAppend(v13, v15);
+    CFStringAppend(v14, v16);
     goto LABEL_15;
   }
 
@@ -7682,7 +7614,7 @@ LABEL_52:
     free(CStringFromCFString);
   }
 
-  CFRelease(v9);
+  CFRelease(cf);
   return 0;
 }
 
@@ -7708,7 +7640,7 @@ uint64_t _CalTaskGetDueDate(uint64_t a1)
 
 void CalTaskSetDueDate(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -7736,7 +7668,7 @@ void CalTaskSetDueDate(uint64_t a1, uint64_t a2)
 
 uint64_t CalTaskCopyDueDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7763,9 +7695,9 @@ uint64_t CalTaskCopyDueDate(uint64_t a1)
   return v4;
 }
 
-void CalTaskSetDueDateTimeZone(_BOOL8 a1, uint64_t a2)
+void CalTaskSetDueDateTimeZone(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -7788,7 +7720,7 @@ void CalTaskSetDueDateTimeZone(_BOOL8 a1, uint64_t a2)
 
 uint64_t CalTaskCopyDueDateTimeZone(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -7829,9 +7761,9 @@ uint64_t CalTaskCopyDueDateTimeZone(uint64_t a1)
   return v5;
 }
 
-void CalTaskSetDueDateAllDay(_BOOL8 a1, unsigned int a2)
+void CalTaskSetDueDateAllDay(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 40, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -7864,7 +7796,7 @@ BOOL _CalTaskIsDueDateAllDay(uint64_t a1)
 
 BOOL CalTaskIsDueDateAllDay(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   IsDueDateAllDay = _CalTaskIsDueDateAllDay(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -7878,7 +7810,7 @@ BOOL CalTaskIsDueDateAllDay(uint64_t a1)
 
 void CalTaskSetCompletionDate(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -7926,7 +7858,7 @@ uint64_t _CalTaskGetCompletionDate(uint64_t a1)
 
 const void *CalTaskCopyCompletionDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   CompletionDate = _CalTaskGetCompletionDate(a1);
   v4 = CompletionDate;
@@ -7946,7 +7878,7 @@ const void *CalTaskCopyCompletionDate(uint64_t a1)
 
 void CalTaskSetFirstAlertDate(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -7974,7 +7906,7 @@ void CalTaskSetFirstAlertDate(uint64_t a1, uint64_t a2)
 
 const void *CalTaskCopyFirstAlertDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -8043,7 +7975,7 @@ CFURLRef CalTaskCopyURI(uint64_t a1)
 
 uint64_t CalTaskGetDisplayOrder(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -8072,7 +8004,7 @@ uint64_t CalTaskGetDisplayOrder(uint64_t a1)
 
 void CalTaskSetDisplayOrder(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (!a2)
   {
@@ -8114,7 +8046,7 @@ void CalTaskSetDisplayOrder(uint64_t a1, int a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t CalDatabaseCopyTasks(os_unfair_lock_s *a1, void *a2, int a3, int a4, int a5, uint64_t a6, uint64_t a7, int a8, unsigned __int8 a9, __int128 a10, const __CFString *a11, int a12)
+uint64_t CalDatabaseCopyTasks(os_unfair_lock_s *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, unsigned __int8 a9, __int128 a10, const __CFString *a11, int a12)
 {
   v13 = 0;
   CalDatabaseCopyTasksOrGetCount(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, 0, &v13, 0);
@@ -8686,7 +8618,7 @@ uint64_t _CalDatabaseCopyScheduledTasks(uint64_t a1)
   return CPRecordStoreCopyAllInstancesOfClassWhere();
 }
 
-uint64_t _CalDatabaseCopyScheduledTasksInDateRange(uint64_t a1)
+uint64_t _CalDatabaseCopyScheduledTasksInDateRange(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   RecordStore = _CalDatabaseGetRecordStore(a1);
   if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
@@ -8791,7 +8723,7 @@ void CalContactInitializeTables(uint64_t a1, void *a2)
   CalMigrationCreateIndexes(a2, &kCalContactClass, &kCalContactIndexes, &kCalContactChangesIndexes);
 }
 
-void CalContactMigrateTables(uint64_t a1, void *a2, int a3)
+void CalContactMigrateTables(uint64_t a1, void *a2, unsigned int a3)
 {
   if (a3 > 10000)
   {
@@ -8831,7 +8763,7 @@ CFTypeRef _CalContactHasValidParent(uint64_t a1)
   if (result)
   {
 
-    return _CalRecordStillExists();
+    return _CalRecordStillExists(result);
   }
 
   return result;
@@ -8866,7 +8798,7 @@ CFTypeRef _CalContactGetOwner(uint64_t a1)
 
 CFTypeRef CalContactCopyOwner(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Owner = _CalContactGetOwner(a1);
   v4 = Owner;
@@ -8904,9 +8836,9 @@ uint64_t _CalContactGetRecordID(uint64_t a1)
   return CPRecordGetProperty();
 }
 
-void CalContactSetContactIdentifier(uint64_t a1)
+void CalContactSetContactIdentifier(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -8934,7 +8866,7 @@ void CalContactSetContactIdentifier(uint64_t a1)
 
 uint64_t CalContactCopyContactIdentifier(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -9104,7 +9036,7 @@ const void *_CalContactCopy(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t _CalRemoveContact(void *a1)
+void *_CalRemoveContact(void *a1)
 {
   Owner = _CalContactGetOwner(a1);
   if (Owner)
@@ -9115,7 +9047,7 @@ uint64_t _CalRemoveContact(void *a1)
 
   else
   {
-    DatabaseForRecord = CalGetDatabaseForRecord();
+    DatabaseForRecord = CalGetDatabaseForRecord(a1);
 
     return _CalDatabaseRemoveEntity(DatabaseForRecord, a1);
   }
@@ -9123,7 +9055,7 @@ uint64_t _CalRemoveContact(void *a1)
 
 void CalRemoveContact(void *a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRemoveContact(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -9134,7 +9066,7 @@ void CalRemoveContact(void *a1)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalInvalidateContactsWithOwnerID(uint64_t a1)
+uint64_t _CalInvalidateContactsWithOwnerID(uint64_t a1, int a2)
 {
   if (a1)
   {
@@ -9155,7 +9087,7 @@ uint64_t CalDatabaseCopyContactChangesInStore(os_unfair_lock_s *a1, uint64_t a2,
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -9238,7 +9170,7 @@ uint64_t CalDatabaseRemoveContactChangesInStoreToIndex(os_unfair_lock_s *a1, uin
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -9279,9 +9211,9 @@ uint64_t CalDatabaseRemoveContactChangesInStoreToIndex(os_unfair_lock_s *a1, uin
   return v7;
 }
 
-void sub_1DEC8A800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC8A800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9290,7 +9222,7 @@ uint64_t CalDatabaseCopyContactChangesInCalendar(os_unfair_lock_s *a1, uint64_t 
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -9344,7 +9276,7 @@ uint64_t CalDatabaseRemoveContactChangesInCalendarToIndex(os_unfair_lock_s *a1, 
   v14 = 0;
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -9381,9 +9313,9 @@ uint64_t CalDatabaseRemoveContactChangesInCalendarToIndex(os_unfair_lock_s *a1, 
   return v7;
 }
 
-void sub_1DEC8AA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC8AA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9400,8 +9332,6 @@ uint64_t __CalDatabaseRemoveContactChangesInCalendarToIndex_block_invoke(uint64_
     }
   }
 
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 48);
   result = CPRecordStoreDeleteChangesForClassToIndexWhere();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -9433,9 +9363,9 @@ uint64_t CalDatabaseRemoveContactChangesWithIndices(os_unfair_lock_s *a1, uint64
   return v4;
 }
 
-void sub_1DEC8AC18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC8AC18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9452,13 +9382,12 @@ uint64_t __CalDatabaseRemoveContactChangesWithIndices_block_invoke(void *a1)
     }
   }
 
-  v5 = a1[6];
   result = CPRecordStoreDeleteChangesForClassWithIndices();
   *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
-uint64_t _CalContactGetWithUID(uint64_t a1)
+uint64_t _CalContactGetWithUID(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -9475,15 +9404,15 @@ uint64_t _CalContactGetWithUID(uint64_t a1)
   return CPRecordStoreGetInstanceOfClassWithUID();
 }
 
-const void *CalDatabaseCopyContactWithUID(os_unfair_lock_s *a1)
+const void *CalDatabaseCopyContactWithUID(os_unfair_lock_s *a1, uint64_t a2)
 {
   os_unfair_lock_lock(a1 + 20);
   RecordStore = _CalDatabaseGetRecordStore(a1);
-  v3 = _CalContactGetWithUID(RecordStore);
-  v4 = v3;
-  if (v3)
+  v5 = _CalContactGetWithUID(RecordStore, a2);
+  v6 = v5;
+  if (v5)
   {
-    CFRetain(v3);
+    CFRetain(v5);
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -9492,7 +9421,7 @@ const void *CalDatabaseCopyContactWithUID(os_unfair_lock_s *a1)
   }
 
   os_unfair_lock_unlock(a1 + 20);
-  return v4;
+  return v6;
 }
 
 uint64_t CalDatabaseCopyOfAllContactsInStore(os_unfair_lock_s *a1, uint64_t a2)
@@ -9546,7 +9475,6 @@ uint64_t CalDatabaseCopyOfAllContactsInStore(os_unfair_lock_s *a1, uint64_t a2)
 uint64_t __CalDatabaseCopyOfAllContactsInStore_block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 8);
-  v3 = *(a1 + 32);
   ID = CPRecordGetID();
 
   return sqlite3_bind_int(v2, 1, ID);
@@ -9707,7 +9635,7 @@ __CFArray *CalContactCopyObjectIDsOfContactsWithIdentifier(const __CFString *a1,
   return Mutable;
 }
 
-CFTypeRef _CalContactLoadStoreId(uint64_t a1)
+CFTypeRef _CalContactLoadStoreId(uint64_t a1, uint64_t a2)
 {
   result = _CalContactGetOwner(a1);
   if (result)
@@ -9734,7 +9662,7 @@ CFTypeRef _CalContactLoadStoreId(uint64_t a1)
   return result;
 }
 
-CFTypeRef _CalContactLoadCalendarId(uint64_t a1)
+CFTypeRef _CalContactLoadCalendarId(uint64_t a1, uint64_t a2)
 {
   result = _CalContactGetOwner(a1);
   if (result)
@@ -9786,7 +9714,7 @@ id DateComponentsFromAbsoluteTime(void *a1, double a2)
 
 double CalDateFromICSDateInTimezone(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (!v3)
@@ -9806,10 +9734,10 @@ LABEL_6:
     if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
     {
       v14 = v13;
-      v18 = 138412290;
-      v19 = objc_opt_class();
-      v15 = v19;
-      _os_log_impl(&dword_1DEBB1000, v14, OS_LOG_TYPE_DEBUG, "The given ICSDate (%@) is not of any known type", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = objc_opt_class();
+      v15 = v18;
+      _os_log_impl(&dword_1DEBB1000, v14, OS_LOG_TYPE_DEBUG, "The given ICSDate (%@) is not of any known type", &v17, 0xCu);
     }
 
     goto LABEL_6;
@@ -9825,7 +9753,6 @@ LABEL_6:
   v12 = v11;
 
 LABEL_7:
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -10142,7 +10069,7 @@ void CalOrganizerSetIsSelf(const void *a1, unsigned int a2)
 {
   if (CalEntityIsOfType(a1, 8))
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(a1);
     os_unfair_lock_lock(RecordLock);
     _CalRecordSetPropertyIfDifferent(a1, 11, a2);
     if (CDBLockingAssertionsEnabled == 1)
@@ -10161,7 +10088,7 @@ BOOL CalOrganizerIsSelf(const void *a1)
     return 0;
   }
 
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   IsSelf = _CalOrganizerIsSelf(a1);
   if (CDBLockingAssertionsEnabled == 1)

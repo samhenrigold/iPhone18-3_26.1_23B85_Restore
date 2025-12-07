@@ -142,71 +142,69 @@ LABEL_7:
 
 - (void)logToCoreAnalytics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = self->_appSessions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v19 + 1) + 8 * v7++) logToCoreAnalytics];
+        [*(*(&v18 + 1) + 8 * v7++) logToCoreAnalytics];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = self->_summaryMetrics;
-  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(NSMutableDictionary *)self->_summaryMetrics objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v12), v15];
+        v13 = [(NSMutableDictionary *)self->_summaryMetrics objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v12), v14];
         [v13 logToCoreAnalytics];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_doesLaunchInterruptPreviousLaunch:(id)launch
@@ -298,28 +296,28 @@ BOOL __70__ATXInterruptedAppSessionAccumulator_numberOfInterruptingAppSessions__
 
 - (id)countedSetContainingInterruptingAppBundleIds
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCA940]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_appSessions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         interruptingAppBundleId = [v9 interruptingAppBundleId];
 
         if (interruptingAppBundleId)
@@ -329,13 +327,11 @@ BOOL __70__ATXInterruptedAppSessionAccumulator_numberOfInterruptingAppSessions__
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

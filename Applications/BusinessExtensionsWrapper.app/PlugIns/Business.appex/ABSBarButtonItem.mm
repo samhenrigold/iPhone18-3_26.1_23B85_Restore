@@ -3,6 +3,7 @@
 - (NSString)title;
 - (_TtC8Business16ABSBarButtonItem)init;
 - (_TtC8Business16ABSBarButtonItem)initWithCoder:(id)coder;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setTitle:(id)title;
 @end
 
@@ -79,6 +80,37 @@
   v3.receiver = self;
   v3.super_class = type metadata accessor for ABSBarButtonItem();
   return [(ABSBarButtonItem *)&v3 isEnabled];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for ABSBarButtonItem();
+  v4 = v10.receiver;
+  [(ABSBarButtonItem *)&v10 setEnabled:enabledCopy];
+  if (sub_10002CE60() == 2)
+  {
+    customView = [v4 customView];
+    if (customView)
+    {
+      v6 = customView;
+      objc_opt_self();
+      v7 = swift_dynamicCastObjCClass();
+      if (v7)
+      {
+        v8 = v7;
+        v9 = v6;
+        [v8 setEnabled:{objc_msgSend(v4, "isEnabled")}];
+      }
+
+      else
+      {
+        v9 = v4;
+        v4 = v6;
+      }
+    }
+  }
 }
 
 - (_TtC8Business16ABSBarButtonItem)init

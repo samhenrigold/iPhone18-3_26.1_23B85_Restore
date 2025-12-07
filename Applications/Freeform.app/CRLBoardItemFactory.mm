@@ -78,10 +78,10 @@
 
 - (id)makeImageItemWithGeometry:(id)geometry imageData:(id)data thumbnailData:(id)thumbnailData
 {
-  v9 = sub_1005B981C(&unk_101A1B880);
+  v9 = sub_1005B981C(&unk_101A1B880, &unk_10147AB00);
   __chkstk_darwin(v9 - 8);
   v11 = &v24 - v10;
-  v12 = type metadata accessor for CRLAssetData();
+  v12 = type metadata accessor for CRLAssetData(0);
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
   v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -106,7 +106,7 @@
   (*(v13 + 56))(v11, v21, 1, v12);
   v22 = sub_10111147C(geometryCopy, v15, v11);
 
-  sub_10000CAAC(v11, &unk_101A1B880);
+  sub_10000CAAC(v11, &unk_101A1B880, &unk_10147AB00);
   sub_10112556C(v15, type metadata accessor for CRLAssetData);
 
   return v22;
@@ -125,7 +125,7 @@
 
 - (id)makeShapeItemWithShapeType:(int64_t)type
 {
-  v5 = sub_1005B981C(&unk_101A0B1C0);
+  v5 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v5 - 8);
   v7 = v12 - v6;
   v8 = type metadata accessor for CRLWPStorageCRDTData(0);
@@ -150,14 +150,14 @@
   selfCopy = self;
   v10 = sub_1011133FC(type, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1, 1, 1, 1, 0, v7, v12, 0, 0, 0, 0, 1u);
 
-  sub_10000CAAC(v7, &unk_101A0B1C0);
+  sub_10000CAAC(v7, &unk_101A0B1C0, &qword_101470EC0);
 
   return v10;
 }
 
 - (id)makeShapeItemWithShapeType:(int64_t)type pathSource:(id)source
 {
-  v7 = sub_1005B981C(&unk_101A0B1C0);
+  v7 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v7 - 8);
   v9 = v15 - v8;
   v10 = type metadata accessor for CRLWPStorageCRDTData(0);
@@ -183,7 +183,7 @@
   selfCopy = self;
   v13 = sub_1011133FC(type, 0, source, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1, 1, 1, 1, 0, v9, v15, 0, 0, 0, 0, 1u);
 
-  sub_10000CAAC(v9, &unk_101A0B1C0);
+  sub_10000CAAC(v9, &unk_101A0B1C0, &qword_101470EC0);
 
   return v13;
 }
@@ -192,7 +192,7 @@
 {
   v5 = *&position.y;
   v6 = *&position.x;
-  v10 = sub_1005B981C(&unk_101A0B1C0);
+  v10 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v10 - 8);
   v12 = v19 - v11;
   v13 = type metadata accessor for CRLWPStorageCRDTData(0);
@@ -218,7 +218,7 @@
   selfCopy = self;
   v16 = sub_1011133FC(type, 0, source, 0, v6, v5, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1, 1, 0, v12, v19, 0, 0, 0, 0, 1u);
 
-  sub_10000CAAC(v12, &unk_101A0B1C0);
+  sub_10000CAAC(v12, &unk_101A0B1C0, &qword_101470EC0);
 
   return v16;
 }
@@ -228,7 +228,7 @@
   v6 = *&position.y;
   v7 = *&position.x;
   sizeCopy = size;
-  v12 = sub_1005B981C(&unk_101A0B1C0);
+  v12 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v12 - 8);
   v14 = v21 - v13;
   v15 = type metadata accessor for CRLWPStorageCRDTData(0);
@@ -254,7 +254,7 @@
   selfCopy = self;
   v18 = sub_1011133FC(type, 0, source, sizeCopy, v7, v6, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1, 1, 0, v14, v21, 0, 0, 0, 0, 1u);
 
-  sub_10000CAAC(v14, &unk_101A0B1C0);
+  sub_10000CAAC(v14, &unk_101A0B1C0, &qword_101470EC0);
 
   return v18;
 }
@@ -264,7 +264,7 @@
   v8 = *&position.y;
   v9 = *&position.x;
   sizeCopy = size;
-  v14 = sub_1005B981C(&unk_101A0B1C0);
+  v14 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v14 - 8);
   v16 = v23 - v15;
   v17 = type metadata accessor for CRLWPStorageCRDTData(0);
@@ -290,7 +290,7 @@
   selfCopy = self;
   v20 = sub_1011133FC(type, 0, source, sizeCopy, v9, v8, 0, 0, 0, *&degrees, 0, 2, 2, 1, 1, 1, 1, 0, v16, v23, 0, 0, 0, 0, 1u);
 
-  sub_10000CAAC(v16, &unk_101A0B1C0);
+  sub_10000CAAC(v16, &unk_101A0B1C0, &qword_101470EC0);
 
   return v20;
 }
@@ -521,7 +521,7 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtC8Freeform19CRLBoardItemFactory_board);
   v5 = *(v4 + OBJC_IVAR____TtC8Freeform8CRLBoard_store);
   v6 = *(v4 + OBJC_IVAR____TtC8Freeform8CRLBoard_rootContainer);
-  v7 = objc_allocWithZone(type metadata accessor for CRLSurfaceItem());
+  v7 = objc_allocWithZone(type metadata accessor for CRLSurfaceItem(0));
   geometryCopy = geometry;
   v9 = sub_100AE1128(v5, v6, geometry);
 
@@ -576,7 +576,7 @@
 
   selfCopy = self;
   v9 = sub_101121D20(v6, v5, v7);
-  sub_1000C1014(v5);
+  sub_1000C1014(v5, v7);
 
   if (v9)
   {

@@ -3,6 +3,7 @@
 - (AVTAvatarMemoryOptimizer)initWithMemoji:(id)memoji;
 - (id)flattenTarget0:(id)target0 weight0:(float)weight0 target1:(id)target1 weight1:(float)weight1 inMorphTarget:(id)target originalMorphTarget:(id)morphTarget;
 - (void)applyMorphTarget:(id)target weight:(float)weight toBaseGeometryBuffer:(void *)buffer vertexCount:(unint64_t)count;
+- (void)applyMorphTarget:(id)target weight:(float)weight toMorphTargetBuffer:(id *)buffer vertexCount:(unint64_t)count;
 - (void)classifyTargetsOfMorpher:(id)morpher node:(id)node;
 - (void)flattenCorrectiveAtIndex:(unint64_t)index inBaseGeometryUsingWeight:(float)weight;
 - (void)flattenCorrectiveAtIndex:(unint64_t)index inCorrectiveAtIndex:(unint64_t)atIndex weight:(float)weight;
@@ -35,7 +36,7 @@
   objc_opt_self();
   if ([v3 usageIntent] == 2)
   {
-    v2 = [[AVTAvatarMemoryOptimizer alloc] initWithMemoji:v3];
+    v2 = [[AVTAvatarMemoryOptimizer alloc] initWithMemoji:?];
     [(AVTAvatarMemoryOptimizer *)v2 preprocessMemoji];
     [(AVTAvatarMemoryOptimizer *)v2 optimizeMemoji];
   }
@@ -65,16 +66,9 @@
     [AVTAvatarMemoryOptimizer registerRequiredVariant:weight:inHierarchy:];
   }
 
-  v10 = hierarchyCopy;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __71__AVTAvatarMemoryOptimizer_registerRequiredVariant_weight_inHierarchy___block_invoke;
-  v12[3] = &unk_1E7F47A98;
-  weightCopy = weight;
-  v13 = variantCopy;
-  selfCopy = self;
-  v11 = variantCopy;
-  [v10 enumerateHierarchyUsingBlock:v12];
+  v8 = hierarchyCopy;
+  v9 = variantCopy;
+  [v8 enumerateHierarchyUsingBlock:?];
 }
 
 void __71__AVTAvatarMemoryOptimizer_registerRequiredVariant_weight_inHierarchy___block_invoke(uint64_t a1, void *a2)
@@ -82,31 +76,29 @@ void __71__AVTAvatarMemoryOptimizer_registerRequiredVariant_weight_inHierarchy__
   v3 = [a2 morpher];
   if (v3)
   {
-    v7 = v3;
-    v4 = [v3 _weightIndexForTargetNamed:*(a1 + 32)];
-    v3 = v7;
+    v6 = v3;
+    v4 = [v3 _weightIndexForTargetNamed:?];
+    v3 = v6;
     if (v4 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      LODWORD(v5) = *(a1 + 48);
-      [v7 setWeight:v5 forTargetAtIndex:?];
-      v6 = [*(*(a1 + 40) + 16) objectForKey:v7];
-      if (!v6)
+      [v6 setWeight:? forTargetAtIndex:?];
+      v5 = [*(*(a1 + 40) + 16) objectForKey:?];
+      if (!v5)
       {
-        v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-        [*(*(a1 + 40) + 16) setObject:v6 forKey:v7];
+        v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        [*(*(a1 + 40) + 16) setObject:? forKey:?];
       }
 
-      [v6 addObject:*(a1 + 32)];
+      [v5 addObject:?];
 
-      v3 = v7;
+      v3 = v6;
     }
   }
 }
 
 - (void)preprocessMemoji
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v3 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:2 valueOptions:0 capacity:0];
+  v3 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:? valueOptions:? capacity:?];
   requiredVariantsPerMorpher = self->_requiredVariantsPerMorpher;
   self->_requiredVariantsPerMorpher = v3;
 
@@ -123,300 +115,243 @@ void __71__AVTAvatarMemoryOptimizer_registerRequiredVariant_weight_inHierarchy__
   {
     if (i)
     {
-      v36 = AVTComponentTypeToString(i);
-      v35 = [@"variant_" stringByAppendingString:?];
+      v30 = AVTComponentTypeToString(i);
+      v29 = [@"variant_" stringByAppendingString:?];
       [(NSMutableSet *)self->_presetVariantPrefixes addObject:?];
-      v37 = i;
-      v38 = [(AVTMemoji *)self->_memoji componentWithType:i];
-      morphVariant = [v38 morphVariant];
+      v31 = i;
+      v32 = [(AVTMemoji *)self->_memoji componentWithType:?];
+      morphVariant = [v32 morphVariant];
       v11 = morphVariant;
-      if (morphVariant && ([morphVariant isEqualToString:@"variant_none"] & 1) == 0)
+      if (morphVariant && ([morphVariant isEqualToString:?] & 1) == 0)
       {
-        [v38 morphVariantIntensity];
-        v13 = v12;
-        [(NSMutableArray *)self->_requiredMorphVariantComponents addObject:v38];
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v14 = allBuiltinAssetNodes;
-        v15 = [v14 countByEnumeratingWithState:&v45 objects:v50 count:16];
-        if (v15)
+        [v32 morphVariantIntensity];
+        [(NSMutableArray *)self->_requiredMorphVariantComponents addObject:?];
+        v12 = allBuiltinAssetNodes;
+        v13 = [v12 countByEnumeratingWithState:? objects:? count:?];
+        if (v13)
         {
-          v17 = v15;
-          v18 = *v46;
+          v14 = v13;
+          v15 = MEMORY[0];
           do
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v14; j = (j + 1))
             {
-              if (*v46 != v18)
+              if (MEMORY[0] != v15)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v12);
               }
 
-              LODWORD(v16) = v13;
-              [(AVTAvatarMemoryOptimizer *)self registerRequiredVariant:v11 weight:*(*(&v45 + 1) + 8 * j) inHierarchy:v16];
+              [AVTAvatarMemoryOptimizer registerRequiredVariant:"registerRequiredVariant:weight:inHierarchy:" weight:? inHierarchy:?];
             }
 
-            v17 = [v14 countByEnumeratingWithState:&v45 objects:v50 count:16];
+            v14 = [v12 countByEnumeratingWithState:? objects:? count:?];
           }
 
-          while (v17);
+          while (v14);
         }
 
         for (k = 0; k != 42; ++k)
         {
           if (k)
           {
-            v21 = [(AVTMemoji *)self->_memoji componentWithType:k];
-            v41 = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v44 = 0u;
-            assets = [v21 assets];
-            v23 = [assets countByEnumeratingWithState:&v41 objects:v49 count:16];
-            if (v23)
+            v18 = [(AVTMemoji *)self->_memoji componentWithType:?];
+            assets = [v18 assets];
+            v20 = [assets countByEnumeratingWithState:? objects:? count:?];
+            if (v20)
             {
-              v24 = v23;
-              v25 = *v42;
+              v21 = v20;
+              v22 = MEMORY[0];
               do
               {
-                for (m = 0; m != v24; ++m)
+                for (m = 0; m != v21; m = (m + 1))
                 {
-                  if (*v42 != v25)
+                  if (MEMORY[0] != v22)
                   {
                     objc_enumerationMutation(assets);
                   }
 
-                  v27 = *(*(&v41 + 1) + 8 * m);
-                  if ([v27 is3DAsset])
+                  if ([*(8 * m) is3DAsset])
                   {
                     assetResourceCache = [(AVTMemoji *)self->_memoji assetResourceCache];
-                    v29 = [assetResourceCache resourceForAsset:v27];
+                    v25 = [assetResourceCache resourceForAsset:?];
 
-                    LODWORD(v30) = v13;
-                    [(AVTAvatarMemoryOptimizer *)self registerRequiredVariant:v11 weight:v29 inHierarchy:v30];
+                    [AVTAvatarMemoryOptimizer registerRequiredVariant:"registerRequiredVariant:weight:inHierarchy:" weight:? inHierarchy:?];
                   }
                 }
 
-                v24 = [assets countByEnumeratingWithState:&v41 objects:v49 count:16];
+                v21 = [assets countByEnumeratingWithState:? objects:? count:?];
               }
 
-              while (v24);
+              while (v21);
             }
           }
         }
       }
 
-      i = v37;
+      i = v31;
     }
   }
 
   for (n = 0; n != 40; ++n)
   {
-    v32 = [(AVTMemoji *)self->_memoji resolvedPresetForCategory:n];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke;
-    v40[3] = &unk_1E7F47AC0;
-    v40[4] = self;
-    [v32 enumerateVariantDependenciesOfKind:0 block:v40];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2;
-    v39[3] = &unk_1E7F47AE8;
-    v39[4] = self;
-    [v32 enumerateAssetSpecificVariantDependenciesOfKind:0 block:v39];
+    v27 = [(AVTMemoji *)self->_memoji resolvedPresetForCategory:?];
+    [v27 enumerateVariantDependenciesOfKind:? block:?];
+    [v27 enumerateAssetSpecificVariantDependenciesOfKind:? block:?];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke(uint64_t a1, unint64_t a2, void *a3, float a4)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v7 = a3;
-  v8 = AVTPresetCategoryToComponentType(a2);
-  v9 = [*(*(a1 + 32) + 8) componentWithType:v8];
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v10 = [v9 assets];
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v31;
-    do
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v31 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v30 + 1) + 8 * i);
-        if ([v15 is3DAsset])
-        {
-          v16 = [*(*(a1 + 32) + 8) assetResourceCache];
-          v17 = [v16 resourceForAsset:v15];
-
-          *&v18 = a4;
-          [*(a1 + 32) registerRequiredVariant:v7 weight:v17 inHierarchy:v18];
-          [*(*(a1 + 32) + 32) addObject:v7];
-        }
-      }
-
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
-    }
-
-    while (v12);
-  }
-
-  v19 = [*(*(a1 + 32) + 8) builtinAssetNodesForComponentType:v8];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v20 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v20)
-  {
-    v22 = v20;
-    v23 = *v27;
-    do
-    {
-      for (j = 0; j != v22; ++j)
-      {
-        if (*v27 != v23)
-        {
-          objc_enumerationMutation(v19);
-        }
-
-        *&v21 = a4;
-        [*(a1 + 32) registerRequiredVariant:v7 weight:*(*(&v26 + 1) + 8 * j) inHierarchy:v21];
-        [*(*(a1 + 32) + 32) addObject:v7];
-      }
-
-      v22 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
-    }
-
-    while (v22);
-  }
-
-  v25 = *MEMORY[0x1E69E9840];
-}
-
-void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
-{
-  v39 = *MEMORY[0x1E69E9840];
-  v7 = a3;
-  v8 = a4;
-  v27 = a2;
-  [*(*(a1 + 32) + 8) componentWithType:a2];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v28 = v36 = 0u;
-  v9 = [v28 assets];
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v6 = a3;
+  AVTPresetCategoryToComponentType(a2, v7);
+  v8 = [*(*(a1 + 32) + 8) componentWithType:?];
+  v9 = [v8 assets];
+  v10 = [v9 countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     v11 = v10;
-    v12 = *v34;
+    v12 = MEMORY[0];
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v34 != v12)
+        if (MEMORY[0] != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
-        if ([v14 is3DAsset])
+        if ([*(8 * i) is3DAsset])
         {
-          v15 = [v14 identifier];
-          v16 = [v15 isEqualToString:v7];
+          v14 = [*(*(a1 + 32) + 8) assetResourceCache];
+          v15 = [v14 resourceForAsset:?];
 
-          if (v16)
-          {
-            v17 = [*(*(a1 + 32) + 8) assetResourceCache];
-            v18 = [v17 resourceForAsset:v14];
-
-            LODWORD(v19) = 1.0;
-            [*(a1 + 32) registerRequiredVariant:v8 weight:v18 inHierarchy:v19];
-            [*(*(a1 + 32) + 32) addObject:v8];
-          }
+          [*(a1 + 32) registerRequiredVariant:? weight:? inHierarchy:?];
+          [*(*(a1 + 32) + 32) addObject:?];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v11 = [v9 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v11);
   }
 
-  v20 = [*(*(a1 + 32) + 8) builtinAssetNodesForComponentType:v27];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v21 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v21)
+  v16 = [*(*(a1 + 32) + 8) builtinAssetNodesForComponentType:?];
+  v17 = [v16 countByEnumeratingWithState:0 objects:? count:?];
+  if (v17)
   {
-    v23 = v21;
-    v24 = *v30;
+    v18 = v17;
+    v19 = MEMORY[0];
     do
     {
-      for (j = 0; j != v23; ++j)
+      for (j = 0; j != v18; j = (j + 1))
       {
-        if (*v30 != v24)
+        if (MEMORY[0] != v19)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v16);
         }
 
-        LODWORD(v22) = 1.0;
-        [*(a1 + 32) registerRequiredVariant:v8 weight:*(*(&v29 + 1) + 8 * j) inHierarchy:v22];
-        [*(*(a1 + 32) + 32) addObject:v8];
+        [*(a1 + 32) registerRequiredVariant:? weight:? inHierarchy:?];
+        [*(*(a1 + 32) + 32) addObject:?];
       }
 
-      v23 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v18 = [v16 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v23);
+    while (v18);
+  }
+}
+
+void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v6 = a3;
+  v7 = a4;
+  v23 = [*(*(a1 + 32) + 8) componentWithType:?];
+  v8 = [v23 assets];
+  v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = MEMORY[0];
+    do
+    {
+      for (i = 0; i != v10; i = (i + 1))
+      {
+        if (MEMORY[0] != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(8 * i);
+        if ([v13 is3DAsset])
+        {
+          v14 = [v13 identifier];
+          v15 = [v14 isEqualToString:?];
+
+          if (v15)
+          {
+            v16 = [*(*(a1 + 32) + 8) assetResourceCache];
+            v17 = [v16 resourceForAsset:?];
+
+            [*(a1 + 32) registerRequiredVariant:? weight:? inHierarchy:?];
+            [*(*(a1 + 32) + 32) addObject:?];
+          }
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v10);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
+  v18 = [*(*(a1 + 32) + 8) builtinAssetNodesForComponentType:?];
+  v19 = [v18 countByEnumeratingWithState:? objects:? count:?];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = MEMORY[0];
+    do
+    {
+      for (j = 0; j != v20; j = (j + 1))
+      {
+        if (MEMORY[0] != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        [*(a1 + 32) registerRequiredVariant:? weight:? inHierarchy:?];
+        [*(*(a1 + 32) + 32) addObject:?];
+      }
+
+      v20 = [v18 countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v20);
+  }
 }
 
 - (void)optimizeMemoji
 {
-  v29 = *MEMORY[0x1E69E9840];
   allBuiltinAssetNodes = [(AVTMemoji *)self->_memoji allBuiltinAssetNodes];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v4 = [allBuiltinAssetNodes countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v4 = [allBuiltinAssetNodes countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = MEMORY[0];
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v24 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(allBuiltinAssetNodes);
         }
 
-        [(AVTAvatarMemoryOptimizer *)self optimizeNodeHierarchy:*(*(&v23 + 1) + 8 * i)];
+        [(AVTAvatarMemoryOptimizer *)self optimizeNodeHierarchy:?];
       }
 
-      v5 = [allBuiltinAssetNodes countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [allBuiltinAssetNodes countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
@@ -426,45 +361,38 @@ void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2(uint64_t a1
   {
     if (j)
     {
-      v9 = [(AVTMemoji *)self->_memoji componentWithType:j];
-      v19 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
+      v9 = [(AVTMemoji *)self->_memoji componentWithType:?];
       assets = [v9 assets];
-      v11 = [assets countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v11 = [assets countByEnumeratingWithState:? objects:? count:?];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = MEMORY[0];
         do
         {
-          for (k = 0; k != v12; ++k)
+          for (k = 0; k != v12; k = (k + 1))
           {
-            if (*v20 != v13)
+            if (MEMORY[0] != v13)
             {
               objc_enumerationMutation(assets);
             }
 
-            v15 = *(*(&v19 + 1) + 8 * k);
-            if ([v15 is3DAsset])
+            if ([*(8 * k) is3DAsset])
             {
               assetResourceCache = [(AVTMemoji *)self->_memoji assetResourceCache];
-              v17 = [assetResourceCache resourceForAsset:v15];
+              v16 = [assetResourceCache resourceForAsset:?];
 
-              [(AVTAvatarMemoryOptimizer *)self optimizeNodeHierarchy:v17];
+              [(AVTAvatarMemoryOptimizer *)self optimizeNodeHierarchy:?];
             }
           }
 
-          v12 = [assets countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v12 = [assets countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v12);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)optimizeNodeHierarchy:(id)hierarchy
@@ -476,12 +404,12 @@ void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2(uint64_t a1
   }
 
   v5 = hierarchyCopy;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __50__AVTAvatarMemoryOptimizer_optimizeNodeHierarchy___block_invoke;
-  v6[3] = &unk_1E7F47B10;
-  v6[4] = self;
-  [hierarchyCopy enumerateHierarchyUsingBlock:v6];
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __50__AVTAvatarMemoryOptimizer_optimizeNodeHierarchy___block_invoke;
+  v9 = &unk_1E7F47B10;
+  selfCopy = self;
+  [hierarchyCopy enumerateHierarchyUsingBlock:?];
 }
 
 - (void)optimizeNode:(id)node
@@ -681,74 +609,63 @@ void __44__AVTAvatarMemoryOptimizer_preprocessMemoji__block_invoke_2(uint64_t a1
     nonOneWeightsOfCorrectivesToFlatten = self->_nonOneWeightsOfCorrectivesToFlatten;
     self->_nonOneWeightsOfCorrectivesToFlatten = v49;
 
-    [(AVTAvatarMemoryOptimizer *)self classifyTargetsOfMorpher:v5 node:nodeCopy];
-    [(AVTAvatarMemoryOptimizer *)self flattenTargetsOfMorpher:v5 node:nodeCopy];
+    [AVTAvatarMemoryOptimizer classifyTargetsOfMorpher:"classifyTargetsOfMorpher:node:" node:?];
+    [AVTAvatarMemoryOptimizer flattenTargetsOfMorpher:"flattenTargetsOfMorpher:node:" node:?];
   }
 }
 
 - (void)classifyTargetsOfMorpher:(id)morpher node:(id)node
 {
-  v46 = *MEMORY[0x1E69E9840];
+  *(&v35[17] + 4) = *MEMORY[0x1E69E9840];
   morpherCopy = morpher;
   nodeCopy = node;
-  v7 = [(NSMapTable *)self->_requiredVariantsPerMorpher objectForKey:morpherCopy];
+  v7 = [(NSMapTable *)self->_requiredVariantsPerMorpher objectForKey:?];
   oldMainTargets = self->_oldMainTargets;
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke;
-  v40[3] = &unk_1E7F47B60;
-  v40[4] = self;
+  v31[4] = MEMORY[0x1E69E9820];
+  v31[5] = 3221225472;
+  v31[6] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke;
+  v31[7] = &unk_1E7F47B60;
+  v31[8] = self;
   v9 = morpherCopy;
-  v41 = v9;
+  v32 = v9;
   v10 = v7;
-  v42 = v10;
-  [(NSArray *)oldMainTargets enumerateObjectsUsingBlock:v40];
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v39[3] = 0;
+  v33 = v10;
+  [(NSArray *)oldMainTargets enumerateObjectsUsingBlock:?];
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2020000000;
+  v31[3] = 0;
   oldCorrectives = self->_oldCorrectives;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2;
-  v35[3] = &unk_1E7F47BB0;
-  v35[4] = self;
-  v38 = v39;
   v27 = v10;
-  v36 = v27;
   v26 = v9;
-  v37 = v26;
-  [(NSArray *)oldCorrectives enumerateObjectsUsingBlock:v35];
+  [(NSArray *)oldCorrectives enumerateObjectsUsingBlock:?];
   for (i = 0; i < [(NSMutableArray *)self->_newCorrectiveDriverIndices count]; i = v30 + 1)
   {
-    v13 = [(NSMutableArray *)self->_newCorrectiveDriverIndices objectAtIndexedSubscript:i];
-    v14 = -[NSArray objectAtIndexedSubscript:](self->_oldMainTargets, "objectAtIndexedSubscript:", [v13 unsignedIntegerValue]);
+    v13 = [(NSMutableArray *)self->_newCorrectiveDriverIndices objectAtIndexedSubscript:?];
+    [v13 unsignedIntegerValue];
+    v14 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
     v30 = i;
     if ([(NSMutableArray *)self->_newInBetweenCounts count])
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
-      v32 = 0u;
       v15 = self->_newInBetweenCounts;
-      v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
+      v16 = [NSMutableArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v16)
       {
         v17 = 0;
         v18 = 0;
-        v19 = *v32;
+        v19 = MEMORY[0];
 LABEL_6:
         v20 = 0;
-        v29 = v18 + v16;
+        v29 = v16 + v18;
         while (1)
         {
-          if (*v32 != v19)
+          if (MEMORY[0] != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v17 += [*(*(&v31 + 1) + 8 * v20) unsignedIntegerValue];
-          v21 = [(NSMutableArray *)self->_newTargetsAndInBetweens objectAtIndexedSubscript:v17 - 1];
+          v17 += [*(8 * v20) unsignedIntegerValue];
+          v21 = [(NSMutableArray *)self->_newTargetsAndInBetweens objectAtIndexedSubscript:?];
           v22 = v21 == v14;
 
           if (v22)
@@ -759,7 +676,7 @@ LABEL_6:
           ++v18;
           if (v16 == ++v20)
           {
-            v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
+            v16 = [NSMutableArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
             v18 = v29;
             if (v16)
             {
@@ -780,213 +697,202 @@ LABEL_12:
 
     else
     {
-      v18 = [(NSMutableArray *)self->_newTargetsAndInBetweens indexOfObject:v14];
+      v23 = [(NSMutableArray *)self->_newTargetsAndInBetweens indexOfObject:?];
+      v18 = v23;
     }
 
     if (v18 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v23 = avt_default_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = avt_default_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(AVTAvatarMemoryOptimizer *)buf classifyTargetsOfMorpher:v23 node:?];
+        [(AVTAvatarMemoryOptimizer *)buf classifyTargetsOfMorpher:v35 node:v24];
       }
     }
 
-    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v18];
-    [(NSMutableArray *)self->_newCorrectiveDriverIndices setObject:v24 atIndexedSubscript:v30];
+    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [NSMutableArray setObject:"setObject:atIndexedSubscript:" atIndexedSubscript:?];
   }
 
-  _Block_object_dispose(v39, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v31, 8);
 }
 
 void __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke(id *a1, void *a2, uint64_t a3)
 {
-  v60 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = [v5 name];
-  if (AVTMorphTargetNameIsUsedForFaceAnimation(v6) || AVTMorphTargetNameIsUsedForDynamics(v6, v7))
+  v44 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v5 = [v4 name];
+  if (AVTMorphTargetNameIsUsedForFaceAnimation(v5) || AVTMorphTargetNameIsUsedForDynamics(v5))
   {
 LABEL_3:
-    [a1[4] keepTargetAtIndex:a3 morpher:a1[5]];
+    [a1[4] keepTargetAtIndex:? morpher:?];
     goto LABEL_4;
   }
 
-  if ([v6 isEqualToString:@"Emoji"])
+  if ([v5 isEqualToString:?])
   {
     goto LABEL_4;
   }
 
-  if ([v6 containsString:@"__"])
+  if ([v5 containsString:?])
   {
-    v9 = [v6 componentsSeparatedByString:@"__"];
-    v10 = [v9 count];
-    if (v10 < 6)
+    v6 = [v5 componentsSeparatedByString:?];
+    v7 = [v6 count];
+    if (v7 < 6)
     {
-      v12 = v10;
-      v58 = 0;
-      v57 = 0;
-      if (v10)
+      v9 = v7;
+      v43 = 0;
+      v42 = 0;
+      if (v7)
       {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        v16 = 1.0;
-        v49 = v10;
-        v48 = v9;
+        v10 = 0;
+        v11 = 0;
+        v12 = 0;
+        v13 = 1.0;
+        v40 = v7;
+        v39 = v6;
         do
         {
-          v17 = [v9 objectAtIndexedSubscript:v15];
-          if (AVTMorphTargetNameIsUsedForFaceAnimation(v17))
+          v14 = [v6 objectAtIndexedSubscript:?];
+          if (AVTMorphTargetNameIsUsedForFaceAnimation(v14))
           {
-            ++v14;
+            v11 = (v11 + 1);
           }
 
           else
           {
-            v50 = v13;
-            v18 = *(a1[4] + 3);
-            v55[0] = MEMORY[0x1E69E9820];
-            v55[1] = 3221225472;
-            v55[2] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_40;
-            v55[3] = &unk_1E7F47B38;
-            v19 = v17;
-            v56 = v19;
-            v20 = [v18 indexOfObjectPassingTest:v55];
-            v21 = 0.0;
-            if (v20 != 0x7FFFFFFFFFFFFFFFLL)
+            v41 = v10;
+            v15 = *(a1[4] + 3);
+            v16 = v14;
+            v17 = [v15 indexOfObjectPassingTest:?];
+            v18 = 0.0;
+            if (v17 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v22 = [*(a1[4] + 3) objectAtIndexedSubscript:v20];
-              [v22 morphVariantIntensity];
-              v21 = v23;
+              v19 = [*(a1[4] + 3) objectAtIndexedSubscript:?];
+              [v19 morphVariantIntensity];
+              v18 = v20;
             }
 
-            v24 = [a1[6] containsObject:v19];
-            v25 = v24;
-            if (v20 == 0x7FFFFFFFFFFFFFFFLL && v24 != 0)
+            v21 = [a1[6] containsObject:?];
+            v22 = v21;
+            if (v17 == 0x7FFFFFFFFFFFFFFFLL && v21 != 0)
             {
-              v27 = [a1[5] _weightIndexForTargetNamed:v19];
-              if (v27 == 0x7FFFFFFFFFFFFFFFLL)
+              if ([a1[5] _weightIndexForTargetNamed:?] == 0x7FFFFFFFFFFFFFFFLL)
               {
                 __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_2();
               }
 
-              [a1[5] weightForTargetAtIndex:v27];
-              v21 = v28;
+              [a1[5] weightForTargetAtIndex:?];
+              v18 = v24;
             }
 
-            if (!((v20 != 0x7FFFFFFFFFFFFFFFLL) | v25 & 1))
+            if (!((v17 != 0x7FFFFFFFFFFFFFFFLL) | v22 & 1))
             {
 
-              v9 = v48;
+              v6 = v39;
               goto LABEL_71;
             }
 
-            v16 = fminf(v16, v21);
-            *(&v57 + v15) = 1;
-            v13 = v50 + 1;
+            v13 = fminf(v13, v18);
+            *(&v42 + v12) = 1;
+            v10 = (v41 + 1);
 
-            v9 = v48;
-            v12 = v49;
+            v6 = v39;
+            v9 = v40;
           }
 
-          ++v15;
+          v12 = (v12 + 1);
         }
 
-        while (v12 != v15);
-        if (v14 == v12)
+        while (v9 != v12);
+        if (v11 == v9)
         {
           goto LABEL_30;
         }
 
-        if (v13 == v12)
+        if (v10 == v9)
         {
-          *&v29 = v16;
-          [a1[4] flattenTargetAtIndex:a3 inBaseGeometryUsingWeight:v29];
+          [a1[4] flattenTargetAtIndex:? inBaseGeometryUsingWeight:?];
         }
 
         else
         {
-          if (v13 + v14 != v12)
+          if ((v11 + v10) != v9)
           {
             __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_3();
           }
 
-          if (v14 == 1)
+          if (v11 == 1)
           {
-            v35 = 0;
-            while ((*(&v57 + v35) & 1) != 0)
+            v30 = 0;
+            while ((*(&v42 + v30) & 1) != 0)
             {
-              if (v12 == ++v35)
+              if (v9 == ++v30)
               {
-                v36 = 0;
+                v31 = 0;
                 goto LABEL_63;
               }
             }
 
-            v36 = [v9 objectAtIndexedSubscript:?];
+            v31 = [v6 objectAtIndexedSubscript:?];
 LABEL_63:
-            v45 = [a1[5] _weightIndexForTargetNamed:v36];
-            if (v45 == 0x7FFFFFFFFFFFFFFFLL)
+            if ([a1[5] _weightIndexForTargetNamed:?] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v47 = avt_default_log();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+              v38 = avt_default_log(0x7FFFFFFFFFFFFFFFLL);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_4();
               }
 
-              [v5 setName:v36];
-              [a1[4] keepTargetAtIndex:a3 morpher:a1[5]];
+              [v4 setName:?];
+              [a1[4] keepTargetAtIndex:? morpher:?];
             }
 
             else
             {
-              *&v46 = v16;
-              [a1[4] flattenTargetAtIndex:a3 inTargetAtIndex:v45 weight:v46];
+              [a1[4] flattenTargetAtIndex:? inTargetAtIndex:? weight:?];
             }
           }
 
           else
           {
-            v37 = 0;
-            v38 = 0;
+            v32 = 0;
+            v33 = 0;
             do
             {
-              if ((*(&v57 + v37) & 1) == 0)
+              if ((*(&v42 + v32) & 1) == 0)
               {
-                v39 = [v9 objectAtIndexedSubscript:v37];
-                v40 = v39;
-                if (v38)
+                v34 = [v6 objectAtIndexedSubscript:?];
+                v35 = v34;
+                if (v33)
                 {
-                  [v38 stringByAppendingFormat:@"__%@", v39];
-                  v42 = v41 = v9;
+                  [v33 stringByAppendingFormat:v34];
+                  v37 = v36 = v6;
 
-                  v38 = v42;
-                  v9 = v41;
-                  v12 = v49;
+                  v33 = v37;
+                  v6 = v36;
+                  v9 = v40;
                 }
 
                 else
                 {
-                  v38 = v39;
+                  v33 = v34;
                 }
               }
 
-              ++v37;
+              v32 = (v32 + 1);
             }
 
-            while (v12 != v37);
-            v43 = [a1[5] _weightIndexForTargetNamed:v38];
-            if (v43 == 0x7FFFFFFFFFFFFFFFLL)
+            while (v9 != v32);
+            if ([a1[5] _weightIndexForTargetNamed:?] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              [v5 setName:v38];
-              [a1[4] keepTargetAtIndex:a3 morpher:a1[5]];
+              [v4 setName:?];
+              [a1[4] keepTargetAtIndex:? morpher:?];
             }
 
             else
             {
-              *&v44 = v16;
-              [a1[4] flattenTargetAtIndex:a3 inTargetAtIndex:v43 weight:v44];
+              [a1[4] flattenTargetAtIndex:? inTargetAtIndex:? weight:?];
             }
           }
         }
@@ -995,14 +901,14 @@ LABEL_63:
       else
       {
 LABEL_30:
-        [a1[4] keepTargetAtIndex:a3 morpher:a1[5]];
+        [a1[4] keepTargetAtIndex:? morpher:?];
       }
     }
 
     else
     {
-      v11 = avt_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v8 = avt_default_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_5();
       }
@@ -1013,7 +919,7 @@ LABEL_71:
 
   else
   {
-    if ([v6 hasPrefix:@"variant_sticker"])
+    if ([v5 hasPrefix:?])
     {
       if ([*(a1[4] + 1) usageIntent] != 1)
       {
@@ -1023,42 +929,38 @@ LABEL_71:
       goto LABEL_3;
     }
 
-    if ([a1[6] containsObject:v6])
+    if ([a1[6] containsObject:?])
     {
-      [a1[5] weightForTargetAtIndex:a3];
-      [a1[4] flattenTargetAtIndex:a3 inBaseGeometryUsingWeight:?];
+      [a1[5] weightForTargetAtIndex:?];
+      [a1[4] flattenTargetAtIndex:? inBaseGeometryUsingWeight:?];
     }
 
     else
     {
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v30 = *(a1[4] + 4);
-      v31 = [v30 countByEnumeratingWithState:&v51 objects:v59 count:16];
-      if (v31)
+      v25 = *(a1[4] + 4);
+      v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
+      if (v26)
       {
-        v32 = v31;
-        v33 = *v52;
+        v27 = v26;
+        v28 = MEMORY[0];
         while (2)
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v27; i = (i + 1))
           {
-            if (*v52 != v33)
+            if (MEMORY[0] != v28)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v25);
             }
 
-            if ([v6 hasPrefix:*(*(&v51 + 1) + 8 * i)])
+            if ([v5 hasPrefix:?])
             {
 
               goto LABEL_4;
             }
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v51 objects:v59 count:16];
-          if (v32)
+          v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
+          if (v27)
           {
             continue;
           }
@@ -1067,7 +969,7 @@ LABEL_71:
         }
       }
 
-      if (([v6 hasPrefix:@"variant_"] & 1) == 0)
+      if (([v5 hasPrefix:?] & 1) == 0)
       {
         __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_1();
       }
@@ -1075,162 +977,152 @@ LABEL_71:
   }
 
 LABEL_4:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_40(uint64_t a1, void *a2)
+void *__58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_40(uint64_t a1, void *a2)
 {
-  v3 = [a2 morphVariant];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 morphVariant];
+  v3 = [v2 isEqualToString:?];
 
-  return v4;
+  return v3;
 }
 
 void __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   v6 = [v5 name];
-  v69 = a1;
-  v7 = [*(*(a1 + 32) + 128) objectAtIndexedSubscript:a3];
+  v66 = a1;
+  v7 = [*(*(a1 + 32) + 128) objectAtIndexedSubscript:?];
   v8 = [v7 unsignedIntegerValue];
 
-  v70 = (a1 + 32);
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(v9 + 24);
-  *(v9 + 24) = v10 + v8;
+  v67 = (a1 + 32);
+  v10 = *(*(a1 + 56) + 8);
+  v11 = *(v10 + 24);
+  *(v10 + 24) = v8 + v11;
   if (v8 < 6)
   {
-    v76 = 0;
-    v75 = 0;
+    v69 = 0;
+    v68 = 0;
     if (v8)
     {
-      v66 = a3;
-      v67 = v6;
-      v12 = 0;
+      v64 = v6;
       v13 = 0;
-      v68 = v5;
-      v14 = 1.0;
-      v15 = &v75;
-      v64 = v8;
-      v65 = v10;
-      v16 = v10;
-      v17 = v8;
-      v18 = v70;
+      v14 = 0;
+      v65 = v5;
+      v15 = 1.0;
+      v16 = &v68;
+      v62 = v8;
+      v63 = v11;
+      v17 = v11;
+      v18 = v8;
+      v19 = v67;
       do
       {
-        v19 = [*(*v18 + 17) objectAtIndexedSubscript:v16];
-        v20 = [v19 unsignedIntegerValue];
+        v20 = [*(*v19 + 17) objectAtIndexedSubscript:?];
+        [v20 unsignedIntegerValue];
 
-        v21 = [*(*v18 + 6) objectAtIndexedSubscript:v20];
+        v21 = [*(*v19 + 6) objectAtIndexedSubscript:?];
         v22 = [v21 name];
 
         if (AVTMorphTargetNameIsUsedForFaceAnimation(v22))
         {
-          ++v13;
+          v14 = (v14 + 1);
         }
 
         else
         {
-          v23 = v12;
-          v24 = *(*v18 + 3);
-          v73[0] = MEMORY[0x1E69E9820];
-          v73[1] = 3221225472;
-          v73[2] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_53;
-          v73[3] = &unk_1E7F47B38;
+          v23 = v13;
+          v24 = *(*v19 + 3);
           v25 = v22;
-          v74 = v25;
-          v26 = [v24 indexOfObjectPassingTest:v73];
+          v26 = [v24 indexOfObjectPassingTest:?];
           v27 = 0.0;
           if (v26 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v28 = [*(*v70 + 3) objectAtIndexedSubscript:v26];
+            v28 = [*(*v67 + 3) objectAtIndexedSubscript:?];
             [v28 morphVariantIntensity];
             v27 = v29;
           }
 
-          v30 = [v69[5] containsObject:v25];
+          v30 = [v66[5] containsObject:?];
           v31 = v30;
           if (v26 == 0x7FFFFFFFFFFFFFFFLL && v30 != 0)
           {
-            [v69[6] weightForTargetAtIndex:v20];
+            [v66[6] weightForTargetAtIndex:?];
             v27 = v33;
           }
 
           if (!((v26 != 0x7FFFFFFFFFFFFFFFLL) | v31 & 1))
           {
 
-            v6 = v67;
-            v5 = v68;
+            v6 = v64;
+            v5 = v65;
             goto LABEL_47;
           }
 
-          v14 = fminf(v14, v27);
-          *v15 = 1;
-          v12 = v23 + 1;
+          v15 = fminf(v15, v27);
+          *v16 = 1;
+          v13 = (v23 + 1);
 
-          v18 = v70;
+          v19 = v67;
         }
 
-        v15 = (v15 + 1);
-        ++v16;
-        --v17;
+        v16 = (v16 + 1);
+        ++v17;
+        v18 = (v18 - 1);
       }
 
-      while (v17);
-      v36 = v64;
-      v35 = v65;
-      v6 = v67;
-      v5 = v68;
-      a3 = v66;
-      if (v13 == v64)
+      while (v18);
+      v36 = v62;
+      v35 = v63;
+      v6 = v64;
+      v5 = v65;
+      if (v14 == v62)
       {
         goto LABEL_20;
       }
 
-      if (v12 == v64)
+      if (v13 == v62)
       {
-        *&v34 = v14;
-        [*v70 flattenCorrectiveAtIndex:v66 inBaseGeometryUsingWeight:v34];
+        [*v67 flattenCorrectiveAtIndex:? inBaseGeometryUsingWeight:?];
       }
 
       else
       {
-        v37 = v70;
-        if (v12 + v13 != v64)
+        v37 = v67;
+        if ((v14 + v13) != v62)
         {
           __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2_cold_1();
         }
 
-        if (v13 == 1)
+        if (v14 == 1)
         {
-          v38 = &v75;
+          v38 = &v68;
           while (*v38++)
           {
             ++v35;
-            if (!--v36)
+            v36 = (v36 - 1);
+            if (!v36)
             {
               v40 = 0;
               goto LABEL_40;
             }
           }
 
-          v59 = [*(*v70 + 17) objectAtIndexedSubscript:v35];
-          v60 = [v59 unsignedIntegerValue];
+          v58 = [*(*v67 + 17) objectAtIndexedSubscript:?];
+          v59 = [v58 unsignedIntegerValue];
 
-          v61 = [*(*v70 + 6) objectAtIndexedSubscript:v60];
-          v40 = [v61 name];
+          v60 = [*(*v67 + 6) objectAtIndexedSubscript:?];
+          v40 = [v60 name];
 
-          if (v60 != 0x7FFFFFFFFFFFFFFFLL)
+          if (v59 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            *&v62 = v14;
-            [*v70 flattenCorrectiveAtIndex:v66 inTargetAtIndex:v60 weight:v62];
+            [*v67 flattenCorrectiveAtIndex:? inTargetAtIndex:? weight:?];
             goto LABEL_46;
           }
 
 LABEL_40:
-          v63 = avt_default_log();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+          v61 = avt_default_log(v34);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_4();
           }
@@ -1240,11 +1132,11 @@ LABEL_46:
 
         else
         {
-          v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-          v42 = v65;
+          v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+          v42 = v63;
           v43 = v41;
           v44 = 0;
-          v45 = &v75;
+          v45 = &v68;
           do
           {
             v46 = *v45++;
@@ -1254,50 +1146,45 @@ LABEL_46:
               v48 = [*(*v37 + 17) objectAtIndexedSubscript:?];
               v49 = v37;
               v50 = v48;
-              v51 = [*(*v49 + 6) objectAtIndexedSubscript:{objc_msgSend(v48, "unsignedIntegerValue")}];
-              v52 = [v51 name];
+              v51 = *(*v49 + 6);
+              [v48 unsignedIntegerValue];
+              v52 = [v51 objectAtIndexedSubscript:?];
+              v53 = [v52 name];
 
-              [v43 addObject:v50];
+              [v43 addObject:?];
               if (v44)
               {
-                v53 = [v44 stringByAppendingFormat:@"__%@", v52];
+                v54 = [v44 stringByAppendingFormat:v53];
 
-                v44 = v53;
+                v44 = v54;
               }
 
               else
               {
-                v44 = v52;
+                v44 = v53;
               }
 
               v42 = v47;
-              v37 = v70;
+              v37 = v67;
             }
 
             ++v42;
-            --v36;
+            v36 = (v36 - 1);
           }
 
           while (v36);
-          v54 = *(*v37 + 15);
-          v71[0] = MEMORY[0x1E69E9820];
-          v71[1] = 3221225472;
-          v71[2] = __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_54;
-          v71[3] = &unk_1E7F47B88;
-          v72 = v44;
-          v55 = v37;
-          v56 = v44;
-          v57 = [v54 indexOfObjectPassingTest:v71];
-          if (v57 == 0x7FFFFFFFFFFFFFFFLL)
+          v55 = *(*v37 + 15);
+          v56 = v37;
+          v57 = v44;
+          if ([v55 indexOfObjectPassingTest:?] == 0x7FFFFFFFFFFFFFFFLL)
           {
-            [v68 setName:v56];
-            [v69[4] keepCorrectiveAtIndex:v66 withDriverIndices:v43 morpher:v69[6]];
+            [v65 setName:?];
+            [v66[4] keepCorrectiveAtIndex:? withDriverIndices:? morpher:?];
           }
 
           else
           {
-            *&v58 = v14;
-            [*v55 flattenCorrectiveAtIndex:v66 inCorrectiveAtIndex:v57 weight:v58];
+            [*v56 flattenCorrectiveAtIndex:? inCorrectiveAtIndex:? weight:?];
           }
         }
       }
@@ -1306,44 +1193,44 @@ LABEL_46:
     else
     {
 LABEL_20:
-      [v69[4] keepCorrectiveAtIndex:a3 morpher:v69[6]];
+      [v66[4] keepCorrectiveAtIndex:? morpher:?];
     }
   }
 
   else
   {
-    v11 = avt_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = avt_default_log(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2_cold_3(v70, a3, v11);
+      __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2_cold_3(v67, a3, v12);
     }
   }
 
 LABEL_47:
 }
 
-uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_53(uint64_t a1, void *a2)
+void *__58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_53(uint64_t a1, void *a2)
 {
-  v3 = [a2 morphVariant];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 morphVariant];
+  v3 = [v2 isEqualToString:?];
 
-  return v4;
+  return v3;
 }
 
-uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_54(uint64_t a1, void *a2)
+void *__58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_54(uint64_t a1, void *a2)
 {
-  v3 = [a2 name];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 name];
+  v3 = [v2 isEqualToString:?];
 
-  return v4;
+  return v3;
 }
 
 - (void)flattenTargetsOfMorpher:(id)morpher node:(id)node
 {
   nodeCopy = node;
   morpherCopy = morpher;
-  [(AVTAvatarMemoryOptimizer *)self flattenRelevantTargetsOfMorpher:morpherCopy inBaseGeometryOfNode:nodeCopy];
-  [(AVTAvatarMemoryOptimizer *)self flattenRelevantTargetsInOtherTargetsOfMorpher:morpherCopy];
+  [AVTAvatarMemoryOptimizer flattenRelevantTargetsOfMorpher:"flattenRelevantTargetsOfMorpher:inBaseGeometryOfNode:" inBaseGeometryOfNode:?];
+  [(AVTAvatarMemoryOptimizer *)self flattenRelevantTargetsInOtherTargetsOfMorpher:?];
 
   if ([(NSMutableArray *)self->_newTargetsAndInBetweens count])
   {
@@ -1351,28 +1238,27 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
 
     if ([(AVTAvatarMemoryOptimizer *)self shouldClearCPUDataAfterUpload])
     {
-      [morpher setShouldClearCPUDataAfterUpload:1];
+      [morpher setShouldClearCPUDataAfterUpload:?];
     }
 
     if ([(NSMutableArray *)self->_newInBetweenCounts count]&& [(NSMutableArray *)self->_newInBetweenWeights count])
     {
-      newCorrectiveInBetweenCounts = self->_newCorrectiveInBetweenCounts;
-      [morpher setTargetsAndInBetweens:self->_newTargetsAndInBetweens inBetweenCounts:self->_newInBetweenCounts inBetweenWeights:self->_newInBetweenWeights correctives:self->_newCorrectivesAndInBetweens driverCounts:self->_newCorrectiveDriverCounts driverIndices:self->_newCorrectiveDriverIndices inBetweenCounts:newCorrectiveInBetweenCounts inBetweenWeights:self->_newCorrectiveInBetweenWeights];
+      [morpher setTargetsAndInBetweens:self->_newCorrectiveInBetweenCounts inBetweenCounts:self->_newCorrectiveInBetweenWeights inBetweenWeights:? correctives:? driverCounts:? driverIndices:? inBetweenCounts:? inBetweenWeights:?];
     }
 
     else
     {
-      [morpher setTargets:self->_newTargetsAndInBetweens];
+      [morpher setTargets:?];
     }
 
-    [morpher setWeights:self->_newWeights];
-    v9 = morpher;
+    [morpher setWeights:?];
+    v8 = morpher;
   }
 
   else
   {
-    [nodeCopy setMorpher:0];
-    v9 = nodeCopy;
+    [nodeCopy setMorpher:?];
+    v8 = nodeCopy;
   }
 }
 
@@ -1382,54 +1268,58 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   v14 = morpherCopy;
   if (self->_hasInBetweens)
   {
-    v7 = [morpherCopy inBetweenTargetsForTargetAtIndex:index];
-    v8 = [v14 inBetweenWeightsForTargetAtIndex:index];
+    v6 = [morpherCopy inBetweenTargetsForTargetAtIndex:?];
+    v7 = [v14 inBetweenWeightsForTargetAtIndex:?];
     newInBetweenCounts = self->_newInBetweenCounts;
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v8, "count") + 1}];
-    [(NSMutableArray *)newInBetweenCounts addObject:v10];
+    v9 = MEMORY[0x1E696AD98];
+    [v7 count];
+    v10 = [v9 numberWithUnsignedInteger:?];
+    [(NSMutableArray *)newInBetweenCounts addObject:?];
 
-    [(NSMutableArray *)self->_newInBetweenWeights addObjectsFromArray:v8];
-    v11 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newTargetsAndInBetweens addObjectsFromArray:v7];
-    [(NSMutableArray *)self->_newTargetsAndInBetweens addObject:v11];
+    [(NSMutableArray *)self->_newInBetweenWeights addObjectsFromArray:?];
+    v11 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newTargetsAndInBetweens addObjectsFromArray:?];
+    [(NSMutableArray *)self->_newTargetsAndInBetweens addObject:?];
   }
 
   else
   {
-    v7 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newTargetsAndInBetweens addObject:v7];
+    v6 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newTargetsAndInBetweens addObject:?];
   }
 
   newWeights = self->_newWeights;
-  v13 = [(NSArray *)self->_oldWeights objectAtIndexedSubscript:index];
-  [(NSMutableArray *)newWeights addObject:v13];
+  v13 = [(NSArray *)self->_oldWeights objectAtIndexedSubscript:?];
+  [(NSMutableArray *)newWeights addObject:?];
 }
 
 - (void)keepCorrectiveAtIndex:(unint64_t)index morpher:(id)morpher
 {
   morpherCopy = morpher;
-  v6 = [(NSArray *)self->_oldCorrectiveDriverCounts objectAtIndexedSubscript:index];
-  v7 = [morpherCopy correctiveDriverIndicesForCorrectiveAtIndex:index];
-  [(NSMutableArray *)self->_newCorrectiveDriverCounts addObject:v6];
-  [(NSMutableArray *)self->_newCorrectiveDriverIndices addObjectsFromArray:v7];
+  v5 = [(NSArray *)self->_oldCorrectiveDriverCounts objectAtIndexedSubscript:?];
+  v6 = [morpherCopy correctiveDriverIndicesForCorrectiveAtIndex:?];
+  [(NSMutableArray *)self->_newCorrectiveDriverCounts addObject:?];
+  [(NSMutableArray *)self->_newCorrectiveDriverIndices addObjectsFromArray:?];
   if (self->_hasInBetweens)
   {
-    v8 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:index];
-    v9 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:index];
+    v7 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
+    v8 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
     newCorrectiveInBetweenCounts = self->_newCorrectiveInBetweenCounts;
-    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count") + 1}];
-    [(NSMutableArray *)newCorrectiveInBetweenCounts addObject:v11];
+    v10 = MEMORY[0x1E696AD98];
+    [v8 count];
+    v11 = [v10 numberWithUnsignedInteger:?];
+    [(NSMutableArray *)newCorrectiveInBetweenCounts addObject:?];
 
-    [(NSMutableArray *)self->_newCorrectiveInBetweenWeights addObjectsFromArray:v9];
-    v12 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObjectsFromArray:v8];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:v12];
+    [(NSMutableArray *)self->_newCorrectiveInBetweenWeights addObjectsFromArray:?];
+    v12 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObjectsFromArray:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:?];
   }
 
   else
   {
-    v8 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:v8];
+    v7 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:?];
   }
 }
 
@@ -1437,30 +1327,33 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
 {
   morpherCopy = morpher;
   newCorrectiveDriverCounts = self->_newCorrectiveDriverCounts;
-  v9 = MEMORY[0x1E696AD98];
+  v8 = MEMORY[0x1E696AD98];
   indicesCopy = indices;
-  v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(indicesCopy, "count")}];
-  [(NSMutableArray *)newCorrectiveDriverCounts addObject:v11];
+  [indicesCopy count];
+  v10 = [v8 numberWithUnsignedInteger:?];
+  [(NSMutableArray *)newCorrectiveDriverCounts addObject:?];
 
-  [(NSMutableArray *)self->_newCorrectiveDriverIndices addObjectsFromArray:indicesCopy];
+  [(NSMutableArray *)self->_newCorrectiveDriverIndices addObjectsFromArray:?];
   if (self->_hasInBetweens)
   {
-    v12 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:index];
-    v13 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:index];
+    v11 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
+    v12 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
     newCorrectiveInBetweenCounts = self->_newCorrectiveInBetweenCounts;
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v13, "count") + 1}];
-    [(NSMutableArray *)newCorrectiveInBetweenCounts addObject:v15];
+    v14 = MEMORY[0x1E696AD98];
+    [v12 count];
+    v15 = [v14 numberWithUnsignedInteger:?];
+    [(NSMutableArray *)newCorrectiveInBetweenCounts addObject:?];
 
-    [(NSMutableArray *)self->_newCorrectiveInBetweenWeights addObjectsFromArray:v13];
-    v16 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObjectsFromArray:v12];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:v16];
+    [(NSMutableArray *)self->_newCorrectiveInBetweenWeights addObjectsFromArray:?];
+    v16 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObjectsFromArray:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:?];
   }
 
   else
   {
-    v12 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:index];
-    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:v12];
+    v11 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+    [(NSMutableArray *)self->_newCorrectivesAndInBetweens addObject:?];
   }
 }
 
@@ -1470,15 +1363,15 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   {
     if (weight < 1.0)
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v6 = [MEMORY[0x1E696AD98] numberWithFloat:?];
       nonOneWeightsOfTargetsToFlatten = self->_nonOneWeightsOfTargetsToFlatten;
-      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      [(NSMutableDictionary *)nonOneWeightsOfTargetsToFlatten setObject:v7 forKeyedSubscript:v9];
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
     indicesOfTargetsToFlattenInBaseGeometry = self->_indicesOfTargetsToFlattenInBaseGeometry;
-    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    [(NSMutableArray *)indicesOfTargetsToFlattenInBaseGeometry addObject:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [(NSMutableArray *)indicesOfTargetsToFlattenInBaseGeometry addObject:?];
   }
 }
 
@@ -1488,26 +1381,26 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   {
     if (weight < 1.0)
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
       nonOneWeightsOfTargetsToFlatten = self->_nonOneWeightsOfTargetsToFlatten;
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      [(NSMutableDictionary *)nonOneWeightsOfTargetsToFlatten setObject:v9 forKeyedSubscript:v11];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
     indicesOfTargetsToFlattenInOtherTarget = self->_indicesOfTargetsToFlattenInOtherTarget;
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-    v17 = [(NSMutableDictionary *)indicesOfTargetsToFlattenInOtherTarget objectForKeyedSubscript:v13];
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    v15 = [(NSMutableDictionary *)indicesOfTargetsToFlattenInOtherTarget objectForKeyedSubscript:?];
 
-    if (!v17)
+    if (!v15)
     {
-      v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = self->_indicesOfTargetsToFlattenInOtherTarget;
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-      [(NSMutableDictionary *)v14 setObject:v17 forKeyedSubscript:v15];
+      v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v12 = self->_indicesOfTargetsToFlattenInOtherTarget;
+      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:v12 forKeyedSubscript:"setObject:forKeyedSubscript:"];
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    [v17 addObject:v16];
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [v15 addObject:?];
   }
 }
 
@@ -1517,15 +1410,15 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   {
     if (weight < 1.0)
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v6 = [MEMORY[0x1E696AD98] numberWithFloat:?];
       nonOneWeightsOfCorrectivesToFlatten = self->_nonOneWeightsOfCorrectivesToFlatten;
-      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      [(NSMutableDictionary *)nonOneWeightsOfCorrectivesToFlatten setObject:v7 forKeyedSubscript:v9];
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
     indicesOfCorrectivesToFlattenInBaseGeometry = self->_indicesOfCorrectivesToFlattenInBaseGeometry;
-    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    [(NSMutableArray *)indicesOfCorrectivesToFlattenInBaseGeometry addObject:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [(NSMutableArray *)indicesOfCorrectivesToFlattenInBaseGeometry addObject:?];
   }
 }
 
@@ -1535,26 +1428,26 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   {
     if (weight < 1.0)
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
       nonOneWeightsOfCorrectivesToFlatten = self->_nonOneWeightsOfCorrectivesToFlatten;
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      [(NSMutableDictionary *)nonOneWeightsOfCorrectivesToFlatten setObject:v9 forKeyedSubscript:v11];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
     indicesOfCorrectivesToFlattenInMainTarget = self->_indicesOfCorrectivesToFlattenInMainTarget;
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-    v17 = [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInMainTarget objectForKeyedSubscript:v13];
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    v15 = [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInMainTarget objectForKeyedSubscript:?];
 
-    if (!v17)
+    if (!v15)
     {
-      v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = self->_indicesOfCorrectivesToFlattenInMainTarget;
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-      [(NSMutableDictionary *)v14 setObject:v17 forKeyedSubscript:v15];
+      v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v12 = self->_indicesOfCorrectivesToFlattenInMainTarget;
+      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:v12 forKeyedSubscript:"setObject:forKeyedSubscript:"];
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    [v17 addObject:v16];
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [v15 addObject:?];
   }
 }
 
@@ -1564,32 +1457,31 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
   {
     if (weight < 1.0)
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
       nonOneWeightsOfCorrectivesToFlatten = self->_nonOneWeightsOfCorrectivesToFlatten;
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      [(NSMutableDictionary *)nonOneWeightsOfCorrectivesToFlatten setObject:v9 forKeyedSubscript:v11];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
     indicesOfCorrectivesToFlattenInOtherCorrective = self->_indicesOfCorrectivesToFlattenInOtherCorrective;
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-    v17 = [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInOtherCorrective objectForKeyedSubscript:v13];
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    v15 = [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInOtherCorrective objectForKeyedSubscript:?];
 
-    if (!v17)
+    if (!v15)
     {
-      v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = self->_indicesOfCorrectivesToFlattenInOtherCorrective;
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:atIndex];
-      [(NSMutableDictionary *)v14 setObject:v17 forKeyedSubscript:v15];
+      v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v12 = self->_indicesOfCorrectivesToFlattenInOtherCorrective;
+      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      [NSMutableDictionary setObject:v12 forKeyedSubscript:"setObject:forKeyedSubscript:"];
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    [v17 addObject:v16];
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+    [v15 addObject:?];
   }
 }
 
 - (void)flattenRelevantTargetsOfMorpher:(id)morpher inBaseGeometryOfNode:(id)node
 {
-  v83 = *MEMORY[0x1E69E9840];
   morpherCopy = morpher;
   nodeCopy = node;
   if ([(NSMutableArray *)self->_indicesOfTargetsToFlattenInBaseGeometry count]|| [(NSMutableArray *)self->_indicesOfCorrectivesToFlattenInBaseGeometry count])
@@ -1597,214 +1489,158 @@ uint64_t __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_in
     model = [nodeCopy model];
     mesh = [model mesh];
 
-    v59 = mesh;
+    v47 = mesh;
     meshSources = [mesh meshSources];
-    v63 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(meshSources, "count")}];
-    v76 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
+    v11 = objc_alloc(MEMORY[0x1E695DF70]);
+    [meshSources count];
+    v51 = [v11 initWithCapacity:?];
     obj = meshSources;
-    v11 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
-    if (v11)
+    v12 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (v12)
     {
-      v12 = v11;
-      mutableBytes = 0;
-      v65 = 0;
-      v13 = *v77;
-      v14 = *MEMORY[0x1E69DF3A8];
+      v13 = v12;
+      v14 = MEMORY[0];
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v77 != v13)
+          if (MEMORY[0] != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v76 + 1) + 8 * i);
+          v16 = *(8 * i);
           semantic = [v16 semantic];
-          v18 = [semantic isEqualToString:v14];
+          v18 = [semantic isEqualToString:?];
 
           if (v18)
           {
-            vectorCount = [v16 vectorCount];
+            [v16 vectorCount];
             data = [v16 data];
-            v21 = [data mutableCopy];
+            v20 = [data mutableCopy];
 
-            mutableBytes = [v21 mutableBytes];
-            v65 = vectorCount;
-            v22 = [MEMORY[0x1E69DF310] meshSourceWithData:v21 semantic:v14 vectorCount:vectorCount floatComponents:1 componentsPerVector:3 bytesPerComponent:2 dataOffset:0 dataStride:8];
-            [v63 addObject:v22];
+            [v20 mutableBytes];
+            v21 = [MEMORY[0x1E69DF310] meshSourceWithData:0 semantic:8 vectorCount:? floatComponents:? componentsPerVector:? bytesPerComponent:? dataOffset:? dataStride:?];
+            [v51 addObject:?];
           }
 
           else
           {
-            [v63 addObject:v16];
+            [v51 addObject:?];
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+        v13 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    else
-    {
-      mutableBytes = 0;
-      v65 = 0;
-    }
+    v22 = MEMORY[0x1E69DF308];
+    meshElements = [v47 meshElements];
+    meshSourceChannels = [v47 meshSourceChannels];
+    v25 = [v22 meshWithSources:? elements:? sourceChannels:?];
 
-    v23 = MEMORY[0x1E69DF308];
-    meshElements = [v59 meshElements];
-    meshSourceChannels = [v59 meshSourceChannels];
-    v26 = [v23 meshWithSources:v63 elements:meshElements sourceChannels:meshSourceChannels];
-
-    v58 = nodeCopy;
+    v46 = nodeCopy;
     model2 = [nodeCopy model];
-    v57 = v26;
-    [model2 setMesh:v26];
+    v45 = v25;
+    [model2 setMesh:?];
 
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v60 = self->_indicesOfTargetsToFlattenInBaseGeometry;
-    v28 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v72 objects:v81 count:16];
-    if (v28)
+    v48 = self->_indicesOfTargetsToFlattenInBaseGeometry;
+    v27 = [NSMutableArray countByEnumeratingWithState:v48 objects:"countByEnumeratingWithState:objects:count:" count:?];
+    if (v27)
     {
-      v29 = v28;
-      v30 = *v73;
+      v28 = v27;
+      v29 = MEMORY[0];
       do
       {
-        for (j = 0; j != v29; ++j)
+        for (j = 0; j != v28; j = (j + 1))
         {
-          if (*v73 != v30)
+          if (MEMORY[0] != v29)
           {
-            objc_enumerationMutation(v60);
+            objc_enumerationMutation(v48);
           }
 
-          v32 = *(*(&v72 + 1) + 8 * j);
-          unsignedIntegerValue = [v32 unsignedIntegerValue];
-          v34 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:unsignedIntegerValue];
-          v35 = [(NSMutableDictionary *)self->_nonOneWeightsOfTargetsToFlatten objectForKeyedSubscript:v32];
-          v36 = v35;
-          if (v35)
+          [*(8 * j) unsignedIntegerValue];
+          v31 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
+          v32 = [(NSMutableDictionary *)self->_nonOneWeightsOfTargetsToFlatten objectForKeyedSubscript:?];
+          v33 = v32;
+          if (v32)
           {
-            [v35 floatValue];
-            v38 = v37;
+            [v32 floatValue];
           }
 
-          else
-          {
-            v38 = 1.0;
-          }
-
-          v39 = [morpherCopy inBetweenWeightsForTargetAtIndex:unsignedIntegerValue];
-          v40 = [morpherCopy inBetweenTargetsForTargetAtIndex:unsignedIntegerValue];
-          v71[0] = MEMORY[0x1E69E9820];
-          v71[1] = 3221225472;
-          v71[2] = __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeometryOfNode___block_invoke;
-          v71[3] = &unk_1E7F47BD8;
-          v71[4] = self;
-          v71[5] = mutableBytes;
-          v71[6] = v65;
-          *&v41 = v38;
-          [(AVTAvatarMemoryOptimizer *)self resolveInBetweensForTarget:v34 weight:v39 inBetweenWeights:v40 inBetweenTargets:v71 block:v41];
+          v34 = [morpherCopy inBetweenWeightsForTargetAtIndex:?];
+          v35 = [morpherCopy inBetweenTargetsForTargetAtIndex:?];
+          [AVTAvatarMemoryOptimizer resolveInBetweensForTarget:"resolveInBetweensForTarget:weight:inBetweenWeights:inBetweenTargets:block:" weight:? inBetweenWeights:? inBetweenTargets:? block:?];
         }
 
-        v29 = [(NSMutableArray *)v60 countByEnumeratingWithState:&v72 objects:v81 count:16];
+        v28 = [NSMutableArray countByEnumeratingWithState:v48 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
-      while (v29);
+      while (v28);
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v61 = self->_indicesOfCorrectivesToFlattenInBaseGeometry;
-    v42 = [(NSMutableArray *)v61 countByEnumeratingWithState:&v67 objects:v80 count:16];
-    if (v42)
+    v49 = self->_indicesOfCorrectivesToFlattenInBaseGeometry;
+    v36 = [NSMutableArray countByEnumeratingWithState:v49 objects:"countByEnumeratingWithState:objects:count:" count:?];
+    if (v36)
     {
-      v43 = v42;
-      v44 = *v68;
+      v37 = v36;
+      v38 = MEMORY[0];
       do
       {
-        for (k = 0; k != v43; ++k)
+        for (k = 0; k != v37; k = (k + 1))
         {
-          if (*v68 != v44)
+          if (MEMORY[0] != v38)
           {
-            objc_enumerationMutation(v61);
+            objc_enumerationMutation(v49);
           }
 
-          v46 = *(*(&v67 + 1) + 8 * k);
-          unsignedIntegerValue2 = [v46 unsignedIntegerValue];
-          v48 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:unsignedIntegerValue2];
-          v49 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:v46];
-          v50 = v49;
-          if (v49)
+          [*(8 * k) unsignedIntegerValue];
+          v40 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+          v41 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:?];
+          v42 = v41;
+          if (v41)
           {
-            [v49 floatValue];
-            v52 = v51;
+            [v41 floatValue];
           }
 
-          else
-          {
-            v52 = 1.0;
-          }
-
-          v53 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:unsignedIntegerValue2];
-          v54 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:unsignedIntegerValue2];
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeometryOfNode___block_invoke_2;
-          v66[3] = &unk_1E7F47BD8;
-          v66[4] = self;
-          v66[5] = mutableBytes;
-          v66[6] = v65;
-          *&v55 = v52;
-          [(AVTAvatarMemoryOptimizer *)self resolveInBetweensForTarget:v48 weight:v53 inBetweenWeights:v54 inBetweenTargets:v66 block:v55];
+          v43 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
+          v44 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
+          [AVTAvatarMemoryOptimizer resolveInBetweensForTarget:"resolveInBetweensForTarget:weight:inBetweenWeights:inBetweenTargets:block:" weight:? inBetweenWeights:? inBetweenTargets:? block:?];
         }
 
-        v43 = [(NSMutableArray *)v61 countByEnumeratingWithState:&v67 objects:v80 count:16];
+        v37 = [NSMutableArray countByEnumeratingWithState:v49 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
-      while (v43);
+      while (v37);
     }
 
-    nodeCopy = v58;
+    nodeCopy = v46;
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 void __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeometryOfNode___block_invoke(uint64_t a1, uint64_t a2, void *a3, float a4, float a5)
 {
-  v12 = a3;
-  *&v9 = a4;
-  [*(a1 + 32) applyMorphTarget:a2 weight:*(a1 + 40) toBaseGeometryBuffer:*(a1 + 48) vertexCount:v9];
-  v11 = v12;
-  if (v12)
+  v7 = a3;
+  [*(a1 + 32) applyMorphTarget:? weight:? toBaseGeometryBuffer:? vertexCount:?];
+  v6 = v7;
+  if (v7)
   {
-    *&v10 = a5;
-    [*(a1 + 32) applyMorphTarget:v12 weight:*(a1 + 40) toBaseGeometryBuffer:*(a1 + 48) vertexCount:v10];
-    v11 = v12;
+    [*(a1 + 32) applyMorphTarget:? weight:? toBaseGeometryBuffer:? vertexCount:?];
+    v6 = v7;
   }
 }
 
 void __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeometryOfNode___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, float a4, float a5)
 {
-  v12 = a3;
-  *&v9 = a4;
-  [*(a1 + 32) applyMorphTarget:a2 weight:*(a1 + 40) toBaseGeometryBuffer:*(a1 + 48) vertexCount:v9];
-  v11 = v12;
-  if (v12)
+  v7 = a3;
+  [*(a1 + 32) applyMorphTarget:? weight:? toBaseGeometryBuffer:? vertexCount:?];
+  v6 = v7;
+  if (v7)
   {
-    *&v10 = a5;
-    [*(a1 + 32) applyMorphTarget:v12 weight:*(a1 + 40) toBaseGeometryBuffer:*(a1 + 48) vertexCount:v10];
-    v11 = v12;
+    [*(a1 + 32) applyMorphTarget:? weight:? toBaseGeometryBuffer:? vertexCount:?];
+    v6 = v7;
   }
 }
 
@@ -1818,12 +1654,12 @@ void __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeomet
       v5 = 0;
       do
       {
-        v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
-        v7 = [(NSMutableDictionary *)self->_indicesOfTargetsToFlattenInOtherTarget objectForKeyedSubscript:v6];
-        v8 = [(NSMutableDictionary *)self->_indicesOfCorrectivesToFlattenInMainTarget objectForKeyedSubscript:v6];
+        v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+        v7 = [(NSMutableDictionary *)self->_indicesOfTargetsToFlattenInOtherTarget objectForKeyedSubscript:?];
+        v8 = [(NSMutableDictionary *)self->_indicesOfCorrectivesToFlattenInMainTarget objectForKeyedSubscript:?];
         if (v7 | v8)
         {
-          [(AVTAvatarMemoryOptimizer *)self flattenTargetsAtIndices:v7 correctivesAtIndices:v8 inTargetAtIndex:v5 morpher:morpherCopy];
+          [AVTAvatarMemoryOptimizer flattenTargetsAtIndices:"flattenTargetsAtIndices:correctivesAtIndices:inTargetAtIndex:morpher:" correctivesAtIndices:? inTargetAtIndex:? morpher:?];
         }
 
         ++v5;
@@ -1836,51 +1672,39 @@ void __81__AVTAvatarMemoryOptimizer_flattenRelevantTargetsOfMorpher_inBaseGeomet
   else
   {
     indicesOfTargetsToFlattenInOtherTarget = self->_indicesOfTargetsToFlattenInOtherTarget;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke;
-    v18[3] = &unk_1E7F47C00;
-    v18[4] = self;
-    v10 = morpherCopy;
-    v19 = v10;
-    [(NSMutableDictionary *)indicesOfTargetsToFlattenInOtherTarget enumerateKeysAndObjectsUsingBlock:v18];
+    v16 = morpherCopy;
+    [(NSMutableDictionary *)indicesOfTargetsToFlattenInOtherTarget enumerateKeysAndObjectsUsingBlock:?];
     indicesOfCorrectivesToFlattenInMainTarget = self->_indicesOfCorrectivesToFlattenInMainTarget;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke_2;
-    v16[3] = &unk_1E7F47C00;
-    v16[4] = self;
-    v17 = v10;
-    [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInMainTarget enumerateKeysAndObjectsUsingBlock:v16];
+    v15 = v16;
+    [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInMainTarget enumerateKeysAndObjectsUsingBlock:?];
   }
 
   indicesOfCorrectivesToFlattenInOtherCorrective = self->_indicesOfCorrectivesToFlattenInOtherCorrective;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke_3;
-  v14[3] = &unk_1E7F47C00;
-  v14[4] = self;
-  v15 = morpherCopy;
-  v13 = morpherCopy;
-  [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInOtherCorrective enumerateKeysAndObjectsUsingBlock:v14];
+  v13 = MEMORY[0x1E69E9820];
+  selfCopy = self;
+  v12 = morpherCopy;
+  [(NSMutableDictionary *)indicesOfCorrectivesToFlattenInOtherCorrective enumerateKeysAndObjectsUsingBlock:v13, 3221225472, __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke_3, &unk_1E7F47C00, selfCopy];
 }
 
 void __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  [*(a1 + 32) flattenTargetsAtIndices:v5 correctivesAtIndices:0 inTargetAtIndex:objc_msgSend(a2 morpher:{"unsignedIntegerValue"), *(a1 + 40)}];
+  [a2 unsignedIntegerValue];
+  [*(a1 + 32) flattenTargetsAtIndices:? correctivesAtIndices:? inTargetAtIndex:? morpher:?];
 }
 
 void __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  [*(a1 + 32) flattenTargetsAtIndices:0 correctivesAtIndices:v5 inTargetAtIndex:objc_msgSend(a2 morpher:{"unsignedIntegerValue"), *(a1 + 40)}];
+  [a2 unsignedIntegerValue];
+  [*(a1 + 32) flattenTargetsAtIndices:? correctivesAtIndices:? inTargetAtIndex:? morpher:?];
 }
 
 void __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorpher___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  [*(a1 + 32) flattenCorrectivesAtIndices:v5 inCorrectiveAtIndex:objc_msgSend(a2 morpher:{"unsignedIntegerValue"), *(a1 + 40)}];
+  [a2 unsignedIntegerValue];
+  [*(a1 + 32) flattenCorrectivesAtIndices:? inCorrectiveAtIndex:? morpher:?];
 }
 
 - (void)flattenTargetsAtIndices:(id)indices correctivesAtIndices:(id)atIndices inTargetAtIndex:(unint64_t)index morpher:(id)morpher
@@ -1888,316 +1712,238 @@ void __74__AVTAvatarMemoryOptimizer_flattenRelevantTargetsInOtherTargetsOfMorphe
   indicesCopy = indices;
   atIndicesCopy = atIndices;
   morpherCopy = morpher;
-  v12 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:index];
-  LODWORD(v13) = 1.0;
-  [(AVTAvatarMemoryOptimizer *)self flattenTargetsAtIndices:indicesCopy correctivesAtIndices:atIndicesCopy inTarget:v12 weight:morpherCopy morpher:v13];
-  v14 = [morpherCopy inBetweenWeightsForTargetAtIndex:index];
-  v15 = [morpherCopy inBetweenTargetsForTargetAtIndex:index];
-  v16 = [v15 count];
-  if (v16)
+  v11 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
+  [AVTAvatarMemoryOptimizer flattenTargetsAtIndices:"flattenTargetsAtIndices:correctivesAtIndices:inTarget:weight:morpher:" correctivesAtIndices:? inTarget:? weight:? morpher:?];
+  v12 = [morpherCopy inBetweenWeightsForTargetAtIndex:?];
+  v13 = [morpherCopy inBetweenTargetsForTargetAtIndex:?];
+  v14 = [v13 count];
+  if (v14)
   {
-    v17 = v16;
-    for (i = 0; i != v17; ++i)
+    v15 = v14;
+    for (i = 0; i != v15; i = (i + 1))
     {
-      v19 = [v15 objectAtIndexedSubscript:i];
-      v20 = [v14 objectAtIndexedSubscript:i];
-      [v20 floatValue];
-      v22 = v21;
+      v17 = [v13 objectAtIndexedSubscript:?];
+      v18 = [v12 objectAtIndexedSubscript:?];
+      [v18 floatValue];
 
-      LODWORD(v23) = v22;
-      [(AVTAvatarMemoryOptimizer *)self flattenTargetsAtIndices:indicesCopy correctivesAtIndices:atIndicesCopy inTarget:v19 weight:morpherCopy morpher:v23];
+      [AVTAvatarMemoryOptimizer flattenTargetsAtIndices:"flattenTargetsAtIndices:correctivesAtIndices:inTarget:weight:morpher:" correctivesAtIndices:? inTarget:? weight:? morpher:?];
     }
   }
 }
 
 - (void)flattenTargetsAtIndices:(id)indices correctivesAtIndices:(id)atIndices inTarget:(id)target weight:(float)weight morpher:(id)morpher
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   indicesCopy = indices;
   atIndicesCopy = atIndices;
   targetCopy = target;
   morpherCopy = morpher;
-  v47 = targetCopy;
-  v15 = [(NSMutableArray *)self->_newTargetsAndInBetweens indexOfObjectIdenticalTo:targetCopy];
-  if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+  v35 = targetCopy;
+  v14 = [(NSMutableArray *)self->_newTargetsAndInBetweens indexOfObjectIdenticalTo:?];
+  if (v14 == 0x7FFFFFFFFFFFFFFFLL)
   {
     [AVTAvatarMemoryOptimizer flattenTargetsAtIndices:correctivesAtIndices:inTarget:weight:morpher:];
   }
 
-  v43 = v15;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy_;
-  v68 = __Block_byref_object_dispose_;
-  v69 = 0;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  v31 = v14;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy_;
+  v42 = __Block_byref_object_dispose_;
+  v43 = 0;
   obj = indicesCopy;
-  v16 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
-  if (v16)
+  v15 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v15)
   {
-    v17 = *v61;
+    v16 = MEMORY[0];
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v15; i = (i + 1))
       {
-        if (*v61 != v17)
+        if (MEMORY[0] != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v60 + 1) + 8 * i);
-        unsignedIntegerValue = [v19 unsignedIntegerValue];
-        v21 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:unsignedIntegerValue];
-        v22 = [(NSMutableDictionary *)self->_nonOneWeightsOfTargetsToFlatten objectForKeyedSubscript:v19];
-        v23 = v22;
-        if (v22)
+        [*(8 * i) unsignedIntegerValue];
+        v18 = [(NSArray *)self->_oldMainTargets objectAtIndexedSubscript:?];
+        v19 = [(NSMutableDictionary *)self->_nonOneWeightsOfTargetsToFlatten objectForKeyedSubscript:?];
+        v20 = v19;
+        if (v19)
         {
-          [v22 floatValue];
-          v25 = v24;
+          [v19 floatValue];
         }
 
-        else
-        {
-          v25 = 1.0;
-        }
-
-        v26 = [morpherCopy inBetweenWeightsForTargetAtIndex:unsignedIntegerValue];
-        v27 = [morpherCopy inBetweenTargetsForTargetAtIndex:unsignedIntegerValue];
-        v56[0] = MEMORY[0x1E69E9820];
-        v56[1] = 3221225472;
-        v56[2] = __97__AVTAvatarMemoryOptimizer_flattenTargetsAtIndices_correctivesAtIndices_inTarget_weight_morpher___block_invoke;
-        v56[3] = &unk_1E7F47C28;
-        v58 = &v64;
-        v56[4] = self;
-        weightCopy = weight;
-        v57 = v47;
-        *&v28 = v25;
-        [(AVTAvatarMemoryOptimizer *)self resolveInBetweensForTarget:v21 weight:v26 inBetweenWeights:v27 inBetweenTargets:v56 block:v28];
+        v21 = [morpherCopy inBetweenWeightsForTargetAtIndex:?];
+        v22 = [morpherCopy inBetweenTargetsForTargetAtIndex:?];
+        v37 = v35;
+        [AVTAvatarMemoryOptimizer resolveInBetweensForTarget:"resolveInBetweensForTarget:weight:inBetweenWeights:inBetweenTargets:block:" weight:? inBetweenWeights:? inBetweenTargets:? block:?];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
+      v15 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v16);
+    while (v15);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v45 = atIndicesCopy;
-  v29 = [v45 countByEnumeratingWithState:&v52 objects:v70 count:16];
-  if (v29)
+  v33 = atIndicesCopy;
+  v23 = [v33 countByEnumeratingWithState:? objects:? count:?];
+  if (v23)
   {
-    v30 = *v53;
+    v24 = MEMORY[0];
     do
     {
-      for (j = 0; j != v29; ++j)
+      for (j = 0; j != v23; j = (j + 1))
       {
-        if (*v53 != v30)
+        if (MEMORY[0] != v24)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v33);
         }
 
-        v32 = *(*(&v52 + 1) + 8 * j);
-        unsignedIntegerValue2 = [v32 unsignedIntegerValue];
-        v34 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:unsignedIntegerValue2];
-        v35 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:v32];
+        [*(8 * j) unsignedIntegerValue];
+        v26 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+        v27 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:?];
+        v28 = v27;
+        if (v27)
+        {
+          [v27 floatValue];
+        }
+
+        v29 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
+        v30 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
         v36 = v35;
-        if (v35)
-        {
-          [v35 floatValue];
-          v38 = v37;
-        }
-
-        else
-        {
-          v38 = 1.0;
-        }
-
-        v39 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:unsignedIntegerValue2];
-        v40 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:unsignedIntegerValue2];
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __97__AVTAvatarMemoryOptimizer_flattenTargetsAtIndices_correctivesAtIndices_inTarget_weight_morpher___block_invoke_2;
-        v48[3] = &unk_1E7F47C28;
-        v50 = &v64;
-        v48[4] = self;
-        weightCopy2 = weight;
-        v49 = v47;
-        *&v41 = v38;
-        [(AVTAvatarMemoryOptimizer *)self resolveInBetweensForTarget:v34 weight:v39 inBetweenWeights:v40 inBetweenTargets:v48 block:v41];
+        [AVTAvatarMemoryOptimizer resolveInBetweensForTarget:"resolveInBetweensForTarget:weight:inBetweenWeights:inBetweenTargets:block:" weight:? inBetweenWeights:? inBetweenTargets:? block:?];
       }
 
-      v29 = [v45 countByEnumeratingWithState:&v52 objects:v70 count:16];
+      v23 = [v33 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v29);
+    while (v23);
   }
 
-  if (!v65[5])
+  if (!v39[5])
   {
     __assert_rtn("[AVTAvatarMemoryOptimizer flattenTargetsAtIndices:correctivesAtIndices:inTarget:weight:morpher:]", "AVTAvatarMemoryOptimizer.m", 1213, "newTargetWithFlattenedTargets != nil");
   }
 
-  [(NSMutableArray *)self->_newTargetsAndInBetweens replaceObjectAtIndex:v43 withObject:?];
-  _Block_object_dispose(&v64, 8);
-
-  v42 = *MEMORY[0x1E69E9840];
+  [NSMutableArray replaceObjectAtIndex:"replaceObjectAtIndex:withObject:" withObject:?];
+  _Block_object_dispose(&v38, 8);
 }
 
 uint64_t __97__AVTAvatarMemoryOptimizer_flattenTargetsAtIndices_correctivesAtIndices_inTarget_weight_morpher___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v6 = *(a1 + 56);
-  *&a4 = v6 * *&a4;
-  *&a5 = v6 * *&a5;
-  v7 = [*(a1 + 32) flattenTarget0:a2 weight0:a3 target1:*(*(*(a1 + 48) + 8) + 40) weight1:*(a1 + 40) inMorphTarget:a4 originalMorphTarget:a5];
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v6 = [*(a1 + 32) flattenTarget0:? weight0:? target1:? weight1:? inMorphTarget:? originalMorphTarget:?];
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 uint64_t __97__AVTAvatarMemoryOptimizer_flattenTargetsAtIndices_correctivesAtIndices_inTarget_weight_morpher___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v6 = *(a1 + 56);
-  *&a4 = v6 * *&a4;
-  *&a5 = v6 * *&a5;
-  v7 = [*(a1 + 32) flattenTarget0:a2 weight0:a3 target1:*(*(*(a1 + 48) + 8) + 40) weight1:*(a1 + 40) inMorphTarget:a4 originalMorphTarget:a5];
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v6 = [*(a1 + 32) flattenTarget0:? weight0:? target1:? weight1:? inMorphTarget:? originalMorphTarget:?];
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 - (void)flattenCorrectivesAtIndices:(id)indices inCorrectiveAtIndex:(unint64_t)index morpher:(id)morpher
 {
   indicesCopy = indices;
   morpherCopy = morpher;
-  v9 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:index];
-  LODWORD(v10) = 1.0;
-  [(AVTAvatarMemoryOptimizer *)self flattenCorrectivesAtIndices:indicesCopy inCorrective:v9 weight:morpherCopy morpher:v10];
-  v11 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:index];
-  v12 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:index];
-  v13 = [v12 count];
-  if (v13)
+  v8 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+  [AVTAvatarMemoryOptimizer flattenCorrectivesAtIndices:"flattenCorrectivesAtIndices:inCorrective:weight:morpher:" inCorrective:? weight:? morpher:?];
+  v9 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
+  v10 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
+  v11 = [v10 count];
+  if (v11)
   {
-    v14 = v13;
-    for (i = 0; i != v14; ++i)
+    v12 = v11;
+    for (i = 0; i != v12; i = (i + 1))
     {
-      v16 = [v12 objectAtIndexedSubscript:i];
-      v17 = [v11 objectAtIndexedSubscript:i];
-      [v17 floatValue];
-      v19 = v18;
+      v14 = [v10 objectAtIndexedSubscript:?];
+      v15 = [v9 objectAtIndexedSubscript:?];
+      [v15 floatValue];
 
-      LODWORD(v20) = v19;
-      [(AVTAvatarMemoryOptimizer *)self flattenCorrectivesAtIndices:indicesCopy inCorrective:v16 weight:morpherCopy morpher:v20];
+      [AVTAvatarMemoryOptimizer flattenCorrectivesAtIndices:"flattenCorrectivesAtIndices:inCorrective:weight:morpher:" inCorrective:? weight:? morpher:?];
     }
   }
 }
 
 - (void)flattenCorrectivesAtIndices:(id)indices inCorrective:(id)corrective weight:(float)weight morpher:(id)morpher
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   indicesCopy = indices;
   correctiveCopy = corrective;
   morpherCopy = morpher;
-  v30 = correctiveCopy;
-  v13 = [(NSMutableArray *)self->_newCorrectivesAndInBetweens indexOfObjectIdenticalTo:correctiveCopy];
-  if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+  v21 = correctiveCopy;
+  if ([(NSMutableArray *)self->_newCorrectivesAndInBetweens indexOfObjectIdenticalTo:?]== 0x7FFFFFFFFFFFFFFFLL)
   {
     [AVTAvatarMemoryOptimizer flattenCorrectivesAtIndices:inCorrective:weight:morpher:];
   }
 
-  v28 = v13;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy_;
-  v43 = __Block_byref_object_dispose_;
-  v44 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   obj = indicesCopy;
-  v14 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
-  if (v14)
+  v12 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v12)
   {
-    v15 = *v36;
+    v13 = MEMORY[0];
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v12; i = (i + 1))
       {
-        if (*v36 != v15)
+        if (MEMORY[0] != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * i);
-        unsignedIntegerValue = [v17 unsignedIntegerValue];
-        v19 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:unsignedIntegerValue];
-        v20 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:v17];
-        v21 = v20;
-        if (v20)
+        [*(8 * i) unsignedIntegerValue];
+        v15 = [(NSArray *)self->_oldCorrectives objectAtIndexedSubscript:?];
+        v16 = [(NSMutableDictionary *)self->_nonOneWeightsOfCorrectivesToFlatten objectForKeyedSubscript:?];
+        v17 = v16;
+        if (v16)
         {
-          [v20 floatValue];
-          v23 = v22;
+          [v16 floatValue];
         }
 
-        else
-        {
-          v23 = 1.0;
-        }
-
-        v24 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:unsignedIntegerValue];
-        v25 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:unsignedIntegerValue];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __84__AVTAvatarMemoryOptimizer_flattenCorrectivesAtIndices_inCorrective_weight_morpher___block_invoke;
-        v31[3] = &unk_1E7F47C28;
-        v33 = &v39;
-        v31[4] = self;
-        weightCopy = weight;
-        v32 = v30;
-        *&v26 = v23;
-        [(AVTAvatarMemoryOptimizer *)self resolveInBetweensForTarget:v19 weight:v24 inBetweenWeights:v25 inBetweenTargets:v31 block:v26];
+        v18 = [morpherCopy inBetweenWeightsForCorrectiveAtIndex:?];
+        v19 = [morpherCopy inBetweenTargetsForCorrectiveAtIndex:?];
+        v22 = v21;
+        [AVTAvatarMemoryOptimizer resolveInBetweensForTarget:"resolveInBetweensForTarget:weight:inBetweenWeights:inBetweenTargets:block:" weight:? inBetweenWeights:? inBetweenTargets:? block:?];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v12 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v14);
+    while (v12);
   }
 
-  if (!v40[5])
+  if (!v24[5])
   {
     __assert_rtn("[AVTAvatarMemoryOptimizer flattenCorrectivesAtIndices:inCorrective:weight:morpher:]", "AVTAvatarMemoryOptimizer.m", 1275, "newCorrectiveWithFlattenedCorrectives != nil");
   }
 
-  [(NSMutableArray *)self->_newCorrectivesAndInBetweens replaceObjectAtIndex:v28 withObject:?];
-  _Block_object_dispose(&v39, 8);
-
-  v27 = *MEMORY[0x1E69E9840];
+  [NSMutableArray replaceObjectAtIndex:"replaceObjectAtIndex:withObject:" withObject:?];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __84__AVTAvatarMemoryOptimizer_flattenCorrectivesAtIndices_inCorrective_weight_morpher___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v6 = *(a1 + 56);
-  *&a4 = v6 * *&a4;
-  *&a5 = v6 * *&a5;
-  v7 = [*(a1 + 32) flattenTarget0:a2 weight0:a3 target1:*(*(*(a1 + 48) + 8) + 40) weight1:*(a1 + 40) inMorphTarget:a4 originalMorphTarget:a5];
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v6 = [*(a1 + 32) flattenTarget0:? weight0:? target1:? weight1:? inMorphTarget:? originalMorphTarget:?];
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 - (void)resolveInBetweensForTarget:(id)target weight:(float)weight inBetweenWeights:(id)weights inBetweenTargets:(id)targets block:(id)block
@@ -2217,10 +1963,10 @@ uint64_t __84__AVTAvatarMemoryOptimizer_flattenCorrectivesAtIndices_inCorrective
   v16 = 0;
   while (v15 != v16)
   {
-    v17 = [targetsCopy objectAtIndexedSubscript:v16];
+    v17 = [targetsCopy objectAtIndexedSubscript:?];
     if (weight < 1.0)
     {
-      v21 = [weightsCopy objectAtIndexedSubscript:v16];
+      v21 = [weightsCopy objectAtIndexedSubscript:?];
       [v21 floatValue];
       v20 = v22;
 
@@ -2229,7 +1975,8 @@ uint64_t __84__AVTAvatarMemoryOptimizer_flattenCorrectivesAtIndices_inCorrective
 
 LABEL_9:
 
-    if (++v16 > v15)
+    v16 = (v16 + 1);
+    if (v16 > v15)
     {
       goto LABEL_18;
     }
@@ -2250,16 +1997,15 @@ LABEL_8:
 
   if (v16)
   {
-    v23 = v16 - 1;
-    v24 = [weightsCopy objectAtIndexedSubscript:v23];
-    [v24 floatValue];
-    v26 = v25;
+    v23 = [weightsCopy objectAtIndexedSubscript:?];
+    [v23 floatValue];
+    v25 = v24;
 
-    weight = (weight - v26) / (v20 - v26);
+    weight = (weight - v25) / (v20 - v25);
     if (weight < 1.0)
     {
-      v27 = [targetsCopy objectAtIndexedSubscript:v23];
-      (blockCopy)[2](blockCopy, v27, v17, 1.0 - weight, weight);
+      v26 = [targetsCopy objectAtIndexedSubscript:?];
+      (blockCopy)[2](blockCopy, v26, v17, 1.0 - weight, weight);
 
       goto LABEL_17;
     }
@@ -2281,20 +2027,19 @@ LABEL_18:
 
 - (id)flattenTarget0:(id)target0 weight0:(float)weight0 target1:(id)target1 weight1:(float)weight1 inMorphTarget:(id)target originalMorphTarget:(id)morphTarget
 {
-  v36[1] = *MEMORY[0x1E69E9840];
   target0Copy = target0;
   target1Copy = target1;
   targetCopy = target;
   morphTargetCopy = morphTarget;
-  v18 = morphTargetCopy;
+  v16 = morphTargetCopy;
   if (targetCopy)
   {
     meshSources = [targetCopy meshSources];
     firstObject = [meshSources firstObject];
 
-    vectorCount = [firstObject vectorCount];
+    [firstObject vectorCount];
     data = [firstObject data];
-    mutableBytes = [data mutableBytes];
+    [data mutableBytes];
   }
 
   else
@@ -2302,33 +2047,28 @@ LABEL_18:
     meshSources2 = [morphTargetCopy meshSources];
     firstObject = [meshSources2 firstObject];
 
-    vectorCount = [firstObject vectorCount];
+    [firstObject vectorCount];
     data2 = [firstObject data];
     selfCopy = self;
-    v26 = [data2 mutableCopy];
+    v22 = [data2 mutableCopy];
 
-    mutableBytes = [v26 mutableBytes];
-    v27 = [MEMORY[0x1E69DF310] meshSourceWithData:v26 semantic:*MEMORY[0x1E69DF3A8] vectorCount:vectorCount floatComponents:1 componentsPerVector:3 bytesPerComponent:4 dataOffset:0 dataStride:12];
-    v28 = MEMORY[0x1E69DF308];
-    v36[0] = v27;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-    targetCopy = [v28 meshWithSources:v29 elements:0];
+    [v22 mutableBytes];
+    v23 = [MEMORY[0x1E69DF310] meshSourceWithData:0 semantic:12 vectorCount:? floatComponents:? componentsPerVector:? bytesPerComponent:? dataOffset:? dataStride:?];
+    v24 = MEMORY[0x1E69DF308];
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+    targetCopy = [v24 meshWithSources:? elements:?];
 
-    name = [v18 name];
-    [targetCopy setName:name];
+    name = [v16 name];
+    [targetCopy setName:?];
 
     self = selfCopy;
   }
 
-  *&v31 = weight0;
-  [(AVTAvatarMemoryOptimizer *)self applyMorphTarget:target0Copy weight:mutableBytes toMorphTargetBuffer:vectorCount vertexCount:v31];
+  [AVTAvatarMemoryOptimizer applyMorphTarget:"applyMorphTarget:weight:toMorphTargetBuffer:vertexCount:" weight:? toMorphTargetBuffer:? vertexCount:?];
   if (target1Copy)
   {
-    *&v32 = weight1;
-    [(AVTAvatarMemoryOptimizer *)self applyMorphTarget:target1Copy weight:mutableBytes toMorphTargetBuffer:vectorCount vertexCount:v32];
+    [AVTAvatarMemoryOptimizer applyMorphTarget:"applyMorphTarget:weight:toMorphTargetBuffer:vertexCount:" weight:? toMorphTargetBuffer:? vertexCount:?];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return targetCopy;
 }
@@ -2350,7 +2090,7 @@ LABEL_18:
 
   if (count)
   {
-    v14 = (bytes + 8);
+    v14 = (bytes + 1);
     v15 = buffer + 4;
     do
     {
@@ -2537,6 +2277,44 @@ LABEL_18:
   }
 }
 
+- (void)applyMorphTarget:(id)target weight:(float)weight toMorphTargetBuffer:(id *)buffer vertexCount:(unint64_t)count
+{
+  v18 = *&weight;
+  targetCopy = target;
+  if (*v18.i32 <= 0.0)
+  {
+    [AVTAvatarMemoryOptimizer applyMorphTarget:weight:toMorphTargetBuffer:vertexCount:];
+  }
+
+  v17 = targetCopy;
+  meshSources = [targetCopy meshSources];
+  firstObject = [meshSources firstObject];
+
+  data = [firstObject data];
+  bytes = [data bytes];
+
+  if (count)
+  {
+    v15 = vdupq_lane_s32(v18, 0);
+    v16 = bytes + 1;
+    do
+    {
+      v13.i64[0] = *&buffer->var0;
+      v13.i32[2] = LODWORD(buffer->var2);
+      v14.i64[0] = *(v16 - 1);
+      v14.i32[2] = *v16;
+      v13 = vmlaq_f32(v13, v14, v15);
+      LODWORD(buffer->var2) = v13.i32[2];
+      *&buffer->var0 = v13.i64[0];
+      ++buffer;
+      v16 += 3;
+      --count;
+    }
+
+    while (count);
+  }
+}
+
 - (void)classifyTargetsOfMorpher:(os_log_t)log node:.cold.1(uint8_t *buf, void *a2, os_log_t log)
 {
   *buf = 136315138;
@@ -2544,30 +2322,19 @@ LABEL_18:
   _os_log_error_impl(&dword_1BB472000, log, OS_LOG_TYPE_ERROR, "Error: Condition '%s' failed. Failed to find driver in new updated main targets", buf, 0xCu);
 }
 
-void __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1BB472000, v0, v1, "Error: Unreachable code: Flattening the corrective %@ should lead to single animation target %@ that is always supposed to exist");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_cold_5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1BB472000, v0, OS_LOG_TYPE_ERROR, "Error: Failed to optimize corrective with more than %d targets: %@", v2, 0x12u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BB472000, v0, OS_LOG_TYPE_ERROR, "Error: Failed to optimize corrective with more than %d targets: %@", v1, 0x12u);
 }
 
 void __58__AVTAvatarMemoryOptimizer_classifyTargetsOfMorpher_node___block_invoke_2_cold_3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = [*(*a1 + 136) objectAtIndexedSubscript:a2];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = [*(*a1 + 136) objectAtIndexedSubscript:?];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: Failed to optimize corrective with more than %d targets: %@", v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: Failed to optimize corrective with more than %d targets: %@", v5, 0x12u);
 }
 
 @end

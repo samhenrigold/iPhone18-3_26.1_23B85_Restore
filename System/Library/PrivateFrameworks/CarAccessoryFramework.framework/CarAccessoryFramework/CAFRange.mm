@@ -140,7 +140,7 @@
   v8 = minimum;
   if (minimum)
   {
-    [minimum decimalValue];
+    objc_msgSend_decimalValue(minimum);
   }
 
   else
@@ -157,7 +157,7 @@
   v12 = step;
   if (step)
   {
-    [step decimalValue];
+    objc_msgSend_decimalValue(step);
   }
 
   else
@@ -172,7 +172,7 @@
   v14 = MEMORY[0x277CCA980];
   if (valueCopy)
   {
-    [valueCopy decimalValue];
+    objc_msgSend_decimalValue(valueCopy);
   }
 
   else

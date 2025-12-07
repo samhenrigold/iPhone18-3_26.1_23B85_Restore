@@ -216,26 +216,25 @@ uint64_t __81___BCPowerSourceController__orderedDevicesFromPowerSourcesBlob_powe
 
 uint64_t __73___BCPowerSourceController__registerForNotification_token_queue_handler___block_invoke(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = BCLogPowerSourceController;
   if (os_log_type_enabled(BCLogPowerSourceController, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[6];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2082;
-    v12 = v6;
-    _os_log_impl(&dword_241AC0000, v4, OS_LOG_TYPE_DEFAULT, "(%{public}@) Received %{public}s notification", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2082;
+    v11 = v6;
+    _os_log_impl(&dword_241AC0000, v4, OS_LOG_TYPE_DEFAULT, "(%{public}@) Received %{public}s notification", &v8, 0x16u);
   }
 
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -262,28 +261,25 @@ void __50___BCPowerSourceController__queryConnectedDevices__block_invoke(uint64_
 
 uint64_t __56___BCPowerSourceController__notifyObserver_block_queue___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = BCLogPowerSourceController;
   if (os_log_type_enabled(BCLogPowerSourceController, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[4];
-    v5 = a1[5];
-    v7 = v2;
-    v8 = objc_opt_class();
-    v9 = a1[5];
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2114;
+    v5 = a1[4];
+    v6 = v2;
+    v7 = objc_opt_class();
+    v8 = a1[5];
+    v11 = 138543874;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
     v16 = v8;
-    v17 = 2048;
-    v18 = v9;
-    v10 = v8;
-    _os_log_impl(&dword_241AC0000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) Notifying observer: <%{public}@: %p>", &v13, 0x20u);
+    v9 = v7;
+    _os_log_impl(&dword_241AC0000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@) Notifying observer: <%{public}@: %p>", &v11, 0x20u);
   }
 
-  result = (*(a1[6] + 16))(a1[6], a1[5], v3, v4);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))(a1[6], a1[5], v3, v4);
 }
 
 @end

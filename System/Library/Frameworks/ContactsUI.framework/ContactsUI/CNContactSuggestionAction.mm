@@ -41,7 +41,7 @@
     }
 
     contact2 = [(CNContactAction *)self contact];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactSuggestionAction.m", 60, 3, @"Could not %@ suggestion for contact %@, error: %@", v12, v13, v14, v15, v11);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactSuggestionAction.m", 60, 3u, @"Could not %@ suggestion for contact %@, error: %@", v12, v13, v14, v15, v11);
   }
 
   return v10 == 0;

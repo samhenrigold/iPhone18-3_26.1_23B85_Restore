@@ -48,18 +48,17 @@
 
 - (SFClient)init
 {
-  v7.receiver = self;
-  v7.super_class = SFClient;
-  v2 = [(SFClient *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFClient;
+  v2 = [(SFClient *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
@@ -119,16 +118,19 @@
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (!self->_invalidateDone && gLogCategory_SFClient <= 30 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateDone && gLogCategory_SFClient <= 30)
     {
-      [SFClient _invalidate];
+      if (gLogCategory_SFClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFClient *)v3 _invalidate];
+      }
     }
 
     xpcCnx = self->_xpcCnx;
     if (xpcCnx)
     {
       [(NSXPCConnection *)xpcCnx invalidate];
-      v4 = self->_xpcCnx;
+      v7 = self->_xpcCnx;
       self->_xpcCnx = 0;
     }
 
@@ -164,7 +166,8 @@
 
 void __44__SFClient_activateAssertionWithIdentifier___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) isEqualToString:@"com.apple.sharing.EnhancedDiscovery"])
+  v2 = [*(a1 + 32) isEqualToString:@"com.apple.sharing.EnhancedDiscovery"];
+  if (v2)
   {
     if (*(*(a1 + 40) + 16) == 1)
     {
@@ -176,29 +179,32 @@ void __44__SFClient_activateAssertionWithIdentifier___block_invoke(uint64_t a1)
       return;
     }
 
-    if (gLogCategory_SFClient <= 30 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFClient <= 30)
     {
-      __44__SFClient_activateAssertionWithIdentifier___block_invoke_cold_1();
+      if (gLogCategory_SFClient != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        __44__SFClient_activateAssertionWithIdentifier___block_invoke_cold_1(v2, v3, v4);
+      }
     }
 
     *(*(a1 + 40) + 16) = 1;
   }
 
-  v2 = *(*(a1 + 40) + 8);
-  if (!v2)
+  v5 = *(*(a1 + 40) + 8);
+  if (!v5)
   {
-    v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v4 = *(a1 + 40);
-    v5 = *(v4 + 8);
-    *(v4 + 8) = v3;
+    v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 8);
+    *(v7 + 8) = v6;
 
-    v2 = *(*(a1 + 40) + 8);
+    v5 = *(*(a1 + 40) + 8);
   }
 
-  [v2 addObject:*(a1 + 32)];
+  [v5 addObject:*(a1 + 32)];
   [*(a1 + 40) _ensureXPCStarted];
-  v6 = [*(*(a1 + 40) + 40) remoteObjectProxy];
-  [v6 activateAssertionWithIdentifier:*(a1 + 32)];
+  v9 = [*(*(a1 + 40) + 40) remoteObjectProxy];
+  [v9 activateAssertionWithIdentifier:*(a1 + 32)];
 }
 
 - (void)activityStateWithCompletion:(id)completion
@@ -575,7 +581,7 @@ void __74__SFClient_displayStringForContactIdentifier_deviceIdentifier_completio
     [(NSXPCConnection *)selfCopy->_syncXPCCnx resume];
     if (gLogCategory_SFClient <= 10 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFClient, "[SFClient ensureSyncXPCStarted]", 10, "Sync XPC started\n");
     }
   }
 
@@ -1302,7 +1308,7 @@ void __58__SFClient_wifiPasswordSharingAvailabilityWithCompletion___block_invoke
   os_activity_scope_enter(v7, &state);
   if (gLogCategory_SFClient <= 40 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFClient, "[SFClient startProxCardTransactionWithOptions:completion:]", 40, "Client requesting prox card transaction with options: %ld", options);
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -1413,54 +1419,57 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke(uint64_t a1)
 
 - (void)_interrupted
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFClient <= 50 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFClient <= 50)
   {
-    [SFClient _interrupted];
+    if (gLogCategory_SFClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFClient *)v3 _interrupted];
+    }
   }
 
   if ([(NSMutableSet *)self->_assertions count])
   {
     [(SFClient *)self _ensureXPCStarted];
+    v17 = 0u;
+    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v3 = self->_assertions;
-    v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
+    v6 = self->_assertions;
+    v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v7)
     {
-      v5 = v4;
-      v6 = *v14;
+      v8 = v7;
+      v9 = *v16;
       do
       {
-        v7 = 0;
+        v10 = 0;
         do
         {
-          if (*v14 != v6)
+          if (*v16 != v9)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v6);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * v7);
+          v11 = *(*(&v15 + 1) + 8 * v10);
           if (gLogCategory_SFClient <= 50 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
           {
-            [SFClient _interrupted];
+            [(SFClient *)v11 _interrupted];
           }
 
           remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
-          [remoteObjectProxy activateAssertionWithIdentifier:v8];
+          [remoteObjectProxy activateAssertionWithIdentifier:v11];
 
-          ++v7;
+          ++v10;
         }
 
-        while (v5 != v7);
-        v10 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        v5 = v10;
+        while (v8 != v10);
+        v13 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = v13;
       }
 
-      while (v10);
+      while (v13);
     }
   }
 
@@ -1469,8 +1478,6 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke(uint64_t a1)
   {
     interruptionHandler[2]();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidated
@@ -1478,9 +1485,12 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFClient <= 50 && (gLogCategory_SFClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFClient <= 50)
     {
-      [SFClient _invalidated];
+      if (gLogCategory_SFClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFClient *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -1492,7 +1502,7 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke(uint64_t a1)
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v5 = self->_invalidationHandler;
+    v8 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     xpcCnx = self->_xpcCnx;
@@ -1504,13 +1514,6 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke(uint64_t a1)
       [SFClient _invalidated];
     }
   }
-}
-
-uint64_t __42__SFClient_repairDevice_flags_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 56);
-  return LogPrintF();
 }
 
 void __41__SFClient_pairedWatchWristStateChanged___block_invoke_cold_1(uint64_t a1)
@@ -1527,7 +1530,7 @@ void __41__SFClient_pairedWatchWristStateChanged___block_invoke_cold_1(uint64_t 
   }
 
   v3 = v2;
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFClient, "[SFClient pairedWatchWristStateChanged:]_block_invoke", 40, "Notifying client that wrist state changed to: %@", v2);
 }
 
 @end

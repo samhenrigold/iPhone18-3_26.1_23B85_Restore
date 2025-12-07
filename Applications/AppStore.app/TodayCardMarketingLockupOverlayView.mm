@@ -72,25 +72,24 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  height = fits.height;
   width = fits.width;
-  v6 = type metadata accessor for SmallLockupLayout.Metrics();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore35TodayCardMarketingLockupOverlayView_lockupView);
+  v5 = type metadata accessor for SmallLockupLayout.Metrics();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore35TodayCardMarketingLockupOverlayView_lockupView);
   selfCopy = self;
-  v12 = v10;
-  sub_10013F3FC(v9);
-  [v12 layoutMargins];
-  sub_100508464(v9, v12, width, height, v13, v14);
-  v16 = v15;
+  v11 = v9;
+  sub_10013F3FC(v8);
+  [v11 layoutMargins];
+  sub_100508464();
+  v13 = v12;
 
-  (*(v7 + 8))(v9, v6);
-  v17 = fmax(v16, 79.0);
-  v18 = width;
-  result.height = v17;
-  result.width = v18;
+  (*(v6 + 8))(v8, v5);
+  v14 = fmax(v13, 79.0);
+  v15 = width;
+  result.height = v14;
+  result.width = v15;
   return result;
 }
 
@@ -146,10 +145,11 @@
   v3 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore35TodayCardMarketingLockupOverlayView_clickActionHandler);
   if (v3)
   {
+    v4 = *&selfCopy->lockupView[OBJC_IVAR____TtC8AppStore35TodayCardMarketingLockupOverlayView_clickActionHandler];
 
-    v3(v4);
+    v3(v5);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 
   else

@@ -437,7 +437,7 @@ LABEL_24:
   if (computeInfoGeometryDuringResize)
   {
     v7 = computeInfoGeometryDuringResize;
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   v8 = [(CRLCanvasRepFreeTransformTracker *)self selectedRepForLayout:layoutCopy];
@@ -445,34 +445,34 @@ LABEL_24:
 
   if (layout == layoutCopy)
   {
-    memset(&v31, 0, sizeof(v31));
-    [(CRLCanvasRepFreeTransformTracker *)self freeTransformForLayout:layoutCopy];
+    memset(&v30, 0, sizeof(v30));
+    objc_msgSend_freeTransformForLayout_(self);
     if (layoutCopy)
     {
-      [layoutCopy layoutTransformInInfoSpace:v30];
+      objc_msgSend_layoutTransformInInfoSpace_(layoutCopy);
     }
 
     else
     {
-      memset(&v31, 0, sizeof(v31));
+      memset(&v30, 0, sizeof(v30));
     }
 
-    v29 = v31;
+    v29 = v30;
     v7 = [v8 resizedGeometryForTransform:&v29];
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
-  memset(&v31, 0, sizeof(v31));
+  memset(&v30, 0, sizeof(v30));
   layout2 = [v8 layout];
-  [(CRLCanvasRepFreeTransformTracker *)self resizeTransformForLayout:layoutCopy];
+  objc_msgSend_resizeTransformForLayout_(self);
   if (layout2)
   {
-    [layout2 layoutTransformInInfoSpace:v30];
+    objc_msgSend_layoutTransformInInfoSpace_(layout2);
   }
 
   else
   {
-    memset(&v31, 0, sizeof(v31));
+    memset(&v30, 0, sizeof(v30));
   }
 
   v11 = *&CGAffineTransformIdentity.c;
@@ -496,7 +496,7 @@ LABEL_24:
       v16 = originalPureGeometry;
       if (originalPureGeometry)
       {
-        [originalPureGeometry transform];
+        objc_msgSend_transform(originalPureGeometry);
       }
 
       else
@@ -515,7 +515,7 @@ LABEL_24:
     }
 
     while (v19);
-    t1 = v31;
+    t1 = v30;
     memset(&t2, 0, sizeof(t2));
     v26 = v29;
     sub_100139E2C(&t1, &v26, &t2);
@@ -525,6 +525,7 @@ LABEL_24:
     if (infoGeometryBeforeDynamicOperation)
     {
       geometry = infoGeometryBeforeDynamicOperation;
+      objc_msgSend_fullTransform(infoGeometryBeforeDynamicOperation);
     }
 
     else
@@ -535,27 +536,27 @@ LABEL_24:
       if (!geometry)
       {
         memset(&v26, 0, sizeof(v26));
-        goto LABEL_23;
+        goto LABEL_24;
       }
+
+      objc_msgSend_fullTransform(geometry);
     }
 
-    [geometry fullTransform];
-
-LABEL_23:
+LABEL_24:
     v25 = t2;
     CGAffineTransformConcat(&t1, &v26, &v25);
     v7 = [CRLCanvasInfoGeometry geometryFromFullTransform:&t1];
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v22 = [(CRLInteractiveCanvasController *)self->mICC repForLayout:layoutCopy];
-  t2 = v31;
+  t2 = v30;
   v7 = [v22 resizedGeometryForTransform:&t2];
 
-LABEL_24:
 LABEL_25:
-
 LABEL_26:
+
+LABEL_27:
 
   return v7;
 }
@@ -643,72 +644,72 @@ LABEL_12:
   self->mRotateDeltaInRadians = 0.0;
   v11 = sub_10011F334(x, self->mUnscaledDrag.y, self->mUnscaledDragDelta.x);
   v13 = v12;
-  [(CRLInteractiveCanvasController *)self->mICC viewScale];
-  v15 = sub_10012218C(v11, v13, v14);
-  self->mUnscaledDrag.x = v15;
-  self->mUnscaledDrag.y = v16;
-  v17 = sub_10011F31C(v15, v16, x);
-  v19 = v18;
-  self->mUnscaledDragDelta.x = sub_10011F31C(self->mUnscaledDragDelta.x, self->mUnscaledDragDelta.y, v17);
-  self->mUnscaledDragDelta.y = v20;
-  v21 = +[NSDate date];
-  [v21 timeIntervalSinceReferenceDate];
-  v23 = v22;
+  viewScale = [(CRLInteractiveCanvasController *)self->mICC viewScale];
+  v16 = sub_10012218C(viewScale, v11, v13, v15);
+  self->mUnscaledDrag.x = v16;
+  self->mUnscaledDrag.y = v17;
+  v18 = sub_10011F31C(v16, v17, x);
+  v20 = v19;
+  self->mUnscaledDragDelta.x = sub_10011F31C(self->mUnscaledDragDelta.x, self->mUnscaledDragDelta.y, v18);
+  self->mUnscaledDragDelta.y = v21;
+  v22 = +[NSDate date];
+  [v22 timeIntervalSinceReferenceDate];
+  v24 = v23;
 
-  v24 = v23 - self->mLastUpdateGuidesTimestamp;
-  self->mLastUpdateGuidesTimestamp = v23;
-  if (v24 > 0.005)
+  v25 = v24 - self->mLastUpdateGuidesTimestamp;
+  self->mLastUpdateGuidesTimestamp = v24;
+  if (v25 > 0.005)
   {
     [(CRLInteractiveCanvasController *)self->mICC viewScale];
-    v26 = sub_10011F340(v17, v19, v25 / v24);
-    self->mSmoothedDragSpeed.x = sub_10011FFB8(self->mSmoothedDragSpeed.x, self->mSmoothedDragSpeed.y, v26, v27, fmin(v24 * 5.0, 1.0));
-    self->mSmoothedDragSpeed.y = v28;
+    v27 = sub_10011F340(v18, v20, v26 / v25);
+    self->mSmoothedDragSpeed.x = sub_10011FFB8(self->mSmoothedDragSpeed.x, self->mSmoothedDragSpeed.y, v27, v28, fmin(v25 * 5.0, 1.0));
+    self->mSmoothedDragSpeed.y = v29;
   }
 
-  v29 = v10 / 3.14159265;
+  v30 = v10 / 3.14159265;
   if (!self->mRotationSnapped)
   {
     mCurrentAngleInDegrees = self->mCurrentAngleInDegrees;
-    sub_1001208E0(v29 + mCurrentAngleInDegrees);
-    self->mCurrentAngleInDegrees = v35;
+    sub_1001208E0(v30 + mCurrentAngleInDegrees);
+    self->mCurrentAngleInDegrees = v36;
     if (self->mIgnoreDetents)
     {
       goto LABEL_35;
     }
 
-    v36 = 0;
-    v37 = mCurrentAngleInDegrees < 90.0;
-    if (v35 <= 270.0)
-    {
-      v37 = 0;
-    }
-
-    v38 = mCurrentAngleInDegrees > 270.0;
-    if (v35 >= 90.0)
+    v37 = 0;
+    v38 = mCurrentAngleInDegrees < 90.0;
+    if (v36 <= 270.0)
     {
       v38 = 0;
     }
 
+    v39 = mCurrentAngleInDegrees > 270.0;
+    if (v36 >= 90.0)
+    {
+      v39 = 0;
+    }
+
     while (1)
     {
-      v39 = v36;
-      if (v36)
+      v40 = v37;
+      if (v37)
       {
-        v40 = (mCurrentAngleInDegrees - v39) * (v35 - v39);
-        self->mRotationSnapped = v40 <= 0.0;
-        if (v40 <= 0.0)
+        v41 = (mCurrentAngleInDegrees - v40) * (v36 - v40);
+        self->mRotationSnapped = v41 <= 0.0;
+        if (v41 <= 0.0)
         {
           goto LABEL_34;
         }
       }
 
-      else if (v29 <= 0.0)
+      else if (v30 <= 0.0)
       {
-        self->mRotationSnapped = v37;
-        if (v37)
+        self->mRotationSnapped = v38;
+        if (v38)
         {
 LABEL_34:
-          self->mCurrentAngleInDegrees = v39;
+          self->mCurrentAngleInDegrees = v40;
           self->mRotationDetent = 0.0;
           goto LABEL_35;
         }
@@ -716,39 +717,39 @@ LABEL_34:
 
       else
       {
-        self->mRotationSnapped = v38;
-        if (v38)
+        self->mRotationSnapped = v39;
+        if (v39)
         {
           goto LABEL_34;
         }
       }
 
-      v41 = v36 >= 0x10E;
-      v36 += 90;
-      if (v41)
+      v42 = v37 >= 0x10E;
+      v37 += 90;
+      if (v42)
       {
         goto LABEL_35;
       }
     }
   }
 
-  v30 = v29 + self->mRotationDetent;
-  self->mRotationDetent = v30;
+  v31 = v30 + self->mRotationDetent;
+  self->mRotationDetent = v31;
   if (self->mSupportsRotation)
   {
-    v31 = fabs(v30);
-    v32 = 264;
+    v32 = fabs(v31);
+    v33 = 264;
     if (self->mStartedRotation)
     {
-      v32 = 272;
+      v33 = 272;
     }
 
-    if (v31 > *(&self->super.isa + v32))
+    if (v32 > *(&self->super.isa + v33))
     {
       self->mRotationSnapped = 0;
       self->mStartedRotation = 1;
-      sub_1001208E0(v29 + self->mCurrentAngleInDegrees);
-      self->mCurrentAngleInDegrees = v33;
+      sub_1001208E0(v30 + self->mCurrentAngleInDegrees);
+      self->mCurrentAngleInDegrees = v34;
     }
   }
 
@@ -765,7 +766,7 @@ LABEL_35:
   }
 
   commandController = [(CRLInteractiveCanvasController *)self->mICC commandController];
-  v43 = commandController;
+  v44 = commandController;
   if (self->mIsEnqueueingCommandsInRealTime)
   {
     [commandController openGroup];
@@ -773,7 +774,7 @@ LABEL_35:
 
   if (self->mStartedDragging && self->mShouldShowAndSnapToAlignmentGuides)
   {
-    [(CRLCanvasRepFreeTransformTracker *)self p_updateDragGuidesAndSnap:v17, v19];
+    [(CRLCanvasRepFreeTransformTracker *)self p_updateDragGuidesAndSnap:v18, v20];
   }
 
   else
@@ -785,16 +786,16 @@ LABEL_35:
   self->mIsDragging = 0;
   self->mIsResizing = 0;
   self->mIsRotating = 0;
-  v44 = self->mCurrentAngleInDegrees;
-  v45 = self->mLastAngleInDegrees - v44;
-  if (v45 < 0.0)
+  v45 = self->mCurrentAngleInDegrees;
+  v46 = self->mLastAngleInDegrees - v45;
+  if (v46 < 0.0)
   {
-    v45 = -v45;
+    v46 = -v46;
   }
 
-  if (v45 > 0.05)
+  if (v46 > 0.05)
   {
-    self->mLastAngleInDegrees = v44;
+    self->mLastAngleInDegrees = v45;
     self->mIsRotating = 1;
   }
 
@@ -805,44 +806,44 @@ LABEL_35:
     *&self->mIsResizing = 257;
   }
 
-  v47 = sub_10011F31C(self->mLastUnscledDrag.x, self->mLastUnscledDrag.y, self->mUnscaledDrag.x);
-  v49 = sub_100120074(v47, v48);
+  v48 = sub_10011F31C(self->mLastUnscledDrag.x, self->mLastUnscledDrag.y, self->mUnscaledDrag.x);
+  v50 = sub_100120074(v48, v49);
   [(CRLInteractiveCanvasController *)self->mICC viewScale];
-  if (v49 * v50 >= 0.5)
+  if (v50 * v51 >= 0.5)
   {
     self->mLastUnscledDrag = self->mUnscaledDrag;
     self->mIsDragging = 1;
 LABEL_58:
-    v51 = +[NSMutableSet set];
-    v64 = 0u;
+    v52 = +[NSMutableSet set];
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v52 = self->mReps;
-    v53 = [(NSSet *)v52 countByEnumeratingWithState:&v64 objects:v68 count:16];
-    if (v53)
+    v68 = 0u;
+    v53 = self->mReps;
+    v54 = [(NSSet *)v53 countByEnumeratingWithState:&v65 objects:v69 count:16];
+    if (v54)
     {
-      v54 = v53;
-      v55 = *v65;
+      v55 = v54;
+      v56 = *v66;
       do
       {
-        for (i = 0; i != v54; i = i + 1)
+        for (i = 0; i != v55; i = i + 1)
         {
-          if (*v65 != v55)
+          if (*v66 != v56)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v53);
           }
 
-          v57 = *(*(&v64 + 1) + 8 * i);
-          [v57 dynamicallyFreeTransformingWithTracker:{self, v64}];
-          layout = [v57 layout];
-          [v51 addObject:layout];
+          v58 = *(*(&v65 + 1) + 8 * i);
+          [v58 dynamicallyFreeTransformingWithTracker:{self, v65}];
+          layout = [v58 layout];
+          [v52 addObject:layout];
         }
 
-        v54 = [(NSSet *)v52 countByEnumeratingWithState:&v64 objects:v68 count:16];
+        v55 = [(NSSet *)v53 countByEnumeratingWithState:&v65 objects:v69 count:16];
       }
 
-      while (v54);
+      while (v55);
     }
 
     if (self->mShouldShowAndSnapToAlignmentGuides && [repsCopy count] <= 0xE)
@@ -850,7 +851,7 @@ LABEL_58:
       anyObject = [(NSSet *)self->mReps anyObject];
       layout2 = [anyObject layout];
       layoutController = [layout2 layoutController];
-      [layoutController validateLayoutsWithDependencies:v51];
+      [layoutController validateLayoutsWithDependencies:v52];
     }
 
     goto LABEL_69;
@@ -884,7 +885,7 @@ LABEL_69:
 
   if (self->mIsEnqueueingCommandsInRealTime)
   {
-    [v43 closeGroup];
+    [v44 closeGroup];
   }
 
 LABEL_78:
@@ -940,7 +941,7 @@ LABEL_5:
     {
       v33 = v23;
       v35 = v22;
-      [originalGeometry transform];
+      objc_msgSend_transform(originalGeometry);
       v23 = v33;
       v22 = v35;
       v25 = *&v39.a;
@@ -1017,7 +1018,7 @@ LABEL_13:
         v18 = originalPureGeometry;
         if (originalPureGeometry)
         {
-          [originalPureGeometry transform];
+          objc_msgSend_transform(originalPureGeometry);
         }
 
         else
@@ -1066,16 +1067,16 @@ LABEL_13:
 
   if (layout == v6)
   {
-    [(CRLCanvasRepFreeTransformTracker *)self rotateTransformForLayout:v6];
-    [(CRLCanvasRepFreeTransformTracker *)self resizeTransformForLayout:v6];
+    objc_msgSend_rotateTransformForLayout_(self);
+    objc_msgSend_resizeTransformForLayout_(self);
     CGAffineTransformConcat(&v12, &t1, &v10);
-    [(CRLCanvasRepFreeTransformTracker *)self p_translationTransformForLayout:v6];
+    objc_msgSend_p_translationTransformForLayout_(self);
     CGAffineTransformConcat(retstr, &v12, &t1);
   }
 
   else
   {
-    [(CRLCanvasRepFreeTransformTracker *)self resizeTransformForLayout:v6];
+    objc_msgSend_resizeTransformForLayout_(self);
   }
 
   return result;
@@ -1443,7 +1444,7 @@ LABEL_13:
 
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v13 = v21;
     v14 = v22;
     v15 = v23;
@@ -1479,7 +1480,7 @@ LABEL_13:
       {
         v16 = v7;
         v17 = v6;
-        [layout originalTransformInRoot];
+        objc_msgSend_originalTransformInRoot(layout);
         v7 = v16;
         v6 = v17;
         v9 = v18;
@@ -1516,7 +1517,7 @@ LABEL_13:
     memset(&v25, 0, sizeof(v25));
     if (layoutCopy)
     {
-      [layoutCopy originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(layoutCopy);
     }
 
     else
@@ -1537,7 +1538,7 @@ LABEL_13:
     memset(&v25, 0, sizeof(v25));
     if (layoutCopy)
     {
-      [layoutCopy transformInRoot];
+      objc_msgSend_transformInRoot(layoutCopy);
     }
 
     else
@@ -1556,7 +1557,7 @@ LABEL_13:
   v13 = originalGeometry2;
   if (originalGeometry2)
   {
-    [originalGeometry2 transform];
+    objc_msgSend_transform(originalGeometry2);
     b = v24.b;
     a = v24.a;
     d = v24.d;
@@ -1607,7 +1608,7 @@ LABEL_13:
     v11 = parent2;
     if (parent2)
     {
-      [parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else
@@ -1640,9 +1641,9 @@ LABEL_13:
     mRotationGuideRenderable = self->mRotationGuideRenderable;
     self->mRotationGuideRenderable = v10;
 
-    v12 = sub_1000CCEA0(0.933000028, 0.791999996, 0.0, 1.0);
-    [(CRLCanvasShapeRenderable *)self->mRotationGuideRenderable setStrokeColor:v12];
-    CGColorRelease(v12);
+    v14 = sub_1000CCEA0(v12, v13, 0.933000028, 0.791999996, 0.0, 1.0);
+    [(CRLCanvasShapeRenderable *)self->mRotationGuideRenderable setStrokeColor:v14];
+    CGColorRelease(v14);
     [(CRLCanvasShapeRenderable *)self->mRotationGuideRenderable setFillColor:0];
     [(CRLCanvasShapeRenderable *)self->mRotationGuideRenderable setLineWidth:1.0 / v9];
     [(CRLCanvasRenderable *)self->mRotationGuideRenderable setZPosition:-1.0];
@@ -1650,67 +1651,67 @@ LABEL_13:
     [(CRLCanvasRenderable *)self->mRotationGuideRenderable setDelegate:self];
     [(CRLCanvasRenderable *)self->mRotationGuideRenderable setEdgeAntialiasingMask:0];
     [(CRLCanvasRepFreeTransformTracker *)self p_scaledCenterForRotation];
-    v14 = floor(v13);
     v16 = floor(v15);
+    v18 = floor(v17);
     if ([(NSSet *)self->mReps count]== 1)
     {
       anyObject = [(NSSet *)self->mReps anyObject];
       [anyObject unscaledGuidePosition];
-      MidX = v18;
-      MinY = v20;
+      MidX = v20;
+      MinY = v22;
     }
 
     else
     {
       [(CRLCanvasRepFreeTransformTracker *)self p_unscaledBoundingRectForReps:self->mReps];
-      x = v39.origin.x;
-      y = v39.origin.y;
-      width = v39.size.width;
-      height = v39.size.height;
-      MidX = CGRectGetMidX(v39);
-      v40.origin.x = x;
-      v40.origin.y = y;
-      v40.size.width = width;
-      v40.size.height = height;
-      MinY = CGRectGetMinY(v40);
+      x = v41.origin.x;
+      y = v41.origin.y;
+      width = v41.size.width;
+      height = v41.size.height;
+      MidX = CGRectGetMidX(v41);
+      v42.origin.x = x;
+      v42.origin.y = y;
+      v42.size.width = width;
+      v42.size.height = height;
+      MinY = CGRectGetMinY(v42);
     }
 
     [(CRLInteractiveCanvasController *)self->mICC convertUnscaledToBoundsPoint:MidX, MinY];
-    self->mRotationGuideLength = sub_100120090(v26, v27, v14, v16) / self->mMagnifyBy;
-    [(CRLCanvasRenderable *)self->mRotationGuideRenderable setPosition:v14, v16];
+    self->mRotationGuideLength = sub_100120090(v28, v29, v16, v18) / self->mMagnifyBy;
+    [(CRLCanvasRenderable *)self->mRotationGuideRenderable setPosition:v16, v18];
     [(CRLInteractiveCanvasController *)self->mICC addDecorator:self];
   }
 
   Mutable = CGPathCreateMutable();
   CGPathMoveToPoint(Mutable, 0, 0.0, -10.0);
   CGPathAddLineToPoint(Mutable, 0, 0.0, self->mRotationGuideLength * self->mMagnifyBy + 10.0);
-  v41.origin.x = -5.5;
-  v41.origin.y = -5.5;
-  v41.size.width = 11.0;
-  v41.size.height = 11.0;
-  CGPathAddEllipseInRect(Mutable, 0, v41);
+  v43.origin.x = -5.5;
+  v43.origin.y = -5.5;
+  v43.size.width = 11.0;
+  v43.size.height = 11.0;
+  CGPathAddEllipseInRect(Mutable, 0, v43);
   CGPathMoveToPoint(Mutable, 0, -10.0, 0.0);
   CGPathAddLineToPoint(Mutable, 0, 10.0, 0.0);
   [(CRLCanvasShapeRenderable *)self->mRotationGuideRenderable setPath:Mutable];
   CGPathRelease(Mutable);
   canvas2 = [(CRLInteractiveCanvasController *)self->mICC canvas];
   [canvas2 convertUnscaledToBoundsPoint:{sub_10011F334(self->mUnscaledDrag.x, self->mUnscaledDrag.y, self->mPreviousDragSnapDiff.x)}];
-  v31 = v30;
   v33 = v32;
+  v35 = v34;
 
   CGAffineTransformMakeRotation(&t1, (angle + 180.0) * -0.0174532925);
-  CGAffineTransformMakeTranslation(&v36, v31, v33);
-  CGAffineTransformConcat(&v38, &t1, &v36);
-  v34 = self->mRotationGuideRenderable;
-  t1 = v38;
-  [(CRLCanvasRenderable *)v34 setAffineTransform:&t1];
-  LODWORD(v35) = 0.5;
+  CGAffineTransformMakeTranslation(&v38, v33, v35);
+  CGAffineTransformConcat(&v40, &t1, &v38);
+  v36 = self->mRotationGuideRenderable;
+  t1 = v40;
+  [(CRLCanvasRenderable *)v36 setAffineTransform:&t1];
+  LODWORD(v37) = 0.5;
   if (snapCopy)
   {
-    *&v35 = 1.0;
+    *&v37 = 1.0;
   }
 
-  [(CRLCanvasRenderable *)self->mRotationGuideRenderable setOpacity:v35];
+  [(CRLCanvasRenderable *)self->mRotationGuideRenderable setOpacity:v37];
 }
 
 - (void)p_hideGuideRenderable

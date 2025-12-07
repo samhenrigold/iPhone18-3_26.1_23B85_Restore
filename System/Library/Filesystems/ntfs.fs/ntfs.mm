@@ -1,14 +1,14 @@
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(int a1, const char **a2)
 {
   v2 = *a2;
-  if (a1 < 3 || (memset(&v38, 0, sizeof(v38)), v4 = *(a2 + 8), *v4 != 45))
+  if (a1 < 3 || (memset(&v38, 0, sizeof(v38)), v4 = a2[1], *v4 != 45))
   {
 LABEL_99:
     sub_100000CE4(v2);
   }
 
-  v5 = v4[1];
-  v6 = *(a2 + 16);
+  v5 = *(v4 + 1);
+  v6 = a2[2];
   if (v5 <= 0x6F)
   {
     if (v5 == 107)
@@ -41,7 +41,7 @@ LABEL_99:
   }
 
 LABEL_15:
-  if (strncmp(*(a2 + 16), "disk", 4uLL))
+  if (strncmp(a2[2], "disk", 4uLL))
   {
     if (!strncmp(v6, "/dev/fd/", 8uLL))
     {
@@ -88,14 +88,14 @@ LABEL_100:
 LABEL_24:
   if (v5 == 117 || v5 == 109)
   {
-    v7 = *(a2 + 24);
-    v8 = (a2 + 32);
+    v7 = a2[3];
+    v8 = (a2 + 4);
   }
 
   else
   {
     v7 = 0;
-    v8 = (a2 + 24);
+    v8 = (a2 + 3);
   }
 
   if (v5 == 112 || v5 == 109)
@@ -611,7 +611,7 @@ uint64_t sub_100001368(unsigned int a1, unint64_t *a2)
         return 4294967294;
       }
 
-      v8 = v2[1];
+      v8 = *(v2 + 4);
       if (!v8)
       {
         return 4294967292;
@@ -630,7 +630,7 @@ uint64_t sub_100001368(unsigned int a1, unint64_t *a2)
         }
       }
 
-      v2 = (v2 + v8);
+      v2 += v8;
       if (v2 < v3)
       {
         return 4294967292;
@@ -641,7 +641,7 @@ uint64_t sub_100001368(unsigned int a1, unint64_t *a2)
   return 4294967292;
 }
 
-uint64_t sub_1000013DC(int __fd, char *__buf, int64_t __nbyte, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_1000013DC(int __fd, char *__buf, size_t __nbyte, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a5 < 1)
   {
@@ -656,7 +656,7 @@ uint64_t sub_1000013DC(int __fd, char *__buf, int64_t __nbyte, uint64_t a4, uint
   while (1)
   {
     v15 = v14 >= v7 ? v7 : v14;
-    if (pread(__fd, __buf, __nbyte, v12 & a6) < (v15 + v13))
+    if (pread(__fd, __buf, __nbyte, v12 & a6) < v15 + v13)
     {
       break;
     }
@@ -1011,7 +1011,7 @@ uint64_t sub_100001874(void *a1, uint64_t a2, void *a3)
 
 uint64_t sub_100001904(const char *a1, const char **a2)
 {
-  v17 = 0;
+  v15 = 0;
   v4 = fork();
   if (v4 == -1)
   {
@@ -1025,36 +1025,34 @@ uint64_t sub_100001904(const char *a1, const char **a2)
   if (!v4)
   {
     execv(*a2, a2);
-    v12 = *__error();
-    v13 = __stderrp;
-    v14 = *a2;
-    v15 = strerror(v12);
-    fprintf(v13, "%s: execv %s failed: %s\n", a1, v14, v15);
-    exit(v12);
+    v11 = *__error();
+    v12 = __stderrp;
+    v13 = *a2;
+    v14 = strerror(v11);
+    fprintf(v12, "%s: execv %s failed: %s\n", a1, v13, v14);
+    exit(v11);
   }
 
-  if (wait4(v4, &v17, 0, 0) != v4)
+  if (wait4(v4, &v15, 0, 0) != v4)
   {
-    v7 = *a2;
     fprintf(__stderrp, "%s: BUG executing %s command.\n");
     return 4294967290;
   }
 
-  if ((v17 & 0x7F) != 0)
+  if ((v15 & 0x7F) != 0)
   {
-    v16 = *a2;
     fprintf(__stderrp, "%s: %s command aborted by signal %d.\n");
     return 4294967290;
   }
 
-  if (!BYTE1(v17))
+  if (!BYTE1(v15))
   {
     return 4294967293;
   }
 
-  v9 = __stderrp;
-  v10 = *a2;
-  v11 = strerror(BYTE1(v17));
-  fprintf(v9, "%s: %s command failed: %s\n", a1, v10, v11);
+  v8 = __stderrp;
+  v9 = *a2;
+  v10 = strerror(BYTE1(v15));
+  fprintf(v8, "%s: %s command failed: %s\n", a1, v9, v10);
   return 4294967292;
 }

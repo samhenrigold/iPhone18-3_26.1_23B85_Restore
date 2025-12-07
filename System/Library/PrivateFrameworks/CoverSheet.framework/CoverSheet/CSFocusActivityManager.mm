@@ -96,7 +96,7 @@
 
 - (BOOL)isFocusActivityIndicatorVisible
 {
-  if (CSAutobahnEnabledForPlatform())
+  if (CSAutobahnEnabledForPlatform(self, a2))
   {
     return 0;
   }
@@ -132,7 +132,7 @@
 
 - (id)_activityForDisplayInIndicator
 {
-  if (CSAutobahnEnabledForPlatform())
+  if (CSAutobahnEnabledForPlatform(self, a2))
   {
     activeActivity = 0;
   }

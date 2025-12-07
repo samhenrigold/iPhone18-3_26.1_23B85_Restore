@@ -188,7 +188,7 @@
           }
 
           v24 = v23;
-          if (([v24 options] & 1) == 0)
+          if ((objc_msgSend_options(v24) & 1) == 0)
           {
 
 LABEL_12:

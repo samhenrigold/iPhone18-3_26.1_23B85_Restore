@@ -49,7 +49,7 @@
 
 + (id)authResponseFromServerResponseDictionary:(id)dictionary baseURL:(id)l previousCredential:(id)credential error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   lCopy = l;
   credentialCopy = credential;
@@ -82,9 +82,9 @@ LABEL_3:
   v15 = [dictionaryCopy hk_safeStringForKeyPath:@"token_type" error:error];
   if (v15)
   {
-    v49 = 0;
-    v16 = [dictionaryCopy hk_safeStringForKeyPath:@"patient" error:&v49];
-    v17 = v49;
+    v48 = 0;
+    v16 = [dictionaryCopy hk_safeStringForKeyPath:@"patient" error:&v48];
+    v17 = v48;
     if (!v16)
     {
       v20 = [dictionaryCopy objectForKeyedSubscript:@"patient"];
@@ -130,17 +130,17 @@ LABEL_55:
       }
     }
 
-    v45 = patientID;
-    v48 = v17;
-    v22 = [dictionaryCopy hk_safeNumberForKeyPath:@"expires_in" error:&v48];
-    v23 = v48;
+    v44 = patientID;
+    v47 = v17;
+    v22 = [dictionaryCopy hk_safeNumberForKeyPath:@"expires_in" error:&v47];
+    v23 = v47;
 
-    v44 = v22;
+    v43 = v22;
     if (v22)
     {
-      v43 = v15;
+      v42 = v15;
       [v22 doubleValue];
-      v42 = [HKOAuth2Credential expirationFromTimeInterval:?];
+      v41 = [HKOAuth2Credential expirationFromTimeInterval:?];
     }
 
     else
@@ -152,7 +152,7 @@ LABEL_55:
         v29 = v23;
         if (v29)
         {
-          patientID = v45;
+          patientID = v44;
           if (error)
           {
             v30 = v29;
@@ -175,20 +175,20 @@ LABEL_55:
         {
           v19 = 0;
           v17 = 0;
-          patientID = v45;
+          patientID = v44;
           v27 = 0;
         }
 
         goto LABEL_54;
       }
 
-      v42 = 0;
-      v43 = v15;
+      v41 = 0;
+      v42 = v15;
     }
 
-    v47 = v23;
-    v24 = [dictionaryCopy hk_safeStringForKeyPath:@"refresh_token" error:&v47];
-    v25 = v47;
+    v46 = v23;
+    v24 = [dictionaryCopy hk_safeStringForKeyPath:@"refresh_token" error:&v46];
+    v25 = v46;
 
     if (!v24)
     {
@@ -199,7 +199,7 @@ LABEL_55:
         v24 = v25;
         if (v24)
         {
-          patientID = v45;
+          patientID = v44;
           if (error)
           {
             v32 = v24;
@@ -220,10 +220,10 @@ LABEL_55:
         {
           v19 = 0;
           v17 = 0;
-          patientID = v45;
+          patientID = v44;
         }
 
-        v27 = v42;
+        v27 = v41;
         goto LABEL_53;
       }
 
@@ -243,7 +243,7 @@ LABEL_55:
           v38 = objc_opt_class();
           v39 = NSStringFromClass(v38);
           *buf = 138543362;
-          v51 = v39;
+          v50 = v39;
           _os_log_impl(&dword_2519FE000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ No refresh_token returned and no refreshToken found in previousCredential", buf, 0xCu);
         }
 
@@ -251,11 +251,11 @@ LABEL_55:
       }
     }
 
-    v46 = v25;
-    scopeString = [dictionaryCopy hk_safeStringForKeyPath:@"scope" error:&v46];
-    v17 = v46;
+    v45 = v25;
+    scopeString = [dictionaryCopy hk_safeStringForKeyPath:@"scope" error:&v45];
+    v17 = v45;
 
-    patientID = v45;
+    patientID = v44;
     if (scopeString)
     {
       goto LABEL_19;
@@ -267,12 +267,12 @@ LABEL_55:
     {
       scopeString = [credentialCopy scopeString];
 LABEL_19:
-      v27 = v42;
-      v19 = [[HDFHIRAuthResponse alloc] initWithAccessToken:v14 refreshToken:v24 patientID:v45 expiration:v42 scope:scopeString];
+      v27 = v41;
+      v19 = [[HDFHIRAuthResponse alloc] initWithAccessToken:v14 refreshToken:v24 patientID:v44 expiration:v41 scope:scopeString];
 LABEL_52:
 
 LABEL_53:
-      v15 = v43;
+      v15 = v42;
 LABEL_54:
 
       goto LABEL_55;
@@ -287,7 +287,7 @@ LABEL_54:
         v19 = 0;
         *error = scopeString;
 LABEL_51:
-        v27 = v42;
+        v27 = v41;
         goto LABEL_52;
       }
 
@@ -302,7 +302,6 @@ LABEL_51:
 LABEL_56:
 
 LABEL_57:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -340,19 +339,8 @@ LABEL_57:
 
       if (v6 != v8)
       {
-        if (!self->_scope)
+        if (!self->_scope || (+[HKOAuth2ScopeSet scopesFromScopeString:](HKOAuth2ScopeSet, "scopesFromScopeString:"), v9 = objc_claimAutoreleasedReturnValue(), -[HDFHIRAuthResponse scope](responseCopy, "scope"), v10 = objc_claimAutoreleasedReturnValue(), +[HKOAuth2ScopeSet scopesFromScopeString:](HKOAuth2ScopeSet, "scopesFromScopeString:", v10), v11 = objc_claimAutoreleasedReturnValue(), v10, LODWORD(v10) = [v9 isEqualToSet:v11], v11, v9, v10))
         {
-          goto LABEL_6;
-        }
-
-        v9 = [HKOAuth2ScopeSet scopesFromScopeString:?];
-        scope2 = [(HDFHIRAuthResponse *)responseCopy scope];
-        v11 = [HKOAuth2ScopeSet scopesFromScopeString:scope2];
-
-        LODWORD(scope2) = [v9 isEqualToSet:v11];
-        if (scope2)
-        {
-LABEL_6:
           accessToken = self->_accessToken;
           accessToken = [(HDFHIRAuthResponse *)responseCopy accessToken];
           if (accessToken != accessToken)

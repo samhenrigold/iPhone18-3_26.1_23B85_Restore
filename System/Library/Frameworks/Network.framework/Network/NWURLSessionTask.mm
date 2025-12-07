@@ -13,6 +13,7 @@
 - (NWURLError)errorForErrorCode:(id *)code;
 - (OS_nw_context)networkContext;
 - (OS_nw_protocol_metadata)clientMetadata;
+- (id)createTimerWithTimeout:(double)timeout retryable:;
 - (id)initWithRequest:(int)request identifier:(void *)identifier session:;
 - (id)initWithResumeInfo:(int)info identifier:(void *)identifier session:;
 - (id)loaderNeedsEarlyData:(BOOL *)data;
@@ -20,7 +21,6 @@
 - (int64_t)_countOfBytesReceivedEncoded;
 - (int64_t)backgroundSchedulingPriority;
 - (int64_t)state;
-- (uint64_t)createTimerWithTimeout:(double)timeout retryable:;
 - (unint64_t)_expectedProgressTarget;
 - (unint64_t)taskIdentifier;
 - (void)_adoptEffectiveConfiguration:(id)configuration;
@@ -94,8 +94,8 @@
   v5 = gurlLogObj;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     if (self)
     {
       v6 = self->_configuration;
@@ -224,7 +224,7 @@
           *(v4 + 40) = -1;
           if (*(v4 + 48) == 1 && *(v4 + 49) == 1)
           {
-            nw_queue_source_run_timer(v4, v5);
+            nw_queue_source_run_timer(v4);
           }
         }
       }
@@ -984,7 +984,7 @@ void __33__NWURLSessionTask_startNextLoad__block_invoke_2(uint64_t a1)
       v17 = "[NWURLSessionTask performNextServerTrustChallenge]";
       v18 = 2112;
       selfCopy5 = self;
-      v3 = _os_log_send_and_compose_impl();
+      v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s Already performing server trust challenge %@", buf, 22);
 
       type = OS_LOG_TYPE_ERROR;
       v14 = 0;
@@ -1176,8 +1176,8 @@ uint64_t __43__NWURLSessionTask_finishProgressReporting__block_invoke(uint64_t a
   v4 = gurlLogObj;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
     v8 = 16;
     v9 = 2098;
@@ -1199,8 +1199,8 @@ uint64_t __43__NWURLSessionTask_finishProgressReporting__block_invoke(uint64_t a
   v3 = gurlLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
     v8 = 16;
     v9 = 2098;
@@ -1282,8 +1282,8 @@ LABEL_18:
   v7 = gurlLogObj;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
     v16 = 16;
     v17 = 2098;
@@ -1416,9 +1416,9 @@ void __52__NWURLSessionTask_setBackgroundSchedulingPriority___block_invoke(uint6
       if (!v7)
       {
         [(NWURLSessionTask *)*(a1 + 32) pauseTaskForRetry];
-        v9 = *(a1 + 32);
+        v8 = *(a1 + 32);
 
-        [(NWURLSessionTask *)v9 resumeTaskAndRetry];
+        [(NWURLSessionTask *)v8 resumeTaskAndRetry];
       }
     }
   }
@@ -1431,29 +1431,29 @@ void __52__NWURLSessionTask_setBackgroundSchedulingPriority___block_invoke(uint6
     return;
   }
 
-  v2 = self[53];
-  if (v2)
+  v1 = self[53];
+  if (v1)
   {
-    if (*(v2 + 48) > 0.0)
+    if (*(v1 + 48) > 0.0)
     {
-      v3 = self[43];
-      if (v3)
+      v2 = self[43];
+      if (v2)
       {
-        if (*v3)
+        if (*v2)
         {
           selfCopy2 = self;
-          dispatch_source_set_timer(*v3, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+          dispatch_source_set_timer(*v2, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
 LABEL_7:
           self = selfCopy2;
           goto LABEL_11;
         }
 
-        *(v3 + 32) = -1;
-        *(v3 + 40) = -1;
-        if (*(v3 + 48) == 1 && *(v3 + 49) == 1)
+        *(v2 + 32) = -1;
+        *(v2 + 40) = -1;
+        if (*(v2 + 48) == 1 && *(v2 + 49) == 1)
         {
           selfCopy2 = self;
-          nw_queue_source_run_timer(v3, a2);
+          nw_queue_source_run_timer(v2);
           goto LABEL_7;
         }
       }
@@ -1461,11 +1461,11 @@ LABEL_7:
   }
 
 LABEL_11:
-  v5 = self[33];
+  v4 = self[33];
   self[33] = 0;
-  v6 = v5;
+  v5 = v4;
 
-  [v6 stop];
+  [v5 stop];
 }
 
 - (void)resumeTaskAndRetry
@@ -1509,11 +1509,11 @@ void __39__NWURLSessionTask_restartRequestTimer__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = *(a1 + 32);
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v7;
 LABEL_9:
         v6 = *(a1 + 40);
@@ -1544,7 +1544,7 @@ LABEL_9:
 LABEL_10:
 }
 
-- (uint64_t)createTimerWithTimeout:(double)timeout retryable:
+- (id)createTimerWithTimeout:(double)timeout retryable:
 {
   if (timeout > 31536000.0)
   {
@@ -1552,16 +1552,16 @@ LABEL_10:
   }
 
   v5 = *(self + 320);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__NWURLSessionTask_createTimerWithTimeout_retryable___block_invoke;
-  v9[3] = &unk_1E6A3A258;
-  v9[4] = self;
-  v10 = a2;
-  source = nw_queue_context_create_source(v5, 2, 3, 0, v9, 0);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__NWURLSessionTask_createTimerWithTimeout_retryable___block_invoke;
+  v8[3] = &unk_1E6A3A258;
+  v8[4] = self;
+  v9 = a2;
+  source = nw_queue_context_create_source(v5, 2, 3, 0, v8, 0);
   v7 = dispatch_time(0x8000000000000000, (timeout * 1000000000.0));
   nw_queue_set_timer_values(source, v7, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-  nw_queue_activate_source(source, v8);
+  nw_queue_activate_source(source);
   return source;
 }
 
@@ -1617,13 +1617,13 @@ void __53__NWURLSessionTask_createTimerWithTimeout_retryable___block_invoke(uint
   dispatch_async(queue, v7);
 }
 
-uint64_t __42__NWURLSessionTask_stopAndRetryWithError___block_invoke(uint64_t a1)
+void *__42__NWURLSessionTask_stopAndRetryWithError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) automaticRetry];
   if (result)
   {
     result = *(a1 + 32);
-    if (!result || (*(result + 21) & 1) == 0 && *(result + 296) != 2)
+    if (!result || (*(result + 21) & 1) == 0 && *(result + 37) != 2)
     {
       v3 = *(a1 + 40);
 
@@ -2170,11 +2170,11 @@ void __100__NWURLSessionTask_loaderDidSendBodyData_totalBytesSent_totalBytesExpe
     v3 = a1[4];
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = a1[4];
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v8;
 LABEL_9:
         v6 = a1[5];
@@ -2261,7 +2261,7 @@ void __100__NWURLSessionTask_loaderDidSendBodyData_totalBytesSent_totalBytesExpe
 
 - (void)loaderDidReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (__nwlog_url_log::onceToken != -1)
@@ -2272,22 +2272,22 @@ void __100__NWURLSessionTask_loaderDidSendBodyData_totalBytesSent_totalBytesExpe
   v8 = gurlLogObj;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
-    v9 = v30;
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
+    v9 = v29;
     protectionSpace = [challengeCopy protectionSpace];
     authenticationMethod = [protectionSpace authenticationMethod];
     proposedCredential = [challengeCopy proposedCredential];
     *buf = 68289794;
-    v33 = 16;
-    v34 = 2098;
-    v35 = &v31;
-    v36 = 1024;
-    v37 = v9;
-    v38 = 2114;
-    v39 = authenticationMethod;
-    v40 = 1024;
-    v41 = proposedCredential != 0;
+    v32 = 16;
+    v33 = 2098;
+    v34 = &v30;
+    v35 = 1024;
+    v36 = v9;
+    v37 = 2114;
+    v38 = authenticationMethod;
+    v39 = 1024;
+    v40 = proposedCredential != 0;
     _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> received auth challenge {method=%{public}@, proposed=%{BOOL}d}", buf, 0x28u);
   }
 
@@ -2309,7 +2309,7 @@ void __100__NWURLSessionTask_loaderDidSendBodyData_totalBytesSent_totalBytesExpe
 
   user = [protectionSpace2 user];
   password = [protectionSpace2 password];
-  v21 = password;
+  v20 = password;
   if (!user || !password)
   {
 
@@ -2336,34 +2336,34 @@ LABEL_8:
               requestTimeoutTimer[5] = -1;
               if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
               {
-                nw_queue_source_run_timer(requestTimeoutTimer, v14);
+                nw_queue_source_run_timer(requestTimeoutTimer);
               }
             }
           }
         }
       }
 
-      v24 = 248;
+      v23 = 248;
       if (!self->_internalDelegateWrapper)
       {
-        v24 = 240;
+        v23 = 240;
       }
 
-      v25 = *(&self->super.isa + v24);
+      v24 = *(&self->super.isa + v23);
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __64__NWURLSessionTask_loaderDidReceiveChallenge_completionHandler___block_invoke;
-    v26[3] = &unk_1E6A33E48;
-    v26[4] = self;
-    v27 = handlerCopy;
-    [(NWURLSessionDelegateWrapper *)v25 task:challengeCopy didReceiveChallenge:v26 completionHandler:?];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __64__NWURLSessionTask_loaderDidReceiveChallenge_completionHandler___block_invoke;
+    v25[3] = &unk_1E6A33E48;
+    v25[4] = self;
+    v26 = handlerCopy;
+    [(NWURLSessionDelegateWrapper *)v24 task:challengeCopy didReceiveChallenge:v25 completionHandler:?];
 
     goto LABEL_28;
   }
@@ -2373,22 +2373,22 @@ LABEL_8:
     dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
   }
 
-  v22 = gurlLogObj;
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v21 = gurlLogObj;
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
-    v33 = 16;
-    v34 = 2098;
-    v35 = &v29;
-    v36 = 1024;
-    v37 = v28;
-    _os_log_impl(&dword_181A37000, v22, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> responding to auth challenge using URL credential", buf, 0x18u);
+    v32 = 16;
+    v33 = 2098;
+    v34 = &v28;
+    v35 = 1024;
+    v36 = v27;
+    _os_log_impl(&dword_181A37000, v21, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> responding to auth challenge using URL credential", buf, 0x18u);
   }
 
-  v23 = [MEMORY[0x1E695AC48] credentialWithUser:user password:v21 persistence:1];
-  (*(handlerCopy + 2))(handlerCopy, 0, v23);
+  v22 = [MEMORY[0x1E695AC48] credentialWithUser:user password:v20 persistence:1];
+  (*(handlerCopy + 2))(handlerCopy, 0, v22);
 
 LABEL_28:
 }
@@ -2408,11 +2408,11 @@ void __64__NWURLSessionTask_loaderDidReceiveChallenge_completionHandler___block_
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 logDescription];
+      objc_msgSend_logDescription(v7);
       v8 = *(a1 + 32);
       if (v8)
       {
-        [v8 logDescription];
+        objc_msgSend_logDescription(v8);
         v9 = v13;
 LABEL_9:
         *buf = 68289794;
@@ -2449,7 +2449,7 @@ LABEL_10:
 
 - (void)loaderDidReceiveClientCertificateChallenge:(id)challenge completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   challengeCopy = challenge;
   if (__nwlog_url_log::onceToken != -1)
@@ -2460,14 +2460,14 @@ LABEL_10:
   v8 = gurlLogObj;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
-    v31 = 16;
-    v32 = 2098;
-    v33 = &v29;
-    v34 = 1024;
-    v35 = v28;
+    v30 = 16;
+    v31 = 2098;
+    v32 = &v28;
+    v33 = 1024;
+    v34 = v27;
     _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> received client cert challenge", buf, 0x18u);
   }
 
@@ -2495,7 +2495,7 @@ LABEL_10:
   v18 = [v15 initWithHost:host port:integerValue protocol:*MEMORY[0x1E695ABA0] realm:0 authenticationMethod:*MEMORY[0x1E695AB40]];
   [v18 _setDistinguishedNames:challengeCopy];
 
-  v20 = [objc_alloc(MEMORY[0x1E695AC30]) initWithProtectionSpace:v18 proposedCredential:0 previousFailureCount:0 failureResponse:0 error:0 sender:0];
+  v19 = [objc_alloc(MEMORY[0x1E695AC30]) initWithProtectionSpace:v18 proposedCredential:0 previousFailureCount:0 failureResponse:0 error:0 sender:0];
   if (self)
   {
     configuration = self->_configuration;
@@ -2517,35 +2517,35 @@ LABEL_10:
             requestTimeoutTimer[5] = -1;
             if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
             {
-              nw_queue_source_run_timer(requestTimeoutTimer, v19);
+              nw_queue_source_run_timer(requestTimeoutTimer);
             }
           }
         }
       }
     }
 
-    v23 = 248;
+    v22 = 248;
     if (!self->_internalDelegateWrapper)
     {
-      v23 = 240;
+      v22 = 240;
     }
 
-    v24 = *(&self->super.isa + v23);
+    v23 = *(&self->super.isa + v22);
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __81__NWURLSessionTask_loaderDidReceiveClientCertificateChallenge_completionHandler___block_invoke;
-  v26[3] = &unk_1E6A33E48;
-  v26[4] = self;
-  v27 = handlerCopy;
-  v25 = handlerCopy;
-  [(NWURLSessionDelegateWrapper *)v24 task:v20 didReceiveChallenge:v26 completionHandler:?];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __81__NWURLSessionTask_loaderDidReceiveClientCertificateChallenge_completionHandler___block_invoke;
+  v25[3] = &unk_1E6A33E48;
+  v25[4] = self;
+  v26 = handlerCopy;
+  v24 = handlerCopy;
+  [(NWURLSessionDelegateWrapper *)v23 task:v19 didReceiveChallenge:v25 completionHandler:?];
 }
 
 void __81__NWURLSessionTask_loaderDidReceiveClientCertificateChallenge_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2563,11 +2563,11 @@ void __81__NWURLSessionTask_loaderDidReceiveClientCertificateChallenge_completio
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 logDescription];
+      objc_msgSend_logDescription(v7);
       v8 = *(a1 + 32);
       if (v8)
       {
-        [v8 logDescription];
+        objc_msgSend_logDescription(v8);
         v9 = v22;
         if (!a2)
         {
@@ -2682,7 +2682,7 @@ LABEL_29:
 
 - (void)loaderDidReceiveServerTrustChallenge:(id)challenge secProtocolMetadata:(id)metadata completionHandler:(id)handler
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   challengeCopy = challenge;
   metadataCopy = metadata;
   handlerCopy = handler;
@@ -2693,18 +2693,18 @@ LABEL_29:
 
   if (self && (configuration = self->_configuration) != 0 && (v16 = configuration->_atsState) != 0)
   {
-    v75 = v16;
-    v77 = [MEMORY[0x1E696AE40] propertyListWithData:v16 options:0 format:0 error:0];
+    v74 = v16;
+    v76 = [MEMORY[0x1E696AE40] propertyListWithData:v16 options:0 format:0 error:0];
   }
 
   else
   {
-    v75 = 0;
-    v77 = 0;
+    v74 = 0;
+    v76 = 0;
   }
 
   policies = 0;
-  v76 = v11;
+  v75 = v11;
   v17 = SecTrustCopyPolicies(v11, &policies);
   if (v17)
   {
@@ -2716,16 +2716,14 @@ LABEL_29:
 
     v19 = gurlLogObj;
     *buf = 136446466;
-    v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-    v90 = 1024;
-    *v91 = v18;
-    LODWORD(v73) = 18;
-    v72 = buf;
-    v20 = _os_log_send_and_compose_impl();
+    v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+    v89 = 1024;
+    *v90 = v18;
+    v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s SecTrustCopyPolicies failed %d", buf, 18);
 
-    v86 = OS_LOG_TYPE_ERROR;
-    v85 = 0;
-    if (!__nwlog_fault(v20, &v86, &v85))
+    v85 = OS_LOG_TYPE_ERROR;
+    v84 = 0;
+    if (!__nwlog_fault(v20, &v85, &v84))
     {
 LABEL_48:
       if (!v20)
@@ -2736,7 +2734,7 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    if (v86 == OS_LOG_TYPE_FAULT)
+    if (v85 == OS_LOG_TYPE_FAULT)
     {
       if (__nwlog_url_log::onceToken != -1)
       {
@@ -2744,16 +2742,16 @@ LABEL_48:
       }
 
       v21 = gurlLogObj;
-      v22 = v86;
-      if (!os_log_type_enabled(v21, v86))
+      v22 = v85;
+      if (!os_log_type_enabled(v21, v85))
       {
         goto LABEL_47;
       }
 
       *buf = 136446466;
-      v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-      v90 = 1024;
-      *v91 = v18;
+      v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+      v89 = 1024;
+      *v90 = v18;
       v23 = "%{public}s SecTrustCopyPolicies failed %d";
 LABEL_46:
       _os_log_impl(&dword_181A37000, v21, v22, v23, buf, 0x12u);
@@ -2762,7 +2760,7 @@ LABEL_47:
       goto LABEL_48;
     }
 
-    if (v85 != 1)
+    if (v84 != 1)
     {
       if (__nwlog_url_log::onceToken != -1)
       {
@@ -2770,16 +2768,16 @@ LABEL_47:
       }
 
       v21 = gurlLogObj;
-      v22 = v86;
-      if (!os_log_type_enabled(v21, v86))
+      v22 = v85;
+      if (!os_log_type_enabled(v21, v85))
       {
         goto LABEL_47;
       }
 
       *buf = 136446466;
-      v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-      v90 = 1024;
-      *v91 = v18;
+      v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+      v89 = 1024;
+      *v90 = v18;
       v23 = "%{public}s SecTrustCopyPolicies failed %d, backtrace limit exceeded";
       goto LABEL_46;
     }
@@ -2791,18 +2789,18 @@ LABEL_47:
     }
 
     v31 = gurlLogObj;
-    v32 = v86;
-    v33 = os_log_type_enabled(v31, v86);
+    v32 = v85;
+    v33 = os_log_type_enabled(v31, v85);
     if (backtrace_string)
     {
       if (v33)
       {
         *buf = 136446722;
-        v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-        v90 = 1024;
-        *v91 = v18;
-        *&v91[4] = 2082;
-        *&v91[6] = backtrace_string;
+        v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+        v89 = 1024;
+        *v90 = v18;
+        *&v90[4] = 2082;
+        *&v90[6] = backtrace_string;
         _os_log_impl(&dword_181A37000, v31, v32, "%{public}s SecTrustCopyPolicies failed %d, dumping backtrace:%{public}s", buf, 0x1Cu);
       }
 
@@ -2818,23 +2816,23 @@ LABEL_47:
       if (v33)
       {
         *buf = 136446466;
-        v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-        v90 = 1024;
-        *v91 = v18;
+        v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+        v89 = 1024;
+        *v90 = v18;
         _os_log_impl(&dword_181A37000, v31, v32, "%{public}s SecTrustCopyPolicies failed %d, no backtrace", buf, 0x12u);
       }
 
       if (!v20)
       {
 LABEL_50:
-        v41 = v76;
+        v41 = v75;
         if (self)
         {
           goto LABEL_51;
         }
 
 LABEL_131:
-        [0 setSecTrust:{v41, v72, v73}];
+        [0 setSecTrust:v41];
         _tlsTrustPinningPolicyName = 0;
         goto LABEL_132;
       }
@@ -2856,16 +2854,14 @@ LABEL_49:
     v34 = gurlLogObj;
     v35 = [(__CFArray *)v24 count];
     *buf = 136446466;
-    v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-    v90 = 2048;
-    *v91 = v35;
-    LODWORD(v73) = 22;
-    v72 = buf;
-    v36 = _os_log_send_and_compose_impl();
+    v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+    v89 = 2048;
+    *v90 = v35;
+    v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s SecTrust has an unexpected number of policies %lu", buf, 22);
 
-    v86 = OS_LOG_TYPE_ERROR;
-    v85 = 0;
-    if (!__nwlog_fault(v36, &v86, &v85))
+    v85 = OS_LOG_TYPE_ERROR;
+    v84 = 0;
+    if (!__nwlog_fault(v36, &v85, &v84))
     {
 LABEL_77:
       if (!v36)
@@ -2876,7 +2872,7 @@ LABEL_77:
       goto LABEL_129;
     }
 
-    if (v86 == OS_LOG_TYPE_FAULT)
+    if (v85 == OS_LOG_TYPE_FAULT)
     {
       if (__nwlog_url_log::onceToken != -1)
       {
@@ -2884,23 +2880,23 @@ LABEL_77:
       }
 
       v37 = gurlLogObj;
-      v38 = v86;
-      if (!os_log_type_enabled(v37, v86))
+      v38 = v85;
+      if (!os_log_type_enabled(v37, v85))
       {
         goto LABEL_76;
       }
 
-      v39 = [(__CFArray *)v24 count:buf];
+      v39 = [(__CFArray *)v24 count];
       *buf = 136446466;
-      v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-      v90 = 2048;
-      *v91 = v39;
+      v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+      v89 = 2048;
+      *v90 = v39;
       v40 = "%{public}s SecTrust has an unexpected number of policies %lu";
     }
 
     else
     {
-      if (v85 == 1)
+      if (v84 == 1)
       {
         v48 = __nw_create_backtrace_string();
         if (__nwlog_url_log::onceToken != -1)
@@ -2909,19 +2905,19 @@ LABEL_77:
         }
 
         v49 = gurlLogObj;
-        v50 = v86;
-        v51 = os_log_type_enabled(v49, v86);
+        v50 = v85;
+        v51 = os_log_type_enabled(v49, v85);
         if (v48)
         {
           if (v51)
           {
-            v52 = [(__CFArray *)v24 count:buf];
+            v52 = [(__CFArray *)v24 count];
             *buf = 136446722;
-            v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-            v90 = 2048;
-            *v91 = v52;
-            *&v91[8] = 2082;
-            *&v91[10] = v48;
+            v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+            v89 = 2048;
+            *v90 = v52;
+            *&v90[8] = 2082;
+            *&v90[10] = v48;
             _os_log_impl(&dword_181A37000, v49, v50, "%{public}s SecTrust has an unexpected number of policies %lu, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -2936,11 +2932,11 @@ LABEL_77:
         {
           if (v51)
           {
-            v58 = [(__CFArray *)v24 count:buf];
+            v58 = [(__CFArray *)v24 count];
             *buf = 136446466;
-            v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-            v90 = 2048;
-            *v91 = v58;
+            v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+            v89 = 2048;
+            *v90 = v58;
             _os_log_impl(&dword_181A37000, v49, v50, "%{public}s SecTrust has an unexpected number of policies %lu, no backtrace", buf, 0x16u);
           }
 
@@ -2961,17 +2957,17 @@ LABEL_129:
       }
 
       v37 = gurlLogObj;
-      v38 = v86;
-      if (!os_log_type_enabled(v37, v86))
+      v38 = v85;
+      if (!os_log_type_enabled(v37, v85))
       {
         goto LABEL_76;
       }
 
-      v53 = [(__CFArray *)v24 count:buf];
+      v53 = [(__CFArray *)v24 count];
       *buf = 136446466;
-      v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-      v90 = 2048;
-      *v91 = v53;
+      v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+      v89 = 2048;
+      *v90 = v53;
       v40 = "%{public}s SecTrust has an unexpected number of policies %lu, backtrace limit exceeded";
     }
 
@@ -2995,19 +2991,17 @@ LABEL_76:
 
   v25 = gurlLogObj;
   *buf = 136446210;
-  v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-  LODWORD(v73) = 12;
-  v72 = buf;
-  v26 = _os_log_send_and_compose_impl();
+  v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s SecPolicySetSSLHostname failed", buf, 12);
 
-  v86 = OS_LOG_TYPE_ERROR;
-  v85 = 0;
-  if (!__nwlog_fault(v26, &v86, &v85))
+  v85 = OS_LOG_TYPE_ERROR;
+  v84 = 0;
+  if (!__nwlog_fault(v26, &v85, &v84))
   {
     goto LABEL_97;
   }
 
-  if (v86 == OS_LOG_TYPE_FAULT)
+  if (v85 == OS_LOG_TYPE_FAULT)
   {
     if (__nwlog_url_log::onceToken != -1)
     {
@@ -3015,22 +3009,22 @@ LABEL_76:
     }
 
     v27 = gurlLogObj;
-    v28 = v86;
-    if (!os_log_type_enabled(v27, v86))
+    v28 = v85;
+    if (!os_log_type_enabled(v27, v85))
     {
       goto LABEL_96;
     }
 
     *buf = 136446210;
-    v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+    v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
     v29 = "%{public}s SecPolicySetSSLHostname failed";
   }
 
   else
   {
-    if (v85 == 1)
+    if (v84 == 1)
     {
-      v74 = v26;
+      v73 = v26;
       v54 = __nw_create_backtrace_string();
       if (__nwlog_url_log::onceToken != -1)
       {
@@ -3038,22 +3032,22 @@ LABEL_76:
       }
 
       v55 = gurlLogObj;
-      v56 = v86;
-      v57 = os_log_type_enabled(v55, v86);
+      v56 = v85;
+      v57 = os_log_type_enabled(v55, v85);
       if (v54)
       {
         if (v57)
         {
           *buf = 136446466;
-          v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-          v90 = 2082;
-          *v91 = v54;
+          v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+          v89 = 2082;
+          *v90 = v54;
           _os_log_impl(&dword_181A37000, v55, v56, "%{public}s SecPolicySetSSLHostname failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(v54);
-        v26 = v74;
-        if (v74)
+        v26 = v73;
+        if (v73)
         {
           goto LABEL_98;
         }
@@ -3064,12 +3058,12 @@ LABEL_76:
         if (v57)
         {
           *buf = 136446210;
-          v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+          v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
           _os_log_impl(&dword_181A37000, v55, v56, "%{public}s SecPolicySetSSLHostname failed, no backtrace", buf, 0xCu);
         }
 
-        v26 = v74;
-        if (v74)
+        v26 = v73;
+        if (v73)
         {
           goto LABEL_98;
         }
@@ -3084,14 +3078,14 @@ LABEL_76:
     }
 
     v27 = gurlLogObj;
-    v28 = v86;
-    if (!os_log_type_enabled(v27, v86))
+    v28 = v85;
+    if (!os_log_type_enabled(v27, v85))
     {
       goto LABEL_96;
     }
 
     *buf = 136446210;
-    v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+    v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
     v29 = "%{public}s SecPolicySetSSLHostname failed, backtrace limit exceeded";
   }
 
@@ -3106,7 +3100,7 @@ LABEL_98:
   }
 
 LABEL_99:
-  if (v77 && (SecPolicySetATSPinning() & 1) == 0)
+  if (v76 && (SecPolicySetATSPinning() & 1) == 0)
   {
     if (__nwlog_url_log::onceToken != -1)
     {
@@ -3115,16 +3109,15 @@ LABEL_99:
 
     v59 = gurlLogObj;
     *buf = 136446210;
-    v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-    LODWORD(v73) = 12;
-    v72 = buf;
-    v36 = _os_log_send_and_compose_impl();
+    v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+    LODWORD(v72) = 12;
+    v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v59, 16, "%{public}s SecPolicySetATSPinning failed", buf, v72);
 
-    v86 = OS_LOG_TYPE_ERROR;
-    v85 = 0;
-    if (__nwlog_fault(v36, &v86, &v85))
+    v85 = OS_LOG_TYPE_ERROR;
+    v84 = 0;
+    if (__nwlog_fault(v36, &v85, &v84))
     {
-      if (v86 == OS_LOG_TYPE_FAULT)
+      if (v85 == OS_LOG_TYPE_FAULT)
       {
         if (__nwlog_url_log::onceToken != -1)
         {
@@ -3132,19 +3125,19 @@ LABEL_99:
         }
 
         v60 = gurlLogObj;
-        v61 = v86;
-        if (!os_log_type_enabled(v60, v86))
+        v61 = v85;
+        if (!os_log_type_enabled(v60, v85))
         {
           goto LABEL_127;
         }
 
         *buf = 136446210;
-        v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+        v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
         v62 = "%{public}s SecPolicySetATSPinning failed";
         goto LABEL_126;
       }
 
-      if (v85 == 1)
+      if (v84 == 1)
       {
         v63 = __nw_create_backtrace_string();
         if (__nwlog_url_log::onceToken != -1)
@@ -3153,16 +3146,16 @@ LABEL_99:
         }
 
         v60 = gurlLogObj;
-        v61 = v86;
-        v64 = os_log_type_enabled(v60, v86);
+        v61 = v85;
+        v64 = os_log_type_enabled(v60, v85);
         if (v63)
         {
           if (v64)
           {
             *buf = 136446466;
-            v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
-            v90 = 2082;
-            *v91 = v63;
+            v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+            v89 = 2082;
+            *v90 = v63;
             _os_log_impl(&dword_181A37000, v60, v61, "%{public}s SecPolicySetATSPinning failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
@@ -3178,7 +3171,7 @@ LABEL_127:
         }
 
         *buf = 136446210;
-        v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+        v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
         v62 = "%{public}s SecPolicySetATSPinning failed, no backtrace";
       }
 
@@ -3190,14 +3183,14 @@ LABEL_127:
         }
 
         v60 = gurlLogObj;
-        v61 = v86;
-        if (!os_log_type_enabled(v60, v86))
+        v61 = v85;
+        if (!os_log_type_enabled(v60, v85))
         {
           goto LABEL_127;
         }
 
         *buf = 136446210;
-        v89 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
+        v88 = "[NWURLSessionTask loaderDidReceiveServerTrustChallenge:secProtocolMetadata:completionHandler:]";
         v62 = "%{public}s SecPolicySetATSPinning failed, backtrace limit exceeded";
       }
 
@@ -3217,7 +3210,7 @@ LABEL_128:
 
 LABEL_130:
 
-  v41 = v76;
+  v41 = v75;
   if (!self)
   {
     goto LABEL_131;
@@ -3239,7 +3232,7 @@ LABEL_51:
     _tlsTrustPinningPolicyName = 0;
   }
 
-  [(NWURLSessionTask *)self setSecTrust:v41, v72, v73];
+  [(NWURLSessionTask *)self setSecTrust:v41];
   v44 = self->_configuration;
   if (v44 && [(NSURLSessionConfiguration *)v44->_configuration _alwaysPerformDefaultTrustEvaluation])
   {
@@ -3249,13 +3242,13 @@ LABEL_51:
     result[2] = __95__NWURLSessionTask_loaderDidReceiveServerTrustChallenge_secProtocolMetadata_completionHandler___block_invoke;
     result[3] = &unk_1E6A33DD0;
     v46 = handlerCopy;
-    v84 = v46;
+    v83 = v46;
     if (SecTrustEvaluateAsyncWithError(v41, queue, result))
     {
       v46[2](v46, 0);
     }
 
-    v47 = v84;
+    v47 = v83;
     goto LABEL_139;
   }
 
@@ -3265,10 +3258,10 @@ LABEL_132:
   aBlock[2] = __95__NWURLSessionTask_loaderDidReceiveServerTrustChallenge_secProtocolMetadata_completionHandler___block_invoke_2;
   aBlock[3] = &unk_1E6A356D0;
   aBlock[4] = self;
-  v82 = handlerCopy;
-  v79 = metadataCopy;
-  v80 = challengeCopy;
-  v81 = host;
+  v81 = handlerCopy;
+  v78 = metadataCopy;
+  v79 = challengeCopy;
+  v80 = host;
   v65 = _Block_copy(aBlock);
   v66 = v65;
   if (self && self->_performingServerTrustCallback)
@@ -3293,7 +3286,7 @@ LABEL_132:
     (*(v65 + 2))(v65);
   }
 
-  v47 = v82;
+  v47 = v81;
 LABEL_139:
 
   CFRelease(v41);
@@ -3301,7 +3294,7 @@ LABEL_139:
 
 void __95__NWURLSessionTask_loaderDidReceiveServerTrustChallenge_secProtocolMetadata_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!v2)
   {
@@ -3372,9 +3365,9 @@ LABEL_74:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __nw_http_client_metadata_set_sec_metadata_block_invoke;
-      v58 = &unk_1E6A3A950;
-      v59 = v18;
-      handle = _nw_protocol_metadata_get_handle(v17);
+      v55 = &unk_1E6A3A950;
+      v56 = v18;
+      handle = _nw_protocol_metadata_get_handle();
       if (handle)
       {
         (*&buf[16])(buf, handle);
@@ -3383,51 +3376,49 @@ LABEL_74:
       goto LABEL_22;
     }
 
-    v47 = __nwlog_obj();
+    v46 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-    LODWORD(v53) = 12;
-    v52 = buf;
-    v43 = _os_log_send_and_compose_impl();
+    v42 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s metadata must be http_client", buf, 12);
 
-    v66[0] = OS_LOG_TYPE_ERROR;
-    v64[0] = 0;
-    if (__nwlog_fault(v43, v66, v64))
+    v63[0] = OS_LOG_TYPE_ERROR;
+    v61[0] = 0;
+    if (__nwlog_fault(v42, v63, v61))
     {
-      if (v66[0] == OS_LOG_TYPE_FAULT)
+      if (v63[0] == OS_LOG_TYPE_FAULT)
       {
-        v44 = __nwlog_obj();
-        v45 = v66[0];
-        if (os_log_type_enabled(v44, v66[0]))
+        v43 = __nwlog_obj();
+        v44 = v63[0];
+        if (os_log_type_enabled(v43, v63[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-          v46 = "%{public}s metadata must be http_client";
+          v45 = "%{public}s metadata must be http_client";
           goto LABEL_70;
         }
       }
 
       else
       {
-        if (v64[0] == 1)
+        if (v61[0] == 1)
         {
           backtrace_string = __nw_create_backtrace_string();
-          v44 = __nwlog_obj();
-          v45 = v66[0];
-          v51 = os_log_type_enabled(v44, v66[0]);
+          v43 = __nwlog_obj();
+          v44 = v63[0];
+          v50 = os_log_type_enabled(v43, v63[0]);
           if (backtrace_string)
           {
-            if (v51)
+            if (v50)
             {
               *buf = 136446466;
               *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
               *&buf[12] = 2082;
               *&buf[14] = backtrace_string;
-              _os_log_impl(&dword_181A37000, v44, v45, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", buf, 0x16u);
+              _os_log_impl(&dword_181A37000, v43, v44, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", buf, 0x16u);
             }
 
             free(backtrace_string);
-            if (!v43)
+            if (!v42)
             {
               goto LABEL_22;
             }
@@ -3435,24 +3426,24 @@ LABEL_74:
             goto LABEL_73;
           }
 
-          if (!v51)
+          if (!v50)
           {
             goto LABEL_71;
           }
 
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-          v46 = "%{public}s metadata must be http_client, no backtrace";
+          v45 = "%{public}s metadata must be http_client, no backtrace";
           goto LABEL_70;
         }
 
-        v44 = __nwlog_obj();
-        v45 = v66[0];
-        if (os_log_type_enabled(v44, v66[0]))
+        v43 = __nwlog_obj();
+        v44 = v63[0];
+        if (os_log_type_enabled(v43, v63[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-          v46 = "%{public}s metadata must be http_client, backtrace limit exceeded";
+          v45 = "%{public}s metadata must be http_client, backtrace limit exceeded";
           goto LABEL_70;
         }
       }
@@ -3463,31 +3454,29 @@ LABEL_74:
 
   else
   {
-    v42 = __nwlog_obj();
+    v41 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-    LODWORD(v53) = 12;
-    v52 = buf;
-    v43 = _os_log_send_and_compose_impl();
+    v42 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s called with null metadata", buf, 12);
 
-    v66[0] = OS_LOG_TYPE_ERROR;
-    v64[0] = 0;
-    if (!__nwlog_fault(v43, v66, v64))
+    v63[0] = OS_LOG_TYPE_ERROR;
+    v61[0] = 0;
+    if (!__nwlog_fault(v42, v63, v61))
     {
       goto LABEL_72;
     }
 
-    if (v66[0] == OS_LOG_TYPE_FAULT)
+    if (v63[0] == OS_LOG_TYPE_FAULT)
     {
-      v44 = __nwlog_obj();
-      v45 = v66[0];
-      if (os_log_type_enabled(v44, v66[0]))
+      v43 = __nwlog_obj();
+      v44 = v63[0];
+      if (os_log_type_enabled(v43, v63[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-        v46 = "%{public}s called with null metadata";
+        v45 = "%{public}s called with null metadata";
 LABEL_70:
-        _os_log_impl(&dword_181A37000, v44, v45, v46, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v43, v44, v45, buf, 0xCu);
       }
 
 LABEL_71:
@@ -3495,55 +3484,55 @@ LABEL_71:
       goto LABEL_72;
     }
 
-    if (v64[0] != 1)
+    if (v61[0] != 1)
     {
-      v44 = __nwlog_obj();
-      v45 = v66[0];
-      if (os_log_type_enabled(v44, v66[0]))
+      v43 = __nwlog_obj();
+      v44 = v63[0];
+      if (os_log_type_enabled(v43, v63[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-        v46 = "%{public}s called with null metadata, backtrace limit exceeded";
+        v45 = "%{public}s called with null metadata, backtrace limit exceeded";
         goto LABEL_70;
       }
 
       goto LABEL_71;
     }
 
-    v48 = __nw_create_backtrace_string();
-    v44 = __nwlog_obj();
-    v45 = v66[0];
-    v49 = os_log_type_enabled(v44, v66[0]);
-    if (!v48)
+    v47 = __nw_create_backtrace_string();
+    v43 = __nwlog_obj();
+    v44 = v63[0];
+    v48 = os_log_type_enabled(v43, v63[0]);
+    if (!v47)
     {
-      if (v49)
+      if (v48)
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
-        v46 = "%{public}s called with null metadata, no backtrace";
+        v45 = "%{public}s called with null metadata, no backtrace";
         goto LABEL_70;
       }
 
       goto LABEL_71;
     }
 
-    if (v49)
+    if (v48)
     {
       *buf = 136446466;
       *&buf[4] = "nw_http_client_metadata_set_sec_metadata";
       *&buf[12] = 2082;
-      *&buf[14] = v48;
-      _os_log_impl(&dword_181A37000, v44, v45, "%{public}s called with null metadata, dumping backtrace:%{public}s", buf, 0x16u);
+      *&buf[14] = v47;
+      _os_log_impl(&dword_181A37000, v43, v44, "%{public}s called with null metadata, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
-    free(v48);
+    free(v47);
   }
 
 LABEL_72:
-  if (v43)
+  if (v42)
   {
 LABEL_73:
-    free(v43);
+    free(v42);
   }
 
 LABEL_22:
@@ -3551,20 +3540,20 @@ LABEL_22:
   v20 = *(a1 + 32);
   v21 = *(a1 + 48);
   v22 = *(a1 + 56);
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __95__NWURLSessionTask_loaderDidReceiveServerTrustChallenge_secProtocolMetadata_completionHandler___block_invoke_3;
-  v54[3] = &unk_1E6A33E20;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __95__NWURLSessionTask_loaderDidReceiveServerTrustChallenge_secProtocolMetadata_completionHandler___block_invoke_3;
+  v51[3] = &unk_1E6A33E20;
   v23 = *(a1 + 64);
   v24 = *(a1 + 32);
   v25 = *(a1 + 40);
-  v56 = v23;
-  v54[4] = v24;
-  v55 = v25;
+  v53 = v23;
+  v51[4] = v24;
+  v52 = v25;
   v26 = v21;
   v27 = v22;
   v28 = v14;
-  v29 = v54;
+  v29 = v51;
   if (v20)
   {
     if (__nwlog_url_log::onceToken != -1)
@@ -3575,14 +3564,14 @@ LABEL_22:
     v30 = gurlLogObj;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      [v20 logDescription];
-      [v20 logDescription];
+      objc_msgSend_logDescription(v20);
+      objc_msgSend_logDescription(v20);
       *buf = 68289282;
       *&buf[4] = 16;
       *&buf[8] = 2098;
-      *&buf[10] = v66;
+      *&buf[10] = v63;
       *&buf[18] = 1024;
-      *&buf[20] = v65;
+      *&buf[20] = v62;
       _os_log_impl(&dword_181A37000, v30, OS_LOG_TYPE_INFO, "Task <%{public,uuid_t}.16P>.<%u> received server trust challenge", buf, 0x18u);
     }
 
@@ -3599,54 +3588,54 @@ LABEL_22:
       v33 = 443;
     }
 
-    v34 = [v31 initWithHost:v27 port:v33 protocol:*MEMORY[0x1E695ABA0] realm:0 authenticationMethod:{*MEMORY[0x1E695AB80], v52, v53}];
+    v34 = [v31 initWithHost:v27 port:v33 protocol:*MEMORY[0x1E695ABA0] realm:0 authenticationMethod:*MEMORY[0x1E695AB80]];
     v35 = sec_trust_copy_ref(v26);
     [v34 _setServerTrust:v35];
     CFRelease(v35);
-    v37 = [objc_alloc(MEMORY[0x1E695AC30]) initWithProtectionSpace:v34 proposedCredential:0 previousFailureCount:0 failureResponse:0 error:0 sender:0];
-    v38 = v20[53];
-    if (v38)
+    v36 = [objc_alloc(MEMORY[0x1E695AC30]) initWithProtectionSpace:v34 proposedCredential:0 previousFailureCount:0 failureResponse:0 error:0 sender:0];
+    v37 = v20[53];
+    if (v37)
     {
-      if (*(v38 + 48) > 0.0)
+      if (*(v37 + 48) > 0.0)
       {
-        v39 = v20[43];
-        if (v39)
+        v38 = v20[43];
+        if (v38)
         {
-          if (*v39)
+          if (*v38)
           {
-            dispatch_source_set_timer(*v39, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+            dispatch_source_set_timer(*v38, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
           }
 
           else
           {
-            *(v39 + 32) = -1;
-            *(v39 + 40) = -1;
-            if (*(v39 + 48) == 1 && *(v39 + 49) == 1)
+            *(v38 + 32) = -1;
+            *(v38 + 40) = -1;
+            if (*(v38 + 48) == 1 && *(v38 + 49) == 1)
             {
-              nw_queue_source_run_timer(v39, v36);
+              nw_queue_source_run_timer(v38);
             }
           }
         }
       }
     }
 
-    v40 = 31;
+    v39 = 31;
     if (!v20[31])
     {
-      v40 = 30;
+      v39 = 30;
     }
 
-    v41 = v20[v40];
+    v40 = v20[v39];
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __80__NWURLSessionTask_challengeDelegateForServerTrust_host_port_completionHandler___block_invoke;
-    v58 = &unk_1E6A33DF8;
-    v59 = v20;
-    v60 = v26;
-    v61 = v27;
-    v62 = v28;
-    v63 = v29;
-    [(NWURLSessionDelegateWrapper *)v41 task:v20 didReceiveChallenge:v37 completionHandler:buf];
+    v55 = &unk_1E6A33DF8;
+    v56 = v20;
+    v57 = v26;
+    v58 = v27;
+    v59 = v28;
+    v60 = v29;
+    [(NWURLSessionDelegateWrapper *)v40 task:v20 didReceiveChallenge:v36 completionHandler:buf];
   }
 }
 
@@ -3683,11 +3672,11 @@ void __80__NWURLSessionTask_challengeDelegateForServerTrust_host_port_completion
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 logDescription];
+      objc_msgSend_logDescription(v7);
       v8 = *(a1 + 32);
       if (v8)
       {
-        [v8 logDescription];
+        objc_msgSend_logDescription(v8);
         v9 = v34;
 LABEL_9:
         *buf = 68289794;
@@ -3877,7 +3866,7 @@ LABEL_39:
 
 - (void)loaderWillPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   redirectionCopy = redirection;
   requestCopy = request;
   handlerCopy = handler;
@@ -3889,8 +3878,8 @@ LABEL_39:
   v11 = gurlLogObj;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     statusCode = [redirectionCopy statusCode];
     if (self)
     {
@@ -3904,42 +3893,42 @@ LABEL_39:
 
     *buf = 68289794;
     *&buf[4] = 16;
-    LOWORD(v58) = 2098;
-    *(&v58 + 2) = &v56;
-    WORD5(v58) = 1024;
-    HIDWORD(v58) = v55;
-    LOWORD(v59) = 1024;
-    *(&v59 + 2) = statusCode;
-    HIWORD(v59) = 2048;
-    v60 = redirectCount;
+    LOWORD(v57) = 2098;
+    *(&v57 + 2) = &v55;
+    WORD5(v57) = 1024;
+    HIDWORD(v57) = v54;
+    LOWORD(v58) = 1024;
+    *(&v58 + 2) = statusCode;
+    HIWORD(v58) = 2048;
+    v59 = redirectCount;
     _os_log_impl(&dword_181A37000, v11, OS_LOG_TYPE_INFO, "Task <%{public,uuid_t}.16P>.<%u> will perform redirect {status=%hu, previous_redirects=%zu}", buf, 0x28u);
   }
 
   if (self)
   {
-    v15 = self->_redirectCount + 1;
-    self->_redirectCount = v15;
-    if (v15 >= 0x15)
+    v14 = self->_redirectCount + 1;
+    self->_redirectCount = v14;
+    if (v14 >= 0x15)
     {
-      v16 = [NWURLError alloc];
-      v17 = self->_loader;
+      v15 = [NWURLError alloc];
+      v16 = self->_loader;
       selfCopy = self;
-      if (v16)
+      if (v15)
       {
-        v19 = [(NWURLError *)v16 initWithErrorCode:-1007];
-        v20 = v19;
-        if (v19)
+        v18 = [(NWURLError *)v15 initWithErrorCode:-1007];
+        v19 = v18;
+        if (v18)
         {
-          [(NWURLError *)v19 fillErrorForLoader:v17 andTask:selfCopy];
+          [(NWURLError *)v18 fillErrorForLoader:v16 andTask:selfCopy];
         }
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      [(NWURLSessionTask *)selfCopy completeTaskWithError:v20 retryable:0];
+      [(NWURLSessionTask *)selfCopy completeTaskWithError:v19 retryable:0];
       handlerCopy[2](handlerCopy, 0);
       goto LABEL_37;
     }
@@ -3963,106 +3952,106 @@ LABEL_39:
             requestTimeoutTimer[5] = -1;
             if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
             {
-              nw_queue_source_run_timer(requestTimeoutTimer, v14);
+              nw_queue_source_run_timer(requestTimeoutTimer);
             }
           }
         }
       }
     }
 
-    v23 = 248;
+    v22 = 248;
     if (!self->_internalDelegateWrapper)
     {
-      v23 = 240;
+      v22 = 240;
     }
 
-    v24 = *(&self->super.isa + v23);
+    v23 = *(&self->super.isa + v22);
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v51 = __82__NWURLSessionTask_loaderWillPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
-  v52 = &unk_1E6A33DA8;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v50 = __82__NWURLSessionTask_loaderWillPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
+  v51 = &unk_1E6A33DA8;
   selfCopy2 = self;
-  v54 = handlerCopy;
+  v53 = handlerCopy;
   selfCopy3 = self;
-  v26 = redirectionCopy;
-  v49 = requestCopy;
-  v28 = v50;
-  if (v24)
+  v25 = redirectionCopy;
+  v48 = requestCopy;
+  v27 = v49;
+  if (v23)
   {
-    delegateFor_willPerformHTTPRedirection = [(NWURLSessionDelegateWrapper *)v24 delegateFor_willPerformHTTPRedirection];
+    delegateFor_willPerformHTTPRedirection = [(NWURLSessionDelegateWrapper *)v23 delegateFor_willPerformHTTPRedirection];
     if (delegateFor_willPerformHTTPRedirection)
     {
-      v45 = v26;
-      v46 = selfCopy3;
-      v47 = requestCopy;
-      v48 = redirectionCopy;
-      v30 = v24[5];
-      v31 = v24[6];
-      v32 = [NWURLSessionDelegateDeallocBomb alloc];
-      v33 = *(v24 + 16);
-      v34 = delegateFor_willPerformHTTPRedirection;
-      v44 = handlerCopy;
-      if (v32 && (*buf = v32, *&v58 = NWURLSessionDelegateDeallocBomb, v35 = [(uint8_t *)buf init], (v32 = v35) != 0))
+      v44 = v25;
+      v45 = selfCopy3;
+      v46 = requestCopy;
+      v47 = redirectionCopy;
+      v29 = v23[5];
+      v30 = v23[6];
+      v31 = [NWURLSessionDelegateDeallocBomb alloc];
+      v32 = *(v23 + 16);
+      v33 = delegateFor_willPerformHTTPRedirection;
+      v43 = handlerCopy;
+      if (v31 && (*buf = v31, *&v57 = NWURLSessionDelegateDeallocBomb, v34 = [(uint8_t *)buf init], (v31 = v34) != 0))
       {
-        objc_storeStrong(&v35->__object, delegateFor_willPerformHTTPRedirection);
+        objc_storeStrong(&v34->__object, delegateFor_willPerformHTTPRedirection);
         if (sel_task_willPerformHTTPRedirection_newRequest_completionHandler_)
         {
-          v36 = sel_task_willPerformHTTPRedirection_newRequest_completionHandler_;
+          v35 = sel_task_willPerformHTTPRedirection_newRequest_completionHandler_;
         }
 
         else
         {
-          v36 = 0;
+          v35 = 0;
         }
 
-        v37 = v28;
-        v32->__method = v36;
-        v32->__strict = v33;
+        v36 = v27;
+        v31->__method = v35;
+        v31->__strict = v32;
       }
 
       else
       {
-        v37 = v28;
+        v36 = v27;
       }
 
       *buf = MEMORY[0x1E69E9820];
-      *&v58 = 3221225472;
-      *(&v58 + 1) = __92__NWURLSessionDelegateWrapper_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
-      v59 = &unk_1E6A3B5D0;
-      v60 = v34;
-      v61 = v30;
-      v62 = v46;
-      v38 = v30;
-      v26 = v45;
-      v63 = v45;
-      v64 = v49;
-      v65 = v32;
-      v66 = v31;
-      v67 = v37;
-      v39 = v24[7];
+      *&v57 = 3221225472;
+      *(&v57 + 1) = __92__NWURLSessionDelegateWrapper_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
+      v58 = &unk_1E6A3B5D0;
+      v59 = v33;
+      v60 = v29;
+      v61 = v45;
+      v37 = v29;
+      v25 = v44;
+      v62 = v44;
+      v63 = v48;
+      v64 = v31;
+      v65 = v30;
+      v66 = v36;
+      v38 = v23[7];
+      v39 = v30;
       v40 = v31;
-      v41 = v32;
-      v42 = v38;
-      v28 = v37;
-      v43 = v42;
-      [(NWURLSessionDelegateQueue *)v39 runDelegateBlock:buf];
+      v41 = v37;
+      v27 = v36;
+      v42 = v41;
+      [(NWURLSessionDelegateQueue *)v38 runDelegateBlock:buf];
 
-      selfCopy3 = v46;
-      requestCopy = v47;
-      redirectionCopy = v48;
-      handlerCopy = v44;
+      selfCopy3 = v45;
+      requestCopy = v46;
+      redirectionCopy = v47;
+      handlerCopy = v43;
     }
 
     else
     {
-      v51(v28, v49);
+      v50(v27, v48);
     }
   }
 
@@ -4084,11 +4073,11 @@ void __82__NWURLSessionTask_loaderWillPerformHTTPRedirection_newRequest_completi
     v5 = *(a1 + 32);
     if (v5)
     {
-      [v5 logDescription];
+      objc_msgSend_logDescription(v5);
       v6 = *(a1 + 32);
       if (v6)
       {
-        [v6 logDescription];
+        objc_msgSend_logDescription(v6);
         v7 = v35;
 LABEL_9:
         *buf = 68289538;
@@ -4235,7 +4224,7 @@ LABEL_39:
 - (void)loaderWillPerformHSTSUpgradeToURL:(id)l preload:(BOOL)preload completionHandler:(id)handler
 {
   preloadCopy = preload;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   lCopy = l;
   if (__nwlog_url_log::onceToken != -1)
@@ -4246,16 +4235,16 @@ LABEL_39:
   v10 = gurlLogObj;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289538;
     *&buf[4] = 16;
-    LOWORD(v45) = 2098;
-    *(&v45 + 2) = &v43;
-    WORD5(v45) = 1024;
-    HIDWORD(v45) = v42;
-    LOWORD(v46) = 1024;
-    *(&v46 + 2) = preloadCopy;
+    LOWORD(v44) = 2098;
+    *(&v44 + 2) = &v42;
+    WORD5(v44) = 1024;
+    HIDWORD(v44) = v41;
+    LOWORD(v45) = 1024;
+    *(&v45 + 2) = preloadCopy;
     _os_log_impl(&dword_181A37000, v10, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> scheme upgraded to https by HSTS {preload=%{BOOL}d}", buf, 0x1Eu);
   }
 
@@ -4285,97 +4274,97 @@ LABEL_39:
             requestTimeoutTimer[5] = -1;
             if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
             {
-              nw_queue_source_run_timer(requestTimeoutTimer, v13);
+              nw_queue_source_run_timer(requestTimeoutTimer);
             }
           }
         }
       }
     }
 
-    v16 = 248;
+    v15 = 248;
     if (!self->_internalDelegateWrapper)
     {
-      v16 = 240;
+      v15 = 240;
     }
 
-    v17 = *(&self->super.isa + v16);
+    v16 = *(&self->super.isa + v15);
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v38 = __80__NWURLSessionTask_loaderWillPerformHSTSUpgradeToURL_preload_completionHandler___block_invoke;
-  v39 = &unk_1E6A33DA8;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v37 = __80__NWURLSessionTask_loaderWillPerformHSTSUpgradeToURL_preload_completionHandler___block_invoke;
+  v38 = &unk_1E6A33DA8;
   selfCopy = self;
-  v41 = handlerCopy;
-  v18 = handlerCopy;
+  v40 = handlerCopy;
+  v17 = handlerCopy;
   selfCopy2 = self;
-  v20 = v12;
-  v22 = v37;
-  if (v17)
+  v19 = v12;
+  v21 = v36;
+  if (v16)
   {
-    delegateFor__schemeUpgraded = [(NWURLSessionDelegateWrapper *)v17 delegateFor__schemeUpgraded];
+    delegateFor__schemeUpgraded = [(NWURLSessionDelegateWrapper *)v16 delegateFor__schemeUpgraded];
     if (delegateFor__schemeUpgraded)
     {
-      v35 = selfCopy2;
-      v24 = v17[5];
-      v25 = v17[6];
-      v26 = [NWURLSessionDelegateDeallocBomb alloc];
-      v27 = *(v17 + 16);
-      v28 = delegateFor__schemeUpgraded;
-      v36 = v18;
-      if (v26)
+      v34 = selfCopy2;
+      v23 = v16[5];
+      v24 = v16[6];
+      v25 = [NWURLSessionDelegateDeallocBomb alloc];
+      v26 = *(v16 + 16);
+      v27 = delegateFor__schemeUpgraded;
+      v35 = v17;
+      if (v25)
       {
-        *buf = v26;
-        *&v45 = NWURLSessionDelegateDeallocBomb;
-        v29 = [(uint8_t *)buf init];
-        v26 = v29;
-        if (v29)
+        *buf = v25;
+        *&v44 = NWURLSessionDelegateDeallocBomb;
+        v28 = [(uint8_t *)buf init];
+        v25 = v28;
+        if (v28)
         {
-          objc_storeStrong(v29 + 2, delegateFor__schemeUpgraded);
+          objc_storeStrong(v28 + 2, delegateFor__schemeUpgraded);
           if (sel_task__schemeUpgraded_completionHandler_)
           {
-            v30 = sel_task__schemeUpgraded_completionHandler_;
+            v29 = sel_task__schemeUpgraded_completionHandler_;
           }
 
           else
           {
-            v30 = 0;
+            v29 = 0;
           }
 
-          v26->__method = v30;
-          v26->__strict = v27;
+          v25->__method = v29;
+          v25->__strict = v26;
         }
       }
 
       *buf = MEMORY[0x1E69E9820];
-      *&v45 = 3221225472;
-      *(&v45 + 1) = __70__NWURLSessionDelegateWrapper_task__schemeUpgraded_completionHandler___block_invoke;
-      v46 = &unk_1E6A3B580;
-      v47 = v28;
-      v48 = v24;
-      selfCopy2 = v35;
-      v49 = v35;
-      v50 = v20;
-      v51 = v26;
-      v52 = v25;
-      v53 = v22;
-      v31 = v17[7];
+      *&v44 = 3221225472;
+      *(&v44 + 1) = __70__NWURLSessionDelegateWrapper_task__schemeUpgraded_completionHandler___block_invoke;
+      v45 = &unk_1E6A3B580;
+      v46 = v27;
+      v47 = v23;
+      selfCopy2 = v34;
+      v48 = v34;
+      v49 = v19;
+      v50 = v25;
+      v51 = v24;
+      v52 = v21;
+      v30 = v16[7];
+      v31 = v24;
       v32 = v25;
-      v33 = v26;
-      v34 = v24;
-      [(NWURLSessionDelegateQueue *)v31 runDelegateBlock:buf];
+      v33 = v23;
+      [(NWURLSessionDelegateQueue *)v30 runDelegateBlock:buf];
 
-      v18 = v36;
+      v17 = v35;
     }
 
     else
     {
-      v38(v22, v20);
+      v37(v21, v19);
     }
   }
 }
@@ -4449,7 +4438,7 @@ LABEL_9:
     if (startTimeoutTimer)
     {
       self->_startTimeoutTimer = 0;
-      nw_queue_cancel_source(startTimeoutTimer, v10);
+      nw_queue_cancel_source(startTimeoutTimer);
     }
 
     configuration = self->_configuration;
@@ -4581,11 +4570,11 @@ void __37__NWURLSessionTask_startPayloadTimer__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = *(a1 + 32);
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v7;
 LABEL_9:
         v6 = *(a1 + 40);
@@ -4618,20 +4607,20 @@ LABEL_10:
 
 - (void)loaderWaitingForConnectivity
 {
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __48__NWURLSessionTask_loaderWaitingForConnectivity__block_invoke;
-  v15[3] = &unk_1E6A3A528;
-  v15[4] = self;
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 0x40000000;
-  v18 = __nw_http_diag_log_for_level_block_invoke;
-  v19 = &unk_1E6A303F0;
-  LODWORD(v21) = 2;
-  BYTE4(v21) = 0;
-  v20 = v15;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __48__NWURLSessionTask_loaderWaitingForConnectivity__block_invoke;
+  v14[3] = &unk_1E6A3A528;
+  v14[4] = self;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 0x40000000;
+  v17 = __nw_http_diag_log_for_level_block_invoke;
+  v18 = &unk_1E6A303F0;
+  LODWORD(v20) = 2;
+  BYTE4(v20) = 0;
+  v19 = v14;
   os_unfair_lock_lock(&lock);
-  v18(&v16);
+  v17(&v15);
   os_unfair_lock_unlock(&lock);
   if (self)
   {
@@ -4640,10 +4629,10 @@ LABEL_10:
     {
       if ([(NSURLSessionConfiguration *)configuration->_configuration waitsForConnectivity])
       {
-        v5 = self->_configuration;
-        if (v5)
+        v4 = self->_configuration;
+        if (v4)
         {
-          if (v5->_savedTimeoutIntervalForRequest > 0.0)
+          if (v4->_savedTimeoutIntervalForRequest > 0.0)
           {
             requestTimeoutTimer = self->_requestTimeoutTimer;
             if (requestTimeoutTimer)
@@ -4659,37 +4648,37 @@ LABEL_10:
                 requestTimeoutTimer[5] = -1;
                 if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
                 {
-                  nw_queue_source_run_timer(requestTimeoutTimer, v4);
+                  nw_queue_source_run_timer(requestTimeoutTimer);
                 }
               }
             }
           }
         }
 
-        v7 = 248;
+        v6 = 248;
         if (!self->_internalDelegateWrapper)
         {
-          v7 = 240;
+          v6 = 240;
         }
 
-        v8 = *(&self->super.isa + v7);
+        v7 = *(&self->super.isa + v6);
         selfCopy = self;
-        if (v8)
+        if (v7)
         {
-          delegateFor_isWaitingForConnectivity = [(NWURLSessionDelegateWrapper *)v8 delegateFor_isWaitingForConnectivity];
+          delegateFor_isWaitingForConnectivity = [(NWURLSessionDelegateWrapper *)v7 delegateFor_isWaitingForConnectivity];
           if (delegateFor_isWaitingForConnectivity)
           {
-            v12 = v8[5];
-            v16 = MEMORY[0x1E69E9820];
-            v17 = 3221225472;
-            v18 = __60__NWURLSessionDelegateWrapper_taskIsWaitingForConnectivity___block_invoke;
-            v19 = &unk_1E6A3B4E0;
-            v20 = delegateFor_isWaitingForConnectivity;
-            v21 = v12;
-            v22 = selfCopy;
-            v13 = v8[7];
-            v14 = v12;
-            [(NWURLSessionDelegateQueue *)v13 runDelegateBlock:?];
+            v11 = v7[5];
+            v15 = MEMORY[0x1E69E9820];
+            v16 = 3221225472;
+            v17 = __60__NWURLSessionDelegateWrapper_taskIsWaitingForConnectivity___block_invoke;
+            v18 = &unk_1E6A3B4E0;
+            v19 = delegateFor_isWaitingForConnectivity;
+            v20 = v11;
+            v21 = selfCopy;
+            v12 = v7[7];
+            v13 = v11;
+            [(NWURLSessionDelegateQueue *)v12 runDelegateBlock:?];
           }
         }
       }
@@ -4711,11 +4700,11 @@ void __48__NWURLSessionTask_loaderWaitingForConnectivity__block_invoke(uint64_t 
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = *(a1 + 32);
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v6;
 LABEL_9:
         *buf = 68289282;
@@ -4771,7 +4760,7 @@ LABEL_10:
             requestTimeoutTimer[5] = -1;
             if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
             {
-              nw_queue_source_run_timer(requestTimeoutTimer, a2);
+              nw_queue_source_run_timer(requestTimeoutTimer);
             }
           }
         }
@@ -4785,7 +4774,7 @@ LABEL_10:
   handlerCopy = handler;
   if (!self || (requestBody = self->_requestBody) == 0)
   {
-    v10 = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
@@ -4794,11 +4783,11 @@ LABEL_10:
   {
 
 LABEL_6:
-    v10 = self->_requestBody;
+    v9 = self->_requestBody;
 LABEL_7:
-    v11 = v10;
-    v12 = [(NWURLSessionRequestBodyInfo *)v11 bodyProviderFromOffset:offset];
-    handlerCopy[2](handlerCopy, v12);
+    v10 = v9;
+    v11 = [(NWURLSessionRequestBodyInfo *)v10 bodyProviderFromOffset:offset];
+    handlerCopy[2](handlerCopy, v11);
 
     goto LABEL_8;
   }
@@ -4827,144 +4816,144 @@ LABEL_7:
           requestTimeoutTimer[5] = -1;
           if (*(requestTimeoutTimer + 48) == 1 && *(requestTimeoutTimer + 49) == 1)
           {
-            nw_queue_source_run_timer(requestTimeoutTimer, v9);
+            nw_queue_source_run_timer(requestTimeoutTimer);
           }
         }
       }
     }
   }
 
-  v15 = 248;
+  v14 = 248;
   if (!self->_internalDelegateWrapper)
   {
-    v15 = 240;
+    v14 = 240;
   }
 
-  v16 = *(&self->super.isa + v15);
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v48 = __72__NWURLSessionTask_loaderNeedsBodyProviderFromOffset_completionHandler___block_invoke;
-  v49 = &unk_1E6A33D80;
+  v15 = *(&self->super.isa + v14);
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v47 = __72__NWURLSessionTask_loaderNeedsBodyProviderFromOffset_completionHandler___block_invoke;
+  v48 = &unk_1E6A33D80;
   selfCopy = self;
   offsetCopy = offset;
-  v51 = handlerCopy;
+  v50 = handlerCopy;
   selfCopy2 = self;
-  v18 = v47;
-  if (v16)
+  v17 = v46;
+  if (v15)
   {
-    delegateFor_needNewBodyStreamFromOffset = [(NWURLSessionDelegateWrapper *)v16 delegateFor_needNewBodyStreamFromOffset];
+    delegateFor_needNewBodyStreamFromOffset = [(NWURLSessionDelegateWrapper *)v15 delegateFor_needNewBodyStreamFromOffset];
     if (delegateFor_needNewBodyStreamFromOffset)
     {
-      v44 = v18;
-      v21 = v16[5];
-      v22 = v16[6];
-      v23 = [NWURLSessionDelegateDeallocBomb alloc];
-      v24 = *(v16 + 16);
-      v25 = delegateFor_needNewBodyStreamFromOffset;
-      if (v23)
+      v43 = v17;
+      v20 = v15[5];
+      v21 = v15[6];
+      v22 = [NWURLSessionDelegateDeallocBomb alloc];
+      v23 = *(v15 + 16);
+      v24 = delegateFor_needNewBodyStreamFromOffset;
+      if (v22)
       {
-        v53.receiver = v23;
-        v53.super_class = NWURLSessionDelegateDeallocBomb;
-        v26 = [(NWURLSessionTask *)&v53 init];
-        v23 = v26;
-        if (v26)
+        v52.receiver = v22;
+        v52.super_class = NWURLSessionDelegateDeallocBomb;
+        v25 = [(NWURLSessionTask *)&v52 init];
+        v22 = v25;
+        if (v25)
         {
-          objc_storeStrong(v26 + 2, delegateFor_needNewBodyStreamFromOffset);
+          objc_storeStrong(v25 + 2, delegateFor_needNewBodyStreamFromOffset);
           if (sel_task_needNewBodyStreamFromOffset_completionHandler_)
           {
-            v27 = sel_task_needNewBodyStreamFromOffset_completionHandler_;
+            v26 = sel_task_needNewBodyStreamFromOffset_completionHandler_;
           }
 
           else
           {
-            v27 = 0;
+            v26 = 0;
           }
 
-          v23->__method = v27;
-          v23->__strict = v24;
+          v22->__method = v26;
+          v22->__strict = v23;
         }
       }
 
-      v53.receiver = MEMORY[0x1E69E9820];
-      v53.super_class = 3221225472;
-      v54 = __82__NWURLSessionDelegateWrapper_task_needNewBodyStreamFromOffset_completionHandler___block_invoke;
-      v55 = &unk_1E6A3B670;
-      v56 = v25;
-      v57 = v21;
-      v58 = selfCopy2;
-      v59 = v23;
+      v52.receiver = MEMORY[0x1E69E9820];
+      v52.super_class = 3221225472;
+      v53 = __82__NWURLSessionDelegateWrapper_task_needNewBodyStreamFromOffset_completionHandler___block_invoke;
+      v54 = &unk_1E6A3B670;
+      v55 = v24;
+      v56 = v20;
+      v57 = selfCopy2;
+      v58 = v22;
       offsetCopy2 = offset;
-      v60 = v22;
-      v18 = v44;
-      v61 = v44;
-      v28 = v16[7];
+      v59 = v21;
+      v17 = v43;
+      v60 = v43;
+      v27 = v15[7];
+      v28 = v21;
       v29 = v22;
-      v30 = v23;
-      v31 = v21;
-      [(NWURLSessionDelegateQueue *)v28 runDelegateBlock:?];
+      v30 = v20;
+      [(NWURLSessionDelegateQueue *)v27 runDelegateBlock:?];
     }
 
     else if (offset)
     {
-      v48(v18, 0);
+      v47(v17, 0);
     }
 
     else
     {
-      delegateFor_needNewBodyStream = [(NWURLSessionDelegateWrapper *)v16 delegateFor_needNewBodyStream];
+      delegateFor_needNewBodyStream = [(NWURLSessionDelegateWrapper *)v15 delegateFor_needNewBodyStream];
       if (delegateFor_needNewBodyStream)
       {
-        v45 = v18;
-        v33 = v16[5];
-        v34 = v16[6];
-        v35 = [NWURLSessionDelegateDeallocBomb alloc];
-        v36 = *(v16 + 16);
-        v37 = delegateFor_needNewBodyStream;
-        if (v35)
+        v44 = v17;
+        v32 = v15[5];
+        v33 = v15[6];
+        v34 = [NWURLSessionDelegateDeallocBomb alloc];
+        v35 = *(v15 + 16);
+        v36 = delegateFor_needNewBodyStream;
+        if (v34)
         {
-          v53.receiver = v35;
-          v53.super_class = NWURLSessionDelegateDeallocBomb;
-          v38 = [(NWURLSessionTask *)&v53 init];
-          v35 = v38;
-          if (v38)
+          v52.receiver = v34;
+          v52.super_class = NWURLSessionDelegateDeallocBomb;
+          v37 = [(NWURLSessionTask *)&v52 init];
+          v34 = v37;
+          if (v37)
           {
-            objc_storeStrong(v38 + 2, delegateFor_needNewBodyStream);
+            objc_storeStrong(v37 + 2, delegateFor_needNewBodyStream);
             if (sel_task_needNewBodyStreamFromOffset_completionHandler_)
             {
-              v39 = sel_task_needNewBodyStreamFromOffset_completionHandler_;
+              v38 = sel_task_needNewBodyStreamFromOffset_completionHandler_;
             }
 
             else
             {
-              v39 = 0;
+              v38 = 0;
             }
 
-            v35->__method = v39;
-            v35->__strict = v36;
+            v34->__method = v38;
+            v34->__strict = v35;
           }
         }
 
-        v53.receiver = MEMORY[0x1E69E9820];
-        v53.super_class = 3221225472;
-        v54 = __82__NWURLSessionDelegateWrapper_task_needNewBodyStreamFromOffset_completionHandler___block_invoke_4;
-        v55 = &unk_1E6A3B620;
-        v56 = v37;
-        v57 = v33;
-        v58 = selfCopy2;
-        v59 = v35;
-        v60 = v34;
-        v18 = v45;
-        v61 = v45;
-        v40 = v16[7];
+        v52.receiver = MEMORY[0x1E69E9820];
+        v52.super_class = 3221225472;
+        v53 = __82__NWURLSessionDelegateWrapper_task_needNewBodyStreamFromOffset_completionHandler___block_invoke_4;
+        v54 = &unk_1E6A3B620;
+        v55 = v36;
+        v56 = v32;
+        v57 = selfCopy2;
+        v58 = v34;
+        v59 = v33;
+        v17 = v44;
+        v60 = v44;
+        v39 = v15[7];
+        v40 = v33;
         v41 = v34;
-        v42 = v35;
-        v43 = v33;
-        [(NWURLSessionDelegateQueue *)v40 runDelegateBlock:?];
+        v42 = v32;
+        [(NWURLSessionDelegateQueue *)v39 runDelegateBlock:?];
       }
 
       else
       {
-        v48(v18, 0);
+        v47(v17, 0);
       }
     }
   }
@@ -5160,10 +5149,10 @@ LABEL_9:
   }
 
   v4 = session;
-  [(NWURLSessionTask *)self logDescription];
+  objc_msgSend_logDescription(self);
   uuid_unparse(uu, &v14[3]);
   LOBYTE(v14[21]) = 62;
-  [(NWURLSessionTask *)self logDescription];
+  objc_msgSend_logDescription(self);
   v5 = 0;
   v6 = v12;
   v7 = v12;
@@ -5191,7 +5180,7 @@ LABEL_9:
 - (void)completeTaskWithError:(id)error retryable:(BOOL)retryable
 {
   retryableCopy = retryable;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -5253,8 +5242,8 @@ LABEL_15:
     v9 = gurlLogObj;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(NWURLSessionTask *)self logDescription];
-      [(NWURLSessionTask *)self logDescription];
+      objc_msgSend_logDescription(self);
+      objc_msgSend_logDescription(self);
       if (self)
       {
         retryCount = self->_retryCount;
@@ -5267,17 +5256,17 @@ LABEL_15:
 
       code = [errorCopy code];
       *buf = 68290050;
-      v25 = 16;
-      v26 = 2098;
-      v27 = &v23;
-      v28 = 1024;
-      v29 = v22;
-      v30 = 1024;
-      v31 = retryCount;
-      v32 = 2048;
-      v33 = code;
-      v34 = 2112;
-      v35 = errorCopy;
+      v24 = 16;
+      v25 = 2098;
+      v26 = &v22;
+      v27 = 1024;
+      v28 = v21;
+      v29 = 1024;
+      v30 = retryCount;
+      v31 = 2048;
+      v32 = code;
+      v33 = 2112;
+      v34 = errorCopy;
       _os_log_impl(&dword_181A37000, v9, OS_LOG_TYPE_ERROR, "Task <%{public,uuid_t}.16P>.<%u> auto-retries enabled (%d retries attempted) and encountered retryable error [%ld] %@.", buf, 0x32u);
     }
 
@@ -5285,38 +5274,38 @@ LABEL_15:
     {
       self->_backoffInProgress = 1;
       [(NWURLSessionTask *)self pauseTaskForRetry];
-      v13 = self->_retryCount;
+      v12 = self->_retryCount;
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    v14 = ldexp(1.0, v13);
-    v15 = fmin(v14 + v14 * (arc4random() / 2147483650.0 * 0.1), 1800.0);
+    v13 = ldexp(1.0, v12);
+    v14 = fmin(v13 + v13 * (arc4random() / 2147483650.0 * 0.1), 1800.0);
     if (__nwlog_url_log::onceToken != -1)
     {
       dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
     }
 
-    v16 = gurlLogObj;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = gurlLogObj;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      [(NWURLSessionTask *)self logDescription];
-      [(NWURLSessionTask *)self logDescription];
+      objc_msgSend_logDescription(self);
+      objc_msgSend_logDescription(self);
       *buf = 68289538;
-      v25 = 16;
-      v26 = 2098;
-      v27 = &v21;
-      v28 = 1024;
-      v29 = v20;
-      v30 = 1024;
-      v31 = v15;
-      _os_log_impl(&dword_181A37000, v16, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> scheduling auto-retry in %u s", buf, 0x1Eu);
+      v24 = 16;
+      v25 = 2098;
+      v26 = &v20;
+      v27 = 1024;
+      v28 = v19;
+      v29 = 1024;
+      v30 = v14;
+      _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_DEFAULT, "Task <%{public,uuid_t}.16P>.<%u> scheduling auto-retry in %u s", buf, 0x1Eu);
     }
 
-    v17 = dispatch_time(0x8000000000000000, 1000000000 * v15);
+    v16 = dispatch_time(0x8000000000000000, 1000000000 * v14);
     if (self)
     {
       queue = self->_queue;
@@ -5332,7 +5321,7 @@ LABEL_15:
     block[2] = __52__NWURLSessionTask_completeTaskWithError_retryable___block_invoke;
     block[3] = &unk_1E6A3D868;
     block[4] = self;
-    dispatch_after(v17, queue, block);
+    dispatch_after(v16, queue, block);
     goto LABEL_10;
   }
 
@@ -5520,11 +5509,11 @@ void __32__NWURLSessionTask_readResponse__block_invoke_2(uint64_t a1, uint64_t a
     v6 = *(a1 + 40);
     if (v6)
     {
-      [v6 logDescription];
+      objc_msgSend_logDescription(v6);
       v7 = *(a1 + 40);
       if (v7)
       {
-        [v7 logDescription];
+        objc_msgSend_logDescription(v7);
         v8 = v15;
 LABEL_11:
         *buf = 68289282;
@@ -5570,7 +5559,7 @@ LABEL_12:
 
 void __32__NWURLSessionTask_readResponse__block_invoke_39(uint64_t a1, uint64_t a2)
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   if (v3)
@@ -5584,9 +5573,9 @@ void __32__NWURLSessionTask_readResponse__block_invoke_39(uint64_t a1, uint64_t 
           v5 = [*(v3 + 264) multipartMixedReplaceBoundary];
           if (!v5)
           {
-LABEL_24:
+LABEL_30:
             [(NWURLSessionTask *)v3 readResponseBody];
-LABEL_25:
+LABEL_31:
 
             break;
           }
@@ -5596,17 +5585,17 @@ LABEL_25:
           v8 = *(v3 + 232);
           v9 = v8;
           v10 = v7;
-          v80 = v5;
+          v83 = v5;
           v11 = v10;
           v12 = v9;
-          if (!v6 || (v87.receiver = v6, v87.super_class = NWURLSessionMultipartParser, v13 = objc_msgSendSuper2(&v87, sel_init), (v6 = v13) == 0))
+          if (!v6 || (v90.receiver = v6, v90.super_class = NWURLSessionMultipartParser, v13 = objc_msgSendSuper2(&v90, sel_init), (v6 = v13) == 0))
           {
-LABEL_23:
+LABEL_29:
 
-            v36 = *(v3 + 272);
+            v38 = *(v3 + 272);
             *(v3 + 272) = v6;
 
-            goto LABEL_24;
+            goto LABEL_30;
           }
 
           v13->_parserState = 0;
@@ -5635,29 +5624,29 @@ LABEL_23:
           if (!v19)
           {
             v21 = 0;
-            goto LABEL_22;
+            goto LABEL_28;
           }
 
-          v81.receiver = v19;
-          v81.super_class = NWURLSessionMultipartBoundaryRecognizer;
-          v21 = objc_msgSendSuper2(&v81, sel_init);
+          v84.receiver = v19;
+          v84.super_class = NWURLSessionMultipartBoundaryRecognizer;
+          v21 = objc_msgSendSuper2(&v84, sel_init);
           if (!v21)
           {
-LABEL_22:
+LABEL_28:
 
             boundaryRecognizer = v6->_boundaryRecognizer;
             v6->_boundaryRecognizer = v21;
 
-            v32 = objc_alloc_init(NWURLSessionMultipartPartBoundarySuffixRecognizer);
+            v34 = objc_alloc_init(NWURLSessionMultipartPartBoundarySuffixRecognizer);
             boundarySuffixRecognizer = v6->_boundarySuffixRecognizer;
-            v6->_boundarySuffixRecognizer = v32;
+            v6->_boundarySuffixRecognizer = v34;
 
-            v34 = objc_alloc_init(NWURLSessionMultipartHeaderRecognizer);
+            v36 = objc_alloc_init(NWURLSessionMultipartHeaderRecognizer);
             headerRecognizer = v6->_headerRecognizer;
-            v6->_headerRecognizer = v34;
+            v6->_headerRecognizer = v36;
 
             *&v6->_isFirstBoundary = 1;
-            goto LABEL_23;
+            goto LABEL_29;
           }
 
           v22 = [v20 lengthOfBytesUsingEncoding:1];
@@ -5666,130 +5655,161 @@ LABEL_22:
           v24 = v22 + 1;
           if (v23)
           {
-            v78 = v4;
+            v81 = v4;
             v4 = v24;
-            v69 = __nwlog_obj();
-            os_log_type_enabled(v69, OS_LOG_TYPE_ERROR);
-            *v89 = 136446210;
-            *&v89[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
-            LODWORD(v75) = 12;
-            v74 = v89;
-            v70 = _os_log_send_and_compose_impl();
-
-            if (__nwlog_should_abort(v70))
+            v71 = __nwlog_obj();
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_53;
+              v72 = 3;
             }
 
-            free(v70);
+            else
+            {
+              v72 = 2;
+            }
+
+            *v92 = 136446210;
+            *&v92[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
+            v73 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &dword_181A37000, v71, 16, "%{public}s strict_malloc called with size 0", v92, 12);
+
+            if (__nwlog_should_abort(v73))
+            {
+              goto LABEL_65;
+            }
+
+            free(v73);
             v24 = v4;
-            v4 = v78;
+            v4 = v81;
           }
 
           v25 = malloc_type_malloc(v24, 0xB3108712uLL);
           if (!v25)
           {
-            v76 = v4;
+            v79 = v4;
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
             v4 = gLogObj;
-            os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-            *v89 = 136446210;
-            *&v89[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
-            LODWORD(v75) = 12;
-            v74 = v89;
-            v26 = _os_log_send_and_compose_impl();
-
-            if (__nwlog_should_abort(v26))
+            if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_53;
+              v26 = 3;
             }
 
-            free(v26);
-            v4 = v76;
+            else
+            {
+              v26 = 2;
+            }
+
+            *v92 = 136446210;
+            *&v92[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
+            LODWORD(v78) = 12;
+            v27 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s strict allocator failed", v92, v78);
+
+            if (__nwlog_should_abort(v27))
+            {
+              goto LABEL_65;
+            }
+
+            free(v27);
+            v4 = v79;
           }
 
           v21->_pattern = v25;
-          [v20 getCString:v25 maxLength:v21->_patternLength + 1 encoding:{1, v74, v75}];
-          v27 = [v20 lengthOfBytesUsingEncoding:1];
-          v23 = __CFADD__(v27, 1);
-          v28 = v27 + 1;
-          v21->_rollbackBufferCapacity = v28;
+          [v20 getCString:v25 maxLength:v21->_patternLength + 1 encoding:1];
+          v28 = [v20 lengthOfBytesUsingEncoding:1];
+          v23 = __CFADD__(v28, 1);
+          v29 = v28 + 1;
+          v21->_rollbackBufferCapacity = v29;
           if (!v23)
           {
-LABEL_18:
-            v29 = malloc_type_malloc(v28, 0x3826ECA7uLL);
-            if (v29)
-            {
 LABEL_21:
-              v21->_rollbackBuffer = v29;
-              goto LABEL_22;
+            v30 = malloc_type_malloc(v29, 0x3826ECA7uLL);
+            if (v30)
+            {
+LABEL_27:
+              v21->_rollbackBuffer = v30;
+              goto LABEL_28;
             }
 
-            v77 = v4;
+            v80 = v4;
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
             v4 = gLogObj;
-            os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-            *v89 = 136446210;
-            *&v89[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
-            LODWORD(v75) = 12;
-            v74 = v89;
-            v30 = _os_log_send_and_compose_impl();
-
-            if (!__nwlog_should_abort(v30))
+            if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
             {
-              free(v30);
-              v29 = 0;
-              v4 = v77;
-              goto LABEL_21;
+              v31 = 3;
             }
 
-            goto LABEL_53;
+            else
+            {
+              v31 = 2;
+            }
+
+            *v92 = 136446210;
+            *&v92[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
+            LODWORD(v78) = 12;
+            v32 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s strict allocator failed", v92, v78);
+
+            if (!__nwlog_should_abort(v32))
+            {
+              free(v32);
+              v30 = 0;
+              v4 = v80;
+              goto LABEL_27;
+            }
+
+            goto LABEL_65;
           }
 
-          v79 = v4;
-          v71 = v28;
+          v82 = v4;
+          v74 = v29;
           v4 = __nwlog_obj();
-          os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-          *v89 = 136446210;
-          *&v89[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
-          LODWORD(v75) = 12;
-          v74 = v89;
-          v72 = _os_log_send_and_compose_impl();
-
-          if (!__nwlog_should_abort(v72))
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
-            free(v72);
-            v28 = v71;
-            v4 = v79;
-            goto LABEL_18;
+            v75 = 3;
           }
 
-LABEL_53:
+          else
+          {
+            v75 = 2;
+          }
+
+          *v92 = 136446210;
+          *&v92[4] = "[NWURLSessionMultipartBoundaryRecognizer initWithPattern:]";
+          LODWORD(v78) = 12;
+          v76 = _os_log_send_and_compose_impl(v75, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s strict_malloc called with size 0", v92, v78);
+
+          if (!__nwlog_should_abort(v76))
+          {
+            free(v76);
+            v29 = v74;
+            v4 = v82;
+            goto LABEL_21;
+          }
+
+LABEL_65:
           __break(1u);
-          goto LABEL_54;
+          goto LABEL_66;
         case 3:
-          v55 = [NWURLSessionStreamTask alloc];
-          v56 = *(v3 + 264);
-          [v3 logDescription];
-          v57 = [(NWURLSessionStreamTask *)&v55->super.super.isa initWithLoader:v56 identifier:v88 session:*(v3 + 416)];
+          v57 = [NWURLSessionStreamTask alloc];
+          v58 = *(v3 + 264);
+          objc_msgSend_logDescription(v3);
+          v59 = [(NWURLSessionStreamTask *)&v57->super.super.isa initWithLoader:v58 identifier:v91 session:*(v3 + 416)];
 
-          [(NWURLSessionTask *)v57 setConfiguration:?];
-          v59 = [v3 originalRequest];
-          if (v57)
+          [(NWURLSessionTask *)v59 setConfiguration:?];
+          v61 = [v3 originalRequest];
+          if (v59)
           {
-            objc_setProperty_nonatomic_copy(v57, v58, v59, 48);
+            objc_setProperty_nonatomic_copy(v59, v60, v61, 48);
           }
 
-          v60 = [v3 currentRequest];
-          v62 = v60;
-          if (v57)
+          v62 = [v3 currentRequest];
+          v64 = v62;
+          if (v59)
           {
-            objc_setProperty_nonatomic_copy(v57, v61, v60, 56);
+            objc_setProperty_nonatomic_copy(v59, v63, v62, 56);
 
-            objc_storeStrong(v57 + 30, *(v3 + 240));
-            objc_storeStrong(v57 + 31, *(v3 + 248));
+            objc_storeStrong(v59 + 30, *(v3 + 240));
+            objc_storeStrong(v59 + 31, *(v3 + 248));
           }
 
           else
@@ -5797,89 +5817,89 @@ LABEL_53:
           }
 
           [v3 priority];
-          [v57 setPriority:?];
-          [v57 setPrefersIncrementalDelivery:{objc_msgSend(v3, "prefersIncrementalDelivery")}];
-          [(NWURLSessionTask *)v57 setClientMetadataForMetrics:?];
-          Property = objc_getProperty(v3, v63, 456, 1);
-          if (v57)
+          [v59 setPriority:?];
+          [v59 setPrefersIncrementalDelivery:{objc_msgSend(v3, "prefersIncrementalDelivery")}];
+          [(NWURLSessionTask *)v59 setClientMetadataForMetrics:?];
+          Property = objc_getProperty(v3, v65, 456, 1);
+          if (v59)
           {
-            objc_setProperty_atomic(v57, v65, Property, 456);
-            *(v57 + 18) = 0;
-            v57[37] = 1;
-            v66 = [v3 response];
-            objc_setProperty_nonatomic_copy(v57, v67, v66, 504);
+            objc_setProperty_atomic(v59, v67, Property, 456);
+            *(v59 + 18) = 0;
+            v59[37] = 1;
+            v68 = [v3 response];
+            objc_setProperty_nonatomic_copy(v59, v69, v68, 504);
           }
 
           else
           {
-            v66 = [v3 response];
+            v68 = [v3 response];
           }
 
-          [*(v3 + 264) updateClient:v57];
+          [*(v3 + 264) updateClient:v59];
           [NWURLSessionTask setLoader:v3];
-          v68 = [(NWURLSessionTask *)v3 delegateWrapper];
-          v81.receiver = MEMORY[0x1E69E9820];
-          v81.super_class = 3221225472;
-          v82 = __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3;
-          v83 = &unk_1E6A3D760;
-          v84 = v3;
-          v85 = v57;
-          v5 = v57;
-          [(NWURLSessionDelegateWrapper *)v68 dataTask:v3 didBecomeStreamTask:v5 completionHandler:&v81];
+          v70 = [(NWURLSessionTask *)v3 delegateWrapper];
+          v84.receiver = MEMORY[0x1E69E9820];
+          v84.super_class = 3221225472;
+          v85 = __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3;
+          v86 = &unk_1E6A3D760;
+          v87 = v3;
+          v88 = v59;
+          v5 = v59;
+          [(NWURLSessionDelegateWrapper *)v70 dataTask:v3 didBecomeStreamTask:v5 completionHandler:&v84];
 
-          v54 = v85;
-          goto LABEL_47;
+          v56 = v88;
+          goto LABEL_53;
         case 2:
-          v38 = [NWURLSessionDownloadTask alloc];
-          v39 = *(v3 + 264);
-          [v3 logDescription];
-          v5 = [(NWURLSessionDownloadTask *)&v38->super.super.isa initWithLoader:v39 identifier:v88 session:*(v3 + 416)];
+          v40 = [NWURLSessionDownloadTask alloc];
+          v41 = *(v3 + 264);
+          objc_msgSend_logDescription(v3);
+          v5 = [(NWURLSessionDownloadTask *)&v40->super.super.isa initWithLoader:v41 identifier:v91 session:*(v3 + 416)];
 
           [(NWURLSessionTask *)v5 setConfiguration:?];
-          v41 = [v3 originalRequest];
+          v43 = [v3 originalRequest];
           if (v5)
           {
-            objc_setProperty_nonatomic_copy(v5, v40, v41, 48);
+            objc_setProperty_nonatomic_copy(v5, v42, v43, 48);
           }
 
           v11 = [v3 currentRequest];
           if (v5)
           {
-            objc_setProperty_nonatomic_copy(v5, v42, v11, 56);
+            objc_setProperty_nonatomic_copy(v5, v44, v11, 56);
 
             objc_storeStrong(v5 + 30, *(v3 + 240));
             objc_storeStrong(v5 + 31, *(v3 + 248));
-LABEL_35:
+LABEL_41:
             [v3 priority];
             [v5 setPriority:?];
             [v5 setPrefersIncrementalDelivery:0];
             [(NWURLSessionTask *)v5 setClientMetadataForMetrics:?];
-            v44 = objc_getProperty(v3, v43, 456, 1);
+            v46 = objc_getProperty(v3, v45, 456, 1);
             if (v5)
             {
-              objc_setProperty_atomic(v5, v45, v44, 456);
-              v46 = objc_alloc_init(NWURLSessionResponseConsumerDownload);
-              objc_storeStrong(v5 + 55, v46);
+              objc_setProperty_atomic(v5, v47, v46, 456);
+              v48 = objc_alloc_init(NWURLSessionResponseConsumerDownload);
+              objc_storeStrong(v5 + 55, v48);
 
-              v47 = v5[55];
+              v49 = v5[55];
             }
 
             else
             {
 
-              v47 = 0;
+              v49 = 0;
             }
 
-            *v89 = 0;
-            v48 = v47;
-            v49 = [v5 currentRequest];
-            v50 = [v48 prepareNextRequest:v49 forTask:v5 error:v89];
+            *v92 = 0;
+            v50 = v49;
+            v51 = [v5 currentRequest];
+            v52 = [v50 prepareNextRequest:v51 forTask:v5 error:v92];
 
             if (v5)
             {
-              v51 = v5[55];
-              v52 = [v3 response];
-              [v51 task:v5 deliverResponse:v52 completionHandler:&__block_literal_global_46];
+              v53 = v5[55];
+              v54 = [v3 response];
+              [v53 task:v5 deliverResponse:v54 completionHandler:&__block_literal_global_46];
 
               *(v5 + 18) = 0;
               v5[37] = 1;
@@ -5887,35 +5907,35 @@ LABEL_35:
 
             else
             {
-              v73 = [v3 response];
-              [0 task:0 deliverResponse:v73 completionHandler:&__block_literal_global_46];
+              v77 = [v3 response];
+              [0 task:0 deliverResponse:v77 completionHandler:&__block_literal_global_46];
             }
 
             [*(v3 + 264) updateClient:v5];
             [NWURLSessionTask setLoader:v3];
-            v53 = [(NWURLSessionTask *)v3 delegateWrapper];
-            v81.receiver = MEMORY[0x1E69E9820];
-            v81.super_class = 3221225472;
-            v82 = __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_2;
-            v83 = &unk_1E6A3B4E0;
-            v84 = v3;
-            v85 = v5;
-            v86 = *v89;
+            v55 = [(NWURLSessionTask *)v3 delegateWrapper];
+            v84.receiver = MEMORY[0x1E69E9820];
+            v84.super_class = 3221225472;
+            v85 = __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_2;
+            v86 = &unk_1E6A3B4E0;
+            v87 = v3;
+            v88 = v5;
+            v89 = *v92;
             v5 = v5;
-            [(NWURLSessionDelegateWrapper *)v53 dataTask:v3 didBecomeDownloadTask:v5 completionHandler:&v81];
+            [(NWURLSessionDelegateWrapper *)v55 dataTask:v3 didBecomeDownloadTask:v5 completionHandler:&v84];
 
-            v54 = *v89;
-LABEL_47:
+            v56 = *v92;
+LABEL_53:
 
-            goto LABEL_25;
+            goto LABEL_31;
           }
 
-LABEL_54:
+LABEL_66:
 
-          goto LABEL_35;
+          goto LABEL_41;
         case 0:
-          v37 = [(NWURLSessionTask *)v3 errorForErrorCode:?];
-          [v3 completeTaskWithError:v37 retryable:0];
+          v39 = [(NWURLSessionTask *)v3 errorForErrorCode:?];
+          [v3 completeTaskWithError:v39 retryable:0];
 
           break;
       }
@@ -6054,7 +6074,7 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
 
 - (id)initWithRequest:(int)request identifier:(void *)identifier session:
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v8 = a2;
   identifierCopy = identifier;
   if (!self)
@@ -6062,9 +6082,9 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
     goto LABEL_40;
   }
 
-  v77.receiver = self;
-  v77.super_class = NWURLSessionTask;
-  v10 = objc_msgSendSuper2(&v77, sel_init);
+  v76.receiver = self;
+  v76.super_class = NWURLSessionTask;
+  v10 = objc_msgSendSuper2(&v76, sel_init);
   self = v10;
   if (!v10)
   {
@@ -6145,7 +6165,7 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
       dispatch_once(&nw_protocol_copy_http_client_definition_onceToken, &__block_literal_global_85);
     }
 
-    singleton = _nw_protocol_metadata_create_singleton();
+    singleton = _nw_protocol_metadata_create_singleton(nw_protocol_copy_http_client_definition_definition);
     v26 = self[32];
     self[32] = singleton;
 
@@ -6160,25 +6180,23 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
 
       if (nw_protocol_metadata_matches_definition(v27, nw_protocol_copy_http_client_definition_definition))
       {
-        *v80 = MEMORY[0x1E69E9820];
-        *&v80[8] = 3221225472;
-        *&v80[16] = __nw_http_client_metadata_set_initial_request_block_invoke;
-        v81 = &__block_descriptor_40_e9_B16__0_v8l;
-        v82 = v8;
-        if (_nw_protocol_metadata_get_handle(v27))
+        *v79 = MEMORY[0x1E69E9820];
+        *&v79[8] = 3221225472;
+        *&v79[16] = __nw_http_client_metadata_set_initial_request_block_invoke;
+        v80 = &__block_descriptor_40_e9_B16__0_v8l;
+        v81 = v8;
+        if (_nw_protocol_metadata_get_handle())
         {
-          (*&v80[16])(v80);
+          (*&v79[16])(v79);
         }
 
         goto LABEL_20;
       }
 
       v48 = __nwlog_obj();
-      *v80 = 136446210;
-      *&v80[4] = "nw_http_client_metadata_set_initial_request";
-      LODWORD(v73) = 12;
-      v72 = v80;
-      v45 = _os_log_send_and_compose_impl();
+      *v79 = 136446210;
+      *&v79[4] = "nw_http_client_metadata_set_initial_request";
+      v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s metadata must be http_client", v79, 12);
 
       LOBYTE(location) = 16;
       type = OS_LOG_TYPE_DEFAULT;
@@ -6193,9 +6211,9 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
         v49 = location;
         if (os_log_type_enabled(v46, location))
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, v49, "%{public}s metadata must be http_client", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, v49, "%{public}s metadata must be http_client", v79, 0xCu);
         }
       }
 
@@ -6203,17 +6221,17 @@ void __55__NWURLSessionTask_handleResponseDisposition_response___block_invoke_3(
       {
         backtrace_string = __nw_create_backtrace_string();
         v46 = __nwlog_obj();
-        HIDWORD(v73) = location;
+        HIDWORD(v72) = location;
         v59 = os_log_type_enabled(v46, location);
         if (backtrace_string)
         {
           if (v59)
           {
-            *v80 = 136446466;
-            *&v80[4] = "nw_http_client_metadata_set_initial_request";
-            *&v80[12] = 2082;
-            *&v80[14] = backtrace_string;
-            _os_log_impl(&dword_181A37000, v46, BYTE4(v73), "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v80, 0x16u);
+            *v79 = 136446466;
+            *&v79[4] = "nw_http_client_metadata_set_initial_request";
+            *&v79[12] = 2082;
+            *&v79[14] = backtrace_string;
+            _os_log_impl(&dword_181A37000, v46, BYTE4(v72), "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v79, 0x16u);
           }
 
           free(backtrace_string);
@@ -6231,13 +6249,13 @@ LABEL_20:
 
             objc_initWeak(&location, self);
             v30 = self[32];
-            v74[0] = MEMORY[0x1E69E9820];
-            v74[1] = 3221225472;
-            v74[2] = __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke;
-            v74[3] = &unk_1E6A3A6C8;
-            objc_copyWeak(&v75, &location);
+            v73[0] = MEMORY[0x1E69E9820];
+            v73[1] = 3221225472;
+            v73[2] = __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke;
+            v73[3] = &unk_1E6A3A6C8;
+            objc_copyWeak(&v74, &location);
             v31 = v30;
-            v32 = v74;
+            v32 = v73;
             if (v31)
             {
               if (nw_protocol_copy_http_client_definition_onceToken != -1)
@@ -6247,29 +6265,28 @@ LABEL_20:
 
               if (nw_protocol_metadata_matches_definition(v31, nw_protocol_copy_http_client_definition_definition))
               {
-                *v80 = MEMORY[0x1E69E9820];
-                *&v80[8] = 3221225472;
-                *&v80[16] = __nw_http_client_metadata_set_prevent_timeout_callback_block_invoke;
-                v81 = &unk_1E6A3A978;
-                v82 = v32;
-                if (_nw_protocol_metadata_get_handle(v31))
+                *v79 = MEMORY[0x1E69E9820];
+                *&v79[8] = 3221225472;
+                *&v79[16] = __nw_http_client_metadata_set_prevent_timeout_callback_block_invoke;
+                v80 = &unk_1E6A3A978;
+                v81 = v32;
+                if (_nw_protocol_metadata_get_handle())
                 {
-                  (*&v80[16])(v80);
+                  (*&v79[16])(v79);
                 }
 
                 goto LABEL_28;
               }
 
               v56 = __nwlog_obj();
-              *v80 = 136446210;
-              *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-              LODWORD(v73) = 12;
-              v72 = v80;
-              v51 = _os_log_send_and_compose_impl();
+              *v79 = 136446210;
+              *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+              LODWORD(v72) = 12;
+              v51 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s metadata must be http_client", v79, v72);
 
               type = OS_LOG_TYPE_ERROR;
-              v78 = 0;
-              if (__nwlog_fault(v51, &type, &v78))
+              v77 = 0;
+              if (__nwlog_fault(v51, &type, &v77))
               {
                 if (type == OS_LOG_TYPE_FAULT)
                 {
@@ -6277,13 +6294,13 @@ LABEL_20:
                   v57 = type;
                   if (os_log_type_enabled(v52, type))
                   {
-                    *v80 = 136446210;
-                    *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                    _os_log_impl(&dword_181A37000, v52, v57, "%{public}s metadata must be http_client", v80, 0xCu);
+                    *v79 = 136446210;
+                    *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                    _os_log_impl(&dword_181A37000, v52, v57, "%{public}s metadata must be http_client", v79, 0xCu);
                   }
                 }
 
-                else if (v78 == 1)
+                else if (v77 == 1)
                 {
                   v65 = __nw_create_backtrace_string();
                   v52 = __nwlog_obj();
@@ -6293,11 +6310,11 @@ LABEL_20:
                   {
                     if (v67)
                     {
-                      *v80 = 136446466;
-                      *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                      *&v80[12] = 2082;
-                      *&v80[14] = v65;
-                      _os_log_impl(&dword_181A37000, v52, v66, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v80, 0x16u);
+                      *v79 = 136446466;
+                      *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                      *&v79[12] = 2082;
+                      *&v79[14] = v65;
+                      _os_log_impl(&dword_181A37000, v52, v66, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", v79, 0x16u);
                     }
 
                     free(v65);
@@ -6311,9 +6328,9 @@ LABEL_20:
 
                   if (v67)
                   {
-                    *v80 = 136446210;
-                    *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                    _os_log_impl(&dword_181A37000, v52, v66, "%{public}s metadata must be http_client, no backtrace", v80, 0xCu);
+                    *v79 = 136446210;
+                    *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                    _os_log_impl(&dword_181A37000, v52, v66, "%{public}s metadata must be http_client, no backtrace", v79, 0xCu);
                   }
                 }
 
@@ -6323,9 +6340,9 @@ LABEL_20:
                   v69 = type;
                   if (os_log_type_enabled(v52, type))
                   {
-                    *v80 = 136446210;
-                    *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                    _os_log_impl(&dword_181A37000, v52, v69, "%{public}s metadata must be http_client, backtrace limit exceeded", v80, 0xCu);
+                    *v79 = 136446210;
+                    *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                    _os_log_impl(&dword_181A37000, v52, v69, "%{public}s metadata must be http_client, backtrace limit exceeded", v79, 0xCu);
                   }
                 }
 
@@ -6337,7 +6354,7 @@ LABEL_109:
               {
 LABEL_28:
 
-                objc_destroyWeak(&v75);
+                objc_destroyWeak(&v74);
                 objc_destroyWeak(&location);
 LABEL_29:
                 v33 = [NWURLSessionTaskMetrics alloc];
@@ -6345,9 +6362,9 @@ LABEL_29:
                 v35 = v34;
                 if (v33)
                 {
-                  *v80 = v33;
-                  *&v80[8] = NWURLSessionTaskMetrics;
-                  v36 = objc_msgSendSuper2(v80, sel_init);
+                  *v79 = v33;
+                  *&v79[8] = NWURLSessionTaskMetrics;
+                  v36 = objc_msgSendSuper2(v79, sel_init);
                   v33 = v36;
                   if (v36)
                   {
@@ -6367,15 +6384,14 @@ LABEL_110:
             }
 
             v50 = __nwlog_obj();
-            *v80 = 136446210;
-            *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-            LODWORD(v73) = 12;
-            v72 = v80;
-            v51 = _os_log_send_and_compose_impl();
+            *v79 = 136446210;
+            *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+            LODWORD(v72) = 12;
+            v51 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v50, 16, "%{public}s called with null metadata", v79, v72);
 
             type = OS_LOG_TYPE_ERROR;
-            v78 = 0;
-            if (!__nwlog_fault(v51, &type, &v78))
+            v77 = 0;
+            if (!__nwlog_fault(v51, &type, &v77))
             {
               goto LABEL_109;
             }
@@ -6386,13 +6402,13 @@ LABEL_110:
               v53 = type;
               if (os_log_type_enabled(v52, type))
               {
-                *v80 = 136446210;
-                *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                _os_log_impl(&dword_181A37000, v52, v53, "%{public}s called with null metadata", v80, 0xCu);
+                *v79 = 136446210;
+                *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                _os_log_impl(&dword_181A37000, v52, v53, "%{public}s called with null metadata", v79, 0xCu);
               }
             }
 
-            else if (v78 == 1)
+            else if (v77 == 1)
             {
               v61 = __nw_create_backtrace_string();
               v52 = __nwlog_obj();
@@ -6402,11 +6418,11 @@ LABEL_110:
               {
                 if (v63)
                 {
-                  *v80 = 136446466;
-                  *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                  *&v80[12] = 2082;
-                  *&v80[14] = v61;
-                  _os_log_impl(&dword_181A37000, v52, v62, "%{public}s called with null metadata, dumping backtrace:%{public}s", v80, 0x16u);
+                  *v79 = 136446466;
+                  *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                  *&v79[12] = 2082;
+                  *&v79[14] = v61;
+                  _os_log_impl(&dword_181A37000, v52, v62, "%{public}s called with null metadata, dumping backtrace:%{public}s", v79, 0x16u);
                 }
 
                 free(v61);
@@ -6415,9 +6431,9 @@ LABEL_110:
 
               if (v63)
               {
-                *v80 = 136446210;
-                *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                _os_log_impl(&dword_181A37000, v52, v62, "%{public}s called with null metadata, no backtrace", v80, 0xCu);
+                *v79 = 136446210;
+                *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                _os_log_impl(&dword_181A37000, v52, v62, "%{public}s called with null metadata, no backtrace", v79, 0xCu);
               }
             }
 
@@ -6427,9 +6443,9 @@ LABEL_110:
               v68 = type;
               if (os_log_type_enabled(v52, type))
               {
-                *v80 = 136446210;
-                *&v80[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
-                _os_log_impl(&dword_181A37000, v52, v68, "%{public}s called with null metadata, backtrace limit exceeded", v80, 0xCu);
+                *v79 = 136446210;
+                *&v79[4] = "nw_http_client_metadata_set_prevent_timeout_callback";
+                _os_log_impl(&dword_181A37000, v52, v68, "%{public}s called with null metadata, backtrace limit exceeded", v79, 0xCu);
               }
             }
 
@@ -6445,9 +6461,9 @@ LABEL_102:
 
         if (v59)
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, BYTE4(v73), "%{public}s metadata must be http_client, no backtrace", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, BYTE4(v72), "%{public}s metadata must be http_client, no backtrace", v79, 0xCu);
         }
       }
 
@@ -6457,9 +6473,9 @@ LABEL_102:
         v64 = location;
         if (os_log_type_enabled(v46, location))
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, v64, "%{public}s metadata must be http_client, backtrace limit exceeded", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, v64, "%{public}s metadata must be http_client, backtrace limit exceeded", v79, 0xCu);
         }
       }
     }
@@ -6467,11 +6483,9 @@ LABEL_102:
     else
     {
       v44 = __nwlog_obj();
-      *v80 = 136446210;
-      *&v80[4] = "nw_http_client_metadata_set_initial_request";
-      LODWORD(v73) = 12;
-      v72 = v80;
-      v45 = _os_log_send_and_compose_impl();
+      *v79 = 136446210;
+      *&v79[4] = "nw_http_client_metadata_set_initial_request";
+      v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null metadata", v79, 12);
 
       LOBYTE(location) = 16;
       type = OS_LOG_TYPE_DEFAULT;
@@ -6486,9 +6500,9 @@ LABEL_102:
         v47 = location;
         if (os_log_type_enabled(v46, location))
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, v47, "%{public}s called with null metadata", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, v47, "%{public}s called with null metadata", v79, 0xCu);
         }
       }
 
@@ -6496,17 +6510,17 @@ LABEL_102:
       {
         v54 = __nw_create_backtrace_string();
         v46 = __nwlog_obj();
-        HIDWORD(v73) = location;
+        HIDWORD(v72) = location;
         v55 = os_log_type_enabled(v46, location);
         if (v54)
         {
           if (v55)
           {
-            *v80 = 136446466;
-            *&v80[4] = "nw_http_client_metadata_set_initial_request";
-            *&v80[12] = 2082;
-            *&v80[14] = v54;
-            _os_log_impl(&dword_181A37000, v46, BYTE4(v73), "%{public}s called with null metadata, dumping backtrace:%{public}s", v80, 0x16u);
+            *v79 = 136446466;
+            *&v79[4] = "nw_http_client_metadata_set_initial_request";
+            *&v79[12] = 2082;
+            *&v79[14] = v54;
+            _os_log_impl(&dword_181A37000, v46, BYTE4(v72), "%{public}s called with null metadata, dumping backtrace:%{public}s", v79, 0x16u);
           }
 
           free(v54);
@@ -6521,9 +6535,9 @@ LABEL_101:
 
         if (v55)
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, BYTE4(v73), "%{public}s called with null metadata, no backtrace", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, BYTE4(v72), "%{public}s called with null metadata, no backtrace", v79, 0xCu);
         }
       }
 
@@ -6533,9 +6547,9 @@ LABEL_101:
         v60 = location;
         if (os_log_type_enabled(v46, location))
         {
-          *v80 = 136446210;
-          *&v80[4] = "nw_http_client_metadata_set_initial_request";
-          _os_log_impl(&dword_181A37000, v46, v60, "%{public}s called with null metadata, backtrace limit exceeded", v80, 0xCu);
+          *v79 = 136446210;
+          *&v79[4] = "nw_http_client_metadata_set_initial_request";
+          _os_log_impl(&dword_181A37000, v46, v60, "%{public}s called with null metadata, backtrace limit exceeded", v79, 0xCu);
         }
       }
     }
@@ -6560,11 +6574,11 @@ LABEL_33:
 
     if ((_skipsStackTraceCapture & 1) == 0)
     {
-      *v80 = 0;
+      *v79 = 0;
       v40 = ne_tracker_copy_current_stacktrace();
       if (v40)
       {
-        v41 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v40 length:*v80];
+        v41 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v40 length:*v79];
         v42 = self[49];
         self[49] = v41;
       }
@@ -6592,47 +6606,47 @@ void __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke(ui
     v3 = *(complete + 320);
     v4 = a2;
     nw_context_assert_queue(v3);
-    v6 = *(complete + 344);
-    if (v6)
+    v5 = *(complete + 344);
+    if (v5)
     {
       *(complete + 344) = 0;
-      nw_queue_cancel_source(v6, v5);
+      nw_queue_cancel_source(v5);
     }
 
-    v7 = *(complete + 336);
-    if (v7)
+    v6 = *(complete + 336);
+    if (v6)
     {
       *(complete + 336) = 0;
-      nw_queue_cancel_source(v7, v5);
+      nw_queue_cancel_source(v6);
     }
 
-    v8 = *(complete + 360);
-    if (v8)
+    v7 = *(complete + 360);
+    if (v7)
     {
       *(complete + 360) = 0;
-      nw_queue_cancel_source(v8, v5);
+      nw_queue_cancel_source(v7);
     }
 
-    v9 = *(complete + 352);
-    if (v9)
+    v8 = *(complete + 352);
+    if (v8)
     {
       *(complete + 352) = 0;
-      nw_queue_cancel_source(v9, v5);
+      nw_queue_cancel_source(v8);
     }
 
-    v10 = *(complete + 368);
-    if (v10)
+    v9 = *(complete + 368);
+    if (v9)
     {
-      v11 = v10;
+      v10 = v9;
       error = [complete error];
 
       if (!error)
       {
-        v13 = *(complete + 376);
-        [*(complete + 376) setCompletedUnitCount:{objc_msgSend(v13, "totalUnitCount")}];
+        v12 = *(complete + 376);
+        [*(complete + 376) setCompletedUnitCount:{objc_msgSend(v12, "totalUnitCount")}];
 
-        v14 = *(complete + 384);
-        [*(complete + 384) setCompletedUnitCount:{objc_msgSend(v14, "totalUnitCount")}];
+        v13 = *(complete + 384);
+        [*(complete + 384) setCompletedUnitCount:{objc_msgSend(v13, "totalUnitCount")}];
       }
     }
 
@@ -6648,23 +6662,23 @@ void __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke(ui
     v4[2](v4);
 
     [*(complete + 264) stop];
-    v15 = *(complete + 264);
+    v14 = *(complete + 264);
     *(complete + 264) = 0;
 
     error2 = [complete error];
-    v17 = error2;
+    v16 = error2;
     if (error2)
     {
-      v18 = 16 * ([error2 code] != -999);
-      v19 = *(complete + 424);
-      if (v19)
+      v17 = 16 * ([error2 code] != -999);
+      v18 = *(complete + 424);
+      if (v18)
       {
-        v20 = [*(v19 + 16) _loggingPrivacyLevel] < 3;
+        v19 = [*(v18 + 16) _loggingPrivacyLevel] < 3;
       }
 
       else
       {
-        v20 = 1;
+        v19 = 1;
       }
 
       if (__nwlog_url_log::onceToken != -1)
@@ -6672,15 +6686,15 @@ void __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke(ui
         dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
       }
 
-      v21 = gurlLogObj;
-      v22 = os_log_type_enabled(v21, v18);
-      if (v20)
+      v20 = gurlLogObj;
+      v21 = os_log_type_enabled(v20, v17);
+      if (v19)
       {
-        if (v22)
+        if (v21)
         {
-          [complete logDescription];
-          [complete logDescription];
-          code = [v17 code];
+          objc_msgSend_logDescription(complete);
+          objc_msgSend_logDescription(complete);
+          code = [v16 code];
           *buf = 68289794;
           *&buf[4] = 16;
           *&buf[8] = 2098;
@@ -6690,21 +6704,21 @@ void __55__NWURLSessionTask_initWithRequest_identifier_session___block_invoke(ui
           *v122 = 2048;
           *&v122[2] = code;
           *&v122[10] = 2112;
-          *&v122[12] = v17;
-          v24 = "Task <%{public,uuid_t}.16P>.<%u> finished with error [%ld] %@";
+          *&v122[12] = v16;
+          v23 = "Task <%{public,uuid_t}.16P>.<%u> finished with error [%ld] %@";
 LABEL_27:
-          v25 = v21;
-          v26 = v18;
-          v27 = 44;
+          v24 = v20;
+          v25 = v17;
+          v26 = 44;
           goto LABEL_28;
         }
       }
 
-      else if (v22)
+      else if (v21)
       {
-        [complete logDescription];
-        [complete logDescription];
-        code2 = [v17 code];
+        objc_msgSend_logDescription(complete);
+        objc_msgSend_logDescription(complete);
+        code2 = [v16 code];
         *buf = 68289795;
         *&buf[4] = 16;
         *&buf[8] = 2098;
@@ -6714,8 +6728,8 @@ LABEL_27:
         *v122 = 2048;
         *&v122[2] = code2;
         *&v122[10] = 2117;
-        *&v122[12] = v17;
-        v24 = "Task <%{public,uuid_t}.16P>.<%u> finished with error [%ld] %{sensitive}@";
+        *&v122[12] = v16;
+        v23 = "Task <%{public,uuid_t}.16P>.<%u> finished with error [%ld] %{sensitive}@";
         goto LABEL_27;
       }
     }
@@ -6727,157 +6741,155 @@ LABEL_27:
         dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
       }
 
-      v21 = gurlLogObj;
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = gurlLogObj;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        [complete logDescription];
-        [complete logDescription];
+        objc_msgSend_logDescription(complete);
+        objc_msgSend_logDescription(complete);
         *buf = 68289282;
         *&buf[4] = 16;
         *&buf[8] = 2098;
         *&buf[10] = &v118;
         *&buf[18] = 1024;
         *&buf[20] = v117;
-        v24 = "Task <%{public,uuid_t}.16P>.<%u> finished successfully";
-        v25 = v21;
-        v26 = OS_LOG_TYPE_DEFAULT;
-        v27 = 24;
+        v23 = "Task <%{public,uuid_t}.16P>.<%u> finished successfully";
+        v24 = v20;
+        v25 = OS_LOG_TYPE_DEFAULT;
+        v26 = 24;
 LABEL_28:
-        _os_log_impl(&dword_181A37000, v25, v26, v24, buf, v27);
+        _os_log_impl(&dword_181A37000, v24, v25, v23, buf, v26);
       }
     }
 
     activity = [(NWURLSessionTaskConfiguration *)*(complete + 424) activity];
-    v31 = *(complete + 424);
-    if (v31)
+    v30 = *(complete + 424);
+    if (v30)
     {
       activity2 = [(NWURLSessionTaskConfiguration *)*(complete + 424) activity];
-      _nw_activity = [*(v31 + 24) _nw_activity];
-      v34 = activity2 == _nw_activity;
+      _nw_activity = [*(v30 + 24) _nw_activity];
+      v33 = activity2 == _nw_activity;
 
-      if (!v34)
+      if (!v33)
       {
-        if (v17)
+        if (v16)
         {
-          if ([v17 code] == -999)
+          if ([v16 code] == -999)
           {
-            v35 = 4;
+            v34 = 4;
           }
 
           else
           {
-            v35 = 3;
+            v34 = 3;
           }
         }
 
         else
         {
-          v35 = 2;
+          v34 = 2;
         }
 
-        nw_activity_complete_with_reason_and_underlying_error(activity, v35, 1, [v17 code]);
+        nw_activity_complete_with_reason_and_underlying_error(activity, v34, 1, [v16 code]);
       }
     }
 
-    Property = objc_getProperty(complete, v29, 456, 1);
+    Property = objc_getProperty(complete, v28, 456, 1);
     completeCopy = complete;
-    v38 = activity;
-    v39 = v38;
-    if (!Property || !nw_activity_is_selected_for_reporting(v38))
+    v37 = activity;
+    v38 = v37;
+    if (!Property || !nw_activity_is_selected_for_reporting(v37))
     {
-      goto LABEL_89;
+      goto LABEL_92;
     }
 
-    v40 = Property[2];
-    v41 = v40;
-    v101 = v39;
-    if (!v40)
+    v39 = Property[2];
+    v40 = v39;
+    v101 = v38;
+    if (!v39)
     {
-      v83 = __nwlog_obj();
+      v84 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-      LODWORD(v98) = 12;
-      v97 = buf;
-      v84 = _os_log_send_and_compose_impl();
+      v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v84, 16, "%{public}s called with null metadata", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v105) = 0;
-      if (!__nwlog_fault(v84, type, &v105))
+      if (!__nwlog_fault(v85, type, &v105))
       {
-        goto LABEL_124;
+        goto LABEL_127;
       }
 
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
-        v85 = __nwlog_obj();
-        v86 = type[0];
-        if (os_log_type_enabled(v85, type[0]))
+        v86 = __nwlog_obj();
+        v87 = type[0];
+        if (os_log_type_enabled(v86, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v86, "%{public}s called with null metadata", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v87, "%{public}s called with null metadata", buf, 0xCu);
         }
       }
 
       else if (v105 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v85 = __nwlog_obj();
-        v90 = type[0];
-        v91 = os_log_type_enabled(v85, type[0]);
+        v86 = __nwlog_obj();
+        v91 = type[0];
+        v92 = os_log_type_enabled(v86, type[0]);
         if (backtrace_string)
         {
-          if (v91)
+          if (v92)
           {
             *buf = 136446466;
             *&buf[4] = "nw_http_client_metadata_get_transaction_count";
             *&buf[12] = 2082;
             *&buf[14] = backtrace_string;
-            _os_log_impl(&dword_181A37000, v85, v90, "%{public}s called with null metadata, dumping backtrace:%{public}s", buf, 0x16u);
+            _os_log_impl(&dword_181A37000, v86, v91, "%{public}s called with null metadata, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          if (!v84)
+          if (!v85)
           {
-            goto LABEL_126;
+            goto LABEL_129;
           }
 
-          goto LABEL_125;
+          goto LABEL_128;
         }
 
-        if (v91)
+        if (v92)
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v90, "%{public}s called with null metadata, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v91, "%{public}s called with null metadata, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v85 = __nwlog_obj();
-        v95 = type[0];
-        if (os_log_type_enabled(v85, type[0]))
+        v86 = __nwlog_obj();
+        v96 = type[0];
+        if (os_log_type_enabled(v86, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v95, "%{public}s called with null metadata, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v96, "%{public}s called with null metadata, backtrace limit exceeded", buf, 0xCu);
         }
       }
 
-      goto LABEL_123;
+      goto LABEL_126;
     }
 
-    v42 = nw_protocol_copy_http_client_definition_onceToken;
-    v43 = v40;
-    if (v42 != -1)
+    v41 = nw_protocol_copy_http_client_definition_onceToken;
+    v42 = v39;
+    if (v41 != -1)
     {
       dispatch_once(&nw_protocol_copy_http_client_definition_onceToken, &__block_literal_global_85);
     }
 
-    v44 = nw_protocol_metadata_matches_definition(v43, nw_protocol_copy_http_client_definition_definition);
+    v43 = nw_protocol_metadata_matches_definition(v42, nw_protocol_copy_http_client_definition_definition);
 
-    if (v44)
+    if (v43)
     {
       *type = 0;
       v110 = type;
@@ -6888,7 +6900,7 @@ LABEL_28:
       *&buf[16] = __nw_http_client_metadata_get_transaction_count_block_invoke;
       *v122 = &unk_1E6A3A858;
       *&v122[8] = type;
-      if (_nw_protocol_metadata_get_handle(v43))
+      if (_nw_protocol_metadata_get_handle())
       {
         (*&buf[16])(buf);
       }
@@ -6897,55 +6909,64 @@ LABEL_28:
       _Block_object_dispose(type, 8);
 LABEL_46:
 
-      v45 = malloc_type_calloc(1uLL, 80 * v100 + 88, 0x62E88BF1uLL);
-      if (!v45)
+      v44 = malloc_type_calloc(1uLL, 80 * v100 + 88, 0x62E88BF1uLL);
+      if (!v44)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v46 = gLogObj;
-        os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+        v45 = gLogObj;
+        v46 = os_log_type_enabled(v45, OS_LOG_TYPE_ERROR);
         *buf = 136446722;
         *&buf[4] = "[NWURLSessionTaskMetrics reportToSymptoms:activity:]";
+        if (v46)
+        {
+          v47 = 3;
+        }
+
+        else
+        {
+          v47 = 2;
+        }
+
         *&buf[12] = 2048;
         *&buf[14] = 1;
         *&buf[22] = 2048;
         *v122 = 80 * v100 + 88;
         LODWORD(v98) = 32;
-        v97 = buf;
-        v47 = _os_log_send_and_compose_impl();
+        v48 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_181A37000, v45, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, v98);
 
-        if (__nwlog_should_abort(v47))
+        if (__nwlog_should_abort(v48))
         {
           __break(1u);
           return;
         }
 
-        free(v47);
+        free(v48);
       }
 
       v126 = 0uLL;
       v127 = 0;
-      [completeCopy logDescription];
-      v45[1] = v126;
-      *(v45 + 18) = v127;
+      objc_msgSend_logDescription(completeCopy);
+      v44[1] = v126;
+      *(v44 + 18) = v127;
       start_time = nw_http_client_metadata_get_start_time(Property[2]);
-      v49 = dword_1ED4117CC;
+      v50 = dword_1ED4117CC;
       if (!dword_1ED4117CC)
       {
-        v50 = start_time;
+        v51 = start_time;
         mach_timebase_info(&time_base);
-        start_time = v50;
-        v49 = dword_1ED4117CC;
+        start_time = v51;
+        v50 = dword_1ED4117CC;
       }
 
-      *(v45 + 4) = start_time * time_base / v49 / 0xF4240;
+      *(v44 + 4) = start_time * time_base / v50 / 0xF4240;
       end_time = nw_http_client_metadata_get_end_time(Property[2]);
       if (end_time)
       {
-        v52 = dword_1ED4117CC;
+        v53 = dword_1ED4117CC;
         if (dword_1ED4117CC)
         {
-          goto LABEL_53;
+          goto LABEL_56;
         }
       }
 
@@ -6957,22 +6978,22 @@ LABEL_46:
           end_time = 1;
         }
 
-        v52 = dword_1ED4117CC;
+        v53 = dword_1ED4117CC;
         if (dword_1ED4117CC)
         {
-LABEL_53:
-          *(v45 + 5) = end_time * time_base / v52 / 0xF4240;
+LABEL_56:
+          *(v44 + 5) = end_time * time_base / v53 / 0xF4240;
           error3 = [completeCopy error];
-          *(v45 + 6) = [error3 code];
+          *(v44 + 6) = [error3 code];
           userInfo = [error3 userInfo];
           v99 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
 
-          *(v45 + 7) = [v99 code];
-          nw_activity_get_token(v101, v45);
+          *(v44 + 7) = [v99 code];
+          nw_activity_get_token(v101, v44);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v55 = *(v45 + 82) & 0xF0 | 3;
+            v56 = *(v44 + 82) & 0xF0 | 3;
           }
 
           else
@@ -6980,7 +7001,7 @@ LABEL_53:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v55 = *(v45 + 82) & 0xF0 | 2;
+              v56 = *(v44 + 82) & 0xF0 | 2;
             }
 
             else
@@ -6988,7 +7009,7 @@ LABEL_53:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v55 = *(v45 + 82) & 0xF0 | 4;
+                v56 = *(v44 + 82) & 0xF0 | 4;
               }
 
               else
@@ -6996,53 +7017,53 @@ LABEL_53:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v55 = *(v45 + 82) & 0xF0 | 5;
+                  v56 = *(v44 + 82) & 0xF0 | 5;
                 }
 
                 else
                 {
                   objc_opt_class();
                   isKindOfClass = objc_opt_isKindOfClass();
-                  v58 = *(v45 + 82) & 0xF0;
+                  v59 = *(v44 + 82) & 0xF0;
                   if (isKindOfClass)
                   {
-                    v55 = v58 | 6;
+                    v56 = v59 | 6;
                   }
 
                   else
                   {
-                    v55 = v58 | 1;
+                    v56 = v59 | 1;
                   }
                 }
               }
             }
           }
 
-          *(v45 + 82) = v55;
-          *(v45 + 82) = v55 & 0xCF | 0x20;
-          v59 = *(complete + 424);
-          v60 = v59;
-          if (v59)
+          *(v44 + 82) = v56;
+          *(v44 + 82) = v56 & 0xCF | 0x20;
+          v60 = *(complete + 424);
+          v61 = v60;
+          if (v60)
           {
-            if ([v59[2] _disableAPWakeOnIdleConnections])
+            if ([v60[2] _disableAPWakeOnIdleConnections])
             {
-              v61 = 64;
+              v62 = 64;
             }
 
             else
             {
-              v61 = 0;
+              v62 = 0;
             }
           }
 
           else
           {
-            v61 = 0;
+            v62 = 0;
           }
 
-          *(v45 + 82) = *(v45 + 82) & 0xBF | v61;
+          *(v44 + 82) = *(v44 + 82) & 0xBF | v62;
 
-          *(v45 + 82) &= ~0x80u;
+          *(v44 + 82) &= ~0x80u;
           *type = 0;
           v110 = type;
           v111 = 0x2020000000;
@@ -7055,7 +7076,7 @@ LABEL_53:
           v103[1] = v103;
           v103[2] = 0x2020000000;
           v104 = 0;
-          v62 = Property[2];
+          v63 = Property[2];
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __53__NWURLSessionTaskMetrics_reportToSymptoms_activity___block_invoke;
@@ -7063,13 +7084,13 @@ LABEL_53:
           *&v122[16] = v103;
           v123 = type;
           v124 = &v105;
-          v125 = v45;
+          v125 = v44;
           *&v122[8] = completeCopy;
-          nw_http_client_metadata_enumerate_transactions(v62, buf);
+          nw_http_client_metadata_enumerate_transactions(v63, buf);
 
-          *(v45 + 38) = *(v106 + 12);
-          *(v45 + 39) = *(v110 + 12);
-          *(v45 + 40) = v100;
+          *(v44 + 38) = *(v106 + 12);
+          *(v44 + 39) = *(v110 + 12);
+          *(v44 + 40) = v100;
           if (reportToSymptoms_activity__onceToken[0] != -1)
           {
             dispatch_once(reportToSymptoms_activity__onceToken, &__block_literal_global_29078);
@@ -7081,68 +7102,68 @@ LABEL_53:
           if (!os_variant_has_internal_diagnostics() || !networkd_settings_get_BOOL(nw_setting_activity_write_metric_stream_to_log))
           {
             symptom_send();
-LABEL_88:
-            free(v45);
+LABEL_91:
+            free(v44);
 
             _Block_object_dispose(v103, 8);
             _Block_object_dispose(&v105, 8);
             _Block_object_dispose(type, 8);
 
-            v39 = v101;
-LABEL_89:
+            v38 = v101;
+LABEL_92:
 
-            v81 = *(complete + 424);
+            v82 = *(complete + 424);
             *(complete + 424) = 0;
 
             [completeCopy setSecTrust:0];
-            objc_setProperty_atomic_copy(completeCopy, v82, 0, 312);
+            objc_setProperty_atomic_copy(completeCopy, v83, 0, 312);
             [(NWURLSession *)completeCopy[52] taskCompleted:completeCopy];
 
             return;
           }
 
-          v63 = NWCreateDictionaryFromCFNetworkTaskMetrics(v45);
-          v64 = MEMORY[0x1E696AD98];
-          v65 = v101;
-          v66 = v63;
-          v67 = [v64 numberWithUnsignedInt:nw_activity_get_label(v65)];
-          [v66 setObject:v67 forKeyedSubscript:@"activityLabel"];
+          v64 = NWCreateDictionaryFromCFNetworkTaskMetrics(v44);
+          v65 = MEMORY[0x1E696AD98];
+          v66 = v101;
+          v67 = v64;
+          v68 = [v65 numberWithUnsignedInt:nw_activity_get_label(v66)];
+          [v67 setObject:v68 forKeyedSubscript:@"activityLabel"];
 
-          v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:nw_activity_get_domain(v65)];
-          [v66 setObject:v68 forKeyedSubscript:@"activityDomain"];
+          v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:nw_activity_get_domain(v66)];
+          [v67 setObject:v69 forKeyedSubscript:@"activityDomain"];
 
-          v69 = MEMORY[0x1E696AD98];
-          investigation_identifier = nw_activity_get_investigation_identifier(v65);
+          v70 = MEMORY[0x1E696AD98];
+          investigation_identifier = nw_activity_get_investigation_identifier(v66);
 
-          v71 = [v69 numberWithUnsignedLongLong:investigation_identifier];
-          [v66 setObject:v71 forKeyedSubscript:@"identifier"];
+          v72 = [v70 numberWithUnsignedLongLong:investigation_identifier];
+          [v67 setObject:v72 forKeyedSubscript:@"identifier"];
 
           v102 = 0;
-          v72 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v66 options:0 error:&v102];
-          v73 = v102;
-          if (v72)
+          v73 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v67 options:0 error:&v102];
+          v74 = v102;
+          if (v73)
           {
             if (__nwlog_metricstream_log::onceToken != -1)
             {
               dispatch_once(&__nwlog_metricstream_log::onceToken, &__block_literal_global_68);
             }
 
-            v74 = gmetricstreamLogObj;
-            if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+            v75 = gmetricstreamLogObj;
+            if (!os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
-              goto LABEL_87;
+              goto LABEL_90;
             }
 
-            v75 = [v72 length];
-            bytes = [v72 bytes];
+            v76 = [v73 length];
+            bytes = [v73 bytes];
             *v119 = 68157954;
-            *v120 = v75;
+            *v120 = v76;
             *&v120[4] = 2082;
             *&v120[6] = bytes;
-            v77 = "%{public}.*s";
-            v78 = v74;
-            v79 = OS_LOG_TYPE_DEFAULT;
-            v80 = 18;
+            v78 = "%{public}.*s";
+            v79 = v75;
+            v80 = OS_LOG_TYPE_DEFAULT;
+            v81 = 18;
           }
 
           else
@@ -7152,114 +7173,112 @@ LABEL_89:
               dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
             }
 
-            v74 = gurlLogObj;
-            if (!os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+            v75 = gurlLogObj;
+            if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_87;
+              goto LABEL_90;
             }
 
             *v119 = 138412290;
-            *v120 = v73;
-            v77 = "Failed to serialize metrics to JSON: %@";
-            v78 = v74;
-            v79 = OS_LOG_TYPE_ERROR;
-            v80 = 12;
+            *v120 = v74;
+            v78 = "Failed to serialize metrics to JSON: %@";
+            v79 = v75;
+            v80 = OS_LOG_TYPE_ERROR;
+            v81 = 12;
           }
 
-          _os_log_impl(&dword_181A37000, v78, v79, v77, v119, v80);
-LABEL_87:
+          _os_log_impl(&dword_181A37000, v79, v80, v78, v119, v81);
+LABEL_90:
 
-          goto LABEL_88;
+          goto LABEL_91;
         }
       }
 
-      v56 = end_time;
+      v57 = end_time;
       mach_timebase_info(&time_base);
-      end_time = v56;
-      v52 = dword_1ED4117CC;
-      goto LABEL_53;
+      end_time = v57;
+      v53 = dword_1ED4117CC;
+      goto LABEL_56;
     }
 
-    v87 = __nwlog_obj();
+    v88 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-    LODWORD(v98) = 12;
-    v97 = buf;
-    v84 = _os_log_send_and_compose_impl();
+    v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s metadata must be http_client", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v105) = 0;
-    if (__nwlog_fault(v84, type, &v105))
+    if (__nwlog_fault(v85, type, &v105))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
-        v85 = __nwlog_obj();
-        v88 = type[0];
-        if (os_log_type_enabled(v85, type[0]))
+        v86 = __nwlog_obj();
+        v89 = type[0];
+        if (os_log_type_enabled(v86, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v88, "%{public}s metadata must be http_client", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v89, "%{public}s metadata must be http_client", buf, 0xCu);
         }
 
-LABEL_123:
+LABEL_126:
 
-        goto LABEL_124;
+        goto LABEL_127;
       }
 
       if (v105 != 1)
       {
-        v85 = __nwlog_obj();
-        v96 = type[0];
-        if (os_log_type_enabled(v85, type[0]))
+        v86 = __nwlog_obj();
+        v97 = type[0];
+        if (os_log_type_enabled(v86, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v96, "%{public}s metadata must be http_client, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v97, "%{public}s metadata must be http_client, backtrace limit exceeded", buf, 0xCu);
         }
 
-        goto LABEL_123;
+        goto LABEL_126;
       }
 
-      v92 = __nw_create_backtrace_string();
-      v85 = __nwlog_obj();
-      v93 = type[0];
-      v94 = os_log_type_enabled(v85, type[0]);
-      if (!v92)
+      v93 = __nw_create_backtrace_string();
+      v86 = __nwlog_obj();
+      v94 = type[0];
+      v95 = os_log_type_enabled(v86, type[0]);
+      if (!v93)
       {
-        if (v94)
+        if (v95)
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_client_metadata_get_transaction_count";
-          _os_log_impl(&dword_181A37000, v85, v93, "%{public}s metadata must be http_client, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v94, "%{public}s metadata must be http_client, no backtrace", buf, 0xCu);
         }
 
-        goto LABEL_123;
+        goto LABEL_126;
       }
 
-      if (v94)
+      if (v95)
       {
         *buf = 136446466;
         *&buf[4] = "nw_http_client_metadata_get_transaction_count";
         *&buf[12] = 2082;
-        *&buf[14] = v92;
-        _os_log_impl(&dword_181A37000, v85, v93, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", buf, 0x16u);
+        *&buf[14] = v93;
+        _os_log_impl(&dword_181A37000, v86, v94, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v92);
+      free(v93);
     }
 
-LABEL_124:
-    if (!v84)
+LABEL_127:
+    if (!v85)
     {
-LABEL_126:
+LABEL_129:
       v100 = 0;
       goto LABEL_46;
     }
 
-LABEL_125:
-    free(v84);
-    goto LABEL_126;
+LABEL_128:
+    free(v85);
+    goto LABEL_129;
   }
 }
 
@@ -7518,11 +7537,11 @@ void __36__NWURLSessionTask_readResponseBody__block_invoke_2(uint64_t a1)
       v6 = *(a1 + 40);
       if (v6)
       {
-        [v6 logDescription];
+        objc_msgSend_logDescription(v6);
         v7 = *(a1 + 40);
         if (v7)
         {
-          [v7 logDescription];
+          objc_msgSend_logDescription(v7);
           v8 = v13;
 LABEL_11:
           v9 = *(a1 + 48);
@@ -7581,10 +7600,10 @@ uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_49(uint64_t a1, u
   return 1;
 }
 
-uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_2_54(uint64_t a1)
+void __36__NWURLSessionTask_readResponseBody__block_invoke_2_54(uint64_t a1)
 {
-  result = *(a1 + 32);
-  if ((!result || *(result + 296) != 2) && (*(a1 + 48) & 1) == 0)
+  v4 = *(a1 + 32);
+  if ((!v4 || *(v4 + 296) != 2) && (*(a1 + 48) & 1) == 0)
   {
     if (*(a1 + 49) == 1)
     {
@@ -7595,24 +7614,22 @@ uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_2_54(uint64_t a1)
       v6[1] = 3221225472;
       v6[2] = __36__NWURLSessionTask_readResponseBody__block_invoke_3;
       v6[3] = &unk_1E6A3D868;
-      v6[4] = result;
-      return [v5 notifyRequestCompletion:v6];
+      v6[4] = v4;
+      [v5 notifyRequestCompletion:v6];
     }
 
     else
     {
 
-      return [NWURLSessionTask readResponseBody];
+      [(NWURLSessionTask *)v4 readResponseBody];
     }
   }
-
-  return result;
 }
 
-uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_5(uint64_t a1)
+void __36__NWURLSessionTask_readResponseBody__block_invoke_5(uint64_t a1)
 {
-  result = *(a1 + 32);
-  if ((!result || *(result + 296) != 2) && (*(a1 + 48) & 1) == 0 && (*(a1 + 49) & 1) == 0)
+  v4 = *(a1 + 32);
+  if ((!v4 || *(v4 + 296) != 2) && (*(a1 + 48) & 1) == 0 && (*(a1 + 49) & 1) == 0)
   {
     if (*(a1 + 50) == 1)
     {
@@ -7623,23 +7640,21 @@ uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_5(uint64_t a1)
       v6[1] = 3221225472;
       v6[2] = __36__NWURLSessionTask_readResponseBody__block_invoke_6;
       v6[3] = &unk_1E6A3D868;
-      v6[4] = result;
-      return [v5 notifyRequestCompletion:v6];
+      v6[4] = v4;
+      [v5 notifyRequestCompletion:v6];
     }
 
     else
     {
 
-      return [NWURLSessionTask readResponseBody];
+      [(NWURLSessionTask *)v4 readResponseBody];
     }
   }
-
-  return result;
 }
 
-uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_6(uint64_t result)
+void *__36__NWURLSessionTask_readResponseBody__block_invoke_6(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!v1)
   {
     v2 = 0;
@@ -7655,9 +7670,9 @@ uint64_t __36__NWURLSessionTask_readResponseBody__block_invoke_6(uint64_t result
   return result;
 }
 
-void __36__NWURLSessionTask_readResponseBody__block_invoke_3(uint64_t a1)
+void __36__NWURLSessionTask_readResponseBody__block_invoke_3(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (!v1)
   {
     v2 = 0;
@@ -7701,11 +7716,11 @@ void __32__NWURLSessionTask_readResponse__block_invoke_34(uint64_t a1, void *a2,
     v13 = *(a1 + 32);
     if (v13)
     {
-      [v13 logDescription];
+      objc_msgSend_logDescription(v13);
       v14 = *(a1 + 32);
       if (v14)
       {
-        [v14 logDescription];
+        objc_msgSend_logDescription(v14);
         v15 = v20;
 LABEL_17:
         *buf = 68289794;
@@ -7756,11 +7771,11 @@ LABEL_22:
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 logDescription];
+      objc_msgSend_logDescription(v8);
       v9 = *(a1 + 32);
       if (v9)
       {
-        [v9 logDescription];
+        objc_msgSend_logDescription(v9);
         v10 = v25;
 LABEL_21:
         *buf = 68289794;
@@ -7941,7 +7956,7 @@ LABEL_11:
 - (unint64_t)taskIdentifier
 {
   v4 = *MEMORY[0x1E69E9840];
-  [(NWURLSessionTask *)self logDescription];
+  objc_msgSend_logDescription(self, a2);
   return v3;
 }
 
@@ -7956,8 +7971,8 @@ LABEL_11:
   v3 = gurlLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
     v9 = 16;
     v10 = 2098;
@@ -8025,8 +8040,8 @@ void __26__NWURLSessionTask_cancel__block_invoke(uint64_t a1)
   v3 = gurlLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    [(NWURLSessionTask *)self logDescription];
-    [(NWURLSessionTask *)self logDescription];
+    objc_msgSend_logDescription(self);
+    objc_msgSend_logDescription(self);
     *buf = 68289282;
     v9 = 16;
     v10 = 2098;
@@ -8079,11 +8094,11 @@ void __26__NWURLSessionTask_resume__block_invoke(uint64_t a1, uint64_t a2, char 
     v6 = *(a1 + 32);
     if (v6)
     {
-      [v6 logDescription];
+      objc_msgSend_logDescription(v6);
       v7 = *(a1 + 32);
       if (v7)
       {
-        [v7 logDescription];
+        objc_msgSend_logDescription(v7);
         v8 = v39;
         v9 = *(a1 + 32);
 LABEL_9:
@@ -8131,11 +8146,11 @@ LABEL_10:
     v13 = *(a1 + 32);
     if (v13)
     {
-      [v13 logDescription];
+      objc_msgSend_logDescription(v13);
       v14 = *(a1 + 32);
       if (v14)
       {
-        [v14 logDescription];
+        objc_msgSend_logDescription(v14);
         v15 = v34;
         v16 = *(a1 + 32);
 LABEL_18:
@@ -8183,11 +8198,11 @@ LABEL_19:
     v20 = *(a1 + 32);
     if (v20)
     {
-      [v20 logDescription];
+      objc_msgSend_logDescription(v20);
       v21 = *(a1 + 32);
       if (v21)
       {
-        [v21 logDescription];
+        objc_msgSend_logDescription(v21);
         v22 = v29;
 LABEL_27:
         *buf = 68289282;
@@ -8253,11 +8268,11 @@ void __26__NWURLSessionTask_resume__block_invoke_2(uint64_t a1)
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 logDescription];
+      objc_msgSend_logDescription(v7);
       v8 = *(a1 + 32);
       if (v8)
       {
-        [v8 logDescription];
+        objc_msgSend_logDescription(v8);
         v9 = v30;
 LABEL_10:
         v10 = [v5 length];
@@ -8313,11 +8328,11 @@ LABEL_12:
     v15 = *(a1 + 32);
     if (v15)
     {
-      [v15 logDescription];
+      objc_msgSend_logDescription(v15);
       v16 = *(a1 + 32);
       if (v16)
       {
-        [v16 logDescription];
+        objc_msgSend_logDescription(v16);
         v17 = v24;
         v18 = *(a1 + 32);
 LABEL_21:
@@ -8521,11 +8536,11 @@ void __38__NWURLSessionTask_startResourceTimer__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = *(a1 + 32);
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v7;
 LABEL_9:
         v6 = *(a1 + 40);
@@ -8570,11 +8585,11 @@ void __35__NWURLSessionTask_startStartTimer__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 logDescription];
+      objc_msgSend_logDescription(v3);
       v4 = *(a1 + 32);
       if (v4)
       {
-        [v4 logDescription];
+        objc_msgSend_logDescription(v4);
         v5 = v7;
 LABEL_9:
         v6 = *(a1 + 40);
@@ -8632,11 +8647,11 @@ void __26__NWURLSessionTask_resume__block_invoke_21(uint64_t a1, void *a2, void 
     v14 = *(a1 + 32);
     if (v14)
     {
-      [v14 logDescription];
+      objc_msgSend_logDescription(v14);
       v15 = *(a1 + 32);
       if (v15)
       {
-        [v15 logDescription];
+        objc_msgSend_logDescription(v15);
         v16 = v20;
 LABEL_19:
         *buf = 68290050;
@@ -8680,11 +8695,11 @@ LABEL_19:
     v9 = *(a1 + 32);
     if (v9)
     {
-      [v9 logDescription];
+      objc_msgSend_logDescription(v9);
       v10 = *(a1 + 32);
       if (v10)
       {
-        [v10 logDescription];
+        objc_msgSend_logDescription(v10);
         v11 = v37;
 LABEL_16:
         *buf = 68289794;
@@ -8789,12 +8804,12 @@ LABEL_11:
   }
 }
 
-void __38__NWURLSessionTask_forwardInvocation___block_invoke()
+void __38__NWURLSessionTask_forwardInvocation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  addCategories(v0, v1);
+  addCategories(v2, v3);
 }
 
 - (BOOL)isKindOfClass:(Class)class

@@ -29,58 +29,58 @@
 
 - (id)filterFeedback:(id)feedback
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   context = objc_autoreleasePoolPush();
   v5 = objc_opt_new();
   v6 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   feedbackItems = [feedbackCopy feedbackItems];
-  v8 = [feedbackItems countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v8 = [feedbackItems countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(feedbackItems);
         }
 
-        itemString = [*(*(&v34 + 1) + 8 * i) itemString];
+        itemString = [*(*(&v33 + 1) + 8 * i) itemString];
         [v5 addObject:itemString];
       }
 
-      v9 = [feedbackItems countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v9 = [feedbackItems countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v9);
   }
 
   cacheLock = self->_cacheLock;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke;
-  v31[3] = &unk_278974B00;
-  v32 = v5;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke;
+  v30[3] = &unk_278974B00;
+  v31 = v5;
   v14 = v6;
-  v33 = v14;
+  v32 = v14;
   v15 = v5;
-  [(_PASLock *)cacheLock runWithLockAcquired:v31];
+  [(_PASLock *)cacheLock runWithLockAcquired:v30];
   feedbackItems2 = [feedbackCopy feedbackItems];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke_3;
-  v29[3] = &unk_278974B78;
-  v30 = v14;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke_3;
+  v28[3] = &unk_278974B78;
+  v29 = v14;
   v17 = v14;
-  v18 = [feedbackItems2 _pas_mappedArrayWithTransform:v29];
+  v18 = [feedbackItems2 _pas_mappedArrayWithTransform:v28];
 
   v19 = [PPInternalFeedback alloc];
   timestamp = [feedbackCopy timestamp];
@@ -91,7 +91,6 @@
   v25 = [(PPInternalFeedback *)v19 initWithFeedbackItems:v18 timestamp:timestamp clientIdentifier:clientIdentifier clientBundleId:clientBundleId mappingId:mappingId storeType:7 build:build];
 
   objc_autoreleasePoolPop(context);
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -132,27 +131,27 @@ id __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke_3(uint64_t a1, voi
 
 void __41__PPLocalQuickTypeBroker_filterFeedback___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = *(a3 + 8);
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       v10 = *(a1 + 32);
       v11 = [v9 value];
       LODWORD(v10) = [v10 containsObject:v11];
@@ -172,7 +171,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -182,13 +181,11 @@ LABEL_3:
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processFeedback:(id)feedback
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   feedbackItems = [feedbackCopy feedbackItems];
   v5 = [feedbackItems count];
@@ -197,26 +194,26 @@ LABEL_3:
   {
     v6 = objc_opt_new();
     v7 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     feedbackItems2 = [feedbackCopy feedbackItems];
-    v9 = [feedbackItems2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v9 = [feedbackItems2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v33;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v34 != v11)
+          if (*v33 != v11)
           {
             objc_enumerationMutation(feedbackItems2);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
+          v13 = *(*(&v32 + 1) + 8 * i);
           itemString = [v13 itemString];
           v15 = [itemString length];
 
@@ -233,7 +230,7 @@ LABEL_3:
           [v16 addObject:v13];
         }
 
-        v10 = [feedbackItems2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v10 = [feedbackItems2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v10);
@@ -267,60 +264,53 @@ LABEL_3:
       [PPFeedbackStorage logFeedback:v31 domain:6 domainStatus:1 inBackground:1];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   v8 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138739971;
-    v20 = feedbackCopy;
-    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "QuickType feedback received: %{sensitive}@", &v19, 0xCu);
+    v13 = 138739971;
+    v14 = feedbackCopy;
+    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "QuickType feedback received: %{sensitive}@", &v13, 0xCu);
   }
 
-  contactsServant = self->_contactsServant;
   if (objc_opt_respondsToSelector())
   {
     [(PPQuickTypeContactsServant *)self->_contactsServant registerFeedback:feedbackCopy];
   }
 
-  eventsServant = self->_eventsServant;
   if (objc_opt_respondsToSelector())
   {
     [(PPQuickTypeEventsServant *)self->_eventsServant registerFeedback:feedbackCopy];
   }
 
-  connectionsServant = self->_connectionsServant;
   if (objc_opt_respondsToSelector())
   {
     [(PPQuickTypeConnectionsServant *)self->_connectionsServant registerFeedback:feedbackCopy];
   }
 
-  navigationServant = self->_navigationServant;
   if (objc_opt_respondsToSelector())
   {
     [(PPQuickTypeNavigationServant *)self->_navigationServant registerFeedback:feedbackCopy];
   }
 
-  urlServant = self->_urlServant;
   if (objc_opt_respondsToSelector())
   {
     [(PPQuickTypeURLServant *)self->_urlServant registerFeedback:feedbackCopy];
   }
 
-  v14 = [PPInternalFeedback fromBaseFeedback:feedbackCopy storeType:7];
-  v15 = [(PPLocalQuickTypeBroker *)self filterFeedback:v14];
+  v9 = [PPInternalFeedback fromBaseFeedback:feedbackCopy storeType:7];
+  v10 = [(PPLocalQuickTypeBroker *)self filterFeedback:v9];
 
-  if (v15)
+  if (v10)
   {
-    v16 = objc_opt_new();
-    [v16 storePendingFeedback:v15 storeType:7 error:0];
+    v11 = objc_opt_new();
+    [v11 storePendingFeedback:v10 storeType:7 error:0];
     if (completionCopy)
     {
       completionCopy[2](completionCopy, 1, 0);
@@ -329,11 +319,11 @@ LABEL_3:
 
   else
   {
-    v17 = pp_quicktype_log_handle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v12 = pp_quicktype_log_handle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEFAULT, "registerFeedback had no matches after filtering", &v19, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEFAULT, "registerFeedback had no matches after filtering", &v13, 2u);
     }
 
     if (completionCopy)
@@ -341,8 +331,6 @@ LABEL_3:
       completionCopy[2](completionCopy, 1, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hibernateWithCompletion:(id)completion
@@ -486,7 +474,7 @@ void __52__PPLocalQuickTypeBroker__cacheEntryWithRecipients___block_invoke(uint6
 
 - (void)quickTypeItemsWithQuery:(id)query limit:(unint64_t)limit completion:(id)completion
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   completionCopy = completion;
   v10 = pp_quicktype_log_handle();
@@ -572,17 +560,17 @@ LABEL_18:
 
   if (!selfCopy || ![(PPLocalQuickTypeBroker *)selfCopy count])
   {
-    v95 = v12 - 1;
-    v96 = v12;
+    v94 = v12 - 1;
+    v95 = v12;
     v32 = v18;
     v33 = v16;
-    v93 = v33;
-    v94 = v32;
+    v92 = v33;
+    v93 = v32;
     if (!self)
     {
 LABEL_74:
-      v15 = v95;
-      v12 = v96;
+      v15 = v94;
+      v12 = v95;
 
       p_super = &selfCopy->super;
       selfCopy = self;
@@ -594,15 +582,15 @@ LABEL_74:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke;
-    v109 = &unk_278974AB0;
+    v108 = &unk_278974AB0;
     v36 = v32;
-    v110 = v36;
+    v109 = v36;
     limitCopy = limit;
-    v111 = v34;
-    v92 = v35;
+    v110 = v34;
+    v91 = v35;
     v37 = v35;
-    v112 = v37;
-    v98 = _Block_copy(buf);
+    v111 = v37;
+    v97 = _Block_copy(buf);
     type2 = [v36 type];
     if (type2 > 2)
     {
@@ -618,11 +606,11 @@ LABEL_74:
           v62 = v59 - 1;
           if (v62 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v61, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.connections", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v61, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.connections", "", v101, 2u);
           }
 
-          v98[2](v98, self->_connectionsServant);
+          v97[2](v97, self->_connectionsServant);
           v63 = pp_quicktype_signpost_handle();
           v45 = v63;
           if (v62 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v63))
@@ -630,7 +618,7 @@ LABEL_74:
             goto LABEL_68;
           }
 
-          *v102 = 0;
+          *v101 = 0;
           v46 = "PPLocalQuickTypeBroker.quickTypeItems.connections";
           goto LABEL_67;
         case 4:
@@ -643,11 +631,11 @@ LABEL_74:
           v74 = v71 - 1;
           if (v74 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v72))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v73, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.navigation", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v73, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.navigation", "", v101, 2u);
           }
 
-          v98[2](v98, self->_navigationServant);
+          v97[2](v97, self->_navigationServant);
           v75 = pp_quicktype_signpost_handle();
           v45 = v75;
           if (v74 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v75))
@@ -655,7 +643,7 @@ LABEL_74:
             goto LABEL_68;
           }
 
-          *v102 = 0;
+          *v101 = 0;
           v46 = "PPLocalQuickTypeBroker.quickTypeItems.navigation";
           goto LABEL_67;
         case 5:
@@ -668,11 +656,11 @@ LABEL_74:
           v51 = v48 - 1;
           if (v51 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v50, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.url", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v50, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.url", "", v101, 2u);
           }
 
-          v98[2](v98, self->_urlServant);
+          v97[2](v97, self->_urlServant);
           v52 = pp_quicktype_signpost_handle();
           v45 = v52;
           if (v51 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v52))
@@ -680,7 +668,7 @@ LABEL_74:
             goto LABEL_68;
           }
 
-          *v102 = 0;
+          *v101 = 0;
           v46 = "PPLocalQuickTypeBroker.quickTypeItems.url";
           goto LABEL_67;
       }
@@ -699,18 +687,18 @@ LABEL_74:
           v56 = v55;
           if (v54 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v56, OS_SIGNPOST_INTERVAL_BEGIN, v54, "PPLocalQuickTypeBroker.quickTypeItems.semantic", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v56, OS_SIGNPOST_INTERVAL_BEGIN, v54, "PPLocalQuickTypeBroker.quickTypeItems.semantic", "", v101, 2u);
           }
 
-          v98[2](v98, self->_contactsServant);
-          v98[2](v98, self->_connectionsServant);
+          v97[2](v97, self->_contactsServant);
+          v97[2](v97, self->_connectionsServant);
           v57 = pp_quicktype_signpost_handle();
           v45 = v57;
           if (v54 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v45, OS_SIGNPOST_INTERVAL_END, v54, "PPLocalQuickTypeBroker.quickTypeItems.semantic", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v45, OS_SIGNPOST_INTERVAL_END, v54, "PPLocalQuickTypeBroker.quickTypeItems.semantic", "", v101, 2u);
           }
 
           v16 = spida;
@@ -725,11 +713,11 @@ LABEL_74:
           v68 = v65 - 1;
           if (v68 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v66))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v67, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.contacts", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v67, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.contacts", "", v101, 2u);
           }
 
-          v98[2](v98, self->_contactsServant);
+          v97[2](v97, self->_contactsServant);
           v69 = pp_quicktype_signpost_handle();
           v45 = v69;
           if (v68 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v69))
@@ -737,7 +725,7 @@ LABEL_74:
             goto LABEL_68;
           }
 
-          *v102 = 0;
+          *v101 = 0;
           v46 = "PPLocalQuickTypeBroker.quickTypeItems.contacts";
           goto LABEL_67;
         case 2:
@@ -750,11 +738,11 @@ LABEL_74:
           v43 = v40 - 1;
           if (v43 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
           {
-            *v102 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23224A000, v42, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.events", "", v102, 2u);
+            *v101 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23224A000, v42, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PPLocalQuickTypeBroker.quickTypeItems.events", "", v101, 2u);
           }
 
-          v98[2](v98, self->_eventsServant);
+          v97[2](v97, self->_eventsServant);
           v44 = pp_quicktype_signpost_handle();
           v45 = v44;
           if (v43 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v44))
@@ -762,10 +750,10 @@ LABEL_74:
             goto LABEL_68;
           }
 
-          *v102 = 0;
+          *v101 = 0;
           v46 = "PPLocalQuickTypeBroker.quickTypeItems.events";
 LABEL_67:
-          _os_signpost_emit_with_name_impl(&dword_23224A000, v45, OS_SIGNPOST_INTERVAL_END, spid, v46, "", v102, 2u);
+          _os_signpost_emit_with_name_impl(&dword_23224A000, v45, OS_SIGNPOST_INTERVAL_END, spid, v46, "", v101, 2u);
 LABEL_68:
 
           break;
@@ -777,15 +765,15 @@ LABEL_68:
       [v37 sortUsingSelector:sel_reverseCompare_];
       v76 = objc_opt_new();
       v77 = objc_opt_new();
-      *v102 = MEMORY[0x277D85DD0];
-      v103 = 3221225472;
-      v104 = __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke_127;
-      v105 = &unk_278974AD8;
-      v106 = v76;
-      v107 = v77;
+      *v101 = MEMORY[0x277D85DD0];
+      v102 = 3221225472;
+      v103 = __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke_127;
+      v104 = &unk_278974AD8;
+      v105 = v76;
+      v106 = v77;
       v78 = v77;
       v79 = v76;
-      [v37 enumerateObjectsUsingBlock:v102];
+      [v37 enumerateObjectsUsingBlock:v101];
       [v37 removeObjectsAtIndexes:v78];
     }
 
@@ -796,20 +784,20 @@ LABEL_68:
     {
       v82 = objc_opt_new();
       objc_storeStrong((v82 + 16), query);
-      objc_storeStrong((v82 + 8), v92);
+      objc_storeStrong((v82 + 8), v91);
       v83 = objc_opt_new();
       v84 = *(v82 + 24);
       *(v82 + 24) = v83;
 
       cacheLock = self->_cacheLock;
-      v99[0] = MEMORY[0x277D85DD0];
-      v99[1] = 3221225472;
-      v99[2] = __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke_2;
-      v99[3] = &unk_278974B00;
-      v100 = v82;
-      v101 = v81;
+      v98[0] = MEMORY[0x277D85DD0];
+      v98[1] = 3221225472;
+      v98[2] = __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke_2;
+      v98[3] = &unk_278974B00;
+      v99 = v82;
+      v100 = v81;
       v86 = v82;
-      [(_PASLock *)cacheLock runWithLockAcquired:v99];
+      [(_PASLock *)cacheLock runWithLockAcquired:v98];
     }
 
     self = v37;
@@ -842,12 +830,11 @@ LABEL_75:
   }
 
   completionCopy[2](completionCopy, selfCopy, v16);
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 void __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [v3 quickTypeItemsWithQuery:*(a1 + 32) limit:*(a1 + 56) explanationSet:*(a1 + 40)];
@@ -860,20 +847,19 @@ void __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_exp
       v8 = v7;
       v9 = [v5 count];
       v10 = [*(a1 + 40) count];
-      v12 = 138412802;
-      v13 = v7;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2048;
-      v17 = v10;
-      _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEFAULT, "%@ returned %lu items and explanation set now has %lu explanations", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2048;
+      v16 = v10;
+      _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEFAULT, "%@ returned %lu items and explanation set now has %lu explanations", &v11, 0x20u);
     }
 
     [*(a1 + 48) addObjectsFromArray:v5];
   }
 
   objc_autoreleasePoolPop(v4);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_explanationSet___block_invoke_127(uint64_t a1, void *a2, uint64_t a3)
@@ -954,9 +940,9 @@ void __84__PPLocalQuickTypeBroker__quickTypeItemsFromServantsWithQuery_limit_exp
   return v4;
 }
 
-uint64_t __51__PPLocalQuickTypeBroker__registerForNotifications__block_invoke(uint64_t result)
+void *__51__PPLocalQuickTypeBroker__registerForNotifications__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1)
   {
     return [*(v1 + 48) runWithLockAcquired:&__block_literal_global_118];
@@ -965,9 +951,9 @@ uint64_t __51__PPLocalQuickTypeBroker__registerForNotifications__block_invoke(ui
   return result;
 }
 
-uint64_t __51__PPLocalQuickTypeBroker__registerForNotifications__block_invoke_2(uint64_t result)
+void *__51__PPLocalQuickTypeBroker__registerForNotifications__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1)
   {
     return [*(v1 + 48) runWithLockAcquired:&__block_literal_global_118];

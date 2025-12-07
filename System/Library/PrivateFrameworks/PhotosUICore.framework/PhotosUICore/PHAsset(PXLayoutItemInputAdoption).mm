@@ -65,7 +65,7 @@
         {
           if (v6 >= 0.5)
           {
-            PXFloatApproximatelyEqualToFloat();
+            PXFloatApproximatelyEqualToFloat(v7);
           }
         }
 

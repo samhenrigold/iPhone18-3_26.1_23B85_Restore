@@ -1,7 +1,651 @@
-void sub_29AA85BF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA8437C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char *a48, uint64_t a49, uint64_t a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  va_start(va, a2);
-  sub_29AA85C54(va);
+  if (a2)
+  {
+    v67 = *(v66 - 176);
+    if ((v67 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v67 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    sub_29A57F434(v66 - 240);
+    sub_29A186B14(v66 - 208);
+    sub_29AA823E4(v66 - 144);
+    sub_29A116F64(&a25);
+    sub_29A019EE8(&a47, a48);
+    if (a56 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (a63 < 0)
+    {
+      operator delete(a58);
+    }
+
+    if (a65 < 0)
+    {
+      operator delete(a64);
+    }
+
+    sub_29AA82440(&a66);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_29AA84B3C(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v3 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v5 = v4;
+  v6 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v5 == v7 && (!v5 || v3 == v6))
+  {
+    return 0;
+  }
+
+  return sub_29A1EFC10((v3 + 56));
+}
+
+void **sub_29AA84BB4(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v6 = v5;
+  v7 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v6 == v9 && (!v6 || v4 == v7))
+  {
+    v11[0] = "vt/dictionary.h";
+    v11[1] = "VtDictionaryGet";
+    v11[2] = 458;
+    v11[3] = "const T &pxrInternal__aapl__pxrReserved__::VtDictionaryGet(const VtDictionary &, const char *) [T = std::string]";
+    v12 = 0;
+    v13 = 4;
+    pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v11, "Attempted to get value for key '%s', which is not in the dictionary.", v8, a2);
+  }
+
+  return sub_29A1EFC48((v4 + 56));
+}
+
+uint64_t sub_29AA84C5C(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v3 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v5 = v4;
+  v6 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v5 == v7 && (!v5 || v3 == v6))
+  {
+    return 0;
+  }
+
+  return sub_29A1F9298((v3 + 56));
+}
+
+void **sub_29AA84CD4(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v6 = v5;
+  v7 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v6 == v9 && (!v6 || v4 == v7))
+  {
+    v11[0] = "vt/dictionary.h";
+    v11[1] = "VtDictionaryGet";
+    v11[2] = 458;
+    v11[3] = "const T &pxrInternal__aapl__pxrReserved__::VtDictionaryGet(const VtDictionary &, const char *) [T = signed char]";
+    v12 = 0;
+    v13 = 4;
+    pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v11, "Attempted to get value for key '%s', which is not in the dictionary.", v8, a2);
+  }
+
+  return sub_29AA85E10((v4 + 56));
+}
+
+uint64_t sub_29AA84D7C(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v3 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v5 = v4;
+  v6 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v5 == v7 && (!v5 || v3 == v6))
+  {
+    return 0;
+  }
+
+  return sub_29A1EFCDC((v3 + 56));
+}
+
+void **sub_29AA84DF4(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v6 = v5;
+  v7 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v6 == v9 && (!v6 || v4 == v7))
+  {
+    v11[0] = "vt/dictionary.h";
+    v11[1] = "VtDictionaryGet";
+    v11[2] = 458;
+    v11[3] = "const T &pxrInternal__aapl__pxrReserved__::VtDictionaryGet(const VtDictionary &, const char *) [T = BOOL]";
+    v12 = 0;
+    v13 = 4;
+    pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v11, "Attempted to get value for key '%s', which is not in the dictionary.", v8, a2);
+  }
+
+  return sub_29A1EFD10((v4 + 56));
+}
+
+uint64_t sub_29AA84E9C(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v3 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v5 = v4;
+  v6 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v5 == v7 && (!v5 || v3 == v6))
+  {
+    return 0;
+  }
+
+  return sub_29A185258((v3 + 56));
+}
+
+void **sub_29AA84F14(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v6 = v5;
+  v7 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v6 == v9 && (!v6 || v4 == v7))
+  {
+    v11[0] = "vt/dictionary.h";
+    v11[1] = "VtDictionaryGet";
+    v11[2] = 458;
+    v11[3] = "const T &pxrInternal__aapl__pxrReserved__::VtDictionaryGet(const VtDictionary &, const char *) [T = pxrInternal__aapl__pxrReserved__::VtDictionary]";
+    v12 = 0;
+    v13 = 4;
+    pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v11, "Attempted to get value for key '%s', which is not in the dictionary.", v8, a2);
+  }
+
+  return sub_29A187B1C((v4 + 56));
+}
+
+uint64_t sub_29AA84FBC(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v1 = *(a1 + 1);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  if (!strcmp((*(*(v1 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), (0x800000029B4DF048 & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v1 & 4) == 0)
+  {
+    return 0;
+  }
+
+  return pxrInternal__aapl__pxrReserved__::VtValue::_TypeIsImpl(a1, &stru_2A2070800);
+}
+
+void **sub_29AA85048(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  if (sub_29AA84FBC(a1))
+  {
+    v2 = *(a1 + 1);
+    if ((v2 & 4) != 0)
+    {
+      v4 = *((v2 & 0xFFFFFFFFFFFFFFF8) + 168);
+
+      return v4(a1);
+    }
+
+    else
+    {
+      return a1;
+    }
+  }
+
+  else
+  {
+
+    return pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(a1, sub_29AA85EF8, &stru_2A2070800);
+  }
+}
+
+uint64_t sub_29AA850DC(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v3 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v5 = v4;
+  v6 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v5 == v7 && (!v5 || v3 == v6))
+  {
+    return 0;
+  }
+
+  return sub_29AA85F50((v3 + 56));
+}
+
+void **sub_29AA85154(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const char *a2)
+{
+  v4 = pxrInternal__aapl__pxrReserved__::VtDictionary::find(a1, a2);
+  v6 = v5;
+  v7 = pxrInternal__aapl__pxrReserved__::VtDictionary::end(a1);
+  if (v6 == v9 && (!v6 || v4 == v7))
+  {
+    v11[0] = "vt/dictionary.h";
+    v11[1] = "VtDictionaryGet";
+    v11[2] = 458;
+    v11[3] = "const T &pxrInternal__aapl__pxrReserved__::VtDictionaryGet(const VtDictionary &, const char *) [T = aaplUsdGclCodecVersion]";
+    v12 = 0;
+    v13 = 4;
+    pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v11, "Attempted to get value for key '%s', which is not in the dictionary.", v8, a2);
+  }
+
+  return sub_29AA85FD4((v4 + 56));
+}
+
+uint64_t sub_29AA851FC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtDictionary *a2, __n128 a3)
+{
+  v19[2] = *MEMORY[0x29EDCA608];
+  v18[0] = 0;
+  v18[1] = 0;
+  v17 = v18;
+  if ((a1 + 288) != &v17)
+  {
+    sub_29AA85A74(&v17, *(a1 + 288), (a1 + 296), a3);
+    if (v17 != v18)
+    {
+      sub_29AA85D88(&__dst, v17 + 2);
+      v13 = 0;
+      v11 = 0u;
+      v12 = 0u;
+      sub_29A7A8F90(&v11, (v16 - __p) >> 2);
+      v4 = __p;
+      v5 = v16;
+      while (v4 != v5)
+      {
+        LODWORD(v19[0]) = *v4;
+        sub_29A7ACEC4(&v11, v19);
+        v4 += 4;
+      }
+
+      v19[1] = &off_2A2043D18;
+      v6 = operator new(0x30uLL);
+      v7 = v12;
+      *v6 = v11;
+      *(v6 + 1) = v7;
+      v8 = v13;
+      *(v6 + 4) = v13;
+      if (v8)
+      {
+        v9 = (v8 - 16);
+        if (*(v6 + 3))
+        {
+          v9 = *(v6 + 3);
+        }
+
+        atomic_fetch_add_explicit(v9, 1uLL, memory_order_relaxed);
+      }
+
+      atomic_store(0, v6 + 10);
+      v19[0] = v6;
+      atomic_fetch_add_explicit(v6 + 10, 1u, memory_order_relaxed);
+      pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a2, &__dst, v19, "/");
+      sub_29A186B14(v19);
+      pxrInternal__aapl__pxrReserved__::VtArray<int>::_DecRef();
+    }
+  }
+
+  sub_29AA806E8(&v17, v18[0], a3);
+  return 0;
+}
+
+uint64_t sub_29AA85440(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtDictionary *a2)
+{
+  v7[2] = *MEMORY[0x29EDCA608];
+  v6 = 0;
+  if (sub_29AA85714(a1, &v6))
+  {
+    sub_29A008E78(&__p, "BitstreamVersion");
+    v7[1] = &off_2A2070820 + 1;
+    LODWORD(v7[0]) = v6;
+    pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a2, &__p, v7, ":");
+    sub_29A186B14(v7);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v4 = sub_29AABB028();
+    sub_29A008E78(&__p, "Unable to get bitstream version");
+    sub_29AA5B750(v4, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    return 101;
+  }
+}
+
+void sub_29AA8553C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
+{
+  sub_29A186B14(&a17);
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_29AA85568(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtDictionary *a2)
+{
+  v14[2] = *MEMORY[0x29EDCA608];
+  v13 = 0;
+  v11 = 0u;
+  v12 = 0u;
+  sub_29AA6C4E4(&v11, *(a1 + 752) - *(a1 + 744));
+  v4 = *(a1 + 744);
+  v5 = *(a1 + 752);
+  while (v4 != v5)
+  {
+    __p.__r_.__value_.__s.__data_[0] = *v4;
+    sub_29AA7E390(&v11, &__p);
+    ++v4;
+  }
+
+  sub_29A008E78(&__p, "BitstreamData");
+  v14[1] = &off_2A2043DD0;
+  v6 = operator new(0x30uLL);
+  v7 = v12;
+  *v6 = v11;
+  *(v6 + 1) = v7;
+  v8 = v13;
+  *(v6 + 4) = v13;
+  if (v8)
+  {
+    v9 = (v8 - 16);
+    if (*(v6 + 3))
+    {
+      v9 = *(v6 + 3);
+    }
+
+    atomic_fetch_add_explicit(v9, 1uLL, memory_order_relaxed);
+  }
+
+  atomic_store(0, v6 + 10);
+  v14[0] = v6;
+  atomic_fetch_add_explicit(v6 + 10, 1u, memory_order_relaxed);
+  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a2, &__p, v14, ":");
+  sub_29A186B14(v14);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  *(a1 + 768) = 0;
+  pxrInternal__aapl__pxrReserved__::VtArray<unsigned char>::_DecRef();
+}
+
+void sub_29AA856B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  sub_299FEDEEC(exception_object);
+}
+
+BOOL sub_29AA85714(uint64_t a1, _DWORD *a2)
+{
+  if (!*(a1 + 312))
+  {
+    return 0;
+  }
+
+  v11 = 65539;
+  result = sub_29AA7A734((a1 + 312), &v11);
+  if (result)
+  {
+    *a2 = *(a1 + 312);
+    v5 = (a1 + 316);
+    v10 = 0;
+    if (sub_29AA7A734((a1 + 316), &v10))
+    {
+      return 1;
+    }
+
+    if (*v5)
+    {
+      v12 = 65539;
+      result = sub_29AA7A734((a1 + 316), &v12);
+      if (!result)
+      {
+        return result;
+      }
+
+      v6 = *v5;
+      v7 = *(a1 + 312);
+      if (v6 >= v7)
+      {
+        if (v6 > v7 || (v8 = *(a1 + 317), v9 = *(a1 + 313), v8 >= v9) && (v8 > v9 || *(a1 + 318) >= *(a1 + 314)))
+        {
+          *a2 = *v5;
+          return 1;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_29AA85810(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    *(a1 + 32) = v2;
+    operator delete(v2);
+  }
+
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void sub_29AA85854(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v4 = std::filebuf::open();
+  v5 = (a1 + *(*a1 - 24));
+  if (v4)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v5->__rdstate_ | 4;
+  }
+
+  std::ios_base::clear(v5, v6);
+}
+
+uint64_t sub_29AA858CC(uint64_t a1, std::string *a2)
+{
+  v12[3] = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "pmesh");
+  sub_29A008E78(v12, "pmc");
+  sub_29A9FDE68(v8, __p, 2);
+  for (i = 0; i != -6; i -= 3)
+  {
+    if (SHIBYTE(v12[i + 2]) < 0)
+    {
+      operator delete(v12[i]);
+    }
+  }
+
+  if (&v9 == sub_29A01BCCC(v8, &a2->__r_.__value_.__l.__data_))
+  {
+    v6 = sub_29AABB028();
+    sub_29A008E78(__p, "Wrong codec");
+    sub_29AA5B750(v6, __p);
+    if (v11 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v5 = 4;
+  }
+
+  else
+  {
+    std::string::operator=((a1 + 592), a2);
+    v5 = 0;
+  }
+
+  sub_29A019EE8(v8, v9);
+  return v5;
+}
+
+uint64_t **sub_29AA85A74(uint64_t **result, __int128 *a2, __int128 *a3, __n128 a4)
+{
+  v6 = result;
+  if (result[2])
+  {
+    v7 = *result;
+    v8 = result[1];
+    *result = (result + 1);
+    v8[2] = 0;
+    result[1] = 0;
+    result[2] = 0;
+    if (v7[1])
+    {
+      v9 = v7[1];
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    v16 = result;
+    v17 = v9;
+    v18 = v9;
+    if (v9)
+    {
+      v17 = sub_29A028760(v9);
+      if (a2 != a3)
+      {
+        v10 = a2;
+        do
+        {
+          v19[0] = (v9 + 4);
+          v19[1] = (v9 + 7);
+          sub_29AA85C04(v19, (v10 + 2));
+          v11 = sub_29A0286E4(v6, v19, v18 + 4);
+          sub_29A00B204(v6, v19[0], v11, v18);
+          v18 = v17;
+          if (v17)
+          {
+            v17 = sub_29A028760(v17);
+          }
+
+          v12 = *(v10 + 1);
+          if (v12)
+          {
+            do
+            {
+              a2 = v12;
+              v12 = *v12;
+            }
+
+            while (v12);
+          }
+
+          else
+          {
+            do
+            {
+              a2 = *(v10 + 2);
+              v13 = *a2 == v10;
+              v10 = a2;
+            }
+
+            while (!v13);
+          }
+
+          v9 = v18;
+          if (v18)
+          {
+            v13 = a2 == a3;
+          }
+
+          else
+          {
+            v13 = 1;
+          }
+
+          v10 = a2;
+        }
+
+        while (!v13);
+      }
+    }
+
+    result = sub_29AA85C54(&v16, a4);
+  }
+
+  if (a2 != a3)
+  {
+    do
+    {
+      result = sub_29AA85CAC(v6, a2 + 2);
+      v14 = *(a2 + 1);
+      if (v14)
+      {
+        do
+        {
+          v15 = v14;
+          v14 = *v14;
+        }
+
+        while (v14);
+      }
+
+      else
+      {
+        do
+        {
+          v15 = *(a2 + 2);
+          v13 = *v15 == a2;
+          a2 = v15;
+        }
+
+        while (!v13);
+      }
+
+      a2 = v15;
+    }
+
+    while (v15 != a3);
+  }
+
+  return result;
+}
+
+void sub_29AA85BF0(_Unwind_Exception *a1, uint64_t a2, __n128 a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  sub_29AA85C54(va, a3);
   _Unwind_Resume(a1);
 }
 
@@ -17,54 +661,54 @@ uint64_t sub_29AA85C04(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t sub_29AA85C54(uint64_t a1)
+uint64_t sub_29AA85C54(uint64_t a1, __n128 a2)
 {
-  sub_29AA806E8(*a1, *(a1 + 16));
-  v2 = *(a1 + 8);
-  if (v2)
+  sub_29AA806E8(*a1, *(a1 + 16), a2);
+  v4 = *(a1 + 8);
+  if (v4)
   {
-    v3 = v2[2];
-    if (v3)
+    v5 = v4[2];
+    if (v5)
     {
       do
       {
-        v2 = v3;
-        v3 = v3[2];
+        v4 = v5;
+        v5 = v5[2];
       }
 
-      while (v3);
-      *(a1 + 8) = v2;
+      while (v5);
+      *(a1 + 8) = v4;
     }
 
-    sub_29AA806E8(*a1, v2);
+    sub_29AA806E8(*a1, v4, v3);
   }
 
   return a1;
 }
 
-const void **sub_29AA85CAC(uint64_t **a1, __int128 *a2)
+const void **sub_29AA85CAC(uint64_t ***a1, __int128 *a2)
 {
-  sub_29AA85D1C(a1, a2, &v6);
+  sub_29AA85D1C(a1, &v6, a2);
   v3 = sub_29A0286E4(a1, &v5, v6 + 4);
   sub_29A00B204(a1, v5, v3, v6);
   return v6;
 }
 
-void sub_29AA85D04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA85D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29AA7E1E4(va, 0);
   _Unwind_Resume(a1);
 }
 
-void *sub_29AA85D1C@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
+void *sub_29AA85D1C@<X0>(uint64_t a1@<X0>, void *a2@<X8>, __int128 *a3@<X1>)
 {
   v6 = operator new(0x50uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  result = sub_29AA85D88(v6 + 4, a2);
-  *(a3 + 16) = 1;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  result = sub_29AA85D88(v6 + 4, a3);
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -227,7 +871,7 @@ void sub_29AA860B0(void *__p)
   }
 }
 
-uint64_t sub_29AA860BC@<X0>(const pxrInternal__aapl__pxrReserved__::VtDictionary *a1@<X0>, unsigned int **a2@<X8>)
+pxrInternal__aapl__pxrReserved__::VtDictionary *sub_29AA860BC@<X0>(const pxrInternal__aapl__pxrReserved__::VtDictionary *a1@<X0>, unsigned int **a2@<X8>)
 {
   v4 = operator new(0x10uLL);
   result = pxrInternal__aapl__pxrReserved__::VtDictionary::VtDictionary(v4, a1);
@@ -267,92 +911,92 @@ _DWORD *sub_29AA86300@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_29AA8631C(int a1)
 {
-  sub_29A008864(v29);
-  v2 = MEMORY[0x29EDC9528];
-  v14 = a1;
+  sub_29A008864(v30);
+  v3 = MEMORY[0x29EDC9528];
+  v15 = a1;
   if (a1)
   {
-    v3 = 0;
-    v12 = *(MEMORY[0x29EDC9528] + 64);
-    v13 = *MEMORY[0x29EDC9528];
-    v11 = *(MEMORY[0x29EDC9528] + 72);
+    v4 = 0;
+    v13 = *(MEMORY[0x29EDC9528] + 64);
+    v14 = *MEMORY[0x29EDC9528];
+    v12 = *(MEMORY[0x29EDC9528] + 72);
     while (1)
     {
-      sub_29AA867C0(&v28);
-      v4 = MEMORY[0x29C2C1F80](&v28);
-      v26[0] = v4;
+      sub_29AA867C0(&v29);
+      v5 = MEMORY[0x29C2C1F80](&v29);
+      v27[0] = v5;
       for (i = 1; i != 624; ++i)
       {
-        v4 = i + 1812433253 * (v4 ^ (v4 >> 30));
-        v26[i] = v4;
+        v5 = i + 1812433253 * (v5 ^ (v5 >> 30));
+        v27[i] = v5;
       }
 
-      v27 = 0;
-      v25 = 0xFF00000000;
-      v6 = sub_29AA86C40(&v25, v26, &v25);
-      sub_29A008864(v19);
-      *(&v22[-1].__locale_ + *(v20 - 24)) = *(&v22[-1].__locale_ + *(v20 - 24)) & 0xFFFFFFB5 | 8;
-      MEMORY[0x29C2C1ED0](&v20, v6);
+      v28 = 0;
+      v26 = 0xFF00000000;
+      v7 = sub_29AA86C40(&v26, v27, &v26);
+      sub_29A008864(v20);
+      *(&v23[-1].__locale_ + *(v21 - 24)) = *(&v23[-1].__locale_ + *(v21 - 24)) & 0xFFFFFFB5 | 8;
+      MEMORY[0x29C2C1ED0](&v21, v7);
       std::stringbuf::str();
-      if (v18 < 0)
+      if (v19 < 0)
       {
         break;
       }
 
-      if (HIBYTE(v18) <= 1u)
+      if (HIBYTE(v19) <= 1u)
       {
         goto LABEL_9;
       }
 
       *__p = *__src;
-      v16 = v18;
+      v17 = v19;
 LABEL_11:
-      if (v16 >= 0)
+      if (v17 >= 0)
       {
-        v7 = __p;
+        v8 = __p;
       }
 
       else
       {
-        v7 = __p[0];
+        v8 = __p[0];
       }
 
-      if (v16 >= 0)
+      if (v17 >= 0)
       {
-        v8 = HIBYTE(v16);
+        v9 = HIBYTE(v17);
       }
 
       else
       {
-        v8 = __p[1];
+        v9 = __p[1];
       }
 
-      sub_29A00911C(&v30, v7, v8);
-      if (SHIBYTE(v16) < 0)
+      sub_29A00911C(&v31, v8, v9);
+      if (SHIBYTE(v17) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v18) < 0)
+      if (SHIBYTE(v19) < 0)
       {
         operator delete(__src[0]);
       }
 
-      v19[0] = v13;
-      *(v19 + *(v13 - 24)) = v12;
-      v20 = v11;
-      v21 = MEMORY[0x29EDC9570] + 16;
-      if (v23 < 0)
+      v20[0] = v14;
+      *(v20 + *(v14 - 24)) = v13;
+      v21 = v12;
+      v22 = MEMORY[0x29EDC9570] + 16;
+      if (v24 < 0)
       {
-        operator delete(v22[7].__locale_);
+        operator delete(v23[7].__locale_);
       }
 
-      v21 = MEMORY[0x29EDC9568] + 16;
-      std::locale::~locale(v22);
+      v22 = MEMORY[0x29EDC9568] + 16;
+      std::locale::~locale(v23);
       std::iostream::~basic_iostream();
-      MEMORY[0x29C2C4390](&v24);
-      std::random_device::~random_device(&v28);
-      if (++v3 == v14)
+      MEMORY[0x29C2C4390](&v25);
+      std::random_device::~random_device(&v29);
+      if (++v4 == v15)
       {
         goto LABEL_24;
       }
@@ -371,20 +1015,20 @@ LABEL_9:
 
 LABEL_24:
   std::stringbuf::str();
-  v29[0] = *v2;
-  v9 = v2[9];
-  *(v29 + *(v29[0] - 24)) = v2[8];
-  v30 = v9;
-  v31 = MEMORY[0x29EDC9570] + 16;
-  if (v33 < 0)
+  v30[0] = *v3;
+  v10 = v3[9];
+  *(v30 + *(v30[0] - 24)) = v3[8];
+  v31 = v10;
+  v32 = MEMORY[0x29EDC9570] + 16;
+  if (v34 < 0)
   {
-    operator delete(v32[7].__locale_);
+    operator delete(v33[7].__locale_);
   }
 
-  v31 = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(v32);
+  v32 = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(v33);
   std::iostream::~basic_iostream();
-  return MEMORY[0x29C2C4390](&v34);
+  return MEMORY[0x29C2C4390](&v35);
 }
 
 std::random_device *sub_29AA867C0(std::random_device *a1)
@@ -409,43 +1053,43 @@ void sub_29AA86818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AA86834(pxrInternal__aapl__pxrReserved__ *a1@<X0>, std::__fs::filesystem::path *a2@<X8>)
+void sub_29AA86834(pxrInternal__aapl__pxrReserved__ *a1@<X0>, uint64_t a2@<X1>, std::__fs::filesystem::path *a3@<X8>)
 {
-  TmpDir = pxrInternal__aapl__pxrReserved__::ArchGetTmpDir(a1);
+  TmpDir = pxrInternal__aapl__pxrReserved__::ArchGetTmpDir(a1, a2);
   if (TmpDir)
   {
-    sub_29AA3662C(&v7, &TmpDir);
-    sub_29A65B7E0(&v5, "AAPLMeshCodec");
-    sub_29AA33A10(&v5, &v7, &v6);
+    sub_29AA3662C(&v8, &TmpDir);
+    sub_29A65B7E0(&v6, "AAPLMeshCodec");
+    sub_29AA33A10(&v7, &v6, &v8);
     sub_29AA8631C(16);
-    __p = v3;
-    sub_29AA33A10(&__p, &v6, a2);
+    __p = v4;
+    sub_29AA33A10(a3, &__p, &v7);
     if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__pn_.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v7.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v6.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v7.__pn_.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v5.__r_.__value_.__l.__data_);
+      operator delete(v6.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v7.__r_.__value_.__l.__data_);
+      operator delete(v8.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    a2->__pn_.__r_.__value_.__r.__words[0] = 0;
-    a2->__pn_.__r_.__value_.__l.__size_ = 0;
-    a2->__pn_.__r_.__value_.__r.__words[2] = 0;
+    a3->__pn_.__r_.__value_.__r.__words[0] = 0;
+    a3->__pn_.__r_.__value_.__l.__size_ = 0;
+    a3->__pn_.__r_.__value_.__r.__words[2] = 0;
   }
 }
 
@@ -690,20 +1334,20 @@ uint64_t sub_29AA86CFC(uint64_t a1)
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-void sub_29AA86D9C(uint64_t a1)
+void sub_29AA86D9C(std::string *a1)
 {
   __p[25] = *MEMORY[0x29EDCA608];
-  v2 = sub_29A2F6760((a1 + 16));
+  v2 = sub_29A2F6760(&a1->__r_.__value_.__r.__words[2]);
   Name = pxrInternal__aapl__pxrReserved__::SdfPrimSpec::GetName(v2);
-  std::string::operator=((a1 + 24), Name);
-  v4 = sub_29A2F6760((a1 + 16));
-  pxrInternal__aapl__pxrReserved__::SdfSpec::GetPath(v4, __p);
+  std::string::operator=(a1 + 1, Name);
+  v4 = sub_29A2F6760(&a1->__r_.__value_.__r.__words[2]);
+  pxrInternal__aapl__pxrReserved__::SdfSpec::GetPath(__p, v4);
   String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(__p);
-  std::string::operator=((a1 + 48), String);
+  std::string::operator=(a1 + 2, String);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(__p + 1);
   sub_29A1DE3A4(__p);
-  v6 = sub_29A2F6760((a1 + 16));
-  TypeName = pxrInternal__aapl__pxrReserved__::SdfPrimSpec::GetTypeName(v6, __p);
+  v6 = sub_29A2F6760(&a1->__r_.__value_.__r.__words[2]);
+  TypeName = pxrInternal__aapl__pxrReserved__::SdfPrimSpec::GetTypeName(__p, v6);
   if ((__p[0] & 0xFFFFFFFFFFFFFFF8) != 0)
   {
     EmptyString = ((__p[0] & 0xFFFFFFFFFFFFFFF8) + 16);
@@ -714,13 +1358,13 @@ void sub_29AA86D9C(uint64_t a1)
     EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(TypeName);
   }
 
-  std::string::operator=((a1 + 72), EmptyString);
+  std::string::operator=(a1 + 3, EmptyString);
   if ((__p[0] & 7) != 0)
   {
     atomic_fetch_add_explicit((__p[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  v9 = sub_29A2F6760((a1 + 16));
+  v9 = sub_29A2F6760(&a1->__r_.__value_.__r.__words[2]);
   pxrInternal__aapl__pxrReserved__::SdfPrimSpec::HasVariantSetNames(v9);
 }
 
@@ -824,7 +1468,7 @@ void sub_29AA88110(_Unwind_Exception *exception_object)
   }
 }
 
-void **sub_29AA88174@<X0>(pxrInternal__aapl__pxrReserved__::VtValue *a1@<X0>, uint64_t a2@<X8>)
+__int128 *sub_29AA88174@<X0>(pxrInternal__aapl__pxrReserved__::VtValue *a1@<X0>, __int128 *a2@<X8>)
 {
   if ((sub_29A1936C8(a1) & 1) == 0)
   {
@@ -880,21 +1524,21 @@ void sub_29AA882A8(_Unwind_Exception *exception_object)
 uint64_t sub_29AA882C0(uint64_t a1, void *a2)
 {
   sub_29A014C58(&v8, a2);
-  sub_29A88B8F8((a1 + 88), &v8, &v8);
+  sub_29A88B8F8(a1 + 88, &v8, &v8);
   if (v9)
   {
     sub_29A014BEC(v9);
   }
 
-  for (i = a2[34]; i != a2 + 33; i = i[1])
+  for (i = a2[34]; i != a2 + 33; i = *(i + 8))
   {
-    sub_29AA882C0(a1, i[2]);
+    sub_29AA882C0(a1, *(i + 16));
   }
 
   v5 = a2 + 36;
-  for (j = a2[37]; j != v5; j = j[1])
+  for (j = a2[37]; j != v5; j = *(j + 8))
   {
-    sub_29AA882C0(a1, j[2]);
+    sub_29AA882C0(a1, *(j + 16));
   }
 
   return 1;
@@ -912,61 +1556,61 @@ void sub_29AA88364(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_29AA8837C(uint64_t a1)
 {
-  v31[9] = *MEMORY[0x29EDCA608];
+  v32[9] = *MEMORY[0x29EDCA608];
   v1 = (a1 + 8);
   if (*(a1 + 8))
   {
-    v26 = 0;
-    v24 = 0u;
+    v27 = 0;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v3 = operator new(0x20uLL);
     *v3 = &unk_2A2070938;
     v3[1] = sub_29AA885D8;
     v3[2] = 0;
-    v3[3] = &v22;
-    v29 = v3;
-    v30 = &unk_2A2063730;
-    sub_29A88756C(v31, v28);
-    sub_29A88773C(v28);
-    v12[0] = &v30;
-    memset(&v12[1], 0, 32);
+    v3[3] = &v23;
+    v30 = v3;
+    v31 = &unk_2A2063730;
+    sub_29A88756C(v32, v29);
+    sub_29A88773C(v29);
+    v12 = &v31;
     memset(v13, 0, sizeof(v13));
-    v14 = 0;
-    v18 = 1;
-    memset(v19, 0, sizeof(v19));
-    v20 = 0;
-    v21 = 1065353216;
-    v15 = 1065353216;
-    v16 = 1;
-    v17 = 0;
-    pxrInternal__aapl__pxrReserved__::UsdUtils_LocalizationContext::Process(v12, v1);
-    sub_29A8870E4(&v22);
-    v4 = v23;
+    memset(v14, 0, sizeof(v14));
+    v15 = 0;
+    v19 = 1;
+    memset(v20, 0, sizeof(v20));
+    v21 = 0;
+    v22 = 1065353216;
+    v16 = 1065353216;
+    v17 = 1;
+    v18 = 0;
+    pxrInternal__aapl__pxrReserved__::UsdUtils_LocalizationContext::Process(&v12, v1);
+    sub_29A8870E4(&v23);
+    v4 = v24;
     v5 = *(a1 + 112);
     v6 = *(a1 + 128);
-    *(a1 + 112) = v22;
+    *(a1 + 112) = v23;
     *(a1 + 128) = v4;
-    v22 = v5;
-    v23 = v6;
-    v7 = v25;
+    v23 = v5;
+    v24 = v6;
+    v7 = v26;
     v8 = *(a1 + 144);
     v9 = *(a1 + 160);
-    *(a1 + 144) = v24;
+    *(a1 + 144) = v25;
     *(a1 + 160) = v7;
-    v24 = v8;
-    v25 = v9;
+    v25 = v8;
+    v26 = v9;
     v10 = *(a1 + 176);
-    *(a1 + 176) = v26;
-    v26 = v10;
-    sub_29A0EB4E8(v19 + 1);
-    sub_29A0EB4E8(&v13[1] + 8);
-    v27 = v13;
-    sub_29A012C90(&v27);
-    v27 = &v12[2];
-    sub_29A012C90(&v27);
-    sub_29A321930();
+    *(a1 + 176) = v27;
+    v27 = v10;
+    sub_29A0EB4E8((v20 + 1));
+    sub_29A0EB4E8(&v14[1] + 1);
+    v28 = v14;
+    sub_29A012C90(&v28);
+    v28 = v13 + 1;
+    sub_29A012C90(&v28);
+    sub_29A321930(v13);
   }
 
   return 1;
@@ -1006,16 +1650,16 @@ double sub_29AA885D8@<D0>(void *a1@<X0>, uint64_t a2@<X2>, int a3@<W3>, _OWORD *
   return result;
 }
 
-uint64_t sub_29AA88658(uint64_t a1)
+uint64_t sub_29AA88658(uint64_t *a1)
 {
-  v1 = (a1 + 8);
-  if (*(a1 + 8))
+  v1 = a1 + 1;
+  if (a1[1])
   {
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v3 = sub_29A3302A8((a1 + 8));
-    pxrInternal__aapl__pxrReserved__::SdfLayer::GetSubLayerPaths(v3, __dst);
+    v3 = sub_29A3302A8(a1 + 1);
+    pxrInternal__aapl__pxrReserved__::SdfLayer::GetSubLayerPaths(__dst, v3);
     sub_29A46D468(__dst, v17);
     if (__dst[1])
     {
@@ -1075,10 +1719,10 @@ uint64_t sub_29AA88658(uint64_t a1)
       pxrInternal__aapl__pxrReserved__::SdfLayer::SetSubLayerPaths(v7, &v18);
     }
 
-    v8 = *(a1 + 88);
-    if (v8 != a1 + 96)
+    v8 = a1[11];
+    if (v8 != a1 + 12)
     {
-      v9 = sub_29A2F6760((*(v8 + 32) + 16));
+      v9 = sub_29A2F6760((v8[4] + 16));
       pxrInternal__aapl__pxrReserved__::SdfPrimSpec::HasReferences(v9);
     }
 
@@ -1414,12 +2058,12 @@ pxrInternal__aapl__pxrReserved__::SdfChangeBlock *sub_29AA89180(uint64_t *a1, vo
   return result;
 }
 
-void sub_29AA89334(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_29AA89334(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (a3)
+  va_start(va, a7);
+  if (a6)
   {
-    sub_29A014BEC(a3);
+    sub_29A014BEC(a6);
   }
 
   sub_29A1DD644(va);
@@ -1528,31 +2172,31 @@ pxrInternal__aapl__pxrReserved__::SdfChangeBlock *sub_29AA89368(uint64_t *a1, do
   return result;
 }
 
-void sub_29AA8951C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_29AA8951C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (a3)
+  va_start(va, a7);
+  if (a6)
   {
-    sub_29A014BEC(a3);
+    sub_29A014BEC(a6);
   }
 
   sub_29A1DD644(va);
   _Unwind_Resume(a1);
 }
 
-std::string *sub_29AA89550@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+std::string *sub_29AA89550@<X0>(void *a1@<X0>, char **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  sub_29AA8AFE4(a2, 0, *(a1 + 112), *(a1 + 120), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 120) - *(a1 + 112)) >> 3));
-  sub_29AA8AFE4(a2, *(a2 + 8), *(a1 + 160), *(a1 + 168), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 168) - *(a1 + 160)) >> 3));
-  return sub_29AA8AFE4(a2, *(a2 + 8), *(a1 + 136), *(a1 + 144), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 144) - *(a1 + 136)) >> 3));
+  a2[1] = 0;
+  a2[2] = 0;
+  sub_29AA8AFE4(a2, 0, a1[14], a1[15], 0xAAAAAAAAAAAAAAABLL * ((a1[15] - a1[14]) >> 3));
+  sub_29AA8AFE4(a2, a2[1], a1[20], a1[21], 0xAAAAAAAAAAAAAAABLL * ((a1[21] - a1[20]) >> 3));
+  return sub_29AA8AFE4(a2, a2[1], a1[17], a1[18], 0xAAAAAAAAAAAAAAABLL * ((a1[18] - a1[17]) >> 3));
 }
 
-void sub_29AA895F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA895F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A012C90(va);
   _Unwind_Resume(a1);
 }
@@ -1605,22 +2249,22 @@ void sub_29AA89774(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29AA897E0(atomic_uint **a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+void sub_29AA897E0(atomic_uint **a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
-  v6 = operator new(0x150uLL);
-  sub_29AA8986C(v6, a1, a2);
-  *a3 = v6 + 3;
-  a3[1] = v6;
+  v8 = operator new(0x150uLL);
+  sub_29AA8986C(v8, a1, a2, a3);
+  *a4 = v8 + 3;
+  a4[1] = v8;
 
-  sub_29A017894(a3, v6 + 3, (v6 + 3));
+  sub_29A017894(a4, v8 + 3, (v8 + 3));
 }
 
-void *sub_29AA8986C(void *a1, atomic_uint **a2, uint64_t a3)
+void *sub_29AA8986C(void *a1, atomic_uint **a2, uint64_t a3, uint64_t a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2A20708E8;
-  sub_29AA89954(&v5, (a1 + 3), a2, a3);
+  sub_29AA89954(&v6, (a1 + 3), a2, a3);
   return a1;
 }
 
@@ -1653,14 +2297,15 @@ void sub_29AA89954(uint64_t a1, uint64_t a2, atomic_uint **a3, uint64_t a4)
   pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v6);
 }
 
-void sub_29AA899BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, char a12)
+void sub_29AA899BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   if (a10)
   {
     std::__shared_weak_count::__release_weak(a10);
   }
 
-  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&a12);
+  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(va);
   _Unwind_Resume(a1);
 }
 
@@ -1769,9 +2414,9 @@ void sub_29AA89B64(atomic_uint **a1)
   pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v1);
 }
 
-void sub_29AA89B9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA89B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(va);
   _Unwind_Resume(a1);
 }
@@ -1856,7 +2501,7 @@ void sub_29AA89C84(uint64_t a1)
   }
 }
 
-void sub_29AA89D34(uint64_t a1, const void **a2, uint64_t a3, uint64_t a4, char a5)
+void sub_29AA89D34(const void **a1, const void **a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = a2 - 3;
@@ -1933,27 +2578,27 @@ LABEL_10:
     if (v13 >= 0xC01)
     {
       v17 = sub_29A00AFCC(a3, &v10[3 * v15], v10);
-      v18 = sub_29A00AFCC(a3, a2 - 3, (a1 + 24 * v15));
+      v18 = sub_29A00AFCC(a3, a2 - 3, &a1[3 * v15]);
       if (v17)
       {
         if (v18)
         {
-          v100 = *(a1 + 16);
+          v100 = a1[2];
           v76 = *a1;
           v19 = *v8;
-          *(a1 + 16) = *(a2 - 1);
+          a1[2] = *(a2 - 1);
           *a1 = v19;
           goto LABEL_27;
         }
 
-        v106 = *(a1 + 16);
+        v106 = a1[2];
         v82 = *a1;
         v27 = *v16;
-        *(a1 + 16) = v16[2];
+        a1[2] = v16[2];
         *a1 = v27;
         v16[2] = v106;
         *v16 = v82;
-        if (sub_29A00AFCC(a3, a2 - 3, (a1 + 24 * v15)))
+        if (sub_29A00AFCC(a3, a2 - 3, &a1[3 * v15]))
         {
           v100 = v16[2];
           v76 = *v16;
@@ -1975,49 +2620,49 @@ LABEL_27:
         *v16 = v23;
         *v8 = v78;
         *(a2 - 1) = v102;
-        if (sub_29A00AFCC(a3, (a1 + 24 * v15), a1))
+        if (sub_29A00AFCC(a3, &a1[3 * v15], a1))
         {
-          v103 = *(a1 + 16);
+          v103 = a1[2];
           v79 = *a1;
           v24 = *v16;
-          *(a1 + 16) = v16[2];
+          a1[2] = v16[2];
           *a1 = v24;
           v16[2] = v103;
           *v16 = v79;
         }
       }
 
-      v29 = a1 + 24 * v15 - 24;
-      v30 = sub_29A00AFCC(a3, v29, (a1 + 24));
+      v29 = &a1[3 * v15 - 3];
+      v30 = sub_29A00AFCC(a3, v29, a1 + 3);
       v31 = sub_29A00AFCC(a3, v74, v29);
       if (v30)
       {
         if (v31)
         {
-          v32 = *(a1 + 40);
-          v33 = *(a1 + 24);
+          v32 = a1[5];
+          v33 = *(a1 + 3);
           v34 = *(a2 - 4);
-          *(a1 + 24) = *v74;
-          *(a1 + 40) = v34;
+          *(a1 + 3) = *v74;
+          a1[5] = v34;
           *v74 = v33;
           *(a2 - 4) = v32;
         }
 
         else
         {
-          v86 = *(a1 + 24);
-          v110 = *(a1 + 40);
-          v39 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v39;
-          *(a1 + 24 * v15 - 8) = v110;
+          v86 = *(a1 + 3);
+          v110 = a1[5];
+          v39 = a1[3 * v15 - 1];
+          *(a1 + 3) = *v29;
+          a1[5] = v39;
+          a1[3 * v15 - 1] = v110;
           *v29 = v86;
           if (sub_29A00AFCC(a3, v74, v29))
           {
-            v111 = *(a1 + 24 * v15 - 8);
+            v111 = a1[3 * v15 - 1];
             v87 = *v29;
             v40 = *v74;
-            *(a1 + 24 * v15 - 8) = *(a2 - 4);
+            a1[3 * v15 - 1] = *(a2 - 4);
             *v29 = v40;
             *v74 = v87;
             *(a2 - 4) = v111;
@@ -2027,55 +2672,55 @@ LABEL_27:
 
       else if (v31)
       {
-        v107 = *(a1 + 24 * v15 - 8);
+        v107 = a1[3 * v15 - 1];
         v83 = *v29;
         v35 = *v74;
-        *(a1 + 24 * v15 - 8) = *(a2 - 4);
+        a1[3 * v15 - 1] = *(a2 - 4);
         *v29 = v35;
         *v74 = v83;
         *(a2 - 4) = v107;
-        if (sub_29A00AFCC(a3, v29, (a1 + 24)))
+        if (sub_29A00AFCC(a3, v29, a1 + 3))
         {
-          v84 = *(a1 + 24);
-          v108 = *(a1 + 40);
-          v36 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v36;
-          *(a1 + 24 * v15 - 8) = v108;
+          v84 = *(a1 + 3);
+          v108 = a1[5];
+          v36 = a1[3 * v15 - 1];
+          *(a1 + 3) = *v29;
+          a1[5] = v36;
+          a1[3 * v15 - 1] = v108;
           *v29 = v84;
         }
       }
 
-      v41 = a1 + 24 * v15;
-      v42 = sub_29A00AFCC(a3, (v41 + 24), (a1 + 48));
-      v43 = sub_29A00AFCC(a3, a2 - 9, (v41 + 24));
+      v41 = &a1[3 * v15];
+      v42 = sub_29A00AFCC(a3, v41 + 3, a1 + 6);
+      v43 = sub_29A00AFCC(a3, a2 - 9, v41 + 3);
       if (v42)
       {
         if (v43)
         {
-          v44 = *(a1 + 64);
-          v45 = *(a1 + 48);
+          v44 = a1[8];
+          v45 = *(a1 + 3);
           v46 = *(a2 - 7);
-          *(a1 + 48) = *v9;
-          *(a1 + 64) = v46;
+          *(a1 + 3) = *v9;
+          a1[8] = v46;
           *v9 = v45;
           goto LABEL_47;
         }
 
-        v90 = *(a1 + 48);
-        v114 = *(a1 + 64);
-        v49 = *(v41 + 40);
-        *(a1 + 48) = *(v41 + 24);
-        *(a1 + 64) = v49;
-        *(v41 + 40) = v114;
-        *(v41 + 24) = v90;
-        if (sub_29A00AFCC(a3, a2 - 9, (v41 + 24)))
+        v90 = *(a1 + 3);
+        v114 = a1[8];
+        v49 = v41[5];
+        *(a1 + 3) = *(v41 + 3);
+        a1[8] = v49;
+        v41[5] = v114;
+        *(v41 + 3) = v90;
+        if (sub_29A00AFCC(a3, a2 - 9, v41 + 3))
         {
-          v115 = *(v41 + 40);
-          v91 = *(v41 + 24);
+          v115 = v41[5];
+          v91 = *(v41 + 3);
           v50 = *v9;
-          *(v41 + 40) = *(a2 - 7);
-          *(v41 + 24) = v50;
+          v41[5] = *(a2 - 7);
+          *(v41 + 3) = v50;
           *v9 = v91;
           v44 = v115;
 LABEL_47:
@@ -2085,35 +2730,35 @@ LABEL_47:
 
       else if (v43)
       {
-        v112 = *(v41 + 40);
-        v88 = *(v41 + 24);
+        v112 = v41[5];
+        v88 = *(v41 + 3);
         v47 = *v9;
-        *(v41 + 40) = *(a2 - 7);
-        *(v41 + 24) = v47;
+        v41[5] = *(a2 - 7);
+        *(v41 + 3) = v47;
         *v9 = v88;
         *(a2 - 7) = v112;
-        if (sub_29A00AFCC(a3, (v41 + 24), (a1 + 48)))
+        if (sub_29A00AFCC(a3, v41 + 3, a1 + 6))
         {
-          v89 = *(a1 + 48);
-          v113 = *(a1 + 64);
-          v48 = *(v41 + 40);
-          *(a1 + 48) = *(v41 + 24);
-          *(a1 + 64) = v48;
-          *(v41 + 40) = v113;
-          *(v41 + 24) = v89;
+          v89 = *(a1 + 3);
+          v113 = a1[8];
+          v48 = v41[5];
+          *(a1 + 3) = *(v41 + 3);
+          a1[8] = v48;
+          v41[5] = v113;
+          *(v41 + 3) = v89;
         }
       }
 
       v51 = sub_29A00AFCC(a3, v16, v29);
-      v52 = sub_29A00AFCC(a3, (v41 + 24), v16);
+      v52 = sub_29A00AFCC(a3, v41 + 3, v16);
       if (v51)
       {
         if (v52)
         {
           v116 = *(v29 + 16);
           v92 = *v29;
-          *v29 = *(v41 + 24);
-          *(v29 + 16) = *(v41 + 40);
+          *v29 = *(v41 + 3);
+          *(v29 + 16) = v41[5];
           goto LABEL_56;
         }
 
@@ -2123,15 +2768,15 @@ LABEL_47:
         *(v29 + 16) = v16[2];
         v16[2] = v119;
         *v16 = v95;
-        if (sub_29A00AFCC(a3, (v41 + 24), v16))
+        if (sub_29A00AFCC(a3, v41 + 3, v16))
         {
           v116 = v16[2];
           v92 = *v16;
-          *v16 = *(v41 + 24);
-          v16[2] = *(v41 + 40);
+          *v16 = *(v41 + 3);
+          v16[2] = v41[5];
 LABEL_56:
-          *(v41 + 40) = v116;
-          *(v41 + 24) = v92;
+          v41[5] = v116;
+          *(v41 + 3) = v92;
         }
       }
 
@@ -2139,10 +2784,10 @@ LABEL_56:
       {
         v117 = v16[2];
         v93 = *v16;
-        *v16 = *(v41 + 24);
-        v16[2] = *(v41 + 40);
-        *(v41 + 40) = v117;
-        *(v41 + 24) = v93;
+        *v16 = *(v41 + 3);
+        v16[2] = v41[5];
+        v41[5] = v117;
+        *(v41 + 3) = v93;
         if (sub_29A00AFCC(a3, v16, v29))
         {
           v118 = *(v29 + 16);
@@ -2154,10 +2799,10 @@ LABEL_56:
         }
       }
 
-      v120 = *(a1 + 16);
+      v120 = a1[2];
       v96 = *a1;
       v53 = *v16;
-      *(a1 + 16) = v16[2];
+      a1[2] = v16[2];
       *a1 = v53;
       v16[2] = v120;
       *v16 = v96;
@@ -2184,16 +2829,16 @@ LABEL_36:
       v109 = v16[2];
       v85 = *v16;
       v37 = *a1;
-      v16[2] = *(a1 + 16);
+      v16[2] = a1[2];
       *v16 = v37;
-      *(a1 + 16) = v109;
+      a1[2] = v109;
       *a1 = v85;
       if (sub_29A00AFCC(a3, a2 - 3, a1))
       {
-        v101 = *(a1 + 16);
+        v101 = a1[2];
         v77 = *a1;
         v38 = *v8;
-        *(a1 + 16) = *(a2 - 1);
+        a1[2] = *(a2 - 1);
         *a1 = v38;
         goto LABEL_36;
       }
@@ -2201,27 +2846,27 @@ LABEL_36:
 
     else if (v21)
     {
-      v104 = *(a1 + 16);
+      v104 = a1[2];
       v80 = *a1;
       v25 = *v8;
-      *(a1 + 16) = *(a2 - 1);
+      a1[2] = *(a2 - 1);
       *a1 = v25;
       *v8 = v80;
       *(a2 - 1) = v104;
-      if (sub_29A00AFCC(a3, a1, (a1 + 24 * v15)))
+      if (sub_29A00AFCC(a3, a1, &a1[3 * v15]))
       {
         v105 = v16[2];
         v81 = *v16;
         v26 = *a1;
-        v16[2] = *(a1 + 16);
+        v16[2] = a1[2];
         *v16 = v26;
-        *(a1 + 16) = v105;
+        a1[2] = v105;
         *a1 = v81;
       }
     }
 
 LABEL_58:
-    if ((a5 & 1) == 0 && !sub_29A00AFCC(a3, (a1 - 24), a1))
+    if ((a5 & 1) == 0 && !sub_29A00AFCC(a3, a1 - 3, a1))
     {
       v10 = sub_29A114BC8(a1, a2, a3);
       goto LABEL_65;
@@ -2234,8 +2879,8 @@ LABEL_58:
     }
 
     v56 = sub_29A114EEC(a1, v54, a3);
-    v10 = (v54 + 24);
-    if (sub_29A114EEC(v54 + 24, a2, a3))
+    v10 = v54 + 3;
+    if (sub_29A114EEC((v54 + 24), a2, a3))
     {
       a4 = -v12;
       a2 = v54;
@@ -2252,7 +2897,7 @@ LABEL_58:
     {
 LABEL_63:
       sub_29AA89D34(a1, v54, a3, -v12, a5 & 1);
-      v10 = (v54 + 24);
+      v10 = v54 + 3;
 LABEL_65:
       a5 = 0;
       a4 = -v12;
@@ -2366,19 +3011,17 @@ LABEL_78:
   }
 }
 
-uint64_t sub_29AA8A840(uint64_t result)
+void sub_29AA8A840(uint64_t a1)
 {
-  if (*(result + 16) != *(result + 32))
+  if (*(a1 + 16) != *(a1 + 32))
   {
     sub_29A65777C();
   }
-
-  return result;
 }
 
-void sub_29AA8A8BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA8A8BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(va);
   _Unwind_Resume(a1);
 }
@@ -2437,25 +3080,25 @@ uint64_t sub_29AA8A9A4(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_29AA8A9FC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__int128 *sub_29AA8A9FC@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X8>)
 {
-  *(a2 + 32) = 0;
+  *(a2 + 4) = 0;
   *a2 = 0u;
-  *(a2 + 16) = 0u;
+  a2[1] = 0u;
   result = sub_29A193B90(a1);
-  v5 = *(result + 32);
-  *(result + 32) = 0;
-  *(a2 + 32) = v5;
-  v6 = *(result + 16);
+  v5 = *(result + 4);
+  *(result + 4) = 0;
+  *(a2 + 4) = v5;
+  v6 = *(result + 2);
   v7 = *result;
-  v8 = *(a2 + 16);
+  v8 = *(a2 + 2);
   *result = *a2;
-  *(result + 16) = v8;
+  *(result + 2) = v8;
   *a2 = v7;
-  *(a2 + 16) = v6;
-  v9 = *(result + 24);
-  *(result + 24) = 0;
-  *(a2 + 24) = v9;
+  *(a2 + 2) = v6;
+  v9 = *(result + 3);
+  *(result + 3) = 0;
+  *(a2 + 3) = v9;
   v10 = a1[1];
   if (v10 && (a1[1] & 3) != 3)
   {
@@ -2466,29 +3109,29 @@ uint64_t sub_29AA8A9FC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t *sub_29AA8AAB0(char *a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AA8AAB0(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AA8AB48(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AA8AB48(a1, &v9, a4);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
 }
 
-char *sub_29AA8AB48@<X0>(char *a1@<X0>, __int128 **a2@<X2>, char **a3@<X8>)
+char *sub_29AA8AB48@<X0>(char *a1@<X0>, char **a2@<X8>, __int128 **a3@<X2>)
 {
   v6 = operator new(0xB0uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  v8 = *a2;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  v8 = *a3;
   result = sub_29AA8ABC8(v6 + 32, &v8);
-  *(a3 + 16) = 1;
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -2589,14 +3232,14 @@ uint64_t sub_29AA8AD70(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_29AA8ADBC(unsigned int *a1, void *a2, __int128 *a3)
+void sub_29AA8ADBC(uint64_t *a1, void *a2, __int128 *a3)
 {
   v5 = sub_29A5CF8A0(a1, a2);
   if (v5 == -1)
   {
     if (*a1)
     {
-      v7 = (*(**a1 + 112))(*a1, a1[4]);
+      v7 = (*(**a1 + 112))(*a1, *(a1 + 4));
       v8 = 0x6DB6DB6DB6DB6DB7 * ((v7[1] - *v7) >> 3);
     }
 
@@ -2621,21 +3264,21 @@ void sub_29AA8ADBC(unsigned int *a1, void *a2, __int128 *a3)
   sub_29A2463D0(&v10);
 }
 
-void sub_29AA8AEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AA8AEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A2463D0(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29AA8AED4(unsigned int *a1, double *a2, uint64_t a3)
+void sub_29AA8AED4(uint64_t *a1, double *a2, uint64_t a3)
 {
   v5 = sub_29A5B1C00(a1, a2);
   if (v5 == -1)
   {
     if (*a1)
     {
-      v7 = (*(**a1 + 112))(*a1, a1[4]);
+      v7 = (*(**a1 + 112))(*a1, *(a1 + 4));
       v8 = 0xAAAAAAAAAAAAAAABLL * ((v7[1] - *v7) >> 4);
     }
 
@@ -2660,9 +3303,9 @@ void sub_29AA8AED4(unsigned int *a1, double *a2, uint64_t a3)
   sub_29A24A5D0(&v10);
 }
 
-void sub_29AA8AFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AA8AFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A24A5D0(va);
   _Unwind_Resume(a1);
 }
@@ -2675,10 +3318,10 @@ std::string *sub_29AA8AFE4(char **a1, uint64_t a2, std::string *a3, __int128 *a4
     v7 = a3;
     v10 = a1[1];
     v9 = a1[2];
-    if ((0xAAAAAAAAAAAAAAABLL * (&v9[-v10] >> 3)) >= a5)
+    if ((0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 3)) >= a5)
     {
-      v18 = v10 - a2;
-      if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 3)) >= a5)
+      v18 = &v10[-a2];
+      if ((0xAAAAAAAAAAAAAAABLL * (&v10[-a2] >> 3)) >= a5)
       {
         v21 = a5;
         sub_29A095A18(a1, a2, a1[1], a2 + 24 * a5);
@@ -2698,7 +3341,7 @@ std::string *sub_29AA8AFE4(char **a1, uint64_t a2, std::string *a3, __int128 *a4
         a1[1] = sub_29A09601C(a1, (a3 + v18), a4, a1[1]);
         if (v18 >= 1)
         {
-          sub_29A095A18(a1, v5, v10, &v5[a5]);
+          sub_29A095A18(a1, v5, v10, v5 + 24 * a5);
           v20 = v5;
           do
           {
@@ -2754,10 +3397,10 @@ std::string *sub_29AA8AFE4(char **a1, uint64_t a2, std::string *a3, __int128 *a4
       *(&v34 + 1) = &v17[24 * v15];
       sub_29AA8B230(&v32, v7, a5);
       v24 = v33;
-      memcpy(v34, v5, a1[1] - v5);
+      memcpy(v34, v5, &a1[1][-v5]);
       v25 = *a1;
       v26 = v33;
-      *&v34 = v34 + a1[1] - v5;
+      *&v34 = &a1[1][v34 - v5];
       a1[1] = v5;
       v27 = v5 - v25;
       v28 = &v26[-(v5 - v25)];
@@ -2949,14 +3592,14 @@ uint64_t sub_29AA8B5A8(uint64_t a1)
   v2 = sub_29AA84B3C((a1 + 472), "UseTemporaryDirectory");
   if (v2)
   {
-    v3 = sub_29AA84BB4((a1 + 472), "UseTemporaryDirectory");
-    sub_29AA9E394((a1 + 312), v3);
+    v4 = sub_29AA84BB4((a1 + 472), "UseTemporaryDirectory");
+    sub_29AA9E394((a1 + 312), v4);
 LABEL_7:
     if (sub_29AA84D7C((a1 + 472), "DumpBitstreamData"))
     {
-      v5 = *sub_29AA84DF4((a1 + 472), "DumpBitstreamData");
-      *(a1 + 404) = v5;
-      if (v5 == 1)
+      v6 = *sub_29AA84DF4((a1 + 472), "DumpBitstreamData");
+      *(a1 + 404) = v6;
+      if (v6 == 1)
       {
         *(a1 + 394) = 1;
       }
@@ -2969,12 +3612,12 @@ LABEL_7:
 
     if (sub_29AA84E9C((a1 + 472), "Inserts"))
     {
-      v6 = sub_29AA84F14((a1 + 472), "Inserts");
-      pxrInternal__aapl__pxrReserved__::VtDictionary::VtDictionary(&__p, v6);
+      v7 = sub_29AA84F14((a1 + 472), "Inserts");
+      pxrInternal__aapl__pxrReserved__::VtDictionary::VtDictionary(&__p, v7);
       if (sub_29AA84E9C(&__p, "MeshesInserts"))
       {
-        v7 = sub_29AA84F14(&__p, "MeshesInserts");
-        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=((a1 + 480), v7);
+        v8 = sub_29AA84F14(&__p, "MeshesInserts");
+        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=((a1 + 480), v8);
         if (!pxrInternal__aapl__pxrReserved__::VtDictionary::empty((a1 + 480)))
         {
           *(a1 + 405) = 1;
@@ -2983,8 +3626,8 @@ LABEL_7:
 
       if (sub_29AA84E9C(&__p, "TexturesInserts"))
       {
-        v8 = sub_29AA84F14(&__p, "TexturesInserts");
-        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=((a1 + 488), v8);
+        v9 = sub_29AA84F14(&__p, "TexturesInserts");
+        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=((a1 + 488), v9);
         if (!pxrInternal__aapl__pxrReserved__::VtDictionary::empty((a1 + 488)))
         {
           *(a1 + 406) = 1;
@@ -3009,9 +3652,9 @@ LABEL_7:
 
     if (!*(a1 + 464))
     {
-      v9 = sub_29AABB028();
+      v10 = sub_29AABB028();
       sub_29A008E78(&__p, "Invalid input stage");
-      sub_29AA5B750(v9, &__p);
+      sub_29AA5B750(v10, &__p);
       if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__pn_.__r_.__value_.__l.__data_);
@@ -3030,14 +3673,14 @@ LABEL_33:
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef();
   }
 
-  sub_29AA86834(v2, &__p);
-  v4 = (a1 + 312);
+  sub_29AA86834(v2, v3, &__p);
+  v5 = (a1 + 312);
   if (*(a1 + 335) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v5);
   }
 
-  *v4 = *&__p.__pn_.__r_.__value_.__l.__data_;
+  *v5 = *&__p.__pn_.__r_.__value_.__l.__data_;
   *(a1 + 328) = *(&__p.__pn_.__r_.__value_.__l + 2);
   if ((*(a1 + 335) & 0x8000000000000000) != 0)
   {
@@ -3052,9 +3695,9 @@ LABEL_33:
     goto LABEL_7;
   }
 
-  v11 = sub_29AABB028();
+  v12 = sub_29AABB028();
   sub_29A008E78(&__p, "Unable to create temporary folder");
-  sub_29AA5B750(v11, &__p);
+  sub_29AA5B750(v12, &__p);
   if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__pn_.__r_.__value_.__l.__data_);
@@ -3063,9 +3706,9 @@ LABEL_33:
   return 407;
 }
 
-void sub_29AA8BA64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AA8BA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A184A10(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3153,7 +3796,7 @@ uint64_t sub_29AA8C028(uint64_t a1)
     if ((*(a1 + 410) & 1) == 0)
     {
       v4 = sub_29A5A70E0((a1 + 536));
-      pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v4, &__dst);
+      pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(&__dst, v4);
       if (__dst.__pn_.__r_.__value_.__l.__size_)
       {
         pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
@@ -3207,7 +3850,7 @@ uint64_t sub_29AA8C028(uint64_t a1)
     if (v2 == 2)
     {
       v3 = sub_29A5A70E0((a1 + 536));
-      pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v3, &v11);
+      pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(&v11, v3);
       sub_29A1DA6E4(&v11);
     }
 
@@ -3921,7 +4564,7 @@ LABEL_27:
 
   *(a1 + 108) = 1;
 LABEL_30:
-  sub_29AA33A10((a1 + 416), a1 + 264, &__replacement);
+  sub_29AA33A10(&__replacement, (a1 + 416), a1 + 264);
   if (*(a1 + 359) < 0)
   {
     operator delete(*(a1 + 336));
@@ -3939,7 +4582,7 @@ LABEL_30:
   v10 = *(a1 + 104);
   if (v10 == 2)
   {
-    sub_29AA33A10((a1 + 416), a1 + 264, &__replacement);
+    sub_29AA33A10(&__replacement, (a1 + 416), a1 + 264);
     if (*(a1 + 311) < 0)
     {
       operator delete(*(a1 + 288));
@@ -4022,7 +4665,7 @@ void sub_29AA8D16C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AA8D1A4(uint64_t a1@<X0>, const void **a2@<X1>, std::string *a3@<X8>)
+void sub_29AA8D1A4(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
   v4 = sub_29A5DAB7C((a1 + 56), a2);
   v5 = v4;
@@ -4345,7 +4988,7 @@ uint64_t sub_29AA8D404(uint64_t a1, __int128 **a2)
           }
         }
 
-        pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(&v25, &__p);
+        pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(&__p, &v25);
         pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&pn);
         v19 = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator==(&__p, &pn);
         pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&pn.__r_.__value_.__l.__data_);
@@ -4359,7 +5002,7 @@ LABEL_64:
           goto LABEL_70;
         }
 
-        pxrInternal__aapl__pxrReserved__::UsdZipFile::Find(&v25, &__dst, &__p);
+        pxrInternal__aapl__pxrReserved__::UsdZipFile::Find(&v25, &__p, &__dst);
         pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&pn);
         v21 = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator==(&__p, &pn);
         pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&pn.__r_.__value_.__l.__data_);
@@ -4481,7 +5124,7 @@ LABEL_70:
   return 0;
 }
 
-void sub_29AA8D8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_29AA8D8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   pxrInternal__aapl__pxrReserved__::UsdZipFile::~UsdZipFile(&a16);
   if (*(v32 - 89) < 0)
@@ -4542,7 +5185,7 @@ uint64_t sub_29AA8D9C4(uint64_t a1, __int128 **a2)
 
     else
     {
-      sub_29AA33A10(&v12, a1 + 240, &v11);
+      sub_29AA33A10(&v11, &v12, a1 + 240);
       if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__pn_.__r_.__value_.__l.__data_);
@@ -4674,22 +5317,22 @@ uint64_t sub_29AA8DC7C(_BYTE *a1)
   return 0;
 }
 
-uint64_t sub_29AA8DD6C(uint64_t a1)
+uint64_t sub_29AA8DD6C(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 412) == 1 && (*(a1 + 104) | 4) != 6)
   {
-    v3 = sub_29AABB028();
+    v4 = sub_29AABB028();
     sub_29A008E78(__p, "Output type is not yet supported.");
-    sub_29AA5B750(v3, __p);
-    if (v6 < 0)
+    sub_29AA5B750(v4, __p);
+    if (v7 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v4 = sub_29AABB028();
+    v5 = sub_29AABB028();
     sub_29A008E78(__p, "Output type is not yet supported.");
-    sub_29AA69D84(v4, __p);
-    if (v6 < 0)
+    sub_29AA69D84(v5, __p);
+    if (v7 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4792,33 +5435,33 @@ void sub_29AA8E4B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_29AA8E598(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v30[9] = *MEMORY[0x29EDCA608];
-  v25 = 0;
-  v24 = 0u;
-  memset(v23, 0, sizeof(v23));
+  v31[9] = *MEMORY[0x29EDCA608];
+  v26 = 0;
+  v25 = 0u;
+  memset(v24, 0, sizeof(v24));
   v10 = operator new(0x20uLL);
   *v10 = &unk_2A2070938;
   v10[1] = sub_29AA885D8;
   v10[2] = 0;
-  v10[3] = v23;
-  v28 = v10;
-  v29 = &unk_2A2063730;
-  sub_29A88756C(v30, v27);
-  sub_29A88773C(v27);
-  v14[0] = &v29;
-  memset(&v14[1], 0, 32);
+  v10[3] = v24;
+  v29 = v10;
+  v30 = &unk_2A2063730;
+  sub_29A88756C(v31, v28);
+  sub_29A88773C(v28);
+  v14 = &v30;
   memset(v15, 0, sizeof(v15));
-  v16 = 0;
-  v19 = 1;
+  memset(v16, 0, sizeof(v16));
+  v17 = 0;
   v20 = 1;
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
-  v17 = 1065353216;
-  v18 = a2;
+  v21 = 1;
+  memset(v22, 0, sizeof(v22));
+  v23 = 1065353216;
+  v18 = 1065353216;
+  v19 = a2;
   if (*(a1 + 536) || (v11 = *(a1 + 96), v11 == 2))
   {
     v12 = sub_29A5A70E0((a1 + 536));
-    pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v12, v13);
+    pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v13, v12);
     if (v13[1])
     {
       pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
@@ -4830,43 +5473,43 @@ void sub_29AA8E598(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
   if (v11 == 3 && *(a1 + 768))
   {
-    LOBYTE(v19) = 0;
-    pxrInternal__aapl__pxrReserved__::UsdUtils_LocalizationContext::Process(v14, (a1 + 768));
+    LOBYTE(v20) = 0;
+    pxrInternal__aapl__pxrReserved__::UsdUtils_LocalizationContext::Process(&v14, (a1 + 768));
   }
 
-  sub_29A8870E4(v23);
+  sub_29A8870E4(v24);
   if (a3)
   {
     sub_29A095FDC(a3);
-    *a3 = v23[0];
-    *(a3 + 16) = *&v23[1];
-    memset(v23, 0, 24);
+    *a3 = v24[0];
+    *(a3 + 16) = *&v24[1];
+    memset(v24, 0, 24);
   }
 
   if (a4)
   {
     sub_29A095FDC(a4);
-    *a4 = *(&v23[1] + 8);
-    *(a4 + 16) = *(&v23[2] + 1);
-    memset(&v23[1] + 8, 0, 24);
+    *a4 = *(&v24[1] + 8);
+    *(a4 + 16) = *(&v24[2] + 1);
+    memset(&v24[1] + 8, 0, 24);
   }
 
   if (a5)
   {
     sub_29A095FDC(a5);
-    *a5 = v24;
-    *(a5 + 16) = v25;
-    v25 = 0;
-    v24 = 0uLL;
+    *a5 = v25;
+    *(a5 + 16) = v26;
+    v26 = 0;
+    v25 = 0uLL;
   }
 
-  sub_29A0EB4E8(&v21[1]);
-  sub_29A0EB4E8(&v15[1] + 8);
-  v26 = v15;
-  sub_29A012C90(&v26);
-  v26 = &v14[2];
-  sub_29A012C90(&v26);
-  sub_29A321930();
+  sub_29A0EB4E8(&v22[1]);
+  sub_29A0EB4E8(&v16[1] + 1);
+  v27 = v16;
+  sub_29A012C90(&v27);
+  v27 = v15 + 1;
+  sub_29A012C90(&v27);
+  sub_29A321930(v15);
 }
 
 uint64_t sub_29AA8E91C(uint64_t a1, void *a2)
@@ -5051,11 +5694,11 @@ LABEL_42:
         goto LABEL_217;
       }
 
-      v18 = sub_29A5DAB7C((a1 + 1176), &__dst.__r_.__value_.__l.__data_);
+      v18 = sub_29A5DAB7C((a1 + 1176), &__dst);
       if ((*(a1 + 394) & 1) == 0)
       {
 LABEL_119:
-        sub_29AA33A10(&v74, a1 + 192, &v67);
+        sub_29AA33A10(&v67, &v74, a1 + 192);
         std::__fs::filesystem::__status(&v67, 0);
         if (!__p.__stashed_elem_.__pn_.__r_.__value_.__s.__data_[0] || __p.__stashed_elem_.__pn_.__r_.__value_.__s.__data_[0] == 255)
         {
@@ -5194,7 +5837,7 @@ LABEL_214:
             }
           }
 
-          sub_29AA8FDB8(&__p, &v59);
+          sub_29AA8FDB8(&v59, &__p);
           if (v60 < 0)
           {
             operator delete(v59);
@@ -5256,7 +5899,7 @@ LABEL_214:
         }
 
 LABEL_179:
-        sub_29AA33A10(&pn, a1 + 240, &__p.__stashed_elem_);
+        sub_29AA33A10(&__p.__stashed_elem_, &pn, a1 + 240);
         if (SHIBYTE(__p.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
           sub_29A008D14(v56, __p.__stashed_elem_.__pn_.__r_.__value_.__l.__data_, __p.__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
@@ -5368,8 +6011,8 @@ LABEL_217:
         }
 
 LABEL_184:
-        sub_29AA33A10(&v74, a1 + 192, &__from);
-        sub_29AA33A10(&v74, a1 + 240, &__to);
+        sub_29AA33A10(&__from, &v74, a1 + 192);
+        sub_29AA33A10(&__to, &v74, a1 + 240);
         v45 = std::__fs::filesystem::__copy_file(&__from, &__to, overwrite_existing, 0);
         if (SHIBYTE(__to.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5393,7 +6036,7 @@ LABEL_188:
             sub_29A0DD010((a1 + 944), &__dst.__r_.__value_.__l.__data_);
           }
 
-          sub_29AA33A10(&v74, a1 + 240, &__to);
+          sub_29AA33A10(&__to, &v74, a1 + 240);
           if (SHIBYTE(__to.__pn_.__r_.__value_.__r.__words[2]) < 0)
           {
             sub_29A008D14(&__from, __to.__pn_.__r_.__value_.__l.__data_, __to.__pn_.__r_.__value_.__l.__size_);
@@ -5431,12 +6074,12 @@ LABEL_188:
       }
 
       sub_29A8CCEB8(&__p.__stashed_elem_.__pn_, &__dst);
-      sub_29AA33A10(&__p.__stashed_elem_, a1 + 240, &v61.__stashed_elem_);
+      sub_29AA33A10(&v61.__stashed_elem_, &__p.__stashed_elem_, a1 + 240);
       memset(&v67, 0, sizeof(v67));
       if (v19)
       {
         sub_29AA33B6C(&__p.__stashed_elem_, &v64);
-        sub_29AA33A10(&v64, a1 + 240, &pn);
+        sub_29AA33A10(&pn, &v64, a1 + 240);
         if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
         {
           sub_29A008D14(&v66, pn.__r_.__value_.__l.__data_, pn.__r_.__value_.__l.__size_);
@@ -5463,7 +6106,7 @@ LABEL_188:
           operator delete(v64.__pn_.__r_.__value_.__l.__data_);
         }
 
-        v20 = sub_29A5DAB7C((a1 + 1176), &__dst.__r_.__value_.__l.__data_);
+        v20 = sub_29A5DAB7C((a1 + 1176), &__dst);
         v21 = v20[5];
         if (SHIBYTE(v61.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5570,7 +6213,7 @@ LABEL_85:
       }
 
       sub_29AA33B6C(&__p.__stashed_elem_, &v64);
-      sub_29AA33A10(&v64, a1 + 240, &pn);
+      sub_29AA33A10(&pn, &v64, a1 + 240);
       if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
       {
         sub_29A008D14(&v62, pn.__r_.__value_.__l.__data_, pn.__r_.__value_.__l.__size_);
@@ -5743,9 +6386,9 @@ void sub_29AA8F658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (a74 < 0)
+  if (a68 < 0)
   {
-    operator delete(a73);
+    operator delete(a67);
   }
 
   if (a37 < 0)
@@ -5763,29 +6406,29 @@ void sub_29AA8F658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a72 < 0)
+  if (a66 < 0)
   {
-    operator delete(a68);
+    operator delete(a65);
   }
 
-  if (*(v74 - 217) < 0)
+  if (*(v68 - 217) < 0)
   {
-    operator delete(*(v74 - 240));
+    operator delete(*(v68 - 240));
   }
 
-  if (*(v74 - 185) < 0)
+  if (*(v68 - 185) < 0)
   {
-    operator delete(*(v74 - 208));
+    operator delete(*(v68 - 208));
   }
 
-  if (*(v74 - 121) < 0)
+  if (*(v68 - 121) < 0)
   {
-    operator delete(*(v74 - 144));
+    operator delete(*(v68 - 144));
   }
 
-  if (*(v74 - 89) < 0)
+  if (*(v68 - 89) < 0)
   {
-    operator delete(*(v74 - 112));
+    operator delete(*(v68 - 112));
   }
 
   _Unwind_Resume(a1);
@@ -5793,7 +6436,7 @@ void sub_29AA8F658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t sub_29AA8F9E4(uint64_t a1, const void **a2, char **a3)
 {
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin((a1 + 512), v34);
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(v34, (a1 + 512));
   pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&__dst);
   v6 = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator==(v34, &__dst);
   pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&__dst.__r_.__value_.__l.__data_);
@@ -5822,12 +6465,12 @@ uint64_t sub_29AA8F9E4(uint64_t a1, const void **a2, char **a3)
     goto LABEL_54;
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin((a1 + 512), &v37);
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(&v37, (a1 + 512));
   pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&v36);
   v8 = 0;
   while (pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator!=(&v37, &v36))
   {
-    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFileInfo(&v37, v34);
+    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFileInfo(v34, &v37);
     pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator->(&v37, __p);
     if ((v33 & 0x80u) == 0)
     {
@@ -6005,21 +6648,21 @@ void sub_29AA8FD24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::__fs::filesystem::path::iterator *sub_29AA8FDB8@<X0>(std::__fs::filesystem::path::iterator *this@<X0>, uint64_t a2@<X8>)
+std::__fs::filesystem::path::iterator *sub_29AA8FDB8@<X0>(uint64_t *__return_ptr a1@<X8>, std::__fs::filesystem::path::iterator *this@<X0>)
 {
   if (SHIBYTE(this->__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_29A008D14(a2, this->__stashed_elem_.__pn_.__r_.__value_.__l.__data_, this->__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
+    sub_29A008D14(a1, this->__stashed_elem_.__pn_.__r_.__value_.__l.__data_, this->__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    *a2 = *&this->__stashed_elem_.__pn_.__r_.__value_.__l.__data_;
-    *(a2 + 16) = *(&this->__stashed_elem_.__pn_.__r_.__value_.__l + 2);
+    *a1 = *&this->__stashed_elem_.__pn_.__r_.__value_.__l.__data_;
+    a1[2] = this->__stashed_elem_.__pn_.__r_.__value_.__r.__words[2];
   }
 
-  *(a2 + 24) = *&this->__path_ptr_;
-  *(a2 + 33) = *(&this->__entry_ + 1);
+  *(a1 + 3) = *&this->__path_ptr_;
+  *(a1 + 33) = *(&this->__entry_ + 1);
   return std::__fs::filesystem::path::iterator::__increment(this);
 }
 
@@ -6184,18 +6827,18 @@ void sub_29AA8FFEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AA9002C(const void ***a1)
+void sub_29AA9002C(uint64_t a1)
 {
-  sub_29A3479FC(v5, a1 + 121);
+  sub_29A3479FC(v5, a1 + 968);
   sub_29AA8FE38(a1, v5);
   sub_29A019EE8(v5, v5[1]);
-  sub_29A3479FC(v4, a1 + 127);
+  sub_29A3479FC(v4, a1 + 1016);
   sub_29AA8FE38(a1, v4);
   sub_29A019EE8(v4, v4[1]);
-  sub_29A3479FC(v3, a1 + 124);
+  sub_29A3479FC(v3, a1 + 992);
   sub_29AA8FE38(a1, v3);
   sub_29A019EE8(v3, v3[1]);
-  sub_29A3479FC(v2, a1 + 130);
+  sub_29A3479FC(v2, a1 + 1040);
   sub_29AA8FE38(a1, v2);
   sub_29A019EE8(v2, v2[1]);
 }
@@ -6965,13 +7608,13 @@ LABEL_31:
       }
     }
 
-    v23 = sub_29A5DAB7C((a1 + 1176), &__dst.__r_.__value_.__l.__data_);
+    v23 = sub_29A5DAB7C((a1 + 1176), &__dst);
     v24 = v23;
     if ((*(a1 + 394) & 1) == 0)
     {
 LABEL_83:
       sub_29A8CCEB8(&v58, &__dst);
-      sub_29AA33A10(&v58, &v63, &v53.__stashed_elem_);
+      sub_29AA33A10(&v53.__stashed_elem_, &v58, &v63);
       std::__fs::filesystem::__status(&v53.__stashed_elem_, 0);
       v28 = v56.__r_.__value_.__s.__data_[0];
       if (SHIBYTE(v53.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -6993,7 +7636,7 @@ LABEL_83:
 
         v29 = sub_29AABB028();
         sub_29A8CCEB8(&v55, &__dst);
-        sub_29AA33A10(&v55, &v63, &v56);
+        sub_29AA33A10(&v56, &v55, &v63);
         if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
         {
           sub_29A008D14(&v58, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
@@ -7041,7 +7684,7 @@ LABEL_141:
       }
 
       sub_29A8CCEB8(&v55, &__dst);
-      sub_29AA33A10(&v55, &v63, &v56);
+      sub_29AA33A10(&v56, &v55, &v63);
       if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
       {
         sub_29A008D14(&v58, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
@@ -7188,7 +7831,7 @@ LABEL_120:
     memset(&v53, 0, 24);
     if (v23)
     {
-      v25 = sub_29A5DAB7C((a1 + 1176), &__dst.__r_.__value_.__l.__data_);
+      v25 = sub_29A5DAB7C((a1 + 1176), &__dst);
       v26 = v25[5];
       v27 = v53.__stashed_elem_.__pn_.__r_.__value_.__r.__words[0];
       if (v26 <= v53.__stashed_elem_.__pn_.__r_.__value_.__l.__size_ - v53.__stashed_elem_.__pn_.__r_.__value_.__r.__words[0])
@@ -7259,7 +7902,7 @@ LABEL_169:
     }
 
     sub_29A8CCEB8(&v56, &__dst);
-    sub_29AA33A10(&v56, &v63, &v58);
+    sub_29AA33A10(&v58, &v56, &v63);
     std::__fs::filesystem::__status(&v58, 0);
     v45 = v55.__r_.__value_.__s.__data_[0];
     if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
@@ -7275,7 +7918,7 @@ LABEL_169:
     if (v45 && v45 != 255)
     {
       sub_29A8CCEB8(&v54.__pn_, &__dst);
-      sub_29AA33A10(&v54, &v63, &v55);
+      sub_29AA33A10(&v55, &v54, &v63);
       if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
       {
         sub_29A008D14(&v56, v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
@@ -7692,7 +8335,7 @@ LABEL_42:
 
       sub_29A8CCEB8(&__p, &v47);
       sub_29AA36000(&__p, &v34);
-      sub_29AA33A10(&v34, a1 + 336, &v35);
+      sub_29AA33A10(&v35, &v34, a1 + 336);
       if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v34.__pn_.__r_.__value_.__l.__data_);
@@ -7792,7 +8435,7 @@ LABEL_88:
   return v24;
 }
 
-void sub_29AA91DAC(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_29AA91DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44)
 {
   if (a22 < 0)
   {
@@ -7852,16 +8495,16 @@ void **sub_29AA92024(pxrInternal__aapl__pxrReserved__::VtDictionary *a1, const c
   return sub_29A19EA70((v4 + 56));
 }
 
-uint64_t sub_29AA920CC(uint64_t a1)
+uint64_t sub_29AA920CC(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 100) == 2)
   {
-    if (sub_29AA92308(a1))
+    if (sub_29AA92308(a1, a2))
     {
-      v2 = sub_29AABB028();
+      v3 = sub_29AABB028();
       sub_29A008E78(__p, "Error when extracting files from USDZ");
-      sub_29AA5B750(v2, __p);
-      if (SHIBYTE(v9) < 0)
+      sub_29AA5B750(v3, __p);
+      if (SHIBYTE(v10) < 0)
       {
         operator delete(__p[0]);
       }
@@ -7882,11 +8525,11 @@ uint64_t sub_29AA920CC(uint64_t a1)
     __dst = *(a1 + 120);
   }
 
-  v4 = sub_29AA8CDFC(a1, &__dst);
-  v3 = v4;
+  v5 = sub_29AA8CDFC(a1, &__dst);
+  v4 = v5;
   if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (v4)
+    if (v5)
     {
       goto LABEL_11;
     }
@@ -7902,37 +8545,37 @@ LABEL_14:
       else
       {
         *__p = *(a1 + 120);
-        v9 = *(a1 + 136);
+        v10 = *(a1 + 136);
       }
 
-      pxrInternal__aapl__pxrReserved__::UsdStage::Open(__p, 0, &v7);
+      pxrInternal__aapl__pxrReserved__::UsdStage::Open(__p, 0, &v8);
     }
 
     return 0;
   }
 
   operator delete(__dst.__r_.__value_.__l.__data_);
-  if (!v3)
+  if (!v4)
   {
     goto LABEL_14;
   }
 
 LABEL_11:
-  v5 = sub_29AABB028();
+  v6 = sub_29AABB028();
   sub_29A008E78(__p, "Error: Cannot write to the compression output folder.");
-  sub_29AA5B750(v5, __p);
-  if (SHIBYTE(v9) < 0)
+  sub_29AA5B750(v6, __p);
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t sub_29AA92308(uint64_t a1)
+uint64_t sub_29AA92308(uint64_t a1, __n128 a2)
 {
-  v3 = *(a1 + 760);
-  if (!v3)
+  v4 = *(a1 + 760);
+  if (!v4)
   {
     if (*(a1 + 143) < 0)
     {
@@ -7942,36 +8585,36 @@ uint64_t sub_29AA92308(uint64_t a1)
     else
     {
       *__p = *(a1 + 120);
-      v47 = *(a1 + 136);
+      v48 = *(a1 + 136);
     }
 
     pxrInternal__aapl__pxrReserved__::UsdZipFile::Open(__p, &__dst);
-    v4 = *&__dst.__r_.__value_.__l.__data_;
+    v5 = *&__dst.__r_.__value_.__l.__data_;
     if (__dst.__r_.__value_.__l.__size_)
     {
       atomic_fetch_add_explicit((__dst.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
     }
 
-    *(a1 + 512) = v4;
-    v5 = *(a1 + 520);
-    *(a1 + 520) = *(&v4 + 1);
-    if (v5)
+    *(a1 + 512) = v5;
+    v6 = *(a1 + 520);
+    *(a1 + 520) = *(&v5 + 1);
+    if (v6)
     {
-      sub_29A014BEC(v5);
+      sub_29A014BEC(v6);
     }
 
     pxrInternal__aapl__pxrReserved__::UsdZipFile::~UsdZipFile(&__dst);
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v3 = *(a1 + 760);
+    v4 = *(a1 + 760);
   }
 
-  if (v3 == 1)
+  if (v4 == 1)
   {
-    v6 = (a1 + 824);
+    v7 = (a1 + 824);
     if (*(a1 + 847) < 0)
     {
       sub_29A008D14(__p, *(a1 + 824), *(a1 + 832));
@@ -7979,73 +8622,73 @@ uint64_t sub_29AA92308(uint64_t a1)
 
     else
     {
-      *__p = *v6;
-      v47 = *(a1 + 840);
+      *__p = *v7;
+      v48 = *(a1 + 840);
     }
 
-    v7 = SHIBYTE(v47);
-    v8 = __p[0];
-    if (v47 >= 0)
+    v8 = SHIBYTE(v48);
+    v9 = __p[0];
+    if (v48 >= 0)
     {
-      v9 = __p;
-    }
-
-    else
-    {
-      v9 = __p[0];
-    }
-
-    if (v47 >= 0)
-    {
-      v10 = SHIBYTE(v47);
+      v10 = __p;
     }
 
     else
     {
-      v10 = __p[1];
+      v10 = __p[0];
     }
 
-    v11 = (v9 + v10);
-    if (v10 >= 9)
+    if (v48 >= 0)
     {
-      v12 = v9;
+      v11 = SHIBYTE(v48);
+    }
+
+    else
+    {
+      v11 = __p[1];
+    }
+
+    v12 = (v10 + v11);
+    if (v11 >= 9)
+    {
+      v13 = v10;
       do
       {
-        v13 = memchr(v12, 109, v10 - 8);
-        if (!v13)
+        v14 = memchr(v13, 109, v11 - 8);
+        if (!v14)
         {
           break;
         }
 
-        if (*v13 == 0x2F3A79726F6D656DLL && *(v13 + 8) == 47)
+        if (*v14 == 0x2F3A79726F6D656DLL && *(v14 + 8) == 47)
         {
           goto LABEL_31;
         }
 
-        v12 = (v13 + 1);
-        v10 = v11 - v12;
+        v13 = (v14 + 1);
+        v11 = v12 - v13;
       }
 
-      while (v11 - v12 > 8);
+      while (v12 - v13 > 8);
     }
 
-    v13 = v11;
+    v14 = v12;
 LABEL_31:
-    v16 = v13 != v11 && v13 == v9;
-    if (v7 < 0)
+    v17 = v14 != v12 && v14 == v10;
+    if (v8 < 0)
     {
-      operator delete(v8);
-      if (v16)
+      operator delete(v9);
+      if (v17)
       {
         goto LABEL_39;
       }
     }
 
-    else if (v16)
+    else if (v17)
     {
 LABEL_39:
-      *&v45.__pn_.__r_.__value_.__l.__data_ = 0uLL;
-      Instance = pxrInternal__aapl__pxrReserved__::Usd_UsdzResolverCache::GetInstance(v13);
+      *&v46.__pn_.__r_.__value_.__l.__data_ = 0uLL;
+      Instance = pxrInternal__aapl__pxrReserved__::Usd_UsdzResolverCache::GetInstance(v14);
       if (*(a1 + 847) < 0)
       {
         sub_29A008D14(&__dst, *(a1 + 824), *(a1 + 832));
@@ -8053,15 +8696,15 @@ LABEL_39:
 
       else
       {
-        *&__dst.__r_.__value_.__l.__data_ = *v6;
+        *&__dst.__r_.__value_.__l.__data_ = *v7;
         __dst.__r_.__value_.__r.__words[2] = *(a1 + 840);
       }
 
       pxrInternal__aapl__pxrReserved__::Usd_UsdzResolverCache::FindOrOpenZipFile(Instance, &__dst, __p);
-      v43.__r_.__value_.__r.__words[0] = &v45;
-      v43.__r_.__value_.__l.__size_ = a1 + 512;
-      sub_29A57827C(&v43, __p);
-      pxrInternal__aapl__pxrReserved__::UsdZipFile::~UsdZipFile(&v47);
+      v44.__r_.__value_.__r.__words[0] = &v46;
+      v44.__r_.__value_.__l.__size_ = a1 + 512;
+      sub_29A57827C(&v44, __p);
+      pxrInternal__aapl__pxrReserved__::UsdZipFile::~UsdZipFile(&v48);
       if (__p[1])
       {
         sub_29A014BEC(__p[1]);
@@ -8072,9 +8715,9 @@ LABEL_39:
         operator delete(__dst.__r_.__value_.__l.__data_);
       }
 
-      if (v45.__pn_.__r_.__value_.__l.__size_)
+      if (v46.__pn_.__r_.__value_.__l.__size_)
       {
-        sub_29A014BEC(v45.__pn_.__r_.__value_.__l.__size_);
+        sub_29A014BEC(v46.__pn_.__r_.__value_.__l.__size_);
       }
 
       goto LABEL_68;
@@ -8083,7 +8726,7 @@ LABEL_39:
     std::__fs::filesystem::__status((a1 + 824), 0);
     if (LOBYTE(__p[0]) == 255 || !LOBYTE(__p[0]))
     {
-      v18 = sub_29AABB028();
+      v19 = sub_29AABB028();
       if (*(a1 + 847) < 0)
       {
         sub_29A008D14(&__dst, *(a1 + 824), *(a1 + 832));
@@ -8091,19 +8734,19 @@ LABEL_39:
 
       else
       {
-        *&__dst.__r_.__value_.__l.__data_ = *v6;
+        *&__dst.__r_.__value_.__l.__data_ = *v7;
         __dst.__r_.__value_.__r.__words[2] = *(a1 + 840);
       }
 
-      v19 = std::string::insert(&__dst, 0, "File not found: ");
-      v20 = *&v19->__r_.__value_.__l.__data_;
-      v47 = v19->__r_.__value_.__r.__words[2];
-      *__p = v20;
-      v19->__r_.__value_.__l.__size_ = 0;
-      v19->__r_.__value_.__r.__words[2] = 0;
-      v19->__r_.__value_.__r.__words[0] = 0;
-      sub_29AA69D84(v18, __p);
-      if (SHIBYTE(v47) < 0)
+      v20 = std::string::insert(&__dst, 0, "File not found: ");
+      v21 = *&v20->__r_.__value_.__l.__data_;
+      v48 = v20->__r_.__value_.__r.__words[2];
+      *__p = v21;
+      v20->__r_.__value_.__l.__size_ = 0;
+      v20->__r_.__value_.__r.__words[2] = 0;
+      v20->__r_.__value_.__r.__words[0] = 0;
+      sub_29AA69D84(v19, __p);
+      if (SHIBYTE(v48) < 0)
       {
         operator delete(__p[0]);
       }
@@ -8123,27 +8766,27 @@ LABEL_39:
 
     else
     {
-      *__p = *v6;
-      v47 = *(a1 + 840);
+      *__p = *v7;
+      v48 = *(a1 + 840);
     }
 
     pxrInternal__aapl__pxrReserved__::UsdZipFile::Open(__p, &__dst);
-    v22 = *&__dst.__r_.__value_.__l.__data_;
+    v23 = *&__dst.__r_.__value_.__l.__data_;
     if (__dst.__r_.__value_.__l.__size_)
     {
       atomic_fetch_add_explicit((__dst.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
     }
 
-    *(a1 + 512) = v22;
-    v23 = *(a1 + 520);
-    *(a1 + 520) = *(&v22 + 1);
-    if (v23)
+    *(a1 + 512) = v23;
+    v24 = *(a1 + 520);
+    *(a1 + 520) = *(&v23 + 1);
+    if (v24)
     {
-      sub_29A014BEC(v23);
+      sub_29A014BEC(v24);
     }
 
     pxrInternal__aapl__pxrReserved__::UsdZipFile::~UsdZipFile(&__dst);
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
@@ -8152,7 +8795,7 @@ LABEL_39:
 LABEL_68:
   if (!*(a1 + 512))
   {
-    v36 = sub_29AABB028();
+    v37 = sub_29AABB028();
     if (*(a1 + 847) < 0)
     {
       sub_29A008D14(&__dst, *(a1 + 824), *(a1 + 832));
@@ -8163,15 +8806,15 @@ LABEL_68:
       __dst = *(a1 + 824);
     }
 
-    v37 = std::string::insert(&__dst, 0, "Unable to open: ");
-    v38 = *&v37->__r_.__value_.__l.__data_;
-    v47 = v37->__r_.__value_.__r.__words[2];
-    *__p = v38;
-    v37->__r_.__value_.__l.__size_ = 0;
-    v37->__r_.__value_.__r.__words[2] = 0;
-    v37->__r_.__value_.__r.__words[0] = 0;
-    sub_29AA69D84(v36, __p);
-    if (SHIBYTE(v47) < 0)
+    v38 = std::string::insert(&__dst, 0, "Unable to open: ");
+    v39 = *&v38->__r_.__value_.__l.__data_;
+    v48 = v38->__r_.__value_.__r.__words[2];
+    *__p = v39;
+    v38->__r_.__value_.__l.__size_ = 0;
+    v38->__r_.__value_.__r.__words[2] = 0;
+    v38->__r_.__value_.__r.__words[0] = 0;
+    sub_29AA69D84(v37, __p);
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__p[0]);
     }
@@ -8184,38 +8827,38 @@ LABEL_68:
     return 500;
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin((a1 + 512), __p);
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(__p, (a1 + 512));
   pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&__dst);
-  v24 = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator==(__p, &__dst);
+  v25 = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator==(__p, &__dst);
   pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&__dst.__r_.__value_.__l.__data_);
   pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(__p);
-  if (v24)
+  if (v25)
   {
     return 500;
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin((a1 + 512), &v49);
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&v48);
-  v25 = 1;
-  while (pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator!=(&v49, &v48))
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::begin(&v50, (a1 + 512));
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::end(&v49);
+  v26 = 1;
+  while (pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator!=(&v50, &v49))
   {
-    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFileInfo(&v49, __p);
-    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator->(&v49, &v45);
-    if ((v45.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFileInfo(__p, &v50);
+    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator->(&v50, &v46);
+    if ((v46.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v26 = &v45;
+      v27 = &v46;
     }
 
     else
     {
-      v26 = v45.__pn_.__r_.__value_.__r.__words[0];
+      v27 = v46.__pn_.__r_.__value_.__r.__words[0];
     }
 
-    sub_29A008E78(&__dst, v26);
-    if (SHIBYTE(v45.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    sub_29A008E78(&__dst, v27);
+    if (SHIBYTE(v46.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v45.__pn_.__r_.__value_.__l.__data_);
-      if ((v25 & 1) == 0)
+      operator delete(v46.__pn_.__r_.__value_.__l.__data_);
+      if ((v26 & 1) == 0)
       {
 LABEL_80:
         sub_29A095658((a1 + 944), &__dst.__r_.__value_.__l.__data_, &__dst);
@@ -8225,190 +8868,190 @@ LABEL_88:
           goto LABEL_117;
         }
 
-        v30 = v47;
-        sub_29A8CCEB8(&v43, &__dst);
-        sub_29AA33B6C(&v43, &v45);
-        if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+        v31 = v48;
+        sub_29A8CCEB8(&v44, &__dst);
+        sub_29AA33B6C(&v44, &v46);
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v43.__r_.__value_.__l.__data_);
+          operator delete(v44.__r_.__value_.__l.__data_);
         }
 
-        sub_29AA33A10(&v45, a1 + 264, &v43);
-        sub_29A8CCEB8(&v41.__pn_, &__dst);
-        sub_29AA33A10(&v41, a1 + 264, &v42);
-        if (SHIBYTE(v41.__pn_.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v41.__pn_.__r_.__value_.__l.__data_);
-        }
-
-        File = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFile(&v49);
-        if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-        {
-          sub_29A008D14(&v40, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v40 = v43;
-        }
-
-        sub_29AA869A0(&v40);
-        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v40.__r_.__value_.__l.__data_);
-        }
-
+        sub_29AA33A10(&v44, &v46, a1 + 264);
+        sub_29A8CCEB8(&v42.__pn_, &__dst);
+        sub_29AA33A10(&v43, &v42, a1 + 264);
         if (SHIBYTE(v42.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
-          sub_29A008D14(&v41, v42.__pn_.__r_.__value_.__l.__data_, v42.__pn_.__r_.__value_.__l.__size_);
+          operator delete(v42.__pn_.__r_.__value_.__l.__data_);
+        }
+
+        File = pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::GetFile(&v50);
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+        {
+          sub_29A008D14(&v41, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v41 = v42;
+          v41 = v44;
         }
 
-        if ((v41.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        sub_29AA869A0(&v41);
+        if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
         {
-          v32 = &v41;
+          operator delete(v41.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v43.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        {
+          sub_29A008D14(&v42, v43.__pn_.__r_.__value_.__l.__data_, v43.__pn_.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v32 = v41.__pn_.__r_.__value_.__r.__words[0];
+          v42 = v43;
         }
 
-        v33 = fopen(v32, "wb");
-        v34 = v33;
-        if (SHIBYTE(v41.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        if ((v42.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          operator delete(v41.__pn_.__r_.__value_.__l.__data_);
-          if (v34)
+          v33 = &v42;
+        }
+
+        else
+        {
+          v33 = v42.__pn_.__r_.__value_.__r.__words[0];
+        }
+
+        v34 = fopen(v33, "wb");
+        v35 = v34;
+        if (SHIBYTE(v42.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v42.__pn_.__r_.__value_.__l.__data_);
+          if (v35)
           {
             goto LABEL_106;
           }
         }
 
-        else if (v33)
+        else if (v34)
         {
 LABEL_106:
-          if (v30 <= fwrite(File, 1uLL, v30, v34))
+          if (v31 <= fwrite(File, 1uLL, v31, v35))
           {
-            fclose(v34);
-            v35 = 1;
+            fclose(v35);
+            v36 = 1;
           }
 
           else
           {
-            v35 = 0;
-            v1 = 500;
+            v36 = 0;
+            v2 = 500;
           }
 
 LABEL_111:
-          if (SHIBYTE(v42.__pn_.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v43.__pn_.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v42.__pn_.__r_.__value_.__l.__data_);
+            operator delete(v43.__pn_.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v43.__r_.__value_.__l.__data_);
+            operator delete(v44.__r_.__value_.__l.__data_);
           }
 
-          if ((SHIBYTE(v45.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v46.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
-            if (v35)
+            if (v36)
             {
               goto LABEL_117;
             }
 
 LABEL_119:
-            v29 = 0;
-            v25 = 0;
+            v30 = 0;
+            v26 = 0;
 LABEL_120:
-            v21 = v1;
+            v22 = v2;
             goto LABEL_121;
           }
 
-          operator delete(v45.__pn_.__r_.__value_.__l.__data_);
-          if ((v35 & 1) == 0)
+          operator delete(v46.__pn_.__r_.__value_.__l.__data_);
+          if ((v36 & 1) == 0)
           {
             goto LABEL_119;
           }
 
 LABEL_117:
-          v25 = 0;
-          v29 = 1;
+          v26 = 0;
+          v30 = 1;
           goto LABEL_120;
         }
 
-        v35 = 0;
-        v1 = 403;
+        v36 = 0;
+        v2 = 403;
         goto LABEL_111;
       }
     }
 
-    else if ((v25 & 1) == 0)
+    else if ((v26 & 1) == 0)
     {
       goto LABEL_80;
     }
 
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
-      sub_29A008D14(&v44, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+      sub_29A008D14(&v45, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v44 = __dst;
+      v45 = __dst;
     }
 
-    v27 = sub_29AA8CDFC(a1, &v44);
-    v21 = v27;
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    v28 = sub_29AA8CDFC(a1, &v45);
+    v22 = v28;
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v44.__r_.__value_.__l.__data_);
-      if (!v21)
+      operator delete(v45.__r_.__value_.__l.__data_);
+      if (!v22)
       {
         goto LABEL_88;
       }
     }
 
-    else if (!v27)
+    else if (!v28)
     {
       goto LABEL_88;
     }
 
-    v28 = sub_29AABB028();
-    sub_29A008E78(&v45, "Error: Cannot write to the compression output folder.");
-    sub_29AA5B750(v28, &v45);
-    if (SHIBYTE(v45.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    v29 = sub_29AABB028();
+    sub_29A008E78(&v46, "Error: Cannot write to the compression output folder.");
+    sub_29AA5B750(v29, &v46);
+    if (SHIBYTE(v46.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v45.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v46.__pn_.__r_.__value_.__l.__data_);
     }
 
-    v29 = 0;
-    v25 = 1;
+    v30 = 0;
+    v26 = 1;
 LABEL_121:
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
     }
 
-    if (!v29)
+    if (!v30)
     {
       goto LABEL_128;
     }
 
-    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator++(&v49);
-    v1 = v21;
+    pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::operator++(&v50);
+    v2 = v22;
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_128:
-  pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&v48);
   pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&v49);
-  return v21;
+  pxrInternal__aapl__pxrReserved__::UsdZipFile::Iterator::~Iterator(&v50);
+  return v22;
 }
 
 void sub_29AA92A58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *__p, uint64_t a48, int a49, __int16 a50, char a51, char a52)
@@ -8470,23 +9113,22 @@ void sub_29AA92D60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29AA92DC0(uint64_t a1, void *a2, const void **a3, __int128 *a4)
+const void **sub_29AA92DC0(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t a4, char a5)
 {
   if (!sub_29A5DAB7C((a1 + 904), a3))
   {
-    v7 = operator new(0xE0uLL);
+    v8 = operator new(0xE0uLL);
     if (*(a4 + 23) < 0)
     {
-      sub_29A008D14(&__dst, *a4, *(a4 + 1));
+      sub_29A008D14(&__dst, *a4, *(a4 + 8));
     }
 
     else
     {
       __dst = *a4;
-      v9 = *(a4 + 2);
     }
 
-    sub_29AA9F2A4(v7, a2);
+    sub_29AA9F2A4(v8, a2, &__dst);
   }
 
   return 0;
@@ -8837,14 +9479,14 @@ void sub_29AA94354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   sub_29A0D2850(&a59);
   sub_29A5888DC(&a65);
-  pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&a69);
-  pxrInternal__aapl__pxrReserved__::UsdGeomMesh::~UsdGeomMesh(&a72);
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&a66);
+  pxrInternal__aapl__pxrReserved__::UsdGeomMesh::~UsdGeomMesh(&a67);
   sub_29A57F434(&STACK[0x200]);
   sub_29A58BBB4(&STACK[0x220]);
   sub_29A58BBB4(&STACK[0x240]);
   sub_29A58BD10(&STACK[0x260]);
-  sub_29A89AD9C(v72 - 208);
-  sub_29A184A10((v72 - 168), 0);
+  sub_29A89AD9C(v67 - 208);
+  sub_29A184A10((v67 - 168), 0);
   _Unwind_Resume(a1);
 }
 
@@ -8892,46 +9534,46 @@ void sub_29AA94650(uint64_t a1)
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_AddRef();
 }
 
-uint64_t sub_29AA94FF0(uint64_t a1)
+uint64_t sub_29AA94FF0(uint64_t a1, __n128 a2)
 {
-  v10[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   if (*(a1 + 96) == 3)
   {
-    v2 = sub_29AA9522C(a1);
+    v3 = sub_29AA9522C(a1, a2);
   }
 
   else
   {
-    v2 = sub_29AA952FC(a1);
+    v3 = sub_29AA952FC(a1);
   }
 
-  v3 = v2;
+  v4 = v3;
   if ((*(a1 + 395) & 1) == 0 && *(a1 + 392) == 1)
   {
-    v8 = 0;
     v9 = 0;
+    v10 = 0;
     if (sub_29AA84E9C((a1 + 496), "CompressedData"))
     {
-      v4 = sub_29AA84F14((a1 + 496), "CompressedData");
-      pxrInternal__aapl__pxrReserved__::VtDictionary::operator=(&v9, v4);
-      if (sub_29AA84E9C(&v9, "CompressedBitstreams"))
+      v5 = sub_29AA84F14((a1 + 496), "CompressedData");
+      pxrInternal__aapl__pxrReserved__::VtDictionary::operator=(&v10, v5);
+      if (sub_29AA84E9C(&v10, "CompressedBitstreams"))
       {
-        v5 = sub_29AA84F14(&v9, "CompressedBitstreams");
-        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=(&v8, v5);
-        if (pxrInternal__aapl__pxrReserved__::VtDictionary::empty(&v8))
+        v6 = sub_29AA84F14(&v10, "CompressedBitstreams");
+        pxrInternal__aapl__pxrReserved__::VtDictionary::operator=(&v9, v6);
+        if (pxrInternal__aapl__pxrReserved__::VtDictionary::empty(&v9))
         {
           sub_29A008E78(&__p, "CompressedBitstreams");
-          pxrInternal__aapl__pxrReserved__::VtDictionary::erase(&v9, &__p.__r_.__value_.__l.__data_);
+          pxrInternal__aapl__pxrReserved__::VtDictionary::erase(&v10, &__p.__r_.__value_.__l.__data_);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
           sub_29A008E78(&__p, "CompressedData");
-          v10[1] = &off_2A2042030;
-          sub_29A187864(v10, &v9);
-          pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath((a1 + 496), &__p, v10, ":");
-          sub_29A186B14(v10);
+          v11[1] = &off_2A2042030;
+          sub_29A187864(v11, &v10);
+          pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath((a1 + 496), &__p, v11, ":");
+          sub_29A186B14(v11);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -8939,7 +9581,7 @@ uint64_t sub_29AA94FF0(uint64_t a1)
         }
       }
 
-      if (pxrInternal__aapl__pxrReserved__::VtDictionary::empty(&v9))
+      if (pxrInternal__aapl__pxrReserved__::VtDictionary::empty(&v10))
       {
         sub_29A008E78(&__p, "CompressedData");
         pxrInternal__aapl__pxrReserved__::VtDictionary::erase((a1 + 496), &__p.__r_.__value_.__l.__data_);
@@ -8950,15 +9592,15 @@ uint64_t sub_29AA94FF0(uint64_t a1)
       }
     }
 
-    sub_29A184A10(&v8, 0);
     sub_29A184A10(&v9, 0);
+    sub_29A184A10(&v10, 0);
   }
 
-  *(a1 + 400) = v3 == 0;
-  return v3;
+  *(a1 + 400) = v4 == 0;
+  return v4;
 }
 
-void sub_29AA951CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void **a15, void **a16, __int16 a17, char a18, char a19)
+void sub_29AA951CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, void *a16, __int16 a17, char a18, char a19)
 {
   sub_29A186B14(&a17);
   if (a14 < 0)
@@ -8971,7 +9613,7 @@ void sub_29AA951CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29AA9522C(uint64_t a1)
+uint64_t sub_29AA9522C(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 928))
   {
@@ -8983,10 +9625,10 @@ uint64_t sub_29AA9522C(uint64_t a1)
 
     else
     {
-      v3 = sub_29AABB028();
+      v4 = sub_29AABB028();
       sub_29A008E78(__p, "Output format is not supported.");
-      sub_29AA5B750(v3, __p);
-      if (v5 < 0)
+      sub_29AA5B750(v4, __p);
+      if (v6 < 0)
       {
         operator delete(__p[0]);
       }
@@ -8997,10 +9639,10 @@ uint64_t sub_29AA9522C(uint64_t a1)
 
   else
   {
-    v2 = sub_29AABB028();
+    v3 = sub_29AABB028();
     sub_29A008E78(__p, "Unable to save layers");
-    sub_29AA5B750(v2, __p);
-    if (v5 < 0)
+    sub_29AA5B750(v3, __p);
+    if (v6 < 0)
     {
       operator delete(__p[0]);
     }
@@ -9009,25 +9651,25 @@ uint64_t sub_29AA9522C(uint64_t a1)
   }
 }
 
-uint64_t sub_29AA952FC(uint64_t a1)
+uint64_t sub_29AA952FC(_BYTE *a1)
 {
-  if ((*(a1 + 397) & 1) == 0)
+  if ((a1[397] & 1) == 0)
   {
     v2 = sub_29A3479FC(v10, (a1 + 1088));
-    sub_29AA90120(v2, a1 + 1016, v10);
+    sub_29AA90120(v2, (a1 + 1016), v10);
     sub_29A019EE8(v10, v10[1]);
     v3 = sub_29A3479FC(v9, (a1 + 1088));
-    sub_29AA90120(v3, a1 + 992, v9);
+    sub_29AA90120(v3, (a1 + 992), v9);
     sub_29A019EE8(v9, v9[1]);
     v4 = sub_29A3479FC(v8, (a1 + 1088));
-    sub_29AA90120(v4, a1 + 1040, v8);
+    sub_29AA90120(v4, (a1 + 1040), v8);
     sub_29A019EE8(v8, v8[1]);
     v5 = sub_29A3479FC(v7, (a1 + 1088));
-    sub_29AA90120(v5, a1 + 944, v7);
+    sub_29AA90120(v5, (a1 + 944), v7);
     sub_29A019EE8(v7, v7[1]);
   }
 
-  if ((*(a1 + 403) & 1) == 0 && (*(a1 + 395) != 1 || *(a1 + 413) != 2))
+  if ((a1[403] & 1) == 0 && (a1[395] != 1 || a1[413] != 2))
   {
     sub_29AA95F0C(a1);
   }
@@ -9230,688 +9872,4 @@ LABEL_46:
   }
 
   return v13;
-}
-
-void sub_29AA95794(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 - 56);
-  if (v3)
-  {
-    *(v1 - 48) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_29AA957B0(uint64_t a1)
-{
-  v18 = *MEMORY[0x29EDCA608];
-  if (pxrInternal__aapl__pxrReserved__::VtDictionary::size((a1 + 504)))
-  {
-    v11 = 0;
-    sub_29A008E78(&__dst, "CompressedBitstreams");
-    v16 = &off_2A2042030;
-    sub_29A187864(&v15, (a1 + 504));
-    pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(&v11, &__dst, &v15, ":");
-    sub_29A186B14(&v15);
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
-
-    sub_29A008E78(&__dst, "CompressedData");
-    v16 = &off_2A2042030;
-    sub_29A187864(&v15, &v11);
-    pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath((a1 + 496), &__dst, &v15, ":");
-    sub_29A186B14(&v15);
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
-
-    sub_29A184A10(&v11, 0);
-  }
-
-  if ((*(a1 + 104) | 4) == 6)
-  {
-    if (sub_29AA96A0C(a1))
-    {
-      v2 = sub_29AABB028();
-      sub_29A008E78(&__dst, "Error when exporting to usdz");
-      sub_29AA5B750(v2, &__dst);
-      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__dst.__r_.__value_.__l.__data_);
-      }
-
-      return 503;
-    }
-
-    else
-    {
-      v3 = 0;
-      *(a1 + 400) = 1;
-    }
-  }
-
-  else
-  {
-    v4 = *(a1 + 96);
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        v9 = sub_29A5A70E0((a1 + 536));
-        pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v9, &v13);
-        sub_29A1DA6E4(&v13);
-      }
-
-      if (v4 == 3)
-      {
-        v6 = sub_29A3302A8((a1 + 768));
-        if (*(a1 + 311) < 0)
-        {
-          sub_29A008D14(&__dst, *(a1 + 288), *(a1 + 296));
-        }
-
-        else
-        {
-          __dst = *(a1 + 288);
-        }
-
-        v15 = 0;
-        v16 = 0;
-        v17 = 0;
-        v12[0] = 0;
-        v12[1] = 0;
-        v11 = v12;
-        pxrInternal__aapl__pxrReserved__::SdfLayer::Export(v6);
-      }
-    }
-
-    else
-    {
-      if (!v4)
-      {
-        v8 = sub_29A5A70E0((a1 + 536));
-        pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v8, &v13);
-        sub_29A1DA6E4(&v13);
-      }
-
-      if (v4 == 1)
-      {
-        v5 = sub_29A5A70E0((a1 + 536));
-        pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v5, &v13);
-        sub_29A1DA6E4(&v13);
-      }
-    }
-
-    v7 = sub_29AABB028();
-    sub_29A008E78(&__dst, "Error when saving the stage");
-    sub_29AA5B750(v7, &__dst);
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
-
-    return 82;
-  }
-
-  return v3;
-}
-
-void sub_29AA95F0C(uint64_t a1)
-{
-  v8[6] = *MEMORY[0x29EDCA608];
-  v7[3] = 0;
-  v7[4] = 0;
-  sub_29A008E78(v7, "USDC");
-  if (*(a1 + 108) == 1)
-  {
-    memset(&v8[3], 0, 24);
-    v2 = sub_29A5A70E0((a1 + 536));
-    pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v2, v8);
-    sub_29A1DA6E4(v8);
-  }
-
-  __p[0] = 0;
-  __p[1] = 0;
-  *&v5 = 0;
-  v3 = sub_29A5A70E0((a1 + 536));
-  pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v3, &v6);
-  sub_29A1DA6E4(&v6);
-}
-
-void sub_29AA966D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void **a26, void **a27, __int16 a28, char a29, char a30)
-{
-  sub_29A186B14(v30 - 64);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a25 < 0)
-  {
-    operator delete(a20);
-  }
-
-  sub_29A184A10(&a26, 0);
-  sub_29A184A10(&a27, 0);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_29AA969C0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *(a1 + 32) = 0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  sub_29AA9EF0C(a1, a2, a3);
-  return a1;
-}
-
-uint64_t sub_29AA96A0C(uint64_t a1)
-{
-  v36 = 0;
-  v37 = 0;
-  v38 = 0;
-  if (*(a1 + 395) == 1)
-  {
-    pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::CreateNew(&v36, __p);
-    pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::operator=((a1 + 528), __p);
-    pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::~UsdZipFileWriter(__p);
-    goto LABEL_16;
-  }
-
-  if (*(a1 + 263) < 0)
-  {
-    sub_29A008D14(&__dst, *(a1 + 240), *(a1 + 248));
-  }
-
-  else
-  {
-    __dst = *(a1 + 240);
-    v35 = *(a1 + 256);
-  }
-
-  v2 = sub_29AA869A0(&__dst);
-  v3 = v2;
-  if ((SHIBYTE(v35) & 0x80000000) == 0)
-  {
-    if (v2)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_11:
-    v4 = sub_29AABB028();
-    if (*(a1 + 263) < 0)
-    {
-      sub_29A008D14(&v31, *(a1 + 240), *(a1 + 248));
-    }
-
-    else
-    {
-      v31 = *(a1 + 240);
-    }
-
-    v14 = std::string::insert(&v31, 0, "Error when creating output USDZ folder: ");
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v33 = v14->__r_.__value_.__r.__words[2];
-    *__p = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    sub_29AA5B750(v4, __p);
-    if (SHIBYTE(v33) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_38;
-    }
-
-    v13 = v31.__r_.__value_.__r.__words[0];
-    goto LABEL_37;
-  }
-
-  operator delete(__dst);
-  if (!v3)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_8:
-  if (*(a1 + 167) < 0)
-  {
-    sub_29A008D14(__p, *(a1 + 144), *(a1 + 152));
-  }
-
-  else
-  {
-    *__p = *(a1 + 144);
-    v33 = *(a1 + 160);
-  }
-
-  pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::CreateNew(__p, &v31);
-  pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::operator=((a1 + 528), &v31);
-  pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::~UsdZipFileWriter(&v31);
-  if (SHIBYTE(v33) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-LABEL_16:
-  if (!*(a1 + 528))
-  {
-    v12 = sub_29AABB028();
-    sub_29A008E78(__p, "Failed to create output USDZ object !");
-    sub_29AA5B750(v12, __p);
-    if ((SHIBYTE(v33) & 0x80000000) == 0)
-    {
-LABEL_38:
-      v16 = 0;
-      LOBYTE(v17) = 0;
-      v18 = 403;
-      goto LABEL_70;
-    }
-
-    v13 = __p[0];
-LABEL_37:
-    operator delete(v13);
-    goto LABEL_38;
-  }
-
-  if (*(a1 + 394) != 1)
-  {
-    if (*(a1 + 335) < 0)
-    {
-      sub_29A008D14(v26, *(a1 + 312), *(a1 + 320));
-    }
-
-    else
-    {
-      *v26 = *(a1 + 312);
-      v27 = *(a1 + 328);
-    }
-
-    sub_29AA869A0(v26);
-    if (SHIBYTE(v27) < 0)
-    {
-      operator delete(v26[0]);
-    }
-
-    v19 = sub_29A5A70E0((a1 + 536));
-    pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v19, &v30);
-    sub_29A1DA6E4(&v30);
-  }
-
-  v5 = *(a1 + 108);
-  if (!v5)
-  {
-    __p[0] = 0;
-    __p[1] = 0;
-    v33 = 0;
-    v20 = sub_29A5A70E0((a1 + 536));
-    pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v20, &v31);
-    sub_29A1DA6E4(&v31);
-  }
-
-  if (v5 == 1)
-  {
-    __p[0] = 0;
-    __p[1] = 0;
-    v33 = 0;
-    v6 = *(a1 + 96);
-    if (v6 == 3)
-    {
-      v8 = sub_29A3302A8((a1 + 768));
-      memset(&v31, 0, sizeof(v31));
-      v28[1] = 0;
-      v29 = 0;
-      v28[0] = &v28[1];
-      v9 = pxrInternal__aapl__pxrReserved__::SdfLayer::Export(v8, __p, &v31, v28);
-      sub_29A01752C(v28, v28[1]);
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v31.__r_.__value_.__l.__data_);
-      }
-
-      if (v9)
-      {
-        v10 = __p[0];
-        v11 = __p[1];
-        if (*(a1 + 439) < 0)
-        {
-          sub_29A008D14(v28, *(a1 + 416), *(a1 + 424));
-        }
-
-        else
-        {
-          *v28 = *(a1 + 416);
-          v29 = *(a1 + 432);
-        }
-
-        pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::AddBufferAsFile((a1 + 528), v10, v11 - v10, v28, *(a1 + 408), *(a1 + 408), &v31);
-        size = v31.__r_.__value_.__l.__size_;
-        v16 = v31.__r_.__value_.__r.__words[0];
-        v17 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
-        *(&v31.__r_.__value_.__s + 23) = 0;
-        v31.__r_.__value_.__s.__data_[0] = 0;
-        if (SHIBYTE(v29) < 0)
-        {
-          operator delete(v28[0]);
-        }
-
-        goto LABEL_51;
-      }
-    }
-
-    else if (v6 == 2)
-    {
-      v7 = sub_29A5A70E0((a1 + 536));
-      pxrInternal__aapl__pxrReserved__::UsdStage::GetRootLayer(v7, &v30);
-      sub_29A1DA6E4(&v30);
-    }
-
-    v16 = 0;
-    size = 0;
-    v17 = 0;
-LABEL_51:
-    if (__p[0])
-    {
-      __p[1] = __p[0];
-      operator delete(__p[0]);
-    }
-
-    if ((v17 & 0x80u) == 0)
-    {
-      v23 = v17;
-    }
-
-    else
-    {
-      v23 = size;
-    }
-
-    if (v23)
-    {
-      if (*(a1 + 439) < 0)
-      {
-        sub_29A008D14(__p, *(a1 + 416), *(a1 + 424));
-      }
-
-      else
-      {
-        *__p = *(a1 + 416);
-        v33 = *(a1 + 432);
-      }
-
-      sub_29AA9E938((a1 + 1112), __p, __p);
-      if (SHIBYTE(v33) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v18 = sub_29AA9CC0C(a1);
-    if (!v18)
-    {
-      if (pxrInternal__aapl__pxrReserved__::UsdZipFileWriter::Save((a1 + 528)))
-      {
-        if (*(a1 + 395) == 1)
-        {
-          sub_29AA9D728(a1, &v36);
-        }
-
-        v18 = 0;
-      }
-
-      else
-      {
-        v24 = sub_29AABB028();
-        sub_29A008E78(__p, "Error: Unable to export USDZ !");
-        sub_29AA5B750(v24, __p);
-        if (SHIBYTE(v33) < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-        v18 = 503;
-      }
-    }
-
-    goto LABEL_70;
-  }
-
-  v21 = sub_29AABB028();
-  sub_29A008E78(__p, "Unsupported compressed file type");
-  sub_29AA5B750(v21, __p);
-  if (SHIBYTE(v33) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v16 = 0;
-  LOBYTE(v17) = 0;
-  v18 = 501;
-LABEL_70:
-  if (v36)
-  {
-    v37 = v36;
-    operator delete(v36);
-  }
-
-  if ((v17 & 0x80) != 0)
-  {
-    operator delete(v16);
-  }
-
-  return v18;
-}
-
-void sub_29AA971B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v39 = *(v37 - 56);
-  if (v39)
-  {
-    *(v37 - 48) = v39;
-    operator delete(v39);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29AA97460(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, pxrInternal__aapl__pxrReserved__::VtDictionary *a5@<X8>)
-{
-  v20 = *MEMORY[0x29EDCA608];
-  *a5 = 0;
-  sub_29A008E78(&v14, "ReferencePath");
-  if (*(a2 + 23) < 0)
-  {
-    sub_29A008D14(__p, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    *__p = *a2;
-    v17 = *(a2 + 16);
-  }
-
-  v19 = &off_2A2044DD0;
-  sub_29A1B01B8(&v18, __p);
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, &v18, ":");
-  sub_29A186B14(&v18);
-  if (SHIBYTE(v17) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  sub_29A008E78(&v14, "CompressedBitstreamPath");
-  if (*(a3 + 23) < 0)
-  {
-    sub_29A008D14(__p, *a3, *(a3 + 8));
-  }
-
-  else
-  {
-    *__p = *a3;
-    v17 = *(a3 + 16);
-  }
-
-  v19 = &off_2A2044DD0;
-  sub_29A1B01B8(&v18, __p);
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, &v18, ":");
-  sub_29A186B14(&v18);
-  if (SHIBYTE(v17) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  sub_29A008E78(&v14, "SelectCodec");
-  sub_29A008E78(__p, "pmc");
-  v19 = &off_2A2044DD0;
-  sub_29A1B01B8(&v18, __p);
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, &v18, ":");
-  sub_29A186B14(&v18);
-  if (SHIBYTE(v17) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  sub_29A008E78(&v14, "CompressionLevel");
-  __p[1] = &unk_2A204447B;
-  LOBYTE(__p[0]) = 10;
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, __p, ":");
-  sub_29A186B14(__p);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  sub_29A008E78(&v14, "UnifyIndices");
-  __p[1] = &unk_2A20443C3;
-  LOBYTE(__p[0]) = 0;
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, __p, ":");
-  sub_29A186B14(__p);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  sub_29A008E78(&v14, "PreserveVertexOrdering");
-  __p[1] = &unk_2A20443C3;
-  LOBYTE(__p[0]) = 0;
-  pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, __p, ":");
-  sub_29A186B14(__p);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  if (*(a1 + 404) == 1)
-  {
-    sub_29A008E78(&v14, "DumpBitstreamData");
-    __p[1] = &unk_2A20443C3;
-    LOBYTE(__p[0]) = 0;
-    pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, __p, ":");
-    sub_29A186B14(__p);
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-  }
-
-  v18 = 0;
-  v10 = *a4;
-  if (*a4 != a4 + 1)
-  {
-    do
-    {
-      if (*(v10 + 55) < 0)
-      {
-        sub_29A008D14(&v14, v10[4], v10[5]);
-      }
-
-      else
-      {
-        v14 = *(v10 + 4);
-      }
-
-      v15 = v10[7];
-      __p[0] = v15;
-      __p[1] = &off_2A2070AC8 + 1;
-      pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(&v18, &v14, __p, ":");
-      sub_29A186B14(__p);
-      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v14.__r_.__value_.__l.__data_);
-      }
-
-      v11 = v10[1];
-      if (v11)
-      {
-        do
-        {
-          v12 = v11;
-          v11 = *v11;
-        }
-
-        while (v11);
-      }
-
-      else
-      {
-        do
-        {
-          v12 = v10[2];
-          v13 = *v12 == v10;
-          v10 = v12;
-        }
-
-        while (!v13);
-      }
-
-      v10 = v12;
-    }
-
-    while (v12 != a4 + 1);
-  }
-
-  if (a4[2])
-  {
-    sub_29A008E78(&v14, "AttributeDescription");
-    __p[1] = &off_2A2042030;
-    sub_29A187864(__p, &v18);
-    pxrInternal__aapl__pxrReserved__::VtDictionary::SetValueAtPath(a5, &v14, __p, ":");
-    sub_29A186B14(__p);
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-  }
-
-  sub_29A184A10(&v18, 0);
 }

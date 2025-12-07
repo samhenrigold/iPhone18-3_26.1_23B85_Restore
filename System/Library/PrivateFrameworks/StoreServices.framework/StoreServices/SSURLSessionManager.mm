@@ -67,9 +67,9 @@
 
 - (SSURLSessionManager)init
 {
-  v41.receiver = self;
-  v41.super_class = SSURLSessionManager;
-  v2 = [(SSURLSessionManager *)&v41 init];
+  v43.receiver = self;
+  v43.super_class = SSURLSessionManager;
+  v2 = [(SSURLSessionManager *)&v43 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.StoreServices.SessionManager.eventqueue", 0);
@@ -109,45 +109,45 @@
     taskMetricsQueue = v2->_taskMetricsQueue;
     v2->_taskMetricsQueue = v20;
 
-    if (SSIsInternalBuild())
+    if (SSIsInternalBuild(v22, v23))
     {
-      v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
       requestData = v2->_requestData;
-      v2->_requestData = v22;
+      v2->_requestData = v24;
 
-      v24 = dispatch_queue_create("com.apple.StoreServices.SessionManager.requestData", v7);
+      v26 = dispatch_queue_create("com.apple.StoreServices.SessionManager.requestData", v7);
       requestDataQueue = v2->_requestDataQueue;
-      v2->_requestDataQueue = v24;
+      v2->_requestDataQueue = v26;
 
-      v26 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
       responseData = v2->_responseData;
-      v2->_responseData = v26;
+      v2->_responseData = v28;
 
-      v28 = dispatch_queue_create("com.apple.StoreServices.SessionManager.responseData", v7);
+      v30 = dispatch_queue_create("com.apple.StoreServices.SessionManager.responseData", v7);
       responseDataQueue = v2->_responseDataQueue;
-      v2->_responseDataQueue = v28;
+      v2->_responseDataQueue = v30;
 
-      v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
       recordResponseMap = v2->_recordResponseMap;
-      v2->_recordResponseMap = v30;
+      v2->_recordResponseMap = v32;
 
-      v32 = dispatch_queue_create("com.apple.StoreServices.SessionManager.recordResponse", v7);
+      v34 = dispatch_queue_create("com.apple.StoreServices.SessionManager.recordResponse", v7);
       recordResponseQueue = v2->_recordResponseQueue;
-      v2->_recordResponseQueue = v32;
+      v2->_recordResponseQueue = v34;
     }
 
     if ([objc_opt_class() _shouldCollectNetworkLogs])
     {
       [(SSURLSessionManager *)v2 _listenForLowMemoryWarning];
-      v34 = [[SSCircularBuffer alloc] initWithMaxSize:400];
+      v36 = [[SSCircularBuffer alloc] initWithMaxSize:400];
       httpArchiveBuffer = v2->_httpArchiveBuffer;
-      v2->_httpArchiveBuffer = v34;
+      v2->_httpArchiveBuffer = v36;
 
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
-      v38 = [bundleIdentifier isEqualToString:@"com.apple.AppStore"];
+      v40 = [bundleIdentifier isEqualToString:@"com.apple.AppStore"];
 
-      if (v38)
+      if (v40)
       {
         [(SSCircularBuffer *)v2->_httpArchiveBuffer setMaxSize:2000];
       }
@@ -307,16 +307,21 @@ void __36__SSURLSessionManager_sharedManager__block_invoke()
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -331,21 +336,21 @@ void __36__SSURLSessionManager_sharedManager__block_invoke()
       v29 = 2112;
       v30 = v17;
       LODWORD(v26) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%@: Created a nil NSURLSessionTask for %@.", &v27, v26);
 
       if (!v18)
       {
-LABEL_15:
+LABEL_16:
 
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v27, v26}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog(v11, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   [(SSURLSessionManager *)self _setDelegate:delegateCopy forTask:v9];
@@ -358,14 +363,14 @@ LABEL_15:
     [(SSURLSessionManager *)self _setSendTimingData:MEMORY[0x1E695E118] forSessionTask:v9];
   }
 
-LABEL_16:
+LABEL_17:
 
   return v9;
 }
 
 + (id)eventFromTimingData:(id)data delegate:(id)delegate session:(id)session task:(id)task error:(id)error
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   sessionCopy = session;
   taskCopy = task;
@@ -401,10 +406,10 @@ LABEL_16:
   v25 = [objc_alloc(MEMORY[0x1E698CA28]) initWithTask:taskCopy metrics:v24];
   [v25 setError:errorCopy];
   [v25 setProcessInfo:v22];
-  v62 = errorCopy;
-  v63 = taskCopy;
-  v60 = v24;
-  v61 = v22;
+  v60 = errorCopy;
+  v61 = taskCopy;
+  v58 = v24;
+  v59 = v22;
   if (objc_opt_respondsToSelector())
   {
     rawResponseData = [delegateCopy rawResponseData];
@@ -416,9 +421,9 @@ LABEL_16:
     [v25 setResponseBody:0];
   }
 
-  v64 = sessionCopy;
+  v62 = sessionCopy;
   [v25 setSession:sessionCopy];
-  v59 = v25;
+  v57 = v25;
   v28 = [objc_alloc(MEMORY[0x1E698CA30]) initWithContext:v25];
   v29 = [self _bagPerformanceValuesWithDelegate:delegateCopy];
   v30 = [v29 objectForKeyedSubscript:@"sessionDuration"];
@@ -429,7 +434,7 @@ LABEL_16:
   [v31 doubleValue];
   [v28 setXpSamplingPercentageCachedResponses:?];
 
-  v58 = v29;
+  v56 = v29;
   v32 = [v29 objectForKeyedSubscript:@"samplingPercentageUsers"];
   [v32 doubleValue];
   [v28 setXpSamplingPercentageUsers:?];
@@ -469,11 +474,9 @@ LABEL_16:
 
     if (v37)
     {
-      v74 = 138412290;
-      v75 = v28;
-      LODWORD(v57) = 12;
-      v56 = &v74;
-      v38 = _os_log_send_and_compose_impl();
+      v72 = 138412290;
+      v73 = v28;
+      v38 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "Network Timing Metrics: %@", &v72, 12);
 
       if (!v38)
       {
@@ -482,7 +485,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v74, v57}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
       free(v38);
       SSFileLog(v33, @"%@", v39, v40, v41, v42, v43, v44, oSLogObject);
     }
@@ -502,55 +505,55 @@ LABEL_26:
     additionalMetrics = 0;
   }
 
-  v65 = delegateCopy;
+  v63 = delegateCopy;
   if ([additionalMetrics count])
   {
-    v70[0] = MEMORY[0x1E69E9820];
-    v70[1] = 3221225472;
-    v70[2] = __71__SSURLSessionManager_eventFromTimingData_delegate_session_task_error___block_invoke;
-    v70[3] = &unk_1E84B2A00;
-    v71 = v28;
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __71__SSURLSessionManager_eventFromTimingData_delegate_session_task_error___block_invoke;
+    v68[3] = &unk_1E84B2A00;
+    v69 = v28;
     selfCopy = self;
-    [additionalMetrics enumerateKeysAndObjectsUsingBlock:v70];
+    [additionalMetrics enumerateKeysAndObjectsUsingBlock:v68];
   }
 
   v27 = objc_alloc_init(SSMetricsLoadURLEvent);
+  v64 = 0u;
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
   underlyingDictionary = [v28 underlyingDictionary];
-  v48 = [underlyingDictionary countByEnumeratingWithState:&v66 objects:v73 count:16];
+  v48 = [underlyingDictionary countByEnumeratingWithState:&v64 objects:v71 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v67;
+    v50 = *v65;
     do
     {
       for (i = 0; i != v49; ++i)
       {
-        if (*v67 != v50)
+        if (*v65 != v50)
         {
           objc_enumerationMutation(underlyingDictionary);
         }
 
-        v52 = *(*(&v66 + 1) + 8 * i);
+        v52 = *(*(&v64 + 1) + 8 * i);
         underlyingDictionary2 = [v28 underlyingDictionary];
         v54 = [underlyingDictionary2 objectForKeyedSubscript:v52];
 
         [(SSMetricsMutableEvent *)v27 setProperty:v54 forBodyKey:v52];
       }
 
-      v49 = [underlyingDictionary countByEnumeratingWithState:&v66 objects:v73 count:16];
+      v49 = [underlyingDictionary countByEnumeratingWithState:&v64 objects:v71 count:16];
     }
 
     while (v49);
   }
 
-  sessionCopy = v64;
-  delegateCopy = v65;
-  errorCopy = v62;
-  taskCopy = v63;
+  sessionCopy = v62;
+  delegateCopy = v63;
+  errorCopy = v60;
+  taskCopy = v61;
 LABEL_39:
 
   return v27;
@@ -558,7 +561,7 @@ LABEL_39:
 
 void __71__SSURLSessionManager_eventFromTimingData_delegate_session_task_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) propertyForBodyKey:v5];
@@ -574,55 +577,58 @@ void __71__SSURLSessionManager_eventFromTimingData_delegate_session_task_error__
     v9 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v10) = v9 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v10) = v9;
     }
 
     v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      *v22 = 138543874;
-      *&v22[4] = objc_opt_class();
-      *&v22[12] = 2114;
-      *&v22[14] = v5;
-      *&v22[22] = 2112;
-      v23 = v6;
-      v12 = *&v22[4];
-      LODWORD(v21) = 32;
-      v20 = v22;
-      v13 = _os_log_send_and_compose_impl();
+      v20 = 138543874;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v6;
+      v12 = v21;
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 16, "%{public}@: Overwritting metric event property: %{public}@ with value: %@", &v20, 32);
 
       if (!v13)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, v22, v21, *v22, *&v22[16], v23}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, v11);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
-  [*(a1 + 32) setProperty:v6 forBodyKey:{v5, v20}];
+LABEL_15:
+  [*(a1 + 32) setProperty:v6 forBodyKey:v5];
 }
 
 - (void)flushHTTPArchiveBuffer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   httpArchiveBuffer = [(SSURLSessionManager *)self httpArchiveBuffer];
   v4 = [httpArchiveBuffer count];
 
@@ -659,14 +665,13 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v20 = 134217984;
-  v21 = v4;
-  LODWORD(v19) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v19 = 134217984;
+  v20 = v4;
+  v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "Flushing HTTP Archive (HAR) buffer. Count : %ld", &v19);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v20, v19}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
 LABEL_12:
@@ -754,20 +759,21 @@ LABEL_12:
   sessionCopy = session;
   taskCopy = task;
   metricsCopy = metrics;
-  [(SSURLSessionManager *)self _setTaskMetrics:metricsCopy forSessionTask:taskCopy];
-  if (SSIsInternalBuild())
+  v10 = [(SSURLSessionManager *)self _setTaskMetrics:metricsCopy forSessionTask:taskCopy];
+  if (SSIsInternalBuild(v10, v11))
   {
-    v10 = [(SSURLSessionManager *)self _requestDataForSessionTask:taskCopy];
-    v11 = [(SSURLSessionManager *)self _responseDataForSessionTask:taskCopy];
-    v12 = [(SSURLSessionManager *)self _delegateForTask:taskCopy];
-    if (objc_opt_respondsToSelector())
+    v12 = [(SSURLSessionManager *)self _requestDataForSessionTask:taskCopy];
+    v13 = [(SSURLSessionManager *)self _responseDataForSessionTask:taskCopy];
+    v14 = [(SSURLSessionManager *)self _delegateForTask:taskCopy];
+    v15 = objc_opt_respondsToSelector();
+    if (v15)
     {
-      v13 = [v12 URLSession:sessionCopy task:taskCopy decodedDataForResponseData:v11];
+      v17 = [v14 URLSession:sessionCopy task:taskCopy decodedDataForResponseData:v13];
 
-      v11 = v13;
+      v13 = v17;
     }
 
-    if (SSDebugShouldDisableNetworkLogging())
+    if (SSDebugShouldDisableNetworkLogging(v15, v16))
     {
       goto LABEL_15;
     }
@@ -780,10 +786,10 @@ LABEL_12:
       goto LABEL_15;
     }
 
-    v16 = [[SSHTTPArchive alloc] initWithTaskMetrics:metricsCopy requestData:v10 responseData:v11];
+    v20 = [[SSHTTPArchive alloc] initWithTaskMetrics:metricsCopy requestData:v12 responseData:v13];
     if (objc_opt_respondsToSelector())
     {
-      [v12 URLSession:sessionCopy task:taskCopy didFinishCreatingHTTPArchive:v16];
+      [v14 URLSession:sessionCopy task:taskCopy didFinishCreatingHTTPArchive:v20];
     }
 
     response = [taskCopy response];
@@ -791,15 +797,15 @@ LABEL_12:
     if (objc_opt_isKindOfClass())
     {
       response2 = [taskCopy response];
-      v19 = [SSVCookieStorage responseHasSetCookies:response2];
+      v23 = [SSVCookieStorage responseHasSetCookies:response2];
 
-      if (!v19)
+      if (!v23)
       {
 LABEL_12:
         if ([objc_opt_class() _shouldCollectNetworkLogs])
         {
           httpArchiveBuffer2 = [(SSURLSessionManager *)self httpArchiveBuffer];
-          [httpArchiveBuffer2 addObject:v16];
+          [httpArchiveBuffer2 addObject:v20];
         }
 
 LABEL_15:
@@ -811,7 +817,7 @@ LABEL_15:
       }
 
       response = +[SSLogConfig sharedAccountsAuthenticationConfig];
-      [(SSHTTPArchive *)v16 writeToDiskWithLogConfig:response compressed:0 error:0];
+      [(SSHTTPArchive *)v20 writeToDiskWithLogConfig:response compressed:0 error:0];
     }
 
     goto LABEL_12;
@@ -881,23 +887,24 @@ LABEL_16:
 {
   keyCopy = key;
   v4 = [SSURLBagContext contextWithBagType:0];
-  if (SSIsDaemon())
+  v5 = SSIsDaemon();
+  if (v5)
   {
-    v5 = SSViTunesStoreFramework();
-    v6 = [SSVWeakLinkedClassForString(&cfstr_Isurlbagcache.isa v5)];
-    v7 = [v6 URLBagForContext:v4];
+    v7 = SSViTunesStoreFramework(v5, v6);
+    v8 = [SSVWeakLinkedClassForString(&cfstr_Isurlbagcache.isa v7)];
+    v9 = [v8 URLBagForContext:v4];
 
-    [v7 valueForKey:keyCopy];
+    [v9 valueForKey:keyCopy];
   }
 
   else
   {
-    v7 = [SSURLBag URLBagForContext:v4];
-    [v7 valueForKey:keyCopy error:0];
+    v9 = [SSURLBag URLBagForContext:v4];
+    [v9 valueForKey:keyCopy error:0];
   }
-  v8 = ;
+  v10 = ;
 
-  return v8;
+  return v10;
 }
 
 - (id)_delegateForTask:(id)task
@@ -1148,7 +1155,7 @@ void __63__SSURLSessionManager__messageSizeFromTask_isRequest_delegate___block_i
 
 - (void)_logCacheHitForTask:(id)task metrics:(id)metrics
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   metricsCopy = metrics;
   if (_logCacheHitForTask_metrics__onceToken != -1)
@@ -1162,58 +1169,63 @@ void __63__SSURLSessionManager__messageSizeFromTask_isRequest_delegate___block_i
     lastObject = [transactionMetrics lastObject];
 
     response = [lastObject response];
-    objc_opt_class();
-    v11 = SSSafeCast(response);
-    if ([v11 statusCode] >= 200 && objc_msgSend(v11, "statusCode") <= 299)
+    v11 = objc_opt_class();
+    v12 = SSSafeCast(response, v11);
+    if ([v12 statusCode] >= 200 && objc_msgSend(v12, "statusCode") <= 299)
     {
       resourceFetchType = [lastObject resourceFetchType];
-      v13 = @"NO";
+      v14 = @"NO";
       if (resourceFetchType == 3)
       {
-        v13 = @"YES";
+        v14 = @"YES";
       }
 
-      v29 = v13;
-      allHeaderFields = [v11 allHeaderFields];
-      v28 = [allHeaderFields objectForKeyedSubscript:@"Cache-Control"];
+      v30 = v14;
+      allHeaderFields = [v12 allHeaderFields];
+      v29 = [allHeaderFields objectForKeyedSubscript:@"Cache-Control"];
 
-      v15 = [(SSURLSessionManager *)self _delegateForTask:taskCopy];
-      v16 = _logCacheHitForTask_metrics__cacheConfig;
-      if (!v16)
+      v16 = [(SSURLSessionManager *)self _delegateForTask:taskCopy];
+      v17 = _logCacheHitForTask_metrics__cacheConfig;
+      if (!v17)
       {
-        v16 = +[SSLogConfig sharedConfig];
+        v17 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v16 shouldLog];
-      if ([v16 shouldLogToDisk])
+      LODWORD(v18) = [v17 shouldLog];
+      if ([v17 shouldLogToDisk])
       {
-        shouldLog |= 2u;
+        LODWORD(v18) = v18 | 2;
       }
 
-      oSLogObject = [v16 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      oSLogObject = [v17 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        shouldLog &= 2u;
+        v18 = v18;
       }
 
-      if (shouldLog)
+      else
       {
-        [response URL];
-        v31 = v30 = 138413058;
-        v32 = 2112;
-        v33 = v15;
-        v34 = 2112;
-        v35 = v28;
-        v36 = 2112;
-        v37 = v29;
-        LODWORD(v27) = 42;
-        v19 = _os_log_send_and_compose_impl();
+        v18 &= 2u;
+      }
 
-        if (v19)
+      if (v18)
+      {
+        v20 = [response URL];
+        v31 = 138413058;
+        v32 = v20;
+        v33 = 2112;
+        v34 = v16;
+        v35 = 2112;
+        v36 = v29;
+        v37 = 2112;
+        v38 = v30;
+        v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "[%@] [%@] [%@] [%@]", &v31, 42);
+
+        if (v21)
         {
-          v20 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v30, v27}];
-          free(v19);
-          SSFileLog(v16, @"%@", v21, v22, v23, v24, v25, v26, v20);
+          v22 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+          free(v21);
+          SSFileLog(v17, @"%@", v23, v24, v25, v26, v27, v28, v22);
         }
       }
 
@@ -1428,7 +1440,7 @@ void __62__SSURLSessionManager__sessionWithDelegate_collectTimingData___block_in
 
 void __62__SSURLSessionManager__sessionWithDelegate_collectTimingData___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) sessions];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
   v4 = *(*(a1 + 56) + 8);
@@ -1446,16 +1458,21 @@ void __62__SSURLSessionManager__sessionWithDelegate_collectTimingData___block_in
     v7 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v8) = v7;
     }
 
     v9 = [v6 OSLogObject];
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -1464,17 +1481,16 @@ void __62__SSURLSessionManager__sessionWithDelegate_collectTimingData___block_in
     {
       v10 = objc_opt_class();
       v11 = *(a1 + 40);
-      *v29 = 138412546;
-      *&v29[4] = v10;
-      *&v29[12] = 2112;
-      *&v29[14] = v11;
+      v28 = 138412546;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v11;
       v12 = v10;
-      LODWORD(v28) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 2, "%@: Creating a new NSURLSession with identifier %@.", &v28, 22);
 
       if (!v13)
       {
-LABEL_13:
+LABEL_14:
 
         v20 = objc_opt_new();
         [v20 setMaxConcurrentOperationCount:5];
@@ -1492,12 +1508,12 @@ LABEL_13:
         return;
       }
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, v29, v28, *v29, *&v29[16]}];
+      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v9);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 }
 
@@ -2093,7 +2109,7 @@ LABEL_11:
 
 void __50__SSURLSessionManager__fetchNetworkQualityReports__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v3)
@@ -2104,39 +2120,43 @@ void __50__SSURLSessionManager__fetchNetworkQualityReports__block_invoke(uint64_
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v16 = 138412546;
-  *&v16[4] = objc_opt_class();
-  *&v16[12] = 2112;
-  *&v16[14] = v2;
-  v7 = *&v16[4];
-  LODWORD(v15) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v15 = 138412546;
+  v16 = objc_opt_class();
+  v17 = 2112;
+  v18 = v2;
+  v7 = v16;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, v6, 16, "[%@]: Metrics network inquiry error occurred. Error: %@", &v15, 22);
 
   if (v8)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v16, v15, *v16, *&v16[16], v17}];
+    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, v6);
-LABEL_11:
+LABEL_12:
   }
 }
 
@@ -2165,7 +2185,7 @@ LABEL_11:
 
 void __49__SSURLSessionManager__listenForLowMemoryWarning__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = *(a1 + 32);
   v4 = *(v3 + 16);
@@ -2173,7 +2193,7 @@ void __49__SSURLSessionManager__listenForLowMemoryWarning__block_invoke(uint64_t
   v5 = *(*(a1 + 32) + 16);
   if (v4 == v5)
   {
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   if (v5 == 1)
@@ -2187,45 +2207,49 @@ void __49__SSURLSessionManager__listenForLowMemoryWarning__block_invoke(uint64_t
     v26 = [v25 shouldLog];
     if ([v25 shouldLogToDisk])
     {
-      v27 = v26 | 2;
+      LODWORD(v27) = v26 | 2;
     }
 
     else
     {
-      v27 = v26;
+      LODWORD(v27) = v26;
     }
 
     v28 = [v25 OSLogObject];
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = v27;
+    }
+
+    else
     {
       v27 &= 2u;
     }
 
     if (v27)
     {
-      *v38 = 138412290;
-      *&v38[4] = objc_opt_class();
-      v29 = *&v38[4];
-      LODWORD(v37) = 12;
-      v30 = _os_log_send_and_compose_impl();
+      v37 = 138412290;
+      v38 = objc_opt_class();
+      v29 = v38;
+      v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1D48BA000, v28, 0, "[%@]: No longer in low memory state. Increasing HAR buffer size", &v37, 12);
 
       if (!v30)
       {
-LABEL_28:
+LABEL_30:
 
         v12 = [WeakRetained httpArchiveBuffer];
         [v12 setMaxSize:*(*(a1 + 32) + 24)];
-LABEL_30:
+LABEL_32:
 
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, v38, v37, *v38, *&v38[8]}];
+      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog(v25, @"%@", v31, v32, v33, v34, v35, v36, v28);
     }
 
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
   if (v5 == 2)
@@ -2261,33 +2285,37 @@ LABEL_30:
     v13 = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = v13 | 2;
+      LODWORD(v14) = v13 | 2;
     }
 
     else
     {
-      v14 = v13;
+      LODWORD(v14) = v13;
     }
 
     v15 = [v12 OSLogObject];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
 
     if (v14)
     {
-      *v38 = 138412546;
-      *&v38[4] = objc_opt_class();
-      *&v38[12] = 2048;
-      *&v38[14] = v8 - v9;
-      v16 = *&v38[4];
-      LODWORD(v37) = 22;
-      v17 = _os_log_send_and_compose_impl();
+      v37 = 138412546;
+      v38 = objc_opt_class();
+      v39 = 2048;
+      v40 = v8 - v9;
+      v16 = v38;
+      v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v15, 0, "[%@]: Received low memory warning. Reducing HAR buffer size by: %lu", &v37, 22);
 
       if (v17)
       {
-        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, v38, v37, *v38, *&v38[16], v39}];
+        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
         free(v17);
         SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, v18);
       }
@@ -2297,10 +2325,10 @@ LABEL_30:
     {
     }
 
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
-LABEL_31:
+LABEL_33:
 }
 
 + (double)_randomDouble
@@ -2467,11 +2495,11 @@ void __51__SSURLSessionManager__responseDataForSessionTask___block_invoke(uint64
 - (id)_saveHTTPArchiveBufferToDiskDecompressed:(BOOL)decompressed
 {
   decompressedCopy = decompressed;
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (![objc_opt_class() _shouldCollectNetworkLogs])
   {
     v24 = 0;
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   httpArchiveBuffer = [(SSURLSessionManager *)self httpArchiveBuffer];
@@ -2490,55 +2518,58 @@ void __51__SSURLSessionManager__responseDataForSessionTask___block_invoke(uint64
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v33 = 134217984;
-      v34 = [v7 count];
-      LODWORD(v27) = 12;
-      v26 = &v33;
-      v12 = _os_log_send_and_compose_impl();
+      v31 = 134217984;
+      v32 = [v7 count];
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "Writing %ld HTTP Archive file(s) to disk.", &v31);
 
       if (!v12)
       {
-LABEL_14:
+LABEL_15:
 
-        v30 = 0u;
-        v31 = 0u;
         v28 = 0u;
         v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         allObjects = v7;
-        v19 = [allObjects countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v19 = [allObjects countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v29;
+          v21 = *v27;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v29 != v21)
+              if (*v27 != v21)
               {
                 objc_enumerationMutation(allObjects);
               }
 
-              [*(*(&v28 + 1) + 8 * i) writeToDiskWithLogConfig:0 compressed:!decompressedCopy error:{0, v26}];
+              [*(*(&v26 + 1) + 8 * i) writeToDiskWithLogConfig:0 compressed:!decompressedCopy error:0];
             }
 
-            v20 = [allObjects countByEnumeratingWithState:&v28 objects:v32 count:16];
+            v20 = [allObjects countByEnumeratingWithState:&v26 objects:v30 count:16];
           }
 
           while (v20);
@@ -2548,21 +2579,21 @@ LABEL_14:
         dispatch_async(v23, &__block_literal_global_166);
 
         v24 = [SSHTTPArchive outputDirectoryForLogConfig:0];
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v33, v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog(v8, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v24 = 0;
-LABEL_24:
-
 LABEL_25:
+
+LABEL_26:
 
   return v24;
 }
@@ -2627,23 +2658,24 @@ void __54__SSURLSessionManager__setRequestData_forSessionTask___block_invoke(uin
   return (_shouldCollectNetworkLogs_shouldCollectLogs & 1) == 0;
 }
 
-void __48__SSURLSessionManager__shouldCollectNetworkLogs__block_invoke()
+void __48__SSURLSessionManager__shouldCollectNetworkLogs__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ((SSIsInternalBuild() & 1) != 0 && !SSDebugShouldDisableNetworkLogging())
+  v2 = SSIsInternalBuild(a1, a2);
+  if ((v2 & 1) != 0 && !SSDebugShouldDisableNetworkLogging(v2, v3))
   {
-    v0 = +[SSLogConfig sharedConfig];
-    v4 = [v0 outputDirectory];
+    v4 = +[SSLogConfig sharedConfig];
+    v8 = [v4 outputDirectory];
 
-    v1 = [MEMORY[0x1E696AC08] defaultManager];
-    v2 = [v1 fileExistsAtPath:v4];
+    v5 = [MEMORY[0x1E696AC08] defaultManager];
+    v6 = [v5 fileExistsAtPath:v8];
 
-    if ((v2 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
-      v3 = [MEMORY[0x1E696AC08] defaultManager];
-      [v3 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:0];
+      v7 = [MEMORY[0x1E696AC08] defaultManager];
+      [v7 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:0];
     }
 
-    if (!SSFileIsLocalWritable(v4))
+    if (!SSFileIsLocalWritable(v8))
     {
       _shouldCollectNetworkLogs_shouldCollectLogs = 1;
     }
@@ -2757,7 +2789,7 @@ void __60__SSURLSessionManager__shouldRecordResponseBodyForDataTask___block_invo
 
 - (void)_logAPSResultsWithTask:(id)task
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   v5 = [(SSURLSessionManager *)self _taskMetricsForSessionTask:taskCopy];
   transactionMetrics = [v5 transactionMetrics];
@@ -2775,7 +2807,7 @@ void __60__SSURLSessionManager__shouldRecordResponseBodyForDataTask___block_invo
       v8 = @"NO";
     }
 
-    v29 = v8;
+    v28 = v8;
     if ([lastObject _apsRelayAttempted])
     {
       v9 = @"YES";
@@ -2821,21 +2853,20 @@ void __60__SSURLSessionManager__shouldRecordResponseBodyForDataTask___block_invo
 
     if (v18)
     {
-      v30 = 138544130;
-      v31 = objc_opt_class();
-      v32 = 2114;
-      v33 = v10;
-      v34 = 2114;
-      v35 = v29;
-      v36 = 2112;
-      v37 = absoluteString;
-      v19 = v31;
-      LODWORD(v28) = 42;
-      v20 = _os_log_send_and_compose_impl();
+      v29 = 138544130;
+      v30 = objc_opt_class();
+      v31 = 2114;
+      v32 = v10;
+      v33 = 2114;
+      v34 = v28;
+      v35 = 2112;
+      v36 = absoluteString;
+      v19 = v30;
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: APSR attempted: %{public}@ succeeded: %{public}@ for request: %@", &v29, 42);
 
       if (v20)
       {
-        v21 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v30, v28}];
+        v21 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
         free(v20);
         SSFileLog(v14, @"%@", v22, v23, v24, v25, v26, v27, v21);
       }
@@ -2862,45 +2893,49 @@ void __60__SSURLSessionManager__shouldRecordResponseBodyForDataTask___block_invo
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      LODWORD(v18) = 138543362;
-      *(&v18 + 4) = objc_opt_class();
-      v9 = *(&v18 + 4);
-      LODWORD(v17) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v9 = v18;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Enabling reverse push using APS", &v17, 12);
 
       if (!v10)
       {
-LABEL_13:
+LABEL_14:
 
         [taskCopy set_APSRelayTopic:@"com.apple.private.alloy.itunes.apsr"];
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v18, v17, v18}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (BOOL)_shouldEnableAPSRWithTask:(id)task
@@ -3052,7 +3087,7 @@ LABEL_36:
 
 + (id)bagValueForKey:(id)key delegate:(id)delegate type:(unint64_t)type
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   delegateCopy = delegate;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([delegateCopy bag], (v10 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -3091,9 +3126,9 @@ LABEL_36:
     {
       if (type == 1)
       {
-        v56 = 0;
-        v32 = &v56;
-        v33 = [v11 BOOLForKey:keyCopy error:&v56];
+        v55 = 0;
+        v32 = &v55;
+        v33 = [v11 BOOLForKey:keyCopy error:&v55];
       }
 
       else
@@ -3103,17 +3138,17 @@ LABEL_36:
           goto LABEL_6;
         }
 
-        v55 = 0;
-        v32 = &v55;
-        v33 = [v11 dictionaryForKey:keyCopy error:&v55];
+        v54 = 0;
+        v32 = &v54;
+        v33 = [v11 dictionaryForKey:keyCopy error:&v54];
       }
     }
 
     else
     {
-      v57 = 0;
-      v32 = &v57;
-      v33 = [v11 arrayForKey:keyCopy error:&v57];
+      v56 = 0;
+      v32 = &v56;
+      v33 = [v11 arrayForKey:keyCopy error:&v56];
     }
   }
 
@@ -3121,9 +3156,9 @@ LABEL_36:
   {
     if (type == 5)
     {
-      v52 = 0;
-      v32 = &v52;
-      v33 = [v11 stringForKey:keyCopy error:&v52];
+      v51 = 0;
+      v32 = &v51;
+      v33 = [v11 stringForKey:keyCopy error:&v51];
     }
 
     else
@@ -3133,24 +3168,24 @@ LABEL_36:
         goto LABEL_6;
       }
 
-      v51 = 0;
-      v32 = &v51;
-      v33 = [v11 URLForKey:keyCopy error:&v51];
+      v50 = 0;
+      v32 = &v50;
+      v33 = [v11 URLForKey:keyCopy error:&v50];
     }
   }
 
   else if (type == 3)
   {
-    v54 = 0;
-    v32 = &v54;
-    v33 = [v11 doubleForKey:keyCopy error:&v54];
+    v53 = 0;
+    v32 = &v53;
+    v33 = [v11 doubleForKey:keyCopy error:&v53];
   }
 
   else
   {
-    v53 = 0;
-    v32 = &v53;
-    v33 = [v11 integerForKey:keyCopy error:&v53];
+    v52 = 0;
+    v32 = &v52;
+    v33 = [v11 integerForKey:keyCopy error:&v52];
   }
 
   v13 = v33;
@@ -3167,16 +3202,21 @@ LABEL_36:
     shouldLog = [v36 shouldLog];
     if ([v36 shouldLogToDisk])
     {
-      v38 = shouldLog | 2;
+      LODWORD(v38) = shouldLog | 2;
     }
 
     else
     {
-      v38 = shouldLog;
+      LODWORD(v38) = shouldLog;
     }
 
     oSLogObject = [v36 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v38 = v38;
+    }
+
+    else
     {
       v38 &= 2u;
     }
@@ -3184,37 +3224,35 @@ LABEL_36:
     if (v38)
     {
       v40 = objc_opt_class();
-      v58 = 138412802;
-      v59 = v40;
-      v60 = 2112;
-      v61 = keyCopy;
-      v62 = 2112;
-      v63 = v35;
+      v57 = 138412802;
+      v58 = v40;
+      v59 = 2112;
+      v60 = keyCopy;
+      v61 = 2112;
+      v62 = v35;
       v41 = v40;
-      LODWORD(v50) = 32;
-      v49 = &v58;
-      v42 = _os_log_send_and_compose_impl();
+      v42 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%@: Failed to fetch bag value for key: %@. Error: %@", &v57, 32);
 
       if (!v42)
       {
-LABEL_52:
+LABEL_54:
 
         v14 = @"YES";
         goto LABEL_6;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v42 encoding:{4, &v58, v50}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v42 encoding:4];
       free(v42);
       SSFileLog(v36, @"%@", v43, v44, v45, v46, v47, v48, oSLogObject);
     }
 
-    goto LABEL_52;
+    goto LABEL_54;
   }
 
 LABEL_6:
   if (v13)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
 LABEL_7:
@@ -3227,46 +3265,51 @@ LABEL_7:
   shouldLog2 = [v15 shouldLog];
   if ([v15 shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v17) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v17) = shouldLog2;
   }
 
   oSLogObject2 = [v15 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
 
   if (!v17)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v19 = objc_opt_class();
-  v58 = 138543874;
-  v59 = v19;
-  v60 = 2114;
-  v61 = keyCopy;
-  v62 = 2114;
-  v63 = v14;
+  v57 = 138543874;
+  v58 = v19;
+  v59 = 2114;
+  v60 = keyCopy;
+  v61 = 2114;
+  v62 = v14;
   v20 = v19;
-  LODWORD(v50) = 32;
-  v21 = _os_log_send_and_compose_impl();
+  LODWORD(v49) = 32;
+  v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: A nil value was loaded from the bag for key %{public}@. Using new bag: %{public}@", &v57, v49);
 
   if (v21)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v58, v50}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
     free(v21);
     SSFileLog(v15, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject2);
-LABEL_17:
+LABEL_18:
   }
 
   v13 = 0;
-LABEL_19:
+LABEL_20:
 
   return v13;
 }

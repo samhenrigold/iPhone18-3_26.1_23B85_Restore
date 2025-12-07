@@ -87,7 +87,7 @@
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D715A5D8();
+  v13 = sub_1D715A5D8(viewCopy, v10);
 
   (*(v7 + 8))(v10, v6);
 

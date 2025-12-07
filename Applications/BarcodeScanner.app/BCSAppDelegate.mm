@@ -32,12 +32,12 @@
   window = [(BCSAppDelegate *)self window];
   rootViewController = [window rootViewController];
 
-  [rootViewController suspendCapturing];
-  v5 = sub_100001D1C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  suspendCapturing = [rootViewController suspendCapturing];
+  v7 = sub_100001D1C(suspendCapturing, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "applicationWillResignActive:", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "applicationWillResignActive:", v8, 2u);
   }
 }
 
@@ -46,12 +46,12 @@
   window = [(BCSAppDelegate *)self window];
   rootViewController = [window rootViewController];
 
-  [rootViewController resumeCapturing];
-  v5 = sub_100001D1C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  resumeCapturing = [rootViewController resumeCapturing];
+  v7 = sub_100001D1C(resumeCapturing, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "applicationDidBecomeActive:", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "applicationDidBecomeActive:", v8, 2u);
   }
 }
 
@@ -60,12 +60,12 @@
   window = [(BCSAppDelegate *)self window];
   rootViewController = [window rootViewController];
 
-  [rootViewController applicationDidEnterBackground];
-  v5 = sub_100001D1C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  applicationDidEnterBackground = [rootViewController applicationDidEnterBackground];
+  v7 = sub_100001D1C(applicationDidEnterBackground, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "applicationDidEnterBackground:", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "applicationDidEnterBackground:", v8, 2u);
   }
 }
 
@@ -74,25 +74,25 @@
   window = [(BCSAppDelegate *)self window];
   rootViewController = [window rootViewController];
 
-  [rootViewController applicationWillEnterForeground];
-  v5 = sub_100001D1C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  applicationWillEnterForeground = [rootViewController applicationWillEnterForeground];
+  v7 = sub_100001D1C(applicationWillEnterForeground, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "applicationWillEnterForeground:", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "applicationWillEnterForeground:", v8, 2u);
   }
 }
 
 - (BOOL)application:(id)application continueUserActivity:(id)activity restorationHandler:(id)handler
 {
   activityCopy = activity;
-  [(BCSRootViewController *)self->_rootViewController continueUserActivity:activityCopy];
-  v7 = sub_100001D1C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = [(BCSRootViewController *)self->_rootViewController continueUserActivity:activityCopy];
+  v9 = sub_100001D1C(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = activityCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "continueUserActivity: %{public}@", &v9, 0xCu);
+    v11 = 138543362;
+    v12 = activityCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "continueUserActivity: %{public}@", &v11, 0xCu);
   }
 
   return 1;
@@ -102,12 +102,12 @@
 {
   typeCopy = type;
   errorCopy = error;
-  v8 = sub_100001D1C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100001D1C(errorCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = typeCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "didFailToContinueUserActivityWithType: %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = typeCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "didFailToContinueUserActivityWithType: %{public}@", &v10, 0xCu);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))

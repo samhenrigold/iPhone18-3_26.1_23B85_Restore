@@ -188,24 +188,24 @@ void __89__PLPhotoLibraryFileIdentifier_fileIdentifierForValidOriginalURL_origin
   v9 = [*(a1 + 40) lastPathComponent];
   obj = [(PLPhotoLibraryFileIdentifier *)v6 initWithAssetUuid:v7 bundleScope:0 uti:0 resourceVersion:0 resourceType:v8 recipeID:0 originalFilename:v9 customSuffix:0];
 
-  v20 = [*(a1 + 32) UTF8String];
+  v21 = [*(a1 + 32) UTF8String];
   v10 = [(PLPhotoLibraryFileIdentifier *)obj extension];
   v11 = [v10 UTF8String];
-  LODWORD(v9) = [v5 integerValue];
+  v12 = [v5 integerValue];
 
-  v12 = PLPathForResourceProperties(v20, v11, v9, 0, 0, -[PLPhotoLibraryFileIdentifier isData](obj, "isData"), [*(a1 + 48) UTF8String], objc_msgSend(@"resources/renders", "UTF8String"), objc_msgSend(@"resources/derivatives", "UTF8String"), objc_msgSend(@"resources/caches/compute", "UTF8String"), objc_msgSend(@"resources/derivatives/masters", "UTF8String"), objc_msgSend(@"resources/derivatives/cvt", "UTF8String"), 0);
+  v13 = PLPathForResourceProperties(v21, v11, v12, 0, 0, -[PLPhotoLibraryFileIdentifier isData](obj, "isData"), [*(a1 + 48) UTF8String], objc_msgSend(@"resources/renders", "UTF8String"), objc_msgSend(@"resources/derivatives", "UTF8String"), objc_msgSend(@"resources/caches/compute", "UTF8String"), objc_msgSend(@"resources/derivatives/masters", "UTF8String"), objc_msgSend(@"resources/derivatives/cvt", "UTF8String"), 0);
 
-  v13 = [*(a1 + 40) path];
-  v14 = [v13 pathComponents];
+  v14 = [*(a1 + 40) path];
+  v15 = [v14 pathComponents];
 
-  v15 = [v12 pathComponents];
-  v16 = [v14 count];
-  if (v16 > [v15 count])
+  v16 = [v13 pathComponents];
+  v17 = [v15 count];
+  if (v17 > [v16 count])
   {
-    v17 = [v14 subarrayWithRange:{objc_msgSend(v14, "count") - objc_msgSend(v15, "count"), objc_msgSend(v15, "count")}];
-    v18 = [v17 isEqualToArray:v15];
+    v18 = [v15 subarrayWithRange:{objc_msgSend(v15, "count") - objc_msgSend(v16, "count"), objc_msgSend(v16, "count")}];
+    v19 = [v18 isEqualToArray:v16];
 
-    if (v18)
+    if (v19)
     {
       objc_storeStrong((*(*(a1 + 56) + 8) + 40), obj);
       *a4 = 1;

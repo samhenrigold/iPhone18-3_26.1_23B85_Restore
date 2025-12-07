@@ -1012,7 +1012,7 @@ LABEL_11:
 
 - (void)_startRefreshTimerIfNecessary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!self->_refreshTimer && self->_leaseExpirationDate && self->_refreshesAutomatically)
   {
     v3 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_serialQueue);
@@ -1026,10 +1026,10 @@ LABEL_11:
     objc_initWeak(&location, self);
     v8 = self->_refreshTimer;
     handler = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = __49__SSVPlaybackLease__startRefreshTimerIfNecessary__block_invoke;
-    v27 = &unk_1E84AD820;
-    objc_copyWeak(&v28, &location);
+    v24 = 3221225472;
+    v25 = __49__SSVPlaybackLease__startRefreshTimerIfNecessary__block_invoke;
+    v26 = &unk_1E84AD820;
+    objc_copyWeak(&v27, &location);
     dispatch_source_set_event_handler(v8, &handler);
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v9)
@@ -1037,47 +1037,51 @@ LABEL_11:
       v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v9 shouldLog];
+    LODWORD(v10) = [v9 shouldLog];
     shouldLogToDisk = [v9 shouldLogToDisk];
     oSLogObject = [v9 OSLogObject];
     v13 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v10) = v10 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog &= 2u;
+      v10 = v10;
     }
 
-    if (shouldLog)
+    else
+    {
+      v10 &= 2u;
+    }
+
+    if (v10)
     {
       v14 = objc_opt_class();
       [(NSDate *)self->_leaseExpirationDate timeIntervalSinceNow];
-      v30 = 138412546;
-      v31 = v14;
-      v32 = 2048;
-      v33 = v15;
-      LODWORD(v23) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v29 = 138412546;
+      v30 = v14;
+      v31 = 2048;
+      v32 = v15;
+      v16 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v13, 2, "%@: Schedule refresh in %.0f seconds", &v29, 22, handler, v24, v25, v26);
 
       if (!v16)
       {
-LABEL_15:
+LABEL_16:
 
         dispatch_resume(self->_refreshTimer);
-        objc_destroyWeak(&v28);
+        objc_destroyWeak(&v27);
         objc_destroyWeak(&location);
         return;
       }
 
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v30, v23, handler, v25, v26, v27}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v13);
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 }
 

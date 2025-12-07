@@ -49,31 +49,30 @@ void __89__SHAffinityGroupQuery_affinityGroupsForLocation_atDate_configuration_c
 {
   if (a4)
   {
-    v5 = a1[7];
-    v6 = *(a1[7] + 2);
+    v5 = *(a1[7] + 2);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = a1[4];
-    v8 = a1[5];
-    v9 = [a1[6] sh_geohashOfLength:a2];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __89__SHAffinityGroupQuery_affinityGroupsForLocation_atDate_configuration_completionHandler___block_invoke_2;
-    v15[3] = &unk_279BBEEE8;
-    v10 = a1[7];
-    v11 = a1[6];
-    v12 = a1[5];
-    *&v13 = a1[4];
-    *(&v13 + 1) = v10;
-    *&v14 = v11;
-    *(&v14 + 1) = v12;
-    v16 = v14;
-    v17 = v13;
-    [v7 geoChartsEndpointForDate:v8 geoHash:v9 completionHandler:v15];
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = [a1[6] sh_geohashOfLength:a2];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __89__SHAffinityGroupQuery_affinityGroupsForLocation_atDate_configuration_completionHandler___block_invoke_2;
+    v14[3] = &unk_279BBEEE8;
+    v9 = a1[7];
+    v10 = a1[6];
+    v11 = a1[5];
+    *&v12 = a1[4];
+    *(&v12 + 1) = v9;
+    *&v13 = v10;
+    *(&v13 + 1) = v11;
+    v15 = v13;
+    v16 = v12;
+    [v6 geoChartsEndpointForDate:v7 geoHash:v8 completionHandler:v14];
   }
 }
 

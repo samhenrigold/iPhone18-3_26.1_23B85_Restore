@@ -302,8 +302,8 @@
   {
     if (v5)
     {
-      v37 = [objc_opt_class() description];
-      *v5 = CBErrorF(-6756, "%@ init failed", v38, v39, v40, v41, v42, v43, v37);
+      v143 = [objc_opt_class() description];
+      *v5 = CBErrorF(-6756, "%@ init failed", v144, v145, v146, v147, v148, v149, v143);
     }
 
     goto LABEL_82;
@@ -313,91 +313,19 @@
   {
     if (v5)
     {
-      v44 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v45);
-      OUTLINED_FUNCTION_16(v44);
+      v150 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v151);
+      OUTLINED_FUNCTION_16(v150);
       goto LABEL_77;
     }
 
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
-  {
-    *(v7 + 8) = 0;
-  }
-
-  else if (v14 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSData())
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSData())
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v15 = OUTLINED_FUNCTION_4_0();
-  if (v15 == 6)
-  {
-    *(v7 + 20) = 0;
-  }
-
-  else if (v15 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v16 = OUTLINED_FUNCTION_4_0();
-  if (v16 == 6)
-  {
-    *(v7 + 22) = 0;
-  }
-
-  else if (v16 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v17 = OUTLINED_FUNCTION_4_0();
-  if (v17 == 6)
-  {
-    *(v7 + 24) = 0;
-  }
-
-  else if (v17 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v18 = OUTLINED_FUNCTION_4_0();
-  if (v18 == 6)
-  {
-    *(v7 + 26) = 0;
-  }
-
-  else if (v18 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v19 = OUTLINED_FUNCTION_4_0();
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
   if (v19 == 6)
   {
-    *(v7 + 28) = 0;
+    *(v7 + 8) = 0;
   }
 
   else if (v19 == 5)
@@ -405,49 +333,8 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v20 = OUTLINED_FUNCTION_4_0();
-  if (v20 == 6)
-  {
-    *(v7 + 30) = 0;
-  }
-
-  else if (v20 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v21 = OUTLINED_FUNCTION_4_0();
-  if (v21 == 6)
-  {
-    *(v7 + 32) = 0;
-  }
-
-  else if (v21 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_3_1();
-  if (v22 == 6)
-  {
-    *(v7 + 10) = 0;
-  }
-
-  else if (v22 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  v23 = OUTLINED_FUNCTION_1_3();
-  if (v23 == 6)
-  {
-    *(v7 + 9) = 0;
-  }
-
-  else if (v23 == 5)
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSData())
   {
     goto LABEL_82;
   }
@@ -458,23 +345,11 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v24 = OUTLINED_FUNCTION_3_1();
-  if (v24 == 6)
-  {
-    *(v7 + 14) = 0;
-  }
-
-  else if (v24 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v25 = OUTLINED_FUNCTION_3_1();
+  v20 = OUTLINED_FUNCTION_0();
+  v25 = OUTLINED_FUNCTION_4_0(v20, v21, v22, v23, v24);
   if (v25 == 6)
   {
-    *(v7 + 13) = 0;
+    *(v7 + 20) = 0;
   }
 
   else if (v25 == 5)
@@ -482,83 +357,11 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v26 = OUTLINED_FUNCTION_3_1();
-  if (v26 == 6)
-  {
-    *(v7 + 15) = 0;
-  }
-
-  else if (v26 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v27 = OUTLINED_FUNCTION_5();
-  if (v27 == 6)
-  {
-    *(v7 + 40) = 0;
-  }
-
-  else if (v27 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSData())
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSData())
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v28 = OUTLINED_FUNCTION_3_1();
-  if (v28 == 6)
-  {
-    *(v7 + 12) = 0;
-  }
-
-  else if (v28 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v29 = OUTLINED_FUNCTION_3_1();
-  if (v29 == 6)
-  {
-    *(v7 + 11) = 0;
-  }
-
-  else if (v29 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v30 = OUTLINED_FUNCTION_4_0();
-  if (v30 == 6)
-  {
-    *(v7 + 34) = 0;
-  }
-
-  else if (v30 == 5)
-  {
-    goto LABEL_82;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v31 = OUTLINED_FUNCTION_4_0();
+  v26 = OUTLINED_FUNCTION_0();
+  v31 = OUTLINED_FUNCTION_4_0(v26, v27, v28, v29, v30);
   if (v31 == 6)
   {
-    *(v7 + 36) = 0;
+    *(v7 + 22) = 0;
   }
 
   else if (v31 == 5)
@@ -566,26 +369,223 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v32 = OUTLINED_FUNCTION_3_1();
-  if (v32 == 6)
+  v32 = OUTLINED_FUNCTION_0();
+  v37 = OUTLINED_FUNCTION_4_0(v32, v33, v34, v35, v36);
+  if (v37 == 6)
+  {
+    *(v7 + 24) = 0;
+  }
+
+  else if (v37 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v38 = OUTLINED_FUNCTION_0();
+  v43 = OUTLINED_FUNCTION_4_0(v38, v39, v40, v41, v42);
+  if (v43 == 6)
+  {
+    *(v7 + 26) = 0;
+  }
+
+  else if (v43 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v44 = OUTLINED_FUNCTION_0();
+  v49 = OUTLINED_FUNCTION_4_0(v44, v45, v46, v47, v48);
+  if (v49 == 6)
+  {
+    *(v7 + 28) = 0;
+  }
+
+  else if (v49 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v50 = OUTLINED_FUNCTION_0();
+  v55 = OUTLINED_FUNCTION_4_0(v50, v51, v52, v53, v54);
+  if (v55 == 6)
+  {
+    *(v7 + 30) = 0;
+  }
+
+  else if (v55 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v56 = OUTLINED_FUNCTION_0();
+  v61 = OUTLINED_FUNCTION_4_0(v56, v57, v58, v59, v60);
+  if (v61 == 6)
+  {
+    *(v7 + 32) = 0;
+  }
+
+  else if (v61 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v62 = OUTLINED_FUNCTION_0();
+  v67 = OUTLINED_FUNCTION_3_1(v62, v63, v64, v65, v66);
+  if (v67 == 6)
+  {
+    *(v7 + 10) = 0;
+  }
+
+  else if (v67 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v69 = OUTLINED_FUNCTION_1_3(v67, "ctri", v68);
+  if (v69 == 6)
+  {
+    *(v7 + 9) = 0;
+  }
+
+  else if (v69 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSData())
+  {
+    goto LABEL_82;
+  }
+
+  v70 = OUTLINED_FUNCTION_0();
+  v75 = OUTLINED_FUNCTION_3_1(v70, v71, v72, v73, v74);
+  if (v75 == 6)
+  {
+    *(v7 + 14) = 0;
+  }
+
+  else if (v75 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v76 = OUTLINED_FUNCTION_0();
+  v81 = OUTLINED_FUNCTION_3_1(v76, v77, v78, v79, v80);
+  if (v81 == 6)
+  {
+    *(v7 + 13) = 0;
+  }
+
+  else if (v81 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v82 = OUTLINED_FUNCTION_0();
+  v87 = OUTLINED_FUNCTION_3_1(v82, v83, v84, v85, v86);
+  if (v87 == 6)
+  {
+    *(v7 + 15) = 0;
+  }
+
+  else if (v87 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v88 = OUTLINED_FUNCTION_0();
+  v93 = OUTLINED_FUNCTION_5(v88, v89, v90, v91, v92);
+  if (v93 == 6)
+  {
+    *(v7 + 40) = 0;
+  }
+
+  else if (v93 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSData())
+  {
+    goto LABEL_82;
+  }
+
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSData())
+  {
+    goto LABEL_82;
+  }
+
+  v94 = OUTLINED_FUNCTION_0();
+  v99 = OUTLINED_FUNCTION_3_1(v94, v95, v96, v97, v98);
+  if (v99 == 6)
+  {
+    *(v7 + 12) = 0;
+  }
+
+  else if (v99 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v100 = OUTLINED_FUNCTION_0();
+  v105 = OUTLINED_FUNCTION_3_1(v100, v101, v102, v103, v104);
+  if (v105 == 6)
+  {
+    *(v7 + 11) = 0;
+  }
+
+  else if (v105 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v106 = OUTLINED_FUNCTION_0();
+  v111 = OUTLINED_FUNCTION_4_0(v106, v107, v108, v109, v110);
+  if (v111 == 6)
+  {
+    *(v7 + 34) = 0;
+  }
+
+  else if (v111 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v112 = OUTLINED_FUNCTION_0();
+  v117 = OUTLINED_FUNCTION_4_0(v112, v113, v114, v115, v116);
+  if (v117 == 6)
+  {
+    *(v7 + 36) = 0;
+  }
+
+  else if (v117 == 5)
+  {
+    goto LABEL_82;
+  }
+
+  v118 = OUTLINED_FUNCTION_0();
+  v123 = OUTLINED_FUNCTION_3_1(v118, v119, v120, v121, v122);
+  if (v123 == 6)
   {
     *(v7 + 18) = 0;
   }
 
-  else if (v32 == 5)
+  else if (v123 == 5)
   {
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v33 = OUTLINED_FUNCTION_3_1();
-  if (v33 == 6)
+  v124 = OUTLINED_FUNCTION_0();
+  v129 = OUTLINED_FUNCTION_3_1(v124, v125, v126, v127, v128);
+  if (v129 == 6)
   {
     *(v7 + 17) = 0;
   }
 
-  else if (v33 == 5)
+  else if (v129 == 5)
   {
     goto LABEL_82;
   }
@@ -596,14 +596,14 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v34 = OUTLINED_FUNCTION_3_1();
-  if (v34 == 6)
+  v130 = OUTLINED_FUNCTION_0();
+  v135 = OUTLINED_FUNCTION_3_1(v130, v131, v132, v133, v134);
+  if (v135 == 6)
   {
     *(v7 + 16) = 0;
   }
 
-  else if (v34 == 5)
+  else if (v135 == 5)
   {
     goto LABEL_82;
   }
@@ -614,11 +614,11 @@
     goto LABEL_82;
   }
 
-  OUTLINED_FUNCTION_0();
-  v35 = OUTLINED_FUNCTION_3_1();
-  if (v35 != 6)
+  v136 = OUTLINED_FUNCTION_0();
+  v141 = OUTLINED_FUNCTION_3_1(v136, v137, v138, v139, v140);
+  if (v141 != 6)
   {
-    if (v35 != 5)
+    if (v141 != 5)
     {
       goto LABEL_76;
     }

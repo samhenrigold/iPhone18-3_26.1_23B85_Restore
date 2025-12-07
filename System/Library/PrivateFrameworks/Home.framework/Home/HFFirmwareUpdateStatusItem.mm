@@ -6,7 +6,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   v4 = [options objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   bOOLValue = [v4 BOOLValue];
 
@@ -20,7 +20,7 @@
 
     else
     {
-      [(HFStatusItem *)self home];
+      objc_msgSend_home(self);
     }
     v11 = ;
     accessories = [v11 accessories];
@@ -92,14 +92,13 @@ LABEL_15:
   }
 
   v6 = MEMORY[0x277D2C900];
-  v49 = @"hidden";
-  v50[0] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+  v48 = @"hidden";
+  v49[0] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
   v8 = [HFItemUpdateOutcome outcomeWithResults:v7];
   v9 = [v6 futureWithResult:v8];
 
 LABEL_19:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

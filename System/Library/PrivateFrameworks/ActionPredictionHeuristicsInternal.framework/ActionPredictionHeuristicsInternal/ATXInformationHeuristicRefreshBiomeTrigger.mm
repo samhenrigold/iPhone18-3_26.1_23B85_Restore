@@ -67,10 +67,10 @@ void __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke(uint6
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
   {
-    v6 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_gi(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+      __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke_cold_2(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
     goto LABEL_7;
@@ -80,8 +80,8 @@ void __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke(uint6
 
   if (v5)
   {
-    v6 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_gi(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke_cold_1(WeakRetained, v3);
     }
@@ -94,23 +94,22 @@ void __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke_191(u
 {
   v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_gi(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[3];
+      v4 = v2[3];
       v7 = 134217984;
-      v8 = v3;
-      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshBiomeTrigger: new event in stream: %ld. Triggering heuristics refresh.", &v7, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshBiomeTrigger: new event in stream: %ld. Triggering heuristics refresh.", &v7, 0xCu);
     }
 
-    v4 = [WeakRetained delegate];
-    v5 = [WeakRetained registeredHeuristics];
-    [v4 informationHeuristicRefreshTrigger:WeakRetained didTriggerRefreshForHeuristics:v5];
+    v5 = [v2 delegate];
+    v6 = [v2 registeredHeuristics];
+    [v5 informationHeuristicRefreshTrigger:v2 didTriggerRefreshForHeuristics:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_publisher
@@ -210,12 +209,13 @@ LABEL_9:
 
 void __52__ATXInformationHeuristicRefreshBiomeTrigger__start__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 24);
-  v10 = [a2 error];
-  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v3, v4, "ATXInformationHeuristicRefreshBiomeTrigger: error subscribing to stream: %ld: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [a2 error];
+  *v10 = 134218242;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v4, v5, "ATXInformationHeuristicRefreshBiomeTrigger: error subscribing to stream: %ld: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

@@ -72,10 +72,10 @@
 
 - (id)contactsForHandles:()PhoneKit keyDescriptors:alwaysUnifyLabeledValues:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
-  v49 = v9;
+  v48 = v9;
   if (![v8 count])
   {
     selfCopy6 = self;
@@ -97,8 +97,8 @@
     if (v15)
     {
       *buf = 138740227;
-      v56 = v10;
-      v57 = 2117;
+      v55 = v10;
+      v56 = 2117;
       selfCopy3 = self;
       _os_log_impl(&dword_25E4EC000, v14, OS_LOG_TYPE_DEFAULT, "Executing contact fetch request %{sensitive}@ without always unifying labels using contact store %{sensitive}@", buf, 0x16u);
     }
@@ -111,16 +111,16 @@
     if (v15)
     {
       *buf = 138740227;
-      v56 = v10;
-      v57 = 2117;
+      v55 = v10;
+      v56 = 2117;
       selfCopy3 = self;
       _os_log_impl(&dword_25E4EC000, v14, OS_LOG_TYPE_DEFAULT, "Executing contact fetch request %{sensitive}@ using contact store %{sensitive}@", buf, 0x16u);
     }
   }
 
-  v54 = 0;
-  v19 = [self executeFetchRequest:v10 error:&v54];
-  v20 = v54;
+  v53 = 0;
+  v19 = [self executeFetchRequest:v10 error:&v53];
+  v20 = v53;
   v21 = v20;
   if (v19)
   {
@@ -131,7 +131,7 @@
     {
       v23 = [value count];
       *buf = 134217984;
-      v56 = v23;
+      v55 = v23;
       _os_log_impl(&dword_25E4EC000, v22, OS_LOG_TYPE_DEFAULT, "Contact fetch request returned %lu results", buf, 0xCu);
     }
 
@@ -165,39 +165,39 @@ LABEL_21:
   v32 = [v30 setWithArray:allKeys];
 
   array = [MEMORY[0x277CBEB18] array];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v34 = v8;
-  v35 = [v34 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v49 objects:v60 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v51;
+    v37 = *v50;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v51 != v37)
+        if (*v50 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v50 + 1) + 8 * i);
+        v39 = *(*(&v49 + 1) + 8 * i);
         if (([v32 containsObject:v39] & 1) == 0)
         {
           [array addObject:v39];
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
     while (v36);
   }
 
-  v40 = [selfCopy6 __contactsForHandles:array keyDescriptors:v49 alwaysUnifyLabeledValues:v17];
+  v40 = [selfCopy6 __contactsForHandles:array keyDescriptors:v48 alwaysUnifyLabeledValues:v17];
   v41 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:value];
   [v41 addEntriesFromDictionary:v40];
   v42 = PHDefaultLog();
@@ -207,55 +207,54 @@ LABEL_21:
     v44 = [v40 count];
     v45 = [v41 count];
     *buf = 134218496;
-    v56 = v43;
-    v57 = 2048;
+    v55 = v43;
+    v56 = 2048;
     selfCopy3 = v44;
-    v59 = 2048;
-    v60 = v45;
+    v58 = 2048;
+    v59 = v45;
     _os_log_impl(&dword_25E4EC000, v42, OS_LOG_TYPE_DEFAULT, "TOTAL contacts fetched: regular = %lu accepted = %lu, combined = %lu", buf, 0x20u);
   }
 
   v46 = [v41 copy];
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
 
 - (id)__contactsForHandles:()PhoneKit keyDescriptors:alwaysUnifyLabeledValues:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([v6 count])
   {
     [MEMORY[0x277CBDA58] predicateForContactsMatchingHandleStrings:v6];
-    v26 = v34 = 0;
-    v27 = v7;
+    v25 = v33 = 0;
+    v26 = v7;
     v8 = [self unifiedContactsMatchingPredicate:? keysToFetch:? error:?];
-    v25 = v34;
-    v28 = v6;
+    v24 = v33;
+    v27 = v6;
     v9 = [MEMORY[0x277CBEB98] setWithArray:v6];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v31;
+      v13 = *v30;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           phoneNumbers = [v15 phoneNumbers];
           firstObject = [phoneNumbers firstObject];
           value = [firstObject value];
@@ -270,39 +269,37 @@ LABEL_21:
 
           if ([stringValue length] && objc_msgSend(v9, "containsObject:", stringValue))
           {
-            v35 = v15;
-            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+            v34 = v15;
+            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
             [dictionary setObject:v22 forKeyedSubscript:stringValue];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v12);
     }
 
-    v7 = v27;
-    v6 = v28;
+    v7 = v26;
+    v6 = v27;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (void)contactStore
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25E4EC000, self, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"The application is not authorized to access contact data.";
+  OUTLINED_FUNCTION_0(&dword_25E4EC000, self, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)contactsForHandles:()PhoneKit keyDescriptors:alwaysUnifyLabeledValues:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25E4EC000, a2, a3, "Contact fetch failed with the following error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_25E4EC000, a2, a3, "Contact fetch failed with the following error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

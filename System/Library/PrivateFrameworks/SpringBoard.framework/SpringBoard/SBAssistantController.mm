@@ -593,7 +593,7 @@ uint64_t __61__SBAssistantController_requestPasscodeUnlockWithCompletion___block
   }
 }
 
-uint64_t __107__SBAssistantController__dismissAssistantViewIfNecessaryWithAnimation_factory_dismissalOptions_completion___block_invoke(uint64_t a1)
+uint64_t __107__SBAssistantController__dismissAssistantViewIfNecessaryWithAnimation_factory_dismissalOptions_completion___block_invoke(void *a1)
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = SBLogSiri();
@@ -605,12 +605,12 @@ uint64_t __107__SBAssistantController__dismissAssistantViewIfNecessaryWithAnimat
     _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - ended the current session, cleaning up", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 32);
+  v4 = a1[4];
   v5 = *(v4 + 168);
   *(v4 + 168) = 0;
 
-  *(*(a1 + 32) + 114) = 0;
-  result = *(a1 + 40);
+  *(a1[4] + 114) = 0;
+  result = a1[5];
   if (result)
   {
     return (*(result + 16))();
@@ -666,7 +666,7 @@ uint64_t __107__SBAssistantController__dismissAssistantViewIfNecessaryWithAnimat
   {
     if ([(NSSet *)audioCategoriesDisablingVolumeHUD count])
     {
-      v6 = ![(NSSet *)self->_audioCategoriesDisablingVolumeHUD containsObject:categoryCopy];
+      v6 = objc_msgSend_containsObject_(self->_audioCategoriesDisablingVolumeHUD) ^ 1;
     }
 
     else
@@ -689,9 +689,9 @@ uint64_t __107__SBAssistantController__dismissAssistantViewIfNecessaryWithAnimat
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -980,23 +980,23 @@ LABEL_6:
 
   if (windowScene == sceneCopy)
   {
-    v5 = [(SBWindowLevelAssertionManager *)self->_windowLevelAssertionManager highestPriorityWindowLevelAssertionForWindowScene:?];
-    v6 = v5;
+    v6 = [(SBWindowLevelAssertionManager *)self->_windowLevelAssertionManager highestPriorityWindowLevelAssertionForWindowScene:?];
+    v7 = v6;
     currentSession = self->_currentSession;
-    if (v5)
+    if (v6)
     {
-      [v5 windowLevel];
+      [v6 windowLevel];
     }
 
     else
     {
-      v8 = *MEMORY[0x277D76EE8] + 25.0;
+      v9 = *MEMORY[0x277D76EE8] + 25.0;
     }
 
-    [(SBAssistantSession *)currentSession assertWindowLevel:v8];
+    [(SBAssistantSession *)currentSession assertWindowLevel:v9];
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](v5);
 }
 
 - (void)applicationProcessDidChangeState:(id)state
@@ -1751,7 +1751,7 @@ void __75__SBAssistantController_siriPresentation_requestsDeviceUnlockWithPasswo
   BSDispatchMain();
 }
 
-void __85__SBAssistantController_siriPresentation_didUpdateAudioCategoriesDisablingVolumeHUD___block_invoke(uint64_t a1)
+void __85__SBAssistantController_siriPresentation_didUpdateAudioCategoriesDisablingVolumeHUD___block_invoke(void *a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v2 = SBLogSiri();
@@ -1763,7 +1763,7 @@ void __85__SBAssistantController_siriPresentation_didUpdateAudioCategoriesDisabl
     _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@", &v11, 0xCu);
   }
 
-  if (*(a1 + 40))
+  if (a1[5])
   {
     v4 = [MEMORY[0x277CBEB98] setWithArray:?];
   }
@@ -1773,13 +1773,13 @@ void __85__SBAssistantController_siriPresentation_didUpdateAudioCategoriesDisabl
     v4 = 0;
   }
 
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   v6 = *(v5 + 80);
   *(v5 + 80) = v4;
   v7 = v4;
 
   v8 = [SBApp volumeControl];
-  v9 = *(a1 + 32);
+  v9 = a1[4];
   v10 = [v8 lastDisplayedCategory];
   LOBYTE(v9) = [v9 shouldShowSystemVolumeHUDForCategory:v10];
 
@@ -1874,7 +1874,7 @@ void __98__SBAssistantController_siriPresentation_requestsPresentationOfEffectsV
   BSDispatchMain();
 }
 
-void __94__SBAssistantController_siriPresentation_requestsDismissalOfEffectsViewControllerWithHandler___block_invoke(uint64_t a1)
+void __94__SBAssistantController_siriPresentation_requestsDismissalOfEffectsViewControllerWithHandler___block_invoke(void *a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v2 = SBLogSiri();
@@ -1886,8 +1886,8 @@ void __94__SBAssistantController_siriPresentation_requestsDismissalOfEffectsView
     _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v5 = a1[4];
+  v4 = a1[5];
   v6 = *(v5 + 168);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
@@ -1938,10 +1938,10 @@ void __106__SBAssistantController_siriPresentation_acquireElevatedEffectsViewCon
 
   else
   {
-    v6 = SBLogSiri();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = SBLogSiri();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [SBAssistantController siriPresentation:willStartHostingSceneWithIdentifier:bundleIdentifier:];
+      [SBAssistantController siriPresentation:a2 willStartHostingSceneWithIdentifier:? bundleIdentifier:?];
     }
   }
 }
@@ -1957,10 +1957,10 @@ void __106__SBAssistantController_siriPresentation_acquireElevatedEffectsViewCon
 
   else
   {
-    v6 = SBLogSiri();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = SBLogSiri();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [SBAssistantController siriPresentation:willStopHostingSceneWithIdentifier:bundleIdentifier:];
+      [SBAssistantController siriPresentation:a2 willStopHostingSceneWithIdentifier:? bundleIdentifier:?];
     }
   }
 }
@@ -1974,20 +1974,21 @@ void __106__SBAssistantController_siriPresentation_acquireElevatedEffectsViewCon
 
 uint64_t __81__SBAssistantController_requestTamaleLaunchAnimationLayerProviderWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 168);
-  if (v2)
+  v2 = (a1 + 32);
+  v3 = *(*(a1 + 32) + 168);
+  if (v3)
   {
-    v3 = *(a1 + 40);
+    v4 = *(a1 + 40);
 
-    return [v2 requestTamaleLaunchAnimationLayerProviderWithCompletion:v3];
+    return [v3 requestTamaleLaunchAnimationLayerProviderWithCompletion:v4];
   }
 
   else
   {
-    v5 = SBLogSiri();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SBLogSiri();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __81__SBAssistantController_requestTamaleLaunchAnimationLayerProviderWithCompletion___block_invoke_cold_1();
+      __81__SBAssistantController_requestTamaleLaunchAnimationLayerProviderWithCompletion___block_invoke_cold_1(v2, a1);
     }
 
     return (*(*(a1 + 40) + 16))();
@@ -2193,7 +2194,7 @@ void __71__SBAssistantController_siriPresentation_requestsPunchout_withHandler__
         v22 = SBLogSiri();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          __71__SBAssistantController_siriPresentation_requestsPunchout_withHandler___block_invoke_cold_1();
+          __71__SBAssistantController_siriPresentation_requestsPunchout_withHandler___block_invoke_cold_1(a1);
         }
 
         v23 = *(a1 + 48);
@@ -2984,36 +2985,36 @@ void __95__SBAssistantController_bannerManager_containerWillTransitionToSize_wit
   _os_log_debug_impl(&dword_21ED4E000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ - assistant session requested dismissal but it isn't the current session, ignoring", v5, 0xCu);
 }
 
-- (void)siriPresentation:willStartHostingSceneWithIdentifier:bundleIdentifier:.cold.1()
+- (void)siriPresentation:(uint64_t)a1 willStartHostingSceneWithIdentifier:(uint64_t)a2 bundleIdentifier:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
+  v2 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)siriPresentation:willStopHostingSceneWithIdentifier:bundleIdentifier:.cold.1()
+- (void)siriPresentation:(uint64_t)a1 willStopHostingSceneWithIdentifier:(uint64_t)a2 bundleIdentifier:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
+  v2 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __81__SBAssistantController_requestTamaleLaunchAnimationLayerProviderWithCompletion___block_invoke_cold_1()
+void __81__SBAssistantController_requestTamaleLaunchAnimationLayerProviderWithCompletion___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
+  v2 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __71__SBAssistantController_siriPresentation_requestsPunchout_withHandler___block_invoke_cold_1()
+void __71__SBAssistantController_siriPresentation_requestsPunchout_withHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = _SBFLoggingMethodProem();
+  v1 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

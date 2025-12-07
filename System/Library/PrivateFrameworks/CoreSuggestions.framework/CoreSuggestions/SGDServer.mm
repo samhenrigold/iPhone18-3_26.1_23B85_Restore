@@ -4,12 +4,126 @@
 - (SGDServer)init;
 - (id)_daemonManagerForConnection:(id)connection protocol:(id)protocol;
 - (void)_localeChanged:(id)changed;
+- (void)_processAppsInstallUninstallNotification:(id)notification appsInstalled:(BOOL)installed;
 - (void)dealloc;
 - (void)setupWithConnectionListener:(id)listener protocol:(id)protocol entitlement:(id)entitlement;
 - (void)shutdown;
 @end
 
 @implementation SGDServer
+
+- (void)_processAppsInstallUninstallNotification:(id)notification appsInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  userInfo = [notification userInfo];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v6 = userInfo;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v6;
+
+  v8 = [v7 objectForKeyedSubscript:@"bundleIDs"];
+  v9 = [v8 copy];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  v12 = [v7 objectForKeyedSubscript:@"isPlaceholder"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    bOOLValue = [v12 BOOLValue];
+
+    if (bOOLValue)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  if ([v11 count])
+  {
+    v14 = ii_default_log_handle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v23 = @"uninstalled";
+      if (installedCopy)
+      {
+        v23 = @"installed";
+      }
+
+      *buf = 138412546;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v11;
+      _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "application(s) %@: %@", buf, 0x16u);
+    }
+
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = v11;
+    v15 = v11;
+    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v26;
+      v19 = SGBundleIdentifierMail;
+      v20 = SGBundleIdentifierCalendar;
+      do
+      {
+        for (i = 0; i != v17; i = i + 1)
+        {
+          if (*v26 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v22 = *(*(&v25 + 1) + 8 * i);
+          if ([v19 isEqual:v22])
+          {
+            [SGPreferenceStorage setFirstPartyMailAppIsInstalled:installedCopy];
+          }
+
+          else if ([v20 isEqual:v22])
+          {
+            [SGPreferenceStorage setFirstPartyCalendarAppIsInstalled:installedCopy];
+          }
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      }
+
+      while (v17);
+    }
+
+    v11 = v24;
+  }
+
+LABEL_25:
+}
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {

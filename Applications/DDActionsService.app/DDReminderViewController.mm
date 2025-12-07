@@ -1,6 +1,7 @@
 @interface DDReminderViewController
 - (id)title;
 - (void)prepareForAction:(id)action;
+- (void)setCancellable:(BOOL)cancellable;
 @end
 
 @implementation DDReminderViewController
@@ -36,6 +37,13 @@
   v6 = v5;
 
   return v5;
+}
+
+- (void)setCancellable:(BOOL)cancellable
+{
+  cancellableCopy = cancellable;
+  _remoteViewControllerProxy = [(DDReminderViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy actionCanBeCancelledExternally:cancellableCopy];
 }
 
 @end

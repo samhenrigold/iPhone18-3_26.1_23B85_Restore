@@ -36,7 +36,7 @@
 {
   completionCopy = completion;
   controllerCopy = controller;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -97,7 +97,7 @@ void __97__AAUIBeneficiaryClaimRemoteUIController_presentRemoteUIFromNavigationC
 {
   v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(*(a1 + 32) + 48);
@@ -219,7 +219,7 @@ uint64_t __97__AAUIBeneficiaryClaimRemoteUIController_presentRemoteUIFromNavigat
   v31 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   modelCopy = model;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [modelCopy identifier];
@@ -293,16 +293,16 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
     {
       if (*(a1 + 40) == 1)
       {
-        v9 = [WeakRetained dismissObjectModelsAnimated:1 completion:0];
+        v10 = [WeakRetained dismissObjectModelsAnimated:1 completion:0];
       }
 
       else
       {
-        v10 = _AAUILogSystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = _AAUILogSystem(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *v11 = 0;
-          _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Cancel action received for a non-modal flow", v11, 2u);
+          *v12 = 0;
+          _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Cancel action received for a non-modal flow", v12, 2u);
         }
       }
     }
@@ -313,7 +313,7 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
 {
   v13 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -337,7 +337,7 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
   grandSlamAccount = self->_grandSlamAccount;
   if (!grandSlamAccount)
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -352,7 +352,7 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
     grandSlamAccount = self->_grandSlamAccount;
     if (!grandSlamAccount)
     {
-      v8 = _AAUILogSystem();
+      v8 = _AAUILogSystem(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;
@@ -385,7 +385,7 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
 {
   completionCopy = completion;
   serverUILoadDelegate = self->_serverUILoadDelegate;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (serverUILoadDelegate)
   {
@@ -428,33 +428,34 @@ void __100__AAUIBeneficiaryClaimRemoteUIController__handleObjectModelChangeForCo
 
 void __81__AAUIBeneficiaryClaimRemoteUIController__getServerUILoadDelegateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Error! Unable to get AKAppleIDServerResourceLoadDelegate. %@", buf, 0xCu);
+      v19 = v7;
+      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Error! Unable to get AKAppleIDServerResourceLoadDelegate. %@", buf, 0xCu);
     }
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __81__AAUIBeneficiaryClaimRemoteUIController__getServerUILoadDelegateWithCompletion___block_invoke_57;
-  v12[3] = &unk_1E820DB58;
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v13 = v5;
-  v14 = v8;
-  v15 = v6;
-  v16 = v9;
-  v10 = v6;
-  v11 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v12);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __81__AAUIBeneficiaryClaimRemoteUIController__getServerUILoadDelegateWithCompletion___block_invoke_57;
+  v13[3] = &unk_1E820DB58;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v14 = v5;
+  v15 = v9;
+  v16 = v7;
+  v17 = v10;
+  v11 = v7;
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 uint64_t __81__AAUIBeneficiaryClaimRemoteUIController__getServerUILoadDelegateWithCompletion___block_invoke_57(void *a1)

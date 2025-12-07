@@ -63,6 +63,56 @@ LABEL_6:
 
 void __34__SVXAnnouncer_forwardInvocation___block_invoke(uint64_t a1, void *a2)
 {
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = *(a1 + 40);
+    v6 = v4;
+    v7 = NSStringFromSelector(v5);
+    *buf = 136315650;
+    v19 = "[SVXAnnouncer forwardInvocation:]_block_invoke";
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2048;
+    v23 = [v3 count];
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEFAULT, "%s Announcing %@ to %tu listeners.", buf, 0x20u);
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = v3;
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        [*(a1 + 32) invokeWithTarget:{*(*(&v13 + 1) + 8 * v12++), v13}];
+      }
+
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+}
+
+void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a2)
+{
   v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
@@ -100,7 +150,13 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke(uint64_t a1, void *a2)
           objc_enumerationMutation(v8);
         }
 
-        [*(a1 + 32) invokeWithTarget:{*(*(&v14 + 1) + 8 * v12++), v14}];
+        v13 = *(*(&v14 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          [*(a1 + 32) invokeWithTarget:{v13, v14}];
+        }
+
+        ++v12;
       }
 
       while (v10 != v12);
@@ -109,67 +165,6 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke(uint64_t a1, void *a2)
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *MEMORY[0x277CEF098];
-  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *(a1 + 40);
-    v6 = v4;
-    v7 = NSStringFromSelector(v5);
-    *buf = 136315650;
-    v22 = "[SVXAnnouncer forwardInvocation:]_block_invoke";
-    v23 = 2112;
-    v24 = v7;
-    v25 = 2048;
-    v26 = [v3 count];
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEFAULT, "%s Announcing %@ to %tu listeners.", buf, 0x20u);
-  }
-
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v17;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v17 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v16 + 1) + 8 * v12);
-        v14 = *(a1 + 40);
-        if (objc_opt_respondsToSelector())
-        {
-          [*(a1 + 32) invokeWithTarget:{v13, v16}];
-        }
-
-        ++v12;
-      }
-
-      while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v10);
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
@@ -203,33 +198,32 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a
 
 - (void)removeAllListeners
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[SVXAnnouncer removeAllListeners]";
-    _os_log_debug_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXAnnouncer removeAllListeners]";
+    _os_log_debug_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v4, 0xCu);
   }
 
   [(NSHashTable *)self->_listeners removeAllObjects];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeListener:(id)listener
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = *MEMORY[0x277CEF098];
   if (listenerCopy)
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[SVXAnnouncer removeListener:]";
-      v9 = 2112;
-      v10 = listenerCopy;
-      _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SVXAnnouncer removeListener:]";
+      v8 = 2112;
+      v9 = listenerCopy;
+      _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s %@", &v6, 0x16u);
     }
 
     [(NSHashTable *)self->_listeners removeObject:listenerCopy];
@@ -237,19 +231,17 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXAnnouncer removeListener:]";
-    v9 = 2112;
-    v10 = 0;
-    _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s listener %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXAnnouncer removeListener:]";
+    v8 = 2112;
+    v9 = 0;
+    _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s listener %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addListener:(id)listener
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   protocol = [objc_opt_class() protocol];
   v6 = [listenerCopy conformsToProtocol:protocol];
@@ -258,11 +250,11 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136315394;
-      v12 = "[SVXAnnouncer addListener:]";
-      v13 = 2112;
-      v14 = listenerCopy;
-      _os_log_debug_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEBUG, "%s %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SVXAnnouncer addListener:]";
+      v12 = 2112;
+      v13 = listenerCopy;
+      _os_log_debug_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEBUG, "%s %@", &v10, 0x16u);
     }
 
     [(NSHashTable *)self->_listeners addObject:listenerCopy];
@@ -270,18 +262,16 @@ void __34__SVXAnnouncer_forwardInvocation___block_invoke_15(uint64_t a1, void *a
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v9 = v7;
-    v10 = NSStringFromProtocol(protocol);
-    v11 = 136315650;
-    v12 = "[SVXAnnouncer addListener:]";
-    v13 = 2112;
-    v14 = listenerCopy;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s listener %@ does NOT conform to protocol %@", &v11, 0x20u);
+    v8 = v7;
+    v9 = NSStringFromProtocol(protocol);
+    v10 = 136315650;
+    v11 = "[SVXAnnouncer addListener:]";
+    v12 = 2112;
+    v13 = listenerCopy;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s listener %@ does NOT conform to protocol %@", &v10, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

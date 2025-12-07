@@ -13,7 +13,7 @@
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      [(NSData(SiriUIFoundationAdditions) *)&v7 sruif_dataByCompressingWithGzip];
+      [NSData(SiriUIFoundationAdditions) sruif_dataByCompressingWithGzip];
     }
 
     v2 = 0;
@@ -36,7 +36,7 @@
     {
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
-        [(NSData(SiriUIFoundationAdditions) *)&v7 sruif_dataByCompressingWithGzip];
+        [NSData(SiriUIFoundationAdditions) sruif_dataByCompressingWithGzip];
       }
 
       v2 = 0;
@@ -51,12 +51,9 @@
 
 - (void)sruif_dataByCompressingWithGzip
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(self + 48);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26951F000, v2, v3, "%s Error deflating NSData: %{public}s (zlib error=%{public}d)", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26951F000, v0, v1, "%s Error deflating NSData: %{public}s (zlib error=%{public}d)", v2);
 }
 
 @end

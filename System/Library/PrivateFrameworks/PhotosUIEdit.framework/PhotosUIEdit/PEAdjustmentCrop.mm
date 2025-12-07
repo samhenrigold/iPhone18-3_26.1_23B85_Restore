@@ -30,7 +30,7 @@
 
   if (geometry)
   {
-    [geometry extent];
+    objc_msgSend_extent(geometry);
     NUPixelRectToCGRect();
     v17 = v16;
     v19 = v18;

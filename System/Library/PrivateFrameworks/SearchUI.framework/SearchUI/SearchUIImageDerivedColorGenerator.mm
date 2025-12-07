@@ -133,17 +133,17 @@ LABEL_19:
   dispatch_async(v8, v11);
 }
 
-void __80__SearchUIImageDerivedColorGenerator_fetchColorsForImage_withCompletionHandler___block_invoke()
+void __80__SearchUIImageDerivedColorGenerator_fetchColorsForImage_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
-  v1 = v7;
-  v2 = [v7 cStringUsingEncoding:{objc_msgSend(MEMORY[0x1E696AEC0], "defaultCStringEncoding")}];
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_attr_make_with_qos_class(v3, QOS_CLASS_USER_INITIATED, 0);
-  v5 = dispatch_queue_create(v2, v4);
-  v6 = fetchColorsForImage_withCompletionHandler__queue;
-  fetchColorsForImage_withCompletionHandler__queue = v5;
+  v1 = objc_opt_class();
+  v8 = NSStringFromClass(v1);
+  v2 = v8;
+  v3 = [v8 cStringUsingEncoding:{objc_msgSend(MEMORY[0x1E696AEC0], "defaultCStringEncoding")}];
+  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v5 = dispatch_queue_attr_make_with_qos_class(v4, QOS_CLASS_USER_INITIATED, 0);
+  v6 = dispatch_queue_create(v3, v5);
+  v7 = fetchColorsForImage_withCompletionHandler__queue;
+  fetchColorsForImage_withCompletionHandler__queue = v6;
 }
 
 void __80__SearchUIImageDerivedColorGenerator_fetchColorsForImage_withCompletionHandler___block_invoke_2(uint64_t a1)

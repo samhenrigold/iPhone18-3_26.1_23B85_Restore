@@ -104,15 +104,15 @@
 
 + (id)nextIntervalForStartComponents:(id)components endComponents:(id)endComponents
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   endComponentsCopy = endComponents;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v31 = componentsCopy;
-    v32 = 2114;
-    v33 = endComponentsCopy;
+    v30 = componentsCopy;
+    v31 = 2114;
+    v32 = endComponentsCopy;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Computing next interval with start components: %{public}@, end components: %{public}@", buf, 0x16u);
   }
 
@@ -147,7 +147,7 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v14;
+    v30 = v14;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Previous start date is: %{public}@", buf, 0xCu);
   }
 
@@ -181,7 +181,7 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v21;
+    v30 = v21;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Previous end date is: %{public}@", buf, 0xCu);
   }
 
@@ -199,13 +199,13 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v23;
+    v30 = v23;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Next start date is: %{public}@", buf, 0xCu);
   }
 
   if (v23)
   {
-    v29 = v11;
+    v28 = v11;
     v24 = [v23 laterDate:v7];
     v25 = [v18 nextDateAfterDate:v24 matchingComponents:endComponentsCopy options:512];
     if (v25)
@@ -213,7 +213,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v31 = v25;
+        v30 = v25;
         _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Next end date is: %{public}@", buf, 0xCu);
       }
 
@@ -225,15 +225,13 @@
       v26 = 0;
     }
 
-    v11 = v29;
+    v11 = v28;
   }
 
   else
   {
     v26 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -379,11 +377,10 @@ LABEL_15:
 
 + (void)nextWarningDateForComponents:(uint64_t)a1 referenceDate:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Tried to create a 0-length warning interval with components %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Tried to create a 0-length warning interval with components %{public}@", &v1, 0xCu);
 }
 
 @end

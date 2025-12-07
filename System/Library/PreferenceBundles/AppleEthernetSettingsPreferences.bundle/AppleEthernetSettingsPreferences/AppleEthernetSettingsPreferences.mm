@@ -22,14 +22,14 @@ CFStringRef sub_296C(uint64_t a1, uint64_t a2, uint64_t a3, const __CFString *a4
   return SCDynamicStoreKeyCreateNetworkServiceEntity(v6, v4, v5, a4);
 }
 
-void sub_43AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_43AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -68,13 +68,12 @@ uint64_t sub_4D08()
 
 uint64_t sub_4DAC()
 {
-  v0 = *(*(sub_6920() - 8) + 64);
+  sub_6920();
   __chkstk_darwin();
-  v1 = sub_6900();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
+  v0 = sub_6900();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6990();
   sub_6980();
   sub_6970();
@@ -90,17 +89,17 @@ uint64_t sub_4DAC()
   sub_5260(0, &unk_175D0, NSBundle_ptr);
   if (!sub_69A0())
   {
-    v6 = [objc_opt_self() mainBundle];
+    v4 = [objc_opt_self() mainBundle];
   }
 
-  v7 = sub_6940();
+  v5 = sub_6940();
+  v7 = v6;
   v9 = v8;
-  v11 = v10;
   sub_50AC();
   sub_6950();
-  sub_52A8(v7, v9, v11 & 1);
+  sub_52A8(v5, v7, v9 & 1);
 
-  (*(v2 + 8))(v5, v1);
+  (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_5064(uint64_t *a1, uint64_t *a2)
@@ -108,7 +107,6 @@ uint64_t sub_5064(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -159,7 +157,6 @@ uint64_t sub_5218(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -167,12 +164,11 @@ uint64_t sub_5218(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_5260(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_5260(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

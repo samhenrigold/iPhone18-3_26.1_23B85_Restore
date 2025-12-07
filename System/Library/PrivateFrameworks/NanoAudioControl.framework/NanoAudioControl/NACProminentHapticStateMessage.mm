@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    enabled = self->_enabled;
     PBDataWriterWriteBOOLField();
   }
 }

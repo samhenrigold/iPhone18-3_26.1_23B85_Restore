@@ -54,7 +54,6 @@
 
   if (*&self->_has)
   {
-    duration = self->_duration;
 
     PBDataWriterWriteUint64Field();
   }

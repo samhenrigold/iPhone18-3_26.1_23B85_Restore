@@ -880,7 +880,7 @@ LABEL_34:
             if (bOOLValue)
             {
               username = [v19 username];
-              v23 = [usernameCopy isEqualToIgnoringCase:username];
+              v23 = objc_msgSend_isEqualToIgnoringCase_(usernameCopy);
 
               if (v23)
               {
@@ -1069,7 +1069,7 @@ LABEL_21:
       }
 
       v55 = [IDSRegistrationAuthenticationParametersReceivedMetric alloc];
-      [v61 doubleValue];
+      objc_msgSend_doubleValue(v61);
       v26 = [v55 initWithErrorCode:0 timeIntervalSinceAuthenticationParameterRequest:?];
       v56 = +[IDSAWDLogger logger];
       [v56 logMetric:v26];
@@ -1143,7 +1143,7 @@ LABEL_54:
 
           v14 = *(*(&v23 + 1) + 8 * i);
           username = [v14 username];
-          v16 = [usernameCopy isEqualToIgnoringCase:username];
+          v16 = objc_msgSend_isEqualToIgnoringCase_(usernameCopy);
 
           if (v16)
           {
@@ -1315,7 +1315,7 @@ LABEL_16:
             if ([v13 isEnabled])
             {
               loginID = [v13 loginID];
-              v15 = [loginID isEqualToIgnoringCase:usernameCopy];
+              v15 = objc_msgSend_isEqualToIgnoringCase_(loginID);
 
               if (v15)
               {

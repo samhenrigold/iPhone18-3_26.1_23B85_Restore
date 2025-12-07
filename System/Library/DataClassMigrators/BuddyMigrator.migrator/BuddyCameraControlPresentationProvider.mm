@@ -2,11 +2,21 @@
 - (BOOL)shouldPresentCameraControlPane;
 - (BOOL)shouldPresentVisualIntelligencePane;
 - (_TtC13BuddyMigrator38BuddyCameraControlPresentationProvider)init;
+- (_TtC13BuddyMigrator38BuddyCameraControlPresentationProvider)initWithIsIntelligenceEnabled:(BOOL)enabled;
 - (_TtC13BuddyMigrator38BuddyCameraControlPresentationProvider)initWithIsIntelligenceEnabled:(BOOL)enabled preferenceController:(id)controller;
 - (void)updatePaneVisibilityPreferencesWithNewState:(BOOL)state;
 @end
 
 @implementation BuddyCameraControlPresentationProvider
+
+- (_TtC13BuddyMigrator38BuddyCameraControlPresentationProvider)initWithIsIntelligenceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  buddyPreferences = [objc_opt_self() buddyPreferences];
+  v6 = [(BuddyCameraControlPresentationProvider *)self initWithIsIntelligenceEnabled:enabledCopy preferenceController:buddyPreferences];
+
+  return v6;
+}
 
 - (_TtC13BuddyMigrator38BuddyCameraControlPresentationProvider)initWithIsIntelligenceEnabled:(BOOL)enabled preferenceController:(id)controller
 {

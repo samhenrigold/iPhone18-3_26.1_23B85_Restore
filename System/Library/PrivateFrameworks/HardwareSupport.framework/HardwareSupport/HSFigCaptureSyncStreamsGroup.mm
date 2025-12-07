@@ -1,4 +1,5 @@
 @interface HSFigCaptureSyncStreamsGroup
++ (id)statusDescription:(int)description;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToStreamsGroup:(id)group;
 - (BOOL)setValue:(id)value forProperty:(__CFString *)property error:(id *)error;
@@ -9,6 +10,28 @@
 @end
 
 @implementation HSFigCaptureSyncStreamsGroup
+
++ (id)statusDescription:(int)description
+{
+  v3 = *&description;
+  v5 = __HSDescribeFigStreamStatus(description);
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v10.receiver = self;
+    v10.super_class = &OBJC_METACLASS___HSFigCaptureSyncStreamsGroup;
+    v7 = objc_msgSendSuper2(&v10, sel_statusDescription_, v3);
+  }
+
+  v8 = v7;
+
+  return v8;
+}
 
 - (HSFigCaptureSyncStreamsGroup)initWithCaptureSyncStreamsGroup:(OpaqueFigCaptureSynchronizedStreamsGroup *)group fromDevice:(id)device
 {

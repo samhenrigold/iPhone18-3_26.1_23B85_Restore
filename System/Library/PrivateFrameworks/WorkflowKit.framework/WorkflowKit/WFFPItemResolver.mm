@@ -9,29 +9,27 @@
 
 - (void)startObservingFolderItemCollection:(id)collection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   v5 = getWFFilesLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[WFFPItemResolver startObservingFolderItemCollection:]";
-    v13 = 2112;
-    v14 = collectionCopy;
+    v11 = "[WFFPItemResolver startObservingFolderItemCollection:]";
+    v12 = 2112;
+    v13 = collectionCopy;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Observing new item: %@", buf, 0x16u);
   }
 
   queue = [(WFFPItemResolver *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke;
-  v9[3] = &unk_1E837F870;
-  v9[4] = self;
-  v10 = collectionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke;
+  v8[3] = &unk_1E837F870;
+  v8[4] = self;
+  v9 = collectionCopy;
   v7 = collectionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke(uint64_t a1)
@@ -63,15 +61,15 @@ void __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke(ui
 
 - (void)determineNextItemIfPossible
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = getWFFilesLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mutableComponents = [(WFFPItemResolver *)self mutableComponents];
     *buf = 136315394;
-    v21 = "[WFFPItemResolver determineNextItemIfPossible]";
-    v22 = 2112;
-    v23 = mutableComponents;
+    v20 = "[WFFPItemResolver determineNextItemIfPossible]";
+    v21 = 2112;
+    v22 = mutableComponents;
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s Determining next item with mutable components: %@", buf, 0x16u);
   }
 
@@ -93,17 +91,17 @@ void __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke(ui
     items = [collection items];
     if (v11)
     {
-      v14 = v18;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
+      v14 = v17;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
       v15 = __47__WFFPItemResolver_determineNextItemIfPossible__block_invoke_2;
     }
 
     else
     {
-      v14 = v19;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
+      v14 = v18;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
       v15 = __47__WFFPItemResolver_determineNextItemIfPossible__block_invoke;
     }
 
@@ -120,17 +118,15 @@ void __55__WFFPItemResolver_startObservingFolderItemCollection___block_invoke(ui
     completionHandler = [(WFFPItemResolver *)self completionHandler];
     (*(completionHandler + 2))(completionHandler, 0, 0);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __47__WFFPItemResolver_determineNextItemIfPossible__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v9 = a2;
   v6 = [v9 filename];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8 = [*(a1 + 40) completionHandler];
     (v8)[2](v8, v9, 0);
@@ -143,7 +139,7 @@ void __47__WFFPItemResolver_determineNextItemIfPossible__block_invoke_2(uint64_t
 {
   v8 = a2;
   v6 = [v8 filename];
-  if ([v6 isEqualToString:*(a1 + 32)])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     v7 = [v8 isFolder];
 
@@ -161,26 +157,25 @@ void __47__WFFPItemResolver_determineNextItemIfPossible__block_invoke_2(uint64_t
 
 - (void)collectionDidFinishGathering:(id)gathering
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   gatheringCopy = gathering;
   v5 = getWFFilesLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     items = [gatheringCopy items];
-    v8 = 136315394;
-    v9 = "[WFFPItemResolver collectionDidFinishGathering:]";
-    v10 = 2112;
-    v11 = items;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Collection Finished gathering with items: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[WFFPItemResolver collectionDidFinishGathering:]";
+    v9 = 2112;
+    v10 = items;
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Collection Finished gathering with items: %@", &v7, 0x16u);
   }
 
   [(WFFPItemResolver *)self determineNextItemIfPossible];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (WFFPItemResolver)initWithDomainID:(id)d relativeSubpath:(id)subpath completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dCopy = d;
   subpathCopy = subpath;
   handlerCopy = handler;
@@ -210,9 +205,9 @@ LABEL_3:
   v12 = [(WFFPItemResolver *)self init];
   if (v12)
   {
-    v37 = 0;
-    v13 = [MEMORY[0x1E69673E8] providerDomainWithID:dCopy error:&v37];
-    v14 = v37;
+    v36 = 0;
+    v13 = [MEMORY[0x1E69673E8] providerDomainWithID:dCopy error:&v36];
+    v14 = v36;
     if (v13)
     {
       v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -229,16 +224,16 @@ LABEL_3:
       completionHandler = v12->_completionHandler;
       v12->_completionHandler = v21;
 
-      if (([subpathCopy isEqualToString:@"/"] & 1) != 0 || (objc_msgSend(subpathCopy, "isEqualToString:", &stru_1F4A1C408) & 1) != 0 || objc_msgSend(v20, "count") == 1)
+      if ((objc_msgSend_isEqualToString_(subpathCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(subpathCopy) & 1) != 0 || [v20 count] == 1)
       {
         defaultManager = [MEMORY[0x1E69673B0] defaultManager];
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __71__WFFPItemResolver_initWithDomainID_relativeSubpath_completionHandler___block_invoke;
-        v35[3] = &unk_1E8376488;
-        v24 = &v36;
-        v36 = v12;
-        [defaultManager fetchRootItemForProviderDomain:v13 completionHandler:v35];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __71__WFFPItemResolver_initWithDomainID_relativeSubpath_completionHandler___block_invoke;
+        v34[3] = &unk_1E8376488;
+        v24 = &v35;
+        v35 = v12;
+        [defaultManager fetchRootItemForProviderDomain:v13 completionHandler:v34];
       }
 
       else
@@ -246,9 +241,9 @@ LABEL_3:
         [v20 removeObjectAtIndex:0];
         objc_storeStrong(&v12->_mutableComponents, v20);
         defaultManager2 = [MEMORY[0x1E69673B0] defaultManager];
-        v29 = [defaultManager2 rootCollectionForProviderDomain:v13];
+        v28 = [defaultManager2 rootCollectionForProviderDomain:v13];
         collection = v12->_collection;
-        v12->_collection = v29;
+        v12->_collection = v28;
 
         [(FPItemCollection *)v12->_collection setDelegate:v12];
         [(FPItemCollection *)v12->_collection setWorkingQueue:v12->_queue];
@@ -257,8 +252,8 @@ LABEL_3:
         block[1] = 3221225472;
         block[2] = __71__WFFPItemResolver_initWithDomainID_relativeSubpath_completionHandler___block_invoke_2;
         block[3] = &unk_1E837FA70;
-        v24 = &v34;
-        v34 = v12;
+        v24 = &v33;
+        v33 = v12;
         dispatch_async(defaultManager, block);
       }
 
@@ -271,9 +266,9 @@ LABEL_3:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v39 = "[WFFPItemResolver initWithDomainID:relativeSubpath:completionHandler:]";
-        v40 = 2112;
-        v41 = v14;
+        v38 = "[WFFPItemResolver initWithDomainID:relativeSubpath:completionHandler:]";
+        v39 = 2112;
+        v40 = v14;
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Could not get provider domain with error: %@", buf, 0x16u);
       }
 
@@ -286,7 +281,6 @@ LABEL_3:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

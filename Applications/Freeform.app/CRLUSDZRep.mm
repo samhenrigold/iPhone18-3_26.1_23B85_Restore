@@ -164,7 +164,7 @@
     memset(v3, 0, sizeof(v3));
   }
 
-  sub_10000CAAC(v3, &unk_1019F4D00);
+  sub_10000CAAC(v3, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (BOOL)directlyManagesContentPlatformView
@@ -198,7 +198,7 @@
   selfCopy = self;
   sub_100D08A40();
 
-  sub_100006370(0, &qword_101A00020);
+  sub_100006370(0, &qword_101A00020, off_10182F790);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -225,7 +225,7 @@
   isa = [(CRLCanvasRep *)&v5 overlayRenderables];
   if (!isa)
   {
-    sub_100006370(0, &qword_101A00020);
+    sub_100006370(0, &qword_101A00020, off_10182F790);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
@@ -455,11 +455,11 @@
   v0 = objc_opt_self();
   _atomicIncrementAssertCount = [v0 _atomicIncrementAssertCount];
   v23 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v23);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &v23, "Unexpected call to dynamicRotateDidBegin.", 41, 2u);
+  StaticString.description.getter("dynamicRotateDidBegin()", 23, 2);
   v2 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLUSDZRep.swift", 81, 2);
   v3 = String._bridgeToObjectiveC()();
 
   lastPathComponent = [v3 lastPathComponent];
@@ -473,15 +473,15 @@
   }
 
   v8 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = _atomicIncrementAssertCount;
-  v10 = sub_100006370(0, &qword_1019F4D30);
+  v10 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v10;
-  v11 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v11 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v11;
   *(inited + 72) = v2;
   *(inited + 136) = &type metadata for String;
@@ -501,7 +501,7 @@
   v16 = static os_log_type_t.error.getter();
   sub_100005404(v8, &_mh_execute_header, v16, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v17 = static os_log_type_t.error.getter();
   sub_100005404(v8, &_mh_execute_header, v17, "Unexpected call to dynamicRotateDidBegin.", 41, 2, _swiftEmptyArrayStorage);
@@ -513,13 +513,13 @@
   v18[4] = 0;
   v18[5] = 0;
   v19 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("dynamicRotateDidBegin()", 23, 2);
   v20 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLUSDZRep.swift", 81, 2);
   v21 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("Unexpected call to dynamicRotateDidBegin.", 41, 2);
   v22 = String._bridgeToObjectiveC()();
 
   [v0 handleFailureInFunction:v20 file:v21 lineNumber:1549 isFatal:0 format:v22 args:v19];

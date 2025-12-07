@@ -6,7 +6,7 @@
 
 - (id)hdm_createDeviceWithController:()TestingMatterExtensions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   matterNodeID = [self matterNodeID];
 
@@ -22,15 +22,13 @@
     v9 = matterLogCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
+      v11 = 138412290;
       selfCopy = self;
-      _os_log_error_impl(&dword_1D16EC000, v9, OS_LOG_TYPE_ERROR, "hdm_createDeviceWithController: Can't create MTRDevice for accessory (%@) because it doesn't have a node ID!", &v12, 0xCu);
+      _os_log_error_impl(&dword_1D16EC000, v9, OS_LOG_TYPE_ERROR, "hdm_createDeviceWithController: Can't create MTRDevice for accessory (%@) because it doesn't have a node ID!", &v11, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

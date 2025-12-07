@@ -1,4 +1,5 @@
 @interface SVXSpeechSynthesisConfiguration
++ (SVXSpeechSynthesisConfiguration)configurationWithAudioSessionID:(unsigned int)d;
 + (SVXSpeechSynthesisConfiguration)configurationWithLocale:(id)locale;
 + (SVXSpeechSynthesisConfiguration)configurationWithOutputVoiceInfo:(id)info;
 - (BOOL)isEqual:(id)equal;
@@ -75,6 +76,13 @@
   }
 
   return v10;
+}
+
++ (SVXSpeechSynthesisConfiguration)configurationWithAudioSessionID:(unsigned int)d
+{
+  v3 = [objc_alloc(objc_opt_class()) initWithLocale:0 outputVoiceInfo:0 audioSessionID:*&d];
+
+  return v3;
 }
 
 + (SVXSpeechSynthesisConfiguration)configurationWithOutputVoiceInfo:(id)info

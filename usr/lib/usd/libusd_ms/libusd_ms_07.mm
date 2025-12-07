@@ -1,11 +1,67 @@
-void sub_29A040B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+uint64_t sub_29A0409E8(uint64_t *a1, uint64_t a2)
 {
-  va_start(va, a4);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if ((v2 + 1) > 0x492492492492492)
+  {
+    sub_29A00C9A4();
+  }
+
+  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v3)
+  {
+    v3 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
+  }
+
+  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
+  {
+    v6 = 0x492492492492492;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v17 = a1;
+  if (v6)
+  {
+    v7 = sub_29A040BCC(a1, v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v14 = v7;
+  v15 = &v7[56 * v2];
+  *(&v16 + 1) = &v7[56 * v6];
+  sub_29A040B34(a1, v15, a2);
+  *&v16 = v15 + 56;
+  v8 = a1[1];
+  v9 = &v15[*a1 - v8];
+  sub_29A040C18(a1, *a1, v8, v9);
+  v10 = *a1;
+  *a1 = v9;
+  v11 = a1[2];
+  v13 = v16;
+  *(a1 + 1) = v16;
+  *&v16 = v10;
+  *(&v16 + 1) = v11;
+  v14 = v10;
+  v15 = v10;
+  sub_29A040D84(&v14);
+  return v13;
+}
+
+void sub_29A040B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   sub_29A040D84(va);
   _Unwind_Resume(a1);
 }
 
-void *sub_29A040B34(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *sub_29A040B34(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a2 = *a3;
   v5 = (a2 + 8);
@@ -475,14 +531,14 @@ LABEL_55:
         v39 = 0;
       }
 
-      sub_29A041C90(a1 + 344, v39);
+      sub_29A041C90((a1 + 344), v39);
       if (v39)
       {
         v41 = 0;
         v42 = 0;
         do
         {
-          Alembic::AbcGeom::v12::FilmBackXformOp::FilmBackXformOp(&p_p, *__p + v42);
+          Alembic::AbcGeom::v12::FilmBackXformOp::FilmBackXformOp(&p_p, (*__p + v42));
           v43 = *(a1 + 344);
           v44 = v43 + v41;
           *(v43 + v41) = p_p;
@@ -576,7 +632,7 @@ LABEL_55:
     Alembic::Abc::v12::IScalarProperty::get(v88, __p, &p_p, 0);
     v57 = a2;
     v58 = a3;
-    sub_29A041C90(a1 + 344, 0xAAAAAAAAAAAAAAABLL * ((v80 - __p) >> 3));
+    sub_29A041C90((a1 + 344), 0xAAAAAAAAAAAAAAABLL * ((v80 - __p) >> 3));
     if (v26)
     {
       v27 = 0;
@@ -584,7 +640,7 @@ LABEL_55:
       v29 = 56 * v26;
       do
       {
-        Alembic::AbcGeom::v12::FilmBackXformOp::FilmBackXformOp(&p_p, __p + v27);
+        Alembic::AbcGeom::v12::FilmBackXformOp::FilmBackXformOp(&p_p, (__p + v27));
         v30 = *(a1 + 344);
         v31 = v30 + v28;
         *(v30 + v28) = p_p;
@@ -790,9 +846,9 @@ void sub_29A0418B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A0417CCLL);
 }
 
-void sub_29A041C90(uint64_t a1, unint64_t a2)
+void sub_29A041C90(void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -811,7 +867,7 @@ void sub_29A041C90(uint64_t a1, unint64_t a2)
       sub_29A040990(a1, v3);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
@@ -1341,14 +1397,14 @@ void **sub_29A042650(void **result, unint64_t a2)
   return result;
 }
 
-void sub_29A0427D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0427D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A040D84(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A0427FC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A0427FC(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -1417,7 +1473,7 @@ uint64_t sub_29A0427FC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -1434,7 +1490,7 @@ uint64_t sub_29A0427FC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 12 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A042D80(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A042D80(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -1519,7 +1575,7 @@ uint64_t sub_29A0427FC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A042C38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A042C38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -1546,7 +1602,7 @@ void sub_29A042C38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A042998);
 }
 
-uint64_t sub_29A042D80(uint64_t a1, int a2)
+BOOL sub_29A042D80(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -1584,7 +1640,7 @@ void sub_29A042E0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A042E28(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A042E28(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -1653,7 +1709,7 @@ uint64_t sub_29A042E28(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -1670,7 +1726,7 @@ uint64_t sub_29A042E28(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 11 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A0433AC(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A0433AC(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -1755,7 +1811,7 @@ uint64_t sub_29A042E28(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A043264(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A043264(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -1782,7 +1838,7 @@ void sub_29A043264(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A042FC4);
 }
 
-uint64_t sub_29A0433AC(uint64_t a1, int a2)
+BOOL sub_29A0433AC(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -1975,7 +2031,7 @@ LABEL_66:
   v5[2] = *(a2 + 10);
   if ((this + 344) != a2)
   {
-    sub_29A044D04(this + 520, a2[22], a2[23], 0x6DB6DB6DB6DB6DB7 * (a2[23] - a2[22]));
+    sub_29A044D04(this + 65, a2[22], a2[23], 0x6DB6DB6DB6DB6DB7 * (a2[23] - a2[22]));
   }
 
   v21 = Alembic::AbcGeom::v12::CameraSample::getNumOpChannels(a2);
@@ -2893,10 +2949,10 @@ void sub_29A044C48(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A044BE8);
 }
 
-void sub_29A044D04(uint64_t a1, char **a2, char **a3, unint64_t a4)
+void sub_29A044D04(char **a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3) < a4)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3) < a4)
   {
     sub_29A044E84(a1);
     if (a4 > 0x492492492492492)
@@ -2904,13 +2960,13 @@ void sub_29A044D04(uint64_t a1, char **a2, char **a3, unint64_t a4)
       sub_29A00C9A4();
     }
 
-    v9 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
+    v9 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
     if (v9 <= a4)
     {
       v9 = a4;
     }
 
-    if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
+    if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
     {
       v10 = 0x492492492492492;
     }
@@ -2921,23 +2977,23 @@ void sub_29A044D04(uint64_t a1, char **a2, char **a3, unint64_t a4)
     }
 
     sub_29A044EF0(a1, v10);
-    v11 = sub_29A044F40(a1, a2, a3, *(a1 + 8));
+    v11 = sub_29A044F40(a1, a2, a3, a1[1]);
     goto LABEL_11;
   }
 
-  v12 = *(a1 + 8) - v8;
+  v12 = a1[1] - v8;
   if (0x6DB6DB6DB6DB6DB7 * (v12 >> 3) < a4)
   {
     sub_29A045084(&v16, a2, (a2 + v12), v8);
-    v11 = sub_29A044F40(a1, a2 + v12, a3, *(a1 + 8));
+    v11 = sub_29A044F40(a1, a2 + v12, a3, a1[1]);
 LABEL_11:
-    *(a1 + 8) = v11;
+    a1[1] = v11;
     return;
   }
 
   sub_29A045084(&v17, a2, a3, v8);
   v14 = v13;
-  v15 = *(a1 + 8);
+  v15 = a1[1];
   if (v15 != v13)
   {
     do
@@ -2949,10 +3005,10 @@ LABEL_11:
     while (v15 != v14);
   }
 
-  *(a1 + 8) = v14;
+  a1[1] = v14;
 }
 
-void sub_29A044E84(void **a1)
+void sub_29A044E84(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3021,7 +3077,7 @@ uint64_t sub_29A044F40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v4;
 }
 
-void *sub_29A044FEC(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *sub_29A044FEC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a2 = *a3;
   v5 = (a2 + 8);
@@ -3239,29 +3295,29 @@ void sub_29A045320(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A045604(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A045604(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -3421,29 +3477,29 @@ void sub_29A04589C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   sub_29A01752C(v26, v26[1]);
 }
 
-void sub_29A045B80(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A045B80(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v12.__vftable = va_arg(va1, std::exception_vtbl *);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v16.__vftable = va_arg(va1, std::exception_vtbl *);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
-  v10 = __cxa_begin_catch(a1);
+  v14 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v11 = v10;
-    sub_29A02F0A0(v6);
-    sub_29A02D768(v7 - 160, v11);
+    v15 = v14;
+    sub_29A02F0A0(v10);
+    sub_29A02D768(v11 - 160, v15);
   }
 
   else
   {
-    sub_29A02F0A0(v6);
-    sub_29A02D6F8(v7 - 160, 0);
+    sub_29A02F0A0(v10);
+    sub_29A02D6F8(v11 - 160, 0);
   }
 
   __cxa_end_catch();
@@ -4224,7 +4280,7 @@ void sub_29A046E64(uint64_t a1)
   Alembic::Abc::v12::IArrayProperty::~IArrayProperty(a1);
 }
 
-void Alembic::AbcGeom::v12::ICurvesSchema::get(uint64_t *a1, uint64_t a2, uint64_t a3)
+void Alembic::AbcGeom::v12::ICurvesSchema::get(uint64_t *a1, _DWORD *a2, uint64_t a3)
 {
   v6 = *a1;
   v10 = a1 + 1;
@@ -4235,13 +4291,13 @@ void Alembic::AbcGeom::v12::ICurvesSchema::get(uint64_t *a1, uint64_t a2, uint64
   }
 
   sub_29A0470B8((a1 + 31), a2, a3);
-  sub_29A047134((a1 + 43), (a2 + 96), a3);
+  sub_29A047134((a1 + 43), a2 + 12, a3);
   Alembic::Abc::v12::IScalarProperty::get((a1 + 49), v9, a3, 4);
   v7 = v9[1];
   v8 = v9[2];
-  *(a2 + 144) = v9[0];
-  *(a2 + 148) = v8;
-  *(a2 + 152) = v7;
+  a2[36] = v9[0];
+  a2[37] = v8;
+  a2[38] = v7;
   if (*(a1 + 927) < 0)
   {
     if (a1[114])
@@ -4257,7 +4313,7 @@ void Alembic::AbcGeom::v12::ICurvesSchema::get(uint64_t *a1, uint64_t a2, uint64
 
   if (a1[116])
   {
-    sub_29A0471B0((a1 + 112), (a2 + 32), a3);
+    sub_29A0471B0((a1 + 112), a2 + 4, a3);
   }
 
 LABEL_8:
@@ -4276,7 +4332,7 @@ LABEL_8:
 
   if (a1[122])
   {
-    sub_29A04722C((a1 + 118), (a2 + 112), a3);
+    sub_29A04722C((a1 + 118), a2 + 14, a3);
   }
 
 LABEL_14:
@@ -4295,7 +4351,7 @@ LABEL_14:
 
   if (a1[128])
   {
-    sub_29A0471B0((a1 + 124), (a2 + 128), a3);
+    sub_29A0471B0((a1 + 124), a2 + 16, a3);
   }
 
 LABEL_20:
@@ -4312,7 +4368,7 @@ LABEL_20:
 LABEL_24:
     if (a1[11])
     {
-      Alembic::Abc::v12::IScalarProperty::get((a1 + 7), a2 + 48, a3, 48);
+      Alembic::Abc::v12::IScalarProperty::get((a1 + 7), (a2 + 12), a3, 48);
     }
   }
 
@@ -4333,18 +4389,18 @@ LABEL_24:
   {
     if (Alembic::Abc::v12::IArrayProperty::getNumSamples((a1 + 37)))
     {
-      sub_29A0472A8((a1 + 37), (a2 + 16), a3);
+      sub_29A0472A8((a1 + 37), a2 + 2, a3);
     }
   }
 }
 
-void sub_29A047060(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A047060(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
-  v5 = __cxa_begin_catch(a1);
+  va_start(va, a6);
+  v7 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(va, v5);
+    sub_29A02D768(va, v7);
   }
 
   else
@@ -4536,7 +4592,7 @@ void sub_29A04730C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A047324(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A047324(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -4605,7 +4661,7 @@ uint64_t sub_29A047324(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -4622,7 +4678,7 @@ uint64_t sub_29A047324(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 10 && *(v13 + 60) == 3 && *(v13 + 24) == 2;
-  if (!v16 || (sub_29A0478B0(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A0478B0(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -4707,7 +4763,7 @@ uint64_t sub_29A047324(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A047768(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A047768(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -4734,7 +4790,7 @@ void sub_29A047768(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A0474C8);
 }
 
-uint64_t sub_29A0478B0(uint64_t a1, int a2)
+BOOL sub_29A0478B0(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -4772,7 +4828,7 @@ void sub_29A04798C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A0479A8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A0479A8(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -4841,7 +4897,7 @@ uint64_t sub_29A0479A8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -4858,7 +4914,7 @@ uint64_t sub_29A0479A8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 6 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A047F2C(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A047F2C(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -4943,7 +4999,7 @@ uint64_t sub_29A0479A8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A047DE4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A047DE4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -4970,7 +5026,7 @@ void sub_29A047DE4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A047B44);
 }
 
-uint64_t sub_29A047F2C(uint64_t a1, int a2)
+BOOL sub_29A047F2C(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -5008,7 +5064,7 @@ void sub_29A047FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A047FD4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A047FD4(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -5077,7 +5133,7 @@ uint64_t sub_29A047FD4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -5094,7 +5150,7 @@ uint64_t sub_29A047FD4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 10 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A048558(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A048558(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -5179,7 +5235,7 @@ uint64_t sub_29A047FD4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A048410(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A048410(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -5206,7 +5262,7 @@ void sub_29A048410(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A048170);
 }
 
-uint64_t sub_29A048558(uint64_t a1, int a2)
+BOOL sub_29A048558(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -5571,7 +5627,7 @@ void sub_29A048D48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A048DCC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A048DCC(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -5640,7 +5696,7 @@ uint64_t sub_29A048DCC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -5657,7 +5713,7 @@ uint64_t sub_29A048DCC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 5 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A049350(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A049350(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -5742,7 +5798,7 @@ uint64_t sub_29A048DCC(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A049208(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A049208(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -5769,7 +5825,7 @@ void sub_29A049208(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A048F68);
 }
 
-uint64_t sub_29A049350(uint64_t a1, int a2)
+BOOL sub_29A049350(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -5807,7 +5863,7 @@ void sub_29A0493DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A0493F8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A0493F8(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -5876,7 +5932,7 @@ uint64_t sub_29A0493F8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -5893,7 +5949,7 @@ uint64_t sub_29A0493F8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 10 && *(v13 + 60) == 2 && *(v13 + 24) == 2;
-  if (!v16 || (sub_29A03EF80(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A03EF80(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -5978,7 +6034,7 @@ uint64_t sub_29A0493F8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A04983C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A04983C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -6332,7 +6388,7 @@ void sub_29A04A0CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A04A150(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A04A150(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -6401,7 +6457,7 @@ uint64_t sub_29A04A150(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -6418,7 +6474,7 @@ uint64_t sub_29A04A150(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 10 && *(v13 + 60) == 3 && *(v13 + 24) == 2;
-  if (!v16 || (sub_29A04A6DC(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A04A6DC(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -6503,7 +6559,7 @@ uint64_t sub_29A04A150(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A04A594(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A04A594(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -6530,7 +6586,7 @@ void sub_29A04A594(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A04A2F4);
 }
 
-uint64_t sub_29A04A6DC(uint64_t a1, int a2)
+BOOL sub_29A04A6DC(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -6895,7 +6951,7 @@ void sub_29A04AF1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A04AFA0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A04AFA0(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -6964,7 +7020,7 @@ uint64_t sub_29A04AFA0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v37 = *(a3 + 8);
+      v37 = a3[1];
     }
 
     sub_29A00911C(v34, v36, v37);
@@ -6981,7 +7037,7 @@ uint64_t sub_29A04AFA0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = *(v13 + 56) == 10 && *(v13 + 60) == 3 && *(v13 + 24) == 2;
-  if (!v16 || (sub_29A04B52C(v13 + 32, v52) & 1) == 0)
+  if (!v16 || !sub_29A04B52C(v13 + 32, v52))
   {
     sub_29A008864(&v46);
     v20 = sub_29A00911C(v47, "Incorrect match of header datatype: ", 36);
@@ -7066,7 +7122,7 @@ uint64_t sub_29A04AFA0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A04B3E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A04B3E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -7093,7 +7149,7 @@ void sub_29A04B3E4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A04B144);
 }
 
-uint64_t sub_29A04B52C(uint64_t a1, int a2)
+BOOL sub_29A04B52C(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -7131,7 +7187,7 @@ void sub_29A04B608(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A04B624(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A04B624(uint64_t a1, int *a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 2;
   sub_29A008E78((a1 + 8), "");
@@ -7200,7 +7256,7 @@ uint64_t sub_29A04B624(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      v36 = *(a3 + 8);
+      v36 = a3[1];
     }
 
     sub_29A00911C(v33, v35, v36);
@@ -7217,7 +7273,7 @@ uint64_t sub_29A04B624(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v15 = *(v13 + 56) == 1 && *(v13 + 24) == 2;
-  if (!v15 || (sub_29A04BBA4(v13 + 32, v51) & 1) == 0)
+  if (!v15 || !sub_29A04BBA4(v13 + 32, v51))
   {
     sub_29A008864(&v45);
     v19 = sub_29A00911C(v46, "Incorrect match of header datatype: ", 36);
@@ -7302,7 +7358,7 @@ uint64_t sub_29A04B624(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t 
   return a1;
 }
 
-void sub_29A04BA5C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A04BA5C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -7329,7 +7385,7 @@ void sub_29A04BA5C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A04B7C0);
 }
 
-uint64_t sub_29A04BBA4(uint64_t a1, int a2)
+BOOL sub_29A04BBA4(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -8069,24 +8125,24 @@ LABEL_38:
   Alembic::AbcGeom::v12::OCurvesSchema::selectiveSet(this, a2);
 }
 
-void sub_29A04C894(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, void *__p, uint64_t a7, uint64_t a8, ...)
+void sub_29A04C894(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, void *__p, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__pa, uint64_t a13, uint64_t a14, ...)
 {
-  va_start(va, a8);
-  if (__p)
+  va_start(va, a14);
+  if (__pa)
   {
-    operator delete(__p);
+    operator delete(__pa);
   }
 
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(va);
-  v11 = __cxa_begin_catch(a1);
+  v17 = __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    sub_29A02D768(v8 - 80, v11);
+    sub_29A02D768(v14 - 80, v17);
   }
 
   else
   {
-    sub_29A02D6F8(v8 - 80, 0);
+    sub_29A02D6F8(v14 - 80, 0);
   }
 
   __cxa_end_catch();
@@ -8763,7 +8819,7 @@ LABEL_216:
   ++*(this + 44);
 }
 
-void sub_29A04D4F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57)
+void sub_29A04D4F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57)
 {
   if (__p)
   {
@@ -8902,9 +8958,9 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createUVsProperty(void *a1, uint64_t 
   v43 = 127;
   if (*(a2 + 264) != 127 && (*(a2 + 256) || *(a2 + 280) != *(a2 + 272)))
   {
-    sub_29A05259C(v34, &v47);
+    sub_29A05259C(&v34, &v47);
     sub_29A052640(&v30, &v44);
-    sub_29A0526E4(&__dst, v34, &v30, *(a2 + 296));
+    sub_29A0526E4(&__dst, &v34, &v30, *(a2 + 296));
     *&v37 = __dst;
     *(&v37 + 5) = *(&__dst + 5);
     sub_29A00CB24(&v38, v22, v23[0], (v23[0] - v22) >> 3);
@@ -8944,7 +9000,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createUVsProperty(void *a1, uint64_t 
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_29A008E78(v34, "uv");
+    sub_29A008E78(&v34, "uv");
     v10 = v43;
     sub_29A050888(a1, &v17);
     LODWORD(v30) = 4;
@@ -8953,7 +9009,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createUVsProperty(void *a1, uint64_t 
     v16 = 0;
     v13 = 0;
     v14 = 0;
-    sub_29A052798(&__dst, &v19, v34, 1, v10, 1, &v30, &v15, &v13);
+    sub_29A052798(&__dst, &v19, &v34, 1, v10, 1, &v30, &v15, &v13);
     sub_29A050950((a1 + 46), &__dst);
     Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
     Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -8970,7 +9026,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createUVsProperty(void *a1, uint64_t 
 
     if (SHIBYTE(v35) < 0)
     {
-      operator delete(*v34);
+      operator delete(v34);
     }
 
     v7 = v20;
@@ -8984,10 +9040,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  sub_29A05259C(v34, &v47);
+  sub_29A05259C(&v34, &v47);
   v4 = *(a2 + 296);
-  *&__dst = *v34;
-  *(&__dst + 5) = *&v34[5];
+  *&__dst = v34;
+  *(&__dst + 5) = *(&v34 + 5);
   v22 = 0;
   v23[0] = 0;
   v23[1] = 0;
@@ -9031,7 +9087,7 @@ LABEL_17:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29A008E78(v34, "uv");
+  sub_29A008E78(&v34, "uv");
   v6 = v43;
   sub_29A050888(a1, &v17);
   LODWORD(v30) = 4;
@@ -9040,7 +9096,7 @@ LABEL_17:
   v16 = 0;
   v13 = 0;
   v14 = 0;
-  sub_29A052798(&__dst, &v11, v34, 0, v6, 1, &v30, &v15, &v13);
+  sub_29A052798(&__dst, &v11, &v34, 0, v6, 1, &v30, &v15, &v13);
   sub_29A050950((a1 + 46), &__dst);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -9057,7 +9113,7 @@ LABEL_17:
 
   if (SHIBYTE(v35) < 0)
   {
-    operator delete(*v34);
+    operator delete(v34);
   }
 
   v7 = v12;
@@ -9104,7 +9160,7 @@ LABEL_18:
   }
 }
 
-void sub_29A04DCB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45)
+void sub_29A04DCB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45)
 {
   sub_29A050A50(&a20);
   if (a17)
@@ -9160,9 +9216,9 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createNormalsProperty(void *a1, uint6
   if (*(a2 + 352) != 127 && (*(a2 + 344) || *(a2 + 368) != *(a2 + 360)))
   {
     sub_29A051850(&v32, &v49);
-    sub_29A053FB8(v36, &v32);
+    sub_29A053FB8(&v36, &v32);
     sub_29A052640(&v28, &v46);
-    sub_29A054134(&__dst, v36, &v28, *(a2 + 384));
+    sub_29A054134(&__dst, &v36, &v28, *(a2 + 384));
     *&v39 = __dst;
     *(&v39 + 5) = *(&__dst + 5);
     sub_29A00CB24(&v40, v20, v21[0], (v21[0] - v20) >> 3);
@@ -9208,7 +9264,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createNormalsProperty(void *a1, uint6
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_29A008E78(v36, "N");
+    sub_29A008E78(&v36, "N");
     v10 = v45;
     sub_29A050888(a1, &v28);
     LODWORD(v32) = 4;
@@ -9217,7 +9273,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createNormalsProperty(void *a1, uint6
     v16 = 0;
     v13 = 0;
     v14 = 0;
-    sub_29A0541E8(&__dst, &v17, v36, 1, v10, 1, &v32, &v15, &v13);
+    sub_29A0541E8(&__dst, &v17, &v36, 1, v10, 1, &v32, &v15, &v13);
     sub_29A050950((a1 + 68), &__dst);
     Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v27);
     Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v25);
@@ -9234,7 +9290,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createNormalsProperty(void *a1, uint6
 
     if (SHIBYTE(v37) < 0)
     {
-      operator delete(*v36);
+      operator delete(v36);
     }
 
     v7 = v18;
@@ -9249,10 +9305,10 @@ LABEL_19:
   }
 
   sub_29A051850(&v32, &v49);
-  sub_29A053FB8(v36, &v32);
+  sub_29A053FB8(&v36, &v32);
   v4 = *(a2 + 384);
-  *&__dst = *v36;
-  *(&__dst + 5) = *&v36[5];
+  *&__dst = v36;
+  *(&__dst + 5) = *(&v36 + 5);
   v20 = 0;
   v21[0] = 0;
   v21[1] = 0;
@@ -9302,7 +9358,7 @@ LABEL_19:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29A008E78(v36, "N");
+  sub_29A008E78(&v36, "N");
   v6 = v45;
   sub_29A050888(a1, &v28);
   LODWORD(v32) = 4;
@@ -9311,7 +9367,7 @@ LABEL_19:
   v16 = 0;
   v13 = 0;
   v14 = 0;
-  sub_29A0541E8(&__dst, &v11, v36, 0, v6, 1, &v32, &v15, &v13);
+  sub_29A0541E8(&__dst, &v11, &v36, 0, v6, 1, &v32, &v15, &v13);
   sub_29A050950((a1 + 68), &__dst);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v27);
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v25);
@@ -9328,7 +9384,7 @@ LABEL_19:
 
   if (SHIBYTE(v37) < 0)
   {
-    operator delete(*v36);
+    operator delete(v36);
   }
 
   v7 = v12;
@@ -9375,7 +9431,7 @@ LABEL_20:
   }
 }
 
-void sub_29A04E27C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, std::__shared_weak_count *a42, void *__p, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49)
+void sub_29A04E27C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, std::__shared_weak_count *a42, void *__p, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49)
 {
   sub_29A050A50(&a19);
   if (a42)
@@ -9430,9 +9486,9 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createWidthProperty(void *a1, uint64_
   v43 = 127;
   if (*(a2 + 176) != 127 && (*(a2 + 168) || *(a2 + 192) != *(a2 + 184)))
   {
-    sub_29A055520(v34, &v47);
+    sub_29A055520(&v34, &v47);
     sub_29A052640(&v30, &v44);
-    sub_29A0555C4(&__dst, v34, &v30, *(a2 + 208));
+    sub_29A0555C4(&__dst, &v34, &v30, *(a2 + 208));
     *&v37 = __dst;
     *(&v37 + 5) = *(&__dst + 5);
     sub_29A00CB24(&v38, v22, v23[0], (v23[0] - v22) >> 3);
@@ -9472,7 +9528,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createWidthProperty(void *a1, uint64_
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_29A008E78(v34, "width");
+    sub_29A008E78(&v34, "width");
     v10 = *(a2 + 208);
     sub_29A050888(a1, &v17);
     LODWORD(v30) = 4;
@@ -9481,7 +9537,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createWidthProperty(void *a1, uint64_
     v16 = 0;
     v13 = 0;
     v14 = 0;
-    sub_29A055678(&__dst, &v19, v34, 1, v10, 1, &v30, &v15, &v13);
+    sub_29A055678(&__dst, &v19, &v34, 1, v10, 1, &v30, &v15, &v13);
     sub_29A050950((a1 + 90), &__dst);
     Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
     Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -9498,7 +9554,7 @@ void Alembic::AbcGeom::v12::OCurvesSchema::createWidthProperty(void *a1, uint64_
 
     if (SHIBYTE(v35) < 0)
     {
-      operator delete(*v34);
+      operator delete(v34);
     }
 
     v7 = v20;
@@ -9512,10 +9568,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  sub_29A055520(v34, &v47);
+  sub_29A055520(&v34, &v47);
   v4 = *(a2 + 208);
-  *&__dst = *v34;
-  *(&__dst + 5) = *&v34[5];
+  *&__dst = v34;
+  *(&__dst + 5) = *(&v34 + 5);
   v22 = 0;
   v23[0] = 0;
   v23[1] = 0;
@@ -9559,7 +9615,7 @@ LABEL_17:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29A008E78(v34, "width");
+  sub_29A008E78(&v34, "width");
   v6 = *(a2 + 208);
   sub_29A050888(a1, &v17);
   LODWORD(v30) = 4;
@@ -9568,7 +9624,7 @@ LABEL_17:
   v16 = 0;
   v13 = 0;
   v14 = 0;
-  sub_29A055678(&__dst, &v11, v34, 0, v6, 1, &v30, &v15, &v13);
+  sub_29A055678(&__dst, &v11, &v34, 0, v6, 1, &v30, &v15, &v13);
   sub_29A050950((a1 + 90), &__dst);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v29);
   Alembic::Abc::v12::OArrayProperty::~OArrayProperty(&v27);
@@ -9585,7 +9641,7 @@ LABEL_17:
 
   if (SHIBYTE(v35) < 0)
   {
-    operator delete(*v34);
+    operator delete(v34);
   }
 
   v7 = v12;
@@ -9632,7 +9688,7 @@ LABEL_18:
   }
 }
 
-void sub_29A04E828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45)
+void sub_29A04E828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45)
 {
   sub_29A050A50(&a20);
   if (a17)

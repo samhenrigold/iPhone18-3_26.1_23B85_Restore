@@ -9,7 +9,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_4DC44();
+  sub_4DC44(selfCopy);
 }
 
 - (void)layoutSubviews

@@ -44,9 +44,11 @@ id __28__LACPasscodeFormatter_init__block_invoke()
 
 uint64_t __38__LACPasscodeFormatter_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_9 = objc_alloc_init(LACPasscodeFormatter);
+  v0 = objc_alloc_init(LACPasscodeFormatter);
+  v1 = sharedInstance_sharedInstance_9;
+  sharedInstance_sharedInstance_9 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)localizePasscode:(id)passcode type:(int64_t)type
@@ -93,7 +95,7 @@ uint64_t __38__LACPasscodeFormatter_sharedInstance__block_invoke()
 
 void __46__LACPasscodeFormatter_localizePasscode_type___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [*(*(a1 + 32) + 8) numberFromString:a2];
+  v9 = [*(*(a1 + 32) + 8) numberFromString:{a2, a4, a5, a6}];
   if (v9)
   {
     v10 = v9;

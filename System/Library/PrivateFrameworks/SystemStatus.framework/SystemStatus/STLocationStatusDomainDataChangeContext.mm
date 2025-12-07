@@ -1,9 +1,9 @@
 @interface STLocationStatusDomainDataChangeContext
 - (BOOL)isEqual:(id)equal;
 - (STLocationStatusDomainDataChangeContext)initWithCoder:(id)coder;
+- (_BYTE)initWithChangeContext:(_BYTE *)result;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
-- (id)initWithChangeContext:(id)result;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)succinctDescription;
 - (unint64_t)hash;
@@ -12,7 +12,7 @@
 
 @implementation STLocationStatusDomainDataChangeContext
 
-- (id)initWithChangeContext:(id)result
+- (_BYTE)initWithChangeContext:(_BYTE *)result
 {
   if (result)
   {
@@ -26,8 +26,8 @@
     result = objc_msgSendSuper2(&v6, sel_init);
     if (result)
     {
-      *(result + 8) = isUserInitiated;
-      *(result + 9) = wantsProminentIndication;
+      result[8] = isUserInitiated;
+      result[9] = wantsProminentIndication;
     }
   }
 

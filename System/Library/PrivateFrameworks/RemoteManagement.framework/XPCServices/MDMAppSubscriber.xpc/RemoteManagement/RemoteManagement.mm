@@ -26,27 +26,27 @@ void sub_1000010F0(uint64_t a1, void *a2, uint64_t a3)
     v7 = [v5 appsByBundleIdentifier];
     v8 = [v6 initWithCapacity:{objc_msgSend(v7, "count")}];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v9 = [v5 appsByBundleIdentifier];
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         v13 = 0;
         do
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * v13);
+          v14 = *(*(&v23 + 1) + 8 * v13);
           v15 = [v5 appsByBundleIdentifier];
           v16 = [v15 objectForKeyedSubscript:v14];
 
@@ -54,27 +54,26 @@ void sub_1000010F0(uint64_t a1, void *a2, uint64_t a3)
 
           if (!v17)
           {
-            v18 = *(a1 + 32);
-            v19 = [objc_opt_class() appStatusForApp:v16];
-            v20 = [v19 serializeWithType:1];
-            [v8 addObject:v20];
+            v18 = [objc_opt_class() appStatusForApp:v16];
+            v19 = [v18 serializeWithType:1];
+            [v8 addObject:v19];
           }
 
           v13 = v13 + 1;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
     }
 
-    v21 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [*(a1 + 40) count]);
-    [v21 setObject:v8 forKeyedSubscript:RMModelStatusItemMDMApp];
-    v22 = *(a1 + 48);
-    v23 = [v21 copy];
-    (*(v22 + 16))(v22, v23, 0);
+    v20 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [*(a1 + 40) count]);
+    [v20 setObject:v8 forKeyedSubscript:RMModelStatusItemMDMApp];
+    v21 = *(a1 + 48);
+    v22 = [v20 copy];
+    (*(v21 + 16))(v21, v22, 0);
   }
 }
 

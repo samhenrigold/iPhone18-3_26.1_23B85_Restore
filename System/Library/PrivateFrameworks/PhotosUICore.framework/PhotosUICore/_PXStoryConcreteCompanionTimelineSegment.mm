@@ -35,7 +35,7 @@
 - (PXStoryCompanionTimelineSegmentTransition)orderOutTransition
 {
   v3 = [_PXStoryConcreteCompanionTimelineSegmentTransition alloc];
-  [(_PXStoryConcreteCompanionTimelineSegment *)self segmentInfo];
+  objc_msgSend_segmentInfo(self);
   v9[0] = v6;
   v9[1] = v7;
   v10 = v8;
@@ -48,10 +48,10 @@
 {
   [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:3];
   timeline = [(_PXStoryConcreteCompanionTimelineSegment *)self timeline];
-  [(_PXStoryConcreteCompanionTimelineSegment *)self segmentInfo];
+  objc_msgSend_segmentInfo(self);
   if (timeline)
   {
-    [timeline timeRangeForSegmentWithIdentifier:v5];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(timeline);
   }
 
   [timeline size];
@@ -60,7 +60,7 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)preferredDuration
 {
-  result = [(_PXStoryConcreteCompanionTimelineSegment *)self segmentInfo];
+  result = objc_msgSend_segmentInfo(self, a3);
   *retstr = v5;
   return result;
 }
@@ -68,49 +68,49 @@
 - (_PXStoryConcreteCompanionTimelineSegment)initWithTimeline:(id)timeline segmentIndex:(int64_t)index
 {
   timelineCopy = timeline;
-  v25.receiver = self;
-  v25.super_class = _PXStoryConcreteCompanionTimelineSegment;
-  v8 = [(_PXStoryConcreteCompanionTimelineSegment *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = _PXStoryConcreteCompanionTimelineSegment;
+  v8 = [(_PXStoryConcreteCompanionTimelineSegment *)&v24 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_timeline, timeline);
-    v10 = [timelineCopy identifierForSegmentAtIndex:index];
+    [timelineCopy identifierForSegmentAtIndex:index];
     if (timelineCopy)
     {
-      [timelineCopy infoForSegmentWithIdentifier:v10];
+      objc_msgSend_infoForSegmentWithIdentifier_(timelineCopy);
     }
 
     else
     {
-      v24 = 0;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
+      v23 = 0;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
-      v12 = 0u;
+      v16 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
     }
 
-    *&v9->_segmentInfo.durationInfo.maximumDuration.epoch = v22;
-    *&v9->_segmentInfo.durationInfo.preferredCue.time.timescale = v23;
-    v9->_segmentInfo.durationInfo.preferredCue.rank = v24;
-    *&v9->_segmentInfo.durationInfo.minimumDuration.value = v18;
-    *&v9->_segmentInfo.durationInfo.minimumDuration.epoch = v19;
-    *&v9->_segmentInfo.durationInfo.preferredDuration.timescale = v20;
-    *&v9->_segmentInfo.durationInfo.maximumDuration.value = v21;
-    *&v9->_segmentInfo.compositionInfo.mainDividerSplitRatio = v14;
-    *&v9->_segmentInfo.transitionInfo.orderOutTransition = v15;
-    *&v9->_segmentInfo.transitionInfo.duration.timescale = v16;
-    *&v9->_segmentInfo.transitionInfo.fallbackFromTransitionKind = v17;
-    *&v9->_segmentInfo.identifier = v12;
-    *&v9->_segmentInfo.compositionInfo.clipFramesExtendToBounds = v13;
+    *&v9->_segmentInfo.durationInfo.maximumDuration.epoch = v21;
+    *&v9->_segmentInfo.durationInfo.preferredCue.time.timescale = v22;
+    v9->_segmentInfo.durationInfo.preferredCue.rank = v23;
+    *&v9->_segmentInfo.durationInfo.minimumDuration.value = v17;
+    *&v9->_segmentInfo.durationInfo.minimumDuration.epoch = v18;
+    *&v9->_segmentInfo.durationInfo.preferredDuration.timescale = v19;
+    *&v9->_segmentInfo.durationInfo.maximumDuration.value = v20;
+    *&v9->_segmentInfo.compositionInfo.mainDividerSplitRatio = v13;
+    *&v9->_segmentInfo.transitionInfo.orderOutTransition = v14;
+    *&v9->_segmentInfo.transitionInfo.duration.timescale = v15;
+    *&v9->_segmentInfo.transitionInfo.fallbackFromTransitionKind = v16;
+    *&v9->_segmentInfo.identifier = v11;
+    *&v9->_segmentInfo.compositionInfo.clipFramesExtendToBounds = v12;
   }
 
   return v9;

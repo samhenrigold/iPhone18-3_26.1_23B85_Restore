@@ -1,10 +1,10 @@
 @interface HDSharedSummaryTransactionBuilderServer
 + (BOOL)validateConfiguration:(id)configuration client:(id)client error:(id *)error;
 + (id)requiredEntitlements;
+- (BOOL)_checkCommitStatusIfNeededWithError:(uint64_t)error;
 - (BOOL)_createOrRetrieveTransactionIfNeededWithError:(void *)error;
 - (BOOL)_retrieveTransactionIfNeededWithError:(void *)error;
 - (HDSharedSummaryTransactionBuilderServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate;
-- (uint64_t)_checkCommitStatusIfNeededWithError:(uint64_t)error;
 - (void)remote_addMetadata:(id)metadata completion:(id)completion;
 - (void)remote_addSummaries:(id)summaries completion:(id)completion;
 - (void)remote_addedSummariesWithPackage:(id)package names:(id)names resultsHandler:(id)handler;
@@ -29,7 +29,7 @@
   v11 = [(HDStandardTaskServer *)&v15 initWithUUID:d configuration:configurationCopy client:client delegate:delegate];
   if (v11)
   {
-    v12 = [configurationCopy copy];
+    v12 = objc_msgSend_copy(configurationCopy);
     configuration = v11->_configuration;
     v11->_configuration = v12;
   }
@@ -39,10 +39,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -691,7 +690,7 @@ LABEL_15:
 LABEL_16:
 }
 
-- (uint64_t)_checkCommitStatusIfNeededWithError:(uint64_t)error
+- (BOOL)_checkCommitStatusIfNeededWithError:(uint64_t)error
 {
   if (![*(error + 40) allowCommitted] || !*(error + 48))
   {

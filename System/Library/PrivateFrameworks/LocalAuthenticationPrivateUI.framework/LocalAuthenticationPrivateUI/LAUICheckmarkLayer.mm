@@ -81,7 +81,7 @@
       shape_layer = v15->_shape_layer;
       if (shape_layer)
       {
-        [(CAShapeLayer *)shape_layer transform];
+        objc_msgSend_transform(shape_layer);
       }
 
       else
@@ -182,7 +182,7 @@
   shape_layer = self->_shape_layer;
   if (shape_layer)
   {
-    [(CAShapeLayer *)shape_layer transform];
+    objc_msgSend_transform(shape_layer);
     v18 = 0uLL;
   }
 
@@ -337,18 +337,18 @@
       if (self->_animating)
       {
         p_completions = &self->_completions;
-        end = p_completions->__end_;
-        if (end >= p_completions->__cap_)
+        v11 = p_completions[1];
+        if (v11 >= p_completions[2])
         {
           v12 = std::vector<LAUI_CA_utilities::animation_completion_handler_container>::__emplace_back_slow_path<void({block_pointer} {__strong}&)(BOOL)>(p_completions, &v18);
         }
 
         else
         {
-          v12 = (LAUI_CA_utilities::animation_completion_handler_container::animation_completion_handler_container(end, v9) + 1);
+          v12 = LAUI_CA_utilities::animation_completion_handler_container::animation_completion_handler_container(v11, v9) + 1;
         }
 
-        p_completions->__end_ = v12;
+        p_completions[1] = v12;
       }
 
       else
@@ -370,15 +370,15 @@
     self->_revealed = revealedCopy;
     if (v18)
     {
-      v13 = self->_completions.__end_;
-      if (v13 >= self->_completions.__cap_)
+      end = self->_completions.__end_;
+      if (end >= self->_completions.__cap_)
       {
         v14 = std::vector<LAUI_CA_utilities::animation_completion_handler_container>::__emplace_back_slow_path<void({block_pointer} {__strong}&)(BOOL)>(&self->_completions, &v18);
       }
 
       else
       {
-        v14 = (LAUI_CA_utilities::animation_completion_handler_container::animation_completion_handler_container(v13, v18) + 1);
+        v14 = (LAUI_CA_utilities::animation_completion_handler_container::animation_completion_handler_container(end, v18) + 1);
       }
 
       self->_completions.__end_ = v14;

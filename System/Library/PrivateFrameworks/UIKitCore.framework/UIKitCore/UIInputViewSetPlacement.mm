@@ -376,7 +376,7 @@ LABEL_7:
   }
 
   v12 = 0;
-  if (![(UIInputViewSetPlacement *)self isEqual:placementCopy]&& (((v8 | v10) ^ 1) & v11 & 1) == 0)
+  if ((objc_msgSend_isEqual_(self) & 1) == 0 && (((v8 | v10) ^ 1) & v11 & 1) == 0)
   {
     if ((showsInputViews | v7 ^ 1))
     {
@@ -653,7 +653,7 @@ LABEL_60:
   v12[0] = v5;
   v11[1] = @"Transform";
   v6 = MEMORY[0x1E696B098];
-  [(UIInputViewSetPlacement *)self transform];
+  objc_msgSend_transform(self);
   v7 = [v6 valueWithCGAffineTransform:v10];
   v12[1] = v7;
   v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];

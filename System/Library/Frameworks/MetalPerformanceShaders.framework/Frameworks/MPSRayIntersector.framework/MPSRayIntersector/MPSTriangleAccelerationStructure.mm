@@ -10,7 +10,7 @@
 {
   if (type)
   {
-    sub_239E24B08();
+    sub_239E24B08(self, a2);
   }
 }
 

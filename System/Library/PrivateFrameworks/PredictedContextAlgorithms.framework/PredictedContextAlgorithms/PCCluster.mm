@@ -460,34 +460,34 @@ LABEL_13:
 
 + (id)clusterObjectsFromProtobuf:(id)protobuf
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = protobufCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v11 = [PCCluster alloc];
-          v12 = [(PCCluster *)v11 initWithProtobufEquivalent:v10, v16];
+          v12 = [(PCCluster *)v11 initWithProtobufEquivalent:v10, v15];
           if (v12)
           {
             [v4 addObject:v12];
@@ -495,14 +495,13 @@ LABEL_13:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

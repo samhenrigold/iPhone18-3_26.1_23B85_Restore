@@ -1276,11 +1276,11 @@ LABEL_105:
 
 - (ASDPurchaseHistoryApp)initWithCoder:(id)coder
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v53.receiver = self;
-  v53.super_class = ASDPurchaseHistoryApp;
-  v5 = [(ASDPurchaseHistoryApp *)&v53 init];
+  v52.receiver = self;
+  v52.super_class = ASDPurchaseHistoryApp;
+  v5 = [(ASDPurchaseHistoryApp *)&v52 init];
   if (v5)
   {
     v6 = [coderCopy decodeInt32ForKey:@"A"];
@@ -1370,9 +1370,9 @@ LABEL_105:
     *(v5 + 27) = v36;
 
     v38 = MEMORY[0x1E695DFD8];
-    v54[0] = objc_opt_class();
-    v54[1] = objc_opt_class();
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+    v53[0] = objc_opt_class();
+    v53[1] = objc_opt_class();
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
     v40 = [v38 setWithArray:v39];
     v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"L"];
     v42 = *(v5 + 28);
@@ -1399,7 +1399,6 @@ LABEL_105:
     *(v5 + 6) = v49;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

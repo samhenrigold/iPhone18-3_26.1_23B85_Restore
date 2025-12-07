@@ -109,7 +109,7 @@
 
 - (NSSet)backgroundActivitiesToSuppress
 {
-  sub_100005AD4(&unk_1003BA340);
+  sub_100005AD4(&unk_1003BA340, &qword_1002E5270);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1002D3160;
   v3 = STBackgroundActivityIdentifierRecording;
@@ -119,7 +119,7 @@
   swift_setDeallocating();
   sub_1001A6BB0(inited + 32);
   type metadata accessor for STBackgroundActivityIdentifier(0);
-  sub_1001A6C24(&qword_1003A98C0, type metadata accessor for STBackgroundActivityIdentifier);
+  sub_1001A6C24(&qword_1003A98C0, type metadata accessor for STBackgroundActivityIdentifier, &unk_1002D2BDC);
   v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

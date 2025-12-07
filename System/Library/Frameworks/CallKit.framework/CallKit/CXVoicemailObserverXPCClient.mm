@@ -152,18 +152,16 @@ void __37__CXVoicemailObserverXPCClient__init__block_invoke_2(uint64_t a1)
 
 uint64_t __37__CXVoicemailObserverXPCClient__init__block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "com.apple.callkit.voicemailcontrollerhost.started";
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "com.apple.callkit.voicemailcontrollerhost.started";
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _requestVoicemails];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _requestVoicemails];
 }
 
 - (void)dealloc
@@ -232,7 +230,7 @@ uint64_t __37__CXVoicemailObserverXPCClient__init__block_invoke_3(uint64_t a1)
 void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_invoke_cold_1(v3, v4);
@@ -243,18 +241,17 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
 
 void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_invoke_7(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received reply from transaction request with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received reply from transaction request with error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -301,14 +298,15 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
         uUID = [v12 UUID];
         v15 = [voicemailUUIDToVoicemailMap objectForKeyedSubscript:uUID];
 
-        if (([v15 isEqualToVoicemail:v12] & 1) == 0)
+        v16 = [v15 isEqualToVoicemail:v12];
+        if ((v16 & 1) == 0)
         {
-          v16 = CXDefaultLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = CXDefaultLog(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v25;
             v36 = v12;
-            _os_log_impl(&dword_1B47F3000, v16, OS_LOG_TYPE_DEFAULT, "adding voicemail: %@", buf, 0xCu);
+            _os_log_impl(&dword_1B47F3000, v17, OS_LOG_TYPE_DEFAULT, "adding voicemail: %@", buf, 0xCu);
           }
 
           mutableVoicemailUUIDToVoicemailMap = [(CXVoicemailObserverXPCClient *)self mutableVoicemailUUIDToVoicemailMap];
@@ -331,32 +329,30 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
   v26 = 0u;
   v27 = 0u;
   delegates = [(CXVoicemailObserverXPCClient *)self delegates];
-  v20 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v20)
+  v21 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v27;
+    v22 = v21;
+    v23 = *v27;
     do
     {
-      v23 = 0;
+      v24 = 0;
       do
       {
-        if (*v27 != v22)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(delegates);
         }
 
-        [*(*(&v26 + 1) + 8 * v23++) dataSourceVoicemailsChanged:self];
+        [*(*(&v26 + 1) + 8 * v24++) dataSourceVoicemailsChanged:self];
       }
 
-      while (v21 != v23);
-      v21 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
+      while (v22 != v24);
+      v22 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v22);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeVoicemails:(id)voicemails
@@ -395,12 +391,12 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
 
         if (v15)
         {
-          v16 = CXDefaultLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = CXDefaultLog(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v25;
             v36 = v12;
-            _os_log_impl(&dword_1B47F3000, v16, OS_LOG_TYPE_DEFAULT, "removing voicemail: %@", buf, 0xCu);
+            _os_log_impl(&dword_1B47F3000, v17, OS_LOG_TYPE_DEFAULT, "removing voicemail: %@", buf, 0xCu);
           }
 
           mutableVoicemailUUIDToVoicemailMap = [(CXVoicemailObserverXPCClient *)self mutableVoicemailUUIDToVoicemailMap];
@@ -423,32 +419,30 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
   v26 = 0u;
   v27 = 0u;
   delegates = [(CXVoicemailObserverXPCClient *)self delegates];
-  v20 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v20)
+  v21 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v27;
+    v22 = v21;
+    v23 = *v27;
     do
     {
-      v23 = 0;
+      v24 = 0;
       do
       {
-        if (*v27 != v22)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(delegates);
         }
 
-        [*(*(&v26 + 1) + 8 * v23++) dataSourceVoicemailsChanged:self];
+        [*(*(&v26 + 1) + 8 * v24++) dataSourceVoicemailsChanged:self];
       }
 
-      while (v21 != v23);
-      v21 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
+      while (v22 != v24);
+      v22 = [delegates countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v22);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_requestVoicemails
@@ -456,26 +450,26 @@ void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_in
   queue = [(CXVoicemailObserverXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = CXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CXDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Requesting voicemails from host", buf, 2u);
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Requesting voicemails from host", buf, 2u);
   }
 
-  v5 = [(CXVoicemailObserverXPCClient *)self _remoteObjectProxyWithErrorHandler:&__block_literal_global_9 isSynchronous:1];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke_10;
-  v6[3] = &unk_1E7C070F0;
-  v6[4] = self;
-  [v5 requestVoicemails:v6];
+  v6 = [(CXVoicemailObserverXPCClient *)self _remoteObjectProxyWithErrorHandler:&__block_literal_global_9 isSynchronous:1];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke_10;
+  v7[3] = &unk_1E7C070F0;
+  v7[4] = self;
+  [v6 requestVoicemails:v7];
 }
 
 void __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CXDefaultLog();
+  v3 = CXDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke_cold_1(v2, v3);
@@ -484,18 +478,17 @@ void __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke(uint64_
 
 void __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke_10(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received requested voicemails from host: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received requested voicemails from host: %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _addOrUpdateVoicemails:v3];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidate
@@ -547,26 +540,25 @@ void __42__CXVoicemailObserverXPCClient_connection__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for voicemail observer %@", buf, 0xCu);
+      v7 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection invalidated for voicemail observer %@", buf, 0xCu);
     }
 
-    v3 = [WeakRetained queue];
+    v4 = [v2 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __42__CXVoicemailObserverXPCClient_connection__block_invoke_14;
     block[3] = &unk_1E7C06CA8;
-    block[4] = WeakRetained;
-    dispatch_async(v3, block);
+    block[4] = v2;
+    dispatch_async(v4, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_remoteObjectProxyWithErrorHandler:(id)handler isSynchronous:(BOOL)synchronous
@@ -629,20 +621,18 @@ void __42__CXVoicemailObserverXPCClient_connection__block_invoke(uint64_t a1)
 
 void __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Received error from transaction request: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Received error from transaction request: %@", &v2, 0xCu);
 }
 
 void __50__CXVoicemailObserverXPCClient__requestVoicemails__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error requesting voicemails from host: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error requesting voicemails from host: %@", &v2, 0xCu);
 }
 
 @end

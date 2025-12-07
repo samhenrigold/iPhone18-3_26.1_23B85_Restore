@@ -48,7 +48,7 @@
 
 - (void)_initializeFindMySessionIfInAllowedProcess
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deviceIsLockedDown = [MEMORY[0x277D1A9A0] deviceIsLockedDown];
   v4 = [objc_msgSend(MEMORY[0x277D1A9B8] "sharedFeatureFlags")];
   if (IMIsRunningInImagent())
@@ -56,7 +56,14 @@
     v5 = 1;
     if (deviceIsLockedDown)
     {
-      goto LABEL_11;
+LABEL_11:
+      v10 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        sub_22B7D7E04(v10);
+      }
+
+      return;
     }
   }
 
@@ -69,76 +76,56 @@
     }
   }
 
-  if ((v4 ^ 1 | v5))
+  if (((v4 ^ 1 | v5) & 1) == 0)
   {
-    if ([objc_msgSend(MEMORY[0x277D1A9B8] "sharedFeatureFlags")])
-    {
-      v6 = MEMORY[0x231897B40](@"FindMyLocateSession", @"FindMyLocateObjCWrapper");
-      if (!v6)
-      {
-        goto LABEL_18;
-      }
+    goto LABEL_11;
+  }
 
+  if ([objc_msgSend(MEMORY[0x277D1A9B8] "sharedFeatureFlags")])
+  {
+    v6 = MEMORY[0x231897B40](@"FindMyLocateSession", @"FindMyLocateObjCWrapper");
+    if (v6)
+    {
       self->_fmlSession = objc_alloc_init(v6);
       [(IMDLocationSharingController *)self _configureFindMyLocateSession];
-      if (!IMOSLoggingEnabled())
+      if (IMOSLoggingEnabled())
       {
-        goto LABEL_18;
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        {
+          fmlSession = self->_fmlSession;
+          v14 = 138412290;
+          v15 = fmlSession;
+          v9 = "Configured FindMyLocate Session: %@";
+LABEL_17:
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, v9, &v14, 0xCu);
+        }
       }
-
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-      {
-        goto LABEL_18;
-      }
-
-      fmlSession = self->_fmlSession;
-      v15 = 138412290;
-      v16 = fmlSession;
-      v9 = "Configured FindMyLocate Session: %@";
     }
+  }
 
-    else
+  else
+  {
+    v11 = MEMORY[0x231897B40](@"FMFSession", @"FMF");
+    if (v11)
     {
-      v11 = MEMORY[0x231897B40](@"FMFSession", @"FMF");
-      if (!v11)
-      {
-        goto LABEL_18;
-      }
-
       v12 = [[v11 alloc] initWithDelegate:self];
       self->_session = v12;
       -[FMFSession setDelegateQueue:](v12, "setDelegateQueue:", [MEMORY[0x277CCABD8] mainQueue]);
-      if (!IMOSLoggingEnabled())
+      if (IMOSLoggingEnabled())
       {
-        goto LABEL_18;
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        {
+          session = self->_session;
+          v14 = 138412290;
+          v15 = session;
+          v9 = "Configured FMF Session: %@";
+          goto LABEL_17;
+        }
       }
-
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-      {
-        goto LABEL_18;
-      }
-
-      session = self->_session;
-      v15 = 138412290;
-      v16 = session;
-      v9 = "Configured FMF Session: %@";
     }
-
-    _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, v9, &v15, 0xCu);
-    goto LABEL_18;
   }
-
-LABEL_11:
-  v10 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    sub_22B7D7E04(v10);
-  }
-
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureFindMyLocateSession
@@ -245,28 +232,28 @@ LABEL_11:
 {
   changesCopy = changes;
   itemCopy = item;
-  v69[2] = *MEMORY[0x277D85DE8];
+  v68[2] = *MEMORY[0x277D85DE8];
   v8 = IMLocationLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     dCopy2 = chats;
-    v66 = 2112;
+    v65 = 2112;
     dCopy = d;
-    v68 = 1024;
-    LODWORD(v69[0]) = itemCopy;
-    WORD2(v69[0]) = 1024;
-    *(v69 + 6) = changesCopy;
+    v67 = 1024;
+    LODWORD(v68[0]) = itemCopy;
+    WORD2(v68[0]) = 1024;
+    *(v68 + 6) = changesCopy;
     _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEFAULT, "Going to add location item: %@ to the corresponding chats with handleID: %@ hasStoredItem: %{BOOL}d broadcastChanges: %{BOOL}d", buf, 0x22u);
   }
 
-  v59 = 0u;
-  v60 = 0u;
   v58 = 0u;
+  v59 = 0u;
   v57 = 0u;
+  v56 = 0u;
   chats = [+[IMDChatRegistry sharedInstance](IMDChatRegistry chats];
-  v10 = [(NSArray *)chats countByEnumeratingWithState:&v57 objects:v63 count:16];
-  v49 = itemCopy;
+  v10 = [(NSArray *)chats countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v48 = itemCopy;
   if (v10)
   {
     v12 = v10;
@@ -276,25 +263,25 @@ LABEL_11:
       chatsCopy2 = 0;
     }
 
-    v50 = chatsCopy2;
+    v49 = chatsCopy2;
     v14 = MEMORY[0x277D1A620];
-    v15 = *v58;
-    v44 = *MEMORY[0x277D19F88];
+    v15 = *v57;
+    v43 = *MEMORY[0x277D19F88];
     *&v11 = 138412802;
-    v43 = v11;
-    v48 = *v58;
+    v42 = v11;
+    v47 = *v57;
     do
     {
       v16 = 0;
-      v47 = v12;
+      v46 = v12;
       do
       {
-        if (*v58 != v15)
+        if (*v57 != v15)
         {
           objc_enumerationMutation(chats);
         }
 
-        v17 = *(*(&v57 + 1) + 8 * v16);
+        v17 = *(*(&v56 + 1) + 8 * v16);
         if ([v17 style] != 45)
         {
           v26 = IMLocationLogHandle();
@@ -329,28 +316,28 @@ LABEL_25:
           goto LABEL_25;
         }
 
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         participants = [v17 participants];
-        v19 = [participants countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v19 = [participants countByEnumeratingWithState:&v52 objects:v61 count:16];
         if (v19)
         {
           v20 = v19;
           v21 = v14;
           v22 = chats;
-          v23 = *v54;
+          v23 = *v53;
 LABEL_14:
           v24 = 0;
           while (1)
           {
-            if (*v54 != v23)
+            if (*v53 != v23)
             {
               objc_enumerationMutation(participants);
             }
 
-            v25 = *(*(&v53 + 1) + 8 * v24);
+            v25 = *(*(&v52 + 1) + 8 * v24);
             if ([objc_msgSend(v25 "ID")])
             {
               break;
@@ -358,7 +345,7 @@ LABEL_14:
 
             if (v20 == ++v24)
             {
-              v20 = [participants countByEnumeratingWithState:&v53 objects:v62 count:16];
+              v20 = [participants countByEnumeratingWithState:&v52 objects:v61 count:16];
               if (v20)
               {
                 goto LABEL_14;
@@ -366,7 +353,7 @@ LABEL_14:
 
               chats = v22;
               v14 = v21;
-              v12 = v47;
+              v12 = v46;
               goto LABEL_36;
             }
           }
@@ -374,20 +361,20 @@ LABEL_14:
           v32 = IMLocationLogHandle();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v43;
+            *buf = v42;
             dCopy2 = d;
-            v66 = 2112;
+            v65 = 2112;
             dCopy = v25;
-            v68 = 2112;
-            v69[0] = v17;
+            v67 = 2112;
+            v68[0] = v17;
             _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_DEFAULT, "Found matching participant: %@<=>%@ in chat: %@", buf, 0x20u);
           }
 
           chats = v22;
           v14 = v21;
-          v12 = v47;
-          v15 = v48;
-          if ((v49 & 1) == 0)
+          v12 = v46;
+          v15 = v47;
+          if ((v48 & 1) == 0)
           {
             v33 = IMLocationLogHandle();
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
@@ -398,41 +385,41 @@ LABEL_14:
               _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_DEFAULT, "Storing location item with guid %@", buf, 0xCu);
             }
 
-            v50 = [+[IMDMessageStore sharedInstance](IMDMessageStore storeItem:"storeItem:forceReplace:" forceReplace:chats, 1];
+            v49 = [+[IMDMessageStore sharedInstance](IMDMessageStore storeItem:"storeItem:forceReplace:" forceReplace:chats, 1];
           }
 
-          if (v50)
+          if (v49)
           {
             v35 = IMLocationLogHandle();
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              guid4 = [v50 guid];
+              guid4 = [v49 guid];
               *buf = 138412290;
               dCopy2 = guid4;
               _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_DEFAULT, "Associating location item with guid %@ to chat.", buf, 0xCu);
             }
 
-            v37 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v44 ascending:0];
+            v37 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v43 ascending:0];
             synchronousDatabase = [MEMORY[0x277D18EB0] synchronousDatabase];
             guid5 = [v17 guid];
-            v61 = v37;
-            v49 = 1;
-            v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-            v51[0] = MEMORY[0x277D85DD0];
-            v51[1] = 3221225472;
-            v51[2] = sub_22B6475B4;
-            v51[3] = &unk_278706D50;
-            v51[4] = v50;
-            v51[5] = v17;
-            v52 = changesCopy;
-            [synchronousDatabase fetchMessageRecordsForChatRecordWithGUID:guid5 filteredUsingPredicate:0 sortedUsingDescriptors:v40 limit:20 completionHandler:v51];
+            v60 = v37;
+            v48 = 1;
+            v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+            v50[0] = MEMORY[0x277D85DD0];
+            v50[1] = 3221225472;
+            v50[2] = sub_22B6475B4;
+            v50[3] = &unk_278706D50;
+            v50[4] = v49;
+            v50[5] = v17;
+            v51 = changesCopy;
+            [synchronousDatabase fetchMessageRecordsForChatRecordWithGUID:guid5 filteredUsingPredicate:0 sortedUsingDescriptors:v40 limit:20 completionHandler:v50];
 LABEL_36:
-            v15 = v48;
+            v15 = v47;
             goto LABEL_38;
           }
 
-          v49 = 1;
-          v50 = 0;
+          v48 = 1;
+          v49 = 0;
         }
 
 LABEL_38:
@@ -440,13 +427,13 @@ LABEL_38:
       }
 
       while (v16 != v12);
-      v12 = [(NSArray *)chats countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v12 = [(NSArray *)chats countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v12);
   }
 
-  if ((v49 & 1) == 0)
+  if ((v48 & 1) == 0)
   {
     v41 = IMLocationLogHandle();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
@@ -455,8 +442,6 @@ LABEL_38:
       _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_DEFAULT, "No matching chat found, ignoring", buf, 2u);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateLocationSharingItemWithHandleID:(id)d direction:(int64_t)direction action:(int64_t)action
@@ -480,87 +465,82 @@ LABEL_38:
 
 - (void)didStartSharingMyLocationWithHandle:(id)handle
 {
-  v12 = *MEMORY[0x277D85DE8];
-  identifier = [handle identifier];
-  v6 = IMLocationLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 138412546;
-    handleCopy = handle;
-    v10 = 2112;
-    v11 = identifier;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Started location sharing to: %@ (%@)", &v8, 0x16u);
-  }
-
-  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:0 action:0];
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didStopSharingMyLocationWithHandle:(id)handle
-{
-  v12 = *MEMORY[0x277D85DE8];
-  identifier = [handle identifier];
-  v6 = IMLocationLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 138412546;
-    handleCopy = handle;
-    v10 = 2112;
-    v11 = identifier;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Stopped location sharing to: %@ (%@)", &v8, 0x16u);
-  }
-
-  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:0 action:1];
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didStartAbilityToGetLocationForHandle:(id)handle
-{
-  v12 = *MEMORY[0x277D85DE8];
-  identifier = [handle identifier];
-  v6 = IMLocationLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 138412546;
-    handleCopy = handle;
-    v10 = 2112;
-    v11 = identifier;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Received location sharing from: %@ (%@)", &v8, 0x16u);
-  }
-
-  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:1 action:0];
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didStopAbilityToGetLocationForHandle:(id)handle
-{
   v11 = *MEMORY[0x277D85DE8];
   identifier = [handle identifier];
-  v5 = IMLocationLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = IMLocationLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
     handleCopy = handle;
     v9 = 2112;
     v10 = identifier;
-    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Stopped location sharing from: %@ (%@)", &v7, 0x16u);
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Started location sharing to: %@ (%@)", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:0 action:0];
+}
+
+- (void)didStopSharingMyLocationWithHandle:(id)handle
+{
+  v11 = *MEMORY[0x277D85DE8];
+  identifier = [handle identifier];
+  v6 = IMLocationLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 138412546;
+    handleCopy = handle;
+    v9 = 2112;
+    v10 = identifier;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Stopped location sharing to: %@ (%@)", &v7, 0x16u);
+  }
+
+  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:0 action:1];
+}
+
+- (void)didStartAbilityToGetLocationForHandle:(id)handle
+{
+  v11 = *MEMORY[0x277D85DE8];
+  identifier = [handle identifier];
+  v6 = IMLocationLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 138412546;
+    handleCopy = handle;
+    v9 = 2112;
+    v10 = identifier;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Received location sharing from: %@ (%@)", &v7, 0x16u);
+  }
+
+  [(IMDLocationSharingController *)self _generateLocationSharingItemWithHandleID:identifier direction:1 action:0];
+}
+
+- (void)didStopAbilityToGetLocationForHandle:(id)handle
+{
+  v10 = *MEMORY[0x277D85DE8];
+  identifier = [handle identifier];
+  v5 = IMLocationLogHandle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 138412546;
+    handleCopy = handle;
+    v8 = 2112;
+    v9 = identifier;
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Stopped location sharing from: %@ (%@)", &v6, 0x16u);
+  }
 }
 
 - (void)sendMappingPacket:(id)packet toHandle:(id)handle account:(id)account
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!packet)
   {
     v16 = IMLocationLogHandle();
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_15;
+      return;
     }
 
-    LOWORD(v25) = 0;
+    LOWORD(v24) = 0;
     v17 = "sendMappingPacket: packet is nil, bailing.";
     v18 = v16;
     v19 = OS_LOG_TYPE_DEFAULT;
@@ -574,24 +554,24 @@ LABEL_38:
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_15;
+      return;
     }
 
     v20 = OSLogHandleForIMFoundationCategory();
     if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_15;
+      return;
     }
 
-    LOWORD(v25) = 0;
+    LOWORD(v24) = 0;
     v17 = "Missing iMessage service, cannot send Mapping packet";
     v18 = v20;
     v19 = OS_LOG_TYPE_INFO;
 LABEL_10:
     v21 = 2;
 LABEL_11:
-    _os_log_impl(&dword_22B4CC000, v18, v19, v17, &v25, v21);
-    goto LABEL_15;
+    _os_log_impl(&dword_22B4CC000, v18, v19, v17, &v24, v21);
+    return;
   }
 
   v12 = v11;
@@ -600,16 +580,16 @@ LABEL_11:
   {
     session = [account session];
     identifier = [handle identifier];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_22B647DB8;
-    v24[3] = &unk_278706D78;
-    v24[4] = v12;
-    v24[5] = handle;
-    v24[6] = self;
-    v24[7] = packet;
-    [session sendLocationSharingInfo:v12 toID:identifier completionBlock:v24];
-    goto LABEL_15;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_22B647DB8;
+    v23[3] = &unk_278706D78;
+    v23[4] = v12;
+    v23[5] = handle;
+    v23[6] = self;
+    v23[7] = packet;
+    [session sendLocationSharingInfo:v12 toID:identifier completionBlock:v23];
+    return;
   }
 
   if (IMOSLoggingEnabled())
@@ -617,7 +597,7 @@ LABEL_11:
     v22 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v25 = 138412290;
+      v24 = 138412290;
       handleCopy = handle;
       v17 = "No active session found for mapping packet to handle: %@, bailing";
       v18 = v22;
@@ -626,36 +606,31 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_15:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailToHandleMappingPacket:(id)packet error:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = IMLocationLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     packetCopy = packet;
-    v10 = 2112;
+    v9 = 2112;
     errorCopy = error;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Failed to handle mapping packet %@ with error %@", &v8, 0x16u);
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEFAULT, "Failed to handle mapping packet %@ with error %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedIncomingLocationSharePacket:(id)packet
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = IMLocationLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     packetCopy = packet;
-    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Received location share packet: %@", &v9, 0xCu);
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Received location share packet: %@", &v8, 0xCu);
   }
 
   v6 = [packet objectForKey:@"offer-request"];
@@ -669,23 +644,21 @@ LABEL_15:
     v7 = IMLocationLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_DEFAULT, "Missing mapping packet...", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_DEFAULT, "Missing mapping packet...", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forwardMappingPacket:(id)packet toID:(id)d account:(id)account
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v9 = IMLocationLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     dCopy = d;
-    _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEFAULT, "Forwarding mapping packet to ID: %@", &v12, 0xCu);
+    _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEFAULT, "Forwarding mapping packet to ID: %@", &v11, 0xCu);
   }
 
   v10 = MEMORY[0x231897B40](@"FMFHandle", @"FMF");
@@ -693,8 +666,6 @@ LABEL_15:
   {
     -[IMDLocationSharingController sendMappingPacket:toHandle:account:](self, "sendMappingPacket:toHandle:account:", packet, [v10 handleWithId:d], account);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

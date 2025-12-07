@@ -7,16 +7,16 @@ void sub_173C(uint64_t a1)
   [v4 setSelectedIntelligentCallScreeningMenuOptionForPhone:v3];
 }
 
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_CA28 != -1)
   {
     sub_2C74();
   }
 
-  v1 = qword_CA20;
+  v2 = qword_CA20;
 
-  return v1;
+  return v2;
 }
 
 void sub_19D8(id a1)
@@ -26,16 +26,16 @@ void sub_19D8(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_CA38 != -1)
   {
     sub_2C88();
   }
 
-  v1 = qword_CA30;
+  v2 = qword_CA30;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A60(id a1)
@@ -45,16 +45,16 @@ void sub_1A60(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_CA48 != -1)
   {
     sub_2C9C();
   }
 
-  v1 = qword_CA40;
+  v2 = qword_CA40;
 
-  return v1;
+  return v2;
 }
 
 void sub_1AE8(id a1)

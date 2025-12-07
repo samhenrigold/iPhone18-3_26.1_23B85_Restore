@@ -11,18 +11,16 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[6] = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"ServerType";
-  v7[1] = @"HostName";
-  v7[2] = @"Port";
-  v7[3] = @"AuthenticationMethod";
-  v7[4] = @"AuthenticationCredentialsAssetReference";
-  v7[5] = @"IMAPPathPrefix";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
+  v6[0] = @"ServerType";
+  v6[1] = @"HostName";
+  v6[2] = @"Port";
+  v6[3] = @"AuthenticationMethod";
+  v6[4] = @"AuthenticationCredentialsAssetReference";
+  v6[5] = @"IMAPPathPrefix";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -114,7 +114,7 @@
 
 - (void)updateWithRouteInfo:(id)info rerouteReason:(unint64_t)reason
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   data = [(_MNLocationSimulationState *)self data];
   simulationType = [data simulationType];
@@ -161,20 +161,18 @@
         data8 = [(_MNLocationSimulationState *)self data];
         currentLegIndex = [data8 currentLegIndex];
         [v18 distanceFromRoute];
-        v32[0] = 67109888;
-        v32[1] = lastRouteCoordinate;
-        v33 = 2048;
-        v34 = v27;
-        v35 = 1024;
-        v36 = currentLegIndex;
-        v37 = 2048;
-        v38 = v30;
-        _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_DEFAULT, "Putting location at [%u, %0.2f] and leg %d on new route. Was %0.1f meters away", v32, 0x22u);
+        v31[0] = 67109888;
+        v31[1] = lastRouteCoordinate;
+        v32 = 2048;
+        v33 = v27;
+        v34 = 1024;
+        v35 = currentLegIndex;
+        v36 = 2048;
+        v37 = v30;
+        _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_DEFAULT, "Putting location at [%u, %0.2f] and leg %d on new route. Was %0.1f meters away", v31, 0x22u);
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextSimulatedLocationWithElapsedTime:(double)time
@@ -297,17 +295,16 @@ LABEL_28:
 
 - (void)onEnterState
 {
-  startRouteCoordinate = self->_startRouteCoordinate;
   if (GEOPolylineCoordinateIsValid())
   {
-    v4 = self->_startRouteCoordinate;
+    startRouteCoordinate = self->_startRouteCoordinate;
     data = [(_MNLocationSimulationState *)self data];
-    [data setLastRouteCoordinate:v4];
+    [data setLastRouteCoordinate:startRouteCoordinate];
 
     _routeToFollow = [(_MNLocationSimulationState_FollowingRoute *)self _routeToFollow];
-    v6 = [_routeToFollow legIndexForRouteCoordinate:*&self->_startRouteCoordinate];
+    v5 = [_routeToFollow legIndexForRouteCoordinate:*&self->_startRouteCoordinate];
     data2 = [(_MNLocationSimulationState *)self data];
-    [data2 setCurrentLegIndex:v6];
+    [data2 setCurrentLegIndex:v5];
   }
 }
 

@@ -62,93 +62,93 @@
 
 - (CUFileResponse)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v12 = [(CUFileResponse *)self init];
-  if (!v12)
+  v7 = [(CUFileResponse *)self init];
+  if (!v7)
   {
     if (error)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed", v7, v8, v9, v10, v11, v36);
-      *error = v33 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed");
+      *error = v23 = 0;
     }
 
     else
     {
-      v33 = 0;
+      v23 = 0;
     }
 
     goto LABEL_17;
   }
 
   TypeID = CFArrayGetTypeID();
-  v14 = CFDictionaryGetTypedValue(dictionaryCopy, @"fIts", TypeID, 0);
-  if (!v14)
+  v9 = CFDictionaryGetTypedValue(dictionaryCopy, @"fIts", TypeID, 0);
+  if (!v9)
   {
     goto LABEL_13;
   }
 
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v37 = v14;
-  v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (!v17)
+  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v26 = v9;
+  v11 = v9;
+  v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (!v12)
   {
     goto LABEL_12;
   }
 
-  v18 = v17;
-  v19 = *v41;
+  v13 = v12;
+  v14 = *v30;
   while (2)
   {
-    for (i = 0; i != v18; ++i)
+    for (i = 0; i != v13; ++i)
     {
-      if (*v41 != v19)
+      if (*v30 != v14)
       {
-        objc_enumerationMutation(v16);
+        objc_enumerationMutation(v11);
       }
 
-      v21 = *(*(&v40 + 1) + 8 * i);
+      v16 = *(*(&v29 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v14 = v37;
+        v9 = v26;
         if (error)
         {
-          *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "Non-dict file item", v22, v23, v24, v25, v26, v36);
+          *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "Non-dict file item");
         }
 
         goto LABEL_23;
       }
 
-      v27 = [CUFileItem alloc];
-      v39 = 0;
-      v28 = [(CUFileItem *)v27 initWithDictionary:v21 error:&v39];
-      v29 = v39;
-      v30 = v29;
-      if (!v28)
+      v17 = [CUFileItem alloc];
+      v28 = 0;
+      v18 = [(CUFileItem *)v17 initWithDictionary:v16 error:&v28];
+      v19 = v28;
+      v20 = v19;
+      if (!v18)
       {
-        v14 = v37;
+        v9 = v26;
         if (error)
         {
-          v35 = v29;
-          *error = v30;
+          v25 = v19;
+          *error = v20;
         }
 
 LABEL_23:
-        v33 = 0;
+        v23 = 0;
         goto LABEL_16;
       }
 
-      [(NSArray *)v15 addObject:v28];
+      [(NSArray *)v10 addObject:v18];
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
-    if (v18)
+    v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v13)
     {
       continue;
     }
@@ -158,23 +158,23 @@ LABEL_23:
 
 LABEL_12:
 
-  fileItems = v12->_fileItems;
-  v12->_fileItems = v15;
+  fileItems = v7->_fileItems;
+  v7->_fileItems = v10;
 
-  v14 = v37;
+  v9 = v26;
 LABEL_13:
-  v38 = 0;
-  Int64Ranged = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2F80, 0, 0xFFFFFFFFLL, &v38);
-  if (!v38)
+  v27 = 0;
+  Int64Ranged = CFDictionaryGetInt64Ranged(dictionaryCopy, &unk_1F06A2F80, 0, 0xFFFFFFFFLL, &v27);
+  if (!v27)
   {
-    v12->_flags = Int64Ranged;
+    v7->_flags = Int64Ranged;
   }
 
-  v33 = v12;
+  v23 = v7;
 LABEL_16:
 
 LABEL_17:
-  return v33;
+  return v23;
 }
 
 @end

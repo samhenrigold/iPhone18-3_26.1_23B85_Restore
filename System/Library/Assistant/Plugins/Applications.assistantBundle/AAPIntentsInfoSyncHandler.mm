@@ -17,7 +17,7 @@
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity count:(int64_t)count forKey:(id)key beginInfo:(id)info
 {
-  if ([info count] >= 1 && (objc_msgSend(validity, "isEqualToString:", @"IntentsInfo") & 1) == 0)
+  if ([info count] >= 1 && (objc_msgSend_isEqualToString_(validity) & 1) == 0)
   {
     [info resetWithValidity:@"IntentsInfo"];
   }
@@ -33,52 +33,51 @@
   {
     self->_extensions = objc_alloc_init(NSMutableArray);
     v12 = [LSApplicationProxy applicationProxyForIdentifier:self->_appBundleId];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     plugInKitPlugins = [v12 plugInKitPlugins];
-    v14 = [plugInKitPlugins countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v14 = [plugInKitPlugins countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
-      v17 = INIntentsServiceExtensionPointName;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(plugInKitPlugins);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
-          if ([objc_msgSend(v19 "protocol")])
+          v18 = *(*(&v23 + 1) + 8 * i);
+          if (objc_msgSend_isEqualToString_([v18 protocol]))
           {
-            [(NSMutableArray *)self->_extensions addObject:v19];
+            [(NSMutableArray *)self->_extensions addObject:v18];
           }
         }
 
-        v15 = [plugInKitPlugins countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v15 = [plugInKitPlugins countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v15);
     }
 
-    v20 = [INAppInfo appInfoWithAppProxy:v12];
-    self->_appInfo = v20;
-    if (![-[INAppInfo supportedIntents](v20 "supportedIntents")])
+    v19 = [INAppInfo appInfoWithAppProxy:v12];
+    self->_appInfo = v19;
+    if (![-[INAppInfo supportedIntents](v19 "supportedIntents")])
     {
-      v21 = AFSiriLogContextPlugin;
+      v20 = AFSiriLogContextPlugin;
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
       {
         appBundleId = self->_appBundleId;
         *buf = 136315394;
-        v29 = "[AAPIntentsInfoSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:]";
-        v30 = 2112;
-        v31 = appBundleId;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: The app %@ no longer supports any intents", buf, 0x16u);
+        v28 = "[AAPIntentsInfoSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:]";
+        v29 = 2112;
+        v30 = appBundleId;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: The app %@ no longer supports any intents", buf, 0x16u);
       }
 
       if ([info count] >= 1)
@@ -90,10 +89,10 @@
 
   else
   {
-    v23 = AFSiriLogContextPlugin;
+    v22 = AFSiriLogContextPlugin;
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_11F9C(v23);
+      sub_11F9C(v22);
     }
   }
 }
@@ -102,221 +101,220 @@
 {
   if ([-[INAppInfo supportedIntents](self->_appInfo "supportedIntents")])
   {
-    anchorCopy = anchor;
     supportedIntents = [(INAppInfo *)self->_appInfo supportedIntents];
     if (![supportedIntents count])
     {
-      v8 = AFSiriLogContextPlugin;
+      v7 = AFSiriLogContextPlugin;
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
       {
-        sub_12020(self, v8);
+        sub_12020(self, v7);
       }
     }
 
     actionsRestrictedWhileLocked = [(INAppInfo *)self->_appInfo actionsRestrictedWhileLocked];
     supportedMediaCategories = [(INAppInfo *)self->_appInfo supportedMediaCategories];
-    v11 = [-[NSMutableArray firstObject](self->_extensions "firstObject")];
-    if (!v11 || (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v10 = [-[NSMutableArray firstObject](self->_extensions "firstObject")];
+    if (!v10 || (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v12 = [LSApplicationProxy applicationProxyForIdentifier:self->_appBundleId];
+      v11 = [LSApplicationProxy applicationProxyForIdentifier:self->_appBundleId];
     }
 
     selfCopy = self;
     infoCopy = info;
-    v51 = supportedMediaCategories;
-    v50 = actionsRestrictedWhileLocked;
-    if ([v12 bundleURL])
+    v50 = supportedMediaCategories;
+    v49 = actionsRestrictedWhileLocked;
+    if ([v11 bundleURL])
     {
-      v13 = +[NSBundle bundleWithURL:](NSBundle, "bundleWithURL:", [v12 bundleURL]);
+      v12 = +[NSBundle bundleWithURL:](NSBundle, "bundleWithURL:", [v11 bundleURL]);
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    localizations = [(NSBundle *)v13 localizations];
-    v55 = [[NSMutableDictionary alloc] initWithCapacity:{-[NSArray count](localizations, "count")}];
+    localizations = [(NSBundle *)v12 localizations];
+    v53 = [[NSMutableDictionary alloc] initWithCapacity:{-[NSArray count](localizations, "count")}];
     obj = localizations;
+    v71 = 0u;
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v15 = [(NSArray *)localizations countByEnumeratingWithState:&v73 objects:v81 count:16];
-    if (v15)
+    v14 = [(NSArray *)localizations countByEnumeratingWithState:&v71 objects:v79 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = *v74;
+      v15 = v14;
+      v16 = *v72;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v74 != v17)
+          if (*v72 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v73 + 1) + 8 * i);
-          v20 = [(NSBundle *)v13 URLForResource:@"AppIntentVocabulary" withExtension:@"plist" subdirectory:0 localization:v19];
-          if (v20)
+          v18 = *(*(&v71 + 1) + 8 * i);
+          v19 = [(NSBundle *)v12 URLForResource:@"AppIntentVocabulary" withExtension:@"plist" subdirectory:0 localization:v18];
+          if (v19)
           {
-            v21 = [[NSDictionary alloc] initWithContentsOfURL:v20];
-            if (v21)
+            v20 = [[NSDictionary alloc] initWithContentsOfURL:v19];
+            if (v20)
             {
-              [v55 setObject:v21 forKey:v19];
+              [v53 setObject:v20 forKey:v18];
             }
           }
         }
 
-        v16 = [(NSArray *)obj countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v15 = [(NSArray *)obj countByEnumeratingWithState:&v71 objects:v79 count:16];
       }
 
-      while (v16);
+      while (v15);
     }
 
-    v22 = objc_alloc_init(_INPBAppBundleInfo);
-    v23 = objc_alloc_init(_INPBIntentSupport);
+    v21 = objc_alloc_init(_INPBAppBundleInfo);
+    v22 = objc_alloc_init(_INPBIntentSupport);
+    v67 = 0u;
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v24 = [supportedIntents countByEnumeratingWithState:&v69 objects:v80 count:16];
-    if (v24)
+    v23 = [supportedIntents countByEnumeratingWithState:&v67 objects:v78 count:16];
+    if (v23)
     {
-      v25 = v24;
-      v26 = *v70;
+      v24 = v23;
+      v25 = *v68;
       do
       {
-        for (j = 0; j != v25; j = j + 1)
+        for (j = 0; j != v24; j = j + 1)
         {
-          if (*v70 != v26)
+          if (*v68 != v25)
           {
             objc_enumerationMutation(supportedIntents);
           }
 
-          v28 = *(*(&v69 + 1) + 8 * j);
-          v29 = objc_alloc_init(_INPBIntentType);
-          [v29 setType:v28];
-          [v23 addIntentsSupported:v29];
+          v27 = *(*(&v67 + 1) + 8 * j);
+          v28 = objc_alloc_init(_INPBIntentType);
+          [v28 setType:v27];
+          [v22 addIntentsSupported:v28];
         }
 
-        v25 = [supportedIntents countByEnumeratingWithState:&v69 objects:v80 count:16];
+        v24 = [supportedIntents countByEnumeratingWithState:&v67 objects:v78 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
-    v67 = 0u;
-    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v30 = [v50 countByEnumeratingWithState:&v65 objects:v79 count:16];
-    if (v30)
+    v63 = 0u;
+    v64 = 0u;
+    v29 = [v49 countByEnumeratingWithState:&v63 objects:v77 count:16];
+    if (v29)
     {
-      v31 = v30;
-      v32 = *v66;
+      v30 = v29;
+      v31 = *v64;
       do
       {
-        for (k = 0; k != v31; k = k + 1)
+        for (k = 0; k != v30; k = k + 1)
         {
-          if (*v66 != v32)
+          if (*v64 != v31)
+          {
+            objc_enumerationMutation(v49);
+          }
+
+          v33 = *(*(&v63 + 1) + 8 * k);
+          v34 = objc_alloc_init(_INPBIntentType);
+          [v34 setType:v33];
+          [v22 addIntentsRestrictedWhileLocked:v34];
+        }
+
+        v30 = [v49 countByEnumeratingWithState:&v63 objects:v77 count:16];
+      }
+
+      while (v30);
+    }
+
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v35 = [v50 countByEnumeratingWithState:&v59 objects:v76 count:16];
+    if (v35)
+    {
+      v36 = v35;
+      v37 = *v60;
+      do
+      {
+        for (m = 0; m != v36; m = m + 1)
+        {
+          if (*v60 != v37)
           {
             objc_enumerationMutation(v50);
           }
 
-          v34 = *(*(&v65 + 1) + 8 * k);
-          v35 = objc_alloc_init(_INPBIntentType);
-          [v35 setType:v34];
-          [v23 addIntentsRestrictedWhileLocked:v35];
+          [v22 addSupportedMediaCategories:*(*(&v59 + 1) + 8 * m)];
         }
 
-        v31 = [v50 countByEnumeratingWithState:&v65 objects:v79 count:16];
+        v36 = [v50 countByEnumeratingWithState:&v59 objects:v76 count:16];
       }
 
-      while (v31);
+      while (v36);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v36 = [v51 countByEnumeratingWithState:&v61 objects:v78 count:16];
-    if (v36)
-    {
-      v37 = v36;
-      v38 = *v62;
-      do
-      {
-        for (m = 0; m != v37; m = m + 1)
-        {
-          if (*v62 != v38)
-          {
-            objc_enumerationMutation(v51);
-          }
-
-          [v23 addSupportedMediaCategories:*(*(&v61 + 1) + 8 * m)];
-        }
-
-        v37 = [v51 countByEnumeratingWithState:&v61 objects:v78 count:16];
-      }
-
-      while (v37);
-    }
-
-    [v22 addIntentSupport:v23];
-    v40 = [(AAPIntentsInfoSyncHandler *)selfCopy _pbLocalizedProjectsForVocabularyInfoDictionary:INVocabulariesByLocaleByAddingInvocationPhrases()];
+    [v21 addIntentSupport:v22];
+    v39 = [(AAPIntentsInfoSyncHandler *)selfCopy _pbLocalizedProjectsForVocabularyInfoDictionary:INVocabulariesByLocaleByAddingInvocationPhrases()];
+    v55 = 0u;
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v41 = [v40 countByEnumeratingWithState:&v57 objects:v77 count:16];
-    if (v41)
+    v40 = [v39 countByEnumeratingWithState:&v55 objects:v75 count:16];
+    if (v40)
     {
-      v42 = v41;
-      v43 = *v58;
+      v41 = v40;
+      v42 = *v56;
       do
       {
-        for (n = 0; n != v42; n = n + 1)
+        for (n = 0; n != v41; n = n + 1)
         {
-          if (*v58 != v43)
+          if (*v56 != v42)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          [v22 addLocalizedProjects:*(*(&v57 + 1) + 8 * n)];
+          [v21 addLocalizedProjects:*(*(&v55 + 1) + 8 * n)];
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v57 objects:v77 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v55 objects:v75 count:16];
       }
 
-      while (v42);
+      while (v41);
     }
 
-    data = [v22 data];
+    data = [v21 data];
     CC_SHA1([data bytes], objc_msgSend(data, "length"), md);
-    v46 = [NSMutableString stringWithCapacity:40];
+    v45 = [NSMutableString stringWithCapacity:40];
     for (ii = 0; ii != 20; ++ii)
     {
-      [(NSMutableString *)v46 appendFormat:@"%02x", md[ii]];
+      [(NSMutableString *)v45 appendFormat:@"%02x", md[ii]];
     }
 
-    if (([(NSMutableString *)v46 isEqualToString:anchorCopy]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(v45))
     {
-      v48 = 0;
+      v47 = 0;
     }
 
     else
     {
-      v49 = objc_alloc_init(SAIntentGroupProtobufMessage);
-      [v49 setData:data];
-      [v49 setTypeName:@"sirikit.apps.AppBundleInfo"];
-      v48 = objc_alloc_init(SAIntentGroupAceAppIntentPolicyAndVocab);
-      [v48 setAceAppBundleInfo:v49];
-      [v48 setIdentifier:{+[NSURL URLWithString:](NSURL, "URLWithString:", selfCopy->_appBundleId)}];
+      v48 = objc_alloc_init(SAIntentGroupProtobufMessage);
+      [v48 setData:data];
+      [v48 setTypeName:@"sirikit.apps.AppBundleInfo"];
+      v47 = objc_alloc_init(SAIntentGroupAceAppIntentPolicyAndVocab);
+      [v47 setAceAppBundleInfo:v48];
+      [v47 setIdentifier:{+[NSURL URLWithString:](NSURL, "URLWithString:", selfCopy->_appBundleId)}];
     }
 
-    [infoCopy setObject:v48];
-    [infoCopy setPostAnchor:v46];
+    [infoCopy setObject:v47];
+    [infoCopy setPostAnchor:v45];
     [infoCopy setIsDelete:0];
   }
 

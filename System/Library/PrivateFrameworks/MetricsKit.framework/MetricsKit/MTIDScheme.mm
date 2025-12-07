@@ -340,7 +340,7 @@
 
 - (unint64_t)calculateHash
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   idNamespace = [(MTIDScheme *)self idNamespace];
   v4 = [idNamespace hash];
 
@@ -353,37 +353,36 @@
   containerIdentifier = [(MTIDScheme *)self containerIdentifier];
   v11 = v9 ^ [containerIdentifier hash];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   correlations = [(MTIDScheme *)self correlations];
-  v13 = [correlations countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [correlations countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(correlations);
         }
 
-        v11 ^= [*(*(&v19 + 1) + 8 * v16++) hash];
+        v11 ^= [*(*(&v18 + 1) + 8 * v16++) hash];
       }
 
       while (v14 != v16);
-      v14 = [correlations countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [correlations countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

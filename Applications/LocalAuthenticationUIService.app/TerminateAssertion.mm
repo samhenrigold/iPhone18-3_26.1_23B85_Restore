@@ -25,14 +25,14 @@
   {
     v6 = v4[1];
     selfCopy = self;
-    outlined copy of (@escaping @callee_guaranteed () -> ())?(v5);
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v5, v6);
     v5(selfCopy);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v5, v6);
     v8 = *v4;
     v9 = v4[1];
     *v4 = 0;
     v4[1] = 0;
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v9);
   }
 
   else

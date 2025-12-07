@@ -97,7 +97,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -108,7 +107,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    sessionProtocolVersionNumber = self->_sessionProtocolVersionNumber;
     PBDataWriterWriteUint32Field();
   }
 
@@ -119,7 +117,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    clientType = self->_clientType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -189,7 +186,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 44);
     if (has)
     {
       if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -217,7 +213,6 @@ LABEL_22:
       has = self->_has;
     }
 
-    v9 = *(equal + 44);
     if ((has & 4) != 0)
     {
       if ((*(equal + 44) & 4) == 0 || self->_sessionProtocolVersionNumber != *(equal + 10))

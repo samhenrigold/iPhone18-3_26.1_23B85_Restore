@@ -201,7 +201,7 @@ uint64_t __22__CONodeManager_start__block_invoke_3(uint64_t a1)
 
 void __22__CONodeManager_start__block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -221,25 +221,22 @@ void __22__CONodeManager_start__block_invoke_4(uint64_t a1, uint64_t a2)
     {
       v7 = [WeakRetained shortDescription];
       v8 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully started browser %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully started browser %@", &v10, 0x16u);
     }
 
-    v9 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       v6 = WeakRetained[6];
-      WeakRetained[6] = v10;
+      WeakRetained[6] = v9;
 LABEL_9:
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopWithCompletionHandler:(id)handler
@@ -267,7 +264,7 @@ LABEL_9:
 
 void __43__CONodeManager_stopWithCompletionHandler___block_invoke(id *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained)
   {
@@ -285,8 +282,8 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke(id *a1)
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v20 = 0x2020000000;
-    v21 = 0;
+    v19 = 0x2020000000;
+    v20 = 0;
     v6 = a1[4];
     objc_sync_enter(v6);
     v7 = [WeakRetained nodeControllers];
@@ -302,18 +299,18 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke(id *a1)
     objc_sync_exit(v6);
     if (*(*(&buf + 1) + 24))
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __43__CONodeManager_stopWithCompletionHandler___block_invoke_2;
-      v14[3] = &unk_278E174E8;
-      objc_copyWeak(v18, a1 + 6);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __43__CONodeManager_stopWithCompletionHandler___block_invoke_2;
+      v13[3] = &unk_278E174E8;
+      objc_copyWeak(v17, a1 + 6);
       p_buf = &buf;
-      v15 = v10;
-      v18[1] = v12;
-      v16 = a1[5];
-      [v15 enumerateKeysAndObjectsUsingBlock:v14];
+      v14 = v10;
+      v17[1] = v12;
+      v15 = a1[5];
+      [v14 enumerateKeysAndObjectsUsingBlock:v13];
 
-      objc_destroyWeak(v18);
+      objc_destroyWeak(v17);
     }
 
     else
@@ -323,8 +320,6 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke(id *a1)
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CONodeManager_stopWithCompletionHandler___block_invoke_21(uint64_t a1, void *a2, void *a3)
@@ -363,7 +358,7 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke_2(uint64_t a1,
 
 void __43__CONodeManager_stopWithCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -377,30 +372,30 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke_3(uint64_t a1)
       if (v6 > [v3 electionStart])
       {
         v7 = [v3 executionContext];
-        v24 = [v7 label];
+        v23 = [v7 label];
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v8 = [*(a1 + 32) allValues];
         v9 = 0;
         v10 = 0;
-        v11 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v11 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v11)
         {
-          v12 = *v32;
+          v12 = *v31;
           do
           {
             v13 = 0;
             do
             {
-              if (*v32 != v12)
+              if (*v31 != v12)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v14 = [*(*(&v31 + 1) + 8 * v13) node];
+              v14 = [*(*(&v30 + 1) + 8 * v13) node];
               if ([v14 connectionType] == 2)
               {
                 ++v10;
@@ -414,7 +409,7 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke_3(uint64_t a1)
             }
 
             while (v11 != v13);
-            v11 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            v11 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
           }
 
           while (v11);
@@ -424,19 +419,19 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke_3(uint64_t a1)
         v16 = [v3 executionContext];
         v17 = [v16 analyticsRecorder];
 
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __43__CONodeManager_stopWithCompletionHandler___block_invoke_4;
-        v25[3] = &unk_278E16428;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __43__CONodeManager_stopWithCompletionHandler___block_invoke_4;
+        v24[3] = &unk_278E16428;
         v18 = *(a1 + 64);
-        v28 = v10;
-        v29 = v9;
-        v30 = (v15 - v6) / 1000000000.0;
-        v26 = v24;
-        v27 = v18;
+        v27 = v10;
+        v28 = v9;
+        v29 = (v15 - v6) / 1000000000.0;
+        v25 = v23;
+        v26 = v18;
         v19 = v17[2];
-        v20 = v24;
-        v19(v17, 0x2857B5D48, v25);
+        v20 = v23;
+        v19(v17, 0x2857B5D48, v24);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -449,33 +444,29 @@ void __43__CONodeManager_stopWithCompletionHandler___block_invoke_3(uint64_t a1)
       objc_sync_exit(v21);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 id __43__CONodeManager_stopWithCompletionHandler___block_invoke_4(uint64_t a1)
 {
-  v11[6] = *MEMORY[0x277D85DE8];
-  v11[0] = &unk_2857C8880;
-  v10[0] = 0x2857B5E08;
-  v10[1] = 0x2857B5E28;
+  v10[6] = *MEMORY[0x277D85DE8];
+  v10[0] = &unk_2857C8880;
+  v9[0] = 0x2857B5E08;
+  v9[1] = 0x2857B5E28;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
-  v11[1] = v2;
-  v10[2] = 0x2857B5E48;
+  v10[1] = v2;
+  v9[2] = 0x2857B5E48;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
-  v11[2] = v3;
-  v10[3] = 0x2857B5E68;
+  v10[2] = v3;
+  v9[3] = 0x2857B5E68;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
-  v11[3] = v4;
-  v10[4] = 0x2857B5DE8;
+  v10[3] = v4;
+  v9[4] = 0x2857B5DE8;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
-  v10[5] = 0x2857B5DC8;
+  v9[5] = 0x2857B5DC8;
   v6 = *(a1 + 32);
-  v11[4] = v5;
-  v11[5] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v5;
+  v10[5] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
 
   return v7;
 }
@@ -509,7 +500,7 @@ id __43__CONodeManager_stopWithCompletionHandler___block_invoke_4(uint64_t a1)
 
 - (void)sendCommands:(id)commands
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   commandsCopy = commands;
   if ([commandsCopy count])
   {
@@ -517,38 +508,36 @@ id __43__CONodeManager_stopWithCompletionHandler___block_invoke_4(uint64_t a1)
     [executionContext assertDispatchQueue];
 
     [(CONodeManager *)self pingLeader];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = commandsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [(CONodeManager *)self sendCommand:*(*(&v12 + 1) + 8 * v10++), v12];
+          [(CONodeManager *)self sendCommand:*(*(&v11 + 1) + 8 * v10++), v11];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCommand:(id)command
@@ -614,7 +603,7 @@ id __43__CONodeManager_stopWithCompletionHandler___block_invoke_4(uint64_t a1)
 
 void __29__CONodeManager_sendCommand___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = a2;
+  v17 = a2;
   v7 = a3;
   v8 = a4;
   v9 = *(a1 + 32);
@@ -632,11 +621,9 @@ void __29__CONodeManager_sendCommand___block_invoke(uint64_t a1, void *a2, void 
 
   if (!v12)
   {
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 64);
-    if (objc_opt_isKindOfClass() & 1) != 0 || (v15 = *(a1 + 40), v16 = *(a1 + 72), (objc_opt_isKindOfClass()) || (v17 = *(a1 + 40), v18 = *(a1 + 80), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass())
     {
-      v19 = [v9 delegate];
+      v13 = [v9 delegate];
       if (!v8)
       {
         if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -646,9 +633,9 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        v21 = *(a1 + 48);
-        v20 = [v23 command];
-        [v19 node:v21 didReceiveResponse:v7 toRequest:v20];
+        v15 = *(a1 + 48);
+        v14 = [v17 command];
+        [v13 node:v15 didReceiveResponse:v7 toRequest:v14];
 LABEL_12:
 
         goto LABEL_13;
@@ -657,7 +644,7 @@ LABEL_12:
 
     else
     {
-      v19 = [v9 delegate];
+      v13 = [v9 delegate];
       if (!v8)
       {
         if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -665,15 +652,15 @@ LABEL_12:
           goto LABEL_13;
         }
 
-        v22 = *(a1 + 48);
-        v20 = [v23 command];
-        [v19 node:v22 didSendCommand:v20];
+        v16 = *(a1 + 48);
+        v14 = [v17 command];
+        [v13 node:v16 didSendCommand:v14];
         goto LABEL_12;
       }
     }
 
-    v20 = [v23 command];
-    [v9 nodeController:v11 didReceiveError:v8 forCommand:v20];
+    v14 = [v17 command];
+    [v9 nodeController:v11 didReceiveError:v8 forCommand:v14];
     goto LABEL_12;
   }
 
@@ -875,7 +862,7 @@ void __41__CONodeManager_activeNodesWithSelfNode___block_invoke(uint64_t a1, uin
 
 - (void)_didLoseRecord:(id)record
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   executionContext = [(CONodeManager *)self executionContext];
   [executionContext assertDispatchQueue];
@@ -884,24 +871,22 @@ void __41__CONodeManager_activeNodesWithSelfNode___block_invoke(uint64_t a1, uin
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(CONodeManager *)self shortDescription];
-    v9 = 138543618;
-    v10 = shortDescription;
-    v11 = 2112;
-    v12 = recordCopy;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ lost a record %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = shortDescription;
+    v10 = 2112;
+    v11 = recordCopy;
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ lost a record %@", &v8, 0x16u);
   }
 
   if (self->_started)
   {
     [(CONodeManager *)self _handleLostRecord:recordCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nodeController:(id)controller didUpdateState:(int64_t)state to:(int64_t)to reason:(int64_t)reason withLastSentElectionInfo:(id)info
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   infoCopy = info;
   executionContext = [(CONodeManager *)self executionContext];
@@ -918,15 +903,15 @@ void __41__CONodeManager_activeNodesWithSelfNode___block_invoke(uint64_t a1, uin
     shortDescription = [(CONodeManager *)self shortDescription];
     v17 = CONodeControllerStateDescription(state);
     v18 = CONodeControllerStateDescription(to);
-    v20 = 138544130;
-    v21 = shortDescription;
-    v22 = 2048;
-    v23 = controllerCopy;
-    v24 = 2114;
-    v25 = v17;
-    v26 = 2114;
-    v27 = v18;
-    _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ updated %p state from %{public}@ to %{public}@", &v20, 0x2Au);
+    v19 = 138544130;
+    v20 = shortDescription;
+    v21 = 2048;
+    v22 = controllerCopy;
+    v23 = 2114;
+    v24 = v17;
+    v25 = 2114;
+    v26 = v18;
+    _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ updated %p state from %{public}@ to %{public}@", &v19, 0x2Au);
   }
 
   if (to <= 3)
@@ -967,13 +952,11 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fast_fold_nodeController:(id)controller didReceiveElectionCmd:(id)cmd withCompletionHandler:(id)handler
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   cmdCopy = cmd;
   handlerCopy = handler;
@@ -988,10 +971,10 @@ LABEL_18:
       shortDescription = [(CONodeManager *)self shortDescription];
       *buf = 138543874;
       selfCopy3 = shortDescription;
-      v55 = 2112;
-      v56 = cmdCopy;
-      v57 = 2048;
-      v58 = controllerCopy;
+      v54 = 2112;
+      v55 = cmdCopy;
+      v56 = 2048;
+      v57 = controllerCopy;
       _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ got a command %@ from node controller %p", buf, 0x20u);
     }
 
@@ -1027,10 +1010,10 @@ LABEL_27:
         generation4 = [(COElectionInfo *)v15 generation];
         *buf = 138543874;
         selfCopy3 = shortDescription2;
-        v55 = 2048;
-        v56 = generation3;
-        v57 = 2048;
-        v58 = generation4;
+        v54 = 2048;
+        v55 = generation3;
+        v56 = 2048;
+        v57 = generation4;
         _os_log_impl(&dword_244378000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ Our generation %llu is greater than the incoming generation %llu", buf, 0x20u);
       }
 
@@ -1087,10 +1070,10 @@ LABEL_21:
             shortDescription3 = [(CONodeManager *)self shortDescription];
             *buf = 138543874;
             selfCopy3 = shortDescription3;
-            v55 = 2048;
-            v56 = generation;
-            v57 = 2048;
-            v58 = generation2;
+            v54 = 2048;
+            v55 = generation;
+            v56 = 2048;
+            v57 = generation2;
             _os_log_impl(&dword_244378000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ bumping election generation from %llu to %llu", buf, 0x20u);
           }
 
@@ -1108,13 +1091,13 @@ LABEL_21:
         v45 = [nodeControllers copy];
 
         objc_sync_exit(selfCopy);
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke;
-        v50[3] = &unk_278E175B0;
-        v51 = controllerCopy;
-        v52 = selfCopy;
-        [v45 enumerateKeysAndObjectsUsingBlock:v50];
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke;
+        v49[3] = &unk_278E175B0;
+        v50 = controllerCopy;
+        v51 = selfCopy;
+        [v45 enumerateKeysAndObjectsUsingBlock:v49];
 
         goto LABEL_27;
       }
@@ -1125,10 +1108,10 @@ LABEL_21:
         discovery = [v33 discovery];
         *buf = 134218498;
         selfCopy3 = self;
-        v55 = 2112;
-        v56 = discovery;
-        v57 = 2048;
-        v58 = v33;
+        v54 = 2112;
+        v55 = discovery;
+        v56 = 2048;
+        v57 = v33;
         _os_log_impl(&dword_244378000, v36, OS_LOG_TYPE_DEFAULT, "%p updated Discovery %@ in ballot %p when handling response", buf, 0x20u);
       }
     }
@@ -1140,14 +1123,14 @@ LABEL_21:
       {
         *buf = 134219010;
         selfCopy3 = self;
-        v55 = 2112;
-        v56 = v35;
-        v57 = 2112;
-        v58 = controllerCopy;
-        v59 = 2048;
-        v60 = v33;
-        v61 = 2112;
-        v62 = cmdCopy;
+        v54 = 2112;
+        v55 = v35;
+        v56 = 2112;
+        v57 = controllerCopy;
+        v58 = 2048;
+        v59 = v33;
+        v60 = 2112;
+        v61 = cmdCopy;
         _os_log_debug_impl(&dword_244378000, v36, OS_LOG_TYPE_DEBUG, "%p cannot add Discovery %@ for %@ to ballot %p when handling response %@", buf, 0x34u);
       }
     }
@@ -1156,8 +1139,6 @@ LABEL_21:
   }
 
 LABEL_28:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1173,7 +1154,7 @@ void __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withComp
 
 - (void)nodeController:(id)controller didReceiveElectionCmd:(id)cmd withCompletionHandler:(id)handler
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   cmdCopy = cmd;
   handlerCopy = handler;
@@ -1193,10 +1174,10 @@ void __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withComp
       shortDescription = [(CONodeManager *)self shortDescription];
       *buf = 138543874;
       selfCopy3 = shortDescription;
-      v72 = 2112;
-      v73 = cmdCopy;
-      v74 = 2048;
-      v75 = controllerCopy;
+      v71 = 2112;
+      v72 = cmdCopy;
+      v73 = 2048;
+      v74 = controllerCopy;
       _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ got a command %@ from node controller %p", buf, 0x20u);
     }
 
@@ -1204,9 +1185,9 @@ void __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withComp
     ballot = [cmdCopy ballot];
     [ballotBrowser discoveryUsingBallot:ballot];
 
-    v66 = [[COElectionInfo alloc] initWithCommand:cmdCopy];
+    v65 = [[COElectionInfo alloc] initWithCommand:cmdCopy];
     electionInfo = [(CONodeManager *)self electionInfo];
-    v16 = [electionInfo hasGreaterGenerationThan:v66];
+    v16 = [electionInfo hasGreaterGenerationThan:v65];
 
     if (v16)
     {
@@ -1216,13 +1197,13 @@ void __86__CONodeManager_fast_fold_nodeController_didReceiveElectionCmd_withComp
         shortDescription2 = [(CONodeManager *)self shortDescription];
         electionInfo2 = [(CONodeManager *)self electionInfo];
         generation = [electionInfo2 generation];
-        generation2 = [(COElectionInfo *)v66 generation];
+        generation2 = [(COElectionInfo *)v65 generation];
         *buf = 138543874;
         selfCopy3 = shortDescription2;
-        v72 = 2048;
-        v73 = generation;
-        v74 = 2048;
-        v75 = generation2;
+        v71 = 2048;
+        v72 = generation;
+        v73 = 2048;
+        v74 = generation2;
         _os_log_impl(&dword_244378000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Our generation %llu is greater than the incoming generation %llu", buf, 0x20u);
       }
 
@@ -1236,7 +1217,7 @@ LABEL_44:
     }
 
     electionInfo4 = [(CONodeManager *)self electionInfo];
-    v24 = [electionInfo4 isEqual:v66];
+    v24 = [electionInfo4 isEqual:v65];
 
     if (v24)
     {
@@ -1246,7 +1227,7 @@ LABEL_44:
     }
 
     electionInfo5 = [(CONodeManager *)self electionInfo];
-    v26 = [electionInfo5 hasSameGenerationAndLeader:v66];
+    v26 = [electionInfo5 hasSameGenerationAndLeader:v65];
 
     if (v26)
     {
@@ -1260,12 +1241,12 @@ LABEL_44:
         generation3 = [electionInfo7 generation];
         *buf = 138544130;
         selfCopy3 = shortDescription3;
-        v72 = 2112;
-        v73 = leader;
-        v74 = 2048;
-        v75 = generation3;
-        v76 = 2112;
-        v77 = controllerCopy;
+        v71 = 2112;
+        v72 = leader;
+        v73 = 2048;
+        v74 = generation3;
+        v75 = 2112;
+        v76 = controllerCopy;
         _os_log_impl(&dword_244378000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ The leader %@ and generation %llu for command  %@ on node has not changed", buf, 0x2Au);
       }
 
@@ -1275,7 +1256,7 @@ LABEL_44:
     electionInfo8 = [(CONodeManager *)self electionInfo];
     generation4 = [electionInfo8 generation];
 
-    generation5 = [(COElectionInfo *)v66 generation];
+    generation5 = [(COElectionInfo *)v65 generation];
     node = [controllerCopy node];
     electionInfo3 = [node remote];
 
@@ -1311,8 +1292,8 @@ LABEL_26:
             shortDescription4 = [(CONodeManager *)self shortDescription];
             *buf = 138543618;
             selfCopy3 = shortDescription4;
-            v72 = 2114;
-            v73 = electionInfo3;
+            v71 = 2114;
+            v72 = electionInfo3;
             _os_log_impl(&dword_244378000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@ adding candidate %{public}@ to our ballot", buf, 0x16u);
           }
 
@@ -1328,10 +1309,10 @@ LABEL_31:
             shortDescription5 = [(CONodeManager *)self shortDescription];
             *buf = 138543874;
             selfCopy3 = shortDescription5;
-            v72 = 2048;
-            v73 = generation4;
-            v74 = 2048;
-            v75 = generation5;
+            v71 = 2048;
+            v72 = generation4;
+            v73 = 2048;
+            v74 = generation5;
             _os_log_impl(&dword_244378000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ upgrading election generation from %llu to %llu", buf, 0x20u);
           }
 
@@ -1366,8 +1347,8 @@ LABEL_31:
                 generation6 = [electionInfo12 generation];
                 *buf = 138543618;
                 selfCopy3 = shortDescription6;
-                v72 = 2048;
-                v73 = generation6;
+                v71 = 2048;
+                v72 = generation6;
                 _os_log_impl(&dword_244378000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@ Starting ELECTION %llu", buf, 0x16u);
               }
 
@@ -1394,13 +1375,13 @@ LABEL_43:
         v62 = [nodeControllers copy];
 
         objc_sync_exit(selfCopy);
-        v67[0] = MEMORY[0x277D85DD0];
-        v67[1] = 3221225472;
-        v67[2] = __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke;
-        v67[3] = &unk_278E175B0;
-        v68 = controllerCopy;
-        v69 = selfCopy;
-        [v62 enumerateKeysAndObjectsUsingBlock:v67];
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke;
+        v66[3] = &unk_278E175B0;
+        v67 = controllerCopy;
+        v68 = selfCopy;
+        [v62 enumerateKeysAndObjectsUsingBlock:v66];
 
         goto LABEL_44;
       }
@@ -1411,10 +1392,10 @@ LABEL_43:
         discovery = [v41 discovery];
         *buf = 134218498;
         selfCopy3 = self;
-        v72 = 2112;
-        v73 = discovery;
-        v74 = 2048;
-        v75 = v41;
+        v71 = 2112;
+        v72 = discovery;
+        v73 = 2048;
+        v74 = v41;
         _os_log_impl(&dword_244378000, v44, OS_LOG_TYPE_DEFAULT, "%p updated Discovery %@ in ballot %p when handling response", buf, 0x20u);
       }
     }
@@ -1426,14 +1407,14 @@ LABEL_43:
       {
         *buf = 134219010;
         selfCopy3 = self;
-        v72 = 2112;
-        v73 = v43;
-        v74 = 2112;
-        v75 = controllerCopy;
-        v76 = 2048;
-        v77 = v41;
-        v78 = 2112;
-        v79 = cmdCopy;
+        v71 = 2112;
+        v72 = v43;
+        v73 = 2112;
+        v74 = controllerCopy;
+        v75 = 2048;
+        v76 = v41;
+        v77 = 2112;
+        v78 = cmdCopy;
         _os_log_debug_impl(&dword_244378000, v44, OS_LOG_TYPE_DEBUG, "%p cannot add Discovery %@ for %@ to ballot %p when handling response %@", buf, 0x34u);
       }
     }
@@ -1443,8 +1424,6 @@ LABEL_43:
 
   [(CONodeManager *)self fast_fold_nodeController:controllerCopy didReceiveElectionCmd:cmdCopy withCompletionHandler:handlerCopy];
 LABEL_45:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1520,7 +1499,7 @@ void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHand
 
 - (void)nodeController:(id)controller didReceiveError:(id)error forCommand:(id)command
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   commandCopy = command;
@@ -1544,22 +1523,20 @@ void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHand
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       shortDescription = [(CONodeManager *)self shortDescription];
-      v19 = 138543874;
-      v20 = shortDescription;
-      v21 = 2112;
-      v22 = commandCopy;
-      v23 = 2112;
-      v24 = errorCopy;
-      _os_log_error_impl(&dword_244378000, v16, OS_LOG_TYPE_ERROR, "%{public}@ failed to send a command %@ with error %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = shortDescription;
+      v20 = 2112;
+      v21 = commandCopy;
+      v22 = 2112;
+      v23 = errorCopy;
+      _os_log_error_impl(&dword_244378000, v16, OS_LOG_TYPE_ERROR, "%{public}@ failed to send a command %@ with error %@", &v18, 0x20u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nodeController:(id)controller didUpdateRemoteConstituent:(id)constituent to:(id)to
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   constituentCopy = constituent;
   toCopy = to;
@@ -1586,12 +1563,12 @@ void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHand
       executionContext2 = [(CONodeManager *)self executionContext];
       analyticsRecorder = [executionContext2 analyticsRecorder];
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invoke;
-      v30[3] = &unk_278E16770;
-      v30[4] = self;
-      (analyticsRecorder->super._discovery)(analyticsRecorder, 0x2857B5D68, v30);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invoke;
+      v29[3] = &unk_278E16770;
+      v29[4] = self;
+      (analyticsRecorder->super._discovery)(analyticsRecorder, 0x2857B5D68, v29);
       [(CONodeManager *)self _bumpGeneration];
       [(CONodeManager *)self _resetBallot];
     }
@@ -1613,19 +1590,19 @@ void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHand
 
         if (([firstObject isEqual:leader] & 1) == 0)
         {
-          v25 = COCoreLogForCategory(15);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v24 = COCoreLogForCategory(15);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             shortDescription = [(CONodeManager *)self shortDescription];
             *buf = 138544130;
-            v32 = shortDescription;
-            v33 = 2112;
-            v34 = controllerCopy;
-            v35 = 2112;
-            v36 = toCopy;
-            v37 = 2112;
-            v38 = leader;
-            _os_log_impl(&dword_244378000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ node controller changed %@ to a new constituent %@ that is better than our current leader %@", buf, 0x2Au);
+            v31 = shortDescription;
+            v32 = 2112;
+            v33 = controllerCopy;
+            v34 = 2112;
+            v35 = toCopy;
+            v36 = 2112;
+            v37 = leader;
+            _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ node controller changed %@ to a new constituent %@ that is better than our current leader %@", buf, 0x2Au);
           }
 
           [(CONodeManager *)self _bumpGeneration];
@@ -1642,10 +1619,10 @@ void __76__CONodeManager_nodeController_didReceiveElectionCmd_withCompletionHand
       {
         electionInfo3 = [(CONodeManager *)self electionInfo];
         [electionInfo3 ballot];
-        v22 = v29 = electionInfo2;
-        analyticsRecorder = [v22 mutableCopy];
+        v21 = v28 = electionInfo2;
+        analyticsRecorder = [v21 mutableCopy];
 
-        electionInfo2 = v29;
+        electionInfo2 = v28;
       }
 
       else
@@ -1662,19 +1639,19 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      v27 = COCoreLogForCategory(15);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v26 = COCoreLogForCategory(15);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         shortDescription2 = [(CONodeManager *)self shortDescription];
         *buf = 138544130;
-        v32 = shortDescription2;
-        v33 = 2112;
-        v34 = controllerCopy;
-        v35 = 2112;
-        v36 = toCopy;
-        v37 = 2112;
-        v38 = leader;
-        _os_log_impl(&dword_244378000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ node controller changed %@ to a new constituent %@ that is better than our current leader %@", buf, 0x2Au);
+        v31 = shortDescription2;
+        v32 = 2112;
+        v33 = controllerCopy;
+        v34 = 2112;
+        v35 = toCopy;
+        v36 = 2112;
+        v37 = leader;
+        _os_log_impl(&dword_244378000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ node controller changed %@ to a new constituent %@ that is better than our current leader %@", buf, 0x2Au);
       }
     }
 
@@ -1683,29 +1660,25 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = 0x2857B5228;
-  v6[1] = 0x2857B5DC8;
-  v7[0] = 0x2857B5EE8;
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5228;
+  v5[1] = 0x2857B5DC8;
+  v6[0] = 0x2857B5EE8;
   v1 = [*(a1 + 32) executionContext];
   v2 = [v1 label];
-  v7[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
 
 - (void)nodeController:(id)controller didAddTransport:(id)transport
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   transportCopy = transport;
   executionContext = [(CONodeManager *)self executionContext];
@@ -1719,20 +1692,20 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
     {
       shortDescription = [(CONodeManager *)self shortDescription];
       v12 = @"does not support";
-      *v25 = 138544130;
-      *&v25[12] = 2048;
-      *&v25[4] = shortDescription;
+      *v24 = 138544130;
+      *&v24[12] = 2048;
+      *&v24[4] = shortDescription;
       if (supportsLeaderElection)
       {
         v12 = @"supports";
       }
 
-      *&v25[14] = controllerCopy;
-      v26 = 2112;
-      v27 = transportCopy;
-      v28 = 2112;
-      v29 = v12;
-      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Node %p added a transport %@ that %@ election", v25, 0x2Au);
+      *&v24[14] = controllerCopy;
+      v25 = 2112;
+      v26 = transportCopy;
+      v27 = 2112;
+      v28 = v12;
+      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Node %p added a transport %@ that %@ election", v24, 0x2Au);
     }
 
     if (supportsLeaderElection)
@@ -1753,7 +1726,7 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
             [(CONodeManager *)self _resetBallot];
           }
 
-          [(CONodeManager *)self _informControllersAboutNewElectionInfo];
+          [(CONodeManager *)self _informControllersAboutNewElectionInfo:*v24];
         }
 
         else
@@ -1787,13 +1760,11 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
       [controllerCopy inquireForTransport:transportCopy];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nodeController:(id)controller didRemoveTransport:(id)transport withError:(id)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   transportCopy = transport;
   errorCopy = error;
@@ -1806,13 +1777,13 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
     shortDescription = [(CONodeManager *)self shortDescription];
     transports = [controllerCopy transports];
     *buf = 138544130;
-    v56 = shortDescription;
-    v57 = 2048;
-    v58 = transportCopy;
-    v59 = 2048;
-    v60 = controllerCopy;
-    v61 = 2114;
-    v62 = transports;
+    v55 = shortDescription;
+    v56 = 2048;
+    v57 = transportCopy;
+    v58 = 2048;
+    v59 = controllerCopy;
+    v60 = 2114;
+    v61 = transports;
     _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ Lost transport %p for node %p. Remaining transports = %{public}@", buf, 0x2Au);
   }
 
@@ -1821,30 +1792,30 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
 
   if (v16)
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     transports3 = [controllerCopy transports];
-    v18 = [transports3 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v18 = [transports3 countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v18)
     {
       v19 = v18;
       v20 = 0;
-      v21 = *v51;
+      v21 = *v50;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v51 != v21)
+          if (*v50 != v21)
           {
             objc_enumerationMutation(transports3);
           }
 
-          v20 |= [*(*(&v50 + 1) + 8 * i) supportsLeaderElection];
+          v20 |= [*(*(&v49 + 1) + 8 * i) supportsLeaderElection];
         }
 
-        v19 = [transports3 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v19 = [transports3 countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
       while (v19);
@@ -1866,7 +1837,7 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
 
     if (v37 && (v20 & 1) == 0)
     {
-      v49 = errorCopy;
+      v48 = errorCopy;
       if ([MEMORY[0x277CFD0B8] isFastFoldEnabled])
       {
         electionInfo2 = [(CONodeManager *)self electionInfo];
@@ -1883,7 +1854,7 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
 
       if (remote2)
       {
-        v48 = transportCopy;
+        v47 = transportCopy;
         v42 = [remote2 isEqual:leader];
         electionInfo3 = [(CONodeManager *)self electionInfo];
         ballot2 = [electionInfo3 ballot];
@@ -1904,10 +1875,10 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
           [(CONodeManager *)self _checkForElectionCompletion:electionInfo4 nodeController:controllerCopy];
         }
 
-        transportCopy = v48;
+        transportCopy = v47;
       }
 
-      errorCopy = v49;
+      errorCopy = v48;
     }
   }
 
@@ -1918,9 +1889,9 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
     {
       shortDescription2 = [(CONodeManager *)self shortDescription];
       *buf = 138543618;
-      v56 = shortDescription2;
-      v57 = 2048;
-      v58 = controllerCopy;
+      v55 = shortDescription2;
+      v56 = 2048;
+      v57 = controllerCopy;
       _os_log_impl(&dword_244378000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping node %p since we don't have any more transports available", buf, 0x16u);
     }
 
@@ -1968,8 +1939,6 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
 
     [controllerCopy invalidateWithReason:v27];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nodeController:(id)controller didReceiveOnDemandNodeCreationRequest:(id)request
@@ -1999,7 +1968,7 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
 
 - (void)_bumpGeneration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   executionContext = [(CONodeManager *)self executionContext];
   [executionContext assertDispatchQueue];
 
@@ -2015,21 +1984,19 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
     shortDescription = [(CONodeManager *)self shortDescription];
     electionInfo3 = [(CONodeManager *)self electionInfo];
     leader = [electionInfo3 leader];
-    v12 = 138543874;
-    v13 = shortDescription;
-    v14 = 2048;
-    v15 = v5;
-    v16 = 2114;
-    v17 = leader;
-    _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ bumping generation to %llu. Current leader = %{public}@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = shortDescription;
+    v13 = 2048;
+    v14 = v5;
+    v15 = 2114;
+    v16 = leader;
+    _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ bumping generation to %llu. Current leader = %{public}@", &v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetBallot
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   executionContext = [(CONodeManager *)self executionContext];
   [executionContext assertDispatchQueue];
 
@@ -2045,24 +2012,22 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
   {
     shortDescription = [(CONodeManager *)self shortDescription];
     electionInfo2 = [(CONodeManager *)self electionInfo];
-    v13 = 138543874;
-    v14 = shortDescription;
-    v15 = 2114;
-    v16 = constituentForMe;
-    v17 = 2048;
+    v12 = 138543874;
+    v13 = shortDescription;
+    v14 = 2114;
+    v15 = constituentForMe;
+    v16 = 2048;
     generation = [electionInfo2 generation];
-    _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting ballot. Current leader = %{public}@. Current generation = %llu", &v13, 0x20u);
+    _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting ballot. Current leader = %{public}@. Current generation = %llu", &v12, 0x20u);
   }
 
   ballotBrowser = [(CONodeManager *)self ballotBrowser];
   [ballotBrowser clearRecords];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateBallot:(id)ballot
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ballotCopy = ballot;
   if ([MEMORY[0x277CFD0B8] isSlimBallotsEnabled])
   {
@@ -2095,19 +2060,18 @@ id __62__CONodeManager_nodeController_didUpdateRemoteConstituent_to___block_invo
     {
       shortDescription = [(CONodeManager *)self shortDescription];
       electionInfo4 = [(CONodeManager *)self electionInfo];
-      v21 = 138544130;
-      v22 = shortDescription;
-      v23 = 2114;
-      v24 = leader;
-      v25 = 2114;
-      v26 = leader2;
-      v27 = 2048;
+      v20 = 138544130;
+      v21 = shortDescription;
+      v22 = 2114;
+      v23 = leader;
+      v24 = 2114;
+      v25 = leader2;
+      v26 = 2048;
       generation = [electionInfo4 generation];
-      _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Changing leader from %{public}@ to %{public}@. Current generation = %llu", &v21, 0x2Au);
+      _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Changing leader from %{public}@ to %{public}@. Current generation = %llu", &v20, 0x2Au);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15 ^ 1;
 }
 
@@ -2276,7 +2240,7 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
 
 - (void)setElectionEnd:(unint64_t)end
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (self->_electionEnd != end)
   {
     electionPrevious = [(CONodeManager *)self electionPrevious];
@@ -2297,29 +2261,29 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
       executionContext = [(CONodeManager *)self executionContext];
       label = [executionContext label];
 
-      v28 = [v5 count];
+      v27 = [v5 count];
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
       v8 = v5;
       totalBackedOffTime = 0;
       v10 = 0;
       v11 = 0;
-      v12 = [v8 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v12 = [v8 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v12)
       {
-        v13 = *v46;
+        v13 = *v45;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v46 != v13)
+            if (*v45 != v13)
             {
               objc_enumerationMutation(v8);
             }
 
-            underlyingNode = [*(*(&v45 + 1) + 8 * i) underlyingNode];
+            underlyingNode = [*(*(&v44 + 1) + 8 * i) underlyingNode];
             if ([underlyingNode connectionType] == 2)
             {
               ++v11;
@@ -2335,7 +2299,7 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
             }
           }
 
-          v12 = [v8 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v12 = [v8 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v12);
@@ -2344,20 +2308,20 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
       executionContext2 = [(CONodeManager *)self executionContext];
       analyticsRecorder = [executionContext2 analyticsRecorder];
 
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __32__CONodeManager_setElectionEnd___block_invoke;
-      v36[3] = &unk_278E17650;
-      v39 = (end - electionStart) / 1000000.0;
-      v40 = v28;
-      v41 = v11;
-      v42 = v10;
-      v43 = v6;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __32__CONodeManager_setElectionEnd___block_invoke;
+      v35[3] = &unk_278E17650;
+      v38 = (end - electionStart) / 1000000.0;
+      v39 = v27;
+      v40 = v11;
+      v41 = v10;
+      v42 = v6;
       v18 = label;
-      v44 = totalBackedOffTime;
-      v37 = v18;
+      v43 = totalBackedOffTime;
+      v36 = v18;
       selfCopy = self;
-      (analyticsRecorder)[2](analyticsRecorder, 0x2857B5D48, v36);
+      (analyticsRecorder)[2](analyticsRecorder, 0x2857B5D48, v35);
       self->_electionEnd = end;
       electionElapsedTimer = [(CONodeManager *)self electionElapsedTimer];
       v20 = electionElapsedTimer == 0;
@@ -2377,18 +2341,18 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
           handler[1] = 3221225472;
           handler[2] = __32__CONodeManager_setElectionEnd___block_invoke_2;
           handler[3] = &unk_278E17678;
-          objc_copyWeak(v34, &location);
-          v34[1] = electionPrevious;
-          v34[2] = electionStart;
-          v33 = analyticsRecorder;
-          v34[3] = v28;
-          v34[4] = v11;
-          v34[5] = v10;
-          v32 = v18;
+          objc_copyWeak(v33, &location);
+          v33[1] = electionPrevious;
+          v33[2] = electionStart;
+          v32 = analyticsRecorder;
+          v33[3] = v27;
+          v33[4] = v11;
+          v33[5] = v10;
+          v31 = v18;
           dispatch_source_set_event_handler(v23, handler);
           [(CONodeManager *)self setElectionElapsedTimer:v23];
 
-          objc_destroyWeak(v34);
+          objc_destroyWeak(v33);
           objc_destroyWeak(&location);
         }
       }
@@ -2398,35 +2362,33 @@ id __46__CONodeManager__reportLostLeader_withReason___block_invoke(uint64_t a1)
   longestBackedOffConstituent = self->_longestBackedOffConstituent;
   self->_longestBackOff = 0;
   self->_longestBackedOffConstituent = 0;
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 id __32__CONodeManager_setElectionEnd___block_invoke(uint64_t a1)
 {
-  v16[7] = *MEMORY[0x277D85DE8];
-  v15[0] = 0x2857B5E08;
+  v15[7] = *MEMORY[0x277D85DE8];
+  v14[0] = 0x2857B5E08;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v16[0] = v2;
-  v15[1] = 0x2857B5E28;
+  v15[0] = v2;
+  v14[1] = 0x2857B5E28;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
-  v16[1] = v3;
-  v15[2] = 0x2857B5E48;
+  v15[1] = v3;
+  v14[2] = 0x2857B5E48;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
-  v16[2] = v4;
-  v15[3] = 0x2857B5E68;
+  v15[2] = v4;
+  v14[3] = 0x2857B5E68;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
-  v16[3] = v5;
-  v15[4] = 0x2857B5DE8;
+  v15[3] = v5;
+  v14[4] = 0x2857B5DE8;
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 80)];
   v7 = *(a1 + 32);
-  v16[4] = v6;
-  v16[5] = v7;
-  v15[5] = 0x2857B5DC8;
-  v15[6] = 0x2857B6048;
+  v15[4] = v6;
+  v15[5] = v7;
+  v14[5] = 0x2857B5DC8;
+  v14[6] = 0x2857B6048;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 88)];
-  v16[6] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
+  v15[6] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:7];
   v10 = [v9 mutableCopy];
 
   v11 = *(a1 + 40);
@@ -2435,8 +2397,6 @@ id __32__CONodeManager_setElectionEnd___block_invoke(uint64_t a1)
     v12 = [v11 _constituentCharacteristics:?];
     [v10 setObject:v12 forKey:0x2857B6068];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2470,27 +2430,27 @@ void __32__CONodeManager_setElectionEnd___block_invoke_2(uint64_t a1)
 
 id __32__CONodeManager_setElectionEnd___block_invoke_3(void *a1)
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v14[0] = &unk_2857C8880;
-  v13[0] = 0x2857B5E08;
-  v13[1] = 0x2857B5E28;
+  v13[7] = *MEMORY[0x277D85DE8];
+  v13[0] = &unk_2857C8880;
+  v12[0] = 0x2857B5E08;
+  v12[1] = 0x2857B5E28;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
-  v14[1] = v2;
-  v13[2] = 0x2857B5E48;
+  v13[1] = v2;
+  v12[2] = 0x2857B5E48;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[7]];
-  v14[2] = v3;
-  v13[3] = 0x2857B5E68;
+  v13[2] = v3;
+  v12[3] = 0x2857B5E68;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[8]];
-  v14[3] = v4;
-  v14[4] = &unk_2857C8938;
-  v13[4] = 0x2857B5DE8;
-  v13[5] = 0x2857B5DC8;
+  v13[3] = v4;
+  v13[4] = &unk_2857C8938;
+  v12[4] = 0x2857B5DE8;
+  v12[5] = 0x2857B5DC8;
   v5 = a1[5];
-  v14[5] = a1[4];
-  v13[6] = 0x2857B6048;
+  v13[5] = a1[4];
+  v12[6] = 0x2857B6048;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v5 + 88)];
-  v14[6] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
+  v13[6] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
   v8 = [v7 mutableCopy];
 
   v9 = a1[5];
@@ -2499,8 +2459,6 @@ id __32__CONodeManager_setElectionEnd___block_invoke_3(void *a1)
     v10 = [v9 _constituentCharacteristics:?];
     [v8 setObject:v10 forKey:0x2857B6068];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2556,27 +2514,27 @@ void __55__CONodeManager__informControllersAboutNewElectionInfo__block_invoke(ui
 
 - (void)_handleDiscoveryRecord:(id)record
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   executionContext = [(CONodeManager *)self executionContext];
   [executionContext assertDispatchQueue];
 
   iDSIdentifier = [recordCopy IDSIdentifier];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__13;
-  v32 = __Block_byref_object_dispose__13;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__13;
+  v31 = __Block_byref_object_dispose__13;
+  v32 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   nodeControllers = [(CONodeManager *)selfCopy nodeControllers];
   v9 = [nodeControllers objectForKey:iDSIdentifier];
-  v10 = v29[5];
-  v29[5] = v9;
+  v10 = v28[5];
+  v28[5] = v9;
 
   objc_sync_exit(selfCopy);
-  v11 = v29[5];
+  v11 = v28[5];
   if (v11)
   {
     [v11 addDiscoveryRecord:recordCopy];
@@ -2587,55 +2545,53 @@ void __55__CONodeManager__informControllersAboutNewElectionInfo__block_invoke(ui
     v12 = [CONodeController alloc];
     executionContext2 = [(CONodeManager *)selfCopy executionContext];
     v14 = [(CONodeController *)v12 initWithDiscoveryRecord:recordCopy executionContext:executionContext2];
-    v15 = v29[5];
-    v29[5] = v14;
+    v15 = v28[5];
+    v28[5] = v14;
 
     v16 = COCoreLogForCategory(15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       shortDescription = [(CONodeManager *)selfCopy shortDescription];
-      v18 = v29[5];
+      v18 = v28[5];
       *buf = 138543874;
-      v35 = shortDescription;
-      v36 = 2048;
-      v37 = v18;
-      v38 = 2114;
-      v39 = recordCopy;
+      v34 = shortDescription;
+      v35 = 2048;
+      v36 = v18;
+      v37 = 2114;
+      v38 = recordCopy;
       _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ created NodeController %p with record %{public}@", buf, 0x20u);
     }
 
-    [v29[5] setDelegate:selfCopy];
-    [v29[5] setAcceptableCommands:selfCopy->_acceptableCommands];
+    [v28[5] setDelegate:selfCopy];
+    [v28[5] setAcceptableCommands:selfCopy->_acceptableCommands];
     v19 = selfCopy;
     objc_sync_enter(v19);
     nodeControllers2 = [(CONodeManager *)v19 nodeControllers];
-    [nodeControllers2 setObject:v29[5] forKey:iDSIdentifier];
+    [nodeControllers2 setObject:v28[5] forKey:iDSIdentifier];
 
     objc_sync_exit(v19);
     objc_initWeak(buf, v19);
-    v21 = v29[5];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __40__CONodeManager__handleDiscoveryRecord___block_invoke;
-    v23[3] = &unk_278E176C8;
-    objc_copyWeak(&v27, buf);
-    v24 = recordCopy;
-    v25 = iDSIdentifier;
-    v26 = &v28;
-    [v21 activateWithCompletionHandler:v23];
+    v21 = v28[5];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __40__CONodeManager__handleDiscoveryRecord___block_invoke;
+    v22[3] = &unk_278E176C8;
+    objc_copyWeak(&v26, buf);
+    v23 = recordCopy;
+    v24 = iDSIdentifier;
+    v25 = &v27;
+    [v21 activateWithCompletionHandler:v22];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v28, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -2661,15 +2617,13 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
     {
       v8 = [WeakRetained shortDescription];
       v9 = *(*(*(a1 + 48) + 8) + 40);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2048;
-      v14 = v9;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully activated NodeController %p", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2048;
+      v13 = v9;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully activated NodeController %p", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLostRecord:(id)record
@@ -2693,7 +2647,7 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
 
 - (void)_nodeStopped:(id)stopped withReason:(int64_t)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stoppedCopy = stopped;
   node = [stoppedCopy node];
   iDSIdentifier = [node IDSIdentifier];
@@ -2702,13 +2656,13 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(CONodeManager *)self shortDescription];
-    v14 = 138543874;
-    v15 = shortDescription;
-    v16 = 2048;
-    v17 = stoppedCopy;
-    v18 = 2112;
-    v19 = iDSIdentifier;
-    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ removing %p [IDS: %@] from our list", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = shortDescription;
+    v15 = 2048;
+    v16 = stoppedCopy;
+    v17 = 2112;
+    v18 = iDSIdentifier;
+    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ removing %p [IDS: %@] from our list", &v13, 0x20u);
   }
 
   selfCopy = self;
@@ -2718,13 +2672,11 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
 
   objc_sync_exit(selfCopy);
   [(CONodeManager *)selfCopy _nodeBecameInactive:stoppedCopy withReason:reason];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_nodeBecameInactive:(id)inactive withReason:(int64_t)reason
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   inactiveCopy = inactive;
   executionContext = [(CONodeManager *)self executionContext];
   [executionContext assertDispatchQueue];
@@ -2759,9 +2711,9 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           shortDescription = [(CONodeManager *)self shortDescription];
-          v23 = 138543362;
-          v24 = shortDescription;
-          _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ leader lost", &v23, 0xCu);
+          v22 = 138543362;
+          v23 = shortDescription;
+          _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ leader lost", &v22, 0xCu);
         }
 
         [(CONodeManager *)self _bumpGeneration];
@@ -2786,8 +2738,6 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
 
     [inactiveCopy markInactive];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_informDelegateAboutNodeAddition:(id)addition oldState:(int64_t)state
@@ -2840,7 +2790,7 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
 
 - (void)_nodeStartedElection:(id)election withElectionInfo:(id)info
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   electionCopy = election;
   infoCopy = info;
   executionContext = [(CONodeManager *)self executionContext];
@@ -2852,11 +2802,11 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       shortDescription = [(CONodeManager *)self shortDescription];
-      v20 = 138543618;
-      v21 = shortDescription;
-      v22 = 2112;
-      v23 = electionCopy;
-      _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ node started election %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = shortDescription;
+      v21 = 2112;
+      v22 = electionCopy;
+      _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ node started election %@", &v19, 0x16u);
     }
   }
 
@@ -2901,12 +2851,11 @@ void __40__CONodeManager__handleDiscoveryRecord___block_invoke(uint64_t a1, void
   }
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkForElectionCompletion:(id)completion nodeController:(id)controller
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   controllerCopy = controller;
   executionContext = [(CONodeManager *)self executionContext];
@@ -2920,25 +2869,25 @@ LABEL_15:
     v11 = [nodeControllers copy];
 
     objc_sync_exit(selfCopy);
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 1;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __60__CONodeManager__checkForElectionCompletion_nodeController___block_invoke;
-    v33[3] = &unk_278E17560;
-    v34 = completionCopy;
-    v35 = &v36;
-    [v11 enumerateKeysAndObjectsUsingBlock:v33];
-    if (*(v37 + 24) == 1)
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 1;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __60__CONodeManager__checkForElectionCompletion_nodeController___block_invoke;
+    v32[3] = &unk_278E17560;
+    v33 = completionCopy;
+    v34 = &v35;
+    [v11 enumerateKeysAndObjectsUsingBlock:v32];
+    if (*(v36 + 24) == 1)
     {
       v12 = COCoreLogForCategory(15);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         shortDescription = [(CONodeManager *)selfCopy shortDescription];
         *buf = 138543362;
-        v41 = shortDescription;
+        v40 = shortDescription;
         _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ all nodes have finished election. Moving to state processing", buf, 0xCu);
       }
 
@@ -2973,16 +2922,16 @@ LABEL_15:
       leaderCommands2 = [(CONodeManager *)v14 leaderCommands];
       [leaderCommands2 removeAllObjects];
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __60__CONodeManager__checkForElectionCompletion_nodeController___block_invoke_66;
-      v31[3] = &unk_278E175D8;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __60__CONodeManager__checkForElectionCompletion_nodeController___block_invoke_66;
+      v30[3] = &unk_278E175D8;
       v28 = v24;
-      v32 = v28;
-      [v26 enumerateKeysAndObjectsUsingBlock:v31];
+      v31 = v28;
+      [v26 enumerateKeysAndObjectsUsingBlock:v30];
     }
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else if ([controllerCopy isLocalNodeController])
@@ -2993,8 +2942,6 @@ LABEL_15:
       [delegate2 didCompleteElection];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __60__CONodeManager__checkForElectionCompletion_nodeController___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -3053,7 +3000,7 @@ LABEL_10:
 
 - (void)_logElectionSummary
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   string2 = [MEMORY[0x277CCAB68] string];
   string3 = [MEMORY[0x277CCAB68] string];
@@ -3074,30 +3021,30 @@ LABEL_10:
   v15 = [nodeControllers copy];
 
   objc_sync_exit(selfCopy);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __36__CONodeManager__logElectionSummary__block_invoke;
-  v33[3] = &unk_278E176F0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __36__CONodeManager__logElectionSummary__block_invoke;
+  v32[3] = &unk_278E176F0;
   v16 = string3;
-  v34 = v16;
+  v33 = v16;
   v17 = string2;
-  v35 = v17;
+  v34 = v17;
   v18 = string;
-  v36 = v18;
-  [v15 enumerateKeysAndObjectsUsingBlock:v33];
+  v35 = v18;
+  [v15 enumerateKeysAndObjectsUsingBlock:v32];
   v19 = COCoreLogForCategory(8);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     executionContext2 = [(CONodeManager *)selfCopy executionContext];
     meshControllerDescription = [executionContext2 meshControllerDescription];
     *buf = 138413058;
-    v38 = meshControllerDescription;
-    v39 = 2114;
-    v40 = meshName;
-    v41 = 2048;
-    v42 = generation;
-    v43 = 2114;
-    v44 = firstObject;
+    v37 = meshControllerDescription;
+    v38 = 2114;
+    v39 = meshName;
+    v40 = 2048;
+    v41 = generation;
+    v42 = 2114;
+    v43 = firstObject;
     _os_log_impl(&dword_244378000, v19, OS_LOG_TYPE_DEFAULT, "[m:%@] %{public}@ : Completed Election(%llu). Leader is %{public}@", buf, 0x2Au);
   }
 
@@ -3107,13 +3054,13 @@ LABEL_10:
     executionContext3 = [(CONodeManager *)selfCopy executionContext];
     meshControllerDescription2 = [executionContext3 meshControllerDescription];
     *buf = 138413058;
-    v38 = meshControllerDescription2;
-    v39 = 2114;
-    v40 = meshName;
-    v41 = 2048;
-    v42 = generation;
-    v43 = 2114;
-    v44 = v18;
+    v37 = meshControllerDescription2;
+    v38 = 2114;
+    v39 = meshName;
+    v40 = 2048;
+    v41 = generation;
+    v42 = 2114;
+    v43 = v18;
     _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_DEFAULT, "[m:%@] %{public}@ : Candidate summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
 
@@ -3123,13 +3070,13 @@ LABEL_10:
     executionContext4 = [(CONodeManager *)selfCopy executionContext];
     meshControllerDescription3 = [executionContext4 meshControllerDescription];
     *buf = 138413058;
-    v38 = meshControllerDescription3;
-    v39 = 2114;
-    v40 = meshName;
-    v41 = 2048;
-    v42 = generation;
-    v43 = 2114;
-    v44 = v16;
+    v37 = meshControllerDescription3;
+    v38 = 2114;
+    v39 = meshName;
+    v40 = 2048;
+    v41 = generation;
+    v42 = 2114;
+    v43 = v16;
     _os_log_impl(&dword_244378000, v25, OS_LOG_TYPE_DEFAULT, "[m:%@] %{public}@ : Dormant trackers summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
 
@@ -3139,17 +3086,15 @@ LABEL_10:
     executionContext5 = [(CONodeManager *)selfCopy executionContext];
     meshControllerDescription4 = [executionContext5 meshControllerDescription];
     *buf = 138413058;
-    v38 = meshControllerDescription4;
-    v39 = 2114;
-    v40 = meshName;
-    v41 = 2048;
-    v42 = generation;
-    v43 = 2114;
-    v44 = v17;
+    v37 = meshControllerDescription4;
+    v38 = 2114;
+    v39 = meshName;
+    v40 = 2048;
+    v41 = generation;
+    v42 = 2114;
+    v43 = v17;
     _os_log_impl(&dword_244378000, v28, OS_LOG_TYPE_DEFAULT, "[m:%@] %{public}@ : Discovered trackers summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CONodeManager__logElectionSummary__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3196,55 +3141,49 @@ void __36__CONodeManager__logElectionSummary__block_invoke(uint64_t a1, uint64_t
 void __22__CONodeManager_start__block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [v1 shortDescription];
-  v10 = *(v0 + 32);
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v3, v4, "%{public}@ failed to start browser %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 138543618;
+  *&v9[4] = v2;
+  *&v9[12] = 2112;
+  *&v9[14] = *(v0 + 32);
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v3, v4, "%{public}@ failed to start browser %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)nodeController:didReceiveCommand:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 shortDescription];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ received a command %@ but has no delegate to deliver to", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ received a command %@ but has no delegate to deliver to", v4, v5, v6, v7);
 }
 
 - (void)nodeController:didReceiveRequest:callback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 shortDescription];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ received a request %@ but has no delegate to deliver to", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ received a request %@ but has no delegate to deliver to", v4, v5, v6, v7);
 }
 
 - (void)_handleEnqueuedCommandsForLostNode:error:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 shortDescription];
-  [v0 count];
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v3, v4, "%{public}@ lost leader. Re-queuing %lu elements", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 138543618;
+  *&v9[4] = v2;
+  *&v9[12] = 2048;
+  *&v9[14] = [v0 count];
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v3, v4, "%{public}@ lost leader. Re-queuing %lu elements", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void __40__CONodeManager__handleDiscoveryRecord___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 shortDescription];
-  v11 = *(a2 + 32);
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v4, v5, "%{public}@ failed to create a NodeController using Record %{public}@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  *v10 = 138543618;
+  *&v10[4] = v3;
+  *&v10[12] = 2114;
+  *&v10[14] = *(a2 + 32);
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v4, v5, "%{public}@ failed to create a NodeController using Record %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

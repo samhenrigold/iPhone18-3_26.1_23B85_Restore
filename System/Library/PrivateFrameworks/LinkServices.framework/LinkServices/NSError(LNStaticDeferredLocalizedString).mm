@@ -6,7 +6,7 @@
 
 - (id)ln_staticDeferredLocalizedString
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
   v3 = [userInfo objectForKeyedSubscript:@"LNPerformActionErrorLocalizedStringResourceData"];
 
@@ -16,9 +16,9 @@
     v5 = objc_opt_class();
     userInfo2 = [self userInfo];
     v7 = [userInfo2 objectForKeyedSubscript:@"LNPerformActionErrorLocalizedStringResourceData"];
-    v13 = 0;
-    v8 = [v4 unarchivedObjectOfClass:v5 fromData:v7 error:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [v4 unarchivedObjectOfClass:v5 fromData:v7 error:&v12];
+    v9 = v12;
 
     if (v9)
     {
@@ -26,9 +26,9 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v15 = @"LNPerformActionErrorLocalizedStringResourceData";
-        v16 = 2114;
-        v17 = v9;
+        v14 = @"LNPerformActionErrorLocalizedStringResourceData";
+        v15 = 2114;
+        v16 = v9;
       }
     }
   }
@@ -37,8 +37,6 @@
   {
     v8 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

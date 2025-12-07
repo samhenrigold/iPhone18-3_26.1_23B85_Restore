@@ -12,8 +12,8 @@ void __24___SWCPrefs_sharedPrefs__block_invoke()
 
 void __40___SWCPrefs_containerURLReturningError___block_invoke()
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 1;
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 1;
   v0 = container_create_or_lookup_path_for_current_user();
   if (v0)
   {
@@ -39,18 +39,18 @@ void __40___SWCPrefs_containerURLReturningError___block_invoke()
     if (os_log_type_enabled(qword_280B218C8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v21 = v17;
+      v20 = v16;
       _os_log_error_impl(&dword_265F54000, v5, OS_LOG_TYPE_ERROR, "Error %llu getting container path", buf, 0xCu);
     }
 
     v6 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v18[0] = @"Line";
-    v18[1] = @"Function";
-    v19[0] = &unk_2877A73F0;
+    v17[0] = @"Line";
+    v17[1] = @"Function";
+    v18[0] = &unk_2877A73F0;
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCPrefs containerURLReturningError:]_block_invoke"];
-    v19[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v9 = [v6 initWithDomain:@"ContainerManager" code:v17 userInfo:v8];
+    v18[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v9 = [v6 initWithDomain:@"ContainerManager" code:v16 userInfo:v8];
     v10 = qword_280B21888;
     qword_280B21888 = v9;
   }
@@ -58,9 +58,9 @@ void __40___SWCPrefs_containerURLReturningError___block_invoke()
   if (qword_280B21880)
   {
     v11 = [MEMORY[0x277CCAA00] defaultManager];
-    v16 = 0;
-    v12 = [v11 createDirectoryAtURL:qword_280B21880 withIntermediateDirectories:1 attributes:0 error:&v16];
-    v13 = v16;
+    v15 = 0;
+    v12 = [v11 createDirectoryAtURL:qword_280B21880 withIntermediateDirectories:1 attributes:0 error:&v15];
+    v13 = v15;
 
     if ((v12 & 1) == 0)
     {
@@ -73,13 +73,11 @@ void __40___SWCPrefs_containerURLReturningError___block_invoke()
       if (os_log_type_enabled(qword_280B218C8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v21 = v13;
+        v20 = v13;
         _os_log_error_impl(&dword_265F54000, v14, OS_LOG_TYPE_ERROR, "NSFileManager failed to create user container URL directory (ignoring): %{public}@", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38___SWCPrefs_retryIntervalAfterFailure__block_invoke()
@@ -99,7 +97,7 @@ uint64_t __38___SWCPrefs_retryIntervalAfterSuccess__block_invoke()
 const char *__28___SWCPrefs_isAppleInternal__block_invoke()
 {
   result = os_variant_has_internal_diagnostics();
-  _MergedGlobals_2 = result;
+  _MergedGlobals_2[0] = result;
   if (result)
   {
     result = getenv("SWC_MOCK_THE_PUBLIC");
@@ -108,7 +106,7 @@ const char *__28___SWCPrefs_isAppleInternal__block_invoke()
       result = strtol(result, 0, 0);
       if (result)
       {
-        _MergedGlobals_2 = 0;
+        _MergedGlobals_2[0] = 0;
       }
     }
   }

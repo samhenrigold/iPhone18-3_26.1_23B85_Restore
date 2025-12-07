@@ -23,9 +23,11 @@
 
 uint64_t __31__LACSysUtility_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_2 = objc_alloc_init(LACSysUtility);
+  v0 = objc_alloc_init(LACSysUtility);
+  v1 = sharedInstance_sharedInstance_2;
+  sharedInstance_sharedInstance_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)hasCodeSigningMonitor
@@ -44,32 +46,30 @@ uint64_t __31__LACSysUtility_sharedInstance__block_invoke()
   v9 = 0;
   v8 = 4;
   v2 = sysctlbyname("security.codesigning.security_boot_mode_complete", &v9, &v8, 0, 0);
-  v3 = LACLogDefault();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = v2;
+  v4 = LACLogDefault(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v9;
-    v5 = *__error();
+    v5 = v9;
+    v6 = *__error();
     *buf = 67109632;
-    v11 = v4;
+    v11 = v5;
     v12 = 1024;
-    v13 = v2;
+    v13 = v3;
     v14 = 1024;
-    v15 = v5;
-    _os_log_impl(&dword_1B0233000, v3, OS_LOG_TYPE_DEFAULT, "TXM boot mode returned value: %d error: %d global error: %d", buf, 0x14u);
+    v15 = v6;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "TXM boot mode returned value: %d error: %d global error: %d", buf, 0x14u);
   }
 
-  if (v2)
+  if (v3)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v9;
+    return v9;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)_hasCodeSigningMonitorOfType:(unsigned int)type
@@ -99,11 +99,12 @@ uint64_t __31__LACSysUtility_sharedInstance__block_invoke()
 
 void __43__LACSysUtility__getCodeSigningMonitorType__block_invoke()
 {
-  v1 = 4;
-  if (sysctlbyname("security.codesigning.monitor", &_getCodeSigningMonitorType_codeSigningMonitor, &v1, 0, 0))
+  v2 = 4;
+  v0 = sysctlbyname("security.codesigning.monitor", &_getCodeSigningMonitorType_codeSigningMonitor, &v2, 0, 0);
+  if (v0)
   {
-    v0 = LACLogDefault();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogDefault(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __43__LACSysUtility__getCodeSigningMonitorType__block_invoke_cold_1();
     }
@@ -122,11 +123,12 @@ void __43__LACSysUtility__getCodeSigningMonitorType__block_invoke()
 
 void __38__LACSysUtility__getCodeSigningConfig__block_invoke()
 {
-  v1 = 4;
-  if (sysctlbyname("security.codesigning.config", &_getCodeSigningConfig_codeSigningConfig, &v1, 0, 0))
+  v2 = 4;
+  v0 = sysctlbyname("security.codesigning.config", &_getCodeSigningConfig_codeSigningConfig, &v2, 0, 0);
+  if (v0)
   {
-    v0 = LACLogDefault();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogDefault(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __38__LACSysUtility__getCodeSigningConfig__block_invoke_cold_1();
     }
@@ -135,20 +137,16 @@ void __38__LACSysUtility__getCodeSigningConfig__block_invoke()
 
 void __43__LACSysUtility__getCodeSigningMonitorType__block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0233000, v1, v2, "Sysctl security.codesigning.monitor failed with error code: %d global error: %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0233000, v0, v1, "Sysctl security.codesigning.monitor failed with error code: %d global error: %d", v2, v3, v4, v5);
 }
 
 void __38__LACSysUtility__getCodeSigningConfig__block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B0233000, v1, v2, "Sysctl security.codesigning.config failed with error code: %d global error: %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1B0233000, v0, v1, "Sysctl security.codesigning.config failed with error code: %d global error: %d", v2, v3, v4, v5);
 }
 
 @end

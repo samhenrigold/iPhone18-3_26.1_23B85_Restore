@@ -259,8 +259,9 @@ LABEL_30:
 
 - (void)setAlternatePort:(unsigned __int16)port
 {
+  portCopy = port;
   internalEndpoint = [(NWEndpoint *)self internalEndpoint];
-  nw_endpoint_set_alternate_port(internalEndpoint, port);
+  nw_endpoint_set_alternate_port(internalEndpoint, portCopy);
 }
 
 - (unsigned)alternatePort
@@ -291,7 +292,7 @@ LABEL_30:
 - (void)setRemoteInterfaceType:(int64_t)type
 {
   internalEndpoint = [(NWEndpoint *)self internalEndpoint];
-  nw_endpoint_set_remote_interface_type(internalEndpoint, type);
+  nw_endpoint_set_remote_interface_type(internalEndpoint);
 }
 
 - (int64_t)remoteInterfaceType
@@ -364,7 +365,7 @@ LABEL_30:
   v2 = gLogObj;
   *buf = 136446210;
   v16 = "[NWEndpoint encodedData]";
-  v3 = _os_log_send_and_compose_impl();
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s encodedData must be overridden", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -477,7 +478,7 @@ LABEL_11:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWEndpoint initWithEndpoint:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -556,7 +557,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWEndpoint initWithEndpoint:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null internalEndpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -681,7 +682,7 @@ LABEL_29:
       v20 = gLogObj;
       *applier = 136446210;
       *&applier[4] = "[NWEndpoint encodeWithCoder:]";
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s NWUtilsCreateNSDictionaryFromXPCDictionary failed", applier, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v28 = 0;
@@ -768,7 +769,7 @@ LABEL_28:
   v12 = gLogObj;
   *applier = 136446210;
   *&applier[4] = "[NWEndpoint encodeWithCoder:]";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s nw_endpoint_copy_dictionary failed", applier, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v28 = 0;
@@ -852,11 +853,11 @@ LABEL_30:
 
 - (NWEndpoint)initWithCoder:(id)coder
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v53.receiver = self;
-  v53.super_class = NWEndpoint;
-  v5 = [(NWEndpoint *)&v53 init];
+  v54.receiver = self;
+  v54.super_class = NWEndpoint;
+  v5 = [(NWEndpoint *)&v54 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -875,7 +876,7 @@ LABEL_30:
       if (XPCDictionaryFromNSDictionary)
       {
         v17 = XPCDictionaryFromNSDictionary;
-        v18 = _nw_endpoint_create_from_dictionary(v17);
+        v18 = _nw_endpoint_create_from_dictionary();
 
         [(NWEndpoint *)v5 setInternalEndpoint:v18];
         internalEndpoint = [(NWEndpoint *)v5 internalEndpoint];
@@ -893,12 +894,13 @@ LABEL_62:
         networkd_settings_init();
         v32 = gLogObj;
         *buf = 136446210;
-        v55 = "[NWEndpoint initWithCoder:]";
-        v26 = _os_log_send_and_compose_impl();
+        v56 = "[NWEndpoint initWithCoder:]";
+        LODWORD(v51) = 12;
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s nw_endpoint_create_from_dictionary failed", buf, v51);
 
         type = OS_LOG_TYPE_ERROR;
-        v51 = 0;
-        if (!__nwlog_fault(v26, &type, &v51))
+        v52 = 0;
+        if (!__nwlog_fault(v26, &type, &v52))
         {
 LABEL_59:
           if (!v26)
@@ -922,7 +924,7 @@ LABEL_60:
           if (os_log_type_enabled(v27, type))
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v33, "%{public}s nw_endpoint_create_from_dictionary failed", buf, 0xCu);
           }
 
@@ -931,7 +933,7 @@ LABEL_58:
           goto LABEL_59;
         }
 
-        if (v51 != 1)
+        if (v52 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -940,7 +942,7 @@ LABEL_58:
           if (os_log_type_enabled(v27, type))
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v41, "%{public}s nw_endpoint_create_from_dictionary failed, backtrace limit exceeded", buf, 0xCu);
           }
 
@@ -958,7 +960,7 @@ LABEL_58:
           if (v39)
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v38, "%{public}s nw_endpoint_create_from_dictionary failed, no backtrace", buf, 0xCu);
           }
 
@@ -968,9 +970,9 @@ LABEL_58:
         if (v39)
         {
           *buf = 136446466;
-          v55 = "[NWEndpoint initWithCoder:]";
-          v56 = 2082;
-          v57 = backtrace_string;
+          v56 = "[NWEndpoint initWithCoder:]";
+          v57 = 2082;
+          v58 = backtrace_string;
           _os_log_impl(&dword_181A37000, v27, v38, "%{public}s nw_endpoint_create_from_dictionary failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
       }
@@ -981,12 +983,13 @@ LABEL_58:
         networkd_settings_init();
         v25 = gLogObj;
         *buf = 136446210;
-        v55 = "[NWEndpoint initWithCoder:]";
-        v26 = _os_log_send_and_compose_impl();
+        v56 = "[NWEndpoint initWithCoder:]";
+        LODWORD(v51) = 12;
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed", buf, v51);
 
         type = OS_LOG_TYPE_ERROR;
-        v51 = 0;
-        if (!__nwlog_fault(v26, &type, &v51))
+        v52 = 0;
+        if (!__nwlog_fault(v26, &type, &v52))
         {
           goto LABEL_59;
         }
@@ -1000,14 +1003,14 @@ LABEL_58:
           if (os_log_type_enabled(v27, type))
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v28, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed", buf, 0xCu);
           }
 
           goto LABEL_58;
         }
 
-        if (v51 != 1)
+        if (v52 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -1016,7 +1019,7 @@ LABEL_58:
           if (os_log_type_enabled(v27, type))
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v40, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, backtrace limit exceeded", buf, 0xCu);
           }
 
@@ -1034,7 +1037,7 @@ LABEL_58:
           if (v36)
           {
             *buf = 136446210;
-            v55 = "[NWEndpoint initWithCoder:]";
+            v56 = "[NWEndpoint initWithCoder:]";
             _os_log_impl(&dword_181A37000, v27, v35, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, no backtrace", buf, 0xCu);
           }
 
@@ -1044,9 +1047,9 @@ LABEL_58:
         if (v36)
         {
           *buf = 136446466;
-          v55 = "[NWEndpoint initWithCoder:]";
-          v56 = 2082;
-          v57 = backtrace_string;
+          v56 = "[NWEndpoint initWithCoder:]";
+          v57 = 2082;
+          v58 = backtrace_string;
           _os_log_impl(&dword_181A37000, v27, v35, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
       }
@@ -1064,12 +1067,13 @@ LABEL_58:
     networkd_settings_init();
     v21 = gLogObj;
     *buf = 136446210;
-    v55 = "[NWEndpoint initWithCoder:]";
-    v22 = _os_log_send_and_compose_impl();
+    v56 = "[NWEndpoint initWithCoder:]";
+    LODWORD(v51) = 12;
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s decodeObjectOfClasses:forKey failed", buf, v51);
 
     type = OS_LOG_TYPE_ERROR;
-    v51 = 0;
-    if (__nwlog_fault(v22, &type, &v51))
+    v52 = 0;
+    if (__nwlog_fault(v22, &type, &v52))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -1080,12 +1084,12 @@ LABEL_58:
         if (os_log_type_enabled(v23, type))
         {
           *buf = 136446210;
-          v55 = "[NWEndpoint initWithCoder:]";
+          v56 = "[NWEndpoint initWithCoder:]";
           _os_log_impl(&dword_181A37000, v23, v24, "%{public}s decodeObjectOfClasses:forKey failed", buf, 0xCu);
         }
       }
 
-      else if (v51 == 1)
+      else if (v52 == 1)
       {
         v29 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -1098,9 +1102,9 @@ LABEL_58:
           if (v31)
           {
             *buf = 136446466;
-            v55 = "[NWEndpoint initWithCoder:]";
-            v56 = 2082;
-            v57 = v29;
+            v56 = "[NWEndpoint initWithCoder:]";
+            v57 = 2082;
+            v58 = v29;
             _os_log_impl(&dword_181A37000, v23, v30, "%{public}s decodeObjectOfClasses:forKey failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
@@ -1116,7 +1120,7 @@ LABEL_58:
         if (v31)
         {
           *buf = 136446210;
-          v55 = "[NWEndpoint initWithCoder:]";
+          v56 = "[NWEndpoint initWithCoder:]";
           _os_log_impl(&dword_181A37000, v23, v30, "%{public}s decodeObjectOfClasses:forKey failed, no backtrace", buf, 0xCu);
         }
       }
@@ -1130,7 +1134,7 @@ LABEL_58:
         if (os_log_type_enabled(v23, type))
         {
           *buf = 136446210;
-          v55 = "[NWEndpoint initWithCoder:]";
+          v56 = "[NWEndpoint initWithCoder:]";
           _os_log_impl(&dword_181A37000, v23, v37, "%{public}s decodeObjectOfClasses:forKey failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
@@ -1152,12 +1156,12 @@ LABEL_51:
 
   v43 = __nwlog_obj();
   *buf = 136446210;
-  v55 = "[NWEndpoint initWithCoder:]";
-  v44 = _os_log_send_and_compose_impl();
+  v56 = "[NWEndpoint initWithCoder:]";
+  v44 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v51 = 0;
-  if (__nwlog_fault(v44, &type, &v51))
+  v52 = 0;
+  if (__nwlog_fault(v44, &type, &v52))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -1166,12 +1170,12 @@ LABEL_51:
       if (os_log_type_enabled(v45, type))
       {
         *buf = 136446210;
-        v55 = "[NWEndpoint initWithCoder:]";
+        v56 = "[NWEndpoint initWithCoder:]";
         _os_log_impl(&dword_181A37000, v45, v46, "%{public}s [super init] failed", buf, 0xCu);
       }
     }
 
-    else if (v51 == 1)
+    else if (v52 == 1)
     {
       v47 = __nw_create_backtrace_string();
       v45 = __nwlog_obj();
@@ -1182,9 +1186,9 @@ LABEL_51:
         if (v49)
         {
           *buf = 136446466;
-          v55 = "[NWEndpoint initWithCoder:]";
-          v56 = 2082;
-          v57 = v47;
+          v56 = "[NWEndpoint initWithCoder:]";
+          v57 = 2082;
+          v58 = v47;
           _os_log_impl(&dword_181A37000, v45, v48, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -1195,7 +1199,7 @@ LABEL_51:
       if (v49)
       {
         *buf = 136446210;
-        v55 = "[NWEndpoint initWithCoder:]";
+        v56 = "[NWEndpoint initWithCoder:]";
         _os_log_impl(&dword_181A37000, v45, v48, "%{public}s [super init] failed, no backtrace", buf, 0xCu);
       }
     }
@@ -1207,7 +1211,7 @@ LABEL_51:
       if (os_log_type_enabled(v45, type))
       {
         *buf = 136446210;
-        v55 = "[NWEndpoint initWithCoder:]";
+        v56 = "[NWEndpoint initWithCoder:]";
         _os_log_impl(&dword_181A37000, v45, v50, "%{public}s [super init] failed, backtrace limit exceeded", buf, 0xCu);
       }
     }
@@ -1238,7 +1242,7 @@ LABEL_64:
     v17 = gLogObj;
     *buf = 136446210;
     v42 = "+[NWEndpoint endpointWithProtocolBufferData:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s [NWPBEndpoint initWithData:] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;

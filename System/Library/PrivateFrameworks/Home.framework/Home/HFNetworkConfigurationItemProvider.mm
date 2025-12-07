@@ -20,8 +20,8 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = [HFNetworkConfigurationItem alloc];
-    home = [(HFAccessoryProfileItemProvider *)self home];
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    v6 = objc_msgSend_home(self);
+    hf_characteristicValueManager = [v6 hf_characteristicValueManager];
     v8 = [(HFAccessoryProfileItem *)v5 initWithProfile:profileCopy valueSource:hf_characteristicValueManager];
   }
 

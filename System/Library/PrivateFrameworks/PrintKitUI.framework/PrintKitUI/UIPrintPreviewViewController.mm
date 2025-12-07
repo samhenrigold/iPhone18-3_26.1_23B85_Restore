@@ -3088,7 +3088,7 @@ LABEL_6:
           v50 = pinchAnimationView5;
           if (pinchAnimationView5)
           {
-            [pinchAnimationView5 transform];
+            objc_msgSend_transform(pinchAnimationView5);
           }
 
           else
@@ -3118,7 +3118,7 @@ LABEL_6:
         v61 = pinchAnimationView8;
         if (pinchAnimationView8)
         {
-          [pinchAnimationView8 transform];
+          objc_msgSend_transform(pinchAnimationView8);
         }
 
         else

@@ -77,7 +77,7 @@
 
 - (id)_createConnectProxyConfig
 {
-  v78[4] = *MEMORY[0x277D85DE8];
+  v77[4] = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_proxyURL(self, a2, v2, v3, v4);
   v11 = objc_msgSend_host(v6, v7, v8, v9, v10);
   v20 = objc_msgSend_port(v6, v12, v13, v14, v15);
@@ -97,14 +97,14 @@
   v32 = objc_msgSend_scheme(v6, v16, v17, v18, v19);
   isEqualToString = objc_msgSend_isEqualToString_(v32, v33, @"http", v34, v35);
 
-  v77[0] = @"HTTPEnable";
-  v77[1] = @"HTTPSEnable";
-  v78[0] = &unk_287370B90;
-  v78[1] = &unk_287370B90;
+  v76[0] = @"HTTPEnable";
+  v76[1] = @"HTTPSEnable";
+  v77[0] = &unk_287370B90;
+  v77[1] = &unk_287370B90;
   v38 = &unk_287370BA8;
   v39 = *MEMORY[0x277CBAE00];
-  v77[2] = *MEMORY[0x277CBADE8];
-  v77[3] = v39;
+  v76[2] = *MEMORY[0x277CBADE8];
+  v76[3] = v39;
   v40 = &unk_287370BC0;
   if (v20)
   {
@@ -112,9 +112,9 @@
     v40 = v20;
   }
 
-  v78[2] = v38;
-  v78[3] = v40;
-  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v78, v77, 4);
+  v77[2] = v38;
+  v77[3] = v40;
+  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v77, v76, 4);
   v46 = v41;
   if (v11)
   {
@@ -133,8 +133,6 @@
 
   objc_msgSend_set_preventsSystemHTTPProxyAuthentication_(v57, v69, 1, v70, v71);
   objc_msgSend_set_requiresSecureHTTPSProxyConnection_(v57, v72, isEqualToString ^ 1u, v73, v74);
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v57;
 }

@@ -61,7 +61,7 @@ void __63__ATXWebClipDataStore_initWithDataStore_contextUpdateListener___block_i
 
 - (void)updateWithUsageEvent:(id)event
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   clipBundleId = [eventCopy clipBundleId];
   if (clipBundleId)
@@ -71,16 +71,16 @@ void __63__ATXWebClipDataStore_initWithDataStore_contextUpdateListener___block_i
 
     if (webClipBundleId)
     {
-      v8 = __atxlog_handle_hero();
+      v8 = __atxlog_handle_hero(clipBundleId);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         webClipBundleId2 = [eventCopy webClipBundleId];
         clipBundleId2 = [eventCopy clipBundleId];
-        v15 = 138412546;
-        v16 = webClipBundleId2;
-        v17 = 2112;
-        v18 = clipBundleId2;
-        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Recording usage event for %@:%@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = webClipBundleId2;
+        v16 = 2112;
+        v17 = clipBundleId2;
+        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Recording usage event for %@:%@", &v14, 0x16u);
       }
 
       dataStore = [(ATXWebClipDataStore *)self dataStore];
@@ -92,17 +92,15 @@ void __63__ATXWebClipDataStore_initWithDataStore_contextUpdateListener___block_i
     }
   }
 
-  dataStore = __atxlog_handle_hero();
+  dataStore = __atxlog_handle_hero(clipBundleId);
   if (os_log_type_enabled(dataStore, OS_LOG_TYPE_DEFAULT))
   {
     webClipBundleId3 = [eventCopy parentAppBundleId];
-    v15 = 138412290;
-    v16 = webClipBundleId3;
-    _os_log_impl(&dword_2263AA000, dataStore, OS_LOG_TYPE_DEFAULT, "Not recording usage event for %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = webClipBundleId3;
+    _os_log_impl(&dword_2263AA000, dataStore, OS_LOG_TYPE_DEFAULT, "Not recording usage event for %@", &v14, 0xCu);
 LABEL_8:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)webClipBundleIdsForAppClip:(id)clip

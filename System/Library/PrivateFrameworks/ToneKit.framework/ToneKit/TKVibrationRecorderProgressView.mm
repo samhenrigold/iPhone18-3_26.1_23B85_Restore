@@ -226,32 +226,32 @@ LABEL_12:
 
 - (void)clearAllVibrationComponents
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_dots;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) removeFromSuperview];
+        [*(*(&v8 + 1) + 8 * v7++) removeFromSuperview];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -260,7 +260,6 @@ LABEL_12:
   [(NSMutableArray *)self->_dots removeAllObjects];
   [(TKVibrationRecorderProgressView *)self vibrationComponentDidEnd];
   self->_previousPauseDidBeginTimeInterval = -1.0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)intrinsicContentSize

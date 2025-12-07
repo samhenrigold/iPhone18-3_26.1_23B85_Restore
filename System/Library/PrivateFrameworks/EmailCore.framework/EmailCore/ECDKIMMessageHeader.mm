@@ -22,12 +22,12 @@
 
 - (ECDKIMMessageHeader)initWithHeaderFieldName:(id)name headerBody:(id)body error:(id *)error
 {
-  v39[7] = *MEMORY[0x277D85DE8];
+  v38[7] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bodyCopy = body;
-  v37.receiver = self;
-  v37.super_class = ECDKIMMessageHeader;
-  v10 = [(ECDKIMMessageHeader *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = ECDKIMMessageHeader;
+  v10 = [(ECDKIMMessageHeader *)&v36 init];
   if (!v10)
   {
     goto LABEL_63;
@@ -37,9 +37,9 @@
   headerNameForCanonicalization = v10->_headerNameForCanonicalization;
   v10->_headerNameForCanonicalization = v11;
 
-  v36 = 0;
-  v13 = [ECTagValueList tagValueListFromString:bodyCopy error:&v36];
-  v14 = v36;
+  v35 = 0;
+  v13 = [ECTagValueList tagValueListFromString:bodyCopy error:&v35];
+  v14 = v35;
   tagValueList = v10->_tagValueList;
   v10->_tagValueList = v13;
 
@@ -54,33 +54,33 @@
     goto LABEL_61;
   }
 
-  v39[0] = @"v";
-  v39[1] = @"a";
-  v39[2] = @"b";
-  v39[3] = @"bh";
-  v39[4] = @"d";
-  v39[5] = @"h";
-  v39[6] = @"s";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:7];
+  v38[0] = @"v";
+  v38[1] = @"a";
+  v38[2] = @"b";
+  v38[3] = @"bh";
+  v38[4] = @"d";
+  v38[5] = @"h";
+  v38[6] = @"s";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:7];
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v17 = v33 = 0u;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v31 = 0u;
+  v17 = v32 = 0u;
+  v18 = [v17 countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v18)
   {
-    v19 = *v33;
+    v19 = *v32;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v33 != v19)
+        if (*v32 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v32 + 1) + 8 * i);
-        v22 = [(ECTagValueList *)v10->_tagValueList objectForKeyedSubscript:v21, v32];
+        v21 = *(*(&v31 + 1) + 8 * i);
+        v22 = [(ECTagValueList *)v10->_tagValueList objectForKeyedSubscript:v21, v31];
         v23 = v22 == 0;
 
         if (v23)
@@ -95,7 +95,7 @@
         }
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v31 objects:v37 count:16];
       if (v18)
       {
         continue;
@@ -288,7 +288,6 @@ LABEL_61:
   v29 = 0;
 LABEL_64:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -599,34 +598,34 @@ LABEL_3:
 
 - (id)_parseSignedHeaderFields
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [(ECTagValueList *)self->_tagValueList objectForKeyedSubscript:@"h"];
-  v19 = v2;
+  v18 = v2;
   if (v2)
   {
-    v18 = [v2 componentsSeparatedByString:@":"];
-    if ([v18 count])
+    v17 = [v2 componentsSeparatedByString:@":"];
+    if ([v17 count])
     {
-      v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v18, "count")}];
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
+      v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v17, "count")}];
       v21 = 0u;
-      v4 = v18;
-      v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v4 = v17;
+      v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v5)
       {
-        v6 = *v21;
+        v6 = *v20;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v21 != v6)
+            if (*v20 != v6)
             {
               objc_enumerationMutation(v4);
             }
 
-            v8 = *(*(&v20 + 1) + 8 * i);
+            v8 = *(*(&v19 + 1) + 8 * i);
             whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
             v10 = [v8 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
             lowercaseString = [v10 lowercaseString];
@@ -635,7 +634,7 @@ LABEL_3:
             [(NSArray *)v3 addObject:ef_stringByRFC5322Unfolding];
           }
 
-          v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v5);
@@ -649,7 +648,7 @@ LABEL_3:
 
     else
     {
-      v14 = [(ECDKIMMessageHeader *)self _errorForInvalidRequiredKey:@"h" actualValue:v19 expectedValue:0];
+      v14 = [(ECDKIMMessageHeader *)self _errorForInvalidRequiredKey:@"h" actualValue:v18 expectedValue:0];
     }
   }
 
@@ -657,8 +656,6 @@ LABEL_3:
   {
     v14 = [(ECDKIMMessageHeader *)self _errorForMissingRequiredKey:@"h"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -776,49 +773,43 @@ LABEL_9:
 
 - (id)_errorForMissingRequiredKey:(id)key
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"DKIM signature is missing required key '%@'", keyCopy, *MEMORY[0x277CCA470]];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ECDKIMMessageHeaderParseError" code:100 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_errorForInvalidRequiredKey:(id)key actualValue:(id)value expectedValue:(id)expectedValue
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
-  v13 = *MEMORY[0x277CCA470];
+  v12 = *MEMORY[0x277CCA470];
   valueCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"DKIM signature required key '%@' has invalid value '%@'", keyCopy, valueCopy];
-  v14[0] = valueCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = valueCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ECDKIMMessageHeaderParseError" code:101 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_errorForInvalidOptionalKey:(id)key actualValue:(id)value expectedValue:(id)expectedValue
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
-  v13 = *MEMORY[0x277CCA470];
+  v12 = *MEMORY[0x277CCA470];
   valueCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"DKIM signature optional key '%@' has invalid value '%@'", keyCopy, valueCopy];
-  v14[0] = valueCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = valueCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ECDKIMMessageHeaderParseError" code:102 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

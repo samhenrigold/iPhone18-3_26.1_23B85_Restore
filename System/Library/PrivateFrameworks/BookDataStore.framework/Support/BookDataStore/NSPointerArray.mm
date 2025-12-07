@@ -1,8 +1,53 @@
 @interface NSPointerArray
+- (void)bds_chainSuccessAndErrorCompletionSelectorCallsForSelector:(SEL)selector successSoFar:(BOOL)far errorSoFar:(id)soFar completion:(id)completion;
 - (void)bds_chainUntilNoErrorCompletionSelectorCallsForSelector:(SEL)selector successSoFar:(BOOL)far errorSoFar:(id)soFar completion:(id)completion;
 @end
 
 @implementation NSPointerArray
+
+- (void)bds_chainSuccessAndErrorCompletionSelectorCallsForSelector:(SEL)selector successSoFar:(BOOL)far errorSoFar:(id)soFar completion:(id)completion
+{
+  farCopy = far;
+  soFarCopy = soFar;
+  completionCopy = completion;
+  if ([(NSPointerArray *)self count]&& !soFarCopy && farCopy)
+  {
+    v12 = [(NSPointerArray *)self pointerAtIndex:0];
+    v13 = v12;
+    if (v12)
+    {
+      v14 = [v12 methodForSelector:selector];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_10000E8E4;
+      v19[3] = &unk_10023F8E8;
+      v19[4] = self;
+      selectorCopy = selector;
+      v20 = completionCopy;
+      v14(v13, selector, v19);
+    }
+
+    else
+    {
+      v17 = objc_retainBlock(completionCopy);
+      if (v17)
+      {
+        v18 = [NSError errorWithDomain:@"BDSArrayAdditionsErrorDomain" code:1000 userInfo:0];
+        v17[2](v17, 0, v18);
+      }
+    }
+  }
+
+  else
+  {
+    v15 = objc_retainBlock(completionCopy);
+    v16 = v15;
+    if (v15)
+    {
+      (*(v15 + 2))(v15, farCopy, soFarCopy);
+    }
+  }
+}
 
 - (void)bds_chainUntilNoErrorCompletionSelectorCallsForSelector:(SEL)selector successSoFar:(BOOL)far errorSoFar:(id)soFar completion:(id)completion
 {

@@ -42,7 +42,7 @@
       {
         v16 = [v9 mutableCopy];
         [v16 removeObject:@"handles"];
-        v17 = [v16 copy];
+        v17 = objc_msgSend_copy(v16);
 
         v9 = v17;
       }
@@ -74,35 +74,33 @@
 
 void __28__HMDDeviceModel_properties__block_invoke()
 {
-  v10[6] = *MEMORY[0x277D85DE8];
-  v9[0] = @"identifier";
+  v9[6] = *MEMORY[0x277D85DE8];
+  v8[0] = @"identifier";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[0] = v0;
-  v9[1] = @"handles";
+  v9[0] = v0;
+  v8[1] = @"handles";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[1] = v1;
-  v9[2] = @"name";
+  v9[1] = v1;
+  v8[2] = @"name";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[2] = v2;
-  v9[3] = @"version";
+  v9[2] = v2;
+  v8[3] = @"version";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[3] = v3;
-  v9[4] = @"productInfo";
+  v9[3] = v3;
+  v8[4] = @"productInfo";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[4] = v4;
-  v9[5] = @"rpIdentity";
+  v9[4] = v4;
+  v8[5] = @"rpIdentity";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[5] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
+  v9[5] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
   v7 = properties__properties_177293;
   properties__properties_177293 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)schemaHashRoot
 {
-  v2 = [@"6D8998A8-13E4-4269-83B8-672645AE2D15" copy];
+  v2 = objc_msgSend_copy(@"6D8998A8-13E4-4269-83B8-672645AE2D15", a2);
 
   return v2;
 }

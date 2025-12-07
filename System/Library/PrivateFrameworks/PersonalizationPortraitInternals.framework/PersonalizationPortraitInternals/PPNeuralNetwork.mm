@@ -69,78 +69,73 @@
     v9 = malloc_type_malloc(4 * (v8 + *(v7 + 4)), 0x100004052888210uLL);
     if (!v9)
     {
-      v26 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v26);
+      v21 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v21);
     }
 
     v10 = v9;
     memcpy(v9, (self[2] + *(self[4] + 20 * v6 + 12)), 4 * *(self[4] + 20 * v6 + 4));
-    v11 = (self[4] + 20 * v6);
-    v13 = *v11;
-    v12 = v11[1];
-    v14 = self[2];
-    v15 = v11[2];
     cblas_sgemv_NEWLAPACK();
-    v16 = self[4];
-    v17 = *(v16 + 20 * v6 + 16);
-    if (*(v16 + 20 * v6 + 16))
+    v11 = self[4];
+    v12 = *(v11 + 20 * v6 + 16);
+    if (*(v11 + 20 * v6 + 16))
     {
-      if (v17 == 1)
+      if (v12 == 1)
       {
-        v20 = *(v16 + 20 * v6 + 4);
-        v21 = v10;
-        if (v20)
+        v15 = *(v11 + 20 * v6 + 4);
+        v16 = v10;
+        if (v15)
         {
           do
           {
-            *v21 = tanhf(*v21);
-            ++v21;
-            --v20;
+            *v16 = tanhf(*v16);
+            ++v16;
+            --v15;
           }
 
-          while (v20);
+          while (v15);
         }
       }
 
-      else if (v17 == 2)
+      else if (v12 == 2)
       {
-        v18 = *(v16 + 20 * v6 + 4);
-        v19 = v10;
-        if (v18)
+        v13 = *(v11 + 20 * v6 + 4);
+        v14 = v10;
+        if (v13)
         {
           do
           {
-            *v19 = fmaxf(*v19, 0.0);
-            ++v19;
-            --v18;
+            *v14 = fmaxf(*v14, 0.0);
+            ++v14;
+            --v13;
           }
 
-          while (v18);
+          while (v13);
         }
       }
     }
 
     else
     {
-      v22 = *(v16 + 20 * v6 + 4);
-      if (v22)
+      v17 = *(v11 + 20 * v6 + 4);
+      if (v17)
       {
-        v23 = v10;
+        v18 = v10;
         do
         {
-          *v23 = 1.0 / (expf(-*v23) + 1.0);
-          ++v23;
-          --v22;
+          *v18 = 1.0 / (expf(-*v18) + 1.0);
+          ++v18;
+          --v17;
         }
 
-        while (v22);
+        while (v17);
       }
     }
 
-    v24 = (v16 + 20 * v6);
-    if (*(v24 + 17))
+    v19 = (v11 + 20 * v6);
+    if (*(v19 + 17))
     {
-      memcpy(&v10[*(v16 + 20 * v6 + 4)], v3, 4 * *v24);
+      memcpy(&v10[*(v11 + 20 * v6 + 4)], v3, 4 * *v19);
     }
 
     if (v6 || inputs)

@@ -411,8 +411,7 @@
     if (!startSharingButton3)
     {
       v42 = [MEMORY[0x1E69DC738] buttonWithType:1];
-      [v42 addTarget:self action:sel__shareButtonHit_ forControlEvents:64];
-      v43 = CKFrameworkBundle();
+      v43 = CKFrameworkBundle([v42 addTarget:self action:sel__shareButtonHit_ forControlEvents:64]);
       v44 = [v43 localizedStringForKey:@"SHARE_BUTTON_START" value:&stru_1F04268F8 table:@"ChatKit"];
       [v42 setTitle:v44 forState:0];
 
@@ -442,8 +441,7 @@
     if (!ignoreButton3)
     {
       v54 = [MEMORY[0x1E69DC738] buttonWithType:1];
-      [v54 addTarget:self action:sel__ignoreButtonHit_ forControlEvents:64];
-      v55 = CKFrameworkBundle();
+      v55 = CKFrameworkBundle([v54 addTarget:self action:sel__ignoreButtonHit_ forControlEvents:64]);
       v56 = [v55 localizedStringForKey:@"SHARE_BUTTON_IGNORE" value:&stru_1F04268F8 table:@"ChatKit"];
       [v54 setTitle:v56 forState:0];
 

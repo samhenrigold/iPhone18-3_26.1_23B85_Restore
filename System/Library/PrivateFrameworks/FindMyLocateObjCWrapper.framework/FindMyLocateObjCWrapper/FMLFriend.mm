@@ -1,5 +1,6 @@
 @interface FMLFriend
 - (BOOL)isEqual:(id)equal;
+- (FMLFriend)initWithHandle:(id)handle handleType:(int64_t)type createDate:(id)date expiry:(id)expiry origin:(int64_t)origin originatedFromTheSameClient:(BOOL)client;
 - (id)comparisonIdentifier;
 - (id)debugDescription;
 - (id)description;
@@ -7,6 +8,29 @@
 @end
 
 @implementation FMLFriend
+
+- (FMLFriend)initWithHandle:(id)handle handleType:(int64_t)type createDate:(id)date expiry:(id)expiry origin:(int64_t)origin originatedFromTheSameClient:(BOOL)client
+{
+  clientCopy = client;
+  handleCopy = handle;
+  dateCopy = date;
+  expiryCopy = expiry;
+  v20.receiver = self;
+  v20.super_class = FMLFriend;
+  v17 = [(FMLFriend *)&v20 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(FMLFriend *)v17 setHandle:handleCopy];
+    [(FMLFriend *)v18 setHandleType:type];
+    [(FMLFriend *)v18 setCreatedAt:dateCopy];
+    [(FMLFriend *)v18 setExpiry:expiryCopy];
+    [(FMLFriend *)v18 setOrigin:origin];
+    [(FMLFriend *)v18 setOriginatedFromTheSameClient:clientCopy];
+  }
+
+  return v18;
+}
 
 - (BOOL)isEqual:(id)equal
 {

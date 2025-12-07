@@ -1,8 +1,10 @@
 @interface AWDSafariTappedAutoFillQuickTypeSuggestionEvent
 - (BOOL)isEqual:(id)equal;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)formPropertyAsString:(int)string;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsFormProperty:(id)property;
 - (int)category;
@@ -43,6 +45,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)categoryAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32EB0[string];
+  }
 }
 
 - (int)StringAsCategory:(id)category
@@ -96,6 +111,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)formPropertyAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32ED0[string];
+  }
 }
 
 - (int)StringAsFormProperty:(id)property
@@ -238,7 +266,6 @@ LABEL_10:
     }
 
 LABEL_6:
-    category = self->_category;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -248,7 +275,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -263,7 +289,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  formProperty = self->_formProperty;
 
   PBDataWriterWriteInt32Field();
 }

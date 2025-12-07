@@ -18,13 +18,13 @@
 {
   contextCopy = context;
   isValidElementForImageExploration = [contextCopy isValidElementForImageExploration];
-  v5 = VOTLogImageExplorer();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  v6 = VOTLogImageExplorer();
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (isValidElementForImageExploration)
   {
-    if (v6)
+    if (v7)
     {
-      sub_10012A1B8();
+      sub_10012A1B8(self);
     }
 
     [contextCopy handleLaunchVoiceOverImageExplorer];
@@ -32,9 +32,9 @@
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      sub_10012A124();
+      sub_10012A124(self);
     }
   }
 

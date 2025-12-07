@@ -72,9 +72,9 @@ void __41__VUIPlaybackReporterVPAF_sharedInstance__block_invoke()
 
 - (VUIPlaybackReporterVPAF)init
 {
-  v29.receiver = self;
-  v29.super_class = VUIPlaybackReporterVPAF;
-  v2 = [(VUIPlaybackReporter *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = VUIPlaybackReporterVPAF;
+  v2 = [(VUIPlaybackReporter *)&v30 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:5 valueOptions:0 capacity:0];
@@ -147,8 +147,8 @@ void __41__VUIPlaybackReporterVPAF_sharedInstance__block_invoke()
     defaultCenter22 = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter22 addObserver:v2 selector:sel__liveSportsPostPlayManualPlayWillStart_ name:@"VUILiveSportsPostPlayManualPlayWillStartNotification" object:0];
 
-    v27 = VUIVPAFLogObject();
-    [(VUIPlaybackReporter *)v2 setLogObject:v27];
+    v28 = VUIVPAFLogObject(v27);
+    [(VUIPlaybackReporter *)v2 setLogObject:v28];
   }
 
   return v2;
@@ -187,7 +187,7 @@ void __41__VUIPlaybackReporterVPAF_sharedInstance__block_invoke()
 
   else
   {
-    v6 = VUIVPAFLogObject();
+    v6 = VUIVPAFLogObject(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -209,7 +209,7 @@ void __41__VUIPlaybackReporterVPAF_sharedInstance__block_invoke()
 
 void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invoke(uint64_t a1)
 {
-  v2 = VUIVPAFLogObject();
+  v2 = VUIVPAFLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -227,7 +227,7 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
 
 void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invoke_82(uint64_t a1)
 {
-  v2 = VUIVPAFLogObject();
+  v2 = VUIVPAFLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -242,7 +242,7 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
 - (id)_createSessionForPlayer:(id)player
 {
   playerCopy = player;
-  v5 = VUIVPAFLogObject();
+  v5 = VUIVPAFLogObject(playerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -257,69 +257,69 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
 
     if (wrappedPipeline)
     {
-      v9 = [objc_alloc(MEMORY[0x1E69AB828]) initWithPipeline:wrappedPipeline playlist:v6 eventData:0 topic:@"xp_amp_tv_vpaf"];
+      v10 = [objc_alloc(MEMORY[0x1E69AB828]) initWithPipeline:wrappedPipeline playlist:v6 eventData:0 topic:@"xp_amp_tv_vpaf"];
     }
 
     else
     {
-      v10 = VUIVPAFLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = VUIVPAFLogObject(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Metrics Jet pipeline is nil, not creating VPAF tracker", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Metrics Jet pipeline is nil, not creating VPAF tracker", buf, 2u);
       }
 
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v11 = [[VUIPlaybackReporterSession alloc] initWithPlayer:playerCopy context:v9];
-  -[VUIPlaybackReporterSession setHasInterstitials:](v11, "setHasInterstitials:", [playerCopy hasInterstitials]);
-  [(VUIPlaybackReporterSession *)v11 setReportingEnabled:v9 != 0];
-  v12 = [(NSMapTable *)self->_pendingPlayerProperties objectForKey:playerCopy];
-  if (v12)
+  v12 = [[VUIPlaybackReporterSession alloc] initWithPlayer:playerCopy context:v10];
+  -[VUIPlaybackReporterSession setHasInterstitials:](v12, "setHasInterstitials:", [playerCopy hasInterstitials]);
+  [(VUIPlaybackReporterSession *)v12 setReportingEnabled:v10 != 0];
+  v13 = [(NSMapTable *)self->_pendingPlayerProperties objectForKey:playerCopy];
+  if (v13)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __51__VUIPlaybackReporterVPAF__createSessionForPlayer___block_invoke;
-    v18[3] = &unk_1E8732C58;
-    v19 = v11;
-    [v12 enumerateKeysAndObjectsUsingBlock:v18];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __51__VUIPlaybackReporterVPAF__createSessionForPlayer___block_invoke;
+    v19[3] = &unk_1E8732C58;
+    v20 = v12;
+    [v13 enumerateKeysAndObjectsUsingBlock:v19];
     [(NSMapTable *)self->_pendingPlayerProperties removeObjectForKey:playerCopy];
   }
 
-  v13 = [(VUIPlaybackReporterSession *)v11 metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyForegroundPlayback"];
+  v14 = [(VUIPlaybackReporterSession *)v12 metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyForegroundPlayback"];
   currentMediaItem = [playerCopy currentMediaItem];
-  v15 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataKeyReportVPAFWhenPlayingInBackground"];
-  if (v13 && ([v13 BOOLValue] & 1) == 0 && (objc_msgSend(v15, "BOOLValue") & 1) == 0)
+  v16 = [currentMediaItem mediaItemMetadataForProperty:@"VUIMediaItemMetadataKeyReportVPAFWhenPlayingInBackground"];
+  if (v14 && ([v14 BOOLValue] & 1) == 0 && (objc_msgSend(v16, "BOOLValue") & 1) == 0)
   {
-    [(VUIPlaybackReporterSession *)v11 setReportingEnabled:0];
+    [(VUIPlaybackReporterSession *)v12 setReportingEnabled:0];
   }
 
   if ([VUIPlaybackUtilities playerIsLive:playerCopy])
   {
-    [(VUIPlaybackReporterVPAF *)self _createPlaybackDatePollingTimerForLiveStream:v11];
-    v16 = MEMORY[0x1E695E118];
+    [(VUIPlaybackReporterVPAF *)self _createPlaybackDatePollingTimerForLiveStream:v12];
+    v17 = MEMORY[0x1E695E118];
   }
 
   else
   {
-    v16 = MEMORY[0x1E695E110];
+    v17 = MEMORY[0x1E695E110];
   }
 
-  [(VUIPlaybackReporterSession *)v11 setMetadata:v16 forKey:@"VUIPlaybackReporterSessionMetadataKeyIsPlayerLive"];
+  [(VUIPlaybackReporterSession *)v12 setMetadata:v17 forKey:@"VUIPlaybackReporterSessionMetadataKeyIsPlayerLive"];
 
-  return v11;
+  return v12;
 }
 
 - (void)_reportForSession:(id)session state:(id)state reason:(id)reason
 {
-  v148[2] = *MEMORY[0x1E69E9840];
+  v150[2] = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   stateCopy = state;
   reasonCopy = reason;
@@ -327,8 +327,8 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
   v12 = v11;
   if (v11)
   {
-    v113 = v11;
-    v114 = reasonCopy;
+    v115 = v11;
+    v116 = reasonCopy;
     player = [sessionCopy player];
     currentMediaItem = [player currentMediaItem];
     v14 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyIsSeekJumpToLive"];
@@ -343,11 +343,11 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
     playing = [MEMORY[0x1E69D5A40] playing];
 
     selfCopy = self;
-    v115 = stateCopy;
+    v117 = stateCopy;
     if (playing != stateCopy)
     {
       v19 = [sessionCopy consumeMetadataForKey:@"VUIPlaybackReporterSessionMetadataKeySeekInfo"];
-      v117 = v19;
+      v119 = v19;
       if (![VUIPlaybackUtilities playerIsLive:player])
       {
         v20 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyIsPlayerLive"];
@@ -357,7 +357,7 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
         {
           v38 = [v19 objectForKey:*MEMORY[0x1E69D60B0]];
           v39 = v38;
-          reasonCopy = v114;
+          reasonCopy = v116;
           if (v38)
           {
             [v38 doubleValue];
@@ -369,9 +369,9 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
           }
 
           buf[0] = 0;
-          v44 = [(VUIPlaybackReporterVPAF *)self _snapToNearestPrerollIfNeeded:vcvtad_u64_f64(v40 * 1000.0) forSession:sessionCopy isAtPrerollBoundary:buf];
-          v45 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"];
-          bOOLValue5 = [v45 BOOLValue];
+          v45 = [(VUIPlaybackReporterVPAF *)self _snapToNearestPrerollIfNeeded:vcvtad_u64_f64(v40 * 1000.0) forSession:sessionCopy isAtPrerollBoundary:buf];
+          v46 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"];
+          bOOLValue5 = [v46 BOOLValue];
 
           v37 = 0;
           if ([sessionCopy hasInterstitials])
@@ -379,115 +379,115 @@ void __60__VUIPlaybackReporterVPAF__flushUnreportedEventsAfterDelay___block_invo
             v37 = buf[0] & bOOLValue5;
           }
 
-          v110 = [(VUIPlaybackReporterVPAF *)selfCopy _capPlayHeadIfNeeded:v44 forSession:sessionCopy];
+          v112 = [(VUIPlaybackReporterVPAF *)selfCopy _capPlayHeadIfNeeded:v45 forSession:sessionCopy];
 
           playbackDate = 0;
 LABEL_32:
           consumeStopType = [sessionCopy consumeStopType];
           consumeStopReason = [sessionCopy consumeStopReason];
-          v118 = playbackDate;
+          v120 = playbackDate;
           if ([consumeStopReason isEqualToString:*MEMORY[0x1E69AB7D8]])
           {
-            v120 = consumeStopType;
-            v49 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeySkipIntroInfo"];
+            v122 = consumeStopType;
+            v50 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeySkipIntroInfo"];
 
-            if (v49)
+            if (v50)
             {
-              v128 = *MEMORY[0x1E69AB750];
-              v129 = *MEMORY[0x1E69AB7F0];
-              v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
+              v130 = *MEMORY[0x1E69AB750];
+              v131 = *MEMORY[0x1E69AB7F0];
+              v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
               self = selfCopy;
-              v51 = [(VUIPlaybackReporterVPAF *)selfCopy _skipIntroActionForSession:sessionCopy consume:0];
-              v52 = v51;
-              v12 = v113;
-              if (v51)
+              v52 = [(VUIPlaybackReporterVPAF *)selfCopy _skipIntroActionForSession:sessionCopy consume:0];
+              v53 = v52;
+              v12 = v115;
+              if (v52)
               {
-                v127[0] = v50;
-                v127[1] = v51;
-                v53 = MEMORY[0x1E695DEC8];
-                v54 = v127;
-                v55 = 2;
+                v129[0] = v51;
+                v129[1] = v52;
+                v54 = MEMORY[0x1E695DEC8];
+                v55 = v129;
+                v56 = 2;
               }
 
               else
               {
-                v126 = v50;
-                v53 = MEMORY[0x1E695DEC8];
-                v54 = &v126;
-                v55 = 1;
+                v128 = v51;
+                v54 = MEMORY[0x1E695DEC8];
+                v55 = &v128;
+                v56 = 1;
               }
 
-              v57 = [v53 arrayWithObjects:v54 count:v55];
+              v58 = [v54 arrayWithObjects:v55 count:v56];
 
               goto LABEL_49;
             }
 
-            v12 = v113;
+            v12 = v115;
             self = selfCopy;
             if (bOOLValue)
             {
-              v59 = *MEMORY[0x1E69AB7E0];
-              v124[0] = *MEMORY[0x1E69AB750];
-              v124[1] = @"extraType";
-              v125[0] = v59;
-              v125[1] = @"CatchUpToLive";
-              v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v125 forKeys:v124 count:2];
-              v123 = v50;
-              v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v123 count:1];
-              v60 = MEMORY[0x1E69AB810];
+              v60 = *MEMORY[0x1E69AB7E0];
+              v126[0] = *MEMORY[0x1E69AB750];
+              v126[1] = @"extraType";
+              v127[0] = v60;
+              v127[1] = @"CatchUpToLive";
+              v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:2];
+              v125 = v51;
+              v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v125 count:1];
+              v61 = MEMORY[0x1E69AB810];
               if (!bOOLValue2)
               {
-                v60 = MEMORY[0x1E69AB818];
+                v61 = MEMORY[0x1E69AB818];
               }
 
-              v61 = *v60;
+              v62 = *v61;
 
-              v120 = v61;
+              v122 = v62;
               goto LABEL_49;
             }
 
-            v57 = 0;
+            v58 = 0;
 LABEL_50:
-            v62 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"];
-            bOOLValue6 = [v62 BOOLValue];
+            v63 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"];
+            bOOLValue6 = [v63 BOOLValue];
 
-            v64 = VUIVPAFLogObject();
-            v65 = v64;
+            v66 = VUIVPAFLogObject(v65);
+            v67 = v66;
             if (bOOLValue6)
             {
-              v66 = currentMediaItem;
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+              v68 = currentMediaItem;
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                v67 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v110 playbackDate:v118];
-                v68 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
+                v69 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v112 playbackDate:v120];
+                v70 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
                 *buf = 138413314;
-                v131 = v67;
-                v132 = 2112;
-                v133 = v120;
+                v133 = v69;
                 v134 = 2112;
-                v135 = consumeStopReason;
+                v135 = v122;
                 v136 = 2112;
-                v137 = v68;
+                v137 = consumeStopReason;
                 v138 = 2112;
-                v139 = v57;
-                _os_log_impl(&dword_1E323F000, v65, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting play event stop: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
+                v139 = v70;
+                v140 = 2112;
+                v141 = v58;
+                _os_log_impl(&dword_1E323F000, v67, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting play event stop: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
 
                 self = selfCopy;
               }
 
-              v69 = v120;
-              [v12 playStoppedAtOverallPosition:v110 type:v120 reason:consumeStopReason eventData:v57];
+              v71 = v122;
+              [v12 playStoppedAtOverallPosition:v112 type:v122 reason:consumeStopReason eventData:v58];
             }
 
             else
             {
-              v66 = currentMediaItem;
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+              v68 = currentMediaItem;
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
               {
-                [(VUIPlaybackReporterVPAF *)v65 _reportForSession:v70 state:v71 reason:v72, v73, v74, v75, v76];
+                [(VUIPlaybackReporterVPAF *)v67 _reportForSession:v72 state:v73 reason:v74, v75, v76, v77, v78];
               }
 
-              v69 = v120;
+              v71 = v122;
             }
 
 LABEL_83:
@@ -500,19 +500,19 @@ LABEL_83:
               [(VUIPlaybackReporterVPAF *)self _flushUnreportedEventsAfterDelay:1.0];
             }
 
-            stateCopy = v115;
+            stateCopy = v117;
             goto LABEL_86;
           }
 
           if (v37)
           {
-            v56 = *MEMORY[0x1E69AB810];
+            v57 = *MEMORY[0x1E69AB810];
 
-            v57 = 0;
-            v50 = consumeStopReason;
-            v120 = v56;
+            v58 = 0;
+            v51 = consumeStopReason;
+            v122 = v57;
             consumeStopReason = *MEMORY[0x1E69AB7E8];
-            v12 = v113;
+            v12 = v115;
 LABEL_38:
             self = selfCopy;
 LABEL_49:
@@ -520,65 +520,65 @@ LABEL_49:
             goto LABEL_50;
           }
 
-          v120 = consumeStopType;
+          v122 = consumeStopType;
           if (![consumeStopReason isEqualToString:*MEMORY[0x1E69AB7F8]])
           {
-            v57 = 0;
-            v12 = v113;
+            v58 = 0;
+            v12 = v115;
             self = selfCopy;
             goto LABEL_50;
           }
 
           paused = [MEMORY[0x1E69D5A40] paused];
 
-          if (paused == v115)
+          if (paused == v117)
           {
-            v50 = *MEMORY[0x1E69AB7C8];
+            v51 = *MEMORY[0x1E69AB7C8];
           }
 
           else
           {
-            v50 = consumeStopReason;
+            v51 = consumeStopReason;
           }
 
-          v12 = v113;
+          v12 = v115;
           if ([reasonCopy isEqualToString:*MEMORY[0x1E69D5F00]])
           {
-            v99 = *MEMORY[0x1E69AB810];
+            v101 = *MEMORY[0x1E69AB810];
 
             playlist = [player playlist];
             nextMediaItem = [playlist nextMediaItem];
 
             if (nextMediaItem)
             {
-              v102 = MEMORY[0x1E69AB7C0];
+              v104 = MEMORY[0x1E69AB7C0];
             }
 
             else
             {
-              v102 = MEMORY[0x1E69AB7A8];
+              v104 = MEMORY[0x1E69AB7A8];
             }
 
-            consumeStopReason = *v102;
-            v57 = 0;
-            v120 = v99;
+            consumeStopReason = *v104;
+            v58 = 0;
+            v122 = v101;
             goto LABEL_38;
           }
 
           self = selfCopy;
           if ([reasonCopy isEqualToString:*MEMORY[0x1E69D5EE0]])
           {
-            v103 = MEMORY[0x1E69AB7B0];
+            v105 = MEMORY[0x1E69AB7B0];
           }
 
           else if ([reasonCopy isEqualToString:*MEMORY[0x1E69D5EF8]])
           {
-            v103 = MEMORY[0x1E69AB7A0];
+            v105 = MEMORY[0x1E69AB7A0];
           }
 
           else if ([reasonCopy isEqualToString:@"VUIPostPlayReasonAutomaticUpNext"])
           {
-            v103 = MEMORY[0x1E69AB7C0];
+            v105 = MEMORY[0x1E69AB7C0];
           }
 
           else
@@ -587,44 +587,44 @@ LABEL_49:
             {
               if ([reasonCopy isEqualToString:@"VUIPostPlayReasonManualUpNext"])
               {
-                v105 = MEMORY[0x1E69AB7C0];
+                v107 = MEMORY[0x1E69AB7C0];
               }
 
               else
               {
                 if (![reasonCopy isEqualToString:@"VUIPostPlayReasonManualPlayOther"])
                 {
-                  v57 = 0;
-                  consumeStopReason = v50;
+                  v58 = 0;
+                  consumeStopReason = v51;
                   goto LABEL_50;
                 }
 
-                v105 = MEMORY[0x1E69AB7D0];
+                v107 = MEMORY[0x1E69AB7D0];
               }
 
-              consumeStopReason = *v105;
+              consumeStopReason = *v107;
 
-              v104 = MEMORY[0x1E69AB818];
+              v106 = MEMORY[0x1E69AB818];
               goto LABEL_102;
             }
 
-            v103 = MEMORY[0x1E69AB7D0];
+            v105 = MEMORY[0x1E69AB7D0];
           }
 
-          consumeStopReason = *v103;
+          consumeStopReason = *v105;
 
-          v104 = MEMORY[0x1E69AB810];
+          v106 = MEMORY[0x1E69AB810];
 LABEL_102:
-          v57 = 0;
-          v50 = v120;
-          v120 = *v104;
+          v58 = 0;
+          v51 = v122;
+          v122 = *v106;
           goto LABEL_49;
         }
       }
 
       v22 = [v19 objectForKey:*MEMORY[0x1E69D5F20]];
       v23 = v22;
-      reasonCopy = v114;
+      reasonCopy = v116;
       if (v22)
       {
         v24 = v22;
@@ -644,29 +644,28 @@ LABEL_102:
       playbackDate = v24;
 LABEL_20:
       [playbackDate timeIntervalSince1970];
-      v110 = vcvtad_u64_f64(v36 * 1000.0);
+      v112 = vcvtad_u64_f64(v36 * 1000.0);
 
       v37 = 0;
       goto LABEL_32;
     }
 
-    v119 = bOOLValue3;
-    v108 = player;
+    v121 = bOOLValue3;
+    v110 = player;
     if ([VUIPlaybackUtilities playerIsLive:player])
     {
       playbackDate2 = [player playbackDate];
       [playbackDate2 timeIntervalSince1970];
-      v109 = vcvtad_u64_f64(v27 * 1000.0);
+      v111 = vcvtad_u64_f64(v27 * 1000.0);
       if (playbackDate2)
       {
-        v118 = playbackDate2;
+        v120 = playbackDate2;
         v28 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
         bOOLValue7 = [v28 BOOLValue];
 
         if (bOOLValue7)
         {
-          [sessionCopy setMetadata:MEMORY[0x1E695E110] forKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
-          v30 = VUIVPAFLogObject();
+          v30 = VUIVPAFLogObject([sessionCopy setMetadata:MEMORY[0x1E695E110] forKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"]);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -689,26 +688,25 @@ LABEL_20:
 
         if (bOOLValue8)
         {
-          v43 = VUIVPAFLogObject();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v44 = VUIVPAFLogObject(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1E323F000, v43, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - In _reportForSession, will report nil playback date since we've timed out waiting for the playback date", buf, 2u);
+            _os_log_impl(&dword_1E323F000, v44, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - In _reportForSession, will report nil playback date since we've timed out waiting for the playback date", buf, 2u);
           }
         }
 
         else
         {
-          [sessionCopy setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
-          v43 = VUIVPAFLogObject();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v44 = VUIVPAFLogObject([sessionCopy setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"]);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            [(VUIPlaybackReporterVPAF *)v43 _reportForSession:v77 state:v78 reason:v79, v80, v81, v82, v83];
+            [(VUIPlaybackReporterVPAF *)v44 _reportForSession:v79 state:v80 reason:v81, v82, v83, v84, v85];
           }
         }
 
         v31 = 0;
-        v118 = 0;
+        v120 = 0;
       }
     }
 
@@ -726,38 +724,38 @@ LABEL_20:
         v31 = buf[0] & bOOLValue9;
       }
 
-      v109 = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:v33 forSession:sessionCopy];
-      v118 = 0;
+      v111 = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:v33 forSession:sessionCopy];
+      v120 = 0;
     }
 
     consumeStartType = [sessionCopy consumeStartType];
     consumeStartReason = [sessionCopy consumeStartReason];
     consumeStopReason = [sessionCopy consumeMetadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHandlingSeek"];
-    v86 = [(VUIPlaybackReporterVPAF *)self _skipIntroActionForSession:sessionCopy consume:0];
-    v106 = v86;
+    v88 = [(VUIPlaybackReporterVPAF *)self _skipIntroActionForSession:sessionCopy consume:0];
+    v108 = v88;
     if ([consumeStopReason BOOLValue])
     {
-      v87 = MEMORY[0x1E69AB810];
+      v89 = MEMORY[0x1E69AB810];
       if (!(bOOLValue2 & 1 | ((bOOLValue & 1) == 0)))
       {
-        v87 = MEMORY[0x1E69AB818];
+        v89 = MEMORY[0x1E69AB818];
       }
 
-      v117 = *v87;
+      v119 = *v89;
 
-      v121 = *MEMORY[0x1E69AB778];
-      if (v86)
+      v123 = *MEMORY[0x1E69AB778];
+      if (v88)
       {
-        v146 = *MEMORY[0x1E69AB748];
-        v147 = *MEMORY[0x1E69AB790];
-        v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
-        v148[0] = v88;
-        v148[1] = v86;
-        v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:v148 count:2];
+        v148 = *MEMORY[0x1E69AB748];
+        v149 = *MEMORY[0x1E69AB790];
+        v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
+        v150[0] = v90;
+        v150[1] = v88;
+        v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:v150 count:2];
 
-        player = v108;
-        v12 = v113;
-        [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v109 playbackDate:v118 session:sessionCopy tracker:v113 player:v108];
+        player = v110;
+        v12 = v115;
+        [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v111 playbackDate:v120 session:sessionCopy tracker:v115 player:v110];
         if (!bOOLValue)
         {
           goto LABEL_77;
@@ -766,105 +764,104 @@ LABEL_20:
 
       else
       {
-        v12 = v113;
-        player = v108;
+        v12 = v115;
+        player = v110;
         if ((bOOLValue & 1) == 0)
         {
-          [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v109 playbackDate:v118 session:sessionCopy tracker:v113 player:v108];
-          v89 = 0;
+          [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v111 playbackDate:v120 session:sessionCopy tracker:v115 player:v110];
+          v91 = 0;
           goto LABEL_77;
         }
 
-        v144 = *MEMORY[0x1E69AB748];
-        v145 = *MEMORY[0x1E69AB780];
-        v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
-        v143 = v91;
-        v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v143 count:1];
+        v146 = *MEMORY[0x1E69AB748];
+        v147 = *MEMORY[0x1E69AB780];
+        v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
+        v145 = v93;
+        v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v145 count:1];
 
-        [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v109 playbackDate:v118 session:sessionCopy tracker:v113 player:v108];
+        [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v111 playbackDate:v120 session:sessionCopy tracker:v115 player:v110];
       }
 
-      [sessionCopy setMetadata:0 forKey:{@"VUIPlaybackReporterSessionMetadataKeyIsSeekJumpToLive", v106}];
+      [sessionCopy setMetadata:0 forKey:{@"VUIPlaybackReporterSessionMetadataKeyIsSeekJumpToLive", v108}];
       [sessionCopy setMetadata:0 forKey:@"VUIPlaybackReporterSessionMetadataKeyIsJumpToLiveAutomatic"];
       [sessionCopy setMetadata:0 forKey:@"VUIPlaybackReporterSessionMetadataKeyIsCatchUpToLive"];
     }
 
     else
     {
-      if (!v119)
+      if (!v121)
       {
-        v66 = currentMediaItem;
+        v68 = currentMediaItem;
         if (v31)
         {
-          v117 = *MEMORY[0x1E69AB810];
+          v119 = *MEMORY[0x1E69AB810];
 
-          v121 = *MEMORY[0x1E69AB788];
-          v89 = 0;
+          v123 = *MEMORY[0x1E69AB788];
+          v91 = 0;
         }
 
         else
         {
-          v89 = 0;
-          v121 = consumeStartReason;
-          v117 = consumeStartType;
+          v91 = 0;
+          v123 = consumeStartReason;
+          v119 = consumeStartType;
         }
 
-        v12 = v113;
-        player = v108;
+        v12 = v115;
+        player = v110;
         goto LABEL_78;
       }
 
-      v141 = @"extraType";
-      v142 = @"CatchUpToLive";
-      v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
-      v140 = v90;
-      v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v140 count:1];
+      v143 = @"extraType";
+      v144 = @"CatchUpToLive";
+      v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      v142 = v92;
+      v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v142 count:1];
 
-      v121 = consumeStartReason;
-      v117 = consumeStartType;
-      v12 = v113;
-      player = v108;
+      v123 = consumeStartReason;
+      v119 = consumeStartType;
+      v12 = v115;
+      player = v110;
     }
 
 LABEL_77:
-    v66 = currentMediaItem;
+    v68 = currentMediaItem;
 LABEL_78:
-    [sessionCopy setMetadata:0 forKey:{@"VUIPlaybackReporterSessionMetadataKeySkipIntroInfo", v106}];
-    v92 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
-    bOOLValue10 = [v92 BOOLValue];
+    [sessionCopy setMetadata:0 forKey:{@"VUIPlaybackReporterSessionMetadataKeySkipIntroInfo", v108}];
+    v94 = [sessionCopy metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
+    bOOLValue10 = [v94 BOOLValue];
 
     if ((bOOLValue10 & 1) == 0)
     {
-      [sessionCopy setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"];
-      v94 = VUIVPAFLogObject();
-      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+      v96 = VUIVPAFLogObject([sessionCopy setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyHaveSentInitialStartEvent"]);
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
       {
-        v95 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v109 playbackDate:v118];
-        v96 = [v66 mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
+        v97 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v111 playbackDate:v120];
+        v98 = [v68 mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
         *buf = 138413314;
-        v131 = v95;
-        v132 = 2112;
-        v133 = v117;
+        v133 = v97;
         v134 = 2112;
-        v135 = v121;
+        v135 = v119;
         v136 = 2112;
-        v137 = v96;
+        v137 = v123;
         v138 = 2112;
-        v139 = v89;
-        _os_log_impl(&dword_1E323F000, v94, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting play event start: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
+        v139 = v98;
+        v140 = 2112;
+        v141 = v91;
+        _os_log_impl(&dword_1E323F000, v96, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting play event start: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
 
-        v66 = currentMediaItem;
+        v68 = currentMediaItem;
       }
 
-      [v12 playStartedAtOverallPosition:v109 type:v117 reason:v121 eventData:v89];
+      [v12 playStartedAtOverallPosition:v111 type:v119 reason:v123 eventData:v91];
     }
 
-    v69 = v121;
-    v57 = v107;
+    v71 = v123;
+    v58 = v109;
     goto LABEL_83;
   }
 
-  player = VUIVPAFLogObject();
+  player = VUIVPAFLogObject(0);
   if (os_log_type_enabled(player, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -905,8 +902,7 @@ LABEL_86:
   player = [sessionCopy player];
   v12 = [(VUIPlaybackReporterVPAF *)self _metricsForPlayer:player session:sessionCopy];
 
-  [v6 addEntriesFromDictionary:v12];
-  v13 = VUIVPAFLogObject();
+  v13 = VUIVPAFLogObject([v6 addEntriesFromDictionary:v12]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -1471,7 +1467,7 @@ LABEL_9:
 
 - (void)_reportSeekStopAtTimeInMS:(unint64_t)s playbackDate:(id)date session:(id)session tracker:(id)tracker player:(id)player
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   sessionCopy = session;
   playerCopy = player;
@@ -1486,56 +1482,58 @@ LABEL_9:
   LOBYTE(v18) = [VUIPlaybackUtilities playerIsLive:playerCopy];
   if ((v18 & 1) == 0)
   {
-    s = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:s forSession:sessionCopy];
+    v20 = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:s forSession:sessionCopy];
+    s = v20;
   }
 
   if (v17)
   {
-    v20 = *MEMORY[0x1E69AB7F0];
+    v21 = *MEMORY[0x1E69AB7F0];
 
-    v37[0] = v17;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v38[0] = v17;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+    v22 = v20;
 LABEL_7:
-    v16 = v20;
+    v16 = v21;
     goto LABEL_8;
   }
 
   if (bOOLValue)
   {
-    v20 = *MEMORY[0x1E69AB7E0];
+    v21 = *MEMORY[0x1E69AB7E0];
 
-    v21 = 0;
+    v22 = 0;
     goto LABEL_7;
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_8:
-  v22 = VUIVPAFLogObject();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = VUIVPAFLogObject(v20);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:s playbackDate:dateCopy];
-    v24 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
+    v24 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:s playbackDate:dateCopy];
+    v25 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
     *buf = 138413314;
-    v28 = v23;
-    v29 = 2112;
-    v30 = v15;
-    v31 = 2112;
-    v32 = v16;
-    v33 = 2112;
-    v34 = v24;
-    v35 = 2112;
-    v36 = v21;
-    _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting seek event stop: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
+    v29 = v24;
+    v30 = 2112;
+    v31 = v15;
+    v32 = 2112;
+    v33 = v16;
+    v34 = 2112;
+    v35 = v25;
+    v36 = 2112;
+    v37 = v22;
+    _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting seek event stop: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
   }
 
-  [trackerCopy seekStoppedAtOverallPosition:s type:v15 reason:v16 eventData:v21];
+  [trackerCopy seekStoppedAtOverallPosition:s type:v15 reason:v16 eventData:v22];
 }
 
 - (void)_playerCurrentMediaItemWillSeek:(id)seek
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   seekCopy = seek;
-  v5 = VUIVPAFLogObject();
+  v5 = VUIVPAFLogObject(seekCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1549,7 +1547,7 @@ LABEL_8:
     v8 = [(VUIPlaybackReporterVPAF *)self _trackerWithBaseEventDataForSession:v7];
     if (!v8)
     {
-      v14 = VUIVPAFLogObject();
+      v14 = VUIVPAFLogObject(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1567,7 +1565,7 @@ LABEL_8:
       v12 = [userInfo objectForKey:*MEMORY[0x1E69D5F20]];
 
       [v12 timeIntervalSince1970];
-      v36 = vcvtad_u64_f64(v13 * 1000.0);
+      v37 = vcvtad_u64_f64(v13 * 1000.0);
     }
 
     else
@@ -1575,21 +1573,21 @@ LABEL_8:
       v15 = [userInfo objectForKey:*MEMORY[0x1E69D60B0]];
 
       [v15 doubleValue];
-      v36 = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:[(VUIPlaybackReporterVPAF *)self _snapToNearestPrerollIfNeeded:vcvtad_u64_f64(v16 * 1000.0) forSession:v7 isAtPrerollBoundary:0] forSession:v7];
+      v37 = [(VUIPlaybackReporterVPAF *)self _capPlayHeadIfNeeded:[(VUIPlaybackReporterVPAF *)self _snapToNearestPrerollIfNeeded:vcvtad_u64_f64(v16 * 1000.0) forSession:v7 isAtPrerollBoundary:0] forSession:v7];
 
       v12 = 0;
     }
 
-    v33 = [v7 consumeMetadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHandlingSeek"];
-    if ([v33 BOOLValue])
+    v34 = [v7 consumeMetadataForKey:@"VUIPlaybackReporterSessionMetadataKeyHandlingSeek"];
+    if ([v34 BOOLValue])
     {
-      [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v36 playbackDate:v12 session:v7 tracker:v8 player:object];
+      [(VUIPlaybackReporterVPAF *)self _reportSeekStopAtTimeInMS:v37 playbackDate:v12 session:v7 tracker:v8 player:object];
     }
 
     state = [object state];
     playing = [MEMORY[0x1E69D5A40] playing];
 
-    v35 = v12;
+    v36 = v12;
     if (state == playing)
     {
       [v7 setMetadata:*MEMORY[0x1E69AB7D8] forKey:@"VUIPlaybackReporterSessionMetadataKeyStopReason"];
@@ -1618,42 +1616,43 @@ LABEL_8:
 
     v25 = v19;
     v26 = *MEMORY[0x1E69AB800];
+    v27 = v26;
     if (v22)
     {
-      v27 = *MEMORY[0x1E69AB790];
+      v28 = *MEMORY[0x1E69AB790];
 
-      v28 = [(VUIPlaybackReporterVPAF *)self _skipIntroActionForSession:v7 consume:0];
-      v26 = v28;
-      if (v28)
+      v29 = [(VUIPlaybackReporterVPAF *)self _skipIntroActionForSession:v7 consume:0];
+      v27 = v29;
+      if (v29)
       {
-        v47[0] = v28;
-        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+        v48[0] = v29;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
 LABEL_24:
-        v14 = v35;
+        v14 = v36;
 
-        v26 = v27;
+        v27 = v28;
 LABEL_25:
-        v30 = VUIVPAFLogObject();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v31 = VUIVPAFLogObject(v26);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v36 playbackDate:v14];
-          v32 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
+          v32 = [(VUIPlaybackReporterVPAF *)self _playHeadDescriptionForTimeInMS:v37 playbackDate:v14];
+          v33 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5B98]];
           *buf = 138413314;
-          v38 = v31;
-          v39 = 2112;
-          v40 = v25;
-          v41 = 2112;
-          v42 = v26;
-          v43 = 2112;
-          v44 = v32;
-          v45 = 2112;
-          v46 = v29;
-          _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting seek event start: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
+          v39 = v32;
+          v40 = 2112;
+          v41 = v25;
+          v42 = 2112;
+          v43 = v27;
+          v44 = 2112;
+          v45 = v33;
+          v46 = 2112;
+          v47 = v30;
+          _os_log_impl(&dword_1E323F000, v31, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Reporting seek event start: position:%@ type:%@ reason:%@ id:%@ data:%@", buf, 0x34u);
 
-          v14 = v35;
+          v14 = v36;
         }
 
-        [v8 seekStartedAtOverallPosition:v36 type:v25 reason:v26 eventData:v29];
+        [v8 seekStartedAtOverallPosition:v37 type:v25 reason:v27 eventData:v30];
 LABEL_28:
 
         goto LABEL_29;
@@ -1664,19 +1663,19 @@ LABEL_28:
     {
       if (!bOOLValue)
       {
-        v29 = 0;
-        v14 = v35;
+        v30 = 0;
+        v14 = v36;
         goto LABEL_25;
       }
 
-      v27 = *MEMORY[0x1E69AB780];
+      v28 = *MEMORY[0x1E69AB780];
     }
 
-    v29 = 0;
+    v30 = 0;
     goto LABEL_24;
   }
 
-  v8 = VUIVPAFLogObject();
+  v8 = VUIVPAFLogObject(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1688,7 +1687,7 @@ LABEL_29:
 
 - (void)_handlePIPChange:(id)change
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:VUIPlaybackManagerNotificationKeyPlayer[0]];
@@ -1698,22 +1697,22 @@ LABEL_29:
 
   if (v8)
   {
-    v9 = v6 == 0;
+    v10 = v6 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  if (!v9)
+  if (!v10)
   {
-    v10 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VUIVPAFLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Handling player PIP change:%@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Handling player PIP change:%@", &v12, 0xCu);
     }
 
     [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:v8 forKey:@"VUIPlaybackReporterSessionMetadataKeyPIP" player:v6];
@@ -1742,7 +1741,7 @@ LABEL_29:
 
 - (void)_handleDisplaySizeChange:(id)change
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:VUIPlaybackManagerNotificationKeyPlayer[0]];
@@ -1754,33 +1753,33 @@ LABEL_29:
 
   if (v10)
   {
-    v11 = [userInfo objectForKeyedSubscript:@"VUIBackgroundMediaControllerPlayerKey"];
+    v12 = [userInfo objectForKeyedSubscript:@"VUIBackgroundMediaControllerPlayerKey"];
 
     userInfo3 = [changeCopy userInfo];
-    v13 = [userInfo3 objectForKeyedSubscript:@"VUIBackgroundMediaControllerDisplaySizeKey"];
+    v14 = [userInfo3 objectForKeyedSubscript:@"VUIBackgroundMediaControllerDisplaySizeKey"];
 
-    v8 = v13;
-    v6 = v11;
+    v8 = v14;
+    v6 = v12;
   }
 
   if (v8)
   {
-    v14 = v6 == 0;
+    v15 = v6 == 0;
   }
 
   else
   {
-    v14 = 1;
+    v15 = 1;
   }
 
-  if (!v14)
+  if (!v15)
   {
-    v15 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = VUIVPAFLogObject(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Handling player display change:%@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v8;
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Handling player display change:%@", &v17, 0xCu);
     }
 
     [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:v8 forKey:@"VUIPlaybackReporterSessionMetadataKeyVideoDisplaySize" player:v6];
@@ -1798,18 +1797,18 @@ LABEL_29:
 
 - (void)_applicationWillResignActive:(id)active
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = +[VUIPlaybackManager sharedInstance];
   isPlaybackUIBeingShown = [v4 isPlaybackUIBeingShown];
 
   if (isPlaybackUIBeingShown)
   {
-    v6 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIVPAFLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = 0x3FC999999999999ALL;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Application will resign active while playback UI is being shown.  Will flush unreported events after %.1f seconds", &v7, 0xCu);
+      v8 = 134217984;
+      v9 = 0x3FC999999999999ALL;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Application will resign active while playback UI is being shown.  Will flush unreported events after %.1f seconds", &v8, 0xCu);
     }
 
     [(VUIPlaybackReporterVPAF *)self _flushUnreportedEventsAfterDelay:0.2];
@@ -1823,11 +1822,11 @@ LABEL_29:
 
   if (isPlaybackUIBeingShown)
   {
-    v6 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIVPAFLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Application did enter background while playback UI is being shown.  Flushing unreported events", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Application did enter background while playback UI is being shown.  Flushing unreported events", v8, 2u);
     }
 
     [(VUIPlaybackReporterVPAF *)self flushUnreportedEvents];
@@ -1837,7 +1836,7 @@ LABEL_29:
 - (void)_handleSkipIntro_iOS:(id)s
 {
   sCopy = s;
-  v5 = VUIVPAFLogObject();
+  v5 = VUIVPAFLogObject(sCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -1989,8 +1988,7 @@ LABEL_15:
     if (v8)
     {
       [v8 setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyForegroundPlayback"];
-      [v9 setReportingEnabled:1];
-      v10 = VUIVPAFLogObject();
+      v10 = VUIVPAFLogObject([v9 setReportingEnabled:1]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v12 = 138412290;
@@ -2013,23 +2011,23 @@ LABEL_15:
   v7 = [userInfo vui_BOOLForKey:@"VUICatchUpToLiveIsAutomaticKey" defaultValue:0];
   if (object)
   {
-    v8 = MEMORY[0x1E69AB810];
+    v9 = MEMORY[0x1E69AB810];
     if (!v7)
     {
-      v8 = MEMORY[0x1E69AB818];
+      v9 = MEMORY[0x1E69AB818];
     }
 
-    [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*v8 forKey:@"VUIPlaybackReporterSessionMetadataKeyStopType" player:object];
+    [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*v9 forKey:@"VUIPlaybackReporterSessionMetadataKeyStopType" player:object];
     [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*MEMORY[0x1E69AB7C0] forKey:@"VUIPlaybackReporterSessionMetadataKeyStopReason" player:object];
   }
 
   else
   {
-    v9 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIVPAFLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Not setting catch up to live metadata because player is missing", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Not setting catch up to live metadata because player is missing", v11, 2u);
     }
   }
 }
@@ -2044,23 +2042,23 @@ LABEL_15:
   if (object)
   {
     [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyIsCatchUpToLive" player:object];
-    v8 = MEMORY[0x1E69AB810];
+    v9 = MEMORY[0x1E69AB810];
     if (!v7)
     {
-      v8 = MEMORY[0x1E69AB818];
+      v9 = MEMORY[0x1E69AB818];
     }
 
-    [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*v8 forKey:@"VUIPlaybackReporterSessionMetadataKeyStartType" player:object];
+    [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*v9 forKey:@"VUIPlaybackReporterSessionMetadataKeyStartType" player:object];
     [(VUIPlaybackReporterVPAF *)self _setSessionMetadataValue:*MEMORY[0x1E69AB760] forKey:@"VUIPlaybackReporterSessionMetadataKeyStartReason" player:object];
   }
 
   else
   {
-    v9 = VUIVPAFLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIVPAFLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Not setting catch up to live metadata because player is missing", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - Not setting catch up to live metadata because player is missing", v11, 2u);
     }
   }
 }
@@ -2292,7 +2290,7 @@ LABEL_13:
   return v23;
 }
 
-void __88__VUIPlaybackReporterVPAF__snapToNearestPrerollIfNeeded_forSession_isAtPrerollBoundary___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __88__VUIPlaybackReporterVPAF__snapToNearestPrerollIfNeeded_forSession_isAtPrerollBoundary___block_invoke(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v21 = *MEMORY[0x1E69E9840];
   v7 = [a2 unsignedIntegerValue];
@@ -2305,11 +2303,11 @@ void __88__VUIPlaybackReporterVPAF__snapToNearestPrerollIfNeeded_forSession_isAt
     }
 
     *(*(*(a1 + 48) + 8) + 24) = v7;
-    v9 = VUIVPAFLogObject();
+    v9 = VUIVPAFLogObject(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*(a1 + 40) _playHeadDescriptionForTimeInMS:*(a1 + 56) playbackDate:0];
-      if ([*(a1 + 32) count] - 1 == a3)
+      if (([*(a1 + 32) count] - 1) == a3)
       {
         v11 = @"primary content";
       }
@@ -2332,10 +2330,10 @@ void __88__VUIPlaybackReporterVPAF__snapToNearestPrerollIfNeeded_forSession_isAt
 
   else
   {
-    v9 = VUIVPAFLogObject();
+    v9 = VUIVPAFLogObject(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if ([*(a1 + 32) count] - 1 == a3)
+      if (([*(a1 + 32) count] - 1) == a3)
       {
         v13 = @"primary content";
       }
@@ -2405,41 +2403,41 @@ void __72__VUIPlaybackReporterVPAF__createPlaybackDatePollingTimerForLiveStream_
   v6 = [a1[4] player];
   if (!v4)
   {
-    v11 = [a1[5] dateByAddingTimeInterval:20.0];
-    v13 = [MEMORY[0x1E695DF00] date];
-    v14 = [v13 earlierDate:v11];
-    if (v14 == v11)
+    v12 = [a1[5] dateByAddingTimeInterval:20.0];
+    v14 = [MEMORY[0x1E695DF00] date];
+    v15 = [v14 earlierDate:v12];
+    if (v15 == v12)
     {
-      v15 = [a1[4] metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
-      if ([v15 BOOLValue])
+      v16 = [a1[4] metadataForKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
+      if ([v16 BOOLValue])
       {
-        v16 = [a1[4] metadataForKey:?];
-        v29 = [v16 BOOLValue];
+        v17 = [a1[4] metadataForKey:?];
+        v32 = [v17 BOOLValue];
 
-        if ((v29 & 1) == 0)
+        if ((v32 & 1) == 0)
         {
-          v17 = VUIVPAFLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = VUIVPAFLogObject(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            __72__VUIPlaybackReporterVPAF__createPlaybackDatePollingTimerForLiveStream___block_invoke_cold_1(v17, v18, v19, v20, v21, v22, v23, v24);
+            __72__VUIPlaybackReporterVPAF__createPlaybackDatePollingTimerForLiveStream___block_invoke_cold_1(v19, v20, v21, v22, v23, v24, v25, v26);
           }
 
           [a1[4] setMetadata:MEMORY[0x1E695E110] forKey:@"VUIPlaybackReporterSessionMetadataKeyWaitingForPlaybackDateToSendStartEvent"];
           [a1[4] setMetadata:MEMORY[0x1E695E118] forKey:@"VUIPlaybackReporterSessionMetadataKeyTimedOutWaitingForPlaybackDate"];
-          v25 = [v6 state];
-          v26 = [MEMORY[0x1E69D5A40] playing];
+          v27 = [v6 state];
+          v28 = [MEMORY[0x1E69D5A40] playing];
 
-          if (v25 == v26)
+          if (v27 == v28)
           {
-            v27 = VUIVPAFLogObject();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v30 = VUIVPAFLogObject(v29);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              *v30 = 0;
-              _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After playback date timeout, playback state is playing.  Reporting start event even though it will have no playback date", v30, 2u);
+              *v33 = 0;
+              _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After playback date timeout, playback state is playing.  Reporting start event even though it will have no playback date", v33, 2u);
             }
 
-            v28 = [MEMORY[0x1E69D5A40] playing];
-            [v5 _reportForSession:WeakRetained state:v28 reason:0];
+            v31 = [MEMORY[0x1E69D5A40] playing];
+            [v5 _reportForSession:WeakRetained state:v31 reason:0];
           }
         }
 
@@ -2461,24 +2459,24 @@ LABEL_20:
     v9 = [v6 state];
     v10 = [MEMORY[0x1E69D5A40] playing];
 
-    v11 = VUIVPAFLogObject();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = VUIVPAFLogObject(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v9 == v10)
     {
-      if (v12)
+      if (v13)
       {
-        *v32 = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After polling, playback date has become available while waiting for it and playback is playing.  Reporting start event", v32, 2u);
+        *v35 = 0;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After polling, playback date has become available while waiting for it and playback is playing.  Reporting start event", v35, 2u);
       }
 
-      v11 = [MEMORY[0x1E69D5A40] playing];
-      [v5 _reportForSession:WeakRetained state:v11 reason:0];
+      v12 = [MEMORY[0x1E69D5A40] playing];
+      [v5 _reportForSession:WeakRetained state:v12 reason:0];
     }
 
-    else if (v12)
+    else if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After polling, playback date has become available while waiting for it, but playback state is not playing.", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIPlaybackReporterVPAF - After polling, playback date has become available while waiting for it, but playback state is not playing.", buf, 2u);
     }
 
     goto LABEL_20;

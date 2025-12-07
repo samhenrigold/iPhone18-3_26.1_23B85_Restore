@@ -15,7 +15,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 1))
   {
@@ -32,57 +32,57 @@
     [(HMAccessoryInfoProtoNetworkInfoEvent *)self setType:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = *(fromCopy + 2);
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HMAccessoryInfoProtoNetworkInfoEvent *)self addIpv4Addresses:*(*(&v22 + 1) + 8 * i)];
+        [(HMAccessoryInfoProtoNetworkInfoEvent *)self addIpv4Addresses:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = *(fromCopy + 3);
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(HMAccessoryInfoProtoNetworkInfoEvent *)self addIpv6Addresses:*(*(&v18 + 1) + 8 * j), v18];
+        [(HMAccessoryInfoProtoNetworkInfoEvent *)self addIpv6Addresses:*(*(&v17 + 1) + 8 * j), v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v12);
@@ -102,8 +102,6 @@
   {
     [(HMAccessoryInfoProtoNetworkInfoEvent *)self setWifiInfo:?];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -143,7 +141,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_ifaceName copyWithZone:zone];
   v7 = v5[1];
@@ -157,67 +155,67 @@
   v11 = v5[5];
   v5[5] = v10;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v12 = self->_ipv4Addresses;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       v16 = 0;
       do
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v32 + 1) + 8 * v16) copyWithZone:zone];
+        v17 = [*(*(&v31 + 1) + 8 * v16) copyWithZone:zone];
         [v5 addIpv4Addresses:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v14);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v18 = self->_ipv6Addresses;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       v22 = 0;
       do
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v28 + 1) + 8 * v22) copyWithZone:{zone, v28}];
+        v23 = [*(*(&v27 + 1) + 8 * v22) copyWithZone:{zone, v27}];
         [v5 addIpv6Addresses:v23];
 
         ++v22;
       }
 
       while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v20);
@@ -227,7 +225,6 @@
   v25 = v5[6];
   v5[6] = v24;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -287,7 +284,7 @@
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_ifaceName)
   {
@@ -304,76 +301,72 @@
     PBDataWriterWriteStringField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_ipv4Addresses;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = self->_ipv6Addresses;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v12)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_ipv6Addresses;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_wifiInfo)
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

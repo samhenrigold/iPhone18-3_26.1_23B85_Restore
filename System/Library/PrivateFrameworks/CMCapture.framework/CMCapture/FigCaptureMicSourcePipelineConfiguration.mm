@@ -27,7 +27,7 @@
 
   array = [MEMORY[0x1E695DF70] array];
   v5 = *(position + 16);
-  v13 = OUTLINED_FUNCTION_0_0(array, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, 0);
+  v13 = OUTLINED_FUNCTION_0_0(array, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57);
   if (v13)
   {
     v14 = v13;
@@ -54,7 +54,7 @@
         }
       }
 
-      v14 = OUTLINED_FUNCTION_0_0(isKindOfClass, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v59);
+      v14 = OUTLINED_FUNCTION_0_0(isKindOfClass, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
     }
 
     while (v14);

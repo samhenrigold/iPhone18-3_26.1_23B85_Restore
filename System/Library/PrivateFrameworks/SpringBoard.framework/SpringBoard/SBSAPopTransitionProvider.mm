@@ -129,7 +129,7 @@ void __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke(uint6
     v3 = v39;
     if (!v7)
     {
-      __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke_cold_1(a1);
+      __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
       v3 = v39;
     }
   }
@@ -195,15 +195,15 @@ void __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke(uint6
   [v8 handleFailureInMethod:a1 object:a2 file:@"SBSAPopTransitionProvider.m" lineNumber:25 description:{@"No container view description at index '%lu': %@", a3, a4}];
 }
 
-void __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1)
+void __52__SBSAPopTransitionProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
-  v4 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v2 object:v3 file:@"SBSAPopTransitionProvider.m" lineNumber:28 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(a1 + 56);
+  v4 = *(a1 + 32);
+  v5 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v3 object:v4 file:@"SBSAPopTransitionProvider.m" lineNumber:28 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
 @end

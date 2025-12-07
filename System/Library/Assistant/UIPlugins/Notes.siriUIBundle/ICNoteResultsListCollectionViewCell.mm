@@ -12,9 +12,11 @@
 - (void)addNotificationObservers;
 - (void)configureColorsForSearchResult;
 - (void)contentSizeCategoryDidChange:(id)change;
+- (void)enableIntrinsicSizeShortcut:(BOOL)shortcut;
 - (void)registerForTraitChanges;
 - (void)removeNotificationObservers;
 - (void)resetColors;
+- (void)setConfiguration:(id)configuration synchronously:(BOOL)synchronously;
 - (void)setCurrentThumbnailLocation:(int64_t)location;
 - (void)updateBackgroundConfigurationUsingState:(id)state;
 - (void)updateColorsUsingState:(id)state;
@@ -307,6 +309,18 @@
   LODWORD(v4) = 1144750080;
   [*(&v5->super.super.super.super.super.super.super.isa + *(v6 + 547)) setPriority:v4];
   return v5;
+}
+
+- (void)setConfiguration:(id)configuration synchronously:(BOOL)synchronously
+{
+  synchronouslyCopy = synchronously;
+  configurationCopy = configuration;
+  [(ICNoteResultsListCollectionViewCell *)self enableIntrinsicSizeShortcut:1];
+  v7.receiver = self;
+  v7.super_class = ICNoteResultsListCollectionViewCell;
+  [(ICBaseNoteResultsCollectionViewCell *)&v7 setConfiguration:configurationCopy synchronously:synchronouslyCopy];
+
+  [(ICNoteResultsListCollectionViewCell *)self resetColors];
 }
 
 - (void)updateViewStateProperties
@@ -705,6 +719,25 @@
   [v2 setContentCompressionResistancePriority:1 forAxis:v3];
 
   return v2;
+}
+
+- (void)enableIntrinsicSizeShortcut:(BOOL)shortcut
+{
+  shortcutCopy = shortcut;
+  titleLabel = [(ICNoteResultsListCollectionViewCell *)self titleLabel];
+  [titleLabel _setUseShortcutIntrinsicContentSize:shortcutCopy];
+
+  summaryLabel = [(ICNoteResultsListCollectionViewCell *)self summaryLabel];
+  [summaryLabel _setUseShortcutIntrinsicContentSize:shortcutCopy];
+
+  dateLabel = [(ICNoteResultsListCollectionViewCell *)self dateLabel];
+  [dateLabel _setUseShortcutIntrinsicContentSize:shortcutCopy];
+
+  participantsLabel = [(ICNoteResultsListCollectionViewCell *)self participantsLabel];
+  [participantsLabel _setUseShortcutIntrinsicContentSize:shortcutCopy];
+
+  folderAndAccountLabel = [(ICNoteResultsListCollectionViewCell *)self folderAndAccountLabel];
+  [folderAndAccountLabel _setUseShortcutIntrinsicContentSize:shortcutCopy];
 }
 
 - (void)setCurrentThumbnailLocation:(int64_t)location

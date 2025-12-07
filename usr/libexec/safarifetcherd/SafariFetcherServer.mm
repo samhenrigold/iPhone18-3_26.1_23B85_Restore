@@ -129,7 +129,7 @@
 
 - (void)_startReadingListFetcherNow
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B058(v3);
@@ -150,9 +150,7 @@
   }
 
   [(SafariFetcherServer *)self _clearReadingListFetcherStartTimer];
-  v3 = [NSTimer scheduledTimerWithTimeInterval:self target:"_startReadingListFetcherNow" selector:0 userInfo:0 repeats:2.0];
-  readingListFetcherStartTimer = self->_readingListFetcherStartTimer;
-  self->_readingListFetcherStartTimer = v3;
+  self->_readingListFetcherStartTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_startReadingListFetcherNow" selector:0 userInfo:0 repeats:2.0];
 
   _objc_release_x1();
 }
@@ -176,10 +174,10 @@
       [v8 currentProgress];
       [(SafariFetcherServer *)self deliverReadingListFetchingProgress:?];
 
-      v9 = sub_100009E64();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = sub_100009E64(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000B09C(v9);
+        sub_10000B09C(v11);
       }
     }
 

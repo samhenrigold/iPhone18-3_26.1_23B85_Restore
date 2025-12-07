@@ -82,7 +82,7 @@
   return v7 & 1;
 }
 
-uint64_t __27__REPriorityQueue_isEqual___block_invoke(uint64_t a1, uint64_t a2)
+void *__27__REPriorityQueue_isEqual___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = *(*(a1 + 40) + 8);
   if (*(v2 + 24) == 1)

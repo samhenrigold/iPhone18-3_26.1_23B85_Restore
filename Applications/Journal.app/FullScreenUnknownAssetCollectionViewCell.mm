@@ -16,7 +16,7 @@
   type metadata accessor for UnknownAssetView();
   *(&self->super.super.super.super.super.super.isa + v8) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v11.receiver = self;
-  v11.super_class = type metadata accessor for FullScreenUnknownAssetCollectionViewCell();
+  v11.super_class = type metadata accessor for FullScreenUnknownAssetCollectionViewCell(0);
   height = [(FullScreenAssetCollectionViewCell *)&v11 initWithFrame:x, y, width, height];
   sub_100302214();
 

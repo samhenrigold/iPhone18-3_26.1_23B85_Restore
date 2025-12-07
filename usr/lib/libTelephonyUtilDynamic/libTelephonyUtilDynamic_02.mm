@@ -1,836 +1,3 @@
-void ___ZN3ctu20FirstBootAfterUpdate29scheduleEvaluationExpiryTimerEv_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    v3 = *(a1 + 32);
-    v4 = std::__shared_weak_count::lock(v2);
-    if (v4)
-    {
-      v5 = v4;
-      if (*(a1 + 40))
-      {
-        dispatch_source_cancel(*(a1 + 56));
-        v6 = *(v3 + 40);
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-        {
-          *v7 = 0;
-          _os_log_impl(&dword_1A90E3000, v6, OS_LOG_TYPE_DEFAULT, "#I First Boot After Update scaling timer expired", v7, 2u);
-        }
-
-        *(v3 + 48) = 0;
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    }
-  }
-}
-
-void __copy_helper_block_e8_40c51_ZTSNSt3__18weak_ptrIN3ctu20FirstBootAfterUpdateEEE56c22_ZTSN8dispatch6sourceE(void *a1, void *a2)
-{
-  v2 = a2[6];
-  a1[5] = a2[5];
-  a1[6] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  v3 = a2[7];
-  a1[7] = v3;
-  if (v3)
-  {
-    dispatch_retain(v3);
-  }
-}
-
-void __destroy_helper_block_e8_40c51_ZTSNSt3__18weak_ptrIN3ctu20FirstBootAfterUpdateEEE56c22_ZTSN8dispatch6sourceE(uint64_t a1)
-{
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    dispatch_release(v2);
-  }
-
-  v3 = *(a1 + 48);
-  if (v3)
-  {
-
-    std::__shared_weak_count::__release_weak(v3);
-  }
-}
-
-void std::__shared_ptr_pointer<ctu::FirstBootAfterUpdate *,std::shared_ptr<ctu::FirstBootAfterUpdate> ctu::SharedSynchronizable<ctu::FirstBootAfterUpdate>::make_shared_ptr<ctu::FirstBootAfterUpdate>(ctu::FirstBootAfterUpdate*)::{lambda(ctu::FirstBootAfterUpdate *)#1},std::allocator<ctu::FirstBootAfterUpdate>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete(v1);
-}
-
-uint64_t std::__shared_ptr_pointer<ctu::FirstBootAfterUpdate *,std::shared_ptr<ctu::FirstBootAfterUpdate> ctu::SharedSynchronizable<ctu::FirstBootAfterUpdate>::make_shared_ptr<ctu::FirstBootAfterUpdate>(ctu::FirstBootAfterUpdate*)::{lambda(ctu::FirstBootAfterUpdate *)#1},std::allocator<ctu::FirstBootAfterUpdate>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::shared_ptr<ctu::FirstBootAfterUpdate> ctu::SharedSynchronizable<ctu::FirstBootAfterUpdate>::make_shared_ptr<ctu::FirstBootAfterUpdate>(ctu::FirstBootAfterUpdate*)::{lambda(ctu::FirstBootAfterUpdate*)#1}::operator() const(ctu::FirstBootAfterUpdate*)::{lambda(void *)#1}::__invoke(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-void std::__call_once_proxy[abi:ne200100]<std::tuple<ctu::FirstBootAfterUpdate::isFirstBootAfterUpdate(void)::$_0 &&>>(ctu::FirstBootAfterUpdate ****a1)
-{
-  v79 = *MEMORY[0x1E69E9840];
-  v1 = ***a1;
-  memset(&v72, 0, sizeof(v72));
-  memset(&v71, 0, sizeof(v71));
-  memset(&v70, 0, sizeof(v70));
-  memset(&v69, 170, sizeof(v69));
-  CurrentBootSessionUUID = ctu::FirstBootAfterUpdate::getCurrentBootSessionUUID(v1, &v69);
-  memset(&v68, 170, sizeof(v68));
-  ctu::FirstBootAfterUpdate::getCurrentOSVersion(CurrentBootSessionUUID);
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v3 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v4 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v4)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      v3 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v3 = *buf;
-    }
-  }
-
-  v5 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(__p, "BootSessionUUID");
-  if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v65, v72.__r_.__value_.__l.__data_, v72.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v65 = v72;
-  }
-
-  *buf = __p;
-  *&buf[8] = &v72;
-  *&buf[16] = &v65;
-  v74 = v3;
-  ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::getPreference<std::string>(std::string const&,std::string &,std::string)::{lambda(void)#1}>(v3 + 6, buf);
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v65.__r_.__value_.__l.__data_);
-  }
-
-  if (v67 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v6 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v7 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v7)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      v6 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v6 = *buf;
-    }
-  }
-
-  v8 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(__p, "CurrentOSVersion");
-  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v64, v71.__r_.__value_.__l.__data_, v71.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v64 = v71;
-  }
-
-  *buf = __p;
-  *&buf[8] = &v71;
-  *&buf[16] = &v64;
-  v74 = v6;
-  ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::getPreference<std::string>(std::string const&,std::string &,std::string)::{lambda(void)#1}>(v6 + 6, buf);
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v64.__r_.__value_.__l.__data_);
-  }
-
-  if (v67 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-  }
-
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v9 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v10 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v10)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-      v9 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v9 = *buf;
-    }
-  }
-
-  v11 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(__p, "PrevOSVersion");
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v63, v70.__r_.__value_.__l.__data_, v70.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v63 = v70;
-  }
-
-  *buf = __p;
-  *&buf[8] = &v70;
-  *&buf[16] = &v63;
-  v74 = v9;
-  ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::getPreference<std::string>(std::string const&,std::string &,std::string)::{lambda(void)#1}>(v9 + 6, buf);
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v63.__r_.__value_.__l.__data_);
-  }
-
-  if (v67 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  v12 = *(v1 + 5);
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (v13)
-  {
-    v14 = &v69;
-    if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v14 = v69.__r_.__value_.__r.__words[0];
-    }
-
-    v15 = &v68;
-    if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v15 = v68.__r_.__value_.__r.__words[0];
-    }
-
-    v16 = &v72;
-    if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v16 = v72.__r_.__value_.__r.__words[0];
-    }
-
-    v17 = &v71;
-    if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v17 = v71.__r_.__value_.__r.__words[0];
-    }
-
-    v18 = &v70;
-    if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v18 = v70.__r_.__value_.__r.__words[0];
-    }
-
-    *buf = 136316162;
-    *&buf[4] = v14;
-    *&buf[12] = 2080;
-    *&buf[14] = v15;
-    *&buf[22] = 2080;
-    v74 = v16;
-    v75 = 2080;
-    v76 = v17;
-    v77 = 2080;
-    v78 = v18;
-    _os_log_impl(&dword_1A90E3000, v12, OS_LOG_TYPE_DEFAULT, "#I cBS: %s, cOS: %s, cBSPref: %s, cOSPref: %s, pOSPref: %s", buf, 0x34u);
-  }
-
-  if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v72.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v72.__r_.__value_.__l.__size_;
-  }
-
-  if (size)
-  {
-    v20 = HIBYTE(v69.__r_.__value_.__r.__words[2]);
-    if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v20 = v69.__r_.__value_.__l.__size_;
-    }
-
-    if (size == v20)
-    {
-      v21 = (v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v72 : v72.__r_.__value_.__r.__words[0];
-      v22 = (v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v69 : v69.__r_.__value_.__r.__words[0];
-      v13 = memcmp(v21, v22, size);
-      if (!v13)
-      {
-        if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v35 = HIBYTE(v71.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v35 = v71.__r_.__value_.__l.__size_;
-        }
-
-        v36 = HIBYTE(v70.__r_.__value_.__r.__words[2]);
-        if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          v36 = v70.__r_.__value_.__l.__size_;
-        }
-
-        if (v35 != v36 || ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v37 = &v71) : (v37 = v71.__r_.__value_.__r.__words[0]), (v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v38 = &v70) : (v38 = v70.__r_.__value_.__r.__words[0]), memcmp(v37, v38, v35)))
-        {
-          v39 = *(v1 + 5);
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_1A90E3000, v39, OS_LOG_TYPE_DEFAULT, "#I First Boot After Update scenario detected (os version pref mismatch in same boot)", buf, 2u);
-          }
-
-          _MergedGlobals_1 = 1;
-        }
-
-        goto LABEL_201;
-      }
-    }
-
-    ctu::FirstBootAfterUpdate::getCurrentOSVersion(v13);
-    v23 = buf[23];
-    if (buf[23] >= 0)
-    {
-      v24 = buf[23];
-    }
-
-    else
-    {
-      v24 = *&buf[8];
-    }
-
-    v25 = HIBYTE(v71.__r_.__value_.__r.__words[2]);
-    if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v25 = v71.__r_.__value_.__l.__size_;
-    }
-
-    if (v24 == v25)
-    {
-      if (buf[23] >= 0)
-      {
-        v26 = buf;
-      }
-
-      else
-      {
-        v26 = *buf;
-      }
-
-      if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v27 = &v71;
-      }
-
-      else
-      {
-        v27 = v71.__r_.__value_.__r.__words[0];
-      }
-
-      v28 = memcmp(v26, v27, v24) == 0;
-      if ((v23 & 0x80000000) == 0)
-      {
-LABEL_93:
-        if (!v28)
-        {
-          v32 = *(v1 + 5);
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_1A90E3000, v32, OS_LOG_TYPE_DEFAULT, "#I First Boot After Update scenario detected (os version mismatch across different boot)", buf, 2u);
-          }
-
-          _MergedGlobals_1 = 1;
-        }
-
-        pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        v33 = off_1ED40DD70;
-        if (!off_1ED40DD70)
-        {
-          FirstBootAfterUpdatePrefs::create_default_global(buf);
-          v34 = *(&off_1ED40DD70 + 1);
-          off_1ED40DD70 = *buf;
-          if (v34)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-            v33 = off_1ED40DD70;
-          }
-
-          else
-          {
-            v33 = *buf;
-          }
-        }
-
-        v40 = *(&off_1ED40DD70 + 1);
-        if (*(&off_1ED40DD70 + 1))
-        {
-          atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-        }
-
-        pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        std::string::basic_string[abi:ne200100]<0>(__p, "BootSessionUUID");
-        if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v62, v69.__r_.__value_.__l.__data_, v69.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v62 = v69;
-        }
-
-        *buf = __p;
-        *&buf[8] = &v62;
-        *&buf[16] = v33;
-        ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::setPreference<std::string>(std::string const&,std::string)::{lambda(void)#1}>(v33 + 6, buf);
-        if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v62.__r_.__value_.__l.__data_);
-        }
-
-        if (v67 < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-        if (v40)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v40);
-        }
-
-        pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        v41 = off_1ED40DD70;
-        if (!off_1ED40DD70)
-        {
-          FirstBootAfterUpdatePrefs::create_default_global(buf);
-          v42 = *(&off_1ED40DD70 + 1);
-          off_1ED40DD70 = *buf;
-          if (v42)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v42);
-            v41 = off_1ED40DD70;
-          }
-
-          else
-          {
-            v41 = *buf;
-          }
-        }
-
-        v43 = *(&off_1ED40DD70 + 1);
-        if (*(&off_1ED40DD70 + 1))
-        {
-          atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-        }
-
-        pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        std::string::basic_string[abi:ne200100]<0>(__p, "CurrentOSVersion");
-        if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v61, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v61 = v68;
-        }
-
-        *buf = __p;
-        *&buf[8] = &v61;
-        *&buf[16] = v41;
-        ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::setPreference<std::string>(std::string const&,std::string)::{lambda(void)#1}>(v41 + 6, buf);
-        if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v61.__r_.__value_.__l.__data_);
-        }
-
-        if (v67 < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-        if (v43)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v43);
-        }
-
-        pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        v44 = off_1ED40DD70;
-        if (!off_1ED40DD70)
-        {
-          FirstBootAfterUpdatePrefs::create_default_global(buf);
-          v45 = *(&off_1ED40DD70 + 1);
-          off_1ED40DD70 = *buf;
-          if (v45)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v45);
-            v44 = off_1ED40DD70;
-          }
-
-          else
-          {
-            v44 = *buf;
-          }
-        }
-
-        v46 = *(&off_1ED40DD70 + 1);
-        if (*(&off_1ED40DD70 + 1))
-        {
-          atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-        }
-
-        pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-        std::string::basic_string[abi:ne200100]<0>(__p, "PrevOSVersion");
-        if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v60, v71.__r_.__value_.__l.__data_, v71.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v60 = v71;
-        }
-
-        *buf = __p;
-        *&buf[8] = &v60;
-        *&buf[16] = v44;
-        ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::setPreference<std::string>(std::string const&,std::string)::{lambda(void)#1}>(v44 + 6, buf);
-        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v60.__r_.__value_.__l.__data_);
-        }
-
-        if (v67 < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-        if (v46)
-        {
-          v47 = v46;
-LABEL_200:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v47);
-          goto LABEL_201;
-        }
-
-        goto LABEL_201;
-      }
-    }
-
-    else
-    {
-      v28 = 0;
-      if ((buf[23] & 0x80000000) == 0)
-      {
-        goto LABEL_93;
-      }
-    }
-
-    operator delete(*buf);
-    goto LABEL_93;
-  }
-
-  v29 = *(v1 + 5);
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1A90E3000, v29, OS_LOG_TYPE_DEFAULT, "#I First Boot After Update scenario detected (boot session doesn't exist)", buf, 2u);
-  }
-
-  _MergedGlobals_1 = 1;
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v30 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v31 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v31)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
-      v30 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v30 = *buf;
-    }
-  }
-
-  v48 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(__p, "BootSessionUUID");
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v62, v69.__r_.__value_.__l.__data_, v69.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v62 = v69;
-  }
-
-  *buf = __p;
-  *&buf[8] = &v62;
-  *&buf[16] = v30;
-  ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::setPreference<std::string>(std::string const&,std::string)::{lambda(void)#1}>(v30 + 6, buf);
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v62.__r_.__value_.__l.__data_);
-  }
-
-  if (v67 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v48)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
-  }
-
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v49 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v50 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v50)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v50);
-      v49 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v49 = *buf;
-    }
-  }
-
-  v51 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(__p, "CurrentOSVersion");
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v61, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v61 = v68;
-  }
-
-  *buf = __p;
-  *&buf[8] = &v61;
-  *&buf[16] = v49;
-  ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBootAfterUpdatePrefs::setPreference<std::string>(std::string const&,std::string)::{lambda(void)#1}>(v49 + 6, buf);
-  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v61.__r_.__value_.__l.__data_);
-  }
-
-  if (v67 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v51)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
-  }
-
-  pthread_mutex_lock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  v52 = off_1ED40DD70;
-  if (!off_1ED40DD70)
-  {
-    FirstBootAfterUpdatePrefs::create_default_global(buf);
-    v53 = *(&off_1ED40DD70 + 1);
-    off_1ED40DD70 = *buf;
-    if (v53)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
-      v52 = off_1ED40DD70;
-    }
-
-    else
-    {
-      v52 = *buf;
-    }
-  }
-
-  v54 = *(&off_1ED40DD70 + 1);
-  if (*(&off_1ED40DD70 + 1))
-  {
-    atomic_fetch_add_explicit((*(&off_1ED40DD70 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
-  std::string::basic_string[abi:ne200100]<0>(buf, "PrevOSVersion");
-  os_unfair_lock_lock((v52 + 40));
-  if (buf[23] >= 0)
-  {
-    v55 = buf;
-  }
-
-  else
-  {
-    v55 = *buf;
-  }
-
-  v56 = CFStringCreateWithCString(0, v55, 0x8000100u);
-  v60.__r_.__value_.__r.__words[0] = v56;
-  v57 = CFStringCreateWithCString(*MEMORY[0x1E695E480], "", 0x8000100u);
-  __p[0] = v57;
-  if (v57)
-  {
-    v58 = *MEMORY[0x1E695E8B0];
-    CFPreferencesSetValue(v56, v57, *(v52 + 8), *(v52 + 16), *MEMORY[0x1E695E8B0]);
-    CFPreferencesSynchronize(*(v52 + 8), *(v52 + 16), v58);
-  }
-
-  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(__p);
-  ctu::cf::MakeCFString::~MakeCFString(&v60.__r_.__value_.__l.__data_);
-  os_unfair_lock_unlock((v52 + 40));
-  if ((buf[23] & 0x80000000) != 0)
-  {
-    operator delete(*buf);
-  }
-
-  if (v54)
-  {
-    v47 = v54;
-    goto LABEL_200;
-  }
-
-LABEL_201:
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v68.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v69.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v70.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v71.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v72.__r_.__value_.__l.__data_);
-  }
-
-  v59 = *MEMORY[0x1E69E9840];
-}
-
 void sub_1A90FEA2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
 {
   pthread_mutex_unlock(&ctu::Singleton<FirstBootAfterUpdatePrefs,FirstBootAfterUpdatePrefs,ctu::PthreadMutexGuardPolicy<FirstBootAfterUpdatePrefs>>::sInstance);
@@ -928,13 +95,13 @@ void ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBoot
   v7 = a2[3];
   if (*(v6 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *v6, *(v6 + 1));
+    std::string::__init_copy_ctor_external(&__p, *v6, *(v6 + 8));
   }
 
   else
   {
     v8 = *v6;
-    __p.__r_.__value_.__r.__words[2] = *(v6 + 2);
+    __p.__r_.__value_.__r.__words[2] = *(v6 + 16);
     *&__p.__r_.__value_.__l.__data_ = v8;
   }
 
@@ -981,13 +148,13 @@ void ctu::SharedLockable<FirstBootAfterUpdatePrefs>::execute_sync<BOOL FirstBoot
   v6 = *a2;
   if (*(v4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *v4, *(v4 + 1));
+    std::string::__init_copy_ctor_external(&__p, *v4, *(v4 + 8));
   }
 
   else
   {
     v7 = *v4;
-    __p.__r_.__value_.__r.__words[2] = *(v4 + 2);
+    __p.__r_.__value_.__r.__words[2] = *(v4 + 16);
     *&__p.__r_.__value_.__l.__data_ = v7;
   }
 
@@ -1135,27 +302,27 @@ std::string *ctu::operator<<(std::string *this, void *a2)
   return this;
 }
 
-__n128 ctu::LogMessageBuffer::createWithNSFormat@<Q0>(ctu::LogMessageBuffer *this@<X0>, uint64_t a2@<X8>, ...)
+__n128 ctu::LogMessageBuffer::createWithNSFormat@<Q0>(ctu::LogMessageBuffer *this@<X0>, uint64_t a3@<X8>, ...)
 {
-  va_start(va, a2);
-  *(a2 + 48) = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a3);
+  *(a3 + 48) = 0xAAAAAAAAAAAAAAAALL;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *(a2 + 16) = v3;
-  *(a2 + 32) = v3;
-  *a2 = v3;
-  ctu::LogMessageBuffer::vCreateWithNSFormat(this, va, a2);
+  *(a3 + 16) = v3;
+  *(a3 + 32) = v3;
+  *a3 = v3;
+  ctu::LogMessageBuffer::vCreateWithNSFormat(this, va, a3);
   return result;
 }
 
 void ctu::LogMessageBuffer::vCreateWithNSFormat(ctu::LogMessageBuffer *this@<X0>, NSString *a2@<X1>, uint64_t a3@<X8>)
 {
-  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:this arguments:a2];
+  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:this arguments:a2];
   *a3 = 0u;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 0u;
   *(a3 + 48) = 0;
-  std::string::__assign_external(a3, [v5 UTF8String]);
+  std::string::__assign_external(a3, [v4 UTF8String]);
 }
 
 std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s, std::string::size_type __n)
@@ -1248,7 +415,7 @@ std::string *ctu::to_rle(std::string *a1)
 
   v5 = 0;
   v19 = v3;
-  v6 = &v3[size];
+  v6 = v3 + size;
   v17 = 0;
   v18 = v6;
   v16[0] = &v17;
@@ -1262,12 +429,12 @@ std::string *ctu::to_rle(std::string *a1)
   }
 
 LABEL_5:
-  v8 = a1 + v2;
+  v8 = (a1 + v2);
   v9 = a1;
   v10 = v2;
   while (v7 != v8)
   {
-    if (v6 == (v9 + v10) || *v6 == *v7)
+    if (v6 == (v9 + v10) || *v6 == v7->__r_.__value_.__s.__data_[0])
     {
       v17 = ++v5;
     }
@@ -1281,8 +448,9 @@ LABEL_5:
     }
 
     v18 = v3;
-    v6 = v7++;
-    ++v3;
+    v6 = v7;
+    v7 = (v7 + 1);
+    v3 = (v3 + 1);
     if ((v2 & 0x80) == 0)
     {
       goto LABEL_5;
@@ -1309,7 +477,7 @@ LABEL_6:
     v14 = a1->__r_.__value_.__r.__words[0];
   }
 
-  return std::string::erase(a1, &v19[-v14], v13 - v19);
+  return std::string::erase(a1, v19 - v14, v13 - v19);
 }
 
 void ctu::to_rle(std::string &)::$_0::operator()(uint64_t a1)
@@ -1572,7 +740,7 @@ size_t TelephonyUtilRingBufferInsertRaw(uint64_t a1, const void *a2, unsigned in
   return v11;
 }
 
-ssize_t TelephonyUtilRingBufferInsertFDUnblockable(uint64_t a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+ssize_t TelephonyUtilRingBufferInsertFDUnblockable(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5)
 {
   v7 = *(a1 + 8);
   v6 = *(a1 + 12);
@@ -1904,7 +1072,7 @@ void ctu::rest::AssertionHandle::create(uint64_t a1@<X0>, const std::string *a2@
 
 void ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(ctu::rest::AssertionHandle::SubscriptionHandle *this)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   v2 = *(this + 1);
   if (v2)
   {
@@ -1932,12 +1100,12 @@ void ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(ctu::rest::Assert
           atomic_fetch_add_explicit((v6 + 16), 1uLL, memory_order_relaxed);
         }
 
-        v10[0] = &unk_1F1CB5558;
-        v10[1] = v7;
-        v10[2] = v6;
-        v10[3] = v10;
-        ctu::RestModuleState::addSubscription(*v5, &__p, v10, 1);
-        std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v10);
+        v9[0] = &unk_1F1CB5558;
+        v9[1] = v7;
+        v9[2] = v6;
+        v9[3] = v9;
+        ctu::RestModuleState::addSubscription(*v5, &__p, v9, 1);
+        std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v9);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -1947,8 +1115,6 @@ void ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(ctu::rest::Assert
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ctu::rest::AssertionHandle::updateState(ctu::rest::AssertionHandle *this, xpc_object_t *a2)
@@ -2052,53 +1218,53 @@ uint64_t std::function<void ()(BOOL)>::operator()(uint64_t a1, char a2)
 
 uint64_t ctu::rest::AssertionHandle::setHandler_impl(uint64_t a1, uint64_t a2)
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v10 = v9;
-      (*(*v3 + 24))(v3, v9);
+      v9 = v8;
+      (*(*v3 + 24))(v3, v8);
     }
 
     else
     {
-      v10 = (*(*v3 + 16))(v3);
+      v9 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   v4 = a1 + 32;
-  if (v9 != (a1 + 32))
+  if (v8 != (a1 + 32))
   {
-    v5 = v10;
+    v5 = v9;
     v6 = *(a1 + 56);
-    if (v10 == v9)
+    if (v9 == v8)
     {
       if (v6 == v4)
       {
-        memset(v11, 170, 24);
-        (*(*v10 + 24))();
-        (*(*v10 + 32))(v10);
-        v10 = 0;
-        (*(**(a1 + 56) + 24))(*(a1 + 56), v9);
+        memset(v10, 170, 24);
+        (*(*v9 + 24))();
+        (*(*v9 + 32))(v9);
+        v9 = 0;
+        (*(**(a1 + 56) + 24))(*(a1 + 56), v8);
         (*(**(a1 + 56) + 32))(*(a1 + 56));
         *(a1 + 56) = 0;
-        v10 = v9;
-        (*(v11[0] + 24))(v11, a1 + 32);
-        (*(v11[0] + 32))(v11);
+        v9 = v8;
+        (*(v10[0] + 24))(v10, a1 + 32);
+        (*(v10[0] + 32))(v10);
       }
 
       else
       {
-        (*(*v10 + 24))();
-        (*(*v10 + 32))(v10);
-        v10 = *(a1 + 56);
+        (*(*v9 + 24))();
+        (*(*v9 + 32))(v9);
+        v9 = *(a1 + 56);
       }
 
       *(a1 + 56) = v4;
@@ -2106,22 +1272,20 @@ uint64_t ctu::rest::AssertionHandle::setHandler_impl(uint64_t a1, uint64_t a2)
 
     else if (v6 == v4)
     {
-      (*(*v6 + 24))(*(a1 + 56), v9);
+      (*(*v6 + 24))(*(a1 + 56), v8);
       (*(**(a1 + 56) + 32))(*(a1 + 56));
-      *(a1 + 56) = v10;
-      v10 = v9;
+      *(a1 + 56) = v9;
+      v9 = v8;
     }
 
     else
     {
-      v10 = *(a1 + 56);
+      v9 = *(a1 + 56);
       *(a1 + 56) = v5;
     }
   }
 
-  result = std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v8);
 }
 
 void sub_1A9100774(_Unwind_Exception *a1, int a2)
@@ -2361,7 +1525,7 @@ void std::__function::__func<ctu::rest::AssertionHandle::SubscriptionHandle::sub
   operator delete(__p);
 }
 
-void std::__function::__func<ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(void)::{lambda(xpc::object)#1},std::allocator<ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(void)::{lambda(xpc::object)#1}>,void ()(xpc::object)>::operator()(uint64_t a1, xpc_object_t *a2)
+void std::__function::__func<ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(void)::{lambda(xpc::object)#1},std::allocator<ctu::rest::AssertionHandle::SubscriptionHandle::subscribe(void)::{lambda(xpc::object)#1}>,void ()(xpc::object)>::operator()(uint64_t a1, void **a2)
 {
   v3 = *a2;
   v8 = *a2;
@@ -2529,7 +1693,7 @@ uint64_t _TelephonyUtilTransportFDWrite(uint64_t a1, void *__buf, size_t __nbyte
   return 0;
 }
 
-uint64_t _TelephonyUtilTransportFDRead(uint64_t a1, char *a2, unsigned int a3, unsigned int *a4, int a5, unsigned int a6, uint64_t a7)
+uint64_t _TelephonyUtilTransportFDRead(uint64_t a1, char *a2, uint64_t a3, _DWORD *a4, int a5, unsigned int a6, uint64_t a7)
 {
   v9 = a3;
   v10 = a2;
@@ -2559,7 +1723,7 @@ uint64_t _TelephonyUtilTransportFDRead(uint64_t a1, char *a2, unsigned int a3, u
   else
   {
     v16 = TelephonyUtilUnblockableReadWithTimeout(*v11, *(v11 + 4), a2, a3, a6);
-    if ((v16 & 0x80000000) != 0)
+    if (v16 < 0)
     {
 LABEL_11:
       v18 = __error();
@@ -2588,16 +1752,15 @@ BOOL _TelephonyUtilTransportFDUnblockRead(uint64_t a1)
 
 uint64_t _TelephonyUtilTransportFDFlushRead(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   memset(__b, 170, sizeof(__b));
   do
   {
-    v4 = -1431655766;
-    result = _TelephonyUtilTransportFDRead(a1, __b, 0x400u, &v4, 0, 0, 0);
+    v3 = -1431655766;
+    result = _TelephonyUtilTransportFDRead(a1, __b, 1024, &v3, 0, 0, 0);
   }
 
-  while ((result & 1) != 0 && v4);
-  v3 = *MEMORY[0x1E69E9840];
+  while ((result & 1) != 0 && v3);
   return result;
 }
 
@@ -2625,7 +1788,7 @@ uint64_t TelephonyUtilTransportFreeFD(uint64_t a1)
   return 1;
 }
 
-BOOL ctu::isProcessRunning(const void **a1)
+BOOL ctu::isProcessRunning(const void ***a1)
 {
   __size = 0;
   if (sysctl(ctu::isProcessRunning(std::string const&)::kNames, 3u, 0, &__size, 0, 0))
@@ -2816,14 +1979,14 @@ void sub_1A9101570(_Unwind_Exception *exception_object)
 __n128 TelephonyUtilDebugRegisterDelegate(__n128 *a1)
 {
   result = *a1;
-  gDelegate = *a1;
+  *&gDelegate = *a1;
   return result;
 }
 
 double TelephonyUtilDebugSetDefaults()
 {
   result = *&gDelegateDefault;
-  gDelegate = gDelegateDefault;
+  *&gDelegate = gDelegateDefault;
   _TelephonyUtilDebugFlags = 10;
   return result;
 }
@@ -2850,46 +2013,40 @@ uint64_t _TelephonyUtilDebugPrintBinaryVerbose()
 
 uint64_t _TelephonyUtilUARTTransportConfigureFlowControl(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 80);
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v19 = 0;
   v17 = 0u;
-  if (ioctl(*v3, 0x40487413uLL, &v16))
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  if (ioctl(*v3, 0x40487413uLL, &v15))
   {
     v4 = "Failed to get termios options, ret = %s (%u)\n";
+LABEL_7:
+    v6 = __error();
+    v7 = strerror(*v6);
+    _TelephonyUtilDebugPrint("_TelephonyUtilUARTTransportConfigureFlowControl", v4, v8, v9, v10, v11, v12, v13, v7);
+    return 0;
   }
 
-  else
+  *&v15 = v15 & 0xFFFFFFFFFFFFF0CCLL | 1;
+  *(&v15 + 1) &= ~1uLL;
+  v5 = 51968;
+  if (a2)
   {
-    *&v16 = v16 & 0xFFFFFFFFFFFFF0CCLL | 1;
-    *(&v16 + 1) &= ~1uLL;
-    v5 = 51968;
-    if (a2)
-    {
-      v5 = 248576;
-    }
-
-    *&v17 = v17 & 0xFFFFFFFFFFFC20FFLL | v5;
-    *(&v17 + 1) &= 0xFFFFFFFFFFFFFA77;
-    if (!ioctl(*v3, 0x80487414uLL, &v16))
-    {
-      result = 1;
-      goto LABEL_8;
-    }
-
-    v4 = "Failed to set termios options, ret = %s (%u)\n";
+    v5 = 248576;
   }
 
-  v6 = __error();
-  v7 = strerror(*v6);
-  _TelephonyUtilDebugPrint("_TelephonyUtilUARTTransportConfigureFlowControl", v4, v8, v9, v10, v11, v12, v13, v7);
-  result = 0;
-LABEL_8:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  *&v16 = v16 & 0xFFFFFFFFFFFC20FFLL | v5;
+  *(&v16 + 1) &= 0xFFFFFFFFFFFFFA77;
+  if (ioctl(*v3, 0x80487414uLL, &v15))
+  {
+    v4 = "Failed to set termios options, ret = %s (%u)\n";
+    goto LABEL_7;
+  }
+
+  return 1;
 }
 
 BOOL _TelephonyUtilUARTTransportConfigureBaudRate(uint64_t a1, unsigned int a2)
@@ -2955,15 +2112,13 @@ BOOL _TelephonyUtilUARTTransportWrite(uint64_t a1, char *__buf, size_t __nbyte, 
   return v8 == 0;
 }
 
-uint64_t TelephonyUtilTransportCreateWithUARTTimeout(uint64_t (**a1)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, char a5, int a6, uint64_t a7), unsigned int *a2)
+uint64_t TelephonyUtilTransportCreateWithUARTTimeout(uint64_t (**a1)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6, uint64_t a7), unsigned int *a2)
 {
   v4 = malloc(0x200uLL);
   a1[10] = v4;
   if (v4)
   {
     v11 = v4;
-    v22 = a2[65];
-    v23 = a2[66];
     _TelephonyUtilDebugPrint("TelephonyUtilTransportCreateWithUARTTimeout", "Creating with baud %u, Rx Queue size %u, local queue size %u\n", v5, v6, v7, v8, v9, v10, a2[64]);
     *(v11 + 30) = 0u;
     *(v11 + 31) = 0u;
@@ -3020,9 +2175,10 @@ uint64_t TelephonyUtilTransportCreateWithUARTTimeout(uint64_t (**a1)(uint64_t a1
   }
 }
 
-uint64_t _TelephonyUtilUARTTransportWithTimeoutWrite(uint64_t a1, uint64_t a2, int a3, uint64_t a4, char a5, int a6, uint64_t a7)
+uint64_t _TelephonyUtilUARTTransportWithTimeoutWrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6, uint64_t a7)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v10 = a3;
+  v25 = *MEMORY[0x1E69E9840];
   if (a7)
   {
     __TUAssertTrigger("!dDtor");
@@ -3032,19 +2188,19 @@ uint64_t _TelephonyUtilUARTTransportWithTimeoutWrite(uint64_t a1, uint64_t a2, i
   pthread_mutex_lock((v12 + 280));
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
   *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21 = -1431655766;
-  v23[0] = v13;
-  v23[2] = v13;
-  v24 = v13;
-  v23[1] = v13;
-  v19 = a2;
-  v20 = a3;
-  v22 = a4;
-  LOBYTE(v23[0]) = a5;
-  DWORD1(v23[0]) = a6;
-  BYTE8(v24) = 0;
-  v25 = 0;
-  pthread_cond_init((v23 + 8), 0);
+  v20 = -1431655766;
+  v22[0] = v13;
+  v22[2] = v13;
+  v23 = v13;
+  v22[1] = v13;
+  v18 = a2;
+  v19 = v10;
+  v21 = a4;
+  LOBYTE(v22[0]) = a5;
+  DWORD1(v22[0]) = a6;
+  BYTE8(v23) = 0;
+  v24 = 0;
+  pthread_cond_init((v22 + 8), 0);
   v14 = *(v12 + 464);
   if (v14)
   {
@@ -3063,21 +2219,19 @@ uint64_t _TelephonyUtilUARTTransportWithTimeoutWrite(uint64_t a1, uint64_t a2, i
     v16 = (v12 + 464);
   }
 
-  *v16 = &v19;
+  *v16 = &v18;
   pthread_cond_signal((v12 + 416));
-  while (v19)
+  while (v18)
   {
-    pthread_cond_wait((v23 + 8), (v12 + 280));
+    pthread_cond_wait((v22 + 8), (v12 + 280));
   }
 
-  pthread_cond_destroy((v23 + 8));
+  pthread_cond_destroy((v22 + 8));
   pthread_mutex_unlock((v12 + 280));
-  result = BYTE8(v24);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return BYTE8(v23);
 }
 
-BOOL _TelephonyUtilUARTTransportWithTimeoutRead(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int *a4, int a5, unsigned int a6, uint64_t a7)
+BOOL _TelephonyUtilUARTTransportWithTimeoutRead(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, int a5, unsigned int a6, uint64_t a7)
 {
   v9 = a3;
   if (a7)
@@ -3234,23 +2388,21 @@ BOOL _TelephonyUtilUARTTransportWithTimeoutIsValid(uint64_t a1)
 
 uint64_t _TelephonyUtilTransportUARTWithTimeoutCreateInternal(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v8 = a1[10];
   *(v8 + 392) = 0;
   v9 = *(v8 + 272);
   if (v9 > 0x20000)
   {
     _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "Receive queue size %u exceeds max %u\n", a3, a4, a5, a6, a7, a8, *(v8 + 272));
-LABEL_18:
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   result = malloc(*(v8 + 272));
   *(v8 + 472) = result;
   if (!result)
   {
-    goto LABEL_19;
+    return result;
   }
 
   *(v8 + 480) = 0;
@@ -3259,7 +2411,7 @@ LABEL_18:
   if ((v9 & (v9 - 1)) != 0)
   {
     _TelephonyUtilDebugPrint("TelephonyUtilRingBufferInitialize", "Capacity %u is not a power of two\n", v12, v13, v14, v15, v16, v17, v9);
-    goto LABEL_18;
+    return 0;
   }
 
   *(v8 + 480) = result;
@@ -3267,22 +2419,22 @@ LABEL_18:
   *(v8 + 492) = 0;
   *&v18 = 0xAAAAAAAAAAAAAAAALL;
   *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v58 = v18;
-  v59 = v18;
-  v56 = v18;
   v57 = v18;
-  v54 = v18;
+  v58 = v18;
   v55 = v18;
-  v52 = v18;
+  v56 = v18;
   v53 = v18;
-  v50 = v18;
+  v54 = v18;
   v51 = v18;
-  v48 = v18;
+  v52 = v18;
   v49 = v18;
-  v46 = v18;
+  v50 = v18;
   v47 = v18;
-  *__str = v18;
+  v48 = v18;
   v45 = v18;
+  v46 = v18;
+  *__str = v18;
+  v44 = v18;
   if (!*(v8 + 8) || !strcmp((v8 + 8), "debug"))
   {
     strncpy(__str, "/dev/uart.debug", 0x100uLL);
@@ -3301,7 +2453,7 @@ LABEL_18:
     v27 = __error();
     strerror(*v27);
     _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "failed to open node (%s), ret = %s(%u)\n", v28, v29, v30, v31, v32, v33, __str);
-    goto LABEL_18;
+    return 0;
   }
 
   result = _TelephonyUtilUARTTransportConfigureFlowControl(a1, (*(v8 + 276) & 1) == 0);
@@ -3319,31 +2471,28 @@ LABEL_18:
           if (pthread_create((v8 + 400), 0, _TelephonyUtilUARTTransportWithTimeoutReadWorker, a1))
           {
             v20 = __error();
-            v42 = strerror(*v20);
-            _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "Failed to launch read worker, ret = %s(%u)\n", v21, v22, v23, v24, v25, v26, v42);
+            v41 = strerror(*v20);
+            _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "Failed to launch read worker, ret = %s(%u)\n", v21, v22, v23, v24, v25, v26, v41);
           }
 
           else
           {
             if (!pthread_create((v8 + 408), 0, _TelephonyUtilUARTTransportWithTimeoutWriteWorker, a1))
             {
-              result = 1;
-              goto LABEL_19;
+              return 1;
             }
 
-            v35 = __error();
-            v43 = strerror(*v35);
-            _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "Failed to launch write worker, ret = %s(%u)\n", v36, v37, v38, v39, v40, v41, v43);
+            v34 = __error();
+            v42 = strerror(*v34);
+            _TelephonyUtilDebugPrint("_TelephonyUtilTransportUARTWithTimeoutCreateInternal", "Failed to launch write worker, ret = %s(%u)\n", v35, v36, v37, v38, v39, v40, v42);
           }
 
-          goto LABEL_18;
+          return 0;
         }
       }
     }
   }
 
-LABEL_19:
-  v34 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3390,7 +2539,7 @@ uint64_t _TelephonyUtilUARTTransportWithTimeoutFreeInternal(uint64_t a1)
 uint64_t _TelephonyUtilUARTTransportWithTimeoutReadWorker()
 {
   v0 = MEMORY[0x1EEE9AC00]();
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(v0 + 80);
   pthread_mutex_lock((v1 + 280));
   v2 = *(v1 + 392);
@@ -3428,7 +2577,6 @@ uint64_t _TelephonyUtilUARTTransportWithTimeoutReadWorker()
 
   while ((v2 & 2) == 0);
   pthread_mutex_unlock((v1 + 280));
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -4108,9 +3256,9 @@ uint64_t TelephonyUtilPrefs::getPreference<int>(uint64_t a1, ctu::cf *a2)
   return v8;
 }
 
-void sub_1A9103598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9103598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::MakeCFString::~MakeCFString(va);
   _Unwind_Resume(a1);
 }
@@ -4204,50 +3352,48 @@ void sub_1A9103C38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL ctu::cf::assign(std::string *a1, CFURLRef url, Boolean resolveAgainstBase)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v8[30] = v4;
-  v8[31] = v4;
-  v8[28] = v4;
-  v8[29] = v4;
-  v8[26] = v4;
-  v8[27] = v4;
-  v8[24] = v4;
-  v8[25] = v4;
-  v8[22] = v4;
-  v8[23] = v4;
-  v8[20] = v4;
-  v8[21] = v4;
-  v8[18] = v4;
-  v8[19] = v4;
-  v8[16] = v4;
-  v8[17] = v4;
-  v8[14] = v4;
-  v8[15] = v4;
-  v8[12] = v4;
-  v8[13] = v4;
-  v8[10] = v4;
-  v8[11] = v4;
-  v8[8] = v4;
-  v8[9] = v4;
-  v8[6] = v4;
-  v8[7] = v4;
-  v8[4] = v4;
-  v8[5] = v4;
-  v8[2] = v4;
-  v8[3] = v4;
-  v8[0] = v4;
-  v8[1] = v4;
-  v5 = CFURLGetFileSystemRepresentation(url, resolveAgainstBase, v8, 512);
+  v7[30] = v4;
+  v7[31] = v4;
+  v7[28] = v4;
+  v7[29] = v4;
+  v7[26] = v4;
+  v7[27] = v4;
+  v7[24] = v4;
+  v7[25] = v4;
+  v7[22] = v4;
+  v7[23] = v4;
+  v7[20] = v4;
+  v7[21] = v4;
+  v7[18] = v4;
+  v7[19] = v4;
+  v7[16] = v4;
+  v7[17] = v4;
+  v7[14] = v4;
+  v7[15] = v4;
+  v7[12] = v4;
+  v7[13] = v4;
+  v7[10] = v4;
+  v7[11] = v4;
+  v7[8] = v4;
+  v7[9] = v4;
+  v7[6] = v4;
+  v7[7] = v4;
+  v7[4] = v4;
+  v7[5] = v4;
+  v7[2] = v4;
+  v7[3] = v4;
+  v7[0] = v4;
+  v7[1] = v4;
+  v5 = CFURLGetFileSystemRepresentation(url, resolveAgainstBase, v7, 512);
   if (v5)
   {
-    std::string::__assign_external(a1, v8);
+    std::string::__assign_external(a1, v7);
   }
 
-  result = v5 != 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 != 0;
 }
 
 BOOL ctu::cf::copy(CFErrorRef err, __CFError *a2, const __CFString **a3)
@@ -4286,10 +3432,11 @@ uint64_t ctu::cf::assign(uint64_t a1, const __CFLocale *a2, CFDateFormatterStyle
   return v11;
 }
 
-void sub_1A9103DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_1A9103DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&a9);
-  ctu::SharedRef<__CFDateFormatter,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDateFormatter>::~SharedRef(&a10);
+  ctu::SharedRef<__CFDateFormatter,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDateFormatter>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -4441,163 +3588,163 @@ LABEL_9:
 const void **ctu::cf::show@<X0>(const void **this@<X0>, CFTypeRef cf@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 8) = 0;
-  v5 = (a3 + 8);
+  v4 = (a3 + 8);
   *a3 = 0;
   *(a3 + 16) = 0;
   if (cf)
   {
-    v6 = cf;
+    v5 = cf;
     if (this)
     {
-      *&v30 = CFCopyDescription(cf);
-      memset(v32, 0, 24);
-      ctu::cf::assign(v32, v30);
+      *&v29 = CFCopyDescription(cf);
+      memset(v31, 0, 24);
+      ctu::cf::assign(v31, v29);
 LABEL_4:
-      v7 = *v32;
-      *v5 = *&v32[8];
-      *(v5 + 7) = *&v32[15];
-      v8 = v32[23];
-      *a3 = v7;
-      *(a3 + 23) = v8;
-      return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v30);
+      v6 = *v31;
+      *v4 = *&v31[8];
+      *(v4 + 7) = *&v31[15];
+      v7 = v31[23];
+      *a3 = v6;
+      *(a3 + 23) = v7;
+      return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v29);
     }
 
-    v9 = CFGetTypeID(cf);
+    v8 = CFGetTypeID(cf);
     TypeID = CFDictionaryGetTypeID();
-    v11 = CFGetTypeID(v6);
-    if (v9 == TypeID)
+    v10 = CFGetTypeID(v5);
+    if (v8 == TypeID)
     {
-      v12 = CFDictionaryGetTypeID();
-      v47 = 0xAAAAAAAAAAAAAAAALL;
-      *&v13 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v45 = v13;
-      v46 = v13;
-      if (v11 != v12)
+      v11 = CFDictionaryGetTypeID();
+      v46 = 0xAAAAAAAAAAAAAAAALL;
+      *&v12 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v44 = v12;
+      v45 = v12;
+      if (v10 != v11)
       {
-        v6 = 0;
+        v5 = 0;
       }
 
-      v43 = v13;
-      v44 = v13;
-      v41 = v13;
-      v42 = v13;
-      v39 = v13;
-      v40 = v13;
-      v38 = v13;
-      v36 = v13;
-      v37 = v13;
-      v34 = v13;
-      *__p = v13;
-      *&v32[16] = v13;
-      v33 = v13;
-      *v32 = v13;
-      std::ostringstream::basic_ostringstream[abi:ne200100](v32);
-      v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "CFDictionary(", 13);
-      Count = CFDictionaryGetCount(v6);
-      v16 = MEMORY[0x1AC580AF0](v14, Count);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " keys)", 6);
-      std::ostringstream::str[abi:ne200100](v32, &v30);
+      v42 = v12;
+      v43 = v12;
+      v40 = v12;
+      v41 = v12;
+      v38 = v12;
+      v39 = v12;
+      v37 = v12;
+      v35 = v12;
+      v36 = v12;
+      v33 = v12;
+      *__p = v12;
+      *&v31[16] = v12;
+      v32 = v12;
+      *v31 = v12;
+      std::ostringstream::basic_ostringstream[abi:ne200100](v31);
+      v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "CFDictionary(", 13);
+      Count = CFDictionaryGetCount(v5);
+      v15 = MEMORY[0x1AC580AF0](v13, Count);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " keys)", 6);
+      std::ostringstream::str[abi:ne200100](v31, &v29);
     }
 
     else
     {
-      v17 = CFArrayGetTypeID();
-      v18 = CFGetTypeID(v6);
-      if (v11 == v17)
+      v16 = CFArrayGetTypeID();
+      v17 = CFGetTypeID(v5);
+      if (v10 == v16)
       {
-        v19 = CFArrayGetTypeID();
-        v47 = 0xAAAAAAAAAAAAAAAALL;
-        *&v20 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v45 = v20;
-        v46 = v20;
-        if (v18 != v19)
+        v18 = CFArrayGetTypeID();
+        v46 = 0xAAAAAAAAAAAAAAAALL;
+        *&v19 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v44 = v19;
+        v45 = v19;
+        if (v17 != v18)
         {
-          v6 = 0;
+          v5 = 0;
         }
 
-        v43 = v20;
-        v44 = v20;
-        v41 = v20;
-        v42 = v20;
-        v39 = v20;
-        v40 = v20;
-        v38 = v20;
-        v36 = v20;
-        v37 = v20;
-        v34 = v20;
-        *__p = v20;
-        *&v32[16] = v20;
-        v33 = v20;
-        *v32 = v20;
-        std::ostringstream::basic_ostringstream[abi:ne200100](v32);
-        v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "CFArray(", 8);
-        v22 = CFArrayGetCount(v6);
-        v23 = MEMORY[0x1AC580AF0](v21, v22);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " elements)", 10);
-        std::ostringstream::str[abi:ne200100](v32, &v30);
+        v42 = v19;
+        v43 = v19;
+        v40 = v19;
+        v41 = v19;
+        v38 = v19;
+        v39 = v19;
+        v37 = v19;
+        v35 = v19;
+        v36 = v19;
+        v33 = v19;
+        *__p = v19;
+        *&v31[16] = v19;
+        v32 = v19;
+        *v31 = v19;
+        std::ostringstream::basic_ostringstream[abi:ne200100](v31);
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "CFArray(", 8);
+        v21 = CFArrayGetCount(v5);
+        v22 = MEMORY[0x1AC580AF0](v20, v21);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " elements)", 10);
+        std::ostringstream::str[abi:ne200100](v31, &v29);
       }
 
       else
       {
-        if (v18 != CFDataGetTypeID())
+        if (v17 != CFDataGetTypeID())
         {
-          *&v30 = CFCopyDescription(v6);
-          memset(v32, 0, 24);
-          ctu::cf::assign(v32, v30);
+          *&v29 = CFCopyDescription(v5);
+          memset(v31, 0, 24);
+          ctu::cf::assign(v31, v29);
           goto LABEL_4;
         }
 
-        v24 = CFGetTypeID(v6);
-        v25 = CFDataGetTypeID();
-        v47 = 0xAAAAAAAAAAAAAAAALL;
-        *&v26 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v45 = v26;
-        v46 = v26;
-        if (v24 != v25)
+        v23 = CFGetTypeID(v5);
+        v24 = CFDataGetTypeID();
+        v46 = 0xAAAAAAAAAAAAAAAALL;
+        *&v25 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v44 = v25;
+        v45 = v25;
+        if (v23 != v24)
         {
-          v6 = 0;
+          v5 = 0;
         }
 
-        v43 = v26;
-        v44 = v26;
-        v41 = v26;
-        v42 = v26;
-        v39 = v26;
-        v40 = v26;
-        v38 = v26;
-        v36 = v26;
-        v37 = v26;
-        v34 = v26;
-        *__p = v26;
-        *&v32[16] = v26;
-        v33 = v26;
-        *v32 = v26;
-        std::ostringstream::basic_ostringstream[abi:ne200100](v32);
-        v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "CFData(", 7);
-        Length = CFDataGetLength(v6);
-        v29 = MEMORY[0x1AC580AF0](v27, Length);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, " bytes)", 7);
-        std::ostringstream::str[abi:ne200100](v32, &v30);
+        v42 = v25;
+        v43 = v25;
+        v40 = v25;
+        v41 = v25;
+        v38 = v25;
+        v39 = v25;
+        v37 = v25;
+        v35 = v25;
+        v36 = v25;
+        v33 = v25;
+        *__p = v25;
+        *&v31[16] = v25;
+        v32 = v25;
+        *v31 = v25;
+        std::ostringstream::basic_ostringstream[abi:ne200100](v31);
+        v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "CFData(", 7);
+        Length = CFDataGetLength(v5);
+        v28 = MEMORY[0x1AC580AF0](v26, Length);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, " bytes)", 7);
+        std::ostringstream::str[abi:ne200100](v31, &v29);
       }
     }
 
-    *a3 = v30;
-    *(a3 + 16) = v31;
-    *v32 = *MEMORY[0x1E69E54E8];
-    *&v32[*(*v32 - 24)] = *(MEMORY[0x1E69E54E8] + 24);
-    *&v32[8] = MEMORY[0x1E69E5548] + 16;
-    if (SHIBYTE(v36) < 0)
+    *a3 = v29;
+    *(a3 + 16) = v30;
+    *v31 = *MEMORY[0x1E69E54E8];
+    *&v31[*(*v31 - 24)] = *(MEMORY[0x1E69E54E8] + 24);
+    *&v31[8] = MEMORY[0x1E69E5548] + 16;
+    if (SHIBYTE(v35) < 0)
     {
       operator delete(__p[1]);
     }
 
-    *&v32[8] = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(&v32[16]);
+    *&v31[8] = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(&v31[16]);
     std::ostream::~ostream();
-    return MEMORY[0x1AC580CE0](&v38);
+    return MEMORY[0x1AC580CE0](&v37);
   }
 
   else
@@ -4636,7 +3783,7 @@ void sub_1A9104770(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5070,14 +4217,12 @@ __n128 ctu::DispatchRestResourceConnection::DispatchRestResourceConnection(uint6
   v3 = *a2;
   *(a1 + 24) = *(a2 + 2);
   *(a1 + 8) = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *a1 = &unk_1F1CB6840;
   result = *a3;
   *(a1 + 32) = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 
@@ -5086,14 +4231,12 @@ __n128 ctu::DispatchRestResourceConnection::DispatchRestResourceConnection(uint6
   v3 = *a2;
   *(a1 + 24) = *(a2 + 2);
   *(a1 + 8) = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *a1 = &unk_1F1CB6840;
   result = *a3;
   *(a1 + 32) = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 
@@ -5201,17 +4344,17 @@ uint64_t std::__function::__func<ctu::DispatchRestResourceConnection::sendWithRe
 CFAllocatorRef ctu::cf::create_allocator@<X0>(ctu::cf *this@<X0>, const ctu::MallocZone *a2@<X1>, CFAllocatorRef *a3@<X8>)
 {
   memset(&context, 0, 24);
-  v7 = operator new(0x18uLL);
-  v8 = *(this + 1);
-  *v7 = *this;
-  v7[1] = v8;
-  if (v8)
+  v6 = operator new(0x18uLL);
+  v7 = *(this + 1);
+  *v6 = *this;
+  v6[1] = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v7[2] = *(this + 2);
-  context.info = v7;
+  v6[2] = *(this + 2);
+  context.info = v6;
   result = CFAllocatorCreate(a2, &context);
   *a3 = result;
   return result;
@@ -5231,18 +4374,18 @@ void anonymous namespace::sMallocZoneRelease(_anonymous_namespace_ *this, const 
   }
 }
 
-uint64_t ctu::concurrency::Monitor::Monitor(uint64_t a1, const void **a2)
+dispatch_object_t *ctu::concurrency::Monitor::Monitor(dispatch_object_t *a1, const void **a2)
 {
   *a1 = &unk_1F1CB7488;
-  ctu::concurrency::PriorityQueue::PriorityQueue((a1 + 8), a2);
-  *(a1 + 32) = dispatch_group_create();
+  ctu::concurrency::PriorityQueue::PriorityQueue(a1 + 1, a2);
+  a1[4] = dispatch_group_create();
   return a1;
 }
 
 {
   *a1 = &unk_1F1CB7488;
-  ctu::concurrency::PriorityQueue::PriorityQueue((a1 + 8), a2);
-  *(a1 + 32) = dispatch_group_create();
+  ctu::concurrency::PriorityQueue::PriorityQueue(a1 + 1, a2);
+  a1[4] = dispatch_group_create();
   return a1;
 }
 
@@ -5304,8 +4447,9 @@ void ctu::concurrency::Monitor::executeBlock(uint64_t a1, NSObject *a2, void *a3
   ctu::concurrency::PriorityQueue::addBlock((a1 + 8), a2, a3, a4);
 }
 
-void ctu::concurrency::Monitor::executeBlockAndWait(uint64_t a1, void *a2, int a3, dispatch_time_t a4)
+void ctu::concurrency::Monitor::executeBlockAndWait(uint64_t a1, void *a2, uint64_t a3, dispatch_time_t a4)
 {
+  v4 = a3;
   if (a4 == -1)
   {
     v9 = (a1 + 8);
@@ -5316,7 +4460,7 @@ void ctu::concurrency::Monitor::executeBlockAndWait(uint64_t a1, void *a2, int a
   else
   {
     v8 = dispatch_group_create();
-    ctu::concurrency::PriorityQueue::addBlock((a1 + 8), v8, a2, a3);
+    ctu::concurrency::PriorityQueue::addBlock((a1 + 8), v8, a2, v4);
     dispatch_group_wait(v8, a4);
 
     dispatch_release(v8);
@@ -5324,6 +4468,7 @@ void ctu::concurrency::Monitor::executeBlockAndWait(uint64_t a1, void *a2, int a
 }
 
 {
+  v4 = a3;
   if (a4 == -1)
   {
     v9 = (a1 + 8);
@@ -5334,7 +4479,7 @@ void ctu::concurrency::Monitor::executeBlockAndWait(uint64_t a1, void *a2, int a
   else
   {
     v8 = dispatch_group_create();
-    ctu::concurrency::PriorityQueue::addBlock((a1 + 8), v8, a2, a3);
+    ctu::concurrency::PriorityQueue::addBlock((a1 + 8), v8, a2, v4);
     dispatch_group_wait(v8, a4);
 
     dispatch_release(v8);
@@ -5403,21 +4548,9 @@ xpc_object_t *ctu::rest::data_view::data_view(xpc_object_t *this, CFTypeRef cf)
   return this;
 }
 
+void sub_1A9105B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v4 = cf;
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  ctu::rest::data_view::data_view(this, &v4);
-  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v4);
-  return this;
-}
-
-void sub_1A9105B3C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -5461,9 +4594,22 @@ void sub_1A9105C68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A9105CF0(_Unwind_Exception *a1, uint64_t a2, ...)
+xpc_object_t *ctu::rest::data_view::data_view(xpc_object_t *this, const __CFData *cf)
 {
-  va_start(va, a2);
+  v4 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  ctu::rest::data_view::data_view(this, &v4);
+  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v4);
+  return this;
+}
+
+void sub_1A9105CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -5608,11 +4754,11 @@ void ctu::rest::read_rest_value(void **a1, void **a2)
 
 xpc_object_t ctu::rest::write_rest_value@<X0>(void **this@<X0>, void *a2@<X8>)
 {
-  v3 = *this;
-  *a2 = v3;
-  if (v3)
+  v2 = *this;
+  *a2 = v2;
+  if (v2)
   {
-    return xpc_retain(v3);
+    return xpc_retain(v2);
   }
 
   result = xpc_null_create();
@@ -5657,7 +4803,7 @@ const void **ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cf
   return a1;
 }
 
-void ctu::XpcClientHelper::~XpcClientHelper(xpc_object_t *this)
+void ctu::XpcClientHelper::~XpcClientHelper(xpc_object_t *this, uint64_t a2)
 {
   ctu::XpcClientHelper::setServer(this);
   xpc_release(*this);
@@ -5799,15 +4945,15 @@ double ctu::PropertyRestResource::PropertyRestResource(ctu::PropertyRestResource
   return result;
 }
 
-void ctu::PropertyRestResource::~PropertyRestResource(ctu::PropertyRestResource *this)
+void ctu::PropertyRestResource::~PropertyRestResource(void **this)
 {
   *this = &unk_1F1CB6C80;
   boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector(this + 8);
   boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector(this + 5);
-  v2 = *(this + 3);
+  v2 = this[3];
   if (v2)
   {
-    v3 = (*(this + 2) + 24);
+    v3 = (this[2] + 24);
     do
     {
       std::unique_ptr<ctu::PropertyRestResourceState>::reset[abi:ne200100](v3, 0);
@@ -5823,9 +4969,9 @@ void ctu::PropertyRestResource::~PropertyRestResource(ctu::PropertyRestResource 
     while (v2);
   }
 
-  if (*(this + 4))
+  if (this[4])
   {
-    operator delete(*(this + 2));
+    operator delete(this[2]);
   }
 }
 
@@ -5915,7 +5061,7 @@ LABEL_20:
 
 uint64_t ctu::PropertyRestResource::handleMessage_Root_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::PropertyRestResource::getResourceArray(this, &object);
+  ctu::PropertyRestResource::getResourceArray(&object, this);
   v5 = object;
   if (object)
   {
@@ -5944,9 +5090,9 @@ void sub_1A910689C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t ctu::PropertyRestResource::handleMessage_Meta_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
   xpc::array_creator::array_creator(&object);
-  xpc::array_creator::operator()<char const*>("watchers", &object, &v5);
+  xpc::array_creator::operator()<char const*>(&v5, "watchers", &object);
   xpc_release(object);
-  xpc::array_creator::operator()<char const*>("watched", &v5, &v6);
+  xpc::array_creator::operator()<char const*>(&v6, "watched", &v5);
   v3 = v6;
   v6 = xpc_null_create();
   xpc_release(v6);
@@ -5978,7 +5124,7 @@ void sub_1A91069A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watchers_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::rest::WatchableRestResourceHelper::getWatcherNames((this + 40), &object);
+  ctu::rest::WatchableRestResourceHelper::getWatcherNames(&object, (this + 40));
   v5 = object;
   if (object)
   {
@@ -6006,7 +5152,7 @@ void sub_1A9106AA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watched_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::PropertyRestResource::getWatchedResourceArray(this, &object);
+  ctu::PropertyRestResource::getWatchedResourceArray(&object, this);
   v5 = object;
   if (object)
   {
@@ -6034,7 +5180,7 @@ void sub_1A9106B68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watched_Meta_Watchers_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::rest::WatchableRestResourceHelper::getWatcherNames((this + 64), &object);
+  ctu::rest::WatchableRestResourceHelper::getWatcherNames(&object, (this + 64));
   v5 = object;
   if (object)
   {
@@ -6178,7 +5324,7 @@ void sub_1A9106EA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t ctu::PropertyRestResource::handleMessage_Resource_Meta_GET(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2)
 {
   xpc::array_creator::array_creator(&object);
-  xpc::array_creator::operator()<char const*>("watchers", &object, &v5);
+  xpc::array_creator::operator()<char const*>(&v5, "watchers", &object);
   xpc_release(object);
   v3 = v5;
   v5 = xpc_null_create();
@@ -6251,7 +5397,7 @@ uint64_t ctu::PropertyRestResource::handleMessage_Resource_Watchers_GET(uint64_t
 
   else
   {
-    ctu::rest::WatchableRestResourceHelper::getWatcherNames(*(v8 + 24), __p);
+    ctu::rest::WatchableRestResourceHelper::getWatcherNames(__p, *(v8 + 24));
     v9 = __p[0];
     __p[0] = xpc_null_create();
     xpc_release(v7);
@@ -6401,7 +5547,7 @@ void sub_1A91074DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ctu::PropertyRestResource::handleRestMessage_PUSH(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
+uint64_t ctu::PropertyRestResource::handleRestMessage_PUSH(__n128 **this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
 {
   v15 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -6447,7 +5593,7 @@ uint64_t ctu::PropertyRestResource::handleRestMessage_PUSH(ctu::PropertyRestReso
   return 0;
 }
 
-uint64_t ctu::PropertyRestResource::handleMessage_Root_PUSH(uint64_t *a1, uint64_t a2, const void **a3)
+uint64_t ctu::PropertyRestResource::handleMessage_Root_PUSH(__n128 **a1, uint64_t a2, const void **a3)
 {
   (**a2)(&v22, a2);
   if (v22)
@@ -6526,7 +5672,7 @@ uint64_t ctu::PropertyRestResource::handleMessage_Root_PUSH(uint64_t *a1, uint64
       v18 = xpc_null_create();
     }
 
-    ctu::PropertyRestResource::getResourceArray(a1, &object);
+    ctu::PropertyRestResource::getResourceArray(&object, a1);
     v14 = object;
     if (object)
     {
@@ -6580,7 +5726,7 @@ void sub_1A91077FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watched_PUSH(uint64_t *a1, uint64_t a2, const void **a3)
+uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watched_PUSH(__n128 **a1, uint64_t a2, const void **a3)
 {
   (**a2)(&v22, a2);
   if (v22)
@@ -6602,7 +5748,7 @@ uint64_t ctu::PropertyRestResource::handleMessage_Meta_Watched_PUSH(uint64_t *a1
 
     ctu::PathView::advance(a3, 2);
     object = 0xAAAAAAAAAAAAAAAALL;
-    ctu::PropertyRestResource::getWatchedResourceArray(a1, &object);
+    ctu::PropertyRestResource::getWatchedResourceArray(&object, a1);
     v6 = v22;
     v7 = (v22 + 8);
     if (*(v22 + 31) < 0)
@@ -6873,20 +6019,20 @@ void sub_1A9107E00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ctu::PropertyRestResource::getResourceArray(ctu::PropertyRestResource *this@<X0>, xpc_object_t *a2@<X8>)
+void ctu::PropertyRestResource::getResourceArray(xpc_object_t *__return_ptr a1@<X8>, ctu::PropertyRestResource *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
   if (v4)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 
   else
   {
     v5 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     if (!v5)
     {
       v6 = xpc_null_create();
@@ -6903,7 +6049,7 @@ void ctu::PropertyRestResource::getResourceArray(ctu::PropertyRestResource *this
 
   v6 = xpc_null_create();
 LABEL_8:
-  *a2 = v6;
+  *a1 = v6;
 LABEL_9:
   xpc_release(v5);
   v7 = *(this + 3);
@@ -6941,7 +6087,7 @@ LABEL_9:
         v12 = xpc_null_create();
       }
 
-      xpc_array_append_value(*a2, v12);
+      xpc_array_append_value(*a1, v12);
       xpc_release(v12);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -7003,20 +6149,20 @@ uint64_t ctu::PropertyRestResource::handleDroppedConnection(void *a1, ctu::RestR
   return result;
 }
 
-void ctu::PropertyRestResource::getWatchedResourceArray(ctu::PropertyRestResource *this@<X0>, xpc_object_t *a2@<X8>)
+void ctu::PropertyRestResource::getWatchedResourceArray(xpc_object_t *__return_ptr a1@<X8>, ctu::PropertyRestResource *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
   if (v4)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 
   else
   {
     v5 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     if (!v5)
     {
       v6 = xpc_null_create();
@@ -7033,7 +6179,7 @@ void ctu::PropertyRestResource::getWatchedResourceArray(ctu::PropertyRestResourc
 
   v6 = xpc_null_create();
 LABEL_8:
-  *a2 = v6;
+  *a1 = v6;
 LABEL_9:
   xpc_release(v5);
   v7 = *(this + 3);
@@ -7072,7 +6218,7 @@ LABEL_9:
           v16 = xpc_null_create();
         }
 
-        xpc_array_append_value(*a2, v16);
+        xpc_array_append_value(*a1, v16);
         xpc_release(v16);
       }
 
@@ -7093,7 +6239,7 @@ void sub_1A910821C(_Unwind_Exception *a1)
 
 void ctu::PropertyRestResource::sendWatchedResourcesNotification(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(this + 9))
   {
     if (*(a3 + 3))
@@ -7129,24 +6275,22 @@ void ctu::PropertyRestResource::sendWatchedResourcesNotification(ctu::PropertyRe
     ctu::path_join_impl(&__p, "_", 1);
     ctu::path_join_impl(&__p, "watched", 7);
     object[0] = 0xAAAAAAAAAAAAAAAALL;
-    ctu::PropertyRestResource::getWatchedResourceArray(this, object);
-    v13 = 0;
+    ctu::PropertyRestResource::getWatchedResourceArray(object, this);
+    v12 = 0;
     v8 = operator new(0x20uLL);
     *v8 = &unk_1F1CB9110;
     v8[1] = a2;
     v8[2] = &__p;
     v8[3] = object;
-    v13 = v8;
-    ctu::rest::WatchableRestResourceHelper::map(this + 8, v12);
-    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v12);
+    v12 = v8;
+    ctu::rest::WatchableRestResourceHelper::map(this + 8, v11);
+    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v11);
     xpc_release(object[0]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A910839C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -7161,7 +6305,7 @@ void sub_1A910839C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ctu::PropertyRestResource::sendResourcesNotification(ctu::PropertyRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(this + 6))
   {
     memset(__p, 170, sizeof(__p));
@@ -7195,24 +6339,22 @@ void ctu::PropertyRestResource::sendResourcesNotification(ctu::PropertyRestResou
     object[1] = v6;
     ctu::llvm::StringRef::operator std::string(object, __p);
     object[0] = 0xAAAAAAAAAAAAAAAALL;
-    ctu::PropertyRestResource::getResourceArray(this, object);
-    v13 = 0;
+    ctu::PropertyRestResource::getResourceArray(object, this);
+    v12 = 0;
     v8 = operator new(0x20uLL);
     *v8 = &unk_1F1CB9090;
     v8[1] = a2;
     v8[2] = __p;
     v8[3] = object;
-    v13 = v8;
-    ctu::rest::WatchableRestResourceHelper::map(this + 5, v12);
-    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v12);
+    v12 = v8;
+    ctu::rest::WatchableRestResourceHelper::map(this + 5, v11);
+    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v11);
     xpc_release(object[0]);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A910852C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -7225,7 +6367,7 @@ void sub_1A910852C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::unique_ptr<ctu::PropertyRestResourceState>::reset[abi:ne200100](void **a1, void *a2)
+void std::unique_ptr<ctu::PropertyRestResourceState>::reset[abi:ne200100](void ***a1, void **a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -7488,7 +6630,7 @@ LABEL_27:
   v17 = operator new(32 * v11);
   v18 = v17;
   v19 = *a2;
-  v20 = *a2 + 32 * *(a2 + 1);
+  v20 = (*a2 + 32 * *(a2 + 1));
   v21 = v17;
   if (*a2 != a3)
   {
@@ -7497,33 +6639,33 @@ LABEL_27:
     do
     {
       v23 = *v22;
-      *(v21 + 2) = *(v22 + 2);
+      v21[2] = *(v22 + 16);
       *v21 = v23;
       *v22 = 0;
-      *(v22 + 1) = 0;
-      v24 = *(v22 + 3);
-      *(v22 + 2) = 0;
-      *(v22 + 3) = 0;
-      *(v21 + 3) = v24;
+      *(v22 + 8) = 0;
+      v24 = *(v22 + 24);
+      *(v22 + 16) = 0;
+      *(v22 + 24) = 0;
+      v21[3] = v24;
       v22 += 32;
-      v21 += 32;
+      v21 += 4;
     }
 
     while (v22 != a3);
   }
 
   v25 = *a4;
-  *(v21 + 2) = *(a4 + 2);
+  v21[2] = *(a4 + 2);
   *v21 = v25;
   *a4 = 0;
   *(a4 + 1) = 0;
   v26 = *(a4 + 3);
   *(a4 + 2) = 0;
   *(a4 + 3) = 0;
-  *(v21 + 3) = v26;
+  v21[3] = v26;
   if (v20 != a3)
   {
-    v27 = v21 + 56;
+    v27 = v21 + 7;
     v28 = a3;
     do
     {
@@ -7571,7 +6713,7 @@ LABEL_27:
   *a2 = v18;
   *(a2 + 1) = v33;
   *(a2 + 2) = v11;
-  *a1 = &v18[a3 - v16];
+  *a1 = a3 + v18 - v16;
 }
 
 uint64_t boost::container::dtl::pair<std::string,std::unique_ptr<ctu::PropertyRestResourceState>>::operator=(uint64_t a1, __int128 *a2)
@@ -7821,7 +6963,7 @@ void ctu::concurrency::PriorityQueue::~PriorityQueue(dispatch_object_t *this)
   dispatch_release(*this);
 }
 
-void ctu::concurrency::PriorityQueue::addBlock(NSObject **a1, void *a2, int a3)
+void ctu::concurrency::PriorityQueue::addBlock(dispatch_queue_t *a1, void *a2, int a3)
 {
   if (a3 == 1)
   {
@@ -7850,7 +6992,7 @@ void ctu::concurrency::PriorityQueue::addHighestPriorityBlock(NSObject **a1, con
   dispatch_async(v6, v7);
 }
 
-void ctu::concurrency::PriorityQueue::addBlockSync(dispatch_object_t *a1, void *a2, int a3)
+void ctu::concurrency::PriorityQueue::addBlockSync(dispatch_queue_t *a1, void *a2, int a3)
 {
   if (a3 == 1)
   {
@@ -7872,7 +7014,7 @@ void ctu::concurrency::PriorityQueue::addHighestPriorityBlockSync(dispatch_objec
   dispatch_resume(v4);
 }
 
-void ctu::concurrency::PriorityQueue::addBlock(NSObject **a1, dispatch_group_t group, void *a3, int a4)
+void ctu::concurrency::PriorityQueue::addBlock(dispatch_queue_t *a1, dispatch_group_t group, void *a3, int a4)
 {
   if (a4 == 1)
   {
@@ -8535,7 +7677,7 @@ void sub_1A9109FF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MockTimerServiceState::createPeriodicTimer(void *a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v10 = 1000 * a5;
   v11 = a2[1] + 1000 * a5;
   v12 = operator new(0x68uLL);
@@ -8543,30 +7685,30 @@ void MockTimerServiceState::createPeriodicTimer(void *a1, void *a2, uint64_t *a3
   *(v12 + 2) = 0;
   *v12 = &unk_1F1CB93B0;
   v13 = *a3;
-  v23[0] = a3[1];
-  *(v23 + 7) = *(a3 + 15);
+  v22[0] = a3[1];
+  *(v22 + 7) = *(a3 + 15);
   v14 = *(a3 + 23);
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v22, a6);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v21, a6);
   v12[24] = 0;
-  v15 = v23[0];
+  v15 = v22[0];
   *(v12 + 4) = v13;
   *(v12 + 5) = v15;
-  *(v12 + 47) = *(v23 + 7);
+  *(v12 + 47) = *(v22 + 7);
   v12[55] = v14;
   *(v12 + 7) = v11;
   *(v12 + 8) = v10;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]((v12 + 72), v22);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v22);
-  *&v21 = v12 + 24;
-  *(&v21 + 1) = v12;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]((v12 + 72), v21);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v21);
+  *&v20 = v12 + 24;
+  *(&v20 + 1) = v12;
   atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
-  MockTimerServiceState::insert(a2, &v21);
-  if (*(&v21 + 1))
+  MockTimerServiceState::insert(a2, &v20);
+  if (*(&v20 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v21 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v20 + 1));
   }
 
   v16 = operator new(0x28uLL);
@@ -8588,7 +7730,6 @@ void MockTimerServiceState::createPeriodicTimer(void *a1, void *a2, uint64_t *a3
   std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   *a1 = v17;
   std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void MockTimerService::create(void *a1@<X0>, void *a2@<X8>)
@@ -8682,50 +7823,50 @@ void __destroy_helper_block_e8_32c44_ZTSNSt3__110shared_ptrI16MockTimerServiceEE
 
 void MockTimerService::create(void *a1@<X8>)
 {
-  v3 = operator new(0x108uLL);
-  MockTimerService::MockTimerService(v3);
+  v2 = operator new(0x108uLL);
+  MockTimerService::MockTimerService(v2);
   *a1 = 0xAAAAAAAAAAAAAAAALL;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  std::shared_ptr<MockTimerService>::shared_ptr[abi:ne200100]<MockTimerService,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1},0>(a1, v3);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 1174405120;
-  v11[2] = ___ZN16MockTimerService6createEv_block_invoke;
-  v11[3] = &__block_descriptor_tmp_3_0;
-  v5 = *a1;
-  v4 = a1[1];
-  v11[4] = *a1;
-  v12 = v4;
-  if (v4)
+  std::shared_ptr<MockTimerService>::shared_ptr[abi:ne200100]<MockTimerService,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1},0>(a1, v2);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 1174405120;
+  v10[2] = ___ZN16MockTimerService6createEv_block_invoke;
+  v10[3] = &__block_descriptor_tmp_3_0;
+  v4 = *a1;
+  v3 = a1[1];
+  v10[4] = *a1;
+  v11 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v6 = v5[2];
-  if (!v6 || (v7 = v5[1], (v8 = std::__shared_weak_count::lock(v6)) == 0))
+  v5 = v4[2];
+  if (!v5 || (v6 = v4[1], (v7 = std::__shared_weak_count::lock(v5)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v9 = v8;
-  v10 = v5[3];
+  v8 = v7;
+  v9 = v4[3];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
   block[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE15execute_wrappedEU13block_pointerFvvE_block_invoke;
   block[3] = &__block_descriptor_tmp_40_0;
-  block[5] = v7;
-  v14 = v9;
-  atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  block[4] = v11;
-  dispatch_async(v10, block);
-  if (v14)
+  block[5] = v6;
+  v13 = v8;
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  block[4] = v10;
+  dispatch_async(v9, block);
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  if (v12)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 }
 
@@ -8914,14 +8055,14 @@ void MockTimerService::advanceTime(void *a1, uint64_t a2)
 
 void ___ZN16MockTimerService11advanceTimeENSt3__16chrono8durationIxNS0_5ratioILl1ELl1000000EEEEE_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 256);
   v2 = 1000 * *(a1 + 40);
   v3 = *v1;
   if (os_log_type_enabled(*v1, OS_LOG_TYPE_DEFAULT))
   {
     ctu::asChronoString(v2, __p);
-    if (v7 >= 0)
+    if (v6 >= 0)
     {
       v4 = __p;
     }
@@ -8932,9 +8073,9 @@ void ___ZN16MockTimerService11advanceTimeENSt3__16chrono8durationIxNS0_5ratioILl
     }
 
     *buf = 136446210;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_1A90E3000, v3, OS_LOG_TYPE_DEFAULT, " Time advancing by %{public}s", buf, 0xCu);
-    if (v7 < 0)
+    if (v6 < 0)
     {
       operator delete(__p[0]);
     }
@@ -8942,7 +8083,6 @@ void ___ZN16MockTimerService11advanceTimeENSt3__16chrono8durationIxNS0_5ratioILl
 
   *(v1 + 8) += v2;
   MockTimerServiceState::fireTimers(v1);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 unint64_t MockTimerService::pendingTimersCount(MockTimerService *this)
@@ -9225,12 +8365,12 @@ void __destroy_helper_block_e8_40c27_ZTSNSt3__110shared_ptrIvEE(uint64_t a1)
 
 void MockTimerService::scheduleAfterImpl(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v21[4] = *MEMORY[0x1E69E9840];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 1174405120;
-  v17[2] = ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEENS0_8functionIFvvEEE_block_invoke;
-  v17[3] = &__block_descriptor_tmp_13;
-  v17[4] = a1;
+  v20[4] = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 1174405120;
+  v16[2] = ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEENS0_8functionIFvvEEE_block_invoke;
+  v16[3] = &__block_descriptor_tmp_13;
+  v16[4] = a1;
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -9241,9 +8381,9 @@ void MockTimerService::scheduleAfterImpl(void *a1, uint64_t a2, uint64_t a3, uin
     __p = *a2;
   }
 
-  v19 = a3;
-  v20 = a4;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v21, a5);
+  v18 = a3;
+  v19 = a4;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, a5);
   v9 = a1[2];
   if (!v9 || (v10 = a1[1], (v11 = std::__shared_weak_count::lock(v9)) == 0))
   {
@@ -9252,33 +8392,31 @@ void MockTimerService::scheduleAfterImpl(void *a1, uint64_t a2, uint64_t a3, uin
 
   v12 = v11;
   v13 = a1[3];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 1174405120;
-  v15[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v15[3] = &__block_descriptor_tmp_40_0;
-  v15[5] = v10;
-  v16 = v12;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 1174405120;
+  v14[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v14[3] = &__block_descriptor_tmp_40_0;
+  v14[5] = v10;
+  v15 = v12;
   atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-  v15[4] = v17;
-  dispatch_async(v13, v15);
-  if (v16)
+  v14[4] = v16;
+  dispatch_async(v13, v14);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v21);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEENS0_8functionIFvvEEE_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 256);
   if (*(a1 + 63) < 0)
   {
@@ -9292,15 +8430,13 @@ void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11cha
 
   v3 = *(a1 + 64);
   v4 = *(a1 + 72);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v7, a1 + 80);
-  MockTimerServiceState::scheduleAfter(v2, &__p, v3, v4, v7);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a1 + 80);
+  MockTimerServiceState::scheduleAfter(v2, &__p, v3, v4, v6);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __copy_helper_block_e8_40c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE80c27_ZTSNSt3__18functionIFvvEEE(uint64_t a1, uint64_t a2)
@@ -9415,16 +8551,16 @@ void MockTimerService::scheduleAfterImpl(void *a1, uint64_t a2, uint64_t a3, uin
 
 void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSG_5blockIU13block_pointerFvvEEE_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 256);
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v9, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v10 = *(a1 + 40);
+    v9 = *(a1 + 40);
   }
 
   v3 = *(a1 + 64);
@@ -9446,9 +8582,9 @@ void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11cha
     v7 = 0;
   }
 
-  v12 = 0;
-  v11[0] = &unk_1F1CB9490;
-  v11[1] = v5;
+  v11 = 0;
+  v10[0] = &unk_1F1CB9490;
+  v10[1] = v5;
   if (v5)
   {
     dispatch_retain(v5);
@@ -9464,10 +8600,10 @@ void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11cha
     v8 = 0;
   }
 
-  v11[2] = v8;
-  v12 = v11;
-  MockTimerServiceState::scheduleAfter(v2, &v10, v3, v4, v11);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
+  v10[2] = v8;
+  v11 = v10;
+  MockTimerServiceState::scheduleAfter(v2, &v9, v3, v4, v10);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
   if (v7)
   {
     _Block_release(v7);
@@ -9478,12 +8614,10 @@ void ___ZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11cha
     dispatch_release(v5);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _ZZZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSG_5blockIU13block_pointerFvvEEEEUb_EN3__1D1Ev(uint64_t a1)
@@ -9557,12 +8691,12 @@ void __destroy_helper_block_e8_40c66_ZTSNSt3__112basic_stringIcNS_11char_traitsI
 
 void MockTimerService::createOneShotTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, void *a6@<X8>)
 {
-  v26[4] = *MEMORY[0x1E69E9840];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 1174405120;
-  v22[2] = ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke;
-  v22[3] = &__block_descriptor_tmp_18_1;
-  v22[4] = a1;
+  v25[4] = *MEMORY[0x1E69E9840];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 1174405120;
+  v21[2] = ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke;
+  v21[3] = &__block_descriptor_tmp_18_1;
+  v21[4] = a1;
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -9573,27 +8707,27 @@ void MockTimerService::createOneShotTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>
     __p = *a2;
   }
 
-  v24 = a3;
-  v25 = a4;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v26, a5);
-  v13 = v22;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
-  v14[3] = &__block_descriptor_tmp_58;
-  v14[4] = a1 + 8;
-  v14[5] = &v13;
-  v15 = v14;
+  v23 = a3;
+  v24 = a4;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v25, a5);
+  v12 = v21;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 0x40000000;
+  v13[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
+  v13[3] = &__block_descriptor_tmp_58;
+  v13[4] = a1 + 8;
+  v13[5] = &v12;
+  v14 = v13;
   v11 = *(a1 + 24);
   if (*(a1 + 32))
   {
     *a6 = 0;
     block = MEMORY[0x1E69E9820];
-    v17 = 0x40000000;
-    v18 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v19 = &__block_descriptor_tmp_60;
-    v20 = a6;
-    v21 = &v15;
+    v16 = 0x40000000;
+    v17 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v18 = &__block_descriptor_tmp_60;
+    v19 = a6;
+    v20 = &v14;
     dispatch_async_and_wait(v11, &block);
   }
 
@@ -9601,26 +8735,24 @@ void MockTimerService::createOneShotTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>
   {
     *a6 = 0;
     block = MEMORY[0x1E69E9820];
-    v17 = 0x40000000;
-    v18 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v19 = &__block_descriptor_tmp_59;
-    v20 = a6;
-    v21 = &v15;
+    v16 = 0x40000000;
+    v17 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v18 = &__block_descriptor_tmp_59;
+    v19 = a6;
+    v20 = &v14;
     dispatch_sync(v11, &block);
   }
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v26);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v25);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(v4 + 120);
   std::mutex::lock(v5);
@@ -9652,15 +8784,13 @@ void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_
 
   v8 = *(a1 + 64);
   v9 = *(a1 + 72);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v12, a1 + 80);
-  MockTimerServiceState::createOneShotTimer(a2, v7, &__p, v8, v9, v12);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v12);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v11, a1 + 80);
+  MockTimerServiceState::createOneShotTimer(a2, v7, &__p, v8, v9, v11);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void MockTimerService::createOneShotTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, NSObject **a5@<X5>, void **a6@<X6>, void *a7@<X8>)
@@ -9747,7 +8877,7 @@ void MockTimerService::createOneShotTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>
 
 void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(v4 + 120);
   std::mutex::lock(v5);
@@ -9769,12 +8899,12 @@ void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_
   v7 = *(v4 + 256);
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v15, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v14, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v15 = *(a1 + 40);
+    v14 = *(a1 + 40);
   }
 
   v8 = *(a1 + 64);
@@ -9796,9 +8926,9 @@ void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_
     v12 = 0;
   }
 
-  v17 = 0;
-  v16[0] = &unk_1F1CB9520;
-  v16[1] = v10;
+  v16 = 0;
+  v15[0] = &unk_1F1CB9520;
+  v15[1] = v10;
   if (v10)
   {
     dispatch_retain(v10);
@@ -9814,10 +8944,10 @@ void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_
     v13 = 0;
   }
 
-  v16[2] = v13;
-  v17 = v16;
-  MockTimerServiceState::createOneShotTimer(a2, v7, &v15, v8, v9, v16);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v16);
+  v15[2] = v13;
+  v16 = v15;
+  MockTimerServiceState::createOneShotTimer(a2, v7, &v14, v8, v9, v15);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v15);
   if (v12)
   {
     _Block_release(v12);
@@ -9828,10 +8958,881 @@ void ___ZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_
     dispatch_release(v10);
   }
 
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+}
+
+uint64_t _ZZZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEEEUb0_EN3__2D1Ev(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    _Block_release(v2);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  if (*a1)
+  {
+    dispatch_release(*a1);
+  }
+
+  return a1;
+}
+
+void MockTimerService::createPeriodicTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, void *a6@<X8>)
+{
+  v25[4] = *MEMORY[0x1E69E9840];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 1174405120;
+  v21[2] = ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke;
+  v21[3] = &__block_descriptor_tmp_24_0;
+  v21[4] = a1;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    __p = *a2;
+  }
+
+  v23 = a3;
+  v24 = a4;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v25, a5);
+  v12 = v21;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 0x40000000;
+  v13[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
+  v13[3] = &__block_descriptor_tmp_58;
+  v13[4] = a1 + 8;
+  v13[5] = &v12;
+  v14 = v13;
+  v11 = *(a1 + 24);
+  if (*(a1 + 32))
+  {
+    *a6 = 0;
+    block = MEMORY[0x1E69E9820];
+    v16 = 0x40000000;
+    v17 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v18 = &__block_descriptor_tmp_60;
+    v19 = a6;
+    v20 = &v14;
+    dispatch_async_and_wait(v11, &block);
+  }
+
+  else
+  {
+    *a6 = 0;
+    block = MEMORY[0x1E69E9820];
+    v16 = 0x40000000;
+    v17 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v18 = &__block_descriptor_tmp_59;
+    v19 = a6;
+    v20 = &v14;
+    dispatch_sync(v11, &block);
+  }
+
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v25);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 192);
+  std::mutex::lock(v5);
+  if (!*(v4 + 248))
+  {
+    v6 = operator new(0x58uLL);
+    v6[10] = 0;
+    *(v6 + 3) = 0u;
+    *(v6 + 4) = 0u;
+    *(v6 + 1) = 0u;
+    *(v6 + 2) = 0u;
+    *v6 = 0u;
+    std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100]((v4 + 248), v6);
+  }
+
+  std::condition_variable::notify_one((v4 + 200));
+  ctu::IMockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>::call<std::string const&,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>> const&>(*(v4 + 248), (a1 + 40), (a1 + 64));
+  std::mutex::unlock(v5);
+  v7 = *(v4 + 256);
+  if (*(a1 + 63) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *(a1 + 40), *(a1 + 48));
+  }
+
+  else
+  {
+    __p = *(a1 + 40);
+  }
+
+  v8 = *(a1 + 64);
+  v9 = *(a1 + 72);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v11, a1 + 80);
+  MockTimerServiceState::createPeriodicTimer(a2, v7, &__p, v8, v9, v11);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void MockTimerService::createPeriodicTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, NSObject **a5@<X5>, void **a6@<X6>, void *a7@<X8>)
+{
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 1174405120;
+  v16[2] = ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEE_block_invoke;
+  v16[3] = &__block_descriptor_tmp_27_0;
+  v16[4] = a1;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    __p = *a2;
+  }
+
+  v18 = a3;
+  v19 = a4;
+  v13 = *a5;
+  object = v13;
+  if (v13)
+  {
+    dispatch_retain(v13);
+  }
+
+  v14 = *a6;
+  if (*a6)
+  {
+    v14 = _Block_copy(v14);
+  }
+
+  aBlock = v14;
+  v22 = v16;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 0x40000000;
+  v23[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
+  v23[3] = &__block_descriptor_tmp_58;
+  v23[4] = a1 + 8;
+  v23[5] = &v22;
+  v24 = v23;
+  v15 = *(a1 + 24);
+  if (*(a1 + 32))
+  {
+    *a7 = 0;
+    block = MEMORY[0x1E69E9820];
+    v26 = 0x40000000;
+    v27 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v28 = &__block_descriptor_tmp_60;
+    v29 = a7;
+    v30 = &v24;
+    dispatch_async_and_wait(v15, &block);
+  }
+
+  else
+  {
+    *a7 = 0;
+    block = MEMORY[0x1E69E9820];
+    v26 = 0x40000000;
+    v27 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v28 = &__block_descriptor_tmp_59;
+    v29 = a7;
+    v30 = &v24;
+    dispatch_sync(v15, &block);
+  }
+
+  if (aBlock)
+  {
+    _Block_release(aBlock);
+  }
+
+  if (object)
+  {
+    dispatch_release(object);
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 192);
+  std::mutex::lock(v5);
+  if (!*(v4 + 248))
+  {
+    v6 = operator new(0x58uLL);
+    v6[10] = 0;
+    *(v6 + 3) = 0u;
+    *(v6 + 4) = 0u;
+    *(v6 + 1) = 0u;
+    *(v6 + 2) = 0u;
+    *v6 = 0u;
+    std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100]((v4 + 248), v6);
+  }
+
+  std::condition_variable::notify_one((v4 + 200));
+  ctu::IMockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>::call<std::string const&,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>> const&>(*(v4 + 248), (a1 + 40), (a1 + 64));
+  std::mutex::unlock(v5);
+  v7 = *(v4 + 256);
+  if (*(a1 + 63) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v14, *(a1 + 40), *(a1 + 48));
+  }
+
+  else
+  {
+    v14 = *(a1 + 40);
+  }
+
+  v8 = *(a1 + 64);
+  v9 = *(a1 + 72);
+  v10 = *(a1 + 80);
+  if (v10)
+  {
+    dispatch_retain(v10);
+  }
+
+  v11 = *(a1 + 88);
+  if (v11)
+  {
+    v12 = _Block_copy(v11);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v16 = 0;
+  v15[0] = &unk_1F1CB95A0;
+  v15[1] = v10;
+  if (v10)
+  {
+    dispatch_retain(v10);
+  }
+
+  if (v12)
+  {
+    v13 = _Block_copy(v12);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v15[2] = v13;
+  v16 = v15;
+  MockTimerServiceState::createPeriodicTimer(a2, v7, &v14, v8, v9, v15);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v15);
+  if (v12)
+  {
+    _Block_release(v12);
+  }
+
+  if (v10)
+  {
+    dispatch_release(v10);
+  }
+
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+}
+
+uint64_t _ZZZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEEEUb1_EN3__3D1Ev(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    _Block_release(v2);
+  }
+
+  if (*a1)
+  {
+    dispatch_release(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t MockTimerService::now(MockTimerService *this)
+{
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZN16MockTimerService3nowEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_29;
+  v4[4] = this;
+  v5 = v4;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 0x40000000;
+  v6[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__16chrono10time_pointINS5_12steady_clockENS5_8durationIxNS4_5ratioILl1ELl1000000000EEEEEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSF__block_invoke;
+  v6[3] = &__block_descriptor_tmp_61;
+  v6[4] = this + 8;
+  v6[5] = &v5;
+  v7 = v6;
+  v2 = this + 24;
+  v1 = *(this + 3);
+  if (*(v2 + 1))
+  {
+    block = MEMORY[0x1E69E9820];
+    v9 = 0x40000000;
+    v10 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__16chrono10time_pointINS2_12steady_clockENS2_8durationIxNS1_5ratioILl1ELl1000000000EEEEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v11 = &__block_descriptor_tmp_63;
+    v12 = &v14;
+    v13 = &v7;
+    v14 = 0;
+    dispatch_async_and_wait(v1, &block);
+  }
+
+  else
+  {
+    block = MEMORY[0x1E69E9820];
+    v9 = 0x40000000;
+    v10 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__16chrono10time_pointINS2_12steady_clockENS2_8durationIxNS1_5ratioILl1ELl1000000000EEEEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
+    v11 = &__block_descriptor_tmp_62;
+    v12 = &v14;
+    v13 = &v7;
+    v14 = 0;
+    dispatch_sync(v1, &block);
+  }
+
+  return v14;
+}
+
+void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<MockTimerServiceState::ScheduledThing> const&,std::shared_ptr<MockTimerServiceState::ScheduledThing> const&),std::__wrap_iter<std::shared_ptr<MockTimerServiceState::ScheduledThing>*>>(uint64_t a1, uint64_t a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4)
+{
+  v4 = a4 - 2;
+  if (a4 >= 2)
+  {
+    v7 = v4 >> 1;
+    v8 = (a1 + 16 * (v4 >> 1));
+    v9 = (a2 - 16);
+    if ((*a3)(v8, (a2 - 16)))
+    {
+      v15 = *v9;
+      *v9 = 0;
+      *(v9 + 1) = 0;
+      do
+      {
+        v10 = v8;
+        v11 = *v8;
+        *v8 = 0;
+        *(v8 + 1) = 0;
+        v12 = *(v9 + 1);
+        *v9 = v11;
+        if (v12)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+        }
+
+        if (!v7)
+        {
+          break;
+        }
+
+        v7 = (v7 - 1) >> 1;
+        v8 = (a1 + 16 * v7);
+        v9 = v10;
+      }
+
+      while (((*a3)(v8, &v15) & 1) != 0);
+      v13 = v15;
+      v15 = 0uLL;
+      v14 = *(v10 + 1);
+      *v10 = v13;
+      if (v14)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      }
+
+      if (*(&v15 + 1))
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
+      }
+    }
+  }
+}
+
+void sub_1A910CB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100](void **a1, void *a2)
+{
+  v2 = *a1;
+  *a1 = a2;
+  if (v2)
+  {
+    v3 = v2[8];
+    if (v3)
+    {
+      v4 = v2[9];
+      v5 = v2[8];
+      if (v4 != v3)
+      {
+        do
+        {
+          v6 = *(v4 - 8);
+          if (v6)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+          }
+
+          v4 -= 16;
+        }
+
+        while (v4 != v3);
+        v5 = v2[8];
+      }
+
+      v2[9] = v3;
+      operator delete(v5);
+    }
+
+    v7 = v2[7];
+    if (v7 == v2 + 4)
+    {
+      (*(*v7 + 32))(v7);
+    }
+
+    else if (v7)
+    {
+      (*(*v7 + 40))(v7);
+    }
+
+    v8 = v2[1];
+    if (v8)
+    {
+      v9 = v2[2];
+      v10 = v2[1];
+      if (v9 != v8)
+      {
+        do
+        {
+          v11 = *(v9 - 17);
+          v9 -= 5;
+          if (v11 < 0)
+          {
+            operator delete(*v9);
+          }
+        }
+
+        while (v9 != v8);
+        v10 = v2[1];
+      }
+
+      v2[2] = v8;
+      operator delete(v10);
+    }
+
+    operator delete(v2);
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::allocate_shared[abi:ne200100]<MockTimerServiceState::ScheduledThing,std::allocator<MockTimerServiceState::ScheduledThing>,std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>> &,std::function<void ()(void)>,0>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+{
+  v15[2] = *MEMORY[0x1E69E9840];
+  v8 = operator new(0x68uLL);
+  v8[1] = 0;
+  v8[2] = 0;
+  *v8 = &unk_1F1CB93B0;
+  v9 = *a2;
+  v15[0] = a2[1];
+  *(v15 + 7) = *(a2 + 15);
+  v10 = *(a2 + 23);
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v11 = *a3;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v14, a4);
+  *(v8 + 24) = 0;
+  v12 = v15[0];
+  v8[4] = v9;
+  v8[5] = v12;
+  *(v8 + 47) = *(v15 + 7);
+  *(v8 + 55) = v10;
+  v8[7] = v11;
+  v8[8] = 0;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]((v8 + 9), v14);
+  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v14);
+  *a1 = v8 + 3;
+  a1[1] = v8;
+  return result;
+}
+
+void std::__shared_ptr_emplace<MockTimerServiceState::ScheduledThing>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F1CB93B0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+void std::__shared_ptr_emplace<MockTimerServiceState::ScheduledThing>::__on_zero_shared(uint64_t a1)
+{
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](a1 + 72);
+  if (*(a1 + 55) < 0)
+  {
+    v2 = *(a1 + 32);
+
+    operator delete(v2);
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void *std::shared_ptr<MockTimerService>::shared_ptr[abi:ne200100]<MockTimerService,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1},0>(void *a1, uint64_t a2)
+{
+  *a1 = a2;
+  v4 = operator new(0x20uLL);
+  v4->__vftable = &unk_1F1CB9400;
+  v4->__shared_owners_ = 0;
+  v4->__shared_weak_owners_ = 0;
+  v4[1].__vftable = a2;
+  a1[1] = v4;
+  if (a2)
+  {
+    v5 = *(a2 + 16);
+    if (!v5)
+    {
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      *(a2 + 8) = a2;
+      *(a2 + 16) = v4;
+      goto LABEL_6;
+    }
+
+    if (v5->__shared_owners_ == -1)
+    {
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      *(a2 + 8) = a2;
+      *(a2 + 16) = v4;
+      std::__shared_weak_count::__release_weak(v5);
+LABEL_6:
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    }
+  }
+
+  return a1;
+}
+
+void sub_1A910D000(void *a1)
+{
+  __cxa_begin_catch(a1);
+  dispatch_barrier_async_f(v1[3], v1, std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1}::operator() const(MockTimerService*)::{lambda(void *)#1}::__invoke);
+  __cxa_rethrow();
+}
+
+void std::__shared_ptr_pointer<MockTimerService *,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService *)#1},std::allocator<MockTimerService>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+uint64_t std::__shared_ptr_pointer<MockTimerService *,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService *)#1},std::allocator<MockTimerService>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1}::operator() const(MockTimerService*)::{lambda(void *)#1}::__invoke(uint64_t result)
+{
+  if (result)
+  {
+    return (*(*result + 72))();
+  }
+
+  return result;
+}
+
+void __copy_helper_block_e8_32b40c45_ZTSNSt3__110shared_ptrIK16MockTimerServiceEE(void *a1, uint64_t a2)
+{
+  _Block_object_assign(a1 + 4, *(a2 + 32), 7);
+  v4 = *(a2 + 48);
+  a1[5] = *(a2 + 40);
+  a1[6] = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void __destroy_helper_block_e8_32b40c45_ZTSNSt3__110shared_ptrIK16MockTimerServiceEE(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(a1 + 32);
+
+  _Block_object_dispose(v3, 7);
+}
+
+uint64_t ___ZN8dispatch9sync_implIRU13block_pointerFmvEEENSt3__15decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS4_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
+{
+  result = (*(**(a1 + 40) + 16))();
+  **(a1 + 32) = result;
+  return result;
+}
+
+uint64_t ___ZN8dispatch19async_and_wait_implIRU13block_pointerFmvEEENSt3__15decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS4_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
+{
+  result = (*(**(a1 + 40) + 16))();
+  **(a1 + 32) = result;
+  return result;
+}
+
+__n128 ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIZNS1_14popTimersFiredEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS5__block_invoke@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
+{
+  v2 = *(**(a1 + 40) + 256);
+  result = *(v2 + 56);
+  *a2 = result;
+  a2[1].n128_u64[0] = *(v2 + 72);
+  *(v2 + 64) = 0;
+  *(v2 + 72) = 0;
+  *(v2 + 56) = 0;
+  return result;
+}
+
+void ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__16vectorINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
+{
+  (*(**(a1 + 40) + 16))(&v3);
+  v2 = *(a1 + 32);
+  std::vector<std::string>::__vdeallocate(v2);
+  *&v2->__begin_ = v3;
+  v2->__end_cap_.__value_ = v4;
+  v3 = 0uLL;
+  v4 = 0;
+  v5 = &v3;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
+}
+
+void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
+{
+  if (this->__begin_)
+  {
+    std::vector<std::string>::clear[abi:ne200100](this);
+    operator delete(this->__begin_);
+    this->__begin_ = 0;
+    this->__end_ = 0;
+    this->__end_cap_.__value_ = 0;
+  }
+}
+
+void ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__16vectorINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
+{
+  (*(**(a1 + 40) + 16))(&v3);
+  v2 = *(a1 + 32);
+  std::vector<std::string>::__vdeallocate(v2);
+  *&v2->__begin_ = v3;
+  v2->__end_cap_.__value_ = v4;
+  v3 = 0uLL;
+  v4 = 0;
+  v5 = &v3;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
+}
+
+void *_ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_ED1Ev(void *a1)
+{
+  *a1 = &unk_1F1CB9490;
+  v2 = a1[2];
+  if (v2)
+  {
+    _Block_release(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_ED0Ev(void *__p)
+{
+  *__p = &unk_1F1CB9490;
+  v2 = __p[2];
+  if (v2)
+  {
+    _Block_release(v2);
+  }
+
+  v3 = __p[1];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  operator delete(__p);
+}
+
+void *_ZNKSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7__cloneEv(uint64_t a1)
+{
+  v2 = operator new(0x18uLL);
+  v3 = *(a1 + 8);
+  *v2 = &unk_1F1CB9490;
+  v2[1] = v3;
+  if (v3)
+  {
+    dispatch_retain(v3);
+  }
+
+  v4 = *(a1 + 16);
+  if (v4)
+  {
+    v4 = _Block_copy(v4);
+  }
+
+  v2[2] = v4;
+  return v2;
+}
+
+void *_ZNKSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7__cloneEPNS0_6__baseISL_EE(uint64_t a1, void *a2)
+{
+  v4 = *(a1 + 8);
+  *a2 = &unk_1F1CB9490;
+  a2[1] = v4;
+  if (v4)
+  {
+    dispatch_retain(v4);
+  }
+
+  result = *(a1 + 16);
+  if (result)
+  {
+    result = _Block_copy(result);
+  }
+
+  a2[2] = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    _Block_release(v2);
+  }
+
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+
+    dispatch_release(v3);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    _Block_release(v2);
+  }
+
+  v3 = __p[1];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  operator delete(__p);
 }

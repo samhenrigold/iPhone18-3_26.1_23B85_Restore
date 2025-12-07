@@ -27,23 +27,18 @@ uint64_t __40__AudioAnalyticsPredicateWrapper_logger__block_invoke()
 
 + (id)buildPredicate:(id)predicate
 {
-  v7 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:predicateCopy argumentArray:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (BOOL)evaluatePredicate:(id)predicate with:(id)with
 {
-  v10 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   withCopy = with;
   v7 = [predicateCopy evaluateWithObject:withCopy];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

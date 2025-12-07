@@ -31,7 +31,7 @@
 
   selfCopy = self;
   sub_100024D9C(animated, v6, v7);
-  sub_10002534C(v6);
+  sub_10002534C(v6, v7);
 }
 
 - (_TtC9AirDropUIP33_C1270FA1C3C759CC3C2C305DD7D2022129RemoteAlertRootViewController)initWithNibName:(id)name bundle:(id)bundle

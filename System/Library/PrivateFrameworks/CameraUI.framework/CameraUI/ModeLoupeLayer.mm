@@ -41,7 +41,7 @@
 - (_TtC8CameraUIP33_CE78B0301EE90AA87CD509B48328452714ModeLoupeLayer)initWithCoder:(id)coder
 {
   *(&self->super.super.isa + OBJC_IVAR____TtC8CameraUIP33_CE78B0301EE90AA87CD509B48328452714ModeLoupeLayer_loupeInset) = 0;
-  result = sub_1A3A32070();
+  result = sub_1A3A32070("Fatal error", 11, 2, 0xD000000000000025, 0x80000001A3AA4060, "CameraUI/ModeLoupe.swift", 24, 2, 130, 0);
   __break(1u);
   return result;
 }

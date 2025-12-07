@@ -85,7 +85,7 @@
   v6 = DAWiFiScanDescriptor;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000349C0();
+    sub_1000349C0(descriptorsCopy);
   }
 
   if (self->_scanning)
@@ -109,28 +109,28 @@
     prefixes = self->_prefixes;
     self->_prefixes = v10;
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v12 = self->_descriptors;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v61 objects:v65 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v57 objects:v61 count:16];
     if (v13)
     {
       v14 = v13;
-      v60 = descriptorsCopy;
-      v15 = *v62;
+      v56 = descriptorsCopy;
+      v15 = *v58;
       v7 = 1;
       while (2)
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v62 != v15)
+          if (*v58 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v61 + 1) + 8 * i);
+          v17 = *(*(&v57 + 1) + 8 * i);
           sSID = [v17 SSID];
           if (sSID)
           {
@@ -200,11 +200,7 @@
 
               if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
               {
-                v58 = v44;
-                v59 = self->_wifiAwarePairingBundleID;
-                v56 = displayName;
-                v57 = @"Apple";
-                LogPrintF();
+                LogPrintF(&dword_100060470, "[DAWiFiScanner startScanningWithDescriptors:]", 30, "[WiFi] Setting up publisher displayName='%@' vendorName='%@' modelName='%@' bundleID='%@'", displayName, @"Apple", v44, self->_wifiAwarePairingBundleID);
               }
 
               v45 = [[WiFiAwarePairedDeviceInfo alloc] initWithName:displayName vendorID:@"Apple" modelName:v44 attributes:&__NSDictionary0__struct];
@@ -226,7 +222,7 @@
               }
 
               wifiAwareServiceType = 20;
-              descriptorsCopy = v60;
+              descriptorsCopy = v56;
               v6 = DAWiFiScanDescriptor;
             }
 
@@ -234,14 +230,14 @@
             {
               v7 = 1;
               v31 = 1;
-              descriptorsCopy = v60;
+              descriptorsCopy = v56;
             }
 
             goto LABEL_43;
           }
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v61 objects:v65 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v57 objects:v61 count:16];
         if (v14)
         {
           continue;
@@ -251,7 +247,7 @@
       }
 
       v31 = 0;
-      descriptorsCopy = v60;
+      descriptorsCopy = v56;
       v6 = DAWiFiScanDescriptor;
     }
 
@@ -281,7 +277,7 @@ LABEL_43:
             sub_100034B40(self);
           }
 
-          [(DAWiFiScanner *)self _configureSubscriber:v56];
+          [(DAWiFiScanner *)self _configureSubscriber];
           [(DAWiFiScanner *)self _startSubscriber];
         }
 
@@ -289,12 +285,10 @@ LABEL_43:
         {
           if (v51 <= 30 && (v51 != -1 || _LogCategory_Initialize()))
           {
-            v56 = self->_serviceName;
-            v57 = wifiAwareServiceType;
-            LogPrintF();
+            LogPrintF(&dword_100060470, "[DAWiFiScanner startScanningWithDescriptors:]", 30, "[WiFi] confguring publisher with service name = '%@' serviceType='%lu'", self->_serviceName, wifiAwareServiceType);
           }
 
-          [(DAWiFiScanner *)self _configurePublisherWithPairingClient:v7, v56, v57, v58, v59];
+          [(DAWiFiScanner *)self _configurePublisherWithPairingClient:v7];
           [(DAWiFiScanner *)self _startPublisherWithDescriptors:descriptorsCopy];
         }
       }
@@ -307,7 +301,7 @@ LABEL_43:
           sub_100034AD8();
         }
 
-        [(DAWiFiScanner *)self _performScan:v56];
+        [(DAWiFiScanner *)self _performScan];
       }
     }
 
@@ -320,7 +314,7 @@ LABEL_43:
       }
 
       resultsHandler = self->_resultsHandler;
-      v55 = DAErrorF();
+      v55 = DAErrorF(350001, "Invalid scan descriptors");
       resultsHandler[2](resultsHandler, v55, 0);
     }
   }
@@ -330,46 +324,48 @@ LABEL_43:
 {
   if (self->_scanning)
   {
-    v11[0] = 0;
-    v11[1] = v11;
-    v11[2] = 0x3032000000;
-    v11[3] = sub_10001FA40;
-    v11[4] = sub_10001FA50;
-    v12 = 0;
-    v9[0] = 0;
-    v9[1] = v9;
-    v9[2] = 0x3032000000;
-    v9[3] = sub_10001FA40;
-    v9[4] = sub_10001FA50;
-    v10 = 0;
+    selfCopy = self;
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x3032000000;
+    v10[3] = sub_10001FA40;
+    v10[4] = sub_10001FA50;
+    v11 = 0;
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x3032000000;
+    v8[3] = sub_10001FA40;
+    v8[4] = sub_10001FA50;
+    v9 = 0;
     _defaultScanParameters = [(DAWiFiScanner *)self _defaultScanParameters];
-    allObjects = [(NSMutableSet *)self->_SSIDs allObjects];
+    allObjects = [(NSMutableSet *)selfCopy->_SSIDs allObjects];
     [_defaultScanParameters setSSIDList:allObjects];
 
     if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      SSIDs = self->_SSIDs;
-      prefixes = self->_prefixes;
-      LogPrintF();
+      LogPrintF(&dword_100060470, "[DAWiFiScanner _performScan]", 30, "[WiFi] scanning for SSIDs='%@' prefixes='%@'", selfCopy->_SSIDs, selfCopy->_prefixes);
     }
 
-    v5 = [(DAWiFiScanner *)self wifiInterface:SSIDs];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10001FA58;
-    v8[3] = &unk_100059808;
-    v8[5] = v9;
-    v8[6] = v11;
-    v8[4] = self;
-    [v5 performScanWithParameters:_defaultScanParameters reply:v8];
+    wifiInterface = [(DAWiFiScanner *)selfCopy wifiInterface];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10001FA58;
+    v7[3] = &unk_100059808;
+    v7[5] = v8;
+    v7[6] = v10;
+    v7[4] = selfCopy;
+    [wifiInterface performScanWithParameters:_defaultScanParameters reply:v7];
 
-    _Block_object_dispose(v9, 8);
-    _Block_object_dispose(v11, 8);
+    _Block_object_dispose(v8, 8);
+    _Block_object_dispose(v10, 8);
   }
 
-  else if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
+  else if (dword_100060470 <= 30)
   {
-    sub_100034BCC();
+    if (dword_100060470 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100034BCC(self, a2, v2);
+    }
   }
 }
 
@@ -405,27 +401,27 @@ LABEL_43:
 {
   resultsCopy = results;
   descriptorsCopy = descriptors;
-  v26 = +[NSMutableDictionary dictionary];
+  v24 = +[NSMutableDictionary dictionary];
+  v35 = 0u;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   obj = descriptorsCopy;
-  v29 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
-  if (v29)
+  v27 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v27)
   {
-    v27 = *v38;
+    v25 = *v36;
     do
     {
       v7 = 0;
       do
       {
-        if (*v38 != v27)
+        if (*v36 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * v7);
+        v8 = *(*(&v35 + 1) + 8 * v7);
         if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
         {
           sub_100034CC0(v8);
@@ -436,38 +432,36 @@ LABEL_43:
 
         if (v10)
         {
-          v32 = v7;
+          v30 = v7;
           if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
           {
-            v23 = v8;
-            v24 = v10;
-            LogPrintF();
+            LogPrintF(&dword_100060470, "[DAWiFiScanner _coalesceResults:descriptors:]", 30, "[WiFi] descriptor='%@' filtered results='%@'", v8, v10);
           }
 
-          v31 = v8;
-          v11 = [NSMutableArray array:v23];
+          v29 = v8;
+          v11 = +[NSMutableArray array];
+          v31 = 0u;
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
-          v36 = 0u;
-          v30 = v10;
+          v28 = v10;
           v12 = v10;
-          v13 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v34;
+            v15 = *v32;
             do
             {
               v16 = 0;
               do
               {
-                if (*v34 != v15)
+                if (*v32 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v33 + 1) + 8 * v16);
+                v17 = *(*(&v31 + 1) + 8 * v16);
                 v18 = objc_alloc_init(DAWiFiNetwork);
                 networkName = [v17 networkName];
                 [(DAWiFiNetwork *)v18 setSSID:networkName];
@@ -475,14 +469,14 @@ LABEL_43:
                 -[DAWiFiNetwork setUnsecured:](v18, "setUnsecured:", [v17 isOpen]);
                 if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                 {
-                  sub_100034D1C(&self->_reportedNetworks);
+                  sub_100034D1C();
                 }
 
                 if (([(NSMutableSet *)self->_reportedNetworks containsObject:v18]& 1) != 0)
                 {
                   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_100034D5C();
+                    sub_100034D5C(v18);
                   }
                 }
 
@@ -496,30 +490,30 @@ LABEL_43:
               }
 
               while (v14 != v16);
-              v20 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v20 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
               v14 = v20;
             }
 
             while (v20);
           }
 
-          [v26 setObject:v11 forKey:v31];
-          v7 = v32;
-          v10 = v30;
+          [v24 setObject:v11 forKey:v29];
+          v7 = v30;
+          v10 = v28;
         }
 
         v7 = v7 + 1;
       }
 
-      while (v7 != v29);
-      v21 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
-      v29 = v21;
+      while (v7 != v27);
+      v21 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v27 = v21;
     }
 
     while (v21);
   }
 
-  return v26;
+  return v24;
 }
 
 - (void)selectWiFiAwareDevice:(id)device withBundleID:(id)d
@@ -619,7 +613,7 @@ LABEL_20:
     v26 = selfCopy->_deviceOTANameToBroadcast;
     if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      sub_100034E04();
+      sub_100034E04(v26);
     }
 
     if (([deviceCopy flags] & 0x400) != 0)
@@ -646,7 +640,7 @@ LABEL_20:
     [(WiFiAwareDataSession *)selfCopy->_wifiAwareDataSession setDelegate:selfCopy];
     if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      sub_100034E44(&selfCopy->_wifiAwareDataSession);
+      sub_100034E44();
     }
 
     goto LABEL_40;
@@ -677,7 +671,7 @@ LABEL_40:
   wifiAwareModelName = [deviceCopy wifiAwareModelName];
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner pairSelectedWiFiAwareDevice:withBundleID:]", 30, "[WiFi] pairSelectedWiFiAwareDevice displayName='%@' vendorName='%@' modelName='%@' bundleID='%@'", displayName, wifiAwareVendorName, wifiAwareModelName, dCopy);
   }
 
   wifiAwarePairingDevice = self->_wifiAwarePairingDevice;
@@ -701,7 +695,7 @@ LABEL_40:
   passkeyCopy = passkey;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100034EFC();
+    sub_100034EFC(type);
     if (accept)
     {
 LABEL_5:
@@ -727,7 +721,7 @@ LABEL_5:
   wifiAwareDevicePairedHandler = self->_wifiAwareDevicePairedHandler;
   if (wifiAwareDevicePairedHandler)
   {
-    v10 = DAErrorF();
+    v10 = DAErrorF(350017, "User did not accept and canceled pairing");
     wifiAwareDevicePairedHandler[2](wifiAwareDevicePairedHandler, v10, -1, 0);
   }
 
@@ -783,7 +777,7 @@ LABEL_13:
         cache = v11[28].cache;
         if (cache <= 30 && (cache != -1 || _LogCategory_Initialize()))
         {
-          sub_100034FF4(subscriberCopy);
+          sub_100034FF4(subscriberCopy, v13);
         }
 
         configuration = [subscriberCopy configuration];
@@ -796,7 +790,7 @@ LABEL_13:
           v19 = v11[28].cache;
           if (v19 <= 30 && (v19 != -1 || _LogCategory_Initialize()))
           {
-            sub_100035068(subscriberCopy);
+            sub_100035068(subscriberCopy, v13);
           }
 
           v20 = objc_alloc_init(DAWiFiNetwork);
@@ -850,7 +844,7 @@ LABEL_13:
                   v31 = v44;
                   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_100035174(v20);
+                    sub_100035174(v20, v44);
                   }
 
                   [(DAWiFiNetwork *)v20 setWifiAwareOTAName:v44];
@@ -865,7 +859,7 @@ LABEL_13:
                 v31 = v44;
                 if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                 {
-                  sub_1000350DC();
+                  sub_1000350DC(v44);
                 }
               }
             }
@@ -878,7 +872,7 @@ LABEL_13:
           {
             if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
             {
-              sub_1000351D0();
+              sub_1000351D0(v46);
             }
 
             [v51 addObject:v20];
@@ -915,7 +909,7 @@ LABEL_13:
   [(WiFiAwareSubscriber *)self->_subscriber setDelegate:self];
   if (!self->_subscriber && dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035210(&self->_serviceName);
+    sub_100035210();
   }
 }
 
@@ -929,13 +923,13 @@ LABEL_13:
   v7 = [[WiFiAwarePublishDatapathSecurityConfiguration alloc] initWithPairingConfiguration:v6 usingPairingDelegate:self];
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035250();
+    sub_100035250(v6);
   }
 
   v8 = [[WiFiAwarePublishDatapathConfiguration alloc] initWithServiceType:0 securityConfiguration:v7 connectionMode:2];
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035290();
+    sub_100035290(v7);
   }
 
   v9 = [[WiFiAwarePublishConfiguration alloc] initWithServiceName:self->_serviceName];
@@ -952,7 +946,7 @@ LABEL_13:
   [v9 setAuthenticationType:0];
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035330();
+    sub_100035330(v9);
   }
 
   v12 = [[WiFiAwarePublisher alloc] initWithConfiguration:v9];
@@ -962,7 +956,7 @@ LABEL_13:
   [(WiFiAwarePublisher *)self->_publisher setDelegate:self];
   if (!self->_publisher && dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035370(&self->_serviceName);
+    sub_100035370();
   }
 }
 
@@ -973,12 +967,10 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v16 = dCopy;
-    v17 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner authorizePairedDeviceFor:pairingKeyStoreID:storageClass:lifetime:client:completionHandler:]", 30, "[WiFi] authorizing WiFi aware device with  devicePairingID='%@' and bundleID = '%@'", dCopy, forCopy);
   }
 
-  [(WiFiAwareDevicesStore *)self->_store authorizeNewPairedDeviceFor:forCopy pairingKeyStoreID:dCopy storageClass:class lifetime:client client:handlerCopy completionHandler:lifetime, v16, v17];
+  [(WiFiAwareDevicesStore *)self->_store authorizeNewPairedDeviceFor:forCopy pairingKeyStoreID:dCopy storageClass:class lifetime:client client:handlerCopy completionHandler:lifetime];
 }
 
 - (unint64_t)authorizeNewPairedDeviceFor:(id)for pairingKeyStoreID:(id)d storageClass:(int64_t)class lifetime:(double)lifetime client:(int64_t)client error:(id *)error
@@ -987,12 +979,10 @@ LABEL_13:
   dCopy = d;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v18 = dCopy;
-    v19 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner authorizeNewPairedDeviceFor:pairingKeyStoreID:storageClass:lifetime:client:error:]", 30, "[WiFi] authorizing WiFi aware device with  devicePairingID='%@' and bundleID = '%@'", dCopy, forCopy);
   }
 
-  v16 = [(WiFiAwareDevicesStore *)self->_store authorizeNewPairedDeviceFor:forCopy pairingKeyStoreID:dCopy storageClass:class lifetime:client client:error error:lifetime, v18, v19];
+  v16 = [(WiFiAwareDevicesStore *)self->_store authorizeNewPairedDeviceFor:forCopy pairingKeyStoreID:dCopy storageClass:class lifetime:client client:error error:lifetime];
 
   return v16;
 }
@@ -1003,12 +993,10 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    dCopy = d;
-    v10 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner reauthorizePairedDeviceFor:withAppPairingID:completionHandler:]", 30, "[WiFi] re-authorizing WiFi aware device with pairing ID='%lld' and bundleID = '%@'", d, forCopy);
   }
 
-  [(WiFiAwareDevicesStore *)self->_store reauthorizePairedDeviceFor:forCopy withDeviceID:d completionHandler:handlerCopy, dCopy, v10];
+  [(WiFiAwareDevicesStore *)self->_store reauthorizePairedDeviceFor:forCopy withDeviceID:d completionHandler:handlerCopy];
 }
 
 - (id)reauthorizePairedDeviceFor:(id)for withAppPairingID:(unint64_t)d
@@ -1016,12 +1004,10 @@ LABEL_13:
   forCopy = for;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    dCopy = d;
-    v10 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner reauthorizePairedDeviceFor:withAppPairingID:]", 30, "[WiFi] re-authorizing WiFi aware device with pairing ID='%lld' and bundleID = '%@'", d, forCopy);
   }
 
-  v7 = [(WiFiAwareDevicesStore *)self->_store reauthorizePairedDeviceFor:forCopy withDeviceID:d, dCopy, v10];
+  v7 = [(WiFiAwareDevicesStore *)self->_store reauthorizePairedDeviceFor:forCopy withDeviceID:d];
 
   return v7;
 }
@@ -1032,12 +1018,10 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    dCopy = d;
-    v10 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner deauthorizePairedDeviceFor:withAppPairingID:completionHandler:]", 30, "[WiFi] Deauthorizing WiFi aware device with pairing ID='%lld' and bundleID = '%@'", d, forCopy);
   }
 
-  [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:0 completionHandler:handlerCopy, dCopy, v10];
+  [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:0 completionHandler:handlerCopy];
 }
 
 - (id)deauthorizePairedDeviceFor:(id)for withAppPairingID:(unint64_t)d
@@ -1045,12 +1029,10 @@ LABEL_13:
   forCopy = for;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    dCopy = d;
-    v10 = forCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner deauthorizePairedDeviceFor:withAppPairingID:]", 30, "[WiFi] Deauthorizing WiFi aware device with pairing ID='%lld' and bundleID = '%@'", d, forCopy);
   }
 
-  v7 = [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:0, dCopy, v10];
+  v7 = [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:0];
 
   return v7;
 }
@@ -1061,12 +1043,10 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner uninstallPairedDeviceFor:withAppPairingID:completionHandler:]", 30, "[WiFi] Uninstalling WiFi aware device for bundleID='%@' and pairingID = '%lld'", forCopy, d);
   }
 
-  [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:1 completionHandler:handlerCopy, v9, dCopy];
+  [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:1 completionHandler:handlerCopy];
 }
 
 - (id)uninstallPairedDeviceFor:(id)for withAppPairingID:(unint64_t)d
@@ -1074,14 +1054,12 @@ LABEL_13:
   forCopy = for;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v9 = forCopy;
-    dCopy = d;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner uninstallPairedDeviceFor:withAppPairingID:]", 30, "[WiFi] Uninstalling WiFi aware device for bundleID='%@' and pairingID = '%lld'", forCopy, d);
   }
 
-  dCopy = [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:1, v9, dCopy];
+  v7 = [(WiFiAwareDevicesStore *)self->_store deauthorizePairedDeviceFor:forCopy withDeviceID:d remove:1];
 
-  return dCopy;
+  return v7;
 }
 
 - (void)removeAllPairedDevicesFor:(id)for completionHandler:(id)handler
@@ -1090,7 +1068,7 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000353B0();
+    sub_1000353B0(forCopy);
   }
 
   [(WiFiAwareDevicesStore *)self->_store removeAllPairedDevicesFor:forCopy completionHandler:handlerCopy];
@@ -1116,13 +1094,10 @@ LABEL_13:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v13 = forCopy;
-    dCopy = d;
-    v12 = nameCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner updatePairedDeviceNameFor:withAppPairingID:newName:completionHandler:]", 30, "[WiFi] updating device name with newName='%@' bundleID='%@' and pairingID='%lld'", nameCopy, forCopy, d);
   }
 
-  [(WiFiAwareDevicesStore *)self->_store updatePairedDeviceNameFor:forCopy withDeviceID:d toNewName:nameCopy completionHandler:handlerCopy, v12, v13, dCopy];
+  [(WiFiAwareDevicesStore *)self->_store updatePairedDeviceNameFor:forCopy withDeviceID:d toNewName:nameCopy completionHandler:handlerCopy];
 }
 
 - (id)updatePairedDeviceNameFor:(id)for withAppPairingID:(unint64_t)d toNewName:(id)name
@@ -1131,15 +1106,12 @@ LABEL_13:
   nameCopy = name;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v13 = forCopy;
-    dCopy = d;
-    v12 = nameCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner updatePairedDeviceNameFor:withAppPairingID:toNewName:]", 30, "[WiFi] updating device name with newName='%@' bundleID='%@' and pairingID='%lld'", nameCopy, forCopy, d);
   }
 
-  dCopy = [(WiFiAwareDevicesStore *)self->_store updatePairedDeviceNameFor:forCopy withDeviceID:d toNewName:nameCopy, v12, v13, dCopy];
+  v10 = [(WiFiAwareDevicesStore *)self->_store updatePairedDeviceNameFor:forCopy withDeviceID:d toNewName:nameCopy];
 
-  return dCopy;
+  return v10;
 }
 
 - (void)publisherStarted:(id)started
@@ -1151,7 +1123,7 @@ LABEL_13:
     v5 = startedCopy;
     if (dword_100060470 != -1 || (startedCopy = _LogCategory_Initialize(), v4 = v5, startedCopy))
     {
-      startedCopy = sub_1000353F0();
+      startedCopy = sub_1000353F0(v4);
       v4 = v5;
     }
   }
@@ -1164,7 +1136,7 @@ LABEL_13:
   publisherCopy = publisher;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035430();
+    sub_100035430(error);
   }
 
   wifiAwareDevicePairedHandler = self->_wifiAwareDevicePairedHandler;
@@ -1180,18 +1152,18 @@ LABEL_13:
 - (void)publisher:(id)publisher terminatedWithReason:(int64_t)reason
 {
   publisherCopy = publisher;
-  v5 = publisherCopy;
+  v6 = publisherCopy;
   if (dword_100060470 <= 30)
   {
-    v6 = publisherCopy;
-    if (dword_100060470 != -1 || (publisherCopy = _LogCategory_Initialize(), v5 = v6, publisherCopy))
+    v7 = publisherCopy;
+    if (dword_100060470 != -1 || (publisherCopy = _LogCategory_Initialize(), v6 = v7, publisherCopy))
     {
-      publisherCopy = sub_100035470();
-      v5 = v6;
+      publisherCopy = sub_100035470(reason);
+      v6 = v7;
     }
   }
 
-  _objc_release_x1(publisherCopy, v5);
+  _objc_release_x1(publisherCopy, v6);
 }
 
 - (void)publisher:(id)publisher dataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info pairingKeyStoreID:(id)d deviceID:(unint64_t)iD
@@ -1202,7 +1174,7 @@ LABEL_13:
   dCopy = d;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000354B0(self);
+    sub_1000354B0(self, publisherCopy);
   }
 
   selfCopy = self;
@@ -1215,112 +1187,114 @@ LABEL_13:
   if (v20)
   {
     v21 = dCopy;
+    v24 = v21;
     if (v21)
     {
-      v22 = 0;
-      v23 = selfCopy;
+      v25 = 0;
+      v26 = selfCopy;
     }
 
     else
     {
-      v23 = selfCopy;
-      if (dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
+      v26 = selfCopy;
+      if (dword_100060470 <= 90)
       {
-        sub_1000354F8();
+        if (dword_100060470 != -1 || (v21 = _LogCategory_Initialize(), v21))
+        {
+          sub_1000354F8(v21, v22, v23);
+        }
       }
 
-      v22 = DAErrorF();
+      v25 = DAErrorF(350018, "No keyStoreID");
     }
 
     if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      iDCopy = iD;
-      v42 = v21;
-      LogPrintF();
+      LogPrintF(&dword_100060470, "[DAWiFiScanner publisher:dataConfirmedForHandle:localInterfaceIndex:serviceSpecificInfo:pairingKeyStoreID:deviceID:]", 30, "[WiFi] dataConfirmedForHandle Added paired device with deviceID='%lld' pairingUUID='%@'", iD, v24);
     }
 
-    wifiAwareDevicePairedHandler = v23->_wifiAwareDevicePairedHandler;
+    wifiAwareDevicePairedHandler = v26->_wifiAwareDevicePairedHandler;
     if (wifiAwareDevicePairedHandler)
     {
-      wifiAwareDevicePairedHandler[2](wifiAwareDevicePairedHandler, v22, iD, v21);
+      wifiAwareDevicePairedHandler[2](wifiAwareDevicePairedHandler, v25, iD, v24);
     }
 
     else
     {
-      v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v25 = v23->_descriptors;
-      v26 = [(NSArray *)v25 countByEnumeratingWithState:&v49 objects:v54 count:16];
-      if (v26)
+      v51 = 0u;
+      v28 = v26->_descriptors;
+      v29 = [(NSArray *)v28 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      if (v29)
       {
-        v27 = v26;
-        v43 = v22;
-        v44 = v21;
-        v45 = dCopy;
-        v46 = handleCopy;
-        v28 = *v50;
+        v30 = v29;
+        v44 = v25;
+        v45 = v24;
+        v46 = dCopy;
+        v47 = handleCopy;
+        v31 = *v51;
 LABEL_19:
-        v29 = 0;
+        v32 = 0;
         while (1)
         {
-          if (*v50 != v28)
+          if (*v51 != v31)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v28);
           }
 
-          v30 = *(*(&v49 + 1) + 8 * v29);
-          serviceName3 = [v30 serviceName];
+          v33 = *(*(&v50 + 1) + 8 * v32);
+          serviceName3 = [v33 serviceName];
           configuration3 = [publisherCopy configuration];
           serviceName4 = [configuration3 serviceName];
-          v34 = [serviceName3 isEqualToString:serviceName4];
+          v37 = [serviceName3 isEqualToString:serviceName4];
 
-          if (v34)
+          if (v37)
           {
             break;
           }
 
-          if (v27 == ++v29)
+          if (v30 == ++v32)
           {
-            v27 = [(NSArray *)v25 countByEnumeratingWithState:&v49 objects:v54 count:16];
-            if (v27)
+            v30 = [(NSArray *)v28 countByEnumeratingWithState:&v50 objects:v55 count:16];
+            if (v30)
             {
               goto LABEL_19;
             }
 
-            dCopy = v45;
-            handleCopy = v46;
-            v22 = v43;
-            v21 = v44;
+            dCopy = v46;
+            handleCopy = v47;
+            v25 = v44;
+            v24 = v45;
             goto LABEL_28;
           }
         }
 
-        v35 = v30;
+        v38 = v33;
 
-        dCopy = v45;
-        handleCopy = v46;
-        v22 = v43;
-        v21 = v44;
-        if (!v35)
+        dCopy = v46;
+        handleCopy = v47;
+        v25 = v44;
+        v24 = v45;
+        if (!v38)
         {
           goto LABEL_29;
         }
 
-        v36 = objc_alloc_init(DAWiFiNetwork);
-        [(DAWiFiNetwork *)v36 setWifiAwarePairedID:v44];
+        v39 = objc_alloc_init(DAWiFiNetwork);
+        [(DAWiFiNetwork *)v39 setWifiAwarePairedID:v45];
         configuration4 = [publisherCopy configuration];
         serviceName5 = [configuration4 serviceName];
-        [(DAWiFiNetwork *)v36 setServiceName:serviceName5];
+        [(DAWiFiNetwork *)v39 setServiceName:serviceName5];
 
-        v39 = +[NSMutableDictionary dictionary];
-        v53 = v36;
-        v40 = [NSArray arrayWithObjects:&v53 count:1];
-        [v39 setObject:v40 forKey:v35];
+        v42 = +[NSMutableDictionary dictionary];
+        v54 = v39;
+        v43 = [NSArray arrayWithObjects:&v54 count:1];
+        [v42 setObject:v43 forKey:v38];
 
         (*(selfCopy->_resultsHandler + 2))();
-        v25 = v35;
+        v28 = v38;
       }
 
 LABEL_28:
@@ -1340,7 +1314,7 @@ LABEL_29:
     v5 = startedCopy;
     if (dword_100060470 != -1 || (startedCopy = _LogCategory_Initialize(), v4 = v5, startedCopy))
     {
-      startedCopy = sub_100035514();
+      startedCopy = sub_100035514(v4);
       v4 = v5;
     }
   }
@@ -1353,7 +1327,7 @@ LABEL_29:
   subscriberCopy = subscriber;
   if (dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035554();
+    sub_100035554(error);
   }
 
   wifiAwareDevicePairedHandler = self->_wifiAwareDevicePairedHandler;
@@ -1372,25 +1346,25 @@ LABEL_29:
   addressCopy = address;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035594();
+    sub_100035594(d);
   }
 }
 
 - (void)subscriber:(id)subscriber terminatedWithReason:(int64_t)reason
 {
   subscriberCopy = subscriber;
-  v5 = subscriberCopy;
+  v6 = subscriberCopy;
   if (dword_100060470 <= 90)
   {
-    v6 = subscriberCopy;
-    if (dword_100060470 != -1 || (subscriberCopy = _LogCategory_Initialize(), v5 = v6, subscriberCopy))
+    v7 = subscriberCopy;
+    if (dword_100060470 != -1 || (subscriberCopy = _LogCategory_Initialize(), v6 = v7, subscriberCopy))
     {
-      subscriberCopy = sub_1000355D8();
-      v5 = v6;
+      subscriberCopy = sub_1000355D8(reason);
+      v6 = v7;
     }
   }
 
-  _objc_release_x1(subscriberCopy, v5);
+  _objc_release_x1(subscriberCopy, v6);
 }
 
 - (void)subscriber:(id)subscriber receivedDiscoveryResult:(id)result
@@ -1399,7 +1373,7 @@ LABEL_29:
   resultCopy = result;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035618();
+    sub_100035618(resultCopy);
   }
 
   v7 = [(DAWiFiScanner *)self _resultForSubscriber:subscriberCopy descriptors:self->_descriptors discoveryResult:resultCopy];
@@ -1413,7 +1387,7 @@ LABEL_29:
   addressCopy = address;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035658();
+    sub_100035658(messageCopy);
   }
 }
 
@@ -1422,16 +1396,19 @@ LABEL_29:
   publisherCopy = publisher;
   subscriberCopy = subscriber;
   codeCopy = code;
-  if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
+  v12 = codeCopy;
+  if (dword_100060470 <= 30)
   {
-    sub_100035698();
+    if (dword_100060470 != -1 || (codeCopy = _LogCategory_Initialize(), codeCopy))
+    {
+      sub_100035698(codeCopy, v10, v11);
+    }
   }
 
-  v10 = [codeCopy copy];
+  v13 = [v12 copy];
   storedPin = self->_storedPin;
-  self->_storedPin = v10;
+  self->_storedPin = v13;
 
-  v12 = self->_storedPin;
   (*(self->_pinCreatedOnPublisher + 2))();
 }
 
@@ -1440,96 +1417,100 @@ LABEL_29:
   publisherCopy = publisher;
   subscriberCopy = subscriber;
   completionCopy = completion;
-  v11 = DAWiFiScanDescriptor;
-  if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
+  v13 = completionCopy;
+  v14 = DAWiFiScanDescriptor;
+  if (dword_100060470 <= 30)
   {
-    sub_1000356B4();
+    if (dword_100060470 != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      sub_1000356B4(completionCopy, v11, v12);
+    }
   }
 
-  v42 = completionCopy;
-  v12 = objc_retainBlock(completionCopy);
+  v43 = v13;
+  v15 = objc_retainBlock(v13);
   approvePINHandler = self->_approvePINHandler;
-  self->_approvePINHandler = v12;
+  self->_approvePINHandler = v15;
 
-  v14 = +[NSMutableDictionary dictionary];
-  v53 = +[NSMutableArray array];
+  v17 = +[NSMutableDictionary dictionary];
+  v54 = +[NSMutableArray array];
   if (dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
     sub_1000356D0(self);
   }
 
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
+  v56 = 0u;
   obj = self->_descriptors;
-  v52 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-  if (v52)
+  v53 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+  if (v53)
   {
-    v51 = *v55;
-    v44 = subscriberCopy;
+    v52 = *v56;
+    v45 = subscriberCopy;
     selfCopy = self;
-    v49 = v14;
+    v50 = v17;
     do
     {
-      for (i = 0; i != v52; i = i + 1)
+      for (i = 0; i != v53; i = i + 1)
       {
-        if (*v55 != v51)
+        if (*v56 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v54 + 1) + 8 * i);
+        v19 = *(*(&v55 + 1) + 8 * i);
         configuration = [(WiFiAwarePublisher *)self->_publisher configuration];
         serviceName = [configuration serviceName];
-        serviceName2 = [v16 serviceName];
-        v20 = [serviceName isEqualToString:serviceName2];
+        serviceName2 = [v19 serviceName];
+        v23 = [serviceName isEqualToString:serviceName2];
 
-        if (v20)
+        if (v23)
         {
-          cache = v11[28].cache;
+          cache = v14[28].cache;
           if (cache <= 30 && (cache != -1 || _LogCategory_Initialize()))
           {
-            sub_100035714(&self->_publisher);
+            sub_100035714(&self->_publisher, v19);
           }
 
-          v22 = objc_alloc_init(DAWiFiNetwork);
-          [(DAWiFiNetwork *)v22 setServiceName:self->_serviceName];
+          v25 = objc_alloc_init(DAWiFiNetwork);
+          [(DAWiFiNetwork *)v25 setServiceName:self->_serviceName];
           txtRecordData = [subscriberCopy txtRecordData];
-          v25 = txtRecordData;
+          v28 = txtRecordData;
           if (txtRecordData)
           {
-            v26 = CUTXTDictionaryCreateWithTXTData(txtRecordData, v24, 0);
-            v27 = [v26 objectForKeyedSubscript:@"vendorName"];
-            v28 = [v26 objectForKeyedSubscript:@"modelName"];
-            v29 = [v26 objectForKeyedSubscript:@"pairingName"];
-            v30 = v29;
-            if (v27 && v28)
+            v29 = CUTXTDictionaryCreateWithTXTData(txtRecordData, v27, 0);
+            v30 = [v29 objectForKeyedSubscript:@"vendorName"];
+            v31 = [v29 objectForKeyedSubscript:@"modelName"];
+            v32 = [v29 objectForKeyedSubscript:@"pairingName"];
+            v33 = v32;
+            if (v30 && v31)
             {
-              v48 = v29;
-              configuration2 = [v16 configuration];
+              v49 = v32;
+              configuration2 = [v19 configuration];
               flags = [configuration2 flags];
 
-              if (![v27 isEqualToString:@"Apple Inc."] || selfCopy->_allowAppleToAppleWiFiAware || (flags & 0x40) != 0)
+              if (![v30 isEqualToString:@"Apple Inc."] || selfCopy->_allowAppleToAppleWiFiAware || (flags & 0x40) != 0)
               {
-                wifiAwareVendorNameMatch = [v16 wifiAwareVendorNameMatch];
-                wifiAwareModelNameMatch = [v16 wifiAwareModelNameMatch];
+                wifiAwareVendorNameMatch = [v19 wifiAwareVendorNameMatch];
+                wifiAwareModelNameMatch = [v19 wifiAwareModelNameMatch];
                 string = [wifiAwareVendorNameMatch string];
-                v45 = wifiAwareVendorNameMatch;
-                v37 = [string compare:v27 options:{objc_msgSend(wifiAwareVendorNameMatch, "compareOptions")}];
+                v46 = wifiAwareVendorNameMatch;
+                v40 = [string compare:v30 options:{objc_msgSend(wifiAwareVendorNameMatch, "compareOptions")}];
 
                 string2 = [wifiAwareModelNameMatch string];
-                v46 = v28;
-                v39 = [string2 compare:v28 options:{objc_msgSend(wifiAwareModelNameMatch, "compareOptions")}];
+                v47 = v31;
+                v42 = [string2 compare:v31 options:{objc_msgSend(wifiAwareModelNameMatch, "compareOptions")}];
 
-                if (v37 | v39)
+                if (v40 | v42)
                 {
-                  subscriberCopy = v44;
-                  v28 = v46;
+                  subscriberCopy = v45;
+                  v31 = v47;
                   self = selfCopy;
                   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_1000357CC(v16);
+                    sub_1000357CC(v19);
                   }
                 }
 
@@ -1538,34 +1519,32 @@ LABEL_29:
                   self = selfCopy;
                   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
                   {
-                    v40 = v48;
-                    serviceName = selfCopy->_serviceName;
-                    LogPrintF();
+                    LogPrintF(&dword_100060470, "[DAWiFiScanner pairingRequestApprovalRequiredByPublisher:forSubscriber:withPairingMethod:pairingSetupApprovalCompletion:]", 30, "[WiFi] Publisher matchedPairingName='%@' matchedServiceName='%@'", v49, selfCopy->_serviceName, v43, publisherCopy);
                   }
 
-                  [(DAWiFiNetwork *)v22 setWifiAwareOTAName:v48, v40, serviceName, v42, publisherCopy];
-                  [(DAWiFiNetwork *)v22 setWifiAwareVendorName:v27];
-                  v28 = v46;
-                  [(DAWiFiNetwork *)v22 setWifiAwareModelName:v46];
-                  [v53 addObject:v22];
-                  subscriberCopy = v44;
+                  [(DAWiFiNetwork *)v25 setWifiAwareOTAName:v49];
+                  [(DAWiFiNetwork *)v25 setWifiAwareVendorName:v30];
+                  v31 = v47;
+                  [(DAWiFiNetwork *)v25 setWifiAwareModelName:v47];
+                  [v54 addObject:v25];
+                  subscriberCopy = v45;
                 }
 
-                v11 = DAWiFiScanDescriptor;
+                v14 = DAWiFiScanDescriptor;
 LABEL_38:
-                v30 = v48;
+                v33 = v49;
               }
 
               else
               {
-                v11 = DAWiFiScanDescriptor;
+                v14 = DAWiFiScanDescriptor;
                 self = selfCopy;
-                v30 = v48;
+                v33 = v49;
                 if (dword_100060470 <= 30)
                 {
-                  if (dword_100060470 != -1 || (v33 = _LogCategory_Initialize(), v30 = v48, v33))
+                  if (dword_100060470 != -1 || (v36 = _LogCategory_Initialize(), v33 = v49, v36))
                   {
-                    sub_10003578C();
+                    sub_10003578C(v33);
                     goto LABEL_38;
                   }
                 }
@@ -1573,16 +1552,16 @@ LABEL_38:
             }
           }
 
-          v14 = v49;
+          v17 = v50;
         }
 
-        [v14 setObject:v53 forKey:v16];
+        [v17 setObject:v54 forKey:v19];
       }
 
-      v52 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v53 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
-    while (v52);
+    while (v53);
   }
 
   (*(self->_resultsHandler + 2))();
@@ -1594,7 +1573,7 @@ LABEL_38:
   handlerCopy = handler;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    sub_100035824();
+    sub_100035824(sessionCopy);
   }
 
   v7 = objc_retainBlock(handlerCopy);
@@ -1611,7 +1590,7 @@ LABEL_38:
   infoCopy = info;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:]", 30, "[WiFi] Data session ='%@' confirmed = '%@'", sessionCopy, addressCopy);
   }
 }
 
@@ -1623,40 +1602,38 @@ LABEL_38:
   dCopy = d;
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    wifiAwarePairingDevice = self->_wifiAwarePairingDevice;
-    wifiAwarePairingInfo = self->_wifiAwarePairingInfo;
-    v18 = sessionCopy;
-    iDCopy = addressCopy;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:pairingKeyStoreID:deviceID:]", 30, "[WiFi] Data session ='%@' confirmed = '%@' for device='%@' and pairingInfo='%@'", sessionCopy, addressCopy, self->_wifiAwarePairingDevice, self->_wifiAwarePairingInfo);
   }
 
   v15 = dCopy;
+  v18 = v15;
   if (v15)
   {
-    v16 = 0;
+    v19 = 0;
   }
 
   else
   {
-    if (dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
+    if (dword_100060470 <= 90)
     {
-      sub_100035864();
+      if (dword_100060470 != -1 || (v15 = _LogCategory_Initialize(), v15))
+      {
+        sub_100035864(v15, v16, v17);
+      }
     }
 
-    v16 = DAErrorF();
+    v19 = DAErrorF(350018, "No keyStoreID");
   }
 
   if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
   {
-    v18 = v15;
-    iDCopy = iD;
-    LogPrintF();
+    LogPrintF(&dword_100060470, "[DAWiFiScanner dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:pairingKeyStoreID:deviceID:]", 30, "[WiFi] confirmedForPeerDataAddress pairingUUID='%@', deviceID='%lld'", v18, iD);
   }
 
   wifiAwareDevicePairedHandler = self->_wifiAwareDevicePairedHandler;
   if (wifiAwareDevicePairedHandler)
   {
-    wifiAwareDevicePairedHandler[2](wifiAwareDevicePairedHandler, v16, iD, v15);
+    wifiAwareDevicePairedHandler[2](wifiAwareDevicePairedHandler, v19, iD, v18);
   }
 
   [sessionCopy stop];
@@ -1681,7 +1658,7 @@ LABEL_38:
   {
     if (dword_100060470 != -1 || (sessionCopy = _LogCategory_Initialize(), v7 = v10, sessionCopy))
     {
-      sessionCopy = LogPrintF();
+      sessionCopy = LogPrintF(&dword_100060470, "[DAWiFiScanner dataSession:failedToStartWithError:]", 90, "[WiFi] Data session FAILED to start session = '%@' with error = '%ld'", v7, error);
       v7 = v10;
     }
   }
@@ -1692,18 +1669,18 @@ LABEL_38:
 - (void)dataSession:(id)session terminatedWithReason:(int64_t)reason
 {
   sessionCopy = session;
-  v5 = sessionCopy;
+  v6 = sessionCopy;
   if (dword_100060470 <= 90)
   {
-    v6 = sessionCopy;
-    if (dword_100060470 != -1 || (sessionCopy = _LogCategory_Initialize(), v5 = v6, sessionCopy))
+    v7 = sessionCopy;
+    if (dword_100060470 != -1 || (sessionCopy = _LogCategory_Initialize(), v6 = v7, sessionCopy))
     {
-      sessionCopy = LogPrintF();
-      v5 = v6;
+      sessionCopy = LogPrintF(&dword_100060470, "[DAWiFiScanner dataSession:terminatedWithReason:]", 90, "[WiFi] Data session TERMINATED session = '%@' with reason = '%ld'", v6, reason);
+      v6 = v7;
     }
   }
 
-  _objc_release_x1(sessionCopy, v5);
+  _objc_release_x1(sessionCopy, v6);
 }
 
 - (void)dataSessionRequestStarted:(id)started
@@ -1715,7 +1692,7 @@ LABEL_38:
     v5 = startedCopy;
     if (dword_100060470 != -1 || (startedCopy = _LogCategory_Initialize(), v4 = v5, startedCopy))
     {
-      startedCopy = sub_100035880();
+      startedCopy = sub_100035880(v4);
       v4 = v5;
     }
   }

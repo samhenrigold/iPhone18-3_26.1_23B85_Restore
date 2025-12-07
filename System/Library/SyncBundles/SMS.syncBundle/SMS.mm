@@ -14,8 +14,7 @@ void sub_D34(id a1)
 
 id sub_18F0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v2 restoreProtectedCloudStorageMobileBackup];
+  return [v1 restoreProtectedCloudStorageMobileBackup];
 }

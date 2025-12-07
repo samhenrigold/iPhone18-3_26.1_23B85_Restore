@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    fullSyncVersion = self->_fullSyncVersion;
     PBDataWriterWriteUint32Field();
   }
 }

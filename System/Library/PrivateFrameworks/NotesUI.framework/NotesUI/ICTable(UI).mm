@@ -181,7 +181,7 @@
   if (v4)
   {
     columnTextStorages = [self columnTextStorages];
-    v6 = [columnTextStorages objectForKeyedSubscript:v4];
+    v6 = objc_msgSend_objectForKeyedSubscript_(columnTextStorages);
 
     if (!v6)
     {

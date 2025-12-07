@@ -7,7 +7,7 @@
 
 + (id)parseBuffer:(id)buffer error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   currentToken = [bufferCopy currentToken];
   type = [currentToken type];
@@ -68,17 +68,15 @@ LABEL_14:
     value = [currentToken4 value];
     v17 = [v15 stringWithFormat:@"Unexpected token %@ found. Expecting rule type token.", value];
 
-    v21 = @"REErrorTokenKey";
-    v22[0] = currentToken4;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = @"REErrorTokenKey";
+    v21[0] = currentToken4;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     *error = RECreateErrorWithCodeMessageAndUseInfo(204, v17, v18);
 
     error = 0;
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return error;
 }

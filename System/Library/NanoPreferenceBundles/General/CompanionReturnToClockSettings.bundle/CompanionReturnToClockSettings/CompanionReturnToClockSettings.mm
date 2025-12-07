@@ -55,7 +55,6 @@ void sub_1738(uint64_t a1, void *a2)
 void sub_1920(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -173,7 +172,6 @@ void sub_2F70(uint64_t a1, void *a2)
 void sub_3158(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 

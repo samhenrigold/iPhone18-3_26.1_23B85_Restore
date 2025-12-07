@@ -24,7 +24,7 @@
 {
   var1 = size.var1;
   var0 = size.var0;
-  v71 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   loaderCopy = loader;
   completionCopy = completion;
@@ -50,14 +50,14 @@
       v18 = *v15;
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
       {
-        v41 = v18;
+        v38 = v18;
         helper2 = [loaderCopy helper];
         *buf = 136315394;
-        v61 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
-        v62 = 2112;
-        v63 = objc_opt_class();
-        v43 = v63;
-        _os_log_error_impl(&dword_22CA36000, v41, OS_LOG_TYPE_ERROR, "%s The helper on INPortableImageLoader was of an expected class (expected INUIPortableImageLoaderHelper, got %@)", buf, 0x16u);
+        v57 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
+        v58 = 2112;
+        v59 = objc_opt_class();
+        v40 = v59;
+        _os_log_error_impl(&dword_22CA36000, v38, OS_LOG_TYPE_ERROR, "%s The helper on INPortableImageLoader was of an expected class (expected INUIPortableImageLoaderHelper, got %@)", buf, 0x16u);
       }
 
       helper = 0;
@@ -66,47 +66,43 @@
     mEMORY[0x277CD3D28] = [MEMORY[0x277CD3D28] sharedInstance];
     imageLoaders = [mEMORY[0x277CD3D28] imageLoaders];
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v21 = imageLoaders;
-    v22 = [v21 countByEnumeratingWithState:&v54 objects:v70 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v50 objects:v66 count:16];
     if (v22)
     {
-      v48 = helper;
-      v49 = completionCopy;
-      v50 = loaderCopy;
-      v23 = *v55;
+      v44 = helper;
+      v45 = completionCopy;
+      v46 = loaderCopy;
+      v23 = *v51;
       v24 = &off_27872C000;
-      v25 = &off_27872C000;
       while (2)
       {
-        v26 = 0;
-        v27 = v24[194];
-        v28 = v25;
-        v29 = v25[350];
+        v25 = 0;
+        v26 = v24;
         do
         {
-          if (*v55 != v23)
+          if (*v51 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v30 = *(*(&v54 + 1) + 8 * v26);
-          if (((objc_opt_respondsToSelector() & 1) == 0 || [(INUIImageLoader *)v30 canLoadImageDataForImage:imageCopy]) && (objc_opt_respondsToSelector() & 1) != 0 && v30 != self)
+          v27 = *(*(&v50 + 1) + 8 * v25);
+          if (((objc_opt_respondsToSelector() & 1) == 0 || [(INUIImageLoader *)v27 canLoadImageDataForImage:imageCopy]) && (objc_opt_respondsToSelector() & 1) != 0 && v27 != self)
           {
-            v22 = v30;
+            v22 = v27;
             goto LABEL_23;
           }
 
-          v26 = (v26 + 1);
+          v25 = (v25 + 1);
         }
 
-        while (v22 != v26);
-        v22 = [v21 countByEnumeratingWithState:&v54 objects:v70 count:16];
-        v24 = &off_27872C000;
-        v25 = v28;
+        while (v22 != v25);
+        v22 = [v21 countByEnumeratingWithState:&v50 objects:v66 count:16];
+        v24 = v26;
         if (v22)
         {
           continue;
@@ -116,32 +112,32 @@
       }
 
 LABEL_23:
-      completionCopy = v49;
-      loaderCopy = v50;
+      completionCopy = v45;
+      loaderCopy = v46;
       v15 = MEMORY[0x277CD38C8];
-      helper = v48;
+      helper = v44;
     }
 
     delegate2 = [(INUIImageLoader *)self delegate];
 
     if (!delegate2)
     {
-      v32 = *v15;
+      v29 = *v15;
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v61 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
-        _os_log_error_impl(&dword_22CA36000, v32, OS_LOG_TYPE_ERROR, "%s The delegate on INPortableImageLoader is nil", buf, 0xCu);
+        v57 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
+        _os_log_error_impl(&dword_22CA36000, v29, OS_LOG_TYPE_ERROR, "%s The delegate on INPortableImageLoader is nil", buf, 0xCu);
       }
     }
 
     traitCollection = [helper traitCollection];
 
-    if (!traitCollection && (v34 = *v15, os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR)))
+    if (!traitCollection && (v31 = *v15, os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR)))
     {
       *buf = 136315138;
-      v61 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
-      _os_log_error_impl(&dword_22CA36000, v34, OS_LOG_TYPE_ERROR, "%s The traitCollection on INUIPortableImageLoaderHelper is nil", buf, 0xCu);
+      v57 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
+      _os_log_error_impl(&dword_22CA36000, v31, OS_LOG_TYPE_ERROR, "%s The traitCollection on INUIPortableImageLoaderHelper is nil", buf, 0xCu);
       if (v22)
       {
         goto LABEL_30;
@@ -151,55 +147,53 @@ LABEL_23:
     else if (v22)
     {
 LABEL_30:
-      v35 = *v15;
+      v32 = *v15;
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_INFO))
       {
-        v36 = MEMORY[0x277CCABB0];
-        v37 = v35;
-        v38 = [v36 numberWithDouble:var0];
-        v39 = [MEMORY[0x277CCABB0] numberWithDouble:var1];
+        v33 = MEMORY[0x277CCABB0];
+        v34 = v32;
+        v35 = [v33 numberWithDouble:var0];
+        v36 = [MEMORY[0x277CCABB0] numberWithDouble:var1];
         *buf = 136316162;
-        v61 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
-        v62 = 2112;
-        v63 = v22;
-        v64 = 2112;
+        v57 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]";
+        v58 = 2112;
+        v59 = v22;
+        v60 = 2112;
         selfCopy = self;
-        v66 = 2112;
-        v67 = v38;
-        v68 = 2112;
-        v69 = v39;
-        _os_log_impl(&dword_22CA36000, v37, OS_LOG_TYPE_INFO, "%s Found preferred image loader %@ for image %@, attempting load at size {%@, %@}", buf, 0x34u);
+        v62 = 2112;
+        v63 = v35;
+        v64 = 2112;
+        v65 = v36;
+        _os_log_impl(&dword_22CA36000, v34, OS_LOG_TYPE_INFO, "%s Found preferred image loader %@ for image %@, attempting load at size {%@, %@}", buf, 0x34u);
       }
 
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scaledSize_completion___block_invoke;
-      v51[3] = &unk_27872BAB8;
-      v53 = completionCopy;
-      v52 = imageCopy;
-      [(INUIImageLoader *)v22 loadDataImageFromImage:v52 usingPortableImageLoader:loaderCopy scaledSize:v51 completion:var0, var1];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scaledSize_completion___block_invoke;
+      v47[3] = &unk_27872BAB8;
+      v49 = completionCopy;
+      v48 = imageCopy;
+      [(INUIImageLoader *)v22 loadDataImageFromImage:v48 usingPortableImageLoader:loaderCopy scaledSize:v47 completion:var0, var1];
 
-      v40 = v53;
+      v37 = v49;
       goto LABEL_35;
     }
 
-    v44 = MEMORY[0x277CCA9B8];
-    v45 = *MEMORY[0x277CD3848];
-    v58 = *MEMORY[0x277CCA450];
-    v59 = @"No preferred image loader available for image: %@";
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-    v46 = [v44 errorWithDomain:v45 code:6001 userInfo:v40];
-    (*(completionCopy + 2))(completionCopy, 0, v46);
+    v41 = MEMORY[0x277CCA9B8];
+    v42 = *MEMORY[0x277CD3848];
+    v54 = *MEMORY[0x277CCA450];
+    v55 = @"No preferred image loader available for image: %@";
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+    v43 = [v41 errorWithDomain:v42 code:6001 userInfo:v37];
+    (*(completionCopy + 2))(completionCopy, 0, v43);
 
 LABEL_35:
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scaledSize_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -222,17 +216,17 @@ void __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scale
         v15 = [v13 numberWithDouble:v9];
         v16 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
         v17 = *(a1 + 32);
-        v21 = 136316162;
-        v22 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]_block_invoke";
-        v23 = 2112;
-        v24 = v5;
-        v25 = 2112;
-        v26 = v15;
-        v27 = 2112;
-        v28 = v16;
-        v29 = 2112;
-        v30 = v17;
-        _os_log_impl(&dword_22CA36000, v14, OS_LOG_TYPE_INFO, "%s Loaded data image %@ of size {%@, %@} from input image %@", &v21, 0x34u);
+        v20 = 136316162;
+        v21 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]_block_invoke";
+        v22 = 2112;
+        v23 = v5;
+        v24 = 2112;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_impl(&dword_22CA36000, v14, OS_LOG_TYPE_INFO, "%s Loaded data image %@ of size {%@, %@} from input image %@", &v20, 0x34u);
       }
     }
 
@@ -241,12 +235,12 @@ void __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scale
       v18 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
-        v20 = *(a1 + 32);
-        v21 = 136315394;
-        v22 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]_block_invoke";
-        v23 = 2112;
-        v24 = v20;
-        _os_log_error_impl(&dword_22CA36000, v18, OS_LOG_TYPE_ERROR, "%s No image was loaded for input image %@", &v21, 0x16u);
+        v19 = *(a1 + 32);
+        v20 = 136315394;
+        v21 = "[INUIImageLoader loadDataImageFromImage:usingPortableImageLoader:scaledSize:completion:]_block_invoke";
+        v22 = 2112;
+        v23 = v19;
+        _os_log_error_impl(&dword_22CA36000, v18, OS_LOG_TYPE_ERROR, "%s No image was loaded for input image %@", &v20, 0x16u);
       }
     }
 
@@ -254,8 +248,6 @@ void __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scale
   }
 
   v7();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)serviceIdentifier
@@ -273,9 +265,8 @@ void __89__INUIImageLoader_loadDataImageFromImage_usingPortableImageLoader_scale
   return serviceIdentifier_sServiceIdentifier;
 }
 
-void __36__INUIImageLoader_serviceIdentifier__block_invoke(uint64_t a1)
+void __36__INUIImageLoader_serviceIdentifier__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
   v3 = MEMORY[0x277CCACA8];
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:v2];

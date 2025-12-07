@@ -121,12 +121,18 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_24DFA0D08;
   }
 
+  else
+  {
+    v7 = 0;
+  }
+
   selfCopy = self;
-  sub_24DE73FA0(v6);
+  sub_24DE73FA0(v6, v7);
 }
 
 + (void)showProfileFor:(id)for from:(id)from completion:(id)completion
@@ -137,26 +143,30 @@
   {
     v9 = sub_24E347CF8();
     for = v10;
-    if (!v8)
+    if (v8)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v9 = 0;
-  if (v7)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v8;
-    v8 = sub_24DFA0D08;
+      v11 = swift_allocObject();
+      *(v11 + 16) = v8;
+      v8 = sub_24DFA0D08;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v9 = 0;
+    if (v7)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v11 = 0;
+LABEL_6:
   fromCopy = from;
   static PlayerProfileViewController.showProfile(for:from:completion:)(v9, for, fromCopy);
-  sub_24DE73FA0(v8);
+  sub_24DE73FA0(v8, v11);
 }
 
 - (_TtC12GameCenterUI27PlayerProfileViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -223,17 +233,17 @@ LABEL_5:
 - (BOOL)shouldDisplayInSplitView
 {
   selfCopy = self;
-  v3 = sub_24E0CC65C();
+  v4 = sub_24E0CC65C(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (id)contentScrollView
 {
   selfCopy = self;
-  v3 = sub_24E0CC714();
+  v4 = sub_24E0CC714(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)mainSecondaryCollectionViewLayout
@@ -260,7 +270,7 @@ LABEL_5:
 
   sub_24E0CE304();
 
-  sub_24DF8BFF4(v6, &qword_27F1E0370);
+  sub_24DF8BFF4(v6, &qword_27F1E0370, &unk_24E369A10);
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
@@ -314,9 +324,10 @@ LABEL_5:
 
 - (void)loadMoreWithContinuationToken:(id)token
 {
-  sub_24E347CF8();
+  v4 = sub_24E347CF8();
+  v6 = v5;
   selfCopy = self;
-  sub_24E0CFC0C();
+  sub_24E0CFC0C(v4, v6);
 }
 
 @end

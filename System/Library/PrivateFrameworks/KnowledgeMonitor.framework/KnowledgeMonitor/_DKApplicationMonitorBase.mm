@@ -111,7 +111,7 @@
 
 - (void)updateContextStoreWithFocalApplication:(id)application launchReason:(id)reason
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   reasonCopy = reason;
   if (!applicationCopy || [(__CFString *)applicationCopy isEqualToString:@"com.apple.springboard.home-screen"])
@@ -128,25 +128,23 @@
 
     objc_storeStrong(&self->_lastFocalApplicationForContext, applicationCopy);
     appBundleIdKey = [MEMORY[0x277CFE338] appBundleIdKey];
-    v17[0] = appBundleIdKey;
-    v18[0] = applicationCopy;
+    v16[0] = appBundleIdKey;
+    v17[0] = applicationCopy;
     appLaunchReasonKey = [MEMORY[0x277CFE338] appLaunchReasonKey];
     v12 = &stru_2838F0870;
-    v17[1] = appLaunchReasonKey;
+    v16[1] = appLaunchReasonKey;
     if (reasonCopy)
     {
       v12 = reasonCopy;
     }
 
-    v18[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
     userContext2 = [MEMORY[0x277CFE318] userContext];
     keyPathForAppDataDictionary = [MEMORY[0x277CFE338] keyPathForAppDataDictionary];
     [userContext2 setObject:v13 forKeyedSubscript:keyPathForAppDataDictionary];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)lookupApplication:(id)application shortVersionString:(id *)string exactBundleVersion:(id *)version
@@ -311,13 +309,12 @@
 
 - (void)lookupApplication:(uint64_t)a1 shortVersionString:(uint64_t)a2 exactBundleVersion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Unable to query LSApplicationRecord for bundleIdentifier:%{public}@ error:%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Unable to query LSApplicationRecord for bundleIdentifier:%{public}@ error:%@", &v3, 0x16u);
 }
 
 @end

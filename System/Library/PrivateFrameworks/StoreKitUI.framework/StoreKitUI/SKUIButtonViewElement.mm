@@ -43,9 +43,9 @@
     v20->_buttonViewType = SKUIButtonViewTypeForString(v21);
 
     v22 = [elementCopy getAttribute:@"sub-type"];
-    v23 = [v22 isEqualToString:@"toggle"];
+    isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-    v20->_buttonViewSubType = v23;
+    v20->_buttonViewSubType = isEqualToString;
     v24 = [elementCopy getAttribute:@"size-variant"];
     sizeVariant = v20->_sizeVariant;
     v20->_sizeVariant = v24;
@@ -124,13 +124,13 @@
     if ([v41 length])
     {
       v76 = v41;
-      if (([(__CFString *)v76 isEqualToString:@"redownload"]& 1) != 0 || ([(__CFString *)v76 isEqualToString:@"get"]& 1) != 0 || ([(__CFString *)v76 isEqualToString:@"preorder"]& 1) != 0 || ([(__CFString *)v76 isEqualToString:@"purchased"]& 1) != 0)
+      if (objc_msgSend_isEqualToString_(v76) & 1) != 0 || (objc_msgSend_isEqualToString_(v76) & 1) != 0 || (objc_msgSend_isEqualToString_(v76) & 1) != 0 || (objc_msgSend_isEqualToString_(v76))
       {
       }
 
       else
       {
-        v68 = [(__CFString *)v76 isEqualToString:@"update"];
+        v68 = objc_msgSend_isEqualToString_(v76);
 
         if (!v68)
         {
@@ -147,7 +147,7 @@
     }
 
 LABEL_26:
-    if ([v75 length] && !objc_msgSend(v75, "isEqualToString:", @"PLUS"))
+    if ([v75 length] && !objc_msgSend_isEqualToString_(v75))
     {
       if (v76 && v75)
       {
@@ -196,21 +196,21 @@ LABEL_35:
       if ([v52 length])
       {
         lowercaseString = [v52 lowercaseString];
-        v20->_bigHitButton = [lowercaseString isEqualToString:@"true"];
+        v20->_bigHitButton = objc_msgSend_isEqualToString_(lowercaseString);
       }
 
       v54 = [elementCopy getAttribute:@"show-on-demand"];
       if ([v54 length])
       {
         lowercaseString2 = [v54 lowercaseString];
-        v20->_showOnDemand = [lowercaseString2 isEqualToString:@"true"];
+        v20->_showOnDemand = objc_msgSend_isEqualToString_(lowercaseString2);
       }
 
       v56 = [elementCopy getAttribute:@"toggled"];
       if ([v56 length])
       {
         lowercaseString3 = [v56 lowercaseString];
-        v20->_toggled = [lowercaseString3 isEqualToString:@"true"];
+        v20->_toggled = objc_msgSend_isEqualToString_(lowercaseString3);
       }
 
       v58 = [elementCopy getAttribute:@"toggle-id"];
@@ -225,21 +225,21 @@ LABEL_35:
       if ([v61 length])
       {
         lowercaseString4 = [v61 lowercaseString];
-        v20->_autoIncrementCount = [lowercaseString4 isEqualToString:@"true"];
+        v20->_autoIncrementCount = objc_msgSend_isEqualToString_(lowercaseString4);
       }
 
       v63 = [elementCopy getAttribute:@"disabled-but-selectable"];
       if ([v63 length])
       {
         lowercaseString5 = [v63 lowercaseString];
-        v20->_disabledButSelectable = [lowercaseString5 isEqualToString:@"true"];
+        v20->_disabledButSelectable = objc_msgSend_isEqualToString_(lowercaseString5);
       }
 
       v65 = [elementCopy getAttribute:@"suppress-cloud-restore"];
       if ([v65 length])
       {
         lowercaseString6 = [v65 lowercaseString];
-        v20->_suppressCloudRestore = [lowercaseString6 isEqualToString:@"true"];
+        v20->_suppressCloudRestore = objc_msgSend_isEqualToString_(lowercaseString6);
       }
 
       _Block_object_dispose(&v78, 8);
@@ -267,9 +267,9 @@ void __66__SKUIButtonViewElement_initWithDOMElement_parent_elementFactory___bloc
   if ([v7 elementType] == 138)
   {
     v5 = [v7 elementName];
-    v6 = [v5 isEqualToString:@"span"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v6)
+    if (isEqualToString)
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
       *a3 = 1;
@@ -358,7 +358,7 @@ void __46__SKUIButtonViewElement_additionalButtonImage__block_invoke(uint64_t a1
 {
   v2 = [(SKUIViewElement *)self firstChildForElementType:138];
   v3 = v2;
-  if (v2 && ([v2 elementName], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", @"span"), v4, (v5 & 1) == 0))
+  if (v2 && ([v2 elementName], v4 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v4), v4, (isEqualToString & 1) == 0))
   {
     style = [v3 style];
   }
@@ -589,6 +589,12 @@ id __41__SKUIButtonViewElement__parseButtonText__block_invoke(uint64_t a1, uint6
   *a4 = v15 == 0;
 
   return v15;
+}
+
+- (void)initWithDOMElement:(uint64_t)a3 parent:(uint64_t)a4 elementFactory:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonViewElement initWithDOMElement:parent:elementFactory:]";
 }
 
 @end

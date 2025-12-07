@@ -1,10 +1,10 @@
 @interface NSMutableString(DDCategories)
-- (uint64_t)dd_appendSpaces:()DDCategories;
+- (void)dd_appendSpaces:()DDCategories;
 @end
 
 @implementation NSMutableString(DDCategories)
 
-- (uint64_t)dd_appendSpaces:()DDCategories
+- (void)dd_appendSpaces:()DDCategories
 {
   if (a3)
   {

@@ -453,7 +453,7 @@ void __41__TUIKeyboardPathRenderer_drawInMTKView___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __40__TUIKeyboardPathRenderer_setupPipeline__block_invoke(uint64_t a1)
+void *__40__TUIKeyboardPathRenderer_setupPipeline__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[3];

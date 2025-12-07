@@ -1,194 +1,3 @@
-id ActiveDeviceAssertion_Impl.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-uint64_t PDRDevice.compatibilityState.getter()
-{
-  if ([v0 valueForProperty_])
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v3 = 0u;
-    v4 = 0u;
-  }
-
-  v5[0] = v3;
-  v5[1] = v4;
-  if (*(&v4 + 1))
-  {
-    if (swift_dynamicCast())
-    {
-      return v2;
-    }
-  }
-
-  else
-  {
-    outlined destroy of UUID?(v5, &_sypSgMd, &_sypSgMR);
-  }
-
-  return 0;
-}
-
-uint64_t Device_Impl.propertyNames()()
-{
-  v1 = *(v0 + OBJC_IVAR___PDRDevice_Impl_registryState);
-  isa = UUID._bridgeToObjectiveC()().super.isa;
-  v3 = [v1 deviceForPairingID_];
-
-  v4 = MEMORY[0x277D84F90];
-  if (v3)
-  {
-    v5 = [v3 allPropertyNames];
-
-    v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v7 = *(v6 + 16);
-    if (v7)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
-      v8 = (v6 + 40);
-      do
-      {
-        v9 = *(v8 - 1);
-        v10 = *v8;
-
-        v11 = MEMORY[0x2318DF040](v9, v10);
-
-        v13 = *(v4 + 16);
-        v12 = *(v4 + 24);
-        if (v13 >= v12 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
-        }
-
-        *(v4 + 16) = v13 + 1;
-        *(v4 + 8 * v13 + 32) = v11;
-        v8 += 2;
-        --v7;
-      }
-
-      while (v7);
-    }
-  }
-
-  return v4;
-}
-
-uint64_t Device_Impl.description.getter()
-{
-  v1 = v0;
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = 0x6369766544524450;
-  v24 = 0xEB00000000203A65;
-  v7 = [v0 pairingID];
-  static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  v8 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x2318DF0A0](v8);
-
-  (*(v3 + 8))(v6, v2);
-  MEMORY[0x2318DF0A0](10, 0xE100000000000000);
-  v9 = [v1 propertyNames];
-  type metadata accessor for PDRDevicePropertyKey(0);
-  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v21 = v10;
-
-  specialized MutableCollection<>.sort(by:)(&v21);
-
-  v20 = v21;
-  v11 = *(v21 + 16);
-  if (v11)
-  {
-    v12 = (v20 + 4);
-    do
-    {
-      v13 = *v12++;
-      v14 = v13;
-      v15 = Device_Impl.valueDescriptionFor(property:)(v14);
-      v17 = v16;
-      v21 = 538976288;
-      v22 = 0xE400000000000000;
-      v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      MEMORY[0x2318DF0A0](v18);
-
-      MEMORY[0x2318DF0A0](8250, 0xE200000000000000);
-      MEMORY[0x2318DF0A0](v15, v17);
-
-      MEMORY[0x2318DF0A0](10, 0xE100000000000000);
-      MEMORY[0x2318DF0A0](v21, v22);
-
-      --v11;
-    }
-
-    while (v11);
-  }
-
-  return v23;
-}
-
-uint64_t Device_Impl.valueDescriptionFor(property:)(uint64_t a1)
-{
-  v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v21 - v6;
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (![v2 valueForProperty_])
-  {
-    return 0x3E6C696E3CLL;
-  }
-
-  _bridgeAnyObjectToAny(_:)();
-  swift_unknownObjectRelease();
-  outlined init with take of Any(v21, v22);
-  outlined init with copy of Any(v22, v21);
-  v13 = swift_dynamicCast();
-  v14 = *(v9 + 56);
-  if (v13)
-  {
-    v14(v7, 0, 1, v8);
-    (*(v9 + 32))(v12, v7, v8);
-    v15 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
-    v16 = MEMORY[0x2318DF040](0xD000000000000017, 0x800000022DFB09C0);
-    [v15 setDateFormat_];
-
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v18 = [v15 stringFromDate_];
-
-    v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v9 + 8))(v12, v8);
-  }
-
-  else
-  {
-    v14(v7, 1, 1, v8);
-    outlined destroy of UUID?(v7, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-    outlined init with copy of Any(v22, v21);
-    v19 = String.init<A>(describing:)();
-  }
-
-  __swift_destroy_boxed_opaque_existential_0(v22);
-  return v19;
-}
-
 id Device_Impl.__allocating_init()()
 {
   v1 = objc_allocWithZone(v0);
@@ -199,107 +8,99 @@ id Device_Impl.__allocating_init()()
 id Device_Impl.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for Device_Impl();
+  v2.super_class = type metadata accessor for Device_Impl(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t static PDRDevicePropertyKey.< infix(_:_:)()
+uint64_t static PDRDevicePropertyKey.< infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v4 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v4 & 1;
+  return v6 & 1;
 }
 
-uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance PDRDevicePropertyKey(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
 
-    v10 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v10 = v9 ^ 1;
+    v8 = v7 ^ 1;
   }
 
-  return v10 & 1;
+  return v8 & 1;
 }
 
-uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance PDRDevicePropertyKey(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
 
-    v10 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v10 = v9 ^ 1;
+    v8 = v7 ^ 1;
   }
 
-  return v10 & 1;
+  return v8 & 1;
 }
 
-uint64_t protocol witness for static Comparable.> infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Comparable.> infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t PDRDevice.lastActiveDate()@<X0>(uint64_t a1@<X8>)
@@ -337,11 +138,10 @@ uint64_t PDRDevice.bluetoothIdentifier()@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v16 - v9;
+  v5 = MEMORY[0x28223BE20](v4 - 8);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v15 - v8;
   if ([v2 valueForProperty_])
   {
     _bridgeAnyObjectToAny(_:)();
@@ -350,39 +150,39 @@ uint64_t PDRDevice.bluetoothIdentifier()@<X0>(uint64_t a1@<X8>)
 
   else
   {
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
   }
 
-  v18[0] = v16;
-  v18[1] = v17;
-  if (*(&v17 + 1))
+  v17[0] = v15;
+  v17[1] = v16;
+  if (*(&v16 + 1))
   {
-    v11 = type metadata accessor for UUID();
-    v12 = swift_dynamicCast();
-    v13 = *(v11 - 8);
-    (*(v13 + 56))(v10, v12 ^ 1u, 1, v11);
-    if ((*(v13 + 48))(v10, 1, v11) != 1)
+    v10 = type metadata accessor for UUID();
+    v11 = swift_dynamicCast();
+    v12 = *(v10 - 8);
+    (*(v12 + 56))(v9, v11 ^ 1u, 1, v10);
+    if ((*(v12 + 48))(v9, 1, v10) != 1)
     {
-      return (*(v13 + 32))(a1, v10, v11);
+      return (*(v12 + 32))(a1, v9, v10);
     }
   }
 
   else
   {
-    outlined destroy of UUID?(v18, &_sypSgMd, &_sypSgMR);
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+    outlined destroy of UUID?(v17, &_sypSgMd, &_sypSgMR);
+    v10 = type metadata accessor for UUID();
+    (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
   }
 
-  outlined destroy of UUID?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   UUID.init(uuidString:)();
   type metadata accessor for UUID();
-  v14 = *(v11 - 8);
-  result = (*(v14 + 48))(v8, 1, v11);
+  v13 = *(v10 - 8);
+  result = (*(v13 + 48))(v7, 1, v10);
   if (result != 1)
   {
-    return (*(v14 + 32))(a1, v8, v11);
+    return (*(v13 + 32))(a1, v7, v10);
   }
 
   __break(1u);
@@ -409,14 +209,14 @@ id PDRDevice.advertisedName.getter()
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -580,7 +380,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-Swift::Int specialized MutableCollection<>.sort(by:)(void **a1)
+Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t *a1)
 {
   v2 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -596,7 +396,7 @@ Swift::Int specialized MutableCollection<>.sort(by:)(void **a1)
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -609,12 +409,11 @@ uint64_t lazy protocol witness table accessor for type UUID and conformance UUID
   return result;
 }
 
-uint64_t type metadata completion function for Device_Impl()
+uint64_t type metadata completion function for Device_Impl(uint64_t a1, uint64_t a2)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -681,15 +480,13 @@ uint64_t specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(ui
     v6 = *a4 + 8 * a3 - 8;
     v7 = result - a3;
 LABEL_6:
-    v8 = *(v5 + 8 * v4);
-    v9 = v7;
-    v10 = v6;
+    v8 = v7;
+    v9 = v6;
     while (1)
     {
-      v11 = *v10;
-      v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v14 = v13;
-      if (v12 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v14 == v15)
+      v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v12 = v11;
+      if (v10 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v12 == v13)
       {
 
 LABEL_5:
@@ -704,9 +501,9 @@ LABEL_5:
         goto LABEL_6;
       }
 
-      v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v17 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -716,12 +513,12 @@ LABEL_5:
         break;
       }
 
-      v18 = *v10;
-      result = v10[1];
-      *v10 = result;
-      v10[1] = v18;
-      --v10;
-      if (__CFADD__(v9++, 1))
+      v16 = *v9;
+      result = v9[1];
+      *v9 = result;
+      v9[1] = v16;
+      --v9;
+      if (__CFADD__(v8++, 1))
       {
         goto LABEL_5;
       }
@@ -736,14 +533,14 @@ LABEL_5:
 uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v5 = v4;
-  v110 = result;
+  v104 = result;
   v6 = a3[1];
   if (v6 < 1)
   {
     v8 = MEMORY[0x277D84F90];
 LABEL_104:
-    v6 = *v110;
-    if (!*v110)
+    v6 = *v104;
+    if (!*v104)
     {
       goto LABEL_143;
     }
@@ -752,21 +549,21 @@ LABEL_104:
     if (result)
     {
 LABEL_106:
-      v100 = v5;
-      v101 = *(v8 + 2);
-      if (v101 >= 2)
+      v94 = v5;
+      v95 = *(v8 + 2);
+      if (v95 >= 2)
       {
         while (*a3)
         {
-          v5 = v101 - 1;
-          v102 = *&v8[16 * v101];
-          v103 = *&v8[16 * v101 + 24];
-          specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v102), (*a3 + 8 * *&v8[16 * v101 + 16]), (*a3 + 8 * v103), v6);
-          if (v100)
+          v5 = v95 - 1;
+          v96 = *&v8[16 * v95];
+          v97 = *&v8[16 * v95 + 24];
+          specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v96), (*a3 + 8 * *&v8[16 * v95 + 16]), (*a3 + 8 * v97), v6);
+          if (v94)
           {
           }
 
-          if (v103 < v102)
+          if (v97 < v96)
           {
             goto LABEL_130;
           }
@@ -776,17 +573,17 @@ LABEL_106:
             v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
           }
 
-          if (v101 - 2 >= *(v8 + 2))
+          if (v95 - 2 >= *(v8 + 2))
           {
             goto LABEL_131;
           }
 
-          v104 = &v8[16 * v101];
-          *v104 = v102;
-          *(v104 + 1) = v103;
-          result = specialized Array.remove(at:)(v101 - 1);
-          v101 = *(v8 + 2);
-          if (v101 <= 1)
+          v98 = &v8[16 * v95];
+          *v98 = v96;
+          *(v98 + 1) = v97;
+          result = specialized Array.remove(at:)(v95 - 1);
+          v95 = *(v8 + 2);
+          if (v95 <= 1)
           {
           }
         }
@@ -809,100 +606,96 @@ LABEL_137:
     if (v7 < v6)
     {
       v10 = *a3;
-      v11 = *(*a3 + 8 * v7);
-      v12 = *(*a3 + 8 * v9);
-      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v15 = v14;
-      v17 = v13 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v15 == v16;
-      v106 = v5;
-      if (v17)
+      v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v13 = v12;
+      v15 = v11 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v13 == v14;
+      v100 = v5;
+      if (v15)
       {
-        v113 = 0;
+        v107 = 0;
       }
 
       else
       {
-        v113 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v107 = _stringCompareWithSmolCheck(_:_:expecting:)();
       }
 
-      v108 = v9;
-      v18 = (v10 + 8 * v9 + 16);
-      v111 = 8 * v9;
-      v19 = 8 * v9 + 8;
+      v102 = v9;
+      v16 = v10 + 8 * v9 + 16;
+      v105 = 8 * v9;
+      v17 = 8 * v9 + 8;
       do
       {
         v5 = v7;
-        v22 = v19;
+        v20 = v17;
         if (++v7 >= v6)
         {
           break;
         }
 
-        v23 = v8;
-        v24 = v6;
-        v25 = v7;
-        v27 = *(v18 - 1);
-        v26 = *v18;
-        v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v30 = v29;
-        v32 = v28 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v30 == v31;
-        v20 = v32 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+        v21 = v8;
+        v22 = v6;
+        v23 = v7;
+        v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v26 = v25;
+        v28 = v24 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v26 == v27;
+        v18 = v28 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        v21 = v113 ^ v20;
-        ++v18;
-        v19 = v22 + 8;
-        v7 = v25;
-        v6 = v24;
-        v8 = v23;
+        v19 = v107 ^ v18;
+        v16 += 8;
+        v17 = v20 + 8;
+        v7 = v23;
+        v6 = v22;
+        v8 = v21;
       }
 
-      while ((v21 & 1) == 0);
-      if (v113)
+      while ((v19 & 1) == 0);
+      if (v107)
       {
-        v33 = v108;
-        if (v7 < v108)
+        v29 = v102;
+        if (v7 < v102)
         {
           goto LABEL_134;
         }
 
-        if (v108 >= v7)
+        if (v102 >= v7)
         {
-          v5 = v106;
-          v9 = v108;
+          v5 = v100;
+          v9 = v102;
           goto LABEL_31;
         }
 
-        v34 = v111;
+        v30 = v105;
         do
         {
-          if (v33 != v5)
+          if (v29 != v5)
           {
-            v36 = *a3;
+            v32 = *a3;
             if (!*a3)
             {
               goto LABEL_140;
             }
 
-            v37 = *(v36 + v34);
-            *(v36 + v34) = *(v36 + v22);
-            *(v36 + v22) = v37;
+            v33 = *(v32 + v30);
+            *(v32 + v30) = *(v32 + v20);
+            *(v32 + v20) = v33;
           }
 
-          ++v33;
-          v22 -= 8;
-          v34 += 8;
+          ++v29;
+          v20 -= 8;
+          v30 += 8;
         }
 
-        while (v33 < v5--);
+        while (v29 < v5--);
       }
 
-      v5 = v106;
-      v9 = v108;
+      v5 = v100;
+      v9 = v102;
     }
 
 LABEL_31:
-    v38 = a3[1];
-    if (v7 < v38)
+    v34 = a3[1];
+    if (v7 < v34)
     {
       if (__OFSUB__(v7, v9))
       {
@@ -928,79 +721,79 @@ LABEL_53:
       v8 = result;
     }
 
-    v55 = *(v8 + 2);
-    v54 = *(v8 + 3);
-    v56 = v55 + 1;
-    if (v55 >= v54 >> 1)
+    v49 = *(v8 + 2);
+    v48 = *(v8 + 3);
+    v50 = v49 + 1;
+    if (v49 >= v48 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v54 > 1), v55 + 1, 1, v8);
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v49 + 1, 1, v8);
       v8 = result;
     }
 
-    *(v8 + 2) = v56;
-    v57 = &v8[16 * v55];
-    *(v57 + 4) = v9;
-    *(v57 + 5) = v7;
-    v58 = *v110;
-    if (!*v110)
+    *(v8 + 2) = v50;
+    v51 = &v8[16 * v49];
+    *(v51 + 4) = v9;
+    *(v51 + 5) = v7;
+    v52 = *v104;
+    if (!*v104)
     {
       goto LABEL_142;
     }
 
-    if (v55)
+    if (v49)
     {
       while (1)
       {
-        v59 = v56 - 1;
-        if (v56 >= 4)
+        v53 = v50 - 1;
+        if (v50 >= 4)
         {
           break;
         }
 
-        if (v56 == 3)
+        if (v50 == 3)
         {
-          v60 = *(v8 + 4);
-          v61 = *(v8 + 5);
-          v70 = __OFSUB__(v61, v60);
-          v62 = v61 - v60;
-          v63 = v70;
+          v54 = *(v8 + 4);
+          v55 = *(v8 + 5);
+          v64 = __OFSUB__(v55, v54);
+          v56 = v55 - v54;
+          v57 = v64;
 LABEL_73:
-          if (v63)
+          if (v57)
           {
             goto LABEL_121;
           }
 
-          v76 = &v8[16 * v56];
-          v78 = *v76;
-          v77 = *(v76 + 1);
-          v79 = __OFSUB__(v77, v78);
-          v80 = v77 - v78;
-          v81 = v79;
-          if (v79)
+          v70 = &v8[16 * v50];
+          v72 = *v70;
+          v71 = *(v70 + 1);
+          v73 = __OFSUB__(v71, v72);
+          v74 = v71 - v72;
+          v75 = v73;
+          if (v73)
           {
             goto LABEL_124;
           }
 
-          v82 = &v8[16 * v59 + 32];
-          v84 = *v82;
-          v83 = *(v82 + 1);
-          v70 = __OFSUB__(v83, v84);
-          v85 = v83 - v84;
-          if (v70)
+          v76 = &v8[16 * v53 + 32];
+          v78 = *v76;
+          v77 = *(v76 + 1);
+          v64 = __OFSUB__(v77, v78);
+          v79 = v77 - v78;
+          if (v64)
           {
             goto LABEL_127;
           }
 
-          if (__OFADD__(v80, v85))
+          if (__OFADD__(v74, v79))
           {
             goto LABEL_128;
           }
 
-          if (v80 + v85 >= v62)
+          if (v74 + v79 >= v56)
           {
-            if (v62 < v85)
+            if (v56 < v79)
             {
-              v59 = v56 - 2;
+              v53 = v50 - 2;
             }
 
             goto LABEL_94;
@@ -1009,36 +802,36 @@ LABEL_73:
           goto LABEL_87;
         }
 
-        v86 = &v8[16 * v56];
-        v88 = *v86;
-        v87 = *(v86 + 1);
-        v70 = __OFSUB__(v87, v88);
-        v80 = v87 - v88;
-        v81 = v70;
+        v80 = &v8[16 * v50];
+        v82 = *v80;
+        v81 = *(v80 + 1);
+        v64 = __OFSUB__(v81, v82);
+        v74 = v81 - v82;
+        v75 = v64;
 LABEL_87:
-        if (v81)
+        if (v75)
         {
           goto LABEL_123;
         }
 
-        v89 = &v8[16 * v59];
-        v91 = *(v89 + 4);
-        v90 = *(v89 + 5);
-        v70 = __OFSUB__(v90, v91);
-        v92 = v90 - v91;
-        if (v70)
+        v83 = &v8[16 * v53];
+        v85 = *(v83 + 4);
+        v84 = *(v83 + 5);
+        v64 = __OFSUB__(v84, v85);
+        v86 = v84 - v85;
+        if (v64)
         {
           goto LABEL_126;
         }
 
-        if (v92 < v80)
+        if (v86 < v74)
         {
           goto LABEL_3;
         }
 
 LABEL_94:
-        v97 = v59 - 1;
-        if (v59 - 1 >= v56)
+        v91 = v53 - 1;
+        if (v53 - 1 >= v50)
         {
           __break(1u);
 LABEL_117:
@@ -1087,14 +880,14 @@ LABEL_135:
           goto LABEL_139;
         }
 
-        v98 = *&v8[16 * v97 + 32];
-        v6 = *&v8[16 * v59 + 40];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v98), (*a3 + 8 * *&v8[16 * v59 + 32]), (*a3 + 8 * v6), v58);
+        v92 = *&v8[16 * v91 + 32];
+        v6 = *&v8[16 * v53 + 40];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v92), (*a3 + 8 * *&v8[16 * v53 + 32]), (*a3 + 8 * v6), v52);
         if (v5)
         {
         }
 
-        if (v6 < v98)
+        if (v6 < v92)
         {
           goto LABEL_117;
         }
@@ -1104,74 +897,74 @@ LABEL_135:
           v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
         }
 
-        if (v97 >= *(v8 + 2))
+        if (v91 >= *(v8 + 2))
         {
           goto LABEL_118;
         }
 
-        v99 = &v8[16 * v97];
-        *(v99 + 4) = v98;
-        *(v99 + 5) = v6;
-        result = specialized Array.remove(at:)(v59);
-        v56 = *(v8 + 2);
-        if (v56 <= 1)
+        v93 = &v8[16 * v91];
+        *(v93 + 4) = v92;
+        *(v93 + 5) = v6;
+        result = specialized Array.remove(at:)(v53);
+        v50 = *(v8 + 2);
+        if (v50 <= 1)
         {
           goto LABEL_3;
         }
       }
 
-      v64 = &v8[16 * v56 + 32];
-      v65 = *(v64 - 64);
-      v66 = *(v64 - 56);
-      v70 = __OFSUB__(v66, v65);
-      v67 = v66 - v65;
-      if (v70)
+      v58 = &v8[16 * v50 + 32];
+      v59 = *(v58 - 64);
+      v60 = *(v58 - 56);
+      v64 = __OFSUB__(v60, v59);
+      v61 = v60 - v59;
+      if (v64)
       {
         goto LABEL_119;
       }
 
-      v69 = *(v64 - 48);
-      v68 = *(v64 - 40);
-      v70 = __OFSUB__(v68, v69);
-      v62 = v68 - v69;
-      v63 = v70;
-      if (v70)
+      v63 = *(v58 - 48);
+      v62 = *(v58 - 40);
+      v64 = __OFSUB__(v62, v63);
+      v56 = v62 - v63;
+      v57 = v64;
+      if (v64)
       {
         goto LABEL_120;
       }
 
-      v71 = &v8[16 * v56];
-      v73 = *v71;
-      v72 = *(v71 + 1);
-      v70 = __OFSUB__(v72, v73);
-      v74 = v72 - v73;
-      if (v70)
+      v65 = &v8[16 * v50];
+      v67 = *v65;
+      v66 = *(v65 + 1);
+      v64 = __OFSUB__(v66, v67);
+      v68 = v66 - v67;
+      if (v64)
       {
         goto LABEL_122;
       }
 
-      v70 = __OFADD__(v62, v74);
-      v75 = v62 + v74;
-      if (v70)
+      v64 = __OFADD__(v56, v68);
+      v69 = v56 + v68;
+      if (v64)
       {
         goto LABEL_125;
       }
 
-      if (v75 >= v67)
+      if (v69 >= v61)
       {
-        v93 = &v8[16 * v59 + 32];
-        v95 = *v93;
-        v94 = *(v93 + 1);
-        v70 = __OFSUB__(v94, v95);
-        v96 = v94 - v95;
-        if (v70)
+        v87 = &v8[16 * v53 + 32];
+        v89 = *v87;
+        v88 = *(v87 + 1);
+        v64 = __OFSUB__(v88, v89);
+        v90 = v88 - v89;
+        if (v64)
         {
           goto LABEL_129;
         }
 
-        if (v62 < v96)
+        if (v56 < v90)
         {
-          v59 = v56 - 2;
+          v53 = v50 - 2;
         }
 
         goto LABEL_94;
@@ -1188,80 +981,78 @@ LABEL_3:
     }
   }
 
-  v39 = v9 + a4;
+  v35 = v9 + a4;
   if (__OFADD__(v9, a4))
   {
     goto LABEL_135;
   }
 
-  if (v39 >= v38)
+  if (v35 >= v34)
   {
-    v39 = a3[1];
+    v35 = a3[1];
   }
 
-  if (v39 < v9)
+  if (v35 < v9)
   {
 LABEL_136:
     __break(1u);
     goto LABEL_137;
   }
 
-  if (v7 == v39)
+  if (v7 == v35)
   {
     goto LABEL_53;
   }
 
-  v107 = v5;
-  v109 = v9;
-  v40 = *a3;
+  v101 = v5;
+  v103 = v9;
+  v36 = *a3;
   v6 = *a3 + 8 * v7 - 8;
-  v41 = v9 - v7;
-  v112 = v39;
+  v37 = v9 - v7;
+  v106 = v35;
 LABEL_42:
-  v114 = v7;
-  v42 = *(v40 + 8 * v7);
-  v43 = v41;
-  v44 = v6;
+  v108 = v7;
+  v38 = v37;
+  v39 = v6;
   while (1)
   {
-    v45 = *v44;
-    v46 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v48 = v47;
-    if (v46 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v48 == v49)
+    v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v42 = v41;
+    if (v40 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v42 == v43)
     {
 
 LABEL_41:
-      v7 = v114 + 1;
+      v7 = v108 + 1;
       v6 += 8;
-      --v41;
-      if (v114 + 1 == v112)
+      --v37;
+      if (v108 + 1 == v106)
       {
-        v7 = v112;
-        v5 = v107;
-        v9 = v109;
+        v7 = v106;
+        v5 = v101;
+        v9 = v103;
         goto LABEL_53;
       }
 
       goto LABEL_42;
     }
 
-    v51 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v45 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v51 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
       goto LABEL_41;
     }
 
-    if (!v40)
+    if (!v36)
     {
       break;
     }
 
-    v52 = *v44;
-    *v44 = v44[1];
-    v44[1] = v52;
-    --v44;
-    if (__CFADD__(v43++, 1))
+    v46 = *v39;
+    *v39 = v39[1];
+    v39[1] = v46;
+    --v39;
+    if (__CFADD__(v38++, 1))
     {
       goto LABEL_41;
     }
@@ -1325,27 +1116,25 @@ LABEL_10:
         goto LABEL_10;
       }
 
-      v16 = *v6;
-      v17 = *v4;
-      v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v20 = v19;
-      v22 = v18 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v20 == v21;
-      if (v22)
+      v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v18 = v17;
+      v20 = v16 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v18 == v19;
+      if (v20)
       {
         break;
       }
 
-      v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v23 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         goto LABEL_22;
       }
 
       v15 = v6;
-      v22 = v7 == v6;
+      v20 = v7 == v6;
       v6 += 8;
-      if (!v22)
+      if (!v20)
       {
         goto LABEL_12;
       }
@@ -1360,9 +1149,9 @@ LABEL_13:
 
 LABEL_22:
     v15 = v4;
-    v22 = v7 == v4;
+    v20 = v7 == v4;
     v4 += 8;
-    if (v22)
+    if (v20)
     {
       goto LABEL_13;
     }
@@ -1382,44 +1171,42 @@ LABEL_12:
   {
     do
     {
-      v36 = v6;
-      v24 = v6 - 8;
+      v32 = v6;
+      v22 = v6 - 8;
       v5 -= 8;
-      v25 = v14;
+      v23 = v14;
       while (1)
       {
-        v26 = *(v25 - 1);
-        v25 -= 8;
-        v6 = v24;
-        v27 = *v24;
-        v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v30 = v29;
-        v32 = v28 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v30 == v31;
-        v33 = v32 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+        v23 -= 8;
+        v6 = v22;
+        v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v26 = v25;
+        v28 = v24 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v26 == v27;
+        v29 = v28 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        v34 = v5 + 8;
-        if (v33)
+        v30 = v5 + 8;
+        if (v29)
         {
           break;
         }
 
-        v24 = v6;
-        if (v34 != v14)
+        v22 = v6;
+        if (v30 != v14)
         {
-          *v5 = *v25;
+          *v5 = *v23;
         }
 
         v5 -= 8;
-        v14 = v25;
-        if (v25 <= v4)
+        v14 = v23;
+        if (v23 <= v4)
         {
-          v14 = v25;
-          v6 = v36;
+          v14 = v23;
+          v6 = v32;
           goto LABEL_47;
         }
       }
 
-      if (v34 != v36)
+      if (v30 != v32)
       {
         *v5 = *v6;
       }
@@ -1458,7 +1245,6 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -1470,18 +1256,16 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
 
 void PDRDeviceSizeForProductType_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22DF91000, a2, OS_LOG_TYPE_ERROR, "IMPORTANT! Unsupported ProductType (%@) falling back to generic size (which won't behave correctly in UI)!", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22DF91000, a2, OS_LOG_TYPE_ERROR, "IMPORTANT! Unsupported ProductType (%@) falling back to generic size (which won't behave correctly in UI)!", &v2, 0xCu);
 }
 
 void PDRDeviceSizeForArtworkDeviceSubType_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_22DF91000, a2, OS_LOG_TYPE_ERROR, "IMPORTANT! Unsupported ArtworkDeviceSubType (%lu) falling back to generic size (which won't behave correctly in UI)!", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_22DF91000, a2, OS_LOG_TYPE_ERROR, "IMPORTANT! Unsupported ArtworkDeviceSubType (%lu) falling back to generic size (which won't behave correctly in UI)!", &v2, 0xCu);
 }

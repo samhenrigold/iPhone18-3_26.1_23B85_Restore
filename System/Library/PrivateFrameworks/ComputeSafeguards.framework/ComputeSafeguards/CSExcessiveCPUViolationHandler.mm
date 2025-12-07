@@ -53,16 +53,17 @@ uint64_t __48__CSExcessiveCPUViolationHandler_sharedInstance__block_invoke()
   processCopy = process;
   pathCopy = path;
   logger = self->_logger;
-  if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+  v19 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
+  if (v19)
   {
-    v19 = "(NON FATAL) ";
+    v20 = "(NON FATAL) ";
     if (fatal)
     {
-      v19 = "(FATAL) ";
+      v20 = "(FATAL) ";
     }
 
     *buf = 136317186;
-    v35 = v19;
+    v35 = v20;
     v36 = 2112;
     v37 = processCopy;
     v40 = 2112;
@@ -84,7 +85,7 @@ uint64_t __48__CSExcessiveCPUViolationHandler_sharedInstance__block_invoke()
 
   if (processCopy)
   {
-    v20 = getMainQueue();
+    v21 = getMainQueue(v19);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke;
@@ -99,24 +100,22 @@ uint64_t __48__CSExcessiveCPUViolationHandler_sharedInstance__block_invoke()
     timeCopy = time;
     v26 = processCopy;
     fatalCopy = fatal;
-    dispatch_sync(v20, block);
+    dispatch_sync(v21, block);
   }
 
   else
   {
-    v21 = self->_logger;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v22 = self->_logger;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [CSExcessiveCPUViolationHandler handleViolationByProcess:v21 pid:? path:? endTime:? observedValue:? observationWindow:? limitValue:? limitWindow:? fatal:?];
+      [CSExcessiveCPUViolationHandler handleViolationByProcess:v22 pid:? path:? endTime:? observedValue:? observationWindow:? limitValue:? limitWindow:? fatal:?];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke(uint64_t a1)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 56);
   v3 = getProcessUUID(*(a1 + 56));
   if (v3)
@@ -172,9 +171,9 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
             v21 = *(a1 + 64);
             v22 = v21 / 1000000000.0;
             v23 = *(a1 + 72);
-            v81 = v10;
-            v82 = v8;
-            v80 = v12;
+            v79 = v10;
+            v80 = v8;
+            v78 = v12;
             if (v23)
             {
               v24 = 100 * v21 / v23;
@@ -185,7 +184,7 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
               v24 = 0;
             }
 
-            v79 = [v19 stringWithFormat:@"Received CPU violation: %s[%llu] (%@) used %.2f seconds of CPU over %.2f seconds (averaging %d%%), violating a CPU usage limit of %.2f seconds over %lld seconds.", v20, *(a1 + 56), *(a1 + 40), *&v22, v23 / 1000000000.0, v24, *(a1 + 80) / 1000000000.0, *(a1 + 88) / 0x3B9ACA00uLL];
+            v77 = [v19 stringWithFormat:@"Received CPU violation: %s[%llu] (%@) used %.2f seconds of CPU over %.2f seconds (averaging %d%%), violating a CPU usage limit of %.2f seconds over %lld seconds.", v20, *(a1 + 56), *(a1 + 40), *&v22, v23 / 1000000000.0, v24, *(a1 + 80) / 1000000000.0, *(a1 + 88) / 0x3B9ACA00uLL];
             [v7 setViolationDetectorString:?];
             v26 = [v7 cpuTimeWindow];
             v27 = [v26 longLongValue];
@@ -193,11 +192,11 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
             v28 = [v7 cpuThreshold];
             v29 = [v28 longLongValue];
 
-            v83 = v27;
+            v81 = v27;
             v30 = ((v29 * v27 * 0xA3D70A3D70A3D70BLL) >> 64) + v29 * v27;
-            v75 = [v7 issueType];
-            v73 = [v7 mitigationType];
-            v71 = [v7 mitigationReason];
+            v73 = [v7 issueType];
+            v71 = [v7 mitigationType];
+            v69 = [v7 mitigationReason];
             v31 = [v7 energySnapshotNew];
             v32 = [v31 time];
 
@@ -212,7 +211,7 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
               v39 = [v38 time];
 
               v40 = [MEMORY[0x277CBEAA8] now];
-              v85 = v39;
+              v83 = v39;
               [v40 timeIntervalSinceDate:v39];
               v42 = v41;
 
@@ -252,12 +251,12 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
                 }
               }
 
-              v85 = v32;
+              v83 = v32;
             }
 
             v50 = (v30 >> 6) + (v30 >> 63);
             [v7 setEstimatedEnergyDiff:v46];
-            if (v83 == *(a1 + 88) / 0x3B9ACA00uLL && v50 == *(a1 + 80) / 0x3B9ACA00uLL)
+            if (v81 == *(a1 + 88) / 0x3B9ACA00uLL && v50 == *(a1 + 80) / 0x3B9ACA00uLL)
             {
               v51 = 1;
             }
@@ -267,28 +266,28 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
               v52 = *(*(a1 + 32) + 16);
               if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
               {
-                v70 = *(a1 + 104);
-                v65 = *(a1 + 88) / 0x3B9ACA00uLL;
-                v66 = v46;
+                v68 = *(a1 + 104);
+                v63 = *(a1 + 88) / 0x3B9ACA00uLL;
+                v64 = v46;
                 v46 = *(a1 + 80) / 0x3B9ACA00uLL;
                 log = v52;
-                v67 = [v7 processName];
-                v68 = *(a1 + 56);
+                v65 = [v7 processName];
+                v66 = *(a1 + 56);
                 *buf = 67110658;
-                *v87 = v70;
-                *&v87[4] = 2048;
-                *&v87[6] = v83;
-                *&v87[14] = 2048;
-                *&v87[16] = v65;
-                *&v87[24] = 2048;
-                *&v87[26] = v50;
-                v88 = 2048;
-                *v89 = v46;
-                LODWORD(v46) = v66;
-                *&v89[8] = 2112;
-                v90 = v67;
-                *v91 = 2048;
-                *&v91[2] = v68;
+                *v85 = v68;
+                *&v85[4] = 2048;
+                *&v85[6] = v81;
+                *&v85[14] = 2048;
+                *&v85[16] = v63;
+                *&v85[24] = 2048;
+                *&v85[26] = v50;
+                v86 = 2048;
+                *v87 = v46;
+                LODWORD(v46) = v64;
+                *&v87[8] = 2112;
+                v88 = v65;
+                *v89 = 2048;
+                *&v89[2] = v66;
                 _os_log_debug_impl(&dword_243DC3000, log, OS_LOG_TYPE_DEBUG, "handleViolationByProcess: Violation not from us? isFatal (%d), savedTimeWindow (%lld) == limitWindow (%lld), savedThreshold (%llu) == limitValue (%lld) for process %@ (%llu)", buf, 0x44u);
               }
 
@@ -298,11 +297,11 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
             v53 = *(*(a1 + 32) + 16);
             if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
-              v84 = v53;
-              loga = PEIssueTypeString(v75);
-              v76 = PEMitigationTypeString(v73);
-              v74 = PEReasonString(v71);
-              v72 = [v7 cpuFatalCnt];
+              v82 = v53;
+              loga = PEIssueTypeString(v73);
+              v74 = PEMitigationTypeString(v71);
+              v72 = PEReasonString(v69);
+              v70 = [v7 cpuFatalCnt];
               v54 = [v7 cpuNonFatalCnt];
               v55 = [v7 exitsCnt];
               v56 = v51;
@@ -312,42 +311,41 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
               v60 = v58;
               v61 = *v2;
               *buf = 136317698;
-              *v87 = loga;
-              *&v87[8] = 2080;
-              *&v87[10] = v76;
-              *&v87[18] = 2080;
-              *&v87[20] = v74;
-              *&v87[28] = 1024;
-              *&v87[30] = v72;
-              v88 = 1024;
-              *v89 = v54;
-              *&v89[4] = 1024;
-              *&v89[6] = v55;
-              LOWORD(v90) = 1024;
-              *(&v90 + 2) = v57;
+              *v85 = loga;
+              *&v85[8] = 2080;
+              *&v85[10] = v74;
+              *&v85[18] = 2080;
+              *&v85[20] = v72;
+              *&v85[28] = 1024;
+              *&v85[30] = v70;
+              v86 = 1024;
+              *v87 = v54;
+              *&v87[4] = 1024;
+              *&v87[6] = v55;
+              LOWORD(v88) = 1024;
+              *(&v88 + 2) = v57;
               v51 = v56;
-              HIWORD(v90) = 1024;
-              *v91 = v59;
-              *&v91[4] = 2112;
-              *&v91[6] = v85;
-              v92 = 2112;
-              v93 = v58;
-              v94 = 2048;
-              v95 = v61;
-              _os_log_impl(&dword_243DC3000, v84, OS_LOG_TYPE_DEFAULT, "handleViolationByProcess: IssueType:%s MitigationType:%s MitigationReason:%s cpuFatalCnt:%u cpu_non_fatal_cnt:%u exitsCnt:%u penaltyBoxCnt:%u estimatedEnergyDiff:%u date:%@ for process %@ (%llu)", buf, 0x5Cu);
+              HIWORD(v88) = 1024;
+              *v89 = v59;
+              *&v89[4] = 2112;
+              *&v89[6] = v83;
+              v90 = 2112;
+              v91 = v58;
+              v92 = 2048;
+              v93 = v61;
+              _os_log_impl(&dword_243DC3000, v82, OS_LOG_TYPE_DEFAULT, "handleViolationByProcess: IssueType:%s MitigationType:%s MitigationReason:%s cpuFatalCnt:%u cpu_non_fatal_cnt:%u exitsCnt:%u penaltyBoxCnt:%u estimatedEnergyDiff:%u date:%@ for process %@ (%llu)", buf, 0x5Cu);
             }
 
-            v8 = v82;
-            v12 = v80;
+            v8 = v80;
+            v12 = v78;
             if (v51)
             {
               CoalitionID = getCoalitionID(*(a1 + 56));
-              v63 = *(a1 + 80);
-              LOBYTE(v69) = *(a1 + 104);
-              [v80 handleCPUDetectionViolation:v7 coalitionID:CoalitionID pid:*(a1 + 56) endTime:*(a1 + 96) observedValue:*(a1 + 64) observationWindow:*(a1 + 72) limitValue:v63 limitWindow:*(a1 + 88) fatal:v69];
+              LOBYTE(v67) = *(a1 + 104);
+              [v78 handleCPUDetectionViolation:v7 coalitionID:CoalitionID pid:*(a1 + 56) endTime:*(a1 + 96) observedValue:*(a1 + 64) observationWindow:*(a1 + 72) limitValue:*(a1 + 80) limitWindow:*(a1 + 88) fatal:v67];
             }
 
-            v10 = v81;
+            v10 = v79;
           }
 
           else
@@ -355,7 +353,7 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
             v25 = *(*(a1 + 32) + 16);
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
-              __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_2(v25, v7, v2);
+              __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_2(v25, v7);
             }
           }
         }
@@ -365,7 +363,7 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
           v17 = *(*(a1 + 32) + 16);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_3(v17, v7, v2);
+            __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_3(v17, v7);
           }
         }
       }
@@ -398,77 +396,62 @@ void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_end
       __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_6(v14, v2);
     }
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "handleViolationByProcess: No scenarioName to use, logging empty scenario name for violation for pid %llu.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "handleViolationByProcess: No scenarioName to use, logging empty scenario name for violation for pid %llu.", &v3, 0xCu);
 }
 
-void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_2(void *a1, void *a2, uint64_t *a3)
+void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_2(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v6 = [a2 processName];
-  v7 = *a3;
+  v3 = a1;
+  v4 = [a2 processName];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243DC3000, v8, v9, "handleViolationByProcess: Failed to get mitigationManager for process %@ (%llu)???", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_243DC3000, v5, v6, "handleViolationByProcess: Failed to get mitigationManager for process %@ (%llu)???", v7, v8, v9, v10);
 }
 
-void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_3(void *a1, void *a2, uint64_t *a3)
+void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_3(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v6 = [a2 processName];
-  v7 = *a3;
+  v3 = a1;
+  v4 = [a2 processName];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243DC3000, v8, v9, "handleViolationByProcess: No ProcessIdentifier for process %@ (%llu)???", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_243DC3000, v5, v6, "handleViolationByProcess: No ProcessIdentifier for process %@ (%llu)???", v7, v8, v9, v10);
 }
 
 void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_4(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "handleViolationByProcess: Failed to get CSProcess for logging violation for pid %llu???", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "handleViolationByProcess: Failed to get CSProcess for logging violation for pid %llu???", &v3, 0xCu);
 }
 
 void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_5(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "handleViolationByProcess: Failed to get CSProcessManager for logging violation for pid %llu???", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "handleViolationByProcess: Failed to get CSProcessManager for logging violation for pid %llu???", &v3, 0xCu);
 }
 
 void __137__CSExcessiveCPUViolationHandler_handleViolationByProcess_pid_path_endTime_observedValue_observationWindow_limitValue_limitWindow_fatal___block_invoke_cold_6(void *a1, uint64_t *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = *__error();
   v5 = *a2;
-  v7[0] = 67109376;
-  v7[1] = v4;
-  v8 = 2048;
-  v9 = v5;
-  _os_log_error_impl(&dword_243DC3000, v3, OS_LOG_TYPE_ERROR, "handleViolationByProcess: getProcessUUID() failed %d for pid %llu", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109376;
+  v6[1] = v4;
+  v7 = 2048;
+  v8 = v5;
+  _os_log_error_impl(&dword_243DC3000, v3, OS_LOG_TYPE_ERROR, "handleViolationByProcess: getProcessUUID() failed %d for pid %llu", v6, 0x12u);
 }
 
 @end

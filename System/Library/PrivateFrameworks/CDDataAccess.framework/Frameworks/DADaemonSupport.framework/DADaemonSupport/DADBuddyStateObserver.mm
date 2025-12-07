@@ -94,14 +94,14 @@
   }
 }
 
-void __30__DADBuddyStateObserver_start__block_invoke(uint64_t a1)
+void __30__DADBuddyStateObserver_start__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = DALoggingwithCategory();
-  v3 = *(MEMORY[0x277CF3AF0] + 5);
-  if (os_log_type_enabled(v2, v3))
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277CF3AF0] + 5);
+  if (os_log_type_enabled(v3, v4))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_2424DF000, v2, v3, "DADBuddyStateObserver: Received buddy finished notification.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2424DF000, v3, v4, "DADBuddyStateObserver: Received buddy finished notification.", v6, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));

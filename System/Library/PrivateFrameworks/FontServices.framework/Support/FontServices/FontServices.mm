@@ -1,25 +1,25 @@
-id sub_10000106C()
+id sub_10000106C(uint64_t a1)
 {
   if (qword_10001D900 != -1)
   {
     sub_10000D020();
   }
 
-  v1 = qword_10001D8F8;
+  v2 = qword_10001D8F8;
 
-  return v1;
+  return v2;
 }
 
-id sub_10000112C()
+id sub_10000112C(uint64_t a1)
 {
   if (qword_10001D910 != -1)
   {
     sub_10000D034();
   }
 
-  v1 = qword_10001D908;
+  v2 = qword_10001D908;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000012B0(id a1)
@@ -71,7 +71,7 @@ LABEL_20:
     }
 
     [v7 removeObjectForKey:@"disabled"];
-    v16 = sub_10000BB70(v5, v8) != 0;
+    v12 = sub_10000BB70(v5, v8) != 0;
     if (*(a1 + 80) == 1)
     {
       if (*(a1 + 81))
@@ -79,17 +79,13 @@ LABEL_20:
         goto LABEL_9;
       }
 
-      if (!v16)
+      if (!v12)
       {
-        v12 = *(a1 + 48);
-        v14 = *(a1 + 64);
         v11 = __s1;
         if (sandbox_check_by_audit_token())
         {
-          if (!v16)
+          if (!v12)
           {
-            v13 = *(a1 + 48);
-            v15 = *(a1 + 64);
             v9 = sandbox_extension_issue_file_to_process();
             if (v9)
             {
@@ -123,9 +119,9 @@ LABEL_9:
 LABEL_21:
 }
 
-void sub_100002210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100002210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -179,9 +175,9 @@ LABEL_5:
   return v14;
 }
 
-void sub_1000026EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1000026EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -193,14 +189,13 @@ void sub_100002714(uint64_t a1)
   {
     v4 = *(a1 + 90);
     v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v30 = 0;
-    v7 = *(a1 + 72);
-    v28 = *(a1 + 56);
-    v29 = v7;
-    v8 = [v5 fontInfoForAuditToken:&v28 withFontAccess:v4 enumuration:&v30 installation:? identifier:? andFileFilters:? foundFontDirectoryName:?];
-    v3 = v30;
-    [v2 addEntriesFromDictionary:v8];
+    v29 = 0;
+    v6 = *(a1 + 72);
+    v27 = *(a1 + 56);
+    v28 = v6;
+    v7 = [v5 fontInfoForAuditToken:&v27 withFontAccess:v4 enumuration:&v29 installation:? identifier:? andFileFilters:? foundFontDirectoryName:?];
+    v3 = v29;
+    [v2 addEntriesFromDictionary:v7];
 
     if (*(a1 + 88))
     {
@@ -215,69 +210,69 @@ void sub_100002714(uint64_t a1)
 
   if (*(a1 + 90) == 1 && *(a1 + 40))
   {
-    v9 = [*(a1 + 32) issuedFontFilePathsForIdentifier:?];
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 88);
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_1000029B8;
-    v26[3] = &unk_100018700;
-    v27 = v9;
-    v12 = *(a1 + 72);
-    v28 = *(a1 + 56);
-    v29 = v12;
-    v13 = v9;
-    v14 = [v10 filterUserFontInfoForAuditToken:&v28 withEnumerationCapability:v11 withFilter:v26];
-    [v2 addEntriesFromDictionary:v14];
+    v8 = [*(a1 + 32) issuedFontFilePathsForIdentifier:?];
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 88);
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_1000029B8;
+    v25[3] = &unk_100018700;
+    v26 = v8;
+    v11 = *(a1 + 72);
+    v27 = *(a1 + 56);
+    v28 = v11;
+    v12 = v8;
+    v13 = [v9 filterUserFontInfoForAuditToken:&v27 withEnumerationCapability:v10 withFilter:v25];
+    [v2 addEntriesFromDictionary:v13];
   }
 
 LABEL_8:
-  v15 = objc_opt_new();
-  [v15 setObject:v2 forKey:@"fontsInfo"];
+  v14 = objc_opt_new();
+  [v14 setObject:v2 forKey:@"fontsInfo"];
   if (*(a1 + 88) == 1)
   {
-    v16 = *(a1 + 32);
-    v17 = *(a1 + 72);
-    v28 = *(a1 + 56);
-    v29 = v17;
-    v18 = [v16 sandboxExtensionForEnumeration:&v28];
-    if (v18)
+    v15 = *(a1 + 32);
+    v16 = *(a1 + 72);
+    v27 = *(a1 + 56);
+    v28 = v16;
+    v17 = [v15 sandboxExtensionForEnumeration:&v27];
+    if (v17)
     {
-      [v15 setObject:v18 forKey:@"extension"];
+      [v14 setObject:v17 forKey:@"extension"];
     }
 
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 72);
-    v28 = *(a1 + 56);
-    v29 = v20;
-    v21 = [v19 sandboxExtensionForFontAssets:&v28];
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 72);
+    v27 = *(a1 + 56);
+    v28 = v19;
+    v20 = [v18 sandboxExtensionForFontAssets:&v27];
 
-    if (v21)
+    if (v20)
     {
-      v22 = @"extension.fontasset";
+      v21 = @"extension.fontasset";
 LABEL_16:
-      [v15 setObject:v21 forKey:v22];
+      [v14 setObject:v20 forKey:v21];
     }
   }
 
   else if (v3)
   {
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 72);
-    v28 = *(a1 + 56);
-    v29 = v24;
-    v25 = [v23 sandboxExtensionForProvider:&v28 withDirectoryName:v3];
-    if (v25)
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 72);
+    v27 = *(a1 + 56);
+    v28 = v23;
+    v24 = [v22 sandboxExtensionForProvider:&v27 withDirectoryName:v3];
+    if (v24)
     {
-      v21 = v25;
-      v22 = @"extension.provider";
+      v20 = v24;
+      v21 = @"extension.provider";
       goto LABEL_16;
     }
   }
 
   if ((*(a1 + 88) & 1) == 0 && (*(a1 + 90) & 1) == 0)
   {
-    [v15 setObject:&__kCFBooleanTrue forKey:@"hide-profilefonts"];
+    [v14 setObject:&__kCFBooleanTrue forKey:@"hide-profilefonts"];
   }
 
   (*(*(a1 + 48) + 16))();
@@ -318,32 +313,31 @@ uint64_t sub_100002A40(uint64_t a1, void *a2, void *a3)
   v7 = a3;
   if (sub_10000BB04(v6))
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = [v7 objectForKeyedSubscript:@"familyFaces"];
     v9 = [v8 allKeys];
 
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       while (2)
       {
         v13 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(*(&v17 + 1) + 8 * v13) hasPrefix:@"PingFang "])
+          if ([*(*(&v16 + 1) + 8 * v13) hasPrefix:@"PingFang "])
           {
             objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
-            v16 = *(a1 + 32);
             FSLog_Debug();
             v14 = 1;
             goto LABEL_13;
@@ -353,7 +347,7 @@ uint64_t sub_100002A40(uint64_t a1, void *a2, void *a3)
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v11)
         {
           continue;
@@ -375,14 +369,14 @@ LABEL_13:
   return v14;
 }
 
-void sub_100002D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -404,11 +398,11 @@ void sub_100002D78(void *a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100002F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -448,9 +442,9 @@ uint64_t sub_10000349C(uint64_t a1, void *a2, void *a3)
   return _objc_release_x2();
 }
 
-void sub_1000036C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000036C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -810,11 +804,12 @@ uint64_t sub_100005B4C(uint64_t a1)
   return result;
 }
 
-void sub_100006618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100006618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  objc_destroyWeak((v39 + 64));
+  va_start(va, a38);
+  objc_destroyWeak((v38 + 64));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -990,10 +985,7 @@ void sub_100006DEC(id a1)
 
 uint64_t sub_1000070BC(uint64_t a1)
 {
-  v2 = dispatch_queue_create("com.apple.fontservicesd.subscriptionSupport", 0);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = dispatch_queue_create("com.apple.fontservicesd.subscriptionSupport", 0);
 
   return _objc_release_x1();
 }
@@ -1062,6 +1054,13 @@ uint64_t sub_1000071B4(uint64_t a1)
   atomic_fetch_add_explicit(dword_10001D8D8, 0xFFFFFFFF, memory_order_relaxed);
   [*(a1 + 32) countFontAssets];
   return AnalyticsSendEventLazy();
+}
+
+void sub_1000074F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100007528(uint64_t a1, void *a2, void *a3)
@@ -1161,11 +1160,10 @@ void sub_100007528(uint64_t a1, void *a2, void *a3)
   }
 }
 
-uint64_t sub_100007920(uint64_t result, uint64_t a2)
+uint64_t sub_100007920(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
     return FSLog_Error();
   }
 
@@ -1226,10 +1224,7 @@ void sub_100007D3C(uint64_t a1)
 
 uint64_t sub_100008004(uint64_t a1)
 {
-  v2 = dispatch_queue_create("com.apple.fontservicesd.scheduledFontDeletion", 0);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = dispatch_queue_create("com.apple.fontservicesd.scheduledFontDeletion", 0);
 
   return _objc_release_x1();
 }
@@ -1336,7 +1331,14 @@ void sub_1000085C4(uint64_t a1)
   }
 }
 
-id sub_100009140(uint64_t a1)
+void sub_100009114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+NSMutableDictionary *sub_100009140(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = [*(a1 + 32) mainHandlerQueue];
@@ -1630,20 +1632,19 @@ void sub_1000099A0(uint64_t a1)
   }
 }
 
-uint64_t sub_100009DC4(uint64_t result, uint64_t a2)
+uint64_t sub_100009DC4(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
     return FSLog_Error();
   }
 
   return result;
 }
 
-void sub_100009F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1705,7 +1706,7 @@ void sub_10000A9F4(uint64_t a1)
   v4 = v3;
   if (v3)
   {
-    [v3 auditToken];
+    objc_msgSend_auditToken(v3);
   }
 
   else
@@ -1789,7 +1790,7 @@ void sub_10000B74C(uint64_t a1)
   v3 = v2;
   if (v2)
   {
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
   }
 
   else
@@ -1937,7 +1938,6 @@ intptr_t sub_10000BF00(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v5 = *(a1 + 32);
     FSLog_Debug();
   }
 
@@ -2049,7 +2049,6 @@ void sub_10000C334(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10000C4C0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
   if (a3)
   {
     return FSLog_Error();
@@ -2233,7 +2232,6 @@ void sub_10000CBD8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10000CDAC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
   if (a3)
   {
     return FSLog_Error();

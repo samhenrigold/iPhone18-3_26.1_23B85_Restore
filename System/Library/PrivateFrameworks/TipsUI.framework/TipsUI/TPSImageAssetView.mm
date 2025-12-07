@@ -51,11 +51,13 @@
   return v6;
 }
 
-uint64_t __54__TPSImageAssetView_cacheImageAvailableForIdentifier___block_invoke()
+uint64_t __54__TPSImageAssetView_cacheImageAvailableForIdentifier___block_invoke(uint64_t a1)
 {
-  cacheImageAvailableForIdentifier__gFrameworkBundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = cacheImageAvailableForIdentifier__gFrameworkBundle;
+  cacheImageAvailableForIdentifier__gFrameworkBundle = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)commonInit

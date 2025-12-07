@@ -7,7 +7,7 @@
 
 - (id)resultUsingContextualizerInput:(id)input
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   dialogAct = [inputCopy dialogAct];
   objc_opt_class();
@@ -18,15 +18,15 @@
 
   reference = [dialogAct reference];
   coreResult = [inputCopy coreResult];
-  v35 = reference;
+  v34 = reference;
   v8 = [UPContextualizerUtilities createConfirmOrRejectedDialogActsFor:coreResult reference:reference];
 
   v9 = [UPContextualizerInput alloc];
   domainResult = [inputCopy domainResult];
   modelIdentifier = [inputCopy modelIdentifier];
   query = [inputCopy query];
-  v33 = v8;
-  v34 = dialogAct;
+  v32 = v8;
+  v33 = dialogAct;
   v13 = [(UPContextualizerInput *)v9 initWithDomainResult:domainResult coreResult:v8 modelIdentifier:modelIdentifier query:query dialogAct:dialogAct];
 
   dialogAct2 = [(UPContextualizerInput *)v13 dialogAct];
@@ -44,7 +44,7 @@
     if (v21)
     {
       *buf = 138412290;
-      v37 = entityName;
+      v36 = entityName;
       _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyPrompt: No domain result matched dialog act prompted entity (%@)", buf, 0xCu);
     }
 
@@ -54,9 +54,9 @@
   if (v21)
   {
     *buf = 134218242;
-    v37 = candidateCount;
-    v38 = 2112;
-    v39 = entityName;
+    v36 = candidateCount;
+    v37 = 2112;
+    v38 = entityName;
     _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyPrompt; %ld domain candidates matched dialog act prompted entity (%@)", buf, 0x16u);
   }
 
@@ -89,8 +89,6 @@ LABEL_10:
       v23 = 0;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

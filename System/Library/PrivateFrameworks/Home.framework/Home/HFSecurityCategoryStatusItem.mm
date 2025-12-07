@@ -18,20 +18,18 @@
   return v3;
 }
 
-void __49__HFSecurityCategoryStatusItem_statusItemClasses__block_invoke_2()
+void __49__HFSecurityCategoryStatusItem_statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
-  v1 = qword_280E02A80;
-  qword_280E02A80 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
+  v3 = qword_280E02A80;
+  qword_280E02A80 = v2;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
@@ -79,7 +77,7 @@ id __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invoke
   {
 
 LABEL_8:
-    v37 = [MEMORY[0x277D2C900] futureWithResult:v4];
+    v34 = [MEMORY[0x277D2C900] futureWithResult:v4];
     goto LABEL_9;
   }
 
@@ -91,178 +89,174 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v125 = 0;
-  v126 = &v125;
-  v127 = 0x3032000000;
-  v128 = __Block_byref_object_copy__0;
-  v129 = __Block_byref_object_dispose__0;
-  v130 = 0;
+  v121 = 0;
+  v122 = &v121;
+  v123 = 0x3032000000;
+  v124 = __Block_byref_object_copy__0;
+  v125 = __Block_byref_object_dispose__0;
+  v126 = 0;
   v14 = [MEMORY[0x277CBEB58] set];
   v15 = [MEMORY[0x277CBEB58] set];
   v16 = [MEMORY[0x277CBEB58] set];
   v17 = [MEMORY[0x277CBEB58] set];
   v18 = [MEMORY[0x277CBEB58] set];
   v19 = [MEMORY[0x277CBEB58] set];
-  v20 = *(a1 + 40);
-  v21 = [objc_opt_class() statusItemClasses];
-  v117[0] = MEMORY[0x277D85DD0];
-  v117[1] = 3221225472;
-  v117[2] = __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invoke_21;
-  v117[3] = &unk_277DF3040;
-  v117[4] = *(a1 + 40);
-  v124 = &v125;
-  v22 = v14;
-  v118 = v22;
-  v23 = v15;
-  v119 = v23;
-  v24 = v16;
-  v120 = v24;
-  v115 = v17;
-  v121 = v115;
-  v114 = v18;
-  v122 = v114;
-  v25 = v19;
-  v123 = v25;
-  [v21 na_each:v117];
+  v20 = [objc_opt_class() statusItemClasses];
+  v113[0] = MEMORY[0x277D85DD0];
+  v113[1] = 3221225472;
+  v113[2] = __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invoke_21;
+  v113[3] = &unk_277DF3040;
+  v113[4] = *(a1 + 40);
+  v120 = &v121;
+  v21 = v14;
+  v114 = v21;
+  v22 = v15;
+  v115 = v22;
+  v23 = v16;
+  v116 = v23;
+  v111 = v17;
+  v117 = v111;
+  v110 = v18;
+  v118 = v110;
+  v24 = v19;
+  v119 = v24;
+  [v20 na_each:v113];
 
-  v116 = [*(a1 + 40) _statusItemOfClass:objc_opt_class()];
-  v26 = *(a1 + 40);
-  v27 = [objc_opt_class() _aggregatablePositionStatusItemClasses];
-  v28 = v126[5];
-  LODWORD(v21) = [v27 containsObject:objc_opt_class()];
+  v112 = [*(a1 + 40) _statusItemOfClass:objc_opt_class()];
+  v25 = [objc_opt_class() _aggregatablePositionStatusItemClasses];
+  LODWORD(v20) = [v25 containsObject:objc_opt_class()];
 
-  if (!v21)
+  if (!v20)
   {
-    v39 = v126[5];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v53 = [v116 latestResults];
-      v54 = [v53 objectForKeyedSubscript:@"state"];
-      v55 = [v54 isEqual:&unk_282523328];
+      v49 = [v112 latestResults];
+      v50 = [v49 objectForKeyedSubscript:@"state"];
+      v51 = [v50 isEqual:&unk_282523328];
 
-      if (v55)
+      if (v51)
       {
-        v36 = _HFLocalizedStringWithDefaultValue(@"HFSecurityCategoryStatusDescription_NoAlerts", @"HFSecurityCategoryStatusDescription_NoAlerts", 1);
-        [v4 setObject:v36 forKeyedSubscript:@"description"];
+        v33 = _HFLocalizedStringWithDefaultValue(@"HFSecurityCategoryStatusDescription_NoAlerts", @"HFSecurityCategoryStatusDescription_NoAlerts", 1);
+        [v4 setObject:v33 forKeyedSubscript:@"description"];
         goto LABEL_37;
       }
 
-      v36 = [v116 latestResults];
-      v42 = [v36 objectForKeyedSubscript:@"shortDescription"];
-      [v4 setObject:v42 forKeyedSubscript:@"description"];
+      v33 = [v112 latestResults];
+      v38 = [v33 objectForKeyedSubscript:@"shortDescription"];
+      [v4 setObject:v38 forKeyedSubscript:@"description"];
 LABEL_36:
 
       goto LABEL_37;
     }
 
-    v40 = [v126[5] latestResults];
-    v36 = [v40 objectForKeyedSubscript:@"obstructedServices"];
+    v36 = [v122[5] latestResults];
+    v33 = [v36 objectForKeyedSubscript:@"obstructedServices"];
 
-    v41 = [v126[5] latestResults];
-    v42 = [v41 objectForKeyedSubscript:@"openServices"];
+    v37 = [v122[5] latestResults];
+    v38 = [v37 objectForKeyedSubscript:@"openServices"];
 
-    v43 = [v126[5] latestResults];
-    v113 = [v43 objectForKeyedSubscript:@"openingServices"];
+    v39 = [v122[5] latestResults];
+    v109 = [v39 objectForKeyedSubscript:@"openingServices"];
 
-    v44 = [v126[5] latestResults];
-    v112 = [v44 objectForKeyedSubscript:@"closingServices"];
+    v40 = [v122[5] latestResults];
+    v108 = [v40 objectForKeyedSubscript:@"closingServices"];
 
-    if ([v36 count])
+    if ([v33 count])
     {
-      v45 = [v36 count];
-      v52 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Jammed", @"%lu", v46, v47, v48, v49, v50, v51, v45);
-      [v4 setObject:v52 forKeyedSubscript:@"description"];
+      v41 = [v33 count];
+      v48 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Jammed", @"%lu", v42, v43, v44, v45, v46, v47, v41);
+      [v4 setObject:v48 forKeyedSubscript:@"description"];
     }
 
-    else if ([v42 count])
+    else if ([v38 count])
     {
-      v63 = [v42 count];
-      v52 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unlocked", @"%lu", v64, v65, v66, v67, v68, v69, v63);
-      [v4 setObject:v52 forKeyedSubscript:@"description"];
+      v59 = [v38 count];
+      v48 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unlocked", @"%lu", v60, v61, v62, v63, v64, v65, v59);
+      [v4 setObject:v48 forKeyedSubscript:@"description"];
     }
 
-    else if ([v113 count])
+    else if ([v109 count])
     {
-      v77 = [v113 count];
-      v52 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unlocking", @"%lu", v78, v79, v80, v81, v82, v83, v77);
-      [v4 setObject:v52 forKeyedSubscript:@"description"];
+      v73 = [v109 count];
+      v48 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unlocking", @"%lu", v74, v75, v76, v77, v78, v79, v73);
+      [v4 setObject:v48 forKeyedSubscript:@"description"];
     }
 
-    else if ([v112 count])
+    else if ([v108 count])
     {
-      v91 = [v112 count];
-      v52 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Locking", @"%lu", v92, v93, v94, v95, v96, v97, v91);
-      [v4 setObject:v52 forKeyedSubscript:@"description"];
+      v87 = [v108 count];
+      v48 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Locking", @"%lu", v88, v89, v90, v91, v92, v93, v87);
+      [v4 setObject:v48 forKeyedSubscript:@"description"];
     }
 
     else
     {
-      if (![v25 count])
+      if (![v24 count])
       {
 LABEL_35:
 
         goto LABEL_36;
       }
 
-      v105 = [v25 count];
-      v52 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unknown", @"%lu", v106, v107, v108, v109, v110, v111, v105);
-      [v4 setObject:v52 forKeyedSubscript:@"description"];
+      v101 = [v24 count];
+      v48 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unknown", @"%lu", v102, v103, v104, v105, v106, v107, v101);
+      [v4 setObject:v48 forKeyedSubscript:@"description"];
     }
 
     goto LABEL_35;
   }
 
-  if ([v22 count])
+  if ([v21 count])
   {
-    v29 = [v22 count];
-    v36 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Obstructed", @"%lu", v30, v31, v32, v33, v34, v35, v29);
-    [v4 setObject:v36 forKeyedSubscript:@"description"];
+    v26 = [v21 count];
+    v33 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Obstructed", @"%lu", v27, v28, v29, v30, v31, v32, v26);
+    [v4 setObject:v33 forKeyedSubscript:@"description"];
 LABEL_37:
 
     goto LABEL_38;
   }
 
+  if ([v22 count])
+  {
+    v52 = [v22 count];
+    v33 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Open", @"%lu", v53, v54, v55, v56, v57, v58, v52);
+    [v4 setObject:v33 forKeyedSubscript:@"description"];
+    goto LABEL_37;
+  }
+
   if ([v23 count])
   {
-    v56 = [v23 count];
-    v36 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Open", @"%lu", v57, v58, v59, v60, v61, v62, v56);
-    [v4 setObject:v36 forKeyedSubscript:@"description"];
+    v66 = [v23 count];
+    v33 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Opening", @"%lu", v67, v68, v69, v70, v71, v72, v66);
+    [v4 setObject:v33 forKeyedSubscript:@"description"];
+    goto LABEL_37;
+  }
+
+  if ([v111 count])
+  {
+    v80 = [v111 count];
+    v33 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Closing", @"%lu", v81, v82, v83, v84, v85, v86, v80);
+    [v4 setObject:v33 forKeyedSubscript:@"description"];
     goto LABEL_37;
   }
 
   if ([v24 count])
   {
-    v70 = [v24 count];
-    v36 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Opening", @"%lu", v71, v72, v73, v74, v75, v76, v70);
-    [v4 setObject:v36 forKeyedSubscript:@"description"];
-    goto LABEL_37;
-  }
-
-  if ([v115 count])
-  {
-    v84 = [v115 count];
-    v36 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Closing", @"%lu", v85, v86, v87, v88, v89, v90, v84);
-    [v4 setObject:v36 forKeyedSubscript:@"description"];
-    goto LABEL_37;
-  }
-
-  if ([v25 count])
-  {
-    v98 = [v25 count];
-    v36 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unknown", @"%lu", v99, v100, v101, v102, v103, v104, v98);
-    [v4 setObject:v36 forKeyedSubscript:@"description"];
+    v94 = [v24 count];
+    v33 = HFLocalizedStringWithFormat(@"HFSecurityCategoryStatusTitle_Unknown", @"%lu", v95, v96, v97, v98, v99, v100, v94);
+    [v4 setObject:v33 forKeyedSubscript:@"description"];
     goto LABEL_37;
   }
 
 LABEL_38:
   [*(a1 + 40) applyInflectionToDescriptions:v4];
-  v37 = [MEMORY[0x277D2C900] futureWithResult:v4];
+  v34 = [MEMORY[0x277D2C900] futureWithResult:v4];
 
-  _Block_object_dispose(&v125, 8);
+  _Block_object_dispose(&v121, 8);
 LABEL_9:
 
-  return v37;
+  return v34;
 }
 
 void __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invoke_21(uint64_t a1, uint64_t a2)
@@ -281,42 +275,41 @@ void __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invo
     }
   }
 
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() _aggregatablePositionStatusItemClasses];
-  v10 = [v9 containsObject:a2];
+  v8 = [objc_opt_class() _aggregatablePositionStatusItemClasses];
+  v9 = [v8 containsObject:a2];
 
-  if (v10)
+  if (v9)
   {
-    v11 = *(a1 + 40);
-    v12 = [obj latestResults];
-    v13 = [v12 objectForKeyedSubscript:@"obstructedServices"];
-    [v11 unionSet:v13];
+    v10 = *(a1 + 40);
+    v11 = [obj latestResults];
+    v12 = [v11 objectForKeyedSubscript:@"obstructedServices"];
+    [v10 unionSet:v12];
 
-    v14 = *(a1 + 48);
-    v15 = [obj latestResults];
-    v16 = [v15 objectForKeyedSubscript:@"openServices"];
-    [v14 unionSet:v16];
+    v13 = *(a1 + 48);
+    v14 = [obj latestResults];
+    v15 = [v14 objectForKeyedSubscript:@"openServices"];
+    [v13 unionSet:v15];
 
-    v17 = *(a1 + 56);
-    v18 = [obj latestResults];
-    v19 = [v18 objectForKeyedSubscript:@"openingServices"];
-    [v17 unionSet:v19];
+    v16 = *(a1 + 56);
+    v17 = [obj latestResults];
+    v18 = [v17 objectForKeyedSubscript:@"openingServices"];
+    [v16 unionSet:v18];
 
-    v20 = *(a1 + 64);
-    v21 = [obj latestResults];
-    v22 = [v21 objectForKeyedSubscript:@"closingServices"];
-    [v20 unionSet:v22];
+    v19 = *(a1 + 64);
+    v20 = [obj latestResults];
+    v21 = [v20 objectForKeyedSubscript:@"closingServices"];
+    [v19 unionSet:v21];
 
-    v23 = *(a1 + 72);
-    v24 = [obj latestResults];
-    v25 = [v24 objectForKeyedSubscript:@"closedServices"];
-    [v23 unionSet:v25];
+    v22 = *(a1 + 72);
+    v23 = [obj latestResults];
+    v24 = [v23 objectForKeyedSubscript:@"closedServices"];
+    [v22 unionSet:v24];
   }
 
-  v26 = *(a1 + 80);
-  v27 = [obj latestResults];
-  v28 = [v27 objectForKeyedSubscript:@"unknownServices"];
-  [v26 unionSet:v28];
+  v25 = *(a1 + 80);
+  v26 = [obj latestResults];
+  v27 = [v26 objectForKeyedSubscript:@"unknownServices"];
+  [v25 unionSet:v27];
 }
 
 + (id)_aggregatablePositionStatusItemClasses
@@ -331,20 +324,18 @@ void __60__HFSecurityCategoryStatusItem__subclass_updateWithOptions___block_invo
   return v3;
 }
 
-void __70__HFSecurityCategoryStatusItem__aggregatablePositionStatusItemClasses__block_invoke_2()
+void __70__HFSecurityCategoryStatusItem__aggregatablePositionStatusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_280E02A90;
-  qword_280E02A90 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_280E02A90;
+  qword_280E02A90 = v4;
 }
 
 @end

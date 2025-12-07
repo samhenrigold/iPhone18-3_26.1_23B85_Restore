@@ -14,6 +14,7 @@
 - (void)enumerateTokensWithInfoUsingBlock:(id)block;
 - (void)removeAllTokens;
 - (void)removeIdentifier:(id)identifier forTopic:(id)topic;
+- (void)setFlag:(BOOL)flag forTopic:(id)topic identifier:(id)identifier;
 - (void)setToken:(id)token forInfo:(id)info;
 - (void)setToken:(id)token forTopic:(id)topic identifier:(id)identifier;
 @end
@@ -301,6 +302,28 @@ LABEL_16:
 
   objc_sync_exit(selfCopy);
   return flag;
+}
+
+- (void)setFlag:(BOOL)flag forTopic:(id)topic identifier:(id)identifier
+{
+  flagCopy = flag;
+  topicCopy = topic;
+  selfCopy = self;
+  identifierCopy = identifier;
+  objc_sync_enter(selfCopy);
+  v10 = &stru_10018F6A0;
+  if (identifierCopy)
+  {
+    v10 = identifierCopy;
+  }
+
+  v11 = v10;
+
+  v12 = [(NSMutableDictionary *)selfCopy->_perAppTokenMap objectForKey:topicCopy];
+  v13 = [v12 objectForKey:v11];
+  [v13 setFlag:flagCopy];
+
+  objc_sync_exit(selfCopy);
 }
 
 - (id)allPerAppTokens

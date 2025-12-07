@@ -40,20 +40,20 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
-  v6 = *((*MEMORY[0x1E69E7D40] & self->super.super.super.super.super.isa) + 0x138);
+  MEMORY[0x1EEE9AC00](v5, v6);
+  v7 = *((*MEMORY[0x1E69E7D40] & self->super.super.super.super.super.isa) + 0x138);
   selfCopy = self;
-  v6(&v12);
-  v8 = v12;
+  v7(&v13);
+  v9 = v13;
   sub_1BA4A71E8();
-  v11 = v8;
+  v12 = v9;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v9 = type metadata accessor for AllHighlightsForExperienceViewController();
-  v10.receiver = selfCopy;
-  v10.super_class = v9;
-  [(CompoundDataSourceCollectionViewController *)&v10 viewIsAppearing:appearingCopy];
+  v10 = type metadata accessor for AllHighlightsForExperienceViewController();
+  v11.receiver = selfCopy;
+  v11.super_class = v10;
+  [(CompoundDataSourceCollectionViewController *)&v11 viewIsAppearing:appearingCopy];
 }
 
 - (_TtC18HealthExperienceUI40AllHighlightsForExperienceViewController)initWithCollectionViewLayout:(id)layout

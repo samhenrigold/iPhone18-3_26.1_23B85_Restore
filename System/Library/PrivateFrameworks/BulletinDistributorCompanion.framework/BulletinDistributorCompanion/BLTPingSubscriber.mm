@@ -3,6 +3,7 @@
 - (BLTPingSubscriber)initWithService:(id)service;
 - (id)sectionIDs;
 - (id)subscriptionInfos;
+- (void)_subscribeToSectionID:(id)d pingHandler:(id)handler ackType:(unint64_t)type forFullBulletins:(BOOL)bulletins forNotifications:(BOOL)notifications;
 - (void)dealloc;
 - (void)getWillNanoPresentNotificationForSectionID:(id)d completion:(id)completion;
 - (void)getWillNanoPresentNotificationForSectionID:(id)d subsectionIDs:(id)ds completion:(id)completion;
@@ -97,6 +98,25 @@
     [(NSMutableDictionary *)self->_pingHandlers removeObjectForKey:dCopy];
     [(BLTPingService *)self->_service unsubscribeFromSectionID:dCopy];
   }
+
+  pthread_mutex_unlock(&self->_lock);
+}
+
+- (void)_subscribeToSectionID:(id)d pingHandler:(id)handler ackType:(unint64_t)type forFullBulletins:(BOOL)bulletins forNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  bulletinsCopy = bulletins;
+  handlerCopy = handler;
+  dCopy = d;
+  v14 = [[BLTPingHandlerHolder alloc] initWithPingHandler:handlerCopy];
+
+  [(BLTPingHandlerHolder *)v14 setAckType:type];
+  [(BLTPingHandlerHolder *)v14 setSectionID:dCopy];
+  [(BLTPingHandlerHolder *)v14 setForBulletin:bulletinsCopy];
+  [(BLTPingHandlerHolder *)v14 setForNotification:notificationsCopy];
+  pthread_mutex_lock(&self->_lock);
+  [(NSMutableDictionary *)self->_pingHandlers setObject:v14 forKeyedSubscript:dCopy];
+  [(BLTPingService *)self->_service subscribeToSectionID:dCopy forFullBulletins:bulletinsCopy withAck:[(BLTPingHandlerHolder *)v14 canAck] ackAllowedOnLocalConnection:[(BLTPingHandlerHolder *)v14 canAckOnLocalConnection]];
 
   pthread_mutex_unlock(&self->_lock);
 }
@@ -210,7 +230,7 @@
 
 - (void)sendBulletinSummary:(id)summary forBulletin:(id)bulletin destinations:(unint64_t)destinations
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   bulletinCopy = bulletin;
   v9 = objc_alloc_init(BLTPBBulletinSummary);
@@ -220,32 +240,32 @@
   publisherBulletinID = [bulletinCopy publisherBulletinID];
   [(BLTPBBulletinSummary *)v9 setPublisherBulletinID:publisherBulletinID];
 
-  v28 = bulletinCopy;
+  v27 = bulletinCopy;
   sectionID = [bulletinCopy sectionID];
   [(BLTPBBulletinSummary *)v9 setSectionID:sectionID];
 
-  v30 = v9;
+  v29 = v9;
   [(BLTPBBulletinSummary *)v9 setDestinations:destinations];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = summaryCopy;
-  v14 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
+        v18 = *(*(&v32 + 1) + 8 * i);
         v19 = objc_alloc_init(BLTPBBulletinSummaryKey);
         [(BLTPBBulletinSummaryKey *)v19 setKey:v18];
         v20 = [v13 objectForKeyedSubscript:v18];
@@ -253,7 +273,7 @@
         v22 = activePairedDeviceSupportsNSNullPListExtenion;
         if (activePairedDeviceSupportsNSNullPListExtenion)
         {
-          v23 = &v32;
+          v23 = &v31;
         }
 
         else
@@ -263,38 +283,36 @@
 
         if (activePairedDeviceSupportsNSNullPListExtenion)
         {
-          v32 = 0;
+          v31 = 0;
         }
 
-        v31 = 0;
-        v24 = [BLTObjectSerializer serializeObject:v20 nulls:v23 error:&v31];
+        v30 = 0;
+        v24 = [BLTObjectSerializer serializeObject:v20 nulls:v23 error:&v30];
         v25 = 0;
         if (v22)
         {
-          v25 = v32;
+          v25 = v31;
         }
 
-        v26 = v31;
+        v26 = v30;
         [(BLTPBBulletinSummaryKey *)v19 setValue:v24];
 
         [(BLTPBBulletinSummaryKey *)v19 setValueNulls:v25];
         if (!v26)
         {
-          [(BLTPBBulletinSummary *)v30 addKey:v19];
+          [(BLTPBBulletinSummary *)v29 addKey:v19];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v15);
   }
 
   pthread_mutex_lock(&self->_lock);
-  [(BLTPingService *)self->_service sendBulletinSummary:v30];
+  [(BLTPingService *)self->_service sendBulletinSummary:v29];
   pthread_mutex_unlock(&self->_lock);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWillNanoPresentNotificationForSectionID:(id)d completion:(id)completion

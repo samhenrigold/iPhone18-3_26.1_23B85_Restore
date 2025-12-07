@@ -65,7 +65,7 @@
 
 - (id)assignWindowOverlappingIntervals:(id)intervals timestamp:(id)timestamp
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
   timestampCopy = timestamp;
   v7 = [MEMORY[0x1E695DFD8] set];
@@ -74,26 +74,26 @@
   v9 = [MEMORY[0x1E695DFD8] set];
   v10 = [v9 mutableCopy];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v11 = intervalsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * i);
+        v16 = *(*(&v42 + 1) + 8 * i);
         dateInterval = [v16 dateInterval];
         v18 = [dateInterval containsDate:timestampCopy];
 
@@ -109,7 +109,7 @@
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v13);
@@ -164,39 +164,37 @@
     v39 = v29;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)assignWindowNonOverlappingIntervals:(id)intervals timestamp:(id)timestamp
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
   timestampCopy = timestamp;
   v8 = [MEMORY[0x1E695DFD8] set];
   v9 = [v8 mutableCopy];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = intervalsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         dateInterval = [v15 dateInterval];
         v17 = [dateInterval containsDate:timestampCopy];
 
@@ -208,7 +206,7 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v12)
       {
         continue;
@@ -243,8 +241,6 @@
 
 LABEL_14:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -271,31 +267,31 @@ LABEL_14:
 
 - (id)updateWindowStateOverlappingIntervals:(id)intervals timestamp:(id)timestamp input:(id)input
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
   timestampCopy = timestamp;
   inputCopy = input;
-  v47 = objc_opt_new();
+  v46 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v10 = intervalsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v49;
+    v13 = *v48;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v49 != v13)
+        if (*v48 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v48 + 1) + 8 * i);
+        v15 = *(*(&v47 + 1) + 8 * i);
         dateInterval = [v15 dateInterval];
         v17 = [dateInterval containsDate:timestampCopy];
 
@@ -311,7 +307,7 @@ LABEL_14:
           startDate = [dateInterval2 startDate];
           [startDate timeIntervalSinceReferenceDate];
           v24 = [v21 numberWithDouble:?];
-          [v47 addObject:v24];
+          [v46 addObject:v24];
         }
 
         else
@@ -320,7 +316,7 @@ LABEL_14:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v12);
@@ -333,7 +329,7 @@ LABEL_14:
   }
 
   v26 = self->_slide * trunc(v25 / self->_slide);
-  v45 = objc_opt_new();
+  v44 = objc_opt_new();
   v27 = self->_interval + -0.0001;
   v28 = objc_alloc(MEMORY[0x1E696AB80]);
   v29 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v26];
@@ -344,7 +340,7 @@ LABEL_14:
     do
     {
       v31 = [MEMORY[0x1E696AD98] numberWithDouble:v26];
-      v32 = [v47 containsObject:v31];
+      v32 = [v46 containsObject:v31];
 
       if ((v32 & 1) == 0)
       {
@@ -358,7 +354,7 @@ LABEL_14:
         v39 = (closure2)[2](closure2, aggregate2, inputCopy);
         [(BPSWindowState *)v36 setAggregate:v39];
 
-        [v45 addObject:v36];
+        [v44 addObject:v36];
         ++self->_identifier;
       }
 
@@ -378,23 +374,21 @@ LABEL_14:
     v42 = v30;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v44;
 }
 
 - (id)updateWindowStateNonOverlappingIntervals:(id)intervals timestamp:(id)timestamp input:(id)input
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
   timestampCopy = timestamp;
   inputCopy = input;
   obj = intervalsCopy;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v10 = [intervalsCopy countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v10 = [intervalsCopy countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v10)
   {
     goto LABEL_13;
@@ -402,17 +396,17 @@ LABEL_14:
 
   v11 = v10;
   v12 = 0;
-  v13 = *v40;
+  v13 = *v39;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v40 != v13)
+      if (*v39 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v39 + 1) + 8 * i);
+      v15 = *(*(&v38 + 1) + 8 * i);
       dateInterval = [v15 dateInterval];
       v17 = [dateInterval containsDate:timestampCopy];
 
@@ -433,7 +427,7 @@ LABEL_14:
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v11 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
   }
 
   while (v11);
@@ -474,8 +468,6 @@ LABEL_13:
       ++self->_identifier;
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

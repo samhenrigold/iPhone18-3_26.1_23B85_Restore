@@ -71,7 +71,7 @@
   if (v11)
   {
     v12 = v11;
-    v13 = ANLogHandleAnnouncementDataItem();
+    v13 = ANLogHandleAnnouncementDataItem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
@@ -82,7 +82,7 @@
     }
 
 LABEL_8:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_9;
   }
 
@@ -91,29 +91,28 @@ LABEL_8:
   v14 = *MEMORY[0x277CCA308];
   v19 = 0;
   v13 = [v10 decodeTopLevelObjectOfClasses:listCopy forKey:v14 error:&v19];
-  v12 = v19;
-  if (v12)
+  v15 = v19;
+  v12 = v15;
+  if (v15)
   {
-    v15 = ANLogHandleAnnouncementDataItem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = ANLogHandleAnnouncementDataItem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       v22 = &stru_2836DAA20;
       v23 = 2112;
       v24 = v12;
-      _os_log_impl(&dword_2237C8000, v15, OS_LOG_TYPE_ERROR, "%@Failed to unarchive data for AnnouncementDataItems. error = %@", buf, 0x16u);
+      _os_log_impl(&dword_2237C8000, v16, OS_LOG_TYPE_ERROR, "%@Failed to unarchive data for AnnouncementDataItems. error = %@", buf, 0x16u);
     }
 
     goto LABEL_8;
   }
 
   v13 = v13;
-  v16 = v13;
+  v17 = v13;
 LABEL_9:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (id)copy

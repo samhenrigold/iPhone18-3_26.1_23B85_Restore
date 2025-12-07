@@ -1,3 +1,48 @@
+unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::mps::detail::SimilarityTypeAttrStorage * mlir::StorageUniquer::get<mlir::mps::detail::SimilarityTypeAttrStorage,mlir::mps::SimilarityType>(llvm::function_ref<void ()(mlir::mps::detail::SimilarityTypeAttrStorage *)>,mlir::TypeID,mlir::mps::SimilarityType &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(int **a1, unint64_t *a2)
+{
+  v2 = **a1;
+  a2[10] += 16;
+  Slow = (*a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v4 = Slow + 16;
+  if (*a2)
+  {
+    v5 = v4 > a2[1];
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 16, 16, 3);
+    *Slow = 0;
+    *(Slow + 8) = v2;
+    v6 = a1[1];
+    v7 = *v6;
+    if (!*v6)
+    {
+      return Slow;
+    }
+
+    goto LABEL_6;
+  }
+
+  *a2 = v4;
+  *Slow = 0;
+  *(Slow + 8) = v2;
+  v6 = a1[1];
+  v7 = *v6;
+  if (*v6)
+  {
+LABEL_6:
+    v7(*(v6 + 1), Slow);
+  }
+
+  return Slow;
+}
+
 unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::mps::detail::FFTScalingModeAttrStorage * mlir::StorageUniquer::get<mlir::mps::detail::FFTScalingModeAttrStorage,mlir::mps::FFTScalingMode>(llvm::function_ref<void ()(mlir::mps::detail::FFTScalingModeAttrStorage *)>,mlir::TypeID,mlir::mps::FFTScalingMode &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(int **a1, unint64_t *a2)
 {
   v2 = **a1;
@@ -141,7 +186,7 @@ unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::Storag
   return Slow;
 }
 
-uint64_t mlir::AsmParser::parseInteger<unsigned long long>(uint64_t a1, uint64_t *a2)
+uint64_t mlir::AsmParser::parseInteger<unsigned long long>(uint64_t a1, unint64_t *a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   v4 = (*(*a1 + 40))(a1);
@@ -221,7 +266,7 @@ uint64_t mlir::AsmParser::parseInteger<unsigned long long>(uint64_t a1, uint64_t
   return v5;
 }
 
-uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<unsigned long long,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<unsigned long long>(unsigned long long &)::{lambda(llvm::APInt &)#1}>(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<unsigned long long,mlir::OptionalParseResult mlir::AsmParser::parseOptionalInteger<unsigned long long>(unsigned long long &)::{lambda(llvm::APInt &)#1}>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   v38 = *MEMORY[0x277D85DE8];
   v6 = (*(*a1 + 40))(a1);
@@ -234,7 +279,7 @@ uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<unsigned long long,mlir::
     return v7 | (v11 << 8);
   }
 
-  llvm::APInt::sextOrTrunc(&v26, 0x40u, &v28);
+  llvm::APInt::sextOrTrunc(&v28, &v26, 0x40u);
   v8 = v29;
   if (v29 < 0x41)
   {
@@ -245,7 +290,7 @@ uint64_t mlir::AsmParser::parseOptionalIntegerAndCheck<unsigned long long,mlir::
     if (v27 > 0x40)
     {
 LABEL_16:
-      llvm::APInt::initSlowCase(&v28);
+      llvm::APInt::initSlowCase(&v28, v9, 0);
     }
 
     goto LABEL_10;
@@ -9857,40 +9902,6 @@ void mlir::RewritePatternSet::add<mlir::mps::ResizeOp>(llvm::LogicalResult (*)(m
 }
 
 void *mlir::RewritePatternSet::add<mlir::mps::ReverseOp>(llvm::LogicalResult (*)(mlir::mps::ReverseOp,mlir::PatternRewriter &),mlir::PatternBenefit,llvm::ArrayRef<llvm::StringRef>)::FnPattern::~FnPattern(void *a1)
-{
-  v2 = a1[10];
-  if (v2 != a1 + 12)
-  {
-    free(v2);
-  }
-
-  v3 = a1[4];
-  if (v3 != a1 + 6)
-  {
-    free(v3);
-  }
-
-  return a1;
-}
-
-void mlir::RewritePatternSet::add<mlir::mps::ReverseOp>(llvm::LogicalResult (*)(mlir::mps::ReverseOp,mlir::PatternRewriter &),mlir::PatternBenefit,llvm::ArrayRef<llvm::StringRef>)::FnPattern::~FnPattern(void *a1)
-{
-  v2 = a1[10];
-  if (v2 != a1 + 12)
-  {
-    free(v2);
-  }
-
-  v3 = a1[4];
-  if (v3 != a1 + 6)
-  {
-    free(v3);
-  }
-
-  JUMPOUT(0x259C63180);
-}
-
-void *mlir::RewritePatternSet::add<mlir::mps::RintOp>(llvm::LogicalResult (*)(mlir::mps::RintOp,mlir::PatternRewriter &),mlir::PatternBenefit,llvm::ArrayRef<llvm::StringRef>)::FnPattern::~FnPattern(void *a1)
 {
   v2 = a1[10];
   if (v2 != a1 + 12)

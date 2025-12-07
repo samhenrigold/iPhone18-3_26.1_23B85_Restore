@@ -769,7 +769,7 @@ void __47__PUCropToolController_handleResigningCropTool__block_invoke_483(uint64
   v18 = 0;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
     if (BYTE12(v17))
     {
       delegate = [(PUPhotoEditToolController *)self delegate];
@@ -1456,7 +1456,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [player currentTime];
+  objc_msgSend_currentTime(player);
   v8 = v18;
   if (!v18)
   {
@@ -1574,7 +1574,7 @@ void __47__PUCropToolController_showBadgeView_animated___block_invoke(uint64_t a
       v12 = player;
       if (player)
       {
-        [player mediaDuration];
+        objc_msgSend_mediaDuration(player);
       }
 
       else
@@ -1589,7 +1589,7 @@ void __47__PUCropToolController_showBadgeView_animated___block_invoke(uint64_t a
       v14 = player2;
       if (player2)
       {
-        [player2 currentTime];
+        objc_msgSend_currentTime(player2);
       }
 
       else
@@ -1602,21 +1602,20 @@ void __47__PUCropToolController_showBadgeView_animated___block_invoke(uint64_t a
 
       if (trimAdjustmentController)
       {
-        [trimAdjustmentController startTime];
+        objc_msgSend_startTime(trimAdjustmentController);
         if (v33)
         {
-          [trimAdjustmentController endTime];
+          objc_msgSend_endTime(trimAdjustmentController);
           if (v32)
           {
-            [trimAdjustmentController startTime];
+            objc_msgSend_startTime(trimAdjustmentController);
             v35 = time;
-            [trimAdjustmentController endTime];
+            objc_msgSend_endTime(trimAdjustmentController);
             v36 = time;
-            lhs = v35;
-            [(PUPhotoEditToolController *)self displayedTimeForOriginalAssetTime:&lhs];
+            objc_msgSend_displayedTimeForOriginalAssetTime_(self);
             v35 = time;
             lhs = v36;
-            [(PUPhotoEditToolController *)self displayedTimeForOriginalAssetTime:&lhs];
+            objc_msgSend_displayedTimeForOriginalAssetTime_(self);
             v36 = time;
           }
         }
@@ -4704,7 +4703,7 @@ void __80__PUCropToolController__animateValueFromValue_toValue_interpolation_com
   y = rect.origin.y;
   x = rect.origin.x;
   p_viewCropRect = &self->_viewCropRect;
-  if ((PURectIsApproximatelyEqualToRect() & 1) == 0)
+  if ((PURectIsApproximatelyEqualToRect(self) & 1) == 0)
   {
     [(PUCropToolController *)self _cancelAnimationForKeyPath:@"_imageCropRect"];
     v11 = [MEMORY[0x1E696B098] valueWithCGRect:{x, y, width, height}];
@@ -4922,7 +4921,7 @@ void __48__PUCropToolController__setCropAspect_animated___block_invoke(uint64_t 
     memset(&v61, 0, sizeof(v61));
     if (v12)
     {
-      [v12 transformFromOrientation:appliedOrientation];
+      objc_msgSend_transformFromOrientation_(v12);
     }
 
     else
@@ -5033,29 +5032,29 @@ void __56__PUCropToolController__performGeometryChange_animated___block_invoke(u
   [v2 modifyAdjustmentWithKey:v4 modificationBlock:v6];
 }
 
-uint64_t __56__PUCropToolController__performGeometryChange_animated___block_invoke_3(uint64_t a1)
+uint64_t __56__PUCropToolController__performGeometryChange_animated___block_invoke_3(uint64_t a1, const char *a2)
 {
-  memset(&v8, 0, sizeof(v8));
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(&v9, 0, sizeof(v9));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 transform];
-    v3 = *(a1 + 32);
+    objc_msgSend_transform(v3, a2);
+    v4 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
     memset(&t1, 0, sizeof(t1));
   }
 
-  v4 = *(a1 + 56);
-  *&v6.a = *(a1 + 40);
-  *&v6.c = v4;
-  *&v6.tx = *(a1 + 72);
-  CGAffineTransformConcat(&v8, &t1, &v6);
-  t1 = v8;
-  [v3 setTransform:&t1];
+  v5 = *(a1 + 56);
+  *&v7.a = *(a1 + 40);
+  *&v7.c = v5;
+  *&v7.tx = *(a1 + 72);
+  CGAffineTransformConcat(&v9, &t1, &v7);
+  t1 = v9;
+  [v4 setTransform:&t1];
   return [*(a1 + 32) setFrame:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112)}];
 }
 
@@ -5234,7 +5233,7 @@ LABEL_8:
       v9 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
@@ -5432,7 +5431,7 @@ void __57__PUCropToolController__loadImageIfNeededWithCompletion___block_invoke(
 
         if (v38)
         {
-          [v38 extent];
+          objc_msgSend_extent(v38);
         }
 
         else

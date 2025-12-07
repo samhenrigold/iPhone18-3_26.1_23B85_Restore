@@ -1,6 +1,7 @@
-void sub_1590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a19, 8);
   _Unwind_Resume(a1);
 }
@@ -20,16 +21,16 @@ void sub_15E0(uint64_t a1, char a2, id obj)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-id HKHealthDataclassOwnerBundle()
+id HKHealthDataclassOwnerBundle(uint64_t a1)
 {
   if (qword_C8B0 != -1)
   {
     sub_2730();
   }
 
-  v1 = qword_C8A8;
+  v2 = qword_C8A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1694(id a1)

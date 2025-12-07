@@ -15,14 +15,14 @@ void __40___UIKeyShortcutHUDUtilities_searchIcon__block_invoke()
   _MergedGlobals_1403[0] = v3;
 }
 
-void __56___UIKeyShortcutHUDUtilities_searchIconAttributedString__block_invoke()
+void __56___UIKeyShortcutHUDUtilities_searchIconAttributedString__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AAB0];
-  v4 = +[_UIKeyShortcutHUDUtilities searchIcon];
-  v1 = [off_1E70ECBA8 textAttachmentWithImage:v4];
-  v2 = [v0 attributedStringWithAttachment:v1];
-  v3 = qword_1ED4A30A0;
-  qword_1ED4A30A0 = v2;
+  v1 = MEMORY[0x1E696AAB0];
+  v5 = +[(_UIKeyShortcutHUDUtilities *)*(a1];
+  v2 = [off_1E70ECBA8 textAttachmentWithImage:v5];
+  v3 = [v1 attributedStringWithAttachment:v2];
+  v4 = qword_1ED4A30A0;
+  qword_1ED4A30A0 = v3;
 }
 
 void __119___UIKeyShortcutHUDUtilities_modifiersAttributedStringForMenuLeafShortcut_font_shouldDisplayGlobeModiferAsGlobeSymbol___block_invoke(uint64_t a1)

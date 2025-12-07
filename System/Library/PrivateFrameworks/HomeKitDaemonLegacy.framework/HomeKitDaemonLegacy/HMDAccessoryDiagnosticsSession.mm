@@ -21,7 +21,7 @@
 
 - (void)_callCompletionHandlerWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -32,24 +32,22 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Calling completion handler with error:%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Calling completion handler with error:%@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   pendingCompletionHandler = [(HMDAccessoryDiagnosticsSession *)selfCopy pendingCompletionHandler];
   [(HMDAccessoryDiagnosticsSession *)selfCopy setPendingCompletionHandler:0];
   (pendingCompletionHandler)[2](pendingCompletionHandler, errorCopy, 0, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_validDataSequenceNumber:(id)number
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -75,34 +73,33 @@
       v14 = HMFGetLogIdentifier();
       longLongValue = [numberCopy longLongValue];
       expectedDataSequenceNumber3 = [(HMDAccessoryDiagnosticsSession *)selfCopy expectedDataSequenceNumber];
-      v19 = 138543874;
-      v20 = v14;
-      v21 = 2048;
-      v22 = longLongValue;
-      v23 = 2048;
+      v18 = 138543874;
+      v19 = v14;
+      v20 = 2048;
+      v21 = longLongValue;
+      v22 = 2048;
       longLongValue2 = [expectedDataSequenceNumber3 longLongValue];
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid data sequence number received:%lld expected:%lld", &v19, 0x20u);
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid data sequence number received:%lld expected:%lld", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_createLogFile
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v4 = HMDCreateHomeKitDaemonCacheDirectory();
   v5 = [v4 stringByAppendingString:@"/ManufacturerDiagnostics"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v41 = 0;
-  v7 = [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v41];
-  v8 = v41;
+  v40 = 0;
+  v7 = [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v40];
+  v8 = v40;
 
   if (v7)
   {
@@ -110,8 +107,8 @@
     v10 = fileExtension;
     if (fileExtension)
     {
-      v38 = fileExtension;
-      v40 = v8;
+      v37 = fileExtension;
+      v39 = v8;
       v11 = MEMORY[0x277CCACA8];
       date = [MEMORY[0x277CBEAA8] date];
       uUID = [MEMORY[0x277CCAD78] UUID];
@@ -120,9 +117,9 @@
       fileExtension2 = [(HMDAccessoryDiagnosticsSession *)self fileExtension];
       v17 = [v15 stringByAppendingPathExtension:fileExtension2];
 
-      v39 = v17;
+      v38 = v17;
       v18 = [v5 stringByAppendingPathComponent:v17];
-      v19 = [v18 copy];
+      v19 = objc_msgSend_copy(v18);
       [(HMDAccessoryDiagnosticsSessionInternal *)self setFilePath:v19];
 
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
@@ -138,29 +135,29 @@
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v25;
-          v44 = 2112;
-          v45 = v18;
+          v42 = v25;
+          v43 = 2112;
+          v44 = v18;
           _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Created log file path:%@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v21);
         v26 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v18];
-        v8 = v40;
+        v8 = v39;
       }
 
       else
       {
-        v8 = v40;
+        v8 = v39;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v43 = v35;
-          v44 = 2112;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v40;
+          v42 = v35;
+          v43 = 2112;
+          v44 = v18;
+          v45 = 2112;
+          v46 = v39;
           _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create file at path: %@ error: %@", buf, 0x20u);
         }
 
@@ -168,7 +165,7 @@
         v26 = 0;
       }
 
-      v10 = v38;
+      v10 = v37;
     }
 
     else
@@ -180,9 +177,9 @@
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v43 = v34;
-        v44 = 2112;
-        v45 = 0;
+        v42 = v34;
+        v43 = 2112;
+        v44 = 0;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@FileType:%@ not supported ", buf, 0x16u);
       }
 
@@ -200,11 +197,11 @@
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v43 = v30;
-      v44 = 2112;
-      v45 = v5;
-      v46 = 2112;
-      v47 = v8;
+      v42 = v30;
+      v43 = 2112;
+      v44 = v5;
+      v45 = 2112;
+      v46 = v8;
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create directory at path: %@ error: %@", buf, 0x20u);
     }
 
@@ -212,14 +209,12 @@
     v26 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (BOOL)_handleReceivedData:(id)data
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -244,11 +239,11 @@
         accessory = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy2 accessory];
         filePath = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy2 filePath];
         *buf = 138543874;
-        v29 = v14;
-        v30 = 2112;
+        v28 = v14;
+        v29 = 2112;
         bytesWritten2 = accessory;
-        v32 = 2112;
-        v33 = filePath;
+        v31 = 2112;
+        v32 = filePath;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to create log file for accessory:%@ file path:%@", buf, 0x20u);
 
         goto LABEL_14;
@@ -273,12 +268,12 @@ LABEL_15:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v29 = v14;
-      v30 = 2048;
+      v28 = v14;
+      v29 = 2048;
       bytesWritten2 = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy2 bytesWritten];
-      v32 = 2048;
-      v33 = [dataCopy length];
-      v34 = 2048;
+      v31 = 2048;
+      v32 = [dataCopy length];
+      v33 = 2048;
       maxBytes = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy2 maxBytes];
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics exceeded max size (written: %llu, new data: %lu, max: %llu)", buf, 0x2Au);
 LABEL_14:
@@ -290,9 +285,9 @@ LABEL_14:
   }
 
   fileHandle3 = [(HMDAccessoryDiagnosticsSession *)self fileHandle];
-  v27 = 0;
-  [fileHandle3 writeData:dataCopy error:&v27];
-  v16 = v27;
+  v26 = 0;
+  [fileHandle3 writeData:dataCopy error:&v26];
+  v16 = v26;
 
   v17 = v16 == 0;
   if (v16)
@@ -305,11 +300,11 @@ LABEL_14:
       v21 = HMFGetLogIdentifier();
       filePath2 = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy3 filePath];
       *buf = 138543874;
-      v29 = v21;
-      v30 = 2112;
+      v28 = v21;
+      v29 = 2112;
       bytesWritten2 = filePath2;
-      v32 = 2112;
-      v33 = v16;
+      v31 = 2112;
+      v32 = v16;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to write data to file: %@ error: %@", buf, 0x20u);
     }
 
@@ -322,13 +317,12 @@ LABEL_14:
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)dataStreamAdapterDidFailDataRead:(id)read
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   readCopy = read;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -340,11 +334,11 @@ LABEL_16:
   {
     v9 = HMFGetLogIdentifier();
     accessory = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy accessory];
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2112;
-    v17 = accessory;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to read data for accessory:%@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v9;
+    v15 = 2112;
+    v16 = accessory;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to read data for accessory:%@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -355,13 +349,11 @@ LABEL_16:
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [(HMDAccessoryDiagnosticsSession *)selfCopy _callCompletionHandlerWithError:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamAdapterDidCompleteDataRead:(id)read
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   readCopy = read;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -382,11 +374,11 @@ LABEL_16:
       {
         v12 = HMFGetLogIdentifier();
         accessory = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy accessory];
-        v24 = 138543618;
-        v25 = v12;
-        v26 = 2112;
-        v27 = accessory;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Data read completed for accessory:%@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v12;
+        v25 = 2112;
+        v26 = accessory;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Data read completed for accessory:%@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -403,11 +395,11 @@ LABEL_16:
       {
         v21 = HMFGetLogIdentifier();
         accessory2 = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy accessory];
-        v24 = 138543618;
-        v25 = v21;
-        v26 = 2112;
-        v27 = accessory2;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Data read completed for accessory:%@ but file path not present", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v21;
+        v25 = 2112;
+        v26 = accessory2;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Data read completed for accessory:%@ but file path not present", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -424,20 +416,18 @@ LABEL_16:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v20;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Data read completed but no completion handler", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v20;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Data read completed but no completion handler", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dataStreamAdapter:(id)adapter didReceiveData:(id)data
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   adapterCopy = adapter;
   dataCopy = data;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
@@ -501,11 +491,11 @@ LABEL_16:
         {
           v22 = HMFGetLogIdentifier();
           urlParameters = [(HMDAccessoryDiagnosticsSession *)selfCopy urlParameters];
-          v38 = 138543618;
-          v39 = v22;
-          v40 = 2112;
-          v41 = urlParameters;
-          _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@URL parameters: %@ received in packet metadata", &v38, 0x16u);
+          v37 = 138543618;
+          v38 = v22;
+          v39 = 2112;
+          v40 = urlParameters;
+          _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@URL parameters: %@ received in packet metadata", &v37, 0x16u);
         }
 
         objc_autoreleasePoolPop(v19);
@@ -537,9 +527,9 @@ LABEL_16:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       v30 = HMFGetLogIdentifier();
-      v38 = 138543362;
-      v39 = v30;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Data frame received", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v30;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Data frame received", &v37, 0xCu);
     }
 
     objc_autoreleasePoolPop(v27);
@@ -554,22 +544,21 @@ LABEL_16:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       v35 = HMFGetLogIdentifier();
-      v38 = 138543362;
-      v39 = v35;
-      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@No data present in frame", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v35;
+      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@No data present in frame", &v37, 0xCu);
     }
 
     objc_autoreleasePoolPop(v32);
     v31 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (void)readDataWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -584,11 +573,11 @@ LABEL_16:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
+      v13 = 138543362;
+      v14 = v11;
       v12 = "%{public}@Data stream not present";
 LABEL_8:
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, v12, &v14, 0xCu);
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, v12, &v13, 0xCu);
     }
 
 LABEL_9:
@@ -607,8 +596,8 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
+      v13 = 138543362;
+      v14 = v11;
       v12 = "%{public}@Session not ready for data read";
       goto LABEL_8;
     }
@@ -620,13 +609,11 @@ LABEL_9:
   dataStream2 = [(HMDAccessoryDiagnosticsSession *)self dataStream];
   [dataStream2 readData];
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUpWithOptions:(id)options completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
@@ -657,15 +644,15 @@ LABEL_10:
 
     objc_initWeak(location, self);
     dataStream2 = [(HMDAccessoryDiagnosticsSession *)self dataStream];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_invoke;
-    v24[3] = &unk_2797278E8;
-    objc_copyWeak(&v26, location);
-    v25 = completionCopy;
-    [dataStream2 setUpWithCallback:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_invoke;
+    v23[3] = &unk_2797278E8;
+    objc_copyWeak(&v25, location);
+    v24 = completionCopy;
+    [dataStream2 setUpWithCallback:v23];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(location);
   }
 
@@ -680,23 +667,21 @@ LABEL_10:
       v22 = HMFGetLogIdentifier();
       *location = 138543874;
       *&location[4] = v22;
-      v28 = 2112;
-      v29 = hapAccessory;
-      v30 = 2112;
-      v31 = v18;
+      v27 = 2112;
+      v28 = hapAccessory;
+      v29 = 2112;
+      v30 = v18;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Accessory:%@ does not support data stream, error: %@", location, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
     (*(completionCopy + 2))(completionCopy, v18, 0);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -715,11 +700,11 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v14;
-        v25 = 2112;
-        v26 = v6;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data stream with error: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v14;
+        v24 = 2112;
+        v25 = v6;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data stream with error: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -731,9 +716,9 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v20;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Diagnostics data stream was setup successfully", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v20;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Diagnostics data stream was setup successfully", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -754,22 +739,20 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Setting up data stream failed, diagnostics session is nil", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Setting up data stream failed, diagnostics session is nil", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(*(a1 + 32) + 16))();
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpWithOptions:(id)options completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
@@ -786,20 +769,20 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Establishing local HAP session with accessory if needed", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     workQueue2 = [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy workQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_invoke;
-    v19[3] = &unk_279735168;
-    v19[4] = selfCopy;
-    v21 = completionCopy;
-    v20 = optionsCopy;
-    [hapAccessory establishLocalHAPConnectionWithQueue:workQueue2 completion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_invoke;
+    v18[3] = &unk_279735168;
+    v18[4] = selfCopy;
+    v20 = completionCopy;
+    v19 = optionsCopy;
+    [hapAccessory establishLocalHAPConnectionWithQueue:workQueue2 completion:v18];
   }
 
   else
@@ -808,7 +791,7 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v16;
+      v22 = v16;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot set up diagnostics transfer session because accessory is nil", buf, 0xCu);
     }
 
@@ -816,13 +799,11 @@ void __63__HMDAccessoryDiagnosticsSession__setUpWithOptions_completion___block_i
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(completionCopy + 2))(completionCopy, v17, 0);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -832,11 +813,11 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HAP session with accessory: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HAP session with accessory: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -848,8 +829,6 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
   {
     [*(a1 + 32) _setUpWithOptions:*(a1 + 40) completion:*(a1 + 48)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fileExtension
@@ -882,7 +861,7 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -890,15 +869,14 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDAccessoryDiagnosticsSession;
-  [(HMDAccessoryDiagnosticsSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDAccessoryDiagnosticsSession;
+  [(HMDAccessoryDiagnosticsSession *)&v7 dealloc];
 }
 
 - (id)hapAccessory
@@ -922,7 +900,7 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
 
 - (void)shutDown
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDiagnosticsSessionInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -933,7 +911,7 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v7;
+    v20 = v7;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down", buf, 0xCu);
   }
 
@@ -952,9 +930,9 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
 
   [(HMDAccessoryDiagnosticsSessionInternal *)selfCopy setFilePath:0];
   fileHandle = [(HMDAccessoryDiagnosticsSession *)selfCopy fileHandle];
-  v19 = 0;
-  [fileHandle closeAndReturnError:&v19];
-  v12 = v19;
+  v18 = 0;
+  [fileHandle closeAndReturnError:&v18];
+  v12 = v18;
 
   [(HMDAccessoryDiagnosticsSession *)selfCopy setFileHandle:0];
   if (v12)
@@ -967,39 +945,35 @@ void __62__HMDAccessoryDiagnosticsSession_setUpWithOptions_completion___block_in
       v16 = HMFGetLogIdentifier();
       accessory = [(HMDAccessoryDiagnosticsSessionInternal *)v14 accessory];
       *buf = 138543874;
-      v21 = v16;
-      v22 = 2112;
-      v23 = accessory;
-      v24 = 2112;
-      v25 = v12;
+      v20 = v16;
+      v21 = 2112;
+      v22 = accessory;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to close file for accessory:%@ with error:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = HMDAccessoryDiagnosticsSession;
-  attributeDescriptions = [(HMDAccessoryDiagnosticsSessionInternal *)&v14 attributeDescriptions];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HMDAccessoryDiagnosticsSession;
+  attributeDescriptions = [(HMDAccessoryDiagnosticsSessionInternal *)&v13 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryDiagnosticsSession *)self readyForDataTransfer];
   v5 = HMFBooleanToString();
   v6 = [v4 initWithName:@"readyForDataTransfer" value:v5];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   urlParameters = [(HMDAccessoryDiagnosticsSession *)self urlParameters];
   v9 = [v7 initWithName:@"urlParameters" value:urlParameters];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v11 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

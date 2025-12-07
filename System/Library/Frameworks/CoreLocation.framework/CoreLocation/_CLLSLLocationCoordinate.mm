@@ -24,7 +24,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  result = objc_msgSend_init(v8, v9, v10, v11);
   *(result + 1) = *&self->_latitude;
   *(result + 2) = *&self->_longitude;
   return result;
@@ -32,35 +34,35 @@
 
 - (_CLLSLLocationCoordinate)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = _CLLSLLocationCoordinate;
-  v4 = [(_CLLSLLocationCoordinate *)&v8 init];
-  if (v4)
+  v12.receiver = self;
+  v12.super_class = _CLLSLLocationCoordinate;
+  v6 = [(_CLLSLLocationCoordinate *)&v12 init];
+  if (v6)
   {
-    [coder decodeDoubleForKey:@"latitude"];
-    v4->_latitude = v5;
-    [coder decodeDoubleForKey:@"longitude"];
-    v4->_longitude = v6;
+    objc_msgSend_decodeDoubleForKey_(coder, v4, @"latitude", v5);
+    v6->_latitude = v7;
+    objc_msgSend_decodeDoubleForKey_(coder, v8, @"longitude", v9);
+    v6->_longitude = v10;
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeDouble:@"latitude" forKey:self->_latitude];
+  objc_msgSend_encodeDouble_forKey_(coder, a2, @"latitude", v3, self->_latitude);
   longitude = self->_longitude;
 
-  [coder encodeDouble:@"longitude" forKey:longitude];
+  objc_msgSend_encodeDouble_forKey_(coder, v6, @"longitude", v7, longitude);
 }
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
-  [(_CLLSLLocationCoordinate *)self latitude];
-  v5 = v4;
-  [(_CLLSLLocationCoordinate *)self longitude];
-  return [v3 stringWithFormat:@"<_CLLSLLocationCoordinate: %p> { .latitude = %f, .longitude = %f }", self, v5, v6];
+  v5 = MEMORY[0x1E696AEC0];
+  objc_msgSend_latitude(self, a2, v2, v3);
+  v7 = v6;
+  objc_msgSend_longitude(self, v8, v9, v10);
+  return objc_msgSend_stringWithFormat_(v5, v11, @"<_CLLSLLocationCoordinate: %p> { .latitude = %f, .longitude = %f }", v12, self, v7, v13);
 }
 
 @end

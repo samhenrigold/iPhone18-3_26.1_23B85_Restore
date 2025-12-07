@@ -39,7 +39,7 @@ flatbuffers::DetachedBuffer *__34__QSSNormalizedToken_flatbuffData__block_invoke
 
 - (Offset<siri::speech::schema_fb::NormalizedToken>)addObjectToBuffer:(void *)buffer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   original_token = [(QSSNormalizedToken *)self original_token];
   v6 = original_token;
   if (!original_token)
@@ -63,16 +63,11 @@ flatbuffers::DetachedBuffer *__34__QSSNormalizedToken_flatbuffData__block_invoke
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v19, 0, sizeof(v19));
   obj = [(QSSNormalizedToken *)self nbest_variants];
-  if ([obj countByEnumeratingWithState:&v21 objects:v25 count:16])
+  if ([obj countByEnumeratingWithState:v19 objects:v20 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) addObjectToBuffer:buffer];
+    [**(&v19[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -90,9 +85,7 @@ flatbuffers::DetachedBuffer *__34__QSSNormalizedToken_flatbuffData__block_invoke
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v15);
   }
 
-  v16.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
 }
 
 - (NSArray)nbest_variants

@@ -12,52 +12,48 @@
 
 - (void)_coreProtocolDidFailAuthenticationError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = objc_opt_class();
-    v8 = v7;
+    v6 = objc_opt_class();
+    v7 = v6;
     personID = [(MSStreamsProtocol *)self personID];
     mSVerboseDescription = [errorCopy MSVerboseDescription];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = personID;
-    v15 = 2114;
-    v16 = mSVerboseDescription;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Failed authentication. Error: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2112;
+    v13 = personID;
+    v14 = 2114;
+    v15 = mSVerboseDescription;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Failed authentication. Error: %{public}@", &v10, 0x20u);
   }
 
   delegate = [(MSResetServerProtocol *)self delegate];
   [delegate resetServerProtocol:self didReceiveAuthenticationError:errorCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coreProtocolDidFinishError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = objc_opt_class();
-    v8 = v7;
+    v6 = objc_opt_class();
+    v7 = v6;
     personID = [(MSStreamsProtocol *)self personID];
     mSVerboseDescription = [errorCopy MSVerboseDescription];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = personID;
-    v15 = 2114;
-    v16 = mSVerboseDescription;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Reset server state protocol has failed. Error: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2112;
+    v13 = personID;
+    v14 = 2114;
+    v15 = mSVerboseDescription;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Reset server state protocol has failed. Error: %{public}@", &v10, 0x20u);
   }
 
   delegate = [(MSResetServerProtocol *)self delegate];
   [delegate resetServerProtocol:self didFinishWithError:errorCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetServerState
@@ -71,7 +67,7 @@
   p_context->_super.__didFailAuthenticationCallback = _didFailAuthentication_2483;
   p_context->_super.__didReceiveServerSideConfigVersionCallback = _didReceiveServerSideConfigurationVersion_2482;
 
-  MSSPCStartHTTPTransaction(p_context, @"POST", resetURL, v5, 0, 0, 0);
+  MSSPCStartHTTPTransaction(p_context, @"POST", resetURL, v5, 0, 0, 0, v6);
 }
 
 - (void)dealloc

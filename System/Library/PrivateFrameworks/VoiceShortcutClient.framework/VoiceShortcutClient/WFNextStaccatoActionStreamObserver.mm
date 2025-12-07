@@ -20,13 +20,13 @@
 
 - (void)observingProviderObservationDidInterrupted:(id)interrupted
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315138;
-    v11 = "[WFNextStaccatoActionStreamObserver observingProviderObservationDidInterrupted:]";
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Next Action Observation Stream interrupted", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[WFNextStaccatoActionStreamObserver observingProviderObservationDidInterrupted:]";
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Next Action Observation Stream interrupted", &v9, 0xCu);
   }
 
   delegate = [(WFNextStaccatoActionStreamObserver *)self delegate];
@@ -38,13 +38,11 @@
     delegate2 = [(WFNextStaccatoActionStreamObserver *)self delegate];
     [delegate2 nextActionStreamObserver:self didStopObservingWithError:v7];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveNextAction:(id)action baseAction:(id)baseAction forAppWithBundleIdentifier:(id)identifier associatedLiveActivityIdentifier:(id)activityIdentifier
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   baseActionCopy = baseAction;
   identifierCopy = identifier;
@@ -53,7 +51,7 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v63 = "[WFNextStaccatoActionStreamObserver didReceiveNextAction:baseAction:forAppWithBundleIdentifier:associatedLiveActivityIdentifier:]";
+    v62 = "[WFNextStaccatoActionStreamObserver didReceiveNextAction:baseAction:forAppWithBundleIdentifier:associatedLiveActivityIdentifier:]";
     _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_DEBUG, "%s Received Next Action entry", buf, 0xCu);
   }
 
@@ -87,22 +85,22 @@ LABEL_16:
       {
         metadataProvider = [(WFNextStaccatoActionStreamObserver *)self metadataProvider];
         identifier = [actionCopy identifier];
-        v61 = 0;
-        v32 = [metadataProvider actionForBundleIdentifier:identifierCopy andActionIdentifier:identifier error:&v61];
-        v33 = v61;
+        v60 = 0;
+        v32 = [metadataProvider actionForBundleIdentifier:identifierCopy andActionIdentifier:identifier error:&v60];
+        v33 = v60;
 
         if (v32)
         {
-          v59 = baseActionCopy;
+          v58 = baseActionCopy;
           v34 = +[VCVoiceShortcutClient standardClient];
-          v60 = v33;
-          v35 = [v34 serializedParametersForLinkAction:actionCopy actionMetadata:v32 error:&v60];
-          v36 = v60;
+          v59 = v33;
+          v35 = [v34 serializedParametersForLinkAction:actionCopy actionMetadata:v32 error:&v59];
+          v36 = v59;
 
           if (v35)
           {
-            v53 = v36;
-            v55 = v34;
+            v52 = v36;
+            v54 = v34;
             if (activityIdentifierCopy)
             {
               trackingActivityIDs2 = [(WFNextStaccatoActionStreamObserver *)self trackingActivityIDs];
@@ -117,7 +115,7 @@ LABEL_16:
 
             v40 = objc_alloc(MEMORY[0x1E696E730]);
             identifier2 = [actionCopy identifier];
-            v57 = actionCopy;
+            v56 = actionCopy;
             v42 = [v40 initWithAppBundleIdentifier:identifierCopy appIntentIdentifier:identifier2 serializedParameters:v35];
 
             title = [v32 title];
@@ -131,34 +129,34 @@ LABEL_16:
             delegate2 = [(WFNextStaccatoActionStreamObserver *)self delegate];
             [delegate2 nextActionStreamObserver:self didReceiveNextAction:v48 associatedLiveActivityIdentifier:activityIdentifierCopy];
 
-            v34 = v55;
-            actionCopy = v57;
-            v36 = v53;
+            v34 = v54;
+            actionCopy = v56;
+            v36 = v52;
           }
 
           v33 = v36;
-          baseActionCopy = v59;
+          baseActionCopy = v58;
         }
       }
 
       goto LABEL_25;
     }
 
-    v54 = trackingActivityIDs;
-    v56 = actionCopy;
-    v58 = baseActionCopy;
+    v53 = trackingActivityIDs;
+    v55 = actionCopy;
+    v57 = baseActionCopy;
   }
 
   else
   {
-    v56 = actionCopy;
-    v58 = baseActionCopy;
+    v55 = actionCopy;
+    v57 = baseActionCopy;
   }
 
   baseAction4 = [(WFNextStaccatoActionStreamObserver *)self baseAction];
   intent = [baseAction4 intent];
   appIntentIdentifier = [intent appIntentIdentifier];
-  identifier3 = [v58 identifier];
+  identifier3 = [v57 identifier];
   if ([appIntentIdentifier isEqualToString:identifier3])
   {
     v24 = 0;
@@ -169,27 +167,25 @@ LABEL_16:
     baseAction5 = [(WFNextStaccatoActionStreamObserver *)self baseAction];
     intent2 = [baseAction5 intent];
     [intent2 appIntentIdentifier];
-    v26 = v52 = baseAction4;
-    identifier4 = [v56 identifier];
+    v26 = v51 = baseAction4;
+    identifier4 = [v55 identifier];
     v24 = [v26 isEqualToString:identifier4] ^ 1;
 
-    baseAction4 = v52;
+    baseAction4 = v51;
   }
 
   if (activityIdentifierCopy)
   {
   }
 
-  actionCopy = v56;
-  baseActionCopy = v58;
+  actionCopy = v55;
+  baseActionCopy = v57;
   if ((v24 & 1) == 0)
   {
     goto LABEL_16;
   }
 
 LABEL_25:
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeTrackingActivityID:(id)d
@@ -201,7 +197,7 @@ LABEL_25:
 
 - (void)stopObservingWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   observingProvider = [(WFNextStaccatoActionStreamObserver *)self observingProvider];
 
@@ -211,32 +207,30 @@ LABEL_25:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v13 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]";
+      v12 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]";
       _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_INFO, "%s Stopping Next Action Observation", buf, 0xCu);
     }
 
     observingProvider2 = [(WFNextStaccatoActionStreamObserver *)self observingProvider];
     connectionUUID = [(WFNextStaccatoActionStreamObserver *)self connectionUUID];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___block_invoke;
-    v10[3] = &unk_1E7B02B00;
-    v10[4] = self;
-    v11 = completionCopy;
-    [observingProvider2 stopObservingNextActionStreamWithConnectionUUID:connectionUUID completion:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___block_invoke;
+    v9[3] = &unk_1E7B02B00;
+    v9[4] = self;
+    v10 = completionCopy;
+    [observingProvider2 stopObservingNextActionStreamWithConnectionUUID:connectionUUID completion:v9];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFStaccatoLogObject();
   v5 = v4;
@@ -244,11 +238,11 @@ void __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___bloc
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]_block_invoke";
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_ERROR, "%s Failed to stop Next Action Observation: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]_block_invoke";
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_ERROR, "%s Failed to stop Next Action Observation: %@", &v10, 0x16u);
     }
 
     v6 = *(*(a1 + 40) + 16);
@@ -258,9 +252,9 @@ void __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___bloc
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_INFO, "%s Next Action Observation stopped successfully", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[WFNextStaccatoActionStreamObserver stopObservingWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_INFO, "%s Next Action Observation stopped successfully", &v10, 0xCu);
     }
 
     [*(a1 + 32) setObservingProvider:0];
@@ -278,13 +272,11 @@ void __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___bloc
   }
 
   v6();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startObservingWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = [objc_alloc(MEMORY[0x1E69AD060]) initWithObserver:self];
   [(WFNextStaccatoActionStreamObserver *)self setObservingProvider:v5];
@@ -293,26 +285,24 @@ void __66__WFNextStaccatoActionStreamObserver_stopObservingWithCompletion___bloc
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]";
+    v12 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]";
     _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_INFO, "%s Starting Next Action Observation", buf, 0xCu);
   }
 
   observingProvider = [(WFNextStaccatoActionStreamObserver *)self observingProvider];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __67__WFNextStaccatoActionStreamObserver_startObservingWithCompletion___block_invoke;
-  v10[3] = &unk_1E7B01C88;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __67__WFNextStaccatoActionStreamObserver_startObservingWithCompletion___block_invoke;
+  v9[3] = &unk_1E7B01C88;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [observingProvider startObservingNextActionStreamWithCompletion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [observingProvider startObservingNextActionStreamWithCompletion:v9];
 }
 
 void __67__WFNextStaccatoActionStreamObserver_startObservingWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   [*(a1 + 32) setConnectionUUID:a2];
   v6 = [*(a1 + 32) connectionUUID];
@@ -323,23 +313,23 @@ void __67__WFNextStaccatoActionStreamObserver_startObservingWithCompletion___blo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]_block_invoke";
+      v15 = 136315138;
+      v16 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]_block_invoke";
       v9 = "%s Next Action Observation started successfully";
       v10 = v8;
       v11 = OS_LOG_TYPE_INFO;
       v12 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1B1DE3000, v10, v11, v9, &v16, v12);
+      _os_log_impl(&dword_1B1DE3000, v10, v11, v9, &v15, v12);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v16 = 136315394;
-    v17 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]_block_invoke";
-    v18 = 2112;
-    v19 = v5;
+    v15 = 136315394;
+    v16 = "[WFNextStaccatoActionStreamObserver startObservingWithCompletion:]_block_invoke";
+    v17 = 2112;
+    v18 = v5;
     v9 = "%s Failed to start Next Action Observation: %@";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
@@ -348,7 +338,6 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v13, v14);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (WFNextStaccatoActionStreamObserver)init

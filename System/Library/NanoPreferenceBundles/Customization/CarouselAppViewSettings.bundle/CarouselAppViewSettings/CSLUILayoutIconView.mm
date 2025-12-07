@@ -39,7 +39,7 @@
   x = point.x;
   [(CSLUILayoutIconView *)self setDragging:1];
   memset(&v10, 0, sizeof(v10));
-  [(CSLUILayoutIconView *)self transform];
+  objc_msgSend_transform(self);
   v8 = v10;
   CGAffineTransformScale(&v9, &v8, 1.6, 1.6);
   v10 = v9;

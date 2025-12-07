@@ -26,22 +26,22 @@
 
 - (void)cacheDismissalDictionaries:(id)dictionaries dismissalIDs:(id)ds inSection:(id)section forFeeds:(unint64_t)feeds
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   dsCopy = ds;
   sectionCopy = section;
   v13 = BBLogSync;
   if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138413058;
+    v18 = 138413058;
     selfCopy = dictionariesCopy;
-    v21 = 2112;
-    v22 = dsCopy;
-    v23 = 2112;
-    v24 = sectionCopy;
-    v25 = 2048;
+    v20 = 2112;
+    v21 = dsCopy;
+    v22 = 2112;
+    v23 = sectionCopy;
+    v24 = 2048;
     feedsCopy = feeds;
-    _os_log_impl(&dword_241EFF000, v13, OS_LOG_TYPE_DEFAULT, "Request to cache dismissal dictionaries:%@ IDs:%@ inSection:%@ forFeeds:%lu", &v19, 0x2Au);
+    _os_log_impl(&dword_241EFF000, v13, OS_LOG_TYPE_DEFAULT, "Request to cache dismissal dictionaries:%@ IDs:%@ inSection:%@ forFeeds:%lu", &v18, 0x2Au);
   }
 
   [(BBDismissalSyncCache *)self _checkCache];
@@ -65,27 +65,25 @@
     v17 = BBLogSync;
     if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
+      v18 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "cache updated to: %@", &v19, 0xCu);
+      _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "cache updated to: %@", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findBulletinMatch:(id)match
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   v5 = BBLogSync;
   if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     bulletinID = [matchCopy bulletinID];
-    v15 = 138412290;
-    v16 = bulletinID;
-    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "request to find bulletin match: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = bulletinID;
+    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "request to find bulletin match: %@", &v14, 0xCu);
   }
 
   [(BBDismissalSyncCache *)self _checkCache];
@@ -101,9 +99,9 @@
       v12 = BBLogSync;
       if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_241EFF000, v12, OS_LOG_TYPE_DEFAULT, "Found a match: %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v11;
+        _os_log_impl(&dword_241EFF000, v12, OS_LOG_TYPE_DEFAULT, "Found a match: %@", &v14, 0xCu);
       }
     }
 
@@ -118,21 +116,19 @@
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)removeBulletinMatch:(id)match
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   v5 = BBLogSync;
   if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = matchCopy;
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Request to remove bulletin match:%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = matchCopy;
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Request to remove bulletin match:%@", &v10, 0xCu);
   }
 
   sectionID = [matchCopy sectionID];
@@ -146,13 +142,11 @@
       v9 = BBLogSync;
       if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_241EFF000, v9, OS_LOG_TYPE_DEFAULT, "bulletin match removed", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_241EFF000, v9, OS_LOG_TYPE_DEFAULT, "bulletin match removed", &v10, 2u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isTimeToCheck
@@ -167,7 +161,7 @@
 
 - (void)_checkCache
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = BBLogSync;
   if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
   {
@@ -180,34 +174,32 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy_;
-    v20 = __Block_byref_object_dispose_;
-    v21 = 0;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = 0;
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     cache = self->_cache;
-    v9 = MEMORY[0x277D85DD0];
-    v10 = 3221225472;
-    v11 = __35__BBDismissalSyncCache__checkCache__block_invoke;
-    v12 = &unk_278D2A460;
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __35__BBDismissalSyncCache__checkCache__block_invoke;
+    v11 = &unk_278D2A460;
     v6 = v4;
-    v13 = v6;
+    v12 = v6;
     p_buf = &buf;
-    [(NSMutableDictionary *)cache enumerateKeysAndObjectsUsingBlock:&v9];
-    [(NSMutableDictionary *)self->_cache removeObjectsForKeys:v6, v9, v10, v11, v12];
+    [(NSMutableDictionary *)cache enumerateKeysAndObjectsUsingBlock:&v8];
+    [(NSMutableDictionary *)self->_cache removeObjectsForKeys:v6, v8, v9, v10, v11];
     objc_storeStrong(&self->_timeToCheck, *(*(&buf + 1) + 40));
     v7 = BBLogSync;
     if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 138412290;
+      *v14 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "check cache purge complete: %@", v15, 0xCu);
+      _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "check cache purge complete: %@", v14, 0xCu);
     }
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __35__BBDismissalSyncCache__checkCache__block_invoke(uint64_t a1, void *a2, void *a3)

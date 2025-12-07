@@ -28,7 +28,7 @@
     v15 = 0;
     v16 = 0;
     v17 = 0;
-    [(MIOTestPatternRenderer *)v10 areaRendererFromTestPattern:patternCopy];
+    objc_msgSend_areaRendererFromTestPattern_(v10);
     v16 = std::vector<Area_renderer>::__emplace_back_slow_path<Area_renderer>(&v15, &__p);
     if (v14 < 0)
     {

@@ -66,28 +66,28 @@
 
 - (void)bs_safeObjectForKey:()BaseBoard ofType:
 {
-  v1 = [self objectForKey:?];
-  if (v1)
+  v4 = [self objectForKey:a3];
+  if (v4)
   {
     if (objc_opt_isKindOfClass())
     {
-      v2 = v1;
+      v5 = v4;
     }
 
     else
     {
-      v2 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  v3 = v2;
+  v6 = v5;
 
-  return v2;
+  return v5;
 }
 
 - (void)bs_each:()BaseBoard

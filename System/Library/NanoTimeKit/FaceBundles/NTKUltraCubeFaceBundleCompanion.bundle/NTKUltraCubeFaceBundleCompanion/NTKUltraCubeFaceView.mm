@@ -847,7 +847,7 @@ LABEL_47:
           v34 = v28;
           animated = animatedCopy;
           memset(&keyExistsAndHasValidFormat, 0, sizeof(keyExistsAndHasValidFormat));
-          [(NTKUltraCubeFaceView *)self ctmForDrawingImage:v25 uprightInRect:0.0, 0.0, v33, v34];
+          objc_msgSend_ctmForDrawingImage_uprightInRect_(self, 0.0, 0.0, v33, v34);
           transform = keyExistsAndHasValidFormat;
           CGContextConcatCTM(v32, &transform);
           v132 = keyExistsAndHasValidFormat;
@@ -1546,8 +1546,7 @@ LABEL_11:
 - (CGAffineTransform)ctmForDrawingImage:(SEL)image uprightInRect:(id)rect
 {
   height = a5.size.height;
-  [rect imageOrientation];
-  sub_1939C();
+  sub_1939C([rect imageOrientation], a5.size.width, a5.size.height);
   memset(&v18, 0, sizeof(v18));
   NTKImagePresentationTransform();
   v7 = *&CGAffineTransformIdentity.a;

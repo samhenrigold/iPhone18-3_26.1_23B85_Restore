@@ -18,7 +18,7 @@
   static SettingsEventCenter.default.getter();
   v2 = type metadata accessor for IntentDonationSettingsNavigationEventResponder();
   v3 = *(v2 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
   v5 = &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   IntentDonationSettingsNavigationEventResponder.init(settingsHostApplicationBundleIdentifier:)();
   SettingsEventCenter.addResponder<A>(_:)();

@@ -1373,7 +1373,7 @@ LABEL_17:
   width = a4.width;
   height = a4.height;
   memset(v9, 0, 40);
-  result = [(CAMPreviewView *)self viewportAnchorsForFrontPIP];
+  result = objc_msgSend_viewportAnchorsForFrontPIP(self, size);
   v6.f64[0] = height;
   retstr->var0 = 0u;
   retstr->var1.x = 0.0 - width;
@@ -1386,7 +1386,7 @@ LABEL_17:
 
 - (CGPoint)_pipAnchorPointForPIPSize:(CGSize)size
 {
-  [(CAMPreviewView *)self viewportAnchorsForFrontPIPOriginWithSize:size.width, size.height];
+  objc_msgSend_viewportAnchorsForFrontPIPOriginWithSize_(self, a2, size.width, size.height);
   v4 = *MEMORY[0x1E695EFF8];
   v5 = *(MEMORY[0x1E695EFF8] + 8);
   frontPIPAnchor = [(CAMPreviewView *)self frontPIPAnchor];
@@ -1443,7 +1443,7 @@ LABEL_17:
   v10 = v9;
   v12 = v11;
 
-  [(CAMPreviewView *)self viewportAnchorsForFrontPIPOriginWithSize:v10, v12];
+  objc_msgSend_viewportAnchorsForFrontPIPOriginWithSize_(self, v10, v12);
   frontPIPAnchor = [(CAMPreviewView *)self frontPIPAnchor];
   if (frontPIPAnchor > 1)
   {

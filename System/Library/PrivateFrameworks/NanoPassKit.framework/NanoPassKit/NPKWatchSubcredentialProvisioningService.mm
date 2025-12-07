@@ -13,16 +13,16 @@
 
 - (NPKWatchSubcredentialProvisioningService)init
 {
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Expected to instantiate NPKWatchSubcredentialProvisioningService on watch.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Expected to instantiate NPKWatchSubcredentialProvisioningService on watch.", v8, 2u);
     }
   }
 
@@ -41,22 +41,22 @@
   v27 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
-  v8 = pk_General_log();
+  v8 = pk_General_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = _Block_copy(completionCopy);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = _Block_copy(completionCopy);
       *buf = 138543618;
-      v24 = v12;
+      v24 = v13;
       v25 = 2112;
-      v26 = v13;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending can accept invitation on remote device request with completion: %@", buf, 0x16u);
+      v26 = v14;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending can accept invitation on remote device request with completion: %@", buf, 0x16u);
     }
   }
 
@@ -70,13 +70,12 @@
   selfCopy = self;
   v21 = completionCopy;
   v19 = invitationCopy;
-  v15 = completionCopy;
-  v16 = invitationCopy;
+  v16 = completionCopy;
+  v17 = invitationCopy;
   dispatch_async(subcredentialProvisioningQueue, v18);
 
   objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __113__NPKWatchSubcredentialProvisioningService_sendCanAcceptInvitationOnRemoteDeviceRequestForInvitation_completion___block_invoke(uint64_t a1)
@@ -111,15 +110,15 @@ void __113__NPKWatchSubcredentialProvisioningService_sendCanAcceptInvitationOnRe
 
   else
   {
-    v15 = pk_General_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    v14 = pk_General_log(0);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_4;
     }
 
-    v9 = pk_General_log();
+    v9 = pk_General_log(v16);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v17 = objc_opt_class();
@@ -133,67 +132,62 @@ void __113__NPKWatchSubcredentialProvisioningService_sendCanAcceptInvitationOnRe
   }
 
 LABEL_4:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __113__NPKWatchSubcredentialProvisioningService_sendCanAcceptInvitationOnRemoteDeviceRequestForInvitation_completion___block_invoke_2(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a1[6];
   if (v2)
   {
     v3 = *(v2 + 16);
-    v4 = *MEMORY[0x277D85DE8];
 
     v3();
   }
 
   else
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_Payment_log(0);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v5)
     {
-      v7 = pk_Payment_log();
+      v7 = pk_Payment_log(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = a1[4];
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = a1[5];
-        v13 = 138543618;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = a1[5];
+        v11 = 138543618;
+        v12 = v9;
+        v13 = 2112;
         v14 = v10;
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: No response expected for message with identifier %@", &v13, 0x16u);
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: No response expected for message with identifier %@", &v11, 0x16u);
       }
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)canAcceptInvitationOnRemoteDeviceResponse:(id)response
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(responseCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       npkDescription = [responseCopy npkDescription];
-      v35 = 138543618;
-      v36 = v9;
-      v37 = 2112;
-      v38 = npkDescription;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Received canAcceptInvitationOnRemoteDeviceResponse: incoming protobuf %@", &v35, 0x16u);
+      v39 = 138543618;
+      v40 = v10;
+      v41 = 2112;
+      v42 = npkDescription;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Received canAcceptInvitationOnRemoteDeviceResponse: incoming protobuf %@", &v39, 0x16u);
     }
   }
 
@@ -202,23 +196,23 @@ void __113__NPKWatchSubcredentialProvisioningService_sendCanAcceptInvitationOnRe
 
   if (!incomingResponseIdentifier)
   {
-    v23 = pk_Payment_log();
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+    v26 = pk_Payment_log(v14);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
 
-    if (v24)
+    if (v27)
     {
-      v25 = pk_Payment_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v29 = pk_Payment_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v35 = 138543362;
-        v36 = v27;
-        v28 = "Error: %{public}@: No associated message ID in response";
-        v29 = v25;
-        v30 = OS_LOG_TYPE_ERROR;
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
+        v39 = 138543362;
+        v40 = v31;
+        v32 = "Error: %{public}@: No associated message ID in response";
+        v33 = v29;
+        v34 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_25B300000, v29, v30, v28, &v35, 0xCu);
+        _os_log_impl(&dword_25B300000, v33, v34, v32, &v39, 0xCu);
       }
 
 LABEL_16:
@@ -226,30 +220,30 @@ LABEL_16:
 
 LABEL_17:
     completionHandler = 0;
-    v22 = 0;
+    v25 = 0;
     goto LABEL_18;
   }
 
   outstandingRequests = [(NPKSubcredentialProvisioningService *)self outstandingRequests];
-  v14 = [outstandingRequests objectForKey:incomingResponseIdentifier];
+  v16 = [outstandingRequests objectForKey:incomingResponseIdentifier];
 
-  if (!v14)
+  if (!v16)
   {
-    v31 = pk_Payment_log();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+    v35 = pk_Payment_log(v17);
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
 
-    if (v32)
+    if (v36)
     {
-      v25 = pk_Payment_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v29 = pk_Payment_log(v37);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = objc_opt_class();
-        v27 = NSStringFromClass(v33);
-        v35 = 138543362;
-        v36 = v27;
-        v28 = "Warning: %{public}@: Got response with no associated message handler";
-        v29 = v25;
-        v30 = OS_LOG_TYPE_DEFAULT;
+        v38 = objc_opt_class();
+        v31 = NSStringFromClass(v38);
+        v39 = 138543362;
+        v40 = v31;
+        v32 = "Warning: %{public}@: Got response with no associated message handler";
+        v33 = v29;
+        v34 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_15;
       }
 
@@ -259,26 +253,24 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v15 = [NPKProtoCanAcceptInvitationResponse alloc];
+  v18 = [NPKProtoCanAcceptInvitationResponse alloc];
   data = [responseCopy data];
-  v17 = [(NPKProtoCanAcceptInvitationResponse *)v15 initWithData:data];
+  v20 = [(NPKProtoCanAcceptInvitationResponse *)v18 initWithData:data];
 
   outstandingRequests2 = [(NPKSubcredentialProvisioningService *)self outstandingRequests];
   [outstandingRequests2 removeObjectForKey:incomingResponseIdentifier];
 
-  completionHandler = [v14 completionHandler];
-  errorData = [(NPKProtoCanAcceptInvitationResponse *)v17 errorData];
-  v21 = objc_opt_class();
-  v22 = NPKSecureUnarchiveObject(errorData, v21);
+  completionHandler = [v16 completionHandler];
+  errorData = [(NPKProtoCanAcceptInvitationResponse *)v20 errorData];
+  v24 = objc_opt_class();
+  v25 = NPKSecureUnarchiveObject(errorData, v24);
 
   if (completionHandler)
   {
-    (completionHandler)[2](completionHandler, v22 == 0, v22);
+    (completionHandler)[2](completionHandler, v25 == 0, v25);
   }
 
 LABEL_18:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendAcceptSubcredentialProvisioningRequestForInvitation:(id)invitation metadata:(id)metadata
@@ -286,21 +278,21 @@ LABEL_18:
   v25 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   metadataCopy = metadata;
-  v8 = pk_General_log();
+  v8 = pk_General_log(metadataCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543618;
-      v22 = v12;
+      v22 = v13;
       v23 = 2112;
       v24 = invitationCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending subcredential provisioning request for invitation: %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending subcredential provisioning request for invitation: %@", buf, 0x16u);
     }
   }
 
@@ -313,13 +305,12 @@ LABEL_18:
   objc_copyWeak(&v20, buf);
   v18 = invitationCopy;
   v19 = metadataCopy;
-  v14 = metadataCopy;
-  v15 = invitationCopy;
+  v15 = metadataCopy;
+  v16 = invitationCopy;
   dispatch_async(subcredentialProvisioningQueue, block);
 
   objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __109__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProvisioningRequestForInvitation_metadata___block_invoke(void **a1)
@@ -347,72 +338,71 @@ void __109__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProv
   v13 = [WeakRetained sendProtobuf:v8 responseExpected:0 extraOptions:v12];
   if (!v13)
   {
-    v14 = pk_General_log();
+    v14 = pk_General_log(0);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
     if (v15)
     {
-      v16 = pk_General_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
-        *buf = 138543618;
-        v21 = v18;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: %{public}@: No message identifier for protobuf %@", buf, 0x16u);
-      }
-    }
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendAcceptSubcredentialProvisioningRequestForMailboxAddress:(id)address activationCode:(id)code
-{
-  v31 = *MEMORY[0x277D85DE8];
-  addressCopy = address;
-  codeCopy = code;
-  v8 = [addressCopy length] == 0;
-  v9 = pk_General_log();
-  v10 = v9;
-  if (v8)
-  {
-    v16 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-
-    if (v16)
-    {
-      v17 = pk_General_log();
+      v17 = pk_General_log(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = objc_opt_class();
         v19 = NSStringFromClass(v18);
+        *buf = 138543618;
+        v21 = v19;
+        v22 = 2112;
+        v23 = v8;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_ERROR, "Error: %{public}@: No message identifier for protobuf %@", buf, 0x16u);
+      }
+    }
+  }
+}
+
+- (void)sendAcceptSubcredentialProvisioningRequestForMailboxAddress:(id)address activationCode:(id)code
+{
+  v33 = *MEMORY[0x277D85DE8];
+  addressCopy = address;
+  codeCopy = code;
+  v8 = [addressCopy length];
+  v9 = v8 == 0;
+  v10 = pk_General_log(v8);
+  v11 = v10;
+  if (v9)
+  {
+    v18 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+
+    if (v18)
+    {
+      v20 = pk_General_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138543362;
-        v26 = v19;
-        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_ERROR, "Error: %{public}@: Unable to initiate subcredential provisioning request for empty mailbox address", buf, 0xCu);
+        v28 = v22;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_ERROR, "Error: %{public}@: Unable to initiate subcredential provisioning request for empty mailbox address", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v11 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v12 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 138543875;
-        v26 = v14;
-        v27 = 2113;
-        v28 = addressCopy;
+        v28 = v16;
         v29 = 2113;
-        v30 = codeCopy;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending subcredential provisioning request for mailbox address: %{private}@, activationCode: %{private}@", buf, 0x20u);
+        v30 = addressCopy;
+        v31 = 2113;
+        v32 = codeCopy;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending subcredential provisioning request for mailbox address: %{private}@, activationCode: %{private}@", buf, 0x20u);
       }
     }
 
@@ -422,16 +412,14 @@ void __109__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProv
     block[1] = 3221225472;
     block[2] = __119__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProvisioningRequestForMailboxAddress_activationCode___block_invoke;
     block[3] = &unk_279945290;
-    objc_copyWeak(&v24, buf);
-    v22 = addressCopy;
-    v23 = codeCopy;
+    objc_copyWeak(&v26, buf);
+    v24 = addressCopy;
+    v25 = codeCopy;
     dispatch_async(subcredentialProvisioningQueue, block);
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __119__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProvisioningRequestForMailboxAddress_activationCode___block_invoke(uint64_t a1)
@@ -452,48 +440,46 @@ void __119__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProv
   v9 = [WeakRetained sendProtobuf:v6 responseExpected:0 extraOptions:v8];
   if (!v9)
   {
-    v10 = pk_General_log();
+    v10 = pk_General_log(0);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
     if (v11)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = pk_General_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138543618;
-        v17 = v14;
+        v17 = v15;
         v18 = 2112;
         v19 = v6;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: %{public}@: No message identifier for protobuf %@", buf, 0x16u);
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: %{public}@: No message identifier for protobuf %@", buf, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAccountAttestationAnonymizationSaltOnRemoteDeviceWithCompletion:(id)completion
 {
   v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = pk_General_log();
+  v5 = pk_General_log(completionCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = _Block_copy(completionCopy);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = _Block_copy(completionCopy);
       *buf = 138543618;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending fetch account attestation anonymization salt request with completion: %@", buf, 0x16u);
+      v20 = v11;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending fetch account attestation anonymization salt request with completion: %@", buf, 0x16u);
     }
   }
 
@@ -506,12 +492,11 @@ void __119__NPKWatchSubcredentialProvisioningService_sendAcceptSubcredentialProv
   objc_copyWeak(&v16, buf);
   block[4] = self;
   v15 = completionCopy;
-  v12 = completionCopy;
+  v13 = completionCopy;
   dispatch_async(subcredentialProvisioningQueue, block);
 
   objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __113__NPKWatchSubcredentialProvisioningService_fetchAccountAttestationAnonymizationSaltOnRemoteDeviceWithCompletion___block_invoke(uint64_t a1)
@@ -546,15 +531,15 @@ void __113__NPKWatchSubcredentialProvisioningService_fetchAccountAttestationAnon
 
   else
   {
-    v15 = pk_General_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    v14 = pk_General_log(0);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_4;
     }
 
-    v9 = pk_General_log();
+    v9 = pk_General_log(v16);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v17 = objc_opt_class();
@@ -568,67 +553,62 @@ void __113__NPKWatchSubcredentialProvisioningService_fetchAccountAttestationAnon
   }
 
 LABEL_4:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __113__NPKWatchSubcredentialProvisioningService_fetchAccountAttestationAnonymizationSaltOnRemoteDeviceWithCompletion___block_invoke_2(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a1[6];
   if (v2)
   {
     v3 = *(v2 + 16);
-    v4 = *MEMORY[0x277D85DE8];
 
     v3();
   }
 
   else
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_Payment_log(0);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v5)
     {
-      v7 = pk_Payment_log();
+      v7 = pk_Payment_log(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = a1[4];
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = a1[5];
-        v13 = 138543618;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = a1[5];
+        v11 = 138543618;
+        v12 = v9;
+        v13 = 2112;
         v14 = v10;
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: No response expected for message with identifier %@", &v13, 0x16u);
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: No response expected for message with identifier %@", &v11, 0x16u);
       }
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)fetchAccountAttestationAnonymizationSaltResponse:(id)response
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(responseCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       npkDescription = [responseCopy npkDescription];
-      v36 = 138543618;
-      v37 = v9;
-      v38 = 2112;
-      v39 = npkDescription;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Received accountAttestationAnonymizationSaltResponse: incoming protobuf %@", &v36, 0x16u);
+      v40 = 138543618;
+      v41 = v10;
+      v42 = 2112;
+      v43 = npkDescription;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Received accountAttestationAnonymizationSaltResponse: incoming protobuf %@", &v40, 0x16u);
     }
   }
 
@@ -637,23 +617,23 @@ void __113__NPKWatchSubcredentialProvisioningService_fetchAccountAttestationAnon
 
   if (!incomingResponseIdentifier)
   {
-    v24 = pk_Payment_log();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    v27 = pk_Payment_log(v14);
+    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
 
-    if (v25)
+    if (v28)
     {
-      v26 = pk_Payment_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v30 = pk_Payment_log(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        v36 = 138543362;
-        v37 = v28;
-        v29 = "Error: %{public}@: No associated message ID in response";
-        v30 = v26;
-        v31 = OS_LOG_TYPE_ERROR;
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
+        v40 = 138543362;
+        v41 = v32;
+        v33 = "Error: %{public}@: No associated message ID in response";
+        v34 = v30;
+        v35 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_25B300000, v30, v31, v29, &v36, 0xCu);
+        _os_log_impl(&dword_25B300000, v34, v35, v33, &v40, 0xCu);
       }
 
 LABEL_16:
@@ -662,30 +642,30 @@ LABEL_16:
 LABEL_17:
     completionHandler = 0;
     anonymizationSalt = 0;
-    v23 = 0;
+    v26 = 0;
     goto LABEL_18;
   }
 
   outstandingRequests = [(NPKSubcredentialProvisioningService *)self outstandingRequests];
-  v14 = [outstandingRequests objectForKey:incomingResponseIdentifier];
+  v16 = [outstandingRequests objectForKey:incomingResponseIdentifier];
 
-  if (!v14)
+  if (!v16)
   {
-    v32 = pk_Payment_log();
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+    v36 = pk_Payment_log(v17);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
 
-    if (v33)
+    if (v37)
     {
-      v26 = pk_Payment_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v30 = pk_Payment_log(v38);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = objc_opt_class();
-        v28 = NSStringFromClass(v34);
-        v36 = 138543362;
-        v37 = v28;
-        v29 = "Warning: %{public}@: Got response with no associated message handler";
-        v30 = v26;
-        v31 = OS_LOG_TYPE_DEFAULT;
+        v39 = objc_opt_class();
+        v32 = NSStringFromClass(v39);
+        v40 = 138543362;
+        v41 = v32;
+        v33 = "Warning: %{public}@: Got response with no associated message handler";
+        v34 = v30;
+        v35 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_15;
       }
 
@@ -695,27 +675,25 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v15 = [NPKProtoAccountAttestationAnonymizationSaltResponse alloc];
+  v18 = [NPKProtoAccountAttestationAnonymizationSaltResponse alloc];
   data = [responseCopy data];
-  v17 = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v15 initWithData:data];
+  v20 = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v18 initWithData:data];
 
   outstandingRequests2 = [(NPKSubcredentialProvisioningService *)self outstandingRequests];
   [outstandingRequests2 removeObjectForKey:incomingResponseIdentifier];
 
-  completionHandler = [v14 completionHandler];
-  anonymizationSalt = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v17 anonymizationSalt];
-  errorData = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v17 errorData];
-  v22 = objc_opt_class();
-  v23 = NPKSecureUnarchiveObject(errorData, v22);
+  completionHandler = [v16 completionHandler];
+  anonymizationSalt = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v20 anonymizationSalt];
+  errorData = [(NPKProtoAccountAttestationAnonymizationSaltResponse *)v20 errorData];
+  v25 = objc_opt_class();
+  v26 = NPKSecureUnarchiveObject(errorData, v25);
 
   if (completionHandler)
   {
-    (completionHandler)[2](completionHandler, anonymizationSalt, v23);
+    (completionHandler)[2](completionHandler, anonymizationSalt, v26);
   }
 
 LABEL_18:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 @end

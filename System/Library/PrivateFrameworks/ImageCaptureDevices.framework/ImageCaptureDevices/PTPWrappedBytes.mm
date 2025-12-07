@@ -214,29 +214,7 @@ LABEL_12:
 
   offset = self->_offset;
   lengthCopy3 = length;
-  if (self->_capacity - offset >= length)
-  {
-    goto LABEL_8;
-  }
-
-  capacity = offset + length;
-  v10 = malloc_type_realloc(self->_bytes, offset + length, 0xFBA8BADAuLL);
-  if (v10)
-  {
-    self->_bytes = v10;
-    self->_capacity = capacity;
-  }
-
-  else
-  {
-    syslog(3, "Unable to realloc() buffer in PTPWrappedBytes\n");
-    capacity = self->_capacity;
-  }
-
-  offset = self->_offset;
-  v13 = capacity > offset;
-  lengthCopy3 = capacity - offset;
-  if (v13)
+  if (self->_capacity - offset >= length || ((capacity = offset + length, (v10 = malloc_type_realloc(self->_bytes, offset + length, 0xFBA8BADAuLL)) == 0) ? (syslog(3, "Unable to realloc() buffer in PTPWrappedBytes\n"), capacity = self->_capacity) : (self->_bytes = v10, self->_capacity = capacity), offset = self->_offset, v13 = capacity > offset, lengthCopy3 = capacity - offset, v13))
   {
 LABEL_8:
     if (!lengthCopy3)

@@ -2,6 +2,7 @@
 - ($09AED28DA01A4B4CD63B1271B5E0322A)HighestQualityFormat;
 - (SpatialAudioClient)initWithPid:(int)pid deviceID:(unsigned int)d;
 - (void)ReleaseSpatialAudioQueueInfo;
+- (void)UpdateSpatialAudioQueueInfo:(id)info;
 - (void)cancelExitHandler;
 - (void)dealloc;
 - (void)dercrementRefCount;
@@ -82,6 +83,164 @@
   }
 
   return v7;
+}
+
+- (void)UpdateSpatialAudioQueueInfo:(id)info
+{
+  v3 = *&info.var2;
+  v4 = *&info.var0;
+  v6 = *&info.var0 >> 40;
+  v7 = BYTE2(info.var1);
+  var1_high = HIBYTE(info.var1);
+  buf[0] = HIBYTE(info.var1);
+  var3 = info.var3;
+  buf[1] = BYTE2(info.var1);
+  buf[2] = BYTE1(info.var1);
+  buf[3] = info.var1;
+  v35[0] = 0;
+  v32 = [[NSString alloc] initWithFormat:@"%d-%d-%s", *&info.var0, info.var3, buf];
+  v33[0] = 0;
+  v33[1] = 0;
+  sub_70AF4(v33, &self->clientMutex);
+  v10 = v3 >> 16;
+  v11 = v3;
+  v12 = qword_D8508;
+  if (os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = "Enabled";
+    *buf = 67109890;
+    *&v35[4] = 2082;
+    *v35 = v4;
+    if (!v11)
+    {
+      v13 = "Disabled";
+    }
+
+    *&v35[6] = v13;
+    v36 = 1024;
+    LODWORD(v37[0]) = var3;
+    WORD2(v37[0]) = 1024;
+    *(v37 + 6) = v11;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[ %d ] Spatial Audio Queue HeadTracked : %{public}s Channels=%d Spatial Status = %d", buf, 0x1Eu);
+  }
+
+  if (!v11)
+  {
+    v22 = (var1_high << 24) | (v7 << 16) | (v6 << 8) | BYTE4(v4);
+    if (!v22)
+    {
+      v29 = qword_D8508;
+      if (os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+      {
+        v30 = [(NSMutableDictionary *)self->audioQueueDict count];
+        *buf = 67109376;
+        *v35 = v4;
+        *&v35[4] = 2048;
+        *&v35[6] = v30;
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "[%d] Clear up all queues available queues = %lu", buf, 0x12u);
+      }
+
+      [(SpatialAudioClient *)self ReleaseSpatialAudioQueueInfo];
+      goto LABEL_24;
+    }
+
+    v23 = [(NSMutableDictionary *)self->audioQueueDict objectForKey:v32];
+    if (v23 && ([v23 updateStreamInfo:{v4 | (v22 << 32), (v10 << 16) | (var3 << 8)}] & 1) == 0)
+    {
+      [(NSMutableDictionary *)self->audioQueueDict removeObjectForKey:v32];
+      v24 = qword_D8508;
+      if (!os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_23;
+      }
+
+      v31 = [(NSMutableDictionary *)self->audioQueueDict count];
+      *buf = 138412802;
+      *v35 = v32;
+      *&v35[8] = 1024;
+      *&v35[10] = 0;
+      v36 = 2048;
+      v37[0] = v31;
+      v26 = "Removed Audio Queue Entry %@ : %d available queues = %lu";
+    }
+
+    else
+    {
+      v24 = qword_D8508;
+      if (!os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_23;
+      }
+
+      v25 = [(NSMutableDictionary *)self->audioQueueDict count];
+      *buf = 138412802;
+      *v35 = v32;
+      *&v35[8] = 1024;
+      *&v35[10] = 0;
+      v36 = 2048;
+      v37[0] = v25;
+      v26 = "Decremented Ref for Audio Queue Entry %@ : %d available queues = %lu";
+    }
+
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0x1Cu);
+LABEL_23:
+    if ([(NSMutableDictionary *)self->audioQueueDict count])
+    {
+      goto LABEL_25;
+    }
+
+LABEL_24:
+    self->_spatialRefCount = 0;
+    goto LABEL_25;
+  }
+
+  v14 = [(NSMutableDictionary *)self->audioQueueDict objectForKey:v32];
+  v15 = v14;
+  if (v14)
+  {
+    [v14 streamInfo];
+    v17 = v16;
+    [v15 updateStreamInfo:{v4 | (((var1_high << 24) | (v7 << 16) | (v6 << 8) | BYTE4(v4)) << 32), (v10 << 16) | (var3 << 8) | v11}];
+    v18 = qword_D8508;
+    if (os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      *v35 = v32;
+      *&v35[8] = 1024;
+      *&v35[10] = v17;
+      v36 = 1024;
+      LODWORD(v37[0]) = v11;
+      v19 = "Updated Audio Queue Entry %@ :%d -> %d";
+      v20 = v18;
+      v21 = 24;
+LABEL_16:
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+    }
+  }
+
+  else
+  {
+    v27 = [[SpatialAudioQueue alloc] initWithStreamInfo:v4 | (((var1_high << 24) | (v7 << 16) | (v6 << 8) | BYTE4(v4)) << 32), (v10 << 16) | (var3 << 8) | v11];
+    [(NSMutableDictionary *)self->audioQueueDict setObject:v27 forKey:v32];
+
+    v28 = qword_D8508;
+    if (os_log_type_enabled(qword_D8508, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      *v35 = v32;
+      *&v35[8] = 1024;
+      *&v35[10] = v11;
+      v19 = "Created Audio Queue Entry %@ : %d";
+      v20 = v28;
+      v21 = 18;
+      goto LABEL_16;
+    }
+  }
+
+LABEL_25:
+  [(SpatialAudioClient *)self updateHighestQualityFormat];
+
+  sub_70C40(v33);
 }
 
 - (void)ReleaseSpatialAudioQueueInfo

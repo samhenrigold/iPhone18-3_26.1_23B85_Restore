@@ -118,35 +118,35 @@
 
 - (BOOL)isValid
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D3B4C8] = [MEMORY[0x277D3B4C8] sharedTaxonomy];
   positiveScenes = [(PGMeaningSceneCriteria *)self positiveScenes];
   negativeScenes = [(PGMeaningSceneCriteria *)self negativeScenes];
   v6 = [positiveScenes arrayByAddingObjectsFromArray:negativeScenes];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v23;
+    v11 = *v22;
     v12 = 1;
     *&v9 = 138412290;
-    v21 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         lowercaseString = [v14 lowercaseString];
         v16 = [mEMORY[0x277D3B4C8] nodeForName:lowercaseString];
         if (!v16)
@@ -156,8 +156,8 @@
 
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
           {
-            *buf = v21;
-            v27 = v14;
+            *buf = v20;
+            v26 = v14;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid scene name %@", buf, 0xCu);
           }
 
@@ -165,7 +165,7 @@
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v10);
@@ -176,7 +176,6 @@
     v12 = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 

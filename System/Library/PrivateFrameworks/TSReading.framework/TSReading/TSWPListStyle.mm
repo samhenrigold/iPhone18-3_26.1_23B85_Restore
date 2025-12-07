@@ -332,7 +332,7 @@ TSSPropertySet *__41__TSWPListStyle_propertiesAllowingNSNull__block_invoke()
 
 + (id)defaultMissingBulletImage
 {
-  v2 = [TSWPBundle() URLForResource:objc_msgSend(@"TSWPMissingBulletImage.png" withExtension:{"stringByDeletingPathExtension"), objc_msgSend(@"TSWPMissingBulletImage.png", "pathExtension")}];
+  v2 = [TSWPBundle(self a2)];
 
   return [TSPData readOnlyDataFromURL:v2 context:0];
 }
@@ -886,7 +886,7 @@ LABEL_16:
 
   v3 = @"Korean";
 LABEL_38:
-  v5 = TSWPBundle();
+  v5 = TSWPBundle(self, a2);
 
   return [v5 localizedStringForKey:v3 value:&stru_287D36338 table:@"TSText"];
 }

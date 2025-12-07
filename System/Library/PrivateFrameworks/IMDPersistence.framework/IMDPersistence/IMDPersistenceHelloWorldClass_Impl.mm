@@ -16,7 +16,6 @@
 
 - (void)printGreeting
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___IMDPersistenceHelloWorldClass_Impl_inner);
   selfCopy = self;
   sub_1B7CFE240();
 }

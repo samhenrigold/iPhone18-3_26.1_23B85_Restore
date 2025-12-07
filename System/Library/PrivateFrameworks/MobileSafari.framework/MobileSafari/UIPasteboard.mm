@@ -5,23 +5,23 @@
 
 void __88__UIPasteboard_MobileSafariFrameworkExtras___safari_copyRichText_withPlainTextFallback___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v4 length];
-  v11 = *MEMORY[0x1E69DB628];
-  v12[0] = *MEMORY[0x1E69DB6A0];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-  v10 = 0;
-  v7 = [v4 dataFromRange:0 documentAttributes:v5 error:{v6, &v10}];
-  v8 = v10;
+  v13 = *MEMORY[0x1E69DB628];
+  v14[0] = *MEMORY[0x1E69DB6A0];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = 0;
+  v7 = [v4 dataFromRange:0 documentAttributes:v5 error:{v6, &v12}];
+  v8 = v12;
 
   if (!v7)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXOther(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __88__UIPasteboard_MobileSafariFrameworkExtras___safari_copyRichText_withPlainTextFallback___block_invoke_cold_1(v9, v8);
+      __88__UIPasteboard_MobileSafariFrameworkExtras___safari_copyRichText_withPlainTextFallback___block_invoke_cold_1(v11, v8);
     }
   }
 

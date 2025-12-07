@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
@@ -51,15 +51,14 @@
   v4 = +[IDSDaemonController sharedInstance];
   [v4 removeListenerID:self->_listenerGUID];
 
-  v6.receiver = self;
-  v6.super_class = IDSSignInController;
-  [(IDSSignInController *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = IDSSignInController;
+  [(IDSSignInController *)&v5 dealloc];
 }
 
 - (IDSSignInController)initWithPasswordManager:(id)manager CTAdapter:(id)adapter signInTimeout:(double)timeout signInFuzz:(double)fuzz queue:(id)queue
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   adapterCopy = adapter;
   queueCopy = queue;
@@ -68,7 +67,7 @@
     signInController = [MEMORY[0x1E69A6138] signInController];
     if (os_log_type_enabled(signInController, OS_LOG_TYPE_ERROR))
     {
-      sub_195B28A4C();
+      sub_195B28A4C(self, signInController);
     }
 
     selfCopy = 0;
@@ -76,9 +75,9 @@
 
   else
   {
-    v28.receiver = self;
-    v28.super_class = IDSSignInController;
-    v18 = [(IDSSignInController *)&v28 init];
+    v27.receiver = self;
+    v27.super_class = IDSSignInController;
+    v18 = [(IDSSignInController *)&v27 init];
     if (v18)
     {
       v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -101,7 +100,7 @@
       if (os_log_type_enabled(signInController2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v30 = v18;
+        v29 = v18;
         _os_log_impl(&dword_1959FF000, signInController2, OS_LOG_TYPE_DEFAULT, "IDSSignInController init {self: %p}", buf, 0xCu);
       }
     }
@@ -110,7 +109,6 @@
     selfCopy = self;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -122,7 +120,7 @@
     signInController = [MEMORY[0x1E69A6138] signInController];
     if (os_log_type_enabled(signInController, OS_LOG_TYPE_ERROR))
     {
-      sub_195B28A4C();
+      sub_195B28A4C(self, signInController);
     }
 
     selfCopy = 0;
@@ -177,7 +175,7 @@
 
 - (void)enableUserType:(unint64_t)type onService:(unint64_t)service completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   signInController = [MEMORY[0x1E69A6138] signInController];
   v10 = os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT);
@@ -199,21 +197,21 @@
       v12 = v11;
       *buf = 134218242;
       typeCopy = type;
-      v21 = 2112;
-      v22 = v12;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Enable user on service {userType: %llu, service: %@}", buf, 0x16u);
     }
 
     signInQueue = self->_signInQueue;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = sub_195A43180;
-    v15[3] = &unk_1E743FA48;
-    v15[4] = self;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_195A43180;
+    v14[3] = &unk_1E743FA48;
+    v14[4] = self;
     typeCopy2 = type;
     serviceCopy = service;
-    v16 = completionCopy;
-    dispatch_async(signInQueue, v15);
+    v15 = completionCopy;
+    dispatch_async(signInQueue, v14);
   }
 
   else
@@ -225,13 +223,11 @@
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableUserType:(unint64_t)type onService:(unint64_t)service completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   signInController = [MEMORY[0x1E69A6138] signInController];
   v10 = os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT);
@@ -253,21 +249,21 @@
       v12 = v11;
       *buf = 134218242;
       typeCopy = type;
-      v21 = 2112;
-      v22 = v12;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Disable user on service {userType: %llu, service: %@}", buf, 0x16u);
     }
 
     signInQueue = self->_signInQueue;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = sub_195A4368C;
-    v15[3] = &unk_1E743FA48;
-    v15[4] = self;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_195A4368C;
+    v14[3] = &unk_1E743FA48;
+    v14[4] = self;
     typeCopy2 = type;
     serviceCopy = service;
-    v16 = completionCopy;
-    dispatch_async(signInQueue, v15);
+    v15 = completionCopy;
+    dispatch_async(signInQueue, v14);
   }
 
   else
@@ -279,8 +275,6 @@
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_statusOfUsersOnService:(unint64_t)service
@@ -310,7 +304,7 @@
 
 - (void)statusOfUsersOnService:(unint64_t)service withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   signInController = [MEMORY[0x1E69A6138] signInController];
   v8 = os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT);
@@ -331,7 +325,7 @@
 
       v10 = v9;
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Checking user statuses {service: %@}", buf, 0xCu);
     }
 
@@ -342,7 +336,7 @@
     block[3] = &unk_1E743FA98;
     block[4] = self;
     serviceCopy = service;
-    v14 = completionCopy;
+    v13 = completionCopy;
     dispatch_async(signInQueue, block);
   }
 
@@ -351,17 +345,15 @@
     if (v8)
     {
       *buf = 136315138;
-      v17 = "[IDSSignInController statusOfUsersOnService:withCompletion:]";
+      v16 = "[IDSSignInController statusOfUsersOnService:withCompletion:]";
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provideCredential:(id)credential forUser:(id)user onService:(unint64_t)service withCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   userCopy = user;
   completionCopy = completion;
@@ -385,11 +377,11 @@
 
       v17 = v15;
       *buf = 134218498;
-      v25 = credentialCopy;
-      v26 = 2112;
-      v27 = userCopy;
-      v28 = 2112;
-      v29 = v17;
+      v24 = credentialCopy;
+      v25 = 2112;
+      v26 = userCopy;
+      v27 = 2112;
+      v28 = v17;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Provided credential {credential: %p, user: %@, service: %@}", buf, 0x20u);
     }
 
@@ -418,7 +410,7 @@ LABEL_17:
         if (os_log_type_enabled(signInController2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v25 = signInController;
+          v24 = signInController;
           _os_log_impl(&dword_1959FF000, signInController2, OS_LOG_TYPE_DEFAULT, "Invalid params {error: %@}", buf, 0xCu);
         }
 
@@ -430,14 +422,14 @@ LABEL_17:
     if (userCopy)
     {
       passwordManager = [(IDSSignInController *)self passwordManager];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = sub_195A440C0;
-      v22[3] = &unk_1E743FAC0;
-      v23 = completionCopy;
-      [passwordManager setPassword:credentialCopy forUsername:userCopy onService:v18 completionBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_195A440C0;
+      v21[3] = &unk_1E743FAC0;
+      v22 = completionCopy;
+      [passwordManager setPassword:credentialCopy forUsername:userCopy onService:v18 completionBlock:v21];
 
-      signInController = v23;
+      signInController = v22;
       goto LABEL_20;
     }
 
@@ -447,19 +439,17 @@ LABEL_17:
   if (v14)
   {
     *buf = 136315138;
-    v25 = "[IDSSignInController provideCredential:forUser:onService:withCompletion:]";
+    v24 = "[IDSSignInController provideCredential:forUser:onService:withCompletion:]";
     _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
   }
 
 LABEL_20:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signInUsername:(id)username onService:(unint64_t)service waitUntilRegistered:(BOOL)registered withCompletion:(id)completion
 {
   registeredCopy = registered;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   completionCopy = completion;
   signInController = [MEMORY[0x1E69A6138] signInController];
@@ -483,16 +473,16 @@ LABEL_20:
       v16 = v15;
       v17 = @"NO";
       *buf = 138412802;
-      v27 = usernameCopy;
-      v28 = 2112;
+      v26 = usernameCopy;
+      v27 = 2112;
       if (registeredCopy)
       {
         v17 = @"YES";
       }
 
-      v29 = v15;
-      v30 = 2112;
-      v31 = v17;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v17;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Sign in user {user: %@, service: %@, shouldWait: %@}", buf, 0x20u);
     }
 
@@ -502,28 +492,26 @@ LABEL_20:
     block[2] = sub_195A44450;
     block[3] = &unk_1E743FAE8;
     serviceCopy = service;
-    v21 = usernameCopy;
+    v20 = usernameCopy;
     selfCopy = self;
-    v23 = completionCopy;
-    v25 = registeredCopy;
+    v22 = completionCopy;
+    v24 = registeredCopy;
     dispatch_async(signInQueue, block);
 
-    signInController = v21;
+    signInController = v20;
   }
 
   else if (v13)
   {
     *buf = 136315138;
-    v27 = "[IDSSignInController signInUsername:onService:waitUntilRegistered:withCompletion:]";
+    v26 = "[IDSSignInController signInUsername:onService:waitUntilRegistered:withCompletion:]";
     _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signInUsername:(id)username withProvidedCredential:(id)credential onService:(unint64_t)service waitUntilRegistered:(BOOL)registered completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   credentialCopy = credential;
   completionCopy = completion;
@@ -546,24 +534,24 @@ LABEL_20:
 
       v18 = v17;
       *buf = 138412802;
-      v26 = usernameCopy;
-      v27 = 2048;
-      v28 = credentialCopy;
-      v29 = 2112;
-      v30 = v18;
+      v25 = usernameCopy;
+      v26 = 2048;
+      v27 = credentialCopy;
+      v28 = 2112;
+      v29 = v18;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Sign in user with provided credential {user: %@, credential: %p, service: %@}", buf, 0x20u);
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195A4485C;
-    v20[3] = &unk_1E743FB10;
-    v20[4] = self;
-    v21 = usernameCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195A4485C;
+    v19[3] = &unk_1E743FB10;
+    v19[4] = self;
+    v20 = usernameCopy;
     serviceCopy = service;
     registeredCopy = registered;
-    v22 = completionCopy;
-    [(IDSSignInController *)self provideCredential:credentialCopy forUser:v21 onService:service withCompletion:v20];
+    v21 = completionCopy;
+    [(IDSSignInController *)self provideCredential:credentialCopy forUser:v20 onService:service withCompletion:v19];
   }
 
   else
@@ -571,17 +559,15 @@ LABEL_20:
     if (v16)
     {
       *buf = 136315138;
-      v26 = "[IDSSignInController signInUsername:withProvidedCredential:onService:waitUntilRegistered:completion:]";
+      v25 = "[IDSSignInController signInUsername:withProvidedCredential:onService:waitUntilRegistered:completion:]";
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signOutService:(unint64_t)service completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   signInController = [MEMORY[0x1E69A6138] signInController];
   v8 = os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT);
@@ -602,7 +588,7 @@ LABEL_20:
 
       v10 = v9;
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Sign out service {service: %@}", buf, 0xCu);
     }
 
@@ -613,7 +599,7 @@ LABEL_20:
     block[3] = &unk_1E743FA98;
     block[4] = self;
     serviceCopy = service;
-    v14 = completionCopy;
+    v13 = completionCopy;
     dispatch_async(signInQueue, block);
   }
 
@@ -622,17 +608,15 @@ LABEL_20:
     if (v8)
     {
       *buf = 136315138;
-      v17 = "[IDSSignInController signOutService:completion:]";
+      v16 = "[IDSSignInController signOutService:completion:]";
       _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "%s called with nil completion - returning", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeStateMachineForAccountID:(id)d service:(id)service state:(unint64_t)state completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   completionCopy = completion;
@@ -641,14 +625,14 @@ LABEL_20:
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];
   [(IDSSignInControllerAccountDescription *)v13 setState:v14];
 
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = sub_195A44EA0;
-  v27 = &unk_1E743F138;
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = sub_195A44EA0;
+  v26 = &unk_1E743F138;
   v15 = completionCopy;
   selfCopy = self;
-  v29 = v15;
-  [(IDSSignInControllerAccountDescription *)v13 setCompletion:&v24];
+  v28 = v15;
+  [(IDSSignInControllerAccountDescription *)v13 setCompletion:&v23];
   accountIDDescriptionMap = self->_accountIDDescriptionMap;
   if (!accountIDDescriptionMap)
   {
@@ -659,7 +643,7 @@ LABEL_20:
     accountIDDescriptionMap = self->_accountIDDescriptionMap;
   }
 
-  [(NSMutableDictionary *)accountIDDescriptionMap setObject:v13 forKeyedSubscript:dCopy, v24, v25, v26, v27];
+  [(NSMutableDictionary *)accountIDDescriptionMap setObject:v13 forKeyedSubscript:dCopy, v23, v24, v25, v26];
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
@@ -667,14 +651,14 @@ LABEL_20:
     v21 = MEMORY[0x19A8BBEF0](v15);
     *buf = 134219010;
     selfCopy2 = self;
-    v32 = 2112;
-    v33 = dCopy;
-    v34 = 2112;
-    v35 = serviceCopy;
-    v36 = 2112;
-    v37 = v20;
-    v38 = 2112;
-    v39 = v21;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 2112;
+    v34 = serviceCopy;
+    v35 = 2112;
+    v36 = v20;
+    v37 = 2112;
+    v38 = v21;
     _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Initialized state machine {self: %p, accountID: %@, serviceName: %@, state: %@, completion: %@}", buf, 0x34u);
   }
 
@@ -685,15 +669,13 @@ LABEL_20:
   }
 
   [(IDSSignInController *)self _scheduleValidationAfter:dCopy forAccountID:1 allowFuzz:state == 4 signOut:signInTimeout];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleValidationAfter:(double)after forAccountID:(id)d allowFuzz:(BOOL)fuzz signOut:(BOOL)out
 {
   outCopy = out;
   fuzzCopy = fuzz;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
@@ -718,35 +700,34 @@ LABEL_20:
       v14 = @"YES";
     }
 
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2112;
-    v30 = dCopy;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v14;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2112;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = v15;
+    v32 = 2112;
+    v33 = v14;
     _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Schedule validation after {self: %p, delay: %@, accountID: %@, allowFuzz: %@, signOut: %@}", buf, 0x34u);
   }
 
   objc_initWeak(buf, self);
   v16 = dispatch_time(0, (after * 1000000000.0));
   signInQueue = [(IDSSignInController *)self signInQueue];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_195A451B8;
-  v20[3] = &unk_1E743FB60;
-  objc_copyWeak(v22, buf);
-  v22[1] = *&after;
-  v23 = fuzzCopy;
-  v24 = outCopy;
-  v21 = dCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_195A451B8;
+  v19[3] = &unk_1E743FB60;
+  objc_copyWeak(v21, buf);
+  v21[1] = *&after;
+  v22 = fuzzCopy;
+  v23 = outCopy;
+  v20 = dCopy;
   v18 = dCopy;
-  dispatch_after(v16, signInQueue, v20);
+  dispatch_after(v16, signInQueue, v19);
 
-  objc_destroyWeak(v22);
+  objc_destroyWeak(v21);
   objc_destroyWeak(buf);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupStateForAccountID:(id)d
@@ -793,7 +774,7 @@ LABEL_20:
 
 - (void)_validateStateForAccountID:(id)d timeoutMode:(unint64_t)mode
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = [(IDSSignInController *)self _accountWithUniqueID:dCopy];
   v7 = [(NSMutableDictionary *)self->_accountIDDescriptionMap objectForKeyedSubscript:dCopy];
@@ -804,7 +785,7 @@ LABEL_20:
     state = [v7 state];
     unsignedIntegerValue = [state unsignedIntegerValue];
     serviceName = [v7 serviceName];
-    v38 = [(IDSSignInController *)self _accountControllerForName:serviceName];
+    v37 = [(IDSSignInController *)self _accountControllerForName:serviceName];
 
     signInController = [MEMORY[0x1E69A6138] signInController];
     if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
@@ -819,31 +800,31 @@ LABEL_20:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v52 = 0;
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = sub_195A45C60;
-    v40[3] = &unk_1E743FBB0;
+    v51 = 0;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = sub_195A45C60;
+    v39[3] = &unk_1E743FBB0;
     v14 = v6;
-    v41 = v14;
+    v40 = v14;
     modeCopy = mode;
-    v44 = completion;
+    v43 = completion;
     selfCopy = self;
-    v37 = dCopy;
-    v43 = v37;
-    v45 = buf;
-    v15 = MEMORY[0x19A8BBEF0](v40);
+    v36 = dCopy;
+    v42 = v36;
+    v44 = buf;
+    v15 = MEMORY[0x19A8BBEF0](v39);
     v16 = v15;
     if (!v14 && unsignedIntegerValue != 4)
     {
       signInController2 = [MEMORY[0x1E69A6138] signInController];
       if (os_log_type_enabled(signInController2, OS_LOG_TYPE_DEFAULT))
       {
-        *v47 = 138412546;
-        v48 = v37;
-        v49 = 2112;
-        v50 = v7;
-        _os_log_impl(&dword_1959FF000, signInController2, OS_LOG_TYPE_DEFAULT, "No account to validate {accountID: %@, description: %@}", v47, 0x16u);
+        *v46 = 138412546;
+        v47 = v36;
+        v48 = 2112;
+        v49 = v7;
+        _os_log_impl(&dword_1959FF000, signInController2, OS_LOG_TYPE_DEFAULT, "No account to validate {accountID: %@, description: %@}", v46, 0x16u);
       }
 
       v18 = -1000;
@@ -852,7 +833,7 @@ LABEL_20:
 
     if (registrationStatus == -1)
     {
-      v24 = 0;
+      v23 = 0;
     }
 
     else
@@ -870,9 +851,9 @@ LABEL_20:
 
             if (supportsIdentification)
             {
-              v22 = [aliasesToRegister arrayByAddingObject:*MEMORY[0x1E69A5630]];
+              v21 = [aliasesToRegister arrayByAddingObject:*MEMORY[0x1E69A5630]];
 
-              aliasesToRegister = v22;
+              aliasesToRegister = v21;
             }
           }
 
@@ -881,12 +862,12 @@ LABEL_20:
           signInController3 = [MEMORY[0x1E69A6138] signInController];
           if (os_log_type_enabled(signInController3, OS_LOG_TYPE_DEFAULT))
           {
-            *v47 = 0;
-            _os_log_impl(&dword_1959FF000, signInController3, OS_LOG_TYPE_DEFAULT, "Transitioning to registering", v47, 2u);
+            *v46 = 0;
+            _os_log_impl(&dword_1959FF000, signInController3, OS_LOG_TYPE_DEFAULT, "Transitioning to registering", v46, 2u);
           }
 
 LABEL_37:
-          v26 = 1;
+          v25 = 1;
 LABEL_48:
 
           goto LABEL_49;
@@ -908,17 +889,17 @@ LABEL_48:
 
             if (supportsIdentification2)
             {
-              v29 = [aliasesToRegister arrayByAddingObject:*MEMORY[0x1E69A5630]];
+              v28 = [aliasesToRegister arrayByAddingObject:*MEMORY[0x1E69A5630]];
 
-              aliasesToRegister = v29;
+              aliasesToRegister = v28;
             }
           }
 
           signInController4 = [MEMORY[0x1E69A6138] signInController];
           if (os_log_type_enabled(signInController4, OS_LOG_TYPE_DEFAULT))
           {
-            *v47 = 0;
-            _os_log_impl(&dword_1959FF000, signInController4, OS_LOG_TYPE_DEFAULT, "Readding aliases to account in case we missed the authenticated state", v47, 2u);
+            *v46 = 0;
+            _os_log_impl(&dword_1959FF000, signInController4, OS_LOG_TYPE_DEFAULT, "Readding aliases to account in case we missed the authenticated state", v46, 2u);
           }
 
           [v14 addAliases:aliasesToRegister];
@@ -927,7 +908,7 @@ LABEL_48:
 
 LABEL_47:
         v16[2](v16, -2000, 0);
-        v26 = 0;
+        v25 = 0;
         goto LABEL_48;
       }
 
@@ -936,11 +917,11 @@ LABEL_47:
         signInController5 = [MEMORY[0x1E69A6138] signInController];
         if (os_log_type_enabled(signInController5, OS_LOG_TYPE_DEFAULT))
         {
-          *v47 = 0;
-          _os_log_impl(&dword_1959FF000, signInController5, OS_LOG_TYPE_DEFAULT, "Re-enable, looks like things didn't progress", v47, 2u);
+          *v46 = 0;
+          _os_log_impl(&dword_1959FF000, signInController5, OS_LOG_TYPE_DEFAULT, "Re-enable, looks like things didn't progress", v46, 2u);
         }
 
-        [v38 enableAccount:v14];
+        [v37 enableAccount:v14];
         [v14 authenticateAccount];
         goto LABEL_27;
       }
@@ -952,22 +933,22 @@ LABEL_47:
 
       if (registrationStatus == 4 && unsignedIntegerValue == 2)
       {
-        v26 = 1;
+        v25 = 1;
 LABEL_49:
         if (!mode || (*(*&buf[8] + 24) & 1) != 0)
         {
           goto LABEL_10;
         }
 
-        v32 = v26 ^ 1;
+        v31 = v25 ^ 1;
         if (mode != 2)
         {
-          v32 = 1;
+          v31 = 1;
         }
 
-        if ((v32 & 1) == 0)
+        if ((v31 & 1) == 0)
         {
-          [(IDSSignInController *)self _scheduleValidationAfter:v37 forAccountID:0 allowFuzz:0 signOut:self->_signInFuzz];
+          [(IDSSignInController *)self _scheduleValidationAfter:v36 forAccountID:0 allowFuzz:0 signOut:self->_signInFuzz];
           goto LABEL_10;
         }
 
@@ -986,8 +967,8 @@ LABEL_10:
         {
           if (!unsignedIntegerValue)
           {
-            v24 = -402;
-            v25 = -1000;
+            v23 = -402;
+            v24 = -1000;
             if (registrationStatus <= 4 && ((1 << registrationStatus) & 0x16) != 0)
             {
               goto LABEL_27;
@@ -996,45 +977,45 @@ LABEL_10:
             goto LABEL_26;
           }
 
-          v34 = registrationStatus == 1;
-          v35 = unsignedIntegerValue == 3;
-          if (v34 && v35)
-          {
-            v25 = 0;
-          }
-
-          else
-          {
-            v25 = -1000;
-          }
-
-          if (v34 && v35)
+          v33 = registrationStatus == 1;
+          v34 = unsignedIntegerValue == 3;
+          if (v33 && v34)
           {
             v24 = 0;
           }
 
           else
           {
-            v24 = -402;
+            v24 = -1000;
+          }
+
+          if (v33 && v34)
+          {
+            v23 = 0;
+          }
+
+          else
+          {
+            v23 = -402;
           }
 
           if (unsignedIntegerValue != 3)
           {
-            v26 = 0;
+            v25 = 0;
             if (unsignedIntegerValue != 4 || registrationStatus > 1)
             {
               goto LABEL_49;
             }
 
 LABEL_46:
-            v25 = 0;
             v24 = 0;
+            v23 = 0;
           }
 
 LABEL_26:
-          (*(v15 + 16))(v15, v25, v24);
+          (*(v15 + 16))(v15, v24, v23);
 LABEL_27:
-          v26 = 0;
+          v25 = 0;
           goto LABEL_49;
         }
 
@@ -1043,8 +1024,8 @@ LABEL_27:
           signInController6 = [MEMORY[0x1E69A6138] signInController];
           if (os_log_type_enabled(signInController6, OS_LOG_TYPE_DEFAULT))
           {
-            *v47 = 0;
-            _os_log_impl(&dword_1959FF000, signInController6, OS_LOG_TYPE_DEFAULT, "Transitioning to registering", v47, 2u);
+            *v46 = 0;
+            _os_log_impl(&dword_1959FF000, signInController6, OS_LOG_TYPE_DEFAULT, "Transitioning to registering", v46, 2u);
           }
 
           [v7 setState:&unk_1F0A298E8];
@@ -1052,10 +1033,10 @@ LABEL_27:
         }
       }
 
-      v24 = -402;
+      v23 = -402;
     }
 
-    v25 = -1000;
+    v24 = -1000;
     goto LABEL_26;
   }
 
@@ -1068,8 +1049,6 @@ LABEL_27:
   }
 
 LABEL_13:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createAccountWithDictionary:(id)dictionary accountID:(id)d serviceName:(id)name
@@ -1112,32 +1091,32 @@ LABEL_13:
 - (BOOL)_actionOnAccountOfType:(unint64_t)type onService:(unint64_t)service actionBlock:(id)block
 {
   typeCopy = type;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v9 = [(IDSSignInController *)self _serviceNameForType:service];
   v10 = [(IDSSignInController *)self _accountControllerForName:v9];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   accounts = [v10 accounts];
-  v12 = [accounts countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [accounts countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * i);
+        v17 = *(*(&v19 + 1) + 8 * i);
         if ([v17 accountType] == typeCopy)
         {
           blockCopy[2](blockCopy, v17, v10);
@@ -1145,7 +1124,7 @@ LABEL_13:
         }
       }
 
-      v13 = [accounts countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [accounts countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -1156,7 +1135,6 @@ LABEL_13:
     v14 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
@@ -1235,29 +1213,29 @@ LABEL_5:
 
 - (void)_validateDelegateState
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = self->_delegateByServiceType;
-  v20 = [(NSMapTable *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
-  if (v20)
+  v19 = [(NSMapTable *)obj countByEnumeratingWithState:&v20 objects:v30 count:16];
+  if (v19)
   {
-    v19 = *v22;
+    v18 = *v21;
     *&v3 = 138412802;
-    v17 = v3;
+    v16 = v3;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v22 != v19)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v21 + 1) + 8 * i);
-        v6 = [(NSMapTable *)self->_delegateByServiceType objectForKey:v5, v17];
+        v5 = *(*(&v20 + 1) + 8 * i);
+        v6 = [(NSMapTable *)self->_delegateByServiceType objectForKey:v5, v16];
         if (v6)
         {
           v7 = -[IDSSignInController _statusOfUsersOnService:](self, "_statusOfUsersOnService:", [v5 unsignedIntegerValue]);
@@ -1272,18 +1250,18 @@ LABEL_5:
           signInController = [MEMORY[0x1E69A6138] signInController];
           if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
+            *buf = v16;
             v15 = @"YES";
             if (v13)
             {
               v15 = @"NO";
             }
 
-            v26 = v15;
-            v27 = 2112;
-            v28 = v7;
-            v29 = 2112;
-            v30 = v8;
+            v25 = v15;
+            v26 = 2112;
+            v27 = v7;
+            v28 = 2112;
+            v29 = v8;
             _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Validating delegate state {changes: %@, current: %@, cached: %@}", buf, 0x20u);
           }
 
@@ -1295,13 +1273,11 @@ LABEL_5:
         }
       }
 
-      v20 = [(NSMapTable *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v19 = [(NSMapTable *)obj countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshRegistrationForAccount:(id)account
@@ -1319,7 +1295,7 @@ LABEL_5:
 
 - (void)accountController:(id)controller accountAdded:(id)added
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   serviceName = [addedCopy serviceName];
   v7 = [(IDSSignInController *)self _serviceTypeForName:serviceName];
@@ -1346,28 +1322,26 @@ LABEL_5:
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = addedCopy;
-    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Added interesting account {account: %@}", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = addedCopy;
+    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Added interesting account {account: %@}", &v15, 0xCu);
   }
 
   [addedCopy addRegistrationDelegate:self queue:self->_signInQueue];
 LABEL_7:
   [(IDSSignInController *)self _validateDelegateState];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountController:(id)controller accountDisabled:(id)disabled
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   disabledCopy = disabled;
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = disabledCopy;
-    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account disabled {account: %@}", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = disabledCopy;
+    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account disabled {account: %@}", &v13, 0xCu);
   }
 
   accountIDDescriptionMap = self->_accountIDDescriptionMap;
@@ -1387,20 +1361,18 @@ LABEL_7:
   }
 
   [(IDSSignInController *)self _validateDelegateState];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountController:(id)controller accountRemoved:(id)removed
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = removedCopy;
-    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account removed {account: %@}", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = removedCopy;
+    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account removed {account: %@}", &v11, 0xCu);
   }
 
   accountIDDescriptionMap = self->_accountIDDescriptionMap;
@@ -1414,20 +1386,18 @@ LABEL_7:
   }
 
   [(IDSSignInController *)self _validateDelegateState];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountController:(id)controller accountUpdated:(id)updated
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = updatedCopy;
-    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account updated {account: %@}", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = updatedCopy;
+    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account updated {account: %@}", &v11, 0xCu);
   }
 
   accountIDDescriptionMap = self->_accountIDDescriptionMap;
@@ -1440,24 +1410,21 @@ LABEL_7:
     uniqueID2 = [updatedCopy uniqueID];
     [(IDSSignInController *)self _validateStateForAccountID:uniqueID2 timeoutMode:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountController:(id)controller accountEnabled:(id)enabled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   signInController = [MEMORY[0x1E69A6138] signInController];
   if (os_log_type_enabled(signInController, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = enabledCopy;
-    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account enabled {account: %@}", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = enabledCopy;
+    _os_log_impl(&dword_1959FF000, signInController, OS_LOG_TYPE_DEFAULT, "Account enabled {account: %@}", &v7, 0xCu);
   }
 
   [(IDSSignInController *)self _validateDelegateState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isFaceTimeEnabled
@@ -1472,34 +1439,34 @@ LABEL_7:
 
 - (BOOL)_isServiceCurrentlyEnabled:(id)enabled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = [(IDSSignInController *)self _createAccountControllerForService:enabled];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   accounts = [v3 accounts];
-  v5 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) isEnabled])
+        if ([*(*(&v9 + 1) + 8 * i) isEnabled])
         {
           LOBYTE(v5) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -1511,7 +1478,6 @@ LABEL_7:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

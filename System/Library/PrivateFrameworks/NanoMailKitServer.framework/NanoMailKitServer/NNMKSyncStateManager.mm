@@ -161,7 +161,7 @@ uint64_t __28__NNMKSyncStateManager_init__block_invoke_2(uint64_t a1, int a2)
 
 - (BOOL)willPresentNotificationForMessage:(id)message
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (![messageCopy checkState:1])
   {
@@ -183,41 +183,41 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v6 = dispatch_semaphore_create(0);
   notificationsPingSubscriber = self->_notificationsPingSubscriber;
   v8 = [(NNMKSyncStateManager *)self _bbSubsectionIdsForMessage:messageCopy];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __58__NNMKSyncStateManager_willPresentNotificationForMessage___block_invoke;
-  v19[3] = &unk_279936630;
-  v21 = &v27;
-  v22 = &v23;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __58__NNMKSyncStateManager_willPresentNotificationForMessage___block_invoke;
+  v18[3] = &unk_279936630;
+  v20 = &v26;
+  v21 = &v22;
   v9 = v6;
-  v20 = v9;
-  [(BLTPingSubscriber *)notificationsPingSubscriber getWillNanoPresentNotificationForSectionID:@"com.apple.mobilemail" subsectionIDs:v8 completion:v19];
+  v19 = v9;
+  [(BLTPingSubscriber *)notificationsPingSubscriber getWillNanoPresentNotificationForSectionID:@"com.apple.mobilemail" subsectionIDs:v8 completion:v18];
 
   v10 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v9, v10);
   v11 = qword_28144D620;
-  if (v24[3])
+  if (v23[3])
   {
     v12 = qword_28144D620;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       messageId = [messageCopy messageId];
-      v14 = *(v28 + 24);
+      v14 = *(v27 + 24);
       *buf = 138543618;
-      v32 = messageId;
-      v33 = 1024;
-      v34 = v14;
+      v31 = messageId;
+      v32 = 1024;
+      v33 = v14;
       _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber did respond. (Id: %{public}@, Notification: %d)", buf, 0x12u);
     }
   }
@@ -227,13 +227,12 @@ LABEL_9:
     [NNMKSyncStateManager willPresentNotificationForMessage:v11];
   }
 
-  v16 = *(v28 + 24);
+  v16 = *(v27 + 24);
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v26, 8);
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -376,14 +375,12 @@ intptr_t __58__NNMKSyncStateManager_willPresentNotificationForMessage___block_in
 
 - (void)willPresentNotificationForMessage:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 messageId];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Received message with nil accountId. It will not preset notification. %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Received message with nil accountId. It will not preset notification. %{public}@", &v5, 0xCu);
 }
 
 @end

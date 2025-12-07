@@ -31,15 +31,14 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_invalidated", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -265,12 +264,12 @@ LABEL_9:
 
 void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = *(a1 + 32);
-  v45 = 0;
-  v4 = [v3 acquireWithError:&v45];
-  v5 = v45;
+  v44 = 0;
+  v4 = [v3 acquireWithError:&v44];
+  v5 = v44;
   v6 = [WeakRetained isCurrentRBSAssertion:*(a1 + 32)];
   if (v5 || (v4 & 1) == 0)
   {
@@ -281,54 +280,54 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
       v17 = bls_scenes_log();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v32 = *(a1 + 32);
-        v33 = *(a1 + 40);
-        v34 = [*(a1 + 48) explanation];
+        v31 = *(a1 + 32);
+        v32 = *(a1 + 40);
+        v33 = [*(a1 + 48) explanation];
         *buf = 134218754;
-        v47 = WeakRetained;
-        v48 = 2114;
-        v49 = v32;
-        v50 = 2114;
-        v51 = v33;
-        v52 = 2114;
-        *v53 = v34;
+        v46 = WeakRetained;
+        v47 = 2114;
+        v48 = v31;
+        v49 = 2114;
+        v50 = v32;
+        v51 = 2114;
+        *v52 = v33;
         _os_log_impl(&dword_21FD11000, v17, OS_LOG_TYPE_INFO, "%p (already invalidated) did not acquire rb assertion:%{public}@ for process:%{public}@ explanation:%{public}@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v39 = v12;
+      v38 = v12;
       v14 = MEMORY[0x277D46FA8];
       v15 = [MEMORY[0x277D46FA0] predicateMatchingIdentity:*(a1 + 40)];
-      v44 = 0;
-      v16 = [v14 statesForPredicate:v15 withDescriptor:0 error:&v44];
-      v17 = v44;
+      v43 = 0;
+      v16 = [v14 statesForPredicate:v15 withDescriptor:0 error:&v43];
+      v17 = v43;
 
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v40 objects:v58 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v39 objects:v57 count:16];
       if (v19)
       {
         v20 = v19;
         v21 = 0;
-        v22 = *v41;
+        v22 = *v40;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v41 != v22)
+            if (*v40 != v22)
             {
               objc_enumerationMutation(v18);
             }
 
-            v21 |= [*(*(&v40 + 1) + 8 * i) isRunning];
+            v21 |= [*(*(&v39 + 1) + 8 * i) isRunning];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v40 objects:v58 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v39 objects:v57 count:16];
         }
 
         while (v20);
@@ -361,25 +360,25 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
       if (os_log_type_enabled(v24, v25))
       {
         v26 = [v5 localizedDescription];
-        v38 = v17;
+        v37 = v17;
         v27 = *(a1 + 32);
-        v37 = *(a1 + 40);
+        v36 = *(a1 + 40);
         v28 = [*(a1 + 48) explanation];
         *buf = 134219522;
-        v47 = WeakRetained;
-        v48 = 2114;
-        v49 = v11;
-        v50 = 2048;
-        v51 = v39;
-        v52 = 2114;
-        *v53 = v26;
-        *&v53[8] = 2114;
-        *&v53[10] = v27;
-        v17 = v38;
-        v54 = 2114;
-        v55 = v37;
-        v56 = 2114;
-        v57 = v28;
+        v46 = WeakRetained;
+        v47 = 2114;
+        v48 = v11;
+        v49 = 2048;
+        v50 = v38;
+        v51 = 2114;
+        *v52 = v26;
+        *&v52[8] = 2114;
+        *&v52[10] = v27;
+        v17 = v37;
+        v53 = 2114;
+        v54 = v36;
+        v55 = 2114;
+        v56 = v28;
         _os_log_impl(&dword_21FD11000, v24, v25, "%p error:%{public}@:%ld:%{public}@ failed to acquire rb assertion:%{public}@ for process:%{public}@ explanation:%{public}@", buf, 0x48u);
       }
     }
@@ -394,15 +393,15 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
       v9 = *(a1 + 40);
       v10 = [*(a1 + 48) explanation];
       *buf = 134219010;
-      v47 = WeakRetained;
-      v48 = 2114;
-      v49 = v8;
-      v50 = 2114;
-      v51 = v9;
-      v52 = 1024;
-      *v53 = v6;
-      *&v53[4] = 2114;
-      *&v53[6] = v10;
+      v46 = WeakRetained;
+      v47 = 2114;
+      v48 = v8;
+      v49 = 2114;
+      v50 = v9;
+      v51 = 1024;
+      *v52 = v6;
+      *&v52[4] = 2114;
+      *&v52[6] = v10;
       _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEFAULT, "%p acquired rbs assertion:%{public}@ for process:%{public}@ current:%{BOOL}u explanation:%{public}@", buf, 0x30u);
     }
 
@@ -417,14 +416,14 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
     v29 = bls_scenes_log();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      v35 = [*(a1 + 56) explanation];
-      v36 = *(a1 + 40);
+      v34 = [*(a1 + 56) explanation];
+      v35 = *(a1 + 40);
       *buf = 134218498;
-      v47 = WeakRetained;
-      v48 = 2114;
-      v49 = v35;
-      v50 = 2114;
-      v51 = v36;
+      v46 = WeakRetained;
+      v47 = 2114;
+      v48 = v34;
+      v49 = 2114;
+      v50 = v35;
       _os_log_debug_impl(&dword_21FD11000, v29, OS_LOG_TYPE_DEBUG, "%p:acquireAggregatedAssertion: invalidating old RBS assertion %{public}@ for process:%{public}@", buf, 0x20u);
     }
 
@@ -436,8 +435,6 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
   {
     (*(v30 + 16))(v30, v5);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentRBSAssertion:(id)assertion
@@ -452,7 +449,7 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
 
 - (BOOL)invalidateAggregatedAssertion:(id)assertion
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   os_unfair_lock_lock(&self->_lock);
   p_lock_aggregated = &self->_lock_aggregated;
@@ -481,41 +478,41 @@ void __71__BLSHAggregateProcessAssertion_acquireAggregatedAssertion_completion__
 
   if ([(NSMapTable *)self->_lock_aggregated count])
   {
-    v43 = assertionCopy;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v42 = assertionCopy;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v11 = *p_lock_aggregated;
-    v12 = [(NSMapTable *)v11 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v12 = [(NSMapTable *)v11 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (!v12)
     {
       v15 = 0;
       v14 = 0;
 LABEL_24:
 
-      assertionCopy = v43;
+      assertionCopy = v42;
       goto LABEL_25;
     }
 
     v13 = v12;
     p_lock_durationCalculator = &self->_lock_durationCalculator;
     location = &self->_lock_acquiredAssertion;
-    v41 = v8;
+    v40 = v8;
     selfCopy = self;
     v14 = 0;
     v15 = 0;
-    v16 = *v46;
+    v16 = *v45;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v46 != v16)
+        if (*v45 != v16)
         {
           objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v45 + 1) + 8 * i);
+        v18 = *(*(&v44 + 1) + 8 * i);
         p_lock_durationCalculator = [(NSMapTable *)*p_lock_aggregated objectForKey:v18, p_lock_durationCalculator];
         [p_lock_durationCalculator remainingDuration];
         v21 = v20;
@@ -530,7 +527,7 @@ LABEL_24:
         }
       }
 
-      v13 = [(NSMapTable *)v11 countByEnumeratingWithState:&v45 objects:v57 count:16];
+      v13 = [(NSMapTable *)v11 countByEnumeratingWithState:&v44 objects:v56 count:16];
     }
 
     while (v13);
@@ -538,9 +535,9 @@ LABEL_24:
     if (v15)
     {
       createRBSAssertion = [v15 createRBSAssertion];
-      v44 = 0;
-      v26 = [createRBSAssertion acquireWithError:&v44];
-      v27 = v44;
+      v43 = 0;
+      v26 = [createRBSAssertion acquireWithError:&v43];
+      v27 = v43;
       v28 = bls_scenes_log();
       v29 = v28;
       self = selfCopy;
@@ -551,13 +548,13 @@ LABEL_24:
           bls_loggingString = [v27 bls_loggingString];
           processIdentity = selfCopy->_processIdentity;
           *buf = 134218754;
-          v50 = selfCopy;
-          v51 = 2114;
-          v52 = bls_loggingString;
-          v53 = 2114;
-          v54 = createRBSAssertion;
-          v55 = 2114;
-          v56 = processIdentity;
+          v49 = selfCopy;
+          v50 = 2114;
+          v51 = bls_loggingString;
+          v52 = 2114;
+          v53 = createRBSAssertion;
+          v54 = 2114;
+          v55 = processIdentity;
           _os_log_fault_impl(&dword_21FD11000, v29, OS_LOG_TYPE_FAULT, "%p error:%{public}@ failed to reacquire rb assertion:%{public}@ for process:%{public}@", buf, 0x2Au);
         }
       }
@@ -566,11 +563,11 @@ LABEL_24:
       {
         v30 = selfCopy->_processIdentity;
         *buf = 134218498;
-        v50 = selfCopy;
-        v51 = 2114;
-        v52 = createRBSAssertion;
-        v53 = 2114;
-        v54 = v30;
+        v49 = selfCopy;
+        v50 = 2114;
+        v51 = createRBSAssertion;
+        v52 = 2114;
+        v53 = v30;
         _os_log_impl(&dword_21FD11000, v29, OS_LOG_TYPE_DEFAULT, "%p (reacquire) acquired rbs assertion:%{public}@ for process:%{public}@", buf, 0x20u);
       }
 
@@ -580,13 +577,13 @@ LABEL_24:
       v11 = createRBSAssertion;
 
       objc_storeStrong(p_lock_durationCalculator, v14);
-      v8 = v41;
+      v8 = v40;
       goto LABEL_24;
     }
 
     self = selfCopy;
-    assertionCopy = v43;
-    v8 = v41;
+    assertionCopy = v42;
+    v8 = v40;
   }
 
   else
@@ -620,7 +617,6 @@ LABEL_30:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v35 = *MEMORY[0x277D85DE8];
   return v33 != 0;
 }
 
@@ -665,15 +661,14 @@ void __49__BLSHAggregateProcessAssertion_debugDescription__block_invoke(uint64_t
 
 + (void)classLock_aggregateForProcessIdentity:(char *)a1 shouldCreate:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"processIdentity != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"processIdentity != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -683,15 +678,14 @@ void __49__BLSHAggregateProcessAssertion_debugDescription__block_invoke(uint64_t
 
 - (void)acquireAggregatedAssertion:(char *)a1 completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_lock_aggregated objectForKey:assertion] == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_lock_aggregated objectForKey:assertion] == nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -701,15 +695,14 @@ void __49__BLSHAggregateProcessAssertion_debugDescription__block_invoke(uint64_t
 
 - (void)acquireAggregatedAssertion:(char *)a1 completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated == NO"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_invalidated == NO", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -719,30 +712,27 @@ void __49__BLSHAggregateProcessAssertion_debugDescription__block_invoke(uint64_t
 
 - (void)invalidateAggregatedAssertion:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 explanation];
-  v7 = 134218242;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p invalidateAggregatedAssertion: invalidating RBS assertion %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p invalidateAggregatedAssertion: invalidating RBS assertion %{public}@", &v6, 0x16u);
 }
 
 - (void)invalidateAggregatedAssertion:(NSObject *)a3 .cold.2(uint64_t a1, id *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [*a2 count];
   v7 = *a2;
-  v9 = 134218498;
-  v10 = a1;
-  v11 = 1024;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_fault_impl(&dword_21FD11000, a3, OS_LOG_TYPE_FAULT, "%p shouldInvalidate but still has aggregated count:%d — %@", &v9, 0x1Cu);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218498;
+  v9 = a1;
+  v10 = 1024;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_fault_impl(&dword_21FD11000, a3, OS_LOG_TYPE_FAULT, "%p shouldInvalidate but still has aggregated count:%d — %@", &v8, 0x1Cu);
 }
 
 @end

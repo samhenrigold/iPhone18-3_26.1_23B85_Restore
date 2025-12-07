@@ -43,11 +43,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore25CarouselItemLockupOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->materialBackground[OBJC_IVAR____TtC8AppStore25CarouselItemLockupOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

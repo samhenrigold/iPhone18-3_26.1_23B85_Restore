@@ -18,7 +18,7 @@
 
 + (id)itemGlobalIDFromLocalItem:(id)item
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (itemCopy)
   {
@@ -35,15 +35,13 @@
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] trying to initialize a globalID from a nil object%@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] trying to initialize a globalID from a nil object%@", &v13, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -807,7 +807,7 @@ LABEL_74:
 
 + (id)metadataFromContentItem:(id)item
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (!itemCopy)
   {
@@ -854,32 +854,32 @@ LABEL_74:
     goto LABEL_55;
   }
 
-  v42 = metadata;
-  v43 = itemCopy;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
+  v41 = metadata;
+  v42 = itemCopy;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = [v22 allKeys];
-  v23 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (!v23)
   {
     goto LABEL_54;
   }
 
   v24 = v23;
-  v25 = *v46;
+  v25 = *v45;
   do
   {
     v26 = 0;
     do
     {
-      if (*v46 != v25)
+      if (*v45 != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(*(&v45 + 1) + 8 * v26);
+      v27 = *(*(&v44 + 1) + 8 * v26);
       v28 = [v22 objectForKeyedSubscript:v27];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -1026,19 +1026,18 @@ LABEL_24:
     }
 
     while (v24 != v26);
-    v39 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v39 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     v24 = v39;
   }
 
   while (v39);
 LABEL_54:
 
-  metadata = v42;
-  itemCopy = v43;
+  metadata = v41;
+  itemCopy = v42;
 LABEL_55:
 
 LABEL_57:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1070,30 +1069,30 @@ LABEL_6:
 
 + (id)currentAudioLanguageOptionFromContentItem:(id)item
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = itemCopy;
   if (itemCopy)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     currentLanguageOptions = [itemCopy currentLanguageOptions];
-    languageTag = [currentLanguageOptions countByEnumeratingWithState:&v12 objects:v16 count:16];
+    languageTag = [currentLanguageOptions countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (languageTag)
     {
-      v7 = *v13;
+      v7 = *v12;
       while (2)
       {
         for (i = 0; i != languageTag; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(currentLanguageOptions);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * i);
+          v9 = *(*(&v11 + 1) + 8 * i);
           if (![v9 type])
           {
             languageTag = [v9 languageTag];
@@ -1101,7 +1100,7 @@ LABEL_6:
           }
         }
 
-        languageTag = [currentLanguageOptions countByEnumeratingWithState:&v12 objects:v16 count:16];
+        languageTag = [currentLanguageOptions countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (languageTag)
         {
           continue;
@@ -1118,8 +1117,6 @@ LABEL_12:
   {
     languageTag = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return languageTag;
 }

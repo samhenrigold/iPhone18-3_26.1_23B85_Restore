@@ -24,7 +24,7 @@
     v20 = **&MEMORY[0x1E6960CC0];
     memset(timescale, 0, sizeof(timescale));
     v19 = 0;
-    [self duration];
+    objc_msgSend_duration(self);
     v16 = 0;
     time1 = v20;
     v11 = [v10 copyCGImageAtTime:&time1 actualTime:0 error:&v16];

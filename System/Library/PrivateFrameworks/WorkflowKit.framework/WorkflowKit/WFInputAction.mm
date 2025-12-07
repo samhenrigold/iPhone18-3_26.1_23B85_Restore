@@ -19,12 +19,12 @@
 - (id)noInputBehavior
 {
   selectedBehavior = [(WFInputAction *)self selectedBehavior];
-  if ([selectedBehavior isEqualToString:@"Continue"])
+  if (objc_msgSend_isEqualToString_(selectedBehavior))
   {
     goto LABEL_2;
   }
 
-  if ([selectedBehavior isEqualToString:@"Ask For"])
+  if (objc_msgSend_isEqualToString_(selectedBehavior))
   {
     selectedAskForType = [(WFInputAction *)self selectedAskForType];
     v6 = WFInputActionContentItemClassCorrespondingToAskForParameterValue(selectedAskForType);
@@ -44,7 +44,7 @@
     goto LABEL_11;
   }
 
-  if ([selectedBehavior isEqualToString:@"Stop and Respond"])
+  if (objc_msgSend_isEqualToString_(selectedBehavior))
   {
     selectedAskForType = [(WFAction *)self parameterStateForKey:@"WFStopAndRespondResponse"];
     v10 = [WFWorkflowNoInputBehaviorShowError alloc];
@@ -56,7 +56,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (![selectedBehavior isEqualToString:@"Get Clipboard"])
+  if (!objc_msgSend_isEqualToString_(selectedBehavior))
   {
 LABEL_2:
     v4 = 0;
@@ -112,7 +112,7 @@ void __67__WFInputAction_actionSerializedParametersForSelectionOfItemClass___blo
 
 - (id)selectedInputTypes
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = [(WFAction *)self parameterStateForKey:@"WFInputType"];
   if (v2)
   {
@@ -146,8 +146,8 @@ void __67__WFInputAction_actionSerializedParametersForSelectionOfItemClass___blo
     if (v4)
     {
       value = [v4 value];
-      v13[0] = NSClassFromString(value);
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v12[0] = NSClassFromString(value);
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
       goto LABEL_12;
     }
@@ -163,8 +163,6 @@ void __67__WFInputAction_actionSerializedParametersForSelectionOfItemClass___blo
 
   v5 = 0;
 LABEL_12:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -202,9 +200,9 @@ id __35__WFInputAction_selectedInputTypes__block_invoke(uint64_t a1, void *a2)
 - (id)selectedAskForType
 {
   selectedBehavior = [(WFInputAction *)self selectedBehavior];
-  v4 = [selectedBehavior isEqualToString:@"Ask For"];
+  isEqualToString = objc_msgSend_isEqualToString_(selectedBehavior);
 
-  if (v4)
+  if (isEqualToString)
   {
     v5 = [(WFAction *)self parameterStateForKey:@"WFAskForType"];
     if (v5)
@@ -294,7 +292,7 @@ id __35__WFInputAction_selectedInputTypes__block_invoke(uint64_t a1, void *a2)
 
   value = [v5 value];
 
-  LOBYTE(v5) = [value isEqualToString:@"Continue"];
+  LOBYTE(v5) = objc_msgSend_isEqualToString_(value);
   if (v5)
   {
     v10.receiver = self;
@@ -351,7 +349,7 @@ id __35__WFInputAction_selectedInputTypes__block_invoke(uint64_t a1, void *a2)
 
 - (WFInputAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   definitionCopy = definition;
   parametersCopy = parameters;
@@ -411,21 +409,20 @@ id __35__WFInputAction_selectedInputTypes__block_invoke(uint64_t a1, void *a2)
 
     v20 = [v19 arrayByAddingObjectsFromArray:v16];
 
-    v27[0] = @"Parameters";
-    v27[1] = @"WFContentSelectionParametersAreInjected";
-    v28[0] = v20;
-    v28[1] = MEMORY[0x1E695E118];
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[0] = @"Parameters";
+    v26[1] = @"WFContentSelectionParametersAreInjected";
+    v27[0] = v20;
+    v27[1] = MEMORY[0x1E695E118];
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v22 = [(WFActionDefinition *)definitionCopy definitionByAddingEntriesInDictionary:v21];
 
     definitionCopy = v22;
   }
 
-  v26.receiver = self;
-  v26.super_class = WFInputAction;
-  v23 = [(WFAction *)&v26 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy];
+  v25.receiver = self;
+  v25.super_class = WFInputAction;
+  v23 = [(WFAction *)&v25 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy];
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

@@ -3,6 +3,7 @@
 - (LNEntity)initWithBSXPCCoder:(id)coder;
 - (LNEntity)initWithCoder:(id)coder;
 - (LNEntity)initWithTransient:(BOOL)transient identifier:(id)identifier persistentFileIdentifiable:(BOOL)identifiable properties:(id)properties managedAccountIdentifier:(id)accountIdentifier;
+- (LNEntity)initWithTransient:(BOOL)transient identifier:(id)identifier properties:(id)properties prototypeMangledTypeName:(id)name managedAccountIdentifier:(id)accountIdentifier;
 - (NSString)description;
 - (unint64_t)hash;
 - (void)encodeWithBSXPCCoder:(id)coder;
@@ -397,6 +398,23 @@ LABEL_44:
   }
 
   return selfCopy;
+}
+
+- (LNEntity)initWithTransient:(BOOL)transient identifier:(id)identifier properties:(id)properties prototypeMangledTypeName:(id)name managedAccountIdentifier:(id)accountIdentifier
+{
+  transientCopy = transient;
+  nameCopy = name;
+  v13 = [(LNEntity *)self initWithTransient:transientCopy identifier:identifier properties:properties managedAccountIdentifier:accountIdentifier];
+  if (v13)
+  {
+    v14 = [nameCopy copy];
+    prototypeMangledTypeName = v13->_prototypeMangledTypeName;
+    v13->_prototypeMangledTypeName = v14;
+
+    v16 = v13;
+  }
+
+  return v13;
 }
 
 - (LNEntity)initWithTransient:(BOOL)transient identifier:(id)identifier persistentFileIdentifiable:(BOOL)identifiable properties:(id)properties managedAccountIdentifier:(id)accountIdentifier

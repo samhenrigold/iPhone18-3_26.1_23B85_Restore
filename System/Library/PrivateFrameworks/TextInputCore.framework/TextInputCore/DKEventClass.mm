@@ -3,11 +3,10 @@
 
 @implementation DKEventClass
 
-Class __get_DKEventClass_block_invoke(uint64_t a1)
+void __get_DKEventClass_block_invoke(uint64_t a1)
 {
   CoreDuetLibrary();
-  result = objc_getClass("_DKEvent");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("_DKEvent");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     get_DKEventClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -15,11 +14,9 @@ Class __get_DKEventClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __55__TPSDiscoverabilitySignal_donateSignalWithCompletion___block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "_DKEvent");
+    __55__TPSDiscoverabilitySignal_donateSignalWithCompletion___block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
 @end

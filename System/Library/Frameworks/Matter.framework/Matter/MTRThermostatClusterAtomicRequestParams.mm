@@ -69,16 +69,16 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v23[0] = 0;
+  v32 = *MEMORY[0x277D85DE8];
+  v22[0] = 0;
+  v23 = 0;
   v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v22[0] = 0;
-  v22[1] = 0;
-  v21 = v22;
+  v21[0] = 0;
+  v21[1] = 0;
+  v20 = v21;
   requestType = [(MTRThermostatClusterAtomicRequestParams *)self requestType];
-  v23[0] = [requestType unsignedCharValue];
+  v22[0] = [requestType unsignedCharValue];
 
   attributeRequests = [(MTRThermostatClusterAtomicRequestParams *)self attributeRequests];
   v7 = [attributeRequests count] == 0;
@@ -88,48 +88,48 @@
     operator new();
   }
 
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   timeout = [(MTRThermostatClusterAtomicRequestParams *)self timeout];
   v9 = timeout == 0;
 
   if (!v9)
   {
-    v26 = 1;
+    v25 = 1;
     unsignedShortValue = 0;
     timeout2 = [(MTRThermostatClusterAtomicRequestParams *)self timeout];
     unsignedShortValue = [timeout2 unsignedShortValue];
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v20);
-  if (v20)
+  sub_2393D9C18(0x62FuLL, 0, &v19);
+  if (v19)
   {
     sub_2393C7B90(buf);
+    v29 = 0;
     v30 = 0;
+    v28 = &unk_284BB83A8;
     v31 = 0;
-    v29 = &unk_284BB83A8;
-    v32 = 0;
-    sub_238EA16C4(&v29, &v20, 0);
-    sub_2393C7BF0(buf, &v29, 0xFFFFFFFF);
-    v11 = sub_238F2A218(v23, buf, 0x100uLL);
+    sub_238EA16C4(&v28, &v19, 0);
+    sub_2393C7BF0(buf, &v28, 0xFFFFFFFF);
+    v11 = sub_238F2A218(v22, buf, 0x100uLL);
     v13 = v11;
-    if (v11 || (v11 = sub_238DD2EFC(buf, &v20), v13 = v11, v11))
+    if (v11 || (v11 = sub_238DD2EFC(buf, &v19), v13 = v11, v11))
     {
       v14 = v12;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v20);
+      sub_238DD2F90(reader, &v19);
       v11 = sub_2393C7114(reader, 21, 256);
-      v14 = v19;
+      v14 = v18;
       v13 = v11;
     }
 
     v15 = v11 & 0xFFFFFFFF00000000;
-    v29 = &unk_284BB83A8;
-    sub_238EA1758(&v31);
+    v28 = &unk_284BB83A8;
     sub_238EA1758(&v30);
+    sub_238EA1758(&v29);
   }
 
   else
@@ -139,14 +139,13 @@
     v13 = 11;
   }
 
-  sub_238EA1758(&v20);
-  sub_238EA1790(&v21);
-  v16 = *MEMORY[0x277D85DE8];
-  v17 = v15 | v13;
-  v18 = v14;
-  result.mFile = v18;
-  result.mError = v17;
-  result.mLine = HIDWORD(v17);
+  sub_238EA1758(&v19);
+  sub_238EA1790(&v20);
+  v16 = v15 | v13;
+  v17 = v14;
+  result.mFile = v17;
+  result.mError = v16;
+  result.mLine = HIDWORD(v16);
   return result;
 }
 

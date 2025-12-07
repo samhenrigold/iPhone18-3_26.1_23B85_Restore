@@ -72,7 +72,7 @@
   v15 = button;
   if (button)
   {
-    [button transform];
+    objc_msgSend_transform(button);
   }
 
   else
@@ -440,7 +440,7 @@ id __33__PKPaletteBarButton__updateMenu__block_invoke_3(uint64_t a1, void *a2)
   v4 = imageCopy;
   if (imageCopy && [imageCopy isSymbolImage])
   {
-    v5 = +[UIImageSymbolConfiguration _pk_defaultImageSymbolConfiguration];
+    v5 = +[(UIImageSymbolConfiguration *)MEMORY[0x1E69DCAD8]];
     v6 = [v4 imageByApplyingSymbolConfiguration:v5];
 
     v4 = v6;

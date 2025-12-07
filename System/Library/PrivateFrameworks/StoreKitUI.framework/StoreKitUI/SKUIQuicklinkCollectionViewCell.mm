@@ -68,7 +68,7 @@
   secondaryTextColor = [schemeCopy secondaryTextColor];
   if (!secondaryTextColor)
   {
-    secondaryTextColor = [schemeCopy primaryTextColor];
+    secondaryTextColor = objc_msgSend_primaryTextColor(schemeCopy);
   }
 
   _linkButton = [(SKUIQuicklinkCollectionViewCell *)self _linkButton];
@@ -92,43 +92,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIQuicklinkCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v21.receiver = self;
-  v21.super_class = SKUIQuicklinkCollectionViewCell;
-  [(SKUICollectionViewCell *)&v21 layoutSubviews];
-  if (self->_linkButton)
-  {
-    contentView = [(SKUIQuicklinkCollectionViewCell *)self contentView];
-    [contentView bounds];
-    v13 = v12;
-    v15 = v14;
-
-    [(UIButton *)self->_linkButton sizeThatFits:v13 + -15.0 + -15.0, 1.79769313e308];
-    if (v13 + -15.0 + -15.0 >= v16)
-    {
-      v18 = v16;
-    }
-
-    else
-    {
-      v18 = v13 + -15.0 + -15.0;
-    }
-
-    v19 = (v13 - v18) * 0.5;
-    v20 = (v15 - v17) * 0.5;
-    [(UIButton *)self->_linkButton setFrame:floorf(v19), floorf(v20)];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIQuicklinkCollectionViewCell layoutSubviews]";
 }
 
 - (void)_linkButtonAction:(id)action
@@ -163,6 +128,18 @@
   }
 
   return linkButton;
+}
+
+- (void)configureForLink:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIQuicklinkCollectionViewCell configureForLink:]";
+}
+
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIQuicklinkCollectionViewCell setColoringWithColorScheme:]";
 }
 
 @end

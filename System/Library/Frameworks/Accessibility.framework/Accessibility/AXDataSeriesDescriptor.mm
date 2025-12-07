@@ -1,5 +1,7 @@
 @interface AXDataSeriesDescriptor
+- (AXDataSeriesDescriptor)initWithAttributedName:(NSAttributedString *)attributedName isContinuous:(BOOL)isContinuous dataPoints:(NSArray *)dataPoints;
 - (AXDataSeriesDescriptor)initWithDictionary:(id)dictionary;
+- (AXDataSeriesDescriptor)initWithName:(NSString *)name isContinuous:(BOOL)isContinuous dataPoints:(NSArray *)dataPoints;
 - (NSString)description;
 - (NSString)name;
 - (double)meanYValue;
@@ -11,6 +13,42 @@
 @end
 
 @implementation AXDataSeriesDescriptor
+
+- (AXDataSeriesDescriptor)initWithName:(NSString *)name isContinuous:(BOOL)isContinuous dataPoints:(NSArray *)dataPoints
+{
+  v6 = isContinuous;
+  v8 = name;
+  v9 = dataPoints;
+  v13.receiver = self;
+  v13.super_class = AXDataSeriesDescriptor;
+  v10 = [(AXDataSeriesDescriptor *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(AXDataSeriesDescriptor *)v10 setName:v8];
+    [(AXDataSeriesDescriptor *)v11 _commonInitWithContinuous:v6 dataPoints:v9];
+  }
+
+  return v11;
+}
+
+- (AXDataSeriesDescriptor)initWithAttributedName:(NSAttributedString *)attributedName isContinuous:(BOOL)isContinuous dataPoints:(NSArray *)dataPoints
+{
+  v6 = isContinuous;
+  v9 = attributedName;
+  v10 = dataPoints;
+  v14.receiver = self;
+  v14.super_class = AXDataSeriesDescriptor;
+  v11 = [(AXDataSeriesDescriptor *)&v14 init];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_attributedName, attributedName);
+    [(AXDataSeriesDescriptor *)v12 _commonInitWithContinuous:v6 dataPoints:v10];
+  }
+
+  return v12;
+}
 
 - (AXDataSeriesDescriptor)initWithDictionary:(id)dictionary
 {
@@ -34,81 +72,82 @@
   v15 = getkAXMChartSeriesZCategoricalDataKey();
   v16 = [dictionaryCopy objectForKeyedSubscript:v15];
 
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
   v17 = getkAXMChartSeriesLabelDataKeySymbolLoc_ptr;
-  v69 = getkAXMChartSeriesLabelDataKeySymbolLoc_ptr;
+  v70 = getkAXMChartSeriesLabelDataKeySymbolLoc_ptr;
   if (!getkAXMChartSeriesLabelDataKeySymbolLoc_ptr)
   {
     v18 = AXMediaUtilitiesLibrary();
-    v67[3] = dlsym(v18, "kAXMChartSeriesLabelDataKey");
-    getkAXMChartSeriesLabelDataKeySymbolLoc_ptr = v67[3];
-    v17 = v67[3];
+    v68[3] = dlsym(v18, "kAXMChartSeriesLabelDataKey");
+    getkAXMChartSeriesLabelDataKeySymbolLoc_ptr = v68[3];
+    v17 = v68[3];
   }
 
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v67, 8);
   if (!v17)
   {
-    v55 = AXAnimatedImagesEnabled_cold_1();
-    _Block_object_dispose(&v66, 8);
-    _Unwind_Resume(v55);
+    v56 = AXAnimatedImagesEnabled_cold_1();
+    _Block_object_dispose(&v67, 8);
+    _Unwind_Resume(v56);
   }
 
   v19 = [dictionaryCopy objectForKeyedSubscript:*v17];
   v20 = getkAXMChartSeriesValueDescriptionsKey();
-  v65 = [dictionaryCopy objectForKeyedSubscript:v20];
+  v66 = [dictionaryCopy objectForKeyedSubscript:v20];
 
   v21 = [v10 count];
-  if (v21 != [v12 count] && v12 || (v22 = objc_msgSend(v10, "count"), v22 != objc_msgSend(v14, "count")) && v14 || (v23 = objc_msgSend(v10, "count"), v23 != objc_msgSend(v16, "count")) && v16 || (v24 = objc_msgSend(v10, "count"), v24 != objc_msgSend(v19, "count")) && v19)
+  v22 = [v12 count];
+  if (v21 != v22 && v12 || (v23 = [v10 count], v22 = objc_msgSend(v14, "count"), v23 != v22) && v14 || (v24 = objc_msgSend(v10, "count"), v22 = objc_msgSend(v16, "count"), v24 != v22) && v16 || (v25 = objc_msgSend(v10, "count"), v22 = objc_msgSend(v19, "count"), v25 != v22) && v19)
   {
-    v25 = AXAudioGraphLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v26 = AXAudioGraphLog(v22);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
-      [(AXDataSeriesDescriptor *)dictionaryCopy initWithDictionary:v25];
+      [(AXDataSeriesDescriptor *)dictionaryCopy initWithDictionary:v26];
     }
 
     selfCopy2 = 0;
     goto LABEL_15;
   }
 
-  v63 = v19;
-  v64 = v16;
+  v64 = v19;
+  v65 = v16;
   selfCopy = self;
-  v58 = v6;
+  v59 = v6;
   array = [MEMORY[0x1E695DF70] array];
   if ([v10 count])
   {
-    v28 = 0;
-    v29 = 0x1E7B2C000uLL;
-    v60 = v14;
-    v61 = v10;
+    v29 = 0;
+    v30 = 0x1E7B2C000uLL;
+    v61 = v14;
+    v62 = v10;
     do
     {
-      v30 = [v10 objectAtIndexedSubscript:v28];
+      v31 = [v10 objectAtIndexedSubscript:v29];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v32 = *(v29 + 3440);
-      v33 = [v10 objectAtIndexedSubscript:v28];
-      v34 = v33;
+      v33 = *(v30 + 3440);
+      v34 = [v10 objectAtIndexedSubscript:v29];
+      v35 = v34;
       if (isKindOfClass)
       {
-        [v32 valueWithCategory:v33];
+        [v33 valueWithCategory:v34];
       }
 
       else
       {
-        [v33 doubleValue];
-        [v32 valueWithNumber:?];
+        [v34 doubleValue];
+        [v33 valueWithNumber:?];
       }
-      v35 = ;
+      v36 = ;
 
       if (v12)
       {
-        v36 = *(v29 + 3440);
-        v37 = [v12 objectAtIndexedSubscript:v28];
-        [v37 doubleValue];
-        v38 = [v36 valueWithNumber:?];
+        v37 = *(v30 + 3440);
+        v38 = [v12 objectAtIndexedSubscript:v29];
+        [v38 doubleValue];
+        v39 = [v37 valueWithNumber:?];
 
         if (!v14)
         {
@@ -118,87 +157,87 @@
 
       else
       {
-        v38 = 0;
+        v39 = 0;
         if (!v14)
         {
 LABEL_25:
-          v41 = 0;
+          v42 = 0;
           goto LABEL_26;
         }
       }
 
-      v39 = *(v29 + 3440);
-      v40 = [v14 objectAtIndexedSubscript:v28];
-      [v40 doubleValue];
-      v41 = [v39 valueWithNumber:?];
+      v40 = *(v30 + 3440);
+      v41 = [v14 objectAtIndexedSubscript:v29];
+      [v41 doubleValue];
+      v42 = [v40 valueWithNumber:?];
 
 LABEL_26:
-      v42 = v12;
+      v43 = v12;
+      if (v65)
+      {
+        v44 = *(v30 + 3440);
+        v45 = [v65 objectAtIndexedSubscript:v29];
+        v46 = [v44 valueWithCategory:v45];
+      }
+
+      else
+      {
+        v46 = 0;
+      }
+
+      v47 = [v66 objectAtIndexedSubscript:v29];
+      array2 = [MEMORY[0x1E695DF70] array];
+      v49 = array2;
+      if (v42)
+      {
+        [array2 addObject:v42];
+      }
+
+      if (v46)
+      {
+        [v49 addObject:v46];
+      }
+
       if (v64)
       {
-        v43 = *(v29 + 3440);
-        v44 = [v64 objectAtIndexedSubscript:v28];
-        v45 = [v43 valueWithCategory:v44];
+        v50 = [v64 objectAtIndexedSubscript:v29];
       }
 
       else
       {
-        v45 = 0;
+        v50 = 0;
       }
 
-      v46 = [v65 objectAtIndexedSubscript:v28];
-      array2 = [MEMORY[0x1E695DF70] array];
-      v48 = array2;
-      if (v41)
-      {
-        [array2 addObject:v41];
-      }
+      v51 = [[AXDataPoint alloc] initWithX:v36 y:v39 additionalValues:v49 label:v50];
+      [(AXDataPoint *)v51 setValueDescription:v47];
+      [array addObject:v51];
 
-      if (v45)
-      {
-        [v48 addObject:v45];
-      }
-
-      if (v63)
-      {
-        v49 = [v63 objectAtIndexedSubscript:v28];
-      }
-
-      else
-      {
-        v49 = 0;
-      }
-
-      v50 = [[AXDataPoint alloc] initWithX:v35 y:v38 additionalValues:v48 label:v49];
-      [(AXDataPoint *)v50 setValueDescription:v46];
-      [array addObject:v50];
-
-      ++v28;
-      v10 = v61;
-      v12 = v42;
-      v14 = v60;
-      v29 = 0x1E7B2C000;
+      ++v29;
+      v10 = v62;
+      v12 = v43;
+      v14 = v61;
+      v30 = 0x1E7B2C000;
     }
 
-    while (v28 < [v61 count]);
+    while (v29 < [v62 count]);
   }
 
-  v6 = v58;
-  v25 = array;
-  v51 = [(AXDataSeriesDescriptor *)selfCopy initWithAttributedName:v58 isContinuous:bOOLValue dataPoints:array];
-  dictionaryCopy = v56;
-  if (v51)
+  v6 = v59;
+  v26 = array;
+  v52 = [(AXDataSeriesDescriptor *)selfCopy initWithAttributedName:v59 isContinuous:bOOLValue dataPoints:array];
+  dictionaryCopy = v57;
+  if (v52)
   {
-    v52 = getkAXMChartSeriesMeanValueDescriptionKey();
-    v53 = [v56 objectForKeyedSubscript:v52];
-    meanValueDescription = v51->_meanValueDescription;
-    v51->_meanValueDescription = v53;
+    v53 = getkAXMChartSeriesMeanValueDescriptionKey();
+    v54 = [v57 objectForKeyedSubscript:v53];
+    meanValueDescription = v52->_meanValueDescription;
+    v52->_meanValueDescription = v54;
   }
 
-  self = v51;
+  self = v52;
   selfCopy2 = self;
-  v19 = v63;
-  v16 = v64;
+  v19 = v64;
+  v16 = v65;
 LABEL_15:
 
   return selfCopy2;
@@ -207,9 +246,7 @@ LABEL_15:
 - (void)_commonInitWithContinuous:(BOOL)continuous dataPoints:(id)points
 {
   self->_isContinuous = continuous;
-  v5 = [points copy];
-  dataPoints = self->_dataPoints;
-  self->_dataPoints = v5;
+  self->_dataPoints = [points copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -248,33 +285,33 @@ LABEL_15:
 
 - (double)meanYValue
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   dataPoints = [(AXDataSeriesDescriptor *)self dataPoints];
-  v4 = [dataPoints countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [dataPoints countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(dataPoints);
         }
 
-        yValue = [*(*(&v15 + 1) + 8 * i) yValue];
+        yValue = [*(*(&v14 + 1) + 8 * i) yValue];
         [yValue number];
         v7 = v7 + v10;
       }
 
-      v5 = [dataPoints countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [dataPoints countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -288,7 +325,6 @@ LABEL_15:
   dataPoints2 = [(AXDataSeriesDescriptor *)self dataPoints];
   v12 = [dataPoints2 count];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7 / v12;
 }
 
@@ -565,11 +601,10 @@ LABEL_41:
 
 - (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1B25D2000, a2, OS_LOG_TYPE_FAULT, "Data is not aligned: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1B25D2000, a2, OS_LOG_TYPE_FAULT, "Data is not aligned: %@", &v2, 0xCu);
 }
 
 @end

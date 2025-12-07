@@ -63,13 +63,14 @@ LABEL_8:
   v10 = *(m_table - 3);
   if (v10)
   {
-    if (v10 >> 29)
+    v11 = (v10 >> 29);
+    if (v11)
     {
       __break(0xC471u);
       goto LABEL_27;
     }
 
-    self = WTF::fastMalloc((8 * v10));
+    self = WTF::fastMalloc(v11, (8 * v10));
     *(v3 + 8) = v10;
     *v3 = self;
   }
@@ -82,27 +83,27 @@ LABEL_8:
 LABEL_15:
   if (v7 != v9)
   {
-    v11 = 0;
+    v12 = 0;
     do
     {
-      v12 = *v7;
+      v13 = *v7;
       if (*v7)
       {
-        atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
       }
 
-      *(&self->super.isa + v11) = v12;
+      *(&self->super.isa + v12) = v13;
       do
       {
         v7 += 2;
       }
 
       while (v7 != v6 && *v7 + 1 <= 1);
-      ++v11;
+      ++v12;
     }
 
     while (v7 != v9);
-    *(v3 + 12) = v11;
+    *(v3 + 12) = v12;
   }
 
 LABEL_27:
@@ -257,7 +258,7 @@ LABEL_7:
   }
 
   m_table = self->_contentProviderForMIMEType.m_impl.m_table;
-  if (m_table || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::ASCIICaseInsensitiveHash,WTF::HashMap<WTF::String,objc_class  {objcproto24WKWebViewContentProvider},WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::HashTraits<WTF::String>,WTF::HashMap<objc_class  {objcproto24WKWebViewContentProvider}>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(&self->_contentProviderForMIMEType), (m_table = self->_contentProviderForMIMEType.m_impl.m_table) != 0))
+  if (m_table || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::ASCIICaseInsensitiveHash,WTF::HashMap<WTF::String,objc_class  {objcproto24WKWebViewContentProvider},WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::HashTraits<WTF::String>,WTF::HashMap<objc_class  {objcproto24WKWebViewContentProvider}>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(&self->_contentProviderForMIMEType, 0), (m_table = self->_contentProviderForMIMEType.m_impl.m_table) != 0))
   {
     v8 = *(m_table - 2);
   }
@@ -336,7 +337,7 @@ LABEL_12:
 
 LABEL_23:
 
-    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::ASCIICaseInsensitiveHash,WTF::HashMap<WTF::String,objc_class  {objcproto24WKWebViewContentProvider},WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::HashTraits<WTF::String>,WTF::HashMap<objc_class  {objcproto24WKWebViewContentProvider}>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(&self->_contentProviderForMIMEType);
+    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::ASCIICaseInsensitiveHash,WTF::HashMap<WTF::String,objc_class  {objcproto24WKWebViewContentProvider},WTF::KeyValuePairKeyExtractor<objc_class  {objcproto24WKWebViewContentProvider}*>,WTF::HashTraits<WTF::String>,WTF::HashMap<objc_class  {objcproto24WKWebViewContentProvider}>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(&self->_contentProviderForMIMEType, v13);
   }
 }
 

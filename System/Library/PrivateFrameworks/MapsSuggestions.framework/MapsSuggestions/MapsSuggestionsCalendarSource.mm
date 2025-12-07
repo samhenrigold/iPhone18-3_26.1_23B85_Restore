@@ -847,7 +847,7 @@ void __51__MapsSuggestionsCalendarSource_eventKitDidChange___block_invoke(uint64
   }
 }
 
-void __68__MapsSuggestionsCalendarSource_updateSuggestionEntriesWithHandler___block_invoke_630_cold_1(id *a1, uint64_t a2, uint64_t a3)
+void __68__MapsSuggestionsCalendarSource_updateSuggestionEntriesWithHandler___block_invoke_630_cold_1(id *a1, void *a2, uint64_t a3)
 {
   *a1 = MEMORY[0x1E69E9820];
   a1[1] = 3221225472;

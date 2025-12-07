@@ -23,7 +23,7 @@
 
 - (void)updateWithContactIdentifier:(id)identifier preferredBundleIdentifiers:(id)identifiers
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   objc_storeStrong(&self->_contactIdentifier, identifier);
   identifiersCopy = identifiers;
@@ -61,8 +61,8 @@
 
     v19 = [v15 initWithSearchString:v18];
 
-    v30[0] = v14;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = v14;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     [v19 setSearchEntities:v20];
 
     [v11 updateWithQueryContext:v19];
@@ -73,8 +73,8 @@
     if (![(SPUIContactViewController *)self isBackgroundColorViewHidden])
     {
       v23 = objc_opt_new();
-      v29 = identifierCopy;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+      v28 = identifierCopy;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
       [v23 setContactIdentifiers:v24];
 
       v25 = objc_opt_new();
@@ -96,8 +96,6 @@
       [v14 setEntityBackgroundColor:v25];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willUpdateFromResultsWithHighlightedResult:(id)result viewController:(id)controller

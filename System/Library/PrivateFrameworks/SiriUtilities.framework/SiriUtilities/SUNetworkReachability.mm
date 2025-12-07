@@ -46,7 +46,7 @@
 
 void __42__SUNetworkReachability_reachabilityState__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (nwi_state_copy())
   {
     if (nwi_state_get_first_ifstate() && (nwi_ifstate_get_flags() & 4) != 0)
@@ -73,9 +73,9 @@ void __42__SUNetworkReachability_reachabilityState__block_invoke(uint64_t a1)
         v5 = @"YES";
       }
 
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1DD1FF000, v4, OS_LOG_TYPE_INFO, "Network is available: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_1DD1FF000, v4, OS_LOG_TYPE_INFO, "Network is available: %@", &v10, 0xCu);
     }
 
     if (v2)
@@ -104,9 +104,9 @@ void __42__SUNetworkReachability_reachabilityState__block_invoke(uint64_t a1)
           v9 = @"YES";
         }
 
-        v11 = 138412290;
-        v12 = v9;
-        _os_log_impl(&dword_1DD1FF000, v8, OS_LOG_TYPE_INFO, "Network has reachability: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_1DD1FF000, v8, OS_LOG_TYPE_INFO, "Network has reachability: %@", &v10, 0xCu);
       }
 
       v6 = 1;
@@ -125,12 +125,10 @@ void __42__SUNetworkReachability_reachabilityState__block_invoke(uint64_t a1)
     v3 = *(*(a1 + 32) + 8);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1DD1FF000, v3, OS_LOG_TYPE_INFO, "Network state API returned null; returning unknown", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_1DD1FF000, v3, OS_LOG_TYPE_INFO, "Network state API returned null; returning unknown", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -33,12 +33,12 @@
   v11 = v10;
   if (v10)
   {
-    [v10 frame];
+    objc_msgSend_frame(v10);
   }
 
   else
   {
-    v16 = SBLogAppSwitcher();
+    v16 = SBLogAppSwitcher(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v25 = 138412290;
@@ -80,7 +80,7 @@
 
   else
   {
-    v13 = SBLogAppSwitcher();
+    v13 = SBLogAppSwitcher(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v16 = 138412290;

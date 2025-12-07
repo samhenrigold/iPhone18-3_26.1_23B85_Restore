@@ -99,21 +99,21 @@
   {
     if (objc_msgSend_isMulticolor(self, a2, v2))
     {
-      v6 = NTKFoghornFaceBezelStyleString(v5);
+      v5 = NTKFoghornFaceBezelStyleString(self->_bezelStyle);
     }
 
     else
     {
-      v6 = @"monochrome";
+      v5 = @"monochrome";
     }
 
-    v7 = MEMORY[0x277CCACA8];
-    v14.receiver = self;
-    v14.super_class = NTKFoghornFaceColorPalette;
-    identifier = [(NTKFaceColorPalette *)&v14 identifier];
-    v11 = objc_msgSend_stringWithFormat_(v7, v9, v10, @"%@-%@-%u", identifier, v6, self->_nightMode);
-    v12 = self->_cachedIdentifier;
-    self->_cachedIdentifier = v11;
+    v6 = MEMORY[0x277CCACA8];
+    v12.receiver = self;
+    v12.super_class = NTKFoghornFaceColorPalette;
+    identifier = [(NTKFaceColorPalette *)&v12 identifier];
+    v9 = objc_msgSend_stringWithFormat_(v6, v8, @"%@-%@-%u", identifier, v5, self->_nightMode);
+    v10 = self->_cachedIdentifier;
+    self->_cachedIdentifier = v9;
 
     cachedIdentifier = self->_cachedIdentifier;
   }
@@ -155,7 +155,7 @@
   v10 = colorCopy;
   if (!colorCopy || *MEMORY[0x277D2BF30] == colorCopy)
   {
-    v11 = objc_msgSend__colorFromColor_alpha_(self, v9, alpha, rootColor);
+    v11 = objc_msgSend__colorFromColor_alpha_(self, v9, rootColor, alpha);
   }
 
   else
@@ -184,12 +184,12 @@
 - (id)_canonicalMonochromePaletteForBezelStyle:(int64_t)style
 {
   v5 = objc_opt_class();
-  v8 = objc_msgSend__canonicalMonochromePaletteNameForBezelStyle_(v5, v6, v7, style);
-  v11 = objc_msgSend_pigmentNamed_(MEMORY[0x277D2C0B0], v9, v10, v8);
-  v14 = objc_msgSend_copyWithOption_(self, v12, v13, v11);
-  v14[14] = style;
+  v7 = objc_msgSend__canonicalMonochromePaletteNameForBezelStyle_(v5, v6, style);
+  v9 = objc_msgSend_pigmentNamed_(MEMORY[0x277D2C0B0], v8, v7);
+  v11 = objc_msgSend_copyWithOption_(self, v10, v9);
+  v11[14] = style;
 
-  return v14;
+  return v11;
 }
 
 - (id)_proxyPalette
@@ -199,22 +199,22 @@
     monochromeProxyPalette = self->_monochromeProxyPalette;
     if (!monochromeProxyPalette)
     {
-      v7 = objc_msgSend__canonicalMonochromePaletteForBezelStyle_(self, v4, v5, self->_bezelStyle);
-      v8 = self->_monochromeProxyPalette;
-      self->_monochromeProxyPalette = v7;
+      v6 = objc_msgSend__canonicalMonochromePaletteForBezelStyle_(self, v4, self->_bezelStyle);
+      v7 = self->_monochromeProxyPalette;
+      self->_monochromeProxyPalette = v6;
 
       monochromeProxyPalette = self->_monochromeProxyPalette;
     }
 
-    v9 = monochromeProxyPalette;
+    v8 = monochromeProxyPalette;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)setBezelStyle:(int64_t)style
@@ -271,19 +271,19 @@
     {
       objc_msgSend_bezelMajorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -309,19 +309,19 @@
     {
       objc_msgSend_bezelMedialTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -347,19 +347,19 @@
     {
       objc_msgSend_bezelMinorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -385,19 +385,19 @@
     {
       objc_msgSend_bezelInactiveMajorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 0.4, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 0.4);
   }
 
   return v8;
@@ -423,19 +423,19 @@
     {
       objc_msgSend_bezelInactiveMedialTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 0.4, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 0.4);
   }
 
   return v8;
@@ -461,19 +461,19 @@
     {
       objc_msgSend_bezelInactiveMinorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 0.4, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 0.4);
   }
 
   return v8;
@@ -499,19 +499,19 @@
     {
       objc_msgSend_bezelCompassNorthTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -537,19 +537,19 @@
     {
       objc_msgSend_bezelCompassCardinalTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -575,19 +575,19 @@
     {
       objc_msgSend_bezelCompassLabelledTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -613,15 +613,15 @@
     {
       objc_msgSend_bezelDepthMaxMajorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -635,7 +635,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -661,15 +661,15 @@
     {
       objc_msgSend_bezelDepthMaxMedialTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -683,7 +683,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -709,15 +709,15 @@
     {
       objc_msgSend_bezelDepthMaxMinorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -731,7 +731,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -757,15 +757,15 @@
     {
       objc_msgSend_bezelDepthLimitMajorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -779,7 +779,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -805,15 +805,15 @@
     {
       objc_msgSend_bezelDepthLimitMedialTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -827,7 +827,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -853,15 +853,15 @@
     {
       objc_msgSend_bezelDepthLimitMinorTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -875,7 +875,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -901,19 +901,19 @@
     {
       objc_msgSend_bezelDepthMarker(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -939,15 +939,15 @@
     {
       objc_msgSend_bezelDepthMaxMarker(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -961,7 +961,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -987,19 +987,19 @@
     {
       objc_msgSend_bezelDepthLabel(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1025,15 +1025,15 @@
     {
       objc_msgSend_bezelDepthMaxLabel(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -1047,7 +1047,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -1073,15 +1073,15 @@
     {
       objc_msgSend_bezelDepthLimitLabel(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -1095,7 +1095,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -1121,15 +1121,15 @@
     {
       objc_msgSend_bezelDepthDecoration(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     if (self->_nightMode)
@@ -1143,7 +1143,7 @@
     }
 
     v14 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v13, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v14, v15, v11, v12, v13);
   }
 
   return v8;
@@ -1169,19 +1169,19 @@
     {
       objc_msgSend_bezelHarmoniaUnitLabel(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 0.4, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 0.4);
   }
 
   return v8;
@@ -1207,19 +1207,19 @@
     {
       objc_msgSend_bezelHarmoniaEmphasizedTick(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1245,19 +1245,19 @@
     {
       objc_msgSend_bezelHarmoniaOvernightTypical(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1283,19 +1283,19 @@
     {
       objc_msgSend_bezelHarmoniaOvernightPartiallyOutOfRange(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1321,19 +1321,19 @@
     {
       objc_msgSend_bezelHarmoniaOvernightOutOfRange(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1359,19 +1359,19 @@
     {
       objc_msgSend_bezelHarmoniaTrainingWellBelow(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1397,19 +1397,19 @@
     {
       objc_msgSend_bezelHarmoniaTrainingBelow(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1435,19 +1435,19 @@
     {
       objc_msgSend_bezelHarmoniaTrainingNear(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1473,19 +1473,19 @@
     {
       objc_msgSend_bezelHarmoniaTrainingAbove(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1511,19 +1511,19 @@
     {
       objc_msgSend_bezelHarmoniaTrainingWellAbove(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1549,19 +1549,19 @@
     {
       objc_msgSend_timeMinutes(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1587,19 +1587,19 @@
     {
       objc_msgSend_timeSeconds(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 0.6, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 0.6);
   }
 
   return v8;
@@ -1619,7 +1619,7 @@
     v9 = objc_msgSend_statusBar_night(self, v5, v6);
     v12 = objc_msgSend__redColor(self, v10, v11);
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v9, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v9, v12, 1.0);
   }
 
   return v8;
@@ -1645,19 +1645,19 @@
     {
       objc_msgSend_simpleTextComplication(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1683,19 +1683,19 @@
     {
       objc_msgSend_primaryComplication(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend__whiteColor(self, v9, v11);
+      objc_msgSend__whiteColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;
@@ -1721,19 +1721,19 @@
     {
       objc_msgSend_secondaryComplication(self, v5, v6);
     }
-    v10 = ;
+    v11 = ;
     if (self->_nightMode)
     {
-      objc_msgSend__redColor(self, v9, v11);
+      objc_msgSend__redColor(self, v9, v10);
     }
 
     else
     {
-      objc_msgSend_primaryColor(self, v9, v11);
+      objc_msgSend_primaryColor(self, v9, v10);
     }
     v12 = ;
     v13 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, 1.0, v10, v12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v13, v14, v11, v12, 1.0);
   }
 
   return v8;

@@ -26,13 +26,12 @@
 
 void __30__PSGUtilities_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_1001;
-  sharedInstance__pasExprOnceResult_1001 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_1001;
+  sharedInstance__pasExprOnceResult_1001 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (id)localizedStringForKey:(id)key withLocale:(id)locale onlyIfCached:(BOOL)cached wasCached:(BOOL *)wasCached
@@ -99,13 +98,12 @@ void __30__PSGUtilities_sharedInstance__block_invoke(uint64_t a1)
 
 uint64_t __72__PSGUtilities_localizedStringForKey_withLocale_onlyIfCached_wasCached___block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc(MEMORY[0x277D425F8]);
-  v3 = objc_opt_new();
-  v4 = [v2 initWithGuardedData:v3];
-  v5 = localizedStringForKey_withLocale_onlyIfCached_wasCached__cache;
-  localizedStringForKey_withLocale_onlyIfCached_wasCached__cache = v4;
+  v1 = objc_alloc(MEMORY[0x277D425F8]);
+  v2 = objc_opt_new();
+  v3 = [v1 initWithGuardedData:v2];
+  v4 = localizedStringForKey_withLocale_onlyIfCached_wasCached__cache;
+  localizedStringForKey_withLocale_onlyIfCached_wasCached__cache = v3;
 
-  v6 = *(a1 + 32);
   localizedStringForKey_withLocale_onlyIfCached_wasCached__stringsBundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
   return MEMORY[0x2821F96F8]();
@@ -113,7 +111,7 @@ uint64_t __72__PSGUtilities_localizedStringForKey_withLocale_onlyIfCached_wasCac
 
 void __72__PSGUtilities_localizedStringForKey_withLocale_onlyIfCached_wasCached___block_invoke_24(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D42648] tupleWithFirst:*(a1 + 32) second:*(a1 + 40)];
   v5 = [v3 objectForKeyedSubscript:v4];
@@ -148,34 +146,34 @@ void __72__PSGUtilities_localizedStringForKey_withLocale_onlyIfCached_wasCached_
     else
     {
       context = v11;
-      v31[0] = *(a1 + 32);
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+      v30[0] = *(a1 + 32);
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
       v13 = MEMORY[0x277CCA8D8];
       v14 = [localizedStringForKey_withLocale_onlyIfCached_wasCached__stringsBundle localizations];
-      v24 = v12;
+      v23 = v12;
       v15 = [v13 preferredLocalizationsFromArray:v14 forPreferences:v12];
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v27;
+        v19 = *v26;
         while (2)
         {
           v20 = 0;
           do
           {
-            if (*v27 != v19)
+            if (*v26 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v26 + 1) + 8 * v20);
+            v21 = *(*(&v25 + 1) + 8 * v20);
             v22 = objc_autoreleasePoolPush();
             v6 = [localizedStringForKey_withLocale_onlyIfCached_wasCached__stringsBundle localizedStringForKey:*(a1 + 40) value:0 table:0 localization:v21];
             if ([v6 isEqual:*(a1 + 40)])
@@ -199,7 +197,7 @@ void __72__PSGUtilities_localizedStringForKey_withLocale_onlyIfCached_wasCached_
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v18)
           {
             continue;
@@ -223,8 +221,6 @@ LABEL_19:
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localizedStringForKey:(id)key withLocale:(id)locale
@@ -282,38 +278,36 @@ BOOL __49__PSGUtilities_prewarmCacheForLocale_usingQueue___block_invoke(uint64_t
 
 void __49__PSGUtilities_prewarmCacheForLocale_usingQueue___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 40) localizedStringForKey:*(*(&v9 + 1) + 8 * v6++) withLocale:{*(a1 + 48), v9}];
+        v7 = [*(a1 + 40) localizedStringForKey:*(*(&v8 + 1) + 8 * v6++) withLocale:{*(a1 + 48), v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

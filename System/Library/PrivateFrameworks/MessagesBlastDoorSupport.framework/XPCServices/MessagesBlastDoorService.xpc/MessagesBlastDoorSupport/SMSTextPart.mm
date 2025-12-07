@@ -32,9 +32,7 @@
 
   else
   {
-    v5 = [text mutableCopy];
-    v6 = self->_text;
-    self->_text = v5;
+    self->_text = [text mutableCopy];
 
     _objc_release_x1();
   }

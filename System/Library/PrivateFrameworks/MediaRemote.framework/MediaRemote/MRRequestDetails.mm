@@ -4,6 +4,7 @@
 + (id)_inferInitatorForBundleID:(id)d;
 - (MRRequestDetails)initWithCoder:(id)coder;
 - (MRRequestDetails)initWithData:(id)data;
+- (MRRequestDetails)initWithInitiator:(id)initiator requestID:(id)d reason:(id)reason userInitiated:(BOOL)initiated;
 - (MRRequestDetails)initWithInitiator:(id)initiator requestID:(id)d reason:(id)reason userInitiated:(BOOL)initiated originatingBundleID:(id)iD;
 - (MRRequestDetails)initWithProtobuf:(id)protobuf;
 - (MRRequestDetails)initWithRequestID:(id)d surface:(id)surface initiator:(id)initiator reason:(id)reason userInitiated:(BOOL)initiated originatingBundleID:(id)iD;
@@ -69,6 +70,20 @@
   return v6;
 }
 
+- (MRRequestDetails)initWithInitiator:(id)initiator requestID:(id)d reason:(id)reason userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  v10 = MEMORY[0x1E696AAE8];
+  reasonCopy = reason;
+  dCopy = d;
+  initiatorCopy = initiator;
+  mainBundle = [v10 mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+  v16 = [(MRRequestDetails *)self initWithInitiator:initiatorCopy requestID:dCopy reason:reasonCopy userInitiated:initiatedCopy originatingBundleID:bundleIdentifier];
+
+  return v16;
+}
+
 - (MRRequestDetails)initWithInitiator:(id)initiator requestID:(id)d reason:(id)reason userInitiated:(BOOL)initiated originatingBundleID:(id)iD
 {
   initiatorCopy = initiator;
@@ -83,7 +98,7 @@
     goto LABEL_11;
   }
 
-  if (![initiatorCopy isEqualToString:@"Infer"])
+  if (!objc_msgSend_isEqualToString_(initiatorCopy))
   {
     objc_storeStrong(&v17->_initiator, initiator);
     if (dCopy)
@@ -169,7 +184,7 @@ LABEL_11:
   v19 = [(MRRequestDetails *)&v30 init];
   if (v19)
   {
-    if ([initiatorCopy isEqualToString:@"Infer"])
+    if (objc_msgSend_isEqualToString_(initiatorCopy))
     {
       v20 = [objc_opt_class() _inferInitatorForBundleID:iDCopy];
       initiator = v19->_initiator;
@@ -348,27 +363,27 @@ LABEL_11:
     v5 = @"Siri";
   }
 
-  else if ([dCopy isEqualToString:@"com.apple.homed"])
+  else if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = @"Automation";
   }
 
-  else if ([dCopy isEqualToString:@"com.apple.SoundBoard"])
+  else if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = @"Alarm";
   }
 
-  else if ([dCopy isEqualToString:@"com.apple.BackgroundShortcutRunner"])
+  else if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = @"Shortcut";
   }
 
-  else if ([dCopy isEqualToString:@"com.apple.MusicUIService"] & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.TVSystemUIService") & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.Siri") & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.MediaRemoteUI") & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.NanoNowPlaying") & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.SpringBoard") & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.MediaRemoteUIService"))
+  else if (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = @"RoutePicker";
   }
 
-  else if ([dCopy isEqualToString:@"com.apple.proximitycontrold"])
+  else if (objc_msgSend_isEqualToString_(dCopy))
   {
     v5 = @"Proximity";
   }
@@ -394,33 +409,33 @@ LABEL_11:
 + (BOOL)_isSiriBundleID:(id)d
 {
   dCopy = d;
-  if ([dCopy isEqualToString:@"com.apple.assistant_service"])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [dCopy isEqualToString:@"assistantd"];
+    isEqualToString = objc_msgSend_isEqualToString_(dCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (BOOL)_isCLIBundleID:(id)d
 {
   dCopy = d;
-  if ([dCopy isEqualToString:@"com.apple.mediaremotetool"] & 1) != 0 || (objc_msgSend(dCopy, "isEqualToString:", @"com.apple.mediaplayertool"))
+  if (objc_msgSend_isEqualToString_(dCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(dCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [dCopy isEqualToString:@"com.apple.mediactl"];
+    isEqualToString = objc_msgSend_isEqualToString_(dCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

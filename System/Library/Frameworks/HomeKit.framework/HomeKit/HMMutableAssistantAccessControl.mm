@@ -58,10 +58,10 @@
 
 - (void)addAccessory:(id)accessory
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
-  v10[0] = accessoryCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = accessoryCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = __validateAccessories(v5);
 
   if ((v6 & 1) == 0)
@@ -76,7 +76,6 @@
   self->super._accessories = v7;
 
   os_unfair_lock_unlock(&self->super.super._lock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAccessories:(id)accessories

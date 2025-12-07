@@ -474,9 +474,9 @@ LABEL_42:
     self->_webkitDefinedConfigurationFlags = v23;
   }
 
-  if (viewportFit && ([viewportFit isEqualToString:@"auto"] & 1) == 0)
+  if (viewportFit && (objc_msgSend_isEqualToString_(viewportFit) & 1) == 0)
   {
-    self->_configuration.avoidsUnsafeArea = [viewportFit isEqualToString:@"cover"] ^ 1;
+    self->_configuration.avoidsUnsafeArea = objc_msgSend_isEqualToString_(viewportFit) ^ 1;
     v24 = self->_webkitDefinedConfigurationFlags | 0x100;
   }
 

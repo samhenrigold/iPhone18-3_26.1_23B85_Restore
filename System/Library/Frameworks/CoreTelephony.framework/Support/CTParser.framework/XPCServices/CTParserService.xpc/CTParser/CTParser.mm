@@ -121,28 +121,28 @@ xpc_object_t sub_100000C28@<X0>(uint64_t a1@<X0>, xpc_object_t *a2@<X1>, xpc_obj
 
 uint64_t CTParserXPCData::describe(CTParserXPCData *this)
 {
-  v33 = 0;
-  v31 = 0u;
+  v36 = 0;
+  v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  memset(v23, 0, sizeof(v23));
   v21 = 0u;
   v22 = 0u;
-  memset(v20, 0, sizeof(v20));
-  v18 = 0u;
-  v19 = 0u;
-  sub_100000FC0(&v18);
-  v2 = sub_1000017A0(&v19);
+  sub_100000FC0(&v21);
+  v2 = sub_1000017A0(&v22, "[ SERVICE:(", 11);
   v3 = this + 8;
-  v16[0] = this + 8;
-  v16[1] = CTParser::kRemoteServiceTypeKey[0];
-  sub_100001264(v16, &v17);
+  v19[0] = this + 8;
+  v19[1] = CTParser::kRemoteServiceTypeKey[0];
+  sub_100001264(v19, &v20);
   v4 = xpc::dyn_cast_or_default();
   if (v4 > 2)
   {
@@ -154,39 +154,59 @@ uint64_t CTParserXPCData::describe(CTParserXPCData *this)
     v5 = off_10001C608[v4 & 3];
   }
 
-  strlen(v5);
-  v6 = sub_1000017A0(v2);
-  v7 = sub_1000017A0(v6);
-  v8 = sub_1000017A0(v7);
-  v13[0] = v3;
-  v13[1] = CTParser::kTransactionId[0];
-  sub_100001264(v13, &object);
-  v9 = xpc::dyn_cast_or_default();
-  std::to_string(&v15, v9);
-  v10 = sub_1000017A0(v8);
-  sub_1000017A0(v10);
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  v6 = strlen(v5);
+  v7 = sub_1000017A0(v2, v5, v6);
+  v8 = sub_1000017A0(v7, ")", 1);
+  v9 = sub_1000017A0(v8, " TRANSACTION:(", 14);
+  v16[0] = v3;
+  v16[1] = CTParser::kTransactionId[0];
+  sub_100001264(v16, &object);
+  v10 = xpc::dyn_cast_or_default();
+  std::to_string(&v18, v10);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    v11 = &v18;
+  }
+
+  else
+  {
+    LODWORD(v11) = v18.__r_.__value_.__l.__data_;
+  }
+
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v12 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v12 = v18.__r_.__value_.__r.__words[1];
+  }
+
+  v13 = sub_1000017A0(v9, v11, v12);
+  sub_1000017A0(v13, ") ]", 3);
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
   xpc_release(object);
-  xpc_release(v17);
+  xpc_release(v20);
   std::stringbuf::str();
-  *&v19 = v11;
-  if (SHIBYTE(v22) < 0)
+  *&v22 = v14;
+  if (SHIBYTE(v25) < 0)
   {
-    operator delete(*(&v21 + 1));
+    operator delete(*(&v24 + 1));
   }
 
-  std::locale::~locale(v20);
+  std::locale::~locale(v23);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_100000F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, xpc_object_t object, char a22)
+void sub_100000F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, xpc_object_t a5, void *__p, uint64_t a7, int a8, __int16 a9, char a10, char a11, uint64_t a12, uint64_t a13, xpc_object_t object, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, xpc_object_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  xpc_release(object);
+  xpc_release(a20);
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
@@ -400,7 +420,7 @@ void sub_100001698(uint64_t a1)
   }
 }
 
-uint64_t sub_1000017A0(uint64_t a1)
+void *sub_1000017A0(void *a1, int a2, int a3)
 {
   std::ostream::sentry::sentry();
   std::ostream::sentry::~sentry();
@@ -915,10 +935,10 @@ void *sub_1000028D0(void *a1)
   return a1;
 }
 
-void sub_100002940(void *a1@<X8>)
+void sub_100002940(uint64_t *a3@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
   sub_1000054C0();
 }
 
@@ -932,7 +952,7 @@ void sub_100002FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_1000031C0(_BYTE *a1, char *__s)
+void *sub_1000031C0(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -946,45 +966,44 @@ _BYTE *sub_1000031C0(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_100003278(void *a1@<X8>)
+void sub_100003278(void **a2@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a2 = 0;
+  a2[1] = 0;
   sub_1000057C8();
 }
 
-void sub_1000034BC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+void sub_1000034BC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
 {
-  va_start(va, a18);
   std::ios::~ios();
-  if (*(v19 - 81) < 0)
+  if (*(v41 - 81) < 0)
   {
-    operator delete(*(v19 - 104));
+    operator delete(*(v41 - 104));
   }
 
-  v22 = *(v19 - 80);
-  if (v22)
+  v44 = *(v41 - 80);
+  if (v44)
   {
-    *(v19 - 72) = v22;
-    operator delete(v22);
+    *(v41 - 72) = v44;
+    operator delete(v44);
   }
 
   if (a2 != 2 && a2 != 1)
   {
-    v23 = *(v18 + 8);
-    if (v23)
+    v45 = *(v40 + 8);
+    if (v45)
     {
-      sub_100001D8C(v23);
+      sub_100001D8C(v45);
     }
 
     _Unwind_Resume(a1);
@@ -1046,7 +1065,7 @@ void sub_100003594(uint64_t a1, uint64_t *a2)
   __p = 0;
   v11 = 0;
   v12 = 0;
-  sub_100007DB8(&__p, v6, v6 + v5, v5);
+  sub_100007DB8(&__p, v6, &v6[v5], v5);
   xpc_dictionary_set_data(*(a1 + 8), ("23SmsPduDecoderSerialized" & 0x7FFFFFFFFFFFFFFFLL), __p, v11 - __p);
   if (__p)
   {
@@ -1076,7 +1095,7 @@ void sub_100003594(uint64_t a1, uint64_t *a2)
   }
 }
 
-void sub_1000037F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_1000037F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
 {
   if (__p)
   {
@@ -1239,7 +1258,7 @@ void sub_100003AB4(uint64_t a1, uint64_t *a2)
   __p = 0;
   v11 = 0;
   v12 = 0;
-  sub_100007DB8(&__p, v6, v6 + v5, v5);
+  sub_100007DB8(&__p, v6, &v6[v5], v5);
   xpc_dictionary_set_data(*(a1 + 8), ("26C2KSmsPduDecoderSerialized" & 0x7FFFFFFFFFFFFFFFLL), __p, v11 - __p);
   if (__p)
   {
@@ -1269,7 +1288,7 @@ void sub_100003AB4(uint64_t a1, uint64_t *a2)
   }
 }
 
-void sub_100003D18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_100003D18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
 {
   if (__p)
   {
@@ -1312,19 +1331,19 @@ uint64_t sub_100003DD8(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100003E18(void *a1)
+void sub_100003E18(void *a1)
 {
   *a1 = off_10001C910;
   ctu::OsLogLogger::~OsLogLogger((a1 + 1));
 
-  return nullsub_1(a1);
+  nullsub_1();
 }
 
 void sub_100003E6C(void *a1)
 {
   *a1 = off_10001C910;
   ctu::OsLogLogger::~OsLogLogger((a1 + 1));
-  nullsub_1(a1);
+  nullsub_1();
 
   operator delete();
 }
@@ -1372,12 +1391,12 @@ void *sub_100004034()
 
   if ((atomic_load_explicit(&qword_1000202A0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000202A0))
   {
-    sub_100006FCC(qword_100020288);
-    __cxa_atexit(sub_100006FA0, qword_100020288, &_mh_execute_header);
+    sub_100006FCC(&unk_100020288);
+    __cxa_atexit(sub_100006FA0, &unk_100020288, &_mh_execute_header);
     __cxa_guard_release(&qword_1000202A0);
   }
 
-  return qword_100020288;
+  return &unk_100020288;
 }
 
 void *sub_1000040E4()
@@ -1389,12 +1408,12 @@ void *sub_1000040E4()
 
   if ((atomic_load_explicit(&qword_1000202C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000202C8))
   {
-    sub_100007120(qword_1000202B0);
-    __cxa_atexit(sub_1000070F4, qword_1000202B0, &_mh_execute_header);
+    sub_100007120(&unk_1000202B0);
+    __cxa_atexit(sub_1000070F4, &unk_1000202B0, &_mh_execute_header);
     __cxa_guard_release(&qword_1000202C8);
   }
 
-  return qword_1000202B0;
+  return &unk_1000202B0;
 }
 
 void *sub_100004194()
@@ -1423,12 +1442,12 @@ void *sub_100004244()
 
   if ((atomic_load_explicit(&qword_100020320, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020320))
   {
-    sub_100009460(qword_100020308);
-    __cxa_atexit(sub_100009434, qword_100020308, &_mh_execute_header);
+    sub_100009460(&unk_100020308);
+    __cxa_atexit(sub_100009434, &unk_100020308, &_mh_execute_header);
     __cxa_guard_release(&qword_100020320);
   }
 
-  return qword_100020308;
+  return &unk_100020308;
 }
 
 void *sub_1000042F4()
@@ -1457,12 +1476,12 @@ void *sub_1000043A4()
 
   if ((atomic_load_explicit(&qword_100020378, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020378))
   {
-    sub_100009940(qword_100020360);
-    __cxa_atexit(sub_100009914, qword_100020360, &_mh_execute_header);
+    sub_100009940(&unk_100020360);
+    __cxa_atexit(sub_100009914, &unk_100020360, &_mh_execute_header);
     __cxa_guard_release(&qword_100020378);
   }
 
-  return qword_100020360;
+  return &unk_100020360;
 }
 
 void *sub_100004454()
@@ -1508,12 +1527,12 @@ void *sub_1000045B4()
 
   if ((atomic_load_explicit(&qword_100020400, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020400))
   {
-    sub_10000A4F0(qword_1000203E8);
-    __cxa_atexit(sub_10000A4C4, qword_1000203E8, &_mh_execute_header);
+    sub_10000A4F0(&unk_1000203E8);
+    __cxa_atexit(sub_10000A4C4, &unk_1000203E8, &_mh_execute_header);
     __cxa_guard_release(&qword_100020400);
   }
 
-  return qword_1000203E8;
+  return &unk_1000203E8;
 }
 
 void *sub_100004664()
@@ -1525,12 +1544,12 @@ void *sub_100004664()
 
   if ((atomic_load_explicit(&qword_100020428, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020428))
   {
-    sub_10000A640(qword_100020410);
-    __cxa_atexit(sub_10000A614, qword_100020410, &_mh_execute_header);
+    sub_10000A640(&unk_100020410);
+    __cxa_atexit(sub_10000A614, &unk_100020410, &_mh_execute_header);
     __cxa_guard_release(&qword_100020428);
   }
 
-  return qword_100020410;
+  return &unk_100020410;
 }
 
 void *sub_100004714()
@@ -1559,12 +1578,12 @@ void *sub_1000047C4()
 
   if ((atomic_load_explicit(&qword_100020480, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020480))
   {
-    sub_10000AC50(qword_100020468);
-    __cxa_atexit(sub_10000AC24, qword_100020468, &_mh_execute_header);
+    sub_10000AC50(&unk_100020468);
+    __cxa_atexit(sub_10000AC24, &unk_100020468, &_mh_execute_header);
     __cxa_guard_release(&qword_100020480);
   }
 
-  return qword_100020468;
+  return &unk_100020468;
 }
 
 void *sub_100004874()
@@ -1576,12 +1595,12 @@ void *sub_100004874()
 
   if ((atomic_load_explicit(&qword_1000204A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000204A8))
   {
-    sub_10000AD9C(qword_100020490);
-    __cxa_atexit(sub_10000AD70, qword_100020490, &_mh_execute_header);
+    sub_10000AD9C(&unk_100020490);
+    __cxa_atexit(sub_10000AD70, &unk_100020490, &_mh_execute_header);
     __cxa_guard_release(&qword_1000204A8);
   }
 
-  return qword_100020490;
+  return &unk_100020490;
 }
 
 void *sub_100004924()
@@ -1627,12 +1646,12 @@ void *sub_100004A84()
 
   if ((atomic_load_explicit(&qword_100020530, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020530))
   {
-    sub_10000C918(qword_100020518);
-    __cxa_atexit(sub_10000C8EC, qword_100020518, &_mh_execute_header);
+    sub_10000C918(&unk_100020518);
+    __cxa_atexit(sub_10000C8EC, &unk_100020518, &_mh_execute_header);
     __cxa_guard_release(&qword_100020530);
   }
 
-  return qword_100020518;
+  return &unk_100020518;
 }
 
 void *sub_100004B34()
@@ -1678,12 +1697,12 @@ void *sub_100004C94()
 
   if ((atomic_load_explicit(&qword_1000205B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000205B8))
   {
-    sub_10000D1D8(qword_1000205A0);
-    __cxa_atexit(sub_10000D1AC, qword_1000205A0, &_mh_execute_header);
+    sub_10000D1D8(&unk_1000205A0);
+    __cxa_atexit(sub_10000D1AC, &unk_1000205A0, &_mh_execute_header);
     __cxa_guard_release(&qword_1000205B8);
   }
 
-  return qword_1000205A0;
+  return &unk_1000205A0;
 }
 
 void *sub_100004D44()
@@ -1695,12 +1714,12 @@ void *sub_100004D44()
 
   if ((atomic_load_explicit(&qword_1000205E0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000205E0))
   {
-    sub_10000D324(qword_1000205C8);
-    __cxa_atexit(sub_10000D2F8, qword_1000205C8, &_mh_execute_header);
+    sub_10000D324(&unk_1000205C8);
+    __cxa_atexit(sub_10000D2F8, &unk_1000205C8, &_mh_execute_header);
     __cxa_guard_release(&qword_1000205E0);
   }
 
-  return qword_1000205C8;
+  return &unk_1000205C8;
 }
 
 void *sub_100004DF4()
@@ -1729,12 +1748,12 @@ void *sub_100004EA4()
 
   if ((atomic_load_explicit(&qword_100020638, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020638))
   {
-    sub_10000D818(qword_100020620);
-    __cxa_atexit(sub_10000D7EC, qword_100020620, &_mh_execute_header);
+    sub_10000D818(&unk_100020620);
+    __cxa_atexit(sub_10000D7EC, &unk_100020620, &_mh_execute_header);
     __cxa_guard_release(&qword_100020638);
   }
 
-  return qword_100020620;
+  return &unk_100020620;
 }
 
 void *sub_100004F54()
@@ -1763,12 +1782,12 @@ void *sub_100005004()
 
   if ((atomic_load_explicit(&qword_100020690, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020690))
   {
-    sub_10000E02C(qword_100020678);
-    __cxa_atexit(sub_10000E000, qword_100020678, &_mh_execute_header);
+    sub_10000E02C(&unk_100020678);
+    __cxa_atexit(sub_10000E000, &unk_100020678, &_mh_execute_header);
     __cxa_guard_release(&qword_100020690);
   }
 
-  return qword_100020678;
+  return &unk_100020678;
 }
 
 void *sub_1000050B4()
@@ -1814,12 +1833,12 @@ void *sub_100005214()
 
   if ((atomic_load_explicit(&qword_100020718, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020718))
   {
-    sub_10000E9F4(qword_100020700);
-    __cxa_atexit(sub_10000E9C8, qword_100020700, &_mh_execute_header);
+    sub_10000E9F4(&unk_100020700);
+    __cxa_atexit(sub_10000E9C8, &unk_100020700, &_mh_execute_header);
     __cxa_guard_release(&qword_100020718);
   }
 
-  return qword_100020700;
+  return &unk_100020700;
 }
 
 void *sub_1000052C4()
@@ -1831,12 +1850,12 @@ void *sub_1000052C4()
 
   if ((atomic_load_explicit(&qword_100020740, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020740))
   {
-    sub_10000EB40(qword_100020728);
-    __cxa_atexit(sub_10000EB14, qword_100020728, &_mh_execute_header);
+    sub_10000EB40(&unk_100020728);
+    __cxa_atexit(sub_10000EB14, &unk_100020728, &_mh_execute_header);
     __cxa_guard_release(&qword_100020740);
   }
 
-  return qword_100020728;
+  return &unk_100020728;
 }
 
 void *sub_100005374()
@@ -1848,12 +1867,12 @@ void *sub_100005374()
 
   if ((atomic_load_explicit(&qword_100020768, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100020768))
   {
-    sub_10000EC8C(qword_100020750);
-    __cxa_atexit(sub_10000EC60, qword_100020750, &_mh_execute_header);
+    sub_10000EC8C(&unk_100020750);
+    __cxa_atexit(sub_10000EC60, &unk_100020750, &_mh_execute_header);
     __cxa_guard_release(&qword_100020768);
   }
 
-  return qword_100020750;
+  return &unk_100020750;
 }
 
 const void **sub_100005424(const void **a1)
@@ -1945,7 +1964,7 @@ void sub_1000058A0(std::__shared_weak_count *a1)
   operator delete();
 }
 
-uint64_t sub_10000591C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_10000591C(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1967,7 +1986,7 @@ void sub_100005974(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100005990(uint64_t a1, uint64_t a2)
+void sub_100005990(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2027,11 +2046,10 @@ void sub_100005B50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-boost::archive::detail::basic_iarchive *sub_100005B78(boost::archive::detail::basic_iarchive *a1, uint64_t *a2, int a3)
+boost::archive::detail::basic_iarchive *sub_100005B78(boost::archive::detail::basic_iarchive *a1, uint64_t *a2, char a3)
 {
-  v3 = a3;
   *boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::text_iarchive_impl(a1, a2, a3) = off_10001C9F0;
-  if ((v3 & 1) == 0)
+  if ((a3 & 1) == 0)
   {
     boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::init(a1);
   }
@@ -2061,59 +2079,55 @@ void sub_100005C48(boost::archive::detail::basic_iarchive *a1)
   operator delete();
 }
 
-void *sub_100005C98(uint64_t *a1)
+void *sub_100005C98(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void sub_100005D4C(uint64_t a1)
+void sub_100005D4C(const boost::archive::archive_exception *a1)
 {
   exception = __cxa_allocate_exception(0x90uLL);
   boost::archive::archive_exception::archive_exception(exception, a1);
 }
 
-void *sub_100005D8C(uint64_t *a1)
+void *sub_100005D8C(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void *sub_100005E40(uint64_t *a1)
+void *sub_100005E40(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void *sub_100005EF4(uint64_t *a1)
+void *sub_100005EF4(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
@@ -2134,11 +2148,11 @@ uint64_t sub_100005FA8(uint64_t a1, uint64_t *a2)
   return std::istream::~istream();
 }
 
-void sub_1000060C4(boost::serialization::extended_type_info *a1)
+void sub_1000060C4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CAB0;
   byte_100020250 = 1;
-  sub_1000061EC(a1);
+  sub_1000061EC(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_1000060F0(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -2156,24 +2170,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000617C(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001CB58;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_1000061EC(boost::serialization::extended_type_info *a1)
+void sub_1000061EC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CB58;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000624C(boost::serialization::extended_type_info *a1)
+void sub_10000624C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CAB0;
   byte_100020250 = 1;
-  sub_1000061EC(a1);
+  sub_1000061EC(a1, a2);
 
   operator delete();
 }
@@ -2233,18 +2247,18 @@ uint64_t sub_100006324(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100006358(boost::serialization::extended_type_info *a1)
+void sub_100006358(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_1000061EC(a1);
+  sub_1000061EC(a1, a2);
 
   operator delete();
 }
 
-void sub_100006390(uint64_t a1, char **a2, uint64_t a3)
+void sub_100006390(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = sub_1000067BC(a2);
+  v5 = sub_1000067BC(a2);
 
-  sub_1000063D8(a3, v4);
+  sub_1000063D8(a3, v5);
 }
 
 void sub_1000063D8(uint64_t a1, boost::archive::detail::basic_iarchive *a2)
@@ -2257,11 +2271,11 @@ void sub_1000063D8(uint64_t a1, boost::archive::detail::basic_iarchive *a2)
   }
 
   sub_1000064D0(a1, a2, v5);
-  sub_100006520(a1, a2, v5 + 1);
-  sub_100006570(a1, a2, v5 + 2);
-  sub_1000065C0(a1, a2, (v5 + 4));
-  sub_100006618(a1, a2);
-  sub_100006618(a1, a2);
+  sub_100006520(a1, a2, (v5 + 4));
+  sub_100006570(a1, a2, (v5 + 8));
+  sub_1000065C0(a1, a2, (v5 + 16));
+  sub_100006618(a1, a2, v5 + 40);
+  sub_100006618(a1, a2, v5 + 41);
   if (v4)
   {
 
@@ -2335,35 +2349,32 @@ void sub_100006638(void *a1)
   __cxa_end_catch();
 }
 
-void *sub_100006654(uint64_t *a1)
+void *sub_100006654(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void *sub_100006708(uint64_t *a1)
+void *sub_100006708(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void *sub_1000067BC(char **a1)
+void *sub_1000067BC(const void *a1)
 {
-  v1 = **a1;
   if (!result)
   {
     __cxa_bad_cast();
@@ -2372,11 +2383,11 @@ void *sub_1000067BC(char **a1)
   return result;
 }
 
-void sub_100006818(boost::serialization::extended_type_info *a1)
+void sub_100006818(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CBA0;
   byte_100020280 = 1;
-  sub_100006940(a1);
+  sub_100006940(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100006844(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -2394,24 +2405,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_1000068D0(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001CC48;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_100006940(boost::serialization::extended_type_info *a1)
+void sub_100006940(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CC48;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_1000069A0(boost::serialization::extended_type_info *a1)
+void sub_1000069A0(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CBA0;
   byte_100020280 = 1;
-  sub_100006940(a1);
+  sub_100006940(a1, a2);
 
   operator delete();
 }
@@ -2447,9 +2458,9 @@ void sub_100006A00(uint64_t a1, int a2)
   sub_100014A4C();
 }
 
-void sub_100006A68(boost::serialization::extended_type_info *a1)
+void sub_100006A68(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_100006940(a1);
+  sub_100006940(a1, a2);
 
   operator delete();
 }
@@ -2472,11 +2483,11 @@ void **sub_100006AA0(void **result)
   return result;
 }
 
-void sub_100006AFC(uint64_t a1, char **a2, void *a3)
+void sub_100006AFC(uint64_t a1, const void *a2, void *a3)
 {
   v4 = sub_1000067BC(a2);
-  v7 = 0;
-  boost::archive::detail::basic_iarchive::get_library_version(v4, &v7);
+  LOWORD(v7) = 0;
+  boost::archive::detail::basic_iarchive::get_library_version(&v7, v4);
   v6 = 0;
   sub_100006D00(v4 + 5);
   if (v7 >= 4u)
@@ -2489,23 +2500,20 @@ void sub_100006AFC(uint64_t a1, char **a2, void *a3)
   sub_100006C6C(v4, a3, &v5);
 }
 
-void *sub_100006BA4(void *result, unint64_t a2)
+void sub_100006BA4(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     sub_1000059E0();
   }
-
-  return result;
 }
 
-void sub_100006C6C(uint64_t a1, uint64_t a2, unint64_t *a3)
+void sub_100006C6C(uint64_t result, uint64_t a2, unint64_t *a3)
 {
   v6 = *a3;
   i = *a2;
@@ -2531,19 +2539,18 @@ LABEL_7:
       break;
     }
 
-    sub_100006EEC((a1 + 40));
+    sub_100006EEC((result + 40));
     *i = 0;
   }
 }
 
-void *sub_100006D00(uint64_t *a1)
+void *sub_100006D00(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
@@ -2609,14 +2616,13 @@ void sub_100006DB4(char **a1, size_t a2)
   }
 }
 
-void *sub_100006EEC(uint64_t *a1)
+void *sub_100006EEC(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
@@ -2629,7 +2635,7 @@ void sub_100006FA0(boost::archive::detail::basic_iserializer *a1)
   boost::archive::detail::basic_iserializer::~basic_iserializer(a1);
 }
 
-void *sub_100006FCC(void *a1)
+boost::archive::detail::basic_iserializer *sub_100006FCC(boost::archive::detail::basic_iserializer *a1)
 {
   v2 = sub_100003F84();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, v2);
@@ -2658,7 +2664,7 @@ void sub_1000070F4(boost::archive::detail::basic_iserializer *a1)
   boost::archive::detail::basic_iserializer::~basic_iserializer(a1);
 }
 
-void *sub_100007120(void *a1)
+boost::archive::detail::basic_iserializer *sub_100007120(boost::archive::detail::basic_iserializer *a1)
 {
   v2 = sub_100003ED4();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, v2);
@@ -2747,11 +2753,10 @@ uint64_t sub_100007560(uint64_t a1)
   return a1;
 }
 
-boost::archive::detail::basic_oarchive *sub_100007680(boost::archive::detail::basic_oarchive *a1, uint64_t *a2, int a3)
+boost::archive::detail::basic_oarchive *sub_100007680(boost::archive::detail::basic_oarchive *a1, uint64_t *a2, char a3)
 {
-  v3 = a3;
   *boost::archive::text_oarchive_impl<boost::archive::text_oarchive>::text_oarchive_impl(a1, a2, a3) = off_10001CDF0;
-  if ((v3 & 1) == 0)
+  if ((a3 & 1) == 0)
   {
     boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::init(a1);
   }
@@ -2766,49 +2771,47 @@ void sub_1000076D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000076F0(boost::archive::detail::basic_oarchive *a1, unsigned int *a2)
+uint64_t sub_1000076F0(boost::archive::detail::basic_oarchive *a1, int *a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
-  v5 = *a2;
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  v6 = 0;
-  return sub_100007920(a1 + 6, &v5);
+  return sub_100007920(a1 + 6);
 }
 
-uint64_t sub_100007744(uint64_t a1, unsigned int *a2)
+uint64_t sub_100007744(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
-  *(a1 + 40) = 1;
+  *(a1 + 10) = 1;
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_1000079E4((a1 + 48), a2);
+  return sub_1000079E4(a1 + 6);
 }
 
-uint64_t sub_100007798(boost::archive::detail::basic_oarchive *a1, unsigned int *a2)
+uint64_t sub_100007798(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_100007AA8(a1 + 6, a2);
+  return sub_100007AA8(a1 + 6);
 }
 
-uint64_t sub_1000077E4(boost::archive::detail::basic_oarchive *a1, __int16 *a2)
+uint64_t sub_1000077E4(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_100007B6C(a1 + 6, a2);
+  return sub_100007B6C(a1 + 6);
 }
 
-uint64_t sub_100007834(boost::archive::detail::basic_oarchive *a1, __int16 *a2)
+uint64_t sub_100007834(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_100007C30(a1 + 6, a2);
+  return sub_100007C30(a1 + 6);
 }
 
-uint64_t sub_100007884(boost::archive::detail::basic_oarchive *a1, unsigned __int8 *a2)
+uint64_t sub_100007884(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_100007CF4(a1 + 6, a2);
+  return sub_100007CF4(a1 + 6);
 }
 
 void sub_1000078D0(boost::archive::detail::basic_oarchive *a1)
@@ -2819,85 +2822,73 @@ void sub_1000078D0(boost::archive::detail::basic_oarchive *a1)
   operator delete();
 }
 
-uint64_t sub_100007920(void *a1, unsigned int *a2)
+uint64_t sub_100007920(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_1000079E4(void *a1, unsigned int *a2)
+uint64_t sub_1000079E4(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100007AA8(void *a1, unsigned int *a2)
+uint64_t sub_100007AA8(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100007B6C(void *a1, __int16 *a2)
+uint64_t sub_100007B6C(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100007C30(void *a1, __int16 *a2)
+uint64_t sub_100007C30(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100007CF4(void *a1, unsigned __int8 *a2)
+uint64_t sub_100007CF4(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100007DB8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_100007DB8(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2919,11 +2910,11 @@ void sub_100007E10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100007E2C(boost::serialization::extended_type_info *a1)
+void sub_100007E2C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CEC0;
   byte_100020300 = 1;
-  sub_100007F54(a1);
+  sub_100007F54(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100007E58(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -2941,24 +2932,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100007EE4(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001CF68;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_100007F54(boost::serialization::extended_type_info *a1)
+void sub_100007F54(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CF68;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_100007FB4(boost::serialization::extended_type_info *a1)
+void sub_100007FB4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001CEC0;
   byte_100020300 = 1;
-  sub_100007F54(a1);
+  sub_100007F54(a1, a2);
 
   operator delete();
 }
@@ -3004,14 +2995,14 @@ uint64_t sub_100008070(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1000080A4(boost::serialization::extended_type_info *a1)
+void sub_1000080A4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_100007F54(a1);
+  sub_100007F54(a1, a2);
 
   operator delete();
 }
 
-void sub_1000080DC(uint64_t a1, char **a2, uint64_t a3)
+void sub_1000080DC(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -3038,14 +3029,14 @@ void sub_100008158(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   sub_100008768(a1, a2, v5 + 72);
   sub_100008828(a1, a2, (v5 + 96));
   sub_10000872C(a1, a2, (v5 + 100));
-  sub_100008868(a1, a2, (v5 + 104));
+  sub_100008868(a1, a2, v5 + 104);
   sub_1000088A4(a1, a2, (v5 + 108));
   sub_10000872C(a1, a2, (v5 + 112));
   sub_1000088A4(a1, a2, (v5 + 116));
   sub_10000872C(a1, a2, (v5 + 120));
-  sub_100008868(a1, a2, (v5 + 124));
-  sub_100008868(a1, a2, (v5 + 128));
-  sub_100008868(a1, a2, (v5 + 132));
+  sub_100008868(a1, a2, v5 + 124);
+  sub_100008868(a1, a2, v5 + 128);
+  sub_100008868(a1, a2, v5 + 132);
   sub_10000872C(a1, a2, (v5 + 136));
   sub_1000088E4(a1, a2, (v5 + 137));
   sub_100008920(a1, a2, v5 + 138);
@@ -3055,26 +3046,26 @@ void sub_100008158(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   sub_100008CA0();
 }
 
-void sub_1000085F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000085F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  if (a4)
+  va_start(va1, a16);
+  va_start(va, a16);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  if (a11)
   {
-    sub_100001D8C(a4);
+    sub_100001D8C(a11);
   }
 
   CSIDateSerialized::~CSIDateSerialized(va);
   CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized(va1);
-  CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized((v10 - 64));
-  if (v9)
+  CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized((v17 - 64));
+  if (v16)
   {
-    sub_100001D8C(v9);
+    sub_100001D8C(v16);
   }
 
   _Unwind_Resume(a1);
@@ -3101,7 +3092,7 @@ void sub_10000874C(void *a1)
   __cxa_end_catch();
 }
 
-void sub_100008768(uint64_t a1, unsigned int **a2, uint64_t a3)
+void sub_100008768(uint64_t a1, uint64_t ****a2, uint64_t a3)
 {
   v3 = a3;
   v5 = *(a3 + 23);
@@ -3114,7 +3105,7 @@ void sub_100008768(uint64_t a1, unsigned int **a2, uint64_t a3)
   __p = 0;
   v8 = 0;
   v9 = 0;
-  sub_100007DB8(&__p, v3, v3 + v5, v5);
+  sub_100007DB8(&__p, v3, &v3[v5], v5);
   v6 = sub_100004244();
   boost::archive::detail::basic_oarchive::save_object(a2, &__p, v6);
   if (__p)
@@ -3185,23 +3176,21 @@ void sub_100008A08(void *a1)
   __cxa_end_catch();
 }
 
-boost::archive::detail::basic_oarchive *sub_100008A28(boost::archive::detail::basic_oarchive *a1, unsigned int *a2)
+boost::archive::detail::basic_oarchive *sub_100008A28(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  sub_100008A78(a1 + 6, a2);
+  sub_100008A78(a1 + 6);
   return a1;
 }
 
-uint64_t sub_100008A78(void *a1, unsigned int *a2)
+uint64_t sub_100008A78(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
@@ -3210,7 +3199,6 @@ uint64_t sub_100008B3C(boost::archive::detail::basic_oarchive *a1, unsigned __in
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  v4 = *a2;
 
   return boost::archive::basic_text_oprimitive<std::ostream>::save(a1 + 6);
 }
@@ -3219,21 +3207,17 @@ boost::archive::detail::basic_oarchive *sub_100008B84(boost::archive::detail::ba
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  v5 = *a2;
-  v6 = 0;
-  sub_100008BDC(a1 + 6, &v5);
+  sub_100008BDC(a1 + 6);
   return a1;
 }
 
-uint64_t sub_100008BDC(void *a1, unsigned __int16 *a2)
+uint64_t sub_100008BDC(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
@@ -3243,7 +3227,7 @@ void *sub_100008D0C(void *a1, uint64_t a2)
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_10001CFB0;
-  sub_100008E68((a1 + 3), a2);
+  sub_100008E68(a1 + 3, a2);
   return a1;
 }
 
@@ -3285,74 +3269,74 @@ void sub_100008DDC(uint64_t a1)
   }
 }
 
-uint64_t sub_100008E68(uint64_t a1, uint64_t a2)
+_OWORD *sub_100008E68(_OWORD *a1, uint64_t a2)
 {
   *a1 = *a2;
   if (*(a2 + 31) < 0)
   {
-    sub_100008FF0((a1 + 8), *(a2 + 8), *(a2 + 16));
+    sub_100008FF0(a1 + 8, *(a2 + 8), *(a2 + 16));
   }
 
   else
   {
     v4 = *(a2 + 8);
-    *(a1 + 24) = *(a2 + 24);
+    *(a1 + 3) = *(a2 + 24);
     *(a1 + 8) = v4;
   }
 
   if (*(a2 + 55) < 0)
   {
-    sub_100008FF0((a1 + 32), *(a2 + 32), *(a2 + 40));
+    sub_100008FF0(a1 + 32, *(a2 + 32), *(a2 + 40));
   }
 
   else
   {
     v5 = *(a2 + 32);
-    *(a1 + 48) = *(a2 + 48);
-    *(a1 + 32) = v5;
+    *(a1 + 6) = *(a2 + 48);
+    a1[2] = v5;
   }
 
-  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 7) = *(a2 + 56);
   if (*(a2 + 87) < 0)
   {
-    sub_100008FF0((a1 + 64), *(a2 + 64), *(a2 + 72));
+    sub_100008FF0(a1 + 64, *(a2 + 64), *(a2 + 72));
   }
 
   else
   {
     v6 = *(a2 + 64);
-    *(a1 + 80) = *(a2 + 80);
-    *(a1 + 64) = v6;
+    *(a1 + 10) = *(a2 + 80);
+    a1[4] = v6;
   }
 
   v7 = *(a2 + 88);
-  *(a1 + 96) = *(a2 + 96);
-  *(a1 + 88) = v7;
+  *(a1 + 48) = *(a2 + 96);
+  *(a1 + 11) = v7;
   if (*(a2 + 127) < 0)
   {
-    sub_100008FF0((a1 + 104), *(a2 + 104), *(a2 + 112));
+    sub_100008FF0(a1 + 104, *(a2 + 104), *(a2 + 112));
   }
 
   else
   {
     v8 = *(a2 + 104);
-    *(a1 + 120) = *(a2 + 120);
+    *(a1 + 15) = *(a2 + 120);
     *(a1 + 104) = v8;
   }
 
   if (*(a2 + 151) < 0)
   {
-    sub_100008FF0((a1 + 128), *(a2 + 128), *(a2 + 136));
+    sub_100008FF0(a1 + 128, *(a2 + 128), *(a2 + 136));
   }
 
   else
   {
     v9 = *(a2 + 128);
-    *(a1 + 144) = *(a2 + 144);
-    *(a1 + 128) = v9;
+    *(a1 + 18) = *(a2 + 144);
+    a1[8] = v9;
   }
 
-  *(a1 + 152) = *(a2 + 152);
+  *(a1 + 38) = *(a2 + 152);
   return a1;
 }
 
@@ -3437,9 +3421,8 @@ void sub_100009128(std::__shared_weak_count *a1)
   operator delete();
 }
 
-void *sub_100009184(char **a1)
+void *sub_100009184(const void *a1)
 {
-  v1 = **a1;
   if (!result)
   {
     __cxa_bad_cast();
@@ -3448,10 +3431,10 @@ void *sub_100009184(char **a1)
   return result;
 }
 
-boost::archive::detail::basic_oarchive *sub_1000091E0(uint64_t a1, char **a2, unsigned __int8 **a3)
+boost::archive::detail::basic_oarchive *sub_1000091E0(uint64_t a1, const void *a2, unsigned __int8 **a3)
 {
   v5 = sub_100009184(a2);
-  (*(*a1 + 40))(&v11, a1);
+  (*(*a1 + 40))(v11, a1);
   v12 = a3[1] - *a3;
   v14 = "count";
   v15 = &v12;
@@ -3459,7 +3442,7 @@ boost::archive::detail::basic_oarchive *sub_1000091E0(uint64_t a1, char **a2, un
   v13 = 0;
   v14 = "item_version";
   v15 = &v13;
-  result = sub_100009318(v5, &v14);
+  result = sub_100009318(v5);
   v7 = *a3;
   if (v12--)
   {
@@ -3479,33 +3462,27 @@ boost::archive::detail::basic_oarchive *sub_1000091E0(uint64_t a1, char **a2, un
 
 boost::archive::detail::basic_oarchive *sub_1000092C8(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
-  v3 = *(a2 + 8);
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  sub_100009370(a1 + 6, v3);
+  sub_100009370(a1 + 6);
   return a1;
 }
 
-boost::archive::detail::basic_oarchive *sub_100009318(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
+boost::archive::detail::basic_oarchive *sub_100009318(boost::archive::detail::basic_oarchive *a1)
 {
-  v3 = *(a2 + 8);
   boost::archive::detail::basic_oarchive::end_preamble(a1);
-  v5 = *v3;
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  v6 = 0;
-  sub_100007920(a1 + 6, &v5);
+  sub_100007920(a1 + 6);
   return a1;
 }
 
-uint64_t sub_100009370(void *a1, uint64_t *a2)
+uint64_t sub_100009370(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
@@ -3517,7 +3494,7 @@ void sub_100009434(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_100009460(void *a1)
+boost::archive::detail::basic_oserializer *sub_100009460(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100003F84();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -3539,11 +3516,11 @@ void sub_1000094F8(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_100009580(boost::serialization::extended_type_info *a1)
+void sub_100009580(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D0C8;
   byte_100020358 = 1;
-  sub_1000096A8(a1);
+  sub_1000096A8(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_1000095AC(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -3561,24 +3538,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100009638(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D170;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_1000096A8(boost::serialization::extended_type_info *a1)
+void sub_1000096A8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D170;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_100009708(boost::serialization::extended_type_info *a1)
+void sub_100009708(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D0C8;
   byte_100020358 = 1;
-  sub_1000096A8(a1);
+  sub_1000096A8(a1, a2);
 
   operator delete();
 }
@@ -3622,31 +3599,30 @@ void sub_1000097C4(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000097EC(boost::serialization::extended_type_info *a1)
+void sub_1000097EC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_1000096A8(a1);
+  sub_1000096A8(a1, a2);
 
   operator delete();
 }
 
-boost::archive::detail::basic_oarchive *sub_100009824(uint64_t a1, char **a2, uint64_t a3)
+boost::archive::detail::basic_oarchive *sub_100009824(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(v7, a1);
   v8 = "first";
   v9 = a3;
-  sub_1000098C4(v5, &v8);
+  sub_1000098C4(v5);
   v8 = "second";
   v9 = a3 + 2;
-  return sub_1000098C4(v5, &v8);
+  return sub_1000098C4(v5);
 }
 
-boost::archive::detail::basic_oarchive *sub_1000098C4(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
+boost::archive::detail::basic_oarchive *sub_1000098C4(boost::archive::detail::basic_oarchive *a1)
 {
-  v3 = *(a2 + 8);
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  sub_100008BDC(a1 + 6, v3);
+  sub_100008BDC(a1 + 6);
   return a1;
 }
 
@@ -3657,7 +3633,7 @@ void sub_100009914(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_100009940(void *a1)
+boost::archive::detail::basic_oserializer *sub_100009940(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_1000042F4();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -3679,11 +3655,11 @@ void sub_1000099D8(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_100009A60(boost::serialization::extended_type_info *a1)
+void sub_100009A60(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D240;
   byte_1000203B0 = 1;
-  sub_100009B88(a1);
+  sub_100009B88(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100009A8C(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -3701,24 +3677,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_100009B18(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D2E8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_100009B88(boost::serialization::extended_type_info *a1)
+void sub_100009B88(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D2E8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_100009BE8(boost::serialization::extended_type_info *a1)
+void sub_100009BE8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D240;
   byte_1000203B0 = 1;
-  sub_100009B88(a1);
+  sub_100009B88(a1, a2);
 
   operator delete();
 }
@@ -3764,14 +3740,14 @@ uint64_t sub_100009CA4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100009CD8(boost::serialization::extended_type_info *a1)
+void sub_100009CD8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_100009B88(a1);
+  sub_100009B88(a1, a2);
 
   operator delete();
 }
 
-void sub_100009D10(uint64_t a1, char **a2, uint64_t a3)
+void sub_100009D10(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -3788,7 +3764,7 @@ void sub_100009D8C(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   }
 
   sub_100009EE4(a1, a2, v5);
-  sub_100009F24(a1, a2, (v5 + 4));
+  sub_100009F24(a1, a2, v5 + 4);
   sub_100009F60(a1, a2, v5 + 8);
   sub_100009F60(a1, a2, v5 + 32);
   v6 = 0;
@@ -3834,7 +3810,7 @@ void sub_100009F44(void *a1)
   __cxa_end_catch();
 }
 
-void sub_100009F60(uint64_t a1, unsigned int **a2, uint64_t a3)
+void sub_100009F60(uint64_t a1, uint64_t ****a2, uint64_t a3)
 {
   v3 = a3;
   v5 = *(a3 + 23);
@@ -3847,7 +3823,7 @@ void sub_100009F60(uint64_t a1, unsigned int **a2, uint64_t a3)
   __p = 0;
   v8 = 0;
   v9 = 0;
-  sub_100007DB8(&__p, v3, v3 + v5, v5);
+  sub_100007DB8(&__p, v3, &v3[v5], v5);
   v6 = sub_100004244();
   boost::archive::detail::basic_oarchive::save_object(a2, &__p, v6);
   if (__p)
@@ -3890,11 +3866,11 @@ void sub_10000A0E4(void *a1)
   JUMPOUT(0x10000A0D8);
 }
 
-void sub_10000A0F4(boost::serialization::extended_type_info *a1)
+void sub_10000A0F4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D330;
   byte_1000203E0 = 1;
-  sub_10000A21C(a1);
+  sub_10000A21C(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000A120(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -3912,24 +3888,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000A1AC(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D3D8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000A21C(boost::serialization::extended_type_info *a1)
+void sub_10000A21C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D3D8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000A27C(boost::serialization::extended_type_info *a1)
+void sub_10000A27C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D330;
   byte_1000203E0 = 1;
-  sub_10000A21C(a1);
+  sub_10000A21C(a1, a2);
 
   operator delete();
 }
@@ -3973,21 +3949,21 @@ void sub_10000A338(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000A360(boost::serialization::extended_type_info *a1)
+void sub_10000A360(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000A21C(a1);
+  sub_10000A21C(a1, a2);
 
   operator delete();
 }
 
-boost::archive::detail::basic_oarchive *sub_10000A398(uint64_t a1, char **a2, uint64_t a3)
+boost::archive::detail::basic_oarchive *sub_10000A398(uint64_t a1, const void *a2, unsigned __int8 *a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v7, a1);
   return sub_10000A414(v5, a3);
 }
 
-boost::archive::detail::basic_oarchive *sub_10000A414(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
+boost::archive::detail::basic_oarchive *sub_10000A414(boost::archive::detail::basic_oarchive *a1, unsigned __int8 *a2)
 {
   v5 = *a2;
   result = sub_100008B3C(a1, &v5);
@@ -3998,17 +3974,17 @@ boost::archive::detail::basic_oarchive *sub_10000A414(boost::archive::detail::ba
       sub_100014A78();
     }
 
-    return sub_10000A474(a1, (a2 + 4));
+    return sub_10000A474(a1);
   }
 
   return result;
 }
 
-boost::archive::detail::basic_oarchive *sub_10000A474(boost::archive::detail::basic_oarchive *a1, unsigned int *a2)
+boost::archive::detail::basic_oarchive *sub_10000A474(boost::archive::detail::basic_oarchive *a1)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  sub_100007920(a1 + 6, a2);
+  sub_100007920(a1 + 6);
   return a1;
 }
 
@@ -4019,7 +3995,7 @@ void sub_10000A4C4(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000A4F0(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000A4F0(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004504();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -4048,7 +4024,7 @@ void sub_10000A614(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000A640(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000A640(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004454();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -4070,11 +4046,11 @@ void sub_10000A6D8(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000A760(boost::serialization::extended_type_info *a1)
+void sub_10000A760(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D550;
   byte_100020460 = 1;
-  sub_10000A888(a1);
+  sub_10000A888(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000A78C(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -4092,24 +4068,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000A818(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D5F8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000A888(boost::serialization::extended_type_info *a1)
+void sub_10000A888(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D5F8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000A8E8(boost::serialization::extended_type_info *a1)
+void sub_10000A8E8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D550;
   byte_100020460 = 1;
-  sub_10000A888(a1);
+  sub_10000A888(a1, a2);
 
   operator delete();
 }
@@ -4155,14 +4131,14 @@ uint64_t sub_10000A9A4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000A9D8(boost::serialization::extended_type_info *a1)
+void sub_10000A9D8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000A888(a1);
+  sub_10000A888(a1, a2);
 
   operator delete();
 }
 
-void sub_10000AA10(uint64_t a1, char **a2, uint64_t a3)
+void sub_10000AA10(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -4179,12 +4155,12 @@ void sub_10000AA8C(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   }
 
   sub_10000ABAC(a1, a2, v5);
-  sub_10000ABAC(a1, a2, (v5 + 4));
-  sub_10000ABAC(a1, a2, (v5 + 8));
-  sub_10000ABAC(a1, a2, (v5 + 12));
-  sub_10000ABAC(a1, a2, (v5 + 16));
-  sub_10000ABAC(a1, a2, (v5 + 20));
-  sub_10000ABAC(a1, a2, (v5 + 24));
+  sub_10000ABAC(a1, a2, v5 + 4);
+  sub_10000ABAC(a1, a2, v5 + 8);
+  sub_10000ABAC(a1, a2, v5 + 12);
+  sub_10000ABAC(a1, a2, v5 + 16);
+  sub_10000ABAC(a1, a2, v5 + 20);
+  sub_10000ABAC(a1, a2, v5 + 24);
   sub_10000ABE8(a1, a2, (v5 + 28));
   if (v4)
   {
@@ -4224,7 +4200,7 @@ void sub_10000AC24(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000AC50(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000AC50(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004714();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -4253,7 +4229,7 @@ void sub_10000AD70(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000AD9C(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000AD9C(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004194();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -4320,11 +4296,11 @@ void *sub_10000AF68(void *a1, CFTypeRef *a2)
   return a1;
 }
 
-void sub_10000AFCC(boost::serialization::extended_type_info *a1)
+void sub_10000AFCC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D730;
   byte_1000204E0 = 1;
-  sub_10000B0F4(a1);
+  sub_10000B0F4(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000AFF8(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -4342,24 +4318,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000B084(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D7D8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000B0F4(boost::serialization::extended_type_info *a1)
+void sub_10000B0F4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D7D8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000B154(boost::serialization::extended_type_info *a1)
+void sub_10000B154(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D730;
   byte_1000204E0 = 1;
-  sub_10000B0F4(a1);
+  sub_10000B0F4(a1, a2);
 
   operator delete();
 }
@@ -4405,14 +4381,14 @@ uint64_t sub_10000B210(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000B244(boost::serialization::extended_type_info *a1)
+void sub_10000B244(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000B0F4(a1);
+  sub_10000B0F4(a1, a2);
 
   operator delete();
 }
 
-void sub_10000B27C(uint64_t a1, char **a2, uint64_t a3)
+void sub_10000B27C(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -4434,15 +4410,16 @@ void sub_10000B2F8(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   sub_10000BA90(a1, a2, (v5 + 96));
   sub_10000BAD0(a1, a2, (v5 + 100));
   sub_10000B9A4(a1, a2, (v5 + 104));
-  sub_10000BB10(a1, a2, (v5 + 108));
+  sub_10000BB10(a1, a2, v5 + 108);
   v6 = 0;
   v7 = 0;
   v8 = 0;
   sub_100008CA0();
 }
 
-void sub_10000B89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10000B89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   if (a11)
   {
     sub_100001D8C(a11);
@@ -4450,12 +4427,12 @@ void sub_10000B89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   C2KVmnInfoSerialized::~C2KVmnInfoSerialized(&a17);
   CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized(&a22);
-  CSIDateSerialized::~CSIDateSerialized(&a27);
-  CSIDateSerialized::~CSIDateSerialized((v28 - 120));
-  CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized((v28 - 80));
-  if (v27)
+  CSIDateSerialized::~CSIDateSerialized(va);
+  CSIDateSerialized::~CSIDateSerialized((v27 - 120));
+  CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized((v27 - 80));
+  if (v26)
   {
-    sub_100001D8C(v27);
+    sub_100001D8C(v26);
   }
 
   _Unwind_Resume(a1);
@@ -4538,7 +4515,7 @@ void sub_10000BC94(void *a1)
   JUMPOUT(0x10000BC88);
 }
 
-void sub_10000BCA4(uint64_t a1, unsigned int **a2, uint64_t a3)
+void sub_10000BCA4(uint64_t a1, uint64_t ****a2, uint64_t a3)
 {
   v3 = a3;
   v5 = *(a3 + 23);
@@ -4551,7 +4528,7 @@ void sub_10000BCA4(uint64_t a1, unsigned int **a2, uint64_t a3)
   __p = 0;
   v8 = 0;
   v9 = 0;
-  sub_100007DB8(&__p, v3, v3 + v5, v5);
+  sub_100007DB8(&__p, v3, &v3[v5], v5);
   v6 = sub_100004244();
   boost::archive::detail::basic_oarchive::save_object(a2, &__p, v6);
   if (__p)
@@ -4667,8 +4644,8 @@ uint64_t sub_10000C148(uint64_t a1, uint64_t a2)
   *(a1 + 64) = *(a2 + 40);
   *(a1 + 32) = v4;
   *(a1 + 48) = v5;
-  sub_100008E68(a1 + 72, a2 + 48);
-  sub_100008E68(a1 + 232, a2 + 208);
+  sub_100008E68((a1 + 72), a2 + 48);
+  sub_100008E68((a1 + 232), a2 + 208);
   *(a1 + 392) = *(a2 + 368);
   ctu::OsLogLogger::OsLogLogger((a1 + 400), (a2 + 376));
   return a1;
@@ -4690,11 +4667,11 @@ uint64_t sub_10000C290(uint64_t a1, uint64_t a2)
   *(a1 + 48) = 0;
   *(a1 + 32) = v4;
   *(a1 + 56) = 0u;
-  sub_10000C3A8(a1 + 48, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
+  sub_10000C3A8((a1 + 48), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  sub_10000C3A8(a1 + 72, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 2);
+  sub_10000C3A8((a1 + 72), *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 2);
   *(a1 + 96) = *(a2 + 72);
   ctu::OsLogLogger::OsLogLogger((a1 + 104), (a2 + 80));
   return a1;
@@ -4720,7 +4697,7 @@ void sub_10000C364(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10000C3A8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10000C3A8(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4742,7 +4719,7 @@ void sub_10000C408(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10000C424(uint64_t a1, unint64_t a2)
+void sub_10000C424(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4762,11 +4739,11 @@ void sub_10000C460(uint64_t a1, unint64_t a2)
   sub_10000548C();
 }
 
-void sub_10000C4A8(boost::serialization::extended_type_info *a1)
+void sub_10000C4A8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D820;
   byte_100020510 = 1;
-  sub_10000C5D0(a1);
+  sub_10000C5D0(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000C4D4(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -4784,24 +4761,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000C560(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001D8C8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000C5D0(boost::serialization::extended_type_info *a1)
+void sub_10000C5D0(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D8C8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000C630(boost::serialization::extended_type_info *a1)
+void sub_10000C630(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D820;
   byte_100020510 = 1;
-  sub_10000C5D0(a1);
+  sub_10000C5D0(a1, a2);
 
   operator delete();
 }
@@ -4837,14 +4814,14 @@ void sub_10000C690(uint64_t a1, int a2)
   sub_100014A4C();
 }
 
-void sub_10000C6F8(boost::serialization::extended_type_info *a1)
+void sub_10000C6F8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000C5D0(a1);
+  sub_10000C5D0(a1, a2);
 
   operator delete();
 }
 
-uint64_t sub_10000C730(uint64_t a1, char **a2, char **a3)
+boost::archive::detail::basic_oarchive *sub_10000C730(uint64_t a1, const void *a2, char **a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(v10, a1);
@@ -4855,7 +4832,7 @@ uint64_t sub_10000C730(uint64_t a1, char **a2, char **a3)
   v12 = 0;
   v13 = "item_version";
   v14 = &v12;
-  result = sub_100009318(v5, &v13);
+  result = sub_100009318(v5);
   v7 = *a3;
   while (v11--)
   {
@@ -4864,21 +4841,19 @@ uint64_t sub_10000C730(uint64_t a1, char **a2, char **a3)
     v9 = *v7++;
     LOWORD(v13) = v9;
     v15 = 0;
-    result = sub_10000C828(v5 + 6, &v13);
+    result = sub_10000C828(v5 + 6);
   }
 
   return result;
 }
 
-uint64_t sub_10000C828(void *a1, __int16 *a2)
+uint64_t sub_10000C828(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
@@ -4890,7 +4865,7 @@ void sub_10000C8EC(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000C918(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000C918(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_1000049D4();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -4912,11 +4887,11 @@ void sub_10000C9B0(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000CA38(boost::serialization::extended_type_info *a1)
+void sub_10000CA38(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D998;
   byte_100020568 = 1;
-  sub_10000CB60(a1);
+  sub_10000CB60(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000CA64(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -4934,24 +4909,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000CAF0(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001DA40;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000CB60(boost::serialization::extended_type_info *a1)
+void sub_10000CB60(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DA40;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000CBC0(boost::serialization::extended_type_info *a1)
+void sub_10000CBC0(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001D998;
   byte_100020568 = 1;
-  sub_10000CB60(a1);
+  sub_10000CB60(a1, a2);
 
   operator delete();
 }
@@ -4987,9 +4962,9 @@ void sub_10000CC20(uint64_t a1, int a2)
   sub_100014A4C();
 }
 
-void sub_10000CC88(boost::serialization::extended_type_info *a1)
+void sub_10000CC88(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000CB60(a1);
+  sub_10000CB60(a1, a2);
 
   operator delete();
 }
@@ -5017,7 +4992,7 @@ void sub_10000CD14(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_10000CD68(uint64_t a1, char **a2, void *a3)
+boost::archive::detail::basic_oarchive *sub_10000CD68(uint64_t a1, const void *a2, void *a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(v15, a1);
@@ -5028,7 +5003,7 @@ uint64_t sub_10000CD68(uint64_t a1, char **a2, void *a3)
   v17 = 0;
   v18 = "item_version";
   v19 = &v17;
-  result = sub_100009318(v5, &v18);
+  result = sub_100009318(v5);
   v7 = *a3;
   if (v16--)
   {
@@ -5071,11 +5046,11 @@ uint64_t sub_10000CD68(uint64_t a1, char **a2, void *a3)
   return result;
 }
 
-void sub_10000CE84(boost::serialization::extended_type_info *a1)
+void sub_10000CE84(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DA98;
   byte_100020598 = 1;
-  sub_10000CFAC(a1);
+  sub_10000CFAC(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000CEB0(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -5093,24 +5068,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000CF3C(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001DB40;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000CFAC(boost::serialization::extended_type_info *a1)
+void sub_10000CFAC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DB40;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000D00C(boost::serialization::extended_type_info *a1)
+void sub_10000D00C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DA98;
   byte_100020598 = 1;
-  sub_10000CFAC(a1);
+  sub_10000CFAC(a1, a2);
 
   operator delete();
 }
@@ -5154,18 +5129,18 @@ void sub_10000D0C8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000D0F0(boost::serialization::extended_type_info *a1)
+void sub_10000D0F0(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000CFAC(a1);
+  sub_10000CFAC(a1, a2);
 
   operator delete();
 }
 
-uint64_t sub_10000D128(uint64_t a1, char **a2, uint64_t a3)
+uint64_t sub_10000D128(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v7, a1);
-  sub_10000A474(v5, a3);
+  sub_10000A474(v5);
   return sub_100008B3C(v5, (a3 + 4));
 }
 
@@ -5176,7 +5151,7 @@ void sub_10000D1AC(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000D1D8(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000D1D8(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004BE4();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5205,7 +5180,7 @@ void sub_10000D2F8(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000D324(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000D324(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004B34();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5227,11 +5202,11 @@ void sub_10000D3BC(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000D444(boost::serialization::extended_type_info *a1)
+void sub_10000D444(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DC88;
   byte_100020618 = 1;
-  sub_10000D56C(a1);
+  sub_10000D56C(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000D470(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -5249,24 +5224,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000D4FC(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001DD30;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000D56C(boost::serialization::extended_type_info *a1)
+void sub_10000D56C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DD30;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000D5CC(boost::serialization::extended_type_info *a1)
+void sub_10000D5CC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DC88;
   byte_100020618 = 1;
-  sub_10000D56C(a1);
+  sub_10000D56C(a1, a2);
 
   operator delete();
 }
@@ -5310,14 +5285,14 @@ void sub_10000D688(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000D6B0(boost::serialization::extended_type_info *a1)
+void sub_10000D6B0(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000D56C(a1);
+  sub_10000D56C(a1, a2);
 
   operator delete();
 }
 
-void sub_10000D6E8(uint64_t a1, char **a2, void *a3)
+void sub_10000D6E8(uint64_t a1, const void *a2, void *a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(v9, a1);
@@ -5373,7 +5348,7 @@ void sub_10000D7EC(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000D818(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000D818(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004DF4();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5395,11 +5370,11 @@ void sub_10000D8B0(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000D930(boost::serialization::extended_type_info *a1)
+void sub_10000D930(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DE28;
   byte_100020670 = 1;
-  sub_10000DA58(a1);
+  sub_10000DA58(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000D95C(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -5417,24 +5392,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000D9E8(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001DED0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000DA58(boost::serialization::extended_type_info *a1)
+void sub_10000DA58(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DED0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000DAB8(boost::serialization::extended_type_info *a1)
+void sub_10000DAB8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DE28;
   byte_100020670 = 1;
-  sub_10000DA58(a1);
+  sub_10000DA58(a1, a2);
 
   operator delete();
 }
@@ -5480,14 +5455,14 @@ uint64_t sub_10000DB74(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000DBA8(boost::serialization::extended_type_info *a1)
+void sub_10000DBA8(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000DA58(a1);
+  sub_10000DA58(a1, a2);
 
   operator delete();
 }
 
-void sub_10000DBE0(uint64_t a1, char **a2, uint64_t a3)
+void sub_10000DBE0(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -5507,35 +5482,35 @@ void sub_10000DC5C(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
   sub_10000DF30(a1, a2, (v5 + 12));
   sub_10000DF30(a1, a2, (v5 + 13));
   sub_10000DF30(a1, a2, (v5 + 14));
-  sub_10000DF6C(a1, a2, (v5 + 16));
-  sub_10000DF6C(a1, a2, (v5 + 20));
-  sub_10000DF6C(a1, a2, (v5 + 24));
+  sub_10000DF6C(a1, a2, v5 + 16);
+  sub_10000DF6C(a1, a2, v5 + 20);
+  sub_10000DF6C(a1, a2, v5 + 24);
   sub_10000DF30(a1, a2, (v5 + 28));
   sub_10000DF30(a1, a2, (v5 + 29));
   sub_10000DF30(a1, a2, (v5 + 30));
   sub_10000DF30(a1, a2, (v5 + 31));
-  sub_10000DF6C(a1, a2, (v5 + 32));
-  sub_10000DF6C(a1, a2, (v5 + 36));
-  sub_10000DF6C(a1, a2, (v5 + 40));
-  sub_10000DF6C(a1, a2, (v5 + 44));
+  sub_10000DF6C(a1, a2, v5 + 32);
+  sub_10000DF6C(a1, a2, v5 + 36);
+  sub_10000DF6C(a1, a2, v5 + 40);
+  sub_10000DF6C(a1, a2, v5 + 44);
   v6 = 0;
   v7 = 0;
   v8 = 0;
   sub_100008CA0();
 }
 
-void sub_10000DE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000DE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (a4)
+  va_start(va, a16);
+  if (a11)
   {
-    sub_100001D8C(a4);
+    sub_100001D8C(a11);
   }
 
   CSIPhoneNumberSerialized::~CSIPhoneNumberSerialized(va);
-  if (v9)
+  if (v16)
   {
-    sub_100001D8C(v9);
+    sub_100001D8C(v16);
   }
 
   _Unwind_Resume(a1);
@@ -5576,7 +5551,7 @@ void sub_10000E000(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000E02C(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000E02C(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004F54();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5598,11 +5573,11 @@ void sub_10000E0C4(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000E14C(boost::serialization::extended_type_info *a1)
+void sub_10000E14C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DF90;
   byte_1000206C8 = 1;
-  sub_10000E274(a1);
+  sub_10000E274(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000E178(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -5620,24 +5595,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000E204(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001E038;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000E274(boost::serialization::extended_type_info *a1)
+void sub_10000E274(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001E038;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000E2D4(boost::serialization::extended_type_info *a1)
+void sub_10000E2D4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001DF90;
   byte_1000206C8 = 1;
-  sub_10000E274(a1);
+  sub_10000E274(a1, a2);
 
   operator delete();
 }
@@ -5683,14 +5658,14 @@ uint64_t sub_10000E390(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000E3C4(boost::serialization::extended_type_info *a1)
+void sub_10000E3C4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000E274(a1);
+  sub_10000E274(a1, a2);
 
   operator delete();
 }
 
-void sub_10000E3FC(uint64_t a1, char **a2, uint64_t a3)
+void sub_10000E3FC(uint64_t a1, const void *a2, uint64_t a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(&v6, a1);
@@ -5706,10 +5681,10 @@ void sub_10000E478(uint64_t a1, boost::archive::detail::basic_oarchive *a2)
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_10000E584(a1, a2, (v5 + 8));
-  sub_10000E584(a1, a2, (v5 + 12));
-  sub_10000E584(a1, a2, (v5 + 16));
-  sub_10000E584(a1, a2, (v5 + 20));
+  sub_10000E584(a1, a2, v5 + 8);
+  sub_10000E584(a1, a2, v5 + 12);
+  sub_10000E584(a1, a2, v5 + 16);
+  sub_10000E584(a1, a2, v5 + 20);
   sub_10000E5C0(a1, a2, v5 + 24);
   sub_10000E5C0(a1, a2, v5 + 48);
   sub_10000E618(a1, a2, (v5 + 72));
@@ -5751,11 +5726,11 @@ void sub_10000E638(void *a1)
   __cxa_end_catch();
 }
 
-void sub_10000E654(boost::serialization::extended_type_info *a1)
+void sub_10000E654(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001E080;
   byte_1000206F8 = 1;
-  sub_10000E77C(a1);
+  sub_10000E77C(a1, a2);
 }
 
 boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000E680(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
@@ -5773,24 +5748,24 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *sub_10000E70C(
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = off_10001E128;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void sub_10000E77C(boost::serialization::extended_type_info *a1)
+void sub_10000E77C(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001E128;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
-void sub_10000E7DC(boost::serialization::extended_type_info *a1)
+void sub_10000E7DC(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = off_10001E080;
   byte_1000206F8 = 1;
-  sub_10000E77C(a1);
+  sub_10000E77C(a1, a2);
 
   operator delete();
 }
@@ -5826,31 +5801,31 @@ void sub_10000E83C(uint64_t a1, int a2)
   sub_100014A4C();
 }
 
-void sub_10000E8A4(boost::serialization::extended_type_info *a1)
+void sub_10000E8A4(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
-  sub_10000E77C(a1);
+  sub_10000E77C(a1, a2);
 
   operator delete();
 }
 
-boost::archive::detail::basic_oarchive *sub_10000E8DC(uint64_t a1, char **a2, unsigned int **a3)
+boost::archive::detail::basic_oarchive *sub_10000E8DC(uint64_t a1, const void *a2, uint64_t *a3)
 {
   v5 = sub_100009184(a2);
   (*(*a1 + 40))(v11, a1);
-  v12 = a3[1] - *a3;
+  v12 = (a3[1] - *a3) >> 2;
   v14 = "count";
   v15 = &v12;
   sub_1000092C8(v5, &v14);
   v13 = 0;
   v14 = "item_version";
   v15 = &v13;
-  result = sub_100009318(v5, &v14);
+  result = sub_100009318(v5);
   v7 = *a3;
   if (v12--)
   {
     do
     {
-      v9 = v7 + 1;
+      v9 = v7 + 4;
       result = sub_100008A28(v5, v7);
       v10 = v12--;
       v7 = v9;
@@ -5869,7 +5844,7 @@ void sub_10000E9C8(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000E9F4(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000E9F4(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100005164();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5898,7 +5873,7 @@ void sub_10000EB14(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000EB40(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000EB40(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_1000050B4();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5927,7 +5902,7 @@ void sub_10000EC60(boost::archive::detail::basic_oserializer *a1)
   boost::archive::detail::basic_oserializer::~basic_oserializer(a1);
 }
 
-void *sub_10000EC8C(void *a1)
+boost::archive::detail::basic_oserializer *sub_10000EC8C(boost::archive::detail::basic_oserializer *a1)
 {
   v2 = sub_100004924();
   boost::archive::detail::basic_oserializer::basic_oserializer(a1, v2);
@@ -5949,10 +5924,11 @@ void sub_10000ED24(boost::archive::detail::basic_oserializer *a1)
   operator delete();
 }
 
-void sub_10000EDAC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000EDAC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10000EDD4()
@@ -6484,7 +6460,7 @@ void *sub_100010018(void *a1, void **a2)
   a1[2] = 0;
   *a1 = off_10001E3D0;
   v4 = 0;
-  sub_100010128(&v4, (a1 + 3), a2);
+  sub_100010128(&v4, a1 + 3, a2);
   return a1;
 }
 
@@ -6496,7 +6472,7 @@ void sub_1000100AC(std::__shared_weak_count *a1)
   operator delete();
 }
 
-void sub_100010128(uint64_t a1, uint64_t a2, void **a3)
+void sub_100010128(uint64_t a1, void *a2, void **a3)
 {
   v4 = *a3;
   object = v4;
@@ -6717,7 +6693,7 @@ void sub_100010794(void *a1)
   operator delete();
 }
 
-uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, int a2, const char *a3, const char *a4)
+uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, int a2, const char *a3, char *a4)
 {
   *result = off_10001E558;
   *(result + 136) = a2;
@@ -7208,7 +7184,7 @@ void *sub_100010F18(void *result, uint64_t a2, _BYTE *a3)
       HIWORD(v6) = 0;
       (*(*a2 + 24))(a2, &v6 + 6);
       (*(*a2 + 40))(a2, a3 + 20);
-      result = (**a2)(a2, (a3 + 16));
+      result = (**a2)(a2, a3 + 16);
     }
 
     else
@@ -7277,12 +7253,12 @@ void boost::archive::detail::basic_iarchive::~basic_iarchive(boost::archive::det
   sub_10001148C(&v2);
 }
 
-uint64_t sub_10001127C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t sub_10001127C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v5 = a3;
   v20 = a3;
   *(a1 + 44) = 0;
-  if (*(a1 + 96) != a3 || *(a1 + 104) != a4)
+  if (*(a1 + 96) != __PAIR128__(a4, a3))
   {
     v8 = *(a1 + 64);
     v23 = a4;
@@ -7309,41 +7285,41 @@ uint64_t sub_10001127C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       result = sub_100011094(a1, a2, &v20);
       if ((result & 1) == 0)
       {
-LABEL_13:
+LABEL_12:
         *(a1 + 32) = v13;
-        goto LABEL_14;
+        goto LABEL_13;
       }
 
       v5 = v20;
       v21 = v20;
       LOBYTE(v22[0]) = 0;
       WORD1(v22[0]) = v11;
-      v17 = *(a1 + 16);
-      if (v17 >= *(a1 + 24))
+      v16 = *(a1 + 16);
+      if (v16 >= *(a1 + 24))
       {
-        v19 = sub_1000115FC((a1 + 8), &v21);
+        v18 = sub_1000115FC((a1 + 8), &v21);
       }
 
       else
       {
-        v18 = v21;
-        *(v17 + 8) = v22[0];
-        *v17 = v18;
-        *(v17 + 10) = v11;
-        v19 = v17 + 16;
+        v17 = v21;
+        *(v16 + 8) = v22[0];
+        *v16 = v17;
+        *(v16 + 10) = v11;
+        v18 = v16 + 16;
       }
 
-      *(a1 + 16) = v19;
-      *(a1 + 36) = (v19 - *(a1 + 8)) >> 4;
+      *(a1 + 16) = v18;
+      *(a1 + 36) = (v18 - *(a1 + 8)) >> 4;
     }
 
     result = (*(*a4 + 16))(a4, a2, v5, *(v12 + 16));
     *(a1 + 40) = v15;
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   result = (*(*a4 + 16))(a4, a2, a3, *(a1 + 112));
-LABEL_14:
+LABEL_13:
   *(a1 + 44) = 0;
   return result;
 }
@@ -7494,8 +7470,8 @@ uint64_t *sub_100011730(uint64_t *result, void *a2)
       v6 = *v2;
       *(v5 + 8) = *(v2 + 8);
       *v5 = v6;
-      *(v5 + 10) = *(v2 + 5);
-      v2 += 2;
+      *(v5 + 10) = *(v2 + 10);
+      v2 += 16;
       v5 += 16;
     }
 
@@ -7547,7 +7523,7 @@ uint64_t sub_1000117E8(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-void *sub_100011840(uint64_t **a1, uint64_t a2, uint64_t a3)
+void *sub_100011840(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
   v5 = sub_1000118CC(a1, &v9, a2);
   v6 = *v5;
@@ -7609,7 +7585,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *sub_100011964(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_100011964(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7635,12 +7611,12 @@ uint64_t *sub_1000119BC(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7654,22 +7630,22 @@ uint64_t *sub_1000119BC(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7703,13 +7679,13 @@ uint64_t *sub_1000119BC(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7922,9 +7898,9 @@ boost::archive::detail::basic_oarchive *boost::archive::detail::basic_oarchive::
   return this;
 }
 
-void sub_100011ED4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100011ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10001148C(va);
   _Unwind_Resume(a1);
 }
@@ -7938,60 +7914,59 @@ void boost::archive::detail::basic_oarchive::~basic_oarchive(boost::archive::det
   sub_10001148C(&v2);
 }
 
-uint64_t sub_100011F68(unsigned int *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t sub_100011F68(uint64_t ***a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if (*(a1 + 10) == a3 && *(a1 + 11) == a4)
+  if (*(a1 + 5) == __PAIR128__(a4, a3))
   {
     v22 = *(*a4 + 16);
-    v23 = *a4 + 16;
 
     return v22(a4);
   }
 
   else
   {
-    v8 = *(a1 + 6);
-    v27 = a4;
-    v28 = v8;
-    v29 = 0;
-    v9 = sub_100012430(a1 + 4, &v27, &v27);
+    v8 = a1[6];
+    v26 = a4;
+    v27 = v8;
+    v28 = 0;
+    v9 = sub_100012430(a1 + 4, &v26, &v26);
     if ((*(*a4 + 24))(a4) && (*(v9 + 42) & 1) == 0)
     {
-      LOWORD(v27) = *(v9 + 20);
-      (*(*a2 + 32))(a2, &v27);
-      LOBYTE(v27) = (*(*a4 + 32))(a4, *a1);
-      (*(*a2 + 56))(a2, &v27);
-      (*(*a4 + 40))(&v27, a4);
-      (**a2)(a2, &v27);
+      LOWORD(v26) = *(v9 + 20);
+      (*(*a2 + 32))(a2, &v26);
+      LOBYTE(v26) = (*(*a4 + 32))(a4, *a1);
+      (*(*a2 + 56))(a2, &v26);
+      (*(*a4 + 40))(&v26, a4);
+      (**a2)(a2, &v26);
       *(v9 + 42) = 1;
     }
 
     if ((*(*a4 + 32))(a4, *a1))
     {
-      v10 = *(a1 + 3);
+      v10 = a1[3];
       v11 = *(v9 + 20);
-      v24 = a3;
-      v25 = v11;
-      v26 = v10;
-      v12 = *(sub_100012338(a1 + 1, &v24, &v24) + 11);
+      v23 = a3;
+      v24 = v11;
+      v25 = v10;
+      v12 = *(sub_100012338(a1 + 1, &v23, &v23) + 11);
       if (v13)
       {
-        LODWORD(v27) = v12;
-        (*(*a2 + 8))(a2, &v27);
+        LODWORD(v26) = v12;
+        (*(*a2 + 8))(a2, &v26);
         return (*(*a4 + 16))(a4, a2, a3);
       }
 
       else
       {
-        v17 = *(a1 + 8);
-        v16 = a1 + 16;
+        v17 = a1[8];
+        v16 = (a1 + 8);
         v15 = v17;
         if (v17)
         {
           v18 = v16;
           do
           {
-            v19 = v15[7];
+            v19 = *(v15 + 7);
             v20 = v19 >= v12;
             v21 = v19 < v12;
             if (v20)
@@ -7999,19 +7974,19 @@ uint64_t sub_100011F68(unsigned int *a1, uint64_t a2, unint64_t a3, uint64_t a4)
               v18 = v15;
             }
 
-            v15 = *&v15[2 * v21];
+            v15 = v15[v21];
           }
 
           while (v15);
-          if (v18 != v16 && v12 >= v18[7])
+          if (v18 != v16 && v12 >= *(v18 + 7))
           {
-            boost::archive::archive_exception::archive_exception(&v27, 5, 0, 0);
-            sub_100005D4C(&v27);
+            boost::archive::archive_exception::archive_exception(&v26, 5, 0, 0);
+            sub_100005D4C(&v26);
           }
         }
 
-        LODWORD(v27) = v12;
-        return (*(*a2 + 16))(a2, &v27);
+        LODWORD(v26) = v12;
+        return (*(*a2 + 16))(a2, &v26);
       }
     }
 
@@ -8022,7 +7997,7 @@ uint64_t sub_100011F68(unsigned int *a1, uint64_t a2, unint64_t a3, uint64_t a4)
   }
 }
 
-void *sub_100012338(uint64_t **a1, unint64_t *a2, uint64_t a3)
+void *sub_100012338(uint64_t ***a1, unint64_t *a2, uint64_t a3)
 {
   v5 = sub_1000123CC(a1, &v9, a2);
   v6 = *v5;
@@ -8039,7 +8014,7 @@ void *sub_100012338(uint64_t **a1, unint64_t *a2, uint64_t a3)
   return v6;
 }
 
-uint64_t *sub_1000123CC(uint64_t a1, void *a2, unint64_t *a3)
+uint64_t *sub_1000123CC(uint64_t a1, uint64_t **a2, unint64_t *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -8053,7 +8028,7 @@ uint64_t *sub_1000123CC(uint64_t a1, void *a2, unint64_t *a3)
       while (1)
       {
         v8 = v4;
-        v9 = v4[4];
+        v9 = *(v4 + 32);
         if (v6 >= v9)
         {
           break;
@@ -8097,7 +8072,7 @@ LABEL_12:
   return result;
 }
 
-void *sub_100012430(uint64_t **a1, uint64_t a2, uint64_t a3)
+void *sub_100012430(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
   v5 = sub_1000118CC(a1, &v9, a2);
   v6 = *v5;
@@ -8228,31 +8203,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -8261,173 +8235,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -8513,22 +8487,21 @@ void sub_100012B8C(std::codecvt<char, char, mbstate_t> *a1)
 
 std::locale *sub_100012BBC(std::locale *a1)
 {
-  locale = a1->__locale_;
   std::istream::sync();
-  v3 = (a1->__locale_ + *(*a1->__locale_ - 24));
-  std::ios_base::getloc(v3);
-  std::ios_base::imbue(v3, a1 + 1);
-  std::locale::~locale(&v8);
-  rdbuf = v3->__rdbuf_;
+  v2 = (a1->__locale_ + *(*a1->__locale_ - 24));
+  std::ios_base::getloc(v2);
+  std::ios_base::imbue(v2, a1 + 1);
+  std::locale::~locale(&v7);
+  rdbuf = v2->__rdbuf_;
   if (rdbuf)
   {
     (*(rdbuf->__locale_ + 2))(rdbuf, a1 + 1);
-    std::locale::locale(&v7, rdbuf + 1);
+    std::locale::locale(&v6, rdbuf + 1);
     std::locale::operator=(rdbuf + 1, a1 + 1);
-    std::locale::~locale(&v7);
+    std::locale::~locale(&v6);
   }
 
-  std::locale::~locale(&v6);
+  std::locale::~locale(&v5);
   std::locale::~locale(a1 + 1);
   return a1;
 }
@@ -8627,104 +8600,103 @@ uint64_t boost::archive::basic_text_oprimitive<std::ostream>::~basic_text_oprimi
   return boost::archive::basic_text_oprimitive<std::ostream>::~basic_text_oprimitive(a1);
 }
 
-uint64_t boost::archive::basic_text_oprimitive<std::ostream>::put(void *a1)
+uint64_t boost::archive::basic_text_oprimitive<std::ostream>::put(void **a1, uint64_t a2)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
-    sub_100005D4C(v2);
+    boost::archive::archive_exception::archive_exception(v3, 13, 0, 0);
+    sub_100005D4C(v3);
   }
 
   return std::ostream::put();
 }
 
 {
-  return boost::archive::basic_text_oprimitive<std::ostream>::put(a1);
+  return boost::archive::basic_text_oprimitive<std::ostream>::put(a1, a2);
 }
 
 std::locale *sub_1000131A8(std::locale *a1)
 {
-  locale = a1->__locale_;
   std::ostream::flush();
-  v3 = (a1->__locale_ + *(*a1->__locale_ - 24));
-  std::ios_base::getloc(v3);
-  std::ios_base::imbue(v3, a1 + 1);
-  std::locale::~locale(&v8);
-  rdbuf = v3->__rdbuf_;
+  v2 = (a1->__locale_ + *(*a1->__locale_ - 24));
+  std::ios_base::getloc(v2);
+  std::ios_base::imbue(v2, a1 + 1);
+  std::locale::~locale(&v7);
+  rdbuf = v2->__rdbuf_;
   if (rdbuf)
   {
     (*(rdbuf->__locale_ + 2))(rdbuf, a1 + 1);
-    std::locale::locale(&v7, rdbuf + 1);
+    std::locale::locale(&v6, rdbuf + 1);
     std::locale::operator=(rdbuf + 1, a1 + 1);
-    std::locale::~locale(&v7);
+    std::locale::~locale(&v6);
   }
 
-  std::locale::~locale(&v6);
+  std::locale::~locale(&v5);
   std::locale::~locale(a1 + 1);
   return a1;
 }
 
-uint64_t *boost::serialization::extended_type_info::key_register(uint64_t *this)
+uint64_t *boost::serialization::extended_type_info::key_register(uint64_t *this, uint64_t a2)
 {
   if (this[2])
   {
-    v1 = this;
-    v2 = sub_100013454();
-    v3 = v1;
-    return sub_1000134C4(v2, &v3);
+    v2 = this;
+    v3 = sub_100013454(this, a2);
+    v4 = v2;
+    return sub_1000134C4(v3, &v4);
   }
 
   return this;
 }
 
-void boost::serialization::extended_type_info::key_unregister(boost::serialization::extended_type_info *this)
+void boost::serialization::extended_type_info::key_unregister(boost::serialization::extended_type_info *this, uint64_t a2)
 {
   if (*(this + 2))
   {
     if ((byte_1000207A8 & 1) == 0)
     {
-      v2 = sub_100013454();
-      v8 = this;
-      v3 = sub_1000135D0(v2, &v8, v2[1], v2 + 1);
-      v8 = this;
-      v4 = sub_10001364C(v2, &v8, v2[1], (v2 + 1));
-      if (v3 != v4)
+      v3 = sub_100013454(this, a2);
+      v9 = this;
+      v4 = sub_1000135D0(v3, &v9, v3[1], v3 + 1);
+      v9 = this;
+      v5 = sub_10001364C(v3, &v9, v3[1], (v3 + 1));
+      if (v4 != v5)
       {
-        while (v3[4] != this)
+        while (v4[4] != this)
         {
-          v5 = v3[1];
-          if (v5)
+          v6 = v4[1];
+          if (v6)
           {
             do
             {
-              v6 = v5;
-              v5 = *v5;
+              v7 = v6;
+              v6 = *v6;
             }
 
-            while (v5);
+            while (v6);
           }
 
           else
           {
             do
             {
-              v6 = v3[2];
-              v7 = *v6 == v3;
-              v3 = v6;
+              v7 = v4[2];
+              v8 = *v7 == v4;
+              v4 = v7;
             }
 
-            while (!v7);
+            while (!v8);
           }
 
-          v3 = v6;
-          if (v6 == v4)
+          v4 = v7;
+          if (v7 == v5)
           {
             return;
           }
         }
 
-        sub_1000136C8(v2, v3);
-        operator delete(v3);
+        sub_1000136C8(v3, v4);
+        operator delete(v4);
       }
     }
   }
@@ -8758,9 +8730,9 @@ uint64_t boost::serialization::extended_type_info::operator<(uint64_t a1, uint64
   }
 }
 
-uint64_t *sub_100013454()
+uint64_t *sub_100013454(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1000207A0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1000207A0, memory_order_acquire) & 1) == 0)
   {
     sub_100014D1C();
   }
@@ -8775,7 +8747,7 @@ uint64_t sub_10001348C(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_1000134C4(uint64_t **a1, uint64_t *a2)
+uint64_t *sub_1000134C4(uint64_t ***a1, uint64_t *a2)
 {
   v4 = operator new(0x28uLL);
   v4[4] = *a2;
@@ -8939,13 +8911,16 @@ uint64_t *sub_1000136C8(uint64_t **a1, uint64_t *a2)
   return v3;
 }
 
-void sub_10001373C()
+uint64_t *sub_10001373C(uint64_t *result, uint64_t a2)
 {
   if ((byte_100020780 & 1) == 0)
   {
     byte_100020780 = 1;
-    qword_100020778 = sub_100013454();
+    result = sub_100013454(result, a2);
+    qword_100020778 = result;
   }
+
+  return result;
 }
 
 BOOL sub_100013790(uint64_t a1, uint64_t a2)
@@ -8991,45 +8966,45 @@ void *boost::serialization::typeid_system::extended_type_info_typeid_0::extended
 uint64_t *boost::serialization::typeid_system::extended_type_info_typeid_0::type_register(boost::serialization::typeid_system::extended_type_info_typeid_0 *this, const std::type_info *a2)
 {
   *(this + 3) = a2;
-  v3 = sub_100013958();
+  v3 = sub_100013958(this, a2);
   v5 = this;
   return sub_1000139C8(v3, &v5);
 }
 
-uint64_t *boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(uint64_t *this)
+uint64_t *boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(uint64_t *this, uint64_t a2)
 {
-  v1 = this;
+  v2 = this;
   if (this[3])
   {
     if ((byte_1000207E0 & 1) == 0)
     {
-      v2 = sub_100013958();
-      v4 = v1;
-      this = sub_100013AE0(v2, &v4);
-      if (v2 + 1 != this)
+      v3 = sub_100013958(this, a2);
+      v5 = v2;
+      this = sub_100013AE0(v3, &v5);
+      if (v3 + 1 != this)
       {
-        v3 = this;
+        v4 = this;
         do
         {
-          sub_1000136C8(v2, v3);
-          operator delete(v3);
-          v4 = v1;
-          this = sub_100013AE0(v2, &v4);
-          v3 = this;
+          sub_1000136C8(v3, v4);
+          operator delete(v4);
+          v5 = v2;
+          this = sub_100013AE0(v3, &v5);
+          v4 = this;
         }
 
-        while (v2 + 1 != this);
+        while (v3 + 1 != this);
       }
     }
   }
 
-  *(v1 + 24) = 0;
+  v2[3] = 0;
   return this;
 }
 
-uint64_t *sub_100013958()
+uint64_t *sub_100013958(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1000207D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1000207D8, memory_order_acquire) & 1) == 0)
   {
     sub_100014D94();
   }
@@ -9044,7 +9019,7 @@ uint64_t sub_100013990(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_1000139C8(uint64_t **a1, uint64_t *a2)
+uint64_t *sub_1000139C8(uint64_t ***a1, uint64_t *a2)
 {
   v4 = operator new(0x28uLL);
   v4[4] = *a2;
@@ -9134,13 +9109,16 @@ uint64_t sub_100013AE0(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_100013BA4()
+uint64_t *sub_100013BA4(uint64_t *result, uint64_t a2)
 {
   if ((byte_1000207B8 & 1) == 0)
   {
     byte_1000207B8 = 1;
-    qword_1000207B0 = sub_100013958();
+    result = sub_100013958(result, a2);
+    qword_1000207B0 = result;
   }
+
+  return result;
 }
 
 void boost::archive::basic_text_iarchive<boost::archive::text_iarchive>::load_override(uint64_t a1, void **a2)
@@ -9255,7 +9233,6 @@ void sub_100013E4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::load(uint64_t a1, std::string *a2)
 {
   sub_1000141BC((a1 + 40));
-  v4 = *(a1 + 40);
   std::istream::get();
   std::string::resize(a2, 0, 0);
 }
@@ -9309,9 +9286,9 @@ void boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::~text_ia
   operator delete(a1);
 }
 
-uint64_t *sub_100013FF0()
+uint64_t *sub_100013FF0(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_100020810, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_100020810, memory_order_acquire) & 1) == 0)
   {
     sub_100014E0C();
   }
@@ -9338,39 +9315,40 @@ uint64_t sub_1000140D0(uint64_t a1)
   return a1;
 }
 
-void *sub_100014108(uint64_t *a1)
+void *sub_100014108(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void *sub_1000141BC(uint64_t *a1)
+void *sub_1000141BC(void *a1)
 {
-  v1 = *a1;
   result = std::istream::operator>>();
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    sub_100005D4C(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    sub_100005D4C(v2);
   }
 
   return result;
 }
 
-void sub_100014270()
+uint64_t *sub_100014270(uint64_t *result, uint64_t a2)
 {
   if ((byte_1000207F0 & 1) == 0)
   {
     byte_1000207F0 = 1;
-    qword_1000207E8 = sub_100013FF0();
+    result = sub_100013FF0(result, a2);
+    qword_1000207E8 = result;
   }
+
+  return result;
 }
 
 uint64_t boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(uint64_t result)
@@ -9391,13 +9369,13 @@ LABEL_5:
       return result;
     }
 
-    result = boost::archive::basic_text_oprimitive<std::ostream>::put((result + 48));
+    result = boost::archive::basic_text_oprimitive<std::ostream>::put((result + 48), 10);
     goto LABEL_5;
   }
 
   v3 = (result + 48);
 
-  return boost::archive::basic_text_oprimitive<std::ostream>::put(v3);
+  return boost::archive::basic_text_oprimitive<std::ostream>::put(v3, 32);
 }
 
 {
@@ -9457,7 +9435,7 @@ void sub_1000143FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::archive::text_oarchive_impl<boost::archive::text_oarchive>::save(uint64_t *a1, uint64_t *a2)
+void *boost::archive::text_oarchive_impl<boost::archive::text_oarchive>::save(boost::archive::detail::basic_oarchive *a1, uint64_t *a2)
 {
   v4 = *(a2 + 23);
   if ((v4 & 0x80u) != 0)
@@ -9465,21 +9443,31 @@ uint64_t boost::archive::text_oarchive_impl<boost::archive::text_oarchive>::save
     v4 = a2[1];
   }
 
-  v8 = v4;
-  sub_100014798(a1, &v8);
+  v9 = v4;
+  sub_100014798(a1, &v9);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  if (*(a2 + 23) >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    LODWORD(v6) = a2;
   }
 
   else
   {
-    v5 = *a2;
-    v6 = a2[1];
+    v6 = *a2;
   }
 
-  return sub_1000017A0(a1[6]);
+  if (v5 >= 0)
+  {
+    LODWORD(v7) = *(a2 + 23);
+  }
+
+  else
+  {
+    v7 = a2[1];
+  }
+
+  return sub_1000017A0(*(a1 + 6), v6, v7);
 }
 
 {
@@ -9514,9 +9502,9 @@ void boost::archive::text_oarchive_impl<boost::archive::text_oarchive>::~text_oa
   operator delete(a1);
 }
 
-uint64_t *sub_100014574()
+uint64_t *sub_100014574(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_100020848, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_100020848, memory_order_acquire) & 1) == 0)
   {
     sub_100014E84();
   }
@@ -9574,53 +9562,52 @@ uint64_t sub_100014654(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_10001468C(boost::archive::detail::basic_oarchive *a1, unsigned __int16 *a2)
+uint64_t sub_10001468C(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_1000146D4(a1 + 6, a2);
+  return sub_1000146D4(a1 + 6);
 }
 
-uint64_t sub_1000146D4(void *a1, unsigned __int16 *a2)
+uint64_t sub_1000146D4(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-uint64_t sub_100014798(boost::archive::detail::basic_oarchive *a1, uint64_t *a2)
+uint64_t sub_100014798(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   boost::archive::detail::basic_oarchive::end_preamble(a1);
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken(a1);
-  return sub_1000147E0(a1 + 6, a2);
+  return sub_1000147E0(a1 + 6);
 }
 
-uint64_t sub_1000147E0(void *a1, uint64_t *a2)
+uint64_t sub_1000147E0(void *a1)
 {
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-    sub_100005D4C(v4);
+    boost::archive::archive_exception::archive_exception(v2, 13, 0, 0);
+    sub_100005D4C(v2);
   }
-
-  v2 = *a2;
 
   return std::ostream::operator<<();
 }
 
-void sub_1000148A4()
+uint64_t *sub_1000148A4(uint64_t *result, uint64_t a2)
 {
   if ((byte_100020828 & 1) == 0)
   {
     byte_100020828 = 1;
-    qword_100020820 = sub_100014574();
+    result = sub_100014574(result, a2);
+    qword_100020820 = result;
   }
+
+  return result;
 }
 
 void sub_100014910(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -9661,53 +9648,53 @@ void sub_100014BE0(uint64_t a1, uint8_t *buf, os_log_t log)
 
 void sub_100014D1C()
 {
-  if (__cxa_guard_acquire(&qword_1000207A0))
+  if (__cxa_guard_acquire(byte_1000207A0))
   {
     qword_100020798 = 0;
     qword_100020790 = 0;
     qword_100020788 = &qword_100020790;
     __cxa_atexit(sub_10001348C, &qword_100020788, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1000207A0);
+    __cxa_guard_release(byte_1000207A0);
   }
 }
 
 void sub_100014D94()
 {
-  if (__cxa_guard_acquire(&qword_1000207D8))
+  if (__cxa_guard_acquire(byte_1000207D8))
   {
     qword_1000207D0 = 0;
     qword_1000207C8 = 0;
     qword_1000207C0 = &qword_1000207C8;
     __cxa_atexit(sub_100013990, &qword_1000207C0, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1000207D8);
+    __cxa_guard_release(byte_1000207D8);
   }
 }
 
 void sub_100014E0C()
 {
-  if (__cxa_guard_acquire(&qword_100020810))
+  if (__cxa_guard_acquire(byte_100020810))
   {
     qword_100020808 = 0;
     qword_100020800 = 0;
     qword_1000207F8 = &qword_100020800;
     __cxa_atexit(sub_1000140D0, &qword_1000207F8, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_100020810);
+    __cxa_guard_release(byte_100020810);
   }
 }
 
 void sub_100014E84()
 {
-  if (__cxa_guard_acquire(&qword_100020848))
+  if (__cxa_guard_acquire(byte_100020848))
   {
     qword_100020840 = 0;
     qword_100020838 = 0;
     qword_100020830 = &qword_100020838;
     __cxa_atexit(sub_100014654, &qword_100020830, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_100020848);
+    __cxa_guard_release(byte_100020848);
   }
 }
 

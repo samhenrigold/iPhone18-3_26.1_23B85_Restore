@@ -42,7 +42,7 @@ uint64_t __33__DAAccountLoader_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_addAccountInfo:(id)info forFrameworkNamed:(id)named
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   namedCopy = named;
   v8 = [infoCopy objectForKeyedSubscript:@"ACAccountType"];
@@ -67,9 +67,9 @@ uint64_t __33__DAAccountLoader_sharedInstance__block_invoke(uint64_t a1)
     v17 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v16, v17))
     {
-      v25 = 138412290;
-      v26 = infoCopy;
-      _os_log_impl(&dword_24844D000, v16, v17, "Handling account info mapping %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = infoCopy;
+      _os_log_impl(&dword_24844D000, v16, v17, "Handling account info mapping %@", &v24, 0xCu);
     }
 
     [(NSMutableDictionary *)self->_acAccountTypeToAccountFrameworkSubpath setObject:namedCopy forKeyedSubscript:v8];
@@ -95,12 +95,12 @@ LABEL_10:
         v18 = [infoCopy objectForKeyedSubscript:@"DAAgentClassBundle"];
         if (v18)
         {
-          v23 = [namedCopy stringByAppendingPathComponent:v18];
-          v24 = [v23 stringByAppendingPathExtension:@"bundle"];
+          v22 = [namedCopy stringByAppendingPathComponent:v18];
+          v23 = [v22 stringByAppendingPathExtension:@"bundle"];
 
-          if (v24)
+          if (v23)
           {
-            [(NSMutableDictionary *)self->_acAccountTypeToAccountDaemonBundleSubpath setObject:v24 forKeyedSubscript:v8];
+            [(NSMutableDictionary *)self->_acAccountTypeToAccountDaemonBundleSubpath setObject:v23 forKeyedSubscript:v8];
           }
         }
 
@@ -121,16 +121,14 @@ LABEL_10:
     [v18 setObject:v11 forKeyedSubscript:v8];
 LABEL_12:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (DAAccountLoader)init
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v61.receiver = self;
-  v61.super_class = DAAccountLoader;
-  v2 = [(DAAccountLoader *)&v61 init];
+  v64 = *MEMORY[0x277D85DE8];
+  v60.receiver = self;
+  v60.super_class = DAAccountLoader;
+  v2 = [(DAAccountLoader *)&v60 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -158,7 +156,7 @@ LABEL_12:
     v14 = DALoggingwithCategory();
     v15 = *(MEMORY[0x277D03988] + 6);
     v16 = os_log_type_enabled(v14, v15);
-    v45 = v9;
+    v44 = v9;
     if (v13)
     {
       if (v16)
@@ -167,26 +165,26 @@ LABEL_12:
         _os_log_impl(&dword_24844D000, v14, v15, "Using pre-cached account infos", buf, 2u);
       }
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       obj = v13;
-      v17 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v17 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v57;
+        v19 = *v56;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v57 != v19)
+            if (*v56 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v56 + 1) + 8 * i);
+            v21 = *(*(&v55 + 1) + 8 * i);
             v22 = [v21 objectForKeyedSubscript:@"DAFrameworkName"];
             if (v22)
             {
@@ -194,11 +192,11 @@ LABEL_12:
             }
           }
 
-          v18 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+          v18 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
         }
 
         while (v18);
-        v9 = v45;
+        v9 = v44;
       }
     }
 
@@ -211,31 +209,31 @@ LABEL_12:
       }
 
       [defaultManager contentsOfDirectoryAtPath:v9 error:0];
+      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
-      obj = v55 = 0u;
-      v23 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+      obj = v54 = 0u;
+      v23 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
       if (v23)
       {
-        v42 = 0;
-        v43 = v12;
-        v44 = defaultManager;
-        v24 = *v53;
+        v41 = 0;
+        v42 = v12;
+        v43 = defaultManager;
+        v24 = *v52;
         v25 = 0x277CCA000uLL;
         v26 = v23;
         do
         {
           v27 = 0;
-          v46 = v26;
+          v45 = v26;
           do
           {
-            if (*v53 != v24)
+            if (*v52 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v28 = *(*(&v52 + 1) + 8 * v27);
+            v28 = *(*(&v51 + 1) + 8 * v27);
             v29 = objc_alloc(*(v25 + 2264));
             v30 = [v9 stringByAppendingPathComponent:v28];
             v31 = [v29 initWithPath:v30];
@@ -248,35 +246,35 @@ LABEL_12:
               {
                 v34 = v24;
                 v35 = [infoDictionary objectForKeyedSubscript:@"DAAccountInfo"];
+                v47 = 0u;
                 v48 = 0u;
                 v49 = 0u;
                 v50 = 0u;
-                v51 = 0u;
-                v36 = [v35 countByEnumeratingWithState:&v48 objects:v62 count:16];
+                v36 = [v35 countByEnumeratingWithState:&v47 objects:v61 count:16];
                 if (v36)
                 {
                   v37 = v36;
-                  v38 = *v49;
+                  v38 = *v48;
                   do
                   {
                     for (j = 0; j != v37; ++j)
                     {
-                      if (*v49 != v38)
+                      if (*v48 != v38)
                       {
                         objc_enumerationMutation(v35);
                       }
 
-                      [(DAAccountLoader *)v2 _addAccountInfo:*(*(&v48 + 1) + 8 * j) forFrameworkNamed:v28, v42, v43, v44];
+                      [(DAAccountLoader *)v2 _addAccountInfo:*(*(&v47 + 1) + 8 * j) forFrameworkNamed:v28, v41, v42, v43];
                     }
 
-                    v37 = [v35 countByEnumeratingWithState:&v48 objects:v62 count:16];
+                    v37 = [v35 countByEnumeratingWithState:&v47 objects:v61 count:16];
                   }
 
                   while (v37);
                 }
 
-                v9 = v45;
-                v26 = v46;
+                v9 = v44;
+                v26 = v45;
                 v24 = v34;
                 v25 = 0x277CCA000;
               }
@@ -286,18 +284,17 @@ LABEL_12:
           }
 
           while (v27 != v26);
-          v26 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+          v26 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
         }
 
         while (v26);
-        v12 = v43;
-        defaultManager = v44;
-        v13 = v42;
+        v12 = v42;
+        defaultManager = v43;
+        v13 = v41;
       }
     }
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -332,7 +329,7 @@ LABEL_12:
 
 - (void)loadFrameworkForACAccountType:(id)type
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   acAccountTypeToAccountFrameworkSubpath = self->_acAccountTypeToAccountFrameworkSubpath;
   identifier = [typeCopy identifier];
@@ -345,13 +342,11 @@ LABEL_12:
     if (os_log_type_enabled(v8, v9))
     {
       identifier2 = [typeCopy identifier];
-      v12 = 138412290;
-      v13 = identifier2;
-      _os_log_impl(&dword_24844D000, v8, v9, "We don't know of any bundles for account type %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = identifier2;
+      _os_log_impl(&dword_24844D000, v8, v9, "We don't know of any bundles for account type %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadDaemonBundleForACAccountType:(id)type
@@ -417,7 +412,7 @@ LABEL_10:
 
 - (Class)clientAccountClassForACAccount:(id)account
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   accountType = [accountCopy accountType];
   [(DAAccountLoader *)self loadFrameworkForACAccountType:accountType];
@@ -449,35 +444,34 @@ LABEL_10:
       if (v18)
       {
         parentAccount2 = [accountCopy parentAccount];
-        v23 = 138412802;
-        v24 = clientAccountClassName;
-        v25 = 2112;
-        v26 = accountCopy;
-        v27 = 2112;
-        v28 = parentAccount2;
-        _os_log_impl(&dword_24844D000, v16, v17, "Could not come up with a client account class (name %@) for account %@ parent account %@", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = clientAccountClassName;
+        v24 = 2112;
+        v25 = accountCopy;
+        v26 = 2112;
+        v27 = parentAccount2;
+        _os_log_impl(&dword_24844D000, v16, v17, "Could not come up with a client account class (name %@) for account %@ parent account %@", &v22, 0x20u);
       }
     }
 
     else if (v18)
     {
-      v23 = 138412546;
-      v24 = clientAccountClassName;
-      v25 = 2112;
-      v26 = accountCopy;
-      _os_log_impl(&dword_24844D000, v16, v17, "Could not come up with a client account class (name %@) for account %@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = clientAccountClassName;
+      v24 = 2112;
+      v25 = accountCopy;
+      _os_log_impl(&dword_24844D000, v16, v17, "Could not come up with a client account class (name %@) for account %@", &v22, 0x16u);
     }
   }
 
   v20 = v14;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (Class)daemonAccountClassForACAccount:(id)account
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   accountType = [accountCopy accountType];
   [(DAAccountLoader *)self loadFrameworkForACAccountType:accountType];
@@ -488,26 +482,8 @@ LABEL_10:
   v9 = [v6 objectForKeyedSubscript:identifier];
   daemonAccountClassName = [v9 daemonAccountClassName];
 
-  if (!daemonAccountClassName)
+  if (!daemonAccountClassName && ([accountCopy accountType], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "identifier"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "accountClassName"), daemonAccountClassName = objc_claimAutoreleasedReturnValue(), v13, v12, v11, !daemonAccountClassName) || (objc_msgSend(accountCopy, "accountType"), v14 = objc_claimAutoreleasedReturnValue(), -[DAAccountLoader loadDaemonBundleForACAccountType:](self, "loadDaemonBundleForACAccountType:", v14), v14, (v15 = NSClassFromString(daemonAccountClassName)) == 0))
   {
-    accountType3 = [accountCopy accountType];
-    identifier2 = [accountType3 identifier];
-    v13 = [v6 objectForKeyedSubscript:identifier2];
-    daemonAccountClassName = [v13 accountClassName];
-
-    if (!daemonAccountClassName)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  accountType4 = [accountCopy accountType];
-  [(DAAccountLoader *)self loadDaemonBundleForACAccountType:accountType4];
-
-  v15 = NSClassFromString(daemonAccountClassName);
-  if (!v15)
-  {
-LABEL_4:
     parentAccount = [accountCopy parentAccount];
 
     v17 = DALoggingwithCategory();
@@ -518,23 +494,23 @@ LABEL_4:
       if (v19)
       {
         parentAccount2 = [accountCopy parentAccount];
-        v24 = 138412802;
-        v25 = daemonAccountClassName;
-        v26 = 2112;
-        v27 = accountCopy;
-        v28 = 2112;
-        v29 = parentAccount2;
-        _os_log_impl(&dword_24844D000, v17, v18, "Could not come up with a daemon account class (name %@) for account %@ parent account %@", &v24, 0x20u);
+        v23 = 138412802;
+        v24 = daemonAccountClassName;
+        v25 = 2112;
+        v26 = accountCopy;
+        v27 = 2112;
+        v28 = parentAccount2;
+        _os_log_impl(&dword_24844D000, v17, v18, "Could not come up with a daemon account class (name %@) for account %@ parent account %@", &v23, 0x20u);
       }
     }
 
     else if (v19)
     {
-      v24 = 138412546;
-      v25 = daemonAccountClassName;
-      v26 = 2112;
-      v27 = accountCopy;
-      _os_log_impl(&dword_24844D000, v17, v18, "Could not come up with a daemon account class (name %@) for account %@", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = daemonAccountClassName;
+      v25 = 2112;
+      v26 = accountCopy;
+      _os_log_impl(&dword_24844D000, v17, v18, "Could not come up with a daemon account class (name %@) for account %@", &v23, 0x16u);
     }
 
     v15 = 0;
@@ -542,7 +518,6 @@ LABEL_4:
 
   v21 = v15;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

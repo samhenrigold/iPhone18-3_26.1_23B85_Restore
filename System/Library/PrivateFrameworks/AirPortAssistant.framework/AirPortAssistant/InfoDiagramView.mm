@@ -21,541 +21,541 @@
 
 - (InfoDiagramView)initWithFrame:(CGRect)frame wanConnectedBaseProductID:(unsigned int)d
 {
-  v10.receiver = self;
-  v10.super_class = InfoDiagramView;
-  v5 = [(InfoDiagramView *)&v10 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  v8 = v5;
+  v11.receiver = self;
+  v11.super_class = InfoDiagramView;
+  v5 = [(InfoDiagramView *)&v11 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v9 = v5;
   if (v5)
   {
     v5->wanBaseProductID = d;
     v5->replacementProductID = 0;
-    objc_msgSend_commonInit(v5, v6, v7);
+    objc_msgSend_commonInit(v5, v6, v7, v8);
   }
 
-  return v8;
+  return v9;
 }
 
 - (InfoDiagramView)initWithFrame:(CGRect)frame wanConnectedBaseProductID:(unsigned int)d replacementProductID:(unsigned int)iD
 {
-  v12.receiver = self;
-  v12.super_class = InfoDiagramView;
-  v7 = [(InfoDiagramView *)&v12 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  v10 = v7;
+  v13.receiver = self;
+  v13.super_class = InfoDiagramView;
+  v7 = [(InfoDiagramView *)&v13 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v11 = v7;
   if (v7)
   {
     v7->wanBaseProductID = d;
     v7->replacementProductID = iD;
-    objc_msgSend_commonInit(v7, v8, v9);
+    objc_msgSend_commonInit(v7, v8, v9, v10);
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)commonInit
 {
-  v286[1] = *MEMORY[0x277D85DE8];
+  v387[1] = *MEMORY[0x277D85DE8];
   replacementProductID = self->replacementProductID;
-  self->sizeClass = sub_23EC13544(self, a2, v2);
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self, v4, 0);
-  v6 = objc_msgSend_imageForInformationalDiagramNamed_small_(ImageStore, v5, @"Cable-Modem", self->sizeClass == 1);
-  v7 = [AUImageView alloc];
-  v9 = objc_msgSend_initWithImage_(v7, v8, v6);
-  self->broadbandImageView = v9;
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v9, v10, 0);
-  objc_msgSend_addSubview_(self, v11, self->broadbandImageView);
-  v12 = MEMORY[0x277CCAAD0];
+  self->sizeClass = sub_23EC13544(self, a2, v2, v3);
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self, v5, 0, v6);
+  v8 = objc_msgSend_imageForInformationalDiagramNamed_small_(ImageStore, v7, @"Cable-Modem", self->sizeClass == 1);
+  v9 = [AUImageView alloc];
+  v12 = objc_msgSend_initWithImage_(v9, v10, v8, v11);
+  self->broadbandImageView = v12;
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v12, v13, 0, v14);
+  objc_msgSend_addSubview_(self, v15, self->broadbandImageView, v16);
+  v17 = MEMORY[0x277CCAAD0];
   broadbandImageView = self->broadbandImageView;
-  objc_msgSend_size(v6, v14, v15);
-  v18 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v12, v16, broadbandImageView, 7, 0, 0, 0, 1.0, v17);
-  objc_msgSend_addConstraint_(self, v19, v18);
-  v20 = MEMORY[0x277CCAAD0];
-  v21 = self->broadbandImageView;
-  objc_msgSend_size(v6, v22, v23);
-  v25 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v20, v24, v21, 8, 0, 0, 0, 1.0);
-  objc_msgSend_addConstraint_(self, v26, v25);
+  objc_msgSend_size(v8, v19, v20, v21);
+  v24 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v17, v22, broadbandImageView, 7, 0, 0, 0, 1.0, v23);
+  objc_msgSend_addConstraint_(self, v25, v24, v26);
+  v27 = MEMORY[0x277CCAAD0];
+  v28 = self->broadbandImageView;
+  objc_msgSend_size(v8, v29, v30, v31);
+  v33 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v27, v32, v28, 8, 0, 0, 0, 1.0);
+  objc_msgSend_addConstraint_(self, v34, v33, v35);
   self->broadbandLabel = objc_alloc_init(AULabel);
-  v27 = sub_23EB6CD3C(@"BroadbandDeviceOrLAN", @"AirPortSettings");
-  objc_msgSend_setText_(self->broadbandLabel, v28, v27);
-  objc_msgSend_frame(self->broadbandImageView, v29, v30);
-  objc_msgSend_setPreferredMaxLayoutWidth_(self->broadbandLabel, v31, v32, v33);
-  sub_23EB7A848(self->broadbandLabel, v34, 13.0);
-  objc_msgSend_addSubview_(self, v35, self->broadbandLabel);
-  v36 = MEMORY[0x277CCAAD0];
-  v37 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandlabel.isa, self->broadbandLabel, self->broadbandImageView, 0);
-  v39 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v36, v38, @"V:|-10-[broadbandLabel]-4-[broadbandImageView]", 512, 0, v37);
-  objc_msgSend_addConstraints_(self, v40, v39);
+  v36 = sub_23EB6CD3C(@"BroadbandDeviceOrLAN", @"AirPortSettings");
+  objc_msgSend_setText_(self->broadbandLabel, v37, v36, v38);
+  objc_msgSend_frame(self->broadbandImageView, v39, v40, v41);
+  objc_msgSend_setPreferredMaxLayoutWidth_(self->broadbandLabel, v42, v43, v44, v45);
+  sub_23EB7A848(self->broadbandLabel, 13.0, v46, v47, v48);
+  objc_msgSend_addSubview_(self, v49, self->broadbandLabel, v50);
+  v51 = MEMORY[0x277CCAAD0];
+  v52 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandlabel.isa, self->broadbandLabel, self->broadbandImageView, 0);
+  v54 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v51, v53, @"V:|-10-[broadbandLabel]-4-[broadbandImageView]", 512, 0, v52);
+  objc_msgSend_addConstraints_(self, v55, v54, v56);
   self->internetLabel = objc_alloc_init(AULabel);
-  v41 = sub_23EB6CD3C(@"ToInternet", @"AirPortSettings");
-  objc_msgSend_setText_(self->internetLabel, v42, v41);
-  sub_23EB7A848(self->internetLabel, v43, 13.0);
-  objc_msgSend_addSubview_(self, v44, self->internetLabel);
-  v46 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v45, self->internetLabel, 1, 0, self->broadbandLabel, 1, 1.0, 0.0);
-  objc_msgSend_addConstraint_(self, v47, v46);
-  v48 = MEMORY[0x277CCAAD0];
-  v49 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage.isa, self->broadbandImageView, self->internetLabel, 0);
-  v51 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v48, v50, @"V:[broadbandImageView]-30-[internetLabel]-(>=10)-|", 0, 0, v49);
-  objc_msgSend_addConstraints_(self, v52, v51);
-  objc_msgSend_sizeToFit(self->internetLabel, v53, v54);
-  v56 = objc_msgSend_imageForInformationalDiagram_subProductID_deviceKind_audioImage_small_(ImageStore, v55, self->wanBaseProductID, 0, self->wanBaseProductID != 0, 0, self->sizeClass == 1);
-  v57 = [AUImageView alloc];
-  v59 = objc_msgSend_initWithImage_(v57, v58, v56);
+  v57 = sub_23EB6CD3C(@"ToInternet", @"AirPortSettings");
+  objc_msgSend_setText_(self->internetLabel, v58, v57, v59);
+  sub_23EB7A848(self->internetLabel, 13.0, v60, v61, v62);
+  objc_msgSend_addSubview_(self, v63, self->internetLabel, v64);
+  v66 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v65, self->internetLabel, 1, 0, self->broadbandLabel, 1, 1.0, 0.0);
+  objc_msgSend_addConstraint_(self, v67, v66, v68);
+  v69 = MEMORY[0x277CCAAD0];
+  v70 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage.isa, self->broadbandImageView, self->internetLabel, 0);
+  v72 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v69, v71, @"V:[broadbandImageView]-30-[internetLabel]-(>=10)-|", 0, 0, v70);
+  objc_msgSend_addConstraints_(self, v73, v72, v74);
+  objc_msgSend_sizeToFit(self->internetLabel, v75, v76, v77);
+  v79 = objc_msgSend_imageForInformationalDiagram_subProductID_deviceKind_audioImage_small_(ImageStore, v78, self->wanBaseProductID, 0, self->wanBaseProductID != 0, 0, self->sizeClass == 1);
+  v80 = [AUImageView alloc];
+  v83 = objc_msgSend_initWithImage_(v80, v81, v79, v82);
   p_wanConnectedBaseImageView = &self->wanConnectedBaseImageView;
-  self->wanConnectedBaseImageView = v59;
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v59, v61, 0);
-  objc_msgSend_addSubview_(self, v62, self->wanConnectedBaseImageView);
-  v63 = MEMORY[0x277CCAAD0];
+  self->wanConnectedBaseImageView = v83;
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v83, v85, 0, v86);
+  objc_msgSend_addSubview_(self, v87, self->wanConnectedBaseImageView, v88);
+  v89 = MEMORY[0x277CCAAD0];
   wanConnectedBaseImageView = self->wanConnectedBaseImageView;
-  objc_msgSend_size(v56, v65, v66);
-  v69 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v63, v67, wanConnectedBaseImageView, 7, 0, 0, 0, 1.0, v68);
-  objc_msgSend_addConstraint_(self, v70, v69);
-  v71 = MEMORY[0x277CCAAD0];
-  v72 = self->wanConnectedBaseImageView;
-  objc_msgSend_size(v56, v73, v74);
-  v76 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v71, v75, v72, 8, 0, 0, 0, 1.0);
-  objc_msgSend_addConstraint_(self, v77, v76);
+  objc_msgSend_size(v79, v91, v92, v93);
+  v96 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v89, v94, wanConnectedBaseImageView, 7, 0, 0, 0, 1.0, v95);
+  objc_msgSend_addConstraint_(self, v97, v96, v98);
+  v99 = MEMORY[0x277CCAAD0];
+  v100 = self->wanConnectedBaseImageView;
+  objc_msgSend_size(v79, v101, v102, v103);
+  v105 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v99, v104, v100, 8, 0, 0, 0, 1.0);
+  objc_msgSend_addConstraint_(self, v106, v105, v107);
   self->wanConnectedBaseLabel = objc_alloc_init(AULabel);
   wanBaseProductID = self->wanBaseProductID;
   if (wanBaseProductID)
   {
-    v81 = sub_23EB6CEE0(wanBaseProductID, 1, 0);
-    objc_msgSend_setText_(self->wanConnectedBaseLabel, v82, v81);
+    v112 = sub_23EB6CEE0(wanBaseProductID, 1, 0);
+    objc_msgSend_setText_(self->wanConnectedBaseLabel, v113, v112, v114);
   }
 
-  objc_msgSend_frame(*p_wanConnectedBaseImageView, v78, v79);
-  objc_msgSend_setPreferredMaxLayoutWidth_(self->wanConnectedBaseLabel, v83, v84, v85);
-  sub_23EB7A848(self->wanConnectedBaseLabel, v86, 13.0);
-  objc_msgSend_addSubview_(self, v87, self->wanConnectedBaseLabel);
-  objc_msgSend_sizeToFit(self->wanConnectedBaseLabel, v88, v89);
+  objc_msgSend_frame(*p_wanConnectedBaseImageView, v108, v109, v110);
+  objc_msgSend_setPreferredMaxLayoutWidth_(self->wanConnectedBaseLabel, v115, v116, v117, v118);
+  sub_23EB7A848(self->wanConnectedBaseLabel, 13.0, v119, v120, v121);
+  objc_msgSend_addSubview_(self, v122, self->wanConnectedBaseLabel, v123);
+  objc_msgSend_sizeToFit(self->wanConnectedBaseLabel, v124, v125, v126);
   sizeClass = self->sizeClass;
-  LODWORD(v93) = 1109393408;
+  LODWORD(v131) = 1109393408;
   if (sizeClass == 3)
   {
-    *&v93 = 35.0;
+    *&v131 = 35.0;
   }
 
   if (sizeClass == 2)
   {
-    *&v93 = 60.0;
+    *&v131 = 60.0;
   }
 
-  v94 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v90, v91, v93);
-  v95 = MEMORY[0x277CCAAD0];
-  v285 = @"horizSep";
-  v286[0] = v94;
-  v97 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v96, v286, &v285, 1);
-  v98 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage_0.isa, self->broadbandImageView, *p_wanConnectedBaseImageView, 0);
-  v100 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v95, v99, @"H:[broadbandImageView]-(>=horizSep)-[wanConnectedBaseImageView]", 65552, v97, v98);
-  objc_msgSend_addConstraints_(self, v101, v100);
+  v132 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v127, v128, v129, v131);
+  v133 = MEMORY[0x277CCAAD0];
+  v386 = @"horizSep";
+  v387[0] = v132;
+  v135 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v134, v387, &v386, 1);
+  v136 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage_0.isa, self->broadbandImageView, *p_wanConnectedBaseImageView, 0);
+  v138 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v133, v137, @"H:[broadbandImageView]-(>=horizSep)-[wanConnectedBaseImageView]", 65552, v135, v136);
+  objc_msgSend_addConstraints_(self, v139, v138, v140);
   if (replacementProductID)
   {
-    v102 = &unk_285156650;
+    v141 = &unk_285156650;
   }
 
   else
   {
-    v102 = &unk_285156678;
+    v141 = &unk_285156678;
   }
 
-  v103 = MEMORY[0x277CCAAD0];
-  v104 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage_1.isa, self->broadbandImageView, 0);
-  v106 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v103, v105, @"H:|-(10)-[broadbandImageView]", 0x10000, 0, v104);
-  objc_msgSend_addConstraints_(self, v107, v106);
-  v108 = MEMORY[0x277CCAAD0];
-  v109 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba.isa, *p_wanConnectedBaseImageView, 0);
-  v111 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v108, v110, @"H:[wanConnectedBaseImageView]-(>=rightMargin)-|", 0x10000, v102, v109);
-  objc_msgSend_addConstraints_(self, v112, v111);
-  v113 = MEMORY[0x277CCAAD0];
-  v114 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_0.isa, self->wanConnectedBaseLabel, *p_wanConnectedBaseImageView, 0);
-  v116 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v113, v115, @"V:|-(10)-[wanConnectedBaseLabel]-4-[wanConnectedBaseImageView]-(>=10)-|", 0, 0, v114);
-  objc_msgSend_addConstraints_(self, v117, v116);
-  v118 = MEMORY[0x277CCAAD0];
-  v119 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_1.isa, self->wanConnectedBaseLabel, 0);
-  v121 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v118, v120, @"H:[wanConnectedBaseLabel]-(>=rightMargin)-|", 0, v102, v119);
-  objc_msgSend_addConstraints_(self, v122, v121);
-  objc_msgSend_informationDiagramBaseImageCenterOffset_small_(ImageStore, v123, self->wanBaseProductID, self->sizeClass == 1);
-  v125 = v124 + -0.5;
-  objc_msgSend_frame(*p_wanConnectedBaseImageView, v126, v127);
-  v129 = v125 * v128;
-  v131 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v130, self->wanConnectedBaseLabel, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v129);
-  objc_msgSend_addConstraint_(self, v132, v131);
-  v134 = objc_msgSend_insetImageForInformationalDiagram_deviceKind_audioImage_small_(ImageStore, v133, self->wanBaseProductID, 1, 0, self->sizeClass == 1);
-  v135 = [AUImageView alloc];
-  v137 = objc_msgSend_initWithImage_(v135, v136, v134);
-  self->insetImageView = v137;
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v137, v138, 0);
-  objc_msgSend_addSubview_(self, v139, self->insetImageView);
-  v140 = MEMORY[0x277CCAAD0];
-  v283 = @"xOffset";
-  v141 = MEMORY[0x277CCABB0];
-  objc_msgSend_frame(self->insetImageView, v142, v143);
-  v147 = 85.0;
+  v142 = MEMORY[0x277CCAAD0];
+  v143 = _NSDictionaryOfVariableBindings(&cfstr_Broadbandimage_1.isa, self->broadbandImageView, 0);
+  v145 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v142, v144, @"H:|-(10)-[broadbandImageView]", 0x10000, 0, v143);
+  objc_msgSend_addConstraints_(self, v146, v145, v147);
+  v148 = MEMORY[0x277CCAAD0];
+  v149 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba.isa, *p_wanConnectedBaseImageView, 0);
+  v151 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v148, v150, @"H:[wanConnectedBaseImageView]-(>=rightMargin)-|", 0x10000, v141, v149);
+  objc_msgSend_addConstraints_(self, v152, v151, v153);
+  v154 = MEMORY[0x277CCAAD0];
+  v155 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_0.isa, self->wanConnectedBaseLabel, *p_wanConnectedBaseImageView, 0);
+  v157 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v154, v156, @"V:|-(10)-[wanConnectedBaseLabel]-4-[wanConnectedBaseImageView]-(>=10)-|", 0, 0, v155);
+  objc_msgSend_addConstraints_(self, v158, v157, v159);
+  v160 = MEMORY[0x277CCAAD0];
+  v161 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_1.isa, self->wanConnectedBaseLabel, 0);
+  v163 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v160, v162, @"H:[wanConnectedBaseLabel]-(>=rightMargin)-|", 0, v141, v161);
+  objc_msgSend_addConstraints_(self, v164, v163, v165);
+  objc_msgSend_informationDiagramBaseImageCenterOffset_small_(ImageStore, v166, self->wanBaseProductID, self->sizeClass == 1);
+  v168 = v167 + -0.5;
+  objc_msgSend_frame(*p_wanConnectedBaseImageView, v169, v170, v171);
+  v173 = v168 * v172;
+  v175 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v174, self->wanConnectedBaseLabel, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v173);
+  objc_msgSend_addConstraint_(self, v176, v175, v177);
+  v179 = objc_msgSend_insetImageForInformationalDiagram_deviceKind_audioImage_small_(ImageStore, v178, self->wanBaseProductID, 1, 0, self->sizeClass == 1);
+  v180 = [AUImageView alloc];
+  v183 = objc_msgSend_initWithImage_(v180, v181, v179, v182);
+  self->insetImageView = v183;
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v183, v184, 0, v185);
+  objc_msgSend_addSubview_(self, v186, self->insetImageView, v187);
+  v188 = MEMORY[0x277CCAAD0];
+  v384 = @"xOffset";
+  v189 = MEMORY[0x277CCABB0];
+  objc_msgSend_frame(self->insetImageView, v190, v191, v192);
+  v197 = 85.0;
   if (self->sizeClass == 1)
   {
-    v147 = 64.0;
+    v197 = 64.0;
   }
 
-  v148 = v146 + v147;
-  *&v148 = v148;
-  *&v148 = -*&v148;
-  v284 = objc_msgSend_numberWithFloat_(v141, v144, v145, v148);
-  v150 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v149, &v284, &v283, 1);
-  v151 = _NSDictionaryOfVariableBindings(&cfstr_Insetimageview.isa, self->insetImageView, *p_wanConnectedBaseImageView, 0);
-  v153 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v140, v152, @"H:[wanConnectedBaseImageView]-(xOffset)-[insetImageView]", 0x10000, v150, v151);
-  objc_msgSend_addConstraints_(self, v154, v153);
-  v155 = MEMORY[0x277CCAAD0];
-  v281 = @"yOffset";
-  v156 = MEMORY[0x277CCABB0];
-  objc_msgSend_frame(self->insetImageView, v157, v158);
-  v162 = 8.0;
+  v198 = v196 + v197;
+  *&v198 = v198;
+  *&v198 = -*&v198;
+  v385 = objc_msgSend_numberWithFloat_(v189, v193, v194, v195, v198);
+  v200 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v199, &v385, &v384, 1);
+  v201 = _NSDictionaryOfVariableBindings(&cfstr_Insetimageview.isa, self->insetImageView, *p_wanConnectedBaseImageView, 0);
+  v203 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v188, v202, @"H:[wanConnectedBaseImageView]-(xOffset)-[insetImageView]", 0x10000, v200, v201);
+  objc_msgSend_addConstraints_(self, v204, v203, v205);
+  v206 = MEMORY[0x277CCAAD0];
+  v382 = @"yOffset";
+  v207 = MEMORY[0x277CCABB0];
+  objc_msgSend_frame(self->insetImageView, v208, v209, v210);
+  v215 = 8.0;
   if (self->sizeClass == 1)
   {
-    v162 = 0.0;
+    v215 = 0.0;
   }
 
-  v163 = v161 + v162;
-  *&v163 = v163;
-  *&v163 = -*&v163;
-  v282 = objc_msgSend_numberWithFloat_(v156, v159, v160, v163);
-  v165 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v164, &v282, &v281, 1);
-  v166 = _NSDictionaryOfVariableBindings(&cfstr_Insetimageview.isa, self->insetImageView, *p_wanConnectedBaseImageView, 0);
-  v168 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v155, v167, @"V:[wanConnectedBaseImageView]-(yOffset)-[insetImageView]", 0x10000, v165, v166);
-  objc_msgSend_addConstraints_(self, v169, v168);
+  v216 = v214 + v215;
+  *&v216 = v216;
+  *&v216 = -*&v216;
+  v383 = objc_msgSend_numberWithFloat_(v207, v211, v212, v213, v216);
+  v218 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v217, &v383, &v382, 1);
+  v219 = _NSDictionaryOfVariableBindings(&cfstr_Insetimageview.isa, self->insetImageView, *p_wanConnectedBaseImageView, 0);
+  v221 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v206, v220, @"V:[wanConnectedBaseImageView]-(yOffset)-[insetImageView]", 0x10000, v218, v219);
+  objc_msgSend_addConstraints_(self, v222, v221, v223);
   if (replacementProductID)
   {
-    v171 = objc_msgSend_imageForInformationalDiagram_subProductID_deviceKind_audioImage_small_(ImageStore, v170, self->replacementProductID, 0, 1, 0, self->sizeClass == 1);
-    v172 = [AUImageView alloc];
-    v174 = objc_msgSend_initWithImage_(v172, v173, v171);
-    self->replacementBaseImageView = v174;
-    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v174, v175, 0);
-    objc_msgSend_addSubview_(self, v176, self->replacementBaseImageView);
-    v177 = MEMORY[0x277CCAAD0];
+    v225 = objc_msgSend_imageForInformationalDiagram_subProductID_deviceKind_audioImage_small_(ImageStore, v224, self->replacementProductID, 0, 1, 0, self->sizeClass == 1);
+    v226 = [AUImageView alloc];
+    v229 = objc_msgSend_initWithImage_(v226, v227, v225, v228);
+    self->replacementBaseImageView = v229;
+    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v229, v230, 0, v231);
+    objc_msgSend_addSubview_(self, v232, self->replacementBaseImageView, v233);
+    v234 = MEMORY[0x277CCAAD0];
     replacementBaseImageView = self->replacementBaseImageView;
-    objc_msgSend_size(v171, v179, v180);
-    v183 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v177, v181, replacementBaseImageView, 7, 0, 0, 0, 1.0, v182);
-    objc_msgSend_addConstraint_(self, v184, v183);
-    v185 = MEMORY[0x277CCAAD0];
-    v186 = self->replacementBaseImageView;
-    objc_msgSend_size(v171, v187, v188);
-    v190 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v185, v189, v186, 8, 0, 0, 0, 1.0);
-    objc_msgSend_addConstraint_(self, v191, v190);
-    v192 = MEMORY[0x277CCAAD0];
-    v193 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_2.isa, *p_wanConnectedBaseImageView, self->replacementBaseImageView, 0);
-    v195 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v192, v194, @"V:[wanConnectedBaseImageView]-60-[replacementBaseImageView]", 0, 0, v193);
-    objc_msgSend_addConstraints_(self, v196, v195);
-    objc_msgSend_informationDiagramBaseImageCenterOffset_small_(ImageStore, v197, self->replacementProductID, self->sizeClass == 1);
-    v199 = v198 + -0.5;
-    objc_msgSend_frame(self->replacementBaseImageView, v200, v201);
-    v203 = v199 * v202;
-    v205 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v204, self->replacementBaseImageView, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v129 - v203);
-    objc_msgSend_addConstraint_(self, v206, v205);
+    objc_msgSend_size(v225, v236, v237, v238);
+    v241 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v234, v239, replacementBaseImageView, 7, 0, 0, 0, 1.0, v240);
+    objc_msgSend_addConstraint_(self, v242, v241, v243);
+    v244 = MEMORY[0x277CCAAD0];
+    v245 = self->replacementBaseImageView;
+    objc_msgSend_size(v225, v246, v247, v248);
+    v250 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v244, v249, v245, 8, 0, 0, 0, 1.0);
+    objc_msgSend_addConstraint_(self, v251, v250, v252);
+    v253 = MEMORY[0x277CCAAD0];
+    v254 = _NSDictionaryOfVariableBindings(&cfstr_Wanconnectedba_2.isa, *p_wanConnectedBaseImageView, self->replacementBaseImageView, 0);
+    v256 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v253, v255, @"V:[wanConnectedBaseImageView]-60-[replacementBaseImageView]", 0, 0, v254);
+    objc_msgSend_addConstraints_(self, v257, v256, v258);
+    objc_msgSend_informationDiagramBaseImageCenterOffset_small_(ImageStore, v259, self->replacementProductID, self->sizeClass == 1);
+    v261 = v260 + -0.5;
+    objc_msgSend_frame(self->replacementBaseImageView, v262, v263, v264);
+    v266 = v261 * v265;
+    v268 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v267, self->replacementBaseImageView, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v173 - v266);
+    objc_msgSend_addConstraint_(self, v269, v268, v270);
     p_replacementBaseLabel = &self->replacementBaseLabel;
     self->replacementBaseLabel = objc_alloc_init(AULabel);
-    v208 = sub_23EB6CEE0(self->replacementProductID, 1, 0);
-    objc_msgSend_setText_(self->replacementBaseLabel, v209, v208);
-    objc_msgSend_frame(self->replacementBaseImageView, v210, v211);
-    objc_msgSend_setPreferredMaxLayoutWidth_(self->replacementBaseLabel, v212, v213, v214);
-    sub_23EB7A848(self->replacementBaseLabel, v215, 13.0);
-    objc_msgSend_addSubview_(self, v216, self->replacementBaseLabel);
-    objc_msgSend_sizeToFit(self->replacementBaseLabel, v217, v218);
-    v219 = @"V:[replacementBaseImageView][replacementBaseLabel]-(>=10)-|";
+    v272 = sub_23EB6CEE0(self->replacementProductID, 1, 0);
+    objc_msgSend_setText_(self->replacementBaseLabel, v273, v272, v274);
+    objc_msgSend_frame(self->replacementBaseImageView, v275, v276, v277);
+    objc_msgSend_setPreferredMaxLayoutWidth_(self->replacementBaseLabel, v278, v279, v280, v281);
+    sub_23EB7A848(self->replacementBaseLabel, 13.0, v282, v283, v284);
+    objc_msgSend_addSubview_(self, v285, self->replacementBaseLabel, v286);
+    objc_msgSend_sizeToFit(self->replacementBaseLabel, v287, v288, v289);
+    v290 = @"V:[replacementBaseImageView][replacementBaseLabel]-(>=10)-|";
     p_wanConnectedBaseImageView = &self->replacementBaseImageView;
-    v220 = @"replacementBaseImageView, replacementBaseLabel";
-    v222 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v221, self->replacementBaseLabel, 9, 0, self->replacementBaseImageView, 9, 1.0, v203);
+    v291 = @"replacementBaseImageView, replacementBaseLabel";
+    v293 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v292, self->replacementBaseLabel, 9, 0, self->replacementBaseImageView, 9, 1.0, v266);
   }
 
   else
   {
     if (sub_23EB4BDAC(self->wanBaseProductID) >= 2)
     {
-      v224 = @"EthernetWANPort";
+      v296 = @"EthernetWANPort";
     }
 
     else
     {
-      v224 = @"EthernetPort";
+      v296 = @"EthernetPort";
     }
 
-    v225 = sub_23EB6CD3C(v224, @"AirPortSettings");
-    v226 = objc_alloc_init(AULabel);
+    v297 = sub_23EB6CD3C(v296, @"AirPortSettings");
+    v298 = objc_alloc_init(AULabel);
     p_replacementBaseLabel = &self->portLabel;
-    self->portLabel = v226;
-    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v226, v227, 0);
-    objc_msgSend_bounds(self->broadbandImageView, v228, v229);
-    objc_msgSend_setPreferredMaxLayoutWidth_(self->portLabel, v230, v231, v232);
-    objc_msgSend_setNumberOfLines_(self->portLabel, v233, 0);
-    objc_msgSend_setText_(self->portLabel, v234, v225);
-    sub_23EB7A848(self->portLabel, v235, 13.0);
-    objc_msgSend_addSubview_(self, v236, self->portLabel);
-    v219 = @"V:[wanConnectedBaseImageView]-30-[portLabel]-(>=10)-|";
-    v220 = @"wanConnectedBaseImageView, portLabel";
-    v222 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v237, self->portLabel, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v129);
+    self->portLabel = v298;
+    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v298, v299, 0, v300);
+    objc_msgSend_bounds(self->broadbandImageView, v301, v302, v303);
+    objc_msgSend_setPreferredMaxLayoutWidth_(self->portLabel, v304, v305, v306, v307);
+    objc_msgSend_setNumberOfLines_(self->portLabel, v308, 0, v309);
+    objc_msgSend_setText_(self->portLabel, v310, v297, v311);
+    sub_23EB7A848(self->portLabel, 13.0, v312, v313, v314);
+    objc_msgSend_addSubview_(self, v315, self->portLabel, v316);
+    v290 = @"V:[wanConnectedBaseImageView]-30-[portLabel]-(>=10)-|";
+    v291 = @"wanConnectedBaseImageView, portLabel";
+    v293 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v317, self->portLabel, 9, 0, *p_wanConnectedBaseImageView, 9, 1.0, v173);
   }
 
-  objc_msgSend_addConstraint_(self, v223, v222);
-  v238 = MEMORY[0x277CCAAD0];
-  v239 = _NSDictionaryOfVariableBindings(&v220->isa, *p_wanConnectedBaseImageView, *p_replacementBaseLabel, 0);
-  v241 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v238, v240, v219, 0, 0, v239);
-  objc_msgSend_addConstraints_(self, v242, v241);
-  v243 = objc_alloc_init(MEMORY[0x277D75D18]);
-  self->fixedCablingFrameView = v243;
-  objc_msgSend_setAutoresizingMask_(v243, v244, 2);
-  objc_msgSend_addSubview_(self, v245, self->fixedCablingFrameView);
-  v246 = [InfoDiagramCablingLayer alloc];
-  v249 = objc_msgSend_initNoWANLinkFirstFrame(v246, v247, v248);
-  objc_msgSend_setDiagramAnchorPointDelegate_(v249, v250, self);
-  objc_msgSend_setIsCompactWidth_(v249, v251, self->sizeClass == 1);
-  v254 = objc_msgSend_layer(self->fixedCablingFrameView, v252, v253);
-  objc_msgSend_addSublayer_(v254, v255, v249);
-  objc_msgSend_sizeToFit(self->fixedCablingFrameView, v256, v257);
-  v258 = objc_alloc_init(MEMORY[0x277D75D18]);
-  self->animatingCablingFrameView = v258;
-  objc_msgSend_setAutoresizingMask_(v258, v259, 2);
-  objc_msgSend_addSubview_(self, v260, self->animatingCablingFrameView);
-  v261 = [InfoDiagramCablingLayer alloc];
-  v264 = objc_msgSend_initNoWANLinkLastFrame(v261, v262, v263);
-  objc_msgSend_setDiagramAnchorPointDelegate_(v264, v265, self);
-  objc_msgSend_setIsCompactWidth_(v264, v266, self->sizeClass == 1);
-  objc_msgSend_setSwapCabling_(v264, v267, self->replacementProductID != 0);
-  v270 = objc_msgSend_layer(self->animatingCablingFrameView, v268, v269);
-  objc_msgSend_addSublayer_(v270, v271, v264);
-  objc_msgSend_sizeToFit(self->animatingCablingFrameView, v272, v273);
-  objc_msgSend_startAnimatingCablingLayer(self, v274, v275);
-  LODWORD(v276) = 1148846080;
-  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self, v277, 1, v276);
-  LODWORD(v278) = 1148846080;
-  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self, v279, 0, v278);
+  objc_msgSend_addConstraint_(self, v294, v293, v295);
+  v318 = MEMORY[0x277CCAAD0];
+  v319 = _NSDictionaryOfVariableBindings(&v291->isa, *p_wanConnectedBaseImageView, *p_replacementBaseLabel, 0);
+  v321 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v318, v320, v290, 0, 0, v319);
+  objc_msgSend_addConstraints_(self, v322, v321, v323);
+  v324 = objc_alloc_init(MEMORY[0x277D75D18]);
+  self->fixedCablingFrameView = v324;
+  objc_msgSend_setAutoresizingMask_(v324, v325, 2, v326);
+  objc_msgSend_addSubview_(self, v327, self->fixedCablingFrameView, v328);
+  v329 = [InfoDiagramCablingLayer alloc];
+  v333 = objc_msgSend_initNoWANLinkFirstFrame(v329, v330, v331, v332);
+  objc_msgSend_setDiagramAnchorPointDelegate_(v333, v334, self, v335);
+  objc_msgSend_setIsCompactWidth_(v333, v336, self->sizeClass == 1, v337);
+  v341 = objc_msgSend_layer(self->fixedCablingFrameView, v338, v339, v340);
+  objc_msgSend_addSublayer_(v341, v342, v333, v343);
+  objc_msgSend_sizeToFit(self->fixedCablingFrameView, v344, v345, v346);
+  v347 = objc_alloc_init(MEMORY[0x277D75D18]);
+  self->animatingCablingFrameView = v347;
+  objc_msgSend_setAutoresizingMask_(v347, v348, 2, v349);
+  objc_msgSend_addSubview_(self, v350, self->animatingCablingFrameView, v351);
+  v352 = [InfoDiagramCablingLayer alloc];
+  v356 = objc_msgSend_initNoWANLinkLastFrame(v352, v353, v354, v355);
+  objc_msgSend_setDiagramAnchorPointDelegate_(v356, v357, self, v358);
+  objc_msgSend_setIsCompactWidth_(v356, v359, self->sizeClass == 1, v360);
+  objc_msgSend_setSwapCabling_(v356, v361, self->replacementProductID != 0, v362);
+  v366 = objc_msgSend_layer(self->animatingCablingFrameView, v363, v364, v365);
+  objc_msgSend_addSublayer_(v366, v367, v356, v368);
+  objc_msgSend_sizeToFit(self->animatingCablingFrameView, v369, v370, v371);
+  objc_msgSend_startAnimatingCablingLayer(self, v372, v373, v374);
+  LODWORD(v375) = 1148846080;
+  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self, v376, 1, v377, v375);
+  LODWORD(v378) = 1148846080;
+  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self, v379, 0, v380, v378);
 }
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2);
-  objc_msgSend_removeAllAnimations(v4, v5, v6);
-  v7.receiver = self;
-  v7.super_class = InfoDiagramView;
-  [(InfoDiagramView *)&v7 dealloc];
+  v5 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2, v3);
+  objc_msgSend_removeAllAnimations(v5, v6, v7, v8);
+  v9.receiver = self;
+  v9.super_class = InfoDiagramView;
+  [(InfoDiagramView *)&v9 dealloc];
 }
 
 - (void)setWANConnectedBaseLabelString:(id)string
 {
-  objc_msgSend_setText_(self->wanConnectedBaseLabel, a2, string);
-  objc_msgSend_sizeToFit(self->wanConnectedBaseLabel, v4, v5);
+  objc_msgSend_setText_(self->wanConnectedBaseLabel, a2, string, v3);
+  objc_msgSend_sizeToFit(self->wanConnectedBaseLabel, v5, v6, v7);
   wanConnectedBaseLabel = self->wanConnectedBaseLabel;
 
-  objc_msgSend_setNeedsLayout(wanConnectedBaseLabel, v6, v7);
+  objc_msgSend_setNeedsLayout(wanConnectedBaseLabel, v8, v9, v10);
 }
 
 - (void)startAnimatingCablingLayer
 {
-  v4 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2);
-  if (!objc_msgSend_animationForKey_(v4, v5, @"fadeAnimation"))
+  v5 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2, v3);
+  if (!objc_msgSend_animationForKey_(v5, v6, @"fadeAnimation", v7))
   {
-    v8 = objc_msgSend_layer(self->animatingCablingFrameView, v6, v7);
-    objc_msgSend_setOpacity_(v8, v9, v10, 0.0);
-    v12 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v11, @"opacity");
-    LODWORD(v13) = 2139095040;
-    objc_msgSend_setRepeatCount_(v12, v14, v15, v13);
-    objc_msgSend_setAutoreverses_(v12, v16, 1);
-    objc_msgSend_setDuration_(v12, v17, v18, 0.5);
-    LODWORD(v19) = 1.0;
-    v22 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v20, v21, v19);
-    objc_msgSend_setToValue_(v12, v23, v22);
-    v26 = objc_msgSend_layer(self->animatingCablingFrameView, v24, v25);
+    v11 = objc_msgSend_layer(self->animatingCablingFrameView, v8, v9, v10);
+    objc_msgSend_setOpacity_(v11, v12, v13, v14, 0.0);
+    v17 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9E10], v15, @"opacity", v16);
+    LODWORD(v18) = 2139095040;
+    objc_msgSend_setRepeatCount_(v17, v19, v20, v21, v18);
+    objc_msgSend_setAutoreverses_(v17, v22, 1, v23);
+    objc_msgSend_setDuration_(v17, v24, v25, v26, 0.5);
+    LODWORD(v27) = 1.0;
+    v31 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v28, v29, v30, v27);
+    objc_msgSend_setToValue_(v17, v32, v31, v33);
+    v37 = objc_msgSend_layer(self->animatingCablingFrameView, v34, v35, v36);
 
-    MEMORY[0x2821F9670](v26, sel_addAnimation_forKey_, v12);
+    MEMORY[0x2821F9670](v37, sel_addAnimation_forKey_, v17, @"fadeAnimation");
   }
 }
 
 - (void)stopAnimatingCablingLayer
 {
-  v3 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2);
+  v4 = objc_msgSend_layer(self->animatingCablingFrameView, a2, v2, v3);
 
-  MEMORY[0x2821F9670](v3, sel_removeAnimationForKey_, @"fadeAnimation");
+  MEMORY[0x2821F9670](v4, sel_removeAnimationForKey_, @"fadeAnimation", v5);
 }
 
 - (CGPoint)internetPoint
 {
-  objc_msgSend_frame(self->broadbandImageView, a2, v2);
-  x = v7.origin.x;
-  v4 = CGRectGetMaxY(v7) + 20.0;
-  v5 = x;
-  result.y = v4;
-  result.x = v5;
+  objc_msgSend_frame(self->broadbandImageView, a2, v2, v3);
+  x = v8.origin.x;
+  v5 = CGRectGetMaxY(v8) + 20.0;
+  v6 = x;
+  result.y = v5;
+  result.x = v6;
   return result;
 }
 
 - (CGPoint)broadbandInPoint
 {
-  objc_msgSend_frame(self->broadbandImageView, a2, v2);
-  v8 = 65.5;
+  objc_msgSend_frame(self->broadbandImageView, a2, v2, v3);
+  v9 = 65.5;
   if (self->sizeClass == 1)
   {
-    v8 = 36.0;
+    v9 = 36.0;
   }
 
-  v9 = v4 + v8;
-  MaxY = CGRectGetMaxY(*&v4);
-  v11 = 14.0;
+  v10 = v5 + v9;
+  MaxY = CGRectGetMaxY(*&v5);
+  v12 = 14.0;
   if (self->sizeClass == 1)
   {
-    v11 = 10.0;
+    v12 = 10.0;
   }
 
-  v12 = MaxY - v11;
-  v13 = v9;
-  result.y = v12;
-  result.x = v13;
+  v13 = MaxY - v12;
+  v14 = v10;
+  result.y = v13;
+  result.x = v14;
   return result;
 }
 
 - (CGPoint)broadbandOutPoint
 {
-  objc_msgSend_frame(self->broadbandImageView, a2, v2);
-  v4 = v10.origin.x + dbl_23EC21CF0[self->sizeClass == 1];
-  MaxY = CGRectGetMaxY(v10);
-  v6 = 14.0;
+  objc_msgSend_frame(self->broadbandImageView, a2, v2, v3);
+  v5 = v11.origin.x + dbl_23EC21CF0[self->sizeClass == 1];
+  MaxY = CGRectGetMaxY(v11);
+  v7 = 14.0;
   if (self->sizeClass == 1)
   {
-    v6 = 10.0;
+    v7 = 10.0;
   }
 
-  v7 = MaxY - v6;
-  v8 = v4;
-  result.y = v7;
-  result.x = v8;
+  v8 = MaxY - v7;
+  v9 = v5;
+  result.y = v8;
+  result.x = v9;
   return result;
 }
 
 - (CGPoint)wanConnectedBaseWANPoint
 {
-  objc_msgSend_frame(self->wanConnectedBaseImageView, a2, v2);
-  v4 = v10.origin.x + dbl_23EC21D00[self->sizeClass == 1];
-  MaxY = CGRectGetMaxY(v10);
-  v6 = 14.0;
+  objc_msgSend_frame(self->wanConnectedBaseImageView, a2, v2, v3);
+  v5 = v11.origin.x + dbl_23EC21D00[self->sizeClass == 1];
+  MaxY = CGRectGetMaxY(v11);
+  v7 = 14.0;
   if (self->sizeClass == 1)
   {
-    v6 = 11.0;
+    v7 = 11.0;
   }
 
-  v7 = MaxY - v6;
-  v8 = v4;
-  result.y = v7;
-  result.x = v8;
+  v8 = MaxY - v7;
+  v9 = v5;
+  result.y = v8;
+  result.x = v9;
   return result;
 }
 
 - (CGPoint)swapArcLineStartPoint
 {
-  objc_msgSend_frame(self->replacementBaseImageView, a2, v2);
-  x = v19.origin.x;
-  y = v19.origin.y;
-  width = v19.size.width;
-  height = v19.size.height;
-  MaxX = CGRectGetMaxX(v19);
-  objc_msgSend_informationDiagramBaseImageRightEdgeInset_small_(ImageStore, v9, self->replacementProductID, self->sizeClass == 1);
-  v11 = MaxX - v10 + 10.0;
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  CGRectGetMidY(v20);
+  objc_msgSend_frame(self->replacementBaseImageView, a2, v2, v3);
+  x = v21.origin.x;
+  y = v21.origin.y;
+  width = v21.size.width;
+  height = v21.size.height;
+  MaxX = CGRectGetMaxX(v21);
+  objc_msgSend_informationDiagramBaseImageRightEdgeInset_small_(ImageStore, v10, self->replacementProductID, self->sizeClass == 1);
+  v12 = MaxX - v11 + 10.0;
+  v22.origin.x = x;
+  v22.origin.y = y;
+  v22.size.width = width;
+  v22.size.height = height;
+  CGRectGetMidY(v22);
 
-  v15 = sub_23EB7AD5C(v11, v12, v13, v14);
-  result.y = v16;
-  result.x = v15;
+  v17 = sub_23EB7AD5C(v12, v13, v14, v15, v16);
+  result.y = v18;
+  result.x = v17;
   return result;
 }
 
 - (CGPoint)swapArcLineEndPoint
 {
-  objc_msgSend_frame(self->wanConnectedBaseImageView, a2, v2);
-  x = v19.origin.x;
-  y = v19.origin.y;
-  width = v19.size.width;
-  height = v19.size.height;
-  MaxX = CGRectGetMaxX(v19);
-  objc_msgSend_informationDiagramBaseImageRightEdgeInset_small_(ImageStore, v9, self->wanBaseProductID, self->sizeClass == 1);
-  v11 = MaxX - v10 + 13.0;
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  CGRectGetMidY(v20);
+  objc_msgSend_frame(self->wanConnectedBaseImageView, a2, v2, v3);
+  x = v21.origin.x;
+  y = v21.origin.y;
+  width = v21.size.width;
+  height = v21.size.height;
+  MaxX = CGRectGetMaxX(v21);
+  objc_msgSend_informationDiagramBaseImageRightEdgeInset_small_(ImageStore, v10, self->wanBaseProductID, self->sizeClass == 1);
+  v12 = MaxX - v11 + 13.0;
+  v22.origin.x = x;
+  v22.origin.y = y;
+  v22.size.width = width;
+  v22.size.height = height;
+  CGRectGetMidY(v22);
 
-  v15 = sub_23EB7AD5C(v11, v12, v13, v14);
-  result.y = v16;
-  result.x = v15;
+  v17 = sub_23EB7AD5C(v12, v13, v14, v15, v16);
+  result.y = v18;
+  result.x = v17;
   return result;
 }
 
 - (CGPoint)swapArcControlPoint
 {
-  objc_msgSend_swapArcLineStartPoint(self, a2, v2);
-  v5 = v4;
-  v8 = objc_msgSend_swapArcLineEndPoint(self, v6, v7);
-  if (v5 >= v11)
+  objc_msgSend_swapArcLineStartPoint(self, a2, v2, v3);
+  v6 = v5;
+  v10 = objc_msgSend_swapArcLineEndPoint(self, v7, v8, v9);
+  if (v6 >= v14)
   {
-    v11 = v5;
+    v14 = v6;
   }
 
-  v12 = 50.0;
+  v15 = 50.0;
   if (self->sizeClass == 2)
   {
-    v12 = 60.0;
+    v15 = 60.0;
   }
 
-  v13 = v11 + v12;
+  v16 = v14 + v15;
 
-  v14 = sub_23EB7AD5C(v13, v8, v9, v10);
-  result.y = v15;
-  result.x = v14;
+  v17 = sub_23EB7AD5C(v16, v10, v11, v12, v13);
+  result.y = v18;
+  result.x = v17;
   return result;
 }
 
 - (CGPoint)swapArcControlPoint1
 {
-  objc_msgSend_swapArcLineStartPoint(self, a2, v2);
-  v5 = v4;
-  v8 = objc_msgSend_swapArcLineEndPoint(self, v6, v7);
-  if (v5 >= v11)
+  objc_msgSend_swapArcLineStartPoint(self, a2, v2, v3);
+  v6 = v5;
+  v10 = objc_msgSend_swapArcLineEndPoint(self, v7, v8, v9);
+  if (v6 >= v14)
   {
-    v11 = v5;
+    v14 = v6;
   }
 
-  v12 = 40.0;
+  v15 = 40.0;
   if (self->sizeClass == 2)
   {
-    v12 = 50.0;
+    v15 = 50.0;
   }
 
-  v13 = v11 + v12;
+  v16 = v14 + v15;
 
-  v14 = sub_23EB7AD5C(v13, v8, v9, v10);
-  result.y = v15;
-  result.x = v14;
+  v17 = sub_23EB7AD5C(v16, v10, v11, v12, v13);
+  result.y = v18;
+  result.x = v17;
   return result;
 }
 
 - (CGPoint)swapArcControlPoint2
 {
-  objc_msgSend_swapArcLineStartPoint(self, a2, v2);
-  v5 = v4;
-  v8 = objc_msgSend_swapArcLineEndPoint(self, v6, v7);
-  if (v5 >= v11)
+  objc_msgSend_swapArcLineStartPoint(self, a2, v2, v3);
+  v6 = v5;
+  v10 = objc_msgSend_swapArcLineEndPoint(self, v7, v8, v9);
+  if (v6 >= v14)
   {
-    v11 = v5;
+    v14 = v6;
   }
 
-  v12 = 40.0;
+  v15 = 40.0;
   if (self->sizeClass == 2)
   {
-    v12 = 50.0;
+    v15 = 50.0;
   }
 
-  v13 = v11 + v12;
+  v16 = v14 + v15;
 
-  v14 = sub_23EB7AD5C(v13, v8, v9, v10);
-  result.y = v15;
-  result.x = v14;
+  v17 = sub_23EB7AD5C(v16, v10, v11, v12, v13);
+  result.y = v18;
+  result.x = v17;
   return result;
 }
 

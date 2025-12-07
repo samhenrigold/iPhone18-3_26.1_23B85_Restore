@@ -61,18 +61,17 @@
 void __80__FALocationSharingHook__invokeLocationServicesWithServerAttributes_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10 = +[_TtC14FamilyCircleUI17LocationViewModel createModel];
+  v9 = +[_TtC14FamilyCircleUI17LocationViewModel createModel];
   v4 = [[FAProfilePictureStore alloc] initWithFamilyCircle:v3];
 
-  v5 = [_TtC14FamilyCircleUI34FASwiftUIHostingControllerProvider getLocationViewControllerWithViewModel:v10 pictureStore:v4 hackfromObjC:1];
-  v6 = *(*(*(a1 + 32) + 8) + 40);
+  v5 = [_TtC14FamilyCircleUI34FASwiftUIHostingControllerProvider getLocationViewControllerWithViewModel:v9 pictureStore:v4 hackfromObjC:1];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [*(*(*(a1 + 32) + 8) + 40) isDismissing])
   {
-    v7 = [*(*(*(a1 + 32) + 8) + 40) hostViewController];
-    v8 = *(*(a1 + 32) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v6 = [*(*(*(a1 + 32) + 8) + 40) hostViewController];
+    v7 = *(*(a1 + 32) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
   }
 
   [*(*(*(a1 + 32) + 8) + 40) showViewController:v5 sender:0];

@@ -138,8 +138,8 @@
 
   else
   {
-    v10 = MessageProtectionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [NGMPublicDeviceIdentity identityData];
     }
@@ -155,10 +155,10 @@
   toCopy = to;
   v5 = [[NGMPBPublicDeviceIdentity alloc] initWithData:toCopy];
 
-  if (!v5 || ([(NGMPBPublicDeviceIdentity *)v5 signingKey], v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
+  if (!v5 || ([(NGMPBPublicDeviceIdentity *)v5 signingKey], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
   {
-    v16 = MessageProtectionLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = MessageProtectionLog(v6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [NGMPublicDeviceIdentity isIdenticalIdentityTo:];
     }
@@ -169,39 +169,39 @@
   signingKey = [(NGMPublicDeviceIdentity *)self signingKey];
   dataRepresentation = [signingKey dataRepresentation];
   signingKey2 = [(NGMPBPublicDeviceIdentity *)v5 signingKey];
-  v10 = [dataRepresentation isEqualToData:signingKey2];
+  v11 = [dataRepresentation isEqualToData:signingKey2];
 
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v16 = MessageProtectionLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = MessageProtectionLog(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [NGMPublicDeviceIdentity isIdenticalIdentityTo:];
     }
 
 LABEL_13:
-    v17 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
   tetraRegistration = [(NGMPublicDeviceIdentity *)self tetraRegistration];
-  if (!tetraRegistration || (v12 = tetraRegistration, -[NGMPublicDeviceIdentity tetraRegistration](self, "tetraRegistration"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 tetraVersion], v15 = -[NGMPBPublicDeviceIdentity tetraVersion](v5, "tetraVersion"), v13, v12, v14 >= v15))
+  if (!tetraRegistration || (v14 = tetraRegistration, -[NGMPublicDeviceIdentity tetraRegistration](self, "tetraRegistration"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 tetraVersion], v17 = -[NGMPBPublicDeviceIdentity tetraVersion](v5, "tetraVersion"), v15, v14, v16 >= v17))
   {
-    v17 = 1;
+    v20 = 1;
     goto LABEL_15;
   }
 
-  v16 = MessageProtectionLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v19 = MessageProtectionLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [NGMPublicDeviceIdentity isIdenticalIdentityTo:];
   }
 
-  v17 = 1;
+  v20 = 1;
 LABEL_14:
 
 LABEL_15:
-  return v17;
+  return v20;
 }
 
 - (id)prekeyData
@@ -226,7 +226,7 @@ LABEL_15:
 
     if (!prekey)
     {
-      v19 = 0;
+      v21 = 0;
       goto LABEL_17;
     }
 
@@ -245,41 +245,41 @@ LABEL_15:
 
     data = [(NGMPBPublicDevicePrekey *)v3 data];
     identityData = [(NGMPublicDeviceIdentity *)self identityData];
-    v22 = 0;
-    v17 = [NGMPublicDeviceIdentity identityWithIdentityData:identityData prekeyData:data error:&v22];
-    v18 = v22;
+    v24 = 0;
+    v18 = [NGMPublicDeviceIdentity identityWithIdentityData:identityData prekeyData:data error:&v24];
+    v19 = v24;
 
-    if (v18 || !v17)
+    if (v19 || !v18)
     {
-      v20 = MessageProtectionLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = MessageProtectionLog(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [(NGMPublicDeviceIdentity *)v18 prekeyData];
+        [(NGMPublicDeviceIdentity *)v19 prekeyData];
       }
 
-      v19 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v19 = data;
+      v21 = data;
     }
   }
 
   else
   {
-    data = MessageProtectionLog();
+    data = MessageProtectionLog(v6);
     if (os_log_type_enabled(data, OS_LOG_TYPE_ERROR))
     {
       [NGMPublicDeviceIdentity prekeyData];
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
 LABEL_17:
 
-  return v19;
+  return v21;
 }
 
 - (BOOL)verifySignature:(id)signature formatter:(id)formatter
@@ -303,103 +303,69 @@ LABEL_17:
 
 - (BOOL)isTetraCompatibleWithFullKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   tetraRegistration = self->_tetraRegistration;
-  if (!tetraRegistration)
-  {
-    goto LABEL_5;
-  }
-
-  if (![_TtC17MessageProtection13TetraVersions isWireCompatibleWith:[(TetraRegistration *)tetraRegistration tetraVersion]])
-  {
-    goto LABEL_5;
-  }
-
-  devicePrekeys = [keyCopy devicePrekeys];
-  lastObject = [devicePrekeys lastObject];
-  tetraRegistration = [lastObject tetraRegistration];
-  v9 = +[TetraVersions isWireCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isWireCompatibleWith:", [tetraRegistration tetraVersion]);
-
-  if (v9)
+  if (tetraRegistration && (tetraRegistration = +[TetraVersions isWireCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isWireCompatibleWith:", [tetraRegistration tetraVersion]), tetraRegistration) && (objc_msgSend(keyCopy, "devicePrekeys"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "lastObject"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "tetraRegistration"), v8 = objc_claimAutoreleasedReturnValue(), v9 = +[TetraVersions isWireCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isWireCompatibleWith:", objc_msgSend(v8, "tetraVersion")), v8, v7, v6, v9))
   {
     v10 = 1;
   }
 
   else
   {
-LABEL_5:
-    v11 = MessageProtectionLog();
+    v11 = MessageProtectionLog(tetraRegistration);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       tetraVersion = [(TetraRegistration *)self->_tetraRegistration tetraVersion];
-      devicePrekeys2 = [keyCopy devicePrekeys];
-      lastObject2 = [devicePrekeys2 lastObject];
-      tetraRegistration2 = [lastObject2 tetraRegistration];
-      v18[0] = 67109632;
-      v18[1] = tetraVersion;
-      v19 = 1024;
-      tetraVersion2 = [tetraRegistration2 tetraVersion];
-      v21 = 1024;
-      v22 = +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
-      _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, "Their remote registered Tetra version (%u), our registered Tetra version (%d) and our software version (%u) are different.", v18, 0x14u);
+      devicePrekeys = [keyCopy devicePrekeys];
+      lastObject = [devicePrekeys lastObject];
+      tetraRegistration = [lastObject tetraRegistration];
+      v17[0] = 67109632;
+      v17[1] = tetraVersion;
+      v18 = 1024;
+      tetraVersion2 = [tetraRegistration tetraVersion];
+      v20 = 1024;
+      v21 = +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
+      _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, "Their remote registered Tetra version (%u), our registered Tetra version (%d) and our software version (%u) are different.", v17, 0x14u);
     }
 
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)isTetraNoRatchetCompatibleWithFullKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   tetraRegistration = self->_tetraRegistration;
-  if (!tetraRegistration)
-  {
-    goto LABEL_5;
-  }
-
-  if (![_TtC17MessageProtection13TetraVersions isTetraNoRatchetCompatibleWith:[(TetraRegistration *)tetraRegistration tetraVersion]])
-  {
-    goto LABEL_5;
-  }
-
-  devicePrekeys = [keyCopy devicePrekeys];
-  lastObject = [devicePrekeys lastObject];
-  tetraRegistration = [lastObject tetraRegistration];
-  v9 = +[TetraVersions isTetraNoRatchetCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isTetraNoRatchetCompatibleWith:", [tetraRegistration tetraVersion]);
-
-  if (v9)
+  if (tetraRegistration && (tetraRegistration = +[TetraVersions isTetraNoRatchetCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isTetraNoRatchetCompatibleWith:", [tetraRegistration tetraVersion]), tetraRegistration) && (objc_msgSend(keyCopy, "devicePrekeys"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "lastObject"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "tetraRegistration"), v8 = objc_claimAutoreleasedReturnValue(), v9 = +[TetraVersions isTetraNoRatchetCompatibleWith:](_TtC17MessageProtection13TetraVersions, "isTetraNoRatchetCompatibleWith:", objc_msgSend(v8, "tetraVersion")), v8, v7, v6, v9))
   {
     v10 = 1;
   }
 
   else
   {
-LABEL_5:
-    v11 = MessageProtectionLog();
+    v11 = MessageProtectionLog(tetraRegistration);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       tetraVersion = [(TetraRegistration *)self->_tetraRegistration tetraVersion];
-      devicePrekeys2 = [keyCopy devicePrekeys];
-      lastObject2 = [devicePrekeys2 lastObject];
-      tetraRegistration2 = [lastObject2 tetraRegistration];
-      v18[0] = 67109632;
-      v18[1] = tetraVersion;
-      v19 = 1024;
-      tetraVersion2 = [tetraRegistration2 tetraVersion];
-      v21 = 1024;
-      v22 = +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
-      _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, "(TetraNoRatchet) Their remote registered Tetra version (%u), our registered Tetra version (%d) and our software version (%u) are different.", v18, 0x14u);
+      devicePrekeys = [keyCopy devicePrekeys];
+      lastObject = [devicePrekeys lastObject];
+      tetraRegistration = [lastObject tetraRegistration];
+      v17[0] = 67109632;
+      v17[1] = tetraVersion;
+      v18 = 1024;
+      tetraVersion2 = [tetraRegistration tetraVersion];
+      v20 = 1024;
+      v21 = +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
+      _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, "(TetraNoRatchet) Their remote registered Tetra version (%u), our registered Tetra version (%d) and our software version (%u) are different.", v17, 0x14u);
     }
 
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -407,7 +373,7 @@ LABEL_5:
 {
   identityCopy = identity;
   messageCopy = message;
-  v10 = MessageProtectionLog();
+  v10 = MessageProtectionLog(messageCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [NGMPublicDeviceIdentity sealMessage:signedByFullIdentity:error:];
@@ -546,7 +512,7 @@ LABEL_19:
 {
   identityCopy = identity;
   messageCopy = message;
-  v13 = MessageProtectionLog();
+  v13 = MessageProtectionLog(messageCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [NGMPublicDeviceIdentity sealMessage:forceSizeOptimizations:resetState:encryptedAttributes:signedByFullIdentity:errors:];
@@ -587,7 +553,7 @@ LABEL_19:
   tokenCopy = token;
   rICopy = rI;
   pushTokenCopy = pushToken;
-  v19 = MessageProtectionLog();
+  v19 = MessageProtectionLog(pushTokenCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = [dataCopy base64EncodedStringWithOptions:0];
@@ -610,7 +576,8 @@ LABEL_19:
 
   if (dataCopy)
   {
-    v39 = [dataCopy length] != 0;
+    v23 = [dataCopy length];
+    v39 = v23 != 0;
     if (dCopy)
     {
       goto LABEL_5;
@@ -623,7 +590,8 @@ LABEL_19:
     if (dCopy)
     {
 LABEL_5:
-      v23 = [(__CFString *)dCopy isEqualToString:&stru_283F0C6E8]^ 1;
+      v23 = [(__CFString *)dCopy isEqualToString:&stru_283F0C6E8];
+      v24 = v23 ^ 1;
       if (iCopy)
       {
         goto LABEL_6;
@@ -633,11 +601,12 @@ LABEL_5:
     }
   }
 
-  LOBYTE(v23) = 0;
+  v24 = 0;
   if (iCopy)
   {
 LABEL_6:
-    v24 = [(__CFString *)iCopy isEqualToString:&stru_283F0C6E8];
+    v23 = [(__CFString *)iCopy isEqualToString:&stru_283F0C6E8];
+    v25 = v23;
     if (tokenCopy)
     {
       goto LABEL_7;
@@ -647,18 +616,19 @@ LABEL_6:
   }
 
 LABEL_12:
-  v24 = 1;
+  v25 = 1;
   if (tokenCopy)
   {
 LABEL_7:
-    v25 = [tokenCopy length] == 0;
+    v23 = [tokenCopy length];
+    v26 = v23 == 0;
     if (rICopy)
     {
       goto LABEL_8;
     }
 
 LABEL_14:
-    LOBYTE(v26) = 0;
+    v27 = 0;
     if (pushTokenCopy)
     {
       goto LABEL_9;
@@ -668,29 +638,31 @@ LABEL_14:
   }
 
 LABEL_13:
-  v25 = 1;
+  v26 = 1;
   if (!rICopy)
   {
     goto LABEL_14;
   }
 
 LABEL_8:
-  v26 = [(__CFString *)rICopy isEqualToString:&stru_283F0C6E8]^ 1;
+  v23 = [(__CFString *)rICopy isEqualToString:&stru_283F0C6E8];
+  v27 = v23 ^ 1;
   if (pushTokenCopy)
   {
 LABEL_9:
-    v27 = [pushTokenCopy length] != 0;
+    v23 = [pushTokenCopy length];
+    v28 = v23 != 0;
     goto LABEL_16;
   }
 
 LABEL_15:
-  v27 = 0;
+  v28 = 0;
 LABEL_16:
-  v28 = ((v39 & v23 ^ 1 | v24 | v25) ^ 1) & v26 & v27;
-  if ((v28 & 1) == 0)
+  v29 = ((v39 & v24 ^ 1 | v25 | v26) ^ 1) & v27 & v28;
+  if ((v29 & 1) == 0)
   {
-    v29 = MessageProtectionLog();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v30 = MessageProtectionLog(v23);
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
 LABEL_18:
 
@@ -707,7 +679,7 @@ LABEL_18:
       v32 = [dataCopy description];
     }
 
-    if (v23)
+    if (v24)
     {
       v38 = @"Valid";
     }
@@ -770,7 +742,7 @@ LABEL_18:
     v50 = 2112;
     v34 = v33;
     v51 = v33;
-    _os_log_fault_impl(&dword_22B404000, v29, OS_LOG_TYPE_FAULT, "Invalid Tetra binding argument: {authenticatedData = %@, guid = %@, sendingURI = %@, sendingPushToken = %@, receivingURI = %@, receivingPushToken = %@}", buf, 0x3Eu);
+    _os_log_fault_impl(&dword_22B404000, v30, OS_LOG_TYPE_FAULT, "Invalid Tetra binding argument: {authenticatedData = %@, guid = %@, sendingURI = %@, sendingPushToken = %@, receivingURI = %@, receivingPushToken = %@}", buf, 0x3Eu);
     if (pushTokenCopy)
     {
       if (rICopy)
@@ -810,7 +782,7 @@ LABEL_48:
     if (iCopy)
     {
 LABEL_42:
-      if (v23)
+      if (v24)
       {
         goto LABEL_44;
       }
@@ -820,7 +792,7 @@ LABEL_42:
 
 LABEL_49:
 
-    if (v23)
+    if (v24)
     {
 LABEL_44:
       if (!v39)
@@ -837,8 +809,7 @@ LABEL_43:
 
 LABEL_19:
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v28 & 1;
+  return v29 & 1;
 }
 
 - (BOOL)markForStateResetWithOurURI:(id)i ourPushToken:(id)token ourSigningIdentity:(id)identity theirURI:(id)rI theirPushToken:(id)pushToken
@@ -888,7 +859,7 @@ LABEL_19:
     }
   }
 
-  v32 = MessageProtectionLog();
+  v32 = MessageProtectionLog(tetraRegistration);
   if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     [NGMPublicDeviceIdentity markForStateResetWithOurURI:ourPushToken:ourSigningIdentity:theirURI:theirPushToken:];
@@ -922,8 +893,9 @@ LABEL_9:
   v30 = guidCopy;
   v31 = pushTokenCopy;
   v32 = [(NGMPublicDeviceIdentity *)self validateTetraBindingsAuthenticatedData:dataCopy GUID:v28 sendingURI:iCopy sendingPushToken:v29 receivingURI:rICopy receivingPushToken:pushTokenCopy];
-  v33 = MessageProtectionLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v33 = v32;
+  v34 = MessageProtectionLog(v32);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
     v63 = v30;
@@ -931,37 +903,36 @@ LABEL_9:
     v65 = v26;
     v66 = 1024;
     v67 = v27;
-    _os_log_impl(&dword_22B404000, v33, OS_LOG_TYPE_INFO, "Sealing message with GUID: %@. secondaryDisabled=%d, secondaryRegistrationDisabled=%d", buf, 0x18u);
+    _os_log_impl(&dword_22B404000, v34, OS_LOG_TYPE_INFO, "Sealing message with GUID: %@. secondaryDisabled=%d, secondaryRegistrationDisabled=%d", buf, 0x18u);
   }
 
-  v34 = _os_feature_enabled_impl();
+  v35 = _os_feature_enabled_impl();
   selfCopy = self;
-  v36 = v31;
-  if (v26 & 1 | ![(NGMPublicDeviceIdentity *)self isTetraCompatibleWithFullKey:identityCopy]|| !v32)
+  v37 = v31;
+  if (v26 & 1 | ![(NGMPublicDeviceIdentity *)self isTetraCompatibleWithFullKey:identityCopy]|| ((v33 ^ 1) & 1) != 0)
   {
     goto LABEL_15;
   }
 
-  if (([(NGMPublicDeviceIdentity *)self messageTypeRequiresNoRatcheting:type]& v34) == 1)
+  if (([(NGMPublicDeviceIdentity *)self messageTypeRequiresNoRatcheting:type]& v35) == 1)
   {
-    v37 = [(NGMPublicDeviceIdentity *)self isTetraNoRatchetCompatibleWithFullKey:identityCopy];
-    if (!type || v37)
+    v38 = [(NGMPublicDeviceIdentity *)self isTetraNoRatchetCompatibleWithFullKey:identityCopy];
+    if (!type || v38)
     {
 LABEL_10:
       if ([(NGMPublicDeviceIdentity *)self messageTypeRequiresNoRatcheting:type])
       {
         v61 = 0;
-        v38 = [_TtC17MessageProtection8TetraAPI sealNoRatchetWithMessage:messageCopy authenticatedData:v57 sendingURI:v56 sendingPushToken:v55 receivingURI:rICopy receivingPushToken:v31 encryptedAttributes:attributesCopy receiverIdentity:self senderIdentity:identityCopy error:&v61];
-        v39 = v61;
-        v40 = 0;
-        if (v39)
+        v39 = [_TtC17MessageProtection8TetraAPI sealNoRatchetWithMessage:messageCopy authenticatedData:v57 sendingURI:v56 sendingPushToken:v55 receivingURI:rICopy receivingPushToken:v31 encryptedAttributes:attributesCopy receiverIdentity:self senderIdentity:identityCopy error:&v61];
+        v40 = v61;
+        v41 = 0;
+        if (v40)
         {
 LABEL_12:
-          [*errors setObject:v39 forKey:&unk_283F13B50];
-          v41 = MessageProtectionLog();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v42 = MessageProtectionLog([*errors setObject:v40 forKey:&unk_283F13B50]);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
-            [NGMPublicDeviceIdentity sealMessage:v39 authenticatedData:v40 messageType:v41 guid:? sendingURI:? sendingPushToken:? receivingURI:? receivingPushToken:? forceSizeOptimizations:? resetState:? encryptedAttributes:? signedByFullIdentity:? errors:?];
+            [NGMPublicDeviceIdentity sealMessage:v40 authenticatedData:v41 messageType:v42 guid:? sendingURI:? sendingPushToken:? receivingURI:? receivingPushToken:? forceSizeOptimizations:? resetState:? encryptedAttributes:? signedByFullIdentity:? errors:?];
           }
 
           goto LABEL_15;
@@ -975,23 +946,23 @@ LABEL_12:
         tetraWrapped = [deviceSigningKey tetraWrapped];
         v60 = 0;
         LOBYTE(v51) = state;
-        v38 = [_TtC17MessageProtection8TetraAPI sealWithMessage:messageCopy authenticatedData:v57 guid:v30 sendingURI:v56 sendingPushToken:v55 receivingURI:rICopy receivingPushToken:v31 receiverRegistration:tetraRegistration encryptedAttributes:attributesCopy resetState:v51 signedBy:tetraWrapped error:&v60];
-        v39 = v60;
+        v39 = [_TtC17MessageProtection8TetraAPI sealWithMessage:messageCopy authenticatedData:v57 guid:v30 sendingURI:v56 sendingPushToken:v55 receivingURI:rICopy receivingPushToken:v31 receiverRegistration:tetraRegistration encryptedAttributes:attributesCopy resetState:v51 signedBy:tetraWrapped error:&v60];
+        v40 = v60;
 
-        v40 = 1;
-        if (v39)
+        v41 = 1;
+        if (v40)
         {
           goto LABEL_12;
         }
       }
 
-      v44 = NoError();
-      [*errors setObject:v44 forKey:&unk_283F13B50];
+      v45 = NoError();
+      [*errors setObject:v45 forKey:&unk_283F13B50];
       v50 = objc_alloc_init(NGMPBOuterMessage);
-      [(NGMPBOuterMessage *)v50 setTetraMessage:v38];
+      [(NGMPBOuterMessage *)v50 setTetraMessage:v39];
       data = [(NGMPBOuterMessage *)v50 data];
 
-      v42 = messageCopy;
+      v43 = messageCopy;
       goto LABEL_18;
     }
   }
@@ -1003,18 +974,16 @@ LABEL_12:
 
 LABEL_15:
   v59 = 0;
-  v42 = messageCopy;
+  v43 = messageCopy;
   data = [(NGMPublicDeviceIdentity *)selfCopy sealMessage:messageCopy withEncryptedAttributes:attributesCopy signedByFullIdentity:identityCopy error:&v59];
-  v44 = v59;
-  if (!v44)
+  v45 = v59;
+  if (!v45)
   {
-    v44 = NoError();
+    v45 = NoError();
   }
 
-  [*errors setObject:v44 forKey:&unk_283F13B38];
+  [*errors setObject:v45 forKey:&unk_283F13B38];
 LABEL_18:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -1058,26 +1027,22 @@ LABEL_18:
 
 - (void)prekeyData
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [self description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Attempting to register an invalidly signed public key: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Attempting to register an invalidly signed public key: %@", &v4, 0xCu);
 }
 
 - (void)sealMessage:(NSObject *)a3 authenticatedData:messageType:guid:sendingURI:sendingPushToken:receivingURI:receivingPushToken:forceSizeOptimizations:resetState:encryptedAttributes:signedByFullIdentity:errors:.cold.1(void *a1, int a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 debugDescription];
-  v7[0] = 67109378;
-  v7[1] = a2;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_error_impl(&dword_22B404000, a3, OS_LOG_TYPE_ERROR, "Tetra encryption (TetraRatchet = %d) failed, allowing fallback on Echnida. {tetraError=%@}", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109378;
+  v6[1] = a2;
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_22B404000, a3, OS_LOG_TYPE_ERROR, "Tetra encryption (TetraRatchet = %d) failed, allowing fallback on Echnida. {tetraError=%@}", v6, 0x12u);
 }
 
 @end

@@ -98,7 +98,7 @@
 
 - (void)_generateItemListAndSizesDictIfNecessary
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   remainingItemLists = [(NMSMediaItemGroupIterator *)self remainingItemLists];
 
   if (!remainingItemLists)
@@ -112,29 +112,29 @@
     v8 = [(NMLogActionsCoalescer *)v5 initWithIdentifier:v6 logCategory:v7];
 
     v9 = [@"[MediaQuota]" stringByAppendingString:@" Building item list"];
-    v29 = v8;
+    v28 = v8;
     [(NMLogActionsCoalescer *)v8 setPrefix:v9];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = self->_itemGroups;
-    v30 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v30)
+    v29 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v29)
     {
       v10 = 0;
-      v28 = *v36;
+      v27 = *v35;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v36 != v28)
+          if (*v35 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v35 + 1) + 8 * i);
+          v12 = *(*(&v34 + 1) + 8 * i);
           itemList = [v12 itemList];
           if ([itemList count])
           {
@@ -142,33 +142,33 @@
             v15 = [MEMORY[0x277CBEB18] arrayWithArray:itemList];
             [remainingItemLists2 addObject:v15];
 
-            v33 = 0u;
-            v34 = 0u;
-            v31 = 0u;
             v32 = 0u;
+            v33 = 0u;
+            v30 = 0u;
+            v31 = 0u;
             v16 = itemList;
-            v17 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v32;
+              v19 = *v31;
               do
               {
                 for (j = 0; j != v18; ++j)
                 {
-                  if (*v32 != v19)
+                  if (*v31 != v19)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  v21 = *(*(&v31 + 1) + 8 * j);
+                  v21 = *(*(&v30 + 1) + 8 * j);
                   if (([v21 isManuallyAdded] & 1) == 0)
                   {
                     self->_nominatedItemSize += [v21 size];
                   }
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+                v18 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
               }
 
               while (v18);
@@ -187,19 +187,17 @@
           }
 
           v25 = [NMGenericMessageLogAction logActionWithMessage:v24];
-          [(NMLogActionsCoalescer *)v29 addLogAction:v25];
+          [(NMLogActionsCoalescer *)v28 addLogAction:v25];
         }
 
-        v30 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v29 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v30);
+      while (v29);
     }
 
-    [(NMLogActionsCoalescer *)v29 flush];
+    [(NMLogActionsCoalescer *)v28 flush];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentItem
@@ -385,39 +383,38 @@ LABEL_7:
 
 - (id)identifiersForContainersOfType:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   itemGroups = [(NMSMediaItemGroupIterator *)self itemGroups];
-  v7 = [itemGroups countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [itemGroups countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(itemGroups);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) identifiersForContainerType:type];
+        v11 = [*(*(&v14 + 1) + 8 * i) identifiersForContainerType:type];
         [array addObjectsFromArray:v11];
       }
 
-      v8 = [itemGroups countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [itemGroups countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

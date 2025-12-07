@@ -70,19 +70,18 @@ id __40__WFWordPressBlog_blogIdJSONTransformer__block_invoke(uint64_t a1, void *
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[5] = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"url";
+  v4[1] = @"endpointURL";
   v5[0] = @"url";
-  v5[1] = @"endpointURL";
-  v6[0] = @"url";
-  v6[1] = @"xmlrpc";
-  v5[2] = @"blogId";
+  v5[1] = @"xmlrpc";
+  v4[2] = @"blogId";
+  v4[3] = @"blogName";
+  v5[2] = @"blogid";
   v5[3] = @"blogName";
-  v6[2] = @"blogid";
-  v6[3] = @"blogName";
+  v4[4] = @"isAdmin";
   v5[4] = @"isAdmin";
-  v6[4] = @"isAdmin";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:5];
 
   return v2;
 }

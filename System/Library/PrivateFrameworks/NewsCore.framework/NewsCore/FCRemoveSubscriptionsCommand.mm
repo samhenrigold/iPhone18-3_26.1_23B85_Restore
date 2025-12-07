@@ -53,13 +53,13 @@ id __54__FCRemoveSubscriptionsCommand_initWithSubscriptions___block_invoke(uint6
 
 - (FCRemoveSubscriptionsCommand)initWithSubscription:(id)subscription
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   v5 = subscriptionCopy;
   if (subscriptionCopy)
   {
-    v10[0] = subscriptionCopy;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = subscriptionCopy;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v7 = [(FCRemoveSubscriptionsCommand *)self initWithSubscriptions:v6];
   }
 
@@ -68,7 +68,6 @@ id __54__FCRemoveSubscriptionsCommand_initWithSubscriptions___block_invoke(uint6
     v7 = [(FCRemoveSubscriptionsCommand *)self initWithSubscriptions:MEMORY[0x1E695E0F0]];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

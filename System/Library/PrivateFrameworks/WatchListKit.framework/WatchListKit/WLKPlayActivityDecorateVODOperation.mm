@@ -58,7 +58,7 @@
   v14 = passthroughCopy;
   if (!passthroughCopy)
   {
-    v15 = WLKSystemLogObject();
+    v15 = WLKSystemLogObject(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [WLKPlayActivityDecorateVODOperation initWithExternalId:idCopy brandId:brandIdCopy hlsAssetDuration:v15 playablePassthrough:?];
@@ -86,7 +86,7 @@
 
 - (void)processResponse
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   responseDictionary = [(WLKUTSNetworkRequestOperation *)self responseDictionary];
   if (responseDictionary)
   {
@@ -97,15 +97,15 @@
       if (v4)
       {
         compoundId = self->_compoundId;
-        v10[0] = v4;
-        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&compoundId count:1];
+        v9[0] = v4;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&compoundId count:1];
         p_super = &self->_metadataByIdentifier->super;
         self->_metadataByIdentifier = v6;
       }
 
       else
       {
-        p_super = WLKSystemLogObject();
+        p_super = WLKSystemLogObject(0);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           [(WLKPlayActivityDecorateVODOperation *)p_super processResponse];
@@ -115,26 +115,23 @@
 
     else
     {
-      p_super = WLKSystemLogObject();
+      p_super = WLKSystemLogObject(v4);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [(WLKPlayActivityDecorateVODOperation *)p_super processResponse];
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithExternalId:(os_log_t)log brandId:hlsAssetDuration:playablePassthrough:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_272A0F000, log, OS_LOG_TYPE_ERROR, "WLKPlayActivityDecorateVODOperation - Playable passthrough is nil for externalID - %@ and brandID - %@, we can still proceed with decorate call", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_272A0F000, log, OS_LOG_TYPE_ERROR, "WLKPlayActivityDecorateVODOperation - Playable passthrough is nil for externalID - %@ and brandID - %@, we can still proceed with decorate call", &v3, 0x16u);
 }
 
 @end

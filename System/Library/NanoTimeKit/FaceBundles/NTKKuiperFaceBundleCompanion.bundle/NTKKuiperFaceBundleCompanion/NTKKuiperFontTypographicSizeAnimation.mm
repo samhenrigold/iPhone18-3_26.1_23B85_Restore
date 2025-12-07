@@ -11,7 +11,7 @@
     sub_797C();
   }
 
-  v4 = NTKKuiperMaximumTypographicSize();
+  v4 = NTKKuiperMaximumTypographicSize(self, a2);
   v5 = v4;
   v7 = v6;
   fractionCopy = fraction;

@@ -49,7 +49,7 @@
 
 + (id)objectWithName:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [ConfigurationHandler objectForName:nameCopy];
   if (!v4)
@@ -72,22 +72,20 @@ LABEL_7:
   {
     v6 = nameCopy;
     v7 = v5;
-    v11 = 136315138;
+    v10 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v11, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v10, 0xCu);
   }
 
   v8 = 0;
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)configureClass:(id)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v5 = [classCopy objectForKey:@"TRIGGER_EVENT"];
   if (v5)
@@ -112,22 +110,20 @@ LABEL_8:
     {
       v10 = v9;
       v11 = [classCopy description];
-      v14 = 136315138;
+      v13 = 136315138;
       uTF8String = [v11 UTF8String];
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v13, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (int)configureInstance:(id)instance
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   v5 = [instanceCopy objectForKey:@"TRIGGERED_SIGNATURES"];
   if (!v5)
@@ -150,37 +146,37 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v5;
-  v49 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-  if (!v49)
+  v48 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
+  if (!v48)
   {
     goto LABEL_24;
   }
 
-  v50 = *v60;
-  v44 = instanceCopy;
-  v45 = v5;
+  v49 = *v59;
+  v43 = instanceCopy;
+  v44 = v5;
   selfCopy = self;
   while (2)
   {
-    for (i = 0; i != v49; ++i)
+    for (i = 0; i != v48; ++i)
     {
-      if (*v60 != v50)
+      if (*v59 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v59 + 1) + 8 * i);
+      v7 = *(*(&v58 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v39 = configurationLogHandle;
-        instanceCopy = v44;
-        v5 = v45;
+        instanceCopy = v43;
+        v5 = v44;
         if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -204,8 +200,8 @@ LABEL_57:
 
 LABEL_58:
 
-        instanceCopy = v44;
-        v5 = v45;
+        instanceCopy = v43;
+        v5 = v44;
 LABEL_59:
 
         goto LABEL_60;
@@ -225,29 +221,29 @@ LABEL_59:
         goto LABEL_58;
       }
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v9 = self->symptomRules;
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v55 objects:v66 count:16];
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v54 objects:v65 count:16];
       if (v10)
       {
         v11 = v10;
         v12 = 0;
-        v13 = *v56;
+        v13 = *v55;
         while (2)
         {
           v14 = 0;
           v15 = v12;
           do
           {
-            if (*v56 != v13)
+            if (*v55 != v13)
             {
               objc_enumerationMutation(v9);
             }
 
-            v12 = *(*(&v55 + 1) + 8 * v14);
+            v12 = *(*(&v54 + 1) + 8 * v14);
 
             signatureName = [v12 signatureName];
             v17 = [signatureName isEqualToString:v8];
@@ -264,7 +260,7 @@ LABEL_59:
           }
 
           while (v11 != v14);
-          v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v55 objects:v66 count:16];
+          v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v54 objects:v65 count:16];
           if (v11)
           {
             continue;
@@ -282,10 +278,10 @@ LABEL_22:
       [v12 configureInstance:v7];
     }
 
-    instanceCopy = v44;
-    v5 = v45;
-    v49 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-    if (v49)
+    instanceCopy = v43;
+    v5 = v44;
+    v48 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
+    if (v48)
     {
       continue;
     }
@@ -301,29 +297,29 @@ LABEL_25:
   if (v18)
   {
     selfCopy2 = self;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v21 = v18;
-    v22 = [v21 countByEnumeratingWithState:&v51 objects:v65 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v50 objects:v64 count:16];
     if (v22)
     {
       v23 = v22;
-      v46 = v5;
+      v45 = v5;
       v24 = instanceCopy;
-      v25 = *v52;
+      v25 = *v51;
       symptomAdditionalHandlers = selfCopy2->symptomAdditionalHandlers;
       while (2)
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v52 != v25)
+          if (*v51 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v51 + 1) + 8 * j);
+          v28 = *(*(&v50 + 1) + 8 * j);
           v29 = [ConfigurationHandler classRepresentativeForName:v28];
           if (!v29)
           {
@@ -334,7 +330,7 @@ LABEL_25:
               v37 = v35;
               uTF8String = [v28 UTF8String];
               *buf = 136315138;
-              v64 = uTF8String;
+              v63 = uTF8String;
               _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_ERROR, "Cant find preconfigured instance for %s", buf, 0xCu);
             }
 
@@ -361,7 +357,7 @@ LABEL_25:
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v51 objects:v65 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v50 objects:v64 count:16];
         if (v23)
         {
           continue;
@@ -373,7 +369,7 @@ LABEL_25:
       v33 = 0;
 LABEL_46:
       instanceCopy = v24;
-      v5 = v46;
+      v5 = v45;
     }
 
     else
@@ -388,7 +384,6 @@ LABEL_46:
   }
 
 LABEL_61:
-  v42 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -420,7 +415,7 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
 
 + (void)postIncomingEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   eventKey = [eventCopy eventKey];
   v5 = evaluationLogHandle;
@@ -428,9 +423,9 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
   {
     v6 = eventKey;
     v7 = v5;
-    v18 = 136315138;
+    v17 = 136315138;
     uTF8String = [eventKey UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Simple Processing, postIncomingEvent key %s", &v18, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Simple Processing, postIncomingEvent key %s", &v17, 0xCu);
   }
 
   v8 = [evaluatorDictionary objectForKey:eventKey];
@@ -441,8 +436,8 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
     v10 = evaluationLogHandle;
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Simple Processing, postSymptom exit\n", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Simple Processing, postSymptom exit\n", &v17, 2u);
     }
   }
 
@@ -456,25 +451,23 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
       uTF8String2 = [eventKey UTF8String];
       processId = [eventCopy processId];
       processName = [eventCopy processName];
-      v18 = 136315650;
+      v17 = 136315650;
       uTF8String = uTF8String2;
-      v20 = 2048;
-      v21 = processId;
-      v22 = 2080;
-      v23 = processName;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "No Evaluator for incoming symptom %s from pid %lld %s", &v18, 0x20u);
+      v19 = 2048;
+      v20 = processId;
+      v21 = 2080;
+      v22 = processName;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "No Evaluator for incoming symptom %s from pid %lld %s", &v17, 0x20u);
     }
 
     v9 = +[SimpleSymptomEvaluator _defaultEvaluator];
     [evaluatorDictionary setObject:v9 forKey:eventKey];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluateIncomingEvent:(id)event
 {
-  *&v24[5] = *MEMORY[0x277D85DE8];
+  *&v23[5] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (self->symptomSaveFlags)
   {
@@ -485,7 +478,7 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
   symptomAdditionalHandlers = self->symptomAdditionalHandlers;
   v8 = 1;
   *&v5 = 136315138;
-  v22 = v5;
+  v21 = v5;
   do
   {
     if (!symptomAdditionalHandlers[v6])
@@ -501,13 +494,13 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
       v12 = [(SymptomAdditionalProtocol *)v10 description];
       uTF8String = [v12 UTF8String];
       *buf = 67109378;
-      v24[0] = v6;
-      LOWORD(v24[1]) = 2080;
-      *(&v24[1] + 2) = uTF8String;
+      v23[0] = v6;
+      LOWORD(v23[1]) = 2080;
+      *(&v23[1] + 2) = uTF8String;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Call handler %d, %s", buf, 0x12u);
     }
 
-    if (([(SymptomAdditionalProtocol *)symptomAdditionalHandlers[v6] noteSymptom:eventCopy, v22]& 1) == 0)
+    if (([(SymptomAdditionalProtocol *)symptomAdditionalHandlers[v6] noteSymptom:eventCopy, v21]& 1) == 0)
     {
       v14 = evaluationLogHandle;
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
@@ -515,8 +508,8 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
         v15 = v14;
         v16 = [eventCopy description];
         uTF8String2 = [v16 UTF8String];
-        *buf = v22;
-        *v24 = uTF8String2;
+        *buf = v21;
+        *v23 = uTF8String2;
         _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "note symptom stage requests skip of evaluate for event %s", buf, 0xCu);
       }
 
@@ -534,7 +527,7 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
     do
     {
       v20 = v19;
-      v19 = [(NSMutableArray *)self->symptomRules objectAtIndex:v18, v22];
+      v19 = [(NSMutableArray *)self->symptomRules objectAtIndex:v18, v21];
 
       [v19 evaluateSignatureForEvent:eventCopy];
       ++v18;
@@ -542,8 +535,6 @@ uint64_t __43__SimpleSymptomEvaluator__defaultEvaluator__block_invoke(uint64_t a
 
     while ([(NSMutableArray *)self->symptomRules count]> v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

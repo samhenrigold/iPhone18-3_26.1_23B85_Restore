@@ -53,7 +53,7 @@ LABEL_7:
 - (id)description
 {
   __ret = 0;
-  v3 = printf_domain();
+  v3 = printf_domain(self, a2);
   asxprintf(&__ret, v3, 0, "NWSUDPSource %N<->%N@%I", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex);
   if (__ret)
   {
@@ -71,22 +71,22 @@ LABEL_7:
 
 - (NWStatisticsUDPSource)initWithManager:(id)manager local:(const sockaddr *)local remote:(const sockaddr *)remote
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v25.receiver = self;
-  v25.super_class = NWStatisticsUDPSource;
-  v9 = [(NWStatisticsSource *)&v25 initWithManager:managerCopy source:0 provider:4];
+  v20.receiver = self;
+  v20.super_class = NWStatisticsUDPSource;
+  v9 = [(NWStatisticsSource *)&v20 initWithManager:managerCopy source:0 provider:4];
   if (!v9)
   {
     goto LABEL_5;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v38 = 0u;
-  LODWORD(v39) = 4;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
+  LODWORD(v34) = 4;
   if (local->sa_len > 0x1CuLL)
   {
     goto LABEL_5;
@@ -99,7 +99,7 @@ LABEL_7:
     {
 LABEL_5:
       v10 = 0;
-      goto LABEL_22;
+      goto LABEL_25;
     }
 
     __memcpy_chk();
@@ -107,69 +107,79 @@ LABEL_5:
 
   else
   {
-    BYTE5(v41) = local->sa_family;
-    BYTE4(v41) = BYTE5(v41);
+    BYTE5(v36) = local->sa_family;
+    BYTE4(v36) = BYTE5(v36);
   }
 
-  v11 = [managerCopy addSource:v9 request:&v38 length:80];
-  v12 = NStatGetLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v11 = [managerCopy addSource:v9 request:&v33 length:80];
+  v12 = v11;
+  v13 = NStatGetLog(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    if (v11)
+    if (v12)
     {
-      v13 = "Created";
+      v14 = "Created";
     }
 
     else
     {
-      v13 = "Failed to create";
+      v14 = "Failed to create";
     }
 
     sa_len = local->sa_len;
     if (remote)
     {
-      v15 = remote->sa_len;
+      v16 = remote->sa_len;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     *buf = 134219266;
-    v27 = managerCopy;
-    v28 = 2080;
-    v29 = v13;
-    v30 = 1040;
-    v31 = sa_len;
-    v32 = 2096;
+    v22 = managerCopy;
+    v23 = 2080;
+    v24 = v14;
+    v25 = 1040;
+    v26 = sa_len;
+    v27 = 2096;
     localCopy = local;
-    v34 = 1040;
-    v35 = v15;
-    v36 = 2096;
+    v29 = 1040;
+    v30 = v16;
+    v31 = 2096;
     remoteCopy = remote;
-    _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_INFO, "Manager %p: %s UDP source for local address %{network:sockaddr}.*P, remote address %{network:sockaddr}.*P", buf, 0x36u);
+    _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_INFO, "Manager %p: %s UDP source for local address %{network:sockaddr}.*P, remote address %{network:sockaddr}.*P", buf, 0x36u);
   }
 
   if (([managerCopy mgrflags] & 0x80) != 0)
   {
-    NStatMgrTraceF(managerCopy, "%s Manager %p: %s UDP source for local address %N, remote address %N", v16, v17, v18, v19, v20, v21, "[NWStatisticsUDPSource initWithManager:local:remote:]");
+    if (v12)
+    {
+      v17 = "Created";
+    }
+
+    else
+    {
+      v17 = "Failed to create";
+    }
+
+    NStatMgrTraceF(managerCopy, "%s Manager %p: %s UDP source for local address %N, remote address %N", "[NWStatisticsUDPSource initWithManager:local:remote:]", managerCopy, v17, local, remote);
   }
 
-  if (v11)
+  if (v12)
   {
-    v22 = v9;
+    v18 = v9;
   }
 
   else
   {
-    v22 = 0;
+    v18 = 0;
   }
 
-  v10 = v22;
-LABEL_22:
+  v10 = v18;
+LABEL_25:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

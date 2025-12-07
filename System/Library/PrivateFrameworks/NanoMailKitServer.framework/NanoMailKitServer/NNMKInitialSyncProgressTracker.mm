@@ -76,7 +76,7 @@
 
 - (void)updateProgressWithMessageHeadersSent:(id)sent
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sentCopy = sent;
   if (self->_trackingInitialSync)
   {
@@ -84,9 +84,9 @@
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       v6 = v5;
-      v14 = 134217984;
-      v15 = [sentCopy count];
-      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Message headers will be sent. (Message count: %lu)", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = [sentCopy count];
+      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Message headers will be sent. (Message count: %lu)", &v13, 0xCu);
     }
 
     [(NNMKInitialSyncProgressTracker *)self cancelTimeout];
@@ -114,8 +114,6 @@
   }
 
   [(NNMKInitialSyncProgressTracker *)self incrementProgressBy:0.05];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProgressWithMessageHeadersArrivedInPairedDevice
@@ -135,7 +133,7 @@
 
 - (void)updateProgressWithMessageContentArrivedInPairedDevice:(id)device
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if ([(NSMutableSet *)self->_initialSyncMessageIdsOfContentToAck containsObject:deviceCopy])
   {
@@ -148,53 +146,49 @@
       v8 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = deviceCopy;
-        _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content Download for message. (%{public}@)", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = deviceCopy;
+        _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content Download for message. (%{public}@)", &v9, 0xCu);
       }
 
       [(NSMutableSet *)self->_initialSyncMessageIdsOfContentToAck removeObject:deviceCopy];
       [(NNMKInitialSyncProgressTracker *)self incrementProgressBy:0.4 / self->_initialSyncMessagesCount];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProgressWithMessageContentDownloadFailed:(id)failed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
   if ([(NSMutableSet *)self->_initialSyncMessageIdsOfContentToAck containsObject:failedCopy])
   {
     v5 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = failedCopy;
-      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content Download failed for message. (%{public}@)", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = failedCopy;
+      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content Download failed for message. (%{public}@)", &v6, 0xCu);
     }
 
     [(NNMKInitialSyncProgressTracker *)self updateProgressWithContentCompletelySyncedForMessageId:failedCopy];
     [(NSMutableSet *)self->_initialSyncMessageIdsOfContentToAck removeObject:failedCopy];
     [(NNMKInitialSyncProgressTracker *)self incrementProgressBy:0.4 / self->_initialSyncMessagesCount];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProgressWithContentCompletelySyncedForMessageId:(id)id
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([(NSMutableSet *)self->_initialSyncMessageIdsToSyncContent containsObject:idCopy])
   {
     v5 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = idCopy;
-      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content completely synced for message. (%{public}@)", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = idCopy;
+      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Content completely synced for message. (%{public}@)", &v6, 0xCu);
     }
 
     [(NSMutableSet *)self->_initialSyncMessageIdsToSyncContent removeObject:idCopy];
@@ -204,13 +198,11 @@
       [(NNMKInitialSyncProgressTracker *)self finishedSendingInitialSyncContentToPairedDevice];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedSendingInitialSyncContentToPairedDevice
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_trackingInitialSync && self->_trackingInitialSyncContent)
   {
     v3 = qword_28144D620;
@@ -220,9 +212,9 @@
       trackingInitialSyncContent = self->_trackingInitialSyncContent;
       v6 = v3;
       v7 = [v4 numberWithBool:trackingInitialSyncContent];
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Finished sending initial content to paired device. Waiting for ack... _trackingInitialSyncContent: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Finished sending initial content to paired device. Waiting for ack... _trackingInitialSyncContent: %{public}@", &v9, 0xCu);
     }
 
     [(NNMKInitialSyncProgressTracker *)self cancelTimeout];
@@ -232,8 +224,6 @@
     [(NNMKSyncStateManager *)self->_syncStateManager reportInitialSyncDidCompleteSending];
     self->_trackingInitialSyncContent = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCompleted
@@ -255,7 +245,7 @@
 
 - (void)syncFailedWithError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if ([(NNMKInitialSyncProgressTracker *)self isTrackingInitialSync])
   {
@@ -267,21 +257,19 @@
 
     syncStateManager = self->_syncStateManager;
     v7 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = errorCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = errorCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.NanoMail.InitialSyncError" code:1 userInfo:v8];
     [(NNMKSyncStateManager *)syncStateManager reportInitialSyncDidFailWithError:v9];
 
     [(NNMKInitialSyncProgressTracker *)self _handleInitialSyncCompleted];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementProgressBy:(double)by
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_trackingInitialSync)
   {
     v4 = self->_initialSyncProgress + by;
@@ -296,13 +284,11 @@
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       initialSyncProgress = self->_initialSyncProgress;
-      v8 = 134217984;
-      v9 = initialSyncProgress;
-      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Reported (%.2f).", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = initialSyncProgress;
+      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Initial sync progress - Reported (%.2f).", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInitialSyncCompleted

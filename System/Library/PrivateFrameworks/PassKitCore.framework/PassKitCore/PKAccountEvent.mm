@@ -44,9 +44,9 @@
     goto LABEL_10;
   }
 
-  v7 = [(__CFString *)recordType isEqualToString:@"AccountEvent"];
+  isEqualToString = objc_msgSend_isEqualToString_(recordType);
 
-  if (v7)
+  if (isEqualToString)
   {
 LABEL_8:
     v6 = [v4 pk_encryptedStringForKey:@"type"];
@@ -82,9 +82,9 @@ LABEL_11:
 
   if (recordType && @"AccountEvent")
   {
-    v7 = [(__CFString *)recordType isEqualToString:@"AccountEvent"];
+    isEqualToString = objc_msgSend_isEqualToString_(recordType);
 
-    if (!v7)
+    if (!isEqualToString)
     {
       goto LABEL_10;
     }
@@ -313,9 +313,9 @@ LABEL_13:
 
         if (@"Rewards" && recordType)
         {
-          v26 = [(__CFString *)recordType isEqualToString:@"Rewards"];
+          isEqualToString = objc_msgSend_isEqualToString_(recordType);
 
-          if (v26)
+          if (isEqualToString)
           {
             goto LABEL_13;
           }
@@ -337,7 +337,7 @@ LABEL_21:
 
         if (@"Statement" && v25)
         {
-          v30 = [(__CFString *)v28 isEqualToString:@"Statement"];
+          v30 = objc_msgSend_isEqualToString_(v28);
 
           if (v30)
           {
@@ -361,7 +361,7 @@ LABEL_29:
 
         if (@"Servicing" && v25)
         {
-          v33 = [(__CFString *)v31 isEqualToString:?];
+          v33 = objc_msgSend_isEqualToString_(v31);
 
           if (v33)
           {
@@ -396,7 +396,7 @@ LABEL_32:
 
         if (@"Payment" && v25)
         {
-          v37 = [(__CFString *)v35 isEqualToString:?];
+          v37 = objc_msgSend_isEqualToString_(v35);
 
           if (v37)
           {
@@ -431,7 +431,7 @@ LABEL_54:
 
         if (@"Transfer" && v25)
         {
-          v42 = [(__CFString *)v40 isEqualToString:?];
+          v42 = objc_msgSend_isEqualToString_(v40);
 
           if (v42)
           {
@@ -471,7 +471,7 @@ LABEL_62:
 
         if (@"AccountHold" && v25)
         {
-          v46 = [(__CFString *)v44 isEqualToString:?];
+          v46 = objc_msgSend_isEqualToString_(v44);
 
           if (v46)
           {
@@ -497,7 +497,7 @@ LABEL_30:
 
         if (@"PaymentReminder" && v25)
         {
-          v50 = [(__CFString *)v48 isEqualToString:?];
+          v50 = objc_msgSend_isEqualToString_(v48);
 
           if (v50)
           {
@@ -521,7 +521,7 @@ LABEL_81:
 
         if (@"CreditTermsUpdate" && v25)
         {
-          v53 = [(__CFString *)v51 isEqualToString:?];
+          v53 = objc_msgSend_isEqualToString_(v51);
 
           if (v53)
           {
@@ -545,7 +545,7 @@ LABEL_89:
 
         if (@"PhysicalCardStatusUpdate" && v25)
         {
-          v56 = [(__CFString *)v54 isEqualToString:?];
+          v56 = objc_msgSend_isEqualToString_(v54);
 
           if (v56)
           {
@@ -569,7 +569,7 @@ LABEL_97:
 
         if (@"PhysicalCardShippingUpdate" && v25)
         {
-          v59 = [(__CFString *)v57 isEqualToString:?];
+          v59 = objc_msgSend_isEqualToString_(v57);
 
           if (v59)
           {
@@ -593,7 +593,7 @@ LABEL_105:
 
         if (@"VirtualCardStatusUpdate" && v25)
         {
-          v62 = [(__CFString *)v60 isEqualToString:?];
+          v62 = objc_msgSend_isEqualToString_(v60);
 
           if (v62)
           {
@@ -617,7 +617,7 @@ LABEL_113:
 
         if (@"BillPaymentSelectedSuggestedAmount" && v25)
         {
-          v65 = [(__CFString *)v63 isEqualToString:?];
+          v65 = objc_msgSend_isEqualToString_(v63);
 
           if (v65)
           {
@@ -641,7 +641,7 @@ LABEL_121:
 
         if (@"UserInfo" && v25)
         {
-          v68 = [(__CFString *)v66 isEqualToString:?];
+          v68 = objc_msgSend_isEqualToString_(v66);
 
           if (v68)
           {
@@ -668,7 +668,7 @@ LABEL_129:
           goto LABEL_32;
         }
 
-        v70 = [(__CFString *)v69 isEqualToString:?];
+        v70 = objc_msgSend_isEqualToString_(v69);
 
         if (v70)
         {

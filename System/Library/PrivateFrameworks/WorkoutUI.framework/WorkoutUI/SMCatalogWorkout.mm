@@ -14,24 +14,26 @@
 - (SMContributor)narrator
 {
   selfCopy = self;
-  v3 = CatalogWorkoutBridge.narrator.getter();
+  CatalogWorkoutBridge.narrator.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSSet)artwork
 {
   selfCopy = self;
   v3 = CatalogWorkout.artwork.getter();
-  v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy11SeymourCore7ArtworkVG_9WorkoutUI0F6BridgeCs5NeverOTg503_s9g13UI07CatalogA6i16C7artworkShyAA07f10D0CGvgAF11D13Core0F0VXEfU_Tf1cn_nTm(v3, MEMORY[0x277D53A78], type metadata accessor for ArtworkBridge, &OBJC_IVAR___SMArtwork_artwork);
+  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy11SeymourCore7ArtworkVG_9WorkoutUI0F6BridgeCs5NeverOTg503_s9g13UI07CatalogA6i16C7artworkShyAA07f10D0CGvgAF11D13Core0F0VXEfU_Tf1cn_nTm(v3, MEMORY[0x277D53A78], type metadata accessor for ArtworkBridge, &OBJC_IVAR___SMArtwork_artwork);
+  v5 = v4;
 
-  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9WorkoutUI13ArtworkBridgeC_SayAFGTt0g5Tf4g_n(v4);
+  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9WorkoutUI13ArtworkBridgeC_SayAFGTt0g5Tf4g_n(v5);
 
-  type metadata accessor for ArtworkBridge();
+  type metadata accessor for ArtworkBridge(0);
   lazy protocol witness table accessor for type MediaMomentBridge and conformance NSObject(&lazy protocol witness table cache variable for type ArtworkBridge and conformance NSObject, type metadata accessor for ArtworkBridge);
-  v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v6.super.isa;
 }
 
 - (double)duration
@@ -49,7 +51,7 @@
   v3 = CatalogWorkout.musicTracks.getter();
   _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy11SeymourCore7ArtworkVG_9WorkoutUI0F6BridgeCs5NeverOTg503_s9g13UI07CatalogA6i16C7artworkShyAA07f10D0CGvgAF11D13Core0F0VXEfU_Tf1cn_nTm(v3, MEMORY[0x277D4FEC8], type metadata accessor for MusicTrackBridge, &OBJC_IVAR___SMMusicTrack_musicTrack);
 
-  type metadata accessor for MusicTrackBridge();
+  type metadata accessor for MusicTrackBridge(0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -57,7 +59,7 @@
 
 - (NSURL)musicPlaylistURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v14 - v4;
   selfCopy = self;
@@ -82,21 +84,22 @@
 {
   selfCopy = self;
   v3 = CatalogWorkout.mediaMoments.getter();
-  v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy11SeymourCore7ArtworkVG_9WorkoutUI0F6BridgeCs5NeverOTg503_s9g13UI07CatalogA6i16C7artworkShyAA07f10D0CGvgAF11D13Core0F0VXEfU_Tf1cn_nTm(v3, MEMORY[0x277D50018], type metadata accessor for MediaMomentBridge, &OBJC_IVAR___SMMediaMoment_mediaMoment);
+  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy11SeymourCore7ArtworkVG_9WorkoutUI0F6BridgeCs5NeverOTg503_s9g13UI07CatalogA6i16C7artworkShyAA07f10D0CGvgAF11D13Core0F0VXEfU_Tf1cn_nTm(v3, MEMORY[0x277D50018], type metadata accessor for MediaMomentBridge, &OBJC_IVAR___SMMediaMoment_mediaMoment);
+  v5 = v4;
 
-  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9WorkoutUI17MediaMomentBridgeC_SayAFGTt0g5Tf4g_n(v4);
+  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9WorkoutUI17MediaMomentBridgeC_SayAFGTt0g5Tf4g_n(v5, v6);
 
-  type metadata accessor for MediaMomentBridge();
+  type metadata accessor for MediaMomentBridge(0);
   lazy protocol witness table accessor for type MediaMomentBridge and conformance NSObject(&lazy protocol witness table cache variable for type MediaMomentBridge and conformance NSObject, type metadata accessor for MediaMomentBridge);
-  v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v7.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v7.super.isa;
 }
 
 - (NSNumber)mediaTypeRawValue
 {
   selfCopy = self;
-  v3 = CatalogWorkoutBridge.mediaTypeRawValue.getter();
+  v3 = CatalogWorkoutBridge.mediaTypeRawValue.getter(selfCopy);
 
   return v3;
 }

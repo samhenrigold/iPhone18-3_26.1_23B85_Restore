@@ -184,7 +184,7 @@
       v12 = v11;
       v14 = v13;
       v16 = v15;
-      [v7 transform];
+      objc_msgSend_transform(v7);
       v22.origin.x = v10;
       v22.origin.y = v12;
       v22.size.width = v14;

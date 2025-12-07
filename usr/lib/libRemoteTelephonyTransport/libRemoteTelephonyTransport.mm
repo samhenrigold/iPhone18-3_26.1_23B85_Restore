@@ -3,8 +3,7 @@ __n128 telephonytransport::TelephonyTransport::TelephonyTransport(uint64_t a1, _
   *a1 = &unk_2A1E9C7C0;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -52,7 +51,7 @@ uint64_t telephonytransport::NetworkIfaceParams::isValid(telephonytransport::Net
   return 1;
 }
 
-void telephonytransport::TCPSocketStream::create(telephonytransport *a1@<X0>, NSObject **a2@<X1>, void *a3@<X2>, int a4@<W3>, char *a5@<X4>, std::__shared_weak_count_vtbl **a6@<X8>)
+void telephonytransport::TCPSocketStream::create(telephonytransport *a1@<X0>, NSObject **a2@<X1>, void *a3@<X2>, int a4@<W3>, char *a5@<X4>, telephonytransport::TCPSocketStream **a6@<X8>)
 {
   if (!*a3)
   {
@@ -115,20 +114,20 @@ LABEL_3:
 
   telephonytransport::TCPSocketStream::TCPSocketStream(v12, a1, &v20, a3, a4, a5);
   v14 = operator new(0x20uLL);
-  v14->__vftable = &unk_2A1E9C900;
-  v14->__shared_owners_ = 0;
-  v14->__shared_weak_owners_ = 0;
-  v14[1].__vftable = v12;
+  *v14 = &unk_2A1E9C900;
+  v14[1] = 0;
+  v14[2] = 0;
+  v14[3] = v12;
   if (v13)
   {
     dispatch_release(v13);
   }
 
-  if (LODWORD(v12[1].__on_zero_shared) == 1 || (started = telephonytransport::TCPSocketStream::startReading(v12)))
+  if (*(v12 + 14) == 1 || (started = telephonytransport::TCPSocketStream::startReading(v12)))
   {
     *a6 = v12;
     a6[1] = v14;
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
   }
 
   else
@@ -147,9 +146,9 @@ LABEL_3:
   std::__shared_weak_count::__release_shared[abi:ne200100](v14);
 }
 
-uint64_t telephonytransport::TCPSocketStream::TCPSocketStream(uint64_t a1, uint64_t a2, dispatch_queue_t *a3, uint64_t a4, int a5, char *a6)
+uint64_t telephonytransport::TCPSocketStream::TCPSocketStream(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, int a5, char *a6)
 {
-  telephonytransport::OSLogHandle::create("tcpsockstream", a6, (a1 + 24));
+  telephonytransport::OSLogHandle::create((a1 + 24), "tcpsockstream", a6);
   *(a1 + 8) = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
@@ -403,7 +402,7 @@ void sub_29808E170(_Unwind_Exception *exception_object)
 BOOL telephonytransport::TCPSocketStream::write(telephonytransport::TCPSocketStream *this, const unsigned __int8 *a2, unint64_t a3)
 {
   v3 = this;
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (!*(this + 14))
   {
     v5 = *(this + 3);
@@ -422,8 +421,8 @@ BOOL telephonytransport::TCPSocketStream::write(telephonytransport::TCPSocketStr
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_fault_impl(&dword_29808D000, v3, OS_LOG_TYPE_FAULT, "Write is not supported", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_fault_impl(&dword_29808D000, v3, OS_LOG_TYPE_FAULT, "Write is not supported", &v16, 2u);
     }
 
     __break(1u);
@@ -432,9 +431,7 @@ BOOL telephonytransport::TCPSocketStream::write(telephonytransport::TCPSocketStr
   v6 = a3;
   if (!a3)
   {
-LABEL_15:
-    result = 1;
-    goto LABEL_16;
+    return 1;
   }
 
   v7 = a2;
@@ -451,7 +448,7 @@ LABEL_15:
 LABEL_14:
     if (v8 >= v6)
     {
-      goto LABEL_15;
+      return 1;
     }
   }
 
@@ -461,38 +458,36 @@ LABEL_14:
   }
 
   isa = v3[3].isa;
-  v12 = v3[4].isa;
-  if (v12)
+  v11 = v3[4].isa;
+  if (v11)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-    v14 = *isa;
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    v13 = *isa;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   else
   {
-    v14 = *isa;
+    v13 = *isa;
   }
 
-  result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+  result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    v15 = __error();
-    v16 = strerror(*v15);
-    v17 = 136315138;
-    v18 = v16;
-    _os_log_error_impl(&dword_29808D000, v14, OS_LOG_TYPE_ERROR, "Write failed: %s", &v17, 0xCu);
-    result = 0;
+    v14 = __error();
+    v15 = strerror(*v14);
+    v16 = 136315138;
+    v17 = v15;
+    _os_log_error_impl(&dword_29808D000, v13, OS_LOG_TYPE_ERROR, "Write failed: %s", &v16, 0xCu);
+    return 0;
   }
 
-LABEL_16:
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void ___ZN18telephonytransport15TCPSocketStream12startReadingEv_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -508,14 +503,14 @@ void ___ZN18telephonytransport15TCPSocketStream12startReadingEv_block_invoke(uin
         {
           if (*__error() != 35 && *__error() != 35)
           {
-            v11 = **(a1 + 64);
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            v10 = **(a1 + 64);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              v12 = __error();
-              v13 = strerror(*v12);
-              v14 = 136315138;
-              v15 = v13;
-              _os_log_error_impl(&dword_29808D000, v11, OS_LOG_TYPE_ERROR, "Error encountered while reading: %s", &v14, 0xCu);
+              v11 = __error();
+              v12 = strerror(*v11);
+              v13 = 136315138;
+              v14 = v12;
+              _os_log_error_impl(&dword_29808D000, v10, OS_LOG_TYPE_ERROR, "Error encountered while reading: %s", &v13, 0xCu);
             }
 
             exit(1);
@@ -524,11 +519,11 @@ void ___ZN18telephonytransport15TCPSocketStream12startReadingEv_block_invoke(uin
           v7 = **(a1 + 64);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
-            v9 = __error();
-            v10 = strerror(*v9);
-            v14 = 136315138;
-            v15 = v10;
-            _os_log_debug_impl(&dword_29808D000, v7, OS_LOG_TYPE_DEBUG, "Read issue: %s", &v14, 0xCu);
+            v8 = __error();
+            v9 = strerror(*v8);
+            v13 = 136315138;
+            v14 = v9;
+            _os_log_debug_impl(&dword_29808D000, v7, OS_LOG_TYPE_DEBUG, "Read issue: %s", &v13, 0xCu);
           }
         }
 
@@ -541,8 +536,6 @@ void ___ZN18telephonytransport15TCPSocketStream12startReadingEv_block_invoke(uin
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void *__copy_helper_block_e8_32c74_ZTSKNSt3__18weak_ptrIN18telephonytransport26TelephonyTransportDelegateEEE48c48_ZTSKNSt3__110shared_ptrINS_5arrayIhLm65536EEEEE64c62_ZTSKNSt3__110shared_ptrIN18telephonytransport11OSLogHandleEEE(void *result, void *a2)
@@ -695,7 +688,7 @@ uint64_t telephonytransport::getDefaultOSLogHandle(telephonytransport *this)
 {
   if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals))
   {
-    telephonytransport::OSLogHandle::create("default", &unk_2980B6DD9, &qword_2A13A5F78);
+    telephonytransport::OSLogHandle::create(&qword_2A13A5F78, "default", &unk_2980B6DD9);
     __cxa_atexit(std::shared_ptr<telephonytransport::OSLogHandle>::~shared_ptr[abi:ne200100], &qword_2A13A5F78, &dword_29808D000);
     __cxa_guard_release(&_MergedGlobals);
   }
@@ -716,9 +709,9 @@ uint64_t std::shared_ptr<telephonytransport::OSLogHandle>::~shared_ptr[abi:ne200
 
 uint64_t telephonytransport::getMacAddress(telephonytransport *this, char *a2, unsigned __int8 *a3)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v18 = 0;
-  v5 = getifaddrs(&v18);
+  v20 = *MEMORY[0x29EDCA608];
+  v17 = 0;
+  v5 = getifaddrs(&v17);
   if (v5)
   {
     v6 = *telephonytransport::getDefaultOSLogHandle(v5);
@@ -736,15 +729,15 @@ LABEL_15:
     goto LABEL_9;
   }
 
-  v10 = v18;
-  if (!v18)
+  v10 = v17;
+  if (!v17)
   {
 LABEL_8:
     v12 = *telephonytransport::getDefaultOSLogHandle(v5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = this;
+      v19 = this;
       v7 = "Couldn't find mac address for interface: %s";
       v8 = v12;
       v9 = 12;
@@ -775,18 +768,17 @@ LABEL_9:
     }
   }
 
-  v16 = &ifa_addr->sa_len + ifa_addr->sa_data[3];
-  v17 = *(v16 + 2);
-  *(a2 + 2) = *(v16 + 6);
-  *a2 = v17;
+  v15 = &ifa_addr->sa_len + ifa_addr->sa_data[3];
+  v16 = *(v15 + 2);
+  *(a2 + 2) = *(v15 + 6);
+  *a2 = v16;
   v13 = 1;
 LABEL_10:
-  if (v18)
+  if (v17)
   {
     MEMORY[0x29C2801B0]();
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -799,47 +791,47 @@ void telephonytransport::toString(const __CFString *this@<X0>, uint64_t a2@<X8>)
   {
     Length = CFStringGetLength(this);
     usedBufLen = 0xAAAAAAAAAAAAAAAALL;
-    v15.location = 0;
-    v15.length = Length;
-    Bytes = CFStringGetBytes(this, v15, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
+    v14.location = 0;
+    v14.length = Length;
+    Bytes = CFStringGetBytes(this, v14, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
     if (usedBufLen && Bytes != 0)
     {
       memset(__p, 170, sizeof(__p));
       std::vector<unsigned char>::vector[abi:ne200100](__p, usedBufLen);
-      v16.location = 0;
-      v16.length = Length;
-      if (CFStringGetBytes(this, v16, 0x8000100u, 0, 0, __p[0], __p[1] - __p[0], 0))
+      v15.location = 0;
+      v15.length = Length;
+      if (CFStringGetBytes(this, v15, 0x8000100u, 0, 0, __p[0], __p[1] - __p[0], 0))
       {
-        v8 = __p[0];
-        v9 = __p[1];
-        v10 = __p[1] - __p[0];
-        v11 = a2;
+        v7 = __p[0];
+        v8 = __p[1];
+        v9 = __p[1] - __p[0];
+        v10 = a2;
         if ((__p[1] - __p[0]) >= 0x17)
         {
-          std::string::__grow_by(a2, 0x16uLL, v10 - 22, 0, 0, 0, 0);
+          std::string::__grow_by(a2, 0x16uLL, v9 - 22, 0, 0, 0, 0);
           *(a2 + 8) = 0;
-          v11 = *a2;
+          v10 = *a2;
           if (*(a2 + 23) >= 0)
           {
-            v11 = a2;
+            v10 = a2;
           }
         }
 
-        while (v8 != v9)
+        while (v7 != v8)
         {
-          v12 = *v8++;
-          *v11++ = v12;
+          v11 = *v7++;
+          *v10++ = v11;
         }
 
-        *v11 = 0;
+        *v10 = 0;
         if (*(a2 + 23) < 0)
         {
-          *(a2 + 8) = v10;
+          *(a2 + 8) = v9;
         }
 
         else
         {
-          *(a2 + 23) = v10 & 0x7F;
+          *(a2 + 23) = v9 & 0x7F;
         }
       }
 
@@ -871,7 +863,7 @@ void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, size_t a2)
   {
     std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
     v4 = a1[1];
-    v5 = &v4[a2];
+    v5 = v4 + a2;
     bzero(v4, a2);
     a1[1] = v5;
   }
@@ -961,16 +953,16 @@ LABEL_16:
   dispatch_retain(v9);
   telephonytransport::TCPServer::TCPServer(v15, a1, &v20, a3, a4, a5, a6);
   v16 = operator new(0x20uLL);
-  v16->__vftable = &unk_2A1E9CA60;
-  v16->__shared_owners_ = 0;
-  v16->__shared_weak_owners_ = 0;
-  v16[1].__vftable = v15;
+  *v16 = &unk_2A1E9CA60;
+  v16[1] = 0;
+  v16[2] = 0;
+  v16[3] = v15;
   dispatch_release(v9);
   if (telephonytransport::TCPServer::init(v15) && telephonytransport::TCPServer::startServer(v15))
   {
     *a7 = v15;
     a7[1] = v16;
-    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
   }
 
   else
@@ -992,12 +984,12 @@ void sub_29808EEC4(_Unwind_Exception *a1)
 
 BOOL telephonytransport::TCPServer::init(telephonytransport::TCPServer *this)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v2 = socket(2, 1, 0);
-  telephonytransport::NetworkSocket::created(v2, v30);
+  telephonytransport::NetworkSocket::created(v29, v2);
   v3 = *(this + 13);
-  v4 = *v30;
-  *(this + 6) = *v30;
+  v4 = *v29;
+  *(this + 6) = *v29;
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
@@ -1025,17 +1017,16 @@ LABEL_11:
     result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      *v30 = 0;
+      *v29 = 0;
       v17 = "Failed to create socket";
       v18 = v13;
       v19 = 2;
 LABEL_40:
-      _os_log_error_impl(&dword_29808D000, v18, OS_LOG_TYPE_ERROR, v17, v30, v19);
-      result = 0;
-      goto LABEL_41;
+      _os_log_error_impl(&dword_29808D000, v18, OS_LOG_TYPE_ERROR, v17, v29, v19);
+      return 0;
     }
 
-    goto LABEL_41;
+    return result;
   }
 
   v5 = v4;
@@ -1057,101 +1048,20 @@ LABEL_3:
     result = telephonytransport::NetworkSocket::bindToInterface(v5, this + 40);
     if (!result)
     {
-      goto LABEL_41;
+      return result;
     }
   }
 
-  *&v33.sa_data[10] = 0;
-  *&v33.sa_data[2] = 0;
-  *v33.sa_data = bswap32(*(this + 44)) >> 16;
-  *&v33.sa_len = 528;
-  v9 = this + 64;
+  *&v32.sa_data[10] = 0;
+  *&v32.sa_data[2] = 0;
+  *v32.sa_data = bswap32(*(this + 44)) >> 16;
+  *&v32.sa_len = 528;
+  v9 = (this + 64);
   if (*(this + 87) < 0)
   {
     if (!*(this + 9))
     {
-LABEL_16:
-      result = telephonytransport::NetworkSocket::setNonBlockingAndNoSigpipe(*(this + 12));
-      if (result)
-      {
-        result = telephonytransport::NetworkSocket::enablePortReuse(*(this + 12));
-        if (result)
-        {
-          if (bind(*(*(this + 12) + 16), &v33, 0x10u))
-          {
-            v15 = *this;
-            v14 = *(this + 1);
-            if (v14)
-            {
-              atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-              v16 = *v15;
-              std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-            }
-
-            else
-            {
-              v16 = *v15;
-            }
-
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-            {
-              if (*(this + 87) < 0)
-              {
-                v9 = *v9;
-              }
-
-              v29 = *(this + 22);
-              if (*(this + 63) < 0)
-              {
-                v7 = *v7;
-              }
-
-              *v30 = 136315650;
-              *&v30[4] = v9;
-              *&v30[12] = 1024;
-              *&v30[14] = v29;
-              v31 = 2080;
-              v32 = v7;
-              _os_log_error_impl(&dword_29808D000, v16, OS_LOG_TYPE_ERROR, "Unable to bind to %s:%u - %s", v30, 0x1Cu);
-            }
-
-            v24 = *this;
-            v23 = *(this + 1);
-            if (v23)
-            {
-              atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-              v25 = *v24;
-              std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-            }
-
-            else
-            {
-              v25 = *v24;
-            }
-
-            result = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-            if (result)
-            {
-              v26 = __error();
-              v27 = strerror(*v26);
-              *v30 = 136315138;
-              *&v30[4] = v27;
-              v17 = "%s";
-              v18 = v25;
-LABEL_39:
-              v19 = 12;
-              goto LABEL_40;
-            }
-          }
-
-          else
-          {
-            result = 1;
-          }
-        }
-      }
-
-      goto LABEL_41;
+      goto LABEL_16;
     }
 
     v10 = *v9;
@@ -1162,11 +1072,89 @@ LABEL_39:
     v10 = this + 64;
     if (!*(this + 87))
     {
-      goto LABEL_16;
+LABEL_16:
+      result = telephonytransport::NetworkSocket::setNonBlockingAndNoSigpipe(*(this + 12));
+      if (result)
+      {
+        result = telephonytransport::NetworkSocket::enablePortReuse(*(this + 12));
+        if (result)
+        {
+          if (!bind(*(*(this + 12) + 16), &v32, 0x10u))
+          {
+            return 1;
+          }
+
+          v15 = *this;
+          v14 = *(this + 1);
+          if (v14)
+          {
+            atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+            v16 = *v15;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+          }
+
+          else
+          {
+            v16 = *v15;
+          }
+
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          {
+            if (*(this + 87) < 0)
+            {
+              v9 = *v9;
+            }
+
+            v28 = *(this + 22);
+            if (*(this + 63) < 0)
+            {
+              v7 = *v7;
+            }
+
+            *v29 = 136315650;
+            *&v29[4] = v9;
+            *&v29[12] = 1024;
+            *&v29[14] = v28;
+            v30 = 2080;
+            v31 = v7;
+            _os_log_error_impl(&dword_29808D000, v16, OS_LOG_TYPE_ERROR, "Unable to bind to %s:%u - %s", v29, 0x1Cu);
+          }
+
+          v24 = *this;
+          v23 = *(this + 1);
+          if (v23)
+          {
+            atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+            v25 = *v24;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+          }
+
+          else
+          {
+            v25 = *v24;
+          }
+
+          result = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          if (result)
+          {
+            v26 = __error();
+            v27 = strerror(*v26);
+            *v29 = 136315138;
+            *&v29[4] = v27;
+            v17 = "%s";
+            v18 = v25;
+LABEL_39:
+            v19 = 12;
+            goto LABEL_40;
+          }
+        }
+      }
+
+      return result;
     }
   }
 
-  if (inet_pton(2, v10, &v33.sa_data[2]) == 1)
+  if (inet_pton(2, v10, &v32.sa_data[2]) == 1)
   {
     goto LABEL_16;
   }
@@ -1193,21 +1181,19 @@ LABEL_39:
       v9 = *v9;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = v9;
+    *v29 = 136315138;
+    *&v29[4] = v9;
     v17 = "Invalid address: %s";
     v18 = v22;
     goto LABEL_39;
   }
 
-LABEL_41:
-  v28 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL telephonytransport::TCPServer::startServer(telephonytransport::TCPServer *this)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   if (listen(*(*(this + 12) + 16), 5))
   {
     v3 = *this;
@@ -1226,25 +1212,25 @@ BOOL telephonytransport::TCPServer::startServer(telephonytransport::TCPServer *t
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v27 = (this + 64);
+      v26 = (this + 64);
       if (*(this + 87) < 0)
       {
-        v27 = *v27;
+        v26 = *v26;
       }
 
-      v28 = *(this + 22);
-      v29 = (this + 40);
+      v27 = *(this + 22);
+      v28 = (this + 40);
       if (*(this + 63) < 0)
       {
-        v29 = *v29;
+        v28 = *v28;
       }
 
       *buf = 136315650;
-      *&buf[4] = v27;
+      *&buf[4] = v26;
       *&buf[12] = 1024;
-      *&buf[14] = v28;
+      *&buf[14] = v27;
       *&buf[18] = 2080;
-      *&buf[20] = v29;
+      *&buf[20] = v28;
       _os_log_error_impl(&dword_29808D000, v4, OS_LOG_TYPE_ERROR, "Failed to listen for %s:%u - %s", buf, 0x1Cu);
     }
 
@@ -1265,20 +1251,19 @@ BOOL telephonytransport::TCPServer::startServer(telephonytransport::TCPServer *t
     result = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_34;
+      return result;
     }
 
-    v30 = __error();
-    v31 = strerror(*v30);
+    v29 = __error();
+    v30 = strerror(*v29);
     *buf = 136315138;
-    *&buf[4] = v31;
-    v24 = "%s";
-    v25 = v19;
-    v26 = 12;
+    *&buf[4] = v30;
+    v23 = "%s";
+    v24 = v19;
+    v25 = 12;
 LABEL_46:
-    _os_log_error_impl(&dword_29808D000, v25, OS_LOG_TYPE_ERROR, v24, buf, v26);
-    result = 0;
-    goto LABEL_34;
+    _os_log_error_impl(&dword_29808D000, v24, OS_LOG_TYPE_ERROR, v23, buf, v25);
+    return 0;
   }
 
   v5 = dispatch_source_create(MEMORY[0x29EDCA5B8], *(*(this + 12) + 16), 0, *(this + 4));
@@ -1292,30 +1277,30 @@ LABEL_46:
 
   if (!v5)
   {
-    v22 = *this;
-    v21 = *(this + 1);
-    if (v21)
+    v21 = *this;
+    v20 = *(this + 1);
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-      v23 = *v22;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      v22 = *v21;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
     else
     {
-      v23 = *v22;
+      v22 = *v21;
     }
 
-    result = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+    result = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_34;
+      return result;
     }
 
     *buf = 0;
-    v24 = "Unable to create accept source";
-    v25 = v23;
-    v26 = 2;
+    v23 = "Unable to create accept source";
+    v24 = v22;
+    v25 = 2;
     goto LABEL_46;
   }
 
@@ -1340,15 +1325,15 @@ LABEL_46:
   handler[2] = ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke;
   handler[3] = &__block_descriptor_tmp_1;
   handler[4] = v8;
-  v34 = v9;
+  v33 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v37 = v7;
-  v35 = v10;
-  v36 = v11;
+  v36 = v7;
+  v34 = v10;
+  v35 = v11;
   if (v11)
   {
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1361,36 +1346,36 @@ LABEL_46:
   *&buf[24] = __Block_byref_object_copy__0;
   v14 = *(this + 12);
   v13 = *(this + 13);
-  v39 = __Block_byref_object_dispose__0;
-  v40 = v14;
-  v41 = v13;
+  v38 = __Block_byref_object_dispose__0;
+  v39 = v14;
+  v40 = v13;
   if (v13)
   {
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v15 = *(this + 14);
-  v32[0] = MEMORY[0x29EDCA5F8];
-  v32[1] = 1107296256;
-  v32[2] = ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke_2;
-  v32[3] = &__block_descriptor_tmp_3;
-  v32[4] = buf;
-  dispatch_source_set_cancel_handler(v15, v32);
+  v31[0] = MEMORY[0x29EDCA5F8];
+  v31[1] = 1107296256;
+  v31[2] = ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke_2;
+  v31[3] = &__block_descriptor_tmp_3;
+  v31[4] = buf;
+  dispatch_source_set_cancel_handler(v15, v31);
   dispatch_resume(*(this + 14));
   _Block_object_dispose(buf, 8);
-  if (v41)
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
   }
 
-  if (v36)
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
 
-  if (v34)
+  if (v33)
   {
-    std::__shared_weak_count::__release_weak(v34);
+    std::__shared_weak_count::__release_weak(v33);
   }
 
   if (v11)
@@ -1403,15 +1388,12 @@ LABEL_46:
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  result = 1;
-LABEL_34:
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
-uint64_t telephonytransport::TCPServer::TCPServer(uint64_t a1, uint64_t a2, NSObject **a3, __int128 *a4, __int128 *a5, int a6, char *a7)
+uint64_t telephonytransport::TCPServer::TCPServer(uint64_t a1, uint64_t a2, const char *a3, __int128 *a4, __int128 *a5, int a6, char *a7)
 {
-  telephonytransport::OSLogHandle::create("tcpserver", a7, a1);
+  telephonytransport::OSLogHandle::create(a1, "tcpserver", a7);
   *(a1 + 16) = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
@@ -1491,7 +1473,7 @@ void telephonytransport::TCPServer::~TCPServer(telephonytransport::TCPServer *th
 
 void ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -1502,13 +1484,13 @@ void ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke(uint64_t a1
       v5 = *(a1 + 32);
       if (v5)
       {
+        v10 = 0xAAAAAAAAAAAAAAAALL;
         v11 = 0xAAAAAAAAAAAAAAAALL;
-        v12 = 0xAAAAAAAAAAAAAAAALL;
         v6 = accept(*(a1 + 64), 0, 0);
-        telephonytransport::NetworkSocket::created(v6, &v11);
-        if (v11)
+        telephonytransport::NetworkSocket::created(&v10, v6);
+        if (v10)
         {
-          (**v5)(v5, &v11);
+          (**v5)(v5, &v10);
         }
 
         else
@@ -1516,25 +1498,23 @@ void ___ZN18telephonytransport9TCPServer11startServerEv_block_invoke(uint64_t a1
           v7 = **(a1 + 48);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
-            v9 = __error();
-            v10 = strerror(*v9);
+            v8 = __error();
+            v9 = strerror(*v8);
             *buf = 136315138;
-            v14 = v10;
+            v13 = v9;
             _os_log_error_impl(&dword_29808D000, v7, OS_LOG_TYPE_ERROR, "Accept failed: %s", buf, 0xCu);
           }
         }
 
-        if (v12)
+        if (v11)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
         }
       }
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29808F89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1671,7 +1651,7 @@ void telephonytransport::TransactionManager::add(std::mutex *this@<X0>, unint64_
       while (1)
       {
         v9 = v7;
-        v10 = v7[4];
+        v10 = *(v7 + 4);
         if (v10 <= a2)
         {
           break;
@@ -1690,10 +1670,10 @@ void telephonytransport::TransactionManager::add(std::mutex *this@<X0>, unint64_
         break;
       }
 
-      v7 = v9[1];
+      v7 = *(v9 + 1);
       if (!v7)
       {
-        opaque = v9 + 1;
+        opaque = v9 + 8;
         goto LABEL_9;
       }
     }
@@ -1820,11 +1800,11 @@ void std::promise<telephonytransport::TransactionResponse>::set_value(uint64_t *
   std::__assoc_state<telephonytransport::TransactionResponse>::set_value<telephonytransport::TransactionResponse>(v3, a2);
 }
 
-void telephonytransport::TransactionManager::remove(telephonytransport::TransactionManager *this, unint64_t a2)
+void telephonytransport::TransactionManager::remove(std::mutex *this, unint64_t a2)
 {
   std::mutex::lock(this);
   v4 = a2;
-  std::__tree<std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>>>::__erase_unique<unsigned long long>(this + 8, &v4);
+  std::__tree<std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::promise<telephonytransport::TransactionResponse>>>>::__erase_unique<unsigned long long>(&this[1], &v4);
   std::mutex::unlock(this);
 }
 
@@ -1918,12 +1898,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1937,22 +1917,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1986,13 +1966,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2229,31 +2209,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -2262,158 +2241,158 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (v19 && (v19[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
-        v18 = v7;
+        v17 = v7;
       }
 
       else
       {
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_71;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_67;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (v24 && (v24[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
-    v25 = v7;
+    v24 = v7;
     goto LABEL_68;
   }
 
-  *(v25 + 24) = 1;
-  *(v7 + 24) = 0;
-  v33 = *v25;
-  v7[1] = *v25;
-  if (v33)
-  {
-    *(v33 + 16) = v7;
-  }
-
-  v34 = v7[2];
-  v25[2] = v34;
-  v34[*v34 != v7] = v25;
-  *v25 = v7;
-  v7[2] = v25;
-  v24 = v7;
-LABEL_68:
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
   *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  *(v7 + 24) = 0;
+  v32 = *v24;
+  *(v7 + 8) = *v24;
+  if (v32)
   {
-    *(v35 + 16) = v29;
+    *(v32 + 16) = v7;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
+  v33[*v33 != v7] = v24;
+  *v24 = v7;
+  *(v7 + 16) = v24;
+  v23 = v7;
+LABEL_68:
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
+  {
+    *(v34 + 16) = v28;
+  }
+
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_71:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -2526,8 +2505,8 @@ void telephonytransport::NetworkSocketForwarder::create(uint64_t *a1@<X0>, uint6
       v22 = *telephonytransport::getDefaultOSLogHandle(v17);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v23 = 0;
-        _os_log_error_impl(&dword_29808D000, v22, OS_LOG_TYPE_ERROR, "Failed to create source transport", &v23, 2u);
+        *v23 = 0;
+        _os_log_error_impl(&dword_29808D000, v22, OS_LOG_TYPE_ERROR, "Failed to create source transport", v23, 2u);
       }
 
       *a5 = 0;
@@ -2641,7 +2620,7 @@ uint64_t std::__shared_ptr_pointer<telephonytransport::NetworkSocketForwarder *,
   }
 }
 
-void telephonytransport::RawIPIfaceToSocketForwarder::create(uint64_t a1@<X0>, uint64_t *a2@<X1>, NSObject **a3@<X2>, char *a4@<X3>, void *a5@<X8>)
+void telephonytransport::RawIPIfaceToSocketForwarder::create(uint64_t a1@<X0>, uint64_t *a2@<X1>, NSObject **a3@<X2>, char *a4@<X3>, std::__shared_weak_count **a5@<X8>)
 {
   v31 = 0xAAAAAAAAAAAAAAAALL;
   v32 = 0xAAAAAAAAAAAAAAAALL;
@@ -2664,21 +2643,21 @@ void telephonytransport::RawIPIfaceToSocketForwarder::create(uint64_t a1@<X0>, u
   if (v31)
   {
     v11 = operator new(0x28uLL);
-    *v11 = &unk_2A1E9CBD8;
-    v11[1] = v10;
+    v11->__vftable = &unk_2A1E9CBD8;
+    v11->__shared_owners_ = v10;
     v12 = v32;
     v31 = 0;
     v32 = 0;
-    v11[3] = 0;
-    v11[4] = 0;
-    v11[2] = v12;
+    v11[1].__vftable = 0;
+    v11[1].__shared_owners_ = 0;
+    v11->__shared_weak_owners_ = v12;
     v13 = operator new(0x20uLL);
     v13->__shared_weak_owners_ = 0;
     v13->__vftable = &unk_2A1E9CC18;
     v13->__shared_owners_ = 0;
     v13[1].__vftable = v11;
-    *&v27 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v27.__vftable = 0xAAAAAAAAAAAAAAAALL;
+    v27.__shared_owners_ = 0xAAAAAAAAAAAAAAAALL;
     v25 = v11;
     v26 = v13;
     atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
@@ -2725,13 +2704,13 @@ void telephonytransport::RawIPIfaceToSocketForwarder::create(uint64_t a1@<X0>, u
     }
 
     v16 = v27;
-    v27 = 0uLL;
-    v17 = v11[4];
-    *(v11 + 3) = v16;
-    if (v17)
+    v27 = 0;
+    shared_owners = v11[1].__shared_owners_;
+    v11[1].std::__shared_count = v16;
+    if (shared_owners)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-      v18 = *(&v27 + 1);
+      std::__shared_weak_count::__release_shared[abi:ne200100](shared_owners);
+      v18 = v27.__shared_owners_;
       *a5 = v11;
       a5[1] = v13;
       if (v18)
@@ -2793,8 +2772,7 @@ __n128 telephonytransport::RawIPIfaceToSocketForwarder::RawIPIfaceToSocketForwar
   *a1 = &unk_2A1E9CBD8;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   return result;
@@ -2804,8 +2782,7 @@ __n128 telephonytransport::RawIPIfaceToSocketForwarder::RawIPIfaceToSocketForwar
   *a1 = &unk_2A1E9CBD8;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   return result;
@@ -2814,8 +2791,7 @@ __n128 telephonytransport::RawIPIfaceToSocketForwarder::RawIPIfaceToSocketForwar
 uint64_t telephonytransport::RawIPIfaceToSocketForwarder::init(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 32);
   *(a1 + 24) = v3;
   if (v4)
@@ -3109,8 +3085,7 @@ __n128 telephonytransport::SocketToEthernetIfaceForwarder::SocketToEthernetIface
   *a1 = &unk_2A1E9CC90;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   v4 = *(a3 + 6);
@@ -3126,8 +3101,7 @@ __n128 telephonytransport::SocketToEthernetIfaceForwarder::SocketToEthernetIface
   *a1 = &unk_2A1E9CC90;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   v4 = *(a3 + 6);
@@ -3142,8 +3116,7 @@ __n128 telephonytransport::SocketToEthernetIfaceForwarder::SocketToEthernetIface
 uint64_t telephonytransport::SocketToEthernetIfaceForwarder::init(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 32);
   *(a1 + 24) = v3;
   if (v4)
@@ -3154,9 +3127,9 @@ uint64_t telephonytransport::SocketToEthernetIfaceForwarder::init(uint64_t a1, _
   return 1;
 }
 
-uint64_t telephonytransport::SocketToEthernetIfaceForwarder::handleMessage(_BOOL8 this, int a2, unsigned __int8 *a3, size_t __n)
+uint64_t telephonytransport::SocketToEthernetIfaceForwarder::handleMessage(uint64_t this, int a2, unsigned __int8 *a3, size_t __n)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a2 == 1)
   {
     goto LABEL_6;
@@ -3193,7 +3166,7 @@ LABEL_6:
       if (this)
       {
         *buf = 134217984;
-        v20 = v8;
+        v19 = v8;
         v5 = "Cannot handle packet of length: %lu";
         v6 = v9;
         v7 = 12;
@@ -3215,15 +3188,15 @@ LABEL_6:
       goto LABEL_13;
     }
 
-    v16 = *telephonytransport::getDefaultOSLogHandle(this);
-    this = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+    v15 = *telephonytransport::getDefaultOSLogHandle(this);
+    this = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
     if (this)
     {
-      v17 = *__src >> 4;
+      v16 = *__src >> 4;
       *buf = 67109120;
-      LODWORD(v20) = v17;
+      LODWORD(v19) = v16;
       v5 = "IP header version: %u is invalid";
-      v6 = v16;
+      v6 = v15;
       v7 = 8;
       goto LABEL_4;
     }
@@ -3234,7 +3207,6 @@ LABEL_13:
   *(this + 52) = v12;
   memcpy((this + 54), a3, __n);
   v13 = ***(v10 + 8);
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13();
 }
@@ -3302,12 +3274,12 @@ uint64_t std::__shared_ptr_pointer<telephonytransport::SocketToEthernetIfaceForw
   }
 }
 
-void *telephonytransport::NetworkSocket::created@<X0>(void *this@<X0>, void *a2@<X8>)
+uint64_t *telephonytransport::NetworkSocket::created@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this == -1)
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   else
@@ -3316,24 +3288,24 @@ void *telephonytransport::NetworkSocket::created@<X0>(void *this@<X0>, void *a2@
     *&v5 = 0xAAAAAAAAAAAAAAAALL;
     *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
     v4 = operator new(0x18uLL);
-    telephonytransport::OSLogHandle::create("networksocket", "", v4);
-    v4[4] = v3;
+    telephonytransport::OSLogHandle::create(v4, "networksocket", "");
+    *(v4 + 4) = v3;
     this = std::shared_ptr<telephonytransport::NetworkSocket>::shared_ptr[abi:ne200100]<telephonytransport::NetworkSocket,0>(&v5, v4);
-    *a2 = v5;
+    *a1 = v5;
   }
 
   return this;
 }
 
-telephonytransport::NetworkSocket *telephonytransport::NetworkSocket::NetworkSocket(telephonytransport::NetworkSocket *this, int a2)
+telephonytransport::NetworkSocket *telephonytransport::NetworkSocket::NetworkSocket(telephonytransport::NetworkSocket *this, int a2, const char *a3)
 {
-  telephonytransport::OSLogHandle::create("networksocket", "", this);
+  telephonytransport::OSLogHandle::create(this, "networksocket", "");
   *(this + 4) = a2;
   return this;
 }
 
 {
-  telephonytransport::OSLogHandle::create("networksocket", "", this);
+  telephonytransport::OSLogHandle::create(this, "networksocket", "");
   *(this + 4) = a2;
   return this;
 }
@@ -3439,7 +3411,7 @@ BOOL telephonytransport::NetworkSocket::enablePortReuse(telephonytransport::Netw
 
 BOOL telephonytransport::NetworkSocket::bindToInterface(uint64_t a1, const char *a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if ((a2[23] & 0x80000000) == 0)
   {
     if (a2[23])
@@ -3448,20 +3420,18 @@ BOOL telephonytransport::NetworkSocket::bindToInterface(uint64_t a1, const char 
       goto LABEL_6;
     }
 
-LABEL_18:
-    result = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   if (!*(a2 + 1))
   {
-    goto LABEL_18;
+    return 0;
   }
 
   v4 = *a2;
 LABEL_6:
-  v15 = if_nametoindex(v4);
-  if (!v15)
+  v14 = if_nametoindex(v4);
+  if (!v14)
   {
     v9 = *a1;
     v8 = *(a1 + 8);
@@ -3481,27 +3451,25 @@ LABEL_6:
     {
       if (a2[23] >= 0)
       {
-        v14 = a2;
+        v13 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v13 = *a2;
       }
 
       *buf = 136315138;
-      v17 = v14;
+      v16 = v13;
       _os_log_error_impl(&dword_29808D000, v10, OS_LOG_TYPE_ERROR, "Unable to find index for interface: %s", buf, 0xCu);
     }
 
-    goto LABEL_21;
+    return 1;
   }
 
-  if (!setsockopt(*(a1 + 16), 0, 25, &v15, 4u))
+  if (!setsockopt(*(a1 + 16), 0, 25, &v14, 4u))
   {
-LABEL_21:
-    result = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   v6 = *a1;
@@ -3532,13 +3500,11 @@ LABEL_21:
     }
 
     *buf = 136315138;
-    v17 = v12;
+    v16 = v12;
     _os_log_error_impl(&dword_29808D000, v7, OS_LOG_TYPE_ERROR, "Unable to bind to interface: %s", buf, 0xCu);
-    goto LABEL_18;
+    return 0;
   }
 
-LABEL_22:
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3600,7 +3566,7 @@ void telephonytransport::TCPClientSocketFactoryNetwork::create(uint64_t a1@<X0>,
   v8 = 0xAAAAAAAAAAAAAAAALL;
   v9 = 0xAAAAAAAAAAAAAAAALL;
   v6 = operator new(0x58uLL);
-  telephonytransport::OSLogHandle::create("tcpclientsocketfactory", "network", v6 + 1);
+  telephonytransport::OSLogHandle::create(v6 + 1, "tcpclientsocketfactory", "network");
   *v6 = &unk_2A1E9CDC0;
   *(v6 + 24) = *a1;
   *(v6 + 5) = *(a1 + 16);
@@ -3648,9 +3614,9 @@ void sub_29809213C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t telephonytransport::TCPClientSocketFactoryNetwork::TCPClientSocketFactoryNetwork(uint64_t a1, __int128 *a2, __int128 *a3)
+uint64_t telephonytransport::TCPClientSocketFactoryNetwork::TCPClientSocketFactoryNetwork(uint64_t a1, __int128 *a2, const char *a3)
 {
-  telephonytransport::OSLogHandle::create("tcpclientsocketfactory", "network", (a1 + 8));
+  telephonytransport::OSLogHandle::create((a1 + 8), "tcpclientsocketfactory", "network");
   *a1 = &unk_2A1E9CDC0;
   v6 = *a2;
   *(a1 + 40) = *(a2 + 2);
@@ -3668,7 +3634,7 @@ uint64_t telephonytransport::TCPClientSocketFactoryNetwork::TCPClientSocketFacto
 }
 
 {
-  telephonytransport::OSLogHandle::create("tcpclientsocketfactory", "network", (a1 + 8));
+  telephonytransport::OSLogHandle::create((a1 + 8), "tcpclientsocketfactory", "network");
   *a1 = &unk_2A1E9CDC0;
   v6 = *a2;
   *(a1 + 40) = *(a2 + 2);
@@ -3687,7 +3653,7 @@ uint64_t telephonytransport::TCPClientSocketFactoryNetwork::TCPClientSocketFacto
 
 BOOL telephonytransport::TCPClientSocketFactoryNetwork::init(telephonytransport::TCPClientSocketFactoryNetwork *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 36) = 528;
@@ -3722,27 +3688,25 @@ BOOL telephonytransport::TCPClientSocketFactoryNetwork::init(telephonytransport:
         v2 = *v2;
       }
 
-      v10 = 136315138;
-      v11 = v2;
-      _os_log_error_impl(&dword_29808D000, v7, OS_LOG_TYPE_ERROR, "Invalid address: %s", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v2;
+      _os_log_error_impl(&dword_29808D000, v7, OS_LOG_TYPE_ERROR, "Invalid address: %s", &v9, 0xCu);
     }
   }
 
-  result = v4 == 1;
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return v4 == 1;
 }
 
-void telephonytransport::TCPClientSocketFactoryNetwork::connectTo(telephonytransport::TCPClientSocketFactoryNetwork *this@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X8>)
+void telephonytransport::TCPClientSocketFactoryNetwork::connectTo(telephonytransport::TCPClientSocketFactoryNetwork *this@<X0>, unsigned int a2@<W1>, int **a3@<X8>)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   *(this + 37) = bswap32(a2) >> 16;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
   v22 = 0xAAAAAAAAAAAAAAAALL;
-  v23 = 0xAAAAAAAAAAAAAAAALL;
   v6 = socket(2, 1, 0);
-  telephonytransport::NetworkSocket::created(v6, &v22);
-  v7 = v22;
-  if (!v22)
+  telephonytransport::NetworkSocket::created(&v21, v6);
+  v7 = v21;
+  if (!v21)
   {
     v9 = *(this + 1);
     v8 = *(this + 2);
@@ -3764,11 +3728,11 @@ void telephonytransport::TCPClientSocketFactoryNetwork::connectTo(telephonytrans
       _os_log_error_impl(&dword_29808D000, v10, OS_LOG_TYPE_ERROR, "Failed to create socket", buf, 2u);
     }
 
-    v14 = v23;
+    v14 = v22;
     *a3 = 0;
 LABEL_18:
     a3[1] = v14;
-    a3 = &v22;
+    a3 = &v21;
     goto LABEL_26;
   }
 
@@ -3785,7 +3749,7 @@ LABEL_18:
     goto LABEL_9;
   }
 
-  if (!telephonytransport::NetworkSocket::bindToInterface(v22, this + 48))
+  if (!telephonytransport::NetworkSocket::bindToInterface(v21, this + 48))
   {
     goto LABEL_26;
   }
@@ -3798,7 +3762,7 @@ LABEL_9:
       goto LABEL_26;
     }
 
-    v14 = v23;
+    v14 = v22;
     *a3 = v7;
     goto LABEL_18;
   }
@@ -3819,16 +3783,16 @@ LABEL_9:
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v19 = this + 24;
+    v18 = this + 24;
     if (*(this + 47) < 0)
     {
-      v19 = *v19;
+      v18 = *v18;
     }
 
     *buf = 136315394;
-    v25 = v19;
-    v26 = 1024;
-    v27 = a2;
+    v24 = v18;
+    v25 = 1024;
+    v26 = a2;
     _os_log_error_impl(&dword_29808D000, v13, OS_LOG_TYPE_ERROR, "Failed to connect to: %s:%u", buf, 0x12u);
   }
 
@@ -3848,22 +3812,20 @@ LABEL_9:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v20 = __error();
-    v21 = strerror(*v20);
+    v19 = __error();
+    v20 = strerror(*v19);
     *buf = 136315138;
-    v25 = v21;
+    v24 = v20;
     _os_log_error_impl(&dword_29808D000, v17, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
 LABEL_26:
   *a3 = 0;
   a3[1] = 0;
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298092618(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4051,8 +4013,8 @@ LABEL_6:
     v18 = *telephonytransport::getDefaultOSLogHandle(v14);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v19 = 0;
-      _os_log_impl(&dword_29808D000, v18, OS_LOG_TYPE_INFO, "Failed to create base protocol", &v19, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_29808D000, v18, OS_LOG_TYPE_INFO, "Failed to create base protocol", v19, 2u);
     }
 
     *a5 = 0;
@@ -4081,8 +4043,7 @@ void sub_298092A24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t telephonytransport::PCIServiceTransport::init(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 72);
   *(a1 + 64) = v3;
   if (v4)
@@ -4097,7 +4058,7 @@ uint64_t telephonytransport::PCIServiceTransport::PCIServiceTransport(uint64_t a
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  telephonytransport::OSLogHandle::create("pciservicetransport", a3, (a1 + 24));
+  telephonytransport::OSLogHandle::create((a1 + 24), "pciservicetransport", a3);
   *a1 = &unk_2A1E9CE98;
   v5 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x29EDCA580], QOS_CLASS_USER_INITIATED, 0);
   *(a1 + 40) = dispatch_queue_create("PCIServiceTransport", v5);
@@ -4122,7 +4083,7 @@ void sub_298092B74(_Unwind_Exception *exception_object)
 
 void telephonytransport::PCIServiceTransport::executeAsync(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
   if (v3)
@@ -4132,53 +4093,51 @@ void telephonytransport::PCIServiceTransport::executeAsync(uint64_t a1, uint64_t
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v11 = v5;
   v12 = v5;
-  v13 = v5;
   v7 = (a2 + 24);
   v6 = *(a2 + 24);
   if (!v6)
   {
-    v7 = &v13 + 1;
+    v7 = &v12 + 1;
     goto LABEL_7;
   }
 
   if (v6 != a2)
   {
-    *(&v13 + 1) = *(a2 + 24);
+    *(&v12 + 1) = *(a2 + 24);
 LABEL_7:
     *v7 = 0;
     goto LABEL_9;
   }
 
-  *(&v13 + 1) = &v12;
-  (*(*v6 + 24))(v6, &v12);
+  *(&v12 + 1) = &v11;
+  (*(*v6 + 24))(v6, &v11);
 LABEL_9:
-  v9[0] = MEMORY[0x29EDCA5F8];
-  v9[1] = 1174405120;
-  v9[2] = ___ZN18telephonytransport19PCIServiceTransport12executeAsyncEONSt3__18functionIFvvEEE_block_invoke;
-  v9[3] = &__block_descriptor_tmp_2;
-  v9[4] = v4;
-  v10 = v3;
+  v8[0] = MEMORY[0x29EDCA5F8];
+  v8[1] = 1174405120;
+  v8[2] = ___ZN18telephonytransport19PCIServiceTransport12executeAsyncEONSt3__18functionIFvvEEE_block_invoke;
+  v8[3] = &__block_descriptor_tmp_2;
+  v8[4] = v4;
+  v9 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v11, &v12);
-  dispatch_async(*(a1 + 40), v9);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v10, &v11);
+  dispatch_async(*(a1 + 40), v8);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_weak(v10);
+    std::__shared_weak_count::__release_weak(v9);
   }
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v12);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v11);
   if (v3)
   {
     std::__shared_weak_count::__release_weak(v3);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298092CF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -4253,7 +4212,7 @@ void __destroy_helper_block_e8_32c66_ZTSNSt3__18weak_ptrIN18telephonytransport19
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCICreateRequest>(void *a1, uint64_t *a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v3 = a1[7];
   if (v3)
   {
@@ -4270,7 +4229,7 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
         {
           atomic_fetch_add_explicit((v8 + 16), 1uLL, memory_order_relaxed);
           v10 = a1[2];
-          v23 = a1[1];
+          v22 = a1[1];
           if (v10)
           {
             atomic_fetch_add_explicit((v10 + 16), 1uLL, memory_order_relaxed);
@@ -4280,14 +4239,14 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
         else
         {
           v10 = 0;
-          v23 = a1[1];
+          v22 = a1[1];
         }
 
-        v24 = -1431655766;
-        v21 = *(*a2 + 36);
-        v22 = *(*a2 + 32);
+        v23 = -1431655766;
+        v20 = *(*a2 + 36);
+        v21 = *(*a2 + 32);
         v11 = *(*a2 + 24);
-        v20 = *(*a2 + 28);
+        v19 = *(*a2 + 28);
         v13 = *(*a2 + 16);
         v12 = *(*a2 + 20);
         v14 = operator new(0x20uLL);
@@ -4295,35 +4254,35 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
         v14[1] = a1;
         v14[2] = v9;
         v14[3] = v8;
-        v30 = v14;
+        v29 = v14;
         v15 = operator new(0x20uLL);
         *v15 = &unk_2A1E9D0B0;
         v15[1] = a1;
-        v15[2] = v23;
+        v15[2] = v22;
         v15[3] = v10;
-        v26 = v15;
-        v16 = (*(*v7 + 16))(v7, v22, v12, v11, v21, v20, v13, &v27, v25, &v24);
-        std::__function::__value_func<void ()(unsigned int,unsigned int,unsigned long long,unsigned long long)>::~__value_func[abi:ne200100](v25);
-        std::__function::__value_func<void ()(unsigned int,BOOL,unsigned char *,unsigned long)>::~__value_func[abi:ne200100](&v27);
+        v25 = v15;
+        v16 = (*(*v7 + 16))(v7, v21, v12, v11, v20, v19, v13, &v26, v24, &v23);
+        std::__function::__value_func<void ()(unsigned int,unsigned int,unsigned long long,unsigned long long)>::~__value_func[abi:ne200100](v24);
+        std::__function::__value_func<void ()(unsigned int,BOOL,unsigned char *,unsigned long)>::~__value_func[abi:ne200100](&v26);
         if (v16)
         {
-          v29 = 2863311530;
-          v27 = &unk_2A1E9E8C0;
-          v28 = 0;
-          v30 = 0xAAAAAAAA00000000;
+          v28 = 2863311530;
+          v26 = &unk_2A1E9E8C0;
+          v27 = 0;
+          v29 = 0xAAAAAAAA00000000;
           v17 = *(*a2 + 8);
           *(*a2 + 8) = 0;
-          v18 = v28;
-          v28 = v17;
+          v18 = v27;
+          v27 = v17;
           if (v18)
           {
             (*(*v18 + 8))(v18);
           }
 
-          LOBYTE(v30) = v30 | 3;
-          v29 = v24;
-          telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCICreateResponse>(a1, &v27);
-          telephonytransport::PCICreateResponse::~PCICreateResponse(&v27);
+          LOBYTE(v29) = v29 | 3;
+          v28 = v23;
+          telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCICreateResponse>(a1, &v26);
+          telephonytransport::PCICreateResponse::~PCICreateResponse(&v26);
         }
 
         else
@@ -4335,8 +4294,6 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
       std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQueue<telephonytransport::PCICreateRequest>(uint64_t a1, uint64_t a2)
@@ -4354,7 +4311,7 @@ void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQue
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCICreateResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 2u, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4374,30 +4331,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kCreateResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIFreeRequest>(uint64_t a1, uint64_t *a2)
@@ -4450,17 +4405,17 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
   }
 }
 
-void sub_298093444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298093444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   telephonytransport::PCIFreeResponse::~PCIFreeResponse(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIFreeResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 0xAu, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4480,30 +4435,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kFreeResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIReadRequest>(uint64_t a1, uint64_t *a2)
@@ -4593,7 +4546,7 @@ void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQue
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIReadResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 4u, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4613,30 +4566,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kReadResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 2) + 8);
+      v8 = *(*(a2 + 2) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIWriteRequest>(uint64_t a1, uint64_t *a2)
@@ -4681,11 +4632,11 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
   }
 }
 
-void sub_298093A34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298093A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   telephonytransport::PCIWriteResponse::~PCIWriteResponse(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -4704,7 +4655,7 @@ void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQue
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIWriteResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 8u, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4724,30 +4675,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kWriteResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCISendImageRequest>(uint64_t a1, uint64_t *a2)
@@ -4810,7 +4759,7 @@ void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQue
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCISendImageResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 0xCu, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4830,30 +4779,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kSendImageResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIReadRegisterRequest>(uint64_t a1, uint64_t *a2)
@@ -4943,7 +4890,7 @@ void telephonytransport::PCIServiceTransport::sendFailureResponseOnConcurrentQue
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIReadRegisterResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 0xEu, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -4963,30 +4910,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kReadRegisterResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 2) + 8);
+      v8 = *(*(a2 + 2) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIUnblockReadRequest>(uint64_t a1, uint64_t *a2)
@@ -5039,17 +4984,17 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
   }
 }
 
-void sub_2980943D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2980943D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   telephonytransport::PCIUnblockReadResponse::~PCIUnblockReadResponse(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIUnblockReadResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 0x10u, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -5069,30 +5014,28 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kUnblockReadResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCIFlushReadRequest>(uint64_t a1, uint64_t *a2)
@@ -5145,17 +5088,17 @@ void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<tel
   }
 }
 
-void sub_29809467C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29809467C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   telephonytransport::PCIFlushReadResponse::~PCIFlushReadResponse(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
 void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PCIFlushReadResponse>(uint64_t a1, PB::Base *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((telephonytransport::BaseProtocol::sendMessage(*(a1 + 64), 0x12u, a2) & 1) == 0)
   {
     v5 = *(a1 + 24);
@@ -5175,35 +5118,33 @@ void telephonytransport::PCIServiceTransport::sendMessage<telephonytransport::PC
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "kFlushReadResponse");
-      if (v11 >= 0)
+      if (v10 >= 0)
       {
-        v8 = __p;
+        v7 = __p;
       }
 
       else
       {
-        v8 = __p[0];
+        v7 = __p[0];
       }
 
-      v9 = *(*(a2 + 1) + 8);
+      v8 = *(*(a2 + 1) + 8);
       *buf = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
       _os_log_error_impl(&dword_29808D000, v6, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-      if (v11 < 0)
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void telephonytransport::PCIServiceTransport::handleMessage(telephonytransport::PCIServiceTransport *this, unsigned int a2, unsigned __int8 *a3, uint64_t a4)
+void telephonytransport::PCIServiceTransport::handleMessage(telephonytransport::PCIServiceTransport *this, unsigned int a2, unsigned __int8 *a3, unint64_t a4)
 {
-  v143 = *MEMORY[0x29EDCA608];
+  v142 = *MEMORY[0x29EDCA608];
   if (a2 - 1 >= 0x12)
   {
     v4 = 0;
@@ -5298,19 +5239,19 @@ void telephonytransport::PCIServiceTransport::handleMessage(telephonytransport::
                   {
                     if ((v12[2].__shared_weak_owners_ & 0x20) != 0)
                     {
-                      v132 = 1;
+                      v131 = 1;
                       if (!v91)
                       {
 LABEL_362:
-                        v125 = operator new(0x20uLL);
-                        if (v132)
+                        v124 = operator new(0x20uLL);
+                        if (v131)
                         {
-                          *v125 = &unk_2A1E9D210;
+                          *v124 = &unk_2A1E9D210;
                         }
 
                         else
                         {
-                          *v125 = &unk_2A1E9D180;
+                          *v124 = &unk_2A1E9D180;
                         }
 
                         goto LABEL_364;
@@ -5325,7 +5266,7 @@ LABEL_361:
                     if (!os_log_type_enabled(*v90, OS_LOG_TYPE_ERROR))
                     {
 LABEL_360:
-                      v132 = 0;
+                      v131 = 0;
                       if (!v91)
                       {
                         goto LABEL_362;
@@ -5335,20 +5276,20 @@ LABEL_360:
                     }
 
                     std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-                    if (v137 >= 0)
+                    if (v136 >= 0)
                     {
-                      v131 = __p;
+                      v130 = __p;
                     }
 
                     else
                     {
-                      v131 = *__p;
+                      v130 = *__p;
                     }
 
                     *buf = 136315394;
-                    v140 = "SizeReadIO";
-                    v141 = 2080;
-                    v142 = v131;
+                    v139 = "SizeReadIO";
+                    v140 = 2080;
+                    v141 = v130;
                   }
 
                   else
@@ -5360,20 +5301,20 @@ LABEL_360:
                     }
 
                     std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-                    if (v137 >= 0)
+                    if (v136 >= 0)
                     {
-                      v130 = __p;
+                      v129 = __p;
                     }
 
                     else
                     {
-                      v130 = *__p;
+                      v129 = *__p;
                     }
 
                     *buf = 136315394;
-                    v140 = "CreateTimeOutMs";
-                    v141 = 2080;
-                    v142 = v130;
+                    v139 = "CreateTimeOutMs";
+                    v140 = 2080;
+                    v141 = v129;
                   }
                 }
 
@@ -5386,20 +5327,20 @@ LABEL_360:
                   }
 
                   std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-                  if (v137 >= 0)
+                  if (v136 >= 0)
                   {
-                    v129 = __p;
+                    v128 = __p;
                   }
 
                   else
                   {
-                    v129 = *__p;
+                    v128 = *__p;
                   }
 
                   *buf = 136315394;
-                  v140 = "OpenRetryCount";
-                  v141 = 2080;
-                  v142 = v129;
+                  v139 = "OpenRetryCount";
+                  v140 = 2080;
+                  v141 = v128;
                 }
               }
 
@@ -5412,20 +5353,20 @@ LABEL_360:
                 }
 
                 std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-                if (v137 >= 0)
+                if (v136 >= 0)
                 {
-                  v126 = __p;
+                  v125 = __p;
                 }
 
                 else
                 {
-                  v126 = *__p;
+                  v125 = *__p;
                 }
 
                 *buf = 136315394;
-                v140 = "NumReadIO";
-                v141 = 2080;
-                v142 = v126;
+                v139 = "NumReadIO";
+                v140 = 2080;
+                v141 = v125;
               }
             }
 
@@ -5438,7 +5379,7 @@ LABEL_360:
               }
 
               std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-              if (v137 >= 0)
+              if (v136 >= 0)
               {
                 v119 = __p;
               }
@@ -5449,9 +5390,9 @@ LABEL_360:
               }
 
               *buf = 136315394;
-              v140 = "Flags";
-              v141 = 2080;
-              v142 = v119;
+              v139 = "Flags";
+              v140 = 2080;
+              v141 = v119;
             }
           }
 
@@ -5464,7 +5405,7 @@ LABEL_360:
             }
 
             std::string::basic_string[abi:ne200100]<0>(__p, "kCreateRequest");
-            if (v137 >= 0)
+            if (v136 >= 0)
             {
               v107 = __p;
             }
@@ -5475,13 +5416,13 @@ LABEL_360:
             }
 
             *buf = 136315394;
-            v140 = "PciTransportInterface";
-            v141 = 2080;
-            v142 = v107;
+            v139 = "PciTransportInterface";
+            v140 = 2080;
+            v141 = v107;
           }
 
           _os_log_error_impl(&dword_29808D000, v106, OS_LOG_TYPE_ERROR, "%s is missing. Skipping MessageType: %s", buf, 0x16u);
-          if (v137 < 0)
+          if (v136 < 0)
           {
             operator delete(*__p);
           }
@@ -5561,19 +5502,19 @@ LABEL_360:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         telephonytransport::toString(v4, __p);
-        v11 = v137 >= 0 ? __p : *__p;
+        v11 = v136 >= 0 ? __p : *__p;
         *buf = 136315394;
-        v140 = v11;
-        v141 = 2048;
-        v142 = a4;
+        v139 = v11;
+        v140 = 2048;
+        v141 = a4;
         _os_log_error_impl(&dword_29808D000, v10, OS_LOG_TYPE_ERROR, "Ignoring unsupported message type: %s, length: %zu", buf, 0x16u);
-        if (v137 < 0)
+        if (v136 < 0)
         {
           operator delete(*__p);
         }
       }
 
-      goto LABEL_300;
+      return;
     case 3:
       v12 = operator new(0x38uLL);
       v12->__shared_owners_ = 0;
@@ -5702,23 +5643,23 @@ LABEL_360:
         if (os_log_type_enabled(*v84, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kReadRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
-            v135 = __p;
+            v134 = __p;
           }
 
           else
           {
-            v135 = *__p;
+            v134 = *__p;
           }
 
           *buf = 136315394;
-          v140 = "TimeoutMs";
-          v141 = 2080;
-          v142 = v135;
+          v139 = "TimeoutMs";
+          v140 = 2080;
+          v141 = v134;
 LABEL_385:
           _os_log_error_impl(&dword_29808D000, v100, OS_LOG_TYPE_ERROR, "%s is missing. Skipping MessageType: %s", buf, 0x16u);
-          if (v137 < 0)
+          if (v136 < 0)
           {
             operator delete(*__p);
           }
@@ -5731,7 +5672,7 @@ LABEL_385:
         if (os_log_type_enabled(*v84, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kReadRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v101 = __p;
           }
@@ -5742,9 +5683,9 @@ LABEL_385:
           }
 
           *buf = 136315394;
-          v140 = "BytesToRead";
-          v141 = 2080;
-          v142 = v101;
+          v139 = "BytesToRead";
+          v140 = 2080;
+          v141 = v101;
           goto LABEL_385;
         }
       }
@@ -5756,15 +5697,15 @@ LABEL_314:
         std::__shared_weak_count::__release_shared[abi:ne200100](v85);
       }
 
-      v125 = operator new(0x20uLL);
+      v124 = operator new(0x20uLL);
       if (v118)
       {
-        *v125 = &unk_2A1E9D360;
+        *v124 = &unk_2A1E9D360;
       }
 
       else
       {
-        *v125 = &unk_2A1E9D2E0;
+        *v124 = &unk_2A1E9D2E0;
       }
 
       goto LABEL_364;
@@ -5897,7 +5838,7 @@ LABEL_314:
         if (os_log_type_enabled(*v88, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kWriteRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v105 = __p;
           }
@@ -5908,9 +5849,9 @@ LABEL_314:
           }
 
           *buf = 136315394;
-          v140 = "TimeoutMs";
-          v141 = 2080;
-          v142 = v105;
+          v139 = "TimeoutMs";
+          v140 = 2080;
+          v141 = v105;
           goto LABEL_377;
         }
       }
@@ -5921,23 +5862,23 @@ LABEL_314:
         if (os_log_type_enabled(*v88, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kWriteRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
-            v134 = __p;
+            v133 = __p;
           }
 
           else
           {
-            v134 = *__p;
+            v133 = *__p;
           }
 
           *buf = 136315394;
-          v140 = "data";
-          v141 = 2080;
-          v142 = v134;
+          v139 = "data";
+          v140 = 2080;
+          v141 = v133;
 LABEL_377:
           _os_log_error_impl(&dword_29808D000, v104, OS_LOG_TYPE_ERROR, "%s is missing. Skipping MessageType: %s", buf, 0x16u);
-          if (v137 < 0)
+          if (v136 < 0)
           {
             operator delete(*__p);
           }
@@ -5951,15 +5892,15 @@ LABEL_308:
         std::__shared_weak_count::__release_shared[abi:ne200100](v89);
       }
 
-      v125 = operator new(0x20uLL);
+      v124 = operator new(0x20uLL);
       if (v122)
       {
-        *v125 = &unk_2A1E9D4B0;
+        *v124 = &unk_2A1E9D4B0;
       }
 
       else
       {
-        *v125 = &unk_2A1E9D430;
+        *v124 = &unk_2A1E9D430;
       }
 
       goto LABEL_364;
@@ -5992,7 +5933,7 @@ LABEL_308:
               v113[1] = this;
               v113[2] = v12 + 1;
               v113[3] = v12;
-              v138 = v113;
+              v137 = v113;
               telephonytransport::PCIServiceTransport::executeAsync(this, __p);
               goto LABEL_366;
             }
@@ -6219,7 +6160,7 @@ LABEL_308:
         if (os_log_type_enabled(*v86, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kSendImageRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v103 = __p;
           }
@@ -6230,9 +6171,9 @@ LABEL_308:
           }
 
           *buf = 136315394;
-          v140 = "TimeoutMs";
-          v141 = 2080;
-          v142 = v103;
+          v139 = "TimeoutMs";
+          v140 = 2080;
+          v141 = v103;
           goto LABEL_371;
         }
       }
@@ -6243,23 +6184,23 @@ LABEL_308:
         if (os_log_type_enabled(*v86, OS_LOG_TYPE_ERROR))
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kSendImageRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
-            v133 = __p;
+            v132 = __p;
           }
 
           else
           {
-            v133 = *__p;
+            v132 = *__p;
           }
 
           *buf = 136315394;
-          v140 = "data";
-          v141 = 2080;
-          v142 = v133;
+          v139 = "data";
+          v140 = 2080;
+          v141 = v132;
 LABEL_371:
           _os_log_error_impl(&dword_29808D000, v102, OS_LOG_TYPE_ERROR, "%s is missing. Skipping MessageType: %s", buf, 0x16u);
-          if (v137 < 0)
+          if (v136 < 0)
           {
             operator delete(*__p);
           }
@@ -6273,15 +6214,15 @@ LABEL_302:
         std::__shared_weak_count::__release_shared[abi:ne200100](v87);
       }
 
-      v125 = operator new(0x20uLL);
+      v124 = operator new(0x20uLL);
       if (v121)
       {
-        *v125 = &unk_2A1E9D6D0;
+        *v124 = &unk_2A1E9D6D0;
       }
 
       else
       {
-        *v125 = &unk_2A1E9D650;
+        *v124 = &unk_2A1E9D650;
       }
 
       goto LABEL_364;
@@ -6407,7 +6348,7 @@ LABEL_302:
         {
           if ((BYTE4(v12[2].__vftable) & 4) != 0)
           {
-            v128 = 1;
+            v127 = 1;
             if (!v99)
             {
               goto LABEL_335;
@@ -6420,26 +6361,26 @@ LABEL_302:
           if (!os_log_type_enabled(*v98, OS_LOG_TYPE_ERROR))
           {
 LABEL_333:
-            v128 = 0;
+            v127 = 0;
             if (!v99)
             {
 LABEL_335:
-              v125 = operator new(0x20uLL);
-              if (v128)
+              v124 = operator new(0x20uLL);
+              if (v127)
               {
-                *v125 = &unk_2A1E9D820;
+                *v124 = &unk_2A1E9D820;
               }
 
               else
               {
-                *v125 = &unk_2A1E9D7A0;
+                *v124 = &unk_2A1E9D7A0;
               }
 
 LABEL_364:
-              v125[1] = this;
-              v125[2] = v13;
-              v125[3] = v12;
-              v138 = v125;
+              v124[1] = this;
+              v124[2] = v13;
+              v124[3] = v12;
+              v137 = v124;
               telephonytransport::PCIServiceTransport::executeAsync(this, __p);
               goto LABEL_366;
             }
@@ -6450,20 +6391,20 @@ LABEL_334:
           }
 
           std::string::basic_string[abi:ne200100]<0>(__p, "kReadRegisterRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
-            v127 = __p;
+            v126 = __p;
           }
 
           else
           {
-            v127 = *__p;
+            v126 = *__p;
           }
 
           *buf = 136315394;
-          v140 = "WhichRegister";
-          v141 = 2080;
-          v142 = v127;
+          v139 = "WhichRegister";
+          v140 = 2080;
+          v141 = v126;
         }
 
         else
@@ -6475,7 +6416,7 @@ LABEL_334:
           }
 
           std::string::basic_string[abi:ne200100]<0>(__p, "kReadRegisterRequest");
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v120 = __p;
           }
@@ -6486,9 +6427,9 @@ LABEL_334:
           }
 
           *buf = 136315394;
-          v140 = "TimeoutMs";
-          v141 = 2080;
-          v142 = v120;
+          v139 = "TimeoutMs";
+          v140 = 2080;
+          v141 = v120;
         }
       }
 
@@ -6501,7 +6442,7 @@ LABEL_334:
         }
 
         std::string::basic_string[abi:ne200100]<0>(__p, "kReadRegisterRequest");
-        if (v137 >= 0)
+        if (v136 >= 0)
         {
           v115 = __p;
         }
@@ -6512,13 +6453,13 @@ LABEL_334:
         }
 
         *buf = 136315394;
-        v140 = "BytesToRead";
-        v141 = 2080;
-        v142 = v115;
+        v139 = "BytesToRead";
+        v140 = 2080;
+        v141 = v115;
       }
 
       _os_log_error_impl(&dword_29808D000, v114, OS_LOG_TYPE_ERROR, "%s is missing. Skipping MessageType: %s", buf, 0x16u);
-      if (v137 < 0)
+      if (v136 < 0)
       {
         operator delete(*__p);
       }
@@ -6553,7 +6494,7 @@ LABEL_334:
               v109[1] = this;
               v109[2] = v12 + 1;
               v109[3] = v12;
-              v138 = v109;
+              v137 = v109;
               telephonytransport::PCIServiceTransport::executeAsync(this, __p);
               goto LABEL_366;
             }
@@ -6681,7 +6622,7 @@ LABEL_334:
 
         std::string::basic_string[abi:ne200100]<0>(__p, "kFlushReadRequest");
 LABEL_115:
-        if (v137 >= 0)
+        if (v136 >= 0)
         {
           v82 = __p;
         }
@@ -6692,9 +6633,9 @@ LABEL_115:
         }
 
         *buf = 136315394;
-        v140 = v82;
-        v141 = 2048;
-        v142 = a4;
+        v139 = v82;
+        v140 = 2048;
+        v141 = a4;
         v83 = "Failed to deserialize message. MessageType: %s, length: %zu";
         goto LABEL_297;
       }
@@ -6723,7 +6664,7 @@ LABEL_115:
 
         std::string::basic_string[abi:ne200100]<0>(__p, "kFlushReadRequest");
 LABEL_218:
-        if (v137 >= 0)
+        if (v136 >= 0)
         {
           v116 = __p;
         }
@@ -6734,13 +6675,13 @@ LABEL_218:
         }
 
         *buf = 136315394;
-        v140 = v116;
-        v141 = 2048;
-        v142 = a4;
+        v139 = v116;
+        v140 = 2048;
+        v141 = a4;
         v83 = "messageId is missing. Skipping MessageType: %s, length: %zu";
 LABEL_297:
         _os_log_error_impl(&dword_29808D000, v18, OS_LOG_TYPE_ERROR, v83, buf, 0x16u);
-        if (v137 < 0)
+        if (v136 < 0)
         {
           operator delete(*__p);
         }
@@ -6769,7 +6710,7 @@ LABEL_297:
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kFlushReadRequest");
 LABEL_246:
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v117 = __p;
           }
@@ -6780,16 +6721,16 @@ LABEL_246:
           }
 
           *buf = 136315394;
-          v140 = v117;
-          v141 = 2048;
-          v142 = a4;
+          v139 = v117;
+          v140 = 2048;
+          v141 = a4;
           v83 = "TxnId is missing. Skipping MessageType: %s, length: %zu";
           goto LABEL_297;
         }
 
 LABEL_299:
         std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-        goto LABEL_300;
+        return;
       }
 
       if ((v39 & 2) == 0)
@@ -6812,7 +6753,7 @@ LABEL_299:
         {
           std::string::basic_string[abi:ne200100]<0>(__p, "kFlushReadRequest");
 LABEL_293:
-          if (v137 >= 0)
+          if (v136 >= 0)
           {
             v123 = __p;
           }
@@ -6823,9 +6764,9 @@ LABEL_293:
           }
 
           *buf = 136315394;
-          v140 = v123;
-          v141 = 2048;
-          v142 = a4;
+          v139 = v123;
+          v140 = 2048;
+          v141 = a4;
           v83 = "Transport token is missing. Skipping MessageType: %s, length: %zu";
           goto LABEL_297;
         }
@@ -6845,12 +6786,10 @@ LABEL_293:
       v111[1] = this;
       v111[2] = v12 + 1;
       v111[3] = v12;
-      v138 = v111;
+      v137 = v111;
       telephonytransport::PCIServiceTransport::executeAsync(this, __p);
 LABEL_366:
       std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](__p);
-LABEL_300:
-      v124 = *MEMORY[0x29EDCA608];
       return;
     default:
       v28 = *(this + 3);
@@ -6874,7 +6813,7 @@ LABEL_300:
         _os_log_error_impl(&dword_29808D000, v29, OS_LOG_TYPE_ERROR, "Skipping Unknown message type of length: %zu", __p, 0xCu);
       }
 
-      goto LABEL_300;
+      return;
   }
 }
 
@@ -7112,7 +7051,7 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
 
 void std::__function::__func<void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCICreateRequest>(std::shared_ptr<telephonytransport::PCICreateRequest> &&)::$_0,std::allocator<std::shared_ptr<telephonytransport::PCICreateRequest> &&>,void ()(unsigned int,BOOL,unsigned char *,unsigned long)>::operator()(void *a1, int *a2, char *a3, const unsigned __int8 **a4, uint64_t *a5)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v6 = a1[3];
   if (v6)
   {
@@ -7129,10 +7068,10 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
       {
         if (v8)
         {
-          v26 = 0;
-          v25 = &unk_2A1E9E7E0;
+          v25 = 0;
+          v24 = &unk_2A1E9E7E0;
           v14 = operator new(0x18uLL);
-          v27 = v14;
+          v26 = v14;
           v14[4] = v7;
           v14[5] = 3;
           *v14 = &unk_2A1E9E7A8;
@@ -7140,9 +7079,9 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
           v15 = operator new(0x10uLL);
           *v15 = 0;
           v15[1] = 0;
-          std::unique_ptr<PB::Data>::reset[abi:ne200100](&v26, v15);
-          PB::Data::assign(v26, v9, &v9[v10]);
-          if ((telephonytransport::BaseProtocol::sendMessage(*(v11 + 64), 5u, &v25) & 1) == 0)
+          std::unique_ptr<PB::Data>::reset[abi:ne200100](&v25, v15);
+          PB::Data::assign(v25, v9, &v9[v10]);
+          if ((telephonytransport::BaseProtocol::sendMessage(*(v11 + 64), 5u, &v24) & 1) == 0)
           {
             v17 = *(v11 + 24);
             v16 = *(v11 + 32);
@@ -7161,30 +7100,30 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               std::string::basic_string[abi:ne200100]<0>(buf, "kReadIndication");
-              if (v29 >= 0)
+              if (v28 >= 0)
               {
-                v23 = buf;
+                v22 = buf;
               }
 
               else
               {
-                v23 = *buf;
+                v22 = *buf;
               }
 
-              v24 = *(v27 + 1);
-              *v30 = 136315394;
-              v31 = v23;
-              v32 = 2048;
-              v33 = v24;
-              _os_log_error_impl(&dword_29808D000, v18, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", v30, 0x16u);
-              if (v29 < 0)
+              v23 = *(v26 + 1);
+              *v29 = 136315394;
+              v30 = v22;
+              v31 = 2048;
+              v32 = v23;
+              _os_log_error_impl(&dword_29808D000, v18, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", v29, 0x16u);
+              if (v28 < 0)
               {
                 operator delete(*buf);
               }
             }
           }
 
-          telephonytransport::PCIReadIndication::~PCIReadIndication(&v25);
+          telephonytransport::PCIReadIndication::~PCIReadIndication(&v24);
         }
 
         else
@@ -7214,15 +7153,13 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
       std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
-void sub_298096CCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298096CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   telephonytransport::PCIReadIndication::~PCIReadIndication(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -7329,7 +7266,7 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
 
 void std::__function::__func<void telephonytransport::PCIServiceTransport::handleRequestOnConcurrentQueue<telephonytransport::PCICreateRequest>(std::shared_ptr<telephonytransport::PCICreateRequest> &&)::$_1,std::allocator<std::shared_ptr<telephonytransport::PCICreateRequest> &&>,void ()(unsigned int,unsigned int,unsigned long long,unsigned long long)>::operator()(void *a1, int *a2, int *a3, uint64_t *a4, uint64_t *a5)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v6 = a1[3];
   if (v6)
   {
@@ -7344,19 +7281,19 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
       v13 = v12;
       if (a1[2])
       {
-        v24 = 0;
-        v21[0] = &unk_2A1E9E9A0;
+        v23 = 0;
+        v20[0] = &unk_2A1E9E9A0;
         v14 = operator new(0x18uLL);
-        v21[2] = v10;
-        v22 = v14;
+        v20[2] = v10;
+        v21 = v14;
         v14[4] = v7;
         v14[5] = 3;
         *v14 = &unk_2A1E9E7A8;
         *(v14 + 1) = 0;
-        v23 = v8;
-        LOBYTE(v24) = 7;
-        v21[1] = v9;
-        if ((telephonytransport::BaseProtocol::sendMessage(*(v11 + 64), 6u, v21) & 1) == 0)
+        v22 = v8;
+        LOBYTE(v23) = 7;
+        v20[1] = v9;
+        if ((telephonytransport::BaseProtocol::sendMessage(*(v11 + 64), 6u, v20) & 1) == 0)
         {
           v16 = *(v11 + 24);
           v15 = *(v11 + 32);
@@ -7375,37 +7312,35 @@ void std::__function::__func<void telephonytransport::PCIServiceTransport::handl
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             std::string::basic_string[abi:ne200100]<0>(__p, "kStatusIndication");
-            if (v26 >= 0)
+            if (v25 >= 0)
             {
-              v19 = __p;
+              v18 = __p;
             }
 
             else
             {
-              v19 = __p[0];
+              v18 = __p[0];
             }
 
-            v20 = *(v22 + 1);
+            v19 = *(v21 + 1);
             *buf = 136315394;
-            v28 = v19;
-            v29 = 2048;
-            v30 = v20;
+            v27 = v18;
+            v28 = 2048;
+            v29 = v19;
             _os_log_error_impl(&dword_29808D000, v17, OS_LOG_TYPE_ERROR, "Failed to send response of MessageType: %s, TxnId: %llu", buf, 0x16u);
-            if (v26 < 0)
+            if (v25 < 0)
             {
               operator delete(__p[0]);
             }
           }
         }
 
-        telephonytransport::PCIStatusIndication::~PCIStatusIndication(v21);
+        telephonytransport::PCIStatusIndication::~PCIStatusIndication(v20);
       }
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298097138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8780,8 +8715,7 @@ __n128 telephonytransport::SocketToRawIPIfaceForwarder::SocketToRawIPIfaceForwar
   *a1 = &unk_2A1E9DA60;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   return result;
@@ -8791,8 +8725,7 @@ __n128 telephonytransport::SocketToRawIPIfaceForwarder::SocketToRawIPIfaceForwar
   *a1 = &unk_2A1E9DA60;
   result = *a2;
   *(a1 + 8) = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   return result;
@@ -8801,8 +8734,7 @@ __n128 telephonytransport::SocketToRawIPIfaceForwarder::SocketToRawIPIfaceForwar
 uint64_t telephonytransport::SocketToRawIPIfaceForwarder::init(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 32);
   *(a1 + 24) = v3;
   if (v4)
@@ -9003,8 +8935,7 @@ __n128 telephonytransport::SocketAndRawIPIfaceBridge::SocketAndRawIPIfaceBridge(
   *(a2 + 8) = 0;
   result = *a3;
   a1[1] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 
@@ -9014,8 +8945,7 @@ __n128 telephonytransport::SocketAndRawIPIfaceBridge::SocketAndRawIPIfaceBridge(
   *(a2 + 8) = 0;
   result = *a3;
   a1[1] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 
@@ -9312,51 +9242,51 @@ void telephonytransport::PCIClientImpl::transportCreate(uint64_t a1, int a2, uns
   if (v14)
   {
     dispatch_retain(v14);
-    *v16 = v14;
+    v16->isa = v14;
     dispatch_retain(v14);
   }
 
   else
   {
-    *v15 = 0;
+    v15->isa = 0;
   }
 
   v18 = a9 + 3;
   isa = a9[3].isa;
   if (!isa)
   {
-    v18 = (v16 + 4);
+    v18 = v16 + 4;
     goto LABEL_11;
   }
 
   if (isa != a9)
   {
-    v16[4] = isa;
+    v16[4].isa = isa;
 LABEL_11:
     v18->isa = 0;
     goto LABEL_13;
   }
 
-  v16[4] = (v16 + 1);
+  v16[4].isa = &v16[1];
   (*(isa->isa + 3))(isa);
 LABEL_13:
   v20 = a10 + 3;
   v19 = a10[3].isa;
   if (!v19)
   {
-    v20 = (v16 + 8);
+    v20 = v16 + 8;
     goto LABEL_17;
   }
 
   if (v19 != a10)
   {
-    v16[8] = v19;
+    v16[8].isa = v19;
 LABEL_17:
     v20->isa = 0;
     goto LABEL_19;
   }
 
-  v16[8] = (v16 + 5);
+  v16[8].isa = &v16[5];
   (*(v19->isa + 3))(v19);
 LABEL_19:
   v21 = operator new(0x20uLL);
@@ -9788,4 +9718,123 @@ void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 LABEL_10:
   *(v6 + v5) = 0;
   return a1;
+}
+
+uint64_t telephonytransport::PCIClientImpl::handleClientConnection(uint64_t a1, uint64_t *a2)
+{
+  v28 = *MEMORY[0x29EDCA608];
+  if (!*(a1 + 32))
+  {
+    goto LABEL_6;
+  }
+
+  v2 = *telephonytransport::getDefaultOSLogHandle(a1);
+  a1 = os_log_type_enabled(v2, OS_LOG_TYPE_FAULT);
+  if (a1)
+  {
+    *buf = 0;
+    v3 = "Received another connection. Restarting process...";
+    v4 = buf;
+LABEL_4:
+    _os_log_fault_impl(&dword_29808D000, v2, OS_LOG_TYPE_FAULT, v3, v4, 2u);
+  }
+
+  while (1)
+  {
+    __break(1u);
+LABEL_6:
+    v5 = a2;
+    v6 = a1;
+    *&v7 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *buf = v7;
+    v27 = v7;
+    v9 = *(a1 + 8);
+    v8 = *(a1 + 16);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 16), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = operator new(0x20uLL);
+    *v10 = &unk_2A1E9DE40;
+    v10[1] = v6;
+    v10[2] = v9;
+    v10[3] = v8;
+    *(&v27 + 1) = v10;
+    memset(v25, 170, 24);
+    v12 = *(v6 + 8);
+    v11 = *(v6 + 16);
+    if (v11)
+    {
+      atomic_fetch_add_explicit((v11 + 16), 1uLL, memory_order_relaxed);
+    }
+
+    v13 = operator new(0x20uLL);
+    *v13 = &unk_2A1E9DEF0;
+    v13[1] = v6;
+    v13[2] = v12;
+    v13[3] = v11;
+    v25[3] = v13;
+    v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+    v15 = dispatch_queue_create("PCIClientTransport", v14);
+    v16 = v15;
+    object = v15;
+    if (v15)
+    {
+      dispatch_retain(v15);
+    }
+
+    telephonytransport::PCIClientTransport::create(&object, v5, buf, v25, "PCIClientContext", v24);
+    v17 = *v24;
+    memset(v24, 0, sizeof(v24));
+    v18 = *(v6 + 40);
+    *(v6 + 32) = v17;
+    if (v18)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+      if (*&v24[8])
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*&v24[8]);
+      }
+    }
+
+    v19 = object;
+    if (object)
+    {
+      dispatch_release(object);
+    }
+
+    if (*(v6 + 32))
+    {
+      break;
+    }
+
+    v2 = *telephonytransport::getDefaultOSLogHandle(v19);
+    a1 = os_log_type_enabled(v2, OS_LOG_TYPE_FAULT);
+    if (a1)
+    {
+      *v24 = 0;
+      v3 = "Failed to create PCIClientTransport";
+      v4 = v24;
+      goto LABEL_4;
+    }
+  }
+
+  v20 = *telephonytransport::getDefaultOSLogHandle(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  {
+    *v24 = 0;
+    _os_log_impl(&dword_29808D000, v20, OS_LOG_TYPE_INFO, "Sending notification to indicate that PCIClient is ready", v24, 2u);
+  }
+
+  LocalCenter = CFNotificationCenterGetLocalCenter();
+  CFNotificationCenterPostNotification(LocalCenter, @"TTPCIClientReadyNotification", 0, 0, 1u);
+  if (v16)
+  {
+    dispatch_release(v16);
+  }
+
+  std::__function::__value_func<void ()(unsigned int,unsigned int,unsigned long long,unsigned long long)>::~__value_func[abi:ne200100](v25);
+  return std::__function::__value_func<void ()(unsigned int,BOOL,unsigned char *,unsigned long)>::~__value_func[abi:ne200100](buf);
 }

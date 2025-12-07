@@ -3,7 +3,7 @@
 
 @implementation UpdateHoseReadiness
 
-void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
+void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *a3;
   v6 = a1 + 32;
@@ -14,36 +14,37 @@ void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, ui
     v8(v5, *MEMORY[0x277CC18F8], 0, v7 + 24);
   }
 
-  if (*(a1 + 80))
+  v9 = *(a1 + 80);
+  if (v9)
   {
-    __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_1();
+    __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_1(v9);
     return;
   }
 
   *(*(*(a1 + 40) + 8) + 24) = APSGetFBOPropertyInt64() != 0;
-  v9 = *(a3 + 23);
-  if ((v9 - 1) <= 2 && (v10 = *(*(*(a1 + 32) + 8) + 24)) != 0 && !*(*(*(a1 + 40) + 8) + 24))
+  v10 = *(a3 + 23);
+  if ((v10 - 1) <= 2 && (v11 = *(*(*(a1 + 32) + 8) + 24)) != 0 && !*(*(*(a1 + 40) + 8) + 24))
   {
-    v11 = *(*(*(a1 + 48) + 8) + 24);
-    if (!v11)
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    if (!v12)
     {
       *(*(*(a1 + 48) + 8) + 24) = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], 0);
-      v11 = *(*(*(a1 + 48) + 8) + 24);
-      if (!v11)
+      v12 = *(*(*(a1 + 48) + 8) + 24);
+      if (!v12)
       {
         __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_6();
         return;
       }
 
-      v10 = *(*(*v6 + 8) + 24);
+      v11 = *(*(*v6 + 8) + 24);
     }
 
-    v12 = CFDictionaryContainsKey(v11, v10);
-    v13 = *(*(*(a1 + 48) + 8) + 24);
-    v14 = *(*(*(a1 + 32) + 8) + 24);
-    if (v12)
+    v13 = CFDictionaryContainsKey(v12, v11);
+    v14 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = *(*(*(a1 + 32) + 8) + 24);
+    if (v13)
     {
-      Value = CFDictionaryGetValue(v13, v14);
+      Value = CFDictionaryGetValue(v14, v15);
       if (Value[23] == 1)
       {
         Value[23] = 2;
@@ -67,14 +68,14 @@ void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, ui
 
     else
     {
-      CFDictionaryAddValue(v13, v14, a3);
+      CFDictionaryAddValue(v14, v15, a3);
       if (*(a3 + 23) == 1)
       {
-        v16 = *(a1 + 56);
-        if ((*(a1 + 72) - a3[6]) >= *(v16 + 360))
+        v17 = *(a1 + 56);
+        if (*(a1 + 72) - a3[6] >= *(v17 + 360))
         {
           *(a3 + 23) = 2;
-          *(v16 + 372) = 1;
+          *(v17 + 372) = 1;
           if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
           {
             __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_5(a1);
@@ -84,7 +85,7 @@ void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, ui
     }
   }
 
-  else if (v9 == 1)
+  else if (v10 == 1)
   {
     *(a3 + 23) = 2;
     *(*(a1 + 56) + 372) = 1;
@@ -94,10 +95,10 @@ void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, ui
     }
   }
 
-  v17 = *(*(*v6 + 8) + 24);
-  if (v17)
+  v18 = *(*(*v6 + 8) + 24);
+  if (v18)
   {
-    CFRelease(v17);
+    CFRelease(v18);
     *(*(*v6 + 8) + 24) = 0;
   }
 
@@ -109,14 +110,15 @@ void __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke(uint64_t a1, ui
 
 uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_2(uint64_t a1)
 {
-  if (*(a1 + 64))
+  v1 = *(a1 + 64);
+  if (v1)
   {
     CMBaseObjectGetDerivedStorage();
   }
 
   OUTLINED_FUNCTION_28_1();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v2, v3, v4, v5, v1);
 }
 
 uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_3(uint64_t a1)
@@ -128,7 +130,7 @@ uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_3(uint
 
   OUTLINED_FUNCTION_5_17();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_4(uint64_t a1)
@@ -140,7 +142,7 @@ uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_4(uint
 
   OUTLINED_FUNCTION_5_17();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_5(uint64_t a1)
@@ -152,7 +154,7 @@ uint64_t __audioHoseManagerBuffered_UpdateHoseReadiness_block_invoke_cold_5(uint
 
   OUTLINED_FUNCTION_5_17();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 @end

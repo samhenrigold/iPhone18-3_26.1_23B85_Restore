@@ -1,5 +1,7 @@
 @interface MDMRSELFLoggingUtils
 + (BOOL)emitEvent:(id)event;
++ (BOOL)emitMentionDetectorEvaluatedEventWithResponse:(id)response WithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester;
++ (BOOL)emitMentionResolverEvaluatedEventWithResponse:(id)response WithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester;
 + (id)createMentionDetectorEvaluatedEvent:(id)event withNLXMetadata:(id)metadata andLinkId:(id)id;
 + (id)createMentionDetectorEvaluatedTier1Event:(id)event withNLXMetadata:(id)metadata andLinkId:(id)id;
 + (id)createMentionResolverEvaluatedEvent:(id)event withNLXMetadata:(id)metadata andLinkId:(id)id;
@@ -7,6 +9,23 @@
 @end
 
 @implementation MDMRSELFLoggingUtils
+
++ (BOOL)emitMentionResolverEvaluatedEventWithResponse:(id)response WithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester
+{
+  v8 = *&requester;
+  responseCopy = response;
+  v15 = [NLXMetadataGenerator createEventMetadataWithNlId:id andWithTrpId:trpId andWithRequestId:requestId andWithResultCandidateId:candidateId andWithRequester:v8];
+  v16 = objc_alloc(MEMORY[0x277D5AC78]);
+  v17 = objc_alloc_init(MEMORY[0x277CCAD78]);
+  v18 = [v16 initWithNSUUID:v17];
+
+  v19 = [self createMentionResolverEvaluatedEvent:responseCopy withNLXMetadata:v15 andLinkId:v18];
+  v20 = [self createMentionResolverEvaluatedTier1Event:responseCopy withNLXMetadata:v15 andLinkId:v18];
+  LOBYTE(id) = [self emitEvent:v19];
+  LOBYTE(self) = [self emitEvent:v20];
+
+  return id & self;
+}
 
 + (id)createMentionResolverEvaluatedTier1Event:(id)event withNLXMetadata:(id)metadata andLinkId:(id)id
 {
@@ -86,6 +105,23 @@
   return v20;
 }
 
++ (BOOL)emitMentionDetectorEvaluatedEventWithResponse:(id)response WithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester
+{
+  v8 = *&requester;
+  responseCopy = response;
+  v15 = [NLXMetadataGenerator createEventMetadataWithNlId:id andWithTrpId:trpId andWithRequestId:requestId andWithResultCandidateId:candidateId andWithRequester:v8];
+  v16 = objc_alloc(MEMORY[0x277D5AC78]);
+  v17 = objc_alloc_init(MEMORY[0x277CCAD78]);
+  v18 = [v16 initWithNSUUID:v17];
+
+  v19 = [self createMentionDetectorEvaluatedEvent:responseCopy withNLXMetadata:v15 andLinkId:v18];
+  v20 = [self createMentionDetectorEvaluatedTier1Event:responseCopy withNLXMetadata:v15 andLinkId:v18];
+  LOBYTE(id) = [self emitEvent:v19];
+  LOBYTE(self) = [self emitEvent:v20];
+
+  return id & self;
+}
+
 + (id)createMentionDetectorEvaluatedTier1Event:(id)event withNLXMetadata:(id)metadata andLinkId:(id)id
 {
   eventCopy = event;
@@ -160,7 +196,7 @@
 
 + (BOOL)emitEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([eventCopy hasEventMetadata] && (objc_msgSend(eventCopy, "eventMetadata"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "hasNlId"), v4, (v5 & 1) != 0))
   {
@@ -175,9 +211,9 @@
       nlId = [eventMetadata nlId];
       toNSUUID = [nlId toNSUUID];
       uUIDString = [toNSUUID UUIDString];
-      v15 = 136315138;
+      v14 = 136315138;
       uTF8String = [uUIDString UTF8String];
-      _os_log_impl(&dword_2227A9000, v7, OS_LOG_TYPE_INFO, "Emitted event with NL ID: %s", &v15, 0xCu);
+      _os_log_impl(&dword_2227A9000, v7, OS_LOG_TYPE_INFO, "Emitted event with NL ID: %s", &v14, 0xCu);
 
       v8 = 1;
     }
@@ -188,14 +224,13 @@
     v7 = MRRLoggerForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_2227A9000, v7, OS_LOG_TYPE_ERROR, "Due to NL ID being Nil, this event won't be emitted.", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_2227A9000, v7, OS_LOG_TYPE_ERROR, "Due to NL ID being Nil, this event won't be emitted.", &v14, 2u);
     }
 
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

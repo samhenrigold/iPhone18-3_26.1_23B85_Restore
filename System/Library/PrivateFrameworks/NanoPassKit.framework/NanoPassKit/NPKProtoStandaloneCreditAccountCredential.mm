@@ -88,7 +88,7 @@
     [NPKProtoStandaloneCreditAccountCredential writeTo:];
   }
 
-  v9 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_paymentPass)
   {
@@ -101,20 +101,18 @@
   }
 
   has = self->_has;
-  v6 = v9;
+  v6 = v7;
   if ((has & 2) != 0)
   {
-    currentBalance = self->_currentBalance;
     PBDataWriterWriteDoubleField();
-    v6 = v9;
+    v6 = v7;
     has = self->_has;
   }
 
   if (has)
   {
-    creditLimit = self->_creditLimit;
     PBDataWriterWriteDoubleField();
-    v6 = v9;
+    v6 = v7;
   }
 }
 

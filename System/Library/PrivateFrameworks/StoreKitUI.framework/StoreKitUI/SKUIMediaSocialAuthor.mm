@@ -157,25 +157,25 @@
   {
     identifier = [(SKUIMediaSocialAuthor *)self identifier];
     identifier2 = [equalCopy identifier];
-    if ([identifier isEqualToString:identifier2])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       authorType = [(SKUIMediaSocialAuthor *)self authorType];
       authorType2 = [equalCopy authorType];
-      v6 = [authorType isEqualToString:authorType2];
+      isEqualToString = objc_msgSend_isEqualToString_(authorType);
     }
 
     else
     {
-      v6 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (void)initWithAuthorDictionary:.cold.1()

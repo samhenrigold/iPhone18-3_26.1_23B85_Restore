@@ -199,33 +199,31 @@
 
 - (double)_heightForText:(id)text width:(double)width
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277D740A8];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D740A8];
   v5 = MEMORY[0x277D74300];
   textCopy = text;
   aa_fontForPrimaryInformationLabel = [v5 aa_fontForPrimaryInformationLabel];
-  v14[0] = aa_fontForPrimaryInformationLabel;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = aa_fontForPrimaryInformationLabel;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [textCopy boundingRectWithSize:1 options:v8 attributes:0 context:{width, 1.79769313e308}];
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (double)_heightForTitle:(id)title width:(double)width
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277D740A8];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D740A8];
   v5 = MEMORY[0x277D74300];
   titleCopy = title;
   aa_fontForPageTitle = [v5 aa_fontForPageTitle];
-  v14[0] = aa_fontForPageTitle;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = aa_fontForPageTitle;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [titleCopy boundingRectWithSize:1 options:v8 attributes:0 context:{width, 1.79769313e308}];
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

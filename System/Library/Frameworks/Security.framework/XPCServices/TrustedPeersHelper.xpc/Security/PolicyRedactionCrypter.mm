@@ -17,11 +17,11 @@
   v13 = sub_1000146BC(dataCopy, v10, v12);
   v15 = v14;
 
-  sub_100002BF0(v10, v12);
-  v16.super.isa = sub_100216204().super.isa;
-  sub_100002BF0(v13, v15);
+  sub_100002BF0(v10, v12, v16, v17, v18, v19, v20, v21);
+  v22.super.isa = sub_100216204().super.isa;
+  sub_100002BF0(v13, v15, v23, v24, v25, v26, v27, v28);
 
-  return v16.super.isa;
+  return v22.super.isa;
 }
 
 - (id)encryptData:(id)data withKey:(id)key error:(id *)error
@@ -36,8 +36,8 @@
   v15 = v14;
 
   v16 = sub_1000149F0(v10, v12, v13, v15);
-  sub_100002BF0(v13, v15);
-  sub_100002BF0(v10, v12);
+  sub_100002BF0(v13, v15, v17, v18, v19, v20, v21, v22);
+  sub_100002BF0(v10, v12, v23, v24, v25, v26, v27, v28);
 
   return v16;
 }

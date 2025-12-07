@@ -93,7 +93,7 @@ LABEL_7:
 
 + (BOOL)dy_decompressData:()DYNSDataZlibAdditions inMutableData:error:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   memset(&strm.avail_in, 0, 104);
   strm.next_in = [a3 bytes];
   strm.avail_in = [a3 length];
@@ -102,8 +102,7 @@ LABEL_7:
   {
     if (!a5)
     {
-      v10 = 0;
-      goto LABEL_22;
+      return 0;
     }
 
     v9 = [DYZlibError errorWithDomain:@"ZlibErrorDomain" code:v8 userInfo:0];
@@ -113,7 +112,7 @@ LABEL_7:
 
   do
   {
-    strm.next_out = v19;
+    strm.next_out = v18;
     strm.avail_out = 4096;
     v11 = inflate(&strm, 2);
     v12 = v11;
@@ -129,7 +128,7 @@ LABEL_7:
 
     if (v13)
     {
-      [a4 appendBytes:v19 length:4096 - strm.avail_out];
+      [a4 appendBytes:v18 length:4096 - strm.avail_out];
     }
   }
 
@@ -144,8 +143,6 @@ LABEL_20:
     *a5 = v9;
   }
 
-LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -191,7 +188,7 @@ LABEL_9:
 
 + (id)dy_dataWithContentsOfGzipFileAtPath:()DYNSDataZlibAdditions error:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = gzopen([a3 fileSystemRepresentation], "rb");
   if (v5)
   {
@@ -210,7 +207,7 @@ LABEL_9:
           {
             v13 = MEMORY[0x277CCA9B8];
             v14 = *MEMORY[0x277CCA5B8];
-            v15 = *__error();
+            __error();
             v11 = v13;
             v12 = v14;
 LABEL_14:
@@ -233,7 +230,7 @@ LABEL_14:
     }
 
     gzclose(v6);
-    result = v7;
+    return v7;
   }
 
   else if (a4)
@@ -245,10 +242,9 @@ LABEL_14:
 
   else
   {
-    result = 0;
+    return 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -30,33 +30,33 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v5, v6);
   selfCopy = self;
   sub_1BA4A71E8();
-  v9 = 2;
+  v10 = 2;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v7 = type metadata accessor for SearchViewController();
-  v8.receiver = selfCopy;
-  v8.super_class = v7;
-  [(CompoundDataSourceCollectionViewController *)&v8 viewIsAppearing:appearingCopy];
+  v8 = type metadata accessor for SearchViewController();
+  v9.receiver = selfCopy;
+  v9.super_class = v8;
+  [(CompoundDataSourceCollectionViewController *)&v9 viewIsAppearing:appearingCopy];
 }
 
 - (void)willDismissSearchController:(id)controller
 {
   v4 = type metadata accessor for SearchDataSource.State(0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  v8 = sub_1B9F2192C();
-  searchBar = [v8 searchBar];
+  v9 = sub_1B9F2192C();
+  searchBar = [v9 searchBar];
 
   [searchBar resignFirstResponder];
   swift_storeEnumTagMultiPayload();
-  sub_1BA3CC650(v6);
+  sub_1BA3CC650(v7);
 
-  sub_1BA3D29CC(v6, type metadata accessor for SearchDataSource.State);
+  sub_1BA3D29CC(v7, type metadata accessor for SearchDataSource.State);
 }
 
 - (void)didPresentSearchController:(id)controller
@@ -70,19 +70,19 @@
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1BA4A18F8();
-  v13 = type metadata accessor for SearchViewController();
-  v14.receiver = selfCopy;
-  v14.super_class = v13;
-  [(CompoundDataSourceCollectionViewController *)&v14 collectionView:viewCopy didSelectItemAtIndexPath:v12];
+  v13 = sub_1BA4A18F8();
+  v14 = type metadata accessor for SearchViewController();
+  v15.receiver = selfCopy;
+  v15.super_class = v14;
+  [(CompoundDataSourceCollectionViewController *)&v15 collectionView:viewCopy didSelectItemAtIndexPath:v13];
 
   SearchViewController.didSelectItem()();
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (void)searchBar:(id)bar textDidChange:(id)change

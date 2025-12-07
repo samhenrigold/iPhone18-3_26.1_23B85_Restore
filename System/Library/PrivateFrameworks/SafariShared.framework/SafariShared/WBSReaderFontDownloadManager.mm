@@ -94,42 +94,42 @@
 
 uint64_t __45__WBSReaderFontDownloadManager_downloadFont___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a2 > 4)
   {
     if (a2 == 5)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_3;
-      v18[3] = &unk_1E7FB7C70;
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v20 = a3;
-      v18[4] = v11;
-      v19 = v12;
-      dispatch_async(MEMORY[0x1E69E96A0], v18);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_3;
+      v19[3] = &unk_1E7FB7C70;
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v21 = a3;
+      v19[4] = v12;
+      v20 = v13;
+      dispatch_async(MEMORY[0x1E69E96A0], v19);
     }
 
     else if (a2 == 8)
     {
       v5 = [a3 objectForKey:*MEMORY[0x1E69656F8]];
-      v6 = WBS_LOG_CHANNEL_PREFIXReader();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXReader(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = [*(a1 + 40) familyName];
-        v8 = [v5 safari_privacyPreservingDescription];
-        __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_cold_1(v7, v8, buf, v6);
+        v8 = [*(a1 + 40) familyName];
+        v9 = [v5 safari_privacyPreservingDescription];
+        __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_cold_1(v8, v9, buf, v7);
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_23;
-      v14[3] = &unk_1E7FB7F10;
-      v9 = *(a1 + 40);
-      v14[4] = *(a1 + 32);
-      v15 = v9;
-      dispatch_async(MEMORY[0x1E69E96A0], v14);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_23;
+      v15[3] = &unk_1E7FB7F10;
+      v10 = *(a1 + 40);
+      v15[4] = *(a1 + 32);
+      v16 = v10;
+      dispatch_async(MEMORY[0x1E69E96A0], v15);
     }
   }
 
@@ -143,21 +143,21 @@ uint64_t __45__WBSReaderFontDownloadManager_downloadFont___block_invoke(uint64_t
       block[3] = &unk_1E7FB7F10;
       v4 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v17 = v4;
+      v18 = v4;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
 
   else
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_2;
-    v21[3] = &unk_1E7FB7F10;
-    v10 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v10;
-    dispatch_async(MEMORY[0x1E69E96A0], v21);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __45__WBSReaderFontDownloadManager_downloadFont___block_invoke_2;
+    v22[3] = &unk_1E7FB7F10;
+    v11 = *(a1 + 40);
+    v22[4] = *(a1 + 32);
+    v23 = v11;
+    dispatch_async(MEMORY[0x1E69E96A0], v22);
   }
 
   return 1;

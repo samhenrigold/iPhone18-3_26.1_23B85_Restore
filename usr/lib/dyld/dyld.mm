@@ -55,7 +55,7 @@ uint64_t mach_o::Platform::value(mach_o::Platform *this)
   return *v4;
 }
 
-dyld3::MachOLoaded *dyld4::APIs::dyld_image_header_containing_address(dyld4::APIs *this, char *a2)
+dyld3::MachOLoaded *dyld4::APIs::dyld_image_header_containing_address(dyld4::APIs *this, DyldSharedCache *a2)
 {
   v5 = 0;
   dyld4::APIs::findImageMappedAt(this, a2, &v5, 0, 0, 0, 0, 0, 0);
@@ -97,7 +97,7 @@ uint64_t mach_o::Platform::Platform(uint64_t this, int a2)
   return this;
 }
 
-uint64_t dyld4::APIs::findImageMappedAt(dyld4::APIs *this, char *a2, const dyld3::MachOLoaded **a3, BOOL *a4, const char **a5, void **a6, unint64_t *a7, unsigned __int8 *a8, const dyld4::Loader **a9)
+uint64_t dyld4::APIs::findImageMappedAt(dyld4::APIs *this, DyldSharedCache *a2, const dyld3::MachOLoaded **a3, BOOL *a4, const char **a5, void **a6, unint64_t *a7, unsigned __int8 *a8, const dyld4::Loader **a9)
 {
   v40 = 0;
   v41 = &v40;
@@ -115,14 +115,14 @@ uint64_t dyld4::APIs::findImageMappedAt(dyld4::APIs *this, char *a2, const dyld3
     v18 = 1;
   }
 
-  if (v18 || v16 + DyldSharedCache::mappedSize(*(v15 + 368)) <= a2)
+  if (v18 || (v16 + DyldSharedCache::mappedSize(*(v15 + 368))) <= a2)
   {
     v20 = 0;
   }
 
   else
   {
-    v19 = v16 - DyldSharedCache::unslidLoadAddress(v16);
+    v19 = (v16 - DyldSharedCache::unslidLoadAddress(v16));
     v36 = 0;
     v37 = &v36;
     v38 = 0x2000000000;
@@ -164,7 +164,7 @@ uint64_t dyld4::APIs::findImageMappedAt(dyld4::APIs *this, char *a2, const dyld3
 
   v36 = 0;
   v33 = 0;
-  if (dyld4::RuntimeState::inPermanentRange(this, a2, (a2 + 1), &v33, &v36))
+  if (dyld4::RuntimeState::inPermanentRange(this, a2, a2 + 1, &v33, &v36))
   {
     if (a3)
     {
@@ -371,13 +371,6 @@ uint64_t DyldSharedCache::forEachCache(char *a1, uint64_t a2)
   }
 
   return result;
-}
-
-uint64_t ___ZNK15DyldSharedCache12forEachRangeEU13block_pointerFvPKcyyjyjjRbEU13block_pointerFvPKS_jE_block_invoke_2(uint64_t a1, int a2, int a3, int a4, int a5, DyldSharedCache *this, char a7, int a8, uint64_t a9)
-{
-  DyldSharedCache::mappingName(this, a7);
-  v10 = *(*(*(a1 + 40) + 8) + 24);
-  return (*(*(a1 + 32) + 16))(*(a1 + 32));
 }
 
 int _platform_strncmp(const char *__s1, const char *__s2, size_t __n)
@@ -657,7 +650,7 @@ void _Block_object_dispose(const void *a1, const int a2)
 {
   if (a2 != 8)
   {
-    dyld4::halt("_Block_object_dispose()");
+    dyld4::halt("_Block_object_dispose()", 0);
   }
 }
 
@@ -707,7 +700,7 @@ LABEL_8:
   return v13 | v14 | v12;
 }
 
-unint64_t *dyld4::APIs::_dyld_get_objc_selector(dyld4::APIs *this, char *__s)
+const char *dyld4::APIs::_dyld_get_objc_selector(dyld4::APIs *this, char *__s)
 {
   v4 = *(this + 1);
   v5 = *(v4 + 432);
@@ -824,15 +817,14 @@ int _platform_strcmp(const char *__s1, const char *__s2)
   }
 }
 
-unint64_t _platform_strcmp_noMTE(int8x16_t *a1, int8x16_t *a2)
+unint64_t _platform_strcmp_noMTE(int8x16_t *a1, uint64_t a2)
 {
   while ((a1 & 0xF) != 0)
   {
     v3 = a1->u8[0];
     a1 = (a1 + 1);
     v2 = v3;
-    v4 = a2->u8[0];
-    a2 = (a2 + 1);
+    v4 = *a2++;
     v5 = v2 - v4;
     if (v2 != v4 || v2 == 0)
     {
@@ -853,7 +845,8 @@ LABEL_10:
     {
       v9 = *a1++;
       v10 = v9;
-      v11 = *a2++;
+      v11 = *a2;
+      a2 += 16;
       v13 = vceqq_s8(v10, v11);
       v12 = vandq_s8(v10, v13);
       v13.i8[0] = vminvq_u8(v12);
@@ -871,8 +864,7 @@ LABEL_12:
           v15 = a1->u8[0];
           a1 = (a1 + 1);
           v14 = v15;
-          v16 = a2->u8[0];
-          a2 = (a2 + 1);
+          v16 = *a2++;
           v5 = v14 - v16;
           if (v14 != v16 || v14 == 0)
           {
@@ -895,7 +887,8 @@ LABEL_12:
     {
       v18 = *a1++;
       v19 = v18;
-      v20 = *a2++;
+      v20 = *a2;
+      a2 += 16;
       v13 = vceqq_s8(v19, v20);
       v12 = vandq_s8(v19, v13);
       v13.i8[0] = vminvq_u8(v12);
@@ -906,10 +899,10 @@ LABEL_12:
 
   v21 = vorrq_s8(vcgtq_u8(v12, veorq_s8(v13, v13)), xmmword_21C0);
   v21.i8[0] = vminvq_u8(v21);
-  return a1[-1].u8[v21.u32[0]] - a2[-1].u8[v21.u32[0]];
+  return a1[-1].u8[v21.u32[0]] - *(a2 + v21.u32[0] - 16);
 }
 
-void dyld3::MultiMapBase<prebuilt_objc::ObjCStringKeyOnDisk,prebuilt_objc::ObjCObjectOnDiskLocation,prebuilt_objc::HashObjCStringKeyOnDisk,prebuilt_objc::EqualObjCStringKeyOnDisk>::forEachEntry<char const*>(uint64_t a1, void *a2, uint64_t *a3, dyld4::RuntimeState *a4, const char **a5, uint64_t a6)
+void dyld3::MultiMapBase<prebuilt_objc::ObjCStringKeyOnDisk,prebuilt_objc::ObjCObjectOnDiskLocation,prebuilt_objc::HashObjCStringKeyOnDisk,prebuilt_objc::EqualObjCStringKeyOnDisk>::forEachEntry<char const*>(uint64_t a1, void *a2, uint64_t *a3, dyld4::RuntimeState *a4, char **a5, uint64_t a6)
 {
   if (a3[2])
   {
@@ -1047,25 +1040,26 @@ LABEL_23:
   }
 }
 
-uint64_t objc::ObjectHashTable::forEachObject(unsigned int *a1, char *a2, uint64_t a3)
+uint64_t objc::ObjectHashTable::forEachObject(objc::StringHashTable *a1, char *a2, uint64_t a3)
 {
   result = objc::StringHashTable::tryGetIndex(a1, a2);
   if ((result & 0x100000000) != 0)
   {
-    v6 = a1[1];
-    v7 = &a1[v6 + 264] + v6 + a1[4] + 1;
-    v8 = *(v7 + 8 * result);
+    v6 = *(a1 + 1);
+    v7 = a1 + 4 * v6 + v6 + (*(a1 + 4) + 1) + 1056;
+    v8 = *&v7[8 * result];
     if (v8)
     {
       if (HIWORD(v8))
       {
-        v9 = (v7 + 8 * v6 + 8 * ((v8 >> 1) & 0x7FFFFFFFFFFFLL) + 4);
+        v9 = &v7[8 * v6 + 4 + 8 * ((v8 >> 1) & 0x7FFFFFFFFFFFLL)];
         v10 = HIWORD(v8) - 1;
         do
         {
           v11 = v10;
           v13 = 0;
-          v12 = *v9++;
+          v12 = *v9;
+          v9 += 8;
           result = (*(a3 + 16))(a3, (v12 >> 1) & 0x7FFFFFFFFFFFLL, HIWORD(v12), &v13);
           if (v13)
           {
@@ -1364,37 +1358,17 @@ void *lsl::MemoryManager::memoryManager(lsl::MemoryManager *this)
   return &lsl::sMemoryManagerBuffer;
 }
 
-BOOL lsl::ProtectedStack::onStackInCurrentFrame(lsl::ProtectedStack *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  v9 = *(this + 1);
-  if (v9)
-  {
-    v10 = *(this + 1);
-    if (&a9 < v9)
-    {
-      return 0;
-    }
-  }
-
-  if (*this)
-  {
-    v12 = *this;
-  }
-
-  return &a9 < *this;
-}
-
-uint64_t objc::objc_headeropt_rw_t<unsigned long>::isLoaded(unsigned int *a1, unsigned int a2)
+uint64_t objc::objc_headeropt_rw_t<unsigned long>::isLoaded(_DWORD *a1, uint64_t a2)
 {
   if (*a1 <= a2)
   {
     objc::objc_headeropt_rw_t<unsigned long>::isLoaded();
   }
 
-  return *(a1 + a1[1] * a2 + 8) & 1;
+  return *(a1 + (a1[1] * a2) + 8) & 1;
 }
 
-void prebuilt_objc::forEachClass(dyld4::RuntimeState *a1, void *a2, const char *a3, uint64_t a4)
+void prebuilt_objc::forEachClass(dyld4::RuntimeState *a1, void *a2, char *a3, uint64_t a4)
 {
   v5 = a3;
   v4[0] = _NSConcreteStackBlock;
@@ -1412,28 +1386,8 @@ void dyld4::APIs::_dyld_for_each_objc_class(dyld4::RuntimeState *a1, char *a2, u
     dyld4::RuntimeState::log(a1, "_dyld_get_objc_class(%s)\n", a2);
   }
 
-  if (!*(a1 + 122))
+  if (!*(a1 + 122) || (v10 = 0, v11 = &v10, v12 = 0x2000000000, v13 = 0, v9[0] = _NSConcreteStackBlock, v9[1] = 0x40000000, v9[2] = ___ZN5dyld44APIs25_dyld_for_each_objc_classEPKcNS_16ReadOnlyCallbackIU13block_pointerFvPvbPbEEE_block_invoke, v9[3] = &unk_A24C0, v9[5] = a1, v9[6] = a3, v9[4] = &v10, prebuilt_objc::forEachClass(a1, a1 + 59, a2, v9), v6 = *(v11 + 24), _Block_object_dispose(&v10, 8), (v6 & 1) == 0))
   {
-    goto LABEL_5;
-  }
-
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 0x40000000;
-  v9[2] = ___ZN5dyld44APIs25_dyld_for_each_objc_classEPKcNS_16ReadOnlyCallbackIU13block_pointerFvPvbPbEEE_block_invoke;
-  v9[3] = &unk_A24C0;
-  v9[5] = a1;
-  v9[6] = a3;
-  v9[4] = &v10;
-  prebuilt_objc::forEachClass(a1, a1 + 59, a2, v9);
-  v6 = *(v11 + 24);
-  _Block_object_dispose(&v10, 8);
-  if ((v6 & 1) == 0)
-  {
-LABEL_5:
     v7 = *(*(a1 + 1) + 440);
     if (v7)
     {
@@ -1448,7 +1402,7 @@ LABEL_5:
   }
 }
 
-uint64_t ___ZN5dyld44APIs25_dyld_for_each_objc_classEPKcNS_16ReadOnlyCallbackIU13block_pointerFvPvbPbEEE_block_invoke_2(uint64_t a1, uint64_t a2, unsigned int a3, _BYTE *a4)
+uint64_t ___ZN5dyld44APIs25_dyld_for_each_objc_classEPKcNS_16ReadOnlyCallbackIU13block_pointerFvPvbPbEEE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 32);
   result = objc::objc_headeropt_rw_t<unsigned long>::isLoaded(*(*(v7 + 8) + 424), a3);
@@ -1468,24 +1422,24 @@ uint64_t ___ZN5dyld44APIs25_dyld_for_each_objc_classEPKcNS_16ReadOnlyCallbackIU1
   return result;
 }
 
-uint64_t dyld4::ReadOnlyCallback<void({block_pointer})(void *,BOOL,BOOL *)>::operator()<unsigned char *,BOOL,BOOL *>(lsl::MemoryManager *a1, uint64_t *a2, unsigned __int8 *a3, uint64_t *a4)
+uint64_t dyld4::ReadOnlyCallback<void({block_pointer})(void *,BOOL,BOOL *)>::operator()<unsigned char *,BOOL,BOOL *>(lsl::MemoryManager *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v15 = lsl::MemoryManager::memoryManager(a1);
-  result = v15[6];
+  result = *(v15 + 6);
   if (result)
   {
-    result = lsl::ProtectedStack::onStackInCurrentFrame(result, v8, v9, v10, v11, v12, v13, v14, v35[0]);
+    result = lsl::ProtectedStack::onStackInCurrentFrame(result, v8, v9, v10, v11, v12, v13, v14, v29[0]);
     if (result)
     {
-      v23 = v15[6];
-      v35[1] = 0x40000000;
-      v35[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIU13block_pointerFvPvbPbEEclIJPhbS5_EEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESH__block_invoke;
-      v35[3] = &__block_descriptor_tmp_242;
-      v35[4] = a1;
-      v35[5] = a2;
-      v35[6] = a3;
-      v35[7] = a4;
-      return lsl::ProtectedStack::withNestedRegularStack(v23, v35, v17, v18, v19, v20, v21, v22, _NSConcreteStackBlock);
+      v23 = *(v15 + 6);
+      v29[1] = 0x40000000;
+      v29[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIU13block_pointerFvPvbPbEEclIJPhbS5_EEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESH__block_invoke;
+      v29[3] = &__block_descriptor_tmp_242;
+      v29[4] = a1;
+      v29[5] = a2;
+      v29[6] = a3;
+      v29[7] = a4;
+      return lsl::ProtectedStack::withNestedRegularStack(v23, v29, v17, v18, v19, v20, v21, v22, _NSConcreteStackBlock);
     }
   }
 
@@ -1507,33 +1461,30 @@ LABEL_19:
     {
       if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
       {
-        v28 = MEMORY[0xFFFFFC10C];
+        v25 = MEMORY[0xFFFFFC10C];
         __dmb(0xAu);
-        if ((v28 & 0xFE) == 2)
+        if ((v25 & 0xFE) == 2)
         {
           result = MEMORY[0xFFFFFC0D8];
           _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
           __isb(0xFu);
-          v29 = MEMORY[0xFFFFFC0D8];
-          if (v29 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+          v26 = MEMORY[0xFFFFFC0D8];
+          if (v26 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
           {
-            v30 = *a2;
-            v31 = *a3;
-            v32 = *a4;
             result = (*(*a1 + 16))();
             if (MEMORY[0xFFFFFC10C])
             {
               if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
               {
-                v33 = MEMORY[0xFFFFFC10C];
+                v27 = MEMORY[0xFFFFFC10C];
                 __dmb(0xAu);
-                if ((v33 & 0xFE) == 2)
+                if ((v27 & 0xFE) == 2)
                 {
                   result = MEMORY[0xFFFFFC0D0];
                   _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
                   __isb(0xFu);
-                  v34 = MEMORY[0xFFFFFC0D0];
-                  if (v34 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+                  v28 = MEMORY[0xFFFFFC0D0];
+                  if (v28 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                   {
                     return result;
                   }
@@ -1549,12 +1500,9 @@ LABEL_19:
   }
 
 LABEL_8:
-  v24 = *a2;
-  v25 = *a3;
-  v26 = *a4;
-  v27 = *(*a1 + 16);
+  v24 = *(*a1 + 16);
 
-  return v27();
+  return v24();
 }
 
 uint64_t dyld3::MachOFile::hasLoadCommand(dyld3::MachOFile *this, int a2)
@@ -1614,9 +1562,9 @@ uint64_t __kdebug_trace64(void *a1, void *a2, void *a3, void *a4, void *a5, void
 void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
   v10 = a1;
-  v224 = a1;
+  v225 = a1;
   dyld3::kdebug_trace_dyld_marker(0x1F070034, 0, 0, 0, 0, 0, 0, a8, 0, 0);
-  v223 = &dword_0;
+  v224 = &dword_0;
   if ((dyld3::MachOFile::inDyldCache(&dword_0) & 1) == 0)
   {
     if ((dyld3::MachOFile::hasChainedFixups(&dword_0) & 1) == 0)
@@ -1625,37 +1573,37 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
     }
 
     Slide = dyld3::MachOLoaded::getSlide(&dword_0);
-    v249[0] = 0;
-    v249[1] = v249;
-    v250 = 0x3802000000;
-    v251 = __Block_byref_object_copy_;
-    *&v252[0] = __Block_byref_object_dispose_;
-    Diagnostics::Diagnostics((v252 + 8));
-    v240[0] = _NSConcreteStackBlock;
-    v240[1] = 0x40000000;
-    *&v241 = ___ZN5dyld4L10rebaseSelfEPKN5dyld313MachOAnalyzerE_block_invoke;
-    *(&v241 + 1) = &unk_A0098;
-    *&v242 = v249;
-    *(&v242 + 1) = &dword_0;
-    *&v243 = Slide;
-    dyld3::MachOAnalyzer::withChainStarts(&dword_0, (v249[1] + 40), 0, v240);
-    Diagnostics::assertNoError(v249[1] + 5);
-    v236[0] = _NSConcreteStackBlock;
-    v236[1] = 0x40000000;
-    *&v237 = ___ZN5dyld4L10rebaseSelfEPKN5dyld313MachOAnalyzerE_block_invoke_2;
-    *(&v237 + 1) = &__block_descriptor_tmp_5;
-    *&v238 = Slide;
-    mach_o::Header::forEachSegment(&dword_0, v236);
-    _Block_object_dispose(v249, 8);
-    Diagnostics::~Diagnostics((v252 + 8));
+    v250[0] = 0;
+    v250[1] = v250;
+    v251 = 0x3802000000;
+    v252 = __Block_byref_object_copy_;
+    *&v253[0] = __Block_byref_object_dispose_;
+    Diagnostics::Diagnostics((v253 + 8));
+    v241[0] = _NSConcreteStackBlock;
+    v241[1] = 0x40000000;
+    *&v242 = ___ZN5dyld4L10rebaseSelfEPKN5dyld313MachOAnalyzerE_block_invoke;
+    *(&v242 + 1) = &unk_A0098;
+    *&v243 = v250;
+    *(&v243 + 1) = &dword_0;
+    *&v244 = Slide;
+    dyld3::MachOAnalyzer::withChainStarts(&dword_0, (v250[1] + 40), 0, v241);
+    Diagnostics::assertNoError(v250[1] + 5);
+    v237[0] = _NSConcreteStackBlock;
+    v237[1] = 0x40000000;
+    *&v238 = ___ZN5dyld4L10rebaseSelfEPKN5dyld313MachOAnalyzerE_block_invoke_2;
+    *(&v238 + 1) = &__block_descriptor_tmp_5;
+    *&v239 = Slide;
+    mach_o::Header::forEachSegment(&dword_0, v237);
+    _Block_object_dispose(v250, 8);
+    Diagnostics::~Diagnostics((v253 + 8));
     a3 = 0;
     a2 = 0;
-    v10 = v224;
+    v10 = v225;
   }
 
   mach_init();
   Apple = dyld4::KernelArgs::findApple(v10);
-  v240[0] = Apple;
+  v241[0] = Apple;
   v13 = _simple_getenv(Apple, "vm_force_4k_pages");
   if (v13 && *v13 == 49)
   {
@@ -1695,12 +1643,12 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
     }
 
     v27 = *(v17 + 6);
-    v249[0] = _NSConcreteStackBlock;
-    v249[1] = 0x40000000;
-    v250 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L14initializeLibcEPNS2_10KernelArgsEPvE3__0EEvT__block_invoke;
-    v251 = &__block_descriptor_tmp_8;
-    *&v252[0] = v240;
-    lsl::ProtectedStack::withNestedProtectedStack(v27, v249, v19, v20, v21, v22, v23, v24, cur_protection);
+    v250[0] = _NSConcreteStackBlock;
+    v250[1] = 0x40000000;
+    v251 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L14initializeLibcEPNS2_10KernelArgsEPvE3__0EEvT__block_invoke;
+    v252 = &__block_descriptor_tmp_8;
+    *&v253[0] = v241;
+    lsl::ProtectedStack::withNestedProtectedStack(v27, v250, v19, v20, v21, v22, v23, v24, cur_protection);
     if (!MEMORY[0xFFFFFC10C])
     {
       goto LABEL_246;
@@ -1726,7 +1674,7 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       goto LABEL_246;
     }
 
-    Apple = v240[0];
+    Apple = v241[0];
   }
 
   else if (*(v17 + 33) == 1)
@@ -1798,7 +1746,7 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
 
   else
   {
-    lsl::MemoryManager::lockGuard(v17, v249);
+    lsl::MemoryManager::lockGuard(v250, v17);
     v34 = *(v17 + 3);
     if (!v34)
     {
@@ -1807,9 +1755,9 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
     }
 
     *(v17 + 3) = v34 + 1;
-    lsl::Lock::unlock(v249[0]);
+    lsl::Lock::unlock(v250[0]);
     __guard_setup(Apple);
-    lsl::MemoryManager::lockGuard(v17, v249);
+    lsl::MemoryManager::lockGuard(v250, v17);
     v35 = *(v17 + 3) - 1;
     *(v17 + 3) = v35;
     if (!v35)
@@ -1817,11 +1765,11 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       lsl::MemoryManager::writeProtect(v17, 1);
     }
 
-    lsl::Lock::unlock(v249[0]);
+    lsl::Lock::unlock(v250[0]);
   }
 
   _subsystem_init(Apple);
-  v36 = dyld4::KernelArgs::findApple(v224);
+  v36 = dyld4::KernelArgs::findApple(v225);
   v37 = _simple_getenv(v36, "has_sec_transition");
   if (v37)
   {
@@ -1855,11 +1803,11 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       }
 
       v46 = *(Apple + 48);
-      v249[0] = _NSConcreteStackBlock;
-      v249[1] = 0x40000000;
-      v250 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld45startEPNS2_10KernelArgsEPvS5_E3__0EEvT__block_invoke;
-      v251 = &__block_descriptor_tmp_28;
-      lsl::ProtectedStack::withNestedProtectedStack(v46, v249, v38, v39, v40, v41, v42, v43, cur_protection);
+      v250[0] = _NSConcreteStackBlock;
+      v250[1] = 0x40000000;
+      v251 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld45startEPNS2_10KernelArgsEPvS5_E3__0EEvT__block_invoke;
+      v252 = &__block_descriptor_tmp_28;
+      lsl::ProtectedStack::withNestedProtectedStack(v46, v250, v38, v39, v40, v41, v42, v43, cur_protection);
       if (!MEMORY[0xFFFFFC10C])
       {
         goto LABEL_246;
@@ -1957,7 +1905,7 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
 
     else
     {
-      lsl::MemoryManager::lockGuard(Apple, v249);
+      lsl::MemoryManager::lockGuard(v250, Apple);
       v53 = *(Apple + 24);
       if (!v53)
       {
@@ -1966,9 +1914,9 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       }
 
       *(Apple + 24) = v53 + 1;
-      lsl::Lock::unlock(v249[0]);
+      lsl::Lock::unlock(v250[0]);
       _gUseInstrumentedStringRoutines = 1;
-      lsl::MemoryManager::lockGuard(Apple, v249);
+      lsl::MemoryManager::lockGuard(v250, Apple);
       v54 = *(Apple + 24) - 1;
       *(Apple + 24) = v54;
       if (!v54)
@@ -1976,16 +1924,16 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
         lsl::MemoryManager::writeProtect(Apple, 1);
       }
 
-      v37 = lsl::Lock::unlock(v249[0]);
+      v37 = lsl::Lock::unlock(v250[0]);
     }
   }
 
   Apple = lsl::MemoryManager::defaultAllocator(v37);
-  v55 = v224;
-  v254 = v224;
-  v255 = v223;
-  bzero(v249, 0x400uLL);
-  v56 = dyld4::KernelArgs::findApple(v224);
+  v55 = v225;
+  v255 = v225;
+  v256 = v224;
+  bzero(v250, 0x400uLL);
+  v56 = dyld4::KernelArgs::findApple(v225);
   v57 = _simple_getenv(v56, "dyld_file");
   if (v57)
   {
@@ -2061,36 +2009,36 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
     }
 
     while (v67 != 16);
-    FileIdTuple::FileIdTuple(v240, v59, v58);
-    if (!FileIdTuple::getPath(v240, v249))
+    FileIdTuple::FileIdTuple(v241, v59, v58);
+    if (!FileIdTuple::getPath(v241, v250))
     {
       v58 = 0;
       v59 = 0;
-      strcpy(v249, "/usr/lib/dyld");
+      strcpy(v250, "/usr/lib/dyld");
     }
 
-    v55 = v254;
+    v55 = v255;
   }
 
   else
   {
     v58 = 0;
     v59 = 0;
-    strcpy(v249, "/usr/lib/dyld");
+    strcpy(v250, "/usr/lib/dyld");
   }
 
   v70 = dyld4::KernelArgs::findApple(v55);
   v71 = _simple_getenv(v70, "executable_path");
-  v247 = 0;
-  v248 = v71;
-  bzero(v246, 0x10uLL);
-  hasExistingDyldCache = dyld4::SyscallDelegate::hasExistingDyldCache(&dyld4::sSyscallDelegate, &v247, v246);
-  v73 = dyld3::MachOFile::inDyldCache(v255);
+  v248 = 0;
+  v249 = v71;
+  bzero(v247, 0x10uLL);
+  hasExistingDyldCache = dyld4::SyscallDelegate::hasExistingDyldCache(&dyld4::sSyscallDelegate, &v248, v247);
+  v73 = dyld3::MachOFile::inDyldCache(v256);
   if (v73)
   {
     v74 = mach_port_mod_refs(mach_task_self_, mach_task_self_, 0, -1);
-    v227[0] = 0;
-    LOBYTE(v228) = 0;
+    v228[0] = 0;
+    LOBYTE(v229) = 0;
     v75 = lsl::MemoryManager::memoryManager(v74);
     v76 = *(v75 + 6);
     if (v76 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v76))
@@ -2121,18 +2069,18 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       }
 
       v85 = *(v75 + 6);
-      v240[0] = _NSConcreteStackBlock;
-      v240[1] = 0x40000000;
-      *&v241 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__0EEvT__block_invoke;
-      *(&v241 + 1) = &__block_descriptor_tmp_20;
-      *&v242 = v227;
-      *(&v242 + 1) = Apple;
-      *&v243 = &v228;
-      *(&v243 + 1) = &v255;
-      *&v244 = &v254;
-      *(&v244 + 1) = &v248;
-      v245 = &v247;
-      lsl::ProtectedStack::withNestedProtectedStack(v85, v240, v77, v78, v79, v80, v81, v82, cur_protection);
+      v241[0] = _NSConcreteStackBlock;
+      v241[1] = 0x40000000;
+      *&v242 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__0EEvT__block_invoke;
+      *(&v242 + 1) = &__block_descriptor_tmp_20;
+      *&v243 = v228;
+      *(&v243 + 1) = Apple;
+      *&v244 = &v229;
+      *(&v244 + 1) = &v256;
+      *&v245 = &v255;
+      *(&v245 + 1) = &v249;
+      v246 = &v248;
+      lsl::ProtectedStack::withNestedProtectedStack(v85, v241, v77, v78, v79, v80, v81, v82, cur_protection);
       if (!MEMORY[0xFFFFFC10C])
       {
         goto LABEL_246;
@@ -2170,9 +2118,9 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
       {
         v159 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-        v227[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v159, Apple);
-        LOBYTE(v228) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v227[0], Apple, v255);
-        dyld4::ExternallyViewableState::createMinimalInfo(v159, Apple, v255, "/usr/lib/dyld", *v254, v248, v247);
+        v228[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v159, Apple);
+        LOBYTE(v229) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v228[0], Apple, v256);
+        dyld4::ExternallyViewableState::createMinimalInfo(v159, Apple, v256, "/usr/lib/dyld", *v255, v249, v248);
       }
 
       else
@@ -2203,9 +2151,9 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
         }
 
         v109 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-        v227[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v109, Apple);
-        LOBYTE(v228) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v227[0], Apple, v255);
-        dyld4::ExternallyViewableState::createMinimalInfo(v109, Apple, v255, "/usr/lib/dyld", *v254, v248, v247);
+        v228[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v109, Apple);
+        LOBYTE(v229) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v228[0], Apple, v256);
+        dyld4::ExternallyViewableState::createMinimalInfo(v109, Apple, v256, "/usr/lib/dyld", *v255, v249, v248);
         if (!MEMORY[0xFFFFFC10C])
         {
           goto LABEL_246;
@@ -2236,7 +2184,7 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
 
     else
     {
-      lsl::MemoryManager::lockGuard(v75, v240);
+      lsl::MemoryManager::lockGuard(v241, v75);
       v117 = *(v75 + 3);
       if (!v117)
       {
@@ -2245,12 +2193,12 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       }
 
       *(v75 + 3) = v117 + 1;
-      lsl::Lock::unlock(*v240);
+      lsl::Lock::unlock(*v241);
       v118 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-      v227[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v118, Apple);
-      LOBYTE(v228) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v227[0], Apple, v255);
-      dyld4::ExternallyViewableState::createMinimalInfo(v118, Apple, v255, "/usr/lib/dyld", *v254, v248, v247);
-      lsl::MemoryManager::lockGuard(v75, v240);
+      v228[0] = dyld4::ExternallyViewableState::ExternallyViewableState(v118, Apple);
+      LOBYTE(v229) = dyld4::ExternallyViewableState::completeAllImageInfoTransition(v228[0], Apple, v256);
+      dyld4::ExternallyViewableState::createMinimalInfo(v118, Apple, v256, "/usr/lib/dyld", *v255, v249, v248);
+      lsl::MemoryManager::lockGuard(v241, v75);
       v119 = *(v75 + 3) - 1;
       *(v75 + 3) = v119;
       if (!v119)
@@ -2258,52 +2206,52 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
         lsl::MemoryManager::writeProtect(v75, 1);
       }
 
-      lsl::Lock::unlock(*v240);
+      lsl::Lock::unlock(*v241);
     }
 
     if (kdebug_is_enabled(0x1F050014u, v93, v86, v87, v88, v89, v90, v91))
     {
-      v240[0] = 0;
-      v240[1] = 0;
-      mach_o::Header::getUuid(v255, v240);
-      mach_o::Header::arch(a2, v236);
+      v241[0] = 0;
+      v241[1] = 0;
+      mach_o::Header::getUuid(v256, v241);
+      mach_o::Header::arch(v237, a2);
       v127 = v59;
       v128 = a2;
-      dyld3::kdebug_trace_dyld_image((&dword_4 + 1), v249, v240, v58, v127, v128, HIDWORD(v236[0]), v129, cur_protection);
+      dyld3::kdebug_trace_dyld_image((&dword_4 + 1), v250, v241, v58, v127, v128, HIDWORD(v237[0]), v129, cur_protection);
     }
 
     if (kdebug_is_enabled(0x1F050000u, v120, v121, v122, v123, v124, v125, v126))
     {
-      v240[0] = 0;
-      v240[1] = 0;
-      mach_o::Header::getUuid(v255, v240);
-      v130 = v255;
-      mach_o::Header::arch(v255, v236);
+      v241[0] = 0;
+      v241[1] = 0;
+      mach_o::Header::getUuid(v256, v241);
+      v130 = v256;
+      mach_o::Header::arch(v237, v256);
       v131 = 0;
       v132 = v130;
-      dyld3::kdebug_trace_dyld_image(0, "/usr/lib/dyld", v240, 0, v131, v132, HIDWORD(v236[0]), v133, cur_protection);
+      dyld3::kdebug_trace_dyld_image(0, "/usr/lib/dyld", v241, 0, v131, v132, HIDWORD(v237[0]), v133, cur_protection);
     }
 
-    v236[0] = 0;
-    v236[1] = v236;
-    *&v237 = 0x4002000000;
-    *(&v237 + 1) = __Block_byref_object_copy__11;
-    *&v238 = __Block_byref_object_dispose__12;
-    *(&v238 + 1) = v240;
-    v239 = xmmword_8BFC0;
+    v237[0] = 0;
+    v237[1] = v237;
+    *&v238 = 0x4002000000;
+    *(&v238 + 1) = __Block_byref_object_copy__11;
+    *&v239 = __Block_byref_object_dispose__12;
+    *(&v239 + 1) = v241;
+    v240 = xmmword_8BFC0;
     v134 = dyld3::MachOLoaded::getSlide(a2);
-    v229 = _NSConcreteStackBlock;
-    v230 = 0x40000000;
-    v231 = ___ZN5dyld4L17handleDyldInCacheERN3lsl9AllocatorEPKN6mach_o6HeaderEPKNS_10KernelArgsES6__block_invoke;
-    v232 = &unk_A0100;
-    v235 = v228;
-    v233 = v236;
-    v234 = v134;
-    mach_o::Header::forEachSegment(a2, &v229);
-    v135 = *(v236[1] + 7);
+    v230 = _NSConcreteStackBlock;
+    v231 = 0x40000000;
+    v232 = ___ZN5dyld4L17handleDyldInCacheERN3lsl9AllocatorEPKN6mach_o6HeaderEPKNS_10KernelArgsES6__block_invoke;
+    v233 = &unk_A0100;
+    v236 = v229;
+    v234 = v237;
+    v235 = v134;
+    mach_o::Header::forEachSegment(a2, &v230);
+    v135 = *(v237[1] + 7);
     if (v135)
     {
-      v136 = *(v236[1] + 5);
+      v136 = *(v237[1] + 5);
       v137 = v136 + 16 * v135;
       do
       {
@@ -2316,9 +2264,9 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       while (v136 != v137);
     }
 
-    if (v228)
+    if (v229)
     {
-      v140 = *(v236[1] + 7);
+      v140 = *(v237[1] + 7);
       if (!v140)
       {
         __assert_rtn("back", "Array.h", 62, "_usedCount > 0");
@@ -2326,7 +2274,7 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
 
       if ((v140 & 0xFFFFFFFFFFFFFFFLL) != 0)
       {
-        v141 = *(v236[1] + 5);
+        v141 = *(v237[1] + 5);
         v142 = v141[2 * v140 - 1] + v141[2 * v140 - 2];
         v143 = 16 * v140 - 16;
         do
@@ -2351,80 +2299,80 @@ void start(dyld4::KernelArgs *a1, uint64_t a2, const char **a3, uint64_t a4, uin
       }
     }
 
-    v146 = v227[0];
-    _Block_object_dispose(v236, 8);
+    v146 = v228[0];
+    _Block_object_dispose(v237, 8);
 LABEL_223:
-    v229 = v146;
-    dyld4::RuntimeLocks::RuntimeLocks(v236);
-    v246[0] = 0;
-    v227[0] = 0;
-    a2 = lsl::MemoryManager::memoryManager(v188);
-    v240[0] = Apple;
-    v240[1] = &v224;
-    *&v241 = v246;
-    *(&v241 + 1) = v236;
-    *&v242 = &v229;
-    *(&v242 + 1) = v227;
-    *&v243 = &v223;
-    v189 = *(a2 + 48);
-    if (v189 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v189))
+    v230 = v146;
+    dyld4::RuntimeLocks::RuntimeLocks(v237);
+    v247[0] = 0;
+    v228[0] = 0;
+    a2 = lsl::MemoryManager::memoryManager(v189);
+    v241[0] = Apple;
+    v241[1] = &v225;
+    *&v242 = v247;
+    *(&v242 + 1) = v237;
+    *&v243 = &v230;
+    *(&v243 + 1) = v228;
+    *&v244 = &v224;
+    v190 = *(a2 + 48);
+    if (v190 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v190))
     {
       Apple = 0xFFFFFC10CLL;
       if (MEMORY[0xFFFFFC10C])
       {
         if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
         {
-          v196 = MEMORY[0xFFFFFC10C];
+          v197 = MEMORY[0xFFFFFC10C];
           __dmb(0xAu);
-          if ((v196 & 0xFE) == 2)
+          if ((v197 & 0xFE) == 2)
           {
             _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
             __isb(0xFu);
-            v197 = MEMORY[0xFFFFFC0D0];
-            if (v197 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+            v198 = MEMORY[0xFFFFFC0D0];
+            if (v198 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
             {
-              v198 = *(a2 + 48);
-              v249[0] = _NSConcreteStackBlock;
-              v249[1] = 0x40000000;
-              v250 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld45startEPNS2_10KernelArgsEPvS5_E3__1EEvT__block_invoke;
-              v251 = &__block_descriptor_tmp_29;
-              v252[0] = *v240[0].val;
-              v252[1] = v241;
-              v252[2] = v242;
-              v253 = v243;
-              lsl::ProtectedStack::withNestedProtectedStack(v198, v249, v190, v191, v192, v193, v194, v195, cur_protection);
+              v199 = *(a2 + 48);
+              v250[0] = _NSConcreteStackBlock;
+              v250[1] = 0x40000000;
+              v251 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld45startEPNS2_10KernelArgsEPvS5_E3__1EEvT__block_invoke;
+              v252 = &__block_descriptor_tmp_29;
+              v253[0] = *v241[0].val;
+              v253[1] = v242;
+              v253[2] = v243;
+              v254 = v244;
+              lsl::ProtectedStack::withNestedProtectedStack(v199, v250, v191, v192, v193, v194, v195, v196, cur_protection);
               if (MEMORY[0xFFFFFC10C])
               {
                 if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
                 {
-                  v199 = MEMORY[0xFFFFFC10C];
+                  v200 = MEMORY[0xFFFFFC10C];
                   __dmb(0xAu);
-                  if ((v199 & 0xFE) == 2)
+                  if ((v200 & 0xFE) == 2)
                   {
                     _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
                     __isb(0xFu);
-                    v200 = MEMORY[0xFFFFFC0D8];
-                    if (v200 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+                    v201 = MEMORY[0xFFFFFC0D8];
+                    if (v201 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                     {
 LABEL_252:
-                      for (i = (v227[0])(*(*(v246[0] + 1) + 168), *(*(v246[0] + 1) + 176), *(*(v246[0] + 1) + 184), *(*(v246[0] + 1) + 192)); ; i = (v227[0])(*(*(v246[0] + 1) + 168), *(*(v246[0] + 1) + 176), *(*(v246[0] + 1) + 184), *(*(v246[0] + 1) + 192)))
+                      for (i = (v228[0])(*(*(v247[0] + 1) + 168), *(*(v247[0] + 1) + 176), *(*(v247[0] + 1) + 184), *(*(v247[0] + 1) + 192)); ; i = (v228[0])(*(*(v247[0] + 1) + 168), *(*(v247[0] + 1) + 176), *(*(v247[0] + 1) + 184), *(*(v247[0] + 1) + 192)))
                       {
-                        dyld4::LibSystemHelpersWrapper::exit((v246[0] + 160), i);
+                        dyld4::LibSystemHelpersWrapper::exit((v247[0] + 160), i);
 LABEL_254:
                         lsl::Allocator::setBestFit(Apple, 1);
-                        v215 = lsl::Allocator::aligned_alloc(Apple, 0x10uLL, 0x2F0uLL);
-                        dyld4::ProcessConfig::ProcessConfig(v215, v224, &dyld4::sSyscallDelegate, Apple);
-                        v216 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x498uLL);
-                        v217 = dyld4::RuntimeState::RuntimeState(v216, v215, v236, Apple);
-                        *v217 = off_A25B8;
-                        v246[0] = v217;
-                        v218 = lsl::MemoryManager::memoryManager(v217);
-                        lsl::MemoryManager::setProtectedStack(v218, (v246[0] + 1128));
-                        v219 = v229;
-                        v220 = v246[0];
-                        *(v246[0] + 77) = v229;
-                        dyld4::ExternallyViewableState::setRuntimeState(v219, v220);
-                        v227[0] = dyld4::prepare(v246[0], v223, v221);
+                        v216 = lsl::Allocator::aligned_alloc(Apple, 0x10uLL, 0x2F0uLL);
+                        dyld4::ProcessConfig::ProcessConfig(v216, v225, &dyld4::sSyscallDelegate, Apple);
+                        v217 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x498uLL);
+                        v218 = dyld4::RuntimeState::RuntimeState(v217, v216, v237, Apple);
+                        *v218 = off_A25B8;
+                        v247[0] = v218;
+                        v219 = lsl::MemoryManager::memoryManager(v218);
+                        lsl::MemoryManager::setProtectedStack(v219, (v247[0] + 1128));
+                        v220 = v230;
+                        v221 = v247[0];
+                        *(v247[0] + 77) = v230;
+                        dyld4::ExternallyViewableState::setRuntimeState(v220, v221);
+                        v228[0] = dyld4::prepare(v247[0], v224, v222);
                       }
                     }
                   }
@@ -2441,39 +2389,39 @@ LABEL_254:
       if (*(a2 + 33) != 1)
       {
 LABEL_247:
-        lsl::MemoryManager::lockGuard(a2, v249);
-        v205 = *(a2 + 24);
-        if (!v205)
+        lsl::MemoryManager::lockGuard(v250, a2);
+        v206 = *(a2 + 24);
+        if (!v206)
         {
           lsl::MemoryManager::writeProtect(a2, 0);
-          v205 = *(a2 + 24);
+          v206 = *(a2 + 24);
         }
 
-        *(a2 + 24) = v205 + 1;
-        lsl::Lock::unlock(v249[0]);
+        *(a2 + 24) = v206 + 1;
+        lsl::Lock::unlock(v250[0]);
         lsl::Allocator::setBestFit(Apple, 1);
-        v206 = lsl::Allocator::aligned_alloc(Apple, 0x10uLL, 0x2F0uLL);
-        dyld4::ProcessConfig::ProcessConfig(v206, v224, &dyld4::sSyscallDelegate, Apple);
-        v207 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x498uLL);
-        v208 = dyld4::RuntimeState::RuntimeState(v207, v206, v236, Apple);
-        *v208 = off_A25B8;
-        v246[0] = v208;
-        v209 = lsl::MemoryManager::memoryManager(v208);
-        lsl::MemoryManager::setProtectedStack(v209, (v246[0] + 1128));
-        v210 = v229;
-        v211 = v246[0];
-        *(v246[0] + 77) = v229;
-        dyld4::ExternallyViewableState::setRuntimeState(v210, v211);
-        v227[0] = dyld4::prepare(v246[0], v223, v212);
-        lsl::MemoryManager::lockGuard(a2, v249);
-        v213 = *(a2 + 24) - 1;
-        *(a2 + 24) = v213;
-        if (!v213)
+        v207 = lsl::Allocator::aligned_alloc(Apple, 0x10uLL, 0x2F0uLL);
+        dyld4::ProcessConfig::ProcessConfig(v207, v225, &dyld4::sSyscallDelegate, Apple);
+        v208 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x498uLL);
+        v209 = dyld4::RuntimeState::RuntimeState(v208, v207, v237, Apple);
+        *v209 = off_A25B8;
+        v247[0] = v209;
+        v210 = lsl::MemoryManager::memoryManager(v209);
+        lsl::MemoryManager::setProtectedStack(v210, (v247[0] + 1128));
+        v211 = v230;
+        v212 = v247[0];
+        *(v247[0] + 77) = v230;
+        dyld4::ExternallyViewableState::setRuntimeState(v211, v212);
+        v228[0] = dyld4::prepare(v247[0], v224, v213);
+        lsl::MemoryManager::lockGuard(v250, a2);
+        v214 = *(a2 + 24) - 1;
+        *(a2 + 24) = v214;
+        if (!v214)
         {
           lsl::MemoryManager::writeProtect(a2, 1);
         }
 
-        lsl::Lock::unlock(v249[0]);
+        lsl::Lock::unlock(v250[0]);
         goto LABEL_252;
       }
 
@@ -2489,28 +2437,28 @@ LABEL_247:
         {
           if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
           {
-            v201 = MEMORY[0xFFFFFC10C];
+            v202 = MEMORY[0xFFFFFC10C];
             __dmb(0xAu);
-            if ((v201 & 0xFE) == 2)
+            if ((v202 & 0xFE) == 2)
             {
               _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
               __isb(0xFu);
-              v202 = MEMORY[0xFFFFFC0D0];
-              if (v202 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+              v203 = MEMORY[0xFFFFFC0D0];
+              if (v203 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
               {
-                dyld4::start(dyld4::KernelArgs *,void *,void *)::$_1::operator()(v240);
+                dyld4::start(dyld4::KernelArgs *,void *,void *)::$_1::operator()(v241);
                 if (MEMORY[0xFFFFFC10C])
                 {
                   if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
                   {
-                    v203 = MEMORY[0xFFFFFC10C];
+                    v204 = MEMORY[0xFFFFFC10C];
                     __dmb(0xAu);
-                    if ((v203 & 0xFE) == 2)
+                    if ((v204 & 0xFE) == 2)
                     {
                       _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
                       __isb(0xFu);
-                      v204 = MEMORY[0xFFFFFC0D8];
-                      if (v204 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+                      v205 = MEMORY[0xFFFFFC0D8];
+                      if (v205 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                       {
                         goto LABEL_252;
                       }
@@ -2529,7 +2477,7 @@ LABEL_246:
     goto LABEL_247;
   }
 
-  v228 = 0;
+  v229 = 0;
   a2 = lsl::MemoryManager::memoryManager(v73);
   v95 = *(a2 + 48);
   if (v95 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v95))
@@ -2560,17 +2508,17 @@ LABEL_246:
     }
 
     v104 = *(a2 + 48);
-    v240[0] = _NSConcreteStackBlock;
-    v240[1] = 0x40000000;
-    *&v241 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__1EEvT__block_invoke;
-    *(&v241 + 1) = &__block_descriptor_tmp_24;
-    *&v242 = &v228;
-    *(&v242 + 1) = Apple;
-    *&v243 = &v255;
-    *(&v243 + 1) = v249;
-    *&v244 = &v254;
-    *(&v244 + 1) = &v248;
-    lsl::ProtectedStack::withNestedProtectedStack(v104, v240, v96, v97, v98, v99, v100, v101, cur_protection);
+    v241[0] = _NSConcreteStackBlock;
+    v241[1] = 0x40000000;
+    *&v242 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__1EEvT__block_invoke;
+    *(&v242 + 1) = &__block_descriptor_tmp_24;
+    *&v243 = &v229;
+    *(&v243 + 1) = Apple;
+    *&v244 = &v256;
+    *(&v244 + 1) = v250;
+    *&v245 = &v255;
+    *(&v245 + 1) = &v249;
+    lsl::ProtectedStack::withNestedProtectedStack(v104, v241, v96, v97, v98, v99, v100, v101, cur_protection);
     if (!MEMORY[0xFFFFFC10C])
     {
       goto LABEL_246;
@@ -2608,8 +2556,8 @@ LABEL_246:
     if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
     {
       v160 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-      v228 = dyld4::ExternallyViewableState::ExternallyViewableState(v160, Apple);
-      dyld4::ExternallyViewableState::createMinimalInfo(v228, Apple, v255, v249, *v254, v248, 0);
+      v229 = dyld4::ExternallyViewableState::ExternallyViewableState(v160, Apple);
+      dyld4::ExternallyViewableState::createMinimalInfo(v229, Apple, v256, v250, *v255, v249, 0);
     }
 
     else
@@ -2640,8 +2588,8 @@ LABEL_246:
       }
 
       v114 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-      v228 = dyld4::ExternallyViewableState::ExternallyViewableState(v114, Apple);
-      dyld4::ExternallyViewableState::createMinimalInfo(v228, Apple, v255, v249, *v254, v248, 0);
+      v229 = dyld4::ExternallyViewableState::ExternallyViewableState(v114, Apple);
+      dyld4::ExternallyViewableState::createMinimalInfo(v229, Apple, v256, v250, *v255, v249, 0);
       if (!MEMORY[0xFFFFFC10C])
       {
         goto LABEL_246;
@@ -2671,7 +2619,7 @@ LABEL_246:
 
   else
   {
-    lsl::MemoryManager::lockGuard(a2, v240);
+    lsl::MemoryManager::lockGuard(v241, a2);
     v147 = *(a2 + 24);
     if (!v147)
     {
@@ -2680,11 +2628,11 @@ LABEL_246:
     }
 
     *(a2 + 24) = v147 + 1;
-    lsl::Lock::unlock(*v240);
+    lsl::Lock::unlock(*v241);
     v148 = lsl::Allocator::aligned_alloc(Apple, 8uLL, 0x40uLL);
-    v228 = dyld4::ExternallyViewableState::ExternallyViewableState(v148, Apple);
-    dyld4::ExternallyViewableState::createMinimalInfo(v228, Apple, v255, v249, *v254, v248, 0);
-    lsl::MemoryManager::lockGuard(a2, v240);
+    v229 = dyld4::ExternallyViewableState::ExternallyViewableState(v148, Apple);
+    dyld4::ExternallyViewableState::createMinimalInfo(v229, Apple, v256, v250, *v255, v249, 0);
+    lsl::MemoryManager::lockGuard(v241, a2);
     v149 = *(a2 + 24) - 1;
     *(a2 + 24) = v149;
     if (!v149)
@@ -2692,22 +2640,22 @@ LABEL_246:
       lsl::MemoryManager::writeProtect(a2, 1);
     }
 
-    lsl::Lock::unlock(*v240);
+    lsl::Lock::unlock(*v241);
   }
 
-  v150 = dyld4::KernelArgs::findEnvp(v254);
+  v150 = dyld4::KernelArgs::findEnvp(v255);
   if (!_simple_getenv(v150, "DYLD_SHARED_REGION"))
   {
-    v229 = 0;
     v230 = 0;
-    if ((mach_o::Header::getUuid(v255, &v229) & hasExistingDyldCache) == 1)
+    v231 = 0;
+    if ((mach_o::Header::getUuid(v256, &v230) & hasExistingDyldCache) == 1)
     {
-      a2 = v247;
-      v151 = DyldSharedCache::dynamicRegion(v247);
-      bzero(v227, 0x10uLL);
+      a2 = v248;
+      v151 = DyldSharedCache::dynamicRegion(v248);
+      bzero(v228, 0x10uLL);
       if (v151)
       {
-        DyldSharedCache::DynamicRegion::getDyldCacheFileID(v151, v227);
+        DyldSharedCache::DynamicRegion::getDyldCacheFileID(v151, v228);
       }
 
       v152 = DyldSharedCache::slide(a2);
@@ -2716,18 +2664,18 @@ LABEL_246:
       {
         v154 = v152;
         address = 0;
-        v226 = 0;
+        v227 = 0;
         v156 = 0;
         if (mach_o::Header::getUuid((v153 + v152), &address))
         {
-          if (v229 == address && v230 == v226)
+          if (v230 == address && v231 == v227)
           {
             v156 = 1;
           }
         }
 
         v157 = dyld4::SyscallDelegate::internalInstall(&dyld4::sSyscallDelegate);
-        if (!v157 || (v158 = dyld4::KernelArgs::findEnvp(v254), (v157 = _simple_getenv(v158, "DYLD_IN_CACHE")) == 0))
+        if (!v157 || (v158 = dyld4::KernelArgs::findEnvp(v255), (v157 = _simple_getenv(v158, "DYLD_IN_CACHE")) == 0))
         {
           if (!v156)
           {
@@ -2736,13 +2684,13 @@ LABEL_246:
 
 LABEL_192:
           v163 = lsl::MemoryManager::memoryManager(v157);
-          v236[0] = &v228;
-          v236[1] = Apple;
-          *&v237 = &v255;
-          *(&v237 + 1) = v249;
-          *&v238 = &v254;
-          *(&v238 + 1) = &v248;
-          *&v239 = &v247;
+          v237[0] = &v229;
+          v237[1] = Apple;
+          *&v238 = &v256;
+          *(&v238 + 1) = v250;
+          *&v239 = &v255;
+          *(&v239 + 1) = &v249;
+          *&v240 = &v248;
           v164 = *(v163 + 6);
           if (v164 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v164))
           {
@@ -2772,15 +2720,15 @@ LABEL_192:
             }
 
             v173 = *(v163 + 6);
-            v240[0] = _NSConcreteStackBlock;
-            v240[1] = 0x40000000;
-            *&v241 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__2EEvT__block_invoke;
-            *(&v241 + 1) = &__block_descriptor_tmp_25;
-            v242 = *v236;
-            v243 = v237;
+            v241[0] = _NSConcreteStackBlock;
+            v241[1] = 0x40000000;
+            *&v242 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld4L17handleDyldInCacheERNS_9AllocatorEPKN6mach_o6HeaderEPKNS2_10KernelArgsES8_E3__2EEvT__block_invoke;
+            *(&v242 + 1) = &__block_descriptor_tmp_25;
+            v243 = *v237;
             v244 = v238;
             v245 = v239;
-            lsl::ProtectedStack::withNestedProtectedStack(v173, v240, v165, v166, v167, v168, v169, v170, cur_protection);
+            v246 = v240;
+            lsl::ProtectedStack::withNestedProtectedStack(v173, v241, v165, v166, v167, v168, v169, v170, cur_protection);
             if (!MEMORY[0xFFFFFC10C])
             {
               goto LABEL_246;
@@ -2816,7 +2764,7 @@ LABEL_192:
 
             if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
             {
-              dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v236);
+              dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v237);
             }
 
             else
@@ -2846,7 +2794,7 @@ LABEL_192:
                 goto LABEL_246;
               }
 
-              dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v236);
+              dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v237);
               if (!MEMORY[0xFFFFFC10C])
               {
                 goto LABEL_246;
@@ -2876,7 +2824,7 @@ LABEL_192:
 
           else
           {
-            lsl::MemoryManager::lockGuard(v163, v240);
+            lsl::MemoryManager::lockGuard(v241, v163);
             v180 = *(v163 + 3);
             if (!v180)
             {
@@ -2885,9 +2833,9 @@ LABEL_192:
             }
 
             *(v163 + 3) = v180 + 1;
-            lsl::Lock::unlock(*v240);
-            dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v236);
-            lsl::MemoryManager::lockGuard(v163, v240);
+            lsl::Lock::unlock(*v241);
+            dyld4::handleDyldInCache(lsl::Allocator &,mach_o::Header const*,dyld4::KernelArgs const*,mach_o::Header const*)::$_2::operator()(v237);
+            lsl::MemoryManager::lockGuard(v241, v163);
             v181 = *(v163 + 3) - 1;
             *(v163 + 3) = v181;
             if (!v181)
@@ -2895,14 +2843,15 @@ LABEL_192:
               lsl::MemoryManager::writeProtect(v163, 1);
             }
 
-            lsl::Lock::unlock(*v240);
+            lsl::Lock::unlock(*v241);
           }
 
-          dyld4::ExternallyViewableState::prepareInCacheDyldAllImageInfos(v228, (v153 + v154));
-          v182 = FileIdTuple::inode(v227);
-          v183 = FileIdTuple::fsID(v227);
-          dyld3::kdebug_trace_dyld_cache(v182, v183, v247, (a2 + 88), v184, v185, v186, v187);
-          dyld4::restartWithDyldInCache(v254, v255, a2, (*(a2 + 128) + v154));
+          dyld4::ExternallyViewableState::prepareInCacheDyldAllImageInfos(v229, (v153 + v154));
+          v182 = FileIdTuple::inode(v228);
+          v183 = FileIdTuple::fsID(v228);
+          v184 = v248;
+          dyld3::kdebug_trace_dyld_cache(v182, v183, v184, (a2 + 88), v185, v186, v187, v188);
+          dyld4::restartWithDyldInCache(v255, v256, a2, (*(a2 + 128) + v154));
           goto LABEL_222;
         }
 
@@ -2931,7 +2880,7 @@ LABEL_192:
   }
 
 LABEL_222:
-  v146 = v228;
+  v146 = v229;
   goto LABEL_223;
 }
 
@@ -2983,7 +2932,7 @@ uint64_t __kdebug_typefilter(void *a1, void *a2, void *a3, void *a4, void *a5, v
   return result;
 }
 
-uint64_t dyld3::kdebug_trace_dyld_marker(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
+uint64_t dyld3::kdebug_trace_dyld_marker(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
 {
   v11 = a6;
   v13 = a4;
@@ -3088,14 +3037,14 @@ LABEL_25:
   return result;
 }
 
-uint64_t dyld4::objc_headeropt_rw_t::isLoaded(dyld4::objc_headeropt_rw_t *this, unsigned int a2)
+uint64_t dyld4::objc_headeropt_rw_t::isLoaded(dyld4::objc_headeropt_rw_t *this, uint64_t a2)
 {
   if (*this <= a2)
   {
     dyld4::objc_headeropt_rw_t::isLoaded();
   }
 
-  return *(this + *(this + 1) * a2 + 8) & 1;
+  return *(this + (*(this + 1) * a2) + 8) & 1;
 }
 
 uint64_t dyld4::APIs::_dyld_find_foreign_type_protocol_conformance(dyld4::APIs *this, char *a2, const char *a3, uint64_t a4)
@@ -3131,51 +3080,41 @@ uint64_t dyld4::APIs::_dyld_find_foreign_type_protocol_conformance(dyld4::APIs *
   }
 
   v13 = *(v8 + 368);
-  v24[0] = a3;
-  v24[1] = a4;
-  v24[2] = &a2[-v13];
-  Potential = SwiftHashTable::getPotentialTarget<SwiftForeignTypeProtocolConformanceLookupKey,SwiftForeignTypeProtocolConformanceLocationKey>((v13 + v12), v24, v13);
+  v21[0] = a3;
+  v21[1] = a4;
+  v21[2] = &a2[-v13];
+  Potential = SwiftHashTable::getPotentialTarget<SwiftForeignTypeProtocolConformanceLookupKey,SwiftForeignTypeProtocolConformanceLocationKey>((v13 + v12), v21, v13);
   if (Potential == *(v13 + v12 + 16))
   {
     return 2;
   }
 
   v16 = Potential;
-  v17 = v13 + v12 + Potential;
-  v19 = *(v17 + 16);
-  v18 = (v17 + 16);
-  isLoaded = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v19));
-  if (v19)
+  v17 = *(v13 + v12 + Potential + 16);
+  isLoaded = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v17));
+  if (v17)
   {
     if ((isLoaded & 1) == 0)
     {
-      v21 = v12 + v16 + v13 + 40;
-      while ((*(v21 - 24) & 1) != 0)
+      for (i = v12 + v16 + v13 + 40; (*(i - 24) & 1) != 0; i += 24)
       {
-        v22 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(v21 + 6));
-        v21 += 24;
-        if (v22)
+        v20 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(i + 6));
+        if (v20)
         {
-          v18 = (v21 - 24);
-          goto LABEL_19;
+          return 0;
         }
       }
 
       return 2;
     }
-
-LABEL_19:
-    result = 0;
-    v23 = *(*(this + 1) + 368) + ((*v18 >> 1) & 0x7FFFFFFFFFFFLL);
-    return result;
   }
 
-  if (isLoaded)
+  else if ((isLoaded & 1) == 0)
   {
-    goto LABEL_19;
+    return 2;
   }
 
-  return 2;
+  return 0;
 }
 
 uint64_t SwiftHashTable::getIndex<SwiftForeignTypeProtocolConformanceLookupKey,SwiftForeignTypeProtocolConformanceLocationKey>(unsigned int *a1, uint64_t a2, uint64_t a3)
@@ -3291,46 +3230,37 @@ uint64_t dyld4::APIs::_dyld_find_protocol_conformance(dyld4::APIs *this, char *a
   }
 
   v13 = *(v8 + 368);
-  v37 = &a4[-v13];
-  v38 = &a2[-v13];
-  Potential = SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>((v13 + v12), &v37);
+  v29 = &a4[-v13];
+  v30 = &a2[-v13];
+  Potential = SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>((v13 + v12), &v29, 0);
   if (Potential == *(v13 + v12 + 16))
   {
     goto LABEL_10;
   }
 
   v19 = Potential;
-  v20 = v13 + v12 + Potential;
-  v22 = *(v20 + 16);
-  v21 = (v20 + 16);
-  isLoaded = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v22));
-  if (v22)
+  v20 = *(v13 + v12 + Potential + 16);
+  isLoaded = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v20));
+  if (v20)
   {
     if (isLoaded)
     {
-LABEL_25:
-      result = 0;
-      v31 = *(*(this + 1) + 368);
-      v32 = *v21;
-      return result;
+      return 0;
     }
 
-    v29 = v12 + v19 + v13 + 40;
-    while ((*(v29 - 24) & 1) != 0)
+    for (i = v12 + v19 + v13 + 40; (*(i - 24) & 1) != 0; i += 24)
     {
-      v30 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(v29 + 6));
-      v29 += 24;
-      if (v30)
+      v26 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(i + 6));
+      if (v26)
       {
-        v21 = (v29 - 24);
-        goto LABEL_25;
+        return 0;
       }
     }
   }
 
   else if (isLoaded)
   {
-    goto LABEL_25;
+    return 0;
   }
 
 LABEL_10:
@@ -3346,32 +3276,27 @@ LABEL_10:
   }
 
   v16 = *(*(this + 1) + 368);
-  v37 = &a3[-v16];
-  v38 = &a2[-v16];
-  v17 = SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>((v16 + v15), &v37);
+  v29 = &a3[-v16];
+  v30 = &a2[-v16];
+  v17 = SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>((v16 + v15), &v29, 0);
   if (v17 == *(v16 + v15 + 16))
   {
     return 2;
   }
 
-  v24 = v17;
-  v25 = v16 + v15 + v17;
-  v27 = *(v25 + 16);
-  v26 = (v25 + 16);
-  v28 = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v27));
-  if (v27)
+  v22 = v17;
+  v23 = *(v16 + v15 + v17 + 16);
+  v24 = dyld4::objc_headeropt_rw_t::isLoaded(v9, HIWORD(v23));
+  if (v23)
   {
-    if ((v28 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
-      v33 = v15 + v24 + v16 + 40;
-      while ((*(v33 - 24) & 1) != 0)
+      for (j = v15 + v22 + v16 + 40; (*(j - 24) & 1) != 0; j += 24)
       {
-        v34 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(v33 + 6));
-        v33 += 24;
-        if (v34)
+        v28 = dyld4::objc_headeropt_rw_t::isLoaded(v9, *(j + 6));
+        if (v28)
         {
-          v26 = (v33 - 24);
-          goto LABEL_31;
+          return 0;
         }
       }
 
@@ -3379,38 +3304,34 @@ LABEL_10:
     }
   }
 
-  else if ((v28 & 1) == 0)
+  else if ((v24 & 1) == 0)
   {
     return 2;
   }
 
-LABEL_31:
-  result = 0;
-  v35 = *(*(this + 1) + 368);
-  v36 = *v26;
-  return result;
+  return 0;
 }
 
-uint64_t SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(unsigned int *a1, objc *a2)
+uint64_t SwiftHashTable::getPotentialTarget<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(unsigned int *a1, objc *a2, uint64_t a3)
 {
-  v3 = SwiftHashTable::getIndex<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(a1, a2);
-  if (v3 == -1)
+  v4 = SwiftHashTable::getIndex<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(a1, a2, a3);
+  if (v4 == -1)
   {
-    v5 = a1 + 4;
+    v6 = a1 + 4;
   }
 
   else
   {
-    v4 = *a1;
-    if (v4 <= v3)
+    v5 = *a1;
+    if (v5 <= v4)
     {
       dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
     }
 
-    v5 = (&a1[v3 + 264] + a1[5] + v4);
+    v6 = (&a1[v4 + 264] + a1[5] + v5);
   }
 
-  return *v5;
+  return *v6;
 }
 
 uint64_t dyld4::Loader::loadAddress(dyld4::Loader *this, const dyld4::RuntimeState *a2)
@@ -3447,7 +3368,7 @@ uint64_t dyld4::PrebuiltLoader::loadAddress(dyld4::PrebuiltLoader *this, const d
   }
 }
 
-BOOL prebuilt_objc::EqualObjCStringKeyOnDisk::equal(unint64_t *a1, uint64_t a2, dyld4::RuntimeState *a3)
+BOOL prebuilt_objc::EqualObjCStringKeyOnDisk::equal(dyld4::PrebuiltLoader::BindTargetRef *a1, uint64_t a2, dyld4::RuntimeState *a3)
 {
   v4 = dyld4::PrebuiltLoader::BindTargetRef::value(a1, a3);
   v5 = _platform_strlen(v4);
@@ -3716,7 +3637,7 @@ LABEL_9:
   }
 }
 
-void dyld3::MachOLoaded::getLinkEditPointers(unsigned int *a1, Diagnostics *a2, uint64_t a3)
+void dyld3::MachOLoaded::getLinkEditPointers(mach_o::Error *a1, Diagnostics *a2, uint64_t a3)
 {
   dyld3::MachOLoaded::getLinkEditLoadCommands(a1, a2, a3);
   if (Diagnostics::noError(a2))
@@ -4049,7 +3970,7 @@ LABEL_30:
   return result;
 }
 
-void dyld3::MachOAnalyzer::withChainStarts(unsigned int *a1, Diagnostics *a2, uint64_t a3, uint64_t a4)
+void dyld3::MachOAnalyzer::withChainStarts(mach_o::Header *a1, Diagnostics *a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
@@ -4060,57 +3981,56 @@ void dyld3::MachOAnalyzer::withChainStarts(unsigned int *a1, Diagnostics *a2, ui
 
   else
   {
-    dyld3::MachOLoaded::getLinkEditPointers(a1, a2, &v22);
+    dyld3::MachOLoaded::getLinkEditPointers(a1, a2, &v20);
     if (!Diagnostics::hasError(a2))
     {
-      if (v23)
+      if (v21)
       {
-        LinkEditContent = dyld3::MachOLoaded::getLinkEditContent(a1, &v24, *(v23 + 8));
+        LinkEditContent = dyld3::MachOLoaded::getLinkEditContent(a1, &v22, *(v21 + 8));
         (*(a4 + 16))(a4, LinkEditContent + *(LinkEditContent + 4));
       }
 
-      else if (v22 && a1[1] == 16777228 && dyld3::MachOFile::maskedCpuSubtype(a1) == 2)
+      else if (v20 && *(a1 + 1) == 16777228 && dyld3::MachOFile::maskedCpuSubtype(a1) == 2)
       {
         Address = mach_o::Header::preferredLoadAddress(a1);
-        v10 = dyld3::MachOFile::mappedSize(a1);
-        v11 = *(v22 + 20) + 2 * (v10 >> 12);
+        dyld3::MachOFile::mappedSize(a1);
         __chkstk_darwin();
-        v13 = &v18[-1] - v12;
-        v15 = &v18[-1] + v14 - v12;
-        v16 = v25;
-        *(&v18[-1] - v12) = v25;
-        if (v16)
+        v11 = &v16[-1] - v10;
+        v13 = &v16[-1] + v12 - v10;
+        v14 = v23;
+        *(&v16[-1] - v10) = v23;
+        if (v14)
         {
-          bzero(v13 + 4, 4 * v16);
+          bzero(v11 + 4, 4 * v14);
         }
 
         else
         {
-          v16 = 0;
+          v14 = 0;
         }
 
-        v20[0] = 0;
-        v20[1] = v20;
-        v20[2] = 0x2000000000;
-        v21 = 0;
-        v19[0] = 0;
-        v19[1] = v19;
-        v19[2] = 0x2000000000;
-        v19[3] = &v13[4 * v16 + 4];
-        v18[0] = _NSConcreteStackBlock;
-        v18[1] = 0x40000000;
-        v18[2] = ___ZNK5dyld313MachOAnalyzer15withChainStartsER11DiagnosticsyU13block_pointerFvPK28dyld_chained_starts_in_imageE_block_invoke;
-        v18[3] = &unk_A3E90;
-        v18[4] = v20;
-        v18[5] = v19;
-        v18[6] = v13;
-        v18[7] = v13;
-        v18[8] = v15;
-        v18[9] = Address;
-        dyld3::MachOAnalyzer::parseOrgArm64eChainedFixups(a1, a2, 0, 0, v18);
-        (*(a4 + 16))(a4, v13);
-        _Block_object_dispose(v19, 8);
-        _Block_object_dispose(v20, 8);
+        v18[0] = 0;
+        v18[1] = v18;
+        v18[2] = 0x2000000000;
+        v19 = 0;
+        v17[0] = 0;
+        v17[1] = v17;
+        v17[2] = 0x2000000000;
+        v17[3] = &v11[4 * v14 + 4];
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 0x40000000;
+        v16[2] = ___ZNK5dyld313MachOAnalyzer15withChainStartsER11DiagnosticsyU13block_pointerFvPK28dyld_chained_starts_in_imageE_block_invoke;
+        v16[3] = &unk_A3E90;
+        v16[4] = v18;
+        v16[5] = v17;
+        v16[6] = v11;
+        v16[7] = v11;
+        v16[8] = v13;
+        v16[9] = Address;
+        dyld3::MachOAnalyzer::parseOrgArm64eChainedFixups(a1, a2, 0, 0, v16);
+        (*(a4 + 16))(a4, v11);
+        _Block_object_dispose(v17, 8);
+        _Block_object_dispose(v18, 8);
       }
 
       else
@@ -4173,7 +4093,7 @@ uint64_t dyld3::MachOLoaded::getSlide(dyld3::MachOLoaded *this)
   return v2;
 }
 
-unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnostics *this, uint64_t a3)
+_DWORD *dyld3::MachOFile::forEachLoadCommand(_DWORD *result, Diagnostics *this, uint64_t a3)
 {
   v5 = result;
   v6 = *result;
@@ -4188,8 +4108,6 @@ unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnos
     {
       if ((v6 & 0xFEFFFFFF) != 0xCEFAEDFE)
       {
-        v16 = *result;
-        v17 = result[1];
         return Diagnostics::error(this, "file does not start with MH_MAGIC[_64]: 0x%08X 0x%08X");
       }
 
@@ -4199,56 +4117,51 @@ unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnos
     v7 = 7;
   }
 
-  if (result[3] < 0xD)
+  if (result[3] >= 0xDu)
   {
-    if (result[4])
-    {
-      v8 = 0;
-      v9 = &result[v7];
-      v10 = &result[v7] + result[5];
-      v11 = &result[v7];
-      while (1)
-      {
-        if (v11 > v10 - 8)
-        {
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, extends past sizeofcmds");
-        }
-
-        v12 = *(v11 + 4);
-        if (v12 <= 7)
-        {
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) too small");
-        }
-
-        if ((v12 & 3) != 0)
-        {
-          break;
-        }
-
-        v13 = v11 + v12;
-        if (v11 + v12 > v10 || v13 < v9)
-        {
-          v18 = *(v11 + 4);
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
-        }
-
-        result = (*(a3 + 16))(a3);
-        ++v8;
-        v11 = v13;
-        if (v8 >= v5[4])
-        {
-          return result;
-        }
-      }
-
-      return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) not multiple of 4");
-    }
+    return Diagnostics::error(this, "unknown mach-o filetype (%u)");
   }
 
-  else
+  if (result[4])
   {
-    v15 = result[3];
-    return Diagnostics::error(this, "unknown mach-o filetype (%u)");
+    v8 = 0;
+    v9 = &result[v7];
+    v10 = &result[v7] + result[5];
+    v11 = &result[v7];
+    while (1)
+    {
+      if (v11 > v10 - 2)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, extends past sizeofcmds");
+      }
+
+      v12 = v11[1];
+      if (v12 <= 7)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) too small");
+      }
+
+      if ((v12 & 3) != 0)
+      {
+        break;
+      }
+
+      v13 = (v11 + v12);
+      if (v11 + v12 > v10 || v13 < v9)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
+      }
+
+      result = (*(a3 + 16))(a3);
+      ++v8;
+      v11 = v13;
+      if (v8 >= v5[4])
+      {
+        return result;
+      }
+    }
+
+    return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) not multiple of 4");
   }
 
   return result;
@@ -4331,7 +4244,7 @@ uint64_t ___ZNK6mach_o6Header14forEachSegmentEU13block_pointerFvRKNS0_11SegmentI
   return result;
 }
 
-void dyld3::MachOLoaded::getLinkEditLoadCommands(unsigned int *a1, Diagnostics *a2, uint64_t a3)
+void dyld3::MachOLoaded::getLinkEditLoadCommands(_DWORD *a1, Diagnostics *a2, uint64_t a3)
 {
   *(a3 + 64) = 0;
   *(a3 + 32) = 0u;
@@ -4384,71 +4297,60 @@ mach_o::Error *mach_o::Header::forEachLoadCommand@<X0>(mach_o::Error *result@<X0
   {
     if (v6 != -17958194)
     {
-      if ((v6 & 0xFEFFFFFF) == 0xCEFAEDFE)
+      if ((v6 & 0xFEFFFFFF) != 0xCEFAEDFE)
       {
-
-        return mach_o::Error::Error(a3, "big endian mach-o file");
-      }
-
-      else
-      {
-        v16 = *result;
-        v17 = *(result + 1);
         return mach_o::Error::Error(a3, "file does not start with MH_MAGIC[_64]: 0x%08X 0x%08X");
       }
+
+      return mach_o::Error::Error(a3, "big endian mach-o file");
     }
 
     v7 = 28;
   }
 
-  if (*(result + 3) < 0xDu)
+  if (*(result + 3) >= 0xDu)
   {
-    if (*(result + 4))
+    return mach_o::Error::Error(a3, "unknown mach-o filetype (%u)");
+  }
+
+  if (*(result + 4))
+  {
+    v8 = result + v7;
+    v9 = result + v7 + *(result + 5);
+    v10 = 1;
+    for (i = result + v7; ; i = v13)
     {
-      v8 = result + v7;
-      v9 = result + v7 + *(result + 5);
-      v10 = 1;
-      for (i = result + v7; ; i = v13)
+      if (i >= v9)
       {
-        if (i >= v9)
-        {
-          return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, off end of load commands");
-        }
-
-        v12 = *(i + 1);
-        if (v12 <= 7)
-        {
-          break;
-        }
-
-        v13 = &i[v12];
-        if (&i[v12] > v9 || v13 < v8)
-        {
-          v18 = *(i + 1);
-          return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
-        }
-
-        result = (*(a2 + 16))(a2);
-        if (++v10 > *(v4 + 4))
-        {
-          goto LABEL_18;
-        }
+        return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, off end of load commands");
       }
 
-      return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) too small");
+      v12 = *(i + 1);
+      if (v12 <= 7)
+      {
+        break;
+      }
+
+      v13 = &i[v12];
+      if (&i[v12] > v9 || v13 < v8)
+      {
+        return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
+      }
+
+      result = (*(a2 + 16))(a2);
+      if (++v10 > *(v4 + 4))
+      {
+        goto LABEL_18;
+      }
     }
 
-    else
-    {
-LABEL_18:
-      *a3 = 0;
-    }
+    return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) too small");
   }
 
   else
   {
-    v15 = *(result + 3);
-    return mach_o::Error::Error(a3, "unknown mach-o filetype (%u)");
+LABEL_18:
+    *a3 = 0;
   }
 
   return result;
@@ -4492,10 +4394,9 @@ const os_unfair_lock *lsl::Lock::unlock(lsl::Lock *this)
       lsl::Lock::unlock();
     }
 
-    v3 = *(this + 1);
-    v4 = *(**(*this + 160) + 168);
+    v3 = *(**(*this + 160) + 168);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -4544,7 +4445,7 @@ ssize_t fsgetpath(char *a1, size_t a2, fsid_t *a3, uint64_t a4)
   return result;
 }
 
-BOOL dyld4::SyscallDelegate::hasExistingDyldCache(dyld4::SyscallDelegate *this, unint64_t *a2, FileIdTuple *a3)
+BOOL dyld4::SyscallDelegate::hasExistingDyldCache(dyld4::SyscallDelegate *this, DyldSharedCache **a2, FileIdTuple *a3)
 {
   result = 0;
   if (!__shared_region_check_np(a2))
@@ -4598,7 +4499,7 @@ lsl::Allocator::Pool *lsl::Allocator::aligned_alloc(lsl::Allocator::Pool **this,
 
   if ((lsl::sMemoryManagerInitialized & 1) == 0)
   {
-    lsl::MemoryManager::memoryManager(this);
+    lsl::MemoryManager::memoryManager();
   }
 
   v8 = (v6 + v5 - 1) & -v6;
@@ -4659,10 +4560,9 @@ const os_unfair_lock *lsl::Lock::lock(lsl::Lock *this)
       lsl::Lock::lock();
     }
 
-    v3 = *(this + 1);
-    v4 = *(**(*this + 160) + 160);
+    v3 = *(**(*this + 160) + 160);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -4737,7 +4637,7 @@ unint64_t *dyld4::PrebuiltLoader::BindTargetRef::value(unint64_t *this, dyld4::R
       v9 = dyld4::Loader::LoaderRef::loader(v12, a2);
       Address = dyld4::Loader::loadAddress(v9, a2);
       FileIdTuple::FileIdTuple(v12, ((*v3 >> 26) & 0xFFFFFFFFFLL) + Address, 0x4000);
-      return (dyld4::ProcessConfig::Process::selectFromFunctionVariants((*(a2 + 1) + 16), v12, *(v3 + 2) & 0x3FF) + Address);
+      return (dyld4::ProcessConfig::Process::selectFromFunctionVariants((*(a2 + 1) + 16), v12, *(v3 + 1) & 0x3FF) + Address);
     }
   }
 
@@ -4822,7 +4722,7 @@ BOOL dyld4::APIs::dyld_sdk_at_least(dyld4::APIs *a1, const mach_o::Header *a2, u
   v16 = *(v6 + 112);
   v17 = *(v6 + 120);
   v7 = dyld4::APIs::mapFromVersionSet(a1, a3, &v16);
-  dyld4::APIs::getImagePlatformAndVersions(a1, a2, v8, &v16);
+  dyld4::APIs::getImagePlatformAndVersions(&v16, a1, a2, v8);
   mach_o::Platform::basePlatform(&v16, &v14);
   mach_o::Platform::Platform(v11, v7);
   mach_o::Platform::basePlatform(v11, &v12);
@@ -4926,53 +4826,53 @@ BOOL DyldSharedCache::inDyldCache(DyldSharedCache *this, const DyldSharedCache *
   return result;
 }
 
-void dyld4::APIs::getImagePlatformAndVersions(dyld4::APIs *this@<X0>, const mach_o::Header *a2@<X1>, const mach_o::Header *a3@<X2>, uint64_t a4@<X8>)
+void dyld4::APIs::getImagePlatformAndVersions(uint64_t *__return_ptr a1@<X8>, dyld4::APIs *this@<X0>, const mach_o::Header *a3@<X1>, const mach_o::Header *a4@<X2>)
 {
   v5 = *(this + 1);
-  if (*(v5 + 24) == a2)
+  if (*(v5 + 24) == a3)
   {
-    *a4 = *(v5 + 112);
-    *(a4 + 8) = *(v5 + 120);
+    *a1 = *(v5 + 112);
+    *(a1 + 2) = *(v5 + 120);
     v10 = *(v5 + 88);
     v9 = *(v5 + 80);
-    *(a4 + 16) = v10;
+    *(a1 + 4) = v10;
     goto LABEL_5;
   }
 
-  if (DyldSharedCache::inDyldCache(*(v5 + 368), a2, a3))
+  if (DyldSharedCache::inDyldCache(*(v5 + 368), a3, a4))
   {
     v8 = *(this + 1);
-    *a4 = *(v8 + 512);
-    *(a4 + 8) = *(v8 + 520);
+    *a1 = *(v8 + 512);
+    *(a1 + 2) = *(v8 + 520);
     v9 = *(v8 + 528);
-    *(a4 + 16) = v9;
+    *(a1 + 4) = v9;
 LABEL_5:
-    *(a4 + 20) = v9;
-    *(a4 + 24) = 0x1000000010000;
+    *(a1 + 5) = v9;
+    a1[3] = 0x1000000010000;
     return;
   }
 
-  if (dyld3::MachOFile::hasMachOMagic(a2))
+  if (dyld3::MachOFile::hasMachOMagic(a3))
   {
-    mach_o::Header::validStructureLoadCommands(a2, 0x10000uLL, &v11);
+    mach_o::Header::validStructureLoadCommands(&v11, a3, 0x10000uLL);
     if (v11)
     {
-      mach_o::Platform::Platform(a4, 0);
-      *(a4 + 16) = xmmword_8CA20;
+      mach_o::Platform::Platform(a1, 0);
+      *(a1 + 1) = xmmword_8CA20;
       mach_o::Error::~Error(&v11);
     }
 
     else
     {
       mach_o::Error::~Error(&v11);
-      dyld4::APIs::getPlatformAndVersions(a2, a4);
+      dyld4::APIs::getPlatformAndVersions(a3, a1);
     }
   }
 
   else
   {
-    mach_o::Platform::Platform(a4, 0);
-    *(a4 + 16) = xmmword_8CA20;
+    mach_o::Platform::Platform(a1, 0);
+    *(a1 + 1) = xmmword_8CA20;
   }
 }
 
@@ -5021,7 +4921,7 @@ int mprotect(void *a1, size_t a2, int a3)
   return result;
 }
 
-int64_t _pthread_set_self_dyld(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+uint64_t _pthread_set_self_dyld(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = __thread_selfid(a1, a2, a3, a4, a5, a6, a7, a8);
   qword_ADF18 = result;
@@ -5118,13 +5018,14 @@ uint64_t ___ZNK5dyld311MachOLoaded13getLayoutInfoERNS0_10LayoutInfoE_block_invok
 uint64_t dyld3::MachOFile::walkChain(Diagnostics *a1, unsigned int *a2, mach_o::ChainedFixupPointerOnDisk *this, char a4, unsigned int a5, uint64_t a6)
 {
   v8 = this;
-  v10 = mach_o::ChainedFixupPointerOnDisk::strideSize(this);
+  v9 = a2;
+  v10 = mach_o::ChainedFixupPointerOnDisk::strideSize(this, a2);
   v21 = 0;
   while (1)
   {
-    v11 = *a2;
-    v12 = a2[1];
-    (*(a6 + 16))(a6, a2, &v21);
+    v11 = *v9;
+    v12 = v9[1];
+    (*(a6 + 16))(a6, v9, &v21);
     result = v21;
     if (v21)
     {
@@ -5164,7 +5065,7 @@ LABEL_15:
       return 0;
     }
 
-    a2 += v15;
+    v9 += v15;
     if (a4)
     {
       result = 0;
@@ -5174,13 +5075,13 @@ LABEL_15:
     {
       for (result = 0; ; result = 0)
       {
-        v17 = *a2;
-        if ((*a2 & 0x80000000) != 0 || (v17 & 0x3FFFFFF) <= a5)
+        v17 = *v9;
+        if ((*v9 & 0x80000000) != 0 || (v17 & 0x3FFFFFF) <= a5)
         {
           break;
         }
 
-        a2 = (a2 + (HIBYTE(v17) & 0x7CLL));
+        v9 = (v9 + (HIBYTE(v17) & 0x7CLL));
       }
     }
 
@@ -5221,7 +5122,7 @@ LABEL_16:
       result = 0;
       v16 = v14 * v10;
 LABEL_17:
-      a2 = (a2 + v16);
+      v9 = (v9 + v16);
       goto LABEL_29;
     }
   }
@@ -5248,7 +5149,7 @@ LABEL_27:
     }
 
     result = 0;
-    a2 += v18;
+    v9 += v18;
     goto LABEL_29;
   }
 
@@ -5360,7 +5261,7 @@ uint64_t dyld3::MachOLoaded::forEachFixupInAllChains(uint64_t result, Diagnostic
   return result;
 }
 
-uint64_t mach_o::ChainedFixupPointerOnDisk::strideSize(mach_o::ChainedFixupPointerOnDisk *this)
+uint64_t mach_o::ChainedFixupPointerOnDisk::strideSize(mach_o::ChainedFixupPointerOnDisk *this, uint64_t a2)
 {
   if ((this - 1) >= 0xD)
   {
@@ -5370,146 +5271,145 @@ uint64_t mach_o::ChainedFixupPointerOnDisk::strideSize(mach_o::ChainedFixupPoint
   return dword_8D310[(this - 1)];
 }
 
-uint64_t mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(mach_o::ChainedFixupPointerOnDisk::Arm64e *this, unint64_t a2, mach_o::ChainedFixupPointerOnDisk::Arm64e *a3)
+uint64_t mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(mach_o::ChainedFixupPointerOnDisk::Arm64e *this, uint64_t a2, mach_o::ChainedFixupPointerOnDisk::Arm64e *a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
 {
-  v4 = *this;
+  v7 = *this;
   if ((*this & 0x8000000000000000) == 0)
   {
     mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer();
   }
 
-  return mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(a3, a2, (HIWORD(v4) & 1), SBYTE4(v4), (v4 >> 49) & 3);
+  return mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(a3, a2, (HIWORD(v7) & 1), WORD2(v7), (v7 >> 49) & 3);
 }
 
-uint64_t ___ZNK5dyld311MachOLoaded21fixupAllChainedFixupsER11DiagnosticsPK28dyld_chained_starts_in_imagemNS_5ArrayIPKvEEU13block_pointerFvPvSA_E_block_invoke(uint64_t a1, mach_o::ChainedFixupPointerOnDisk::Arm64e *this, uint64_t a3, _BYTE *a4)
+uint64_t ___ZNK5dyld311MachOLoaded21fixupAllChainedFixupsER11DiagnosticsPK28dyld_chained_starts_in_imagemNS_5ArrayIPKvEEU13block_pointerFvPvSA_E_block_invoke(uint64_t a1, mach_o::ChainedFixupPointerOnDisk::Arm64e *this, uint64_t a3, _BYTE *a4, uint64_t a5, unsigned __int8 a6)
 {
-  v6 = *(a3 + 6);
-  if (v6 > 0xC)
+  v8 = *(a3 + 6);
+  if (v8 > 0xC)
   {
     goto LABEL_18;
   }
 
-  v8 = *(a1 + 40);
-  if (((1 << v6) & 0x1282) == 0)
+  v10 = *(a1 + 40);
+  if (((1 << v8) & 0x1282) == 0)
   {
-    if (((1 << v6) & 0x44) != 0)
+    if (((1 << v8) & 0x44) != 0)
     {
-      v11 = *this;
+      v13 = *this;
       if ((*this & 0x8000000000000000) == 0)
       {
-        if (v6 == 2)
+        if (v8 == 2)
         {
-          v10 = mach_o::ChainedFixupPointerOnDisk::Generic64::unpackedTarget(this);
+          v12 = mach_o::ChainedFixupPointerOnDisk::Generic64::unpackedTarget(this);
           goto LABEL_11;
         }
 
-        v23 = mach_o::ChainedFixupPointerOnDisk::Generic64::unpackedTarget(this);
+        v25 = mach_o::ChainedFixupPointerOnDisk::Generic64::unpackedTarget(this);
 LABEL_30:
-        v12 = v23 + v8;
+        v14 = v25 + v10;
         goto LABEL_31;
       }
 
-      if ((v11 & 0xFFFFFFuLL) < *(a1 + 64))
+      if ((v13 & 0xFFFFFFuLL) < *(a1 + 64))
       {
-        v17 = *(*(a1 + 48) + 8 * (v11 & 0xFFFFFF));
-        v18 = mach_o::ChainedFixupPointerOnDisk::Generic64::signExtendedAddend(this);
+        v19 = *(*(a1 + 48) + 8 * (v13 & 0xFFFFFF));
+        v20 = mach_o::ChainedFixupPointerOnDisk::Generic64::signExtendedAddend(this);
         goto LABEL_27;
       }
 
-      v22 = *(a1 + 72);
+      v24 = *(a1 + 72);
       goto LABEL_35;
     }
 
 LABEL_18:
-    v24 = *(a3 + 6);
     result = Diagnostics::error(*(a1 + 72), "unsupported pointer chain format: 0x%04X");
 LABEL_36:
     *a4 = 1;
     return result;
   }
 
-  v9 = *this;
+  v11 = *this;
   if ((*this & 0x8000000000000000) != 0)
   {
-    if ((v9 & 0x4000000000000000) != 0)
+    if ((v11 & 0x4000000000000000) != 0)
     {
-      v14 = v6 == 12;
-      v20 = 0xFFFFLL;
-      if (v14)
+      v16 = v8 == 12;
+      v22 = 0xFFFFLL;
+      if (v16)
       {
-        v20 = 0xFFFFFFLL;
+        v22 = 0xFFFFFFLL;
       }
 
-      v21 = v9 & v20;
-      if (v21 >= *(a1 + 64))
+      v23 = v11 & v22;
+      if (v23 >= *(a1 + 64))
       {
 LABEL_24:
-        v22 = *(a1 + 72);
+        v24 = *(a1 + 72);
 LABEL_35:
-        result = Diagnostics::error(v22, "out of range bind ordinal %d (max %llu)");
+        result = Diagnostics::error(v24, "out of range bind ordinal %d (max %llu)");
         goto LABEL_36;
       }
 
-      v13 = *(*(a1 + 48) + 8 * v21);
-      if (!v13)
+      v15 = *(*(a1 + 48) + 8 * v23);
+      if (!v15)
       {
-        v12 = 0;
+        v14 = 0;
         goto LABEL_31;
       }
     }
 
     else
     {
-      v13 = (v8 + v9);
+      v15 = (v10 + v11);
     }
 
-    v12 = mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(this, this, v13);
+    v14 = mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(this, this, v15, a4, a5, a6);
     goto LABEL_31;
   }
 
-  if (v9 >> 62)
+  if (v11 >> 62)
   {
-    v14 = v6 == 12;
-    v15 = 0xFFFFLL;
-    if (v14)
+    v16 = v8 == 12;
+    v17 = 0xFFFFLL;
+    if (v16)
     {
-      v15 = 0xFFFFFFLL;
+      v17 = 0xFFFFFFLL;
     }
 
-    v16 = v9 & v15;
-    if (v16 < *(a1 + 64))
+    v18 = v11 & v17;
+    if (v18 < *(a1 + 64))
     {
-      v17 = *(*(a1 + 48) + 8 * v16);
-      v18 = mach_o::ChainedFixupPointerOnDisk::Arm64e::signExtendedAddend(this);
+      v19 = *(*(a1 + 48) + 8 * v18);
+      v20 = mach_o::ChainedFixupPointerOnDisk::Arm64e::signExtendedAddend(this);
 LABEL_27:
-      v12 = v18 + v17;
+      v14 = v20 + v19;
       goto LABEL_31;
     }
 
     goto LABEL_24;
   }
 
-  if (v6 != 1)
+  if (v8 != 1)
   {
-    v23 = mach_o::ChainedFixupPointerOnDisk::Arm64e::unpackTarget(this);
+    v25 = mach_o::ChainedFixupPointerOnDisk::Arm64e::unpackTarget(this);
     goto LABEL_30;
   }
 
-  v10 = mach_o::ChainedFixupPointerOnDisk::Arm64e::unpackTarget(this);
+  v12 = mach_o::ChainedFixupPointerOnDisk::Arm64e::unpackTarget(this);
 LABEL_11:
-  v12 = *(a1 + 80) + v10;
+  v14 = *(a1 + 80) + v12;
 LABEL_31:
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, this, v12);
+    result = (*(result + 16))(result, this, v14);
   }
 
-  *this = v12;
+  *this = v14;
   return result;
 }
 
-uint64_t mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(uint64_t this, unint64_t a2, void *a3, BOOL a4, int a5)
+uint64_t mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(uint64_t this, uint64_t a2, void *a3, unsigned __int16 a4, int a5)
 {
   if (this)
   {
@@ -5957,15 +5857,12 @@ void __chkstk_darwin_probe(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   {
     do
     {
-      v10 -= 4096;
-      v11 = *v10;
+      v10 -= 512;
       v9 -= 4096;
     }
 
     while (v9 > 0x1000);
   }
-
-  v12 = v10[-v9];
 }
 
 void *__cdecl memmove(void *__dst, const void *__src, size_t __n)
@@ -6226,7 +6123,6 @@ unint64_t lsl::Allocator::AllocationMetadata::pool(lsl::Allocator::AllocationMet
   if (*this)
   {
     v3 = (*this & 1) == 0;
-    *this;
   }
 
   else
@@ -6277,7 +6173,7 @@ uint64_t lsl::Allocator::AllocationMetadata::firstAddress(lsl::Allocator::Alloca
 {
   if ((lsl::sMemoryManagerInitialized & 1) == 0)
   {
-    lsl::MemoryManager::memoryManager(this);
+    lsl::MemoryManager::memoryManager();
   }
 
   result = this + 16;
@@ -6696,15 +6592,15 @@ LABEL_24:
   return v12;
 }
 
-uint64_t dyld4::APIs::_dyld_find_protocol_conformance_on_disk(dyld4::APIs *this, dyld4::PrebuiltLoader::BindTargetRef *a2, dyld4::PrebuiltLoader::BindTargetRef *a3, dyld4::PrebuiltLoader::BindTargetRef *a4)
+uint64_t dyld4::APIs::_dyld_find_protocol_conformance_on_disk(dyld4::PrebuiltLoaderSet **this, dyld4::PrebuiltLoader::BindTargetRef *a2, dyld4::PrebuiltLoader::BindTargetRef *a3, dyld4::PrebuiltLoader::BindTargetRef *a4)
 {
-  if (*(*(this + 1) + 324) == 1)
+  if (*(this[1] + 324) == 1)
   {
     dyld4::RuntimeState::log(this, "_dyld_find_protocol_conformance_on_disk(%p, %p, %p)\n", a2, a3, a4);
   }
 
-  v8 = *(this + 122);
-  if (!v8 || !dyld4::PrebuiltLoaderSet::hasOptimizedSwift(*(this + 122)))
+  v8 = this[122];
+  if (!v8 || !dyld4::PrebuiltLoaderSet::hasOptimizedSwift(this[122]))
   {
     return 2;
   }
@@ -6714,37 +6610,37 @@ uint64_t dyld4::APIs::_dyld_find_protocol_conformance_on_disk(dyld4::APIs *this,
   {
     if (v9)
     {
-      if (*(this + 71))
+      if (this[71])
       {
         Absolute = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a4);
-        v22 = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a2);
-        v10 = dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::find(*(this + 71), &Absolute);
-        if (v10 != (*(*(this + 71) + 56) + 32 * *(*(this + 71) + 72)))
+        v24 = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a2);
+        v10 = dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::find(this[71], &Absolute);
+        if (v10 != (*(this[71] + 7) + 32 * *(this[71] + 9)))
         {
           v11 = v10;
           if (dyld4::EqualTypeConformanceLookupKey::equal(v10, a4, a2, this))
           {
 LABEL_12:
-            v13 = dyld4::PrebuiltLoader::BindTargetRef::loaderRef((v11 + 2)) & 0x7FFF;
-            if (*(v8 + 3) <= v13)
+            v14 = dyld4::PrebuiltLoader::BindTargetRef::loaderRef((v11 + 2), v12) & 0x7FFF;
+            if (*(v8 + 3) <= v14)
             {
               dyld4::RuntimeState::findPrebuiltLoader();
             }
 
-            dyld4::PrebuiltLoader::loadAddress((v8 + *(v8 + 4 * v13 + *(v8 + 4))), this);
-            v14 = (v11 + 2);
+            dyld4::PrebuiltLoader::loadAddress((v8 + *(v8 + 4 * v14 + *(v8 + 4))), this);
+            v15 = (v11 + 2);
             goto LABEL_23;
           }
 
           while (1)
           {
-            v12 = v11[3];
-            if ((v12 & 3) == 0)
+            v13 = v11[3];
+            if ((v13 & 3) == 0)
             {
               break;
             }
 
-            v11 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((*(this + 71) + 56), v12 >> 3);
+            v11 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](this[71] + 7, v13 >> 3);
             if (dyld4::EqualTypeConformanceLookupKey::equal(v11, a4, a2, this))
             {
               goto LABEL_12;
@@ -6755,36 +6651,36 @@ LABEL_12:
     }
   }
 
-  v15 = dyld4::PrebuiltLoaderSet::swiftMetadataProtocolTable(v8);
+  v16 = dyld4::PrebuiltLoaderSet::swiftMetadataProtocolTable(v8);
   result = 2;
-  if (a3 && v15)
+  if (a3 && v16)
   {
-    if (*(this + 72))
+    if (this[72])
     {
       Absolute = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a3);
-      v22 = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a2);
-      v17 = dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::find(*(this + 72), &Absolute);
-      if (v17 != *(*(this + 72) + 56) + 32 * *(*(this + 72) + 72))
+      v24 = dyld4::PrebuiltLoader::BindTargetRef::makeAbsolute(a2);
+      v18 = dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::find(this[72], &Absolute);
+      if (v18 != *(this[72] + 7) + 32 * *(this[72] + 9))
       {
-        for (i = v17; !dyld4::EqualMetadataConformanceLookupKey::equal(i, a3, a2, this); i = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((*(this + 72) + 56), v19 >> 3))
+        for (i = v18; !dyld4::EqualMetadataConformanceLookupKey::equal(i, a3, a2, this); i = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](this[72] + 7, v21 >> 3))
         {
-          v19 = i[3];
-          if ((v19 & 3) == 0)
+          v21 = i[3];
+          if ((v21 & 3) == 0)
           {
             return 2;
           }
         }
 
-        v20 = dyld4::PrebuiltLoader::BindTargetRef::loaderRef((i + 2)) & 0x7FFF;
-        if (*(v8 + 3) <= v20)
+        v22 = dyld4::PrebuiltLoader::BindTargetRef::loaderRef((i + 2), v20) & 0x7FFF;
+        if (*(v8 + 3) <= v22)
         {
           dyld4::RuntimeState::findPrebuiltLoader();
         }
 
-        dyld4::PrebuiltLoader::loadAddress((v8 + *(v8 + 4 * v20 + *(v8 + 4))), this);
-        v14 = (i + 2);
+        dyld4::PrebuiltLoader::loadAddress((v8 + *(v8 + 4 * v22 + *(v8 + 4))), this);
+        v15 = (i + 2);
 LABEL_23:
-        dyld4::PrebuiltLoader::BindTargetRef::offset(v14);
+        dyld4::PrebuiltLoader::BindTargetRef::offset(v15);
         return 0;
       }
     }
@@ -6795,36 +6691,36 @@ LABEL_23:
   return result;
 }
 
-uint64_t SwiftHashTable::getIndex<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(unsigned int *a1, objc *a2)
+uint64_t SwiftHashTable::getIndex<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(unsigned int *a1, objc *a2, uint64_t a3)
 {
-  v4 = SwiftHashTable::hash<SwiftTypeProtocolConformanceLocationKey>(a1, a2);
-  if (*a1 <= v4)
+  v5 = SwiftHashTable::hash<SwiftTypeProtocolConformanceLocationKey>(a1, a2);
+  if (*a1 <= v5)
   {
     dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
   }
 
-  v5 = v4;
-  v6 = *(a1 + a1[5] + v4 + 1056);
-  if (v6 != SwiftHashTable::checkbyte<SwiftTypeProtocolConformanceLocationKey>(a1, a2))
+  v6 = v5;
+  v7 = *(a1 + a1[5] + v5 + 1056);
+  if (v7 != SwiftHashTable::checkbyte<SwiftTypeProtocolConformanceLocationKey>(a1, a2))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v7 = *a1;
-  if (v7 <= v5)
+  v8 = *a1;
+  if (v8 <= v6)
   {
     dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
   }
 
-  v8 = *(&a1[v5 + 264] + a1[5] + v7);
-  if (v8 == -1)
+  v9 = *(&a1[v6 + 264] + a1[5] + v8);
+  if (v9 == -1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (SwiftHashTable::equal<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(a1, (a1 + v8), a2))
+  if (SwiftHashTable::equal<SwiftTypeProtocolConformanceLocationKey,SwiftTypeProtocolConformanceLocationKey>(a1, (a1 + v9), a2))
   {
-    return v5;
+    return v6;
   }
 
   return 0xFFFFFFFFLL;
@@ -6902,7 +6798,7 @@ uint64_t DyldSharedCache::hasImagePath(DyldSharedCache *this, const char *__s2, 
   return 1;
 }
 
-BOOL dyld4::APIs::_dyld_shared_cache_contains_path(DyldSharedCache ***this, const char *a2)
+BOOL dyld4::APIs::_dyld_shared_cache_contains_path(dyld4::ProcessConfig **this, const char *a2)
 {
   v4 = dyld4::ProcessConfig::canonicalDylibPathInCache(this[1], a2);
   v5 = v4;
@@ -6934,7 +6830,7 @@ DyldSharedCache *dyld4::ProcessConfig::DyldCache::getCanonicalPath(DyldSharedCac
   return result;
 }
 
-uint64_t dyld3::MapBase<prebuilt_objc::ObjCStringKeyOnDisk,void,prebuilt_objc::HashObjCStringKeyOnDisk,prebuilt_objc::EqualObjCStringKeyOnDisk>::const_find<char const*>(uint64_t a1, void *a2, void *a3, dyld4::RuntimeState *a4, const char **a5)
+unint64_t dyld3::MapBase<prebuilt_objc::ObjCStringKeyOnDisk,void,prebuilt_objc::HashObjCStringKeyOnDisk,prebuilt_objc::EqualObjCStringKeyOnDisk>::const_find<char const*>(uint64_t a1, void *a2, void *a3, dyld4::RuntimeState *a4, char **a5)
 {
   if (!a3[2])
   {
@@ -6991,7 +6887,7 @@ LABEL_8:
   return *a3 + 8 * v15;
 }
 
-unint64_t *prebuilt_objc::findSelector(dyld4::RuntimeState *a1, void *a2, const char *a3)
+unint64_t *prebuilt_objc::findSelector(dyld4::RuntimeState *a1, void *a2, char *a3)
 {
   v7 = a3;
   v5 = dyld3::MapBase<prebuilt_objc::ObjCStringKeyOnDisk,void,prebuilt_objc::HashObjCStringKeyOnDisk,prebuilt_objc::EqualObjCStringKeyOnDisk>::const_find<char const*>(a2, a2, a2 + 3, a1, &v7);
@@ -7563,14 +7459,14 @@ lsl::Bitmap *lsl::Bitmap::Bitmap(lsl::Bitmap *this, lsl::Allocator::Pool **a2, u
   return this;
 }
 
-uint64_t dyld4::Atlas::ProcessSnapshot::addSharedCacheImage(dyld4::Atlas::ProcessSnapshot *this, const mach_header *a2)
+uint64_t dyld4::Atlas::ProcessSnapshot::addSharedCacheImage(lsl::Bitmap **this, const mach_header *a2)
 {
   if ((a2->flags & 0x80000000) == 0)
   {
     dyld4::Atlas::ProcessSnapshot::addSharedCacheImage();
   }
 
-  v2 = *(*(this + 8) + 160);
+  v2 = *(this[8] + 20);
   v3 = *(v2 + 18);
   v4 = &v2[*(v2 + 17)];
   v5 = &v4[32 * v3];
@@ -7601,7 +7497,7 @@ uint64_t dyld4::Atlas::ProcessSnapshot::addSharedCacheImage(dyld4::Atlas::Proces
     dyld4::Atlas::ProcessSnapshot::addSharedCacheImage();
   }
 
-  v9 = *(this + 7);
+  v9 = this[7];
 
   return lsl::Bitmap::setBit(v9, (v8 - v4) >> 5);
 }
@@ -7617,7 +7513,7 @@ uint64_t lsl::Bitmap::setBit(uint64_t this, unint64_t a2)
   return this;
 }
 
-const unsigned __int8 **dyld3::MachOFile::trieWalk(dyld3::MachOFile *this, const unsigned __int8 **a2, Diagnostics *a3, const unsigned __int8 *a4, const char *a5)
+const unsigned __int8 **dyld3::MachOFile::trieWalk(dyld3::MachOFile *this, const unsigned __int8 **a2, const unsigned __int8 **a3, const unsigned __int8 *a4, const char *a5)
 {
   v32[0] = &v36;
   v32[1] = 128;
@@ -7663,7 +7559,7 @@ const unsigned __int8 **dyld3::MachOFile::trieWalk(dyld3::MachOFile *this, const
     }
 
     v14 = v31 + v11;
-    if (v31 + v11 > a3)
+    if ((v31 + v11) > a3)
     {
       goto LABEL_36;
     }
@@ -7745,7 +7641,7 @@ const unsigned __int8 **dyld3::MachOFile::trieWalk(dyld3::MachOFile *this, const
       goto LABEL_36;
     }
 
-    if (!v26 || (v10 = (a2 + v26), a2 + v26 > a3) || v26 > a3 - a2)
+    if (!v26 || (v10 = (a2 + v26), (a2 + v26) > a3) || v26 > a3 - a2)
     {
       Diagnostics::error(this, "malformed trie child, nodeOffset=0x%llX out of range\n");
 LABEL_36:
@@ -7841,7 +7737,7 @@ uint64_t dyld3::MachOFile::read_uleb128(dyld3::MachOFile *this, const unsigned _
   return v6;
 }
 
-lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::Array>(uint64_t a1, const void *a2, size_t a3)
+PropertyList::Array *PropertyList::Dictionary::addObjectForKey<PropertyList::Array>(uint64_t a1, const void *a2, size_t a3)
 {
   v5 = a1 + 48;
   v6 = *(a1 + 48);
@@ -8034,7 +7930,7 @@ void *PropertyList::String::String(void *a1, lsl::Allocator::Pool **this, const 
   return a1;
 }
 
-lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned char const&>(uint64_t a1, const void *a2, size_t a3, unsigned __int8 *a4)
+PropertyList::Integer *PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned char const&>(uint64_t a1, const void *a2, size_t a3, unsigned __int8 *a4)
 {
   v7 = a1 + 48;
   v8 = *(a1 + 48);
@@ -8055,11 +7951,11 @@ lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::In
   return v12;
 }
 
-void ___ZNK6mach_o6Header19platformAndVersionsEv_block_invoke(uint64_t a1, uint64_t a2, int a3, int a4)
+void ___ZNK6mach_o6Header19platformAndVersionsEv_block_invoke(uint64_t a1, uint64_t *a2, int a3, int a4)
 {
   v4 = *(*(a1 + 32) + 8);
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = *(a2 + 2);
   v7 = a3;
   v8 = a4;
   v9 = 0x1000000010000;
@@ -8208,7 +8104,7 @@ LABEL_36:
   mach_o::Error::Error(a3, "incompatible platforms: %s - %s", v9, v10);
 }
 
-lsl::Allocator::Pool *PropertyList::Array::addObject<PropertyList::Dictionary>(uint64_t a1)
+PropertyList::Dictionary *PropertyList::Array::addObject<PropertyList::Dictionary>(uint64_t a1)
 {
   v1 = a1 + 16;
   v2 = *(a1 + 16);
@@ -8427,7 +8323,7 @@ uint64_t ___ZNK6mach_o6Header19getDylibInstallNameEPPKcPNS_9Version32ES5__block_
   return result;
 }
 
-lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::UUID,unsigned char (&)[16]>(uint64_t a1, const void *a2, size_t a3, unsigned __int8 *a4)
+PropertyList::UUID *PropertyList::Dictionary::addObjectForKey<PropertyList::UUID,unsigned char (&)[16]>(uint64_t a1, const void *a2, size_t a3, unsigned __int8 *a4)
 {
   v7 = a1 + 48;
   v8 = *(a1 + 48);
@@ -8461,7 +8357,7 @@ PropertyList::UUID *PropertyList::UUID::UUID(PropertyList::UUID *this, lsl::Allo
   return this;
 }
 
-lsl::Allocator::Pool *___ZN5dyld423ExternallyViewableState13atlasAddImageERN12PropertyList10DictionaryEyPKc_block_invoke(lsl::Allocator::Pool *result, uint64_t a2)
+PropertyList::Integer *___ZN5dyld423ExternallyViewableState13atlasAddImageERN12PropertyList10DictionaryEyPKc_block_invoke(PropertyList::Integer *result, uint64_t a2)
 {
   v3 = result;
   if (*(a2 + 8) != 10 || (**a2 == 0x455A454741505F5FLL ? (v4 = *(*a2 + 8) == 20306) : (v4 = 0), !v4))
@@ -8528,7 +8424,7 @@ lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::St
   return v12;
 }
 
-lsl::Allocator::Pool *PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned int const&>(uint64_t a1, const void *a2, size_t a3, unsigned int *a4)
+PropertyList::Integer *PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned int const&>(uint64_t a1, const void *a2, size_t a3, unsigned int *a4)
 {
   v7 = a1 + 48;
   v8 = *(a1 + 48);
@@ -8953,7 +8849,7 @@ uint64_t *std::__copy_impl::operator()[abi:nn200100]<PropertyList::Object **,Pro
   return v5;
 }
 
-__int128 *lsl::Vector<PropertyList::Object *>::operator=(__int128 *a1, uint64_t a2)
+__int128 *lsl::Vector<PropertyList::Object *>::operator=(__int128 *a1, uint64_t *a2)
 {
   lsl::Vector<PropertyList::Object *>::Vector(&v7, a2);
   if (&v7 == a1)
@@ -8983,7 +8879,7 @@ LABEL_3:
   return a1;
 }
 
-uint64_t *lsl::Vector<PropertyList::Object *>::Vector(uint64_t *a1, uint64_t a2)
+uint64_t *lsl::Vector<PropertyList::Object *>::Vector(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
   *a1 = *a2;
@@ -8997,12 +8893,12 @@ uint64_t *lsl::Vector<PropertyList::Object *>::Vector(uint64_t *a1, uint64_t a2)
   }
 
   lsl::Vector<char const*>::resize(a1, 0);
-  lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(a1, *(a2 + 16));
-  v6 = *(a2 + 16);
+  lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(a1, a2[2]);
+  v6 = a2[2];
   a1[2] = v6;
   if (v6)
   {
-    memmove(*v3, *(a2 + 8), 8 * v6);
+    memmove(*v3, a2[1], 8 * v6);
   }
 
   return a1;
@@ -9128,7 +9024,6 @@ uint64_t lsl::Allocator::AllocationMetadata::coalesce(lsl::Allocator::Allocation
   if (*this)
   {
     v6 = (*this & 1) == 0;
-    *this;
   }
 
   else
@@ -9170,7 +9065,7 @@ uint64_t lsl::Allocator::AllocationMetadata::coalesce(lsl::Allocator::Allocation
   return result;
 }
 
-uint64_t *__stackAllocatorInternal(uint64_t *a1, uint64_t a2)
+lsl::Allocator *__stackAllocatorInternal(lsl::Allocator *a1, uint64_t a2)
 {
   v6 = a1;
   v7 = a2;
@@ -9201,7 +9096,7 @@ uint64_t *__stackAllocatorInternal(uint64_t *a1, uint64_t a2)
   return v2;
 }
 
-uint64_t *__stackAllocatorInternal(uint64_t *a1)
+lsl::Allocator *__stackAllocatorInternal(lsl::Allocator *a1)
 {
   v5 = a1;
   v6 = 272;
@@ -9321,7 +9216,7 @@ void dyld4::ExternallyViewableState::createMinimalInfo(dyld4::ExternallyViewable
   {
     v37 = DyldSharedCache::dynamicRegion(a7);
     v38 = DyldSharedCache::DynamicRegion::cachePath(v37);
-    dyld4::FileManager::fileRecordForPath(v82, v13, v38, v107);
+    dyld4::FileManager::fileRecordForPath(v107, v82, v13, v38);
     v39 = dyld4::Atlas::ProcessSnapshot::identityMapper(v108);
     dyld4::Atlas::SharedCache::SharedCache(&v96, v13, v107, v39, a7, 0);
     dyld4::Atlas::ProcessSnapshot::addSharedCache(v108, &v96);
@@ -9345,7 +9240,7 @@ void dyld4::ExternallyViewableState::createMinimalInfo(dyld4::ExternallyViewable
   v106 = 0uLL;
   if ((dyld3::MachOFile::inDyldCache(v18) & 1) == 0)
   {
-    dyld4::FileManager::fileRecordForPath(v82, v13, a4, v107);
+    dyld4::FileManager::fileRecordForPath(v107, v82, v13, a4);
     v91 = 0uLL;
     if (mach_o::Header::getUuid(v18, &v106))
     {
@@ -9374,7 +9269,7 @@ LABEL_62:
   }
 
 LABEL_24:
-  dyld4::FileManager::fileRecordForPath(v82, v13, a4, v107);
+  dyld4::FileManager::fileRecordForPath(v107, v82, v13, a4);
   v95 = 0uLL;
   if (mach_o::Header::getUuid(a5, &v106))
   {
@@ -9402,7 +9297,7 @@ LABEL_24:
   }
 
   dyld4::FileRecord::~FileRecord(v97);
-  dyld4::Atlas::ProcessSnapshot::serialize(v108, &v79);
+  dyld4::Atlas::ProcessSnapshot::serialize(&v79, v108);
   AAREncoder::addFile(v84, "process.cinfo", 0xDuLL, v80, v81);
   PropertyList::PropertyList(&v96, v13);
   v48 = PropertyList::rootDictionary(&v96);
@@ -9732,34 +9627,8 @@ dyld4::Atlas::ProcessSnapshot *dyld4::Atlas::ProcessSnapshot::ProcessSnapshot(dy
 kern_return_t mach_vm_map(vm_map_t target_task, mach_vm_address_t *address, mach_vm_size_t size, mach_vm_offset_t mask, int flags, mem_entry_name_port_t object, memory_object_offset_t offset, BOOLean_t copy, vm_prot_t cur_protection, vm_prot_t max_protection, vm_inherit_t inheritance)
 {
   v12 = target_task;
-  if (object)
+  if (object || (max_protection == 7 ? (v13 = inheritance == 1) : (v13 = 0), !v13 || (v14 = address, v15 = size, v16 = mask, v17 = flags, v18 = copy, v19 = offset, v20 = _kernelrpc_mach_vm_map_trap(target_task, address, size, mask, flags, cur_protection), size = v15, mask = v16, flags = v17, offset = v19, v12 = target_task, copy = v18, address = v14, v21 = v20, v20 == 268435459)))
   {
-    goto LABEL_9;
-  }
-
-  if (max_protection != 7 || inheritance != 1)
-  {
-    goto LABEL_9;
-  }
-
-  v14 = address;
-  v15 = size;
-  v16 = mask;
-  v17 = flags;
-  v18 = copy;
-  v19 = offset;
-  v20 = _kernelrpc_mach_vm_map_trap(target_task, address, size, mask, flags, cur_protection);
-  size = v15;
-  mask = v16;
-  flags = v17;
-  offset = v19;
-  v12 = target_task;
-  copy = v18;
-  address = v14;
-  v21 = v20;
-  if (v20 == 268435459)
-  {
-LABEL_9:
     v30 = 1;
     v31 = object;
     *&v32 = 0x13000000000000;
@@ -9853,4 +9722,24 @@ LABEL_27:
   }
 
   return v21;
+}
+
+void *lsl::MemoryManager::Buffer::consumeSpace(void *this, unint64_t a2)
+{
+  v2 = this[1];
+  v3 = v2 >= a2;
+  v4 = v2 - a2;
+  if (!v3)
+  {
+    lsl::MemoryManager::Buffer::consumeSpace();
+  }
+
+  if ((a2 & 0xF) != 0)
+  {
+    lsl::MemoryManager::Buffer::consumeSpace();
+  }
+
+  *this += a2;
+  this[1] = v4;
+  return this;
 }

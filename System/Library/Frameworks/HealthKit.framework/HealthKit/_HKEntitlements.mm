@@ -101,7 +101,7 @@
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -149,7 +149,7 @@
 
 + (id)_entitlementsWithSecTask:(__SecTask *)task valueOverrides:(id)overrides error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   overridesCopy = overrides;
   error = 0;
   _allowedEntitlementsSet = [self _allowedEntitlementsSet];
@@ -162,26 +162,26 @@
   if (v12)
   {
     errorCopy2 = error;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v14 = allObjects;
-    v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * i);
+          v19 = *(*(&v27 + 1) + 8 * i);
           v20 = [overridesCopy objectForKeyedSubscript:v19];
           if (v20)
           {
@@ -189,7 +189,7 @@
           }
         }
 
-        v16 = [(__CFArray *)v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v16 = [(__CFArray *)v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v16);
@@ -220,8 +220,6 @@
     v21 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
@@ -235,16 +233,14 @@
 
 + (id)entitlementsWithApplicationIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"application-identifier";
-  v11[0] = identifier;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"application-identifier";
+  v10[0] = identifier;
   v4 = MEMORY[0x1E695DF20];
   identifierCopy = identifier;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [self entitlementsWithDictionary:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -397,37 +393,37 @@
 
 - (id)_typesFromIdentifierArray:(id)array
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = arrayCopy;
     v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v12 = [HKObjectType _typeWithIdentifier:v11, v15];
+            v12 = [HKObjectType _typeWithIdentifier:v11, v14];
             if (v12)
             {
               [v5 addObject:v12];
@@ -435,7 +431,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -446,8 +442,6 @@
   {
     v5 = [MEMORY[0x1E695DFD8] set];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

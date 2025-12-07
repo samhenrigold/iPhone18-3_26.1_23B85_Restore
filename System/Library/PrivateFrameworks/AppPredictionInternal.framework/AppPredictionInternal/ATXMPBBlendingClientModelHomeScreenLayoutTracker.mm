@@ -69,42 +69,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_layoutType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    numSuggestionsForClientModelInLayout = self->_numSuggestionsForClientModelInLayout;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_clientModelABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -207,7 +206,6 @@
     }
   }
 
-  v7 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_numSuggestionsForClientModelInLayout != *(equalCopy + 12))
@@ -219,7 +217,7 @@
   else if (*(equalCopy + 52))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -241,17 +239,17 @@ LABEL_17:
   clientModelABGroup = self->_clientModelABGroup;
   if (clientModelABGroup | *(equalCopy + 2))
   {
-    v11 = [(NSString *)clientModelABGroup isEqual:?];
+    v10 = [(NSString *)clientModelABGroup isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

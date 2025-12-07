@@ -71,7 +71,7 @@
 
   if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_10001EA10, "[SRBannerMediaPlayerView loadMovieLoopWithPath:bannerInstance:]", 30, "Adding KVO listener");
   }
 
   avPlayer6 = [(SRBannerMediaPlayerView *)self avPlayer];
@@ -92,30 +92,38 @@
   {
     v12 = [changeCopy objectForKeyedSubscript:NSKeyValueChangeNewKey];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      integerValue = [v12 integerValue];
+      isKindOfClass = [v12 integerValue];
+      v16 = isKindOfClass;
     }
 
     else
     {
-      integerValue = 0;
+      v16 = 0;
     }
 
-    if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    if (dword_10001EA10 <= 30)
     {
-      sub_10000D5F8();
-    }
-
-    if (integerValue == 1)
-    {
-      if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+      if (dword_10001EA10 != -1 || (isKindOfClass = _LogCategory_Initialize(), isKindOfClass))
       {
-        sub_10000D638();
+        isKindOfClass = sub_10000D5F8(v16);
+      }
+    }
+
+    if (v16 == 1)
+    {
+      if (dword_10001EA10 <= 30)
+      {
+        if (dword_10001EA10 != -1 || (isKindOfClass = _LogCategory_Initialize(), isKindOfClass))
+        {
+          sub_10000D638(isKindOfClass, v14, v15);
+        }
       }
 
-      v14 = +[NSNotificationCenter defaultCenter];
-      [v14 postNotificationName:@"VideoReadyToPlay" object:self];
+      v17 = +[NSNotificationCenter defaultCenter];
+      [v17 postNotificationName:@"VideoReadyToPlay" object:self];
     }
 
     v11 = changeCopy;

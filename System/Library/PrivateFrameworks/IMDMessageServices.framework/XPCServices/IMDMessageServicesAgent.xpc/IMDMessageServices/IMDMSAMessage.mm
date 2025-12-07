@@ -14,36 +14,7 @@
   v7 = v6;
   if (v6)
   {
-    if (!message)
-    {
-      goto LABEL_5;
-    }
-
-    if (!chat)
-    {
-      goto LABEL_5;
-    }
-
-    v59 = 0;
-    v60 = 0;
-    v57 = 0;
-    v58 = 0;
-    v56 = 0;
-    v48 = 0u;
-    v43 = 0u;
-    v46 = 0u;
-    v39 = 0u;
-    v41 = 0u;
-    p_subject = &v6->_subject;
-    p_error = &v6->_error;
-    v34 = 0u;
-    p_service = &v6->_service;
-    p_senderLogin = &v6->_senderLogin;
-    v27 = 0;
-    v29 = &v57;
-    v25 = 0u;
-    IMDMessageRecordBulkCopy();
-    if (!v7->_itemType)
+    if (message && chat && (v59 = 0, v60 = 0, v57 = 0, v58 = 0, v56 = 0, v48 = 0u, v43 = 0u, v46 = 0u, v39 = 0u, v41 = 0u, p_subject = &v6->_subject, p_error = &v6->_error, v34 = 0u, p_service = &v6->_service, p_senderLogin = &v6->_senderLogin, v27 = 0, v29 = &v57, v25 = 0u, IMDMessageRecordBulkCopy(), !v7->_itemType))
     {
       if (v60 >= 1)
       {
@@ -185,7 +156,6 @@
 
     else
     {
-LABEL_5:
 
       return 0;
     }

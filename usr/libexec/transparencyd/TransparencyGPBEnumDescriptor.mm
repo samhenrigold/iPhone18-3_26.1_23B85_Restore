@@ -1,4 +1,6 @@
 @interface TransparencyGPBEnumDescriptor
++ (id)allocDescriptorForName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags;
++ (id)allocDescriptorForName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags extraTextFormatInfo:(const char *)info;
 - (BOOL)getValue:(int *)value forEnumName:(id)name;
 - (BOOL)getValue:(int *)value forEnumTextFormatName:(id)name;
 - (TransparencyGPBEnumDescriptor)initWithName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags;
@@ -11,6 +13,27 @@
 @end
 
 @implementation TransparencyGPBEnumDescriptor
+
++ (id)allocDescriptorForName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags
+{
+  v8 = *&flags;
+  v10 = *&count;
+  if ((flags & 0xFFFFFFFD) != 0)
+  {
+    sub_10019E42C();
+  }
+
+  v15 = [self alloc];
+
+  return [v15 initWithName:name valueNames:names values:values count:v10 enumVerifier:verifier flags:v8];
+}
+
++ (id)allocDescriptorForName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags extraTextFormatInfo:(const char *)info
+{
+  result = [self allocDescriptorForName:name valueNames:names values:values count:*&count enumVerifier:verifier flags:*&flags];
+  *(result + 5) = info;
+  return result;
+}
 
 - (TransparencyGPBEnumDescriptor)initWithName:(id)name valueNames:(const char *)names values:(const int *)values count:(unsigned int)count enumVerifier:(void *)verifier flags:(unsigned int)flags
 {

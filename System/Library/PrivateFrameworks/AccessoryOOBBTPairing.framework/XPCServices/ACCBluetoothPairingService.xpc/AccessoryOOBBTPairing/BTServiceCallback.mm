@@ -54,9 +54,9 @@ void ___BTServiceCallback_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v14 = [*(a1 + 32) pairingResult];
-          v23 = 67109120;
-          LODWORD(v24) = v14;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "_BTServiceCallback: BT_SERVICE_CONNECT: pairing started, result=%d, call completionHandler if available", &v23, 8u);
+          v21 = 67109120;
+          LODWORD(v22) = v14;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "_BTServiceCallback: BT_SERVICE_CONNECT: pairing started, result=%d, call completionHandler if available", &v21, 8u);
         }
 
         v15 = [*(a1 + 32) pairingCompletionHandler];
@@ -94,17 +94,15 @@ void ___BTServiceCallback_block_invoke(uint64_t a1)
             v19 = "success";
           }
 
-          v23 = 136315394;
-          v24 = v19;
-          v25 = 1024;
-          v26 = v20;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "_BTServiceCallback: Pairing %s! disconnect BT device. service 0x%x", &v23, 0x12u);
+          v21 = 136315394;
+          v22 = v19;
+          v23 = 1024;
+          v24 = v20;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "_BTServiceCallback: Pairing %s! disconnect BT device. service 0x%x", &v21, 0x12u);
         }
 
-        v21 = *(a1 + 40);
         BTDeviceDisconnect();
         [*(a1 + 32) BTPairingAgent];
-        v22 = *(a1 + 40);
         BTPairingAgentClearOOBDataForDevice();
         goto LABEL_23;
       }
@@ -140,9 +138,9 @@ void ___BTServiceCallback_block_invoke(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = *(a1 + 52);
-    v23 = 67109120;
-    LODWORD(v24) = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "_BTServiceCallback: BT_SERVICE_CONNECT: pairing not started or not expected macAddr, ignore. service 0x%x", &v23, 8u);
+    v21 = 67109120;
+    LODWORD(v22) = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "_BTServiceCallback: BT_SERVICE_CONNECT: pairing not started or not expected macAddr, ignore. service 0x%x", &v21, 8u);
   }
 
 LABEL_23:

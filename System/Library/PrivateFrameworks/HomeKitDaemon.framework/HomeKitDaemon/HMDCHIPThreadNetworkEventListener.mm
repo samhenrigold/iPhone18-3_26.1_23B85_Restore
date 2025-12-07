@@ -19,7 +19,7 @@
 
 - (void)threadBTCallStateChange:(id)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   callState = [changeCopy callState];
   if (!callState)
@@ -37,11 +37,11 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = changeCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected event %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = changeCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected event %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -55,13 +55,11 @@ LABEL_8:
   {
     [eventListenerDelegate handleThreadBTCallStateChange:v6];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)threadNetworkStateChange:(id)change
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -70,12 +68,12 @@ LABEL_8:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v22 = v8;
-    v23 = 2112;
-    v24 = changeCopy;
-    v25 = 2048;
+    v21 = v8;
+    v22 = 2112;
+    v23 = changeCopy;
+    v24 = 2048;
     eventType = [changeCopy eventType];
-    v27 = 2048;
+    v26 = 2048;
     eventValue = [changeCopy eventValue];
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@threadNetworkStateChange - received event %@, type %ld, value %ld", buf, 0x2Au);
   }
@@ -97,9 +95,9 @@ LABEL_8:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = changeCopy;
+      v21 = v14;
+      v22 = 2112;
+      v23 = changeCopy;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected event %@", buf, 0x16u);
     }
 
@@ -117,19 +115,17 @@ LABEL_8:
     objc_initWeak(buf, selfCopy);
     v15 = dispatch_time(0, 50000000);
     v16 = dispatch_get_global_queue(21, 0);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_invoke;
-    v18[3] = &unk_278686B48;
-    objc_copyWeak(&v20, buf);
-    v19 = eventListenerDelegate;
-    dispatch_after(v15, v16, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_invoke;
+    v17[3] = &unk_278686B48;
+    objc_copyWeak(&v19, buf);
+    v18 = eventListenerDelegate;
+    dispatch_after(v15, v16, v17);
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_invoke(uint64_t a1)
@@ -144,7 +140,7 @@ void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_in
 
 - (void)stopListeningForEvents
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   threadResidentCommissioner = [(HMDCHIPThreadNetworkEventListener *)self threadResidentCommissioner];
   [threadResidentCommissioner unregisterForThreadNetworkEvents:self];
 
@@ -157,13 +153,12 @@ void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_in
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@stopped listening for events", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@stopped listening for events", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -181,11 +176,11 @@ void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_in
 
 - (HMDCHIPThreadNetworkEventListener)initWithThreadResidentCommissioner:(id)commissioner
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   commissionerCopy = commissioner;
-  v14.receiver = self;
-  v14.super_class = HMDCHIPThreadNetworkEventListener;
-  v6 = [(HMDCHIPThreadNetworkEventListener *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = HMDCHIPThreadNetworkEventListener;
+  v6 = [(HMDCHIPThreadNetworkEventListener *)&v13 init];
   v7 = v6;
   if (v6)
   {
@@ -198,14 +193,13 @@ void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_in
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@started listening for events", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -223,10 +217,9 @@ void __62__HMDCHIPThreadNetworkEventListener_threadNetworkStateChange___block_in
 
 void __48__HMDCHIPThreadNetworkEventListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_218915;
-  logCategory__hmf_once_v6_218915 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_218915;
+  logCategory__hmf_once_v6_218915 = v0;
 }
 
 @end

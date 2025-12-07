@@ -53,7 +53,7 @@
 
   if (v18)
   {
-    [v18 downloadableItemsQuery];
+    objc_msgSend_downloadableItemsQuery(v18);
   }
 
   else

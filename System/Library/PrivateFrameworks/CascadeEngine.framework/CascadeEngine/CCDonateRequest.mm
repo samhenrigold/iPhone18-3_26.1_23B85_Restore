@@ -15,7 +15,7 @@
 
 - (void)handle
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = __biome_log_for_category();
   v4 = v3;
   requestQueuedSignpostId = self->_requestQueuedSignpostId;
@@ -25,8 +25,8 @@
     itemType = self->_itemType;
     *buf = 138543618;
     selfCopy = _connectionTypeString;
-    v20 = 1026;
-    v21 = itemType;
+    v19 = 1026;
+    v20 = itemType;
     _os_signpost_emit_with_name_impl(&dword_1DA444000, v4, OS_SIGNPOST_INTERVAL_END, requestQueuedSignpostId, "donateRequestQueued", " requestType=%{public,signpost.telemetry:string1}@  itemType=%{public,signpost.telemetry:number1}d ", buf, 0x12u);
   }
 
@@ -48,12 +48,12 @@
   if (isAlive)
   {
     personaIdentifier = self->_personaIdentifier;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __25__CCDonateRequest_handle__block_invoke;
-    v17[3] = &unk_1E85C3230;
-    v17[4] = self;
-    [MEMORY[0x1E698E9D0] runAsPersonaIdentifier:personaIdentifier block:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __25__CCDonateRequest_handle__block_invoke;
+    v16[3] = &unk_1E85C3230;
+    v16[4] = self;
+    [MEMORY[0x1E698E9D0] runAsPersonaIdentifier:personaIdentifier block:v16];
   }
 
   else
@@ -68,8 +68,6 @@
 
     [(CCDonateRequest *)self terminateWithType:1];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_connectionTypeString
@@ -113,18 +111,13 @@ void __25__CCDonateRequest_handle__block_invoke(uint64_t a1, void *a2)
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
+  v2 = MEMORY[0x1E696AEC0];
   requestId = self->_requestId;
   _connectionTypeString = [(CCDonateRequest *)self _connectionTypeString];
-  sourceVersion = self->_sourceVersion;
-  sourceValidity = self->_sourceValidity;
-  itemType = self->_itemType;
-  encodedDescriptors = self->_encodedDescriptors;
-  options = self->_options;
-  v11 = CCDonateServiceRequestDescription();
-  v12 = [v3 stringWithFormat:@"#%u [%@] %@", requestId, _connectionTypeString, v11];
+  v5 = CCDonateServiceRequestDescription();
+  v6 = [v2 stringWithFormat:@"#%u [%@] %@", requestId, _connectionTypeString, v5];
 
-  return v12;
+  return v6;
 }
 
 - (CCDonateRequest)initWithConnection:(id)connection manager:(id)manager itemType:(unsigned __int16)type encodedDescriptors:(id)descriptors personaIdentifier:(id)identifier sourceVersion:(unint64_t)version sourceValidity:(id)validity options:(unsigned __int16)self0 accessAssertion:(id)self1
@@ -188,7 +181,7 @@ void __25__CCDonateRequest_handle__block_invoke(uint64_t a1, void *a2)
 
 - (void)terminateWithType:(int64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = __biome_log_for_category();
   v6 = v5;
   requestHandledSignpostId = self->_requestHandledSignpostId;
@@ -207,19 +200,17 @@ void __25__CCDonateRequest_handle__block_invoke(uint64_t a1, void *a2)
       v11 = off_1E85C3250[type];
     }
 
-    v14[0] = 67240706;
-    v14[1] = itemType;
-    v15 = 2114;
-    v16 = _connectionTypeString;
-    v17 = 2114;
-    v18 = v11;
-    _os_signpost_emit_with_name_impl(&dword_1DA444000, v6, OS_SIGNPOST_INTERVAL_END, requestHandledSignpostId, "donateRequestHandled", " itemType=%{public,signpost.telemetry:number1}d  requestType=%{public,signpost.telemetry:string1}@  result=%{public,signpost.telemetry:string2}@ ", v14, 0x1Cu);
+    v13[0] = 67240706;
+    v13[1] = itemType;
+    v14 = 2114;
+    v15 = _connectionTypeString;
+    v16 = 2114;
+    v17 = v11;
+    _os_signpost_emit_with_name_impl(&dword_1DA444000, v6, OS_SIGNPOST_INTERVAL_END, requestHandledSignpostId, "donateRequestHandled", " itemType=%{public,signpost.telemetry:number1}d  requestType=%{public,signpost.telemetry:string1}@  result=%{public,signpost.telemetry:string2}@ ", v13, 0x1Cu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_manager);
   [WeakRetained completeRequest:self];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -414,14 +405,13 @@ LABEL_9:
 
 void __25__CCDonateRequest_handle__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Failed to assume persona with error %@, rejecting donate request %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Failed to assume persona with error %@, rejecting donate request %@", &v4, 0x16u);
 }
 
 @end

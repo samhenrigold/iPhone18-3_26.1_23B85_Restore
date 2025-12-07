@@ -145,7 +145,7 @@ LABEL_12:
   dictionaryRepresentation = [pr_hapMetadata dictionaryRepresentation];
   [v4 setObject:dictionaryRepresentation forKeyedSubscript:*MEMORY[0x277CD2148]];
 
-  v12 = [v4 copy];
+  v12 = objc_msgSend_copy(v4);
 
   return v12;
 }

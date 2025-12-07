@@ -303,9 +303,9 @@
       objc_storeStrong(&self->_selectedTiming, timing);
       if (v7)
       {
-        [v7 timepoint];
+        objc_msgSend_timepoint(v7);
         [(MapsRadioButton *)self->_leaveAtButton setSelected:v12 == 0];
-        [v7 timepoint];
+        objc_msgSend_timepoint(v7);
         [(MapsRadioButton *)self->_arriveByButton setSelected:v11 == 1];
         [(RoutePlanningTransitTimingControlsView *)self _setDatePickerDate];
         [(RoutePlanningTransitTimingControlsView *)self _setDatePickerBoundaries];

@@ -8,7 +8,7 @@
 
 - (NSDate)creationDate
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC219230);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC219230, &unk_1C7563720);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v8 - v3;
   Spatial3DCuration.WallpaperSuggester.SuggestionCandidate.creationDate.getter(&v8 - v3);
@@ -49,7 +49,7 @@
 
   v6 = sub_1C72059DC(v8);
 
-  sub_1C7030CDC(v8, &qword_1EC219770);
+  sub_1C7030CDC(v8, &qword_1EC219770, &unk_1C755C740);
   return v6 & 1;
 }
 

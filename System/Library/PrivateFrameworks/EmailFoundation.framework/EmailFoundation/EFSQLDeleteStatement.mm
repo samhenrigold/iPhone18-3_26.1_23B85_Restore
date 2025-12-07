@@ -1,6 +1,7 @@
 @interface EFSQLDeleteStatement
 - (EFSQLDeleteStatement)initWithTable:(id)table where:(id)where;
 - (NSString)queryString;
+- (void)orderBy:(id)by ascending:(BOOL)ascending;
 - (void)orderByColumn:(id)column ascending:(BOOL)ascending;
 @end
 
@@ -48,6 +49,24 @@
   }
 
   return v10;
+}
+
+- (void)orderBy:(id)by ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  byCopy = by;
+  v6 = [[EFSQLOrderExpression alloc] initWithExpression:byCopy ascending:ascendingCopy];
+  if (self)
+  {
+    orderExpressions = self->_orderExpressions;
+  }
+
+  else
+  {
+    orderExpressions = 0;
+  }
+
+  [(NSMutableArray *)orderExpressions addObject:v6];
 }
 
 - (void)orderByColumn:(id)column ascending:(BOOL)ascending

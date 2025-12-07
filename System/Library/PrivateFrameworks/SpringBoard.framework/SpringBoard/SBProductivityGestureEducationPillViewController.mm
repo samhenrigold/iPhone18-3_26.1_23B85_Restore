@@ -189,7 +189,7 @@ LABEL_9:
 
 - (void)_marqueeStarted:(id)started
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   object = [startedCopy object];
   objc_opt_class();
@@ -208,18 +208,18 @@ LABEL_9:
       [v10 doubleValue];
       [WeakRetained gestureEducationPillViewControllerMarqueeStarted:self duration:?];
 
-      v12 = SBLogSystemGesture();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = SBLogSystemGesture(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v13 = _SBFLoggingMethodProem();
+        v14 = _SBFLoggingMethodProem();
         _titleString2 = [(SBProductivityGestureEducationPillViewController *)self _titleString];
-        v15 = 138543874;
-        v16 = v13;
-        v17 = 2112;
-        v18 = _titleString2;
-        v19 = 2112;
-        v20 = v10;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "%{public}@ Education banner title marquee started: %@, duration: %@", &v15, 0x20u);
+        v16 = 138543874;
+        v17 = v14;
+        v18 = 2112;
+        v19 = _titleString2;
+        v20 = 2112;
+        v21 = v10;
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "%{public}@ Education banner title marquee started: %@, duration: %@", &v16, 0x20u);
       }
     }
   }
@@ -241,7 +241,7 @@ LABEL_9:
 {
   v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v6 = SBLogSystemGesture();
+  v6 = SBLogSystemGesture(reasonCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = _SBFLoggingMethodProem();

@@ -32,7 +32,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_1C19E7FBC();
+  sub_1C19E7FBC(scrollCopy);
 }
 
 - (void)scrollViewDidEndDecelerating:(id)decelerating
@@ -82,7 +82,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for CarouselAdView();
+  v6.super_class = type metadata accessor for CarouselAdView(0);
   [(APPCPromotedContentView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -98,13 +98,13 @@
   y = frame.origin.y;
   x = frame.origin.x;
   selfCopy = self;
-  sub_1C1A54AB8(x, y, width, height);
+  sub_1C1A54AB8(x, y, width, height, selfCopy, v7);
 }
 
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for CarouselAdView();
+  v3.super_class = type metadata accessor for CarouselAdView(0);
   v2 = v3.receiver;
   [(CarouselAdView *)&v3 didMoveToWindow];
   sub_1C1A5C008();

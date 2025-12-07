@@ -10,7 +10,7 @@
 
 - (NSArray)stagedFileSystemURLs
 {
-  sub_1CAEB33A4(0, &qword_1EDE9D108);
+  sub_1CAEB33A4(0, &qword_1EDE9D108, 0x1E69C5128);
 
   v2 = sub_1CAEFA5CC();
 

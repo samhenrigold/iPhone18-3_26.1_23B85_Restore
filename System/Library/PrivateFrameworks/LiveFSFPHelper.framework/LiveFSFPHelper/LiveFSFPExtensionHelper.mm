@@ -19,6 +19,7 @@
 - (id)itemForIdentifier:(id)identifier error:(id *)error;
 - (id)itemForIdentifierLocked:(id)locked error:(id *)error;
 - (id)itemForPath:(id)path cachedOnly:(BOOL)only error:(id *)error;
+- (id)itemForURL:(id)l cachedOnly:(BOOL)only error:(id *)error;
 - (id)itemPathForURL:(id)l;
 - (id)makeVolumeListenerEndpointAndReturnError:(id *)error;
 - (id)makeVolumeListenerEndpointAndReturnErrorLocked:(id *)locked;
@@ -60,12 +61,12 @@
 
 - (LiveFSFPExtensionHelper)init
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v46 = "[LiveFSFPExtensionHelper init]";
+    v45 = "[LiveFSFPExtensionHelper init]";
     _os_log_impl(&dword_255FE9000, v4, OS_LOG_TYPE_DEFAULT, "%s starting", buf, 0xCu);
   }
 
@@ -88,24 +89,24 @@
     }
 
     *buf = 136316162;
-    v46 = "[LiveFSFPExtensionHelper init]";
-    v47 = 2112;
-    v48 = docPath;
-    v49 = 2112;
-    v50 = providerName;
-    v51 = 2112;
-    v52 = domain;
-    v53 = 2112;
-    v54 = identifier;
+    v45 = "[LiveFSFPExtensionHelper init]";
+    v46 = 2112;
+    v47 = docPath;
+    v48 = 2112;
+    v49 = providerName;
+    v50 = 2112;
+    v51 = domain;
+    v52 = 2112;
+    v53 = identifier;
     _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_INFO, "%s starting for docpath %@, providerName %@, domain: %@, identifier; %@", buf, 0x34u);
     if (domain2)
     {
     }
   }
 
-  v44.receiver = self;
-  v44.super_class = LiveFSFPExtensionHelper;
-  v11 = [(NSFileProviderExtension *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = LiveFSFPExtensionHelper;
+  v11 = [(NSFileProviderExtension *)&v43 init];
   if (!v11)
   {
     goto LABEL_26;
@@ -130,15 +131,15 @@
     }
 
     *buf = 136316162;
-    v46 = "[LiveFSFPExtensionHelper init]";
-    v47 = 2112;
-    v48 = v13;
-    v49 = 2112;
-    v50 = v14;
-    v51 = 2112;
-    v52 = domain4;
-    v53 = 2112;
-    v54 = identifier2;
+    v45 = "[LiveFSFPExtensionHelper init]";
+    v46 = 2112;
+    v47 = v13;
+    v48 = 2112;
+    v49 = v14;
+    v50 = 2112;
+    v51 = domain4;
+    v52 = 2112;
+    v53 = identifier2;
     _os_log_impl(&dword_255FE9000, v12, OS_LOG_TYPE_INFO, "%s starting for docpath %@, providerName %@, domain: %@, identifier; %@", buf, 0x34u);
     if (domain5)
     {
@@ -197,7 +198,7 @@
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v46 = "[LiveFSFPExtensionHelper init]";
+      v45 = "[LiveFSFPExtensionHelper init]";
       _os_log_impl(&dword_255FE9000, v39, OS_LOG_TYPE_DEFAULT, "%s done", buf, 0xCu);
     }
 
@@ -215,13 +216,12 @@ LABEL_26:
   v40 = 0;
 LABEL_30:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
 - (id)ensureMountPathSetup
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_mountPath)
@@ -248,98 +248,77 @@ LABEL_30:
       identifier = @"N/A";
     }
 
-    v37 = 136316162;
-    v38 = "[LiveFSFPExtensionHelper ensureMountPathSetup]";
-    v39 = 2112;
-    v40 = docPath;
-    v41 = 2112;
-    v42 = providerName;
-    v43 = 2112;
-    v44 = domain;
-    v45 = 2112;
-    v46 = identifier;
-    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_INFO, "%s starting for docpath %@, providerName %@, domain: %@, identifier: %@", &v37, 0x34u);
+    v36 = 136316162;
+    v37 = "[LiveFSFPExtensionHelper ensureMountPathSetup]";
+    v38 = 2112;
+    v39 = docPath;
+    v40 = 2112;
+    v41 = providerName;
+    v42 = 2112;
+    v43 = domain;
+    v44 = 2112;
+    v45 = identifier;
+    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_INFO, "%s starting for docpath %@, providerName %@, domain: %@, identifier: %@", &v36, 0x34u);
     if (domain2)
     {
     }
   }
 
-  if (!selfCopy->_docPath)
+  if (!selfCopy->_docPath || !selfCopy->providerName || (-[NSFileProviderExtension domain](selfCopy, "domain"), (v11 = objc_claimAutoreleasedReturnValue()) == 0) || (-[NSFileProviderExtension domain](selfCopy, "domain"), v12 = objc_claimAutoreleasedReturnValue(), [v12 identifier], v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 == 0, v13, v12, v11, v14))
   {
-    goto LABEL_18;
-  }
-
-  if (!selfCopy->providerName)
-  {
-    goto LABEL_18;
-  }
-
-  domain4 = [(NSFileProviderExtension *)selfCopy domain];
-  if (!domain4)
-  {
-    goto LABEL_18;
-  }
-
-  domain5 = [(NSFileProviderExtension *)selfCopy domain];
-  identifier2 = [domain5 identifier];
-  v14 = identifier2 == 0;
-
-  if (v14)
-  {
-LABEL_18:
     v27 = livefs_std_log();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       if (selfCopy->_docPath)
+      {
+        v29 = &stru_286811DF0;
+      }
+
+      else
+      {
+        v29 = @"doc path, ";
+      }
+
+      if (selfCopy->providerName)
       {
         v30 = &stru_286811DF0;
       }
 
       else
       {
-        v30 = @"doc path, ";
+        v30 = @"provider name, ";
       }
 
-      if (selfCopy->providerName)
+      domain4 = [(NSFileProviderExtension *)selfCopy domain];
+      if (domain4)
       {
-        v31 = &stru_286811DF0;
+        v32 = &stru_286811DF0;
       }
 
       else
       {
-        v31 = @"provider name, ";
+        v32 = @"domain, ";
       }
 
-      domain6 = [(NSFileProviderExtension *)selfCopy domain];
-      if (domain6)
+      domain5 = [(NSFileProviderExtension *)selfCopy domain];
+      identifier2 = [domain5 identifier];
+      v37 = "[LiveFSFPExtensionHelper ensureMountPathSetup]";
+      v35 = @"domain identifier";
+      v36 = 136316162;
+      if (identifier2)
       {
-        v33 = &stru_286811DF0;
+        v35 = &stru_286811DF0;
       }
 
-      else
-      {
-        v33 = @"domain, ";
-      }
-
-      domain7 = [(NSFileProviderExtension *)selfCopy domain];
-      identifier3 = [domain7 identifier];
-      v38 = "[LiveFSFPExtensionHelper ensureMountPathSetup]";
-      v36 = @"domain identifier";
-      v37 = 136316162;
-      if (identifier3)
-      {
-        v36 = &stru_286811DF0;
-      }
-
-      v39 = 2112;
-      v40 = v30;
-      v41 = 2112;
-      v42 = v31;
-      v43 = 2112;
-      v44 = v33;
-      v45 = 2112;
-      v46 = v36;
-      _os_log_error_impl(&dword_255FE9000, v27, OS_LOG_TYPE_ERROR, "%s - Missing %@%@%@%@", &v37, 0x34u);
+      v38 = 2112;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v30;
+      v42 = 2112;
+      v43 = v32;
+      v44 = 2112;
+      v45 = v35;
+      _os_log_error_impl(&dword_255FE9000, v27, OS_LOG_TYPE_ERROR, "%s - Missing %@%@%@%@", &v36, 0x34u);
     }
 
     v4 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
@@ -348,17 +327,17 @@ LABEL_18:
   }
 
   v15 = [(NSURL *)selfCopy->_docPath URLByAppendingPathComponent:selfCopy->providerName isDirectory:1];
-  domain8 = [(NSFileProviderExtension *)selfCopy domain];
-  identifier4 = [domain8 identifier];
-  v18 = [v15 URLByAppendingPathComponent:identifier4 isDirectory:1];
+  domain6 = [(NSFileProviderExtension *)selfCopy domain];
+  identifier3 = [domain6 identifier];
+  v18 = [v15 URLByAppendingPathComponent:identifier3 isDirectory:1];
   mountPath = selfCopy->_mountPath;
   selfCopy->_mountPath = v18;
 
   if (selfCopy->_clusterDomain)
   {
-    domain9 = [(NSFileProviderExtension *)selfCopy domain];
-    identifier5 = [domain9 identifier];
-    v22 = [identifier5 length] > 6;
+    domain7 = [(NSFileProviderExtension *)selfCopy domain];
+    identifier4 = [domain7 identifier];
+    v22 = [identifier4 length] > 6;
 
     if (!v22)
     {
@@ -368,9 +347,9 @@ LABEL_18:
     }
 
     selfCopy->_clusterMaster = 0;
-    domain10 = [(NSFileProviderExtension *)selfCopy domain];
-    identifier6 = [domain10 identifier];
-    v25 = [identifier6 substringToIndex:6];
+    domain8 = [(NSFileProviderExtension *)selfCopy domain];
+    identifier5 = [domain8 identifier];
+    v25 = [identifier5 substringToIndex:6];
     clusterMasterID = selfCopy->_clusterMasterID;
     selfCopy->_clusterMasterID = v25;
   }
@@ -380,8 +359,6 @@ LABEL_20:
 
 LABEL_21:
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -470,19 +447,16 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_3(uint64_t
 {
   if (a2)
   {
-    v4 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:a2];
-    v5 = *(*(a1 + 40) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 40) + 8) + 40) = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:a2];
 
     return MEMORY[0x2821F96F8]();
   }
 
   else
   {
-    v7 = *(*(a1 + 32) + 8);
+    v4 = *(*(a1 + 32) + 8);
     result = [a3 bytes];
-    *(v7 + 32) = *result;
+    *(v4 + 32) = *result;
   }
 
   return result;
@@ -492,19 +466,16 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
 {
   if (a2)
   {
-    v4 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:a2];
-    v5 = *(*(a1 + 40) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 40) + 8) + 40) = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:a2];
 
     return MEMORY[0x2821F96F8]();
   }
 
   else
   {
-    v7 = *(*(a1 + 32) + 8);
+    v4 = *(*(a1 + 32) + 8);
     result = [a3 bytes];
-    *(v7 + 32) = *result;
+    *(v4 + 32) = *result;
   }
 
   return result;
@@ -520,7 +491,7 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
 
 - (id)itemPathForURL:(id)l
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   standardizedURL = [l standardizedURL];
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -540,19 +511,19 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
       identifier = &stru_286811DF0;
     }
 
-    v28 = 136316418;
-    v29 = "[LiveFSFPExtensionHelper itemPathForURL:]";
-    v30 = 2112;
-    v31 = standardizedURL;
-    v32 = 2112;
-    v33 = docPath;
-    v34 = 2112;
-    v35 = providerName;
-    v36 = 2112;
-    v37 = domain;
-    v38 = 2112;
-    v39 = identifier;
-    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_INFO, "%s starting for url %@, docpath %@, providerName %@, domain: %@, identifier; %@", &v28, 0x3Eu);
+    v27 = 136316418;
+    v28 = "[LiveFSFPExtensionHelper itemPathForURL:]";
+    v29 = 2112;
+    v30 = standardizedURL;
+    v31 = 2112;
+    v32 = docPath;
+    v33 = 2112;
+    v34 = providerName;
+    v35 = 2112;
+    v36 = domain;
+    v37 = 2112;
+    v38 = identifier;
+    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_INFO, "%s starting for url %@, docpath %@, providerName %@, domain: %@, identifier; %@", &v27, 0x3Eu);
     if (domain2)
     {
     }
@@ -569,9 +540,9 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
     v17 = livefs_std_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v28 = 138412290;
-      v29 = v16;
-      _os_log_impl(&dword_255FE9000, v17, OS_LOG_TYPE_INFO, "perItemDirectory: %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = v16;
+      _os_log_impl(&dword_255FE9000, v17, OS_LOG_TYPE_INFO, "perItemDirectory: %@", &v27, 0xCu);
     }
 
     path = [v16 path];
@@ -603,13 +574,13 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
       {
         if ([(__CFString *)v21 hasPrefix:@"/"])
         {
-          v26 = [(__CFString *)v21 substringFromIndex:1];
+          v25 = [(__CFString *)v21 substringFromIndex:1];
 
-          v21 = v26;
+          v21 = v25;
         }
 
-        v27 = livefs_std_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v26 = livefs_std_log();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           [LiveFSFPExtensionHelper itemPathForURL:];
         }
@@ -631,14 +602,12 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)itemForPath:(id)path cachedOnly:(BOOL)only error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   ensureMountPathSetup = [(LiveFSFPExtensionHelper *)self ensureMountPathSetup];
   v9 = ensureMountPathSetup;
@@ -673,9 +642,9 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
       v14 = livefs_std_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = pathCopy;
-        _os_log_impl(&dword_255FE9000, v14, OS_LOG_TYPE_DEFAULT, "perItemPath is '%@'", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = pathCopy;
+        _os_log_impl(&dword_255FE9000, v14, OS_LOG_TYPE_DEFAULT, "perItemPath is '%@'", &v20, 0xCu);
       }
 
       if (([pathCopy isEqualToString:&stru_286811DF0] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"._") & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"/._"))
@@ -685,9 +654,9 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
         v17 = *MEMORY[0x277CC6348];
         if (v16)
         {
-          v21 = 138412290;
-          v22 = v17;
-          _os_log_impl(&dword_255FE9000, v15, OS_LOG_TYPE_DEFAULT, "About to return ID %@", &v21, 0xCu);
+          v20 = 138412290;
+          v21 = v17;
+          _os_log_impl(&dword_255FE9000, v15, OS_LOG_TYPE_DEFAULT, "About to return ID %@", &v20, 0xCu);
         }
 
         v13 = [(LiveFSFPExtensionHelper *)selfCopy itemForIdentifierLocked:v17 error:0];
@@ -695,8 +664,8 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
 
       else
       {
-        v20 = [(LiveFSFPExtensionHelper *)selfCopy itemForIdentifierLocked:*MEMORY[0x277CC6348] error:0];
-        v13 = [(LiveFSFPExtensionHelper *)selfCopy itemAtPathLocked:pathCopy parent:v20];
+        v19 = [(LiveFSFPExtensionHelper *)selfCopy itemForIdentifierLocked:*MEMORY[0x277CC6348] error:0];
+        v13 = [(LiveFSFPExtensionHelper *)selfCopy itemAtPathLocked:pathCopy parent:v19];
       }
     }
 
@@ -708,14 +677,49 @@ void *__46__LiveFSFPExtensionHelper_getVolumeInfoLocked__block_invoke_4(uint64_t
     objc_sync_exit(selfCopy);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
+- (id)itemForURL:(id)l cachedOnly:(BOOL)only error:(id *)error
+{
+  onlyCopy = only;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v8 = [(LiveFSFPExtensionHelper *)self itemPathForURL:l];
+  if (v8)
+  {
+    v9 = [(LiveFSFPExtensionHelper *)self itemForPath:v8 cachedOnly:onlyCopy error:error];
+    if (!error)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+    if (!error)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  if (!v9 && !*error)
+  {
+    *error = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:2];
+  }
+
+LABEL_10:
+
+  return v9;
 }
 
 - (id)fileProviderErrorFromFSError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
@@ -760,15 +764,15 @@ LABEL_11:
     v10 = livefs_std_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315906;
-      v19 = "[LiveFSFPExtensionHelper fileProviderErrorFromFSError:]";
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = fp_collidingURL;
-      v24 = 2112;
-      v25 = v9;
-      _os_log_error_impl(&dword_255FE9000, v10, OS_LOG_TYPE_ERROR, "%s: got error %@, URL %@, item %@", &v18, 0x2Au);
+      v17 = 136315906;
+      v18 = "[LiveFSFPExtensionHelper fileProviderErrorFromFSError:]";
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = fp_collidingURL;
+      v23 = 2112;
+      v24 = v9;
+      _os_log_error_impl(&dword_255FE9000, v10, OS_LOG_TYPE_ERROR, "%s: got error %@, URL %@, item %@", &v17, 0x2Au);
     }
 
     if (v9)
@@ -790,25 +794,28 @@ LABEL_11:
   }
 
 LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)handleInterruption
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = livefs_std_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    [LiveFSFPExtensionHelper handleInterruption];
+  }
+
+  [(LiveFSFPExtensionHelper *)self doInvalidate:0];
 }
 
 - (void)handleInvalidation
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = livefs_std_log();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    [LiveFSFPExtensionHelper handleInvalidation];
+  }
 }
 
 - (void)doInvalidate:(BOOL)invalidate
@@ -929,26 +936,26 @@ LABEL_19:
 {
   if ([(LiveFSFPExtensionHelper *)self _hasManagerOrError:?])
   {
-    v5 = self->_manager;
+    v4 = self->_manager;
   }
 
   else
   {
-    v6 = livefs_std_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = livefs_std_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [LiveFSFPExtensionHelper getVolumeManagerWithError:error];
+      [LiveFSFPExtensionHelper getVolumeManagerWithError:];
     }
 
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)makeVolumeListenerEndpointAndReturnErrorLocked:(id *)locked
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (![(LiveFSFPExtensionHelper *)self _hasManagerOrError:?])
   {
 LABEL_20:
@@ -1005,16 +1012,16 @@ LABEL_13:
     domain4 = [(NSFileProviderExtension *)self domain];
     identifier3 = [domain4 identifier];
     *buf = 136315394;
-    v39 = "[LiveFSFPExtensionHelper makeVolumeListenerEndpointAndReturnErrorLocked:]";
-    v40 = 2112;
-    v41 = identifier3;
+    v38 = "[LiveFSFPExtensionHelper makeVolumeListenerEndpointAndReturnErrorLocked:]";
+    v39 = 2112;
+    v40 = identifier3;
     _os_log_impl(&dword_255FE9000, v13, OS_LOG_TYPE_DEFAULT, "%s: About to get listener for volume %@", buf, 0x16u);
   }
 
   manager = self->_manager;
-  v37 = 0;
-  v17 = [(LiveFSClient *)manager volumes:&v37];
-  v18 = v37;
+  v36 = 0;
+  v17 = [(LiveFSClient *)manager volumes:&v36];
+  v18 = v36;
   v19 = livefs_std_log();
   v20 = v19;
   if (v18)
@@ -1035,17 +1042,17 @@ LABEL_13:
   else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v39 = "[LiveFSFPExtensionHelper makeVolumeListenerEndpointAndReturnErrorLocked:]";
-    v40 = 2112;
-    v41 = v17;
-    v42 = 2112;
-    v43 = 0;
+    v38 = "[LiveFSFPExtensionHelper makeVolumeListenerEndpointAndReturnErrorLocked:]";
+    v39 = 2112;
+    v40 = v17;
+    v41 = 2112;
+    v42 = 0;
     _os_log_impl(&dword_255FE9000, v20, OS_LOG_TYPE_DEFAULT, "%s: got vols %@ error %@", buf, 0x20u);
   }
 
   if (locked)
   {
-    v28 = v18;
+    v27 = v18;
     *locked = v18;
   }
 
@@ -1058,27 +1065,27 @@ LABEL_13:
   {
     domain5 = [(NSFileProviderExtension *)self domain];
     identifier4 = [domain5 identifier];
-    v31 = [v17 objectForKey:identifier4];
+    v30 = [v17 objectForKey:identifier4];
 
-    if (v31)
+    if (v30)
     {
-      v32 = self->_manager;
+      v31 = self->_manager;
       domain6 = [(NSFileProviderExtension *)self domain];
       identifier5 = [domain6 identifier];
-      v25 = [(LiveFSClient *)v32 listenerForVolume:identifier5 error:locked];
+      v25 = [(LiveFSClient *)v31 listenerForVolume:identifier5 error:locked];
 
       goto LABEL_22;
     }
 
-    v36 = livefs_std_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v35 = livefs_std_log();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [LiveFSFPExtensionHelper makeVolumeListenerEndpointAndReturnErrorLocked:];
     }
 
     if (locked)
     {
-      v35 = 2;
+      v34 = 2;
       goto LABEL_39;
     }
 
@@ -1092,13 +1099,11 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v35 = 65;
+  v34 = 65;
 LABEL_39:
-  [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:v35];
+  [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:v34];
   *locked = v25 = 0;
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -1322,27 +1327,27 @@ void __52__LiveFSFPExtensionHelper__isLoggedInOrErrorLocked___block_invoke_3(uin
 
 - (id)pathForInodeID:(id)d error:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__0;
-  v50 = __Block_byref_object_dispose__0;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__0;
-  v44 = __Block_byref_object_dispose__0;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__0;
+  v49 = __Block_byref_object_dispose__0;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__0;
+  v43 = __Block_byref_object_dispose__0;
+  v44 = 0;
   if ([dCopy length] <= 0xC)
   {
     v7 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
-    v8 = v47[5];
-    v47[5] = v7;
+    v8 = v46[5];
+    v46[5] = v7;
 
-    v9 = v47[5];
+    v9 = v46[5];
     if (v9)
     {
       v10 = livefs_std_log();
@@ -1372,15 +1377,15 @@ void __52__LiveFSFPExtensionHelper__isLoggedInOrErrorLocked___block_invoke_3(uin
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v53 = dCopy;
+      v52 = dCopy;
       _os_log_impl(&dword_255FE9000, v27, OS_LOG_TYPE_INFO, "pathForInodeID given invalid ID %@", buf, 0xCu);
     }
 
     v28 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
-    v29 = v47[5];
-    v47[5] = v28;
+    v29 = v46[5];
+    v46[5] = v28;
 
-    v30 = v47[5];
+    v30 = v46[5];
     if (v30)
     {
       v31 = livefs_std_log();
@@ -1409,33 +1414,33 @@ LABEL_26:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v53 = v9;
-    v54 = 2112;
-    v55 = v14;
-    v56 = 2048;
-    v57 = v17;
-    v58 = 2112;
-    v59 = v18;
+    v52 = v9;
+    v53 = 2112;
+    v54 = v14;
+    v55 = 2048;
+    v56 = v17;
+    v57 = 2112;
+    v58 = v18;
     _os_log_impl(&dword_255FE9000, v19, OS_LOG_TYPE_DEFAULT, "pathForID got base64 %@, parentData %@, number %llu, number %@", buf, 0x2Au);
   }
 
   conn = self->_conn;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke;
-  v39[3] = &unk_27981A740;
-  v39[4] = &v46;
-  v21 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v39];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke_2;
-  v35[3] = &unk_27981A8D0;
-  v37 = &v46;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke;
+  v38[3] = &unk_27981A740;
+  v38[4] = &v45;
+  v21 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v38];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke_2;
+  v34[3] = &unk_27981A8D0;
+  v36 = &v45;
   v22 = v18;
-  v36 = v22;
-  v38 = &v40;
-  [v21 pathsAndAttributesForItemsByIDs:v14 requestID:-1 reply:v35];
-  v23 = v47[5];
+  v35 = v22;
+  v37 = &v39;
+  [v21 pathsAndAttributesForItemsByIDs:v14 requestID:-1 reply:v34];
+  v23 = v46[5];
   if (v23)
   {
     v24 = v23;
@@ -1456,32 +1461,30 @@ LABEL_26:
 
   else
   {
-    v12 = v41[5];
+    v12 = v40[5];
   }
 
   v9 = v21;
 LABEL_29:
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
-
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
   return v12;
 }
 
 void __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke_2(void *a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109378;
-    v14[1] = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "GetPaths result %d results dict %@", v14, 0x12u);
+    v13[0] = 67109378;
+    v13[1] = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "GetPaths result %d results dict %@", v13, 0x12u);
   }
 
   if (a2)
@@ -1500,13 +1503,11 @@ void __48__LiveFSFPExtensionHelper_pathForInodeID_error___block_invoke_2(void *a
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemForIdentifierLocked:(id)locked error:(id *)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   v7 = livefs_std_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -1533,9 +1534,9 @@ LABEL_54:
   v11 = *MEMORY[0x277CC6348];
   if (![lockedCopy isEqualToString:*MEMORY[0x277CC6348]])
   {
-    v48 = 0;
-    v13 = [(LiveFSFPExtensionHelper *)self itemForIdentifierLocked:v11 error:&v48];
-    v14 = v48;
+    v47 = 0;
+    v13 = [(LiveFSFPExtensionHelper *)self itemForIdentifierLocked:v11 error:&v47];
+    v14 = v47;
     v15 = v14;
     if (!v13)
     {
@@ -1545,9 +1546,9 @@ LABEL_54:
 
     if (self->_idsPersist)
     {
-      v47 = v14;
-      v8 = [(LiveFSFPExtensionHelper *)self pathForInodeID:lockedCopy error:&v47];
-      v16 = v47;
+      v46 = v14;
+      v8 = [(LiveFSFPExtensionHelper *)self pathForInodeID:lockedCopy error:&v46];
+      v16 = v46;
 
       if (!v8)
       {
@@ -1564,7 +1565,7 @@ LABEL_54:
         *&buf[12] = 2112;
         *&buf[14] = v8;
         *&buf[22] = 2112;
-        v71 = v18;
+        v70 = v18;
         _os_log_impl(&dword_255FE9000, v17, OS_LOG_TYPE_DEFAULT, "id->item, id %@ building path %@ with name %@", buf, 0x20u);
       }
 
@@ -1632,52 +1633,52 @@ LABEL_48:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v71 = __Block_byref_object_copy__0;
-  v72 = __Block_byref_object_dispose__0;
-  v73 = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__0;
-  v62 = __Block_byref_object_dispose__0;
-  v63 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__0;
-  v56 = __Block_byref_object_dispose__0;
+  v70 = __Block_byref_object_copy__0;
+  v71 = __Block_byref_object_dispose__0;
+  v72 = 0;
   v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__0;
+  v61 = __Block_byref_object_dispose__0;
+  v62 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
   if (self->_clusterMaster)
   {
     v12 = 0;
-    v63 = 0;
+    v62 = 0;
   }
 
   else
   {
     conn = self->_conn;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke;
-    v51[3] = &unk_27981A740;
-    v51[4] = buf;
-    v12 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v51];
     v50[0] = MEMORY[0x277D85DD0];
     v50[1] = 3221225472;
-    v50[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke_2;
-    v50[3] = &unk_27981A830;
+    v50[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke;
+    v50[3] = &unk_27981A740;
     v50[4] = buf;
-    v50[5] = &v58;
-    [v12 getRootFileHandleWithError:v50];
+    v12 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v50];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke_2;
+    v49[3] = &unk_27981A830;
+    v49[4] = buf;
+    v49[5] = &v57;
+    [v12 getRootFileHandleWithError:v49];
     if (*(*&buf[8] + 40))
     {
       v22 = livefs_std_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = *(*&buf[8] + 40);
-        *v64 = 138412290;
-        v65 = v23;
-        _os_log_impl(&dword_255FE9000, v22, OS_LOG_TYPE_INFO, "Getting RootFH failed with %@", v64, 0xCu);
+        *v63 = 138412290;
+        v64 = v23;
+        _os_log_impl(&dword_255FE9000, v22, OS_LOG_TYPE_INFO, "Getting RootFH failed with %@", v63, 0xCu);
       }
 
       domain2 = *(*&buf[8] + 40);
@@ -1703,30 +1704,30 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    v28 = v59[5];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke_213;
-    v49[3] = &unk_27981A858;
-    v49[4] = buf;
-    v49[5] = &v52;
-    [v12 fileAttributes:v28 requestID:-1 reply:v49];
+    v28 = v58[5];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __57__LiveFSFPExtensionHelper_itemForIdentifierLocked_error___block_invoke_213;
+    v48[3] = &unk_27981A858;
+    v48[4] = buf;
+    v48[5] = &v51;
+    [v12 fileAttributes:v28 requestID:-1 reply:v48];
   }
 
   v29 = livefs_std_log();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    v43 = *(*&buf[8] + 40);
-    v44 = v59[5];
+    v42 = *(*&buf[8] + 40);
+    v43 = v58[5];
     domain = [(NSFileProviderExtension *)self domain];
     identifier = [domain identifier];
-    *v64 = 138412802;
-    v65 = v43;
-    v66 = 2112;
-    v67 = v44;
-    v68 = 2112;
-    v69 = identifier;
-    _os_log_debug_impl(&dword_255FE9000, v29, OS_LOG_TYPE_DEBUG, "LIGetRootFileHandle returned e %@ fh %@ in domain %@", v64, 0x20u);
+    *v63 = 138412802;
+    v64 = v42;
+    v65 = 2112;
+    v66 = v43;
+    v67 = 2112;
+    v68 = identifier;
+    _os_log_debug_impl(&dword_255FE9000, v29, OS_LOG_TYPE_DEBUG, "LIGetRootFileHandle returned e %@ fh %@ in domain %@", v63, 0x20u);
   }
 
   v30 = *(*&buf[8] + 40);
@@ -1752,17 +1753,17 @@ LABEL_42:
   }
 
   ItemClass = self->ItemClass;
-  v35 = v59[5];
+  v35 = v58[5];
   domain2 = [(NSFileProviderExtension *)self domain];
   displayName = [domain2 displayName];
   dt_dir = [(objc_class *)self->ItemClass dt_dir];
-  v8 = [(objc_class *)ItemClass newItemForFH:v35 withReference:v35 != 0 name:displayName parent:0 type:dt_dir attrs:v53[5] extension:self];
+  v8 = [(objc_class *)ItemClass newItemForFH:v35 withReference:v35 != 0 name:displayName parent:0 type:dt_dir attrs:v52[5] extension:self];
 
   v33 = 1;
 LABEL_44:
 
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v57, 8);
 
   _Block_object_dispose(buf, 8);
   if (v33)
@@ -1774,7 +1775,6 @@ LABEL_44:
 LABEL_55:
 
 LABEL_56:
-  v41 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1970,7 +1970,7 @@ void __56__LiveFSFPExtensionHelper_removeEnumeratorForContainer___block_invoke(u
 
 - (id)URLForItemWithIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   domain = [(NSFileProviderExtension *)self domain];
   if (!domain)
@@ -2007,7 +2007,7 @@ LABEL_11:
   v13 = livefs_std_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [LiveFSFPExtensionHelper URLForItemWithIdentifier:?];
+    [LiveFSFPExtensionHelper URLForItemWithIdentifier:];
   }
 
   ensureMountPathSetup = [(LiveFSFPExtensionHelper *)self ensureMountPathSetup];
@@ -2019,16 +2019,16 @@ LABEL_11:
       {
         path = &stru_286811DF0;
 LABEL_24:
-        v21 = livefs_std_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = livefs_std_log();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v25 = "[LiveFSFPExtensionHelper URLForItemWithIdentifier:]";
-          v26 = 2112;
-          v27 = path;
-          v28 = 2112;
-          v29 = identifierCopy;
-          _os_log_impl(&dword_255FE9000, v21, OS_LOG_TYPE_DEFAULT, "%s: returning perVolPath %@ for item %@", buf, 0x20u);
+          v24 = "[LiveFSFPExtensionHelper URLForItemWithIdentifier:]";
+          v25 = 2112;
+          v26 = path;
+          v27 = 2112;
+          v28 = identifierCopy;
+          _os_log_impl(&dword_255FE9000, v20, OS_LOG_TYPE_DEFAULT, "%s: returning perVolPath %@ for item %@", buf, 0x20u);
         }
 
         mountPath = [(LiveFSFPExtensionHelper *)self mountPath];
@@ -2042,22 +2042,22 @@ LABEL_24:
         goto LABEL_24;
       }
 
-      v23 = 0;
-      v20 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v23];
-      mountPath = v23;
-      if (v20)
+      v22 = 0;
+      v19 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v22];
+      mountPath = v22;
+      if (v19)
       {
-        path = [v20 path];
+        path = [v19 path];
 
         goto LABEL_24;
       }
 
-      v22 = livefs_std_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v21 = livefs_std_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = identifierCopy;
-        _os_log_impl(&dword_255FE9000, v22, OS_LOG_TYPE_DEFAULT, "URLForItem: didn't find item for ID %@", buf, 0xCu);
+        v24 = identifierCopy;
+        _os_log_impl(&dword_255FE9000, v21, OS_LOG_TYPE_DEFAULT, "URLForItem: didn't find item for ID %@", buf, 0xCu);
       }
 
 LABEL_13:
@@ -2076,62 +2076,60 @@ LABEL_14:
   v17 = 0;
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)itemAtPathLocked:(id)locked parent:(id)parent cachedOnly:(BOOL)only
 {
   onlyCopy = only;
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   parentCopy = parent;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__0;
-  v46 = __Block_byref_object_dispose__0;
-  v47 = 0;
-  v39 = 0;
-  v40[0] = &v39;
-  v40[1] = 0x3032000000;
-  v40[2] = __Block_byref_object_copy__0;
-  v40[3] = __Block_byref_object_dispose__0;
-  v41 = 0;
-  v33 = lockedCopy;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__0;
+  v54 = __Block_byref_object_dispose__0;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__0;
+  v48 = __Block_byref_object_dispose__0;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
+  v32 = lockedCopy;
   pathComponents = [lockedCopy pathComponents];
   if (self->_clusterMaster)
   {
-    v36 = 0;
+    v35 = 0;
     onlyCopy = 1;
   }
 
   else
   {
     conn = self->_conn;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_invoke;
-    v38[3] = &unk_27981A740;
-    v38[4] = &v39;
-    v36 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_invoke;
+    v37[3] = &unk_27981A740;
+    v37[4] = &v38;
+    v35 = [(NSXPCConnection *)conn synchronousRemoteObjectProxyWithErrorHandler:v37];
   }
 
-  v34 = parentCopy;
+  v33 = parentCopy;
   v11 = [pathComponents count];
   v12 = v11;
   if (!v11)
   {
     v14 = 0;
     v13 = 0;
-    v16 = v34;
+    v16 = v33;
 LABEL_20:
     itemCache = self->itemCache;
     itemIdentifier = [v16 itemIdentifier];
@@ -2145,7 +2143,7 @@ LABEL_20:
   v13 = 0;
   v14 = 0;
   v15 = MEMORY[0x277CBEBF8];
-  v16 = v34;
+  v16 = v33;
   while (1)
   {
     v17 = [pathComponents objectAtIndexedSubscript:0];
@@ -2198,44 +2196,44 @@ LABEL_13:
     {
       v20 = [pathComponents objectAtIndexedSubscript:0];
       *buf = 138412290;
-      v55 = v20;
+      v57 = v20;
       _os_log_impl(&dword_255FE9000, v19, OS_LOG_TYPE_DEFAULT, "About to look up name '%@'", buf, 0xCu);
     }
 
     v21 = [v18 fh];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_invoke_216;
-    v37[3] = &unk_27981A920;
-    v37[4] = &v39;
-    v37[5] = &v48;
-    v37[6] = &v42;
-    [v36 lookupIn:v21 name:v14 usingFlags:0 requestID:-1 reply:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_invoke_216;
+    v36[3] = &unk_27981A920;
+    v36[4] = &v38;
+    v36[5] = &v50;
+    v36[6] = &v44;
+    [v35 lookupIn:v21 name:v14 usingFlags:0 requestID:-1 reply:v36];
 
-    if (*(v40[0] + 40))
+    if (v39[5])
     {
-      v32 = livefs_std_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = livefs_std_log();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [LiveFSFPExtensionHelper itemAtPathLocked:v40 parent:? cachedOnly:?];
+        [LiveFSFPExtensionHelper itemAtPathLocked:parent:cachedOnly:];
       }
 
       goto LABEL_29;
     }
 
     ItemClass = self->ItemClass;
-    v23 = v49[5];
+    v23 = v51[5];
     dt_examine = [(objc_class *)ItemClass dt_examine];
-    v16 = [(objc_class *)ItemClass newItemForFH:v23 withReference:1 name:v14 parent:v18 type:dt_examine attrs:v43[5] extension:self];
+    v16 = [(objc_class *)ItemClass newItemForFH:v23 withReference:1 name:v14 parent:v18 type:dt_examine attrs:v45[5] extension:self];
     goto LABEL_13;
   }
 
-  v32 = livefs_std_log();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v31 = livefs_std_log();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v55 = v33;
-    _os_log_impl(&dword_255FE9000, v32, OS_LOG_TYPE_INFO, "Cache miss for name %@", buf, 0xCu);
+    v57 = v32;
+    _os_log_impl(&dword_255FE9000, v31, OS_LOG_TYPE_INFO, "Cache miss for name %@", buf, 0xCu);
   }
 
 LABEL_29:
@@ -2243,11 +2241,10 @@ LABEL_29:
   v29 = 0;
 LABEL_21:
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v48, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 
   return v29;
 }
@@ -2325,7 +2322,7 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
 
 - (id)persistentIdentifierForItemAtURL:(id)l
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   standardizedURL = [l standardizedURL];
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2345,19 +2342,19 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
       identifier = &stru_286811DF0;
     }
 
-    v26 = 136316418;
-    v27 = "[LiveFSFPExtensionHelper persistentIdentifierForItemAtURL:]";
+    v24 = 136316418;
+    v25 = "[LiveFSFPExtensionHelper persistentIdentifierForItemAtURL:]";
+    v26 = 2112;
+    v27 = standardizedURL;
     v28 = 2112;
-    v29 = standardizedURL;
+    v29 = docPath;
     v30 = 2112;
-    v31 = docPath;
+    v31 = providerName;
     v32 = 2112;
-    v33 = providerName;
+    v33 = domain;
     v34 = 2112;
-    v35 = domain;
-    v36 = 2112;
-    v37 = identifier;
-    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "%s starting for url %@, docpath %@, providerName %@, domain: %@, identifier; %@", &v26, 0x3Eu);
+    v35 = identifier;
+    _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "%s starting for url %@, docpath %@, providerName %@, domain: %@, identifier; %@", &v24, 0x3Eu);
     if (domain2)
     {
     }
@@ -2371,9 +2368,9 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
     v14 = livefs_std_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_255FE9000, v14, OS_LOG_TYPE_DEFAULT, "perItemPath is '%@'", &v26, 0xCu);
+      v24 = 138412290;
+      v25 = v12;
+      _os_log_impl(&dword_255FE9000, v14, OS_LOG_TYPE_DEFAULT, "perItemPath is '%@'", &v24, 0xCu);
     }
 
     if ([v12 isEqualToString:&stru_286811DF0])
@@ -2383,22 +2380,21 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
       v17 = *MEMORY[0x277CC6348];
       if (v16)
       {
-        v18 = *MEMORY[0x277CC6348];
         [LiveFSFPExtensionHelper persistentIdentifierForItemAtURL:];
       }
 
-      v19 = v17;
+      v18 = v17;
     }
 
     else
     {
       if (selfCopy->_idsPersist)
       {
-        v21 = [(LiveFSFPExtensionHelper *)selfCopy itemForPath:v12 cachedOnly:0 error:0];
-        v22 = v21;
-        if (v21)
+        v20 = [(LiveFSFPExtensionHelper *)selfCopy itemForPath:v12 cachedOnly:0 error:0];
+        v21 = v20;
+        if (v20)
         {
-          itemIdentifier = [v21 itemIdentifier];
+          itemIdentifier = [v20 itemIdentifier];
         }
 
         else
@@ -2409,16 +2405,16 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
         goto LABEL_25;
       }
 
-      v23 = livefs_std_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v22 = livefs_std_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [LiveFSFPExtensionHelper persistentIdentifierForItemAtURL:];
       }
 
-      v19 = v12;
+      v18 = v12;
     }
 
-    itemIdentifier = v19;
+    itemIdentifier = v18;
   }
 
   else
@@ -2428,8 +2424,6 @@ void __62__LiveFSFPExtensionHelper_itemAtPathLocked_parent_cachedOnly___block_in
 
 LABEL_25:
   objc_sync_exit(selfCopy);
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return itemIdentifier;
 }
@@ -2462,7 +2456,7 @@ LABEL_25:
 
 - (void)itemChangedAtURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [(LiveFSFPExtensionHelper *)self itemForURL:lCopy cachedOnly:1 error:0];
   v6 = v5;
@@ -2475,21 +2469,19 @@ LABEL_25:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = " found item at";
-    v11 = "[LiveFSFPExtensionHelper itemChangedAtURL:]";
-    v10 = 136315650;
+    v10 = "[LiveFSFPExtensionHelper itemChangedAtURL:]";
+    v9 = 136315650;
     if (!v6)
     {
       v8 = "";
     }
 
-    v12 = 2080;
-    v13 = v8;
-    v14 = 2112;
-    v15 = lCopy;
-    _os_log_impl(&dword_255FE9000, v7, OS_LOG_TYPE_DEFAULT, "%s: called on%s url %@", &v10, 0x20u);
+    v11 = 2080;
+    v12 = v8;
+    v13 = 2112;
+    v14 = lCopy;
+    _os_log_impl(&dword_255FE9000, v7, OS_LOG_TYPE_DEFAULT, "%s: called on%s url %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopProvidingItemAtURL:(id)l
@@ -2575,7 +2567,7 @@ BOOL __45__LiveFSFPExtensionHelper_LiveFSDefaultMover__block_invoke(uint64_t a1,
 
 - (void)importDocumentAtURL:(id)l toParentItemIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -2584,23 +2576,23 @@ BOOL __45__LiveFSFPExtensionHelper_LiveFSDefaultMover__block_invoke(uint64_t a1,
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = lCopy;
-    v21 = 2112;
-    v22 = v11;
+    v19 = lCopy;
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_255FE9000, v12, OS_LOG_TYPE_DEFAULT, "importing document at %@ to %@", buf, 0x16u);
   }
 
   if (v11)
   {
     liveFSDefaultMover = [(LiveFSFPExtensionHelper *)self LiveFSDefaultMover];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_completionHandler___block_invoke;
-    v16[3] = &unk_27981A970;
-    v16[4] = self;
-    v18 = handlerCopy;
-    v17 = lCopy;
-    [v17 fp_importUnderFolder:v11 usingBlock:liveFSDefaultMover completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_completionHandler___block_invoke;
+    v15[3] = &unk_27981A970;
+    v15[4] = self;
+    v17 = handlerCopy;
+    v16 = lCopy;
+    [v16 fp_importUnderFolder:v11 usingBlock:liveFSDefaultMover completionHandler:v15];
   }
 
   else
@@ -2615,13 +2607,11 @@ BOOL __45__LiveFSFPExtensionHelper_LiveFSDefaultMover__block_invoke(uint64_t a1,
     liveFSDefaultMover = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:identifierCopy];
     (*(handlerCopy + 2))(handlerCopy, 0, liveFSDefaultMover);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = livefs_std_log();
@@ -2640,9 +2630,9 @@ void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_co
   else
   {
     v9 = *(a1 + 32);
-    v16 = 0;
-    v10 = [v9 itemForURL:v5 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [v9 itemForURL:v5 error:&v15];
+    v11 = v15;
     if (!v10)
     {
       v12 = livefs_std_log();
@@ -2657,23 +2647,21 @@ void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_co
     {
       v14 = *(a1 + 40);
       *buf = 138412802;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v11;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
       _os_log_impl(&dword_255FE9000, v13, OS_LOG_TYPE_DEFAULT, "importing document at %@ to item %@, error %@", buf, 0x20u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDirectoryWithName:(id)name inParentItemIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -2681,9 +2669,9 @@ void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_co
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v35 = nameCopy;
-    v36 = 2112;
-    v37 = identifierCopy;
+    v34 = nameCopy;
+    v35 = 2112;
+    v36 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_DEFAULT, "creating directory %@ under %@", buf, 0x16u);
   }
 
@@ -2701,9 +2689,9 @@ void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_co
     goto LABEL_14;
   }
 
-  v33 = 0;
-  v13 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v33];
-  v14 = v33;
+  v32 = 0;
+  v13 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v32];
+  v14 = v32;
   v15 = v14;
   if (!v13)
   {
@@ -2735,9 +2723,9 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v32 = v14;
-  v20 = [v12 ensureFileHandleOrError:&v32];
-  v16 = v32;
+  v31 = v14;
+  v20 = [v12 ensureFileHandleOrError:&v31];
+  v16 = v31;
 
   if (v20)
   {
@@ -2750,38 +2738,38 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v22 = [(LiveFSFPExtensionHelper *)self itemAtPath:nameCopy parent:v12];
-  if (v22)
+  v21 = [(LiveFSFPExtensionHelper *)self itemAtPath:nameCopy parent:v12];
+  if (v21)
   {
-    v15 = v22;
-    v23 = livefs_std_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v15 = v21;
+    v22 = livefs_std_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v35 = nameCopy;
-      v36 = 2112;
-      v37 = v15;
-      _os_log_impl(&dword_255FE9000, v23, OS_LOG_TYPE_DEFAULT, "creating directory %@ colliding with %@", buf, 0x16u);
+      v34 = nameCopy;
+      v35 = 2112;
+      v36 = v15;
+      _os_log_impl(&dword_255FE9000, v22, OS_LOG_TYPE_DEFAULT, "creating directory %@ colliding with %@", buf, 0x16u);
     }
 
-    v24 = [MEMORY[0x277CCA9B8] fileProviderErrorForCollisionWithItem:v15];
-    handlerCopy[2](handlerCopy, 0, v24);
+    v23 = [MEMORY[0x277CCA9B8] fileProviderErrorForCollisionWithItem:v15];
+    handlerCopy[2](handlerCopy, 0, v23);
   }
 
   else
   {
-    v25 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
-    v26 = [v25 URLByAppendingPathComponent:nameCopy];
+    v24 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
+    v25 = [v24 URLByAppendingPathComponent:nameCopy];
 
-    v40 = *MEMORY[0x277CCA180];
-    v41[0] = &unk_286815020;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = *MEMORY[0x277CCA180];
+    v40[0] = &unk_286815020;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v31 = v16;
-    [defaultManager createDirectoryAtURL:v26 withIntermediateDirectories:0 attributes:v27 error:&v31];
-    v29 = v31;
+    v30 = v16;
+    [defaultManager createDirectoryAtURL:v25 withIntermediateDirectories:0 attributes:v26 error:&v30];
+    v28 = v30;
 
-    if (v29)
+    if (v28)
     {
       v15 = 0;
     }
@@ -2791,45 +2779,43 @@ LABEL_18:
       v15 = [(LiveFSFPExtensionHelper *)self itemAtPath:nameCopy parent:v12];
     }
 
-    v30 = livefs_std_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = livefs_std_log();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v35 = nameCopy;
-      v36 = 2112;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v29;
-      _os_log_impl(&dword_255FE9000, v30, OS_LOG_TYPE_DEFAULT, "creating directory %@ returning %@ and error %@", buf, 0x20u);
+      v34 = nameCopy;
+      v35 = 2112;
+      v36 = v15;
+      v37 = 2112;
+      v38 = v28;
+      _os_log_impl(&dword_255FE9000, v29, OS_LOG_TYPE_DEFAULT, "creating directory %@ returning %@ and error %@", buf, 0x20u);
     }
 
-    (handlerCopy)[2](handlerCopy, v15, v29);
+    (handlerCopy)[2](handlerCopy, v15, v28);
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renameItemWithIdentifier:(id)identifier toName:(id)name completionHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   handlerCopy = handler;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__0;
-  v53 = __Block_byref_object_dispose__0;
-  v54 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__0;
+  v52 = __Block_byref_object_dispose__0;
+  v53 = 0;
   v10 = livefs_std_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v56 = identifierCopy;
-    v57 = 2112;
-    v58 = nameCopy;
+    v55 = identifierCopy;
+    v56 = 2112;
+    v57 = nameCopy;
     _os_log_impl(&dword_255FE9000, v10, OS_LOG_TYPE_DEFAULT, "renaming %@ to %@", buf, 0x16u);
   }
 
@@ -2863,9 +2849,9 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v48 = 0;
-  v14 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v48];
-  v15 = v48;
+  v47 = 0;
+  v14 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v47];
+  v15 = v47;
   v16 = v15;
   if (!v14)
   {
@@ -2893,11 +2879,11 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v47 = v15;
-  v27 = [parent ensureFileHandleOrError:&v47];
-  v17 = v47;
+  v46 = v15;
+  v26 = [parent ensureFileHandleOrError:&v46];
+  v17 = v46;
 
-  if (v27)
+  if (v26)
   {
     handlerCopy[2](handlerCopy, 0, v17);
 LABEL_22:
@@ -2910,14 +2896,14 @@ LABEL_22:
   v25 = [(LiveFSFPExtensionHelper *)self itemAtPath:nameCopy parent:parent];
   if (v25)
   {
-    v28 = livefs_std_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = livefs_std_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v56 = identifierCopy;
-      v57 = 2112;
-      v58 = v25;
-      _os_log_impl(&dword_255FE9000, v28, OS_LOG_TYPE_DEFAULT, "renaming %@ colliding with %@", buf, 0x16u);
+      v55 = identifierCopy;
+      v56 = 2112;
+      v57 = v25;
+      _os_log_impl(&dword_255FE9000, v27, OS_LOG_TYPE_DEFAULT, "renaming %@ colliding with %@", buf, 0x16u);
     }
 
     v22 = [MEMORY[0x277CCA9B8] fileProviderErrorForCollisionWithItem:v25];
@@ -2932,18 +2918,18 @@ LABEL_22:
   v23 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:nameCopy];
 
   itemIdentifier = [parent itemIdentifier];
-  v46 = v17;
-  v31 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v46];
-  v36 = itemIdentifier;
-  v16 = v46;
+  v45 = v17;
+  v30 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v45];
+  v35 = itemIdentifier;
+  v16 = v45;
 
-  v32 = v50[5];
-  v50[5] = v31;
+  v31 = v49[5];
+  v49[5] = v30;
 
-  v33 = v50[5];
-  if (v33)
+  v32 = v49[5];
+  if (v32)
   {
-    ensureConnectedForUpdates = [v33 ensureConnectedForUpdates];
+    ensureConnectedForUpdates = [v32 ensureConnectedForUpdates];
 
     v16 = ensureConnectedForUpdates;
   }
@@ -2959,71 +2945,69 @@ LABEL_22:
   block[1] = 3221225472;
   block[2] = __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHandler___block_invoke;
   block[3] = &unk_27981A9C0;
-  v39 = v12;
+  v38 = v12;
   parent = parent;
-  v40 = parent;
+  v39 = parent;
   selfCopy = self;
   v23 = v23;
-  v42 = v23;
-  v45 = &v49;
-  v44 = handlerCopy;
+  v41 = v23;
+  v44 = &v48;
+  v43 = handlerCopy;
   v24 = v24;
-  v43 = v24;
+  v42 = v24;
   dispatch_async(renameUpdateQueue, block);
 
   v17 = 0;
   v25 = 0;
-  v22 = v39;
+  v22 = v38;
 LABEL_15:
 
 LABEL_16:
   v16 = v17;
 LABEL_19:
-  _Block_object_dispose(&v49, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 void __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) filename];
   v3 = [v2 copy];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHandler___block_invoke_2;
-  v16[3] = &unk_27981A998;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHandler___block_invoke_2;
+  v15[3] = &unk_27981A998;
   v4 = *(a1 + 40);
   v5 = *(a1 + 56);
-  v16[4] = *(a1 + 48);
-  v17 = v5;
-  v14 = *(a1 + 72);
-  v6 = v14;
-  v18 = v14;
-  [v4 afterRename:v3 performBlock:v16];
+  v15[4] = *(a1 + 48);
+  v16 = v5;
+  v13 = *(a1 + 72);
+  v6 = v13;
+  v17 = v13;
+  [v4 afterRename:v3 performBlock:v15];
   v7 = livefs_std_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[LiveFSFPExtensionHelper renameItemWithIdentifier:toName:completionHandler:]_block_invoke";
+    v19 = "[LiveFSFPExtensionHelper renameItemWithIdentifier:toName:completionHandler:]_block_invoke";
     _os_log_impl(&dword_255FE9000, v7, OS_LOG_TYPE_DEFAULT, "%s: rename about to happen", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCAA00] defaultManager];
   v10 = *(a1 + 56);
   v9 = *(a1 + 64);
-  v15 = 0;
-  [v8 moveItemAtURL:v9 toURL:v10 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  [v8 moveItemAtURL:v9 toURL:v10 error:&v14];
+  v11 = v14;
 
   v12 = livefs_std_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[LiveFSFPExtensionHelper renameItemWithIdentifier:toName:completionHandler:]_block_invoke";
-    v21 = 2112;
-    v22 = v11;
+    v19 = "[LiveFSFPExtensionHelper renameItemWithIdentifier:toName:completionHandler:]_block_invoke";
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_255FE9000, v12, OS_LOG_TYPE_DEFAULT, "%s: got error %@", buf, 0x16u);
   }
 
@@ -3032,25 +3016,23 @@ void __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHan
     [*(a1 + 40) dropAfterRenameBlockForName:v3];
     (*(*(a1 + 72) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHandler___block_invoke_2(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
-  v10 = 0;
-  v4 = [v2 itemForURL:v3 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v2 itemForURL:v3 error:&v9];
+  v5 = v9;
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
     _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "Reparented, it is item %@ newError %@", buf, 0x16u);
   }
 
@@ -3059,39 +3041,38 @@ void __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHan
   *(v7 + 40) = 0;
 
   (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reparentItemWithIdentifier:(id)identifier toParentItemWithIdentifier:(id)withIdentifier newName:(id)name completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   withIdentifierCopy = withIdentifier;
   nameCopy = name;
   handlerCopy = handler;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__0;
-  v63 = __Block_byref_object_dispose__0;
-  v64 = 0;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy__0;
+  v62 = __Block_byref_object_dispose__0;
+  v63 = 0;
   v12 = livefs_std_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v66 = identifierCopy;
-    v67 = 2112;
-    v68 = withIdentifierCopy;
-    v69 = 2112;
-    v70 = nameCopy;
+    v65 = identifierCopy;
+    v66 = 2112;
+    v67 = withIdentifierCopy;
+    v68 = 2112;
+    v69 = nameCopy;
     _os_log_impl(&dword_255FE9000, v12, OS_LOG_TYPE_DEFAULT, "reparenting %@ under %@, with newName %@", buf, 0x20u);
   }
 
-  v42 = identifierCopy;
+  v41 = identifierCopy;
 
-  v58 = 0;
-  v13 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v58];
-  v14 = v58;
+  v57 = 0;
+  v13 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v57];
+  v14 = v57;
   if (!v13)
   {
     handlerCopy[2](handlerCopy, 0, v14);
@@ -3137,7 +3118,7 @@ void __77__LiveFSFPExtensionHelper_renameItemWithIdentifier_toName_completionHan
       _os_log_impl(&dword_255FE9000, v28, OS_LOG_TYPE_DEFAULT, "Where is IT", buf, 2u);
     }
 
-    v29 = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:v42];
+    v29 = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:v41];
     handlerCopy[2](handlerCopy, 0, v29);
     v19 = 0;
     v20 = 0;
@@ -3164,15 +3145,15 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v57 = v14;
-  v27 = [parent ensureFileHandleOrError:&v57];
-  v15 = v57;
+  v56 = v14;
+  v27 = [parent ensureFileHandleOrError:&v56];
+  v15 = v56;
 
   if (!v27)
   {
-    v56 = v15;
-    v22 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:withIdentifierCopy error:&v56];
-    v14 = v56;
+    v55 = v15;
+    v22 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:withIdentifierCopy error:&v55];
+    v14 = v55;
 
     if (v14)
     {
@@ -3183,16 +3164,16 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v55 = 0;
-    v31 = [v22 ensureFileHandleOrError:&v55];
-    v41 = v55;
-    if (v31)
+    v54 = 0;
+    v30 = [v22 ensureFileHandleOrError:&v54];
+    v40 = v54;
+    if (v30)
     {
-      handlerCopy[2](handlerCopy, 0, v41);
+      handlerCopy[2](handlerCopy, 0, v40);
       v19 = 0;
       v20 = 0;
       v21 = 0;
-      v14 = v41;
+      v14 = v40;
       goto LABEL_19;
     }
 
@@ -3203,29 +3184,29 @@ LABEL_18:
 
     else
     {
-      v33 = livefs_std_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v32 = livefs_std_log();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         filename = [v24 filename];
-        [LiveFSFPExtensionHelper reparentItemWithIdentifier:filename toParentItemWithIdentifier:buf newName:v33 completionHandler:?];
+        [LiveFSFPExtensionHelper reparentItemWithIdentifier:filename toParentItemWithIdentifier:buf newName:v32 completionHandler:?];
       }
 
       filename2 = [v24 filename];
     }
 
     v21 = filename2;
-    v20 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:v42];
-    v35 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:withIdentifierCopy];
-    v19 = [v35 URLByAppendingPathComponent:v21];
+    v20 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:v41];
+    v34 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:withIdentifierCopy];
+    v19 = [v34 URLByAppendingPathComponent:v21];
 
     itemIdentifier = [v23 itemIdentifier];
-    v54 = v41;
-    v37 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v54];
-    v40 = itemIdentifier;
-    v14 = v54;
+    v53 = v40;
+    v36 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v53];
+    v39 = itemIdentifier;
+    v14 = v53;
 
-    v38 = v60[5];
-    v60[5] = v37;
+    v37 = v59[5];
+    v59[5] = v36;
 
     if (v14)
     {
@@ -3239,21 +3220,21 @@ LABEL_18:
     block[2] = __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithIdentifier_newName_completionHandler___block_invoke;
     block[3] = &unk_27981A9E8;
     v24 = v24;
-    v46 = v24;
+    v45 = v24;
     v23 = v23;
-    v47 = v23;
+    v46 = v23;
     selfCopy = self;
     v19 = v19;
-    v49 = v19;
-    v53 = &v59;
-    v52 = handlerCopy;
+    v48 = v19;
+    v52 = &v58;
+    v51 = handlerCopy;
     v20 = v20;
-    v50 = v20;
-    v51 = 0;
+    v49 = v20;
+    v50 = 0;
     dispatch_async(renameUpdateQueue, block);
 
     v14 = 0;
-    v29 = v46;
+    v29 = v45;
     goto LABEL_18;
   }
 
@@ -3265,79 +3246,74 @@ LABEL_18:
 LABEL_8:
   v14 = v15;
 LABEL_19:
-  _Block_object_dispose(&v59, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v58, 8);
 }
 
 void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithIdentifier_newName_completionHandler___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) filename];
   v3 = [v2 copy];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithIdentifier_newName_completionHandler___block_invoke_2;
-  v17[3] = &unk_27981A998;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithIdentifier_newName_completionHandler___block_invoke_2;
+  v15[3] = &unk_27981A998;
   v4 = *(a1 + 40);
   v5 = *(a1 + 56);
-  v17[4] = *(a1 + 48);
-  v18 = v5;
-  v15 = *(a1 + 80);
-  v6 = v15;
-  v19 = v15;
-  [v4 afterRename:v3 performBlock:v17];
+  v15[4] = *(a1 + 48);
+  v16 = v5;
+  v13 = *(a1 + 80);
+  v6 = v13;
+  v17 = v13;
+  [v4 afterRename:v3 performBlock:v15];
   v7 = livefs_std_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[LiveFSFPExtensionHelper reparentItemWithIdentifier:toParentItemWithIdentifier:newName:completionHandler:]_block_invoke";
+    v19 = "[LiveFSFPExtensionHelper reparentItemWithIdentifier:toParentItemWithIdentifier:newName:completionHandler:]_block_invoke";
     _os_log_impl(&dword_255FE9000, v7, OS_LOG_TYPE_DEFAULT, "%s: rename about to happen", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCAA00] defaultManager];
   v10 = *(a1 + 56);
   v9 = *(a1 + 64);
-  v16 = 0;
-  [v8 moveItemAtURL:v9 toURL:v10 error:&v16];
-  v11 = v16;
+  v14 = 0;
+  [v8 moveItemAtURL:v9 toURL:v10 error:&v14];
+  v11 = v14;
 
   v12 = livefs_std_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v21 = "[LiveFSFPExtensionHelper reparentItemWithIdentifier:toParentItemWithIdentifier:newName:completionHandler:]_block_invoke";
-    v22 = 2112;
-    v23 = v11;
+    v19 = "[LiveFSFPExtensionHelper reparentItemWithIdentifier:toParentItemWithIdentifier:newName:completionHandler:]_block_invoke";
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_255FE9000, v12, OS_LOG_TYPE_DEFAULT, "%s: got error %@", buf, 0x16u);
   }
 
   if (v11)
   {
     [*(a1 + 40) dropAfterRenameBlockForName:v3];
-    v13 = *(a1 + 72);
     (*(*(a1 + 80) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithIdentifier_newName_completionHandler___block_invoke_2(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
-  v10 = 0;
-  v4 = [v2 itemForURL:v3 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v2 itemForURL:v3 error:&v9];
+  v5 = v9;
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
     _os_log_impl(&dword_255FE9000, v6, OS_LOG_TYPE_DEFAULT, "Reparented, it is item %@ newError %@", buf, 0x16u);
   }
 
@@ -3346,7 +3322,6 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
   *(v7 + 40) = 0;
 
   (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchTrashIdentifiersWithCompletionHandler:(id)handler
@@ -3419,7 +3394,7 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
 
 - (void)trashItemWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = livefs_std_log();
@@ -3430,9 +3405,9 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
     _os_log_impl(&dword_255FE9000, v8, OS_LOG_TYPE_INFO, "trashing item %@", &buf, 0xCu);
   }
 
-  v61 = 0;
-  v9 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v61];
-  v10 = v61;
+  v60 = 0;
+  v9 = [(LiveFSFPExtensionHelper *)self _isLoggedInOrError:&v60];
+  v10 = v60;
   if (!v9)
   {
     handlerCopy[2](handlerCopy, 0, v10);
@@ -3445,54 +3420,54 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
     v14 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:0];
     if (!v14)
     {
-      v27 = livefs_std_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v26 = livefs_std_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_255FE9000, v27, OS_LOG_TYPE_DEFAULT, "Where is IT", &buf, 2u);
+        _os_log_impl(&dword_255FE9000, v26, OS_LOG_TYPE_DEFAULT, "Where is IT", &buf, 2u);
       }
 
-      v28 = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:identifierCopy];
-      handlerCopy[2](handlerCopy, 0, v28);
+      v27 = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:identifierCopy];
+      handlerCopy[2](handlerCopy, 0, v27);
 
       goto LABEL_7;
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v63 = 0x3032000000;
-    v64 = __Block_byref_object_copy__0;
-    v65 = __Block_byref_object_dispose__0;
-    v66 = 0;
-    v47 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
-    v16 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:v11];
-    v48 = [v16 URLByAppendingPathComponent:@".Trashes"];
+    v62 = 0x3032000000;
+    v63 = __Block_byref_object_copy__0;
+    v64 = __Block_byref_object_dispose__0;
+    v65 = 0;
+    v46 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
+    v15 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:v11];
+    v47 = [v15 URLByAppendingPathComponent:@".Trashes"];
 
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", getuid()];
-    v49 = [v48 URLByAppendingPathComponent:v17];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", getuid()];
+    v48 = [v47 URLByAppendingPathComponent:v16];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    path = [v49 path];
-    v60 = v10;
-    v20 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v60];
-    v21 = v60;
+    path = [v48 path];
+    v59 = v10;
+    v19 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v59];
+    v20 = v59;
 
-    if ((v20 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      domain = [v21 domain];
-      v23 = *MEMORY[0x277CCA050];
+      domain = [v20 domain];
+      v22 = *MEMORY[0x277CCA050];
       if ([domain isEqualToString:*MEMORY[0x277CCA050]])
       {
-        v24 = [v21 code] == 516;
+        v23 = [v20 code] == 516;
 
-        if (!v24)
+        if (!v23)
         {
           connection = xpc_connection_create_mach_service("com.apple.filesystems.userfs_helper", 0, 0);
           if (!connection || MEMORY[0x259C56690](connection) != MEMORY[0x277D86450])
           {
-            v25 = [MEMORY[0x277CCA9B8] errorWithDomain:v23 code:512 userInfo:0];
-            handlerCopy[2](handlerCopy, 0, v25);
-            v26 = 0;
+            v24 = [MEMORY[0x277CCA9B8] errorWithDomain:v22 code:512 userInfo:0];
+            handlerCopy[2](handlerCopy, 0, v24);
+            v25 = 0;
             xdict = 0;
             parent = 0;
             goto LABEL_28;
@@ -3501,14 +3476,14 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
           xpc_connection_set_event_handler(connection, &__block_literal_global);
           xpc_connection_resume(connection);
           xdict = xpc_dictionary_create(0, 0, 0);
-          v36 = getuid();
-          xpc_dictionary_set_int64(xdict, "uid", v36);
-          v37 = getgid();
-          xpc_dictionary_set_int64(xdict, "gid", v37);
-          v38 = v48;
-          fileSystemRepresentation = [v48 fileSystemRepresentation];
-          v40 = v49;
-          fileSystemRepresentation2 = [v49 fileSystemRepresentation];
+          v35 = getuid();
+          xpc_dictionary_set_int64(xdict, "uid", v35);
+          v36 = getgid();
+          xpc_dictionary_set_int64(xdict, "gid", v36);
+          v37 = v47;
+          fileSystemRepresentation = [v47 fileSystemRepresentation];
+          v39 = v48;
+          fileSystemRepresentation2 = [v48 fileSystemRepresentation];
           if (fileSystemRepresentation)
           {
             xpc_dictionary_set_string(xdict, "trash", fileSystemRepresentation);
@@ -3519,21 +3494,21 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
             xpc_dictionary_set_string(xdict, "path", fileSystemRepresentation2);
           }
 
-          v42 = livefs_std_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v41 = livefs_std_log();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 0;
-            _os_log_impl(&dword_255FE9000, v42, OS_LOG_TYPE_DEFAULT, "asking for Trash to be created", v59, 2u);
+            *v58 = 0;
+            _os_log_impl(&dword_255FE9000, v41, OS_LOG_TYPE_DEFAULT, "asking for Trash to be created", v58, 2u);
           }
 
-          v43 = xpc_connection_send_message_with_reply_sync(connection, xdict);
-          v26 = v43;
-          if (!v43 || MEMORY[0x259C56690](v43) != MEMORY[0x277D86468] || xpc_dictionary_get_int64(v26, "error"))
+          v42 = xpc_connection_send_message_with_reply_sync(connection, xdict);
+          v25 = v42;
+          if (!v42 || MEMORY[0x259C56690](v42) != MEMORY[0x277D86468] || xpc_dictionary_get_int64(v25, "error"))
           {
-            v10 = [MEMORY[0x277CCA9B8] errorWithDomain:v23 code:512 userInfo:0];
+            v10 = [MEMORY[0x277CCA9B8] errorWithDomain:v22 code:512 userInfo:0];
 
-            v44 = livefs_std_log();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            v43 = livefs_std_log();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
               [LiveFSFPExtensionHelper trashItemWithIdentifier:completionHandler:];
             }
@@ -3547,17 +3522,17 @@ void __107__LiveFSFPExtensionHelper_reparentItemWithIdentifier_toParentItemWithI
 LABEL_21:
           parent = [v14 parent];
           itemIdentifier = [parent itemIdentifier];
-          v58 = v21;
-          v30 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v58];
-          v10 = v58;
+          v57 = v20;
+          v29 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:itemIdentifier error:&v57];
+          v10 = v57;
+
+          v30 = *(*(&buf + 1) + 40);
+          *(*(&buf + 1) + 40) = v29;
 
           v31 = *(*(&buf + 1) + 40);
-          *(*(&buf + 1) + 40) = v30;
-
-          v32 = *(*(&buf + 1) + 40);
-          if (v32)
+          if (v31)
           {
-            ensureConnectedForUpdates = [v32 ensureConnectedForUpdates];
+            ensureConnectedForUpdates = [v31 ensureConnectedForUpdates];
 
             v10 = ensureConnectedForUpdates;
           }
@@ -3571,11 +3546,11 @@ LABEL_29:
             goto LABEL_8;
           }
 
-          v34 = livefs_std_log();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v33 = livefs_std_log();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 0;
-            _os_log_impl(&dword_255FE9000, v34, OS_LOG_TYPE_DEFAULT, "about to dispatch_async actual trashing work", v59, 2u);
+            *v58 = 0;
+            _os_log_impl(&dword_255FE9000, v33, OS_LOG_TYPE_DEFAULT, "about to dispatch_async actual trashing work", v58, 2u);
           }
 
           renameUpdateQueue = self->renameUpdateQueue;
@@ -3583,21 +3558,21 @@ LABEL_29:
           block[1] = 3221225472;
           block[2] = __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___block_invoke_236;
           block[3] = &unk_27981AAA8;
-          v51 = v14;
+          v50 = v14;
           selfCopy = self;
-          v56 = handlerCopy;
+          v55 = handlerCopy;
           p_buf = &buf;
           parent = parent;
-          v53 = parent;
-          v54 = v47;
-          v55 = v49;
+          v52 = parent;
+          v53 = v46;
+          v54 = v48;
           dispatch_async(renameUpdateQueue, block);
 
-          v21 = 0;
-          v25 = v51;
+          v20 = 0;
+          v24 = v50;
 LABEL_28:
 
-          v10 = v21;
+          v10 = v20;
           goto LABEL_29;
         }
       }
@@ -3609,7 +3584,7 @@ LABEL_28:
 
     xdict = 0;
     connection = 0;
-    v26 = 0;
+    v25 = 0;
     goto LABEL_21;
   }
 
@@ -3620,8 +3595,6 @@ LABEL_7:
   parent = 0;
   v14 = 0;
 LABEL_8:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___block_invoke_236(uint64_t a1)
@@ -3678,7 +3651,7 @@ void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___b
 
 void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 parameter];
 
@@ -3686,16 +3659,16 @@ void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___b
   {
     v5 = [v3 parameter];
     v6 = a1[4];
-    v15 = 0;
-    v7 = [v6 itemForURL:v5 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v6 itemForURL:v5 error:&v14];
+    v8 = v14;
     v9 = livefs_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
       _os_log_impl(&dword_255FE9000, v9, OS_LOG_TYPE_DEFAULT, "trash returning item %@ newError %@", buf, 0x16u);
     }
 
@@ -3712,13 +3685,11 @@ void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___b
     v13 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
     (*(v12 + 16))(v12, 0, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___block_invoke_240(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = livefs_std_log();
@@ -3727,14 +3698,14 @@ void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___b
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = 138412802;
-      v12 = v10;
-      v13 = 2112;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_255FE9000, v8, OS_LOG_TYPE_ERROR, "trashing item at url %@ newURL %@ failed with error: %@", &v11, 0x20u);
+      v9 = *(a1 + 32);
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_255FE9000, v8, OS_LOG_TYPE_ERROR, "trashing item at url %@ newURL %@ failed with error: %@", &v10, 0x20u);
     }
 
     [*(a1 + 40) dropAfterRenameBlockForName:*(a1 + 48)];
@@ -3746,41 +3717,39 @@ void __69__LiveFSFPExtensionHelper_trashItemWithIdentifier_completionHandler___b
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_255FE9000, v8, OS_LOG_TYPE_DEFAULT, "item trashed, newURL:%@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_255FE9000, v8, OS_LOG_TYPE_DEFAULT, "item trashed, newURL:%@", &v10, 0xCu);
     }
 
     [*(a1 + 56) setParameter:v5];
     [*(a1 + 56) approve];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)untrashItemWithIdentifier:(id)identifier toParentItemIdentifier:(id)itemIdentifier completionHandler:(id)handler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   itemIdentifierCopy = itemIdentifier;
   handlerCopy = handler;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__0;
-  v40 = __Block_byref_object_dispose__0;
-  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__0;
+  v39 = __Block_byref_object_dispose__0;
+  v40 = 0;
   v11 = livefs_std_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v43 = identifierCopy;
+    v42 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_INFO, "untrashing item %@", buf, 0xCu);
   }
 
-  v35 = 0;
-  v12 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v35];
-  ensureConnectedForUpdates = v35;
+  v34 = 0;
+  v12 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v34];
+  ensureConnectedForUpdates = v34;
   if (!v12)
   {
     v22 = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:identifierCopy];
@@ -3821,14 +3790,14 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v34 = ensureConnectedForUpdates;
-  v18 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:v16 error:&v34];
-  v19 = v34;
+  v33 = ensureConnectedForUpdates;
+  v18 = [(LiveFSFPExtensionHelper *)self enumeratorForContainerItemIdentifier:v16 error:&v33];
+  v19 = v33;
 
-  v20 = v37[5];
-  v37[5] = v18;
+  v20 = v36[5];
+  v36[5] = v18;
 
-  v21 = v37[5];
+  v21 = v36[5];
   if (!v21)
   {
     ensureConnectedForUpdates = v19;
@@ -3851,15 +3820,15 @@ LABEL_16:
     block[1] = 3221225472;
     block[2] = __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke;
     block[3] = &unk_27981AAA8;
-    v27 = v12;
+    v26 = v12;
     selfCopy = self;
-    v32 = handlerCopy;
-    v33 = &v36;
+    v31 = handlerCopy;
+    v32 = &v35;
     parent = parent;
-    v29 = parent;
+    v28 = parent;
     v14 = v14;
-    v30 = v14;
-    v31 = v23;
+    v29 = v14;
+    v30 = v23;
     v22 = v23;
     dispatch_async(renameUpdateQueue, block);
 
@@ -3870,9 +3839,7 @@ LABEL_16:
 LABEL_10:
   handlerCopy[2](handlerCopy, 0, ensureConnectedForUpdates);
 LABEL_19:
-  _Block_object_dispose(&v36, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke(uint64_t a1)
@@ -3913,7 +3880,7 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
 
 void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 parameter];
 
@@ -3921,16 +3888,16 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
   {
     v5 = [v3 parameter];
     v6 = a1[4];
-    v15 = 0;
-    v7 = [v6 itemForURL:v5 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v6 itemForURL:v5 error:&v14];
+    v8 = v14;
     v9 = livefs_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
       _os_log_impl(&dword_255FE9000, v9, OS_LOG_TYPE_DEFAULT, "untrash returning item %@ newError %@", buf, 0x16u);
     }
 
@@ -3947,8 +3914,6 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
     v13 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
     (*(v12 + 16))(v12, 0, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2_242(uint64_t a1, uint64_t a2, void *a3)
@@ -3965,7 +3930,7 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
     v6 = livefs_std_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2_242_cold_1(a1);
+      __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2_242_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -3974,14 +3939,14 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
 
 - (void)deleteItemWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = livefs_std_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = identifierCopy;
+    v23 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v8, OS_LOG_TYPE_DEFAULT, "deleting item %@", buf, 0xCu);
   }
 
@@ -3992,9 +3957,9 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
     parent = [v9 parent];
     v12 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v22 = 0;
-    [defaultManager removeItemAtURL:v12 error:&v22];
-    v14 = v22;
+    v21 = 0;
+    [defaultManager removeItemAtURL:v12 error:&v21];
+    v14 = v21;
 
     if (!v14)
     {
@@ -4013,7 +3978,7 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v14;
+      v23 = v14;
       _os_log_impl(&dword_255FE9000, v19, OS_LOG_TYPE_DEFAULT, "deleting returning %@", buf, 0xCu);
     }
 
@@ -4032,13 +3997,11 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
     parent = [MEMORY[0x277CCA9B8] fileProviderErrorForNonExistentItemWithIdentifier:identifierCopy];
     handlerCopy[2](handlerCopy, parent);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastUsedDate:(id)date forItemIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -4046,11 +4009,11 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v24 = "[LiveFSFPExtensionHelper setLastUsedDate:forItemIdentifier:completionHandler:]";
-    v25 = 2112;
-    v26 = dateCopy;
-    v27 = 2112;
-    v28 = identifierCopy;
+    v23 = "[LiveFSFPExtensionHelper setLastUsedDate:forItemIdentifier:completionHandler:]";
+    v24 = 2112;
+    v25 = dateCopy;
+    v26 = 2112;
+    v27 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_INFO, "%s: setting lastUsedDate %@ for %@", buf, 0x20u);
   }
 
@@ -4106,13 +4069,11 @@ LABEL_15:
 
   (handlerCopy)[2](handlerCopy, v12, 0);
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTagData:(id)data forItemIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -4129,11 +4090,11 @@ LABEL_12:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v27 = "[LiveFSFPExtensionHelper setTagData:forItemIdentifier:completionHandler:]";
-    v28 = 2112;
-    v29 = dataCopy;
-    v30 = 2112;
-    v31 = identifierCopy;
+    v26 = "[LiveFSFPExtensionHelper setTagData:forItemIdentifier:completionHandler:]";
+    v27 = 2112;
+    v28 = dataCopy;
+    v29 = 2112;
+    v30 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_INFO, "%s: setting tagData %@ for %@", buf, 0x20u);
   }
 
@@ -4158,16 +4119,16 @@ LABEL_12:
     v16 = open(uTF8String, 0);
     if (v16 < 0)
     {
-      v22 = livefs_std_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v21 = livefs_std_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [LiveFSFPExtensionHelper setTagData:uTF8String forItemIdentifier:v22 completionHandler:?];
+        [LiveFSFPExtensionHelper setTagData:uTF8String forItemIdentifier:v21 completionHandler:?];
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *__error();
-      v25 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
-      v18 = [v23 fp_errorWithPOSIXCode:v24 itemURL:v25 debugDescription:@"Opening file for setTagData"];
+      v22 = MEMORY[0x277CCA9B8];
+      v23 = *__error();
+      v24 = [(LiveFSFPExtensionHelper *)self URLForItemWithIdentifier:identifierCopy];
+      v18 = [v22 fp_errorWithPOSIXCode:v23 itemURL:v24 debugDescription:@"Opening file for setTagData"];
 
       v19 = [LiveFSFPExtensionHelper getNSErrorFromUnknownError:v18];
       handlerCopy[2](handlerCopy, 0, v19);
@@ -4190,13 +4151,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFavoriteRank:(id)rank forItemIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   rankCopy = rank;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -4204,11 +4163,11 @@ LABEL_13:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v28 = "[LiveFSFPExtensionHelper setFavoriteRank:forItemIdentifier:completionHandler:]";
-    v29 = 2112;
-    v30 = rankCopy;
-    v31 = 2112;
-    v32 = identifierCopy;
+    v27 = "[LiveFSFPExtensionHelper setFavoriteRank:forItemIdentifier:completionHandler:]";
+    v28 = 2112;
+    v29 = rankCopy;
+    v30 = 2112;
+    v31 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_INFO, "%s: setting rank %@ for %@", buf, 0x20u);
   }
 
@@ -4220,7 +4179,7 @@ LABEL_13:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v28 = "[LiveFSFPExtensionHelper setFavoriteRank:forItemIdentifier:completionHandler:]";
+      v27 = "[LiveFSFPExtensionHelper setFavoriteRank:forItemIdentifier:completionHandler:]";
       _os_log_impl(&dword_255FE9000, v20, OS_LOG_TYPE_INFO, "%s: item not found", buf, 0xCu);
     }
 
@@ -4279,13 +4238,11 @@ LABEL_19:
 
   (handlerCopy)[2](handlerCopy, v13, 0);
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)disconnectWithOptions:(unint64_t)options completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v6 = livefs_std_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4300,18 +4257,8 @@ LABEL_20:
   }
 
   domain2 = [(NSFileProviderExtension *)self domain];
-  if (!domain2)
+  if (!domain2 || (-[NSFileProviderExtension domain](self, "domain"), v10 = objc_claimAutoreleasedReturnValue(), [v10 identifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = v11 == 0, v11, v10, domain2, v12))
   {
-    goto LABEL_9;
-  }
-
-  domain3 = [(NSFileProviderExtension *)self domain];
-  identifier2 = [domain3 identifier];
-  v12 = identifier2 == 0;
-
-  if (v12)
-  {
-LABEL_9:
     v20 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:22];
     handlerCopy[2](handlerCopy, v20);
 
@@ -4323,9 +4270,9 @@ LABEL_9:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__0;
-    v30 = __Block_byref_object_dispose__0;
-    v31 = 0;
+    v28 = __Block_byref_object_copy__0;
+    v29 = __Block_byref_object_dispose__0;
+    v30 = 0;
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v14 = (*&buf[8] + 40);
@@ -4343,10 +4290,10 @@ LABEL_9:
       block[2] = __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke;
       block[3] = &unk_27981AB20;
       block[4] = selfCopy;
-      v26 = buf;
+      v25 = buf;
       selfCopy = v16;
-      v24 = selfCopy;
-      v25 = handlerCopy;
+      v23 = selfCopy;
+      v24 = handlerCopy;
       dispatch_async(v17, block);
       v18 = livefs_std_log();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -4367,21 +4314,19 @@ LABEL_9:
     _Block_object_dispose(buf, 8);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 uint64_t __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = livefs_std_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) domain];
     v4 = [v3 identifier];
     *buf = 138412290;
-    v30 = v4;
+    v29 = v4;
     _os_log_impl(&dword_255FE9000, v2, OS_LOG_TYPE_DEFAULT, "About to call forgetVolume on %@", buf, 0xCu);
   }
 
@@ -4398,7 +4343,7 @@ uint64_t __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler__
   {
     v12 = *(*(*(a1 + 56) + 8) + 40);
     *buf = 138412290;
-    v30 = v12;
+    v29 = v12;
     _os_log_impl(&dword_255FE9000, v11, OS_LOG_TYPE_DEFAULT, "forgetVolume returned %@", buf, 0xCu);
   }
 
@@ -4410,7 +4355,7 @@ uint64_t __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler__
     {
 LABEL_9:
 
-      goto LABEL_10;
+      return (*(*(a1 + 48) + 16))(*(a1 + 48), *(*(*(a1 + 56) + 8) + 40), v13, v14);
     }
 
     v17 = [*(*(*(a1 + 56) + 8) + 40) code];
@@ -4423,14 +4368,14 @@ LABEL_9:
 
       v20 = dispatch_semaphore_create(0);
       v21 = [*(a1 + 32) domain];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke_254;
-      v26[3] = &unk_27981AAF8;
-      v27 = v20;
-      v28 = *(a1 + 48);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke_254;
+      v25[3] = &unk_27981AAF8;
+      v26 = v20;
+      v27 = *(a1 + 48);
       v22 = v20;
-      [v16 removeDomain:v21 completionHandler:v26];
+      [v16 removeDomain:v21 completionHandler:v25];
 
       v23 = dispatch_time(0, 10000000000);
       dispatch_semaphore_wait(v22, v23);
@@ -4439,15 +4384,12 @@ LABEL_9:
     }
   }
 
-LABEL_10:
-  result = (*(*(a1 + 48) + 16))(*(a1 + 48), *(*(*(a1 + 56) + 8) + 40), v13, v14);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))(*(a1 + 48), *(*(*(a1 + 56) + 8) + 40), v13, v14);
 }
 
 void __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke_254(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = livefs_std_log();
   v5 = v4;
@@ -4461,20 +4403,18 @@ void __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___blo
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = 0;
-    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "Self removeDomain replied %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = 0;
+    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "Self removeDomain replied %@", &v6, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)enumeratorForContainerItemIdentifier:(id)identifier error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   domain = [(NSFileProviderExtension *)self domain];
   if (!domain)
@@ -4544,21 +4484,21 @@ LABEL_14:
     goto LABEL_17;
   }
 
-  v23 = livefs_std_log();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = livefs_std_log();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     clusterMasterID = [(LiveFSFPExtensionHelper *)self clusterMasterID];
     *buf = 136316162;
-    v37 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
-    v38 = 2112;
-    v39 = identifierCopy;
-    v40 = 2112;
-    v41 = clusterMasterID;
-    v42 = 1024;
+    v36 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
+    v37 = 2112;
+    v38 = identifierCopy;
+    v39 = 2112;
+    v40 = clusterMasterID;
+    v41 = 1024;
     isClusterMaster = [(LiveFSFPExtensionHelper *)self isClusterMaster];
-    v44 = 1024;
+    v43 = 1024;
     isClusterDomain = [(LiveFSFPExtensionHelper *)self isClusterDomain];
-    _os_log_impl(&dword_255FE9000, v23, OS_LOG_TYPE_DEFAULT, "%s starting for containerItem %@, clusterMasterID (%@), clusterMaster (%d) clusterDomain (%d)", buf, 0x2Cu);
+    _os_log_impl(&dword_255FE9000, v22, OS_LOG_TYPE_DEFAULT, "%s starting for containerItem %@, clusterMasterID (%@), clusterMaster (%d) clusterDomain (%d)", buf, 0x2Cu);
   }
 
   if ([(LiveFSFPExtensionHelper *)self isClusterMaster])
@@ -4567,20 +4507,20 @@ LABEL_14:
     goto LABEL_17;
   }
 
-  v25 = [identifierCopy isEqualToString:*MEMORY[0x277CC6368]];
-  v26 = livefs_std_log();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-  if (v25)
+  v24 = [identifierCopy isEqualToString:*MEMORY[0x277CC6368]];
+  v25 = livefs_std_log();
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  if (v24)
   {
-    if (v27)
+    if (v26)
     {
       domain4 = [(NSFileProviderExtension *)self domain];
       identifier3 = [domain4 identifier];
       *buf = 136315394;
-      v37 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
-      v38 = 2112;
-      v39 = identifier3;
-      _os_log_impl(&dword_255FE9000, v26, OS_LOG_TYPE_DEFAULT, "%s starting for container NSFileProviderWorkingSetContainerItemIdentifier self.domain.identifier %@", buf, 0x16u);
+      v36 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
+      v37 = 2112;
+      v38 = identifier3;
+      _os_log_impl(&dword_255FE9000, v25, OS_LOG_TYPE_DEFAULT, "%s starting for container NSFileProviderWorkingSetContainerItemIdentifier self.domain.identifier %@", buf, 0x16u);
     }
 
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:3328 userInfo:0];
@@ -4598,24 +4538,24 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  if (v27)
+  if (v26)
   {
     domain5 = [(NSFileProviderExtension *)self domain];
     identifier4 = [domain5 identifier];
     *buf = 136315394;
-    v37 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
-    v38 = 2112;
-    v39 = identifier4;
-    _os_log_impl(&dword_255FE9000, v26, OS_LOG_TYPE_DEFAULT, "%s starting for container LiveFSFPEnumeratorHelper self.domain.identifier %@", buf, 0x16u);
+    v36 = "[LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:]";
+    v37 = 2112;
+    v38 = identifier4;
+    _os_log_impl(&dword_255FE9000, v25, OS_LOG_TYPE_DEFAULT, "%s starting for container LiveFSFPEnumeratorHelper self.domain.identifier %@", buf, 0x16u);
   }
 
-  v35 = 0;
-  v20 = [LiveFSFPEnumeratorHelper newWithEnumeratedItem:identifierCopy extension:self error:&v35];
-  v32 = v35;
-  if (v32)
+  v34 = 0;
+  v20 = [LiveFSFPEnumeratorHelper newWithEnumeratedItem:identifierCopy extension:self error:&v34];
+  v31 = v34;
+  if (v31)
   {
-    v33 = livefs_std_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = livefs_std_log();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [LiveFSFPExtensionHelper enumeratorForContainerItemIdentifier:error:];
     }
@@ -4623,19 +4563,18 @@ LABEL_14:
 
   if (error)
   {
-    v34 = v32;
-    *error = v32;
+    v33 = v31;
+    *error = v31;
   }
 
 LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)supportedServiceSourcesForItemIdentifier:(id)identifier error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = livefs_std_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -4644,45 +4583,36 @@ LABEL_17:
     identifier = [domain identifier];
     *buf = 138412802;
     selfCopy = self;
-    v31 = 2112;
-    v32 = identifier;
-    v33 = 2112;
-    v34 = identifierCopy;
+    v30 = 2112;
+    v31 = identifier;
+    v32 = 2112;
+    v33 = identifierCopy;
     _os_log_impl(&dword_255FE9000, v7, OS_LOG_TYPE_DEFAULT, "supportedServices called in extension %@, domain id %@ item %@", buf, 0x20u);
   }
 
   domain2 = [(NSFileProviderExtension *)self domain];
-  if (!domain2)
-  {
-    goto LABEL_7;
-  }
-
-  v11 = domain2;
-  domain3 = [(NSFileProviderExtension *)self domain];
-  identifier2 = [domain3 identifier];
-
-  if (identifier2)
+  if (domain2 && (v11 = domain2, -[NSFileProviderExtension domain](self, "domain"), v12 = objc_claimAutoreleasedReturnValue(), [v12 identifier], v13 = objc_claimAutoreleasedReturnValue(), v13, v12, v11, v13))
   {
     v14 = [[LiveFSFPUnlockServiceSource alloc] initWithFileProviderExtension:self itemIdentifier:identifierCopy];
-    v26 = 0;
-    v15 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v26];
-    v16 = v26;
+    v25 = 0;
+    v15 = [(LiveFSFPExtensionHelper *)self itemForIdentifier:identifierCopy error:&v25];
+    v16 = v25;
     if (v15)
     {
       v17 = [[LiveFSClientServiceSource alloc] initWithFileProviderExtension:self itemIdentifier:identifierCopy];
       v18 = [[LiveFSValidationServiceSource alloc] initWithFileProviderExtension:self itemIdentifier:identifierCopy];
       thumbnailsServiceSource = self->thumbnailsServiceSource;
-      v27[0] = v17;
-      v27[1] = thumbnailsServiceSource;
-      v27[2] = v18;
-      v27[3] = v14;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
+      v26[0] = v17;
+      v26[1] = thumbnailsServiceSource;
+      v26[2] = v18;
+      v26[3] = v14;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
     }
 
     else if ([identifierCopy isEqualToString:*MEMORY[0x277CC6348]])
     {
-      v28 = v14;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v27 = v14;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
     }
 
     else
@@ -4709,7 +4639,6 @@ LABEL_17:
 
   else
   {
-LABEL_7:
     v16 = livefs_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
@@ -4718,8 +4647,6 @@ LABEL_7:
 
     v20 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -4757,7 +4684,7 @@ LABEL_7:
 
 + (id)getNSErrorFromLiveFSErrno:(int)errno
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (errno > 44)
   {
     if (errno > 79)
@@ -4847,29 +4774,28 @@ LABEL_26:
 LABEL_30:
     v7 = MEMORY[0x277CCA9B8];
     v8 = *MEMORY[0x277CCA050];
-    v16 = *MEMORY[0x277CCA7E8];
+    v15 = *MEMORY[0x277CCA7E8];
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:errno userInfo:0];
-    v17 = v9;
+    v16 = v9;
     v10 = MEMORY[0x277CBEAC0];
-    v11 = &v17;
-    v12 = &v16;
+    v11 = &v16;
+    v12 = &v15;
     goto LABEL_31;
   }
 
   v7 = MEMORY[0x277CCA9B8];
   v8 = *MEMORY[0x277CCA050];
-  v18 = *MEMORY[0x277CCA7E8];
+  v17 = *MEMORY[0x277CCA7E8];
   v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
-  v19[0] = v9;
+  v18[0] = v9;
   v10 = MEMORY[0x277CBEAC0];
-  v11 = v19;
-  v12 = &v18;
+  v11 = v18;
+  v12 = &v17;
 LABEL_31:
-  v15 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
-  v6 = [v7 errorWithDomain:v8 code:256 userInfo:v15];
+  v14 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
+  v6 = [v7 errorWithDomain:v8 code:256 userInfo:v14];
 
 LABEL_27:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -4903,21 +4829,17 @@ LABEL_27:
 
 - (void)itemPathForURL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)itemPathForURL:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)itemPathForURL:.cold.3()
@@ -4929,31 +4851,18 @@ LABEL_27:
 
 - (void)itemForPath:cachedOnly:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doInvalidate:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 domain];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_hasManagerOrError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hasManagerOrError:.cold.2()
@@ -4963,235 +4872,148 @@ LABEL_27:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)getVolumeManagerWithError:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
 - (void)makeVolumeListenerEndpointAndReturnErrorLocked:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeVolumeListenerEndpointAndReturnErrorLocked:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeVolumeListenerEndpointAndReturnErrorLocked:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isLoggedInOrErrorLocked:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 domain];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isLoggedInOrErrorLocked:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 domain];
   v3 = [v2 identifier];
   v4 = [a1 domain];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isLoggedInOrErrorLocked:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isLoggedInOrErrorLocked:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isLoggedInOrErrorLocked:(void *)a1 .cold.5(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 domain];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pathForInodeID:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)itemForIdentifierLocked:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)itemForIdentifierLocked:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)itemForIdentifier:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)URLForItemWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  *(a1 + 160);
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)itemAtPathLocked:(uint64_t)a1 parent:cachedOnly:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistentIdentifierForItemAtURL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)providePlaceholderAtURL:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startProvidingItemAtURL:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopProvidingItemAtURL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_completionHandler___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
-  v4 = v0;
-  _os_log_debug_impl(&dword_255FE9000, v1, OS_LOG_TYPE_DEBUG, "got new URL %@; %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_255FE9000, v1, OS_LOG_TYPE_DEBUG, "got new URL %@; %@", v2, 0x16u);
 }
 
 void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_completionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDirectoryWithName:inParentItemIdentifier:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDirectoryWithName:inParentItemIdentifier:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDirectoryWithName:(void *)a1 inParentItemIdentifier:(NSObject *)a2 completionHandler:.cold.3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 domain];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_255FE9000, a2, OS_LOG_TYPE_ERROR, "Cluster master %@ is not writable", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_255FE9000, a2, OS_LOG_TYPE_ERROR, "Cluster master %@ is not writable", v5, 0xCu);
 }
 
 - (void)renameItemWithIdentifier:(os_log_t)log toName:(void *)a4 completionHandler:.cold.1(void *a1, uint8_t *buf, os_log_t log, void *a4)
@@ -5210,54 +5032,45 @@ void __88__LiveFSFPExtensionHelper_importDocumentAtURL_toParentItemIdentifier_co
 
 - (void)trashItemWithIdentifier:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2_242_cold_1(uint64_t a1)
+void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentifier_completionHandler___block_invoke_2_242_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 40);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)setLastUsedDate:forItemIdentifier:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTagData:(uint64_t)a1 forItemIdentifier:(NSObject *)a2 completionHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = __error();
   strerror(*v4);
   OUTLINED_FUNCTION_0();
-  v7 = 2080;
-  v8 = a1;
-  _os_log_debug_impl(&dword_255FE9000, a2, OS_LOG_TYPE_DEBUG, "tagData: error '%s' opening file %s", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2080;
+  v7 = a1;
+  _os_log_debug_impl(&dword_255FE9000, a2, OS_LOG_TYPE_DEBUG, "tagData: error '%s' opening file %s", v5, 0x16u);
 }
 
 - (void)setFavoriteRank:(uint64_t)a1 forItemIdentifier:(NSObject *)a2 completionHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = __error();
   strerror(*v4);
   OUTLINED_FUNCTION_0();
-  v7 = 2080;
-  v8 = a1;
-  _os_log_error_impl(&dword_255FE9000, a2, OS_LOG_TYPE_ERROR, "setFavoriteRank: error '%s' opening file %s", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2080;
+  v7 = a1;
+  _os_log_error_impl(&dword_255FE9000, a2, OS_LOG_TYPE_ERROR, "setFavoriteRank: error '%s' opening file %s", v5, 0x16u);
 }
 
 - (void)setFavoriteRank:forItemIdentifier:completionHandler:.cold.2()
@@ -5276,29 +5089,23 @@ void __94__LiveFSFPExtensionHelper_untrashItemWithIdentifier_toParentItemIdentif
 
 void __67__LiveFSFPExtensionHelper_disconnectWithOptions_completionHandler___block_invoke_254_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumeratorForContainerItemIdentifier:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportedServiceSourcesForItemIdentifier:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportedServiceSourcesForItemIdentifier:error:.cold.2()

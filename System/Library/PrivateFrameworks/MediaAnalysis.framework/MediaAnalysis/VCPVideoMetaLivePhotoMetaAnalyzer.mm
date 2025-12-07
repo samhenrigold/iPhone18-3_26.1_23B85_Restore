@@ -903,7 +903,7 @@ LABEL_81:
           {
             if (v7)
             {
-              [v7 time];
+              objc_msgSend_time(v7);
             }
 
             else
@@ -917,7 +917,7 @@ LABEL_81:
 
             if (v7)
             {
-              [v7 duration];
+              objc_msgSend_duration(v7);
             }
 
             else
@@ -931,7 +931,7 @@ LABEL_81:
 
             if (v7)
             {
-              [v7 time];
+              objc_msgSend_time(v7);
             }
 
             else

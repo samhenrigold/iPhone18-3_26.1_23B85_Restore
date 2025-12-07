@@ -17,22 +17,22 @@
 
 + (id)resultFromLegacyDictionary:(id)dictionary
 {
-  v26[16] = *MEMORY[0x1E69E9840];
+  v27[16] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   [dictionaryCopy objectForKeyedSubscript:@"attributes"];
-  v17 = memset(&v25, 0, sizeof(v25));
-  CMTimeRangeMakeFromDictionary(&v25, dictionaryCopy);
-  start = v25.start;
-  duration = v25.duration;
-  if ((v25.start.flags & 1) == 0)
+  v18 = memset(&v26, 0, sizeof(v26));
+  CMTimeRangeMakeFromDictionary(&v26, dictionaryCopy);
+  start = v26.start;
+  duration = v26.duration;
+  if ((v26.start.flags & 1) == 0)
   {
     goto LABEL_2;
   }
 
   v4 = 0;
-  if ((v25.duration.flags & 1) != 0 && !v25.duration.epoch && (v25.duration.value & 0x8000000000000000) == 0)
+  if ((v26.duration.flags & 1) != 0 && !v26.duration.epoch && (v26.duration.value & 0x8000000000000000) == 0)
   {
-    if (![v17 count])
+    if (![v18 count])
     {
 LABEL_2:
       v4 = 0;
@@ -40,56 +40,56 @@ LABEL_2:
     }
 
     v4 = objc_alloc_init(VCPProtoFilesystemMovieClassificationResult);
-    v22 = start;
-    Seconds = CMTimeGetSeconds(&v22);
+    v23 = start;
+    Seconds = CMTimeGetSeconds(&v23);
     *&Seconds = Seconds;
     [(VCPProtoFilesystemMovieClassificationResult *)v4 setStart:Seconds];
-    v22 = duration;
-    v6 = CMTimeGetSeconds(&v22);
+    v23 = duration;
+    v6 = CMTimeGetSeconds(&v23);
     *&v6 = v6;
     [(VCPProtoFilesystemMovieClassificationResult *)v4 setDuration:v6];
-    [v17 count];
-    MEMORY[0x1EEE9AC00]();
-    v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v20 = 0u;
+    v7 = [v18 count];
+    MEMORY[0x1EEE9AC00](v7);
+    v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    allKeys = [v17 allKeys];
-    v10 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
-    if (v10)
+    v20 = 0u;
+    allKeys = [v18 allKeys];
+    v11 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+    if (v11)
     {
-      v16 = &v16;
-      LODWORD(v11) = 0;
-      v12 = *v19;
+      v17 = &v17;
+      LODWORD(v12) = 0;
+      v13 = *v20;
       do
       {
-        v13 = 0;
-        v14 = v11;
+        v14 = 0;
+        v15 = v12;
         do
         {
-          if (*v19 != v12)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = (v14 + 1);
-          *&v8[4 * v14++] = [*(*(&v18 + 1) + 8 * v13++) longLongValue];
+          v12 = (v15 + 1);
+          *&v9[4 * v15++] = [*(*(&v19 + 1) + 8 * v14++) longLongValue];
         }
 
-        while (v10 != v13);
-        v10 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
+        while (v11 != v14);
+        v11 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    [(VCPProtoFilesystemMovieClassificationResult *)v4 setIdentifiers:v8 count:v11];
+    [(VCPProtoFilesystemMovieClassificationResult *)v4 setIdentifiers:v9 count:v12];
   }
 
 LABEL_17:
@@ -109,10 +109,10 @@ LABEL_17:
   }
 
   memset(&v16, 0, sizeof(v16));
-  [(VCPProtoFilesystemMovieClassificationResult *)self start];
+  objc_msgSend_start(self);
   CMTimeMakeWithSeconds(&v16, v8, 600);
   memset(&v15, 0, sizeof(v15));
-  [(VCPProtoFilesystemMovieClassificationResult *)self duration];
+  objc_msgSend_duration(self);
   CMTimeMakeWithSeconds(&v15, v9, 600);
   memset(&v14, 0, sizeof(v14));
   start.start = v16;

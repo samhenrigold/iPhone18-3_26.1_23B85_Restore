@@ -36,38 +36,40 @@
     v6 = 8;
     do
     {
-      v37 = 0;
-      v36 = 0;
-      v36 = sub_2215C3954(*(*(archive + 4) + v6));
-      v37 = v7;
+      v34 = 0;
+      v33 = 0;
+      v33 = sub_2215C3954(*(*(archive + 4) + v6));
+      v34 = v7;
       dependencyTracker = self->_dependencyTracker;
       if (dependencyTracker)
       {
-        v12 = objc_msgSend_idMap(dependencyTracker, v7, v8, v9, v10);
-        v13 = v37;
-        if (*(v12 + 144))
+        v11 = objc_msgSend_idMap(dependencyTracker, v7, v8, v9);
+        v12 = v34;
+        if (*(v11 + 144))
         {
-          v13 = sub_2212602C8(v12, v37);
+          v12 = sub_2212602C8(v11, v34);
         }
 
-        LOWORD(v37) = v13;
+        LOWORD(v34) = v12;
       }
 
-      if ((sub_2212E0198(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &v36) & 1) == 0)
+      if ((sub_2212E0198(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &v33) & 1) == 0)
       {
-        sub_2212DFCE8(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &v36);
-        objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v14, v37, v15, v16);
-        if (objc_claimAutoreleasedReturnValue() || (v18 = v37, objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v17, v37, 0, 0), objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v19, v18, v20, v21), objc_claimAutoreleasedReturnValue()))
+        sub_2212DFCE8(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &v33);
+        v15 = objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v13, v34, v14);
+        if (v15 || (v17 = v34, objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v16, v34, 0, 0), objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v18, v17, v19), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          sub_2213A09F0();
+          v31 = v33;
+          internalOwnerID = self->_internalOwnerID;
+          sub_2213A09F0(v15 + 64, &v31);
         }
 
-        v25 = MEMORY[0x277D81150];
-        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSCEWholeOwnerDependencies readFromArchive:]", v23, v24);
-        v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEWholeOwnerDependencies.mm", v28, v29);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v31, v26, v30, 68, 0, "NULL whole owner dependencies");
+        v22 = MEMORY[0x277D81150];
+        v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSCEWholeOwnerDependencies readFromArchive:]", v21);
+        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEWholeOwnerDependencies.mm", v25);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 68, 0, "NULL whole owner dependencies");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
       }
 
       v6 += 8;
@@ -139,19 +141,21 @@
 
 - (BOOL)addOwnerReference:(const TSCEInternalCellReference *)reference
 {
-  sub_2212DFCE8(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, reference);
-  objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v5, reference->tableID, v6, v7);
-  if (objc_claimAutoreleasedReturnValue() || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v8, reference->tableID, 0, 0), objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v9, reference->tableID, v10, v11), objc_claimAutoreleasedReturnValue()))
+  sub_2212DFCE8(&self->_referencesToThisTable._coordsForOwnerId.__table_.__bucket_list_.__ptr_, &reference->coordinate);
+  v7 = objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v5, reference->tableID, v6);
+  if (v7 || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v8, reference->tableID, 0, 0), objc_msgSend_dgl_wholeOwnerDependenciesForOwnerID_(self->_dependencyTracker, v9, reference->tableID, v10), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    sub_2213A09F0();
+    coordinate = reference->coordinate;
+    internalOwnerID = self->_internalOwnerID;
+    sub_2213A09F0(v7 + 64, &coordinate);
   }
 
-  v16 = MEMORY[0x277D81150];
-  v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSCEWholeOwnerDependencies addOwnerReference:]", v13, v14);
-  v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEWholeOwnerDependencies.mm", v19, v20);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v22, v17, v21, 145, 0, "NULL whole owner dependencies");
+  v14 = MEMORY[0x277D81150];
+  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCEWholeOwnerDependencies addOwnerReference:]", v12);
+  v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEWholeOwnerDependencies.mm", v17);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 145, 0, "NULL whole owner dependencies");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   return 1;
 }
 
@@ -159,43 +163,43 @@
 {
   cellCopy = cell;
   internalOwnerID = self->_internalOwnerID;
-  v21 = *&cell & 0xFFFFFFFFFFFFLL;
-  v22 = internalOwnerID;
+  v19 = *&cell & 0xFFFFFFFFFFFFLL;
+  v20 = internalOwnerID;
   v5 = sub_2213A0EB0(&self->_referencesFromThisTable.__table_.__bucket_list_.__ptr_, &cellCopy);
   if (v5 == v6)
   {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
   }
 
   else
   {
-    v12 = v5;
-    v13 = v6;
-    v11 = 0;
+    v11 = v5;
+    v12 = v6;
     v10 = 0;
+    v9 = 0;
     do
     {
-      v14 = *(v12 + 12);
-      if (!v11 || objc_msgSend_formulaOwnerId(v11, v6, v7, v8, v9) != v14)
+      v13 = *(v11 + 12);
+      if (!v10 || objc_msgSend_formulaOwnerId(v10, v6, v7, v8) != v13)
       {
-        v15 = objc_msgSend_dgl_ownerDependenciesForOwnerID_(self->_dependencyTracker, v6, v14, v8, v9);
+        v14 = objc_msgSend_dgl_ownerDependenciesForOwnerID_(self->_dependencyTracker, v6, v13, v8);
 
-        v20 = objc_msgSend_wholeOwnerDependencies(v15, v16, v17, v18, v19);
+        v18 = objc_msgSend_wholeOwnerDependencies(v14, v15, v16, v17);
 
-        v10 = v20;
-        v11 = v15;
+        v9 = v18;
+        v10 = v14;
       }
 
-      if (v10)
+      if (v9)
       {
-        sub_2212DFDD0(v10 + 3, &v21);
+        sub_2212DFDD0(v9 + 3, &v19);
       }
 
-      v12 = *v12;
+      v11 = *v11;
     }
 
-    while (v12 != v13);
+    while (v11 != v12);
   }
 
   sub_2213A0FCC(&self->_referencesFromThisTable.__table_.__bucket_list_.__ptr_, &cellCopy);
@@ -206,27 +210,27 @@
   next = self->_referencesFromThisTable.__table_.__first_node_.__next_;
   if (next)
   {
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     do
     {
-      v9 = *(next + 12);
+      v8 = *(next + 12);
       internalOwnerID = self->_internalOwnerID;
-      v17 = next[2] & 0xFFFFFFFFFFFFLL;
-      LODWORD(v18) = internalOwnerID;
-      if (!v7 || objc_msgSend_formulaOwnerId(v7, a2, v2, v3, v4, v17, v18) != v9)
+      v15 = next[2] & 0xFFFFFFFFFFFFLL;
+      LODWORD(v16) = internalOwnerID;
+      if (!v6 || objc_msgSend_formulaOwnerId(v6, a2, v2, v3, v15, v16) != v8)
       {
-        v11 = objc_msgSend_dgl_ownerDependenciesForOwnerID_(self->_dependencyTracker, a2, v9, v3, v4, v17, v18);
+        v10 = objc_msgSend_dgl_ownerDependenciesForOwnerID_(self->_dependencyTracker, a2, v8, v3, v15, v16);
 
-        v16 = objc_msgSend_wholeOwnerDependencies(v11, v12, v13, v14, v15);
+        v14 = objc_msgSend_wholeOwnerDependencies(v10, v11, v12, v13);
 
-        v8 = v16;
-        v7 = v11;
+        v7 = v14;
+        v6 = v10;
       }
 
-      if (v8)
+      if (v7)
       {
-        sub_2212DFDD0(v8 + 3, &v17);
+        sub_2212DFDD0(v7 + 3, &v15);
       }
 
       next = *next;
@@ -237,8 +241,8 @@
 
   else
   {
-    v8 = 0;
     v7 = 0;
+    v6 = 0;
   }
 
   sub_2210BE918(&self->_referencesFromThisTable.__table_.__bucket_list_.__ptr_);
@@ -249,17 +253,17 @@
   v6 = sub_2213A0EB0(&self->_referencesFromThisTable.__table_.__bucket_list_.__ptr_, coord);
   if (v6 != v7)
   {
-    v10 = v6;
-    v11 = v7;
+    v9 = v6;
+    v10 = v7;
     do
     {
-      v13._lower = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, v7, *(v10 + 12), v8, v9, 0, 0);
-      v13._upper = v12;
-      TSCEReferenceSet::insertWholeOwnerRef(set, &v13);
-      v10 = *v10;
+      v12._lower = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, v7, *(v9 + 12), v8, 0, 0);
+      v12._upper = v11;
+      TSCEReferenceSet::insertWholeOwnerRef(set, &v12);
+      v9 = *v9;
     }
 
-    while (v10 != v11);
+    while (v9 != v10);
   }
 }
 

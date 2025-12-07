@@ -143,144 +143,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_rapportEffectiveID == 0, [oCopy rapportEffectiveID], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (rapportEffectiveID = self->_rapportEffectiveID) != 0 && (objc_msgSend(v5, "rapportEffectiveID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](rapportEffectiveID, "isEqual:", v10), v10, !v11) || (v12 = self->_idsID == 0, objc_msgSend(v5, "idsID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (idsID = self->_idsID) != 0 && (objc_msgSend(v5, "idsID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](idsID, "isEqual:", v16), v16, !v17) || (v18 = self->_name == 0, objc_msgSend(v5, "name"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (name = self->_name) != 0 && (objc_msgSend(v5, "name"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](name, "isEqual:", v22), v22, !v23) || (v24 = self->_deviceModel == 0, objc_msgSend(v5, "deviceModel"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (deviceModel = self->_deviceModel) != 0 && (objc_msgSend(v5, "deviceModel"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSString isEqual:](deviceModel, "isEqual:", v28), v28, !v29) || (v30 = self->_mediaRemoteIdentifier == 0, objc_msgSend(v5, "mediaRemoteIdentifier"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (mediaRemoteIdentifier = self->_mediaRemoteIdentifier) != 0 && (objc_msgSend(v5, "mediaRemoteIdentifier"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[NSString isEqual:](mediaRemoteIdentifier, "isEqual:", v34), v34, !v35) || (v36 = self->_iCloudId == 0, objc_msgSend(v5, "iCloudId"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38) || (iCloudId = self->_iCloudId) != 0 && (objc_msgSend(v5, "iCloudId"), v40 = objc_claimAutoreleasedReturnValue(), v41 = -[NSString isEqual:](iCloudId, "isEqual:", v40), v40, !v41) || (v42 = self->_mediaRouteIdentifier == 0, objc_msgSend(v5, "mediaRouteIdentifier"), v43 = objc_claimAutoreleasedReturnValue(), v44 = v43 != 0, v43, v42 == v44))
   {
-    goto LABEL_23;
-  }
-
-  v6 = self->_rapportEffectiveID == 0;
-  rapportEffectiveID = [oCopy rapportEffectiveID];
-  v8 = rapportEffectiveID != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_23;
-  }
-
-  rapportEffectiveID = self->_rapportEffectiveID;
-  if (rapportEffectiveID)
-  {
-    rapportEffectiveID2 = [v5 rapportEffectiveID];
-    v11 = [(NSString *)rapportEffectiveID isEqual:rapportEffectiveID2];
-
-    if (!v11)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v12 = self->_idsID == 0;
-  idsID = [v5 idsID];
-  v14 = idsID != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_23;
-  }
-
-  idsID = self->_idsID;
-  if (idsID)
-  {
-    idsID2 = [v5 idsID];
-    v17 = [(NSString *)idsID isEqual:idsID2];
-
-    if (!v17)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v18 = self->_name == 0;
-  name = [v5 name];
-  v20 = name != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_23;
-  }
-
-  name = self->_name;
-  if (name)
-  {
-    name2 = [v5 name];
-    v23 = [(NSString *)name isEqual:name2];
-
-    if (!v23)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v24 = self->_deviceModel == 0;
-  deviceModel = [v5 deviceModel];
-  v26 = deviceModel != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_23;
-  }
-
-  deviceModel = self->_deviceModel;
-  if (deviceModel)
-  {
-    deviceModel2 = [v5 deviceModel];
-    v29 = [(NSString *)deviceModel isEqual:deviceModel2];
-
-    if (!v29)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v30 = self->_mediaRemoteIdentifier == 0;
-  mediaRemoteIdentifier = [v5 mediaRemoteIdentifier];
-  v32 = mediaRemoteIdentifier != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_23;
-  }
-
-  mediaRemoteIdentifier = self->_mediaRemoteIdentifier;
-  if (mediaRemoteIdentifier)
-  {
-    mediaRemoteIdentifier2 = [v5 mediaRemoteIdentifier];
-    v35 = [(NSString *)mediaRemoteIdentifier isEqual:mediaRemoteIdentifier2];
-
-    if (!v35)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v36 = self->_iCloudId == 0;
-  iCloudId = [v5 iCloudId];
-  v38 = iCloudId != 0;
-
-  if (v36 == v38)
-  {
-    goto LABEL_23;
-  }
-
-  iCloudId = self->_iCloudId;
-  if (iCloudId)
-  {
-    iCloudId2 = [v5 iCloudId];
-    v41 = [(NSString *)iCloudId isEqual:iCloudId2];
-
-    if (!v41)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v42 = self->_mediaRouteIdentifier == 0;
-  mediaRouteIdentifier = [v5 mediaRouteIdentifier];
-  v44 = mediaRouteIdentifier != 0;
-
-  if (v42 == v44)
-  {
-LABEL_23:
     v47 = 0;
   }
 
@@ -289,8 +153,8 @@ LABEL_23:
     mediaRouteIdentifier = self->_mediaRouteIdentifier;
     if (mediaRouteIdentifier)
     {
-      mediaRouteIdentifier2 = [v5 mediaRouteIdentifier];
-      v47 = [(NSString *)mediaRouteIdentifier isEqual:mediaRouteIdentifier2];
+      mediaRouteIdentifier = [v5 mediaRouteIdentifier];
+      v47 = [(NSString *)mediaRouteIdentifier isEqual:mediaRouteIdentifier];
     }
 
     else
@@ -332,7 +196,7 @@ LABEL_23:
 
 - (IRRapportDeviceDO)initWithCoder:(id)coder
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rapportEffectiveID"];
   if (v5)
@@ -345,9 +209,9 @@ LABEL_23:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key rapportEffectiveID (expected %@, decoded %@)", v7, v9, 0];
-      v68 = *MEMORY[0x277CCA450];
-      v69[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+      v67 = *MEMORY[0x277CCA450];
+      v68[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_4:
@@ -372,9 +236,9 @@ LABEL_7:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key idsID (expected %@, decoded %@)", v9, v10, 0];
-        v66 = *MEMORY[0x277CCA450];
-        v67 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v65 = *MEMORY[0x277CCA450];
+        v66 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 LABEL_21:
@@ -409,9 +273,9 @@ LABEL_27:
         v20 = objc_opt_class();
         v11 = NSStringFromClass(v20);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key name (expected %@, decoded %@)", v10, v11, 0];
-        v64 = *MEMORY[0x277CCA450];
-        v65 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v63 = *MEMORY[0x277CCA450];
+        v64 = v12;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v17];
         [coderCopy failWithError:v21];
 LABEL_20:
@@ -443,14 +307,14 @@ LABEL_26:
         v11 = NSStringFromClass(v23);
         v24 = objc_opt_class();
         v12 = NSStringFromClass(v24);
-        v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key deviceModel (expected %@, decoded %@)", v11, v12, 0];
-        v62 = *MEMORY[0x277CCA450];
-        v63 = v52;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+        v51 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key deviceModel (expected %@, decoded %@)", v11, v12, 0];
+        v61 = *MEMORY[0x277CCA450];
+        v62 = v51;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
         v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v21];
         [coderCopy failWithError:v25];
 
-        v17 = v52;
+        v17 = v51;
         goto LABEL_20;
       }
     }
@@ -472,18 +336,18 @@ LABEL_26:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
+        v28 = objc_opt_class();
+        v12 = NSStringFromClass(v28);
         v29 = objc_opt_class();
-        v12 = NSStringFromClass(v29);
-        v30 = objc_opt_class();
-        v53 = NSStringFromClass(v30);
-        v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key mediaRemoteIdentifier (expected %@, decoded %@)", v12, v53, 0];
-        v60 = *MEMORY[0x277CCA450];
-        v61 = v50;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        v32 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v31];
-        [coderCopy failWithError:v32];
+        v52 = NSStringFromClass(v29);
+        v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key mediaRemoteIdentifier (expected %@, decoded %@)", v12, v52, 0];
+        v59 = *MEMORY[0x277CCA450];
+        v60 = v49;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v31 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v30];
+        [coderCopy failWithError:v31];
 
-        v17 = v53;
+        v17 = v52;
 LABEL_39:
 
         goto LABEL_21;
@@ -507,18 +371,18 @@ LABEL_39:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
+        v33 = objc_opt_class();
+        v53 = NSStringFromClass(v33);
         v34 = objc_opt_class();
-        v54 = NSStringFromClass(v34);
-        v35 = objc_opt_class();
-        v50 = NSStringFromClass(v35);
-        v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key iCloudId (expected %@, decoded %@)", v54, v50, 0];
-        v58 = *MEMORY[0x277CCA450];
-        v59 = v48;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-        v37 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v36];
-        [coderCopy failWithError:v37];
+        v49 = NSStringFromClass(v34);
+        v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key iCloudId (expected %@, decoded %@)", v53, v49, 0];
+        v57 = *MEMORY[0x277CCA450];
+        v58 = v47;
+        v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+        v36 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v35];
+        [coderCopy failWithError:v36];
 
-        v17 = v54;
+        v17 = v53;
         goto LABEL_39;
       }
     }
@@ -533,28 +397,28 @@ LABEL_39:
       }
     }
 
-    v39 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mediaRouteIdentifier"];
-    if (v39)
+    v38 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mediaRouteIdentifier"];
+    if (v38)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v41 = v39;
+      v40 = v38;
       if ((isKindOfClass & 1) == 0)
       {
-        v55 = v39;
+        v54 = v38;
+        v41 = objc_opt_class();
+        v50 = NSStringFromClass(v41);
         v42 = objc_opt_class();
-        v51 = NSStringFromClass(v42);
-        v43 = objc_opt_class();
-        v49 = NSStringFromClass(v43);
-        v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key mediaRouteIdentifier (expected %@, decoded %@)", v51, v49, 0];
-        v56 = *MEMORY[0x277CCA450];
-        v57 = v47;
-        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-        v45 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v44];
-        [coderCopy failWithError:v45];
+        v48 = NSStringFromClass(v42);
+        v46 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRRapportDeviceDO key mediaRouteIdentifier (expected %@, decoded %@)", v50, v48, 0];
+        v55 = *MEMORY[0x277CCA450];
+        v56 = v46;
+        v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+        v44 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRRapportDeviceDOOCNTErrorDomain" code:3 userInfo:v43];
+        [coderCopy failWithError:v44];
 
         selfCopy = 0;
-        v17 = v55;
+        v17 = v54;
         goto LABEL_22;
       }
     }
@@ -563,7 +427,7 @@ LABEL_39:
     {
       error6 = [coderCopy error];
 
-      v41 = 0;
+      v40 = 0;
       if (error6)
       {
         selfCopy = 0;
@@ -572,8 +436,8 @@ LABEL_39:
       }
     }
 
-    v17 = v41;
-    self = [(IRRapportDeviceDO *)self initWithRapportEffectiveID:v5 idsID:v7 name:v9 deviceModel:v10 mediaRemoteIdentifier:v11 iCloudId:v12 mediaRouteIdentifier:v41];
+    v17 = v40;
+    self = [(IRRapportDeviceDO *)self initWithRapportEffectiveID:v5 idsID:v7 name:v9 deviceModel:v10 mediaRemoteIdentifier:v11 iCloudId:v12 mediaRouteIdentifier:v40];
     selfCopy = self;
     goto LABEL_22;
   }
@@ -588,7 +452,6 @@ LABEL_39:
   selfCopy = 0;
 LABEL_28:
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -648,11 +511,9 @@ LABEL_28:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_name;
-  v5 = [v3 initWithFormat:@"<IRRapportDeviceDO | rapportEffectiveID:%@ idsID:%@ name:%@ deviceModel:%@ mediaRemoteIdentifier:%@ iCloudId:%@ mediaRouteIdentifier:%@>", self->_rapportEffectiveID, self->_idsID, self->_name, self->_deviceModel, self->_mediaRemoteIdentifier, self->_iCloudId, self->_mediaRouteIdentifier];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<IRRapportDeviceDO | rapportEffectiveID:%@ idsID:%@ name:%@ deviceModel:%@ mediaRemoteIdentifier:%@ iCloudId:%@ mediaRouteIdentifier:%@>", self->_rapportEffectiveID, self->_idsID, self->_name, self->_deviceModel, self->_mediaRemoteIdentifier, self->_iCloudId, self->_mediaRouteIdentifier];
 
-  return v5;
+  return v2;
 }
 
 @end

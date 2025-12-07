@@ -6,6 +6,9 @@
 - (BOOL)_filterPassesForCameraSignificantEvent:(id)event registration:(id)registration;
 - (BOOL)_shouldNotifyForActivityForSignificantEvent:(id)event remoteRegistration:(id)registration;
 - (BOOL)_shouldNotifyForDoorbellPressForSignificantEvent:(id)event registration:(id)registration;
+- (BOOL)_updateLocalStoreWithCameraAccessModeBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc;
+- (BOOL)_updateLocalStoreWithCameraReachabilityBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc;
+- (BOOL)_updateLocalStoreWithCameraSignificantEventBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc;
 - (HMDBulletinNotificationRegistrationSource)source;
 - (HMDCameraBulletinNotificationManager)initWithHome:(id)home workQueue:(id)queue messageDispatcher:(id)dispatcher accountManager:(id)manager faceClassificationResolver:(id)resolver doorbellPressTracker:(id)tracker evaluator:(id)evaluator notificationCenter:(id)self0;
 - (HMDHome)home;
@@ -76,7 +79,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -99,15 +102,13 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized timer, ignoring", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized timer, ignoring", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentDeviceOrAccountUpdatedNotification:(id)notification
@@ -140,7 +141,7 @@
 
 - (void)_handleCameraSignificantEventBulletinNotifyPrimaryResidentMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -151,9 +152,9 @@
   if (isCurrentDeviceConfirmedPrimaryResident)
   {
     v8 = [messageCopy dictionaryForKey:@"HMDBulletinNotificationSignificantEventParamsKey"];
-    v38 = 0;
-    v9 = [HMDCameraSignificantEventBulletinParamsDictionaryTransformer reverseTransformedValue:v8 error:&v38];
-    v10 = v38;
+    v37 = 0;
+    v9 = [HMDCameraSignificantEventBulletinParamsDictionaryTransformer reverseTransformedValue:v8 error:&v37];
+    v10 = v37;
     if (v9)
     {
       cameraProfileUUID = [v9 cameraProfileUUID];
@@ -190,9 +191,9 @@
           v33 = HMFGetLogIdentifier();
           messagePayload = [messageCopy messagePayload];
           *buf = 138543618;
-          v40 = v33;
-          v41 = 2112;
-          v42 = messagePayload;
+          v39 = v33;
+          v40 = 2112;
+          v41 = messagePayload;
           _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find camera profile in message payload: %@", buf, 0x16u);
         }
 
@@ -214,9 +215,9 @@
         v28 = HMFGetLogIdentifier();
         messagePayload2 = [messageCopy messagePayload];
         *buf = 138543618;
-        v40 = v28;
-        v41 = 2112;
-        v42 = messagePayload2;
+        v39 = v28;
+        v40 = 2112;
+        v41 = messagePayload2;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Could not find significant event in message payload: %@", buf, 0x16u);
       }
 
@@ -235,62 +236,60 @@
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v24;
+      v39 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Received HMDCameraSignificantEventBulletinNotifyPrimaryMessage on non-primary device, ignoring", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cameraProfileWithUUID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   home = [(HMDCameraBulletinNotificationManager *)self home];
   cameraAccessories = [home cameraAccessories];
 
-  v22 = [cameraAccessories countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v22)
+  v21 = [cameraAccessories countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v7 = *v28;
-    v21 = *v28;
+    v7 = *v27;
+    v20 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(cameraAccessories);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         cameraProfiles = [v9 cameraProfiles];
-        v11 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v11 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v24;
+          v13 = *v23;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v24 != v13)
+              if (*v23 != v13)
               {
                 objc_enumerationMutation(cameraProfiles);
               }
 
-              v15 = *(*(&v23 + 1) + 8 * j);
+              v15 = *(*(&v22 + 1) + 8 * j);
               uniqueIdentifier = [v15 uniqueIdentifier];
               v17 = [uniqueIdentifier isEqual:dCopy];
 
@@ -302,7 +301,7 @@
               }
             }
 
-            v12 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v12)
             {
               continue;
@@ -312,14 +311,14 @@
           }
         }
 
-        v7 = v21;
+        v7 = v20;
       }
 
       v18 = 0;
-      v22 = [cameraAccessories countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [cameraAccessories countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -329,14 +328,12 @@
 
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)_handleCameraSignificantEventNotificationMessage:(id)message
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -362,9 +359,9 @@ LABEL_19:
             v14 = HMFGetLogIdentifier();
             messagePayload = [messageCopy messagePayload];
             *buf = 138543618;
-            v40 = v14;
-            v41 = 2112;
-            v42 = messagePayload;
+            v39 = v14;
+            v40 = 2112;
+            v41 = messagePayload;
             _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Notification reasons missing from payload: %@, populating with hard-coded value", buf, 0x16u);
           }
 
@@ -379,21 +376,21 @@ LABEL_19:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v20 = HMFGetLogIdentifier();
-          NSPrintF();
-          v21 = v38 = v17;
+          NSPrintF("%#{flags}", unsignedIntegerValue, &unk_22A587E90);
+          v21 = v37 = v17;
           *buf = 138544386;
-          v40 = v20;
-          v41 = 2112;
-          v42 = v6;
-          v43 = 2112;
-          v44 = v7;
-          v45 = 2112;
-          v46 = v21;
-          v47 = 2112;
-          v48 = v9;
+          v39 = v20;
+          v40 = 2112;
+          v41 = v6;
+          v42 = 2112;
+          v43 = v7;
+          v44 = 2112;
+          v45 = v21;
+          v46 = 2112;
+          v47 = v9;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Received message for camera significant event with UUID: %@ cameraProfileUUID: %@ notificationReasons: %@ from device: %@", buf, 0x34u);
 
-          v17 = v38;
+          v17 = v37;
         }
 
         objc_autoreleasePoolPop(v17);
@@ -410,9 +407,9 @@ LABEL_19:
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v35;
-          v41 = 2112;
-          v42 = messageCopy;
+          v39 = v35;
+          v40 = 2112;
+          v41 = messageCopy;
           _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remote device for message: %@", buf, 0x16u);
         }
 
@@ -434,9 +431,9 @@ LABEL_19:
         v30 = HMFGetLogIdentifier();
         messagePayload2 = [messageCopy messagePayload];
         *buf = 138543618;
-        v40 = v30;
-        v41 = 2112;
-        v42 = messagePayload2;
+        v39 = v30;
+        v40 = 2112;
+        v41 = messagePayload2;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not find camera profile UUID in message payload: %@", buf, 0x16u);
       }
 
@@ -456,9 +453,9 @@ LABEL_19:
       v25 = HMFGetLogIdentifier();
       messagePayload3 = [messageCopy messagePayload];
       *buf = 138543618;
-      v40 = v25;
-      v41 = 2112;
-      v42 = messagePayload3;
+      v39 = v25;
+      v40 = 2112;
+      v41 = messagePayload3;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Could not find camera significant event UUID in message payload: %@", buf, 0x16u);
     }
 
@@ -466,8 +463,6 @@ LABEL_19:
     v7 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
     [messageCopy respondWithError:v7];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfSignificantEventUUID:(id)d cameraProfileUUID:(id)iD notificationReasons:(unint64_t)reasons
@@ -495,7 +490,7 @@ LABEL_19:
 
 void __117__HMDCameraBulletinNotificationManager__notifyObserversOfSignificantEventUUID_cameraProfileUUID_notificationReasons___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -507,45 +502,188 @@ void __117__HMDCameraBulletinNotificationManager__notifyObserversOfSignificantEv
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
-      v12 = *(a1 + 56);
-      v10 = NSPrintF();
+      v10 = NSPrintF("%#{flags}", *(a1 + 56), &unk_22A587E90);
       *buf = 138544386;
-      v14 = v7;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v3;
       v15 = 2112;
-      v16 = v3;
+      v16 = v8;
       v17 = 2112;
-      v18 = v8;
+      v18 = v9;
       v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
+      v20 = v10;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying observer: %@ about camera significant event with UUID: %@ cameraProfileUUID: %@ notificationReasons: %@", buf, 0x34u);
     }
 
     objc_autoreleasePoolPop(v4);
     [v3 notificationManager:*(a1 + 32) didReceiveNotificationForCameraSignificantEventIdentifier:*(a1 + 40) notificationReasons:*(a1 + 56)];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (BOOL)_updateLocalStoreWithCameraAccessModeBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc
+{
+  enabledCopy = enabled;
+  registrationCopy = registration;
+  localRegistrationCopy = localRegistration;
+  mocCopy = moc;
+  if (!localRegistrationCopy)
+  {
+    v13 = MEMORY[0x277CBE408];
+    v14 = +[MKFLocalBulletinCameraAccessModeRegistration entity];
+    name = [v14 name];
+    localRegistrationCopy = [v13 insertNewObjectForEntityForName:name inManagedObjectContext:mocCopy];
+
+    accessoryUUID = [registrationCopy accessoryUUID];
+    [localRegistrationCopy setAccessoryModelID:accessoryUUID];
+
+    goto LABEL_5;
+  }
+
+  if ([localRegistrationCopy enabled] != enabledCopy)
+  {
+LABEL_5:
+    [localRegistrationCopy setEnabled:enabledCopy];
+    v12 = 1;
+    goto LABEL_6;
+  }
+
+  v12 = 0;
+LABEL_6:
+
+  return v12;
+}
+
+- (BOOL)_updateLocalStoreWithCameraReachabilityBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc
+{
+  enabledCopy = enabled;
+  registrationCopy = registration;
+  localRegistrationCopy = localRegistration;
+  mocCopy = moc;
+  if (!localRegistrationCopy)
+  {
+    v13 = MEMORY[0x277CBE408];
+    v14 = +[MKFLocalBulletinCameraReachabilityRegistration entity];
+    name = [v14 name];
+    localRegistrationCopy = [v13 insertNewObjectForEntityForName:name inManagedObjectContext:mocCopy];
+
+    accessoryUUID = [registrationCopy accessoryUUID];
+    [localRegistrationCopy setAccessoryModelID:accessoryUUID];
+
+    goto LABEL_5;
+  }
+
+  if ([localRegistrationCopy enabled] != enabledCopy)
+  {
+LABEL_5:
+    [localRegistrationCopy setEnabled:enabledCopy];
+    v12 = 1;
+    goto LABEL_6;
+  }
+
+  v12 = 0;
+LABEL_6:
+
+  return v12;
+}
+
+- (BOOL)_updateLocalStoreWithCameraSignificantEventBulletinRegistration:(id)registration existingMKFLocalRegistration:(id)localRegistration enabled:(BOOL)enabled moc:(id)moc
+{
+  enabledCopy = enabled;
+  registrationCopy = registration;
+  localRegistrationCopy = localRegistration;
+  mocCopy = moc;
+  if (!localRegistrationCopy)
+  {
+    v16 = MEMORY[0x277CBE408];
+    v17 = +[MKFLocalBulletinCameraSignificantEventRegistration entity];
+    name = [v17 name];
+    localRegistrationCopy = [v16 insertNewObjectForEntityForName:name inManagedObjectContext:mocCopy];
+
+    cameraIdentifier = [registrationCopy cameraIdentifier];
+    [localRegistrationCopy setAccessoryModelID:cameraIdentifier];
+
+    [localRegistrationCopy setEnabled:enabledCopy];
+    [localRegistrationCopy setNotificationModes:{objc_msgSend(registrationCopy, "notificationModes")}];
+    [localRegistrationCopy setSignificantEventTypes:{objc_msgSend(registrationCopy, "significantEventTypes")}];
+LABEL_11:
+    [localRegistrationCopy setPersonFamiliarityOptions:{objc_msgSend(registrationCopy, "personFamiliarityOptions")}];
+    LOBYTE(v12) = 1;
+    goto LABEL_12;
+  }
+
+  v12 = [localRegistrationCopy enabled] ^ enabledCopy;
+  if (v12 == 1)
+  {
+    [localRegistrationCopy setEnabled:enabledCopy];
+  }
+
+  notificationModes = [localRegistrationCopy notificationModes];
+  if (notificationModes != [registrationCopy notificationModes])
+  {
+    [localRegistrationCopy setNotificationModes:{objc_msgSend(registrationCopy, "notificationModes")}];
+    LOBYTE(v12) = 1;
+  }
+
+  significantEventTypes = [localRegistrationCopy significantEventTypes];
+  if (significantEventTypes != [registrationCopy significantEventTypes])
+  {
+    [localRegistrationCopy setSignificantEventTypes:{objc_msgSend(registrationCopy, "significantEventTypes")}];
+    LOBYTE(v12) = 1;
+  }
+
+  personFamiliarityOptions = [localRegistrationCopy personFamiliarityOptions];
+  if (personFamiliarityOptions != [registrationCopy personFamiliarityOptions])
+  {
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  conditions = [localRegistrationCopy conditions];
+  v21 = [MEMORY[0x277CBEB98] set];
+  if (conditions)
+  {
+    v22 = [HMDBulletinNotificationRegistrationUtilities conditionsFromLocalConditions:conditions];
+
+    v21 = v22;
+  }
+
+  conditions2 = [registrationCopy conditions];
+  v24 = [v21 isEqualToSet:conditions2];
+
+  if ((v24 & 1) == 0)
+  {
+    if (conditions)
+    {
+      [localRegistrationCopy removeConditions:conditions];
+    }
+
+    conditions3 = [registrationCopy conditions];
+    v26 = [HMDBulletinNotificationRegistrationUtilities createAndAddLocalConditionsToRegistration:localRegistrationCopy moc:mocCopy conditions:conditions3];
+
+    LOBYTE(v12) = 1;
+  }
+
+  return v12;
 }
 
 - (id)_mkfLocalCameraAccessModeRegistrationsWithManagedObjectContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   _currentHomeCameraAccessoryUUIDs = [(HMDCameraBulletinNotificationManager *)self _currentHomeCameraAccessoryUUIDs];
   v6 = +[MKFLocalBulletinCameraAccessModeRegistration fetchRequest];
-  v18 = 0;
-  v7 = [contextCopy executeFetchRequest:v6 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [contextCopy executeFetchRequest:v6 error:&v17];
+  v8 = v17;
   if (v7)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __103__HMDCameraBulletinNotificationManager__mkfLocalCameraAccessModeRegistrationsWithManagedObjectContext___block_invoke;
-    v16[3] = &unk_2786748E8;
-    v17 = _currentHomeCameraAccessoryUUIDs;
-    v9 = [v7 na_filter:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __103__HMDCameraBulletinNotificationManager__mkfLocalCameraAccessModeRegistrationsWithManagedObjectContext___block_invoke;
+    v15[3] = &unk_2786748E8;
+    v16 = _currentHomeCameraAccessoryUUIDs;
+    v9 = [v7 na_filter:v15];
   }
 
   else
@@ -557,17 +695,15 @@ void __117__HMDCameraBulletinNotificationManager__notifyObserversOfSignificantEv
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v8;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local camera access mode registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -583,21 +719,21 @@ uint64_t __103__HMDCameraBulletinNotificationManager__mkfLocalCameraAccessModeRe
 
 - (id)_mkfLocalCameraReachabilityRegistrationsWithManagedObjectContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   _currentHomeCameraAccessoryUUIDs = [(HMDCameraBulletinNotificationManager *)self _currentHomeCameraAccessoryUUIDs];
   v6 = +[MKFLocalBulletinCameraReachabilityRegistration fetchRequest];
-  v18 = 0;
-  v7 = [contextCopy executeFetchRequest:v6 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [contextCopy executeFetchRequest:v6 error:&v17];
+  v8 = v17;
   if (v7)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __105__HMDCameraBulletinNotificationManager__mkfLocalCameraReachabilityRegistrationsWithManagedObjectContext___block_invoke;
-    v16[3] = &unk_2786748C0;
-    v17 = _currentHomeCameraAccessoryUUIDs;
-    v9 = [v7 na_filter:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __105__HMDCameraBulletinNotificationManager__mkfLocalCameraReachabilityRegistrationsWithManagedObjectContext___block_invoke;
+    v15[3] = &unk_2786748C0;
+    v16 = _currentHomeCameraAccessoryUUIDs;
+    v9 = [v7 na_filter:v15];
   }
 
   else
@@ -609,17 +745,15 @@ uint64_t __103__HMDCameraBulletinNotificationManager__mkfLocalCameraAccessModeRe
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v8;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local camera reachability registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -635,21 +769,21 @@ uint64_t __105__HMDCameraBulletinNotificationManager__mkfLocalCameraReachability
 
 - (id)_mkfLocalCameraSignificantEventRegistrationsWithManagedObjectContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   _currentHomeCameraAccessoryUUIDs = [(HMDCameraBulletinNotificationManager *)self _currentHomeCameraAccessoryUUIDs];
   v6 = +[MKFLocalBulletinCameraSignificantEventRegistration fetchRequest];
-  v18 = 0;
-  v7 = [contextCopy executeFetchRequest:v6 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [contextCopy executeFetchRequest:v6 error:&v17];
+  v8 = v17;
   if (v7)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantEventRegistrationsWithManagedObjectContext___block_invoke;
-    v16[3] = &unk_278674898;
-    v17 = _currentHomeCameraAccessoryUUIDs;
-    v9 = [v7 na_filter:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantEventRegistrationsWithManagedObjectContext___block_invoke;
+    v15[3] = &unk_278674898;
+    v16 = _currentHomeCameraAccessoryUUIDs;
+    v9 = [v7 na_filter:v15];
   }
 
   else
@@ -661,17 +795,15 @@ uint64_t __105__HMDCameraBulletinNotificationManager__mkfLocalCameraReachability
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v8;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local camera significant event registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -698,7 +830,7 @@ uint64_t __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantE
 
 - (void)_updateRegistrationsOnPrimaryWithEnabledRegistrations:(id)registrations disabledRegistrations:(id)disabledRegistrations
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   registrationsCopy = registrations;
   disabledRegistrationsCopy = disabledRegistrations;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
@@ -711,11 +843,11 @@ uint64_t __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantE
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v30 = v12;
-    v31 = 2112;
-    v32 = registrationsCopy;
-    v33 = 2112;
-    v34 = disabledRegistrationsCopy;
+    v29 = v12;
+    v30 = 2112;
+    v31 = registrationsCopy;
+    v32 = 2112;
+    v33 = disabledRegistrationsCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating registrations on primary resident, [enabled : %@], [disabled : %@]", buf, 0x20u);
   }
 
@@ -727,15 +859,15 @@ uint64_t __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantE
     v15 = source;
     if (source)
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __116__HMDCameraBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke;
-      v25[3] = &unk_278683340;
-      v25[4] = selfCopy;
-      v26 = source;
-      v27 = registrationsCopy;
-      v28 = disabledRegistrationsCopy;
-      [home updateBulletinRegistrationOnPrimaryResidentWithSource:v26 enableRegistrations:v27 disableRegistration:v28 completionHandler:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __116__HMDCameraBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke;
+      v24[3] = &unk_278683340;
+      v24[4] = selfCopy;
+      v25 = source;
+      v26 = registrationsCopy;
+      v27 = disabledRegistrationsCopy;
+      [home updateBulletinRegistrationOnPrimaryResidentWithSource:v25 enableRegistrations:v26 disableRegistration:v27 completionHandler:v24];
     }
 
     else
@@ -747,7 +879,7 @@ uint64_t __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantE
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v23;
+        v29 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve bulletin notification registration source for current device when updating notification registrations", buf, 0xCu);
       }
 
@@ -764,19 +896,17 @@ uint64_t __109__HMDCameraBulletinNotificationManager__mkfLocalCameraSignificantE
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Bulletin notifications are not supported, only modifying local registrations", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __116__HMDCameraBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -790,22 +920,22 @@ void __116__HMDCameraBulletinNotificationManager__updateRegistrationsOnPrimaryWi
       v9 = *(a1 + 40);
       v10 = *(a1 + 48);
       v11 = *(a1 + 56);
-      v20 = 138544386;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v3;
+      v19 = 138544386;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v3;
       v12 = "%{public}@Unable to update camera registrations on primary resident: source: %@, [enabled : %@], [disabled : %@], error: %@";
       v13 = v7;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 52;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v13, v14, v12, &v20, v15);
+      _os_log_impl(&dword_229538000, v13, v14, v12, &v19, v15);
     }
   }
 
@@ -815,14 +945,14 @@ LABEL_6:
     v16 = *(a1 + 40);
     v17 = *(a1 + 48);
     v18 = *(a1 + 56);
-    v20 = 138544130;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v16;
-    v24 = 2112;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v18;
+    v19 = 138544130;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v16;
+    v23 = 2112;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
     v12 = "%{public}@Updating camera registrations with primary resident was successful, source: %@, [enabled: %@], [disabled: %@]";
     v13 = v7;
     v14 = OS_LOG_TYPE_INFO;
@@ -831,12 +961,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCurrentDeviceOrAccountUpdatedNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -847,20 +976,18 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling current device or account updated notification", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling current device or account updated notification", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDCameraBulletinNotificationManager *)selfCopy _requestSynchronizeRegistrations];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePrimaryResidentUpdateNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -871,9 +998,9 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling primary resident update notification", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling primary resident update notification", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -892,9 +1019,9 @@ LABEL_6:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@We are already the primary", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@We are already the primary", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -910,13 +1037,11 @@ LABEL_6:
   {
     [(HMDCameraBulletinNotificationManager *)selfCopy _handleDeviceBecameNotPrimary];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeLocalRegistrationsWithPrimaryResident
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -937,83 +1062,83 @@ LABEL_6:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v107 = 0x3032000000;
-    v108 = __Block_byref_object_copy__57771;
-    v109 = __Block_byref_object_dispose__57772;
-    v110 = [MEMORY[0x277CBEB58] set];
-    v94 = 0;
-    v95 = &v94;
-    v96 = 0x3032000000;
-    v97 = __Block_byref_object_copy__57771;
-    v98 = __Block_byref_object_dispose__57772;
-    v99 = [MEMORY[0x277CBEB58] set];
-    v88 = 0;
-    v89 = &v88;
-    v90 = 0x3032000000;
-    v91 = __Block_byref_object_copy__57771;
-    v92 = __Block_byref_object_dispose__57772;
-    v93 = [MEMORY[0x277CBEB58] set];
+    v106 = 0x3032000000;
+    v107 = __Block_byref_object_copy__57771;
+    v108 = __Block_byref_object_dispose__57772;
+    v109 = [MEMORY[0x277CBEB58] set];
+    v93 = 0;
+    v94 = &v93;
+    v95 = 0x3032000000;
+    v96 = __Block_byref_object_copy__57771;
+    v97 = __Block_byref_object_dispose__57772;
+    v98 = [MEMORY[0x277CBEB58] set];
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x3032000000;
+    v90 = __Block_byref_object_copy__57771;
+    v91 = __Block_byref_object_dispose__57772;
+    v92 = [MEMORY[0x277CBEB58] set];
     home = [(HMDCameraBulletinNotificationManager *)selfCopy home];
     backingStore = [home backingStore];
     context = [backingStore context];
 
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke;
-    v82[3] = &unk_2786746E0;
-    v82[4] = selfCopy;
-    v83 = source;
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke;
+    v81[3] = &unk_2786746E0;
+    v81[4] = selfCopy;
+    v82 = source;
     v12 = context;
-    v84 = v12;
+    v83 = v12;
     p_buf = &buf;
-    v86 = &v94;
-    v87 = &v88;
-    [v12 unsafeSynchronousBlock:v82];
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x3032000000;
-    v79 = __Block_byref_object_copy__57771;
-    v80 = __Block_byref_object_dispose__57772;
-    v81 = [MEMORY[0x277CBEB58] set];
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x3032000000;
-    v73 = __Block_byref_object_copy__57771;
-    v74 = __Block_byref_object_dispose__57772;
-    v75 = [MEMORY[0x277CBEB58] set];
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x3032000000;
-    v67 = __Block_byref_object_copy__57771;
-    v68 = __Block_byref_object_dispose__57772;
-    v69 = [MEMORY[0x277CBEB58] set];
+    v85 = &v93;
+    v86 = &v87;
+    [v12 unsafeSynchronousBlock:v81];
+    v75 = 0;
+    v76 = &v75;
+    v77 = 0x3032000000;
+    v78 = __Block_byref_object_copy__57771;
+    v79 = __Block_byref_object_dispose__57772;
+    v80 = [MEMORY[0x277CBEB58] set];
+    v69 = 0;
+    v70 = &v69;
+    v71 = 0x3032000000;
+    v72 = __Block_byref_object_copy__57771;
+    v73 = __Block_byref_object_dispose__57772;
+    v74 = [MEMORY[0x277CBEB58] set];
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x3032000000;
+    v66 = __Block_byref_object_copy__57771;
+    v67 = __Block_byref_object_dispose__57772;
+    v68 = [MEMORY[0x277CBEB58] set];
     managedObjectContext = [v12 managedObjectContext];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_5;
-    v59[3] = &unk_278674780;
-    v59[4] = selfCopy;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_5;
+    v58[3] = &unk_278674780;
+    v58[4] = selfCopy;
     v14 = managedObjectContext;
-    v60 = v14;
-    v61 = &v76;
-    v62 = &v70;
-    v63 = &v64;
-    [v14 performBlockAndWait:v59];
+    v59 = v14;
+    v60 = &v75;
+    v61 = &v69;
+    v62 = &v63;
+    [v14 performBlockAndWait:v58];
     v15 = objc_autoreleasePoolPush();
     v16 = selfCopy;
     v17 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       v18 = HMFGetLogIdentifier();
-      v19 = v77[5];
+      v19 = v76[5];
       v20 = *(*(&buf + 1) + 40);
-      *v100 = 138543874;
-      v101 = v18;
-      v102 = 2112;
-      v103 = v19;
-      v104 = 2112;
-      v105 = v20;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalSignificantEventRegistrations: %@ remoteSignificantEventRegistrations: %@", v100, 0x20u);
+      *v99 = 138543874;
+      v100 = v18;
+      v101 = 2112;
+      v102 = v19;
+      v103 = 2112;
+      v104 = v20;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalSignificantEventRegistrations: %@ remoteSignificantEventRegistrations: %@", v99, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -1023,15 +1148,15 @@ LABEL_6:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       v24 = HMFGetLogIdentifier();
-      v25 = v71[5];
-      v26 = v95[5];
-      *v100 = 138543874;
-      v101 = v24;
-      v102 = 2112;
-      v103 = v25;
-      v104 = 2112;
-      v105 = v26;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalReachabilityRegistrations: %@ remoteReachabilityRegistrations: %@", v100, 0x20u);
+      v25 = v70[5];
+      v26 = v94[5];
+      *v99 = 138543874;
+      v100 = v24;
+      v101 = 2112;
+      v102 = v25;
+      v103 = 2112;
+      v104 = v26;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalReachabilityRegistrations: %@ remoteReachabilityRegistrations: %@", v99, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -1041,50 +1166,50 @@ LABEL_6:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       v30 = HMFGetLogIdentifier();
-      v31 = v65[5];
-      v32 = v89[5];
-      *v100 = 138543874;
-      v101 = v30;
-      v102 = 2112;
-      v103 = v31;
-      v104 = 2112;
-      v105 = v32;
-      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalAccessModeRegistrations: %@ remoteAccessModeRegistrations: %@", v100, 0x20u);
+      v31 = v64[5];
+      v32 = v88[5];
+      *v99 = 138543874;
+      v100 = v30;
+      v101 = 2112;
+      v102 = v31;
+      v103 = 2112;
+      v104 = v32;
+      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalAccessModeRegistrations: %@ remoteAccessModeRegistrations: %@", v99, 0x20u);
     }
 
     objc_autoreleasePoolPop(v27);
     v33 = [MEMORY[0x277CBEB58] set];
     v34 = [MEMORY[0x277CBEB58] set];
-    v35 = v77[5];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_124;
-    v56[3] = &unk_2786747D0;
-    v58 = &buf;
+    v35 = v76[5];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_124;
+    v55[3] = &unk_2786747D0;
+    v57 = &buf;
     v36 = v33;
-    v57 = v36;
-    [v35 hmf_enumerateWithAutoreleasePoolUsingBlock:v56];
+    v56 = v36;
+    [v35 hmf_enumerateWithAutoreleasePoolUsingBlock:v55];
     [v34 unionSet:*(*(&buf + 1) + 40)];
-    v37 = v71[5];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3_128;
-    v53[3] = &unk_278674820;
-    v55 = &v94;
+    v37 = v70[5];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3_128;
+    v52[3] = &unk_278674820;
+    v54 = &v93;
     v38 = v36;
-    v54 = v38;
-    [v37 hmf_enumerateWithAutoreleasePoolUsingBlock:v53];
-    [v34 unionSet:v95[5]];
-    v39 = v65[5];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_5_132;
-    v50[3] = &unk_278674870;
-    v52 = &v88;
+    v53 = v38;
+    [v37 hmf_enumerateWithAutoreleasePoolUsingBlock:v52];
+    [v34 unionSet:v94[5]];
+    v39 = v64[5];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_5_132;
+    v49[3] = &unk_278674870;
+    v51 = &v87;
     v40 = v38;
-    v51 = v40;
-    [v39 hmf_enumerateWithAutoreleasePoolUsingBlock:v50];
-    [v34 unionSet:v89[5]];
+    v50 = v40;
+    [v39 hmf_enumerateWithAutoreleasePoolUsingBlock:v49];
+    [v34 unionSet:v88[5]];
     if ([v40 hmf_isEmpty] && objc_msgSend(v34, "hmf_isEmpty"))
     {
       v41 = objc_autoreleasePoolPush();
@@ -1093,9 +1218,9 @@ LABEL_6:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         v44 = HMFGetLogIdentifier();
-        *v100 = 138543362;
-        v101 = v44;
-        _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@No changes detected to sync with primary", v100, 0xCu);
+        *v99 = 138543362;
+        v100 = v44;
+        _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@No changes detected to sync with primary", v99, 0xCu);
       }
 
       objc_autoreleasePoolPop(v41);
@@ -1106,13 +1231,13 @@ LABEL_6:
       [(HMDCameraBulletinNotificationManager *)v28 _updateRegistrationsOnPrimaryWithEnabledRegistrations:v40 disabledRegistrations:v34];
     }
 
-    _Block_object_dispose(&v64, 8);
-    _Block_object_dispose(&v70, 8);
+    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(&v69, 8);
 
-    _Block_object_dispose(&v76, 8);
-    _Block_object_dispose(&v88, 8);
+    _Block_object_dispose(&v75, 8);
+    _Block_object_dispose(&v87, 8);
 
-    _Block_object_dispose(&v94, 8);
+    _Block_object_dispose(&v93, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -1131,48 +1256,43 @@ LABEL_6:
 
     objc_autoreleasePoolPop(v45);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 40);
-  v5 = [*(a1 + 48) managedObjectContext];
-  v6 = [v3 _cameraSignificantEventRegistrationsForSource:v4 context:v5];
+  v2 = objc_opt_class();
+  v3 = *(a1 + 40);
+  v4 = [*(a1 + 48) managedObjectContext];
+  v5 = [v2 _cameraSignificantEventRegistrationsForSource:v3 context:v4];
 
-  v7 = *(a1 + 32);
-  v8 = objc_opt_class();
-  v9 = *(a1 + 40);
-  v10 = [*(a1 + 48) managedObjectContext];
-  v11 = [v8 _cameraReachabilityRegistrationsForSource:v9 context:v10];
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v8 = [*(a1 + 48) managedObjectContext];
+  v9 = [v6 _cameraReachabilityRegistrationsForSource:v7 context:v8];
 
-  v12 = *(a1 + 32);
-  v13 = objc_opt_class();
-  v14 = *(a1 + 40);
-  v15 = [*(a1 + 48) managedObjectContext];
-  v16 = [v13 _cameraAccessModeRegistrationsForSource:v14 context:v15];
+  v10 = objc_opt_class();
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 48) managedObjectContext];
+  v13 = [v10 _cameraAccessModeRegistrationsForSource:v11 context:v12];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_2;
-  v19[3] = &unk_278674668;
-  v19[4] = *(a1 + 56);
-  [v6 na_each:v19];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3;
-  v18[3] = &unk_278674690;
-  v18[4] = *(a1 + 64);
-  [v11 na_each:v18];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_4;
-  v17[3] = &unk_2786746B8;
-  v17[4] = *(a1 + 72);
-  [v16 na_each:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_2;
+  v16[3] = &unk_278674668;
+  v16[4] = *(a1 + 56);
+  [v5 na_each:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3;
+  v15[3] = &unk_278674690;
+  v15[4] = *(a1 + 64);
+  [v9 na_each:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_4;
+  v14[3] = &unk_2786746B8;
+  v14[4] = *(a1 + 72);
+  [v13 na_each:v14];
 }
 
 void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_5(uint64_t a1)
@@ -1354,7 +1474,7 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
 
 - (void)_requestSynchronizeRegistrations
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1364,18 +1484,16 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
     synchronizeWithPrimaryDebounceTimer = [(HMDCameraBulletinNotificationManager *)selfCopy synchronizeWithPrimaryDebounceTimer];
     [synchronizeWithPrimaryDebounceTimer isRunning];
     v8 = HMFBooleanToString();
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Requesting synchronize registrations, debounce timer running: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Requesting synchronize registrations, debounce timer running: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   synchronizeWithPrimaryDebounceTimer2 = [(HMDCameraBulletinNotificationManager *)selfCopy synchronizeWithPrimaryDebounceTimer];
   [synchronizeWithPrimaryDebounceTimer2 resume];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recentDoorbellPressIntervalForSignificantEventDate:(id)date
@@ -1392,7 +1510,7 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
 
 - (void)_handleDeviceBecameNotPrimary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1403,26 +1521,24 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling device became non-primary resident", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [(HMDCameraBulletinNotificationManager *)selfCopy setCurrentPrimary:0];
   cameraSignificantEventRegistrations = [(HMDCameraBulletinNotificationManager *)selfCopy cameraSignificantEventRegistrations];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __69__HMDCameraBulletinNotificationManager__handleDeviceBecameNotPrimary__block_invoke;
-  v10[3] = &unk_278674640;
-  v10[4] = selfCopy;
-  [cameraSignificantEventRegistrations na_each:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __69__HMDCameraBulletinNotificationManager__handleDeviceBecameNotPrimary__block_invoke;
+  v9[3] = &unk_278674640;
+  v9[4] = selfCopy;
+  [cameraSignificantEventRegistrations na_each:v9];
 }
 
 - (void)_handleDeviceBecamePrimary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1433,26 +1549,24 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling device became primary resident", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [(HMDCameraBulletinNotificationManager *)selfCopy setCurrentPrimary:1];
   cameraSignificantEventRegistrations = [(HMDCameraBulletinNotificationManager *)selfCopy cameraSignificantEventRegistrations];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __66__HMDCameraBulletinNotificationManager__handleDeviceBecamePrimary__block_invoke;
-  v10[3] = &unk_278674640;
-  v10[4] = selfCopy;
-  [cameraSignificantEventRegistrations na_each:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __66__HMDCameraBulletinNotificationManager__handleDeviceBecamePrimary__block_invoke;
+  v9[3] = &unk_278674640;
+  v9[4] = selfCopy;
+  [cameraSignificantEventRegistrations na_each:v9];
 }
 
 - (void)_handleCameraSignificantEventBulletinNotificationRegistration:(id)registration removed:(BOOL)removed
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1462,11 +1576,11 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
     v10 = HMFGetLogIdentifier();
     v11 = HMFBooleanToString();
     *buf = 138543874;
-    v28 = v10;
-    v29 = 2112;
-    v30 = registrationCopy;
-    v31 = 2112;
-    v32 = v11;
+    v27 = v10;
+    v28 = 2112;
+    v29 = registrationCopy;
+    v30 = 2112;
+    v31 = v11;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling Camera Significant Event Bulletin Notification Registration: %@, removed: %@", buf, 0x20u);
   }
 
@@ -1474,13 +1588,13 @@ void __89__HMDCameraBulletinNotificationManager__synchronizeLocalRegistrationsWi
   registration = [registrationCopy registration];
   home = [(HMDCameraBulletinNotificationManager *)selfCopy home];
   cameraAccessories = [home cameraAccessories];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __110__HMDCameraBulletinNotificationManager__handleCameraSignificantEventBulletinNotificationRegistration_removed___block_invoke;
-  v25[3] = &unk_2786830C8;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __110__HMDCameraBulletinNotificationManager__handleCameraSignificantEventBulletinNotificationRegistration_removed___block_invoke;
+  v24[3] = &unk_2786830C8;
   v15 = registration;
-  v26 = v15;
-  v16 = [cameraAccessories na_firstObjectPassingTest:v25];
+  v25 = v15;
+  v16 = [cameraAccessories na_firstObjectPassingTest:v24];
 
   if (v16)
   {
@@ -1518,16 +1632,14 @@ LABEL_9:
     v22 = HMFGetLogIdentifier();
     cameraIdentifier = [v15 cameraIdentifier];
     *buf = 138543618;
-    v28 = v22;
-    v29 = 2112;
-    v30 = cameraIdentifier;
+    v27 = v22;
+    v28 = 2112;
+    v29 = cameraIdentifier;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to find HAP Accessory with UUID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __110__HMDCameraBulletinNotificationManager__handleCameraSignificantEventBulletinNotificationRegistration_removed___block_invoke(uint64_t a1, void *a2)
@@ -1541,46 +1653,44 @@ uint64_t __110__HMDCameraBulletinNotificationManager__handleCameraSignificantEve
 
 - (void)_notifyDevice:(id)device aboutSignificantEvent:(id)event notificationReasons:(unint64_t)reasons
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   eventCopy = event;
-  v31[0] = @"HMDBulletinNotificationCameraSignificantEventUUIDMessageKey";
+  v30[0] = @"HMDBulletinNotificationCameraSignificantEventUUIDMessageKey";
   uniqueIdentifier = [eventCopy uniqueIdentifier];
   uUIDString = [uniqueIdentifier UUIDString];
-  v32[0] = uUIDString;
-  v31[1] = @"HMDBulletinNotificationCameraProfileUUIDMessageKey";
+  v31[0] = uUIDString;
+  v30[1] = @"HMDBulletinNotificationCameraProfileUUIDMessageKey";
   cameraProfileUUID = [eventCopy cameraProfileUUID];
   uUIDString2 = [cameraProfileUUID UUIDString];
-  v32[1] = uUIDString2;
-  v31[2] = @"HMDBulletinNotificationCameraSignificantEventModesMessageKey";
+  v31[1] = uUIDString2;
+  v30[2] = @"HMDBulletinNotificationCameraSignificantEventModesMessageKey";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reasons];
-  v32[2] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v31[2] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
   v16 = [HMDRemoteDeviceMessageDestination alloc];
   messageTargetUUID = [(HMDCameraBulletinNotificationManager *)self messageTargetUUID];
   v18 = [(HMDRemoteDeviceMessageDestination *)v16 initWithTarget:messageTargetUUID device:deviceCopy];
 
   v19 = [[HMDRemoteMessage alloc] initWithName:@"HMDBulletinNotificationCameraSignificantEventMessage" destination:v18 payload:v15 type:3 timeout:1 secure:60.0];
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __96__HMDCameraBulletinNotificationManager__notifyDevice_aboutSignificantEvent_notificationReasons___block_invoke;
-  v27 = &unk_278686658;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __96__HMDCameraBulletinNotificationManager__notifyDevice_aboutSignificantEvent_notificationReasons___block_invoke;
+  v26 = &unk_278686658;
   selfCopy = self;
-  v29 = deviceCopy;
-  v30 = eventCopy;
+  v28 = deviceCopy;
+  v29 = eventCopy;
   v20 = eventCopy;
   v21 = deviceCopy;
-  [(HMDRemoteMessage *)v19 setResponseHandler:&v24];
-  v22 = [(HMDCameraBulletinNotificationManager *)self messageDispatcher:v24];
+  [(HMDRemoteMessage *)v19 setResponseHandler:&v23];
+  v22 = [(HMDCameraBulletinNotificationManager *)self messageDispatcher:v23];
   [v22 sendMessage:v19];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMDCameraBulletinNotificationManager__notifyDevice_aboutSignificantEvent_notificationReasons___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1594,20 +1704,20 @@ void __96__HMDCameraBulletinNotificationManager__notifyDevice_aboutSignificantEv
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
       v13 = *(a1 + 48);
-      v21 = 138544130;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v5;
+      v20 = 138544130;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v5;
       v14 = "%{public}@Failed to notify device: %@ of significant event: %@ error: %@";
       v15 = v10;
       v16 = OS_LOG_TYPE_ERROR;
       v17 = 42;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v15, v16, v14, &v21, v17);
+      _os_log_impl(&dword_229538000, v15, v16, v14, &v20, v17);
     }
   }
 
@@ -1616,12 +1726,12 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v18 = *(a1 + 40);
     v19 = *(a1 + 48);
-    v21 = 138543874;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v18;
-    v25 = 2112;
-    v26 = v19;
+    v20 = 138543874;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2112;
+    v25 = v19;
     v14 = "%{public}@Successfully notified device: %@ of significant event: %@";
     v15 = v10;
     v16 = OS_LOG_TYPE_INFO;
@@ -1630,12 +1740,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSignificantEvent:(id)event remoteRegistration:(id)registration
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   registrationCopy = registration;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
@@ -1652,11 +1761,11 @@ LABEL_6:
     v14 = HMFGetLogIdentifier();
     uniqueIdentifier = [eventCopy uniqueIdentifier];
     *buf = 138543874;
-    v36 = v14;
-    v37 = 2114;
-    v38 = uniqueIdentifier;
-    v39 = 2112;
-    v40 = registrationCopy;
+    v35 = v14;
+    v36 = 2114;
+    v37 = uniqueIdentifier;
+    v38 = 2112;
+    v39 = registrationCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Checking if significant event %{public}@ matches registration: %@", buf, 0x20u);
   }
 
@@ -1683,18 +1792,18 @@ LABEL_6:
       if (v25)
       {
         HMFGetLogIdentifier();
-        v26 = v34 = v22;
+        v26 = v33 = v22;
         uniqueIdentifier2 = [eventCopy uniqueIdentifier];
-        v28 = NSPrintF();
+        v28 = NSPrintF("%#{flags}", v20, &unk_22A587E90);
         *buf = 138543874;
-        v36 = v26;
-        v37 = 2114;
-        v38 = uniqueIdentifier2;
-        v39 = 2112;
-        v40 = v28;
+        v35 = v26;
+        v36 = 2114;
+        v37 = uniqueIdentifier2;
+        v38 = 2112;
+        v39 = v28;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Notifying current device of significant event: %{public}@ notification reasons: %@", buf, 0x20u);
 
-        v22 = v34;
+        v22 = v33;
       }
 
       objc_autoreleasePoolPop(v22);
@@ -1708,15 +1817,15 @@ LABEL_6:
       if (v25)
       {
         v31 = HMFGetLogIdentifier();
-        v32 = NSPrintF();
+        v32 = NSPrintF("%#{flags}", v20, &unk_22A587E90);
         *buf = 138544130;
-        v36 = v31;
-        v37 = 2112;
-        v38 = eventCopy;
-        v39 = 2112;
-        v40 = v32;
-        v41 = 2112;
-        v42 = device;
+        v35 = v31;
+        v36 = 2112;
+        v37 = eventCopy;
+        v38 = 2112;
+        v39 = v32;
+        v40 = 2112;
+        v41 = device;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Sending notification for significant event: %@ notification reasons: %@ to remote device: %@", buf, 0x2Au);
       }
 
@@ -1724,13 +1833,11 @@ LABEL_6:
       [(HMDCameraBulletinNotificationManager *)v23 _notifyDevice:device aboutSignificantEvent:eventCopy notificationReasons:v20];
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldNotifyForActivityForSignificantEvent:(id)event remoteRegistration:(id)registration
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   registrationCopy = registration;
   registration = [registrationCopy registration];
@@ -1764,11 +1871,11 @@ LABEL_16:
         {
           v25 = HMFGetLogIdentifier();
           uniqueIdentifier = [eventCopy uniqueIdentifier];
-          v30 = 138543618;
-          v31 = v25;
-          v32 = 2114;
-          v33 = uniqueIdentifier;
-          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Condition(s) did not pass for significant event: %{public}@", &v30, 0x16u);
+          v29 = 138543618;
+          v30 = v25;
+          v31 = 2114;
+          v32 = uniqueIdentifier;
+          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Condition(s) did not pass for significant event: %{public}@", &v29, 0x16u);
 
           goto LABEL_14;
         }
@@ -1782,13 +1889,13 @@ LABEL_16:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           v25 = HMFGetLogIdentifier();
-          v30 = 138543874;
-          v31 = v25;
-          v32 = 2112;
-          v33 = registration;
-          v34 = 2112;
-          v35 = source;
-          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to evaluate registration: %@, no matching user for source: %@", &v30, 0x20u);
+          v29 = 138543874;
+          v30 = v25;
+          v31 = 2112;
+          v32 = registration;
+          v33 = 2112;
+          v34 = source;
+          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to evaluate registration: %@, no matching user for source: %@", &v29, 0x20u);
 LABEL_14:
         }
       }
@@ -1805,11 +1912,11 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       uniqueIdentifier2 = [eventCopy uniqueIdentifier];
-      v30 = 138543618;
-      v31 = v20;
-      v32 = 2114;
-      v33 = uniqueIdentifier2;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Filter did not pass for significant event: %{public}@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v20;
+      v31 = 2114;
+      v32 = uniqueIdentifier2;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Filter did not pass for significant event: %{public}@", &v29, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -1818,26 +1925,25 @@ LABEL_14:
   v16 = 0;
 LABEL_17:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_shouldNotifyForDoorbellPressForSignificantEvent:(id)event registration:(id)registration
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   registrationCopy = registration;
   if (([registrationCopy notificationModes] & 2) != 0)
   {
     home = [(HMDCameraBulletinNotificationManager *)self home];
     cameraAccessories = [home cameraAccessories];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __102__HMDCameraBulletinNotificationManager__shouldNotifyForDoorbellPressForSignificantEvent_registration___block_invoke;
-    v24[3] = &unk_2786830C8;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __102__HMDCameraBulletinNotificationManager__shouldNotifyForDoorbellPressForSignificantEvent_registration___block_invoke;
+    v23[3] = &unk_2786830C8;
     v11 = eventCopy;
-    v25 = v11;
-    v12 = [cameraAccessories na_firstObjectPassingTest:v24];
+    v24 = v11;
+    v12 = [cameraAccessories na_firstObjectPassingTest:v23];
 
     dateOfOccurrence = [v11 dateOfOccurrence];
     v14 = [(HMDCameraBulletinNotificationManager *)self _recentDoorbellPressIntervalForSignificantEventDate:dateOfOccurrence];
@@ -1852,16 +1958,16 @@ LABEL_17:
     {
       v19 = HMFGetLogIdentifier();
       HMFBooleanToString();
-      v20 = v23 = v12;
+      v20 = v22 = v12;
       *buf = 138543874;
-      v27 = v19;
-      v28 = 2112;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v20;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v20;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Doorbell press near significant event: %@, %@", buf, 0x20u);
 
-      v12 = v23;
+      v12 = v22;
     }
 
     objc_autoreleasePoolPop(v16);
@@ -1872,7 +1978,6 @@ LABEL_17:
     v8 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1889,37 +1994,37 @@ uint64_t __102__HMDCameraBulletinNotificationManager__shouldNotifyForDoorbellPre
 
 - (void)_notifyPrimaryResidentOfSignificantEvent:(id)event withCameraProfileUUID:(id)d
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v9 = [[HMDCameraSignificantEventBulletinParams alloc] initWithSignificantEvent:eventCopy cameraProfileUUID:dCopy];
-  v31 = 0;
-  v10 = [HMDCameraSignificantEventBulletinParamsDictionaryTransformer transformedValue:v9 error:&v31];
-  v11 = v31;
+  v30 = 0;
+  v10 = [HMDCameraSignificantEventBulletinParamsDictionaryTransformer transformedValue:v9 error:&v30];
+  v11 = v30;
   v12 = objc_autoreleasePoolPush();
   selfCopy = self;
   v14 = HMFGetOSLogHandle();
   v15 = v14;
   if (v10)
   {
-    v28 = v11;
+    v27 = v11;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v16;
-      v36 = 2112;
-      v37 = eventCopy;
+      v34 = v16;
+      v35 = 2112;
+      v36 = eventCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Notifying primary resident of significant event: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
-    v32 = @"HMDBulletinNotificationSignificantEventParamsKey";
-    v33 = v10;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = @"HMDBulletinNotificationSignificantEventParamsKey";
+    v32 = v10;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     home = [(HMDCameraBulletinNotificationManager *)selfCopy home];
     primaryResident = [home primaryResident];
 
@@ -1929,17 +2034,17 @@ uint64_t __102__HMDCameraBulletinNotificationManager__shouldNotifyForDoorbellPre
     v23 = [(HMDRemoteDeviceMessageDestination *)v20 initWithTarget:messageTargetUUID device:device];
 
     v24 = [[HMDRemoteMessage alloc] initWithName:@"HMDBulletinNotificationNotifyPrimaryResidentOfCameraSignificantEventMessage" destination:v23 payload:v17 type:3 timeout:1 secure:60.0];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __103__HMDCameraBulletinNotificationManager__notifyPrimaryResidentOfSignificantEvent_withCameraProfileUUID___block_invoke;
-    v29[3] = &unk_278688370;
-    v29[4] = selfCopy;
-    v30 = eventCopy;
-    [(HMDRemoteMessage *)v24 setResponseHandler:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __103__HMDCameraBulletinNotificationManager__notifyPrimaryResidentOfSignificantEvent_withCameraProfileUUID___block_invoke;
+    v28[3] = &unk_278688370;
+    v28[4] = selfCopy;
+    v29 = eventCopy;
+    [(HMDRemoteMessage *)v24 setResponseHandler:v28];
     messageDispatcher = [(HMDCameraBulletinNotificationManager *)selfCopy messageDispatcher];
     [messageDispatcher sendMessage:v24];
 
-    v11 = v28;
+    v11 = v27;
   }
 
   else
@@ -1948,21 +2053,19 @@ uint64_t __102__HMDCameraBulletinNotificationManager__shouldNotifyForDoorbellPre
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v26;
-      v36 = 2112;
-      v37 = v11;
+      v34 = v26;
+      v35 = 2112;
+      v36 = v11;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to transform significant event payload: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HMDCameraBulletinNotificationManager__notifyPrimaryResidentOfSignificantEvent_withCameraProfileUUID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1975,18 +2078,18 @@ void __103__HMDCameraBulletinNotificationManager__notifyPrimaryResidentOfSignifi
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v5;
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v5;
       v13 = "%{public}@Failed to notify primary resident of significant event: %@ error: %@";
       v14 = v10;
       v15 = OS_LOG_TYPE_ERROR;
       v16 = 32;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v14, v15, v13, &v19, v16);
+      _os_log_impl(&dword_229538000, v14, v15, v13, &v18, v16);
     }
   }
 
@@ -1994,10 +2097,10 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     v17 = *(a1 + 40);
-    v19 = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v17;
+    v18 = 138543618;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v17;
     v13 = "%{public}@Successfully notified primary resident of significant event: %@";
     v14 = v10;
     v15 = OS_LOG_TYPE_INFO;
@@ -2006,7 +2109,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_filterPassesForCameraSignificantEvent:(id)event registration:(id)registration
@@ -2071,7 +2173,7 @@ LABEL_13:
 
 - (void)_handleSignificantEvent:(id)event cameraProfileUUID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
   workQueue = [(HMDCameraBulletinNotificationManager *)self workQueue];
@@ -2101,11 +2203,11 @@ LABEL_13:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v20;
-        v24 = 2112;
-        v25 = dCopy;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not find camera profile for UUID: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v20;
+        v23 = 2112;
+        v24 = dCopy;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not find camera profile for UUID: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -2116,13 +2218,11 @@ LABEL_13:
   {
     [(HMDCameraBulletinNotificationManager *)self _notifyPrimaryResidentOfSignificantEvent:eventCopy withCameraProfileUUID:dCopy];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSignificantEventWithUUID:(id)d reason:(unint64_t)reason dateOfOccurrence:(id)occurrence confidenceLevel:(unint64_t)level faceClassifications:(id)classifications cameraProfile:(id)profile
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dCopy = d;
   occurrenceCopy = occurrence;
   classificationsCopy = classifications;
@@ -2137,19 +2237,19 @@ LABEL_13:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138544898;
-    v43 = v22;
-    v44 = 2112;
-    v45 = dCopy;
-    v46 = 2048;
+    v42 = v22;
+    v43 = 2112;
+    v44 = dCopy;
+    v45 = 2048;
     reasonCopy = reason;
-    v48 = 2112;
-    v49 = occurrenceCopy;
-    v50 = 2048;
+    v47 = 2112;
+    v48 = occurrenceCopy;
+    v49 = 2048;
     levelCopy = level;
-    v52 = 2112;
-    v53 = classificationsCopy;
-    v54 = 2112;
-    v55 = profileCopy;
+    v51 = 2112;
+    v52 = classificationsCopy;
+    v53 = 2112;
+    v54 = profileCopy;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Handling significant event: [UUID: %@, Reason: %lu, DateOfOccurrence: %@, ConfidenceLevel: %lu, FaceClassifications: %@] from camera: %@", buf, 0x48u);
   }
 
@@ -2159,26 +2259,24 @@ LABEL_13:
   uuid = [hapAccessory uuid];
 
   v26 = [(HMDCameraBulletinNotificationManager *)selfCopy _cameraSignificantEventBulletinNotificationRegistrationsForCameraIdentifier:uuid];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __146__HMDCameraBulletinNotificationManager__handleSignificantEventWithUUID_reason_dateOfOccurrence_confidenceLevel_faceClassifications_cameraProfile___block_invoke;
-  v33[3] = &unk_2786745F8;
-  v34 = classificationsCopy;
-  v35 = home;
-  v36 = selfCopy;
-  v37 = dCopy;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __146__HMDCameraBulletinNotificationManager__handleSignificantEventWithUUID_reason_dateOfOccurrence_confidenceLevel_faceClassifications_cameraProfile___block_invoke;
+  v32[3] = &unk_2786745F8;
+  v33 = classificationsCopy;
+  v34 = home;
+  v35 = selfCopy;
+  v36 = dCopy;
   reasonCopy2 = reason;
   levelCopy2 = level;
-  v38 = occurrenceCopy;
-  v39 = profileCopy;
+  v37 = occurrenceCopy;
+  v38 = profileCopy;
   v27 = profileCopy;
   v28 = occurrenceCopy;
   v29 = dCopy;
   v30 = home;
   v31 = classificationsCopy;
-  [v26 na_each:v33];
-
-  v32 = *MEMORY[0x277D85DE8];
+  [v26 na_each:v32];
 }
 
 void __146__HMDCameraBulletinNotificationManager__handleSignificantEventWithUUID_reason_dateOfOccurrence_confidenceLevel_faceClassifications_cameraProfile___block_invoke(uint64_t a1, void *a2)
@@ -2343,7 +2441,7 @@ void __116__HMDCameraBulletinNotificationManager__cameraSignificantEventBulletin
 
 - (void)handleRemovedCameraAccessory:(id)accessory
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2352,9 +2450,9 @@ void __116__HMDCameraBulletinNotificationManager__cameraSignificantEventBulletin
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = accessoryCopy;
+    v20 = v8;
+    v21 = 2112;
+    v22 = accessoryCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling removed camera: %@", buf, 0x16u);
   }
 
@@ -2364,23 +2462,21 @@ void __116__HMDCameraBulletinNotificationManager__cameraSignificantEventBulletin
   context = [backingStore context];
 
   managedObjectContext = [context managedObjectContext];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___block_invoke;
-  v16[3] = &unk_27868A010;
-  v17 = accessoryCopy;
-  v18 = managedObjectContext;
-  v19 = selfCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___block_invoke;
+  v15[3] = &unk_27868A010;
+  v16 = accessoryCopy;
+  v17 = managedObjectContext;
+  v18 = selfCopy;
   v13 = managedObjectContext;
   v14 = accessoryCopy;
-  [v13 performBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v13 performBlock:v15];
 }
 
 void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___block_invoke(id *a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] uuid];
   v3 = [MKFLocalBulletinCameraSignificantEventRegistration fetchCameraSignificantEventRegistrationForAccessoryUUID:v2 managedObjectContext:a1[5]];
 
@@ -2399,9 +2495,9 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
       v7 = HMFGetLogIdentifier();
       v8 = a1[4];
       *buf = 138543618;
-      v34 = v7;
-      v35 = 2112;
-      v36 = v8;
+      v33 = v7;
+      v34 = 2112;
+      v35 = v8;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to find local significant event registration to match removed camera: %@", buf, 0x16u);
     }
 
@@ -2426,9 +2522,9 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
       v14 = HMFGetLogIdentifier();
       v15 = a1[4];
       *buf = 138543618;
-      v34 = v14;
-      v35 = 2112;
-      v36 = v15;
+      v33 = v14;
+      v34 = 2112;
+      v35 = v15;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to find local access mode registration to match removed camera: %@", buf, 0x16u);
     }
 
@@ -2453,9 +2549,9 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
       v21 = HMFGetLogIdentifier();
       v22 = a1[4];
       *buf = 138543618;
-      v34 = v21;
-      v35 = 2112;
-      v36 = v22;
+      v33 = v21;
+      v34 = 2112;
+      v35 = v22;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find local reachability registration to match removed camera: %@", buf, 0x16u);
     }
 
@@ -2463,41 +2559,68 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
   }
 
   v23 = a1[5];
-  v32 = 0;
-  [v23 save:&v32];
-  v24 = v32;
+  v31 = 0;
+  [v23 save:&v31];
+  v24 = v31;
   v25 = objc_autoreleasePoolPush();
   v26 = a1[6];
   v27 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     v28 = HMFGetLogIdentifier();
-    v31 = a1[4];
+    v30 = a1[4];
     v29 = HMFBooleanToString();
     *buf = 138544898;
-    v34 = v28;
-    v35 = 2112;
-    v36 = v3;
-    v37 = 2112;
-    v38 = v10;
-    v39 = 2112;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v31;
-    v43 = 2112;
-    v44 = v29;
-    v45 = 2112;
-    v46 = v24;
+    v33 = v28;
+    v34 = 2112;
+    v35 = v3;
+    v36 = 2112;
+    v37 = v10;
+    v38 = 2112;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v30;
+    v42 = 2112;
+    v43 = v29;
+    v44 = 2112;
+    v45 = v24;
     _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Removing local registrations: %@, %@, %@ for removed camera: %@ was successful: %@ error: %@", buf, 0x48u);
   }
 
   objc_autoreleasePoolPop(v25);
   [a1[5] reset];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCameraSignificantEventNotificationObserver:(id)observer cameraIdentifier:(id)identifier
+{
+  v20 = *MEMORY[0x277D85DE8];
+  observerCopy = observer;
+  identifierCopy = identifier;
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = observerCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing camera significant event notification observer: %@ for camera identifier: %@", &v14, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  os_unfair_lock_lock_with_options();
+  observersByCameraIdentifier = [(HMDCameraBulletinNotificationManager *)selfCopy observersByCameraIdentifier];
+  v13 = [observersByCameraIdentifier objectForKeyedSubscript:identifierCopy];
+
+  [v13 removeObject:observerCopy];
+  os_unfair_lock_unlock(&selfCopy->_lock);
+}
+
+- (void)addCameraSignificantEventNotificationObserver:(id)observer cameraIdentifier:(id)identifier
 {
   v21 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
@@ -2514,38 +2637,7 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
     v18 = observerCopy;
     v19 = 2112;
     v20 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing camera significant event notification observer: %@ for camera identifier: %@", &v15, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v8);
-  os_unfair_lock_lock_with_options();
-  observersByCameraIdentifier = [(HMDCameraBulletinNotificationManager *)selfCopy observersByCameraIdentifier];
-  v13 = [observersByCameraIdentifier objectForKeyedSubscript:identifierCopy];
-
-  [v13 removeObject:observerCopy];
-  os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addCameraSignificantEventNotificationObserver:(id)observer cameraIdentifier:(id)identifier
-{
-  v22 = *MEMORY[0x277D85DE8];
-  observerCopy = observer;
-  identifierCopy = identifier;
-  v8 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-  {
-    v11 = HMFGetLogIdentifier();
-    v16 = 138543874;
-    v17 = v11;
-    v18 = 2112;
-    v19 = observerCopy;
-    v20 = 2112;
-    v21 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding camera significant event notification observer: %@ for camera identifier: %@", &v16, 0x20u);
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding camera significant event notification observer: %@ for camera identifier: %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -2563,7 +2655,6 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
   [weakObjectsHashTable addObject:observerCopy];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignificantEvent:(id)event cameraProfileUUID:(id)d
@@ -2595,7 +2686,7 @@ void __69__HMDCameraBulletinNotificationManager_handleRemovedCameraAccessory___b
   v14 = v5;
   v6 = v5;
   [v4 na_each:&v9];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6, v9, v10, v11, v12, selfCopy);
 
   return v7;
 }
@@ -2629,7 +2720,7 @@ void __87__HMDCameraBulletinNotificationManager_devicesToNotifyForAccessModeChan
   v14 = v5;
   v6 = v5;
   [v4 na_each:&v9];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6, v9, v10, v11, v12, selfCopy);
 
   return v7;
 }
@@ -2658,7 +2749,7 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
 
 - (id)_deviceToNotifyForRegistration:(id)registration source:(id)source
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   sourceCopy = source;
   home = [(HMDCameraBulletinNotificationManager *)self home];
@@ -2678,15 +2769,15 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     {
       v17 = HMFGetLogIdentifier();
       v18 = HMFBooleanToString();
-      v32 = 138544130;
-      v33 = v17;
-      v34 = 2112;
-      v35 = v18;
-      v36 = 2112;
-      v37 = registrationCopy;
-      v38 = 2112;
-      v39 = sourceCopy;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Condition(s) passed: %@ for registration: %@ from source: %@", &v32, 0x2Au);
+      v31 = 138544130;
+      v32 = v17;
+      v33 = 2112;
+      v34 = v18;
+      v35 = 2112;
+      v36 = registrationCopy;
+      v37 = 2112;
+      v38 = sourceCopy;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Condition(s) passed: %@ for registration: %@ from source: %@", &v31, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -2700,15 +2791,15 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         v29 = HMFGetLogIdentifier();
-        v32 = 138544130;
-        v33 = v29;
-        v34 = 2112;
-        v35 = v20;
-        v36 = 2112;
-        v37 = sourceCopy;
-        v38 = 2112;
-        v39 = registrationCopy;
-        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Resolved remote device: %@ to notify from source %@ for registration %@", &v32, 0x2Au);
+        v31 = 138544130;
+        v32 = v29;
+        v33 = 2112;
+        v34 = v20;
+        v35 = 2112;
+        v36 = sourceCopy;
+        v37 = 2112;
+        v38 = registrationCopy;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Resolved remote device: %@ to notify from source %@ for registration %@", &v31, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -2729,20 +2820,18 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v32 = 138543874;
-      v33 = v25;
-      v34 = 2112;
-      v35 = registrationCopy;
-      v36 = 2112;
-      v37 = sourceCopy;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to evaluate registration: %@, no matching user for source: %@", &v32, 0x20u);
+      v31 = 138543874;
+      v32 = v25;
+      v33 = 2112;
+      v34 = registrationCopy;
+      v35 = 2112;
+      v36 = sourceCopy;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to evaluate registration: %@, no matching user for source: %@", &v31, 0x20u);
     }
 
     objc_autoreleasePoolPop(v22);
     v21 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -2750,7 +2839,7 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
 - (void)updateNotificationRegistrationsWithSettings:(id)settings accessory:(id)accessory doorbellPressNotificationEnabled:(BOOL)enabled completion:(id)completion
 {
   enabledCopy = enabled;
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   accessoryCopy = accessory;
   completionCopy = completion;
@@ -2763,13 +2852,13 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     shortDescription = [accessoryCopy shortDescription];
     v17 = HMFBooleanToString();
     *buf = 138544130;
-    v93 = v15;
-    v94 = 2112;
-    v95 = shortDescription;
-    v96 = 2112;
-    v97 = settingsCopy;
-    v98 = 2112;
-    v99 = v17;
+    v92 = v15;
+    v93 = 2112;
+    v94 = shortDescription;
+    v95 = 2112;
+    v96 = settingsCopy;
+    v97 = 2112;
+    v98 = v17;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating notification registrations for accessory: %@, settings: %@, doorbellPressNotificationEnabled: %@", buf, 0x2Au);
   }
 
@@ -2785,8 +2874,8 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     _HMFPreconditionFailure();
   }
 
-  v78 = completionCopy;
-  v79 = home;
+  v77 = completionCopy;
+  v78 = home;
   if (enabledCopy)
   {
     v23 = 2;
@@ -2800,19 +2889,19 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
   isSmartBulletinBoardNotificationEnabled = [(HMDCameraAccessModeBulletinNotificationRegistration *)settingsCopy isSmartBulletinBoardNotificationEnabled];
   smartBulletinBoardNotificationCondition = [(HMDCameraAccessModeBulletinNotificationRegistration *)settingsCopy smartBulletinBoardNotificationCondition];
   [(HMDCameraBulletinNotificationManager *)selfCopy conditionsFromPredicate:smartBulletinBoardNotificationCondition];
-  v26 = v72 = enabledCopy;
-  v75 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF598] inPredicate:smartBulletinBoardNotificationCondition validValues:31];
-  integerValue = [v75 integerValue];
-  v77 = smartBulletinBoardNotificationCondition;
-  v74 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF5A0] inPredicate:smartBulletinBoardNotificationCondition validValues:7];
-  integerValue2 = [v74 integerValue];
+  v26 = v71 = enabledCopy;
+  v74 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF598] inPredicate:smartBulletinBoardNotificationCondition validValues:31];
+  integerValue = [v74 integerValue];
+  v76 = smartBulletinBoardNotificationCondition;
+  v73 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF5A0] inPredicate:smartBulletinBoardNotificationCondition validValues:7];
+  integerValue2 = [v73 integerValue];
   v29 = [HMDCameraSignificantEventBulletinNotificationRegistration alloc];
   v30 = accessoryCopy;
   uuid3 = [accessoryCopy uuid];
-  v76 = v26;
+  v75 = v26;
   v32 = [(HMDCameraSignificantEventBulletinNotificationRegistration *)v29 initWithCameraIdentifier:uuid3 notificationModes:v23 | isSmartBulletinBoardNotificationEnabled significantEventTypes:integerValue personFamiliarityOptions:integerValue2 conditions:v26];
 
-  v33 = [(HMDCameraAccessModeBulletinNotificationRegistration *)settingsCopy isSmartBulletinBoardNotificationEnabled]| v72;
+  v33 = [(HMDCameraAccessModeBulletinNotificationRegistration *)settingsCopy isSmartBulletinBoardNotificationEnabled]| v71;
   v34 = objc_autoreleasePoolPush();
   v35 = selfCopy;
   v36 = HMFGetOSLogHandle();
@@ -2821,16 +2910,16 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     v37 = HMFGetLogIdentifier();
     v38 = HMFBooleanToString();
     *buf = 138543874;
-    v93 = v37;
-    v94 = 2112;
-    v95 = v38;
-    v96 = 2112;
-    v97 = v32;
+    v92 = v37;
+    v93 = 2112;
+    v94 = v38;
+    v95 = 2112;
+    v96 = v32;
     _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Setting significant event registration enabled to %@ for %@", buf, 0x20u);
   }
 
-  v71 = v33;
-  v73 = v32;
+  v70 = v33;
+  v72 = v32;
 
   objc_autoreleasePoolPop(v34);
   v39 = [HMDCameraReachabilityBulletinNotificationRegistration alloc];
@@ -2848,11 +2937,11 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     v48 = HMFGetLogIdentifier();
     v49 = HMFBooleanToString();
     *buf = 138543874;
-    v93 = v48;
-    v94 = 2112;
-    v95 = v49;
-    v96 = 2112;
-    v97 = v43;
+    v92 = v48;
+    v93 = 2112;
+    v94 = v49;
+    v95 = 2112;
+    v96 = v43;
     _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_INFO, "%{public}@Setting reachability registration enabled to %@ for %@", buf, 0x20u);
   }
 
@@ -2872,49 +2961,47 @@ void __89__HMDCameraBulletinNotificationManager_devicesToNotifyForCameraReachabi
     HMFBooleanToString();
     v60 = v59 = isReachabilityEventNotificationEnabled;
     *buf = 138543874;
-    v93 = v58;
-    v94 = 2112;
-    v95 = v60;
-    v96 = 2112;
-    v97 = v53;
+    v92 = v58;
+    v93 = 2112;
+    v94 = v60;
+    v95 = 2112;
+    v96 = v53;
     _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_INFO, "%{public}@Setting access mode registration enabled to %@ for %@", buf, 0x20u);
 
     isReachabilityEventNotificationEnabled = v59;
   }
 
   objc_autoreleasePoolPop(v55);
-  backingStore = [v79 backingStore];
+  backingStore = [v78 backingStore];
   context = [backingStore context];
 
   managedObjectContext = [context managedObjectContext];
-  v81[0] = MEMORY[0x277D85DD0];
-  v81[1] = 3221225472;
-  v81[2] = __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrationsWithSettings_accessory_doorbellPressNotificationEnabled_completion___block_invoke;
-  v81[3] = &unk_278674580;
-  v82 = v40;
-  v83 = managedObjectContext;
-  v84 = v56;
-  v85 = v73;
-  v89 = v71;
-  v90 = isReachabilityEventNotificationEnabled;
-  v86 = v43;
-  v87 = v53;
-  v91 = isAccessModeChangeNotificationEnabled;
-  v88 = v78;
-  v64 = v78;
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrationsWithSettings_accessory_doorbellPressNotificationEnabled_completion___block_invoke;
+  v80[3] = &unk_278674580;
+  v81 = v40;
+  v82 = managedObjectContext;
+  v83 = v56;
+  v84 = v72;
+  v88 = v70;
+  v89 = isReachabilityEventNotificationEnabled;
+  v85 = v43;
+  v86 = v53;
+  v90 = isAccessModeChangeNotificationEnabled;
+  v87 = v77;
+  v64 = v77;
   v65 = v53;
   v66 = v43;
-  v67 = v73;
+  v67 = v72;
   v68 = managedObjectContext;
   v69 = v40;
-  [v68 performBlock:v81];
-
-  v70 = *MEMORY[0x277D85DE8];
+  [v68 performBlock:v80];
 }
 
 void __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrationsWithSettings_accessory_doorbellPressNotificationEnabled_completion___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [*(a1 + 32) uuid];
@@ -2926,7 +3013,7 @@ void __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrations
   v8 = [*(a1 + 32) uuid];
   v9 = [MKFLocalBulletinCameraAccessModeRegistration fetchCameraAccessModeRegistrationForAccessoryUUID:v8 managedObjectContext:*(a1 + 40)];
 
-  v46 = v9;
+  v45 = v9;
   if (v5 || v7 || v9)
   {
     v10 = objc_autoreleasePoolPush();
@@ -2944,9 +3031,9 @@ void __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrations
       [*(a1 + 32) uuid];
       v19 = v18 = v3;
       *buf = 138543618;
-      v50 = v17;
-      v51 = 2112;
-      v52 = v19;
+      v49 = v17;
+      v50 = 2112;
+      v51 = v19;
       v20 = "%{public}@Updating existing local registrations for camera: %@";
       v21 = v12;
       v22 = OS_LOG_TYPE_INFO;
@@ -2964,15 +3051,15 @@ void __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrations
       [*(a1 + 32) uuid];
       v19 = v18 = v3;
       *buf = 138544386;
-      v50 = v17;
-      v51 = 2112;
-      v52 = v19;
-      v53 = 2112;
-      v54 = v5;
-      v55 = 2112;
-      v56 = v7;
-      v57 = 2112;
-      v58 = v46;
+      v49 = v17;
+      v50 = 2112;
+      v51 = v19;
+      v52 = 2112;
+      v53 = v5;
+      v54 = 2112;
+      v55 = v7;
+      v56 = 2112;
+      v57 = v45;
       v20 = "%{public}@updateNotificationRegistrationWithSettings detected inconsistent registrations for camera: %@, significantEvent: %@, reachability: %@, accessMode: %@";
       v21 = v12;
       v22 = OS_LOG_TYPE_FAULT;
@@ -2995,9 +3082,9 @@ void __138__HMDCameraBulletinNotificationManager_updateNotificationRegistrations
       v14 = v13 = v3;
       v15 = [*(a1 + 32) uuid];
       *buf = 138543618;
-      v50 = v14;
-      v51 = 2112;
-      v52 = v15;
+      v49 = v14;
+      v50 = 2112;
+      v51 = v15;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Creating initial local registrations for camera: %@", buf, 0x16u);
 
       v3 = v13;
@@ -3022,7 +3109,7 @@ LABEL_14:
     [v24 addObject:*(a1 + 56)];
   }
 
-  v25 = v46;
+  v25 = v45;
   if ([*(a1 + 48) _updateLocalStoreWithCameraReachabilityBulletinRegistration:*(a1 + 64) existingMKFLocalRegistration:v7 enabled:*(a1 + 89) moc:*(a1 + 40)])
   {
     if (*(a1 + 89))
@@ -3038,7 +3125,7 @@ LABEL_14:
     [v26 addObject:*(a1 + 64)];
   }
 
-  if ([*(a1 + 48) _updateLocalStoreWithCameraAccessModeBulletinRegistration:*(a1 + 72) existingMKFLocalRegistration:v46 enabled:*(a1 + 90) moc:*(a1 + 40)])
+  if ([*(a1 + 48) _updateLocalStoreWithCameraAccessModeBulletinRegistration:*(a1 + 72) existingMKFLocalRegistration:v45 enabled:*(a1 + 90) moc:*(a1 + 40)])
   {
     if (*(a1 + 90))
     {
@@ -3062,7 +3149,7 @@ LABEL_14:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v31;
+      v49 = v31;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Skipping save and not messaging primary because notification registration update resulted in no changes", buf, 0xCu);
     }
 
@@ -3078,9 +3165,9 @@ LABEL_14:
   {
     v33 = v3;
     v34 = *(a1 + 40);
-    v48 = 0;
-    v35 = [v34 save:&v48];
-    v36 = v48;
+    v47 = 0;
+    v35 = [v34 save:&v47];
+    v36 = v47;
     [*(a1 + 40) reset];
     v37 = objc_autoreleasePoolPush();
     v38 = *(a1 + 48);
@@ -3092,11 +3179,11 @@ LABEL_14:
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v50 = v41;
-        v51 = 2112;
-        v52 = v2;
-        v53 = 2112;
-        v54 = v33;
+        v49 = v41;
+        v50 = 2112;
+        v51 = v2;
+        v52 = 2112;
+        v53 = v33;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@Successfully updated local enabled registrations: %@, disabled registrations: %@", buf, 0x20u);
       }
 
@@ -3116,13 +3203,13 @@ LABEL_14:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v50 = v43;
-        v51 = 2112;
-        v52 = v2;
-        v53 = 2112;
-        v54 = v33;
-        v55 = 2112;
-        v56 = v36;
+        v49 = v43;
+        v50 = 2112;
+        v51 = v2;
+        v52 = 2112;
+        v53 = v33;
+        v54 = 2112;
+        v55 = v36;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to update local enabled registrations: %@, disabled registrations: %@ due to error: %@", buf, 0x2Au);
       }
 
@@ -3136,10 +3223,8 @@ LABEL_14:
       (*(v44 + 16))(v44, v36);
     }
 
-    v25 = v46;
+    v25 = v45;
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cameraUserNotificationSettingsForAccessory:(id)accessory
@@ -3209,7 +3294,7 @@ LABEL_14:
     [v14 setSmartBulletinBoardNotificationCondition:v43[5]];
     [v14 setReachabilityEventNotificationEnabled:*(v39 + 24)];
     [v14 setAccessModeChangeNotificationEnabled:*(v35 + 24)];
-    v15 = [v14 copy];
+    v15 = objc_msgSend_copy(v14);
   }
 
   else
@@ -3229,7 +3314,7 @@ LABEL_14:
 
 void __83__HMDCameraBulletinNotificationManager_cameraUserNotificationSettingsForAccessory___block_invoke(uint64_t a1)
 {
-  v42[3] = *MEMORY[0x277D85DE8];
+  v41[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [*(a1 + 40) uuid];
   v4 = [MKFLocalBulletinCameraSignificantEventRegistration fetchCameraSignificantEventRegistrationForAccessoryUUID:v3 managedObjectContext:v2];
@@ -3253,15 +3338,15 @@ void __83__HMDCameraBulletinNotificationManager_cameraUserNotificationSettingsFo
         v14 = HMFGetLogIdentifier();
         v15 = [*(a1 + 40) uuid];
         *buf = 138544386;
-        v33 = v14;
-        v34 = 2112;
-        v35 = v15;
-        v36 = 2112;
-        v37 = v4;
-        v38 = 2112;
-        v39 = v6;
-        v40 = 2112;
-        v41 = v8;
+        v32 = v14;
+        v33 = 2112;
+        v34 = v15;
+        v35 = 2112;
+        v36 = v4;
+        v37 = 2112;
+        v38 = v6;
+        v39 = 2112;
+        v40 = v8;
         v16 = "%{public}@cameraUserNotificationSettingsForAccessory detected inconsistent registrations for camera: %@, significantEvent: %@, reachability: %@, accessMode: %@";
         v17 = v13;
         v18 = OS_LOG_TYPE_FAULT;
@@ -3275,9 +3360,9 @@ void __83__HMDCameraBulletinNotificationManager_cameraUserNotificationSettingsFo
       v14 = HMFGetLogIdentifier();
       v15 = [*(a1 + 40) uuid];
       *buf = 138543618;
-      v33 = v14;
-      v34 = 2112;
-      v35 = v15;
+      v32 = v14;
+      v33 = 2112;
+      v34 = v15;
       v16 = "%{public}@Did not find any local registrations for camera: %@";
       v17 = v13;
       v18 = OS_LOG_TYPE_INFO;
@@ -3316,33 +3401,31 @@ LABEL_13:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     v27 = HMFGetLogIdentifier();
-    v42[0] = v4;
-    v42[1] = v6;
-    v42[2] = v8;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
-    v28 = v31 = v24;
+    v41[0] = v4;
+    v41[1] = v6;
+    v41[2] = v8;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+    v28 = v30 = v24;
     v29 = [*(a1 + 40) uuid];
     *buf = 138543874;
-    v33 = v27;
-    v34 = 2112;
-    v35 = v28;
-    v36 = 2112;
-    v37 = v29;
+    v32 = v27;
+    v33 = 2112;
+    v34 = v28;
+    v35 = 2112;
+    v36 = v29;
     _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Found local registrations: %@ for camera: %@", buf, 0x20u);
 
-    v24 = v31;
+    v24 = v30;
   }
 
   objc_autoreleasePoolPop(v24);
 LABEL_19:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithDeviceIsResidentCapable:(BOOL)capable
 {
   capableCopy = capable;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (self)
   {
     home = [(HMDCameraBulletinNotificationManager *)self home];
@@ -3356,13 +3439,13 @@ LABEL_19:
         v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v8, "count")}];
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v52 = __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke;
-        v53 = &unk_278674938;
+        v51 = __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke;
+        v52 = &unk_278674938;
         selfCopy = self;
         selfCopy2 = v8;
-        v55 = selfCopy2;
+        v54 = selfCopy2;
         v11 = v9;
-        v56 = v11;
+        v55 = v11;
         [(HMDCameraBulletinNotificationManager *)selfCopy2 hmf_enumerateWithAutoreleasePoolUsingBlock:&buf];
         if ([v11 count])
         {
@@ -3371,15 +3454,15 @@ LABEL_19:
           context = [backingStore context];
 
           managedObjectContext = [context managedObjectContext];
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke_152;
-          v46[3] = &unk_27868A010;
-          v46[4] = self;
-          v47 = v11;
-          v48 = managedObjectContext;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke_152;
+          v45[3] = &unk_27868A010;
+          v45[4] = self;
+          v46 = v11;
+          v47 = managedObjectContext;
           v16 = managedObjectContext;
-          [v16 performBlockAndWait:v46];
+          [v16 performBlockAndWait:v45];
         }
       }
 
@@ -3404,15 +3487,15 @@ LABEL_19:
   v19 = [HMDUserMessagePolicy userMessagePolicyWithHome:home3 userPrivilege:0 remoteAccessRequired:0];
   v20 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
   messageDispatcher = [(HMDCameraBulletinNotificationManager *)self messageDispatcher];
-  v50[0] = v20;
-  v50[1] = v19;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+  v49[0] = v20;
+  v49[1] = v19;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
   [messageDispatcher registerForMessage:@"HMDBulletinNotificationCameraSignificantEventMessage" receiver:self policies:v22 selector:sel__handleCameraSignificantEventNotificationMessage_];
 
   messageDispatcher2 = [(HMDCameraBulletinNotificationManager *)self messageDispatcher];
-  v49[0] = v20;
-  v49[1] = v19;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+  v48[0] = v20;
+  v48[1] = v19;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
   [messageDispatcher2 registerForMessage:@"HMDBulletinNotificationNotifyPrimaryResidentOfCameraSignificantEventMessage" receiver:self policies:v24 selector:sel__handleCameraSignificantEventBulletinNotifyPrimaryResidentMessage_];
 
   notificationCenter = [(HMDCameraBulletinNotificationManager *)self notificationCenter];
@@ -3458,12 +3541,12 @@ LABEL_19:
 
       objc_autoreleasePoolPop(v37);
       workQueue2 = [(HMDCameraBulletinNotificationManager *)selfCopy3 workQueue];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __77__HMDCameraBulletinNotificationManager_configureWithDeviceIsResidentCapable___block_invoke;
-      v45[3] = &unk_27868A728;
-      v45[4] = selfCopy3;
-      dispatch_async(workQueue2, v45);
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __77__HMDCameraBulletinNotificationManager_configureWithDeviceIsResidentCapable___block_invoke;
+      v44[3] = &unk_27868A728;
+      v44[4] = selfCopy3;
+      dispatch_async(workQueue2, v44);
     }
 
     else
@@ -3479,13 +3562,11 @@ LABEL_19:
       objc_autoreleasePoolPop(v37);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3545,13 +3626,13 @@ void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigratio
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           v24 = HMFGetLogIdentifier();
-          v26 = 138543874;
-          v27 = v24;
-          v28 = 2112;
-          v29 = @"HMD.CNS";
-          v30 = 2112;
-          v31 = v3;
-          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid object for %@: %@", &v26, 0x20u);
+          v25 = 138543874;
+          v26 = v24;
+          v27 = 2112;
+          v28 = @"HMD.CNS";
+          v29 = 2112;
+          v30 = v3;
+          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid object for %@: %@", &v25, 0x20u);
         }
 
         objc_autoreleasePoolPop(v21);
@@ -3566,13 +3647,13 @@ void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigratio
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v26 = 138543874;
-        v27 = v20;
-        v28 = 2112;
-        v29 = @"HMD.CNS.A";
-        v30 = 2112;
-        v31 = v3;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Invalid object for %@: %@", &v26, 0x20u);
+        v25 = 138543874;
+        v26 = v20;
+        v27 = 2112;
+        v28 = @"HMD.CNS.A";
+        v29 = 2112;
+        v30 = v3;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Invalid object for %@: %@", &v25, 0x20u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -3588,121 +3669,117 @@ void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigratio
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 40);
-      v26 = 138543874;
-      v27 = v15;
-      v28 = 2112;
-      v29 = v3;
-      v30 = 2112;
-      v31 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected object type: %@, %@", &v26, 0x20u);
+      v25 = 138543874;
+      v26 = v15;
+      v27 = 2112;
+      v28 = v3;
+      v29 = 2112;
+      v30 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected object type: %@, %@", &v25, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke_152(uint64_t a1)
+void __74__HMDCameraBulletinNotificationManager_validateRegistrationsForMigration___block_invoke_152(uint64_t a1, const char *a2)
 {
   v32 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) copy];
-  v4 = *(a1 + 48);
-  v22 = v3;
-  v5 = v4;
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_copy(*(a1 + 40), a2);
+  v5 = *(a1 + 48);
+  v22 = v4;
   v6 = v5;
-  if (v2)
+  v7 = v6;
+  if (v3)
   {
-    [v5 hmd_assertIsExecuting];
-    v7 = objc_autoreleasePoolPush();
-    v8 = v2;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    [v6 hmd_assertIsExecuting];
+    v8 = objc_autoreleasePoolPush();
+    v9 = v3;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier();
+      v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      *&buf[4] = v10;
+      *&buf[4] = v11;
       *&buf[12] = 2112;
       *&buf[14] = v22;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Migrating bulletin registrations: %@", buf, 0x16u);
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Migrating bulletin registrations: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v8);
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___block_invoke;
     v29 = &unk_278674960;
-    v30 = v8;
-    v11 = v6;
-    v31 = v11;
+    v30 = v9;
+    v12 = v7;
+    v31 = v12;
     [v22 enumerateKeysAndObjectsUsingBlock:buf];
-    if ([v11 hasChanges])
+    if ([v12 hasChanges])
     {
       v23 = 0;
-      v12 = [v11 hmd_saveWithTransactionAuthor:7 error:&v23];
-      v13 = v23;
-      v14 = objc_autoreleasePoolPush();
-      v15 = v8;
-      v16 = HMFGetOSLogHandle();
-      v17 = v16;
-      if (v12)
+      v13 = [v12 hmd_saveWithTransactionAuthor:7 error:&v23];
+      v14 = v23;
+      v15 = objc_autoreleasePoolPush();
+      v16 = v9;
+      v17 = HMFGetOSLogHandle();
+      v18 = v17;
+      if (v13)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v18 = HMFGetLogIdentifier();
+          v19 = HMFGetLogIdentifier();
           *v24 = 138543362;
-          v25 = v18;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Successfully migrated bulletin registrations", v24, 0xCu);
+          v25 = v19;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Successfully migrated bulletin registrations", v24, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v14);
-        v19 = [v15 home];
-        [v19 removeCameraNotificationSettingsMigrationFileFromDisk];
+        objc_autoreleasePoolPop(v15);
+        v20 = [v16 home];
+        [v20 removeCameraNotificationSettingsMigrationFileFromDisk];
       }
 
       else
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v20 = HMFGetLogIdentifier();
+          v21 = HMFGetLogIdentifier();
           *v24 = 138543618;
-          v25 = v20;
+          v25 = v21;
           v26 = 2112;
           v27 = v22;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to migrate bulletin registrations: %@", v24, 0x16u);
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to migrate bulletin registrations: %@", v24, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v14);
-        [v11 rollback];
+        objc_autoreleasePoolPop(v15);
+        [v12 rollback];
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v71 = a2;
-  v67 = a3;
+  v70 = a2;
+  v66 = a3;
   v6 = v4;
   if (v5)
   {
-    v70 = v6;
+    v69 = v6;
     [v6 hmd_assertIsExecuting];
-    v68 = +[MKFLocalBulletinAccessoryRegistration fetchRequest];
-    v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"accessoryModelID", v71];
-    [v68 setPredicate:v7];
+    v67 = +[MKFLocalBulletinAccessoryRegistration fetchRequest];
+    v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"accessoryModelID", v70];
+    [v67 setPredicate:v7];
 
-    v90 = 0;
-    v69 = [v70 executeFetchRequest:v68 error:&v90];
-    v66 = v90;
-    v8 = v69;
-    if (!v69)
+    v89 = 0;
+    v68 = [v69 executeFetchRequest:v67 error:&v89];
+    v65 = v89;
+    v8 = v68;
+    if (!v68)
     {
       v9 = objc_autoreleasePoolPush();
       v10 = v5;
@@ -3713,7 +3790,7 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
         *buf = 138543618;
         *&buf[4] = v12;
         *&buf[12] = 2112;
-        *&buf[14] = v66;
+        *&buf[14] = v65;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch existing registrations: %@", buf, 0x16u);
       }
 
@@ -3721,37 +3798,37 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       v8 = 0;
     }
 
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x3032000000;
-    v87 = __Block_byref_object_copy__57771;
-    v88 = __Block_byref_object_dispose__57772;
-    v89 = 0;
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x3032000000;
-    v81 = __Block_byref_object_copy__57771;
-    v82 = __Block_byref_object_dispose__57772;
     v83 = 0;
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x3032000000;
-    v75 = __Block_byref_object_copy__57771;
-    v76 = __Block_byref_object_dispose__57772;
+    v84 = &v83;
+    v85 = 0x3032000000;
+    v86 = __Block_byref_object_copy__57771;
+    v87 = __Block_byref_object_dispose__57772;
+    v88 = 0;
     v77 = 0;
+    v78 = &v77;
+    v79 = 0x3032000000;
+    v80 = __Block_byref_object_copy__57771;
+    v81 = __Block_byref_object_dispose__57772;
+    v82 = 0;
+    v71 = 0;
+    v72 = &v71;
+    v73 = 0x3032000000;
+    v74 = __Block_byref_object_copy__57771;
+    v75 = __Block_byref_object_dispose__57772;
+    v76 = 0;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __89__HMDCameraBulletinNotificationManager_ensureRegistrationsForAccessory_settings_context___block_invoke;
-    v92 = &unk_278674988;
-    v95 = &v78;
-    v96 = &v72;
-    v93 = v5;
-    v94 = &v84;
+    v91 = &unk_278674988;
+    v94 = &v77;
+    v95 = &v71;
+    v92 = v5;
+    v93 = &v83;
     [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-    v13 = v85[5];
-    v14 = v71;
-    v15 = v67;
-    v16 = v70;
+    v13 = v84[5];
+    v14 = v70;
+    v15 = v66;
+    v16 = v69;
     [v16 hmd_assertIsExecuting];
     if (v13)
     {
@@ -3761,11 +3838,11 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v20;
-        v99 = 2112;
-        v100 = v13;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Already have a camera access mode registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v20;
+        v98 = 2112;
+        v99 = v13;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Already have a camera access mode registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -3795,17 +3872,17 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         v27 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v27;
-        v99 = 2112;
-        v100 = v21;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Created new camera access mode registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v27;
+        v98 = 2112;
+        v99 = v21;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Created new camera access mode registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v24);
     }
 
-    v28 = v79[5];
+    v28 = v78[5];
     v29 = v14;
     v30 = v15;
     v31 = v16;
@@ -3818,11 +3895,11 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         v35 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v35;
-        v99 = 2112;
-        v100 = v28;
-        _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Already have a camera reachability registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v35;
+        v98 = 2112;
+        v99 = v28;
+        _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Already have a camera reachability registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v32);
@@ -3852,17 +3929,17 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         v42 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v42;
-        v99 = 2112;
-        v100 = v36;
-        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Created new camera reachability registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v42;
+        v98 = 2112;
+        v99 = v36;
+        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Created new camera reachability registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v39);
     }
 
-    v43 = v73[5];
+    v43 = v72[5];
     v44 = v29;
     v45 = v30;
     v46 = v31;
@@ -3875,11 +3952,11 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         v50 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v50;
-        v99 = 2112;
-        v100 = v43;
-        _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Already have a camera significant event registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v50;
+        v98 = 2112;
+        v99 = v43;
+        _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Already have a camera significant event registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v47);
@@ -3910,8 +3987,8 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       {
         [(MKFLocalBulletinCameraSignificantEventRegistration *)v51 setNotificationModes:1];
         v54 = [v45 smartBulletinBoardNotificationCondition];
-        v65 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF598] inPredicate:v54 validValues:31];
-        v55 = [v65 integerValue];
+        v64 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF598] inPredicate:v54 validValues:31];
+        v55 = [v64 integerValue];
         v56 = [MEMORY[0x277CD1D18] bitwiseAndValueWithKeyPath:*MEMORY[0x277CCF5A0] inPredicate:v54 validValues:7];
         v57 = [v56 integerValue];
         [(MKFLocalBulletinCameraSignificantEventRegistration *)v51 setSignificantEventTypes:v55];
@@ -3927,29 +4004,27 @@ void __69__HMDCameraBulletinNotificationManager_migrateRegistrations_context___b
       if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
       {
         v63 = HMFGetLogIdentifier();
-        *v97 = 138543618;
-        v98 = v63;
-        v99 = 2112;
-        v100 = v51;
-        _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Created new camera significant event registration: %@", v97, 0x16u);
+        *v96 = 138543618;
+        v97 = v63;
+        v98 = 2112;
+        v99 = v51;
+        _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Created new camera significant event registration: %@", v96, 0x16u);
       }
 
       objc_autoreleasePoolPop(v60);
     }
 
-    _Block_object_dispose(&v72, 8);
-    _Block_object_dispose(&v78, 8);
+    _Block_object_dispose(&v71, 8);
+    _Block_object_dispose(&v77, 8);
 
-    _Block_object_dispose(&v84, 8);
-    v6 = v70;
+    _Block_object_dispose(&v83, 8);
+    v6 = v69;
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HMDCameraBulletinNotificationManager_ensureRegistrationsForAccessory_settings_context___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 entity];
   v6 = +[MKFLocalBulletinCameraAccessModeRegistration entity];
@@ -3983,43 +4058,41 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v16 = [v4 entity];
-  v17 = +[MKFLocalBulletinCharacteristicRegistration entity];
-  v18 = [v16 isKindOfEntity:v17];
+  v15 = [v4 entity];
+  v16 = +[MKFLocalBulletinCharacteristicRegistration entity];
+  v17 = [v15 isKindOfEntity:v16];
 
-  if ((v18 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    v19 = [v4 entity];
-    v20 = +[MKFLocalBulletinServiceRegistration entity];
-    v21 = [v19 isKindOfEntity:v20];
+    v18 = [v4 entity];
+    v19 = +[MKFLocalBulletinServiceRegistration entity];
+    v20 = [v18 isKindOfEntity:v19];
 
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
-      v22 = objc_autoreleasePoolPush();
-      v23 = *(a1 + 32);
-      v24 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v21 = objc_autoreleasePoolPush();
+      v22 = *(a1 + 32);
+      v23 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v25 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v25;
-        v28 = 2112;
-        v29 = v4;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unknown type of local registration, ignoring: %@", &v26, 0x16u);
+        v24 = HMFGetLogIdentifier();
+        v25 = 138543618;
+        v26 = v24;
+        v27 = 2112;
+        v28 = v4;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unknown type of local registration, ignoring: %@", &v25, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v22);
+      objc_autoreleasePoolPop(v21);
     }
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBulletinNotificationRegistrationSource)source
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accountManager = [(HMDCameraBulletinNotificationManager *)self accountManager];
   account = [accountManager account];
   currentDevice = [account currentDevice];
@@ -4044,9 +4117,9 @@ LABEL_8:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device user", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v18;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device user", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -4062,16 +4135,14 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device address", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device address", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -4509,15 +4580,14 @@ id __173__HMDCameraBulletinNotificationManager_initWithHome_workQueue_messageDis
 
 void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v99;
-  logCategory__hmf_once_v99 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v99;
+  logCategory__hmf_once_v99 = v0;
 }
 
 + (id)_cameraReachabilityRegistrationsForSource:(id)source context:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   contextCopy = context;
   v8 = +[_MKFCameraReachabilityBulletinRegistration fetchRequest];
@@ -4530,9 +4600,9 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
   v15 = [v9 predicateWithFormat:@"(%K == %@) && (%K == %@) && (%K == %@)", @"user.modelID", userUUID, @"deviceIdsIdentifier", idsIdentifier, @"deviceIdsDestination", idsDestination];
   [v8 setPredicate:v15];
 
-  v25 = 0;
-  v16 = [contextCopy executeFetchRequest:v8 error:&v25];
-  v17 = v25;
+  v24 = 0;
+  v16 = [contextCopy executeFetchRequest:v8 error:&v24];
+  v17 = v24;
   if (v16)
   {
     v18 = v16;
@@ -4547,9 +4617,9 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = sourceCopy;
+      v26 = v22;
+      v27 = 2112;
+      v28 = sourceCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch camera reachability bulletin registrations for source: %@", buf, 0x16u);
     }
 
@@ -4557,14 +4627,12 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
     v18 = MEMORY[0x277CBEBF8];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)_cameraAccessModeRegistrationsForSource:(id)source context:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   contextCopy = context;
   v8 = +[_MKFCameraAccessModeBulletinRegistration fetchRequest];
@@ -4577,9 +4645,9 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
   v15 = [v9 predicateWithFormat:@"(%K == %@) && (%K == %@) && (%K == %@)", @"user.modelID", userUUID, @"deviceIdsIdentifier", idsIdentifier, @"deviceIdsDestination", idsDestination];
   [v8 setPredicate:v15];
 
-  v25 = 0;
-  v16 = [contextCopy executeFetchRequest:v8 error:&v25];
-  v17 = v25;
+  v24 = 0;
+  v16 = [contextCopy executeFetchRequest:v8 error:&v24];
+  v17 = v24;
   if (v16)
   {
     v18 = v16;
@@ -4594,9 +4662,9 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = sourceCopy;
+      v26 = v22;
+      v27 = 2112;
+      v28 = sourceCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch camera access mode bulletin registrations for source: %@", buf, 0x16u);
     }
 
@@ -4604,14 +4672,12 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
     v18 = MEMORY[0x277CBEBF8];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)_cameraSignificantEventRegistrationsForSource:(id)source context:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   contextCopy = context;
   v8 = +[_MKFCameraSignificantEventBulletinRegistration fetchRequest];
@@ -4624,9 +4690,9 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
   v15 = [v9 predicateWithFormat:@"(%K == %@) && (%K == %@) && (%K == %@)", @"user.modelID", userUUID, @"deviceIdsIdentifier", idsIdentifier, @"deviceIdsDestination", idsDestination];
   [v8 setPredicate:v15];
 
-  v25 = 0;
-  v16 = [contextCopy executeFetchRequest:v8 error:&v25];
-  v17 = v25;
+  v24 = 0;
+  v16 = [contextCopy executeFetchRequest:v8 error:&v24];
+  v17 = v24;
   if (v16)
   {
     v18 = v16;
@@ -4641,17 +4707,15 @@ void __51__HMDCameraBulletinNotificationManager_logCategory__block_invoke()
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = sourceCopy;
+      v26 = v22;
+      v27 = 2112;
+      v28 = sourceCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch camera significant event bulletin registrations for source: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = MEMORY[0x277CBEBF8];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

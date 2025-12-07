@@ -94,14 +94,14 @@ void __40__ICMediaCryptoStrategyV2_decryptedData__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to access decrypted data while not authenticated for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to access decrypted data while not authenticated for %@", v4, v5, v6, v7);
 }
 
 void __40__ICMediaCryptoStrategyV2_decryptedData__block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Decrypting %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Decrypting %@", v4, v5, v6, v7);
 }
 
 void __40__ICMediaCryptoStrategyV2_decryptedData__block_invoke_cold_3(void *a1, NSObject *a2)
@@ -116,7 +116,7 @@ void __40__ICMediaCryptoStrategyV2_decryptedData__block_invoke_cold_4(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to decrypt a media that doesn have encrypted media url: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to decrypt a media that doesn have encrypted media url: %@", v4, v5, v6, v7);
 }
 
 @end

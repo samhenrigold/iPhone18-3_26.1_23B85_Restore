@@ -55,7 +55,7 @@
 
 - (void)setTransform:(SCNMatrix4 *)transform
 {
-  v4 = scn_default_log();
+  v4 = scn_default_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(SCNManipulableItem *)self setTransform:v4, v5, v6, v7, v8, v9, v10];
@@ -64,7 +64,7 @@
 
 - (void)setWorldTransform:(SCNMatrix4 *)transform
 {
-  v4 = scn_default_log();
+  v4 = scn_default_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(SCNManipulableItem *)self setWorldTransform:v4, v5, v6, v7, v8, v9, v10];
@@ -84,7 +84,7 @@
 
 - (void)setPosition:(SCNVector3)position
 {
-  v4 = scn_default_log();
+  v4 = scn_default_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(SCNManipulableItem *)self setPosition:v4, v5, v6, v7, v8, v9, v10];
@@ -100,6 +100,27 @@
   result.y = v3;
   result.x = v2;
   return result;
+}
+
+- (void)setTransform:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_6(&dword_21BEF7000, a2, a3, "Error: set transform not implemented on %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setWorldTransform:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_6(&dword_21BEF7000, a2, a3, "Error: set world transform not implemented on %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setPosition:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_6(&dword_21BEF7000, a2, a3, "Error: set position not implemented on %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -433,7 +433,6 @@ LABEL_19:
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -445,7 +444,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 0x800) != 0)
   {
-    siriApp = self->_siriApp;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -465,7 +463,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  isTriggeredByProximityChange = self->_isTriggeredByProximityChange;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -480,7 +477,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  oldLinkState = self->_oldLinkState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -495,7 +491,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  newLinkState = self->_newLinkState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -510,7 +505,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  wifiProximity = self->_wifiProximity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -525,7 +519,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  ccAssertion = self->_ccAssertion;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -540,7 +533,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  enableCMAS = self->_enableCMAS;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -555,7 +547,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  enableTelephony = self->_enableTelephony;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -570,7 +561,6 @@ LABEL_14:
   }
 
 LABEL_31:
-  wifiRssi = self->_wifiRssi;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -585,7 +575,6 @@ LABEL_15:
   }
 
 LABEL_32:
-  btRssi = self->_btRssi;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -600,7 +589,6 @@ LABEL_16:
   }
 
 LABEL_33:
-  mModeState = self->_mModeState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -615,12 +603,10 @@ LABEL_17:
   }
 
 LABEL_34:
-  mModeStateDuration = self->_mModeStateDuration;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_18:
-    prevMModeState = self->_prevMModeState;
     PBDataWriterWriteUint32Field();
   }
 

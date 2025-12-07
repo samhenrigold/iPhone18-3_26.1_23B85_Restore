@@ -64,15 +64,15 @@
   v7.super_class = UIInputViewSetPlacementWrapper;
   if ([(UIInputViewSetPlacement *)&v7 isEqual:equalCopy])
   {
-    v5 = [(UIInputViewSetPlacement *)self->_actualPlacement isEqual:equalCopy[5]];
+    isEqual = objc_msgSend_isEqual_(self->_actualPlacement);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (CGRect)remoteIntrinsicContentSizeForInputViewInSet:(id)set includingIAV:(BOOL)v
@@ -90,7 +90,7 @@
   result = self->_actualPlacement;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   *&retstr->c = 0u;

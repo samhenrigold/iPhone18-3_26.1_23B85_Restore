@@ -167,8 +167,8 @@ uint64_t __50__SBUIAccessorySceneManager_registerPrimaryScene___block_invoke(uin
 - (void)scene:(id)scene didUpdateSettings:(id)settings
 {
   sceneCopy = scene;
-  transitionContext = [settings transitionContext];
-  [(SBUIAccessorySceneManager *)self _primarySceneDidUpdateSettings:sceneCopy transitionContext:transitionContext];
+  v7 = objc_msgSend_transitionContext(settings);
+  [(SBUIAccessorySceneManager *)self _primarySceneDidUpdateSettings:sceneCopy transitionContext:v7];
 }
 
 - (void)_primarySceneDidUpdateSettings:(id)settings transitionContext:(id)context

@@ -8,7 +8,7 @@
 + (id)presentFromViewController:(id)controller delegate:(id)delegate text:(id)text url:(id)url attachment:(id)attachment stringSelection:(id)selection range:(_NSRange)range addApproach:(int64_t)self0
 {
   location = range.location;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090, &qword_2154BE0D0);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = &v28 - v17;
   if (text)

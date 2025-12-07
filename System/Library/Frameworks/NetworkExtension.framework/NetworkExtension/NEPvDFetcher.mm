@@ -14,7 +14,7 @@
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   taskCopy = task;
   challengeCopy = challenge;
@@ -24,9 +24,9 @@
   {
     protectionSpace = [challengeCopy protectionSpace];
     authenticationMethod = [protectionSpace authenticationMethod];
-    v25 = 138412290;
-    v26 = authenticationMethod;
-    _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "PvD got challenge type %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = authenticationMethod;
+    _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "PvD got challenge type %@", &v24, 0xCu);
   }
 
   if (!challengeCopy)
@@ -36,9 +36,9 @@
 
   protectionSpace2 = [challengeCopy protectionSpace];
   authenticationMethod2 = [protectionSpace2 authenticationMethod];
-  v17 = [authenticationMethod2 isEqualToString:*MEMORY[0x1E696A940]];
+  isEqualToString = objc_msgSend_isEqualToString_(authenticationMethod2);
 
-  if (!v17)
+  if (!isEqualToString)
   {
     goto LABEL_14;
   }
@@ -48,8 +48,8 @@
     v21 = ne_log_obj();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_INFO, "PvD requesting client cert but none provided", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_INFO, "PvD requesting client cert but none provided", &v24, 2u);
     }
 
     goto LABEL_13;
@@ -61,8 +61,8 @@
     v21 = ne_log_obj();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v25) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Unable to create client credential for PvD challenge", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Unable to create client credential for PvD challenge", &v24, 2u);
     }
 
 LABEL_13:
@@ -76,24 +76,21 @@ LABEL_14:
   handlerCopy[2](handlerCopy, 0, v19);
 
 LABEL_15:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   connectivityCopy = connectivity;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     currentRequest = [connectivityCopy currentRequest];
     v7 = [currentRequest URL];
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "PvD configuration fetch is waiting for connectivity for %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "PvD configuration fetch is waiting for connectivity for %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isActive
@@ -178,9 +175,9 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v37.receiver = self;
-  v37.super_class = NEPvDFetcher;
-  self = [(NEPvDFetcher *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = NEPvDFetcher;
+  self = [(NEPvDFetcher *)&v36 init];
   if (!self)
   {
     self = ne_log_obj();
@@ -225,15 +222,15 @@ LABEL_9:
 
     objc_initWeak(location, self);
     fetchTimer = self->_fetchTimer;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __55__NEPvDFetcher_initWithDelegate_queue_url_identityRef___block_invoke;
-    v34[3] = &unk_1E7F0A020;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __55__NEPvDFetcher_initWithDelegate_queue_url_identityRef___block_invoke;
+    v33[3] = &unk_1E7F0A020;
     selfCopy = self;
-    v35 = selfCopy;
+    v34 = selfCopy;
     v27 = fetchTimer;
-    objc_copyWeak(&v36, location);
-    dispatch_source_set_event_handler(v27, v34);
+    objc_copyWeak(&v35, location);
+    dispatch_source_set_event_handler(v27, v33);
 
     v28 = self->_fetchTimer;
     v29 = dispatch_time(0x8000000000000000, 86400000000000);
@@ -242,7 +239,7 @@ LABEL_9:
     dispatch_activate(self->_fetchTimer);
     [(NEPvDFetcher *)selfCopy fetchPvDConfig];
     v30 = selfCopy;
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v35);
 
     objc_destroyWeak(location);
   }
@@ -261,20 +258,19 @@ LABEL_9:
   }
 
 LABEL_14:
-  v32 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 void __55__NEPvDFetcher_initWithDelegate_queue_url_identityRef___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "PvD fetch for %@ fired", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "PvD fetch for %@ fired", &v7, 0xCu);
   }
 
   v4 = os_transaction_create();
@@ -284,19 +280,17 @@ void __55__NEPvDFetcher_initWithDelegate_queue_url_identityRef___block_invoke(ui
   {
     [(NEPvDFetcher *)WeakRetained fetchPvDConfig];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPvDConfig
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x3032000000;
-  v17[3] = __Block_byref_object_copy__20481;
-  v17[4] = __Block_byref_object_dispose__20482;
-  v18 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy__20481;
+  v16[4] = __Block_byref_object_dispose__20482;
+  v17 = 0;
   if ((*(self + 8) & 1) == 0)
   {
     *(self + 8) = 1;
@@ -307,35 +301,33 @@ void __55__NEPvDFetcher_initWithDelegate_queue_url_identityRef___block_invoke(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v20 = v2;
+      v19 = v2;
       _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Fetching PvD configuration for url %@", buf, 0xCu);
     }
 
     v5 = *(self + 24);
-    v9 = MEMORY[0x1E69E9820];
-    v10 = 3221225472;
-    v11 = __30__NEPvDFetcher_fetchPvDConfig__block_invoke;
-    v12 = &unk_1E7F0A048;
+    v8 = MEMORY[0x1E69E9820];
+    v9 = 3221225472;
+    v10 = __30__NEPvDFetcher_fetchPvDConfig__block_invoke;
+    v11 = &unk_1E7F0A048;
     v6 = v2;
-    v13 = v6;
-    v14 = v17;
-    objc_copyWeak(&v15, &location);
-    v7 = [v5 dataTaskWithRequest:v3 completionHandler:&v9];
+    v12 = v6;
+    v13 = v16;
+    objc_copyWeak(&v14, &location);
+    v7 = [v5 dataTaskWithRequest:v3 completionHandler:&v8];
 
     [v7 resume];
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
 
     objc_destroyWeak(&location);
   }
 
-  _Block_object_dispose(v17, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v16, 8);
 }
 
 void __30__NEPvDFetcher_fetchPvDConfig__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v146 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   if (v8)
@@ -346,9 +338,9 @@ void __30__NEPvDFetcher_fetchPvDConfig__block_invoke(uint64_t a1, void *a2, void
       v10 = [v8 localizedDescription];
       v11 = *(a1 + 32);
       *buf = 138543618;
-      v140 = v10;
-      v141 = 2112;
-      v142 = v11;
+      v139 = v10;
+      v140 = 2112;
+      v141 = v11;
       v12 = "Fetching PvD configuration resulted in error: %{public}@ with url: %@";
       v13 = WeakRetained;
       goto LABEL_4;
@@ -366,18 +358,18 @@ void __30__NEPvDFetcher_fetchPvDConfig__block_invoke(uint64_t a1, void *a2, void
     {
       v33 = *(a1 + 32);
       *buf = 134218242;
-      v140 = v15;
-      v141 = 2112;
-      v142 = v33;
+      v139 = v15;
+      v140 = 2112;
+      v141 = v33;
       _os_log_error_impl(&dword_1BA83C000, WeakRetained, OS_LOG_TYPE_ERROR, "Fetching proxy PvD configuration resulted in unexpected response: %ld with url: %@", buf, 0x16u);
     }
 
     goto LABEL_36;
   }
 
-  v128 = 0;
-  v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v128];
-  WeakRetained = v128;
+  v127 = 0;
+  v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v127];
+  WeakRetained = v127;
   v17 = *(*(a1 + 40) + 8);
   v18 = *(v17 + 40);
   *(v17 + 40) = v16;
@@ -392,9 +384,9 @@ void __30__NEPvDFetcher_fetchPvDConfig__block_invoke(uint64_t a1, void *a2, void
 
     v34 = *(a1 + 32);
     *buf = 138412546;
-    v140 = WeakRetained;
-    v141 = 2112;
-    v142 = v34;
+    v139 = WeakRetained;
+    v140 = 2112;
+    v141 = v34;
     v12 = "Fetching proxy PvD configuration resulted in malformed JSON object: %@ with url: %@";
     v13 = v10;
 LABEL_4:
@@ -427,7 +419,7 @@ LABEL_35:
           v28 = [v20 objectForKey:@"expires"];
           v29 = [NEPvDFetcher formatExpirationDateFrom:v28];
           v30 = [MEMORY[0x1E695DF00] now];
-          v127 = v29;
+          v126 = v29;
           v31 = [v30 compare:v29];
 
           if (v31 != -1)
@@ -435,68 +427,68 @@ LABEL_35:
             v32 = ne_log_obj();
             if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
-              *v143 = 138412546;
-              v144 = v28;
-              v145 = 2112;
-              v146 = v21;
-              _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "PvD configuration is expired (%@) from %@", v143, 0x16u);
+              *v142 = 138412546;
+              v143 = v28;
+              v144 = 2112;
+              v145 = v21;
+              _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "PvD configuration is expired (%@) from %@", v142, 0x16u);
             }
 
 LABEL_23:
             goto LABEL_24;
           }
 
-          v126 = [v20 objectForKey:@"identifier"];
-          v124 = v28;
-          if (!isa_nsstring(v126) || ([v21 host], v50 = objc_claimAutoreleasedReturnValue(), v51 = [v126 isEqualToString:v50], v50, (v51 & 1) == 0))
+          v125 = [v20 objectForKey:@"identifier"];
+          v123 = v28;
+          if (!isa_nsstring(v125) || ([v21 host], v49 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v125), v49, (isEqualToString & 1) == 0))
           {
-            v70 = ne_log_obj();
-            v125 = v70;
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v69 = ne_log_obj();
+            v124 = v69;
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
-              *v143 = 138412546;
-              v144 = v21;
-              v145 = 2112;
-              v146 = v126;
-              _os_log_error_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_ERROR, "Matching identifier for PvD was not found in response for url %@ : %@", v143, 0x16u);
+              *v142 = 138412546;
+              v143 = v21;
+              v144 = 2112;
+              v145 = v125;
+              _os_log_error_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_ERROR, "Matching identifier for PvD was not found in response for url %@ : %@", v142, 0x16u);
             }
 
-            v71 = 0;
-            v72 = v127;
+            v70 = 0;
+            v71 = v126;
 LABEL_81:
 
-            if (v71)
+            if (v70)
             {
-              v76 = [objc_getProperty(WeakRetained v75];
-              v77 = [v76 isEqualToDictionary:*(*(*(a1 + 40) + 8) + 40)];
+              v75 = [objc_getProperty(WeakRetained v74];
+              v76 = [v75 isEqualToDictionary:*(*(*(a1 + 40) + 8) + 40)];
 
-              if ((v77 & 1) == 0)
+              if ((v76 & 1) == 0)
               {
-                v78 = ne_log_obj();
-                if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
+                v77 = ne_log_obj();
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
                 {
-                  Property = objc_getProperty(WeakRetained, v79, 72, 1);
-                  v81 = @"updated";
-                  v82 = *(a1 + 32);
+                  Property = objc_getProperty(WeakRetained, v78, 72, 1);
+                  v80 = @"updated";
+                  v81 = *(a1 + 32);
                   if (!Property)
                   {
-                    v81 = @"first";
+                    v80 = @"first";
                   }
 
                   *buf = 138412546;
-                  v140 = v81;
-                  v141 = 2112;
-                  v142 = v82;
-                  _os_log_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_INFO, "Got %@ PvD configuration from %@", buf, 0x16u);
+                  v139 = v80;
+                  v140 = 2112;
+                  v141 = v81;
+                  _os_log_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_INFO, "Got %@ PvD configuration from %@", buf, 0x16u);
                 }
 
-                v83 = [[NEPvDConfiguration alloc] initWithDictionary:?];
-                objc_setProperty_atomic(WeakRetained, v84, v83, 72);
+                v82 = [[NEPvDConfiguration alloc] initWithDictionary:?];
+                objc_setProperty_atomic(WeakRetained, v83, v82, 72);
 
                 v35 = objc_loadWeakRetained(&WeakRetained[8].isa);
                 if (objc_opt_respondsToSelector())
                 {
-                  [v35 configUpdated:objc_getProperty(WeakRetained, v85, 72, 1)];
+                  [v35 configUpdated:objc_getProperty(WeakRetained, v84, 72, 1)];
                 }
 
                 goto LABEL_26;
@@ -507,9 +499,9 @@ LABEL_24:
             v35 = ne_log_obj();
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
-              v73 = *(a1 + 32);
+              v72 = *(a1 + 32);
               *buf = 138412290;
-              v140 = v73;
+              v139 = v72;
               _os_log_debug_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_DEBUG, "Ignoring invalid or unchanged PvD configuration for %@", buf, 0xCu);
             }
 
@@ -549,9 +541,9 @@ LABEL_26:
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v140 = WeakRetained;
-              v141 = 2048;
-              v142 = v46 / 60;
+              v139 = WeakRetained;
+              v140 = 2048;
+              v141 = v46 / 60;
               _os_log_debug_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_DEBUG, "Fetching new PvD %@ in %lu mins", buf, 0x16u);
             }
 
@@ -561,104 +553,104 @@ LABEL_26:
             goto LABEL_35;
           }
 
-          v52 = [v20 objectForKey:@"proxies"];
-          v125 = v52;
-          if (isa_nsarray(v52) && [v52 count])
+          v51 = [v20 objectForKey:@"proxies"];
+          v124 = v51;
+          if (isa_nsarray(v51) && [v51 count])
           {
-            v53 = [v20 objectForKey:@"proxy-match"];
-            if (isa_nsarray(v53) && [v53 count])
+            v52 = [v20 objectForKey:@"proxy-match"];
+            if (isa_nsarray(v52) && [v52 count])
             {
-              v135 = 0u;
-              v136 = 0u;
-              v133 = 0u;
               v134 = 0u;
-              v54 = v53;
-              v120 = [v54 countByEnumeratingWithState:&v133 objects:buf count:16];
-              log = v54;
-              if (v120)
+              v135 = 0u;
+              v132 = 0u;
+              v133 = 0u;
+              v53 = v52;
+              v119 = [v53 countByEnumeratingWithState:&v132 objects:buf count:16];
+              log = v53;
+              if (v119)
               {
-                v113 = 0;
-                v116 = *v134;
+                v112 = 0;
+                v115 = *v133;
                 while (2)
                 {
-                  for (i = 0; i != v120; ++i)
+                  for (i = 0; i != v119; ++i)
                   {
-                    if (*v134 != v116)
+                    if (*v133 != v115)
                     {
-                      objc_enumerationMutation(v54);
+                      objc_enumerationMutation(v53);
                     }
 
-                    v56 = *(*(&v133 + 1) + 8 * i);
-                    v57 = [v56 objectForKey:@"ports"];
-                    if (isa_nsarray(v57) && [v57 count])
+                    v55 = *(*(&v132 + 1) + 8 * i);
+                    v56 = [v55 objectForKey:@"ports"];
+                    if (isa_nsarray(v56) && [v56 count])
                     {
-                      v114 = v57;
-                      v86 = ne_log_obj();
-                      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+                      v113 = v56;
+                      v85 = ne_log_obj();
+                      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
                       {
-                        *v143 = 138412290;
-                        v144 = v57;
-                        _os_log_error_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_ERROR, "PvD: Ports are not currently supported in proxy-match rules: %@", v143, 0xCu);
+                        *v142 = 138412290;
+                        v143 = v56;
+                        _os_log_error_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_ERROR, "PvD: Ports are not currently supported in proxy-match rules: %@", v142, 0xCu);
                       }
 
-                      v137 = 0;
+                      v136 = 0;
                       goto LABEL_100;
                     }
 
-                    v58 = [v56 objectForKey:@"proxies"];
-                    v59 = v58;
-                    if (v58 && [v58 count])
+                    v57 = [v55 objectForKey:@"proxies"];
+                    v58 = v57;
+                    if (v57 && [v57 count])
                     {
-                      v114 = v57;
-                      if (!isa_nsarray(v59) || ([v59 objectAtIndexedSubscript:0], v60 = objc_claimAutoreleasedReturnValue(), v61 = isa_nsstring(v60), v60, (v61 & 1) == 0))
+                      v113 = v56;
+                      if (!isa_nsarray(v58) || ([v58 objectAtIndexedSubscript:0], v59 = objc_claimAutoreleasedReturnValue(), v60 = isa_nsstring(v59), v59, (v60 & 1) == 0))
                       {
-                        v87 = ne_log_obj();
-                        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+                        v86 = ne_log_obj();
+                        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
                         {
-                          *v143 = 138412290;
-                          v144 = v59;
-                          _os_log_error_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_ERROR, "PvD: invalid proxies key value: %@", v143, 0xCu);
+                          *v142 = 138412290;
+                          v143 = v58;
+                          _os_log_error_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_ERROR, "PvD: invalid proxies key value: %@", v142, 0xCu);
                         }
 
 LABEL_99:
 
-                        v137 = 0;
+                        v136 = 0;
 LABEL_100:
 
-                        v89 = log;
+                        v88 = log;
 LABEL_101:
 
                         goto LABEL_102;
                       }
 
-                      if ([v59 count]>= 2)
+                      if ([v58 count]>= 2)
                       {
-                        v62 = ne_log_obj();
-                        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+                        v61 = ne_log_obj();
+                        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
                         {
-                          v65 = [v59 objectAtIndexedSubscript:1];
-                          *v143 = 138412290;
-                          v144 = v65;
-                          _os_log_debug_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_DEBUG, "PvD: ignore fallback proxy identifiers %@", v143, 0xCu);
+                          v64 = [v58 objectAtIndexedSubscript:1];
+                          *v142 = 138412290;
+                          v143 = v64;
+                          _os_log_debug_impl(&dword_1BA83C000, v61, OS_LOG_TYPE_DEBUG, "PvD: ignore fallback proxy identifiers %@", v142, 0xCu);
                         }
                       }
 
-                      v63 = [v59 objectAtIndexedSubscript:0];
-                      if (v113)
+                      v62 = [v58 objectAtIndexedSubscript:0];
+                      if (v112)
                       {
-                        v64 = [v113 isEqualToString:v63];
+                        v63 = objc_msgSend_isEqualToString_(v112);
 
-                        if ((v64 & 1) == 0)
+                        if ((v63 & 1) == 0)
                         {
-                          v87 = ne_log_obj();
-                          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+                          v86 = ne_log_obj();
+                          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
                           {
-                            v90 = [v59 objectAtIndexedSubscript:0];
-                            *v143 = 138412546;
-                            v144 = v113;
-                            v145 = 2112;
-                            v146 = v90;
-                            _os_log_error_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_ERROR, "PvD: match rules refer to different identifiers %@ != %@", v143, 0x16u);
+                            v89 = [v58 objectAtIndexedSubscript:0];
+                            *v142 = 138412546;
+                            v143 = v112;
+                            v144 = 2112;
+                            v145 = v89;
+                            _os_log_error_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_ERROR, "PvD: match rules refer to different identifiers %@ != %@", v142, 0x16u);
                           }
 
                           goto LABEL_99;
@@ -667,16 +659,16 @@ LABEL_101:
 
                       else
                       {
-                        v113 = v63;
+                        v112 = v62;
                       }
 
-                      v54 = log;
-                      v57 = v114;
+                      v53 = log;
+                      v56 = v113;
                     }
                   }
 
-                  v120 = [v54 countByEnumeratingWithState:&v133 objects:buf count:16];
-                  if (v120)
+                  v119 = [v53 countByEnumeratingWithState:&v132 objects:buf count:16];
+                  if (v119)
                   {
                     continue;
                   }
@@ -684,166 +676,166 @@ LABEL_101:
                   break;
                 }
 
-                if (!v113)
+                if (!v112)
                 {
-                  v113 = 0;
+                  v112 = 0;
 LABEL_91:
-                  v137 = 1;
+                  v136 = 1;
 LABEL_102:
                   v23 = 0x1E695D000;
-                  v72 = v127;
+                  v71 = v126;
 
-                  v71 = v137;
+                  v70 = v136;
                   goto LABEL_80;
                 }
 
-                v121 = [NEPvDFetcher findProxy:v125 proxyToFind:v113];
-                if (!v121 || [v121 count]!= 2)
+                v120 = [NEPvDFetcher findProxy:v124 proxyToFind:v112];
+                if (!v120 || [v120 count]!= 2)
                 {
-                  v91 = ne_log_obj();
-                  if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+                  v90 = ne_log_obj();
+                  if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                   {
-                    *v143 = 138412546;
-                    v144 = v113;
-                    v145 = 2112;
-                    v146 = v121;
-                    _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "PvD: Referenced proxy %@ did not have 2 entries: %@", v143, 0x16u);
+                    *v142 = 138412546;
+                    v143 = v112;
+                    v144 = 2112;
+                    v145 = v120;
+                    _os_log_error_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_ERROR, "PvD: Referenced proxy %@ did not have 2 entries: %@", v142, 0x16u);
                   }
 
-                  v137 = 0;
+                  v136 = 0;
                   goto LABEL_130;
                 }
 
-                v66 = [v121 objectAtIndexedSubscript:0];
-                v67 = [v66 objectForKey:@"protocol"];
+                v65 = [v120 objectAtIndexedSubscript:0];
+                v66 = [v65 objectForKey:@"protocol"];
 
-                LOBYTE(v66) = [v67 isEqualToString:@"https-connect"];
-                v117 = [v67 isEqualToString:@"connect-udp"];
-                v68 = [v121 objectAtIndexedSubscript:1];
-                v112 = [v68 objectForKey:@"protocol"];
+                LOBYTE(v65) = objc_msgSend_isEqualToString_(v66);
+                v116 = objc_msgSend_isEqualToString_(v66);
+                v67 = [v120 objectAtIndexedSubscript:1];
+                v111 = [v67 objectForKey:@"protocol"];
 
-                if (v66)
+                if (v65)
                 {
-                  v69 = 0;
+                  v68 = 0;
                 }
 
                 else
                 {
-                  v69 = [v112 isEqualToString:@"https-connect"] ^ 1;
+                  v68 = objc_msgSend_isEqualToString_(v111) ^ 1;
                 }
 
-                if (v117)
+                if (v116)
                 {
-                  v92 = 0;
+                  v91 = 0;
                 }
 
                 else
                 {
-                  v92 = [v112 isEqualToString:@"connect-udp"] ^ 1;
+                  v91 = objc_msgSend_isEqualToString_(v111) ^ 1;
                 }
 
-                if ((v69 | v92))
+                if ((v68 | v91))
                 {
-                  v93 = ne_log_obj();
-                  if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+                  v92 = ne_log_obj();
+                  if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
                   {
-                    *v143 = 138412290;
-                    v144 = v113;
-                    v94 = "PvD: Proxy identifier %@ does not handle both TCP and UDP";
+                    *v142 = 138412290;
+                    v143 = v112;
+                    v93 = "PvD: Proxy identifier %@ does not handle both TCP and UDP";
 LABEL_139:
-                    _os_log_error_impl(&dword_1BA83C000, v93, OS_LOG_TYPE_ERROR, v94, v143, 0xCu);
+                    _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, v93, v142, 0xCu);
                     goto LABEL_129;
                   }
 
                   goto LABEL_129;
                 }
 
-                v118 = [v121 objectAtIndexedSubscript:0];
-                v95 = [v118 objectForKey:@"alpn"];
-                v96 = [v121 objectAtIndexedSubscript:1];
-                v97 = [v96 objectForKey:@"alpn"];
-                v98 = [v95 isEqual:v97];
+                v117 = [v120 objectAtIndexedSubscript:0];
+                v94 = [v117 objectForKey:@"alpn"];
+                v95 = [v120 objectAtIndexedSubscript:1];
+                v96 = [v95 objectForKey:@"alpn"];
+                v97 = [v94 isEqual:v96];
 
-                if ((v98 & 1) == 0)
+                if ((v97 & 1) == 0)
                 {
-                  v93 = ne_log_obj();
-                  if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+                  v92 = ne_log_obj();
+                  if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
                   {
-                    *v143 = 138412290;
-                    v144 = v121;
-                    v94 = "PvD: Two proxies do not have matching ALPN values: %@";
+                    *v142 = 138412290;
+                    v143 = v120;
+                    v93 = "PvD: Two proxies do not have matching ALPN values: %@";
                     goto LABEL_139;
                   }
 
 LABEL_129:
 
-                  v137 = 0;
+                  v136 = 0;
 LABEL_130:
-                  v89 = v121;
+                  v88 = v120;
                   goto LABEL_101;
                 }
 
-                v131 = 0u;
-                v132 = 0u;
-                v129 = 0u;
                 v130 = 0u;
-                v54 = v121;
-                v111 = [v54 countByEnumeratingWithState:&v129 objects:v138 count:16];
-                if (v111)
+                v131 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v53 = v120;
+                v110 = [v53 countByEnumeratingWithState:&v128 objects:v137 count:16];
+                if (v110)
                 {
-                  v110 = *v130;
+                  v109 = *v129;
                   while (2)
                   {
-                    for (j = 0; j != v111; ++j)
+                    for (j = 0; j != v110; ++j)
                     {
-                      if (*v130 != v110)
+                      if (*v129 != v109)
                       {
-                        objc_enumerationMutation(v54);
+                        objc_enumerationMutation(v53);
                       }
 
-                      v99 = *(*(&v129 + 1) + 8 * j);
-                      v100 = [v99 objectForKey:@"proxy"];
-                      v101 = [v21 host];
-                      v119 = v100;
-                      LOBYTE(v100) = [v100 containsString:v101];
+                      v98 = *(*(&v128 + 1) + 8 * j);
+                      v99 = [v98 objectForKey:@"proxy"];
+                      v100 = [v21 host];
+                      v118 = v99;
+                      LOBYTE(v99) = [v99 containsString:v100];
 
-                      if ((v100 & 1) == 0)
+                      if ((v99 & 1) == 0)
                       {
-                        v107 = ne_log_obj();
-                        if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+                        v106 = ne_log_obj();
+                        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
                         {
-                          v109 = [v21 host];
-                          *v143 = 138412546;
-                          v144 = v119;
-                          v145 = 2112;
-                          v146 = v109;
-                          _os_log_error_impl(&dword_1BA83C000, v107, OS_LOG_TYPE_ERROR, "PvD: Proxy URL %@ does not contain relay host %@", v143, 0x16u);
+                          v108 = [v21 host];
+                          *v142 = 138412546;
+                          v143 = v118;
+                          v144 = 2112;
+                          v145 = v108;
+                          _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "PvD: Proxy URL %@ does not contain relay host %@", v142, 0x16u);
                         }
 
-                        v137 = 0;
+                        v136 = 0;
                         goto LABEL_137;
                       }
 
-                      v115 = [v99 objectForKey:@"protocol"];
-                      if ([v115 isEqualToString:@"connect-udp"])
+                      v114 = [v98 objectForKey:@"protocol"];
+                      if (objc_msgSend_isEqualToString_(v114))
                       {
-                        v102 = MEMORY[0x1E695DFF8];
-                        v103 = [v99 objectForKey:@"proxy"];
-                        v104 = [v102 URLWithString:v103];
+                        v101 = MEMORY[0x1E695DFF8];
+                        v102 = [v98 objectForKey:@"proxy"];
+                        v103 = [v101 URLWithString:v102];
 
-                        v105 = [v104 path];
-                        v106 = v105;
-                        if (!v105 || ([v105 containsString:@".well-known/masque/udp"] & 1) == 0)
+                        v104 = [v103 path];
+                        v105 = v104;
+                        if (!v104 || ([v104 containsString:@".well-known/masque/udp"] & 1) == 0)
                         {
-                          v108 = ne_log_obj();
-                          if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+                          v107 = ne_log_obj();
+                          if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
                           {
-                            *v143 = 138412290;
-                            v144 = v104;
-                            _os_log_error_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_ERROR, "PvD: connect-udp proxy URI path must contain '.well-known/masque/udp/{target_host}/{target_port}': %@", v143, 0xCu);
+                            *v142 = 138412290;
+                            v143 = v103;
+                            _os_log_error_impl(&dword_1BA83C000, v107, OS_LOG_TYPE_ERROR, "PvD: connect-udp proxy URI path must contain '.well-known/masque/udp/{target_host}/{target_port}': %@", v142, 0xCu);
                           }
 
-                          v137 = 0;
+                          v136 = 0;
 LABEL_137:
 
                           goto LABEL_102;
@@ -851,8 +843,8 @@ LABEL_137:
                       }
                     }
 
-                    v111 = [v54 countByEnumeratingWithState:&v129 objects:v138 count:16];
-                    if (v111)
+                    v110 = [v53 countByEnumeratingWithState:&v128 objects:v137 count:16];
+                    if (v110)
                     {
                       continue;
                     }
@@ -864,21 +856,21 @@ LABEL_137:
 
               else
               {
-                v113 = 0;
+                v112 = 0;
               }
 
               goto LABEL_91;
             }
 
-            log = v53;
-            v74 = ne_log_obj();
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+            log = v52;
+            v73 = ne_log_obj();
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
-              *v143 = 0;
-              _os_log_error_impl(&dword_1BA83C000, v74, OS_LOG_TYPE_ERROR, "Ignoring PvD configuration, no valid proxy-match criteria", v143, 2u);
+              *v142 = 0;
+              _os_log_error_impl(&dword_1BA83C000, v73, OS_LOG_TYPE_ERROR, "Ignoring PvD configuration, no valid proxy-match criteria", v142, 2u);
             }
 
-            v71 = 0;
+            v70 = 0;
           }
 
           else
@@ -886,14 +878,14 @@ LABEL_137:
             log = ne_log_obj();
             if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
             {
-              *v143 = 0;
-              _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "Invalid PvD configuration, no valid proxies", v143, 2u);
+              *v142 = 0;
+              _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "Invalid PvD configuration, no valid proxies", v142, 2u);
             }
 
-            v71 = 0;
+            v70 = 0;
           }
 
-          v72 = v127;
+          v71 = v126;
 LABEL_80:
 
           goto LABEL_81;
@@ -908,16 +900,14 @@ LABEL_80:
     v28 = ne_log_obj();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      *v143 = 0;
-      _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "PvD configuration missing mandatory fields", v143, 2u);
+      *v142 = 0;
+      _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "PvD configuration missing mandatory fields", v142, 2u);
     }
 
     goto LABEL_23;
   }
 
 LABEL_36:
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (id)formatExpirationDateFrom:(void *)from
@@ -939,45 +929,45 @@ LABEL_36:
 
 - (id)findProxy:(void *)proxy proxyToFind:(void *)find
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   findCopy = find;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = proxyCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v20;
+    v10 = *v19;
     *&v8 = 138412290;
-    v18 = v8;
+    v17 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (isa_nsdictionary(v12))
         {
           v13 = [v12 objectForKey:@"identifier"];
-          v14 = [findCopy isEqualToString:v13];
+          isEqualToString = objc_msgSend_isEqualToString_(findCopy);
 
-          if (v14)
+          if (isEqualToString)
           {
             if (!array)
             {
               array = objc_alloc(MEMORY[0x1E695DF70]);
             }
 
-            [array addObject:{v12, v18, v19}];
+            [array addObject:{v12, v17, v18}];
           }
         }
 
@@ -986,20 +976,18 @@ LABEL_36:
           v15 = ne_log_obj();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v24 = v12;
+            *buf = v17;
+            v23 = v12;
             _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "Invalid proxy configuration, not a dictionary: %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }

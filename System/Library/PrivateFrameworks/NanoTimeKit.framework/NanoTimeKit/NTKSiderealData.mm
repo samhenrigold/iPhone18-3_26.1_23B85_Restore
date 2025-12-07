@@ -180,19 +180,20 @@
 
 - (void)save
 {
-  v4 = 0;
-  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v4];
-  if (!v4)
+  v5 = 0;
+  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v5];
+  v3 = v2;
+  if (!v5)
   {
-    v3 = _NTKSiderealDataCacheArchivePath();
-    [v2 writeToFile:v3 atomically:0];
+    v4 = _NTKSiderealDataCacheArchivePath(v2);
+    [v3 writeToFile:v4 atomically:0];
   }
 }
 
 + (id)loadCached
 {
   v2 = objc_alloc(MEMORY[0x277CBEA90]);
-  v3 = _NTKSiderealDataCacheArchivePath();
+  v3 = _NTKSiderealDataCacheArchivePath(v2);
   v4 = [v2 initWithContentsOfFile:v3 options:1 error:0];
 
   if (v4)
@@ -428,14 +429,14 @@ LABEL_17:
 
 - (id)_generateGradientDataForXR:(BOOL)r
 {
-  v3 = MEMORY[0x28223BE20](self, a2, r);
-  v5 = v4;
-  v6 = v3;
+  MEMORY[0x28223BE20](self, a2, r);
+  v4 = v3;
+  v6 = v5;
   v80[2] = *MEMORY[0x277D85DE8];
   v7 = objc_opt_new();
   v8 = +[NTKSiderealColorManager sharedInstance];
   v9 = v8;
-  if (v5)
+  if (v4)
   {
     dayGradientCurveP3 = [v8 dayGradientCurveP3];
 

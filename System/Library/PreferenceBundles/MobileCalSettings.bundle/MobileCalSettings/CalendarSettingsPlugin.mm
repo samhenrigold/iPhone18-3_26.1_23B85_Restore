@@ -54,11 +54,11 @@
 
 - (CalendarSettingsPlugin)init
 {
-  v4.receiver = self;
-  v4.super_class = CalendarSettingsPlugin;
-  v2 = [(CalendarSettingsPlugin *)&v4 init];
+  v5.receiver = self;
+  v5.super_class = CalendarSettingsPlugin;
+  v2 = [(CalendarSettingsPlugin *)&v5 init];
   v2->_isActive = 1;
-  CSLogInitialize();
+  CSLogInitialize(v2, v3);
   return v2;
 }
 

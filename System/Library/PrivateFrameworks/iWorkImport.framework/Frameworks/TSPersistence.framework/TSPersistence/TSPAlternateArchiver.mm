@@ -6,6 +6,7 @@
 - (TSPArchiverBase)parentArchiver;
 - (const)baseFieldPathAndReturnShouldDeleteReturnedValue:(BOOL *)value;
 - (id).cxx_construct;
+- (id)alternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion field:(int)field message:(const Message *)message;
 - (id)alternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion fieldPath:(int *)path message:(const Message *)message;
 - (id)alternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion message:(const Message *)message;
 - (id)parentAlternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion fieldPath:(int *)path message:(const Message *)message;
@@ -13,6 +14,7 @@
 - (void)enumerateKnownFieldRulesUsingBlock:(id)block;
 - (void)p_setPreserveNewerValueRuleForFieldPath:(int *)path fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message;
 - (void)p_setPreserveNewerValueUntilModifiedRuleForFieldPath:(int *)path fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message;
+- (void)removeField:(int)field message:(const Message *)message;
 - (void)removeFieldAtEndOfPath:(int *)path message:(const Message *)message;
 - (void)setPreserveNewerValueRuleForField:(int)field fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message;
 - (void)setPreserveNewerValueRuleForField:(int)field fileFormatVersion:(unint64_t)version message:(const Message *)message;
@@ -97,20 +99,18 @@
 
 - (void)setPreserveNewerValueRuleForField:(int)field fileFormatVersion:(unint64_t)version message:(const Message *)message
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6[0] = field;
-  v6[1] = 0;
-  objc_msgSend_p_setPreserveNewerValueRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v6, version, 0, message);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v5[0] = field;
+  v5[1] = 0;
+  objc_msgSend_p_setPreserveNewerValueRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v5, version, 0, message);
 }
 
 - (void)setPreserveNewerValueRuleForField:(int)field fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7[0] = field;
-  v7[1] = 0;
-  objc_msgSend_p_setPreserveNewerValueRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v7, version, identifier, message);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v6[0] = field;
+  v6[1] = 0;
+  objc_msgSend_p_setPreserveNewerValueRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v6, version, identifier, message);
 }
 
 - (void)p_setPreserveNewerValueRuleForFieldPath:(int *)path fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message
@@ -118,9 +118,9 @@
   identifierCopy = identifier;
   if ((objc_msgSend_isDiff(self, v10, v11) & 1) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Rule for preserving newer value for known field is not allowed for non-diff archives.", "[TSPAlternateArchiver p_setPreserveNewerValueRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm", 93);
     v21 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPAlternateArchiver p_setPreserveNewerValueRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "[TSPAlternateArchiver p_setPreserveNewerValueRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm", 93);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPAlternateArchiver p_setPreserveNewerValueRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]");
     v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v23, v25, 93, 1, "Rule for preserving newer value for known field is not allowed for non-diff archives.");
 
@@ -146,20 +146,18 @@
 
 - (void)setPreserveNewerValueUntilModifiedRuleForField:(int)field fileFormatVersion:(unint64_t)version message:(const Message *)message
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6[0] = field;
-  v6[1] = 0;
-  objc_msgSend_p_setPreserveNewerValueUntilModifiedRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v6, version, 0, message);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v5[0] = field;
+  v5[1] = 0;
+  objc_msgSend_p_setPreserveNewerValueUntilModifiedRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v5, version, 0, message);
 }
 
 - (void)setPreserveNewerValueUntilModifiedRuleForField:(int)field fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7[0] = field;
-  v7[1] = 0;
-  objc_msgSend_p_setPreserveNewerValueUntilModifiedRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v7, version, identifier, message);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v6[0] = field;
+  v6[1] = 0;
+  objc_msgSend_p_setPreserveNewerValueUntilModifiedRuleForFieldPath_fileFormatVersion_featureIdentifier_message_(self, a2, v6, version, identifier, message);
 }
 
 - (void)p_setPreserveNewerValueUntilModifiedRuleForFieldPath:(int *)path fileFormatVersion:(unint64_t)version featureIdentifier:(id)identifier message:(const Message *)message
@@ -167,9 +165,9 @@
   identifierCopy = identifier;
   if ((objc_msgSend_isDiff(self, v10, v11) & 1) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Rule for preserving newer value for known field is not allowed for non-diff archives.", "[TSPAlternateArchiver p_setPreserveNewerValueUntilModifiedRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm", 118);
     v21 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPAlternateArchiver p_setPreserveNewerValueUntilModifiedRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "[TSPAlternateArchiver p_setPreserveNewerValueUntilModifiedRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm", 118);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPAlternateArchiver p_setPreserveNewerValueUntilModifiedRuleForFieldPath:fileFormatVersion:featureIdentifier:message:]");
     v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v23, v25, 118, 1, "Rule for preserving newer value for known field is not allowed for non-diff archives.");
 
@@ -191,6 +189,70 @@
 
   *&self->_flags = flags | 2;
   objc_msgSend_setRule_forFieldPath_fileFormatVersion_featureIdentifier_message_(self, v12, 4, path, version, identifierCopy, message);
+}
+
+- (void)removeField:(int)field message:(const Message *)message
+{
+  if ((objc_msgSend_isDiff(self, a2, *&field) & 1) == 0)
+  {
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Rule for removing field is not allowed for non-diff archives.", "[TSPAlternateArchiver removeField:message:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm", 127);
+    v16 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPAlternateArchiver removeField:message:]");
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAlternateArchiver.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v18, v20, 127, 1, "Rule for removing field is not allowed for non-diff archives.");
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  objc_msgSend_validateMessage_(self, v7, message);
+  if (field)
+  {
+    p_fieldPathsToRemove = &self->_fieldPathsToRemove;
+    rep = p_fieldPathsToRemove->rep_;
+    if (rep)
+    {
+      current_size = p_fieldPathsToRemove->current_size_;
+      total_size = *rep;
+      if (current_size < *rep)
+      {
+        p_fieldPathsToRemove->current_size_ = current_size + 1;
+        v12 = *(rep + current_size + 1);
+LABEL_10:
+        v15 = *(v12 + 16);
+        if (v15 == *(v12 + 20))
+        {
+          google::protobuf::RepeatedField<unsigned int>::Reserve();
+        }
+
+        *(*(v12 + 24) + 4 * v15) = field;
+        *(v12 + 16) = v15 + 1;
+        return;
+      }
+
+      if (total_size != p_fieldPathsToRemove->total_size_)
+      {
+LABEL_9:
+        *rep = total_size + 1;
+        v12 = sub_2769F4FE8(p_fieldPathsToRemove->arena_);
+        v13 = p_fieldPathsToRemove->current_size_;
+        v14 = p_fieldPathsToRemove->rep_ + 8 * v13;
+        p_fieldPathsToRemove->current_size_ = v13 + 1;
+        *(v14 + 8) = v12;
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      total_size = p_fieldPathsToRemove->total_size_;
+    }
+
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(p_fieldPathsToRemove, total_size + 1);
+    rep = p_fieldPathsToRemove->rep_;
+    total_size = *rep;
+    goto LABEL_9;
+  }
 }
 
 - (void)removeFieldAtEndOfPath:(int *)path message:(const Message *)message
@@ -289,6 +351,26 @@ LABEL_10:
   }
 
   return v5;
+}
+
+- (id)alternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion field:(int)field message:(const Message *)message
+{
+  v10 = *MEMORY[0x277D85DE8];
+  if (self->_isDiff)
+  {
+    v9[0] = field;
+    v9[1] = 0;
+    v6 = objc_msgSend_parentAlternateDiffToMergeBeforeVersion_fileFormatVersion_fieldPath_message_(self, a2, version, formatVersion, v9, message);
+  }
+
+  else
+  {
+    v8.receiver = self;
+    v8.super_class = TSPAlternateArchiver;
+    v6 = [(TSPArchiverBase *)&v8 alternateDiffToMergeBeforeVersion:version fileFormatVersion:formatVersion field:*&field message:message];
+  }
+
+  return v6;
 }
 
 - (id)alternateDiffToMergeBeforeVersion:(unint64_t)version fileFormatVersion:(unint64_t)formatVersion fieldPath:(int *)path message:(const Message *)message

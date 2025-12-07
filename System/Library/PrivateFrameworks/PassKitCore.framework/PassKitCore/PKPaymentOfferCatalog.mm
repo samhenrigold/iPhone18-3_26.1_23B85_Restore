@@ -151,25 +151,25 @@ uint64_t __55__PKPaymentOfferCatalog_criteriaWithType_passUniqueID___block_invok
     v8 = v7;
     if (v6 == v7)
     {
-      v9 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v9 = 0;
+      isEqualToString = 0;
       if (v6 && v7)
       {
-        v9 = [v6 isEqualToString:v7];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
       }
     }
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
-  return v9;
+  return isEqualToString;
 }
 
 - (BOOL)isEqualIgnoringLastUpdatedDate:(id)date
@@ -325,19 +325,19 @@ uint64_t __48__PKPaymentOfferCatalog_criteriaWithIdentifier___block_invoke(uint6
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)capabilityForPassUniqueID:(id)d
@@ -372,19 +372,19 @@ uint64_t __51__PKPaymentOfferCatalog_capabilityForPassUniqueID___block_invoke(ui
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)dictionaryRepresentation

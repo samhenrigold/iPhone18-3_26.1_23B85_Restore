@@ -56,10 +56,10 @@
     }
 
     v15 = [HFActionSetSuggestionVendor alloc];
-    home = [(HFActionSetSuggestionItem *)self home];
+    v16 = objc_msgSend_home(self);
     actionSet3 = [(HFActionSetSuggestionItem *)self actionSet];
     v51 = serviceLikeItem;
-    v18 = [(HFActionSetSuggestionVendor *)v15 initWithHome:home actionSet:actionSet3 filter:serviceLikeItem];
+    v18 = [(HFActionSetSuggestionVendor *)v15 initWithHome:v16 actionSet:actionSet3 filter:serviceLikeItem];
 
     v54 = 0;
     v19 = [(HFActionSetSuggestionVendor *)v18 buildWithOutDependentServiceTypes:&v54];
@@ -130,8 +130,8 @@
         v40 = [serviceLikeItem4 copyWithValueSource:v39];
 
         v41 = [HFServiceActionItem alloc];
-        home2 = [(HFActionSetSuggestionItem *)self home];
-        v43 = [(HFServiceActionItem *)v41 initWithHome:home2 containingItem:v40];
+        v42 = objc_msgSend_home(self);
+        v43 = [(HFServiceActionItem *)v41 initWithHome:v42 containingItem:v40];
 
         v44 = MEMORY[0x277CBEB98];
         actions2 = [v19 actions];

@@ -37,7 +37,7 @@
             objc_enumerationMutation(itemsCopy);
           }
 
-          [*(*(&v14 + 1) + 8 * v11) duration];
+          objc_msgSend_duration(*(*(&v14 + 1) + 8 * v11));
           v6->_duration = v12 + v6->_duration;
           v11 = v11 + 1;
         }
@@ -234,13 +234,13 @@ LABEL_11:
 
       v19 = *(*(&v30 + 1) + 8 * v18);
       v20 = self->_localTime;
-      [v19 duration];
+      objc_msgSend_duration(v19);
       if (v20 < v17 + v21)
       {
         break;
       }
 
-      [v19 duration];
+      objc_msgSend_duration(v19);
       v17 = v17 + v22;
       if (v15 == ++v18)
       {
@@ -312,13 +312,13 @@ LABEL_3:
 
       v9 = *(*(&v17 + 1) + 8 * v8);
       localTime = self->_localTime;
-      [v9 duration];
+      objc_msgSend_duration(v9);
       if (localTime < v7 + v11)
       {
         break;
       }
 
-      [v9 duration];
+      objc_msgSend_duration(v9);
       v7 = v7 + v12;
       if (v5 == ++v8)
       {

@@ -230,7 +230,7 @@ LABEL_5:
         v9 = [_DASDaemonLogger logForCategory:@"remoteWidgetBudget"];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          sub_1001278A4(&self->_unavailableDate);
+          sub_1001278A4();
         }
       }
 
@@ -286,7 +286,7 @@ LABEL_14:
       v8 = [_DASDaemonLogger logForCategory:@"remoteWidgetBudget"];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_10012791C(&self->_actualUnavailableDate);
+        sub_10012791C();
       }
     }
 

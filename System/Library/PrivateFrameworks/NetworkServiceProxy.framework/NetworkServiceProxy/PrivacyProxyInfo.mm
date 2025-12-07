@@ -12,7 +12,7 @@
 
 - (id)description
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -29,27 +29,27 @@
     egressFallbackProxyURL = [(PrivacyProxyInfo *)selfCopy egressFallbackProxyURL];
     [(NSMutableString *)v3 appendPrettyObject:egressFallbackProxyURL withName:@"Egress fallback proxy URL" andIndent:0 options:14];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obj = [(PrivacyProxyInfo *)selfCopy tokenCounts];
-    v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-    v37 = selfCopy;
+    v8 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v36 = selfCopy;
     if (v8)
     {
       v9 = v8;
-      v10 = *v43;
+      v10 = *v42;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v43 != v10)
+          if (*v42 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v42 + 1) + 8 * i);
+          v12 = *(*(&v41 + 1) + 8 * i);
           tokenCounts = [(PrivacyProxyInfo *)selfCopy tokenCounts];
           v14 = [tokenCounts objectForKeyedSubscript:v12];
 
@@ -69,10 +69,10 @@
           v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ agent low water mark", v12];
           [(NSMutableString *)v3 appendPrettyInt:agentLowWaterMark withName:v22 andIndent:0 options:14];
 
-          selfCopy = v37;
+          selfCopy = v36;
         }
 
-        v9 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v9 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v9);
@@ -96,27 +96,27 @@
     [(NSMutableString *)v3 appendPrettyInt:@"Proxies rotated" withName:0 andIndent:14 options:?];
     [(NSMutableString *)v3 appendPrettyInt:@"Configuration fetch success count" withName:0 andIndent:14 options:?];
     [(NSMutableString *)v3 appendPrettyInt:@"Configuration fetch failed count" withName:0 andIndent:14 options:?];
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     resumableSessionCounts = [(PrivacyProxyInfo *)selfCopy resumableSessionCounts];
-    v24 = [resumableSessionCounts countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v24 = [resumableSessionCounts countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v39;
+      v26 = *v38;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v39 != v26)
+          if (*v38 != v26)
           {
             objc_enumerationMutation(resumableSessionCounts);
           }
 
-          v28 = *(*(&v38 + 1) + 8 * j);
-          resumableSessionCounts2 = [(PrivacyProxyInfo *)v37 resumableSessionCounts];
+          v28 = *(*(&v37 + 1) + 8 * j);
+          resumableSessionCounts2 = [(PrivacyProxyInfo *)v36 resumableSessionCounts];
           v30 = [resumableSessionCounts2 objectForKeyedSubscript:v28];
 
           unsignedIntValue = [v30 unsignedIntValue];
@@ -124,13 +124,13 @@
           [(NSMutableString *)v3 appendPrettyInt:unsignedIntValue withName:v32 andIndent:0 options:14];
         }
 
-        v25 = [resumableSessionCounts countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v25 = [resumableSessionCounts countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v25);
     }
 
-    enabledProxiedContentMaps = [(PrivacyProxyInfo *)v37 enabledProxiedContentMaps];
+    enabledProxiedContentMaps = [(PrivacyProxyInfo *)v36 enabledProxiedContentMaps];
     [(NSMutableString *)v3 appendPrettyObject:enabledProxiedContentMaps withName:@"Enabled proxied content maps" andIndent:0 options:14];
   }
 
@@ -138,8 +138,6 @@
   {
     v3 = 0;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -308,7 +306,7 @@
 
 - (id)diagnostics
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[PrivacyProxyInfo configFetchedFailedCount](self, "configFetchedFailedCount")}];
   [v3 setObject:v4 forKeyedSubscript:@"PrivacyProxyInfoConfigFetchFailedCount"];
@@ -376,26 +374,26 @@
   ingressFallbackProxyURL = [(PrivacyProxyInfo *)self ingressFallbackProxyURL];
   [v3 setObject:ingressFallbackProxyURL forKeyedSubscript:@"PrivacyProxyInfoIngressFallbackProxyURL"];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = [(PrivacyProxyInfo *)self tokenCounts];
-  v26 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v26 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v26)
   {
     v27 = v26;
-    v43 = *v45;
+    v42 = *v44;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v45 != v43)
+        if (*v44 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v44 + 1) + 8 * i);
+        v29 = *(*(&v43 + 1) + 8 * i);
         tokenCounts = [(PrivacyProxyInfo *)self tokenCounts];
         v31 = [tokenCounts objectForKeyedSubscript:v29];
 
@@ -416,13 +414,11 @@
         [v3 setObject:v38 forKeyedSubscript:v39];
       }
 
-      v27 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v27 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v27);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -438,13 +434,13 @@
 
 - (PrivacyProxyInfo)initWithData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ACD0];
   dataCopy = data;
-  v16 = 0;
-  v6 = [[v4 alloc] initForReadingFromData:dataCopy error:&v16];
+  v15 = 0;
+  v6 = [[v4 alloc] initForReadingFromData:dataCopy error:&v15];
 
-  v7 = v16;
+  v7 = v15;
   v8 = v7;
   if (v6)
   {
@@ -458,9 +454,9 @@
 
   if (v9)
   {
-    v15.receiver = self;
-    v15.super_class = PrivacyProxyInfo;
-    v12 = [(PrivacyProxyInfo *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = PrivacyProxyInfo;
+    v12 = [(PrivacyProxyInfo *)&v14 init];
     if (v12)
     {
       v12 = [(PrivacyProxyInfo *)v12 initWithCoder:v6];
@@ -476,14 +472,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, "Failed to create a decoder for the proxy info %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

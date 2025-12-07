@@ -8,8 +8,8 @@
 
 - (id)dictionaryRepresentation
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"resolvedIntent";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"resolvedIntent";
   resolvedIntent = self->_resolvedIntent;
   null = resolvedIntent;
   if (!resolvedIntent)
@@ -17,8 +17,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"resolvedParameters";
+  v15[0] = null;
+  v14[1] = @"resolvedParameters";
   resolvedParameters = self->_resolvedParameters;
   null2 = resolvedParameters;
   if (!resolvedParameters)
@@ -26,11 +26,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"resolvedAllParametersSuccesfully";
+  v15[1] = null2;
+  v14[2] = @"resolvedAllParametersSuccesfully";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_resolvedAllParametersSuccesfully];
-  v16[2] = v7;
-  v15[3] = @"confirmResponse";
+  v15[2] = v7;
+  v14[3] = @"confirmResponse";
   confirmResponse = self->_confirmResponse;
   null3 = confirmResponse;
   if (!confirmResponse)
@@ -38,8 +38,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null3;
-  v15[4] = @"handleResponse";
+  v15[3] = null3;
+  v14[4] = @"handleResponse";
   handleResponse = self->_handleResponse;
   null4 = handleResponse;
   if (!handleResponse)
@@ -47,8 +47,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (handleResponse)
   {
     if (confirmResponse)
@@ -85,7 +85,6 @@ LABEL_11:
   }
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

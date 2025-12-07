@@ -345,7 +345,7 @@ LABEL_18:
 
 - (id)displayFormatPaddingCharacters
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   displayFormatPlaceholder = [(DIAttributeText *)self displayFormatPlaceholder];
   v5 = [displayFormatPlaceholder length];
@@ -389,25 +389,25 @@ LABEL_18:
 
   else
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v11 = [&unk_282E7BA70 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v11 = [&unk_282E7BA70 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(&unk_282E7BA70);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(*(&v20 + 1) + 8 * i);
           displayFormat2 = [(DIAttribute *)self displayFormat];
           v17 = [displayFormat2 containsString:v15];
 
@@ -417,7 +417,7 @@ LABEL_18:
           }
         }
 
-        v12 = [&unk_282E7BA70 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [&unk_282E7BA70 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -426,14 +426,12 @@ LABEL_18:
 
   v18 = [MEMORY[0x277CBEA60] arrayWithArray:array];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)submissionString
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   getCurrentValue = [(DIAttributeText *)self getCurrentValue];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
   v5 = [getCurrentValue stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
@@ -444,35 +442,35 @@ LABEL_18:
 
     if (displayFormat)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       displayFormatPaddingCharacters = [(DIAttributeText *)self displayFormatPaddingCharacters];
-      v8 = [displayFormatPaddingCharacters countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [displayFormatPaddingCharacters countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         do
         {
           v11 = 0;
           v12 = v5;
           do
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(displayFormatPaddingCharacters);
             }
 
-            v5 = [v12 stringByReplacingOccurrencesOfString:*(*(&v16 + 1) + 8 * v11) withString:&stru_282E746B8];
+            v5 = [v12 stringByReplacingOccurrencesOfString:*(*(&v15 + 1) + 8 * v11) withString:&stru_282E746B8];
 
             ++v11;
             v12 = v5;
           }
 
           while (v9 != v11);
-          v9 = [displayFormatPaddingCharacters countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [displayFormatPaddingCharacters countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v9);
@@ -483,8 +481,6 @@ LABEL_18:
 
     v5 = [MEMORY[0x277CCACA8] _newZStringWithString:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

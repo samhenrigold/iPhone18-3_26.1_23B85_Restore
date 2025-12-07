@@ -1,1772 +1,14 @@
-void *std::vector<std::unique_ptr<llvm::MemoryBuffer>>::clear[abi:ne200100](void *result)
+uint64_t *std::vector<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  v1 = result;
-  v2 = *result;
-  v3 = result[1];
-  while (v3 != v2)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
   {
-    v4 = *--v3;
-    result = v4;
-    *v3 = 0;
-    if (v4)
-    {
-      result = (*(*result + 8))(result);
-    }
-  }
-
-  v1[1] = v2;
-  return result;
-}
-
-uint64_t llvm::SmallVector<LLVMOpaqueModule *,1u>::SmallVector(uint64_t a1, _BYTE *a2, uint64_t a3)
-{
-  *a1 = a1 + 16;
-  *(a1 + 8) = 0x100000000;
-  llvm::SmallVectorImpl<llvm::Metadata *>::append<llvm::Metadata * const*,void>(a1, a2, &a2[8 * a3]);
-  return a1;
-}
-
-void sub_257A51004(_Unwind_Exception *exception_object)
-{
-  v3 = v2;
-  if (*v1 != v3)
-  {
-    free(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *llvm::SmallVector<char const*,1u>::SmallVector(void *a1, unint64_t a2, uint64_t *a3)
-{
-  *a1 = a1 + 2;
-  a1[1] = 0x100000000;
-  llvm::SmallVectorImpl<llvm::Value *>::assign(a1, a2, *a3);
-  return a1;
-}
-
-void sub_257A51064(_Unwind_Exception *exception_object)
-{
-  v3 = v2;
-  if (*v1 != v3)
-  {
-    free(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::unique_ptr<void,LLVMMemoryBufferDeleter>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
-{
-  result = *a1;
-  *a1 = a2;
-  if (result)
-  {
-    return LLVMDisposeMemoryBuffer();
-  }
-
-  return result;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,LLVMOpaqueMemoryBuffer *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,LLVMOpaqueMemoryBuffer *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,LLVMOpaqueMemoryBuffer *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,LLVMOpaqueMemoryBuffer *>>>::__emplace_unique_key_args<std::string,std::string,LLVMOpaqueMemoryBuffer *&>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,llvm::StringRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,llvm::StringRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,llvm::StringRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,llvm::StringRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,llvm::StringRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,llvm::StringRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,llvm::StringRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,llvm::StringRef>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_257A51584(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
-{
-  if (__p)
-  {
-    std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MTLCompilerDataType>,void *>>>::operator()[abi:ne200100](&a11, __p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_257A5164C(_Unwind_Exception *a1)
-{
-  *v1 = 0;
-  std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MTLCompilerDataType>,void *>>>::operator()[abi:ne200100](v3, v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_0,std::allocator<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_0>,void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,std::vector<PackedInput> const&,std::vector<VaryingInfo> const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2868ECDF0;
-  a2[1] = v2;
-  return result;
-}
-
-void std::__function::__func<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_0,std::allocator<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_0>,void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,std::vector<PackedInput> const&,std::vector<VaryingInfo> const&)>::operator()(uint64_t a1, void *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6, uint64_t a7)
-{
-  v7 = *(a1 + 8);
-  v8 = MTLCompilerObject::serializeFragmentPackingInfo(*a2, *a3, *a4, *a5, a6, a7, v7 + 40);
-  v9 = *(v7 + 32);
-  *(v7 + 32) = v8;
-  if (v9)
-  {
-
-    free(v9);
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,std::vector<PackedInput> const&,std::vector<VaryingInfo> const&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
   return a1;
-}
-
-uint64_t std::__function::__func<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_1,std::allocator<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_1>,void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,unsigned int,std::vector<VaryingInfo> const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2868ECE38;
-  a2[1] = v2;
-  return result;
-}
-
-void std::__function::__func<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_1,std::allocator<MTLCompilerObject::runFragmentLinkingPass(BinaryRequestData &,FrameworkPassesOutput &)::$_1>,void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,unsigned int,std::vector<VaryingInfo> const&)>::operator()(uint64_t a1, void *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, unsigned int *a6, uint64_t a7)
-{
-  v7 = *(a1 + 8);
-  v8 = MTLCompilerObject::serializeFragmentLinkingInfo(*a2, *a3, *a4, *a5, *a6, a7, v7 + 40);
-  v9 = *(v7 + 32);
-  *(v7 + 32) = v8;
-  if (v9)
-  {
-
-    free(v9);
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(llvm::Module *,unsigned int,unsigned int,unsigned int,unsigned int,std::vector<VaryingInfo> const&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::vector<PostVertexDumpOutput>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v4 -= 96;
-        std::allocator<PostVertexDumpOutput>::destroy[abi:ne200100](v1, v4);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-id MTLDeserializePluginDataDictionary(const unsigned __int8 *a1)
-{
-  if (!*a1)
-  {
-    return 0;
-  }
-
-  v2 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:*a1];
-  if (*a1)
-  {
-    v3 = 0;
-    v4 = 1;
-    do
-    {
-      v5 = &a1[v4];
-      v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytesNoCopy:v5 + 2 length:*v5 encoding:4 freeWhenDone:0];
-      v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v5 + *v5 + 4 length:v5[1] freeWhenDone:0];
-      [v2 setObject:v7 forKey:v6];
-
-      v4 += *v5 + v5[1] + 4;
-      ++v3;
-    }
-
-    while (v3 < *a1);
-  }
-
-  return v2;
-}
-
-uint64_t Air::CloneFunctionOptions<Air::FunctionOptions>(uint64_t a1, int *a2)
-{
-  v4 = *a2;
-  v5 = -v4;
-  v6 = (a2 - v4);
-  if (*v6 >= 9u && (v7 = v6[4]) != 0)
-  {
-    v8 = Air::CloneShaderValidationConfiguration<Air::ShaderValidationConfiguration>(a1, (a2 + v7 + *(a2 + v7)));
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  *(a1 + 70) = 1;
-  v9 = (a2 + v5);
-  if (*v9 >= 0x15u && (v10 = v9[10]) != 0)
-  {
-    v11 = *(a2 + v10);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 20, v11, 0);
-  v15 = (a2 - *a2);
-  if (*v15 >= 7u && (v16 = v15[3]) != 0)
-  {
-    v17 = *(a2 + v16);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 6, v17, 0);
-  v18 = (a2 - *a2);
-  if (*v18 >= 0x17u && (v19 = v18[11]) != 0)
-  {
-    v20 = *(a2 + v19);
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 22, v20, 0);
-  if (v8)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 8, v8);
-  }
-
-  v21 = (a2 - *a2);
-  v23 = *v21 >= 0x13u && (v22 = v21[9]) != 0 && *(a2 + v22) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 18, v23, 0);
-  v24 = (a2 - *a2);
-  v26 = *v24 >= 0x11u && (v25 = v24[8]) != 0 && *(a2 + v25) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 16, v26, 0);
-  v27 = (a2 - *a2);
-  v29 = *v27 >= 0xFu && (v28 = v27[7]) != 0 && *(a2 + v28) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 14, v29, 0);
-  v30 = (a2 - *a2);
-  v32 = *v30 >= 0xDu && (v31 = v30[6]) != 0 && *(a2 + v31) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 12, v32, 0);
-  v33 = (a2 - *a2);
-  v35 = *v33 >= 0xBu && (v34 = v33[5]) != 0 && *(a2 + v34) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 10, v35, 0);
-  v36 = (a2 - *a2);
-  if (*v36 >= 5u && (v37 = v36[2]) != 0)
-  {
-    v38 = *(a2 + v37);
-    if (v38 >= 3)
-    {
-      abort();
-    }
-  }
-
-  else
-  {
-    v38 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v38, 0);
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v14 - v13 + v12);
-}
-
-uint64_t Air::CloneLinkedFunctions<Air::LinkedFunctions>(uint64_t a1, int *a2)
-{
-  v4 = *a2;
-  v5 = -v4;
-  v6 = (a2 - v4);
-  if (*v6 >= 9u && (v7 = v6[4]) != 0)
-  {
-    v17 = (a2 + v7 + *(a2 + v7));
-    v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air13FunctionGroupEEEZNS3_20CloneLinkedFunctionsINS3_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v17, &v17, a1);
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (*(a2 + v5) >= 7u && *(a2 + v5 + 6))
-  {
-    v17 = (a2 + *(a2 + v5 + 6) + *(a2 + *(a2 + v5 + 6)));
-    v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v17, &v17, a1);
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = (a2 + v5);
-  if (*v10 >= 5u && (v11 = v10[2]) != 0)
-  {
-    v17 = (a2 + v11 + *(a2 + v11));
-    v12 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v17, &v17, a1);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  *(a1 + 70) = 1;
-  v13 = *(a1 + 40);
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 32);
-  if (v8)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 8, v8);
-  }
-
-  if (v9)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v9);
-  }
-
-  if (v12)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v12);
-  }
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v15 - v14 + v13);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air24PipelineBufferDescriptorEEEZNS3_29CloneVertexFunctionDescriptorINS3_24VertexFunctionDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_39VertexFunctionDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::PipelineBufferDescriptor>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::ClonePipelineBufferDescriptor<Air::PipelineBufferDescriptor>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::PipelineBufferDescriptor>,std::allocator<flatbuffers::Offset<Air::PipelineBufferDescriptor>>>(std::vector<flatbuffers::Offset<Air::PipelineBufferDescriptor>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A52068(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::CloneVertexDescriptor<Air::VertexDescriptor>(uint64_t a1, int *a2)
-{
-  v4 = *a2;
-  v5 = -v4;
-  v6 = (a2 - v4);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v16 = (a2 + v7 + *(a2 + v7));
-    v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air22BufferLayoutDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v16, &v16, a1);
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = (a2 + v5);
-  if (*v9 >= 5u && (v10 = v9[2]) != 0)
-  {
-    v16 = (a2 + v10 + *(a2 + v10));
-    v11 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air19AttributeDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v16, &v16, a1);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  *(a1 + 70) = 1;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  if (v8)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v8);
-  }
-
-  if (v11)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, v11);
-  }
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v14 - v13 + v12);
-}
-
-uint64_t Air::CloneShaderValidationConfiguration<Air::ShaderValidationConfiguration>(uint64_t a1, int *a2)
-{
-  *(a1 + 70) = 1;
-  v4 = (a2 - *a2);
-  v6 = *v4 >= 0xDu && (v5 = v4[6]) != 0 && *(a2 + v5) != 0;
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 32);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 12, v6, 0);
-  v10 = (a2 - *a2);
-  v12 = *v10 >= 0xBu && (v11 = v10[5]) != 0 && *(a2 + v11) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 10, v12, 0);
-  v13 = (a2 - *a2);
-  v15 = *v13 >= 9u && (v14 = v13[4]) != 0 && *(a2 + v14) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 8, v15, 0);
-  v16 = (a2 - *a2);
-  v18 = *v16 >= 7u && (v17 = v16[3]) != 0 && *(a2 + v17) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 6, v18, 0);
-  v19 = (a2 - *a2);
-  v21 = *v19 >= 5u && (v20 = v19[2]) != 0 && *(a2 + v20) != 0;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v21, 0);
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v9 - v8 + v7);
-}
-
-void *flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
-  {
-    v6 = flatbuffers::FlatBufferBuilder::PushElement<unsigned long long>(result, a3);
-
-    return flatbuffers::FlatBufferBuilder::TrackField(v5, a2, v6);
-  }
-
-  return result;
-}
-
-uint64_t flatbuffers::FlatBufferBuilder::PushElement<unsigned long long>(uint64_t a1, uint64_t a2)
-{
-  flatbuffers::FlatBufferBuilder::Align(a1, 8uLL);
-  v4 = *(a1 + 48);
-  if ((v4 - *(a1 + 56)) <= 7)
-  {
-    flatbuffers::vector_downward::reallocate(a1, 8uLL);
-    v4 = *(a1 + 48);
-  }
-
-  *(v4 - 8) = a2;
-  v5 = v4 - 8;
-  *(a1 + 48) = v5;
-  return (*(a1 + 32) - v5 + *(a1 + 40));
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air13FunctionGroupEEEZNS3_20CloneLinkedFunctionsINS3_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::FunctionGroup>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::CloneFunctionGroup<Air::FunctionGroup>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::FunctionGroup>,std::allocator<flatbuffers::Offset<Air::FunctionGroup>>>(std::vector<flatbuffers::Offset<Air::FunctionGroup>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A524E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, flatbuffers::FlatBufferBuilder *a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<flatbuffers::String>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4));
-      String = flatbuffers::FlatBufferBuilder::CreateString(a4, v9 + 4, *v9);
-      v11 = __p;
-      *(__p + v8) = String;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v11 = __p;
-  }
-
-  if (v16 == v11)
-  {
-    v12 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  v13 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v12, (v16 - v11) >> 2);
-  if (__p)
-  {
-    v16 = __p;
-    operator delete(__p);
-  }
-
-  return v13;
-}
-
-void sub_257A525D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, flatbuffers::FlatBufferBuilder *a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<flatbuffers::String>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4));
-      String = flatbuffers::FlatBufferBuilder::CreateString(a4, v9 + 4, *v9);
-      v11 = __p;
-      *(__p + v8) = String;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v11 = __p;
-  }
-
-  if (v16 == v11)
-  {
-    v12 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  v13 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v12, (v16 - v11) >> 2);
-  if (__p)
-  {
-    v16 = __p;
-    operator delete(__p);
-  }
-
-  return v13;
-}
-
-void sub_257A526B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<flatbuffers::Offset<Air::FunctionGroup>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_257A52734(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::CloneFunctionGroup<Air::FunctionGroup>(uint64_t a1, const char *a2)
-{
-  v4 = *a2;
-  v5 = -v4;
-  v6 = &a2[-v4];
-  if (*v6 >= 7u && (v7 = *(v6 + 3)) != 0)
-  {
-    v16 = &a2[v7 + *&a2[v7]];
-    v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air18CloneFunctionGroupINS5_13FunctionGroupEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_28FunctionGroupCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v16, &v16, a1);
-    v5 = -*a2;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = &a2[v5];
-  if (*v9 >= 5u && (v10 = *(v9 + 2)) != 0)
-  {
-    String = flatbuffers::FlatBufferBuilder::CreateString(a1, &a2[v10 + 4 + *&a2[v10]], *&a2[v10 + *&a2[v10]]);
-  }
-
-  else
-  {
-    String = 0;
-  }
-
-  *(a1 + 70) = 1;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  if (v8)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 6, v8);
-  }
-
-  if (String)
-  {
-    flatbuffers::FlatBufferBuilder::AddOffset<void>(a1, 4, String);
-  }
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v14 - v13 + v12);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Air18CloneFunctionGroupINS5_13FunctionGroupEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_28FunctionGroupCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, flatbuffers::FlatBufferBuilder *a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<flatbuffers::String>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4));
-      String = flatbuffers::FlatBufferBuilder::CreateString(a4, v9 + 4, *v9);
-      v11 = __p;
-      *(__p + v8) = String;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v11 = __p;
-  }
-
-  if (v16 == v11)
-  {
-    v12 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  v13 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v12, (v16 - v11) >> 2);
-  if (__p)
-  {
-    v16 = __p;
-    operator delete(__p);
-  }
-
-  return v13;
-}
-
-void sub_257A52934(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<flatbuffers::Offset<flatbuffers::String>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_257A529B0(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(flatbuffers::FlatBufferBuilder *a1, uint64_t a2, uint64_t a3)
-{
-  *(a1 + 70) = 1;
-  v6 = 4 * a3;
-  flatbuffers::FlatBufferBuilder::PreAlign(a1, 4 * a3, 4uLL);
-  flatbuffers::FlatBufferBuilder::PreAlign(a1, v6, 4uLL);
-  if (a3)
-  {
-    v7 = a2 - 4;
-    v8 = a3;
-    do
-    {
-      v9 = v8 - 1;
-      flatbuffers::FlatBufferBuilder::PushElement<flatbuffers::String>(a1, *(v7 + 4 * v8));
-      v8 = v9;
-    }
-
-    while (v9);
-  }
-
-  *(a1 + 70) = 0;
-
-  return flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(a1, a3);
-}
-
-uint64_t flatbuffers::FlatBufferBuilder::PushElement<flatbuffers::String>(flatbuffers::FlatBufferBuilder *a1, int a2)
-{
-  flatbuffers::FlatBufferBuilder::Align(a1, 4uLL);
-  v4 = *(a1 + 8) - *(a1 + 12) + *(a1 + 10) - a2 + 4;
-
-  return flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(a1, v4);
-}
-
-uint64_t flatbuffers::FlatBufferBuilder::CreateString(flatbuffers::FlatBufferBuilder *this, const char *a2, unint64_t a3)
-{
-  flatbuffers::FlatBufferBuilder::PreAlign(this, a3 + 1, 4uLL);
-  flatbuffers::vector_downward::fill(this, 1uLL);
-  flatbuffers::vector_downward::push(this, a2, a3);
-  flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this, a3);
-  return (*(this + 8) - *(this + 12) + *(this + 10));
-}
-
-void *std::vector<flatbuffers::Offset<Air::PipelineBufferDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_257A52B94(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::ClonePipelineBufferDescriptor<Air::PipelineBufferDescriptor>(uint64_t a1, int *a2)
-{
-  *(a1 + 70) = 1;
-  v3 = *(a1 + 40);
-  v4 = (a2 - *a2);
-  if (*v4 >= 5u && (v5 = v4[2]) != 0)
-  {
-    v6 = *(a2 + v5);
-    if (v6 >= 3)
-    {
-      abort();
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(a1 + 32) - *(a1 + 48);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v6, 0);
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v7 + v3);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air22BufferLayoutDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::BufferLayoutDescriptor>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::CloneBufferLayoutDescriptor<Air::BufferLayoutDescriptor>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::BufferLayoutDescriptor>,std::allocator<flatbuffers::Offset<Air::BufferLayoutDescriptor>>>(std::vector<flatbuffers::Offset<Air::BufferLayoutDescriptor>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A52D08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air19AttributeDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::AttributeDescriptor>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::CloneAttributeDescriptor<Air::AttributeDescriptor>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::AttributeDescriptor>,std::allocator<flatbuffers::Offset<Air::AttributeDescriptor>>>(std::vector<flatbuffers::Offset<Air::AttributeDescriptor>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A52DEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<flatbuffers::Offset<Air::BufferLayoutDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_257A52E68(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::CloneBufferLayoutDescriptor<Air::BufferLayoutDescriptor>(uint64_t a1, int *a2)
-{
-  *(a1 + 70) = 1;
-  v4 = (a2 - *a2);
-  if (*v4 >= 9u && (v5 = v4[4]) != 0)
-  {
-    v6 = *(a2 + v5);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 32);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 8, v6, 0);
-  v10 = (a2 - *a2);
-  if (*v10 >= 7u && (v11 = v10[3]) != 0)
-  {
-    v12 = *(a2 + v11);
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  v13 = 1;
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 6, v12, 1);
-  v14 = (a2 - *a2);
-  if (*v14 >= 5u)
-  {
-    v15 = v14[2];
-    if (v15)
-    {
-      v13 = *(a2 + v15);
-      if (v13 >= 9)
-      {
-        abort();
-      }
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v13, 1);
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v9 - v8 + v7);
-}
-
-void *std::vector<flatbuffers::Offset<Air::AttributeDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_257A52FF8(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::CloneAttributeDescriptor<Air::AttributeDescriptor>(uint64_t a1, int *a2)
-{
-  *(a1 + 70) = 1;
-  v4 = (a2 - *a2);
-  if (*v4 >= 7u && (v5 = v4[3]) != 0)
-  {
-    v6 = *(a2 + v5);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 32);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned long long>(a1, 6, v6, 0);
-  v10 = (a2 - *a2);
-  if (*v10 >= 9u && (v11 = v10[4]) != 0)
-  {
-    v12 = *(a2 + v11);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(a1, 8, v12, 0);
-  v13 = (a2 - *a2);
-  if (*v13 >= 5u && (v14 = v13[2]) != 0)
-  {
-    v15 = *(a2 + v14);
-    if (v15 >= 0x38 || ((0xFFE7FFFFFFFFFFuLL >> v15) & 1) == 0)
-    {
-      abort();
-    }
-
-    v16 = byte_257A6DED0[v15];
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v16, 0);
-
-  return flatbuffers::FlatBufferBuilder::EndTable(a1, v9 - v8 + v7);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air24PipelineBufferDescriptorEEEZNS3_31CloneFragmentFunctionDescriptorINS3_26FragmentFunctionDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41FragmentFunctionDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::PipelineBufferDescriptor>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::ClonePipelineBufferDescriptor<Air::PipelineBufferDescriptor>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::PipelineBufferDescriptor>,std::allocator<flatbuffers::Offset<Air::PipelineBufferDescriptor>>>(std::vector<flatbuffers::Offset<Air::PipelineBufferDescriptor>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A53208(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air33FragmentColorAttachmentDescriptorEEEZNS3_31CloneFragmentFunctionDescriptorINS3_26FragmentFunctionDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41FragmentFunctionDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a2;
-  std::vector<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>>::vector[abi:ne200100](&__p, a2);
-  if (v6)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = Air::CloneFragmentColorAttachmentDescriptor<Air::FragmentColorAttachmentDescriptor>(a4, (*a3 + (v8 & 0x3FFFFFFFCLL) + 4 + *(*a3 + (v8 & 0x3FFFFFFFCLL) + 4)));
-      v10 = __p;
-      *(__p + v8) = v9;
-      v8 += 4;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  if (v15 == v10)
-  {
-    v11 = &flatbuffers::data<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>,std::allocator<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>>>(std::vector<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>> const&)::t;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(a1, v11, (v15 - v10) >> 2);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  return v12;
-}
-
-void sub_257A532EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Air::ClonePixelFormat<Air::PixelFormat>(uint64_t result)
-{
-  switch(result)
-  {
-    case 0:
-    case 1:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 20:
-    case 22:
-    case 23:
-    case 24:
-    case 25:
-    case 26:
-    case 30:
-    case 31:
-    case 32:
-    case 33:
-    case 34:
-    case 40:
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 53:
-    case 54:
-    case 55:
-    case 60:
-    case 62:
-    case 63:
-    case 64:
-    case 65:
-    case 66:
-    case 70:
-    case 71:
-    case 72:
-    case 73:
-    case 74:
-    case 80:
-    case 81:
-    case 84:
-    case 85:
-    case 90:
-    case 91:
-    case 92:
-    case 93:
-    case 94:
-    case 103:
-    case 104:
-    case 105:
-    case 110:
-    case 112:
-    case 113:
-    case 114:
-    case 115:
-    case 116:
-    case 123:
-    case 124:
-    case 125:
-    case 130:
-    case 131:
-    case 132:
-    case 133:
-    case 134:
-    case 135:
-    case 140:
-    case 141:
-    case 142:
-    case 143:
-    case 150:
-    case 151:
-    case 152:
-    case 153:
-    case 160:
-    case 161:
-    case 162:
-    case 163:
-    case 164:
-    case 165:
-    case 166:
-    case 167:
-    case 170:
-    case 172:
-    case 174:
-    case 176:
-    case 178:
-    case 179:
-    case 180:
-    case 181:
-    case 182:
-    case 183:
-    case 185:
-    case 186:
-    case 187:
-    case 188:
-    case 189:
-    case 190:
-    case 191:
-    case 192:
-    case 193:
-    case 194:
-    case 195:
-    case 196:
-    case 197:
-    case 198:
-    case 199:
-    case 200:
-    case 203:
-    case 204:
-    case 205:
-    case 206:
-    case 207:
-    case 208:
-    case 209:
-    case 210:
-    case 211:
-    case 212:
-    case 213:
-    case 214:
-    case 215:
-    case 216:
-    case 217:
-    case 218:
-    case 221:
-    case 222:
-    case 223:
-    case 224:
-    case 225:
-    case 226:
-    case 227:
-    case 228:
-    case 229:
-    case 230:
-    case 231:
-    case 232:
-    case 233:
-    case 234:
-    case 235:
-    case 236:
-    case 240:
-    case 241:
-    case 250:
-    case 252:
-    case 253:
-    case 255:
-    case 260:
-    case 261:
-    case 262:
-    case 263:
-    case 300:
-    case 301:
-    case 302:
-    case 303:
-    case 304:
-    case 313:
-    case 314:
-    case 315:
-    case 323:
-    case 324:
-    case 325:
-    case 500:
-    case 501:
-    case 502:
-    case 503:
-    case 504:
-    case 505:
-    case 506:
-    case 507:
-    case 508:
-    case 509:
-    case 510:
-    case 520:
-    case 521:
-    case 522:
-    case 523:
-    case 524:
-    case 525:
-    case 526:
-    case 527:
-    case 528:
-    case 529:
-    case 530:
-    case 540:
-    case 541:
-    case 542:
-    case 543:
-    case 544:
-    case 545:
-    case 546:
-    case 547:
-    case 548:
-    case 550:
-    case 551:
-    case 552:
-    case 553:
-    case 554:
-    case 555:
-    case 556:
-    case 560:
-    case 562:
-    case 563:
-    case 564:
-    case 565:
-    case 566:
-    case 567:
-    case 568:
-    case 569:
-    case 570:
-    case 571:
-    case 572:
-    case 573:
-    case 574:
-    case 575:
-    case 576:
-    case 577:
-    case 578:
-    case 579:
-    case 580:
-    case 581:
-    case 582:
-    case 583:
-    case 584:
-    case 585:
-    case 586:
-    case 587:
-    case 588:
-    case 589:
-    case 590:
-    case 591:
-    case 592:
-    case 593:
-    case 594:
-    case 595:
-    case 596:
-    case 597:
-    case 598:
-    case 599:
-    case 600:
-    case 601:
-    case 602:
-    case 603:
-    case 604:
-    case 605:
-    case 606:
-    case 607:
-    case 608:
-    case 609:
-    case 610:
-    case 611:
-    case 612:
-    case 613:
-    case 615:
-    case 616:
-    case 617:
-    case 618:
-    case 619:
-    case 620:
-    case 621:
-    case 622:
-    case 623:
-    case 624:
-    case 625:
-    case 626:
-    case 627:
-    case 628:
-    case 629:
-    case 630:
-    case 631:
-    case 632:
-    case 633:
-    case 634:
-    case 635:
-    case 636:
-    case 637:
-    case 638:
-    case 639:
-    case 640:
-    case 641:
-    case 642:
-    case 643:
-    case 644:
-    case 645:
-    case 646:
-    case 647:
-    case 648:
-    case 649:
-    case 650:
-    case 651:
-    case 652:
-      return result;
-    default:
-      abort();
-  }
-}
-
-void *std::vector<flatbuffers::Offset<Air::FragmentColorAttachmentDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
 }
 
 void sub_257A533A8(_Unwind_Exception *exception_object)
@@ -1929,10 +171,10 @@ LABEL_36:
   return flatbuffers::FlatBufferBuilder::EndTable(a1, v9 - v8 + v7);
 }
 
-void *flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(void *result, uint64_t a2, int a3, int a4)
+char *flatbuffers::FlatBufferBuilder::AddElement<unsigned short>(char *result, uint64_t a2, uint64_t a3, int a4)
 {
   v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
+  if (a3 != a4 || result[80] == 1)
   {
     v6 = flatbuffers::FlatBufferBuilder::PushElement<unsigned short>(result, a3);
 
@@ -1958,10 +200,10 @@ uint64_t flatbuffers::FlatBufferBuilder::PushElement<unsigned short>(uint64_t a1
   return (*(a1 + 32) - v5 + *(a1 + 40));
 }
 
-void *flatbuffers::FlatBufferBuilder::AddElement<float>(void *result, uint64_t a2, float a3, float a4)
+char *flatbuffers::FlatBufferBuilder::AddElement<float>(char *result, uint64_t a2, float a3, float a4)
 {
   v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
+  if (a3 != a4 || result[80] == 1)
   {
     v6 = flatbuffers::FlatBufferBuilder::PushElement<float>(result, a3);
 
@@ -2094,7 +336,7 @@ uint64_t Air::CloneStageInputOutputDescriptor<Air::StageInputOutputDescriptor>(u
   v6 = (a2 - v4);
   if (*v6 >= 7u && (v7 = v6[3]) != 0)
   {
-    v20 = (a2 + v7 + *(a2 + v7));
+    v20 = a2 + v7 + *(a2 + v7);
     v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air22BufferLayoutDescriptorEEEZNS3_31CloneStageInputOutputDescriptorINS3_26StageInputOutputDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41StageInputOutputDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v20, &v20, a1);
     v5 = -*a2;
   }
@@ -2106,7 +348,7 @@ uint64_t Air::CloneStageInputOutputDescriptor<Air::StageInputOutputDescriptor>(u
 
   if (*(a2 + v5) >= 5u && *(a2 + v5 + 4))
   {
-    v20 = (a2 + *(a2 + v5 + 4) + *(a2 + *(a2 + v5 + 4)));
+    v20 = a2 + *(a2 + v5 + 4) + *(a2 + *(a2 + v5 + 4));
     v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Air19AttributeDescriptorEEEZNS3_31CloneStageInputOutputDescriptorINS3_26StageInputOutputDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41StageInputOutputDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v20, &v20, a1);
     v5 = -*a2;
   }
@@ -2161,17 +403,17 @@ uint64_t Air::CloneStageInputOutputDescriptor<Air::StageInputOutputDescriptor>(u
   return flatbuffers::FlatBufferBuilder::EndTable(a1, v15 - v14 + v13);
 }
 
-void *std::vector<unsigned long long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_257A53BA8(_Unwind_Exception *exception_object)
@@ -2461,17 +703,17 @@ void sub_257A54070(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Air::TileColorAttachmentDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Air::TileColorAttachmentDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_257A540EC(_Unwind_Exception *exception_object)
@@ -2710,33 +952,33 @@ void sub_257A544B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,CompilerOutputBlock>(void *a1, char *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,CompilerOutputBlock>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,CompilerOutputBlock>(void *a1, char *a2, _BYTE *a3, _OWORD *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2744,44 +986,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<llvm::MallocAllocator> const&)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -2798,30 +1040,6 @@ uint64_t std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<ll
   }
 
   return a1;
-}
-
-uint64_t *OUTLINED_FUNCTION_0_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
-}
-
-void OUTLINED_FUNCTION_3(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  if (*(a2 + 23) < 0)
-  {
-    v3 = *a2;
-  }
-
-  if (*(a3 + 23) < 0)
-  {
-    v4 = *a3;
-  }
 }
 
 void __cxx_global_array_dtor()
@@ -2866,21 +1084,21 @@ void __cxx_global_array_dtor_147()
   while (v1);
 }
 
-void MTLArgumentRewritePass::~MTLArgumentRewritePass(MTLArgumentRewritePass *this)
+void MTLArgumentRewritePass::~MTLArgumentRewritePass(MTLArgumentRewritePass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_2868EB908;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
 
   llvm::Pass::~Pass(this);
 }
 
 {
   *this = &unk_2868EB908;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
   llvm::Pass::~Pass(this);
 
   JUMPOUT(0x259C6B890);
@@ -2963,22 +1181,22 @@ LABEL_20:
 
 void MTLArgumentRewritePass::stripDeadArguments(MTLArgumentRewritePass *this)
 {
-  v45[4] = *MEMORY[0x277D85DE8];
-  v28 = *(this + 5);
-  v29 = v31;
-  v30 = 0;
+  v44[4] = *MEMORY[0x277D85DE8];
+  v26 = *(this + 5);
+  v27 = v29;
+  v28 = 0;
   EntryFunction = MetalModulePass::getEntryFunction(this);
   v3 = *(EntryFunction + 24);
-  v27[1] = *(EntryFunction + 112);
-  v44[0] = v45;
-  v44[1] = 0x400000000;
-  v41 = v43;
-  v42 = 0x400000000;
-  v39[0] = v40;
-  v39[1] = 0x400000000;
-  v36 = v38;
-  v37 = 0x400000000;
-  LODWORD(v27[0]) = 0;
+  v25[1] = *(EntryFunction + 112);
+  v42 = v44;
+  v43 = 0x400000000;
+  v39 = v41;
+  v40 = 0x400000000;
+  v37[0] = v38;
+  v37[1] = 0x400000000;
+  v34 = v36;
+  v35 = 0x400000000;
+  LODWORD(v25[0]) = 0;
   if (*(v3 + 12) != 1)
   {
     v4 = 0;
@@ -2987,11 +1205,11 @@ void MTLArgumentRewritePass::stripDeadArguments(MTLArgumentRewritePass *this)
       v5 = *(*(this + 16) - 8 * *(*(this + 16) + 8) + 16);
       v6 = *(v5 - 8 * *(v5 + 8) + 8 * v4);
       Impl = v6;
-      v31[0] = *(*(v3 + 16) + 8 * (v4 + 1));
+      v29[0] = *(*(v3 + 16) + 8 * (v4 + 1));
       if (*(EntryFunction + 18))
       {
         llvm::Function::BuildLazyArguments(EntryFunction);
-        v4 = v27[0];
+        v4 = v25[0];
         v6 = Impl;
       }
 
@@ -2999,77 +1217,73 @@ void MTLArgumentRewritePass::stripDeadArguments(MTLArgumentRewritePass *this)
       String = llvm::MDString::getString(*&v6[-2 * v6[2] + 2]);
       v10 = v9;
       hasNUsesOrMore = llvm::Value::hasNUsesOrMore((v7 + 40 * v4));
-      v13 = v10 != 14 || *String != 0x67616D692E726961 || *(String + 6) != 0x6B636F6C62656761;
-      if ((v13 & (hasNUsesOrMore ^ 1) & 1) == 0)
+      v14 = v10 != 14 || *String != 0x67616D692E726961 || *(String + 6) != 0x6B636F6C62656761;
+      if ((v14 & (hasNUsesOrMore ^ 1) & 1) == 0)
       {
-        MTLMDBuilder::getMetadata<unsigned int>(&v28);
+        MTLMDBuilder::getMetadata<unsigned int>(&v26, v43, v12);
         llvm::MDNode::replaceOperandWith();
-        v14 = *(Impl + *(Impl + 2) - 1 - *(Impl + 2));
-        if (!*v14)
+        v15 = *(Impl + *(Impl + 2) - 1 - *(Impl + 2));
+        if (!*v15)
         {
-          v15 = llvm::MDString::getString(v14);
-          if (v16 == 14 && *v15 == 0x5F6772612E726961 && *(v15 + 6) == 0x646573756E755F67)
+          v16 = llvm::MDString::getString(v15);
+          if (v17 == 14 && *v16 == 0x5F6772612E726961 && *(v16 + 6) == 0x646573756E755F67)
           {
-            llvm::SmallVector<llvm::Metadata *,8u>::SmallVector<llvm::MDOperand const*,void>(&v33, Impl - 8 * *(Impl + 2), Impl - 8);
-            v18 = *(this + 5);
+            llvm::SmallVector<llvm::Metadata *,8u>::SmallVector<llvm::MDOperand const*,void>(&v31, Impl - 8 * *(Impl + 2), Impl - 8);
             Impl = llvm::MDTuple::getImpl();
-            if (v33 != &v34)
+            if (v31 != &v32)
             {
-              free(v33);
+              free(v31);
             }
           }
         }
 
-        llvm::SmallVectorImpl<unsigned int>::emplace_back<unsigned int &>(v39, v27);
-        llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(v44, &Impl);
-        llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&v41, v31);
+        llvm::SmallVectorImpl<unsigned int>::emplace_back<unsigned int &>(v37, v25);
+        llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&v42, &Impl);
+        llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&v39, v29);
       }
 
-      v4 = LODWORD(v27[0]) + 1;
-      LODWORD(v27[0]) = v4;
+      v4 = LODWORD(v25[0]) + 1;
+      LODWORD(v25[0]) = v4;
       v19 = *(v3 + 12) - 1;
     }
 
     while (v4 < v19);
-    if (v42 != v19)
+    if (v40 != v19)
     {
-      v20 = **(v3 + 16);
-      v21 = llvm::FunctionType::get();
-      v22 = *(EntryFunction + 32);
-      v35 = 257;
-      v23 = llvm::Function::Create(v21, v22 & 0xF, &v33, *(this + 6));
-      v24 = *(this + 5);
-      v35 = 257;
-      llvm::BasicBlock::Create(v24, &v33, v23, 0, v25);
+      v20 = llvm::FunctionType::get();
+      v21 = *(EntryFunction + 32);
+      v33 = 257;
+      v22 = llvm::Function::Create(v20, v21 & 0xF, &v31, *(this + 6));
+      v23 = *(this + 5);
+      v33 = 257;
+      llvm::BasicBlock::Create(v23, &v31, v22, 0, v24);
     }
   }
 
-  if (v36 != v38)
+  if (v34 != v36)
   {
-    free(v36);
+    free(v34);
   }
 
-  if (v39[0] != v40)
+  if (v37[0] != v38)
   {
-    free(v39[0]);
+    free(v37[0]);
   }
 
-  if (v41 != v43)
+  if (v39 != v41)
   {
-    free(v41);
+    free(v39);
   }
 
-  if (v44[0] != v45)
+  if (v42 != v44)
   {
-    free(v44[0]);
+    free(v42);
   }
 
-  if (v29 != v31)
+  if (v27 != v29)
   {
-    free(v29);
+    free(v27);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257A552A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59)
@@ -3113,12 +1327,12 @@ void sub_257A552A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MTLArgumentRewritePass::instrumentMainFunction(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v72[8] = *MEMORY[0x277D85DE8];
+  v69[8] = *MEMORY[0x277D85DE8];
   v5 = *(a3 - 8 * *(a3 + 8) + 16);
-  v65[0] = &v5[-2 * v5[2]];
-  v65[1] = v5;
-  llvm::SmallVector<llvm::Metadata *,8u>::SmallVector<llvm::MDOperand const*>(&v70, v65);
-  v62 = 0;
+  v62[0] = &v5[-2 * v5[2]];
+  v62[1] = v5;
+  llvm::SmallVector<llvm::Metadata *,8u>::SmallVector<llvm::MDOperand const*>(&v67, v62);
+  v59 = 0;
   v6 = *(a2 + 80);
   if (v6)
   {
@@ -3157,27 +1371,27 @@ void MTLArgumentRewritePass::instrumentMainFunction(uint64_t a1, uint64_t a2, ui
     }
   }
 
-  v67 = 257;
+  v64 = 257;
   llvm::SplitBlock();
-  v62 = v7;
-  v65[0] = "instrumentBlock";
-  v67 = 259;
+  v59 = v7;
+  v62[0] = "instrumentBlock";
+  v64 = 259;
   llvm::Value::setName();
-  MTLIRBuilder::MTLIRBuilder<llvm::BasicBlock *&>(v65, &v62);
-  FirstNonPHI = llvm::BasicBlock::getFirstNonPHI(v62);
-  llvm::IRBuilderBase::SetInsertPoint(v65, FirstNonPHI);
+  MTLIRBuilder::MTLIRBuilder<llvm::BasicBlock *&>(v62, &v59);
+  FirstNonPHI = llvm::BasicBlock::getFirstNonPHI(v59);
+  llvm::IRBuilderBase::SetInsertPoint(v62, FirstNonPHI);
   if (*(*(a1 + 32) + 4) != 1)
   {
     v16 = 0;
     goto LABEL_62;
   }
 
-  v16 = v71;
-  if (v71)
+  v16 = v68;
+  if (v68)
   {
-    v50 = 0;
-    v17 = 8 * v71;
-    v18 = v70;
+    v47 = 0;
+    v17 = 8 * v68;
+    v18 = v67;
     while (1)
     {
       v19 = *v18;
@@ -3215,40 +1429,40 @@ void MTLArgumentRewritePass::instrumentMainFunction(uint64_t a1, uint64_t a2, ui
             goto LABEL_49;
           }
 
-          v43 = *v29;
+          v42 = *v29;
           if (*(*v29 + 8) == 15)
           {
-            v56 = 0;
+            v53 = 0;
             ParamDereferenceableBytes = 0;
-            LOBYTE(v58) = 0;
-            v59 = 0;
-            v60 = 256;
-            v61 = 1;
-            MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v56);
-            v44 = MTLArgumentRewritePass::computeArgumentCount(a1, **(v43 + 16));
+            LOBYTE(v55) = 0;
+            v56 = 0;
+            v57 = 256;
+            v58 = 1;
+            MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v53);
+            v43 = MTLArgumentRewritePass::computeArgumentCount(a1, **(v42 + 16));
             hasNUsesOrMore = MTLBoundsCheck::getLocationIndex(v19);
             if ((*(*(a1 + 32) + 22) & 0x80) == 0)
             {
-              v45 = hasNUsesOrMore;
-              v63.n128_u64[0] = "air.read_write";
-              v63.n128_u64[1] = 14;
-              v64 = 1;
-              MTLBoundsCheck::getArgAccessType(v19, &v63, &v51);
-              v63 = v51;
-              v46 = 2 * v45;
+              v44 = hasNUsesOrMore;
+              v60.n128_u64[0] = "air.read_write";
+              v60.n128_u64[1] = 14;
+              v61 = 1;
+              MTLBoundsCheck::getArgAccessType(v19, &v60, &v48);
+              v60 = v48;
+              v45 = 2 * v44;
               if (llvm::StringRef::find() != -1)
               {
-                *(*(*(a1 + 64) + 64) + 640) |= 1 << v46;
+                *(*(*(a1 + 64) + 64) + 640) |= 1 << v45;
               }
 
               hasNUsesOrMore = llvm::StringRef::find();
               if (hasNUsesOrMore != -1)
               {
-                *(*(*(a1 + 64) + 64) + 640) |= 2 << v46;
+                *(*(*(a1 + 64) + 64) + 640) |= 2 << v45;
               }
             }
 
-            v41 = v44 + v50;
+            v40 = v43 + v47;
             goto LABEL_58;
           }
 
@@ -3262,13 +1476,13 @@ void MTLArgumentRewritePass::instrumentMainFunction(uint64_t a1, uint64_t a2, ui
 LABEL_49:
               if (*(*v29 + 8) == 15)
               {
-                v51.n128_u32[2] = 0;
-                v51.n128_u8[12] = 0;
-                v52 = 0;
-                v54 = 0;
-                v53 = 1;
-                v51.n128_u64[0] = v29;
-                MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v51);
+                v48.n128_u32[2] = 0;
+                v48.n128_u8[12] = 0;
+                v49 = 0;
+                v51 = 0;
+                v50 = 1;
+                v48.n128_u64[0] = v29;
+                MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v48);
               }
             }
           }
@@ -3284,12 +1498,12 @@ LABEL_49:
           if (hasNUsesOrMore)
           {
             LocationIndex = MTLBoundsCheck::getLocationIndex(v19);
-            v56 = 0;
-            v61 = 0;
-            v60 = 256;
-            v59 = 1;
+            v53 = 0;
+            v58 = 0;
+            v57 = 256;
+            v56 = 1;
             ParamDereferenceableBytes = 0;
-            v58 = LocationIndex;
+            v55 = LocationIndex;
             if ((*(*(a1 + 32) + 20) & 0x40) != 0 && llvm::Function::hasParamAttribute())
             {
               ParamDereferenceableBytes = llvm::AttributeList::getParamDereferenceableBytes((a2 + 112));
@@ -3298,45 +1512,44 @@ LABEL_49:
             v32 = LocationIndex;
             if ((*(*(a1 + 32) + 20) & 4) != 0)
             {
-              v33 = *(a1 + 72);
-              v34 = llvm::ConstantInt::get();
-              v35 = *(a1 + 72);
-              v55 = 257;
-              Cast = llvm::IRBuilderBase::CreateCast(v65, 47, v29, v35, &v51);
-              v55 = 257;
-              v37 = llvm::IRBuilderBase::CreateOr(v65, Cast, v34, &v51);
-              v38 = *v29;
-              v55 = 257;
-              v39 = llvm::IRBuilderBase::CreateCast(v65, 48, v37, v38, &v51);
+              v33 = llvm::ConstantInt::get();
+              v34 = *(a1 + 72);
+              v52 = 257;
+              Cast = llvm::IRBuilderBase::CreateCast(v62, 47, v29, v34, &v48);
+              v52 = 257;
+              v36 = llvm::IRBuilderBase::CreateOr(v62, Cast, v33, &v48);
+              v37 = *v29;
+              v52 = 257;
+              v38 = llvm::IRBuilderBase::CreateCast(v62, 48, v36, v37, &v48);
               llvm::Value::replaceUsesOutsideBlock();
-              v29 = v39;
+              v29 = v38;
             }
 
-            v56 = v29;
-            MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v56);
+            v53 = v29;
+            MetalModulePass::cacheStaticBoundsInfo(a1, v29, &v53);
             if ((*(*(a1 + 32) + 22) & 0x80) == 0)
             {
-              v63.n128_u64[0] = "air.read_write";
-              v63.n128_u64[1] = 14;
-              v64 = 1;
-              MTLBoundsCheck::getArgAccessType(v19, &v63, &v51);
-              v63 = v51;
-              v40 = 2 * v32;
+              v60.n128_u64[0] = "air.read_write";
+              v60.n128_u64[1] = 14;
+              v61 = 1;
+              MTLBoundsCheck::getArgAccessType(v19, &v60, &v48);
+              v60 = v48;
+              v39 = 2 * v32;
               if (llvm::StringRef::find() != -1)
               {
-                *(*(*(a1 + 64) + 64) + 640) |= 1 << v40;
+                *(*(*(a1 + 64) + 64) + 640) |= 1 << v39;
               }
 
               hasNUsesOrMore = llvm::StringRef::find();
               if (hasNUsesOrMore != -1)
               {
-                *(*(*(a1 + 64) + 64) + 640) |= 2 << v40;
+                *(*(*(a1 + 64) + 64) + 640) |= 2 << v39;
               }
             }
 
-            v41 = v50 + 1;
+            v40 = v47 + 1;
 LABEL_58:
-            v50 = v41;
+            v47 = v40;
           }
 
           break;
@@ -3349,7 +1562,7 @@ LABEL_59:
       v17 -= 8;
       if (!v17)
       {
-        v16 = v50 > 0x5B;
+        v16 = v47 > 0x5B;
         break;
       }
     }
@@ -3365,36 +1578,33 @@ LABEL_62:
   {
     *(*(*(a1 + 64) + 64) + 648) |= 1u;
     *(*(*(a1 + 64) + 64) + 651) = 1;
-    v47 = llvm::dbgs(hasNUsesOrMore);
-    llvm::raw_ostream::operator<<(v47, "Instrumentation failure: argumentLimits\n", 0x28uLL);
+    v46 = llvm::dbgs(hasNUsesOrMore);
+    llvm::raw_ostream::operator<<(v46, "Instrumentation failure: argumentLimits\n", 0x28uLL);
   }
 
-  v48 = *(a1 + 40);
   llvm::MDTuple::getImpl();
   llvm::MDNode::replaceOperandWith();
-  llvm::IRBuilderDefaultInserter::~IRBuilderDefaultInserter(&v69);
-  llvm::IRBuilderFolder::~IRBuilderFolder(&v68);
-  if (v65[0] != &v66)
+  llvm::IRBuilderDefaultInserter::~IRBuilderDefaultInserter(&v66);
+  llvm::IRBuilderFolder::~IRBuilderFolder(&v65);
+  if (v62[0] != &v63)
   {
-    free(v65[0]);
+    free(v62[0]);
   }
 
-  if (v70 != v72)
+  if (v67 != v69)
   {
-    free(v70);
+    free(v67);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
-void sub_257A55AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_257A55AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   llvm::IRBuilder<llvm::ConstantFolder,llvm::IRBuilderDefaultInserter>::~IRBuilder(va);
-  v18 = *(v16 - 176);
-  if (v18 != (v16 - 160))
+  v25 = *(v23 - 176);
+  if (v25 != (v23 - 160))
   {
-    free(v18);
+    free(v25);
   }
 
   _Unwind_Resume(a1);
@@ -3543,21 +1753,21 @@ void sub_257A55D6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MTLGlobalTLSArgumentPass::~MTLGlobalTLSArgumentPass(MTLGlobalTLSArgumentPass *this)
+void MTLGlobalTLSArgumentPass::~MTLGlobalTLSArgumentPass(MTLGlobalTLSArgumentPass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_2868EB908;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
 
   llvm::Pass::~Pass(this);
 }
 
 {
   *this = &unk_2868EB908;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
   llvm::Pass::~Pass(this);
 
   JUMPOUT(0x259C6B890);
@@ -3565,12 +1775,12 @@ void MTLGlobalTLSArgumentPass::~MTLGlobalTLSArgumentPass(MTLGlobalTLSArgumentPas
 
 uint64_t MTLGlobalTLSArgumentPass::runOnModule(llvm::BasicBlock **this, llvm::Module *a2)
 {
-  v31[20] = *MEMORY[0x277D85DE8];
+  v28[20] = *MEMORY[0x277D85DE8];
   MetalModulePass::runOnModule(this, a2);
   if (!MTLBoundsCheck::isLibraryModule(a2, v4))
   {
-    v29 = v31;
-    v30 = 0x400000000;
+    v26 = v28;
+    v27 = 0x400000000;
     v5 = *(a2 + 2);
     if (v5 != (a2 + 8))
     {
@@ -3593,22 +1803,22 @@ uint64_t MTLGlobalTLSArgumentPass::runOnModule(llvm::BasicBlock **this, llvm::Mo
           {
             llvm::Value::setMetadata();
             LOBYTE(String) = 0;
-            LOBYTE(v27) = 0;
-            v24[0] = v6;
-            v8 = Metadata - 8 * *(Metadata + 8);
-            v24[1] = *v8;
-            v9 = *(v8 + 8);
+            LOBYTE(v24) = 0;
+            *&v21 = v6;
+            v8 = (Metadata - 8 * *(Metadata + 8));
+            *(&v21 + 1) = *v8;
+            v9 = v8[1];
             if (v9)
             {
               String = llvm::MDString::getString(v9);
-              v26 = v10;
-              if ((v27 & 1) == 0)
+              v23 = v10;
+              if ((v24 & 1) == 0)
               {
-                LOBYTE(v27) = 1;
+                LOBYTE(v24) = 1;
               }
             }
 
-            llvm::SmallVectorImpl<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo>::emplace_back<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo&>(&v29, v24);
+            llvm::SmallVectorImpl<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo>::emplace_back<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo&>(&v26, &v21);
           }
         }
 
@@ -3616,57 +1826,54 @@ uint64_t MTLGlobalTLSArgumentPass::runOnModule(llvm::BasicBlock **this, llvm::Mo
       }
 
       while (v5 != (a2 + 8));
-      if (v30)
+      if (v27)
       {
         EntryFunction = MetalModulePass::getEntryFunction(this);
         v12 = EntryFunction;
         if (EntryFunction)
         {
-          v13 = *(EntryFunction + 24);
-          llvm::SmallVector<llvm::Type *,8u>::SmallVector<llvm::Type * const*,void>(&v28, (*(v13 + 16) + 8), (*(v13 + 16) + 8 * *(v13 + 12)));
-          if (v30)
+          llvm::SmallVector<llvm::Type *,8u>::SmallVector<llvm::Type * const*,void>(&v25, (*(*(EntryFunction + 24) + 16) + 8), (*(*(EntryFunction + 24) + 16) + 8 * *(*(EntryFunction + 24) + 12)));
+          if (v27)
           {
-            v14 = v29;
-            v15 = 40 * v30;
+            v13 = v26;
+            v14 = 40 * v27;
             do
             {
-              v24[0] = *(*v14 + 24);
-              if (*(v24[0] + 8) != 15)
+              *&v21 = *(*v13 + 24);
+              if (*(v21 + 8) != 15)
               {
-                v24[0] = llvm::PointerType::get();
+                *&v21 = llvm::PointerType::get();
               }
 
-              llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&v28, v24);
-              v14 += 40;
-              v15 -= 40;
+              llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&v25, &v21);
+              v13 += 40;
+              v14 -= 40;
             }
 
-            while (v15);
+            while (v14);
           }
 
-          v16 = **(v13 + 16);
-          v17 = llvm::FunctionType::get();
-          v18 = *(v12 + 32);
-          v27 = 257;
-          v19 = llvm::Function::Create(v17, v18 & 0xF, v24, *(v12 + 40));
-          *(v19 + 14) = *(v12 + 112);
+          v15 = llvm::FunctionType::get();
+          v16 = *(v12 + 32);
+          v24 = 257;
+          v17 = llvm::Function::Create(v15, v16 & 0xF, &v21, *(v12 + 40));
+          *(v17 + 14) = *(v12 + 112);
           llvm::Value::takeName();
           llvm::Function::addFnAttr();
           *(v12 + 32) = *(v12 + 32) & 0xFFFFBFC0 | 0x4007;
-          v20 = this[5];
-          v27 = 257;
-          llvm::BasicBlock::Create(v20, v24, v19, 0, v21);
+          v18 = this[5];
+          v24 = 257;
+          llvm::BasicBlock::Create(v18, &v21, v17, 0, v19);
         }
       }
     }
 
-    if (v29 != v31)
+    if (v26 != v28)
     {
-      free(v29);
+      free(v26);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3691,7 +1898,7 @@ void sub_257A5671C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t llvm::SmallVectorImpl<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo>::emplace_back<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo&>(uint64_t a1, uint64_t a2)
+uint64_t llvm::SmallVectorImpl<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo>::emplace_back<MTLGlobalTLSArgumentPass::runOnModule(llvm::Module &)::GVInfo&>(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 8);
   if (v2 >= *(a1 + 12))
@@ -3701,8 +1908,8 @@ uint64_t llvm::SmallVectorImpl<MTLGlobalTLSArgumentPass::runOnModule(llvm::Modul
 
   v3 = *a1 + 40 * v2;
   v4 = *a2;
-  v5 = *(a2 + 16);
-  *(v3 + 32) = *(a2 + 32);
+  v5 = a2[1];
+  *(v3 + 32) = *(a2 + 4);
   *v3 = v4;
   *(v3 + 16) = v5;
   LODWORD(v3) = *(a1 + 8) + 1;
@@ -3739,7 +1946,6 @@ unint64_t llvm::SmallVectorTemplateCommon<MTLGlobalTLSArgumentPass::runOnModule(
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    v7 = a2 - *a1;
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
@@ -3774,88 +1980,84 @@ void NullTextureCheckPass::~NullTextureCheckPass(NullTextureCheckPass *this)
 
 BOOL NullTextureCheckPass::runOnModule(NullTextureCheckPass *this, llvm::Module *a2)
 {
-  v28[8] = *MEMORY[0x277D85DE8];
+  v27[8] = *MEMORY[0x277D85DE8];
   if (*(*(*(this + 4) + 64) + 651))
   {
-    v2 = 0;
+    return 0;
+  }
+
+  MDKindID = llvm::Module::getMDKindID();
+  *(this + 7) = MDKindID;
+  v25 = v27;
+  v26 = 0x800000000;
+  v22 = &v25;
+  v23 = MDKindID;
+  llvm::InstVisitor<NullTextureCheckPass::runOnModule(llvm::Module &)::OpVisitor,void>::visit<llvm::ilist_iterator<llvm::ilist_detail::node_options<llvm::Function,false,false,void>,false,false>>(&v22, *(a2 + 4), a2 + 24);
+  llvm::Type::getInt32Ty(*a2, v6);
+  v7 = v25;
+  if (v26)
+  {
+    v8 = (v25 + 8 * v26);
+    do
+    {
+      v9 = *v7;
+      MTLBoundsCheck::SharedPassData::indexForInstruction(*(this + 4), *v7);
+      v10 = llvm::ConstantInt::get();
+      v11 = *(v9 - 4);
+      if (!v11 || *(v11 + 16) || *(v11 + 24) != *(v9 + 9))
+      {
+        v11 = 0;
+      }
+
+      CheckedTextureFunction = NullTextureCheckPass::getCheckedTextureFunction(this, v11);
+      NumArgOperands = llvm::compat::getNumArgOperands(v9);
+      v20[0] = 0;
+      llvm::SmallVector<llvm::Value *,8u>::SmallVector(&v22, (NumArgOperands + 1), v20);
+      v14 = 0;
+      v15 = v9;
+      while (v14 < llvm::compat::getNumArgOperands(v9))
+      {
+        *(v22 + v14++) = *(v15 - 4 * (*(v9 + 5) & 0x7FFFFFF));
+        v15 = (v15 + 32);
+      }
+
+      *(v22 + v14) = v10;
+      if (CheckedTextureFunction)
+      {
+        v16 = *(CheckedTextureFunction + 24);
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      v21 = 257;
+      v17 = llvm::CallInst::Create(v16, CheckedTextureFunction, v22, v23, 0, 0, v20, 0);
+      llvm::ReplaceInstWithInst(v9, v17, v18);
+      if (v22 != &v24)
+      {
+        free(v22);
+      }
+
+      ++v7;
+    }
+
+    while (v7 != v8);
+    v7 = v25;
+    v2 = v26 != 0;
   }
 
   else
   {
-    MDKindID = llvm::Module::getMDKindID();
-    *(this + 7) = MDKindID;
-    v26 = v28;
-    v27 = 0x800000000;
-    v23 = &v26;
-    v24 = MDKindID;
-    llvm::InstVisitor<NullTextureCheckPass::runOnModule(llvm::Module &)::OpVisitor,void>::visit<llvm::ilist_iterator<llvm::ilist_detail::node_options<llvm::Function,false,false,void>,false,false>>(&v23, *(a2 + 4), a2 + 24);
-    llvm::Type::getInt32Ty(*a2, v6);
-    v7 = v26;
-    if (v27)
-    {
-      v8 = (v26 + 8 * v27);
-      do
-      {
-        v9 = *v7;
-        MTLBoundsCheck::SharedPassData::indexForInstruction(*(this + 4), *v7);
-        v10 = llvm::ConstantInt::get();
-        v11 = *(v9 - 4);
-        if (!v11 || *(v11 + 16) || *(v11 + 24) != *(v9 + 9))
-        {
-          v11 = 0;
-        }
-
-        CheckedTextureFunction = NullTextureCheckPass::getCheckedTextureFunction(this, v11);
-        NumArgOperands = llvm::compat::getNumArgOperands(v9);
-        v21[0] = 0;
-        llvm::SmallVector<llvm::Value *,8u>::SmallVector(&v23, (NumArgOperands + 1), v21);
-        v14 = 0;
-        v15 = v9;
-        while (v14 < llvm::compat::getNumArgOperands(v9))
-        {
-          *(v23 + v14++) = *(v15 - 4 * (*(v9 + 5) & 0x7FFFFFF));
-          v15 = (v15 + 32);
-        }
-
-        *(v23 + v14) = v10;
-        if (CheckedTextureFunction)
-        {
-          v16 = *(CheckedTextureFunction + 24);
-        }
-
-        else
-        {
-          v16 = 0;
-        }
-
-        v22 = 257;
-        v17 = llvm::CallInst::Create(v16, CheckedTextureFunction, v23, v24, 0, 0);
-        llvm::ReplaceInstWithInst(v9, v17, v18);
-        if (v23 != &v25)
-        {
-          free(v23);
-        }
-
-        ++v7;
-      }
-
-      while (v7 != v8);
-      v7 = v26;
-      v2 = v27 != 0;
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    if (v7 != v28)
-    {
-      free(v7);
-    }
+    v2 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
+  if (v7 != v27)
+  {
+    free(v7);
+  }
+
   return v2;
 }
 
@@ -3871,24 +2073,24 @@ void sub_257A56CE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t NullTextureCheckPass::getCheckedTextureFunction(NullTextureCheckPass *this, llvm::Function *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 5);
   Name = llvm::Value::getName(a2);
-  v24 = v5;
+  v21 = v5;
   v6 = *(a2 + 3);
   *(&__p.__r_.__value_.__s + 23) = 12;
   strcpy(&__p, "mtl.checked.");
   v7 = std::string::append[abi:ne200100]<unsigned char const*,0>(&__p, (Name + 4), (Name + v5));
   if (SHIBYTE(v7->__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v22, v7->__r_.__value_.__l.__data_, v7->__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v19, v7->__r_.__value_.__l.__data_, v7->__r_.__value_.__l.__size_);
   }
 
   else
   {
     v8 = *&v7->__r_.__value_.__l.__data_;
-    v22.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-    *&v22.__r_.__value_.__l.__data_ = v8;
+    v19.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v19.__r_.__value_.__l.__data_ = v8;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3902,38 +2104,35 @@ uint64_t NullTextureCheckPass::getCheckedTextureFunction(NullTextureCheckPass *t
     llvm::Type::getInt8Ty(*v4, v9);
     Int32Ty = llvm::Type::getInt32Ty(*v4, v11);
     llvm::Type::getInt64Ty(*v4, v12);
-    v20 = 0;
+    v17 = 0;
     llvm::SmallVector<llvm::Type *,8u>::SmallVector<llvm::Type * const*,void>(&__p, (*(v6 + 16) + 8), (*(v6 + 16) + 8 * *(v6 + 12)));
     llvm::SmallVectorImpl<llvm::Metadata *>::emplace_back<llvm::Metadata *>(&__p, &Int32Ty);
-    v13 = **(v6 + 16);
-    v20 = llvm::FunctionType::get();
+    v17 = llvm::FunctionType::get();
     if (__p.__r_.__value_.__l.__data_ != &__p.__r_.__value_.__r.__words[2])
     {
       free(__p.__r_.__value_.__l.__data_);
     }
 
     __p.__r_.__value_.__r.__words[0] = *(a2 + 14);
-    v14 = getOrInsertFunction<std::string const&,llvm::FunctionType *&,llvm::AttributeList>(v4, &v22, &v20, &__p);
+    v13 = getOrInsertFunction<std::string const&,llvm::FunctionType *&,llvm::AttributeList>(v4, &v19, &v17, &__p);
     llvm::Function::addFnAttr();
-    *(v14 + 8) = *(v14 + 8) & 0xFFFFBFC0 | 0x4007;
+    *(v13 + 8) = *(v13 + 8) & 0xFFFFBFC0 | 0x4007;
     if ((*(*(*(this + 4) + 72) + 20) & 2) != 0 && ((llvm::Function::hasFnAttribute() & 1) != 0 || llvm::Function::hasFnAttribute()))
     {
       llvm::Function::removeFnAttr();
     }
 
-    v16 = *(**(v20 + 16) + 8);
-    v17 = *v4;
+    v15 = *v4;
     __p.__r_.__value_.__r.__words[0] = "checkBlock";
-    v26 = 259;
-    llvm::BasicBlock::Create(v17, &__p, v14, 0, v15);
+    v23 = 259;
+    llvm::BasicBlock::Create(v15, &__p, v13, 0, v14);
   }
 
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return Function;
 }
 
@@ -4306,7 +2505,7 @@ uint64_t NullTextureCheckPass::runOnModule(llvm::Module &)::OpVisitor::visitText
   return result;
 }
 
-std::string *std::string::append[abi:ne200100]<unsigned char const*,0>(std::string *this, char *a2, char *a3)
+std::string *std::string::append[abi:ne200100]<unsigned char const*,0>(std::string *this, std::string *a2, std::string *a3)
 {
   v4 = a2;
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
@@ -4337,7 +2536,7 @@ std::string *std::string::append[abi:ne200100]<unsigned char const*,0>(std::stri
     v10 = this;
   }
 
-  if (v10 > v4 || &v10->__r_.__value_.__l.__data_ + size + 1 <= v4)
+  if (v10 > v4 || (&v10->__r_.__value_.__l.__data_ + size + 1) <= v4)
   {
     if (v8 - size < v7)
     {
@@ -4355,7 +2554,8 @@ std::string *std::string::append[abi:ne200100]<unsigned char const*,0>(std::stri
     v15 = v14 + size;
     while (v4 != a3)
     {
-      v16 = *v4++;
+      v16 = v4->__r_.__value_.__s.__data_[0];
+      v4 = (v4 + 1);
       *v15++ = v16;
     }
 
@@ -4415,21 +2615,13 @@ void sub_257A581DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t getOrInsertFunction<std::string const&,llvm::FunctionType *&,llvm::AttributeList>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t getOrInsertFunction<std::string const&,llvm::FunctionType *&,llvm::AttributeList>(uint64_t a1, uint64_t *a2, void *a3, void *a4)
 {
-  v4 = a2[1];
-  if (*(a2 + 23) < 0)
-  {
-    v5 = *a2;
-  }
-
-  v6 = *a3;
-  v7 = *a4;
   llvm::Module::getOrInsertFunction();
-  result = v8;
-  if (*(v8 + 16) == 5)
+  result = v4;
+  if (*(v4 + 16) == 5)
   {
-    return *(v8 - 32 * (*(v8 + 20) & 0x7FFFFFF));
+    return *(v4 - 32 * (*(v4 + 20) & 0x7FFFFFF));
   }
 
   return result;
@@ -4462,7 +2654,7 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<unsigned char const*,unsigned
 void StitchingReflection::initializeMetadataTypeMapMap(StitchingReflection *this)
 {
   v1 = MEMORY[0x28223BE20](this);
-  v363.__r_.__value_.__l.__size_ = *MEMORY[0x277D85DE8];
+  v362.__r_.__value_.__l.__size_ = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__s, "air.void_type");
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4474,1045 +2666,1045 @@ void StitchingReflection::initializeMetadataTypeMapMap(StitchingReflection *this
     __str = __s;
   }
 
-  v81 = xmmword_257A6DF10;
-  v82 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v78, "air.BOOL_type");
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v83, v78.__r_.__value_.__l.__data_, v78.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v83 = v78;
-  }
-
-  v84 = xmmword_257A6DF20;
-  v85 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v77, "air.char_type");
+  v80 = xmmword_257A6DF10;
+  v81 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v77, "air.BOOL_type");
   if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v86, v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v82, v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v86 = v77;
+    v82 = v77;
   }
 
-  v87 = xmmword_257A6DF30;
-  v88 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v76, "air.uchar_type");
+  v83 = xmmword_257A6DF20;
+  v84 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v76, "air.char_type");
   if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v89, v76.__r_.__value_.__l.__data_, v76.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v85, v76.__r_.__value_.__l.__data_, v76.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v89 = v76;
+    v85 = v76;
   }
 
-  v90 = xmmword_257A6DF40;
-  v91 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v75, "air.short_type");
+  v86 = xmmword_257A6DF30;
+  v87 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v75, "air.uchar_type");
   if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v92, v75.__r_.__value_.__l.__data_, v75.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v88, v75.__r_.__value_.__l.__data_, v75.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v92 = v75;
+    v88 = v75;
   }
 
-  v93 = xmmword_257A6DF50;
-  v94 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v74, "air.ushort_type");
+  v89 = xmmword_257A6DF40;
+  v90 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v74, "air.short_type");
   if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v95, v74.__r_.__value_.__l.__data_, v74.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v91, v74.__r_.__value_.__l.__data_, v74.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v95 = v74;
+    v91 = v74;
   }
 
-  v96 = 41;
-  v97 = 0;
-  v98 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v73, "air.int_type");
+  v92 = xmmword_257A6DF50;
+  v93 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v73, "air.ushort_type");
   if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v99, v73.__r_.__value_.__l.__data_, v73.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v94, v73.__r_.__value_.__l.__data_, v73.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v99 = v73;
+    v94 = v73;
   }
 
-  v100 = 29;
-  v101 = 0;
-  v102 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v72, "air.uint_type");
+  v95 = 41;
+  v96 = 0;
+  v97 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v72, "air.int_type");
   if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v103, v72.__r_.__value_.__l.__data_, v72.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v98, v72.__r_.__value_.__l.__data_, v72.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v103 = v72;
+    v98 = v72;
   }
 
-  v104 = 33;
-  v105 = 0;
-  v106 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v71, "air.long_type");
+  v99 = 29;
+  v100 = 0;
+  v101 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v71, "air.uint_type");
   if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v107, v71.__r_.__value_.__l.__data_, v71.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v102, v71.__r_.__value_.__l.__data_, v71.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v107 = v71;
+    v102 = v71;
   }
 
-  v108 = 81;
-  v109 = 0;
-  v110 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v70, "air.ulong_type");
+  v103 = 33;
+  v104 = 0;
+  v105 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v70, "air.long_type");
   if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v111, v70.__r_.__value_.__l.__data_, v70.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v106, v70.__r_.__value_.__l.__data_, v70.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v111 = v70;
+    v106 = v70;
   }
 
-  v112 = 85;
-  v113 = 0;
-  v114 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v69, "air.half_type");
+  v107 = 81;
+  v108 = 0;
+  v109 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v69, "air.ulong_type");
   if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v115, v69.__r_.__value_.__l.__data_, v69.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v110, v69.__r_.__value_.__l.__data_, v69.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v115 = v69;
+    v110 = v69;
   }
 
-  v116 = 16;
-  v117 = 0;
-  v118 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v68, "air.float_type");
+  v111 = 85;
+  v112 = 0;
+  v113 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v68, "air.half_type");
   if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v119, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v114, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v119 = v68;
+    v114 = v68;
   }
 
-  v120 = 3;
-  v121 = 0;
-  v122 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v67, "air.double_type");
+  v115 = 16;
+  v116 = 0;
+  v117 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v67, "air.float_type");
   if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v123, v67.__r_.__value_.__l.__data_, v67.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v118, v67.__r_.__value_.__l.__data_, v67.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v123 = v67;
+    v118 = v67;
   }
 
-  v124 = 89;
-  v125 = 0;
-  v126 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v66, "air.bfloat_type");
+  v119 = 3;
+  v120 = 0;
+  v121 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v66, "air.double_type");
   if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v127, v66.__r_.__value_.__l.__data_, v66.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v122, v66.__r_.__value_.__l.__data_, v66.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v127 = v66;
+    v122 = v66;
   }
 
-  v128 = 121;
-  v129 = 0;
-  v130 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v65, "air.matrix_type");
+  v123 = 89;
+  v124 = 0;
+  v125 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v65, "air.bfloat_type");
   if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v131, v65.__r_.__value_.__l.__data_, v65.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v126, v65.__r_.__value_.__l.__data_, v65.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v131 = v65;
+    v126 = v65;
   }
 
-  v132 = 136;
-  v133 = 0;
-  v134 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v64, "air.pointer_type");
+  v127 = 121;
+  v128 = 0;
+  v129 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v64, "air.matrix_type");
   if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v135, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v130, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v135 = v64;
+    v130 = v64;
   }
 
-  v136 = 60;
-  v137 = 0;
-  v138 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v63, "air.lvalue_reference_type");
+  v131 = 136;
+  v132 = 0;
+  v133 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v63, "air.pointer_type");
   if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v139, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v134, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v139 = v63;
+    v134 = v63;
   }
 
-  v140 = 60;
-  v141 = 0;
-  v142 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v62, "air.rvalue_reference_type");
+  v135 = 60;
+  v136 = 0;
+  v137 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v62, "air.lvalue_reference_type");
   if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v143, v62.__r_.__value_.__l.__data_, v62.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v138, v62.__r_.__value_.__l.__data_, v62.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v143 = v62;
+    v138 = v62;
   }
 
-  v144 = 60;
-  v145 = 0;
-  v146 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v61, "air.array_type");
+  v139 = 60;
+  v140 = 0;
+  v141 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v61, "air.rvalue_reference_type");
   if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v147, v61.__r_.__value_.__l.__data_, v61.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v142, v61.__r_.__value_.__l.__data_, v61.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v147 = v61;
+    v142 = v61;
   }
 
-  v148 = 2;
-  v149 = 0;
-  v150 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v60, "air.struct_type");
+  v143 = 60;
+  v144 = 0;
+  v145 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v60, "air.array_type");
   if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v151, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v146, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v151 = v60;
+    v146 = v60;
   }
 
-  v152 = 1;
-  v153 = 0;
-  v154 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v59, "air.sampler_type");
+  v147 = 2;
+  v148 = 0;
+  v149 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v59, "air.struct_type");
   if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v155, v59.__r_.__value_.__l.__data_, v59.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v150, v59.__r_.__value_.__l.__data_, v59.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v155 = v59;
+    v150 = v59;
   }
 
-  v156 = 59;
-  v157 = 0;
-  v158 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v58, "air.instance_acceleration_structure_type");
+  v151 = 1;
+  v152 = 0;
+  v153 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v58, "air.sampler_type");
   if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v159, v58.__r_.__value_.__l.__data_, v58.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v154, v58.__r_.__value_.__l.__data_, v58.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v159 = v58;
+    v154 = v58;
   }
 
-  v160 = 118;
-  v161 = 0;
-  v162 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v57, "air.primitive_acceleration_structure_type");
+  v155 = 59;
+  v156 = 0;
+  v157 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v57, "air.instance_acceleration_structure_type");
   if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v163, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v158, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v163 = v57;
+    v158 = v57;
   }
 
-  v164 = 117;
-  v165 = 0;
-  v166 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v56, "air.texture_1d_type");
+  v159 = 118;
+  v160 = 0;
+  v161 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v56, "air.primitive_acceleration_structure_type");
   if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v167, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v162, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v167 = v56;
+    v162 = v56;
   }
 
-  v168 = 58;
-  v169 = 0;
-  v170 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v55, "air.texture_1d_array_type");
+  v163 = 117;
+  v164 = 0;
+  v165 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v55, "air.texture_1d_type");
   if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v171, v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v166, v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v171 = v55;
+    v166 = v55;
   }
 
-  v172 = 58;
-  v173 = 1;
-  v174 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v54, "air.texture_2d_type");
+  v167 = 58;
+  v168 = 0;
+  v169 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v54, "air.texture_1d_array_type");
   if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v175, v54.__r_.__value_.__l.__data_, v54.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v170, v54.__r_.__value_.__l.__data_, v54.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v175 = v54;
+    v170 = v54;
   }
 
-  v176 = 58;
-  v177 = 2;
-  v178 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v53, "air.texture_2d_array_type");
+  v171 = 58;
+  v172 = 1;
+  v173 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v53, "air.texture_2d_type");
   if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v179, v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v174, v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v179 = v53;
+    v174 = v53;
   }
 
-  v180 = 58;
-  v181 = 3;
-  v182 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v52, "air.texture_3d_type");
+  v175 = 58;
+  v176 = 2;
+  v177 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v52, "air.texture_2d_array_type");
   if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v183, v52.__r_.__value_.__l.__data_, v52.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v178, v52.__r_.__value_.__l.__data_, v52.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v183 = v52;
+    v178 = v52;
   }
 
-  v184 = 58;
-  v185 = 7;
-  v186 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v51, "air.texture_cube_type");
+  v179 = 58;
+  v180 = 3;
+  v181 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v51, "air.texture_3d_type");
   if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v187, v51.__r_.__value_.__l.__data_, v51.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v182, v51.__r_.__value_.__l.__data_, v51.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v187 = v51;
+    v182 = v51;
   }
 
-  v188 = 58;
-  v189 = 5;
-  v190 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v50, "air.texture_cube_array_type");
+  v183 = 58;
+  v184 = 7;
+  v185 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v50, "air.texture_cube_type");
   if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v191, v50.__r_.__value_.__l.__data_, v50.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v186, v50.__r_.__value_.__l.__data_, v50.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v191 = v50;
+    v186 = v50;
   }
 
-  v192 = 58;
-  v193 = 6;
-  v194 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v49, "air.texture_2d_ms_type");
+  v187 = 58;
+  v188 = 5;
+  v189 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v49, "air.texture_cube_array_type");
   if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v195, v49.__r_.__value_.__l.__data_, v49.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v190, v49.__r_.__value_.__l.__data_, v49.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v195 = v49;
+    v190 = v49;
   }
 
-  v196 = 58;
-  v197 = 4;
-  v198 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v48, "air.texture_2d_ms_array_type");
+  v191 = 58;
+  v192 = 6;
+  v193 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v48, "air.texture_2d_ms_type");
   if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v199, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v194, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v199 = v48;
+    v194 = v48;
   }
 
-  v200 = 58;
-  v201 = 8;
-  v202 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v47, "air.texture_buffer_1d_type");
+  v195 = 58;
+  v196 = 4;
+  v197 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v47, "air.texture_2d_ms_array_type");
   if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v203, v47.__r_.__value_.__l.__data_, v47.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v198, v47.__r_.__value_.__l.__data_, v47.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v203 = v47;
+    v198 = v47;
   }
 
-  v204 = 58;
-  v205 = 9;
-  v206 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v46, "air.depth_2d_type");
+  v199 = 58;
+  v200 = 8;
+  v201 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v46, "air.texture_buffer_1d_type");
   if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v207, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v202, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v207 = v46;
+    v202 = v46;
   }
 
-  v208 = 58;
-  v209 = 2;
-  v210 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v45, "air.depth_2d_array_type");
+  v203 = 58;
+  v204 = 9;
+  v205 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v45, "air.depth_2d_type");
   if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v211, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v206, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v211 = v45;
+    v206 = v45;
   }
 
-  v212 = 58;
-  v213 = 3;
-  v214 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v44, "air.depth_cube_type");
+  v207 = 58;
+  v208 = 2;
+  v209 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v44, "air.depth_2d_array_type");
   if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v215, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v210, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v215 = v44;
+    v210 = v44;
   }
 
-  v216 = 58;
-  v217 = 5;
-  v218 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v43, "air.depth_cube_array_type");
+  v211 = 58;
+  v212 = 3;
+  v213 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v43, "air.depth_cube_type");
   if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v219, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v214, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v219 = v43;
+    v214 = v43;
   }
 
-  v220 = 58;
-  v221 = 6;
-  v222 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v42, "air.depth_2d_ms_type");
+  v215 = 58;
+  v216 = 5;
+  v217 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v42, "air.depth_cube_array_type");
   if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v223, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v218, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v223 = v42;
+    v218 = v42;
   }
 
-  v224 = 58;
-  v225 = 4;
-  v226 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v41, "air.depth_2d_ms_array_type");
+  v219 = 58;
+  v220 = 6;
+  v221 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v41, "air.depth_2d_ms_type");
   if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v227, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v222, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v227 = v41;
+    v222 = v41;
   }
 
-  v228 = 58;
-  v229 = 8;
-  v230 = 1;
-  std::string::basic_string[abi:ne200100]<0>(&v40, "air.r8unorm_type");
+  v223 = 58;
+  v224 = 4;
+  v225 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v40, "air.depth_2d_ms_array_type");
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v231, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v226, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v231 = v40;
+    v226 = v40;
   }
 
-  v232 = 62;
-  v233 = 0;
-  v234 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v39, "air.r8snorm_type");
+  v227 = 58;
+  v228 = 8;
+  v229 = 1;
+  std::string::basic_string[abi:ne200100]<0>(&v39, "air.r8unorm_type");
   if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v235, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v230, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v235 = v39;
+    v230 = v39;
   }
 
-  v236 = 63;
-  v237 = 0;
-  v238 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v38, "air.r16unorm_type");
+  v231 = 62;
+  v232 = 0;
+  v233 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v38, "air.r8snorm_type");
   if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v239, v38.__r_.__value_.__l.__data_, v38.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v234, v38.__r_.__value_.__l.__data_, v38.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v239 = v38;
+    v234 = v38;
   }
 
-  v240 = 64;
-  v241 = 0;
-  v242 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v37, "air.r16snorm_type");
+  v235 = 63;
+  v236 = 0;
+  v237 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v37, "air.r16unorm_type");
   if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v243, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v238, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v243 = v37;
+    v238 = v37;
   }
 
-  v244 = 65;
-  v245 = 0;
-  v246 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v36, "air.rg8unorm_type");
+  v239 = 64;
+  v240 = 0;
+  v241 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v36, "air.r16snorm_type");
   if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v247, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v242, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v247 = v36;
+    v242 = v36;
   }
 
-  v248 = 66;
-  v249 = 0;
-  v250 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v35, "air.rg8snorm_type");
+  v243 = 65;
+  v244 = 0;
+  v245 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v35, "air.rg8unorm_type");
   if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v251, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v246, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v251 = v35;
+    v246 = v35;
   }
 
-  v252 = 67;
-  v253 = 0;
-  v254 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v34, "air.rg16unorm_type");
+  v247 = 66;
+  v248 = 0;
+  v249 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v34, "air.rg8snorm_type");
   if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v255, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v250, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v255 = v34;
+    v250 = v34;
   }
 
-  v256 = 68;
-  v257 = 0;
-  v258 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v33, "air.rg16snorm_type");
+  v251 = 67;
+  v252 = 0;
+  v253 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v33, "air.rg16unorm_type");
   if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v259, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v254, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v259 = v33;
+    v254 = v33;
   }
 
-  v260 = 69;
-  v261 = 0;
-  v262 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v32, "air.rgba8unorm_type");
+  v255 = 68;
+  v256 = 0;
+  v257 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v32, "air.rg16snorm_type");
   if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v263, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v258, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v263 = v32;
+    v258 = v32;
   }
 
-  v264 = 70;
-  v265 = 0;
-  v266 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v31, "air.rgba8snorm_type");
+  v259 = 69;
+  v260 = 0;
+  v261 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v31, "air.rgba8unorm_type");
   if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v267, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v262, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v267 = v31;
+    v262 = v31;
   }
 
-  v268 = 72;
-  v269 = 0;
-  v270 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v30, "air.rgba16unorm_type");
+  v263 = 70;
+  v264 = 0;
+  v265 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v30, "air.rgba8snorm_type");
   if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v271, v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v266, v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v271 = v30;
+    v266 = v30;
   }
 
-  v272 = 73;
-  v273 = 0;
-  v274 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v29, "air.rgba16snorm_type");
+  v267 = 72;
+  v268 = 0;
+  v269 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v29, "air.rgba16unorm_type");
   if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v275, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v270, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v275 = v29;
+    v270 = v29;
   }
 
-  v276 = 74;
-  v277 = 0;
-  v278 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v28, "air.srgba8unorm_type");
+  v271 = 73;
+  v272 = 0;
+  v273 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v28, "air.rgba16snorm_type");
   if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v279, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v274, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v279 = v28;
+    v274 = v28;
   }
 
-  v280 = 71;
-  v281 = 0;
-  v282 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v27, "air.rgb10a2_type");
+  v275 = 74;
+  v276 = 0;
+  v277 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v27, "air.srgba8unorm_type");
   if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v283, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v278, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v283 = v27;
+    v278 = v27;
   }
 
-  v284 = 75;
-  v285 = 0;
-  v286 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v26, "air.rg11b10f_type");
+  v279 = 71;
+  v280 = 0;
+  v281 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v26, "air.rgb10a2_type");
   if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v287, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v282, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v287 = v26;
+    v282 = v26;
   }
 
-  v288 = 92;
-  v289 = 0;
-  v290 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v25, "air.rgb9e5_type");
+  v283 = 75;
+  v284 = 0;
+  v285 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v25, "air.rg11b10f_type");
   if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v291, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v286, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v291 = v25;
+    v286 = v25;
   }
 
-  v292 = 77;
-  v293 = 0;
-  v294 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v24, "air.visible_function_table_type");
+  v287 = 92;
+  v288 = 0;
+  v289 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v24, "air.rgb9e5_type");
   if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v295, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v290, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v295 = v24;
+    v290 = v24;
   }
 
-  v296 = 115;
-  v297 = 0;
-  v298 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v23, "air.intersection_function_table_type");
+  v291 = 77;
+  v292 = 0;
+  v293 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v23, "air.visible_function_table_type");
   if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v299, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v294, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v299 = v23;
+    v294 = v23;
   }
 
-  v300 = 116;
-  v301 = 0;
-  v302 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v22, "air.vector_type");
+  v295 = 115;
+  v296 = 0;
+  v297 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v22, "air.intersection_function_table_type");
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v303, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v298, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v303 = v22;
+    v298 = v22;
   }
 
-  v304 = 137;
-  v305 = 0;
-  v306 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v21, "air.packed_vector_type");
+  v299 = 116;
+  v300 = 0;
+  v301 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v21, "air.vector_type");
   if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v307, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v302, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v307 = v21;
+    v302 = v21;
   }
 
-  v308 = 137;
-  v309 = 0;
-  v310 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v20, "air.imageblock_type");
+  v303 = 137;
+  v304 = 0;
+  v305 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v20, "air.packed_vector_type");
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v311, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v306, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v311 = v20;
+    v306 = v20;
   }
 
-  v312 = 138;
-  v313 = 0;
-  v314 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v19, "air.opaque_type");
+  v307 = 137;
+  v308 = 0;
+  v309 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v19, "air.imageblock_type");
   if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v315, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v310, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v315 = v19;
+    v310 = v19;
   }
 
-  v316 = 0u;
-  v317 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v18, "air.llong_type");
+  v311 = 138;
+  v312 = 0;
+  v313 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v18, "air.opaque_type");
   if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v318, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v314, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v318 = v18;
+    v314 = v18;
   }
 
-  v319 = 0u;
-  v320 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v17, "air.ullong_type");
+  v315 = 0u;
+  v316 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v17, "air.llong_type");
   if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v321, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v317, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v321 = v17;
+    v317 = v17;
   }
 
-  v322 = 0u;
-  v323 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v16, "air.function_type");
+  v318 = 0u;
+  v319 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v16, "air.ullong_type");
   if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v324, v16.__r_.__value_.__l.__data_, v16.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v320, v16.__r_.__value_.__l.__data_, v16.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v324 = v16;
+    v320 = v16;
   }
 
-  v325 = 0u;
-  v326 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v15, "air.enum_type");
+  v321 = 0u;
+  v322 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v15, "air.function_type");
   if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v327, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v323, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v327 = v15;
+    v323 = v15;
   }
 
-  v328 = 0u;
-  v329 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v14, "air.union_type");
+  v324 = 0u;
+  v325 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v14, "air.enum_type");
   if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v330, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v326, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v330 = v14;
+    v326 = v14;
   }
 
-  v331 = 0u;
-  v332 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v13, "air.command_buffer_type");
+  v327 = 0u;
+  v328 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v13, "air.union_type");
   if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v333, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v329, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v333 = v13;
+    v329 = v13;
   }
 
-  v334 = 0u;
-  v335 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v12, "air.compute_pipeline_state_type");
+  v330 = 0u;
+  v331 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v12, "air.command_buffer_type");
   if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v336, v12.__r_.__value_.__l.__data_, v12.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v332, v12.__r_.__value_.__l.__data_, v12.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v336 = v12;
+    v332 = v12;
   }
 
-  v337 = 0u;
-  v338 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v11, "air.render_pipeline_state_type");
+  v333 = 0u;
+  v334 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v11, "air.compute_pipeline_state_type");
   if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v339, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v335, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v339 = v11;
+    v335 = v11;
   }
 
-  v340 = 0u;
-  v341 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v10, "air.mesh_grid_properties_type");
+  v336 = 0u;
+  v337 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v10, "air.render_pipeline_state_type");
   if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v342, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v338, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v342 = v10;
+    v338 = v10;
   }
 
-  v343 = 0u;
-  v344 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v9, "air.patch_control_point_type");
+  v339 = 0u;
+  v340 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v9, "air.mesh_grid_properties_type");
   if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v345, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v341, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v345 = v9;
+    v341 = v9;
   }
 
-  v346 = 0u;
-  v347 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v8, "air.interpolant_type");
+  v342 = 0u;
+  v343 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v8, "air.patch_control_point_type");
   if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v348, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v344, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v348 = v8;
+    v344 = v8;
   }
 
-  v349 = 0u;
-  v350 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v7, "air.bounds_checked_buffer_type");
+  v345 = 0u;
+  v346 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v7, "air.interpolant_type");
   if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v351, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v347, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v351 = v7;
+    v347 = v7;
   }
 
-  v352 = 0u;
-  v353 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v6, "air.mesh_type");
+  v348 = 0u;
+  v349 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v6, "air.bounds_checked_buffer_type");
   if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v354, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v350, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v354 = v6;
+    v350 = v6;
   }
 
-  v355 = 0u;
-  v356 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v5, "air.array_of_type");
+  v351 = 0u;
+  v352 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v5, "air.mesh_type");
   if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v357, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v353, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v357 = v5;
+    v353 = v5;
   }
 
-  v358 = 0u;
-  v359 = 0;
+  v354 = 0u;
+  v355 = 0;
+  std::string::basic_string[abi:ne200100]<0>(&v4, "air.array_of_type");
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v356, v4.__r_.__value_.__l.__data_, v4.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v356 = v4;
+  }
+
+  v357 = 0u;
+  v358 = 0;
   std::string::basic_string[abi:ne200100]<0>(&__p, "air.array_ref_of_type");
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v360, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v359, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v360 = __p;
+    v359 = __p;
   }
 
-  v361 = 0u;
-  v362 = 0;
-  std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__assign_unique<std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const*>((v1 + 312), &__str, &v363);
+  v360 = 0u;
+  v361 = 0;
+  std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__assign_unique<std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const*>((v1 + 312), &__str, &v362);
   v2 = 456;
   do
   {
-    if (SHIBYTE(v78.__r_.__value_.__r.__words[v2 + 2]) < 0)
+    if (SHIBYTE(v77.__r_.__value_.__r.__words[v2 + 2]) < 0)
     {
-      operator delete(*(&v78.__r_.__value_.__l.__data_ + v2 * 8));
+      operator delete(*(&v77.__r_.__value_.__l.__data_ + v2 * 8));
     }
 
     v2 -= 6;
@@ -5522,6 +3714,11 @@ void StitchingReflection::initializeMetadataTypeMapMap(StitchingReflection *this
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v4.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
@@ -5889,17 +4086,10 @@ void StitchingReflection::initializeMetadataTypeMapMap(StitchingReflection *this
     operator delete(v77.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257A5A164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, void *a63)
@@ -5949,69 +4139,69 @@ void sub_257A5A164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a57);
   }
 
-  if (a68 < 0)
+  if (a65 < 0)
   {
     operator delete(a63);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a69);
+    operator delete(a66);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (a76 < 0)
+  if (a71 < 0)
   {
-    operator delete(a75);
+    operator delete(a70);
   }
 
-  if (a78 < 0)
+  if (a73 < 0)
   {
-    operator delete(a77);
+    operator delete(a72);
   }
 
-  if (a80 < 0)
+  if (a75 < 0)
   {
-    operator delete(a79);
+    operator delete(a74);
   }
 
-  if (a82 < 0)
+  if (a77 < 0)
   {
-    operator delete(a81);
+    operator delete(a76);
   }
 
-  if (a84 < 0)
+  if (a79 < 0)
   {
-    operator delete(a83);
+    operator delete(a78);
   }
 
-  if (a86 < 0)
+  if (a81 < 0)
   {
-    operator delete(a85);
+    operator delete(a80);
   }
 
-  if (a88 < 0)
+  if (a83 < 0)
   {
-    operator delete(a87);
+    operator delete(a82);
   }
 
-  if (a90 < 0)
+  if (a85 < 0)
   {
-    operator delete(a89);
+    operator delete(a84);
   }
 
-  if (a92 < 0)
+  if (a87 < 0)
   {
-    operator delete(a91);
+    operator delete(a86);
   }
 
   if (SLOBYTE(STACK[0x20F]) < 0)
   {
-    operator delete(a93);
+    operator delete(a88);
   }
 
   if (SLOBYTE(STACK[0x227]) < 0)
@@ -6284,20 +4474,20 @@ void sub_257A5A164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x708]);
   }
 
-  while (v93 != &STACK[0x720])
+  while (v88 != &STACK[0x720])
   {
-    v95 = *(v93 - 25);
-    v93 -= 6;
-    if (v95 < 0)
+    v90 = *(v88 - 25);
+    v88 -= 6;
+    if (v90 < 0)
     {
-      operator delete(*v93);
+      operator delete(*v88);
     }
   }
 
   _Unwind_Resume(a1);
 }
 
-void StitchingReflection::StitchingReflection(void *a1)
+void StitchingReflection::StitchingReflection(void *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -6305,7 +4495,7 @@ void StitchingReflection::StitchingReflection(void *a1)
   MTLArgumentData::MTLArgumentData((a1 + 3));
 }
 
-void sub_257A5AE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19)
+void sub_257A5AE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19)
 {
   std::vector<MTLStructMemberInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(a9);
@@ -6315,8 +4505,9 @@ void sub_257A5AE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void StitchingReflection::getReflectionFromStitchingMetadata(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void StitchingReflection::getReflectionFromStitchingMetadata(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
+  v4 = a3;
   v16 = 0;
   v14 = 0u;
   v15 = 0u;
@@ -6356,7 +4547,7 @@ void StitchingReflection::getReflectionFromStitchingMetadata(uint64_t a1@<X0>, u
 
     if (v10.n128_u64[0] == 1)
     {
-      StitchingReflection::initStructType(a1, a2, a3, a4);
+      StitchingReflection::initStructType(a1, a2, v4, a4);
       goto LABEL_12;
     }
 
@@ -6464,7 +4655,7 @@ double StitchingReflection::initScalarType@<D0>(MTLDataType a1@<X1>, uint64_t a2
 
 uint64_t StitchingReflection::getMatrixType(uint64_t a1, uint64_t a2)
 {
-  StitchingReflection::stitchingArgumentTypeFromNode(a1, *(a2 - 8 * *(a2 + 8) + 32), &v24);
+  StitchingReflection::stitchingArgumentTypeFromNode(a1, *(a2 - 8 * *(a2 + 8) + 32), v24);
   v3 = a2 - 8 * *(a2 + 8);
   v4 = *(*(v3 + 40) + 128);
   if (*(v4 + 16) == 16)
@@ -6500,7 +4691,7 @@ uint64_t StitchingReflection::getMatrixType(uint64_t a1, uint64_t a2)
     v9 = -1;
   }
 
-  if (v24.n128_u64[0] == 121)
+  if (v24[0] == 121)
   {
     v18 = v9 - 2;
     v19 = v9 + 131;
@@ -6621,12 +4812,12 @@ uint64_t StitchingReflection::getMatrixType(uint64_t a1, uint64_t a2)
       v17 = v16;
     }
 
-    if (v24.n128_u64[0] != 3)
+    if (v24[0] != 3)
     {
       v17 = 0;
     }
 
-    if (v24.n128_u64[0] == 16)
+    if (v24[0] == 16)
     {
       return v11;
     }
@@ -6882,23 +5073,7 @@ unint64_t StitchingReflection::getTypeInfoDescriptor(uint64_t a1, uint64_t a2)
   v9 = v2[3];
   if (v9)
   {
-    v10 = llvm::MDNode::classof(v9);
-    v11 = v2[3];
-    if (v10 && v11 != 0)
-    {
-      v14 = *(v11 - 8 * *(v11 + 8));
-      v15 = *(*(v14 - 8 * *(v14 + 8) + 8) + 128);
-      if (*(v15 + 16) == 16)
-      {
-        v16 = (v15 + 24);
-        if (*(v15 + 32) >= 0x41u)
-        {
-          v16 = *v16;
-        }
-
-        v17 = *v16;
-      }
-    }
+    llvm::MDNode::classof(v9);
   }
 
   return v8 | v5;
@@ -7119,7 +5294,7 @@ void StitchingReflection::traverseStruct(uint64_t a1, uint64_t a2, uint64_t *a3,
             }
           }
 
-          StitchingReflection::getReflectionFromStitchingMetadata(&v56, a1, v63, v52);
+          StitchingReflection::getReflectionFromStitchingMetadata(a1, v63, v52, &v56);
           if (v52)
           {
             DWORD1(v57) = HIDWORD(v56);
@@ -7130,7 +5305,7 @@ void StitchingReflection::traverseStruct(uint64_t a1, uint64_t a2, uint64_t *a3,
           v75 = v56;
           v76 = v57;
           v77 = v58;
-          std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(&v74[1], v59, v60, 0x2E8BA2E8BA2E8BA3 * ((v60 - v59) >> 4));
+          std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(&v74[1], v59, v60, 0x2E8BA2E8BA2E8BA3 * (v60 - v59));
           v50 = a3[1];
           if (v50 >= a3[2])
           {
@@ -7169,14 +5344,15 @@ void StitchingReflection::traverseStruct(uint64_t a1, uint64_t a2, uint64_t *a3,
   }
 }
 
-void sub_257A5BAC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, uint64_t a34, char a35)
+void sub_257A5BAC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   if (__p)
   {
     operator delete(__p);
   }
 
-  MTLStructMemberInfo::~MTLStructMemberInfo(&a35);
+  MTLStructMemberInfo::~MTLStructMemberInfo(va);
   _Unwind_Resume(a1);
 }
 
@@ -7268,7 +5444,7 @@ void StitchingReflection::initPointerType(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
   v5 = *(a2 - 8 * *(a2 + 8) + 32);
   StitchingReflection::getTypeInfoDescriptor(a1, v5);
   *(a3 + 24) = v6;
-  StitchingReflection::getReflectionFromStitchingMetadata(&v8, a1, v5, 0);
+  StitchingReflection::getReflectionFromStitchingMetadata(a1, v5, 0, &v8);
   *(a3 + 4) = v9;
   v7 = v8;
   *(a3 + 12) = v8;
@@ -7278,7 +5454,7 @@ void StitchingReflection::initPointerType(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
     *(a3 + 32) = v11;
     if (&v8 != a3)
     {
-      std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>((a3 + 48), v12, v13, 0x2E8BA2E8BA2E8BA3 * ((v13 - v12) >> 4));
+      std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>((a3 + 48), v12, v13, 0x2E8BA2E8BA2E8BA3 * (v13 - v12));
     }
   }
 
@@ -7323,9 +5499,9 @@ void StitchingReflection::initStructType(uint64_t a1@<X0>, uint64_t a2@<X1>, uns
   StitchingReflection::traverseStruct(a1, a2, v8, a3);
 }
 
-void sub_257A5BE8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A5BE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTLStructMemberInfo>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7368,380 +5544,362 @@ void sub_257A5BF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *StitchingReflection::initImageBlockType@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  result = StitchingReflection::getReflectionFromStitchingMetadata(a3, a1, *(a2 - 8 * *(a2 + 8) + 40), 1);
-  *a3 = 138;
-  return result;
-}
-
 void *MTLGenerateReflectionDataPass::generateReflectionData(uint64_t a1, llvm::Module *a2, char a3, void *a4, int a5, void *a6, const void *a7, size_t a8, void *a9)
 {
-  v116 = *MEMORY[0x277D85DE8];
-  if (a3)
+  v111 = *MEMORY[0x277D85DE8];
+  if ((a3 & 1) == 0)
   {
-    memset(v108, 0, sizeof(v108));
-    parseFunctions(a2, v108);
-    v14 = v108[0];
-    v106 = 0;
-    v105 = 0;
-    v107 = 0;
-    v15 = entryPointsType[*(v108[0] + 48)];
-    memset(v104, 0, sizeof(v104));
-    v79 = v15;
-    v16 = v15 != 5 || *(v108[0] + 24) == 0;
-    v76 = a4;
-    v77 = a6;
-    __n = a8;
-    if (!v16)
-    {
-      StitchingReflection::StitchingReflection(v113);
-    }
+    return 0;
+  }
 
-    v102 = 0;
-    v101 = 0;
-    v100 = 0;
-    v17 = *(v108[0] + 8);
-    if (v17)
-    {
-      v18 = *(v17 + 8);
-    }
+  memset(v103, 0, sizeof(v103));
+  parseFunctions(a2, v103);
+  v14 = v103[0];
+  v101 = 0;
+  v100 = 0;
+  v102 = 0;
+  v15 = entryPointsType[*(v103[0] + 48)];
+  memset(v99, 0, sizeof(v99));
+  v16 = *(v103[0] + 24);
+  v74 = v15;
+  v17 = v15 != 5 || v16 == 0;
+  v71 = a4;
+  v72 = a6;
+  __n = a8;
+  if (!v17)
+  {
+    StitchingReflection::StitchingReflection(v108, v16);
+  }
 
-    else
-    {
-      v18 = 0;
-    }
-
-    v19 = *v108[0];
-    if (*(*v108[0] + 18))
-    {
-      llvm::Function::BuildLazyArguments(*v108[0]);
-      v20 = *(v14 + 48);
-    }
-
-    if (v18)
-    {
-      v21 = *(v19 + 88);
-      v22 = *(*(v14 + 8) - 8 * *(*(v14 + 8) + 8));
-      DataLayout = llvm::Module::getDataLayout(*(*v14 + 40));
-      llvm::DataLayout::DataLayout(v113, DataLayout);
-      MTLArgumentData::MTLArgumentData(v112);
-    }
-
-    v24 = 954437177 * ((v101 - v100) >> 5);
-    if (v24)
-    {
-      v25 = 0;
-      do
-      {
-        std::vector<MTLArgumentData>::push_back[abi:ne200100](v104, (v100 + v25));
-        v25 += 288;
-      }
-
-      while (288 * v24 != v25);
-    }
-
-    v113[0] = &v100;
-    std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v113);
-    v100 = 0;
-    v101 = &v100;
-    v102 = 0x2020000000;
-    v26 = 12;
-    v103 = 12;
-    if ((v79 | 2) == 3)
-    {
-      v26 = 0x38E38E38E38E38E4 * ((v106 - v105) >> 5) + 16;
-      v103 = v26;
-    }
-
-    v27 = *(v14 + 128);
-    if (!v27 || *(*(v14 + 120) + v27 - 1))
-    {
-      LODWORD(v27) = v27 + 1;
-    }
-
-    v78 = v24;
-    v103 = v26 + v27 + 8;
-    v111 = 0;
-    v110 = 0;
-    __p = &v110;
-    v99[0] = MEMORY[0x277D85DD0];
-    v99[1] = 3221225472;
-    v99[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke;
-    v99[3] = &unk_27984E5E0;
-    v99[4] = &v100;
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_2;
-    v98[3] = &unk_27984E608;
-    v98[4] = &v100;
-    serializeArguments(v104, &__p, v99, v98);
-    v28 = entryPointsType[*(v14 + 48)];
-    v75 = v101[3];
-    if (v28 == 2)
-    {
-      v101[3] += 4;
-      MTLArgumentData::MTLArgumentData(v113);
-    }
-
-    if ((v28 | 2) == 3)
-    {
-      v101[3] += 8;
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_5;
-      v97[3] = &unk_27984E5E0;
-      v97[4] = &v100;
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_6;
-      v96[3] = &unk_27984E608;
-      v96[4] = &v100;
-      serializePostVertexDumpOutputs(a6, v97, v96);
-    }
-
-    v29 = v101;
-    v30 = v101[3];
-    v31 = v30;
-    if (a9)
-    {
-      *a9 = v30;
-      v31 = v29[3];
-    }
-
-    v32 = __n + v31 + 8;
-    v29[3] = v32;
-    v74 = entryPointsType[*(v14 + 48)];
-    if (v74 == 6)
-    {
-      v29[3] = v32 + ((*(v14 + 104) - *(v14 + 96)) >> 1) + 8;
-    }
-
-    v94 = 0;
-    v93 = 0;
-    v95 = 0;
-    v113[0] = "air.global_bindings";
-    v115 = 259;
-    NamedMetadata = llvm::Module::getNamedMetadata(a2, v113);
-    v34 = NamedMetadata;
-    if (NamedMetadata)
-    {
-      v113[1] = 0;
-      v113[0] = 0;
-      v114 = 0;
-      NumOperands = llvm::NamedMDNode::getNumOperands(NamedMetadata);
-      std::vector<MTLArgumentData>::reserve(&v93, NumOperands);
-      if (llvm::NamedMDNode::getNumOperands(v34))
-      {
-        Operand = llvm::NamedMDNode::getOperand(v34);
-        v37 = Operand - 8 * *(Operand + 8);
-        v38 = *(v37 + 16);
-        v39 = *(*(v37 + 8) + 128);
-        if (v94 < v95)
-        {
-          MTLArgumentData::MTLArgumentData(v94);
-        }
-
-        std::vector<MTLArgumentData>::__emplace_back_slow_path<>(&v93);
-      }
-
-      llvm::DenseMap<llvm::Metadata *,std::vector<MTLStructMemberInfo> *,llvm::DenseMapInfo<llvm::Metadata *,void>,llvm::detail::DenseMapPair<llvm::Metadata *,std::vector<MTLStructMemberInfo> *>>::~DenseMap(v113);
-    }
-
-    v101[3] += 4;
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_7;
-    v92[3] = &unk_27984E5E0;
-    v92[4] = &v100;
-    v91[0] = MEMORY[0x277D85DD0];
-    v91[1] = 3221225472;
-    v91[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_8;
-    v91[3] = &unk_27984E608;
-    v91[4] = &v100;
-    serializeArguments(&v93, &__p, v92, v91);
-    v40 = v101[3];
-    v9 = malloc_type_malloc(v40, 0x100004077774924uLL);
-    std::__tree<std::__value_type<llvm::Function *,llvm::Value *>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,llvm::Value *>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,llvm::Value *>>>::destroy(&__p, v110);
-    v111 = 0;
-    __p = &v110;
-    v110 = 0;
-    v87 = 0;
-    v88 = &v87;
-    v89 = 0x2020000000;
-    v90 = v9;
-    *v9 = 0x4E494253504C544DLL;
-    v41 = v88;
-    ++v90;
-    *v88[3] = 131073;
-    v41[3] += 4;
-    if ((v79 | 2) == 3)
-    {
-      LODWORD(v43) = 954437177 * ((v106 - v105) >> 5);
-      v42 = v88;
-      *v88[3] = v43;
-      v42[3] += 4;
-      v43 = v43;
-      if (v43)
-      {
-        v44 = 4;
-        do
-        {
-          v45 = v88;
-          *v88[3] = *(v105 + v44);
-          v45[3] += 4;
-          v44 += 288;
-          --v43;
-        }
-
-        while (v43);
-      }
-    }
-
-    v46 = *(v14 + 120);
-    v47 = *(v14 + 128);
-    v48 = v88;
-    memcpy(v88[3], v46, v47);
-    v49 = (v48[3] + v47);
-    v48[3] = v49;
-    if (!v47 || v46[v47 - 1])
-    {
-      *v49 = 0;
-      ++v48[3];
-    }
-
-    v50 = v88;
-    *v88[3] = v78;
-    v50[3] += 4;
-    v51 = v88;
-    *v88[3] = v75;
-    v51[3] += 4;
-    v86[0] = MEMORY[0x277D85DD0];
-    v86[1] = 3221225472;
-    v86[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_9;
-    v86[3] = &unk_27984E5E0;
-    v86[4] = &v87;
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_10;
-    v85[3] = &unk_27984E608;
-    v85[4] = &v87;
-    serializeArguments(v104, &__p, v86, v85);
-    if (entryPointsType[*(v14 + 48)] == 2)
-    {
-      v52 = v88;
-      v53 = v88[3];
-      *v53 = 0;
-      *(v53 + 1) = 0;
-      *(v53 + 3) = 0;
-      v52[3] += 4;
-      MTLArgumentData::MTLArgumentData(v113);
-    }
-
-    if ((v28 | 2) == 3)
-    {
-      v54 = v88;
-      *v88[3] = a5;
-      v54[3] += 4;
-      v55 = v88;
-      *v88[3] = v30;
-      v55[3] += 4;
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_13;
-      v84[3] = &unk_27984E5E0;
-      v84[4] = &v87;
-      v83[0] = MEMORY[0x277D85DD0];
-      v83[1] = 3221225472;
-      v83[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_14;
-      v83[3] = &unk_27984E608;
-      v83[4] = &v87;
-      serializePostVertexDumpOutputs(v77, v84, v83);
-    }
-
-    v56 = v88;
-    *v88[3] = -1;
-    v56[3] += 4;
-    v57 = v88;
-    *v88[3] = __n;
-    v57[3] += 4;
-    if (__n)
-    {
-      v58 = v88;
-      memcpy(v88[3], a7, __n);
-      v58[3] += __n;
-    }
-
-    if (v74 == 6)
-    {
-      v59 = v88;
-      v60 = v88[3];
-      *v60 = *(v14 + 70) & 3;
-      *(v60 + 1) = 0;
-      *(v60 + 3) = 0;
-      v59[3] += 4;
-      v61 = *(v14 + 104) - *(v14 + 96);
-      v62 = v88;
-      v63 = v88[3];
-      *v63 = v61 >> 3;
-      v63[1] = v61 >> 11;
-      v63[2] = v61 >> 19;
-      v63[3] = v61 >> 27;
-      v62[3] += 4;
-      v64 = *(v14 + 96);
-      if (*(v14 + 104) != v64)
-      {
-        v65 = 0;
-        v66 = 1;
-        do
-        {
-          v67 = *(v64 + 8 * v65);
-          v68 = v88;
-          *v88[3] = v67;
-          v68[3] += 4;
-          v65 = v66;
-          v64 = *(v14 + 96);
-          ++v66;
-        }
-
-        while (v65 < (*(v14 + 104) - v64) >> 3);
-      }
-    }
-
-    v69 = v88;
-    *v88[3] = v40;
-    v69[3] += 4;
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_15;
-    v82[3] = &unk_27984E5E0;
-    v82[4] = &v87;
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_16;
-    v81[3] = &unk_27984E608;
-    v81[4] = &v87;
-    serializeArguments(&v93, &__p, v82, v81);
-    *v76 = v101[3];
-    _Block_object_dispose(&v87, 8);
-    v113[0] = &v93;
-    std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v113);
-    std::__tree<std::__value_type<llvm::Function *,llvm::Value *>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,llvm::Value *>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,llvm::Value *>>>::destroy(&__p, v110);
-    _Block_object_dispose(&v100, 8);
-    v113[0] = v104;
-    std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v113);
-    v113[0] = &v105;
-    std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v113);
-    v113[0] = v108;
-    std::vector<FunctionDesc>::__destroy_vector::operator()[abi:ne200100](v113);
+  v97 = 0;
+  v96 = 0;
+  v95 = 0;
+  v18 = *(v103[0] + 8);
+  if (v18)
+  {
+    v19 = *(v18 + 8);
   }
 
   else
   {
-    v9 = 0;
+    v19 = 0;
   }
 
-  v70 = *MEMORY[0x277D85DE8];
+  if (*(*v103[0] + 18))
+  {
+    llvm::Function::BuildLazyArguments(*v103[0]);
+  }
+
+  if (v19)
+  {
+    DataLayout = llvm::Module::getDataLayout(*(*v14 + 40));
+    llvm::DataLayout::DataLayout(v108, DataLayout);
+    MTLArgumentData::MTLArgumentData(&v107);
+  }
+
+  v21 = 954437177 * ((v96 - v95) >> 5);
+  if (v21)
+  {
+    v22 = 0;
+    do
+    {
+      std::vector<MTLArgumentData>::push_back[abi:ne200100](v99, (v95 + v22));
+      v22 += 288;
+    }
+
+    while (288 * v21 != v22);
+  }
+
+  v108[0] = &v95;
+  std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v108);
+  v95 = 0;
+  v96 = &v95;
+  v97 = 0x2020000000;
+  v23 = 12;
+  v98 = 12;
+  if ((v74 | 2) == 3)
+  {
+    v23 = 0x38E38E38E38E38E4 * ((v101 - v100) >> 5) + 16;
+    v98 = v23;
+  }
+
+  v24 = *(v14 + 128);
+  if (!v24 || *(*(v14 + 120) + v24 - 1))
+  {
+    LODWORD(v24) = v24 + 1;
+  }
+
+  v73 = v21;
+  v98 = v23 + v24 + 8;
+  v106 = 0;
+  v105 = 0;
+  __p = &v105;
+  v94[0] = MEMORY[0x277D85DD0];
+  v94[1] = 3221225472;
+  v94[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke;
+  v94[3] = &unk_27984E5E0;
+  v94[4] = &v95;
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_2;
+  v93[3] = &unk_27984E608;
+  v93[4] = &v95;
+  serializeArguments(v99, &__p, v94, v93);
+  v25 = entryPointsType[*(v14 + 48)];
+  v70 = v96[3];
+  if (v25 == 2)
+  {
+    v96[3] += 4;
+    MTLArgumentData::MTLArgumentData(v108);
+  }
+
+  if ((v25 | 2) == 3)
+  {
+    v96[3] += 8;
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_5;
+    v92[3] = &unk_27984E5E0;
+    v92[4] = &v95;
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_6;
+    v91[3] = &unk_27984E608;
+    v91[4] = &v95;
+    serializePostVertexDumpOutputs(a6, v92, v91);
+  }
+
+  v26 = v96;
+  v27 = v96[3];
+  v28 = v27;
+  if (a9)
+  {
+    *a9 = v27;
+    v28 = v26[3];
+  }
+
+  v29 = __n + v28 + 8;
+  v26[3] = v29;
+  v69 = entryPointsType[*(v14 + 48)];
+  if (v69 == 6)
+  {
+    v26[3] = v29 + ((*(v14 + 104) - *(v14 + 96)) >> 1) + 8;
+  }
+
+  v89 = 0;
+  v88 = 0;
+  v90 = 0;
+  v108[0] = "air.global_bindings";
+  LOWORD(v110) = 259;
+  NamedMetadata = llvm::Module::getNamedMetadata(a2, v108);
+  v31 = NamedMetadata;
+  if (NamedMetadata)
+  {
+    v108[1] = 0;
+    v108[0] = 0;
+    v109 = 0;
+    NumOperands = llvm::NamedMDNode::getNumOperands(NamedMetadata);
+    std::vector<MTLArgumentData>::reserve(&v88, NumOperands);
+    if (llvm::NamedMDNode::getNumOperands(v31))
+    {
+      llvm::NamedMDNode::getOperand(v31);
+      if (v89 < v90)
+      {
+        MTLArgumentData::MTLArgumentData(v89);
+      }
+
+      std::vector<MTLArgumentData>::__emplace_back_slow_path<>(&v88);
+    }
+
+    llvm::DenseMap<llvm::Metadata *,std::vector<MTLStructMemberInfo> *,llvm::DenseMapInfo<llvm::Metadata *,void>,llvm::detail::DenseMapPair<llvm::Metadata *,std::vector<MTLStructMemberInfo> *>>::~DenseMap(v108, v33, v34, v35);
+  }
+
+  v96[3] += 4;
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_7;
+  v87[3] = &unk_27984E5E0;
+  v87[4] = &v95;
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_8;
+  v86[3] = &unk_27984E608;
+  v86[4] = &v95;
+  serializeArguments(&v88, &__p, v87, v86);
+  v36 = v96[3];
+  v9 = malloc_type_malloc(v36, 0x100004077774924uLL);
+  std::__tree<std::__value_type<llvm::Function *,llvm::Value *>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,llvm::Value *>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,llvm::Value *>>>::destroy(&__p, v105);
+  v106 = 0;
+  __p = &v105;
+  v105 = 0;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x2020000000;
+  v85 = v9;
+  *v9 = 0x4E494253504C544DLL;
+  v37 = v83;
+  ++v85;
+  *v83[3] = 131073;
+  v37[3] += 4;
+  if ((v74 | 2) == 3)
+  {
+    LODWORD(v39) = 954437177 * ((v101 - v100) >> 5);
+    v38 = v83;
+    *v83[3] = v39;
+    v38[3] += 4;
+    v39 = v39;
+    if (v39)
+    {
+      v40 = 4;
+      do
+      {
+        v41 = v83;
+        *v83[3] = *(v100 + v40);
+        v41[3] += 4;
+        v40 += 288;
+        --v39;
+      }
+
+      while (v39);
+    }
+  }
+
+  v42 = *(v14 + 120);
+  v43 = *(v14 + 128);
+  v44 = v83;
+  memcpy(v83[3], v42, v43);
+  v45 = (v44[3] + v43);
+  v44[3] = v45;
+  if (!v43 || v42[v43 - 1])
+  {
+    *v45 = 0;
+    ++v44[3];
+  }
+
+  v46 = v83;
+  *v83[3] = v73;
+  v46[3] += 4;
+  v47 = v83;
+  *v83[3] = v70;
+  v47[3] += 4;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_9;
+  v81[3] = &unk_27984E5E0;
+  v81[4] = &v82;
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_10;
+  v80[3] = &unk_27984E608;
+  v80[4] = &v82;
+  serializeArguments(v99, &__p, v81, v80);
+  if (entryPointsType[*(v14 + 48)] == 2)
+  {
+    v48 = v83;
+    v49 = v83[3];
+    *v49 = 0;
+    *(v49 + 1) = 0;
+    *(v49 + 3) = 0;
+    v48[3] += 4;
+    MTLArgumentData::MTLArgumentData(v108);
+  }
+
+  if ((v25 | 2) == 3)
+  {
+    v50 = v83;
+    *v83[3] = a5;
+    v50[3] += 4;
+    v51 = v83;
+    *v83[3] = v27;
+    v51[3] += 4;
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_13;
+    v79[3] = &unk_27984E5E0;
+    v79[4] = &v82;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_14;
+    v78[3] = &unk_27984E608;
+    v78[4] = &v82;
+    serializePostVertexDumpOutputs(v72, v79, v78);
+  }
+
+  v52 = v83;
+  *v83[3] = -1;
+  v52[3] += 4;
+  v53 = v83;
+  *v83[3] = __n;
+  v53[3] += 4;
+  if (__n)
+  {
+    v54 = v83;
+    memcpy(v83[3], a7, __n);
+    v54[3] += __n;
+  }
+
+  if (v69 == 6)
+  {
+    v55 = v83;
+    v56 = v83[3];
+    *v56 = *(v14 + 70) & 3;
+    *(v56 + 1) = 0;
+    *(v56 + 3) = 0;
+    v55[3] += 4;
+    v57 = *(v14 + 104) - *(v14 + 96);
+    v58 = v83;
+    v59 = v83[3];
+    *v59 = v57 >> 3;
+    v59[1] = v57 >> 11;
+    v59[2] = v57 >> 19;
+    v59[3] = v57 >> 27;
+    v58[3] += 4;
+    v60 = *(v14 + 96);
+    if (*(v14 + 104) != v60)
+    {
+      v61 = 0;
+      v62 = 1;
+      do
+      {
+        v63 = *(v60 + 8 * v61);
+        v64 = v83;
+        *v83[3] = v63;
+        v64[3] += 4;
+        v61 = v62;
+        v60 = *(v14 + 96);
+        ++v62;
+      }
+
+      while (v61 < (*(v14 + 104) - v60) >> 3);
+    }
+  }
+
+  v65 = v83;
+  *v83[3] = v36;
+  v65[3] += 4;
+  v77[0] = MEMORY[0x277D85DD0];
+  v77[1] = 3221225472;
+  v77[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_15;
+  v77[3] = &unk_27984E5E0;
+  v77[4] = &v82;
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6ModuleEjPmjRKNSt3__16vectorI20PostVertexDumpOutputNS4_9allocatorIS6_EEEEPvmS3__block_invoke_16;
+  v76[3] = &unk_27984E608;
+  v76[4] = &v82;
+  serializeArguments(&v88, &__p, v77, v76);
+  *v71 = v96[3];
+  _Block_object_dispose(&v82, 8);
+  v108[0] = &v88;
+  std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v108);
+  std::__tree<std::__value_type<llvm::Function *,llvm::Value *>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,llvm::Value *>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,llvm::Value *>>>::destroy(&__p, v105);
+  _Block_object_dispose(&v95, 8);
+  v108[0] = v99;
+  std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v108);
+  v108[0] = &v100;
+  std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v108);
+  v108[0] = v103;
+  std::vector<FunctionDesc>::__destroy_vector::operator()[abi:ne200100](v108);
   return v9;
 }
 
@@ -7929,25 +6087,24 @@ uint64_t ___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6Mo
 
 uint64_t extractOutputImageBlockDataFromMetadata(FunctionDesc *a1, MTLArgumentData *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a1 + 16;
   DataLayout = llvm::Module::getDataLayout(*(*a1 + 40));
-  llvm::DataLayout::DataLayout(v7, DataLayout);
+  llvm::DataLayout::DataLayout(v6, DataLayout);
   if (*v2 && *(*v2 + 8))
   {
-    MTLArgumentData::MTLArgumentData(&v6);
+    MTLArgumentData::MTLArgumentData(&v5);
   }
 
-  result = MEMORY[0x259C6A2B0](v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x259C6A2B0](v6);
 }
 
-void sub_257A5DB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_257A5DB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  llvm::DenseMap<llvm::Metadata *,std::vector<MTLStructMemberInfo> *,llvm::DenseMapInfo<llvm::Metadata *,void>,llvm::detail::DenseMapPair<llvm::Metadata *,std::vector<MTLStructMemberInfo> *>>::~DenseMap(&a9);
+  va_start(va, a47);
+  llvm::DenseMap<llvm::Metadata *,std::vector<MTLStructMemberInfo> *,llvm::DenseMapInfo<llvm::Metadata *,void>,llvm::detail::DenseMapPair<llvm::Metadata *,std::vector<MTLStructMemberInfo> *>>::~DenseMap(&a9, a2, a3, a4);
   MTLArgumentData::~MTLArgumentData(&a12);
-  MEMORY[0x259C6A2B0](&a48);
+  MEMORY[0x259C6A2B0](va);
   _Unwind_Resume(a1);
 }
 
@@ -8102,9 +6259,9 @@ void *___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6Modul
   v3 = a2[1];
   v4 = *(*(a1 + 32) + 8);
   result = memcpy(*(v4 + 24), *a2, v3);
-  v6 = (*(v4 + 24) + v3);
+  v6 = &v3[*(v4 + 24)];
   *(v4 + 24) = v6;
-  if (!v3 || v2[v3 - 1])
+  if (!v3 || v3[v2 - 1])
   {
     *v6 = 0;
     ++*(v4 + 24);
@@ -8127,9 +6284,9 @@ void *___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6Modul
   v3 = a2[1];
   v4 = *(*(a1 + 32) + 8);
   result = memcpy(*(v4 + 24), *a2, v3);
-  v6 = (*(v4 + 24) + v3);
+  v6 = &v3[*(v4 + 24)];
   *(v4 + 24) = v6;
-  if (!v3 || v2[v3 - 1])
+  if (!v3 || v3[v2 - 1])
   {
     *v6 = 0;
     ++*(v4 + 24);
@@ -8152,9 +6309,9 @@ void *___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6Modul
   v3 = a2[1];
   v4 = *(*(a1 + 32) + 8);
   result = memcpy(*(v4 + 24), *a2, v3);
-  v6 = (*(v4 + 24) + v3);
+  v6 = &v3[*(v4 + 24)];
   *(v4 + 24) = v6;
-  if (!v3 || v2[v3 - 1])
+  if (!v3 || v3[v2 - 1])
   {
     *v6 = 0;
     ++*(v4 + 24);
@@ -8177,9 +6334,9 @@ void *___ZN29MTLGenerateReflectionDataPass22generateReflectionDataEPN4llvm6Modul
   v3 = a2[1];
   v4 = *(*(a1 + 32) + 8);
   result = memcpy(*(v4 + 24), *a2, v3);
-  v6 = (*(v4 + 24) + v3);
+  v6 = &v3[*(v4 + 24)];
   *(v4 + 24) = v6;
-  if (!v3 || v2[v3 - 1])
+  if (!v3 || v3[v2 - 1])
   {
     *v6 = 0;
     ++*(v4 + 24);
@@ -8312,20 +6469,17 @@ void std::vector<MTLStructMemberInfo>::__base_destruct_at_end[abi:ne200100](uint
   *(a1 + 8) = a2;
 }
 
-void *std::vector<AttributeDescriptor>::reserve(void *result, unint64_t a2)
+void std::vector<AttributeDescriptor>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<AttributeDescriptor>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<AttributeDescriptor>>(a1, a2);
     }
 
     std::vector<std::pair<std::string,MTLCompilerSharedMemoryInterface::RuntimeLibraryEntry>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<AttributeDescriptor>>(uint64_t a1, unint64_t a2)
@@ -8338,24 +6492,24 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<AttributeDescriptor>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void StitchingReflection::~StitchingReflection(StitchingReflection *this)
+void StitchingReflection::~StitchingReflection(void **this)
 {
-  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(this + 312);
-  v5 = (this + 224);
+  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(this + 39);
+  v5 = this + 28;
   std::vector<MTLStructMemberInfo>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v2 = *(this + 22);
+  v2 = this[22];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *(this + 20);
+  v3 = this[20];
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v4 = *(this + 18);
+  v4 = this[18];
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -8367,7 +6521,7 @@ void StitchingReflection::~StitchingReflection(StitchingReflection *this)
 
 uint64_t serializeStructInfo(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v8 = *(a2 + 8);
   if (!v8)
   {
@@ -8391,20 +6545,19 @@ uint64_t serializeStructInfo(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
   while (v8);
   if (v9 != a2 + 8 && *(v9 + 32) <= a1)
   {
-    v38 = *(v9 + 40);
-    v39 = *(a3 + 16);
-    v40 = *MEMORY[0x277D85DE8];
+    v37 = *(v9 + 40);
+    v38 = *(a3 + 16);
 
-    return v39(a3, v38);
+    return v38(a3, v37);
   }
 
   else
   {
 LABEL_9:
     v13 = *(a2 + 16);
-    v43[0] = a1;
-    *&v45[0] = v43;
-    *(std::__tree<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::__map_value_compare<std::vector<MTLStructMemberInfo> const*,std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::less<std::vector<MTLStructMemberInfo> const*>,true>,std::allocator<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>>>::__emplace_unique_key_args<std::vector<MTLStructMemberInfo> const*,std::piecewise_construct_t const&,std::tuple<std::vector<MTLStructMemberInfo> const*&&>,std::tuple<>>(a2, v43) + 10) = v13 + 1;
+    v41[0] = a1;
+    *&v43[0] = v41;
+    *(std::__tree<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::__map_value_compare<std::vector<MTLStructMemberInfo> const*,std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::less<std::vector<MTLStructMemberInfo> const*>,true>,std::allocator<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>>>::__emplace_unique_key_args<std::vector<MTLStructMemberInfo> const*,std::piecewise_construct_t const&,std::tuple<std::vector<MTLStructMemberInfo> const*&&>,std::tuple<>>(a2, v41, &std::piecewise_construct, v43) + 10) = v13 + 1;
     (*(a3 + 16))(a3);
     v14 = 0x2E8BA2E8BA2E8BA3 * ((a1[1] - *a1) >> 4);
     result = (*(a3 + 16))(a3, v14);
@@ -8457,7 +6610,7 @@ LABEL_9:
         v21 = v17 + v16;
         if (*(v17 + v16 + 96))
         {
-          serializeStructInfo(v21 + 104, a2, a3, a4, a5);
+          serializeStructInfo((v21 + 104), a2, a3, a4, a5);
         }
 
         v22 = *(v21 + 56);
@@ -8465,35 +6618,35 @@ LABEL_9:
         {
           v23 = *v22;
           v24 = v22[2];
-          v45[1] = v22[1];
-          v45[2] = v24;
-          v45[0] = v23;
+          v43[1] = v22[1];
+          v43[2] = v24;
+          v43[0] = v23;
           v25 = v22[3];
           v26 = v22[4];
           v27 = v22[6];
-          v45[5] = v22[5];
-          v45[6] = v27;
-          v45[3] = v25;
-          v45[4] = v26;
+          v43[5] = v22[5];
+          v43[6] = v27;
+          v43[3] = v25;
+          v43[4] = v26;
           v28 = *(v22 + 15);
-          v46 = *(v22 + 14);
-          v47 = v28;
+          v44 = *(v22 + 14);
+          v45 = v28;
           if (v28)
           {
             atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           v29 = *(v22 + 17);
-          v48 = *(v22 + 16);
-          v49 = v29;
+          v46 = *(v22 + 16);
+          v47 = v29;
           if (v29)
           {
             atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           v30 = *(v22 + 19);
-          v50 = *(v22 + 18);
-          v51 = v30;
+          v48 = *(v22 + 18);
+          v49 = v30;
           if (v30)
           {
             atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8501,27 +6654,22 @@ LABEL_9:
 
           v31 = v22[10];
           v32 = v22[11];
-          v54 = *(v22 + 24);
-          v52 = v31;
-          v53 = v32;
-          memset(v55, 0, sizeof(v55));
-          std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(v55, *(v22 + 25), *(v22 + 26), 0x2E8BA2E8BA2E8BA3 * ((*(v22 + 26) - *(v22 + 25)) >> 4));
+          v52 = *(v22 + 24);
+          v50 = v31;
+          v51 = v32;
+          memset(v53, 0, sizeof(v53));
+          std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(v53, *(v22 + 25), *(v22 + 26), 0x2E8BA2E8BA2E8BA3 * ((*(v22 + 26) - *(v22 + 25)) >> 4));
           v33 = v22[14];
           v34 = v22[15];
           v35 = v22[17];
-          v58 = v22[16];
-          v59 = v35;
-          v56 = v33;
-          v57 = v34;
-          memset(v43, 0, sizeof(v43));
-          std::vector<MTLArgumentData>::__init_with_size[abi:ne200100]<MTLArgumentData const*,MTLArgumentData const*>(v43, v45, &v60, 1uLL);
-          v44 = v55;
-          std::vector<MTLStructMemberInfo>::__destroy_vector::operator()[abi:ne200100](&v44);
-          if (v51)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v51);
-          }
-
+          v56 = v22[16];
+          v57 = v35;
+          v54 = v33;
+          v55 = v34;
+          memset(v41, 0, sizeof(v41));
+          std::vector<MTLArgumentData>::__init_with_size[abi:ne200100]<MTLArgumentData const*,MTLArgumentData const*>(v41, v43, &v58, 1uLL);
+          v42 = v53;
+          std::vector<MTLStructMemberInfo>::__destroy_vector::operator()[abi:ne200100](&v42);
           if (v49)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v49);
@@ -8532,9 +6680,14 @@ LABEL_9:
             std::__shared_weak_count::__release_shared[abi:ne200100](v47);
           }
 
-          serializeArguments(v43, a2, a3, a4);
-          *&v45[0] = v43;
-          std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v45);
+          if (v45)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+          }
+
+          serializeArguments(v41, a2, a3, a4);
+          *&v43[0] = v41;
+          std::vector<MTLArgumentData>::__destroy_vector::operator()[abi:ne200100](v43);
         }
 
         v36 = v17 + v16;
@@ -8545,8 +6698,6 @@ LABEL_9:
 
       while (176 * v14 != v16);
     }
-
-    v37 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -8599,7 +6750,7 @@ uint64_t serializeStitchingStructInfo(void *a1, uint64_t a2, uint64_t a3, uint64
       result = serializeStitchingTypeInfo(v14, a4);
       if (LODWORD(v14[0]) == 1 || LODWORD(v14[0]) == 138 || LODWORD(v14[0]) == 60 && HIDWORD(v14[0]) == 1)
       {
-        result = serializeStitchingStructInfo(v12 + 104, *(v12 + 16), *(v12 + 24), a4, a5);
+        result = serializeStitchingStructInfo((v12 + 104), *(v12 + 16), *(v12 + 24), a4, a5);
       }
 
       v10 += 176;
@@ -8622,7 +6773,7 @@ uint64_t getStructIndirectArgumentIndexStride(void *a1)
   v2 = *(v1 - 104);
   if (*(v1 - 80))
   {
-    StructIndirectArgumentIndexStride = getStructIndirectArgumentIndexStride(v1 - 72);
+    StructIndirectArgumentIndexStride = getStructIndirectArgumentIndexStride((v1 - 72));
   }
 
   else
@@ -8657,41 +6808,41 @@ uint64_t getStructIndirectArgumentIndexStride(void *a1)
   return v2 + v7 * StructIndirectArgumentIndexStride;
 }
 
-void *std::__tree<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::__map_value_compare<std::vector<MTLStructMemberInfo> const*,std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::less<std::vector<MTLStructMemberInfo> const*>,true>,std::allocator<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>>>::__emplace_unique_key_args<std::vector<MTLStructMemberInfo> const*,std::piecewise_construct_t const&,std::tuple<std::vector<MTLStructMemberInfo> const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::__map_value_compare<std::vector<MTLStructMemberInfo> const*,std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>,std::less<std::vector<MTLStructMemberInfo> const*>,true>,std::allocator<std::__value_type<std::vector<MTLStructMemberInfo> const*,unsigned int>>>::__emplace_unique_key_args<std::vector<MTLStructMemberInfo> const*,std::piecewise_construct_t const&,std::tuple<std::vector<MTLStructMemberInfo> const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8704,8 +6855,6 @@ void *std::vector<MTLArgumentData>::reserve(void *result, unint64_t a2)
   {
     if (a2 < 0xE38E38E38E38E4)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<MTLArgumentData>>(result, a2);
     }
 
@@ -8715,9 +6864,9 @@ void *std::vector<MTLArgumentData>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_257A5EDDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A5EDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<MTLArgumentData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8756,9 +6905,9 @@ void std::vector<MTLArgumentData>::__emplace_back_slow_path<>(void *a1)
   std::vector<std::pair<std::string,MTLCompilerSharedMemoryInterface::RuntimeLibraryEntry>>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_257A5EF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_257A5EF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<MTLArgumentData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8823,7 +6972,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,
 
   while (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const&>(a1, &v4->__r_.__value_.__l.__data_);
+    std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const&>(a1, v4, v4);
     v4 += 2;
   }
 }
@@ -8838,7 +6987,7 @@ void sub_257A5F008(void *a1)
 const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__node_insert_unique(uint64_t *a1, uint64_t a2)
 {
   v2 = a2;
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, (a2 + 16));
   *(v2 + 8) = v4;
   v5 = std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__node_insert_unique_prepare[abi:ne200100](a1, v4, (v2 + 16));
   if (v5)
@@ -8991,35 +7140,35 @@ LABEL_14:
   return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>>>>::__construct_node_hash<std::pair<std::string const,std::pair<MTLDataType,std::pair<MTLTextureType,BOOL>>> const&>();
@@ -9027,44 +7176,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_257A5F4D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -9084,7 +7233,7 @@ void sub_257A5F5A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v8 = *a1;
   if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 4) < a4)
@@ -9117,14 +7266,14 @@ void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStruc
   v11 = a1[1] - v8;
   if (0x2E8BA2E8BA2E8BA3 * (v11 >> 4) >= a4)
   {
-    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v14, a2, a3, v8);
-    std::vector<MTLStructMemberInfo>::__base_destruct_at_end[abi:ne200100](a1, v13);
+    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v13, a2, a3, v8);
+    std::vector<MTLStructMemberInfo>::__base_destruct_at_end[abi:ne200100](a1, v12);
   }
 
   else
   {
-    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v15, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MTLStructMemberInfo>,MTLStructMemberInfo*,MTLStructMemberInfo*,MTLStructMemberInfo*>(a1, (a2 + v11), a3, a1[1], v12);
+    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v14, a2, a2 + v11, v8);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MTLStructMemberInfo>,MTLStructMemberInfo*,MTLStructMemberInfo*,MTLStructMemberInfo*>(a1, (a2 + v11), a3, a1[1]);
   }
 }
 
@@ -9140,23 +7289,23 @@ void std::vector<MTLStructMemberInfo>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = a2;
   if (a2 != a3)
   {
-    v7 = a2 + 14;
+    v7 = a2 + 112;
     do
     {
-      v8 = *(v7 - 7);
-      v9 = *(v7 - 6);
-      v10 = *(v7 - 5);
-      *(a4 + 48) = *(v7 - 16);
+      v8 = *(v7 - 112);
+      v9 = *(v7 - 96);
+      v10 = *(v7 - 80);
+      *(a4 + 48) = *(v7 - 64);
       *(a4 + 16) = v9;
       *(a4 + 32) = v10;
       *a4 = v8;
-      v12 = *(v7 - 7);
-      v11 = *(v7 - 6);
+      v12 = *(v7 - 56);
+      v11 = *(v7 - 48);
       if (v11)
       {
         atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
@@ -9170,27 +7319,25 @@ uint64_t *std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLSt
         std::__shared_weak_count::__release_shared[abi:ne200100](v13);
       }
 
-      v14 = v7 - 14;
-      v15 = *(v7 - 5);
-      *(a4 + 88) = *(v7 - 3);
+      v14 = v7 - 112;
+      v15 = *(v7 - 40);
+      *(a4 + 88) = *(v7 - 24);
       *(a4 + 72) = v15;
-      if (a4 != v7 - 14)
+      if (a4 != v7 - 112)
       {
-        v16 = *(v7 - 1);
-        v17 = *v7;
-        std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(a4 + 104);
+        std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>((a4 + 104), *(v7 - 8), *v7, 0x2E8BA2E8BA2E8BA3 * ((*v7 - *(v7 - 8)) >> 4));
       }
 
-      v18 = *(v7 + 1);
-      v19 = *(v7 + 3);
-      *(a4 + 144) = *(v7 + 2);
-      *(a4 + 160) = v19;
-      *(a4 + 128) = v18;
+      v16 = *(v7 + 16);
+      v17 = *(v7 + 48);
+      *(a4 + 144) = *(v7 + 32);
+      *(a4 + 160) = v17;
+      *(a4 + 128) = v16;
       a4 += 176;
-      v7 += 22;
+      v7 += 176;
     }
 
-    while (v14 + 22 != a3);
+    while (v14 + 176 != a3);
     return a3;
   }
 
@@ -9246,7 +7393,7 @@ __n128 std::allocator_traits<std::allocator<MTLArgumentData>>::construct[abi:ne2
   *(a2 + 160) = v15;
   *(a2 + 208) = 0;
   *(a2 + 216) = 0;
-  std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(a2 + 200, *(a3 + 25), *(a3 + 26), 0x2E8BA2E8BA2E8BA3 * ((*(a3 + 26) - *(a3 + 25)) >> 4));
+  std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>((a2 + 200), *(a3 + 25), *(a3 + 26), 0x2E8BA2E8BA2E8BA3 * ((*(a3 + 26) - *(a3 + 25)) >> 4));
   result = a3[14];
   v19 = a3[15];
   v20 = a3[17];
@@ -9293,7 +7440,7 @@ __n128 std::allocator_traits<std::allocator<MTLStructMemberInfo>>::construct[abi
   *(a2 + 88) = v10;
   *(a2 + 112) = 0;
   *(a2 + 120) = 0;
-  std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>(a2 + 104, *(a3 + 13), *(a3 + 14), 0x2E8BA2E8BA2E8BA3 * ((*(a3 + 14) - *(a3 + 13)) >> 4));
+  std::vector<MTLStructMemberInfo>::__init_with_size[abi:ne200100]<MTLStructMemberInfo*,MTLStructMemberInfo*>((a2 + 104), *(a3 + 13), *(a3 + 14), 0x2E8BA2E8BA2E8BA3 * ((*(a3 + 14) - *(a3 + 13)) >> 4));
   result = a3[8];
   v12 = a3[10];
   *(a2 + 144) = a3[9];
@@ -9324,7 +7471,7 @@ void std::__split_buffer<MTLStructMemberInfo>::clear[abi:ne200100](void *a1)
   }
 }
 
-void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo const*,MTLStructMemberInfo const*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStructMemberInfo const*,MTLStructMemberInfo const*>(uint64_t *a1, uint64_t a2, __int128 *a3, unint64_t a4)
 {
   v8 = *a1;
   if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 4) < a4)
@@ -9363,7 +7510,7 @@ void std::vector<MTLStructMemberInfo>::__assign_with_size[abi:ne200100]<MTLStruc
 
   else
   {
-    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v13, a2, (a2 + v11), v8);
+    std::__copy_impl::operator()[abi:ne200100]<MTLStructMemberInfo *,MTLStructMemberInfo *,MTLStructMemberInfo *>(&v13, a2, a2 + v11, v8);
     a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MTLStructMemberInfo>,MTLStructMemberInfo const*,MTLStructMemberInfo const*,MTLStructMemberInfo*>(a1, (a2 + v11), a3, a1[1]);
   }
 }
@@ -9396,7 +7543,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<M
   return v4;
 }
 
-uint64_t std::vector<MTLArgumentData>::__init_with_size[abi:ne200100]<MTLArgumentData const*,MTLArgumentData const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTLArgumentData>::__init_with_size[abi:ne200100]<MTLArgumentData const*,MTLArgumentData const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9413,7 +7560,7 @@ void sub_257A5FCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<MTLArgumentData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTLArgumentData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xE38E38E38E38E4)
   {
@@ -9451,7 +7598,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<M
   return v4;
 }
 
-uint64_t std::vector<MTLArgumentData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<MTLArgumentData const*>,std::__wrap_iter<MTLArgumentData const*>>(uint64_t *a1, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5)
+__int128 *std::vector<MTLArgumentData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<MTLArgumentData const*>,std::__wrap_iter<MTLArgumentData const*>>(void *a1, __int128 *a2, __int128 *a3, __int128 *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -9465,7 +7612,7 @@ uint64_t std::vector<MTLArgumentData>::__insert_with_size[abi:ne200100]<std::__w
       if ((0x8E38E38E38E38E39 * ((v10 - a2) >> 5)) >= a5)
       {
         v18 = 9 * a5;
-        std::vector<MTLArgumentData>::__move_range(a1, a2, a1[1], a2 + 288 * a5);
+        std::vector<MTLArgumentData>::__move_range(a1, a2, a1[1], &a2[18 * a5]);
         v17 = &v7[2 * v18];
       }
 
@@ -9477,7 +7624,7 @@ uint64_t std::vector<MTLArgumentData>::__insert_with_size[abi:ne200100]<std::__w
           return v5;
         }
 
-        std::vector<MTLArgumentData>::__move_range(a1, v5, v10, v5 + 288 * a5);
+        std::vector<MTLArgumentData>::__move_range(a1, v5, v10, &v5[18 * a5]);
         v17 = v7 + v16;
       }
 
@@ -9602,26 +7749,26 @@ uint64_t std::vector<MTLArgumentData>::__move_range(uint64_t a1, uint64_t a2, un
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<MTLArgumentData *,MTLArgumentData *,MTLArgumentData *>(&v21, a2, v7, v6);
 }
 
-uint64_t std::vector<MTLArgumentData>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t std::vector<MTLArgumentData>::__swap_out_circular_buffer(uint64_t a1, void *a2, __int128 *a3)
 {
   v6 = a2[1];
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MTLArgumentData>,MTLArgumentData*>(a1, a3, a1[1], a2[2]);
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MTLArgumentData>,MTLArgumentData*>(a1, a3, *(a1 + 8), a2[2]);
   v7 = *a1;
   v8 = a2[1];
-  a2[2] += a1[1] - a3;
-  a1[1] = a3;
+  a2[2] += *(a1 + 8) - a3;
+  *(a1 + 8) = a3;
   v9 = v8 + v7 - a3;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MTLArgumentData>,MTLArgumentData*>(a1, v7, a3, v9);
   a2[1] = v9;
   v10 = *a1;
-  a1[1] = *a1;
+  *(a1 + 8) = *a1;
   *a1 = a2[1];
   a2[1] = v10;
-  v11 = a1[1];
-  a1[1] = a2[2];
+  v11 = *(a1 + 8);
+  *(a1 + 8) = a2[2];
   a2[2] = v11;
-  v12 = a1[2];
-  a1[2] = a2[3];
+  v12 = *(a1 + 16);
+  *(a1 + 16) = a2[3];
   a2[3] = v12;
   *a2 = a2[1];
   return v6;
@@ -9820,34 +7967,24 @@ void MTLCompilerSharedMemoryInterface::mapRuntimeLibrary(uint64_t a1, uint64_t a
 
 void MTLCompilerSharedMemoryInterface::mapRuntimeLibrary()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void MTLCompilerSharedMemoryInterface::mapRuntimeLibrary(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *a2;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void MTLCompilerSharedMemoryInterface::mapRuntimeLibraryModules()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -9872,21 +8009,17 @@ void MTLCompilerSharedMemoryInterface::mapRuntimeLibraryModules()
 
 void rtLibPathInBundle(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a2 bundlePath];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a2 bundlePath];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void MTLCompilerSharedMemoryInterface::getRuntimeLibraryModules(uint8_t *buf, uint64_t a2, void *a3, void *a4)
@@ -9939,7 +8072,7 @@ uint64_t GEPExpressionSum::accumulateGEP(uint64_t *a1)
 
 void MTLCompilerObject::downgradeAndLoadModuleRequest()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     dword_28153FC20 = 0;
     xmmword_28153FC00 = 0u;
@@ -9947,12 +8080,12 @@ void MTLCompilerObject::downgradeAndLoadModuleRequest()
     unk_28153FC38 = 0u;
     unk_28153FC48 = 0u;
     unk_28153FC58 = 0u;
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_28153FBD8))
+  if (__cxa_guard_acquire(byte_28153FBD8))
   {
     qword_28153FCD0 = &unk_28153FCE0;
     qword_28153FCD8 = 0x400000000;
@@ -9966,22 +8099,21 @@ void MTLCompilerObject::downgradeAndLoadModuleRequest()
     xmmword_28153FF38 = 0u;
     v0 = OUTLINED_FUNCTION_1_0();
     __cxa_atexit(v0, v1, v2);
-    __cxa_guard_release(&qword_28153FBD8);
+    __cxa_guard_release(byte_28153FBD8);
   }
 }
 
-void fatalDiagnosticHandler(uint64_t *a1)
+void fatalDiagnosticHandler()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_fault_impl(&dword_2579AB000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "LLVM ERROR: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
+  v1 = 136315138;
+  v2 = v0;
+  _os_log_fault_impl(&dword_2579AB000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "LLVM ERROR: %s", &v1, 0xCu);
 }
 
 void MTLCompilerObject::addDebugInstrumentationToModule()
 {
-  if (__cxa_guard_acquire(&qword_28153FBE0))
+  if (__cxa_guard_acquire(byte_28153FBE0))
   {
     LODWORD(xmmword_28153FC88) = 0;
     unk_28153FC78 = 0u;
@@ -9990,12 +8122,12 @@ void MTLCompilerObject::addDebugInstrumentationToModule()
     unk_28153FCB0 = 0u;
     unk_28153FCC0 = 0u;
 
-    __cxa_guard_release(&qword_28153FBE0);
+    __cxa_guard_release(byte_28153FBE0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_28153FBE8))
+  if (__cxa_guard_acquire(byte_28153FBE8))
   {
     qword_28153FF60 = &unk_28153FF70;
     qword_28153FF68 = 0x400000000;
@@ -10010,37 +8142,36 @@ void MTLCompilerObject::addDebugInstrumentationToModule()
     v0 = OUTLINED_FUNCTION_1_0();
     __cxa_atexit(v0, &qword_28153FF60, v1);
 
-    __cxa_guard_release(&qword_28153FBE8);
+    __cxa_guard_release(byte_28153FBE8);
   }
 }
 
-void logCompileError(uint64_t *a1)
+void logCompileError()
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_3(v1, v2, v3);
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void MTLCodeGenServiceBuildRequest_cold_1()
 {
-  if (__cxa_guard_acquire(&qword_28153FBF8))
+  if (__cxa_guard_acquire(byte_28153FBF8))
   {
     qword_28153FBF0 = getpagesize();
 
-    __cxa_guard_release(&qword_28153FBF8);
+    __cxa_guard_release(byte_28153FBF8);
   }
 }
 
 void MTLCompilerPluginInterface::init()
 {
-  operator delete(*MTLCompilerPluginInterface::init(char const*,void const*,unsigned long)::validPathPrefixes);
+  operator delete(MTLCompilerPluginInterface::init(char const*,void const*,unsigned long)::validPathPrefixes[0]);
 }
 
 {
-  operator delete(MTLCompilerPluginInterface::init(char const*,void const*,unsigned long)::validPluginSuffixes);
+  operator delete(MTLCompilerPluginInterface::init(char const*,void const*,unsigned long)::validPluginSuffixes[0]);
 }
 
 void MTLCompilerPluginInterface::init(uint64_t a1, uint64_t a2, uint8_t *buf)
@@ -10054,11 +8185,10 @@ void MTLCompilerPluginInterface::init(uint64_t a1, uint64_t a2, uint8_t *buf)
 
 void MTLCompilerPluginInterface::init(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_fault_impl(&dword_2579AB000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Compiler plugin %s is not registered with the MTLCompilerObject", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_fault_impl(&dword_2579AB000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Compiler plugin %s is not registered with the MTLCompilerObject", &v1, 0xCu);
 }
 
 void std::vector<MTLArgumentData>::__construct_one_at_end[abi:ne200100]<MTLArgumentData const&>(std::__shared_weak_count **a1, std::__shared_weak_count **a2)
@@ -10077,14 +8207,14 @@ void std::vector<MTLArgumentData>::__construct_one_at_end[abi:ne200100]<MTLArgum
   }
 }
 
-uint64_t llvm::ErrorList::join(uint64_t **a1, uint64_t a2)
+uint64_t llvm::ErrorList::join(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
   *a1 = 0;
   if (v4)
   {
-    v5 = OUTLINED_FUNCTION_4(v4);
-    (*(v6 + 8))(v5);
+    OUTLINED_FUNCTION_4();
+    (*(v5 + 8))();
   }
 
   return MEMORY[0x259C6B890](a2, 0xA1C4030951706);
@@ -10092,38 +8222,31 @@ uint64_t llvm::ErrorList::join(uint64_t **a1, uint64_t a2)
 
 void MTLCompilerObject::logCompilerFailure(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [objc_msgSend(*a1 "localizedDescription")];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void MTLCompilerObject::logCompilerFailure(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void logMachOError(uint64_t *a1)
+void logMachOError()
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_3(v1, v2, v3);
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 uint64_t llvm::AllocaInst::AllocaInst()

@@ -38,7 +38,6 @@
   [(CalDescriptionBuilder *)v5 setKey:@"title" withString:self->_title];
   [(CalDescriptionBuilder *)v5 setKey:@"joinMethods" withArray:self->_joinMethods];
   [(CalDescriptionBuilder *)v5 setKey:@"conferenceDetails" withString:self->_conferenceDetails];
-  self->_source;
   [CalDescriptionBuilder setKey:v5 withEnumNumericalValue:"setKey:withEnumNumericalValue:andStringValue:" andStringValue:@"source"];
   [(CalDescriptionBuilder *)v5 setKey:@"isWritable" withBoolean:self->_isWritable];
   build = [(CalDescriptionBuilder *)v5 build];

@@ -59,11 +59,10 @@
 - (id)shortDescription
 {
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  comparisonOperator = self->_comparisonOperator;
-  [v3 appendFormat:@"%@ %@ %@", self->_fieldName, comparisonOperator, self->_expression];
-  v5 = [v3 copy];
+  [v3 appendFormat:@"%@ %@ %@", self->_fieldName, self->_comparisonOperator, self->_expression];
+  v4 = [v3 copy];
 
-  return v5;
+  return v4;
 }
 
 @end

@@ -23,7 +23,7 @@
   inputSampleBuffer = self->_inputSampleBuffer;
   if (!inputSampleBuffer)
   {
-    sub_251F0();
+    sub_251F0(0, a2);
 LABEL_14:
     v6 = 0;
 LABEL_19:
@@ -170,17 +170,20 @@ LABEL_10:
 {
   contextCopy = context;
   parametersCopy = parameters;
-  v20.receiver = self;
-  v20.super_class = VEVideoDeghostingRepairV2;
-  v11 = [(VEVideoDeghostingRepairV2 *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = VEVideoDeghostingRepairV2;
+  v11 = [(VEVideoDeghostingRepairV2 *)&v22 init];
   if (!v11)
   {
-    goto LABEL_8;
+    goto LABEL_9;
   }
 
   if (!contextCopy)
   {
-    goto LABEL_7;
+    fig_log_get_emitter();
+    sub_14238();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_9;
   }
 
   v12 = sub_B724(parametersCopy);
@@ -199,24 +202,25 @@ LABEL_10:
 
   if (!v11->_GGMCtrl)
   {
-LABEL_8:
-    v18 = 0;
+LABEL_9:
+    v19 = 0;
     goto LABEL_6;
   }
 
-  if (sub_BF58(&v11->_lookaheadFrames, 2))
+  v18 = sub_BF58(&v11->_lookaheadFrames, 2);
+  if (v18)
   {
-LABEL_7:
+    v21 = v18;
     fig_log_get_emitter();
     sub_14238();
-    FigDebugAssert3();
-    goto LABEL_8;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21);
+    goto LABEL_9;
   }
 
-  v18 = v11;
+  v19 = v11;
 LABEL_6:
 
-  return v18;
+  return v19;
 }
 
 @end

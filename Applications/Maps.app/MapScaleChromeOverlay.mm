@@ -11,7 +11,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10002DE9C();
+  sub_10002DE9C(provider);
 
   swift_unknownObjectRelease();
 }

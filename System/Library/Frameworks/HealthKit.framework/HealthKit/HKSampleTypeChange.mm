@@ -1,4 +1,5 @@
 @interface HKSampleTypeChange
++ (id)sampleTypeChangeWithSampleType:(id)type dateInterval:(id)interval hasUnfrozenSeries:(BOOL)series;
 - (BOOL)isEqual:(id)equal;
 - (HKSampleTypeChange)initWithCoder:(id)coder;
 - (NSDateInterval)dateInterval;
@@ -35,6 +36,31 @@
   }
 
   return v14;
+}
+
++ (id)sampleTypeChangeWithSampleType:(id)type dateInterval:(id)interval hasUnfrozenSeries:(BOOL)series
+{
+  seriesCopy = series;
+  typeCopy = type;
+  intervalCopy = interval;
+  v10 = [self alloc];
+  v11 = v10;
+  if (intervalCopy)
+  {
+    startDate = [intervalCopy startDate];
+    [startDate timeIntervalSinceReferenceDate];
+    v14 = v13;
+    endDate = [intervalCopy endDate];
+    [endDate timeIntervalSinceReferenceDate];
+    v17 = [v11 _initWithSampleType:typeCopy startTime:seriesCopy endTime:0 hasUnfrozenSeries:v14 queryStrategy:v16];
+  }
+
+  else
+  {
+    v17 = [v10 _initWithSampleType:typeCopy startTime:seriesCopy endTime:0 hasUnfrozenSeries:-1.79769313e308 queryStrategy:-1.79769313e308];
+  }
+
+  return v17;
 }
 
 - (NSDateInterval)dateInterval

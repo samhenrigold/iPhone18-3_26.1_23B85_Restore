@@ -22,6 +22,7 @@
 - (BOOL)registerAsyncCallbackError:(id *)error;
 - (BOOL)requestRemoteMessageIntervalsWithPDelayMessageInterval:(char)interval syncMessageInterval:(char)messageInterval announceMessageInterval:(char)announceMessageInterval error:(id *)error;
 - (BOOL)restoreReceiveMatchingError:(id *)error;
+- (TSDgPTPNetworkPort)initWithService:(id)service pid:(int)pid;
 - (char)_localAnnounceLogMeanInterval;
 - (char)_localSyncLogMeanInterval;
 - (char)_remoteAnnounceLogMeanInterval;
@@ -75,6 +76,91 @@
   v5 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v5;
+}
+
+- (TSDgPTPNetworkPort)initWithService:(id)service pid:(int)pid
+{
+  v4 = *&pid;
+  serviceCopy = service;
+  v7 = +[NSPointerArray weakObjectsPointerArray];
+  clients = self->_clients;
+  self->_clients = v7;
+
+  self->_clientsLock._os_unfair_lock_opaque = 0;
+  v19.receiver = self;
+  v19.super_class = TSDgPTPNetworkPort;
+  v9 = [(TSDgPTPPort *)&v19 initWithService:serviceCopy pid:v4];
+  if (v9)
+  {
+    v10 = [[IODConnection alloc] initWithService:serviceCopy andType:42];
+    connection = v9->_connection;
+    v9->_connection = v10;
+
+    if (v9->_connection)
+    {
+      _interfaceName = [(TSDgPTPNetworkPort *)v9 _interfaceName];
+      interfaceName = v9->_interfaceName;
+      v9->_interfaceName = _interfaceName;
+
+      v9->_remoteClockIdentity = [(TSDgPTPNetworkPort *)v9 _remoteClockIdentity];
+      v9->_remotePortNumber = [(TSDgPTPNetworkPort *)v9 _remotePortNumber];
+      v9->_remoteIsSameDevice = [(TSDgPTPNetworkPort *)v9 _remoteIsSameDevice];
+      v9->_asCapable = [(TSDgPTPNetworkPort *)v9 _isASCapable];
+      v9->_propagationDelay = [(TSDgPTPNetworkPort *)v9 _propagationDelay];
+      v9->_maximumPropagationDelay = [(TSDgPTPNetworkPort *)v9 _maximumPropagationDelay];
+      v9->_minimumPropagationDelay = [(TSDgPTPNetworkPort *)v9 _minimumPropagationDelay];
+      v9->_propagationDelayLimit = [(TSDgPTPNetworkPort *)v9 _propagationDelayLimit];
+      v9->_maximumRawDelay = [(TSDgPTPNetworkPort *)v9 _maximumRawDelay];
+      v9->_minimumRawDelay = [(TSDgPTPNetworkPort *)v9 _minimumRawDelay];
+      v9->_localSyncLogMeanInterval = [(TSDgPTPNetworkPort *)v9 _localSyncLogMeanInterval];
+      v9->_remoteSyncLogMeanInterval = [(TSDgPTPNetworkPort *)v9 _remoteSyncLogMeanInterval];
+      v9->_localAnnounceLogMeanInterval = [(TSDgPTPNetworkPort *)v9 _localAnnounceLogMeanInterval];
+      v9->_remoteAnnounceLogMeanInterval = [(TSDgPTPNetworkPort *)v9 _remoteAnnounceLogMeanInterval];
+      v9->_localLinkType = [(TSDgPTPNetworkPort *)v9 _localLinkType];
+      v9->_remoteLinkType = [(TSDgPTPNetworkPort *)v9 _remoteLinkType];
+      v9->_localTimestampingMode = [(TSDgPTPNetworkPort *)v9 _localTimestampingMode];
+      v9->_remoteTimestampingMode = [(TSDgPTPNetworkPort *)v9 _remoteTimestampingMode];
+      v9->_localOscillatorType = [(TSDgPTPNetworkPort *)v9 _localOscillatorType];
+      v9->_remoteOscillatorType = [(TSDgPTPNetworkPort *)v9 _remoteOscillatorType];
+      v9->_hasLocalFrequencyToleranceLower = [(TSDgPTPNetworkPort *)v9 _hasLocalFrequencyToleranceLower];
+      v9->_localFrequencyToleranceLower = [(TSDgPTPNetworkPort *)v9 _localFrequencyToleranceLower];
+      v9->_hasLocalFrequencyToleranceUpper = [(TSDgPTPNetworkPort *)v9 _hasLocalFrequencyToleranceUpper];
+      v9->_localFrequencyToleranceUpper = [(TSDgPTPNetworkPort *)v9 _localFrequencyToleranceUpper];
+      v9->_hasRemoteFrequencyToleranceLower = [(TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyToleranceLower];
+      v9->_remoteFrequencyToleranceLower = [(TSDgPTPNetworkPort *)v9 _remoteFrequencyToleranceLower];
+      v9->_hasRemoteFrequencyToleranceUpper = [(TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyToleranceUpper];
+      v9->_remoteFrequencyToleranceUpper = [(TSDgPTPNetworkPort *)v9 _remoteFrequencyToleranceUpper];
+      v9->_hasLocalFrequencyStabilityLower = [(TSDgPTPNetworkPort *)v9 _hasLocalFrequencyStabilityLower];
+      v9->_localFrequencyStabilityLower = [(TSDgPTPNetworkPort *)v9 _localFrequencyStabilityLower];
+      v9->_hasLocalFrequencyStabilityUpper = [(TSDgPTPNetworkPort *)v9 _hasLocalFrequencyStabilityUpper];
+      v9->_localFrequencyStabilityUpper = [(TSDgPTPNetworkPort *)v9 _localFrequencyStabilityUpper];
+      v9->_hasRemoteFrequencyStabilityLower = [(TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyStabilityLower];
+      v9->_remoteFrequencyStabilityLower = [(TSDgPTPNetworkPort *)v9 _remoteFrequencyStabilityLower];
+      v9->_hasRemoteFrequencyStabilityUpper = [(TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyStabilityUpper];
+      v9->_remoteFrequencyStabilityUpper = [(TSDgPTPNetworkPort *)v9 _remoteFrequencyStabilityUpper];
+      _sourceAddressString = [(TSDgPTPNetworkPort *)v9 _sourceAddressString];
+      sourceAddressString = v9->_sourceAddressString;
+      v9->_sourceAddressString = _sourceAddressString;
+
+      _destinationAddressString = [(TSDgPTPNetworkPort *)v9 _destinationAddressString];
+      destinationAddressString = v9->_destinationAddressString;
+      v9->_destinationAddressString = _destinationAddressString;
+
+      v9->_overridenReceiveMatching = [(TSDgPTPNetworkPort *)v9 _overridenReceiveMatching];
+      v9->_overridenReceiveClockIdentity = [(TSDgPTPNetworkPort *)v9 _overridenReceiveClockIdentity];
+      v9->_overridenReceivePortNumber = [(TSDgPTPNetworkPort *)v9 _overridenReceivePortNumber];
+      v9->_enabled = [(TSDgPTPNetworkPort *)v9 _enabled];
+      v9->_asyncCallbackRefcon = 0;
+    }
+
+    else
+    {
+      sub_10002A98C(v9);
+      v9 = 0;
+    }
+  }
+
+  return v9;
 }
 
 - (void)updateProperties
@@ -1029,31 +1115,30 @@ LABEL_18:
 
 LABEL_19:
   os_unfair_lock_lock(&self->_clientsLock);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = self->_clients;
-  v14 = [(NSPointerArray *)v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v14 = [(NSPointerArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v28;
     do
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v33 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         if (notification <= 4001)
         {
           if (notification == 4000)
           {
-            v23 = *(*(&v32 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               [v18 didTimeoutOnMACLookupForPort:self];
@@ -1062,7 +1147,6 @@ LABEL_19:
 
           else if (notification == 4001)
           {
-            v20 = *(*(&v32 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               [v18 didSyncTimeoutForPort:self];
@@ -1075,46 +1159,36 @@ LABEL_19:
           }
         }
 
-        else
+        else if (notification == 4002)
         {
-          switch(notification)
+          if (objc_opt_respondsToSelector())
           {
-            case 4002:
-              v21 = *(*(&v32 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                block[0] = _NSConcreteStackBlock;
-                block[1] = 3221225472;
-                block[2] = sub_100010518;
-                block[3] = &unk_10004C9E0;
-                block[5] = self;
-                block[6] = arg1;
-                block[4] = v18;
-                dispatch_async(queue, block);
-              }
-
-              break;
-            case 4003:
-              v22 = *(*(&v32 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                [v18 didChangeAdministrativeEnable:arg1 != 0 forPort:self];
-              }
-
-              break;
-            case 4004:
-              v19 = *(*(&v32 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                [v18 didAnnounceTimeoutForPort:self];
-              }
-
-              break;
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 3221225472;
+            block[2] = sub_100010518;
+            block[3] = &unk_10004C9E0;
+            block[5] = self;
+            block[6] = arg1;
+            block[4] = v18;
+            dispatch_async(queue, block);
           }
+        }
+
+        else if (notification == 4003)
+        {
+          if (objc_opt_respondsToSelector())
+          {
+            [v18 didChangeAdministrativeEnable:arg1 != 0 forPort:self];
+          }
+        }
+
+        else if (notification == 4004 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          [v18 didAnnounceTimeoutForPort:self];
         }
       }
 
-      v15 = [(NSPointerArray *)v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v15 = [(NSPointerArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v15);

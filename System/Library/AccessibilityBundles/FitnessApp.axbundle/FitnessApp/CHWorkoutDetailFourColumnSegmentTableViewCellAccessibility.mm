@@ -202,7 +202,6 @@ id __181__CHWorkoutDetailFourColumnSegmentTableViewCellAccessibility_configureWi
 
 uint64_t __181__CHWorkoutDetailFourColumnSegmentTableViewCellAccessibility_configureWithSegment_segmentIndex_workout_trackDistanceUnit_activityType_activityMoveMode_isLastCell_formattingManager___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = FIUIPaceFormatForWorkoutActivityType();
   *(*(*(a1 + 40) + 8) + 24) = result == 4;
   return result;

@@ -143,48 +143,48 @@
   repCopy = rep;
   v14 = fmin(scale, 1.0);
   v15 = sub_10011F340(width, height, v14);
-  v17 = sub_100122154(v15, v16);
-  v19 = v18;
-  v20 = sub_10011ECB4();
-  v24 = sub_1001221E0(v20, v21, v22, v23);
+  v18 = sub_100122154(v16, v15, v17);
+  v20 = v19;
+  v21.n128_f64[0] = sub_10011ECB4();
+  v26 = sub_1001221E0(v21, v22, v23, v24, v25);
   Image = 0;
-  if (v26 != 0.0)
+  if (v28 != 0.0)
   {
-    v29 = v27;
-    if (v27 != 0.0)
+    v31 = v29;
+    if (v29 != 0.0)
     {
-      v30 = v24;
-      v31 = v26;
+      v32 = v26;
+      v33 = v28;
       Image = 0;
-      v32 = ceil(fmax(v17, v26));
-      if (v32 > 0.0 && ceil(fmax(v19, v27)) > 0.0)
+      v34 = ceil(fmax(v18, v28));
+      if (v34 > 0.0 && ceil(fmax(v20, v29)) > 0.0)
       {
-        v33 = v25;
+        v35 = v27;
         color = [(CRLShadow *)self color];
         cGColor = [color CGColor];
 
-        v36 = sub_10050DF80(11, v31, v29);
-        if (v36)
+        v38 = sub_10050DF80(11, v33, v31);
+        if (v38)
         {
-          v37 = v36;
+          v39 = v38;
           selectorCopy = selector;
           layout = [repCopy layout];
-          v39 = layout;
-          v40 = cGColor;
+          v41 = layout;
+          v42 = cGColor;
           if (layout)
           {
-            [layout transformInRoot];
+            objc_msgSend_transformInRoot(layout);
           }
 
           else
           {
-            v80 = 0u;
+            v82 = 0u;
+            v83 = 0u;
             v81 = 0u;
-            v79 = 0u;
           }
 
-          v41 = sub_100139980(&v79);
-          sub_10050F218(v37, v41);
+          v43 = sub_100139980(&v81);
+          sub_10050F218(v39, v43);
 
           canvas = [repCopy canvas];
           isPrinting = [canvas isPrinting];
@@ -192,92 +192,92 @@
           isDrawingIntoPDF = [canvas2 isDrawingIntoPDF];
           canvas3 = [repCopy canvas];
           [canvas3 contentsScale];
-          sub_10050DE7C(v37, isPrinting, isDrawingIntoPDF, 1, 0, v47);
+          sub_10050DE7C(v39, isPrinting, isDrawingIntoPDF, 1, 0, v49);
 
           [(CRLShadow *)self radius];
-          v49 = v14 * v48;
-          CGContextTranslateCTM(v37, -v30, -v33);
-          CGContextTranslateCTM(v37, -(v32 + v14 * 10.0), -0.0);
+          v51 = v14 * v50;
+          CGContextTranslateCTM(v39, -v32, -v35);
+          CGContextTranslateCTM(v39, -(v34 + v14 * 10.0), -0.0);
           if (unflippedCopy)
           {
-            v80 = 0u;
+            v82 = 0u;
+            v83 = 0u;
             v81 = 0u;
-            v79 = 0u;
             layout2 = [repCopy layout];
             geometry = [layout2 geometry];
-            v52 = geometry;
+            v54 = geometry;
             if (geometry)
             {
-              [geometry transform];
+              objc_msgSend_transform(geometry);
             }
 
             else
             {
-              v80 = 0u;
+              v82 = 0u;
+              v83 = 0u;
               v81 = 0u;
-              v79 = 0u;
             }
 
-            if (sub_10011FBE4(*&v79, *&v80, *(&v79 + 1), *(&v80 + 1)) > 0.0)
+            if (sub_10011FBE4(*&v81, *&v82, *(&v81 + 1), *(&v82 + 1)) > 0.0)
             {
               transform.a = -1.0;
               transform.b = 0.0;
               transform.c = 0.0;
               transform.d = 1.0;
-              transform.tx = v17;
+              transform.tx = v18;
               transform.ty = 0.0;
-              CGContextConcatCTM(v37, &transform);
+              CGContextConcatCTM(v39, &transform);
             }
 
             transform.b = 0.0;
             transform.c = 0.0;
             transform.a = 1.0;
             *&transform.d = xmmword_101464D00;
-            transform.ty = v19;
-            CGContextConcatCTM(v37, &transform);
+            transform.ty = v20;
+            CGContextConcatCTM(v39, &transform);
           }
 
-          v82.height = 0.0;
-          v82.width = v32 + v14 * 10.0;
-          CGContextSetShadowWithColor(v37, v82, v49, v40);
-          CGContextTranslateCTM(v37, v49, v49);
-          CGContextScaleCTM(v37, v14, v14);
+          v84.height = 0.0;
+          v84.width = v34 + v14 * 10.0;
+          CGContextSetShadowWithColor(v39, v84, v51, v42);
+          CGContextTranslateCTM(v39, v51, v51);
+          CGContextScaleCTM(v39, v14, v14);
           if ([repCopy canDrawShadowInOneStepWithChildren:1])
           {
-            [repCopy performSelector:selectorCopy withObject:v37];
+            [repCopy performSelector:selectorCopy withObject:v39];
           }
 
           else
           {
             [repCopy naturalBounds];
-            v54 = v53;
             v56 = v55;
-            sub_10011ECB4();
             v58 = v57;
+            sub_10011ECB4();
             v60 = v59;
-            v61 = sub_100121E8C(v54, v56, 2048.0, 2048.0);
-            if (v61 > 0.0 && v62 > 0.0)
+            v62 = v61;
+            v63 = sub_100121E8C(v56, v58, 2048.0, 2048.0);
+            if (v63 > 0.0 && v64 > 0.0)
             {
-              v63 = v61 / v58;
-              v64 = v62 / v60;
-              v65 = CGLayerCreateWithContext(v37, *&v61, 0);
-              Context = CGLayerGetContext(v65);
+              v65 = v63 / v60;
+              v66 = v64 / v62;
+              v67 = CGLayerCreateWithContext(v39, *&v63, 0);
+              Context = CGLayerGetContext(v67);
               layout3 = [repCopy layout];
-              v68 = layout3;
+              v70 = layout3;
               if (layout3)
               {
-                [layout3 transformInRoot];
+                objc_msgSend_transformInRoot(layout3);
               }
 
               else
               {
-                v80 = 0u;
+                v82 = 0u;
+                v83 = 0u;
                 v81 = 0u;
-                v79 = 0u;
               }
 
-              v69 = sub_100139980(&v79);
-              sub_10050F218(Context, v69);
+              v71 = sub_100139980(&v81);
+              sub_10050F218(Context, v71);
 
               canvas4 = [repCopy canvas];
               isPrinting2 = [canvas4 isPrinting];
@@ -285,20 +285,20 @@
               isDrawingIntoPDF2 = [canvas5 isDrawingIntoPDF];
               canvas6 = [repCopy canvas];
               [canvas6 contentsScale];
-              sub_10050DE7C(Context, isPrinting2, isDrawingIntoPDF2, 0, 0, v75);
+              sub_10050DE7C(Context, isPrinting2, isDrawingIntoPDF2, 0, 0, v77);
 
-              CGContextScaleCTM(Context, v63, v64);
+              CGContextScaleCTM(Context, v65, v66);
               [repCopy performSelector:selectorCopy withObject:Context];
               sub_10050D814(Context);
-              v83.origin.x = sub_10011ECB4();
-              CGContextDrawLayerInRect(v37, v83, v65);
-              CGLayerRelease(v65);
+              v85.origin.x = sub_10011ECB4();
+              CGContextDrawLayerInRect(v39, v85, v67);
+              CGLayerRelease(v67);
             }
           }
 
-          Image = CGBitmapContextCreateImage(v37);
-          sub_10050D814(v37);
-          CGContextRelease(v37);
+          Image = CGBitmapContextCreateImage(v39);
+          sub_10050D814(v39);
+          CGContextRelease(v39);
         }
 
         else

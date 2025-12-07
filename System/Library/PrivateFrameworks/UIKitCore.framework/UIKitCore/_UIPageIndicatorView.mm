@@ -165,12 +165,12 @@ LABEL_12:
   v22 = 0u;
   if ([(_UIPageIndicatorView *)self isActive])
   {
-    [(_UIPageIndicatorView *)self activeVibrantColorMatrix];
+    objc_msgSend_activeVibrantColorMatrix(self);
   }
 
   else
   {
-    [(_UIPageIndicatorView *)self vibrantColorMatrix];
+    objc_msgSend_vibrantColorMatrix(self);
   }
 
   v19 = v24;
@@ -516,7 +516,7 @@ LABEL_14:
   result = self->_imageView;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -840,7 +840,7 @@ LABEL_14:
   v17.width = v9;
   v17.height = v10;
   v11 = NSStringFromCGSize(v17);
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   v12 = NSStringFromCGAffineTransform(&transform);
   v13 = [v3 stringWithFormat:@"<%@: %p>, page = %ld, invalidated = %d, position = %.2f, size = %@, transform = %@", v4, self, page, isInvalidated, v8, v11, v12];
 
@@ -897,26 +897,26 @@ LABEL_14:
     v6 = v5;
     if (v5 == @"circlebadge.fill")
     {
-      v7 = 1;
+      isEqual = 1;
     }
 
     else if (v5)
     {
-      v7 = [(__CFString *)v5 isEqual:@"circlebadge.fill"];
+      isEqual = objc_msgSend_isEqual_(v5);
     }
 
     else
     {
-      v7 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (CGSize)defaultModeSize

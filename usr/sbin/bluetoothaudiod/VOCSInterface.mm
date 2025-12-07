@@ -1,5 +1,6 @@
 @interface VOCSInterface
 - (BOOL)_canRetryInvalidChangeCounter;
+- (BOOL)sendAudioLocation:(unsigned int)location;
 - (BOOL)sendAudioOutputDescription:(id)description;
 - (BOOL)sendVolumeOffset:(signed __int16)offset;
 - (BOOL)sendVolumeOffsetControlPoint;
@@ -539,6 +540,52 @@ LABEL_10:
 
     return [(VOCSInterface *)self sendVolumeOffsetControlPoint];
   }
+}
+
+- (BOOL)sendAudioLocation:(unsigned int)location
+{
+  v3 = *&location;
+  if ([(VOCSInterface *)self _updateInProgress])
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005D3BC();
+    }
+
+    return 0;
+  }
+
+  audioLocationCharacteristic = [(VOCSInterface *)self audioLocationCharacteristic];
+
+  if (!audioLocationCharacteristic)
+  {
+    v13 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "audioLocationCharacteristic not discovered", v14, 2u);
+    }
+
+    return 0;
+  }
+
+  [(VOCSInterface *)self _updateStart];
+  v7 = +[DataOutputStream outputStream];
+  [v7 writeUint32:v3];
+  v8 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "audioLocationCharacteristic discovered", buf, 2u);
+  }
+
+  peripheral = [(ServiceInterface *)self peripheral];
+  data = [v7 data];
+  audioLocationCharacteristic2 = [(VOCSInterface *)self audioLocationCharacteristic];
+  v5 = 1;
+  [peripheral writeValue:data forCharacteristic:audioLocationCharacteristic2 type:1];
+
+  return v5;
 }
 
 - (BOOL)sendAudioOutputDescription:(id)description

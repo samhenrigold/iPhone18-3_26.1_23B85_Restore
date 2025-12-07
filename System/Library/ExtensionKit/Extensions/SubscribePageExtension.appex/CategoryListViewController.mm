@@ -83,9 +83,10 @@
   [(CategoryListViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
   v2 = (&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtensionP33_E8A3C8C9EB70237120159EB97F20AEB326CategoryListViewController_selectionHandler);
   v3 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtensionP33_E8A3C8C9EB70237120159EB97F20AEB326CategoryListViewController_selectionHandler);
+  v4 = *&selfCopy->dataSource[OBJC_IVAR____TtC22SubscribePageExtensionP33_E8A3C8C9EB70237120159EB97F20AEB326CategoryListViewController_selectionHandler];
   *v2 = 0;
   v2[1] = 0;
-  sub_1000164A8(v3);
+  sub_1000164A8(v3, v4);
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
@@ -118,7 +119,7 @@
   v7 = sub_1007417F4();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v10 = &v15[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100741744();
   cellCopy = cell;
   selfCopy = self;
@@ -126,7 +127,7 @@
   if (imageView)
   {
     v14 = imageView;
-    sub_100016C60(0, &qword_10092BFC0);
+    sub_100016C60(0, &qword_10092BFC0, UIImageView_ptr);
     sub_1003EB7E4();
     sub_1007544E4();
     sub_100744264();

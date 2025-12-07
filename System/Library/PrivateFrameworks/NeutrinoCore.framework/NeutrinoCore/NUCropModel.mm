@@ -29,7 +29,6 @@
 - (double)_getBoundingQuadFromPitch:(double)pitch yaw:(double)yaw roll:(CGFloat)roll withExpansionTol:(CGFloat)tol imageRect:(CGFloat)rect;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (uint64_t)_getBoundingQuadFromPitch:(double)pitch yaw:(double)yaw roll:(double)roll withExpansionTol:;
 - (unint64_t)_hitMaskFromRect:(CGRect)rect withTol:(double)tol;
 - (unint64_t)constrainedMoveCropRectBy:(CGVector)by strict:(BOOL)strict startRect:(CGRect)rect;
 - (unint64_t)hash;
@@ -40,6 +39,7 @@
 - (unint64_t)setRollAngle:(double)angle constrainCropRectWithTargetArea:(double)area startRect:(CGRect)rect startAngle:(double)startAngle;
 - (unint64_t)setYawAngle:(double)angle constrainCropRectWithTargetArea:(double)area startRect:(CGRect)rect startAngle:(double)startAngle;
 - (void)_debugPrintHitMask:(unint64_t)mask;
+- (void)_getBoundingQuadFromPitch:(double)pitch yaw:(double)yaw roll:(double)roll withExpansionTol:;
 - (void)_setCropRect:(CGRect)rect;
 - (void)_setCropRect:(CGRect)rect anchor:(CGPoint)anchor;
 - (void)_setCropRectWithConstantSize:(CGRect)size;
@@ -520,7 +520,7 @@ LABEL_12:
     v66.f64[0] = v72.x - v36.f64[0];
     v66.f64[1] = v73 - v37;
     v55.f64[0] = v36.f64[0];
-    deriveTranslatedRectFromConstrainedRect(v28, v29, v30, v31, v32, v33, v34, v35, v55, v37, v24, v17, v77, v76, v75, v74, v66);
+    deriveTranslatedRectFromConstrainedRect(v55, v37, v24, v17, v28, v29, v30, v31, v32, v33, v34, v35, v77, v76, v75, v74, v66);
     v36.f64[0] = v56;
     v17 = v57;
     v36.f64[1] = v58;
@@ -546,14 +546,14 @@ LABEL_14:
   v19 = v18;
   v21 = v20;
   v23 = v22;
-  [(NUCropModel *)self cropRect];
+  objc_msgSend_cropRect(self);
   v73.origin.x = v17;
   v73.origin.y = v19;
   v73.size.width = v21;
   v73.size.height = v23;
   if (CGRectContainsRect(v67, v73))
   {
-    [(NUCropModel *)self cropRect];
+    objc_msgSend_cropRect(self);
 LABEL_13:
     v40 = v26;
     v31 = v27;
@@ -573,7 +573,7 @@ LABEL_13:
   v30 = round(v21);
   v31 = round(v23);
   v32 = v30 / v31;
-  [(NUCropModel *)self cropRect];
+  objc_msgSend_cropRect(self);
   v33 = [(NUCropModel *)self _currentAspectRatio:?];
   v35 = v33 / v34;
   v36 = INFINITY;
@@ -624,14 +624,14 @@ LABEL_13:
   v64[3] = v46;
   if ((NU::Quad2d::contains(v65, v64) & 1) == 0)
   {
-    [(NUCropModel *)self cropRect];
+    objc_msgSend_cropRect(self);
     v51 = v50;
     v59 = v53;
     v61 = v52;
     v58 = v54;
-    [(NUCropModel *)self cropRect];
+    objc_msgSend_cropRect(self);
     MidX = CGRectGetMidX(v70);
-    [(NUCropModel *)self cropRect];
+    objc_msgSend_cropRect(self);
     [(NUCropModel *)self getCropRect:1 newCropRect:[(NUCropModel *)self aspectRatioIsFreeForm] pitch:0 yaw:v51 roll:v61 constrainWithAnchorPoint:v59 strict:v58 aspectRatioIsFreeForm:v62 hitVertexId:v63, v40, v31, *&pitch, *&yaw, *&roll, *&MidX, CGRectGetMidY(v71)];
     goto LABEL_13;
   }
@@ -2116,7 +2116,7 @@ LABEL_8:
   v32 = 0x3FF0000000000000;
   v35 = 0x3FF0000000000000;
   v38 = 0x3FF0000000000000;
-  [NUCropModel _imageTransformFromPitch:self yaw:a2 roll:pitch imageRect:roll, tol, rect, a8];
+  objc_msgSend__imageTransformFromPitch_yaw_roll_imageRect_(NUCropModel, self, a2, pitch, roll, tol, rect, a8);
   v20 = 0;
   memset(v26, 0, sizeof(v26));
   do
@@ -2138,7 +2138,7 @@ LABEL_8:
   return *&v39;
 }
 
-- (uint64_t)_getBoundingQuadFromPitch:(double)pitch yaw:(double)yaw roll:(double)roll withExpansionTol:
+- (void)_getBoundingQuadFromPitch:(double)pitch yaw:(double)yaw roll:(double)roll withExpansionTol:
 {
   [self masterImageRect];
 
@@ -2291,12 +2291,12 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  [(NUCropModel *)self cropRect];
+  objc_msgSend_cropRect(self);
   v18 = v17;
   v20 = v19;
   v22 = v21;
   v24 = v23;
-  [modelCopy cropRect];
+  objc_msgSend_cropRect(modelCopy);
   v48.origin.x = v25;
   v48.origin.y = v26;
   v48.size.width = v27;

@@ -22,7 +22,7 @@
 
     else
     {
-      p_super = _AALogSystem();
+      p_super = _AALogSystem(200);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         *v12 = 0;

@@ -561,10 +561,10 @@ void __94__PKODIAssessment_waitForAssessmentWithTimeout_startTimeoutFromAssessme
   }
 }
 
-uint64_t __94__PKODIAssessment_waitForAssessmentWithTimeout_startTimeoutFromAssessmentStart_continueBlock___block_invoke_33(uint64_t result)
+void *__94__PKODIAssessment_waitForAssessmentWithTimeout_startTimeoutFromAssessmentStart_continueBlock___block_invoke_33(void *result)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 48))
   {
     v2 = result;
@@ -577,14 +577,14 @@ uint64_t __94__PKODIAssessment_waitForAssessmentWithTimeout_startTimeoutFromAsse
       _os_log_impl(&dword_1AD337000, v3, OS_LOG_TYPE_DEFAULT, "CoreODI assessment timed out %@", &v7, 0xCu);
     }
 
-    v5 = *(v2 + 32);
+    v5 = v2[4];
     v6 = *(v5 + 48);
     *(v5 + 48) = 0;
 
-    os_unfair_lock_lock((*(v2 + 32) + 20));
-    *(*(v2 + 32) + 16) = 1;
-    os_unfair_lock_unlock((*(v2 + 32) + 20));
-    return [*(v2 + 32) _callAssessmentComputedBlocksAndDidTimeout:1];
+    os_unfair_lock_lock((v2[4] + 20));
+    *(v2[4] + 16) = 1;
+    os_unfair_lock_unlock((v2[4] + 20));
+    return [v2[4] _callAssessmentComputedBlocksAndDidTimeout:1];
   }
 
   return result;

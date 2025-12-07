@@ -33,10 +33,10 @@
 
 - (CDMConfig)initWithMaxConcurrentCount:(unsigned int)count
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = CDMConfig;
-  v4 = [(CDMConfig *)&v12 init];
+  v16 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = CDMConfig;
+  v4 = [(CDMConfig *)&v11 init];
   if (v4)
   {
     if (!count)
@@ -46,8 +46,8 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v14 = "[CDMConfig initWithMaxConcurrentCount:]";
-        v15 = 1024;
+        v13 = "[CDMConfig initWithMaxConcurrentCount:]";
+        v14 = 1024;
         countCopy = count;
         _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s initWithDefaultMaxConcurrentCount=%d", buf, 0x12u);
       }
@@ -61,7 +61,6 @@
     v4->_availableServiceGraphs = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

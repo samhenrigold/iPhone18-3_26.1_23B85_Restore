@@ -8,34 +8,35 @@
 
 - (id)description
 {
+  v12 = 0;
   v3 = [objc_opt_class() description];
-  requestFlags = self->_requestFlags;
-  v11 = CUPrintFlags32();
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v4 = CUPrintFlags32();
+  NSAppendPrintF_safe(&v12, "%@, RF %@", v3, v4);
+  v5 = v12;
 
-  if (self->_timeoutSeconds != 0.0)
+  timeoutSeconds = self->_timeoutSeconds;
+  if (timeoutSeconds != 0.0)
   {
-    timeoutSeconds = self->_timeoutSeconds;
-    NSAppendPrintF_safe();
-    v6 = v5;
+    v11 = v5;
+    NSAppendPrintF_safe(&v11, ", TO %.3f", timeoutSeconds);
+    v7 = v11;
 
-    v5 = v6;
+    v5 = v7;
   }
 
   if (v5)
   {
-    v7 = v5;
+    v8 = v5;
   }
 
   else
   {
-    v7 = @"?";
+    v8 = @"?";
   }
 
-  v8 = v7;
+  v9 = v8;
 
-  return v7;
+  return v8;
 }
 
 - (void)encodeWithXPCObject:(id)object
@@ -68,7 +69,7 @@
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v16, v17, v18, v19, v20, v21, v23);
+      *v5 = CBErrorF(-6756, "%@ init failed", v21, v22, v23, v24, v25, v26, v28);
     }
 
     goto LABEL_13;
@@ -78,23 +79,23 @@
   {
     if (v5)
     {
-      v22 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v23);
-      OUTLINED_FUNCTION_16(v22);
+      v27 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v28);
+      OUTLINED_FUNCTION_16(v27);
       goto LABEL_8;
     }
 
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_5();
-  if (v14 == 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_5(v14, v15, v16, v17, v18);
+  if (v19 == 6)
   {
     v7[2] = 0;
     goto LABEL_6;
   }
 
-  if (v14 == 5)
+  if (v19 == 5)
   {
 LABEL_13:
     v6 = 0;

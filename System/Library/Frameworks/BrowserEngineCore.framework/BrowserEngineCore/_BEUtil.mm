@@ -11,7 +11,7 @@
     +[_BEUtil auditTokenForCurrentProcess];
   }
 
-  return &auditTokenForCurrentProcess_currentAuditToken;
+  return auditTokenForCurrentProcess_currentAuditToken;
 }
 
 @end

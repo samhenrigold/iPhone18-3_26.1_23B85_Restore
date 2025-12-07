@@ -5,44 +5,28 @@
 
 __CFBundle *___SC_getApplicationBundleID_block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
   result = CFBundleGetMainBundle();
-  if (result)
+  if (!result)
   {
-    v1 = result;
-    Identifier = CFBundleGetIdentifier(result);
-    _SC_getApplicationBundleID_bundleID = Identifier;
-    if (Identifier)
-    {
-      CFRetain(Identifier);
-    }
+    goto LABEL_9;
+  }
 
-    else
-    {
-      v3 = CFBundleCopyExecutableURL(v1);
-      if (v3)
-      {
-        v4 = v3;
-        _SC_getApplicationBundleID_bundleID = CFURLCopyPath(v3);
-        CFRelease(v4);
-      }
-    }
+  v1 = result;
+  Identifier = CFBundleGetIdentifier(result);
+  _SC_getApplicationBundleID_bundleID = Identifier;
+  if (Identifier)
+  {
+    CFRetain(Identifier);
+  }
 
-    if (!_SC_getApplicationBundleID_bundleID)
+  else
+  {
+    v3 = CFBundleCopyExecutableURL(v1);
+    if (v3)
     {
-      goto LABEL_10;
-    }
-
-    result = CFEqual(_SC_getApplicationBundleID_bundleID, @"/");
-    if (result)
-    {
-      CFRelease(_SC_getApplicationBundleID_bundleID);
-      _SC_getApplicationBundleID_bundleID = 0;
-LABEL_10:
-      v5 = getpid();
-      result = CFStringCreateWithFormat(0, 0, @"Unknown(%d)", v5);
-      _SC_getApplicationBundleID_bundleID = result;
-      goto LABEL_11;
+      v4 = v3;
+      _SC_getApplicationBundleID_bundleID = CFURLCopyPath(v3);
+      CFRelease(v4);
     }
   }
 
@@ -51,32 +35,43 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v6 = *MEMORY[0x1E69E9840];
+  result = CFEqual(_SC_getApplicationBundleID_bundleID, @"/");
+  if (!result)
+  {
+LABEL_9:
+    if (_SC_getApplicationBundleID_bundleID)
+    {
+      return result;
+    }
+
+    goto LABEL_10;
+  }
+
+  CFRelease(_SC_getApplicationBundleID_bundleID);
+  _SC_getApplicationBundleID_bundleID = 0;
+LABEL_10:
+  v5 = getpid();
+  result = CFStringCreateWithFormat(0, 0, @"Unknown(%d)", v5);
+  _SC_getApplicationBundleID_bundleID = result;
   return result;
 }
 
 char *___SC_isInstallEnvironment_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = getenv("__OSINSTALL_ENVIRONMENT");
   _SC_isInstallEnvironment_is_install = result != 0;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___SC_isAppleInternal_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 unint64_t ___SC_dlopen_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
   result = dyld_process_is_restricted();
   if ((result & 1) == 0)
   {
@@ -93,7 +88,6 @@ unint64_t ___SC_dlopen_block_invoke()
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -112,14 +106,15 @@ void ___SC_hw_model_block_invoke()
     v1 = _SC_syslog_os_log_mapping(5);
     if (__SC_log_enabled(5, v0, v1))
     {
-      v2 = &v13[-2] - ((_os_log_pack_size() + 15) & 0xFFFFFFFFFFFFFFF0);
-      v3 = *__error();
-      v4 = _os_log_pack_fill();
-      v5 = __error();
-      v6 = strerror(*v5);
-      *v4 = 136315138;
-      *(v4 + 4) = v6;
-      __SC_log_send(5, v0, v1, v2);
+      v2 = _os_log_pack_size();
+      v3 = &v13[-2] - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &dword_1AD2AD000, "sysctl() CTL_HW/HW_MODEL failed: %s", v12);
+      v6 = __error();
+      v7 = strerror(*v6);
+      *v5 = 136315138;
+      *(v5 + 4) = v7;
+      __SC_log_send(5, v0, v1, v3);
     }
   }
 
@@ -127,43 +122,38 @@ void ___SC_hw_model_block_invoke()
   {
     HIBYTE(v17) = 0;
     _SC_hw_model_model = CFStringCreateWithCString(0, cStr, 0x600u);
-    v7 = index(cStr, 44);
-    if (v7)
+    v8 = index(cStr, 44);
+    if (v8)
     {
-      *v7 = 0;
+      *v8 = 0;
     }
 
-    v8 = strlen(cStr);
-    v10 = v8 - 1;
-    for (i = v8 == 1; ; i = v10 == 0)
+    v9 = strlen(cStr);
+    v11 = v9 - 1;
+    for (i = v9 == 1; ; i = v11 == 0)
     {
-      v12 = v10;
-      if (i || (cStr[v10] - 48) > 9)
+      v12 = v11;
+      if (i || (cStr[v11] - 48) > 9)
       {
         break;
       }
 
-      cStr[v10--] = 0;
+      cStr[v11--] = 0;
     }
 
     _SC_hw_model_model_trimmed = CFStringCreateWithCString(0, cStr, 0x600u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___SC_isAppleInternal_block_invoke_0()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal_0 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ___SC_crash_once_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -173,7 +163,6 @@ void ___SC_crash_once_block_invoke(void *a1)
 
 void ___SC_crash_once_block_invoke_0(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -183,16 +172,13 @@ void ___SC_crash_once_block_invoke_0(void *a1)
 
 uint64_t ___SC_isAppleInternal_block_invoke_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal_1 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ___SC_crash_once_block_invoke_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -202,25 +188,20 @@ void ___SC_crash_once_block_invoke_1(void *a1)
 
 uint64_t ___SC_isAppleInternal_block_invoke_2()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal_2 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___SC_isAppleInternal_block_invoke_3()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal_3 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ___SC_crash_once_block_invoke_2(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -230,7 +211,6 @@ void ___SC_crash_once_block_invoke_2(void *a1)
 
 void ___SC_crash_once_block_invoke_3(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -240,7 +220,6 @@ void ___SC_crash_once_block_invoke_3(void *a1)
 
 void ___SC_crash_once_block_invoke_4(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -250,10 +229,8 @@ void ___SC_crash_once_block_invoke_4(void *a1)
 
 uint64_t ___SC_isAppleInternal_block_invoke_4()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = os_variant_has_internal_content();
   _SC_isAppleInternal_isInternal_4 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 

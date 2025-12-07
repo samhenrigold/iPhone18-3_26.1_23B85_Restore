@@ -1,12 +1,12 @@
 @interface BWTemporalFilterNode
 + (void)initialize;
 - (__CVBuffer)_createMatchingOutputFormatIfNeededForInputBuffer:(uint64_t)buffer;
-- (uint64_t)_dumpFrameMetaData:(uint64_t)result;
-- (uint64_t)_dumpFrameStats;
+- (double)_dumpFrameMetaData:(uint64_t)data;
+- (double)_dumpFrameStats;
+- (id)_updateOutputRequirements;
 - (uint64_t)_invalidateFilterSession;
 - (uint64_t)_shouldBypassTemporalFilteringForSampleBuffer:(uint64_t)result;
-- (uint64_t)_updateOutputRequirements;
-- (uint64_t)initWithMaxLossyCompression:(void *)compression filterSessionConfiguration:(char)configuration lowLightBandingMitigationEnabled:;
+- (unsigned)initWithMaxLossyCompression:(void *)compression filterSessionConfiguration:(char)configuration lowLightBandingMitigationEnabled:;
 - (void)_dropInputSampleWithPTS:(uint64_t)s;
 - (void)_supportedOutputPixelFormats;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
@@ -51,21 +51,21 @@
     }
   }
 
-  [(BWTemporalFilterNode *)self _dumpFrameStats];
-  v6.receiver = self;
-  v6.super_class = BWTemporalFilterNode;
-  [(BWNode *)&v6 dealloc];
+  _dumpFrameStats = [(BWTemporalFilterNode *)self _dumpFrameStats];
+  v7.receiver = self;
+  v7.super_class = BWTemporalFilterNode;
+  [(BWNode *)&v7 dealloc];
 }
 
-- (uint64_t)_dumpFrameStats
+- (double)_dumpFrameStats
 {
-  if (result)
+  if (self)
   {
     if (dword_1EB58E860)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
@@ -76,7 +76,7 @@
 {
   [(BWNodeOutput *)self->_videoOutput setFormat:format, input];
 
-  [(BWTemporalFilterNode *)self _updateOutputRequirements];
+  [(BWTemporalFilterNode *)&self->super.super.isa _updateOutputRequirements];
 }
 
 id __50__BWTemporalFilterNode_didReachEndOfDataForInput___block_invoke(uint64_t a1)
@@ -207,7 +207,7 @@ id __50__BWTemporalFilterNode_didReachEndOfDataForInput___block_invoke(uint64_t 
 
           if (v22)
           {
-            v23 = [(__CFDictionary *)v16 objectForKeyedSubscript:*off_1E798B4C8];
+            v23 = [v16 objectForKeyedSubscript:*off_1E798B4C8];
             v24 = p_frameStats->framesReceivedCount;
             v41 = 136315906;
             v42 = "[BWTemporalFilterNode renderSampleBuffer:forInput:]";
@@ -272,7 +272,7 @@ LABEL_46:
 
         v31 = dictionary;
         v32 = *off_1E798B4C0;
-        v33 = [(__CFDictionary *)v16 objectForKeyedSubscript:*off_1E798B4C0, v39, v40];
+        v33 = [v16 objectForKeyedSubscript:{*off_1E798B4C0, v39, v40}];
         if (v33)
         {
           v34 = v33;
@@ -284,7 +284,7 @@ LABEL_46:
         }
 
         v35 = *off_1E798B4C8;
-        v36 = [(__CFDictionary *)v16 objectForKeyedSubscript:*off_1E798B4C8];
+        v36 = [v16 objectForKeyedSubscript:*off_1E798B4C8];
         if (v36)
         {
           [v31 setObject:v36 forKeyedSubscript:v35];
@@ -364,7 +364,7 @@ LABEL_66:
   [(BWTemporalFilterNode *)self _dropInputSampleWithPTS:?];
 }
 
-- (uint64_t)initWithMaxLossyCompression:(void *)compression filterSessionConfiguration:(char)configuration lowLightBandingMitigationEnabled:
+- (unsigned)initWithMaxLossyCompression:(void *)compression filterSessionConfiguration:(char)configuration lowLightBandingMitigationEnabled:
 {
   if (!self)
   {
@@ -494,28 +494,30 @@ LABEL_66:
   return result;
 }
 
-- (uint64_t)_dumpFrameMetaData:(uint64_t)result
+- (double)_dumpFrameMetaData:(uint64_t)data
 {
-  if (result && a2)
+  if (data && a2)
   {
     if (dword_1EB58E860)
     {
+      v5 = 0;
+      v4 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       OUTLINED_FUNCTION_2_4();
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
   return result;
 }
 
-- (uint64_t)_updateOutputRequirements
+- (id)_updateOutputRequirements
 {
   if (result)
   {
     v1 = result;
-    v2 = [objc_msgSend(*(result + 136) "videoFormat")];
+    v2 = [objc_msgSend(result[17] "videoFormat")];
     if (v2)
     {
       v6 = [MEMORY[0x1E696AD98] numberWithInt:v2];
@@ -528,10 +530,10 @@ LABEL_66:
     }
 
     _supportedOutputPixelFormats = [(BWTemporalFilterNode *)v1 _supportedOutputPixelFormats];
-    formatRequirements = [*(v1 + 160) formatRequirements];
-    [objc_msgSend(*(v1 + 136) "videoFormat")];
+    formatRequirements = [v1[20] formatRequirements];
+    [objc_msgSend(v1[17] "videoFormat")];
     [OUTLINED_FUNCTION_7() setWidth:?];
-    [objc_msgSend(*(v1 + 136) "videoFormat")];
+    [objc_msgSend(v1[17] "videoFormat")];
     [OUTLINED_FUNCTION_7() setHeight:?];
     [formatRequirements setSupportedColorSpaceProperties:v3];
     return [formatRequirements setSupportedPixelFormats:_supportedOutputPixelFormats];
@@ -585,6 +587,8 @@ LABEL_66:
 {
   if (self->_videoInput == input)
   {
+    v12 = v5;
+    v13 = v6;
     if (self->_mctfSession)
     {
       cvPixelBufferPool = [(BWPixelBufferPool *)[(BWNodeOutput *)self->_videoOutput preparedPixelBufferPool:d] cvPixelBufferPool];
@@ -598,6 +602,8 @@ LABEL_66:
         [(BWNodeOutput *)self->_videoOutput makeConfiguredFormatLive];
         if (dword_1EB58E860)
         {
+          v11 = 0;
+          v10 = 0;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           OUTLINED_FUNCTION_2_4();
@@ -684,8 +690,8 @@ LABEL_66:
             if (v7)
             {
               OUTLINED_FUNCTION_1_128();
-              OUTLINED_FUNCTION_58_1();
-              v2 = v10;
+              OUTLINED_FUNCTION_58_1(v8, v9, v16, v10, &dword_1AC90E000);
+              v2 = v17;
             }
 
             OUTLINED_FUNCTION_2_4();
@@ -701,21 +707,21 @@ LABEL_66:
 
             if (dword_1EB58E860)
             {
-              v8 = OUTLINED_FUNCTION_3_105();
-              if (OUTLINED_FUNCTION_96(v8))
+              v11 = OUTLINED_FUNCTION_3_105();
+              if (OUTLINED_FUNCTION_96(v11))
               {
-                v9 = v2;
+                v12 = v2;
               }
 
               else
               {
-                v9 = v2 & 0xFFFFFFFE;
+                v12 = v2 & 0xFFFFFFFE;
               }
 
-              if (v9)
+              if (v12)
               {
                 OUTLINED_FUNCTION_1_128();
-                OUTLINED_FUNCTION_58_1();
+                OUTLINED_FUNCTION_58_1(v13, v14, v16, v15, &dword_1AC90E000);
               }
 
               OUTLINED_FUNCTION_2_4();

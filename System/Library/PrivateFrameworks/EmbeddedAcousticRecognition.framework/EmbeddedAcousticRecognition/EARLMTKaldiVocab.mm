@@ -5,7 +5,7 @@
 
 void __52___EARLMTKaldiVocab_initWithContentsOfUrl_outError___block_invoke(void *a1, void *a2, unint64_t a3, _BYTE *a4)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (([v7 isEqualToString:&stru_1F2D44B60] & 1) == 0)
   {
@@ -21,8 +21,8 @@ void __52___EARLMTKaldiVocab_initWithContentsOfUrl_outError___block_invoke(void 
         std::string::basic_string[abi:ne200100]<0>(__p, [v10 UTF8String]);
         v18 = a1[4];
         v19 = *(v18 + 64);
-        v22 = __p;
-        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v18 + 40), __p)[5] = v19;
+        v23 = __p;
+        std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v18 + 40), __p, &std::piecewise_construct, &v23, &v22)[5] = v19;
         if (v21 < 0)
         {
           operator delete(__p[0]);
@@ -53,10 +53,10 @@ void __52___EARLMTKaldiVocab_initWithContentsOfUrl_outError___block_invoke(void 
     else
     {
       v12 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A578];
+      v24 = *MEMORY[0x1E696A578];
       v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Incorrect format of vocab file for line=%@", v7];
-      v24[0] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v25[0] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v15 = [v12 errorWithDomain:@"com.apple.siri.languagemodeltraining" code:151 userInfo:v14];
       v16 = *(a1[5] + 8);
       v17 = *(v16 + 40);

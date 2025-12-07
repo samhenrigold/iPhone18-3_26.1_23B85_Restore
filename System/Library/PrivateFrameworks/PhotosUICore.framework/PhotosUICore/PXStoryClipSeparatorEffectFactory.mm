@@ -27,10 +27,10 @@
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXStoryClipSeparatorEffect.m" lineNumber:178 description:{@"Invalid parameter not satisfying: %@", @"composition.dividerAxes[0] == composition.dividerAxes[1]"}];
   }
 
-  [self parametersForRotationWithAngle:angle];
+  objc_msgSend_parametersForRotationWithAngle_(self, angle);
   *&parameters->var0 = v14;
   parameters->var2 = v15;
-  [self parametersForRotationWithAngle:-angle];
+  objc_msgSend_parametersForRotationWithAngle_(self, -angle);
   *&parameters[1].var0 = v14;
   parameters[1].var2 = v15;
 }
@@ -53,7 +53,7 @@
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXStoryClipSeparatorEffect.m" lineNumber:172 description:{@"Invalid parameter not satisfying: %@", @"composition.dividerAxes[0] == composition.dividerAxes[1]"}];
   }
 
-  [self parametersForRotationWithAngle:angle];
+  objc_msgSend_parametersForRotationWithAngle_(self, angle);
   *&parameters[1].var0 = v14;
   parameters[1].var2 = v15;
   *&parameters->var0 = *&parameters[1].var0;

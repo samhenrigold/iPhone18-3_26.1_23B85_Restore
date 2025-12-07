@@ -25,7 +25,7 @@
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_endpoint_resolver init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -113,7 +113,7 @@ LABEL_3:
     v27 = __nwlog_obj();
     *buf = 136446210;
     v43 = "[NWConcrete_nw_endpoint_resolver applyWithHandler:toChildren:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -205,7 +205,7 @@ LABEL_66:
     v45 = v14;
     v46 = 2082;
     v47 = "resolver";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -352,7 +352,7 @@ LABEL_41:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v43 = "[NWConcrete_nw_endpoint_resolver applyWithHandler:toChildren:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null applyBlock", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -451,7 +451,7 @@ LABEL_43:
     v20 = __nwlog_obj();
     *buf = 136446210;
     v29 = "[NWConcrete_nw_endpoint_resolver updatePathWithHandler:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -552,7 +552,7 @@ LABEL_37:
   v31 = v8;
   v32 = 2082;
   v33 = "resolver";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
   v26 = 0;
@@ -690,84 +690,84 @@ LABEL_38:
 - (void)cancelWithHandler:(id)handler forced:(BOOL)forced
 {
   forcedCopy = forced;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = handlerCopy;
   if (!handlerCopy)
   {
-    v35 = __nwlog_obj();
+    v34 = __nwlog_obj();
     *buf = 136446210;
-    v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-    v24 = _os_log_send_and_compose_impl();
+    v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v41 = 0;
-    if (__nwlog_fault(v24, &type, &v41))
+    v40 = 0;
+    if (__nwlog_fault(v23, &type, &v40))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
-        v25 = __nwlog_obj();
-        v36 = type;
-        if (os_log_type_enabled(v25, type))
+        v24 = __nwlog_obj();
+        v35 = type;
+        if (os_log_type_enabled(v24, type))
         {
           *buf = 136446210;
-          v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v25, v36, "%{public}s called with null handler", buf, 0xCu);
+          v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v24, v35, "%{public}s called with null handler", buf, 0xCu);
         }
 
         goto LABEL_50;
       }
 
-      if (v41 != 1)
+      if (v40 != 1)
       {
-        v25 = __nwlog_obj();
-        v40 = type;
-        if (os_log_type_enabled(v25, type))
+        v24 = __nwlog_obj();
+        v39 = type;
+        if (os_log_type_enabled(v24, type))
         {
           *buf = 136446210;
-          v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v25, v40, "%{public}s called with null handler, backtrace limit exceeded", buf, 0xCu);
+          v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v24, v39, "%{public}s called with null handler, backtrace limit exceeded", buf, 0xCu);
         }
 
         goto LABEL_50;
       }
 
       backtrace_string = __nw_create_backtrace_string();
-      v25 = __nwlog_obj();
-      v38 = type;
-      v39 = os_log_type_enabled(v25, type);
+      v24 = __nwlog_obj();
+      v37 = type;
+      v38 = os_log_type_enabled(v24, type);
       if (!backtrace_string)
       {
-        if (v39)
+        if (v38)
         {
           *buf = 136446210;
-          v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v25, v38, "%{public}s called with null handler, no backtrace", buf, 0xCu);
+          v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v24, v37, "%{public}s called with null handler, no backtrace", buf, 0xCu);
         }
 
         goto LABEL_50;
       }
 
-      if (v39)
+      if (v38)
       {
         *buf = 136446466;
-        v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-        v45 = 2082;
-        v46 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v25, v38, "%{public}s called with null handler, dumping backtrace:%{public}s", buf, 0x16u);
+        v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+        v44 = 2082;
+        v45 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v24, v37, "%{public}s called with null handler, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       free(backtrace_string);
     }
 
 LABEL_51:
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_53;
     }
 
 LABEL_52:
-    free(v24);
+    free(v23);
     goto LABEL_53;
   }
 
@@ -816,7 +816,7 @@ LABEL_52:
     if (resolver)
     {
       nw_resolver_cancel(resolver);
-      v20 = self->resolver;
+      v19 = self->resolver;
       self->resolver = 0;
     }
 
@@ -824,21 +824,21 @@ LABEL_52:
     child_timer = self->child_timer;
     if (child_timer)
     {
-      nw_queue_cancel_source(child_timer, v18);
+      nw_queue_cancel_source(child_timer);
       self->child_timer = 0;
     }
 
     trigger_agent_timer = self->trigger_agent_timer;
     if (trigger_agent_timer)
     {
-      nw_queue_cancel_source(trigger_agent_timer, v18);
+      nw_queue_cancel_source(trigger_agent_timer);
       self->trigger_agent_timer = 0;
     }
 
     desperate_ivan_timer = self->desperate_ivan_timer;
     if (desperate_ivan_timer)
     {
-      nw_queue_cancel_source(desperate_ivan_timer, v18);
+      nw_queue_cancel_source(desperate_ivan_timer);
       self->desperate_ivan_timer = 0;
     }
 
@@ -859,16 +859,16 @@ LABEL_52:
   }
 
   *buf = 136446722;
-  v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-  v45 = 2082;
-  v46 = v16;
-  v47 = 2082;
-  v48 = "resolver";
-  v24 = _os_log_send_and_compose_impl();
+  v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+  v44 = 2082;
+  v45 = v16;
+  v46 = 2082;
+  v47 = "resolver";
+  v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
-  v41 = 0;
-  if (!__nwlog_fault(v24, &type, &v41))
+  v40 = 0;
+  if (!__nwlog_fault(v23, &type, &v40))
   {
     goto LABEL_51;
   }
@@ -877,27 +877,27 @@ LABEL_52:
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v25 = gLogObj;
-    v26 = type;
-    if (os_log_type_enabled(v25, type))
+    v24 = gLogObj;
+    v25 = type;
+    if (os_log_type_enabled(v24, type))
     {
       if (v9 > 5)
       {
-        v27 = "unknown-mode";
+        v26 = "unknown-mode";
       }
 
       else
       {
-        v27 = off_1E6A31018[v9];
+        v26 = off_1E6A31018[v9];
       }
 
       *buf = 136446722;
-      v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-      v45 = 2082;
-      v46 = v27;
-      v47 = 2082;
-      v48 = "resolver";
-      _os_log_impl(&dword_181A37000, v25, v26, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 0x20u);
+      v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+      v44 = 2082;
+      v45 = v26;
+      v46 = 2082;
+      v47 = "resolver";
+      _os_log_impl(&dword_181A37000, v24, v25, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 0x20u);
     }
 
 LABEL_50:
@@ -905,13 +905,45 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  if (v41 != 1)
+  if (v40 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v25 = gLogObj;
-    v32 = type;
-    if (os_log_type_enabled(v25, type))
+    v24 = gLogObj;
+    v31 = type;
+    if (os_log_type_enabled(v24, type))
+    {
+      if (v9 > 5)
+      {
+        v32 = "unknown-mode";
+      }
+
+      else
+      {
+        v32 = off_1E6A31018[v9];
+      }
+
+      *buf = 136446722;
+      v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+      v44 = 2082;
+      v45 = v32;
+      v46 = 2082;
+      v47 = "resolver";
+      _os_log_impl(&dword_181A37000, v24, v31, "%{public}s Handler is in mode %{public}s, expected %{public}s, backtrace limit exceeded", buf, 0x20u);
+    }
+
+    goto LABEL_50;
+  }
+
+  v27 = __nw_create_backtrace_string();
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v24 = gLogObj;
+  v28 = type;
+  v29 = os_log_type_enabled(v24, type);
+  if (!v27)
+  {
+    if (v29)
     {
       if (v9 > 5)
       {
@@ -924,74 +956,42 @@ LABEL_50:
       }
 
       *buf = 136446722;
-      v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-      v45 = 2082;
-      v46 = v33;
-      v47 = 2082;
-      v48 = "resolver";
-      _os_log_impl(&dword_181A37000, v25, v32, "%{public}s Handler is in mode %{public}s, expected %{public}s, backtrace limit exceeded", buf, 0x20u);
+      v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+      v44 = 2082;
+      v45 = v33;
+      v46 = 2082;
+      v47 = "resolver";
+      _os_log_impl(&dword_181A37000, v24, v28, "%{public}s Handler is in mode %{public}s, expected %{public}s, no backtrace", buf, 0x20u);
     }
 
     goto LABEL_50;
   }
 
-  v28 = __nw_create_backtrace_string();
-  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-  networkd_settings_init();
-  v25 = gLogObj;
-  v29 = type;
-  v30 = os_log_type_enabled(v25, type);
-  if (!v28)
-  {
-    if (v30)
-    {
-      if (v9 > 5)
-      {
-        v34 = "unknown-mode";
-      }
-
-      else
-      {
-        v34 = off_1E6A31018[v9];
-      }
-
-      *buf = 136446722;
-      v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-      v45 = 2082;
-      v46 = v34;
-      v47 = 2082;
-      v48 = "resolver";
-      _os_log_impl(&dword_181A37000, v25, v29, "%{public}s Handler is in mode %{public}s, expected %{public}s, no backtrace", buf, 0x20u);
-    }
-
-    goto LABEL_50;
-  }
-
-  if (v30)
+  if (v29)
   {
     if (v9 > 5)
     {
-      v31 = "unknown-mode";
+      v30 = "unknown-mode";
     }
 
     else
     {
-      v31 = off_1E6A31018[v9];
+      v30 = off_1E6A31018[v9];
     }
 
     *buf = 136446978;
-    v44 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
-    v45 = 2082;
-    v46 = v31;
-    v47 = 2082;
-    v48 = "resolver";
-    v49 = 2082;
-    v50 = v28;
-    _os_log_impl(&dword_181A37000, v25, v29, "%{public}s Handler is in mode %{public}s, expected %{public}s, dumping backtrace:%{public}s", buf, 0x2Au);
+    v43 = "[NWConcrete_nw_endpoint_resolver cancelWithHandler:forced:]";
+    v44 = 2082;
+    v45 = v30;
+    v46 = 2082;
+    v47 = "resolver";
+    v48 = 2082;
+    v49 = v27;
+    _os_log_impl(&dword_181A37000, v24, v28, "%{public}s Handler is in mode %{public}s, expected %{public}s, dumping backtrace:%{public}s", buf, 0x2Au);
   }
 
-  free(v28);
-  if (v24)
+  free(v27);
+  if (v23)
   {
     goto LABEL_52;
   }
@@ -1009,7 +1009,7 @@ LABEL_53:
     v70 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_endpoint_resolver startWithHandler:]";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v70, 16, "%{public}s called with null handler", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v106 = 0;
@@ -1100,7 +1100,7 @@ LABEL_81:
     *&buf[14] = v20;
     v108 = 2082;
     v109 = "resolver";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v106 = 0;
@@ -1312,7 +1312,7 @@ LABEL_62:
       v76 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_resolver_create_with_path_parameters_and_log_string";
-      v77 = _os_log_send_and_compose_impl();
+      v77 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v76, 16, "%{public}s called with null path", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       v106 = 0;
@@ -1336,7 +1336,7 @@ LABEL_62:
           {
             v84 = __nw_create_backtrace_string();
             v85 = __nwlog_obj();
-            v92 = type[0];
+            HIDWORD(v92) = type[0];
             v86 = os_log_type_enabled(v85, type[0]);
             if (v84)
             {
@@ -1346,7 +1346,7 @@ LABEL_62:
                 *&buf[4] = "nw_resolver_create_with_path_parameters_and_log_string";
                 *&buf[12] = 2082;
                 *&buf[14] = v84;
-                _os_log_impl(&dword_181A37000, v85, v92, "%{public}s called with null path, dumping backtrace:%{public}s", buf, 0x16u);
+                _os_log_impl(&dword_181A37000, v85, BYTE4(v92), "%{public}s called with null path, dumping backtrace:%{public}s", buf, 0x16u);
               }
 
               free(v84);
@@ -1358,7 +1358,7 @@ LABEL_62:
               {
                 *buf = 136446210;
                 *&buf[4] = "nw_resolver_create_with_path_parameters_and_log_string";
-                _os_log_impl(&dword_181A37000, v85, v92, "%{public}s called with null path, no backtrace", buf, 0xCu);
+                _os_log_impl(&dword_181A37000, v85, BYTE4(v92), "%{public}s called with null path, no backtrace", buf, 0xCu);
               }
             }
 
@@ -1458,7 +1458,8 @@ LABEL_78:
       v80 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_resolver_set_alternative_handler";
-      v81 = _os_log_send_and_compose_impl();
+      LODWORD(v92) = 12;
+      v81 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v80, 16, "%{public}s called with null resolver", buf, v92);
 
       type[0] = OS_LOG_TYPE_ERROR;
       v106 = 0;

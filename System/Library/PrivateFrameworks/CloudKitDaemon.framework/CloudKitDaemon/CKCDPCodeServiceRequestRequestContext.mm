@@ -314,83 +314,79 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_userId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_containerName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    databaseEnvironment = self->_databaseEnvironment;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    databaseType = self->_databaseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_deviceId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_applicationBundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_clientInfo)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    dsid = self->_dsid;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_userAgent)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_operationGroup)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_databaseOwnerId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    internalBuild = self->_internalBuild;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -576,7 +572,6 @@
     }
   }
 
-  v12 = *(equalCopy + 100);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 100) & 2) == 0 || self->_databaseEnvironment != *(equalCopy + 10))
@@ -604,33 +599,32 @@
   }
 
   deviceId = self->_deviceId;
-  v14 = equalCopy[8];
-  if (deviceId | v14 && !objc_msgSend_isEqual_(deviceId, v7, v14))
+  v13 = equalCopy[8];
+  if (deviceId | v13 && !objc_msgSend_isEqual_(deviceId, v7, v13))
   {
     goto LABEL_35;
   }
 
   applicationBundleId = self->_applicationBundleId;
-  v16 = equalCopy[2];
-  if (applicationBundleId | v16)
+  v15 = equalCopy[2];
+  if (applicationBundleId | v15)
   {
-    if (!objc_msgSend_isEqual_(applicationBundleId, v7, v16))
+    if (!objc_msgSend_isEqual_(applicationBundleId, v7, v15))
     {
       goto LABEL_35;
     }
   }
 
   clientInfo = self->_clientInfo;
-  v18 = equalCopy[3];
-  if (clientInfo | v18)
+  v17 = equalCopy[3];
+  if (clientInfo | v17)
   {
-    if (!objc_msgSend_isEqual_(clientInfo, v7, v18))
+    if (!objc_msgSend_isEqual_(clientInfo, v7, v17))
     {
       goto LABEL_35;
     }
   }
 
-  v19 = *(equalCopy + 100);
   if (*&self->_has)
   {
     if ((*(equalCopy + 100) & 1) == 0 || self->_dsid != equalCopy[1])
@@ -645,39 +639,39 @@
   }
 
   userAgent = self->_userAgent;
-  v21 = equalCopy[10];
-  if (userAgent | v21 && !objc_msgSend_isEqual_(userAgent, v7, v21))
+  v19 = equalCopy[10];
+  if (userAgent | v19 && !objc_msgSend_isEqual_(userAgent, v7, v19))
   {
     goto LABEL_35;
   }
 
   operationGroup = self->_operationGroup;
-  v23 = equalCopy[9];
-  if (operationGroup | v23)
+  v21 = equalCopy[9];
+  if (operationGroup | v21)
   {
-    if (!objc_msgSend_isEqual_(operationGroup, v7, v23))
+    if (!objc_msgSend_isEqual_(operationGroup, v7, v21))
     {
       goto LABEL_35;
     }
   }
 
   databaseOwnerId = self->_databaseOwnerId;
-  v25 = equalCopy[6];
-  if (databaseOwnerId | v25)
+  v23 = equalCopy[6];
+  if (databaseOwnerId | v23)
   {
-    if (!objc_msgSend_isEqual_(databaseOwnerId, v7, v25))
+    if (!objc_msgSend_isEqual_(databaseOwnerId, v7, v23))
     {
       goto LABEL_35;
     }
   }
 
-  v26 = (*(equalCopy + 100) & 8) == 0;
+  v24 = (*(equalCopy + 100) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 100) & 8) == 0)
     {
 LABEL_35:
-      v26 = 0;
+      v24 = 0;
       goto LABEL_36;
     }
 
@@ -694,12 +688,12 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    v26 = 1;
+    v24 = 1;
   }
 
 LABEL_36:
 
-  return v26;
+  return v24;
 }
 
 - (unint64_t)hash

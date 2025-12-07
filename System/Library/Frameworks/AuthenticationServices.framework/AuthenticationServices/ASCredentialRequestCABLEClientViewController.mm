@@ -100,7 +100,7 @@
 
 - (void)_setUpQRCodeView
 {
-  v28[5] = *MEMORY[0x1E69E9840];
+  v27[5] = *MEMORY[0x1E69E9840];
   v3 = [_ASCABLEQRCodeView alloc];
   _qrCodeMessage = [(ASCredentialRequestCABLEClientViewController *)self _qrCodeMessage];
   v5 = [(_ASCABLEQRCodeView *)v3 initWithMessage:_qrCodeMessage];
@@ -109,29 +109,29 @@
   v6 = objc_alloc_init(MEMORY[0x1E69DD250]);
   [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v6 addSubview:v5];
-  v20 = MEMORY[0x1E696ACD8];
+  v19 = MEMORY[0x1E696ACD8];
   topAnchor = [v6 topAnchor];
   topAnchor2 = [(_ASCABLEQRCodeView *)v5 topAnchor];
-  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v28[0] = v24;
+  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v27[0] = v23;
   leadingAnchor = [v6 leadingAnchor];
   leadingAnchor2 = [(_ASCABLEQRCodeView *)v5 leadingAnchor];
-  v21 = [leadingAnchor constraintLessThanOrEqualToAnchor:leadingAnchor2];
-  v28[1] = v21;
+  v20 = [leadingAnchor constraintLessThanOrEqualToAnchor:leadingAnchor2];
+  v27[1] = v20;
   bottomAnchor = [v6 bottomAnchor];
   bottomAnchor2 = [(_ASCABLEQRCodeView *)v5 bottomAnchor];
   v7 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v28[2] = v7;
+  v27[2] = v7;
   trailingAnchor = [v6 trailingAnchor];
   trailingAnchor2 = [(_ASCABLEQRCodeView *)v5 trailingAnchor];
   v10 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
-  v28[3] = v10;
+  v27[3] = v10;
   centerXAnchor = [v6 centerXAnchor];
   centerXAnchor2 = [(_ASCABLEQRCodeView *)v5 centerXAnchor];
   v13 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v28[4] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:5];
-  [v20 activateConstraints:v14];
+  v27[4] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:5];
+  [v19 activateConstraints:v14];
 
   paneHeaderStackView = [(ASCredentialRequestPaneViewController *)self paneHeaderStackView];
   [paneHeaderStackView addArrangedSubview:v6];
@@ -139,8 +139,6 @@
   paneHeaderStackView2 = [(ASCredentialRequestPaneViewController *)self paneHeaderStackView];
   [(ASCredentialRequestCABLEClientViewController *)self _marginBelowQRCode];
   [paneHeaderStackView2 setCustomSpacing:v6 afterView:?];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setUpSecurityKeyButtonViewIfNeeded
@@ -293,21 +291,21 @@ LABEL_17:
   }
 }
 
-void __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke()
+void __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_cold_1(v0);
+    __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_cold_1(v2);
   }
 }
 
-void __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_47()
+void __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_47(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_47_cold_1(v0);
+    __75__ASCredentialRequestCABLEClientViewController__useSecurityKeyButtonTapped__block_invoke_47_cold_1(v2);
   }
 }
 

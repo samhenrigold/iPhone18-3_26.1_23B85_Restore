@@ -6,7 +6,7 @@
 
 - (id)hd_sqlPredicateForSelect
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   subpredicates = [self subpredicates];
   v3 = [subpredicates count];
 
@@ -25,33 +25,33 @@
 
     v5 = compoundPredicateType;
     array = [MEMORY[0x277CBEB18] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     subpredicates3 = [self subpredicates];
-    v8 = [subpredicates3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [subpredicates3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(subpredicates3);
           }
 
-          hd_sqlPredicateForSelect = [*(*(&v19 + 1) + 8 * i) hd_sqlPredicateForSelect];
+          hd_sqlPredicateForSelect = [*(*(&v18 + 1) + 8 * i) hd_sqlPredicateForSelect];
           if (hd_sqlPredicateForSelect)
           {
             [array addObject:hd_sqlPredicateForSelect];
           }
         }
 
-        v9 = [subpredicates3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [subpredicates3 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -76,7 +76,6 @@ LABEL_17:
   }
 
 LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

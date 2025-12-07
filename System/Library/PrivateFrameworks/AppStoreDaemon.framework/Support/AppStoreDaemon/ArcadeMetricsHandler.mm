@@ -119,7 +119,7 @@
 
 - (BOOL)shouldCollectMetrics
 {
-  v2 = sub_1003BBF50();
+  v2 = sub_1003BBF50(Device);
   isHRNMode = [v2 isHRNMode];
 
   return isHRNMode ^ 1;

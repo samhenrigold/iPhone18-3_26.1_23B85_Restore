@@ -43,7 +43,7 @@
   if (frameCopy)
   {
     camera = [frameCopy camera];
-    [camera transform];
+    objc_msgSend_transform(camera);
     v25 = v7;
 
     [v5 timestamp];
@@ -71,24 +71,24 @@
     v14 = (velocityIndex + 1) % 5;
     self->_velocityIndex = v14;
     *&self->_velocities[16 * v14] = vdivq_f32(vsubq_f32(v12, v11), vdupq_lane_s32(*&v13, 0));
-    [(ARCoachingMotionTracker *)self calcAverageVelocity];
-    v16 = vmulq_f32(v15, v15);
+    calcAverageVelocity = [(ARCoachingMotionTracker *)self calcAverageVelocity];
+    v17 = vmulq_f32(v16, v16);
     thresholdBreakCount = self->_thresholdBreakCount;
-    if ((v16.f32[2] + vaddv_f32(*v16.f32)) <= 0.01)
+    if ((v17.f32[2] + vaddv_f32(*v17.f32)) <= 0.01)
     {
       if (thresholdBreakCount <= 1)
       {
         thresholdBreakCount = 1;
       }
 
-      v18 = thresholdBreakCount - 1;
-      self->_thresholdBreakCount = v18;
+      v19 = thresholdBreakCount - 1;
+      self->_thresholdBreakCount = v19;
     }
 
     else
     {
-      v18 = thresholdBreakCount + 1;
-      self->_thresholdBreakCount = v18;
+      v19 = thresholdBreakCount + 1;
+      self->_thresholdBreakCount = v19;
       self->_lastThresholdBreakTime = v9;
     }
 
@@ -98,18 +98,18 @@
       {
         self->_isMoving = 0;
         self->_thresholdBreakCount = 0;
-        v19 = _ARLogCoaching_5();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v20 = _ARLogCoaching_5(calcAverageVelocity);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
+          v21 = objc_opt_class();
+          v22 = NSStringFromClass(v21);
           *buf = 138543618;
-          v27 = v21;
+          v27 = v22;
           v28 = 2048;
           selfCopy2 = self;
-          v22 = "%{public}@ <%p>: Coaching view stopped moving";
+          v23 = "%{public}@ <%p>: Coaching view stopped moving";
 LABEL_17:
-          _os_log_impl(&dword_23D3AE000, v19, OS_LOG_TYPE_INFO, v22, buf, 0x16u);
+          _os_log_impl(&dword_23D3AE000, v20, OS_LOG_TYPE_INFO, v23, buf, 0x16u);
 
           goto LABEL_18;
         }
@@ -117,33 +117,31 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if (v18 > 15)
+      if (v19 > 15)
       {
         self->_isMoving = 1;
       }
     }
 
-    else if (v18 > 15)
+    else if (v19 > 15)
     {
       self->_isMoving = 1;
-      v19 = _ARLogCoaching_5();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = _ARLogCoaching_5(calcAverageVelocity);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v23 = objc_opt_class();
-        v21 = NSStringFromClass(v23);
+        v24 = objc_opt_class();
+        v22 = NSStringFromClass(v24);
         *buf = 138543618;
-        v27 = v21;
+        v27 = v22;
         v28 = 2048;
         selfCopy2 = self;
-        v22 = "%{public}@ <%p>: Coaching view started moving";
+        v23 = "%{public}@ <%p>: Coaching view started moving";
         goto LABEL_17;
       }
 
 LABEL_18:
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear

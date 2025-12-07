@@ -5,7 +5,10 @@
 - (ATXProactiveSuggestionClientModelEvaluator)initWithPublishers:(id)publishers;
 - (ATXProactiveSuggestionClientModelEvaluator)initWithStartTime:(id)time endTime:(id)endTime;
 - (id)evaluationResultsForClientModelName:(id)name;
+- (id)resultForClientModelName:(id)name suggestionExecutableType:(int64_t)type sessionType:(unint64_t)sessionType removeDockedApps:(BOOL)apps;
+- (id)shadowResultForSuggestionExecutableType:(int64_t)type clientModelName:(id)name removeDockedApps:(BOOL)apps;
 - (id)uiPublisherWithDeduplicatedEngagements;
+- (id)uiResultForSuggestionExecutableType:(int64_t)type clientModelName:(id)name removeDockedApps:(BOOL)apps;
 @end
 
 @implementation ATXProactiveSuggestionClientModelEvaluator
@@ -115,6 +118,37 @@ id __84__ATXProactiveSuggestionClientModelEvaluator_uiPublisherWithDeduplicatedE
   return v10;
 }
 
+- (id)shadowResultForSuggestionExecutableType:(int64_t)type clientModelName:(id)name removeDockedApps:(BOOL)apps
+{
+  appsCopy = apps;
+  nameCopy = name;
+  clientModelCacheUpdatePublisher = [(ATXProactiveSuggestionClientModelEvaluatorPublishers *)self->_publishers clientModelCacheUpdatePublisher];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke;
+  v22[3] = &unk_27859A798;
+  v23 = nameCopy;
+  v10 = nameCopy;
+  v11 = [clientModelCacheUpdatePublisher filterWithIsIncluded:v22];
+
+  shadowCandidatePublisher = [(ATXProactiveSuggestionClientModelEvaluatorPublishers *)self->_publishers shadowCandidatePublisher];
+  v13 = [shadowCandidatePublisher orderedMergeWithOther:v11 comparator:&__block_literal_global_199];
+
+  v14 = [objc_opt_class() eventAndRecentCacheUpdatePublisher:v13];
+  v15 = [v14 filterWithIsIncluded:&__block_literal_global_202];
+
+  v16 = [[ATXProactiveSuggestionClientModelEvaluationResult alloc] initWithSessionType:0 executableType:type removeDockedApps:appsCopy];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke_5;
+  v20[3] = &unk_27859AFC8;
+  v17 = v16;
+  v21 = v17;
+  v18 = [v15 sinkWithCompletion:&__block_literal_global_207 receiveInput:v20];
+
+  return v17;
+}
+
 uint64_t __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 eventBody];
@@ -155,7 +189,7 @@ uint64_t __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSugges
 
 void __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke_5(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 first];
   v5 = [v4 eventBody];
@@ -170,11 +204,39 @@ void __119__ATXProactiveSuggestionClientModelEvaluator_shadowResultForSuggestion
   [v10 setConsumerSubType:15];
   v11 = *(a1 + 32);
   v12 = [v6 suggestions];
-  v15[0] = v10;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [v11 updateCountsForSessionsWithShownSuggestions:v12 engagedSuggestions:v13 rejectedSuggestions:MEMORY[0x277CBEBF8]];
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (id)uiResultForSuggestionExecutableType:(int64_t)type clientModelName:(id)name removeDockedApps:(BOOL)apps
+{
+  appsCopy = apps;
+  nameCopy = name;
+  clientModelCacheUpdatePublisher = [(ATXProactiveSuggestionClientModelEvaluatorPublishers *)self->_publishers clientModelCacheUpdatePublisher];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke;
+  v22[3] = &unk_27859A798;
+  v23 = nameCopy;
+  v10 = nameCopy;
+  v11 = [clientModelCacheUpdatePublisher filterWithIsIncluded:v22];
+
+  uiPublisherWithDeduplicatedEngagements = [(ATXProactiveSuggestionClientModelEvaluator *)self uiPublisherWithDeduplicatedEngagements];
+  v13 = [uiPublisherWithDeduplicatedEngagements orderedMergeWithOther:v11 comparator:&__block_literal_global_213];
+  v14 = [objc_opt_class() eventAndRecentCacheUpdatePublisher:v13];
+  v15 = [v14 filterWithIsIncluded:&__block_literal_global_215];
+
+  v16 = [[ATXProactiveSuggestionClientModelEvaluationResult alloc] initWithSessionType:1 executableType:type removeDockedApps:appsCopy];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke_5;
+  v20[3] = &unk_27859AFC8;
+  v17 = v16;
+  v21 = v17;
+  v18 = [v15 sinkWithCompletion:&__block_literal_global_217 receiveInput:v20];
+
+  return v17;
 }
 
 uint64_t __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke(uint64_t a1, void *a2)
@@ -217,7 +279,7 @@ uint64_t __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestion
 
 void __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExecutableType_clientModelName_removeDockedApps___block_invoke_5(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 first];
   v5 = [v4 eventBody];
@@ -226,57 +288,87 @@ void __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExec
 
   v7 = *(a1 + 32);
   v8 = [v6 suggestions];
-  v11[0] = v5;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v7 updateCountsForSessionsWithShownSuggestions:v8 engagedSuggestions:v9 rejectedSuggestions:MEMORY[0x277CBEBF8]];
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (id)resultForClientModelName:(id)name suggestionExecutableType:(int64_t)type sessionType:(unint64_t)sessionType removeDockedApps:(BOOL)apps
+{
+  appsCopy = apps;
+  nameCopy = name;
+  v11 = nameCopy;
+  if (!sessionType)
+  {
+    v12 = [(ATXProactiveSuggestionClientModelEvaluator *)self shadowResultForSuggestionExecutableType:type clientModelName:nameCopy removeDockedApps:appsCopy];
+    goto LABEL_5;
+  }
+
+  if (sessionType == 1)
+  {
+    v12 = [(ATXProactiveSuggestionClientModelEvaluator *)self uiResultForSuggestionExecutableType:type clientModelName:nameCopy removeDockedApps:appsCopy];
+LABEL_5:
+    v13 = v12;
+    goto LABEL_9;
+  }
+
+  v14 = __atxlog_handle_default(nameCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    [ATXProactiveSuggestionClientModelEvaluator resultForClientModelName:type suggestionExecutableType:v14 sessionType:? removeDockedApps:?];
+  }
+
+  [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"resultForClientModelName called with invalid suggestionExecutableType value of %lu", type}];
+  v13 = 0;
+LABEL_9:
+
+  return v13;
 }
 
 - (id)evaluationResultsForClientModelName:(id)name
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v20 = [&unk_283A57E18 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v20)
+  v19 = [&unk_283A57E18 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v19)
   {
-    v19 = *v27;
+    v18 = *v26;
     do
     {
       v6 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(&unk_283A57E18);
         }
 
-        v21 = v6;
-        v7 = *(*(&v26 + 1) + 8 * v6);
+        v20 = v6;
+        v7 = *(*(&v25 + 1) + 8 * v6);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v8 = [&unk_283A57E30 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [&unk_283A57E30 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v23;
+          v10 = *v22;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v23 != v10)
+              if (*v22 != v10)
               {
                 objc_enumerationMutation(&unk_283A57E30);
               }
 
-              v12 = *(*(&v22 + 1) + 8 * i);
+              v12 = *(*(&v21 + 1) + 8 * i);
               integerValue = [v7 integerValue];
               integerValue2 = [v12 integerValue];
               v15 = [(ATXProactiveSuggestionClientModelEvaluator *)self resultForClientModelName:nameCopy suggestionExecutableType:integerValue2 sessionType:integerValue removeDockedApps:0];
@@ -301,23 +393,21 @@ void __115__ATXProactiveSuggestionClientModelEvaluator_uiResultForSuggestionExec
               }
             }
 
-            v9 = [&unk_283A57E30 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v9 = [&unk_283A57E30 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v9);
         }
 
-        v6 = v21 + 1;
+        v6 = v20 + 1;
       }
 
-      while (v21 + 1 != v20);
-      v20 = [&unk_283A57E18 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v20 + 1 != v19);
+      v19 = [&unk_283A57E18 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -359,7 +449,7 @@ id __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePub
 
   else
   {
-    v12 = __atxlog_handle_default();
+    v12 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePublisher___block_invoke_cold_1(a1, v12);
@@ -376,27 +466,27 @@ id __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePub
 + (id)resultFromResults:(id)results withSessionType:(unint64_t)type executableType:(int64_t)executableType removeDockedApps:(BOOL)apps
 {
   appsCopy = apps;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   resultsCopy = results;
-  v10 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [resultsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         if ([v14 sessionType] == type && objc_msgSend(v14, "executableType") == executableType && objc_msgSend(v14, "removeDockedApps") == appsCopy)
         {
           v15 = v14;
@@ -404,7 +494,7 @@ id __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePub
         }
       }
 
-      v11 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [resultsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         continue;
@@ -417,31 +507,25 @@ id __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePub
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)resultForClientModelName:(uint64_t)a1 suggestionExecutableType:(NSObject *)a2 sessionType:removeDockedApps:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "resultForClientModelName called with invalid suggestionExecutableType value of %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "resultForClientModelName called with invalid suggestionExecutableType value of %lu", &v2, 0xCu);
 }
 
 void __81__ATXProactiveSuggestionClientModelEvaluator_eventAndRecentCacheUpdatePublisher___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Event can't be deserialized in eventAndRecentCacheUpdatePublisher", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Event can't be deserialized in eventAndRecentCacheUpdatePublisher", &v5, 0xCu);
 }
 
 @end

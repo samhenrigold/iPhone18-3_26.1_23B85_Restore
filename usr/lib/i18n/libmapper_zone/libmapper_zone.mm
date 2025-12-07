@@ -2,8 +2,8 @@ double _citrus_mapper_zone_mapper_init(uint64_t a1, uint64_t a2, uint64_t a3, ui
 {
   if (a7 >= 0x18)
   {
-    v26[8] = v7;
-    v26[9] = v8;
+    v25[8] = v7;
+    v25[9] = v8;
     v13 = malloc_type_malloc(0x1CuLL, 0x100004027586B93uLL);
     if (v13)
     {
@@ -13,46 +13,46 @@ double _citrus_mapper_zone_mapper_init(uint64_t a1, uint64_t a2, uint64_t a3, ui
       *v13 = 0;
       v13[6] = 0;
       *(v13 + 2) = 0;
-      v25[0] = a4;
-      v25[1] = a5;
-      v25[2] = 0;
-      v26[0] = 0;
-      v26[1] = 0;
-      if (parse_zone(v25, v26, v13))
+      v24[0] = a4;
+      v24[1] = a5;
+      v24[2] = 0;
+      v25[0] = 0;
+      v25[1] = 0;
+      if (parse_zone(v24, v25, v13))
       {
 LABEL_4:
         free(v14);
         return result;
       }
 
-      tok = get_tok(v25, v26);
-      v19 = tok;
+      tok = get_tok(v24, v25);
+      v18 = tok;
       if (tok == 47)
       {
         *(v14 + 1) = *v14;
-        if (parse_zone(v25, v26, v14))
+        if (parse_zone(v24, v25, v14))
         {
           goto LABEL_4;
         }
 
-        if (get_tok(v25, v26) != 47)
+        if (get_tok(v24, v25) != 47)
         {
           goto LABEL_4;
         }
 
-        if (get_tok(v25, v26) != 257)
+        if (get_tok(v24, v25) != 257)
         {
           goto LABEL_4;
         }
 
-        v20 = HIDWORD(v26[0]);
-        v14[6] = HIDWORD(v26[0]);
-        if (v20 > 0x20)
+        v19 = HIDWORD(v25[0]);
+        v14[6] = HIDWORD(v25[0]);
+        if (v19 > 0x20)
         {
           goto LABEL_4;
         }
 
-        tok = get_tok(v25, v26);
+        tok = get_tok(v24, v25);
       }
 
       else
@@ -63,23 +63,23 @@ LABEL_4:
 
       if (tok == 58)
       {
-        LODWORD(v26[0]) = 1;
-        if (get_tok(v25, v26) != 257)
+        LODWORD(v25[0]) = 1;
+        if (get_tok(v24, v25) != 257)
         {
           goto LABEL_4;
         }
 
-        v21 = HIDWORD(v26[0]);
-        v14[4] = HIDWORD(v26[0]);
-        if (v19 == 47)
+        v20 = HIDWORD(v25[0]);
+        v14[4] = HIDWORD(v25[0]);
+        if (v18 == 47)
         {
-          v14[5] = v21;
-          if (get_tok(v25, v26) != 47 || get_tok(v25, v26) != 257)
+          v14[5] = v20;
+          if (get_tok(v24, v25) != 47 || get_tok(v24, v25) != 257)
           {
             goto LABEL_4;
           }
 
-          v14[4] = HIDWORD(v26[0]);
+          v14[4] = HIDWORD(v25[0]);
         }
 
         else
@@ -87,7 +87,7 @@ LABEL_4:
           v14[5] = 0;
         }
 
-        tok = get_tok(v25, v26);
+        tok = get_tok(v24, v25);
       }
 
       if (tok != -1)
@@ -95,15 +95,15 @@ LABEL_4:
         goto LABEL_4;
       }
 
-      v22 = v14[6];
-      v23 = v22 == 32 ? 0 : 1 << v22;
-      if (check_rowcol(v14, v14[4], v23))
+      v21 = v14[6];
+      v22 = v21 == 32 ? 0 : 1 << v21;
+      if (check_rowcol(v14, v14[4], v22))
       {
         goto LABEL_4;
       }
 
-      v24 = v22 ? 1 << -v22 : 0;
-      if (check_rowcol(v15, v14[5], v24))
+      v23 = v21 ? 1 << -v21 : 0;
+      if (check_rowcol(v15, v14[5], v23))
       {
         goto LABEL_4;
       }
@@ -116,7 +116,7 @@ LABEL_4:
 
     else
     {
-      v17 = *__error();
+      __error();
     }
   }
 
@@ -289,7 +289,7 @@ LABEL_10:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t check_rowcol(_DWORD *a1, int a2, unsigned int a3)
+uint64_t check_rowcol(_DWORD *a1, unsigned int a2, unsigned int a3)
 {
   if (a3)
   {
@@ -312,7 +312,7 @@ uint64_t check_rowcol(_DWORD *a1, int a2, unsigned int a3)
     if (a2 <= 0)
     {
 LABEL_12:
-      if (a2 < 0 && *a1 < -a2)
+      if ((a2 & 0x80000000) != 0 && *a1 < -a2)
       {
         return 0xFFFFFFFFLL;
       }
@@ -344,7 +344,7 @@ uint64_t get_imm(void *a1, uint64_t a2)
 {
   v3 = 0;
   v4 = 0;
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v5 = a1[1];
   v6 = a1[2];
   while (1)
@@ -426,21 +426,15 @@ LABEL_25:
   __str[v3] = 0;
   v11 = strtoul(__str, &__endptr, 0);
   *(a2 + 4) = v11;
-  if (__endptr - __str == v3)
+  if (__endptr - __str != v3)
   {
-    if (v9 == 45)
-    {
-      *(a2 + 4) = -v11;
-    }
-
-    result = 257;
+    return 256;
   }
 
-  else
+  if (v9 == 45)
   {
-    result = 256;
+    *(a2 + 4) = -v11;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return 257;
 }

@@ -65,11 +65,11 @@ void __115___UIStatusBarWifiSignalView__barImageWithSize_forScale_distance_angle
   [v4 stroke];
 }
 
-uint64_t __46___UIStatusBarWifiSignalView__updateFromMode___block_invoke(uint64_t result, int a2)
+id *__46___UIStatusBarWifiSignalView__updateFromMode___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateActiveBars];
+    return [result[4] _updateActiveBars];
   }
 
   return result;

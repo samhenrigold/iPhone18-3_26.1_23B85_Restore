@@ -196,7 +196,7 @@
 
 - (BOOL)isWithinDistanceFromLocation:(id)location maxDistance:(double)distance
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   associatedLocations = [(MOContext *)self associatedLocations];
   v8 = [associatedLocations objectAtIndexedSubscript:0];
@@ -220,20 +220,19 @@
     [locationCopy coordinate];
     v24 = v23;
     [locationCopy coordinate];
-    v28 = 134219008;
-    v29 = v17;
-    v30 = 2048;
-    v31 = v22;
-    v32 = 2048;
-    v33 = v24;
-    v34 = 2048;
-    v35 = v25;
-    v36 = 2048;
-    v37 = v11;
-    _os_log_impl(&dword_25E48F000, v12, OS_LOG_TYPE_INFO, "contextLocation,(%f,%f),targetLocation,(%f,%f),distance,%f", &v28, 0x34u);
+    v27 = 134219008;
+    v28 = v17;
+    v29 = 2048;
+    v30 = v22;
+    v31 = 2048;
+    v32 = v24;
+    v33 = 2048;
+    v34 = v25;
+    v35 = 2048;
+    v36 = v11;
+    _os_log_impl(&dword_25E48F000, v12, OS_LOG_TYPE_INFO, "contextLocation,(%f,%f),targetLocation,(%f,%f),distance,%f", &v27, 0x34u);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v11 <= distance;
 }
 

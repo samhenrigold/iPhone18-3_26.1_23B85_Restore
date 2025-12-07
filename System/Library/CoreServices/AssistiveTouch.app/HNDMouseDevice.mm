@@ -249,7 +249,7 @@ LABEL_19:
 
 - (void)updateMouseService:(__IOHIDServiceClient *)service
 {
-  if ((sub_100042C64() & 1) == 0 && (IOHIDServiceClientConformsTo(service, 1u, 1u) || IOHIDServiceClientConformsTo(service, 1u, 2u)))
+  if ((sub_100042C64(self, a2) & 1) == 0 && (IOHIDServiceClientConformsTo(service, 1u, 1u) || IOHIDServiceClientConformsTo(service, 1u, 2u)))
   {
     IOHIDServiceClientSetProperty(service, @"HIDMouseAcceleration", &off_1001E46C8);
 

@@ -43,8 +43,8 @@
   restrictions = [(MTRAccessControlClusterAccessRestrictionEntryStruct *)self restrictions];
   [(MTRAccessControlClusterAccessRestrictionEntryStruct *)v4 setRestrictions:restrictions];
 
-  fabricIndex = [(MTRAccessControlClusterAccessRestrictionEntryStruct *)self fabricIndex];
-  [(MTRAccessControlClusterAccessRestrictionEntryStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRAccessControlClusterAccessRestrictionEntryStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

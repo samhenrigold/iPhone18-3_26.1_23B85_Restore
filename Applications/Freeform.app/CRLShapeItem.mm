@@ -58,21 +58,21 @@
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &qword_101A0F448);
+  sub_100006370(0, &qword_101A0F448, off_10182F960);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)repClass
 {
-  sub_100006370(0, &qword_101A0F438);
+  sub_100006370(0, &qword_101A0F438, off_10182F980);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A0C7E0);
+  sub_100006370(0, &qword_101A0C7E0, off_10182F958);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -150,7 +150,7 @@
 {
   sourceCopy = source;
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     v5 = **&selfCopy->super.super._TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData];
     if (!swift_conformsToProtocol2())
@@ -294,7 +294,7 @@
 
     v10(v6, v9);
 
-    sub_1005B981C(&unk_101A0D9C0);
+    sub_1005B981C(&unk_101A0D9C0, "@0$");
     CRRegister.wrappedValue.getter();
 
     sub_100C3B20C(v5, type metadata accessor for CRLShapeItemCRDTData.ShapeStyleData);
@@ -312,7 +312,7 @@
 - (void)setStrokePatternOffsetDistance:(double)distance
 {
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     v3 = **&selfCopy->super.super._TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData];
     v4 = swift_conformsToProtocol2();
@@ -323,7 +323,7 @@
 
       v7 = v6(v9, v3, v5);
       type metadata accessor for CRLShapeItemCRDTData.ShapeStyleData(0);
-      sub_1005B981C(&unk_101A0D9C0);
+      sub_1005B981C(&unk_101A0D9C0, "@0$");
       CRRegister.wrappedValue.setter();
       v7(v9, 0);
     }

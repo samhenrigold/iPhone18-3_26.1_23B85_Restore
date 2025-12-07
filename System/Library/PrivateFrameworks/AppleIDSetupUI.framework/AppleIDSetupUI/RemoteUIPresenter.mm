@@ -31,7 +31,7 @@
 
     type metadata accessor for AIDAServiceType(0);
     sub_2409269D0();
-    sub_240926A1C(&qword_27E50BAF0, type metadata accessor for AIDAServiceType);
+    sub_240926A1C(&qword_27E50BAF0, type metadata accessor for AIDAServiceType, &unk_240A2F50C);
     v11 = sub_240A2BE9C();
 
     return v11;
@@ -58,15 +58,13 @@
   if (v3)
   {
     v4 = *&self->remoteUIPresenter[OBJC_IVAR____TtC14AppleIDSetupUI17RemoteUIPresenter_completionHandler];
-    v5 = OBJC_IVAR____TtC14AppleIDSetupUI17RemoteUIPresenter_authResults;
     swift_beginAccess();
-    v7 = *(&self->super.isa + v5);
     selfCopy = self;
-    sub_24090C23C(v3);
+    sub_24090C23C(v3, v4);
 
-    v3(v9, 0);
+    v3(v7, 0);
 
-    sub_24090C1A0(v3);
+    sub_24090C1A0(v3, v4);
   }
 }
 
@@ -81,11 +79,10 @@
 {
   v4 = sub_240A2946C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4, v7);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_240A2944C();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)remoteUIDidHandleButton:(id)button

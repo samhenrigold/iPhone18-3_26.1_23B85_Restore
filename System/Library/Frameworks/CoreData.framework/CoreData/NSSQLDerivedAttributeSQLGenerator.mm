@@ -14,17 +14,17 @@
 
 + (uint64_t)_parameterPropertyTokenForDerivedAttribute:(void *)attribute andKeypath:(id *)keypath onEntity:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   propertyDescription = [a2 propertyDescription];
   if ([attribute count] != 2)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v17 = @"derived attribute";
-    v18[0] = propertyDescription;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v14 = @"Unsupported: (multi-step keypath)";
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D940];
+    v16 = @"derived attribute";
+    v17[0] = propertyDescription;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v13 = @"Unsupported: (multi-step keypath)";
     goto LABEL_10;
   }
 
@@ -36,24 +36,22 @@
 
   if ([keypath propertyType] != 1)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v15 = @"derived attribute";
-    v16 = propertyDescription;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v14 = @"Unsupported: (bad keypath, should be toOne.attribute)";
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D940];
+    v14 = @"derived attribute";
+    v15 = propertyDescription;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = @"Unsupported: (bad keypath, should be toOne.attribute)";
 LABEL_10:
-    objc_exception_throw([v11 exceptionWithName:v12 reason:v14 userInfo:v13]);
+    objc_exception_throw([v10 exceptionWithName:v11 reason:v13 userInfo:v12]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return [keypath columnName];
 }
 
 + (uint64_t)_generateSQLForToOneDerivationForDerivedAttribute:(void *)attribute toOneKeypath:
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v82[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   entity = [a2 entity];
   propertyDescription = [a2 propertyDescription];
@@ -71,77 +69,63 @@ LABEL_10:
   }
 
   destinationEntity = [v10 destinationEntity];
-  v75 = a2;
+  v73 = a2;
   columnName = [a2 columnName];
   if (expressionType != 4)
   {
     if (expressionType == 3)
     {
       v12 = [NSSQLDerivedAttributeSQLGenerator _parameterPropertyTokenForDerivedAttribute:a2 andKeypath:attribute onEntity:destinationEntity];
-      v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NEW.%@", v12];
-      v71 = v12;
+      v64 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12);
       v69 = v12;
-      goto LABEL_13;
+      v67 = v12;
+      goto LABEL_10;
     }
 
-    v61 = MEMORY[0x1E695DF30];
-    v62 = *MEMORY[0x1E695D940];
-    v81 = @"derived attribute";
-    v82 = propertyDescription;
-    v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    v64 = @"Unsupported: (unsupported expression for to one)";
-LABEL_49:
-    objc_exception_throw([v61 exceptionWithName:v62 reason:v64 userInfo:v63]);
+    v59 = MEMORY[0x1E695DF30];
+    v60 = *MEMORY[0x1E695D940];
+    v79 = @"derived attribute";
+    v80 = propertyDescription;
+    v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    v62 = @"Unsupported: (unsupported expression for to one)";
+LABEL_46:
+    objc_exception_throw([v59 exceptionWithName:v60 reason:v62 userInfo:v61]);
   }
 
   v13 = [NSSQLDerivedAttributeSQLGenerator _parameterPropertyTokenForDerivedAttribute:a2 andKeypath:attribute onEntity:destinationEntity];
   selector = [derivationExpression selector];
-  v69 = v13;
-  if (sel_canonical_ == selector)
+  v67 = v13;
+  if (sel_canonical_ != selector && sel_uppercase_ != selector && sel_lowercase_ != selector)
   {
-    v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataCanonical(NEW.%@)", v13];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataCanonical(%@)", v13];
+    v59 = MEMORY[0x1E695DF30];
+    v60 = *MEMORY[0x1E695D940];
+    v81 = @"derived attribute";
+    v82[0] = propertyDescription;
+    v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v62 = @"Unsupported: (unsupported function for to one)";
+    goto LABEL_46;
   }
 
-  else if (sel_uppercase_ == selector)
-  {
-    v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataToUpper(NEW.%@)", v13];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataToUpper(%@)", v13];
-  }
-
-  else
-  {
-    if (sel_lowercase_ != selector)
-    {
-      v61 = MEMORY[0x1E695DF30];
-      v62 = *MEMORY[0x1E695D940];
-      v83 = @"derived attribute";
-      v84[0] = propertyDescription;
-      v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:&v83 count:1];
-      v64 = @"Unsupported: (unsupported function for to one)";
-      goto LABEL_49;
-    }
-
-    v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataToLower(NEW.%@)", v13];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataToLower(%@)", v13];
-  }
-
-  v71 = v15;
-LABEL_13:
+  v64 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13);
+  v69 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13);
+LABEL_10:
   tableName = [entity tableName];
   tableName2 = [destinationEntity tableName];
   columnName2 = [v10 columnName];
-  v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", tableName, objc_msgSend(objc_msgSend(propertyDescription, "entity"), "name"), objc_msgSend(propertyDescription, "name")];
-  v74 = tableName2;
-  v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", tableName2, objc_msgSend(objc_msgSend(propertyDescription, "entity"), "name"), objc_msgSend(propertyDescription, "name")];
-  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v18];
+  v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", tableName, objc_msgSend(objc_msgSend(propertyDescription, "entity"), "name"), objc_msgSend(propertyDescription, "name")];
+  v72 = tableName2;
+  v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", tableName2, objc_msgSend(objc_msgSend(propertyDescription, "entity"), "name"), objc_msgSend(propertyDescription, "name")];
+  v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v17];
+  v68 = v17;
+  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v17];
+  v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v18];
   v70 = v18;
-  v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v18];
-  v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v19];
-  v72 = v19;
-  v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v19];
+  v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v18];
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v25 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v19];
+
+  [array addObject:v25];
   v26 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v20];
 
   [array addObject:v26];
@@ -150,206 +134,201 @@ LABEL_13:
   [array addObject:v27];
   v28 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v22];
 
+  v66 = array;
   [array addObject:v28];
-  v29 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v23];
 
-  v68 = array;
-  [array addObject:v29];
-
-  v80[0] = v26;
-  v80[1] = v27;
-  v80[2] = v28;
-  v80[3] = v29;
-  v67 = dictionary;
-  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v80, 4), @"dropStatements"}];
+  v78[0] = v25;
+  v78[1] = v26;
+  v78[2] = v27;
+  v78[3] = v28;
+  v65 = dictionary;
+  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v78, 4), @"dropStatements"}];
   if (entity)
   {
-    v30 = v70;
-    if (*(entity + 160) || (v37 = *(entity + 152)) != 0 && [v37 count] && *(entity + 160))
+    v29 = v68;
+    if (*(entity + 160) || (v36 = *(entity + 152)) != 0 && [v36 count] && *(entity + 160))
     {
-      v31 = *(entity + 184);
-      v32 = *(entity + 188);
-      v33 = objc_alloc(MEMORY[0x1E696AEC0]);
-      if (v31 >= v32)
+      v30 = *(entity + 184);
+      v31 = *(entity + 188);
+      v32 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if (v30 >= v31)
       {
-        v34 = [v33 initWithFormat:@"%d = NEW.Z_ENT", v31];
-        v35 = 0x1E696A000uLL;
-        v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d = Z_ENT", v31, v65];
+        v33 = [v32 initWithFormat:@"%d = NEW.Z_ENT", v30];
+        v34 = 0x1E696A000uLL;
+        v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d = Z_ENT", v30, v63];
       }
 
       else
       {
-        v34 = [v33 initWithFormat:@"%d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v31, v32];
-        v35 = 0x1E696A000uLL;
-        v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d <= Z_ENT AND Z_ENT <= %d", v31, v32];
+        v33 = [v32 initWithFormat:@"%d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v30, v31];
+        v34 = 0x1E696A000uLL;
+        v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d <= Z_ENT AND Z_ENT <= %d", v30, v31];
       }
 
-      v38 = v36;
+      v37 = v35;
     }
 
     else
     {
-      v35 = 0x1E696A000uLL;
-      v38 = 0;
-      v34 = 0;
+      v34 = 0x1E696A000uLL;
+      v37 = 0;
+      v33 = 0;
     }
   }
 
   else
   {
-    v35 = 0x1E696A000;
-    v38 = 0;
-    v34 = 0;
-    v30 = v70;
+    v34 = 0x1E696A000;
+    v37 = 0;
+    v33 = 0;
+    v29 = v68;
   }
 
-  v39 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [v39 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v30, tableName];
-  [v39 appendString:@" BEGIN"];
-  if (v34)
+  v38 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v38 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v29, tableName];
+  [v38 appendString:@" BEGIN"];
+  if (v33)
   {
-    v40 = [*(v35 + 3776) stringWithFormat:@" AND %@", v34];
+    v39 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v33);
   }
 
   else
   {
-    v40 = &stru_1EF3F1768;
+    v39 = &stru_1EF3F1768;
   }
 
-  [v39 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = NEW.%@) WHERE Z_PK = NEW.Z_PK%@;", tableName, columnName, v71, v74, columnName2, v40];
-  name = [v75 name];
-  if (v34)
+  [v38 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = NEW.%@) WHERE Z_PK = NEW.Z_PK%@;", tableName, columnName, v69, v72, columnName2, v39];
+  name = [v73 name];
+  if (v33)
   {
-    v42 = [*(v35 + 3776) stringWithFormat:@" AND %@", v34];
+    v41 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v33);
   }
 
   else
   {
-    v42 = &stru_1EF3F1768;
+    v41 = &stru_1EF3F1768;
   }
 
-  [v39 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK%@;", tableName, name, columnName, tableName, v42];
-  [v39 appendFormat:@" END"];
-  v43 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  if (v34)
+  [v38 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK%@;", tableName, name, columnName, tableName, v41];
+  [v38 appendFormat:@" END"];
+  v42 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  if (v33)
   {
-    v44 = [*(v35 + 3776) stringWithFormat:@" WHEN %@", v34];
+    v43 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v33);
   }
 
   else
   {
-    v44 = &stru_1EF3F1768;
+    v43 = &stru_1EF3F1768;
   }
 
-  [v43 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE AFTER UPDATE OF %@ ON %@ FOR EACH ROW%@", v30, columnName2, tableName, v44];
-  [v43 appendString:@" BEGIN"];
-  [v43 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = NEW.%@) WHERE Z_PK = NEW.Z_PK;", tableName, columnName, v71, v74, columnName2];
-  [v43 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName, objc_msgSend(v75, "name"), columnName, tableName];
-  [v43 appendFormat:@" END"];
-  v45 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [v45 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v72, v74];
-  [v45 appendString:@" BEGIN"];
-  if (v38)
+  [v42 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE AFTER UPDATE OF %@ ON %@ FOR EACH ROW%@", v29, columnName2, tableName, v43];
+  [v42 appendString:@" BEGIN"];
+  [v42 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = NEW.%@) WHERE Z_PK = NEW.Z_PK;", tableName, columnName, v69, v72, columnName2];
+  [v42 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName, objc_msgSend(v73, "name"), columnName, tableName];
+  [v42 appendFormat:@" END"];
+  v44 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v44 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v70, v72];
+  [v44 appendString:@" BEGIN"];
+  if (v37)
   {
-    v46 = [*(v35 + 3776) stringWithFormat:@" AND %@", v38];
+    v45 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v37);
   }
 
   else
   {
-    v46 = &stru_1EF3F1768;
+    v45 = &stru_1EF3F1768;
   }
 
-  [v45 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE %@ = NEW.Z_PK%@;", tableName, columnName, v66, columnName2, v46];
-  name2 = [v75 name];
-  if (v38)
+  [v44 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE %@ = NEW.Z_PK%@;", tableName, columnName, v64, columnName2, v45];
+  name2 = [v73 name];
+  if (v37)
   {
-    v48 = [*(v35 + 3776) stringWithFormat:@" AND %@", v38];
+    v47 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v37);
   }
 
   else
   {
-    v48 = &stru_1EF3F1768;
+    v47 = &stru_1EF3F1768;
   }
 
-  [v45 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE %@ = NEW.Z_PK%@;", tableName, name2, columnName, tableName, columnName2, v48];
-  [v45 appendFormat:@" END"];
-  v49 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [v49 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE AFTER UPDATE OF %@ ON %@ FOR EACH ROW", v72, v69, v74];
-  [v49 appendString:@" BEGIN"];
-  if (v38)
+  [v44 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE %@ = NEW.Z_PK%@;", tableName, name2, columnName, tableName, columnName2, v47];
+  [v44 appendFormat:@" END"];
+  v48 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v48 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE AFTER UPDATE OF %@ ON %@ FOR EACH ROW", v70, v67, v72];
+  [v48 appendString:@" BEGIN"];
+  if (v37)
   {
-    v50 = [*(v35 + 3776) stringWithFormat:@" AND %@", v38];
+    v49 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v37);
   }
 
   else
   {
-    v50 = &stru_1EF3F1768;
+    v49 = &stru_1EF3F1768;
   }
 
-  [v49 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE %@ = NEW.Z_PK%@;", tableName, columnName, v66, columnName2, v50];
-  name3 = [v75 name];
-  if (v38)
+  [v48 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE %@ = NEW.Z_PK%@;", tableName, columnName, v64, columnName2, v49];
+  name3 = [v73 name];
+  if (v37)
   {
-    v52 = [*(v35 + 3776) stringWithFormat:@" AND %@", v38];
+    v51 = objc_msgSend_stringWithFormat_(*(v34 + 3776), v37);
   }
 
   else
   {
-    v52 = &stru_1EF3F1768;
+    v51 = &stru_1EF3F1768;
   }
 
-  [v49 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE %@ = NEW.Z_PK%@;", tableName, name3, columnName, tableName, columnName2, v52];
-  [v49 appendFormat:@" END"];
+  [v48 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE %@ = NEW.Z_PK%@;", tableName, name3, columnName, tableName, columnName2, v51];
+  [v48 appendFormat:@" END"];
 
-  v53 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v39];
-  [v68 addObject:v53];
+  v52 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v38];
+  [v66 addObject:v52];
 
-  v54 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v43];
-  [v68 addObject:v54];
+  v53 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v42];
+  [v66 addObject:v53];
 
-  v55 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v45];
-  [v68 addObject:v55];
+  v54 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v44];
+  [v66 addObject:v54];
 
-  v56 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v49];
-  [v68 addObject:v56];
+  v55 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v48];
+  [v66 addObject:v55];
 
-  v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = %@.%@)%@", tableName, columnName, v71, v74, tableName, columnName2, &stru_1EF3F1768];
-  v58 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v57];
+  v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT %@ FROM %@ WHERE Z_PK = %@.%@)%@", tableName, columnName, v69, v72, tableName, columnName2, &stru_1EF3F1768];
+  v57 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v56];
 
-  v79 = v58;
-  [v67 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v79, 1), @"dataStatements"}];
+  v77 = v57;
+  [v65 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v77, 1), @"dataStatements"}];
 
-  v78[0] = v53;
-  v78[1] = v54;
-  v78[2] = v55;
-  v78[3] = v56;
-  [v67 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v78, 4), @"triggerCreationStatements"}];
-  v77[0] = v68;
-  v77[1] = v67;
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:2];
-  v60 = *MEMORY[0x1E69E9840];
-  return result;
+  v76[0] = v52;
+  v76[1] = v53;
+  v76[2] = v54;
+  v76[3] = v55;
+  [v65 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v76, 4), @"triggerCreationStatements"}];
+  v75[0] = v66;
+  v75[1] = v65;
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
 }
 
 + (uint64_t)_generateTriggerForAttribute:(uint64_t)attribute newToken:(void *)token updateToken:(uint64_t)updateToken triggerColumnListComponent:(uint64_t)component triggerColumnWhereComponent:(void *)whereComponent
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   entity = [token entity];
   propertyDescription = [token propertyDescription];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@", objc_msgSend(entity, "tableName"), objc_msgSend(objc_msgSend(propertyDescription, "entity"), "name"), objc_msgSend(propertyDescription, "name")];
   tableName = [entity tableName];
   columnName = [token columnName];
-  v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v10];
-  v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v10];
+  v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v10];
+  v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE", v10];
   if ([objc_msgSend(propertyDescription "derivationExpression")] == 3 && (v13 = objc_msgSend(objc_msgSend(propertyDescription, "derivationExpression"), "keyPath"), entity) && (v14 = objc_msgSend(*(entity + 40), "objectForKey:", v13)) != 0)
   {
-    v42 = [objc_msgSend(v14 "propertyDescription")];
+    v41 = [objc_msgSend(v14 "propertyDescription")];
   }
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
   v15 = objc_alloc_init(MEMORY[0x1E696AD60]);
@@ -360,14 +339,14 @@ LABEL_13:
   }
 
   [v15 appendString:@" BEGIN"];
-  if (v42)
+  if (v41)
   {
     [v15 appendFormat:@" UPDATE %@ SET %@ = NSCoreDataDATriggerMergeableString('%@', Z_ENT, Z_PK, '%@', %@) WHERE Z_PK = NEW.Z_PK;", tableName, columnName, tableName, objc_msgSend(token, "name"), component];
   }
 
   else
   {
-    [v15 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE Z_PK = NEW.Z_PK;", tableName, columnName, updateToken, v32, v34];
+    [v15 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE Z_PK = NEW.Z_PK;", tableName, columnName, updateToken, v31, v33];
   }
 
   [v15 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName, objc_msgSend(token, "name"), columnName, tableName];
@@ -381,14 +360,14 @@ LABEL_13:
 
   [v16 appendString:@" BEGIN"];
   componentCopy = component;
-  if (v42)
+  if (v41)
   {
     [v16 appendFormat:@" UPDATE %@ SET %@ = NSCoreDataDATriggerMergeableString('%@', Z_ENT, Z_PK, '%@', %@) WHERE Z_PK = NEW.Z_PK;", tableName, columnName, tableName, objc_msgSend(token, "name"), component];
   }
 
   else
   {
-    [v16 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE Z_PK = NEW.Z_PK;", tableName, columnName, updateToken, v33, v35];
+    [v16 appendFormat:@" UPDATE %@ SET %@ = %@ WHERE Z_PK = NEW.Z_PK;", tableName, columnName, updateToken, v32, v34];
   }
 
   [v16 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName, objc_msgSend(token, "name"), columnName, tableName];
@@ -396,15 +375,15 @@ LABEL_13:
 
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v19 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v38];
+  v19 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v37];
   [array addObject:v19];
 
-  v20 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v39];
+  v20 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v38];
   [array addObject:v20];
 
-  v46[0] = v19;
-  v46[1] = v20;
-  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v46, 2), @"dropStatements"}];
+  v45[0] = v19;
+  v45[1] = v20;
+  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v45, 2), @"dropStatements"}];
 
   v21 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v15];
   [array addObject:v21];
@@ -424,84 +403,80 @@ LABEL_13:
 
   v25 = v23;
   v26 = objc_alloc(MEMORY[0x1E696AD60]);
-  if (v42)
+  if (v41)
   {
     v27 = [v26 initWithFormat:@"UPDATE %@ SET %@ = NSCoreDataDATriggerMergeableString('%@', Z_ENT, Z_PK, '%@', %@) %@", tableName, columnName, tableName, objc_msgSend(token, "name"), componentCopy, v25];
   }
 
   else
   {
-    v27 = [v26 initWithFormat:@"UPDATE %@ SET %@ = %@ %@", tableName, columnName, componentCopy, v25, v36, v37];
+    v27 = [v26 initWithFormat:@"UPDATE %@ SET %@ = %@ %@", tableName, columnName, componentCopy, v25, v35, v36];
   }
 
   v28 = v27;
 
   v29 = [[NSSQLiteStatement alloc] initWithEntity:entity sqlString:v28];
-  v45 = v29;
-  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v45, 1), @"dataStatements"}];
-  v44[0] = v21;
-  v44[1] = v22;
-  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v44, 2), @"triggerCreationStatements"}];
+  v44 = v29;
+  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v44, 1), @"dataStatements"}];
+  v43[0] = v21;
+  v43[1] = v22;
+  [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v43, 2), @"triggerCreationStatements"}];
 
-  v43[0] = array;
-  v43[1] = dictionary;
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
+  v42[0] = array;
+  v42[1] = dictionary;
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
 }
 
 + (uint64_t)_computeNewColumnTokenForKeypathExpression:(uint64_t)expression governingEntity:
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   keyPath = [a2 keyPath];
   if (!expression || (v6 = [*(expression + 40) objectForKey:keyPath]) == 0)
   {
-    v10 = MEMORY[0x1E695DF30];
-    v11 = *MEMORY[0x1E695D940];
-    v20 = @"bad keypath";
-    v21[0] = a2;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v9 = MEMORY[0x1E695DF30];
+    v10 = *MEMORY[0x1E695D940];
+    v19 = @"bad keypath";
+    v20[0] = a2;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v12 = v9;
     v13 = v10;
-    v14 = v11;
-    v15 = @"bad keypath";
+    v14 = @"bad keypath";
     goto LABEL_7;
   }
 
   v7 = v6;
   if ([objc_msgSend(v6 "propertyDescription")] != 2)
   {
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v18 = @"bad keypath";
-    v19 = a2;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-    v15 = @"currently unsupported (bad root property type)";
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D940];
+    v17 = @"bad keypath";
+    v18 = a2;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v14 = @"currently unsupported (bad root property type)";
+    v12 = v15;
     v13 = v16;
-    v14 = v17;
 LABEL_7:
-    objc_exception_throw([v13 exceptionWithName:v14 reason:v15 userInfo:v12]);
+    objc_exception_throw([v12 exceptionWithName:v13 reason:v14 userInfo:v11]);
   }
 
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"NEW.%@", objc_msgSend(v7, "columnName")];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v7 columnName]);
 }
 
 + (uint64_t)_computeSingleParameterTokenForFunctionAttribute:(uint64_t)attribute functionName:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   propertyDescription = [a2 propertyDescription];
   v6 = [objc_msgSend(propertyDescription "derivationExpression")];
   if ([v6 count] != 1)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v17 = @"derived attribute";
-    v18[0] = propertyDescription;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v14 = @"currently unsupported (wrong number of arguments)";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D940];
+    v18 = @"derived attribute";
+    v19[0] = propertyDescription;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v15 = @"currently unsupported (wrong number of arguments)";
     goto LABEL_6;
   }
 
@@ -509,101 +484,97 @@ LABEL_7:
   firstObject = [v6 firstObject];
   if ([firstObject expressionType] != 3)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v15 = @"derived attribute";
-    v16 = propertyDescription;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v14 = @"bad parameter to function expression canonical: (not a keypath expression)";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D940];
+    v16 = @"derived attribute";
+    v17 = propertyDescription;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"bad parameter to function expression canonical: (not a keypath expression)";
 LABEL_6:
-    objc_exception_throw([v11 exceptionWithName:v12 reason:v14 userInfo:v13]);
+    objc_exception_throw([v12 exceptionWithName:v13 reason:v15 userInfo:v14]);
   }
 
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@(%@)", attribute, +[NSSQLDerivedAttributeSQLGenerator _computeNewColumnTokenForKeypathExpression:governingEntity:](NSSQLDerivedAttributeSQLGenerator, firstObject, entity)];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = MEMORY[0x1E696AEC0];
+  v10 = [NSSQLDerivedAttributeSQLGenerator _computeNewColumnTokenForKeypathExpression:firstObject governingEntity:entity];
+  return objc_msgSend_stringWithFormat_(v9, attribute, v10);
 }
 
 + (__CFString)_triggerColumnListComponentForAttributeKeypaths:(uint64_t)keypaths startingAt:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  if ([a2 count] && (objc_msgSend(a2, "count") != 1 || objc_msgSend(objc_msgSend(a2, "anyObject"), "count")))
+  if (![a2 count] || objc_msgSend(a2, "count") == 1 && !objc_msgSend(objc_msgSend(a2, "anyObject"), "count"))
   {
-    v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v6 = [a2 countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v6)
+    return @"Z_OPT";
+  }
+
+  v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = [a2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v19;
+    v9 = 1;
+    do
     {
-      v7 = v6;
-      v8 = *v20;
-      v9 = 1;
+      v10 = 0;
       do
       {
-        v10 = 0;
-        do
+        if (*v19 != v8)
         {
-          if (*v20 != v8)
-          {
-            objc_enumerationMutation(a2);
-          }
-
-          v11 = *(*(&v19 + 1) + 8 * v10);
-          if ([v11 count] >= 2)
-          {
-            v18 = *MEMORY[0x1E695D940];
-            v23 = @"problem keypath";
-            v24 = v11;
-            objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v18 reason:@"currently unsupported (extended keypath)" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v24, &v23, 1)}]);
-          }
-
-          firstObject = [v11 firstObject];
-          if (keypaths)
-          {
-            v13 = [*(keypaths + 40) objectForKey:firstObject];
-          }
-
-          else
-          {
-            v13 = 0;
-          }
-
-          columnName = [v13 columnName];
-          if ((v9 & 1) == 0)
-          {
-            [(__CFString *)v5 appendString:@", "];
-          }
-
-          [(__CFString *)v5 appendString:columnName];
-          v9 = 0;
-          ++v10;
+          objc_enumerationMutation(a2);
         }
 
-        while (v7 != v10);
-        v15 = [a2 countByEnumeratingWithState:&v19 objects:v25 count:16];
-        v7 = v15;
+        v11 = *(*(&v18 + 1) + 8 * v10);
+        if ([v11 count] >= 2)
+        {
+          v17 = *MEMORY[0x1E695D940];
+          v22 = @"problem keypath";
+          v23 = v11;
+          objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v17 reason:@"currently unsupported (extended keypath)" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v23, &v22, 1)}]);
+        }
+
+        firstObject = [v11 firstObject];
+        if (keypaths)
+        {
+          v13 = [*(keypaths + 40) objectForKey:firstObject];
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        columnName = [v13 columnName];
+        if ((v9 & 1) == 0)
+        {
+          [v5 appendString:{@", "}];
+        }
+
+        [v5 appendString:columnName];
         v9 = 0;
+        ++v10;
       }
 
-      while (v15);
+      while (v7 != v10);
+      v15 = [a2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = v15;
+      v9 = 0;
     }
+
+    while (v15);
   }
 
-  else
-  {
-    v5 = @"Z_OPT";
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (uint64_t)_generateSQLForAttributeFunctionDerivationForDerivedAttribute:(void *)attribute keypaths:
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v5 = +[NSSQLDerivedAttributeSQLGenerator _triggerColumnListComponentForAttributeKeypaths:startingAt:](NSSQLDerivedAttributeSQLGenerator, attribute, [a2 entity]);
   [a2 entity];
@@ -639,30 +610,29 @@ LABEL_11:
 
   if (sel_now != v7)
   {
-    v14 = *MEMORY[0x1E695D940];
-    v15 = @"derived attribute";
-    v16[0] = propertyDescription;
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v14 reason:@"currently unsupported (unsupported function)" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v16, &v15, 1)}]);
+    v13 = *MEMORY[0x1E695D940];
+    v14 = @"derived attribute";
+    v15[0] = propertyDescription;
+    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v13 reason:@"currently unsupported (unsupported function)" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v15, &v14, 1)}]);
   }
 
   objc_opt_self();
-  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSCoreDataNow()"];
+  v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
 LABEL_12:
   v10 = v8;
   v11 = [v8 stringByReplacingOccurrencesOfString:@"NEW." withString:&stru_1EF3F1768];
-  v12 = *MEMORY[0x1E69E9840];
 
   return [NSSQLDerivedAttributeSQLGenerator _generateTriggerForAttribute:a2 newToken:v10 updateToken:v11 triggerColumnListComponent:v5 triggerColumnWhereComponent:?];
 }
 
 + (uint64_t)_generateSQLForDerivedAttributeWithOneParameterKeypath:(void *)keypath keypaths:
 {
-  v261[1] = *MEMORY[0x1E69E9840];
+  v257[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   propertyDescription = [a2 propertyDescription];
   v6 = [objc_msgSend(propertyDescription "derivationExpression")];
   v7 = [objc_msgSend(keypath "anyObject")];
-  v235 = a2;
+  v231 = a2;
   entity = [a2 entity];
   if (entity)
   {
@@ -676,7 +646,6 @@ LABEL_12:
     {
       if (propertyType == 1)
       {
-        v50 = *MEMORY[0x1E69E9840];
 
         return [NSSQLDerivedAttributeSQLGenerator _generateSQLForAttributeFunctionDerivationForDerivedAttribute:a2 keypaths:keypath];
       }
@@ -686,7 +655,6 @@ LABEL_12:
 LABEL_12:
         objc_opt_self();
         anyObject = [keypath anyObject];
-        v15 = *MEMORY[0x1E69E9840];
 
         return [NSSQLDerivedAttributeSQLGenerator _generateSQLForToOneDerivationForDerivedAttribute:a2 toOneKeypath:anyObject];
       }
@@ -694,11 +662,11 @@ LABEL_12:
 LABEL_107:
       v10 = MEMORY[0x1E695DF30];
       v11 = *MEMORY[0x1E695D940];
-      v241 = @"derived attribute";
-      v242 = propertyDescription;
-      v170 = MEMORY[0x1E695DF20];
-      v171 = &v242;
-      v172 = &v241;
+      v237 = @"derived attribute";
+      v238 = propertyDescription;
+      v166 = MEMORY[0x1E695DF20];
+      v167 = &v238;
+      v168 = &v237;
       goto LABEL_108;
     }
 
@@ -711,198 +679,210 @@ LABEL_107:
 
       objc_opt_self();
       propertyDescription2 = [a2 propertyDescription];
-      v18 = [-[NSSQLiteStatement derivationExpression](propertyDescription2 "derivationExpression")];
-      if (sel_count_ == v18)
+      v17 = [-[NSSQLiteStatement derivationExpression](propertyDescription2 "derivationExpression")];
+      if (sel_count_ == v17)
       {
-        v19 = v18;
+        v18 = v17;
         anyObject2 = [keypath anyObject];
         objc_opt_self();
         entity2 = [a2 entity];
         propertyDescription3 = [a2 propertyDescription];
         derivationExpression = [(NSSQLiteStatement *)propertyDescription3 derivationExpression];
-        v24 = [anyObject2 objectAtIndexedSubscript:0];
+        v23 = [anyObject2 objectAtIndexedSubscript:0];
         if (entity2)
         {
-          v25 = [*(entity2 + 40) objectForKey:v24];
+          v24 = [*(entity2 + 40) objectForKey:v23];
         }
 
         else
         {
-          v25 = 0;
+          v24 = 0;
         }
 
-        columnName = [v235 columnName];
-        columnName2 = [v25 columnName];
-        if (v19 == [derivationExpression selector])
+        columnName = [v231 columnName];
+        columnName2 = [v24 columnName];
+        if (v18 == [derivationExpression selector])
         {
           tableName = [entity2 tableName];
-          correlationTableName = [v25 correlationTableName];
-          v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", correlationTableName, objc_msgSend(entity2, "name"), -[NSSQLiteStatement name](propertyDescription3, "name")];
-          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", objc_msgSend(entity2, "tableName"), objc_msgSend(entity2, "name"), -[NSSQLiteStatement name](propertyDescription3, "name")];
-          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v27];
-          v232 = v27;
-          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v27];
-          v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v28];
+          correlationTableName = [v24 correlationTableName];
+          v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", correlationTableName, objc_msgSend(entity2, "name"), -[NSSQLiteStatement name](propertyDescription3, "name")];
+          v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", objc_msgSend(entity2, "tableName"), objc_msgSend(entity2, "name"), -[NSSQLiteStatement name](propertyDescription3, "name")];
+          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v26];
+          v228 = v26;
+          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v26];
+          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v27];
           array = [MEMORY[0x1E695DF70] array];
           dictionary = [MEMORY[0x1E695DF90] dictionary];
+          v33 = [[NSSQLiteStatement alloc] initWithEntity:entity2 sqlString:v28];
+          [array addObject:v33];
+
           v34 = [[NSSQLiteStatement alloc] initWithEntity:entity2 sqlString:v29];
           [array addObject:v34];
 
           v35 = [[NSSQLiteStatement alloc] initWithEntity:entity2 sqlString:v30];
           [array addObject:v35];
 
-          v36 = [[NSSQLiteStatement alloc] initWithEntity:entity2 sqlString:v31];
-          [array addObject:v36];
-
-          v254 = v34;
-          v255 = v35;
-          v256 = v36;
-          v217 = dictionary;
-          [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v254, 3), @"dropStatements"}];
-          v220 = entity2;
-          v214 = array;
-          if (entity2 && (*(entity2 + 160) || (v74 = *(entity2 + 152)) != 0 && [v74 count] && *(entity2 + 160)))
+          v250 = v33;
+          v251 = v34;
+          v252 = v35;
+          v213 = dictionary;
+          [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v250, 3), @"dropStatements"}];
+          v216 = entity2;
+          v210 = array;
+          if (entity2 && (*(entity2 + 160) || (v71 = *(entity2 + 152)) != 0 && [v71 count] && *(entity2 + 160)))
           {
-            v37 = entity2;
-            v38 = tableName;
-            v39 = *(v37 + 184);
-            v40 = *(v37 + 188);
-            v41 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v42 = correlationTableName;
-            v43 = columnName2;
-            if (v39 >= v40)
+            v36 = entity2;
+            v37 = tableName;
+            v38 = *(v36 + 184);
+            v39 = *(v36 + 188);
+            v40 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v41 = correlationTableName;
+            v42 = columnName2;
+            if (v38 >= v39)
             {
-              v205 = [v41 initWithFormat:@" WHEN %d = NEW.Z_ENT", v39];
-              v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v39];
-              v180 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v39, v180];
+              v201 = [v40 initWithFormat:@" WHEN %d = NEW.Z_ENT", v38];
+              v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v38];
+              v176 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v38, v176];
             }
 
             else
             {
-              v205 = [v41 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v39, v40];
-              v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v39, v40];
-              v180 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v39, v40];
+              v201 = [v40 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v38, v39];
+              v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v38, v39];
+              v176 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v38, v39];
             }
           }
 
           else
           {
-            v38 = tableName;
-            v42 = correlationTableName;
-            v43 = columnName2;
-            v205 = &stru_1EF3F1768;
-            v44 = &stru_1EF3F1768;
-            v180 = &stru_1EF3F1768;
+            v37 = tableName;
+            v41 = correlationTableName;
+            v42 = columnName2;
+            v201 = &stru_1EF3F1768;
+            v43 = &stru_1EF3F1768;
+            v176 = &stru_1EF3F1768;
           }
 
-          v210 = v180;
+          v206 = v176;
+          v72 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v73 = v41;
+          [v72 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v228, v41];
+          [v72 appendString:@" BEGIN"];
+          [v72 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1 WHERE Z_PK = NEW.%@%@;", v37, columnName, columnName, v42, v43];
+          [v72 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v37, objc_msgSend(v231, "name"), columnName, v37, v42, v43];
+          [v72 appendFormat:@" END"];
+          v74 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v196 = v73;
+          [v74 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW", v228, v73];
+          [v74 appendString:@" BEGIN"];
+          [v74 appendFormat:@" UPDATE %@ SET %@ = %@ - 1 WHERE Z_PK = OLD.%@%@;", v37, columnName, columnName, v42, v43];
+          [v74 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v37, objc_msgSend(v231, "name"), columnName, v37, v42, v43];
+          [v74 appendFormat:@" END"];
           v75 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v76 = v42;
-          [v75 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW", v232, v42];
+          [v75 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v27, v37, v201];
           [v75 appendString:@" BEGIN"];
-          [v75 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) + 1 WHERE Z_PK = NEW.%@%@;", v38, columnName, columnName, v43, v44];
-          [v75 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v38, objc_msgSend(v235, "name"), columnName, v38, v43, v44];
+          [v75 appendFormat:@" UPDATE %@ SET %@ = (SELECT IFNULL(COUNT(%@), 0) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", v37, columnName, v42, v73, v42];
+          [v75 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", v37, objc_msgSend(v231, "name"), columnName, v37];
           [v75 appendFormat:@" END"];
-          v77 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v200 = v76;
-          [v77 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW", v232, v76];
-          [v77 appendString:@" BEGIN"];
-          [v77 appendFormat:@" UPDATE %@ SET %@ = %@ - 1 WHERE Z_PK = OLD.%@%@;", v38, columnName, columnName, v43, v44];
-          [v77 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v38, objc_msgSend(v235, "name"), columnName, v38, v43, v44];
-          [v77 appendFormat:@" END"];
-          v78 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          [v78 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v28, v38, v205];
-          [v78 appendString:@" BEGIN"];
-          [v78 appendFormat:@" UPDATE %@ SET %@ = (SELECT IFNULL(COUNT(%@), 0) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", v38, columnName, v43, v76, v43];
-          [v78 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", v38, objc_msgSend(v235, "name"), columnName, v38];
-          [v78 appendFormat:@" END"];
 
-          v236 = [[NSSQLiteStatement alloc] initWithEntity:v220 sqlString:v75];
-          [v214 addObject:v236];
+          v232 = [[NSSQLiteStatement alloc] initWithEntity:v216 sqlString:v72];
+          [v210 addObject:v232];
 
-          v79 = [[NSSQLiteStatement alloc] initWithEntity:v220 sqlString:v77];
-          [v214 addObject:v79];
+          v76 = [[NSSQLiteStatement alloc] initWithEntity:v216 sqlString:v74];
+          [v210 addObject:v76];
 
-          v80 = [[NSSQLiteStatement alloc] initWithEntity:v220 sqlString:v78];
-          [v214 addObject:v80];
+          v77 = [[NSSQLiteStatement alloc] initWithEntity:v216 sqlString:v75];
+          [v210 addObject:v77];
 
-          v210 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT IFNULL(COUNT(%@), 0) FROM %@ WHERE %@ = %@.Z_PK)%@;", v38, columnName, v43, v200, v43, v38, v210];
-          v82 = [[NSSQLiteStatement alloc] initWithEntity:v220 sqlString:v210];
+          v206 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT IFNULL(COUNT(%@), 0) FROM %@ WHERE %@ = %@.Z_PK)%@;", v37, columnName, v42, v196, v42, v37, v206];
+          v79 = [[NSSQLiteStatement alloc] initWithEntity:v216 sqlString:v206];
 
-          v261[0] = v82;
-          [v217 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v261, 1), @"dataStatements"}];
-          v249 = v236;
-          v250 = v79;
-          v251 = v80;
-          [v217 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v249, 3), @"triggerCreationStatements"}];
+          v257[0] = v79;
+          [v213 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v257, 1), @"dataStatements"}];
+          v245 = v232;
+          v246 = v76;
+          v247 = v77;
+          [v213 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v245, 3), @"triggerCreationStatements"}];
 
-          v259 = v214;
-          v260 = v217;
-          v83 = MEMORY[0x1E695DEC8];
-          goto LABEL_104;
+          v255 = v210;
+          v256 = v213;
+          v80 = MEMORY[0x1E695DEC8];
+          return [v80 arrayWithObjects:&v255 count:2];
         }
 
         v10 = MEMORY[0x1E695DF30];
         v11 = *MEMORY[0x1E695D940];
-        v249 = @"derived attribute";
-        v254 = propertyDescription3;
+        v245 = @"derived attribute";
+        v250 = propertyDescription3;
 LABEL_117:
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v254 forKeys:&v249 count:1];
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v250 forKeys:&v245 count:1];
         v13 = @"Unsupported: (unsupported function)";
         goto LABEL_118;
       }
 
       v10 = MEMORY[0x1E695DF30];
       v11 = *MEMORY[0x1E695D940];
-      v249 = @"derived attribute";
-      v254 = propertyDescription2;
-      v173 = MEMORY[0x1E695DF20];
-      v174 = &v254;
-      v175 = &v249;
+      v245 = @"derived attribute";
+      v250 = propertyDescription2;
+      v169 = MEMORY[0x1E695DF20];
+      v170 = &v250;
+      v171 = &v245;
 LABEL_113:
-      v12 = [v173 dictionaryWithObjects:v174 forKeys:v175 count:1];
+      v12 = [v169 dictionaryWithObjects:v170 forKeys:v171 count:1];
       v13 = @"currently unsupported (unsupported function on to many (not count or sum))";
       goto LABEL_118;
     }
 
     objc_opt_self();
     propertyDescription4 = [a2 propertyDescription];
-    v52 = [objc_msgSend(propertyDescription4 "derivationExpression")];
-    if (sel_count_ != v52 && sel_sum_ != v52)
+    v49 = [objc_msgSend(propertyDescription4 "derivationExpression")];
+    if (sel_count_ != v49 && sel_sum_ != v49)
     {
-      if (sel_min_ != v52 && sel_max_ != v52)
+      if (sel_min_ != v49 && sel_max_ != v49)
       {
         v10 = MEMORY[0x1E695DF30];
         v11 = *MEMORY[0x1E695D940];
-        v247 = @"derived attribute";
-        v248 = propertyDescription4;
-        v173 = MEMORY[0x1E695DF20];
-        v174 = &v248;
-        v175 = &v247;
+        v243 = @"derived attribute";
+        v244 = propertyDescription4;
+        v169 = MEMORY[0x1E695DF20];
+        v170 = &v244;
+        v171 = &v243;
         goto LABEL_113;
       }
 
       anyObject3 = [keypath anyObject];
       objc_opt_self();
-      entity3 = [v235 entity];
-      propertyDescription5 = [v235 propertyDescription];
+      entity3 = [v231 entity];
+      propertyDescription5 = [v231 propertyDescription];
       derivationExpression2 = [(NSSQLiteStatement *)propertyDescription5 derivationExpression];
-      v57 = [anyObject3 objectAtIndexedSubscript:0];
+      v54 = [anyObject3 objectAtIndexedSubscript:0];
       if (entity3)
       {
-        v58 = [entity3[5] objectForKey:v57];
+        v55 = [entity3[5] objectForKey:v54];
       }
 
       else
       {
-        v58 = 0;
+        v55 = 0;
       }
 
-      destinationEntity = [v58 destinationEntity];
-      columnName3 = [v235 columnName];
-      if (v58)
+      destinationEntity = [v55 destinationEntity];
+      columnName3 = [v231 columnName];
+      if (v55)
       {
-        v59 = v58[7];
+        v56 = v55[7];
+      }
+
+      else
+      {
+        v56 = 0;
+      }
+
+      columnName4 = [v56 columnName];
+      v58 = [anyObject3 objectAtIndexedSubscript:1];
+      if (destinationEntity)
+      {
+        v59 = [*(destinationEntity + 40) objectForKey:v58];
       }
 
       else
@@ -910,254 +890,239 @@ LABEL_113:
         v59 = 0;
       }
 
-      columnName4 = [v59 columnName];
-      v61 = [anyObject3 objectAtIndexedSubscript:1];
-      if (destinationEntity)
-      {
-        v62 = [*(destinationEntity + 40) objectForKey:v61];
-      }
-
-      else
-      {
-        v62 = 0;
-      }
-
-      columnName5 = [v62 columnName];
-      v211 = columnName4;
-      v208 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@", columnName4, columnName5];
+      columnName5 = [v59 columnName];
+      v207 = columnName4;
+      v202 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName4, columnName5);
       if (sel_min_ == [derivationExpression2 selector])
       {
-        v224 = @"<";
-        v63 = @"MIN";
+        v220 = @"<";
+        v60 = @"MIN";
       }
 
       else
       {
         if (sel_max_ != [derivationExpression2 selector])
         {
-          v178 = MEMORY[0x1E695DF30];
-          v179 = *MEMORY[0x1E695D940];
-          v249 = @"derived attribute";
-          v254 = propertyDescription5;
-          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v254 forKeys:&v249 count:1];
+          v174 = MEMORY[0x1E695DF30];
+          v175 = *MEMORY[0x1E695D940];
+          v245 = @"derived attribute";
+          v250 = propertyDescription5;
+          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v250 forKeys:&v245 count:1];
           v13 = @"Unsupported: (unsupported function)";
-          v176 = v178;
-          v177 = v179;
+          v172 = v174;
+          v173 = v175;
 LABEL_119:
-          objc_exception_throw([v176 exceptionWithName:v177 reason:v13 userInfo:v12]);
+          objc_exception_throw([v172 exceptionWithName:v173 reason:v13 userInfo:v12]);
         }
 
-        v224 = @">";
-        v63 = @"MAX";
+        v220 = @">";
+        v60 = @"MAX";
       }
 
-      v215 = v63;
+      v211 = v60;
       tableName2 = [entity3 tableName];
       tableName3 = [destinationEntity tableName];
-      v86 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@", objc_msgSend(destinationEntity, "tableName"), objc_msgSend(entity3, "name"), -[NSSQLiteStatement name](propertyDescription5, "name")];
-      v87 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@", objc_msgSend(entity3, "tableName"), objc_msgSend(entity3, "name"), -[NSSQLiteStatement name](propertyDescription5, "name")];
-      v218 = entity3;
-      v88 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v86];
-      v89 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_SET", v86];
-      v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_UNSET", v86];
-      v229 = v86;
-      v91 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v86];
-      v191 = v87;
-      v92 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v87];
+      v83 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@", objc_msgSend(destinationEntity, "tableName"), objc_msgSend(entity3, "name"), -[NSSQLiteStatement name](propertyDescription5, "name")];
+      v84 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@", objc_msgSend(entity3, "tableName"), objc_msgSend(entity3, "name"), -[NSSQLiteStatement name](propertyDescription5, "name")];
+      v214 = entity3;
+      v85 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v83];
+      v86 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_SET", v83];
+      v87 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_UNSET", v83];
+      v225 = v83;
+      v88 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v83];
+      v187 = v84;
+      v89 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v84];
       array2 = [MEMORY[0x1E695DF70] array];
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+      v92 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v85];
+      [array2 addObject:v92];
+
+      v93 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v86];
+      [array2 addObject:v93];
+
+      v94 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v87];
+      [array2 addObject:v94];
+
       v95 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v88];
       [array2 addObject:v95];
 
-      v96 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v89];
+      v96 = [[NSSQLiteStatement alloc] initWithEntity:v214 sqlString:v89];
+      v191 = array2;
       [array2 addObject:v96];
 
-      v97 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v90];
-      [array2 addObject:v97];
+      v250 = v92;
+      v251 = v93;
+      v252 = v94;
+      v253 = v95;
+      v254 = v96;
+      v189 = dictionary2;
+      [dictionary2 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v250, 5), @"dropStatements"}];
 
-      v98 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v91];
-      [array2 addObject:v98];
-
-      v99 = [[NSSQLiteStatement alloc] initWithEntity:v218 sqlString:v92];
-      v195 = array2;
-      [array2 addObject:v99];
-
-      v254 = v95;
-      v255 = v96;
-      v256 = v97;
-      v257 = v98;
-      v258 = v99;
-      v193 = dictionary2;
-      [dictionary2 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v254, 5), @"dropStatements"}];
-
-      if (v218 && (v218[20] || (v107 = v218[19]) != 0 && [v107 count] && v218[20]))
+      if (v214 && (v214[20] || (v104 = v214[19]) != 0 && [v104 count] && v214[20]))
       {
-        v100 = *(v218 + 46);
-        v101 = *(v218 + 47);
-        v102 = 0x1E696A000uLL;
-        v103 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v104 = v211;
-        if (v100 >= v101)
+        v97 = *(v214 + 46);
+        v98 = *(v214 + 47);
+        v99 = 0x1E696A000uLL;
+        v100 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v101 = v207;
+        if (v97 >= v98)
         {
-          v100 = [v103 initWithFormat:@" WHEN %d = NEW.Z_ENT", v100];
-          v1002 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v100];
-          v181 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v100, v181];
+          v183 = [v100 initWithFormat:@" WHEN %d = NEW.Z_ENT", v97];
+          v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v97];
+          v177 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v97, v177];
         }
 
         else
         {
-          v100 = [v103 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v100, v101];
-          v1002 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v100, v101];
-          v181 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v100, v101];
+          v183 = [v100 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v97, v98];
+          v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v97, v98];
+          v177 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v97, v98];
         }
 
-        v189 = v181;
+        v185 = v177;
       }
 
       else
       {
-        v100 = &stru_1EF3F1768;
-        v1002 = &stru_1EF3F1768;
-        v189 = &stru_1EF3F1768;
-        v102 = 0x1E696A000;
-        v104 = v211;
+        v183 = &stru_1EF3F1768;
+        v102 = &stru_1EF3F1768;
+        v185 = &stru_1EF3F1768;
+        v99 = 0x1E696A000;
+        v101 = v207;
       }
 
-      v108 = destinationEntity;
-      if (destinationEntity && (*(destinationEntity + 160) || (v114 = *(destinationEntity + 152)) != 0 && (v115 = [v114 count], v108 = destinationEntity, v115) && *(destinationEntity + 160)))
+      v105 = destinationEntity;
+      if (destinationEntity && (*(destinationEntity + 160) || (v111 = *(destinationEntity + 152)) != 0 && (v112 = [v111 count], v105 = destinationEntity, v112) && *(destinationEntity + 160)))
       {
-        v109 = *(v108 + 184);
-        v110 = *(v108 + 188);
-        v111 = objc_alloc(*(v102 + 3776));
-        if (v109 >= v110)
+        v106 = *(v105 + 184);
+        v107 = *(v105 + 188);
+        v108 = objc_alloc(*(v99 + 3776));
+        if (v106 >= v107)
         {
-          v109 = [v111 initWithFormat:@" AND %d = Z_ENT", v109];
-          v1812 = [objc_alloc(*(v102 + 3776)) initWithFormat:@" WHERE %d = Z_ENT", v109, v181];
+          v106 = [v108 initWithFormat:@" AND %d = Z_ENT", v106];
+          v1772 = [objc_alloc(*(v99 + 3776)) initWithFormat:@" WHERE %d = Z_ENT", v106, v177];
         }
 
         else
         {
-          v109 = [v111 initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v109, v110];
-          v1812 = [objc_alloc(*(v102 + 3776)) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v109, v110];
+          v106 = [v108 initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v106, v107];
+          v1772 = [objc_alloc(*(v99 + 3776)) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v106, v107];
         }
       }
 
       else
       {
-        v109 = &stru_1EF3F1768;
-        v1812 = &stru_1EF3F1768;
+        v106 = &stru_1EF3F1768;
+        v1772 = &stru_1EF3F1768;
       }
 
-      v185 = v1812;
-      v116 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      [v116 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL AND NEW.%@ NOT NULL%@)", v229, tableName3, v104, columnName5, v109];
-      [v116 appendString:@" BEGIN"];
-      v117 = v109;
-      v213 = v109;
-      v118 = columnName3;
-      v119 = tableName2;
-      v184 = v116;
-      [v116 appendFormat:@" UPDATE %@ SET %@ = NEW.%@ WHERE Z_PK = NEW.%@%@ AND %@;", tableName2, columnName3, columnName5, v104, v1002, objc_msgSend(*(v102 + 3776), "stringWithFormat:", @"(%@ IS NULL OR NEW.%@ %@ %@)", columnName3, columnName5, v224, columnName3)];
-      [v116 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@ AND %@;", v119, objc_msgSend(v235, "name"), v118, v119, v104, v1002, objc_msgSend(*(v102 + 3776), "stringWithFormat:", @"(%@ IS NULL OR NEW.%@ %@= %@)", v118, columnName5, v224, v118)];
-      [v116 appendFormat:@" END"];
+      v181 = v1772;
+      v113 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      [v113 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL AND NEW.%@ NOT NULL%@)", v225, tableName3, v101, columnName5, v106];
+      [v113 appendString:@" BEGIN"];
+      v114 = v106;
+      v209 = v106;
+      v115 = columnName3;
+      v116 = tableName2;
+      v180 = v113;
+      [v113 appendFormat:@" UPDATE %@ SET %@ = NEW.%@ WHERE Z_PK = NEW.%@%@ AND %@;", tableName2, columnName3, columnName5, v101, v102, objc_msgSend_stringWithFormat_(*(v99 + 3776), columnName3, columnName5, v220, columnName3)];
+      [v113 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@ AND %@;", v116, objc_msgSend(v231, "name"), v115, v116, v101, v102, objc_msgSend_stringWithFormat_(*(v99 + 3776), v115, columnName5, v220, v115)];
+      [v113 appendFormat:@" END"];
+      v117 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      [v117 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_SET AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL AND NEW.%@ NOT NULL%@)", v225, v202, tableName3, v101, columnName5, v114];
+      v200 = v117;
+      [v117 appendString:@" BEGIN"];
+      [v117 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v211, columnName5, tableName3, v101, v101, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName5, v220, columnName3)];
+      name = [v231 name];
+      [v200 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v116, name, columnName3, v116, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName5, v220, columnName3)];
+      [v200 appendFormat:@" UPDATE %@ SET %@ = NEW.%@ WHERE Z_PK = NEW.%@%@ AND %@;", tableName2, v115, columnName5, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v115, columnName5, v220, v115)];
+      name2 = [v231 name];
+      [v200 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@ AND %@;", v116, name2, columnName3, v116, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName5, v220, columnName3)];
+      [v200 appendFormat:@" END"];
       v120 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      [v120 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_SET AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL AND NEW.%@ NOT NULL%@)", v229, v208, tableName3, v104, columnName5, v117];
-      v204 = v120;
+      [v120 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_UNSET AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL AND OLD.%@ NOT NULL AND (NEW.%@ IS NULL OR NEW.%@ IS NULL)%@)", v225, v202, tableName3, v101, columnName5, v101, columnName5, v209];
       [v120 appendString:@" BEGIN"];
-      [v120 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v215, columnName5, tableName3, v104, v104, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"OLD.%@ %@= %@", columnName5, v224, columnName3)];
-      name = [v235 name];
-      [v204 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v119, name, columnName3, v119, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"OLD.%@ %@= %@", columnName5, v224, columnName3)];
-      [v204 appendFormat:@" UPDATE %@ SET %@ = NEW.%@ WHERE Z_PK = NEW.%@%@ AND %@;", tableName2, v118, columnName5, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"(%@ IS NULL OR NEW.%@ %@ %@)", v118, columnName5, v224, v118)];
-      name2 = [v235 name];
-      [v204 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@ AND %@;", v119, name2, columnName3, v119, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"NEW.%@ %@= %@", columnName5, v224, columnName3)];
-      [v204 appendFormat:@" END"];
-      v123 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      [v123 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_UNSET AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL AND OLD.%@ NOT NULL AND (NEW.%@ IS NULL OR NEW.%@ IS NULL)%@)", v229, v208, tableName3, v104, columnName5, v104, columnName5, v213];
-      [v123 appendString:@" BEGIN"];
-      [v123 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v215, columnName5, tableName3, v104, v104, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"OLD.%@ %@= %@", columnName5, v224, columnName3)];
-      name3 = [v235 name];
-      [v123 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v119, name3, v118, v119, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"(%@ IS NULL OR OLD.%@ %@= %@)", v118, columnName5, v224, v118)];
-      [v123 appendFormat:@" END"];
-      v125 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      [v125 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL AND OLD.%@ NOT NULL%@)", v229, tableName3, v104, columnName5, v213];
-      [v125 appendString:@" BEGIN"];
-      [v125 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v215, columnName5, tableName3, v104, v104, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"OLD.%@ %@= %@", columnName5, v224, columnName3)];
-      name4 = [v235 name];
-      [v125 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v119, name4, v118, v119, v104, v1002, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"(%@ IS NULL OR OLD.%@ %@= %@)", v118, columnName5, v224, v118)];
-      [v125 appendFormat:@" END"];
-      v127 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      [v127 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v191, tableName2, v100];
-      [v127 appendString:@" BEGIN"];
-      [v127 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", tableName2, columnName3, v215, columnName5, objc_msgSend(destinationEntity, "tableName"), v104];
-      [v127 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", v119, objc_msgSend(v235, "name"), columnName3, v119];
-      [v127 appendFormat:@" END"];
+      [v120 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v211, columnName5, tableName3, v101, v101, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName5, v220, columnName3)];
+      name3 = [v231 name];
+      [v120 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v116, name3, v115, v116, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v115, columnName5, v220, v115)];
+      [v120 appendFormat:@" END"];
+      v122 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      [v122 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL AND OLD.%@ NOT NULL%@)", v225, tableName3, v101, columnName5, v209];
+      [v122 appendString:@" BEGIN"];
+      [v122 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = OLD.%@) WHERE Z_PK = OLD.%@%@ AND %@;", tableName2, columnName3, v211, columnName5, tableName3, v101, v101, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName5, v220, columnName3)];
+      name4 = [v231 name];
+      [v122 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@ AND %@;", v116, name4, v115, v116, v101, v102, objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v115, columnName5, v220, v115)];
+      [v122 appendFormat:@" END"];
+      v124 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      [v124 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v187, tableName2, v183];
+      [v124 appendString:@" BEGIN"];
+      [v124 appendFormat:@" UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", tableName2, columnName3, v211, columnName5, objc_msgSend(destinationEntity, "tableName"), v101];
+      [v124 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", v116, objc_msgSend(v231, "name"), columnName3, v116];
+      [v124 appendFormat:@" END"];
 
-      v237 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v184];
-      [v195 addObject:v237];
+      v233 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v180];
+      [v191 addObject:v233];
 
-      v230 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v204];
-      [v195 addObject:v230];
+      v226 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v200];
+      [v191 addObject:v226];
 
-      v225 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v123];
-      [v195 addObject:v225];
+      v221 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v120];
+      [v191 addObject:v221];
 
-      v128 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v125];
-      [v195 addObject:v128];
+      v125 = [[NSSQLiteStatement alloc] initWithEntity:destinationEntity sqlString:v122];
+      [v191 addObject:v125];
 
-      v129 = [[NSSQLiteStatement alloc] initWithEntity:v218 sqlString:v127];
-      [v195 addObject:v129];
+      v126 = [[NSSQLiteStatement alloc] initWithEntity:v214 sqlString:v124];
+      [v191 addObject:v126];
 
-      v185 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = %@.Z_PK)%@;", v119, columnName3, v215, columnName5, objc_msgSend(destinationEntity, "tableName"), v104, v119, v185];
-      v131 = [[NSSQLiteStatement alloc] initWithEntity:v218 sqlString:v185];
+      v181 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT %@(%@) FROM %@ WHERE %@ = %@.Z_PK)%@;", v116, columnName3, v211, columnName5, objc_msgSend(destinationEntity, "tableName"), v101, v116, v181];
+      v128 = [[NSSQLiteStatement alloc] initWithEntity:v214 sqlString:v181];
 
-      v261[0] = v131;
-      [v193 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v261, 1), @"dataStatements"}];
-      v249 = v237;
-      v250 = v230;
-      v251 = v225;
-      v252 = v128;
-      v253 = v129;
-      [v193 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v249, 5), @"triggerCreationStatements"}];
+      v257[0] = v128;
+      [v189 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v257, 1), @"dataStatements"}];
+      v245 = v233;
+      v246 = v226;
+      v247 = v221;
+      v248 = v125;
+      v249 = v126;
+      [v189 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v245, 5), @"triggerCreationStatements"}];
 
-      v259 = v195;
-      v260 = v193;
+      v255 = v191;
+      v256 = v189;
 LABEL_103:
-      v83 = MEMORY[0x1E695DEC8];
-LABEL_104:
-      result = [v83 arrayWithObjects:&v259 count:2];
-      v169 = *MEMORY[0x1E69E9840];
-      return result;
+      v80 = MEMORY[0x1E695DEC8];
+      return [v80 arrayWithObjects:&v255 count:2];
     }
 
     anyObject4 = [keypath anyObject];
     objc_opt_self();
-    entity4 = [v235 entity];
-    propertyDescription6 = [v235 propertyDescription];
+    entity4 = [v231 entity];
+    propertyDescription6 = [v231 propertyDescription];
     derivationExpression3 = [(NSSQLiteStatement *)propertyDescription6 derivationExpression];
-    v68 = [anyObject4 objectAtIndexedSubscript:0];
+    v65 = [anyObject4 objectAtIndexedSubscript:0];
     if (entity4)
     {
-      v69 = [*(entity4 + 40) objectForKey:v68];
+      v66 = [*(entity4 + 40) objectForKey:v65];
     }
 
     else
     {
-      v69 = 0;
+      v66 = 0;
     }
 
-    destinationEntity2 = [v69 destinationEntity];
-    columnName6 = [v235 columnName];
-    if (v69)
+    destinationEntity2 = [v66 destinationEntity];
+    columnName6 = [v231 columnName];
+    if (v66)
     {
-      v71 = v69[7];
+      v68 = v66[7];
     }
 
     else
     {
-      v71 = 0;
+      v68 = 0;
     }
 
-    columnName7 = [v71 columnName];
+    columnName7 = [v68 columnName];
     if (sel_count_ != [derivationExpression3 selector])
     {
       goto LABEL_49;
@@ -1165,206 +1130,206 @@ LABEL_104:
 
     if ([anyObject4 count] < 2)
     {
-      v72 = 0;
-      v203 = 1;
-      v1333 = columnName7;
-      v133 = @"+ 1";
-      v1332 = @"- 1";
+      v69 = 0;
+      v199 = 1;
+      v224 = columnName7;
+      v230 = @"+ 1";
+      v70 = @"- 1";
     }
 
     else
     {
-      v84 = [anyObject4 objectAtIndexedSubscript:1];
-      if (!destinationEntity2 || (v85 = [destinationEntity2[5] objectForKey:v84]) == 0 || v85[24] != 1)
+      v81 = [anyObject4 objectAtIndexedSubscript:1];
+      if (!destinationEntity2 || (v82 = [destinationEntity2[5] objectForKey:v81]) == 0 || v82[24] != 1)
       {
 LABEL_49:
-        v72 = 0;
-        v203 = 0;
-        v1332 = 0;
-        v1333 = 0;
-        v133 = 0;
+        v69 = 0;
+        v199 = 0;
+        v70 = 0;
+        v224 = 0;
+        v230 = 0;
         goto LABEL_83;
       }
 
-      v1332 = 0;
-      v1333 = 0;
-      v133 = 0;
-      v72 = [objc_msgSend(v85 "propertyDescription")] == 800;
-      v203 = v72;
+      v70 = 0;
+      v224 = 0;
+      v230 = 0;
+      v69 = [objc_msgSend(v82 "propertyDescription")] == 800;
+      v199 = v69;
     }
 
 LABEL_83:
     selector = [derivationExpression3 selector];
-    v207 = v72;
-    if (v72 || (columnName8 = v1333, sel_sum_ == selector))
+    v203 = v69;
+    if (v69 || (columnName8 = v224, sel_sum_ == selector))
     {
-      v134 = [anyObject4 objectAtIndexedSubscript:1];
+      v131 = [anyObject4 objectAtIndexedSubscript:1];
       if (destinationEntity2)
       {
-        v135 = [destinationEntity2[5] objectForKey:v134];
+        v132 = [destinationEntity2[5] objectForKey:v131];
       }
 
       else
       {
-        v135 = 0;
+        v132 = 0;
       }
 
-      columnName8 = [v135 columnName];
-      v133 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+ IFNULL(NEW.%@, 0)", columnName8];
-      v1332 = [MEMORY[0x1E696AEC0] stringWithFormat:@"- IFNULL(OLD.%@, 0)", columnName8];
-      v1333 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@", columnName7, columnName8];
+      columnName8 = [v132 columnName];
+      v230 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName8);
+      v70 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName8);
+      v224 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], columnName7, columnName8);
     }
 
-    v226 = columnName8;
-    if (!v133 || !v1332)
+    v222 = columnName8;
+    if (!v230 || !v70)
     {
       v10 = MEMORY[0x1E695DF30];
       v11 = *MEMORY[0x1E695D940];
-      v249 = @"derived attribute";
-      v254 = propertyDescription6;
+      v245 = @"derived attribute";
+      v250 = propertyDescription6;
       goto LABEL_117;
     }
 
-    v194 = v1332;
+    v190 = v70;
     tableName4 = [entity4 tableName];
     tableName5 = [destinationEntity2 tableName];
-    v222 = destinationEntity2;
-    v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", objc_msgSend(destinationEntity2, "tableName"), objc_msgSend(entity4, "name"), -[NSSQLiteStatement name](propertyDescription6, "name")];
-    v137 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", objc_msgSend(entity4, "tableName"), objc_msgSend(entity4, "name"), -[NSSQLiteStatement name](propertyDescription6, "name")];
-    v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v136];
-    v1362 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_INCREMENT", v136];
-    v1363 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_DECREMENT", v136];
-    v219 = v136;
-    v1364 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v136];
-    v192 = v137;
-    v137 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v137];
+    v218 = destinationEntity2;
+    v133 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_PARAMETER", objc_msgSend(destinationEntity2, "tableName"), objc_msgSend(entity4, "name"), -[NSSQLiteStatement name](propertyDescription6, "name")];
+    v134 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Z_DA_%@_%@_%@_SOURCE", objc_msgSend(entity4, "tableName"), objc_msgSend(entity4, "name"), -[NSSQLiteStatement name](propertyDescription6, "name")];
+    v133 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v133];
+    v1332 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_INCREMENT", v133];
+    v1333 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_UPDATE_DECREMENT", v133];
+    v215 = v133;
+    v1334 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_DELETE", v133];
+    v188 = v134;
+    v134 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DROP TRIGGER IF EXISTS %@_INSERT", v134];
     array3 = [MEMORY[0x1E695DF70] array];
     dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-    v145 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v136];
+    v142 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v133];
+    [array3 addObject:v142];
+
+    v143 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1332];
+    [array3 addObject:v143];
+
+    v144 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1333];
+    [array3 addObject:v144];
+
+    v145 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1334];
     [array3 addObject:v145];
 
-    v146 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1362];
+    v146 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v134];
     [array3 addObject:v146];
 
-    v147 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1363];
-    [array3 addObject:v147];
-
-    v148 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v1364];
-    [array3 addObject:v148];
-
-    v149 = [[NSSQLiteStatement alloc] initWithEntity:entity4 sqlString:v137];
-    [array3 addObject:v149];
-
-    v254 = v145;
-    v255 = v146;
-    v256 = v147;
-    v257 = v148;
-    v258 = v149;
-    v196 = dictionary3;
-    [dictionary3 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v254, 5), @"dropStatements"}];
-    v201 = entity4;
-    if (entity4 && (*(entity4 + 160) || (v155 = *(entity4 + 152)) != 0 && [v155 count] && *(entity4 + 160)))
+    v250 = v142;
+    v251 = v143;
+    v252 = v144;
+    v253 = v145;
+    v254 = v146;
+    v192 = dictionary3;
+    [dictionary3 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v250, 5), @"dropStatements"}];
+    v197 = entity4;
+    if (entity4 && (*(entity4 + 160) || (v152 = *(entity4 + 152)) != 0 && [v152 count] && *(entity4 + 160)))
     {
-      v150 = *(entity4 + 184);
-      v151 = *(entity4 + 188);
-      v152 = objc_alloc(MEMORY[0x1E696AEC0]);
-      if (v150 >= v151)
+      v147 = *(entity4 + 184);
+      v148 = *(entity4 + 188);
+      v149 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if (v147 >= v148)
       {
-        v150 = [v152 initWithFormat:@" WHEN %d = NEW.Z_ENT", v150];
-        v1502 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v150];
-        v182 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v150, v182];
+        v147 = [v149 initWithFormat:@" WHEN %d = NEW.Z_ENT", v147];
+        v1472 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d = Z_ENT", v147];
+        v178 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d = Z_ENT", v147, v178];
       }
 
       else
       {
-        v150 = [v152 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v150, v151];
-        v1502 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v150, v151];
-        v182 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v150, v151];
+        v147 = [v149 initWithFormat:@" WHEN %d <= NEW.Z_ENT AND NEW.Z_ENT <= %d", v147, v148];
+        v1472 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" AND %d <= Z_ENT AND Z_ENT <= %d", v147, v148];
+        v178 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@" WHERE %d <= Z_ENT AND Z_ENT <= %d", v147, v148];
       }
     }
 
     else
     {
-      v150 = &stru_1EF3F1768;
-      v1502 = &stru_1EF3F1768;
-      v182 = &stru_1EF3F1768;
+      v147 = &stru_1EF3F1768;
+      v1472 = &stru_1EF3F1768;
+      v178 = &stru_1EF3F1768;
     }
 
-    v190 = v182;
+    v186 = v178;
+    v153 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    [v153 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL)", v215, tableName5, columnName7];
+    v182 = v153;
+    [v153 appendString:@" BEGIN"];
+    v154 = columnName6;
+    v155 = tableName4;
+    [v153 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) %@ WHERE Z_PK = NEW.%@%@;", tableName4, columnName6, columnName6, v230, columnName7, v1472];
+    [v153 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v155, objc_msgSend(v231, "name"), columnName6, v155, columnName7, v1472];
+    [v153 appendFormat:@" END"];
     v156 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    [v156 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL)", v219, tableName5, columnName7];
-    v186 = v156;
+    [v156 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_INCREMENT AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL)", v215, v224, tableName5, columnName7];
     [v156 appendString:@" BEGIN"];
-    v157 = columnName6;
-    v158 = tableName4;
-    [v156 appendFormat:@" UPDATE %@ SET %@ = IFNULL(%@, 0) %@ WHERE Z_PK = NEW.%@%@;", tableName4, columnName6, columnName6, v133, columnName7, v1502];
-    [v156 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v158, objc_msgSend(v235, "name"), columnName6, v158, columnName7, v1502];
+    [v156 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = NEW.%@%@;", tableName4, v154, v154, v230, columnName7, v1472];
+    [v156 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v155, objc_msgSend(v231, "name"), columnName6, v155, columnName7, v1472];
     [v156 appendFormat:@" END"];
+    v157 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    [v157 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_DECREMENT AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL)", v215, v224, tableName5, columnName7];
+    v179 = v157;
+    [v157 appendString:@" BEGIN"];
+    [v157 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = OLD.%@%@;", tableName4, v154, v154, v190, columnName7, v1472];
+    [v157 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v155, objc_msgSend(v231, "name"), columnName6, v155, columnName7, v1472];
+    [v157 appendFormat:@" END"];
+    v158 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    [v158 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL)", v215, tableName5, columnName7];
+    [v158 appendString:@" BEGIN"];
+    [v158 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = OLD.%@%@;", tableName4, v154, v154, v190, columnName7, v1472];
+    [v158 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v155, objc_msgSend(v231, "name"), columnName6, v155, columnName7, v1472];
+    [v158 appendFormat:@" END"];
     v159 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    [v159 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_INCREMENT AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (NEW.%@ NOT NULL)", v219, v1333, tableName5, columnName7];
+    [v159 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v188, tableName4, v147];
     [v159 appendString:@" BEGIN"];
-    [v159 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = NEW.%@%@;", tableName4, v157, v157, v133, columnName7, v1502];
-    [v159 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.%@%@;", v158, objc_msgSend(v235, "name"), columnName6, v158, columnName7, v1502];
-    [v159 appendFormat:@" END"];
-    v160 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    [v160 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_UPDATE_DECREMENT AFTER UPDATE OF %@ ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL)", v219, v1333, tableName5, columnName7];
-    v183 = v160;
-    [v160 appendString:@" BEGIN"];
-    [v160 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = OLD.%@%@;", tableName4, v157, v157, v194, columnName7, v1502];
-    [v160 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v158, objc_msgSend(v235, "name"), columnName6, v158, columnName7, v1502];
-    [v160 appendFormat:@" END"];
-    v161 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    [v161 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_DELETE AFTER DELETE ON %@ FOR EACH ROW WHEN (OLD.%@ NOT NULL)", v219, tableName5, columnName7];
-    [v161 appendString:@" BEGIN"];
-    [v161 appendFormat:@" UPDATE %@ SET %@ = %@ %@ WHERE Z_PK = OLD.%@%@;", tableName4, v157, v157, v194, columnName7, v1502];
-    [v161 appendFormat:@" SELECT NSCoreDataDATriggerUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = OLD.%@%@;", v158, objc_msgSend(v235, "name"), columnName6, v158, columnName7, v1502];
-    [v161 appendFormat:@" END"];
-    v162 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    [v162 appendFormat:@"CREATE TRIGGER IF NOT EXISTS %@_INSERT AFTER INSERT ON %@ FOR EACH ROW%@", v192, tableName4, v150];
-    [v162 appendString:@" BEGIN"];
-    if ((v203 & !v207) != 0)
+    if ((v199 & !v203) != 0)
     {
-      v163 = @"COUNT";
+      v160 = @"COUNT";
     }
 
     else
     {
-      v163 = @"SUM";
+      v160 = @"SUM";
     }
 
-    [v162 appendFormat:@" UPDATE %@ SET %@ = (SELECT IFNULL(%@(%@), 0) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", tableName4, columnName6, v163, v226, objc_msgSend(v222, "tableName"), columnName7];
-    [v162 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName4, objc_msgSend(v235, "name"), columnName6, tableName4];
-    [v162 appendFormat:@" END"];
+    [v159 appendFormat:@" UPDATE %@ SET %@ = (SELECT IFNULL(%@(%@), 0) FROM %@ WHERE %@ = NEW.Z_PK) WHERE Z_PK = NEW.Z_PK;", tableName4, columnName6, v160, v222, objc_msgSend(v218, "tableName"), columnName7];
+    [v159 appendFormat:@" SELECT NSCoreDataDATriggerInsertUpdatedAffectedObjectValue('%@', Z_ENT, Z_PK, '%@', %@) FROM %@ WHERE Z_PK = NEW.Z_PK;", tableName4, objc_msgSend(v231, "name"), columnName6, tableName4];
+    [v159 appendFormat:@" END"];
 
-    v238 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v186];
-    [array3 addObject:v238];
+    v234 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v182];
+    [array3 addObject:v234];
 
-    v231 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v159];
-    [array3 addObject:v231];
+    v227 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v156];
+    [array3 addObject:v227];
 
-    v164 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v183];
-    [array3 addObject:v164];
+    v161 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v179];
+    [array3 addObject:v161];
 
-    v165 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v161];
-    [array3 addObject:v165];
+    v162 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v158];
+    [array3 addObject:v162];
 
-    v166 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v162];
-    [array3 addObject:v166];
+    v163 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v159];
+    [array3 addObject:v163];
 
-    v190 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT IFNULL(%@(%@), 0) FROM %@ WHERE %@ = %@.Z_PK)%@;", tableName4, columnName6, v163, v226, objc_msgSend(v222, "tableName"), columnName7, tableName4, v190];
-    v168 = [[NSSQLiteStatement alloc] initWithEntity:v201 sqlString:v190];
+    v186 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UPDATE %@ SET %@ = (SELECT IFNULL(%@(%@), 0) FROM %@ WHERE %@ = %@.Z_PK)%@;", tableName4, columnName6, v160, v222, objc_msgSend(v218, "tableName"), columnName7, tableName4, v186];
+    v165 = [[NSSQLiteStatement alloc] initWithEntity:v197 sqlString:v186];
 
-    v261[0] = v168;
-    [v196 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v261, 1), @"dataStatements"}];
-    v249 = v238;
-    v250 = v231;
-    v251 = v164;
-    v252 = v165;
-    v253 = v166;
-    [v196 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v249, 5), @"triggerCreationStatements"}];
+    v257[0] = v165;
+    [v192 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v257, 1), @"dataStatements"}];
+    v245 = v234;
+    v246 = v227;
+    v247 = v161;
+    v248 = v162;
+    v249 = v163;
+    [v192 setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", &v245, 5), @"triggerCreationStatements"}];
 
-    v259 = array3;
-    v260 = v196;
+    v255 = array3;
+    v256 = v192;
     goto LABEL_103;
   }
 
@@ -1372,9 +1337,9 @@ LABEL_83:
   {
     v10 = MEMORY[0x1E695DF30];
     v11 = *MEMORY[0x1E695D940];
-    v239 = @"derived attribute";
-    v240 = propertyDescription;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v240 forKeys:&v239 count:1];
+    v235 = @"derived attribute";
+    v236 = propertyDescription;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v236 forKeys:&v235 count:1];
     v13 = @"currently unsupported (unsupported expression type)";
     goto LABEL_118;
   }
@@ -1387,25 +1352,25 @@ LABEL_83:
       {
         v10 = MEMORY[0x1E695DF30];
         v11 = *MEMORY[0x1E695D940];
-        v245 = @"derived attribute";
-        v246 = propertyDescription;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v246 forKeys:&v245 count:1];
+        v241 = @"derived attribute";
+        v242 = propertyDescription;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v242 forKeys:&v241 count:1];
         v13 = @"malformed expression (dependent property is to many, derivation expression is not a function)";
 LABEL_118:
-        v176 = v10;
-        v177 = v11;
+        v172 = v10;
+        v173 = v11;
         goto LABEL_119;
       }
 
       v10 = MEMORY[0x1E695DF30];
       v11 = *MEMORY[0x1E695D940];
-      v243 = @"derived attribute";
-      v244 = propertyDescription;
-      v170 = MEMORY[0x1E695DF20];
-      v171 = &v244;
-      v172 = &v243;
+      v239 = @"derived attribute";
+      v240 = propertyDescription;
+      v166 = MEMORY[0x1E695DF20];
+      v167 = &v240;
+      v168 = &v239;
 LABEL_108:
-      v12 = [v170 dictionaryWithObjects:v171 forKeys:v172 count:1];
+      v12 = [v166 dictionaryWithObjects:v167 forKeys:v168 count:1];
       v13 = @"currently unsupported (unsupported keypath property type)";
       goto LABEL_118;
     }
@@ -1414,30 +1379,29 @@ LABEL_108:
   }
 
   objc_opt_self();
-  v46 = +[NSSQLDerivedAttributeSQLGenerator _triggerColumnListComponentForAttributeKeypaths:startingAt:](NSSQLDerivedAttributeSQLGenerator, keypath, [a2 entity]);
+  v45 = +[NSSQLDerivedAttributeSQLGenerator _triggerColumnListComponentForAttributeKeypaths:startingAt:](NSSQLDerivedAttributeSQLGenerator, keypath, [a2 entity]);
   [a2 entity];
   objc_opt_self();
   objc_opt_self();
-  v47 = +[NSSQLDerivedAttributeSQLGenerator _computeNewColumnTokenForKeypathExpression:governingEntity:](NSSQLDerivedAttributeSQLGenerator, [objc_msgSend(a2 "propertyDescription")], objc_msgSend(a2, "entity"));
-  v48 = [v47 stringByReplacingOccurrencesOfString:@"NEW." withString:&stru_1EF3F1768];
-  v49 = *MEMORY[0x1E69E9840];
+  v46 = +[NSSQLDerivedAttributeSQLGenerator _computeNewColumnTokenForKeypathExpression:governingEntity:](NSSQLDerivedAttributeSQLGenerator, [objc_msgSend(a2 "propertyDescription")], objc_msgSend(a2, "entity"));
+  v47 = [v46 stringByReplacingOccurrencesOfString:@"NEW." withString:&stru_1EF3F1768];
 
-  return [NSSQLDerivedAttributeSQLGenerator _generateTriggerForAttribute:a2 newToken:v47 updateToken:v48 triggerColumnListComponent:v46 triggerColumnWhereComponent:?];
+  return [NSSQLDerivedAttributeSQLGenerator _generateTriggerForAttribute:a2 newToken:v46 updateToken:v47 triggerColumnListComponent:v45 triggerColumnWhereComponent:?];
 }
 
 + (uint64_t)generateSQLForDerivedAttribute:(void *)attribute keypaths:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   propertyDescription = [a2 propertyDescription];
   if ([propertyDescription filteringPredicate])
   {
-    v10 = MEMORY[0x1E695DF30];
-    v11 = *MEMORY[0x1E695D940];
-    v18 = @"derived attribute";
-    v19[0] = propertyDescription;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    v13 = @"currently unsupported (predicate)";
+    v8 = MEMORY[0x1E695DF30];
+    v9 = *MEMORY[0x1E695D940];
+    v16 = @"derived attribute";
+    v17[0] = propertyDescription;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v11 = @"currently unsupported (predicate)";
     goto LABEL_15;
   }
 
@@ -1448,34 +1412,31 @@ LABEL_108:
       anyObject = [attribute anyObject];
       if ([anyObject count] == 1 || objc_msgSend(anyObject, "count") == 2)
       {
-        v7 = *MEMORY[0x1E69E9840];
 
         return [NSSQLDerivedAttributeSQLGenerator _generateSQLForDerivedAttributeWithOneParameterKeypath:a2 keypaths:attribute];
       }
 
-      v10 = MEMORY[0x1E695DF30];
-      v11 = *MEMORY[0x1E695D940];
-      v16 = @"derived attribute";
-      v17 = propertyDescription;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-      v13 = @"currently unsupported (too many steps)";
+      v8 = MEMORY[0x1E695DF30];
+      v9 = *MEMORY[0x1E695D940];
+      v14 = @"derived attribute";
+      v15 = propertyDescription;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v11 = @"currently unsupported (too many steps)";
     }
 
     else
     {
-      v10 = MEMORY[0x1E695DF30];
-      v11 = *MEMORY[0x1E695D940];
-      v14 = @"derived attribute";
-      v15 = propertyDescription;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v13 = @"currently unsupported (too many keypaths)";
+      v8 = MEMORY[0x1E695DF30];
+      v9 = *MEMORY[0x1E695D940];
+      v12 = @"derived attribute";
+      v13 = propertyDescription;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v11 = @"currently unsupported (too many keypaths)";
     }
 
 LABEL_15:
-    objc_exception_throw([v10 exceptionWithName:v11 reason:v13 userInfo:v12]);
+    objc_exception_throw([v8 exceptionWithName:v9 reason:v11 userInfo:v10]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return [NSSQLDerivedAttributeSQLGenerator _generateSQLForAttributeFunctionDerivationForDerivedAttribute:a2 keypaths:attribute];
 }

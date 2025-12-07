@@ -131,10 +131,10 @@
 
 - (void)setState:(unsigned int)state
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v10.opaque[0] = 0;
-  v10.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v10);
+  v16 = *MEMORY[0x1E69E9840];
+  v9.opaque[0] = 0;
+  v9.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v9);
   os_unfair_lock_lock(&self->_flagsLock);
   if (_sync_log_facilities_pred != -1)
   {
@@ -147,9 +147,9 @@
     v6 = *&self->_flags & 0xF;
     *buf = 138543874;
     selfCopy = self;
-    v13 = 1024;
-    v14 = v6;
-    v15 = 1024;
+    v12 = 1024;
+    v13 = v6;
+    v14 = 1024;
     stateCopy = state;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Set state from %{companionsync:SYSessionState}d to %{companionsync:SYSessionState}d", buf, 0x18u);
   }
@@ -180,16 +180,15 @@
   }
 
   os_unfair_lock_unlock(&self->_flagsLock);
-  os_activity_scope_leave(&v10);
-  v9 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v9);
 }
 
 - (void)_setStateQuietly:(unsigned int)quietly
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v8.opaque[0] = 0;
-  v8.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v8);
+  v14 = *MEMORY[0x1E69E9840];
+  v7.opaque[0] = 0;
+  v7.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v7);
   os_unfair_lock_lock(&self->_flagsLock);
   if (_sync_log_facilities_pred != -1)
   {
@@ -202,17 +201,16 @@
     v6 = *&self->_flags & 0xF;
     *buf = 138543874;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v6;
-    v13 = 1024;
+    v10 = 1024;
+    v11 = v6;
+    v12 = 1024;
     quietlyCopy = quietly;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state (quietly) from %{companionsync:SYSessionState}d to %{companionsync:SYSessionState}d", buf, 0x18u);
   }
 
   *&self->_flags = *&self->_flags & 0xFFF0 | quietly & 0xF;
   os_unfair_lock_unlock(&self->_flagsLock);
-  os_activity_scope_leave(&v8);
-  v7 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v7);
 }
 
 - (BOOL)canRestart
@@ -414,13 +412,13 @@ void __46__SYReceivingSession__sendEndSessionAndError___block_invoke(uint64_t a1
 
 - (void)_midStreamErrorHandled
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v11.opaque[0] = 0;
-  v11.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v11);
+  v10.opaque[0] = 0;
+  v10.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v10);
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -459,8 +457,7 @@ LABEL_10:
   error3 = [(SYSession *)self error];
   [(SYReceivingSession *)self _sendEndSessionAndError:error3];
 
-  os_activity_scope_leave(&v11);
-  v10 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v10);
 }
 
 - (void)_notifyErrorAndShutdown
@@ -477,7 +474,7 @@ LABEL_10:
 
 - (void)_processNextState
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -516,8 +513,8 @@ LABEL_10:
           v11 = _SYObfuscate(error);
           *buf = 138543618;
           selfCopy = self;
-          v28 = 2114;
-          v29 = v11;
+          v27 = 2114;
+          v28 = v11;
           _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ entered error state. Error = %{public}@", buf, 0x16u);
         }
 
@@ -552,28 +549,28 @@ LABEL_10:
 
   if ([v14 count])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v16)
     {
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          (*(*(*(&v20 + 1) + 8 * i) + 16))(*(*(&v20 + 1) + 8 * i));
+          (*(*(*(&v19 + 1) + 8 * i) + 16))(*(*(&v19 + 1) + 8 * i));
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v16);
@@ -583,12 +580,11 @@ LABEL_10:
   }
 
   os_activity_scope_leave(&state);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_installTimers
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifier = [(SYSession *)self identifier];
   v4 = [identifier copy];
 
@@ -596,17 +592,17 @@ LABEL_10:
   [(SYSession *)self fullSessionTimeout];
   v6 = [v5 dateWithTimeIntervalSinceNow:?];
   objc_initWeak(&location, self);
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __36__SYReceivingSession__installTimers__block_invoke;
-  v25 = &unk_1E86CA868;
-  objc_copyWeak(&v28, &location);
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __36__SYReceivingSession__installTimers__block_invoke;
+  v24 = &unk_1E86CA868;
+  objc_copyWeak(&v27, &location);
   v7 = v4;
-  v26 = v7;
+  v25 = v7;
   v8 = v6;
-  v27 = v8;
-  v9 = MEMORY[0x1E12E11B0](&v22);
-  [(SYSession *)self fullSessionTimeout:v22];
+  v26 = v8;
+  v9 = MEMORY[0x1E12E11B0](&v21);
+  [(SYSession *)self fullSessionTimeout:v21];
   if (v10 != 0.0)
   {
     v11 = dispatch_get_global_queue(21, 0);
@@ -633,17 +629,15 @@ LABEL_10:
     {
       [(SYSession *)self fullSessionTimeout];
       *buf = 134218242;
-      v31 = v20;
-      v32 = 2114;
-      v33 = v18;
+      v30 = v20;
+      v31 = 2114;
+      v32 = v18;
       _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Session timeout is %.02f seconds. Timer will fire at %{public}@", buf, 0x16u);
     }
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __36__SYReceivingSession__installTimers__block_invoke(uint64_t a1)
@@ -684,10 +678,10 @@ LABEL_6:
 
 void __36__SYReceivingSession__installTimers__block_invoke_10(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11.opaque[0] = 0;
-  v11.opaque[1] = 0;
-  os_activity_scope_enter(*(*(a1 + 32) + 232), &v11);
+  v15 = *MEMORY[0x1E69E9840];
+  v10.opaque[0] = 0;
+  v10.opaque[1] = 0;
+  os_activity_scope_enter(*(*(a1 + 32) + 232), &v10);
   v2 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2007 userInfo:0];
   [*(a1 + 32) setError:v2];
 
@@ -724,9 +718,9 @@ void __36__SYReceivingSession__installTimers__block_invoke_10(uint64_t a1)
     v6 = *(a1 + 40);
     [v6 timeIntervalSinceNow];
     *buf = 138543618;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v7;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v7;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Session timeout timer fired. Expected to fire at %{public}@, delta is %.02f", buf, 0x16u);
   }
 
@@ -737,8 +731,7 @@ void __36__SYReceivingSession__installTimers__block_invoke_10(uint64_t a1)
     dispatch_block_cancel(WeakRetained);
   }
 
-  os_activity_scope_leave(&v11);
-  v10 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v10);
 }
 
 - (void)_installStateListener
@@ -774,19 +767,19 @@ void __43__SYReceivingSession__installStateListener__block_invoke(uint64_t a1)
 
 - (BOOL)_postAsyncResetRequestReturningError:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [(SYReceivingSession *)self setState:10];
   dispatch_group_enter(self->_asyncResetGroupToWaitOn);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__11;
-  v26 = __Block_byref_object_dispose__11;
-  v27 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__11;
+  v25 = __Block_byref_object_dispose__11;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   objc_initWeak(&location, self);
   if (_sync_log_facilities_pred != -1)
   {
@@ -802,15 +795,15 @@ void __43__SYReceivingSession__installStateListener__block_invoke(uint64_t a1)
 
   Current = CFAbsoluteTimeGetCurrent();
   delegate = [(SYSession *)self delegate];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __59__SYReceivingSession__postAsyncResetRequestReturningError___block_invoke;
-  v15[3] = &unk_1E86CB158;
-  objc_copyWeak(v16, &location);
-  v16[1] = *&Current;
-  v15[4] = &v18;
-  v15[5] = &v22;
-  [delegate resetDataStoreForSyncSession:self completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __59__SYReceivingSession__postAsyncResetRequestReturningError___block_invoke;
+  v14[3] = &unk_1E86CB158;
+  objc_copyWeak(v15, &location);
+  v15[1] = *&Current;
+  v14[4] = &v17;
+  v14[5] = &v21;
+  [delegate resetDataStoreForSyncSession:self completion:v14];
 
   if (_sync_log_facilities_pred != -1)
   {
@@ -820,30 +813,29 @@ void __43__SYReceivingSession__installStateListener__block_invoke(uint64_t a1)
   v8 = qword_1EDE73420;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(v19 + 24);
-    v10 = _SYObfuscate(v23[5]);
+    v9 = *(v18 + 24);
+    v10 = _SYObfuscate(v22[5]);
     [(SYReceivingSession *)v9 _postAsyncResetRequestReturningError:v10, buf, v8];
   }
 
-  v11 = v23[5];
+  v11 = v22[5];
   if (v11)
   {
     *error = v11;
   }
 
-  v12 = *(v19 + 24);
-  objc_destroyWeak(v16);
+  v12 = *(v18 + 24);
+  objc_destroyWeak(v15);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
 void __59__SYReceivingSession__postAsyncResetRequestReturningError___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (_sync_log_facilities_pred != -1)
@@ -868,15 +860,15 @@ void __59__SYReceivingSession__postAsyncResetRequestReturningError___block_invok
     }
 
     v13 = _SYObfuscate(v6);
-    v20 = 134218754;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2080;
-    v25 = v12;
-    v26 = 2114;
-    v27 = v13;
-    _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Async reset-data completion called after %.02f seconds with strongSelf = %{public}@, success = %s, error = %{public}@", &v20, 0x2Au);
+    v19 = 134218754;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2080;
+    v24 = v12;
+    v25 = 2114;
+    v26 = v13;
+    _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Async reset-data completion called after %.02f seconds with strongSelf = %{public}@, success = %s, error = %{public}@", &v19, 0x2Au);
   }
 
   if (!a2)
@@ -892,11 +884,11 @@ void __59__SYReceivingSession__postAsyncResetRequestReturningError___block_invok
       v16 = v15;
       v17 = _SYObfuscate(WeakRetained);
       v18 = _SYObfuscate(v6);
-      v20 = 138543618;
-      v21 = *&v17;
-      v22 = 2114;
-      v23 = v18;
-      _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Error reported from async reset-data in session %{public}@: %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = *&v17;
+      v21 = 2114;
+      v22 = v18;
+      _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Error reported from async reset-data in session %{public}@: %{public}@", &v19, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -914,13 +906,11 @@ LABEL_16:
   }
 
   dispatch_group_leave(WeakRetained[30]);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start:(id)start
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   startCopy = start;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -931,9 +921,9 @@ LABEL_16:
   if (v6)
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"You cannot start an SYSession without a delegate.";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"You cannot start an SYSession without a delegate.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v12 = [v10 initWithSYError:2001 userInfo:v11];
 
     queue = [(SYSession *)self queue];
@@ -943,7 +933,7 @@ LABEL_16:
     block[3] = &unk_1E86C9E90;
     block[4] = self;
     v14 = v12;
-    v19 = v14;
+    v18 = v14;
     dispatch_async(queue, block);
 
     startCopy[2](startCopy, 0, v14);
@@ -962,38 +952,36 @@ LABEL_16:
       identifier = [(SYSession *)self identifier];
       *buf = 138543618;
       selfCopy = self;
-      v23 = 2114;
-      v24 = identifier;
+      v22 = 2114;
+      v23 = identifier;
       _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Starting %{public}@ with identifier %{public}@", buf, 0x16u);
     }
 
     queue2 = [(SYSession *)self queue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __28__SYReceivingSession_start___block_invoke_19;
-    v16[3] = &unk_1E86CA388;
-    v16[4] = self;
-    v17 = startCopy;
-    dispatch_async(queue2, v16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __28__SYReceivingSession_start___block_invoke_19;
+    v15[3] = &unk_1E86CA388;
+    v15[4] = self;
+    v16 = startCopy;
+    dispatch_async(queue2, v15);
   }
 
   os_activity_scope_leave(&state);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __28__SYReceivingSession_start___block_invoke_19(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __28__SYReceivingSession_start___block_invoke_2;
-  v38[3] = &unk_1E86CB180;
+  v47 = *MEMORY[0x1E69E9840];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __28__SYReceivingSession_start___block_invoke_2;
+  v37[3] = &unk_1E86CB180;
   v2 = *(a1 + 40);
   v3 = (a1 + 32);
-  v38[4] = *(a1 + 32);
-  v39 = v2;
-  v4 = MEMORY[0x1E12E11B0](v38);
+  v37[4] = *(a1 + 32);
+  v38 = v2;
+  v4 = MEMORY[0x1E12E11B0](v37);
   v5 = [*v3 state];
   if (v5)
   {
@@ -1085,34 +1073,34 @@ void __28__SYReceivingSession_start___block_invoke_19(uint64_t a1)
   }
 
   *buf = 0;
-  v43 = buf;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__11;
-  v46 = __Block_byref_object_dispose__11;
-  v47 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v42 = buf;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__11;
+  v45 = __Block_byref_object_dispose__11;
+  v46 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   v18 = [*(a1 + 32) delegate];
   v19 = [*(a1 + 32) targetQueue];
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __28__SYReceivingSession_start___block_invoke_21;
-  v29 = &unk_1E86CB1A8;
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = __28__SYReceivingSession_start___block_invoke_21;
+  v28 = &unk_1E86CB1A8;
   v20 = v18;
   v21 = *(a1 + 32);
-  v30 = v20;
-  v31 = v21;
-  v32 = &v34;
-  v33 = buf;
-  dispatch_sync(v19, &v26);
+  v29 = v20;
+  v30 = v21;
+  v31 = &v33;
+  v32 = buf;
+  dispatch_sync(v19, &v25);
 
-  v22 = *(v35 + 24);
-  if (*(v35 + 24))
+  v22 = *(v34 + 24);
+  if (*(v34 + 24))
   {
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
     _Block_object_dispose(buf, 8);
 
 LABEL_33:
@@ -1136,15 +1124,15 @@ LABEL_33:
   v23 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = *(v43 + 5);
-    *v40 = 138412290;
-    v41 = v24;
-    _os_log_impl(&dword_1DF835000, v23, OS_LOG_TYPE_DEFAULT, "Delegate failed reset-store operation: %@", v40, 0xCu);
+    v24 = *(v42 + 5);
+    *v39 = 138412290;
+    v40 = v24;
+    _os_log_impl(&dword_1DF835000, v23, OS_LOG_TYPE_DEFAULT, "Delegate failed reset-store operation: %@", v39, 0xCu);
   }
 
-  v4[2](v4, *(v43 + 5));
+  v4[2](v4, *(v42 + 5));
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
   _Block_object_dispose(buf, 8);
 
   if (v22)
@@ -1153,8 +1141,6 @@ LABEL_33:
   }
 
 LABEL_36:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __28__SYReceivingSession_start___block_invoke_2(uint64_t a1, void *a2)
@@ -1175,8 +1161,7 @@ void __28__SYReceivingSession_start___block_invoke_2(uint64_t a1, void *a2)
 
 void __28__SYReceivingSession_start___block_invoke_21(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = a1[4];
+  v21 = *MEMORY[0x1E69E9840];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     if (_sync_log_facilities_pred != -1)
@@ -1184,61 +1169,59 @@ void __28__SYReceivingSession_start___block_invoke_21(void *a1)
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v9 = qword_1EDE73420;
+    v8 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_INFO, "Delegate: -syncSession:resetDataStoreWithError:", buf, 2u);
+      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_INFO, "Delegate: -syncSession:resetDataStoreWithError:", buf, 2u);
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    v11 = a1[4];
-    v12 = a1[5];
-    v19 = 0;
-    v13 = [v11 syncSession:v12 resetDataStoreWithError:&v19];
-    v14 = v19;
-    v8 = v19;
-    *(*(a1[6] + 8) + 24) = v13;
+    v10 = a1[4];
+    v11 = a1[5];
+    v17 = 0;
+    v12 = [v10 syncSession:v11 resetDataStoreWithError:&v17];
+    v13 = v17;
+    v7 = v17;
+    *(*(a1[6] + 8) + 24) = v12;
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v15 = qword_1EDE73420;
+    v14 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
     {
-      v16 = v15;
-      v17 = CFAbsoluteTimeGetCurrent();
+      v15 = v14;
+      v16 = CFAbsoluteTimeGetCurrent();
       *buf = 134217984;
-      v22 = Current - v17;
-      _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_INFO, "Delegate callout complete after %.02f seconds: -syncSession:resetDataStoreWithError:", buf, 0xCu);
+      v20 = Current - v16;
+      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "Delegate callout complete after %.02f seconds: -syncSession:resetDataStoreWithError:", buf, 0xCu);
     }
 
     if ((*(*(a1[6] + 8) + 24) & 1) == 0)
     {
-      objc_storeStrong((*(a1[7] + 8) + 40), v14);
+      objc_storeStrong((*(a1[7] + 8) + 40), v13);
     }
 
-    v6 = 0;
+    v5 = 0;
     goto LABEL_15;
   }
 
-  v3 = a1[5];
-  v20 = 0;
-  v4 = [v3 _postAsyncResetRequestReturningError:&v20];
-  v5 = v20;
-  v6 = v5;
-  *(*(a1[6] + 8) + 24) = v4;
+  v2 = a1[5];
+  v18 = 0;
+  v3 = [v2 _postAsyncResetRequestReturningError:&v18];
+  v4 = v18;
+  v5 = v4;
+  *(*(a1[6] + 8) + 24) = v3;
   if ((*(*(a1[6] + 8) + 24) & 1) == 0)
   {
-    v7 = *(a1[7] + 8);
-    v6 = v5;
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v6 = *(a1[7] + 8);
+    v5 = v4;
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 LABEL_15:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelWithError:(id)error
@@ -1295,7 +1278,7 @@ LABEL_8:
 
 - (void)_handleSyncBatch:(id)batch response:(id)response completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   responseCopy = response;
   completionCopy = completion;
@@ -1314,7 +1297,7 @@ LABEL_8:
   v12 = qword_1EDE73420;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    -[SYReceivingSession _handleSyncBatch:response:completion:].cold.2(v39, [batchCopy index], v12);
+    -[SYReceivingSession _handleSyncBatch:response:completion:].cold.2(v38, [batchCopy index], v12);
   }
 
   -[NSMutableIndexSet addIndex:](self->_receivedBatchIndices, "addIndex:", [batchCopy index]);
@@ -1328,14 +1311,14 @@ LABEL_8:
   block[2] = __59__SYReceivingSession__handleSyncBatch_response_completion___block_invoke;
   block[3] = &unk_1E86CB248;
   v17 = batchCopy;
-  v30 = v17;
+  v29 = v17;
   selfCopy = self;
   v18 = responseCopy;
-  v32 = v18;
+  v31 = v18;
   v19 = completionCopy;
-  v34 = v19;
+  v33 = v19;
   v20 = v16;
-  v33 = v20;
+  v32 = v20;
   v21 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   if (_sync_log_facilities_pred != -1)
   {
@@ -1345,7 +1328,7 @@ LABEL_8:
   v22 = qword_1EDE73420;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    [SYReceivingSession _handleSyncBatch:v38 response:[(SYReceivingSession *)self state] completion:v22];
+    [SYReceivingSession _handleSyncBatch:v37 response:[(SYReceivingSession *)self state] completion:v22];
   }
 
   if ([(SYReceivingSession *)self state]== 10)
@@ -1361,7 +1344,7 @@ LABEL_8:
       v24 = v23;
       v25 = MEMORY[0x1E12E11B0](v21);
       *buf = 138412290;
-      v37 = v25;
+      v36 = v25;
       _os_log_impl(&dword_1DF835000, v24, OS_LOG_TYPE_DEFAULT, "First batch arrived, we're still waiting on reset completion-- using dispatch_group_notify with block %@", buf, 0xCu);
     }
 
@@ -1378,7 +1361,6 @@ LABEL_8:
   }
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invoke(uint64_t a1)
@@ -1477,7 +1459,7 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
 
 void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invoke_25(uint64_t a1, int a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1491,20 +1473,20 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v12 = *(a1 + 56);
-    v13 = [*(a1 + 40) index];
-    v14 = "NO";
+    v11 = *(a1 + 56);
+    v12 = [*(a1 + 40) index];
+    v13 = "NO";
     *buf = 134218498;
-    v22 = Current - v12;
+    v21 = Current - v11;
     if (a2)
     {
-      v14 = "YES";
+      v13 = "YES";
     }
 
-    v23 = 2048;
-    v24 = v13;
-    v25 = 2080;
-    v26 = v14;
+    v22 = 2048;
+    v23 = v12;
+    v24 = 2080;
+    v25 = v13;
     _os_log_debug_impl(&dword_1DF835000, v6, OS_LOG_TYPE_DEBUG, "Delegate callout complete after %.02f seconds: -syncSession:applyChanges:completion:, chunkIndex = %llu, success = %s", buf, 0x20u);
   }
 
@@ -1515,23 +1497,22 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
   block[3] = &unk_1E86CB1F8;
   v8 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v19 = a2;
-  v16 = v8;
-  v17 = v5;
-  v18 = *(a1 + 48);
+  v18 = a2;
+  v15 = v8;
+  v16 = v5;
+  v17 = *(a1 + 48);
   v9 = v5;
   dispatch_async(v7, block);
 
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invoke_26(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19.opaque[0] = 0;
-  v19.opaque[1] = 0;
-  os_activity_scope_enter(*(*(a1 + 32) + 232), &v19);
+  v25 = *MEMORY[0x1E69E9840];
+  v18.opaque[0] = 0;
+  v18.opaque[1] = 0;
+  os_activity_scope_enter(*(*(a1 + 32) + 232), &v18);
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -1554,11 +1535,11 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
       v6 = "NO";
     }
 
-    v21 = v3;
-    v22 = 2048;
-    v23 = v4;
-    v24 = 2080;
-    v25 = v6;
+    v20 = v3;
+    v21 = 2048;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v6;
     _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_INFO, "%{public}@: Building response for processed changes, chunkIndex = %llu, success = %s", buf, 0x20u);
   }
 
@@ -1581,7 +1562,7 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
       v8 = [*(a1 + 32) error];
       v9 = _SYObfuscate(v8);
       *buf = 138543362;
-      v21 = v9;
+      v20 = v9;
       _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Detected error that occurred while waiting, attaching to batch response. Error = %{public}@", buf, 0xCu);
     }
 
@@ -1603,7 +1584,7 @@ void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invok
     {
       v14 = _SYObfuscate(*(a1 + 48));
       *buf = 138543362;
-      v21 = v14;
+      v20 = v14;
       _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Failed to process sync batch, returning error: %{public}@", buf, 0xCu);
     }
 
@@ -1618,13 +1599,12 @@ LABEL_22:
   v17 = [*(a1 + 32) wrappedUserContext];
   (*(v15 + 16))(v15, v16, v17);
 
-  os_activity_scope_leave(&v19);
-  v18 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v18);
 }
 
 - (void)_handleRestartSession:(id)session response:(id)response completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   completionCopy = completion;
@@ -1644,7 +1624,7 @@ LABEL_22:
     block[3] = &unk_1E86CB1D0;
     block[4] = responseCopy;
     block[5] = self;
-    v23 = completionCopy;
+    v22 = completionCopy;
     dispatch_async(targetQueue, block);
 
 LABEL_7:
@@ -1655,15 +1635,15 @@ LABEL_7:
   if (![(SYReceivingSession *)self isResetSync]&& [(SYReceivingSession *)self canRollback])
   {
     targetQueue2 = [(SYSession *)self targetQueue];
-    v13 = v20;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke_28;
-    v20[3] = &unk_1E86CB1D0;
-    v20[4] = responseCopy;
-    v20[5] = self;
-    v21 = completionCopy;
-    dispatch_async(targetQueue2, v20);
+    v13 = v19;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke_28;
+    v19[3] = &unk_1E86CB1D0;
+    v19[4] = responseCopy;
+    v19[5] = self;
+    v20 = completionCopy;
+    dispatch_async(targetQueue2, v19);
 
     goto LABEL_7;
   }
@@ -1678,7 +1658,7 @@ LABEL_7:
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v15;
+    v25 = v15;
     _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Rejecting restart request: %@", buf, 0xCu);
   }
 
@@ -1691,13 +1671,11 @@ LABEL_7:
 
 LABEL_13:
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -1713,9 +1691,9 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   Current = CFAbsoluteTimeGetCurrent();
   v4 = [*(a1 + 40) delegate];
   v5 = *(a1 + 40);
-  v23 = 0;
-  v6 = [v4 syncSession:v5 resetDataStoreWithError:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [v4 syncSession:v5 resetDataStoreWithError:&v22];
+  v7 = v22;
   [*(a1 + 32) setAccepted:v6];
 
   if (_sync_log_facilities_pred != -1)
@@ -1729,7 +1707,7 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
     v9 = v8;
     v10 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v25 = v10 - Current;
+    v24 = v10 - Current;
     _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_INFO, "Delegate callout complete after %.02f seconds: -syncSession:resetDataStoreWithError: (restart session)", buf, 0xCu);
   }
 
@@ -1747,19 +1725,17 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
   v15 = *(a1 + 48);
-  v19 = v13;
-  v20 = v14;
-  v21 = v7;
-  v22 = v15;
+  v18 = v13;
+  v19 = v14;
+  v20 = v7;
+  v21 = v15;
   v16 = v7;
   dispatch_async(v12, block);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke_27(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) accepted])
   {
     [*(a1 + 40) setState:4];
@@ -1776,9 +1752,9 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 48);
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Client rejected reset session restart: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Client rejected reset session restart: %@", &v7, 0xCu);
     }
   }
 
@@ -1786,13 +1762,11 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) wrappedUserContext];
   (*(v4 + 16))(v4, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke_28(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -1808,9 +1782,9 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   Current = CFAbsoluteTimeGetCurrent();
   v4 = [*(a1 + 40) delegate];
   v5 = *(a1 + 40);
-  v23 = 0;
-  v6 = [v4 syncSession:v5 rollbackChangesWithError:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [v4 syncSession:v5 rollbackChangesWithError:&v22];
+  v7 = v22;
   [*(a1 + 32) setAccepted:v6];
 
   if (_sync_log_facilities_pred != -1)
@@ -1824,7 +1798,7 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
     v9 = v8;
     v10 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v25 = v10 - Current;
+    v24 = v10 - Current;
     _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_INFO, "Delegate callout complete after %.02f seconds: -syncSession:rollbackChangesWithError: (restart session)", buf, 0xCu);
   }
 
@@ -1842,19 +1816,17 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
   v15 = *(a1 + 48);
-  v19 = v13;
-  v20 = v14;
-  v21 = v7;
-  v22 = v15;
+  v18 = v13;
+  v19 = v14;
+  v20 = v7;
+  v21 = v15;
   v16 = v7;
   dispatch_async(v12, block);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SYReceivingSession__handleRestartSession_response_completion___block_invoke_29(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) accepted])
   {
     [*(a1 + 40) setState:4];
@@ -1871,9 +1843,9 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 48);
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Client rejected delta session rollback: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "Client rejected delta session rollback: %@", &v7, 0xCu);
     }
   }
 
@@ -1881,8 +1853,6 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) wrappedUserContext];
   (*(v4 + 16))(v4, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEndSession:(id)session response:(id)response completion:(id)completion
@@ -1915,13 +1885,13 @@ void __64__SYReceivingSession__handleRestartSession_response_completion___block_
 
 void __60__SYReceivingSession__handleEndSession_response_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v36[0] = &v35;
-  v36[1] = 0x3032000000;
-  v36[2] = __Block_byref_object_copy__11;
-  v36[3] = __Block_byref_object_dispose__11;
-  v37 = 0;
+  v39 = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  v35[0] = &v34;
+  v35[1] = 0x3032000000;
+  v35[2] = __Block_byref_object_copy__11;
+  v35[3] = __Block_byref_object_dispose__11;
+  v36 = 0;
   if ([*(a1 + 32) hasRollback] && objc_msgSend(*(a1 + 32), "rollback"))
   {
     if ([*(a1 + 40) canRollback])
@@ -1933,20 +1903,20 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
       block[3] = &unk_1E86CB0E0;
       v3 = *(a1 + 48);
       v4 = *(a1 + 40);
-      v32 = v3;
-      v33 = v4;
-      v34 = &v35;
+      v31 = v3;
+      v32 = v4;
+      v33 = &v34;
       dispatch_sync(v2, block);
 
-      v5 = v32;
+      v5 = v31;
     }
 
     else
     {
       [*(a1 + 48) setDidRollback:0];
       v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2008 userInfo:0];
-      v5 = *(v36[0] + 40);
-      *(v36[0] + 40) = v13;
+      v5 = *(v35[0] + 40);
+      *(v35[0] + 40) = v13;
     }
 
     v14 = [*(a1 + 48) error];
@@ -1962,9 +1932,9 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
       v10 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(v36[0] + 40);
+        v16 = *(v35[0] + 40);
         *buf = 138412290;
-        v39 = v16;
+        v38 = v16;
         v12 = "Error rolling back at end session: %@";
         goto LABEL_16;
       }
@@ -1976,8 +1946,8 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
     v6 = MEMORY[0x1E696ABC0];
     v7 = [*(a1 + 32) error];
     v8 = [v6 errorFromSYErrorInfo:v7];
-    v9 = *(v36[0] + 40);
-    *(v36[0] + 40) = v8;
+    v9 = *(v35[0] + 40);
+    *(v35[0] + 40) = v8;
 
     if (_sync_log_facilities_pred != -1)
     {
@@ -1987,20 +1957,20 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
     v10 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(v36[0] + 40);
+      v11 = *(v35[0] + 40);
       *buf = 138412290;
-      v39 = v11;
+      v38 = v11;
       v12 = "Ending session with error from Master: %@";
 LABEL_16:
       _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
     }
   }
 
-  if (!*(v36[0] + 40) && [*(a1 + 40) _isMissingSyncBatches])
+  if (!*(v35[0] + 40) && [*(a1 + 40) _isMissingSyncBatches])
   {
     v17 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2012 userInfo:0];
-    v18 = *(v36[0] + 40);
-    *(v36[0] + 40) = v17;
+    v18 = *(v35[0] + 40);
+    *(v35[0] + 40) = v17;
 
     if (_sync_log_facilities_pred != -1)
     {
@@ -2010,17 +1980,17 @@ LABEL_16:
     v19 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, 0x90u))
     {
-      __60__SYReceivingSession__handleEndSession_response_completion___block_invoke_cold_4(v36, v19);
+      __60__SYReceivingSession__handleEndSession_response_completion___block_invoke_cold_4(v35, v19);
     }
   }
 
-  v20 = *(v36[0] + 40);
+  v20 = *(v35[0] + 40);
   if (v20)
   {
     v21 = [v20 domain];
     if ([v21 isEqualToString:@"SYErrorDomain"])
     {
-      v22 = [*(v36[0] + 40) code] == -128;
+      v22 = [*(v35[0] + 40) code] == -128;
 
       if (v22)
       {
@@ -2036,7 +2006,7 @@ LABEL_16:
     }
 
     v23 = (a1 + 40);
-    [*(a1 + 40) setError:*(v36[0] + 40)];
+    [*(a1 + 40) setError:*(v35[0] + 40)];
     v24 = 5;
   }
 
@@ -2048,10 +2018,10 @@ LABEL_16:
 
 LABEL_30:
   [*v23 setState:v24];
-  if (*(v36[0] + 40))
+  if (*(v35[0] + 40))
   {
     v25 = [SYErrorInfo alloc];
-    v26 = [(SYErrorInfo *)v25 initWithError:*(v36[0] + 40)];
+    v26 = [(SYErrorInfo *)v25 initWithError:*(v35[0] + 40)];
     [*(a1 + 48) setError:v26];
   }
 
@@ -2060,13 +2030,12 @@ LABEL_30:
   v29 = [*(a1 + 40) wrappedUserContext];
   (*(v27 + 16))(v27, v28, v29);
 
-  _Block_object_dispose(&v35, 8);
-  v30 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v34, 8);
 }
 
 void __60__SYReceivingSession__handleEndSession_response_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -2082,10 +2051,10 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
   Current = CFAbsoluteTimeGetCurrent();
   v4 = [*(a1 + 40) delegate];
   v5 = *(a1 + 40);
-  v13 = 0;
-  v6 = [v4 syncSession:v5 rollbackChangesWithError:&v13];
-  v7 = v13;
-  v8 = v13;
+  v12 = 0;
+  v6 = [v4 syncSession:v5 rollbackChangesWithError:&v12];
+  v7 = v12;
+  v8 = v12;
   [*(a1 + 32) setDidRollback:v6];
 
   if (_sync_log_facilities_pred != -1)
@@ -2099,7 +2068,7 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
     v10 = v9;
     v11 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v15 = v11 - Current;
+    v14 = v11 - Current;
     _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_INFO, "Delegate callout complete after %.02f seconds: -syncSession:rollbackChangesWithError: (session end)", buf, 0xCu);
   }
 
@@ -2107,8 +2076,6 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
   {
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continue
@@ -2164,24 +2131,21 @@ void __60__SYReceivingSession__handleEndSession_response_completion___block_invo
 
 void __59__SYReceivingSession__handleSyncBatch_response_completion___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = a2;
-  v5 = 134217984;
-  v6 = [v2 index];
-  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "Processing incoming batch %llu", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134217984;
+  v5 = [v2 index];
+  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "Processing incoming batch %llu", &v4, 0xCu);
 }
 
 void __60__SYReceivingSession__handleEndSession_response_completion___block_invoke_cold_4(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "End session arrived and I have missing sync batches: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DF835000, a2, 0x90u, "End session arrived and I have missing sync batches: %@", &v3, 0xCu);
 }
 
 @end

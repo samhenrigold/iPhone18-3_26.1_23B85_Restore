@@ -13,7 +13,7 @@
   v5 = sub_1B77FF5B8();
   v7 = v6;
 
-  v8 = sub_1B738EC58();
+  v8 = sub_1B738EC58(v5, v7);
   sub_1B720A388(v5, v7);
   return v8;
 }
@@ -38,7 +38,7 @@
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB994C70);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB994C70, &qword_1B7809800);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - v8;
   sub_1B77FF478();

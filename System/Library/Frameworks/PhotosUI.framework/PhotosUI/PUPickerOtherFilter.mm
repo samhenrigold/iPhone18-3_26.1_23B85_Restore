@@ -55,7 +55,7 @@
 
 - (id)generatedAssetPredicate
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerOtherFilter *)self filterType];
   if (filterType == 1)
   {
@@ -71,38 +71,34 @@
   {
     v3 = MEMORY[0x1E696AB28];
     v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K < %f", @"stickerConfidenceScore", 0];
-    v12[0] = v4;
+    v11[0] = v4;
     v5 = MEMORY[0x1E696AE18];
     PLStickerSuggestionConfidenceThreshold();
     v7 = [v5 predicateWithFormat:@"%K > %f", @"stickerConfidenceScore", v6];
-    v12[1] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[1] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v9 = [v3 orPredicateWithSubpredicates:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BOOL)isValidFilter
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerOtherFilter *)self filterType];
   if (filterType >= 2)
   {
     v3 = PLPickerGetLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 134217984;
-      v7 = filterType;
-      _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "PUPickerOtherFilter: invalid filter type: %ld", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = filterType;
+      _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "PUPickerOtherFilter: invalid filter type: %ld", &v5, 0xCu);
     }
   }
 
-  result = filterType < 2;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return filterType < 2;
 }
 
 - (BOOL)isEqual:(id)equal

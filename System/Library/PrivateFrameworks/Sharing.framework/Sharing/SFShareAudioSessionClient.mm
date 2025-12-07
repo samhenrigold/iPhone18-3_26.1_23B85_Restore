@@ -7,6 +7,7 @@
 - (void)_invalidated;
 - (void)activate;
 - (void)invalidate;
+- (void)shareAudioProgressEvent:(int)event info:(id)info;
 - (void)userConfirmed;
 @end
 
@@ -14,13 +15,29 @@
 
 - (SFShareAudioSessionClient)init
 {
-  v8.receiver = self;
-  v8.super_class = SFShareAudioSessionClient;
-  v2 = [(SFShareAudioSessionClient *)&v8 init];
-  v3 = v2;
+  v7.receiver = self;
+  v7.super_class = SFShareAudioSessionClient;
+  v2 = [(SFShareAudioSessionClient *)&v7 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
+
+    v5 = v2;
+  }
+
+  return v2;
+}
+
+- (SFShareAudioSessionClient)initWithCoder:(id)coder
+{
+  v8.receiver = self;
+  v8.super_class = SFShareAudioSessionClient;
+  v3 = [(SFShareAudioSessionClient *)&v8 init];
+  if (v3)
+  {
+    v4 = SFMainQueue();
     dispatchQueue = v3->_dispatchQueue;
     v3->_dispatchQueue = v4;
 
@@ -28,24 +45,6 @@
   }
 
   return v3;
-}
-
-- (SFShareAudioSessionClient)initWithCoder:(id)coder
-{
-  v9.receiver = self;
-  v9.super_class = SFShareAudioSessionClient;
-  v3 = [(SFShareAudioSessionClient *)&v9 init];
-  v4 = v3;
-  if (v3)
-  {
-    v5 = SFMainQueue(v3);
-    dispatchQueue = v4->_dispatchQueue;
-    v4->_dispatchQueue = v5;
-
-    v7 = v4;
-  }
-
-  return v4;
 }
 
 - (void)activate
@@ -59,13 +58,13 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFShareAudioSessionClient_activate__block_invoke(uint64_t result)
+void *__37__SFShareAudioSessionClient_activate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
-    return [*(result + 32) _activate:0];
+    return [*(result + 4) _activate:0];
   }
 
   return result;
@@ -77,30 +76,32 @@ uint64_t __37__SFShareAudioSessionClient_activate__block_invoke(uint64_t result)
   {
     if (gLogCategory_SFShareAudioSessionClient <= 30 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
     {
-LABEL_10:
-      [SFShareAudioSessionClient _activate:];
+      v5 = "Re-activate\n";
+LABEL_11:
+      [(SFShareAudioSessionClient *)v5 _activate:a2, _activate];
     }
   }
 
   else if (gLogCategory_SFShareAudioSessionClient <= 30 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_10;
+    v5 = "Activate\n";
+    goto LABEL_11;
   }
 
   [(SFShareAudioSessionClient *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __39__SFShareAudioSessionClient__activate___block_invoke;
-  v9[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __39__SFShareAudioSessionClient__activate___block_invoke;
+  v10[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
   _activateCopy = _activate;
-  v6 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v9];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __39__SFShareAudioSessionClient__activate___block_invoke_2;
-  v7[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v7 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v10];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __39__SFShareAudioSessionClient__activate___block_invoke_2;
+  v8[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
   _activateCopy2 = _activate;
-  [v6 shareAudioSessionActivate:self completion:v7];
+  [v7 shareAudioSessionActivate:self completion:v8];
 }
 
 void __39__SFShareAudioSessionClient__activate___block_invoke(uint64_t a1, void *a2)
@@ -110,29 +111,23 @@ void __39__SFShareAudioSessionClient__activate___block_invoke(uint64_t a1, void 
   {
     if (gLogCategory_SFShareAudioSessionClient <= 90)
     {
-      if (gLogCategory_SFShareAudioSessionClient != -1 || (v6 = v3, v4 = _LogCategory_Initialize(), v3 = v6, v4))
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (v7 = v3, v4 = _LogCategory_Initialize(), v3 = v7, v4))
       {
-LABEL_12:
-        v8 = v3;
-        __39__SFShareAudioSessionClient__activate___block_invoke_cold_1();
-        v3 = v8;
+        v5 = "### Re-activate XPC error: %{error}\n";
+LABEL_13:
+        v9 = v3;
+        __39__SFShareAudioSessionClient__activate___block_invoke_cold_1(v5, v3);
+        v3 = v9;
       }
     }
   }
 
   else if (gLogCategory_SFShareAudioSessionClient <= 90)
   {
-    if (gLogCategory_SFShareAudioSessionClient != -1)
+    if (gLogCategory_SFShareAudioSessionClient != -1 || (v8 = v3, v6 = _LogCategory_Initialize(), v3 = v8, v6))
     {
-      goto LABEL_12;
-    }
-
-    v7 = v3;
-    v5 = _LogCategory_Initialize();
-    v3 = v7;
-    if (v5)
-    {
-      goto LABEL_12;
+      v5 = "### Activate XPC error: %{error}\n";
+      goto LABEL_13;
     }
   }
 }
@@ -140,30 +135,29 @@ LABEL_12:
 void __39__SFShareAudioSessionClient__activate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
-  v5 = *(a1 + 32);
+  v5 = v3;
   if (v3)
   {
     if (*(a1 + 32))
     {
       if (gLogCategory_SFShareAudioSessionClient <= 90)
       {
-        v10 = v3;
-        if (gLogCategory_SFShareAudioSessionClient != -1 || (v6 = _LogCategory_Initialize(), v4 = v10, v6))
+        v8 = v3;
+        if (gLogCategory_SFShareAudioSessionClient != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
         {
-          __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_2();
+          __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_2(v5);
 LABEL_20:
-          v4 = v10;
+          v5 = v8;
         }
       }
     }
 
     else if (gLogCategory_SFShareAudioSessionClient <= 90)
     {
-      v10 = v3;
-      if (gLogCategory_SFShareAudioSessionClient != -1 || (v8 = _LogCategory_Initialize(), v4 = v10, v8))
+      v8 = v3;
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (v7 = _LogCategory_Initialize(), v5 = v8, v7))
       {
-        __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_1();
+        __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_1(v5);
         goto LABEL_20;
       }
     }
@@ -173,10 +167,10 @@ LABEL_20:
   {
     if (gLogCategory_SFShareAudioSessionClient <= 30)
     {
-      v10 = 0;
-      if (gLogCategory_SFShareAudioSessionClient != -1 || (v7 = _LogCategory_Initialize(), v4 = 0, v7))
+      v8 = 0;
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_4();
+        __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_4(v3, v5, v4);
         goto LABEL_20;
       }
     }
@@ -184,10 +178,10 @@ LABEL_20:
 
   else if (gLogCategory_SFShareAudioSessionClient <= 30)
   {
-    v10 = 0;
-    if (gLogCategory_SFShareAudioSessionClient != -1 || (v9 = _LogCategory_Initialize(), v4 = 0, v9))
+    v8 = 0;
+    if (gLogCategory_SFShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_3();
+      __39__SFShareAudioSessionClient__activate___block_invoke_2_cold_3(v3, v5, v4);
       goto LABEL_20;
     }
   }
@@ -256,22 +250,26 @@ uint64_t __46__SFShareAudioSessionClient__ensureXPCStarted__block_invoke_2(uint6
 
 - (void)_interrupted
 {
-  if (gLogCategory_SFShareAudioSessionClient <= 50 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFShareAudioSessionClient <= 50)
   {
-    [SFShareAudioSessionClient _interrupted];
+    if (gLogCategory_SFShareAudioSessionClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFShareAudioSessionClient *)self _interrupted];
+    }
   }
 
-  v3 = _Block_copy(self->_progressHandler);
-  v4 = v3;
-  if (v3)
+  v4 = _Block_copy(selfCopy->_progressHandler);
+  v5 = v4;
+  if (v4)
   {
-    (*(v3 + 2))(v3, 30, 0);
+    (*(v4 + 2))(v4, 30, 0);
   }
 
-  if (self->_activateCalled)
+  if (selfCopy->_activateCalled)
   {
 
-    [(SFShareAudioSessionClient *)self _activate:1];
+    [(SFShareAudioSessionClient *)selfCopy _activate:1];
   }
 }
 
@@ -286,23 +284,26 @@ uint64_t __46__SFShareAudioSessionClient__ensureXPCStarted__block_invoke_2(uint6
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__SFShareAudioSessionClient_invalidate__block_invoke(uint64_t result)
+void *__39__SFShareAudioSessionClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 9) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 9) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 9) = 1;
-    if (gLogCategory_SFShareAudioSessionClient <= 30 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 9) = 1;
+    if (gLogCategory_SFShareAudioSessionClient <= 30)
     {
-      __39__SFShareAudioSessionClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __39__SFShareAudioSessionClient_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(*(v6 + 32) + 16) invalidate];
-    v7 = *(v6 + 32);
+    [*(v8[4] + 16) invalidate];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -313,18 +314,21 @@ uint64_t __39__SFShareAudioSessionClient_invalidate__block_invoke(uint64_t resul
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFShareAudioSessionClient <= 50 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFShareAudioSessionClient <= 50)
     {
-      [SFShareAudioSessionClient _invalidated];
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFShareAudioSessionClient *)v3 _invalidated];
+      }
     }
 
     if (!self->_xpcCnx)
     {
-      v3 = _Block_copy(self->_progressHandler);
-      v4 = v3;
-      if (v3)
+      v6 = _Block_copy(self->_progressHandler);
+      v7 = v6;
+      if (v6)
       {
-        (*(v3 + 2))(v3, 20, 0);
+        (*(v6 + 2))(v6, 20, 0);
       }
 
       progressHandler = self->_progressHandler;
@@ -350,22 +354,45 @@ uint64_t __39__SFShareAudioSessionClient_invalidate__block_invoke(uint64_t resul
   dispatch_async(dispatchQueue, block);
 }
 
-void __42__SFShareAudioSessionClient_userConfirmed__block_invoke(uint64_t a1)
+void __42__SFShareAudioSessionClient_userConfirmed__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(*(a1 + 32) + 16))
+  v4 = *(*(a1 + 32) + 16);
+  v5 = gLogCategory_SFShareAudioSessionClient;
+  if (v4)
   {
-    if (gLogCategory_SFShareAudioSessionClient <= 30 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFShareAudioSessionClient <= 30)
     {
-      __42__SFShareAudioSessionClient_userConfirmed__block_invoke_cold_1();
+      if (gLogCategory_SFShareAudioSessionClient != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __42__SFShareAudioSessionClient_userConfirmed__block_invoke_cold_1(v5, a2, a3);
+      }
     }
 
-    v2 = [*(*(a1 + 32) + 16) remoteObjectProxy];
-    [v2 shareAudioUserConfirmed];
+    v6 = [*(*(a1 + 32) + 16) remoteObjectProxy];
+    [v6 shareAudioUserConfirmed];
   }
 
   else
   {
     __42__SFShareAudioSessionClient_userConfirmed__block_invoke_cold_2(gLogCategory_SFShareAudioSessionClient);
+  }
+}
+
+- (void)shareAudioProgressEvent:(int)event info:(id)info
+{
+  v4 = *&event;
+  infoCopy = info;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_SFShareAudioSessionClient <= 30 && (gLogCategory_SFShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  {
+    [SFShareAudioSessionClient shareAudioProgressEvent:v4 info:infoCopy];
+  }
+
+  v6 = _Block_copy(self->_progressHandler);
+  v7 = v6;
+  if (v6)
+  {
+    (*(v6 + 2))(v6, v4, infoCopy);
   }
 }
 
@@ -376,11 +403,76 @@ uint64_t __42__SFShareAudioSessionClient_userConfirmed__block_invoke_cold_2(uint
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFShareAudioSessionClient, "[SFShareAudioSessionClient userConfirmed]_block_invoke", 90, "### User confirmed without XPC cnx\n");
     }
   }
 
   return result;
+}
+
+- (uint64_t)shareAudioProgressEvent:(int)a1 info:(__CFString *)a2 .cold.1(int a1, __CFString *a2)
+{
+  if (a1)
+  {
+    switch(a1)
+    {
+      case 10:
+        v4 = "Activated";
+        break;
+      case 20:
+        v4 = "Invalidated";
+        break;
+      case 30:
+        v4 = "Interrupted";
+        break;
+      case 40:
+        v4 = "Succeeded";
+        break;
+      case 50:
+        v4 = "Failed";
+        break;
+      case 100:
+        v4 = "Confirm";
+        break;
+      case 120:
+        v4 = "ShowPairInstructions";
+        break;
+      case 200:
+        v4 = "GuestiOSConnecting";
+        break;
+      case 210:
+        v4 = "GuestiOSAuthenticated";
+        break;
+      case 220:
+        v4 = "GuestiOSWaitingForAccept";
+        break;
+      case 300:
+        v4 = "GuestHeadphonesConnecting";
+        break;
+      case 310:
+        v4 = "GuestHeadphonesConnected";
+        break;
+      case 320:
+        v4 = "GuestHeadphonesWaitForRoute";
+        break;
+      default:
+        v4 = "?";
+        break;
+    }
+  }
+
+  else
+  {
+    v4 = "Invalid";
+  }
+
+  v5 = &stru_1F1D30528;
+  if (a2)
+  {
+    v5 = a2;
+  }
+
+  return LogPrintF(&gLogCategory_SFShareAudioSessionClient, "[SFShareAudioSessionClient shareAudioProgressEvent:info:]", 30, "Progress: %s %##@\n", v4, v5, v2, v3);
 }
 
 @end

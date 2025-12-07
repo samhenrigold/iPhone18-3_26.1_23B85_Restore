@@ -17,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBRunWorkflowIntentResponse *)self hasContinueRunning])
   {
@@ -34,30 +34,30 @@
   if ([(NSArray *)self->_steps count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = self->_steps;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -86,8 +86,6 @@
     v19 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBRunWorkflowIntentResponse waitingForResume](self, "waitingForResume")}];
     [dictionary setObject:v19 forKeyedSubscript:@"waitingForResume"];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -353,50 +351,47 @@ LABEL_31:
 
 - (void)writeTo:(id)to
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBRunWorkflowIntentResponse *)self hasContinueRunning])
   {
-    continueRunning = self->_continueRunning;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRunWorkflowIntentResponse *)self hasRequestsIntentExecution])
   {
-    requestsIntentExecution = self->_requestsIntentExecution;
     PBDataWriterWriteBOOLField();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v7 = self->_steps;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v8)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = self->_steps;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v22;
+    v7 = v6;
+    v8 = *v16;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v16 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        ++v11;
+        ++v9;
       }
 
-      while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
   underlyingIntent = [(_INPBRunWorkflowIntentResponse *)self underlyingIntent];
@@ -419,17 +414,13 @@ LABEL_31:
 
   if (utterance)
   {
-    utterance = self->_utterance;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBRunWorkflowIntentResponse *)self hasWaitingForResume])
   {
-    waitingForResume = self->_waitingForResume;
     PBDataWriterWriteBOOLField();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasWaitingForResume:(BOOL)resume

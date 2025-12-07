@@ -103,52 +103,50 @@
 
 - (void)_buildNextDepth:(id)depth into:(id)into depth:(unsigned int)a5
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   depthCopy = depth;
   intoCopy = into;
   v10 = self->_graph;
   [intoCopy removeAllObjects];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = depthCopy;
-  v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        intValue = [*(*(&v21 + 1) + 8 * v14) intValue];
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __44__VMUDepthGraph__buildNextDepth_into_depth___block_invoke;
-        v18[3] = &unk_1E8278D48;
-        v18[4] = self;
-        v20 = a5;
-        v19 = intoCopy;
-        [(VMUDirectedGraph *)v10 enumerateEdgesOfNode:intValue withBlock:v18];
+        intValue = [*(*(&v20 + 1) + 8 * v14) intValue];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __44__VMUDepthGraph__buildNextDepth_into_depth___block_invoke;
+        v17[3] = &unk_1E8278D48;
+        v17[4] = self;
+        v19 = a5;
+        v18 = intoCopy;
+        [(VMUDirectedGraph *)v10 enumerateEdgesOfNode:intValue withBlock:v17];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __44__VMUDepthGraph__buildNextDepth_into_depth___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

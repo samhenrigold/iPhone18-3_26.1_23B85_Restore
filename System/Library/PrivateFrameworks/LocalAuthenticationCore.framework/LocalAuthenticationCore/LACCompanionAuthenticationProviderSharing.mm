@@ -119,28 +119,26 @@ void __78__LACCompanionAuthenticationProviderSharing_domainStateForRequest_compl
 
 - (id)_domainStateDictionaryForJoinedIDs:(id)ds
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v4 = [ds dataUsingEncoding:4];
   v5 = [LACDomainStateDecorator createHashForDomainState:v4];
-  v18 = @"kLACDomainStateResultKeyAvailableCompanionTypes";
+  v17 = @"kLACDomainStateResultKeyAvailableCompanionTypes";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_companion];
-  v16 = v6;
-  v17 = MEMORY[0x1E695E118];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v15 = v6;
+  v16 = MEMORY[0x1E695E118];
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v9 = [v8 mutableCopy];
 
   if (v5)
   {
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:self->_companion];
-    v14 = v10;
-    v15 = v5;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = v10;
+    v14 = v5;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     [v9 setObject:v11 forKeyedSubscript:@"kLACDomainStateResultKeyCompanionStateHashes"];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

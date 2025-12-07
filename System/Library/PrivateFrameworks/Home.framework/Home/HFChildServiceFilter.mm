@@ -37,27 +37,7 @@
 BOOL __62__HFChildServiceFilter_filteredChildServicesForParentService___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) childServiceTypes];
-  if (!v4)
-  {
-    goto LABEL_3;
-  }
-
-  v5 = v4;
-  v6 = [*(a1 + 32) childServiceTypes];
-  v7 = [v3 serviceType];
-  v8 = [v6 containsObject:v7];
-
-  if (!v8)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-LABEL_3:
-    v9 = [v3 configurationState] != 2;
-  }
+  v9 = (!v4 || (v5 = v4, [*(a1 + 32) childServiceTypes], v6 = v4 = [*(a1 + 32) childServiceTypes];
 
   return v9;
 }

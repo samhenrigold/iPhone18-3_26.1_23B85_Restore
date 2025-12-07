@@ -1,8 +1,18 @@
 @interface objcDiagnosticPatternMatching
 - (objcDiagnosticPatternMatching)initWithSwiftDiagnosticPatternMatching:(id)matching;
+- (objcDiagnosticPatternMatching)initWithType:(int)type;
 @end
 
 @implementation objcDiagnosticPatternMatching
+
+- (objcDiagnosticPatternMatching)initWithType:(int)type
+{
+  v4 = [[_SwiftDiagnosticPatternMatching alloc] initWithType:*&type];
+  swiftDiagnosticPatternMatching = self->_swiftDiagnosticPatternMatching;
+  self->_swiftDiagnosticPatternMatching = v4;
+
+  return self;
+}
 
 - (objcDiagnosticPatternMatching)initWithSwiftDiagnosticPatternMatching:(id)matching
 {

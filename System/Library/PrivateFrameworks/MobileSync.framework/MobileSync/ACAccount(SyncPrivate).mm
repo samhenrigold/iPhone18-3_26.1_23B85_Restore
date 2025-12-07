@@ -1,14 +1,14 @@
 @interface ACAccount(SyncPrivate)
-- (uint64_t)_usernameFromProperties:()SyncPrivate;
 - (uint64_t)applySyncProperties:()SyncPrivate;
-- (uint64_t)isMobileMeAccount;
 - (uint64_t)syncIdentityString;
+- (void)_usernameFromProperties:()SyncPrivate;
+- (void)isMobileMeAccount;
 - (void)setPasswordFromSync:()SyncPrivate;
 @end
 
 @implementation ACAccount(SyncPrivate)
 
-- (uint64_t)isMobileMeAccount
+- (void)isMobileMeAccount
 {
   v2 = [objc_msgSend(self "accountType")];
   result = [v2 isEqualToString:*MEMORY[0x277CB8C68]];
@@ -37,7 +37,7 @@
   return _identityStringWithInfo(v2, username, v4);
 }
 
-- (uint64_t)_usernameFromProperties:()SyncPrivate
+- (void)_usernameFromProperties:()SyncPrivate
 {
   v5 = [a3 objectForKey:@"Username"];
   v6 = [objc_msgSend(self "accountType")];

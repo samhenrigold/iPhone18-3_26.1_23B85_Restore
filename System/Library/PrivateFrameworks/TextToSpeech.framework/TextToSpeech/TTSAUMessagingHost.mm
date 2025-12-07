@@ -11,14 +11,14 @@
 - (TTSAUMessagingHost)initWithMessageChannel:(id)channel
 {
   channelCopy = channel;
-  v13.receiver = self;
-  v13.super_class = TTSAUMessagingHost;
-  v6 = [(TTSAUMessagingHost *)&v13 init];
+  v9.receiver = self;
+  v9.super_class = TTSAUMessagingHost;
+  v6 = [(TTSAUMessagingHost *)&v9 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_channel, channel);
-    objc_msgSend__loadProtocolMethods(v7, v8, v9, v10, v11);
+    [(TTSAUMessagingHost *)v7 _loadProtocolMethods];
   }
 
   return v7;
@@ -27,72 +27,67 @@
 - (void)forwardInvocation:(id)invocation
 {
   invocationCopy = invocation;
-  objc_msgSend_retainArguments(invocationCopy, v5, v6, v7, v8);
-  v13 = objc_msgSend_array(MEMORY[0x1E695DF70], v9, v10, v11, v12);
-  v18 = objc_msgSend_methodSignature(invocationCopy, v14, v15, v16, v17);
-  v23 = objc_msgSend_numberOfArguments(v18, v19, v20, v21, v22);
+  [invocationCopy retainArguments];
+  array = [MEMORY[0x1E695DF70] array];
+  methodSignature = [invocationCopy methodSignature];
+  numberOfArguments = [methodSignature numberOfArguments];
 
-  if (v23 >= 3)
+  if (numberOfArguments >= 3)
   {
-    v28 = objc_msgSend_methodSignature(invocationCopy, v24, v25, v26, v27);
-    v33 = objc_msgSend_numberOfArguments(v28, v29, v30, v31, v32);
+    methodSignature2 = [invocationCopy methodSignature];
+    numberOfArguments2 = [methodSignature2 numberOfArguments];
 
-    if (v33 >= 3)
+    if (numberOfArguments2 >= 3)
     {
-      v34 = 2;
+      v10 = 2;
       do
       {
-        v35 = objc_msgSend_methodSignature(invocationCopy, v24, v25, v26, v27);
-        v36 = v35;
-        ArgumentTypeAtIndex = objc_msgSend_getArgumentTypeAtIndex_(v36, v37, v34, v38, v39);
+        methodSignature3 = [invocationCopy methodSignature];
+        v12 = [methodSignature3 getArgumentTypeAtIndex:v10];
 
-        if (*ArgumentTypeAtIndex == 64 && !ArgumentTypeAtIndex[1])
+        if (*v12 == 64 && !v12[1])
         {
-          v80 = 0;
-          objc_msgSend_getArgument_atIndex_(invocationCopy, v41, &v80, v34, v44);
-          objc_msgSend_addObject_(v13, v45, v80, v46, v47);
+          v19 = 0;
+          [invocationCopy getArgument:&v19 atIndex:v10];
+          [array addObject:v19];
         }
 
-        ++v34;
-        v48 = objc_msgSend_methodSignature(invocationCopy, v41, v42, v43, v44);
-        v53 = objc_msgSend_numberOfArguments(v48, v49, v50, v51, v52);
+        ++v10;
+        methodSignature4 = [invocationCopy methodSignature];
+        numberOfArguments3 = [methodSignature4 numberOfArguments];
       }
 
-      while (v34 < v53);
+      while (v10 < numberOfArguments3);
     }
   }
 
-  v54 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v24, v25, v26, v27);
-  v59 = objc_msgSend_selector(invocationCopy, v55, v56, v57, v58);
-  v60 = NSStringFromSelector(v59);
-  objc_msgSend_setObject_forKeyedSubscript_(v54, v61, v60, @"TTSMessageChannelMessageSelectorKey", v62);
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v16 = NSStringFromSelector([invocationCopy selector]);
+  [dictionary setObject:v16 forKeyedSubscript:@"TTSMessageChannelMessageSelectorKey"];
 
-  objc_msgSend_setObject_forKeyedSubscript_(v54, v63, v13, @"TTSMessageChannelMessageArgumentsKey", v64);
-  v69 = objc_msgSend_channel(self, v65, v66, v67, v68);
-  v73 = objc_msgSend_callAudioUnit_(v69, v70, v54, v71, v72);
+  [dictionary setObject:array forKeyedSubscript:@"TTSMessageChannelMessageArgumentsKey"];
+  channel = [(TTSAUMessagingHost *)self channel];
+  v18 = [channel callAudioUnit:dictionary];
 
-  v80 = objc_msgSend_objectForKeyedSubscript_(v73, v74, @"TTSMessageChannelMessageReturnValueKey", v75, v76);
-  if (v80)
+  v19 = [v18 objectForKeyedSubscript:@"TTSMessageChannelMessageReturnValueKey"];
+  if (v19)
   {
-    objc_msgSend_setReturnValue_(invocationCopy, v77, &v80, v78, v79);
+    [invocationCopy setReturnValue:&v19];
   }
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
   v4 = NSStringFromSelector(selector);
-  v9 = objc_msgSend_methods(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_objectForKey_(v9, v10, v4, v11, v12);
+  methods = [(TTSAUMessagingHost *)self methods];
+  v6 = [methods objectForKey:v4];
 
-  return v13;
+  return v6;
 }
 
 - (void)_loadProtocolMethods
 {
-  v3 = objc_opt_class();
-  v8 = objc_msgSend__validSelectorsForProtocol(v3, v4, v5, v6, v7);
-  methods = self->_methods;
-  self->_methods = v8;
+  self->_methods = [objc_opt_class() _validSelectorsForProtocol];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -102,28 +97,28 @@
   outCount = 0;
   v2 = &unk_1F1D143F8;
   v3 = protocol_copyMethodDescriptionList(v2, 1, 1, &outCount);
-  v11 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v4, v5, v6, v7);
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (outCount)
   {
-    v12 = 0;
+    v5 = 0;
     p_types = &v3->types;
     do
     {
-      v14 = *(p_types - 1);
-      v15 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x1E695DF68], v8, *p_types, v9, v10);
-      v16 = NSStringFromSelector(v14);
-      objc_msgSend_setObject_forKeyedSubscript_(v11, v17, v15, v16, v18);
+      v7 = *(p_types - 1);
+      v8 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:*p_types];
+      v9 = NSStringFromSelector(v7);
+      [dictionary setObject:v8 forKeyedSubscript:v9];
 
-      ++v12;
+      ++v5;
       p_types += 2;
     }
 
-    while (v12 < outCount);
+    while (v5 < outCount);
   }
 
   free(v3);
 
-  return v11;
+  return dictionary;
 }
 
 @end

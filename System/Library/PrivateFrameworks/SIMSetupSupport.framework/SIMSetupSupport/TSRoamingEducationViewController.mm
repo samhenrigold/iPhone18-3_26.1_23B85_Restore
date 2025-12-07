@@ -124,15 +124,16 @@
   }
 
   client = self->_client;
-  v11 = 0;
-  v8 = [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:v5 error:&v11];
-  v9 = v11;
+  v12 = 0;
+  v8 = [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:v5 error:&v12];
+  v9 = v12;
+  v10 = v9;
   if ((v8 & 1) == 0)
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _TSLogDomain(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(TSRoamingEducationViewController *)v9 _sendTravelEventMetricForRoaming:v10];
+      [(TSRoamingEducationViewController *)v10 _sendTravelEventMetricForRoaming:v11];
     }
   }
 }
@@ -146,13 +147,12 @@
 
 - (void)_sendTravelEventMetricForRoaming:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSRoamingEducationViewController _sendTravelEventMetricForRoaming:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for roaming education [%@] @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSRoamingEducationViewController _sendTravelEventMetricForRoaming:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for roaming education [%@] @%s", &v2, 0x16u);
 }
 
 @end

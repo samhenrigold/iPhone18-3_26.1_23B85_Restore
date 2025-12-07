@@ -93,15 +93,15 @@
 
 - (id)_initializeRegexPatterns
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_intlPatternKey];
-  v73 = v4;
+  v72 = v4;
   if (v4)
   {
-    v85 = 0;
-    v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v4 options:0 error:&v85];
-    v6 = v85;
+    v84 = 0;
+    v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v4 options:0 error:&v84];
+    v6 = v84;
     v7 = v6;
     if (v5)
     {
@@ -115,7 +115,7 @@
       {
         localizedDescription = [v7 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription;
+        v86 = localizedDescription;
         _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Error initializing INTL regex pattern: %@", buf, 0xCu);
       }
 
@@ -129,12 +129,12 @@
   }
 
   v10 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_rbsHeaderPatternKey];
-  v72 = v10;
+  v71 = v10;
   if (v10)
   {
-    v84 = v7;
-    v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v10 options:0 error:&v84];
-    v12 = v84;
+    v83 = v7;
+    v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v10 options:0 error:&v83];
+    v12 = v83;
 
     if (v11)
     {
@@ -148,7 +148,7 @@
       {
         localizedDescription2 = [v12 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription2;
+        v86 = localizedDescription2;
         _os_log_impl(&dword_226DD4000, v13, OS_LOG_TYPE_ERROR, "Error initializing RBS Header regex pattern: %@", buf, 0xCu);
       }
 
@@ -159,12 +159,12 @@
   }
 
   v15 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_twoCommaPatternKey];
-  v71 = v15;
+  v70 = v15;
   if (v15)
   {
-    v83 = v7;
-    v16 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v15 options:0 error:&v83];
-    v17 = v83;
+    v82 = v7;
+    v16 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v15 options:0 error:&v82];
+    v17 = v82;
 
     if (v16)
     {
@@ -178,7 +178,7 @@
       {
         localizedDescription3 = [v17 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription3;
+        v86 = localizedDescription3;
         _os_log_impl(&dword_226DD4000, v18, OS_LOG_TYPE_ERROR, "Error initializing Two Comma regex pattern: %@", buf, 0xCu);
       }
 
@@ -189,12 +189,12 @@
   }
 
   v20 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_threeCommaPatternKey];
-  v70 = v20;
+  v69 = v20;
   if (v20)
   {
-    v82 = v7;
-    v21 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v20 options:0 error:&v82];
-    v22 = v82;
+    v81 = v7;
+    v21 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v20 options:0 error:&v81];
+    v22 = v81;
 
     if (v21)
     {
@@ -208,7 +208,7 @@
       {
         localizedDescription4 = [v22 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription4;
+        v86 = localizedDescription4;
         _os_log_impl(&dword_226DD4000, v23, OS_LOG_TYPE_ERROR, "Error initializing Three Comma regex pattern: %@", buf, 0xCu);
       }
 
@@ -219,12 +219,12 @@
   }
 
   v25 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_rbsDatePatternKey];
-  v69 = v25;
+  v68 = v25;
   if (v25)
   {
-    v81 = v7;
-    v26 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v25 options:0 error:&v81];
-    v27 = v81;
+    v80 = v7;
+    v26 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v25 options:0 error:&v80];
+    v27 = v80;
 
     if (v26)
     {
@@ -238,7 +238,7 @@
       {
         localizedDescription5 = [v27 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription5;
+        v86 = localizedDescription5;
         _os_log_impl(&dword_226DD4000, v28, OS_LOG_TYPE_ERROR, "Error initializing RBS Date regex pattern: %@", buf, 0xCu);
       }
 
@@ -249,12 +249,12 @@
   }
 
   v30 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_fpPatternKey];
-  v68 = v30;
+  v67 = v30;
   if (v30)
   {
-    v80 = v7;
-    v31 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v30 options:0 error:&v80];
-    v32 = v80;
+    v79 = v7;
+    v31 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v30 options:0 error:&v79];
+    v32 = v79;
 
     if (v31)
     {
@@ -268,7 +268,7 @@
       {
         localizedDescription6 = [v32 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription6;
+        v86 = localizedDescription6;
         _os_log_impl(&dword_226DD4000, v33, OS_LOG_TYPE_ERROR, "Error initializing FP regex pattern: %@", buf, 0xCu);
       }
 
@@ -279,12 +279,12 @@
   }
 
   v35 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_paypalPatternKey];
-  v67 = v35;
+  v66 = v35;
   if (v35)
   {
-    v79 = v7;
-    v36 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v35 options:0 error:&v79];
-    v37 = v79;
+    v78 = v7;
+    v36 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v35 options:0 error:&v78];
+    v37 = v78;
 
     if (v36)
     {
@@ -298,7 +298,7 @@
       {
         localizedDescription7 = [v37 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription7;
+        v86 = localizedDescription7;
         _os_log_impl(&dword_226DD4000, v38, OS_LOG_TYPE_ERROR, "Error initializing PayPal regex pattern: %@", buf, 0xCu);
       }
 
@@ -311,9 +311,9 @@
   v40 = [(NSDictionary *)self->_generalRegexPatterns objectForKey:self->_aspspPatternKey];
   if (v40)
   {
-    v78 = v7;
-    v41 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v40 options:0 error:&v78];
-    v42 = v78;
+    v77 = v7;
+    v41 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v40 options:0 error:&v77];
+    v42 = v77;
 
     if (v41)
     {
@@ -327,7 +327,7 @@
       {
         localizedDescription8 = [v42 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription8;
+        v86 = localizedDescription8;
         _os_log_impl(&dword_226DD4000, v43, OS_LOG_TYPE_ERROR, "Error initializing ASPSP regex pattern: %@", buf, 0xCu);
       }
 
@@ -340,9 +340,9 @@
   v45 = [(NSDictionary *)self->_serviceMatchPatterns objectForKey:self->_grouperKey];
   if (v45)
   {
-    v77 = v7;
-    v46 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v45 options:1 error:&v77];
-    v47 = v77;
+    v76 = v7;
+    v46 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v45 options:1 error:&v76];
+    v47 = v76;
 
     if (v46)
     {
@@ -356,7 +356,7 @@
       {
         localizedDescription9 = [v47 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription9;
+        v86 = localizedDescription9;
         _os_log_impl(&dword_226DD4000, v48, OS_LOG_TYPE_ERROR, "Error initializing Service Match regex pattern: %@", buf, 0xCu);
       }
 
@@ -369,9 +369,9 @@
   v50 = [(NSDictionary *)self->_serviceRemovePatterns objectForKey:self->_grouperKey];
   if (v50)
   {
-    v76 = v7;
-    v51 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v50 options:1 error:&v76];
-    v52 = v76;
+    v75 = v7;
+    v51 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v50 options:1 error:&v75];
+    v52 = v75;
 
     if (v51)
     {
@@ -385,7 +385,7 @@
       {
         localizedDescription10 = [v52 localizedDescription];
         *buf = 138412290;
-        v87 = localizedDescription10;
+        v86 = localizedDescription10;
         _os_log_impl(&dword_226DD4000, v53, OS_LOG_TYPE_ERROR, "Error initializing Service Remove regex pattern: %@", buf, 0xCu);
       }
 
@@ -398,9 +398,9 @@
   v55 = [(NSDictionary *)self->_topMerchantPatterns objectForKey:self->_topMerchantMatchPatternsKey];
   if (v55)
   {
-    v75 = v7;
-    v56 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v55 options:1 error:&v75];
-    v57 = v75;
+    v74 = v7;
+    v56 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v55 options:1 error:&v74];
+    v57 = v74;
 
     [v3 setObject:v56 forKey:self->_topMerchantMatchPatternsKey];
     v7 = v56;
@@ -416,7 +416,7 @@ LABEL_88:
     {
       localizedDescription11 = [v7 localizedDescription];
       *buf = 138412290;
-      v87 = localizedDescription11;
+      v86 = localizedDescription11;
       _os_log_impl(&dword_226DD4000, v58, OS_LOG_TYPE_ERROR, "Error creating top merchant match regex: %@", buf, 0xCu);
     }
 
@@ -429,9 +429,9 @@ LABEL_89:
   v60 = [(NSDictionary *)self->_topMerchantPatterns objectForKey:self->_topMerchantHomogenizeKey];
   if (v60)
   {
-    v74 = v57;
-    v61 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v60 options:1 error:&v74];
-    v62 = v74;
+    v73 = v57;
+    v61 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v60 options:1 error:&v73];
+    v62 = v73;
 
     if (v61)
     {
@@ -451,7 +451,7 @@ LABEL_89:
     {
       localizedDescription12 = [v57 localizedDescription];
       *buf = 138412290;
-      v87 = localizedDescription12;
+      v86 = localizedDescription12;
       _os_log_impl(&dword_226DD4000, v61, OS_LOG_TYPE_ERROR, "Error creating homogenize regex: %@", buf, 0xCu);
     }
 
@@ -461,51 +461,49 @@ LABEL_89:
 LABEL_97:
   v64 = [v3 copy];
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return v64;
 }
 
 - (id)cleanDescriptionForTransaction:(id)transaction
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if ([transactionCopy accountType] == 4)
   {
     v5 = dispatch_get_global_queue(0, 0);
     v6 = dispatch_group_create();
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
-    v30 = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__3;
-    v25 = __Block_byref_object_dispose__3;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__3;
+    v24 = __Block_byref_object_dispose__3;
+    v25 = 0;
     dispatch_group_enter(v6);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __66__FHBankConnectDescriptionCleaner_cleanDescriptionForTransaction___block_invoke;
     block[3] = &unk_2785CC6D0;
-    v19 = &v21;
+    v18 = &v20;
     block[4] = self;
     v7 = transactionCopy;
-    v17 = v7;
-    v20 = &v27;
+    v16 = v7;
+    v19 = &v26;
     v8 = v6;
-    v18 = v8;
+    v17 = v8;
     dispatch_async(v5, block);
     v9 = dispatch_time(0, (25.0 * 1000000.0));
-    if (dispatch_group_wait(v8, v9) || *(v28 + 24) != 1)
+    if (dispatch_group_wait(v8, v9) || *(v27 + 24) != 1)
     {
       v12 = FinHealthLogObject(@"FinHealthCore");
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         identifier = [v7 identifier];
         *buf = 138412290;
-        v32 = identifier;
+        v31 = identifier;
         _os_log_impl(&dword_226DD4000, v12, OS_LOG_TYPE_ERROR, "Error - Timed out cleaning transaction description with ID: %@", buf, 0xCu);
       }
 
@@ -514,21 +512,19 @@ LABEL_97:
 
     else
     {
-      v10 = v22[5];
+      v10 = v21[5];
     }
 
     transactionDescription = v10;
 
-    _Block_object_dispose(&v21, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
     transactionDescription = [transactionCopy transactionDescription];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return transactionDescription;
 }

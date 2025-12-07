@@ -18,15 +18,16 @@
   v5 = sub_1C754DD2C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1C755068C();
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_1C755068C();
+  v11 = v10;
   selfCopy = self;
-  sub_1C6F85DE8();
+  sub_1C6F85DE8(v9, v11);
 
-  v10 = sub_1C754DC8C();
+  v13 = sub_1C754DC8C();
   (*(v6 + 8))(v8, v5);
 
-  return v10;
+  return v13;
 }
 
 @end

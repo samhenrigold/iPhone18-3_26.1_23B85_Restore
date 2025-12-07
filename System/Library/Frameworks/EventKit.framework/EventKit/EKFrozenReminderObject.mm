@@ -207,25 +207,22 @@ LABEL_12:
 
 - (void)_applyChangesToSaveRequest:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "_applyChangesToSaveRequest:error: called on a class (%{public}@) that doesn't provide an implementation.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "_applyChangesToSaveRequest:error: called on a class (%{public}@) that doesn't provide an implementation.", &v5, 0xCu);
 }
 
 - (void)updateParentToCommitSelf:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "This object doesn't know how to update its parent. self=%@, parent=%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "This object doesn't know how to update its parent. self=%@, parent=%@", &v3, 0x16u);
 }
 
 @end

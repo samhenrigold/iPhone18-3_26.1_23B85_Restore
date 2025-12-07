@@ -42,10 +42,9 @@
     v7 = @"YES";
   }
 
-  wordListIdentifier = self->_wordListIdentifier;
-  v9 = [v3 stringWithFormat:@"<%@: %p word = %@; sensitive = %@; wordListIdentifier = %@; guessesRequired = %lu>", v5, self, self->_word, v7, wordListIdentifier, self->_guessesRequired];;
+  v8 = [v3 stringWithFormat:@"<%@: %p word = %@; sensitive = %@; wordListIdentifier = %@; guessesRequired = %lu>", v5, self, self->_word, v7, self->_wordListIdentifier, self->_guessesRequired];;
 
-  return v9;
+  return v8;
 }
 
 @end

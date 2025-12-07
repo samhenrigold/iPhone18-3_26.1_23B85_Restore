@@ -26,7 +26,7 @@
   sub_3A7F8();
   v4[2] = self;
   selfCopy = self;
-  sub_2F638(sub_30D0C, v4);
+  sub_2F638(sub_30D0C, v4, "MobileStoreSettings/AppStoreSystemPolicyViewModel.swift", 55, 2u, 89);
 }
 
 - (void)showController:(id)controller animate:(BOOL)animate
@@ -35,7 +35,7 @@
   v7[2] = controller;
   animateCopy = animate;
   controllerCopy = controller;
-  sub_2F638(sub_30568, v7);
+  sub_2F638(sub_30568, v7, "MobileStoreSettings/AppStoreSystemPolicyViewModel.swift", 55, 2u, 95);
 }
 
 @end

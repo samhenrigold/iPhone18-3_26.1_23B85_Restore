@@ -2741,7 +2741,7 @@ uint64_t __67__PUPhotoEditPortraitToolController__updateToolVisibilityAnimated__
       v54 = self->_lightingContainer;
       if (v54)
       {
-        [(UIView *)v54 transform];
+        objc_msgSend_transform(v54);
       }
 
       else

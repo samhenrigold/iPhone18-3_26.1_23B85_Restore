@@ -242,9 +242,9 @@ LABEL_21:
         {
           v31 = [CCToolKitToolDisplayRepresentation alloc];
           v32 = CCPBReaderReadDataNoCopy();
-          v45 = 0;
-          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v45];
-          v10 = v45;
+          v43 = 0;
+          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v43];
+          v10 = v43;
           displayRepresentation = self->_displayRepresentation;
           self->_displayRepresentation = v33;
         }
@@ -311,7 +311,6 @@ LABEL_34:
 
           v37 = objc_opt_class();
           v32 = NSStringFromClass(v37);
-          v38 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -338,23 +337,22 @@ LABEL_44:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v43 = 1;
+    v41 = 1;
     goto LABEL_48;
   }
 
 LABEL_45:
-  v39 = objc_opt_class();
-  v40 = NSStringFromClass(v39);
-  v41 = *&v6[*v9];
-  v42 = CCInvalidBufferErrorForMessage();
+  v38 = objc_opt_class();
+  v39 = NSStringFromClass(v38);
+  v40 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_46:
-  v43 = 0;
+  v41 = 0;
 LABEL_48:
 
-  return v43;
+  return v41;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValuePlacemark)initWithPlacemark:(id)placemark displayRepresentation:(id)representation type:(unsigned int)type error:(id *)error

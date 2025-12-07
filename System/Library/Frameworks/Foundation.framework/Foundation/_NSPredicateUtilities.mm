@@ -1,7 +1,7 @@
 @interface _NSPredicateUtilities
 + (BOOL)_isReservedWordInParser:(id)parser;
-+ (NSNumber)_convertStringToNumber:(uint64_t)number;
-+ (NSString)_parserableCollectionDescription:(uint64_t)description;
++ (NSDecimalNumber)_convertStringToNumber:(uint64_t)number;
++ (NSMutableString)_parserableCollectionDescription:(uint64_t)description;
 + (NSString)_parserableDateDescription:(uint64_t)description;
 + (NSString)_parserableStringDescription:(uint64_t)description;
 + (id)_compoundPredicateClassesForSecureCoding;
@@ -49,12 +49,12 @@
 + (id)tokenize:(id)tokenize using:(id)using;
 + (id)trunc:(id)trunc;
 + (id)uppercase:(id)uppercase;
-+ (uint64_t)_getCommonTypeFor:(uint64_t)for;
 + (uint64_t)_getITypeFor:(uint64_t)for;
 + (uint64_t)_predicateEnforceRestrictionsOnKeyPath:(uint64_t)path withOperand:(uint64_t)operand forComponentName:;
 + (uint64_t)_predicateEnforceRestrictionsOnSelector:(uint64_t)selector withOperand:(BOOL *)operand isKVC:(uint64_t)c forComponentName:;
 + (uint64_t)_predicateEnforceRestrictionsOnTarget:(uint64_t)target forComponentName:;
 + (uint64_t)_predicateSecurityAction;
++ (unint64_t)_getCommonTypeFor:(uint64_t)for;
 + (void)_collapseAndTokenize:(uint64_t)tokenize flags:(void *)flags locale:;
 + (void)_doTokenization:(const __CFLocale *)tokenization locale:;
 + (void)_processAndTokenize:(uint64_t)tokenize flags:(const __CFLocale *)flags locale:;
@@ -248,7 +248,7 @@ LABEL_25:
   v9 = NSStringFromSelector(a2);
   objc_opt_self();
   v10 = [*(_CFPredicatePolicyData() + 32) objectForKey:v9];
-  if (v10 || (objc_opt_self(), ![_CFPredicatePolicyRestrictedSelectors() objectForKey:v9]) && ((objc_opt_self(), (_CFPredicatePolicyData_getFlags() & 8) == 0) || (objc_opt_class(), (objc_opt_respondsToSelector() & 1) == 0) || (objc_opt_self(), objc_msgSend(*(_CFPredicatePolicyData() + 24), "objectForKey:", v9))) || (objc_opt_self(), objc_msgSend(*(_CFPredicatePolicyData() + 40), "objectForKey:", v9)) && (objc_opt_self(), (_CFPredicatePolicyData_getFlags() & 8) == 0) || (v12 = -[NSString isEqualToString:](v9, "isEqualToString:", @"class"), selector) && v12 && (objc_opt_isKindOfClass() & 1) != 0)
+  if (v10 || (objc_opt_self(), ![_CFPredicatePolicyRestrictedSelectors() objectForKey:v9]) && ((objc_opt_self(), (_CFPredicatePolicyData_getFlags() & 8) == 0) || (objc_opt_class(), (objc_opt_respondsToSelector() & 1) == 0) || (objc_opt_self(), objc_msgSend(*(_CFPredicatePolicyData() + 24), "objectForKey:", v9))) || (objc_opt_self(), objc_msgSend(*(_CFPredicatePolicyData() + 40), "objectForKey:", v9)) && (objc_opt_self(), (_CFPredicatePolicyData_getFlags() & 8) == 0) || (isEqualToString = objc_msgSend_isEqualToString_(v9), selector) && isEqualToString && (objc_opt_isKindOfClass() & 1) != 0)
   {
     result = 0;
     if (!operand)
@@ -347,7 +347,7 @@ LABEL_3:
             v22 = v20;
           }
 
-          if (((v22 | v7) & 1) != 0 || ![(NSString *)v15 isEqualToString:@"class"])
+          if (((v22 | v7) & 1) != 0 || !objc_msgSend_isEqualToString_(v15))
           {
             if (v21)
             {
@@ -428,7 +428,7 @@ LABEL_9:
   return 1;
 }
 
-+ (uint64_t)_getCommonTypeFor:(uint64_t)for
++ (unint64_t)_getCommonTypeFor:(uint64_t)for
 {
   v25[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
@@ -1872,7 +1872,7 @@ LABEL_11:
   return [NSNumber numberWithUnsignedInteger:v4];
 }
 
-+ (NSNumber)_convertStringToNumber:(uint64_t)number
++ (NSDecimalNumber)_convertStringToNumber:(uint64_t)number
 {
   v9 = *MEMORY[0x1E69E9840];
   objc_opt_self();
@@ -1933,7 +1933,7 @@ LABEL_10:
     return object;
   }
 
-  if (![@"Class" isEqualToString:type])
+  if (!objc_msgSend_isEqualToString_(@"Class", a2, type))
   {
     if ([type isNSString])
     {
@@ -2468,7 +2468,7 @@ LABEL_8:
   return [NSString stringWithFormat:@"CAST(%f, NSDate)", v3];
 }
 
-+ (NSString)_parserableCollectionDescription:(uint64_t)description
++ (NSMutableString)_parserableCollectionDescription:(uint64_t)description
 {
   v18 = *MEMORY[0x1E69E9840];
   objc_opt_self();

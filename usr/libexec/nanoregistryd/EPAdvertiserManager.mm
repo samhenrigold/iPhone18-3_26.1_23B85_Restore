@@ -1,6 +1,7 @@
 @interface EPAdvertiserManager
 - (EPAdvertiserManager)init;
 - (id)newAdvertiserWithDelegate:(id)delegate;
+- (void)addCharacteristic:(id)characteristic encryptionRequired:(BOOL)required withReadHandler:(id)handler writeHandler:(id)writeHandler;
 - (void)collection:(id)collection deviceDidAppear:(id)appear;
 - (void)collection:(id)collection deviceDidDisappear:(id)disappear;
 - (void)collection:(id)collection deviceInfoDidDealloc:(id)dealloc;
@@ -20,6 +21,44 @@
 @end
 
 @implementation EPAdvertiserManager
+
+- (void)addCharacteristic:(id)characteristic encryptionRequired:(BOOL)required withReadHandler:(id)handler writeHandler:(id)writeHandler
+{
+  requiredCopy = required;
+  characteristicCopy = characteristic;
+  writeHandlerCopy = writeHandler;
+  handlerCopy = handler;
+  v12 = objc_opt_new();
+  [v12 setCharacteristicUUID:characteristicCopy];
+  [v12 setEncryptionRequired:requiredCopy];
+  [v12 setReadHandler:handlerCopy];
+
+  [v12 setWriteHandler:writeHandlerCopy];
+  v13 = [(NSMutableDictionary *)self->_characteristics objectForKeyedSubscript:characteristicCopy];
+  if ([(EPResourceManager *)self referenceCounter])
+  {
+    if (v13)
+    {
+      characteristic = [v13 characteristic];
+      characteristic2 = [v12 characteristic];
+      if (([characteristic isEqual:characteristic2] & 1) == 0)
+      {
+        self->_shouldUpdateCharacteristics = 1;
+      }
+    }
+
+    else
+    {
+      self->_shouldUpdateCharacteristics = 1;
+    }
+  }
+
+  [(NSMutableDictionary *)self->_characteristics setObject:v12 forKeyedSubscript:characteristicCopy];
+  if (self->_shouldUpdateCharacteristics)
+  {
+    [(EPAdvertiserManager *)self update];
+  }
+}
 
 - (void)removeCharacteristic:(id)characteristic
 {
@@ -72,53 +111,54 @@
 
 - (void)createResource
 {
-  v11.receiver = self;
-  v11.super_class = EPAdvertiserManager;
-  [(EPResourceManager *)&v11 createResource];
-  v3 = sub_1000A98C0();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v13.receiver = self;
+  v13.super_class = EPAdvertiserManager;
+  createResource = [(EPResourceManager *)&v13 createResource];
+  v4 = sub_1000A98C0(createResource);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000A98C0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager: Create peripheral", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager: Create peripheral", v12, 2u);
     }
   }
 
-  v6 = +[EPFactory sharedFactory];
-  agentManager = [v6 agentManager];
-  v8 = [agentManager newPeripheralManagerWithDelegate:self];
+  v8 = +[EPFactory sharedFactory];
+  agentManager = [v8 agentManager];
+  v10 = [agentManager newPeripheralManagerWithDelegate:self];
   peripheral = self->_peripheral;
-  self->_peripheral = v8;
+  self->_peripheral = v10;
 
   [(EPAdvertiserManager *)self update];
 }
 
 - (void)destroyResource
 {
-  v14.receiver = self;
-  v14.super_class = EPAdvertiserManager;
-  [(EPResourceManager *)&v14 destroyResource];
+  v17.receiver = self;
+  v17.super_class = EPAdvertiserManager;
+  [(EPResourceManager *)&v17 destroyResource];
   if (self->_isAdvertising)
   {
     self->_isAdvertising = 0;
   }
 
-  if ([(EPResource *)self->_peripheral availability]== 1)
+  availability = [(EPResource *)self->_peripheral availability];
+  if (availability == 1)
   {
-    v3 = sub_1000A98C0();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = sub_1000A98C0(1);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = sub_1000A98C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A98C0(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising (resource not needed)", v13, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising (resource not needed)", v16, 2u);
       }
     }
 
@@ -126,16 +166,16 @@
     [manager stopAdvertising];
   }
 
-  v7 = sub_1000A98C0();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v9 = sub_1000A98C0(availability);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v8)
+  if (v10)
   {
-    v9 = sub_1000A98C0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000A98C0(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager: Destroy peripheral", v13, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager: Destroy peripheral", v16, 2u);
     }
   }
 
@@ -205,28 +245,28 @@
 - (void)setNotAvailableToPair:(BOOL)pair
 {
   pairCopy = pair;
-  v5 = sub_1000A98C0();
+  v5 = sub_1000A98C0(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = sub_1000A98C0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000A98C0(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = pairCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Set not available to pair to: %{BOOL}d", buf, 8u);
+      v12 = pairCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Set not available to pair to: %{BOOL}d", buf, 8u);
     }
   }
 
   self->_notAvailableToPair = pairCopy;
-  v8 = +[EPFactory queue];
+  v9 = +[EPFactory queue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000870A4;
   block[3] = &unk_100175660;
   block[4] = self;
-  dispatch_async(v8, block);
+  dispatch_async(v9, block);
 }
 
 - (void)setDontAdvertiseWithServiceUUID:(BOOL)d
@@ -248,17 +288,16 @@
     self->_shouldUpdateCharacteristics = 0;
     self->_waitingForServiceToBeAdded = 0;
     self->_serviceAdded = 0;
-    [(EPResourceManager *)self setAvailability:0 withError:0];
-    v3 = sub_1000A98C0();
+    v3 = sub_1000A98C0([(EPResourceManager *)self setAvailability:0 withError:0]);
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
     if (v4)
     {
-      v5 = sub_1000A98C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_1000A98C0(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager removeAllServices", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager removeAllServices", buf, 2u);
       }
     }
 
@@ -270,7 +309,8 @@
   name = self->_name;
   if (activeAdvertisingName)
   {
-    if (![(NSString *)activeAdvertisingName isEqual:name])
+    activeAdvertisingName = [(NSString *)activeAdvertisingName isEqual:name];
+    if (!activeAdvertisingName)
     {
       goto LABEL_13;
     }
@@ -297,18 +337,19 @@ LABEL_13:
   {
     self->_isAdvertising = 0;
     self->_waitingForAdvertisingToStart = 0;
-    if ([(EPResource *)self->_peripheral availability]== 1)
+    activeAdvertisingName = [(EPResource *)self->_peripheral availability];
+    if (activeAdvertisingName == 1)
     {
-      v9 = sub_1000A98C0();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v10 = sub_1000A98C0(1);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-      if (v10)
+      if (v11)
       {
-        v11 = sub_1000A98C0();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000A98C0(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising (changing advertised name or advertising interval)", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising (changing advertised name or advertising interval)", buf, 2u);
         }
       }
 
@@ -321,24 +362,24 @@ LABEL_13:
 LABEL_20:
   if (!self->_peripheral || self->_notAvailableToPair)
   {
-    v13 = sub_1000A98C0();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v15 = sub_1000A98C0(activeAdvertisingName);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (!v14)
+    if (!v16)
     {
       goto LABEL_34;
     }
 
-    v15 = sub_1000A98C0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_1000A98C0(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       notAvailableToPair = self->_notAvailableToPair;
       peripheral = self->_peripheral;
       *buf = 67109378;
-      *v68 = notAvailableToPair;
-      *&v68[4] = 2112;
-      *&v68[6] = peripheral;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPAdvertiser: Skipping creation of new agent. _notAvailableToPair = %{BOOL}d _peripheral = %@", buf, 0x12u);
+      *v76 = notAvailableToPair;
+      *&v76[4] = 2112;
+      *&v76[6] = peripheral;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPAdvertiser: Skipping creation of new agent. _notAvailableToPair = %{BOOL}d _peripheral = %@", buf, 0x12u);
     }
 
     goto LABEL_33;
@@ -346,26 +387,26 @@ LABEL_20:
 
   if (!self->_agent)
   {
-    v20 = +[EPFactory sharedFactory];
-    agentManager = [v20 agentManager];
-    v22 = [agentManager newAgentWithDelegate:self fromCentral:0];
+    v24 = +[EPFactory sharedFactory];
+    agentManager = [v24 agentManager];
+    v26 = [agentManager newAgentWithDelegate:self fromCentral:0];
     agent = self->_agent;
-    self->_agent = v22;
+    self->_agent = v26;
 
 LABEL_30:
     goto LABEL_31;
   }
 
-  v18 = sub_1000A98C0();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  v21 = sub_1000A98C0(activeAdvertisingName);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-  if (v19)
+  if (v22)
   {
-    v20 = sub_1000A98C0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_1000A98C0(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPAdvertiser: Agent already created, skipping creating a new one", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "EPAdvertiser: Agent already created, skipping creating a new one", buf, 2u);
     }
 
     goto LABEL_30;
@@ -377,11 +418,11 @@ LABEL_31:
     goto LABEL_34;
   }
 
-  v15 = +[EPFactory sharedFactory];
-  keyGeneratorManager = [v15 keyGeneratorManager];
-  v25 = [keyGeneratorManager newGeneratorWithDelegate:self];
+  v18 = +[EPFactory sharedFactory];
+  keyGeneratorManager = [v18 keyGeneratorManager];
+  v29 = [keyGeneratorManager newGeneratorWithDelegate:self];
   key = self->_key;
-  self->_key = v25;
+  self->_key = v29;
 
 LABEL_33:
 LABEL_34:
@@ -405,69 +446,68 @@ LABEL_34:
     if (!self->_waitingForServiceToBeAdded)
     {
       self->_waitingForServiceToBeAdded = 1;
-      v34 = +[NSMutableArray array];
-      v61 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      v64 = 0u;
+      v38 = +[NSMutableArray array];
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       allValues = [(NSMutableDictionary *)self->_characteristics allValues];
-      v36 = [allValues countByEnumeratingWithState:&v61 objects:v66 count:16];
-      if (v36)
+      v40 = [allValues countByEnumeratingWithState:&v69 objects:v74 count:16];
+      if (v40)
       {
-        v37 = v36;
-        v38 = *v62;
+        v41 = v40;
+        v42 = *v70;
         do
         {
-          for (i = 0; i != v37; i = i + 1)
+          for (i = 0; i != v41; i = i + 1)
           {
-            if (*v62 != v38)
+            if (*v70 != v42)
             {
               objc_enumerationMutation(allValues);
             }
 
-            characteristic = [*(*(&v61 + 1) + 8 * i) characteristic];
+            characteristic = [*(*(&v69 + 1) + 8 * i) characteristic];
             if (characteristic)
             {
-              [v34 addObject:characteristic];
+              [v38 addObject:characteristic];
             }
           }
 
-          v37 = [allValues countByEnumeratingWithState:&v61 objects:v66 count:16];
+          v41 = [allValues countByEnumeratingWithState:&v69 objects:v74 count:16];
         }
 
-        while (v37);
+        while (v41);
       }
 
       if (!self->_notAvailableToPair)
       {
-        v41 = [CBMutableCharacteristic alloc];
-        v42 = [CBUUID UUIDWithString:@"5F6C6A23-8AC8-400E-810B-017134943460"];
-        v43 = [v41 initWithType:v42 properties:26 value:0 permissions:3];
+        v45 = [CBMutableCharacteristic alloc];
+        v46 = [CBUUID UUIDWithString:@"5F6C6A23-8AC8-400E-810B-017134943460"];
+        v47 = [v45 initWithType:v46 properties:26 value:0 permissions:3];
 
-        [v34 addObject:v43];
+        [v38 addObject:v47];
       }
 
-      v44 = [CBMutableService alloc];
-      v45 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-      v46 = [v44 initWithType:v45 primary:1];
+      v48 = [CBMutableService alloc];
+      v49 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+      v50 = [v48 initWithType:v49 primary:1];
 
-      [v46 setCharacteristics:v34];
-      v47 = sub_1000A98C0();
-      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
+      v51 = sub_1000A98C0([v50 setCharacteristics:v38]);
+      v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
 
-      if (v48)
+      if (v52)
       {
-        v49 = sub_1000A98C0();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v54 = sub_1000A98C0(v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *v68 = v46;
-          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager addService with %@", buf, 0xCu);
+          *v76 = v50;
+          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager addService with %@", buf, 0xCu);
         }
       }
 
       manager3 = [(EPPeripheralManager *)self->_peripheral manager];
-      [manager3 addService:v46];
+      [manager3 addService:v50];
 
       if (self->_serviceAdded)
       {
@@ -476,25 +516,25 @@ LABEL_38:
         {
           self->_waitingForAdvertisingToStart = 1;
           name = [(EPAdvertiserManager *)self name];
-          v28 = +[NSMutableDictionary dictionary];
-          v29 = v28;
+          v32 = +[NSMutableDictionary dictionary];
+          v33 = v32;
           if (name)
           {
-            [v28 setObject:name forKeyedSubscript:CBAdvertisementDataLocalNameKey];
+            v32 = [v32 setObject:name forKeyedSubscript:CBAdvertisementDataLocalNameKey];
           }
 
           if (!self->_notAvailableToPair && !self->_dontAdvertiseWithServiceUUID)
           {
-            v30 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-            v65 = v30;
-            v31 = [NSArray arrayWithObjects:&v65 count:1];
-            [v29 setObject:v31 forKeyedSubscript:CBAdvertisementDataServiceUUIDsKey];
+            v34 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+            v73 = v34;
+            v35 = [NSArray arrayWithObjects:&v73 count:1];
+            [v33 setObject:v35 forKeyedSubscript:CBAdvertisementDataServiceUUIDsKey];
           }
 
           advertisingRate = self->_advertisingRate;
           if (advertisingRate == 3)
           {
-            v33 = &off_100186EB0;
+            v37 = &off_100186EB0;
           }
 
           else
@@ -502,46 +542,46 @@ LABEL_38:
             if (advertisingRate != 2)
             {
 LABEL_72:
-              v51 = sub_1000A98C0();
-              v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
+              v56 = sub_1000A98C0(v32);
+              v57 = os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT);
 
-              if (v52)
+              if (v57)
               {
-                v53 = sub_1000A98C0();
-                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+                v59 = sub_1000A98C0(v58);
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager stopAdvertising", buf, 2u);
                 }
               }
 
               manager4 = [(EPPeripheralManager *)self->_peripheral manager];
               [manager4 stopAdvertising];
 
-              v55 = sub_1000A98C0();
-              v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+              v62 = sub_1000A98C0(v61);
+              v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT);
 
-              if (v56)
+              if (v63)
               {
-                v57 = sub_1000A98C0();
-                if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+                v65 = sub_1000A98C0(v64);
+                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *v68 = v29;
-                  _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager startAdvertising with parameters %@", buf, 0xCu);
+                  *v76 = v33;
+                  _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager startAdvertising with parameters %@", buf, 0xCu);
                 }
               }
 
               manager5 = [(EPPeripheralManager *)self->_peripheral manager];
-              [manager5 startAdvertising:v29];
+              [manager5 startAdvertising:v33];
 
               goto LABEL_81;
             }
 
-            v33 = &off_100186EC8;
+            v37 = &off_100186EC8;
           }
 
-          [v29 setObject:v33 forKeyedSubscript:CBPeripheralManagerAdvertisingInterval];
+          v32 = [v33 setObject:v37 forKeyedSubscript:CBPeripheralManagerAdvertisingInterval];
           goto LABEL_72;
         }
       }
@@ -551,10 +591,10 @@ LABEL_72:
 LABEL_81:
   if (self->_notAvailableToPair)
   {
-    v59 = self->_agent;
+    v67 = self->_agent;
     self->_agent = 0;
 
-    v60 = self->_key;
+    v68 = self->_key;
     self->_key = 0;
   }
 }
@@ -563,30 +603,30 @@ LABEL_81:
 {
   managerCopy = manager;
   requestsCopy = requests;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v7 = [requestsCopy countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v7 = [requestsCopy countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v45;
-    v35 = v40;
+    v10 = *v48;
+    v38 = v43;
     *&v8 = 138543618;
-    v34 = v8;
-    v36 = *v45;
-    v37 = requestsCopy;
+    v37 = v8;
+    v39 = *v48;
+    v40 = requestsCopy;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v45 != v10)
+        if (*v48 != v10)
         {
           objc_enumerationMutation(requestsCopy);
         }
 
-        v12 = *(*(&v44 + 1) + 8 * i);
+        v12 = *(*(&v47 + 1) + 8 * i);
         characteristic = [v12 characteristic];
         uUID = [characteristic UUID];
         v15 = [CBUUID UUIDWithString:@"5F6C6A23-8AC8-400E-810B-017134943460"];
@@ -594,23 +634,22 @@ LABEL_81:
 
         if (v16)
         {
-          v43[0] = _NSConcreteStackBlock;
-          v43[1] = 3221225472;
-          v43[2] = sub_100087F28;
-          v43[3] = &unk_100175998;
-          v43[4] = self;
-          v43[5] = v12;
-          [(EPResourceManager *)self enumerateResourcesWithBlock:v43];
-          v17 = sub_1000A98C0();
+          v46[0] = _NSConcreteStackBlock;
+          v46[1] = 3221225472;
+          v46[2] = sub_100087F28;
+          v46[3] = &unk_100175998;
+          v46[4] = self;
+          v46[5] = v12;
+          v17 = sub_1000A98C0([(EPResourceManager *)self enumerateResourcesWithBlock:v46]);
           v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
           if (v18)
           {
-            v19 = sub_1000A98C0();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v20 = sub_1000A98C0(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager respondToRequest:withResult:", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPeripheralManager respondToRequest:withResult:", buf, 2u);
             }
           }
 
@@ -622,52 +661,52 @@ LABEL_81:
           characteristics = self->_characteristics;
           characteristic2 = [v12 characteristic];
           uUID2 = [characteristic2 UUID];
-          v23 = [(NSMutableDictionary *)characteristics objectForKeyedSubscript:uUID2];
+          v24 = [(NSMutableDictionary *)characteristics objectForKeyedSubscript:uUID2];
 
-          if (v23)
+          if (v24)
           {
-            writeHandler = [v23 writeHandler];
+            writeHandler = [v24 writeHandler];
 
             if (writeHandler)
             {
-              v25 = sub_1000A98C0();
-              v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+              v27 = sub_1000A98C0(v26);
+              v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
 
-              if (v26)
+              if (v28)
               {
-                v27 = sub_1000A98C0();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                v30 = sub_1000A98C0(v29);
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                 {
-                  characteristicUUID = [v23 characteristicUUID];
+                  characteristicUUID = [v24 characteristicUUID];
                   uUIDString = [characteristicUUID UUIDString];
                   value = [v12 value];
-                  v31 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [value length]);
-                  *buf = v34;
-                  v49 = uUIDString;
-                  v50 = 2114;
-                  v51 = v31;
-                  _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Calling writeHandler block for characteristic %{public}@ data.length=%{public}@", buf, 0x16u);
+                  v34 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [value length]);
+                  *buf = v37;
+                  v52 = uUIDString;
+                  v53 = 2114;
+                  v54 = v34;
+                  _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Calling writeHandler block for characteristic %{public}@ data.length=%{public}@", buf, 0x16u);
                 }
               }
 
-              writeHandler2 = [v23 writeHandler];
+              writeHandler2 = [v24 writeHandler];
               value2 = [v12 value];
-              v39[0] = _NSConcreteStackBlock;
-              v39[1] = 3221225472;
-              v40[0] = sub_100087FE4;
-              v40[1] = &unk_100177410;
-              v41 = managerCopy;
-              v42 = v12;
-              (writeHandler2)[2](writeHandler2, value2, v39);
+              v42[0] = _NSConcreteStackBlock;
+              v42[1] = 3221225472;
+              v43[0] = sub_100087FE4;
+              v43[1] = &unk_100177410;
+              v44 = managerCopy;
+              v45 = v12;
+              (writeHandler2)[2](writeHandler2, value2, v42);
 
-              v10 = v36;
-              requestsCopy = v37;
+              v10 = v39;
+              requestsCopy = v40;
             }
           }
         }
       }
 
-      v9 = [requestsCopy countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v9 = [requestsCopy countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v9);
@@ -715,30 +754,30 @@ LABEL_81:
 
       if (readHandler)
       {
-        v19 = sub_1000A98C0();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+        v20 = sub_1000A98C0(v19);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-        if (v20)
+        if (v21)
         {
-          v21 = sub_1000A98C0();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v23 = sub_1000A98C0(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             characteristicUUID = [(NSData *)v12 characteristicUUID];
             uUIDString = [characteristicUUID UUIDString];
             *buf = 138543362;
-            v29 = uUIDString;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Calling readHandler block for characteristic %{public}@", buf, 0xCu);
+            v31 = uUIDString;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Calling readHandler block for characteristic %{public}@", buf, 0xCu);
           }
         }
 
         readHandler2 = [(NSData *)v12 readHandler];
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v25[2] = sub_1000883C0;
-        v25[3] = &unk_100178598;
-        v26 = requestCopy;
-        v27 = managerCopy;
-        (readHandler2)[2](readHandler2, v25);
+        v27[0] = _NSConcreteStackBlock;
+        v27[1] = 3221225472;
+        v27[2] = sub_1000883C0;
+        v27[3] = &unk_100178598;
+        v28 = requestCopy;
+        v29 = managerCopy;
+        (readHandler2)[2](readHandler2, v27);
       }
     }
   }
@@ -747,16 +786,16 @@ LABEL_81:
 - (void)peripheralManagerDidStartAdvertising:(id)advertising error:(id)error
 {
   errorCopy = error;
-  v6 = sub_1000A98C0();
+  v6 = sub_1000A98C0(errorCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000A98C0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CoreBluetooth sent peripheralManagerDidStartAdvertising notification", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CoreBluetooth sent peripheralManagerDidStartAdvertising notification", v15, 2u);
     }
   }
 
@@ -778,8 +817,8 @@ LABEL_81:
   {
 LABEL_10:
     selfCopy2 = self;
-    v12 = 2;
-    v13 = errorCopy;
+    v13 = 2;
+    v14 = errorCopy;
     goto LABEL_11;
   }
 
@@ -787,10 +826,10 @@ LABEL_8:
   self->_isAdvertising = 1;
   self->_waitingForAdvertisingToStart = 0;
   selfCopy2 = self;
-  v12 = 1;
-  v13 = 0;
+  v13 = 1;
+  v14 = 0;
 LABEL_11:
-  [(EPResourceManager *)selfCopy2 setAvailability:v12 withError:v13];
+  [(EPResourceManager *)selfCopy2 setAvailability:v13 withError:v14];
   [(EPAdvertiserManager *)self update];
 }
 
@@ -806,15 +845,15 @@ LABEL_11:
   {
     if (errorCopy)
     {
-      v12 = sub_1000A98C0();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v13 = sub_1000A98C0(v12);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-      if (v13)
+      if (v14)
       {
-        v14 = sub_1000A98C0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = sub_1000A98C0(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          sub_1001015E4(serviceCopy, errorCopy, v14);
+          sub_1001015E4(serviceCopy, errorCopy, v16);
         }
       }
     }
@@ -879,52 +918,52 @@ LABEL_11:
   if (!v15)
   {
     v15 = [(EPDeviceCollection *)self->_deviceCollection newDeviceWithPeer:pairingCopy];
-    v16 = sub_1000A98C0();
+    v16 = sub_1000A98C0(v15);
     v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
     if (v17)
     {
-      v18 = sub_1000A98C0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_1000A98C0(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v21 = [EPDevice stringFromCBPairingType:type];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = [EPDevice stringFromCBPairingType:type];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v23 = @"CBCentral";
+        v24 = @"CBCentral";
         *buf = 138413570;
-        v30 = 2048;
-        v29 = v20;
+        v31 = 2048;
+        v30 = v21;
         if (isKindOfClass)
         {
-          v23 = @"CBPeripheral";
+          v24 = @"CBPeripheral";
         }
 
-        v31 = v15;
-        v32 = 2112;
-        v33 = pairingCopy;
-        v34 = 2112;
-        v35 = v21;
-        v36 = 2112;
-        v37 = passkeyCopy;
-        v38 = 2112;
-        v39 = v23;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager Calling pairingAgent:peerDidRequestPairing:type:passkey: on %@[%p] with peer %@ type=%@ passkey=%@ peer=%@ on newly created device", buf, 0x3Eu);
+        v32 = v15;
+        v33 = 2112;
+        v34 = pairingCopy;
+        v35 = 2112;
+        v36 = v22;
+        v37 = 2112;
+        v38 = passkeyCopy;
+        v39 = 2112;
+        v40 = v24;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPAdvertiserManager Calling pairingAgent:peerDidRequestPairing:type:passkey: on %@[%p] with peer %@ type=%@ passkey=%@ peer=%@ on newly created device", buf, 0x3Eu);
       }
     }
   }
 
   [v15 pairingAgent:agentCopy peerDidRequestPairing:pairingCopy type:type passkey:passkeyCopy];
-  v24 = +[EPFactory queue];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100088C4C;
-  v26[3] = &unk_100175598;
-  v26[4] = self;
-  v27 = v15;
-  v25 = v15;
-  dispatch_async(v24, v26);
+  v25 = +[EPFactory queue];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100088C4C;
+  v27[3] = &unk_100175598;
+  v27[4] = self;
+  v28 = v15;
+  v26 = v15;
+  dispatch_async(v25, v27);
 }
 
 @end

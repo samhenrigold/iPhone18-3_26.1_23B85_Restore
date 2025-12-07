@@ -42,8 +42,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"identifiers";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"identifiers";
   identifiers = [(INSetMessageAttributeIntent *)self identifiers];
   null = identifiers;
   if (!identifiers)
@@ -51,8 +51,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"attribute";
-  v12[0] = null;
+  v10[1] = @"attribute";
+  v11[0] = null;
   attribute = [(INSetMessageAttributeIntent *)self attribute];
   if ((attribute - 1) > 4)
   {
@@ -65,14 +65,12 @@
   }
 
   v7 = v6;
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   if (!identifiers)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -139,32 +137,32 @@
 
 - (void)setIdentifiers:(id)identifiers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   _typedBackingStore = [(INSetMessageAttributeIntent *)self _typedBackingStore];
   [_typedBackingStore clearIdentifiers];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         _typedBackingStore2 = [(INSetMessageAttributeIntent *)self _typedBackingStore];
         [_typedBackingStore2 addIdentifier:v11];
 
@@ -172,13 +170,11 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (INSetMessageAttributeIntent)initWithIdentifiers:(NSArray *)identifiers attribute:(INMessageAttribute)attribute

@@ -6,7 +6,7 @@
 
 - (void)diffAgainstObject:()DiffBuilding usingDiffBuilder:withDescription:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = v6;
@@ -22,31 +22,31 @@
   [v15 minusSet:v11];
   v16 = [v11 mutableCopy];
   [v16 minusSet:v14];
-  v43 = v11;
-  v44 = [v11 mutableCopy];
-  v42 = v14;
-  [v44 intersectSet:v14];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v42 = v11;
+  v43 = [v11 mutableCopy];
+  v41 = v14;
+  [v43 intersectSet:v14];
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = v15;
-  v17 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v17 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v56;
+    v19 = *v55;
     do
     {
       v20 = 0;
       do
       {
-        if (*v56 != v19)
+        if (*v55 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v55 + 1) + 8 * v20);
+        v21 = *(*(&v54 + 1) + 8 * v20);
         if (objc_opt_respondsToSelector())
         {
           [v21 diffDescription];
@@ -64,33 +64,33 @@
       }
 
       while (v18 != v20);
-      v18 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v18 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
     while (v18);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v24 = v16;
-  v25 = [v24 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v52;
+    v27 = *v51;
     do
     {
       v28 = 0;
       do
       {
-        if (*v52 != v27)
+        if (*v51 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v51 + 1) + 8 * v28);
+        v29 = *(*(&v50 + 1) + 8 * v28);
         if (objc_opt_respondsToSelector())
         {
           [v29 diffDescription];
@@ -108,35 +108,35 @@
       }
 
       while (v26 != v28);
-      v26 = [v24 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v26);
   }
 
-  v41 = v24;
+  v40 = v24;
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v45 = v44;
-  v32 = [v45 countByEnumeratingWithState:&v47 objects:v59 count:16];
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v44 = v43;
+  v32 = [v44 countByEnumeratingWithState:&v46 objects:v58 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v48;
+    v34 = *v47;
     do
     {
       v35 = 0;
       do
       {
-        if (*v48 != v34)
+        if (*v47 != v34)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v44);
         }
 
-        v36 = *(*(&v47 + 1) + 8 * v35);
+        v36 = *(*(&v46 + 1) + 8 * v35);
         if (objc_opt_respondsToSelector())
         {
           [v36 diffDescription];
@@ -155,13 +155,11 @@
       }
 
       while (v33 != v35);
-      v33 = [v45 countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v33 = [v44 countByEnumeratingWithState:&v46 objects:v58 count:16];
     }
 
     while (v33);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 @end

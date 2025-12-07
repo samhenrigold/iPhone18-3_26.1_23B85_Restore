@@ -9,7 +9,7 @@
 
 - (void)refreshEmbeddingsforLanguageCode:(id)code withCompletion:(id)completion
 {
-  v82[3] = *MEMORY[0x277D85DE8];
+  v81[3] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   completionCopy = completion;
   if (!completionCopy)
@@ -27,7 +27,7 @@
 
   array = [MEMORY[0x277CBEB18] array];
   v6 = [(SSRVoiceProfileManager *)self->_voiceProfileManager provisionedVoiceProfilesForAppDomain:@"com.apple.siri" withLocale:codeCopy];
-  v48 = v6;
+  v47 = v6;
   if (!v6)
   {
     v8 = *MEMORY[0x277D01970];
@@ -41,13 +41,13 @@
     goto LABEL_51;
   }
 
-  v81[0] = @"SSRSpeakerRecognitionLocale";
-  v81[1] = @"SSRSpeakerRecognitionProfileArray";
-  v82[0] = codeCopy;
-  v82[1] = v6;
-  v81[2] = @"SSRSpeakerRecognitionUsePayloadProfile";
-  v82[2] = MEMORY[0x277CBEC38];
-  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:3];
+  v80[0] = @"SSRSpeakerRecognitionLocale";
+  v80[1] = @"SSRSpeakerRecognitionProfileArray";
+  v81[0] = codeCopy;
+  v81[1] = v6;
+  v80[2] = @"SSRSpeakerRecognitionUsePayloadProfile";
+  v81[2] = MEMORY[0x277CBEC38];
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:3];
   if ([MEMORY[0x277D018F8] supportsVoiceProfileIDInUserProfile])
   {
     dictionary = 0;
@@ -56,29 +56,29 @@
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v9 = [MEMORY[0x277CBEB58] set];
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v10 = v48;
-  v11 = [v10 countByEnumeratingWithState:&v71 objects:v80 count:16];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v10 = v47;
+  v11 = [v10 countByEnumeratingWithState:&v70 objects:v79 count:16];
   if (!v11)
   {
     goto LABEL_25;
   }
 
-  v12 = *v72;
+  v12 = *v71;
   v13 = MEMORY[0x277D01970];
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v72 != v12)
+      if (*v71 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v71 + 1) + 8 * i);
+      v15 = *(*(&v70 + 1) + 8 * i);
       siriProfileId = [v15 siriProfileId];
       profileID = [v15 profileID];
       if (!siriProfileId || [siriProfileId isEqual:&stru_283923FC0])
@@ -109,7 +109,7 @@
           *&buf[12] = 2112;
           *&buf[14] = profileID;
           *&buf[22] = 2112;
-          v76 = siriProfileId;
+          v75 = siriProfileId;
           v19 = v22;
           v20 = "%s Duplicate Voice Profile %@ found with siriSharedUserID: %@";
           v21 = 32;
@@ -129,55 +129,55 @@ LABEL_18:
 LABEL_23:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v71 objects:v80 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v70 objects:v79 count:16];
   }
 
   while (v11);
 LABEL_25:
 
 LABEL_26:
-  v46 = [[SSRSpeakerRecognitionContext alloc] initWithVoiceRecognitionContext:v47 error:0];
-  modelsContext = [(SSRSpeakerRecognitionContext *)v46 modelsContext];
+  v45 = [[SSRSpeakerRecognitionContext alloc] initWithVoiceRecognitionContext:v46 error:0];
+  modelsContext = [(SSRSpeakerRecognitionContext *)v45 modelsContext];
   v25 = [SSRUtils stringForSpeakerRecognizerType:1];
-  v45 = [modelsContext objectForKeyedSubscript:v25];
+  v44 = [modelsContext objectForKeyedSubscript:v25];
 
   if ([MEMORY[0x277D018F8] supportsSecureAssetForSpeakerRecognition])
   {
-    [v45 voiceProfilesModelFilePathsExclave];
+    [v44 voiceProfilesModelFilePathsExclave];
   }
 
   else
   {
-    [v45 voiceProfilesModelFilePaths];
+    [v44 voiceProfilesModelFilePaths];
   }
-  v54 = ;
-  if (v54 && [v54 count])
+  v53 = ;
+  if (v53 && [v53 count])
   {
-    v69 = 0u;
-    v70 = 0u;
     v68 = 0u;
+    v69 = 0u;
     v67 = 0u;
-    obj = [v54 allKeys];
-    v26 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
+    v66 = 0u;
+    obj = [v53 allKeys];
+    v26 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
     if (v26)
     {
-      v28 = *v68;
+      v28 = *v67;
       *&v27 = 136315394;
-      v44 = v27;
+      v43 = v27;
       do
       {
         v29 = 0;
         do
         {
-          if (*v68 != v28)
+          if (*v67 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v67 + 1) + 8 * v29);
+          v30 = *(*(&v66 + 1) + 8 * v29);
           if (v30 && (([MEMORY[0x277D018F8] supportsVoiceProfileIDInUserProfile] & 1) != 0 || (objc_msgSend(dictionary, "objectForKey:", v30), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 == 0, v31, !v32)))
           {
-            v33 = [v54 objectForKeyedSubscript:{v30, v44}];
+            v33 = [v53 objectForKeyedSubscript:{v30, v43}];
             v34 = MEMORY[0x277CBEBC0];
             path = [v33 path];
             v36 = [v34 fileURLWithPath:path];
@@ -185,33 +185,33 @@ LABEL_26:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v76 = __Block_byref_object_copy__3699;
-            v77 = __Block_byref_object_dispose__3700;
-            v78 = 0;
-            v61 = 0;
-            v62 = &v61;
-            v63 = 0x3032000000;
-            v64 = __Block_byref_object_copy__3699;
-            v65 = __Block_byref_object_dispose__3700;
-            v66 = 0;
-            v55[0] = MEMORY[0x277D85DD0];
-            v55[1] = 3221225472;
-            v55[2] = __92__SSRSpeakerProfileEmbeddingMessageHandler_refreshEmbeddingsforLanguageCode_withCompletion___block_invoke;
-            v55[3] = &unk_278578488;
+            v75 = __Block_byref_object_copy__3699;
+            v76 = __Block_byref_object_dispose__3700;
+            v77 = 0;
+            v60 = 0;
+            v61 = &v60;
+            v62 = 0x3032000000;
+            v63 = __Block_byref_object_copy__3699;
+            v64 = __Block_byref_object_dispose__3700;
+            v65 = 0;
+            v54[0] = MEMORY[0x277D85DD0];
+            v54[1] = 3221225472;
+            v54[2] = __92__SSRSpeakerProfileEmbeddingMessageHandler_refreshEmbeddingsforLanguageCode_withCompletion___block_invoke;
+            v54[3] = &unk_278578488;
             v37 = v36;
-            v59 = buf;
-            v56 = v37;
-            v57 = v30;
-            v58 = dictionary;
-            v60 = &v61;
-            [SSRSpeakerProfileEmbeddingExtractor extractProfileData:v37 completion:v55];
-            v38 = v62[5];
+            v58 = buf;
+            v55 = v37;
+            v56 = v30;
+            v57 = dictionary;
+            v59 = &v60;
+            [SSRSpeakerProfileEmbeddingExtractor extractProfileData:v37 completion:v54];
+            v38 = v61[5];
             if (!v38)
             {
               [array addObject:*(*&buf[8] + 40)];
             }
 
-            _Block_object_dispose(&v61, 8);
+            _Block_object_dispose(&v60, 8);
             _Block_object_dispose(buf, 8);
 
             if (v38)
@@ -225,7 +225,7 @@ LABEL_26:
             v39 = *MEMORY[0x277D01970];
             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEBUG))
             {
-              *buf = v44;
+              *buf = v43;
               v40 = @"nil";
               if (v30)
               {
@@ -243,7 +243,7 @@ LABEL_26:
         }
 
         while (v26 != v29);
-        v41 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
+        v41 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
         v26 = v41;
       }
 
@@ -270,23 +270,22 @@ LABEL_51:
   }
 
 LABEL_56:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SSRSpeakerProfileEmbeddingMessageHandler_refreshEmbeddingsforLanguageCode_withCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a5;
   v11 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(a1 + 32);
-    v26 = 136315394;
-    v27 = "[SSRSpeakerProfileEmbeddingMessageHandler refreshEmbeddingsforLanguageCode:withCompletion:]_block_invoke";
-    v28 = 2112;
-    v29 = v12;
-    _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Extracting profile embeddings from: %@", &v26, 0x16u);
+    v25 = 136315394;
+    v26 = "[SSRSpeakerProfileEmbeddingMessageHandler refreshEmbeddingsforLanguageCode:withCompletion:]_block_invoke";
+    v27 = 2112;
+    v28 = v12;
+    _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Extracting profile embeddings from: %@", &v25, 0x16u);
   }
 
   v13 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v9 length:{"bytes"), 4 * a3 * a4}];
@@ -313,8 +312,6 @@ void __92__SSRSpeakerProfileEmbeddingMessageHandler_refreshEmbeddingsforLanguage
   v23 = *(*(a1 + 64) + 8);
   v24 = *(v23 + 40);
   *(v23 + 40) = v10;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakerProfileUpdated:(id)updated
@@ -333,21 +330,19 @@ void __92__SSRSpeakerProfileEmbeddingMessageHandler_refreshEmbeddingsforLanguage
 
 uint64_t __66__SSRSpeakerProfileEmbeddingMessageHandler_speakerProfileUpdated___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SSRSpeakerProfileEmbeddingMessageHandler speakerProfileUpdated:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_INFO, "%s Profile embeddings updated for languageCode: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SSRSpeakerProfileEmbeddingMessageHandler speakerProfileUpdated:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_INFO, "%s Profile embeddings updated for languageCode: %@", &v5, 0x16u);
   }
 
-  result = [*(*(a1 + 40) + 32) speakerProfileEmbeddingsUpdated:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 32) speakerProfileEmbeddingsUpdated:*(a1 + 32)];
 }
 
 - (void)setupListenerDelegate:(id)delegate
@@ -366,29 +361,27 @@ uint64_t __66__SSRSpeakerProfileEmbeddingMessageHandler_speakerProfileUpdated___
 
 void __66__SSRSpeakerProfileEmbeddingMessageHandler_setupListenerDelegate___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 32), *(a1 + 40));
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 32);
-    v5 = 136315394;
-    v6 = "[SSRSpeakerProfileEmbeddingMessageHandler setupListenerDelegate:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s _listenerDelegate = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SSRSpeakerProfileEmbeddingMessageHandler setupListenerDelegate:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s _listenerDelegate = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRSpeakerProfileEmbeddingMessageHandler)initWithConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v15.receiver = self;
-  v15.super_class = SSRSpeakerProfileEmbeddingMessageHandler;
-  v6 = [(SSRSpeakerProfileEmbeddingMessageHandler *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SSRSpeakerProfileEmbeddingMessageHandler;
+  v6 = [(SSRSpeakerProfileEmbeddingMessageHandler *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -406,12 +399,11 @@ void __66__SSRSpeakerProfileEmbeddingMessageHandler_setupListenerDelegate___bloc
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[SSRSpeakerProfileEmbeddingMessageHandler initWithConnection:]";
+      v16 = "[SSRSpeakerProfileEmbeddingMessageHandler initWithConnection:]";
       _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

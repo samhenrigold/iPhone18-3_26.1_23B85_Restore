@@ -10,20 +10,20 @@
 
 - (MCACMEPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v130 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v119.receiver = self;
-  v119.super_class = MCACMEPayload;
-  v10 = [(MCCertificatePayload *)&v119 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v118.receiver = self;
+  v118.super_class = MCACMEPayload;
+  v10 = [(MCCertificatePayload *)&v118 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_15;
   }
 
-  v118 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"HardwareBound" isRequired:1 outError:&v118];
-  v12 = v118;
+  v117 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"HardwareBound" isRequired:1 outError:&v117];
+  v12 = v117;
   if (v12)
   {
     v13 = v12;
@@ -46,9 +46,9 @@ LABEL_5:
       v19 = v18;
       mCVerboseDescription = [v11 MCVerboseDescription];
       *buf = 138543618;
-      v121 = v18;
-      v122 = 2114;
-      v123 = mCVerboseDescription;
+      v120 = v18;
+      v121 = 2114;
+      v122 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -65,37 +65,37 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v117 = 0;
-  v26 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DirectoryURL" isRequired:1 outError:&v117];
-  v13 = v117;
+  v116 = 0;
+  v25 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DirectoryURL" isRequired:1 outError:&v116];
+  v13 = v116;
   directoryURLString = v10->_directoryURLString;
-  v10->_directoryURLString = v26;
+  v10->_directoryURLString = v25;
 
   if (v13)
   {
     goto LABEL_4;
   }
 
-  v28 = [MEMORY[0x1E695DFF8] URLWithString:v10->_directoryURLString];
-  v29 = v28;
-  if (v28 && ([v28 scheme], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "caseInsensitiveCompare:", @"https"), v30, !v31))
+  v27 = [MEMORY[0x1E695DFF8] URLWithString:v10->_directoryURLString];
+  v28 = v27;
+  if (v27 && ([v27 scheme], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "caseInsensitiveCompare:", @"https"), v29, !v30))
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v32 = [MCPayload badFieldValueErrorWithField:@"DirectoryURL"];
+    v31 = [MCPayload badFieldValueErrorWithField:@"DirectoryURL"];
   }
 
-  v116 = v32;
-  v33 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ClientIdentifier" isRequired:1 outError:&v116];
-  v13 = v116;
+  v115 = v31;
+  v32 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ClientIdentifier" isRequired:1 outError:&v115];
+  v13 = v115;
 
   clientIdentifier = v10->_clientIdentifier;
-  v10->_clientIdentifier = v33;
+  v10->_clientIdentifier = v32;
 
-  if (v13 || (v115 = 0, [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"KeyType" isRequired:1 outError:&v115], v35 = objc_claimAutoreleasedReturnValue(), v13 = v115, keyType = v10->_keyType, v10->_keyType = v35, keyType, v13))
+  if (v13 || (v114 = 0, [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"KeyType" isRequired:1 outError:&v114], v34 = objc_claimAutoreleasedReturnValue(), v13 = v114, keyType = v10->_keyType, v10->_keyType = v34, keyType, v13))
   {
 
     goto LABEL_4;
@@ -107,79 +107,79 @@ LABEL_10:
     goto LABEL_91;
   }
 
-  v114 = 0;
-  v37 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"KeySize" isRequired:1 outError:&v114];
-  v38 = v114;
-  if (v38)
+  v113 = 0;
+  v36 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"KeySize" isRequired:1 outError:&v113];
+  v37 = v113;
+  if (v37)
   {
     goto LABEL_29;
   }
 
-  integerValue = [v37 integerValue];
+  integerValue = [v36 integerValue];
   if ((integerValue & 0x8000000000000000) == 0)
   {
-    v84 = v37;
+    v83 = v36;
     v10->_keySize = integerValue;
-    v113 = 0;
-    v89 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Subject" isRequired:1 outError:&v113];
-    v13 = v113;
+    v112 = 0;
+    v88 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Subject" isRequired:1 outError:&v112];
+    v13 = v112;
     subject = v10->_subject;
-    v10->_subject = v89;
+    v10->_subject = v88;
 
     if (v13)
     {
 LABEL_89:
-      v37 = v84;
+      v36 = v83;
       goto LABEL_90;
     }
 
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
-    v41 = v10->_subject;
-    v42 = [(NSArray *)v41 countByEnumeratingWithState:&v109 objects:v129 count:16];
-    if (v42)
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    v40 = v10->_subject;
+    v41 = [(NSArray *)v40 countByEnumeratingWithState:&v108 objects:v128 count:16];
+    if (v41)
     {
-      v43 = *v110;
-      v76 = *v110;
+      v42 = *v109;
+      v75 = *v109;
       do
       {
-        v75 = v42;
-        v44 = 0;
+        v74 = v41;
+        v43 = 0;
         do
         {
-          if (*v110 != v43)
+          if (*v109 != v42)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v40);
           }
 
-          v80 = v44;
-          v45 = *(*(&v109 + 1) + 8 * v44);
+          v79 = v43;
+          v44 = *(*(&v108 + 1) + 8 * v43);
+          v104 = 0u;
           v105 = 0u;
           v106 = 0u;
           v107 = 0u;
-          v108 = 0u;
-          obj = v45;
-          v46 = [obj countByEnumeratingWithState:&v105 objects:v128 count:16];
-          if (v46)
+          obj = v44;
+          v45 = [obj countByEnumeratingWithState:&v104 objects:v127 count:16];
+          if (v45)
           {
-            v47 = *v106;
-            v77 = v41;
-            v73 = *v106;
+            v46 = *v105;
+            v76 = v40;
+            v72 = *v105;
             while (2)
             {
-              v74 = v46;
-              v48 = 0;
+              v73 = v45;
+              v47 = 0;
               do
               {
-                if (*v106 != v47)
+                if (*v105 != v46)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v78 = v48;
-                v49 = *(*(&v105 + 1) + 8 * v48);
+                v77 = v47;
+                v48 = *(*(&v104 + 1) + 8 * v47);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -189,27 +189,27 @@ LABEL_63:
                   goto LABEL_89;
                 }
 
-                v103 = 0u;
-                v104 = 0u;
-                v101 = 0u;
                 v102 = 0u;
-                v85 = v49;
-                v90 = [v85 countByEnumeratingWithState:&v101 objects:v127 count:16];
-                if (v90)
+                v103 = 0u;
+                v100 = 0u;
+                v101 = 0u;
+                v84 = v48;
+                v89 = [v84 countByEnumeratingWithState:&v100 objects:v126 count:16];
+                if (v89)
                 {
-                  v87 = *v102;
+                  v86 = *v101;
                   while (2)
                   {
-                    for (i = 0; i != v90; ++i)
+                    for (i = 0; i != v89; ++i)
                     {
-                      if (*v102 != v87)
+                      if (*v101 != v86)
                       {
-                        objc_enumerationMutation(v85);
+                        objc_enumerationMutation(v84);
                       }
 
-                      v51 = *(*(&v101 + 1) + 8 * i);
+                      v50 = *(*(&v100 + 1) + 8 * i);
                       objc_opt_class();
-                      if ((objc_opt_isKindOfClass() & 1) == 0 || ![v51 length])
+                      if ((objc_opt_isKindOfClass() & 1) == 0 || ![v50 length])
                       {
                         v13 = [MCPayload badFieldTypeErrorWithField:@"Subject"];
 
@@ -217,8 +217,8 @@ LABEL_63:
                       }
                     }
 
-                    v90 = [v85 countByEnumeratingWithState:&v101 objects:v127 count:16];
-                    if (v90)
+                    v89 = [v84 countByEnumeratingWithState:&v100 objects:v126 count:16];
+                    if (v89)
                     {
                       continue;
                     }
@@ -227,14 +227,14 @@ LABEL_63:
                   }
                 }
 
-                v48 = v78 + 1;
-                v47 = v73;
+                v47 = v77 + 1;
+                v46 = v72;
               }
 
-              while (v78 + 1 != v74);
-              v46 = [obj countByEnumeratingWithState:&v105 objects:v128 count:16];
-              v41 = v77;
-              if (v46)
+              while (v77 + 1 != v73);
+              v45 = [obj countByEnumeratingWithState:&v104 objects:v127 count:16];
+              v40 = v76;
+              if (v45)
               {
                 continue;
               }
@@ -243,21 +243,21 @@ LABEL_63:
             }
           }
 
-          v44 = v80 + 1;
-          v43 = v76;
+          v43 = v79 + 1;
+          v42 = v75;
         }
 
-        while (v80 + 1 != v75);
-        v42 = [(NSArray *)v41 countByEnumeratingWithState:&v109 objects:v129 count:16];
-        v43 = v76;
+        while (v79 + 1 != v74);
+        v41 = [(NSArray *)v40 countByEnumeratingWithState:&v108 objects:v128 count:16];
+        v42 = v75;
       }
 
-      while (v42);
+      while (v41);
     }
 
-    v100 = 0;
-    v52 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SubjectAltName" isRequired:0 outError:&v100];
-    v13 = v100;
+    v99 = 0;
+    v51 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SubjectAltName" isRequired:0 outError:&v99];
+    v13 = v99;
     if (v13)
     {
 LABEL_88:
@@ -265,94 +265,94 @@ LABEL_88:
       goto LABEL_89;
     }
 
-    v86 = v11;
-    v88 = v52;
+    v85 = v11;
+    v87 = v51;
     obja = profileCopy;
-    v53 = [v52 mutableCopy];
-    v125[0] = @"dNSName";
-    v126[0] = objc_opt_class();
-    v125[1] = @"ntPrincipalName";
-    v126[1] = objc_opt_class();
-    v125[2] = @"rfc822Name";
-    v126[2] = objc_opt_class();
-    v125[3] = @"uniformResourceIdentifier";
-    v126[3] = objc_opt_class();
-    v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v126 forKeys:v125 count:4];
-    v99 = 0;
-    v55 = v53;
-    v56 = [v53 MCMutableDictionaryContainingValidatedKeysAndClasses:v54 removeKeys:0 outError:&v99];
-    v57 = v99;
+    v52 = [v51 mutableCopy];
+    v124[0] = @"dNSName";
+    v125[0] = objc_opt_class();
+    v124[1] = @"ntPrincipalName";
+    v125[1] = objc_opt_class();
+    v124[2] = @"rfc822Name";
+    v125[2] = objc_opt_class();
+    v124[3] = @"uniformResourceIdentifier";
+    v125[3] = objc_opt_class();
+    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v125 forKeys:v124 count:4];
+    v98 = 0;
+    v54 = v52;
+    v55 = [v52 MCMutableDictionaryContainingValidatedKeysAndClasses:v53 removeKeys:0 outError:&v98];
+    v56 = v98;
     subjectAltName = v10->_subjectAltName;
-    v91 = v10;
-    v10->_subjectAltName = v56;
+    v90 = v10;
+    v10->_subjectAltName = v55;
 
-    v59 = v57;
-    if (v57)
+    v58 = v56;
+    if (v56)
     {
 LABEL_87:
 
-      v13 = v59;
+      v13 = v58;
       profileCopy = obja;
-      v11 = v86;
-      v52 = v88;
-      v10 = v91;
+      v11 = v85;
+      v51 = v87;
+      v10 = v90;
       goto LABEL_88;
     }
 
-    v98 = 0;
-    v79 = dictionaryCopy;
-    v60 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"UsageFlags" isRequired:0 outError:&v98];
-    v61 = v98;
-    if (v61)
+    v97 = 0;
+    v78 = dictionaryCopy;
+    v59 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"UsageFlags" isRequired:0 outError:&v97];
+    v60 = v97;
+    if (v60)
     {
-      v59 = v61;
+      v58 = v60;
 LABEL_86:
 
-      dictionaryCopy = v79;
+      dictionaryCopy = v78;
       goto LABEL_87;
     }
 
-    v91->_usageFlags = [v60 unsignedIntValue];
-    v97 = 0;
-    v62 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExtendedKeyUsage" isRequired:0 outError:&v97];
-    v63 = v97;
-    extendedKeyUsage = v91->_extendedKeyUsage;
-    v91->_extendedKeyUsage = v62;
+    v90->_usageFlags = [v59 unsignedIntValue];
+    v96 = 0;
+    v61 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExtendedKeyUsage" isRequired:0 outError:&v96];
+    v62 = v96;
+    extendedKeyUsage = v90->_extendedKeyUsage;
+    v90->_extendedKeyUsage = v61;
 
-    if (v63)
+    if (v62)
     {
-      v59 = v63;
+      v58 = v62;
       goto LABEL_86;
     }
 
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
     v94 = 0u;
-    v65 = v91->_extendedKeyUsage;
-    v66 = [(NSArray *)v65 countByEnumeratingWithState:&v93 objects:v124 count:16];
-    if (v66)
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v64 = v90->_extendedKeyUsage;
+    v65 = [(NSArray *)v64 countByEnumeratingWithState:&v92 objects:v123 count:16];
+    if (v65)
     {
-      v67 = v66;
-      v81 = *v94;
+      v66 = v65;
+      v80 = *v93;
       while (2)
       {
-        for (j = 0; j != v67; ++j)
+        for (j = 0; j != v66; ++j)
         {
-          if (*v94 != v81)
+          if (*v93 != v80)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v64);
           }
 
-          if (![*(*(&v93 + 1) + 8 * j) length])
+          if (![*(*(&v92 + 1) + 8 * j) length])
           {
-            v69 = [MCPayload badFieldValueErrorWithField:@"ExtendedKeyUsage"];
+            v68 = [MCPayload badFieldValueErrorWithField:@"ExtendedKeyUsage"];
             goto LABEL_84;
           }
         }
 
-        v67 = [(NSArray *)v65 countByEnumeratingWithState:&v93 objects:v124 count:16];
-        if (v67)
+        v66 = [(NSArray *)v64 countByEnumeratingWithState:&v92 objects:v123 count:16];
+        if (v66)
         {
           continue;
         }
@@ -361,83 +361,83 @@ LABEL_86:
       }
     }
 
-    v92 = 0;
-    v65 = [v79 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Attest" isRequired:0 outError:&v92];
-    v69 = v92;
-    if (v69)
+    v91 = 0;
+    v64 = [v78 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"Attest" isRequired:0 outError:&v91];
+    v68 = v91;
+    if (v68)
     {
       goto LABEL_84;
     }
 
-    v91->_attest = [(NSArray *)v65 BOOLValue];
-    if (v91->_isHardwareBound)
+    v90->_attest = [(NSArray *)v64 BOOLValue];
+    if (v90->_isHardwareBound)
     {
-      if ([(NSString *)v91->_keyType isEqualToString:@"ECSECPrimeRandom"])
+      if ([(NSString *)v90->_keyType isEqualToString:@"ECSECPrimeRandom"])
       {
-        if ((v91->_keySize | 0x80) == 0x180)
+        if ((v90->_keySize | 0x80) == 0x180)
         {
           goto LABEL_79;
         }
 
-        v71 = @"KeySize";
+        v70 = @"KeySize";
       }
 
       else
       {
-        v71 = @"KeyType";
+        v70 = @"KeyType";
       }
 
 LABEL_106:
-      v69 = [MCPayload badFieldTypeErrorWithField:v71];
+      v68 = [MCPayload badFieldTypeErrorWithField:v70];
 LABEL_84:
-      v59 = v69;
+      v58 = v68;
 LABEL_85:
 
       goto LABEL_86;
     }
 
 LABEL_79:
-    if ([(NSString *)v91->_keyType isEqualToString:@"RSA"])
+    if ([(NSString *)v90->_keyType isEqualToString:@"RSA"])
     {
-      keySize = v91->_keySize;
-      v71 = @"KeySize";
+      keySize = v90->_keySize;
+      v70 = @"KeySize";
       if ((keySize & 7) != 0 || keySize - 4097 < 0xFFFFFFFFFFFFF3FFLL)
       {
         goto LABEL_106;
       }
     }
 
-    else if ([(NSString *)v91->_keyType isEqualToString:@"ECSECPrimeRandom"])
+    else if ([(NSString *)v90->_keyType isEqualToString:@"ECSECPrimeRandom"])
     {
-      v72 = v91->_keySize;
-      v71 = @"KeySize";
-      if (v72 > 383)
+      v71 = v90->_keySize;
+      v70 = @"KeySize";
+      if (v71 > 383)
       {
-        if (v72 != 521 && v72 != 384)
+        if (v71 != 521 && v71 != 384)
         {
           goto LABEL_106;
         }
       }
 
-      else if (v72 != 192 && v72 != 256)
+      else if (v71 != 192 && v71 != 256)
       {
         goto LABEL_106;
       }
     }
 
-    if (!v91->_attest || v91->_isHardwareBound)
+    if (!v90->_attest || v90->_isHardwareBound)
     {
-      v59 = 0;
+      v58 = 0;
       goto LABEL_85;
     }
 
-    v71 = @"Attest";
+    v70 = @"Attest";
     goto LABEL_106;
   }
 
-  v38 = [MCPayload badFieldValueErrorWithField:@"KeySize"];
+  v37 = [MCPayload badFieldValueErrorWithField:@"KeySize"];
 LABEL_29:
-  v13 = v38;
+  v13 = v37;
 LABEL_90:
 
 LABEL_91:
@@ -455,15 +455,14 @@ LABEL_11:
       v22 = v21;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v121 = friendlyName;
-      v122 = 2114;
-      v123 = dictionaryCopy;
+      v120 = friendlyName;
+      v121 = 2114;
+      v122 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_15:
-  v24 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -567,7 +566,7 @@ LABEL_15:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   profile = [(MCPayload *)self profile];
   isStub = [profile isStub];
@@ -622,10 +621,8 @@ LABEL_15:
 
   [v3 addObject:v27];
   v28 = [MCKeyValueSection sectionWithKeyValues:v3];
-  v32[0] = v28;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
-
-  v30 = *MEMORY[0x1E69E9840];
+  v31[0] = v28;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
 
   return v29;
 }

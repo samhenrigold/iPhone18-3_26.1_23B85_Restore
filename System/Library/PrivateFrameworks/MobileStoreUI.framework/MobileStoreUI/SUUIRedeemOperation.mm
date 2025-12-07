@@ -36,23 +36,28 @@
   v65 = __Block_byref_object_dispose__76;
   v66 = 0;
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-  shouldLog = [mEMORY[0x277D69B38] shouldLog];
+  LODWORD(v4) = [mEMORY[0x277D69B38] shouldLog];
   shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
   v7 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v4) = v4 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog &= 2u;
+    v4 = v4;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_8;
+    v4 &= 2u;
+  }
+
+  if (!v4)
+  {
+    goto LABEL_9;
   }
 
   v8 = objc_opt_class();
@@ -62,22 +67,20 @@
   *&v70[12] = 2114;
   *&v70[14] = code;
   v10 = v8;
-  LODWORD(v52) = 22;
-  v51 = v70;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_259CB8000, v7, 0, "%{public}@: [%{public}@] Starting redeem operation", v70, 22);
 
   if (v11)
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, v70, v52}];
+    v7 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
     free(v11);
     v51 = v7;
     SSFileLog();
-LABEL_8:
+LABEL_9:
   }
 
   if (!self->_code)
   {
-    goto LABEL_46;
+    goto LABEL_49;
   }
 
   *v70 = 0;
@@ -149,7 +152,7 @@ LABEL_8:
   _Block_object_dispose(v70, 8);
   if (!v20)
   {
-LABEL_46:
+LABEL_49:
     if (!v62[5])
     {
       v27 = MEMORY[0x277CCA9B8];
@@ -180,23 +183,28 @@ LABEL_46:
   if (v62[5])
   {
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
-    shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
+    LODWORD(v35) = [mEMORY[0x277D69B38]2 shouldLog];
     shouldLogToDisk2 = [mEMORY[0x277D69B38]2 shouldLogToDisk];
     oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
     v38 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v35) = v35 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v35 = v35;
     }
 
-    if (!shouldLog2)
+    else
     {
-      goto LABEL_42;
+      v35 &= 2u;
+    }
+
+    if (!v35)
+    {
+      goto LABEL_45;
     }
 
     v39 = objc_opt_class();
@@ -210,38 +218,43 @@ LABEL_46:
     v71 = v41;
     v42 = v39;
     LODWORD(v52) = 32;
-    v43 = _os_log_send_and_compose_impl();
+    v43 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_259CB8000, v38, 16, "%{public}@: [%{public}@] Redeem operation failed. Error: %{public}@", v70, v52);
 
     if (v43)
     {
-LABEL_41:
-      v38 = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:{4, v70, v52}];
+LABEL_44:
+      v38 = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:4];
       free(v43);
       SSFileLog();
-LABEL_42:
+LABEL_45:
     }
   }
 
   else
   {
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
-    shouldLog3 = [mEMORY[0x277D69B38]2 shouldLog];
+    LODWORD(v44) = [mEMORY[0x277D69B38]2 shouldLog];
     shouldLogToDisk3 = [mEMORY[0x277D69B38]2 shouldLogToDisk];
     oSLogObject3 = [mEMORY[0x277D69B38]2 OSLogObject];
     v38 = oSLogObject3;
     if (shouldLogToDisk3)
     {
-      shouldLog3 |= 2u;
+      LODWORD(v44) = v44 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog3 &= 2u;
+      v44 = v44;
     }
 
-    if (!shouldLog3)
+    else
     {
-      goto LABEL_42;
+      v44 &= 2u;
+    }
+
+    if (!v44)
+    {
+      goto LABEL_45;
     }
 
     v47 = objc_opt_class();
@@ -252,11 +265,11 @@ LABEL_42:
     *&v70[14] = v48;
     v49 = v47;
     LODWORD(v52) = 22;
-    v43 = _os_log_send_and_compose_impl();
+    v43 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_259CB8000, v38, 0, "%{public}@: [%{public}@] Redeem operation succeeded", v70, v52);
 
     if (v43)
     {
-      goto LABEL_41;
+      goto LABEL_44;
     }
   }
 

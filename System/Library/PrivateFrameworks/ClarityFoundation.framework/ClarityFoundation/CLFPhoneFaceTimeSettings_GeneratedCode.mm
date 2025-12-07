@@ -2,6 +2,10 @@
 + (CLFPhoneFaceTimeSettings)sharedInstance;
 + (id)allPreferenceSelectorsAsStrings;
 - (CLFPhoneFaceTimeSettings_GeneratedCode)init;
+- (void)setInCallKeypadEnabled:(BOOL)enabled;
+- (void)setMuteEnabled:(BOOL)enabled;
+- (void)setRecentsEnabled:(BOOL)enabled;
+- (void)setSpeakerOptionEnabled:(BOOL)enabled;
 @end
 
 @implementation CLFPhoneFaceTimeSettings_GeneratedCode
@@ -48,24 +52,46 @@
 
 + (id)allPreferenceSelectorsAsStrings
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = &OBJC_METACLASS___CLFPhoneFaceTimeSettings_GeneratedCode;
-  v2 = objc_msgSendSuper2(&v11, sel_allPreferenceSelectorsAsStrings);
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = &OBJC_METACLASS___CLFPhoneFaceTimeSettings_GeneratedCode;
+  v2 = objc_msgSendSuper2(&v10, sel_allPreferenceSelectorsAsStrings);
   v3 = NSStringFromSelector(sel_inCallKeypadEnabled);
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = NSStringFromSelector(sel_muteEnabled);
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = NSStringFromSelector(sel_recentsEnabled);
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = NSStringFromSelector(sel_speakerOptionEnabled);
-  v12[3] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:4];
+  v11[3] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
   v8 = [v2 arrayByAddingObjectsFromArray:v7];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
+}
+
+- (void)setInCallKeypadEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"InCallKeypadEnabled"];
+}
+
+- (void)setMuteEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"MuteEnabled"];
+}
+
+- (void)setRecentsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"RecentsEnabled"];
+}
+
+- (void)setSpeakerOptionEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"SpeakerOptionEnabled"];
 }
 
 @end

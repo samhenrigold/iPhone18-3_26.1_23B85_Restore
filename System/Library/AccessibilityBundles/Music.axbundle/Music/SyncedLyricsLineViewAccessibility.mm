@@ -5,6 +5,7 @@
 - (id)accessibilityElements;
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
+- (void)setSelected:(BOOL)selected animator:(id)animator;
 @end
 
 @implementation SyncedLyricsLineViewAccessibility
@@ -37,7 +38,7 @@
 
 - (id)accessibilityElements
 {
-  v19[1] = *MEMORY[0x29EDCA608];
+  v18[1] = *MEMORY[0x29EDCA608];
   if (!_os_feature_enabled_impl())
   {
     v6 = 0;
@@ -80,8 +81,8 @@ LABEL_6:
     currentAccessibilityLabel3 = [v7 currentAccessibilityLabel];
     currentAccessibilityLabel = __UIAccessibilityCastAsClass();
 
-    v19[0] = currentAccessibilityLabel;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v19 count:1];
+    v18[0] = currentAccessibilityLabel;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v18 count:1];
   }
 
   else
@@ -94,19 +95,19 @@ LABEL_6:
       [accessibilityMainTextView setIsAccessibilityElement:1];
       if (accessibilityMainTextView)
       {
-        v15 = [currentAccessibilityLabel safeSwiftValueForKey:@"text"];
-        if (v15)
+        v14 = [currentAccessibilityLabel safeSwiftValueForKey:@"text"];
+        if (v14)
         {
-          [accessibilityMainTextView setAccessibilityLabel:v15];
+          [accessibilityMainTextView setAccessibilityLabel:v14];
         }
 
         else
         {
           objc_opt_class();
-          v16 = [currentAccessibilityLabel safeSwiftValueForKey:@"attributedText"];
-          v17 = __UIAccessibilityCastAsClass();
+          v15 = [currentAccessibilityLabel safeSwiftValueForKey:@"attributedText"];
+          v16 = __UIAccessibilityCastAsClass();
 
-          string = [v17 string];
+          string = [v16 string];
           [accessibilityMainTextView setAccessibilityLabel:string];
         }
 
@@ -124,7 +125,6 @@ LABEL_6:
 LABEL_12:
 
 LABEL_13:
-  v13 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -230,6 +230,41 @@ LABEL_16:
   v6 = v5 != 0;
 
   return v6;
+}
+
+- (void)setSelected:(BOOL)selected animator:(id)animator
+{
+  v14[1] = *MEMORY[0x29EDCA608];
+  v11.receiver = self;
+  v11.super_class = SyncedLyricsLineViewAccessibility;
+  [(SyncedLyricsLineViewAccessibility *)&v11 setSelected:selected animator:animator];
+  accessibilityLabel = [(SyncedLyricsLineViewAccessibility *)self accessibilityLabel];
+  if (!accessibilityLabel)
+  {
+    if (_os_feature_enabled_impl())
+    {
+      accessibilityElements = [(SyncedLyricsLineViewAccessibility *)self accessibilityElements];
+      firstObject = [accessibilityElements firstObject];
+      accessibilityLabel = [firstObject accessibilityLabel];
+    }
+
+    else
+    {
+      accessibilityLabel = 0;
+    }
+  }
+
+  if ([accessibilityLabel length])
+  {
+    v8 = *MEMORY[0x29EDBDAD8];
+    v12 = accessibilityLabel;
+    v13 = v8;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v12 count:1];
+    v14[0] = v9;
+    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+
+    UIAccessibilityPostNotification(0x42Cu, v10);
+  }
 }
 
 @end

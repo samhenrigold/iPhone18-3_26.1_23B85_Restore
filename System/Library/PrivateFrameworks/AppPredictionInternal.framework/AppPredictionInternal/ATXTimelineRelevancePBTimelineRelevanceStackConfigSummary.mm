@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  smartStacksWithWidget = self->_smartStacksWithWidget;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  nonSmartStacksWithWidget = self->_nonSmartStacksWithWidget;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  standaloneWidgets = self->_standaloneWidgets;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    widgetsWithUnknownStackKind = self->_widgetsWithUnknownStackKind;
     PBDataWriterWriteInt32Field();
   }
 

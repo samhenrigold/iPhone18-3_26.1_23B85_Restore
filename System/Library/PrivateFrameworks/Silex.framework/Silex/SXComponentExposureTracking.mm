@@ -51,9 +51,11 @@
 - (void)setLastObservedVisibilityState:(int64_t)state
 {
   self->_lastObservedVisibilityState = state;
-  self->_lastStateChange = [MEMORY[0x1E695DF00] date];
+  date = [MEMORY[0x1E695DF00] date];
+  lastStateChange = self->_lastStateChange;
+  self->_lastStateChange = date;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](date, lastStateChange);
 }
 
 - (void)calculateVisibilityFactor

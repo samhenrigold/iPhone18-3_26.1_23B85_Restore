@@ -112,8 +112,8 @@ void __62__MPCPlaybackEngineEvent_MPCRTCEventConsumer__matchesPayload___block_in
     goto LABEL_5;
   }
 
-  [eventCopy monotonicTime];
-  [v5 monotonicTime];
+  objc_msgSend_monotonicTime(eventCopy);
+  objc_msgSend_monotonicTime(v5);
   v7 = v12 + v13;
   v8 = v12 + v13 - v6;
   if (v12 + v13 <= v6)
@@ -138,9 +138,9 @@ LABEL_6:
   if (compare)
   {
     compareCopy = compare;
-    [compareCopy monotonicTime];
+    objc_msgSend_monotonicTime(compareCopy);
     v6 = v12;
-    [compareCopy monotonicTime];
+    objc_msgSend_monotonicTime(compareCopy);
 
     v7 = v11 + v6;
   }
@@ -181,7 +181,7 @@ LABEL_6:
   rawNanoSeconds = self->_monotonicTime.rawNanoSeconds;
   if (event)
   {
-    [event monotonicTime];
+    objc_msgSend_monotonicTime(event, a2);
     v4 = v6;
   }
 

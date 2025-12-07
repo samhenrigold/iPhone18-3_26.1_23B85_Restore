@@ -59,22 +59,19 @@
     swift_once();
   }
 
-  v2 = sub_10038916C(0);
-  if (*(v2 + 2))
+  if (*(sub_10038916C(0) + 2))
   {
-    v3 = *(v2 + 4);
-    v4 = *(v2 + 5);
 
-    v5 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
 
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (void)startMirroringActivity
@@ -119,7 +116,7 @@
     swift_once();
   }
 
-  sub_100388968(2u, v5, v7, score);
+  sub_100388968(2, v5, v7, score);
 }
 
 - (void)endRouteRecommendationActivityFor:(id)for
@@ -145,10 +142,10 @@
 {
   if (qword_100536470 != -1)
   {
-    swift_once();
+    self = swift_once();
   }
 
-  sub_100384DBC();
+  sub_100384DBC(self);
 }
 
 - (id)contextForActivityIdentifier:(id)identifier

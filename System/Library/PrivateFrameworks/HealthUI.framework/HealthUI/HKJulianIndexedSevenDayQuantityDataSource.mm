@@ -626,7 +626,7 @@ void __99__HKJulianIndexedSevenDayQuantityDataSource__singlePointChartPointsWith
   v3 = [a1 quantityType];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4_1(&dword_1C3942000, v5, v6, "TimeZone is missing for sample (uuid: %{public}@) in weekly report data source for quantity type %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4_1(&dword_1C3942000, v5, v6, "TimeZone is missing for sample (uuid: %{public}@) in weekly report data source for quantity type %{public}@", v7, v8, v9, v10);
 }
 
 void __111__HKJulianIndexedSevenDayQuantityDataSource_generateSharableQueryDataForRequest_healthStore_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)

@@ -51,7 +51,7 @@ void __60__NSString_ITK__itk_stringByReplacingCharactersInStringMap___block_invo
   [v4 addObject:v11];
 }
 
-unint64_t __40__NSString_ITK__itk_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
+void *__40__NSString_ITK__itk_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 length];

@@ -47,25 +47,24 @@
 
 - (id)description
 {
-  networkSSID = self->_networkSSID;
   if (self->_networkPassword)
   {
-    v4 = @"*********";
+    v3 = @"*********";
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"networkSSID:[-%@-] networkPassword:[-%@-]", self->_networkSSID, v4];
-  v6 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = TRSetupNetworkRequest;
-  v7 = [(TRMessage *)&v10 description];
-  v8 = [v6 stringWithFormat:@"%@ %@", v7, v5];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"networkSSID:[-%@-] networkPassword:[-%@-]", self->_networkSSID, v3];
+  v5 = MEMORY[0x277CCACA8];
+  v9.receiver = self;
+  v9.super_class = TRSetupNetworkRequest;
+  v6 = [(TRMessage *)&v9 description];
+  v7 = [v5 stringWithFormat:@"%@ %@", v6, v4];
 
-  return v8;
+  return v7;
 }
 
 @end

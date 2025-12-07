@@ -81,7 +81,7 @@
 
 - (id)reloadItemsWithObjects:(id)objects keyAdaptor:(id)adaptor itemAdaptor:(id)itemAdaptor filter:(id)filter itemMap:(id)map
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   adaptorCopy = adaptor;
   itemAdaptorCopy = itemAdaptor;
@@ -93,7 +93,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFItemProvider.m" lineNumber:147 description:{@"Invalid parameter not satisfying: %@", @"itemMap"}];
   }
 
-  v70 = filterCopy;
+  v69 = filterCopy;
   if (!adaptorCopy)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
@@ -101,26 +101,26 @@
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   items = [(HFItemProvider *)self items];
-  v16 = [items countByEnumeratingWithState:&v97 objects:v111 count:16];
+  v16 = [items countByEnumeratingWithState:&v96 objects:v110 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v98;
+    v18 = *v97;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v98 != v18)
+        if (*v97 != v18)
         {
           objc_enumerationMutation(items);
         }
 
-        v20 = *(*(&v97 + 1) + 8 * i);
+        v20 = *(*(&v96 + 1) + 8 * i);
         v21 = itemAdaptorCopy[2](itemAdaptorCopy, v20);
         if (v21)
         {
@@ -128,52 +128,52 @@
         }
       }
 
-      v17 = [items countByEnumeratingWithState:&v97 objects:v111 count:16];
+      v17 = [items countByEnumeratingWithState:&v96 objects:v110 count:16];
     }
 
     while (v17);
   }
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
   obj = objectsCopy;
-  v22 = [obj countByEnumeratingWithState:&v93 objects:v110 count:16];
+  v22 = [obj countByEnumeratingWithState:&v92 objects:v109 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v94;
+    v24 = *v93;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v94 != v24)
+        if (*v93 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v93 + 1) + 8 * j);
+        v26 = *(*(&v92 + 1) + 8 * j);
         v27 = adaptorCopy[2](adaptorCopy, v26);
         if (v27)
         {
           v28 = [dictionary2 objectForKeyedSubscript:v27];
 
-          if (!v28 && (!v70 || v70[2](v70, v26)))
+          if (!v28 && (!v69 || v69[2](v69, v26)))
           {
             [dictionary2 setObject:v26 forKeyedSubscript:v27];
           }
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v93 objects:v110 count:16];
+      v23 = [obj countByEnumeratingWithState:&v92 objects:v109 count:16];
     }
 
     while (v23);
   }
 
-  v69 = adaptorCopy;
+  v68 = adaptorCopy;
 
   v29 = MEMORY[0x277CBEB98];
   allKeys = [dictionary allKeys];
@@ -183,71 +183,71 @@
   v34 = [v32 setWithArray:allKeys2];
   v35 = [HFSetDiff diffFromSet:v31 toSet:v34];
 
-  v76 = [MEMORY[0x277CBEB58] set];
+  v75 = [MEMORY[0x277CBEB58] set];
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v71 = v35;
+  v70 = v35;
   deletions = [v35 deletions];
-  v37 = [deletions countByEnumeratingWithState:&v89 objects:v109 count:16];
+  v37 = [deletions countByEnumeratingWithState:&v88 objects:v108 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v90;
+    v39 = *v89;
     do
     {
       for (k = 0; k != v38; ++k)
       {
-        if (*v90 != v39)
+        if (*v89 != v39)
         {
           objc_enumerationMutation(deletions);
         }
 
-        v41 = *(*(&v89 + 1) + 8 * k);
+        v41 = *(*(&v88 + 1) + 8 * k);
         v42 = [dictionary objectForKeyedSubscript:v41];
         v43 = HFLogForCategory(0x2CuLL);
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
           selfCopy2 = self;
-          v105 = 2112;
-          v106 = v41;
-          v107 = 2112;
-          v108 = v42;
+          v104 = 2112;
+          v105 = v41;
+          v106 = 2112;
+          v107 = v42;
           _os_log_impl(&dword_20D9BF000, v43, OS_LOG_TYPE_DEFAULT, "%@: Removing HomeKit item for identifier %@: %@", buf, 0x20u);
         }
 
-        [v76 addObject:v42];
+        [v75 addObject:v42];
       }
 
-      v38 = [deletions countByEnumeratingWithState:&v89 objects:v109 count:16];
+      v38 = [deletions countByEnumeratingWithState:&v88 objects:v108 count:16];
     }
 
     while (v38);
   }
 
   v44 = [MEMORY[0x277CBEB58] set];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
-  additions = [v71 additions];
-  v46 = [additions countByEnumeratingWithState:&v85 objects:v102 count:16];
+  additions = [v70 additions];
+  v46 = [additions countByEnumeratingWithState:&v84 objects:v101 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v86;
+    v48 = *v85;
     do
     {
       for (m = 0; m != v47; ++m)
       {
-        if (*v86 != v48)
+        if (*v85 != v48)
         {
           objc_enumerationMutation(additions);
         }
 
-        v50 = *(*(&v85 + 1) + 8 * m);
+        v50 = *(*(&v84 + 1) + 8 * m);
         v51 = [dictionary2 objectForKeyedSubscript:v50];
         v52 = mapCopy[2](mapCopy, v51);
         if (v52)
@@ -257,10 +257,10 @@
           {
             *buf = 138412802;
             selfCopy2 = self;
-            v105 = 2112;
-            v106 = v50;
-            v107 = 2112;
-            v108 = v51;
+            v104 = 2112;
+            v105 = v50;
+            v106 = 2112;
+            v107 = v51;
             _os_log_impl(&dword_20D9BF000, v53, OS_LOG_TYPE_DEFAULT, "%@: Adding item for identifier %@: %@", buf, 0x20u);
           }
 
@@ -268,57 +268,55 @@
         }
       }
 
-      v47 = [additions countByEnumeratingWithState:&v85 objects:v102 count:16];
+      v47 = [additions countByEnumeratingWithState:&v84 objects:v101 count:16];
     }
 
     while (v47);
   }
 
-  updates = [v71 updates];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __100__HFItemProvider_HFForSubclassesOnly__reloadItemsWithObjects_keyAdaptor_itemAdaptor_filter_itemMap___block_invoke;
-  v83[3] = &unk_277DFB590;
+  updates = [v70 updates];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __100__HFItemProvider_HFForSubclassesOnly__reloadItemsWithObjects_keyAdaptor_itemAdaptor_filter_itemMap___block_invoke;
+  v82[3] = &unk_277DFB590;
   v55 = dictionary;
-  v84 = v55;
-  v56 = [updates na_map:v83];
+  v83 = v55;
+  v56 = [updates na_map:v82];
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   items2 = [(HFItemProvider *)self items];
-  v58 = [items2 countByEnumeratingWithState:&v79 objects:v101 count:16];
+  v58 = [items2 countByEnumeratingWithState:&v78 objects:v100 count:16];
   if (v58)
   {
     v59 = v58;
-    v60 = *v80;
+    v60 = *v79;
     do
     {
       for (n = 0; n != v59; ++n)
       {
-        if (*v80 != v60)
+        if (*v79 != v60)
         {
           objc_enumerationMutation(items2);
         }
 
-        v62 = *(*(&v79 + 1) + 8 * n);
+        v62 = *(*(&v78 + 1) + 8 * n);
         if (([v44 containsObject:v62] & 1) == 0 && (objc_msgSend(v56, "containsObject:", v62) & 1) == 0)
         {
-          [v76 addObject:v62];
+          [v75 addObject:v62];
         }
       }
 
-      v59 = [items2 countByEnumeratingWithState:&v79 objects:v101 count:16];
+      v59 = [items2 countByEnumeratingWithState:&v78 objects:v100 count:16];
     }
 
     while (v59);
   }
 
-  v63 = [[HFItemProviderReloadResults alloc] initWithAddedItems:v44 removedItems:v76 existingItems:v56];
+  v63 = [[HFItemProviderReloadResults alloc] initWithAddedItems:v44 removedItems:v75 existingItems:v56];
   v64 = [MEMORY[0x277D2C900] futureWithResult:v63];
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v64;
 }

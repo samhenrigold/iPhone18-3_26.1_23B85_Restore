@@ -1,2046 +1,7 @@
-void sub_18603369C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v13 = *v11;
-  if (*v11)
-  {
-    *(v10 + 40) = v13;
-    operator delete(v13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
-{
-  if ((a5 & 0x80) != 0)
-  {
-    v9 = a5 & 0xFFA;
-  }
-
-  else
-  {
-    v9 = a5;
-  }
-
-  std::match_results<char const*>::__init(this, *(a1 + 28) + 1, __f, __l, (v9 & 0x800) >> 11);
-  std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, __f, __l, this, v9, (v9 & 0x800) == 0);
-  if (v10)
-  {
-    if (this->__matches_.__end_ == this->__matches_.__begin_)
-    {
-      p_unmatched = &this->__unmatched_;
-    }
-
-    else
-    {
-      p_unmatched = this->__matches_.__begin_;
-    }
-
-LABEL_19:
-    first = p_unmatched->first;
-    this->__prefix_.second = p_unmatched->first;
-    this->__prefix_.matched = this->__prefix_.first != first;
-    second = p_unmatched->second;
-    this->__suffix_.first = second;
-    this->__suffix_.matched = second != this->__suffix_.second;
-    return 1;
-  }
-
-  if (__f != __l && (v9 & 0x40) == 0)
-  {
-    v12 = __f + 1;
-    if (v12 != __l)
-    {
-      v13 = &this->__unmatched_;
-      do
-      {
-        std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v12, __l, this, v9 | 0x80, 0);
-        begin = this->__matches_.__begin_;
-        end = this->__matches_.__end_;
-        if (v16)
-        {
-          goto LABEL_16;
-        }
-
-        std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3), &this->__unmatched_);
-      }
-
-      while (++v12 != __l);
-    }
-
-    v13 = &this->__unmatched_;
-    std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v12, __l, this, v9 | 0x80, 0);
-    if (v17)
-    {
-      begin = this->__matches_.__begin_;
-      end = this->__matches_.__end_;
-LABEL_16:
-      if (end == begin)
-      {
-        p_unmatched = v13;
-      }
-
-      else
-      {
-        p_unmatched = begin;
-      }
-
-      goto LABEL_19;
-    }
-  }
-
-  result = 0;
-  this->__matches_.__end_ = this->__matches_.__begin_;
-  return result;
-}
-
-void std::match_results<std::__wrap_iter<char const*>>::__assign[abi:fe200100]<char const*,std::allocator<std::sub_match<char const*>>>(std::vector<std::ssub_match> *a1, uint64_t a2, std::sub_match<std::__wrap_iter<const char *>> *a3, uint64_t *a4, char a5)
-{
-  v10 = a4[6];
-  std::vector<std::sub_match<std::__wrap_iter<char const*>>>::resize(a1, 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
-  begin = a1->__begin_;
-  if (a1->__end_ == a1->__begin_)
-  {
-    v14 = a2 - v10;
-LABEL_17:
-    a1[1].__begin_ = a3;
-    a1[1].__end_ = a3;
-    LOBYTE(a1[1].__end_cap_.__value_) = 0;
-    v23 = (v14 + a4[6]);
-    a1[2].__begin_ = v23;
-    a1[2].__end_ = (v14 + a4[7]);
-    LOBYTE(a1[2].__end_cap_.__value_) = *(a4 + 64);
-    a1[3].__begin_ = (v14 + a4[9]);
-    a1[3].__end_ = (v14 + a4[10]);
-    LOBYTE(a1[3].__end_cap_.__value_) = *(a4 + 88);
-    if ((a5 & 1) == 0)
-    {
-      a1[4].__end_ = v23;
-    }
-
-    LOBYTE(a1[4].__begin_) = *(a4 + 96);
-  }
-
-  else
-  {
-    v12 = 0;
-    v13 = 0;
-    v14 = a2 - v10;
-    v16 = *a4;
-    v15 = a4[1];
-    while (1)
-    {
-      v17 = 0xAAAAAAAAAAAAAAABLL * ((v15 - v16) >> 3);
-      v18 = (v16 + v12 * 24);
-      v19 = v17 <= v13 ? a4 + 3 : v18;
-      begin[v12].first.__i_ = (v14 + *v19);
-      if (0xAAAAAAAAAAAAAAABLL * ((a1->__end_ - a1->__begin_) >> 3) <= v13)
-      {
-        break;
-      }
-
-      v20 = 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v13 ? (a4 + 3) : *a4 + v12 * 24;
-      a1->__begin_[v12].second.__i_ = (v14 + *(v20 + 8));
-      begin = a1->__begin_;
-      v21 = 0xAAAAAAAAAAAAAAABLL * ((a1->__end_ - a1->__begin_) >> 3);
-      if (v21 <= v13)
-      {
-        break;
-      }
-
-      v16 = *a4;
-      v15 = a4[1];
-      if (0xAAAAAAAAAAAAAAABLL * ((v15 - *a4) >> 3) <= v13)
-      {
-        v22 = a4 + 3;
-      }
-
-      else
-      {
-        v22 = (*a4 + v12 * 24);
-      }
-
-      begin[v12].matched = *(v22 + 16);
-      ++v13;
-      ++v12;
-      if (v13 >= v21)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-}
-
-void std::match_results<char const*>::__init(std::match_results<const char *> *this, unsigned int __s, const char *__f, const char *__l, BOOL __no_update_pos)
-{
-  this->__unmatched_.first = __l;
-  p_unmatched = &this->__unmatched_;
-  this->__unmatched_.second = __l;
-  this->__unmatched_.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&this->__matches_, __s, &this->__unmatched_);
-  this->__prefix_.first = __f;
-  this->__prefix_.second = __f;
-  this->__prefix_.matched = 0;
-  this->__suffix_ = *p_unmatched;
-  if (!__no_update_pos)
-  {
-    this->__position_start_ = __f;
-  }
-
-  this->__ready_ = 1;
-}
-
-void std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
-{
-  if ((*(a1 + 24) & 0x1F0) != 0)
-  {
-    if (*(a1 + 28))
-    {
-      std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, a2, a3, a4, a5, a6);
-    }
-
-    else
-    {
-      std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, a2, a3, a4, a5, a6);
-    }
-  }
-
-  else
-  {
-    std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, a2, a3, a4, a5, a6);
-  }
-}
-
-void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_match> *this, std::vector<std::csub_match>::size_type __n, std::vector<std::csub_match>::const_reference __u)
-{
-  value = this->__end_cap_.__value_;
-  begin = this->__begin_;
-  if (0xAAAAAAAAAAAAAAABLL * ((value - begin) >> 3) < __n)
-  {
-    if (begin)
-    {
-      this->__end_ = begin;
-      operator delete(begin);
-      value = 0;
-      this->__begin_ = 0;
-      this->__end_ = 0;
-      this->__end_cap_.__value_ = 0;
-    }
-
-    if (__n <= 0xAAAAAAAAAAAAAAALL)
-    {
-      v7 = 0xAAAAAAAAAAAAAAABLL * (value >> 3);
-      v8 = 2 * v7;
-      if (2 * v7 <= __n)
-      {
-        v8 = __n;
-      }
-
-      if (v7 >= 0x555555555555555)
-      {
-        v9 = 0xAAAAAAAAAAAAAAALL;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-
-      std::vector<std::sub_match<char const*>>::__vallocate[abi:fe200100](this, v9);
-    }
-
-    std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-  }
-
-  end = this->__end_;
-  v11 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
-  if (v11 >= __n)
-  {
-    v12 = __n;
-  }
-
-  else
-  {
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
-  }
-
-  if (v12)
-  {
-    v13 = __u->std::pair<const char *, const char *>;
-    matched = __u->matched;
-    v15 = begin;
-    do
-    {
-      v15->std::pair<const char *, const char *> = v13;
-      v15->matched = matched;
-      ++v15;
-      --v12;
-    }
-
-    while (v12);
-  }
-
-  if (__n <= v11)
-  {
-    this->__end_ = &begin[__n];
-  }
-
-  else
-  {
-    v16 = &end[__n - v11];
-    v17 = 24 * __n - 8 * ((end - begin) >> 3);
-    do
-    {
-      v18 = __u->std::pair<const char *, const char *>;
-      *&end->matched = *&__u->matched;
-      end->std::pair<const char *, const char *> = v18;
-      ++end;
-      v17 -= 24;
-    }
-
-    while (v17);
-    this->__end_ = v16;
-  }
-}
-
-void std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
-{
-  v39 = 0;
-  v40 = 0;
-  v41 = 0;
-  v6 = *(a1 + 40);
-  if (v6)
-  {
-    __x.second = a3;
-    *&__x.matched = 0;
-    __x.first = a3;
-    LODWORD(v37[0]) = 0;
-    memset(v37 + 8, 0, 80);
-    *(&v37[5] + 5) = 0;
-    std::vector<std::__state<char>>::push_back[abi:fe200100](&v39, v37);
-    if (*(&v37[3] + 1))
-    {
-      *&v37[4] = *(&v37[3] + 1);
-      operator delete(*(&v37[3] + 1));
-    }
-
-    if (*&v37[2])
-    {
-      *(&v37[2] + 1) = *&v37[2];
-      operator delete(*&v37[2]);
-    }
-
-    v13 = v40;
-    if (v39 != v40)
-    {
-      *(v40 - 96) = 0;
-      *(v13 - 88) = a2;
-      *(v13 - 80) = a2;
-      *(v13 - 72) = a3;
-      std::vector<std::sub_match<char const*>>::resize((v13 - 64), *(a1 + 28), &__x);
-      if (v39 != v40)
-      {
-        std::vector<std::pair<unsigned long,char const*>>::resize((v40 - 40), *(a1 + 32));
-        v14 = v39;
-        v15 = v40;
-        if (v39 != v40)
-        {
-          v36 = a4;
-          *(v40 - 16) = v6;
-          *(v15 - 8) = a5;
-          v16 = 1;
-          *(v15 - 4) = a6;
-          while (1)
-          {
-            if ((v16 & 0xFFF) == 0 && (v16 >> 12) >= a3 - a2)
-            {
-              std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)12>();
-            }
-
-            if (v14 == v15)
-            {
-              break;
-            }
-
-            v18 = (v15 - 16);
-            v17 = *(v15 - 16);
-            v19 = (v15 - 96);
-            if (v17)
-            {
-              (*(*v17 + 16))(v17, v15 - 96);
-            }
-
-            v20 = *v19;
-            if (*v19 > -994)
-            {
-              switch(v20)
-              {
-                case -993:
-                  goto LABEL_27;
-                case -992:
-                  memset(v37, 0, sizeof(v37));
-                  v23 = *(v15 - 80);
-                  v37[0] = *v19;
-                  v37[1] = v23;
-                  std::vector<std::sub_match<char const*>>::__init_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(&v37[2], *(v15 - 64), *(v15 - 56), 0xAAAAAAAAAAAAAAABLL * ((*(v15 - 56) - *(v15 - 64)) >> 3));
-                  memset(&v37[3] + 8, 0, 24);
-                  std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(&v37[3] + 8, *(v15 - 40), *(v15 - 32), (*(v15 - 32) - *(v15 - 40)) >> 4);
-                  v24 = *v18;
-                  *(&v37[5] + 5) = *(v15 - 11);
-                  *&v37[5] = v24;
-                  (*(**v18 + 24))(*v18, 1, v15 - 96);
-                  (*(**&v37[5] + 24))(*&v37[5], 0, v37);
-                  std::vector<std::__state<char>>::push_back[abi:fe200100](&v39, v37);
-                  if (*(&v37[3] + 1))
-                  {
-                    *&v37[4] = *(&v37[3] + 1);
-                    operator delete(*(&v37[3] + 1));
-                  }
-
-                  if (*&v37[2])
-                  {
-                    *(&v37[2] + 1) = *&v37[2];
-                    operator delete(*&v37[2]);
-                  }
-
-                  break;
-                case -991:
-                  break;
-                default:
-LABEL_42:
-                  std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)16>();
-              }
-            }
-
-            else if ((v20 + 995) >= 2)
-            {
-              if (v20 != -1000)
-              {
-                goto LABEL_42;
-              }
-
-              v21 = *(v15 - 80);
-              if (((a5 & 0x20) == 0 || v21 != a2) && ((a5 & 0x1000) == 0 || v21 == a3))
-              {
-                v25 = *v36;
-                v26 = v36[1] - *v36;
-                if (!v26)
-                {
-                  break;
-                }
-
-                *v25 = a2;
-                *(v25 + 8) = v21;
-                *(v25 + 16) = 1;
-                v27 = *(v15 - 64);
-                v28 = *(v15 - 56) - v27;
-                if (v28)
-                {
-                  v29 = 0;
-                  v30 = 0xAAAAAAAAAAAAAAABLL * (v26 >> 3);
-                  v31 = 0xAAAAAAAAAAAAAAABLL * (v28 >> 3);
-                  v32 = 1;
-                  while (v30 > v32)
-                  {
-                    v33 = v27 + 24 * v29;
-                    v34 = v32;
-                    v35 = v25 + 24 * v32;
-                    *v35 = *v33;
-                    *(v35 + 16) = *(v33 + 16);
-                    v32 = v34 + 1;
-                    v29 = v34;
-                    if (v31 <= v34)
-                    {
-                      goto LABEL_34;
-                    }
-                  }
-
-                  break;
-                }
-
-                goto LABEL_34;
-              }
-
-LABEL_27:
-              if (v39 == v40)
-              {
-                break;
-              }
-
-              v22 = v40 - 96;
-              std::allocator<std::__state<char>>::destroy[abi:fe200100](&v39, (v40 - 96));
-              v40 = v22;
-            }
-
-            v14 = v39;
-            v15 = v40;
-            ++v16;
-            if (v39 == v40)
-            {
-              goto LABEL_34;
-            }
-          }
-        }
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_34:
-    *&v37[0] = &v39;
-    std::vector<std::__state<char>>::__destroy_vector::operator()[abi:fe200100](v37);
-  }
-}
-
-void sub_186033FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16)
-{
-  std::__state<char>::~__state(&a11);
-  a11 = v16 - 112;
-  std::vector<std::__state<char>>::__destroy_vector::operator()[abi:fe200100](&a11);
-  _Unwind_Resume(a1);
-}
-
-void std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, int a5, char a6)
-{
-  v53 = 0u;
-  v54 = 0u;
-  v52 = 0u;
-  v6 = *(a1 + 40);
-  if (!v6)
-  {
-LABEL_73:
-    std::deque<std::__state<char>>::~deque[abi:fe200100](&v52);
-    return;
-  }
-
-  LODWORD(v51[0]) = 0;
-  memset(v51 + 8, 0, 80);
-  *(&v51[5] + 5) = 0;
-  std::deque<std::__state<char>>::push_back(&v52, v51);
-  if (*(&v51[3] + 1))
-  {
-    *&v51[4] = *(&v51[3] + 1);
-    operator delete(*(&v51[3] + 1));
-  }
-
-  if (*&v51[2])
-  {
-    *(&v51[2] + 1) = *&v51[2];
-    operator delete(*&v51[2]);
-  }
-
-  if (!*(&v54 + 1))
-  {
-    goto LABEL_75;
-  }
-
-  v11 = v52.i64[1];
-  v12 = *(&v54 + 1) + v54 - 1;
-  v13 = v12 / 0x2A;
-  v14 = *(v52.i64[1] + 8 * (v12 / 0x2A));
-  v15 = 3 * (v12 % 0x2A);
-  v16 = v14 + 32 * v15;
-  *v16 = 0;
-  *(v16 + 8) = a2;
-  *(*(v11 + 8 * v13) + 32 * v15 + 16) = a2;
-  *(*(v11 + 8 * v13) + 32 * v15 + 24) = a3;
-  std::vector<std::pair<unsigned long,char const*>>::resize((*(v11 + 8 * v13) + 32 * v15 + 56), *(a1 + 32));
-  v17 = *(&v54 + 1);
-  if (!*(&v54 + 1))
-  {
-    goto LABEL_75;
-  }
-
-  v47 = a4;
-  v18 = 0;
-  v48 = 0;
-  v19 = 0;
-  v20 = v52.i64[1];
-  v21 = *(&v54 + 1) + v54 - 1;
-  v22 = v21 / 0x2A;
-  v23 = 3 * (v21 % 0x2A);
-  *(*(v52.i64[1] + 8 * v22) + 32 * v23 + 80) = v6;
-  v24 = a3 - a2;
-  v25 = *(v20 + 8 * v22) + 32 * v23;
-  *(v25 + 88) = a5;
-  *(v25 + 92) = a6;
-  do
-  {
-    if ((++v19 & 0xFFF) == 0 && (v19 >> 12) >= v24)
-    {
-      std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)12>();
-    }
-
-    v27 = *(v52.i64[1] + 8 * ((v17 + v54 - 1) / 0x2AuLL)) + 96 * ((v17 + v54 - 1) % 0x2AuLL);
-    v28 = *(v27 + 80);
-    if (v28)
-    {
-      (*(*v28 + 16))(v28, v27);
-    }
-
-    v29 = *v27;
-    if (*v27 <= -995)
-    {
-      if (v29 != -1000)
-      {
-        if (v29 == -999)
-        {
-          goto LABEL_54;
-        }
-
-        if (v29 != -995)
-        {
-          goto LABEL_74;
-        }
-
-        std::deque<std::__state<char>>::push_front(&v52, v27);
-        goto LABEL_53;
-      }
-
-      v30 = *(v27 + 16);
-      v32 = (a5 & 0x1000) == 0 || v30 == a3;
-      v33 = v30 != a2 || (a5 & 0x20) == 0;
-      if (!v33 || !v32)
-      {
-        goto LABEL_53;
-      }
-
-      v34 = v30 - *(v27 + 8);
-      if (v18 <= v34)
-      {
-        v35 = v34;
-      }
-
-      else
-      {
-        v35 = v18;
-      }
-
-      if (v48)
-      {
-        v18 = v35;
-      }
-
-      else
-      {
-        v18 = v34;
-      }
-
-      if (v18 != v24)
-      {
-        std::deque<std::__state<char>>::pop_back(&v52);
-        v48 = 1;
-        goto LABEL_54;
-      }
-
-      v36 = v52.i64[1];
-      v37 = v53;
-      if (v53 == v52.i64[1])
-      {
-        v37 = v52.i64[1];
-      }
-
-      else
-      {
-        v38 = (v52.i64[1] + 8 * (v54 / 0x2A));
-        v39 = (*v38 + 96 * (v54 % 0x2A));
-        v40 = *(v52.i64[1] + 8 * ((*(&v54 + 1) + v54) / 0x2AuLL)) + 96 * ((*(&v54 + 1) + v54) % 0x2AuLL);
-        if (v39 != v40)
-        {
-          do
-          {
-            std::allocator<std::__state<char>>::destroy[abi:fe200100](&v52, v39);
-            v39 += 12;
-            if ((v39 - *v38) == 4032)
-            {
-              v41 = v38[1];
-              ++v38;
-              v39 = v41;
-            }
-          }
-
-          while (v39 != v40);
-          v36 = v52.i64[1];
-          v37 = v53;
-        }
-      }
-
-      *(&v54 + 1) = 0;
-      v44 = (v37 - v36) >> 3;
-      if (v44 >= 3)
-      {
-        do
-        {
-          operator delete(*v36);
-          v36 = (v52.i64[1] + 8);
-          v52.i64[1] = v36;
-          v44 = (v53 - v36) >> 3;
-        }
-
-        while (v44 > 2);
-      }
-
-      if (v44 == 1)
-      {
-        v45 = 21;
-      }
-
-      else
-      {
-        if (v44 != 2)
-        {
-LABEL_69:
-          v48 = 1;
-          v18 = a3 - a2;
-          goto LABEL_54;
-        }
-
-        v45 = 42;
-      }
-
-      *&v54 = v45;
-      goto LABEL_69;
-    }
-
-    if (v29 <= -993)
-    {
-      if (v29 == -994)
-      {
-        goto LABEL_54;
-      }
-
-      if (v29 != -993)
-      {
-        goto LABEL_74;
-      }
-
-LABEL_53:
-      std::deque<std::__state<char>>::pop_back(&v52);
-      goto LABEL_54;
-    }
-
-    if (v29 == -992)
-    {
-      memset(v51, 0, sizeof(v51));
-      v42 = *(v27 + 16);
-      v51[0] = *v27;
-      v51[1] = v42;
-      std::vector<std::sub_match<char const*>>::__init_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(&v51[2], *(v27 + 32), *(v27 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(v27 + 40) - *(v27 + 32)) >> 3));
-      memset(&v51[3] + 8, 0, 24);
-      std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(&v51[3] + 8, *(v27 + 56), *(v27 + 64), (*(v27 + 64) - *(v27 + 56)) >> 4);
-      v43 = *(v27 + 80);
-      *(&v51[5] + 5) = *(v27 + 85);
-      *&v51[5] = v43;
-      (*(**(v27 + 80) + 24))(*(v27 + 80), 1, v27);
-      (*(**&v51[5] + 24))(*&v51[5], 0, v51);
-      std::deque<std::__state<char>>::push_back(&v52, v51);
-      if (*(&v51[3] + 1))
-      {
-        *&v51[4] = *(&v51[3] + 1);
-        operator delete(*(&v51[3] + 1));
-      }
-
-      if (*&v51[2])
-      {
-        *(&v51[2] + 1) = *&v51[2];
-        operator delete(*&v51[2]);
-      }
-    }
-
-    else if (v29 != -991)
-    {
-LABEL_74:
-      std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)16>();
-    }
-
-LABEL_54:
-    v17 = *(&v54 + 1);
-  }
-
-  while (*(&v54 + 1));
-  if ((v48 & 1) == 0)
-  {
-    goto LABEL_73;
-  }
-
-  v46 = *v47;
-  if (v47[1] != *v47)
-  {
-    *v46 = a2;
-    *(v46 + 8) = a2 + v18;
-    *(v46 + 16) = 1;
-    goto LABEL_73;
-  }
-
-LABEL_75:
-  __break(1u);
-}
-
-void std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
-{
-  v56 = 0;
-  v57 = 0;
-  v58 = 0;
-  v54 = 0u;
-  v55 = 0u;
-  *v52 = 0u;
-  *v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v6 = *(a1 + 40);
-  if (v6)
-  {
-    __x.second = a3;
-    *&__x.matched = 0;
-    __x.first = a3;
-    LODWORD(v48[0]) = 0;
-    *(v48 + 8) = 0uLL;
-    *(&v48[1] + 8) = 0uLL;
-    *(&v48[2] + 8) = 0uLL;
-    *(&v48[3] + 8) = 0uLL;
-    *(&v48[4] + 8) = 0uLL;
-    *(&v48[5] + 5) = 0;
-    std::vector<std::__state<char>>::push_back[abi:fe200100](&v56, v48);
-    if (*(&v48[3] + 1))
-    {
-      *&v48[4] = *(&v48[3] + 1);
-      operator delete(*(&v48[3] + 1));
-    }
-
-    if (*&v48[2])
-    {
-      *(&v48[2] + 1) = *&v48[2];
-      operator delete(*&v48[2]);
-    }
-
-    v13 = v57;
-    if (v56 != v57)
-    {
-      *(v57 - 24) = 0;
-      *(v13 - 11) = a2;
-      *(v13 - 10) = a2;
-      *(v13 - 9) = a3;
-      std::vector<std::sub_match<char const*>>::resize((v13 - 8), *(a1 + 28), &__x);
-      if (v56 != v57)
-      {
-        std::vector<std::pair<unsigned long,char const*>>::resize((v57 - 5), *(a1 + 32));
-        v14 = v56;
-        v15 = v57;
-        if (v56 != v57)
-        {
-          v45 = a4;
-          v46 = a3;
-          v16 = 0;
-          v47 = 0;
-          v17 = 0;
-          v18 = (a3 - a2);
-          *(v57 - 2) = v6;
-          *(v15 - 2) = a5;
-          *(v15 - 4) = a6;
-          while (1)
-          {
-            if ((++v17 & 0xFFF) == 0 && (v17 >> 12) >= v18)
-            {
-              std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)12>();
-            }
-
-            if (v14 == v15)
-            {
-              break;
-            }
-
-            v21 = v15 - 2;
-            v20 = *(v15 - 2);
-            v22 = (v15 - 12);
-            if (v20)
-            {
-              (*(*v20 + 16))(v20, v15 - 12);
-            }
-
-            v23 = *v22;
-            if (*v22 > -994)
-            {
-              switch(v23)
-              {
-                case -993:
-                  goto LABEL_37;
-                case -992:
-                  memset(v48, 0, sizeof(v48));
-                  v31 = *(v15 - 5);
-                  v48[0] = *v22;
-                  v48[1] = v31;
-                  std::vector<std::sub_match<char const*>>::__init_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(&v48[2], *(v15 - 8), *(v15 - 7), 0xAAAAAAAAAAAAAAABLL * ((*(v15 - 7) - *(v15 - 8)) >> 3));
-                  memset(&v48[3] + 8, 0, 24);
-                  std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(&v48[3] + 8, *(v15 - 5), *(v15 - 4), (*(v15 - 4) - *(v15 - 5)) >> 4);
-                  v32 = *v21;
-                  *(&v48[5] + 5) = *(v15 - 11);
-                  *&v48[5] = v32;
-                  (*(**v21 + 24))(*v21, 1, v15 - 12);
-                  (*(**&v48[5] + 24))(*&v48[5], 0, v48);
-                  std::vector<std::__state<char>>::push_back[abi:fe200100](&v56, v48);
-                  if (*(&v48[3] + 1))
-                  {
-                    *&v48[4] = *(&v48[3] + 1);
-                    operator delete(*(&v48[3] + 1));
-                  }
-
-                  if (*&v48[2])
-                  {
-                    *(&v48[2] + 1) = *&v48[2];
-                    operator delete(*&v48[2]);
-                  }
-
-                  break;
-                case -991:
-                  break;
-                default:
-LABEL_59:
-                  std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)16>();
-              }
-            }
-
-            else if ((v23 + 995) >= 2)
-            {
-              if (v23 != -1000)
-              {
-                goto LABEL_59;
-              }
-
-              v24 = *(v15 - 10);
-              if (((a5 & 0x20) == 0 || v24 != a2) && ((a5 & 0x1000) == 0 || v24 == v46))
-              {
-                v25 = &v24[-*(v15 - 11)];
-                if ((v47 & (v16 >= v25)) == 0)
-                {
-                  v26 = *(v15 - 5);
-                  v50 = *v22;
-                  v51 = v26;
-                  if (&v50 != v22)
-                  {
-                    std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(v52, *(v15 - 8), *(v15 - 7), 0xAAAAAAAAAAAAAAABLL * ((*(v15 - 7) - *(v15 - 8)) >> 3));
-                    std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(&v53[1], *(v15 - 5), *(v15 - 4), (*(v15 - 4) - *(v15 - 5)) >> 4);
-                  }
-
-                  v27 = *v21;
-                  *(&v55 + 5) = *(v15 - 11);
-                  *&v55 = v27;
-                  v16 = v25;
-                }
-
-                if (v16 == v18)
-                {
-                  v28 = v56;
-                  for (i = v57; i != v28; std::allocator<std::__state<char>>::destroy[abi:fe200100](&v56, i))
-                  {
-                    i -= 12;
-                  }
-
-                  v57 = v28;
-                  v47 = 1;
-                  v16 = v18;
-                }
-
-                else
-                {
-                  if (v56 == v57)
-                  {
-                    break;
-                  }
-
-                  v33 = v57 - 12;
-                  std::allocator<std::__state<char>>::destroy[abi:fe200100](&v56, v57 - 12);
-                  v57 = v33;
-                  v47 = 1;
-                }
-
-                goto LABEL_43;
-              }
-
-LABEL_37:
-              if (v56 == v57)
-              {
-                break;
-              }
-
-              v30 = v57 - 12;
-              std::allocator<std::__state<char>>::destroy[abi:fe200100](&v56, v57 - 12);
-              v57 = v30;
-            }
-
-LABEL_43:
-            v14 = v56;
-            v15 = v57;
-            if (v56 == v57)
-            {
-              if ((v47 & 1) == 0)
-              {
-                goto LABEL_54;
-              }
-
-              v34 = *v45;
-              v35 = v45[1];
-              v36 = v35 - *v45;
-              if (v35 != *v45)
-              {
-                *v34 = a2;
-                *(v34 + 8) = &v16[a2];
-                *(v34 + 16) = 1;
-                v37 = v52[0];
-                if (v52[1] == v52[0])
-                {
-                  goto LABEL_54;
-                }
-
-                v38 = 0;
-                v39 = 0xAAAAAAAAAAAAAAABLL * (v36 >> 3);
-                v40 = 0xAAAAAAAAAAAAAAABLL * ((v52[1] - v52[0]) >> 3);
-                v41 = 1;
-                while (v39 > v41)
-                {
-                  v42 = &v37[24 * v38];
-                  v43 = v41;
-                  v44 = v34 + 24 * v41;
-                  *v44 = *v42;
-                  *(v44 + 16) = v42[16];
-                  v41 = v43 + 1;
-                  v38 = v43;
-                  if (v40 <= v43)
-                  {
-                    goto LABEL_54;
-                  }
-                }
-              }
-
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_54:
-    if (v53[1])
-    {
-      *&v54 = v53[1];
-      operator delete(v53[1]);
-    }
-
-    if (v52[0])
-    {
-      v52[1] = v52[0];
-      operator delete(v52[0]);
-    }
-
-    *&v50 = &v56;
-    std::vector<std::__state<char>>::__destroy_vector::operator()[abi:fe200100](&v50);
-  }
-}
-
-void sub_186034A98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
-{
-  std::__state<char>::~__state(&a13);
-  std::__state<char>::~__state(&a29);
-  a29 = v29 - 112;
-  std::vector<std::__state<char>>::__destroy_vector::operator()[abi:fe200100](&a29);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<std::__state<char>>::push_back[abi:fe200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
-  }
-
-  else
-  {
-    v4 = *(a2 + 16);
-    *v3 = *a2;
-    *(v3 + 16) = v4;
-    *(v3 + 40) = 0;
-    *(v3 + 48) = 0;
-    *(v3 + 32) = 0;
-    *(v3 + 32) = *(a2 + 32);
-    *(v3 + 48) = *(a2 + 48);
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    *(v3 + 56) = 0;
-    *(v3 + 64) = 0;
-    *(v3 + 72) = 0;
-    *(v3 + 56) = *(a2 + 56);
-    *(v3 + 72) = *(a2 + 72);
-    *(a2 + 56) = 0;
-    *(a2 + 64) = 0;
-    *(a2 + 72) = 0;
-    v5 = *(a2 + 80);
-    *(v3 + 85) = *(a2 + 85);
-    *(v3 + 80) = v5;
-    result = v3 + 96;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-void *std::__state<char>::~__state(void *a1)
-{
-  v2 = a1[7];
-  if (v2)
-  {
-    a1[8] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[4];
-  if (v3)
-  {
-    a1[5] = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-void std::vector<std::sub_match<char const*>>::resize(std::vector<std::csub_match> *this, std::vector<std::csub_match>::size_type __sz, std::vector<std::csub_match>::const_reference __x)
-{
-  v3 = 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3);
-  v4 = __sz >= v3;
-  v5 = __sz - v3;
-  if (v5 != 0 && v4)
-  {
-    std::vector<std::sub_match<char const*>>::__append(this, v5, __x);
-  }
-
-  else if (!v4)
-  {
-    this->__end_ = &this->__begin_[__sz];
-  }
-}
-
-void std::vector<std::pair<unsigned long,char const*>>::resize(std::vector<std::pair<unsigned long, const char *>> *this, std::vector<std::pair<unsigned long, const char *>>::size_type __sz)
-{
-  v2 = this->__end_ - this->__begin_;
-  if (__sz <= v2)
-  {
-    if (__sz < v2)
-    {
-      this->__end_ = &this->__begin_[__sz];
-    }
-  }
-
-  else
-  {
-    std::vector<std::pair<unsigned long,char const*>>::__append(this, __sz - v2);
-  }
-}
-
-void std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)12>()
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  MEMORY[0x1866024B0](exception, 12);
-  __cxa_throw(exception, MEMORY[0x1E69E53A0], MEMORY[0x1E69E52B0]);
-}
-
-void std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)16>()
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  MEMORY[0x1866024B0](exception, 16);
-  __cxa_throw(exception, MEMORY[0x1E69E53A0], MEMORY[0x1E69E52B0]);
-}
-
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
-{
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
-  v3 = v2 + 1;
-  if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
-  {
-    std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-  }
-
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
-  {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
-  }
-
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
-  {
-    v6 = 0x2AAAAAAAAAAAAAALL;
-  }
-
-  else
-  {
-    v6 = v3;
-  }
-
-  v19 = a1;
-  if (v6)
-  {
-    std::__allocate_at_least[abi:fe200100]<std::allocator<std::__state<char>>>(a1, v6);
-  }
-
-  v7 = 96 * v2;
-  v16 = 0;
-  v17 = v7;
-  *(&v18 + 1) = 0;
-  v8 = *(a2 + 16);
-  *v7 = *a2;
-  *(v7 + 16) = v8;
-  *(v7 + 40) = 0;
-  *(v7 + 48) = 0;
-  *(v7 + 32) = 0;
-  *(v7 + 32) = *(a2 + 32);
-  *(v7 + 48) = *(a2 + 48);
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(v7 + 56) = 0;
-  *(v7 + 64) = 0;
-  *(v7 + 72) = 0;
-  *(v7 + 56) = *(a2 + 56);
-  *(v7 + 72) = *(a2 + 72);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  v9 = *(a2 + 80);
-  *(v7 + 85) = *(a2 + 85);
-  *(v7 + 80) = v9;
-  *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
-  v11 = 96 * v2 + *a1 - v10;
-  std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
-  v12 = *a1;
-  *a1 = v11;
-  v13 = *(a1 + 16);
-  v15 = v18;
-  *(a1 + 8) = v18;
-  *&v18 = v12;
-  *(&v18 + 1) = v13;
-  v16 = v12;
-  v17 = v12;
-  std::__split_buffer<std::__state<char>>::~__split_buffer(&v16);
-  return v15;
-}
-
-void sub_186034E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::__split_buffer<std::__state<char>>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-void std::__allocate_at_least[abi:fe200100]<std::allocator<std::__state<char>>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x2AAAAAAAAAAAAABLL)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:fe200100]();
-}
-
-uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<std::__state<char>>,std::__state<char>*>(uint64_t a1, void *a2, void *a3, uint64_t a4)
-{
-  v13 = a4;
-  v14 = a4;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
-  v12 = 0;
-  if (a2 == a3)
-  {
-    LOBYTE(v12) = 1;
-  }
-
-  else
-  {
-    v5 = a2;
-    v7 = a2;
-    do
-    {
-      v8 = *(v7 + 1);
-      *a4 = *v7;
-      *(a4 + 16) = v8;
-      *(a4 + 40) = 0;
-      *(a4 + 48) = 0;
-      *(a4 + 32) = 0;
-      *(a4 + 32) = *(v7 + 2);
-      *(a4 + 48) = v7[6];
-      v7[4] = 0;
-      v7[5] = 0;
-      v7[6] = 0;
-      *(a4 + 56) = 0;
-      *(a4 + 64) = 0;
-      *(a4 + 72) = 0;
-      *(a4 + 56) = *(v7 + 7);
-      *(a4 + 72) = v7[9];
-      v7[7] = 0;
-      v7[8] = 0;
-      v7[9] = 0;
-      v9 = v7[10];
-      *(a4 + 85) = *(v7 + 85);
-      *(a4 + 80) = v9;
-      v7 += 12;
-      a4 += 96;
-    }
-
-    while (v7 != a3);
-    v14 = a4;
-    LOBYTE(v12) = 1;
-    while (v5 != a3)
-    {
-      std::allocator<std::__state<char>>::destroy[abi:fe200100](a1, v5);
-      v5 += 12;
-    }
-  }
-
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::__state<char>>,std::__state<char>*>>::~__exception_guard_exceptions[abi:fe200100](v11);
-}
-
-void std::allocator<std::__state<char>>::destroy[abi:fe200100](uint64_t a1, void *a2)
-{
-  v3 = a2[7];
-  if (v3)
-  {
-    a2[8] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a2[4];
-  if (v4)
-  {
-    a2[5] = v4;
-
-    operator delete(v4);
-  }
-}
-
-uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::__state<char>>,std::__state<char>*>>::~__exception_guard_exceptions[abi:fe200100](uint64_t a1)
-{
-  if ((*(a1 + 24) & 1) == 0)
-  {
-    std::_AllocatorDestroyRangeReverse<std::allocator<std::__state<char>>,std::__state<char>*>::operator()[abi:fe200100](a1);
-  }
-
-  return a1;
-}
-
-void std::_AllocatorDestroyRangeReverse<std::allocator<std::__state<char>>,std::__state<char>*>::operator()[abi:fe200100](uint64_t *a1)
-{
-  v2 = a1[1];
-  v1 = a1[2];
-  v3 = *v1;
-  v4 = *v2;
-  if (*v1 != *v2)
-  {
-    v5 = *a1;
-    do
-    {
-      v3 -= 12;
-      std::allocator<std::__state<char>>::destroy[abi:fe200100](v5, v3);
-    }
-
-    while (v3 != v4);
-  }
-}
-
-void **std::__split_buffer<std::__state<char>>::~__split_buffer(void **a1)
-{
-  std::__split_buffer<std::__state<char>>::clear[abi:fe200100](a1);
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void std::__split_buffer<std::__state<char>>::clear[abi:fe200100](void *a1)
-{
-  v2 = a1[1];
-  for (i = a1[2]; i != v2; i = a1[2])
-  {
-    v4 = a1[4];
-    a1[2] = i - 96;
-    std::allocator<std::__state<char>>::destroy[abi:fe200100](v4, (i - 96));
-  }
-}
-
-void std::vector<std::sub_match<char const*>>::__append(std::vector<std::csub_match> *this, std::vector<std::csub_match>::size_type __n, std::vector<std::csub_match>::const_reference __x)
-{
-  end = this->__end_;
-  value = this->__end_cap_.__value_;
-  if (0xAAAAAAAAAAAAAAABLL * ((value - end) >> 3) >= __n)
-  {
-    if (__n)
-    {
-      v11 = &end[__n];
-      v12 = 24 * __n;
-      do
-      {
-        v13 = __x->std::pair<const char *, const char *>;
-        *&end->matched = *&__x->matched;
-        end->std::pair<const char *, const char *> = v13;
-        ++end;
-        v12 -= 24;
-      }
-
-      while (v12);
-      end = v11;
-    }
-
-    this->__end_ = end;
-  }
-
-  else
-  {
-    v7 = 0xAAAAAAAAAAAAAAABLL * ((end - this->__begin_) >> 3);
-    v8 = v7 + __n;
-    if (v7 + __n > 0xAAAAAAAAAAAAAAALL)
-    {
-      std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-    }
-
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((value - this->__begin_) >> 3);
-    if (2 * v9 > v8)
-    {
-      v8 = 2 * v9;
-    }
-
-    if (v9 >= 0x555555555555555)
-    {
-      v10 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:fe200100]<std::allocator<std::sub_match<char const*>>>(this, v10);
-    }
-
-    v14 = 24 * __n;
-    v15 = 24 * v7;
-    do
-    {
-      v16 = __x->std::pair<const char *, const char *>;
-      *(v15 + 16) = *&__x->matched;
-      *v15 = v16;
-      v15 += 24;
-      v14 -= 24;
-    }
-
-    while (v14);
-    begin = this->__begin_;
-    v18 = this->__end_;
-    v19 = (24 * v7 + this->__begin_ - v18);
-    if (v18 != this->__begin_)
-    {
-      v20 = (24 * v7 + this->__begin_ - v18);
-      do
-      {
-        v21 = begin->std::pair<const char *, const char *>;
-        *(v20 + 2) = *&begin->matched;
-        *v20 = v21;
-        v20 += 24;
-        ++begin;
-      }
-
-      while (begin != v18);
-      begin = this->__begin_;
-    }
-
-    this->__begin_ = v19;
-    this->__end_ = (24 * v7 + 24 * __n);
-    this->__end_cap_.__value_ = 0;
-    if (begin)
-    {
-
-      operator delete(begin);
-    }
-  }
-}
-
-void std::__allocate_at_least[abi:fe200100]<std::allocator<std::sub_match<char const*>>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0xAAAAAAAAAAAAAABLL)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:fe200100]();
-}
-
-void std::vector<std::pair<unsigned long,char const*>>::__append(std::vector<std::pair<unsigned long, const char *>> *this, std::vector<std::pair<unsigned long, const char *>>::size_type __n)
-{
-  end = this->__end_;
-  value = this->__end_cap_.__value_;
-  if (__n <= value - end)
-  {
-    if (__n)
-    {
-      bzero(this->__end_, 16 * __n);
-      end += __n;
-    }
-
-    this->__end_ = end;
-  }
-
-  else
-  {
-    v6 = end - this->__begin_;
-    v7 = __n + (v6 >> 4);
-    if (v7 >> 60)
-    {
-      std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-    }
-
-    v8 = value - this->__begin_;
-    if (v8 >> 3 > v7)
-    {
-      v7 = v8 >> 3;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v9 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      std::__allocate_at_least[abi:fe200100]<std::allocator<std::pair<unsigned long,char const*>>>(this, v9);
-    }
-
-    v10 = (16 * (v6 >> 4));
-    bzero(v10, 16 * __n);
-    v11 = &v10[16 * __n];
-    v12 = this->__end_ - this->__begin_;
-    v13 = &v10[-v12];
-    memcpy(&v10[-v12], this->__begin_, v12);
-    begin = this->__begin_;
-    this->__begin_ = v13;
-    this->__end_ = v11;
-    this->__end_cap_.__value_ = 0;
-    if (begin)
-    {
-
-      operator delete(begin);
-    }
-  }
-}
-
-void std::__allocate_at_least[abi:fe200100]<std::allocator<std::pair<unsigned long,char const*>>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 60))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:fe200100]();
-}
-
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::sub_match<char const*>>::__vallocate[abi:fe200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1860354B8(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:fe200100](uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0xAAAAAAAAAAAAAABLL)
-  {
-    std::__allocate_at_least[abi:fe200100]<std::allocator<std::sub_match<char const*>>>(a1, a2);
-  }
-
-  std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-}
-
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:fe200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_186035578(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:fe200100](uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 60))
-  {
-    std::__allocate_at_least[abi:fe200100]<std::allocator<std::pair<unsigned long,char const*>>>(a1, a2);
-  }
-
-  std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-}
-
-void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:fe200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v4 -= 12;
-        std::allocator<std::__state<char>>::destroy[abi:fe200100](v1, v4);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-__n128 std::deque<std::__state<char>>::push_back(void *a1, uint64_t a2)
-{
-  v4 = a1[2];
-  v5 = a1[1];
-  v6 = 42 * ((v4 - v5) >> 3) - 1;
-  if (v4 == v5)
-  {
-    v6 = 0;
-  }
-
-  v7 = a1[5] + a1[4];
-  if (v6 == v7)
-  {
-    std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v5 = a1[1];
-    v7 = a1[5] + a1[4];
-  }
-
-  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
-  v9 = *(a2 + 16);
-  *v8 = *a2;
-  *(v8 + 16) = v9;
-  *(v8 + 40) = 0;
-  *(v8 + 48) = 0;
-  *(v8 + 32) = 0;
-  *(v8 + 32) = *(a2 + 32);
-  *(v8 + 48) = *(a2 + 48);
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(v8 + 56) = 0;
-  *(v8 + 64) = 0;
-  *(v8 + 72) = 0;
-  result = *(a2 + 56);
-  *(v8 + 56) = result;
-  *(v8 + 72) = *(a2 + 72);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  v11 = *(a2 + 80);
-  *(v8 + 85) = *(a2 + 85);
-  *(v8 + 80) = v11;
-  ++a1[5];
-  return result;
-}
-
-void *std::deque<std::__state<char>>::pop_back(void *result)
-{
-  v1 = result[5];
-  if (v1)
-  {
-    v2 = result;
-    std::allocator<std::__state<char>>::destroy[abi:fe200100](result, (*(result[1] + 8 * ((v1 + result[4] - 1) / 0x2AuLL)) + 96 * ((v1 + result[4] - 1) % 0x2AuLL)));
-    --v2[5];
-
-    return std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:fe200100](v2, 1);
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
-{
-  v4 = a1[2].u64[0];
-  if (!v4)
-  {
-    std::deque<std::__state<char>>::__add_front_capacity(a1);
-    v4 = a1[2].u64[0];
-  }
-
-  v5 = a1->i64[1];
-  v6 = (v5 + 8 * (v4 / 0x2A));
-  v7 = *v6 + 96 * (v4 % 0x2A);
-  if (a1[1].i64[0] == v5)
-  {
-    v7 = 0;
-  }
-
-  if (v7 == *v6)
-  {
-    v7 = *(v6 - 1) + 4032;
-  }
-
-  v8 = *(a2 + 16);
-  *(v7 - 96) = *a2;
-  *(v7 - 80) = v8;
-  *(v7 - 56) = 0;
-  *(v7 - 48) = 0;
-  *(v7 - 64) = 0;
-  *(v7 - 64) = *(a2 + 32);
-  *(v7 - 48) = *(a2 + 48);
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(v7 - 40) = 0;
-  *(v7 - 32) = 0;
-  *(v7 - 24) = 0;
-  *(v7 - 40) = *(a2 + 56);
-  *(v7 - 24) = *(a2 + 72);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  v9 = *(a2 + 80);
-  *(v7 - 11) = *(a2 + 85);
-  *(v7 - 16) = v9;
-  result = vaddq_s64(a1[2], xmmword_18620AF60);
-  a1[2] = result;
-  return result;
-}
-
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
-{
-  v1 = a1[4];
-  v2 = v1 >= 0x2A;
-  v3 = v1 - 42;
-  if (!v2)
-  {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
-    {
-      if (v7 != v6)
-      {
-        operator new();
-      }
-
-      operator new();
-    }
-
-    if (v7 == *a1)
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-      v9 = v8 >> 2;
-    }
-
-    v11 = a1;
-    std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(a1, v9);
-  }
-
-  a1[4] = v3;
-  v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
-}
-
-void sub_186035A6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
-{
-  operator delete(v13);
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      if (v4 == *result)
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = &v4[-*result] >> 2;
-      }
-
-      std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(result, v11);
-    }
-
-    v7 = ((v6 >> 3) + 1) / -2;
-    v8 = ((v6 >> 3) + 1) / 2;
-    v9 = &v5[-8 * v8];
-    v10 = v4 - v5;
-    if (v4 != v5)
-    {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
-    }
-
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
-  }
-
-  *v4 = *a2;
-  v3[2] += 8;
-  return result;
-}
-
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
-{
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
-  {
-    v6 = result[2];
-    v7 = result[3];
-    if (v6 >= v7)
-    {
-      if (v7 == v4)
-      {
-        v9 = 1;
-      }
-
-      else
-      {
-        v9 = (v7 - v4) >> 2;
-      }
-
-      std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(result, v9);
-    }
-
-    v8 = (((v7 - v6) >> 3) + 1) / 2;
-    v5 = &v4[8 * v8];
-    if (v6 != v4)
-    {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
-    }
-
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
-  }
-
-  else
-  {
-    v5 = result[1];
-  }
-
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
-}
-
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      if (v4 == *result)
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = &v4[-*result] >> 2;
-      }
-
-      std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(result[4], v11);
-    }
-
-    v7 = ((v6 >> 3) + 1) / -2;
-    v8 = ((v6 >> 3) + 1) / 2;
-    v9 = &v5[-8 * v8];
-    v10 = v4 - v5;
-    if (v4 != v5)
-    {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
-    }
-
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
-  }
-
-  *v4 = *a2;
-  v3[2] += 8;
-  return result;
-}
-
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **result, void *a2)
-{
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
-  {
-    v6 = result[2];
-    v7 = result[3];
-    if (v6 >= v7)
-    {
-      if (v7 == v4)
-      {
-        v9 = 1;
-      }
-
-      else
-      {
-        v9 = (v7 - v4) >> 2;
-      }
-
-      std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(result[4], v9);
-    }
-
-    v8 = (((v7 - v6) >> 3) + 1) / 2;
-    v5 = &v4[8 * v8];
-    if (v6 != v4)
-    {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
-    }
-
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
-  }
-
-  else
-  {
-    v5 = result[1];
-  }
-
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
-}
-
-uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:fe200100](void *a1, int a2)
-{
-  v3 = a1[1];
+  v1 = a1[1];
   v2 = a1[2];
-  if (v2 == v3)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 42 * ((v2 - v3) >> 3) - 1;
-  }
-
-  v5 = v4 - (a1[5] + a1[4]);
-  if (v5 < 0x2A)
-  {
-    a2 = 1;
-  }
-
-  if (v5 < 0x54)
-  {
-    v7 = a2;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if ((v7 & 1) == 0)
-  {
-    operator delete(*(v2 - 8));
-    a1[2] -= 8;
-  }
-
-  return v7 ^ 1u;
-}
-
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -2052,15 +13,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -2068,24 +29,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:fe200100]<std::allocator<IIOTag *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v10);
 }
 
 void sub_18603615C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -2196,7 +157,7 @@ uint64_t std::__split_buffer<std::__state<char> *,std::allocator<std::__state<ch
   return a1;
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -2245,7 +206,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -2261,7 +222,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -2295,7 +256,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:fe200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:fe200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -2380,7 +341,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -2636,7 +598,7 @@ void sub_1860368E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:fe200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:fe200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2649,14 +611,14 @@ _BYTE *std::string::__init_with_size[abi:fe200100]<std::__wrap_iter<char const*>
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2712,15 +674,15 @@ void ___ZL46CGImageMetadataEnumerateTagsUsingBlockInternalPK15CGImageMetadataPK1
   }
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:fe200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:fe200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_186036C1C(_Unwind_Exception *a1)
@@ -2835,7 +797,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -2849,7 +811,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -2922,7 +884,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -2944,7 +906,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -2975,7 +937,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -4126,7 +2088,7 @@ LABEL_19:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this)
 {
   v4 = a2;
   if (a2 == a3)
@@ -4184,7 +2146,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_charact
           goto LABEL_72;
         }
 
-        v4 = a2 + 2;
+        v4 = (a2 + 2);
         if (a2 + 2 == a3)
         {
           goto LABEL_72;
@@ -5975,7 +3937,7 @@ void sub_18603B57C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:fe200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:fe200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6490,7 +4452,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this, uint64_t a5)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -7050,11 +5012,11 @@ void sub_18603C4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:fe200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:fe200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -7437,14 +5399,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:fe200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -7967,7 +5927,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -8200,7 +6160,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -8218,7 +6178,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -8236,7 +6196,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:fe200100]<(std::regex_constants::error_type)6>();
@@ -8386,84 +6346,83 @@ uint64_t TIFFInitDumpMode(void *a1)
   return 1;
 }
 
-uint64_t DumpModeDecode(uint64_t a1, char *__dst, int64_t __n, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DumpModeDecode(uint64_t a1, char *__dst, int64_t __n)
 {
-  v10 = *(a1 + 1160);
-  if (v10 >= __n)
+  v5 = *(a1 + 1160);
+  if (v5 >= __n)
   {
-    v13 = *(a1 + 1152);
-    if (v13 != __dst)
+    v8 = *(a1 + 1152);
+    if (v8 != __dst)
     {
-      _TIFFmemcpy(__dst, v13, __n);
-      v13 = *(a1 + 1152);
-      v10 = *(a1 + 1160);
+      _TIFFmemcpy(__dst, v8, __n);
+      v8 = *(a1 + 1152);
+      v5 = *(a1 + 1160);
     }
 
-    *(a1 + 1152) = &v13[__n];
-    *(a1 + 1160) = v10 - __n;
+    *(a1 + 1152) = &v8[__n];
+    *(a1 + 1160) = v5 - __n;
     return 1;
   }
 
   else
   {
-    TIFFErrorExtR(a1, "DumpModeDecode", "Not enough data for scanline %u, expected a request for at most %lld bytes, got a request for %lld bytes", a4, a5, a6, a7, a8, *(a1 + 876));
+    TIFFErrorExtR(a1, "DumpModeDecode", "Not enough data for scanline %u, expected a request for at most %lld bytes, got a request for %lld bytes", *(a1 + 876), *(a1 + 1160), __n);
     return 0;
   }
 }
 
-uint64_t DumpModeEncode(void *a1, uint64_t __src, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DumpModeEncode(void *a1, char *__src, uint64_t a3)
 {
   if (a3 < 1)
   {
     return 1;
   }
 
-  v8 = a3;
-  v9 = __src;
+  v3 = a3;
   while (1)
   {
-    v11 = a1[145];
-    v12 = a1[141];
-    if (v11 + v8 <= v12)
+    v6 = a1[145];
+    v7 = a1[141];
+    if (v6 + v3 <= v7)
     {
-      v13 = v8;
+      v8 = v3;
     }
 
     else
     {
-      v13 = v12 - v11;
+      v8 = v7 - v6;
     }
 
-    if (v13 <= 0)
+    if (v8 <= 0)
     {
       DumpModeEncode_cold_1();
     }
 
-    v14 = a1[144];
-    if (v14 != v9)
+    v9 = a1[144];
+    if (v9 != __src)
     {
-      _TIFFmemcpy(v14, v9, v13);
-      v14 = a1[144];
-      v11 = a1[145];
-      v12 = a1[141];
+      _TIFFmemcpy(v9, __src, v8);
+      v9 = a1[144];
+      v6 = a1[145];
+      v7 = a1[141];
     }
 
-    a1[144] = &v14[v13];
-    v15 = v11 + v13;
-    a1[145] = v15;
-    if (v15 >= v12)
+    a1[144] = &v9[v8];
+    v10 = v6 + v8;
+    a1[145] = v10;
+    if (v10 >= v7)
     {
-      result = TIFFFlushData1(a1, __src, a3, a4, a5, a6, a7, a8);
+      result = TIFFFlushData1(a1);
       if (!result)
       {
         break;
       }
     }
 
-    v9 += v13;
-    v17 = v8 <= v13;
-    v8 -= v13;
-    if (v17)
+    __src += v8;
+    v12 = v3 <= v8;
+    v3 -= v8;
+    if (v12)
     {
       return 1;
     }
@@ -8515,7 +6474,7 @@ uint64_t GlobalJP2Info::GlobalJP2Info(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-double JP2ReadPlugin::JP2ReadPlugin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+double JP2ReadPlugin::JP2ReadPlugin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   v5 = IIOReadPlugin::IIOReadPlugin(a1, a2, a3, a4, a5);
   *v5 = &unk_1EF4D9DA0;
@@ -9093,34 +7052,42 @@ uint64_t JP2ReadPlugin::checkCodingStyleDefaultBox(JP2ReadPlugin *this, IIOScann
   IIOScanner::getVal8(a2);
   if (Val8 >= 5)
   {
-    *&v8 = _cg_jpeg_mem_term("checkCodingStyleDefaultBox", 1206, "*** ERROR: unexpected 'Progression order for the SGcod, SPcoc, and Ppoc parameters' (%d)\n", Val8).n128_u64[0];
+    _cg_jpeg_mem_term("checkCodingStyleDefaultBox", 1206, "*** ERROR: unexpected 'Progression order for the SGcod, SPcoc, and Ppoc parameters' (%d)\n");
   }
 
   if (Val16)
   {
     if (v5 >= 0x21)
     {
-      JP2ReadPlugin::checkCodingStyleDefaultBox(v5);
-    }
-
-    else if (v6 >= 9)
-    {
-      _cg_jpeg_mem_term("checkCodingStyleDefaultBox", 1216, "*** ERROR: invalid xcb - failing 'COD xcb' check:  2 <= %d <= 10\n", v8);
-    }
-
-    else if (v7 >= 9)
-    {
-      _cg_jpeg_mem_term("checkCodingStyleDefaultBox", 1219, "*** ERROR: invalid ycb - failing 'COD ycb' check:  2 <= %d <= 10\n", v8);
+      JP2ReadPlugin::checkCodingStyleDefaultBox();
     }
 
     else
     {
-      if ((v7 + 2) + (v6 + 2) < 0xD)
+      if (v6 >= 9)
       {
-        return 1;
+        v9 = "*** ERROR: invalid xcb - failing 'COD xcb' check:  2 <= %d <= 10\n";
+        v10 = 1216;
       }
 
-      _cg_jpeg_mem_term("checkCodingStyleDefaultBox", 1222, "*** ERROR: bad 'COD ycb/ycb' (%d+%d)>12\n", v8);
+      else if (v7 >= 9)
+      {
+        v9 = "*** ERROR: invalid ycb - failing 'COD ycb' check:  2 <= %d <= 10\n";
+        v10 = 1219;
+      }
+
+      else
+      {
+        if ((v7 + 2) + (v6 + 2) < 0xD)
+        {
+          return 1;
+        }
+
+        v9 = "*** ERROR: bad 'COD ycb/ycb' (%d+%d)>12\n";
+        v10 = 1222;
+      }
+
+      _cg_jpeg_mem_term("checkCodingStyleDefaultBox", v10, v9);
     }
   }
 
@@ -9136,8 +7103,9 @@ uint64_t JP2ReadPlugin::checkFileTypeBox(JP2ReadPlugin *this, IIOScanner *a2, in
 {
   if ((a3 & 3) != 0)
   {
-    _cg_jpeg_mem_term("checkFileTypeBox", 928, "*** ERROR: bad JP2 FileBox size [%lld]\n");
-    return 0;
+    v11 = "*** ERROR: bad JP2 FileBox size [%lld]\n";
+    v12 = 928;
+    goto LABEL_47;
   }
 
   Val32 = IIOScanner::getVal32(a2);
@@ -9166,8 +7134,9 @@ uint64_t JP2ReadPlugin::checkFileTypeBox(JP2ReadPlugin *this, IIOScanner *a2, in
         __maskrune(v6, 0x40000uLL);
       }
 
-      _cg_jpeg_mem_term("checkFileTypeBox", 932, "*** ERROR: bad majorBrand '%c%c%c%c' [%08X]\n");
-      return 0;
+      v11 = "*** ERROR: bad majorBrand '%c%c%c%c' [%08X]\n";
+      v12 = 932;
+      goto LABEL_47;
     }
   }
 
@@ -9190,69 +7159,49 @@ uint64_t JP2ReadPlugin::checkFileTypeBox(JP2ReadPlugin *this, IIOScanner *a2, in
 
       if (v10)
       {
-        v11 = v9;
+        v13 = v9;
       }
 
       else
       {
-        v11 = 46;
+        v13 = 46;
       }
 
-      v12 = v8 << 8 >> 24;
-      if (v12 <= 0x7F)
+      v14 = v8 << 8 >> 24;
+      if (v14 <= 0x7F)
       {
-        v13 = *(MEMORY[0x1E69E9830] + 4 * v12 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v13 = __maskrune(v8 << 8 >> 24, 0x40000uLL);
-      }
-
-      if (v13)
-      {
-        v14 = v12;
+        v15 = *(MEMORY[0x1E69E9830] + 4 * v14 + 60) & 0x40000;
       }
 
       else
       {
-        v14 = 46;
+        v15 = __maskrune(v8 << 8 >> 24, 0x40000uLL);
       }
 
-      v15 = v8 >> 8;
-      if (v15 <= 0x7F)
+      if (v15)
       {
-        v16 = *(MEMORY[0x1E69E9830] + 4 * v15 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v16 = __maskrune(v8 >> 8, 0x40000uLL);
-      }
-
-      if (v16)
-      {
-        v17 = v15;
+        v16 = v14;
       }
 
       else
       {
-        v17 = 46;
+        v16 = 46;
       }
 
-      if (v8 <= 0x7F)
+      v17 = v8 >> 8;
+      if (v17 <= 0x7F)
       {
-        v18 = *(MEMORY[0x1E69E9830] + 4 * v8 + 60) & 0x40000;
+        v18 = *(MEMORY[0x1E69E9830] + 4 * v17 + 60) & 0x40000;
       }
 
       else
       {
-        v18 = __maskrune(v8, 0x40000uLL);
+        v18 = __maskrune(v8 >> 8, 0x40000uLL);
       }
 
       if (v18)
       {
-        v19 = v8;
+        v19 = v17;
       }
 
       else
@@ -9260,30 +7209,53 @@ uint64_t JP2ReadPlugin::checkFileTypeBox(JP2ReadPlugin *this, IIOScanner *a2, in
         v19 = 46;
       }
 
-      LogWarning("checkFileTypeBox", 940, "*** NOTE: JPEG2000 - bad minorVersion? [0x%08X] '%c%c%c%c'\n", v8, v11, v14, v17, v19);
+      if (v8 <= 0x7F)
+      {
+        v20 = *(MEMORY[0x1E69E9830] + 4 * v8 + 60) & 0x40000;
+      }
+
+      else
+      {
+        v20 = __maskrune(v8, 0x40000uLL);
+      }
+
+      if (v20)
+      {
+        v21 = v8;
+      }
+
+      else
+      {
+        v21 = 46;
+      }
+
+      LogWarning("checkFileTypeBox", 940, "*** NOTE: JPEG2000 - bad minorVersion? [0x%08X] '%c%c%c%c'\n", v8, v13, v16, v19, v21);
     }
   }
 
   if (a3 == 8)
   {
 LABEL_46:
-    _cg_jpeg_mem_term("checkFileTypeBox", 957, "*** ERROR: CompatibleBrands does not contain 'jp2 '\n");
+    v11 = "*** ERROR: CompatibleBrands does not contain 'jp2 '\n";
+    v12 = 957;
+LABEL_47:
+    _cg_jpeg_mem_term("checkFileTypeBox", v12, v11);
     return 0;
   }
 
   if ((a3 - 8) >> 2 <= 1)
   {
-    v20 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v20 = (a3 - 8) >> 2;
+    v22 = (a3 - 8) >> 2;
   }
 
   while (IIOScanner::getVal32(a2) != 1785737760)
   {
-    if (!--v20)
+    if (!--v22)
     {
       goto LABEL_46;
     }
@@ -9299,45 +7271,42 @@ uint64_t JP2ReadPlugin::checkImageHeaderBox(JP2ReadPlugin *this, IIOScanner *a2)
   Val16 = IIOScanner::getVal16(a2);
   Val8 = IIOScanner::getVal8(a2);
   v7 = IIOScanner::getVal8(a2);
+  IIOScanner::getVal8(a2);
   v8 = IIOScanner::getVal8(a2);
-  v9 = IIOScanner::getVal8(a2);
-  if (Val32)
+  if (!Val32)
   {
-    if (v4)
+    JP2ReadPlugin::checkImageHeaderBox();
+    return 0;
+  }
+
+  if (!v4)
+  {
+    JP2ReadPlugin::checkImageHeaderBox();
+    return 0;
+  }
+
+  if ((Val16 - 16385) <= 0xFFFFBFFF)
+  {
+    v10 = 1048;
+LABEL_13:
+    _cg_jpeg_mem_term("checkImageHeaderBox", v10, "*** ERROR: invalid JP2: numberOfComponents == %d\n");
+    return 0;
+  }
+
+  if ((Val8 - 39) <= 0xFFFFFFD9 && Val16 != 255)
+  {
+    v10 = 1049;
+    goto LABEL_13;
+  }
+
+  if (v7 == 7)
+  {
+    if (v8 < 2)
     {
-      if ((Val16 - 16385) <= 0xFFFFBFFF)
-      {
-        _cg_jpeg_mem_term("checkImageHeaderBox", 1048, "*** ERROR: invalid JP2: numberOfComponents == %d\n");
-      }
-
-      else if ((Val8 - 39) > 0xFFFFFFD9 || Val16 == 255)
-      {
-        if (v7 == 7)
-        {
-          if (v9 < 2)
-          {
-            return 1;
-          }
-
-          JP2ReadPlugin::checkImageHeaderBox(v8);
-        }
-
-        else
-        {
-          JP2ReadPlugin::checkImageHeaderBox(v7);
-        }
-      }
-
-      else
-      {
-        _cg_jpeg_mem_term("checkImageHeaderBox", 1049, "*** ERROR: invalid JP2: numberOfComponents == %d\n");
-      }
+      return 1;
     }
 
-    else
-    {
-      JP2ReadPlugin::checkImageHeaderBox();
-    }
+    JP2ReadPlugin::checkImageHeaderBox();
   }
 
   else
@@ -9353,31 +7322,29 @@ uint64_t JP2ReadPlugin::checkColorSpecificationBox(JP2ReadPlugin *this, IIOScann
   Val8 = IIOScanner::getVal8(a2);
   if (a3 == 15 && (Val8 - 3) <= 0xFDu)
   {
-    JP2ReadPlugin::checkColorSpecificationBox(Val8);
+    JP2ReadPlugin::checkColorSpecificationBox();
   }
 
   else
   {
     if (Val8 != 1)
     {
-      v11 = 0;
+      v9 = 0;
       if (!a4)
       {
         return 1;
       }
 
 LABEL_9:
-      *a4 = v11;
+      *a4 = v9;
       return 1;
     }
 
     IIOScanner::skip(a2, 2uLL);
-    Val32 = IIOScanner::getVal32(a2);
-    v9 = Val32;
-    v10 = Val32 - 1;
-    if (Val32 - 1) < 0x18 && ((0xFFFD0Du >> v10))
+    v8 = IIOScanner::getVal32(a2) - 1;
+    if (v8 < 0x18 && ((0xFFFD0Du >> v8) & 1) != 0)
     {
-      v11 = dword_18620B420[v10];
+      v9 = dword_18620B420[v8];
       if (!a4)
       {
         return 1;
@@ -9386,8 +7353,8 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    _cg_jpeg_mem_term("checkColorSpecificationBox", 1105, "*** ERROR: unsupported colorSpace (%d)\n", Val32);
-    _cg_jpeg_mem_term("checkColorSpecificationBox", 1108, "*** ERROR: invalid JP2 colorSpace: %d\n", v9);
+    _cg_jpeg_mem_term("checkColorSpecificationBox", 1105, "*** ERROR: unsupported colorSpace (%d)\n");
+    _cg_jpeg_mem_term("checkColorSpecificationBox", 1108, "*** ERROR: invalid JP2 colorSpace: %d\n");
   }
 
   return 0;
@@ -9402,7 +7369,7 @@ uint64_t JP2ReadPlugin::checkPaletteBox(JP2ReadPlugin *this, IIOScanner *a2, uni
     return 1;
   }
 
-  _cg_jpeg_mem_term("checkPaletteBox", 1137, "*** ERROR: invalid JP2: PaletteBox for non-RGB/non-Grayscale image (cs: %d)\n", a4);
+  _cg_jpeg_mem_term("checkPaletteBox", 1137, "*** ERROR: invalid JP2: PaletteBox for non-RGB/non-Grayscale image (cs: %d)\n");
   return 0;
 }
 
@@ -9460,25 +7427,26 @@ uint64_t JP2ReadPlugin::validateJP2(JP2ReadPlugin *this, IIOScanner *a2)
   Val32 = IIOScanner::getVal32(a2);
   if (v5 + 3 >= v4)
   {
-LABEL_57:
-    _cg_jpeg_mem_term("validateJP2", 1382, "*** ERROR: missing or invalid SignatureBox count (%u)\n");
+LABEL_41:
+    v12 = "*** ERROR: missing or invalid SignatureBox count (%u)\n";
+    v13 = 1382;
   }
 
   else
   {
     LODWORD(v7) = Val32;
-    v23 = this;
-    v24 = 0;
-    v25 = 0;
-    v26 = 0;
-    v27 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
     v8 = 1001;
     do
     {
       if (!--v8)
       {
-        _cg_jpeg_mem_term("validateJP2", 1298, "*** ERROR: too many boxes (%u)\n");
-        return 0;
+        v12 = "*** ERROR: too many boxes (%u)\n";
+        v13 = 1298;
+        goto LABEL_44;
       }
 
       Val64 = IIOScanner::getVal32(a2);
@@ -9498,10 +7466,11 @@ LABEL_57:
       {
         if (v10 == 1785737827)
         {
-          if (++v25 >= 2)
+          if (++v15 >= 2)
           {
-            _cg_jpeg_mem_term("validateJP2", 1346, "*** ERROR: duplicate JP2C Continuous Codestream Box (count: %u)\n");
-            return 0;
+            v12 = "*** ERROR: duplicate JP2C Continuous Codestream Box (count: %u)\n";
+            v13 = 1346;
+            goto LABEL_44;
           }
 
           if (!JP2ReadPlugin::checkContinousCodestreamBox(Val64, a2))
@@ -9512,14 +7481,15 @@ LABEL_57:
 
         else if (v10 == 1785737832)
         {
-          if ((v24 + 1) >= 2)
+          if ((v14 + 1) >= 2)
           {
-            _cg_jpeg_mem_term("validateJP2", 1336, "*** ERROR: duplicate JP2H Header Box (count: %u)\n");
-            return 0;
+            v12 = "*** ERROR: duplicate JP2H Header Box (count: %u)\n";
+            v13 = 1336;
+            goto LABEL_44;
           }
 
-          ++v24;
-          if ((JP2ReadPlugin::checkJP2HeaderBox(v23, a2, v7) & 1) == 0)
+          ++v14;
+          if ((JP2ReadPlugin::checkJP2HeaderBox(this, a2, v7) & 1) == 0)
           {
             return 0;
           }
@@ -9528,10 +7498,11 @@ LABEL_57:
 
       else if (v10 == 1718909296)
       {
-        if (++v27 >= 2)
+        if (++v17 >= 2)
         {
-          _cg_jpeg_mem_term("validateJP2", 1326, "*** ERROR: duplicate FTYP File Type Box (count: %u)\n");
-          return 0;
+          v12 = "*** ERROR: duplicate FTYP File Type Box (count: %u)\n";
+          v13 = 1326;
+          goto LABEL_44;
         }
 
         if ((JP2ReadPlugin::checkFileTypeBox(Val64, a2, v7) & 1) == 0)
@@ -9542,10 +7513,11 @@ LABEL_57:
 
       else if (v10 == 1783636000)
       {
-        if (++v26 >= 2)
+        if (++v16 >= 2)
         {
-          _cg_jpeg_mem_term("validateJP2", 1316, "*** ERROR: duplicate JP Signature Box (count: %u)\n");
-          return 0;
+          v12 = "*** ERROR: duplicate JP Signature Box (count: %u)\n";
+          v13 = 1316;
+          goto LABEL_44;
         }
 
         if (IIOScanner::getVal32(a2) != 218793738)
@@ -9561,19 +7533,27 @@ LABEL_57:
 
       if (v7 + v5 > v4)
       {
-        v11 = v10 >> 24;
-        v12 = (v10 >> 24) <= 0x7F ? *(MEMORY[0x1E69E9830] + 4 * v11 + 60) & 0x40000 : __maskrune(v10 >> 24, 0x40000uLL);
-        v13 = v12 ? v11 : 46;
-        v28 = v13;
-        v14 = v10 << 8 >> 24;
-        v15 = v14 <= 0x7F ? *(MEMORY[0x1E69E9830] + 4 * v14 + 60) & 0x40000 : __maskrune(v10 << 8 >> 24, 0x40000uLL);
-        v16 = v15 ? v14 : 46;
-        v17 = v10 >> 8;
-        v18 = v17 <= 0x7F ? *(MEMORY[0x1E69E9830] + 4 * v17 + 60) & 0x40000 : __maskrune(v10 >> 8, 0x40000uLL);
-        v19 = v18 ? v17 : 46;
-        v20 = v10 <= 0x7F ? *(MEMORY[0x1E69E9830] + 4 * v10 + 60) & 0x40000 : __maskrune(v10, 0x40000uLL);
-        v21 = v20 ? v10 : 46;
-        _cg_jpeg_mem_term("validateJP2", 1368, "*** ERROR: marker '%c%c%c%c' length (%llu) at offset (%llu [0x%llX]) larger than fileSize(%llu)\n", v28, v16, v19, v21, v7, v5, v5, v4);
+        if ((v10 >> 24) > 0x7F)
+        {
+          __maskrune(v10 >> 24, 0x40000uLL);
+        }
+
+        if ((v10 << 8 >> 24) > 0x7F)
+        {
+          __maskrune(v10 << 8 >> 24, 0x40000uLL);
+        }
+
+        if ((v10 >> 8) > 0x7F)
+        {
+          __maskrune(v10 >> 8, 0x40000uLL);
+        }
+
+        if (v10 > 0x7F)
+        {
+          __maskrune(v10, 0x40000uLL);
+        }
+
+        _cg_jpeg_mem_term("validateJP2", 1368, "*** ERROR: marker '%c%c%c%c' length (%llu) at offset (%llu [0x%llX]) larger than fileSize(%llu)\n");
         if (v10 != 1785737827)
         {
           break;
@@ -9591,35 +7571,40 @@ LABEL_57:
     }
 
     while (v5 + 3 < v4);
-    if (v26 != 1)
+    if (v16 != 1)
     {
-      goto LABEL_57;
+      goto LABEL_41;
     }
 
-    if (v27 == 1)
+    if (v17 == 1)
     {
-      if (v24 == 1)
+      if (v14 == 1)
       {
-        if (v25 == 1)
+        if (v15 == 1)
         {
           return 1;
         }
 
-        _cg_jpeg_mem_term("validateJP2", 1385, "*** ERROR: missing or invalid ContinuousCodestreamBox count (%u)\n");
+        v12 = "*** ERROR: missing or invalid ContinuousCodestreamBox count (%u)\n";
+        v13 = 1385;
       }
 
       else
       {
-        _cg_jpeg_mem_term("validateJP2", 1384, "*** ERROR: missing or invalid JP2HeaderBox count (%u)\n");
+        v12 = "*** ERROR: missing or invalid JP2HeaderBox count (%u)\n";
+        v13 = 1384;
       }
     }
 
     else
     {
-      _cg_jpeg_mem_term("validateJP2", 1383, "*** ERROR: missing or invalid FileTypeBox count (%u)\n");
+      v12 = "*** ERROR: missing or invalid FileTypeBox count (%u)\n";
+      v13 = 1383;
     }
   }
 
+LABEL_44:
+  _cg_jpeg_mem_term("validateJP2", v13, v12);
   return 0;
 }
 
@@ -9725,9 +7710,9 @@ uint64_t JP2ReadPlugin::initialize(JP2ReadPlugin *this, IIODictionary *a2)
   return 4294967246;
 }
 
-void sub_1860402F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1860402F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -9913,4 +7898,1954 @@ void *std::vector<IIODecodeFrameParams>::push_back[abi:fe200100](void *result, u
 
   v3[1] = v10;
   return result;
+}
+
+void sub_1860405AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<IIODecodeFrameParams>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void JP2ReadPlugin::decodeBlocks(uint64_t a1, uint64_t a2, double **a3)
+{
+  v5 = IIO_Reader::testHeaderSize(*(a1 + 24));
+  if (a3[1] != *a3)
+  {
+    memset(v25, 0, sizeof(v25));
+    IIOImageReadSession::IIOImageReadSession(v25, v5);
+    v6 = *(a1 + 640);
+    v22 = *(a1 + 624);
+    v23 = v6;
+    v24 = *(a1 + 656);
+    v7 = *(a1 + 576);
+    *cf = *(a1 + 560);
+    v19 = v7;
+    v8 = *(a1 + 608);
+    v20 = *(a1 + 592);
+    v21 = v8;
+    v9 = *(a1 + 512);
+    v14 = *(a1 + 496);
+    v15 = v9;
+    v10 = *(a1 + 544);
+    v16 = *(a1 + 528);
+    v17 = v10;
+    v11 = *(a1 + 480);
+    v12[1] = *(a1 + 472);
+    v13 = v11;
+    v12[0] = v25;
+    if (IIO_XPCServer())
+    {
+      *(&v13 + 1) = MyRead;
+      *&v14 = MySeek;
+      *(&v14 + 1) = 0;
+    }
+
+    cf[0] = 0;
+    _cg_JP2SetupDecompressor(v12, v12);
+  }
+
+  __break(1u);
+}
+
+uint64_t JP2ReadPlugin::decodeImageImpProgressive(IIOReadPlugin *this, IIODecodeParameter *a2, int a3)
+{
+  v66 = 0;
+  *(this + 166) = *(this + 79);
+  if ((gIIODebugFlags & 0x20000) != 0)
+  {
+    v6 = *(this + 55);
+    v7 = v6 >> 24;
+    if ((v6 >> 24) <= 0x7F)
+    {
+      v8 = *(MEMORY[0x1E69E9830] + 4 * v7 + 60) & 0x40000;
+    }
+
+    else
+    {
+      v8 = __maskrune(v7, 0x40000uLL);
+      v6 = *(this + 55);
+    }
+
+    if (v8)
+    {
+      v9 = (v6 >> 24);
+    }
+
+    else
+    {
+      v9 = 46;
+    }
+
+    v10 = v6 << 8 >> 24;
+    if (v10 <= 0x7F)
+    {
+      v11 = *(MEMORY[0x1E69E9830] + 4 * v10 + 60) & 0x40000;
+    }
+
+    else
+    {
+      v11 = __maskrune(v10, 0x40000uLL);
+      v6 = *(this + 55);
+    }
+
+    if (v11)
+    {
+      v12 = (v6 << 8 >> 24);
+    }
+
+    else
+    {
+      v12 = 46;
+    }
+
+    v13 = v6 >> 8;
+    if (v13 <= 0x7F)
+    {
+      v14 = *(MEMORY[0x1E69E9830] + 4 * v13 + 60) & 0x40000;
+    }
+
+    else
+    {
+      v14 = __maskrune(v13, 0x40000uLL);
+      v6 = *(this + 55);
+    }
+
+    if (v14)
+    {
+      v15 = (v6 >> 8);
+    }
+
+    else
+    {
+      v15 = 46;
+    }
+
+    if (v6 <= 0x7F)
+    {
+      if ((*(MEMORY[0x1E69E9830] + 4 * v6 + 60) & 0x40000) != 0)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    else if (__maskrune(v6, 0x40000uLL))
+    {
+LABEL_22:
+      v16 = *(this + 220);
+LABEL_25:
+      ImageIOLog("♦️  '%c%c%c%c' [%s] %s\n", v9, v12, v15, v16, iioTypeStr[a3], "OSStatus JP2ReadPlugin::decodeImageImpProgressive(IIODecodeParameter *, IIOImageType, IOSurfaceRef *, CVPixelBufferRef *, CGImageBlockSetRef *)");
+      goto LABEL_26;
+    }
+
+    v16 = 46;
+    goto LABEL_25;
+  }
+
+LABEL_26:
+  IIOReadPlugin::debugDecodeImage(this, a2);
+  v17 = *(this + 66);
+  v18 = *(this + 134);
+  *(this + 77) = v17;
+  *(this + 78) = v18;
+  v19 = *(a2 + 3);
+  v20 = *(a2 + 4);
+  v21 = (v19 / v17);
+  v22 = (v20 / v18);
+  v23 = ((v19 + *(a2 + 5) + v17 + -1.0) / v17);
+  v24 = ((v20 + *(a2 + 6) + v18 + -1.0) / v18);
+  v60 = v23 - v21;
+  v25 = ((v24 - v22) * (v23 - v21));
+  *(this + 26) = v25;
+  BlockArray = IIOReadPlugin::allocateBlockArray(this, v25);
+  v27 = IIOImageReadSession::globalInfoForType(*(this + 3), 1246769696);
+  if (!v27)
+  {
+    return 4294967246;
+  }
+
+  v28 = v27;
+  v29 = *(v27 + 1);
+  v30 = *(this + 26);
+  v56 = BlockArray;
+  if (v29)
+  {
+    if (v30 > *(v28 + 1))
+    {
+      free(v29);
+      *(v28 + 1) = malloc_type_calloc(4uLL, *(this + 26), 0x100004052888210uLL);
+    }
+  }
+
+  else
+  {
+    *(v28 + 1) = malloc_type_calloc(4uLL, v30, 0x100004052888210uLL);
+    *(v28 + 1) = *(this + 26);
+  }
+
+  v63 = 0;
+  v64 = 0;
+  v65 = 0;
+  if (v24 > v22)
+  {
+    v32 = 0;
+    v33 = MEMORY[0x1E695F050];
+    v59 = (v17 + v17 - 1) / v17;
+    v57 = v24;
+    v58 = v21;
+    do
+    {
+      if (v23 > v21)
+      {
+        v61 = v60 + v32;
+        v34 = v21;
+        do
+        {
+          v35 = *(this + 77);
+          x = (v35 * v34);
+          v37 = *(this + 78);
+          y = (v37 * v22);
+          v39 = *(this + 66);
+          if (v35 + x <= v39)
+          {
+            width = v35;
+          }
+
+          else
+          {
+            width = v39 - x;
+          }
+
+          v41 = *(this + 67);
+          if (v37 + y <= v41)
+          {
+            height = v37;
+          }
+
+          else
+          {
+            height = v41 - y;
+          }
+
+          v43 = width * (*(this + 129) >> 3);
+          *(this + 79) = v43;
+          *(this + 28) = v32;
+          *(this + 29) = v32 + 1;
+          CachedTile = IIOReadPlugin::getCachedTile(this, v43);
+          v45 = CachedTile;
+          if ((gIIODebugFlags & 0x30000) != 0)
+          {
+            ImageIOLog("     numberOfBlocksLeftToDecode: %d\n", CachedTile);
+          }
+
+          if (v45)
+          {
+            if ((gIIODebugFlags & 0x30000) != 0)
+            {
+              ImageIOLog("JP2: Decoding blockArrayIndex: %d, blockIndex: %d  = (%d, %d)\n", v32, v34 + v22 * v59, v34, v22);
+            }
+
+            if (!is_mul_ok(height, *(this + 79)))
+            {
+              goto LABEL_67;
+            }
+
+            v46 = _ImageIO_Malloc(height * *(this + 79), *(this + 52), &v66, kImageMalloc_JP2_Data[0], 0, 0);
+            if (!v46)
+            {
+              goto LABEL_67;
+            }
+
+            *(this + 642) = 1;
+            v47 = *(this + 79);
+            v62[0] = v32;
+            v62[1] = *&x;
+            v62[2] = *&y;
+            v62[3] = *&width;
+            v62[4] = *&height;
+            v62[5] = v46;
+            v62[6] = v47;
+            v62[7] = v66;
+            memset(&v62[8], 0, 24);
+            std::vector<IIODecodeFrameParams>::push_back[abi:fe200100](&v63, v62);
+            IIODecodeFrameParams::~IIODecodeFrameParams(v62);
+          }
+
+          if (!CGRectEqualToRect(*(this + 120), *v33))
+          {
+            v68.origin.x = x;
+            v68.origin.y = y;
+            v68.size.width = width;
+            v68.size.height = height;
+            v67 = CGRectUnion(*(this + 120), v68);
+            x = v67.origin.x;
+            y = v67.origin.y;
+            width = v67.size.width;
+            height = v67.size.height;
+          }
+
+          *(this + 15) = x;
+          *(this + 16) = y;
+          *(this + 17) = width;
+          *(this + 18) = height;
+          ++v34;
+          ++v32;
+        }
+
+        while (v23 != v34);
+        v32 = v61;
+        v24 = v57;
+        v21 = v58;
+      }
+
+      ++v22;
+    }
+
+    while (v22 != v24);
+  }
+
+  JP2ReadPlugin::decodeBlocks(this, v30, &v63);
+  v48 = v64;
+  if (v63 != v64)
+  {
+    v49 = v63 + 5;
+    while (1)
+    {
+      v50 = *(v49 + 8);
+      if ((v50 - 1) < 2)
+      {
+        break;
+      }
+
+      if (!v50)
+      {
+        v51 = *(this + 369);
+        goto LABEL_61;
+      }
+
+LABEL_62:
+      if (*(this + 143) == 1)
+      {
+        JP2ReadPlugin::fixPremultipliedData(this, *(v49 - 4), *v49);
+      }
+
+      *(*(this + 12) + 8 * *(v49 - 5)) = IIOReadPlugin::createImageBlock(this, *v49, *(v49 + 2), *(v49 - 4), *(v49 + 1), *(this + 371));
+      *v49 = 0.0;
+      v52 = v49 + 6;
+      v49 += 11;
+      if (v52 == v48)
+      {
+        goto LABEL_65;
+      }
+    }
+
+    v51 = 0;
+LABEL_61:
+    *(this + 371) = v51;
+    goto LABEL_62;
+  }
+
+LABEL_65:
+  if ((gIIODebugFlags & 0x30000) != 0)
+  {
+    ImageIOLog("                    coveredRect: {%g, %g, %g, %g}\n\n", *(this + 15), *(this + 16), *(this + 17), *(this + 18));
+  }
+
+LABEL_67:
+  v53 = v63;
+  v54 = v64;
+  while (v53 != v54)
+  {
+    v55 = *(v53 + 5);
+    if (v55)
+    {
+      _ImageIO_Free(v55, *(v53 + 7));
+    }
+
+    v53 += 11;
+  }
+
+  if ((gIIODebugFlags & 0x30000) != 0)
+  {
+    ImageIOLog("<<< copyImageBlockSetJP2Prog\n");
+  }
+
+  v62[0] = &v63;
+  std::vector<IIODecodeFrameParams>::__destroy_vector::operator()[abi:fe200100](v62);
+  return v56;
+}
+
+void sub_186040D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19)
+{
+  a19 = (v19 - 152);
+  std::vector<IIODecodeFrameParams>::__destroy_vector::operator()[abi:fe200100](&a19);
+  _Unwind_Resume(a1);
+}
+
+IIODecodeFrameParams *std::vector<IIODecodeFrameParams>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+{
+  result = *a1;
+  v5 = *(a1 + 8);
+  v7 = (a2[1] + result - v5);
+  if (v5 != result)
+  {
+    v8 = result;
+    v9 = (a2[1] + result - v5);
+    do
+    {
+      v10 = *(v8 + 1);
+      *v9 = *v8;
+      *(v9 + 1) = v10;
+      v11 = *(v8 + 2);
+      v12 = *(v8 + 3);
+      v13 = *(v8 + 4);
+      *(v9 + 10) = *(v8 + 10);
+      *(v9 + 3) = v12;
+      *(v9 + 4) = v13;
+      *(v9 + 2) = v11;
+      v8 = (v8 + 88);
+      v9 += 88;
+    }
+
+    while (v8 != v5);
+    do
+    {
+      IIODecodeFrameParams::~IIODecodeFrameParams(result);
+      result = (v14 + 88);
+    }
+
+    while (result != v5);
+  }
+
+  a2[1] = v7;
+  v15 = *a1;
+  *a1 = v7;
+  *(a1 + 8) = v15;
+  a2[1] = v15;
+  v16 = *(a1 + 8);
+  *(a1 + 8) = a2[2];
+  a2[2] = v16;
+  v17 = *(a1 + 16);
+  *(a1 + 16) = a2[3];
+  a2[3] = v17;
+  *a2 = a2[1];
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_6_1()
+{
+
+  return __maskrune(v0, 0x40000uLL);
+}
+
+void _TIFFFax3fillruns(uint64_t a1, unsigned int *a2, unsigned int *a3, unsigned int a4)
+{
+  v5 = a3;
+  v6 = a2;
+  if (((a3 - a2) & 4) != 0)
+  {
+    *a3 = 0;
+    v5 = a3 + 1;
+  }
+
+  if (v5 > a2)
+  {
+    v8 = 0;
+    while (1)
+    {
+      v9 = *v6;
+      if (*v6 > a4 || *v6 + v8 > a4)
+      {
+        v9 = a4 - v8;
+        *v6 = a4 - v8;
+      }
+
+      if (v9)
+      {
+        break;
+      }
+
+LABEL_31:
+      v20 = v6[1];
+      if (v20 > a4 || v20 + v8 > a4)
+      {
+        v20 = a4 - v8;
+        v6[1] = a4 - v8;
+      }
+
+      if (!v20)
+      {
+        goto LABEL_57;
+      }
+
+      v22 = (a1 + (v8 >> 3));
+      v23 = v8 & 7;
+      if (v20 <= 8 - (v8 & 7))
+      {
+        v30 = _TIFFFax3fillruns__fillmasks[v20] >> v23;
+      }
+
+      else
+      {
+        if ((v8 & 7) != 0)
+        {
+          *v22++ |= 0xFFu >> v23;
+          v20 -= 8 - (v8 & 7);
+        }
+
+        if (v20 >= 8)
+        {
+          v24 = v20 >> 3;
+          if (v20 < 0x80)
+          {
+            goto LABEL_50;
+          }
+
+          if ((v22 & 7) != 0)
+          {
+            v25 = v22 ^ 7;
+            v26 = (v22 ^ 7) & 7;
+            v27 = v24 - 1;
+            if (v26 >= v27)
+            {
+              v26 = v27;
+            }
+
+            v28 = v26 + 1;
+            memset(v22, 255, v26 + 1);
+            v22 += v28;
+            if (v27 >= (v25 & 7u))
+            {
+              v24 = v27 - (v25 & 7);
+            }
+
+            else
+            {
+              v24 = 0;
+            }
+          }
+
+          memset(v22, 255, 8 * ((v24 >> 3) - 1) + 8);
+          v22 += 8 * (v24 >> 3);
+          v24 &= 7u;
+          if (v24)
+          {
+LABEL_50:
+            v29 = v24;
+            memset(v22, 255, v24);
+          }
+
+          else
+          {
+            v29 = 0;
+          }
+
+          v22 += v29;
+          v20 &= 7u;
+        }
+
+        if (!v20)
+        {
+          goto LABEL_56;
+        }
+
+        v30 = 0xFF00u >> v20;
+      }
+
+      *v22 |= v30;
+LABEL_56:
+      v8 += v6[1];
+LABEL_57:
+      v6 += 2;
+      if (v6 >= v5)
+      {
+        goto LABEL_62;
+      }
+    }
+
+    v11 = (a1 + (v8 >> 3));
+    v12 = 8 - (v8 & 7);
+    if (v9 <= v12)
+    {
+      v19 = *v11 & ~(_TIFFFax3fillruns__fillmasks[v9] >> (v8 & 7));
+    }
+
+    else
+    {
+      if ((v8 & 7) != 0)
+      {
+        *v11++ &= -1 << v12;
+        v9 -= v12;
+      }
+
+      if (v9 >= 8)
+      {
+        v13 = v9 >> 3;
+        if (v9 < 0x80)
+        {
+          goto LABEL_24;
+        }
+
+        if ((v11 & 7) != 0)
+        {
+          v14 = v11 ^ 7;
+          v15 = (v11 ^ 7) & 7;
+          v16 = v13 - 1;
+          if (v15 >= v16)
+          {
+            v15 = v16;
+          }
+
+          v17 = v15 + 1;
+          bzero(v11, v15 + 1);
+          v11 += v17;
+          if (v16 >= (v14 & 7u))
+          {
+            v13 = v16 - (v14 & 7);
+          }
+
+          else
+          {
+            v13 = 0;
+          }
+        }
+
+        bzero(v11, 8 * ((v13 >> 3) - 1) + 8);
+        v11 += 8 * (v13 >> 3);
+        v13 &= 7u;
+        if (v13)
+        {
+LABEL_24:
+          v18 = v13;
+          bzero(v11, v13);
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+
+        v11 += v18;
+        v9 &= 7u;
+      }
+
+      if (!v9)
+      {
+        goto LABEL_30;
+      }
+
+      v19 = *v11 & (0xFFu >> v9);
+    }
+
+    *v11 = v19;
+LABEL_30:
+    v8 += *v6;
+    goto LABEL_31;
+  }
+
+  v8 = 0;
+LABEL_62:
+  if (v8 != a4)
+  {
+    _TIFFFax3fillruns_cold_1();
+  }
+}
+
+uint64_t TIFFInitCCITTFax3(int8x16_t *a1)
+{
+  if (!InitCCITTFax3(a1))
+  {
+    return 1;
+  }
+
+  if (_TIFFMergeFields(a1->i64, fax3Fields, 1))
+  {
+    return _cg_TIFFSetField(a1, 0x10000, v2, v3, v4, v5, v6, v7, 1);
+  }
+
+  TIFFErrorExtR(a1, "TIFFInitCCITTFax3", "Merging CCITT Fax 3 codec-specific tags failed");
+  return 0;
+}
+
+uint64_t InitCCITTFax3(int8x16_t *a1)
+{
+  if (!_TIFFMergeFields(a1->i64, faxFields, 5))
+  {
+    TIFFErrorExtR(a1, "InitCCITTFax3", "Merging common CCITT Fax codec-specific tags failed");
+    return 0;
+  }
+
+  v2 = malloc_type_malloc(0xA0uLL, 0x10D0040430E4CB8uLL);
+  a1[68].i64[1] = v2;
+  if (!v2)
+  {
+    TIFFErrorExtR(a1, "InitCCITTFax3", "No space for state block");
+    return 0;
+  }
+
+  _TIFFmemset(v2, 0, 0xA0uLL);
+  v9 = a1[68].i64[1];
+  v10 = a1->i32[3];
+  *v9 = v10;
+  v11 = a1[80];
+  a1[80].i64[1] = Fax3VGetField;
+  *(v9 + 40) = vextq_s8(v11, v11, 8uLL);
+  a1[80].i64[0] = Fax3VSetField;
+  *(v9 + 56) = a1[81].i64[0];
+  a1[81].i64[0] = Fax3PrintDir;
+  *(v9 + 32) = 0;
+  if (!v10)
+  {
+    a1[1].i32[0] |= 0x100u;
+  }
+
+  *(v9 + 96) = 0;
+  _cg_TIFFSetField(a1, 65540, v3, v4, v5, v6, v7, v8, _TIFFFax3fillruns);
+  *(a1[68].i64[1] + 136) = 0;
+  a1[59].i64[1] = Fax3FixupTags;
+  a1[60].i64[0] = Fax3SetupState;
+  a1[60].i64[1] = Fax3PreDecode;
+  a1[63].i64[0] = Fax3Decode1D;
+  a1[64].i64[0] = Fax3Decode1D;
+  a1[65].i64[0] = Fax3Decode1D;
+  a1[61].i64[0] = Fax3SetupState;
+  a1[62].i64[0] = Fax3PreEncode;
+  a1[62].i64[1] = Fax3PostEncode;
+  a1[63].i64[1] = Fax3Encode;
+  a1[64].i64[1] = Fax3Encode;
+  a1[65].i64[1] = Fax3Encode;
+  a1[66].i64[0] = Fax3Close;
+  a1[67].i64[0] = Fax3Cleanup;
+  return 1;
+}
+
+uint64_t TIFFInitCCITTFax4(int8x16_t *a1)
+{
+  if (InitCCITTFax3(a1))
+  {
+    if (_TIFFMergeFields(a1->i64, fax4Fields, 1))
+    {
+      a1[63].i64[0] = Fax4Decode;
+      a1[64].i64[0] = Fax4Decode;
+      a1[65].i64[0] = Fax4Decode;
+      a1[63].i64[1] = Fax4Encode;
+      a1[64].i64[1] = Fax4Encode;
+      a1[65].i64[1] = Fax4Encode;
+      a1[62].i64[1] = Fax4PostEncode;
+      return _cg_TIFFSetField(a1, 0x10000, v2, v3, v4, v5, v6, v7, 1);
+    }
+
+    TIFFErrorExtR(a1, "TIFFInitCCITTFax4", "Merging CCITT Fax 4 codec-specific tags failed");
+  }
+
+  return 0;
+}
+
+uint64_t Fax4Decode(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = *(a1 + 1096);
+  if (a3 % *(v4 + 8))
+  {
+    TIFFErrorExtR(a1, "Fax4Decode", "Fractional scanlines cannot be read");
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = a3;
+  v7 = *(v4 + 72);
+  v6 = *(v4 + 76);
+  v8 = *(v4 + 80);
+  v9 = *(a1 + 1152);
+  v10 = *(a1 + 1160);
+  if (a3 < 1)
+  {
+    v20 = *(a1 + 1152);
+    goto LABEL_214;
+  }
+
+  v12 = v9 + v10;
+  v13 = &TIFFFaxWhiteTable;
+  v14 = *(v4 + 16);
+  v15 = &TIFFFaxBlackTable;
+  v16 = *(v4 + 64);
+  v17 = ((v14 + 7) >> 3);
+  v19 = *(v4 + 112);
+  v18 = *(v4 + 120);
+  v20 = *(a1 + 1152);
+  v148 = v16;
+  v149 = v12;
+LABEL_5:
+  v150 = a2;
+  if (v14 < 1)
+  {
+    v23 = 0;
+    v26 = v18;
+    goto LABEL_179;
+  }
+
+  v21 = 0;
+  i = 0;
+  v23 = 0;
+  v25 = v19 + 1;
+  v24 = *v19;
+  v26 = v18;
+  while (1)
+  {
+    v27 = *(v4 + 104);
+    if (v26 >= &v18[v27])
+    {
+      goto LABEL_225;
+    }
+
+    if (v6 <= 6)
+    {
+      if (v20 >= v12)
+      {
+        if (!v6)
+        {
+          goto LABEL_215;
+        }
+
+        v6 = 7;
+      }
+
+      else
+      {
+        v28 = *v20++;
+        v7 |= *(v16 + v28) << v6;
+        v6 += 8;
+      }
+    }
+
+    v29 = &TIFFFaxMainTable + 8 * (v7 & 0x7F);
+    v30 = v29[1];
+    v6 -= v30;
+    v7 >>= v30;
+    v31 = *v29;
+    if (v31 >= 4)
+    {
+      if (*v29 > 4u)
+      {
+        switch(v31)
+        {
+          case 5u:
+            if (v26 != v18 && v24 <= v23)
+            {
+              v36 = &v19[v27];
+              v37 = v25 + 1;
+              do
+              {
+                if (v37 >= v36)
+                {
+                  goto LABEL_225;
+                }
+
+                v24 += *(v37 - 1) + *v37;
+                v37 += 2;
+              }
+
+              while (v24 <= v23);
+              v25 = v37 - 1;
+            }
+
+            v38 = *(v29 + 1);
+            if (v24 >= v38 + v23)
+            {
+              v39 = v24 + v21 - v38;
+              *v26++ = v39 + i;
+              v23 += v39;
+              v40 = *--v25;
+              v24 -= v40;
+              goto LABEL_35;
+            }
+
+            v79 = v14;
+            v142 = v26;
+            v85 = v18;
+            v144 = v17;
+            v140 = v8;
+            Fax3Unexpected("Fax4Decode", a1, *(v4 + 152), v23);
+LABEL_163:
+            v18 = v85;
+            v8 = v140;
+            break;
+          case 6u:
+            v79 = v14;
+            *v26 = v14 - v23;
+            v142 = v26 + 1;
+            v85 = v18;
+            v144 = v17;
+            v140 = v8;
+            Fax3Extension("Fax4Decode", a1, *(v4 + 152), v23);
+            goto LABEL_163;
+          case 0xCu:
+            *v26++ = v14 - v23;
+            v144 = v17;
+            v142 = v26;
+            if (v6 > 3)
+            {
+              v79 = v14;
+            }
+
+            else if (v20 >= v12)
+            {
+              if (!v6)
+              {
+                v111 = v18;
+                v112 = v5;
+                v113 = v14;
+                goto LABEL_216;
+              }
+
+              v79 = v14;
+              v6 = 4;
+            }
+
+            else
+            {
+              v79 = v14;
+              v84 = *v20++;
+              v7 |= *(v16 + v84) << v6;
+              v6 += 8;
+            }
+
+            if ((v7 & 0xF) != 0)
+            {
+              v86 = v18;
+              Fax3Unexpected("Fax4Decode", a1, *(v4 + 152), v23);
+              v18 = v86;
+            }
+
+            v6 -= 4;
+            v7 >>= 4;
+            v8 = 1;
+            break;
+          default:
+            goto LABEL_174;
+        }
+
+        v17 = v144;
+        goto LABEL_152;
+      }
+
+      if (v26 != v18 && v24 <= v23)
+      {
+        v41 = &v19[v27];
+        v42 = v25 + 1;
+        do
+        {
+          if (v42 >= v41)
+          {
+            goto LABEL_225;
+          }
+
+          v24 += *(v42 - 1) + *v42;
+          v42 += 2;
+        }
+
+        while (v24 <= v23);
+        v25 = v42 - 1;
+      }
+
+      v43 = *(v29 + 1);
+      *v26 = i + v21 + v43 + v24;
+      if (v25 >= &v19[*(v4 + 104)])
+      {
+        goto LABEL_225;
+      }
+
+      i = 0;
+      v23 = v43 + v24;
+      ++v26;
+      v44 = *v25++;
+      v34 = v44;
+      goto LABEL_44;
+    }
+
+    if (v31 == 1)
+    {
+      if (v26 != v18 && v24 <= v23)
+      {
+        v56 = v25 + 1;
+        do
+        {
+          if (v56 >= &v19[v27])
+          {
+            goto LABEL_225;
+          }
+
+          v24 += *(v56 - 1) + *v56;
+          v56 += 2;
+        }
+
+        while (v24 <= v23);
+        v25 = v56 - 1;
+      }
+
+      if (v25 + 1 >= &v19[v27])
+      {
+        goto LABEL_225;
+      }
+
+      v57 = *v25;
+      v58 = v25[1];
+      v25 += 2;
+      v23 = v57 + v24;
+      i += v21 + v57 + v24;
+      v24 += v57 + v58;
+      goto LABEL_82;
+    }
+
+    if (v31 == 2)
+    {
+      break;
+    }
+
+    if (v31 != 3)
+    {
+      goto LABEL_174;
+    }
+
+    if (v26 != v18 && v24 <= v23)
+    {
+      v32 = &v19[v27];
+      v33 = v25 + 1;
+      while (v33 < v32)
+      {
+        v24 += *(v33 - 1) + *v33;
+        v33 += 2;
+        if (v24 > v23)
+        {
+          v25 = v33 - 1;
+          goto LABEL_23;
+        }
+      }
+
+      goto LABEL_225;
+    }
+
+LABEL_23:
+    *v26 = i + v21 + v24;
+    if (v25 >= &v19[*(v4 + 104)])
+    {
+LABEL_225:
+      v120 = *(a1 + 1200);
+      v121 = "tile";
+      if ((*(a1 + 16) & 0x400) == 0)
+      {
+        v121 = "strip";
+      }
+
+      v122 = 932;
+      if ((*(a1 + 16) & 0x400) == 0)
+      {
+        v122 = 884;
+      }
+
+      v123 = *(a1 + v122);
+      goto LABEL_230;
+    }
+
+    i = 0;
+    ++v26;
+    v35 = *v25++;
+    v34 = v35;
+    v23 = v24;
+LABEL_44:
+    v24 += v34;
+LABEL_82:
+    v21 = -v23;
+    if (v23 >= v14)
+    {
+      if (!i)
+      {
+        goto LABEL_178;
+      }
+
+      if (i + v23 >= v14)
+      {
+        goto LABEL_176;
+      }
+
+      if (v6 > 0)
+      {
+        goto LABEL_173;
+      }
+
+      if (v20 < v12)
+      {
+        v76 = *v20++;
+        v7 |= *(v16 + v76) << v6;
+        v6 += 8;
+        goto LABEL_173;
+      }
+
+      if (v6)
+      {
+        v6 = 1;
+LABEL_173:
+        if ((v7 & 1) == 0)
+        {
+LABEL_174:
+          v87 = v18;
+          v79 = v14;
+          v142 = v26;
+          v145 = v17;
+          v141 = v8;
+          Fax3Unexpected("Fax4Decode", a1, *(v4 + 152), v23);
+          v8 = v141;
+          v17 = v145;
+          v18 = v87;
+          goto LABEL_152;
+        }
+
+        --v6;
+        v7 >>= 1;
+LABEL_176:
+        if (v26 >= &v18[*(v4 + 104)])
+        {
+          goto LABEL_225;
+        }
+
+        *v26++ = i;
+LABEL_178:
+        v3 = a1;
+        goto LABEL_179;
+      }
+
+LABEL_215:
+      v111 = v18;
+      v112 = v5;
+      v113 = v14;
+      v144 = v17;
+LABEL_216:
+      v114 = v26;
+      v115 = v8;
+      goto LABEL_218;
+    }
+  }
+
+  if (((v26 - v18) & 4) != 0)
+  {
+    while (1)
+    {
+      if (v6 > 12)
+      {
+        goto LABEL_72;
+      }
+
+      if (v20 >= v12)
+      {
+        if (!v6)
+        {
+          goto LABEL_215;
+        }
+
+        v6 = 13;
+      }
+
+      else
+      {
+        v7 |= *(v16 + *v20) << v6;
+        if (v6 > 4)
+        {
+          v6 += 8;
+        }
+
+        else
+        {
+          if ((v20 + 1) < v12)
+          {
+            v51 = v20[1];
+            v20 += 2;
+            v7 |= *(v16 + v51) << (v6 + 8);
+            v6 += 16;
+            goto LABEL_72;
+          }
+
+          v6 = 13;
+        }
+
+        ++v20;
+      }
+
+LABEL_72:
+      v52 = &TIFFFaxBlackTable + 8 * (v7 & 0x1FFF);
+      v53 = v52[1];
+      v6 -= v53;
+      v7 >>= v53;
+      v54 = *v52;
+      if ((v54 - 10) >= 2)
+      {
+        if (v54 != 8)
+        {
+          v77 = v18;
+          v78 = v5;
+          v79 = v14;
+          v80 = v17;
+          v142 = v26;
+          v139 = v8;
+LABEL_141:
+          v81 = a1;
+          v82 = "tile";
+          if ((*(a1 + 16) & 0x400) == 0)
+          {
+            v82 = "strip";
+          }
+
+          v83 = 932;
+          if ((*(a1 + 16) & 0x400) == 0)
+          {
+            v83 = 884;
+          }
+
+          goto LABEL_151;
+        }
+
+        v66 = *(v52 + 1);
+        *v26 = v66 + i;
+        v60 = v26 + 1;
+        v23 += v66;
+        for (i = 0; ; i += v71)
+        {
+          if (v6 > 11)
+          {
+            goto LABEL_110;
+          }
+
+          if (v20 >= v12)
+          {
+            if (!v6)
+            {
+LABEL_217:
+              v111 = v18;
+              v112 = v5;
+              v113 = v14;
+              v144 = v17;
+              v115 = v8;
+              v114 = v60;
+LABEL_218:
+              v116 = "tile";
+              if ((*(a1 + 16) & 0x400) == 0)
+              {
+                v116 = "strip";
+              }
+
+              v117 = 932;
+              if ((*(a1 + 16) & 0x400) == 0)
+              {
+                v117 = 884;
+              }
+
+              TIFFWarningExtR(a1, "Fax4Decode", "Premature EOF at line %u of %s %u (x %u)", *(v4 + 152), v116, *(a1 + v117), v23);
+              if (i)
+              {
+                v17 = v144;
+                if (v114 >= &v111[*(v4 + 104)])
+                {
+                  goto LABEL_225;
+                }
+
+                v8 = v115;
+                v118 = v113;
+                *v114 = i;
+                v119 = v114 + 1;
+              }
+
+              else
+              {
+                v8 = v115;
+                v119 = v114;
+                LODWORD(v17) = v144;
+                v118 = v113;
+              }
+
+              v3 = a1;
+              if (v23 == v118)
+              {
+                v6 = 0;
+                v12 = v149;
+                v101 = v150;
+                v16 = v148;
+                LODWORD(v5) = v112;
+                goto LABEL_270;
+              }
+
+              v124 = v118;
+              v125 = v119;
+              v147 = v17;
+              v126 = v8;
+              Fax3BadLength("Fax4Decode", a1, *(v4 + 152), v23, v118);
+              v127 = v23 > v124;
+              if (v23 <= v124)
+              {
+                v8 = v126;
+                v17 = v147;
+                v16 = v148;
+                v12 = v149;
+                v128 = v125;
+                v14 = v124;
+                LODWORD(v5) = v112;
+                v129 = v111;
+              }
+
+              else
+              {
+                v128 = v125;
+                v129 = v111;
+                if (v125 <= v111)
+                {
+                  v8 = v126;
+                  v17 = v147;
+                  v16 = v148;
+                  v12 = v149;
+                  v14 = v124;
+                }
+
+                else
+                {
+                  v130 = v125 - 1;
+                  v131 = v125 - 1;
+                  v8 = v126;
+                  v16 = v148;
+                  v12 = v149;
+                  v14 = v124;
+                  do
+                  {
+                    v132 = *v131--;
+                    v23 -= v132;
+                    v127 = v23 > v124;
+                    v133 = v23 > v124 && v130 > v111;
+                    v130 = v131;
+                  }
+
+                  while (v133);
+                  v128 = v131 + 1;
+                  v17 = v147;
+                }
+
+                LODWORD(v5) = v112;
+              }
+
+              if (v23 >= v14)
+              {
+                if (!v127)
+                {
+                  v6 = 0;
+                  goto LABEL_269;
+                }
+
+                v101 = v150;
+                if (v128 >= &v129[*(v4 + 104)])
+                {
+                  goto LABEL_263;
+                }
+
+                *v128 = v14;
+                if (v128 + 1 >= &v129[*(v4 + 104)])
+                {
+                  goto LABEL_263;
+                }
+
+                v6 = 0;
+                v128[1] = 0;
+                LODWORD(v17) = v147;
+              }
+
+              else
+              {
+                if (((v128 - v129) & 4) != 0)
+                {
+                  if (v128 >= &v129[*(v4 + 104)])
+                  {
+                    goto LABEL_263;
+                  }
+
+                  *v128++ = 0;
+                }
+
+                if (v128 >= &v129[*(v4 + 104)])
+                {
+                  goto LABEL_263;
+                }
+
+                v6 = 0;
+                *v128 = v14 - (v23 & ~(v23 >> 31));
+LABEL_269:
+                v101 = v150;
+              }
+
+LABEL_270:
+              if (v20 >= v12)
+              {
+                if (v6)
+                {
+                  v6 = 13;
+                }
+
+                else
+                {
+                  v6 = 0;
+                }
+              }
+
+              else
+              {
+                v7 |= *(v16 + *v20) << v6;
+                if (v6 > 4)
+                {
+                  v6 += 8;
+                }
+
+                else
+                {
+                  if ((v20 + 1) < v12)
+                  {
+                    v136 = v20[1];
+                    v20 += 2;
+                    v7 |= *(v16 + v136) << (v6 + 8);
+                    v6 += 16;
+                    goto LABEL_280;
+                  }
+
+                  v6 = 13;
+                }
+
+                ++v20;
+              }
+
+LABEL_280:
+              if (v17 <= v5)
+              {
+                v137 = v8;
+                (*(v4 + 88))(v101);
+                *(v4 + 72) = v7 >> 13;
+                *(v4 + 76) = v6 - 13;
+                *(v4 + 80) = v137;
+                *(v3 + 1160) += *(v3 + 1152) - v20;
+                *(v3 + 1152) = v20;
+                if (*(v4 + 152))
+                {
+                  return 1;
+                }
+
+                else
+                {
+                  return 0xFFFFFFFFLL;
+                }
+              }
+
+              goto LABEL_281;
+            }
+
+            v6 = 12;
+          }
+
+          else
+          {
+            v7 |= *(v16 + *v20) << v6;
+            if (v6 > 3)
+            {
+              v6 += 8;
+            }
+
+            else
+            {
+              if ((v20 + 1) < v12)
+              {
+                v67 = v20[1];
+                v20 += 2;
+                v7 |= *(v16 + v67) << (v6 + 8);
+                v6 += 16;
+                goto LABEL_110;
+              }
+
+              v6 = 12;
+            }
+
+            ++v20;
+          }
+
+LABEL_110:
+          v62 = &TIFFFaxWhiteTable + 8 * (v7 & 0xFFF);
+          v68 = v62[1];
+          v6 -= v68;
+          v7 >>= v68;
+          v69 = *v62;
+          if (v69 != 9 && v69 != 11)
+          {
+            if (v69 == 7)
+            {
+              goto LABEL_119;
+            }
+
+            v77 = v18;
+            v78 = v5;
+            v79 = v14;
+            v80 = v17;
+            v139 = v8;
+            v142 = v26 + 1;
+LABEL_147:
+            v81 = a1;
+            v82 = "tile";
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v82 = "strip";
+            }
+
+            v83 = 932;
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v83 = 884;
+            }
+
+LABEL_151:
+            TIFFErrorExtR(v81, "Fax4Decode", "Bad code word at line %u of %s %u (x %u)", *(v4 + 152), v82, *(v81 + v83), v23);
+            v8 = v139;
+            v17 = v80;
+            v5 = v78;
+            v18 = v77;
+LABEL_152:
+            if (i)
+            {
+              v12 = v149;
+              if (v142 < &v18[*(v4 + 104)])
+              {
+                v14 = v79;
+                *v142 = i;
+                v26 = v142 + 1;
+                v3 = a1;
+                v16 = v148;
+                goto LABEL_179;
+              }
+
+              goto LABEL_225;
+            }
+
+            v3 = a1;
+            v16 = v148;
+            v12 = v149;
+            v26 = v142;
+            v14 = v79;
+LABEL_179:
+            if (v23 == v14)
+            {
+              goto LABEL_207;
+            }
+
+            v143 = v20;
+            v88 = v18;
+            v89 = v5;
+            v90 = v14;
+            v91 = v26;
+            v146 = v17;
+            v92 = v8;
+            v93 = "tile";
+            if ((*(v3 + 16) & 0x400) == 0)
+            {
+              v93 = "strip";
+            }
+
+            v94 = 932;
+            if ((*(v3 + 16) & 0x400) == 0)
+            {
+              v94 = 884;
+            }
+
+            v95 = "Line length mismatch";
+            if (v23 < v14)
+            {
+              v95 = "Premature EOL";
+            }
+
+            TIFFWarningExtR(v3, "Fax4Decode", "%s at line %u of %s %u (got %u, expected %u)", v95, *(v4 + 152), v93, *(v3 + v94), v23, v14);
+            v96 = v23 > v90;
+            if (v23 <= v90)
+            {
+              v8 = v92;
+              v17 = v146;
+              v16 = v148;
+              v12 = v149;
+              v26 = v91;
+            }
+
+            else
+            {
+              v26 = v91;
+              if (v91 > v88)
+              {
+                v97 = v91 - 1;
+                v98 = v91 - 1;
+                v8 = v92;
+                v16 = v148;
+                v12 = v149;
+                v14 = v90;
+                v5 = v89;
+                v18 = v88;
+                do
+                {
+                  v99 = *v98--;
+                  v23 -= v99;
+                  v96 = v23 > v90;
+                  v100 = v23 > v90 && v97 > v88;
+                  v97 = v98;
+                }
+
+                while (v100);
+                v26 = v98 + 1;
+                v17 = v146;
+LABEL_197:
+                v20 = v143;
+                if (v23 < v14)
+                {
+                  if (((v26 - v18) & 4) == 0)
+                  {
+                    goto LABEL_201;
+                  }
+
+                  if (v26 < &v18[*(v4 + 104)])
+                  {
+                    *v26++ = 0;
+LABEL_201:
+                    if (v26 < &v18[*(v4 + 104)])
+                    {
+                      *v26++ = v14 - (v23 & ~(v23 >> 31));
+                      goto LABEL_207;
+                    }
+                  }
+
+LABEL_263:
+                  v120 = *(v3 + 1200);
+                  v121 = "tile";
+                  if ((*(v3 + 16) & 0x400) == 0)
+                  {
+                    v121 = "strip";
+                  }
+
+                  v135 = 932;
+                  if ((*(v3 + 16) & 0x400) == 0)
+                  {
+                    v135 = 884;
+                  }
+
+                  v123 = *(v3 + v135);
+                  goto LABEL_230;
+                }
+
+                if (v96)
+                {
+                  v101 = v150;
+                  if (v26 >= &v18[*(v4 + 104)])
+                  {
+                    goto LABEL_263;
+                  }
+
+                  *v26 = v14;
+                  if (v26 + 1 >= &v18[*(v4 + 104)])
+                  {
+                    goto LABEL_263;
+                  }
+
+                  v26[1] = 0;
+                  v26 += 2;
+                  v17 = v146;
+LABEL_208:
+                  if (!v8)
+                  {
+                    if (v17 <= v5)
+                    {
+                      v102 = v20;
+                      v103 = v5;
+                      v104 = v17;
+                      v105 = v18;
+                      v106 = v26;
+                      v107 = v14;
+                      v108 = v101;
+                      (*(v4 + 88))();
+                      if (v106 >= &v105[*(v4 + 104)])
+                      {
+                        v120 = *(a1 + 1200);
+                        v121 = "tile";
+                        if ((*(a1 + 16) & 0x400) == 0)
+                        {
+                          v121 = "strip";
+                        }
+
+                        v134 = 932;
+                        if ((*(a1 + 16) & 0x400) == 0)
+                        {
+                          v134 = 884;
+                        }
+
+                        v123 = *(a1 + v134);
+                        goto LABEL_230;
+                      }
+
+                      v8 = 0;
+                      *v106 = 0;
+                      v18 = *(v4 + 112);
+                      v19 = *(v4 + 120);
+                      *(v4 + 112) = v19;
+                      *(v4 + 120) = v18;
+                      v109 = *(v4 + 8);
+                      a2 = v108 + v109;
+                      ++*(v4 + 152);
+                      v5 = v103 - v109;
+                      v16 = v148;
+                      v12 = v149;
+                      v17 = v104;
+                      v14 = v107;
+                      v20 = v102;
+                      v13 = &TIFFFaxWhiteTable;
+                      v15 = &TIFFFaxBlackTable;
+                      v3 = a1;
+                      if (v103 <= v109)
+                      {
+                        v8 = 0;
+                        v9 = *(a1 + 1152);
+                        v10 = *(a1 + 1160);
+LABEL_214:
+                        *(v4 + 72) = v7;
+                        *(v4 + 76) = v6;
+                        *(v4 + 80) = v8;
+                        *(v3 + 1160) = v9 - v20 + v10;
+                        *(v3 + 1152) = v20;
+                        return 1;
+                      }
+
+                      goto LABEL_5;
+                    }
+
+LABEL_281:
+                    TIFFErrorExtR(v3, "Fax4Decode", "Buffer overrun detected : %lld bytes available, %d bits needed");
+                    return 0xFFFFFFFFLL;
+                  }
+
+                  if (v6 > 12)
+                  {
+                    goto LABEL_280;
+                  }
+
+                  goto LABEL_270;
+                }
+
+LABEL_207:
+                v101 = v150;
+                goto LABEL_208;
+              }
+
+              v8 = v92;
+              v17 = v146;
+              v16 = v148;
+              v12 = v149;
+            }
+
+            v14 = v90;
+            v5 = v89;
+            v18 = v88;
+            goto LABEL_197;
+          }
+
+          v71 = *(v62 + 1);
+          v23 += v71;
+        }
+      }
+
+      v55 = *(v52 + 1);
+      v23 += v55;
+      i += v55;
+    }
+  }
+
+  while (1)
+  {
+    if (v6 > 11)
+    {
+      goto LABEL_56;
+    }
+
+    if (v20 >= v12)
+    {
+      if (!v6)
+      {
+        goto LABEL_215;
+      }
+
+      v6 = 12;
+    }
+
+    else
+    {
+      v7 |= *(v16 + *v20) << v6;
+      if (v6 > 3)
+      {
+        v6 += 8;
+      }
+
+      else
+      {
+        if ((v20 + 1) < v12)
+        {
+          v45 = v20[1];
+          v20 += 2;
+          v7 |= *(v16 + v45) << (v6 + 8);
+          v6 += 16;
+          goto LABEL_56;
+        }
+
+        v6 = 12;
+      }
+
+      ++v20;
+    }
+
+LABEL_56:
+    v46 = &TIFFFaxWhiteTable + 8 * (v7 & 0xFFF);
+    v47 = v46[1];
+    v6 -= v47;
+    v7 >>= v47;
+    v48 = *v46;
+    if (v48 != 9 && v48 != 11)
+    {
+      break;
+    }
+
+    v50 = *(v46 + 1);
+    v23 += v50;
+    i += v50;
+  }
+
+  if (v48 != 7)
+  {
+    v77 = v18;
+    v78 = v5;
+    v79 = v14;
+    v80 = v17;
+    v142 = v26;
+    v139 = v8;
+    goto LABEL_147;
+  }
+
+  v59 = *(v46 + 1);
+  *v26 = v59 + i;
+  v60 = v26 + 1;
+  v23 += v59;
+  i = 0;
+  while (2)
+  {
+    if (v6 > 12)
+    {
+      goto LABEL_96;
+    }
+
+    if (v20 >= v12)
+    {
+      if (!v6)
+      {
+        goto LABEL_217;
+      }
+
+      v6 = 13;
+    }
+
+    else
+    {
+      v7 |= *(v16 + *v20) << v6;
+      if (v6 > 4)
+      {
+        v6 += 8;
+      }
+
+      else
+      {
+        if ((v20 + 1) < v12)
+        {
+          v61 = v20[1];
+          v20 += 2;
+          v7 |= *(v16 + v61) << (v6 + 8);
+          v6 += 16;
+          goto LABEL_96;
+        }
+
+        v6 = 13;
+      }
+
+      ++v20;
+    }
+
+LABEL_96:
+    v62 = &TIFFFaxBlackTable + 8 * (v7 & 0x1FFF);
+    v63 = v62[1];
+    v6 -= v63;
+    v7 >>= v63;
+    v64 = *v62;
+    if ((v64 - 10) < 2)
+    {
+      v65 = *(v62 + 1);
+      v23 += v65;
+      i += v65;
+      continue;
+    }
+
+    break;
+  }
+
+  if (v64 != 8)
+  {
+    v77 = v18;
+    v78 = v5;
+    v79 = v14;
+    v80 = v17;
+    v139 = v8;
+    v142 = v26 + 1;
+    goto LABEL_141;
+  }
+
+LABEL_119:
+  if (v60 >= &v18[*(v4 + 104)])
+  {
+    goto LABEL_225;
+  }
+
+  v72 = *(v62 + 1);
+  v26[1] = v72 + i;
+  v23 += v72;
+  v26 += 2;
+  if (v26 == v18 || (v24 <= v23 ? (v73 = v24 < v14) : (v73 = 0), !v73))
+  {
+LABEL_35:
+    i = 0;
+    goto LABEL_82;
+  }
+
+  v74 = v25 + 1;
+  while (v74 < &v19[*(v4 + 104)])
+  {
+    v24 += *(v74 - 1) + *v74;
+    v74 += 2;
+    if (v24 > v23 || v24 >= v14)
+    {
+      i = 0;
+      v25 = v74 - 1;
+      goto LABEL_82;
+    }
+  }
+
+  v120 = *(a1 + 1200);
+  v121 = "tile";
+  if ((*(a1 + 16) & 0x400) == 0)
+  {
+    v121 = "strip";
+  }
+
+  v138 = 932;
+  if ((*(a1 + 16) & 0x400) == 0)
+  {
+    v138 = 884;
+  }
+
+  v123 = *(a1 + v138);
+LABEL_230:
+  TIFFErrorExt(v120, "Fax4Decode", "Buffer overflow at line %u of %s %u", v14, v17, v13, v15, v16, *(v4 + 152), v121, v123);
+  return 0xFFFFFFFFLL;
 }

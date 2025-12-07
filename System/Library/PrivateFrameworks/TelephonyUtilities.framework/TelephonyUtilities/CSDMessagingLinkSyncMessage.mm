@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061AD10 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -140,38 +156,36 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_updateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_checkInMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_recoverMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -253,7 +267,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_version != *(equalCopy + 10))
@@ -265,7 +278,7 @@
   else if ((*(equalCopy + 44) & 2) != 0)
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -300,17 +313,17 @@ LABEL_18:
   recoverMessage = self->_recoverMessage;
   if (recoverMessage | *(equalCopy + 2))
   {
-    v9 = [(CSDMessagingLinkSyncRecoverMessage *)recoverMessage isEqual:?];
+    v8 = [(CSDMessagingLinkSyncRecoverMessage *)recoverMessage isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

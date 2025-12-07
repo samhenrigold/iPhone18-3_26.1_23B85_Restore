@@ -56,8 +56,6 @@
   {
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -149,20 +147,20 @@
 
 - (void)splitAudioChunkSuchThatNumSamplesReceivedSoFar:(unint64_t)far reachesACountOf:(unint64_t)of completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((of - far) <= 0)
   {
     v11 = CSLogCategorySpkrId;
     if (os_log_type_enabled(CSLogCategorySpkrId, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "[CSAudioChunk splitAudioChunkSuchThatNumSamplesReceivedSoFar:reachesACountOf:completionHandler:]";
-      v17 = 2048;
+      v14 = 136315650;
+      v15 = "[CSAudioChunk splitAudioChunkSuchThatNumSamplesReceivedSoFar:reachesACountOf:completionHandler:]";
+      v16 = 2048;
       farCopy = far;
-      v19 = 2048;
+      v18 = 2048;
       ofCopy = of;
-      _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Processing ended at: numSamplesProcessed=%lu, totalSampleCountToReach=%lu", &v15, 0x20u);
+      _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Processing ended at: numSamplesProcessed=%lu, totalSampleCountToReach=%lu", &v14, 0x20u);
     }
 
     handlerCopy[2](handlerCopy, self, 0, 1);
@@ -193,8 +191,6 @@
       (handlerCopy)[2](handlerCopy, v12, v13, 0);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)skipSamplesAtStartSuchThatNumSamplesReceivedSoFar:(unint64_t)far reachesACountOf:(unint64_t)of completionHandler:(id)handler
@@ -299,7 +295,7 @@
 
 - (unint64_t)copySubAudioChunkFrom:(unint64_t)from numSamples:(unint64_t)samples to:(void *)to dstBufferSize:(unint64_t)size
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = self->_sampleByteDepth * samples * self->_numChannels;
   if (v6 <= size)
   {
@@ -330,25 +326,24 @@
     v8 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315650;
-      v21 = "[CSAudioChunk copySubAudioChunkFrom:numSamples:to:dstBufferSize:]";
-      v22 = 1024;
-      v23 = sizeCopy;
-      v24 = 1024;
-      v25 = v6;
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Unable to write subChunk into dstBufferSize(%d) : required buffer size (%d)", &v20, 0x18u);
+      v19 = 136315650;
+      v20 = "[CSAudioChunk copySubAudioChunkFrom:numSamples:to:dstBufferSize:]";
+      v21 = 1024;
+      v22 = sizeCopy;
+      v23 = 1024;
+      v24 = v6;
+      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Unable to write subChunk into dstBufferSize(%d) : required buffer size (%d)", &v19, 0x18u);
     }
 
-    samplesCopy = 0;
+    return 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return samplesCopy;
 }
 
 - (id)subChunkFrom:(unint64_t)from numSamples:(unint64_t)samples
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   numSamples = self->_numSamples;
   if (!from && numSamples == samples)
   {
@@ -396,9 +391,9 @@ LABEL_4:
     +[CSConfig inputRecordingSampleRate];
     v24 = [CSFTimeUtils hostTimeFromSampleCount:startSampleCount + from anchorHostTime:arrivalHostTimeToAudioRecorder anchorSampleCount:v23 sampleRate:?];
     v25 = [CSAudioChunk alloc];
-    LOBYTE(v29) = self->_isFloat;
-    LOBYTE(v28) = self->_wasBuffered;
-    v9 = [(CSAudioChunk *)v25 initWithData:numChannels numChannels:self->_numChannels numSamples:samples sampleByteDepth:self->_sampleByteDepth startSampleCount:startSampleCount + from hostTime:v21 arrivalHostTimeToAudioRecorder:v24 wasBuffered:v28 remoteVAD:0 isFloat:v29];
+    LOBYTE(v28) = self->_isFloat;
+    LOBYTE(v27) = self->_wasBuffered;
+    v9 = [(CSAudioChunk *)v25 initWithData:numChannels numChannels:self->_numChannels numSamples:samples sampleByteDepth:self->_sampleByteDepth startSampleCount:startSampleCount + from hostTime:v21 arrivalHostTimeToAudioRecorder:v24 wasBuffered:v27 remoteVAD:0 isFloat:v28];
   }
 
   else
@@ -407,13 +402,13 @@ LABEL_4:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v31 = "[CSAudioChunk subChunkFrom:numSamples:]";
-      v32 = 2050;
+      v30 = "[CSAudioChunk subChunkFrom:numSamples:]";
+      v31 = 2050;
       fromCopy = from;
-      v34 = 2050;
+      v33 = 2050;
       samplesCopy = samples;
-      v36 = 2050;
-      v37 = numSamples;
+      v35 = 2050;
+      v36 = numSamples;
       _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Cannot generate subChunk if it reuqest more than it has : %{public}tu %{public}tu %{public}tu", buf, 0x2Au);
     }
 
@@ -421,14 +416,13 @@ LABEL_4:
   }
 
 LABEL_15:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)subChunkFrom:(unint64_t)from numSamples:(unint64_t)samples forChannel:(unint64_t)channel
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (!from && !channel && self->_numSamples == samples && self->_numChannels == 1)
   {
     selfCopy = self;
@@ -442,10 +436,10 @@ LABEL_15:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v34 = "[CSAudioChunk subChunkFrom:numSamples:forChannel:]";
-      v35 = 2050;
+      v33 = "[CSAudioChunk subChunkFrom:numSamples:forChannel:]";
+      v34 = 2050;
       fromCopy = channel;
-      v37 = 2050;
+      v36 = 2050;
       samplesCopy = numChannels;
       v12 = "%s Cannot generate subChunk since channel(%{public}tu) is larger than number of channels(%{public}tu)";
       v13 = v15;
@@ -465,13 +459,13 @@ LABEL_7:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v34 = "[CSAudioChunk subChunkFrom:numSamples:forChannel:]";
-      v35 = 2050;
+      v33 = "[CSAudioChunk subChunkFrom:numSamples:forChannel:]";
+      v34 = 2050;
       fromCopy = from;
-      v37 = 2050;
+      v36 = 2050;
       samplesCopy = samples;
-      v39 = 2050;
-      v40 = numSamples;
+      v38 = 2050;
+      v39 = numSamples;
       v12 = "%s Cannot generate subChunk if it reuqest more than it has : %{public}tu %{public}tu %{public}tu";
       v13 = v11;
       v14 = 42;
@@ -499,12 +493,11 @@ LABEL_17:
   +[CSConfig inputRecordingSampleRate];
   v27 = [CSFTimeUtils hostTimeFromSampleCount:startSampleCount + from anchorHostTime:arrivalHostTimeToAudioRecorder anchorSampleCount:v26 sampleRate:?];
   v28 = [CSAudioChunk alloc];
-  LOBYTE(v32) = self->_isFloat;
-  LOBYTE(v31) = self->_wasBuffered;
-  selfCopy = [(CSAudioChunk *)v28 initWithData:samples numChannels:1 numSamples:samples sampleByteDepth:self->_sampleByteDepth startSampleCount:startSampleCount + from hostTime:v24 arrivalHostTimeToAudioRecorder:v27 wasBuffered:v31 remoteVAD:0 isFloat:v32];
+  LOBYTE(v31) = self->_isFloat;
+  LOBYTE(v30) = self->_wasBuffered;
+  selfCopy = [(CSAudioChunk *)v28 initWithData:samples numChannels:1 numSamples:samples sampleByteDepth:self->_sampleByteDepth startSampleCount:startSampleCount + from hostTime:v24 arrivalHostTimeToAudioRecorder:v27 wasBuffered:v30 remoteVAD:0 isFloat:v31];
 
 LABEL_13:
-  v29 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -575,7 +568,7 @@ void __31__CSAudioChunk_dataForChannel___block_invoke(uint64_t a1)
 
 - (id)chunkForChannel:(unint64_t)channel
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   numChannels = self->_numChannels;
   if (numChannels <= channel)
   {
@@ -583,11 +576,11 @@ void __31__CSAudioChunk_dataForChannel___block_invoke(uint64_t a1)
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[CSAudioChunk chunkForChannel:]";
-      v23 = 1024;
+      v21 = "[CSAudioChunk chunkForChannel:]";
+      v22 = 1024;
       channelCopy = channel;
-      v25 = 1024;
-      v26 = numChannels;
+      v24 = 1024;
+      v25 = numChannels;
       _os_log_error_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_ERROR, "%s channelId %d out of bound %d", buf, 0x18u);
     }
 
@@ -605,12 +598,10 @@ void __31__CSAudioChunk_dataForChannel___block_invoke(uint64_t a1)
     wasBuffered = self->_wasBuffered;
     arrivalHostTimeToAudioRecorder = self->_arrivalHostTimeToAudioRecorder;
     v14 = [(NSData *)self->_remoteVAD copy];
-    LOBYTE(v20) = self->_isFloat;
-    LOBYTE(v19) = wasBuffered;
-    v15 = [(CSAudioChunk *)v6 initWithData:v7 numChannels:1 numSamples:numSamples sampleByteDepth:sampleByteDepth startSampleCount:startSampleCount hostTime:hostTime arrivalHostTimeToAudioRecorder:arrivalHostTimeToAudioRecorder wasBuffered:v19 remoteVAD:v14 isFloat:v20];
+    LOBYTE(v19) = self->_isFloat;
+    LOBYTE(v18) = wasBuffered;
+    v15 = [(CSAudioChunk *)v6 initWithData:v7 numChannels:1 numSamples:numSamples sampleByteDepth:sampleByteDepth startSampleCount:startSampleCount hostTime:hostTime arrivalHostTimeToAudioRecorder:arrivalHostTimeToAudioRecorder wasBuffered:v18 remoteVAD:v14 isFloat:v19];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

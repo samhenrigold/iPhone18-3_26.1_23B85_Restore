@@ -11,24 +11,25 @@
 {
   if (self->_expectsResponse && ![(NMSOutgoingResponse *)self->_response isSent])
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
       [NSException raise:@"NMSMisuseException" format:@"Must not forget about an NMSIncomingRequest without first responding to it."];
     }
 
     else
     {
-      v3 = sub_1000145AC();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+      v4 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         sub_100024DF4();
       }
     }
   }
 
-  v4.receiver = self;
-  v4.super_class = NMSIncomingRequest;
-  [(NMSIncomingRequest *)&v4 dealloc];
+  v5.receiver = self;
+  v5.super_class = NMSIncomingRequest;
+  [(NMSIncomingRequest *)&v5 dealloc];
 }
 
 - (void)configureResponse
@@ -50,24 +51,25 @@
 
     if (!v5)
     {
-      if (os_variant_has_internal_diagnostics())
+      has_internal_diagnostics = os_variant_has_internal_diagnostics();
+      if (has_internal_diagnostics)
       {
         [NSException raise:@"NMSMisuseException" format:@"Can't access -pbRequest without a mapping for messageID: %hu", self->_messageID];
       }
 
       else
       {
-        v6 = sub_1000145AC();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+        v7 = sub_1000145AC(has_internal_diagnostics);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
           sub_100024E8C(&self->_messageID);
         }
       }
     }
 
-    v7 = [objc_alloc(objc_msgSend(v5 "requestClass"))];
-    v8 = self->_pbRequest;
-    self->_pbRequest = v7;
+    v8 = [objc_alloc(objc_msgSend(v5 "requestClass"))];
+    v9 = self->_pbRequest;
+    self->_pbRequest = v8;
 
     pbRequest = self->_pbRequest;
   }

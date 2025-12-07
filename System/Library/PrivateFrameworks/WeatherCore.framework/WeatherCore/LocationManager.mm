@@ -20,12 +20,12 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  LocationManager.locationManager(_:didFailWithError:)(selfCopy, errorCopy);
+  LocationManager.locationManager(_:didFailWithError:)(v8, selfCopy, errorCopy);
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_1C946B5D0(0, &qword_1EDB7FDB0);
+  sub_1C946B5D0(0, &qword_1EDB7FDB0, 0x1E6985C40);
   v6 = sub_1C96A72A4();
   managerCopy = manager;
   selfCopy = self;

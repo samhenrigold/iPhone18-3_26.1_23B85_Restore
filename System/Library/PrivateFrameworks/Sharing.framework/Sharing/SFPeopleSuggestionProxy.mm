@@ -240,38 +240,36 @@ LABEL_19:
 
     if (loadIcon)
     {
-      v6 = (loadHandler)[2](loadHandler, self);
+      v7 = (loadHandler)[2](loadHandler, self);
     }
 
     else
     {
-      v7 = share_sheet_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = share_sheet_log(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(SFPeopleSuggestionProxy *)self load];
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)load
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   suggestionNode = [self suggestionNode];
-  v5 = 138412290;
-  v6 = suggestionNode;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to load icon for suggestionNode:%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = suggestionNode;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to load icon for suggestionNode:%@", &v4, 0xCu);
 }
 
 @end

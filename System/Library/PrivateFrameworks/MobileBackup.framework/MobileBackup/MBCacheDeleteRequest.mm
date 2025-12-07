@@ -47,7 +47,7 @@
       v13 = 2048;
       v14 = 0x80000000;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=cache-delete= Disk space too low to backup (%llu): requesting purge %llu bytes", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Disk space too low to backup (%llu): requesting purge %llu bytes", v8, 0x80000000);
     }
 
     v7 = [[MBCacheDeleteRequest alloc] _initWithUrgency:v4 qos:v5 purgeRequestSize:0x80000000];
@@ -87,7 +87,7 @@
       v14 = 2048;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cache-delete= Disk space is too low to restore (%llu, %llu): requesting purge %llu bytes", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Disk space is too low to restore (%llu, %llu): requesting purge %llu bytes", 0x140000000, v6, v7);
     }
 
     v5 = [[MBCacheDeleteRequest alloc] _initWithUrgency:4 qos:25 purgeRequestSize:v7];
@@ -115,7 +115,7 @@
       v9 = 2048;
       v10 = 0x80000000;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=cache-delete= Disk space too low to preflight (%llu): requesting purge %llu bytes", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Disk space too low to preflight (%llu): requesting purge %llu bytes", v4, 0x80000000);
     }
 
     v3 = [[MBCacheDeleteRequest alloc] _initWithUrgency:4 qos:25 purgeRequestSize:0x80000000];
@@ -155,7 +155,7 @@
       v16 = 2048;
       v17 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cache-delete= Disk space on the target device is too low (%llu, %llu, %llu): requesting purge %llu bytes", buf, 0x2Au);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Disk space on the target device is too low (%llu, %llu, %llu): requesting purge %llu bytes", size, 0x1C0000000, space, v7);
     }
 
     v4 = [[MBCacheDeleteRequest alloc] _initWithUrgency:4 qos:25 purgeRequestSize:v7];
@@ -203,7 +203,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "=cache-delete= Request already cancelled", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Request already cancelled");
     }
 
     return 0;
@@ -212,20 +212,20 @@
   else
   {
     *buf = 0;
-    v24 = buf;
-    v25 = 0x2020000000;
-    v26 = 0;
+    v23 = buf;
+    v24 = 0x2020000000;
+    v25 = 0;
     v6 = dispatch_group_create();
     dispatch_group_enter(v6);
-    v30[0] = @"/private/var";
-    v29[0] = @"CACHE_DELETE_VOLUME";
-    v29[1] = @"CACHE_DELETE_AMOUNT";
+    v29[0] = @"/private/var";
+    v28[0] = @"CACHE_DELETE_VOLUME";
+    v28[1] = @"CACHE_DELETE_AMOUNT";
     v7 = [NSNumber numberWithLongLong:self->_purgeRequestSize];
-    v30[1] = v7;
-    v29[2] = @"CACHE_DELETE_URGENCY_LIMIT";
+    v29[1] = v7;
+    v28[2] = @"CACHE_DELETE_URGENCY_LIMIT";
     v8 = [NSNumber numberWithInt:self->_urgency];
-    v30[2] = v8;
-    v9 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:3];
+    v29[2] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
 
     objc_initWeak(&location, self);
     queue = self->_queue;
@@ -233,28 +233,27 @@
     block[1] = 3221225472;
     block[2] = sub_100064E78;
     block[3] = &unk_1003BC778;
-    objc_copyWeak(&v21, &location);
+    objc_copyWeak(&v20, &location);
     v11 = v6;
-    v18 = v11;
+    v17 = v11;
     v12 = v9;
-    v19 = v12;
-    v20 = buf;
+    v18 = v12;
+    v19 = buf;
     dispatch_async(queue, block);
     v13 = MBGetDefaultLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(v24 + 3);
-      *v27 = 134217984;
-      v28 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "=cache-delete= Purged %llu bytes", v27, 0xCu);
-      v16 = *(v24 + 3);
-      _MBLog();
+      v14 = *(v23 + 3);
+      *v26 = 134217984;
+      v27 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "=cache-delete= Purged %llu bytes", v26, 0xCu);
+      _MBLog(@"Df", "=cache-delete= Purged %llu bytes", *(v23 + 3));
     }
 
     dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = *(v24 + 3);
+    v4 = *(v23 + 3);
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
 
     _Block_object_dispose(buf, 8);
@@ -272,7 +271,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "=cache-delete= Cancelling purge request", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=cache-delete= Cancelling purge request");
     }
 
     queue = self->_queue;

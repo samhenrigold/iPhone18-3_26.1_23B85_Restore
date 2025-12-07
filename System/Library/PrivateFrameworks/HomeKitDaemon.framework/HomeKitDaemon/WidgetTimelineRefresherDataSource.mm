@@ -2,6 +2,7 @@
 - (_TtC13HomeKitDaemon33WidgetTimelineRefresherDataSource)init;
 - (id)darwinNotificationProviderForTimelineRefresher:(id)refresher;
 - (id)matterDeviceControllerForTimelineRefresher:(id)refresher withUUID:(id)d;
+- (id)timerManagerForTimelineRefresher:(id)refresher options:(unsigned int)options;
 - (id)widgetConfigurationReaderForTimelineRefresher:(id)refresher;
 - (id)widgetTimelineControllerForTimelineRefresher:(id)refresher;
 @end
@@ -29,19 +30,25 @@
   return v3;
 }
 
+- (id)timerManagerForTimelineRefresher:(id)refresher options:(unsigned int)options
+{
+  initWithOptions_ = [objc_allocWithZone(MEMORY[0x277D0F930]) initWithOptions_];
+
+  return initWithOptions_;
+}
+
 - (id)matterDeviceControllerForTimelineRefresher:(id)refresher withUUID:(id)d
 {
   v4 = sub_22A4DB7DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
-  v9 = objc_opt_self();
-  v10 = sub_22A4DB77C();
-  matterDeviceControllerWithUUID_ = [v9 matterDeviceControllerWithUUID_];
+  v8 = objc_opt_self();
+  v9 = sub_22A4DB77C();
+  matterDeviceControllerWithUUID_ = [v8 matterDeviceControllerWithUUID_];
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
   return matterDeviceControllerWithUUID_;
 }

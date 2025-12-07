@@ -46,73 +46,7 @@
   {
     v5 = equalCopy;
     queryIntentType = [(SFQueryUnderstandingParse *)self queryIntentType];
-    if (queryIntentType != [(SFQueryUnderstandingParse *)v5 queryIntentType])
-    {
-      goto LABEL_21;
-    }
-
-    hasUnspecifiedTokens = [(SFQueryUnderstandingParse *)self hasUnspecifiedTokens];
-    if (hasUnspecifiedTokens != [(SFQueryUnderstandingParse *)v5 hasUnspecifiedTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasSortCriteriaTokens = [(SFQueryUnderstandingParse *)self hasSortCriteriaTokens];
-    if (hasSortCriteriaTokens != [(SFQueryUnderstandingParse *)v5 hasSortCriteriaTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasLocationTokens = [(SFQueryUnderstandingParse *)self hasLocationTokens];
-    if (hasLocationTokens != [(SFQueryUnderstandingParse *)v5 hasLocationTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasActionTokens = [(SFQueryUnderstandingParse *)self hasActionTokens];
-    if (hasActionTokens != [(SFQueryUnderstandingParse *)v5 hasActionTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasMediaTypeTokens = [(SFQueryUnderstandingParse *)self hasMediaTypeTokens];
-    if (hasMediaTypeTokens != [(SFQueryUnderstandingParse *)v5 hasMediaTypeTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasVisualQualityTokens = [(SFQueryUnderstandingParse *)self hasVisualQualityTokens];
-    if (hasVisualQualityTokens != [(SFQueryUnderstandingParse *)v5 hasVisualQualityTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasNounTokens = [(SFQueryUnderstandingParse *)self hasNounTokens];
-    if (hasNounTokens != [(SFQueryUnderstandingParse *)v5 hasNounTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasTimeTokens = [(SFQueryUnderstandingParse *)self hasTimeTokens];
-    if (hasTimeTokens != [(SFQueryUnderstandingParse *)v5 hasTimeTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasEventTokens = [(SFQueryUnderstandingParse *)self hasEventTokens];
-    if (hasEventTokens != [(SFQueryUnderstandingParse *)v5 hasEventTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasGenericLocationTokens = [(SFQueryUnderstandingParse *)self hasGenericLocationTokens];
-    if (hasGenericLocationTokens != [(SFQueryUnderstandingParse *)v5 hasGenericLocationTokens])
-    {
-      goto LABEL_21;
-    }
-
-    hasCaptureDeviceTokens = [(SFQueryUnderstandingParse *)self hasCaptureDeviceTokens];
-    if (hasCaptureDeviceTokens == [(SFQueryUnderstandingParse *)v5 hasCaptureDeviceTokens]&& (v18 = [(SFQueryUnderstandingParse *)self hasFavoritedTokens], v18 == [(SFQueryUnderstandingParse *)v5 hasFavoritedTokens]) && (v19 = [(SFQueryUnderstandingParse *)self hasSourceAppTokens], v19 == [(SFQueryUnderstandingParse *)v5 hasSourceAppTokens]) && (v20 = [(SFQueryUnderstandingParse *)self hasPersonTokens], v20 == [(SFQueryUnderstandingParse *)v5 hasPersonTokens]) && (v21 = [(SFQueryUnderstandingParse *)self hasPersonSenderTokens], v21 == [(SFQueryUnderstandingParse *)v5 hasPersonSenderTokens]) && (v22 = [(SFQueryUnderstandingParse *)self spotlightQueryIntent], v22 == [(SFQueryUnderstandingParse *)v5 spotlightQueryIntent]) && (v23 = [(SFQueryUnderstandingParse *)self isUnsafeQuery], v23 == [(SFQueryUnderstandingParse *)v5 isUnsafeQuery]))
+    if (queryIntentType == [(SFQueryUnderstandingParse *)v5 queryIntentType]&& (v7 = [(SFQueryUnderstandingParse *)self hasUnspecifiedTokens], v7 == [(SFQueryUnderstandingParse *)v5 hasUnspecifiedTokens]) && (v8 = [(SFQueryUnderstandingParse *)self hasSortCriteriaTokens], v8 == [(SFQueryUnderstandingParse *)v5 hasSortCriteriaTokens]) && (v9 = [(SFQueryUnderstandingParse *)self hasLocationTokens], v9 == [(SFQueryUnderstandingParse *)v5 hasLocationTokens]) && (v10 = [(SFQueryUnderstandingParse *)self hasActionTokens], v10 == [(SFQueryUnderstandingParse *)v5 hasActionTokens]) && (v11 = [(SFQueryUnderstandingParse *)self hasMediaTypeTokens], v11 == [(SFQueryUnderstandingParse *)v5 hasMediaTypeTokens]) && (v12 = [(SFQueryUnderstandingParse *)self hasVisualQualityTokens], v12 == [(SFQueryUnderstandingParse *)v5 hasVisualQualityTokens]) && (v13 = [(SFQueryUnderstandingParse *)self hasNounTokens], v13 == [(SFQueryUnderstandingParse *)v5 hasNounTokens]) && (v14 = [(SFQueryUnderstandingParse *)self hasTimeTokens], v14 == [(SFQueryUnderstandingParse *)v5 hasTimeTokens]) && (v15 = [(SFQueryUnderstandingParse *)self hasEventTokens], v15 == [(SFQueryUnderstandingParse *)v5 hasEventTokens]) && (v16 = [(SFQueryUnderstandingParse *)self hasGenericLocationTokens], v16 == [(SFQueryUnderstandingParse *)v5 hasGenericLocationTokens]) && (v17 = [(SFQueryUnderstandingParse *)self hasCaptureDeviceTokens], v17 == [(SFQueryUnderstandingParse *)v5 hasCaptureDeviceTokens]) && (v18 = [(SFQueryUnderstandingParse *)self hasFavoritedTokens], v18 == [(SFQueryUnderstandingParse *)v5 hasFavoritedTokens]) && (v19 = [(SFQueryUnderstandingParse *)self hasSourceAppTokens], v19 == [(SFQueryUnderstandingParse *)v5 hasSourceAppTokens]) && (v20 = [(SFQueryUnderstandingParse *)self hasPersonTokens], v20 == [(SFQueryUnderstandingParse *)v5 hasPersonTokens]) && (v21 = [(SFQueryUnderstandingParse *)self hasPersonSenderTokens], v21 == [(SFQueryUnderstandingParse *)v5 hasPersonSenderTokens]) && (v22 = [(SFQueryUnderstandingParse *)self spotlightQueryIntent], v22 == [(SFQueryUnderstandingParse *)v5 spotlightQueryIntent]) && (v23 = [(SFQueryUnderstandingParse *)self isUnsafeQuery], v23 == [(SFQueryUnderstandingParse *)v5 isUnsafeQuery]))
     {
       isBlocklistedQuery = [(SFQueryUnderstandingParse *)self isBlocklistedQuery];
       v24 = isBlocklistedQuery ^ [(SFQueryUnderstandingParse *)v5 isBlocklistedQuery]^ 1;
@@ -120,7 +54,6 @@
 
     else
     {
-LABEL_21:
       LOBYTE(v24) = 0;
     }
   }

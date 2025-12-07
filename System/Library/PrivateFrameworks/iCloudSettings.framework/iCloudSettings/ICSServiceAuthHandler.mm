@@ -77,15 +77,16 @@
   if (v13)
   {
     v14 = [(ICSServiceAuthHandler *)self accountMatchesPrimaryAccount:v13 service:v10];
-    v15 = LogSubsystem();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-    if (v14)
+    v15 = v14;
+    v16 = LogSubsystem(v14);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v15)
     {
-      if (v16)
+      if (v17)
       {
         *buf = 138412290;
         v46 = v10;
-        _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Already signed in to service %@, marking as such...", buf, 0xCu);
+        _os_log_impl(&dword_275819000, v16, OS_LOG_TYPE_DEFAULT, "Already signed in to service %@, marking as such...", buf, 0xCu);
       }
 
       (*(v11 + 2))(v11, 1);
@@ -95,30 +96,30 @@
     {
       v35 = v12;
       v36 = v8;
-      if (v16)
+      if (v17)
       {
         *buf = 138412290;
         v46 = v10;
-        _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "User already signed in to service %@, prompting for clarification...", buf, 0xCu);
+        _os_log_impl(&dword_275819000, v16, OS_LOG_TYPE_DEFAULT, "User already signed in to service %@, prompting for clarification...", buf, 0xCu);
       }
 
-      v17 = AALocalizedStringForServiceType();
+      v18 = AALocalizedStringForServiceType();
       v33 = MEMORY[0x277CCACA8];
-      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v19 = [v18 localizedStringForKey:@"ICLOUD_SERVICE_SWAP_ACCOUNT_MESSAGE" value:&stru_288487370 table:@"Localizable-AppleID"];
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = [v19 localizedStringForKey:@"ICLOUD_SERVICE_SWAP_ACCOUNT_MESSAGE" value:&stru_288487370 table:@"Localizable-AppleID"];
       account = [(ICSServiceAuthHandler *)self account];
       username = [account username];
       username2 = [v13 username];
-      v34 = [v33 stringWithFormat:v19, v17, username, username2];
+      v34 = [v33 stringWithFormat:v20, v18, username, username2];
 
-      v23 = MEMORY[0x277CCACA8];
-      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = [v24 localizedStringForKey:@"ICLOUD_SERVICE_SWAP_ACCOUNT_ACTION" value:&stru_288487370 table:@"Localizable-AppleID"];
-      v32 = [v23 stringWithFormat:v25, v17];
+      v24 = MEMORY[0x277CCACA8];
+      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v26 = [v25 localizedStringForKey:@"ICLOUD_SERVICE_SWAP_ACCOUNT_ACTION" value:&stru_288487370 table:@"Localizable-AppleID"];
+      v32 = [v24 stringWithFormat:v26, v18];
 
-      v26 = MEMORY[0x277D75110];
-      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v28 = [v27 localizedStringForKey:@"CANCEL" value:&stru_288487370 table:@"Localizable-AppleID"];
+      v27 = MEMORY[0x277D75110];
+      v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v29 = [v28 localizedStringForKey:@"CANCEL" value:&stru_288487370 table:@"Localizable-AppleID"];
       v37[0] = MEMORY[0x277D85DD0];
       v37[1] = 3221225472;
       v37[2] = __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_87;
@@ -126,10 +127,10 @@
       v38 = v36;
       v12 = v35;
       v39 = v35;
-      v29 = [v26 alertWithTitle:v34 message:0 cancelButtonTitle:v28 defaultButtonTitle:v32 actionHandler:v37];
+      v30 = [v27 alertWithTitle:v34 message:0 cancelButtonTitle:v29 defaultButtonTitle:v32 actionHandler:v37];
 
       WeakRetained = objc_loadWeakRetained(&self->_listController);
-      [WeakRetained presentViewController:v29 animated:1 completion:0];
+      [WeakRetained presentViewController:v30 animated:1 completion:0];
 
       v8 = v36;
     }
@@ -139,8 +140,6 @@
   {
     (*(v12 + 2))(v12, 0);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke(uint64_t a1, char a2)
@@ -236,10 +235,10 @@ void __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invo
 
   if (v6)
   {
-    v9 = LogSubsystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = LogSubsystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_53_cold_1(v6, v9);
+      __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_53_cold_1(v6, v10);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -247,66 +246,63 @@ void __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invo
 
   else
   {
-    v10 = objc_alloc_init(MEMORY[0x277CED1D8]);
-    [v10 setAuthenticationResults:v5];
-    [v10 setShouldForceOperation:*(a1 + 64)];
+    v11 = objc_alloc_init(MEMORY[0x277CED1D8]);
+    [v11 setAuthenticationResults:v5];
+    [v11 setShouldForceOperation:*(a1 + 64)];
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-    [v10 setViewController:WeakRetained];
+    [v11 setViewController:WeakRetained];
 
-    v12 = *(a1 + 40);
-    if (v12 == *MEMORY[0x277CED1B0])
+    v13 = *(a1 + 40);
+    if (v13 == *MEMORY[0x277CED1B0])
     {
       v19 = *MEMORY[0x277CED1B0];
       v20[0] = &unk_28849FD88;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      [v10 setSignInContexts:v13];
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      [v11 setSignInContexts:v14];
 
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
     }
 
-    v14 = *(*(a1 + 32) + 24);
+    v15 = *(*(a1 + 32) + 24);
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
     v16[2] = __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_60;
     v16[3] = &unk_27A666890;
-    v17 = v12;
+    v17 = v13;
     v18 = *(a1 + 48);
-    [v14 signInService:v17 withContext:v10 completion:v16];
+    [v15 signInService:v17 withContext:v11 completion:v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_60(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v10 = 138543874;
+    v9 = 138543874;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Signed in to service %{public}@ with success: %@, error: %@", &v10, 0x20u);
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Signed in to service %{public}@ with success: %@, error: %@", &v9, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_87(uint64_t a1, int a2)
 {
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -335,74 +331,72 @@ uint64_t __60__ICSServiceAuthHandler_signInAccountForService_completion___block_
 
 - (void)signOutAccountForService:(id)service completion:(id)completion
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   completionCopy = completion;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__1;
-  v34 = __Block_byref_object_dispose__1;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__1;
+  v33 = __Block_byref_object_dispose__1;
   v8 = objc_alloc(MEMORY[0x277CECAE8]);
   WeakRetained = objc_loadWeakRetained(&self->_listController);
-  v35 = [v8 initWithPresentingViewController:WeakRetained];
+  v34 = [v8 initWithPresentingViewController:WeakRetained];
 
-  [v31[5] setAccountManager:self->_accountManager];
+  [v30[5] setAccountManager:self->_accountManager];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_invoke;
   aBlock[3] = &unk_27A666930;
-  v29 = &v30;
+  v28 = &v29;
   v10 = completionCopy;
-  v28 = v10;
+  v27 = v10;
   v11 = _Block_copy(aBlock);
   v12 = objc_alloc_init(MEMORY[0x277CED1D8]);
   v13 = objc_loadWeakRetained(&self->_listController);
   [v12 setViewController:v13];
 
   v14 = *MEMORY[0x277CED1B0];
-  v15 = *MEMORY[0x277CED1A0];
   if (*MEMORY[0x277CED1B0] == serviceCopy)
   {
-    v18 = v31[5];
-    v40[0] = *MEMORY[0x277CED1A0];
-    v40[1] = v14;
-    v41[0] = v18;
-    v41[1] = &unk_28849FDB0;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+    v17 = v30[5];
+    v39[0] = *MEMORY[0x277CED1A0];
+    v39[1] = v14;
+    v40[0] = v17;
+    v40[1] = &unk_28849FDB0;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
   }
 
   else
   {
-    v16 = v31[5];
-    v38 = *MEMORY[0x277CED1A0];
-    v39 = v16;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v15 = v30[5];
+    v37 = *MEMORY[0x277CED1A0];
+    v38 = v15;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
   }
-  v17 = ;
-  [v12 setSignOutContexts:v17];
+  v16 = ;
+  [v12 setSignOutContexts:v16];
 
-  v19 = LogSubsystem();
+  v19 = LogSubsystem(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = serviceCopy;
+    v36 = serviceCopy;
     _os_log_impl(&dword_275819000, v19, OS_LOG_TYPE_DEFAULT, "Attempting sign out for service: %{public}@", buf, 0xCu);
   }
 
   serviceOwnersManager = self->_serviceOwnersManager;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_invoke_96;
-  v24[3] = &unk_27A666890;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_invoke_96;
+  v23[3] = &unk_27A666890;
   v21 = serviceCopy;
-  v25 = v21;
+  v24 = v21;
   v22 = v11;
-  v26 = v22;
-  [(AIDAServiceOwnerProtocol *)serviceOwnersManager signOutService:v21 withContext:v12 completion:v24];
+  v25 = v22;
+  [(AIDAServiceOwnerProtocol *)serviceOwnersManager signOutService:v21 withContext:v12 completion:v23];
 
-  _Block_object_dispose(&v30, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 }
 
 void __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_invoke(uint64_t a1, char a2)
@@ -422,29 +416,28 @@ void __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_inv
 
 void __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_invoke_96(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v10 = 138543874;
+    v9 = 138543874;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Signed out of service: %{public}@, success: %@, error: %@", &v10, 0x20u);
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Signed out of service: %{public}@, success: %@, error: %@", &v9, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)accountMatchesPrimaryAccount:(id)account service:(id)service
@@ -487,11 +480,10 @@ void __61__ICSServiceAuthHandler_signOutAccountForService_completion___block_inv
 
 void __60__ICSServiceAuthHandler_signInAccountForService_completion___block_invoke_53_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "AuthKit authentication returned an error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "AuthKit authentication returned an error: %@", &v2, 0xCu);
 }
 
 @end

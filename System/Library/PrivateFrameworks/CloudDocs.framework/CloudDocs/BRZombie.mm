@@ -17,27 +17,25 @@
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   AssociatedObject = objc_getAssociatedObject(self, "BRZombieDescription");
   v6 = objc_getAssociatedObject(self, "BRZombieFormerClass");
   v7 = brc_bread_crumbs("[BRZombie methodSignatureForSelector:]", 46);
   v8 = brc_default_log(0, 0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    v11 = 136315906;
+    v10 = 136315906;
     ClassName = object_getClassName(v6);
-    v13 = 2080;
+    v12 = 2080;
     uTF8String = [NSStringFromSelector(selector) UTF8String];
-    v15 = 2080;
+    v14 = 2080;
     uTF8String2 = [AssociatedObject UTF8String];
-    v17 = 2112;
-    v18 = v7;
-    _os_log_fault_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: *** [%s %s]: message sent to deallocated instance %s%@", &v11, 0x2Au);
+    v16 = 2112;
+    v17 = v7;
+    _os_log_fault_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: *** [%s %s]: message sent to deallocated instance %s%@", &v10, 0x2Au);
   }
 
-  result = [v6 instanceMethodSignatureForSelector:selector];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v6 instanceMethodSignatureForSelector:selector];
 }
 
 + (void)turnObjectIntoZombie:(id)zombie
@@ -61,13 +59,12 @@
 
 + (void)turnObjectIntoZombie:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Turned object into a zombie - %@\n%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Turned object into a zombie - %@\n%@", &v3, 0x16u);
 }
 
 @end

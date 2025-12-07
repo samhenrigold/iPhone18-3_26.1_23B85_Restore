@@ -332,23 +332,23 @@ LABEL_21:
   return result;
 }
 
-void __77__CSProminentLayoutController_frameForElements_variant_interfaceOrientation___block_invoke()
+void __77__CSProminentLayoutController_frameForElements_variant_interfaceOrientation___block_invoke(uint64_t a1)
 {
-  v0 = _CSEmbeddedFBSDisplayConfiguration();
-  [v0 pointScale];
-  v2 = v1;
+  v1 = _CSEmbeddedFBSDisplayConfiguration(a1);
+  [v1 pointScale];
+  v3 = v2;
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __77__CSProminentLayoutController_frameForElements_variant_interfaceOrientation___block_invoke_2;
-  v8[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
-  v8[4] = v2;
-  v3 = [MEMORY[0x1E69DD1B8] traitCollectionWithTraits:v8];
-  v4 = [CSProminentLayoutController alloc];
-  v5 = [[_CSFakeTraitEnvironment alloc] initWithTraitCollection:v3];
-  v6 = [(CSProminentLayoutController *)v4 initWithTraitEnvironment:v5];
-  v7 = frameForElements_variant_interfaceOrientation__mainScreenLayoutController;
-  frameForElements_variant_interfaceOrientation__mainScreenLayoutController = v6;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __77__CSProminentLayoutController_frameForElements_variant_interfaceOrientation___block_invoke_2;
+  v9[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
+  v9[4] = v3;
+  v4 = [MEMORY[0x1E69DD1B8] traitCollectionWithTraits:v9];
+  v5 = [CSProminentLayoutController alloc];
+  v6 = [[_CSFakeTraitEnvironment alloc] initWithTraitCollection:v4];
+  v7 = [(CSProminentLayoutController *)v5 initWithTraitEnvironment:v6];
+  v8 = frameForElements_variant_interfaceOrientation__mainScreenLayoutController;
+  frameForElements_variant_interfaceOrientation__mainScreenLayoutController = v7;
 }
 
 void __77__CSProminentLayoutController_frameForElements_variant_interfaceOrientation___block_invoke_2(uint64_t a1, void *a2)
@@ -411,9 +411,11 @@ void __77__CSProminentLayoutController_frameForElements_variant_interfaceOrienta
 
 uint64_t __76__CSProminentLayoutController_frameForElements_variant_forcePortraitBounds___block_invoke(uint64_t a1)
 {
-  frameForElements_variant_forcePortraitBounds__mainScreenLayoutController = [[CSProminentLayoutController alloc] initWithTraitEnvironment:*(a1 + 32)];
+  v1 = [[CSProminentLayoutController alloc] initWithTraitEnvironment:*(a1 + 32)];
+  v2 = frameForElements_variant_forcePortraitBounds__mainScreenLayoutController;
+  frameForElements_variant_forcePortraitBounds__mainScreenLayoutController = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (CGRect)boundsForElements:(unint64_t)elements variant:(unint64_t)variant
@@ -875,8 +877,8 @@ LABEL_10:
 
   [(CSProminentLayoutController *)self elementHorizontalFrameInBoundingRect:element forElementType:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
   v21 = v20;
-  v93 = v22;
-  v95 = v23;
+  v94 = v22;
+  v96 = v23;
   v25 = v24;
   mEMORY[0x1E698E730] = [MEMORY[0x1E698E730] sharedInstance];
   deviceClass = [mEMORY[0x1E698E730] deviceClass];
@@ -894,25 +896,25 @@ LABEL_10:
       if (element == 128)
       {
         [(CSProminentLayoutController *)self _quickActionsLeadingFrameWithBoundingRect:x, y, width, height];
-        v72 = v71;
-        v14 = v73;
-        v16 = v74;
-        v18 = v75;
+        v73 = v72;
+        v14 = v74;
+        v16 = v75;
+        v18 = v76;
         [(CSProminentLayoutController *)self _quickActionsTrailingFrameWithBoundingRect:x, y, width, height];
-        MinX = v76;
-        v78 = v77;
-        v80 = v79;
-        v82 = v81;
+        MinX = v77;
+        v79 = v78;
+        v81 = v80;
+        v83 = v82;
         if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
         {
-          v18 = v82;
-          v16 = v80;
-          v14 = v78;
+          v18 = v83;
+          v16 = v81;
+          v14 = v79;
         }
 
         else
         {
-          MinX = v72;
+          MinX = v73;
         }
 
         goto LABEL_53;
@@ -958,29 +960,29 @@ LABEL_10:
         v55 = v54 + v54;
         +[CSGraphicComplicationLayoutProvider gridUnitSize];
         v57 = v55 + v56 * 2.0;
-        +[CSGraphicComplicationLayoutProvider interComplicationSpacing];
-        v16 = v57 + v58;
-        v59 = _CSEmbeddedFBSDisplayConfiguration();
-        [v59 bounds];
-        v61 = v60;
-        v63 = v62;
-        v94 = v65;
-        v96 = v64;
+        v58 = +[CSGraphicComplicationLayoutProvider interComplicationSpacing];
+        v16 = v57 + v59;
+        v60 = _CSEmbeddedFBSDisplayConfiguration(v58);
+        [v60 bounds];
+        v62 = v61;
+        v64 = v63;
+        v95 = v66;
+        v97 = v65;
 
-        CGAffineTransformMakeRotation(&v97, 1.57079633);
-        v98.origin.x = v61;
-        v98.origin.y = v63;
-        v98.size.height = v94;
-        v98.size.width = v96;
-        v99 = CGRectApplyAffineTransform(v98, &v97);
-        v18 = v99.size.height - v14 * 2.0;
+        CGAffineTransformMakeRotation(&v98, 1.57079633);
+        v99.origin.x = v62;
+        v99.origin.y = v64;
+        v99.size.height = v95;
+        v99.size.width = v97;
+        v100 = CGRectApplyAffineTransform(v99, &v98);
+        v18 = v100.size.height - v14 * 2.0;
         if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
         {
-          v100.origin.x = x;
-          v100.origin.y = y;
-          v100.size.width = width;
-          v100.size.height = height;
-          MinX = CGRectGetMaxX(v100) - (v16 + 44.0);
+          v101.origin.x = x;
+          v101.origin.y = y;
+          v101.size.width = width;
+          v101.size.height = height;
+          MinX = CGRectGetMaxX(v101) - (v16 + 44.0);
         }
 
         else
@@ -994,15 +996,15 @@ LABEL_10:
       if (element == 32)
       {
         [objc_opt_class() complicationElementBoundingHeight];
-        v18 = v66;
+        v18 = v67;
         [(CSProminentLayoutController *)self _quickActionsLeadingFrameWithBoundingRect:x, y, width, height];
-        v68 = v67 - v18;
+        v69 = v68 - v18;
         [objc_opt_class() bottomComplicationElementYSpacer];
-        v14 = v68 - v69;
+        v14 = v69 - v70;
         if (variant == 2)
         {
           [objc_opt_class() bottomComplicationElementEditingOffset];
-          v14 = v14 - v70;
+          v14 = v14 - v71;
         }
 
         goto LABEL_50;
@@ -1108,7 +1110,7 @@ LABEL_36:
   }
 
   [(CSProminentLayoutController *)self leadingLandscapeLayoutInset];
-  v14 = floor(v83 * 0.75);
+  v14 = floor(v84 * 0.75);
 LABEL_44:
   if (variant == 1)
   {
@@ -1123,17 +1125,17 @@ LABEL_44:
   }
 
 LABEL_50:
-  v101.origin.x = v21;
-  v101.origin.y = v93;
-  v101.size.width = v95;
-  v101.size.height = v25;
-  MinX = CGRectGetMinX(v101);
-  v84 = v21;
   v102.origin.x = v21;
-  v102.origin.y = v93;
-  v102.size.width = v95;
+  v102.origin.y = v94;
+  v102.size.width = v96;
   v102.size.height = v25;
-  v16 = CGRectGetWidth(v102);
+  MinX = CGRectGetMinX(v102);
+  v85 = v21;
+  v103.origin.x = v21;
+  v103.origin.y = v94;
+  v103.size.width = v96;
+  v103.size.height = v25;
+  v16 = CGRectGetWidth(v103);
   if (variant == 1 && (BSFloatIsZero() & 1) == 0)
   {
     traitEnvironment2 = [(CSProminentLayoutController *)self traitEnvironment];
@@ -1141,30 +1143,30 @@ LABEL_50:
     [traitCollection2 displayScale];
 
     UIRoundToScale();
-    v14 = v87;
+    v14 = v88;
     UIRoundToScale();
-    v18 = v88;
-    v103.origin.x = v84;
-    v103.origin.y = v93;
-    v103.size.width = v95;
-    v103.size.height = v25;
-    MinX = CGRectGetMinX(v103);
-    v104.origin.x = v84;
-    v104.origin.y = v93;
-    v104.size.width = v95;
+    v18 = v89;
+    v104.origin.x = v85;
+    v104.origin.y = v94;
+    v104.size.width = v96;
     v104.size.height = v25;
-    v16 = CGRectGetWidth(v104);
+    MinX = CGRectGetMinX(v104);
+    v105.origin.x = v85;
+    v105.origin.y = v94;
+    v105.size.width = v96;
+    v105.size.height = v25;
+    v16 = CGRectGetWidth(v105);
   }
 
 LABEL_53:
-  v89 = MinX;
-  v90 = v14;
-  v91 = v16;
-  v92 = v18;
-  result.size.height = v92;
-  result.size.width = v91;
-  result.origin.y = v90;
-  result.origin.x = v89;
+  v90 = MinX;
+  v91 = v14;
+  v92 = v16;
+  v93 = v18;
+  result.size.height = v93;
+  result.size.width = v92;
+  result.origin.y = v91;
+  result.origin.x = v90;
   return result;
 }
 
@@ -2661,14 +2663,14 @@ LABEL_10:
   return result;
 }
 
-void __73__CSProminentLayoutController__mainDisplayBoundsForInterfaceOrientation___block_invoke()
+void __73__CSProminentLayoutController__mainDisplayBoundsForInterfaceOrientation___block_invoke(uint64_t a1)
 {
-  v4 = _CSEmbeddedFBSDisplayConfiguration();
-  [v4 bounds];
-  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_0 = v0;
-  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_1 = v1;
-  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_2 = v2;
-  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_3 = v3;
+  v5 = _CSEmbeddedFBSDisplayConfiguration(a1);
+  [v5 bounds];
+  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_0 = v1;
+  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_1 = v2;
+  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_2 = v3;
+  _mainDisplayBoundsForInterfaceOrientation__mainDisplayBoundsPortrait_3 = v4;
 }
 
 + (void)frameForElements:(const char *)a1 variant:(uint64_t)a2 interfaceOrientation:.cold.2(const char *a1, uint64_t a2)

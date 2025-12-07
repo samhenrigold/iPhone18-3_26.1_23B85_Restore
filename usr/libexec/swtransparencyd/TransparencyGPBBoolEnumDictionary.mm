@@ -6,11 +6,13 @@
 - (TransparencyGPBBoolEnumDictionary)initWithValidationFunction:(void *)function rawValues:(const int *)values forKeys:(const BOOL *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addRawEntriesFromDictionary:(id)dictionary;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block;
 - (void)enumerateKeysAndRawValuesUsingBlock:(id)block;
+- (void)setEnum:(int)enum forKey:(BOOL)key;
 - (void)setRawValue:(int)value forKey:(BOOL)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
@@ -179,6 +181,18 @@
   }
 }
 
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type
+{
+  v6 = *&value;
+  v7 = sub_1000C14A8(1);
+  v8 = [NSMutableData dataWithLength:sub_1000C1408(2, v6) + v7];
+  v9 = [[TransparencyGPBCodedOutputStream alloc] initWithData:v8];
+  [(TransparencyGPBCodedOutputStream *)v9 writeBool:1 value:key->var0];
+  [(TransparencyGPBCodedOutputStream *)v9 writeEnum:2 value:v6];
+
+  return v8;
+}
+
 - (unint64_t)computeSerializedSizeAsField:(id)field
 {
   v3 = 0;
@@ -286,6 +300,25 @@
     {
       sub_1000E2C68(autocreator, self);
     }
+  }
+}
+
+- (void)setEnum:(int)enum forKey:(BOOL)key
+{
+  keyCopy = key;
+  v5 = *&enum;
+  if (((self->_validationFunc)(*&enum, a2) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"TransparencyGPBBoolEnumDictionary: Attempt to set an unknown enum value (%d)", v5];
+  }
+
+  self->_values[keyCopy] = v5;
+  self->_valueSet[keyCopy] = 1;
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_1000E2C68(autocreator, self);
   }
 }
 

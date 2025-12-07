@@ -549,13 +549,14 @@ LABEL_16:
   controllerCopy = controller;
   fieldCopy = field;
   frameCopy = frame;
-  if ([(WBSFormMetadataController *)self isCurrentlyFilling])
+  isCurrentlyFilling = [(WBSFormMetadataController *)self isCurrentlyFilling];
+  if (isCurrentlyFilling)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(isCurrentlyFilling, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring textDidChangeInTextField because filling is in progress", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Ignoring textDidChangeInTextField because filling is in progress", buf, 2u);
     }
   }
 
@@ -563,24 +564,24 @@ LABEL_16:
   {
     if (!self->_textDidChangeEventCoalescer)
     {
-      v13 = objc_alloc(MEMORY[0x1E69C8828]);
-      v14 = [v13 initWithMinimumTimeIntervalBeforeExecution:MEMORY[0x1E69E96A0] queue:0.1];
+      v15 = objc_alloc(MEMORY[0x1E69C8828]);
+      v16 = [v15 initWithMinimumTimeIntervalBeforeExecution:MEMORY[0x1E69E96A0] queue:0.1];
       textDidChangeEventCoalescer = self->_textDidChangeEventCoalescer;
-      self->_textDidChangeEventCoalescer = v14;
+      self->_textDidChangeEventCoalescer = v16;
     }
 
     objc_initWeak(buf, self);
-    v16 = self->_textDidChangeEventCoalescer;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __126___SFFormMetadataController__webProcessPlugInBrowserContextController_textDidChangeInTextField_inFrame_initiatedByUserTyping___block_invoke;
-    v17[3] = &unk_1E848FB68;
-    objc_copyWeak(&v20, buf);
-    v18 = fieldCopy;
-    v19 = frameCopy;
-    [(WBSBlockCoalescer *)v16 scheduleBlock:v17];
+    v18 = self->_textDidChangeEventCoalescer;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __126___SFFormMetadataController__webProcessPlugInBrowserContextController_textDidChangeInTextField_inFrame_initiatedByUserTyping___block_invoke;
+    v19[3] = &unk_1E848FB68;
+    objc_copyWeak(&v22, buf);
+    v20 = fieldCopy;
+    v21 = frameCopy;
+    [(WBSBlockCoalescer *)v18 scheduleBlock:v19];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 }

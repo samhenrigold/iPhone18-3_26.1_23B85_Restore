@@ -18,7 +18,7 @@
   optionsCopy = options;
   metricsCopy = metrics;
   v17 = [metricsCopy startMeasure:@"Screen Grab"];
-  v18 = AXMSharedDisplayManager();
+  v18 = AXMSharedDisplayManager(v17);
   coreAnimationMainDisplay = [v18 coreAnimationMainDisplay];
 
   if (coreAnimationMainDisplay)
@@ -512,7 +512,7 @@ LABEL_23:
 - (void)recordScreenForDuration:(double)duration completion:(id)completion
 {
   completionCopy = completion;
-  if (ReplayKitLibraryCore())
+  if (ReplayKitLibraryCore(0))
   {
     v34 = 0;
     v35 = &v34;

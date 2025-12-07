@@ -102,42 +102,40 @@
 
 - (id)dictionaryForParentAccountProperties
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _dictionaryForAccountProperties = [(CalCalendarMigrationSubscriptionInfo *)self _dictionaryForAccountProperties];
   v3 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CF7AF8], *MEMORY[0x277CF7B00], *MEMORY[0x277CF7AC0], *MEMORY[0x277CF7AE8], *MEMORY[0x277CF7AC8], 0}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allKeys = [_dictionaryForAccountProperties allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (([v3 containsObject:v9] & 1) == 0)
         {
           [_dictionaryForAccountProperties removeObjectForKey:v9];
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return _dictionaryForAccountProperties;
 }

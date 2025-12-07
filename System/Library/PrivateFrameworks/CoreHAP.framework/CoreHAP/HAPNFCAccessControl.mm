@@ -246,37 +246,37 @@ LABEL_41:
 
 - (id)serializeWithError:(id *)error
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
+  v75 = *MEMORY[0x277D85DE8];
   v73 = 0u;
-  v70 = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v54 = 0u;
   TLV8BufferInit();
   operationType = [(HAPNFCAccessControl *)self operationType];
 
   if (operationType)
   {
     operationType2 = [(HAPNFCAccessControl *)self operationType];
-    v54 = 0;
-    v7 = [operationType2 serializeWithError:&v54];
-    v8 = v54;
+    v53 = 0;
+    v7 = [operationType2 serializeWithError:&v53];
+    v8 = v53;
 
     if (v8)
     {
@@ -308,9 +308,9 @@ LABEL_54:
   if (issuerKeyRequest)
   {
     issuerKeyRequest2 = [(HAPNFCAccessControl *)self issuerKeyRequest];
-    v53 = 0;
-    v7 = [issuerKeyRequest2 serializeWithError:&v53];
-    v8 = v53;
+    v52 = 0;
+    v7 = [issuerKeyRequest2 serializeWithError:&v52];
+    v8 = v52;
 
     if (!v8)
     {
@@ -355,9 +355,9 @@ LABEL_13:
   if (issuerKeyResponse)
   {
     issuerKeyResponse2 = [(HAPNFCAccessControl *)self issuerKeyResponse];
-    v52 = 0;
-    v7 = [issuerKeyResponse2 serializeWithError:&v52];
-    v8 = v52;
+    v51 = 0;
+    v7 = [issuerKeyResponse2 serializeWithError:&v51];
+    v8 = v51;
 
     if (v8)
     {
@@ -389,9 +389,9 @@ LABEL_13:
   if (deviceCredentialKeyRequest)
   {
     deviceCredentialKeyRequest2 = [(HAPNFCAccessControl *)self deviceCredentialKeyRequest];
-    v51 = 0;
-    v7 = [deviceCredentialKeyRequest2 serializeWithError:&v51];
-    v8 = v51;
+    v50 = 0;
+    v7 = [deviceCredentialKeyRequest2 serializeWithError:&v50];
+    v8 = v50;
 
     if (v8)
     {
@@ -423,9 +423,9 @@ LABEL_13:
   if (deviceCredentialKeyResponse)
   {
     deviceCredentialKeyResponse2 = [(HAPNFCAccessControl *)self deviceCredentialKeyResponse];
-    v50 = 0;
-    v7 = [deviceCredentialKeyResponse2 serializeWithError:&v50];
-    v8 = v50;
+    v49 = 0;
+    v7 = [deviceCredentialKeyResponse2 serializeWithError:&v49];
+    v8 = v49;
 
     if (v8)
     {
@@ -457,9 +457,9 @@ LABEL_13:
   if (readerKeyRequest)
   {
     readerKeyRequest2 = [(HAPNFCAccessControl *)self readerKeyRequest];
-    v49 = 0;
-    v7 = [readerKeyRequest2 serializeWithError:&v49];
-    v8 = v49;
+    v48 = 0;
+    v7 = [readerKeyRequest2 serializeWithError:&v48];
+    v8 = v48;
 
     if (v8)
     {
@@ -497,9 +497,9 @@ LABEL_49:
   if (readerKeyResponse)
   {
     readerKeyResponse2 = [(HAPNFCAccessControl *)self readerKeyResponse];
-    v48 = 0;
-    v7 = [readerKeyResponse2 serializeWithError:&v48];
-    v8 = v48;
+    v47 = 0;
+    v7 = [readerKeyResponse2 serializeWithError:&v47];
+    v8 = v47;
 
     if (v8)
     {
@@ -507,44 +507,44 @@ LABEL_49:
     }
 
     bytes6 = [v7 bytes];
-    v43 = bytes6 + [v7 length];
+    v42 = bytes6 + [v7 length];
     do
     {
-      if ((v43 - bytes6) >= 255)
+      if ((v42 - bytes6) >= 255)
       {
-        v44 = 255;
+        v43 = 255;
       }
 
       else
       {
-        v44 = v43 - bytes6;
+        v43 = v42 - bytes6;
       }
 
-      v45 = TLV8BufferAppend();
-      if (v45)
+      v44 = TLV8BufferAppend();
+      if (v44)
       {
-        v46 = 0;
-      }
-
-      else
-      {
-        v46 = v44;
-      }
-
-      bytes6 += v46;
-      if (v45)
-      {
-        v47 = 1;
+        v45 = 0;
       }
 
       else
       {
-        v47 = bytes6 >= v43;
+        v45 = v43;
+      }
+
+      bytes6 += v45;
+      if (v44)
+      {
+        v46 = 1;
+      }
+
+      else
+      {
+        v46 = bytes6 >= v42;
       }
     }
 
-    while (!v47);
-    v9 = v45;
+    while (!v46);
+    v9 = v44;
 
     if (v9)
     {
@@ -552,12 +552,10 @@ LABEL_49:
     }
   }
 
-  v39 = [MEMORY[0x277CBEA90] dataWithBytes:v55 length:?];
+  v39 = [MEMORY[0x277CBEA90] dataWithBytes:v54 length:?];
   v8 = 0;
 LABEL_58:
   TLV8BufferFree();
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -581,7 +579,7 @@ LABEL_58:
     v13 = bytes + v7;
     while (1)
     {
-      v56 = 0;
+      v56[0] = 0;
       v54[1] = 0;
       v55 = 0;
       v54[0] = 0;
@@ -618,11 +616,11 @@ LABEL_58:
         goto LABEL_38;
       }
 
-      if (v56 <= 3u)
+      if (v56[0] <= 3u)
       {
-        switch(v56)
+        switch(v56[0])
         {
-          case 1u:
+          case 1:
             v15 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
             v53 = v8;
             v21 = [HAPNFCAccessOperationTypeWrapper parsedFromData:v15 error:&v53];
@@ -640,7 +638,7 @@ LABEL_58:
 LABEL_28:
 
             goto LABEL_29;
-          case 2u:
+          case 2:
             v52 = v8;
             v15 = HAPTLVParseContiguousTlvs(2, bytes, v13, v54, &v52);
             v16 = v52;
@@ -656,7 +654,7 @@ LABEL_28:
             v18 = v9;
             v9 = v28;
             goto LABEL_28;
-          case 3u:
+          case 3:
             v50 = v8;
             v15 = HAPTLVParseContiguousTlvs(3, bytes, v13, v54, &v50);
             v16 = v50;
@@ -675,9 +673,9 @@ LABEL_28:
         }
       }
 
-      else if (v56 > 5u)
+      else if (v56[0] > 5u)
       {
-        if (v56 == 6)
+        if (v56[0] == 6)
         {
           v44 = v8;
           v15 = HAPTLVParseContiguousTlvs(6, bytes, v13, v54, &v44);
@@ -696,7 +694,7 @@ LABEL_28:
           goto LABEL_28;
         }
 
-        if (v56 == 7)
+        if (v56[0] == 7)
         {
           v42 = v8;
           v15 = HAPTLVParseContiguousTlvs(7, bytes, v13, v54, &v42);
@@ -720,7 +718,7 @@ LABEL_29:
 
       else
       {
-        if (v56 == 4)
+        if (v56[0] == 4)
         {
           v48 = v8;
           v15 = HAPTLVParseContiguousTlvs(4, bytes, v13, v54, &v48);
@@ -739,7 +737,7 @@ LABEL_29:
           goto LABEL_28;
         }
 
-        if (v56 == 5)
+        if (v56[0] == 5)
         {
           v46 = v8;
           v15 = HAPTLVParseContiguousTlvs(5, bytes, v13, v54, &v46);

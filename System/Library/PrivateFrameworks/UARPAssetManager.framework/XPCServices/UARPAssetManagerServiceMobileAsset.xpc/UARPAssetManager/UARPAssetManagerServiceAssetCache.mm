@@ -378,7 +378,7 @@
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10000BF0C(&self->_cacheRegistry);
+    sub_10000BF0C();
   }
 }
 

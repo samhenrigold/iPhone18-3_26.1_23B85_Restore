@@ -8,7 +8,7 @@
 {
   homesCopy = homes;
   selfCopy = self;
-  sub_268BBEF10(homesCopy);
+  sub_268BBEF10();
 }
 
 @end

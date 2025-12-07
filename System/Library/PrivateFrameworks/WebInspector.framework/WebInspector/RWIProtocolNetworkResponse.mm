@@ -5,6 +5,7 @@
 - (RWIProtocolNetworkHeaders)headers;
 - (RWIProtocolNetworkHeaders)requestHeaders;
 - (RWIProtocolNetworkResourceTiming)timing;
+- (RWIProtocolNetworkResponse)initWithUrl:(id)url status:(int)status statusText:(id)text headers:(id)headers mimeType:(id)type source:(int64_t)source;
 - (RWIProtocolSecurity)security;
 - (int)status;
 - (int64_t)source;
@@ -13,12 +14,57 @@
 - (void)setRequestHeaders:(id)headers;
 - (void)setSecurity:(id)security;
 - (void)setSource:(int64_t)source;
+- (void)setStatus:(int)status;
 - (void)setStatusText:(id)text;
 - (void)setTiming:(id)timing;
 - (void)setUrl:(id)url;
 @end
 
 @implementation RWIProtocolNetworkResponse
+
+- (RWIProtocolNetworkResponse)initWithUrl:(id)url status:(int)status statusText:(id)text headers:(id)headers mimeType:(id)type source:(int64_t)source
+{
+  v12 = *&status;
+  urlCopy = url;
+  textCopy = text;
+  headersCopy = headers;
+  typeCopy = type;
+  v21.receiver = self;
+  v21.super_class = RWIProtocolNetworkResponse;
+  v18 = [(RWIProtocolJSONObject *)&v21 init];
+  if (v18)
+  {
+    if (!urlCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"url"}];
+    }
+
+    if (!textCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"statusText"}];
+    }
+
+    if (!headersCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"headers"}];
+    }
+
+    if (!typeCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"mimeType"}];
+    }
+
+    [(RWIProtocolNetworkResponse *)v18 setUrl:urlCopy];
+    [(RWIProtocolNetworkResponse *)v18 setStatus:v12];
+    [(RWIProtocolNetworkResponse *)v18 setStatusText:textCopy];
+    [(RWIProtocolNetworkResponse *)v18 setHeaders:headersCopy];
+    [(RWIProtocolNetworkResponse *)v18 setMimeType:typeCopy];
+    [(RWIProtocolNetworkResponse *)v18 setSource:source];
+    v19 = v18;
+  }
+
+  return v18;
+}
 
 - (void)setUrl:(id)url
 {
@@ -34,6 +80,13 @@
   v2 = [(RWIProtocolJSONObject *)&v4 stringForKey:@"url"];
 
   return v2;
+}
+
+- (void)setStatus:(int)status
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolNetworkResponse;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&status forKey:@"status"];
 }
 
 - (int)status
@@ -77,7 +130,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkResponse;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"headers"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -223,7 +276,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkResponse;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"requestHeaders"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -285,7 +338,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkResponse;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"timing"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -347,7 +400,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolNetworkResponse;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"security"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

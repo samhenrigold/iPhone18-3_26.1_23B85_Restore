@@ -7,11 +7,11 @@
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v52[4] = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = AXUIInstructionalCell;
+  v51[4] = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = AXUIInstructionalCell;
   specifierCopy = specifier;
-  [(PSTableCell *)&v51 refreshCellContentsWithSpecifier:specifierCopy];
+  [(PSTableCell *)&v50 refreshCellContentsWithSpecifier:specifierCopy];
   v5 = [specifierCopy propertyForKey:@"Title"];
   v6 = [specifierCopy propertyForKey:@"Icon"];
   v7 = [specifierCopy propertyForKey:@"IconIgnoresInvertColors"];
@@ -35,52 +35,52 @@
 
     hostingController2 = [(AXUIInstructionalCell *)self hostingController];
     [hostingController2 view];
-    v19 = v47 = v10;
+    v19 = v46 = v10;
 
     [v19 setTranslatesAutoresizingMaskIntoConstraints:0];
     contentView = [(AXUIInstructionalCell *)self contentView];
     [contentView addSubview:v19];
 
-    v39 = MEMORY[0x277CCAAD0];
+    v38 = MEMORY[0x277CCAAD0];
     topAnchor = [v19 topAnchor];
     contentView2 = [(AXUIInstructionalCell *)self contentView];
     topAnchor2 = [contentView2 topAnchor];
-    v42 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
-    v52[0] = v42;
+    v41 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
+    v51[0] = v41;
     leadingAnchor = [v19 leadingAnchor];
     contentView3 = [(AXUIInstructionalCell *)self contentView];
     leadingAnchor2 = [contentView3 leadingAnchor];
-    v37 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
-    v52[1] = v37;
+    v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
+    v51[1] = v36;
     trailingAnchor = [v19 trailingAnchor];
     contentView4 = [(AXUIInstructionalCell *)self contentView];
     trailingAnchor2 = [contentView4 trailingAnchor];
     [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
-    v21 = v50 = v5;
-    v52[2] = v21;
+    v21 = v49 = v5;
+    v51[2] = v21;
     [v19 bottomAnchor];
-    v22 = v46 = v11;
+    v22 = v45 = v11;
     [(AXUIInstructionalCell *)self contentView];
-    v23 = v49 = v6;
+    v23 = v48 = v6;
     [v23 bottomAnchor];
-    v24 = v48 = v7;
+    v24 = v47 = v7;
     v25 = [v22 constraintEqualToAnchor:v24 constant:0.0];
-    v52[3] = v25;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:4];
+    v51[3] = v25;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
     v26 = v9;
     v28 = v27 = v8;
-    [v39 activateConstraints:v28];
+    [v38 activateConstraints:v28];
 
     v8 = v27;
     v9 = v26;
 
-    v7 = v48;
-    v6 = v49;
+    v7 = v47;
+    v6 = v48;
 
-    v11 = v46;
-    v5 = v50;
+    v11 = v45;
+    v5 = v49;
 
-    v10 = v47;
+    v10 = v46;
   }
 
   hostingController3 = [(AXUIInstructionalCell *)self hostingController];
@@ -90,8 +90,6 @@
   hostingController4 = [(AXUIInstructionalCell *)self hostingController];
   view2 = [hostingController4 view];
   [view2 layoutIfNeeded];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (double)instrinsicContentHeight

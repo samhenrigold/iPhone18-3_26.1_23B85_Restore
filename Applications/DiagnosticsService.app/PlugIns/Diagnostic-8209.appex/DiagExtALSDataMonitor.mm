@@ -59,24 +59,23 @@
   if ([(DiagExtALSDataMonitor *)self setupHIDClient]&& self->fHIDEventQueue)
   {
     IOHIDServiceClientSetProperty(self->fHIDServiceClient, @"ReportInterval", [NSNumber numberWithInt:10000]);
-    fHIDSystemClient = self->fHIDSystemClient;
     IOHIDEventSystemClientActivate();
-    LOBYTE(v4) = 1;
+    LOBYTE(v3) = 1;
   }
 
   else
   {
-    v5 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    v4 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (v4)
+    v4 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    v3 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    if (v3)
     {
-      *v7 = 0;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "ALSDataMonitor: Failed to setup service client for ALS", v7, 2u);
-      LOBYTE(v4) = 0;
+      *v6 = 0;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "ALSDataMonitor: Failed to setup service client for ALS", v6, 2u);
+      LOBYTE(v3) = 0;
     }
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)releaseALSClient
@@ -106,43 +105,39 @@
   {
     self->fHIDSystemClient = IOHIDEventSystemClientCreateWithType();
     IOHIDEventSystemClientRegisterEventCallback();
-    v5 = self->fHIDSystemClient;
-    fHIDEventQueue = self->fHIDEventQueue;
     IOHIDEventSystemClientScheduleWithDispatchQueue();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100006D44;
     block[3] = &unk_100010500;
     block[4] = self;
-    v7 = dispatch_block_create(0, block);
-    v8 = self->fHIDSystemClient;
+    v5 = dispatch_block_create(0, block);
     IOHIDEventSystemClientSetCancelHandler();
-    v9 = +[NSMutableArray array];
-    v26[0] = @"PrimaryUsagePage";
-    v26[1] = @"PrimaryUsage";
-    v27[0] = &off_100010B78;
-    v27[1] = &off_100010B90;
-    v10 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
-    [v9 addObject:v10];
+    v6 = +[NSMutableArray array];
+    v22[0] = @"PrimaryUsagePage";
+    v22[1] = @"PrimaryUsage";
+    v23[0] = &off_100010B78;
+    v23[1] = &off_100010B90;
+    v7 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+    [v6 addObject:v7];
 
-    v11 = self->fHIDSystemClient;
     IOHIDEventSystemClientSetMatchingMultiple();
-    v12 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       if (self->fHIDSystemClient)
       {
-        v13 = "Success";
+        v9 = "Success";
       }
 
       else
       {
-        v13 = "Failed";
+        v9 = "Failed";
       }
 
       *buf = 136315138;
-      v25 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ALSDataMonitor: setup system client %s", buf, 0xCu);
+      v21 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ALSDataMonitor: setup system client %s", buf, 0xCu);
     }
 
     fHIDSystemClient = self->fHIDSystemClient;
@@ -158,63 +153,63 @@
     }
   }
 
-  v14 = IOHIDEventSystemClientCopyServices(fHIDSystemClient);
-  if (!v14)
+  v10 = IOHIDEventSystemClientCopyServices(fHIDSystemClient);
+  if (!v10)
   {
     goto LABEL_20;
   }
 
-  v15 = v14;
-  if (CFArrayGetCount(v14) < 1)
+  v11 = v10;
+  if (CFArrayGetCount(v10) < 1)
   {
     goto LABEL_19;
   }
 
-  v16 = 0;
+  v12 = 0;
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v15, v16);
-    v18 = IOHIDServiceClientCopyProperty(ValueAtIndex, @"PrimaryUsage");
-    if (v18)
+    ValueAtIndex = CFArrayGetValueAtIndex(v11, v12);
+    v14 = IOHIDServiceClientCopyProperty(ValueAtIndex, @"PrimaryUsage");
+    if (v14)
     {
       break;
     }
 
 LABEL_14:
-    if (CFArrayGetCount(v15) <= ++v16)
+    if (CFArrayGetCount(v11) <= ++v12)
     {
       goto LABEL_19;
     }
   }
 
-  v19 = v18;
-  if ([v18 intValue] != 4)
+  v15 = v14;
+  if ([v14 intValue] != 4)
   {
-    CFRelease(v19);
+    CFRelease(v15);
     goto LABEL_14;
   }
 
   *p_fHIDServiceClient = ValueAtIndex;
   CFRetain(ValueAtIndex);
 LABEL_19:
-  CFRelease(v15);
+  CFRelease(v11);
 LABEL_20:
-  v20 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v16 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     if (*p_fHIDServiceClient)
     {
-      v21 = "Success";
+      v17 = "Success";
     }
 
     else
     {
-      v21 = "Failed";
+      v17 = "Failed";
     }
 
     *buf = 136315138;
-    v25 = v21;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "ALSDataMonitor: setup service client %s", buf, 0xCu);
+    v21 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "ALSDataMonitor: setup service client %s", buf, 0xCu);
   }
 
 LABEL_25:

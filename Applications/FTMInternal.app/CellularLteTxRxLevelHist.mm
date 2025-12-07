@@ -248,86 +248,80 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v8 = self->_txHists;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v29;
-    do
-    {
-      for (i = 0; i != v10; i = i + 1)
-      {
-        if (*v29 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v28 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    }
-
-    while (v10);
-  }
-
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v14 = self->_rxHists;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v15)
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_txHists;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v16 = v15;
-    v17 = *v25;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (j = 0; j != v16; j = j + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v17)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v6);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v16);
+    while (v8);
   }
 
-  v20 = self->_has;
-  if ((v20 & 4) != 0)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_rxHists;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    numSubs = self->_numSubs;
+    v13 = v12;
+    v14 = *v18;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    }
+
+    while (v13);
+  }
+
+  v16 = self->_has;
+  if ((v16 & 4) != 0)
+  {
     PBDataWriterWriteUint32Field();
-    v20 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v20 & 8) != 0)
+  if ((v16 & 8) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -338,7 +332,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -530,7 +523,6 @@
     goto LABEL_33;
   }
 
-  v5 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -573,7 +565,6 @@
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 64);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_numSubs != *(equalCopy + 5))
@@ -606,14 +597,14 @@
     if (![(NSData *)plmn isEqual:?])
     {
 LABEL_33:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_34;
     }
 
     has = self->_has;
   }
 
-  v11 = (*(equalCopy + 64) & 0x10) == 0;
+  v9 = (*(equalCopy + 64) & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 64) & 0x10) == 0 || self->_subsId != *(equalCopy + 12))
@@ -621,12 +612,12 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_34:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

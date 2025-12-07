@@ -8,58 +8,56 @@
 {
   height = size.height;
   width = size.width;
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v10 = [MEMORY[0x1E695DFF8] URLWithString:@"https://itunes.apple.com/"];
   v11 = [MEMORY[0x1E696AF20] componentsWithURL:v10 resolvingAgainstBaseURL:0];
   [v11 setPath:@"/lookup"];
   v12 = [MEMORY[0x1E696AF60] queryItemWithName:@"bundleId" value:identifierCopy];
-  v28[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   [v11 setQueryItems:v13];
 
   wf_sharedSession = [MEMORY[0x1E696AF78] wf_sharedSession];
   v15 = [v11 URL];
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke;
-  v23 = &unk_1E7B00418;
-  v24 = identifierCopy;
-  v25 = handlerCopy;
-  v26 = width;
-  v27 = height;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke;
+  v22 = &unk_1E7B00418;
+  v23 = identifierCopy;
+  v24 = handlerCopy;
+  v25 = width;
+  v26 = height;
   v16 = handlerCopy;
   v17 = identifierCopy;
-  v18 = [wf_sharedSession dataTaskWithURL:v15 completionHandler:&v20];
+  v18 = [wf_sharedSession dataTaskWithURL:v15 completionHandler:&v19];
   [v18 resume];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if ([v7 length])
   {
-    v39 = v9;
-    v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v39];
-    v33 = v39;
+    v38 = v9;
+    v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v38];
+    v32 = v38;
 
     v11 = [v10 objectForKeyedSubscript:@"results"];
     v12 = [v11 firstObject];
 
     if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v31 = [v12 objectForKeyedSubscript:@"artworkUrl60"];
-      v30 = [v12 objectForKeyedSubscript:@"artworkUrl100"];
+      v30 = [v12 objectForKeyedSubscript:@"artworkUrl60"];
+      v29 = [v12 objectForKeyedSubscript:@"artworkUrl100"];
       v13 = [v12 objectForKeyedSubscript:@"artworkUrl512"];
-      v32 = v13;
+      v31 = v13;
       v14 = *(a1 + 48);
-      v15 = v30;
+      v15 = v29;
       if (v14 > 100.0)
       {
         v15 = v13;
@@ -67,13 +65,13 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
 
       if (v14 <= 60.0)
       {
-        v15 = v31;
+        v15 = v30;
       }
 
-      v29 = v15;
+      v28 = v15;
       v16 = [MEMORY[0x1E695DFF8] URLWithString:?];
-      v45[0] = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+      v44[0] = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
       v18 = [v16 lastPathComponent];
       v19 = [WFFileType typeFromFilename:v18];
       v20 = [v19 conformsToUTType:*MEMORY[0x1E6982E58]];
@@ -83,9 +81,9 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
         v21 = [v16 URLByDeletingPathExtension];
         v22 = [v21 URLByAppendingPathExtension:@"png"];
 
-        v44[0] = v22;
-        v44[1] = v16;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+        v43[0] = v22;
+        v43[1] = v16;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
 
         v17 = v23;
       }
@@ -93,22 +91,22 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v41 = __Block_byref_object_copy__2791;
-      v42 = __Block_byref_object_dispose__2792;
-      v43 = 0;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_80;
-      v38[3] = &unk_1E7B003C8;
-      v38[4] = buf;
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_3;
-      v34[3] = &unk_1E7B003F0;
-      v37 = buf;
-      v35 = *(a1 + 32);
-      v36 = *(a1 + 40);
-      [v17 if_enumerateAsynchronouslyInSequence:v38 completionHandler:v34];
+      v40 = __Block_byref_object_copy__2791;
+      v41 = __Block_byref_object_dispose__2792;
+      v42 = 0;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_80;
+      v37[3] = &unk_1E7B003C8;
+      v37[4] = buf;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_3;
+      v33[3] = &unk_1E7B003F0;
+      v36 = buf;
+      v34 = *(a1 + 32);
+      v35 = *(a1 + 40);
+      [v17 if_enumerateAsynchronouslyInSequence:v37 completionHandler:v33];
 
       _Block_object_dispose(buf, 8);
     }
@@ -124,14 +122,14 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
         *&buf[12] = 2114;
         *&buf[14] = v25;
         *&buf[22] = 2114;
-        v41 = v33;
+        v40 = v32;
         _os_log_impl(&dword_1B1DE3000, v24, OS_LOG_TYPE_ERROR, "%s Failed to fetch icon for %{public}@, %{public}@", buf, 0x20u);
       }
 
       (*(*(a1 + 40) + 16))();
     }
 
-    v9 = v33;
+    v9 = v32;
   }
 
   else
@@ -145,14 +143,12 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
       *&buf[12] = 2114;
       *&buf[14] = v27;
       *&buf[22] = 2114;
-      v41 = v9;
+      v40 = v9;
       _os_log_impl(&dword_1B1DE3000, v26, OS_LOG_TYPE_ERROR, "%s Failed to fetch icon for %{public}@, %{public}@", buf, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_80(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
@@ -177,7 +173,7 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
 
 void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_3(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = *(*(a1[6] + 8) + 40);
   if (v5)
@@ -192,19 +188,17 @@ void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHa
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = a1[4];
-      v10 = 136315650;
-      v11 = "+[WFAppIconLoader loadIconWithBundleIdentifier:desiredSize:completionHandler:]_block_invoke_3";
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v4;
-      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Failed to fetch icon for %{public}@, %{public}@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "+[WFAppIconLoader loadIconWithBundleIdentifier:desiredSize:completionHandler:]_block_invoke_3";
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2114;
+      v14 = v4;
+      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Failed to fetch icon for %{public}@, %{public}@", &v9, 0x20u);
     }
 
     (*(a1[5] + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __78__WFAppIconLoader_loadIconWithBundleIdentifier_desiredSize_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)

@@ -10,7 +10,7 @@
 {
   sub_251384B94();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HealthBalanceAppDelegate();
+  v4.super_class = type metadata accessor for HealthBalanceAppDelegate(0);
   return [(HealthBalanceAppDelegate *)&v4 init];
 }
 
@@ -18,8 +18,7 @@
 {
   v3 = sub_251384A34();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v3, v5);
   v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251384A14();
   (*(v4 + 8))(v7, v3);
@@ -28,8 +27,7 @@
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(id)handler
 {
   sub_251371984(0, &qword_27F42C9B8, MEMORY[0x277D85720]);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
+  MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v21 - v11;
   v13 = _Block_copy(handler);
   v14 = swift_allocObject();

@@ -132,9 +132,7 @@ LABEL_8:
 {
   if (!self->_imageCache)
   {
-    v4 = [[TIImageCacheClient alloc] initWithLocalAccess:1];
-    imageCache = self->_imageCache;
-    self->_imageCache = v4;
+    self->_imageCache = [[TIImageCacheClient alloc] initWithLocalAccess:1];
 
     _objc_release_x1();
   }

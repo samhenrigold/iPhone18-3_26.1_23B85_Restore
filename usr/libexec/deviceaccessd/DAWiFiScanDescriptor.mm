@@ -105,65 +105,81 @@ LABEL_6:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v27 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v26 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v26, &v27, "%@", v5);
+    v6 = v26;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v16 = SSID;
-    CUAppendF();
-    v6 = v4;
+    v25 = v6;
+    v8 = SSID;
+    CUAppendF(&v25, &v27, "SSID %@", v8);
+    v9 = v25;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   prefix = self->_prefix;
   if (prefix)
   {
-    v17 = prefix;
-    CUAppendF();
-    v8 = v4;
+    v24 = v6;
+    v11 = prefix;
+    CUAppendF(&v24, &v27, "Prefix %@", v11);
+    v12 = v24;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   bundleID = self->_bundleID;
   if (bundleID)
   {
-    v18 = bundleID;
-    CUAppendF();
-    v10 = v4;
+    v23 = v6;
+    v14 = bundleID;
+    CUAppendF(&v23, &v27, "BundleID %@", v14);
+    v15 = v23;
 
-    v4 = v10;
+    v6 = v15;
   }
 
   associationIdentifier = self->_associationIdentifier;
   if (associationIdentifier)
   {
-    v19 = associationIdentifier;
-    CUAppendF();
-    v12 = v4;
+    v22 = v6;
+    v17 = associationIdentifier;
+    CUAppendF(&v22, &v27, "Association Identifier %@", v17);
+    v18 = v22;
 
-    v4 = v12;
+    v6 = v18;
   }
 
-  v13 = &stru_10005A2C8;
-  if (v4)
+  v19 = &stru_10005A2C8;
+  if (v6)
   {
-    v13 = v4;
+    v19 = v6;
   }
 
-  v14 = v13;
+  v20 = v19;
 
-  return v14;
+  return v20;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

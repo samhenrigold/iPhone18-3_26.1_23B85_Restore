@@ -60,70 +60,26 @@ void __46__KGMutableGraph_performChangesAndWait_error___block_invoke(void *a1)
 
 - (BOOL)_performChangesAndWait:(id)wait error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   waitCopy = wait;
   mutableImplementation = [(KGMutableGraph *)self mutableImplementation];
   nodesToInsert = [waitCopy nodesToInsert];
   v9 = [mutableImplementation addNodes:nodesToInsert error:error];
 
-  if (!v9)
-  {
-    goto LABEL_8;
-  }
-
-  mutableImplementation2 = [(KGMutableGraph *)self mutableImplementation];
-  edgesToInsert = [waitCopy edgesToInsert];
-  v12 = [mutableImplementation2 addEdges:edgesToInsert error:error];
-
-  if (!v12)
-  {
-    goto LABEL_8;
-  }
-
-  nodeUpdates = [waitCopy nodeUpdates];
-  v14 = [(KGMutableGraph *)self _applyNodeChangeRequests:nodeUpdates error:error];
-
-  if (!v14)
-  {
-    goto LABEL_8;
-  }
-
-  edgeUpdates = [waitCopy edgeUpdates];
-  v16 = [(KGMutableGraph *)self _applyEdgeChangeRequests:edgeUpdates error:error];
-
-  if (!v16)
-  {
-    goto LABEL_8;
-  }
-
-  mutableImplementation3 = [(KGMutableGraph *)self mutableImplementation];
-  edgeIdentifiersToRemove = [waitCopy edgeIdentifiersToRemove];
-  v19 = [mutableImplementation3 removeEdgesForIdentifiers:edgeIdentifiersToRemove error:error];
-
-  if (!v19)
-  {
-    goto LABEL_8;
-  }
-
-  mutableImplementation4 = [(KGMutableGraph *)self mutableImplementation];
-  nodeIdentifiersToRemove = [waitCopy nodeIdentifiersToRemove];
-  v22 = [mutableImplementation4 removeNodesForIdentifiers:nodeIdentifiersToRemove error:error];
-
-  if (v22)
+  if (v9 && (-[KGMutableGraph mutableImplementation](self, "mutableImplementation"), v10 = objc_claimAutoreleasedReturnValue(), [waitCopy edgesToInsert], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "addEdges:error:", v11, error), v11, v10, v12) && (objc_msgSend(waitCopy, "nodeUpdates"), v13 = objc_claimAutoreleasedReturnValue(), v14 = -[KGMutableGraph _applyNodeChangeRequests:error:](self, "_applyNodeChangeRequests:error:", v13, error), v13, v14) && (objc_msgSend(waitCopy, "edgeUpdates"), v15 = objc_claimAutoreleasedReturnValue(), v16 = -[KGMutableGraph _applyEdgeChangeRequests:error:](self, "_applyEdgeChangeRequests:error:", v15, error), v15, v16) && (-[KGMutableGraph mutableImplementation](self, "mutableImplementation"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(waitCopy, "edgeIdentifiersToRemove"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "removeEdgesForIdentifiers:error:", v18, error), v18, v17, v19) && (-[KGMutableGraph mutableImplementation](self, "mutableImplementation"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(waitCopy, "nodeIdentifiersToRemove"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "removeNodesForIdentifiers:error:", v21, error), v21, v20, (v22 & 1) != 0))
   {
     v23 = 1;
   }
 
   else
   {
-LABEL_8:
     v24 = KGLoggingConnection();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v27 = *error;
-      v28 = 138412290;
-      v29 = v27;
-      _os_log_error_impl(&dword_255870000, v24, OS_LOG_TYPE_ERROR, "Error with applying mutations (%@)", &v28, 0xCu);
+      v26 = *error;
+      v27 = 138412290;
+      v28 = v26;
+      _os_log_error_impl(&dword_255870000, v24, OS_LOG_TYPE_ERROR, "Error with applying mutations (%@)", &v27, 0xCu);
     }
 
     v23 = 0;
@@ -131,33 +87,32 @@ LABEL_8:
 
   [waitCopy setResolved];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)_applyEdgeChangeRequests:(id)requests error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   requestsCopy = requests;
-  v7 = [requestsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [requestsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(requestsCopy);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         edge = [v11 edge];
         identifier = [edge identifier];
 
@@ -176,7 +131,7 @@ LABEL_8:
         }
       }
 
-      v8 = [requestsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [requestsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         continue;
@@ -189,33 +144,32 @@ LABEL_8:
   v18 = 1;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)_applyNodeChangeRequests:(id)requests error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   requestsCopy = requests;
-  v7 = [requestsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [requestsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(requestsCopy);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         node = [v11 node];
         identifier = [node identifier];
 
@@ -234,7 +188,7 @@ LABEL_12:
         }
       }
 
-      v8 = [requestsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [requestsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         continue;
@@ -247,7 +201,6 @@ LABEL_12:
   v18 = 1;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

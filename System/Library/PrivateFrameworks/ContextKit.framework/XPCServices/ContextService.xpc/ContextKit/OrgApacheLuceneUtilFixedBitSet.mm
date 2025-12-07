@@ -220,7 +220,7 @@ LABEL_15:
   v8 = bits->buffer_[v6] >> int;
   if (v8)
   {
-    return JavaLangLong_numberOfTrailingZerosWithLong_(v8) + intCopy;
+    return JavaLangLong_numberOfTrailingZerosWithLong_(v8, a2) + intCopy;
   }
 
   v10 = v6 + 1;
@@ -238,7 +238,7 @@ LABEL_15:
     intCopy += 64;
     if (v8)
     {
-      return JavaLangLong_numberOfTrailingZerosWithLong_(v8) + intCopy;
+      return JavaLangLong_numberOfTrailingZerosWithLong_(v8, a2) + intCopy;
     }
   }
 
@@ -264,7 +264,7 @@ LABEL_15:
   v8 = bits->buffer_[v6] << (int & 0x3F ^ 0x3Fu);
   if (v8)
   {
-    return intCopy - JavaLangLong_numberOfLeadingZerosWithLong_(v8);
+    return intCopy - JavaLangLong_numberOfLeadingZerosWithLong_(v8, a2);
   }
 
   intCopy = (v6 << 6) | 0x3F;
@@ -281,7 +281,7 @@ LABEL_15:
     intCopy -= 64;
     if (v8)
     {
-      return intCopy - JavaLangLong_numberOfLeadingZerosWithLong_(v8);
+      return intCopy - JavaLangLong_numberOfLeadingZerosWithLong_(v8, a2);
     }
   }
 
@@ -290,19 +290,19 @@ LABEL_15:
 
 - (void)or__WithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator))
+  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, a2))
   {
     [(OrgApacheLuceneUtilBitSet *)self assertUnpositionedWithOrgApacheLuceneSearchDocIdSetIterator:iterator];
-    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, v5);
 
     [(OrgApacheLuceneUtilFixedBitSet *)self or__WithOrgApacheLuceneUtilFixedBitSet:FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneUtilFixedBitSet;
-    [(OrgApacheLuceneUtilBitSet *)&v6 or__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneUtilFixedBitSet;
+    [(OrgApacheLuceneUtilBitSet *)&v7 or__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
   }
 }
 
@@ -335,9 +335,9 @@ LABEL_15:
 - (void)xor__WithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
   [(OrgApacheLuceneUtilBitSet *)self assertUnpositionedWithOrgApacheLuceneSearchDocIdSetIterator:?];
-  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator))
+  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, v5))
   {
-    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, v6);
 
     [(OrgApacheLuceneUtilFixedBitSet *)self xor__WithOrgApacheLuceneUtilFixedBitSet:FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator];
   }
@@ -366,19 +366,19 @@ LABEL_15:
 
 - (void)and__WithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator))
+  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, a2))
   {
     [(OrgApacheLuceneUtilBitSet *)self assertUnpositionedWithOrgApacheLuceneSearchDocIdSetIterator:iterator];
-    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, v5);
 
     [(OrgApacheLuceneUtilFixedBitSet *)self and__WithOrgApacheLuceneUtilFixedBitSet:FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneUtilFixedBitSet;
-    [(OrgApacheLuceneUtilBitSet *)&v6 and__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneUtilFixedBitSet;
+    [(OrgApacheLuceneUtilBitSet *)&v7 and__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
   }
 }
 
@@ -438,19 +438,19 @@ LABEL_12:
 
 - (void)andNotWithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator))
+  if (OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, a2))
   {
     [(OrgApacheLuceneUtilBitSet *)self assertUnpositionedWithOrgApacheLuceneSearchDocIdSetIterator:iterator];
-    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+    FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, v5);
 
     [(OrgApacheLuceneUtilFixedBitSet *)self andNotWithOrgApacheLuceneUtilFixedBitSet:FixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneUtilFixedBitSet;
-    [(OrgApacheLuceneUtilBitSet *)&v6 andNotWithOrgApacheLuceneSearchDocIdSetIterator:iterator];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneUtilFixedBitSet;
+    [(OrgApacheLuceneUtilBitSet *)&v7 andNotWithOrgApacheLuceneSearchDocIdSetIterator:iterator];
   }
 }
 
@@ -649,7 +649,6 @@ LABEL_13:
         size = v13->super.size_;
         if (v9 < 0 || v9 >= size)
         {
-          v16 = selfCopy->bits_;
           IOSArray_throwOutOfBoundsWithMsg(size, (int >> 6));
         }
 
@@ -707,7 +706,6 @@ LABEL_13:
         v16 = v14->super.size_;
         if (v9 < 0 || v9 >= v16)
         {
-          v18 = self->bits_;
           IOSArray_throwOutOfBoundsWithMsg(v16, (int >> 6));
         }
 
@@ -826,10 +824,11 @@ LABEL_13:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = OrgApacheLuceneUtilFixedBitSet_class_();
-    qword_1005545E0 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v2);
+    v5 = OrgApacheLuceneUtilFixedBitSet_class_(v3, v4);
+    qword_1005545E0 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v5);
     atomic_store(1u, &OrgApacheLuceneUtilFixedBitSet__initialized);
   }
 }

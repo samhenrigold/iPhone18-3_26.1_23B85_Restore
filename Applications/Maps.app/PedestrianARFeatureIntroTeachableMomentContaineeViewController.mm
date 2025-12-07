@@ -309,7 +309,7 @@
         v78 = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
         [v75 beginTime];
         v80 = v79;
-        [v75 duration];
+        objc_msgSend_duration(v75);
         [v78 setBeginTime:v81 + v80];
         [v78 setFromValue:&off_1016EAE20];
         [v78 setToValue:v106];

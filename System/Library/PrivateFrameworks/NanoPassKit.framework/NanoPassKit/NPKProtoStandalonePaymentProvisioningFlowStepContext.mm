@@ -203,7 +203,7 @@
     [NPKProtoStandalonePaymentProvisioningFlowStepContext writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_backStepIdentifier)
   {
@@ -212,135 +212,134 @@
 
   if (*&self->_has)
   {
-    allowsAddLater = self->_allowsAddLater;
     PBDataWriterWriteBOOLField();
   }
 
-  v6 = v7;
+  v5 = v6;
   if (self->_welcomeStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_chooseFlowStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_chooseProductStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_chooseCredentialsStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_digitalIssuanceAmountStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_digitalIssuancePaymentStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_moreInformationStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_readerModeEntryStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_readerModeIngestionStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_manualEntryStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_secondaryManualEntryStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_localDeviceManualEntryStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_localDeviceManualEntryProgressStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_productDisambiguationStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_passcodeUpgradeStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_termsAndConditionsStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_provisioningProgressStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_provisioningResultStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_issuerVerificationChannelsStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_issuerVerificationFieldsStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_issuerVerificationCodeStepContext)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 }
 

@@ -1,11 +1,11 @@
 @interface NSXPCStoreConnection
 - (id)initForStore:(id)store;
-- (id)sendMessage:(void *)message store:(void *)store error:;
 - (void)createConnectionWithOptions:(uint64_t)options;
 - (void)dealloc;
 - (void)disconnect;
 - (void)performAndWait:(uint64_t)wait;
 - (void)reconnect;
+- (void)sendMessage:(void *)message store:(void *)store error:;
 - (void)sendMessageWithContext:(void *)context;
 @end
 
@@ -13,14 +13,14 @@
 
 - (void)reconnect
 {
-  if (self)
+  if (result)
   {
     v1[0] = MEMORY[0x1E69E9820];
     v1[1] = 3221225472;
     v1[2] = __33__NSXPCStoreConnection_reconnect__block_invoke;
     v1[3] = &unk_1E6EC16F0;
-    v1[4] = self;
-    [(NSXPCStoreConnection *)self performAndWait:v1];
+    v1[4] = result;
+    [(NSXPCStoreConnection *)result performAndWait:v1];
   }
 }
 
@@ -43,19 +43,19 @@ void *__33__NSXPCStoreConnection_reconnect__block_invoke(void *result)
 
 - (void)createConnectionWithOptions:(uint64_t)options
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   if (!options)
   {
-    goto LABEL_48;
+    return 0;
   }
 
-  v4 = [a2 valueForKey:@"serviceName"];
+  v4 = objc_msgSend_valueForKey_(a2, a2, @"serviceName");
   if (!v4)
   {
-    v4 = [a2 valueForKey:@"NSXPCStoreServiceName"];
+    v4 = objc_msgSend_valueForKey_(a2);
     if (!v4)
     {
-      v19 = [a2 valueForKey:@"NSXPCStoreServerEndpointFactory"];
+      v19 = objc_msgSend_valueForKey_(a2);
       if (!v19)
       {
         LogStream = _PFLogGetLogStream(17);
@@ -79,10 +79,10 @@ void *__33__NSXPCStoreConnection_reconnect__block_invoke(void *result)
       }
 
       v20 = v19;
-      v44 = 0;
+      v43 = 0;
       if (objc_opt_respondsToSelector())
       {
-        newEndpoint = [v20 newEndpointWithError:&v44];
+        newEndpoint = [v20 newEndpointWithError:&v43];
       }
 
       else
@@ -120,7 +120,7 @@ void *__33__NSXPCStoreConnection_reconnect__block_invoke(void *result)
         goto LABEL_14;
       }
 
-      if (!v44)
+      if (!v43)
       {
         v26 = _PFLogGetLogStream(17);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -142,21 +142,21 @@ void *__33__NSXPCStoreConnection_reconnect__block_invoke(void *result)
         goto LABEL_42;
       }
 
-      v35 = objc_autoreleasePoolPush();
+      v34 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(1))
       {
-        v36 = _pflogging_catastrophic_mode;
-        v37 = _PFLogGetLogStream(1);
-        v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
-        if (v36)
+        v35 = _pflogging_catastrophic_mode;
+        v36 = _PFLogGetLogStream(1);
+        v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+        if (v35)
         {
-          if (!v38)
+          if (!v37)
           {
             goto LABEL_58;
           }
         }
 
-        else if (!v38)
+        else if (!v37)
         {
           goto LABEL_58;
         }
@@ -164,29 +164,29 @@ void *__33__NSXPCStoreConnection_reconnect__block_invoke(void *result)
         LODWORD(valueCallBacks.version) = 134218242;
         *(&valueCallBacks.version + 4) = v20;
         WORD2(valueCallBacks.retain) = 2112;
-        *(&valueCallBacks.retain + 6) = v44;
-        _os_log_error_impl(&dword_18565F000, v37, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory %p -newEndpointWithError returned error %@\n", &valueCallBacks, 0x16u);
+        *(&valueCallBacks.retain + 6) = v43;
+        _os_log_error_impl(&dword_18565F000, v36, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory %p -newEndpointWithError returned error %@\n", &valueCallBacks, 0x16u);
       }
 
 LABEL_58:
-      _NSCoreDataLog_console(1, "Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory %p -newEndpointWithError returned error %@", v20, v44);
-      objc_autoreleasePoolPop(v35);
-      v39 = *MEMORY[0x1E696A4C0];
-      code = [v44 code];
-      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSXPCStoreServerEndpointFactory failed to provide an endpoint"];
-      v46 = *MEMORY[0x1E696AA08];
-      v47[0] = v44;
-      v42 = +[_NSCoreDataException exceptionWithName:code:reason:userInfo:](_NSCoreDataException, v39, code, v41, [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1]);
-      -[_NSCoreDataException _setDomain:](v42, [v44 domain]);
-      objc_exception_throw(v42);
+      _NSCoreDataLog_console(1, "Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory %p -newEndpointWithError returned error %@", v20, v43);
+      objc_autoreleasePoolPop(v34);
+      v38 = *MEMORY[0x1E696A4C0];
+      code = [v43 code];
+      v40 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+      v45 = *MEMORY[0x1E696AA08];
+      v46[0] = v43;
+      v41 = +[_NSCoreDataException exceptionWithName:code:reason:userInfo:](_NSCoreDataException, v38, code, v40, [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1]);
+      -[_NSCoreDataException _setDomain:](v41, [v43 domain]);
+      objc_exception_throw(v41);
     }
   }
 
   v5 = v4;
-  v6 = [a2 valueForKey:@"agentOrDaemon"];
+  v6 = objc_msgSend_valueForKey_(a2);
   if (!v6)
   {
-    v6 = [a2 valueForKey:@"NSXPCStoreDaemonize"];
+    v6 = objc_msgSend_valueForKey_(a2);
   }
 
   bOOLValue = [v6 BOOLValue];
@@ -271,21 +271,19 @@ LABEL_51:
 
       _NSCoreDataLog_console(1, "Failed to create NSXPCConnection");
       objc_autoreleasePoolPop(v29);
-LABEL_48:
-      v13 = 0;
-      goto LABEL_49;
+      return 0;
     }
   }
 
   v13 = v9;
 LABEL_14:
   [v13 setInterruptionHandler:&__block_literal_global_1];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18;
-  v43[3] = &unk_1E6EC16F0;
-  v43[4] = options;
-  [v13 setInvalidationHandler:v43];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18;
+  v42[3] = &unk_1E6EC16F0;
+  v42[4] = options;
+  [v13 setInvalidationHandler:v42];
   _persistentStoreCoordinator = [*(options + 16) _persistentStoreCoordinator];
   memset(&valueCallBacks, 0, 24);
   *&valueCallBacks.copyDescription = *(MEMORY[0x1E695E9E8] + 24);
@@ -295,8 +293,6 @@ LABEL_14:
   CFRelease(v15);
   [v13 setRemoteObjectInterface:{objc_msgSend(MEMORY[0x1E696B0D0], "interfaceWithProtocol:", &unk_1EF440870)}];
   [v13 resume];
-LABEL_49:
-  v33 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -344,13 +340,12 @@ void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke()
   }
 }
 
-void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18(uint64_t a1)
+void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18()
 {
-  v1 = *(*(a1 + 32) + 16);
   [_NSXPCStoreUtilities logMessage:@"XPC connection was invalidated" forComponent:?];
   if (+[NSXPCStore debugDefault]>= 1)
   {
-    v2 = objc_autoreleasePoolPush();
+    v0 = objc_autoreleasePoolPush();
     _pflogInitialize(8);
     if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
     {
@@ -366,27 +361,27 @@ void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18(ui
 
       else
       {
-        v4 = _PFLogGetLogStream(8);
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v2 = _PFLogGetLogStream(8);
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
         {
-          *v6 = 0;
-          _os_log_impl(&dword_18565F000, v4, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Connection invalidated.\n", v6, 2u);
+          *v4 = 0;
+          _os_log_impl(&dword_18565F000, v2, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Connection invalidated.\n", v4, 2u);
         }
       }
     }
 
     if (_pflogging_catastrophic_mode)
     {
-      v5 = 1;
+      v3 = 1;
     }
 
     else
     {
-      v5 = 8;
+      v3 = 8;
     }
 
-    _NSCoreDataLog_console(v5, "Connection invalidated.");
-    objc_autoreleasePoolPop(v2);
+    _NSCoreDataLog_console(v3, "Connection invalidated.");
+    objc_autoreleasePoolPop(v0);
   }
 }
 
@@ -410,7 +405,7 @@ void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18(ui
       lastPathComponent = @"nil";
     }
 
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSXPCStoreConnection %p for %@", v5, lastPathComponent];
+    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v5, lastPathComponent);
     v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     _persistentStoreCoordinator = [store _persistentStoreCoordinator];
     if (_persistentStoreCoordinator)
@@ -515,55 +510,55 @@ void __52__NSXPCStoreConnection_createConnectionWithOptions___block_invoke_18(ui
   [(NSXPCStoreConnection *)&v5 dealloc];
 }
 
-- (id)sendMessage:(void *)message store:(void *)store error:
+- (void)sendMessage:(void *)message store:(void *)store error:
 {
   selfCopy = self;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_39;
+    return selfCopy;
   }
 
   if (self[3])
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3052000000;
-    v35 = __Block_byref_object_copy__2;
-    v36 = __Block_byref_object_dispose__2;
-    v37 = 0;
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3052000000;
-    v29 = __Block_byref_object_copy__2;
-    v30 = __Block_byref_object_dispose__2;
     v31 = 0;
-    v8 = [message URL];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v32 = &v31;
+    v33 = 0x3052000000;
+    v34 = __Block_byref_object_copy__2;
+    v35 = __Block_byref_object_dispose__2;
+    v36 = 0;
     v25 = 0;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke;
-    v21[3] = &unk_1E6EC1768;
-    v21[8] = &v32;
-    v21[9] = &v26;
-    v21[4] = selfCopy;
-    v21[5] = v8;
-    v21[6] = a2;
-    v21[7] = message;
-    v21[10] = &v22;
-    [(NSXPCStoreConnection *)selfCopy performAndWait:v21];
-    if (*(v23 + 24) == 1)
+    v26 = &v25;
+    v27 = 0x3052000000;
+    v28 = __Block_byref_object_copy__2;
+    v29 = __Block_byref_object_dispose__2;
+    v30 = 0;
+    v8 = [message URL];
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke;
+    v20[3] = &unk_1E6EC1768;
+    v20[8] = &v31;
+    v20[9] = &v25;
+    v20[4] = selfCopy;
+    v20[5] = v8;
+    v20[6] = a2;
+    v20[7] = message;
+    v20[10] = &v21;
+    [(NSXPCStoreConnection *)selfCopy performAndWait:v20];
+    if (*(v22 + 24) == 1)
     {
       if (+[NSXPCStore debugDefault]< 1)
       {
 LABEL_35:
 
-        if (*(v23 + 24) == 1)
+        if (*(v22 + 24) == 1)
         {
-          selfCopy = v33[5];
+          selfCopy = v32[5];
         }
 
         else
@@ -571,10 +566,10 @@ LABEL_35:
           selfCopy = 0;
         }
 
-        _Block_object_dispose(&v22, 8);
-        _Block_object_dispose(&v26, 8);
-        _Block_object_dispose(&v32, 8);
-        goto LABEL_39;
+        _Block_object_dispose(&v21, 8);
+        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v31, 8);
+        return selfCopy;
       }
 
       v9 = objc_autoreleasePoolPush();
@@ -586,9 +581,9 @@ LABEL_35:
           LogStream = _PFLogGetLogStream(1);
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
-            v11 = v33[5];
+            v11 = v32[5];
             *buf = 138412290;
-            v39 = v11;
+            v38 = v11;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Returning reply dict %@\n", buf, 0xCu);
           }
         }
@@ -598,9 +593,9 @@ LABEL_35:
           v14 = _PFLogGetLogStream(8);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = v33[5];
+            v15 = v32[5];
             *buf = 138412290;
-            v39 = v15;
+            v38 = v15;
             _os_log_impl(&dword_18565F000, v14, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Returning reply dict %@\n", buf, 0xCu);
           }
         }
@@ -616,18 +611,18 @@ LABEL_35:
         v16 = 8;
       }
 
-      _NSCoreDataLog_console(v16, "Returning reply dict %@", v33[5]);
+      _NSCoreDataLog_console(v16, "Returning reply dict %@", v32[5]);
     }
 
     else
     {
       if (store)
       {
-        v12 = v27[5];
+        v12 = v26[5];
         if (v12)
         {
           *store = v12;
-          v27[5] = 0;
+          v26[5] = 0;
         }
       }
 
@@ -684,8 +679,6 @@ LABEL_35:
     *store = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"Connection is nil", @"Reason"}];
   }
 
-LABEL_39:
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -716,7 +709,7 @@ uint64_t __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke(uint6
 
 void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1[5] + 8) + 40) = 0;
   *(*(a1[6] + 8) + 40) = a2;
   v4 = objc_autoreleasePoolPush();
@@ -737,24 +730,23 @@ void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_2(void *a
     else if (v7)
     {
 LABEL_7:
-      v9 = a1[4];
+      v8 = a1[4];
       *buf = 138412546;
-      *&buf[4] = v9;
+      *&buf[4] = v8;
       *&buf[12] = 2112;
       *&buf[14] = a2;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: XPC: synchronousRemoteObjectProxyWithErrorHandler: store '%@' encountered error: %@\n", buf, 0x16u);
     }
   }
 
-  _NSCoreDataLog_console(1, "XPC: synchronousRemoteObjectProxyWithErrorHandler: store '%@' encountered error: %@", a1[4], a2, *buf, *&buf[16], v11);
+  _NSCoreDataLog_console(1, "XPC: synchronousRemoteObjectProxyWithErrorHandler: store '%@' encountered error: %@", a1[4], a2, *buf, *&buf[8], v10);
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_91(uint64_t *a1, uint64_t a2, uint64_t a3)
+void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_91(uint64_t *a1, void *a2, void *a3)
 {
   v3 = a3;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v6 = +[_NSXPCStoreUtilities classesForErrorArchive];
@@ -782,7 +774,7 @@ void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_91(uint64
         {
           v10 = *(*(a1[6] + 8) + 40);
           *buf = 138412290;
-          v16 = v10;
+          v15 = v10;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Created reply dict: %@\n", buf, 0xCu);
         }
       }
@@ -794,7 +786,7 @@ void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_91(uint64
         {
           v12 = *(*(a1[6] + 8) + 40);
           *buf = 138412290;
-          v16 = v12;
+          v15 = v12;
           _os_log_impl(&dword_18565F000, v11, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Created reply dict: %@\n", buf, 0xCu);
         }
       }
@@ -813,8 +805,6 @@ void __48__NSXPCStoreConnection_sendMessage_store_error___block_invoke_91(uint64
     _NSCoreDataLog_console(v13, "Created reply dict: %@", *(*(a1[6] + 8) + 40));
     objc_autoreleasePoolPop(v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessageWithContext:(void *)context

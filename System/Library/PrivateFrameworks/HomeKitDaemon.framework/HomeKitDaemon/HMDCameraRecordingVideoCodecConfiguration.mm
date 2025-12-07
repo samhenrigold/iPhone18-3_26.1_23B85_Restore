@@ -24,11 +24,11 @@
 
 - (HMDCameraRecordingVideoCodecConfiguration)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = HMDCameraRecordingVideoCodecConfiguration;
-  v5 = [(HMDCameraRecordingVideoCodecConfiguration *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HMDCameraRecordingVideoCodecConfiguration;
+  v5 = [(HMDCameraRecordingVideoCodecConfiguration *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"VideoCodecConfigurationCodec"];
@@ -40,16 +40,15 @@
     v5->_parameters = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"VideoCodecConfigurationAttributes"];
     videoAttributes = v5->_videoAttributes;
     v5->_videoAttributes = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -98,14 +97,14 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"VideoCodecConfigurationCodec"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"VideoCodecConfigurationCodecParameters"];
   v5 = [MEMORY[0x277CFEA58] wrappertlv:3 name:@"VideoCodecConfigurationAttributes" objectCreator:&__block_literal_global_307_205871];
-  v20[0] = v3;
-  v20[1] = v4;
-  v20[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = v3;
+  v19[1] = v4;
+  v19[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v7 = [(HAPTLVBase *)self _parse:v6];
   if (v7)
   {
@@ -126,7 +125,6 @@
     self->_videoAttributes = field3;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

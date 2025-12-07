@@ -1,4 +1,5 @@
 @interface PHHandsetDialerDeleteButton
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateImageViewAlpha;
 @end
@@ -30,6 +31,14 @@
   v5 = v3;
   imageView = [(PHHandsetDialerDeleteButton *)self imageView];
   [imageView setAlpha:v5];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v4.receiver = self;
+  v4.super_class = PHHandsetDialerDeleteButton;
+  [(PHHandsetDialerDeleteButton *)&v4 setHighlighted:highlighted];
+  [(PHHandsetDialerDeleteButton *)self updateImageViewAlpha];
 }
 
 - (void)traitCollectionDidChange:(id)change

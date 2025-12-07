@@ -46,15 +46,12 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  wrappedKey = self->_wrappedKey;
-  v7 = toCopy;
   PBDataWriterWriteDataField();
   if (self->_refKeyBlob)
   {
     PBDataWriterWriteDataField();
   }
 
-  type = self->_type;
   PBDataWriterWriteUint32Field();
 }
 

@@ -148,7 +148,7 @@
   {
     v10->_type = type;
     v10->_identifier = [identifierCopy unsignedCharValue];
-    v12 = [nameCopy copy];
+    v12 = objc_msgSend_copy(nameCopy);
     name = v11->_name;
     v11->_name = v12;
   }

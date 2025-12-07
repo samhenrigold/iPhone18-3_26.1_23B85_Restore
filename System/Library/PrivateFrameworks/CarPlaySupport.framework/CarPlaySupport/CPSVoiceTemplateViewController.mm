@@ -58,99 +58,99 @@
 
 - (void)_viewDidLoad
 {
-  v44[4] = *MEMORY[0x277D85DE8];
+  v49[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v42 = a2;
-  v41.receiver = self;
-  v41.super_class = CPSVoiceTemplateViewController;
-  [(CPSBaseTemplateViewController *)&v41 _viewDidLoad];
+  v47 = a2;
+  v46.receiver = self;
+  v46.super_class = CPSVoiceTemplateViewController;
+  [(CPSBaseTemplateViewController *)&v46 _viewDidLoad];
   tableBackgroundColor = [MEMORY[0x277D75348] tableBackgroundColor];
   view = [(CPSVoiceTemplateViewController *)selfCopy view];
   [view setBackgroundColor:tableBackgroundColor];
   MEMORY[0x277D82BD8](view);
-  MEMORY[0x277D82BD8](tableBackgroundColor);
+  *&v2 = MEMORY[0x277D82BD8](tableBackgroundColor).n128_u64[0];
   view2 = [(CPSVoiceTemplateViewController *)selfCopy view];
   titleView = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   [view2 addSubview:?];
   MEMORY[0x277D82BD8](titleView);
-  MEMORY[0x277D82BD8](view2);
+  *&v3 = MEMORY[0x277D82BD8](view2).n128_u64[0];
   titleView2 = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   imageView = [(CPSVoiceView *)titleView2 imageView];
   [(UIImageView *)imageView sizeToFit];
   MEMORY[0x277D82BD8](imageView);
-  MEMORY[0x277D82BD8](titleView2);
-  v9 = MEMORY[0x277CCAAD0];
+  *&v4 = MEMORY[0x277D82BD8](titleView2).n128_u64[0];
+  v14 = MEMORY[0x277CCAAD0];
   titleView3 = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   topAnchor = [(CPSVoiceView *)titleView3 topAnchor];
   view3 = [(CPSVoiceTemplateViewController *)selfCopy view];
   safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v29 = [topAnchor constraintEqualToAnchor:?];
-  v44[0] = v29;
+  v34 = [topAnchor constraintEqualToAnchor:?];
+  v49[0] = v34;
   titleView4 = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   leadingAnchor = [(CPSVoiceView *)titleView4 leadingAnchor];
   view4 = [(CPSVoiceTemplateViewController *)selfCopy view];
   safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
-  v23 = [leadingAnchor constraintEqualToAnchor:?];
-  v44[1] = v23;
+  v28 = [leadingAnchor constraintEqualToAnchor:?];
+  v49[1] = v28;
   titleView5 = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   trailingAnchor = [(CPSVoiceView *)titleView5 trailingAnchor];
   view5 = [(CPSVoiceTemplateViewController *)selfCopy view];
   safeAreaLayoutGuide3 = [view5 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
-  v17 = [trailingAnchor constraintEqualToAnchor:?];
-  v44[2] = v17;
+  v22 = [trailingAnchor constraintEqualToAnchor:?];
+  v49[2] = v22;
   titleView6 = [(CPSVoiceTemplateViewController *)selfCopy titleView];
   bottomAnchor = [(CPSVoiceView *)titleView6 bottomAnchor];
   view6 = [(CPSVoiceTemplateViewController *)selfCopy view];
   safeAreaLayoutGuide4 = [view6 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide4 bottomAnchor];
-  v11 = [bottomAnchor constraintEqualToAnchor:?];
-  v44[3] = v11;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
-  [v9 activateConstraints:?];
-  MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
+  v16 = [bottomAnchor constraintEqualToAnchor:?];
+  v49[3] = v16;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
+  [v14 activateConstraints:?];
+  MEMORY[0x277D82BD8](v15);
+  MEMORY[0x277D82BD8](v16);
   MEMORY[0x277D82BD8](bottomAnchor2);
   MEMORY[0x277D82BD8](safeAreaLayoutGuide4);
   MEMORY[0x277D82BD8](view6);
   MEMORY[0x277D82BD8](bottomAnchor);
   MEMORY[0x277D82BD8](titleView6);
-  MEMORY[0x277D82BD8](v17);
+  MEMORY[0x277D82BD8](v22);
   MEMORY[0x277D82BD8](trailingAnchor2);
   MEMORY[0x277D82BD8](safeAreaLayoutGuide3);
   MEMORY[0x277D82BD8](view5);
   MEMORY[0x277D82BD8](trailingAnchor);
   MEMORY[0x277D82BD8](titleView5);
-  MEMORY[0x277D82BD8](v23);
+  MEMORY[0x277D82BD8](v28);
   MEMORY[0x277D82BD8](leadingAnchor2);
   MEMORY[0x277D82BD8](safeAreaLayoutGuide2);
   MEMORY[0x277D82BD8](view4);
   MEMORY[0x277D82BD8](leadingAnchor);
   MEMORY[0x277D82BD8](titleView4);
-  MEMORY[0x277D82BD8](v29);
+  MEMORY[0x277D82BD8](v34);
   MEMORY[0x277D82BD8](topAnchor2);
   MEMORY[0x277D82BD8](safeAreaLayoutGuide);
   MEMORY[0x277D82BD8](view3);
   MEMORY[0x277D82BD8](topAnchor);
   MEMORY[0x277D82BD8](titleView3);
-  v2 = objc_alloc(MEMORY[0x277D751E0]);
-  v36 = [v2 initWithBarButtonSystemItem:1 target:selfCopy action:sel__dismissTemplateViewController];
+  v5 = objc_alloc(MEMORY[0x277D751E0]);
+  v41 = [v5 initWithBarButtonSystemItem:1 target:selfCopy action:sel__dismissTemplateViewController];
   navigationItem = [(CPSVoiceTemplateViewController *)selfCopy navigationItem];
-  [navigationItem setLeftBarButtonItem:v36];
+  [navigationItem setLeftBarButtonItem:v41];
   MEMORY[0x277D82BD8](navigationItem);
-  MEMORY[0x277D82BD8](v36);
+  *&v6 = MEMORY[0x277D82BD8](v41).n128_u64[0];
   voiceTemplate = [(CPSVoiceTemplateViewController *)selfCopy voiceTemplate];
   voiceControlStates = [voiceTemplate voiceControlStates];
   firstObject = [voiceControlStates firstObject];
   location = [firstObject identifier];
   MEMORY[0x277D82BD8](firstObject);
   MEMORY[0x277D82BD8](voiceControlStates);
-  MEMORY[0x277D82BD8](voiceTemplate);
+  *&v7 = MEMORY[0x277D82BD8](voiceTemplate).n128_u64[0];
   if (location)
   {
-    [(CPSVoiceTemplateViewController *)selfCopy _activateStateWithIdentifier:location];
+    [(CPSVoiceTemplateViewController *)selfCopy _activateStateWithIdentifier:location, v7];
   }
 
   objc_storeStrong(&location, 0);
@@ -159,21 +159,21 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  v9 = a2;
+  v10 = a2;
   appearCopy = appear;
-  v7.receiver = self;
-  v7.super_class = CPSVoiceTemplateViewController;
-  [(CPSBaseTemplateViewController *)&v7 viewDidAppear:appear];
+  v8.receiver = self;
+  v8.super_class = CPSVoiceTemplateViewController;
+  [(CPSBaseTemplateViewController *)&v8 viewDidAppear:appear];
   v3 = objc_alloc(MEMORY[0x277D75B80]);
-  v6 = [v3 initWithTarget:selfCopy action:sel__backGestureFired_];
-  [v6 setAllowedPressTypes:&unk_2855C4F28];
+  v7 = [v3 initWithTarget:selfCopy action:sel__backGestureFired_];
+  [v7 setAllowedPressTypes:&unk_2855C4F28];
   navigationController = [(CPSVoiceTemplateViewController *)selfCopy navigationController];
   view = [navigationController view];
-  [view addGestureRecognizer:v6];
+  [view addGestureRecognizer:v7];
   MEMORY[0x277D82BD8](view);
-  MEMORY[0x277D82BD8](navigationController);
-  [(CPSVoiceTemplateViewController *)selfCopy setBackGestureRecognizer:v6];
-  objc_storeStrong(&v6, 0);
+  *&v4 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
+  [(CPSVoiceTemplateViewController *)selfCopy setBackGestureRecognizer:v7, v4];
+  objc_storeStrong(&v7, 0);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -228,35 +228,35 @@
   objc_storeStrong(location, identifier);
   voiceTemplate = [(CPSVoiceTemplateViewController *)selfCopy voiceTemplate];
   voiceControlStates = [voiceTemplate voiceControlStates];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = -1073741824;
-  v12 = 0;
-  v13 = __55__CPSVoiceTemplateViewController__stateWithIdentifier___block_invoke;
-  v14 = &unk_278D910B0;
-  v15 = MEMORY[0x277D82BE0](location[0]);
-  v9 = [voiceControlStates indexOfObjectPassingTest:&v10];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = -1073741824;
+  v13 = 0;
+  v14 = __55__CPSVoiceTemplateViewController__stateWithIdentifier___block_invoke;
+  v15 = &unk_278D910B0;
+  v16 = MEMORY[0x277D82BE0](location[0]);
+  v10 = [voiceControlStates indexOfObjectPassingTest:&v11];
   MEMORY[0x277D82BD8](voiceControlStates);
-  MEMORY[0x277D82BD8](voiceTemplate);
-  v16 = v9;
-  if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+  *&v3 = MEMORY[0x277D82BD8](voiceTemplate).n128_u64[0];
+  v17 = v10;
+  if (v10 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
     voiceTemplate2 = [(CPSVoiceTemplateViewController *)selfCopy voiceTemplate];
     voiceControlStates2 = [voiceTemplate2 voiceControlStates];
-    v19 = [voiceControlStates2 objectAtIndexedSubscript:v16];
+    v20 = [voiceControlStates2 objectAtIndexedSubscript:v17];
     MEMORY[0x277D82BD8](voiceControlStates2);
     MEMORY[0x277D82BD8](voiceTemplate2);
   }
 
-  objc_storeStrong(&v15, 0);
+  objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  v3 = v19;
+  v4 = v20;
 
-  return v3;
+  return v4;
 }
 
 uint64_t __55__CPSVoiceTemplateViewController__stateWithIdentifier___block_invoke(void *a1, void *a2)
@@ -312,14 +312,12 @@ void __63__CPSVoiceTemplateViewController__activateStateWithIdentifier___block_i
       [v5 setTextVariants:?];
       MEMORY[0x277D82BD8](v4);
       MEMORY[0x277D82BD8](v5);
-      MEMORY[0x277D82BD8](v6);
       v9 = [*(a1 + 32) titleView];
       v8 = [v9 imageView];
       v7 = [location[0] image];
       [v8 setImage:?];
       MEMORY[0x277D82BD8](v7);
       MEMORY[0x277D82BD8](v8);
-      MEMORY[0x277D82BD8](v9);
       v11 = [*(a1 + 32) titleView];
       v10 = [v11 imageView];
       [v10 setAnimationRepeatCount:{(objc_msgSend(location[0], "repeats") & 1) == 0}];

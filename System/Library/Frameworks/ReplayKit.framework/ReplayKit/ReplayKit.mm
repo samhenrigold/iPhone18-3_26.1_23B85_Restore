@@ -1,6 +1,6 @@
-void sub_23A86507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A86507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -13,18 +13,20 @@ void sub_23A865454(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23A865B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_23A865B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  objc_destroyWeak((v29 + 48));
-  objc_destroyWeak((v30 - 128));
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  objc_destroyWeak((v28 + 48));
+  objc_destroyWeak((v29 - 128));
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 char *RPStringUtility_FourccToCStr(int a1)
@@ -49,13 +51,14 @@ uint64_t RPLogSetLogLevel(uint64_t result)
   return result;
 }
 
-void sub_23A871860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23A871860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -66,10 +69,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void handleInputBuffer(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
@@ -112,13 +116,14 @@ void handleInputBuffer(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, 
   dispatch_async(v15, block);
 }
 
-void isRunningListenerCallback(void *a1, OpaqueAudioQueue *a2, int a3)
+void isRunningListenerCallback(void *a1, OpaqueAudioQueue *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a1;
   ioDataSize = 4;
   outData = 0;
-  if (a3 == 1634824814)
+  if (v3 == 1634824814)
   {
     if (AudioQueueGetProperty(a2, 0x6171726Eu, &outData, &ioDataSize))
     {
@@ -133,11 +138,11 @@ void isRunningListenerCallback(void *a1, OpaqueAudioQueue *a2, int a3)
       if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446722;
-        v15 = "isRunningListenerCallback";
-        v16 = 1024;
-        v17 = 263;
-        v18 = 1024;
-        v19 = outData;
+        v14 = "isRunningListenerCallback";
+        v15 = 1024;
+        v16 = 263;
+        v17 = 1024;
+        v18 = outData;
         _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAppAudioCaptureManager: isRunningListenerCallback with isRunning %d", buf, 0x18u);
       }
 
@@ -147,8 +152,8 @@ void isRunningListenerCallback(void *a1, OpaqueAudioQueue *a2, int a3)
       block[2] = __isRunningListenerCallback_block_invoke;
       block[3] = &unk_278B620C8;
       v7 = v5;
-      v10 = v7;
-      v11 = outData;
+      v9 = v7;
+      v10 = outData;
       dispatch_async(v6, block);
       AudioQueueRemovePropertyListener(*v7[4], 0x6171726Eu, isRunningListenerCallback, v7);
     }
@@ -158,8 +163,6 @@ void isRunningListenerCallback(void *a1, OpaqueAudioQueue *a2, int a3)
   {
     isRunningListenerCallback_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id __copy_helper_block_e8_56n11_8_8_t0w8_s8(uint64_t a1, uint64_t a2)
@@ -170,24 +173,24 @@ id __copy_helper_block_e8_56n11_8_8_t0w8_s8(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void __handleInputBuffer_block_invoke(uint64_t a1)
+void __handleInputBuffer_block_invoke(uint64_t result)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v35 = *MEMORY[0x277D85DE8];
+  v1 = *(result + 32);
   if (!*(v1 + 32))
   {
-    goto LABEL_51;
+    return;
   }
 
-  v4 = (a1 + 56);
-  v3 = *(a1 + 56);
-  v5 = *(a1 + 64);
+  v4 = (result + 56);
+  v3 = *(result + 56);
+  v5 = *(result + 64);
   *time1 = *(v1 + 136);
   *&time1[16] = *(v1 + 152);
   time2 = **&MEMORY[0x277CC0898];
   if (CMTimeCompare(time1, &time2))
   {
-    v6 = *(a1 + 32);
+    v6 = *(result + 32);
     if (*(v6 + 136) >= v3)
     {
       if (__RPLogLevel <= 2)
@@ -197,10 +200,10 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
           __handleInputBuffer_block_invoke_cold_1(v3, v5);
         }
 
-        v6 = *(a1 + 32);
+        v6 = *(result + 32);
       }
 
-      if (AudioQueueEnqueueBuffer(**(v6 + 32), *(a1 + 40), 0, 0))
+      if (AudioQueueEnqueueBuffer(**(v6 + 32), *(result + 40), 0, 0))
       {
         v7 = __RPLogLevel > 2;
       }
@@ -215,7 +218,7 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
         __handleInputBuffer_block_invoke_cold_2();
       }
 
-      goto LABEL_51;
+      return;
     }
   }
 
@@ -230,19 +233,19 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAppAudioCaptureManager: first sample received at time %.3f", time1, 0x1Cu);
   }
 
-  v8 = *(a1 + 32);
+  v8 = *(result + 32);
   v9 = *v4;
   *(v8 + 152) = *(v4 + 2);
   *(v8 + 136) = v9;
-  v10 = *(a1 + 32);
+  v10 = *(result + 32);
   if (*(v10 + 40) == 1)
   {
     *(v10 + 40) = 0;
-    v10 = *(a1 + 32);
+    v10 = *(result + 32);
     if (*(v10 + 48))
     {
       v11 = [MEMORY[0x277CBEAA8] date];
-      [v11 timeIntervalSinceDate:*(*(a1 + 32) + 48)];
+      [v11 timeIntervalSinceDate:*(*(result + 32) + 48)];
       if (v12 > 0.0)
       {
         v13 = v12;
@@ -255,35 +258,35 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
           _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAppAudioCaptureManager: gap since last audio tap, filling with empty sample buffer", time1, 0x12u);
         }
 
-        v14 = *(*(a1 + 32) + 32);
+        v14 = *(*(result + 32) + 32);
         time2 = **&MEMORY[0x277CC08F0];
         v15 = *(v14 + 8);
         v16 = *(v14 + 24);
-        v35 = *(v14 + 40);
+        v34 = *(v14 + 40);
         *time1 = v15;
         *&time1[16] = v16;
         v17 = RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval(&time2, time1, v13);
-        (*(*(*(a1 + 32) + 16) + 16))();
+        (*(*(*(result + 32) + 16) + 16))();
         if (v17)
         {
           CFRelease(v17);
         }
       }
 
-      v10 = *(a1 + 32);
+      v10 = *(result + 32);
     }
   }
 
   v18 = *(v10 + 32);
   if (*(v18 + 152) == 2)
   {
-    v19 = *(a1 + 80);
+    v19 = *(result + 80);
     if (!v19)
     {
       v20 = *(v18 + 24);
       if (v20)
       {
-        v19 = *(*(a1 + 40) + 16) / v20;
+        v19 = *(*(result + 40) + 16) / v20;
       }
 
       else
@@ -298,11 +301,11 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
     v21 = *MEMORY[0x277CBECE8];
     if (!CMAudioFormatDescriptionCreate(*MEMORY[0x277CBECE8], (v18 + 8), 0, 0, 0, 0, 0, &formatDescriptionOut))
     {
-      v22 = *(*(a1 + 40) + 16);
-      if (!CMBlockBufferCreateWithMemoryBlock(v21, 0, v22, v21, 0, 0, v22, 1u, &destinationBuffer) && !CMBlockBufferReplaceDataBytes(*(*(a1 + 40) + 8), destinationBuffer, 0, *(*(a1 + 40) + 16)))
+      v22 = *(*(result + 40) + 16);
+      if (!CMBlockBufferCreateWithMemoryBlock(v21, 0, v22, v21, 0, 0, v22, 1u, &destinationBuffer) && !CMBlockBufferReplaceDataBytes(*(*(result + 40) + 8), destinationBuffer, 0, *(*(result + 40) + 16)))
       {
-        v23 = *(a1 + 80);
-        v24 = *(a1 + 48);
+        v23 = *(result + 80);
+        v24 = *(result + 48);
         *time1 = *v4;
         *&time1[16] = *(v4 + 2);
         if (!CMAudioSampleBufferCreateReadyWithPacketDescriptions(v21, destinationBuffer, formatDescriptionOut, v23, time1, v24, &time2))
@@ -310,11 +313,11 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
           v25 = [MEMORY[0x277CBEAA8] date];
           CMSampleBufferGetDuration(time1, time2.value);
           v26 = [v25 dateByAddingTimeInterval:CMTimeGetSeconds(time1)];
-          v27 = *(a1 + 32);
+          v27 = *(result + 32);
           v28 = *(v27 + 48);
           *(v27 + 48) = v26;
 
-          v29 = *(*(a1 + 32) + 16);
+          v29 = *(*(result + 32) + 16);
           if (v29)
           {
             (*(v29 + 16))(v29, time2.value);
@@ -338,7 +341,7 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
       CFRelease(formatDescriptionOut);
     }
 
-    *(*(*(a1 + 32) + 32) + 144) += v19;
+    *(*(*(result + 32) + 32) + 144) += v19;
   }
 
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -350,13 +353,10 @@ void __handleInputBuffer_block_invoke(uint64_t a1)
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d RPAppAudioCaptureManager: recorder is not running, ignoring audio data", time1, 0x12u);
   }
 
-  if (AudioQueueEnqueueBuffer(**(*(a1 + 32) + 32), *(a1 + 40), 0, 0) && __RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (AudioQueueEnqueueBuffer(**(*(result + 32) + 32), *(result + 40), 0, 0) && __RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     __handleInputBuffer_block_invoke_cold_3();
   }
-
-LABEL_51:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __isRunningListenerCallback_block_invoke(uint64_t result)
@@ -496,12 +496,12 @@ CMSampleBufferRef RPSampleBufferUtilities_CopySampleBufferFromSourceBuffer(opaqu
 
 CVPixelBufferRef RPSampleBufferUtilities_CreateBlankPixelBuffer(size_t a1, size_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   pixelBuffer = 0;
   v3 = *MEMORY[0x277CBECE8];
-  v9 = *MEMORY[0x277CC4DE8];
-  v10[0] = MEMORY[0x277CBEC10];
-  if (CVPixelBufferCreate(v3, a1, a2, 0x42475241u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1], &pixelBuffer))
+  v8 = *MEMORY[0x277CC4DE8];
+  v9[0] = MEMORY[0x277CBEC10];
+  if (CVPixelBufferCreate(v3, a1, a2, 0x42475241u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1], &pixelBuffer))
   {
     RPSampleBufferUtilities_CreateBlankPixelBuffer_cold_1();
   }
@@ -519,9 +519,7 @@ CVPixelBufferRef RPSampleBufferUtilities_CreateBlankPixelBuffer(size_t a1, size_
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
   }
 
-  result = pixelBuffer;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return pixelBuffer;
 }
 
 float RPSampleBufferUtilities_getContentHeadroom(opaqueCMSampleBuffer *a1)
@@ -845,12 +843,12 @@ double RPSampleBufferUtilities_SecondsPresentationTimeForSample(opaqueCMSampleBu
 
 uint64_t RPSampleBufferUtilities_CreateCGImageFromIOSurface(__IOSurface *a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (IOSurfaceGetPixelFormat(a1) == 1380411457)
   {
-    v14 = *MEMORY[0x277CD2CC8];
-    v15[0] = &unk_284D7D428;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CD2CC8];
+    v14[0] = &unk_284D7D428;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v3 = CGImageCreateFromIOSurface();
   }
 
@@ -877,7 +875,6 @@ uint64_t RPSampleBufferUtilities_CreateCGImageFromIOSurface(__IOSurface *a1)
     CGColorSpaceRelease(DeviceRGB);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -890,22 +887,21 @@ void RPSampleBufferUtilities_releaseIOSurface(__IOSurface *a1)
 
 uint64_t showReactionsTip(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "showReactionsTip";
-    v11 = 1024;
-    v12 = 14;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
+    v8 = 136446466;
+    v9 = "showReactionsTip";
+    v10 = 1024;
+    v11 = 14;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v8, 0x12u);
   }
 
   v5 = +[RPControlCenterAngelProxy sharedInstance];
   v6 = [v5 showReactionsTipForApplication:v3 bundleID:v4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -931,9 +927,9 @@ void sub_23A8863DC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23A88F490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A88F490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -952,26 +948,21 @@ void handleInputBuffer_cold_1(uint64_t a1, int a2)
   OUTLINED_FUNCTION_4(v2, v3);
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void isRunningListenerCallback_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void isRunningListenerCallback_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __handleInputBuffer_block_invoke_cold_1(uint64_t a1, int a2)
@@ -981,83 +972,68 @@ void __handleInputBuffer_block_invoke_cold_1(uint64_t a1, int a2)
   OUTLINED_FUNCTION_4(v2, v3);
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __handleInputBuffer_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __handleInputBuffer_block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateSampleBufferWithPixelBuffer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CopySampleBufferFromSourceBuffer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
   }
 
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateBlankPixelBuffer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateDecodeAudioSampleBuffer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_1(uint64_t a1, CFTypeRef *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x18u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x18u);
   }
 
   if (*a2)
@@ -1066,117 +1042,105 @@ void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_1
   }
 
   OUTLINED_FUNCTION_4_0();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
   }
 
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_5(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v6, v7, v8, v9, v10, 0x18u);
+    _os_log_error_impl(v5, v6, v7, v8, v9, 0x18u);
   }
 
   *a3 = a2;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateEmptyAudioSampleBufferWithTimeInterval_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
   }
 
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateAudioSampleBuffer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateAudioSampleBuffer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void RPSampleBufferUtilities_CreateAudioSampleBuffer_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
   }
+}
 
-  v0 = *MEMORY[0x277D85DE8];
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

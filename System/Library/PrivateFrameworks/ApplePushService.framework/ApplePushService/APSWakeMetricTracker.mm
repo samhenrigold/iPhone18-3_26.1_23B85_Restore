@@ -103,7 +103,7 @@ LABEL_9:
   metricSubmitTimer = self->_metricSubmitTimer;
   self->_metricSubmitTimer = v8;
 
-  _objc_release_x1();
+  _objc_release_x1(v8, metricSubmitTimer);
 }
 
 - (void)noteDidConnect

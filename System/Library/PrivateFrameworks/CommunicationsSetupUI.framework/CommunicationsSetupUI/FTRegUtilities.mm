@@ -68,36 +68,36 @@
 
 + (void)changePasswordControllerDidFinish:(id)finish withAppleID:(id)d authID:(id)iD authToken:(id)token
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   dCopy = d;
   iDCopy = iD;
   tokenCopy = token;
   if ([iDCopy length] && objc_msgSend(tokenCopy, "length"))
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v24 = finishCopy;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v23 = finishCopy;
     regController = [finishCopy regController];
     appleIDAccounts = [regController appleIDAccounts];
 
-    v15 = [appleIDAccounts countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [appleIDAccounts countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(appleIDAccounts);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(*(&v24 + 1) + 8 * i);
           loginDisplayString = [v19 loginDisplayString];
           v21 = [loginDisplayString isEqualToString:dCopy];
 
@@ -107,19 +107,17 @@
           }
         }
 
-        v16 = [appleIDAccounts countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [appleIDAccounts countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v16);
     }
 
-    finishCopy = v24;
+    finishCopy = v23;
   }
 
   presentingViewController = [finishCopy presentingViewController];
   [presentingViewController dismissViewControllerAnimated:1 completion:0];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)authorizationController:(id)controller authorizedAccount:(BOOL)account

@@ -65,7 +65,7 @@
 
 - (void)_updateObfuscationText
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
   v4 = [v3 _mapkit_fontWithWeight:*MEMORY[0x1E69DB980]];
 
@@ -74,11 +74,11 @@
   if ([providerName length])
   {
     selfCopy = self;
-    v22 = *MEMORY[0x1E69DB648];
-    v23[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v20 = _MULocalizedStringFromThisBundle(@"View on %@ %@");
-    v8 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v20 attributes:v7];
+    v21 = *MEMORY[0x1E69DB648];
+    v22[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v19 = _MULocalizedStringFromThisBundle(@"View on %@ %@");
+    v8 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v19 attributes:v7];
     v9 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:providerName attributes:v7];
     v10 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
     v11 = [MEMORY[0x1E69DCAD8] configurationWithFont:v6 scale:1];
@@ -107,8 +107,6 @@
 
   obfuscationView = [(MUPlacePhotoView *)self obfuscationView];
   [obfuscationView setAttributedText:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateObfuscationWithPreviousModel:(id)model
@@ -250,15 +248,15 @@ void __29__MUPlacePhotoView_setImage___block_invoke(uint64_t a1)
 
 - (MUPlacePhotoView)initWithImage:(id)image
 {
-  v39[6] = *MEMORY[0x1E69E9840];
+  v38[6] = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  v37.receiver = self;
-  v37.super_class = MUPlacePhotoView;
-  v6 = [(MUPlacePhotoView *)&v37 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v36.receiver = self;
+  v36.super_class = MUPlacePhotoView;
+  v6 = [(MUPlacePhotoView *)&v36 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v6)
   {
     [MEMORY[0x1E69DC888] clearColor];
-    v7 = v36 = imageCopy;
+    v7 = v35 = imageCopy;
     [(MUPlacePhotoView *)v6 setBackgroundColor:v7];
 
     [(MUPlacePhotoView *)v6 setUserInteractionEnabled:1];
@@ -285,43 +283,42 @@ void __29__MUPlacePhotoView_setImage___block_invoke(uint64_t a1)
     [(UIImageView *)v6->_imageView setUserInteractionEnabled:1];
     [(UIImageView *)v6->_imageView setAccessibilityIdentifier:@"ImageView"];
     [(MUPlacePhotoView *)v6 addSubview:v6->_imageView];
-    v28 = MEMORY[0x1E696ACD8];
+    v27 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIImageView *)v6->_imageView leadingAnchor];
     leadingAnchor2 = [(MUPlacePhotoView *)v6 leadingAnchor];
-    v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v39[0] = v33;
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v38[0] = v32;
     trailingAnchor = [(UIImageView *)v6->_imageView trailingAnchor];
     trailingAnchor2 = [(MUPlacePhotoView *)v6 trailingAnchor];
-    v30 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v39[1] = v30;
+    v29 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v38[1] = v29;
     topAnchor = [(UIImageView *)v6->_imageView topAnchor];
     topAnchor2 = [(MUPlacePhotoView *)v6 topAnchor];
-    v26 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v39[2] = v26;
+    v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v38[2] = v25;
     bottomAnchor = [(UIImageView *)v6->_imageView bottomAnchor];
     bottomAnchor2 = [(MUPlacePhotoView *)v6 bottomAnchor];
     v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v39[3] = v12;
+    v38[3] = v12;
     heightAnchor = [(UIImageView *)v6->_imageView heightAnchor];
     heightAnchor2 = [(MUPlacePhotoView *)v6 heightAnchor];
     v15 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v39[4] = v15;
+    v38[4] = v15;
     widthAnchor = [(UIImageView *)v6->_imageView widthAnchor];
     widthAnchor2 = [(MUPlacePhotoView *)v6 widthAnchor];
     v18 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v39[5] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:6];
-    [v28 activateConstraints:v19];
+    v38[5] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:6];
+    [v27 activateConstraints:v19];
 
     v20 = objc_opt_self();
-    v38 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+    v37 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
     v22 = [(MUPlacePhotoView *)v6 registerForTraitChanges:v21 withAction:sel__updateObfuscationText];
 
-    imageCopy = v36;
+    imageCopy = v35;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

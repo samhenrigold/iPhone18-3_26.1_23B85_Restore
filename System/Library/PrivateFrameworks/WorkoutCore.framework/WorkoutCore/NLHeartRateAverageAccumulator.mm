@@ -26,21 +26,19 @@
 
 - ($B42DDA7905377C1B85A751F444708923)heartRateData
 {
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for HeartRateAverageAccumulator();
-  v4 = v12.receiver;
-  [($B42DDA7905377C1B85A751F444708923 *)&v12 heartRateData];
-  v5 = OBJC_IVAR___NLHeartRateAverageAccumulator_currentAverageAccumulator;
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for HeartRateAverageAccumulator();
+  v4 = v10.receiver;
+  [($B42DDA7905377C1B85A751F444708923 *)&v10 heartRateData];
   swift_beginAccess();
-  v6 = *&v4[v5];
 
   static Date.timeIntervalSinceReferenceDate.getter();
-  v8 = WindowedDiscreteAccumulator.cachedAverage(now:)(v7);
+  v6 = WindowedDiscreteAccumulator.cachedAverage(now:)(v5);
 
-  retstr->var0 = v8;
+  retstr->var0 = v6;
   retstr->var1 = 1;
-  *&retstr->var2 = v10;
-  *&retstr->var4 = v11;
+  *&retstr->var2 = v8;
+  *&retstr->var4 = v9;
   return result;
 }
 

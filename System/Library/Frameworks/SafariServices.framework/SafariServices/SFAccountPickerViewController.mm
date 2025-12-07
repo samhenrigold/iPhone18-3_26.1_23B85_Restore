@@ -86,7 +86,7 @@
       currentWebFrameIdentifierForAutoFillPasskeys = [configurationCopy currentWebFrameIdentifierForAutoFillPasskeys];
       if (configurationCopy)
       {
-        [configurationCopy connectedAppAuditToken];
+        objc_msgSend_connectedAppAuditToken(configurationCopy);
       }
 
       else

@@ -36,8 +36,8 @@
   certificate = [(MTRTLSCertificateManagementClusterTLSCertStruct *)self certificate];
   [(MTRTLSCertificateManagementClusterTLSCertStruct *)v4 setCertificate:certificate];
 
-  fabricIndex = [(MTRTLSCertificateManagementClusterTLSCertStruct *)self fabricIndex];
-  [(MTRTLSCertificateManagementClusterTLSCertStruct *)v4 setFabricIndex:fabricIndex];
+  v7 = objc_msgSend_fabricIndex(self);
+  [(MTRTLSCertificateManagementClusterTLSCertStruct *)v4 setFabricIndex:v7];
 
   return v4;
 }

@@ -1,6 +1,7 @@
 @interface ASItemOperationsTask
 - (ASItemOperationsTask)init;
 - (BOOL)getTopLevelToken:(char *)token outStatusCodePage:(char *)page outStatusToken:(char *)statusToken;
+- (BOOL)handleStreamOperation:(int)operation forCodePage:(int)page tag:(int)tag withParentItem:(id)item withData:(char *)data dataLength:(int)length;
 - (BOOL)processContext:(id)context;
 - (id)replacementObjectForEmailItem:(id)item;
 - (id)requestBody;
@@ -67,7 +68,7 @@
 
 - (id)requestBody
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   taskManager = [(ASTask *)self taskManager];
   protocol = [taskManager protocol];
 
@@ -76,30 +77,30 @@
     [(ASItemOperationsTask *)a2 requestBody];
   }
 
-  v23 = protocol;
+  v22 = protocol;
   v6 = objc_opt_new();
   [v6 switchToCodePage:20];
   [v6 openTag:5];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = self->_commands;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         [v6 switchToCodePage:20];
         [v6 openTag:6];
         [v6 appendTag:7 withStringContent:@"Mailbox"];
@@ -146,7 +147,7 @@
         [v6 closeTag:6];
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -155,18 +156,80 @@
   [v6 closeTag:5];
   data = [v6 data];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return data;
+}
+
+- (BOOL)handleStreamOperation:(int)operation forCodePage:(int)page tag:(int)tag withParentItem:(id)item withData:(char *)data dataLength:(int)length
+{
+  v10 = *&tag;
+  v11 = *&page;
+  v12 = *&operation;
+  itemCopy = item;
+  v15 = itemCopy;
+  if (v11 == 17)
+  {
+    parent = [itemCopy parent];
+    v18Parent = [parent parent];
+
+    parent2 = [v15 parent];
+    goto LABEL_5;
+  }
+
+  if (v11 == 2)
+  {
+    v18Parent = [itemCopy parent];
+    parent2 = v15;
+LABEL_5:
+    v19 = parent2;
+    goto LABEL_7;
+  }
+
+  v19 = 0;
+  v18Parent = 0;
+LABEL_7:
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    if (!v12)
+    {
+      [v15 applyPlaceHolder];
+      if (v19 != v15)
+      {
+        commonValue = [v15 commonValue];
+        if (commonValue)
+        {
+          [v19 setObject:commonValue forDCCPT:4362];
+        }
+
+        [v19 applyPlaceHolder];
+      }
+
+      commonValue2 = [v19 commonValue];
+      [v18Parent setApplicationData:commonValue2];
+
+      [v18Parent processAppDataForStream];
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->super._delegate);
+    LODWORD(v25) = length;
+    v23 = [WeakRetained itemOperationsTask:self handleStreamOperation:v12 forCodePage:v11 tag:v10 withParentItem:v18Parent withData:data dataLength:v25];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 - (id)replacementObjectForEmailItem:(id)item
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   WeakRetained = objc_loadWeakRetained(&self->super._delegate);
-  v11[0] = itemCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = itemCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [WeakRetained itemOperationsTask:self hasPartialResponses:v6];
 
   v8 = itemCopy;
@@ -176,8 +239,6 @@
     v8 = 0;
     ++self->_numReplacedItems;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -192,7 +253,7 @@
 
 - (BOOL)processContext:(id)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -216,29 +277,29 @@ LABEL_4:
       goto LABEL_16;
     }
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __39__ASItemOperationsTask_processContext___block_invoke;
-    v32[3] = &unk_278FC7D20;
-    v32[4] = self;
-    v8 = MEMORY[0x24C2119B0](v32);
-    v35 = @"ASItemOperationsResponse.ASArray.ASItemOperationsFetchResult";
-    v9 = MEMORY[0x24C2119B0]();
-    v36 = v9;
-    v10 = 1;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-
     v31[0] = MEMORY[0x277D85DD0];
     v31[1] = 3221225472;
-    v31[2] = __39__ASItemOperationsTask_processContext___block_invoke_2;
-    v31[3] = &unk_278FC7D98;
+    v31[2] = __39__ASItemOperationsTask_processContext___block_invoke;
+    v31[3] = &unk_278FC7D20;
     v31[4] = self;
-    v12 = MEMORY[0x24C2119B0](v31);
+    v8 = MEMORY[0x24C2119B0](v31);
+    v34 = @"ASItemOperationsResponse.ASArray.ASItemOperationsFetchResult";
+    v9 = MEMORY[0x24C2119B0]();
+    v35 = v9;
+    v10 = 1;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __39__ASItemOperationsTask_processContext___block_invoke_2;
+    v30[3] = &unk_278FC7D98;
+    v30[4] = self;
+    v12 = MEMORY[0x24C2119B0](v30);
     69899 = [MEMORY[0x277CCACA8] stringWithFormat:@"ASItemOperationsResponse.ASArray.ASItemOperationsFetchResult.ASDictionary.ASDictionary.%d", 69899];
-    v33 = 69899;
+    v32 = 69899;
     v14 = MEMORY[0x24C2119B0](v12);
-    v34 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v33 = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
 
     currentlyParsingItem3 = [(ASTask *)self currentlyParsingItem];
     taskManager = [(ASTask *)self taskManager];
@@ -310,13 +371,13 @@ LABEL_17:
 
   v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to item operations code page"];
   v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASItemOperationsTask.m", 190, objc_msgSend(contextCopy, "curOffset")];
-  v30 = DALoggingwithCategory();
+  v29 = DALoggingwithCategory();
   v24 = *(MEMORY[0x277D03988] + 3);
-  if (os_log_type_enabled(v30, v24))
+  if (os_log_type_enabled(v29, v24))
   {
     *buf = 134217984;
     curOffset = [contextCopy curOffset];
-    _os_log_impl(&dword_24A0AC000, v30, v24, "Failure at index %lld:", buf, 0xCu);
+    _os_log_impl(&dword_24A0AC000, v29, v24, "Failure at index %lld:", buf, 0xCu);
   }
 
   v25 = DALoggingwithCategory();
@@ -336,13 +397,12 @@ LABEL_16:
   v27 = parseErrorReason == 0;
 
 LABEL_18:
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (void)finishWithError:(id)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (!errorCopy)
@@ -358,11 +418,11 @@ LABEL_18:
         v14 = objc_opt_class();
         numReplacedItems = self->_numReplacedItems;
         *buf = 138412802;
-        v33 = v14;
-        v34 = 2112;
-        v35 = v8;
-        v36 = 1024;
-        v37 = numReplacedItems;
+        v32 = v14;
+        v33 = 2112;
+        v34 = v8;
+        v35 = 1024;
+        v36 = numReplacedItems;
         v16 = v14;
         _os_log_impl(&dword_24A0AC000, v12, v13, "%@ Parsed response of %@ (%d items downloaded and replaced while parsing)", buf, 0x1Cu);
       }
@@ -387,7 +447,7 @@ LABEL_18:
     if (os_log_type_enabled(v19, v20))
     {
       *buf = 134217984;
-      v33 = v6;
+      v32 = v6;
       _os_log_impl(&dword_24A0AC000, v19, v20, "ASItemOperationsTask failed with status: %ld", buf, 0xCu);
     }
 
@@ -403,10 +463,10 @@ LABEL_18:
     if (os_log_type_enabled(v7, v9))
     {
       *buf = 138412546;
-      v33 = objc_opt_class();
-      v34 = 2112;
-      v35 = errorCopy;
-      v10 = v33;
+      v32 = objc_opt_class();
+      v33 = 2112;
+      v34 = errorCopy;
+      v10 = v32;
       _os_log_impl(&dword_24A0AC000, v8, v9, "%@ failed: %@", buf, 0x16u);
     }
 
@@ -419,8 +479,8 @@ LABEL_15:
   if (os_log_type_enabled(v7, v21))
   {
     *buf = 138412290;
-    v33 = objc_opt_class();
-    v22 = v33;
+    v32 = objc_opt_class();
+    v22 = v32;
     _os_log_impl(&dword_24A0AC000, v8, v21, "%@ cancelled", buf, 0xCu);
   }
 
@@ -430,20 +490,18 @@ LABEL_19:
 
   if (![(ASTask *)self attemptRetryWithStatus:v6 error:errorCopy])
   {
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __40__ASItemOperationsTask_finishWithError___block_invoke;
-    v27 = &unk_278FC7D70;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __40__ASItemOperationsTask_finishWithError___block_invoke;
+    v26 = &unk_278FC7D70;
     selfCopy = self;
-    v31 = v6;
-    v29 = errorCopy;
-    v30 = fetchResponses;
-    [(ASTask *)self finishWithError:v29 afterDelegateCallout:&v24];
+    v30 = v6;
+    v28 = errorCopy;
+    v29 = fetchResponses;
+    [(ASTask *)self finishWithError:v28 afterDelegateCallout:&v23];
   }
 
-  [(ASTask *)self setCurrentlyParsingItem:0, v24, v25, v26, v27, selfCopy];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(ASTask *)self setCurrentlyParsingItem:0, v23, v24, v25, v26, selfCopy];
 }
 
 void __40__ASItemOperationsTask_finishWithError___block_invoke(void *a1)
@@ -454,32 +512,26 @@ void __40__ASItemOperationsTask_finishWithError___block_invoke(void *a1)
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (status >= 0x12)
+  v13 = *MEMORY[0x277D85DE8];
+  if (status < 0x12)
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    return qword_24A14DCB8[status];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    result = qword_24A14DCB8[status];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 - (void)setStreamingMailMessage:(id)message

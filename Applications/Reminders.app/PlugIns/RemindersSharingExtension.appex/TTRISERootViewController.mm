@@ -50,21 +50,19 @@ LABEL_3:
   *v7 = 0;
   v7[1] = 0;
   v8 = OBJC_IVAR____TtC25RemindersSharingExtension24TTRISERootViewController_extensionContextExtractor;
-  v16[3] = sub_10004B050();
-  v16[4] = &protocol witness table for TTRCurrentUserActivityProvider;
-  sub_10000B790(v16);
+  v13[3] = sub_10004B050();
+  v13[4] = &protocol witness table for TTRCurrentUserActivityProvider;
+  sub_10000B790(v13);
   controllerCopy = controller;
   sub_10004B040();
-  v10 = sub_10004AE40();
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
+  sub_10004AE40();
   swift_allocObject();
   *(&self->super.super.super.super.isa + v8) = sub_10004AE20();
-  v15.receiver = self;
-  v15.super_class = ObjectType;
-  v13 = [(TTRISERootViewController *)&v15 initWithRootViewController:controllerCopy];
+  v12.receiver = self;
+  v12.super_class = ObjectType;
+  v10 = [(TTRISERootViewController *)&v12 initWithRootViewController:controllerCopy];
 
-  return v13;
+  return v10;
 }
 
 - (_TtC25RemindersSharingExtension24TTRISERootViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -88,19 +86,18 @@ LABEL_3:
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss
 {
   v4 = sub_100003150(&unk_100067618, &qword_100052940);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8, v6);
-  v8 = &v13 - v7;
-  v9 = sub_10004C790();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  __chkstk_darwin(v4 - 8, v5);
+  v7 = &v12 - v6;
+  v8 = sub_10004C790();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   sub_10004C770();
   selfCopy = self;
-  v11 = sub_10004C760();
-  v12 = swift_allocObject();
-  v12[2] = v11;
-  v12[3] = &protocol witness table for MainActor;
-  v12[4] = selfCopy;
-  sub_100034184(0, 0, v8, &unk_100052950, v12);
+  v10 = sub_10004C760();
+  v11 = swift_allocObject();
+  v11[2] = v10;
+  v11[3] = &protocol witness table for MainActor;
+  v11[4] = selfCopy;
+  sub_100034184(0, 0, v7, &unk_100052950, v11);
 }
 
 @end

@@ -16,12 +16,12 @@
   memory = [(PXStoryPHMemoryPersistableRecipeWriter *)self memory];
   if (editsCopy)
   {
-    [editsCopy overallDurationInfo];
+    objc_msgSend_overallDurationInfo(editsCopy);
     if (buf[0])
     {
       if (recipeCopy)
       {
-        [recipeCopy overallDurationInfo];
+        objc_msgSend_overallDurationInfo(recipeCopy);
       }
 
       else
@@ -29,7 +29,7 @@
         memset(buf, 0, 80);
       }
 
-      [editsCopy overallDurationInfo];
+      objc_msgSend_overallDurationInfo(editsCopy);
       if (buf[0] != v36 || (v46 = *&buf[7], v43 = v40, time1 = *&buf[1], *&v45[16] = *&buf[5], v44 = *&buf[1], *v45 = *&buf[3], *&v42[16] = v39, v41 = v37, *v42 = v38, *&time2.value = v37, time2.epoch = v38, CMTimeCompare(&time1, &time2)) || (time1 = *&v45[8], time2 = *&v42[8], CMTimeCompare(&time1, &time2)) || (time1 = v46, time2 = v43, CMTimeCompare(&time1, &time2)))
       {
         PXAssertGetLog();

@@ -144,7 +144,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (!connectionCopy)
@@ -161,14 +161,14 @@
 
   if (![(SYAddLinkContextService *)self _forTesting])
   {
-    v18 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowAddLinkContextRequests"];
+    v17 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowAddLinkContextRequests"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v18 BOOLValue])
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v17 BOOLValue])
     {
-      v19 = os_log_create("com.apple.synapse", "AddLinkContext");
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = os_log_create("com.apple.synapse", "AddLinkContext");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [SYAddLinkContextService listener:connectionCopy shouldAcceptNewConnection:v19];
+        [SYAddLinkContextService listener:connectionCopy shouldAcceptNewConnection:v18];
       }
 
 LABEL_4:
@@ -197,14 +197,13 @@ LABEL_7:
       v15 = @"Yes";
     }
 
-    v20 = 134218242;
-    v21 = processIdentifier;
-    v22 = 2112;
-    v23 = v15;
-    _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_INFO, "AddLinkContextService: Listener should accept connection from pid %ld: %@", &v20, 0x16u);
+    v19 = 134218242;
+    v20 = processIdentifier;
+    v21 = 2112;
+    v22 = v15;
+    _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_INFO, "AddLinkContextService: Listener should accept connection from pid %ld: %@", &v19, 0x16u);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -255,11 +254,10 @@ void __44__SYAddLinkContextService__listenerEndpoint__block_invoke(uint64_t a1)
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "AddLinkContextService: Refusing connection from non-entitled client with connection: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "AddLinkContextService: Refusing connection from non-entitled client with connection: %@", &v2, 0xCu);
 }
 
 @end

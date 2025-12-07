@@ -4,6 +4,7 @@
 - (NETunnelProviderManager)initWithSessionType:(int)type tunnelType:(int64_t)tunnelType;
 - (NETunnelProviderRoutingMethod)routingMethod;
 - (NSArray)copyAppRules;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)additionalSetup;
 - (void)loadAppRules;
 - (void)loadFromPreferencesWithCompletionHandler:(id)handler;
@@ -29,6 +30,23 @@
 
   objc_sync_exit(selfCopy);
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v14.receiver = self;
+  v14.super_class = NETunnelProviderManager;
+  v8 = [(NEVPNManager *)&v14 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  configuration = [(NEVPNManager *)self configuration];
+  appVPN = [configuration appVPN];
+  appRules = [appVPN appRules];
+  [v9 appendPrettyObject:appRules withName:@"appRules" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (NSArray)copyAppRules
@@ -82,7 +100,7 @@ LABEL_6:
 
 void __68__NETunnelProviderManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -92,9 +110,9 @@ void __68__NETunnelProviderManager_loadFromPreferencesWithCompletionHandler___bl
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v29 = 138412290;
-      v30 = v6;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Failed to load the configuration: %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = v6;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Failed to load the configuration: %@", &v28, 0xCu);
     }
 
     v9 = [NEVPNManager mapError:v6];
@@ -166,281 +184,269 @@ LABEL_15:
   v9 = 0;
 LABEL_16:
   objc_sync_exit(v7);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadAppRules
 {
-  v67 = *MEMORY[0x1E69E9840];
-  if (!self)
+  v66 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    goto LABEL_50;
-  }
+    configuration = [self configuration];
+    appVPN = [configuration appVPN];
+    appRules = [appVPN appRules];
+    v5 = [appRules count];
 
-  configuration = [self configuration];
-  appVPN = [configuration appVPN];
-  appRules = [appVPN appRules];
-  v5 = [appRules count];
-
-  if (!v5)
-  {
-    goto LABEL_50;
-  }
-
-  v6 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setMailDomains:v6];
-
-  v7 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setCalendarDomains:v7];
-
-  v8 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setContactsDomains:v8];
-
-  v9 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setSafariDomains:v9];
-
-  v10 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setExcludedDomains:v10];
-
-  v11 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-  [self setAssociatedDomains:v11];
-
-  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  selfCopy = self;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  configuration2 = [self configuration];
-  appVPN2 = [configuration2 appVPN];
-  appRules2 = [appVPN2 appRules];
-
-  obj = appRules2;
-  v15 = [appRules2 countByEnumeratingWithState:&v62 objects:v66 count:16];
-  if (!v15)
-  {
-    goto LABEL_47;
-  }
-
-  v16 = v15;
-  v17 = *v63;
-  do
-  {
-    v18 = 0;
-    do
+    if (v5)
     {
-      if (*v63 != v17)
-      {
-        objc_enumerationMutation(obj);
-      }
+      v6 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setMailDomains:v6];
 
-      v19 = *(*(&v62 + 1) + 8 * v18);
-      matchSigningIdentifier = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier isEqualToString:@"com.apple.mobilemail"])
-      {
-        goto LABEL_13;
-      }
+      v7 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setCalendarDomains:v7];
 
-      matchSigningIdentifier2 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier2 isEqualToString:@"com.apple.email.maild"])
-      {
-        goto LABEL_12;
-      }
+      v8 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setContactsDomains:v8];
 
-      matchSigningIdentifier3 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier3 isEqualToString:@"com.apple.datausage.dataaccess.activesync"])
+      v9 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setSafariDomains:v9];
+
+      v10 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setExcludedDomains:v10];
+
+      v11 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+      [self setAssociatedDomains:v11];
+
+      v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      selfCopy = self;
+      v61 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      configuration2 = [self configuration];
+      appVPN2 = [configuration2 appVPN];
+      appRules2 = [appVPN2 appRules];
+
+      obj = appRules2;
+      v15 = [appRules2 countByEnumeratingWithState:&v61 objects:v65 count:16];
+      if (v15)
       {
+        v16 = v15;
+        v17 = *v62;
+        do
+        {
+          v18 = 0;
+          do
+          {
+            if (*v62 != v17)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v19 = *(*(&v61 + 1) + 8 * v18);
+            matchSigningIdentifier = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier))
+            {
+              goto LABEL_13;
+            }
+
+            matchSigningIdentifier2 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier2))
+            {
+              goto LABEL_12;
+            }
+
+            matchSigningIdentifier3 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier3))
+            {
 
 LABEL_12:
 LABEL_13:
 
 LABEL_14:
-        matchSigningIdentifier4 = [v19 matchSigningIdentifier];
-        if ([matchSigningIdentifier4 isEqualToString:@"com.apple.mobilemail"])
-        {
-          matchDomains = [v19 matchDomains];
-          v25 = [matchDomains count];
+              matchSigningIdentifier4 = [v19 matchSigningIdentifier];
+              if (objc_msgSend_isEqualToString_(matchSigningIdentifier4))
+              {
+                matchDomains = [v19 matchDomains];
+                v25 = [matchDomains count];
 
-          if (!v25)
-          {
-            goto LABEL_40;
-          }
+                if (!v25)
+                {
+                  goto LABEL_40;
+                }
 
-          matchDomains2 = [v19 matchDomains];
-          [selfCopy setMailDomains:matchDomains2];
-          goto LABEL_17;
-        }
-
-        goto LABEL_39;
-      }
-
-      matchSigningIdentifier5 = [v19 matchSigningIdentifier];
-      v28 = [matchSigningIdentifier5 isEqualToString:@"com.apple.mobilenotes"];
-
-      if (v28)
-      {
-        goto LABEL_14;
-      }
-
-      matchSigningIdentifier6 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier6 isEqualToString:@"com.apple.mobilecal"])
-      {
-        goto LABEL_22;
-      }
-
-      matchSigningIdentifier7 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier7 isEqualToString:@"com.apple.calaccessd"])
-      {
-
-LABEL_22:
-LABEL_23:
-        matchSigningIdentifier4 = [v19 matchSigningIdentifier];
-        if ([matchSigningIdentifier4 isEqualToString:@"com.apple.mobilecal"])
-        {
-          matchDomains3 = [v19 matchDomains];
-          v32 = [matchDomains3 count];
-
-          if (!v32)
-          {
-            goto LABEL_40;
-          }
-
-          matchDomains2 = [v19 matchDomains];
-          [selfCopy setCalendarDomains:matchDomains2];
-          goto LABEL_17;
-        }
+                matchDomains2 = [v19 matchDomains];
+                [selfCopy setMailDomains:matchDomains2];
+                goto LABEL_17;
+              }
 
 LABEL_39:
 
-        goto LABEL_40;
-      }
+              goto LABEL_40;
+            }
 
-      matchSigningIdentifier8 = [v19 matchSigningIdentifier];
-      v34 = [matchSigningIdentifier8 isEqualToString:@"com.apple.reminders"];
+            matchSigningIdentifier5 = [v19 matchSigningIdentifier];
+            isEqualToString = objc_msgSend_isEqualToString_(matchSigningIdentifier5);
 
-      if (v34)
-      {
-        goto LABEL_23;
-      }
+            if (isEqualToString)
+            {
+              goto LABEL_14;
+            }
 
-      matchSigningIdentifier9 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier9 isEqualToString:@"com.apple.MobileAddressBook"])
-      {
+            matchSigningIdentifier6 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier6))
+            {
+              goto LABEL_22;
+            }
 
-LABEL_30:
-        matchSigningIdentifier4 = [v19 matchSigningIdentifier];
-        if (([matchSigningIdentifier4 isEqualToString:@"com.apple.MobileAddressBook"] & 1) == 0)
-        {
-          goto LABEL_39;
-        }
+            matchSigningIdentifier7 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier7))
+            {
 
-        matchDomains4 = [v19 matchDomains];
-        v39 = [matchDomains4 count];
+LABEL_22:
+LABEL_23:
+              matchSigningIdentifier4 = [v19 matchSigningIdentifier];
+              if ((objc_msgSend_isEqualToString_(matchSigningIdentifier4) & 1) == 0)
+              {
+                goto LABEL_39;
+              }
 
-        if (!v39)
-        {
-          goto LABEL_40;
-        }
+              matchDomains3 = [v19 matchDomains];
+              v32 = [matchDomains3 count];
 
-        matchDomains2 = [v19 matchDomains];
-        [selfCopy setContactsDomains:matchDomains2];
-        goto LABEL_17;
-      }
-
-      matchSigningIdentifier10 = [v19 matchSigningIdentifier];
-      v37 = [matchSigningIdentifier10 isEqualToString:@"com.apple.dataaccessd"];
-
-      if (v37)
-      {
-        goto LABEL_30;
-      }
-
-      matchSigningIdentifier11 = [v19 matchSigningIdentifier];
-      if ([matchSigningIdentifier11 isEqualToString:@"com.apple.mobilesafari"])
-      {
-
-LABEL_36:
-        matchSigningIdentifier4 = [v19 matchSigningIdentifier];
-        if (([matchSigningIdentifier4 isEqualToString:@"com.apple.mobilesafari"] & 1) == 0)
-        {
-          goto LABEL_39;
-        }
-
-        matchDomains5 = [v19 matchDomains];
-        v44 = [matchDomains5 count];
-
-        if (!v44)
-        {
-          goto LABEL_40;
-        }
-
-        matchDomains2 = [v19 matchDomains];
-        [selfCopy setSafariDomains:matchDomains2];
+              if (v32)
+              {
+                matchDomains2 = [v19 matchDomains];
+                [selfCopy setCalendarDomains:matchDomains2];
 LABEL_17:
 
-        goto LABEL_40;
-      }
+                goto LABEL_40;
+              }
 
-      matchSigningIdentifier12 = [v19 matchSigningIdentifier];
-      v42 = [matchSigningIdentifier12 isEqualToString:@"com.apple.webapp"];
+              goto LABEL_40;
+            }
 
-      if (v42)
-      {
-        goto LABEL_36;
-      }
+            matchSigningIdentifier8 = [v19 matchSigningIdentifier];
+            v34 = objc_msgSend_isEqualToString_(matchSigningIdentifier8);
 
-      matchSigningIdentifier13 = [v19 matchSigningIdentifier];
-      v46 = [matchSigningIdentifier13 isEqualToString:@"com.apple.swcd"];
+            if (v34)
+            {
+              goto LABEL_23;
+            }
 
-      if (v46)
-      {
-        matchDomains6 = [v19 matchDomains];
-        v48 = [matchDomains6 count];
+            matchSigningIdentifier9 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier9))
+            {
 
-        if (v48)
-        {
-          matchDomains2 = [v19 matchDomains];
-          [selfCopy setAssociatedDomains:matchDomains2];
-          goto LABEL_17;
-        }
-      }
+LABEL_30:
+              matchSigningIdentifier4 = [v19 matchSigningIdentifier];
+              if ((objc_msgSend_isEqualToString_(matchSigningIdentifier4) & 1) == 0)
+              {
+                goto LABEL_39;
+              }
 
-      else
-      {
-        [v59 addObject:v19];
-      }
+              matchDomains4 = [v19 matchDomains];
+              v39 = [matchDomains4 count];
+
+              if (v39)
+              {
+                matchDomains2 = [v19 matchDomains];
+                [selfCopy setContactsDomains:matchDomains2];
+                goto LABEL_17;
+              }
+
+              goto LABEL_40;
+            }
+
+            matchSigningIdentifier10 = [v19 matchSigningIdentifier];
+            v37 = objc_msgSend_isEqualToString_(matchSigningIdentifier10);
+
+            if (v37)
+            {
+              goto LABEL_30;
+            }
+
+            matchSigningIdentifier11 = [v19 matchSigningIdentifier];
+            if (objc_msgSend_isEqualToString_(matchSigningIdentifier11))
+            {
+            }
+
+            else
+            {
+              matchSigningIdentifier12 = [v19 matchSigningIdentifier];
+              v42 = objc_msgSend_isEqualToString_(matchSigningIdentifier12);
+
+              if (!v42)
+              {
+                matchSigningIdentifier13 = [v19 matchSigningIdentifier];
+                v46 = objc_msgSend_isEqualToString_(matchSigningIdentifier13);
+
+                if (v46)
+                {
+                  matchDomains5 = [v19 matchDomains];
+                  v48 = [matchDomains5 count];
+
+                  if (v48)
+                  {
+                    matchDomains2 = [v19 matchDomains];
+                    [selfCopy setAssociatedDomains:matchDomains2];
+                    goto LABEL_17;
+                  }
+                }
+
+                else
+                {
+                  [v58 addObject:v19];
+                }
+
+                goto LABEL_40;
+              }
+            }
+
+            matchSigningIdentifier4 = [v19 matchSigningIdentifier];
+            if ((objc_msgSend_isEqualToString_(matchSigningIdentifier4) & 1) == 0)
+            {
+              goto LABEL_39;
+            }
+
+            matchDomains6 = [v19 matchDomains];
+            v44 = [matchDomains6 count];
+
+            if (v44)
+            {
+              matchDomains2 = [v19 matchDomains];
+              [selfCopy setSafariDomains:matchDomains2];
+              goto LABEL_17;
+            }
 
 LABEL_40:
-      ++v18;
+            ++v18;
+          }
+
+          while (v16 != v18);
+          v49 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+          v16 = v49;
+        }
+
+        while (v49);
+      }
+
+      v50 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v58];
+      [selfCopy setAppRules:v50];
+
+      configuration3 = [selfCopy configuration];
+      appVPN3 = [configuration3 appVPN];
+      excludedDomains = [appVPN3 excludedDomains];
+      v54 = [excludedDomains count];
+
+      if (v54)
+      {
+        configuration4 = [selfCopy configuration];
+        appVPN4 = [configuration4 appVPN];
+        excludedDomains2 = [appVPN4 excludedDomains];
+        [selfCopy setExcludedDomains:excludedDomains2];
+      }
     }
-
-    while (v16 != v18);
-    v49 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
-    v16 = v49;
   }
-
-  while (v49);
-LABEL_47:
-
-  v50 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v59];
-  [selfCopy setAppRules:v50];
-
-  configuration3 = [selfCopy configuration];
-  appVPN3 = [configuration3 appVPN];
-  excludedDomains = [appVPN3 excludedDomains];
-  v54 = [excludedDomains count];
-
-  if (v54)
-  {
-    configuration4 = [selfCopy configuration];
-    appVPN4 = [configuration4 appVPN];
-    excludedDomains2 = [appVPN4 excludedDomains];
-    [selfCopy setExcludedDomains:excludedDomains2];
-  }
-
-LABEL_50:
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)additionalSetup
@@ -544,28 +550,28 @@ LABEL_50:
 
 void __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v34 = a2;
+  v53 = *MEMORY[0x1E69E9840];
+  v32 = a2;
   v5 = a3;
-  v32 = a1;
+  v30 = a1;
   obj = *(a1 + 40);
   objc_sync_enter(obj);
-  v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__23935;
-  v52 = __Block_byref_object_dispose__23936;
+  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__23935;
+  v50 = __Block_byref_object_dispose__23936;
   v6 = v5;
-  v53 = v6;
-  v31 = v6;
+  v51 = v6;
+  v29 = v6;
   if (v6)
   {
     v7 = [NEVPNManager mapError:v6];
-    v8 = v49[5];
-    v49[5] = v7;
+    v8 = v47[5];
+    v47[5] = v7;
 
-    v9 = v49[5];
+    v9 = v47[5];
   }
 
   else
@@ -573,42 +579,35 @@ void __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler__
     v9 = 0;
   }
 
-  if (!v34 || v9)
+  if (!v32 || v9 || ![v32 count])
   {
+    (*(*(a1 + 32) + 16))();
     goto LABEL_35;
   }
 
-  if (![v34 count])
-  {
-    v29 = v49[5];
-LABEL_35:
-    (*(*(a1 + 32) + 16))();
-    goto LABEL_36;
-  }
-
   group = dispatch_group_create();
+  v42 = 0u;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v10 = v34;
-  v11 = [v10 countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v10 = v32;
+  v11 = [v10 countByEnumeratingWithState:&v42 objects:v52 count:16];
   if (!v11)
   {
     goto LABEL_33;
   }
 
-  v12 = *v45;
+  v12 = *v43;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v45 != v12)
+      if (*v43 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v14 = *(*(&v44 + 1) + 8 * i);
+      v14 = *(*(&v42 + 1) + 8 * i);
       v15 = [v14 VPN];
       if (v15)
       {
@@ -663,7 +662,7 @@ LABEL_35:
               v17 = [(NETunnelProviderManager *)v22 initWithSessionType:v24 tunnelType:v23];
               [(NEVPNManager *)v17 setConfiguration:v14];
               [(NETunnelProviderManager *)v17 loadAppRules];
-              [v35 addObject:v17];
+              [v33 addObject:v17];
               v25 = +[NEVPNManager loadedManagers];
               v26 = [v14 identifier];
               [v25 setObject:v17 forKeyedSubscript:v26];
@@ -676,16 +675,16 @@ LABEL_35:
               dispatch_group_enter(group);
               v27 = [(NEVPNManager *)v17 connection];
               v28 = [v14 identifier];
-              v41[0] = MEMORY[0x1E69E9820];
-              v41[1] = 3221225472;
-              v41[2] = __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_46;
-              v41[3] = &unk_1E7F0B198;
-              v41[4] = v14;
-              v43 = &v48;
-              v42 = group;
+              v39[0] = MEMORY[0x1E69E9820];
+              v39[1] = 3221225472;
+              v39[2] = __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_46;
+              v39[3] = &unk_1E7F0B198;
+              v39[4] = v14;
+              v41 = &v46;
+              v40 = group;
               if (v27)
               {
-                [(NEVPNConnection *)v27 createSessionWithConfigurationIdentifier:v28 forceInfoFetch:0 completionHandler:v41];
+                [(NEVPNConnection *)v27 createSessionWithConfigurationIdentifier:v28 forceInfoFetch:0 completionHandler:v39];
               }
             }
           }
@@ -700,7 +699,7 @@ LABEL_35:
 LABEL_31:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v42 objects:v52 count:16];
   }
 
   while (v11);
@@ -710,41 +709,38 @@ LABEL_33:
   block[1] = 3221225472;
   block[2] = __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_48;
   block[3] = &unk_1E7F0B1C0;
-  v40 = &v48;
-  v38 = v35;
-  v39 = *(v32 + 32);
+  v38 = &v46;
+  v36 = v33;
+  v37 = *(v30 + 32);
   dispatch_group_notify(group, MEMORY[0x1E69E96A0], block);
 
-LABEL_36:
-  _Block_object_dispose(&v48, 8);
+LABEL_35:
+  _Block_object_dispose(&v46, 8);
 
   objc_sync_exit(obj);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_46(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412546;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Error creating connection for configuration %@: %@", &v8, 0x16u);
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v4;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Error creating connection for configuration %@: %@", &v7, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_48(uint64_t a1)
@@ -752,13 +748,11 @@ uint64_t __71__NETunnelProviderManager_loadAllFromPreferencesWithCompletionHandl
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     [*(a1 + 32) removeAllObjects];
-    v2 = *(*(*(a1 + 48) + 8) + 40);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v2();
 }
 
 + (NETunnelProviderManager)forPerAppVPN

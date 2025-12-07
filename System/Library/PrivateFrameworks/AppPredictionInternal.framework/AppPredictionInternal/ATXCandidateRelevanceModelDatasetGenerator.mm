@@ -203,7 +203,7 @@ id __121__ATXCandidateRelevanceModelDatasetGenerator_initWithConfig_inferredMode
   }
 }
 
-uint64_t __74__ATXCandidateRelevanceModelDatasetGenerator_receiveDataPoint_completion___block_invoke(uint64_t a1, void *a2)
+void *__74__ATXCandidateRelevanceModelDatasetGenerator_receiveDataPoint_completion___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 state];
   *(*(*(a1 + 32) + 8) + 24) = result == 0;
@@ -266,8 +266,8 @@ void __74__ATXCandidateRelevanceModelDatasetGenerator_receiveDataPoint_completio
 
 void __79__ATXCandidateRelevanceModelDatasetGenerator_receiveDatasetSession_completion___block_invoke(void *a1, void *a2)
 {
-  v11 = a2;
-  v3 = [v11 contextDefinedSessionId];
+  v10 = a2;
+  v3 = [v10 contextDefinedSessionId];
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   if (v5)
@@ -277,24 +277,23 @@ void __79__ATXCandidateRelevanceModelDatasetGenerator_receiveDatasetSession_comp
       goto LABEL_6;
     }
 
-    v6 = *(*(a1[6] + 8) + 40);
     (*(a1[4] + 16))();
     objc_storeStrong((*(a1[5] + 8) + 40), v3);
-    v7 = objc_opt_new();
-    v8 = *(a1[6] + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v6 = objc_opt_new();
+    v7 = *(a1[6] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
   }
 
   else
   {
-    v10 = v3;
-    v9 = *(v4 + 40);
-    *(v4 + 40) = v10;
+    v9 = v3;
+    v8 = *(v4 + 40);
+    *(v4 + 40) = v9;
   }
 
 LABEL_6:
-  [*(*(a1[6] + 8) + 40) addObject:v11];
+  [*(*(a1[6] + 8) + 40) addObject:v10];
 }
 
 uint64_t __79__ATXCandidateRelevanceModelDatasetGenerator_receiveDatasetSession_completion___block_invoke_2(uint64_t result, int a2)
@@ -303,12 +302,10 @@ uint64_t __79__ATXCandidateRelevanceModelDatasetGenerator_receiveDatasetSession_
   v3 = result;
   if (a2)
   {
-    v4 = *(result + 32);
-    v5 = *(*(v3[5] + 8) + 40);
-    result = (*(v3[4] + 16))();
+    result = (*(*(result + 32) + 16))();
   }
 
-  *(*(v3[6] + 8) + 24) = v2;
+  *(*(*(v3 + 48) + 8) + 24) = v2;
   return result;
 }
 
@@ -343,121 +340,115 @@ uint64_t __79__ATXCandidateRelevanceModelDatasetGenerator_receiveDatasetSession_
 
 void __93__ATXCandidateRelevanceModelDatasetGenerator_receiveCandidateDataPoint_completion_candidate___block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = a1[4];
-  v5 = [objc_opt_class() candidateDataPointsForSession:v3 candidate:a1[5]];
+  v4 = [objc_opt_class() candidateDataPointsForSession:v3 candidate:a1[5]];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         (*(a1[6] + 16))();
-        ++v9;
+        ++v8;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)candidateDataPointsForSessions:(id)sessions candidate:(id)candidate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sessionsCopy = sessions;
   candidateCopy = candidate;
   v7 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = sessionsCopy;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [objc_opt_class() candidateDataPointsForSession:*(*(&v24 + 1) + 8 * i) candidate:candidateCopy];
+        v12 = [objc_opt_class() candidateDataPointsForSession:*(*(&v23 + 1) + 8 * i) candidate:candidateCopy];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              [v7 addObject:*(*(&v20 + 1) + 8 * j)];
+              [v7 addObject:*(*(&v19 + 1) + 8 * j)];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v14);
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)candidateDataPointsForSession:(id)session candidate:(id)candidate
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   candidateCopy = candidate;
   v7 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = sessionCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v9)
   {
 
@@ -475,17 +466,17 @@ LABEL_13:
 
   v10 = v9;
   v11 = 0;
-  v12 = *v21;
+  v12 = *v20;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v21 != v12)
+      if (*v20 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v20 + 1) + 8 * i);
+      v14 = *(*(&v19 + 1) + 8 * i);
       candidate = [v14 candidate];
       v16 = [candidate isEqual:candidateCopy];
 
@@ -496,7 +487,7 @@ LABEL_13:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v10);
@@ -508,26 +499,24 @@ LABEL_13:
 
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)candidateDatasetStream
 {
-  v16[6] = *MEMORY[0x277D85DE8];
-  config = self->_config;
+  v15[6] = *MEMORY[0x277D85DE8];
   candidatePublisher = [objc_opt_class() candidatePublisher];
+  v4 = candidatePublisher;
   if (candidatePublisher && self->_contextPublisher && (modePublisher = self->_modePublisher) != 0 && (poiCategoryPublisher = self->_poiCategoryPublisher) != 0 && (bluetoothPublisher = self->_bluetoothPublisher) != 0 && (userFocusComputedModePublisher = self->_userFocusComputedModePublisher) != 0 && (microlocationVisitPublisher = self->_microlocationVisitPublisher) != 0)
   {
-    v16[0] = self->_contextPublisher;
-    v16[1] = modePublisher;
-    v16[2] = poiCategoryPublisher;
-    v16[3] = bluetoothPublisher;
-    v16[4] = userFocusComputedModePublisher;
-    v16[5] = microlocationVisitPublisher;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:6];
-    v11 = [candidatePublisher orderedMergeWithOthers:v10 comparator:&__block_literal_global_142];
+    v15[0] = self->_contextPublisher;
+    v15[1] = modePublisher;
+    v15[2] = poiCategoryPublisher;
+    v15[3] = bluetoothPublisher;
+    v15[4] = userFocusComputedModePublisher;
+    v15[5] = microlocationVisitPublisher;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:6];
+    v11 = [v4 orderedMergeWithOthers:v10 comparator:&__block_literal_global_142];
 
     v12 = [objc_opt_class() eventAndRecentContextPublisher:v11];
     v13 = [objc_opt_class() dataPointPublisher:v12];
@@ -535,7 +524,7 @@ LABEL_15:
 
   else
   {
-    v11 = __atxlog_handle_relevance_model();
+    v11 = __atxlog_handle_relevance_model(candidatePublisher);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [(ATXCandidateRelevanceModelDatasetGenerator *)self candidateDatasetStream];
@@ -543,8 +532,6 @@ LABEL_15:
 
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -664,7 +651,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v17 = __atxlog_handle_relevance_model();
+  v17 = __atxlog_handle_relevance_model(0);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     __77__ATXCandidateRelevanceModelDatasetGenerator_eventAndRecentContextPublisher___block_invoke_cold_1(a1, v17);
@@ -727,7 +714,7 @@ uint64_t __65__ATXCandidateRelevanceModelDatasetGenerator_dataPointPublisher___b
 
 ATXCandidateRelevanceModelDataPoint *__65__ATXCandidateRelevanceModelDatasetGenerator_dataPointPublisher___block_invoke_2(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 second];
   v5 = [v4 copy];
@@ -737,30 +724,28 @@ ATXCandidateRelevanceModelDataPoint *__65__ATXCandidateRelevanceModelDatasetGene
   [v7 timestamp];
   v8 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
 
-  v9 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_relevance_model(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(a1 + 56);
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
     [v8 timeIntervalSinceReferenceDate];
-    v27 = v26;
-    v28 = [v5 timeContext];
-    v29 = [v28 date];
-    [v29 timeIntervalSinceReferenceDate];
-    v31 = 138412546;
-    v32 = v25;
-    v33 = 2048;
-    v34 = v27 - v30;
-    _os_log_debug_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEBUG, "%@ - New time context for candidate is %f seconds newer", &v31, 0x16u);
+    v25 = v24;
+    v26 = [v5 timeContext];
+    v27 = [v26 date];
+    [v27 timeIntervalSinceReferenceDate];
+    v29 = 138412546;
+    v30 = v23;
+    v31 = 2048;
+    v32 = v25 - v28;
+    _os_log_debug_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEBUG, "%@ - New time context for candidate is %f seconds newer", &v29, 0x16u);
   }
 
-  v10 = [[ATXPredictionTimeContext alloc] initWithDate:v8];
-  [v5 setTimeContext:v10];
-  v11 = [*(a1 + 32) copy];
-  [v5 setCandidateIdentifiersLaunchAge:v11];
+  v11 = [[ATXPredictionTimeContext alloc] initWithDate:v8];
+  [v5 setTimeContext:v11];
+  v12 = [*(a1 + 32) copy];
+  [v5 setCandidateIdentifiersLaunchAge:v12];
 
-  v12 = *(a1 + 56);
   if ([objc_opt_class() isContextMismatchForPreviousContext:*(*(*(a1 + 40) + 8) + 40) currentContext:v5])
   {
     v13 = objc_opt_new();
@@ -778,8 +763,6 @@ ATXCandidateRelevanceModelDataPoint *__65__ATXCandidateRelevanceModelDatasetGene
   v19 = *(a1 + 32);
   v20 = [v17 identifier];
   [v19 setObject:v8 forKeyedSubscript:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -801,8 +784,8 @@ ATXCandidateRelevanceModelDataPoint *__65__ATXCandidateRelevanceModelDatasetGene
 
     if (v14 > 1800.0)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -820,8 +803,8 @@ LABEL_54:
 
     if (dayOfWeek != dayOfWeek2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v21);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -833,28 +816,28 @@ LABEL_54:
     wifiSSID = [deviceStateContext wifiSSID];
     deviceStateContext2 = [contextCopy deviceStateContext];
     wifiSSID2 = [deviceStateContext2 wifiSSID];
-    v24 = wifiSSID;
-    v25 = wifiSSID2;
-    v26 = v25;
-    if (v24 == v25)
+    v26 = wifiSSID;
+    v27 = wifiSSID2;
+    v28 = v27;
+    if (v26 == v27)
     {
     }
 
     else
     {
-      if (!v24 || !v25)
+      if (!v26 || !v27)
       {
 
         goto LABEL_19;
       }
 
-      v27 = [v24 isEqualToString:v25];
+      v29 = [v26 isEqualToString:v27];
 
-      if ((v27 & 1) == 0)
+      if ((v29 & 1) == 0)
       {
 LABEL_19:
-        v15 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = __atxlog_handle_relevance_model(v30);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
         }
@@ -870,8 +853,8 @@ LABEL_19:
 
     if (inAirplaneMode != inAirplaneMode2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v35);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -883,28 +866,28 @@ LABEL_19:
     currentLOI = [locationMotionContext currentLOI];
     locationMotionContext2 = [contextCopy locationMotionContext];
     currentLOI2 = [locationMotionContext2 currentLOI];
-    v36 = currentLOI;
-    v37 = currentLOI2;
-    v38 = v37;
-    if (v36 == v37)
+    v40 = currentLOI;
+    v41 = currentLOI2;
+    v42 = v41;
+    if (v40 == v41)
     {
     }
 
     else
     {
-      if (!v36 || !v37)
+      if (!v40 || !v41)
       {
 
         goto LABEL_31;
       }
 
-      v39 = [v36 isEqual:v37];
+      v43 = [v40 isEqual:v41];
 
-      if ((v39 & 1) == 0)
+      if ((v43 & 1) == 0)
       {
 LABEL_31:
-        v15 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = __atxlog_handle_relevance_model(v44);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
         }
@@ -920,8 +903,8 @@ LABEL_31:
 
     if (locationEnabled != locationEnabled2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v49);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -936,8 +919,8 @@ LABEL_31:
 
     if (geohash != geohash2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v54);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -952,8 +935,8 @@ LABEL_31:
 
     if (motionType != motionType2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v59);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -968,8 +951,8 @@ LABEL_31:
 
     if (ambientLightType != ambientLightType2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v64);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -979,7 +962,7 @@ LABEL_31:
 
     bluetoothEvent = [v7 bluetoothEvent];
     bluetoothEvent2 = [contextCopy bluetoothEvent];
-    v58 = bluetoothEvent2;
+    v67 = bluetoothEvent2;
     if (bluetoothEvent == bluetoothEvent2)
     {
     }
@@ -988,12 +971,12 @@ LABEL_31:
     {
       bluetoothEvent3 = [v7 bluetoothEvent];
       bluetoothEvent4 = [contextCopy bluetoothEvent];
-      v61 = [bluetoothEvent3 isEqual:bluetoothEvent4];
+      v70 = [bluetoothEvent3 isEqual:bluetoothEvent4];
 
-      if ((v61 & 1) == 0)
+      if ((v70 & 1) == 0)
       {
-        v15 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = __atxlog_handle_relevance_model(v71);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
         }
@@ -1009,8 +992,8 @@ LABEL_31:
 
     if (modeType != modeType2)
     {
-      v15 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = __atxlog_handle_relevance_model(v76);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
       }
@@ -1030,8 +1013,8 @@ LABEL_31:
 
       if (poiCategory != poiCategory2)
       {
-        v15 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = __atxlog_handle_relevance_model(v84);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
         }
@@ -1041,17 +1024,17 @@ LABEL_31:
 
       microlocationVisitEvent = [v7 microlocationVisitEvent];
       microlocationVisitEvent2 = [contextCopy microlocationVisitEvent];
-      v75 = microlocationVisitEvent2;
+      v88 = microlocationVisitEvent2;
       if (microlocationVisitEvent != microlocationVisitEvent2)
       {
         microlocationVisitEvent3 = [v7 microlocationVisitEvent];
         microlocationVisitEvent4 = [contextCopy microlocationVisitEvent];
-        v78 = [microlocationVisitEvent3 isEqual:microlocationVisitEvent4];
+        v91 = [microlocationVisitEvent3 isEqual:microlocationVisitEvent4];
 
-        if ((v78 & 1) == 0)
+        if ((v91 & 1) == 0)
         {
-          v15 = __atxlog_handle_relevance_model();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v16 = __atxlog_handle_relevance_model(v92);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
           }
@@ -1067,7 +1050,7 @@ LABEL_59:
 
     else
     {
-      microlocationVisitEvent = __atxlog_handle_relevance_model();
+      microlocationVisitEvent = __atxlog_handle_relevance_model(v81);
       if (os_log_type_enabled(microlocationVisitEvent, OS_LOG_TYPE_DEBUG))
       {
         +[ATXCandidateRelevanceModelDatasetGenerator isContextMismatchForPreviousContext:currentContext:];
@@ -1084,27 +1067,22 @@ LABEL_55:
 
 - (void)candidateDatasetStream
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@ - Could not create candidateDatasetStream because one of the biome publishers needed is nil.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@ - Could not create candidateDatasetStream because one of the biome publishers needed is nil.", &v5, 0xCu);
 }
 
 void __77__ATXCandidateRelevanceModelDatasetGenerator_eventAndRecentContextPublisher___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Event can't be deserialized in eventAndRecentContextPublisher", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Event can't be deserialized in eventAndRecentContextPublisher", &v5, 0xCu);
 }
 
 @end

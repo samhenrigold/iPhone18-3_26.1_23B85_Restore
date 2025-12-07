@@ -354,7 +354,6 @@ void __50__AMDWorkflowInFlight_deleteWithPredicates_error___block_invoke(void *a
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -464,32 +463,30 @@ void __50__AMDWorkflowInFlight_deleteWithPredicates_error___block_invoke(void *a
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v48, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__AMDWorkflowInFlight_saveWorkflow_forDomain_withCallUUID_error___block_invoke(uint64_t a1)
 {
-  v18[2] = a1;
-  v18[1] = a1;
-  v7 = MEMORY[0x277CBE408];
-  v9 = +[AMDWorkflowInFlight entity];
-  v8 = [v9 name];
-  v1 = *(a1 + 32);
-  v18[0] = [v7 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  v17[2] = a1;
+  v17[1] = a1;
+  v6 = MEMORY[0x277CBE408];
+  v8 = +[AMDWorkflowInFlight entity];
+  v7 = [v8 name];
+  v17[0] = [v6 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
+  v9 = [MEMORY[0x277CBEAA8] date];
+  [v9 timeIntervalSince1970];
+  [v17[0] setCreationTime:v1];
   MEMORY[0x277D82BD8](v9);
-  v10 = [MEMORY[0x277CBEAA8] date];
-  [v10 timeIntervalSince1970];
-  [v18[0] setCreationTime:v2];
+  [v17[0] setCallUUID:*(a1 + 40)];
+  [v17[0] setDomain:*(a1 + 88)];
+  v10 = [*(a1 + 48) objectForKey:@"model_id"];
+  [v17[0] setModelId:?];
   MEMORY[0x277D82BD8](v10);
-  [v18[0] setCallUUID:*(a1 + 40)];
-  [v18[0] setDomain:*(a1 + 88)];
-  v11 = [*(a1 + 48) objectForKey:@"model_id"];
-  [v18[0] setModelId:?];
+  v11 = [*(a1 + 56) getUseCaseId];
+  [v17[0] setUseCaseId:?];
   MEMORY[0x277D82BD8](v11);
-  v12 = [*(a1 + 56) getUseCaseId];
-  [v18[0] setUseCaseId:?];
-  MEMORY[0x277D82BD8](v12);
   location = [*(a1 + 56) getTreatmentId];
   if (location)
   {
@@ -501,28 +498,28 @@ void __65__AMDWorkflowInFlight_saveWorkflow_forDomain_withCallUUID_error___block
     objc_storeStrong(&location, @"__defaultTreatment");
   }
 
-  [v18[0] setTreatmentId:location];
-  [v18[0] setWorkflow:*(a1 + 64)];
-  v16 = [*(a1 + 48) objectForKey:@"start_timestamp"];
-  v15 = [*(a1 + 48) objectForKey:@"end_timestamp"];
-  if (v16 && v15)
+  [v17[0] setTreatmentId:location];
+  [v17[0] setWorkflow:*(a1 + 64)];
+  v15 = [*(a1 + 48) objectForKey:@"start_timestamp"];
+  v14 = [*(a1 + 48) objectForKey:@"end_timestamp"];
+  if (v15 && v14)
   {
-    [v18[0] setStartTime:{objc_msgSend(v16, "unsignedLongLongValue")}];
-    [v18[0] setEndTime:{objc_msgSend(v15, "unsignedLongLongValue")}];
+    [v17[0] setStartTime:{objc_msgSend(v15, "unsignedLongLongValue")}];
+    [v17[0] setEndTime:{objc_msgSend(v14, "unsignedLongLongValue")}];
   }
 
-  v5 = [*(a1 + 48) objectForKey:{@"secondary_model_id", v18[0]}];
-  [v4 setSecondaryModelId:?];
-  MEMORY[0x277D82BD8](v5);
-  v3 = *(a1 + 72);
-  v6 = (*(*(a1 + 80) + 8) + 40);
-  v14 = *v6;
-  [v3 save:&v14];
-  objc_storeStrong(v6, v14);
+  v4 = [*(a1 + 48) objectForKey:{@"secondary_model_id", v17[0]}];
+  [v3 setSecondaryModelId:?];
+  MEMORY[0x277D82BD8](v4);
+  v2 = *(a1 + 72);
+  v5 = (*(*(a1 + 80) + 8) + 40);
+  v13 = *v5;
+  [v2 save:&v13];
+  objc_storeStrong(v5, v13);
+  objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
-  objc_storeStrong(&v16, 0);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v18, 0);
+  objc_storeStrong(v17, 0);
 }
 
 + (id)moveInflightWorkflowsToWorkflows:(id)workflows withDomain:(int64_t)domain error:(id *)error
@@ -793,7 +790,6 @@ LABEL_39:
   objc_storeStrong(&v83, 0);
   objc_storeStrong(v84, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -961,7 +957,6 @@ LABEL_13:
 
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&v22, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v26;
 
   return v3;
@@ -1025,7 +1020,6 @@ LABEL_13:
   }
 
   objc_storeStrong(&v17, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v21;
 
   return v3;

@@ -73,13 +73,13 @@
 
 - (void)interruptionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPAccessoryDiscoverySession: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -95,8 +95,6 @@
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SPAccessoryDiscoveryAndPairingSession_interruptionHandler___block_invoke(uint64_t a1)
@@ -107,13 +105,13 @@ void __61__SPAccessoryDiscoveryAndPairingSession_interruptionHandler___block_inv
 
 - (void)invalidationHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPAccessoryDiscoverySession: invalidationHandler %@", buf, 0xCu);
   }
 
@@ -130,8 +128,6 @@ void __61__SPAccessoryDiscoveryAndPairingSession_interruptionHandler___block_inv
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SPAccessoryDiscoveryAndPairingSession_invalidationHandler___block_invoke(uint64_t a1)
@@ -183,14 +179,14 @@ void __61__SPAccessoryDiscoveryAndPairingSession_invalidationHandler___block_inv
     v14 = [v12 initWithServiceDescription:serviceDescription2];
     [(SPAccessoryDiscoveryAndPairingSession *)self setSession:v14];
 
-    v15 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = LogCategory_AccessoryDiscovery(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription3 = [(SPAccessoryDiscoveryAndPairingSession *)self serviceDescription];
       machService = [serviceDescription3 machService];
       LODWORD(location[0]) = 138412290;
       *(location + 4) = machService;
-      _os_log_impl(&dword_2643D0000, v15, OS_LOG_TYPE_DEFAULT, "SPAccessoryDiscoverySession: Establishing XPC connection to %@", location, 0xCu);
+      _os_log_impl(&dword_2643D0000, v16, OS_LOG_TYPE_DEFAULT, "SPAccessoryDiscoverySession: Establishing XPC connection to %@", location, 0xCu);
     }
 
     session2 = [(SPAccessoryDiscoveryAndPairingSession *)self session];
@@ -199,8 +195,6 @@ void __61__SPAccessoryDiscoveryAndPairingSession_invalidationHandler___block_inv
 
   session3 = [(SPAccessoryDiscoveryAndPairingSession *)self session];
   proxy = [session3 proxy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -233,22 +227,20 @@ void __46__SPAccessoryDiscoveryAndPairingSession_proxy__block_invoke_2(uint64_t 
 
 void __58__SPAccessoryDiscoveryAndPairingSession_exportedInterface__block_invoke()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287602EA0];
   v1 = exportedInterface_interface_8;
   exportedInterface_interface_8 = v0;
 
   v2 = exportedInterface_interface_8;
   v3 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_proximityPairingCompleted_beacons_ argumentIndex:1 ofReply:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)remoteInterface
@@ -285,7 +277,7 @@ uint64_t __56__SPAccessoryDiscoveryAndPairingSession_remoteInterface__block_invo
 
 void __88__SPAccessoryDiscoveryAndPairingSession_startProximityAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -321,7 +313,7 @@ void __88__SPAccessoryDiscoveryAndPairingSession_startProximityAccessoryDiscover
 void __88__SPAccessoryDiscoveryAndPairingSession_startProximityAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -355,7 +347,7 @@ void __88__SPAccessoryDiscoveryAndPairingSession_startProximityAccessoryDiscover
 
 void __79__SPAccessoryDiscoveryAndPairingSession_startAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -391,7 +383,7 @@ void __79__SPAccessoryDiscoveryAndPairingSession_startAccessoryDiscoveryWithComp
 void __79__SPAccessoryDiscoveryAndPairingSession_startAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -422,7 +414,7 @@ void __79__SPAccessoryDiscoveryAndPairingSession_startAccessoryDiscoveryWithComp
 
 void __45__SPAccessoryDiscoveryAndPairingSession_stop__block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -466,7 +458,7 @@ uint64_t __45__SPAccessoryDiscoveryAndPairingSession_stop__block_invoke_197(uint
 
 void __78__SPAccessoryDiscoveryAndPairingSession_stopAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -498,7 +490,7 @@ void __78__SPAccessoryDiscoveryAndPairingSession_stopAccessoryDiscoveryWithCompl
 void __78__SPAccessoryDiscoveryAndPairingSession_stopAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -532,7 +524,7 @@ void __78__SPAccessoryDiscoveryAndPairingSession_stopAccessoryDiscoveryWithCompl
 
 void __87__SPAccessoryDiscoveryAndPairingSession_stopProximityAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -564,7 +556,7 @@ void __87__SPAccessoryDiscoveryAndPairingSession_stopProximityAccessoryDiscovery
 void __87__SPAccessoryDiscoveryAndPairingSession_stopProximityAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -586,7 +578,7 @@ void __87__SPAccessoryDiscoveryAndPairingSession_stopProximityAccessoryDiscovery
 - (void)discoveredAccessory:(id)accessory
 {
   accessoryCopy = accessory;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(accessoryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -613,48 +605,46 @@ void __61__SPAccessoryDiscoveryAndPairingSession_discoveredAccessory___block_inv
 
   if (v4)
   {
-    v5 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_AccessoryDiscovery(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       *buf = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring known accessory %@.", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring known accessory %@.", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = [*(a1 + 32) state];
-    v8 = [v7 accessories];
+    v8 = [*(a1 + 32) state];
+    v9 = [v8 accessories];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [*(a1 + 32) state];
-      v10 = [v9 accessories];
-      v11 = [v10 setByAddingObject:*(a1 + 40)];
+      v10 = [*(a1 + 32) state];
+      v11 = [v10 accessories];
+      v12 = [v11 setByAddingObject:*(a1 + 40)];
     }
 
     else
     {
-      v11 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
+      v12 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
     }
 
-    v12 = [*(a1 + 32) callbackQueue];
+    v13 = [*(a1 + 32) callbackQueue];
     v15 = MEMORY[0x277D85DD0];
     v16 = 3221225472;
     v17 = __61__SPAccessoryDiscoveryAndPairingSession_discoveredAccessory___block_invoke_200;
     v18 = &unk_279B58C78;
     v19 = *(a1 + 32);
-    v20 = v11;
-    v5 = v11;
-    dispatch_async(v12, &v15);
+    v20 = v12;
+    v6 = v12;
+    dispatch_async(v13, &v15);
 
-    v13 = [*(a1 + 32) state];
-    [v13 setAccessories:v5];
+    v14 = [*(a1 + 32) state];
+    [v14 setAccessories:v6];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SPAccessoryDiscoveryAndPairingSession_discoveredAccessory___block_invoke_200(uint64_t a1)
@@ -666,7 +656,7 @@ void __61__SPAccessoryDiscoveryAndPairingSession_discoveredAccessory___block_inv
 - (void)lostAccessory:(id)accessory
 {
   accessoryCopy = accessory;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(accessoryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -721,27 +711,25 @@ void __55__SPAccessoryDiscoveryAndPairingSession_lostAccessory___block_invoke_2(
 
 - (void)accessoryDiscoveryError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = errorCopy;
+    v11 = errorCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "[accessoryDiscoveryError called from client]. Error %@", buf, 0xCu);
   }
 
   callbackQueue = [(SPAccessoryDiscoveryAndPairingSession *)self callbackQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block_invoke;
-  v9[3] = &unk_279B58C78;
-  v9[4] = self;
-  v10 = errorCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block_invoke;
+  v8[3] = &unk_279B58C78;
+  v8[4] = self;
+  v9 = errorCopy;
   v7 = errorCopy;
-  dispatch_sync(callbackQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(callbackQueue, v8);
 }
 
 void __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block_invoke(uint64_t a1)
@@ -750,23 +738,23 @@ void __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block
 
   if (v2)
   {
-    v11 = [*(a1 + 32) accessoryDiscoveryErrorCallback];
-    v11[2](v11, *(a1 + 40));
+    v12 = [*(a1 + 32) accessoryDiscoveryErrorCallback];
+    v12[2](v12, *(a1 + 40));
   }
 
   else
   {
-    v3 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = LogCategory_AccessoryDiscovery(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __65__SPAccessoryDiscoveryAndPairingSession_accessoryDiscoveryError___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 }
 
 - (void)accessoryDetectedForPairing
 {
-  v3 = LogCategory_AccessoryDiscovery();
+  v3 = LogCategory_AccessoryDiscovery(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -788,30 +776,30 @@ void __68__SPAccessoryDiscoveryAndPairingSession_accessoryDetectedForPairing__bl
 
   if (v2)
   {
-    v11 = [*(a1 + 32) pairingAccessoryDetectionCallback];
-    v11[2]();
+    v12 = [*(a1 + 32) pairingAccessoryDetectionCallback];
+    v12[2]();
   }
 
   else
   {
-    v3 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = LogCategory_AccessoryDiscovery(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __68__SPAccessoryDiscoveryAndPairingSession_accessoryDetectedForPairing__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __68__SPAccessoryDiscoveryAndPairingSession_accessoryDetectedForPairing__block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 }
 
 - (void)initiatePairingWith:(id)with completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   withCopy = with;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = withCopy;
+    v17 = withCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "[SPAccessoryDiscoverySession initiatePairingWith]. Accessory %@", buf, 0xCu);
   }
 
@@ -821,16 +809,15 @@ void __68__SPAccessoryDiscoveryAndPairingSession_accessoryDetectedForPairing__bl
   block[1] = 3221225472;
   block[2] = __72__SPAccessoryDiscoveryAndPairingSession_initiatePairingWith_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = withCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = withCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = withCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SPAccessoryDiscoveryAndPairingSession_initiatePairingWith_completion___block_invoke(uint64_t a1)
@@ -855,7 +842,7 @@ void __72__SPAccessoryDiscoveryAndPairingSession_initiatePairingWith_completion_
 
 void __92__SPAccessoryDiscoveryAndPairingSession_startLocalFindableAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -891,7 +878,7 @@ void __92__SPAccessoryDiscoveryAndPairingSession_startLocalFindableAccessoryDisc
 void __92__SPAccessoryDiscoveryAndPairingSession_startLocalFindableAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -925,7 +912,7 @@ void __92__SPAccessoryDiscoveryAndPairingSession_startLocalFindableAccessoryDisc
 
 void __91__SPAccessoryDiscoveryAndPairingSession_stopLocalFindableAccessoryDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_AccessoryDiscovery();
+  v2 = LogCategory_AccessoryDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -957,7 +944,7 @@ void __91__SPAccessoryDiscoveryAndPairingSession_stopLocalFindableAccessoryDisco
 void __91__SPAccessoryDiscoveryAndPairingSession_stopLocalFindableAccessoryDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -979,7 +966,7 @@ void __91__SPAccessoryDiscoveryAndPairingSession_stopLocalFindableAccessoryDisco
 - (void)disableFindMyPairingWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1012,7 +999,7 @@ void __76__SPAccessoryDiscoveryAndPairingSession_disableFindMyPairingWithIdentif
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1052,7 +1039,7 @@ void __84__SPAccessoryDiscoveryAndPairingSession_initiatePairingForAccessoryWith
 void __84__SPAccessoryDiscoveryAndPairingSession_initiatePairingForAccessoryWith_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_AccessoryDiscovery();
+  v4 = LogCategory_AccessoryDiscovery(v3);
   v5 = v4;
   if (v3)
   {
@@ -1075,7 +1062,7 @@ void __84__SPAccessoryDiscoveryAndPairingSession_initiatePairingForAccessoryWith
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1116,7 +1103,7 @@ void __90__SPAccessoryDiscoveryAndPairingSession_initiatePairingAndLocateAccesso
 {
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_AccessoryDiscovery();
+  v7 = LogCategory_AccessoryDiscovery(v6);
   v8 = v7;
   if (v5)
   {
@@ -1139,7 +1126,7 @@ void __90__SPAccessoryDiscoveryAndPairingSession_initiatePairingAndLocateAccesso
 {
   statusCopy = status;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1190,7 +1177,7 @@ void __66__SPAccessoryDiscoveryAndPairingSession_pairingStatus_completion___bloc
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1226,7 +1213,7 @@ void __77__SPAccessoryDiscoveryAndPairingSession_pairingStatusWithRequest_comple
   withCopy = with;
   configurationCopy = configuration;
   completionCopy = completion;
-  v11 = LogCategory_AccessoryDiscovery();
+  v11 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1263,7 +1250,7 @@ void __86__SPAccessoryDiscoveryAndPairingSession_finalizePairingWith_configurati
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1296,16 +1283,16 @@ void __74__SPAccessoryDiscoveryAndPairingSession_invalidatePairingWith_completio
 
 - (void)proximityPairingCompleted:(id)completed beacons:(id)beacons
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   beaconsCopy = beacons;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(beaconsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = beaconsCopy;
-    v18 = 2112;
-    v19 = completedCopy;
+    v16 = beaconsCopy;
+    v17 = 2112;
+    v18 = completedCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "[proximityPairingCompleted called from client]. Beacons %@, Location %@", buf, 0x16u);
   }
 
@@ -1315,19 +1302,17 @@ void __74__SPAccessoryDiscoveryAndPairingSession_invalidatePairingWith_completio
   block[2] = __75__SPAccessoryDiscoveryAndPairingSession_proximityPairingCompleted_beacons___block_invoke;
   block[3] = &unk_279B58BF8;
   block[4] = self;
-  v14 = completedCopy;
-  v15 = beaconsCopy;
+  v13 = completedCopy;
+  v14 = beaconsCopy;
   v10 = beaconsCopy;
   v11 = completedCopy;
   dispatch_sync(callbackQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SPAccessoryDiscoveryAndPairingSession_proximityPairingCompleted_beacons___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) proximityPairingCompletedCallback];
-  v3 = LogCategory_AccessoryDiscovery();
+  v3 = LogCategory_AccessoryDiscovery(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
@@ -1351,27 +1336,25 @@ void __75__SPAccessoryDiscoveryAndPairingSession_proximityPairingCompleted_beaco
 
 - (void)accessoryProximityPairingError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = errorCopy;
+    v11 = errorCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "[accessoryProximityPairingError called from client]. Error %@", buf, 0xCu);
   }
 
   callbackQueue = [(SPAccessoryDiscoveryAndPairingSession *)self callbackQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __72__SPAccessoryDiscoveryAndPairingSession_accessoryProximityPairingError___block_invoke;
-  v9[3] = &unk_279B58C78;
-  v9[4] = self;
-  v10 = errorCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __72__SPAccessoryDiscoveryAndPairingSession_accessoryProximityPairingError___block_invoke;
+  v8[3] = &unk_279B58C78;
+  v8[4] = self;
+  v9 = errorCopy;
   v7 = errorCopy;
-  dispatch_sync(callbackQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(callbackQueue, v8);
 }
 
 void __72__SPAccessoryDiscoveryAndPairingSession_accessoryProximityPairingError___block_invoke(uint64_t a1)
@@ -1385,7 +1368,7 @@ void __72__SPAccessoryDiscoveryAndPairingSession_accessoryProximityPairingError_
 
   else
   {
-    v4 = LogCategory_AccessoryDiscovery();
+    v4 = LogCategory_AccessoryDiscovery(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -1396,7 +1379,7 @@ void __72__SPAccessoryDiscoveryAndPairingSession_accessoryProximityPairingError_
 - (void)notifyPairingAccessoryChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1420,16 +1403,16 @@ void __71__SPAccessoryDiscoveryAndPairingSession_notifyPairingAccessoryChanged__
 
   if (v2)
   {
-    v11 = [*(a1 + 32) notifyPairingAccessoryChanged];
-    v11[2](v11, *(a1 + 40));
+    v12 = [*(a1 + 32) notifyPairingAccessoryChanged];
+    v12[2](v12, *(a1 + 40));
   }
 
   else
   {
-    v3 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = LogCategory_AccessoryDiscovery(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __71__SPAccessoryDiscoveryAndPairingSession_notifyPairingAccessoryChanged___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __71__SPAccessoryDiscoveryAndPairingSession_notifyPairingAccessoryChanged___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 }
@@ -1438,7 +1421,7 @@ void __71__SPAccessoryDiscoveryAndPairingSession_notifyPairingAccessoryChanged__
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = LogCategory_AccessoryDiscovery();
+  v8 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1469,7 +1452,7 @@ void __101__SPAccessoryDiscoveryAndPairingSession_initializeProximityPairingForA
   identifierCopy = identifier;
   configurationCopy = configuration;
   completionCopy = completion;
-  v11 = LogCategory_AccessoryDiscovery();
+  v11 = LogCategory_AccessoryDiscovery(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1495,62 +1478,6 @@ void __113__SPAccessoryDiscoveryAndPairingSession_finalizeProximityPairingForAcc
 {
   v2 = [*(a1 + 32) proxy];
   [v2 finalizeProximityPairingForAccessoryIdentifier:*(a1 + 40) configuration:*(a1 + 48) completion:*(a1 + 56)];
-}
-
-void __88__SPAccessoryDiscoveryAndPairingSession_startProximityAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession startProximityAccessoryDiscovery] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __79__SPAccessoryDiscoveryAndPairingSession_startAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession start] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __78__SPAccessoryDiscoveryAndPairingSession_stopAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession stopAccessoryDiscovery] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__SPAccessoryDiscoveryAndPairingSession_stopProximityAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession stopProximityAccessoryDiscovery] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__SPAccessoryDiscoveryAndPairingSession_startLocalFindableAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession startLocalFindableAccessoryDiscoveryWithCompletion] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__SPAccessoryDiscoveryAndPairingSession_stopLocalFindableAccessoryDiscoveryWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryDiscoverySession stopLocalFindableAccessoryDiscoveryWithCompletion] completion. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SPAccessoryDiscoveryAndPairingSession_initiatePairingForAccessoryWith_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2643D0000, v0, v1, "[SPAccessoryPairingSession initiatePairingForAccessoryWith] failed %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

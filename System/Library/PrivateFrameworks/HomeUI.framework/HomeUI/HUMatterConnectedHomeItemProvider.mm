@@ -53,7 +53,7 @@
 id __57__HUMatterConnectedHomeItemProvider_connectedHomesFuture__block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x277D2C900];
-  v3 = [a2 allKeys];
+  v3 = objc_msgSend_allKeys(a2);
   v4 = [v2 futureWithResult:v3];
 
   return v4;
@@ -104,7 +104,7 @@ id __48__HUMatterConnectedHomeItemProvider_reloadItems__block_invoke(uint64_t a1
   v13 = v3;
   v5 = v3;
   v6 = _Block_copy(aBlock);
-  v7 = [v5 allKeys];
+  v7 = objc_msgSend_allKeys(v5);
   v8 = [WeakRetained reloadItemsWithHomeKitObjects:v7 filter:0 itemMap:v6];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;

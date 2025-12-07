@@ -6,16 +6,16 @@
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] <= 3)
   {
-    v43 = ne_log_obj();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = ne_log_obj();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      *v56 = "[NEIKEv2ResponseConfigPayload parsePayloadData:]";
-      _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_config_hdr_t))", buf, 0xCu);
+      *v55 = "[NEIKEv2ResponseConfigPayload parsePayloadData:]";
+      _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_config_hdr_t))", buf, 0xCu);
     }
 
     hasRequiredFields = 0;
@@ -23,8 +23,8 @@
 
   else
   {
-    v53 = 0;
-    [dataCopy getBytes:&v53 length:4];
+    v52 = 0;
+    [dataCopy getBytes:&v52 length:4];
     v5 = objc_alloc_init(NEIKEv2ConfigurationMessage);
     v7 = v5;
     selfa = self;
@@ -33,7 +33,7 @@
       objc_setProperty_atomic(self, v6, v5, 32);
 
       selfCopy = self;
-      v9 = v53;
+      v9 = v52;
       Property = objc_getProperty(selfCopy, v10, 32, 1);
       if (Property)
       {
@@ -56,7 +56,7 @@
     }
 
     bytes = [dataCopy bytes];
-    v46 = dataCopy;
+    v45 = dataCopy;
     v17 = [dataCopy length];
     v20 = v17 - 4;
     if ((v17 - 4) < 4)
@@ -65,12 +65,12 @@
 LABEL_49:
       if (v25)
       {
-        v44 = ne_log_obj();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v43 = ne_log_obj();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *v56 = v25;
-          _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in response configuration payload", buf, 8u);
+          *v55 = v25;
+          _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in response configuration payload", buf, 8u);
         }
       }
 
@@ -81,8 +81,8 @@ LABEL_49:
     {
       v21 = (bytes + 4);
       *&v19 = 134218240;
-      v45 = v19;
-      v47 = v12;
+      v44 = v19;
+      v46 = v12;
       while (1)
       {
         v22 = bswap32(*v21) >> 16;
@@ -97,10 +97,10 @@ LABEL_49:
         v26 = 0;
         if (v22 >= 0x4000 && (v22 - 25960) <= 0xFFFDu)
         {
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           if (self)
           {
             v27 = objc_getProperty(self, v18, 40, 1);
@@ -116,20 +116,20 @@ LABEL_49:
           }
 
           v29 = v27;
-          v26 = [v29 countByEnumeratingWithState:&v49 objects:v54 count:16];
+          v26 = [v29 countByEnumeratingWithState:&v48 objects:v53 count:16];
           if (v26)
           {
-            v30 = *v50;
+            v30 = *v49;
             while (2)
             {
               for (i = 0; i != v26; i = i + 1)
               {
-                if (*v50 != v30)
+                if (*v49 != v30)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                v32 = *(*(&v49 + 1) + 8 * i);
+                v32 = *(*(&v48 + 1) + 8 * i);
                 if ([v32 attributeType] == v22)
                 {
                   v26 = v32;
@@ -137,7 +137,7 @@ LABEL_49:
                 }
               }
 
-              v26 = [v29 countByEnumeratingWithState:&v49 objects:v54 count:16];
+              v26 = [v29 countByEnumeratingWithState:&v48 objects:v53 count:16];
               if (v26)
               {
                 continue;
@@ -147,7 +147,7 @@ LABEL_49:
             }
 
 LABEL_25:
-            v12 = v47;
+            v12 = v46;
             self = selfa;
           }
         }
@@ -155,10 +155,10 @@ LABEL_25:
         v33 = ne_log_obj();
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v45;
-          *v56 = v22;
-          *&v56[8] = 1024;
-          *&v56[10] = v23;
+          *buf = v44;
+          *v55 = v22;
+          *&v55[8] = 1024;
+          *&v55[10] = v23;
           _os_log_debug_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_DEBUG, "Parsing response configuration attribute of type %zu length %u", buf, 0x12u);
         }
 
@@ -232,25 +232,24 @@ LABEL_25:
         }
       }
 
-      v42 = ne_log_obj();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v41 = ne_log_obj();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109632;
-        *v56 = v20;
-        *&v56[4] = 2048;
-        *&v56[6] = v22;
-        v57 = 1024;
-        v58 = v23;
-        _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "Not enough bytes remaining (%u) to process response configuration attribute of type %zu length %u", buf, 0x18u);
+        *v55 = v20;
+        *&v55[4] = 2048;
+        *&v55[6] = v22;
+        v56 = 1024;
+        v57 = v23;
+        _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "Not enough bytes remaining (%u) to process response configuration attribute of type %zu length %u", buf, 0x18u);
       }
 
       hasRequiredFields = 0;
     }
 
-    dataCopy = v46;
+    dataCopy = v45;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 

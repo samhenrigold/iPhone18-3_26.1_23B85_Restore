@@ -5,6 +5,7 @@
 - (id)perspectiveDataItemForRenderingCommand:(id)command;
 - (void)CGImgDataForActionPlatterWithTitle:(id)title tintColor:(id)color replyHandler:(id)handler;
 - (void)CGImgDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color activityCategory:(int64_t)category replyHandler:(id)handler;
+- (void)CGImgDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping replyHandler:(id)handler;
 - (void)CGImgDataForNearbyBadgeWithCount:(int64_t)count replyHandler:(id)handler;
 - (void)CGImgDataForUIActivityTitles:(id)titles foregroundColor:(id)color replyHandler:(id)handler;
 - (void)_updateTraitCollection;
@@ -13,6 +14,7 @@
 - (void)monogramImagesForMultipleContactsSync:(id)sync style:(int64_t)style diameter:(double)diameter monogramAsFlatImages:(BOOL)images replyHandler:(id)handler;
 - (void)perspectiveDataForActionPlatterWithTitle:(id)title tintColor:(id)color replyHandler:(id)handler;
 - (void)perspectiveDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color activityCategory:(int64_t)category replyHandler:(id)handler;
+- (void)perspectiveDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping replyHandler:(id)handler;
 - (void)perspectiveDataForNearbyBadgeWithCount:(int64_t)count replyHandler:(id)handler;
 - (void)perspectiveDataForUIActivityTitle:(id)title textColor:(id)color replyHandler:(id)handler;
 - (void)securityScopedURLForDownloadsFolderWithReplyHandler:(id)handler;
@@ -688,6 +690,67 @@ LABEL_25:
   return v23;
 }
 
+- (void)CGImgDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping replyHandler:(id)handler
+{
+  wrappingCopy = wrapping;
+  dropCopy = drop;
+  handlerCopy = handler;
+  colorCopy = color;
+  stringCopy = string;
+  v17 = sharingXPCHelperLog();
+  v18 = v17;
+  intervalID = self->_intervalID;
+  if (intervalID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  {
+    *buf = 134217984;
+    v33 = intervalID;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_BEGIN, intervalID, "CGImgDataForNameLabelWithStringHelper", "%llu", buf, 0xCu);
+  }
+
+  v20 = [SFShareSheetRendering drawingCommandsForNameLabelWithString:stringCopy textColor:colorCopy maxNumberOfLines:lines isAirDrop:dropCopy ignoreNameWrapping:wrappingCopy hostConfig:self->_uiConfig];
+
+  v21 = [UIGraphicsImageRenderer alloc];
+  [v20 contextSize];
+  v22 = [v21 initWithSize:?];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100003A70;
+  v30[3] = &unk_10000C378;
+  v31 = v20;
+  v23 = v20;
+  v24 = [v22 imageWithActions:v30];
+  v25 = sharingXPCHelperLog();
+  v26 = v25;
+  v27 = self->_intervalID;
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  {
+    *buf = 134217984;
+    v33 = v27;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_END, v27, "CGImgDataForNameLabelWithStringHelper", "%llu", buf, 0xCu);
+  }
+
+  if ([v24 CGImage])
+  {
+    v28 = SFDataFromCGImage();
+    if (v28)
+    {
+      v29 = v28;
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    (handlerCopy)[2](handlerCopy, v29);
+  }
+
+  else
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+}
+
 - (void)CGImgDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color activityCategory:(int64_t)category replyHandler:(id)handler
 {
   handlerCopy = handler;
@@ -891,6 +954,37 @@ LABEL_25:
   }
 
   handlerCopy[2](handlerCopy, v15);
+}
+
+- (void)perspectiveDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping replyHandler:(id)handler
+{
+  wrappingCopy = wrapping;
+  dropCopy = drop;
+  handlerCopy = handler;
+  colorCopy = color;
+  stringCopy = string;
+  v17 = sharingXPCHelperLog();
+  v18 = v17;
+  intervalID = self->_intervalID;
+  if (intervalID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_BEGIN, intervalID, "perspectiveDataForNameLabelWithString", &unk_100006E66, buf, 2u);
+  }
+
+  v20 = [SFShareSheetRendering drawingCommandsForNameLabelWithString:stringCopy textColor:colorCopy maxNumberOfLines:lines isAirDrop:dropCopy ignoreNameWrapping:wrappingCopy hostConfig:self->_uiConfig];
+
+  v21 = [(SharingXPCHelper *)self perspectiveDataItemForRenderingCommand:v20];
+  v22 = sharingXPCHelperLog();
+  v23 = v22;
+  v24 = self->_intervalID;
+  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  {
+    *v25 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_END, v24, "perspectiveDataForActionPlatterWithTitle", &unk_100006E66, v25, 2u);
+  }
+
+  handlerCopy[2](handlerCopy, v21);
 }
 
 - (void)perspectiveDataForActionPlatterWithTitle:(id)title tintColor:(id)color replyHandler:(id)handler

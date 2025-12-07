@@ -9,9 +9,8 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  appearCopy = appear;
   selfCopy = self;
-  PreviewViewController.viewDidAppear(_:)(appearCopy);
+  PreviewViewController.viewDidAppear(_:)();
 }
 
 - (void)viewDidLoad

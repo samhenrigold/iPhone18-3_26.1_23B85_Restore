@@ -1875,9 +1875,9 @@ LABEL_16:
   editingContact = [(CNSNaPSetupFlowManager *)self editingContact];
   [identityCopy updateImageForContact:editingContact];
 
-  contacts = [identityCopy contacts];
+  v6 = objc_msgSend_contacts(identityCopy);
 
-  firstObject = [contacts firstObject];
+  firstObject = [v6 firstObject];
 
   givenName = [firstObject givenName];
   editingContact2 = [(CNSNaPSetupFlowManager *)self editingContact];

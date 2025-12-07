@@ -60,29 +60,29 @@
 
 - (void)_performHandlers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = selfCopy->_handlers;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         item = [(QLCacheItem *)selfCopy item];
         item2 = [(QLCacheItem *)selfCopy item];
         fetcher = [item2 fetcher];
@@ -92,7 +92,7 @@
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -100,8 +100,6 @@
 
   [(NSMutableArray *)selfCopy->_handlers removeAllObjects];
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

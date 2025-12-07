@@ -82,7 +82,7 @@
   v4 = videoSession;
   if (videoSession)
   {
-    [videoSession videoDuration];
+    objc_msgSend_videoDuration(videoSession);
   }
 
   else
@@ -93,7 +93,7 @@
   if ((v9.flags & 0x1D) != 1)
   {
     asset = [(PUBrowsingVideoPlayer *)self asset];
-    [asset duration];
+    objc_msgSend_duration(asset);
     v7 = v6;
 
     CMTimeMakeWithSeconds(&v8, v7, 60);
@@ -381,7 +381,7 @@ void __44__PUBrowsingVideoPlayer__updateVideoSession__block_invoke(uint64_t a1, 
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 playbackStartTime];
+    objc_msgSend_playbackStartTime(v4);
   }
 
   else
@@ -478,7 +478,7 @@ uint64_t __50__PUBrowsingVideoPlayer__requestNewRenderIfNeeded__block_invoke(uin
   v3 = v2;
   if (v2)
   {
-    [v2 currentTime];
+    objc_msgSend_currentTime(v2);
   }
 
   else
@@ -734,7 +734,7 @@ void __41__PUBrowsingVideoPlayer__updateMuteState__block_invoke(uint64_t a1)
   else if ([(PUBrowsingVideoPlayer *)self loopingEnabledForAllVideos])
   {
     asset2 = [(PUBrowsingVideoPlayer *)self asset];
-    [asset2 duration];
+    objc_msgSend_duration(asset2);
     v7 = v6;
     [(PUBrowsingVideoPlayer *)self minimumDurationForLooping];
     v4 = v7 >= v8;
@@ -863,7 +863,7 @@ LABEL_3:
   v4 = v3;
   if (v3)
   {
-    [v3 currentTime];
+    objc_msgSend_currentTime(v3);
   }
 
   else
@@ -1242,7 +1242,7 @@ void __45__PUBrowsingVideoPlayer_registerVideoOutput___block_invoke(uint64_t a1)
   v6 = videoSession;
   if (videoSession)
   {
-    [videoSession currentTime];
+    objc_msgSend_currentTime(videoSession);
   }
 
   else
@@ -1825,7 +1825,7 @@ LABEL_3:
     v12->_volume = 1.0;
     [(PUBrowsingVideoPlayer *)v12 _updateMuteState];
     asset = [(PUBrowsingVideoPlayer *)v12 asset];
-    [asset duration];
+    objc_msgSend_duration(asset);
     v18 = v17;
 
     CMTimeMakeWithSeconds(&v27, v18, 600);

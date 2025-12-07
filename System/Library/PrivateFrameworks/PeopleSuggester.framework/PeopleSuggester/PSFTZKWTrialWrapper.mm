@@ -5,13 +5,12 @@
 
 void __38___PSFTZKWTrialWrapper_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_0;
-  sharedInstance__pasExprOnceResult_0 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_0;
+  sharedInstance__pasExprOnceResult_0 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 void __28___PSFTZKWTrialWrapper_init__block_invoke(uint64_t a1)
@@ -28,7 +27,7 @@ void __28___PSFTZKWTrialWrapper_init__block_invoke(uint64_t a1)
 
 void __35___PSFTZKWTrialWrapper_loadFactors__block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 24) experimentIdentifiersWithNamespaceName:@"COREML_SYSTEMS_FACETIME_CONTACT_PREDICTION"];
   [v3 setExperimentIdentifiers:v4];
@@ -47,20 +46,20 @@ void __35___PSFTZKWTrialWrapper_loadFactors__block_invoke(uint64_t a1, void *a2)
       v11 = [v10 deploymentId];
       v12 = [v3 experimentIdentifiers];
       v13 = [v12 treatmentId];
-      v27 = 138412802;
-      v28 = v9;
-      v29 = 1024;
-      v30 = v11;
-      v31 = 2112;
-      v32 = v13;
-      _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is enrolled in experiment with experiment ID = %@, deployment ID = %d, treatment ID = %@", &v27, 0x1Cu);
+      v26 = 138412802;
+      v27 = v9;
+      v28 = 1024;
+      v29 = v11;
+      v30 = 2112;
+      v31 = v13;
+      _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is enrolled in experiment with experiment ID = %@, deployment ID = %d, treatment ID = %@", &v26, 0x1Cu);
     }
   }
 
   else if (v7)
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is not enrolled in an experiment.", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is not enrolled in an experiment.", &v26, 2u);
   }
 
   v14 = [*(*(a1 + 32) + 24) rolloutIdentifiersWithNamespaceName:@"COREML_SYSTEMS_FACETIME_CONTACT_PREDICTION"];
@@ -80,20 +79,20 @@ void __35___PSFTZKWTrialWrapper_loadFactors__block_invoke(uint64_t a1, void *a2)
       v21 = [v20 deploymentId];
       v22 = [v3 rolloutIdentifiers];
       v23 = [v22 factorPackId];
-      v27 = 138412802;
-      v28 = v19;
-      v29 = 1024;
-      v30 = v21;
-      v31 = 2112;
-      v32 = v23;
-      _os_log_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is part of a rollout with rollout ID = %@, deployment ID = %d, factor pack ID = %@", &v27, 0x1Cu);
+      v26 = 138412802;
+      v27 = v19;
+      v28 = 1024;
+      v29 = v21;
+      v30 = 2112;
+      v31 = v23;
+      _os_log_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is part of a rollout with rollout ID = %@, deployment ID = %d, factor pack ID = %@", &v26, 0x1Cu);
     }
   }
 
   else if (v17)
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is not included in a rollout.", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Device is not included in a rollout.", &v26, 2u);
   }
 
   v24 = [v3 experimentIdentifiers];
@@ -109,8 +108,8 @@ void __35___PSFTZKWTrialWrapper_loadFactors__block_invoke(uint64_t a1, void *a2)
     v24 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&dword_1B5ED1000, v24, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Using device-local default factor values (levels).", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_1B5ED1000, v24, OS_LOG_TYPE_DEFAULT, "_PSFTZKWTrialWrapper: Using device-local default factor values (levels).", &v26, 2u);
     }
   }
 
@@ -127,8 +126,6 @@ LABEL_14:
   [v3 setFallbackInteractionsIsEnabled:{objc_msgSend(*(a1 + 32), "loadLevelAsBooleanFromFactor:withDefault:", @"fallbackInteractionsIsEnabled", 1)}];
   [v3 setFallbackInteractionsDefaultConfidenceCategory:{objc_msgSend(*(a1 + 32), "loadLevelAsConfidenceCategoryFromFactor:withDefault:", @"fallbackInteractionsDefaultConfidenceCategory", 3)}];
   [v3 setFallbackInteractionsModelType:{objc_msgSend(*(a1 + 32), "loadLevelAsInteractionModelTypeFromFactor:withDefault:", @"fallbackInteractionsModelType", 0)}];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __37___PSFTZKWTrialWrapper_runIfUpdated___block_invoke(uint64_t a1, _BYTE *a2)

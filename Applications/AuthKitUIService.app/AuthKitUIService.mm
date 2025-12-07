@@ -249,10 +249,9 @@ uint64_t sub_100004C40(uint64_t a1)
 uint64_t sub_100004D54(uint64_t a1)
 {
   memcpy(__dst, off_100014550, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_10001A8C0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -263,7 +262,7 @@ uint64_t sub_100004E14()
   v1 = sub_100004C40(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -307,7 +306,7 @@ uint64_t sub_100004FC0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "AAUIProfilePictureStore");
   }
 
   qword_10001A8C8 = *(*(*(a1 + 32) + 8) + 24);
@@ -643,10 +642,9 @@ uint64_t sub_1000077F0(uint64_t a1)
 uint64_t sub_100007904(uint64_t a1)
 {
   memcpy(__dst, off_1000146C0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_10001A8D0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -657,7 +655,7 @@ uint64_t sub_1000079C4()
   v1 = sub_1000077F0(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -701,7 +699,7 @@ uint64_t sub_100007B70(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "RUIStyle");
   }
 
   qword_10001A8D8 = *(*(*(a1 + 32) + 8) + 24);
@@ -741,7 +739,7 @@ uint64_t sub_100007D48(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "RemoteUIControllerPreferences");
   }
 
   qword_10001A8E0 = *(*(*(a1 + 32) + 8) + 24);

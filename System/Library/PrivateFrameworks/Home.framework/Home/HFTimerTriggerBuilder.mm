@@ -20,6 +20,7 @@
 - (id)updateTriggerBuilder:(id)builder;
 - (id)validationError;
 - (void)_createConcreteTriggerBuilder;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setEventBuilder:(id)builder;
 - (void)setName:(id)name;
 - (void)setPreferredHomeKitObjectType:(unint64_t)type;
@@ -85,9 +86,9 @@
   if (trigger)
   {
     trigger2 = [(HFTriggerBuilder *)self trigger];
-    home = [(HFItemBuilder *)self home];
+    context2 = objc_msgSend_home(self);
     context = [(HFTriggerBuilder *)self context];
-    v7 = [HFConcreteTimeTriggerBuilder builderForExistingTrigger:trigger2 inHome:home context:context];
+    v7 = [HFConcreteTimeTriggerBuilder builderForExistingTrigger:trigger2 inHome:context2 context:context];
     [(HFTimerTriggerBuilder *)self setConcreteTriggerBuilder:v7];
   }
 
@@ -104,9 +105,9 @@
     }
 
     v9 = [v8 alloc];
-    trigger2 = [(HFItemBuilder *)self home];
-    home = [(HFTriggerBuilder *)self context];
-    context = [v9 initWithHome:trigger2 context:home];
+    trigger2 = objc_msgSend_home(self);
+    context2 = [(HFTriggerBuilder *)self context];
+    context = [v9 initWithHome:trigger2 context:context2];
     [(HFTimerTriggerBuilder *)self setConcreteTriggerBuilder:context];
   }
 
@@ -258,13 +259,13 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
 
 - (id)convertedEventTriggerBuilder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(HFTimerTriggerBuilder *)self _supportsEventBasedTimeTriggers])
   {
     v3 = [HFEventTriggerBuilder alloc];
-    home = [(HFItemBuilder *)self home];
+    v4 = objc_msgSend_home(self);
     context = [(HFTriggerBuilder *)self context];
-    v6 = [(HFTriggerBuilder *)v3 initWithHome:home context:context];
+    v6 = [(HFTriggerBuilder *)v3 initWithHome:v4 context:context];
 
     timeInterface = [(HFEventTriggerBuilder *)v6 timeInterface];
     timeInterface2 = [(HFTimerTriggerBuilder *)self timeInterface];
@@ -272,13 +273,13 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
 
     [(HFTriggerBuilder *)v6 removeAllEndEventBuilders];
     endEventBuilders = [(HFTriggerBuilder *)self endEventBuilders];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __53__HFTimerTriggerBuilder_convertedEventTriggerBuilder__block_invoke;
-    v19[3] = &unk_277DF4D70;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __53__HFTimerTriggerBuilder_convertedEventTriggerBuilder__block_invoke;
+    v18[3] = &unk_277DF4D70;
     v10 = v6;
     p_super = &v10->super.super.super;
-    [endEventBuilders na_each:v19];
+    [endEventBuilders na_each:v18];
 
     conditionCollection = [(HFTriggerBuilder *)self conditionCollection];
     [(HFTriggerBuilder *)v10 replaceConditionsWithConditions:conditionCollection];
@@ -303,23 +304,21 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
       name2 = [(HFTriggerBuilder *)self name];
       *buf = 138412546;
       selfCopy = self;
-      v23 = 2112;
-      v24 = name2;
+      v22 = 2112;
+      v23 = name2;
       _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Attempting to use trigger features on timer trigger builder %@ (name:%@) that require supporting the new event-based time triggers when they are not currently supported in this home!", buf, 0x16u);
     }
 
     v10 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)naturalLanguageNameOfType:(unint64_t)type
 {
-  home = [(HFItemBuilder *)self home];
-  v6 = [HFTriggerNaturalLanguageOptions optionsWithHome:home nameType:type];
+  v5 = objc_msgSend_home(self, a2);
+  v6 = [HFTriggerNaturalLanguageOptions optionsWithHome:v5 nameType:type];
   v7 = [(HFTimerTriggerBuilder *)self naturalLanguageNameWithOptions:v6];
 
   return v7;
@@ -400,6 +399,20 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
   [v5 setName:nameCopy];
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  enabled = [(HFTriggerBuilder *)self enabled];
+  v7.receiver = self;
+  v7.super_class = HFTimerTriggerBuilder;
+  [(HFTriggerBuilder *)&v7 setEnabled:enabledCopy];
+  if (enabled != enabledCopy)
+  {
+    timeInterface = [(HFTimerTriggerBuilder *)self timeInterface];
+    [timeInterface triggerEnabledStateDidChange:enabledCopy];
+  }
+}
+
 - (BOOL)_currentStateRequiresEventBasedTimeTriggers
 {
   endEventBuilders = [(HFTriggerBuilder *)self endEventBuilders];
@@ -437,8 +450,8 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
     return v5 == 2;
   }
 
-  home = [(HFItemBuilder *)self home];
-  hf_supportsSharedEventAutomation = [home hf_supportsSharedEventAutomation];
+  v6 = objc_msgSend_home(self);
+  hf_supportsSharedEventAutomation = [v6 hf_supportsSharedEventAutomation];
 
   return hf_supportsSharedEventAutomation;
 }
@@ -447,15 +460,15 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
 {
   if ([(HFTimerTriggerBuilder *)self wantsConvertToEventTrigger])
   {
-    home = [(HFItemBuilder *)self home];
-    newEventTriggerBuilder = [home newEventTriggerBuilder];
+    concreteTriggerBuilder = objc_msgSend_home(self);
+    newEventTriggerBuilder = [concreteTriggerBuilder newEventTriggerBuilder];
     getOrCreateTriggerBuilder = [HFTriggerBuilderPair creatingTriggerWithBuilder:newEventTriggerBuilder];
   }
 
   else
   {
-    home = [(HFTimerTriggerBuilder *)self concreteTriggerBuilder];
-    getOrCreateTriggerBuilder = [home getOrCreateTriggerBuilder];
+    concreteTriggerBuilder = [(HFTimerTriggerBuilder *)self concreteTriggerBuilder];
+    getOrCreateTriggerBuilder = [concreteTriggerBuilder getOrCreateTriggerBuilder];
   }
 
   return getOrCreateTriggerBuilder;
@@ -463,7 +476,7 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
 
 - (id)updateTriggerBuilder:(id)builder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   if ([(HFTimerTriggerBuilder *)self wantsConvertToEventTrigger]&& (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -482,13 +495,13 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
       concreteTriggerBuilder2 = [(HFTimerTriggerBuilder *)self concreteTriggerBuilder];
       [concreteTriggerBuilder2 removeAllEndEventBuilders];
       endEventBuilders = [(HFTriggerBuilder *)self endEventBuilders];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __66__HFTimerTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke;
-      v21[3] = &unk_277DF4D70;
-      v22 = concreteTriggerBuilder2;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __66__HFTimerTriggerBuilder_AutomationBuilders__updateTriggerBuilder___block_invoke;
+      v20[3] = &unk_277DF4D70;
+      v21 = concreteTriggerBuilder2;
       v11 = concreteTriggerBuilder2;
-      [endEventBuilders na_each:v21];
+      [endEventBuilders na_each:v20];
 
       conditionCollection = [(HFTriggerBuilder *)self conditionCollection];
       [v11 replaceConditionsWithConditions:conditionCollection];
@@ -500,16 +513,14 @@ id __42__HFTimerTriggerBuilder_commitEditTrigger__block_invoke(uint64_t a1, void
     v14 = MEMORY[0x277D2C900];
     convertedEventTriggerBuilder = [(HFTimerTriggerBuilder *)self concreteTriggerBuilder];
     v15 = [convertedEventTriggerBuilder updateTriggerBuilder:builderCopy];
-    v23[0] = v15;
-    v20.receiver = self;
-    v20.super_class = HFTimerTriggerBuilder;
-    v16 = [(HFTriggerBuilder *)&v20 updateTriggerBuilder:builderCopy];
-    v23[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = v15;
+    v19.receiver = self;
+    v19.super_class = HFTimerTriggerBuilder;
+    v16 = [(HFTriggerBuilder *)&v19 updateTriggerBuilder:builderCopy];
+    v22[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v6 = [v14 combineAllFutures:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -582,7 +593,7 @@ id __65__HFTimerTriggerBuilder_AutomationBuilders___commitUsingBuilders__block_i
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v7 = [v5 home];
+  v7 = objc_msgSend_home(v5);
   v8 = [v5 _deleteTrigger:v6 fromHome:v7];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;

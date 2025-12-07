@@ -141,28 +141,28 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v12[7] = *MEMORY[0x1E69E9840];
-  v11[0] = @"distanceFromHome";
-  v12[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_distanceFromHome];
-  v11[1] = @"arrivalStartTime";
+  v11[7] = *MEMORY[0x1E69E9840];
+  v10[0] = @"distanceFromHome";
+  v11[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_distanceFromHome];
+  v10[1] = @"arrivalStartTime";
   v3 = MEMORY[0x1E696AD98];
   [[(NSDateInterval *)self->_arrivalDateInterval startDate] srAbsoluteTime];
-  v12[1] = [v3 numberWithDouble:?];
-  v11[2] = @"arrivalDuration";
+  v11[1] = [v3 numberWithDouble:?];
+  v10[2] = @"arrivalDuration";
   v4 = MEMORY[0x1E696AD98];
   [(NSDateInterval *)self->_arrivalDateInterval duration];
-  v12[2] = [v4 numberWithDouble:?];
-  v11[3] = @"departureStartTime";
+  v11[2] = [v4 numberWithDouble:?];
+  v10[3] = @"departureStartTime";
   v5 = MEMORY[0x1E696AD98];
   [[(NSDateInterval *)self->_departureDateInterval startDate] srAbsoluteTime];
-  v12[3] = [v5 numberWithDouble:?];
-  v11[4] = @"departureDuration";
+  v11[3] = [v5 numberWithDouble:?];
+  v10[4] = @"departureDuration";
   v6 = MEMORY[0x1E696AD98];
   [(NSDateInterval *)self->_departureDateInterval duration];
-  v12[4] = [v6 numberWithDouble:?];
-  v11[5] = @"locationCategory";
-  v12[5] = [MEMORY[0x1E696AD98] numberWithInteger:self->_locationCategory];
-  v11[6] = @"UUID";
+  v11[4] = [v6 numberWithDouble:?];
+  v10[5] = @"locationCategory";
+  v11[5] = [MEMORY[0x1E696AD98] numberWithInteger:self->_locationCategory];
+  v10[6] = @"UUID";
   identifier = self->_identifier;
   if (identifier)
   {
@@ -174,10 +174,8 @@
     uUIDString = &stru_1F48BB5C0;
   }
 
-  v12[6] = uUIDString;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[6] = uUIDString;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:7];
 }
 
 - (BOOL)isEqual:(id)equal

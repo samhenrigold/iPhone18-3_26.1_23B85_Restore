@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_3EA8F8();
+  sub_3EA8F8(v2);
 }
 
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes
@@ -29,7 +29,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_3EB490(change);
+  sub_3EB490(change, v6);
 }
 
 @end

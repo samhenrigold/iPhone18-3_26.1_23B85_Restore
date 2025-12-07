@@ -7,35 +7,35 @@
 
 - (id)_wp_stringByRemovingTrackingInformationFromURLs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   string = [self string];
-  checkForURLUsingFastPath(string, v12);
+  checkForURLUsingFastPath(&v11, string);
 
-  if (v12[0])
+  if (v11)
   {
-    v3 = v13;
-    if (v13)
+    v3 = v12;
+    if (v12)
     {
       v4 = [self length];
       _wp_urlByRemovingTrackingInformation = [v3 _wp_urlByRemovingTrackingInformation];
       absoluteString = [_wp_urlByRemovingTrackingInformation absoluteString];
-      v15[0] = 0;
-      v15[1] = v4;
-      v16 = absoluteString;
-      memset(v11, 0, sizeof(v11));
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v11, v15, &v17, 1uLL);
-      selfCopy = WebPrivacy::applyOrderedReplacements<NSAttributedString>(self, v11);
-      v14 = v11;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v14);
+      v14[0] = 0;
+      v14[1] = v4;
+      v15 = absoluteString;
+      memset(v10, 0, sizeof(v10));
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v10, v14, &v16, 1uLL);
+      selfCopy = WebPrivacy::applyOrderedReplacements<NSAttributedString>(self, v10);
+      v13 = v10;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v13);
     }
 
     else
     {
       string2 = [self string];
-      WebPrivacy::findOrderedReplacementRanges(string2, v11);
-      selfCopy = WebPrivacy::applyOrderedReplacements<NSAttributedString>(self, v11);
-      v15[0] = v11;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v15);
+      WebPrivacy::findOrderedReplacementRanges(v10, string2);
+      selfCopy = WebPrivacy::applyOrderedReplacements<NSAttributedString>(self, v10);
+      v14[0] = v10;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v14);
 
       v3 = 0;
     }
@@ -44,10 +44,8 @@
   else
   {
     selfCopy = self;
-    v3 = v13;
+    v3 = v12;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -56,9 +54,9 @@
 {
   v4 = a3;
   string = [self string];
-  checkForURLUsingFastPath(string, v13);
+  checkForURLUsingFastPath(&v13, string);
 
-  if (v13[0])
+  if (v13)
   {
     v6 = v14;
     if (!v14)

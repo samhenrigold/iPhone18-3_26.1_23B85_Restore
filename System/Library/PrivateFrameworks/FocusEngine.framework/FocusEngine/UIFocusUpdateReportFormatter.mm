@@ -3,7 +3,7 @@
 
 @implementation UIFocusUpdateReportFormatter
 
-uint64_t __48___UIFocusUpdateReportFormatter__bodyForReport___block_invoke(uint64_t a1)
+void *__48___UIFocusUpdateReportFormatter__bodyForReport___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) appendString:@"\n"];
   v3 = *(*(a1 + 40) + 8);

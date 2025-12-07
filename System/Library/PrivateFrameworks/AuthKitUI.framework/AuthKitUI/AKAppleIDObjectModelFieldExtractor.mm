@@ -130,7 +130,6 @@
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -252,7 +251,6 @@
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }

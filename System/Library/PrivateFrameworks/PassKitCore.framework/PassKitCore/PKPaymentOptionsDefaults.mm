@@ -69,11 +69,11 @@
   return v2;
 }
 
-void __36__PKPaymentOptionsDefaults_defaults__block_invoke()
+void __36__PKPaymentOptionsDefaults_defaults__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = _MergedGlobals_256;
-  _MergedGlobals_256 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = _MergedGlobals_256;
+  _MergedGlobals_256 = v1;
 }
 
 - (PKPaymentOptionsDefaults)init
@@ -1302,22 +1302,22 @@ LABEL_11:
 - (void)deleteDefaultForContactKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:*MEMORY[0x1E695C360]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [(PKPaymentOptionsDefaults *)self deleteDefaultShippingAddress];
   }
 
-  else if ([keyCopy isEqualToString:*MEMORY[0x1E695C208]])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [(PKPaymentOptionsDefaults *)self deleteDefaultContactEmail];
   }
 
-  else if ([keyCopy isEqualToString:*MEMORY[0x1E695C330]])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [(PKPaymentOptionsDefaults *)self deleteDefaultContactPhone];
   }
 
-  else if (([keyCopy isEqualToString:*MEMORY[0x1E695C230]] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", *MEMORY[0x1E695C240]))
+  else if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
   {
     [(PKPaymentOptionsDefaults *)self deleteDefaultContactName];
   }

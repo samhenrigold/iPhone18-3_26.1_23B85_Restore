@@ -1,1406 +1,10 @@
-uint64_t sub_1002ADBA0@<X0>(_BYTE *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  result = Flag.wrappedValue.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002ADC08()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t Generate.ssh.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t (*Generate.ssh.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.sshPasswordAuth.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  Flag.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002ADDB0@<X0>(_BYTE *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  result = Flag.wrappedValue.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002ADE18()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t Generate.sshPasswordAuth.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t (*Generate.sshPasswordAuth.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t (*Generate.perfdata.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t (*Generate.issueDCRT.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.computerName.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AE1A0@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AE208()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.computerName.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.computerName.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate._hostName.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AE3C0@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AE428()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate._hostName.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate._hostName.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.localHostName.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AE5E0@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AE648()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.localHostName.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.localHostName.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.usageLabel.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AE800@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AE868()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.usageLabel.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.usageLabel.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.configSecurityPolicy.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AEA20@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AEA88()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.configSecurityPolicy.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.configSecurityPolicy.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.configSecurityPolicyVersion.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AEC44@<X0>(uint64_t a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  result = Option.wrappedValue.getter();
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  return result;
-}
-
-uint64_t sub_1002AECB4()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.configSecurityPolicyVersion.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.configSecurityPolicyVersion.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.retainPreviouslyCachedCryptexesUnsafelyFlagCount.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF408);
-  Flag.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AEE6C@<X0>(void *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF408);
-  result = Flag.wrappedValue.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AEED4()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF408);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t Generate.retainPreviouslyCachedCryptexesUnsafelyFlagCount.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF408);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t (*Generate.retainPreviouslyCachedCryptexesUnsafelyFlagCount.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF408);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.cryptexCacheMaxTotalSize.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AF080@<X0>(uint64_t a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  result = Option.wrappedValue.getter();
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  return result;
-}
-
-uint64_t sub_1002AF0F0()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.cryptexCacheMaxTotalSize.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.cryptexCacheMaxTotalSize.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.diagnosticsSubmission.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  Flag.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AF2A8@<X0>(_BYTE *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  result = Flag.wrappedValue.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AF310()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t Generate.diagnosticsSubmission.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t (*Generate.diagnosticsSubmission.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.applyTimeoutArgument.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-double sub_1002AF4B8@<D0>(_OWORD *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  Option.wrappedValue.getter();
-  result = *&v3;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AF520()
-{
-  type metadata accessor for Generate(0);
-
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.applyTimeoutArgument.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.applyTimeoutArgument.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F0);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.bandwidthLimit.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF410);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AF6DC@<X0>(uint64_t a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF410);
-  result = Option.wrappedValue.getter();
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  return result;
-}
-
-uint64_t sub_1002AF74C()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF410);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.bandwidthLimit.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF410);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.bandwidthLimit.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF410);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.lockCryptexes.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  Flag.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AF904@<X0>(_BYTE *a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  result = Flag.wrappedValue.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1002AF96C()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t Generate.lockCryptexes.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  return Flag.wrappedValue.setter();
-}
-
-uint64_t (*Generate.lockCryptexes.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF3F8);
-  *(v3 + 32) = Flag.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.networkUplinkMTU.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  Option.wrappedValue.getter();
-  return v1;
-}
-
-uint64_t sub_1002AFB18@<X0>(uint64_t a1@<X8>)
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  result = Option.wrappedValue.getter();
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  return result;
-}
-
-uint64_t sub_1002AFB88()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t Generate.networkUplinkMTU.setter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  return Option.wrappedValue.setter();
-}
-
-uint64_t (*Generate.networkUplinkMTU.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
-  *(v3 + 32) = Option.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.cryptexOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002AFD40()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002AFD98(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.CryptexOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.CryptexOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.CryptexOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.CryptexOptions);
-}
-
-uint64_t Generate.cryptexOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.CryptexOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.CryptexOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.CryptexOptions);
-}
-
-uint64_t (*Generate.cryptexOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.diavloOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF420);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B008C()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF420);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B00E4(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.DiavloOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.DiavloOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.DiavloOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF420);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.DiavloOptions);
-}
-
-uint64_t Generate.diavloOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.DiavloOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.DiavloOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF420);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.DiavloOptions);
-}
-
-uint64_t sub_1002B02E8(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t sub_1002B0350(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t (*Generate.diavloOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF420);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.installOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF428);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B04A0()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF428);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B04F8(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.InstallOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.InstallOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.InstallOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF428);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.InstallOptions);
-}
-
-uint64_t Generate.installOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.InstallOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.InstallOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF428);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.InstallOptions);
-}
-
-uint64_t (*Generate.installOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF428);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.packageOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF430);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B07EC()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF430);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B0844(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.PackageOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.PackageOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.PackageOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF430);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.PackageOptions);
-}
-
-uint64_t Generate.packageOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.PackageOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.PackageOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF430);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.PackageOptions);
-}
-
-uint64_t (*Generate.packageOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF430);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.resultConfig.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF438);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B0B38()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF438);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B0B90(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.ResultOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.ResultOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.ResultOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF438);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.ResultOptions);
-}
-
-uint64_t Generate.resultConfig.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.ResultOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.ResultOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF438);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.ResultOptions);
-}
-
-uint64_t (*Generate.resultConfig.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF438);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.preferenceOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF440);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B0E84()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF440);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B0EDC(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.PreferenceOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.PreferenceOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.PreferenceOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF440);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.PreferenceOptions);
-}
-
-uint64_t Generate.preferenceOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.PreferenceOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.PreferenceOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF440);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.PreferenceOptions);
-}
-
-uint64_t (*Generate.preferenceOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF440);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.narrativeIdentitiesOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF448);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B11D0()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF448);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B1228(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.NarrativeIdentityOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.NarrativeIdentityOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF448);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.NarrativeIdentityOptions);
-}
-
-uint64_t Generate.narrativeIdentitiesOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.NarrativeIdentityOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF448);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.NarrativeIdentityOptions);
-}
-
-uint64_t (*Generate.narrativeIdentitiesOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF448);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.userOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF450);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B151C()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF450);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B1574(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.UserOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.UserOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.UserOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF450);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.UserOptions);
-}
-
-uint64_t Generate.userOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.UserOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.UserOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF450);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.UserOptions);
-}
-
-uint64_t (*Generate.userOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF450);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.logOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF458);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B1868()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF458);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B18C0(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.LogOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.LogOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.LogOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF458);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.LogOptions);
-}
-
-uint64_t Generate.logOptions.setter(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.LogOptions(0);
-  __chkstk_darwin(v2 - 8);
-  sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.LogOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF458);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(a1, type metadata accessor for Generate.LogOptions);
-}
-
-uint64_t (*Generate.logOptions.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x28uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF458);
-  *(v3 + 32) = OptionGroup.wrappedValue.modify();
-  return sub_10019B5FC;
-}
-
-uint64_t Generate.networkOptions.getter()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF460);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B1BB4()
-{
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF460);
-  return OptionGroup.wrappedValue.getter();
-}
-
-uint64_t sub_1002B1C0C(uint64_t a1)
-{
-  v2 = type metadata accessor for Generate.NetworkOptions(0);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v9 - v6;
-  sub_1002B02E8(a1, &v9 - v6, type metadata accessor for Generate.NetworkOptions);
-  sub_1002B02E8(v7, v5, type metadata accessor for Generate.NetworkOptions);
-  type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF460);
-  OptionGroup.wrappedValue.setter();
-  return sub_1002B0350(v7, type metadata accessor for Generate.NetworkOptions);
-}
-
 uint64_t Generate.networkOptions.setter(uint64_t a1)
 {
   v2 = type metadata accessor for Generate.NetworkOptions(0);
   __chkstk_darwin(v2 - 8);
   sub_1002B02E8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for Generate.NetworkOptions);
   type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF460);
+  sub_1000039E8(&qword_1004AF460, &unk_100404D20);
   OptionGroup.wrappedValue.setter();
   return sub_1002B0350(a1, type metadata accessor for Generate.NetworkOptions);
 }
@@ -1420,14 +24,14 @@ uint64_t (*Generate.networkOptions.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF460);
+  sub_1000039E8(&qword_1004AF460, &unk_100404D20);
   *(v3 + 32) = OptionGroup.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.run()()
 {
-  v1 = sub_1000039E8(&qword_1004A9CF8);
+  v1 = sub_1000039E8(&qword_1004A9CF8, &qword_10037BF90);
   __chkstk_darwin(v1 - 8);
   *&v103 = &v95 - v2;
   v3 = type metadata accessor for FilePath();
@@ -1476,23 +80,23 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   __chkstk_darwin(v34 - 8);
   v36 = &v95 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   v37 = type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF418);
+  sub_1000039E8(&qword_1004AF418, &qword_100404CD8);
   OptionGroup.wrappedValue.getter();
   v109 = Generate.CryptexOptions.config.getter();
   sub_1002B0350(v36, type metadata accessor for Generate.CryptexOptions);
-  sub_1000039E8(&qword_1004AF420);
+  sub_1000039E8(&qword_1004AF420, &qword_100404CE0);
   OptionGroup.wrappedValue.getter();
-  v38 = sub_1000039E8(&qword_1004AF3F0);
+  v38 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   v108 = *&v238[8];
   if (*&v238[8])
   {
     v146 = *v238;
-    sub_1000039E8(&qword_1004AF478);
+    sub_1000039E8(&qword_1004AF478, &unk_100404D50);
     Option.wrappedValue.getter();
     v144 = *&v238[8];
     v145 = *v238;
-    sub_1000039E8(&qword_1004AE998);
+    sub_1000039E8(&qword_1004AE998, &qword_100402E78);
     Flag.wrappedValue.getter();
     sub_1002B0350(v33, type metadata accessor for Generate.DiavloOptions);
     v143 = v238[0];
@@ -1507,51 +111,51 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     v143 = 0;
   }
 
-  v127 = sub_1000039E8(&qword_1004AF428);
+  v127 = sub_1000039E8(&qword_1004AF428, &qword_100404CE8);
   OptionGroup.wrappedValue.getter();
   Generate.InstallOptions.config.getter(&v263);
   v130 = type metadata accessor for Generate.InstallOptions;
   sub_1002B0350(v30, type metadata accessor for Generate.InstallOptions);
-  sub_1000039E8(&qword_1004AF430);
+  sub_1000039E8(&qword_1004AF430, &qword_100404CF0);
   OptionGroup.wrappedValue.getter();
   v138 = Generate.PackageOptions.config.getter();
   sub_1002B0350(v24, type metadata accessor for Generate.PackageOptions);
-  sub_1000039E8(&qword_1004AF440);
+  sub_1000039E8(&qword_1004AF440, &qword_100404D00);
   v39 = v136;
   OptionGroup.wrappedValue.getter();
   v134 = Generate.PreferenceOptions.config.getter();
   sub_1002B0350(v39, type metadata accessor for Generate.PreferenceOptions);
-  sub_1000039E8(&qword_1004AF448);
+  sub_1000039E8(&qword_1004AF448, &qword_100404D08);
   v40 = v137;
   OptionGroup.wrappedValue.getter();
   v131 = Generate.NarrativeIdentityOptions.config.getter();
   sub_1002B0350(v40, type metadata accessor for Generate.NarrativeIdentityOptions);
-  sub_1000039E8(&qword_1004AF438);
+  sub_1000039E8(&qword_1004AF438, &qword_100404CF8);
   v41 = v139;
   OptionGroup.wrappedValue.getter();
-  sub_1000039E8(&qword_1004AE9B8);
+  sub_1000039E8(&qword_1004AE9B8, &qword_100404D30);
   Option.wrappedValue.getter();
   sub_1002B0350(v41, type metadata accessor for Generate.ResultOptions);
   v128 = v238[0];
   v42 = v0 + *(v37 + 128);
-  v43 = sub_1000039E8(&qword_1004AF450);
+  v43 = sub_1000039E8(&qword_1004AF450, &qword_100404D10);
   v44 = v140;
   v99 = v43;
   v100 = v42;
   OptionGroup.wrappedValue.getter();
   Generate.UserOptions.config.getter(v269);
   sub_1002B0350(v44, type metadata accessor for Generate.UserOptions);
-  sub_1000039E8(&qword_1004AF458);
+  sub_1000039E8(&qword_1004AF458, &qword_100404D18);
   v45 = v141;
   OptionGroup.wrappedValue.getter();
   v129 = Generate.LogOptions.config.getter();
   sub_1002B0350(v45, type metadata accessor for Generate.LogOptions);
-  sub_1000039E8(&qword_1004AF460);
+  sub_1000039E8(&qword_1004AF460, &unk_100404D20);
   v46 = v142;
   OptionGroup.wrappedValue.getter();
   v126 = Generate.NetworkOptions.config.getter();
   sub_1002B0350(v46, type metadata accessor for Generate.NetworkOptions);
-  v118 = sub_1000039E8(&qword_1004AF400);
+  v118 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   Option.wrappedValue.getter();
   v107 = *v238;
   v98 = v238[8];
@@ -1566,7 +170,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   Option.wrappedValue.getter();
   v139 = *v238;
   v140 = *&v238[8];
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   LODWORD(v137) = v238[0];
   Flag.wrappedValue.getter();
@@ -1584,11 +188,11 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   LODWORD(v132) = v238[0];
   object = v147._object;
   OptionGroup.wrappedValue.getter();
-  sub_1000039E8(&qword_1004AF468);
+  sub_1000039E8(&qword_1004AF468, &qword_100404D38);
   Option.wrappedValue.getter();
   sub_1002B0350(object, v49);
   LODWORD(v130) = v238[0];
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v51 = *(*v238 + 16);
 
@@ -1610,7 +214,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   Option.wrappedValue.getter();
   v123 = *v238;
   v124 = *&v238[8];
-  sub_1000039E8(&qword_1004AF408);
+  sub_1000039E8(&qword_1004AF408, &qword_100404CC8);
   Flag.wrappedValue.getter();
   if (*v238 > 0)
   {
@@ -1637,7 +241,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   Option.wrappedValue.getter();
   v116 = *v238;
   v117 = *&v238[8];
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   Option.wrappedValue.getter();
   v55 = *v238;
   v56 = v269[1];
@@ -1655,7 +259,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v240 = v238[8];
   v57 = v102;
   OptionGroup.wrappedValue.getter();
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   v58 = v103;
   Option.wrappedValue.getter();
   sub_1002B0350(v57, type metadata accessor for Generate.UserOptions);
@@ -1699,7 +303,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
           *&v103 = swift_slowAlloc();
           *v238 = v103;
           *v71 = 136315138;
-          sub_1002D72A0(&qword_1004AA058, &type metadata accessor for FilePath);
+          sub_1002D72A0(&qword_1004AA058, &type metadata accessor for FilePath, &protocol conformance descriptor for FilePath);
           *&v101 = v69;
           v72 = dispatch thunk of CustomStringConvertible.description.getter();
           v73 = v68;
@@ -1855,7 +459,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     v277 = 0;
     memcpy(v236, v237, sizeof(v236));
     sub_1001D711C(v236);
-    sub_1000039E8(&qword_1004AF3E8);
+    sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
     Argument.wrappedValue.getter();
     if (v148 == 45 && v149 == 0xE100000000000000)
     {
@@ -1991,7 +595,7 @@ LABEL_26:
       }
     }
 
-    sub_1000039E8(&qword_1004AA990);
+    sub_1000039E8(&qword_1004AA990, &unk_1003F8E40);
     v88 = swift_allocObject();
     *(v88 + 16) = xmmword_100376A40;
     *(v88 + 56) = &type metadata for String;
@@ -2099,17 +703,17 @@ LABEL_31:
   sub_1001D711C(v238);
 }
 
-uint64_t Generate.DiavloOptions.config.getter@<X0>(uint64_t a1@<X8>)
+void *Generate.DiavloOptions.config.getter@<X0>(uint64_t a1@<X8>)
 {
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   result = Option.wrappedValue.getter();
   if (*(&v6 + 1))
   {
     v3 = v6;
     type metadata accessor for Generate.DiavloOptions(0);
-    sub_1000039E8(&qword_1004AF478);
+    sub_1000039E8(&qword_1004AF478, &unk_100404D50);
     Option.wrappedValue.getter();
-    sub_1000039E8(&qword_1004AE998);
+    sub_1000039E8(&qword_1004AE998, &qword_100402E78);
     result = Flag.wrappedValue.getter();
     v4 = v6;
     v5 = v6;
@@ -2129,9 +733,9 @@ uint64_t Generate.DiavloOptions.config.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t Generate.InstallOptions.config.getter@<X0>(__int128 *a1@<X8>)
+void *Generate.InstallOptions.config.getter@<X0>(__int128 *a1@<X8>)
 {
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   if (*(&v9 + 1))
   {
@@ -2175,9 +779,9 @@ uint64_t Generate.InstallOptions.config.getter@<X0>(__int128 *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1002B3C64(void (*a1)(uint64_t *), uint64_t (*a2)(void), void (*a3)(BOOL, unint64_t, uint64_t), uint64_t (*a4)(void))
+void *sub_1002B3C64(void (*a1)(uint64_t *), uint64_t (*a2)(void), void (*a3)(BOOL, unint64_t, uint64_t), uint64_t (*a4)(void))
 {
-  sub_1000039E8(&qword_1004AF480);
+  sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   Option.wrappedValue.getter();
   v9 = *(v14 + 16);
 
@@ -2194,9 +798,9 @@ uint64_t sub_1002B3C64(void (*a1)(uint64_t *), uint64_t (*a2)(void), void (*a3)(
   return sub_1002ACC50(a1, v13, 0, v10, a2, a3, a4);
 }
 
-uint64_t Generate.PreferenceOptions.config.getter()
+void *Generate.PreferenceOptions.config.getter()
 {
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v1 = *(v6 + 16);
 
@@ -2213,9 +817,9 @@ uint64_t Generate.PreferenceOptions.config.getter()
   return sub_1002ACE7C(sub_1002D7240, v5, 0, v2);
 }
 
-uint64_t sub_1002B3E44(void (*a1)(uint64_t *__return_ptr, uint64_t *), void (*a2)(BOOL, uint64_t, uint64_t))
+void *sub_1002B3E44(void (*a1)(uint64_t *__return_ptr, uint64_t *), void (*a2)(BOOL, uint64_t, uint64_t))
 {
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v5 = *(v10 + 16);
 
@@ -2232,23 +836,23 @@ uint64_t sub_1002B3E44(void (*a1)(uint64_t *__return_ptr, uint64_t *), void (*a2
   return sub_1002AD010(a1, v9, 0, v6, a2);
 }
 
-uint64_t Generate.UserOptions.config.getter@<X0>(uint64_t a1@<X8>)
+void *Generate.UserOptions.config.getter@<X0>(uint64_t a1@<X8>)
 {
-  sub_1000039E8(&qword_1004AF488);
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   result = Option.wrappedValue.getter();
   if (*(&v15 + 1))
   {
     v3 = v16;
     type metadata accessor for Generate.UserOptions(0);
 
-    sub_1000039E8(&qword_1004AF3F0);
+    sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
     Option.wrappedValue.getter();
-    sub_1000039E8(&qword_1004AF3F8);
+    sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
     Flag.wrappedValue.getter();
     v4 = v15;
     Flag.wrappedValue.getter();
     v5 = v15;
-    sub_1000039E8(&qword_1004AAC48);
+    sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
     Option.wrappedValue.getter();
     v6 = *(v15 + 16);
 
@@ -2328,12 +932,12 @@ uint64_t Generate.UserOptions.config.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t Generate.LogOptions.config.getter()
 {
-  sub_1000039E8(&qword_1004AF490);
+  sub_1000039E8(&qword_1004AF490, &qword_100404D70);
   Option.wrappedValue.getter();
   if (v4 == 3)
   {
     type metadata accessor for Generate.LogOptions(0);
-    sub_1000039E8(&qword_1004AF498);
+    sub_1000039E8(&qword_1004AF498, &qword_100404D78);
     Option.wrappedValue.getter();
     if (v3 == 2)
     {
@@ -2343,7 +947,7 @@ uint64_t Generate.LogOptions.config.getter()
 
   Option.wrappedValue.getter();
   type metadata accessor for Generate.LogOptions(0);
-  sub_1000039E8(&qword_1004AF498);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
   Option.wrappedValue.getter();
   return v2 | (v1 << 8);
 }
@@ -2351,30 +955,30 @@ uint64_t Generate.LogOptions.config.getter()
 uint64_t sub_1002B4288(uint64_t (*a1)(void))
 {
   a1(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   return v2;
 }
 
-uint64_t sub_1002B4320(uint64_t (*a1)(void), uint64_t *a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t))
+uint64_t sub_1002B4320(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3, void (*a4)(uint64_t *__return_ptr, uint64_t))
 {
   a1(0);
-  v6 = sub_1000039E8(a2);
-  a4(&v8, v6);
-  return v8;
+  v7 = sub_1000039E8(a2, a3);
+  a4(&v9, v7);
+  return v9;
 }
 
-uint64_t Generate.UserOptions.key.getter()
+void *Generate.UserOptions.key.getter()
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   return Option.wrappedValue.getter();
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.validate()()
 {
   type metadata accessor for Generate(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   Option.wrappedValue.getter();
   if ((v4 & 1) == 0 && (v3 - 1280) > 0x3B00)
   {
@@ -2390,7 +994,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     String.append(_:)(v2);
 
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
@@ -2497,10 +1101,10 @@ unint64_t sub_1002B4590(char a1)
   return result;
 }
 
-uint64_t sub_1002B49B8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002B49B8@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DCEAC(a1, a2);
-  *a3 = result;
+  result = sub_1002DCEAC(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2535,10 +1139,10 @@ uint64_t Generate.init()@<X0>(uint64_t a1@<X8>)
   v10 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v10 - 8);
   v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_1000039E8(&qword_1004AAD60);
+  v13 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v13 - 8);
   v15 = &v62 - v14;
-  v16 = sub_1000039E8(&qword_1004AAD68);
+  v16 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v16 - 8);
   v18 = &v62 - v17;
   ArgumentHelp.init(stringLiteral:)();
@@ -2568,7 +1172,7 @@ uint64_t Generate.init()@<X0>(uint64_t a1@<X8>)
   Option.init<A>(name:parsing:help:completion:)();
   v27 = v82;
   v81 = a1;
-  sub_1002AD680();
+  sub_1002AD680(_swiftEmptyArrayStorage);
   static NameSpecification.long.getter();
   static FlagInversion.prefixedNo.getter();
   ArgumentHelp.init(stringLiteral:)();
@@ -2591,7 +1195,7 @@ uint64_t Generate.init()@<X0>(uint64_t a1@<X8>)
   static FlagExclusivity.chooseLast.getter();
   Flag<A>.init(name:inversion:exclusivity:help:)();
   v65 = v27[10];
-  v72 = sub_1000039E8(&qword_1004AAD70);
+  v72 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v28 = *(type metadata accessor for NameSpecification.Element() - 8);
   v29 = *(v28 + 72);
   v30 = (*(v28 + 80) + 32) & ~*(v28 + 80);
@@ -2762,7 +1366,7 @@ uint64_t Generate.init()@<X0>(uint64_t a1@<X8>)
   v59._countAndFlagsBits = 11817;
   v59._object = 0xE200000000000000;
   String.append(_:)(v59);
-  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp);
+  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp, &protocol conformance descriptor for ArgumentHelp);
   v60 = v83;
   ExpressibleByStringInterpolation<>.init(stringInterpolation:)();
   v51(v18, 0, 1, v60);
@@ -2772,52 +1376,52 @@ uint64_t Generate.init()@<X0>(uint64_t a1@<X8>)
   Option.init<A>(name:parsing:help:completion:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1002D72A0(&qword_1004AF4A8, type metadata accessor for Generate.CryptexOptions);
+  sub_1002D72A0(&qword_1004AF4A8, type metadata accessor for Generate.CryptexOptions, &protocol conformance descriptor for Generate.CryptexOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1002D72A0(&qword_1004AF4B0, type metadata accessor for Generate.DiavloOptions);
+  sub_1002D72A0(&qword_1004AF4B0, type metadata accessor for Generate.DiavloOptions, &protocol conformance descriptor for Generate.DiavloOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1002D72A0(&qword_1004AF4B8, type metadata accessor for Generate.InstallOptions);
+  sub_1002D72A0(&qword_1004AF4B8, type metadata accessor for Generate.InstallOptions, &protocol conformance descriptor for Generate.InstallOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.PackageOptions(0);
-  sub_1002D72A0(&qword_1004AF4C0, type metadata accessor for Generate.PackageOptions);
+  sub_1002D72A0(&qword_1004AF4C0, type metadata accessor for Generate.PackageOptions, &protocol conformance descriptor for Generate.PackageOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.ResultOptions(0);
-  sub_1002D72A0(&qword_1004AF4C8, type metadata accessor for Generate.ResultOptions);
+  sub_1002D72A0(&qword_1004AF4C8, type metadata accessor for Generate.ResultOptions, &protocol conformance descriptor for Generate.ResultOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1002D72A0(&qword_1004AF4D0, type metadata accessor for Generate.PreferenceOptions);
+  sub_1002D72A0(&qword_1004AF4D0, type metadata accessor for Generate.PreferenceOptions, &protocol conformance descriptor for Generate.PreferenceOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  sub_1002D72A0(&qword_1004AF4D8, type metadata accessor for Generate.NarrativeIdentityOptions);
+  sub_1002D72A0(&qword_1004AF4D8, type metadata accessor for Generate.NarrativeIdentityOptions, &protocol conformance descriptor for Generate.NarrativeIdentityOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.UserOptions(0);
-  sub_1002D72A0(&qword_1004AF4E0, type metadata accessor for Generate.UserOptions);
+  sub_1002D72A0(&qword_1004AF4E0, type metadata accessor for Generate.UserOptions, &protocol conformance descriptor for Generate.UserOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.LogOptions(0);
-  sub_1002D72A0(&qword_1004AF4E8, type metadata accessor for Generate.LogOptions);
+  sub_1002D72A0(&qword_1004AF4E8, type metadata accessor for Generate.LogOptions, &protocol conformance descriptor for Generate.LogOptions);
   OptionGroup.init(title:visibility:)();
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.NetworkOptions(0);
-  sub_1002D72A0(&qword_1004AF4F0, type metadata accessor for Generate.NetworkOptions);
+  sub_1002D72A0(&qword_1004AF4F0, type metadata accessor for Generate.NetworkOptions, &protocol conformance descriptor for Generate.NetworkOptions);
   return OptionGroup.init(title:visibility:)();
 }
 
 uint64_t default argument 0 of Generate.init(fileName:log:preInitCommands:preInitCritical:ssh:sshPasswordAuth:perfdata:issueDCRT:computerName:_hostName:localHostName:usageLabel:configSecurityPolicy:configSecurityPolicyVersion:retainPreviouslyCachedCryptexesUnsafelyFlagCount:cryptexCacheMaxTotalSize:diagnosticsSubmission:applyTimeoutArgument:bandwidthLimit:lockCryptexes:networkUplinkMTU:cryptexOptions:diavloOptions:installOptions:packageOptions:resultConfig:preferenceOptions:narrativeIdentitiesOptions:userOptions:logOptions:networkOptions:)()
 {
-  v0 = sub_1000039E8(&qword_1004AAD60);
+  v0 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v0 - 8);
   v2 = &v9 - v1;
-  v3 = sub_1000039E8(&qword_1004AAD68);
+  v3 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   ArgumentHelp.init(stringLiteral:)();
@@ -2832,10 +1436,10 @@ uint64_t default argument 1 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -2854,7 +1458,7 @@ uint64_t default argument 3 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -2874,7 +1478,7 @@ uint64_t default argument 4 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -2894,7 +1498,7 @@ uint64_t default argument 5 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -2914,14 +1518,14 @@ uint64_t default argument 6 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
   __chkstk_darwin(v4 - 8);
   v5 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v5 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -2939,14 +1543,14 @@ uint64_t default argument 7 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
   __chkstk_darwin(v4 - 8);
   v5 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v5 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -2964,15 +1568,15 @@ uint64_t default argument 8 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376F00;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -2992,15 +1596,15 @@ uint64_t default argument 9 of Generate.init(fileName:log:preInitCommands:preIni
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376F00;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -3020,10 +1624,10 @@ uint64_t default argument 10 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -3042,15 +1646,15 @@ uint64_t default argument 11 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -3068,15 +1672,15 @@ uint64_t default argument 12 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -3094,15 +1698,15 @@ uint64_t default argument 13 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -3118,12 +1722,12 @@ uint64_t default argument 13 of Generate.init(fileName:log:preInitCommands:preIn
 
 uint64_t default argument 14 of Generate.init(fileName:log:preInitCommands:preInitCritical:ssh:sshPasswordAuth:perfdata:issueDCRT:computerName:_hostName:localHostName:usageLabel:configSecurityPolicy:configSecurityPolicyVersion:retainPreviouslyCachedCryptexesUnsafelyFlagCount:cryptexCacheMaxTotalSize:diagnosticsSubmission:applyTimeoutArgument:bandwidthLimit:lockCryptexes:networkUplinkMTU:cryptexOptions:diavloOptions:installOptions:packageOptions:resultConfig:preferenceOptions:narrativeIdentitiesOptions:userOptions:logOptions:networkOptions:)()
 {
-  v0 = sub_1000039E8(&qword_1004AAD68);
+  v0 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v0 - 8);
   v2 = &v6 - v1;
   v3 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v3 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -3138,10 +1742,10 @@ uint64_t default argument 15 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -3160,7 +1764,7 @@ uint64_t default argument 16 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -3180,10 +1784,10 @@ uint64_t default argument 17 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -3202,10 +1806,10 @@ uint64_t default argument 18 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -3224,7 +1828,7 @@ uint64_t default argument 19 of Generate.init(fileName:log:preInitCommands:preIn
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -3246,10 +1850,10 @@ uint64_t default argument 20 of Generate.init(fileName:log:preInitCommands:preIn
   __chkstk_darwin(v0 - 8);
   v1 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v1 - 8);
-  v2 = sub_1000039E8(&qword_1004AAD60);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v2 - 8);
   v4 = &v16 - v3;
-  v5 = sub_1000039E8(&qword_1004AAD68);
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v16 - v6;
   v18 = 0;
@@ -3273,7 +1877,7 @@ uint64_t default argument 20 of Generate.init(fileName:log:preInitCommands:preIn
   v12._object = 0xE200000000000000;
   String.append(_:)(v12);
   v13 = type metadata accessor for ArgumentHelp();
-  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp);
+  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp, &protocol conformance descriptor for ArgumentHelp);
   ExpressibleByStringInterpolation<>.init(stringInterpolation:)();
   (*(*(v13 - 8) + 56))(v7, 0, 1, v13);
   v14 = type metadata accessor for CompletionKind();
@@ -3283,141 +1887,141 @@ uint64_t default argument 20 of Generate.init(fileName:log:preInitCommands:preIn
   return Option.init<A>(name:parsing:help:completion:)();
 }
 
-uint64_t sub_1002B94D0(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_1002B94D0(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
-  v6 = type metadata accessor for ArgumentVisibility();
-  __chkstk_darwin(v6 - 8);
+  v8 = type metadata accessor for ArgumentVisibility();
+  __chkstk_darwin(v8 - 8);
   static ArgumentVisibility.default.getter();
   a1(0);
-  sub_1002D72A0(a2, a3);
+  sub_1002D72A0(a2, a3, a4);
   return OptionGroup.init(title:visibility:)();
 }
 
-uint64_t Generate.init(fileName:log:preInitCommands:preInitCritical:ssh:sshPasswordAuth:perfdata:issueDCRT:computerName:_hostName:localHostName:usageLabel:configSecurityPolicy:configSecurityPolicyVersion:retainPreviouslyCachedCryptexesUnsafelyFlagCount:cryptexCacheMaxTotalSize:diagnosticsSubmission:applyTimeoutArgument:bandwidthLimit:lockCryptexes:networkUplinkMTU:cryptexOptions:diavloOptions:installOptions:packageOptions:resultConfig:preferenceOptions:narrativeIdentitiesOptions:userOptions:logOptions:networkOptions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
+uint64_t Generate.init(fileName:log:preInitCommands:preInitCritical:ssh:sshPasswordAuth:perfdata:issueDCRT:computerName:_hostName:localHostName:usageLabel:configSecurityPolicy:configSecurityPolicyVersion:retainPreviouslyCachedCryptexesUnsafelyFlagCount:cryptexCacheMaxTotalSize:diagnosticsSubmission:applyTimeoutArgument:bandwidthLimit:lockCryptexes:networkUplinkMTU:cryptexOptions:diavloOptions:installOptions:packageOptions:resultConfig:preferenceOptions:narrativeIdentitiesOptions:userOptions:logOptions:networkOptions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
-  v35 = sub_1000039E8(&qword_1004AF3E8);
-  (*(*(v35 - 8) + 32))(a8, a1, v35);
-  v36 = type metadata accessor for Generate(0);
-  v37 = v36[5];
-  v38 = sub_1000039E8(&qword_1004AF3F0);
-  v39 = *(*(v38 - 8) + 32);
-  v39(a8 + v37, a2, v38);
-  sub_1002AD680();
-  v40 = v36[7];
-  v41 = sub_1000039E8(&qword_1004AF3F8);
-  v71 = *(*(v41 - 8) + 32);
-  v71(a8 + v40, a3, v41);
-  v71(a8 + v36[8], a4, v41);
-  v71(a8 + v36[9], a5, v41);
-  v71(a8 + v36[10], a6, v41);
-  v71(a8 + v36[11], a7, v41);
-  v39(a8 + v36[12], a9, v38);
-  v39(a8 + v36[13], a10, v38);
-  v39(a8 + v36[14], a11, v38);
-  v39(a8 + v36[15], a12, v38);
-  v39(a8 + v36[16], a13, v38);
-  v42 = v36[17];
-  v43 = sub_1000039E8(&qword_1004AF400);
-  v44 = *(*(v43 - 8) + 32);
-  v44(a8 + v42, a14, v43);
-  v45 = v36[18];
-  v46 = sub_1000039E8(&qword_1004AF408);
-  (*(*(v46 - 8) + 32))(a8 + v45, a15, v46);
-  v44(a8 + v36[19], a16, v43);
-  v71(a8 + v36[20], a17, v41);
-  v39(a8 + v36[21], a18, v38);
-  v47 = v36[22];
-  v48 = sub_1000039E8(&qword_1004AF410);
-  (*(*(v48 - 8) + 32))(a8 + v47, a19, v48);
-  v71(a8 + v36[23], a20, v41);
-  v44(a8 + v36[24], a21, v43);
-  v49 = v36[25];
-  v50 = sub_1000039E8(&qword_1004AF418);
-  (*(*(v50 - 8) + 32))(a8 + v49, a22, v50);
-  v51 = v36[26];
-  v52 = sub_1000039E8(&qword_1004AF420);
-  (*(*(v52 - 8) + 32))(a8 + v51, a23, v52);
-  v53 = v36[27];
-  v54 = sub_1000039E8(&qword_1004AF428);
-  (*(*(v54 - 8) + 32))(a8 + v53, a24, v54);
-  v55 = v36[28];
-  v56 = sub_1000039E8(&qword_1004AF430);
-  (*(*(v56 - 8) + 32))(a8 + v55, a25, v56);
-  v57 = v36[29];
-  v58 = sub_1000039E8(&qword_1004AF438);
-  (*(*(v58 - 8) + 32))(a8 + v57, a26, v58);
-  v59 = v36[30];
-  v60 = sub_1000039E8(&qword_1004AF440);
-  (*(*(v60 - 8) + 32))(a8 + v59, a27, v60);
-  v61 = v36[31];
-  v62 = sub_1000039E8(&qword_1004AF448);
-  (*(*(v62 - 8) + 32))(a8 + v61, a28, v62);
-  v63 = v36[32];
-  v64 = sub_1000039E8(&qword_1004AF450);
-  (*(*(v64 - 8) + 32))(a8 + v63, a29, v64);
-  v65 = v36[33];
-  v66 = sub_1000039E8(&qword_1004AF458);
-  (*(*(v66 - 8) + 32))(a8 + v65, a30, v66);
-  v67 = v36[34];
-  v68 = sub_1000039E8(&qword_1004AF460);
-  v69 = *(*(v68 - 8) + 32);
+  v37 = sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
+  (*(*(v37 - 8) + 32))(a9, a1, v37);
+  v38 = type metadata accessor for Generate(0);
+  v39 = v38[5];
+  v40 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  v41 = *(*(v40 - 8) + 32);
+  v41(a9 + v39, a2, v40);
+  sub_1002AD680(a3);
+  v42 = v38[7];
+  v43 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
+  v73 = *(*(v43 - 8) + 32);
+  v73(a9 + v42, a4, v43);
+  v73(a9 + v38[8], a5, v43);
+  v73(a9 + v38[9], a6, v43);
+  v73(a9 + v38[10], a7, v43);
+  v73(a9 + v38[11], a8, v43);
+  v41(a9 + v38[12], a10, v40);
+  v41(a9 + v38[13], a11, v40);
+  v41(a9 + v38[14], a12, v40);
+  v41(a9 + v38[15], a13, v40);
+  v41(a9 + v38[16], a14, v40);
+  v44 = v38[17];
+  v45 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  v46 = *(*(v45 - 8) + 32);
+  v46(a9 + v44, a15, v45);
+  v47 = v38[18];
+  v48 = sub_1000039E8(&qword_1004AF408, &qword_100404CC8);
+  (*(*(v48 - 8) + 32))(a9 + v47, a16, v48);
+  v46(a9 + v38[19], a17, v45);
+  v73(a9 + v38[20], a18, v43);
+  v41(a9 + v38[21], a19, v40);
+  v49 = v38[22];
+  v50 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  (*(*(v50 - 8) + 32))(a9 + v49, a20, v50);
+  v73(a9 + v38[23], a21, v43);
+  v46(a9 + v38[24], a22, v45);
+  v51 = v38[25];
+  v52 = sub_1000039E8(&qword_1004AF418, &qword_100404CD8);
+  (*(*(v52 - 8) + 32))(a9 + v51, a23, v52);
+  v53 = v38[26];
+  v54 = sub_1000039E8(&qword_1004AF420, &qword_100404CE0);
+  (*(*(v54 - 8) + 32))(a9 + v53, a24, v54);
+  v55 = v38[27];
+  v56 = sub_1000039E8(&qword_1004AF428, &qword_100404CE8);
+  (*(*(v56 - 8) + 32))(a9 + v55, a25, v56);
+  v57 = v38[28];
+  v58 = sub_1000039E8(&qword_1004AF430, &qword_100404CF0);
+  (*(*(v58 - 8) + 32))(a9 + v57, a26, v58);
+  v59 = v38[29];
+  v60 = sub_1000039E8(&qword_1004AF438, &qword_100404CF8);
+  (*(*(v60 - 8) + 32))(a9 + v59, a27, v60);
+  v61 = v38[30];
+  v62 = sub_1000039E8(&qword_1004AF440, &qword_100404D00);
+  (*(*(v62 - 8) + 32))(a9 + v61, a28, v62);
+  v63 = v38[31];
+  v64 = sub_1000039E8(&qword_1004AF448, &qword_100404D08);
+  (*(*(v64 - 8) + 32))(a9 + v63, a29, v64);
+  v65 = v38[32];
+  v66 = sub_1000039E8(&qword_1004AF450, &qword_100404D10);
+  (*(*(v66 - 8) + 32))(a9 + v65, a30, v66);
+  v67 = v38[33];
+  v68 = sub_1000039E8(&qword_1004AF458, &qword_100404D18);
+  (*(*(v68 - 8) + 32))(a9 + v67, a31, v68);
+  v69 = v38[34];
+  v70 = sub_1000039E8(&qword_1004AF460, &unk_100404D20);
+  v71 = *(*(v70 - 8) + 32);
 
-  return v69(a8 + v67, a31, v68);
+  return v71(a9 + v69, a32, v70);
 }
 
 uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v262 = a1;
   v215 = a2;
-  v214 = sub_1000039E8(&qword_1004AF460);
+  v214 = sub_1000039E8(&qword_1004AF460, &unk_100404D20);
   v212 = *(v214 - 8);
   __chkstk_darwin(v214);
   v213 = &v177 - v2;
-  v211 = sub_1000039E8(&qword_1004AF458);
+  v211 = sub_1000039E8(&qword_1004AF458, &qword_100404D18);
   v209 = *(v211 - 8);
   __chkstk_darwin(v211);
   v210 = &v177 - v3;
-  v208 = sub_1000039E8(&qword_1004AF450);
+  v208 = sub_1000039E8(&qword_1004AF450, &qword_100404D10);
   v206 = *(v208 - 8);
   __chkstk_darwin(v208);
   v207 = &v177 - v4;
-  v205 = sub_1000039E8(&qword_1004AF448);
+  v205 = sub_1000039E8(&qword_1004AF448, &qword_100404D08);
   v203 = *(v205 - 8);
   __chkstk_darwin(v205);
   v204 = &v177 - v5;
-  v202 = sub_1000039E8(&qword_1004AF440);
+  v202 = sub_1000039E8(&qword_1004AF440, &qword_100404D00);
   v200 = *(v202 - 8);
   __chkstk_darwin(v202);
   v201 = &v177 - v6;
-  v199 = sub_1000039E8(&qword_1004AF438);
+  v199 = sub_1000039E8(&qword_1004AF438, &qword_100404CF8);
   v198 = *(v199 - 8);
   __chkstk_darwin(v199);
   v197 = &v177 - v7;
-  v196 = sub_1000039E8(&qword_1004AF430);
+  v196 = sub_1000039E8(&qword_1004AF430, &qword_100404CF0);
   v195 = *(v196 - 8);
   __chkstk_darwin(v196);
   v194 = &v177 - v8;
-  v193 = sub_1000039E8(&qword_1004AF428);
+  v193 = sub_1000039E8(&qword_1004AF428, &qword_100404CE8);
   v192 = *(v193 - 8);
   __chkstk_darwin(v193);
   v191 = &v177 - v9;
-  v190 = sub_1000039E8(&qword_1004AF420);
+  v190 = sub_1000039E8(&qword_1004AF420, &qword_100404CE0);
   v189 = *(v190 - 8);
   __chkstk_darwin(v190);
   v188 = &v177 - v10;
-  v187 = sub_1000039E8(&qword_1004AF418);
+  v187 = sub_1000039E8(&qword_1004AF418, &qword_100404CD8);
   v186 = *(v187 - 8);
   __chkstk_darwin(v187);
   v185 = &v177 - v11;
-  v184 = sub_1000039E8(&qword_1004AF410);
+  v184 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   v183 = *(v184 - 8);
   __chkstk_darwin(v184);
   v181 = &v177 - v12;
-  v220 = sub_1000039E8(&qword_1004AF408);
+  v220 = sub_1000039E8(&qword_1004AF408, &qword_100404CC8);
   v217 = *(v220 - 8);
   __chkstk_darwin(v220);
   v219 = &v177 - v13;
-  v223 = sub_1000039E8(&qword_1004AF400);
+  v223 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   v221 = *(v223 - 8);
   v14 = __chkstk_darwin(v223);
   v182 = &v177 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3425,7 +2029,7 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v216 = &v177 - v17;
   __chkstk_darwin(v16);
   v222 = &v177 - v18;
-  v243 = sub_1000039E8(&qword_1004AF3F8);
+  v243 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   v239 = *(v243 - 8);
   v19 = __chkstk_darwin(v243);
   v180 = &v177 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3441,11 +2045,11 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v238 = &v177 - v30;
   __chkstk_darwin(v29);
   v242 = &v177 - v31;
-  v244 = sub_1000039E8(&qword_1004AAC48);
+  v244 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v241 = *(v244 - 8);
   __chkstk_darwin(v244);
   v250 = &v177 - v32;
-  v245 = sub_1000039E8(&qword_1004AF3F0);
+  v245 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   v252 = *(v245 - 8);
   v33 = __chkstk_darwin(v245);
   v178 = &v177 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3461,11 +2065,11 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v231 = &v177 - v44;
   __chkstk_darwin(v43);
   v248 = &v177 - v45;
-  v249 = sub_1000039E8(&qword_1004AF3E8);
+  v249 = sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
   v247 = *(v249 - 8);
   __chkstk_darwin(v249);
   v253 = &v177 - v46;
-  v254 = sub_1000039E8(&qword_1004AF4F8);
+  v254 = sub_1000039E8(&qword_1004AF4F8, &qword_100404D98);
   v251 = *(v254 - 8);
   __chkstk_darwin(v254);
   v261 = &v177 - v47;
@@ -3484,10 +2088,10 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v56 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v56 - 8);
   v277 = &v177 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = sub_1000039E8(&qword_1004AAD60);
+  v58 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v58 - 8);
   v60 = &v177 - v59;
-  v61 = sub_1000039E8(&qword_1004AAD68);
+  v61 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v61 - 8);
   v63 = &v177 - v62;
   v281 = (type metadata accessor for Generate(0) - 8);
@@ -3521,7 +2125,7 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   Option.init<A>(name:parsing:help:completion:)();
   v73 = v281;
   v240 = v281[8];
-  sub_1002AD680();
+  sub_1002AD680(_swiftEmptyArrayStorage);
   v74 = v73[9];
   static NameSpecification.long.getter();
   static FlagInversion.prefixedNo.getter();
@@ -3550,7 +2154,7 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v233 = v79;
   Flag<A>.init(name:inversion:exclusivity:help:)();
   v260 = v78[12];
-  v265 = sub_1000039E8(&qword_1004AAD70);
+  v265 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v80 = *(type metadata accessor for NameSpecification.Element() - 8);
   v81 = *(v80 + 72);
   v266 = *(v80 + 80);
@@ -3742,7 +2346,7 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v129._countAndFlagsBits = 11817;
   v129._object = 0xE200000000000000;
   String.append(_:)(v129);
-  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp);
+  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp, &protocol conformance descriptor for ArgumentHelp);
   v130 = v278;
   ExpressibleByStringInterpolation<>.init(stringInterpolation:)();
   (v276)(v123, 0, 1, v130);
@@ -3755,57 +2359,57 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v132 = v281[27];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1002D72A0(&qword_1004AF4A8, type metadata accessor for Generate.CryptexOptions);
+  sub_1002D72A0(&qword_1004AF4A8, type metadata accessor for Generate.CryptexOptions, &protocol conformance descriptor for Generate.CryptexOptions);
   v274 = v132;
   OptionGroup.init(title:visibility:)();
   v133 = v131[28];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1002D72A0(&qword_1004AF4B0, type metadata accessor for Generate.DiavloOptions);
+  sub_1002D72A0(&qword_1004AF4B0, type metadata accessor for Generate.DiavloOptions, &protocol conformance descriptor for Generate.DiavloOptions);
   v275 = v133;
   OptionGroup.init(title:visibility:)();
   v134 = v131[29];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1002D72A0(&qword_1004AF4B8, type metadata accessor for Generate.InstallOptions);
+  sub_1002D72A0(&qword_1004AF4B8, type metadata accessor for Generate.InstallOptions, &protocol conformance descriptor for Generate.InstallOptions);
   v276 = v134;
   OptionGroup.init(title:visibility:)();
   v135 = v131[30];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.PackageOptions(0);
-  sub_1002D72A0(&qword_1004AF4C0, type metadata accessor for Generate.PackageOptions);
+  sub_1002D72A0(&qword_1004AF4C0, type metadata accessor for Generate.PackageOptions, &protocol conformance descriptor for Generate.PackageOptions);
   v277 = v135;
   OptionGroup.init(title:visibility:)();
   v136 = v131[31];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.ResultOptions(0);
-  sub_1002D72A0(&qword_1004AF4C8, type metadata accessor for Generate.ResultOptions);
+  sub_1002D72A0(&qword_1004AF4C8, type metadata accessor for Generate.ResultOptions, &protocol conformance descriptor for Generate.ResultOptions);
   v280 = v136;
   OptionGroup.init(title:visibility:)();
   v137 = v131[32];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1002D72A0(&qword_1004AF4D0, type metadata accessor for Generate.PreferenceOptions);
+  sub_1002D72A0(&qword_1004AF4D0, type metadata accessor for Generate.PreferenceOptions, &protocol conformance descriptor for Generate.PreferenceOptions);
   OptionGroup.init(title:visibility:)();
   v138 = v131[33];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  sub_1002D72A0(&qword_1004AF4D8, type metadata accessor for Generate.NarrativeIdentityOptions);
+  sub_1002D72A0(&qword_1004AF4D8, type metadata accessor for Generate.NarrativeIdentityOptions, &protocol conformance descriptor for Generate.NarrativeIdentityOptions);
   OptionGroup.init(title:visibility:)();
   v139 = v131[34];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.UserOptions(0);
-  sub_1002D72A0(&qword_1004AF4E0, type metadata accessor for Generate.UserOptions);
+  sub_1002D72A0(&qword_1004AF4E0, type metadata accessor for Generate.UserOptions, &protocol conformance descriptor for Generate.UserOptions);
   OptionGroup.init(title:visibility:)();
   v140 = v131[35];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.LogOptions(0);
-  sub_1002D72A0(&qword_1004AF4E8, type metadata accessor for Generate.LogOptions);
+  sub_1002D72A0(&qword_1004AF4E8, type metadata accessor for Generate.LogOptions, &protocol conformance descriptor for Generate.LogOptions);
   OptionGroup.init(title:visibility:)();
   v141 = v131[36];
   static ArgumentVisibility.default.getter();
   type metadata accessor for Generate.NetworkOptions(0);
-  sub_1002D72A0(&qword_1004AF4F0, type metadata accessor for Generate.NetworkOptions);
+  sub_1002D72A0(&qword_1004AF4F0, type metadata accessor for Generate.NetworkOptions, &protocol conformance descriptor for Generate.NetworkOptions);
   OptionGroup.init(title:visibility:)();
   sub_10000E2A8(v262, v262[3]);
   sub_1002D72E8();
@@ -3831,12 +2435,12 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     v147 = v250;
     v148 = v252;
     LOBYTE(v282) = 0;
-    sub_10000E720(&qword_1004AF508, &qword_1004AF3E8);
+    sub_10000E720(&qword_1004AF508, &qword_1004AF3E8, &qword_100404CA0, &protocol conformance descriptor for Argument<A>);
     v149 = v249;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v145 + 40))(v279, v253, v149);
     LOBYTE(v282) = 1;
-    v150 = sub_10000E720(&qword_1004AF510, &qword_1004AF3F0);
+    v150 = sub_10000E720(&qword_1004AF510, &qword_1004AF3F0, &unk_100404CA8, &protocol conformance descriptor for Option<A>);
     v151 = v245;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v154 = v150;
@@ -3845,12 +2449,12 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     v157 = v148 + 40;
     v155(v279 + v144, v156, v151);
     LOBYTE(v282) = 2;
-    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v158 = v244;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v241 + 40))(v279 + v240, v147, v158);
     LOBYTE(v282) = 3;
-    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8);
+    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8, &qword_100404CB8, &protocol conformance descriptor for Flag<A>);
     v159 = v242;
     v160 = v243;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -3896,14 +2500,14 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v155(v279 + v257, v225, v245);
     LOBYTE(v282) = 13;
-    sub_10000E720(&qword_1004AF520, &qword_1004AF400);
+    sub_10000E720(&qword_1004AF520, &qword_1004AF400, &qword_100404CC0, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v171 = *(v221 + 40);
     v221 += 40;
     v172 = v171;
     v171(v279 + v218, v222, v223);
     LOBYTE(v282) = 14;
-    sub_10000E720(&qword_1004AF528, &qword_1004AF408);
+    sub_10000E720(&qword_1004AF528, &qword_1004AF408, &qword_100404CC8, &protocol conformance descriptor for Flag<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v217 + 40))(v279 + v267, v219, v220);
     LOBYTE(v282) = 15;
@@ -3916,7 +2520,7 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v155(v279 + v264, v178, v245);
     LOBYTE(v282) = 18;
-    sub_10000E720(&qword_1004AF530, &qword_1004AF410);
+    sub_10000E720(&qword_1004AF530, &qword_1004AF410, &qword_100404CD0, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v183 + 40))(v279 + v270, v181, v184);
     LOBYTE(v282) = 19;
@@ -3926,44 +2530,44 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v172(v279 + v278, v182, v223);
     LOBYTE(v282) = 21;
-    sub_10000E720(&qword_1004AF538, &qword_1004AF418);
+    sub_10000E720(&qword_1004AF538, &qword_1004AF418, &qword_100404CD8, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v186 + 40))(v279 + v274, v185, v187);
     LOBYTE(v282) = 22;
-    sub_10000E720(&qword_1004AF540, &qword_1004AF420);
+    sub_10000E720(&qword_1004AF540, &qword_1004AF420, &qword_100404CE0, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v189 + 40))(v279 + v275, v188, v190);
     LOBYTE(v282) = 23;
-    sub_10000E720(&qword_1004AF548, &qword_1004AF428);
+    sub_10000E720(&qword_1004AF548, &qword_1004AF428, &qword_100404CE8, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v192 + 40))(&v276[v279], v191, v193);
     LOBYTE(v282) = 24;
-    sub_10000E720(&qword_1004AF550, &qword_1004AF430);
+    sub_10000E720(&qword_1004AF550, &qword_1004AF430, &qword_100404CF0, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v195 + 40))(&v277[v279], v194, v196);
     LOBYTE(v282) = 25;
-    sub_10000E720(&qword_1004AF558, &qword_1004AF438);
+    sub_10000E720(&qword_1004AF558, &qword_1004AF438, &qword_100404CF8, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v198 + 40))(&v280[v279], v197, v199);
     LOBYTE(v282) = 26;
-    sub_10000E720(&qword_1004AF560, &qword_1004AF440);
+    sub_10000E720(&qword_1004AF560, &qword_1004AF440, &qword_100404D00, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v200 + 40))(&v269[v279], v201, v202);
     LOBYTE(v282) = 27;
-    sub_10000E720(&qword_1004AF568, &qword_1004AF448);
+    sub_10000E720(&qword_1004AF568, &qword_1004AF448, &qword_100404D08, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v203 + 40))(&v271[v279], v204, v205);
     LOBYTE(v282) = 28;
-    sub_10000E720(&qword_1004AF570, &qword_1004AF450);
+    sub_10000E720(&qword_1004AF570, &qword_1004AF450, &qword_100404D10, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v206 + 40))(&v272[v279], v207, v208);
     LOBYTE(v282) = 29;
-    sub_10000E720(&qword_1004AF578, &qword_1004AF458);
+    sub_10000E720(&qword_1004AF578, &qword_1004AF458, &qword_100404D18, &protocol conformance descriptor for OptionGroup<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v173 = v279;
     (*(v209 + 40))(v279 + v273, v210, v211);
     LOBYTE(v282) = 30;
-    sub_10000E720(&qword_1004AF580, &qword_1004AF460);
+    sub_10000E720(&qword_1004AF580, &qword_1004AF460, &unk_100404D20, &protocol conformance descriptor for OptionGroup<A>);
     v174 = v254;
     v175 = v261;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -3978,29 +2582,29 @@ uint64_t Generate.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   return sub_1002B0350(v152, type metadata accessor for Generate);
 }
 
-uint64_t sub_1002BD5F0()
+uint64_t sub_1002BD5F0(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   type metadata accessor for URL();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:transform:)();
@@ -4020,34 +2624,34 @@ uint64_t (*Generate.CryptexOptions.cryptexUrl.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AF480);
+  sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BD9DC()
+uint64_t sub_1002BD9DC(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4067,66 +2671,66 @@ uint64_t (*Generate.CryptexOptions.variant.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BDDE0()
+uint64_t sub_1002BDDE0(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
 
-uint64_t sub_1002BE0FC(uint64_t (*a1)(void), uint64_t *a2)
+uint64_t sub_1002BE0FC(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  return v4;
+  return v6;
 }
 
-uint64_t sub_1002BE160@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+void *sub_1002BE160@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, void *a4@<X8>)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   result = Option.wrappedValue.getter();
-  *a3 = v6;
+  *a4 = v8;
   return result;
 }
 
-uint64_t sub_1002BE1D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6)
+uint64_t sub_1002BE1D4(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t *a7)
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(a6);
+  sub_1000039E8(a6, a7);
   return Option.wrappedValue.setter();
 }
 
-uint64_t sub_1002BE278(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3)
+uint64_t sub_1002BE278(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
 {
   a2(0);
-  sub_1000039E8(a3);
+  sub_1000039E8(a3, a4);
   return Option.wrappedValue.setter();
 }
 
@@ -4145,33 +2749,33 @@ uint64_t (*Generate.CryptexOptions.size.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF588);
+  sub_1000039E8(&qword_1004AF588, &qword_100404DA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BE378()
+uint64_t sub_1002BE378(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   sub_1002DE644();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
@@ -4192,33 +2796,33 @@ uint64_t (*Generate.CryptexOptions.sha256.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF590);
+  sub_1000039E8(&qword_1004AF590, &qword_100404DA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BE75C()
+uint64_t sub_1002BE75C(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   sub_1002DE5F0();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
@@ -4239,33 +2843,33 @@ uint64_t (*Generate.CryptexOptions.auth.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF598);
+  sub_1000039E8(&qword_1004AF598, &qword_100404DB0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BEB44()
+uint64_t sub_1002BEB44(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4285,33 +2889,33 @@ uint64_t (*Generate.CryptexOptions.dawToken.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BEF00()
+uint64_t sub_1002BEF00(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4331,33 +2935,33 @@ uint64_t (*Generate.CryptexOptions.wgUsername.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BF2C0()
+uint64_t sub_1002BF2C0(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4365,32 +2969,32 @@ uint64_t sub_1002BF2C0()
 uint64_t Generate.CryptexOptions.wgToken.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002BF600@<X0>(void *a1@<X8>)
+void *sub_1002BF600@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002BF668()
+uint64_t sub_1002BF668(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.wgToken.setter()
+uint64_t Generate.CryptexOptions.wgToken.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -4409,33 +3013,33 @@ uint64_t (*Generate.CryptexOptions.wgToken.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002BF7CC()
+uint64_t sub_1002BF7CC(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4443,32 +3047,32 @@ uint64_t sub_1002BF7CC()
 uint64_t Generate.CryptexOptions.alternateCDNHost.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002BFB1C@<X0>(void *a1@<X8>)
+void *sub_1002BFB1C@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002BFB84()
+uint64_t sub_1002BFB84(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.alternateCDNHost.setter()
+uint64_t Generate.CryptexOptions.alternateCDNHost.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -4487,7 +3091,7 @@ uint64_t (*Generate.CryptexOptions.alternateCDNHost.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -4496,16 +3100,16 @@ uint64_t sub_1002BFCE8(char a1)
 {
   v2 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v2 - 8);
-  v3 = sub_1000039E8(&qword_1004AAD60);
+  v3 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v3 - 8);
   v5 = &v13[-v4];
-  v6 = sub_1000039E8(&qword_1004AAD68);
+  v6 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v6 - 8);
   v8 = &v13[-v7];
   v9 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v9 - 8);
   v13[15] = a1;
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -4522,31 +3126,31 @@ uint64_t sub_1002BFCE8(char a1)
 uint64_t Generate.CryptexOptions.backgroundTrafficClass.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C0038@<X0>(_BYTE *a1@<X8>)
+void *sub_1002C0038@<X0>(_BYTE *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C00A0()
+uint64_t sub_1002C00A0(char *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.backgroundTrafficClass.setter()
+uint64_t Generate.CryptexOptions.backgroundTrafficClass.setter(char a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   return Option.wrappedValue.setter();
 }
 
@@ -4565,7 +3169,7 @@ uint64_t (*Generate.CryptexOptions.backgroundTrafficClass.modify(uint64_t *a1))(
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -4573,32 +3177,32 @@ uint64_t (*Generate.CryptexOptions.backgroundTrafficClass.modify(uint64_t *a1))(
 uint64_t Generate.CryptexOptions.networkRetryCount.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C024C@<X0>(uint64_t a1@<X8>)
+void *sub_1002C024C@<X0>(uint64_t a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   *(a1 + 8) = v4;
   return result;
 }
 
-uint64_t sub_1002C02BC()
+uint64_t sub_1002C02BC(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.networkRetryCount.setter()
+uint64_t Generate.CryptexOptions.networkRetryCount.setter(uint64_t a1, char a2)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   return Option.wrappedValue.setter();
 }
 
@@ -4617,7 +3221,7 @@ uint64_t (*Generate.CryptexOptions.networkRetryCount.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -4626,16 +3230,16 @@ uint64_t sub_1002C0420(char a1)
 {
   v2 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v2 - 8);
-  v3 = sub_1000039E8(&qword_1004AAD60);
+  v3 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v3 - 8);
   v5 = &v13[-v4];
-  v6 = sub_1000039E8(&qword_1004AAD68);
+  v6 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v6 - 8);
   v8 = &v13[-v7];
   v9 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v9 - 8);
   v13[15] = a1;
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -4652,31 +3256,31 @@ uint64_t sub_1002C0420(char a1)
 uint64_t Generate.CryptexOptions.appleConnect.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C0774@<X0>(_BYTE *a1@<X8>)
+void *sub_1002C0774@<X0>(_BYTE *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C07DC()
+uint64_t sub_1002C07DC(char *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.appleConnect.setter()
+uint64_t Generate.CryptexOptions.appleConnect.setter(char a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   return Option.wrappedValue.setter();
 }
 
@@ -4695,33 +3299,33 @@ uint64_t (*Generate.CryptexOptions.appleConnect.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C0930()
+uint64_t sub_1002C0930(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4729,32 +3333,32 @@ uint64_t sub_1002C0930()
 uint64_t Generate.CryptexOptions.cacheable.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C0C80@<X0>(void *a1@<X8>)
+void *sub_1002C0C80@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C0CE8()
+uint64_t sub_1002C0CE8(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.cacheable.setter()
+uint64_t Generate.CryptexOptions.cacheable.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   return Option.wrappedValue.setter();
 }
 
@@ -4773,33 +3377,33 @@ uint64_t (*Generate.CryptexOptions.cacheable.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C0E4C()
+uint64_t sub_1002C0E4C(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4807,32 +3411,32 @@ uint64_t sub_1002C0E4C()
 uint64_t Generate.CryptexOptions.identifier.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C119C@<X0>(void *a1@<X8>)
+void *sub_1002C119C@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C1204()
+uint64_t sub_1002C1204(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.identifier.setter()
+uint64_t Generate.CryptexOptions.identifier.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -4851,33 +3455,33 @@ uint64_t (*Generate.CryptexOptions.identifier.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C1368()
+uint64_t sub_1002C1368(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4885,32 +3489,32 @@ uint64_t sub_1002C1368()
 uint64_t Generate.CryptexOptions.aeaArchiveId.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C16B4@<X0>(void *a1@<X8>)
+void *sub_1002C16B4@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C171C()
+uint64_t sub_1002C171C(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.aeaArchiveId.setter()
+uint64_t Generate.CryptexOptions.aeaArchiveId.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -4929,33 +3533,33 @@ uint64_t (*Generate.CryptexOptions.aeaArchiveId.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C1880()
+uint64_t sub_1002C1880(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -4963,32 +3567,32 @@ uint64_t sub_1002C1880()
 uint64_t Generate.CryptexOptions.aeaDecryptionKey.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C1BD0@<X0>(void *a1@<X8>)
+void *sub_1002C1BD0@<X0>(void *a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C1C38()
+uint64_t sub_1002C1C38(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.aeaDecryptionKey.setter()
+uint64_t Generate.CryptexOptions.aeaDecryptionKey.setter(uint64_t a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -5007,7 +3611,7 @@ uint64_t (*Generate.CryptexOptions.aeaDecryptionKey.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -5015,32 +3619,32 @@ uint64_t (*Generate.CryptexOptions.aeaDecryptionKey.modify(uint64_t *a1))()
 uint64_t Generate.CryptexOptions.maxActiveTasks.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C1DF4@<X0>(uint64_t a1@<X8>)
+void *sub_1002C1DF4@<X0>(uint64_t a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   *(a1 + 8) = v4;
   return result;
 }
 
-uint64_t sub_1002C1E64()
+uint64_t sub_1002C1E64(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.maxActiveTasks.setter()
+uint64_t Generate.CryptexOptions.maxActiveTasks.setter(uint64_t a1, char a2)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   return Option.wrappedValue.setter();
 }
 
@@ -5059,7 +3663,7 @@ uint64_t (*Generate.CryptexOptions.maxActiveTasks.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -5067,32 +3671,32 @@ uint64_t (*Generate.CryptexOptions.maxActiveTasks.modify(uint64_t *a1))()
 uint64_t Generate.CryptexOptions.chunkSize.getter()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C2020@<X0>(uint64_t a1@<X8>)
+void *sub_1002C2020@<X0>(uint64_t a1@<X8>)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   result = Option.wrappedValue.getter();
   *a1 = v3;
   *(a1 + 8) = v4;
   return result;
 }
 
-uint64_t sub_1002C2090()
+uint64_t sub_1002C2090(uint64_t *a1)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.CryptexOptions.chunkSize.setter()
+uint64_t Generate.CryptexOptions.chunkSize.setter(uint64_t a1, char a2)
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   return Option.wrappedValue.setter();
 }
 
@@ -5111,7 +3715,7 @@ uint64_t (*Generate.CryptexOptions.chunkSize.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -5124,7 +3728,7 @@ uint64_t sub_1002C21F4@<X0>(int64_t *a1@<X0>, uint64_t a2@<X8>)
   v91 = &v62 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *a1;
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v8 = *(v89 + 16);
 
@@ -5190,7 +3794,7 @@ LABEL_46:
     }
   }
 
-  sub_1000039E8(&qword_1004AF480);
+  sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   Option.wrappedValue.getter();
   if (v7 < 0)
   {
@@ -5222,7 +3826,7 @@ LABEL_44:
     v83 = v15;
   }
 
-  sub_1000039E8(&qword_1004AF588);
+  sub_1000039E8(&qword_1004AF588, &qword_100404DA0);
   Option.wrappedValue.getter();
   v78 = *(v89 + 16);
   if (v7 < v78)
@@ -5235,7 +3839,7 @@ LABEL_44:
     v81 = 0;
   }
 
-  sub_1000039E8(&qword_1004AF590);
+  sub_1000039E8(&qword_1004AF590, &qword_100404DA8);
   Option.wrappedValue.getter();
   if (v7 >= *(v89 + 16))
   {
@@ -5251,7 +3855,7 @@ LABEL_44:
     v80 = v17;
   }
 
-  sub_1000039E8(&qword_1004AF598);
+  sub_1000039E8(&qword_1004AF598, &qword_100404DB0);
   Option.wrappedValue.getter();
   if (v7 >= *(v89 + 16))
   {
@@ -5327,16 +3931,16 @@ LABEL_44:
     v69 = v27;
   }
 
-  sub_1000039E8(&qword_1004AF5A0);
+  sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   Option.wrappedValue.getter();
   v68 = v89;
-  sub_1000039E8(&qword_1004AF5A8);
+  sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   Option.wrappedValue.getter();
   v67 = v89;
   v66 = v90;
   Option.wrappedValue.getter();
   v28 = v89;
-  sub_1000039E8(&qword_1004AF5B0);
+  sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   Option.wrappedValue.getter();
   if (v7 >= *(v89 + 16))
   {
@@ -5368,15 +3972,15 @@ LABEL_44:
 
   v33 = v7 >= v78;
 
-  sub_1000039E8(&qword_1004AF400);
+  sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   Option.wrappedValue.getter();
   v34 = v89;
   LODWORD(v78) = v90;
-  sub_1000039E8(&qword_1004AF410);
+  sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   Option.wrappedValue.getter();
   v35 = v89;
   v36 = v90;
-  v37 = type metadata accessor for DInitCryptexConfig();
+  v37 = type metadata accessor for DInitCryptexConfig(0);
   v38 = v84;
   (*(v30 + 56))(a2 + v37[22], 1, 1, v84);
   result = (*(v30 + 32))(a2, v91, v38);
@@ -5440,14 +4044,14 @@ LABEL_44:
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.CryptexOptions.validate()()
 {
   type metadata accessor for Generate.CryptexOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v0 = *(v19 + 16);
 
-  if (v0 && (sub_1000039E8(&qword_1004AF480), Option.wrappedValue.getter(), v1 = *(v19 + 16), , Option.wrappedValue.getter(), v2 = *(v19 + 16), , v1 != v2) || (sub_1000039E8(&qword_1004AF588), Option.wrappedValue.getter(), v3 = *(v19 + 16), , v3) && (Option.wrappedValue.getter(), v4 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480), Option.wrappedValue.getter(), v5 = *(v19 + 16), , v4 != v5) || (sub_1000039E8(&qword_1004AF590), Option.wrappedValue.getter(), v6 = *(v19 + 16), , v6) && (Option.wrappedValue.getter(), v7 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480), Option.wrappedValue.getter(), v8 = *(v19 + 16), , v7 != v8) || (sub_1000039E8(&qword_1004AF598), Option.wrappedValue.getter(), v9 = *(v19 + 16), , v9) && (Option.wrappedValue.getter(), v10 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480), Option.wrappedValue.getter(), v11 = *(v19 + 16), , v10 != v11) || (Option.wrappedValue.getter(), v12 = *(v19 + 16), , v12) && (Option.wrappedValue.getter(), v13 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480), Option.wrappedValue.getter(), v14 = *(v19 + 16), , v13 != v14) || (Option.wrappedValue.getter(), v15 = *(v19 + 16), , v15) && (Option.wrappedValue.getter(), v16 = sub_100013D10(v19), , v17 = *(v16 + 16), , Option.wrappedValue.getter(), v18 = *(v19 + 16), , v17 < v18))
+  if (v0 && (sub_1000039E8(&qword_1004AF480, &qword_100404D60), Option.wrappedValue.getter(), v1 = *(v19 + 16), , Option.wrappedValue.getter(), v2 = *(v19 + 16), , v1 != v2) || (sub_1000039E8(&qword_1004AF588, &qword_100404DA0), Option.wrappedValue.getter(), v3 = *(v19 + 16), , v3) && (Option.wrappedValue.getter(), v4 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480, &qword_100404D60), Option.wrappedValue.getter(), v5 = *(v19 + 16), , v4 != v5) || (sub_1000039E8(&qword_1004AF590, &qword_100404DA8), Option.wrappedValue.getter(), v6 = *(v19 + 16), , v6) && (Option.wrappedValue.getter(), v7 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480, &qword_100404D60), Option.wrappedValue.getter(), v8 = *(v19 + 16), , v7 != v8) || (sub_1000039E8(&qword_1004AF598, &qword_100404DB0), Option.wrappedValue.getter(), v9 = *(v19 + 16), , v9) && (Option.wrappedValue.getter(), v10 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480, &qword_100404D60), Option.wrappedValue.getter(), v11 = *(v19 + 16), , v10 != v11) || (Option.wrappedValue.getter(), v12 = *(v19 + 16), , v12) && (Option.wrappedValue.getter(), v13 = *(v19 + 16), , sub_1000039E8(&qword_1004AF480, &qword_100404D60), Option.wrappedValue.getter(), v14 = *(v19 + 16), , v13 != v14) || (Option.wrappedValue.getter(), v15 = *(v19 + 16), , v15) && (Option.wrappedValue.getter(), v16 = sub_100013D10(v19), , v17 = *(v16 + 16), , Option.wrappedValue.getter(), v18 = *(v19 + 16), , v17 < v18))
   {
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
@@ -5517,10 +4121,10 @@ unint64_t sub_1002C2E5C(char a1)
   return result;
 }
 
-uint64_t sub_1002C30A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002C30A4@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DD854(a1, a2);
-  *a3 = result;
+  result = sub_1002DD854(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5543,28 +4147,28 @@ uint64_t Generate.CryptexOptions.init()()
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
   v30 = v20 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v2 = sub_1000039E8(&qword_1004AAD60);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v2 - 8);
   v4 = v20 - v3;
-  v5 = sub_1000039E8(&qword_1004AAD68);
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v5 - 8);
   v7 = v20 - v6;
   v8 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v8 - 8);
   v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1002BD5F0();
+  sub_1002BD5F0(_swiftEmptyArrayStorage);
   v11 = type metadata accessor for Generate.CryptexOptions(0);
-  sub_1002BD9DC();
-  sub_1002BDDE0();
-  sub_1002BE378();
-  sub_1002BE75C();
-  sub_1002BEB44();
-  sub_1002BEF00();
-  sub_1002BF2C0();
-  sub_1002BF7CC();
+  sub_1002BD9DC(_swiftEmptyArrayStorage);
+  sub_1002BDDE0(_swiftEmptyArrayStorage);
+  sub_1002BE378(_swiftEmptyArrayStorage);
+  sub_1002BE75C(_swiftEmptyArrayStorage);
+  sub_1002BEB44(_swiftEmptyArrayStorage);
+  sub_1002BEF00(_swiftEmptyArrayStorage);
+  sub_1002BF2C0(_swiftEmptyArrayStorage);
+  sub_1002BF7CC(_swiftEmptyArrayStorage);
   sub_1002BFCE8(0);
   v21 = v11[14];
-  v24 = sub_1000039E8(&qword_1004AAD70);
+  v24 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v12 = *(type metadata accessor for NameSpecification.Element() - 8);
   v28 = *(v12 + 72);
   v20[1] = *(v12 + 80);
@@ -5586,10 +4190,10 @@ uint64_t Generate.CryptexOptions.init()()
   static SingleValueParsingStrategy.next.getter();
   Option.init<A>(name:parsing:help:completion:)();
   sub_1002C0420(0);
-  sub_1002C0930();
-  sub_1002C0E4C();
-  sub_1002C1368();
-  sub_1002C1880();
+  sub_1002C0930(_swiftEmptyArrayStorage);
+  sub_1002C0E4C(_swiftEmptyArrayStorage);
+  sub_1002C1368(_swiftEmptyArrayStorage);
+  sub_1002C1880(_swiftEmptyArrayStorage);
   v21 = v11[20];
   *(swift_allocObject() + 16) = v29;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -5618,15 +4222,15 @@ uint64_t default argument 10 of Generate.CryptexOptions.init(cryptexUrl:variant:
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -5644,15 +4248,15 @@ uint64_t default argument 16 of Generate.CryptexOptions.init(cryptexUrl:variant:
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -5670,15 +4274,15 @@ uint64_t default argument 17 of Generate.CryptexOptions.init(cryptexUrl:variant:
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376A40;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -5692,76 +4296,76 @@ uint64_t default argument 17 of Generate.CryptexOptions.init(cryptexUrl:variant:
   return Option.init<A>(name:parsing:help:completion:)();
 }
 
-uint64_t Generate.CryptexOptions.init(cryptexUrl:variant:size:sha256:auth:dawToken:wgUsername:wgToken:alternateCDNHost:backgroundTrafficClass:networkRetryCount:appleConnect:cacheable:identifier:aeaArchiveId:aeaDecryptionKey:maxActiveTasks:chunkSize:)@<X0>(uint64_t a1@<X8>, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t Generate.CryptexOptions.init(cryptexUrl:variant:size:sha256:auth:dawToken:wgUsername:wgToken:alternateCDNHost:backgroundTrafficClass:networkRetryCount:appleConnect:cacheable:identifier:aeaArchiveId:aeaDecryptionKey:maxActiveTasks:chunkSize:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
-  sub_1002BD5F0();
-  v12 = type metadata accessor for Generate.CryptexOptions(0);
-  sub_1002BD9DC();
-  sub_1002BDDE0();
-  sub_1002BE378();
-  sub_1002BE75C();
-  sub_1002BEB44();
-  sub_1002BEF00();
-  sub_1002BF2C0();
-  sub_1002BF7CC();
-  sub_1002BFCE8(a3);
-  v13 = v12[14];
-  v14 = sub_1000039E8(&qword_1004AF5A8);
-  (*(*(v14 - 8) + 32))(a1 + v13, a4, v14);
-  sub_1002C0420(a5);
-  sub_1002C0930();
-  sub_1002C0E4C();
-  sub_1002C1368();
-  sub_1002C1880();
-  v15 = v12[20];
-  v16 = sub_1000039E8(&qword_1004AF400);
-  (*(*(v16 - 8) + 32))(a1 + v15, a10, v16);
-  v17 = v12[21];
-  v18 = sub_1000039E8(&qword_1004AF410);
-  v19 = *(*(v18 - 8) + 32);
+  sub_1002BD5F0(a1);
+  v26 = type metadata accessor for Generate.CryptexOptions(0);
+  sub_1002BD9DC(a2);
+  sub_1002BDDE0(a3);
+  sub_1002BE378(a4);
+  sub_1002BE75C(a5);
+  sub_1002BEB44(a6);
+  sub_1002BEF00(a7);
+  sub_1002BF2C0(a8);
+  sub_1002BF7CC(a10);
+  sub_1002BFCE8(a11);
+  v27 = v26[14];
+  v28 = sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
+  (*(*(v28 - 8) + 32))(a9 + v27, a12, v28);
+  sub_1002C0420(a13);
+  sub_1002C0930(a14);
+  sub_1002C0E4C(a15);
+  sub_1002C1368(a16);
+  sub_1002C1880(a17);
+  v29 = v26[20];
+  v30 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  (*(*(v30 - 8) + 32))(a9 + v29, a18, v30);
+  v31 = v26[21];
+  v32 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  v33 = *(*(v32 - 8) + 32);
 
-  return v19(a1 + v17, a11, v18);
+  return v33(a9 + v31, a19, v32);
 }
 
 uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v140 = a1;
   v88 = a2;
-  v87 = sub_1000039E8(&qword_1004AF410);
+  v87 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
   v85 = *(v87 - 8);
   __chkstk_darwin(v87);
   v86 = &v78 - v2;
-  v84 = sub_1000039E8(&qword_1004AF400);
+  v84 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
   v82 = *(v84 - 8);
   __chkstk_darwin(v84);
   v83 = &v78 - v3;
-  v98 = sub_1000039E8(&qword_1004AF5B0);
+  v98 = sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
   v94 = *(v98 - 8);
   __chkstk_darwin(v98);
   v97 = &v78 - v4;
-  v104 = sub_1000039E8(&qword_1004AF5A8);
+  v104 = sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
   v99 = *(v104 - 8);
   __chkstk_darwin(v104);
   v103 = &v78 - v5;
-  v107 = sub_1000039E8(&qword_1004AF5A0);
+  v107 = sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
   v102 = *(v107 - 8);
   v6 = __chkstk_darwin(v107);
   v100 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
   v106 = &v78 - v8;
-  v120 = sub_1000039E8(&qword_1004AF598);
+  v120 = sub_1000039E8(&qword_1004AF598, &qword_100404DB0);
   v116 = *(v120 - 8);
   __chkstk_darwin(v120);
   v119 = &v78 - v9;
-  v124 = sub_1000039E8(&qword_1004AF590);
+  v124 = sub_1000039E8(&qword_1004AF590, &qword_100404DA8);
   v118 = *(v124 - 8);
   __chkstk_darwin(v124);
   v123 = &v78 - v10;
-  v126 = sub_1000039E8(&qword_1004AF588);
+  v126 = sub_1000039E8(&qword_1004AF588, &qword_100404DA0);
   v122 = *(v126 - 8);
   __chkstk_darwin(v126);
   v125 = &v78 - v11;
-  v127 = sub_1000039E8(&qword_1004AAC48);
+  v127 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v132 = *(v127 - 8);
   v12 = __chkstk_darwin(v127);
   v90 = &v78 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5779,21 +4383,21 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v115 = &v78 - v25;
   __chkstk_darwin(v24);
   v130 = &v78 - v26;
-  v131 = sub_1000039E8(&qword_1004AF480);
+  v131 = sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   v129 = *(v131 - 8);
   __chkstk_darwin(v131);
   v134 = &v78 - v27;
-  v135 = sub_1000039E8(&qword_1004AF5B8);
+  v135 = sub_1000039E8(&qword_1004AF5B8, &qword_100404DD0);
   v133 = *(v135 - 8);
   __chkstk_darwin(v135);
   v141 = &v78 - v28;
   v29 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v29 - 8);
   v152 = &v78 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = sub_1000039E8(&qword_1004AAD60);
+  v31 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v31 - 8);
   v151 = &v78 - v32;
-  v33 = sub_1000039E8(&qword_1004AAD68);
+  v33 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v33 - 8);
   v35 = &v78 - v34;
   v36 = type metadata accessor for NameSpecification();
@@ -5803,27 +4407,27 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v40 = (v39 - 8);
   __chkstk_darwin(v39);
   v42 = &v78 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1002BD5F0();
+  sub_1002BD5F0(_swiftEmptyArrayStorage);
   v128 = v40[7];
-  sub_1002BD9DC();
+  sub_1002BD9DC(_swiftEmptyArrayStorage);
   v121 = v40[8];
-  sub_1002BDDE0();
+  sub_1002BDDE0(_swiftEmptyArrayStorage);
   v117 = v40[9];
-  sub_1002BE378();
+  sub_1002BE378(_swiftEmptyArrayStorage);
   v114 = v40[10];
-  sub_1002BE75C();
+  sub_1002BE75C(_swiftEmptyArrayStorage);
   v112 = v40[11];
-  sub_1002BEB44();
+  sub_1002BEB44(_swiftEmptyArrayStorage);
   v110 = v40[12];
-  sub_1002BEF00();
+  sub_1002BEF00(_swiftEmptyArrayStorage);
   v108 = v40[13];
-  sub_1002BF2C0();
+  sub_1002BF2C0(_swiftEmptyArrayStorage);
   v105 = v40[14];
-  sub_1002BF7CC();
+  sub_1002BF7CC(_swiftEmptyArrayStorage);
   v101 = v40[15];
   sub_1002BFCE8(0);
   v139 = v40[16];
-  v143 = sub_1000039E8(&qword_1004AAD70);
+  v143 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v43 = *(type metadata accessor for NameSpecification.Element() - 8);
   v142 = *(v43 + 72);
   v149 = *(v43 + 80);
@@ -5849,13 +4453,13 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v96 = v40[17];
   sub_1002C0420(0);
   v93 = v40[18];
-  sub_1002C0930();
+  sub_1002C0930(_swiftEmptyArrayStorage);
   v91 = v40[19];
-  sub_1002C0E4C();
+  sub_1002C0E4C(_swiftEmptyArrayStorage);
   v89 = v40[20];
-  sub_1002C1368();
+  sub_1002C1368(_swiftEmptyArrayStorage);
   v80 = v40[21];
-  sub_1002C1880();
+  sub_1002C1880(_swiftEmptyArrayStorage);
   v47 = v40[22];
   *(swift_allocObject() + 16) = v150;
   static NameSpecification.Element.customLong(_:withSingleDash:)();
@@ -5890,34 +4494,34 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     v152 = v49;
     v56 = v132;
     v153 = 0;
-    sub_10000E720(&qword_1004AF5C8, &qword_1004AF480);
+    sub_10000E720(&qword_1004AF5C8, &qword_1004AF480, &qword_100404D60, &protocol conformance descriptor for Option<A>);
     v57 = v131;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v58 = *(v54 + 40);
     v79 = v42;
     v58(v42, v134, v57);
     v153 = 1;
-    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v59 = v55;
     v60 = v127;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v61 = *(v56 + 40);
     v61(&v79[v53], v59, v60);
     v153 = 2;
-    sub_10000E720(&qword_1004AF5D0, &qword_1004AF588);
+    sub_10000E720(&qword_1004AF5D0, &qword_1004AF588, &qword_100404DA0, &protocol conformance descriptor for Option<A>);
     v62 = v125;
     v63 = v126;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v151 = v61;
     (*(v122 + 40))(&v79[v121], v62, v63);
     v153 = 3;
-    sub_10000E720(&qword_1004AF5D8, &qword_1004AF590);
+    sub_10000E720(&qword_1004AF5D8, &qword_1004AF590, &qword_100404DA8, &protocol conformance descriptor for Option<A>);
     v64 = v123;
     v65 = v124;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v118 + 40))(&v79[v117], v64, v65);
     v153 = 4;
-    sub_10000E720(&qword_1004AF5E0, &qword_1004AF598);
+    sub_10000E720(&qword_1004AF5E0, &qword_1004AF598, &qword_100404DB0, &protocol conformance descriptor for Option<A>);
     v66 = v119;
     v67 = v120;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -5941,19 +4545,19 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v70(&v79[v105], v73, v69);
     v153 = 9;
-    sub_10000E720(&qword_1004AF5E8, &qword_1004AF5A0);
+    sub_10000E720(&qword_1004AF5E8, &qword_1004AF5A0, &qword_100404DB8, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v75 = *(v102 + 40);
     v75(&v79[v101], v106, v107);
     v153 = 10;
-    sub_10000E720(&qword_1004AF5F0, &qword_1004AF5A8);
+    sub_10000E720(&qword_1004AF5F0, &qword_1004AF5A8, &qword_100404DC0, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v99 + 40))(&v79[v139], v103, v104);
     v153 = 11;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v75(&v79[v96], v100, v107);
     v153 = 12;
-    sub_10000E720(&qword_1004AF5F8, &qword_1004AF5B0);
+    sub_10000E720(&qword_1004AF5F8, &qword_1004AF5B0, &qword_100404DC8, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v94 + 40))(&v79[v93], v97, v98);
     v153 = 13;
@@ -5966,12 +4570,12 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (v151)(&v79[v80], v90, v127);
     v153 = 16;
-    sub_10000E720(&qword_1004AF520, &qword_1004AF400);
+    sub_10000E720(&qword_1004AF520, &qword_1004AF400, &qword_100404CC0, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v50 = v79;
     (*(v82 + 40))(&v79[v81], v83, v84);
     v153 = 17;
-    sub_10000E720(&qword_1004AF530, &qword_1004AF410);
+    sub_10000E720(&qword_1004AF530, &qword_1004AF410, &qword_100404CD0, &protocol conformance descriptor for Option<A>);
     v76 = v135;
     v77 = v141;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -5985,41 +4589,41 @@ uint64_t Generate.CryptexOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   return sub_1002B0350(v50, type metadata accessor for Generate.CryptexOptions);
 }
 
-uint64_t _s10DarwinInit8GenerateV14PackageOptionsV10packageUrlAESay10Foundation3URLVG_tcfC_0()
+uint64_t _s10DarwinInit8GenerateV14PackageOptionsV10packageUrlAESay10Foundation3URLVG_tcfC_0(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v12 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v12 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
   static NameSpecification.Element.customLong(_:withSingleDash:)();
   NameSpecification.init(arrayLiteral:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v9 = type metadata accessor for ArgumentHelp();
+  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
   static ArrayParsingStrategy.singleValue.getter();
   type metadata accessor for URL();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:transform:)();
 }
 
-uint64_t sub_1002C5FC4()
+uint64_t sub_1002C5FC4(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for URL.ParseStrategy();
-  __chkstk_darwin(v0);
+  v2 = type metadata accessor for URL.ParseStrategy();
+  __chkstk_darwin(v2);
 
   static ParseStrategy<>.url.getter();
-  sub_1002D72A0(&qword_1004B00D0, &type metadata accessor for URL.ParseStrategy);
+  sub_1002D72A0(&qword_1004B00D0, &type metadata accessor for URL.ParseStrategy, &protocol conformance descriptor for URL.ParseStrategy);
   return URL.init<A>(_:strategy:)();
 }
 
@@ -6037,15 +4641,15 @@ uint64_t (*Generate.PackageOptions.packageUrl.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AF480);
+  sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C6144@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
+void *sub_1002C6144@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
-  sub_1000039E8(&qword_1004AF480);
+  sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   result = Option.wrappedValue.getter();
   if ((v3 & 0x8000000000000000) != 0)
   {
@@ -6098,18 +4702,18 @@ uint64_t sub_1002C62FC(uint64_t a1)
 uint64_t Generate.PackageOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v17 = a2;
-  v3 = sub_1000039E8(&qword_1004AF480);
+  v3 = sub_1000039E8(&qword_1004AF480, &qword_100404D60);
   v18 = *(v3 - 8);
   __chkstk_darwin(v3);
   v5 = &v16 - v4;
-  v6 = sub_1000039E8(&qword_1004AF600);
+  v6 = sub_1000039E8(&qword_1004AF600, &qword_100404DD8);
   v19 = *(v6 - 8);
   __chkstk_darwin(v6);
   v8 = &v16 - v7;
   v9 = type metadata accessor for Generate.PackageOptions(0);
   __chkstk_darwin(v9 - 8);
   v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  _s10DarwinInit8GenerateV14PackageOptionsV10packageUrlAESay10Foundation3URLVG_tcfC_0();
+  _s10DarwinInit8GenerateV14PackageOptionsV10packageUrlAESay10Foundation3URLVG_tcfC_0(_swiftEmptyArrayStorage);
   sub_10000E2A8(a1, a1[3]);
   sub_1002D7390();
   v12 = v20;
@@ -6123,7 +4727,7 @@ uint64_t Generate.PackageOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   else
   {
     v13 = v18;
-    sub_10000E720(&qword_1004AF5C8, &qword_1004AF480);
+    sub_10000E720(&qword_1004AF5C8, &qword_1004AF480, &qword_100404D60, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v19 + 8))(v8, v6);
     (*(v13 + 40))(v11, v5, v3);
@@ -6149,26 +4753,26 @@ uint64_t (*Generate.DiavloOptions.serverURL.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C66F8(uint64_t (*a1)(void), uint64_t *a2)
+uint64_t sub_1002C66F8(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  return v4;
+  return v6;
 }
 
-double sub_1002C675C@<D0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, _OWORD *a3@<X8>)
+double sub_1002C675C@<D0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, _OWORD *a4@<X8>)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  result = *&v6;
-  *a3 = v6;
+  result = *&v8;
+  *a4 = v8;
   return result;
 }
 
@@ -6177,15 +4781,15 @@ uint64_t sub_1002C67D0(uint64_t *a1)
   v1 = *a1;
   v2 = a1[1];
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_100031994(v1, v2);
-  sub_1000039E8(&qword_1004AF478);
+  sub_100031994(v1, v2, v3, v4);
+  sub_1000039E8(&qword_1004AF478, &unk_100404D50);
   return Option.wrappedValue.setter();
 }
 
-uint64_t sub_1002C686C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
+uint64_t sub_1002C686C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4, uint64_t *a5)
 {
   a3(0);
-  sub_1000039E8(a4);
+  sub_1000039E8(a4, a5);
   return Option.wrappedValue.setter();
 }
 
@@ -6204,7 +4808,7 @@ uint64_t (*Generate.DiavloOptions.rootCertificate.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AF478);
+  sub_1000039E8(&qword_1004AF478, &unk_100404D50);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6212,31 +4816,31 @@ uint64_t (*Generate.DiavloOptions.rootCertificate.modify(uint64_t *a1))()
 uint64_t Generate.DiavloOptions.appleConnect.getter()
 {
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AE998);
+  sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   Flag.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C69C0@<X0>(_BYTE *a1@<X8>)
+void *sub_1002C69C0@<X0>(_BYTE *a1@<X8>)
 {
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AE998);
+  sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   result = Flag.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C6A28()
+uint64_t sub_1002C6A28(char *a1)
 {
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AE998);
+  sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   return Flag.wrappedValue.setter();
 }
 
-uint64_t Generate.DiavloOptions.appleConnect.setter()
+uint64_t Generate.DiavloOptions.appleConnect.setter(char a1)
 {
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AE998);
+  sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   return Flag.wrappedValue.setter();
 }
 
@@ -6255,14 +4859,14 @@ uint64_t (*Generate.DiavloOptions.appleConnect.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.DiavloOptions(0);
-  sub_1000039E8(&qword_1004AE998);
+  sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   *(v3 + 32) = Flag.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.DiavloOptions.validate()()
 {
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   if (v1)
   {
@@ -6273,11 +4877,11 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   else
   {
     type metadata accessor for Generate.DiavloOptions(0);
-    sub_1000039E8(&qword_1004AF478);
+    sub_1000039E8(&qword_1004AF478, &unk_100404D50);
     Option.wrappedValue.getter();
     sub_100031914(v0, 0);
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
@@ -6303,10 +4907,10 @@ uint64_t sub_1002C6D14()
   }
 }
 
-uint64_t sub_1002C6D88@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002C6D88@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DDE08(a1, a2);
-  *a3 = result;
+  result = sub_1002DDE08(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -6329,10 +4933,10 @@ uint64_t Generate.DiavloOptions.init()@<X0>(uint64_t a1@<X8>)
   v18 = a1;
   v1 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v2 = sub_1000039E8(&qword_1004AAD60);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v2 - 8);
   v4 = v16 - v3;
-  v5 = sub_1000039E8(&qword_1004AAD68);
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v5 - 8);
   v7 = v16 - v6;
   v8 = type metadata accessor for NameSpecification();
@@ -6370,28 +4974,28 @@ uint64_t Generate.DiavloOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>
 {
   v52 = a1;
   v38 = a2;
-  v41 = sub_1000039E8(&qword_1004AE998);
+  v41 = sub_1000039E8(&qword_1004AE998, &qword_100402E78);
   v37 = *(v41 - 8);
   __chkstk_darwin(v41);
   v40 = &v36 - v2;
-  v44 = sub_1000039E8(&qword_1004AF478);
+  v44 = sub_1000039E8(&qword_1004AF478, &unk_100404D50);
   v39 = *(v44 - 8);
   __chkstk_darwin(v44);
   v43 = &v36 - v3;
-  v47 = sub_1000039E8(&qword_1004AF3F0);
+  v47 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   v42 = *(v47 - 8);
   __chkstk_darwin(v47);
   v46 = &v36 - v4;
-  v48 = sub_1000039E8(&qword_1004AF618);
+  v48 = sub_1000039E8(&qword_1004AF618, &qword_100404DE0);
   v45 = *(v48 - 8);
   __chkstk_darwin(v48);
   v51 = &v36 - v5;
   v6 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v6 - 8);
-  v7 = sub_1000039E8(&qword_1004AAD60);
+  v7 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v7 - 8);
   v9 = &v36 - v8;
-  v10 = sub_1000039E8(&qword_1004AAD68);
+  v10 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v10 - 8);
   v12 = &v36 - v11;
   v13 = type metadata accessor for NameSpecification();
@@ -6445,17 +5049,17 @@ uint64_t Generate.DiavloOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>
     v26 = v43;
     v28 = v44;
     v59 = 0;
-    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0);
+    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0, &unk_100404CA8, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v29 = *(v27 + 40);
     v56 = v22;
     v29(v22, v46, v47);
     v58 = 1;
-    sub_10000E720(&qword_1004AF628, &qword_1004AF478);
+    sub_10000E720(&qword_1004AF628, &qword_1004AF478, &unk_100404D50, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v39 + 40))(&v56[v54], v26, v28);
     v57 = 2;
-    sub_10000E720(&qword_1004AEA50, &qword_1004AE998);
+    sub_10000E720(&qword_1004AEA50, &qword_1004AE998, &qword_100402E78, &protocol conformance descriptor for Flag<A>);
     v31 = v40;
     v30 = v41;
     v32 = v48;
@@ -6475,10 +5079,10 @@ uint64_t default argument 0 of Generate.DiavloOptions.init(serverURL:rootCertifi
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -6497,10 +5101,10 @@ uint64_t default argument 1 of Generate.DiavloOptions.init(serverURL:rootCertifi
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -6516,22 +5120,22 @@ uint64_t default argument 1 of Generate.DiavloOptions.init(serverURL:rootCertifi
   return Option.init<A>(name:parsing:help:completion:)();
 }
 
-uint64_t Generate.DiavloOptions.init(serverURL:rootCertificate:appleConnect:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t Generate.DiavloOptions.init(serverURL:rootCertificate:appleConnect:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  v6 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v15 - v7;
-  v9 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v9 - 8);
-  v10 = sub_1000039E8(&qword_1004AF3F0);
-  (*(*(v10 - 8) + 32))(a3, a1, v10);
-  v11 = *(type metadata accessor for Generate.DiavloOptions(0) + 20);
-  v12 = sub_1000039E8(&qword_1004AF478);
-  (*(*(v12 - 8) + 32))(a3 + v11, a2, v12);
+  v7 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v16 - v8;
+  v10 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v10 - 8);
+  v11 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  (*(*(v11 - 8) + 32))(a4, a1, v11);
+  v12 = *(type metadata accessor for Generate.DiavloOptions(0) + 20);
+  v13 = sub_1000039E8(&qword_1004AF478, &unk_100404D50);
+  (*(*(v13 - 8) + 32))(a4 + v12, a2, v13);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v13 = type metadata accessor for ArgumentHelp();
-  (*(*(v13 - 8) + 56))(v8, 0, 1, v13);
+  v14 = type metadata accessor for ArgumentHelp();
+  (*(*(v14 - 8) + 56))(v9, 0, 1, v14);
   return Flag<A>.init(wrappedValue:name:help:)();
 }
 
@@ -6549,7 +5153,7 @@ uint64_t (*Generate.ResultOptions.failureAction.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AE9B8);
+  sub_1000039E8(&qword_1004AE9B8, &qword_100404D30);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6572,10 +5176,10 @@ uint64_t sub_1002C82BC()
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -6593,7 +5197,7 @@ uint64_t sub_1002C82BC()
 
 uint64_t Generate.ResultOptions.init(failureAction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = sub_1000039E8(&qword_1004AE9B8);
+  v4 = sub_1000039E8(&qword_1004AE9B8, &qword_100404D30);
   v5 = *(*(v4 - 8) + 32);
 
   return v5(a2, a1, v4);
@@ -6602,20 +5206,20 @@ uint64_t Generate.ResultOptions.init(failureAction:)@<X0>(uint64_t a1@<X0>, uint
 uint64_t Generate.ResultOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v28 = a2;
-  v3 = sub_1000039E8(&qword_1004AE9B8);
+  v3 = sub_1000039E8(&qword_1004AE9B8, &qword_100404D30);
   v26 = *(v3 - 8);
   __chkstk_darwin(v3);
   v29 = &v26 - v4;
-  v5 = sub_1000039E8(&qword_1004AF630);
+  v5 = sub_1000039E8(&qword_1004AF630, &qword_100404DE8);
   v27 = *(v5 - 8);
   __chkstk_darwin(v5);
   v7 = &v26 - v6;
   v8 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v8 - 8);
-  v9 = sub_1000039E8(&qword_1004AAD60);
+  v9 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v9 - 8);
   v11 = &v26 - v10;
-  v12 = sub_1000039E8(&qword_1004AAD68);
+  v12 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v12 - 8);
   v14 = &v26 - v13;
   v15 = type metadata accessor for NameSpecification();
@@ -6646,7 +5250,7 @@ uint64_t Generate.ResultOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>
   {
     v22 = v26;
     v23 = v28;
-    sub_10000E720(&qword_1004AEA60, &qword_1004AE9B8);
+    sub_10000E720(&qword_1004AEA60, &qword_1004AE9B8, &qword_100404D30, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v27 + 8))(v7, v5);
     (*(v22 + 40))(v18, v29, v3);
@@ -6660,15 +5264,15 @@ uint64_t Generate.ResultOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>
 
 uint64_t _s10DarwinInit8GenerateV13DiavloOptionsV9serverURLSSSgvg_0()
 {
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002C8ACC()
+uint64_t sub_1002C8ACC(uint64_t *a1)
 {
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6686,16 +5290,16 @@ uint64_t (*Generate.InstallOptions.wait.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C8C14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t sub_1002C8C14(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6714,7 +5318,7 @@ uint64_t (*Generate.InstallOptions.preflight.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6722,7 +5326,7 @@ uint64_t (*Generate.InstallOptions.preflight.modify(uint64_t *a1))()
 uint64_t Generate.InstallOptions.preflightShell.getter()
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   return v1;
 }
@@ -6730,25 +5334,25 @@ uint64_t Generate.InstallOptions.preflightShell.getter()
 double sub_1002C8DA0@<D0>(_OWORD *a1@<X8>)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   result = *&v3;
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C8E08()
+uint64_t sub_1002C8E08(void *a1)
 {
   type metadata accessor for Generate.InstallOptions(0);
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.InstallOptions.preflightShell.setter()
+uint64_t Generate.InstallOptions.preflightShell.setter(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6767,7 +5371,7 @@ uint64_t (*Generate.InstallOptions.preflightShell.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6775,7 +5379,7 @@ uint64_t (*Generate.InstallOptions.preflightShell.modify(uint64_t *a1))()
 uint64_t Generate.InstallOptions.root.getter()
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   return v1;
 }
@@ -6783,25 +5387,25 @@ uint64_t Generate.InstallOptions.root.getter()
 double sub_1002C8FC0@<D0>(_OWORD *a1@<X8>)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   result = *&v3;
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C9028()
+uint64_t sub_1002C9028(void *a1)
 {
   type metadata accessor for Generate.InstallOptions(0);
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.InstallOptions.root.setter()
+uint64_t Generate.InstallOptions.root.setter(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6820,7 +5424,7 @@ uint64_t (*Generate.InstallOptions.root.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6828,7 +5432,7 @@ uint64_t (*Generate.InstallOptions.root.modify(uint64_t *a1))()
 uint64_t Generate.InstallOptions.postflight.getter()
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   return v1;
 }
@@ -6836,25 +5440,25 @@ uint64_t Generate.InstallOptions.postflight.getter()
 double sub_1002C91E0@<D0>(_OWORD *a1@<X8>)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   result = *&v3;
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C9248()
+uint64_t sub_1002C9248(void *a1)
 {
   type metadata accessor for Generate.InstallOptions(0);
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.InstallOptions.postflight.setter()
+uint64_t Generate.InstallOptions.postflight.setter(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6873,7 +5477,7 @@ uint64_t (*Generate.InstallOptions.postflight.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -6881,7 +5485,7 @@ uint64_t (*Generate.InstallOptions.postflight.modify(uint64_t *a1))()
 uint64_t Generate.InstallOptions.postflightShell.getter()
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   return v1;
 }
@@ -6889,25 +5493,25 @@ uint64_t Generate.InstallOptions.postflightShell.getter()
 double sub_1002C9400@<D0>(_OWORD *a1@<X8>)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   result = *&v3;
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002C9468()
+uint64_t sub_1002C9468(void *a1)
 {
   type metadata accessor for Generate.InstallOptions(0);
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
-uint64_t Generate.InstallOptions.postflightShell.setter()
+uint64_t Generate.InstallOptions.postflightShell.setter(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   return Option.wrappedValue.setter();
 }
 
@@ -6926,31 +5530,31 @@ uint64_t (*Generate.InstallOptions.postflightShell.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002C95CC@<X0>(uint64_t (*a1)(void)@<X3>, _BYTE *a2@<X8>)
+void *sub_1002C95CC@<X0>(uint64_t (*a1)(void)@<X3>, _BYTE *a2@<X8>)
 {
   a1(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   result = Flag.wrappedValue.getter();
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_1002C9638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t sub_1002C9638(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  a5(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  (a5)(0, a2, a3, a4);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
-uint64_t sub_1002C96B4(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_1002C96B4(char a1, uint64_t (*a2)(void))
 {
   a2(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
@@ -6969,34 +5573,34 @@ uint64_t (*Generate.InstallOptions.reboot.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   *(v3 + 32) = Flag.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-void *sub_1002C97AC@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, void *(*a3)(uint64_t *__return_ptr, uint64_t)@<X6>, _BYTE *a4@<X8>)
+void *sub_1002C97AC@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, void *(*a4)(uint64_t *__return_ptr, uint64_t)@<X6>, _BYTE *a5@<X8>)
 {
   a1(0);
-  v7 = sub_1000039E8(a2);
-  result = a3(&v9, v7);
-  *a4 = v9;
+  v9 = sub_1000039E8(a2, a3);
+  result = a4(&v11, v9);
+  *a5 = v11;
   return result;
 }
 
-uint64_t sub_1002C9828(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t a7, uint64_t (*a8)(char *, uint64_t))
+uint64_t sub_1002C9828(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t *a7, uint64_t (*a8)(char *, uint64_t))
 {
-  v12 = *a1;
-  a5(0);
-  v10 = sub_1000039E8(a6);
-  return a8(&v12, v10);
+  v13 = *a1;
+  (a5)(0, a2, a3, a4);
+  v11 = sub_1000039E8(a6, a7);
+  return a8(&v13, v11);
 }
 
-uint64_t sub_1002C98E0(char a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t a4, uint64_t (*a5)(char *, uint64_t))
+uint64_t sub_1002C98E0(char a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4, uint64_t (*a5)(char *, uint64_t))
 {
-  v9 = a1;
+  v10 = a1;
   a2(0);
-  v7 = sub_1000039E8(a3);
-  return a5(&v9, v7);
+  v8 = sub_1000039E8(a3, a4);
+  return a5(&v10, v8);
 }
 
 uint64_t (*Generate.InstallOptions.userspaceReboot.modify(uint64_t *a1))()
@@ -7014,7 +5618,7 @@ uint64_t (*Generate.InstallOptions.userspaceReboot.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF468);
+  sub_1000039E8(&qword_1004AF468, &qword_100404D38);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -7022,18 +5626,18 @@ uint64_t (*Generate.InstallOptions.userspaceReboot.modify(uint64_t *a1))()
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.InstallOptions.validate()()
 {
   type metadata accessor for Generate.InstallOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   if (v0 != 2)
   {
-    sub_1000039E8(&qword_1004AF3F0);
+    sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
     Option.wrappedValue.getter();
     if (!v1)
     {
       Option.wrappedValue.getter();
       Option.wrappedValue.getter();
       type metadata accessor for ValidationError();
-      sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+      sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
       swift_allocError();
       ValidationError.init(_:)();
       swift_willThrow();
@@ -7041,7 +5645,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     }
   }
 
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   if (v1)
   {
@@ -7099,10 +5703,10 @@ uint64_t sub_1002C9C1C()
   }
 }
 
-uint64_t sub_1002C9D30@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002C9D30@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DDF34(a1, a2);
-  *a3 = result;
+  result = sub_1002DDF34(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7132,10 +5736,10 @@ uint64_t Generate.InstallOptions.init()@<X0>(uint64_t a1@<X8>)
   v5 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v5 - 8);
   v7 = v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1000039E8(&qword_1004AAD60);
+  v8 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v8 - 8);
   v10 = v37 - v9;
-  v11 = sub_1000039E8(&qword_1004AAD68);
+  v11 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v11 - 8);
   v13 = v37 - v12;
   v14 = type metadata accessor for NameSpecification();
@@ -7160,7 +5764,7 @@ uint64_t Generate.InstallOptions.init()@<X0>(uint64_t a1@<X8>)
   Option.init<A>(name:parsing:help:completion:)();
   v48 = type metadata accessor for Generate.InstallOptions(0);
   v37[0] = v48[5];
-  v46 = sub_1000039E8(&qword_1004AAD70);
+  v46 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v21 = *(type metadata accessor for NameSpecification.Element() - 8);
   v22 = *(v21 + 72);
   v41 = *(v21 + 80);
@@ -7255,15 +5859,15 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
 {
   v96 = a1;
   v76 = a2;
-  v80 = sub_1000039E8(&qword_1004AF468);
+  v80 = sub_1000039E8(&qword_1004AF468, &qword_100404D38);
   v75 = *(v80 - 8);
   __chkstk_darwin(v80);
   v79 = &v74 - v2;
-  v82 = sub_1000039E8(&qword_1004AF3F8);
+  v82 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   v78 = *(v82 - 8);
   __chkstk_darwin(v82);
   v81 = &v74 - v3;
-  v91 = sub_1000039E8(&qword_1004AF3F0);
+  v91 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   v88 = *(v91 - 8);
   v4 = __chkstk_darwin(v91);
   v83 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -7277,7 +5881,7 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v87 = &v74 - v13;
   __chkstk_darwin(v12);
   v90 = &v74 - v14;
-  v92 = sub_1000039E8(&qword_1004AF648);
+  v92 = sub_1000039E8(&qword_1004AF648, &qword_100404DF0);
   v89 = *(v92 - 8);
   __chkstk_darwin(v92);
   v103 = &v74 - v15;
@@ -7290,10 +5894,10 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   v20 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v20 - 8);
   v22 = &v74 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = sub_1000039E8(&qword_1004AAD60);
+  v23 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v23 - 8);
   v25 = &v74 - v24;
-  v26 = sub_1000039E8(&qword_1004AAD68);
+  v26 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v26 - 8);
   v28 = &v74 - v27;
   v29 = type metadata accessor for NameSpecification();
@@ -7321,7 +5925,7 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   static SingleValueParsingStrategy.next.getter();
   Option.init<A>(name:parsing:help:completion:)();
   v102 = *(v32 + 28);
-  v37 = sub_1000039E8(&qword_1004AAD70);
+  v37 = sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   v38 = *(type metadata accessor for NameSpecification.Element() - 8);
   v39 = *(v38 + 72);
   v111 = *(v38 + 80);
@@ -7426,7 +6030,7 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     v60 = v87;
     v61 = v88;
     v128 = 0;
-    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0);
+    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0, &unk_100404CA8, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v119 = v56;
     v62 = *(v61 + 40);
@@ -7451,14 +6055,14 @@ uint64_t Generate.InstallOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v62(&v120[v98], v66, v91);
     v122 = 6;
-    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8);
+    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8, &qword_100404CB8, &protocol conformance descriptor for Flag<A>);
     v67 = v81;
     v68 = v82;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v57 = v120;
     (*(v78 + 40))(&v120[v77], v67, v68);
     v121 = 7;
-    sub_10000E720(&qword_1004AF658, &qword_1004AF468);
+    sub_10000E720(&qword_1004AF658, &qword_1004AF468, &qword_100404D38, &protocol conformance descriptor for Option<A>);
     v70 = v79;
     v71 = v80;
     v72 = v92;
@@ -7477,10 +6081,10 @@ uint64_t default argument 0 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -7499,15 +6103,15 @@ uint64_t default argument 1 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7526,15 +6130,15 @@ uint64_t default argument 2 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7553,10 +6157,10 @@ uint64_t default argument 3 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -7575,15 +6179,15 @@ uint64_t default argument 4 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7602,15 +6206,15 @@ uint64_t default argument 5 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7629,14 +6233,14 @@ uint64_t default argument 6 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
   __chkstk_darwin(v4 - 8);
   v5 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v5 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7654,15 +6258,15 @@ uint64_t default argument 7 of Generate.InstallOptions.init(wait:preflight:prefl
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1000039E8(&qword_1004AAD70);
+  sub_1000039E8(&qword_1004AAD70, &qword_100404D90);
   type metadata accessor for NameSpecification.Element();
   *(swift_allocObject() + 16) = xmmword_100376BB0;
   static NameSpecification.Element.customShort(_:allowingJoined:)();
@@ -7680,7 +6284,7 @@ uint64_t default argument 7 of Generate.InstallOptions.init(wait:preflight:prefl
 
 uint64_t Generate.InstallOptions.init(wait:preflight:preflightShell:root:postflight:postflightShell:reboot:userspaceReboot:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v16 = sub_1000039E8(&qword_1004AF3F0);
+  v16 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   v17 = *(*(v16 - 8) + 32);
   v17(a9, a1, v16);
   v18 = type metadata accessor for Generate.InstallOptions(0);
@@ -7690,10 +6294,10 @@ uint64_t Generate.InstallOptions.init(wait:preflight:preflightShell:root:postfli
   v17(a9 + v18[8], a5, v16);
   v17(a9 + v18[9], a6, v16);
   v19 = v18[10];
-  v20 = sub_1000039E8(&qword_1004AF3F8);
+  v20 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   (*(*(v20 - 8) + 32))(a9 + v19, a7, v20);
   v21 = v18[11];
-  v22 = sub_1000039E8(&qword_1004AF468);
+  v22 = sub_1000039E8(&qword_1004AF468, &qword_100404D38);
   v23 = *(*(v22 - 8) + 32);
 
   return v23(a9 + v21, a8, v22);
@@ -7713,40 +6317,40 @@ uint64_t (*Generate.NetworkOptions.interface.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002CD37C(uint64_t (*a1)(void), uint64_t *a2)
+uint64_t sub_1002CD37C(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  return v4;
+  return v6;
 }
 
-uint64_t sub_1002CD3E0@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+void *sub_1002CD3E0@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, void *a4@<X8>)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   result = Option.wrappedValue.getter();
-  *a3 = v6;
+  *a4 = v8;
   return result;
 }
 
-uint64_t sub_1002CD454(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6)
+uint64_t sub_1002CD454(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t *a7)
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(a6);
+  sub_1000039E8(a6, a7);
   return Option.wrappedValue.setter();
 }
 
-uint64_t sub_1002CD4F8(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3)
+uint64_t sub_1002CD4F8(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
 {
   a2(0);
-  sub_1000039E8(a3);
+  sub_1000039E8(a3, a4);
   return Option.wrappedValue.setter();
 }
 
@@ -7765,15 +6369,15 @@ uint64_t (*Generate.NetworkOptions.configuration.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.NetworkOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002CD5F8@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_1002CD5F8@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   if ((v3 & 0x8000000000000000) != 0)
   {
@@ -7793,7 +6397,7 @@ LABEL_6:
   v6 = *(v5 + 40);
 
   type metadata accessor for Generate.NetworkOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   result = Option.wrappedValue.getter();
   if (v3 < *(v9 + 16))
   {
@@ -7812,19 +6416,19 @@ LABEL_7:
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.NetworkOptions.validate()()
 {
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v0 = *(v2 + 16);
 
   type metadata accessor for Generate.NetworkOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   Option.wrappedValue.getter();
   v1 = *(v2 + 16);
 
   if (v0 != v1)
   {
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
@@ -7897,10 +6501,10 @@ uint64_t Generate.NetworkOptions.init()@<X0>(uint64_t a1@<X8>)
   v15 = a1;
   v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v2 = sub_1000039E8(&qword_1004AAD60);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v2 - 8);
   v4 = v13 - v3;
-  v5 = sub_1000039E8(&qword_1004AAD68);
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v5 - 8);
   v7 = v13 - v6;
   v8 = type metadata accessor for NameSpecification();
@@ -7929,25 +6533,25 @@ uint64_t Generate.NetworkOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
 {
   v51 = a1;
   v37 = a2;
-  v39 = sub_1000039E8(&qword_1004AF660);
+  v39 = sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   v36 = *(v39 - 8);
   __chkstk_darwin(v39);
   v38 = &v35 - v2;
-  v44 = sub_1000039E8(&qword_1004AAC48);
+  v44 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v41 = *(v44 - 8);
   __chkstk_darwin(v44);
   v43 = &v35 - v3;
-  v42 = sub_1000039E8(&qword_1004AF670);
+  v42 = sub_1000039E8(&qword_1004AF670, &qword_100404E00);
   v40 = *(v42 - 8);
   __chkstk_darwin(v42);
   v50 = &v35 - v4;
   v5 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v5 - 8);
   v49 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1000039E8(&qword_1004AAD60);
+  v7 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v7 - 8);
   v9 = &v35 - v8;
-  v10 = sub_1000039E8(&qword_1004AAD68);
+  v10 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v10 - 8);
   v12 = &v35 - v11;
   v13 = type metadata accessor for NameSpecification();
@@ -7995,14 +6599,14 @@ uint64_t Generate.NetworkOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
     v27 = v40;
     v26 = v41;
     v54 = 0;
-    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v28 = v42;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v29 = *(v26 + 40);
     v52 = v17;
     v29(v17, v43, v44);
     v53 = 1;
-    sub_10000E720(&qword_1004AF680, &qword_1004AF660);
+    sub_10000E720(&qword_1004AF680, &qword_1004AF660, &qword_100404DF8, &protocol conformance descriptor for Option<A>);
     v31 = v38;
     v30 = v39;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -8024,10 +6628,10 @@ uint64_t Generate.NetworkOptions.init(interface:configuration:)@<X0>(uint64_t a1
   v18 = a3;
   v3 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v3 - 8);
-  v4 = sub_1000039E8(&qword_1004AAD60);
+  v4 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v4 - 8);
   v6 = &v15 - v5;
-  v7 = sub_1000039E8(&qword_1004AAD68);
+  v7 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = type metadata accessor for NameSpecification();
@@ -8052,36 +6656,36 @@ uint64_t Generate.NetworkOptions.init(interface:configuration:)@<X0>(uint64_t a1
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
 
-uint64_t sub_1002CE770()
+uint64_t sub_1002CE770(uint64_t a1)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v1 - 8);
-  v3 = v14 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v4 - 8);
-  v6 = v14 - v5;
-  v7 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v7 - 8);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = v15 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = v15 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
   static NameSpecification.customLong(_:withSingleDash:)();
-  v14[0] = 0;
-  v14[1] = 0xE000000000000000;
+  v15[0] = 0;
+  v15[1] = 0xE000000000000000;
   _StringGuts.grow(_:)(94);
-  v8._countAndFlagsBits = 0xD00000000000005CLL;
-  v8._object = 0x8000000100443350;
-  String.append(_:)(v8);
-  v9._countAndFlagsBits = 45;
-  v9._object = 0xE100000000000000;
-  v10 = formatSupportedNarrativeIdentities(separator:)(v9);
-  String.append(_:)(v10);
+  v9._countAndFlagsBits = 0xD00000000000005CLL;
+  v9._object = 0x8000000100443350;
+  String.append(_:)(v9);
+  v10._countAndFlagsBits = 45;
+  v10._object = 0xE100000000000000;
+  v11 = formatSupportedNarrativeIdentities(separator:)(v10);
+  String.append(_:)(v11);
 
-  v11 = type metadata accessor for ArgumentHelp();
-  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp);
+  v12 = type metadata accessor for ArgumentHelp();
+  sub_1002D72A0(&qword_1004AF4A0, &type metadata accessor for ArgumentHelp, &protocol conformance descriptor for ArgumentHelp);
   ExpressibleByStringInterpolation<>.init(stringInterpolation:)();
-  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
-  v12 = type metadata accessor for CompletionKind();
-  (*(*(v12 - 8) + 56))(v3, 1, 1, v12);
+  (*(*(v12 - 8) + 56))(v7, 0, 1, v12);
+  v13 = type metadata accessor for CompletionKind();
+  (*(*(v13 - 8) + 56))(v4, 1, 1, v13);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
@@ -8100,7 +6704,7 @@ uint64_t (*Generate.NarrativeIdentityOptions.identity.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -8120,15 +6724,15 @@ uint64_t (*Generate.NarrativeIdentityOptions.option.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002CEBDC@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_1002CEBDC@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   if ((v3 & 0x8000000000000000) != 0)
   {
@@ -8148,7 +6752,7 @@ LABEL_8:
   v6 = *(v5 + 40);
 
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   Option.wrappedValue.getter();
   if (v3 >= *(v9 + 16))
   {
@@ -8168,12 +6772,12 @@ LABEL_8:
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.NarrativeIdentityOptions.validate()()
 {
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v1 = *(v5 + 16);
 
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   Option.wrappedValue.getter();
   v2 = *(v5 + 16);
 
@@ -8199,17 +6803,17 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   else
   {
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
   }
 }
 
-uint64_t sub_1002CEE50(unint64_t *a1)
+void *sub_1002CEE50(unint64_t *a1)
 {
   v1 = *a1;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   if ((v1 & 0x8000000000000000) != 0)
   {
@@ -8256,7 +6860,7 @@ LABEL_7:
       String.append(_:)(v17);
 
       type metadata accessor for ValidationError();
-      sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+      sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
       swift_allocError();
       ValidationError.init(_:)();
       return swift_willThrow();
@@ -8349,15 +6953,15 @@ uint64_t Generate.NarrativeIdentityOptions.init()()
 {
   v0 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
   __chkstk_darwin(v7 - 8);
-  sub_1002CE770();
+  sub_1002CE770(_swiftEmptyArrayStorage);
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
@@ -8374,24 +6978,24 @@ uint64_t Generate.NarrativeIdentityOptions.init(from:)@<X0>(void *a1@<X0>, uint6
 {
   v40 = a1;
   v32 = a2;
-  v33 = sub_1000039E8(&qword_1004AF660);
+  v33 = sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   v31 = *(v33 - 8);
   __chkstk_darwin(v33);
   v36 = &v30 - v2;
-  v37 = sub_1000039E8(&qword_1004AAC48);
+  v37 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v35 = *(v37 - 8);
   __chkstk_darwin(v37);
   v38 = &v30 - v3;
-  v39 = sub_1000039E8(&qword_1004AF688);
+  v39 = sub_1000039E8(&qword_1004AF688, &qword_100404E08);
   v34 = *(v39 - 8);
   __chkstk_darwin(v39);
   v5 = &v30 - v4;
   v6 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v6 - 8);
-  v7 = sub_1000039E8(&qword_1004AAD60);
+  v7 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v7 - 8);
   v9 = &v30 - v8;
-  v10 = sub_1000039E8(&qword_1004AAD68);
+  v10 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v10 - 8);
   v12 = &v30 - v11;
   v13 = type metadata accessor for NameSpecification();
@@ -8400,7 +7004,7 @@ uint64_t Generate.NarrativeIdentityOptions.init(from:)@<X0>(void *a1@<X0>, uint6
   v15 = v14 - 8;
   __chkstk_darwin(v14);
   v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1002CE770();
+  sub_1002CE770(_swiftEmptyArrayStorage);
   v18 = *(v15 + 28);
   static NameSpecification.customLong(_:withSingleDash:)();
   v19 = v40;
@@ -8423,12 +7027,12 @@ uint64_t Generate.NarrativeIdentityOptions.init(from:)@<X0>(void *a1@<X0>, uint6
     v23 = v35;
     v25 = v36;
     v43 = 0;
-    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v26 = v37;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v23 + 40))(v17, v38, v26);
     v42 = 1;
-    sub_10000E720(&qword_1004AF680, &qword_1004AF660);
+    sub_10000E720(&qword_1004AF680, &qword_1004AF660, &qword_100404DF8, &protocol conformance descriptor for Option<A>);
     v27 = v33;
     v28 = v39;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -8441,42 +7045,42 @@ uint64_t Generate.NarrativeIdentityOptions.init(from:)@<X0>(void *a1@<X0>, uint6
   return sub_1002B0350(v17, type metadata accessor for Generate.NarrativeIdentityOptions);
 }
 
-uint64_t Generate.NarrativeIdentityOptions.init(identity:option:)()
+uint64_t Generate.NarrativeIdentityOptions.init(identity:option:)(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
-  __chkstk_darwin(v1 - 8);
-  v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v3 = type metadata accessor for ArrayParsingStrategy();
+  __chkstk_darwin(v3 - 8);
+  v4 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for NameSpecification();
+  v6 = &v14 - v5;
+  v7 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v7 - 8);
-  sub_1002CE770();
+  v9 = &v14 - v8;
+  v10 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v10 - 8);
+  sub_1002CE770(a1);
   type metadata accessor for Generate.NarrativeIdentityOptions(0);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  v11 = type metadata accessor for ArgumentHelp();
+  (*(*(v11 - 8) + 56))(v9, 0, 1, v11);
+  v12 = type metadata accessor for CompletionKind();
+  (*(*(v12 - 8) + 56))(v6, 1, 1, v12);
   static ArrayParsingStrategy.singleValue.getter();
   sub_1002D7588();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
 
-uint64_t sub_1002CFDD8(uint64_t *a1)
+uint64_t sub_1002CFDD8(uint64_t *a1, uint64_t *a2)
 {
-  sub_1000039E8(a1);
+  sub_1000039E8(a1, a2);
   Option.wrappedValue.getter();
-  return v2;
+  return v3;
 }
 
-uint64_t sub_1002CFE04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t sub_1002CFE04(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
 
-  sub_1000039E8(a5);
+  sub_1000039E8(a5, a6);
   return Option.wrappedValue.setter();
 }
 
@@ -8494,7 +7098,7 @@ uint64_t (*Generate.PreferenceOptions.preference.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -8514,7 +7118,7 @@ uint64_t (*Generate.PreferenceOptions.value.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -8534,40 +7138,40 @@ uint64_t (*Generate.PreferenceOptions.applicationId.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002D0128(uint64_t (*a1)(void), uint64_t *a2)
+uint64_t sub_1002D0128(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  return v4;
+  return v6;
 }
 
-uint64_t sub_1002D018C@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+void *sub_1002D018C@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, void *a4@<X8>)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   result = Option.wrappedValue.getter();
-  *a3 = v6;
+  *a4 = v8;
   return result;
 }
 
-uint64_t sub_1002D0200(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6)
+uint64_t sub_1002D0200(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t *a7)
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(a6);
+  sub_1000039E8(a6, a7);
   return Option.wrappedValue.setter();
 }
 
-uint64_t sub_1002D02A4(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3)
+uint64_t sub_1002D02A4(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
 {
   a2(0);
-  sub_1000039E8(a3);
+  sub_1000039E8(a3, a4);
   return Option.wrappedValue.setter();
 }
 
@@ -8586,40 +7190,40 @@ uint64_t (*Generate.PreferenceOptions.userName.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002D03CC(uint64_t (*a1)(void), uint64_t *a2)
+uint64_t sub_1002D03CC(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   Option.wrappedValue.getter();
-  return v4;
+  return v6;
 }
 
-uint64_t sub_1002D0430@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+void *sub_1002D0430@<X0>(uint64_t (*a1)(void)@<X3>, uint64_t *a2@<X4>, uint64_t *a3@<X5>, void *a4@<X8>)
 {
   a1(0);
-  sub_1000039E8(a2);
+  sub_1000039E8(a2, a3);
   result = Option.wrappedValue.getter();
-  *a3 = v6;
+  *a4 = v8;
   return result;
 }
 
-uint64_t sub_1002D04A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6)
+uint64_t sub_1002D04A4(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t *a6, uint64_t *a7)
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(a6);
+  sub_1000039E8(a6, a7);
   return Option.wrappedValue.setter();
 }
 
-uint64_t sub_1002D0548(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3)
+uint64_t sub_1002D0548(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4)
 {
   a2(0);
-  sub_1000039E8(a3);
+  sub_1000039E8(a3, a4);
   return Option.wrappedValue.setter();
 }
 
@@ -8638,15 +7242,15 @@ uint64_t (*Generate.PreferenceOptions.hostName.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002D0648@<X0>(int64_t *a1@<X0>, void *a2@<X8>)
+void *sub_1002D0648@<X0>(int64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   if (v3 < 0)
   {
@@ -8666,7 +7270,7 @@ LABEL_15:
   v6 = *(v5 + 40);
 
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   result = Option.wrappedValue.getter();
   if (v3 >= *(v20 + 16))
   {
@@ -8736,19 +7340,19 @@ LABEL_16:
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.PreferenceOptions.validate()()
 {
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v0 = *(v11 + 16);
 
   type metadata accessor for Generate.PreferenceOptions(0);
-  sub_1000039E8(&qword_1004AF660);
+  sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   Option.wrappedValue.getter();
   v1 = *(v11 + 16);
 
   if (v0 != v1 || (Option.wrappedValue.getter(), v2 = *(v11 + 16), , v2) && (Option.wrappedValue.getter(), v3 = *(v11 + 16), , Option.wrappedValue.getter(), v4 = *(v11 + 16), , v3 != v4) || (Option.wrappedValue.getter(), v5 = *(v11 + 16), , v5) && (Option.wrappedValue.getter(), v6 = *(v11 + 16), , Option.wrappedValue.getter(), v7 = *(v11 + 16), , v6 != v7) || (Option.wrappedValue.getter(), v8 = *(v11 + 16), , v8) && (Option.wrappedValue.getter(), v9 = *(v11 + 16), , Option.wrappedValue.getter(), v10 = *(v11 + 16), , v9 != v10))
   {
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
@@ -8787,10 +7391,10 @@ uint64_t sub_1002D0AEC()
   }
 }
 
-uint64_t sub_1002D0B94@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002D0B94@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DE1E4(a1, a2);
-  *a3 = result;
+  result = sub_1002DE1E4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8812,10 +7416,10 @@ uint64_t Generate.PreferenceOptions.init()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v2 - 8);
-  v3 = sub_1000039E8(&qword_1004AAD60);
+  v3 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v3 - 8);
   v5 = &v27 - v4;
-  v6 = sub_1000039E8(&qword_1004AAD68);
+  v6 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v6 - 8);
   v8 = &v27 - v7;
   v9 = type metadata accessor for NameSpecification();
@@ -8884,12 +7488,12 @@ uint64_t Generate.PreferenceOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@
 {
   v77 = a1;
   v61 = a2;
-  v2 = sub_1000039E8(&qword_1004AF660);
+  v2 = sub_1000039E8(&qword_1004AF660, &qword_100404DF8);
   v68 = *(v2 - 8);
   v69 = v2;
   __chkstk_darwin(v2);
   v70 = &v60 - v3;
-  v4 = sub_1000039E8(&qword_1004AAC48);
+  v4 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v5 = *(v4 - 8);
   v72 = v4;
   v73 = v5;
@@ -8901,17 +7505,17 @@ uint64_t Generate.PreferenceOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@
   v67 = &v60 - v11;
   __chkstk_darwin(v10);
   v74 = &v60 - v12;
-  v75 = sub_1000039E8(&qword_1004AF698);
+  v75 = sub_1000039E8(&qword_1004AF698, &qword_100404E10);
   v71 = *(v75 - 8);
   __chkstk_darwin(v75);
   v76 = &v60 - v13;
   v14 = type metadata accessor for ArrayParsingStrategy();
   __chkstk_darwin(v14 - 8);
   v16 = &v60 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_1000039E8(&qword_1004AAD60);
+  v17 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v17 - 8);
   v19 = &v60 - v18;
-  v20 = sub_1000039E8(&qword_1004AAD68);
+  v20 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v20 - 8);
   v22 = &v60 - v21;
   v23 = type metadata accessor for NameSpecification();
@@ -8996,14 +7600,14 @@ uint64_t Generate.PreferenceOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@
     v46 = v70;
     v47 = v73;
     v93 = 0;
-    v48 = sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    v48 = sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v49 = v72;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v86 = *(v47 + 40);
     v87 = v48;
     v86(v43, v74, v49);
     v92 = 1;
-    sub_10000E720(&qword_1004AF680, &qword_1004AF660);
+    sub_10000E720(&qword_1004AF680, &qword_1004AF660, &qword_100404DF8, &protocol conformance descriptor for Option<A>);
     v50 = v69;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v73 = v47 + 40;
@@ -9033,91 +7637,91 @@ uint64_t Generate.PreferenceOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@
   return sub_1002B0350(v53, type metadata accessor for Generate.PreferenceOptions);
 }
 
-uint64_t Generate.PreferenceOptions.init(preference:value:applicationId:userName:hostName:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+uint64_t Generate.PreferenceOptions.init(preference:value:applicationId:userName:hostName:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v33 = a3;
   v34 = a4;
-  v31 = a1;
+  v35 = a5;
   v32 = a2;
-  v6 = type metadata accessor for ArrayParsingStrategy();
-  __chkstk_darwin(v6 - 8);
-  v8 = v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1000039E8(&qword_1004AAD60);
-  __chkstk_darwin(v9 - 8);
-  v11 = v29 - v10;
-  v12 = sub_1000039E8(&qword_1004AAD68);
-  __chkstk_darwin(v12 - 8);
-  v14 = v29 - v13;
-  v15 = type metadata accessor for NameSpecification();
-  __chkstk_darwin(v15 - 8);
+  v33 = a3;
+  v7 = type metadata accessor for ArrayParsingStrategy();
+  __chkstk_darwin(v7 - 8);
+  v9 = v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v10 - 8);
+  v12 = v30 - v11;
+  v13 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v13 - 8);
+  v15 = v30 - v14;
+  v16 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v16 - 8);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v38 = type metadata accessor for ArgumentHelp();
-  v16 = *(v38 - 8);
-  v17 = *(v16 + 56);
-  v39 = v16 + 56;
-  v17(v14, 0, 1, v38);
-  v18 = v17;
-  v40 = v17;
-  v19 = type metadata accessor for CompletionKind();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 56);
-  v37 = v20 + 56;
-  v35 = v19;
-  v21(v11, 1, 1, v19);
-  v30 = v21;
-  v29[1] = v8;
+  v39 = type metadata accessor for ArgumentHelp();
+  v17 = *(v39 - 8);
+  v18 = *(v17 + 56);
+  v40 = v17 + 56;
+  v18(v15, 0, 1, v39);
+  v19 = v18;
+  v41 = v18;
+  v20 = type metadata accessor for CompletionKind();
+  v21 = *(v20 - 8);
+  v22 = *(v21 + 56);
+  v38 = v21 + 56;
+  v36 = v20;
+  v22(v12, 1, 1, v20);
+  v31 = v22;
+  v30[1] = v9;
   static ArrayParsingStrategy.singleValue.getter();
   Option.init<A>(wrappedValue:name:parsing:help:completion:)();
-  v36 = type metadata accessor for Generate.PreferenceOptions(0);
-  v29[0] = *(v36 + 20);
+  v37 = type metadata accessor for Generate.PreferenceOptions(0);
+  v30[0] = *(v37 + 20);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v22 = v38;
-  v18(v14, 0, 1, v38);
-  v21(v11, 1, 1, v19);
+  v23 = v39;
+  v19(v15, 0, 1, v39);
+  v22(v12, 1, 1, v20);
   static ArrayParsingStrategy.singleValue.getter();
   sub_1002D7588();
   Option.init<A>(wrappedValue:name:parsing:help:completion:)();
-  v23 = v36;
-  v31 = *(v36 + 24);
+  v24 = v37;
+  v32 = *(v37 + 24);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v40(v14, 0, 1, v22);
-  v24 = v35;
-  v25 = v30;
-  v30(v11, 1, 1, v35);
+  v41(v15, 0, 1, v23);
+  v25 = v36;
+  v26 = v31;
+  v31(v12, 1, 1, v36);
   static ArrayParsingStrategy.singleValue.getter();
-  v29[2] = a5;
+  v30[2] = a6;
   Option.init<A>(wrappedValue:name:parsing:help:completion:)();
-  v32 = *(v23 + 28);
+  v33 = *(v24 + 28);
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v26 = v38;
-  v27 = v40;
-  v40(v14, 0, 1, v38);
-  v25(v11, 1, 1, v24);
+  v27 = v39;
+  v28 = v41;
+  v41(v15, 0, 1, v39);
+  v26(v12, 1, 1, v25);
   static ArrayParsingStrategy.singleValue.getter();
   Option.init<A>(wrappedValue:name:parsing:help:completion:)();
   static NameSpecification.customLong(_:withSingleDash:)();
   ArgumentHelp.init(stringLiteral:)();
-  v27(v14, 0, 1, v26);
-  v25(v11, 1, 1, v35);
+  v28(v15, 0, 1, v27);
+  v26(v12, 1, 1, v36);
   static ArrayParsingStrategy.singleValue.getter();
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
 
 uint64_t Generate.UserOptions.user.getter()
 {
-  sub_1000039E8(&qword_1004AF488);
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   Option.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002D242C()
+uint64_t sub_1002D242C(uint64_t *a1)
 {
 
-  sub_1000039E8(&qword_1004AF488);
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   return Option.wrappedValue.setter();
 }
 
@@ -9135,7 +7739,7 @@ uint64_t (*Generate.UserOptions.user.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  sub_1000039E8(&qword_1004AF488);
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -9155,7 +7759,7 @@ uint64_t (*Generate.UserOptions.password.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -9163,31 +7767,31 @@ uint64_t (*Generate.UserOptions.password.modify(uint64_t *a1))()
 uint64_t Generate.UserOptions.admin.getter()
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   return v1;
 }
 
-uint64_t sub_1002D269C@<X0>(_BYTE *a1@<X8>)
+void *sub_1002D269C@<X0>(_BYTE *a1@<X8>)
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   result = Flag.wrappedValue.getter();
   *a1 = v3;
   return result;
 }
 
-uint64_t sub_1002D2704()
+uint64_t sub_1002D2704(char *a1)
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
-uint64_t Generate.UserOptions.admin.setter()
+uint64_t Generate.UserOptions.admin.setter(char a1)
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
@@ -9206,7 +7810,7 @@ uint64_t (*Generate.UserOptions.admin.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   *(v3 + 32) = Flag.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -9214,31 +7818,31 @@ uint64_t (*Generate.UserOptions.admin.modify(uint64_t *a1))()
 uint64_t sub_1002D2870(uint64_t (*a1)(void))
 {
   a1(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   return v2;
 }
 
-uint64_t sub_1002D28CC@<X0>(uint64_t (*a1)(void)@<X3>, _BYTE *a2@<X8>)
+void *sub_1002D28CC@<X0>(uint64_t (*a1)(void)@<X3>, _BYTE *a2@<X8>)
 {
   a1(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   result = Flag.wrappedValue.getter();
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_1002D2938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t sub_1002D2938(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  a5(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  (a5)(0, a2, a3, a4);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
-uint64_t sub_1002D29B4(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_1002D29B4(char a1, uint64_t (*a2)(void))
 {
   a2(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   return Flag.wrappedValue.setter();
 }
 
@@ -9257,21 +7861,21 @@ uint64_t (*Generate.UserOptions.passwordlessSudo.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   *(v3 + 32) = Flag.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
-uint64_t sub_1002D2AAC()
+void *sub_1002D2AAC()
 {
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   return Option.wrappedValue.getter();
 }
 
 uint64_t sub_1002D2B04(uint64_t a1)
 {
-  v2 = sub_1000039E8(&qword_1004A9CF8);
+  v2 = sub_1000039E8(&qword_1004A9CF8, &qword_10037BF90);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
@@ -9279,18 +7883,18 @@ uint64_t sub_1002D2B04(uint64_t a1)
   sub_10018FEF4(a1, &v9 - v6);
   sub_10018FEF4(v7, v5);
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   Option.wrappedValue.setter();
   return sub_10018FF64(v7);
 }
 
 uint64_t Generate.UserOptions.key.setter(uint64_t a1)
 {
-  v2 = sub_1000039E8(&qword_1004A9CF8);
+  v2 = sub_1000039E8(&qword_1004A9CF8, &qword_10037BF90);
   __chkstk_darwin(v2 - 8);
   sub_10018FEF4(a1, &v5 - v3);
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   Option.wrappedValue.setter();
   return sub_10018FF64(a1);
 }
@@ -9310,7 +7914,7 @@ uint64_t (*Generate.UserOptions.key.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -9318,32 +7922,32 @@ uint64_t (*Generate.UserOptions.key.modify(uint64_t *a1))()
 uint64_t sub_1002D2D64(uint64_t (*a1)(void))
 {
   a1(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v2;
 }
 
-uint64_t sub_1002D2DC0@<X0>(uint64_t (*a1)(void)@<X3>, void *a2@<X8>)
+void *sub_1002D2DC0@<X0>(uint64_t (*a1)(void)@<X3>, void *a2@<X8>)
 {
   a1(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_1002D2E2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t sub_1002D2E2C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
 uint64_t sub_1002D2EB8(uint64_t a1, uint64_t (*a2)(void))
 {
   a2(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -9362,7 +7966,7 @@ uint64_t (*Generate.UserOptions.principals.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
@@ -9370,32 +7974,32 @@ uint64_t (*Generate.UserOptions.principals.modify(uint64_t *a1))()
 uint64_t sub_1002D2FC8(uint64_t (*a1)(void))
 {
   a1(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   return v2;
 }
 
-uint64_t sub_1002D3024@<X0>(uint64_t (*a1)(void)@<X3>, void *a2@<X8>)
+void *sub_1002D3024@<X0>(uint64_t (*a1)(void)@<X3>, void *a2@<X8>)
 {
   a1(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   result = Option.wrappedValue.getter();
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_1002D3090(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t sub_1002D3090(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  a5(0);
+  (a5)(0, a2, a3, a4);
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
 uint64_t sub_1002D311C(uint64_t a1, uint64_t (*a2)(void))
 {
   a2(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   return Option.wrappedValue.setter();
 }
 
@@ -9414,17 +8018,17 @@ uint64_t (*Generate.UserOptions.groups.modify(uint64_t *a1))()
   v3 = v2;
   *a1 = v2;
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   *(v3 + 32) = Option.wrappedValue.modify();
   return sub_10019B5FC;
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Generate.UserOptions.validate()()
 {
-  v0 = sub_1000039E8(&qword_1004A9CF8);
+  v0 = sub_1000039E8(&qword_1004A9CF8, &qword_10037BF90);
   __chkstk_darwin(v0 - 8);
   v2 = &v7 - v1;
-  sub_1000039E8(&qword_1004AF488);
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   Option.wrappedValue.getter();
   if (v9)
   {
@@ -9433,28 +8037,28 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   }
 
   type metadata accessor for Generate.UserOptions(0);
-  sub_1000039E8(&qword_1004AF3F0);
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   Option.wrappedValue.getter();
   if (v9)
   {
 
 LABEL_10:
     type metadata accessor for ValidationError();
-    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError);
+    sub_1002D72A0(&qword_1004AB958, &type metadata accessor for ValidationError, &protocol conformance descriptor for ValidationError);
     swift_allocError();
     ValidationError.init(_:)();
     swift_willThrow();
     return;
   }
 
-  sub_1000039E8(&qword_1004AF3F8);
+  sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   Flag.wrappedValue.getter();
   if (v8 != 2)
   {
     goto LABEL_10;
   }
 
-  sub_1000039E8(&qword_1004AF470);
+  sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   Option.wrappedValue.getter();
   v3 = type metadata accessor for FilePath();
   v4 = (*(*(v3 - 8) + 48))(v2, 1, v3);
@@ -9470,7 +8074,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  sub_1000039E8(&qword_1004AAC48);
+  sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   Option.wrappedValue.getter();
   v5 = *(v8 + 16);
 
@@ -9531,10 +8135,10 @@ uint64_t sub_1002D34AC()
   }
 }
 
-uint64_t sub_1002D3578@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1002D3578@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1002DE3A0(a1, a2);
-  *a3 = result;
+  result = sub_1002DE3A0(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -9566,10 +8170,10 @@ uint64_t Generate.UserOptions.init()@<X0>(uint64_t a1@<X8>)
   v8 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v8 - 8);
   v10 = v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1000039E8(&qword_1004AAD60);
+  v11 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v11 - 8);
   v13 = v35 - v12;
-  v14 = sub_1000039E8(&qword_1004AAD68);
+  v14 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v14 - 8);
   v16 = v35 - v15;
   v17 = type metadata accessor for NameSpecification();
@@ -9648,35 +8252,35 @@ uint64_t Generate.UserOptions.init()@<X0>(uint64_t a1@<X8>)
   return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
 }
 
-uint64_t Generate.UserOptions.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t Generate.UserOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v106 = a1;
   v72 = a2;
-  v77 = sub_1000039E8(&qword_1004AAC48);
+  v77 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
   v73 = *(v77 - 8);
   v2 = __chkstk_darwin(v77);
   v74 = &v71 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v2);
   v76 = &v71 - v4;
-  v80 = sub_1000039E8(&qword_1004AF470);
+  v80 = sub_1000039E8(&qword_1004AF470, &unk_100404D40);
   v75 = *(v80 - 8);
   __chkstk_darwin(v80);
   v79 = &v71 - v5;
-  v87 = sub_1000039E8(&qword_1004AF3F8);
+  v87 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
   v82 = *(v87 - 8);
   v6 = __chkstk_darwin(v87);
   v83 = &v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
   v86 = &v71 - v8;
-  v90 = sub_1000039E8(&qword_1004AF3F0);
+  v90 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
   v85 = *(v90 - 8);
   __chkstk_darwin(v90);
   v89 = &v71 - v9;
-  v94 = sub_1000039E8(&qword_1004AF488);
+  v94 = sub_1000039E8(&qword_1004AF488, &qword_100404D68);
   v88 = *(v94 - 8);
   __chkstk_darwin(v94);
   v93 = &v71 - v10;
-  v11 = sub_1000039E8(&qword_1004AF6B0);
+  v11 = sub_1000039E8(&qword_1004AF6B0, &qword_100404E18);
   v91 = *(v11 - 8);
   v92 = v11;
   __chkstk_darwin(v11);
@@ -9693,10 +8297,10 @@ uint64_t Generate.UserOptions.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8
   v19 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v19 - 8);
   v21 = &v71 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = sub_1000039E8(&qword_1004AAD60);
+  v22 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v22 - 8);
   v24 = &v71 - v23;
-  v25 = sub_1000039E8(&qword_1004AAD68);
+  v25 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v25 - 8);
   v27 = &v71 - v26;
   v28 = type metadata accessor for NameSpecification();
@@ -9802,15 +8406,15 @@ uint64_t Generate.UserOptions.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8
     v56 = v89;
     v57 = v90;
     v118 = 0;
-    sub_10000E720(&qword_1004AF6C0, &qword_1004AF488);
+    sub_10000E720(&qword_1004AF6C0, &qword_1004AF488, &qword_100404D68, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v55 + 40))(v50, v93, v94);
     v117 = 1;
-    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0);
+    sub_10000E720(&qword_1004AF510, &qword_1004AF3F0, &unk_100404CA8, &protocol conformance descriptor for Option<A>);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v85 + 40))(v110 + v84, v56, v57);
     v116 = 2;
-    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8);
+    sub_10000E720(&qword_1004AF518, &qword_1004AF3F8, &qword_100404CB8, &protocol conformance descriptor for Flag<A>);
     v58 = v86;
     v59 = v87;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -9821,13 +8425,13 @@ uint64_t Generate.UserOptions.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v60(v110 + v78, v61, v59);
     v114 = 4;
-    sub_10000E720(&qword_1004AF6C8, &qword_1004AF470);
+    sub_10000E720(&qword_1004AF6C8, &qword_1004AF470, &unk_100404D40, &protocol conformance descriptor for Option<A>);
     v62 = v79;
     v63 = v80;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v75 + 40))(&v98[v110], v62, v63);
     v113 = 5;
-    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48);
+    sub_10000E720(&qword_1004AAC70, &qword_1004AAC48, &qword_1003F4FA0, &protocol conformance descriptor for Option<A>);
     v66 = v76;
     v67 = v77;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -9852,10 +8456,10 @@ uint64_t default argument 0 of Generate.UserOptions.init(user:password:admin:pas
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -9875,10 +8479,10 @@ uint64_t default argument 1 of Generate.UserOptions.init(user:password:admin:pas
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -9897,7 +8501,7 @@ uint64_t default argument 2 of Generate.UserOptions.init(user:password:admin:pas
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -9917,7 +8521,7 @@ uint64_t default argument 3 of Generate.UserOptions.init(user:password:admin:pas
 {
   v0 = type metadata accessor for FlagExclusivity();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD68);
+  v1 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for FlagInversion();
@@ -9937,10 +8541,10 @@ uint64_t default argument 4 of Generate.UserOptions.init(user:password:admin:pas
 {
   v0 = type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin(v0 - 8);
-  v1 = sub_1000039E8(&qword_1004AAD60);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = sub_1000039E8(&qword_1004AAD68);
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for NameSpecification();
@@ -9954,4 +8558,1390 @@ uint64_t default argument 4 of Generate.UserOptions.init(user:password:admin:pas
   static SingleValueParsingStrategy.next.getter();
   type metadata accessor for FilePath();
   return Option.init<A>(name:parsing:help:completion:transform:)();
+}
+
+uint64_t Generate.UserOptions.init(user:password:admin:passwordlessSudo:key:principals:groups:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v42 = a6;
+  v43 = a7;
+  v40 = a5;
+  v13 = type metadata accessor for ArrayParsingStrategy();
+  __chkstk_darwin(v13 - 8);
+  v41 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v15 - 8);
+  v39 = &v36 - v16;
+  v17 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v17 - 8);
+  v19 = &v36 - v18;
+  v20 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v20 - 8);
+  v21 = sub_1000039E8(&qword_1004AF488, &qword_100404D68);
+  (*(*(v21 - 8) + 32))(a8, a1, v21);
+  v22 = type metadata accessor for Generate.UserOptions(0);
+  v23 = v22[5];
+  v24 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  (*(*(v24 - 8) + 32))(a8 + v23, a2, v24);
+  v25 = v22[6];
+  v26 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
+  v27 = *(*(v26 - 8) + 32);
+  v27(a8 + v25, a3, v26);
+  v27(a8 + v22[7], a4, v26);
+  v28 = v22[8];
+  v29 = sub_1000039E8(&qword_1004AF470, &unk_100404D40);
+  (*(*(v29 - 8) + 32))(a8 + v28, v40, v29);
+  v40 = v22[9];
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v30 = type metadata accessor for ArgumentHelp();
+  v31 = *(v30 - 8);
+  v37 = *(v31 + 56);
+  v38 = v31 + 56;
+  v37(v19, 0, 1, v30);
+  v32 = type metadata accessor for CompletionKind();
+  v33 = *(*(v32 - 8) + 56);
+  v34 = v39;
+  v33(v39, 1, 1, v32);
+  static ArrayParsingStrategy.singleValue.getter();
+  Option.init<A>(wrappedValue:name:parsing:help:completion:)();
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v37(v19, 0, 1, v30);
+  v33(v34, 1, 1, v32);
+  static ArrayParsingStrategy.singleValue.getter();
+  return Option.init<A>(wrappedValue:name:parsing:help:completion:)();
+}
+
+uint64_t sub_1002D5D40(uint64_t *a1, uint64_t *a2)
+{
+  sub_1000039E8(a1, a2);
+  Option.wrappedValue.getter();
+  return v3;
+}
+
+uint64_t (*Generate.LogOptions.systemLogPrivacyLevel.modify(uint64_t *a1))()
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v2 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v2 = malloc(0x28uLL);
+  }
+
+  v3 = v2;
+  *a1 = v2;
+  sub_1000039E8(&qword_1004AF490, &qword_100404D70);
+  *(v3 + 32) = Option.wrappedValue.modify();
+  return sub_10019B5FC;
+}
+
+uint64_t Generate.LogOptions.systemLoggingEnabled.getter()
+{
+  type metadata accessor for Generate.LogOptions(0);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  Option.wrappedValue.getter();
+  return v1;
+}
+
+void *sub_1002D5E98@<X0>(_BYTE *a1@<X8>)
+{
+  type metadata accessor for Generate.LogOptions(0);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  result = Option.wrappedValue.getter();
+  *a1 = v3;
+  return result;
+}
+
+uint64_t sub_1002D5F00(char *a1)
+{
+  type metadata accessor for Generate.LogOptions(0);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  return Option.wrappedValue.setter();
+}
+
+uint64_t Generate.LogOptions.systemLoggingEnabled.setter(char a1)
+{
+  type metadata accessor for Generate.LogOptions(0);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  return Option.wrappedValue.setter();
+}
+
+uint64_t (*Generate.LogOptions.systemLoggingEnabled.modify(uint64_t *a1))()
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v2 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v2 = malloc(0x28uLL);
+  }
+
+  v3 = v2;
+  *a1 = v2;
+  type metadata accessor for Generate.LogOptions(0);
+  sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  *(v3 + 32) = Option.wrappedValue.modify();
+  return sub_10019B5FC;
+}
+
+unint64_t sub_1002D6054()
+{
+  if (*v0)
+  {
+    return 0xD000000000000014;
+  }
+
+  else
+  {
+    return 0xD000000000000015;
+  }
+}
+
+uint64_t sub_1002D608C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v5 = a1 == 0xD000000000000015 && 0x80000001004432F0 == a2;
+  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0xD000000000000014 && 0x8000000100443310 == a2)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t sub_1002D6170(uint64_t a1)
+{
+  v2 = sub_1002D77D4();
+
+  return CodingKey.description.getter(a1, v2);
+}
+
+uint64_t sub_1002D61AC(uint64_t a1)
+{
+  v2 = sub_1002D77D4();
+
+  return CodingKey.debugDescription.getter(a1, v2);
+}
+
+uint64_t Generate.LogOptions.init()@<X0>(uint64_t a1@<X8>)
+{
+  v13[1] = a1;
+  v1 = type metadata accessor for SingleValueParsingStrategy();
+  __chkstk_darwin(v1 - 8);
+  v2 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v2 - 8);
+  v4 = v13 - v3;
+  v5 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v5 - 8);
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v8 - 8);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v9 = type metadata accessor for ArgumentHelp();
+  v13[0] = *(*(v9 - 8) + 56);
+  (v13[0])(v7, 0, 1, v9);
+  v10 = type metadata accessor for CompletionKind();
+  v11 = *(*(v10 - 8) + 56);
+  v11(v4, 1, 1, v10);
+  static SingleValueParsingStrategy.next.getter();
+  sub_1002D7780();
+  Option.init<A>(name:parsing:help:completion:)();
+  type metadata accessor for Generate.LogOptions(0);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  (v13[0])(v7, 0, 1, v9);
+  v11(v4, 1, 1, v10);
+  static SingleValueParsingStrategy.next.getter();
+  return Option.init<A>(name:parsing:help:completion:)();
+}
+
+uint64_t Generate.LogOptions.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v48 = a1;
+  v35 = a2;
+  v37 = sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  v34 = *(v37 - 8);
+  __chkstk_darwin(v37);
+  v36 = &v34 - v2;
+  v42 = sub_1000039E8(&qword_1004AF490, &qword_100404D70);
+  v39 = *(v42 - 8);
+  __chkstk_darwin(v42);
+  v41 = &v34 - v3;
+  v40 = sub_1000039E8(&qword_1004AF6D8, &qword_100404E20);
+  v38 = *(v40 - 8);
+  __chkstk_darwin(v40);
+  v47 = &v34 - v4;
+  v5 = type metadata accessor for SingleValueParsingStrategy();
+  __chkstk_darwin(v5 - 8);
+  v46 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v34 - v8;
+  v10 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v34 - v11;
+  v13 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v13 - 8);
+  v14 = type metadata accessor for Generate.LogOptions(0);
+  v15 = v14 - 8;
+  __chkstk_darwin(v14);
+  v17 = &v34 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v18 = type metadata accessor for ArgumentHelp();
+  v19 = *(v18 - 8);
+  v44 = *(v19 + 56);
+  v45 = v19 + 56;
+  v44(v12, 0, 1, v18);
+  v20 = type metadata accessor for CompletionKind();
+  v43 = *(*(v20 - 8) + 56);
+  v43(v9, 1, 1, v20);
+  static SingleValueParsingStrategy.next.getter();
+  sub_1002D7780();
+  Option.init<A>(name:parsing:help:completion:)();
+  v21 = *(v15 + 28);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v44(v12, 0, 1, v18);
+  v43(v9, 1, 1, v20);
+  v22 = v48;
+  static SingleValueParsingStrategy.next.getter();
+  Option.init<A>(name:parsing:help:completion:)();
+  sub_10000E2A8(v22, v22[3]);
+  sub_1002D77D4();
+  v23 = v47;
+  v24 = v49;
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v24)
+  {
+    sub_100003C3C(v22);
+    v33 = v17;
+  }
+
+  else
+  {
+    v26 = v38;
+    v25 = v39;
+    v51 = 0;
+    sub_10000E720(&qword_1004AF6E8, &qword_1004AF490, &qword_100404D70, &protocol conformance descriptor for Option<A>);
+    v27 = v40;
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v28 = *(v25 + 40);
+    v49 = v17;
+    v28(v17, v41, v42);
+    v50 = 1;
+    sub_10000E720(&qword_1004AF6F0, &qword_1004AF498, &qword_100404D78, &protocol conformance descriptor for Option<A>);
+    v30 = v36;
+    v29 = v37;
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    (*(v26 + 8))(v23, v27);
+    v32 = v49;
+    (*(v34 + 40))(&v49[v21], v30, v29);
+    sub_1002B02E8(v32, v35, type metadata accessor for Generate.LogOptions);
+    sub_100003C3C(v22);
+    v33 = v32;
+  }
+
+  return sub_1002B0350(v33, type metadata accessor for Generate.LogOptions);
+}
+
+uint64_t default argument 0 of Generate.LogOptions.init(systemLogPrivacyLevel:systemLoggingEnabled:)()
+{
+  v0 = type metadata accessor for SingleValueParsingStrategy();
+  __chkstk_darwin(v0 - 8);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v11 - v2;
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v11 - v5;
+  v7 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v7 - 8);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v8 = type metadata accessor for ArgumentHelp();
+  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
+  v9 = type metadata accessor for CompletionKind();
+  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  static SingleValueParsingStrategy.next.getter();
+  sub_1002D7780();
+  return Option.init<A>(name:parsing:help:completion:)();
+}
+
+uint64_t default argument 1 of Generate.LogOptions.init(systemLogPrivacyLevel:systemLoggingEnabled:)()
+{
+  v0 = type metadata accessor for SingleValueParsingStrategy();
+  __chkstk_darwin(v0 - 8);
+  v1 = sub_1000039E8(&qword_1004AAD60, &unk_100404D80);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v11 - v2;
+  v4 = sub_1000039E8(&qword_1004AAD68, &unk_1003F52B0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v11 - v5;
+  v7 = type metadata accessor for NameSpecification();
+  __chkstk_darwin(v7 - 8);
+  static NameSpecification.customLong(_:withSingleDash:)();
+  ArgumentHelp.init(stringLiteral:)();
+  v8 = type metadata accessor for ArgumentHelp();
+  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
+  v9 = type metadata accessor for CompletionKind();
+  (*(*(v9 - 8) + 56))(v3, 1, 1, v9);
+  static SingleValueParsingStrategy.next.getter();
+  return Option.init<A>(name:parsing:help:completion:)();
+}
+
+uint64_t Generate.LogOptions.init(systemLogPrivacyLevel:systemLoggingEnabled:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = sub_1000039E8(&qword_1004AF490, &qword_100404D70);
+  (*(*(v6 - 8) + 32))(a3, a1, v6);
+  v7 = *(type metadata accessor for Generate.LogOptions(0) + 20);
+  v8 = sub_1000039E8(&qword_1004AF498, &qword_100404D78);
+  v9 = *(*(v8 - 8) + 32);
+
+  return v9(a3 + v7, a2, v8);
+}
+
+uint64_t sub_1002D72A0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D72E8()
+{
+  result = qword_1004AF500;
+  if (!qword_1004AF500)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF500);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D733C()
+{
+  result = qword_1004AF5C0;
+  if (!qword_1004AF5C0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF5C0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7390()
+{
+  result = qword_1004AF608;
+  if (!qword_1004AF608)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF608);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D73E4()
+{
+  result = qword_1004AF610;
+  if (!qword_1004AF610)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF610);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7438()
+{
+  result = qword_1004AF620;
+  if (!qword_1004AF620)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF620);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D748C()
+{
+  result = qword_1004AF638;
+  if (!qword_1004AF638)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF638);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D74E0()
+{
+  result = qword_1004AF640;
+  if (!qword_1004AF640)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF640);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7534()
+{
+  result = qword_1004AF650;
+  if (!qword_1004AF650)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF650);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7588()
+{
+  result = qword_1004AF668;
+  if (!qword_1004AF668)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF668);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D75DC()
+{
+  result = qword_1004AF678;
+  if (!qword_1004AF678)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF678);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7630()
+{
+  result = qword_1004AF690;
+  if (!qword_1004AF690)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF690);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7684()
+{
+  result = qword_1004AF6A0;
+  if (!qword_1004AF6A0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF6A0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D76D8()
+{
+  result = qword_1004AF6A8;
+  if (!qword_1004AF6A8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF6A8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D772C()
+{
+  result = qword_1004AF6B8;
+  if (!qword_1004AF6B8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF6B8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D7780()
+{
+  result = qword_1004AF6D0;
+  if (!qword_1004AF6D0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF6D0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1002D77D4()
+{
+  result = qword_1004AF6E0;
+  if (!qword_1004AF6E0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004AF6E0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002D7B88@<X0>(void *a1@<X8>)
+{
+  sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
+  result = Argument.wrappedValue.getter();
+  *a1 = v3;
+  a1[1] = v4;
+  return result;
+}
+
+double sub_1002D8284@<D0>(_OWORD *a1@<X8>)
+{
+  sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  Option.wrappedValue.getter();
+  result = *&v3;
+  *a1 = v3;
+  return result;
+}
+
+void *sub_1002D8580@<X0>(uint64_t *a1@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+{
+  sub_1000039E8(a1, a2);
+  result = Option.wrappedValue.getter();
+  *a3 = v5;
+  return result;
+}
+
+double sub_1002D87A8@<D0>(uint64_t a1@<X8>)
+{
+  sub_1000039E8(&qword_1004AF488, &qword_100404D68);
+  Option.wrappedValue.getter();
+  result = *&v3;
+  *a1 = v3;
+  *(a1 + 16) = v4;
+  return result;
+}
+
+void *sub_1002D8998@<X0>(uint64_t *a1@<X3>, uint64_t *a2@<X4>, _BYTE *a3@<X8>)
+{
+  sub_1000039E8(a1, a2);
+  result = Option.wrappedValue.getter();
+  *a3 = v5;
+  return result;
+}
+
+uint64_t sub_1002D8A58(uint64_t a1, uint64_t a2, int *a3)
+{
+  v6 = sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = v6;
+    v9 = *(v7 + 48);
+    v10 = a1;
+LABEL_34:
+
+    return v9(v10, a2, v8);
+  }
+
+  v11 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  if (*(*(v11 - 8) + 84) == a2)
+  {
+    v8 = v11;
+    v12 = *(v11 - 8);
+    v13 = a3[5];
+LABEL_33:
+    v9 = *(v12 + 48);
+    v10 = a1 + v13;
+    goto LABEL_34;
+  }
+
+  v14 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
+  if (*(*(v14 - 8) + 84) == a2)
+  {
+    v8 = v14;
+    v12 = *(v14 - 8);
+    v13 = a3[6];
+    goto LABEL_33;
+  }
+
+  v15 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
+  if (*(*(v15 - 8) + 84) == a2)
+  {
+    v8 = v15;
+    v12 = *(v15 - 8);
+    v13 = a3[7];
+    goto LABEL_33;
+  }
+
+  v16 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  if (*(*(v16 - 8) + 84) == a2)
+  {
+    v8 = v16;
+    v12 = *(v16 - 8);
+    v13 = a3[17];
+    goto LABEL_33;
+  }
+
+  v17 = sub_1000039E8(&qword_1004AF408, &qword_100404CC8);
+  if (*(*(v17 - 8) + 84) == a2)
+  {
+    v8 = v17;
+    v12 = *(v17 - 8);
+    v13 = a3[18];
+    goto LABEL_33;
+  }
+
+  v18 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  if (*(*(v18 - 8) + 84) == a2)
+  {
+    v8 = v18;
+    v12 = *(v18 - 8);
+    v13 = a3[22];
+    goto LABEL_33;
+  }
+
+  v19 = sub_1000039E8(&qword_1004AF418, &qword_100404CD8);
+  if (*(*(v19 - 8) + 84) == a2)
+  {
+    v8 = v19;
+    v12 = *(v19 - 8);
+    v13 = a3[25];
+    goto LABEL_33;
+  }
+
+  v20 = sub_1000039E8(&qword_1004AF420, &qword_100404CE0);
+  if (*(*(v20 - 8) + 84) == a2)
+  {
+    v8 = v20;
+    v12 = *(v20 - 8);
+    v13 = a3[26];
+    goto LABEL_33;
+  }
+
+  v21 = sub_1000039E8(&qword_1004AF428, &qword_100404CE8);
+  if (*(*(v21 - 8) + 84) == a2)
+  {
+    v8 = v21;
+    v12 = *(v21 - 8);
+    v13 = a3[27];
+    goto LABEL_33;
+  }
+
+  v22 = sub_1000039E8(&qword_1004AF430, &qword_100404CF0);
+  if (*(*(v22 - 8) + 84) == a2)
+  {
+    v8 = v22;
+    v12 = *(v22 - 8);
+    v13 = a3[28];
+    goto LABEL_33;
+  }
+
+  v23 = sub_1000039E8(&qword_1004AF438, &qword_100404CF8);
+  if (*(*(v23 - 8) + 84) == a2)
+  {
+    v8 = v23;
+    v12 = *(v23 - 8);
+    v13 = a3[29];
+    goto LABEL_33;
+  }
+
+  v24 = sub_1000039E8(&qword_1004AF440, &qword_100404D00);
+  if (*(*(v24 - 8) + 84) == a2)
+  {
+    v8 = v24;
+    v12 = *(v24 - 8);
+    v13 = a3[30];
+    goto LABEL_33;
+  }
+
+  v25 = sub_1000039E8(&qword_1004AF448, &qword_100404D08);
+  if (*(*(v25 - 8) + 84) == a2)
+  {
+    v8 = v25;
+    v12 = *(v25 - 8);
+    v13 = a3[31];
+    goto LABEL_33;
+  }
+
+  v26 = sub_1000039E8(&qword_1004AF450, &qword_100404D10);
+  if (*(*(v26 - 8) + 84) == a2)
+  {
+    v8 = v26;
+    v12 = *(v26 - 8);
+    v13 = a3[32];
+    goto LABEL_33;
+  }
+
+  v27 = sub_1000039E8(&qword_1004AF458, &qword_100404D18);
+  if (*(*(v27 - 8) + 84) == a2)
+  {
+    v8 = v27;
+    v12 = *(v27 - 8);
+    v13 = a3[33];
+    goto LABEL_33;
+  }
+
+  v29 = sub_1000039E8(&qword_1004AF460, &unk_100404D20);
+  v30 = *(*(v29 - 8) + 48);
+  v31 = a1 + a3[34];
+
+  return v30(v31, a2, v29);
+}
+
+uint64_t sub_1002D9068(uint64_t a1, uint64_t a2, int a3, int *a4)
+{
+  v8 = sub_1000039E8(&qword_1004AF3E8, &qword_100404CA0);
+  v9 = *(v8 - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = v8;
+    v11 = *(v9 + 56);
+    v12 = a1;
+LABEL_34:
+
+    return v11(v12, a2, a2, v10);
+  }
+
+  v13 = sub_1000039E8(&qword_1004AF3F0, &unk_100404CA8);
+  if (*(*(v13 - 8) + 84) == a3)
+  {
+    v10 = v13;
+    v14 = *(v13 - 8);
+    v15 = a4[5];
+LABEL_33:
+    v11 = *(v14 + 56);
+    v12 = a1 + v15;
+    goto LABEL_34;
+  }
+
+  v16 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
+  if (*(*(v16 - 8) + 84) == a3)
+  {
+    v10 = v16;
+    v14 = *(v16 - 8);
+    v15 = a4[6];
+    goto LABEL_33;
+  }
+
+  v17 = sub_1000039E8(&qword_1004AF3F8, &qword_100404CB8);
+  if (*(*(v17 - 8) + 84) == a3)
+  {
+    v10 = v17;
+    v14 = *(v17 - 8);
+    v15 = a4[7];
+    goto LABEL_33;
+  }
+
+  v18 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  if (*(*(v18 - 8) + 84) == a3)
+  {
+    v10 = v18;
+    v14 = *(v18 - 8);
+    v15 = a4[17];
+    goto LABEL_33;
+  }
+
+  v19 = sub_1000039E8(&qword_1004AF408, &qword_100404CC8);
+  if (*(*(v19 - 8) + 84) == a3)
+  {
+    v10 = v19;
+    v14 = *(v19 - 8);
+    v15 = a4[18];
+    goto LABEL_33;
+  }
+
+  v20 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  if (*(*(v20 - 8) + 84) == a3)
+  {
+    v10 = v20;
+    v14 = *(v20 - 8);
+    v15 = a4[22];
+    goto LABEL_33;
+  }
+
+  v21 = sub_1000039E8(&qword_1004AF418, &qword_100404CD8);
+  if (*(*(v21 - 8) + 84) == a3)
+  {
+    v10 = v21;
+    v14 = *(v21 - 8);
+    v15 = a4[25];
+    goto LABEL_33;
+  }
+
+  v22 = sub_1000039E8(&qword_1004AF420, &qword_100404CE0);
+  if (*(*(v22 - 8) + 84) == a3)
+  {
+    v10 = v22;
+    v14 = *(v22 - 8);
+    v15 = a4[26];
+    goto LABEL_33;
+  }
+
+  v23 = sub_1000039E8(&qword_1004AF428, &qword_100404CE8);
+  if (*(*(v23 - 8) + 84) == a3)
+  {
+    v10 = v23;
+    v14 = *(v23 - 8);
+    v15 = a4[27];
+    goto LABEL_33;
+  }
+
+  v24 = sub_1000039E8(&qword_1004AF430, &qword_100404CF0);
+  if (*(*(v24 - 8) + 84) == a3)
+  {
+    v10 = v24;
+    v14 = *(v24 - 8);
+    v15 = a4[28];
+    goto LABEL_33;
+  }
+
+  v25 = sub_1000039E8(&qword_1004AF438, &qword_100404CF8);
+  if (*(*(v25 - 8) + 84) == a3)
+  {
+    v10 = v25;
+    v14 = *(v25 - 8);
+    v15 = a4[29];
+    goto LABEL_33;
+  }
+
+  v26 = sub_1000039E8(&qword_1004AF440, &qword_100404D00);
+  if (*(*(v26 - 8) + 84) == a3)
+  {
+    v10 = v26;
+    v14 = *(v26 - 8);
+    v15 = a4[30];
+    goto LABEL_33;
+  }
+
+  v27 = sub_1000039E8(&qword_1004AF448, &qword_100404D08);
+  if (*(*(v27 - 8) + 84) == a3)
+  {
+    v10 = v27;
+    v14 = *(v27 - 8);
+    v15 = a4[31];
+    goto LABEL_33;
+  }
+
+  v28 = sub_1000039E8(&qword_1004AF450, &qword_100404D10);
+  if (*(*(v28 - 8) + 84) == a3)
+  {
+    v10 = v28;
+    v14 = *(v28 - 8);
+    v15 = a4[32];
+    goto LABEL_33;
+  }
+
+  v29 = sub_1000039E8(&qword_1004AF458, &qword_100404D18);
+  if (*(*(v29 - 8) + 84) == a3)
+  {
+    v10 = v29;
+    v14 = *(v29 - 8);
+    v15 = a4[33];
+    goto LABEL_33;
+  }
+
+  v31 = sub_1000039E8(&qword_1004AF460, &unk_100404D20);
+  v32 = *(*(v31 - 8) + 56);
+  v33 = a1 + a4[34];
+
+  return v32(v33, a2, a2, v31);
+}
+
+void sub_1002D9670(uint64_t a1)
+{
+  sub_1002DAEC4(319, &qword_1004AF7C0, &type metadata for String, &type metadata accessor for Argument);
+  if (v1 <= 0x3F)
+  {
+    sub_1002DC100(319, &qword_1004AF7C8, &qword_1004A7330, &qword_1003762A0, &type metadata accessor for Option);
+    if (v2 <= 0x3F)
+    {
+      sub_1002DC100(319, &qword_1004AAD08, &qword_1004A6B48, &unk_100376810, &type metadata accessor for Option);
+      if (v3 <= 0x3F)
+      {
+        sub_1002DC100(319, &qword_1004AF7D0, &qword_1004ADFB8, &qword_100400E60, &type metadata accessor for Flag);
+        if (v4 <= 0x3F)
+        {
+          sub_1002DC100(319, &qword_1004AF7D8, &qword_1004AF7E0, &qword_100405300, &type metadata accessor for Option);
+          if (v5 <= 0x3F)
+          {
+            sub_1002DAEC4(319, &qword_1004AF7E8, &type metadata for Int, &type metadata accessor for Flag);
+            if (v6 <= 0x3F)
+            {
+              sub_1002DC100(319, &qword_1004AF7F0, &qword_1004AF7F8, &qword_100405308, &type metadata accessor for Option);
+              if (v7 <= 0x3F)
+              {
+                sub_1002D99D0(319);
+                if (v8 <= 0x3F)
+                {
+                  sub_1002D9A64(319);
+                  if (v9 <= 0x3F)
+                  {
+                    sub_1002D9AF8(319);
+                    if (v10 <= 0x3F)
+                    {
+                      sub_1002D9B8C(319);
+                      if (v11 <= 0x3F)
+                      {
+                        sub_1002D9C20(319);
+                        if (v12 <= 0x3F)
+                        {
+                          sub_1002D9CB4(319);
+                          if (v13 <= 0x3F)
+                          {
+                            sub_1002D9D48(319);
+                            if (v14 <= 0x3F)
+                            {
+                              sub_1002D9DDC(319);
+                              if (v15 <= 0x3F)
+                              {
+                                sub_1002D9E70(319);
+                                if (v16 <= 0x3F)
+                                {
+                                  sub_1002D9F04(319);
+                                  if (v17 <= 0x3F)
+                                  {
+                                    swift_cvw_initStructMetadataWithLayoutString();
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void sub_1002D99D0(uint64_t a1)
+{
+  if (!qword_1004AF800)
+  {
+    type metadata accessor for Generate.CryptexOptions(255);
+    sub_1002D72A0(&qword_1004AF4A8, type metadata accessor for Generate.CryptexOptions, &protocol conformance descriptor for Generate.CryptexOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF800);
+    }
+  }
+}
+
+void sub_1002D9A64(uint64_t a1)
+{
+  if (!qword_1004AF808)
+  {
+    type metadata accessor for Generate.DiavloOptions(255);
+    sub_1002D72A0(&qword_1004AF4B0, type metadata accessor for Generate.DiavloOptions, &protocol conformance descriptor for Generate.DiavloOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF808);
+    }
+  }
+}
+
+void sub_1002D9AF8(uint64_t a1)
+{
+  if (!qword_1004AF810)
+  {
+    type metadata accessor for Generate.InstallOptions(255);
+    sub_1002D72A0(&qword_1004AF4B8, type metadata accessor for Generate.InstallOptions, &protocol conformance descriptor for Generate.InstallOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF810);
+    }
+  }
+}
+
+void sub_1002D9B8C(uint64_t a1)
+{
+  if (!qword_1004AF818)
+  {
+    type metadata accessor for Generate.PackageOptions(255);
+    sub_1002D72A0(&qword_1004AF4C0, type metadata accessor for Generate.PackageOptions, &protocol conformance descriptor for Generate.PackageOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF818);
+    }
+  }
+}
+
+void sub_1002D9C20(uint64_t a1)
+{
+  if (!qword_1004AF820)
+  {
+    type metadata accessor for Generate.ResultOptions(255);
+    sub_1002D72A0(&qword_1004AF4C8, type metadata accessor for Generate.ResultOptions, &protocol conformance descriptor for Generate.ResultOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF820);
+    }
+  }
+}
+
+void sub_1002D9CB4(uint64_t a1)
+{
+  if (!qword_1004AF828)
+  {
+    type metadata accessor for Generate.PreferenceOptions(255);
+    sub_1002D72A0(&qword_1004AF4D0, type metadata accessor for Generate.PreferenceOptions, &protocol conformance descriptor for Generate.PreferenceOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF828);
+    }
+  }
+}
+
+void sub_1002D9D48(uint64_t a1)
+{
+  if (!qword_1004AF830)
+  {
+    type metadata accessor for Generate.NarrativeIdentityOptions(255);
+    sub_1002D72A0(&qword_1004AF4D8, type metadata accessor for Generate.NarrativeIdentityOptions, &protocol conformance descriptor for Generate.NarrativeIdentityOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF830);
+    }
+  }
+}
+
+void sub_1002D9DDC(uint64_t a1)
+{
+  if (!qword_1004AF838)
+  {
+    type metadata accessor for Generate.UserOptions(255);
+    sub_1002D72A0(&qword_1004AF4E0, type metadata accessor for Generate.UserOptions, &protocol conformance descriptor for Generate.UserOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF838);
+    }
+  }
+}
+
+void sub_1002D9E70(uint64_t a1)
+{
+  if (!qword_1004AF840)
+  {
+    type metadata accessor for Generate.LogOptions(255);
+    sub_1002D72A0(&qword_1004AF4E8, type metadata accessor for Generate.LogOptions, &protocol conformance descriptor for Generate.LogOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF840);
+    }
+  }
+}
+
+void sub_1002D9F04(uint64_t a1)
+{
+  if (!qword_1004AF848)
+  {
+    type metadata accessor for Generate.NetworkOptions(255);
+    sub_1002D72A0(&qword_1004AF4F0, type metadata accessor for Generate.NetworkOptions, &protocol conformance descriptor for Generate.NetworkOptions);
+    v1 = type metadata accessor for OptionGroup();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_1004AF848);
+    }
+  }
+}
+
+uint64_t sub_1002D9FAC(uint64_t a1, uint64_t a2, int *a3)
+{
+  v6 = sub_1000039E8(&qword_1004AF480, &qword_100404D60);
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = v6;
+    v9 = *(v7 + 48);
+    v10 = a1;
+LABEL_20:
+
+    return v9(v10, a2, v8);
+  }
+
+  v11 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
+  if (*(*(v11 - 8) + 84) == a2)
+  {
+    v8 = v11;
+    v12 = *(v11 - 8);
+    v13 = a3[5];
+LABEL_19:
+    v9 = *(v12 + 48);
+    v10 = a1 + v13;
+    goto LABEL_20;
+  }
+
+  v14 = sub_1000039E8(&qword_1004AF588, &qword_100404DA0);
+  if (*(*(v14 - 8) + 84) == a2)
+  {
+    v8 = v14;
+    v12 = *(v14 - 8);
+    v13 = a3[6];
+    goto LABEL_19;
+  }
+
+  v15 = sub_1000039E8(&qword_1004AF590, &qword_100404DA8);
+  if (*(*(v15 - 8) + 84) == a2)
+  {
+    v8 = v15;
+    v12 = *(v15 - 8);
+    v13 = a3[7];
+    goto LABEL_19;
+  }
+
+  v16 = sub_1000039E8(&qword_1004AF598, &qword_100404DB0);
+  if (*(*(v16 - 8) + 84) == a2)
+  {
+    v8 = v16;
+    v12 = *(v16 - 8);
+    v13 = a3[8];
+    goto LABEL_19;
+  }
+
+  v17 = sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
+  if (*(*(v17 - 8) + 84) == a2)
+  {
+    v8 = v17;
+    v12 = *(v17 - 8);
+    v13 = a3[13];
+    goto LABEL_19;
+  }
+
+  v18 = sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
+  if (*(*(v18 - 8) + 84) == a2)
+  {
+    v8 = v18;
+    v12 = *(v18 - 8);
+    v13 = a3[14];
+    goto LABEL_19;
+  }
+
+  v19 = sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
+  if (*(*(v19 - 8) + 84) == a2)
+  {
+    v8 = v19;
+    v12 = *(v19 - 8);
+    v13 = a3[16];
+    goto LABEL_19;
+  }
+
+  v20 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  if (*(*(v20 - 8) + 84) == a2)
+  {
+    v8 = v20;
+    v12 = *(v20 - 8);
+    v13 = a3[20];
+    goto LABEL_19;
+  }
+
+  v22 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  v23 = *(*(v22 - 8) + 48);
+  v24 = a1 + a3[21];
+
+  return v23(v24, a2, v22);
+}
+
+uint64_t sub_1002DA370(uint64_t a1, uint64_t a2, int a3, int *a4)
+{
+  v8 = sub_1000039E8(&qword_1004AF480, &qword_100404D60);
+  v9 = *(v8 - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = v8;
+    v11 = *(v9 + 56);
+    v12 = a1;
+LABEL_20:
+
+    return v11(v12, a2, a2, v10);
+  }
+
+  v13 = sub_1000039E8(&qword_1004AAC48, &qword_1003F4FA0);
+  if (*(*(v13 - 8) + 84) == a3)
+  {
+    v10 = v13;
+    v14 = *(v13 - 8);
+    v15 = a4[5];
+LABEL_19:
+    v11 = *(v14 + 56);
+    v12 = a1 + v15;
+    goto LABEL_20;
+  }
+
+  v16 = sub_1000039E8(&qword_1004AF588, &qword_100404DA0);
+  if (*(*(v16 - 8) + 84) == a3)
+  {
+    v10 = v16;
+    v14 = *(v16 - 8);
+    v15 = a4[6];
+    goto LABEL_19;
+  }
+
+  v17 = sub_1000039E8(&qword_1004AF590, &qword_100404DA8);
+  if (*(*(v17 - 8) + 84) == a3)
+  {
+    v10 = v17;
+    v14 = *(v17 - 8);
+    v15 = a4[7];
+    goto LABEL_19;
+  }
+
+  v18 = sub_1000039E8(&qword_1004AF598, &qword_100404DB0);
+  if (*(*(v18 - 8) + 84) == a3)
+  {
+    v10 = v18;
+    v14 = *(v18 - 8);
+    v15 = a4[8];
+    goto LABEL_19;
+  }
+
+  v19 = sub_1000039E8(&qword_1004AF5A0, &qword_100404DB8);
+  if (*(*(v19 - 8) + 84) == a3)
+  {
+    v10 = v19;
+    v14 = *(v19 - 8);
+    v15 = a4[13];
+    goto LABEL_19;
+  }
+
+  v20 = sub_1000039E8(&qword_1004AF5A8, &qword_100404DC0);
+  if (*(*(v20 - 8) + 84) == a3)
+  {
+    v10 = v20;
+    v14 = *(v20 - 8);
+    v15 = a4[14];
+    goto LABEL_19;
+  }
+
+  v21 = sub_1000039E8(&qword_1004AF5B0, &qword_100404DC8);
+  if (*(*(v21 - 8) + 84) == a3)
+  {
+    v10 = v21;
+    v14 = *(v21 - 8);
+    v15 = a4[16];
+    goto LABEL_19;
+  }
+
+  v22 = sub_1000039E8(&qword_1004AF400, &qword_100404CC0);
+  if (*(*(v22 - 8) + 84) == a3)
+  {
+    v10 = v22;
+    v14 = *(v22 - 8);
+    v15 = a4[20];
+    goto LABEL_19;
+  }
+
+  v24 = sub_1000039E8(&qword_1004AF410, &qword_100404CD0);
+  v25 = *(*(v24 - 8) + 56);
+  v26 = a1 + a4[21];
+
+  return v25(v26, a2, a2, v24);
+}
+
+void sub_1002DA72C(uint64_t a1)
+{
+  sub_1002DC100(319, &qword_1004AF958, &qword_1004AF960, &qword_100405320, &type metadata accessor for Option);
+  if (v1 <= 0x3F)
+  {
+    sub_1002DC100(319, &qword_1004AAD08, &qword_1004A6B48, &unk_100376810, &type metadata accessor for Option);
+    if (v2 <= 0x3F)
+    {
+      sub_1002DC100(319, &qword_1004AF968, &qword_1004AF970, &qword_100405328, &type metadata accessor for Option);
+      if (v3 <= 0x3F)
+      {
+        sub_1002DC100(319, &qword_1004AF978, &qword_1004AF980, &qword_100405330, &type metadata accessor for Option);
+        if (v4 <= 0x3F)
+        {
+          sub_1002DC100(319, &qword_1004AF988, &qword_1004AF990, &unk_100405338, &type metadata accessor for Option);
+          if (v5 <= 0x3F)
+          {
+            sub_1002DAEC4(319, &qword_1004AF998, &type metadata for Bool, &type metadata accessor for Option);
+            if (v6 <= 0x3F)
+            {
+              sub_1002DC100(319, &qword_1004AF9A0, &qword_1004AE038, &unk_100400E80, &type metadata accessor for Option);
+              if (v7 <= 0x3F)
+              {
+                sub_1002DC100(319, &qword_1004AF9A8, &unk_1004AF9B0, &qword_100405348, &type metadata accessor for Option);
+                if (v8 <= 0x3F)
+                {
+                  sub_1002DC100(319, &qword_1004AF7D8, &qword_1004AF7E0, &qword_100405300, &type metadata accessor for Option);
+                  if (v9 <= 0x3F)
+                  {
+                    sub_1002DC100(319, &qword_1004AF7F0, &qword_1004AF7F8, &qword_100405308, &type metadata accessor for Option);
+                    if (v10 <= 0x3F)
+                    {
+                      swift_cvw_initStructMetadataWithLayoutString();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

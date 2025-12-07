@@ -9,7 +9,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_adpAssertion)
   {
     ADPAssertionDestroy();
@@ -20,14 +20,13 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSADPPreventStandbyAssertion dealloc]";
+    v6 = "[CSADPPreventStandbyAssertion dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Destroyed ADP assertion for darwinOS", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CSADPPreventStandbyAssertion;
-  [(CSADPPreventStandbyAssertion *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CSADPPreventStandbyAssertion;
+  [(CSADPPreventStandbyAssertion *)&v4 dealloc];
 }
 
 - (OS_dispatch_queue)clientQueue
@@ -39,7 +38,7 @@
 
 - (void)_setupADPAssertion:(id)assertion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   if (self->_adpAssertion)
   {
@@ -49,24 +48,21 @@
 
   self->_adpAssertion = ADPAssertionCreateWithDispatchQueue();
   objc_initWeak(&location, self);
-  adpAssertion = self->_adpAssertion;
-  objc_copyWeak(&v9, &location);
-  v6 = assertionCopy;
+  objc_copyWeak(&v7, &location);
+  v5 = assertionCopy;
   ADPAssertionSetCancelHandler();
-  v7 = CSLogContextFacilityCoreSpeech;
+  v6 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[CSADPPreventStandbyAssertion _setupADPAssertion:]";
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Taking ADP assertion %{public}@ for darwinOS", buf, 0x16u);
+    v10 = "[CSADPPreventStandbyAssertion _setupADPAssertion:]";
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Taking ADP assertion %{public}@ for darwinOS", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CSADPPreventStandbyAssertion__setupADPAssertion___block_invoke(uint64_t a1)
@@ -85,21 +81,19 @@ void __51__CSADPPreventStandbyAssertion__setupADPAssertion___block_invoke(uint64
 
 uint64_t __51__CSADPPreventStandbyAssertion__setupADPAssertion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[CSADPPreventStandbyAssertion _setupADPAssertion:]_block_invoke_2";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s appledisplayplatformd is lost, reset ADP assertion for %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSADPPreventStandbyAssertion _setupADPAssertion:]_block_invoke_2";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s appledisplayplatformd is lost, reset ADP assertion for %{public}@", &v5, 0x16u);
   }
 
-  result = [*(a1 + 40) _setupADPAssertion:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _setupADPAssertion:*(a1 + 32)];
 }
 
 - (CSADPPreventStandbyAssertion)initWithName:(id)name clientQueue:(id)queue

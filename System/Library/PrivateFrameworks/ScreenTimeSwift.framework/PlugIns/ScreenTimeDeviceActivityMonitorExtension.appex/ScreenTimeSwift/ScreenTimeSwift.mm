@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for DeviceActivityMonitorExtension()
+uint64_t type metadata accessor for DeviceActivityMonitorExtension(uint64_t a1)
 {
   result = qword_100008178;
   if (!qword_100008178)
@@ -9,12 +9,11 @@ uint64_t type metadata accessor for DeviceActivityMonitorExtension()
   return result;
 }
 
-uint64_t sub_10000112C()
+uint64_t sub_10000112C(uint64_t a1)
 {
   result = sub_100001474();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -44,7 +43,7 @@ void sub_100001230()
 
     sub_100001464();
     v3.receiver = v0;
-    v3.super_class = type metadata accessor for DeviceActivityMonitorExtension();
+    v3.super_class = type metadata accessor for DeviceActivityMonitorExtension(0);
     objc_msgSendSuper2(&v3, "init");
   }
 
@@ -66,7 +65,7 @@ uint64_t sub_100001330()
 id sub_100001398()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for DeviceActivityMonitorExtension();
+  v2.super_class = type metadata accessor for DeviceActivityMonitorExtension(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 

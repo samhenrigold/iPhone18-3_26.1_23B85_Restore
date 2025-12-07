@@ -59,18 +59,16 @@
 
 void __64__PGGraphStorytellingRelationshipEdge_relationshipNameForLabel___block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"FAMILY_SOCIALGROUP";
-  v3[1] = @"COWORKER_SOCIALGROUP";
-  v4[0] = @"Family Social Group";
-  v4[1] = @"Coworker Social Group";
-  v3[2] = @"HOUSEHOLD_MEMBER";
-  v4[2] = @"Household Member";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"FAMILY_SOCIALGROUP";
+  v2[1] = @"COWORKER_SOCIALGROUP";
+  v3[0] = @"Family Social Group";
+  v3[1] = @"Coworker Social Group";
+  v2[2] = @"HOUSEHOLD_MEMBER";
+  v3[2] = @"Household Member";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = relationshipNameForLabel__multiWordRelationshipNameForLabel;
   relationshipNameForLabel__multiWordRelationshipNameForLabel = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)filter

@@ -50,11 +50,12 @@
 - (void)startRecordingTimeForDumpRequestPhase:(const char *)phase pid:(int)pid
 {
   v17 = *MEMORY[0x277D85DE8];
-  v7 = *__error();
-  v8 = sub_22EE82CE0();
-  v9 = v8;
+  v7 = __error();
+  v8 = *v7;
+  v9 = sub_22EE82CE0(v7);
+  v10 = v9;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     phaseCopy = "<unknown>";
     if (phase)
@@ -66,66 +67,65 @@
     v14 = phaseCopy;
     v15 = 1024;
     pidCopy = pid;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "DumpRequest", "Request from %{public}s [%d]", &v13, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v10, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "DumpRequest", "Request from %{public}s [%d]", &v13, 0x12u);
   }
 
-  *__error() = v7;
+  *__error() = v8;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"DumpRequest"];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecordingTimeForDumpRequestPhase:(id)phase
 {
   v20 = *MEMORY[0x277D85DE8];
   phaseCopy = phase;
-  v5 = *__error();
-  v6 = sub_22EE82CE0();
-  v7 = v6;
+  v5 = __error();
+  v6 = *v5;
+  v7 = sub_22EE82CE0(v5);
+  v8 = v7;
   request_id = self->_request_id;
   if (phaseCopy)
   {
-    if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
       filePath = self->_filePath;
       v16 = 138543618;
       v17 = phaseCopy;
       v18 = 2114;
       v19 = filePath;
-      v10 = "FAILED due to reason: %{public}@.\nFile path: %{public}@";
-      v11 = v7;
-      v12 = request_id;
-      v13 = 22;
+      v11 = "FAILED due to reason: %{public}@.\nFile path: %{public}@";
+      v12 = v8;
+      v13 = request_id;
+      v14 = 22;
 LABEL_8:
-      _os_signpost_emit_with_name_impl(&dword_22EE81000, v11, OS_SIGNPOST_INTERVAL_END, v12, "DumpRequest", v10, &v16, v13);
+      _os_signpost_emit_with_name_impl(&dword_22EE81000, v12, OS_SIGNPOST_INTERVAL_END, v13, "DumpRequest", v11, &v16, v14);
     }
   }
 
-  else if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  else if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v14 = self->_filePath;
+    v15 = self->_filePath;
     v16 = 138543362;
-    v17 = v14;
-    v10 = "Succeeded.\nFile path: %{public}@";
-    v11 = v7;
-    v12 = request_id;
-    v13 = 12;
+    v17 = v15;
+    v11 = "Succeeded.\nFile path: %{public}@";
+    v12 = v8;
+    v13 = request_id;
+    v14 = 12;
     goto LABEL_8;
   }
 
-  *__error() = v5;
+  *__error() = v6;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"DumpRequest"];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRecordingTimeForSaveStandardChunksPhase:(const char *)phase pid:(int)pid
 {
   v17 = *MEMORY[0x277D85DE8];
-  v7 = *__error();
-  v8 = sub_22EE82CE0();
-  v9 = v8;
+  v7 = __error();
+  v8 = *v7;
+  v9 = sub_22EE82CE0(v7);
+  v10 = v9;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     phaseCopy = "<unknown>";
     if (phase)
@@ -137,38 +137,37 @@ LABEL_8:
     v14 = phaseCopy;
     v15 = 1024;
     pidCopy = pid;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "SaveStandardChunks", "Save for '%{public}s [%d]", &v13, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v10, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "SaveStandardChunks", "Save for '%{public}s [%d]", &v13, 0x12u);
   }
 
-  *__error() = v7;
+  *__error() = v8;
   self->_saveStandardChunksStartTimestampMCT = [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"SaveStandardChunks"];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecordingTimeForSaveStandardChunksPhase:(BOOL)phase
 {
   phaseCopy = phase;
   v13 = *MEMORY[0x277D85DE8];
-  v5 = *__error();
-  v6 = sub_22EE82CE0();
-  v7 = v6;
+  v5 = __error();
+  v6 = *v5;
+  v7 = sub_22EE82CE0(v5);
+  v8 = v7;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v9 = "FAILED";
+    v10 = "FAILED";
     if (phaseCopy)
     {
-      v9 = "SUCCEEDED";
+      v10 = "SUCCEEDED";
     }
 
     v11 = 136315138;
-    v12 = v9;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v7, OS_SIGNPOST_INTERVAL_END, request_id, "SaveStandardChunks", "%s", &v11, 0xCu);
+    v12 = v10;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v8, OS_SIGNPOST_INTERVAL_END, request_id, "SaveStandardChunks", "%s", &v11, 0xCu);
   }
 
-  *__error() = v5;
+  *__error() = v6;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"SaveStandardChunks"];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordTimeForSaveStandardChunksWithoutPostProcessing:(unint64_t)processing
@@ -187,107 +186,111 @@ LABEL_8:
 
   if (!v4)
   {
-    v7 = *__error();
-    v8 = sub_22EE82CE0();
-    v9 = v8;
+    v7 = __error();
+    v8 = *v7;
+    v9 = sub_22EE82CE0(v7);
+    v10 = v9;
     request_id = self->_request_id;
-    if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
-      v11 = self->_saveStandardChunksStartTimestampMCT;
+      v12 = self->_saveStandardChunksStartTimestampMCT;
       v16 = 134349312;
-      v17 = v11;
+      v17 = v12;
       v18 = 2050;
       processingCopy = processing;
-      _os_signpost_emit_with_name_impl(&dword_22EE81000, v9, OS_SIGNPOST_EVENT, request_id, "SaveStandardChunks_WithoutPostProcessing", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu", &v16, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_22EE81000, v10, OS_SIGNPOST_EVENT, request_id, "SaveStandardChunks_WithoutPostProcessing", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu", &v16, 0x16u);
     }
 
-    *__error() = v7;
-    v12 = MEMORY[0x277CCABB0];
-    v13 = processing - self->_saveStandardChunksStartTimestampMCT;
+    *__error() = v8;
+    v13 = MEMORY[0x277CCABB0];
+    v14 = processing - self->_saveStandardChunksStartTimestampMCT;
     if (qword_27DA9D430 != -1)
     {
       sub_22EEA9FC4();
     }
 
-    v14 = [v12 numberWithDouble:*&qword_27DA9D428 * v13 * 0.000000001];
-    [(NSMutableDictionary *)self->_timeSpentByPhases setObject:v14 forKeyedSubscript:@"SaveStandardChunks_WithoutPostProcessing"];
+    v15 = [v13 numberWithDouble:*&qword_27DA9D428 * v14 * 0.000000001];
+    [(NSMutableDictionary *)self->_timeSpentByPhases setObject:v15 forKeyedSubscript:@"SaveStandardChunks_WithoutPostProcessing"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRecordingTimeForLibktracePostProcessing
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "PostProcessing_Libktrace", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "PostProcessing_Libktrace", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"PostProcessing_Libktrace"];
 }
 
 - (void)stopRecordingTimeForLibktracePostProcessing
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_END, request_id, "PostProcessing_Libktrace", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_END, request_id, "PostProcessing_Libktrace", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"PostProcessing_Libktrace"];
 }
 
 - (void)startRecordingTimeForTailspinPostProcessing
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "PostProcessing_Tailspin", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "PostProcessing_Tailspin", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"PostProcessing_Tailspin"];
 }
 
 - (void)stopRecordingTimeForTailspinPostProcessing
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_END, request_id, "PostProcessing_Tailspin", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_END, request_id, "PostProcessing_Tailspin", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"PostProcessing_Tailspin"];
 }
 
 - (void)startRecordingTimeForAugmentPhase:(const char *)phase pid:(int)pid originalFd:(int)fd dupFd:(int)dupFd
 {
   v25 = *MEMORY[0x277D85DE8];
-  v11 = *__error();
-  v12 = sub_22EE82CE0();
-  v13 = v12;
+  v11 = __error();
+  v12 = *v11;
+  v13 = sub_22EE82CE0(v11);
+  v14 = v13;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     phaseCopy = "<unknown>";
     v17 = 136446978;
@@ -303,41 +306,40 @@ LABEL_8:
     fdCopy = fd;
     v23 = 1024;
     dupFdCopy = dupFd;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v13, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment", "Augment for %{public}s [%d], fd: %d, dup fd: %d", &v17, 0x1Eu);
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v14, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment", "Augment for %{public}s [%d], fd: %d, dup fd: %d", &v17, 0x1Eu);
   }
 
-  *__error() = v11;
+  *__error() = v12;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"Augment"];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecordingTimeForAugmentPhase:(BOOL)phase finalSizeBytes:(int64_t)bytes
 {
   phaseCopy = phase;
   v17 = *MEMORY[0x277D85DE8];
-  v7 = *__error();
-  v8 = sub_22EE82CE0();
-  v9 = v8;
+  v7 = __error();
+  v8 = *v7;
+  v9 = sub_22EE82CE0(v7);
+  v10 = v9;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v11 = "FAILED";
+    v12 = "FAILED";
     if (phaseCopy)
     {
-      v11 = "SUCCEEDED";
+      v12 = "SUCCEEDED";
     }
 
     v13 = 136315394;
-    v14 = v11;
+    v14 = v12;
     v15 = 2048;
     bytesCopy = bytes;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v9, OS_SIGNPOST_INTERVAL_END, request_id, "Augment", "%s (final size: %{bytes}lld)", &v13, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v10, OS_SIGNPOST_INTERVAL_END, request_id, "Augment", "%s (final size: %{bytes}lld)", &v13, 0x16u);
   }
 
-  *__error() = v7;
+  *__error() = v8;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"Augment"];
   self->_fileSizeBytes = bytes;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRecordingTimeForAugmentLoggingPhase:(BOOL)phase collectOSLog:(BOOL)log scrubData:(BOOL)data
@@ -346,11 +348,12 @@ LABEL_8:
   logCopy = log;
   phaseCopy = phase;
   v19 = *MEMORY[0x277D85DE8];
-  v9 = *__error();
-  v10 = sub_22EE82CE0();
-  v11 = v10;
+  v9 = __error();
+  v10 = *v9;
+  v11 = sub_22EE82CE0(v9);
+  v12 = v11;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14[0] = 67109632;
     v14[1] = phaseCopy;
@@ -358,69 +361,70 @@ LABEL_8:
     v16 = logCopy;
     v17 = 1024;
     v18 = dataCopy;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v11, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment_LoggingData", "os_signpost: %{BOOL}d\nos_log: %{BOOL}d\nscrub_data: %{BOOL}d", v14, 0x14u);
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v12, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment_LoggingData", "os_signpost: %{BOOL}d\nos_log: %{BOOL}d\nscrub_data: %{BOOL}d", v14, 0x14u);
   }
 
-  *__error() = v9;
+  *__error() = v10;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"Augment_LoggingData"];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRecordingTimeForAugmentLoggingPhase:(BOOL)phase
 {
   phaseCopy = phase;
   v13 = *MEMORY[0x277D85DE8];
-  v5 = *__error();
-  v6 = sub_22EE82CE0();
-  v7 = v6;
+  v5 = __error();
+  v6 = *v5;
+  v7 = sub_22EE82CE0(v5);
+  v8 = v7;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v9 = "FAILED";
+    v10 = "FAILED";
     if (phaseCopy)
     {
-      v9 = "SUCCEEDED";
+      v10 = "SUCCEEDED";
     }
 
     v11 = 136315138;
-    v12 = v9;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v7, OS_SIGNPOST_INTERVAL_END, request_id, "Augment_LoggingData", "%s", &v11, 0xCu);
+    v12 = v10;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v8, OS_SIGNPOST_INTERVAL_END, request_id, "Augment_LoggingData", "%s", &v11, 0xCu);
   }
 
-  *__error() = v5;
+  *__error() = v6;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"Augment_LoggingData"];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRecordingTimeForAugmentSymbolicatePhase
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment_Symbolicate", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, request_id, "Augment_Symbolicate", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _startRecordingTimeForPhase:"Augment_Symbolicate"];
 }
 
 - (void)stopRecordingTimeForAugmentSymbolicatePhase
 {
-  v3 = *__error();
-  v4 = sub_22EE82CE0();
-  v5 = v4;
+  v3 = __error();
+  v4 = *v3;
+  v5 = sub_22EE82CE0(v3);
+  v6 = v5;
   request_id = self->_request_id;
-  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  if (request_id - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EE81000, v5, OS_SIGNPOST_INTERVAL_END, request_id, "Augment_Symbolicate", &unk_22EEB0741, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EE81000, v6, OS_SIGNPOST_INTERVAL_END, request_id, "Augment_Symbolicate", &unk_22EEB0741, v8, 2u);
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(TSPSaveMeasurements *)self _stopRecordingTimeForPhase:"Augment_Symbolicate"];
 }
 

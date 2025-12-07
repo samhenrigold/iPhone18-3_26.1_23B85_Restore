@@ -6,6 +6,10 @@
 - (id)eventIDToString:(unsigned __int8)string;
 - (id)notificationAttributeIDToString:(unsigned __int8)string;
 - (id)notificationForAlert:(id)alert;
+- (id)notificationForUID:(unsigned int)d;
+- (id)responseForAppAttributeID:(unsigned __int8)d appIdentifier:(id)identifier;
+- (id)responseForAttributeID:(unsigned __int8)d maxLength:(unsigned __int16)length attribute:(id)attribute;
+- (id)responseForNotificationAttributeID:(unsigned __int8)d maxLength:(unsigned __int16)length notification:(id)notification;
 - (int64_t)handleControlPointWrite:(id)write responseData:(id *)data;
 - (int64_t)handleGetAppAttributesCommand:(id)command responseData:(id *)data;
 - (int64_t)handleGetNotificationAttributesCommand:(id)command responseData:(id *)data;
@@ -22,6 +26,7 @@
 - (void)startNotifications;
 - (void)stopNotifications;
 - (void)updateDataSource:(id)source central:(id)central;
+- (void)updateNotificationSource:(unsigned __int8)source notification:(id)notification sourceFlags:(unsigned __int8)flags;
 - (void)updateNotificationSource:(unsigned __int8)source notification:(id)notification sourceFlags:(unsigned __int8)flags centrals:(id)centrals;
 @end
 
@@ -350,6 +355,22 @@ LABEL_14:
 LABEL_15:
 
   return v9;
+}
+
+- (void)updateNotificationSource:(unsigned __int8)source notification:(id)notification sourceFlags:(unsigned __int8)flags
+{
+  flagsCopy = flags;
+  sourceCopy = source;
+  notificationCopy = notification;
+  activeCentrals = [(ANCService *)self activeCentrals];
+  v9 = [activeCentrals count];
+
+  if (v9)
+  {
+    activeCentrals2 = [(ANCService *)self activeCentrals];
+    allObjects = [activeCentrals2 allObjects];
+    [(ANCService *)self updateNotificationSource:sourceCopy notification:notificationCopy sourceFlags:flagsCopy centrals:allObjects];
+  }
 }
 
 - (void)updateNotificationSource:(unsigned __int8)source notification:(id)notification sourceFlags:(unsigned __int8)flags centrals:(id)centrals
@@ -855,6 +876,16 @@ LABEL_10:
   [uidMap removeObjectForKey:v7];
 }
 
+- (id)notificationForUID:(unsigned int)d
+{
+  v3 = *&d;
+  uidMap = [(ANCService *)self uidMap];
+  v5 = [NSNumber numberWithUnsignedInt:v3];
+  v6 = [uidMap objectForKeyedSubscript:v5];
+
+  return v6;
+}
+
 - (id)notificationForAlert:(id)alert
 {
   alertCopy = alert;
@@ -862,6 +893,161 @@ LABEL_10:
   v6 = [alertMap objectForKeyedSubscript:alertCopy];
 
   return v6;
+}
+
+- (id)responseForAttributeID:(unsigned __int8)d maxLength:(unsigned __int16)length attribute:(id)attribute
+{
+  lengthCopy = length;
+  dCopy = d;
+  attributeCopy = attribute;
+  v8 = [DataOutputStream outputStreamWithByteOrder:1];
+  v9 = [attributeCopy UTF8DataWithMaxLength:lengthCopy ellipsis:1 isTruncated:0];
+
+  [v8 writeUint8:dCopy];
+  [v8 writeUint16:{objc_msgSend(v9, "length")}];
+  [v8 writeBytes:objc_msgSend(v9 length:{"bytes"), objc_msgSend(v9, "length")}];
+  data = [v8 data];
+
+  return data;
+}
+
+- (id)responseForNotificationAttributeID:(unsigned __int8)d maxLength:(unsigned __int16)length notification:(id)notification
+{
+  lengthCopy = length;
+  dCopy = d;
+  alert = [notification alert];
+  v9 = alert;
+  v10 = 0;
+  if (dCopy <= 3)
+  {
+    if (dCopy > 1)
+    {
+      if (dCopy == 2)
+      {
+        [alert subtitle];
+      }
+
+      else
+      {
+        [alert message];
+      }
+      title = ;
+    }
+
+    else if (dCopy)
+    {
+      if (dCopy != 1)
+      {
+        goto LABEL_23;
+      }
+
+      title = [alert title];
+    }
+
+    else
+    {
+      title = [alert appIdentifier];
+    }
+
+    goto LABEL_22;
+  }
+
+  if (dCopy > 5)
+  {
+    if (dCopy == 6)
+    {
+      if ([alert hasPositiveAction])
+      {
+        title = [v9 positiveActionLabel];
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      if (dCopy != 7)
+      {
+        goto LABEL_23;
+      }
+
+      if ([alert hasNegativeAction])
+      {
+        title = [v9 negativeActionLabel];
+LABEL_22:
+        v10 = title;
+        goto LABEL_23;
+      }
+    }
+
+    v10 = 0;
+    goto LABEL_23;
+  }
+
+  if (dCopy == 4)
+  {
+    message = [alert message];
+    v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [message lengthOfBytesUsingEncoding:4]);
+  }
+
+  else
+  {
+    message = objc_alloc_init(NSDateFormatter);
+    [message setDateFormat:@"yyyyMMdd'T'HHmmss"];
+    v13 = +[NSLocale systemLocale];
+    [message setLocale:v13];
+
+    date = [v9 date];
+    v10 = [message stringFromDate:date];
+  }
+
+LABEL_23:
+  v15 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+  {
+    v18 = v15;
+    v19 = [(ANCService *)self notificationAttributeIDToString:dCopy];
+    *buf = 138412546;
+    v21 = v19;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Sending %@: %@", buf, 0x16u);
+  }
+
+  v16 = [(ANCService *)self responseForAttributeID:dCopy maxLength:lengthCopy attribute:v10];
+
+  return v16;
+}
+
+- (id)responseForAppAttributeID:(unsigned __int8)d appIdentifier:(id)identifier
+{
+  dCopy = d;
+  identifierCopy = identifier;
+  if (dCopy)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    alertSource = [(ANCService *)self alertSource];
+    v7 = [alertSource displayNameForAppIdentifier:identifierCopy];
+  }
+
+  v9 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = v9;
+    v13 = [(ANCService *)self appAttributeIDToString:dCopy];
+    v14 = 138412546;
+    v15 = v13;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Sending %@: %@", &v14, 0x16u);
+  }
+
+  v10 = [(ANCService *)self responseForAttributeID:dCopy maxLength:512 attribute:v7];
+
+  return v10;
 }
 
 - (id)eventIDToString:(unsigned __int8)string

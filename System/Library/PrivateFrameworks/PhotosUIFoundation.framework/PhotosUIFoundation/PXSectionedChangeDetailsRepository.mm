@@ -361,7 +361,7 @@ LABEL_23:
   }
 }
 
-unint64_t __55__PXSectionedChangeDetailsRepository_addChangeDetails___block_invoke(uint64_t a1)
+void *__55__PXSectionedChangeDetailsRepository_addChangeDetails___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 8) insertObject:*(a1 + 40) atIndex:0];
   result = [*(*(a1 + 32) + 8) count];

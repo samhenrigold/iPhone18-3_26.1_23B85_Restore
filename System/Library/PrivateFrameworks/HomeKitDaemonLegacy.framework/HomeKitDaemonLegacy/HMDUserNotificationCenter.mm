@@ -58,7 +58,7 @@
 
 void __47__HMDUserNotificationCenter__showNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -68,19 +68,17 @@ void __47__HMDUserNotificationCenter__showNotification___block_invoke(uint64_t a
     {
       v6 = HMFGetLogIdentifier();
       v7 = *(a1 + 32);
-      v9 = 138543874;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v3;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Error adding notification request. Error: %@. Request: %@.", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v3;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Error adding notification request. Error: %@. Request: %@.", &v8, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAreUserNotificationsEnabledWithCompletion:(id)completion
@@ -119,7 +117,7 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
 {
   selfCopy = self;
   levelCopy = level;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   bodyCopy = body;
   identifierCopy = identifier;
@@ -129,13 +127,13 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
   attachmentsCopy = attachments;
   infoCopy = info;
   v25 = objc_alloc_init(MEMORY[0x277CE1F60]);
-  v47 = titleCopy;
+  v46 = titleCopy;
   [v25 setTitle:titleCopy];
   [v25 setBody:bodyCopy];
   defaultSound = [MEMORY[0x277CE1FE0] defaultSound];
   [v25 setSound:defaultSound];
 
-  v46 = dateCopy;
+  v45 = dateCopy;
   [v25 setDate:dateCopy];
   if (identifierCopy)
   {
@@ -170,8 +168,8 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
 
   if (_os_feature_enabled_impl())
   {
-    [v25 setInterruptionLevel:v43];
-    if (v43 == 3)
+    [v25 setInterruptionLevel:v42];
+    if (v42 == 3)
     {
       defaultCriticalSound = [MEMORY[0x277CE1FE0] defaultCriticalSound];
       [v25 setSound:defaultCriticalSound];
@@ -185,22 +183,22 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v45 = infoCopy;
+    v44 = infoCopy;
     v33 = attachmentsCopy;
     v34 = categoryIdentifierCopy;
     v35 = identifierCopy;
     v37 = v36 = bodyCopy;
     *buf = 138543618;
-    v50 = v37;
-    v51 = 2112;
-    v52 = v29;
+    v49 = v37;
+    v50 = 2112;
+    v51 = v29;
     _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Adding bulletin: %@", buf, 0x16u);
 
     bodyCopy = v36;
     identifierCopy = v35;
     categoryIdentifierCopy = v34;
     attachmentsCopy = v33;
-    infoCopy = v45;
+    infoCopy = v44;
   }
 
   objc_autoreleasePoolPop(v30);
@@ -209,14 +207,12 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
   v39 = [[HMDBulletinNotificationLogEvent alloc] initWithTopic:topic];
   [logEventSubmitter submitLogEvent:v39];
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (void)updateContent:(id)content forNotificationWithRequestIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -226,31 +222,29 @@ uint64_t __76__HMDUserNotificationCenter_fetchAreUserNotificationsEnabledWithCom
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v18 = v11;
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2112;
-    v22 = contentCopy;
+    v17 = v11;
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = contentCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating notification with request identifier %@ with content: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   userNotificationCenter = [(HMDUserNotificationCenter *)selfCopy userNotificationCenter];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __80__HMDUserNotificationCenter_updateContent_forNotificationWithRequestIdentifier___block_invoke;
-  v15[3] = &unk_2797358C8;
-  v15[4] = selfCopy;
-  v16 = identifierCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __80__HMDUserNotificationCenter_updateContent_forNotificationWithRequestIdentifier___block_invoke;
+  v14[3] = &unk_2797358C8;
+  v14[4] = selfCopy;
+  v15 = identifierCopy;
   v13 = identifierCopy;
-  [userNotificationCenter replaceContentForRequestWithIdentifier:v13 replacementContent:contentCopy completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [userNotificationCenter replaceContentForRequestWithIdentifier:v13 replacementContent:contentCopy completionHandler:v14];
 }
 
 void __80__HMDUserNotificationCenter_updateContent_forNotificationWithRequestIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -261,19 +255,17 @@ void __80__HMDUserNotificationCenter_updateContent_forNotificationWithRequestIde
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update notification with request identifier %@: %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update notification with request identifier %@: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBadgeNumber:(int64_t)number
@@ -311,7 +303,7 @@ void __80__HMDUserNotificationCenter_updateContent_forNotificationWithRequestIde
 
 void __65__HMDUserNotificationCenter_configureWithNotificationCategories___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -323,16 +315,16 @@ void __65__HMDUserNotificationCenter_configureWithNotificationCategories___block
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 48);
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2048;
-      v21 = v11;
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2048;
+      v20 = v11;
       v12 = "%{public}@Authorization request with options: %lu was granted.";
       v13 = v9;
       v14 = OS_LOG_TYPE_INFO;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v18, v15);
+      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v17, v15);
     }
   }
 
@@ -340,12 +332,12 @@ LABEL_6:
   {
     v10 = HMFGetLogIdentifier();
     v16 = *(a1 + 48);
-    v18 = 138543874;
-    v19 = v10;
-    v20 = 2048;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v5;
+    v17 = 138543874;
+    v18 = v10;
+    v19 = 2048;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v5;
     v12 = "%{public}@Authorization request with options: %lu was not granted with error:%@.";
     v13 = v9;
     v14 = OS_LOG_TYPE_ERROR;
@@ -355,8 +347,6 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v6);
   [*(a1 + 40) finishWithNoResult];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserNotificationCenter)initWithBundleIdentifier:(id)identifier logEventSubmitter:(id)submitter
@@ -393,12 +383,11 @@ LABEL_6:
 
 uint64_t __40__HMDUserNotificationCenter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_176180;
-  logCategory__hmf_once_v7_176180 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_176180;
+  logCategory__hmf_once_v7_176180 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

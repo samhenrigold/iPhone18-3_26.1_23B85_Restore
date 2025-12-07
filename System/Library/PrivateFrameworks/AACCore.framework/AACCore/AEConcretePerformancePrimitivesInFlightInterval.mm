@@ -16,17 +16,14 @@
 
 - (void)endInterval
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v9 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-    v4 = 0;
-LABEL_6:
+    if (self->_isEnded)
+    {
+      return;
+    }
 
-    goto LABEL_7;
-  }
-
-  if (!self->_isEnded)
-  {
     self->_isEnded = 1;
     v3 = self->_log;
     v4 = v3;
@@ -34,16 +31,16 @@ LABEL_6:
     if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
     {
       v6 = self->_name;
-      v8 = 136446210;
+      v7 = 136446210;
       uTF8String = [(NSString *)v6 UTF8String];
-      _os_signpost_emit_with_name_impl(&dword_23C1AA000, v4, OS_SIGNPOST_INTERVAL_END, signpostID, "AAC Signposts", "%{public}s", &v8, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_23C1AA000, v4, OS_SIGNPOST_INTERVAL_END, signpostID, "AAC Signposts", "%{public}s", &v7, 0xCu);
     }
-
-    goto LABEL_6;
   }
 
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v4 = 0;
+  }
 }
 
 - (id)initWithName:(void *)name signpostID:(void *)d log:

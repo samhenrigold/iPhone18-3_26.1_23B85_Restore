@@ -19,76 +19,69 @@
 
 - (id)_axStringForParticipants:(id)participants
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   participantsCopy = participants;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v4 = [participantsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v4 = [participantsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v4)
   {
     v6 = 0;
-    goto LABEL_22;
+    goto LABEL_21;
   }
 
   v5 = v4;
   v6 = 0;
-  v7 = 0x29EDB9000uLL;
-  v8 = *v25;
-  v9 = 0x29EDB9000uLL;
+  v7 = *v20;
   do
   {
-    v10 = 0;
+    v8 = 0;
     do
     {
-      if (*v25 != v8)
+      if (*v20 != v7)
       {
         objc_enumerationMutation(participantsCopy);
       }
 
-      v11 = *(*(&v24 + 1) + 8 * v10);
-      v12 = *(v7 + 2032);
+      v9 = *(*(&v19 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        name = [v11 name];
+        name = [v9 name];
 LABEL_10:
-        v15 = name;
-        v16 = __UIAXStringForVariables();
+        v11 = name;
+        v12 = __UIAXStringForVariables();
 
-        v6 = v16;
+        v6 = v12;
         goto LABEL_11;
       }
 
-      v14 = *(v9 + 3888);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        name = [v11 string];
+        name = [v9 string];
         goto LABEL_10;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        displayString = [v11 displayString];
+        displayString = [v9 displayString];
         string = [displayString string];
-        v18 = __UIAXStringForVariables();
+        v14 = __UIAXStringForVariables();
 
-        if ([v11 isOptionalParticipant])
+        if ([v9 isOptionalParticipant])
         {
-          v23 = accessibilityLocalizedString(@"optional.attendee");
+          v18 = accessibilityLocalizedString(@"optional.attendee");
           v6 = __UIAXStringForVariables();
         }
 
         else
         {
-          v6 = v18;
+          v6 = v14;
         }
-
-        v7 = 0x29EDB9000;
-        v9 = 0x29EDB9000;
       }
 
       else
@@ -97,18 +90,16 @@ LABEL_10:
       }
 
 LABEL_11:
-      ++v10;
+      ++v8;
     }
 
-    while (v5 != v10);
-    v19 = [participantsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
-    v5 = v19;
+    while (v5 != v8);
+    v15 = [participantsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = v15;
   }
 
-  while (v19);
-LABEL_22:
-
-  v20 = *MEMORY[0x29EDCA608];
+  while (v15);
+LABEL_21:
 
   return v6;
 }
@@ -284,40 +275,28 @@ LABEL_24:
 
 uint64_t __61__EKEventDetailAttendeesCellAccessibility_accessibilityValue__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) objectAtIndex:0];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __61__EKEventDetailAttendeesCellAccessibility_accessibilityValue__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) objectAtIndex:1];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __61__EKEventDetailAttendeesCellAccessibility_accessibilityValue__block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:2];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) objectAtIndex:2];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __61__EKEventDetailAttendeesCellAccessibility_accessibilityValue__block_invoke_4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:3];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) objectAtIndex:3];
 
   return MEMORY[0x2A1C71028]();
 }

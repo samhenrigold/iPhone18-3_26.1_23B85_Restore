@@ -28,9 +28,8 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v16 - v9;
   v11 = _Block_copy(handler);
   if (date)
   {
@@ -47,13 +46,19 @@
 
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v11;
     v11 = _sIeyB_Ieg_TRTA_0;
+  }
+
+  else
+  {
+    v14 = 0;
   }
 
   selfCopy = self;
   specialized WaterTemperatureAccumulator.accumulatorDidStart(withStart:handler:)(v10);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v14);
 
   _sSo8NSObjectCSgWOhTm_0(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }

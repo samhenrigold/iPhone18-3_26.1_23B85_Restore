@@ -102,7 +102,7 @@
 
 - (void)authenticateBatteryWithChallenge:(id)challenge completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -140,7 +140,7 @@
     }
 
     *buf = 136315138;
-    v20 = v11;
+    v19 = v11;
     _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Authenticating battery... (completionHandler: %s)", buf, 0xCu);
   }
 
@@ -149,14 +149,12 @@
   block[1] = 3221225472;
   block[2] = __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke;
   block[3] = &unk_278487778;
-  v17 = challengeCopy;
-  v18 = handlerCopy;
+  v16 = challengeCopy;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = challengeCopy;
   v14 = handlerCopy;
   dispatch_sync(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke(uint64_t a1)
@@ -216,7 +214,7 @@ void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler
 
 void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   if (gLogObjects)
@@ -247,13 +245,13 @@ void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109632;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = a5;
-    v23 = 1024;
-    v24 = a6;
-    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v20, 0x14u);
+    v19[0] = 67109632;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = a5;
+    v22 = 1024;
+    v23 = a6;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v19, 0x14u);
   }
 
   v16 = *(a1 + 32);
@@ -285,13 +283,11 @@ void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateTouchControllerWithChallenge:(id)challenge completionHandler:(id)handler updateRegistry:(BOOL)registry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -329,24 +325,22 @@ void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler
     }
 
     *buf = 136315138;
-    v23 = v13;
+    v22 = v13;
     _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "Authenticating touch controller... (completionHandler: %s)", buf, 0xCu);
   }
 
   v14 = dispatch_get_global_queue(25, 0);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completionHandler_updateRegistry___block_invoke;
-  v18[3] = &unk_2784877A0;
-  v19 = challengeCopy;
-  v20 = handlerCopy;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completionHandler_updateRegistry___block_invoke;
+  v17[3] = &unk_2784877A0;
+  v18 = challengeCopy;
+  v19 = handlerCopy;
+  v17[4] = self;
   registryCopy = registry;
   v15 = challengeCopy;
   v16 = handlerCopy;
-  dispatch_sync(v14, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_sync(v14, v17);
 }
 
 void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completionHandler_updateRegistry___block_invoke(uint64_t a1)
@@ -406,7 +400,7 @@ void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completio
 
 void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completionHandler_updateRegistry___block_invoke_28(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   if (gLogObjects)
@@ -437,13 +431,13 @@ void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completio
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109632;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = a5;
-    v23 = 1024;
-    v24 = a6;
-    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "touch authPassed = %d, fdrValidationStatus %d, authError %d", v20, 0x14u);
+    v19[0] = 67109632;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = a5;
+    v22 = 1024;
+    v23 = a6;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "touch authPassed = %d, fdrValidationStatus %d, authError %d", v19, 0x14u);
   }
 
   v16 = *(a1 + 32);
@@ -475,13 +469,11 @@ void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completio
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateLASWithChallenge:(id)challenge completionHandler:(id)handler updateRegistry:(BOOL)registry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -519,24 +511,22 @@ void __96__ACCHWComponentAuth_authenticateTouchControllerWithChallenge_completio
     }
 
     *buf = 136315138;
-    v23 = v13;
+    v22 = v13;
     _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "Authenticating LAS... (completionHandler: %s)", buf, 0xCu);
   }
 
   v14 = dispatch_get_global_queue(25, 0);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_updateRegistry___block_invoke;
-  v18[3] = &unk_2784877A0;
-  v19 = challengeCopy;
-  v20 = handlerCopy;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_updateRegistry___block_invoke;
+  v17[3] = &unk_2784877A0;
+  v18 = challengeCopy;
+  v19 = handlerCopy;
+  v17[4] = self;
   registryCopy = registry;
   v15 = challengeCopy;
   v16 = handlerCopy;
-  dispatch_sync(v14, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_sync(v14, v17);
 }
 
 void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_updateRegistry___block_invoke(uint64_t a1)
@@ -596,7 +586,7 @@ void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_upd
 
 void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_updateRegistry___block_invoke_29(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   if (gLogObjects)
@@ -627,13 +617,13 @@ void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_upd
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109632;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = a5;
-    v23 = 1024;
-    v24 = a6;
-    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "LAS authPassed = %d, fdrValidationStatus %d, authError %d", v20, 0x14u);
+    v19[0] = 67109632;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = a5;
+    v22 = 1024;
+    v23 = a6;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "LAS authPassed = %d, fdrValidationStatus %d, authError %d", v19, 0x14u);
   }
 
   v16 = *(a1 + 32);
@@ -665,13 +655,11 @@ void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_upd
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateVeridianWithChallenge:(id)challenge completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -709,7 +697,7 @@ void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_upd
     }
 
     *buf = 136315138;
-    v20 = v11;
+    v19 = v11;
     _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Authenticating battery... (completionHandler: %s)", buf, 0xCu);
   }
 
@@ -718,14 +706,12 @@ void __84__ACCHWComponentAuth_authenticateLASWithChallenge_completionHandler_upd
   block[1] = 3221225472;
   block[2] = __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler___block_invoke;
   block[3] = &unk_278487778;
-  v17 = challengeCopy;
-  v18 = handlerCopy;
+  v16 = challengeCopy;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = challengeCopy;
   v14 = handlerCopy;
   dispatch_sync(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler___block_invoke(uint64_t a1)
@@ -785,7 +771,7 @@ void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandle
 
 void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler___block_invoke_30(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   if (gLogObjects)
@@ -816,13 +802,13 @@ void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandle
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109632;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = a5;
-    v23 = 1024;
-    v24 = a6;
-    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v20, 0x14u);
+    v19[0] = 67109632;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = a5;
+    v22 = 1024;
+    v23 = a6;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v19, 0x14u);
   }
 
   v16 = *(a1 + 32);
@@ -854,13 +840,11 @@ void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandle
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateVeridianWithChallenge:(id)challenge completionHandler:(id)handler updateRegistry:(BOOL)registry updateUIProperty:(BOOL)property logToAnalytics:(BOOL)analytics
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -898,26 +882,24 @@ void __74__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandle
     }
 
     *buf = 136315138;
-    v29 = v17;
+    v28 = v17;
     _os_log_impl(&dword_221CB0000, v16, OS_LOG_TYPE_DEFAULT, "Authenticating battery... (completionHandler: %s)", buf, 0xCu);
   }
 
   v18 = dispatch_get_global_queue(25, 0);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler_updateRegistry_updateUIProperty_logToAnalytics___block_invoke;
-  v22[3] = &unk_2784877C8;
-  v23 = challengeCopy;
-  v24 = handlerCopy;
-  v22[4] = self;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler_updateRegistry_updateUIProperty_logToAnalytics___block_invoke;
+  v21[3] = &unk_2784877C8;
+  v22 = challengeCopy;
+  v23 = handlerCopy;
+  v21[4] = self;
   registryCopy = registry;
   propertyCopy = property;
   analyticsCopy = analytics;
   v19 = challengeCopy;
   v20 = handlerCopy;
-  dispatch_sync(v18, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_sync(v18, v21);
 }
 
 void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler_updateRegistry_updateUIProperty_logToAnalytics___block_invoke(uint64_t a1)
@@ -977,7 +959,7 @@ void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandl
 
 void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandler_updateRegistry_updateUIProperty_logToAnalytics___block_invoke_31(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   if (gLogObjects)
@@ -1008,13 +990,13 @@ void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandl
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20[0] = 67109632;
-    v20[1] = a2;
-    v21 = 1024;
-    v22 = a5;
-    v23 = 1024;
-    v24 = a6;
-    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v20, 0x14u);
+    v19[0] = 67109632;
+    v19[1] = a2;
+    v20 = 1024;
+    v21 = a5;
+    v22 = 1024;
+    v23 = a6;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "battery authPassed = %d, fdrValidationStatus %d, authError %d", v19, 0x14u);
   }
 
   v16 = *(a1 + 32);
@@ -1046,13 +1028,11 @@ void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandl
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signVeridianChallenge:(id)challenge completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (gLogObjects)
@@ -1090,7 +1070,7 @@ void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandl
     }
 
     *buf = 136315138;
-    v20 = v11;
+    v19 = v11;
     _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Signing battery challenge... (completionHandler: %s)", buf, 0xCu);
   }
 
@@ -1099,14 +1079,12 @@ void __121__ACCHWComponentAuth_authenticateVeridianWithChallenge_completionHandl
   block[1] = 3221225472;
   block[2] = __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_invoke;
   block[3] = &unk_278487778;
-  v17 = challengeCopy;
-  v18 = handlerCopy;
+  v16 = challengeCopy;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = challengeCopy;
   v14 = handlerCopy;
   dispatch_sync(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_invoke(uint64_t a1)
@@ -1166,7 +1144,7 @@ void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_in
 
 void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_invoke_32(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if (gLogObjects)
@@ -1197,9 +1175,9 @@ void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_in
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v16[0] = 67109120;
-    v16[1] = a4;
-    _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_INFO, "signed battery challenge authError %d", v16, 8u);
+    v15[0] = 67109120;
+    v15[1] = a4;
+    _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_INFO, "signed battery challenge authError %d", v15, 8u);
   }
 
   v12 = *(a1 + 32);
@@ -1231,13 +1209,11 @@ void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_in
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyBatteryMatch:(id)match completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   handlerCopy = handler;
   if (gLogObjects)
@@ -1275,7 +1251,7 @@ void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_in
     }
 
     *buf = 136315138;
-    v20 = v11;
+    v19 = v11;
     _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Verifying battery match... (completionHandler: %s)", buf, 0xCu);
   }
 
@@ -1284,14 +1260,12 @@ void __62__ACCHWComponentAuth_signVeridianChallenge_completionHandler___block_in
   block[1] = 3221225472;
   block[2] = __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invoke;
   block[3] = &unk_278487778;
-  v17 = matchCopy;
-  v18 = handlerCopy;
+  v16 = matchCopy;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = matchCopy;
   v14 = handlerCopy;
   dispatch_sync(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invoke(uint64_t a1)
@@ -1351,7 +1325,7 @@ void __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invok
 
 void __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invoke_34(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v4 = gNumLogObjects < 4;
@@ -1380,9 +1354,9 @@ void __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invok
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109120;
-    v11[1] = a2;
-    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_INFO, "battery match verification authError %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = a2;
+    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_INFO, "battery match verification authError %d", v10, 8u);
   }
 
   v7 = *(a1 + 32);
@@ -1414,8 +1388,6 @@ void __59__ACCHWComponentAuth_verifyBatteryMatch_completionHandler___block_invok
       __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3();
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedManager
@@ -1444,13 +1416,11 @@ uint64_t __35__ACCHWComponentAuth_sharedManager__block_invoke(uint64_t a1)
 
 - (void)_init
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_221CB0000, a2, OS_LOG_TYPE_DEBUG, "Initializing %@...", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221CB0000, a2, OS_LOG_TYPE_DEBUG, "Initializing %@...", v5, 0xCu);
 }
 
 void __73__ACCHWComponentAuth_authenticateBatteryWithChallenge_completionHandler___block_invoke_25_cold_3()

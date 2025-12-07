@@ -124,7 +124,7 @@
   PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(&v9, keyer, &v8);
   if (v8)
   {
-    (*(*v8 + 24))(v8);
+    (*(*v8 + 3))(v8);
   }
 
   v7 = HGObject::operator new(0x1F0uLL);

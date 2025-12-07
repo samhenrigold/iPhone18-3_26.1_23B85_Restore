@@ -5076,27 +5076,27 @@ void __32__VOSCommand_allBuiltInCommands__block_invoke()
 
 + (id)builtInCommandWithStringValue:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valueCopy = value;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allBuiltInCommands = [self allBuiltInCommands];
-  v6 = [allBuiltInCommands countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allBuiltInCommands countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allBuiltInCommands);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9[1] isEqualToString:valueCopy])
         {
           v6 = v9;
@@ -5104,7 +5104,7 @@ void __32__VOSCommand_allBuiltInCommands__block_invoke()
         }
       }
 
-      v6 = [allBuiltInCommands countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allBuiltInCommands countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -5116,36 +5116,34 @@ void __32__VOSCommand_allBuiltInCommands__block_invoke()
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)commandForVOSEventCommand:(id)command
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   if (commandCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = +[VOSCommand allBuiltInCommands];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
-      v6 = *v14;
+      v6 = *v13;
       while (2)
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           votEventCommandName = [v8 votEventCommandName];
           v10 = [votEventCommandName isEqualToString:commandCopy];
 
@@ -5156,7 +5154,7 @@ LABEL_11:
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           continue;
@@ -5173,8 +5171,6 @@ LABEL_12:
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

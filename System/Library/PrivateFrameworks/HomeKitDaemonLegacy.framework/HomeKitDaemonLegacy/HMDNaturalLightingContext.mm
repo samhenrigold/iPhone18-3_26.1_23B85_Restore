@@ -12,18 +12,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   curve = [(HMDNaturalLightingContext *)self curve];
   v5 = [v3 initWithName:@"Curve" value:curve];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   timeZone = [(HMDNaturalLightingContext *)self timeZone];
   v8 = [v6 initWithName:@"Time Zone" value:timeZone];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -92,7 +90,7 @@
 
 - (HMDNaturalLightingContext)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HHNLC.cck"];
   if (v5)
@@ -112,9 +110,9 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v14;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode time zone", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v14;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode time zone", &v16, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -130,16 +128,15 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode curve", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode curve", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -152,11 +149,11 @@
   v8 = [(HMDNaturalLightingContext *)&v14 init];
   if (v8)
   {
-    v9 = [curveCopy copy];
+    v9 = objc_msgSend_copy(curveCopy);
     curve = v8->_curve;
     v8->_curve = v9;
 
-    v11 = [zoneCopy copy];
+    v11 = objc_msgSend_copy(zoneCopy);
     timeZone = v8->_timeZone;
     v8->_timeZone = v11;
   }
@@ -178,12 +175,11 @@
 
 uint64_t __40__HMDNaturalLightingContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_183595;
-  logCategory__hmf_once_v4_183595 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_183595;
+  logCategory__hmf_once_v4_183595 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

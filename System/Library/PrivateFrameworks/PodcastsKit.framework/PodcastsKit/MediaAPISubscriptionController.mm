@@ -31,14 +31,13 @@
 {
   v5 = sub_25EA1E448();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(completion);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(completion);
   sub_25EA1E428();
-  v10[2](v10, 4);
-  _Block_release(v10);
-  (*(v6 + 8))(v9, v5);
+  v9[2](v9, 4);
+  _Block_release(v9);
+  (*(v6 + 8))(v8, v5);
 }
 
 @end

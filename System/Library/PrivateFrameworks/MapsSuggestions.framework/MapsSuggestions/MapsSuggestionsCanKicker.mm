@@ -39,30 +39,30 @@
 
 - (void)_kickCan
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
-    objc_sync_enter(selfCopy);
+    v2 = objc_sync_enter(selfCopy);
     selfCopy[7] = selfCopy[7] + 1;
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(v2, v3))
     {
-      v2 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         uniqueName = [selfCopy uniqueName];
-        v4 = selfCopy[4];
-        v5 = selfCopy[5];
-        v6 = selfCopy[7];
-        v7 = 138413058;
-        v8 = uniqueName;
-        v9 = 2048;
-        v10 = v4;
+        v6 = selfCopy[4];
+        v7 = selfCopy[5];
+        v8 = selfCopy[7];
+        v9 = 138413058;
+        v10 = uniqueName;
         v11 = 2048;
-        v12 = v5;
+        v12 = v6;
         v13 = 2048;
-        v14 = v6;
-        _os_log_impl(&dword_1C5126000, v2, OS_LOG_TYPE_DEBUG, "CanKicker{%@} kicked with time=%.2f leeway=%.2f count=%lu", &v7, 0x2Au);
+        v14 = v7;
+        v15 = 2048;
+        v16 = v8;
+        _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "CanKicker{%@} kicked with time=%.2f leeway=%.2f count=%lu", &v9, 0x2Au);
       }
     }
 

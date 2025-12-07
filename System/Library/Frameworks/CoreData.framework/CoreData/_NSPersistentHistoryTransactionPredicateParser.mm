@@ -57,32 +57,30 @@
 
 - (void)visitPredicateExpression:(id)expression
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (self->_localError)
   {
-    goto LABEL_2;
+    return;
   }
 
   if ([expression expressionType])
   {
     if ([expression expressionType] != 10 || !objc_msgSend(objc_msgSend(expression, "keyPath"), "isEqualToString:", @"TIMESTAMP"))
     {
-      goto LABEL_2;
+      return;
     }
 
     if (self->_hasDate)
     {
-      v16 = *MEMORY[0x1E696A578];
-      v17 = @"Only one date predicate is allowed for history deletion.";
-      v6 = MEMORY[0x1E695DF20];
-      v7 = &v17;
-      v8 = &v16;
+      v14 = *MEMORY[0x1E696A578];
+      v15 = @"Only one date predicate is allowed for history deletion.";
+      v5 = MEMORY[0x1E695DF20];
+      v6 = &v15;
+      v7 = &v14;
 LABEL_8:
-      v9 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:1];
-      v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-      self->_localError = [v10 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v9];
-LABEL_2:
-      v3 = *MEMORY[0x1E69E9840];
+      v8 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:1];
+      v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+      self->_localError = [v9 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v8];
       return;
     }
 
@@ -93,42 +91,41 @@ LABEL_2:
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   constantValue = [expression constantValue];
-  if ((isKindOfClass & 1) == 0)
+  if (isKindOfClass)
+  {
+    storeTokens = self->_storeTokens;
+    storeTokens = [constantValue storeTokens];
+
+    [(NSMutableDictionary *)storeTokens addEntriesFromDictionary:storeTokens];
+  }
+
+  else
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(expression "constantValue")])
     {
       self->_hasTimestamp = 1;
-      goto LABEL_2;
+      return;
     }
 
     [expression constantValue];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || !self->_hasTimestamp)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && self->_hasTimestamp)
     {
-      goto LABEL_2;
-    }
-
-    if (self->_hasDate)
-    {
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"Only one date predicate is allowed for history deletion.";
-      v6 = MEMORY[0x1E695DF20];
-      v7 = v19;
-      v8 = &v18;
-      goto LABEL_8;
-    }
+      if (self->_hasDate)
+      {
+        v16 = *MEMORY[0x1E696A578];
+        v17[0] = @"Only one date predicate is allowed for history deletion.";
+        v5 = MEMORY[0x1E695DF20];
+        v6 = v17;
+        v7 = &v16;
+        goto LABEL_8;
+      }
 
 LABEL_20:
-    self->_hasDate = 1;
-    goto LABEL_2;
+      self->_hasDate = 1;
+    }
   }
-
-  storeTokens = self->_storeTokens;
-  storeTokens = [constantValue storeTokens];
-  v15 = *MEMORY[0x1E69E9840];
-
-  [(NSMutableDictionary *)storeTokens addEntriesFromDictionary:storeTokens];
 }
 
 @end

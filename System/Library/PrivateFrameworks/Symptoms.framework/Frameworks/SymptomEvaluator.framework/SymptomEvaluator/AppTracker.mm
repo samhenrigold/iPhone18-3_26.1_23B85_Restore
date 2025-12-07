@@ -10,9 +10,11 @@
 + (void)noteFlow:(id)flow withDelegatee:(id)delegatee snapshot:(id)snapshot;
 + (void)noteFlow:(id)flow withOwner:(id)owner snapshot:(id)snapshot;
 + (void)noteFlowEnding:(id)ending withSnapshot:(id)snapshot;
++ (void)noteForegroundState:(BOOL)state forApp:(id)app hasForegroundApps:(BOOL)apps;
 + (void)pruneCache:(id)cache;
 + (void)resetTrafficClassFlowSnapshot;
 + (void)setInternalQueue:(id)queue;
++ (void)setTrackCellular:(BOOL)cellular;
 + (void)startFlowPeriodTimer;
 + (void)stopFlowPeriodTimer;
 - (AppTracker)initWithUserName:(id)name interfaceType:(unsigned __int8)type;
@@ -35,7 +37,7 @@
 
 - (void)checkForFlowCountPolicyViolation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if ([(AppTracker *)self functionalInterfaceType]== 5)
   {
     v3 = &cellTracker;
@@ -83,43 +85,43 @@ LABEL_18:
       if (!self->_sentThunderingHerdFlowCountExceededPolicySymptom)
       {
         [madePrimaryDate timeIntervalSinceNow];
-        if (v16 < 0.0)
+        if (v15 < 0.0)
         {
-          v17 = v16;
-          if (v16 > -180.0 && v9 / 3 < self->_flowsPerPeriodAfterMadePrimary)
+          v16 = v15;
+          if (v15 > -180.0 && v9 / 3 < self->_flowsPerPeriodAfterMadePrimary)
           {
-            v18 = flowLogHandle;
+            v17 = flowLogHandle;
             if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = -v17;
-              v20 = v18;
+              v18 = -v16;
+              v19 = v17;
               userName2 = [(AppTracker *)self userName];
-              v22 = userName2;
+              v21 = userName2;
               flowsPerPeriodAfterMadePrimary = self->_flowsPerPeriodAfterMadePrimary;
-              *v28 = 138413314;
+              *v27 = 138413314;
               if (v4 == wifiTracker)
               {
-                v24 = @"Wi-Fi ";
+                v23 = @"Wi-Fi ";
               }
 
               else
               {
-                v24 = @"Cell";
+                v23 = @"Cell";
               }
 
-              *&v28[4] = userName2;
-              v29 = 1024;
-              v30 = flowsPerPeriodAfterMadePrimary;
-              v31 = 2048;
-              v32 = v9 / 3;
-              v33 = 2048;
-              v34 = v19;
-              v35 = 2112;
-              v36 = v24;
-              _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "%@ - %d _flowsPerPeriod Exceeded Maximum flow count of %lu, %f seconds after %@ was made primary interface ", v28, 0x30u);
+              *&v27[4] = userName2;
+              v28 = 1024;
+              v29 = flowsPerPeriodAfterMadePrimary;
+              v30 = 2048;
+              v31 = v9 / 3;
+              v32 = 2048;
+              v33 = v18;
+              v34 = 2112;
+              v35 = v23;
+              _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "%@ - %d _flowsPerPeriod Exceeded Maximum flow count of %lu, %f seconds after %@ was made primary interface ", v27, 0x30u);
             }
 
-            [(AppTracker *)self sendFlowCount:self->_flowsPerPeriodAfterMadePrimary exceededPolicyThreshold:v9 / 3 isLikelyThunderingHerd:1, *v28];
+            [(AppTracker *)self sendFlowCount:self->_flowsPerPeriodAfterMadePrimary exceededPolicyThreshold:v9 / 3 isLikelyThunderingHerd:1, *v27];
           }
         }
       }
@@ -161,29 +163,27 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v25 = configurationLogHandle;
+    v24 = configurationLogHandle;
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 0;
-      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "NO policy for maximumConnectionsPerHour. This should NEVER happen", v28, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "NO policy for maximumConnectionsPerHour. This should NEVER happen", v27, 2u);
     }
   }
 
   else
   {
-    v26 = configurationLogHandle;
+    v25 = configurationLogHandle;
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v27 = v26;
-      *v28 = 134217984;
-      *&v28[4] = [(AppTracker *)self functionalInterfaceType];
-      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "NO policy for interfaceType: %ld", v28, 0xCu);
+      v26 = v25;
+      *v27 = 134217984;
+      *&v27[4] = [(AppTracker *)self functionalInterfaceType];
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "NO policy for interfaceType: %ld", v27, 0xCu);
     }
   }
 
 LABEL_24:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initialize
@@ -258,7 +258,7 @@ LABEL_24:
 
 + (void)noteFlowEnding:(id)ending withSnapshot:(id)snapshot
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   endingCopy = ending;
   snapshotCopy = snapshot;
   ultimateUser = [endingCopy ultimateUser];
@@ -314,13 +314,13 @@ LABEL_11:
       goto LABEL_10;
     }
 
-    v29 = flowLogHandle;
+    v28 = flowLogHandle;
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
     {
-      trackerForStatistics5 = v29;
-      v30 = 134217984;
+      trackerForStatistics5 = v28;
+      v29 = 134217984;
       ifType = [endingCopy ifType];
-      _os_log_impl(&dword_23255B000, trackerForStatistics5, OS_LOG_TYPE_ERROR, "noteFlowEnding called for unexpected interface %ld", &v30, 0xCu);
+      _os_log_impl(&dword_23255B000, trackerForStatistics5, OS_LOG_TYPE_ERROR, "noteFlowEnding called for unexpected interface %ld", &v29, 0xCu);
       goto LABEL_11;
     }
   }
@@ -336,9 +336,9 @@ LABEL_12:
       {
         v23 = v22;
         flowId = [endingCopy flowId];
-        v30 = 134217984;
+        v29 = 134217984;
         ifType = flowId;
-        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "Flow %lld cancel lw timer on close", &v30, 0xCu);
+        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "Flow %lld cancel lw timer on close", &v29, 0xCu);
       }
 
       lwTimer = [v21 lwTimer];
@@ -352,8 +352,6 @@ LABEL_12:
       [observer noteFlow:endingCopy snapshot:0 present:0 trackedBy:0];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendFlowCount:(unint64_t)count exceededPolicyThreshold:(unint64_t)threshold isLikelyThunderingHerd:(BOOL)herd
@@ -451,7 +449,7 @@ LABEL_12:
 
 - (void)adjustImmediateFlowLinkages:(id)linkages
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   linkagesCopy = linkages;
   immediateUser = [linkagesCopy immediateUser];
 
@@ -467,11 +465,11 @@ LABEL_12:
         v8 = v7;
         flowId = [linkagesCopy flowId];
         ultimateUser = [linkagesCopy ultimateUser];
-        v13 = 134218242;
-        v14 = flowId;
-        v15 = 2112;
-        v16 = ultimateUser;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Flow %llu, remove from previous AppTracker %@", &v13, 0x16u);
+        v12 = 134218242;
+        v13 = flowId;
+        v14 = 2112;
+        v15 = ultimateUser;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Flow %llu, remove from previous AppTracker %@", &v12, 0x16u);
       }
 
       immediateUser3 = [linkagesCopy immediateUser];
@@ -480,13 +478,11 @@ LABEL_12:
 
     [(AppTracker *)self addImmediateFlow:linkagesCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   uuidCopy = uuid;
   blockCopy = block;
   if (id > 8)
@@ -532,12 +528,12 @@ LABEL_17:
       (*(blockCopy + 2))(blockCopy, 0, "Snapshot started", date, "on demand", 0, MEMORY[0x277CBEC10]);
       goto LABEL_18;
     case 5uLL:
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __62__AppTracker__generateInfoForId_context_uuid_completionBlock___block_invoke;
-      v16[3] = &__block_descriptor_40_e26_v32__0I8Q12__NSArray_20B28l;
-      v16[4] = 5;
-      [AppTracker endTrafficClassFlowSnapshot:MEMORY[0x277D85CD0] periodUsecs:-1 reply:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __62__AppTracker__generateInfoForId_context_uuid_completionBlock___block_invoke;
+      v15[3] = &__block_descriptor_40_e26_v32__0I8Q12__NSArray_20B28l;
+      v15[4] = 5;
+      [AppTracker endTrafficClassFlowSnapshot:MEMORY[0x277D85CD0] periodUsecs:-1 reply:v15];
       date = [MEMORY[0x277CBEAA8] date];
       (*(blockCopy + 2))(blockCopy, 0, "Snapshot details requested", date, "on demand", 0, MEMORY[0x277CBEC10]);
 LABEL_18:
@@ -558,38 +554,34 @@ LABEL_12:
   }
 
 LABEL_19:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__AppTracker__generateInfoForId_context_uuid_completionBlock___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4, int a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
   {
     v11 = *(a1 + 32);
     v12 = "no";
-    v14 = 134219010;
+    v13 = 134219010;
     if (a5)
     {
       v12 = "yes";
     }
 
-    v15 = v11;
-    v16 = 1024;
-    v17 = a2;
-    v18 = 2048;
-    v19 = a3;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2080;
-    v23 = v12;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "handling  managed event request %llu gives tcFlag %u enabled for %lld with identifiers %@, violation: %s", &v14, 0x30u);
+    v14 = v11;
+    v15 = 1024;
+    v16 = a2;
+    v17 = 2048;
+    v18 = a3;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2080;
+    v22 = v12;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "handling  managed event request %llu gives tcFlag %u enabled for %lld with identifiers %@, violation: %s", &v13, 0x30u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
@@ -620,7 +612,7 @@ void __62__AppTracker__generateInfoForId_context_uuid_completionBlock___block_in
 
 + (id)ifTrackerForFlow:(id)flow
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   if (([flowCopy flags] & 0x400) != 0)
   {
@@ -643,56 +635,54 @@ LABEL_5:
   }
 
   ifType = [flowCopy ifType];
-  v9 = flowLogHandle;
+  v8 = flowLogHandle;
   if (ifType == 3)
   {
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Don't have a tracker for WiredEthernet interface type", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Don't have a tracker for WiredEthernet interface type", &v10, 2u);
     }
   }
 
   else if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v10 = v9;
-    v11 = 134217984;
+    v9 = v8;
+    v10 = 134217984;
     ifType2 = [flowCopy ifType];
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Don't have a tracker for this flow's interface type: %ld", &v11, 0xCu);
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Don't have a tracker for this flow's interface type: %ld", &v10, 0xCu);
   }
 
   v5 = 0;
 LABEL_6:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (void)pruneCache:(id)cache
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   allKeys = [cacheCopy allKeys];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [cacheCopy objectForKey:v9];
         if (![v10 flowsForSelf] && !objc_msgSend(v10, "flowsForOthers"))
         {
@@ -714,13 +704,11 @@ LABEL_6:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)noteFlow:(id)flow withDelegatee:(id)delegatee snapshot:(id)snapshot
@@ -759,6 +747,19 @@ LABEL_6:
   else
   {
     (*(activity + 2))(activity, 0x8000, 0, @"Couldn't kick off data refresh, no wifi tracking", 0.0);
+  }
+}
+
++ (void)noteForegroundState:(BOOL)state forApp:(id)app hasForegroundApps:(BOOL)apps
+{
+  v5 = cellTracker;
+  if (cellTracker)
+  {
+    appsCopy = apps;
+    stateCopy = state;
+    appCopy = app;
+    observer = [v5 observer];
+    [observer noteForegroundState:stateCopy forApp:appCopy hasForegroundApps:appsCopy];
   }
 }
 
@@ -881,72 +882,70 @@ LABEL_6:
 
 void __34__AppTracker_startFlowPeriodTimer__block_invoke()
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v0 = [cellTracker trackerCache];
   v1 = [v0 allValues];
 
-  v2 = [v1 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v18;
+    v4 = *v17;
     do
     {
       v5 = 0;
       do
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v17 + 1) + 8 * v5++) resetFlowCountPolicyInfo];
+        [*(*(&v16 + 1) + 8 * v5++) resetFlowCountPolicyInfo];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v3);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = [wifiTracker trackerCache];
   v7 = [v6 allValues];
 
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) resetFlowCountPolicyInfo];
+        [*(*(&v12 + 1) + 8 * v11++) resetFlowCountPolicyInfo];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dumpState
@@ -975,6 +974,13 @@ void __34__AppTracker_startFlowPeriodTimer__block_invoke()
   }
 
   [companionLinkTracker _dumpState];
+}
+
++ (void)setTrackCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  observer = [cellTracker observer];
+  [observer setEnabled:cellularCopy];
 }
 
 - (int)configureInstance:(id)instance

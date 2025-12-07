@@ -12,7 +12,7 @@
   v7 = sub_1C840B17C();
   v9 = v8;
 
-  v10 = static SpotlightIconRenderer.loadIcon(from:with:)(width, height);
+  v10 = static SpotlightIconRenderer.loadIcon(from:with:)(v7, v9, width, height);
   sub_1C8315128(v7, v9);
 
   return v10;

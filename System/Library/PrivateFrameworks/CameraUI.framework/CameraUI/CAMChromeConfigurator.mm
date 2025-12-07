@@ -72,10 +72,10 @@
 
 - (void)setAvailableCaptureModeRawValues:(id)values
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FF728);
-  v5 = MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FF728, &qword_1A3A793D8);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
   v9 = &v16 - v8;
   v10 = sub_1A3A2ED80();
   v11 = *(v10 - 8);
@@ -84,22 +84,22 @@
   sub_1A3A2ED70();
   (*(v11 + 16))(v9, v13, v10);
   (*(v11 + 56))(v9, 0, 1, v10);
-  KeyPath = swift_getKeyPath();
-  v15 = swift_getKeyPath();
-  sub_1A397BCBC(v9, v7);
-  sub_1A3979908(v7, self, KeyPath, v15);
-  sub_1A388F740(v9, &qword_1EB0FF728);
+  KeyPath = swift_getKeyPath(a8_1);
+  v15 = swift_getKeyPath(byte_1A3A7B1C8);
+  sub_1A397BCBC(v9, v6);
+  sub_1A3979908(v6, self, KeyPath, v15);
+  sub_1A388F740(v9, &qword_1EB0FF728, &qword_1A3A793D8);
   (*(v11 + 8))(v13, v10);
 }
 
 - (void)setCaptureGraphConfiguration:(id)configuration
 {
-  swift_getKeyPath();
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath(byte_1A3A7B0C8, a2);
+  v6 = swift_getKeyPath(byte_1A3A7B0F0);
   configurationCopy = configuration;
   selfCopy = self;
 
-  sub_1A3979764(configuration, selfCopy);
+  sub_1A3979764(configuration, selfCopy, KeyPath, v6);
 }
 
 - (int64_t)hdrMode
@@ -119,16 +119,18 @@
 
 - (void)updateThumbnailImage:(id)image uuid:(id)uuid animated:(BOOL)animated
 {
-  sub_1A3A31850();
+  animatedCopy = animated;
+  v8 = sub_1A3A31850();
+  v10 = v9;
   imageCopy = image;
   selfCopy = self;
-  sub_1A3970674(image);
+  sub_1A3970674(image, v8, v10, animatedCopy);
 }
 
 - (void)removeThumbnailImage
 {
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(a0_7, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F070();
 }
@@ -137,26 +139,26 @@
 {
   v4 = *&mapping.var0;
   v5 = *&mapping.var1;
-  swift_getKeyPath();
-  swift_getKeyPath();
-  sub_1A3979F04(v4, v5, 0, self);
+  KeyPath = swift_getKeyPath(byte_1A3A7ACD8, a2);
+  v7 = swift_getKeyPath(byte_1A3A7AD00);
+  sub_1A3979F04(v4, v5, 0, self, KeyPath, v7);
 }
 
 - (void)setOverscanOverlayAlpha:(double)alpha duration:(double)duration
 {
-  swift_getKeyPath();
-  swift_getKeyPath();
-  sub_1A3979F04(*&alpha, *&duration, 0, self);
+  KeyPath = swift_getKeyPath(asc_1A3A7AC90, a2);
+  v8 = swift_getKeyPath(asc_1A3A7ACB8);
+  sub_1A3979F04(*&alpha, *&duration, 0, self, KeyPath, v8);
 }
 
 - (void)setSharedLibraryEnabled:(BOOL)enabled mode:(int64_t)mode
 {
   enabledCopy = enabled;
-  swift_getKeyPath();
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath(asc_1A3A7AC48, a2);
+  v8 = swift_getKeyPath(asc_1A3A7AC70);
   selfCopy = self;
 
-  sub_1A397A054(enabledCopy, mode, selfCopy);
+  sub_1A397A054(enabledCopy, mode, selfCopy, KeyPath, v8);
 }
 
 - (CAMDynamicShutterControl)shutterControl
@@ -169,7 +171,7 @@
     selfCopy = self;
     v6 = sub_1A38C048C(v3, v4);
     v7 = v3(v6);
-    sub_1A3671090(v3);
+    sub_1A3671090(v3, v4);
   }
 
   else
@@ -182,7 +184,7 @@
 
 - (void)setSupportedVideoFormatsRawValues:(id)values
 {
-  sub_1A38E805C(0, &qword_1ED998538);
+  sub_1A38E805C(0, &qword_1ED998538, 0x1E696AD98);
   v4 = sub_1A3A319A0();
   selfCopy = self;
   sub_1A3971A08(v4);
@@ -197,8 +199,8 @@
 - (CGRect)chromeSidebarFrame
 {
   v3 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79F30, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -221,8 +223,8 @@
 - (CGRect)collapsedTopBarFrame
 {
   v3 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79F08, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -253,8 +255,8 @@
 - (void)setFlashMode:(int64_t)mode
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79A20, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -305,8 +307,8 @@
 - (void)setIsSemanticStylesSupported:(BOOL)supported
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79EE0, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -318,8 +320,8 @@
 - (void)setSemanticStylePreset:(int64_t)preset
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79EE0, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -395,8 +397,8 @@
 - (void)setFilterThumbnailContents:(id)contents
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79750, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   contentsCopy = contents;
   selfCopy = self;
   sub_1A3A2F080();
@@ -468,8 +470,8 @@
 - (void)setMacroMode:(int64_t)mode
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79EB8, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -482,8 +484,8 @@
 - (void)setIsAutoMacroButtonVisible:(BOOL)visible
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79EB8, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 
@@ -495,8 +497,8 @@
 - (void)setDepthEffectSuggestionButtonMode:(int64_t)mode
 {
   v5 = *(&self->super.isa + OBJC_IVAR___CAMChromeConfigurator_viewModel);
-  swift_getKeyPath();
-  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel);
+  swift_getKeyPath(byte_1A3A79E90, a2);
+  sub_1A397E370(&qword_1ED996608, type metadata accessor for ChromeViewModel, &unk_1A3A70668);
   selfCopy = self;
   sub_1A3A2F080();
 

@@ -61,33 +61,34 @@ LABEL_7:
   rawHistoryToken = [(BCCloudSyncVersions *)self rawHistoryToken];
   if (rawHistoryToken)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:rawHistoryToken error:&v8];
-    v4 = v8;
+    v9 = 0;
+    v3 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:rawHistoryToken error:&v9];
+    v4 = v9;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = v3;
+      v6 = v3;
     }
 
     else
     {
-      v6 = BDSCloudKitLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = BDSCloudKitLog(isKindOfClass);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1E4704840(v4, v6);
+        sub_1E4704840(v4, v7);
       }
 
-      v5 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

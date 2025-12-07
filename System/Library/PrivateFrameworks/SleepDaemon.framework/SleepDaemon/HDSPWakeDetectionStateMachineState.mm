@@ -7,17 +7,17 @@
 
 - (void)updateState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   if ([(HDSPWakeDetectionStateMachineState *)self isWakeDetectionDisabled])
   {
     v4 = HKSPLogForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 138543362;
-      *&v15[4] = objc_opt_class();
-      v5 = *&v15[4];
-      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake detection disabled", v15, 0xCu);
+      *v14 = 138543362;
+      *&v14[4] = objc_opt_class();
+      v5 = *&v14[4];
+      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake detection disabled", v14, 0xCu);
     }
 
     disabledState = [stateMachine disabledState];
@@ -33,10 +33,10 @@
       v9 = HKSPLogForCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 138543362;
-        *&v15[4] = objc_opt_class();
-        v10 = *&v15[4];
-        _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] in detection window for activity (and explicit)", v15, 0xCu);
+        *v14 = 138543362;
+        *&v14[4] = objc_opt_class();
+        v10 = *&v14[4];
+        _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] in detection window for activity (and explicit)", v14, 0xCu);
       }
 
       activityDetectingState = [stateMachine activityDetectingState];
@@ -47,10 +47,10 @@
       v11 = HKSPLogForCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 138543362;
-        *&v15[4] = objc_opt_class();
-        v12 = *&v15[4];
-        _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] in detection window for explicit", v15, 0xCu);
+        *v14 = 138543362;
+        *&v14[4] = objc_opt_class();
+        v12 = *&v14[4];
+        _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] in detection window for explicit", v14, 0xCu);
       }
 
       activityDetectingState = [stateMachine explicitDetectingState];
@@ -62,15 +62,13 @@
     }
 
     v13 = activityDetectingState;
-    [stateMachine enterState:{activityDetectingState, *v15}];
+    [stateMachine enterState:{activityDetectingState, *v14, *&v14[8]}];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isWakeDetectionDisabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   infoProvider = [stateMachine infoProvider];
   sleepScheduleModel = [infoProvider sleepScheduleModel];
@@ -83,10 +81,10 @@
       sleepEventRecord = HKSPLogForCategory();
       if (os_log_type_enabled(sleepEventRecord, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543362;
-        v17 = objc_opt_class();
-        v10 = v17;
-        _os_log_impl(&dword_269B11000, sleepEventRecord, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep features disabled", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = objc_opt_class();
+        v10 = v16;
+        _os_log_impl(&dword_269B11000, sleepEventRecord, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep features disabled", &v15, 0xCu);
       }
 
       goto LABEL_20;
@@ -105,9 +103,9 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v16 = 138543362;
-      v17 = objc_opt_class();
-      v12 = v17;
+      v15 = 138543362;
+      v16 = objc_opt_class();
+      v12 = v16;
       v13 = "[%{public}@] sleep tracking onboarding not completed";
     }
 
@@ -127,13 +125,13 @@ LABEL_21:
         goto LABEL_19;
       }
 
-      v16 = 138543362;
-      v17 = objc_opt_class();
-      v12 = v17;
+      v15 = 138543362;
+      v16 = objc_opt_class();
+      v12 = v16;
       v13 = "[%{public}@] sleep coaching onboarding not completed";
     }
 
-    _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, v13, &v16, 0xCu);
+    _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, v13, &v15, 0xCu);
 
     goto LABEL_19;
   }
@@ -141,16 +139,15 @@ LABEL_21:
   sleepSettings = HKSPLogForCategory();
   if (os_log_type_enabled(sleepSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = objc_opt_class();
-    v9 = v17;
-    _os_log_impl(&dword_269B11000, sleepSettings, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep schedule disabled", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = objc_opt_class();
+    v9 = v16;
+    _os_log_impl(&dword_269B11000, sleepSettings, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep schedule disabled", &v15, 0xCu);
   }
 
   v8 = 1;
 LABEL_22:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

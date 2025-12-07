@@ -6,6 +6,7 @@
 - (NSDate)complicationDate;
 - (id)_fontWithSize:(double)size withFontDescriptor:(id)descriptor;
 - (id)backgroundColorForView:(id)view;
+- (id)colorForView:(id)view accented:(BOOL)accented;
 - (id)filterForView:(id)view style:(int64_t)style;
 - (id)filterForView:(id)view style:(int64_t)style fraction:(double)fraction;
 - (id)filtersForView:(id)view style:(int64_t)style;
@@ -157,6 +158,16 @@
   return v7;
 }
 
+- (id)colorForView:(id)view accented:(BOOL)accented
+{
+  accentedCopy = accented;
+  viewCopy = view;
+  filterProvider = [(CDRichComplicationView *)self filterProvider];
+  v8 = [filterProvider colorForView:viewCopy accented:accentedCopy];
+
+  return v8;
+}
+
 - (id)interpolatedColorForView:(id)view
 {
   viewCopy = view;
@@ -202,14 +213,14 @@
     {
       if (style == 3)
       {
-        v4 = CDRichComplicationSemiboldFontDescriptor();
+        v4 = CDRichComplicationSemiboldFontDescriptor(0);
         goto LABEL_11;
       }
 
       v6 = 0;
       if (style == 5)
       {
-        v4 = CDRichComplicationOpenFontDescriptor();
+        v4 = CDRichComplicationOpenFontDescriptor(0);
         goto LABEL_11;
       }
     }
@@ -226,7 +237,7 @@
       v6 = 0;
       if (style == 2)
       {
-        v4 = CDRichComplicationMonoFontDescriptor();
+        v4 = CDRichComplicationMonoFontDescriptor(0);
 LABEL_11:
         v5 = 0;
         v6 = 0x3FF0000000000000;

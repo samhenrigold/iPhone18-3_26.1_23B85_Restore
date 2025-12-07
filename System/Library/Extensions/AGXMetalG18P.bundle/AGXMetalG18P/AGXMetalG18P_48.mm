@@ -87,25 +87,25 @@ void AGX::EndOfTileProgramKey::serialize(AGX::EndOfTileProgramKey *this, const v
   *a3 = *(this + 3) - v14;
 }
 
-double AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateBackgroundObjectProgramKey@<D0>(int *a1@<X1>, uint64_t a2@<X8>)
+double AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateBackgroundObjectProgramKey@<D0>(uint64_t a1@<X8>, int *a2@<X1>)
 {
   v11 = *MEMORY[0x29EDCA608];
-  *(a2 + 8) = 13;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 16) = 0;
-  *a2 = &unk_2A23F7990;
-  *(a2 + 40) = 0u;
-  *(a2 + 56) = 0u;
-  *(a2 + 72) = 0u;
-  AGX::FramebufferCompilerConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::FramebufferCompilerConfigGen3(v5, a1);
+  *(a1 + 8) = 13;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = 0;
+  *a1 = &unk_2A23F7990;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  AGX::FramebufferCompilerConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::FramebufferCompilerConfigGen3(v5, a2);
   result = *v5;
   v4 = v5[1];
-  *(a2 + 40) = v5[0];
-  *(a2 + 56) = v4;
-  *(a2 + 72) = v6;
-  *(a2 + 80) = v9 | (v10 << 16) | (v7 << 24);
-  *(a2 + 84) = v8;
+  *(a1 + 40) = v5[0];
+  *(a1 + 56) = v4;
+  *(a1 + 72) = v6;
+  *(a1 + 80) = v9 | (v10 << 16) | (v7 << 24);
+  *(a1 + 84) = v8;
   return result;
 }
 
@@ -537,8 +537,9 @@ void AGX::Impl::ComputeProgramKey::serialize(AGX::Impl::ComputeProgramKey *this,
   *a3 = *(this + 3) - v12;
 }
 
-char *AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateFragmentProgramKey@<X0>(int *a1@<X1>, int a2@<W2>, NSObject *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, int a6@<W6>, int a7@<W7>, uint64_t a8@<X8>, int a9)
+char *AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateFragmentProgramKey@<X0>(int *a1@<X1>, int a2@<W2>, NSObject *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, int a7@<W7>, uint64_t a8@<X8>, int a9)
 {
+  v10 = a6;
   v253[4] = *MEMORY[0x29EDCA608];
   AGX::FragmentProgramKey::FragmentProgramKey(a8, 0, 0, 0);
   v214 = 0;
@@ -814,7 +815,7 @@ LABEL_115:
           {
 LABEL_129:
             v250 = v65;
-            AGX::FramebufferCompilerConfig<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::initialize(size_ptr, __b, a6, a9);
+            AGX::FramebufferCompilerConfig<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::initialize(size_ptr, __b, v10, a9);
             AGX::FramebufferCompilerConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::buildDrawBufferState(size_ptr, 0);
             v72 = v210;
             *(a8 + 112) = *size_ptr;
@@ -1057,7 +1058,7 @@ LABEL_82:
 
   a1 = AGX::defaultFragmentDescriptor(void)::_desc;
 LABEL_130:
-  *(a8 + 108) = ((a6 & 3) << 14) | ((a9 & 1) << 16) | *(a8 + 108) & 0xFFFE3FFF;
+  *(a8 + 108) = ((v10 & 3) << 14) | ((a9 & 1) << 16) | *(a8 + 108) & 0xFFFE3FFF;
   if ((a7 == 7 || a7 == 2) && (*(a8 + 144) & 0xF00) != 0)
   {
     if (*(a8 + 144))
@@ -1105,7 +1106,7 @@ LABEL_242:
   v76 = 0;
   v77 = a1 + v75;
   v78 = *(a1 + v75);
-  v79 = a6 - 1;
+  v79 = v10 - 1;
   v80 = &v77[v78];
   for (i = 64; i != 96; i += 4)
   {
@@ -1315,7 +1316,7 @@ LABEL_182:
                       if (*(v118 - 60) >= 7u && (v119 = *(v118 - 54)) != 0)
                       {
                         v120 = v80[i - 60 + v83 + v119];
-                        if (a6 == 1)
+                        if (v10 == 1)
                         {
                           goto LABEL_143;
                         }
@@ -1324,7 +1325,7 @@ LABEL_182:
                       else
                       {
                         v120 = 15;
-                        if (a6 == 1)
+                        if (v10 == 1)
                         {
                           goto LABEL_143;
                         }
@@ -2226,110 +2227,110 @@ LABEL_27:
   *a3 = *(this + 3) - v34;
 }
 
-uint64_t AGX::Impl::FragmentProgramKey::legalizeStateForTargetOS(_DWORD *a1, void *a2)
+int8x8_t AGX::Impl::FragmentProgramKey::legalizeStateForTargetOS(_DWORD *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v2 = a2[1];
-  if ((v2 & 0x1000A0011000E00) == 0 || (*a2 & v2) >= (v2 & 0x1000A0011000E00))
+  v9 = a2[1];
+  if ((v9 & 0x1000A0011000E00) != 0 && (*a2 & v9) < (v9 & 0x1000A0011000E00))
   {
-    return 1;
-  }
+    v10 = a1[28];
+    if ((v10 & 0x1F) == 0x16)
+    {
+      a1[28] = v10 & 0xFFFFFFE0 | 0xF;
+    }
 
-  v3 = a1[28];
-  if ((v3 & 0x1F) == 0x16)
-  {
-    a1[28] = v3 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v3 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v4 = a1[29];
-  if ((v4 & 0x1F) == 0x16)
-  {
-    a1[29] = v4 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v4 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v5 = a1[30];
-  if ((v5 & 0x1F) == 0x16)
-  {
-    a1[30] = v5 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v5 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v6 = a1[31];
-  if ((v6 & 0x1F) == 0x16)
-  {
-    a1[31] = v6 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v6 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v7 = a1[32];
-  if ((v7 & 0x1F) == 0x16)
-  {
-    a1[32] = v7 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v7 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v8 = a1[33];
-  if ((v8 & 0x1F) == 0x16)
-  {
-    a1[33] = v8 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v8 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v9 = a1[34];
-  if ((v9 & 0x1F) == 0x16)
-  {
-    a1[34] = v9 & 0xFFFFFFE0 | 0xF;
-  }
-
-  else if ((v9 & 0x1F) == 0x17)
-  {
-    goto LABEL_35;
-  }
-
-  v10 = a1[35];
-  if ((v10 & 0x1F) == 0x16)
-  {
-    a1[35] = v10 & 0xFFFFFFE0 | 0xF;
-    return 1;
-  }
-
-  if ((v10 & 0x1F) != 0x17)
-  {
-    return 1;
-  }
-
+    else if ((v10 & 0x1F) == 0x17)
+    {
 LABEL_35:
-  std::__throw_bad_optional_access[abi:nn200100]();
-  return AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateMeshProgramKey();
+      std::__throw_bad_optional_access[abi:nn200100]();
+      return AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateMeshProgramKey(v18, v19, v20, v21, v22, v23, v24, v25, a9);
+    }
+
+    v11 = a1[29];
+    if ((v11 & 0x1F) == 0x16)
+    {
+      a1[29] = v11 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v11 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v12 = a1[30];
+    if ((v12 & 0x1F) == 0x16)
+    {
+      a1[30] = v12 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v12 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v13 = a1[31];
+    if ((v13 & 0x1F) == 0x16)
+    {
+      a1[31] = v13 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v13 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v14 = a1[32];
+    if ((v14 & 0x1F) == 0x16)
+    {
+      a1[32] = v14 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v14 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v15 = a1[33];
+    if ((v15 & 0x1F) == 0x16)
+    {
+      a1[33] = v15 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v15 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v16 = a1[34];
+    if ((v16 & 0x1F) == 0x16)
+    {
+      a1[34] = v16 & 0xFFFFFFE0 | 0xF;
+    }
+
+    else if ((v16 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+
+    v17 = a1[35];
+    if ((v17 & 0x1F) == 0x16)
+    {
+      a1[35] = v17 & 0xFFFFFFE0 | 0xF;
+      return result;
+    }
+
+    if ((v17 & 0x1F) == 0x17)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  return result;
 }
 
-int8x8_t AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateMeshProgramKey@<D0>(int *a1@<X1>, uint64_t a2@<X2>, int a3@<W3>, int a4@<W4>, NSObject *a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>, char a9)
+int8x8_t AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateMeshProgramKey@<D0>(int *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, NSObject *a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>, char a9)
 {
+  v11 = a4;
+  v12 = a3;
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&v51, *a2, *(a2 + 8));
@@ -2375,7 +2376,7 @@ int8x8_t AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
   }
 
   v56 = v16;
-  AGX::MeshProgramKey::MeshProgramKey(a8, 0, a3, a4, &v54, 0, 0, 0);
+  AGX::MeshProgramKey::MeshProgramKey(a8, 0, v12, v11, &v54, 0, 0, 0);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2620,18 +2621,18 @@ LABEL_26:
   return result;
 }
 
-void sub_29CC89DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC89DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void *);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   AGX::FragmentProgramVaryings::~FragmentProgramVaryings(va1);
   AGX::FragmentProgramVaryings::~FragmentProgramVaryings(va);
   _Unwind_Resume(a1);
@@ -2756,27 +2757,27 @@ void sub_29CC8A0B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29CC8A0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29CC8A0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  v11 = *v8;
-  if (*v8)
+  va_start(va, a13);
+  v17 = *v14;
+  if (*v14)
   {
-    *(v7 + 112) = v11;
-    operator delete(v11);
+    *(v13 + 112) = v17;
+    operator delete(v17);
   }
 
-  if (*(v7 + 95) < 0)
+  if (*(v13 + 95) < 0)
   {
-    operator delete(*v9);
+    operator delete(*v15);
   }
 
-  *v7 = a2;
-  v12 = *(v7 + 16);
-  if (v12)
+  *v13 = a8;
+  v18 = *(v13 + 16);
+  if (v18)
   {
-    *(v7 + 24) = v12;
-    operator delete(v12);
+    *(v13 + 24) = v18;
+    operator delete(v18);
   }
 
   AGX::FragmentProgramVaryings::~FragmentProgramVaryings(va);
@@ -2931,25 +2932,25 @@ char *AGX::Impl::MeshProgramKey::addToSerializeStream(char *this)
     if (v8 > v8 + v9)
     {
       v6 = v5 + 4 * (v8 + v9);
-      *(v1 + 24) = v6;
+      *(v1 + 3) = v6;
     }
   }
 
   else
   {
     std::vector<unsigned int>::__append(v4, v9);
-    v5 = *(v1 + 16);
-    v6 = *(v1 + 24);
+    v5 = *(v1 + 2);
+    v6 = *(v1 + 3);
   }
 
   *(v5 + v7) = ((v6 - v5) >> 2 << 8) | 0x4B;
   this = memcpy((v5 + v7 + 4), v2, v3);
 LABEL_11:
-  v10 = (v1 + 176);
-  v11 = *(v1 + 199);
+  v10 = v1 + 176;
+  v11 = v1[199];
   if ((v11 & 0x8000000000000000) != 0)
   {
-    v11 = *(v1 + 184);
+    v11 = *(v1 + 23);
     if (!v11)
     {
       return this;
@@ -2958,13 +2959,13 @@ LABEL_11:
     v10 = *v10;
   }
 
-  else if (!*(v1 + 199))
+  else if (!v1[199])
   {
     return this;
   }
 
-  v12 = *(v1 + 16);
-  v13 = *(v1 + 24);
+  v12 = *(v1 + 2);
+  v13 = *(v1 + 3);
   v14 = v13 - v12;
   v15 = (v13 - v12) >> 2;
   v16 = (((v11 + 3) >> 2) + 2) & 0x7FFFFFFFFFFFFFFELL;
@@ -2973,15 +2974,15 @@ LABEL_11:
     if (v15 > v15 + v16)
     {
       v13 = v12 + 4 * (v15 + v16);
-      *(v1 + 24) = v13;
+      *(v1 + 3) = v13;
     }
   }
 
   else
   {
     std::vector<unsigned int>::__append((v1 + 16), v16);
-    v12 = *(v1 + 16);
-    v13 = *(v1 + 24);
+    v12 = *(v1 + 2);
+    v13 = *(v1 + 3);
   }
 
   *(v12 + v14) = ((v13 - v12) >> 2 << 8) | 0x4C;
@@ -2989,7 +2990,7 @@ LABEL_11:
   return memcpy((v12 + v14 + 4), v10, v11);
 }
 
-int8x8_t AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateObjectProgramKey@<D0>(int *a1@<X1>, int a2@<W2>, int a3@<W3>, NSObject *a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
+int8x8_t AGX::ProgramKeyFactoryImpl<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateObjectProgramKey@<D0>(int *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, NSObject *a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
 {
   AGX::ObjectProgramKey::ObjectProgramKey(a7, 0, 0, 0, a2, a3);
   if (!a1)
@@ -3797,27 +3798,27 @@ void sub_29CC8B570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29CC8B5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29CC8B5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  v9 = *v6;
-  if (*v6)
+  va_start(va, a9);
+  v13 = *v10;
+  if (*v10)
   {
-    *(v5 + 104) = v9;
-    operator delete(v9);
+    *(v9 + 104) = v13;
+    operator delete(v13);
   }
 
-  if (*(v5 + 87) < 0)
+  if (*(v9 + 87) < 0)
   {
-    operator delete(*(v5 + 64));
+    operator delete(*(v9 + 64));
   }
 
-  *v5 = v7;
-  v10 = *(v5 + 16);
-  if (v10)
+  *v9 = v11;
+  v14 = *(v9 + 16);
+  if (v14)
   {
-    *(v5 + 24) = v10;
-    operator delete(v10);
+    *(v9 + 24) = v14;
+    operator delete(v14);
   }
 
   AGX::FragmentProgramVaryings::~FragmentProgramVaryings(va);
@@ -3951,25 +3952,25 @@ char *AGX::Impl::VertexProgramKey::addToSerializeStream(char *this)
     if (v8 > v8 + v9)
     {
       v6 = v5 + 4 * (v8 + v9);
-      *(v1 + 24) = v6;
+      *(v1 + 3) = v6;
     }
   }
 
   else
   {
     std::vector<unsigned int>::__append(v4, v9);
-    v5 = *(v1 + 16);
-    v6 = *(v1 + 24);
+    v5 = *(v1 + 2);
+    v6 = *(v1 + 3);
   }
 
   *(v5 + v7) = ((v6 - v5) >> 2 << 8) | 0x4B;
   this = memcpy((v5 + v7 + 4), v2, v3);
 LABEL_11:
-  v10 = (v1 + 168);
-  v11 = *(v1 + 191);
+  v10 = v1 + 168;
+  v11 = v1[191];
   if ((v11 & 0x8000000000000000) != 0)
   {
-    v11 = *(v1 + 176);
+    v11 = *(v1 + 22);
     if (!v11)
     {
       return this;
@@ -3978,13 +3979,13 @@ LABEL_11:
     v10 = *v10;
   }
 
-  else if (!*(v1 + 191))
+  else if (!v1[191])
   {
     return this;
   }
 
-  v12 = *(v1 + 16);
-  v13 = *(v1 + 24);
+  v12 = *(v1 + 2);
+  v13 = *(v1 + 3);
   v14 = v13 - v12;
   v15 = (v13 - v12) >> 2;
   v16 = (((v11 + 3) >> 2) + 2) & 0x7FFFFFFFFFFFFFFELL;
@@ -3993,15 +3994,15 @@ LABEL_11:
     if (v15 > v15 + v16)
     {
       v13 = v12 + 4 * (v15 + v16);
-      *(v1 + 24) = v13;
+      *(v1 + 3) = v13;
     }
   }
 
   else
   {
     std::vector<unsigned int>::__append((v1 + 16), v16);
-    v12 = *(v1 + 16);
-    v13 = *(v1 + 24);
+    v12 = *(v1 + 2);
+    v13 = *(v1 + 3);
   }
 
   *(v12 + v14) = ((v13 - v12) >> 2 << 8) | 0x4C;
@@ -4016,10 +4017,10 @@ id __copy_helper_block_e8_88c83_ZTS19RetainedObjCPointerIP7NSArrayIPU28objcproto
   return result;
 }
 
-unint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(void *a1, void *a2, uint64_t *a3, void *a4, int a5)
+void *AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(size_t *a1, void *a2, uint64_t *a3, void *a4, unsigned int a5)
 {
-  v21 = a2;
-  v20 = a5;
+  v20 = a2;
+  v19 = a5;
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
@@ -4038,17 +4039,13 @@ unint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX:
     }
 
     v10 = *a3;
-    v18[0] = &v19;
-    v18[1] = a1;
-    v18[2] = &v21;
-    v18[3] = &v20;
-    v19 = v10;
-    v11 = [a4 functions];
-    [a4 functionResourceIndices];
-    AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(v18, v11);
-    v12 = [a4 privateFunctions];
-    [a4 privateFunctionResourceIndices];
-    AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(v18, v12);
+    v17[0] = &v18;
+    v17[1] = a1;
+    v17[2] = &v20;
+    v17[3] = &v19;
+    v18 = v10;
+    AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(v17, [a4 functions], objc_msgSend(a4, "functionResourceIndices"));
+    AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(v17, [a4 privateFunctions], objc_msgSend(a4, "privateFunctionResourceIndices"));
     for (i = 0; ; ++i)
     {
       result = [objc_msgSend(a4 "binaryFunctions")];
@@ -4057,22 +4054,21 @@ unint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX:
         break;
       }
 
-      v14 = [objc_msgSend(a4 "binaryFunctions")];
-      if ([v14 functionType] == 6)
+      v12 = [objc_msgSend(a4 "binaryFunctions")];
+      if ([v12 functionType] == 6)
       {
-        v15 = [v14 vendorPrivate];
-        if ([a4 binaryFunctionResourceIndices])
+        v13 = [v12 vendorPrivate];
+        v14 = [a4 binaryFunctionResourceIndices] ? *(objc_msgSend(a4, "binaryFunctionResourceIndices") + 8 * i) : 0;
+        AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getOrCreatePipelineSet(&v16, v13 + 8, v20[106], v19, v14);
+        std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::push_back[abi:nn200100](a1, &v16);
+        v15 = *(&v16 + 1);
+        if (*(&v16 + 1))
         {
-          [a4 binaryFunctionResourceIndices];
-        }
-
-        AGX::UserIntersectionProgram<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getOrCreatePipelineSet(&v17, v15 + 8);
-        std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::push_back[abi:nn200100](a1, &v17);
-        v16 = *(&v17 + 1);
-        if (*(&v17 + 1) && !atomic_fetch_add((*(&v17 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v16->__on_zero_shared)(v16);
-          std::__shared_weak_count::__release_weak(v16);
+          if (!atomic_fetch_add((*(&v16 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v15->__on_zero_shared)(v15);
+            std::__shared_weak_count::__release_weak(v15);
+          }
         }
       }
     }
@@ -4081,7 +4077,7 @@ unint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX:
   return result;
 }
 
-void **std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::~vector[abi:nn200100](void **a1)
+char **std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::~vector[abi:nn200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -4124,7 +4120,7 @@ id AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
     v44 = a3;
     v45 = a2;
     v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
-    v8 = (MEMORY[0x2A1C7C4A8])();
+    v8 = MEMORY[0x2A1C7C4A8](a1);
     v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
     MEMORY[0x2A1C7C4A8](v8);
     v12 = &v43 - v11;
@@ -4231,7 +4227,7 @@ LABEL_14:
   return v17;
 }
 
-void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setConstantSamplerIdentifiersOnReflection<MTLRenderPipelineReflection>(uint64_t a1, uint64_t a2, unsigned int a3, void *a4)
+void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setConstantSamplerIdentifiersOnReflection<MTLRenderPipelineReflection>(__int128 *a1, uint64_t *a2, unsigned int a3, void *a4)
 {
   if (a1 && a2)
   {
@@ -4291,7 +4287,7 @@ void *std::unique_ptr<AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Clas
   return result;
 }
 
-unint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(void **a1, void *a2)
+void *AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createIntersectionPipelineSets<true>(AGXG18PFamilyDevice *,std::vector<AGX::HAL300::IntersectionProgramVariantSet *> const&,MTLLinkedFunctions *,unsigned int)::{lambda(NSArray<objc_object  {objcproto11MTLFunction}*> *,unsigned long long *)#1}::operator()(void **a1, void *a2, uint64_t a3)
 {
   result = [a2 count];
   if (result)
@@ -4359,8 +4355,7 @@ void std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::push_ba
 
     v10 = (16 * v6);
     v11 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *a1;
     v13 = a1[1] - *a1;
     v14 = v10 - v13;
@@ -4379,15 +4374,14 @@ void std::vector<std::shared_ptr<AGX::HAL300::IntersectionPipelineSet>>::push_ba
   else
   {
     *v4 = *a2;
-    v5 = v4 + 1;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    v5 = v4 + 16;
+    *a2 = 0uLL;
   }
 
   a1[1] = v5;
 }
 
-uint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::loadDynamicLibrariesForFunctions(AGXG18PFamilyDevice *,objc_object  {objcproto11MTLFunction}*,MTLLinkedFunctions *,NSArray<objc_object  {objcproto17MTLDynamicLibrary}*> *,NSError **)const::{lambda(MTLLinkedFunctions **<objc_object  {objcproto11MTLFunction}>)#1}::operator()(void ***a1, void *a2)
+void *AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::loadDynamicLibrariesForFunctions(AGXG18PFamilyDevice *,objc_object  {objcproto11MTLFunction}*,MTLLinkedFunctions *,NSArray<objc_object  {objcproto17MTLDynamicLibrary}*> *,NSError **)const::{lambda(MTLLinkedFunctions **<objc_object  {objcproto11MTLFunction}>)#1}::operator()(void ***a1, void *a2)
 {
   v16 = *MEMORY[0x29EDCA608];
   v11 = 0u;
@@ -4427,7 +4421,7 @@ uint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::
           while ([v9 count] > v10);
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v7 != v5);
@@ -4441,7 +4435,7 @@ uint64_t AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::
   return result;
 }
 
-id AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(uint64_t a1, void *a2, char *a3, uint64_t a4, unint64_t a5, uint64_t a6, void **a7, uint64_t a8, uint64_t a9, uint64_t a10)
+id AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(uint64_t a1, void *a2, char *a3, uint64_t a4, unint64_t a5, uint64_t a6, void **a7, NSObject *a8, uint64_t a9, uint64_t a10)
 {
   v16 = mach_absolute_time();
   if (_MTLCompilePerformanceStatisticsEnabled())
@@ -4597,10 +4591,12 @@ LABEL_10:
   return v25;
 }
 
-void sub_29CC8D188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_29CC8D188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v38 - 128), 8);
+  va_start(va, a36);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 128), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4637,7 +4633,7 @@ LABEL_3:
   return result;
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createComputePipeline_implEP28MTLComputePipelineDescriptorP19AGXG18PFamilyDeviceP26AGXG18PFamilyBinaryArchivemPP28MTLComputePipelineReflectionPP7NSErrorPKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPU34objcproto23MTLComputePipelineState11objc_objectSD_SG_E_block_invoke_2(uint64_t a1, int8x16_t *a2, uint64_t a3, void *a4, unint64_t a5, __CFString *a6)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createComputePipeline_implEP28MTLComputePipelineDescriptorP19AGXG18PFamilyDeviceP26AGXG18PFamilyBinaryArchivemPP28MTLComputePipelineReflectionPP7NSErrorPKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPU34objcproto23MTLComputePipelineState11objc_objectSD_SG_E_block_invoke_2(uint64_t a1, int8x16_t *a2, _OWORD *a3, void *a4, unint64_t a5, __CFString *a6)
 {
   v240 = *MEMORY[0x29EDCA608];
   v216 = 0;
@@ -4827,7 +4823,7 @@ LABEL_47:
     }
 
     AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(v33 + 112);
-    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTable(v33 + 112);
+    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTable((v33 + 112), obj);
     AGX::ComputeProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes>::finalize(*(v33 + 128));
     v36 = *(v33 + 128);
     if ((*(v36 + 2407) & 5) != 0)
@@ -5114,7 +5110,7 @@ LABEL_103:
             operator new();
           }
 
-          HIBYTE(v238) = v85;
+          BYTE7(v238) = v85;
           if (v85)
           {
             memmove(&__dst, v84, v85);
@@ -5123,14 +5119,14 @@ LABEL_103:
           __dst.i8[v86] = 0;
           v87 = std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::find<std::string>((v33 + 616), &__dst);
           v88 = v87;
-          if (SHIBYTE(v238) < 0)
+          if (SBYTE7(v238) < 0)
           {
             operator delete(__dst.i64[0]);
             if (!v88)
             {
 LABEL_130:
               *&__p = [v83 UTF8String];
-              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>();
+              std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto11MTLFunction}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto11MTLFunction}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto11MTLFunction}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}*>>::__construct_node<char const*,objc_object  {objcproto11MTLFunction}&>(__dst.i64, v33 + 616, &__p, &v236);
             }
           }
 
@@ -5159,7 +5155,7 @@ LABEL_130:
               if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>((v33 + 576), v89))
               {
                 __dst.i64[0] = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v92 == 5) name:v83 device:obj handle:VisibleFunctionOffset dylib:0];
-                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((v33 + 576), v89);
+                std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((v33 + 576), v89, &v236, __dst.i64);
               }
             }
           }
@@ -5180,7 +5176,7 @@ LABEL_130:
             }
 
             __dst.i64[0] = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v95 name:v83 device:obj handle:v94 dylib:0];
-            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((v33 + 576), v89);
+            std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_key_args<objc_object  {objcproto11MTLFunction},objc_object  {objcproto11MTLFunction}&,AGXG18PFamilyFunctionHandle>((v33 + 576), v89, &v236, __dst.i64);
             ++v80;
           }
         }
@@ -5266,7 +5262,7 @@ LABEL_130:
               }
 
               v222 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:v114 name:v105 device:obj handle:v113 dylib:0];
-              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+              std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>((v35 + 58), &v218, &v222);
             }
           }
 
@@ -5285,7 +5281,7 @@ LABEL_130:
                 if (!std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::find<objc_object  {objcproto11MTLFunction}>(v35 + 58, v104))
                 {
                   v222 = [[AGXG18PFamilyFunctionHandle alloc] initWithHandleType:2 * (v111 == 5) name:v109 device:obj handle:v110 dylib:v107];
-                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>();
+                  std::__hash_table<std::__hash_value_type<objc_object  {objcproto11MTLFunction}*,RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>,std::__unordered_map_hasher<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::hash<objc_object  {objcproto11MTLFunction}>,std::equal_to<objc_object  {objcproto11MTLFunction}>,true>,std::__unordered_map_equal<objc_object  {objcproto11MTLFunction},RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>,std::equal_to,std::hash,true>,std::allocator<RetainedObjCPointer<AGXG18PFamilyFunctionHandle *>>>::__emplace_unique_impl<_MTLFunction *&,AGXG18PFamilyFunctionHandle>((v35 + 58), &v218, &v222);
                 }
               }
             }
@@ -5445,19 +5441,19 @@ LABEL_275:
         }
 
         v150 = &v147[4 * v148];
-        v151 = *(a3 + 16);
+        v151 = a3[1];
         *v150 = *a3;
         v150[1] = v151;
         v152 = *(v146 + 1112);
         v153 = *(v146 + 1104) + 24 * v152;
         *(v146 + 1112) = v152 + 1;
-        v149 = v153 + 128;
+        v149 = (v153 + 128);
       }
 
-      v154 = *(v149 + 16);
+      v154 = v149[2];
       if (v154)
       {
-        dispatch_retain(*(v149 + 16));
+        dispatch_retain(v149[2]);
       }
 
       v205 = v154;
@@ -5765,7 +5761,7 @@ void sub_29CC90094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputeProgramVariant(id **a1, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, NSObject *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputeProgramVariant(id **a1, void *a2, void *a3, unint64_t a4, uint64_t a5, NSObject *a6, void *a7, os_unfair_lock_s *a8, NSObject *a9, unsigned __int8 a10, uint64_t a11, uint64_t a12)
 {
   v173 = *MEMORY[0x29EDCA608];
   v116[0] = 0;
@@ -5953,24 +5949,24 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
   ReflectionKey::initGPUCompilerSPIOptionsHash(&buffer_ptr, [a2 gpuCompilerSPIOptions]);
   v159 = buffer_ptr;
   v160 = v162;
-  os_unfair_lock_lock((v93 + 1144));
-  v45 = *(v93 + 1104);
-  v46 = *(v93 + 1112);
-  v47 = VectorMap<ReflectionKey,AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::ReflectionEntry,4u>::find(v45, *(v93 + 1112), &v159);
+  os_unfair_lock_lock(v93 + 286);
+  v45 = *&v93[276]._os_unfair_lock_opaque;
+  os_unfair_lock_opaque = v93[278]._os_unfair_lock_opaque;
+  v47 = VectorMap<ReflectionKey,AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::ReflectionEntry,4u>::find(v45, v93[278]._os_unfair_lock_opaque, &v159);
   if (!v47)
   {
-    if (v46 == 4)
+    if (os_unfair_lock_opaque == 4)
     {
       operator new();
     }
 
-    v48 = &v45[4 * v46];
+    v48 = &v45[4 * os_unfair_lock_opaque];
     v49 = v160;
     *v48 = v159;
     v48[1] = v49;
-    v50 = *(v93 + 1112);
-    v51 = *(v93 + 1104) + 24 * v50;
-    *(v93 + 1112) = v50 + 1;
+    v50 = v93[278]._os_unfair_lock_opaque;
+    v51 = *&v93[276]._os_unfair_lock_opaque + 24 * v50;
+    v93[278]._os_unfair_lock_opaque = v50 + 1;
     v47 = (v51 + 128);
   }
 
@@ -5986,14 +5982,14 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
     v53 = 0;
   }
 
-  os_unfair_lock_unlock((v93 + 1144));
+  os_unfair_lock_unlock(v93 + 286);
   v89 = v53 | a4 & 0xFFFFFFFFFFCCFFFCLL;
   if (a5 || v53 & 0x400000004 | a4 & 0x400000004 || a6)
   {
     operator new();
   }
 
-  os_unfair_lock_lock((v93 + 1144));
+  os_unfair_lock_lock(v93 + 286);
   v54 = VectorMap<AGX::ComputeProgramKey,AGX::ProgramVariantEntry<AGX::HAL300::ComputeProgramVariant>,4u>::operator[](v93, v105);
   if (!*v54)
   {
@@ -6001,7 +5997,7 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
     *v54 = v56;
 LABEL_59:
     dispatch_group_enter(v56);
-    os_unfair_lock_unlock((v93 + 1144));
+    os_unfair_lock_unlock(v93 + 286);
     v57 = [objc_msgSend(a2 "pipelineLibrary")];
     v58 = [a2 pipelineLibrary];
     if ([v58 pipelineCache] && (objc_msgSend(v58, "disableRunTimeCompilation") & 1) != 0 || (v59 = objc_msgSend(objc_msgSend(a2, "binaryArchives"), "count"), (a4 & 4) != 0) && v59)
@@ -6272,7 +6268,7 @@ LABEL_59:
     dispatch_group_enter(*v54);
   }
 
-  os_unfair_lock_unlock((v93 + 1144));
+  os_unfair_lock_unlock(v93 + 286);
   if ((v53 & 0x330003) != 0)
   {
     v81 = *a1;
@@ -6369,7 +6365,7 @@ LABEL_108:
   _Block_object_dispose(v116, 8);
 }
 
-void sub_29CC91628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_29CC91628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   v63 = v62;
   os_unfair_lock_unlock(v63 + 286);
@@ -6378,7 +6374,7 @@ void sub_29CC91628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE27createComputeProgramVariantEP28MTLComputePipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_14ComputeProgramEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_21ComputeProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, void *a5, _BYTE *a6)
+uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE27createComputeProgramVariantEP28MTLComputePipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_14ComputeProgramEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_21ComputeProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, __CFString **a5, _BYTE *a6)
 {
   *(*(*(a1 + 56) + 8) + 40) = objc_alloc_init(MEMORY[0x29EDB8E00]);
   AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillCompilePerformanceStatisticsDictionary(*a3, *(a3 + 8), *(*(*(a1 + 56) + 8) + 40), *(a3 + 56), [*(a1 + 32) name], *(a1 + 248));
@@ -6438,7 +6434,7 @@ uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1
     }
   }
 
-  AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 232), *(a1 + 240), *(a3 + 16), a1 + 249, v13);
+  AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 232), *(a1 + 240), *(a3 + 16), (a1 + 249), v13);
   [*(a1 + 48) needsCustomBorderColorSamplers];
   v17 = [*(a1 + 48) profileControl];
   if (v17)
@@ -6457,16 +6453,16 @@ uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1
   return 0;
 }
 
-void sub_29CC91E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29CC91E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  if (*(v7 - 137) < 0)
+  if (*(v12 - 137) < 0)
   {
-    operator delete(*(v7 - 160));
+    operator delete(*(v12 - 160));
   }
 
-  MEMORY[0x29ED520D0](v6, 0x10F3C4078B88C53);
+  MEMORY[0x29ED520D0](v11, 0x10F3C4078B88C53);
   _Unwind_Resume(a1);
 }
 
@@ -6751,7 +6747,7 @@ void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
 
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE27createComputeProgramVariantEP28MTLComputePipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_14ComputeProgramEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_21ComputeProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, a1 + 64, a2);
+  AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, (a1 + 64), a2);
   v4 = **(a1 + 56);
 
   dispatch_group_leave(v4);
@@ -7123,7 +7119,7 @@ LABEL_90:
   return v22 + 608;
 }
 
-void AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, uint64_t a4, uint64_t a5)
+void AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, _OWORD *a4, uint64_t a5)
 {
   v5 = *&a2 & 0x330003;
   if ((*&a2 & 0x330003) == 0)
@@ -7143,13 +7139,13 @@ void AGX::Program<AGX::HAL300::ComputeProgramVariant,AGX::ComputeProgramKey,AGX:
     }
 
     v14 = &v10[4 * v11];
-    v15 = *(a4 + 16);
+    v15 = a4[1];
     *v14 = *a4;
     v14[1] = v15;
     v16 = *(a1 + 1112);
     v17 = *(a1 + 1104) + 24 * v16;
     *(a1 + 1112) = v16 + 1;
-    v12 = v17 + 128;
+    v12 = (v17 + 128);
     v13 = *(v17 + 136);
     if (a5)
     {
@@ -7166,21 +7162,21 @@ LABEL_9:
         v12 = v18;
       }
 
-      if (*(v12 + 16))
+      if (v12[2])
       {
         v19 = v12;
-        dispatch_release(*(v12 + 16));
+        dispatch_release(v12[2]);
         v12 = v19;
       }
 
-      *(v12 + 8) = v5;
-      *(v12 + 16) = a3;
+      v12[1] = v5;
+      v12[2] = a3;
     }
 
     goto LABEL_15;
   }
 
-  v13 = *(v12 + 8);
+  v13 = v12[1];
   if (!a5)
   {
     goto LABEL_9;
@@ -7301,33 +7297,33 @@ void ___ZN3AGX8Compiler14compileProgramINS_17ComputeProgramKeyE20AGCDeserialized
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CC9363C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC9363C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE53compileFunctionWithAirLinkedIntersectionFunction_ImplINS_17ComputeProgramKeyELb1EEENSt3__19enable_ifIXT0_EvE4typeERKT_P29MTLCompileFunctionRequestDataNS5_21DriverRequestDataImplIXT0_EEEU13block_pointerFvRK20AGCDeserializedReplyRKNS_28CompileFunctionReplyMetadataERKNS5_19DriverReplyDataImplIXT0_EEEE_block_invoke(uint64_t a1, void *a2, int8x16_t *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 48);
   v7 = a3[2];
-  v20[0] = vextq_s8(a3[1], a3[1], 8uLL);
-  v20[1] = v7;
-  v21 = a3[3].i64[0];
-  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v25, v6, a2, v20, *(a1 + 112), a1 + 120);
+  v21[0] = vextq_s8(a3[1], a3[1], 8uLL);
+  v21[1] = v7;
+  v22 = a3[3].i64[0];
+  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v26, v6, a2, v21, *(a1 + 112), a1 + 120);
   v8 = a3[1];
-  v22 = *a3;
-  v23 = v8;
+  v23 = *a3;
+  v24 = v8;
   v9 = a3[3];
-  *v24 = a3[2];
-  *&v24[16] = v9;
-  AGCDeserializedReply::AGCDeserializedReply(v20);
-  if (!*&v24[8])
+  *v25 = a3[2];
+  *&v25[16] = v9;
+  AGCDeserializedReply::AGCDeserializedReply(v21);
+  if (!*&v25[8])
   {
     v10 = [*(a1 + 32) function];
-    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v20))
+    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v21))
     {
       v11 = *MEMORY[0x29EDCA610];
       v12 = [objc_msgSend(v10 "name")];
@@ -7359,10 +7355,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v16;
-        v31 = 2080;
-        v32 = v17;
+        v30 = 2080;
+        v31 = v16;
+        v32 = 2080;
+        v33 = v17;
         _os_log_error_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -7381,10 +7377,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v14;
-        v31 = 2080;
-        v32 = v15;
+        v30 = 2080;
+        v31 = v14;
+        v32 = 2080;
+        v33 = v15;
         _os_log_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -7392,36 +7388,37 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         }
       }
 
-      *&v24[8] = 2;
-      *&v24[16] = @"Internal error during function compilation.";
+      *&v25[8] = 2;
+      *&v25[16] = @"Internal error during function compilation.";
     }
   }
 
   memset(buf, 0, 24);
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    *buf = v25;
-    *&buf[16] = v26;
-    v26 = 0;
-    v25 = 0uLL;
+    *buf = v26;
+    *&buf[16] = v27;
+    v27 = 0;
+    v26 = 0uLL;
   }
 
   else
   {
-    if (v27)
+    if (v28)
     {
-      v18 = std::__throw_bad_variant_access[abi:nn200100]();
-      AGCDeserializedReply::~AGCDeserializedReply(v20);
-      if (v27 == -1)
+      std::__throw_bad_variant_access[abi:nn200100]();
+      v19 = v18;
+      AGCDeserializedReply::~AGCDeserializedReply(v21);
+      if (v28 == -1)
       {
-        _Unwind_Resume(v18);
+        _Unwind_Resume(v19);
       }
 
-      (off_2A23F59F0[v27])(v20, &v25);
-      _Unwind_Resume(v18);
+      (off_2A23F59F0[v28])(v21, &v26);
+      _Unwind_Resume(v19);
     }
 
-    *&v24[8] = v25;
+    *&v25[8] = v26;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -7431,10 +7428,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     operator delete(*buf);
   }
 
-  AGCDeserializedReply::~AGCDeserializedReply(v20);
-  if (v27 != -1)
+  AGCDeserializedReply::~AGCDeserializedReply(v21);
+  if (v28 != -1)
   {
-    (off_2A23F59F0[v27])(v20, &v25);
+    (off_2A23F59F0[v28])(v21, &v26);
   }
 }
 
@@ -7547,9 +7544,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_17ComputeProgramKeyE13AGCReplyArrayEE
   }
 }
 
-void sub_29CC93D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC93D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCReplyArray::~AGCReplyArray(va);
   _Unwind_Resume(a1);
 }
@@ -7637,7 +7634,7 @@ double AGX::RayPayloadSizeAlignImpl<AGX::HAL300::Classes>::merge(unsigned int *a
 
   *a1 = v3;
   v7 = *(a1 + 1);
-  v5 = (a1 + 2);
+  v5 = a1 + 2;
   v6 = v7;
   v8 = *(a2 + 1);
   v9 = v7 & 0xFF000000;
@@ -7811,7 +7808,7 @@ uint64_t RaytracingConstantsCommon::ScsLayoutBase<RaytracingConstantsGen2::ScsLa
   return (v4 + SectionEnd);
 }
 
-uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createRenderPipeline_impl<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
+id AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createRenderPipeline_impl<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void **a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v28[11] = *MEMORY[0x29EDCA608];
   mach_absolute_time();
@@ -8048,11 +8045,11 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   v11 = *(*(*(a1 + 56) + 8) + 40);
   if (v11)
   {
-    v12 = v11 + 30;
+    v12 = &v11[30];
     isa = v11[31].isa;
-    if (isa && v12->isa && *(isa + 4104) == 1)
+    if (isa && *v12 && *(isa + 4104) == 1)
     {
-      ProgramVaryingTable<AGX::HAL300::Encoders,AGX::HAL300::Classes>::clone();
+      ProgramVaryingTable<AGX::HAL300::Encoders,AGX::HAL300::Classes>::clone(*(*v12 + 3824));
     }
 
     AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLRenderPipelineDescriptor>(v12, *(a1 + 32), v11, *(a1 + 40));
@@ -8083,7 +8080,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createGeometryStageAndLinkPipeline<MTLRenderPipelineDescriptor,false>(uint64_t a1, void *a2, uint64_t a3, __int128 *a4, void *a5, MTLRenderPipelineDescriptor *a6, unint64_t a7, unsigned __int8 a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, std::string::size_type *a13, uint64_t a14, std::string::size_type a15, uint64_t a16)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createGeometryStageAndLinkPipeline<MTLRenderPipelineDescriptor,false>(uint64_t a1, void *a2, uint64_t a3, __int128 *a4, void *a5, MTLRenderPipelineDescriptor *a6, unint64_t a7, unsigned __int8 a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t *a13, uint64_t a14, std::string::size_type a15, uint64_t a16)
 {
   v34 = *MEMORY[0x29EDCA608];
   if (a2[2])
@@ -8142,7 +8139,7 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
   }
 }
 
-uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramAnalysis<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, NSObject *a6, int a7)
+uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramAnalysis<MTLRenderPipelineDescriptor>(uint64_t *a1, void *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, NSObject *a6, unsigned int a7)
 {
   v45 = 0;
   v46 = &v45;
@@ -8199,7 +8196,7 @@ uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes
 
     v23 = objc_opt_new();
     [v23 setUseAIRNTInterfaces:*(a1 + 24)];
-    [v23 setSync:a7 ^ 1u];
+    [v23 setSync:a7 ^ 1];
     [v23 setFunction:v18];
     [v23 setFrameworkData:a6];
     [v23 setPipelineCache:v19];
@@ -8276,7 +8273,7 @@ void sub_29CC95780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createVertexProgramAnalysis(uint64_t a1, MTLRenderPipelineDescriptor *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, uint64_t a6)
+uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createVertexProgramAnalysis(uint64_t *a1, MTLRenderPipelineDescriptor *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, uint64_t a6)
 {
   v28 = 0;
   v29 = &v28;
@@ -8345,11 +8342,11 @@ uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes
   return v20;
 }
 
-void sub_29CC95AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_29CC95AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   AGX::VertexProgramKey::~VertexProgramKey(va);
-  _Block_object_dispose((v17 - 192), 8);
+  _Block_object_dispose((v24 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8386,7 +8383,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createFragmentProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, unint64_t a6, void *a7, os_unfair_lock_s *a8, __int128 *a9, NSObject *a10, unsigned __int8 a11, uint64_t a12, uint64_t a13)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createFragmentProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t *a6, void *a7, os_unfair_lock_s *a8, __int128 *a9, NSObject *a10, unsigned __int8 a11, uint64_t a12, uint64_t a13)
 {
   v226 = *MEMORY[0x29EDCA608];
   v142[0] = 0;
@@ -9032,9 +9029,9 @@ LABEL_146:
   ReflectionKey::initGPUCompilerSPIOptionsHash(&__b, [a2 gpuCompilerSPIOptions]);
   v177 = __b;
   v178 = *v198;
-  CompileOptions = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(a8, a4 | 3, &v177);
+  v99 = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(a8, a4 | 3, &v177);
   v223[0] = 0;
-  VariantEntry = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateVariantEntry(a8, v140, v223, CompileOptions, (a5 | a6) != 0);
+  VariantEntry = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateVariantEntry(a8, v140, v223, v99, (a5 | a6) != 0);
   v101 = VariantEntry;
   v102 = a13;
   v103 = a11;
@@ -9069,7 +9066,7 @@ LABEL_146:
     }
 
     v132 = v110;
-    v137 = CompileOptions;
+    v137 = v99;
     v111 = [a2 openGLModeEnabled];
     v112 = objc_opt_new();
     v113 = v112;
@@ -9132,7 +9129,7 @@ LABEL_146:
     if (a6)
     {
       v123 = *a6;
-      v124 = *(a6 + 16);
+      v124 = a6[2];
       LOBYTE(v143) = 1;
       *(&v143 + 1) = v123;
       *&v144 = v124;
@@ -9189,7 +9186,7 @@ LABEL_146:
     AGX::Impl::FragmentProgramKey::~FragmentProgramKey(v173);
   }
 
-  else if ((CompileOptions & 0x330003) != 0)
+  else if ((v99 & 0x330003) != 0)
   {
     v109 = *a1;
     v169[0] = MEMORY[0x29EDCA5F8];
@@ -9200,9 +9197,9 @@ LABEL_146:
     v171 = v178;
     v169[5] = a8;
     v169[4] = a3;
-    v169[6] = CompileOptions;
+    v169[6] = v99;
     v169[7] = VariantEntry;
-    [*v109 reflectionWithFunction:v127 options:CompileOptions & 0x330003 sync:a11 ^ 1u completionHandler:v169];
+    [*v109 reflectionWithFunction:v127 options:v99 & 0x330003 sync:a11 ^ 1u completionHandler:v169];
   }
 
   block[0] = MEMORY[0x29EDCA5F8];
@@ -9238,26 +9235,26 @@ LABEL_146:
 
 void sub_29CC97320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v73 = STACK[0x7E0];
+  v66 = STACK[0x7E0];
   if (STACK[0x7E0])
   {
-    STACK[0x7E8] = v73;
-    operator delete(v73);
+    STACK[0x7E8] = v66;
+    operator delete(v66);
   }
 
-  v74 = STACK[0x348];
+  v67 = STACK[0x348];
   if (STACK[0x348])
   {
-    STACK[0x350] = v74;
-    operator delete(v74);
+    STACK[0x350] = v67;
+    operator delete(v67);
   }
 
   std::unique_ptr<AGX::PipelineScript>::~unique_ptr[abi:nn200100](&STACK[0x700]);
-  _Block_object_dispose(&a72, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
-unint64_t AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
   v4 = a2 & 0x330003;
   if ((a2 & 0x330003) != 0)
@@ -9274,7 +9271,7 @@ unint64_t AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramK
       }
 
       v10 = &v7[4 * v8];
-      v11 = *(a3 + 16);
+      v11 = a3[1];
       *v10 = *a3;
       v10[1] = v11;
       v12 = *(a1 + 1656);
@@ -9354,7 +9351,7 @@ LABEL_13:
   return v9;
 }
 
-uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28createFragmentProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_15FragmentProgramEPKNS_21VertexProgramVaryingsEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_22FragmentProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSS_E_block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, void *a5, _BYTE *a6)
+uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28createFragmentProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_15FragmentProgramEPKNS_21VertexProgramVaryingsEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_22FragmentProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSS_E_block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, __CFString **a5, _BYTE *a6)
 {
   *(*(*(a1 + 56) + 8) + 40) = objc_alloc_init(MEMORY[0x29EDB8E00]);
   AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillCompilePerformanceStatisticsDictionary(*a3, *(a3 + 8), *(*(*(a1 + 56) + 8) + 40), *(a3 + 56), [*(a1 + 32) name], *(a1 + 384));
@@ -9393,7 +9390,7 @@ uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1
     }
   }
 
-  AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 368), *(a1 + 376), *(a3 + 16), a1 + 385, v13);
+  AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 368), *(a1 + 376), *(a3 + 16), (a1 + 385), v13);
   if (!*a4)
   {
     [*(a1 + 48) needsCustomBorderColorSamplers];
@@ -9412,16 +9409,16 @@ uint64_t ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1
   return 0;
 }
 
-void sub_29CC97BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29CC97BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  if (*(v7 - 137) < 0)
+  if (*(v12 - 137) < 0)
   {
-    operator delete(*(v7 - 160));
+    operator delete(*(v12 - 160));
   }
 
-  MEMORY[0x29ED520D0](v6, 0x10F3C400360FEC6);
+  MEMORY[0x29ED520D0](v11, 0x10F3C400360FEC6);
   _Unwind_Resume(a1);
 }
 

@@ -3,9 +3,12 @@
 - (IOHIDOutputTransactionInterface)allocOutputTransaction;
 - (IOHIDQueueInterface)allocQueue;
 - (int)copyMatchingElements:(__CFDictionary *)elements element:(const __CFArray *)element;
+- (int)getElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options;
 - (int)queryInterface:(id)interface outInterface:(void *)outInterface;
+- (int)setElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4;
 - (int)setInterruptReportHandlerCallback:(void *)callback reportBufferSize:(unsigned int)size callback:(void *)a5 callbackTarget:(void *)target callbackRefcon:(void *)refcon;
 - (int)setRemovalCallback:(void *)callback removalTarget:(void *)target removalRefcon:(void *)refcon;
+- (int)start:(id)start service:(unsigned int)service;
 - (void)dealloc;
 @end
 
@@ -79,6 +82,103 @@ LABEL_5:
   }
 }
 
+- (int)getElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options
+{
+  v5 = -536870206;
+  if (a4)
+  {
+    v6 = *&options;
+    v33.receiver = self;
+    v33.super_class = IOHIDObsoleteDeviceClass;
+    v9 = [(IOHIDDeviceClass *)&v33 getElement:*&value];
+    value = 0xAAAAAAAAAAAAAAAALL;
+    if (v9)
+    {
+      v31.receiver = self;
+      v31.super_class = IOHIDObsoleteDeviceClass;
+      v10 = [(IOHIDDeviceClass *)&v31 getValue:v9 value:&value timeout:0 callback:0 context:0 options:v6];
+      if (v10)
+      {
+        return v10;
+      }
+
+      else
+      {
+        Element = IOHIDValueGetElement(value);
+        v12 = [HIDLibElement alloc];
+        v14 = objc_msgSend_initWithElementRef_(v12, v13, Element);
+        objc_msgSend_setValueRef_(v14, v15, value);
+        v18 = objc_msgSend_length(v14, v16, v17);
+        a4->type = objc_msgSend_type(v14, v19, v20);
+        a4->elementCookie = objc_msgSend_elementCookie(v14, v21, v22);
+        a4->timestamp = objc_msgSend_timestamp(v14, v23, v24);
+        v27 = v18;
+        if (v18 < 5uLL)
+        {
+          a4->longValueSize = 0;
+          a4->longValue = 0;
+          a4->value = objc_msgSend_integerValue(v14, v25, v26);
+        }
+
+        else
+        {
+          a4->longValueSize = v18;
+          v28 = malloc_type_malloc(v18, 0xF42B79F2uLL);
+          a4->longValue = v28;
+          BytePtr = IOHIDValueGetBytePtr(value);
+          memmove(v28, BytePtr, v27);
+        }
+
+        return 0;
+      }
+    }
+  }
+
+  return v5;
+}
+
+- (int)setElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4
+{
+  v4 = -536870212;
+  if (!a4)
+  {
+    return -536870206;
+  }
+
+  v12.receiver = self;
+  v12.super_class = IOHIDObsoleteDeviceClass;
+  v6 = [(IOHIDDeviceClass *)&v12 getElement:*&value];
+  v7 = _IOHIDValueCreateWithStruct();
+  v8 = v7;
+  if (v6)
+  {
+    v9 = v7 == 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (v9)
+  {
+    if (!v7)
+    {
+      return v4;
+    }
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = IOHIDObsoleteDeviceClass;
+    v4 = [(IOHIDDeviceClass *)&v11 setValue:v6 value:v7 timeout:0 callback:0 context:0 options:0];
+  }
+
+  CFRelease(v8);
+  return v4;
+}
+
 - (IOHIDQueueInterface)allocQueue
 {
   v6 = 0;
@@ -110,6 +210,15 @@ LABEL_5:
   self->_reportCallbackRefcon = refcon;
   self->_reportCallback = a5;
   return MEMORY[0x2A1C70FE8](self, sel_setInputReportCallback_reportLength_callback_context_options_, callback);
+}
+
+- (int)start:(id)start service:(unsigned int)service
+{
+  v8.receiver = self;
+  v8.super_class = IOHIDObsoleteDeviceClass;
+  [(IOHIDDeviceClass *)&v8 start:start service:*&service];
+  objc_msgSend_initQueue(self, v5, v6);
+  return 0;
 }
 
 - (IOHIDObsoleteDeviceClass)init

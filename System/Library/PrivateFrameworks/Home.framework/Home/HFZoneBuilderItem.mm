@@ -28,7 +28,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(HFMutableItemUpdateOutcome);
   zoneBuilder = [(HFZoneBuilderItem *)self zoneBuilder];
   v6 = [zoneBuilder zone];
@@ -50,14 +50,12 @@
   zoneBuilder3 = [(HFZoneBuilderItem *)self zoneBuilder];
   [(HFMutableItemUpdateOutcome *)v4 setObject:zoneBuilder3 forKeyedSubscript:@"zoneBuilder"];
 
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   [(HFMutableItemUpdateOutcome *)v4 setObject:v18 forKeyedSubscript:@"dependentHomeKitClasses"];
 
   v19 = [MEMORY[0x277D2C900] futureWithResult:v4];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

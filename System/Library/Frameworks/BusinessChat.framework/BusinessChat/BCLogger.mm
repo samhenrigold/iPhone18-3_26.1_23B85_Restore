@@ -15,17 +15,15 @@
 
 id __66__BCLogger_mt_log_icloud_messages_apps_businessframework_version___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"messageType";
-  v7[1] = @"payloadVersion";
-  v8[0] = v2;
+  v6[0] = @"messageType";
+  v6[1] = @"payloadVersion";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -45,19 +43,17 @@ id __66__BCLogger_mt_log_icloud_messages_apps_businessframework_version___block_
 
 id __93__BCLogger_logEventWithName_businessURI_callToActionText_bizItemReturnedAfterAction_latency___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"bizIdCallToAction";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"bizIdCallToAction";
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@", *(a1 + 32), *(a1 + 40)];
-  v9[0] = v2;
-  v8[1] = @"chatSuggestLatencyInMiliSeconds";
+  v8[0] = v2;
+  v7[1] = @"chatSuggestLatencyInMiliSeconds";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v9[1] = v3;
-  v8[2] = @"bizItemReturnedAfterAction";
+  v8[1] = v3;
+  v7[2] = @"bizItemReturnedAfterAction";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -73,18 +69,16 @@ id __93__BCLogger_logEventWithName_businessURI_callToActionText_bizItemReturnedA
 
 id __55__BCLogger_logEventWithName_version_authDomain_status___block_invoke(void *a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v8[0] = a1[4];
-  v7[0] = @"authStatus";
-  v7[1] = @"payloadVersion";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v7[0] = a1[4];
+  v6[0] = @"authStatus";
+  v6[1] = @"payloadVersion";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:a1[6]];
-  v7[2] = @"authProvider";
+  v6[2] = @"authProvider";
   v3 = a1[5];
-  v8[1] = v2;
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v2;
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }

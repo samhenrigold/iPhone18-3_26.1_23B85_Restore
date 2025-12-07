@@ -230,34 +230,35 @@
   if (mailDropConfigured_mailDropConfiguredNeedsRefresh != 1)
   {
     v4 = MFUserAgent();
-    if ([v4 isMobileMail])
+    isMobileMail = [v4 isMobileMail];
+    if (isMobileMail)
     {
     }
 
     else
     {
-      v5 = MFHasAccountsEntitlement();
+      v7 = MFHasAccountsEntitlement(isMobileMail, v6);
 
-      if ((v5 & 1) == 0)
+      if ((v7 & 1) == 0)
       {
         capabilitiesDictionary = [self capabilitiesDictionary];
-        v9 = [capabilitiesDictionary objectForKeyedSubscript:@"MFMailAttachmentMailDropConfiguredKey"];
-        bOOLValue = [v9 BOOLValue];
+        v11 = [capabilitiesDictionary objectForKeyedSubscript:@"MFMailAttachmentMailDropConfiguredKey"];
+        bOOLValue = [v11 BOOLValue];
         goto LABEL_12;
       }
     }
 
-    v6 = +[MFAccountStore sharedAccountStore];
-    capabilitiesDictionary = [v6 persistentStore];
+    v8 = +[MFAccountStore sharedAccountStore];
+    capabilitiesDictionary = [v8 persistentStore];
 
     aa_primaryAppleAccount = [capabilitiesDictionary aa_primaryAppleAccount];
-    v9 = aa_primaryAppleAccount;
+    v11 = aa_primaryAppleAccount;
     if (!aa_primaryAppleAccount)
     {
-      v11 = 0;
+      v13 = 0;
 LABEL_13:
 
-      v3 = [self placeholdersAvailable] & v11;
+      v3 = [self placeholdersAvailable] & v13;
       mailDropConfigured_mailDropConfigured = v3;
       mailDropConfigured_mailDropConfiguredNeedsRefresh = 1;
       return v3 & 1;
@@ -265,7 +266,7 @@ LABEL_13:
 
     bOOLValue = [aa_primaryAppleAccount isEnabledForDataclass:*MEMORY[0x1E6959B58]];
 LABEL_12:
-    v11 = bOOLValue;
+    v13 = bOOLValue;
     goto LABEL_13;
   }
 
@@ -304,7 +305,7 @@ void __46__MFAttachmentCapabilities_mailDropConfigured__block_invoke()
 
 + (BOOL)mailDropAvailable
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = MFUserAgent();
   isMobileMail = [v3 isMobileMail];
 
@@ -313,31 +314,31 @@ void __46__MFAttachmentCapabilities_mailDropConfigured__block_invoke()
     if ([self _isMailDropDevice])
     {
       +[MailAccount activeAccounts];
-      v16 = 0u;
-      v17 = 0u;
       v14 = 0u;
-      v5 = v15 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v15 = 0u;
+      v12 = 0u;
+      v5 = v13 = 0u;
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
-        v7 = *v15;
+        v7 = *v13;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v15 != v7)
+            if (*v13 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            if ([self mailDropAvailableForAccount:{*(*(&v14 + 1) + 8 * i), v14}])
+            if ([self mailDropAvailableForAccount:{*(*(&v12 + 1) + 8 * i), v12}])
             {
               LOBYTE(v6) = 1;
               goto LABEL_15;
             }
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v6)
           {
             continue;
@@ -363,9 +364,7 @@ LABEL_15:
     LODWORD(v6) = [v10 BOOLValue];
   }
 
-  placeholdersAvailable = [self placeholdersAvailable];
-  v12 = *MEMORY[0x1E69E9840];
-  return placeholdersAvailable & v6;
+  return [self placeholdersAvailable] & v6;
 }
 
 + (double)mailDropExpiration

@@ -56,7 +56,7 @@
   v9 = [(HDDataCollectorSensorDatum *)self initWithIdentifier:identifier dateInterval:interval resumeContext:0];
   if (v9)
   {
-    v10 = [providerCopy copy];
+    v10 = objc_msgSend_copy(providerCopy);
     resumeContextProvider = v9->_resumeContextProvider;
     v9->_resumeContextProvider = v10;
   }
@@ -80,37 +80,13 @@
   v14.receiver = self;
   v14.super_class = HDDataCollectorSensorDatum;
   v5 = [(HDDataCollectorSensorDatum *)&v14 init];
-  if (!v5)
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HDDCR_id"], v6 = objc_claimAutoreleasedReturnValue(), datumIdentifier = v5->_datumIdentifier, v5->_datumIdentifier = v6, datumIdentifier, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"HDDCR_ts"), v8 = objc_claimAutoreleasedReturnValue(), dateInterval = v5->_dateInterval, v5->_dateInterval = v8, dateInterval, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"HDDCR_ctx"), v10 = objc_claimAutoreleasedReturnValue(), resumeContext = v5->_resumeContext, v5->_resumeContext = v10, resumeContext, v5->_datumIdentifier) && v5->_dateInterval)
   {
-    goto LABEL_4;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HDDCR_id"];
-  datumIdentifier = v5->_datumIdentifier;
-  v5->_datumIdentifier = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HDDCR_ts"];
-  dateInterval = v5->_dateInterval;
-  v5->_dateInterval = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HDDCR_ctx"];
-  resumeContext = v5->_resumeContext;
-  v5->_resumeContext = v10;
-
-  if (!v5->_datumIdentifier)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_dateInterval)
-  {
-LABEL_4:
     v12 = v5;
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

@@ -47,12 +47,12 @@
     subscriptionContext = [(TPSCallWaitingController *)self subscriptionContext];
     v7 = [v5 initWithSubscriptionContext:subscriptionContext enabled:change == 2];
 
-    v8 = TPSCallWaitingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSCallWaitingLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Sending call waiting request %@.", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Sending call waiting request %@.", &v12, 0xCu);
     }
 
     requestController = [(TPSCallWaitingController *)self requestController];
@@ -63,36 +63,36 @@
 - (void)requestController:(id)controller didReceiveResponse:(id)response
 {
   responseCopy = response;
-  v6 = TPSCallWaitingLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSCallWaitingLog(responseCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 138412546;
-    *&v13[4] = objc_opt_class();
-    *&v13[12] = 2112;
-    *&v13[14] = responseCopy;
-    v7 = *&v13[4];
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", v13, 0x16u);
+    *v14 = 138412546;
+    *&v14[4] = objc_opt_class();
+    *&v14[12] = 2112;
+    *&v14[14] = responseCopy;
+    v8 = *&v14[4];
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", v14, 0x16u);
   }
 
   if ([responseCopy enabled])
   {
-    v8 = 2;
+    v9 = 2;
   }
 
   else
   {
-    v8 = 1;
+    v9 = 1;
   }
 
-  [(TPSCallWaitingController *)self setState:v8, *v13, *&v13[16]];
+  [(TPSCallWaitingController *)self setState:v9, *v14, *&v14[8]];
   delegate = [(TPSCallWaitingController *)self delegate];
-  v10 = objc_opt_respondsToSelector();
+  v11 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v11)
   {
     delegate2 = [(TPSCallWaitingController *)self delegate];
     error = [responseCopy error];
-    [delegate2 callWaitingController:self didChangeState:v8 error:error];
+    [delegate2 callWaitingController:self didChangeState:v9 error:error];
   }
 }
 

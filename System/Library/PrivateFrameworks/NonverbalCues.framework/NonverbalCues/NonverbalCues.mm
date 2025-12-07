@@ -1,13 +1,13 @@
-id _log()
+id _log(uint64_t a1)
 {
   if (_log_onceToken != -1)
   {
     _log_cold_1();
   }
 
-  v1 = _log_sLog;
+  v2 = _log_sLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___log_block_invoke()

@@ -42,18 +42,18 @@
   selfCopy = self;
   SNDirectionOfArrivalResult.spatialSpectrum.getter();
 
-  sub_1C9841D44();
-  v3 = sub_1C9A92768();
+  sub_1C9841D44(v3);
+  v4 = sub_1C9A92768();
 
-  return v3;
+  return v4;
 }
 
 - (void)setSpatialSpectrum:(id)spectrum
 {
-  sub_1C9841D44();
-  v4 = sub_1C9A92798();
+  sub_1C9841D44(v3);
+  v5 = sub_1C9A92798();
   selfCopy = self;
-  SNDirectionOfArrivalResult.spatialSpectrum.setter(v4);
+  SNDirectionOfArrivalResult.spatialSpectrum.setter(v5);
 }
 
 - (id)copyWithZone:(void *)zone

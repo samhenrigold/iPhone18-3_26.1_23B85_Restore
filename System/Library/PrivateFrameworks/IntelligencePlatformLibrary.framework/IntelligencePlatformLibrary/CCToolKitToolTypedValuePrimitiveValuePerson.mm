@@ -529,19 +529,19 @@ LABEL_61:
 LABEL_65:
             if (*&v6[*v9])
             {
-              v52 = 1;
+              v51 = 1;
             }
 
             else
             {
-              v52 = v41 == 0;
+              v51 = v41 == 0;
             }
 
-            v46 = !v52;
+            v46 = !v51;
 LABEL_71:
             v10 = 0;
             self->_contactSuggestion = v46;
-            v53 = 18;
+            v52 = 18;
             goto LABEL_80;
           case 0xB:
             v26 = 0;
@@ -578,21 +578,21 @@ LABEL_71:
 LABEL_73:
             if (*&v6[*v9])
             {
-              v54 = 1;
+              v53 = 1;
             }
 
             else
             {
-              v54 = v28 == 0;
+              v53 = v28 == 0;
             }
 
-            v33 = !v54;
+            v33 = !v53;
 LABEL_79:
             v10 = 0;
             self->_isMe = v33;
-            v53 = 19;
+            v52 = 19;
 LABEL_80:
-            *(&self->super.super.isa + v53) = 1;
+            *(&self->super.super.isa + v52) = 1;
 LABEL_81:
             if (*&v6[*v7] < *&v6[*v8])
             {
@@ -610,7 +610,6 @@ LABEL_62:
 
         v50 = objc_opt_class();
         v35 = NSStringFromClass(v50);
-        v51 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 LABEL_57:
 
@@ -633,9 +632,9 @@ LABEL_57:
 
         v34 = [CCToolKitToolDisplayRepresentation alloc];
         v35 = CCPBReaderReadDataNoCopy();
-        v63 = 0;
-        v36 = [(CCItemMessage *)v34 initWithData:v35 error:&v63];
-        v10 = v63;
+        v61 = 0;
+        v36 = [(CCItemMessage *)v34 initWithData:v35 error:&v61];
+        v10 = v61;
         v37 = 32;
       }
 
@@ -646,17 +645,17 @@ LABEL_57:
           case 3:
             v47 = [CCToolKitToolTypedValuePrimitiveValuePersonHandle alloc];
             v35 = CCPBReaderReadDataNoCopy();
-            v62 = 0;
-            v36 = [(CCItemMessage *)v47 initWithData:v35 error:&v62];
-            v10 = v62;
+            v60 = 0;
+            v36 = [(CCItemMessage *)v47 initWithData:v35 error:&v60];
+            v10 = v60;
             v37 = 40;
             break;
           case 4:
             v38 = [CCToolKitToolTypedValuePrimitiveValuePersonNameComponents alloc];
             v35 = CCPBReaderReadDataNoCopy();
-            v61 = 0;
-            v36 = [(CCItemMessage *)v38 initWithData:v35 error:&v61];
-            v10 = v61;
+            v59 = 0;
+            v36 = [(CCItemMessage *)v38 initWithData:v35 error:&v59];
+            v10 = v59;
             v37 = 48;
             break;
           case 5:
@@ -688,23 +687,22 @@ LABEL_84:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v59 = 1;
+    v57 = 1;
     goto LABEL_88;
   }
 
 LABEL_85:
-  v55 = objc_opt_class();
-  v56 = NSStringFromClass(v55);
-  v57 = *&v6[*v9];
-  v58 = CCInvalidBufferErrorForMessage();
+  v54 = objc_opt_class();
+  v55 = NSStringFromClass(v54);
+  v56 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_86:
-  v59 = 0;
+  v57 = 0;
 LABEL_88:
 
-  return v59;
+  return v57;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValuePerson)initWithPerson:(id)person displayRepresentation:(id)representation handle:(id)handle nameComponents:(id)components displayName:(id)name image:(id)image contactIdentifier:(id)identifier customIdentifier:(id)self0 relationship:(id)self1 contactSuggestion:(id)self2 isMe:(id)self3 error:(id *)self4
@@ -721,7 +719,7 @@ LABEL_88:
   suggestionCopy = suggestion;
   meCopy = me;
   v25 = objc_opt_new();
-  v55 = identifierCopy;
+  v53 = identifierCopy;
   if (!personCopy)
   {
     v27 = 0;
@@ -802,7 +800,7 @@ LABEL_44:
             }
 
             CCPBDataWriterWriteDataField();
-            if (!v55)
+            if (!v53)
             {
               goto LABEL_20;
             }
@@ -849,7 +847,6 @@ LABEL_25:
               {
                 CCPBDataWriterWriteStringField();
 LABEL_34:
-                v45 = 0x1E696A000uLL;
                 if (!suggestionCopy)
                 {
                   v28 = v27;
@@ -857,14 +854,13 @@ LABEL_34:
                 }
 
                 objc_opt_class();
-                v46 = CCValidateIsInstanceOfExpectedClass();
+                v45 = CCValidateIsInstanceOfExpectedClass();
                 v28 = v27;
 
-                if (v46)
+                if (v45)
                 {
                   [suggestionCopy BOOLValue];
                   CCPBDataWriterWriteBOOLField();
-                  v45 = 0x1E696A000;
 LABEL_39:
                   if (!meCopy)
                   {
@@ -873,12 +869,11 @@ LABEL_39:
                     goto LABEL_47;
                   }
 
-                  v47 = *(v45 + 3480);
                   objc_opt_class();
-                  v48 = CCValidateIsInstanceOfExpectedClass();
+                  v46 = CCValidateIsInstanceOfExpectedClass();
                   v27 = v28;
 
-                  if (v48)
+                  if (v46)
                   {
                     v39 = personCopy;
                     [meCopy BOOLValue];
@@ -886,7 +881,7 @@ LABEL_39:
 LABEL_47:
                     v37 = imageCopy;
                     immutableData = [v25 immutableData];
-                    selfCopy2 = [(CCItemMessage *)self initWithData:immutableData error:v51];
+                    selfCopy2 = [(CCItemMessage *)self initWithData:immutableData error:v49];
 
                     v40 = selfCopy2;
                     goto LABEL_45;

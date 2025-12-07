@@ -31,26 +31,22 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___WORaceCoordinator_routeTitle);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (WORaceRouteDelegate)routeDelegate
 {
-  v3 = OBJC_IVAR___WORaceCoordinator_routeDelegate;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setRouteDelegate:(id)delegate
 {
   v5 = OBJC_IVAR___WORaceCoordinator_routeDelegate;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = delegate;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -74,10 +70,8 @@
 
 - (void)updateWithElapsedTime:(double)time
 {
-  v4 = *(self + OBJC_IVAR___WORaceCoordinator_raceLocationProvider);
   selfCopy = self;
   RaceLocationProvider.updateWithElapsedTime(_:)(time);
-  v5 = *(*(selfCopy + OBJC_IVAR___WORaceCoordinator_racePositionProvider) + OBJC_IVAR___WORacePositionProvider_metadataDelegate);
   MetadataSavingDelegate.updateWithElapsedTime(_:)(time);
 }
 
@@ -98,7 +92,7 @@
 
   selfCopy = self;
   RaceCoordinator.queryForPoints(timestampAnchor:numberOfPoints:completion:)(points, v8, v9, anchor);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed [CLRoutePoint]) -> ())?(v8);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed [CLRoutePoint]) -> ())?(v8, v9);
 }
 
 - (void)recoverRoutePoints

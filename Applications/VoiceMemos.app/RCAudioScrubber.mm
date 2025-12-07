@@ -102,31 +102,31 @@
 
   if (v5 < 0.00000011920929)
   {
-    v5 = UIMainScreenScale();
+    v5 = UIMainScreenScale(v6, v7);
   }
 
   [(RCAudioScrubber *)self bounds];
   [(RCAudioScrubber *)self trackRectForBounds:?];
-  v7 = v6;
   v9 = v8;
   v11 = v10;
-  rect = v12;
+  v13 = v12;
+  rect = v14;
   timeLabelFont = [(RCAudioScrubber *)self timeLabelFont];
   timeLabelTextColor = [(RCAudioScrubber *)self timeLabelTextColor];
   currentTimeLabel = self->_currentTimeLabel;
   if (!currentTimeLabel)
   {
-    v16 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-    v17 = self->_currentTimeLabel;
-    self->_currentTimeLabel = v16;
+    v18 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    v19 = self->_currentTimeLabel;
+    self->_currentTimeLabel = v18;
 
     [(UILabel *)self->_currentTimeLabel setBackgroundColor:0];
     [(UILabel *)self->_currentTimeLabel setFont:timeLabelFont];
     [(UILabel *)self->_currentTimeLabel setLineBreakMode:2];
     [(UILabel *)self->_currentTimeLabel setOpaque:0];
-    v18 = [(RCAudioScrubber *)self _stringForCurrentTime:NAN];
-    v19 = RCLocalizationNotNeeded();
-    [(UILabel *)self->_currentTimeLabel setText:v19];
+    v20 = [(RCAudioScrubber *)self _stringForCurrentTime:NAN];
+    v21 = RCLocalizationNotNeeded();
+    [(UILabel *)self->_currentTimeLabel setText:v21];
 
     [(UILabel *)self->_currentTimeLabel setTextAlignment:2];
     [(UILabel *)self->_currentTimeLabel setTextColor:timeLabelTextColor];
@@ -138,32 +138,32 @@
   [(UILabel *)self->_currentTimeLabel sizeToFit];
   [(UILabel *)self->_currentTimeLabel frame];
   UIRectCenteredYInRectScale();
-  v35.origin.x = v7;
-  v35.origin.y = v9;
-  v35.size.width = v11;
-  v35.size.height = rect;
-  CGRectGetMinX(v35);
-  v36.origin.x = v7;
-  v36.origin.y = v9;
-  v36.size.width = v11;
-  v36.size.height = rect;
-  CGRectGetMaxY(v36);
+  v37.origin.x = v9;
+  v37.origin.y = v11;
+  v37.size.width = v13;
+  v37.size.height = rect;
+  CGRectGetMinX(v37);
+  v38.origin.x = v9;
+  v38.origin.y = v11;
+  v38.size.width = v13;
+  v38.size.height = rect;
+  CGRectGetMaxY(v38);
   UIRectIntegralWithScale();
   [(UILabel *)self->_currentTimeLabel setFrame:*&v5];
   currentTimeInverseLabel = self->_currentTimeInverseLabel;
   if (!currentTimeInverseLabel)
   {
-    v21 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-    v22 = self->_currentTimeInverseLabel;
-    self->_currentTimeInverseLabel = v21;
+    v23 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    v24 = self->_currentTimeInverseLabel;
+    self->_currentTimeInverseLabel = v23;
 
     [(UILabel *)self->_currentTimeInverseLabel setBackgroundColor:0];
     [(UILabel *)self->_currentTimeInverseLabel setFont:timeLabelFont];
     [(UILabel *)self->_currentTimeInverseLabel setLineBreakMode:2];
     [(UILabel *)self->_currentTimeInverseLabel setOpaque:0];
-    v23 = [(RCAudioScrubber *)self _stringForInverseCurrentTime:NAN];
-    v24 = RCLocalizationNotNeeded();
-    [(UILabel *)self->_currentTimeInverseLabel setText:v24];
+    v25 = [(RCAudioScrubber *)self _stringForInverseCurrentTime:NAN];
+    v26 = RCLocalizationNotNeeded();
+    [(UILabel *)self->_currentTimeInverseLabel setText:v26];
 
     [(UILabel *)self->_currentTimeInverseLabel setTextAlignment:0];
     [(UILabel *)self->_currentTimeInverseLabel setTextColor:timeLabelTextColor];
@@ -175,26 +175,26 @@
   [(UILabel *)self->_currentTimeInverseLabel sizeToFit];
   [(UILabel *)self->_currentTimeInverseLabel frame];
   UIRectCenteredYInRectScale();
-  v26 = v25;
   v28 = v27;
   v30 = v29;
   v32 = v31;
-  v37.origin.x = v7;
-  v37.origin.y = v9;
-  v37.size.width = v11;
-  v37.size.height = rect;
-  CGRectGetMaxX(v37);
-  v38.origin.x = v26;
-  v38.origin.y = v28;
-  v38.size.width = v30;
-  v38.size.height = v32;
-  CGRectGetWidth(v38);
+  v34 = v33;
+  v39.origin.x = v9;
+  v39.origin.y = v11;
+  v39.size.width = v13;
+  v39.size.height = rect;
+  CGRectGetMaxX(v39);
+  v40.origin.x = v28;
+  v40.origin.y = v30;
+  v40.size.width = v32;
+  v40.size.height = v34;
+  CGRectGetWidth(v40);
   [(UILabel *)self->_currentTimeLabel frame];
   UIRectIntegralWithScale();
   [(UILabel *)self->_currentTimeInverseLabel setFrame:?];
-  v34.receiver = self;
-  v34.super_class = RCAudioScrubber;
-  [(RCAudioScrubber *)&v34 layoutSubviews];
+  v36.receiver = self;
+  v36.super_class = RCAudioScrubber;
+  [(RCAudioScrubber *)&v36 layoutSubviews];
 }
 
 - (void)setBounds:(CGRect)bounds

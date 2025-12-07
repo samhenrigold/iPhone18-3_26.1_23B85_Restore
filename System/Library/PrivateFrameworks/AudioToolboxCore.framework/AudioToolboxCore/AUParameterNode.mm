@@ -7,6 +7,7 @@
 - (id)_rootParent;
 - (id)description;
 - (void)_addRecObserver:(id)observer autoObserver:(id)autoObserver;
+- (void)_walkTree:(int)tree callback:(id)callback;
 - (void)dealloc;
 - (void)removeParameterObserver:(AUParameterObserverToken)token;
 @end
@@ -79,13 +80,13 @@ LABEL_5:
   }
 }
 
-uint64_t __43__AUParameterNode_removeParameterObserver___block_invoke(uint64_t result)
+void *__43__AUParameterNode_removeParameterObserver___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 40);
+  v1 = *(result[4] + 40);
   if (v1)
   {
     v2 = result;
-    v3 = *(result + 40);
+    v3 = result[5];
     v5 = *v1;
     v4 = *(v1 + 8);
     if (*v1 != v4)
@@ -130,7 +131,7 @@ LABEL_15:
       (*(*v3 + 8))(v3);
     }
 
-    v7 = *(v2 + 32);
+    v7 = v2[4];
     v8 = *(v2 + 48);
 
     return [v7 _observersChanged:v8 deltaCount:0xFFFFFFFFLL];
@@ -180,14 +181,13 @@ void __48__AUParameterNode__addRecObserver_autoObserver___block_invoke(uint64_t 
 
   [v2 _observersChanged:1 deltaCount:1];
   v3 = *(a1 + 48);
-  v4 = *(*(a1 + 32) + 40);
   if (v3)
   {
-    v5 = v3;
+    v4 = v3;
     operator new();
   }
 
-  v6 = *(a1 + 56);
+  v5 = *(a1 + 56);
   operator new();
 }
 
@@ -229,8 +229,7 @@ void __50__AUParameterNode_tokenByAddingParameterObserver___block_invoke(uint64_
   }
 
   [v2 _observersChanged:0 deltaCount:1];
-  v3 = *(*(a1 + 32) + 40);
-  v4 = *(a1 + 48);
+  v3 = *(a1 + 48);
   operator new();
 }
 
@@ -299,6 +298,45 @@ void __50__AUParameterNode_tokenByAddingParameterObserver___block_invoke(uint64_
   }
 
   return identifier;
+}
+
+- (void)_walkTree:(int)tree callback:(id)callback
+{
+  v4 = *&tree;
+  v16 = *MEMORY[0x1E69E9840];
+  callbackCopy = callback;
+  callbackCopy[2](callbackCopy, v4, self);
+  if ([(AUParameterNode *)self isGroup])
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    children = [(AUParameterNode *)self children];
+    v8 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v8)
+    {
+      v9 = *v12;
+      do
+      {
+        v10 = 0;
+        do
+        {
+          if (*v12 != v9)
+          {
+            objc_enumerationMutation(children);
+          }
+
+          [*(*(&v11 + 1) + 8 * v10++) _walkTree:(v4 + 1) callback:callbackCopy];
+        }
+
+        while (v8 != v10);
+        v8 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
+      }
+
+      while (v8);
+    }
+  }
 }
 
 - (void)dealloc

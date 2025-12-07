@@ -554,9 +554,12 @@ uint64_t __57__NURenderResourcePool__checkOutResourceForKey_matching___block_inv
 
 uint64_t __56__NURenderResourcePool_checkOutResourceForKey_matching___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _checkOutResourceForKey:*(a1 + 40) matching:*(a1 + 48)];
+  v2 = [*(a1 + 32) _checkOutResourceForKey:*(a1 + 40) matching:*(a1 + 48)];
+  v3 = *(*(a1 + 56) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NURenderResourcePool)init

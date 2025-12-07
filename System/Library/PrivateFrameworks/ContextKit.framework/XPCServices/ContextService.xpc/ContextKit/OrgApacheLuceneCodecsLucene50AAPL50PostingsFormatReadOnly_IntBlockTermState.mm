@@ -40,20 +40,15 @@
 
 - (id)description
 {
-  v17.receiver = self;
-  v17.super_class = OrgApacheLuceneCodecsLucene50AAPL50PostingsFormatReadOnly_IntBlockTermState;
-  v3 = [(OrgApacheLuceneCodecsBlockTermState *)&v17 description];
-  singletonDocID = self->singletonDocID_;
-  lastPosBlockOffset = self->lastPosBlockOffset_;
-  payStartFP = self->payStartFP_;
-  posStartFP = self->posStartFP_;
-  docStartFP = self->docStartFP_;
-  return JreStrcat("$$J$J$J$J$I", v4, v5, v6, v7, v8, v9, v10, v3);
+  v11.receiver = self;
+  v11.super_class = OrgApacheLuceneCodecsLucene50AAPL50PostingsFormatReadOnly_IntBlockTermState;
+  v2 = [(OrgApacheLuceneCodecsBlockTermState *)&v11 description];
+  return JreStrcat("$$J$J$J$J$I", v3, v4, v5, v6, v7, v8, v9, v2);
 }
 
 - (OrgApacheLuceneCodecsLucene50AAPL50PostingsFormatReadOnly_IntBlockTermState)init
 {
-  OrgApacheLuceneCodecsBlockTermState_init(self, a2);
+  OrgApacheLuceneCodecsBlockTermState_init(self);
   self->docStartFP_ = 0;
   self->posStartFP_ = 0;
   self->payStartFP_ = 0;

@@ -411,9 +411,9 @@ LABEL_3:
 
       if (stateCopy && v18)
       {
-        v21 = [v18 isEqualToString:v19];
+        isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-        if (!v21)
+        if (!isEqualToString)
         {
           goto LABEL_20;
         }
@@ -453,7 +453,7 @@ LABEL_25:
 
     if (countryCopy && v22)
     {
-      v24 = [v22 isEqualToString:v23];
+      v24 = objc_msgSend_isEqualToString_(v22);
 
       if (v24)
       {
@@ -640,7 +640,7 @@ LABEL_26:
 
             v38 = *(*(&v81 + 1) + 8 * m);
             identifier = [v38 identifier];
-            if ([identifier isEqualToString:@"transit"])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               selfCopy9 = self;
               v41 = 3;
@@ -649,28 +649,28 @@ LABEL_43:
               goto LABEL_44;
             }
 
-            if ([identifier isEqualToString:@"carKey"])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               selfCopy9 = self;
               v41 = 11;
               goto LABEL_43;
             }
 
-            if ([identifier isEqualToString:@"identity"])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               selfCopy9 = self;
               v41 = 10;
               goto LABEL_43;
             }
 
-            if ([identifier isEqualToString:@"eMoney"])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               selfCopy9 = self;
               v41 = 4;
               goto LABEL_43;
             }
 
-            if ([identifier isEqualToString:@"appleCard"])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               selfCopy10 = self;
               v52 = 2;
@@ -678,15 +678,15 @@ LABEL_43:
 
             else
             {
-              if (![identifier isEqualToString:@"asp"])
+              if (!objc_msgSend_isEqualToString_(identifier))
               {
-                if ([identifier isEqualToString:@"creditDebit"])
+                if (objc_msgSend_isEqualToString_(identifier))
                 {
                   selfCopy9 = self;
                   v41 = 5;
                 }
 
-                else if ([identifier isEqualToString:@"Barcode"])
+                else if (objc_msgSend_isEqualToString_(identifier))
                 {
                   selfCopy9 = self;
                   v41 = 9;
@@ -694,7 +694,7 @@ LABEL_43:
 
                 else
                 {
-                  if (![identifier isEqualToString:@"issuerInstallments"])
+                  if (!objc_msgSend_isEqualToString_(identifier))
                   {
                     v43 = 0;
 LABEL_65:
@@ -922,17 +922,17 @@ LABEL_13:
 uint64_t __47__PKPaymentSetupProductModel_addCarKeyCategory__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 identifier];
-  v3 = [v2 isEqualToString:@"carKey"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 uint64_t __47__PKPaymentSetupProductModel_addCarKeyCategory__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 identifier];
-  v3 = [v2 isEqualToString:@"creditDebit"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (void)removeCarKeyCategory
@@ -987,9 +987,9 @@ LABEL_11:
 uint64_t __50__PKPaymentSetupProductModel_removeCarKeyCategory__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 identifier];
-  v3 = [v2 isEqualToString:@"carKey"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (id)filteredPaymentSetupProductModel:(id)model mobileCarrierRegion:(id)region deviceRegion:(id)deviceRegion cardOnFiles:(id)files
@@ -1509,7 +1509,7 @@ LABEL_102:
 
               v26 = *(*(&v114 + 1) + 8 * i);
               v27 = [v26 PKStringForKey:@"provisioningMethodType"];
-              if (([v27 isEqualToString:@"inApp"] & 1) != 0 || objc_msgSend(v27, "isEqualToString:", @"cameraCapture"))
+              if ((objc_msgSend_isEqualToString_(v27) & 1) != 0 || objc_msgSend_isEqualToString_(v27))
               {
                 v28 = [v26 PKStringForKey:@"appLaunchURLScheme"];
                 v29 = [v26 PKStringForKey:@"appLaunchURLPath"];

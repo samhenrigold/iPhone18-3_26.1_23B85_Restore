@@ -67,7 +67,7 @@
 
 - (BOOL)openWithCancelBlock:(id)block
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   graph = self->_graph;
   self->_graph = 0;
@@ -83,12 +83,11 @@
   if (v11)
   {
     v12 = +[SKGUserNode user];
-    v16[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     LOBYTE(v11) = [(SKGGraph *)v11 addNodes:v13 addEdges:0 cancelBlock:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -433,20 +432,20 @@ void __42__SpotlightGraph_referenceCountForDomain___block_invoke(uint64_t a1, vo
 - (id)primaryNodesForPerson:(id)person reference:(id)reference domain:(id)domain nodes:(id)nodes edges:(id)edges isOwner:(BOOL)owner
 {
   obj = owner;
-  v294 = *MEMORY[0x277D85DE8];
+  v293 = *MEMORY[0x277D85DE8];
   personCopy = person;
   referenceCopy = reference;
   domainCopy = domain;
   nodesCopy = nodes;
   edgesCopy = edges;
   allObjects4 = 0;
-  v209 = nodesCopy;
+  v208 = nodesCopy;
   if (!personCopy || !nodesCopy)
   {
     goto LABEL_215;
   }
 
-  v192 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v191 = objc_alloc_init(MEMORY[0x277CBEB58]);
   context = objc_autoreleasePoolPush();
   entityIdentifier = [personCopy entityIdentifier];
 
@@ -456,7 +455,7 @@ void __42__SpotlightGraph_referenceCountForDomain___block_invoke(uint64_t a1, vo
     entityIdentifier2 = [personCopy entityIdentifier];
     v20 = [(SKGEntityNode *)v18 initWithIdentifier:entityIdentifier2];
 
-    [v209 addObject:v20];
+    [v208 addObject:v20];
   }
 
   else
@@ -464,15 +463,15 @@ void __42__SpotlightGraph_referenceCountForDomain___block_invoke(uint64_t a1, vo
     v20 = 0;
   }
 
-  v211 = v20;
+  v210 = v20;
   names = [personCopy names];
   v22 = [names count];
 
   if (v22)
   {
-    v195 = 0;
+    v194 = 0;
     v23 = 0;
-    v212 = v22;
+    v211 = v22;
     selfCopy = self;
     while (1)
     {
@@ -485,47 +484,47 @@ void __42__SpotlightGraph_referenceCountForDomain___block_invoke(uint64_t a1, vo
       nameComponents = [personCopy nameComponents];
       v29 = [nameComponents objectAtIndexedSubscript:v23];
 
-      if (v211)
+      if (v210)
       {
         v30 = [[SKGDisplayNameNode alloc] initWithName:v25];
-        v31 = v195;
-        if (!v195)
+        v31 = v194;
+        if (!v194)
         {
           v31 = objc_alloc_init(MEMORY[0x277CBEB58]);
         }
 
-        v195 = v31;
+        v194 = v31;
         [v31 addObject:v30];
-        [v209 addObject:v30];
+        [v208 addObject:v30];
         if (!edgesCopy)
         {
           goto LABEL_20;
         }
 
-        v32 = [SKGEdge edgeFromNode:v211 toNode:v30];
+        v32 = [SKGEdge edgeFromNode:v210 toNode:v30];
         [edgesCopy addObject:v32];
-        v33 = [SKGEdge edgeFromNode:v30 toNode:v211];
+        v33 = [SKGEdge edgeFromNode:v30 toNode:v210];
         [edgesCopy addObject:v33];
       }
 
       else
       {
         v30 = [[SKGDisplayNameNode alloc] initWithName:v27];
-        [v209 addObject:v30];
-        LOBYTE(v189) = obj;
-        v32 = [(SpotlightGraph *)self nameNodeFromName:v25 nameComponents:v29 reference:referenceCopy domain:domainCopy nodes:v209 edges:edgesCopy isOwner:v189];
+        [v208 addObject:v30];
+        LOBYTE(v188) = obj;
+        v32 = [(SpotlightGraph *)self nameNodeFromName:v25 nameComponents:v29 reference:referenceCopy domain:domainCopy nodes:v208 edges:edgesCopy isOwner:v188];
         if (!v32)
         {
           goto LABEL_19;
         }
 
-        v34 = v195;
-        if (!v195)
+        v34 = v194;
+        if (!v194)
         {
           v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
         }
 
-        v195 = v34;
+        v194 = v34;
         [v34 addObject:v32];
         if (!edgesCopy)
         {
@@ -540,7 +539,7 @@ void __42__SpotlightGraph_referenceCountForDomain___block_invoke(uint64_t a1, vo
         self = selfCopy;
       }
 
-      v22 = v212;
+      v22 = v211;
 LABEL_19:
 
 LABEL_20:
@@ -551,7 +550,7 @@ LABEL_20:
     }
   }
 
-  v195 = 0;
+  v194 = 0;
 LABEL_23:
   contactIdentifier = [personCopy contactIdentifier];
 
@@ -559,41 +558,41 @@ LABEL_23:
   {
     v37 = [SKGContactNode alloc];
     contactIdentifier2 = [personCopy contactIdentifier];
-    v213 = [(SKGContactNode *)v37 initWithIdentifier:contactIdentifier2];
+    v212 = [(SKGContactNode *)v37 initWithIdentifier:contactIdentifier2];
 
-    [v209 addObject:v213];
+    [v208 addObject:v212];
     if (edgesCopy)
     {
       if (referenceCopy)
       {
-        v39 = [SKGReferenceEdge edgeFromReference:referenceCopy toNode:v213];
+        v39 = [SKGReferenceEdge edgeFromReference:referenceCopy toNode:v212];
         [edgesCopy addObject:v39];
       }
 
       if (domainCopy)
       {
-        v40 = [SKGEdge edgeFromNode:v213 toNode:domainCopy];
+        v40 = [SKGEdge edgeFromNode:v212 toNode:domainCopy];
         [edgesCopy addObject:v40];
-        v41 = [SKGEdge edgeFromNode:domainCopy toNode:v213];
+        v41 = [SKGEdge edgeFromNode:domainCopy toNode:v212];
         [edgesCopy addObject:v41];
       }
 
-      if (v211)
+      if (v210)
       {
-        v42 = [SKGEdge edgeFromNode:v211 toNode:v213];
+        v42 = [SKGEdge edgeFromNode:v210 toNode:v212];
         [edgesCopy addObject:v42];
-        v43 = [SKGEdge edgeFromNode:v213 toNode:v211];
+        v43 = [SKGEdge edgeFromNode:v212 toNode:v210];
         [edgesCopy addObject:v43];
       }
 
       if (obj)
       {
         v44 = +[SKGUserNode user];
-        v45 = [SKGEdge edgeFromNode:v213 toNode:v44];
+        v45 = [SKGEdge edgeFromNode:v212 toNode:v44];
 
         [edgesCopy addObject:v45];
         v46 = +[SKGUserNode user];
-        v47 = [SKGEdge edgeFromNode:v46 toNode:v213];
+        v47 = [SKGEdge edgeFromNode:v46 toNode:v212];
 
         [edgesCopy addObject:v47];
       }
@@ -602,7 +601,7 @@ LABEL_23:
 
   else
   {
-    v213 = 0;
+    v212 = 0;
   }
 
   photosPersonIdentifier = [personCopy photosPersonIdentifier];
@@ -611,41 +610,41 @@ LABEL_23:
   {
     v49 = [SKGPhotoNode alloc];
     photosPersonIdentifier2 = [personCopy photosPersonIdentifier];
-    v204 = [(SKGPhotoNode *)v49 initWithIdentifier:photosPersonIdentifier2];
+    v203 = [(SKGPhotoNode *)v49 initWithIdentifier:photosPersonIdentifier2];
 
-    [v209 addObject:v204];
+    [v208 addObject:v203];
     if (edgesCopy)
     {
       if (referenceCopy)
       {
-        v51 = [SKGReferenceEdge edgeFromReference:referenceCopy toNode:v204];
+        v51 = [SKGReferenceEdge edgeFromReference:referenceCopy toNode:v203];
         [edgesCopy addObject:v51];
       }
 
       if (domainCopy)
       {
-        v52 = [SKGEdge edgeFromNode:v204 toNode:domainCopy];
+        v52 = [SKGEdge edgeFromNode:v203 toNode:domainCopy];
         [edgesCopy addObject:v52];
-        v53 = [SKGEdge edgeFromNode:domainCopy toNode:v204];
+        v53 = [SKGEdge edgeFromNode:domainCopy toNode:v203];
         [edgesCopy addObject:v53];
       }
 
-      if (v211)
+      if (v210)
       {
-        v54 = [SKGEdge edgeFromNode:v211 toNode:v204];
+        v54 = [SKGEdge edgeFromNode:v210 toNode:v203];
         [edgesCopy addObject:v54];
-        v55 = [SKGEdge edgeFromNode:v204 toNode:v211];
+        v55 = [SKGEdge edgeFromNode:v203 toNode:v210];
         [edgesCopy addObject:v55];
       }
 
       if (obj)
       {
         v56 = +[SKGUserNode user];
-        v57 = [SKGEdge edgeFromNode:v204 toNode:v56];
+        v57 = [SKGEdge edgeFromNode:v203 toNode:v56];
 
         [edgesCopy addObject:v57];
         v58 = +[SKGUserNode user];
-        v59 = [SKGEdge edgeFromNode:v58 toNode:v204];
+        v59 = [SKGEdge edgeFromNode:v58 toNode:v203];
 
         [edgesCopy addObject:v59];
       }
@@ -654,37 +653,37 @@ LABEL_23:
 
   else
   {
-    v204 = 0;
+    v203 = 0;
   }
 
-  v277 = 0u;
   v276 = 0u;
   v275 = 0u;
   v274 = 0u;
+  v273 = 0u;
   emailAddresses = [personCopy emailAddresses];
-  v61 = [emailAddresses countByEnumeratingWithState:&v274 objects:v293 count:16];
+  v61 = [emailAddresses countByEnumeratingWithState:&v273 objects:v292 count:16];
   if (v61)
   {
-    v205 = 0;
-    v62 = *v275;
+    v204 = 0;
+    v62 = *v274;
     do
     {
       for (i = 0; i != v61; ++i)
       {
-        if (*v275 != v62)
+        if (*v274 != v62)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v64 = [[SKGEmailNode alloc] initWithEmailAddress:*(*(&v274 + 1) + 8 * i)];
-        [v209 addObject:v64];
-        v65 = v205;
-        if (!v205)
+        v64 = [[SKGEmailNode alloc] initWithEmailAddress:*(*(&v273 + 1) + 8 * i)];
+        [v208 addObject:v64];
+        v65 = v204;
+        if (!v204)
         {
           v65 = objc_alloc_init(MEMORY[0x277CBEB58]);
         }
 
-        v205 = v65;
+        v204 = v65;
         [v65 addObject:v64];
         if (edgesCopy)
         {
@@ -702,17 +701,17 @@ LABEL_23:
             [edgesCopy addObject:v68];
           }
 
-          if (v211)
+          if (v210)
           {
-            v69 = [SKGEdge edgeFromNode:v211 toNode:v64];
+            v69 = [SKGEdge edgeFromNode:v210 toNode:v64];
             [edgesCopy addObject:v69];
-            v70 = [SKGEdge edgeFromNode:v64 toNode:v211];
+            v70 = [SKGEdge edgeFromNode:v64 toNode:v210];
             [edgesCopy addObject:v70];
           }
         }
       }
 
-      v61 = [emailAddresses countByEnumeratingWithState:&v274 objects:v293 count:16];
+      v61 = [emailAddresses countByEnumeratingWithState:&v273 objects:v292 count:16];
     }
 
     while (v61);
@@ -720,37 +719,37 @@ LABEL_23:
 
   else
   {
-    v205 = 0;
+    v204 = 0;
   }
 
-  v273 = 0u;
   v272 = 0u;
   v271 = 0u;
   v270 = 0u;
+  v269 = 0u;
   phoneNumbers = [personCopy phoneNumbers];
-  v72 = [phoneNumbers countByEnumeratingWithState:&v270 objects:v292 count:16];
+  v72 = [phoneNumbers countByEnumeratingWithState:&v269 objects:v291 count:16];
   if (v72)
   {
-    v207 = 0;
-    v73 = *v271;
+    v206 = 0;
+    v73 = *v270;
     do
     {
       for (j = 0; j != v72; ++j)
       {
-        if (*v271 != v73)
+        if (*v270 != v73)
         {
           objc_enumerationMutation(phoneNumbers);
         }
 
-        v75 = [[SKGPhoneNode alloc] initWithPhoneNumber:*(*(&v270 + 1) + 8 * j)];
-        [v209 addObject:v75];
-        v76 = v207;
-        if (!v207)
+        v75 = [[SKGPhoneNode alloc] initWithPhoneNumber:*(*(&v269 + 1) + 8 * j)];
+        [v208 addObject:v75];
+        v76 = v206;
+        if (!v206)
         {
           v76 = objc_alloc_init(MEMORY[0x277CBEB58]);
         }
 
-        v207 = v76;
+        v206 = v76;
         [v76 addObject:v75];
         if (edgesCopy)
         {
@@ -768,11 +767,11 @@ LABEL_23:
             [edgesCopy addObject:v79];
           }
 
-          if (v211)
+          if (v210)
           {
-            v80 = [SKGEdge edgeFromNode:v211 toNode:v75];
+            v80 = [SKGEdge edgeFromNode:v210 toNode:v75];
             [edgesCopy addObject:v80];
-            v81 = [SKGEdge edgeFromNode:v75 toNode:v211];
+            v81 = [SKGEdge edgeFromNode:v75 toNode:v210];
             [edgesCopy addObject:v81];
           }
 
@@ -790,7 +789,7 @@ LABEL_23:
         }
       }
 
-      v72 = [phoneNumbers countByEnumeratingWithState:&v270 objects:v292 count:16];
+      v72 = [phoneNumbers countByEnumeratingWithState:&v269 objects:v291 count:16];
     }
 
     while (v72);
@@ -798,266 +797,266 @@ LABEL_23:
 
   else
   {
-    v207 = 0;
+    v206 = 0;
   }
 
-  if (edgesCopy && !v211)
+  if (edgesCopy && !v210)
   {
-    if (v213)
+    if (v212)
     {
-      if (v204)
+      if (v203)
       {
-        v86 = [SKGEdge edgeFromNode:v213 toNode:v204];
+        v86 = [SKGEdge edgeFromNode:v212 toNode:v203];
         [edgesCopy addObject:v86];
-        v87 = [SKGEdge edgeFromNode:v204 toNode:v213];
+        v87 = [SKGEdge edgeFromNode:v203 toNode:v212];
         [edgesCopy addObject:v87];
       }
 
-      v269 = 0u;
-      v267 = 0u;
       v268 = 0u;
       v266 = 0u;
-      v88 = v195;
-      v89 = [v88 countByEnumeratingWithState:&v266 objects:v291 count:16];
+      v267 = 0u;
+      v265 = 0u;
+      v88 = v194;
+      v89 = [v88 countByEnumeratingWithState:&v265 objects:v290 count:16];
       if (v89)
       {
-        v90 = *v267;
+        v90 = *v266;
         do
         {
           for (k = 0; k != v89; ++k)
           {
-            if (*v267 != v90)
+            if (*v266 != v90)
             {
               objc_enumerationMutation(v88);
             }
 
-            v92 = *(*(&v266 + 1) + 8 * k);
-            v93 = [SKGEdge edgeFromNode:v213 toNode:v92];
+            v92 = *(*(&v265 + 1) + 8 * k);
+            v93 = [SKGEdge edgeFromNode:v212 toNode:v92];
             [edgesCopy addObject:v93];
-            v94 = [SKGEdge edgeFromNode:v92 toNode:v213];
+            v94 = [SKGEdge edgeFromNode:v92 toNode:v212];
             [edgesCopy addObject:v94];
           }
 
-          v89 = [v88 countByEnumeratingWithState:&v266 objects:v291 count:16];
+          v89 = [v88 countByEnumeratingWithState:&v265 objects:v290 count:16];
         }
 
         while (v89);
       }
 
-      v264 = 0u;
-      v265 = 0u;
-      v262 = 0u;
       v263 = 0u;
-      v95 = v205;
-      v96 = [v95 countByEnumeratingWithState:&v262 objects:v290 count:16];
+      v264 = 0u;
+      v261 = 0u;
+      v262 = 0u;
+      v95 = v204;
+      v96 = [v95 countByEnumeratingWithState:&v261 objects:v289 count:16];
       if (v96)
       {
-        v97 = *v263;
+        v97 = *v262;
         do
         {
           for (m = 0; m != v96; ++m)
           {
-            if (*v263 != v97)
+            if (*v262 != v97)
             {
               objc_enumerationMutation(v95);
             }
 
-            v99 = *(*(&v262 + 1) + 8 * m);
-            v100 = [SKGEdge edgeFromNode:v213 toNode:v99];
+            v99 = *(*(&v261 + 1) + 8 * m);
+            v100 = [SKGEdge edgeFromNode:v212 toNode:v99];
             [edgesCopy addObject:v100];
-            v101 = [SKGEdge edgeFromNode:v99 toNode:v213];
+            v101 = [SKGEdge edgeFromNode:v99 toNode:v212];
             [edgesCopy addObject:v101];
           }
 
-          v96 = [v95 countByEnumeratingWithState:&v262 objects:v290 count:16];
+          v96 = [v95 countByEnumeratingWithState:&v261 objects:v289 count:16];
         }
 
         while (v96);
       }
 
-      v260 = 0u;
-      v261 = 0u;
-      v258 = 0u;
       v259 = 0u;
-      v102 = v207;
-      v103 = [v102 countByEnumeratingWithState:&v258 objects:v289 count:16];
+      v260 = 0u;
+      v257 = 0u;
+      v258 = 0u;
+      v102 = v206;
+      v103 = [v102 countByEnumeratingWithState:&v257 objects:v288 count:16];
       if (v103)
       {
-        v104 = *v259;
+        v104 = *v258;
         do
         {
           for (n = 0; n != v103; ++n)
           {
-            if (*v259 != v104)
+            if (*v258 != v104)
             {
               objc_enumerationMutation(v102);
             }
 
-            v106 = *(*(&v258 + 1) + 8 * n);
-            v107 = [SKGEdge edgeFromNode:v213 toNode:v106];
+            v106 = *(*(&v257 + 1) + 8 * n);
+            v107 = [SKGEdge edgeFromNode:v212 toNode:v106];
             [edgesCopy addObject:v107];
-            v108 = [SKGEdge edgeFromNode:v106 toNode:v213];
+            v108 = [SKGEdge edgeFromNode:v106 toNode:v212];
             [edgesCopy addObject:v108];
           }
 
-          v103 = [v102 countByEnumeratingWithState:&v258 objects:v289 count:16];
+          v103 = [v102 countByEnumeratingWithState:&v257 objects:v288 count:16];
         }
 
         while (v103);
       }
 
-      if (v204)
+      if (v203)
       {
-        v109 = [SKGEdge edgeFromNode:v204 toNode:v213];
+        v109 = [SKGEdge edgeFromNode:v203 toNode:v212];
         [edgesCopy addObject:v109];
-        v110 = [SKGEdge edgeFromNode:v213 toNode:v204];
+        v110 = [SKGEdge edgeFromNode:v212 toNode:v203];
         [edgesCopy addObject:v110];
 
 LABEL_112:
-        v256 = 0u;
-        v257 = 0u;
-        v254 = 0u;
         v255 = 0u;
-        v111 = v195;
-        v112 = [v111 countByEnumeratingWithState:&v254 objects:v288 count:16];
+        v256 = 0u;
+        v253 = 0u;
+        v254 = 0u;
+        v111 = v194;
+        v112 = [v111 countByEnumeratingWithState:&v253 objects:v287 count:16];
         if (v112)
         {
-          v113 = *v255;
+          v113 = *v254;
           do
           {
             for (ii = 0; ii != v112; ++ii)
             {
-              if (*v255 != v113)
+              if (*v254 != v113)
               {
                 objc_enumerationMutation(v111);
               }
 
-              v115 = *(*(&v254 + 1) + 8 * ii);
-              v116 = [SKGEdge edgeFromNode:v204 toNode:v115];
+              v115 = *(*(&v253 + 1) + 8 * ii);
+              v116 = [SKGEdge edgeFromNode:v203 toNode:v115];
               [edgesCopy addObject:v116];
-              v117 = [SKGEdge edgeFromNode:v115 toNode:v204];
+              v117 = [SKGEdge edgeFromNode:v115 toNode:v203];
               [edgesCopy addObject:v117];
             }
 
-            v112 = [v111 countByEnumeratingWithState:&v254 objects:v288 count:16];
+            v112 = [v111 countByEnumeratingWithState:&v253 objects:v287 count:16];
           }
 
           while (v112);
         }
 
-        v252 = 0u;
-        v253 = 0u;
-        v250 = 0u;
         v251 = 0u;
-        v118 = v205;
-        v119 = [v118 countByEnumeratingWithState:&v250 objects:v287 count:16];
+        v252 = 0u;
+        v249 = 0u;
+        v250 = 0u;
+        v118 = v204;
+        v119 = [v118 countByEnumeratingWithState:&v249 objects:v286 count:16];
         if (v119)
         {
-          v120 = *v251;
+          v120 = *v250;
           do
           {
             for (jj = 0; jj != v119; ++jj)
             {
-              if (*v251 != v120)
+              if (*v250 != v120)
               {
                 objc_enumerationMutation(v118);
               }
 
-              v122 = *(*(&v250 + 1) + 8 * jj);
-              v123 = [SKGEdge edgeFromNode:v204 toNode:v122];
+              v122 = *(*(&v249 + 1) + 8 * jj);
+              v123 = [SKGEdge edgeFromNode:v203 toNode:v122];
               [edgesCopy addObject:v123];
-              v124 = [SKGEdge edgeFromNode:v122 toNode:v204];
+              v124 = [SKGEdge edgeFromNode:v122 toNode:v203];
               [edgesCopy addObject:v124];
             }
 
-            v119 = [v118 countByEnumeratingWithState:&v250 objects:v287 count:16];
+            v119 = [v118 countByEnumeratingWithState:&v249 objects:v286 count:16];
           }
 
           while (v119);
         }
 
-        v248 = 0u;
-        v249 = 0u;
-        v246 = 0u;
         v247 = 0u;
-        v125 = v207;
-        v126 = [v125 countByEnumeratingWithState:&v246 objects:v286 count:16];
+        v248 = 0u;
+        v245 = 0u;
+        v246 = 0u;
+        v125 = v206;
+        v126 = [v125 countByEnumeratingWithState:&v245 objects:v285 count:16];
         if (v126)
         {
-          v127 = *v247;
+          v127 = *v246;
           do
           {
             for (kk = 0; kk != v126; ++kk)
             {
-              if (*v247 != v127)
+              if (*v246 != v127)
               {
                 objc_enumerationMutation(v125);
               }
 
-              v129 = *(*(&v246 + 1) + 8 * kk);
-              v130 = [SKGEdge edgeFromNode:v204 toNode:v129];
+              v129 = *(*(&v245 + 1) + 8 * kk);
+              v130 = [SKGEdge edgeFromNode:v203 toNode:v129];
               [edgesCopy addObject:v130];
-              v131 = [SKGEdge edgeFromNode:v129 toNode:v204];
+              v131 = [SKGEdge edgeFromNode:v129 toNode:v203];
               [edgesCopy addObject:v131];
             }
 
-            v126 = [v125 countByEnumeratingWithState:&v246 objects:v286 count:16];
+            v126 = [v125 countByEnumeratingWithState:&v245 objects:v285 count:16];
           }
 
           while (v126);
         }
 
-        v194 = 0;
+        v193 = 0;
         goto LABEL_135;
       }
     }
 
-    else if (v204)
+    else if (v203)
     {
       goto LABEL_112;
     }
 
-    v194 = 1;
+    v193 = 1;
 LABEL_135:
-    v244 = 0u;
-    v245 = 0u;
-    v242 = 0u;
     v243 = 0u;
-    obja = v195;
-    v132 = [obja countByEnumeratingWithState:&v242 objects:v285 count:16];
+    v244 = 0u;
+    v241 = 0u;
+    v242 = 0u;
+    obja = v194;
+    v132 = [obja countByEnumeratingWithState:&v241 objects:v284 count:16];
     if (v132)
     {
-      v196 = *v243;
+      v195 = *v242;
       do
       {
-        v199 = v132;
-        for (mm = 0; mm != v199; ++mm)
+        v198 = v132;
+        for (mm = 0; mm != v198; ++mm)
         {
-          if (*v243 != v196)
+          if (*v242 != v195)
           {
             objc_enumerationMutation(obja);
           }
 
-          v134 = *(*(&v242 + 1) + 8 * mm);
+          v134 = *(*(&v241 + 1) + 8 * mm);
+          v237 = 0u;
           v238 = 0u;
           v239 = 0u;
           v240 = 0u;
-          v241 = 0u;
           v135 = obja;
-          v136 = [v135 countByEnumeratingWithState:&v238 objects:v284 count:16];
+          v136 = [v135 countByEnumeratingWithState:&v237 objects:v283 count:16];
           if (v136)
           {
-            v137 = *v239;
+            v137 = *v238;
             do
             {
               for (nn = 0; nn != v136; ++nn)
               {
-                if (*v239 != v137)
+                if (*v238 != v137)
                 {
                   objc_enumerationMutation(v135);
                 }
 
-                v139 = *(*(&v238 + 1) + 8 * nn);
+                v139 = *(*(&v237 + 1) + 8 * nn);
                 if (([v134 isEqualToNode:v139] & 1) == 0)
                 {
                   v140 = [SKGEdge edgeFromNode:v134 toNode:v139];
@@ -1067,316 +1066,315 @@ LABEL_135:
                 }
               }
 
-              v136 = [v135 countByEnumeratingWithState:&v238 objects:v284 count:16];
+              v136 = [v135 countByEnumeratingWithState:&v237 objects:v283 count:16];
             }
 
             while (v136);
           }
         }
 
-        v132 = [v135 countByEnumeratingWithState:&v242 objects:v285 count:16];
+        v132 = [v135 countByEnumeratingWithState:&v241 objects:v284 count:16];
       }
 
       while (v132);
     }
 
-    v236 = 0u;
-    v237 = 0u;
-    v234 = 0u;
     v235 = 0u;
-    v193 = v205;
-    v142 = [v193 countByEnumeratingWithState:&v234 objects:v283 count:16];
+    v236 = 0u;
+    v233 = 0u;
+    v234 = 0u;
+    v192 = v204;
+    v142 = [v192 countByEnumeratingWithState:&v233 objects:v282 count:16];
     if (v142)
     {
-      v197 = *v235;
+      v196 = *v234;
       do
       {
-        v200 = v142;
-        for (i1 = 0; i1 != v200; ++i1)
+        v199 = v142;
+        for (i1 = 0; i1 != v199; ++i1)
         {
-          if (*v235 != v197)
+          if (*v234 != v196)
           {
-            objc_enumerationMutation(v193);
+            objc_enumerationMutation(v192);
           }
 
-          v144 = *(*(&v234 + 1) + 8 * i1);
-          if ((v194 & 1) == 0)
+          v144 = *(*(&v233 + 1) + 8 * i1);
+          if ((v193 & 1) == 0)
           {
-            v145 = [SKGEdge edgeFromNode:v204 toNode:*(*(&v234 + 1) + 8 * i1)];
+            v145 = [SKGEdge edgeFromNode:v203 toNode:*(*(&v233 + 1) + 8 * i1)];
             [edgesCopy addObject:v145];
-            v146 = [SKGEdge edgeFromNode:v144 toNode:v204];
+            v146 = [SKGEdge edgeFromNode:v144 toNode:v203];
             [edgesCopy addObject:v146];
           }
 
-          if (v213)
+          if (v212)
           {
-            v147 = [SKGEdge edgeFromNode:v213 toNode:v144];
+            v147 = [SKGEdge edgeFromNode:v212 toNode:v144];
             [edgesCopy addObject:v147];
-            v148 = [SKGEdge edgeFromNode:v144 toNode:v213];
+            v148 = [SKGEdge edgeFromNode:v144 toNode:v212];
             [edgesCopy addObject:v148];
           }
 
-          v232 = 0u;
-          v233 = 0u;
-          v230 = 0u;
           v231 = 0u;
+          v232 = 0u;
+          v229 = 0u;
+          v230 = 0u;
           v149 = obja;
-          v150 = [v149 countByEnumeratingWithState:&v230 objects:v282 count:16];
+          v150 = [v149 countByEnumeratingWithState:&v229 objects:v281 count:16];
           if (v150)
           {
-            v151 = *v231;
+            v151 = *v230;
             do
             {
               for (i2 = 0; i2 != v150; ++i2)
               {
-                if (*v231 != v151)
+                if (*v230 != v151)
                 {
                   objc_enumerationMutation(v149);
                 }
 
-                v153 = *(*(&v230 + 1) + 8 * i2);
+                v153 = *(*(&v229 + 1) + 8 * i2);
                 v154 = [SKGEdge edgeFromNode:v144 toNode:v153];
                 [edgesCopy addObject:v154];
                 v155 = [SKGEdge edgeFromNode:v153 toNode:v144];
                 [edgesCopy addObject:v155];
               }
 
-              v150 = [v149 countByEnumeratingWithState:&v230 objects:v282 count:16];
+              v150 = [v149 countByEnumeratingWithState:&v229 objects:v281 count:16];
             }
 
             while (v150);
           }
 
-          v228 = 0u;
-          v229 = 0u;
-          v226 = 0u;
           v227 = 0u;
-          v156 = v207;
-          v157 = [v156 countByEnumeratingWithState:&v226 objects:v281 count:16];
+          v228 = 0u;
+          v225 = 0u;
+          v226 = 0u;
+          v156 = v206;
+          v157 = [v156 countByEnumeratingWithState:&v225 objects:v280 count:16];
           if (v157)
           {
-            v158 = *v227;
+            v158 = *v226;
             do
             {
               for (i3 = 0; i3 != v157; ++i3)
               {
-                if (*v227 != v158)
+                if (*v226 != v158)
                 {
                   objc_enumerationMutation(v156);
                 }
 
-                v160 = *(*(&v226 + 1) + 8 * i3);
+                v160 = *(*(&v225 + 1) + 8 * i3);
                 v161 = [SKGEdge edgeFromNode:v144 toNode:v160];
                 [edgesCopy addObject:v161];
                 v162 = [SKGEdge edgeFromNode:v160 toNode:v144];
                 [edgesCopy addObject:v162];
               }
 
-              v157 = [v156 countByEnumeratingWithState:&v226 objects:v281 count:16];
+              v157 = [v156 countByEnumeratingWithState:&v225 objects:v280 count:16];
             }
 
             while (v157);
           }
         }
 
-        v142 = [v193 countByEnumeratingWithState:&v234 objects:v283 count:16];
+        v142 = [v192 countByEnumeratingWithState:&v233 objects:v282 count:16];
       }
 
       while (v142);
     }
 
-    v224 = 0u;
-    v225 = 0u;
-    v222 = 0u;
     v223 = 0u;
-    v191 = v207;
-    v163 = [v191 countByEnumeratingWithState:&v222 objects:v280 count:16];
+    v224 = 0u;
+    v221 = 0u;
+    v222 = 0u;
+    v190 = v206;
+    v163 = [v190 countByEnumeratingWithState:&v221 objects:v279 count:16];
     if (v163)
     {
-      v198 = *v223;
+      v197 = *v222;
       do
       {
-        v201 = v163;
-        for (i4 = 0; i4 != v201; ++i4)
+        v200 = v163;
+        for (i4 = 0; i4 != v200; ++i4)
         {
-          if (*v223 != v198)
+          if (*v222 != v197)
           {
-            objc_enumerationMutation(v191);
+            objc_enumerationMutation(v190);
           }
 
-          v165 = *(*(&v222 + 1) + 8 * i4);
-          if ((v194 & 1) == 0)
+          v165 = *(*(&v221 + 1) + 8 * i4);
+          if ((v193 & 1) == 0)
           {
-            v166 = [SKGEdge edgeFromNode:v204 toNode:*(*(&v222 + 1) + 8 * i4)];
+            v166 = [SKGEdge edgeFromNode:v203 toNode:*(*(&v221 + 1) + 8 * i4)];
             [edgesCopy addObject:v166];
-            v167 = [SKGEdge edgeFromNode:v165 toNode:v204];
+            v167 = [SKGEdge edgeFromNode:v165 toNode:v203];
             [edgesCopy addObject:v167];
           }
 
-          if (v213)
+          if (v212)
           {
-            v168 = [SKGEdge edgeFromNode:v213 toNode:v165];
+            v168 = [SKGEdge edgeFromNode:v212 toNode:v165];
             [edgesCopy addObject:v168];
-            v169 = [SKGEdge edgeFromNode:v165 toNode:v213];
+            v169 = [SKGEdge edgeFromNode:v165 toNode:v212];
             [edgesCopy addObject:v169];
           }
 
-          v220 = 0u;
-          v221 = 0u;
-          v218 = 0u;
           v219 = 0u;
+          v220 = 0u;
+          v217 = 0u;
+          v218 = 0u;
           v170 = obja;
-          v171 = [v170 countByEnumeratingWithState:&v218 objects:v279 count:16];
+          v171 = [v170 countByEnumeratingWithState:&v217 objects:v278 count:16];
           if (v171)
           {
-            v172 = *v219;
+            v172 = *v218;
             do
             {
               for (i5 = 0; i5 != v171; ++i5)
               {
-                if (*v219 != v172)
+                if (*v218 != v172)
                 {
                   objc_enumerationMutation(v170);
                 }
 
-                v174 = *(*(&v218 + 1) + 8 * i5);
+                v174 = *(*(&v217 + 1) + 8 * i5);
                 v175 = [SKGEdge edgeFromNode:v165 toNode:v174];
                 [edgesCopy addObject:v175];
                 v176 = [SKGEdge edgeFromNode:v174 toNode:v165];
                 [edgesCopy addObject:v176];
               }
 
-              v171 = [v170 countByEnumeratingWithState:&v218 objects:v279 count:16];
+              v171 = [v170 countByEnumeratingWithState:&v217 objects:v278 count:16];
             }
 
             while (v171);
           }
 
-          v216 = 0u;
-          v217 = 0u;
-          v214 = 0u;
           v215 = 0u;
-          v177 = v193;
-          v178 = [v177 countByEnumeratingWithState:&v214 objects:v278 count:16];
+          v216 = 0u;
+          v213 = 0u;
+          v214 = 0u;
+          v177 = v192;
+          v178 = [v177 countByEnumeratingWithState:&v213 objects:v277 count:16];
           if (v178)
           {
-            v179 = *v215;
+            v179 = *v214;
             do
             {
               for (i6 = 0; i6 != v178; ++i6)
               {
-                if (*v215 != v179)
+                if (*v214 != v179)
                 {
                   objc_enumerationMutation(v177);
                 }
 
-                v181 = [SKGEdge edgeFromNode:v165 toNode:*(*(&v214 + 1) + 8 * i6)];
+                v181 = [SKGEdge edgeFromNode:v165 toNode:*(*(&v213 + 1) + 8 * i6)];
                 [edgesCopy addObject:v181];
-                v182 = [SKGEdge edgeFromNode:v165 toNode:v213];
+                v182 = [SKGEdge edgeFromNode:v165 toNode:v212];
                 [edgesCopy addObject:v182];
               }
 
-              v178 = [v177 countByEnumeratingWithState:&v214 objects:v278 count:16];
+              v178 = [v177 countByEnumeratingWithState:&v213 objects:v277 count:16];
             }
 
             while (v178);
           }
         }
 
-        v163 = [v191 countByEnumeratingWithState:&v222 objects:v280 count:16];
+        v163 = [v190 countByEnumeratingWithState:&v221 objects:v279 count:16];
       }
 
       while (v163);
     }
   }
 
-  v183 = v207;
-  if (v213)
+  v183 = v206;
+  if (v212)
   {
-    [v192 addObject:v213];
+    [v191 addObject:v212];
   }
 
-  if (v204)
+  if (v203)
   {
-    [v192 addObject:v204];
+    [v191 addObject:v203];
   }
 
-  if (v211)
+  if (v210)
   {
-    [v192 addObject:v211];
+    [v191 addObject:v210];
   }
 
-  if ([v205 count])
+  if ([v204 count])
   {
-    allObjects = [v205 allObjects];
-    [v192 addObjectsFromArray:allObjects];
+    allObjects = [v204 allObjects];
+    [v191 addObjectsFromArray:allObjects];
 
-    v183 = v207;
+    v183 = v206;
   }
 
   if ([v183 count])
   {
     allObjects2 = [v183 allObjects];
-    [v192 addObjectsFromArray:allObjects2];
+    [v191 addObjectsFromArray:allObjects2];
 
-    v183 = v207;
+    v183 = v206;
   }
 
-  if ([v195 count])
+  if ([v194 count])
   {
-    allObjects3 = [v195 allObjects];
-    [v192 addObjectsFromArray:allObjects3];
+    allObjects3 = [v194 allObjects];
+    [v191 addObjectsFromArray:allObjects3];
 
-    v183 = v207;
+    v183 = v206;
   }
 
   objc_autoreleasePoolPop(context);
-  allObjects4 = [v192 allObjects];
+  allObjects4 = [v191 allObjects];
 
 LABEL_215:
-  v187 = *MEMORY[0x277D85DE8];
 
   return allObjects4;
 }
 
 - (void)peopleUpdateFromItem:(id)item reference:(id)reference domain:(id)domain nodes:(id)nodes edges:(id)edges
 {
-  v368 = *MEMORY[0x277D85DE8];
+  v367 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   referenceCopy = reference;
   domainCopy = domain;
   nodesCopy = nodes;
   edgesCopy = edges;
   context = objc_autoreleasePoolPush();
+  v332 = 0u;
   v333 = 0u;
   v334 = 0u;
   v335 = 0u;
-  v336 = 0u;
   obj = [itemCopy owners];
-  v232 = itemCopy;
-  v151 = [obj countByEnumeratingWithState:&v333 objects:v367 count:16];
-  if (v151)
+  v231 = itemCopy;
+  v150 = [obj countByEnumeratingWithState:&v332 objects:v366 count:16];
+  if (v150)
   {
-    v149 = *v334;
+    v148 = *v333;
     selfCopy = self;
     do
     {
       v13 = 0;
       do
       {
-        if (*v334 != v149)
+        if (*v333 != v148)
         {
           objc_enumerationMutation(obj);
         }
 
-        v153 = v13;
-        v14 = *(*(&v333 + 1) + 8 * v13);
+        v152 = v13;
+        v14 = *(*(&v332 + 1) + 8 * v13);
         v15 = objc_opt_new();
         v16 = objc_opt_new();
         v17 = +[SKGUserNode user];
-        v366 = v17;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v366 count:1];
-        v165 = v16;
+        v365 = v17;
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v365 count:1];
+        v164 = v16;
         [v16 addObject:v18];
 
         v19 = [(SpotlightGraph *)self primaryNodesForPerson:v14 reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:1];
@@ -1385,111 +1383,111 @@ LABEL_215:
           [v15 addObject:v19];
         }
 
-        v152 = v19;
-        v332 = 0u;
+        v151 = v19;
         v331 = 0u;
         v330 = 0u;
         v329 = 0u;
-        v157 = v15;
-        v167 = [v157 countByEnumeratingWithState:&v329 objects:v365 count:16];
-        if (v167)
+        v328 = 0u;
+        v156 = v15;
+        v166 = [v156 countByEnumeratingWithState:&v328 objects:v364 count:16];
+        if (v166)
         {
-          v161 = *v330;
+          v160 = *v329;
           do
           {
             v20 = 0;
             do
             {
-              if (*v330 != v161)
+              if (*v329 != v160)
               {
-                objc_enumerationMutation(v157);
+                objc_enumerationMutation(v156);
               }
 
-              v171 = v20;
-              v183 = *(*(&v329 + 1) + 8 * v20);
+              v170 = v20;
+              v182 = *(*(&v328 + 1) + 8 * v20);
+              v324 = 0u;
               v325 = 0u;
               v326 = 0u;
               v327 = 0u;
-              v328 = 0u;
-              v175 = v165;
-              v187 = [v175 countByEnumeratingWithState:&v325 objects:v364 count:16];
-              if (v187)
+              v174 = v164;
+              v186 = [v174 countByEnumeratingWithState:&v324 objects:v363 count:16];
+              if (v186)
               {
-                v179 = *v326;
+                v178 = *v325;
                 do
                 {
                   v21 = 0;
                   do
                   {
-                    if (*v326 != v179)
+                    if (*v325 != v178)
                     {
-                      objc_enumerationMutation(v175);
+                      objc_enumerationMutation(v174);
                     }
 
-                    v191 = v21;
-                    v203 = *(*(&v325 + 1) + 8 * v21);
+                    v190 = v21;
+                    v202 = *(*(&v324 + 1) + 8 * v21);
+                    v320 = 0u;
                     v321 = 0u;
                     v322 = 0u;
                     v323 = 0u;
-                    v324 = 0u;
-                    v195 = v183;
-                    v207 = [v195 countByEnumeratingWithState:&v321 objects:v363 count:16];
-                    if (v207)
+                    v194 = v182;
+                    v206 = [v194 countByEnumeratingWithState:&v320 objects:v362 count:16];
+                    if (v206)
                     {
-                      v199 = *v322;
+                      v198 = *v321;
                       do
                       {
                         v22 = 0;
                         do
                         {
-                          if (*v322 != v199)
+                          if (*v321 != v198)
                           {
-                            objc_enumerationMutation(v195);
+                            objc_enumerationMutation(v194);
                           }
 
-                          v211 = v22;
-                          v23 = *(*(&v321 + 1) + 8 * v22);
+                          v210 = v22;
+                          v23 = *(*(&v320 + 1) + 8 * v22);
+                          v316 = 0u;
                           v317 = 0u;
                           v318 = 0u;
                           v319 = 0u;
-                          v320 = 0u;
-                          v215 = v203;
-                          v223 = [v215 countByEnumeratingWithState:&v317 objects:v362 count:16];
-                          if (v223)
+                          v214 = v202;
+                          v222 = [v214 countByEnumeratingWithState:&v316 objects:v361 count:16];
+                          if (v222)
                           {
-                            v219 = *v318;
+                            v218 = *v317;
                             do
                             {
                               v24 = 0;
                               do
                               {
-                                if (*v318 != v219)
+                                if (*v317 != v218)
                                 {
-                                  objc_enumerationMutation(v215);
+                                  objc_enumerationMutation(v214);
                                 }
 
-                                v227 = v24;
-                                v25 = *(*(&v317 + 1) + 8 * v24);
+                                v226 = v24;
+                                v25 = *(*(&v316 + 1) + 8 * v24);
+                                v312 = 0u;
                                 v313 = 0u;
                                 v314 = 0u;
                                 v315 = 0u;
-                                v316 = 0u;
                                 interactions = [itemCopy interactions];
-                                v27 = [interactions countByEnumeratingWithState:&v313 objects:v361 count:16];
+                                v27 = [interactions countByEnumeratingWithState:&v312 objects:v360 count:16];
                                 if (v27)
                                 {
                                   v28 = v27;
-                                  v29 = *v314;
+                                  v29 = *v313;
                                   do
                                   {
                                     for (i = 0; i != v28; ++i)
                                     {
-                                      if (*v314 != v29)
+                                      if (*v313 != v29)
                                       {
                                         objc_enumerationMutation(interactions);
                                       }
 
-                                      v31 = *(*(&v313 + 1) + 8 * i);
+                                      v31 = *(*(&v312 + 1) + 8 * i);
                                       interactions2 = [itemCopy interactions];
                                       v33 = [interactions2 objectForKeyedSubscript:v31];
 
@@ -1497,65 +1495,65 @@ LABEL_215:
                                       bundleIdentifier = [itemCopy bundleIdentifier];
                                       v36 = [(SKGInteractionEdge *)v34 initWithSourceNode:v23 targetNode:v25 domainIdentifier:bundleIdentifier relationship:v31 score:v33];
 
-                                      itemCopy = v232;
+                                      itemCopy = v231;
                                       [edgesCopy addObject:v36];
                                     }
 
-                                    v28 = [interactions countByEnumeratingWithState:&v313 objects:v361 count:16];
+                                    v28 = [interactions countByEnumeratingWithState:&v312 objects:v360 count:16];
                                   }
 
                                   while (v28);
                                 }
 
-                                v24 = v227 + 1;
+                                v24 = v226 + 1;
                               }
 
-                              while (v227 + 1 != v223);
-                              v223 = [v215 countByEnumeratingWithState:&v317 objects:v362 count:16];
+                              while (v226 + 1 != v222);
+                              v222 = [v214 countByEnumeratingWithState:&v316 objects:v361 count:16];
                             }
 
-                            while (v223);
+                            while (v222);
                           }
 
-                          v22 = v211 + 1;
+                          v22 = v210 + 1;
                         }
 
-                        while (v211 + 1 != v207);
-                        v207 = [v195 countByEnumeratingWithState:&v321 objects:v363 count:16];
+                        while (v210 + 1 != v206);
+                        v206 = [v194 countByEnumeratingWithState:&v320 objects:v362 count:16];
                       }
 
-                      while (v207);
+                      while (v206);
                     }
 
-                    v21 = v191 + 1;
+                    v21 = v190 + 1;
                   }
 
-                  while (v191 + 1 != v187);
-                  v187 = [v175 countByEnumeratingWithState:&v325 objects:v364 count:16];
+                  while (v190 + 1 != v186);
+                  v186 = [v174 countByEnumeratingWithState:&v324 objects:v363 count:16];
                 }
 
-                while (v187);
+                while (v186);
               }
 
-              v20 = v171 + 1;
+              v20 = v170 + 1;
             }
 
-            while ((v171 + 1) != v167);
-            v167 = [v157 countByEnumeratingWithState:&v329 objects:v365 count:16];
+            while ((v170 + 1) != v166);
+            v166 = [v156 countByEnumeratingWithState:&v328 objects:v364 count:16];
           }
 
-          while (v167);
+          while (v166);
         }
 
-        v13 = v153 + 1;
+        v13 = v152 + 1;
         self = selfCopy;
       }
 
-      while (v153 + 1 != v151);
-      v151 = [obj countByEnumeratingWithState:&v333 objects:v367 count:16];
+      while (v152 + 1 != v150);
+      v150 = [obj countByEnumeratingWithState:&v332 objects:v366 count:16];
     }
 
-    while (v151);
+    while (v150);
   }
 
   authors = [itemCopy authors];
@@ -1569,239 +1567,239 @@ LABEL_215:
       v40 = objc_opt_new();
       v41 = objc_opt_new();
       v42 = +[SKGUserNode user];
-      v360 = v42;
-      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v360 count:1];
+      v359 = v42;
+      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v359 count:1];
       [v41 addObject:v43];
 
-      v312 = 0u;
       v311 = 0u;
       v310 = 0u;
       v309 = 0u;
+      v308 = 0u;
       authors2 = [itemCopy authors];
-      v45 = [authors2 countByEnumeratingWithState:&v309 objects:v359 count:16];
+      v45 = [authors2 countByEnumeratingWithState:&v308 objects:v358 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v310;
+        v47 = *v309;
         do
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v310 != v47)
+            if (*v309 != v47)
             {
               objc_enumerationMutation(authors2);
             }
 
-            v49 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v309 + 1) + 8 * j) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
+            v49 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v308 + 1) + 8 * j) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
             if (v49)
             {
               [v40 addObject:v49];
             }
           }
 
-          v46 = [authors2 countByEnumeratingWithState:&v309 objects:v359 count:16];
+          v46 = [authors2 countByEnumeratingWithState:&v308 objects:v358 count:16];
         }
 
         while (v46);
       }
 
-      v308 = 0u;
       v307 = 0u;
       v306 = 0u;
       v305 = 0u;
+      v304 = 0u;
       recipients2 = [itemCopy recipients];
-      v51 = [recipients2 countByEnumeratingWithState:&v305 objects:v358 count:16];
+      v51 = [recipients2 countByEnumeratingWithState:&v304 objects:v357 count:16];
       if (v51)
       {
         v52 = v51;
-        v53 = *v306;
+        v53 = *v305;
         do
         {
           for (k = 0; k != v52; ++k)
           {
-            if (*v306 != v53)
+            if (*v305 != v53)
             {
               objc_enumerationMutation(recipients2);
             }
 
-            v55 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v305 + 1) + 8 * k) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
+            v55 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v304 + 1) + 8 * k) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
             if (v55)
             {
               [v41 addObject:v55];
             }
           }
 
-          v52 = [recipients2 countByEnumeratingWithState:&v305 objects:v358 count:16];
+          v52 = [recipients2 countByEnumeratingWithState:&v304 objects:v357 count:16];
         }
 
         while (v52);
       }
 
-      v304 = 0u;
       v303 = 0u;
       v302 = 0u;
       v301 = 0u;
-      v166 = v40;
-      v162 = [v166 countByEnumeratingWithState:&v301 objects:v357 count:16];
-      if (!v162)
+      v300 = 0u;
+      v165 = v40;
+      v161 = [v165 countByEnumeratingWithState:&v300 objects:v356 count:16];
+      if (!v161)
       {
         goto LABEL_213;
       }
 
-      v158 = *v302;
-      v172 = v41;
+      v157 = *v301;
+      v171 = v41;
       do
       {
         v56 = 0;
         do
         {
-          if (*v302 != v158)
+          if (*v301 != v157)
           {
-            objc_enumerationMutation(v166);
+            objc_enumerationMutation(v165);
           }
 
-          v168 = v56;
-          v184 = *(*(&v301 + 1) + 8 * v56);
+          v167 = v56;
+          v183 = *(*(&v300 + 1) + 8 * v56);
+          v296 = 0u;
           v297 = 0u;
           v298 = 0u;
           v299 = 0u;
-          v300 = 0u;
           v57 = v41;
-          v188 = [v57 countByEnumeratingWithState:&v297 objects:v356 count:16];
-          if (v188)
+          v187 = [v57 countByEnumeratingWithState:&v296 objects:v355 count:16];
+          if (v187)
           {
-            v176 = *v298;
-            v180 = v57;
+            v175 = *v297;
+            v179 = v57;
             do
             {
               v58 = 0;
               do
               {
-                if (*v298 != v176)
+                if (*v297 != v175)
                 {
                   objc_enumerationMutation(v57);
                 }
 
-                v192 = v58;
-                v204 = *(*(&v297 + 1) + 8 * v58);
+                v191 = v58;
+                v203 = *(*(&v296 + 1) + 8 * v58);
+                v292 = 0u;
                 v293 = 0u;
                 v294 = 0u;
                 v295 = 0u;
-                v296 = 0u;
-                v196 = v184;
-                v208 = [v196 countByEnumeratingWithState:&v293 objects:v355 count:16];
-                if (v208)
+                v195 = v183;
+                v207 = [v195 countByEnumeratingWithState:&v292 objects:v354 count:16];
+                if (v207)
                 {
-                  v200 = *v294;
+                  v199 = *v293;
                   do
                   {
                     v59 = 0;
                     do
                     {
-                      if (*v294 != v200)
+                      if (*v293 != v199)
                       {
-                        objc_enumerationMutation(v196);
+                        objc_enumerationMutation(v195);
                       }
 
-                      v212 = v59;
-                      v60 = *(*(&v293 + 1) + 8 * v59);
+                      v211 = v59;
+                      v60 = *(*(&v292 + 1) + 8 * v59);
+                      v288 = 0u;
                       v289 = 0u;
                       v290 = 0u;
                       v291 = 0u;
-                      v292 = 0u;
-                      v216 = v204;
-                      v224 = [v216 countByEnumeratingWithState:&v289 objects:v354 count:16];
-                      if (v224)
+                      v215 = v203;
+                      v223 = [v215 countByEnumeratingWithState:&v288 objects:v353 count:16];
+                      if (v223)
                       {
-                        v220 = *v290;
+                        v219 = *v289;
                         do
                         {
                           v61 = 0;
                           do
                           {
-                            if (*v290 != v220)
+                            if (*v289 != v219)
                             {
-                              objc_enumerationMutation(v216);
+                              objc_enumerationMutation(v215);
                             }
 
-                            v228 = v61;
-                            v62 = *(*(&v289 + 1) + 8 * v61);
+                            v227 = v61;
+                            v62 = *(*(&v288 + 1) + 8 * v61);
+                            v284 = 0u;
                             v285 = 0u;
                             v286 = 0u;
                             v287 = 0u;
-                            v288 = 0u;
-                            interactions3 = [v232 interactions];
-                            v64 = [interactions3 countByEnumeratingWithState:&v285 objects:v353 count:16];
+                            interactions3 = [v231 interactions];
+                            v64 = [interactions3 countByEnumeratingWithState:&v284 objects:v352 count:16];
                             if (v64)
                             {
                               v65 = v64;
-                              v66 = *v286;
+                              v66 = *v285;
                               do
                               {
                                 for (m = 0; m != v65; ++m)
                                 {
-                                  if (*v286 != v66)
+                                  if (*v285 != v66)
                                   {
                                     objc_enumerationMutation(interactions3);
                                   }
 
-                                  v68 = *(*(&v285 + 1) + 8 * m);
-                                  interactions4 = [v232 interactions];
+                                  v68 = *(*(&v284 + 1) + 8 * m);
+                                  interactions4 = [v231 interactions];
                                   v70 = [interactions4 objectForKeyedSubscript:v68];
 
                                   v71 = [SKGInteractionEdge alloc];
-                                  bundleIdentifier2 = [v232 bundleIdentifier];
+                                  bundleIdentifier2 = [v231 bundleIdentifier];
                                   v73 = [(SKGInteractionEdge *)v71 initWithSourceNode:v60 targetNode:v62 domainIdentifier:bundleIdentifier2 relationship:v68 score:v70];
 
                                   [edgesCopy addObject:v73];
                                 }
 
-                                v65 = [interactions3 countByEnumeratingWithState:&v285 objects:v353 count:16];
+                                v65 = [interactions3 countByEnumeratingWithState:&v284 objects:v352 count:16];
                               }
 
                               while (v65);
                             }
 
-                            v61 = v228 + 1;
+                            v61 = v227 + 1;
                           }
 
-                          while (v228 + 1 != v224);
-                          v224 = [v216 countByEnumeratingWithState:&v289 objects:v354 count:16];
+                          while (v227 + 1 != v223);
+                          v223 = [v215 countByEnumeratingWithState:&v288 objects:v353 count:16];
                         }
 
-                        while (v224);
+                        while (v223);
                       }
 
-                      v59 = v212 + 1;
+                      v59 = v211 + 1;
                     }
 
-                    while (v212 + 1 != v208);
-                    v208 = [v196 countByEnumeratingWithState:&v293 objects:v355 count:16];
+                    while (v211 + 1 != v207);
+                    v207 = [v195 countByEnumeratingWithState:&v292 objects:v354 count:16];
                   }
 
-                  while (v208);
+                  while (v207);
                 }
 
-                v58 = v192 + 1;
-                v57 = v180;
+                v58 = v191 + 1;
+                v57 = v179;
               }
 
-              while (v192 + 1 != v188);
-              v188 = [v180 countByEnumeratingWithState:&v297 objects:v356 count:16];
+              while (v191 + 1 != v187);
+              v187 = [v179 countByEnumeratingWithState:&v296 objects:v355 count:16];
             }
 
-            while (v188);
+            while (v187);
           }
 
-          v41 = v172;
-          v56 = v168 + 1;
+          v41 = v171;
+          v56 = v167 + 1;
         }
 
-        while (v168 + 1 != v162);
-        v162 = [v166 countByEnumeratingWithState:&v301 objects:v357 count:16];
+        while (v167 + 1 != v161);
+        v161 = [v165 countByEnumeratingWithState:&v300 objects:v356 count:16];
       }
 
-      while (v162);
+      while (v161);
       goto LABEL_212;
     }
   }
@@ -1823,7 +1821,7 @@ LABEL_215:
   if (v76)
   {
 LABEL_105:
-    v166 = objc_opt_new();
+    v165 = objc_opt_new();
     v41 = objc_opt_new();
     authors4 = [itemCopy authors];
     v78 = [authors4 count];
@@ -1831,37 +1829,37 @@ LABEL_105:
     if (v78)
     {
       v79 = +[SKGUserNode user];
-      v352 = v79;
-      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v352 count:1];
+      v351 = v79;
+      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v351 count:1];
       [v41 addObject:v80];
 
-      v284 = 0u;
       v283 = 0u;
       v282 = 0u;
       v281 = 0u;
+      v280 = 0u;
       authors5 = [itemCopy authors];
-      v82 = [authors5 countByEnumeratingWithState:&v281 objects:v351 count:16];
+      v82 = [authors5 countByEnumeratingWithState:&v280 objects:v350 count:16];
       if (v82)
       {
         v83 = v82;
-        v84 = *v282;
+        v84 = *v281;
         do
         {
           for (n = 0; n != v83; ++n)
           {
-            if (*v282 != v84)
+            if (*v281 != v84)
             {
               objc_enumerationMutation(authors5);
             }
 
-            v86 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v281 + 1) + 8 * n) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
+            v86 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v280 + 1) + 8 * n) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
             if (v86)
             {
-              [v166 addObject:v86];
+              [v165 addObject:v86];
             }
           }
 
-          v83 = [authors5 countByEnumeratingWithState:&v281 objects:v351 count:16];
+          v83 = [authors5 countByEnumeratingWithState:&v280 objects:v350 count:16];
         }
 
         while (v83);
@@ -1879,37 +1877,37 @@ LABEL_105:
       }
 
       v122 = +[SKGUserNode user];
-      v350 = v122;
-      v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v350 count:1];
-      [v166 addObject:v123];
+      v349 = v122;
+      v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v349 count:1];
+      [v165 addObject:v123];
 
-      v279 = 0u;
-      v280 = 0u;
-      v277 = 0u;
       v278 = 0u;
+      v279 = 0u;
+      v276 = 0u;
+      v277 = 0u;
       authors5 = [itemCopy recipients];
-      v124 = [authors5 countByEnumeratingWithState:&v277 objects:v349 count:16];
+      v124 = [authors5 countByEnumeratingWithState:&v276 objects:v348 count:16];
       if (v124)
       {
         v125 = v124;
-        v126 = *v278;
+        v126 = *v277;
         do
         {
           for (ii = 0; ii != v125; ++ii)
           {
-            if (*v278 != v126)
+            if (*v277 != v126)
             {
               objc_enumerationMutation(authors5);
             }
 
-            v128 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v277 + 1) + 8 * ii) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
+            v128 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v276 + 1) + 8 * ii) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
             if (v128)
             {
               [v41 addObject:v128];
             }
           }
 
-          v125 = [authors5 countByEnumeratingWithState:&v277 objects:v349 count:16];
+          v125 = [authors5 countByEnumeratingWithState:&v276 objects:v348 count:16];
         }
 
         while (v125);
@@ -1917,18 +1915,18 @@ LABEL_105:
     }
 
 LABEL_175:
-    if (![v166 count] || !objc_msgSend(v41, "count"))
+    if (![v165 count] || !objc_msgSend(v41, "count"))
     {
       goto LABEL_215;
     }
 
-    v275 = 0u;
-    v276 = 0u;
-    v273 = 0u;
     v274 = 0u;
-    v166 = v166;
-    v164 = [v166 countByEnumeratingWithState:&v273 objects:v348 count:16];
-    if (!v164)
+    v275 = 0u;
+    v272 = 0u;
+    v273 = 0u;
+    v165 = v165;
+    v163 = [v165 countByEnumeratingWithState:&v272 objects:v347 count:16];
+    if (!v163)
     {
 LABEL_213:
 
@@ -1936,163 +1934,163 @@ LABEL_215:
       goto LABEL_216;
     }
 
-    v160 = *v274;
+    v159 = *v273;
     do
     {
       v129 = 0;
-      v174 = v41;
+      v173 = v41;
       do
       {
-        if (*v274 != v160)
+        if (*v273 != v159)
         {
-          objc_enumerationMutation(v166);
+          objc_enumerationMutation(v165);
         }
 
-        v170 = v129;
-        v186 = *(*(&v273 + 1) + 8 * v129);
+        v169 = v129;
+        v185 = *(*(&v272 + 1) + 8 * v129);
+        v268 = 0u;
         v269 = 0u;
         v270 = 0u;
         v271 = 0u;
-        v272 = 0u;
         v57 = v41;
-        v190 = [v57 countByEnumeratingWithState:&v269 objects:v347 count:16];
-        if (v190)
+        v189 = [v57 countByEnumeratingWithState:&v268 objects:v346 count:16];
+        if (v189)
         {
-          v178 = *v270;
-          v182 = v57;
+          v177 = *v269;
+          v181 = v57;
           do
           {
             v130 = 0;
             do
             {
-              if (*v270 != v178)
+              if (*v269 != v177)
               {
                 objc_enumerationMutation(v57);
               }
 
-              v194 = v130;
-              v206 = *(*(&v269 + 1) + 8 * v130);
+              v193 = v130;
+              v205 = *(*(&v268 + 1) + 8 * v130);
+              v264 = 0u;
               v265 = 0u;
               v266 = 0u;
               v267 = 0u;
-              v268 = 0u;
-              v198 = v186;
-              v210 = [v198 countByEnumeratingWithState:&v265 objects:v346 count:16];
-              if (v210)
+              v197 = v185;
+              v209 = [v197 countByEnumeratingWithState:&v264 objects:v345 count:16];
+              if (v209)
               {
-                v202 = *v266;
+                v201 = *v265;
                 do
                 {
                   v131 = 0;
                   do
                   {
-                    if (*v266 != v202)
+                    if (*v265 != v201)
                     {
-                      objc_enumerationMutation(v198);
+                      objc_enumerationMutation(v197);
                     }
 
-                    v214 = v131;
-                    v132 = *(*(&v265 + 1) + 8 * v131);
+                    v213 = v131;
+                    v132 = *(*(&v264 + 1) + 8 * v131);
+                    v260 = 0u;
                     v261 = 0u;
                     v262 = 0u;
                     v263 = 0u;
-                    v264 = 0u;
-                    v218 = v206;
-                    v226 = [v218 countByEnumeratingWithState:&v261 objects:v345 count:16];
-                    if (v226)
+                    v217 = v205;
+                    v225 = [v217 countByEnumeratingWithState:&v260 objects:v344 count:16];
+                    if (v225)
                     {
-                      v222 = *v262;
+                      v221 = *v261;
                       do
                       {
                         v133 = 0;
                         do
                         {
-                          if (*v262 != v222)
+                          if (*v261 != v221)
                           {
-                            objc_enumerationMutation(v218);
+                            objc_enumerationMutation(v217);
                           }
 
-                          v230 = v133;
-                          v134 = *(*(&v261 + 1) + 8 * v133);
+                          v229 = v133;
+                          v134 = *(*(&v260 + 1) + 8 * v133);
+                          v256 = 0u;
                           v257 = 0u;
                           v258 = 0u;
                           v259 = 0u;
-                          v260 = 0u;
-                          interactions5 = [v232 interactions];
-                          v136 = [interactions5 countByEnumeratingWithState:&v257 objects:v344 count:16];
+                          interactions5 = [v231 interactions];
+                          v136 = [interactions5 countByEnumeratingWithState:&v256 objects:v343 count:16];
                           if (v136)
                           {
                             v137 = v136;
-                            v138 = *v258;
+                            v138 = *v257;
                             do
                             {
                               for (jj = 0; jj != v137; ++jj)
                               {
-                                if (*v258 != v138)
+                                if (*v257 != v138)
                                 {
                                   objc_enumerationMutation(interactions5);
                                 }
 
-                                v140 = *(*(&v257 + 1) + 8 * jj);
-                                interactions6 = [v232 interactions];
+                                v140 = *(*(&v256 + 1) + 8 * jj);
+                                interactions6 = [v231 interactions];
                                 v142 = [interactions6 objectForKeyedSubscript:v140];
 
                                 v143 = [SKGInteractionEdge alloc];
-                                bundleIdentifier3 = [v232 bundleIdentifier];
+                                bundleIdentifier3 = [v231 bundleIdentifier];
                                 v145 = [(SKGInteractionEdge *)v143 initWithSourceNode:v132 targetNode:v134 domainIdentifier:bundleIdentifier3 relationship:v140 score:v142];
 
                                 [edgesCopy addObject:v145];
                               }
 
-                              v137 = [interactions5 countByEnumeratingWithState:&v257 objects:v344 count:16];
+                              v137 = [interactions5 countByEnumeratingWithState:&v256 objects:v343 count:16];
                             }
 
                             while (v137);
                           }
 
-                          v133 = v230 + 1;
+                          v133 = v229 + 1;
                         }
 
-                        while (v230 + 1 != v226);
-                        v226 = [v218 countByEnumeratingWithState:&v261 objects:v345 count:16];
+                        while (v229 + 1 != v225);
+                        v225 = [v217 countByEnumeratingWithState:&v260 objects:v344 count:16];
                       }
 
-                      while (v226);
+                      while (v225);
                     }
 
-                    v131 = v214 + 1;
+                    v131 = v213 + 1;
                   }
 
-                  while (v214 + 1 != v210);
-                  v210 = [v198 countByEnumeratingWithState:&v265 objects:v346 count:16];
+                  while (v213 + 1 != v209);
+                  v209 = [v197 countByEnumeratingWithState:&v264 objects:v345 count:16];
                 }
 
-                while (v210);
+                while (v209);
               }
 
-              v130 = v194 + 1;
-              v57 = v182;
+              v130 = v193 + 1;
+              v57 = v181;
             }
 
-            while (v194 + 1 != v190);
-            v190 = [v182 countByEnumeratingWithState:&v269 objects:v347 count:16];
+            while (v193 + 1 != v189);
+            v189 = [v181 countByEnumeratingWithState:&v268 objects:v346 count:16];
           }
 
-          while (v190);
+          while (v189);
         }
 
-        v41 = v174;
-        v129 = v170 + 1;
+        v41 = v173;
+        v129 = v169 + 1;
       }
 
-      while (v170 + 1 != v164);
-      v164 = [v166 countByEnumeratingWithState:&v273 objects:v348 count:16];
+      while (v169 + 1 != v163);
+      v163 = [v165 countByEnumeratingWithState:&v272 objects:v347 count:16];
     }
 
-    while (v164);
+    while (v163);
 LABEL_212:
     v41 = v57;
-    itemCopy = v232;
+    itemCopy = v231;
     goto LABEL_213;
   }
 
@@ -2102,225 +2100,225 @@ LABEL_212:
   {
     v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v89 = +[SKGUserNode user];
-    v343 = v89;
-    v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v343 count:1];
+    v342 = v89;
+    v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v342 count:1];
     [v88 addObject:v90];
 
-    v255 = 0u;
-    v256 = 0u;
-    v253 = 0u;
     v254 = 0u;
+    v255 = 0u;
+    v252 = 0u;
+    v253 = 0u;
     participants2 = [itemCopy participants];
-    v92 = [participants2 countByEnumeratingWithState:&v253 objects:v342 count:16];
+    v92 = [participants2 countByEnumeratingWithState:&v252 objects:v341 count:16];
     if (v92)
     {
       v93 = v92;
-      v94 = *v254;
+      v94 = *v253;
       do
       {
         for (kk = 0; kk != v93; ++kk)
         {
-          if (*v254 != v94)
+          if (*v253 != v94)
           {
             objc_enumerationMutation(participants2);
           }
 
-          v96 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v253 + 1) + 8 * kk) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
+          v96 = [(SpotlightGraph *)self primaryNodesForPerson:*(*(&v252 + 1) + 8 * kk) reference:referenceCopy domain:domainCopy nodes:nodesCopy edges:edgesCopy isOwner:0];
           if (v96)
           {
             [v88 addObject:v96];
           }
         }
 
-        v93 = [participants2 countByEnumeratingWithState:&v253 objects:v342 count:16];
+        v93 = [participants2 countByEnumeratingWithState:&v252 objects:v341 count:16];
       }
 
       while (v93);
     }
 
-    v251 = 0u;
-    v252 = 0u;
-    v249 = 0u;
     v250 = 0u;
-    v169 = v88;
-    v163 = [v169 countByEnumeratingWithState:&v249 objects:v341 count:16];
-    if (v163)
+    v251 = 0u;
+    v248 = 0u;
+    v249 = 0u;
+    v168 = v88;
+    v162 = [v168 countByEnumeratingWithState:&v248 objects:v340 count:16];
+    if (v162)
     {
-      v159 = *v250;
+      v158 = *v249;
       do
       {
         v97 = 0;
         do
         {
-          if (*v250 != v159)
+          if (*v249 != v158)
           {
             v98 = v97;
-            objc_enumerationMutation(v169);
+            objc_enumerationMutation(v168);
             v97 = v98;
           }
 
-          v177 = v97;
-          v99 = *(*(&v249 + 1) + 8 * v97);
+          v176 = v97;
+          v99 = *(*(&v248 + 1) + 8 * v97);
+          v244 = 0u;
           v245 = 0u;
           v246 = 0u;
           v247 = 0u;
-          v248 = 0u;
-          v41 = v169;
-          v100 = [v41 countByEnumeratingWithState:&v245 objects:v340 count:16];
+          v41 = v168;
+          v100 = [v41 countByEnumeratingWithState:&v244 objects:v339 count:16];
           if (v100)
           {
             v101 = v100;
-            v102 = *v246;
-            v173 = v41;
-            v181 = *v246;
-            v185 = v99;
+            v102 = *v245;
+            v172 = v41;
+            v180 = *v245;
+            v184 = v99;
             do
             {
               v103 = 0;
-              v189 = v101;
+              v188 = v101;
               do
               {
-                if (*v246 != v102)
+                if (*v245 != v102)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                v205 = *(*(&v245 + 1) + 8 * v103);
+                v204 = *(*(&v244 + 1) + 8 * v103);
                 if (([v99 isEqualToArray:?] & 1) == 0)
                 {
-                  v193 = v103;
-                  v243 = 0u;
-                  v244 = 0u;
-                  v241 = 0u;
+                  v192 = v103;
                   v242 = 0u;
-                  v197 = v99;
-                  v209 = [v197 countByEnumeratingWithState:&v241 objects:v339 count:16];
-                  if (v209)
+                  v243 = 0u;
+                  v240 = 0u;
+                  v241 = 0u;
+                  v196 = v99;
+                  v208 = [v196 countByEnumeratingWithState:&v240 objects:v338 count:16];
+                  if (v208)
                   {
-                    v201 = *v242;
+                    v200 = *v241;
                     do
                     {
                       v104 = 0;
                       do
                       {
-                        if (*v242 != v201)
+                        if (*v241 != v200)
                         {
-                          objc_enumerationMutation(v197);
+                          objc_enumerationMutation(v196);
                         }
 
-                        v213 = v104;
-                        v105 = *(*(&v241 + 1) + 8 * v104);
+                        v212 = v104;
+                        v105 = *(*(&v240 + 1) + 8 * v104);
+                        v236 = 0u;
                         v237 = 0u;
                         v238 = 0u;
                         v239 = 0u;
-                        v240 = 0u;
-                        v217 = v205;
-                        v225 = [v217 countByEnumeratingWithState:&v237 objects:v338 count:16];
-                        if (v225)
+                        v216 = v204;
+                        v224 = [v216 countByEnumeratingWithState:&v236 objects:v337 count:16];
+                        if (v224)
                         {
-                          v221 = *v238;
+                          v220 = *v237;
                           do
                           {
                             v106 = 0;
                             do
                             {
-                              if (*v238 != v221)
+                              if (*v237 != v220)
                               {
-                                objc_enumerationMutation(v217);
+                                objc_enumerationMutation(v216);
                               }
 
-                              v229 = v106;
-                              v107 = *(*(&v237 + 1) + 8 * v106);
+                              v228 = v106;
+                              v107 = *(*(&v236 + 1) + 8 * v106);
+                              v232 = 0u;
                               v233 = 0u;
                               v234 = 0u;
                               v235 = 0u;
-                              v236 = 0u;
                               interactions7 = [itemCopy interactions];
-                              v109 = [interactions7 countByEnumeratingWithState:&v233 objects:v337 count:16];
+                              v109 = [interactions7 countByEnumeratingWithState:&v232 objects:v336 count:16];
                               if (v109)
                               {
                                 v110 = v109;
-                                v111 = *v234;
+                                v111 = *v233;
                                 do
                                 {
                                   for (mm = 0; mm != v110; ++mm)
                                   {
-                                    if (*v234 != v111)
+                                    if (*v233 != v111)
                                     {
                                       objc_enumerationMutation(interactions7);
                                     }
 
-                                    v113 = *(*(&v233 + 1) + 8 * mm);
+                                    v113 = *(*(&v232 + 1) + 8 * mm);
                                     interactions8 = [itemCopy interactions];
                                     v115 = [interactions8 objectForKeyedSubscript:v113];
 
                                     v116 = [SKGInteractionEdge alloc];
-                                    bundleIdentifier4 = [v232 bundleIdentifier];
+                                    bundleIdentifier4 = [v231 bundleIdentifier];
                                     v118 = v116;
-                                    itemCopy = v232;
+                                    itemCopy = v231;
                                     v119 = [(SKGInteractionEdge *)v118 initWithSourceNode:v105 targetNode:v107 domainIdentifier:bundleIdentifier4 relationship:v113 score:v115];
 
                                     [edgesCopy addObject:v119];
                                   }
 
-                                  v110 = [interactions7 countByEnumeratingWithState:&v233 objects:v337 count:16];
+                                  v110 = [interactions7 countByEnumeratingWithState:&v232 objects:v336 count:16];
                                 }
 
                                 while (v110);
                               }
 
-                              v106 = v229 + 1;
+                              v106 = v228 + 1;
                             }
 
-                            while (v229 + 1 != v225);
-                            v225 = [v217 countByEnumeratingWithState:&v237 objects:v338 count:16];
+                            while (v228 + 1 != v224);
+                            v224 = [v216 countByEnumeratingWithState:&v236 objects:v337 count:16];
                           }
 
-                          while (v225);
+                          while (v224);
                         }
 
-                        v104 = v213 + 1;
+                        v104 = v212 + 1;
                       }
 
-                      while (v213 + 1 != v209);
-                      v209 = [v197 countByEnumeratingWithState:&v241 objects:v339 count:16];
+                      while (v212 + 1 != v208);
+                      v208 = [v196 countByEnumeratingWithState:&v240 objects:v338 count:16];
                     }
 
-                    while (v209);
+                    while (v208);
                   }
 
-                  v41 = v173;
-                  v102 = v181;
-                  v99 = v185;
-                  v101 = v189;
-                  v103 = v193;
+                  v41 = v172;
+                  v102 = v180;
+                  v99 = v184;
+                  v101 = v188;
+                  v103 = v192;
                 }
 
                 ++v103;
               }
 
               while (v103 != v101);
-              v101 = [v41 countByEnumeratingWithState:&v245 objects:v340 count:16];
+              v101 = [v41 countByEnumeratingWithState:&v244 objects:v339 count:16];
             }
 
             while (v101);
           }
 
-          v97 = v177 + 1;
+          v97 = v176 + 1;
         }
 
-        while (v177 + 1 != v163);
-        v163 = [v41 countByEnumeratingWithState:&v249 objects:v341 count:16];
-        v166 = v41;
+        while (v176 + 1 != v162);
+        v162 = [v41 countByEnumeratingWithState:&v248 objects:v340 count:16];
+        v165 = v41;
       }
 
-      while (v163);
+      while (v162);
     }
 
     else
     {
-      v41 = v169;
-      v166 = v169;
+      v41 = v168;
+      v165 = v168;
     }
 
     goto LABEL_215;
@@ -2328,8 +2326,6 @@ LABEL_212:
 
 LABEL_216:
   objc_autoreleasePoolPop(context);
-
-  v146 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addItem:(id)item cancelBlock:(id)block
@@ -2630,7 +2626,7 @@ void __71__SpotlightGraph_deleteDomainIdentifier_personaIdentifier_cancelBlock__
 
 - (BOOL)deleteReferences:(id)references domainIdentifier:(id)identifier cancelBlock:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   referencesCopy = references;
   identifierCopy = identifier;
   blockCopy = block;
@@ -2638,27 +2634,27 @@ void __71__SpotlightGraph_deleteDomainIdentifier_personaIdentifier_cancelBlock__
   {
     context = objc_autoreleasePoolPush();
     v10 = self->_graph;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v23 = referencesCopy;
+    v22 = referencesCopy;
     obj = referencesCopy;
-    v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = [(SpotlightGraph *)self referenceIdentifierWithReference:*(*(&v26 + 1) + 8 * i) domain:identifierCopy persona:0 protectionClass:0];
+          v15 = [(SpotlightGraph *)self referenceIdentifierWithReference:*(*(&v25 + 1) + 8 * i) domain:identifierCopy persona:0 protectionClass:0];
           v16 = [SKGReferences referencesWithReference:v15 inGraph:v10];
           if ([v16 count])
           {
@@ -2690,7 +2686,7 @@ LABEL_12:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v12);
@@ -2700,7 +2696,7 @@ LABEL_12:
 LABEL_16:
 
     objc_autoreleasePoolPop(context);
-    referencesCopy = v23;
+    referencesCopy = v22;
   }
 
   else
@@ -2708,13 +2704,12 @@ LABEL_16:
     LOBYTE(v17) = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)deleteReferences:(id)references personaIdentifier:(id)identifier protectionClass:(id)class domainIdentifier:(id)domainIdentifier cancelBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   referencesCopy = references;
   identifierCopy = identifier;
   classCopy = class;
@@ -2722,32 +2717,32 @@ LABEL_16:
   blockCopy = block;
   if ([(SpotlightGraph *)self available])
   {
-    v38 = classCopy;
+    v37 = classCopy;
     context = objc_autoreleasePoolPush();
     v16 = self->_graph;
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     obj = referencesCopy;
-    v17 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v17 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v35 = identifierCopy;
-      v36 = referencesCopy;
-      v40 = *v43;
+      v34 = identifierCopy;
+      v35 = referencesCopy;
+      v39 = *v42;
 LABEL_4:
       v19 = 0;
       while (1)
       {
-        if (*v43 != v40)
+        if (*v42 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
         selfCopy = self;
-        context = [(SpotlightGraph *)self referenceIdentifierWithReference:*(*(&v42 + 1) + 8 * v19) domain:domainIdentifierCopy persona:0 protectionClass:0, v35, v36, context];
+        context = [(SpotlightGraph *)self referenceIdentifierWithReference:*(*(&v41 + 1) + 8 * v19) domain:domainIdentifierCopy persona:0 protectionClass:0, v34, v35, context];
         v22 = [SKGReferences referencesWithReference:context inGraph:v16];
         v23 = v16;
         v24 = [(SKGGraph *)v16 removeNodeSet:v22 removeEdgeSet:0 cancelBlock:blockCopy];
@@ -2763,7 +2758,7 @@ LABEL_4:
         v16 = v23;
         if (v18 == v19)
         {
-          v18 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+          v18 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
           if (v18)
           {
             goto LABEL_4;
@@ -2775,8 +2770,8 @@ LABEL_4:
         }
       }
 
-      identifierCopy = v35;
-      referencesCopy = v36;
+      identifierCopy = v34;
+      referencesCopy = v35;
     }
 
     else
@@ -2822,7 +2817,7 @@ LABEL_4:
     }
 
     objc_autoreleasePoolPop(context);
-    classCopy = v38;
+    classCopy = v37;
   }
 
   else
@@ -2830,7 +2825,6 @@ LABEL_4:
     LOBYTE(v24) = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -3107,52 +3101,10 @@ void __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke(void *a1, vo
 
     if (*(*(a1[8] + 8) + 24))
     {
-      if (*(*(a1[9] + 8) + 24) != 1)
+      if (*(*(a1[9] + 8) + 24) != 1 || ([v5 emails], v14 = objc_claimAutoreleasedReturnValue(), v38[0] = MEMORY[0x277D85DD0], v38[1] = 3221225472, v38[2] = __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_3, v38[3] = &unk_27893DCD8, v16 = a1[4], v15 = a1[5], v17 = a1[6], v40 = a1[9], v38[4] = v15, v42 = v7, v41 = *(a1 + 7), v39 = v17, objc_msgSend(v14, "enumerateEmailsInGraph:usingBlock:", v16, v38), v14, v39, (*(*(a1[8] + 8) + 24) & 1) != 0))
       {
-        goto LABEL_8;
-      }
-
-      v14 = [v5 emails];
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_3;
-      v38[3] = &unk_27893DCD8;
-      v16 = a1[4];
-      v15 = a1[5];
-      v17 = a1[6];
-      v40 = a1[9];
-      v38[4] = v15;
-      v42 = v7;
-      v41 = *(a1 + 7);
-      v39 = v17;
-      [v14 enumerateEmailsInGraph:v16 usingBlock:v38];
-
-      if (*(*(a1[8] + 8) + 24))
-      {
-LABEL_8:
-        if (*(*(a1[9] + 8) + 24) != 1)
+        if (*(*(a1[9] + 8) + 24) != 1 || ([v5 phones], v18 = objc_claimAutoreleasedReturnValue(), v33[0] = MEMORY[0x277D85DD0], v33[1] = 3221225472, v33[2] = __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_4, v33[3] = &unk_27893DD00, v20 = a1[4], v19 = a1[5], v21 = a1[6], v35 = a1[9], v33[4] = v19, v37 = v7, v36 = *(a1 + 7), v34 = v21, objc_msgSend(v18, "enumeratePhonesInGraph:usingBlock:", v20, v33), v18, v34, (*(*(a1[8] + 8) + 24) & 1) != 0))
         {
-          goto LABEL_10;
-        }
-
-        v18 = [v5 phones];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_4;
-        v33[3] = &unk_27893DD00;
-        v20 = a1[4];
-        v19 = a1[5];
-        v21 = a1[6];
-        v35 = a1[9];
-        v33[4] = v19;
-        v37 = v7;
-        v36 = *(a1 + 7);
-        v34 = v21;
-        [v18 enumeratePhonesInGraph:v20 usingBlock:v33];
-
-        if (*(*(a1[8] + 8) + 24))
-        {
-LABEL_10:
           v22 = [v5 names];
           v28[0] = MEMORY[0x277D85DD0];
           v28[1] = 3221225472;
@@ -3312,22 +3264,21 @@ uint64_t __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_128(uint
 void __45__SpotlightGraph_peopleScoreWithCancelBlock___block_invoke_130(void *a1, void *a2, _BYTE *a3)
 {
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(a2, "nodeIdentifier")];
-  v9 = -1;
-  SINetworkGetScoreForIdentifier(*(*(a1[5] + 8) + 24), [v5 UTF8String], &v9);
-  v6 = *(*(a1[6] + 8) + 24);
+  v8 = -1;
+  SINetworkGetScoreForIdentifier(*(*(a1[5] + 8) + 24), [v5 UTF8String], &v8);
   SIGeneralTrieAddStringKeyWithScore();
-  v7 = a1[4];
-  if (v7)
+  v6 = a1[4];
+  if (v6)
   {
-    v8 = (*(v7 + 16))(v7, @"scoreWithCancelBlock") ^ 1;
+    v7 = (*(v6 + 16))(v6, @"scoreWithCancelBlock") ^ 1;
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
-  *(*(a1[7] + 8) + 24) = v8;
+  *(*(a1[7] + 8) + 24) = v7;
   *a3 = *(*(a1[7] + 8) + 24) ^ 1;
 }
 
@@ -4072,90 +4023,89 @@ LABEL_30:
 
 void __47__SpotlightGraph_peopleAnalyzeWithCancelBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = +[SKGNameNode nameWithElementIdentifier:inGraph:](SKGNameNode, "nameWithElementIdentifier:inGraph:", [v5 nodeIdentifier], *(a1 + 32));
-  v8 = *(a1 + 96);
-  v9 = [v7 value];
-  LODWORD(v8) = SIGeneralTrieContainsStringKey();
+  v8 = [v7 value];
+  v9 = SIGeneralTrieContainsStringKey();
 
-  if (!v8)
+  if (!v9)
   {
     v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v92 = 0;
+    v88 = 0;
     v12 = [MEMORY[0x277CBEB58] setWithObject:v5];
     [v10 setObject:v12 forKey:@"names"];
 
-    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) findAllContactInfoForNode:v5 info:v10 reference:v10 foundUser:&v92];
+    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) findAllContactInfoForNode:v5 info:v10 reference:v10 foundUser:&v88];
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      v61 = v7;
-      v63 = v6;
-      v65 = a3;
-      v67 = v5;
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v59 = v10;
+      v57 = v7;
+      v59 = v6;
+      v61 = a3;
+      v63 = v5;
+      v86 = 0u;
+      v87 = 0u;
+      v84 = 0u;
+      v85 = 0u;
+      v55 = v10;
       v13 = v10;
-      v14 = [v13 countByEnumeratingWithState:&v88 objects:v100 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v84 objects:v96 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v89;
+        v16 = *v85;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v89 != v16)
+            if (*v85 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v88 + 1) + 8 * i);
-            v84 = 0u;
-            v85 = 0u;
-            v86 = 0u;
-            v87 = 0u;
+            v18 = *(*(&v84 + 1) + 8 * i);
+            v80 = 0u;
+            v81 = 0u;
+            v82 = 0u;
+            v83 = 0u;
             v19 = [v13 objectForKeyedSubscript:v18];
-            v20 = [v19 countByEnumeratingWithState:&v84 objects:v99 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v80 objects:v95 count:16];
             if (v20)
             {
               v21 = v20;
-              v22 = *v85;
+              v22 = *v81;
               do
               {
                 for (j = 0; j != v21; ++j)
                 {
-                  if (*v85 != v22)
+                  if (*v81 != v22)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) findAllContactInfoForNode:*(*(&v84 + 1) + 8 * j) info:v11 reference:v13 foundUser:0];
+                  *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) findAllContactInfoForNode:*(*(&v80 + 1) + 8 * j) info:v11 reference:v13 foundUser:0];
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v84 objects:v99 count:16];
+                v21 = [v19 countByEnumeratingWithState:&v80 objects:v95 count:16];
               }
 
               while (v21);
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v88 objects:v100 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v84 objects:v96 count:16];
         }
 
         while (v15);
       }
 
-      a3 = v65;
-      v5 = v67;
-      v7 = v61;
-      v6 = v63;
-      v10 = v59;
+      a3 = v61;
+      v5 = v63;
+      v7 = v57;
+      v6 = v59;
+      v10 = v55;
     }
 
     v24 = *(a1 + 48);
@@ -4175,11 +4125,11 @@ void __47__SpotlightGraph_peopleAnalyzeWithCancelBlock___block_invoke(uint64_t a
       v26 = objc_autoreleasePoolPush();
       if ([v10 count])
       {
-        v58 = v26;
-        v62 = v7;
-        v64 = v6;
-        v66 = a3;
-        v68 = v5;
+        v54 = v26;
+        v58 = v7;
+        v60 = v6;
+        v62 = a3;
+        v64 = v5;
         v27 = [SKGPersonNode alloc];
         v28 = [MEMORY[0x277CCAD78] UUID];
         v29 = [v28 description];
@@ -4187,7 +4137,7 @@ void __47__SpotlightGraph_peopleAnalyzeWithCancelBlock___block_invoke(uint64_t a
 
         [*(*(*(a1 + 72) + 8) + 40) addObject:v30];
         v31 = 0x27893B000uLL;
-        if (v92 == 1)
+        if (v88 == 1)
         {
           v32 = +[SKGUserNode user];
           v33 = [SKGEdge edgeFromNode:v30 toNode:v32];
@@ -4199,166 +4149,158 @@ void __47__SpotlightGraph_peopleAnalyzeWithCancelBlock___block_invoke(uint64_t a
           [*(*(*(a1 + 80) + 8) + 40) addObject:v35];
         }
 
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v60 = v10;
+        v78 = 0u;
+        v79 = 0u;
+        v76 = 0u;
+        v77 = 0u;
+        v56 = v10;
         obj = v10;
-        v36 = 0x27893B000uLL;
-        v70 = [obj countByEnumeratingWithState:&v80 objects:v98 count:16];
-        if (v70)
+        v66 = [obj countByEnumeratingWithState:&v76 objects:v94 count:16];
+        if (v66)
         {
-          v69 = *v81;
+          v65 = *v77;
           do
           {
-            v37 = 0;
+            v36 = 0;
             do
             {
-              if (*v81 != v69)
+              if (*v77 != v65)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v72 = v37;
-              v38 = *(*(&v80 + 1) + 8 * v37);
-              v76 = 0u;
-              v77 = 0u;
-              v78 = 0u;
-              v79 = 0u;
-              v74 = [obj objectForKeyedSubscript:v38];
-              v39 = [v74 countByEnumeratingWithState:&v76 objects:v97 count:16];
-              if (v39)
+              v68 = v36;
+              v37 = *(*(&v76 + 1) + 8 * v36);
+              v72 = 0u;
+              v73 = 0u;
+              v74 = 0u;
+              v75 = 0u;
+              v70 = [obj objectForKeyedSubscript:v37];
+              v38 = [v70 countByEnumeratingWithState:&v72 objects:v93 count:16];
+              if (v38)
               {
-                v40 = v39;
-                v75 = *v77;
+                v39 = v38;
+                v71 = *v73;
                 do
                 {
-                  v41 = 0;
+                  v40 = 0;
                   do
                   {
-                    if (*v77 != v75)
+                    if (*v73 != v71)
                     {
-                      objc_enumerationMutation(v74);
+                      objc_enumerationMutation(v70);
                     }
 
-                    v42 = +[SKGNode nodeWithElementIdentifier:inGraph:](SKGNode, "nodeWithElementIdentifier:inGraph:", [*(*(&v76 + 1) + 8 * v41) nodeIdentifier], *(a1 + 32));
-                    v43 = [*(v31 + 3016) edgeFromNode:v30 toNode:v42];
-                    if (v43)
+                    v41 = +[SKGNode nodeWithElementIdentifier:inGraph:](SKGNode, "nodeWithElementIdentifier:inGraph:", [*(*(&v72 + 1) + 8 * v40) nodeIdentifier], *(a1 + 32));
+                    v42 = [*(v31 + 3016) edgeFromNode:v30 toNode:v41];
+                    if (v42)
                     {
-                      [*(*(*(a1 + 80) + 8) + 40) addObject:v43];
+                      [*(*(*(a1 + 80) + 8) + 40) addObject:v42];
                     }
 
                     else if (SKGLogGetCurrentLoggingLevel() >= 2)
                     {
-                      v44 = SKGLogGraphInit();
-                      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                      v43 = SKGLogGraphInit();
+                      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                       {
-                        v50 = [(SKGNode *)v30 label];
-                        v51 = [v42 label];
+                        v47 = [(SKGNode *)v30 label];
+                        v48 = [v41 label];
                         *buf = 138412546;
-                        v94 = v50;
-                        v95 = 2112;
-                        v96 = v51;
-                        _os_log_error_impl(&dword_231B25000, v44, OS_LOG_TYPE_ERROR, "not adding edge from node <%@> to node <%@>", buf, 0x16u);
+                        v90 = v47;
+                        v91 = 2112;
+                        v92 = v48;
+                        _os_log_error_impl(&dword_231B25000, v43, OS_LOG_TYPE_ERROR, "not adding edge from node <%@> to node <%@>", buf, 0x16u);
 
-                        v36 = 0x27893B000;
                         v31 = 0x27893B000;
                       }
                     }
 
-                    v45 = [*(v31 + 3016) edgeFromNode:v42 toNode:v30];
-                    if (v45)
+                    v44 = [*(v31 + 3016) edgeFromNode:v41 toNode:v30];
+                    if (v44)
                     {
-                      [*(*(*(a1 + 80) + 8) + 40) addObject:v45];
+                      [*(*(*(a1 + 80) + 8) + 40) addObject:v44];
                     }
 
                     else if (SKGLogGetCurrentLoggingLevel() >= 2)
                     {
-                      v46 = SKGLogGraphInit();
-                      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                      v45 = SKGLogGraphInit();
+                      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                       {
-                        v73 = [v42 label];
-                        v52 = [(SKGNode *)v30 label];
+                        v69 = [v41 label];
+                        v49 = [(SKGNode *)v30 label];
                         *buf = 138412546;
-                        v94 = v73;
-                        v95 = 2112;
-                        v96 = v52;
-                        v53 = v52;
-                        _os_log_error_impl(&dword_231B25000, v46, OS_LOG_TYPE_ERROR, "not adding edge from node <%@> to node <%@>", buf, 0x16u);
-
-                        v36 = 0x27893B000;
+                        v90 = v69;
+                        v91 = 2112;
+                        v92 = v49;
+                        v50 = v49;
+                        _os_log_error_impl(&dword_231B25000, v45, OS_LOG_TYPE_ERROR, "not adding edge from node <%@> to node <%@>", buf, 0x16u);
                       }
 
                       v31 = 0x27893B000;
                     }
 
-                    v47 = *(v36 + 3280);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v48 = *(a1 + 96);
-                      v49 = [v42 value];
-                      v36 = 0x27893B000;
+                      v46 = [v41 value];
                       SIGeneralTrieAddStringKey();
 
                       v31 = 0x27893B000;
                     }
 
-                    ++v41;
+                    ++v40;
                   }
 
-                  while (v40 != v41);
-                  v40 = [v74 countByEnumeratingWithState:&v76 objects:v97 count:16];
+                  while (v39 != v40);
+                  v39 = [v70 countByEnumeratingWithState:&v72 objects:v93 count:16];
                 }
 
-                while (v40);
+                while (v39);
               }
 
-              v37 = v72 + 1;
+              v36 = v68 + 1;
             }
 
-            while (v72 + 1 != v70);
-            v70 = [obj countByEnumeratingWithState:&v80 objects:v98 count:16];
+            while (v68 + 1 != v66);
+            v66 = [obj countByEnumeratingWithState:&v76 objects:v94 count:16];
           }
 
-          while (v70);
+          while (v66);
         }
 
-        a3 = v66;
-        v5 = v68;
-        v7 = v62;
-        v6 = v64;
-        v26 = v58;
-        v10 = v60;
+        a3 = v62;
+        v5 = v64;
+        v7 = v58;
+        v6 = v60;
+        v26 = v54;
+        v10 = v56;
       }
 
       objc_autoreleasePoolPop(v26);
     }
 
-    v54 = ([*(*(*(a1 + 72) + 8) + 40) count] > 1 || objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "count") >= 2) && objc_msgSend(*(*(*(a1 + 72) + 8) + 40), "count") >> 3 <= 0x270 && objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "count") >> 3 < 0x271;
-    *(*(*(a1 + 88) + 8) + 24) = v54;
+    v51 = ([*(*(*(a1 + 72) + 8) + 40) count] > 1 || objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "count") >= 2) && objc_msgSend(*(*(*(a1 + 72) + 8) + 40), "count") >> 3 <= 0x270 && objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "count") >> 3 < 0x271;
+    *(*(*(a1 + 88) + 8) + 24) = v51;
   }
 
-  v55 = *(a1 + 48);
-  if (v55)
+  v52 = *(a1 + 48);
+  if (v52)
   {
-    v56 = (*(v55 + 16))(v55, @"analyzePeopleWithCancelBlock") ^ 1;
+    v53 = (*(v52 + 16))(v52, @"analyzePeopleWithCancelBlock") ^ 1;
   }
 
   else
   {
-    v56 = 1;
+    v53 = 1;
   }
 
-  *(*(*(a1 + 64) + 8) + 24) = v56;
+  *(*(*(a1 + 64) + 8) + 24) = v53;
   if (*(*(*(a1 + 64) + 8) + 24) != 1 || *(*(*(a1 + 88) + 8) + 24) != 1 || (*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
     *a3 = 1;
   }
 
   objc_autoreleasePoolPop(v6);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)peopleUpdateInfo:(id)info attributeKey:(id)key attribute:(id)attribute forNode:(id)node person:(id)person score:(id)score rank:(id)rank bestCount:(unint64_t *)self0
@@ -4636,125 +4578,123 @@ void __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke(void *a1, void
 
   if (v12 <= 1 && v10 <= 1 && v8 <= 1)
   {
-    v40 = a3;
+    v38 = a3;
     v13 = objc_opt_new();
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v5, "nodeIdentifier")];
-    v82 = 0x7FFFFFFF;
-    v81 = 0;
-    v15 = a1[8];
-    v42 = v14;
+    [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v5, "nodeIdentifier")];
+    v80[0] = 0x7FFFFFFF;
+    v40 = v79 = 0;
     SIGeneralTrieContainsStringKey();
-    v41 = +[SKGPersonNode personWithElementIdentifier:inGraph:](SKGPersonNode, "personWithElementIdentifier:inGraph:", [v5 nodeIdentifier], a1[4]);
-    v16 = [v41 value];
-    v80[0] = 0;
-    v80[1] = v80;
-    v80[2] = 0x2020000000;
-    v80[3] = 0;
-    v17 = [v5 names];
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_2;
-    v73[3] = &unk_27893DF58;
-    v76 = a1[7];
-    v18 = a1[4];
-    v73[4] = a1[5];
-    v19 = v13;
-    v74 = v19;
-    v20 = v5;
-    v75 = v20;
-    v78 = v81;
-    v79 = v82;
-    v77 = v80;
-    [v17 enumerateNamesInGraph:v18 usingBlock:v73];
+    v39 = +[SKGPersonNode personWithElementIdentifier:inGraph:](SKGPersonNode, "personWithElementIdentifier:inGraph:", [v5 nodeIdentifier], a1[4]);
+    v14 = [v39 value];
+    v78[0] = 0;
+    v78[1] = v78;
+    v78[2] = 0x2020000000;
+    v78[3] = 0;
+    v15 = [v5 names];
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_2;
+    v71[3] = &unk_27893DF58;
+    v74 = a1[7];
+    v16 = a1[4];
+    v71[4] = a1[5];
+    v17 = v13;
+    v72 = v17;
+    v18 = v5;
+    v73 = v18;
+    v76 = v79;
+    v77 = v80[0];
+    v75 = v78;
+    [v15 enumerateNamesInGraph:v16 usingBlock:v71];
 
     if (*(*(a1[7] + 8) + 24) == 1)
     {
-      v21 = [v20 entities];
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_3;
-      v67[3] = &unk_27893DF80;
-      v70 = a1[7];
-      v22 = a1[4];
-      v67[4] = a1[5];
-      v23 = v19;
-      v68 = v23;
-      v24 = v20;
-      v69 = v24;
-      v71 = v81;
-      v72 = v82;
-      [v21 enumerateEntitiesInGraph:v22 usingBlock:v67];
+      v19 = [v18 entities];
+      v65[0] = MEMORY[0x277D85DD0];
+      v65[1] = 3221225472;
+      v65[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_3;
+      v65[3] = &unk_27893DF80;
+      v68 = a1[7];
+      v20 = a1[4];
+      v65[4] = a1[5];
+      v21 = v17;
+      v66 = v21;
+      v22 = v18;
+      v67 = v22;
+      v69 = v79;
+      v70 = v80[0];
+      [v19 enumerateEntitiesInGraph:v20 usingBlock:v65];
 
       if (*(*(a1[7] + 8) + 24))
       {
-        v25 = [v24 contacts];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_4;
-        v61[3] = &unk_27893DFA8;
-        v64 = a1[7];
-        v26 = a1[4];
-        v61[4] = a1[5];
-        v27 = v23;
-        v62 = v27;
-        v28 = v24;
-        v63 = v28;
-        v65 = v81;
-        v66 = v82;
-        [v25 enumerateContactsInGraph:v26 usingBlock:v61];
+        v23 = [v22 contacts];
+        v59[0] = MEMORY[0x277D85DD0];
+        v59[1] = 3221225472;
+        v59[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_4;
+        v59[3] = &unk_27893DFA8;
+        v62 = a1[7];
+        v24 = a1[4];
+        v59[4] = a1[5];
+        v25 = v21;
+        v60 = v25;
+        v26 = v22;
+        v61 = v26;
+        v63 = v79;
+        v64 = v80[0];
+        [v23 enumerateContactsInGraph:v24 usingBlock:v59];
 
         if (*(*(a1[7] + 8) + 24))
         {
-          v29 = [v28 photos];
-          v55[0] = MEMORY[0x277D85DD0];
-          v55[1] = 3221225472;
-          v55[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_5;
-          v55[3] = &unk_27893DFD0;
-          v58 = a1[7];
-          v30 = a1[4];
-          v55[4] = a1[5];
-          v31 = v27;
-          v56 = v31;
-          v32 = v28;
-          v57 = v32;
-          v59 = v81;
-          v60 = v82;
-          [v29 enumeratePhotosInGraph:v30 usingBlock:v55];
+          v27 = [v26 photos];
+          v53[0] = MEMORY[0x277D85DD0];
+          v53[1] = 3221225472;
+          v53[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_5;
+          v53[3] = &unk_27893DFD0;
+          v56 = a1[7];
+          v28 = a1[4];
+          v53[4] = a1[5];
+          v29 = v25;
+          v54 = v29;
+          v30 = v26;
+          v55 = v30;
+          v57 = v79;
+          v58 = v80[0];
+          [v27 enumeratePhotosInGraph:v28 usingBlock:v53];
 
           if (*(*(a1[7] + 8) + 24))
           {
-            v33 = [v32 emails];
-            v49[0] = MEMORY[0x277D85DD0];
-            v49[1] = 3221225472;
-            v49[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_6;
-            v49[3] = &unk_27893DFF8;
-            v52 = a1[7];
-            v34 = a1[4];
-            v49[4] = a1[5];
-            v35 = v31;
-            v50 = v35;
-            v36 = v32;
-            v51 = v36;
-            v53 = v81;
-            v54 = v82;
-            [v33 enumerateEmailsInGraph:v34 usingBlock:v49];
+            v31 = [v30 emails];
+            v47[0] = MEMORY[0x277D85DD0];
+            v47[1] = 3221225472;
+            v47[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_6;
+            v47[3] = &unk_27893DFF8;
+            v50 = a1[7];
+            v32 = a1[4];
+            v47[4] = a1[5];
+            v33 = v29;
+            v48 = v33;
+            v34 = v30;
+            v49 = v34;
+            v51 = v79;
+            v52 = v80[0];
+            [v31 enumerateEmailsInGraph:v32 usingBlock:v47];
 
             if (*(*(a1[7] + 8) + 24))
             {
-              v37 = [v36 phones];
-              v39 = a1[4];
-              v38 = a1[5];
-              v43[0] = MEMORY[0x277D85DD0];
-              v43[1] = 3221225472;
-              v43[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_7;
-              v43[3] = &unk_27893E020;
-              v46 = a1[7];
-              v43[4] = v38;
-              v44 = v35;
-              v45 = v36;
-              v47 = v81;
-              v48 = v82;
-              [v37 enumeratePhonesInGraph:v39 usingBlock:v43];
+              v35 = [v34 phones];
+              v37 = a1[4];
+              v36 = a1[5];
+              v41[0] = MEMORY[0x277D85DD0];
+              v41[1] = 3221225472;
+              v41[2] = __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke_7;
+              v41[3] = &unk_27893E020;
+              v44 = a1[7];
+              v41[4] = v36;
+              v42 = v33;
+              v43 = v34;
+              v45 = v79;
+              v46 = v80[0];
+              [v35 enumeratePhonesInGraph:v37 usingBlock:v41];
             }
           }
         }
@@ -4764,10 +4704,10 @@ void __43__SpotlightGraph_generatePeopleUsingBlock___block_invoke(void *a1, void
     (*(a1[6] + 16))();
     if ((*(*(a1[7] + 8) + 24) & 1) == 0)
     {
-      *v40 = 1;
+      *v38 = 1;
     }
 
-    _Block_object_dispose(v80, 8);
+    _Block_object_dispose(v78, 8);
   }
 
   objc_autoreleasePoolPop(v6);

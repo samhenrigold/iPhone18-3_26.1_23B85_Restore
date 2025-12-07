@@ -8,10 +8,10 @@
 
 - (id)CalClassName
 {
-  v0 = objc_opt_class();
-  v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:class_getName(v0)];
+  v2 = objc_opt_class();
+  v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:class_getName(v2)];
 
-  return v1;
+  return v3;
 }
 
 - (BOOL)isNull

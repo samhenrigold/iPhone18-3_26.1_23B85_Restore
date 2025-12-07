@@ -702,14 +702,14 @@ void __49__UIPeripheralHost_setKeyboardOnScreenNotifyKey___block_invoke_2(uint64
   infoCopy = info;
   if (!self->_isTranslating || ([notificationCopy _containsSubstring:@"ChangeFrameNotification"] & 1) == 0)
   {
-    if ([notificationCopy isEqualToString:@"UIKeyboardWillChangeFrameNotification"])
+    if (objc_msgSend_isEqualToString_(notificationCopy))
     {
       v7 = UIKeyboardPrivateWillChangeFrameNotification;
     }
 
     else
     {
-      if (![notificationCopy isEqualToString:@"UIKeyboardDidChangeFrameNotification"])
+      if (!objc_msgSend_isEqualToString_(notificationCopy))
       {
         v8 = 0;
         goto LABEL_9;
@@ -1799,7 +1799,7 @@ void __143__UIPeripheralHost_UIKitInternal__updatePlacementForDeactivatedKeyboar
     v7 = targetState2;
     if (targetState2)
     {
-      [targetState2 geometry];
+      objc_msgSend_geometry(targetState2);
       v8 = v60;
       v9 = v59;
     }
@@ -1818,7 +1818,7 @@ void __143__UIPeripheralHost_UIKitInternal__updatePlacementForDeactivatedKeyboar
     {
       if (targetState4)
       {
-        [targetState4 geometry];
+        objc_msgSend_geometry(targetState4);
         v34 = v58;
         v35 = v57;
       }
@@ -1832,7 +1832,7 @@ void __143__UIPeripheralHost_UIKitInternal__updatePlacementForDeactivatedKeyboar
 
     else if (targetState4)
     {
-      [targetState4 geometry];
+      objc_msgSend_geometry(targetState4);
       v34 = v56;
       v35 = v55;
     }

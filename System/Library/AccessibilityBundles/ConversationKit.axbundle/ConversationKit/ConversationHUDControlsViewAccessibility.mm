@@ -53,7 +53,6 @@
 
 void __70__ConversationHUDControlsViewAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) dismissPresentedBannerForReason:@"Accessibility escape performed" animated:1];

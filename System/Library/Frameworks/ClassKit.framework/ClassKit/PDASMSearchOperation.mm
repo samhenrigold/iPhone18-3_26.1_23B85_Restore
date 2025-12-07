@@ -156,38 +156,28 @@
 - (id)customRequestHeaders
 {
   searchSpec = [(PDASMSearchOperation *)self searchSpec];
-  if (!searchSpec)
+  if (searchSpec && (v4 = searchSpec, -[PDASMSearchOperation searchSpec](self, "searchSpec"), v5 = objc_claimAutoreleasedReturnValue(), [v5 adminRequestor], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
-    goto LABEL_6;
-  }
-
-  v4 = searchSpec;
-  searchSpec2 = [(PDASMSearchOperation *)self searchSpec];
-  adminRequestor = [searchSpec2 adminRequestor];
-
-  if (adminRequestor)
-  {
-    searchSpec3 = [(PDASMSearchOperation *)self searchSpec];
-    adminRequestor2 = [searchSpec3 adminRequestor];
+    searchSpec2 = [(PDASMSearchOperation *)self searchSpec];
+    adminRequestor = [searchSpec2 adminRequestor];
 
     database = [(PDOperation *)self database];
     v10 = objc_opt_class();
-    objectID = [adminRequestor2 objectID];
+    objectID = [adminRequestor objectID];
     v12 = [database select:v10 identity:objectID];
 
     if (v12)
     {
-      [adminRequestor2 setState:{objc_msgSend(v12, "state")}];
+      [adminRequestor setState:{objc_msgSend(v12, "state")}];
       serverRequestHeaders = [v12 serverRequestHeaders];
-      [adminRequestor2 setServerRequestHeaders:serverRequestHeaders];
+      [adminRequestor setServerRequestHeaders:serverRequestHeaders];
     }
 
-    serverRequestHeaders2 = [adminRequestor2 serverRequestHeaders];
+    serverRequestHeaders2 = [adminRequestor serverRequestHeaders];
   }
 
   else
   {
-LABEL_6:
     serverRequestHeaders2 = 0;
   }
 
@@ -1263,36 +1253,35 @@ LABEL_23:
 - (BOOL)processGroupMember:(id)member
 {
   sub_1000858B0(member);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  obj = v40 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v4)
   {
     v6 = v4;
-    v37 = *v39;
+    v36 = *v38;
     v7 = 1;
     v8 = &CLSLogAsset_ptr;
     *&v5 = 138412290;
-    v34 = v5;
+    v33 = v5;
     while (1)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v39 != v37)
+        if (*v38 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v37 + 1) + 8 * i);
         database = [(PDOperation *)self database];
-        v12 = v8[86];
-        v13 = objc_opt_class();
+        v12 = objc_opt_class();
         parentObjectID = [v10 parentObjectID];
-        v15 = [database select:v13 identity:parentObjectID];
+        v14 = [database select:v12 identity:parentObjectID];
 
-        if (!v15)
+        if (!v14)
         {
           _init = [objc_alloc(v8[86]) _init];
           [_init setGroupName:&stru_100206880];
@@ -1303,51 +1292,51 @@ LABEL_23:
           if (![(PDASMPayloadOperation *)self insertEntity:_init])
           {
             CLSInitLog();
-            v18 = CLSLogSearch;
+            v17 = CLSLogSearch;
             if (os_log_type_enabled(CLSLogSearch, OS_LOG_TYPE_ERROR))
             {
-              v31 = v18;
+              v30 = v17;
               objectID = [_init objectID];
-              *buf = v34;
-              v43 = objectID;
-              _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Error inserting CLSGroup with identifier: %@", buf, 0xCu);
+              *buf = v33;
+              v42 = objectID;
+              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Error inserting CLSGroup with identifier: %@", buf, 0xCu);
             }
           }
         }
 
         [v10 setExpiration:*(&self->_resultsBlockStop + 2)];
-        v19 = [(PDASMPayloadOperation *)self insertEntity:v10];
-        if (!v19)
+        v18 = [(PDASMPayloadOperation *)self insertEntity:v10];
+        if (!v18)
         {
           personID = [v10 personID];
-          v22 = objc_opt_class();
+          v21 = objc_opt_class();
           objectID2 = [v10 objectID];
-          [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:personID forClass:v22 fromEntityWithID:objectID2 withClass:objc_opt_class()];
+          [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:personID forClass:v21 fromEntityWithID:objectID2 withClass:objc_opt_class()];
 
           parentObjectID3 = [v10 parentObjectID];
-          v25 = objc_opt_class();
+          v24 = objc_opt_class();
           objectID3 = [v10 objectID];
-          LODWORD(v25) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:parentObjectID3 forClass:v25 fromEntityWithID:objectID3 withClass:objc_opt_class()];
+          LODWORD(v24) = [(PDEndpointRequestOperation *)self checkForMissingEntityWithObjectID:parentObjectID3 forClass:v24 fromEntityWithID:objectID3 withClass:objc_opt_class()];
 
-          if (!v25)
+          if (!v24)
           {
             goto LABEL_24;
           }
 
           CLSInitLog();
-          v27 = CLSLogSearch;
+          v26 = CLSLogSearch;
           if (os_log_type_enabled(CLSLogSearch, OS_LOG_TYPE_DEBUG))
           {
-            v29 = v27;
+            v28 = v26;
             parentObjectID4 = [v10 parentObjectID];
-            *buf = v34;
-            v43 = parentObjectID4;
-            _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "GroupMember referenced missing group: '%@'", buf, 0xCu);
+            *buf = v33;
+            v42 = parentObjectID4;
+            _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "GroupMember referenced missing group: '%@'", buf, 0xCu);
           }
 
-          v28 = *(&self->super.super._responseStatusError + 2);
+          v27 = *(&self->super.super._responseStatusError + 2);
           parentObjectID5 = [v10 parentObjectID];
-          [v28 addObject:parentObjectID5];
+          [v27 addObject:parentObjectID5];
           goto LABEL_23;
         }
 
@@ -1360,8 +1349,8 @@ LABEL_23:
             log = CLSLogSearch;
             if (os_log_type_enabled(CLSLogSearch, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v34;
-              v43 = v10;
+              *buf = v33;
+              v42 = v10;
               _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Adding ASM search result to buffer. %@", buf, 0xCu);
             }
 
@@ -1372,12 +1361,12 @@ LABEL_23:
         }
 
 LABEL_24:
-        v7 &= v19;
+        v7 &= v18;
 
         v8 = &CLSLogAsset_ptr;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v6 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (!v6)
       {
         goto LABEL_28;

@@ -208,73 +208,75 @@ LABEL_21:
 - (ACZeroingString)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = ACZeroingString;
-  v5 = [(ACZeroingString *)&v16 init];
+  v18.receiver = self;
+  v18.super_class = ACZeroingString;
+  v5 = [(ACZeroingString *)&v18 init];
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AC.bytes"];
-      v7 = [coderCopy decodeIntegerForKey:@"AC.length"];
-      if (v7 < 0)
+      v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AC.bytes"];
+      v8 = [coderCopy decodeIntegerForKey:@"AC.length"];
+      if (v8 < 0)
       {
-        v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Failed to allocate backing character buffer" userInfo:0];
-        objc_exception_throw(v15);
+        v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Failed to allocate backing character buffer" userInfo:0];
+        objc_exception_throw(v17);
       }
 
-      v8 = v7;
-      v9 = 2 * v7;
-      if (2 * v7 > [v6 length])
+      v9 = v8;
+      v10 = 2 * v8;
+      v11 = [v7 length];
+      if (v10 > v11)
       {
-        v10 = _ACLogSystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v12 = _ACLogSystem(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [ACZeroingString initWithCoder:v10];
+          [ACZeroingString initWithCoder:v12];
         }
 
 LABEL_16:
 
-        v13 = 0;
+        v15 = 0;
         goto LABEL_17;
       }
 
-      v12 = malloc_type_malloc(v9, 0x64D82225uLL);
-      v5->_characters = v12;
-      if (!v12)
+      v14 = malloc_type_malloc(v10, 0x64D82225uLL);
+      v5->_characters = v14;
+      if (!v14)
       {
-        v10 = _ACLogSystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v12 = _ACLogSystem(0);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [(ACZeroingString *)v9 initWithCoder:v10];
+          [(ACZeroingString *)v10 initWithCoder:v12];
         }
 
         goto LABEL_16;
       }
 
-      v5->_length = v8;
-      memcpy(v12, [v6 bytes], v9);
+      v5->_length = v9;
+      memcpy(v14, [v7 bytes], v10);
     }
 
     else
     {
-      v11 = _ACLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = _ACLogSystem(isKindOfClass);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(ACZeroingString *)coderCopy initWithCoder:v11];
+        [(ACZeroingString *)coderCopy initWithCoder:v13];
       }
 
-      v6 = v5;
+      v7 = v5;
       v5 = 0;
     }
   }
 
   v5 = v5;
-  v13 = v5;
+  v15 = v5;
 LABEL_17:
 
-  return v13;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -461,23 +463,20 @@ uint64_t __35__ACZeroingString_encodeWithCoder___block_invoke(uint64_t a1)
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "ACZeroingString is being used with a decoder of type %@, which is not allowed.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "ACZeroingString is being used with a decoder of type %@, which is not allowed.", &v5, 0xCu);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "ACZeroingString malloc failed to return %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "ACZeroingString malloc failed to return %lu", &v2, 0xCu);
 }
 
 @end

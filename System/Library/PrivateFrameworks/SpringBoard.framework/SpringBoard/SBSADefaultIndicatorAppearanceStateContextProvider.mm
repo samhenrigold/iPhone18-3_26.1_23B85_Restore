@@ -102,47 +102,47 @@
       goto LABEL_34;
     }
 
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke;
-    v37[3] = &unk_2783AD750;
-    v39 = a2;
-    v37[4] = self;
-    v38 = indicatorElementContext;
-    v22 = [maintainedPreferences copyWithBlock:v37];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke;
+    v39[3] = &unk_2783AD750;
+    v41 = a2;
+    v39[4] = self;
+    v40 = indicatorElementContext;
+    v22 = [maintainedPreferences copyWithBlock:v39];
 
-    v23 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v24 = SBLogSystemAperturePreferencesStackIndicator(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [SBSADefaultIndicatorAppearanceStateContextProvider preferencesFromContext:];
     }
 
-    v24 = v38;
+    v25 = v40;
     goto LABEL_33;
   }
 
   if (v19)
   {
-    v25 = 1;
+    v26 = 1;
   }
 
   else
   {
-    v25 = v18;
+    v26 = v18;
   }
 
-  if ((v25 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke_23;
-    v36[3] = &unk_2783A93E8;
-    v36[4] = self;
-    v36[5] = a2;
-    v22 = [maintainedPreferences copyWithBlock:v36];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke_23;
+    v38[3] = &unk_2783A93E8;
+    v38[4] = self;
+    v38[5] = a2;
+    v22 = [maintainedPreferences copyWithBlock:v38];
 
-    v24 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = SBLogSystemAperturePreferencesStackIndicator(v27);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       [SBSADefaultIndicatorAppearanceStateContextProvider preferencesFromContext:];
     }
@@ -154,29 +154,29 @@ LABEL_33:
 
 LABEL_34:
   maintainedPreferences2 = [v14 maintainedPreferences];
-  v27 = BSEqualObjects();
+  v29 = BSEqualObjects();
 
-  if ((v27 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke_24;
-    v33[3] = &unk_2783AD750;
-    v35 = a2;
-    v33[4] = self;
-    v34 = maintainedPreferences;
-    v28 = [v14 copyWithBlock:v33];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke_24;
+    v35[3] = &unk_2783AD750;
+    v37 = a2;
+    v35[4] = self;
+    v36 = maintainedPreferences;
+    v30 = [v14 copyWithBlock:v35];
 
-    v14 = v28;
+    v14 = v30;
   }
 
-  v29 = [v9 copyByUpdatingPreferences:v14];
+  v31 = [v9 copyByUpdatingPreferences:v14];
 
-  v32.receiver = self;
-  v32.super_class = SBSADefaultIndicatorAppearanceStateContextProvider;
-  v30 = [(SBSABasePreferencesProvider *)&v32 preferencesFromContext:v29];
+  v34.receiver = self;
+  v34.super_class = SBSADefaultIndicatorAppearanceStateContextProvider;
+  v32 = [(SBSABasePreferencesProvider *)&v34 preferencesFromContext:v31];
 
-  return v30;
+  return v32;
 }
 
 void __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke(uint64_t a1, void *a2)
@@ -378,7 +378,7 @@ void __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromCon
   OUTLINED_FUNCTION_5_1();
   [v0 queryIteration];
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "[%{public}lu] created a new indicator layout context: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "[%{public}lu] created a new indicator layout context: %@", v3, v4, v5, v6);
 }
 
 - (void)preferencesFromContext:.cold.4()
@@ -386,7 +386,7 @@ void __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromCon
   OUTLINED_FUNCTION_5_1();
   [v0 queryIteration];
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "[%{public}lu] removed maintained indicator layout context: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "[%{public}lu] removed maintained indicator layout context: %@", v3, v4, v5, v6);
 }
 
 void __77__SBSADefaultIndicatorAppearanceStateContextProvider_preferencesFromContext___block_invoke_cold_1()

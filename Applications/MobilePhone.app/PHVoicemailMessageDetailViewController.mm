@@ -296,7 +296,7 @@ void __87__PHVoicemailMessageDetailViewController_performTableViewDestructiveAct
 
 void __104__PHVoicemailMessageDetailViewController_voicemailMessageTableViewCell_suggestionsDidReceiveTapGesture___block_invoke(id a1)
 {
-  v1 = PHDefaultLog();
+  v1 = PHDefaultLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __104__PHVoicemailMessageDetailViewController_voicemailMessageTableViewCell_suggestionsDidReceiveTapGesture___block_invoke_cold_1(v1);

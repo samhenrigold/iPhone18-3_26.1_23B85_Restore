@@ -410,7 +410,7 @@ LABEL_4:
   referencedObject = [(AVWeakReference *)[(AVAssetReaderOutput *)self _weakReferenceToAssetReader] referencedObject];
   if (referencedObject)
   {
-    [referencedObject timeRange];
+    objc_msgSend_timeRange(referencedObject);
   }
 
   else
@@ -648,7 +648,7 @@ LABEL_26:
     v37 = width;
     if (v36)
     {
-      [(AVVideoComposition *)v36 frameDuration];
+      objc_msgSend_frameDuration(v36);
       v36 = self->_videoCompositionOutputInternal->videoComposition;
     }
 

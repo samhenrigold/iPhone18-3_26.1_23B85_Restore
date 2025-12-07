@@ -26,7 +26,7 @@
 
 + (id)keysForRecipeRecordWithRecordSource:(id)source
 {
-  v23[11] = *MEMORY[0x1E69E9840];
+  v22[11] = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   localizedKeysByOriginalKey = [sourceCopy localizedKeysByOriginalKey];
   v5 = [localizedKeysByOriginalKey objectForKeyedSubscript:@"topicFlags"];
@@ -41,7 +41,7 @@
     v7 = @"topicFlags";
   }
 
-  v23[7] = v7;
+  v22[7] = v7;
   localizedKeysByOriginalKey2 = [sourceCopy localizedKeysByOriginalKey];
   v9 = [localizedKeysByOriginalKey2 objectForKeyedSubscript:@"personalizationData"];
   v10 = v9;
@@ -55,7 +55,7 @@
     v11 = @"personalizationData";
   }
 
-  v23[8] = v11;
+  v22[8] = v11;
   localizedKeysByOriginalKey3 = [sourceCopy localizedKeysByOriginalKey];
   v13 = [localizedKeysByOriginalKey3 objectForKeyedSubscript:@"rapidUpdatePersonalizationData"];
   v14 = v13;
@@ -69,7 +69,7 @@
     v15 = @"rapidUpdatePersonalizationData";
   }
 
-  v23[9] = v15;
+  v22[9] = v15;
   localizedKeysByOriginalKey4 = [sourceCopy localizedKeysByOriginalKey];
 
   v17 = [localizedKeysByOriginalKey4 objectForKeyedSubscript:@"eventAggregationPersonalizationData"];
@@ -84,10 +84,8 @@
     v19 = @"eventAggregationPersonalizationData";
   }
 
-  v23[10] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:11];
-
-  v21 = *MEMORY[0x1E69E9840];
+  v22[10] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:11];
 
   return v20;
 }

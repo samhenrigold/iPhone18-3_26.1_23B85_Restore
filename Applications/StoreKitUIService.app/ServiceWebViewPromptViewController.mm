@@ -15,6 +15,7 @@
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)dealloc;
 - (void)handleButtonActions:(id)actions;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -143,6 +144,27 @@
   [_remoteViewControllerProxy setDesiredHardwareButtonEvents:16];
   [_remoteViewControllerProxy setAllowsAlertItems:1];
   [_remoteViewControllerProxy setAllowsAlertStacking:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = ServiceWebViewPromptViewController;
+  [(ServiceWebViewPromptViewController *)&v8 viewDidAppear:appear];
+  view = [(ServiceWebViewPromptViewController *)self view];
+  window = [view window];
+
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
+
+  if (![(ServiceWebViewPromptViewController *)self viewControllerShown])
+  {
+    v7 = +[ServiceHostRegistry sharedInstance];
+    [v7 setRegisteredHostBundleId:0];
+
+    [(ServiceWebViewPromptViewController *)self _presentViewController];
+    [(ServiceWebViewPromptViewController *)self setViewControllerShown:1];
+  }
 }
 
 - (unint64_t)supportedInterfaceOrientations

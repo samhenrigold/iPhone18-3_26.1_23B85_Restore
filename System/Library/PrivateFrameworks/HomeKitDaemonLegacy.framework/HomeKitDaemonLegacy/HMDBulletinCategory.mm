@@ -92,7 +92,7 @@ LABEL_17:
 
 + (id)_localizedStateForValue:(id)value characteristicType:(id)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   if ([typeCopy isEqualToString:*MEMORY[0x277CFE610]])
@@ -107,13 +107,13 @@ LABEL_17:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v10;
-      v22 = 2112;
-      v23 = typeCopy;
-      v24 = 2112;
-      v25 = valueCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@type : %@ value = %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v10;
+      v21 = 2112;
+      v22 = typeCopy;
+      v23 = 2112;
+      v24 = valueCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@type : %@ value = %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -145,8 +145,6 @@ LABEL_17:
     v7 = v17;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -164,25 +162,23 @@ LABEL_17:
 
 void __57__HMDBulletinCategory_targetCurrentCharacteristicTypeMap__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CFE5E8];
   v1 = *MEMORY[0x277CFE730];
-  v8[0] = *MEMORY[0x277CFE710];
-  v8[1] = v1;
+  v7[0] = *MEMORY[0x277CFE710];
+  v7[1] = v1;
   v2 = *MEMORY[0x277CFE608];
-  v9[0] = v0;
-  v9[1] = v2;
+  v8[0] = v0;
+  v8[1] = v2;
   v3 = *MEMORY[0x277CFE748];
-  v8[2] = *MEMORY[0x277CFE738];
-  v8[3] = v3;
+  v7[2] = *MEMORY[0x277CFE738];
+  v7[3] = v3;
   v4 = *MEMORY[0x277CFE620];
-  v9[2] = *MEMORY[0x277CFE610];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
+  v8[2] = *MEMORY[0x277CFE610];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
   v6 = targetCurrentCharacteristicTypeMap_targetCurrentCharacteristicTypeMap;
   targetCurrentCharacteristicTypeMap_targetCurrentCharacteristicTypeMap = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)bulletinReasonForChangedCharacteristic:(id)characteristic
@@ -305,7 +301,7 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
 
 + (id)localizedStateForCharacteristic:(id)characteristic doorbellBulletinUtilities:(id)utilities
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   utilitiesCopy = utilities;
   accessory = [characteristicCopy accessory];
@@ -317,7 +313,7 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
   {
     if ([HMDBulletinCategory isSensorDetectedCharacteristic:characteristicCopy])
     {
-      v80 = utilitiesCopy;
+      v79 = utilitiesCopy;
       room = [accessory room];
       name = [room name];
 
@@ -340,11 +336,11 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
       type3 = [characteristicCopy type];
       v27 = [v25 valueForKey:type3];
       v28 = HMDLocalizedStringForKey(v27);
-      v83 = 0;
-      v76 = name;
+      v82 = 0;
+      v75 = name;
       v29 = [HMDBulletinCategory trimLeadingAndTailingSpacesInName:name];
-      v30 = [v24 localizedStringWithValidatedFormat:v28 validFormatSpecifiers:@"%@" error:&v83, v29];
-      v78 = v83;
+      v30 = [v24 localizedStringWithValidatedFormat:v28 validFormatSpecifiers:@"%@" error:&v82, v29];
+      v77 = v82;
 
       if (v30)
       {
@@ -362,13 +358,13 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
           type4 = [characteristicCopy type];
           v53 = [v51 valueForKey:type4];
           *buf = 138544130;
-          v85 = v50;
-          v86 = 2112;
-          v87 = v53;
-          v88 = 2112;
-          v89 = @"%@";
-          v90 = 2112;
-          v91 = v78;
+          v84 = v50;
+          v85 = 2112;
+          v86 = v53;
+          v87 = 2112;
+          v88 = @"%@";
+          v89 = 2112;
+          v90 = v77;
           _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
         }
 
@@ -378,7 +374,7 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
         v15 = [v54 valueForKey:type5];
       }
 
-      utilitiesCopy = v80;
+      utilitiesCopy = v79;
 
       goto LABEL_32;
     }
@@ -407,65 +403,65 @@ uint64_t __43__HMDBulletinCategory_isSecureServiceType___block_invoke()
     type9 = [characteristicCopy type];
     v39 = [self presentationValueForValue:value type:type9];
 
-    v74 = v39;
-    v77 = v36;
+    v73 = v39;
+    v76 = v36;
     v40 = [self _localizedStateForValue:v39 characteristicType:v36];
     name3 = [service name];
     room2 = [accessory room];
     name4 = [room2 name];
     v44 = HMDLocalizedStringForKey(@"BULLETIN_ACTION_ROOM_SERVICE");
-    v79 = [HMDServiceNameComponents componentsWithRawServiceName:name3 rawRoomName:name4 localizedFormat:v44];
+    v78 = [HMDServiceNameComponents componentsWithRawServiceName:name3 rawRoomName:name4 localizedFormat:v44];
 
     type10 = [service type];
     v46 = *MEMORY[0x277CFE928];
-    v81 = utilitiesCopy;
-    v75 = accessory;
+    v80 = utilitiesCopy;
+    v74 = accessory;
     if ([type10 isEqualToString:*MEMORY[0x277CFE928]])
     {
 
 LABEL_17:
       v47 = @"BULLETIN_ACTION_WINDOW_COVERING";
 LABEL_27:
-      v59 = v79;
+      v59 = v78;
       v60 = MEMORY[0x277CCACA8];
       v61 = HMDLocalizedStringForKey(v47);
-      v82 = 0;
-      composedName2 = [v79 composedName];
-      [v60 localizedStringWithValidatedFormat:v61 validFormatSpecifiers:@"%@ %@" error:&v82, composedName2, v40];
+      v81 = 0;
+      composedName2 = [v78 composedName];
+      [v60 localizedStringWithValidatedFormat:v61 validFormatSpecifiers:@"%@ %@" error:&v81, composedName2, v40];
       v64 = v63 = v40;
-      v65 = v82;
+      v65 = v81;
 
       v66 = v64;
-      utilitiesCopy = v81;
+      utilitiesCopy = v80;
       if (!v64)
       {
         v67 = v47;
-        v73 = v63;
+        v72 = v63;
         v68 = objc_autoreleasePoolPush();
         v69 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           v70 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v85 = v70;
-          v86 = 2112;
-          v87 = v67;
-          v88 = 2112;
-          v89 = @"%@ %@";
-          v90 = 2112;
-          v91 = v65;
+          v84 = v70;
+          v85 = 2112;
+          v86 = v67;
+          v87 = 2112;
+          v88 = @"%@ %@";
+          v89 = 2112;
+          v90 = v65;
           _os_log_impl(&dword_2531F8000, v69, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v68);
         v66 = v67;
-        v63 = v73;
-        v59 = v79;
+        v63 = v72;
+        v59 = v78;
       }
 
       v15 = v66;
 
-      accessory = v75;
+      accessory = v74;
       goto LABEL_32;
     }
 
@@ -504,7 +500,6 @@ LABEL_4:
   v15 = [HMDBulletinCategory trimLeadingAndTailingSpacesInName:name5];
 
 LABEL_32:
-  v71 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -540,27 +535,25 @@ LABEL_32:
 
 void __33__HMDBulletinCategory__sensorMap__block_invoke()
 {
-  v7[6] = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CFE5D0];
-  v6[0] = *MEMORY[0x277CFE678];
-  v6[1] = v0;
-  v7[0] = @"BULLETIN_ACTION_SENSOR_MOTION";
-  v7[1] = @"BULLETIN_ACTION_SENSOR_CO";
+  v5[0] = *MEMORY[0x277CFE678];
+  v5[1] = v0;
+  v6[0] = @"BULLETIN_ACTION_SENSOR_MOTION";
+  v6[1] = @"BULLETIN_ACTION_SENSOR_CO";
   v1 = *MEMORY[0x277CFE6E8];
-  v6[2] = *MEMORY[0x277CFE5C8];
-  v6[3] = v1;
-  v7[2] = @"BULLETIN_ACTION_SENSOR_CO2";
-  v7[3] = @"BULLETIN_ACTION_SENSOR_SMOKE";
+  v5[2] = *MEMORY[0x277CFE5C8];
+  v5[3] = v1;
+  v6[2] = @"BULLETIN_ACTION_SENSOR_CO2";
+  v6[3] = @"BULLETIN_ACTION_SENSOR_SMOKE";
   v2 = *MEMORY[0x277CFE690];
-  v6[4] = *MEMORY[0x277CFE668];
-  v6[5] = v2;
-  v7[4] = @"BULLETIN_ACTION_SENSOR_LEAK";
-  v7[5] = @"BULLETIN_ACTION_SENSOR_OCCUPANCY";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:6];
+  v5[4] = *MEMORY[0x277CFE668];
+  v5[5] = v2;
+  v6[4] = @"BULLETIN_ACTION_SENSOR_LEAK";
+  v6[5] = @"BULLETIN_ACTION_SENSOR_OCCUPANCY";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:6];
   v4 = _sensorMap_sensorMap;
   _sensorMap_sensorMap = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_secureStateMap
@@ -577,22 +570,20 @@ void __33__HMDBulletinCategory__sensorMap__block_invoke()
 
 void __38__HMDBulletinCategory__secureStateMap__block_invoke()
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CFE610];
-  v5[0] = *MEMORY[0x277CFE5E8];
-  v5[1] = v0;
-  v6[0] = &unk_286626FC8;
-  v6[1] = &unk_286626FE0;
+  v4[0] = *MEMORY[0x277CFE5E8];
+  v4[1] = v0;
+  v5[0] = &unk_286626FC8;
+  v5[1] = &unk_286626FE0;
   v1 = *MEMORY[0x277CFE5D8];
-  v5[2] = *MEMORY[0x277CFE620];
-  v5[3] = v1;
-  v6[2] = &unk_286626FF8;
-  v6[3] = &unk_286627010;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x277CFE620];
+  v4[3] = v1;
+  v5[2] = &unk_286626FF8;
+  v5[3] = &unk_286627010;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = _secureStateMap_secureStateMap;
   _secureStateMap_secureStateMap = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_enumerationValueLocalizationKeys
@@ -609,27 +600,25 @@ void __38__HMDBulletinCategory__secureStateMap__block_invoke()
 
 void __56__HMDBulletinCategory__enumerationValueLocalizationKeys__block_invoke()
 {
-  v7[6] = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CFE608];
-  v6[0] = *MEMORY[0x277CFE5E8];
-  v6[1] = v0;
-  v7[0] = &unk_286626F38;
-  v7[1] = &unk_286626F50;
+  v5[0] = *MEMORY[0x277CFE5E8];
+  v5[1] = v0;
+  v6[0] = &unk_286626F38;
+  v6[1] = &unk_286626F50;
   v1 = *MEMORY[0x277CFE660];
-  v6[2] = *MEMORY[0x277CFE620];
-  v6[3] = v1;
-  v7[2] = &unk_286626F68;
-  v7[3] = &unk_286626F80;
+  v5[2] = *MEMORY[0x277CFE620];
+  v5[3] = v1;
+  v6[2] = &unk_286626F68;
+  v6[3] = &unk_286626F80;
   v2 = *MEMORY[0x277CFE5D8];
-  v6[4] = *MEMORY[0x277CFE678];
-  v6[5] = v2;
-  v7[4] = &unk_286626F98;
-  v7[5] = &unk_286626FB0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:6];
+  v5[4] = *MEMORY[0x277CFE678];
+  v5[5] = v2;
+  v6[4] = &unk_286626F98;
+  v6[5] = &unk_286626FB0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:6];
   v4 = _enumerationValueLocalizationKeys_localizationKeys;
   _enumerationValueLocalizationKeys_localizationKeys = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

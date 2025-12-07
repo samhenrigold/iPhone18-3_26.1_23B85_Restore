@@ -27,6 +27,7 @@
 - (id)_fetchMomentsWithUUIDs:(id)ds;
 - (id)_fetchedHighlightsWithHighlightUUIDs:(id)ds;
 - (id)cachedDataModelObjectForGraphChange:(id)change;
+- (id)highlightsToProcessForKind:(unsigned __int16)kind withHighlightUpdateTypes:(unint64_t)types includeHighlightsToIngest:(BOOL)ingest;
 - (id)initForChangeStreamResetInPhotoLibrary:(id)library updateType:(int64_t)type;
 - (id)momentChangesDateInterval;
 - (id)momentNodesToProcessInGraph:(id)graph forMomentUpdateTypes:(unint64_t)types includeInsertedNodes:(BOOL)nodes;
@@ -57,22 +58,22 @@
 
 - (id)momentChangesDateInterval
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (![(PGGraphUpdate *)self isResumingFullAnalysis])
   {
     [(PGGraphUpdate *)self _consolidateIfNeeded];
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
     v6 = [(PGGraphUpdate *)self momentsToProcessForMomentUpdateTypes:31 includeMomentsToIngest:1];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         v10 = 0;
@@ -80,12 +81,12 @@
         v12 = distantFuture;
         do
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * v10);
+          v13 = *(*(&v22 + 1) + 8 * v10);
           universalStartDate = [v13 universalStartDate];
           distantFuture = [v12 earlierDate:universalStartDate];
 
@@ -98,7 +99,7 @@
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v8);
@@ -120,9 +121,9 @@
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v28 = distantFuture;
-          v29 = 2112;
-          v30 = distantPast;
+          v27 = distantFuture;
+          v28 = 2112;
+          v29 = distantPast;
           _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "momentChangesDateInterval: returning date interval from earliest (%@) latest (%@) dates", buf, 0x16u);
         }
 
@@ -137,9 +138,9 @@ LABEL_21:
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v28 = distantFuture;
-      v29 = 2112;
-      v30 = distantPast;
+      v27 = distantFuture;
+      v28 = 2112;
+      v29 = distantPast;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "momentChangesDateInterval: returning nil since we do not have earliest (%@) or latest (%@) dates", buf, 0x16u);
     }
 
@@ -156,8 +157,6 @@ LABEL_21:
 
   v4 = 0;
 LABEL_22:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -186,9 +185,61 @@ LABEL_22:
   return identifiersForMomentRelatedToUpdatedPersons;
 }
 
+- (id)highlightsToProcessForKind:(unsigned __int16)kind withHighlightUpdateTypes:(unint64_t)types includeHighlightsToIngest:(BOOL)ingest
+{
+  ingestCopy = ingest;
+  kindCopy = kind;
+  v9 = [MEMORY[0x277CBEB58] set];
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_includeHighlightsToIngest___block_invoke;
+  v24 = &unk_2788854D8;
+  typesCopy = types;
+  selfCopy = self;
+  v28 = kindCopy;
+  v10 = v9;
+  v26 = v10;
+  [(PGGraphUpdate *)self enumerateConsolidatedChanges:&v21];
+  if (ingestCopy)
+  {
+    highlightsToInsertByHighlightKind = self->_highlightsToInsertByHighlightKind;
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{kindCopy, v21, v22, v23, v24, selfCopy}];
+    v13 = [(NSMutableDictionary *)highlightsToInsertByHighlightKind objectForKeyedSubscript:v12];
+
+    if ([v13 count])
+    {
+      [v10 unionSet:v13];
+    }
+  }
+
+  if ([(PGGraphUpdate *)self isResumingFullAnalysis:v21]&& [(PGGraphUpdate *)self updateType]== 4)
+  {
+    librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
+    if (kindCopy)
+    {
+      v15 = 1000000304;
+    }
+
+    else
+    {
+      v15 = 1000000301;
+    }
+
+    v16 = [MEMORY[0x277CD97B8] fetchAssetCollectionsWithType:6 subtype:v15 options:librarySpecificFetchOptions];
+    [(PGGraphUpdate *)self _registerHighlights:v16];
+    fetchedObjects = [v16 fetchedObjects];
+    [v10 addObjectsFromArray:fetchedObjects];
+  }
+
+  v18 = v26;
+  v19 = v10;
+
+  return v10;
+}
+
 void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_includeHighlightsToIngest___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 type] == 9)
   {
@@ -208,50 +259,47 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
 
       else
       {
-        v8 = *(a1 + 32);
-        v9 = [objc_opt_class() loggingConnection];
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v8 = [objc_opt_class() loggingConnection];
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
-          v11 = 138412546;
-          v12 = v5;
-          v13 = 2112;
-          v14 = v4;
-          _os_log_fault_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_FAULT, "Consolidate can't find highlight UUID (%@) for change %@", &v11, 0x16u);
+          v9 = 138412546;
+          v10 = v5;
+          v11 = 2112;
+          v12 = v4;
+          _os_log_fault_impl(&dword_22F0FC000, v8, OS_LOG_TYPE_FAULT, "Consolidate can't find highlight UUID (%@) for change %@", &v9, 0x16u);
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchedHighlightsWithHighlightUUIDs:(id)ds
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
   v6 = objc_autoreleasePoolPush();
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = [(NSMutableDictionary *)self->_highlightByHighlightUUID objectForKeyedSubscript:v13];
         if (v14)
         {
@@ -268,7 +316,7 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
         [v15 addObject:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -287,7 +335,6 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
   }
 
   objc_autoreleasePoolPop(v6);
-  v21 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -304,38 +351,36 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
 
 - (void)_registerHighlights:(id)highlights
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   highlightsCopy = highlights;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [highlightsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [highlightsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(highlightsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         uuid = [v9 uuid];
         [(NSMutableDictionary *)self->_highlightByHighlightUUID setObject:v9 forKeyedSubscript:uuid];
       }
 
-      v6 = [highlightsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [highlightsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasHighlightDayGroupsToInsert
@@ -461,7 +506,7 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
 - (id)momentNodesToProcessInGraph:(id)graph forMomentUpdateTypes:(unint64_t)types includeInsertedNodes:(BOOL)nodes
 {
   nodesCopy = nodes;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   if ([(PGGraphUpdate *)self isResumingFullAnalysis])
   {
@@ -477,26 +522,26 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
       [v10 unionSet:self->_insertedMomentNodes];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = self->_updateMomentNodesByUpdateType;
-    v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           if (([v17 unsignedIntegerValue] & types) != 0)
           {
             v18 = [(NSMutableDictionary *)self->_updateMomentNodesByUpdateType objectForKeyedSubscript:v17];
@@ -504,7 +549,7 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
           }
         }
 
-        v14 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
@@ -512,8 +557,6 @@ void __95__PGGraphUpdate_highlightsToProcessForKind_withHighlightUpdateTypes_inc
 
     momentNodes = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithSet:v11 graph:graphCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return momentNodes;
 }
@@ -848,38 +891,38 @@ void __60__PGGraphUpdate_uuidsOfMomentsToUpdateForMomentUpdateTypes___block_invo
 
 - (void)enumerateConsolidatedChanges:(id)changes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   [(PGGraphUpdate *)self _consolidateIfNeeded];
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_consolidatedChanges;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v12 != v8)
+      if (*v11 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      changesCopy[2](changesCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-      if (v15)
+      changesCopy[2](changesCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+      if (v14)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -889,8 +932,6 @@ LABEL_3:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)numberOfConsolidatedChanges
@@ -915,31 +956,31 @@ LABEL_3:
 
 - (id)_fetchMomentsWithUUIDs:(id)ds
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
   v6 = objc_autoreleasePoolPush();
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = [(NSMutableDictionary *)self->_momentByMomentUUID objectForKeyedSubscript:v13];
         if (v14)
         {
@@ -956,7 +997,7 @@ LABEL_3:
         [v15 addObject:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -975,58 +1016,57 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v6);
-  v21 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)_consolidate
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v83 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v78 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v71 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v67 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v81 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v72 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v70 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v80 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v76 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v97 = *MEMORY[0x277D85DE8];
+  v82 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v77 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v70 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v66 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v80 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v71 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v79 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v68 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v75 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v76 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v91 = 0u;
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
-  v95 = 0u;
   obj = self->_inputChanges;
-  v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v92 objects:v97 count:16];
-  v75 = v3;
-  v84 = v5;
-  v73 = v4;
+  v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v91 objects:v96 count:16];
+  v74 = v3;
+  v83 = v5;
+  v72 = v4;
   if (!v7)
   {
-    v74 = 0;
+    v73 = 0;
     goto LABEL_62;
   }
 
   v8 = v7;
-  v74 = 0;
-  v9 = *v93;
+  v73 = 0;
+  v9 = *v92;
   do
   {
     v10 = 0;
     do
     {
-      if (*v93 != v9)
+      if (*v92 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v92 + 1) + 8 * v10);
+      v11 = *(*(&v91 + 1) + 8 * v10);
       type = [v11 type];
       if (type <= 6)
       {
@@ -1052,7 +1092,7 @@ LABEL_3:
             }
 
             loggingConnection = [v11 momentUUIDs];
-            [v78 unionSet:loggingConnection];
+            [v77 unionSet:loggingConnection];
             allObjects = [loggingConnection allObjects];
             [v5 removeObjectsForKeys:allObjects];
 
@@ -1063,9 +1103,9 @@ LABEL_3:
           v26 = v11;
           loggingConnection = [v26 momentUUIDs];
           allObjects2 = [loggingConnection allObjects];
-          [v84 removeObjectsForKeys:allObjects2];
+          [v83 removeObjectsForKeys:allObjects2];
 
-          [v83 unionSet:loggingConnection];
+          [v82 unionSet:loggingConnection];
           moments = [v26 moments];
 
           [(PGGraphUpdate *)self _registerMoments:moments];
@@ -1086,7 +1126,7 @@ LABEL_3:
             contactIdentifier = [loggingConnection contactIdentifier];
             if ([personLocalIdentifier length])
             {
-              if (([v81 containsObject:personLocalIdentifier] & 1) == 0)
+              if (([v80 containsObject:personLocalIdentifier] & 1) == 0)
               {
                 v19 = v6;
                 v20 = [v5 objectForKeyedSubscript:personLocalIdentifier];
@@ -1100,15 +1140,15 @@ LABEL_3:
                   v30 = v5;
                   v21 = loggingConnection;
                   [v30 setObject:v21 forKeyedSubscript:personLocalIdentifier];
-                  [v72 addObject:personLocalIdentifier];
+                  [v71 addObject:personLocalIdentifier];
                 }
 
                 v6 = v19;
-                v4 = v73;
+                v4 = v72;
 LABEL_57:
                 [v21 mergeChange:loggingConnection];
 
-                v5 = v84;
+                v5 = v83;
               }
             }
 
@@ -1124,18 +1164,18 @@ LABEL_57:
               {
                 v21 = loggingConnection;
                 [v6 setObject:v21 forKeyedSubscript:contactIdentifier];
-                [v70 addObject:contactIdentifier];
+                [v69 addObject:contactIdentifier];
               }
 
               goto LABEL_57;
             }
 
-            v3 = v75;
+            v3 = v74;
             goto LABEL_48;
           }
 
           loggingConnection = [v11 personLocalIdentifiers];
-          [v81 unionSet:loggingConnection];
+          [v80 unionSet:loggingConnection];
           allObjects3 = [loggingConnection allObjects];
           [v5 removeObjectsForKeys:allObjects3];
           goto LABEL_47;
@@ -1143,7 +1183,7 @@ LABEL_57:
 
         loggingConnection = v11;
         allObjects3 = [loggingConnection momentUUID];
-        if ([v83 containsObject:allObjects3] & 1) != 0 || (objc_msgSend(v78, "containsObject:", allObjects3))
+        if ([v82 containsObject:allObjects3] & 1) != 0 || (objc_msgSend(v77, "containsObject:", allObjects3))
         {
           goto LABEL_47;
         }
@@ -1152,15 +1192,15 @@ LABEL_57:
         if (!v16)
         {
           v16 = loggingConnection;
-          [v84 setObject:v16 forKeyedSubscript:allObjects3];
-          [v71 addObject:allObjects3];
+          [v83 setObject:v16 forKeyedSubscript:allObjects3];
+          [v70 addObject:allObjects3];
         }
 
         [v16 mergeChange:loggingConnection];
-        v74 |= [loggingConnection updateTypes];
+        v73 |= [loggingConnection updateTypes];
 LABEL_39:
 
-        v5 = v84;
+        v5 = v83;
         goto LABEL_47;
       }
 
@@ -1171,12 +1211,12 @@ LABEL_39:
           case 10:
             allObjects3 = v11;
             loggingConnection = [allObjects3 socialGroupUUIDs];
-            v25 = v76;
+            v25 = v75;
             break;
           case 11:
             allObjects3 = v11;
             loggingConnection = [allObjects3 socialGroupUUIDs];
-            v25 = v77;
+            v25 = v76;
             break;
           case 12:
             allObjects3 = v11;
@@ -1198,7 +1238,7 @@ LABEL_47:
         if (type == 8)
         {
           loggingConnection = [v11 highlightUUIDs];
-          [v80 unionSet:loggingConnection];
+          [v79 unionSet:loggingConnection];
           allObjects4 = [loggingConnection allObjects];
           [v5 removeObjectsForKeys:allObjects4];
 
@@ -1208,7 +1248,7 @@ LABEL_47:
 
         loggingConnection = v11;
         allObjects3 = [loggingConnection highlightUUID];
-        if ([v3 containsObject:allObjects3] & 1) != 0 || (objc_msgSend(v80, "containsObject:", allObjects3))
+        if ([v3 containsObject:allObjects3] & 1) != 0 || (objc_msgSend(v79, "containsObject:", allObjects3))
         {
           goto LABEL_47;
         }
@@ -1217,8 +1257,8 @@ LABEL_47:
         if (!v16)
         {
           v16 = loggingConnection;
-          [v84 setObject:v16 forKeyedSubscript:allObjects3];
-          [v69 addObject:allObjects3];
+          [v83 setObject:v16 forKeyedSubscript:allObjects3];
+          [v68 addObject:allObjects3];
         }
 
         [v16 mergeChange:loggingConnection];
@@ -1228,7 +1268,7 @@ LABEL_47:
       v22 = v11;
       loggingConnection = [v22 highlightUUIDs];
       allObjects5 = [loggingConnection allObjects];
-      [v84 removeObjectsForKeys:allObjects5];
+      [v83 removeObjectsForKeys:allObjects5];
 
       [v3 unionSet:loggingConnection];
       moments = [v22 highlights];
@@ -1236,7 +1276,7 @@ LABEL_47:
       [(PGGraphUpdate *)self _registerHighlights:moments];
 LABEL_42:
 
-      v5 = v84;
+      v5 = v83;
 LABEL_48:
 
 LABEL_49:
@@ -1244,7 +1284,7 @@ LABEL_49:
     }
 
     while (v8 != v10);
-    v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v92 objects:v97 count:16];
+    v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v91 objects:v96 count:16];
     v8 = v31;
   }
 
@@ -1260,8 +1300,8 @@ LABEL_62:
     [v32 addObjectsFromArray:v35];
   }
 
-  v36 = v69;
-  v37 = v83;
+  v36 = v68;
+  v37 = v82;
   if ([v6 count])
   {
     v38 = MEMORY[0x277CBEA60];
@@ -1275,18 +1315,18 @@ LABEL_62:
   consolidatedChanges = self->_consolidatedChanges;
   self->_consolidatedChanges = v41;
 
-  v43 = [v78 mutableCopy];
-  [v43 minusSet:v83];
-  [v83 minusSet:v78];
+  v43 = [v77 mutableCopy];
+  [v43 minusSet:v82];
+  [v82 minusSet:v77];
   v44 = v43;
 
-  objc_storeStrong(&self->_uuidsOfMomentsToInsert, v83);
+  objc_storeStrong(&self->_uuidsOfMomentsToInsert, v82);
   objc_storeStrong(&self->_uuidsOfMomentsToDelete, v43);
-  objc_storeStrong(&self->_uuidsOfMomentsToUpdate, v71);
-  self->_momentUpdateTypes = v74;
-  if ([v83 count])
+  objc_storeStrong(&self->_uuidsOfMomentsToUpdate, v70);
+  self->_momentUpdateTypes = v73;
+  if ([v82 count])
   {
-    [(PGGraphUpdate *)self _fetchMomentsWithUUIDs:v83];
+    [(PGGraphUpdate *)self _fetchMomentsWithUUIDs:v82];
   }
 
   else
@@ -1297,48 +1337,48 @@ LABEL_62:
   momentsToIngest = self->_momentsToIngest;
   self->_momentsToIngest = v45;
 
-  if (v71 && [v71 count])
+  if (v70 && [v70 count])
   {
-    v47 = [(PGGraphUpdate *)self _fetchMomentsWithUUIDs:v71];
+    v47 = [(PGGraphUpdate *)self _fetchMomentsWithUUIDs:v70];
   }
 
-  v48 = [v81 mutableCopy];
-  [v48 minusSet:v68];
-  [v68 minusSet:v81];
-  v79 = v48;
+  v48 = [v80 mutableCopy];
+  [v48 minusSet:v67];
+  [v67 minusSet:v80];
+  v78 = v48;
 
-  objc_storeStrong(&self->_localIdentifiersOfPersonsToInsert, v68);
+  objc_storeStrong(&self->_localIdentifiersOfPersonsToInsert, v67);
   objc_storeStrong(&self->_localIdentifiersOfPersonsToDelete, v48);
-  objc_storeStrong(&self->_localIdentifiersOfPersonsToUpdate, v72);
-  objc_storeStrong(&self->_contactIdentifiersOfPersonsToUpdate, v70);
+  objc_storeStrong(&self->_localIdentifiersOfPersonsToUpdate, v71);
+  objc_storeStrong(&self->_contactIdentifiersOfPersonsToUpdate, v69);
   [(PGGraphUpdate *)self clearInsertedAndUpdatedPersonNodes];
   [(PGGraphUpdate *)self clearUpdatedPersonNodesUnrelatedToMomentChange];
   objc_storeStrong(&self->_uuidsOfHighlightsToInsert, v3);
-  objc_storeStrong(&self->_uuidsOfHighlightsToDelete, v80);
-  objc_storeStrong(&self->_uuidsOfHighlightsToUpdate, v69);
+  objc_storeStrong(&self->_uuidsOfHighlightsToDelete, v79);
+  objc_storeStrong(&self->_uuidsOfHighlightsToUpdate, v68);
   if ([v3 count])
   {
-    v82 = v6;
+    v81 = v6;
     v49 = [(PGGraphUpdate *)self _fetchedHighlightsWithHighlightUUIDs:v3];
+    v86 = 0u;
     v87 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v90 = 0u;
-    v50 = [v49 countByEnumeratingWithState:&v87 objects:v96 count:16];
+    v50 = [v49 countByEnumeratingWithState:&v86 objects:v95 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v88;
+      v52 = *v87;
       do
       {
         for (i = 0; i != v51; ++i)
         {
-          if (*v88 != v52)
+          if (*v87 != v52)
           {
             objc_enumerationMutation(v49);
           }
 
-          v54 = *(*(&v87 + 1) + 8 * i);
+          v54 = *(*(&v86 + 1) + 8 * i);
           highlightsToInsertByHighlightKind = self->_highlightsToInsertByHighlightKind;
           v56 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v54, "kind")}];
           v57 = [(NSMutableDictionary *)highlightsToInsertByHighlightKind objectForKeyedSubscript:v56];
@@ -1354,17 +1394,17 @@ LABEL_62:
           [v57 addObject:v54];
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v87 objects:v96 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v86 objects:v95 count:16];
       }
 
       while (v51);
     }
 
-    v37 = v83;
-    v5 = v84;
-    v3 = v75;
-    v36 = v69;
-    v6 = v82;
+    v37 = v82;
+    v5 = v83;
+    v3 = v74;
+    v36 = v68;
+    v6 = v81;
   }
 
   if (v36 && [v36 count])
@@ -1373,17 +1413,15 @@ LABEL_62:
   }
 
   uuidsOfSocialGroupsToInsert = self->_uuidsOfSocialGroupsToInsert;
-  self->_uuidsOfSocialGroupsToInsert = v76;
-  v62 = v76;
+  self->_uuidsOfSocialGroupsToInsert = v75;
+  v62 = v75;
 
   uuidsOfSocialGroupsToDelete = self->_uuidsOfSocialGroupsToDelete;
-  self->_uuidsOfSocialGroupsToDelete = v77;
-  v64 = v77;
+  self->_uuidsOfSocialGroupsToDelete = v76;
+  v64 = v76;
 
   uuidsOfSocialGroupsToUpdate = self->_uuidsOfSocialGroupsToUpdate;
-  self->_uuidsOfSocialGroupsToUpdate = v73;
-
-  v66 = *MEMORY[0x277D85DE8];
+  self->_uuidsOfSocialGroupsToUpdate = v72;
 }
 
 - (void)_unregisterMomentsForMomentUUIDs:(id)ds
@@ -1398,43 +1436,41 @@ LABEL_62:
 
 - (void)_registerMoments:(id)moments
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   momentsCopy = moments;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [momentsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [momentsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(momentsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         uuid = [v9 uuid];
         [(NSMutableDictionary *)self->_momentByMomentUUID setObject:v9 forKeyedSubscript:uuid];
       }
 
-      v6 = [momentsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [momentsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForPostProcessingWithGraph:(id)graph
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   if ([(PGGraphUpdate *)self isResumingFullAnalysis])
   {
@@ -1447,41 +1483,41 @@ LABEL_62:
     v10 = [momentsToIngest count];
     if (v10 != [v9 count])
     {
-      v25 = v5;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
+      v24 = v5;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v11 = momentsToIngest;
-      v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v27;
+        v14 = *v26;
         do
         {
           v15 = 0;
           do
           {
-            if (*v27 != v14)
+            if (*v26 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            uuid = [*(*(&v26 + 1) + 8 * v15) uuid];
+            uuid = [*(*(&v25 + 1) + 8 * v15) uuid];
             [v9 removeObject:uuid];
 
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v13);
       }
 
-      v5 = v25;
+      v5 = v24;
       if ([v9 count])
       {
         v17 = MEMORY[0x277CBEB58];
@@ -1502,8 +1538,6 @@ LABEL_62:
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addChanges:(id)changes

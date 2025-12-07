@@ -134,7 +134,7 @@ uint64_t __37__QLNetworkStateObserver__commonInit__block_invoke(uint64_t a1)
 
 - (void)_updateNetworkStateWithNotifyToken:(int)token
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   state64 = 0;
   state = notify_get_state(token, &state64);
   if (state)
@@ -151,7 +151,7 @@ uint64_t __37__QLNetworkStateObserver__commonInit__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_261653000, v7, OS_LOG_TYPE_DEFAULT, "Could not get state of the CloudDocs availability notification: error %u #Downloading", buf, 8u);
     }
 
@@ -162,8 +162,6 @@ uint64_t __37__QLNetworkStateObserver__commonInit__block_invoke(uint64_t a1)
   {
     [(QLNetworkStateObserver *)self _updateNetworkStateWithFlags:state64];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObserving
@@ -178,39 +176,38 @@ uint64_t __37__QLNetworkStateObserver__commonInit__block_invoke(uint64_t a1)
 
 void __40__QLNetworkStateObserver_startObserving__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() networkAccessShouldGoThroughCloudDocsDaemon];
-  v5 = *(a1 + 32);
-  if (!v4)
+  v3 = [objc_opt_class() networkAccessShouldGoThroughCloudDocsDaemon];
+  v4 = *(a1 + 32);
+  if (!v3)
   {
-    if (*(v5 + 64))
+    if (*(v4 + 64))
     {
       goto LABEL_25;
     }
 
-    *(v5 + 32) = v5;
+    *(v4 + 32) = v4;
     *(*(a1 + 32) + 64) = SCNetworkReachabilityCreateWithName(0, "apple.com");
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 64);
-    if (v16)
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 64);
+    if (v15)
     {
-      if (SCNetworkReachabilitySetCallback(v16, _reachabilityDidChange, (v15 + 24)) && SCNetworkReachabilitySetDispatchQueue(*(*(a1 + 32) + 64), *(*(a1 + 32) + 16)))
+      if (SCNetworkReachabilitySetCallback(v15, _reachabilityDidChange, (v14 + 24)) && SCNetworkReachabilitySetDispatchQueue(*(*(a1 + 32) + 64), *(*(a1 + 32) + 16)))
       {
         goto LABEL_25;
       }
 
-      v17 = MEMORY[0x277D43EF8];
-      v18 = *MEMORY[0x277D43EF8];
+      v16 = MEMORY[0x277D43EF8];
+      v17 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v18 = *v17;
+        v17 = *v16;
       }
 
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
         *(*(a1 + 32) + 76) = 0;
@@ -219,66 +216,66 @@ LABEL_22:
       }
 
       LOWORD(location[0]) = 0;
-      v19 = "Couldn't set reachability callback or queue #Downloading";
-      v20 = v18;
-      v21 = OS_LOG_TYPE_ERROR;
+      v18 = "Couldn't set reachability callback or queue #Downloading";
+      v19 = v17;
+      v20 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      v22 = MEMORY[0x277D43EF8];
-      v23 = *MEMORY[0x277D43EF8];
+      v21 = MEMORY[0x277D43EF8];
+      v22 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v23 = *v22;
+        v22 = *v21;
       }
 
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_22;
       }
 
       LOWORD(location[0]) = 0;
-      v19 = "Couldn't create reachability object #Downloading";
-      v20 = v23;
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v18 = "Couldn't create reachability object #Downloading";
+      v19 = v22;
+      v20 = OS_LOG_TYPE_DEFAULT;
     }
 
-    _os_log_impl(&dword_261653000, v20, v21, v19, location, 2u);
+    _os_log_impl(&dword_261653000, v19, v20, v18, location, 2u);
     goto LABEL_22;
   }
 
-  if ((*(v5 + 72) & 0x80000000) != 0)
+  if ((*(v4 + 72) & 0x80000000) != 0)
   {
-    objc_initWeak(location, v5);
-    v7 = BRNotificationNameForServerAvailabilityChanges_delayInitStub(v6);
-    v8 = v7;
-    v9 = [v7 UTF8String];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 16);
+    objc_initWeak(location, v4);
+    v6 = BRNotificationNameForServerAvailabilityChanges_delayInitStub(v5);
+    v7 = v6;
+    v8 = [v6 UTF8String];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 16);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __40__QLNetworkStateObserver_startObserving__block_invoke_2;
     handler[3] = &unk_279AE1180;
-    objc_copyWeak(&v26, location);
-    v12 = notify_register_dispatch(v9, (v10 + 72), v11, handler);
+    objc_copyWeak(&v24, location);
+    v11 = notify_register_dispatch(v8, (v9 + 72), v10, handler);
 
-    if (v12)
+    if (v11)
     {
-      v13 = MEMORY[0x277D43EF8];
-      v14 = *MEMORY[0x277D43EF8];
+      v12 = MEMORY[0x277D43EF8];
+      v13 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v14 = *v13;
+        v13 = *v12;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v29 = v12;
-        _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_DEFAULT, "Could not register for the CloudDocs availability notification: error %u #Downloading", buf, 8u);
+        v27 = v11;
+        _os_log_impl(&dword_261653000, v13, OS_LOG_TYPE_DEFAULT, "Could not register for the CloudDocs availability notification: error %u #Downloading", buf, 8u);
       }
 
       [*(a1 + 32) _setNetworkState:0];
@@ -289,14 +286,12 @@ LABEL_22:
       [*(a1 + 32) _updateNetworkStateWithNotifyToken:*(*(a1 + 32) + 72)];
     }
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(location);
   }
 
 LABEL_25:
   objc_sync_exit(v2);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __40__QLNetworkStateObserver_startObserving__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -383,7 +378,7 @@ void __39__QLNetworkStateObserver_stopObserving__block_invoke(uint64_t a1)
 
 - (void)_setNetworkState:(unint64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_networkState != state)
   {
     self->_networkState = state;
@@ -408,16 +403,14 @@ void __39__QLNetworkStateObserver_stopObserving__block_invoke(uint64_t a1)
         v7 = off_279AE11C8[networkState];
       }
 
-      *v10 = 138412290;
-      *&v10[4] = v7;
+      *v9 = 138412290;
+      *&v9[4] = v7;
       v8 = v5;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "Network state changed to %@ #Downloading", v10, 0xCu);
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "Network state changed to %@ #Downloading", v9, 0xCu);
     }
 
-    [(QLNetworkStateObserver *)self _updateRemoteObserver];
+    [(QLNetworkStateObserver *)self _updateRemoteObserver:*v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNetworkStateWithFlags:(unsigned int)flags
@@ -434,7 +427,7 @@ void __39__QLNetworkStateObserver_stopObserving__block_invoke(uint64_t a1)
 
 uint64_t __55__QLNetworkStateObserver__updateNetworkStateWithFlags___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 76) = *(a1 + 40);
   v2 = MEMORY[0x277D43EF8];
   v3 = *MEMORY[0x277D43EF8];
@@ -447,47 +440,43 @@ uint64_t __55__QLNetworkStateObserver__updateNetworkStateWithFlags___block_invok
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40);
-    v12[0] = 67109120;
-    v12[1] = v4;
-    _os_log_impl(&dword_261653000, v3, OS_LOG_TYPE_INFO, "Network reachability flags changed to 0x%x #Downloading", v12, 8u);
+    v9[0] = 67109120;
+    v9[1] = v4;
+    _os_log_impl(&dword_261653000, v3, OS_LOG_TYPE_INFO, "Network reachability flags changed to 0x%x #Downloading", v9, 8u);
   }
 
   v5 = *(a1 + 40);
   if ((v5 & 2) != 0)
   {
-    v9 = *(a1 + 32);
+    v7 = *(a1 + 32);
     if ((v5 & 0x40000) != 0)
     {
-      v8 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v8 = 3;
+      v6 = 3;
     }
   }
 
   else
   {
     [*(*(a1 + 32) + 80) refresh];
-    v6 = [*(*(a1 + 32) + 80) airplaneMode];
-    v7 = *(a1 + 32);
-    if (v6)
+    if ([*(*(a1 + 32) + 80) airplaneMode])
     {
-      v8 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v6 = 2;
     }
 
-    v9 = *(a1 + 32);
+    v7 = *(a1 + 32);
   }
 
-  result = [v9 _setNetworkState:v8];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v7 _setNetworkState:v6];
 }
 
 - (void)setNetworkState:(unint64_t)state
@@ -527,34 +516,34 @@ uint64_t __55__QLNetworkStateObserver__updateNetworkStateWithFlags___block_invok
 
 - (void)_updateCompletionBlocks
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = self->_completionBlocks;
   objc_sync_enter(v3);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = self->_completionBlocks;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7), [(QLNetworkStateObserver *)self networkState]);
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7), [(QLNetworkStateObserver *)self networkState]);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -562,8 +551,6 @@ uint64_t __55__QLNetworkStateObserver__updateNetworkStateWithFlags___block_invok
 
   [(NSMutableArray *)self->_completionBlocks removeAllObjects];
   objc_sync_exit(v3);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)airplaneModeChanged
@@ -596,7 +583,7 @@ uint64_t __45__QLNetworkStateObserver_airplaneModeChanged__block_invoke(uint64_t
 
 - (void)updateState:(unint64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D43EF8];
   v6 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -617,14 +604,13 @@ uint64_t __45__QLNetworkStateObserver_airplaneModeChanged__block_invoke(uint64_t
       v7 = off_279AE11C8[state];
     }
 
-    *v10 = 138412290;
-    *&v10[4] = v7;
+    *v9 = 138412290;
+    *&v9[4] = v7;
     v8 = v6;
-    _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "Network state update from host %@ #Downloading", v10, 0xCu);
+    _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "Network state update from host %@ #Downloading", v9, 0xCu);
   }
 
-  [(QLNetworkStateObserver *)self _setNetworkState:state, *v10];
-  v9 = *MEMORY[0x277D85DE8];
+  [(QLNetworkStateObserver *)self _setNetworkState:state, *v9, *&v9[8]];
 }
 
 + (BOOL)usingRemoteNetworkObserver

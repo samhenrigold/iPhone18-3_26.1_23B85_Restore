@@ -78,7 +78,7 @@ uint64_t __27__CNVCard30PHOTOHelper_log__block_invoke()
 
 - (id)bestEffortImage
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   if (![(CNVCard30PHOTOHelper *)self maxBytes])
   {
     v15 = 0;
@@ -87,9 +87,9 @@ uint64_t __27__CNVCard30PHOTOHelper_log__block_invoke()
 
   options = [(CNVCard30PHOTOHelper *)self options];
   [options maximumImageSize];
-  v32.width = v4;
-  v32.height = v5;
-  v6 = NSEqualSizes(*MEMORY[0x277CCA870], v32);
+  v31.width = v4;
+  v31.height = v5;
+  v6 = NSEqualSizes(*MEMORY[0x277CCA870], v31);
 
   if (v6)
   {
@@ -100,10 +100,10 @@ uint64_t __27__CNVCard30PHOTOHelper_log__block_invoke()
     {
       largeImage = [(CNVCard30PHOTOHelper *)self largeImage];
       v10 = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
-      v29[0] = v10;
+      v28[0] = v10;
       v11 = [MEMORY[0x277CCAE60] valueWithSize:{512.0, 512.0}];
-      v29[1] = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+      v28[1] = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
       v13 = [(CNVCard30PHOTOHelper *)self scaleImage:largeImage toFitSizes:v12 allowableCompressionQuality:&unk_28865B6F8];
 
       [(CNVCard30PHOTOHelper *)self logBestEfforImageIfNonNil:v13];
@@ -122,10 +122,10 @@ LABEL_12:
 
     largeImage = [(CNVCard30PHOTOHelper *)self image];
     v22 = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
-    v28[0] = v22;
+    v27[0] = v22;
     v23 = [MEMORY[0x277CCAE60] valueWithSize:{512.0, 512.0}];
-    v28[1] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[1] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     v25 = [(CNVCard30PHOTOHelper *)self scaleImage:largeImage toFitSizes:v24 allowableCompressionQuality:&unk_28865B710];
 
     [(CNVCard30PHOTOHelper *)self logBestEfforImageIfNonNil:v25];
@@ -146,10 +146,10 @@ LABEL_12:
     [largeImage setSize:?];
 
     v17 = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
-    v30[0] = v17;
+    v29[0] = v17;
     v18 = [MEMORY[0x277CCAE60] valueWithSize:{512.0, 512.0}];
-    v30[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v20 = [(CNVCard30PHOTOHelper *)self scaleImage:largeImage toFitSizes:v19 allowableCompressionQuality:&unk_28865B6E0];
 
     [(CNVCard30PHOTOHelper *)self logBestEfforImageIfNonNil:v20];
@@ -163,7 +163,6 @@ LABEL_12:
 LABEL_13:
 
 LABEL_14:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -194,7 +193,7 @@ LABEL_14:
 
 - (id)scaleImage:(id)image toFitSizes:(id)sizes allowableCompressionQuality:(id)quality
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   sizesCopy = sizes;
   qualityCopy = quality;
@@ -217,26 +216,26 @@ LABEL_14:
   v13 = [(CNVCard30PHOTOHelper *)self compressImage:imageCopy allowableCompressions:qualityCopy];
   if (!v13)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v17 = sizesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(*(&v25 + 1) + 8 * i) sizeValue];
+          [*(*(&v24 + 1) + 8 * i) sizeValue];
           v22 = [(CNVCard30PHOTOHelper *)self scaleImage:imageCopy toFit:qualityCopy allowableCompressionQuality:?];
           if (v22)
           {
@@ -245,7 +244,7 @@ LABEL_14:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v19)
         {
           continue;
@@ -260,8 +259,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -314,7 +311,7 @@ LABEL_16:
 
 - (id)compressImage:(id)image allowableCompressions:(id)compressions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   compressionsCopy = compressions;
   options = [(CNVCard30PHOTOHelper *)self options];
@@ -336,27 +333,27 @@ LABEL_16:
       }
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v14 = compressionsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v24 = compressionsCopy;
-      v17 = *v26;
+      v23 = compressionsCopy;
+      v17 = *v25;
 LABEL_8:
       v18 = 0;
       while (1)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [imageCopy setCompressionQuality:*(*(&v25 + 1) + 8 * v18)];
+        [imageCopy setCompressionQuality:*(*(&v24 + 1) + 8 * v18)];
         v10 = imageCopy;
         data2 = [v10 data];
         v20 = [data2 length];
@@ -369,7 +366,7 @@ LABEL_8:
 
         if (v16 == ++v18)
         {
-          v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v16)
           {
             goto LABEL_8;
@@ -380,7 +377,7 @@ LABEL_8:
         }
       }
 
-      compressionsCopy = v24;
+      compressionsCopy = v23;
     }
 
     else
@@ -396,14 +393,12 @@ LABEL_8:
 
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)logBestEfforImageIfNonNil:(id)nil
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nilCopy = nil;
   if (nilCopy)
   {
@@ -415,17 +410,15 @@ LABEL_19:
       [nilCopy size];
       v8 = v7;
       cropRects = [nilCopy cropRects];
-      v11 = 134218498;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v8;
-      v15 = 2112;
-      v16 = cropRects;
-      _os_log_impl(&dword_2771F5000, v4, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Best effort image with size (%.2f x %.2f) and cropRects %@", &v11, 0x20u);
+      v10 = 134218498;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v8;
+      v14 = 2112;
+      v15 = cropRects;
+      _os_log_impl(&dword_2771F5000, v4, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Best effort image with size (%.2f x %.2f) and cropRects %@", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

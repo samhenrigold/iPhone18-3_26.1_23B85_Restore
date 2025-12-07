@@ -8,7 +8,7 @@
 
 - (AACustodianMessageInviteContext)initWithLocalContact:(id)contact custodianID:(id)d appleAccount:(id)account
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   dCopy = d;
   accountCopy = account;
@@ -35,8 +35,8 @@
     [(AAMessagesInviteContext *)v13 setAction:v19];
 
     handle = [contactCopy handle];
-    v28[0] = handle;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+    v27[0] = handle;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
     [(AAMessagesInviteContext *)v13 setRecipients:v21];
 
     v22 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
@@ -50,7 +50,6 @@
     [(AACustodianMessageInviteContext *)v13 setMessageURL:v25];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -66,7 +65,7 @@
 {
   v4 = MEMORY[0x1E696AF20];
   dCopy = d;
-  v70 = objc_alloc_init(v4);
+  v71 = objc_alloc_init(v4);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v7 = objc_alloc(MEMORY[0x1E696AF60]);
   v8 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
@@ -168,17 +167,17 @@
   [v6 addObject:v65];
 
   v66 = [v6 copy];
-  [v70 setQueryItems:v66];
+  [v71 setQueryItems:v66];
 
-  v67 = _AALogSystem();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+  v68 = _AALogSystem(v67);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
   {
-    [(AACustodianMessageInviteContext *)v70 _messageURLForCustodianID:v67];
+    [(AACustodianMessageInviteContext *)v71 _messageURLForCustodianID:v68];
   }
 
-  v68 = [v70 URL];
+  v69 = [v71 URL];
 
-  return v68;
+  return v69;
 }
 
 - (void)initWithLocalContact:(uint64_t)a1 custodianID:(uint64_t)a2 appleAccount:.cold.1(uint64_t a1, uint64_t a2)
@@ -189,13 +188,11 @@
 
 - (void)_messageURLForCustodianID:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 URL];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "message bubble url %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "message bubble url %@", &v4, 0xCu);
 }
 
 @end

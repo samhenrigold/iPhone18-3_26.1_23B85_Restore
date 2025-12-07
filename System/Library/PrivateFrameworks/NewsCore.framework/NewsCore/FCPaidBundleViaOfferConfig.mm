@@ -6,11 +6,11 @@
 
 - (FCPaidBundleViaOfferConfig)initWithConfigDictionary:(id)dictionary
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v29.receiver = self;
-  v29.super_class = FCPaidBundleViaOfferConfig;
-  v5 = [(FCPaidBundleViaOfferConfig *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = FCPaidBundleViaOfferConfig;
+  v5 = [(FCPaidBundleViaOfferConfig *)&v28 init];
   if (v5)
   {
     v6 = FCAppConfigurationIntegerValue(dictionaryCopy, @"iconBadgeQuiescenceInterval", 0x7FFFFFFFFFFFFFFFLL);
@@ -80,8 +80,8 @@
 
     v5->_upsellQuiescenceInterval = v21;
     v5->_upsellMaxNumberOfPresentations = FCAppConfigurationIntegerValue(dictionaryCopy, @"upsellMaxNumberOfPresentations", 0);
-    v30[0] = @"1Party_HW_News_Offer_1";
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = @"1Party_HW_News_Offer_1";
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     v23 = FCAppConfigurationArrayValueWithDefaultValue(dictionaryCopy, @"vendorAdHocOfferIds", v22);
     vendorAdHocOfferIds = v5->_vendorAdHocOfferIds;
     v5->_vendorAdHocOfferIds = v23;
@@ -107,7 +107,6 @@
     v5->_appLaunchUpsellEnabled = [FCFeatureEnablementChecker enabledInConfig:dictionaryCopy forKey:@"appLaunchUpsellEnabledLevel" withDefaultLevel:0xFFFFFFFFLL];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -7556,7 +7556,7 @@ void DYTraceEncode_MTLComputeCommandEncoder_setBuffers_offsets_attributeStrides_
   v11 = *(a1 + 40);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>U<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;

@@ -60,7 +60,7 @@
 
 + (Class)_scrollViewClass
 {
-  sub_21E9F8880(0, &qword_28125B7E8);
+  sub_21E9F8880(0, &qword_28125B7E8, off_278381138);
 
   return swift_getObjCClassFromMetadata();
 }

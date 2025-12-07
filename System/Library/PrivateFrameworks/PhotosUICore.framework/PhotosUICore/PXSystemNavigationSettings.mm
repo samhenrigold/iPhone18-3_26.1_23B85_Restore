@@ -42,25 +42,25 @@ void __54__PXSystemNavigationSettings_settingsControllerModule__block_invoke(uin
   [v8 addObject:v9];
 }
 
-uint64_t __54__PXSystemNavigationSettings_settingsControllerModule__block_invoke_2(uint64_t a1)
+uint64_t __54__PXSystemNavigationSettings_settingsControllerModule__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "Will navigate to destination: %{public}@", buf, 0xCu);
+    v10 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "Will navigate to destination: %{public}@", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __54__PXSystemNavigationSettings_settingsControllerModule__block_invoke_4;
-  v6[3] = &unk_1E774C5C0;
-  v4 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  [PXSystemNavigation navigateToDestination:v4 completion:v6];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __54__PXSystemNavigationSettings_settingsControllerModule__block_invoke_4;
+  v7[3] = &unk_1E774C5C0;
+  v5 = *(a1 + 40);
+  v8 = *(a1 + 32);
+  [PXSystemNavigation navigateToDestination:v5 completion:v7];
 
   return 1;
 }

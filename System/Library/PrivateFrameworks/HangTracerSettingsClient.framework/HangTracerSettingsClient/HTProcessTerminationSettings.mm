@@ -1,8 +1,12 @@
 @interface HTProcessTerminationSettings
 + (HTProcessTerminationSettings)sharedSettings;
+- (BOOL)_addTrackedReason:(unint64_t)reason propagatingSubReasons:(BOOL)reasons;
+- (BOOL)_removeTrackedReason:(unint64_t)reason propagatingSubReasons:(BOOL)reasons;
 - (BOOL)_removeTrackedSubReason:(unint64_t)reason forReason:(unint64_t)forReason;
 - (BOOL)_setTrackedReasons:(unint64_t)reasons propagatingSubReasons:(BOOL)subReasons;
 - (BOOL)_setTrackedSubReasons:(unint64_t)reasons forReason:(unint64_t)reason;
+- (BOOL)_setTracksAllProcesses:(BOOL)processes;
+- (BOOL)_setTracksCriticalProcesses:(BOOL)processes;
 - (BOOL)_trackAllDefaultReasons;
 - (HTProcessTerminationSettings)init;
 - (HTProcessTerminationSettings)initWithDefaults:(id)defaults;
@@ -23,6 +27,8 @@
 - (void)setTrackedProcessNames:(id)names;
 - (void)setTrackedReasons:(unint64_t)reasons;
 - (void)setTrackedSubReasons:(unint64_t)reasons forReason:(unint64_t)reason;
+- (void)setTracksAllProcesses:(BOOL)processes;
+- (void)setTracksCriticalProcesses:(BOOL)processes;
 - (void)trackAllReasons;
 - (void)trackAllSubReasonsForReason:(unint64_t)reason;
 @end
@@ -48,7 +54,6 @@
 
 uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedSettings_sharedInstance = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -150,6 +155,48 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
   }
 }
 
+- (void)setTracksAllProcesses:(BOOL)processes
+{
+  if ([(HTProcessTerminationSettings *)self _setTracksAllProcesses:processes])
+  {
+
+    [(HTProcessTerminationSettings *)self applySettings];
+  }
+}
+
+- (BOOL)_setTracksAllProcesses:(BOOL)processes
+{
+  processesCopy = processes;
+  v5 = [(HTProcessTerminationSettings *)self tracksAllProcesses]^ processes;
+  if (v5)
+  {
+    [(NSUserDefaults *)self->_defaults setBool:processesCopy forKey:*MEMORY[0x277D0FB08]];
+  }
+
+  return v5;
+}
+
+- (void)setTracksCriticalProcesses:(BOOL)processes
+{
+  if ([(HTProcessTerminationSettings *)self _setTracksCriticalProcesses:processes])
+  {
+
+    [(HTProcessTerminationSettings *)self applySettings];
+  }
+}
+
+- (BOOL)_setTracksCriticalProcesses:(BOOL)processes
+{
+  processesCopy = processes;
+  v5 = [(HTProcessTerminationSettings *)self tracksCriticalProcesses]^ processes;
+  if (v5)
+  {
+    [(NSUserDefaults *)self->_defaults setBool:processesCopy forKey:*MEMORY[0x277D0FB10]];
+  }
+
+  return v5;
+}
+
 - (NSArray)trackedProcessNames
 {
   v2 = [(NSUserDefaults *)self->_defaults objectForKey:*MEMORY[0x277D0FB20]];
@@ -247,7 +294,7 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
 - (BOOL)_setTrackedReasons:(unint64_t)reasons propagatingSubReasons:(BOOL)subReasons
 {
   subReasonsCopy = subReasons;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   trackedReasons = [(HTProcessTerminationSettings *)self trackedReasons];
   if (trackedReasons != reasons)
   {
@@ -267,26 +314,26 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
 
     if (subReasonsCopy)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       availableReasons = [(HTProcessTerminationSettings *)self availableReasons];
-      v12 = [availableReasons countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [availableReasons countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v20;
+        v14 = *v19;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v20 != v14)
+            if (*v19 != v14)
             {
               objc_enumerationMutation(availableReasons);
             }
 
-            unsignedLongLongValue = [*(*(&v19 + 1) + 8 * i) unsignedLongLongValue];
+            unsignedLongLongValue = [*(*(&v18 + 1) + 8 * i) unsignedLongLongValue];
             if (reasons == 1 || (unsignedLongLongValue & reasons) == unsignedLongLongValue)
             {
               [(HTProcessTerminationSettings *)self _trackAllSubReasonsForReason:unsignedLongLongValue];
@@ -298,7 +345,7 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
             }
           }
 
-          v13 = [availableReasons countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v13 = [availableReasons countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v13);
@@ -306,53 +353,50 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
     }
   }
 
-  result = trackedReasons != reasons;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return trackedReasons != reasons;
 }
 
 - (unint64_t)allReasonsValue
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = allReasonsValue_allReasons;
   if (!allReasonsValue_allReasons)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     availableReasons = [(HTProcessTerminationSettings *)self availableReasons];
-    v4 = [availableReasons countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [availableReasons countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(availableReasons);
           }
 
-          unsignedLongLongValue = [*(*(&v11 + 1) + 8 * v7) unsignedLongLongValue];
+          unsignedLongLongValue = [*(*(&v10 + 1) + 8 * v7) unsignedLongLongValue];
           allReasonsValue_allReasons |= unsignedLongLongValue;
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [availableReasons countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [availableReasons countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
 
-    v2 = allReasonsValue_allReasons;
+    return allReasonsValue_allReasons;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -365,6 +409,14 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
   }
 }
 
+- (BOOL)_addTrackedReason:(unint64_t)reason propagatingSubReasons:(BOOL)reasons
+{
+  reasonsCopy = reasons;
+  v6 = [(HTProcessTerminationSettings *)self trackedReasons]| reason;
+
+  return [(HTProcessTerminationSettings *)self _setTrackedReasons:v6 propagatingSubReasons:reasonsCopy];
+}
+
 - (void)removeTrackedReason:(unint64_t)reason
 {
   if ([(HTProcessTerminationSettings *)self _removeTrackedReason:reason])
@@ -372,6 +424,14 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
 
     [(HTProcessTerminationSettings *)self applySettings];
   }
+}
+
+- (BOOL)_removeTrackedReason:(unint64_t)reason propagatingSubReasons:(BOOL)reasons
+{
+  reasonsCopy = reasons;
+  v6 = [(HTProcessTerminationSettings *)self trackedReasons]& ~reason;
+
+  return [(HTProcessTerminationSettings *)self _setTrackedReasons:v6 propagatingSubReasons:reasonsCopy];
 }
 
 - (void)trackAllReasons
@@ -393,31 +453,31 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
 
 - (unint64_t)allSubReasonsValueForReason:(unint64_t)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = [(HTProcessTerminationSettings *)self availableSubReasonsForReason:reason, 0];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 |= [*(*(&v11 + 1) + 8 * i) unsignedLongLongValue];
+        v6 |= [*(*(&v10 + 1) + 8 * i) unsignedLongLongValue];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -428,7 +488,6 @@ uint64_t __46__HTProcessTerminationSettings_sharedSettings__block_invoke(uint64_
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

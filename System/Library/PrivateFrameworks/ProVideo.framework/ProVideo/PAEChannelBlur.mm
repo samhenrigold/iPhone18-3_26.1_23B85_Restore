@@ -176,51 +176,51 @@
   }
 
   versionAtCreation = [v12 versionAtCreation];
-  [(PAESharedDefaultBase *)self getScaleForImage:input];
-  v14 = v56[1];
-  v15 = v56[2];
-  v56[0] = 0.0;
-  [v9 getFloatValue:v56 fromParm:1 atFxTime:info->var0.var1];
-  v56[0] = v56[0] * 0.5;
-  v55 = 0.0;
-  [v9 getFloatValue:&v55 fromParm:6 atFxTime:info->var0.var1];
-  v55 = v14 * (v55 * 0.01);
-  v54 = 0.0;
-  [v9 getFloatValue:&v54 fromParm:7 atFxTime:info->var0.var1];
-  v54 = v15 * (v54 * 0.01);
+  objc_msgSend_getScaleForImage_(self);
+  v14 = v60[1];
+  v15 = v60[2];
+  v60[0] = 0.0;
+  [v9 getFloatValue:v60 fromParm:1 atFxTime:info->var0.var1];
+  v60[0] = v60[0] * 0.5;
+  v59 = 0.0;
+  [v9 getFloatValue:&v59 fromParm:6 atFxTime:info->var0.var1];
+  v59 = v14 * (v59 * 0.01);
+  v58 = 0.0;
+  [v9 getFloatValue:&v58 fromParm:7 atFxTime:info->var0.var1];
+  v58 = v15 * (v58 * 0.01);
+  v57 = 0;
+  [v9 getBoolValue:&v57 fromParm:2 atFxTime:info->var0.var1];
+  v56 = 0;
+  [v9 getBoolValue:&v56 fromParm:3 atFxTime:info->var0.var1];
+  v55 = 0;
+  [v9 getBoolValue:&v55 fromParm:4 atFxTime:info->var0.var1];
+  v54 = 0;
+  [v9 getBoolValue:&v54 fromParm:5 atFxTime:info->var0.var1];
   v53 = 0;
-  [v9 getBoolValue:&v53 fromParm:2 atFxTime:info->var0.var1];
+  [v9 getBoolValue:&v53 fromParm:8 atFxTime:info->var0.var1];
   v52 = 0;
-  [v9 getBoolValue:&v52 fromParm:3 atFxTime:info->var0.var1];
-  v51 = 0;
-  [v9 getBoolValue:&v51 fromParm:4 atFxTime:info->var0.var1];
-  v50 = 0;
-  [v9 getBoolValue:&v50 fromParm:5 atFxTime:info->var0.var1];
-  v49 = 0;
-  [v9 getBoolValue:&v49 fromParm:8 atFxTime:info->var0.var1];
-  v48 = 0;
-  [v9 getBoolValue:&v48 fromParm:9 atFxTime:info->var0.var1];
+  [v9 getBoolValue:&v52 fromParm:9 atFxTime:info->var0.var1];
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else
   {
-    v47 = 0;
+    v51 = 0;
   }
 
-  if (v56[0] == 0.0)
+  if (v60[0] == 0.0)
   {
-    [output setHeliumRef:{&v47, v56[0]}];
+    [output setHeliumRef:{&v51, v60[0]}];
   }
 
   else
   {
-    if (v48 == 1)
+    if (v52 == 1)
     {
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output, v56[0]];
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+      objc_msgSend_getInversePixelTransformForImage_(self, v60[0]);
+      objc_msgSend_getPixelTransformForImage_(self);
       v17 = HGObject::operator new(0x1C0uLL);
       HGNode::HGNode(v17);
       *v17 = &unk_2871D9F38;
@@ -229,21 +229,21 @@
       *(v17 + 106) = 0;
       *(v17 + 54) = 0;
       *(v17 + 55) = 0;
-      v18 = v55;
-      v19 = v56[0];
-      v20 = v54;
+      v18 = v59;
+      v19 = v60[0];
+      v20 = v58;
       width = [input width];
-      v22 = v44[0].f64[0];
+      v22 = v48[0].f64[0];
       height = [input height];
       v24 = v19;
       v25 = v18;
       v26 = v20;
-      v43[0] = vcvt_hight_f32_f64(vcvt_f32_f64(v44[0]), v44[1]);
-      v42 = vcvt_hight_f32_f64(vcvt_f32_f64(v45), v46);
-      v41 = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v43[1] + 8)), *(&v43[2] + 8));
-      v40 = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v43[3] + 8)), *(&v43[4] + 8));
-      HEquirectGaussianBlur::init(v17, vcvtpd_s64_f64(v22 * width), vcvtpd_s64_f64(vmuld_lane_f64(height, v45, 1)), v43, &v42, &v41, &v40, v24, v25, v26);
-      (*(*v17 + 120))(v17, 0, v47);
+      v43 = vcvt_hight_f32_f64(vcvt_f32_f64(v48[0]), v48[1]);
+      v42 = vcvt_hight_f32_f64(vcvt_f32_f64(v49), v50);
+      v41 = vcvt_hight_f32_f64(vcvt_f32_f64(v44), v45);
+      v40 = vcvt_hight_f32_f64(vcvt_f32_f64(v46), v47);
+      HEquirectGaussianBlur::init(v17, vcvtpd_s64_f64(v22 * width), vcvtpd_s64_f64(vmuld_lane_f64(height, v49, 1)), &v43, &v42, &v41, &v40, v24, v25, v26);
+      (*(*v17 + 120))(v17, 0, v51);
       (*(*v17 + 16))(v17);
       (*(*v17 + 24))(v17);
     }
@@ -252,16 +252,16 @@
     {
       v17 = HGObject::operator new(0x1B0uLL);
       HGaussianBlur::HGaussianBlur(v17);
-      v27 = v56[0];
-      v28 = v55;
-      v29 = v54;
+      v27 = v60[0];
+      v28 = v59;
+      v29 = v58;
       HGaussianBlur::init(v17, v27, v28, v29, versionAtCreation == 0, 0, 0);
-      (*(*v17 + 120))(v17, 0, v47);
+      (*(*v17 + 120))(v17, 0, v51);
       (*(*v17 + 16))(v17);
       (*(*v17 + 24))(v17);
     }
 
-    if (v53)
+    if (v57)
     {
       v30 = 1.0;
     }
@@ -271,7 +271,7 @@
       v30 = 0.0;
     }
 
-    if (v52)
+    if (v56)
     {
       v31 = 1.0;
     }
@@ -281,7 +281,7 @@
       v31 = 0.0;
     }
 
-    if (v51)
+    if (v55)
     {
       v32 = 1.0;
     }
@@ -291,7 +291,7 @@
       v32 = 0.0;
     }
 
-    if (v50)
+    if (v54)
     {
       v33 = 1.0;
     }
@@ -301,8 +301,8 @@
       v33 = 0.0;
     }
 
-    v44[0].f64[0] = 0.0;
-    if (v50)
+    v48[0].f64[0] = 0.0;
+    if (v54)
     {
       v34 = HGObject::operator new(0x1A0uLL);
       HgcChannelBlurNoPremult::HgcChannelBlurNoPremult(v34);
@@ -316,13 +316,13 @@
 
     if (v34)
     {
-      *&v44[0].f64[0] = v34;
+      *&v48[0].f64[0] = v34;
     }
 
     (*(*v34 + 120))(v34, 1, v17);
     (*(*v34 + 96))(v34, 0, v30, v31, v32, v33);
-    (*(*v34 + 120))(v34, 0, v47);
-    if ((v49 & 1) != 0 || v48 == 1)
+    (*(*v34 + 120))(v34, 0, v51);
+    if ((v53 & 1) != 0 || v52 == 1)
     {
       v35 = HGObject::operator new(0x1A0uLL);
       HGCrop::HGCrop(v35);
@@ -335,25 +335,25 @@
       if (v34 != v35)
       {
         (*(*v34 + 24))(v34);
-        *&v44[0].f64[0] = v35;
+        *&v48[0].f64[0] = v35;
         (*(*v35 + 16))(v35);
       }
 
       (*(*v35 + 24))(v35);
     }
 
-    [output setHeliumRef:v44];
-    if (*&v44[0].f64[0])
+    [output setHeliumRef:v48];
+    if (*&v48[0].f64[0])
     {
-      (*(**&v44[0].f64[0] + 24))(*&v44[0].f64[0]);
+      (*(**&v48[0].f64[0] + 24))(*&v48[0].f64[0]);
     }
 
     (*(*v17 + 24))(v17);
   }
 
-  if (v47)
+  if (v51)
   {
-    (*(*v47 + 24))(v47);
+    (*(*v51 + 24))(v51);
   }
 
   return 1;

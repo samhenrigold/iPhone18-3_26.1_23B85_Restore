@@ -8,7 +8,7 @@
 {
   if (self)
   {
-    [(SRSpeechExpression *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   else

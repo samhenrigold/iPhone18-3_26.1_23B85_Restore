@@ -3,6 +3,7 @@
 - (_NTKEFaceChoiceDelegate)delegate;
 - (void)_selected;
 - (void)_updateTitle;
+- (void)button:(id)button didHighlight:(BOOL)highlight;
 - (void)dealloc;
 - (void)layoutSubviews;
 @end
@@ -245,6 +246,28 @@
 {
   delegate = [(_NTKEFaceChoice *)self delegate];
   [delegate didChooseFace:self->_face];
+}
+
+- (void)button:(id)button didHighlight:(BOOL)highlight
+{
+  highlightCopy = highlight;
+  [(NTKCFaceContainerView *)self->_faceContainer setHighlighted:highlight];
+  if (highlightCopy)
+  {
+    title = self->_title;
+
+    [(UILabel *)title setAlpha:0.2];
+  }
+
+  else
+  {
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100003D98;
+    v7[3] = &unk_10000C3A8;
+    v7[4] = self;
+    [UIView animateWithDuration:327684 delay:v7 options:0 animations:0.2 completion:0.0];
+  }
 }
 
 - (_NTKEFaceChoiceDelegate)delegate

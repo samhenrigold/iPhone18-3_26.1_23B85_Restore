@@ -30,7 +30,7 @@ uint64_t __39__BKSExternalDefaults_keyboardDefaults__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BKSSpringBoardDefaults)springBoardDefaults
@@ -55,7 +55,7 @@ uint64_t __42__BKSExternalDefaults_springBoardDefaults__block_invoke(uint64_t a1
   v4 = *(v3 + 32);
   *(v3 + 32) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BKSPersistentConnectionDefaults)persistentConnectionDefaults
@@ -80,7 +80,7 @@ uint64_t __51__BKSExternalDefaults_persistentConnectionDefaults__block_invoke(ui
   v4 = *(v3 + 24);
   *(v3 + 24) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BKSIAPDefaults)iapDefaults
@@ -105,7 +105,7 @@ uint64_t __34__BKSExternalDefaults_iapDefaults__block_invoke(uint64_t a1)
   v4 = *(v3 + 16);
   *(v3 + 16) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BKSLockdownDefaults)lockdownDefaults
@@ -130,7 +130,7 @@ uint64_t __39__BKSExternalDefaults_lockdownDefaults__block_invoke(uint64_t a1)
   v4 = *(v3 + 8);
   *(v3 + 8) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 @end

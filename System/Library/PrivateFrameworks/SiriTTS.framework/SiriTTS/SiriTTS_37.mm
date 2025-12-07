@@ -40,7 +40,7 @@ void PNEW_LDOLabel_ConSpecial(uint64_t a1, uint64_t a2, char *a3, char *a4, int 
   }
 }
 
-uint64_t LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, unsigned int a7)
+uint64_t LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, int a7)
 {
   v14 = a7;
   v15 = a6;
@@ -185,7 +185,7 @@ uint64_t LDOTreeNode_SetParent(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t LDOTreeNode_ConRoot(uint64_t a1, uint64_t a2, char *a3, char *a4, char *a5)
+uint64_t LDOTreeNode_ConRoot(size_t a1, uint64_t a2, char *a3, char *a4, char *a5)
 {
   result = LDOObject_Con(a1, a2);
   if (!result)
@@ -210,7 +210,7 @@ uint64_t LDOTreeNode_ConRoot(uint64_t a1, uint64_t a2, char *a3, char *a4, char 
   return result;
 }
 
-uint64_t LDOTreeNode_SetText(uint64_t a1, char *a2)
+uint64_t LDOTreeNode_SetText(size_t a1, char *a2)
 {
   v27 = 0;
   v26 = 0;
@@ -905,7 +905,7 @@ uint64_t __LDOTreeNode_ComputeChildIndex(uint64_t a1, _DWORD *a2, _DWORD *a3)
   return kaldi::OffsetFileInputImpl::MyType("pChild is not a child of the self node");
 }
 
-uint64_t LDOTreeNode_ComputeRoot(uint64_t result, void *a2)
+uint64_t LDOTreeNode_ComputeRoot(uint64_t result, uint64_t *a2)
 {
   do
   {
@@ -1588,7 +1588,7 @@ LABEL_16:
   return v5;
 }
 
-uint64_t PNEW_LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, unsigned int a7, uint64_t *a8)
+uint64_t PNEW_LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, int a7, uint64_t *a8)
 {
   v18 = 0;
   v16 = OOCAllocator_Malloc(a1, 112, &v18);
@@ -1846,13 +1846,11 @@ LABEL_19:
 
 uint64_t LDOString_AppendPrefixS32Suffix(uint64_t a1, char *a2, unsigned int a3, char *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  *v9 = 0;
-  v10 = 0;
-  LH_itoa(a3, v9, 0xAu);
-  result = __LDOString_AppendPrefixCPtrSuffix(a1, a2, v9, a4);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v10 = *MEMORY[0x1E69E9840];
+  *v8 = 0;
+  v9 = 0;
+  LH_itoa(a3, v8, 0xAu);
+  return __LDOString_AppendPrefixCPtrSuffix(a1, a2, v8, a4);
 }
 
 uint64_t LDOString_AppendPrefixStringSuffix(uint64_t a1, char *__s, char *a3, char *a4)
@@ -1867,13 +1865,11 @@ uint64_t LDOString_AppendPrefixStringSuffix(uint64_t a1, char *__s, char *a3, ch
 
 uint64_t LDOString_AppendPrefixU32Suffix(uint64_t a1, char *a2, unsigned int a3, char *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  *v9 = 0;
-  v10 = 0;
-  LH_utoa(a3, v9, 0xAu);
-  result = __LDOString_AppendPrefixCPtrSuffix(a1, a2, v9, a4);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v10 = *MEMORY[0x1E69E9840];
+  *v8 = 0;
+  v9 = 0;
+  LH_utoa(a3, v8, 0xAu);
+  return __LDOString_AppendPrefixCPtrSuffix(a1, a2, v8, a4);
 }
 
 uint64_t LDOString_AppendString(uint64_t a1, uint64_t a2)
@@ -2160,13 +2156,13 @@ LABEL_11:
   return v13;
 }
 
-uint64_t LDOLabelSet_ComputeContainedLabels(uint64_t *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
+uint64_t LDOLabelSet_ComputeContainedLabels(void *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
 {
   result = 0;
   v31 = 0;
   *a5 = 0;
   *(a5 + 1) = 0;
-  v7 = (a5 + 2);
+  v7 = a5 + 2;
   *(a5 + 2) = 0;
   v8 = a1[3];
   if (v8 < a1[4])
@@ -2241,13 +2237,13 @@ uint64_t LDOLabelSet_ComputeContainedLabels(uint64_t *a1, unsigned int a2, unsig
   return result;
 }
 
-uint64_t LDOLabelSet_ComputeOverlappingLabels(uint64_t *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
+uint64_t LDOLabelSet_ComputeOverlappingLabels(void *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
 {
   result = 0;
   v33 = 0;
   *a5 = 0;
   *(a5 + 1) = 0;
-  v7 = (a5 + 2);
+  v7 = a5 + 2;
   *(a5 + 2) = 0;
   v8 = a1[3];
   if (v8 < a1[4])
@@ -3283,7 +3279,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t LDOObject_RemoveAttributes(uint64_t *a1)
+uint64_t LDOObject_RemoveAttributes(void *a1)
 {
   v17 = 0;
   v1 = a1[4];
@@ -4329,7 +4325,7 @@ uint64_t lua_checkstack(void *a1, int a2)
   return 1;
 }
 
-__n128 lua_xmove(uint64_t a1, uint64_t a2, int a3)
+__n128 lua_xmove(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (a1 != a2)
   {
@@ -4377,9 +4373,9 @@ uint64_t lua_absindex(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t lua_settop(uint64_t result, unsigned int a2)
+uint64_t lua_settop(uint64_t result, int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     v3 = *(result + 16) + 16 * a2 + 16;
   }
@@ -4434,12 +4430,12 @@ uint64_t lua_settop(uint64_t result, unsigned int a2)
   return result;
 }
 
-uint64_t *lua_rotate(void *a1, int a2, int a3)
+uint64_t *lua_rotate(void *a1, uint64_t a2, unsigned int a3)
 {
   v4 = a1[2] - 16;
   result = index2addr(a1, a2);
-  v6 = v4 - 16 * a3;
-  if (a3 < 0)
+  v6 = (v4 - 16 * a3);
+  if ((a3 & 0x80000000) != 0)
   {
     v6 = &result[-2 * a3 - 2];
   }
@@ -4455,14 +4451,14 @@ uint64_t *lua_rotate(void *a1, int a2, int a3)
       *v7 = *v8;
       v7 += 2;
       *v8 = v9;
-      *(v8 + 8) = v10;
-      v8 -= 16;
+      v8[1] = v10;
+      v8 -= 2;
     }
 
     while (v7 < v8);
   }
 
-  v11 = (v6 + 16);
+  v11 = v6 + 2;
   if (v11 < v4)
   {
     v12 = v4;
@@ -4494,7 +4490,7 @@ uint64_t *lua_rotate(void *a1, int a2, int a3)
   return result;
 }
 
-uint64_t *index2addr(void *a1, int a2)
+uint64_t *index2addr(void *a1, unsigned int a2)
 {
   v2 = a1[4];
   if (a2 < 1)
@@ -4539,7 +4535,7 @@ uint64_t *index2addr(void *a1, int a2)
   return result;
 }
 
-uint64_t *lua_copy(uint64_t a1, int a2, int a3)
+uint64_t *lua_copy(uint64_t a1, unsigned int a2, int a3)
 {
   v5 = index2addr(a1, a2);
   result = index2addr(a1, a3);
@@ -4561,7 +4557,7 @@ uint64_t *lua_copy(uint64_t a1, int a2, int a3)
   return result;
 }
 
-__n128 lua_pushvalue(void *a1, int a2)
+__n128 lua_pushvalue(void *a1, unsigned int a2)
 {
   v3 = a1[2];
   v4 = index2addr(a1, a2);
@@ -4571,7 +4567,7 @@ __n128 lua_pushvalue(void *a1, int a2)
   return result;
 }
 
-uint64_t lua_type(void *a1, int a2)
+uint64_t lua_type(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   if (v2 == &luaO_nilobject_)
@@ -4585,7 +4581,7 @@ uint64_t lua_type(void *a1, int a2)
   }
 }
 
-uint64_t lua_isnumber(void *a1, int a2)
+uint64_t lua_isnumber(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   if (*(v2 + 2) == 3)
@@ -4597,7 +4593,7 @@ uint64_t lua_isnumber(void *a1, int a2)
   return luaV_tonumber_(v2, &v4);
 }
 
-uint64_t lua_rawequal(void *a1, int a2, int a3)
+uint64_t lua_rawequal(void *a1, unsigned int a2, unsigned int a3)
 {
   v5 = index2addr(a1, a2);
   v6 = index2addr(a1, a3);
@@ -4609,7 +4605,7 @@ uint64_t lua_rawequal(void *a1, int a2, int a3)
   return luaV_equalobj(0, v5, v6);
 }
 
-uint64_t lua_compare(void *a1, int a2, int a3, int a4)
+uint64_t lua_compare(void *a1, unsigned int a2, unsigned int a3, int a4)
 {
   v7 = index2addr(a1, a2);
   v8 = index2addr(a1, a3);
@@ -4645,7 +4641,7 @@ uint64_t lua_stringtonumber(uint64_t a1, char *__s1)
   return result;
 }
 
-double lua_tonumberx(void *a1, int a2, int *a3)
+double lua_tonumberx(void *a1, unsigned int a2, int *a3)
 {
   v7 = 0.0;
   v4 = index2addr(a1, a2);
@@ -4672,7 +4668,7 @@ double lua_tonumberx(void *a1, int a2, int *a3)
   return v7;
 }
 
-uint64_t lua_tointegerx(void *a1, int a2, int *a3)
+uint64_t lua_tointegerx(void *a1, unsigned int a2, int *a3)
 {
   v7 = 0;
   v4 = index2addr(a1, a2);
@@ -4699,7 +4695,7 @@ uint64_t lua_tointegerx(void *a1, int a2, int *a3)
   return v7;
 }
 
-uint64_t lua_toBOOLean(void *a1, int a2)
+uint64_t lua_toBOOLean(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   result = *(v2 + 2);
@@ -4711,7 +4707,7 @@ uint64_t lua_toBOOLean(void *a1, int a2)
   return result;
 }
 
-uint64_t lua_tolstring(void *a1, int a2, void *a3)
+uint64_t lua_tolstring(void *a1, unsigned int a2, void *a3)
 {
   v6 = index2addr(a1, a2);
   if ((v6[1] & 0xF) == 3)
@@ -4759,7 +4755,7 @@ uint64_t lua_tolstring(void *a1, int a2, void *a3)
   return *v7 + 24;
 }
 
-uint64_t lua_rawlen(void *a1, int a2)
+uint64_t lua_rawlen(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   result = 0;
@@ -4790,7 +4786,7 @@ uint64_t lua_rawlen(void *a1, int a2)
   return result;
 }
 
-uint64_t lua_touserdata(void *a1, int a2)
+uint64_t lua_touserdata(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   if ((v2[1] & 0xF) == 2)
@@ -4806,7 +4802,7 @@ uint64_t lua_touserdata(void *a1, int a2)
   return 0;
 }
 
-uint64_t lua_tothread(void *a1, int a2)
+uint64_t lua_tothread(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   if (*(v2 + 2) == 72)
@@ -4820,7 +4816,7 @@ uint64_t lua_tothread(void *a1, int a2)
   }
 }
 
-uint64_t lua_topointer(void *a1, int a2)
+uint64_t lua_topointer(void *a1, unsigned int a2)
 {
   v2 = index2addr(a1, a2);
   result = 0;
@@ -4937,31 +4933,33 @@ uint64_t lua_pushvfstring(uint64_t a1, char *a2, uint64_t *a3)
   return luaO_pushvfstring(a1, a2, a3);
 }
 
-uint64_t lua_pushfstring(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t lua_pushfstring(uint64_t a1, char *a2, ...)
 {
+  va_start(va, a2);
   if (*(*(a1 + 24) + 24) >= 1)
   {
     luaC_step(a1);
   }
 
-  return luaO_pushvfstring(a1, a2, &a9);
+  return luaO_pushvfstring(a1, a2, va);
 }
 
-uint64_t lua_pushcclosure(uint64_t result, uint64_t a2, int a3)
+uint64_t lua_pushcclosure(uint64_t result, uint64_t a2, uint64_t a3)
 {
   v4 = result;
   if (a3)
   {
+    v5 = a3;
     if (*(*(result + 24) + 24) >= 1)
     {
       luaC_step(result);
     }
 
-    result = luaF_newCclosure(v4, a3);
+    result = luaF_newCclosure(v4, v5);
     *(result + 24) = a2;
-    v6 = a3;
-    *(v4 + 16) -= 16 * a3;
-    v7 = 16 * a3;
+    v6 = v5;
+    *(v4 + 16) -= 16 * v5;
+    v7 = 16 * v5;
     do
     {
       *(result + v7 + 16) = *(*(v4 + 16) + v7 - 16);
@@ -5027,14 +5025,14 @@ uint64_t lua_getglobal(void *a1, char *a2)
   return *(a1[2] - 8) & 0xF;
 }
 
-uint64_t lua_gettable(void *a1, int a2)
+uint64_t lua_gettable(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   luaV_gettable(a1, v3, (a1[2] - 16), (a1[2] - 16));
   return *(a1[2] - 8) & 0xF;
 }
 
-uint64_t lua_getfield(void *a1, int a2, char *a3)
+uint64_t lua_getfield(void *a1, unsigned int a2, char *a3)
 {
   v5 = index2addr(a1, a2);
   v6 = a1[2];
@@ -5047,7 +5045,7 @@ uint64_t lua_getfield(void *a1, int a2, char *a3)
   return *(a1[2] - 8) & 0xF;
 }
 
-uint64_t lua_geti(void *a1, int a2, uint64_t a3)
+uint64_t lua_geti(void *a1, unsigned int a2, uint64_t a3)
 {
   v5 = index2addr(a1, a2);
   v6 = a1[2];
@@ -5059,7 +5057,7 @@ uint64_t lua_geti(void *a1, int a2, uint64_t a3)
   return *(a1[2] - 8) & 0xF;
 }
 
-uint64_t lua_rawget(void *a1, int a2)
+uint64_t lua_rawget(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   v4 = a1[2];
@@ -5067,7 +5065,7 @@ uint64_t lua_rawget(void *a1, int a2)
   return *(a1[2] - 8) & 0xF;
 }
 
-uint64_t lua_rawgeti(void *a1, int a2, uint64_t a3)
+uint64_t lua_rawgeti(void *a1, unsigned int a2, uint64_t a3)
 {
   v5 = index2addr(a1, a2);
   v6 = a1[2];
@@ -5077,7 +5075,7 @@ uint64_t lua_rawgeti(void *a1, int a2, uint64_t a3)
   return *(v7 + 8) & 0xF;
 }
 
-uint64_t lua_rawgetp(void *a1, int a2, uint64_t a3)
+uint64_t lua_rawgetp(void *a1, unsigned int a2, uint64_t a3)
 {
   v5 = index2addr(a1, a2);
   v9[0] = a3;
@@ -5089,8 +5087,9 @@ uint64_t lua_rawgetp(void *a1, int a2, uint64_t a3)
   return *(v7 + 8) & 0xF;
 }
 
-_OWORD *lua_createtable(uint64_t a1, signed int a2, int a3)
+_OWORD *lua_createtable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if (*(*(a1 + 24) + 24) >= 1)
   {
     luaC_step(a1);
@@ -5101,16 +5100,16 @@ _OWORD *lua_createtable(uint64_t a1, signed int a2, int a3)
   *v7 = result;
   *(v7 + 8) = 69;
   *(a1 + 16) += 16;
-  if (a2 > 0 || a3 >= 1)
+  if (v4 > 0 || a3 >= 1)
   {
 
-    return luaH_resize(a1, result, a2, a3);
+    return luaH_resize(a1, result, v4, a3);
   }
 
   return result;
 }
 
-uint64_t lua_getmetatable(void *a1, int a2)
+uint64_t lua_getmetatable(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   if ((v3[1] & 0xF) == 7)
@@ -5141,7 +5140,7 @@ uint64_t lua_getmetatable(void *a1, int a2)
   return 1;
 }
 
-uint64_t lua_getuservalue(void *a1, int a2)
+uint64_t lua_getuservalue(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   v4 = a1[2];
@@ -5153,7 +5152,7 @@ uint64_t lua_getuservalue(void *a1, int a2)
   return *(v6 + 8) & 0xF;
 }
 
-uint64_t *lua_setglobal(void *a1, char *a2)
+void lua_setglobal(void *a1, char *a2)
 {
   v4 = luaH_getint(*(a1[3] + 64), 2);
   v5 = a1[2];
@@ -5162,20 +5161,18 @@ uint64_t *lua_setglobal(void *a1, char *a2)
   *(v5 + 8) = *(v6 + 8) | 0x40;
   v7 = a1[2];
   a1[2] = v7 + 2;
-  result = luaV_settable(a1, v4, v7, v7 - 16);
+  luaV_settable(a1, v4, v7, v7 - 16);
   a1[2] -= 32;
-  return result;
 }
 
-uint64_t *lua_settable(void *a1, int a2)
+void lua_settable(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
-  result = luaV_settable(a1, v3, (a1[2] - 32), (a1[2] - 16));
+  luaV_settable(a1, v3, (a1[2] - 32), (a1[2] - 16));
   a1[2] -= 32;
-  return result;
 }
 
-uint64_t *lua_setfield(void *a1, int a2, char *a3)
+void lua_setfield(void *a1, unsigned int a2, char *a3)
 {
   v5 = index2addr(a1, a2);
   v6 = a1[2];
@@ -5184,12 +5181,11 @@ uint64_t *lua_setfield(void *a1, int a2, char *a3)
   *(v6 + 8) = *(v7 + 8) | 0x40;
   v8 = a1[2];
   a1[2] = v8 + 2;
-  result = luaV_settable(a1, v5, v8, v8 - 16);
+  luaV_settable(a1, v5, v8, v8 - 16);
   a1[2] -= 32;
-  return result;
 }
 
-uint64_t *lua_seti(void *a1, int a2, uint64_t a3)
+void lua_seti(void *a1, unsigned int a2, uint64_t a3)
 {
   v5 = index2addr(a1, a2);
   v6 = a1[2];
@@ -5197,12 +5193,11 @@ uint64_t *lua_seti(void *a1, int a2, uint64_t a3)
   *(v6 + 8) = 19;
   v7 = a1[2];
   a1[2] = v7 + 2;
-  result = luaV_settable(a1, v5, v7, v7 - 16);
+  luaV_settable(a1, v5, v7, v7 - 16);
   a1[2] -= 32;
-  return result;
 }
 
-_OWORD *lua_rawset(void *a1, int a2)
+_OWORD *lua_rawset(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   v4 = *v3;
@@ -5220,7 +5215,7 @@ _OWORD *lua_rawset(void *a1, int a2)
   return result;
 }
 
-void lua_rawseti(void *a1, int a2, uint64_t a3)
+void lua_rawseti(void *a1, unsigned int a2, uint64_t a3)
 {
   v5 = index2addr(a1, a2);
   v6 = *v5;
@@ -5235,7 +5230,7 @@ void lua_rawseti(void *a1, int a2, uint64_t a3)
   a1[2] = v7 - 16;
 }
 
-_OWORD *lua_rawsetp(void *a1, int a2, uint64_t a3)
+_OWORD *lua_rawsetp(void *a1, unsigned int a2, uint64_t a3)
 {
   v9 = 0;
   v5 = *index2addr(a1, a2);
@@ -5254,7 +5249,7 @@ _OWORD *lua_rawsetp(void *a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t lua_setmetatable(uint64_t *a1, int a2)
+uint64_t lua_setmetatable(uint64_t *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   v4 = v3;
@@ -5306,7 +5301,7 @@ LABEL_14:
   return 1;
 }
 
-uint64_t *lua_setuservalue(void *a1, int a2)
+uint64_t *lua_setuservalue(void *a1, unsigned int a2)
 {
   result = index2addr(a1, a2);
   v4 = a1[2];
@@ -5328,8 +5323,9 @@ uint64_t *lua_setuservalue(void *a1, int a2)
   return result;
 }
 
-uint64_t lua_callk(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t lua_callk(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a3;
   v7 = (*(a1 + 16) + 16 * ~a2);
   if (a5 && !*(a1 + 196))
   {
@@ -5344,7 +5340,7 @@ uint64_t lua_callk(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
   }
 
   result = luaD_call(a1, v7, a3, v8);
-  if (a3 == -1)
+  if (v5 == -1)
   {
     v10 = *(a1 + 32);
     v11 = *(a1 + 16);
@@ -5357,8 +5353,9 @@ uint64_t lua_callk(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
   return result;
 }
 
-uint64_t lua_pcallk(uint64_t a1, int a2, int a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t lua_pcallk(uint64_t a1, int a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a3;
   if (a4)
   {
     v11 = index2addr(a1, a4) - *(a1 + 56);
@@ -5381,7 +5378,7 @@ uint64_t lua_pcallk(uint64_t a1, int a2, int a3, int a4, uint64_t a5, uint64_t a
     *(v14 + 40) = *(a1 + 176);
     *(a1 + 176) = v11;
     *(v14 + 66) |= 0x10u;
-    luaD_call(a1, v12, a3, 1);
+    luaD_call(a1, v12, v8, 1);
     result = 0;
     *(v14 + 66) &= ~0x10u;
     *(a1 + 176) = *(v14 + 40);
@@ -5389,11 +5386,11 @@ uint64_t lua_pcallk(uint64_t a1, int a2, int a3, int a4, uint64_t a5, uint64_t a
 
   else
   {
-    LODWORD(v18) = a3;
+    LODWORD(v18) = v8;
     result = luaD_pcall(a1, f_call, &v17, &v12[-*(a1 + 56)], v11);
   }
 
-  if (a3 == -1)
+  if (v8 == -1)
   {
     v15 = *(a1 + 32);
     v16 = *(a1 + 16);
@@ -5442,7 +5439,7 @@ uint64_t lua_load(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_
   return v8;
 }
 
-uint64_t lua_dump(uint64_t a1, uint64_t (*a2)(void), uint64_t a3, int a4)
+uint64_t lua_dump(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a3, int a4)
 {
   v4 = *(a1 + 16);
   if (*(v4 - 8) == 70)
@@ -5554,7 +5551,7 @@ uint64_t lua_gc(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t lua_next(void *a1, int a2)
+uint64_t lua_next(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
   result = luaH_next(a1, *v3, (a1[2] - 16));
@@ -5568,7 +5565,7 @@ uint64_t lua_next(void *a1, int a2)
   return result;
 }
 
-uint64_t lua_concat(uint64_t result, signed int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lua_concat(uint64_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = result;
   if (a2 < 2)
@@ -5596,12 +5593,11 @@ uint64_t lua_concat(uint64_t result, signed int a2, uint64_t a3, uint64_t a4, ui
   return result;
 }
 
-uint64_t lua_len(void *a1, int a2)
+void lua_len(void *a1, unsigned int a2)
 {
   v3 = index2addr(a1, a2);
-  result = luaV_objlen(a1, a1[2], v3);
+  luaV_objlen(a1, a1[2], v3);
   a1[2] += 16;
-  return result;
 }
 
 uint64_t lua_getallocf(uint64_t a1, void *a2)
@@ -5629,11 +5625,12 @@ uint64_t lua_newuserdata(void *a1, unint64_t a2)
   return v4 + 40;
 }
 
-__n128 lua_getupvalue(void *a1, int a2, int a3)
+__n128 lua_getupvalue(void *a1, unsigned int a2, uint64_t a3)
 {
+  v3 = a3;
   v7 = 0;
   v5 = index2addr(a1, a2);
-  if (aux_upvalue(v5, a3, &v7, 0, 0))
+  if (aux_upvalue(v5, v3, &v7, 0, 0))
   {
     result = *v7;
     *a1[2] = *v7;
@@ -5696,7 +5693,7 @@ const char *aux_upvalue(_DWORD *a1, int a2, void *a3, void *a4, void *a5)
   }
 }
 
-const char *lua_setupvalue(void *a1, int a2, int a3)
+const char *lua_setupvalue(void *a1, unsigned int a2, int a3)
 {
   v12 = 0;
   v13 = 0;
@@ -5727,7 +5724,7 @@ const char *lua_setupvalue(void *a1, int a2, int a3)
   return v6;
 }
 
-uint64_t lua_upvalueid(void *a1, int a2, int a3)
+uint64_t lua_upvalueid(void *a1, unsigned int a2, int a3)
 {
   v6 = index2addr(a1, a2);
   if ((v6[1] & 0x3F) == 0x26)
@@ -5743,7 +5740,7 @@ uint64_t lua_upvalueid(void *a1, int a2, int a3)
   return 0;
 }
 
-uint64_t lua_upvaluejoin(void *a1, int a2, int a3, int a4, int a5)
+uint64_t lua_upvaluejoin(void *a1, unsigned int a2, int a3, unsigned int a4, int a5)
 {
   v9 = *index2addr(a1, a2) + 32;
   v10 = a3 - 1;
@@ -5769,32 +5766,33 @@ uint64_t lua_upvaluejoin(void *a1, int a2, int a3, int a4, int a5)
   return result;
 }
 
-uint64_t luaL_traceback(void *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t luaL_traceback(void *a1, uint64_t a2, const char *a3, uint64_t a4)
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v67 = 0u;
-  memset(v68, 0, sizeof(v68));
-  v65 = 0u;
-  v66 = 0u;
+  v4 = a4;
+  v39 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
+  memset(v37, 0, sizeof(v37));
+  v34 = 0u;
+  v35 = 0u;
   v8 = lua_gettop(a1);
   v9 = 1;
   v10 = 1;
-  memset(v69, 0, sizeof(v69));
+  memset(v38, 0, sizeof(v38));
   do
   {
     v11 = v10;
     v10 = v9;
-    v12 = lua_getstack(a2, v9, v69);
+    v12 = lua_getstack(a2, v9, v38);
     v9 = 2 * v10;
   }
 
   while (v12);
   while (v11 < v10)
   {
-    v19 = (v10 + v11) / 2;
-    if (lua_getstack(a2, v19, v69))
+    v13 = (v10 + v11) / 2;
+    if (lua_getstack(a2, v13, v38))
     {
-      v11 = v19 + 1;
+      v11 = v13 + 1;
     }
 
     else
@@ -5805,150 +5803,140 @@ uint64_t luaL_traceback(void *a1, uint64_t a2, uint64_t a3, int a4)
 
   if (v10 <= 23)
   {
-    v20 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v20 = 12;
+    v14 = 12;
   }
 
   if (a3)
   {
-    lua_pushfstring(a1, "%s\n", v13, v14, v15, v16, v17, v18, a3);
+    lua_pushfstring(a1, "%s\n", a3);
   }
 
   lua_pushstring(a1, "stack traceback:");
-  if (lua_getstack(a2, a4, &v65))
+  if (lua_getstack(a2, v4, &v34))
   {
-    while (++a4 == v20)
+    while (++v4 == v14)
     {
       lua_pushstring(a1, "\n\t...");
-      a4 = v10 - 11;
+      v4 = v10 - 11;
 LABEL_30:
-      if (!lua_getstack(a2, a4, &v65))
+      if (!lua_getstack(a2, v4, &v34))
       {
         goto LABEL_33;
       }
     }
 
-    lua_getinfo(a2, "Slnt", &v65);
-    lua_pushfstring(a1, "\n\t%s:", v21, v22, v23, v24, v25, v26, v68 + 8);
-    if (SDWORD2(v67) >= 1)
+    lua_getinfo(a2, "Slnt", &v34);
+    lua_pushfstring(a1, "\n\t%s:", v37 + 8);
+    if (SDWORD2(v36) >= 1)
     {
-      lua_pushfstring(a1, "%d:", v27, v28, v29, v30, v31, v32, DWORD2(v67));
+      lua_pushfstring(a1, "%d:", DWORD2(v36));
     }
 
     lua_pushstring(a1, " in ");
-    if (pushglobalfuncname(a1, &v65))
+    if (pushglobalfuncname(a1, &v34))
     {
-      v39 = lua_tolstring(a1, -1, 0);
-      lua_pushfstring(a1, "function '%s'", v40, v41, v42, v43, v44, v45, v39);
-      lua_rotate(a1, -2, -1);
-      lua_settop(a1, 0xFFFFFFFE);
+      v15 = lua_tolstring(a1, 0xFFFFFFFF, 0);
+      lua_pushfstring(a1, "function '%s'", v15);
+      lua_rotate(a1, 4294967294, 0xFFFFFFFF);
+      lua_settop(a1, -2);
     }
 
-    else if (*v66)
+    else if (*v35)
     {
-      lua_pushfstring(a1, "%s '%s'", v33, v34, v35, v36, v37, v38, v66);
+      lua_pushfstring(a1, "%s '%s'");
     }
 
     else
     {
-      v46 = **(&v66 + 1);
-      if (v46 == 67)
+      v16 = **(&v35 + 1);
+      if (v16 == 67)
       {
-        v47 = a1;
-        v48 = "?";
+        v17 = a1;
+        v18 = "?";
       }
 
       else
       {
-        if (v46 != 109)
+        if (v16 != 109)
         {
-          lua_pushfstring(a1, "function <%s:%d>", v33, v34, v35, v36, v37, v38, v68 + 8);
+          lua_pushfstring(a1, "function <%s:%d>");
           goto LABEL_27;
         }
 
-        v47 = a1;
-        v48 = "main chunk";
+        v17 = a1;
+        v18 = "main chunk";
       }
 
-      lua_pushstring(v47, v48);
+      lua_pushstring(v17, v18);
     }
 
 LABEL_27:
-    if (BYTE7(v68[0]))
+    if (BYTE7(v37[0]))
     {
       lua_pushstring(a1, "\n\t(...tail calls...)");
     }
 
-    v49 = lua_gettop(a1);
-    lua_concat(a1, v49 - v8, v50, v51, v52, v53, v54, v55);
+    v19 = lua_gettop(a1);
+    lua_concat(a1, v19 - v8, v20, v21, v22, v23, v24, v25);
     goto LABEL_30;
   }
 
 LABEL_33:
-  v56 = lua_gettop(a1);
-  result = lua_concat(a1, v56 - v8, v57, v58, v59, v60, v61, v62);
-  v64 = *MEMORY[0x1E69E9840];
-  return result;
+  v26 = lua_gettop(a1);
+  return lua_concat(a1, v26 - v8, v27, v28, v29, v30, v31, v32);
 }
 
-uint64_t luaL_argerror(void *a1, uint64_t a2)
+uint64_t luaL_argerror(void *a1, int a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
   *__s1 = 0u;
-  if (lua_getstack(a1, 0, &v19))
+  if (!lua_getstack(a1, 0, &v6))
   {
-    lua_getinfo(a1, "n", &v19);
-    if (!strcmp(__s1[0], "method") && (a2 = (a2 - 1), !a2))
+    return luaL_error(a1, "bad argument #%d (%s)");
+  }
+
+  lua_getinfo(a1, "n", &v6);
+  if (!strcmp(__s1[0], "method") && a2 == 1)
+  {
+    return luaL_error(a1, "calling '%s' on bad self (%s)");
+  }
+
+  if (!*(&v6 + 1))
+  {
+    if (pushglobalfuncname(a1, &v6))
     {
-      result = luaL_error(a1, "calling '%s' on bad self (%s)", v10, v11, v12, v13, v14, v15, *(&v19 + 1));
+      v4 = lua_tolstring(a1, 0xFFFFFFFF, 0);
     }
 
     else
     {
-      if (!*(&v19 + 1))
-      {
-        if (pushglobalfuncname(a1, &v19))
-        {
-          v16 = lua_tolstring(a1, -1, 0);
-        }
-
-        else
-        {
-          v16 = "?";
-        }
-
-        *(&v19 + 1) = v16;
-      }
-
-      result = luaL_error(a1, "bad argument #%d to '%s' (%s)", v10, v11, v12, v13, v14, v15, a2);
+      v4 = "?";
     }
+
+    *(&v6 + 1) = v4;
   }
 
-  else
-  {
-    result = luaL_error(a1, "bad argument #%d (%s)", v4, v5, v6, v7, v8, v9, a2);
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return luaL_error(a1, "bad argument #%d to '%s' (%s)");
 }
 
-uint64_t luaL_error(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t luaL_error(void *a1, char *a2, ...)
 {
+  va_start(va, a2);
   luaL_where(a1, 1);
-  lua_pushvfstring(a1, a2, &a9);
-  lua_concat(a1, 2, v11, v12, v13, v14, v15, v16);
+  lua_pushvfstring(a1, a2, va);
+  lua_concat(a1, 2, v4, v5, v6, v7, v8, v9);
   return lua_error(a1);
 }
 
@@ -5956,18 +5944,18 @@ uint64_t pushglobalfuncname(void *a1, uint64_t a2)
 {
   v4 = lua_gettop(a1);
   lua_getinfo(a1, "f", a2);
-  lua_getfield(a1, -1001000, "_LOADED");
-  if (findfield(a1, v4 + 1, 2))
+  lua_getfield(a1, 0xFFF0B9D8, "_LOADED");
+  if (findfield(a1, (v4 + 1), 2))
   {
-    v5 = lua_tolstring(a1, -1, 0);
+    v5 = lua_tolstring(a1, 0xFFFFFFFF, 0);
     if (*v5 == 95 && v5[1] == 71 && v5[2] == 46)
     {
       lua_pushstring(a1, v5 + 3);
-      lua_rotate(a1, -2, -1);
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_rotate(a1, 4294967294, 0xFFFFFFFF);
+      lua_settop(a1, -2);
     }
 
-    lua_copy(a1, -1, v4 + 1);
+    lua_copy(a1, 0xFFFFFFFF, v4 + 1);
     v6 = 1;
     v4 = -3;
   }
@@ -5981,55 +5969,52 @@ uint64_t pushglobalfuncname(void *a1, uint64_t a2)
   return v6;
 }
 
-uint64_t luaL_where(void *a1, int a2)
+uint64_t luaL_where(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v12 = 0u;
-  memset(v13, 0, sizeof(v13));
-  memset(v11, 0, sizeof(v11));
-  if (lua_getstack(a1, a2, v11) && (lua_getinfo(a1, "Sl", v11), SDWORD2(v12) >= 1))
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = 0u;
+  memset(v6, 0, sizeof(v6));
+  memset(v4, 0, sizeof(v4));
+  if (lua_getstack(a1, a2, v4) && (lua_getinfo(a1, "Sl", v4), SDWORD2(v5) >= 1))
   {
-    result = lua_pushfstring(a1, "%s:%d: ", v3, v4, v5, v6, v7, v8, v13 + 8);
+    return lua_pushfstring(a1, "%s:%d: ", v6 + 8, DWORD2(v5));
   }
 
   else
   {
-    result = lua_pushstring(a1, "");
+    return lua_pushstring(a1, "");
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t luaL_newmetatable(void *a1, char *a2)
 {
-  if (lua_getfield(a1, -1001000, a2))
+  if (lua_getfield(a1, 0xFFF0B9D8, a2))
   {
     return 0;
   }
 
-  lua_settop(a1, 0xFFFFFFFE);
+  lua_settop(a1, -2);
   lua_createtable(a1, 0, 0);
   lua_pushstring(a1, a2);
-  lua_setfield(a1, -2, "__name");
-  lua_pushvalue(a1, -1);
-  lua_setfield(a1, -1001000, a2);
+  lua_setfield(a1, 0xFFFFFFFE, "__name");
+  lua_pushvalue(a1, 0xFFFFFFFF);
+  lua_setfield(a1, 0xFFF0B9D8, a2);
   return 1;
 }
 
-uint64_t luaL_testudata(void *a1, int a2, char *a3)
+uint64_t luaL_testudata(void *a1, unsigned int a2, char *a3)
 {
   v6 = lua_touserdata(a1, a2);
   if (v6)
   {
-    lua_getfield(a1, -1001000, a3);
+    lua_getfield(a1, 0xFFF0B9D8, a3);
     if (lua_getmetatable(a1, a2))
     {
       v7 = -3;
-      while (!lua_rawequal(a1, -1, v7 + 1))
+      while (!lua_rawequal(a1, 0xFFFFFFFF, v7 + 1))
       {
         --v7;
-        if (!lua_getmetatable(a1, -1))
+        if (!lua_getmetatable(a1, 0xFFFFFFFF))
         {
           v6 = 0;
           break;
@@ -6060,22 +6045,28 @@ uint64_t luaL_checkudata(void *a1, uint64_t a2, char *a3)
   return v6;
 }
 
-uint64_t typeerror(void *a1, uint64_t a2, uint64_t a3)
+uint64_t typeerror(void *a1, uint64_t a2, const char *a3)
 {
+  v4 = a2;
   if (luaL_getmetafield(a1, a2, "__name") == 4)
   {
-    lua_tolstring(a1, -1, 0);
+    v6 = lua_tolstring(a1, 0xFFFFFFFF, 0);
   }
 
-  else if (lua_type(a1, a2) != 2)
+  else if (lua_type(a1, v4) == 2)
   {
-    v12 = lua_type(a1, a2);
-    lua_typename(a1, v12);
+    v6 = "light userdata";
   }
 
-  lua_pushfstring(a1, "%s expected, got %s", v6, v7, v8, v9, v10, v11, a3);
+  else
+  {
+    v7 = lua_type(a1, v4);
+    v6 = lua_typename(a1, v7);
+  }
 
-  return luaL_argerror(a1, a2);
+  lua_pushfstring(a1, "%s expected, got %s", a3, v6);
+
+  return luaL_argerror(a1, v4);
 }
 
 uint64_t luaL_checkoption(void *a1, uint64_t a2, const char *a3, const char **a4)
@@ -6085,33 +6076,33 @@ uint64_t luaL_checkoption(void *a1, uint64_t a2, const char *a3, const char **a4
     v7 = luaL_checklstring(a1, a2, 0);
   }
 
-  v14 = *a4;
+  v8 = *a4;
   if (*a4)
   {
-    v15 = 0;
-    v16 = a4 + 1;
-    while (strcmp(v14, v7))
+    v9 = 0;
+    v10 = a4 + 1;
+    while (strcmp(v8, v7))
     {
-      v14 = v16[v15++];
-      if (!v14)
+      v8 = v10[v9++];
+      if (!v8)
       {
         goto LABEL_8;
       }
     }
 
-    return v15;
+    return v9;
   }
 
   else
   {
 LABEL_8:
-    lua_pushfstring(a1, "invalid option '%s'", v8, v9, v10, v11, v12, v13, v7);
+    lua_pushfstring(a1, "invalid option '%s'", v7);
 
     return luaL_argerror(a1, a2);
   }
 }
 
-uint64_t luaL_optlstring(void *a1, uint64_t a2, const char *a3, size_t *a4)
+const char *luaL_optlstring(void *a1, uint64_t a2, const char *a3, size_t *a4)
 {
   if (lua_type(a1, a2) <= 0)
   {
@@ -6152,20 +6143,20 @@ uint64_t luaL_checklstring(void *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-uint64_t luaL_checkstack(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t luaL_checkstack(void *a1, int a2, const char *a3)
 {
   result = lua_checkstack(a1, a2 + 20);
   if (!result)
   {
     if (a3)
     {
-      return luaL_error(a1, "stack overflow (%s)", v12, v13, v14, v15, v16, v17, a3);
+      return luaL_error(a1, "stack overflow (%s)", a3);
     }
 
     else
     {
 
-      return luaL_error(a1, "stack overflow", v12, v13, v14, v15, v16, v17, a9);
+      return luaL_error(a1, "stack overflow");
     }
   }
 
@@ -6185,7 +6176,7 @@ uint64_t luaL_checktype(void *a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t luaL_checkany(void *a1, uint64_t a2)
+uint64_t luaL_checkany(void *a1, unsigned int a2)
 {
   result = lua_type(a1, a2);
   if (result == -1)
@@ -6241,57 +6232,57 @@ uint64_t luaL_optinteger(void *a1, uint64_t a2, uint64_t a3)
   return luaL_checkinteger(a1, a2);
 }
 
-char *luaL_prepbuffsize(const void **a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *luaL_prepbuffsize(const void **a1, unint64_t a2)
 {
-  v10 = a1[1];
-  v9 = a1[2];
-  if (&v10[-v9] >= a2)
+  v4 = a1[1];
+  v3 = a1[2];
+  if (v4 - v3 >= a2)
   {
-    v16 = *a1;
+    v10 = *a1;
   }
 
   else
   {
-    v11 = a1[3];
-    v12 = 2 * v10;
-    if (v12 - v9 >= a2)
+    v5 = a1[3];
+    v6 = 2 * v4;
+    if (v6 - v3 >= a2)
     {
-      v13 = v12;
+      v7 = v6;
     }
 
     else
     {
-      v13 = v9 + a2;
+      v7 = &v3[a2];
     }
 
-    v15 = v13 >= v9;
-    v14 = v13 - v9;
-    v15 = v15 && v14 >= a2;
-    if (!v15)
+    v9 = v7 >= v3;
+    v8 = v7 - v3;
+    v9 = v9 && v8 >= a2;
+    if (!v9)
     {
-      luaL_error(a1[3], "buffer too large", a3, a4, a5, a6, a7, a8, v18);
+      luaL_error(a1[3], "buffer too large");
     }
 
-    v16 = lua_newuserdata(v11, v13);
-    memcpy(v16, *a1, a1[2]);
+    v10 = lua_newuserdata(v5, v7);
+    memcpy(v10, *a1, a1[2]);
     if (*a1 != a1 + 4)
     {
-      lua_rotate(v11, -2, -1);
-      lua_settop(v11, 0xFFFFFFFE);
+      lua_rotate(v5, 4294967294, 0xFFFFFFFF);
+      lua_settop(v5, -2);
     }
 
-    *a1 = v16;
-    a1[1] = v13;
-    v9 = a1[2];
+    *a1 = v10;
+    a1[1] = v7;
+    v3 = a1[2];
   }
 
-  return &v16[v9];
+  return &v3[v10];
 }
 
-void *luaL_addlstring(uint64_t a1, const void *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *luaL_addlstring(uint64_t a1, const void *a2, unint64_t a3)
 {
-  v11 = luaL_prepbuffsize(a1, a3, a3, a4, a5, a6, a7, a8);
-  result = memcpy(v11, a2, a3);
+  v6 = luaL_prepbuffsize(a1, a3);
+  result = memcpy(v6, a2, a3);
   *(a1 + 16) += a3;
   return result;
 }
@@ -6299,8 +6290,8 @@ void *luaL_addlstring(uint64_t a1, const void *a2, unint64_t a3, uint64_t a4, ui
 void *luaL_addstring(uint64_t a1, char *__s)
 {
   v4 = strlen(__s);
-  v11 = luaL_prepbuffsize(a1, v4, v5, v6, v7, v8, v9, v10);
-  result = memcpy(v11, __s, v4);
+  v5 = luaL_prepbuffsize(a1, v4);
+  result = memcpy(v5, __s, v4);
   *(a1 + 16) += v4;
   return result;
 }
@@ -6311,9 +6302,9 @@ uint64_t luaL_pushresult(uint64_t a1)
   result = lua_pushlstring(v2, *a1, *(a1 + 16));
   if (*a1 != a1 + 32)
   {
-    lua_rotate(v2, -2, -1);
+    lua_rotate(v2, 4294967294, 0xFFFFFFFF);
 
-    return lua_settop(v2, 0xFFFFFFFE);
+    return lua_settop(v2, -2);
   }
 
   return result;
@@ -6322,29 +6313,29 @@ uint64_t luaL_pushresult(uint64_t a1)
 uint64_t luaL_addvalue(uint64_t a1)
 {
   v2 = *(a1 + 24);
-  v14 = 0;
-  v9 = lua_tolstring(v2, -1, &v14);
+  v8 = 0;
+  v3 = lua_tolstring(v2, 0xFFFFFFFF, &v8);
   if (*a1 != a1 + 32)
   {
-    lua_rotate(v2, -2, 1);
+    lua_rotate(v2, 4294967294, 1u);
   }
 
-  v10 = v14;
-  v11 = luaL_prepbuffsize(a1, v14, v3, v4, v5, v6, v7, v8);
-  memcpy(v11, v9, v10);
-  *(a1 + 16) += v10;
+  v4 = v8;
+  v5 = luaL_prepbuffsize(a1, v8);
+  memcpy(v5, v3, v4);
+  *(a1 + 16) += v4;
   if (*a1 == a1 + 32)
   {
-    v12 = -1;
+    v6 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v12 = -2;
+    v6 = 4294967294;
   }
 
-  lua_rotate(v2, v12, -1);
-  return lua_settop(v2, 0xFFFFFFFE);
+  lua_rotate(v2, v6, 0xFFFFFFFF);
+  return lua_settop(v2, -2);
 }
 
 double luaL_buffinit(uint64_t a1, uint64_t a2)
@@ -6356,12 +6347,12 @@ double luaL_buffinit(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *luaL_buffinitsize(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *luaL_buffinitsize(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   *(a2 + 24) = a1;
   *a2 = a2 + 32;
   *(a2 + 8) = xmmword_1C37B14C0;
-  return luaL_prepbuffsize(a2, a3, a3, a4, a5, a6, a7, a8);
+  return luaL_prepbuffsize(a2, a3);
 }
 
 uint64_t luaL_loadbufferx(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
@@ -6384,7 +6375,7 @@ uint64_t getS(uint64_t a1, void *a2, void *a3)
   return *a2;
 }
 
-uint64_t luaL_getmetafield(void *a1, int a2, char *a3)
+uint64_t luaL_getmetafield(void *a1, unsigned int a2, char *a3)
 {
   if (!lua_getmetatable(a1, a2))
   {
@@ -6392,11 +6383,11 @@ uint64_t luaL_getmetafield(void *a1, int a2, char *a3)
   }
 
   lua_pushstring(a1, a3);
-  v5 = lua_rawget(a1, -2);
+  v5 = lua_rawget(a1, 0xFFFFFFFE);
   if (v5)
   {
     v6 = -2;
-    lua_rotate(a1, -2, -1);
+    lua_rotate(a1, 4294967294, 0xFFFFFFFF);
   }
 
   else
@@ -6422,18 +6413,18 @@ uint64_t luaL_callmeta(void *a1, uint64_t a2, char *a3)
   return v6;
 }
 
-uint64_t luaL_len(void *a1, int a2)
+uint64_t luaL_len(void *a1, unsigned int a2)
 {
-  v12 = 0;
+  v5 = 0;
   lua_len(a1, a2);
-  v9 = lua_tointegerx(a1, -1, &v12);
-  if (!v12)
+  v3 = lua_tointegerx(a1, 0xFFFFFFFF, &v5);
+  if (!v5)
   {
-    luaL_error(a1, "object length is not an integer", v3, v4, v5, v6, v7, v8, v11);
+    luaL_error(a1, "object length is not an integer");
   }
 
-  lua_settop(a1, 0xFFFFFFFE);
-  return v9;
+  lua_settop(a1, -2);
+  return v3;
 }
 
 uint64_t luaL_tolstring(void *a1, uint64_t a2, void *a3)
@@ -6454,14 +6445,14 @@ uint64_t luaL_tolstring(void *a1, uint64_t a2, void *a3)
       {
         if (lua_isinteger(a1, v4))
         {
-          v29 = lua_tointegerx(a1, v4, 0);
-          lua_pushfstring(a1, "%I", v9, v10, v11, v12, v13, v14, v29);
+          v10 = lua_tointegerx(a1, v4, 0);
+          lua_pushfstring(a1, "%I", v10);
         }
 
         else
         {
-          v30 = lua_tonumberx(a1, v4, 0);
-          lua_pushfstring(a1, "%f", v23, v24, v25, v26, v27, v28, v30);
+          lua_tonumberx(a1, v4, 0);
+          lua_pushfstring(a1, "%f");
         }
 
         goto LABEL_2;
@@ -6494,43 +6485,43 @@ LABEL_17:
       }
     }
 
-    v15 = lua_type(a1, v4);
-    v16 = lua_typename(a1, v15);
+    v9 = lua_type(a1, v4);
+    lua_typename(a1, v9);
     lua_topointer(a1, v4);
-    lua_pushfstring(a1, "%s: %p", v17, v18, v19, v20, v21, v22, v16);
+    lua_pushfstring(a1, "%s: %p");
   }
 
 LABEL_2:
 
-  return lua_tolstring(a1, -1, a3);
+  return lua_tolstring(a1, 0xFFFFFFFF, a3);
 }
 
-uint64_t luaL_setfuncs(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t luaL_setfuncs(void *a1, uint64_t a2, uint64_t a3)
 {
-  luaL_checkstack(a1, a3, "too many upvalues", a4, a5, a6, a7, a8, v14);
+  luaL_checkstack(a1, a3, "too many upvalues");
   if (*a2)
   {
     do
     {
       if (a3 >= 1)
       {
-        v11 = a3;
+        v6 = a3;
         do
         {
           lua_pushvalue(a1, -a3);
-          --v11;
+          --v6;
         }
 
-        while (v11);
+        while (v6);
       }
 
       lua_pushcclosure(a1, *(a2 + 8), a3);
       lua_setfield(a1, -2 - a3, *a2);
-      v12 = *(a2 + 16);
+      v7 = *(a2 + 16);
       a2 += 16;
     }
 
-    while (v12);
+    while (v7);
   }
 
   return lua_settop(a1, ~a3);
@@ -6543,62 +6534,59 @@ uint64_t luaL_getsubtable(void *a1, uint64_t a2, char *a3)
     return 1;
   }
 
-  lua_settop(a1, 0xFFFFFFFE);
+  lua_settop(a1, -2);
   v7 = lua_absindex(a1, a2);
   lua_createtable(a1, 0, 0);
-  lua_pushvalue(a1, -1);
+  lua_pushvalue(a1, 0xFFFFFFFF);
   lua_setfield(a1, v7, a3);
   return 0;
 }
 
-uint64_t *luaL_requiref(void *a1, char *a2, uint64_t a3, int a4)
+void luaL_requiref(void *a1, char *a2, uint64_t a3, int a4)
 {
   luaL_getsubtable(a1, 4293966296, "_LOADED");
-  lua_getfield(a1, -1, a2);
-  if (!lua_toBOOLean(a1, -1))
+  lua_getfield(a1, 0xFFFFFFFF, a2);
+  if (!lua_toBOOLean(a1, 0xFFFFFFFF))
   {
-    lua_settop(a1, 0xFFFFFFFE);
+    lua_settop(a1, -2);
     lua_pushcclosure(a1, a3, 0);
     lua_pushstring(a1, a2);
     lua_callk(a1, 1, 1, 0, 0);
-    lua_pushvalue(a1, -1);
-    lua_setfield(a1, -3, a2);
+    lua_pushvalue(a1, 0xFFFFFFFF);
+    lua_setfield(a1, 0xFFFFFFFD, a2);
   }
 
-  lua_rotate(a1, -2, -1);
-  result = lua_settop(a1, 0xFFFFFFFE);
+  lua_rotate(a1, 4294967294, 0xFFFFFFFF);
+  lua_settop(a1, -2);
   if (a4)
   {
-    lua_pushvalue(a1, -1);
+    lua_pushvalue(a1, 0xFFFFFFFF);
 
-    return lua_setglobal(a1, a2);
+    lua_setglobal(a1, a2);
   }
-
-  return result;
 }
 
-double *luaL_checkversion_(void *a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+double *luaL_checkversion_(void *a1, uint64_t a2, double a3)
 {
-  v19 = lua_version(a1);
+  v6 = lua_version(a1);
   if (a2 != 136)
   {
-    luaL_error(a1, "core and library have incompatible numeric types", v13, v14, v15, v16, v17, v18, v27);
+    luaL_error(a1, "core and library have incompatible numeric types");
   }
 
   result = lua_version(0);
-  if (v19 == result)
+  if (v6 == result)
   {
-    if (*v19 != a3)
+    if (*v6 != a3)
     {
-      v28 = *v19;
-      return luaL_error(a1, "version mismatch: app. needs %f, Lua core provides %f", v21, v22, v23, v24, v25, v26, *&a3);
+      return luaL_error(a1, "version mismatch: app. needs %f, Lua core provides %f", a3, *v6);
     }
   }
 
   else
   {
 
-    return luaL_error(a1, "multiple Lua VMs detected", v21, v22, v23, v24, v25, v26, a10);
+    return luaL_error(a1, "multiple Lua VMs detected");
   }
 
   return result;
@@ -6611,25 +6599,25 @@ uint64_t findfield(void *a1, uint64_t a2, int a3)
     return 0;
   }
 
-  if (lua_type(a1, -1) != 5)
+  if (lua_type(a1, 0xFFFFFFFF) != 5)
   {
     return 0;
   }
 
   lua_pushnil(a1);
-  if (!lua_next(a1, -2))
+  if (!lua_next(a1, 0xFFFFFFFE))
   {
     return 0;
   }
 
-  v6 = (a3 - 1);
+  v6 = a3 - 1;
   while (1)
   {
-    if (lua_type(a1, -2) == 4)
+    if (lua_type(a1, 0xFFFFFFFE) == 4)
     {
-      if (lua_rawequal(a1, a2, -1))
+      if (lua_rawequal(a1, a2, 0xFFFFFFFF))
       {
-        lua_settop(a1, 0xFFFFFFFE);
+        lua_settop(a1, -2);
         return 1;
       }
 
@@ -6639,52 +6627,52 @@ uint64_t findfield(void *a1, uint64_t a2, int a3)
       }
     }
 
-    lua_settop(a1, 0xFFFFFFFE);
-    if (!lua_next(a1, -2))
+    lua_settop(a1, -2);
+    if (!lua_next(a1, 0xFFFFFFFE))
     {
       return 0;
     }
   }
 
-  lua_rotate(a1, -2, -1);
-  lua_settop(a1, 0xFFFFFFFE);
+  lua_rotate(a1, 4294967294, 0xFFFFFFFF);
+  lua_settop(a1, -2);
   lua_pushstring(a1, ".");
   v7 = 1;
-  lua_rotate(a1, -2, 1);
+  lua_rotate(a1, 4294967294, 1u);
   lua_concat(a1, 3, v9, v10, v11, v12, v13, v14);
   return v7;
 }
 
 uint64_t luaopen_base(void *a1)
 {
-  lua_rawgeti(a1, -1001000, 2);
-  luaL_setfuncs(a1, &base_funcs, 0, v2, v3, v4, v5, v6);
-  lua_pushvalue(a1, -1);
-  lua_setfield(a1, -2, "_G");
+  lua_rawgeti(a1, 0xFFF0B9D8, 2);
+  luaL_setfuncs(a1, &base_funcs, 0);
+  lua_pushvalue(a1, 0xFFFFFFFF);
+  lua_setfield(a1, 0xFFFFFFFE, "_G");
   lua_pushstring(a1, "Lua 5.3");
-  lua_setfield(a1, -2, "_VERSION");
+  lua_setfield(a1, 0xFFFFFFFE, "_VERSION");
   for (i = 0; i != 9; ++i)
   {
-    v8 = lua_typename(a1, i);
-    lua_pushstring(a1, v8);
+    v3 = lua_typename(a1, i);
+    lua_pushstring(a1, v3);
   }
 
   lua_pushcclosure(a1, luaB_type, 9);
-  lua_setfield(a1, -2, "type");
+  lua_setfield(a1, 0xFFFFFFFE, "type");
   return 1;
 }
 
 uint64_t luaB_type(void *a1)
 {
-  luaL_checkany(a1, 1);
-  v2 = lua_type(a1, 1);
+  luaL_checkany(a1, 1u);
+  v2 = lua_type(a1, 1u);
   lua_pushvalue(a1, -1001001 - v2);
   return 1;
 }
 
 unint64_t luaB_assert(void *a1)
 {
-  if (lua_toBOOLean(a1, 1))
+  if (lua_toBOOLean(a1, 1u))
   {
 
     return lua_gettop(a1);
@@ -6692,11 +6680,11 @@ unint64_t luaB_assert(void *a1)
 
   else
   {
-    luaL_checkany(a1, 1);
-    lua_rotate(a1, 1, -1);
-    lua_settop(a1, 0xFFFFFFFE);
+    luaL_checkany(a1, 1u);
+    lua_rotate(a1, 1, 0xFFFFFFFF);
+    lua_settop(a1, -2);
     lua_pushstring(a1, "assertion failed!");
-    lua_settop(a1, 1u);
+    lua_settop(a1, 1);
 
     return luaB_error(a1);
   }
@@ -6730,11 +6718,11 @@ uint64_t luaB_collectgarbage(void *a1)
 uint64_t luaB_error(void *a1)
 {
   v2 = luaL_optinteger(a1, 2, 1);
-  lua_settop(a1, 1u);
-  if (lua_isstring(a1, 1) && v2 >= 1)
+  lua_settop(a1, 1);
+  if (lua_isstring(a1, 1u) && v2 >= 1)
   {
     luaL_where(a1, v2);
-    lua_pushvalue(a1, 1);
+    lua_pushvalue(a1, 1u);
     lua_concat(a1, 2, v3, v4, v5, v6, v7, v8);
   }
 
@@ -6743,10 +6731,10 @@ uint64_t luaB_error(void *a1)
 
 uint64_t luaB_getmetatable(void *a1)
 {
-  luaL_checkany(a1, 1);
-  if (lua_getmetatable(a1, 1))
+  luaL_checkany(a1, 1u);
+  if (lua_getmetatable(a1, 1u))
   {
-    luaL_getmetafield(a1, 1, "__metatable");
+    luaL_getmetafield(a1, 1u, "__metatable");
   }
 
   else
@@ -6759,7 +6747,7 @@ uint64_t luaB_getmetatable(void *a1)
 
 uint64_t luaB_ipairs(void *a1)
 {
-  if (luaL_getmetafield(a1, 1, "__index"))
+  if (luaL_getmetafield(a1, 1u, "__index"))
   {
     v2 = ipairsaux;
   }
@@ -6769,9 +6757,9 @@ uint64_t luaB_ipairs(void *a1)
     v2 = ipairsaux_raw;
   }
 
-  luaL_checkany(a1, 1);
+  luaL_checkany(a1, 1u);
   lua_pushcclosure(a1, v2, 0);
-  lua_pushvalue(a1, 1);
+  lua_pushvalue(a1, 1u);
   lua_pushinteger(a1, 0);
   return 3;
 }
@@ -6779,9 +6767,9 @@ uint64_t luaB_ipairs(void *a1)
 uint64_t luaB_load(void *a1)
 {
   v9 = 0;
-  v2 = lua_tolstring(a1, 1, &v9);
+  v2 = lua_tolstring(a1, 1u, &v9);
   v3 = luaL_optlstring(a1, 3, "bt", 0);
-  v4 = lua_type(a1, 4);
+  v4 = lua_type(a1, 4u);
   if (v2)
   {
     v5 = luaL_optlstring(a1, 2, v2, 0);
@@ -6789,7 +6777,7 @@ uint64_t luaB_load(void *a1)
     {
 LABEL_3:
       lua_pushnil(a1);
-      lua_rotate(a1, -2, 1);
+      lua_rotate(a1, 4294967294, 1u);
       return 2;
     }
   }
@@ -6798,7 +6786,7 @@ LABEL_3:
   {
     v8 = luaL_optlstring(a1, 2, "=(load)", 0);
     luaL_checktype(a1, 1, 6);
-    lua_settop(a1, 5u);
+    lua_settop(a1, 5);
     if (lua_load(a1, generic_reader, 0, v8, v3))
     {
       goto LABEL_3;
@@ -6810,11 +6798,11 @@ LABEL_3:
     return 1;
   }
 
-  lua_pushvalue(a1, 4);
+  lua_pushvalue(a1, 4u);
   v6 = 1;
-  if (!lua_setupvalue(a1, -2, 1))
+  if (!lua_setupvalue(a1, 0xFFFFFFFE, 1))
   {
-    lua_settop(a1, 0xFFFFFFFE);
+    lua_settop(a1, -2);
   }
 
   return v6;
@@ -6824,8 +6812,8 @@ uint64_t luaB_next(void *a1)
 {
   luaL_checktype(a1, 1, 5);
   v2 = 2;
-  lua_settop(a1, 2u);
-  if (!lua_next(a1, 1))
+  lua_settop(a1, 2);
+  if (!lua_next(a1, 1u))
   {
     lua_pushnil(a1);
     return 1;
@@ -6836,9 +6824,9 @@ uint64_t luaB_next(void *a1)
 
 uint64_t luaB_pairs(void *a1)
 {
-  if (luaL_getmetafield(a1, 1, "__pairs"))
+  if (luaL_getmetafield(a1, 1u, "__pairs"))
   {
-    lua_pushvalue(a1, 1);
+    lua_pushvalue(a1, 1u);
     lua_callk(a1, 1, 3, 0, 0);
   }
 
@@ -6846,7 +6834,7 @@ uint64_t luaB_pairs(void *a1)
   {
     luaL_checktype(a1, 1, 5);
     lua_pushcclosure(a1, luaB_next, 0);
-    lua_pushvalue(a1, 1);
+    lua_pushvalue(a1, 1u);
     lua_pushnil(a1);
   }
 
@@ -6855,32 +6843,32 @@ uint64_t luaB_pairs(void *a1)
 
 uint64_t luaB_pcall(void *a1)
 {
-  luaL_checkany(a1, 1);
+  luaL_checkany(a1, 1u);
   lua_pushBOOLean(a1, 1);
-  lua_rotate(a1, 1, 1);
+  lua_rotate(a1, 1, 1u);
   v2 = lua_gettop(a1);
-  v3 = lua_pcallk(a1, v2 - 2, -1, 0, 0, finishpcall);
+  v3 = lua_pcallk(a1, v2 - 2, 0xFFFFFFFFLL, 0, 0, finishpcall);
 
   return finishpcall(a1, v3, 0);
 }
 
 uint64_t luaB_rawequal(void *a1)
 {
-  luaL_checkany(a1, 1);
-  luaL_checkany(a1, 2);
-  v2 = lua_rawequal(a1, 1, 2);
+  luaL_checkany(a1, 1u);
+  luaL_checkany(a1, 2u);
+  v2 = lua_rawequal(a1, 1u, 2u);
   lua_pushBOOLean(a1, v2);
   return 1;
 }
 
 uint64_t luaB_rawlen(void *a1)
 {
-  if ((lua_type(a1, 1) & 0xFFFFFFFE) != 4)
+  if ((lua_type(a1, 1u) & 0xFFFFFFFE) != 4)
   {
     luaL_argerror(a1, 1);
   }
 
-  v2 = lua_rawlen(a1, 1);
+  v2 = lua_rawlen(a1, 1u);
   lua_pushinteger(a1, v2);
   return 1;
 }
@@ -6888,26 +6876,26 @@ uint64_t luaB_rawlen(void *a1)
 uint64_t luaB_rawget(void *a1)
 {
   luaL_checktype(a1, 1, 5);
-  luaL_checkany(a1, 2);
-  lua_settop(a1, 2u);
-  lua_rawget(a1, 1);
+  luaL_checkany(a1, 2u);
+  lua_settop(a1, 2);
+  lua_rawget(a1, 1u);
   return 1;
 }
 
 uint64_t luaB_rawset(void *a1)
 {
   luaL_checktype(a1, 1, 5);
-  luaL_checkany(a1, 2);
-  luaL_checkany(a1, 3);
-  lua_settop(a1, 3u);
-  lua_rawset(a1, 1);
+  luaL_checkany(a1, 2u);
+  luaL_checkany(a1, 3u);
+  lua_settop(a1, 3);
+  lua_rawset(a1, 1u);
   return 1;
 }
 
 uint64_t luaB_select(void *a1)
 {
   v2 = lua_gettop(a1);
-  if (lua_type(a1, 1) == 4 && *lua_tolstring(a1, 1, 0) == 35)
+  if (lua_type(a1, 1u) == 4 && *lua_tolstring(a1, 1u, 0) == 35)
   {
     lua_pushinteger(a1, v2 - 1);
     return 1;
@@ -6941,32 +6929,32 @@ uint64_t luaB_select(void *a1)
   }
 }
 
-uint64_t luaB_setmetatable(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t luaB_setmetatable(uint64_t *a1)
 {
-  v10 = lua_type(a1, 2);
+  v2 = lua_type(a1, 2u);
   luaL_checktype(a1, 1, 5);
-  if (v10 && v10 != 5)
+  if (v2 && v2 != 5)
   {
     luaL_argerror(a1, 2);
   }
 
-  if (luaL_getmetafield(a1, 1, "__metatable"))
+  if (luaL_getmetafield(a1, 1u, "__metatable"))
   {
 
-    return luaL_error(a1, "cannot change a protected metatable", v11, v12, v13, v14, v15, v16, a9);
+    return luaL_error(a1, "cannot change a protected metatable");
   }
 
   else
   {
-    lua_settop(a1, 2u);
-    lua_setmetatable(a1, 1);
+    lua_settop(a1, 2);
+    lua_setmetatable(a1, 1u);
     return 1;
   }
 }
 
 uint64_t luaB_tonumber(void *a1)
 {
-  if (lua_type(a1, 2) > 0)
+  if (lua_type(a1, 2u) > 0)
   {
     v20 = 0;
     v2 = luaL_checkinteger(a1, 2);
@@ -7056,16 +7044,16 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  luaL_checkany(a1, 1);
-  if (lua_type(a1, 1) == 3)
+  luaL_checkany(a1, 1u);
+  if (lua_type(a1, 1u) == 3)
   {
-    lua_settop(a1, 1u);
+    lua_settop(a1, 1);
   }
 
   else
   {
     v20 = 0;
-    v18 = lua_tolstring(a1, 1, &v20);
+    v18 = lua_tolstring(a1, 1u, &v20);
     if (!v18 || (v19 = lua_stringtonumber(a1, v18), v19 != v20 + 1))
     {
 LABEL_30:
@@ -7078,7 +7066,7 @@ LABEL_30:
 
 uint64_t luaB_tostring(void *a1)
 {
-  luaL_checkany(a1, 1);
+  luaL_checkany(a1, 1u);
   luaL_tolstring(a1, 1, 0);
   return 1;
 }
@@ -7088,9 +7076,9 @@ uint64_t luaB_xpcall(void *a1)
   v2 = lua_gettop(a1);
   luaL_checktype(a1, 2, 6);
   lua_pushBOOLean(a1, 1);
-  lua_pushvalue(a1, 1);
-  lua_rotate(a1, 3, 2);
-  v3 = lua_pcallk(a1, v2 - 2, -1, 2, 2, finishpcall);
+  lua_pushvalue(a1, 1u);
+  lua_rotate(a1, 3, 2u);
+  v3 = lua_pcallk(a1, v2 - 2, 0xFFFFFFFFLL, 2u, 2, finishpcall);
 
   return finishpcall(a1, v3, 2);
 }
@@ -7099,7 +7087,7 @@ uint64_t ipairsaux(void *a1)
 {
   v2 = luaL_checkinteger(a1, 2);
   lua_pushinteger(a1, v2 + 1);
-  if (lua_geti(a1, 1, v2 + 1))
+  if (lua_geti(a1, 1u, v2 + 1))
   {
     return 2;
   }
@@ -7115,7 +7103,7 @@ uint64_t ipairsaux_raw(void *a1)
   v2 = luaL_checkinteger(a1, 2);
   luaL_checktype(a1, 1, 5);
   lua_pushinteger(a1, v2 + 1);
-  if (lua_rawgeti(a1, 1, v2 + 1))
+  if (lua_rawgeti(a1, 1u, v2 + 1))
   {
     return 2;
   }
@@ -7126,27 +7114,27 @@ uint64_t ipairsaux_raw(void *a1)
   }
 }
 
-uint64_t generic_reader(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t generic_reader(void *a1, uint64_t a2, void *a3)
 {
-  luaL_checkstack(a1, 2, "too many nested functions", a4, a5, a6, a7, a8, v17);
-  lua_pushvalue(a1, 1);
+  luaL_checkstack(a1, 2, "too many nested functions");
+  lua_pushvalue(a1, 1u);
   lua_callk(a1, 0, 1, 0, 0);
-  if (lua_type(a1, -1))
+  if (lua_type(a1, 0xFFFFFFFF))
   {
-    if (!lua_isstring(a1, -1))
+    if (!lua_isstring(a1, 0xFFFFFFFF))
     {
-      luaL_error(a1, "reader function must return a string", v10, v11, v12, v13, v14, v15, v18);
+      luaL_error(a1, "reader function must return a string");
     }
 
-    lua_copy(a1, -1, 5);
-    lua_settop(a1, 0xFFFFFFFE);
+    lua_copy(a1, 0xFFFFFFFF, 5);
+    lua_settop(a1, -2);
 
-    return lua_tolstring(a1, 5, a3);
+    return lua_tolstring(a1, 5u, a3);
   }
 
   else
   {
-    lua_settop(a1, 0xFFFFFFFE);
+    lua_settop(a1, -2);
     *a3 = 0;
     return 0;
   }
@@ -7160,14 +7148,14 @@ uint64_t finishpcall(void *a1, unsigned int a2, int a3)
   }
 
   lua_pushBOOLean(a1, 0);
-  lua_pushvalue(a1, -2);
+  lua_pushvalue(a1, 0xFFFFFFFE);
   return 2;
 }
 
-int *luaK_nil(int *result, int a2, int a3)
+uint64_t *luaK_nil(uint64_t *result, int a2, int a3)
 {
-  v3 = result[8];
-  if (v3 <= result[9])
+  v3 = *(result + 8);
+  if (v3 <= *(result + 9))
   {
     return luaK_code(result, ((a3 << 23) - 0x800000) | (a2 << 6) | 4u);
   }
@@ -7215,7 +7203,7 @@ uint64_t luaK_jump(uint64_t a1)
   return v4;
 }
 
-uint64_t *luaK_concat(uint64_t *result, int *a2, int a3)
+void *luaK_concat(void *result, int *a2, int a3)
 {
   if (a3 != -1)
   {
@@ -7249,27 +7237,28 @@ uint64_t luaK_getlabel(uint64_t a1)
   return v1;
 }
 
-uint64_t *luaK_patchlist(uint64_t a1, int a2, int a3)
+void *luaK_patchlist(_DWORD *a1, uint64_t a2, int a3)
 {
-  if (*(a1 + 32) != a3)
+  if (a1[8] != a3)
   {
     return patchlistaux(a1, a2, a3, 255, a3);
   }
 
-  *(a1 + 36) = a3;
-  return luaK_concat(a1, (a1 + 40), a2);
+  a1[9] = a3;
+  return luaK_concat(a1, a1 + 10, a2);
 }
 
-uint64_t *patchlistaux(uint64_t *result, int a2, int a3, int a4, int a5)
+void *patchlistaux(void *result, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   if (a2 != -1)
   {
+    v6 = a4;
     v8 = a2;
     v9 = result;
     do
     {
       v10 = (*(*(*v9 + 56) + 4 * v8) >> 14) - 0x1FFFF;
-      if (patchtestreg(v9, v8, a4))
+      if (patchtestreg(v9, v8, v6))
       {
         v11 = a3;
       }
@@ -7308,7 +7297,7 @@ uint64_t luaK_patchclose(uint64_t result, int a2, __int16 a3)
   return result;
 }
 
-uint64_t *fixjump(uint64_t *result, int a2, int a3)
+void *fixjump(void *result, int a2, int a3)
 {
   v4 = *(*result + 56);
   v5 = ~a2 + a3;
@@ -7331,17 +7320,17 @@ uint64_t *fixjump(uint64_t *result, int a2, int a3)
   return result;
 }
 
-uint64_t luaK_code(uint64_t a1, int a2)
+uint64_t luaK_code(uint64_t *a1, int a2)
 {
   v4 = *a1;
-  patchlistaux(a1, *(a1 + 40), *(a1 + 32), 255, *(a1 + 32));
-  *(a1 + 40) = -1;
-  v5 = *(a1 + 32);
+  patchlistaux(a1, *(a1 + 10), *(a1 + 8), 255, *(a1 + 8));
+  *(a1 + 10) = -1;
+  v5 = *(a1 + 8);
   if (v5 >= *(v4 + 24))
   {
-    v6 = luaM_growaux_(*(*(a1 + 16) + 56), *(v4 + 56), (v4 + 24), 4, 0x7FFFFFFF, "opcodes");
+    v6 = luaM_growaux_(*(a1[2] + 56), *(v4 + 56), (v4 + 24), 4, 0x7FFFFFFF, "opcodes");
     *(v4 + 56) = v6;
-    v5 = *(a1 + 32);
+    v5 = *(a1 + 8);
   }
 
   else
@@ -7350,12 +7339,12 @@ uint64_t luaK_code(uint64_t a1, int a2)
   }
 
   *(v6 + 4 * v5) = a2;
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
   if (v7 >= *(v4 + 28))
   {
-    v8 = luaM_growaux_(*(*(a1 + 16) + 56), *(v4 + 72), (v4 + 28), 4, 0x7FFFFFFF, "opcodes");
+    v8 = luaM_growaux_(*(a1[2] + 56), *(v4 + 72), (v4 + 28), 4, 0x7FFFFFFF, "opcodes");
     *(v4 + 72) = v8;
-    v7 = *(a1 + 32);
+    v7 = *(a1 + 8);
   }
 
   else
@@ -7363,13 +7352,13 @@ uint64_t luaK_code(uint64_t a1, int a2)
     v8 = *(v4 + 72);
   }
 
-  *(v8 + 4 * v7) = *(*(a1 + 16) + 8);
-  result = *(a1 + 32);
-  *(a1 + 32) = result + 1;
+  *(v8 + 4 * v7) = *(a1[2] + 8);
+  result = *(a1 + 8);
+  *(a1 + 8) = result + 1;
   return result;
 }
 
-uint64_t luaK_codek(uint64_t a1, int a2, int a3)
+uint64_t luaK_codek(uint64_t *a1, int a2, int a3)
 {
   v5 = a2 << 6;
   if (a3 >= 0x40000)
@@ -7386,7 +7375,7 @@ uint64_t luaK_codek(uint64_t a1, int a2, int a3)
   }
 }
 
-uint64_t luaK_checkstack(uint64_t result, int a2)
+uint64_t *luaK_checkstack(uint64_t *result, int a2)
 {
   v2 = *(result + 60) + a2;
   v3 = *result;
@@ -7395,7 +7384,7 @@ uint64_t luaK_checkstack(uint64_t result, int a2)
     if (v2 >= 0xFF)
     {
       v4 = result;
-      result = luaX_syntaxerror(*(result + 16), "function or expression needs too many registers");
+      result = luaX_syntaxerror(result[2], "function or expression needs too many registers");
       v3 = *v4;
     }
 
@@ -7405,7 +7394,7 @@ uint64_t luaK_checkstack(uint64_t result, int a2)
   return result;
 }
 
-uint64_t luaK_reserveregs(uint64_t a1, int a2)
+uint64_t *luaK_reserveregs(uint64_t a1, int a2)
 {
   v2 = a2;
   result = luaK_checkstack(a1, a2);
@@ -7413,7 +7402,7 @@ uint64_t luaK_reserveregs(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t luaK_stringK(uint64_t a1, uint64_t a2)
+uint64_t luaK_stringK(uint64_t *a1, uint64_t a2)
 {
   v3 = a2;
   v4 = 0;
@@ -7421,17 +7410,17 @@ uint64_t luaK_stringK(uint64_t a1, uint64_t a2)
   return addk(a1, &v3, &v3);
 }
 
-uint64_t addk(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t addk(uint64_t *a1, uint64_t *a2, _BYTE *a3)
 {
-  v5 = *(a1 + 16);
+  v5 = a1[2];
   v6 = *(v5 + 56);
   v7 = *a1;
   v8 = luaH_set(v6, *(v5 + 80), a2);
   v9 = v8;
-  if (*(v8 + 2) != 19 || (v10 = *v8, *(a1 + 44) <= *v8) || (v11 = (*(v7 + 48) + 16 * v10), ((*(a3 + 8) ^ v11[2]) & 0x3F) != 0) || !luaV_equalobj(0, v11, a3))
+  if (*(v8 + 2) != 19 || (v10 = *v8, *(a1 + 11) <= *v8) || (v11 = (*(v7 + 48) + 16 * v10), ((*(a3 + 2) ^ v11[2]) & 0x3F) != 0) || !luaV_equalobj(0, v11, a3))
   {
     v12 = *(v7 + 20);
-    v10 = *(a1 + 44);
+    v10 = *(a1 + 11);
     *v9 = v10;
     *(v9 + 2) = 19;
     v13 = *(v7 + 20);
@@ -7477,8 +7466,8 @@ uint64_t addk(uint64_t a1, uint64_t *a2, uint64_t a3)
     }
 
     *(v14 + 16 * v10) = *a3;
-    ++*(a1 + 44);
-    if ((*(a3 + 8) & 0x40) != 0 && (*(v7 + 9) & 4) != 0 && (*(*a3 + 9) & 3) != 0)
+    ++*(a1 + 11);
+    if ((a3[8] & 0x40) != 0 && (*(v7 + 9) & 4) != 0 && (*(*a3 + 9) & 3) != 0)
     {
       luaC_barrier_(v6, v7, *a3);
     }
@@ -7487,7 +7476,7 @@ uint64_t addk(uint64_t a1, uint64_t *a2, uint64_t a3)
   return v10;
 }
 
-uint64_t luaK_intK(uint64_t a1, uint64_t a2)
+uint64_t luaK_intK(uint64_t *a1, uint64_t a2)
 {
   v4[0] = a2;
   v4[1] = 2;
@@ -7620,7 +7609,7 @@ double luaK_exp2nextreg(uint64_t a1, int *a2)
   return exp2reg(a1, a2, v5 - 1);
 }
 
-double exp2reg(int *a1, int *a2, int a3)
+double exp2reg(_DWORD *a1, int *a2, uint64_t a3)
 {
   discharge2reg(a1, a2, a3);
   if (*a2 == 11)
@@ -7686,9 +7675,10 @@ LABEL_4:
   v4 = a2 + 2;
   if (a2[4] != a2[5])
   {
-    if (*v4 >= *(a1 + 58))
+    v5 = *v4;
+    if (v5 >= *(a1 + 58))
     {
-      exp2reg(a1, a2, *v4);
+      exp2reg(a1, a2, v5);
       return *v4;
     }
 
@@ -7876,7 +7866,7 @@ uint64_t luaK_self(uint64_t a1, int *a2, int *a3)
   return result;
 }
 
-uint64_t *luaK_goiftrue(uint64_t a1, int *a2)
+void *luaK_goiftrue(_DWORD *a1, int *a2)
 {
   luaK_dischargevars(a1, a2);
   v4 = *a2;
@@ -7898,8 +7888,8 @@ uint64_t *luaK_goiftrue(uint64_t a1, int *a2)
 
   luaK_concat(a1, a2 + 5, v6);
   v7 = a2[4];
-  *(a1 + 36) = *(a1 + 32);
-  result = luaK_concat(a1, (a1 + 40), v7);
+  a1[9] = a1[8];
+  result = luaK_concat(a1, a1 + 10, v7);
   a2[4] = -1;
   return result;
 }
@@ -7961,7 +7951,7 @@ uint64_t jumponcond(uint64_t a1, int *a2, int a3)
   return luaK_jump(a1);
 }
 
-uint64_t *luaK_goiffalse(uint64_t a1, int *a2)
+void *luaK_goiffalse(_DWORD *a1, int *a2)
 {
   luaK_dischargevars(a1, a2);
   v4 = *a2;
@@ -7982,8 +7972,8 @@ uint64_t *luaK_goiffalse(uint64_t a1, int *a2)
 
   luaK_concat(a1, a2 + 4, v6);
   v7 = a2[5];
-  *(a1 + 36) = *(a1 + 32);
-  result = luaK_concat(a1, (a1 + 40), v7);
+  a1[9] = a1[8];
+  result = luaK_concat(a1, a1 + 10, v7);
   a2[5] = -1;
   return result;
 }
@@ -8008,7 +7998,7 @@ uint64_t luaK_indexed(uint64_t a1, uint64_t a2, int *a3)
   return result;
 }
 
-unint64_t luaK_prefix(unint64_t result, unsigned int a2, uint64_t a3, int a4)
+uint64_t luaK_prefix(uint64_t result, unsigned int a2, int32x2_t *a3, uint64_t a4)
 {
   v5 = result;
   v11[2] = -1;
@@ -8030,8 +8020,8 @@ unint64_t luaK_prefix(unint64_t result, unsigned int a2, uint64_t a3, int a4)
   }
 
   luaK_dischargevars(result, a3);
-  v6 = *a3;
-  if (*a3 <= 3)
+  v6 = a3->i32[0];
+  if (a3->i32[0] <= 3)
   {
     if (v6 != 1)
     {
@@ -8048,7 +8038,7 @@ unint64_t luaK_prefix(unint64_t result, unsigned int a2, uint64_t a3, int a4)
 
     v8 = 2;
 LABEL_21:
-    *a3 = v8;
+    a3->i32[0] = v8;
     goto LABEL_22;
   }
 
@@ -8069,58 +8059,32 @@ LABEL_20:
     case 12:
 LABEL_11:
       discharge2anyreg(v5, a3);
-      if (*a3 == 7)
+      if (a3->i32[0] == 7)
       {
-        v7 = *(a3 + 8);
+        v7 = a3[1].i32[0];
         if ((v7 & 0x100) == 0 && v7 >= *(v5 + 58))
         {
           --*(v5 + 60);
         }
       }
 
-      *(a3 + 8) = luaK_code(v5, (*(a3 + 8) << 23) | 0x1Bu);
+      a3[1].i32[0] = luaK_code(v5, (a3[1].i32[0] << 23) | 0x1Bu);
       v8 = 12;
       goto LABEL_21;
   }
 
 LABEL_22:
-  v9 = *(a3 + 16);
-  *(a3 + 16) = vrev64_s32(v9);
+  v9 = a3[2];
+  a3[2] = vrev64_s32(v9);
   removevalues(v5, v9.i32[0]);
-  v10 = *(a3 + 16);
+  v10 = a3[2].i32[0];
 
   return removevalues(v5, v10);
 }
 
-unint64_t codeexpval(uint64_t a1, unsigned int a2, int *a3, int *a4, int a5)
+uint64_t codeexpval(uint64_t a1, unsigned int a2, int *a3, int *a4, int a5)
 {
   if (a2 > 0x1A || a3[4] != -1 || a3[5] != -1)
-  {
-    goto LABEL_4;
-  }
-
-  if (*a3 == 6)
-  {
-    v17 = 19;
-    v16 = 1;
-  }
-
-  else
-  {
-    if (*a3 != 5)
-    {
-      goto LABEL_4;
-    }
-
-    v16 = 0;
-    v17 = 3;
-  }
-
-  v31 = 0;
-  v18 = *(a3 + 1);
-  v30 = v18;
-  LODWORD(v31) = v17;
-  if (a4[4] != -1 || a4[5] != -1)
   {
 LABEL_4:
     if (a2 <= 0x1C && ((1 << a2) & 0x16000000) != 0)
@@ -8194,6 +8158,32 @@ LABEL_24:
     return result;
   }
 
+  if (*a3 == 6)
+  {
+    v17 = 19;
+    v16 = 1;
+  }
+
+  else
+  {
+    if (*a3 != 5)
+    {
+      goto LABEL_4;
+    }
+
+    v16 = 0;
+    v17 = 3;
+  }
+
+  v31 = 0;
+  v18 = *(a3 + 1);
+  v30 = v18;
+  LODWORD(v31) = v17;
+  if (*(a4 + 2) != -1)
+  {
+    goto LABEL_4;
+  }
+
   if (*a4 == 6)
   {
     v20 = 19;
@@ -8221,7 +8211,7 @@ LABEL_24:
   {
     if (((1 << a2) & 0xD0000) == 0)
     {
-      goto LABEL_50;
+      goto LABEL_49;
     }
 
     v22 = *&v21;
@@ -8231,7 +8221,7 @@ LABEL_24:
     }
 
     v23 = v22 == 0.0;
-    goto LABEL_46;
+    goto LABEL_45;
   }
 
   v32 = 0;
@@ -8253,14 +8243,14 @@ LABEL_24:
   if (v20 != 19)
   {
     v23 = luaV_tointeger(&v28, &v32) == 0;
-LABEL_46:
+LABEL_45:
     if (v23)
     {
       goto LABEL_4;
     }
   }
 
-LABEL_50:
+LABEL_49:
   result = luaO_arith(*(*(a1 + 16) + 56), a2 - 13, &v30, &v28, &v26);
   if (v27 == 19)
   {
@@ -8283,25 +8273,25 @@ LABEL_50:
   return result;
 }
 
-double luaK_infix(uint64_t a1, unsigned int a2, int *a3)
+double luaK_infix(_DWORD *result, unsigned int a2, int *a3)
 {
   if (a2 >= 0xC)
   {
     switch(a2)
     {
       case 0xCu:
-        return luaK_exp2nextreg(a1, a3);
+        return luaK_exp2nextreg(result, a3);
       case 0x14u:
-        luaK_goiffalse(a1, a3);
-        return result;
+        luaK_goiffalse(result, a3);
+        return v3;
       case 0x13u:
-        luaK_goiftrue(a1, a3);
-        return result;
+        luaK_goiftrue(result, a3);
+        return v3;
     }
 
 LABEL_10:
-    luaK_exp2RK(a1, a3);
-    return result;
+    luaK_exp2RK(result, a3);
+    return v3;
   }
 
   if (a3[4] != -1 || a3[5] != -1 || (*a3 - 5) >= 2)
@@ -8309,10 +8299,10 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  return result;
+  return v3;
 }
 
-__n128 luaK_posfix(uint64_t a1, int a2, int *a3, int *a4, int a5)
+__n128 luaK_posfix(uint64_t a1, unsigned int a2, int *a3, int *a4, int a5)
 {
   v7 = a1;
   if (a2 > 12)
@@ -8325,7 +8315,7 @@ __n128 luaK_posfix(uint64_t a1, int a2, int *a3, int *a4, int a5)
 
     else
     {
-      if ((a2 - 16) >= 3)
+      if (a2 - 16 >= 3)
       {
         if (a2 == 20)
         {
@@ -8519,7 +8509,7 @@ uint64_t patchtestreg(uint64_t a1, int a2, int a3)
   return 1;
 }
 
-uint64_t discharge2reg(int *a1, int *a2, int a3)
+uint64_t discharge2reg(uint64_t *a1, int *a2, int a3)
 {
   result = luaK_dischargevars(a1, a2);
   v7 = *a2;
@@ -8643,7 +8633,7 @@ uint64_t need_value(uint64_t a1, int a2)
   return 1;
 }
 
-uint64_t discharge2anyreg(uint64_t result, int *a2)
+uint64_t *discharge2anyreg(uint64_t *result, int *a2)
 {
   if (*a2 != 7)
   {
@@ -8677,11 +8667,11 @@ uint64_t removevalues(uint64_t result, int a2)
   return result;
 }
 
-uint64_t luaopen_coroutine(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t luaopen_coroutine(void *a1)
 {
-  luaL_checkversion_(a1, 136, 503.0, a3, a4, a5, a6, a7, a8, v15);
+  luaL_checkversion_(a1, 136, 503.0);
   lua_createtable(a1, 0, 7);
-  luaL_setfuncs(a1, &co_funcs, 0, v9, v10, v11, v12, v13);
+  luaL_setfuncs(a1, &co_funcs, 0);
   return 1;
 }
 
@@ -8689,8 +8679,8 @@ uint64_t luaB_cocreate(void *a1)
 {
   luaL_checktype(a1, 1, 6);
   v2 = lua_newthread(a1);
-  lua_pushvalue(a1, 1);
-  lua_xmove(a1, v2, 1);
+  lua_pushvalue(a1, 1u);
+  lua_xmove(a1, v2, 1u);
   return 1;
 }
 
@@ -8698,12 +8688,12 @@ uint64_t luaB_coresume(void *a1)
 {
   v2 = getco(a1);
   v3 = lua_gettop(a1);
-  v4 = auxresume(a1, v2, v3 - 1);
+  v4 = auxresume(a1, v2, (v3 - 1));
   if (v4 < 0)
   {
     lua_pushBOOLean(a1, 0);
     v6 = 2;
-    v7 = -2;
+    v7 = 4294967294;
   }
 
   else
@@ -8714,7 +8704,7 @@ uint64_t luaB_coresume(void *a1)
     v7 = ~v5;
   }
 
-  lua_rotate(a1, v7, 1);
+  lua_rotate(a1, v7, 1u);
   return v6;
 }
 
@@ -8727,7 +8717,7 @@ uint64_t luaB_corunning(uint64_t a1)
 
 uint64_t luaB_costatus(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = getco(a1);
   if (v2 == a1)
   {
@@ -8753,8 +8743,8 @@ uint64_t luaB_costatus(void *a1)
 
     else
     {
-      memset(v8, 0, sizeof(v8));
-      if (lua_getstack(v3, 0, v8) <= 0)
+      memset(v7, 0, sizeof(v7));
+      if (lua_getstack(v3, 0, v7) <= 0)
       {
         if (lua_gettop(v3))
         {
@@ -8775,7 +8765,6 @@ uint64_t luaB_costatus(void *a1)
   }
 
   lua_pushstring(a1, v5);
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -8802,7 +8791,7 @@ uint64_t luaB_yieldable(uint64_t a1)
 
 uint64_t getco(void *a1)
 {
-  v2 = lua_tothread(a1, 1);
+  v2 = lua_tothread(a1, 1u);
   if (!v2)
   {
     luaL_argerror(a1, 1);
@@ -8811,8 +8800,9 @@ uint64_t getco(void *a1)
   return v2;
 }
 
-uint64_t auxresume(void *a1, void *a2, int a3)
+unint64_t auxresume(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   if (!lua_checkstack(a2, a3))
   {
     v7 = "too many arguments to resume";
@@ -8827,10 +8817,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  lua_xmove(a1, a2, a3);
-  if (lua_resume(a2, a1, a3) > 1)
+  lua_xmove(a1, a2, v3);
+  if (lua_resume(a2, a1, v3) > 1)
   {
-    lua_xmove(a2, a1, 1);
+    lua_xmove(a2, a1, 1u);
     return 0xFFFFFFFFLL;
   }
 
@@ -8846,17 +8836,17 @@ LABEL_11:
   return v6;
 }
 
-uint64_t luaB_auxwrap(void *a1)
+unint64_t luaB_auxwrap(void *a1)
 {
-  v2 = lua_tothread(a1, -1001001);
+  v2 = lua_tothread(a1, 0xFFF0B9D7);
   v3 = lua_gettop(a1);
   result = auxresume(a1, v2, v3);
   if ((result & 0x80000000) != 0)
   {
-    if (lua_isstring(a1, -1))
+    if (lua_isstring(a1, 0xFFFFFFFF))
     {
       luaL_where(a1, 1);
-      lua_rotate(a1, -2, 1);
+      lua_rotate(a1, 4294967294, 1u);
       lua_concat(a1, 2, v5, v6, v7, v8, v9, v10);
     }
 
@@ -8866,19 +8856,19 @@ uint64_t luaB_auxwrap(void *a1)
   return result;
 }
 
-uint64_t luaopen_debug(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t luaopen_debug(void *a1)
 {
-  luaL_checkversion_(a1, 136, 503.0, a3, a4, a5, a6, a7, a8, v15);
+  luaL_checkversion_(a1, 136, 503.0);
   lua_createtable(a1, 0, 15);
-  luaL_setfuncs(a1, &dblib, 0, v9, v10, v11, v12, v13);
+  luaL_setfuncs(a1, &dblib, 0);
   return 1;
 }
 
 uint64_t db_getuservalue(void *a1)
 {
-  if (lua_type(a1, 1) == 7)
+  if (lua_type(a1, 1u) == 7)
   {
-    lua_getuservalue(a1, 1);
+    lua_getuservalue(a1, 1u);
   }
 
   else
@@ -8891,20 +8881,20 @@ uint64_t db_getuservalue(void *a1)
 
 uint64_t db_gethook(void *a1)
 {
-  v2 = getthread(a1, &v14);
+  v2 = getthread(a1, &v9);
   v3 = lua_gethookmask(v2);
   v4 = lua_gethook(v2);
   if (v4)
   {
     if (v4 == hookf)
     {
-      lua_rawgetp(a1, -1001000, &HOOKKEY);
-      checkstack(a1, v2, 1, v6, v7, v8, v9, v10, v13);
+      lua_rawgetp(a1, 0xFFF0B9D8, &HOOKKEY);
+      checkstack(a1, v2, 1);
       lua_pushthread(v2);
-      lua_xmove(v2, a1, 1);
-      lua_rawget(a1, -2);
-      lua_rotate(a1, -2, -1);
-      lua_settop(a1, 0xFFFFFFFE);
+      lua_xmove(v2, a1, 1u);
+      lua_rawget(a1, 0xFFFFFFFE);
+      lua_rotate(a1, 4294967294, 0xFFFFFFFF);
+      lua_settop(a1, -2);
       if (v3)
       {
         goto LABEL_9;
@@ -8917,7 +8907,7 @@ uint64_t db_gethook(void *a1)
       if (v3)
       {
 LABEL_9:
-        HIBYTE(v13) = 99;
+        v8[0] = 99;
         v5 = 1;
         if ((v3 & 2) == 0)
         {
@@ -8942,168 +8932,155 @@ LABEL_9:
   if ((v3 & 2) != 0)
   {
 LABEL_10:
-    *(&v13 + v5++ + 7) = 114;
+    v8[v5++] = 114;
   }
 
 LABEL_11:
   if ((v3 & 4) != 0)
   {
-    *(&v13 + v5++ + 7) = 108;
+    v8[v5++] = 108;
   }
 
-  *(&v13 + v5 + 7) = 0;
-  lua_pushstring(a1, &v13 + 7);
-  v11 = lua_gethookcount(v2);
-  lua_pushinteger(a1, v11);
+  v8[v5] = 0;
+  lua_pushstring(a1, v8);
+  v6 = lua_gethookcount(v2);
+  lua_pushinteger(a1, v6);
   return 3;
 }
 
 uint64_t db_getinfo(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v23 = 0u;
-  memset(v24, 0, sizeof(v24));
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0;
-  v2 = getthread(a1, &v20);
-  v3 = v20;
-  v4 = luaL_optlstring(a1, (v20 + 2), "flnStu", 0);
-  checkstack(a1, v2, 3, v5, v6, v7, v8, v9, v19);
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
+  memset(v11, 0, sizeof(v11));
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0;
+  v2 = getthread(a1, &v7);
+  v3 = v7;
+  v4 = luaL_optlstring(a1, (v7 + 2), "flnStu", 0);
+  checkstack(a1, v2, 3);
   if (lua_type(a1, v3 + 1) == 6)
   {
-    v4 = lua_pushfstring(a1, ">%s", v10, v11, v12, v13, v14, v15, v4);
+    v4 = lua_pushfstring(a1, ">%s", v4);
     lua_pushvalue(a1, v3 + 1);
-    lua_xmove(a1, v2, 1);
+    lua_xmove(a1, v2, 1u);
   }
 
   else
   {
-    v16 = luaL_checkinteger(a1, (v3 + 1));
-    if (!lua_getstack(v2, v16, &v21))
+    v5 = luaL_checkinteger(a1, (v3 + 1));
+    if (!lua_getstack(v2, v5, &v8))
     {
       lua_pushnil(a1);
-LABEL_21:
-      result = 1;
-      goto LABEL_22;
+      return 1;
     }
   }
 
-  if (lua_getinfo(v2, v4, &v21))
+  if (!lua_getinfo(v2, v4, &v8))
   {
-    lua_createtable(a1, 0, 0);
-    if (strchr(v4, 83))
-    {
-      lua_pushstring(a1, v23);
-      lua_setfield(a1, -2, "source");
-      lua_pushstring(a1, v24 + 8);
-      lua_setfield(a1, -2, "short_src");
-      lua_pushinteger(a1, SHIDWORD(v23));
-      lua_setfield(a1, -2, "linedefined");
-      lua_pushinteger(a1, SLODWORD(v24[0]));
-      lua_setfield(a1, -2, "lastlinedefined");
-      lua_pushstring(a1, *(&v22 + 1));
-      lua_setfield(a1, -2, "what");
-    }
-
-    if (strchr(v4, 108))
-    {
-      lua_pushinteger(a1, SDWORD2(v23));
-      lua_setfield(a1, -2, "currentline");
-    }
-
-    if (strchr(v4, 117))
-    {
-      lua_pushinteger(a1, BYTE4(v24[0]));
-      lua_setfield(a1, -2, "nups");
-      lua_pushinteger(a1, BYTE5(v24[0]));
-      lua_setfield(a1, -2, "nparams");
-      lua_pushBOOLean(a1, SBYTE6(v24[0]));
-      lua_setfield(a1, -2, "isvararg");
-    }
-
-    if (strchr(v4, 110))
-    {
-      lua_pushstring(a1, *(&v21 + 1));
-      lua_setfield(a1, -2, "name");
-      lua_pushstring(a1, v22);
-      lua_setfield(a1, -2, "namewhat");
-    }
-
-    if (strchr(v4, 116))
-    {
-      lua_pushBOOLean(a1, SBYTE7(v24[0]));
-      lua_setfield(a1, -2, "istailcall");
-    }
-
-    if (strchr(v4, 76))
-    {
-      treatstackoption(a1, v2, "activelines");
-    }
-
-    if (strchr(v4, 102))
-    {
-      treatstackoption(a1, v2, "func");
-    }
-
-    goto LABEL_21;
+    return luaL_argerror(a1, v3 + 2);
   }
 
-  result = luaL_argerror(a1, (v3 + 2));
-LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  lua_createtable(a1, 0, 0);
+  if (strchr(v4, 83))
+  {
+    lua_pushstring(a1, v10);
+    lua_setfield(a1, 0xFFFFFFFE, "source");
+    lua_pushstring(a1, v11 + 8);
+    lua_setfield(a1, 0xFFFFFFFE, "short_src");
+    lua_pushinteger(a1, SHIDWORD(v10));
+    lua_setfield(a1, 0xFFFFFFFE, "linedefined");
+    lua_pushinteger(a1, SLODWORD(v11[0]));
+    lua_setfield(a1, 0xFFFFFFFE, "lastlinedefined");
+    lua_pushstring(a1, *(&v9 + 1));
+    lua_setfield(a1, 0xFFFFFFFE, "what");
+  }
+
+  if (strchr(v4, 108))
+  {
+    lua_pushinteger(a1, SDWORD2(v10));
+    lua_setfield(a1, 0xFFFFFFFE, "currentline");
+  }
+
+  if (strchr(v4, 117))
+  {
+    lua_pushinteger(a1, BYTE4(v11[0]));
+    lua_setfield(a1, 0xFFFFFFFE, "nups");
+    lua_pushinteger(a1, BYTE5(v11[0]));
+    lua_setfield(a1, 0xFFFFFFFE, "nparams");
+    lua_pushBOOLean(a1, SBYTE6(v11[0]));
+    lua_setfield(a1, 0xFFFFFFFE, "isvararg");
+  }
+
+  if (strchr(v4, 110))
+  {
+    lua_pushstring(a1, *(&v8 + 1));
+    lua_setfield(a1, 0xFFFFFFFE, "name");
+    lua_pushstring(a1, v9);
+    lua_setfield(a1, 0xFFFFFFFE, "namewhat");
+  }
+
+  if (strchr(v4, 116))
+  {
+    lua_pushBOOLean(a1, SBYTE7(v11[0]));
+    lua_setfield(a1, 0xFFFFFFFE, "istailcall");
+  }
+
+  if (strchr(v4, 76))
+  {
+    treatstackoption(a1, v2, "activelines");
+  }
+
+  if (strchr(v4, 102))
+  {
+    treatstackoption(a1, v2, "func");
+  }
+
+  return 1;
 }
 
 uint64_t db_getlocal(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v2 = getthread(a1, &v17);
-  v3 = v17;
-  v4 = luaL_checkinteger(a1, (v17 + 2));
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v2 = getthread(a1, &v10);
+  v3 = v10;
+  v4 = luaL_checkinteger(a1, (v10 + 2));
   if (lua_type(a1, v3 + 1) == 6)
   {
     lua_pushvalue(a1, v3 + 1);
     v5 = lua_getlocal(a1, 0, v4);
     lua_pushstring(a1, v5);
+    return 1;
   }
 
-  else
+  memset(v11, 0, sizeof(v11));
+  v7 = luaL_checkinteger(a1, (v3 + 1));
+  if (!lua_getstack(v2, v7, v11))
   {
-    memset(v18, 0, sizeof(v18));
-    v7 = luaL_checkinteger(a1, (v3 + 1));
-    if (!lua_getstack(v2, v7, v18))
-    {
-      result = luaL_argerror(a1, (v3 + 1));
-      goto LABEL_8;
-    }
-
-    checkstack(a1, v2, 1, v8, v9, v10, v11, v12, v16);
-    v13 = lua_getlocal(v2, v18, v4);
-    if (v13)
-    {
-      v14 = v13;
-      lua_xmove(v2, a1, 1);
-      lua_pushstring(a1, v14);
-      lua_rotate(a1, -2, 1);
-      result = 2;
-      goto LABEL_8;
-    }
-
-    lua_pushnil(a1);
+    return luaL_argerror(a1, v3 + 1);
   }
 
-  result = 1;
-LABEL_8:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  checkstack(a1, v2, 1);
+  v8 = lua_getlocal(v2, v11, v4);
+  if (!v8)
+  {
+    lua_pushnil(a1);
+    return 1;
+  }
+
+  v9 = v8;
+  lua_xmove(v2, a1, 1u);
+  lua_pushstring(a1, v9);
+  lua_rotate(a1, 4294967294, 1u);
+  return 2;
 }
 
 uint64_t db_getmetatable(void *a1)
 {
-  luaL_checkany(a1, 1);
-  if (!lua_getmetatable(a1, 1))
+  luaL_checkany(a1, 1u);
+  if (!lua_getmetatable(a1, 1u))
   {
     lua_pushnil(a1);
   }
@@ -9115,24 +9092,24 @@ uint64_t db_upvaluejoin(void *a1)
 {
   v2 = checkupval(a1, 1, 2);
   v3 = checkupval(a1, 3, 4);
-  if (lua_iscfunction(a1, 1))
+  if (lua_iscfunction(a1, 1u))
   {
     luaL_argerror(a1, 1);
   }
 
-  if (lua_iscfunction(a1, 3))
+  if (lua_iscfunction(a1, 3u))
   {
     luaL_argerror(a1, 3);
   }
 
-  lua_upvaluejoin(a1, 1, v2, 3, v3);
+  lua_upvaluejoin(a1, 1u, v2, 3u, v3);
   return 0;
 }
 
 uint64_t db_upvalueid(void *a1)
 {
   v2 = checkupval(a1, 1, 2);
-  v3 = lua_upvalueid(a1, 1, v2);
+  v3 = lua_upvalueid(a1, 1u, v2);
   lua_pushlightuserdata(a1, v3);
   return 1;
 }
@@ -9140,18 +9117,18 @@ uint64_t db_upvalueid(void *a1)
 uint64_t db_setuservalue(void *a1)
 {
   luaL_checktype(a1, 1, 7);
-  luaL_checkany(a1, 2);
-  lua_settop(a1, 2u);
-  lua_setuservalue(a1, 1);
+  luaL_checkany(a1, 2u);
+  lua_settop(a1, 2);
+  lua_setuservalue(a1, 1u);
   return 1;
 }
 
 uint64_t db_sethook(uint64_t *a1)
 {
-  v21 = 0;
-  v2 = getthread(a1, &v21);
-  v3 = v21;
-  if (lua_type(a1, v21 + 1) <= 0)
+  v15 = 0;
+  v2 = getthread(a1, &v15);
+  v3 = v15;
+  if (lua_type(a1, v15 + 1) <= 0)
   {
     lua_settop(a1, v3 + 1);
     v13 = 0;
@@ -9206,76 +9183,70 @@ uint64_t db_sethook(uint64_t *a1)
     v13 = hookf;
   }
 
-  if (!lua_rawgetp(a1, -1001000, &HOOKKEY))
+  if (!lua_rawgetp(a1, 0xFFF0B9D8, &HOOKKEY))
   {
     lua_createtable(a1, 0, 2);
-    lua_pushvalue(a1, -1);
-    lua_rawsetp(a1, -1001000, &HOOKKEY);
+    lua_pushvalue(a1, 0xFFFFFFFF);
+    lua_rawsetp(a1, 0xFFF0B9D8, &HOOKKEY);
     lua_pushstring(a1, "k");
-    lua_setfield(a1, -2, "__mode");
-    lua_pushvalue(a1, -1);
-    lua_setmetatable(a1, -2);
+    lua_setfield(a1, 0xFFFFFFFE, "__mode");
+    lua_pushvalue(a1, 0xFFFFFFFF);
+    lua_setmetatable(a1, 0xFFFFFFFE);
   }
 
-  checkstack(a1, v2, 1, v14, v15, v16, v17, v18, v20);
+  checkstack(a1, v2, 1);
   lua_pushthread(v2);
-  lua_xmove(v2, a1, 1);
+  lua_xmove(v2, a1, 1u);
   lua_pushvalue(a1, v3 + 1);
-  lua_rawset(a1, -3);
+  lua_rawset(a1, 0xFFFFFFFD);
   lua_sethook(v2, v13, v12, v5);
   return 0;
 }
 
 uint64_t db_setlocal(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v2 = getthread(a1, &v15);
-  memset(v16, 0, sizeof(v16));
-  v3 = v15;
-  v4 = luaL_checkinteger(a1, (v15 + 1));
+  v10 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v2 = getthread(a1, &v8);
+  memset(v9, 0, sizeof(v9));
+  v3 = v8;
+  v4 = luaL_checkinteger(a1, (v8 + 1));
   v5 = luaL_checkinteger(a1, (v3 + 2));
-  if (lua_getstack(v2, v4, v16))
+  if (!lua_getstack(v2, v4, v9))
   {
-    luaL_checkany(a1, (v3 + 3));
-    lua_settop(a1, v3 + 3);
-    checkstack(a1, v2, 1, v6, v7, v8, v9, v10, v14);
-    lua_xmove(a1, v2, 1);
-    v11 = lua_setlocal(v2, v16, v5);
-    if (!v11)
-    {
-      lua_settop(v2, 0xFFFFFFFE);
-    }
-
-    lua_pushstring(a1, v11);
-    result = 1;
+    return luaL_argerror(a1, v3 + 1);
   }
 
-  else
+  luaL_checkany(a1, v3 + 3);
+  lua_settop(a1, v3 + 3);
+  checkstack(a1, v2, 1);
+  lua_xmove(a1, v2, 1u);
+  v6 = lua_setlocal(v2, v9, v5);
+  if (!v6)
   {
-    result = luaL_argerror(a1, (v3 + 1));
+    lua_settop(v2, -2);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  lua_pushstring(a1, v6);
+  return 1;
 }
 
 uint64_t db_setmetatable(uint64_t *a1)
 {
-  v2 = lua_type(a1, 2);
+  v2 = lua_type(a1, 2u);
   if (v2 && v2 != 5)
   {
     luaL_argerror(a1, 2);
   }
 
-  lua_settop(a1, 2u);
-  lua_setmetatable(a1, 1);
+  lua_settop(a1, 2);
+  lua_setmetatable(a1, 1u);
   return 1;
 }
 
 uint64_t db_setupvalue(void *a1)
 {
-  luaL_checkany(a1, 3);
+  luaL_checkany(a1, 3u);
 
   return auxupvalue(a1, 0);
 }
@@ -9300,13 +9271,13 @@ uint64_t db_traceback(void *a1)
   return 1;
 }
 
-uint64_t getthread(void *a1, _DWORD *a2)
+void *getthread(void *a1, _DWORD *a2)
 {
-  if (lua_type(a1, 1) == 8)
+  if (lua_type(a1, 1u) == 8)
   {
     *a2 = 1;
 
-    return lua_tothread(a1, 1);
+    return lua_tothread(a1, 1u);
   }
 
   else
@@ -9318,9 +9289,9 @@ uint64_t getthread(void *a1, _DWORD *a2)
 
 uint64_t hookf(void *a1, int *a2)
 {
-  lua_rawgetp(a1, -1001000, &HOOKKEY);
+  lua_rawgetp(a1, 0xFFF0B9D8, &HOOKKEY);
   lua_pushthread(a1);
-  result = lua_rawget(a1, -2);
+  result = lua_rawget(a1, 0xFFFFFFFE);
   if (result == 6)
   {
     lua_pushstring(a1, hookf_hooknames[*a2]);
@@ -9341,35 +9312,35 @@ uint64_t hookf(void *a1, int *a2)
   return result;
 }
 
-uint64_t checkstack(uint64_t result, void *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *checkstack(void *result, void *a2, int a3)
 {
   if (result != a2)
   {
-    v9 = result;
+    v3 = result;
     result = lua_checkstack(a2, a3);
     if (!result)
     {
 
-      return luaL_error(v9, "stack overflow", v10, v11, v12, v13, v14, v15, a9);
+      return luaL_error(v3, "stack overflow");
     }
   }
 
   return result;
 }
 
-uint64_t *treatstackoption(void *a1, uint64_t a2, char *a3)
+void treatstackoption(void *a1, void *a2, char *a3)
 {
   if (a1 == a2)
   {
-    lua_rotate(a1, -2, 1);
+    lua_rotate(a1, 4294967294, 1u);
   }
 
   else
   {
-    lua_xmove(a2, a1, 1);
+    lua_xmove(a2, a1, 1u);
   }
 
-  return lua_setfield(a1, -2, a3);
+  lua_setfield(a1, 0xFFFFFFFE, a3);
 }
 
 uint64_t auxupvalue(void *a1, int a2)
@@ -9378,12 +9349,12 @@ uint64_t auxupvalue(void *a1, int a2)
   luaL_checktype(a1, 1, 6);
   if (a2)
   {
-    lua_getupvalue(a1, 1, v4);
+    lua_getupvalue(a1, 1u, v4);
   }
 
   else
   {
-    v5 = lua_setupvalue(a1, 1, v4);
+    v5 = lua_setupvalue(a1, 1u, v4);
   }
 
   if (!v5)
@@ -9393,18 +9364,19 @@ uint64_t auxupvalue(void *a1, int a2)
 
   lua_pushstring(a1, v5);
   v6 = (a2 + 1);
-  lua_rotate(a1, ~a2, 1);
+  lua_rotate(a1, ~a2, 1u);
   return v6;
 }
 
 uint64_t checkupval(void *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = luaL_checkinteger(a1, a3);
   luaL_checktype(a1, a2, 6);
   lua_getupvalue(a1, a2, v6);
   if (!v7)
   {
-    luaL_argerror(a1, a3);
+    luaL_argerror(a1, v3);
   }
 
   return v6;
@@ -9477,7 +9449,7 @@ uint64_t lua_getstack(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t lua_getlocal(uint64_t a1, uint64_t a2, int a3)
+uint64_t lua_getlocal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 10) == 1)
   {
@@ -9525,11 +9497,12 @@ uint64_t lua_getlocal(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-const char *findlocal(uint64_t a1, void *a2, int a3, uint64_t *a4)
+const char *findlocal(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
 {
+  v5 = a3;
   if ((*(a2 + 66) & 2) != 0)
   {
-    if (a3 < 0)
+    if ((a3 & 0x80000000) != 0)
     {
       v12 = *(*(**a2 + 24) + 10);
       if ((((a2[4] - *a2) >> 4) - v12) <= -a3)
@@ -9547,7 +9520,7 @@ const char *findlocal(uint64_t a1, void *a2, int a3, uint64_t *a4)
     if (result)
     {
 LABEL_12:
-      v11 = v8 + 16 * a3 - 16;
+      v11 = v8 + 16 * v5 - 16;
 LABEL_13:
       *a4 = v11;
       return result;
@@ -9570,7 +9543,7 @@ LABEL_13:
   }
 
   result = 0;
-  if (a3 >= 1 && (*v9 - v8) >> 4 >= a3)
+  if (v5 >= 1 && (*v9 - v8) >> 4 >= v5)
   {
     result = "(*temporary)";
     goto LABEL_12;
@@ -9579,7 +9552,7 @@ LABEL_13:
   return result;
 }
 
-const char *lua_setlocal(uint64_t a1, uint64_t a2, int a3)
+const char *lua_setlocal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11 = 0;
   if (*(a1 + 10) == 1)
@@ -9732,7 +9705,7 @@ uint64_t lua_getinfo(uint64_t a1, char *a2, uint64_t a3)
           {
             v24 = 0;
             v25 = *(**v14 + 24);
-            v26 = v25[7];
+            v26 = *(v25 + 56);
             v27 = ((*(v14 + 40) - v26) >> 2) - 1;
             v28 = *(v26 + 4 * v27);
             v29 = "for iterator";

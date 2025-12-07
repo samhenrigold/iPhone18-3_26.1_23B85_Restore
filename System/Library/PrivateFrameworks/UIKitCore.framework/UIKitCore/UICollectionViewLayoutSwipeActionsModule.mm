@@ -12,11 +12,11 @@ void __105___UICollectionViewLayoutSwipeActionsModule_swipeActionController_swip
   _UIUpdateMaskViewFrameForSwipedCellAtIndexPath(v2, v3);
 }
 
-uint64_t __105___UICollectionViewLayoutSwipeActionsModule_swipeActionController_swipeOccurrence_didChangeStateFrom_to___block_invoke_2(uint64_t result, uint64_t a2)
+id *__105___UICollectionViewLayoutSwipeActionsModule_swipeActionController_swipeOccurrence_didChangeStateFrom_to___block_invoke_2(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) unlockActionViewForAnimation:*(result + 40)];
+    return [result[4] unlockActionViewForAnimation:result[5]];
   }
 
   return result;
@@ -29,9 +29,9 @@ void __105___UICollectionViewLayoutSwipeActionsModule_swipeActionController_swip
   _UIInvalidateSwipeActionsLayoutForDecorationViewAtIndexPath(WeakRetained, v2);
 }
 
-uint64_t __105___UICollectionViewLayoutSwipeActionsModule__invalidateSwipeActionsLayoutRefreshingActiveConfigurations___block_invoke(uint64_t result)
+void *__105___UICollectionViewLayoutSwipeActionsModule__invalidateSwipeActionsLayoutRefreshingActiveConfigurations___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 8))
   {
     v2 = result;
@@ -42,7 +42,7 @@ uint64_t __105___UICollectionViewLayoutSwipeActionsModule__invalidateSwipeAction
     v4 = *(result + 40);
     v3[4] = v1;
     result = [UIView performWithoutAnimation:v3];
-    *(*(v2 + 32) + 8) &= ~1u;
+    *(v2[4] + 8) &= ~1u;
   }
 
   return result;
@@ -77,11 +77,11 @@ uint64_t __105___UICollectionViewLayoutSwipeActionsModule_propertyAnimatorForCol
   return [v11 setBounds:{v7, v8, v9, v10}];
 }
 
-uint64_t __105___UICollectionViewLayoutSwipeActionsModule_propertyAnimatorForCollectionViewUpdates_withCustomAnimator___block_invoke_49(uint64_t result, uint64_t a2)
+id *__105___UICollectionViewLayoutSwipeActionsModule_propertyAnimatorForCollectionViewUpdates_withCustomAnimator___block_invoke_49(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) resetAnimated:0 completion:0];
+    return [result[4] resetAnimated:0 completion:0];
   }
 
   return result;

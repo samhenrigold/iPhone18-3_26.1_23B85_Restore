@@ -161,7 +161,7 @@
   return result;
 }
 
-uint64_t __24__CIColorCube_cubeImage__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+char *__24__CIColorCube_cubeImage__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   result = [*(a1 + 32) bytes];
   if (a7)
@@ -172,7 +172,7 @@ uint64_t __24__CIColorCube_cubeImage__block_invoke(uint64_t a1, uint64_t a2, uin
     {
       if (a6)
       {
-        v15 = (result + 1 + *(a1 + 40) * v13);
+        v15 = &result[*(a1 + 40) * v13 + 1];
         v16 = v14;
         v17 = a6;
         do

@@ -8,21 +8,20 @@
 
 - (NSString)stringForDisplay
 {
-  v2 = (self + OBJC_IVAR___MTRecommendationModuleTitle_stringForDisplay);
+  v2 = self + OBJC_IVAR___MTRecommendationModuleTitle_stringForDisplay;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v3 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setStringForDisplay:(id)display
@@ -41,7 +40,6 @@
 
   v7 = (self + OBJC_IVAR___MTRecommendationModuleTitle_stringForDisplay);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

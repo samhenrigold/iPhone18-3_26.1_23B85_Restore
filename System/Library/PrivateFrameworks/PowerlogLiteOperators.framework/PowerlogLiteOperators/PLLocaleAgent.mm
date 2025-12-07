@@ -18,45 +18,43 @@
 
 + (id)entryEventForwardDefinitions
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  v26 = @"TimeZone";
-  v24[0] = *MEMORY[0x277D3F4E8];
-  v22 = *MEMORY[0x277D3F568];
-  v23 = &unk_282C1BF48;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v25[0] = v19;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"LocaleId";
+  v26[1] = *MEMORY[0x277D85DE8];
+  v25 = @"TimeZone";
+  v23[0] = *MEMORY[0x277D3F4E8];
+  v21 = *MEMORY[0x277D3F568];
+  v22 = &unk_282C1BF48;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v24[0] = v18;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"LocaleId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v21[0] = commonTypeDict_StringFormat;
-  v20[1] = @"CountryCode";
+  v20[0] = commonTypeDict_StringFormat;
+  v19[1] = @"CountryCode";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v21[1] = commonTypeDict_StringFormat2;
-  v20[2] = @"TimeZoneName";
+  v20[1] = commonTypeDict_StringFormat2;
+  v19[2] = @"TimeZoneName";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v21[2] = commonTypeDict_StringFormat3;
-  v20[3] = @"TimeZoneIsInDST";
+  v20[2] = commonTypeDict_StringFormat3;
+  v19[3] = @"TimeZoneIsInDST";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]4 commonTypeDict_BoolFormat];
-  v21[3] = commonTypeDict_BoolFormat;
-  v20[4] = @"SecondsFromGMT";
+  v20[3] = commonTypeDict_BoolFormat;
+  v19[4] = @"SecondsFromGMT";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v21[4] = commonTypeDict_IntegerFormat;
-  v20[5] = @"Trigger";
+  v20[4] = commonTypeDict_IntegerFormat;
+  v19[5] = @"Trigger";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat4 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v21[5] = commonTypeDict_StringFormat4;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
-  v25[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-  v27[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v20[5] = commonTypeDict_StringFormat4;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v24[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v26[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
   return v11;
 }

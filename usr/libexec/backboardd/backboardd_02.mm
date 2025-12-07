@@ -1,102 +1,3 @@
-void sub_10005BAF0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, double a5, double a6)
-{
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v11 = a2;
-  v12 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v12)
-  {
-    v14 = v12;
-    v15 = *v30;
-    *&v13 = 138543362;
-    v28 = v13;
-    do
-    {
-      v16 = 0;
-      do
-      {
-        if (*v30 != v15)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v17 = *(*(&v29 + 1) + 8 * v16);
-        if (v17)
-        {
-          v18 = *(v17 + 24);
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v19 = v18;
-        if ((*a3 & 0xFFFFFFFFFFFFFFFELL) == 2)
-        {
-          v20 = v17 ? *(v17 + 16) : 0;
-          if ([v20 pinOnButtonDown])
-          {
-            v21 = v11;
-            v22 = *(a1 + 416);
-            if (!v22)
-            {
-              v23 = objc_alloc_init(NSMutableSet);
-              v24 = *(a1 + 416);
-              *(a1 + 416) = v23;
-
-              v22 = *(a1 + 416);
-            }
-
-            [v22 addObject:v19];
-            v25 = BKLogMousePointer();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = v28;
-              v34 = v19;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "pinning global destination: %{public}@", buf, 0xCu);
-            }
-
-            v11 = v21;
-          }
-        }
-
-        sub_10001ADEC(v19, *(a3 + 72));
-        if (v19)
-        {
-          v19[10] = a5;
-          v19[11] = a6;
-        }
-
-        if (v17)
-        {
-          if (*(v17 + 8))
-          {
-            v26 = 0;
-            goto LABEL_24;
-          }
-
-          *(v17 + 8) = 1;
-        }
-
-        v26 = 1;
-LABEL_24:
-        sub_10005E1A0(a1, v26, v19, a3, a4);
-
-        v16 = v16 + 1;
-      }
-
-      while (v14 != v16);
-      v27 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
-      v14 = v27;
-    }
-
-    while (v27);
-  }
-}
-
 void sub_10005BD2C(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
   if (a2 && a3)
@@ -253,7 +154,7 @@ void sub_10005C084(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5,
     {
       if (*a4 != 2)
       {
-        v91 = 1;
+        v87 = 1;
         goto LABEL_15;
       }
 
@@ -275,39 +176,39 @@ void sub_10005C084(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5,
       [*(a1 + 424) unionSet:a3];
     }
 
-    v91 = 0;
+    v87 = 0;
 LABEL_15:
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
     obj = a3;
-    v95 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
-    if (!v95)
+    v91 = [obj countByEnumeratingWithState:&v98 objects:v105 count:16];
+    if (!v91)
     {
-      goto LABEL_136;
+      goto LABEL_134;
     }
 
-    v93 = *v103;
+    v89 = *v99;
     *&v17 = 138543362;
-    v86 = v17;
+    v82 = v17;
     while (1)
     {
       v18 = 0;
       do
       {
-        if (*v103 != v93)
+        if (*v99 != v89)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v102 + 1) + 8 * v18);
+        v19 = *(*(&v98 + 1) + 8 * v18);
         sub_10001ADEC(v19, *(a4 + 72));
-        v101 = *(a4 + 8);
-        sub_10005D948(a1, v19, &v101, a4, a6, a7);
+        v97 = *(a4 + 8);
+        sub_10005D948(a1, v19, &v97, a4, a6, a7);
         v20 = sub_10005D280(a1, *(a4 + 16), v19);
-        v96 = sub_10005D3B8(a1, 1, a2, v19, a4);
-        v100 = 0;
+        v92 = sub_10005D3B8(a1, 1, a2, v19, a4);
+        v96 = 0;
         if ([*(a1 + 240) buttonMaskDidChange] && !objc_msgSend(*(a1 + 240), "buttonMask"))
         {
           if (!v19)
@@ -315,9 +216,9 @@ LABEL_15:
             goto LABEL_30;
           }
 
-          LOBYTE(v24) = 0;
+          LOBYTE(v23) = 0;
 LABEL_29:
-          *(v19 + 25) = v24;
+          *(v19 + 25) = v23;
           goto LABEL_30;
         }
 
@@ -325,7 +226,7 @@ LABEL_29:
         {
           if (*(v19 + 25))
           {
-            goto LABEL_115;
+            goto LABEL_114;
           }
 
           v21 = *(v19 + 8);
@@ -337,51 +238,49 @@ LABEL_29:
         }
 
         v22 = *(a4 + 80);
-        v23 = *(a4 + 32);
         BSMonotonicReferencedTimeFromMachTime();
-        v24 = (v19 != 0) & [v22 shouldCancelTouchesDeliveredToContextId:v21 withInitialTouchTimestamp:?];
-        if (v24 == 1)
+        v23 = (v19 != 0) & [v22 shouldCancelTouchesDeliveredToContextId:v21 withInitialTouchTimestamp:?];
+        if (v23 == 1)
         {
           goto LABEL_29;
         }
 
 LABEL_30:
-        v25 = [*(a1 + 240) eventTypeMask];
-        v26 = 0x200000000F6;
-        if ((v25 & 0x40) == 0)
+        v24 = [*(a1 + 240) eventTypeMask];
+        v25 = 0x200000000F6;
+        if ((v24 & 0x40) == 0)
         {
           goto LABEL_48;
         }
 
-        v27 = [*(a1 + 240) scrollPhase];
+        v26 = [*(a1 + 240) scrollPhase];
         if (!v19)
         {
-          v26 = 0x200000000F6;
-          if (!v27 || (v27 & 0xC) != 0)
+          v25 = 0x200000000F6;
+          if (!v26 || (v26 & 0xC) != 0)
           {
             goto LABEL_48;
           }
 
-          v28 = 0;
+          v27 = 0;
           goto LABEL_38;
         }
 
         if ((*(v19 + 24) & 1) == 0)
         {
-          v26 = 0x200000000F6;
-          if (!v27 || (v27 & 0xC) != 0)
+          v25 = 0x200000000F6;
+          if (!v26 || (v26 & 0xC) != 0)
           {
             goto LABEL_48;
           }
 
-          v28 = *(v19 + 8);
+          v27 = *(v19 + 8);
 LABEL_38:
-          v29 = *(a4 + 80);
-          v30 = *(a4 + 32);
+          v28 = *(a4 + 80);
           BSMonotonicReferencedTimeFromMachTime();
-          v31 = [v29 shouldCancelTouchesDeliveredToContextId:v28 withInitialTouchTimestamp:?];
-          v26 = 0x200000000F6;
-          if (!v31)
+          v29 = [v28 shouldCancelTouchesDeliveredToContextId:v27 withInitialTouchTimestamp:?];
+          v25 = 0x200000000F6;
+          if (!v29)
           {
             goto LABEL_48;
           }
@@ -391,22 +290,22 @@ LABEL_38:
             *(v19 + 24) = 1;
           }
 
-          v32 = BKLogMousePointer();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v30 = BKLogMousePointer();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             if (v19)
             {
-              v33 = *(v19 + 8);
+              v31 = *(v19 + 8);
             }
 
             else
             {
-              v33 = 0;
+              v31 = 0;
             }
 
             *buf = 67109120;
-            *&buf[4] = v33;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "TDPS: scroll terminated for %X", buf, 8u);
+            *&buf[4] = v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "TDPS: scroll terminated for %X", buf, 8u);
           }
 
           mach_absolute_time();
@@ -417,42 +316,42 @@ LABEL_38:
           goto LABEL_46;
         }
 
-        if ((v27 & 0x81) != 0)
+        if ((v26 & 0x81) != 0)
         {
           *(v19 + 24) = 0;
         }
 
 LABEL_46:
-        v35 = BKLogMousePointer();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v33 = BKLogMousePointer();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           if (v19)
           {
-            v84 = *(v19 + 8);
+            v80 = *(v19 + 8);
           }
 
           else
           {
-            v84 = 0;
+            v80 = 0;
           }
 
           *buf = 67109120;
-          *&buf[4] = v84;
-          _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "TDPS: skipping cancelled scroll for %X", buf, 8u);
+          *&buf[4] = v80;
+          _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "TDPS: skipping cancelled scroll for %X", buf, 8u);
         }
 
-        v26 = 0x200000000B6;
+        v25 = 0x200000000B6;
 LABEL_48:
-        [*(a1 + 240) appendSubeventsForEventTypeMask:v26 toTopLevelEvent:v20 interfaceOrientation:v101 getEventSummary:&v100];
+        [*(a1 + 240) appendSubeventsForEventTypeMask:v25 toTopLevelEvent:v20 interfaceOrientation:v97 getEventSummary:&v96];
         if (v19 && *(v19 + 25) == 1 && [*(a1 + 240) buttonMask])
         {
-          v36 = BKLogMousePointer();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v34 = BKLogMousePointer();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
-            v37 = *(v19 + 8);
+            v35 = *(v19 + 8);
             *buf = 67109120;
-            *&buf[4] = v37;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "TDPS: cancelling button up %X", buf, 8u);
+            *&buf[4] = v35;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "TDPS: cancelling button up %X", buf, 8u);
           }
 
           IOHIDEventSetIntegerValue();
@@ -464,182 +363,209 @@ LABEL_48:
           BKSHIDEventSetRemoteTimestamp();
         }
 
-        if ((v100 & 0x20) == 0)
+        if ((v96 & 0x20) == 0)
         {
           goto LABEL_66;
         }
 
         if (v19)
         {
-          v38 = *(v19 + 28);
-          if (v38)
+          v36 = *(v19 + 28);
+          if (v36)
           {
-            v39 = BKLogMousePointer();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v37 = BKLogMousePointer();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109120;
-              *&buf[4] = v38;
-              _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "slotID up! %X", buf, 8u);
+              *&buf[4] = v36;
+              _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "slotID up! %X", buf, 8u);
             }
 
-            v40 = *(v19 + 12);
-            v41 = *(v19 + 40);
+            v38 = *(v19 + 40);
             os_unfair_lock_assert_owner((a1 + 8));
-            v42 = *(v19 + 56);
-            v43 = v42 == 0;
+            v39 = *(v19 + 56);
+            v40 = v39 == 0;
 
-            if (v43)
+            if (v40)
             {
-              v53 = BKLogMousePointer();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+              v50 = BKLogMousePointer();
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
               {
-                LODWORD(__src[0]) = v86;
+                LODWORD(__src[0]) = v82;
                 *(__src + 4) = v19;
-                _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "missing test info at down for destination %{public}@", __src, 0xCu);
+                _os_log_debug_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "missing test info at down for destination %{public}@", __src, 0xCu);
               }
 
-              v52 = 0;
-              v51 = 0;
+              v49 = 0;
+              v48 = 0;
               goto LABEL_77;
             }
 
-            v108 = 0;
-            v44 = *(v19 + 28);
-            v45 = +[BKHIDEventProcessorRegistry sharedInstance];
-            v46 = [v45 eventProcessorOfClass:objc_opt_class()];
+            v104 = 0;
+            v41 = *(v19 + 28);
+            v42 = +[BKHIDEventProcessorRegistry sharedInstance];
+            v43 = [v42 eventProcessorOfClass:objc_opt_class()];
 
-            v47 = [v46 authenticationSpecificationForSlotID:v44 registrantEntitled:&v108];
-            v48 = v47;
-            if (v47)
+            v44 = [v43 authenticationSpecificationForSlotID:v41 registrantEntitled:&v104];
+            v45 = v44;
+            if (v44)
             {
-              v89 = [v47 authenticationMessageContext];
+              v85 = [v44 authenticationMessageContext];
               memset(__src, 0, sizeof(__src));
-              v49 = sub_10000ED90(BKDisplayController, 0, 0, v48, 0);
-              if ([*(a1 + 312) contextIDAtCAScreenLocation:v41 displayUUID:v49 options:0 securityAnalysis:__src results:{*(v19 + 80), *(v19 + 88)}])
+              v46 = sub_10000ED90(BKDisplayController, 0, 0, v45, 0);
+              if ([*(a1 + 312) contextIDAtCAScreenLocation:v38 displayUUID:v46 options:0 securityAnalysis:__src results:{*(v19 + 80), *(v19 + 88)}])
               {
-                v106 = 0u;
-                v107 = 0u;
+                v102 = 0u;
+                v103 = 0u;
                 if (BSAuditTokenForTask())
                 {
-                  v50 = +[BKHIDSystemInterface sharedInstance];
-                  v88 = [v50 deliveryManager];
+                  v47 = +[BKHIDSystemInterface sharedInstance];
+                  v84 = [v47 deliveryManager];
 
-                  v87 = [v88 authenticationOriginator];
+                  v83 = [v84 authenticationOriginator];
                   *buf = _NSConcreteStackBlock;
                   *&buf[8] = 3221225472;
-                  *&v111 = sub_10005DC40;
-                  *(&v111 + 1) = &unk_1000FBE58;
-                  memcpy(v113, __src, sizeof(v113));
-                  v112 = v19;
-                  v114 = v89;
-                  v117 = v108;
-                  v115 = v106;
-                  v116 = v107;
-                  v51 = [v87 buildMessage:buf];
+                  *&v107 = sub_10005DC40;
+                  *(&v107 + 1) = &unk_1000FBE58;
+                  memcpy(v109, __src, sizeof(v109));
+                  v108 = v19;
+                  v110 = v85;
+                  v113 = v104;
+                  v111 = v102;
+                  v112 = v103;
+                  v48 = [v83 buildMessage:buf];
                 }
 
                 else
                 {
-                  v51 = 0;
+                  v48 = 0;
                 }
 
 LABEL_74:
-                if (v51)
+                if (v48)
                 {
-                  [v96 setAuthenticationMessage:v51];
-                  v52 = 1;
+                  [v92 setAuthenticationMessage:v48];
+                  v49 = 1;
                 }
 
                 else
                 {
-                  v52 = 0;
+                  v49 = 0;
                 }
 
 LABEL_77:
 
 LABEL_78:
-                if (((v91 | v52) & 1) == 0)
+                if (((v87 | v49) & 1) == 0)
                 {
                   *buf = 0u;
-                  v111 = 0u;
-                  if (v19)
-                  {
-                    v54 = *(v19 + 12);
-                  }
-
-                  goto LABEL_81;
+                  v107 = 0u;
+                  goto LABEL_80;
                 }
 
-                goto LABEL_83;
+                goto LABEL_82;
               }
             }
 
-            v51 = 0;
+            v48 = 0;
             goto LABEL_74;
           }
 
 LABEL_66:
-          v52 = 0;
+          v49 = 0;
           goto LABEL_78;
         }
 
-        if ((v91 & 1) == 0)
+        if ((v87 & 1) == 0)
         {
           *buf = 0u;
-          v111 = 0u;
-LABEL_81:
+          v107 = 0u;
+LABEL_80:
           if (BSAuditTokenForTask())
           {
-            v55 = +[BKHIDSystemInterface sharedInstance];
-            v56 = [v55 deliveryManager];
+            v51 = +[BKHIDSystemInterface sharedInstance];
+            v52 = [v51 deliveryManager];
 
-            v57 = [v56 simpleProvenanceOriginator];
-            v97[0] = _NSConcreteStackBlock;
-            v97[1] = 3221225472;
-            v97[2] = sub_10005DBEC;
-            v97[3] = &unk_1000FBE78;
-            v98 = *buf;
-            v99 = v111;
-            v58 = [v57 buildProvenance:v97];
-            [v96 setProvenance:v58];
+            v53 = [v52 simpleProvenanceOriginator];
+            v93[0] = _NSConcreteStackBlock;
+            v93[1] = 3221225472;
+            v93[2] = sub_10005DBEC;
+            v93[3] = &unk_1000FBE78;
+            v94 = *buf;
+            v95 = v107;
+            v54 = [v53 buildProvenance:v93];
+            [v92 setProvenance:v54];
           }
         }
 
-LABEL_83:
+LABEL_82:
         if (*(a4 + 40) != 0.0 || *(a4 + 48) != 0.0)
         {
           if (v19)
           {
-            v59 = *(v19 + 8);
-            v60 = *(v19 + 32);
+            v55 = *(v19 + 8);
+            v56 = *(v19 + 32);
           }
 
           else
           {
-            v59 = 0;
-            v60 = 0;
+            v55 = 0;
+            v56 = 0;
           }
 
-          v61 = *(a1 + 384);
-          if (v61)
+          v57 = *(a1 + 384);
+          if (v57)
           {
             objc_initWeak(__src, *(a1 + 384));
-            v62 = *(v61 + 8);
+            v58 = *(v57 + 8);
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
-            *&v111 = sub_1000928D8;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v59;
-            v113[1] = v60;
-            [v62 updateStatistics:buf];
-            objc_destroyWeak(&v112);
+            *&v107 = sub_1000928D8;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v55;
+            v109[1] = v56;
+            [v58 updateStatistics:buf];
+            objc_destroyWeak(&v108);
             objc_destroyWeak(__src);
           }
         }
 
-        v63 = v100;
-        if ((v100 & 2) != 0)
+        v59 = v96;
+        if ((v96 & 2) != 0)
+        {
+          if (v19)
+          {
+            v60 = *(v19 + 8);
+            v61 = *(v19 + 32);
+          }
+
+          else
+          {
+            v60 = 0;
+            v61 = 0;
+          }
+
+          v62 = *(a1 + 384);
+          if (v62)
+          {
+            objc_initWeak(__src, *(a1 + 384));
+            v63 = *(v62 + 8);
+            *buf = _NSConcreteStackBlock;
+            *&buf[8] = 3221225472;
+            *&v107 = sub_10009294C;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v60;
+            v109[1] = v61;
+            [v63 updateStatistics:buf];
+            objc_destroyWeak(&v108);
+            objc_destroyWeak(__src);
+            v59 = v96;
+          }
+        }
+
+        if ((v59 & 4) != 0)
         {
           if (v19)
           {
@@ -660,19 +586,19 @@ LABEL_83:
             v67 = *(v66 + 8);
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
-            *&v111 = sub_10009294C;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v64;
-            v113[1] = v65;
+            *&v107 = sub_100092A34;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v64;
+            v109[1] = v65;
             [v67 updateStatistics:buf];
-            objc_destroyWeak(&v112);
+            objc_destroyWeak(&v108);
             objc_destroyWeak(__src);
-            v63 = v100;
+            v59 = v96;
           }
         }
 
-        if ((v63 & 4) != 0)
+        if ((v59 & 8) != 0)
         {
           if (v19)
           {
@@ -693,19 +619,19 @@ LABEL_83:
             v71 = *(v70 + 8);
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
-            *&v111 = sub_100092A34;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v68;
-            v113[1] = v69;
+            *&v107 = sub_100092B1C;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v68;
+            v109[1] = v69;
             [v71 updateStatistics:buf];
-            objc_destroyWeak(&v112);
+            objc_destroyWeak(&v108);
             objc_destroyWeak(__src);
-            v63 = v100;
+            v59 = v96;
           }
         }
 
-        if ((v63 & 8) != 0)
+        if ((v59 & 0x10) != 0)
         {
           if (v19)
           {
@@ -726,19 +652,19 @@ LABEL_83:
             v75 = *(v74 + 8);
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
-            *&v111 = sub_100092B1C;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v72;
-            v113[1] = v73;
+            *&v107 = sub_100092AA8;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v72;
+            v109[1] = v73;
             [v75 updateStatistics:buf];
-            objc_destroyWeak(&v112);
+            objc_destroyWeak(&v108);
             objc_destroyWeak(__src);
-            v63 = v100;
+            v59 = v96;
           }
         }
 
-        if ((v63 & 0x10) != 0)
+        if ((v59 & 0x40) != 0)
         {
           if (v19)
           {
@@ -759,63 +685,30 @@ LABEL_83:
             v79 = *(v78 + 8);
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
-            *&v111 = sub_100092AA8;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v76;
-            v113[1] = v77;
+            *&v107 = sub_1000929C0;
+            *(&v107 + 1) = &unk_1000FCEA0;
+            objc_copyWeak(&v108, __src);
+            v109[0] = v76;
+            v109[1] = v77;
             [v79 updateStatistics:buf];
-            objc_destroyWeak(&v112);
-            objc_destroyWeak(__src);
-            v63 = v100;
-          }
-        }
-
-        if ((v63 & 0x40) != 0)
-        {
-          if (v19)
-          {
-            v80 = *(v19 + 8);
-            v81 = *(v19 + 32);
-          }
-
-          else
-          {
-            v80 = 0;
-            v81 = 0;
-          }
-
-          v82 = *(a1 + 384);
-          if (v82)
-          {
-            objc_initWeak(__src, *(a1 + 384));
-            v83 = *(v82 + 8);
-            *buf = _NSConcreteStackBlock;
-            *&buf[8] = 3221225472;
-            *&v111 = sub_1000929C0;
-            *(&v111 + 1) = &unk_1000FCEA0;
-            objc_copyWeak(&v112, __src);
-            v113[0] = v80;
-            v113[1] = v81;
-            [v83 updateStatistics:buf];
-            objc_destroyWeak(&v112);
+            objc_destroyWeak(&v108);
             objc_destroyWeak(__src);
           }
         }
 
-        sub_10002D500(a5, v20, v96, v19);
+        sub_10002D500(a5, v20, v92, v19);
         CFRelease(v20);
-LABEL_115:
+LABEL_114:
 
         v18 = v18 + 1;
       }
 
-      while (v95 != v18);
-      v85 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
-      v95 = v85;
-      if (!v85)
+      while (v91 != v18);
+      v81 = [obj countByEnumeratingWithState:&v98 objects:v105 count:16];
+      v91 = v81;
+      if (!v81)
       {
-LABEL_136:
+LABEL_134:
 
         return;
       }
@@ -1164,7 +1057,7 @@ uint64_t sub_10005D8EC(uint64_t a1)
   return v1;
 }
 
-void sub_10005D948(uint64_t a1, uint64_t a2, const os_unfair_lock **a3, uint64_t a4, double a5, double a6)
+void sub_10005D948(uint64_t a1, uint64_t a2, const char **a3, uint64_t a4, double a5, double a6)
 {
   v7 = a6;
   v8 = a5;
@@ -1339,11 +1232,11 @@ const os_unfair_lock *sub_10005DDD4(const os_unfair_lock *result, void *a2)
   return result;
 }
 
-id sub_10005DE60(id result, uint64_t a2, void *a3)
+id sub_10005DE60(id result, const char *a2, void *a3)
 {
   if (a3)
   {
-    return [a3 transformLayerPropertiesForDisplay:result displayInterfaceOrientation:{a2, 0, 0, 0, 0}];
+    return objc_msgSend_transformLayerPropertiesForDisplay_displayInterfaceOrientation_(a3, a2, result, a2, 0, 0, 0, 0);
   }
 
   return result;
@@ -1470,16 +1363,16 @@ void sub_10005E2D4(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   if (a1)
   {
     os_unfair_lock_assert_owner((a1 + 8));
-    v37 = CGPointZero;
-    v36 = 0;
-    v10 = [*(a1 + 136) closestRegionForGlobalPoint:&v37 returningClosestContainingPoint:&v36 returningEdgeMask:{a4, a5}];
-    if (*(a1 + 144) == v10 && (v30 = *(a1 + 168), v31 = *(a1 + 176), BSPointEqualToPoint()) && !a2)
+    v33 = CGPointZero;
+    v32 = 0;
+    v10 = [*(a1 + 136) closestRegionForGlobalPoint:&v33 returningClosestContainingPoint:&v32 returningEdgeMask:{a4, a5}];
+    if (*(a1 + 144) == v10 && BSPointEqualToPoint() && !a2)
     {
       v12 = BKLogMousePointer();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v40 = a3;
+        v36 = a3;
         _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, " -> ignoring model point update (%{public}@)", buf, 0xCu);
       }
     }
@@ -1490,11 +1383,11 @@ void sub_10005E2D4(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543874;
-        v40 = a3;
-        v41 = 2048;
-        x = v37.x;
-        v43 = 2048;
-        y = v37.y;
+        v36 = a3;
+        v37 = 2048;
+        x = v33.x;
+        v39 = 2048;
+        y = v33.y;
         _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, " -> model point (%{public}@) %g,%g", buf, 0x20u);
       }
 
@@ -1503,8 +1396,8 @@ void sub_10005E2D4(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
       {
         kdebug_trace();
         kdebug_trace();
-        *(a1 + 168) = v37;
-        *(a1 + 184) = v36;
+        *(a1 + 168) = v33;
+        *(a1 + 184) = v32;
         if (*(a1 + 144) != v10 || a2)
         {
           objc_storeStrong((a1 + 144), v10);
@@ -1529,40 +1422,38 @@ void sub_10005E2D4(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
         {
           v17 = v16;
           v18 = sub_10005DDD4(a1, v12);
-          v19 = *(a1 + 168);
-          v20 = *(a1 + 176);
           sub_10005DE60(v17, v18, *(a1 + 312));
+          v20 = v19;
           v22 = v21;
-          v24 = v23;
-          v32 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          v35 = 0u;
-          v25 = *(a1 + 376);
-          v26 = [v25 countByEnumeratingWithState:&v32 objects:v38 count:16];
-          if (v26)
+          v28 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v23 = *(a1 + 376);
+          v24 = [v23 countByEnumeratingWithState:&v28 objects:v34 count:16];
+          if (v24)
           {
-            v27 = v26;
-            v28 = *v33;
+            v25 = v24;
+            v26 = *v29;
             do
             {
-              v29 = 0;
+              v27 = 0;
               do
               {
-                if (*v33 != v28)
+                if (*v29 != v26)
                 {
-                  objc_enumerationMutation(v25);
+                  objc_enumerationMutation(v23);
                 }
 
-                [*(*(&v32 + 1) + 8 * v29) observeMouseModelPointDidChange:v17 display:a3 reason:{v22, v24, v32}];
-                v29 = v29 + 1;
+                [*(*(&v28 + 1) + 8 * v27) observeMouseModelPointDidChange:v17 display:a3 reason:{v20, v22, v28}];
+                v27 = v27 + 1;
               }
 
-              while (v27 != v29);
-              v27 = [v25 countByEnumeratingWithState:&v32 objects:v38 count:16];
+              while (v25 != v27);
+              v25 = [v23 countByEnumeratingWithState:&v28 objects:v34 count:16];
             }
 
-            while (v27);
+            while (v25);
           }
         }
       }
@@ -2048,7 +1939,7 @@ id sub_10005F268(uint64_t a1, double a2, double a3)
       sub_10005DE60(v9, v11, *(a1 + 312));
       v22 = v10;
       sub_100007C3C(v10);
-      v14 = sub_10001AE04(v12, v13, BKMouseDestination, 0, v9, 0, *(a1 + 24), *(a1 + 248));
+      v14 = sub_10001AE04(BKMouseDestination, 0, v9, 0, *(a1 + 24), *(a1 + 248), v12, v13);
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
@@ -2091,17 +1982,17 @@ id sub_10005F268(uint64_t a1, double a2, double a3)
   return v6;
 }
 
-id sub_10005F494(id result, uint64_t a2, void *a3)
+id sub_10005F494(id result, const char *a2, void *a3)
 {
   if (a3)
   {
-    return [a3 transformLayerPropertiesForDisplay:result displayInterfaceOrientation:{a2, 0, 0, 0, 0, 0, 0, 0, 0}];
+    return objc_msgSend_transformLayerPropertiesForDisplay_displayInterfaceOrientation_(a3, a2, result, a2, 0, 0, 0, 0, 0, 0, 0, 0);
   }
 
   return result;
 }
 
-uint64_t sub_10005F5B4(uint64_t result, void *a2, int a3)
+uint64_t sub_10005F5B4(uint64_t result, unint64_t a2, int a3)
 {
   if (result)
   {
@@ -2271,10 +2162,11 @@ void sub_10005FA48(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10005FD14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_10005FD14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   _Block_object_dispose(&a9, 8);
-  _Block_object_dispose(&a13, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2407,6 +2299,13 @@ void sub_10005FD40(const os_unfair_lock *a1)
   }
 }
 
+void sub_100060154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id *sub_100060198(id *result)
 {
   if (result)
@@ -2480,65 +2379,57 @@ void sub_1000603E0(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v8 = *(v7 + 32);
-    v9 = v7[4];
   }
 
   else
   {
-    v9 = 0.0;
-    v8 = 1;
+    v8 = 0.0;
   }
 
-  v10 = *(v7 + 39);
-  if (v10)
+  v9 = *(v7 + 312);
+  if (v9)
   {
-    [v10 transformLayerPropertiesForDisplay:a3 displayInterfaceOrientation:v8];
-    v11 = *(*(a1 + 32) + 312);
+    objc_msgSend_transformLayerPropertiesForDisplay_displayInterfaceOrientation_(v9);
   }
 
-  else
-  {
-    v11 = 0;
-  }
-
-  [BKMousePointerDisplayRenderer rootLayerPropertiesForDisplay:a3 displayController:v11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  v12 = [[BKMousePointerRegion alloc] initWithPointSize:a2 cornerRadius:0 scale:v9 displayUUID:0.0];
+  objc_msgSend_rootLayerPropertiesForDisplay_displayController_(BKMousePointerDisplayRenderer, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v10 = [[BKMousePointerRegion alloc] initWithPointSize:a2 cornerRadius:0 scale:v8 displayUUID:0.0];
   if ([a3 isExternal] && sub_100060774(*(a1 + 32), a3))
   {
-    v13 = [(BKMousePointerRegionArrangement *)[BKMutableMousePointerRegionArrangement alloc] initWithCoalitionIdentifier:a2];
-    [(BKMutableMousePointerRegionArrangement *)v13 addPrimaryRegion:v12];
-    v14 = [(BKMutableMousePointerRegionArrangement *)v13 copy];
-    [*(a1 + 40) setObject:v14 forKeyedSubscript:a2];
+    v11 = [(BKMousePointerRegionArrangement *)[BKMutableMousePointerRegionArrangement alloc] initWithCoalitionIdentifier:a2];
+    [(BKMutableMousePointerRegionArrangement *)v11 addPrimaryRegion:v10];
+    v12 = [(BKMutableMousePointerRegionArrangement *)v11 copy];
+    [*(a1 + 40) setObject:v12 forKeyedSubscript:a2];
   }
 
   else
   {
     if (*(*(*(a1 + 56) + 8) + 40))
     {
-      v15 = [*(*(a1 + 32) + 456) pointerRegionArrangementEdge];
+      v13 = [*(*(a1 + 32) + 456) pointerRegionArrangementEdge];
       [*(*(*(a1 + 56) + 8) + 40) pointSize];
+      v15 = v14;
       v17 = v16;
-      v19 = v18;
-      [(BKMousePointerRegion *)v12 pointSize];
-      v21 = v19 - v20;
-      v23 = v17 - v22;
-      if ((v15 & 0xFFFFFFFD) == 0)
+      [(BKMousePointerRegion *)v10 pointSize];
+      v19 = v17 - v18;
+      v21 = v15 - v20;
+      if ((v13 & 0xFFFFFFFD) == 0)
       {
-        v23 = v21;
+        v21 = v19;
       }
 
-      [*(a1 + 48) addRegion:v12 relativeToRegion:*(*(*(a1 + 56) + 8) + 40) alongEdge:v15 atPosition:v23 * 0.5];
+      [*(a1 + 48) addRegion:v10 relativeToRegion:*(*(*(a1 + 56) + 8) + 40) alongEdge:v13 atPosition:v21 * 0.5];
     }
 
     else
     {
-      [*(a1 + 48) addPrimaryRegion:v12];
+      [*(a1 + 48) addPrimaryRegion:v10];
     }
 
-    v24 = *(*(a1 + 56) + 8);
-    v25 = v12;
-    v13 = *(v24 + 40);
-    *(v24 + 40) = v25;
+    v22 = *(*(a1 + 56) + 8);
+    v23 = v10;
+    v11 = *(v22 + 40);
+    *(v22 + 40) = v23;
   }
 }
 
@@ -2639,9 +2530,9 @@ uint64_t sub_100060774(uint64_t a1, void *a2)
   return v10 & 1;
 }
 
-void sub_100060894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100060894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3484,10 +3375,11 @@ const os_unfair_lock *sub_100063A80(const os_unfair_lock *result, uint64_t a2)
   return result;
 }
 
-void sub_100063FF4(uint64_t a1, void *a2, int a3, void *a4)
+void sub_100063FF4(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   if (a1)
   {
+    v4 = a3;
     os_unfair_lock_assert_owner((a1 + 8));
     v6 = BKLogMousePointer();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3552,7 +3444,7 @@ void sub_100063FF4(uint64_t a1, void *a2, int a3, void *a4)
 
           v19 = 0;
 LABEL_14:
-          if (v19 == a3)
+          if (v19 == v4)
           {
             if (!v12)
             {
@@ -3655,7 +3547,7 @@ LABEL_45:
           p_super = &v32->super.super;
           if (v32)
           {
-            v32->_cachedPID = a3;
+            v32->_cachedPID = v4;
             v32->super._contextID = v26;
           }
 
@@ -3803,26 +3695,25 @@ uint64_t sub_10006486C(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v4 = 0;
+    v3 = 0;
     goto LABEL_6;
   }
 
-  v3 = *(a2 + 24);
-  v4 = v3;
-  if (!v3)
+  v2 = *(a2 + 24);
+  v3 = v2;
+  if (!v2)
   {
 LABEL_6:
-    v5 = 0;
+    v4 = 0;
     goto LABEL_4;
   }
 
-  v5 = *(v3 + 5);
+  v4 = *(v2 + 5);
 LABEL_4:
-  v6 = v5;
-  v7 = *(a1 + 32);
-  v8 = BSEqualObjects();
+  v5 = v4;
+  v6 = BSEqualObjects();
 
-  return v8;
+  return v6;
 }
 
 void sub_100065380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -3857,10 +3748,11 @@ BKMousePointerScrollAnimationDriver *sub_1000655EC(double *a1, double a2, double
   return v3;
 }
 
-void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t a6, void (**a7)(void, double, double))
+void sub_10006564C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (**a5)(void, double, double), double a6, double a7)
 {
   if (a1)
   {
+    v8 = a3;
     os_unfair_lock_assert_not_owner((a1 + 8));
     os_unfair_lock_lock((a1 + 8));
     if (*(a1 + 144))
@@ -3902,14 +3794,14 @@ void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t
           y = v26;
         }
 
-        [*(a1 + 136) convertToGlobalPoint:v22 fromRegion:{a4, a5}];
+        [*(a1 + 136) convertToGlobalPoint:v22 fromRegion:{a6, a7}];
         v28 = v27;
         v30 = v29;
         v31 = v27 - x;
         v32 = v29 - y;
         v33 = *(a1 + 160);
         os_unfair_lock_unlock((a1 + 8));
-        if (a3 < 1)
+        if (v8 < 1)
         {
           objc_initWeak(location, a1);
           v34 = BSProcessDescriptionForPID();
@@ -3925,27 +3817,25 @@ void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t
             {
               v44 = BSStringFromCGPoint();
               v45 = *(a1 + 144);
-              v46 = *(a1 + 168);
-              v47 = *(a1 + 176);
+              v46 = BSStringFromCGPoint();
+              v47 = BSStringFromCGPoint();
               v48 = BSStringFromCGPoint();
-              v49 = BSStringFromCGPoint();
-              v50 = BSStringFromCGPoint();
               *location = 134219778;
               *&location[4] = 0x4064000000000000;
-              v57 = 2114;
-              v58 = v44;
-              v59 = 1024;
-              v60 = a3;
+              v55 = 2114;
+              v56 = v44;
+              v57 = 1024;
+              v58 = v8;
+              v59 = 2114;
+              v60 = v45;
               v61 = 2114;
-              v62 = v45;
+              v62 = v46;
               v63 = 2114;
-              v64 = v48;
+              v64 = v22;
               v65 = 2114;
-              v66 = v22;
+              v66 = v47;
               v67 = 2114;
-              v68 = v49;
-              v69 = 2114;
-              v70 = v50;
+              v68 = v48;
               _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Stopping pointer movement because request exceeds limit of %f pts. Pointer position:%{public}@, pid:%d, region:%{public}@, region point:%{public}@, target region:%{public}@, desired location %{public}@, current location:%{public}@", location, 0x4Eu);
             }
 
@@ -3958,17 +3848,17 @@ void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t
           v36 = [NSString stringWithFormat:@"setPosition %@ restrict:%@", v34, v35];
         }
 
-        v52[0] = _NSConcreteStackBlock;
-        v52[1] = 3221225472;
-        v52[2] = sub_100065C50;
-        v52[3] = &unk_1000FBBD0;
-        objc_copyWeak(v54, location);
-        v54[1] = v33;
-        v55 = a3;
+        v50[0] = _NSConcreteStackBlock;
+        v50[1] = 3221225472;
+        v50[2] = sub_100065C50;
+        v50[3] = &unk_1000FBBD0;
+        objc_copyWeak(v52, location);
+        v52[1] = v33;
+        v53 = v8;
         v37 = v36;
-        v53 = v37;
-        v38 = objc_retainBlock(v52);
-        if (a7 && (a7[2](a7, v31, v32), (a7 = objc_claimAutoreleasedReturnValue()) != 0) && [*(a1 + 152) count] <= 0x63)
+        v51 = v37;
+        v38 = objc_retainBlock(v50);
+        if (a5 && (a5[2](a5, v31, v32), (a5 = objc_claimAutoreleasedReturnValue()) != 0) && [*(a1 + 152) count] <= 0x63)
         {
           v39 = [BKMousePointerAnimation alloc];
           if (*(a1 + 441))
@@ -3981,12 +3871,12 @@ void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t
             v40 = 0;
           }
 
-          v51[0] = _NSConcreteStackBlock;
-          v51[1] = 3221225472;
-          v51[2] = sub_100066008;
-          v51[3] = &unk_1000FBBF8;
-          v51[4] = a1;
-          v41 = [(BKMousePointerAnimation *)v39 initWithRelativeTranslation:a7 destinationPoint:v40 animationDriver:v38 updateRate:v51 applierBlock:v31 completionBlock:v32, v28, v30];
+          v49[0] = _NSConcreteStackBlock;
+          v49[1] = 3221225472;
+          v49[2] = sub_100066008;
+          v49[3] = &unk_1000FBBF8;
+          v49[4] = a1;
+          v41 = [(BKMousePointerAnimation *)v39 initWithRelativeTranslation:a5 destinationPoint:v40 animationDriver:v38 updateRate:v49 applierBlock:v31 completionBlock:v32, v28, v30];
           os_unfair_lock_lock((a1 + 8));
           [*(a1 + 152) addObject:v41];
           [(BKMousePointerAnimation *)v41 start];
@@ -3998,7 +3888,7 @@ void sub_10006564C(uint64_t a1, void *a2, int a3, double a4, double a5, uint64_t
           (v38[2])(v38, v31, v32);
         }
 
-        objc_destroyWeak(v54);
+        objc_destroyWeak(v52);
         objc_destroyWeak(location);
 LABEL_33:
 
@@ -4021,8 +3911,8 @@ LABEL_33:
         v43 = *(a1 + 136);
         *location = 138543618;
         *&location[4] = v18;
-        v57 = 2114;
-        v58 = v43;
+        v55 = 2114;
+        v56 = v43;
         _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "_setPointerPosition: no displayUUID:%{public}@ in arrangement:%{public}@", location, 0x16u);
       }
     }
@@ -4400,12 +4290,13 @@ void sub_100067290(uint64_t a1)
   }
 }
 
-void sub_100067CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_100067CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  _Block_object_dispose((v34 - 112), 8);
+  va_start(va, a33);
+  _Block_object_dispose((v33 - 112), 8);
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4561,7 +4452,6 @@ LABEL_7:
 
 uint64_t sub_1000682B8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100126008 = result;
   return result;
@@ -4756,7 +4646,7 @@ id *sub_1000689B8(id *a1, uint64_t a2)
   return a1;
 }
 
-void *sub_100068B30(void *a1, int a2)
+void *sub_100068B30(void *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -4810,7 +4700,7 @@ LABEL_13:
   return a1;
 }
 
-BKTouchContactSet *sub_100068C00(void *a1, int *a2, uint64_t a3)
+BKTouchContactSet *sub_100068C00(void *a1, unsigned int *a2, uint64_t a3)
 {
   v3 = 0;
   if (a1)
@@ -4921,9 +4811,9 @@ int64_t sub_10006CC1C(id a1, BKNamespaceNode *a2)
   return 0;
 }
 
-void sub_10006CE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006CE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4970,35 +4860,34 @@ int64_t sub_10006D628(id a1, BKNamespaceNode *a2)
 id sub_10006D91C(uint64_t a1)
 {
   [CATransaction setDisableActions:1];
-  v12 = 0u;
-  v13 = 0u;
   v10 = 0u;
   v11 = 0u;
+  v8 = 0u;
   v9 = 0u;
+  v7 = 0u;
   v2 = +[BKDisplayController sharedInstance];
-  v3 = *(*(a1 + 32) + 64);
-  v4 = sub_100005110();
-  v5 = sub_100005168(v4);
+  v3 = sub_100005110();
+  sub_100005168(v3);
   if (v2)
   {
-    [v2 transformLayerPropertiesForDisplay:v3 displayInterfaceOrientation:v5];
+    objc_msgSend_transformLayerPropertiesForDisplay_displayInterfaceOrientation_(v2);
   }
 
   else
   {
-    v12 = 0u;
-    v13 = 0u;
     v10 = 0u;
     v11 = 0u;
+    v8 = 0u;
     v9 = 0u;
+    v7 = 0u;
   }
 
-  v6 = *(*(a1 + 32) + 88);
-  v8[0] = v9;
-  v8[1] = v10;
-  v8[2] = v11;
-  [v6 setAffineTransform:v8];
-  [*(*(a1 + 32) + 88) setBounds:{v12, v13}];
+  v4 = *(*(a1 + 32) + 88);
+  v6[0] = v7;
+  v6[1] = v8;
+  v6[2] = v9;
+  [v4 setAffineTransform:v6];
+  [*(*(a1 + 32) + 88) setBounds:{v10, v11}];
   return [*(a1 + 32) _lock_locationDidChanges];
 }
 
@@ -5206,9 +5095,9 @@ uint64_t sub_10006E464(uint64_t a1, void *a2)
   return 0;
 }
 
-void sub_10006E5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10006E5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5750,9 +5639,9 @@ id sub_100075BEC(uint64_t a1)
   return [*(a1 + 32) appendPointer:*(*(a1 + 40) + 88) withName:@"gsKeyboard"];
 }
 
-id sub_100075E20(void *a1)
+id sub_100075E20(uint64_t a1)
 {
-  v3 = a1[15];
+  v3 = *(a1 + 120);
   if (!v3)
   {
 LABEL_4:
@@ -5760,9 +5649,8 @@ LABEL_4:
     return v3;
   }
 
-  if (a1[16])
+  if (*(a1 + 128))
   {
-    v4 = a1[17];
     v3 = BKSHIDServicesProductIdentifierFromServiceProperties();
     v1 = vars8;
     goto LABEL_4;
@@ -5777,112 +5665,110 @@ id sub_100075E78(void *a1)
 {
   if (a1[15] && a1[16])
   {
-    v1 = a1[17];
-    v2 = a1[15];
-    v3 = BKSHIDServicesProductIdentifierFromServiceProperties();
-    v4 = +[BKSDefaults externalDefaults];
-    v5 = [v4 keyboardDefaults];
+    v1 = BKSHIDServicesProductIdentifierFromServiceProperties();
+    v2 = +[BKSDefaults externalDefaults];
+    v3 = [v2 keyboardDefaults];
 
-    v6 = [v5 modifierKeyRemapping];
-    v7 = v6;
-    if (v6)
+    v4 = [v3 modifierKeyRemapping];
+    v5 = v4;
+    if (v4)
     {
-      v8 = [v6 objectForKey:v3];
-      v9 = objc_opt_class();
-      v10 = v8;
-      if (v9)
+      v6 = [v4 objectForKey:v1];
+      v7 = objc_opt_class();
+      v8 = v6;
+      if (v7)
       {
         if (objc_opt_isKindOfClass())
         {
-          v11 = v10;
+          v9 = v8;
         }
 
         else
         {
-          v11 = 0;
+          v9 = 0;
         }
       }
 
       else
       {
-        v11 = 0;
+        v9 = 0;
       }
 
-      v13 = v11;
+      v11 = v9;
 
-      if ([v13 count])
+      if ([v11 count])
       {
-        v34 = 0u;
-        v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v12 = v13;
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
-        if (v14)
+        v30 = 0u;
+        v31 = 0u;
+        v10 = v11;
+        v12 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        if (v12)
         {
-          v15 = v14;
-          v29 = v13;
-          v30 = v7;
-          v31 = v5;
-          v16 = *v33;
+          v13 = v12;
+          v27 = v11;
+          v28 = v5;
+          v29 = v3;
+          v14 = *v31;
           while (2)
           {
-            for (i = 0; i != v15; i = i + 1)
+            for (i = 0; i != v13; i = i + 1)
             {
-              if (*v33 != v16)
+              if (*v31 != v14)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v10);
               }
 
-              v18 = *(*(&v32 + 1) + 8 * i);
-              v19 = objc_opt_class();
-              v20 = v18;
-              if (v19)
+              v16 = *(*(&v30 + 1) + 8 * i);
+              v17 = objc_opt_class();
+              v18 = v16;
+              if (v17)
               {
                 if (objc_opt_isKindOfClass())
                 {
-                  v21 = v20;
+                  v19 = v18;
                 }
 
                 else
                 {
-                  v21 = 0;
+                  v19 = 0;
                 }
               }
 
               else
               {
-                v21 = 0;
+                v19 = 0;
               }
 
-              v22 = v21;
+              v20 = v19;
 
-              v23 = [v22 allKeys];
-              if ([v23 count] != 2)
+              v21 = [v20 allKeys];
+              if ([v21 count] != 2)
               {
                 goto LABEL_30;
               }
 
-              v24 = [v22 objectForKey:@"HIDKeyboardModifierMappingSrc"];
+              v22 = [v20 objectForKey:@"HIDKeyboardModifierMappingSrc"];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
 
 LABEL_30:
 LABEL_31:
-                v27 = BKLogKeyboard();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v25 = BKLogKeyboard();
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v37 = v22;
-                  _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "invalid key remapping dictionary: %{public}@", buf, 0xCu);
+                  v35 = v20;
+                  _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "invalid key remapping dictionary: %{public}@", buf, 0xCu);
                 }
 
-                v12 = 0;
+                v10 = 0;
                 goto LABEL_34;
               }
 
-              v25 = [v22 objectForKey:@"HIDKeyboardModifierMappingDst"];
+              v23 = [v20 objectForKey:@"HIDKeyboardModifierMappingDst"];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
@@ -5892,8 +5778,8 @@ LABEL_31:
               }
             }
 
-            v15 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
-            if (v15)
+            v13 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+            if (v13)
             {
               continue;
             }
@@ -5902,30 +5788,30 @@ LABEL_31:
           }
 
 LABEL_34:
-          v5 = v31;
-          v13 = v29;
-          v7 = v30;
+          v3 = v29;
+          v11 = v27;
+          v5 = v28;
         }
       }
 
       else
       {
-        v12 = 0;
+        v10 = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  return v12;
+  return v10;
 }
 
 uint64_t sub_1000761BC(void *a1)
@@ -6039,18 +5925,18 @@ void sub_100076410(uint64_t a1, void *a2)
   v4 = v3;
   if (a1 && v3)
   {
-    v11 = v3;
+    v8 = v3;
     v5 = [v3 copy];
     v6 = *(a1 + 48);
     *(a1 + 48) = v5;
 
     if (*(a1 + 88))
     {
-      v7 = [v11 isEqualToString:GSKeyboardGetLayout()];
-      v4 = v11;
+      v7 = [v8 isEqualToString:GSKeyboardGetLayout()];
+      v4 = v8;
       if (v7)
       {
-        goto LABEL_10;
+        goto LABEL_8;
       }
 
       if (*(a1 + 88))
@@ -6059,19 +5945,12 @@ void sub_100076410(uint64_t a1, void *a2)
       }
     }
 
-    v8 = *(a1 + 16);
-    if (v8 <= 2)
-    {
-      v9 = dword_1000BFC00[v8];
-    }
-
-    v10 = *(a1 + 12);
     *(a1 + 88) = GSKeyboardCreateWithCountryCode();
     sub_1000764D8(a1);
-    v4 = v11;
+    v4 = v8;
   }
 
-LABEL_10:
+LABEL_8:
 }
 
 void sub_1000764D8(uint64_t a1)
@@ -6082,48 +5961,45 @@ void sub_1000764D8(uint64_t a1)
     v2 = *(a1 + 8);
     if ((BSEqualBools() & 1) == 0)
     {
-      v12 = 0;
-      v3 = *(a1 + 88);
+      v9 = 0;
       GSKeyboardTranslateKeyExtendedCommandWithUsagePage();
-      v4 = *(a1 + 88);
       GSKeyboardTranslateKeyExtendedCommandWithUsagePage();
-      v5 = *(a1 + 88);
-      v6 = GSKeyboardGetModifierState() & 0x40000;
+      v3 = GSKeyboardGetModifierState() & 0x40000;
       if ((BSEqualBools() & 1) == 0)
       {
-        v8 = [NSString stringWithFormat:@"BK capslock: %{BOOL}u != GS capslock: %{BOOL}u", v2, v6 >> 18, &v12, 0, &v12, 0, 7];
+        v5 = [NSString stringWithFormat:@"BK capslock: %{BOOL}u != GS capslock: %{BOOL}u", v2, v3 >> 18, &v9, 0, &v9, 0, 7];
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v9 = NSStringFromSelector("_updateGSCapsLockState");
-          v10 = objc_opt_class();
-          v11 = NSStringFromClass(v10);
+          v6 = NSStringFromSelector("_updateGSCapsLockState");
+          v7 = objc_opt_class();
+          v8 = NSStringFromClass(v7);
           *buf = 138544642;
-          v14 = v9;
-          v15 = 2114;
-          v16 = v11;
-          v17 = 2048;
-          v18 = a1;
-          v19 = 2114;
-          v20 = @"BKKeyboardInfo.m";
-          v21 = 1024;
-          v22 = 356;
-          v23 = 2114;
-          v24 = v8;
+          v11 = v6;
+          v12 = 2114;
+          v13 = v8;
+          v14 = 2048;
+          v15 = a1;
+          v16 = 2114;
+          v17 = @"BKKeyboardInfo.m";
+          v18 = 1024;
+          v19 = 356;
+          v20 = 2114;
+          v21 = v5;
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v8 UTF8String];
+        [v5 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x100076728);
       }
 
-      v7 = BKLogKeyboard();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v4 = BKLogKeyboard();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v6 >> 18;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "correcting GS capslock state to: %{BOOL}u", buf, 8u);
+        LODWORD(v11) = v3 >> 18;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "correcting GS capslock state to: %{BOOL}u", buf, 8u);
       }
     }
   }
@@ -6186,7 +6062,7 @@ void sub_10007680C(uint64_t a1, double a2)
   }
 }
 
-void *sub_100076938(void *a1)
+id sub_100076938(void *a1)
 {
   if (a1)
   {
@@ -6858,31 +6734,28 @@ double sub_10007BB28(uint64_t a1)
   return v5;
 }
 
-uint64_t sub_10007BBBC(double *a1, uint64_t a2, double a3)
+void sub_10007BBBC(uint64_t a1, uint64_t a2, double a3)
 {
-  *(a1 + 1) = mach_absolute_time();
-  v6 = *a1;
-  result = BSMonotonicReferencedTimeFromMachTime();
-  a1[2] = v8;
+  *(a1 + 8) = mach_absolute_time();
+  BSMonotonicReferencedTimeFromMachTime();
+  *(a1 + 16) = v6;
   *a1 = a2;
-  v9 = v8 <= a3 * 1.5;
-  if (v8 > a3 * 1.5)
+  v7 = v6 <= a3 * 1.5;
+  if (v6 > a3 * 1.5)
   {
-    v8 = a3;
+    v6 = a3;
   }
 
-  v10 = a3 * 0.5;
-  if (!v9 || v8 < v10)
+  v8 = a3 * 0.5;
+  if (!v7 || v6 < v8)
   {
-    if (v8 < v10)
+    if (v6 < v8)
     {
-      v8 = a3;
+      v6 = a3;
     }
 
-    a1[2] = v8;
+    *(a1 + 16) = v6;
   }
-
-  return result;
 }
 
 id sub_10007CE28(uint64_t a1)
@@ -6932,73 +6805,73 @@ id sub_10007CEC4(int a1, uint64_t a2, void *a3)
   return v6;
 }
 
-id sub_10007CF4C()
+id sub_10007CF4C(uint64_t a1)
 {
-  v0 = objc_alloc_init(NSMutableArray);
+  v1 = objc_alloc_init(NSMutableArray);
   IntegerValue = IOHIDEventGetIntegerValue();
   if ((IntegerValue & 0x80) != 0)
   {
-    [v0 addObject:@"cancel"];
+    [v1 addObject:@"cancel"];
   }
 
   if (IntegerValue)
   {
     if (IOHIDEventGetIntegerValue())
     {
-      v2 = @"range in";
+      v3 = @"range in";
     }
 
     else
     {
-      v2 = @"range out";
+      v3 = @"range out";
     }
 
-    [v0 addObject:v2];
+    [v1 addObject:v3];
   }
 
   if ((IntegerValue & 2) != 0)
   {
     if (IOHIDEventGetIntegerValue())
     {
-      v3 = @"touch down";
+      v4 = @"touch down";
     }
 
     else
     {
-      v3 = @"touch up";
+      v4 = @"touch up";
     }
 
-    [v0 addObject:v3];
+    [v1 addObject:v4];
   }
 
   if ((IntegerValue & 0x20000) != 0)
   {
-    [v0 addObject:@"tap"];
+    [v1 addObject:@"tap"];
   }
 
   if ((IntegerValue & 0x200) != 0)
   {
-    [v0 addObject:@"resting"];
+    [v1 addObject:@"resting"];
   }
 
   if ((IntegerValue & 4) != 0)
   {
-    [v0 addObject:@"move"];
+    [v1 addObject:@"move"];
   }
 
   if ((IntegerValue & 0x20) != 0)
   {
-    [v0 addObject:@"identity"];
+    [v1 addObject:@"identity"];
   }
 
   if ((IntegerValue & 0x40) != 0)
   {
-    [v0 addObject:@"attribute"];
+    [v1 addObject:@"attribute"];
   }
 
-  v4 = [v0 componentsJoinedByString:{@", "}];
+  v5 = [v1 componentsJoinedByString:{@", "}];
 
-  return v4;
+  return v5;
 }
 
 __CFString *sub_10007D0C4(void *a1)
@@ -7054,45 +6927,39 @@ id sub_10007D968(id a1, NSNumber *a2, _BKMouseDeviceEventState *a3)
   return v8;
 }
 
-double sub_10007E228(uint64_t a1)
+double sub_10007E228(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 48);
-  v2 = 0.0;
-  if (v1)
+  v2 = *(a1 + 48);
+  v3 = 0.0;
+  if (v2)
   {
-    *(a1 + 48) = v1 - 1;
-    v4 = *(a1 + 8);
+    *(a1 + 48) = v2 - 1;
     BSMonotonicReferencedTimeFromMachTime();
     v6 = v5 / *(a1 + 16);
     if (v6 <= 1.0)
     {
       v7 = *(a1 + 24);
       v8 = (v7 + *(a1 + 32)) * 0.500378425 + ((*(a1 + 32) - v7) * 1.0062109 + ((v7 + *(a1 + 32)) * -0.00454110206 + (*(a1 + 32) - v7) * -1.57015627 * (v6 + -0.5)) * (v6 + -0.5)) * (v6 + -0.5);
-      v2 = v8 - *(a1 + 40);
+      v3 = v8 - *(a1 + 40);
       *(a1 + 40) = v8;
     }
   }
 
-  return v2;
+  return v3;
 }
 
-void sub_10007E2E4(uint64_t a1)
+void sub_10007E2E4(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 72))
   {
-    v2 = *(a1 + 8);
     BSMonotonicReferencedTimeFromMachTime();
     v4 = v3 / *(a1 + 16);
     if (v4 <= 1.0)
     {
       v6 = *(a1 + 24);
-      v7 = (v6 + *(a1 + 32)) * 0.500378425 + ((*(a1 + 32) - v6) * 1.0062109 + ((v6 + *(a1 + 32)) * -0.00454110206 + (*(a1 + 32) - v6) * -1.57015627 * (v4 + -0.5)) * (v4 + -0.5)) * (v4 + -0.5);
-      v8 = *(a1 + 48);
-      v9 = v7 - *(a1 + 40);
-      *(a1 + 40) = v7;
-      v10 = (v8 + *(a1 + 56)) * 0.500378425 + ((*(a1 + 56) - v8) * 1.0062109 + ((v8 + *(a1 + 56)) * -0.00454110206 + (*(a1 + 56) - v8) * -1.57015627 * (v4 + -0.5)) * (v4 + -0.5)) * (v4 + -0.5);
-      v11 = v10 - *(a1 + 64);
-      *(a1 + 64) = v10;
+      v7 = *(a1 + 48);
+      *(a1 + 40) = (v6 + *(a1 + 32)) * 0.500378425 + ((*(a1 + 32) - v6) * 1.0062109 + ((v6 + *(a1 + 32)) * -0.00454110206 + (*(a1 + 32) - v6) * -1.57015627 * (v4 + -0.5)) * (v4 + -0.5)) * (v4 + -0.5);
+      *(a1 + 64) = (v7 + *(a1 + 56)) * 0.500378425 + ((*(a1 + 56) - v7) * 1.0062109 + ((v7 + *(a1 + 56)) * -0.00454110206 + (*(a1 + 56) - v7) * -1.57015627 * (v4 + -0.5)) * (v4 + -0.5)) * (v4 + -0.5);
     }
 
     else
@@ -7100,9 +6967,9 @@ void sub_10007E2E4(uint64_t a1)
       v5 = BKLogMousePointer();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v12 = 134217984;
-        v13 = v4;
-        _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "skipping interpolation: %g", &v12, 0xCu);
+        v8 = 134217984;
+        v9 = v4;
+        _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "skipping interpolation: %g", &v8, 0xCu);
       }
     }
 
@@ -7110,19 +6977,18 @@ void sub_10007E2E4(uint64_t a1)
   }
 }
 
-uint64_t sub_10007F430(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7)
+void sub_10007F430(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7)
 {
-  result = sub_10007BBBC(a1, a2, a7);
-  v13 = *(a1 + 32);
-  *(a1 + 24) = v13;
-  *(a1 + 32) = a3 + v13;
-  v14 = *(a1 + 56);
-  *(a1 + 48) = v14;
-  *(a1 + 56) = a4 + v14;
+  sub_10007BBBC(a1, a2, a7);
+  v12 = *(a1 + 32);
+  *(a1 + 24) = v12;
+  *(a1 + 32) = a3 + v12;
+  v13 = *(a1 + 56);
+  *(a1 + 48) = v13;
+  *(a1 + 56) = a4 + v13;
   *(a1 + 72) = 3;
   *(a1 + 80) = a5 / a3;
   *(a1 + 88) = a6 / a4;
-  return result;
 }
 
 void sub_10007F4C4(uint64_t a1, double a2)
@@ -7173,27 +7039,27 @@ void sub_10007F4C4(uint64_t a1, double a2)
   }
 }
 
-void *sub_10007FEC8(void *result)
+void *sub_10007FEC8(void *result, uint64_t a2)
 {
   if (result[7] == *(result[4] + 368))
   {
-    v7 = v1;
     v8 = v2;
-    v3 = result;
-    v4 = BKLogMousePointer();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v9 = v3;
+    v4 = result;
+    v5 = BKLogMousePointer();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      *v6 = 0;
-      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, " -> discrete scroll -- end phase", v6, 2u);
+      *v7 = 0;
+      _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, " -> discrete scroll -- end phase", v7, 2u);
     }
 
-    v5 = v3[5];
-    if (v5)
+    v6 = v4[5];
+    if (v6)
     {
-      *(v5 + 18) = 4;
+      *(v6 + 18) = 4;
     }
 
-    return [v3[4] _terminateScrollingForSender:v3[6]];
+    return [v4[4] _terminateScrollingForSender:v4[6]];
   }
 
   return result;
@@ -7216,10 +7082,11 @@ void sub_1000803D4(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-id sub_1000804F0(id result, unsigned int a2, uint64_t a3)
+id sub_1000804F0(id result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
+    v4 = a2;
     v5 = result;
     v6 = BKLogTouchEvents();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -7235,7 +7102,7 @@ id sub_1000804F0(id result, unsigned int a2, uint64_t a3)
       _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Cancel all touches %llX - display:%{public}@ causedByTouchStream:%{public}@", &v9, 0x20u);
     }
 
-    sub_100080928(v5, *(v5 + 112), a2, a3);
+    sub_100080928(v5, *(v5 + 112), v4, a3);
     return sub_100080DA8(v5, a3);
   }
 
@@ -7516,21 +7383,21 @@ LABEL_24:
 
 id sub_100080DA8(uint64_t a1, uint64_t a2)
 {
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
   obj = *(a1 + 144);
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
-    v5 = *v21;
+    v5 = *v19;
     do
     {
       v6 = 0;
       do
       {
-        if (*v21 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
@@ -7545,22 +7412,22 @@ id sub_100080DA8(uint64_t a1, uint64_t a2)
           v7 = 0;
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v6);
+        v8 = *(*(&v18 + 1) + 8 * v6);
         v9 = BKLogTouchEvents();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           if (v8)
           {
-            v16 = *(v8 + 8);
+            v14 = *(v8 + 8);
           }
 
           else
           {
-            v16 = 0;
+            v14 = 0;
           }
 
           *buf = 67109120;
-          v26 = v16;
+          v24 = v14;
           _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "SGP: Sending cancel to latent client: %x", buf, 8u);
         }
 
@@ -7571,25 +7438,23 @@ id sub_100080DA8(uint64_t a1, uint64_t a2)
         [v12 senderID];
         IOHIDEventSetSenderID();
 
-        v13 = *(a1 + 206);
         IOHIDEventSetIntegerValue();
-        v14 = *(a1 + 207);
         IOHIDEventSetIntegerValue();
 
-        v15 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
-        [v15 setTouchStreamIdentifier:v7];
-        sub_100081054(v10, DigitizerEvent, v15, v8, *(a1 + 96));
+        v13 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
+        [v13 setTouchStreamIdentifier:v7];
+        sub_100081054(v10, DigitizerEvent, v13, v8, *(a1 + 96));
         CFRelease(DigitizerEvent);
 
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v17 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
-      v4 = v17;
+      v15 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = v15;
     }
 
-    while (v17);
+    while (v15);
   }
 
   return [*(a1 + 144) removeAllObjects];
@@ -7833,7 +7698,7 @@ void sub_100081370(id *a1, void *a2, uint64_t a3, char a4)
   sub_100081F08(a1, v8);
 }
 
-void sub_100081680(id *a1, _DWORD *a2)
+void sub_100081680(id *a1, uint64_t a2)
 {
   v4 = objc_alloc_init(BKHIDEventCollector);
   sub_100081D8C(a1, a2, v4, 0);
@@ -8077,14 +7942,14 @@ BOOL sub_100081D64(uint64_t a1, uint64_t a2)
   return (*(a1 + 32) & ~v2) != 0;
 }
 
-void sub_100081D8C(id *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+void sub_100081D8C(id *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
     v8 = mach_absolute_time();
     if (a2)
     {
-      v9 = a2[2];
+      v9 = *(a2 + 8);
     }
 
     else
@@ -8429,16 +8294,16 @@ LABEL_44:
   }
 }
 
-void sub_1000828C4(void *a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_1000828C4(void *a1, uint64_t a2, __IOHIDEvent *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a3)
   {
-    v36 = a3[2];
+    v31 = *(a3 + 2);
   }
 
   else
   {
-    v36 = 0;
+    v31 = 0;
   }
 
   v11 = a3;
@@ -8446,17 +8311,15 @@ void sub_1000828C4(void *a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, 
   if (!a4)
   {
 
-    v21 = 0;
+    v20 = 0;
 LABEL_20:
-    v23 = a1;
+    v22 = a1;
     DigitizerEvent = IOHIDEventCreateDigitizerEvent();
-    v25 = v23[1];
-    [v25 senderID];
+    v24 = v22[1];
+    [v24 senderID];
     IOHIDEventSetSenderID();
 
-    v26 = *(v23 + 206);
     IOHIDEventSetIntegerValue();
-    v27 = *(v23 + 207);
     IOHIDEventSetIntegerValue();
 
     if (a6)
@@ -8464,55 +8327,54 @@ LABEL_20:
       IOHIDEventSetIntegerValue();
     }
 
-    v22 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
+    v21 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
 
-    v28 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:v36];
-    [v22 setToken:v28];
+    v25 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:v31];
+    [v21 setToken:v25];
 
-    [v22 setInitialTouchTimestamp:*(v23 + 12)];
-    v29 = objc_alloc_init(NSMutableArray);
-    [v22 setPathAttributes:v29];
+    [v21 setInitialTouchTimestamp:*(v22 + 12)];
+    v26 = objc_alloc_init(NSMutableArray);
+    [v21 setPathAttributes:v26];
 
-    sub_10002D500(a4, DigitizerEvent, v22, v12);
+    sub_10002D500(a4, DigitizerEvent, v21, v12);
     CFRelease(DigitizerEvent);
     goto LABEL_23;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = *(a4 + 16);
-  v14 = [v13 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v14)
   {
-    v15 = *v38;
+    v15 = *v33;
     do
     {
       v16 = 0;
       do
       {
-        if (*v38 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * v16);
+        v17 = *(*(&v32 + 1) + 8 * v16);
         if (v17)
         {
           if (*(v17 + 24) == v12)
           {
-            v20 = *(v17 + 8);
-            v35 = *(v17 + 16);
+            v30 = *(v17 + 16);
             goto LABEL_18;
           }
         }
 
         else if (!a3)
         {
-          v35 = 0;
+          v30 = 0;
 LABEL_18:
-          v14 = v35;
+          v14 = v30;
           v19 = 1;
           goto LABEL_19;
         }
@@ -8521,7 +8383,7 @@ LABEL_18:
       }
 
       while (v14 != v16);
-      v18 = [v13 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v18 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
       v14 = v18;
     }
 
@@ -8531,33 +8393,31 @@ LABEL_18:
   v19 = 0;
 LABEL_19:
 
-  v21 = v14;
-  v22 = v21;
+  v20 = v14;
+  v21 = v20;
   if ((v19 & 1) == 0)
   {
     goto LABEL_20;
   }
 
 LABEL_23:
-  v30 = *(a2 + 8);
-  v31 = *(a2 + 64);
-  v32 = IOHIDEventCreateDigitizerEvent();
+  v27 = IOHIDEventCreateDigitizerEvent();
   if (a6)
   {
     IOHIDEventSetIntegerValue();
   }
 
-  v33 = objc_alloc_init(BKSHIDEventDigitizerPathAttributes);
-  [v33 setPathIndex:{*(a2 + 8), 0x4400000000}];
-  [v33 setTouchIdentifier:*(a2 + 16)];
-  [v33 setUserIdentifier:*(a2 + 20)];
-  [v33 setHitTestContextCategory:*(a2 + 56)];
-  [v33 setLocus:*(a2 + 248)];
+  v28 = objc_alloc_init(BKSHIDEventDigitizerPathAttributes);
+  [v28 setPathIndex:{*(a2 + 8), 0x4400000000}];
+  [v28 setTouchIdentifier:*(a2 + 16)];
+  [v28 setUserIdentifier:*(a2 + 20)];
+  [v28 setHitTestContextCategory:*(a2 + 56)];
+  [v28 setLocus:*(a2 + 248)];
   IOHIDEventAppendEvent();
-  v34 = [v22 pathAttributes];
-  [v34 addObject:v33];
+  v29 = [v21 pathAttributes];
+  [v29 addObject:v28];
 
-  CFRelease(v32);
+  CFRelease(v27);
 }
 
 void sub_100082DA0(uint64_t a1)
@@ -8632,141 +8492,138 @@ uint64_t sub_100083260(uint64_t a1, void *a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v33 = a2;
+    v34 = a2;
     _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "synth and post:%{public}@", buf, 0xCu);
   }
 
-  sub_100008070(buf, a1);
-  v29 = 0u;
+  sub_100008070(buf, a1, 0);
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v5 = a2;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v6)
   {
-    v7 = *v28;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v28 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        sub_100083608(*(*(&v27 + 1) + 8 * i), buf);
+        v9 = sub_100083608(*(*(&v28 + 1) + 8 * i), buf, 4);
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:{16, v9}];
     }
 
     while (v6);
   }
 
-  v9 = sub_10000839C(buf);
-  v10 = sub_1000836E4(a1, v9, *(a1 + 112));
-  v11 = sub_100095250(*(a1 + 24), v9, v10, *(a1 + 176), *(a1 + 120), *(a1 + 128));
-  v12 = v11;
-  if (!v11)
+  v10 = sub_10000839C(buf);
+  v11 = sub_1000836E4(a1, v10, *(a1 + 112));
+  v12 = sub_100095250(*(a1 + 24), v10, v11, *(a1 + 176), *(a1 + 120), *(a1 + 128));
+  v13 = v12;
+  if (!v12)
   {
-    objc_storeStrong((a1 + 112), v10);
+    objc_storeStrong((a1 + 112), v11);
 LABEL_14:
-    v13 = objc_alloc_init(BKHIDEventCollector);
-    *v25 = v13;
-    v14 = a1;
-    v26 = v14;
-    v23 = 0;
-    v15 = v14[5];
-    if (v15)
+    v14 = objc_alloc_init(BKHIDEventCollector);
+    *v26 = v14;
+    v15 = a1;
+    v27 = v15;
+    v24 = 0;
+    v16 = v15[5];
+    if (v16)
     {
-      v15 = v15[3];
+      v16 = v16[3];
     }
 
-    v16 = v15;
-    sub_10008C650(v16, &v23, &v24);
+    v17 = v16;
+    sub_10008C650(v17, &v24, &v25);
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000849F0;
-    v19[3] = &unk_1000FC890;
-    v19[4] = v14;
-    v17 = v13;
-    v20 = v17;
-    v21 = v9;
-    v22 = v23;
-    sub_1000129FC(v12, v19);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000849F0;
+    v20[3] = &unk_1000FC890;
+    v20[4] = v15;
+    v18 = v14;
+    v21 = v18;
+    v22 = v10;
+    v23 = v24;
+    sub_1000129FC(v13, v20);
 
-    sub_100009074(v25);
+    sub_100009074(v26);
     goto LABEL_19;
   }
 
-  if (*(v11 + 8) == 1)
+  if (*(v12 + 8) == 1)
   {
-    *(a1 + 96) = *(v11 + 16);
+    *(a1 + 96) = *(v12 + 16);
   }
 
-  objc_storeStrong((a1 + 112), v10);
-  if ([*(v12 + 24) count])
+  objc_storeStrong((a1 + 112), v11);
+  if ([*(v13 + 24) count])
   {
     goto LABEL_14;
   }
 
-  v17 = BKLogTouchEvents();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = BKLogTouchEvents();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    *v25 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "no events for regular clients", v25, 2u);
+    *v26 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "no events for regular clients", v26, 2u);
   }
 
 LABEL_19:
 
-  if (v9)
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
   return sub_10000968C(buf);
 }
 
-void sub_10008357C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_10008357C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  if (v43)
+  va_start(va, a42);
+
+  if (v42)
   {
-    CFRelease(v43);
+    CFRelease(v42);
   }
 
-  sub_10000968C(&a43);
+  sub_10000968C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100083608(uint64_t a1, uint64_t a2)
+double sub_100083608(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 64);
-  sub_1000081F0(a2);
-  v6 = *(a1 + 88);
+  sub_1000081F0(a2, *(a1 + 8), a3, *(a1 + 64));
   IOHIDEventSetFloatValue();
-  v7 = *(a1 + 96);
   IOHIDEventSetFloatValue();
-  v8 = *(a1 + 104);
-  result = IOHIDEventSetFloatValue();
-  v10 = *(a1 + 32);
-  if (v10 == 2)
+  IOHIDEventSetFloatValue();
+  v5 = *(a1 + 32);
+  if (v5 == 2)
   {
-    result = IOHIDEventSetIntegerValue();
-    v10 = *(a1 + 32);
+    IOHIDEventSetIntegerValue();
+    v5 = *(a1 + 32);
   }
 
-  if (v10 >= 1)
+  if (v5 >= 1)
   {
-    result = IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
   }
 
   if (*(a1 + 68))
   {
 
-    return IOHIDEventSetPhase();
+    IOHIDEventSetPhase();
   }
 
   return result;
@@ -8774,19 +8631,19 @@ uint64_t sub_100083608(uint64_t a1, uint64_t a2)
 
 id *sub_1000836E4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v139 = [a3 copy];
+  v140 = [a3 copy];
   [*(a1 + 136) removeAllObjects];
-  v5 = sub_100007B10(v198, a2);
+  v5 = sub_100007B10(v199, a2);
   sub_100007418(v5);
-  v178 = *v198;
-  v179 = v199;
+  v179 = *v199;
   v180 = v200;
   v181 = v201;
-  for (i = *(&v199 + 1); *(&v179 + 1); i = *(&v179 + 1))
+  v182 = v202;
+  for (i = *(&v200 + 1); *(&v180 + 1); i = *(&v180 + 1))
   {
-    *(&v180 + 1) = i;
-    v181 = v180;
-    v7 = sub_1000689B8(*(a1 + 112), v180);
+    *(&v181 + 1) = i;
+    v182 = v181;
+    v7 = sub_1000689B8(*(a1 + 112), v181);
     v8 = v7;
     if (v7)
     {
@@ -8794,288 +8651,294 @@ id *sub_1000836E4(uint64_t a1, uint64_t a2, void *a3)
       if (v9)
       {
         IOHIDEventGetFloatValue();
-        v144 = v10;
+        v145 = v10;
         IOHIDEventGetFloatValue();
-        v142 = v11;
+        v143 = v11;
         v12 = [*(a1 + 136) objectForKey:v9];
         if (v12 || (v12 = objc_alloc_init(BKTouchCentroidCalculator), [*(a1 + 136) setObject:v12 forKey:v9], v12))
         {
-          v13.f64[0] = v144;
-          v13.f64[1] = v142;
+          v13.f64[0] = v145;
+          v13.f64[1] = v143;
           v12->_location = vaddq_f64(v13, v12->_location);
           ++v12->_count;
         }
       }
     }
 
-    sub_100007418(&v178);
+    sub_100007418(&v179);
   }
 
   HasHighFrequencyDigitizer = BKSHIDServicesDeviceHasHighFrequencyDigitizer();
-  v14 = sub_100007B10(v198, a2);
+  v14 = sub_100007B10(v199, a2);
   sub_100007418(v14);
-  v178 = *v198;
-  v179 = v199;
+  v179 = *v199;
   v180 = v200;
-  *(&v15 + 1) = *(&v200 + 1);
   v181 = v201;
+  *(&v15 + 1) = *(&v201 + 1);
+  v182 = v202;
   *&v15 = 138543874;
-  v134 = v15;
-  while (*(&v179 + 1))
+  v135 = v15;
+  while (1)
   {
-    v16 = v180;
-    *(&v180 + 1) = *(&v179 + 1);
-    v181 = v180;
+    v16 = *(&v180 + 1);
+    if (!*(&v180 + 1))
+    {
+      break;
+    }
+
+    v17 = v181;
+    *(&v181 + 1) = *(&v180 + 1);
+    v182 = v181;
     if (IOHIDEventGetIntegerValue())
     {
-      v17 = BKLogTouchEvents();
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = BKLogTouchEvents();
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_108;
       }
 
       *buf = 0;
-      v18 = v17;
-      v19 = "ignoring subevent with nonzero didUpdateMask (on parent event with zero didUpdateMask)";
-      v20 = 2;
+      v19 = v18;
+      v20 = "ignoring subevent with nonzero didUpdateMask (on parent event with zero didUpdateMask)";
+      v21 = 2;
       goto LABEL_14;
     }
 
     IntegerValue = IOHIDEventGetIntegerValue();
-    v21 = IOHIDEventGetIntegerValue();
-    v140 = IntegerValue & 0x20000;
-    if (v21)
+    v22 = IOHIDEventGetIntegerValue();
+    v141 = IntegerValue & 0x20000;
+    if (v22)
     {
-      v22 = (IntegerValue & 0x20000) == 0;
+      v23 = (IntegerValue & 0x20000) == 0;
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    v23 = v22;
-    v138 = IOHIDEventGetIntegerValue();
-    v143 = (v138 != 0) & (IntegerValue >> 1);
-    v136 = v23;
-    v137 = IntegerValue & v23;
-    if ((IntegerValue & v23 & 1) != 0 || (!v140 ? (v24 = v21 == 0) : (v24 = 1), v24 ? (v25 = 0) : (v25 = 1), v143 && (v25 & 1) == 0))
+    v24 = v23;
+    v139 = IOHIDEventGetIntegerValue();
+    v144 = (v139 != 0) & (IntegerValue >> 1);
+    v137 = v24;
+    v138 = IntegerValue & v24;
+    if ((IntegerValue & v24 & 1) != 0 || (!v141 ? (v25 = v22 == 0) : (v25 = 1), v25 ? (v26 = 0) : (v26 = 1), v144 && (v26 & 1) == 0))
     {
-      v26 = sub_1000689B8(v139, v16);
-      v27 = v26;
-      if (v26)
+      v27 = sub_1000689B8(v140, v17);
+      v28 = v27;
+      if (v27)
       {
-        v28 = *(v26 + 32);
-        if (v28 == 2 && v138)
+        v29 = *(v27 + 32);
+        if (v29 == 2 && v139)
         {
-          v29 = BKLogTouchEvents();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = BKLogTouchEvents();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v27;
-            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "range-in for pathIndex with existing contact -- using existing: %{public}@", buf, 0xCu);
+            *&buf[4] = v28;
+            _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "range-in for pathIndex with existing contact -- using existing: %{public}@", buf, 0xCu);
           }
 
-          v17 = v27;
+          v18 = v28;
 LABEL_59:
 
-          v30 = IntegerValue;
-          if (v143)
+          v31 = IntegerValue;
+          if (v144)
           {
 LABEL_60:
-            *(v17 + 250) = v140 >> 17;
-            if (v140)
+            *(v18 + 250) = v141 >> 17;
+            if (v141)
             {
-              v44 = BKLogTouchEvents();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+              v45 = BKLogTouchEvents();
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "received tapToWake", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "received tapToWake", buf, 2u);
               }
             }
           }
 
 LABEL_65:
-          if (*(v17 + 5))
+          if (*(v18 + 5))
           {
-            v45 = [*(a1 + 136) objectForKey:?];
-            v46 = v45;
-            if (v45)
+            v46 = [*(a1 + 136) objectForKey:?];
+            v47 = v46;
+            if (v46)
             {
-              v47 = *(v45 + 8);
-              if (v47 < 1)
+              v48 = *(v46 + 8);
+              if (v48 < 1)
               {
-                v48 = CGPointZero;
+                v49 = CGPointZero;
               }
 
               else
               {
-                v48 = vdivq_f64(*(v45 + 16), vdupq_lane_s64(COERCE__INT64(v47), 0));
+                v49 = vdivq_f64(*(v46 + 16), vdupq_lane_s64(COERCE__INT64(v48), 0));
               }
 
-              v141 = v48;
-              v54 = BKLogTouchEvents();
-              y = v141.y;
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+              v142 = v49;
+              v55 = BKLogTouchEvents();
+              y = v142.y;
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
               {
-                v131 = BSStringFromCGPoint();
+                v132 = BSStringFromCGPoint();
                 *buf = 138543362;
-                *&buf[4] = v131;
-                _os_log_debug_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "using centroid %{public}@", buf, 0xCu);
+                *&buf[4] = v132;
+                _os_log_debug_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEBUG, "using centroid %{public}@", buf, 0xCu);
               }
             }
 
             else
             {
               IOHIDEventGetFloatValue();
-              v141.x = v52;
+              v142.x = v53;
               IOHIDEventGetFloatValue();
-              y = v53;
+              y = v54;
             }
           }
 
           else
           {
             IOHIDEventGetFloatValue();
-            v141.x = v49;
+            v142.x = v50;
             IOHIDEventGetFloatValue();
-            y = v50;
+            y = v51;
           }
 
-          *(v17 + 34) = IOHIDEventGetPhase();
-          sub_10008672C(buf, a1, v141.x, y, *(v17 + 14), *(v17 + 15));
-          v55 = v194;
-          *(v17 + 19) = *buf;
-          *(v17 + 21) = v55;
-          *(v17 + 23) = v195;
-          v17[25] = v196;
-          v17[11] = *&v141.x;
-          *(v17 + 12) = y;
+          *(v18 + 34) = IOHIDEventGetPhase();
+          sub_10008672C(buf, a1, v142.x, y, *(v18 + 14), *(v18 + 15));
+          v56 = v195;
+          *(v18 + 19) = *buf;
+          *(v18 + 21) = v56;
+          *(v18 + 23) = v196;
+          v18[25] = v197;
+          v18[11] = *&v142.x;
+          *(v18 + 12) = y;
           IOHIDEventGetFloatValue();
-          v17[13] = v56;
-          v57 = v17[4];
-          v17[5] = v57;
-          if (v143)
+          v18[13] = v57;
+          v58 = v18[4];
+          v18[5] = v58;
+          if (v144)
           {
-            if (v57 != 1)
+            if (v58 != 1)
             {
-              v172 = 0u;
               v173 = 0u;
-              v170 = 0u;
+              v174 = 0u;
               v171 = 0u;
-              v58 = *(a1 + 72);
-              v59 = [v58 countByEnumeratingWithState:&v170 objects:v192 count:16];
-              if (v59)
+              v172 = 0u;
+              v59 = *(a1 + 72);
+              v60 = [v59 countByEnumeratingWithState:&v171 objects:v193 count:16];
+              if (v60)
               {
-                v60 = *v171;
-                v61 = *(&v194 + 1);
-                v62 = *&v195;
-                v63 = v181;
+                v61 = *v172;
+                v62 = *(&v195 + 1);
+                v63 = *&v196;
+                v64 = v182;
                 do
                 {
-                  for (j = 0; j != v59; j = j + 1)
+                  for (j = 0; j != v60; j = j + 1)
                   {
-                    if (*v171 != v60)
+                    if (*v172 != v61)
                     {
-                      objc_enumerationMutation(v58);
+                      objc_enumerationMutation(v59);
                     }
 
-                    v65 = 0.0;
+                    v66 = 0.0;
                     if ((*(a1 + 209) & 1) == 0)
                     {
-                      v65 = *(a1 + 192);
+                      v66 = *(a1 + 192);
                     }
 
-                    [*(*(&v170 + 1) + 8 * j) touch:*(v17 + 4) pathIndex:v63 rangeInAtPoint:v30 eventMask:*(v17 + 16) z:v61 maxZ:v62 transducerType:{*(v17 + 13), v65, v134}];
+                    [*(*(&v171 + 1) + 8 * j) touch:*(v18 + 4) pathIndex:v64 rangeInAtPoint:v31 eventMask:*(v18 + 16) z:v62 maxZ:v63 transducerType:{*(v18 + 13), v66, v135}];
                   }
 
-                  v59 = [v58 countByEnumeratingWithState:&v170 objects:v192 count:16];
+                  v60 = [v59 countByEnumeratingWithState:&v171 objects:v193 count:16];
                 }
 
-                while (v59);
+                while (v60);
               }
             }
 
-            v17[4] = 2;
-            v66 = v17[27];
-            v17[27] = 0;
+            v18[4] = 2;
+            v67 = v18[27];
+            v18[27] = 0;
 
-            v67 = v17[28];
-            v17[28] = 0;
+            v68 = v18[28];
+            v18[28] = 0;
 
-            *(v17 + 249) = 0;
-            v166 = 0u;
+            *(v18 + 249) = 0;
             v167 = 0u;
             v168 = 0u;
             v169 = 0u;
-            v68 = *(a1 + 72);
-            v69 = [v68 countByEnumeratingWithState:&v166 objects:v191 count:16];
-            if (v69)
+            v170 = 0u;
+            v69 = *(a1 + 72);
+            v70 = [v69 countByEnumeratingWithState:&v167 objects:v192 count:16];
+            if (v70)
             {
-              v70 = *v167;
-              v71 = *(&v194 + 1);
-              v72 = *&v195;
-              v73 = v181;
+              v71 = *v168;
+              v72 = *(&v195 + 1);
+              v73 = *&v196;
+              v74 = v182;
               do
               {
-                for (k = 0; k != v69; k = k + 1)
+                for (k = 0; k != v70; k = k + 1)
                 {
-                  if (*v167 != v70)
+                  if (*v168 != v71)
                   {
-                    objc_enumerationMutation(v68);
+                    objc_enumerationMutation(v69);
                   }
 
-                  [*(*(&v166 + 1) + 8 * k) touch:*(v17 + 4) pathIndex:v73 downAtPoint:v30 eventMask:*(v17 + 16) transducerType:{v71, v72, v134}];
+                  [*(*(&v167 + 1) + 8 * k) touch:*(v18 + 4) pathIndex:v74 downAtPoint:v31 eventMask:*(v18 + 16) transducerType:{v72, v73, v135}];
                 }
 
-                v69 = [v68 countByEnumeratingWithState:&v166 objects:v191 count:16];
+                v70 = [v69 countByEnumeratingWithState:&v167 objects:v192 count:16];
               }
 
-              while (v69);
+              while (v70);
             }
 
             goto LABEL_95;
           }
 
-          if (v137)
+          if (v138)
           {
-            if (!v57)
+            if (!v58)
             {
-              v17[4] = 1;
-              v162 = 0u;
+              v18[4] = 1;
               v163 = 0u;
               v164 = 0u;
               v165 = 0u;
-              v68 = *(a1 + 72);
-              v90 = [v68 countByEnumeratingWithState:&v162 objects:v190 count:16];
-              if (v90)
+              v166 = 0u;
+              v69 = *(a1 + 72);
+              v91 = [v69 countByEnumeratingWithState:&v163 objects:v191 count:16];
+              if (v91)
               {
-                v91 = *v163;
-                v92 = *(&v194 + 1);
-                v93 = *&v195;
-                v94 = v181;
+                v92 = *v164;
+                v93 = *(&v195 + 1);
+                v94 = *&v196;
+                v95 = v182;
                 do
                 {
-                  for (m = 0; m != v90; m = m + 1)
+                  for (m = 0; m != v91; m = m + 1)
                   {
-                    if (*v163 != v91)
+                    if (*v164 != v92)
                     {
-                      objc_enumerationMutation(v68);
+                      objc_enumerationMutation(v69);
                     }
 
-                    v96 = 0.0;
+                    v97 = 0.0;
                     if ((*(a1 + 209) & 1) == 0)
                     {
-                      v96 = *(a1 + 192);
+                      v97 = *(a1 + 192);
                     }
 
-                    [*(*(&v162 + 1) + 8 * m) touch:*(v17 + 4) pathIndex:v94 rangeInAtPoint:v30 eventMask:*(v17 + 16) z:v92 maxZ:v93 transducerType:{*(v17 + 13), v96, v134}];
+                    [*(*(&v163 + 1) + 8 * m) touch:*(v18 + 4) pathIndex:v95 rangeInAtPoint:v31 eventMask:*(v18 + 16) z:v93 maxZ:v94 transducerType:{*(v18 + 13), v97, v135}];
                   }
 
-                  v90 = [v68 countByEnumeratingWithState:&v162 objects:v190 count:16];
+                  v91 = [v69 countByEnumeratingWithState:&v163 objects:v191 count:16];
                 }
 
-                while (v90);
+                while (v91);
               }
 
               goto LABEL_95;
@@ -9086,211 +8949,211 @@ LABEL_101:
             {
               IOHIDEventGetTimeStamp();
               BSMonotonicReferencedTimeFromMachTime();
-              v81 = v80;
+              v82 = v81;
               IOHIDEventGetFloatValue();
-              v83 = v82;
-              v84 = *(v17 + 16);
-              if (v84 != 0.0)
+              v84 = v83;
+              v85 = *(v18 + 16);
+              if (v85 != 0.0)
               {
-                v85 = v81 - v84;
-                if (v85 >= 0.1)
+                v86 = v82 - v85;
+                if (v86 >= 0.1)
                 {
-                  v86 = v85;
+                  v87 = v86;
                 }
 
                 else
                 {
-                  v86 = 1.0;
+                  v87 = 1.0;
                 }
 
                 IOHIDEventGetFloatValue();
-                v88 = v87;
+                v89 = v88;
                 IOHIDEventGetFloatValue();
-                *&v89 = (v83 - *(v17 + 17)) / v86 / sqrt(v88 * v89 * 0.0002);
-                *(v17 + 18) = *&v89;
+                *&v90 = (v84 - *(v18 + 17)) / v87 / sqrt(v89 * v90 * 0.0002);
+                *(v18 + 18) = *&v90;
               }
 
-              *(v17 + 16) = v81;
-              *(v17 + 17) = v83;
+              *(v18 + 16) = v82;
+              *(v18 + 17) = v84;
             }
 
             goto LABEL_108;
           }
 
-          if ((IntegerValue & 2) == 0 || v138)
+          if ((IntegerValue & 2) == 0 || v139)
           {
-            if (((IntegerValue & 1) == 0) | v136 & 1)
+            if (((IntegerValue & 1) == 0) | v137 & 1)
             {
-              if (!((v138 != 0) | v136 & 1))
+              if (!((v139 != 0) | v137 & 1))
               {
                 goto LABEL_101;
               }
 
-              v148 = 0u;
               v149 = 0u;
-              v146 = 0u;
+              v150 = 0u;
               v147 = 0u;
-              v75 = *(a1 + 72);
-              v107 = [v75 countByEnumeratingWithState:&v146 objects:v182 count:16];
-              if (v107)
+              v148 = 0u;
+              v76 = *(a1 + 72);
+              v108 = [v76 countByEnumeratingWithState:&v147 objects:v183 count:16];
+              if (v108)
               {
-                v108 = *v147;
-                v109 = *(&v194 + 1);
-                v110 = *&v195;
+                v109 = *v148;
+                v110 = *(&v195 + 1);
+                v111 = *&v196;
                 do
                 {
-                  for (n = 0; n != v107; n = n + 1)
+                  for (n = 0; n != v108; n = n + 1)
                   {
-                    if (*v147 != v108)
+                    if (*v148 != v109)
                     {
-                      objc_enumerationMutation(v75);
+                      objc_enumerationMutation(v76);
                     }
 
-                    v112 = 0.0;
+                    v113 = 0.0;
                     if ((*(a1 + 209) & 1) == 0)
                     {
-                      v112 = *(a1 + 192);
+                      v113 = *(a1 + 192);
                     }
 
-                    [*(*(&v146 + 1) + 8 * n) touch:*(v17 + 4) didMoveToPoint:v30 eventMask:v109 z:v110 maxZ:{*(v17 + 13), v112, v134}];
+                    [*(*(&v147 + 1) + 8 * n) touch:*(v18 + 4) didMoveToPoint:v31 eventMask:v110 z:v111 maxZ:{*(v18 + 13), v113, v135}];
                   }
 
-                  v107 = [v75 countByEnumeratingWithState:&v146 objects:v182 count:16];
+                  v108 = [v76 countByEnumeratingWithState:&v147 objects:v183 count:16];
                 }
 
-                while (v107);
+                while (v108);
               }
 
               goto LABEL_100;
             }
 
-            if (v57 != 1)
+            if (v58 != 1)
             {
-              v75 = BKLogTouchEvents();
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+              v76 = BKLogTouchEvents();
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
               {
-                v128 = v17[4];
-                v129 = @"<unknown>";
-                if (v128 <= 2)
+                v129 = v18[4];
+                v130 = @"<unknown>";
+                if (v129 <= 2)
                 {
-                  v129 = *(&off_1000FCC90 + v128);
+                  v130 = *(&off_1000FCC90 + v129);
                 }
 
-                v130 = v129;
-                *v183 = v134;
-                *v184 = v130;
-                *&v184[8] = 1024;
-                *&v184[10] = v138 != 0;
-                v185 = 1024;
-                v186 = 0;
-                _os_log_error_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "unexpected range-out (presence:%{public}@ event.touch:%{BOOL}u) event.range:%{BOOL}u", v183, 0x18u);
+                v131 = v130;
+                *v184 = v135;
+                *v185 = v131;
+                *&v185[8] = 1024;
+                *&v185[10] = v139 != 0;
+                v186 = 1024;
+                v187 = 0;
+                _os_log_error_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "unexpected range-out (presence:%{public}@ event.touch:%{BOOL}u) event.range:%{BOOL}u", v184, 0x18u);
               }
 
               goto LABEL_100;
             }
 
-            v17[4] = 0;
-            v150 = 0u;
+            v18[4] = 0;
             v151 = 0u;
             v152 = 0u;
             v153 = 0u;
-            v68 = *(a1 + 72);
-            v113 = [v68 countByEnumeratingWithState:&v150 objects:v187 count:16];
-            if (v113)
+            v154 = 0u;
+            v69 = *(a1 + 72);
+            v114 = [v69 countByEnumeratingWithState:&v151 objects:v188 count:16];
+            if (v114)
             {
-              v114 = *v151;
-              v115 = *(&v194 + 1);
-              v116 = *&v195;
-              v117 = v181;
+              v115 = *v152;
+              v116 = *(&v195 + 1);
+              v117 = *&v196;
+              v118 = v182;
               do
               {
-                for (ii = 0; ii != v113; ii = ii + 1)
+                for (ii = 0; ii != v114; ii = ii + 1)
                 {
-                  if (*v151 != v114)
+                  if (*v152 != v115)
                   {
-                    objc_enumerationMutation(v68);
+                    objc_enumerationMutation(v69);
                   }
 
-                  v119 = *(*(&v150 + 1) + 8 * ii);
-                  [v119 touch:*(v17 + 4) pathIndex:v117 rangeOutAtPoint:{v115, v116}];
+                  v120 = *(*(&v151 + 1) + 8 * ii);
+                  [v120 touch:*(v18 + 4) pathIndex:v118 rangeOutAtPoint:{v116, v117}];
                 }
 
-                v113 = [v68 countByEnumeratingWithState:&v150 objects:v187 count:16];
+                v114 = [v69 countByEnumeratingWithState:&v151 objects:v188 count:16];
               }
 
-              while (v113);
+              while (v114);
             }
           }
 
           else
           {
-            if (v136)
+            if (v137)
             {
-              v17[4] = 1;
-              v154 = 0u;
+              v18[4] = 1;
               v155 = 0u;
               v156 = 0u;
               v157 = 0u;
-              v97 = *(a1 + 72);
-              v98 = [v97 countByEnumeratingWithState:&v154 objects:v188 count:16];
-              if (v98)
+              v158 = 0u;
+              v98 = *(a1 + 72);
+              v99 = [v98 countByEnumeratingWithState:&v155 objects:v189 count:16];
+              if (v99)
               {
-                v99 = *v155;
-                v100 = *(&v194 + 1);
-                v101 = *&v195;
-                v102 = v181;
+                v100 = *v156;
+                v101 = *(&v195 + 1);
+                v102 = *&v196;
+                v103 = v182;
                 do
                 {
-                  for (jj = 0; jj != v98; jj = jj + 1)
+                  for (jj = 0; jj != v99; jj = jj + 1)
                   {
-                    if (*v155 != v99)
+                    if (*v156 != v100)
                     {
-                      objc_enumerationMutation(v97);
+                      objc_enumerationMutation(v98);
                     }
 
-                    v104 = *(*(&v154 + 1) + 8 * jj);
-                    [v104 touch:*(v17 + 4) pathIndex:v102 upAtPoint:*(v17 + 248) detached:{v100, v101}];
+                    v105 = *(*(&v155 + 1) + 8 * jj);
+                    [v105 touch:*(v18 + 4) pathIndex:v103 upAtPoint:*(v18 + 248) detached:{v101, v102}];
                   }
 
-                  v98 = [v97 countByEnumeratingWithState:&v154 objects:v188 count:16];
+                  v99 = [v98 countByEnumeratingWithState:&v155 objects:v189 count:16];
                 }
 
-                while (v98);
+                while (v99);
               }
 
-              v105 = v17[9];
-              v17[9] = 0;
+              v106 = v18[9];
+              v18[9] = 0;
 
-              v17[10] = 0;
-              v106 = v17[6];
-              if (v106 == 2)
+              v18[10] = 0;
+              v107 = v18[6];
+              if (v107 == 2)
               {
-                v17[6] = 3;
+                v18[6] = 3;
               }
 
-              else if (v106 == 4)
+              else if (v107 == 4)
               {
-                v17[6] = 0;
+                v18[6] = 0;
               }
 
 LABEL_96:
-              v75 = BKLogTouchEvents();
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+              v76 = BKLogTouchEvents();
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
               {
-                v76 = v17[4];
-                v77 = @"<unknown>";
-                if (v76 <= 2)
+                v77 = v18[4];
+                v78 = @"<unknown>";
+                if (v77 <= 2)
                 {
-                  v77 = *(&off_1000FCC90 + v76);
+                  v78 = *(&off_1000FCC90 + v77);
                 }
 
-                v78 = v181;
-                v79 = v77;
-                *v183 = 67109378;
-                *v184 = v78;
-                *&v184[4] = 2114;
-                *&v184[6] = v79;
-                _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "contact %d presence: %{public}@", v183, 0x12u);
+                v79 = v182;
+                v80 = v78;
+                *v184 = 67109378;
+                *v185 = v79;
+                *&v185[4] = 2114;
+                *&v185[6] = v80;
+                _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "contact %d presence: %{public}@", v184, 0x12u);
               }
 
 LABEL_100:
@@ -9298,42 +9161,42 @@ LABEL_100:
               goto LABEL_101;
             }
 
-            v17[4] = 0;
-            v158 = 0u;
+            v18[4] = 0;
             v159 = 0u;
             v160 = 0u;
             v161 = 0u;
-            v68 = *(a1 + 72);
-            v120 = [v68 countByEnumeratingWithState:&v158 objects:v189 count:16];
-            if (v120)
+            v162 = 0u;
+            v69 = *(a1 + 72);
+            v121 = [v69 countByEnumeratingWithState:&v159 objects:v190 count:16];
+            if (v121)
             {
-              v121 = *v159;
-              v122 = *(&v194 + 1);
-              v123 = *&v195;
-              v124 = v181;
+              v122 = *v160;
+              v123 = *(&v195 + 1);
+              v124 = *&v196;
+              v125 = v182;
               do
               {
-                for (kk = 0; kk != v120; kk = kk + 1)
+                for (kk = 0; kk != v121; kk = kk + 1)
                 {
-                  if (*v159 != v121)
+                  if (*v160 != v122)
                   {
-                    objc_enumerationMutation(v68);
+                    objc_enumerationMutation(v69);
                   }
 
-                  v126 = *(*(&v158 + 1) + 8 * kk);
-                  v127 = v126;
-                  if (v57 == 2)
+                  v127 = *(*(&v159 + 1) + 8 * kk);
+                  v128 = v127;
+                  if (v58 == 2)
                   {
-                    [v126 touch:*(v17 + 4) pathIndex:v124 upAtPoint:*(v17 + 248) detached:{v122, v123}];
+                    [v127 touch:*(v18 + 4) pathIndex:v125 upAtPoint:*(v18 + 248) detached:{v123, v124}];
                   }
 
-                  [v127 touch:*(v17 + 4) pathIndex:v124 rangeOutAtPoint:{v122, v123, v134}];
+                  [v128 touch:*(v18 + 4) pathIndex:v125 rangeOutAtPoint:{v123, v124, v135}];
                 }
 
-                v120 = [v68 countByEnumeratingWithState:&v158 objects:v189 count:16];
+                v121 = [v69 countByEnumeratingWithState:&v159 objects:v190 count:16];
               }
 
-              while (v120);
+              while (v121);
             }
           }
 
@@ -9342,141 +9205,141 @@ LABEL_95:
           goto LABEL_96;
         }
 
-        v32 = BKLogTouchEvents();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = BKLogTouchEvents();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v27;
-          _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "range-in for pathIndex with existing contact -- replacing: %{public}@", buf, 0xCu);
+          *&buf[4] = v28;
+          _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "range-in for pathIndex with existing contact -- replacing: %{public}@", buf, 0xCu);
         }
 
-        sub_100068CA4(v139, v27);
-        v33 = *(v27 + 8);
-        v34 = BKLogTouchEvents();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        sub_100068CA4(v140, v28);
+        v34 = *(v28 + 8);
+        v35 = BKLogTouchEvents();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *&buf[4] = v33;
-          _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "stop tracking path:%d", buf, 8u);
+          *&buf[4] = v34;
+          _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "stop tracking path:%d", buf, 8u);
         }
 
-        sub_10008DF74(v27, 0);
-        sub_100068CA4(*(a1 + 112), v27);
-        v35 = [BKTouchContactSet alloc];
-        if (v35)
+        sub_10008DF74(v28, 0);
+        sub_100068CA4(*(a1 + 112), v28);
+        v36 = [BKTouchContactSet alloc];
+        if (v36)
         {
-          *buf = v35;
+          *buf = v36;
           *&buf[8] = BKTouchContactSet;
-          v36 = [(uint8_t *)buf init];
-          v37 = v36;
-          if (v36)
+          v37 = [(uint8_t *)buf init];
+          v38 = v37;
+          if (v37)
           {
-            sub_10006863C(v36, v27);
+            sub_10006863C(v37, v28);
           }
         }
 
         else
         {
-          v37 = 0;
+          v38 = 0;
         }
 
-        sub_100081704(a1, v37, 1);
+        sub_100081704(a1, v38, 1);
 
         sub_10000985C(a1);
-        v176 = 0u;
         v177 = 0u;
-        v174 = 0u;
+        v178 = 0u;
         v175 = 0u;
-        v38 = *(a1 + 72);
-        v39 = [v38 countByEnumeratingWithState:&v174 objects:v197 count:16];
-        if (v39)
+        v176 = 0u;
+        v39 = *(a1 + 72);
+        v40 = [v39 countByEnumeratingWithState:&v175 objects:v198 count:16];
+        if (v40)
         {
-          v40 = *v175;
+          v41 = *v176;
           do
           {
-            for (mm = 0; mm != v39; mm = mm + 1)
+            for (mm = 0; mm != v40; mm = mm + 1)
             {
-              if (*v175 != v40)
+              if (*v176 != v41)
               {
-                objc_enumerationMutation(v38);
+                objc_enumerationMutation(v39);
               }
 
-              v42 = *(*(&v174 + 1) + 8 * mm);
-              v43 = v42;
-              if (v28 == 2)
+              v43 = *(*(&v175 + 1) + 8 * mm);
+              v44 = v43;
+              if (v29 == 2)
               {
-                [v42 touch:*(v27 + 16) pathIndex:v16 upAtPoint:*(v27 + 248) detached:{0.0, 0.0}];
+                [v43 touch:*(v28 + 16) pathIndex:v17 upAtPoint:*(v28 + 248) detached:{0.0, 0.0}];
               }
 
-              [v43 touch:*(v27 + 16) pathIndex:v16 rangeOutAtPoint:{0.0, 0.0, v134}];
+              [v44 touch:*(v28 + 16) pathIndex:v17 rangeOutAtPoint:{0.0, 0.0, v135}];
             }
 
-            v39 = [v38 countByEnumeratingWithState:&v174 objects:v197 count:16];
+            v40 = [v39 countByEnumeratingWithState:&v175 objects:v198 count:16];
           }
 
-          while (v39);
+          while (v40);
         }
       }
 
-      v17 = sub_100086600(v16);
-      sub_10006863C(v139, v17);
+      v18 = sub_100086600(v17, v16);
+      sub_10006863C(v140, v18);
       goto LABEL_59;
     }
 
-    if (v143)
+    if (v144)
     {
-      v17 = sub_1000689B8(v139, v16);
-      v30 = IntegerValue;
-      if (!v17)
+      v18 = sub_1000689B8(v140, v17);
+      v31 = IntegerValue;
+      if (!v18)
       {
-        v31 = BKLogTouchEvents();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = BKLogTouchEvents();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *&buf[4] = v16;
-          _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "touch down without previous range event: %d", buf, 8u);
+          *&buf[4] = v17;
+          _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "touch down without previous range event: %d", buf, 8u);
         }
 
-        v30 = IntegerValue | 1;
+        v31 = IntegerValue | 1;
         IOHIDEventSetIntegerValue();
-        v17 = sub_100086600(v16);
-        sub_10006863C(v139, v17);
+        v18 = sub_100086600(v17, v16);
+        sub_10006863C(v140, v18);
       }
 
       goto LABEL_60;
     }
 
-    v17 = sub_1000689B8(v139, v16);
-    v30 = IntegerValue;
-    if (v17)
+    v18 = sub_1000689B8(v140, v17);
+    v31 = IntegerValue;
+    if (v18)
     {
       goto LABEL_65;
     }
 
-    v17 = BKLogTouchEvents();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = BKLogTouchEvents();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *&buf[4] = v16;
-      v18 = v17;
-      v19 = "didn't see a previous touch down or range-in event for pathIndex:%d; skipping event";
-      v20 = 8;
+      *&buf[4] = v17;
+      v19 = v18;
+      v20 = "didn't see a previous touch down or range-in event for pathIndex:%d; skipping event";
+      v21 = 8;
 LABEL_14:
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, v19, buf, v20);
+      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, v20, buf, v21);
     }
 
 LABEL_108:
 
-    sub_100007418(&v178);
+    sub_100007418(&v179);
   }
 
-  v132 = BKLogTouchEvents();
-  if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+  v133 = BKLogTouchEvents();
+  if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
   {
-    *v198 = 138543362;
-    *&v198[4] = v139;
-    _os_log_debug_impl(&_mh_execute_header, v132, OS_LOG_TYPE_DEBUG, "contacts now %{public}@", v198, 0xCu);
+    *v199 = 138543362;
+    *&v199[4] = v140;
+    _os_log_debug_impl(&_mh_execute_header, v133, OS_LOG_TYPE_DEBUG, "contacts now %{public}@", v199, 0xCu);
   }
 
-  return v139;
+  return v140;
 }

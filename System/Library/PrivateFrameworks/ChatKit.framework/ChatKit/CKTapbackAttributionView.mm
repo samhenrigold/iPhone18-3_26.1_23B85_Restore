@@ -80,7 +80,7 @@
 {
   v4 = *(self + OBJC_IVAR____TtC7ChatKit24CKTapbackAttributionView_viewModel);
   swift_getKeyPath();
-  sub_190CE6654(&qword_1EAD56B18, type metadata accessor for TapbackAttributionViewModel);
+  sub_190CE6654(&qword_1EAD56B18, type metadata accessor for TapbackAttributionViewModel, &protocol conformance descriptor for TapbackAttributionViewModel);
   selfCopy = self;
   sub_190D51C20();
 

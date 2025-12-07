@@ -62,7 +62,7 @@ LABEL_3:
 LABEL_5:
   +[PXStoryTransitionsSettings sharedInstance];
   objc_claimAutoreleasedReturnValue();
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v18;
   CMTimeGetSeconds(&time);
   time = *time;
@@ -125,11 +125,11 @@ LABEL_5:
     goto LABEL_17;
   }
 
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self);
   *&time.a = *&v33.a;
   time.c = v33.c;
   Seconds = CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   *&time.a = *&v33.a;
   time.c = v33.c;
   v6 = CMTimeGetSeconds(&time);

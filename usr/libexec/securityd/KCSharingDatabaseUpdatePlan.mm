@@ -16,345 +16,335 @@
 {
   itemCopy = item;
   groupsCopy = groups;
-  v76 = 0;
-  v62 = itemCopy;
-  type = [itemCopy type];
-  loggingIdentifier = self->_loggingIdentifier;
-  if (type != 1)
+  v66 = 0;
+  v52 = itemCopy;
+  if ([itemCopy type] != 1)
   {
-    v36 = KCSharingLogObject();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v31 = KCSharingLogObject();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "FixUp is not supported for non-passkey item", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "FixUp is not supported for non-passkey item", buf, 2u);
     }
 
     goto LABEL_35;
   }
 
-  v11 = KCSharingLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = KCSharingLogObject();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Trying to remove corrupted item and reinsert/update local item with fixup plan", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Trying to remove corrupted item and reinsert/update local item with fixup plan", buf, 2u);
   }
 
   privateKey = [itemCopy privateKey];
-  v59 = [privateKey attributesWithAccessGroups:groupsCopy error:error];
+  v49 = [privateKey attributesWithAccessGroups:groupsCopy error:error];
 
-  if (!v59)
+  if (!v49)
   {
-    v37 = self->_loggingIdentifier;
-    v36 = KCSharingLogObject();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v31 = KCSharingLogObject();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       privateKey2 = [itemCopy privateKey];
       *buf = 138477827;
       *&buf[4] = privateKey2;
-      _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to get attributes out of %{private}@", buf, 0xCu);
+      _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to get attributes out of %{private}@", buf, 0xCu);
     }
 
 LABEL_35:
 
 LABEL_59:
-    v34 = 0;
+    v29 = 0;
 LABEL_60:
-    v48 = 0;
+    v39 = 0;
     goto LABEL_61;
   }
 
   privateKey3 = [itemCopy privateKey];
   databaseItemClass = [objc_opt_class() databaseItemClass];
-  v56 = sub_10001A690(databaseItemClass, v59, dword_10039E2F8, &v76);
+  v46 = sub_10001A690(databaseItemClass, v49, dword_10039E2F8, &v66);
 
-  if (!v56)
+  if (!v46)
   {
-    v38 = v76;
+    v32 = v66;
     if (error)
     {
-      *error = v76;
-      v76 = 0;
+      *error = v66;
+      v66 = 0;
     }
 
-    else if (v76)
+    else if (v66)
     {
-      v76 = 0;
-      CFRelease(v38);
+      v66 = 0;
+      CFRelease(v32);
     }
 
     goto LABEL_59;
   }
 
-  v15 = sub_10001B350(v56, 1, 0, &v76);
-  if (!v15)
+  v13 = sub_10001B350(v46, 1, 0, &v66);
+  if (!v13)
   {
-    v39 = self->_loggingIdentifier;
-    v40 = KCSharingLogObject();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v33 = KCSharingLogObject();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       privateKey4 = [itemCopy privateKey];
       *buf = 138478083;
       *&buf[4] = privateKey4;
       *&buf[12] = 2113;
-      *&buf[14] = v76;
-      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Failed to get primary key attributes out of %{private}@ with error: %{private}@", buf, 0x16u);
+      *&buf[14] = v66;
+      _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to get primary key attributes out of %{private}@ with error: %{private}@", buf, 0x16u);
     }
 
-    v41 = v76;
+    v34 = v66;
     if (error)
     {
-      *error = v76;
-      v76 = 0;
+      *error = v66;
+      v66 = 0;
     }
 
-    else if (v76)
+    else if (v66)
     {
-      v76 = 0;
-      CFRelease(v41);
+      v66 = 0;
+      CFRelease(v34);
     }
 
     goto LABEL_59;
   }
 
-  v16 = v15;
-  v60 = objc_alloc_init(NSMutableDictionary);
-  [v60 setObject:kSecClassKey forKeyedSubscript:kSecClass];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  obj = v16;
-  v17 = [(__CFDictionary *)obj countByEnumeratingWithState:&v72 objects:v83 count:16];
-  if (v17)
+  v14 = v13;
+  v50 = objc_alloc_init(NSMutableDictionary);
+  [v50 setObject:kSecClassKey forKeyedSubscript:kSecClass];
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  obj = v14;
+  v15 = [(__CFDictionary *)obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+  if (v15)
   {
-    v18 = *v73;
-    v19 = kSecAttrKeyCreator;
-    v20 = kSecAttrStartDate;
-    v64 = kSecAttrEndDate;
-    v63 = kSecAttrMultiUser;
+    v16 = *v63;
+    v17 = kSecAttrKeyCreator;
+    v18 = kSecAttrStartDate;
+    v54 = kSecAttrEndDate;
+    v53 = kSecAttrMultiUser;
     do
     {
-      v21 = 0;
+      v19 = 0;
       do
       {
-        if (*v73 != v18)
+        if (*v63 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v72 + 1) + 8 * v21);
-        if (([v22 isEqual:{v19, v56}] & 1) != 0 || (objc_msgSend(v22, "isEqual:", v20) & 1) != 0 || (objc_msgSend(v22, "isEqual:", v64) & 1) != 0 || (objc_msgSend(v22, "isEqual:", kSecAttrTokenID) & 1) != 0 || (objc_msgSend(v22, "isEqual:", v63) & 1) != 0 || (objc_msgSend(v22, "isEqual:", kSecAttrKeyClass) & 1) != 0 || objc_msgSend(v22, "isEqual:", kSecAttrSyncViewHint))
+        v20 = *(*(&v62 + 1) + 8 * v19);
+        if (([v20 isEqual:{v17, v46}] & 1) != 0 || (objc_msgSend(v20, "isEqual:", v18) & 1) != 0 || (objc_msgSend(v20, "isEqual:", v54) & 1) != 0 || (objc_msgSend(v20, "isEqual:", kSecAttrTokenID) & 1) != 0 || (objc_msgSend(v20, "isEqual:", v53) & 1) != 0 || (objc_msgSend(v20, "isEqual:", kSecAttrKeyClass) & 1) != 0 || objc_msgSend(v20, "isEqual:", kSecAttrSyncViewHint))
         {
-          v23 = self->_loggingIdentifier;
-          v24 = KCSharingLogObject();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v21 = KCSharingLogObject();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138477827;
-            *&buf[4] = v22;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Skipping adding %{private}@ attr in fixup", buf, 0xCu);
+            *&buf[4] = v20;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Skipping adding %{private}@ attr in fixup", buf, 0xCu);
           }
         }
 
         else
         {
-          v25 = self->_loggingIdentifier;
-          v26 = KCSharingLogObject();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v22 = KCSharingLogObject();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138477827;
-            *&buf[4] = v22;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "adding %{private}@ attr in fixup", buf, 0xCu);
+            *&buf[4] = v20;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "adding %{private}@ attr in fixup", buf, 0xCu);
           }
 
-          v24 = [(__CFDictionary *)v59 objectForKeyedSubscript:v22];
-          [v60 setObject:v24 forKeyedSubscript:v22];
+          v21 = [(__CFDictionary *)v49 objectForKeyedSubscript:v20];
+          [v50 setObject:v21 forKeyedSubscript:v20];
         }
 
-        v21 = v21 + 1;
+        v19 = v19 + 1;
       }
 
-      while (v17 != v21);
-      v27 = [(__CFDictionary *)obj countByEnumeratingWithState:&v72 objects:v83 count:16];
-      v17 = v27;
+      while (v15 != v19);
+      v23 = [(__CFDictionary *)obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+      v15 = v23;
     }
 
-    while (v27);
+    while (v23);
   }
 
-  v28 = [(__CFDictionary *)v59 objectForKeyedSubscript:kSecAttrLabel];
-  [v60 setObject:v28 forKeyedSubscript:kSecAttrLabel];
+  v24 = [(__CFDictionary *)v49 objectForKeyedSubscript:kSecAttrLabel];
+  [v50 setObject:v24 forKeyedSubscript:kSecAttrLabel];
 
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPermanent];
-  [v60 setObject:kSecAttrKeyClassPublic forKeyedSubscript:kSecAttrKeyClass];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPrivate];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsModifiable];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsExtractable];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanDecrypt];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanDerive];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanSign];
-  [v60 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanUnwrap];
-  v29 = self->_loggingIdentifier;
-  v30 = KCSharingLogObject();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPermanent];
+  [v50 setObject:kSecAttrKeyClassPublic forKeyedSubscript:kSecAttrKeyClass];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPrivate];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsModifiable];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsExtractable];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanDecrypt];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanDerive];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanSign];
+  [v50 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrCanUnwrap];
+  v25 = KCSharingLogObject();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    *&buf[4] = v60;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Trying to delete item with query: %{private}@", buf, 0xCu);
+    *&buf[4] = v50;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Trying to delete item with query: %{private}@", buf, 0xCu);
   }
 
-  v31 = sub_100006454(v60, 0, -1, 0, &v76);
-  if (v31)
+  v26 = sub_100006454(v50, 0, -1, 0, &v66);
+  if (v26)
   {
-    v32 = v31;
-    v70 = 0;
-    v71 = 0;
+    v27 = v26;
+    v60 = 0;
+    v61 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v82 = 1;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x2020000000;
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_1000582C8;
-    v66[3] = &unk_100334AE8;
-    v66[5] = buf;
-    v66[6] = transaction;
-    v66[4] = &v67;
-    v33 = sub_10001DC5C(v31, 0, transaction, &v71, v66);
-    sub_10000DF70(v32, 0);
-    if (v33)
+    v72 = 1;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 3221225472;
+    v56[2] = sub_1000582C8;
+    v56[3] = &unk_100334AE8;
+    v56[5] = buf;
+    v56[6] = transaction;
+    v56[4] = &v57;
+    v28 = sub_10001DC5C(v26, 0, transaction, &v61, v56);
+    sub_10000DF70(v27, 0);
+    if (v28)
     {
       if (*(*&buf[8] + 24))
       {
-        v34 = [(KCSharingDatabaseUpdatePlan *)self updateLocalItemWithRemoteItem:v62 inTransaction:transaction withAccessGroups:groupsCopy error:error];
-        v35 = 1;
+        v29 = [(KCSharingDatabaseUpdatePlan *)self updateLocalItemWithRemoteItem:v52 inTransaction:transaction withAccessGroups:groupsCopy error:error];
+        v30 = 1;
 LABEL_76:
-        _Block_object_dispose(&v67, 8);
+        _Block_object_dispose(&v57, 8);
         _Block_object_dispose(buf, 8);
         goto LABEL_77;
       }
 
-      v50 = self->_loggingIdentifier;
-      v51 = KCSharingLogObject();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v41 = KCSharingLogObject();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v55 = v68[3];
-        *v77 = 138478083;
-        v78 = v60;
-        v79 = 2114;
-        v80 = v55;
-        _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Failed to perform delete with %{private}@ with error:%{public}@", v77, 0x16u);
+        v45 = v58[3];
+        *v67 = 138478083;
+        v68 = v50;
+        v69 = 2114;
+        v70 = v45;
+        _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failed to perform delete with %{private}@ with error:%{public}@", v67, 0x16u);
       }
 
-      v52 = v68[3];
+      v42 = v58[3];
       if (error)
       {
-        v35 = 0;
-        v34 = 0;
-        *error = v52;
-        v68[3] = 0;
+        v30 = 0;
+        v29 = 0;
+        *error = v42;
+        v58[3] = 0;
         goto LABEL_76;
       }
 
-      if (v52)
+      if (v42)
       {
-        v68[3] = 0;
-        CFRelease(v52);
+        v58[3] = 0;
+        CFRelease(v42);
       }
     }
 
     else
     {
-      v45 = self->_loggingIdentifier;
-      v46 = KCSharingLogObject();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v37 = KCSharingLogObject();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        *v77 = 138478083;
-        v78 = v60;
-        v79 = 2114;
-        v80 = v71;
-        _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to perform query with %{private}@ with error:%{public}@", v77, 0x16u);
+        *v67 = 138478083;
+        v68 = v50;
+        v69 = 2114;
+        v70 = v61;
+        _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to perform query with %{private}@ with error:%{public}@", v67, 0x16u);
       }
 
-      v47 = v71;
+      v38 = v61;
       if (error)
       {
-        v35 = 0;
-        v34 = 0;
-        *error = v71;
-        v71 = 0;
+        v30 = 0;
+        v29 = 0;
+        *error = v61;
+        v61 = 0;
         goto LABEL_76;
       }
 
-      if (v71)
+      if (v61)
       {
-        v71 = 0;
-        CFRelease(v47);
+        v61 = 0;
+        CFRelease(v38);
       }
     }
 
-    v35 = 0;
-    v34 = 0;
+    v30 = 0;
+    v29 = 0;
     goto LABEL_76;
   }
 
-  v42 = self->_loggingIdentifier;
-  v43 = KCSharingLogObject();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+  v35 = KCSharingLogObject();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     *buf = 138478083;
-    *&buf[4] = v60;
+    *&buf[4] = v50;
     *&buf[12] = 2114;
-    *&buf[14] = v76;
-    _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to form query with %{private}@ with error:%{public}@", buf, 0x16u);
+    *&buf[14] = v66;
+    _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to form query with %{private}@ with error:%{public}@", buf, 0x16u);
   }
 
-  v44 = v76;
+  v36 = v66;
   if (error)
   {
-    v35 = 0;
-    v34 = 0;
-    *error = v76;
-    v76 = 0;
+    v30 = 0;
+    v29 = 0;
+    *error = v66;
+    v66 = 0;
   }
 
   else
   {
-    if (v76)
+    if (v66)
     {
-      v76 = 0;
-      CFRelease(v44);
+      v66 = 0;
+      CFRelease(v36);
     }
 
-    v35 = 0;
-    v34 = 0;
+    v30 = 0;
+    v29 = 0;
   }
 
 LABEL_77:
 
-  if ((v35 & 1) == 0)
+  if ((v30 & 1) == 0)
   {
     goto LABEL_60;
   }
 
-  v34 = v34;
-  v48 = v34;
+  v29 = v29;
+  v39 = v29;
 LABEL_61:
 
-  return v48;
+  return v39;
 }
 
 - (BOOL)applyPasskeysFixForMirrorEntriesInTransaction:(__OpaqueSecDbConnection *)transaction withAccessGroups:(id)groups error:(id *)error
 {
   groupsCopy = groups;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v8 = self->_reinsertIntoLocal;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
   v10 = v9 == 0;
   if (!v9)
   {
@@ -365,26 +355,26 @@ LABEL_36:
 
   v11 = v9;
   transactionCopy = transaction;
-  v31 = v9 == 0;
-  v12 = *v39;
-  v35 = groupsCopy;
-  v33 = v8;
+  v26 = v9 == 0;
+  v12 = *v34;
+  v30 = groupsCopy;
+  v28 = v8;
   while (2)
   {
     v13 = 0;
     do
     {
-      if (*v39 != v12)
+      if (*v34 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v38 + 1) + 8 * v13);
+      v14 = *(*(&v33 + 1) + 8 * v13);
       if ([v14 type] == 1)
       {
-        v37 = 0;
-        v15 = [v14 remoteItemWithAccessGroups:groupsCopy error:&v37];
-        v16 = v37;
+        v32 = 0;
+        v15 = [v14 remoteItemWithAccessGroups:groupsCopy error:&v32];
+        v16 = v32;
         if (v15)
         {
           contents = [v15 contents];
@@ -396,74 +386,70 @@ LABEL_36:
 LABEL_12:
 
               v16 = v18;
-              groupsCopy = v35;
+              groupsCopy = v30;
               goto LABEL_21;
             }
 
-            v36 = v16;
-            v23 = [(KCSharingDatabaseUpdatePlan *)self removeCorruptedItemAndUpdateLocalItemWithMirrorItem:contents inTransaction:transactionCopy withAccessGroups:groupsCopy error:&v36];
-            v18 = v36;
+            v31 = v16;
+            v20 = [(KCSharingDatabaseUpdatePlan *)self removeCorruptedItemAndUpdateLocalItemWithMirrorItem:contents inTransaction:transactionCopy withAccessGroups:groupsCopy error:&v31];
+            v18 = v31;
 
-            if (v23)
+            if (v20)
             {
-              v24 = -[KCSharingMirrorEntry initWithUpdatedLocalItem:forMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithUpdatedLocalItem:forMirrorEntry:flags:", v23, v14, [v14 flags]);
-              if (![(KCSharingDatabaseUpdatePlan *)self insertIntoMirrorWithMirrorEntry:v24 withAccessGroups:v35 applyInTransaction:transactionCopy updateInfos:0 withError:error])
+              v21 = -[KCSharingMirrorEntry initWithUpdatedLocalItem:forMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithUpdatedLocalItem:forMirrorEntry:flags:", v20, v14, [v14 flags]);
+              if (![(KCSharingDatabaseUpdatePlan *)self insertIntoMirrorWithMirrorEntry:v21 withAccessGroups:v30 applyInTransaction:transactionCopy updateInfos:0 withError:error])
               {
-                v27 = v23;
-                loggingIdentifier = self->_loggingIdentifier;
-                v29 = KCSharingLogObject();
-                v8 = v33;
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v23 = v20;
+                v24 = KCSharingLogObject();
+                v8 = v28;
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138477827;
-                  v43 = v24;
-                  _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to insert into mirror: %{private}@", buf, 0xCu);
+                  v38 = v21;
+                  _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to insert into mirror: %{private}@", buf, 0xCu);
                 }
 
-                groupsCopy = v35;
-                v10 = v31;
+                groupsCopy = v30;
+                v10 = v26;
                 goto LABEL_36;
               }
 
-              HIDWORD(v31) = 1;
-              v8 = v33;
+              HIDWORD(v26) = 1;
+              v8 = v28;
               goto LABEL_12;
             }
 
-            v25 = self->_loggingIdentifier;
-            v22 = KCSharingLogObject();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v19 = KCSharingLogObject();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v43 = v18;
-              _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to update local item with mirror item with error: %{public}@", buf, 0xCu);
+              v38 = v18;
+              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to update local item with mirror item with error: %{public}@", buf, 0xCu);
             }
 
             v16 = v18;
-            groupsCopy = v35;
-            v8 = v33;
+            groupsCopy = v30;
+            v8 = v28;
           }
 
           else
           {
-            v21 = self->_loggingIdentifier;
-            v22 = KCSharingLogObject();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v19 = KCSharingLogObject();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "failed to decode mirror remote item result", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "failed to decode mirror remote item result", buf, 2u);
             }
           }
         }
 
         else
         {
-          v20 = self->_loggingIdentifier;
           v15 = KCSharingLogObject();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v43 = v16;
+            v38 = v16;
             _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "failed to decode mirror entry with error: %{public}@", buf, 0xCu);
           }
         }
@@ -471,7 +457,6 @@ LABEL_12:
 
       else
       {
-        v19 = self->_loggingIdentifier;
         v16 = KCSharingLogObject();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
@@ -486,9 +471,9 @@ LABEL_21:
     }
 
     while (v11 != v13);
-    v26 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
-    v11 = v26;
-    if (v26)
+    v22 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v11 = v22;
+    if (v22)
     {
       continue;
     }
@@ -496,7 +481,7 @@ LABEL_21:
     break;
   }
 
-  if ((v31 & 0x100000000) != 0)
+  if ((v26 & 0x100000000) != 0)
   {
     sub_10017E868();
   }
@@ -812,48 +797,48 @@ LABEL_38:
 {
   groupsCopy = groups;
   infosCopy = infos;
-  v101 = [(NSMutableArray *)self->_insertIntoMirror mutableCopy];
+  v98 = [(NSMutableArray *)self->_insertIntoMirror mutableCopy];
+  v129 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   v132 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
   selfCopy = self;
   v8 = self->_insertIntoLocalAndMirror;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v132 objects:v142 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v129 objects:v139 count:16];
   if (!v9)
   {
-    v97 = 0;
+    v94 = 0;
     goto LABEL_39;
   }
 
   v10 = v9;
-  v97 = 0;
-  v11 = *v133;
-  v96 = v8;
+  v94 = 0;
+  v11 = *v130;
+  v93 = v8;
   do
   {
     for (i = 0; i != v10; i = i + 1)
     {
-      if (*v133 != v11)
+      if (*v130 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v132 + 1) + 8 * i);
+      v13 = *(*(&v129 + 1) + 8 * i);
       type = [v13 type];
       if ((type - 1) < 2)
       {
-        v131 = 0;
-        v15 = [v13 remoteItemWithAccessGroups:groupsCopy error:&v131];
-        v16 = v131;
+        v128 = 0;
+        v15 = [v13 remoteItemWithAccessGroups:groupsCopy error:&v128];
+        v16 = v128;
         if (v15)
         {
           contents = [v15 contents];
           if (contents)
           {
-            v130 = v16;
-            v23 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateLocalItemWithRemoteItem:contents inTransaction:transaction withAccessGroups:groupsCopy error:&v130];
-            v24 = v130;
+            v127 = v16;
+            v23 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateLocalItemWithRemoteItem:contents inTransaction:transaction withAccessGroups:groupsCopy error:&v127];
+            v24 = v127;
 
             if (v23)
             {
@@ -868,42 +853,40 @@ LABEL_38:
               }
 
               v26 = [[KCSharingMirrorEntry alloc] initWithUpdatedLocalItem:v23 forIncomingEntry:v13 flags:v25];
-              [v101 addObject:v26];
-              loggingIdentifier = selfCopy->_loggingIdentifier;
+              [v98 addObject:v26];
+              v27 = KCSharingLogObject();
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                *&buf[4] = v23;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Inserted item into local: %@", buf, 0xCu);
+              }
+
               v28 = KCSharingLogObject();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v23;
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Inserted item into local: %@", buf, 0xCu);
-              }
-
-              v29 = selfCopy->_loggingIdentifier;
-              v30 = KCSharingLogObject();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 138412290;
                 *&buf[4] = v26;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "...with corresponding mirror: %@", buf, 0xCu);
+                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "...with corresponding mirror: %@", buf, 0xCu);
               }
 
-              v97 = 1;
+              v94 = 1;
             }
 
             else
             {
               v26 = [[KCSharingMirrorEntry alloc] initWithIncomingEntry:v13 flags:8];
-              [v101 addObject:v26];
+              [v98 addObject:v26];
             }
 
             v16 = v24;
-            v8 = v96;
+            v8 = v93;
           }
 
           else
           {
             v23 = [[KCSharingMirrorEntry alloc] initWithIncomingEntry:v13 flags:2];
-            [v101 addObject:v23];
+            [v98 addObject:v23];
           }
 
           goto LABEL_33;
@@ -915,7 +898,7 @@ LABEL_26:
         v21 = 2;
 LABEL_27:
         contents = [(KCSharingMirrorEntry *)v19 initWithIncomingEntry:v20 flags:v21];
-        [v101 addObject:contents];
+        [v98 addObject:contents];
 LABEL_33:
 
         goto LABEL_34;
@@ -928,9 +911,9 @@ LABEL_33:
           continue;
         }
 
-        v129 = 0;
-        v15 = [v13 shareWithAccessGroups:groupsCopy error:&v129];
-        v16 = v129;
+        v126 = 0;
+        v15 = [v13 shareWithAccessGroups:groupsCopy error:&v126];
+        v16 = v126;
         if (!v15)
         {
           goto LABEL_26;
@@ -960,94 +943,94 @@ LABEL_33:
       }
 
       v16 = [[KCSharingMirrorEntry alloc] initWithIncomingEntry:v13 flags:2];
-      [v101 addObject:v16];
+      [v98 addObject:v16];
 LABEL_34:
     }
 
-    v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v132 objects:v142 count:16];
+    v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v129 objects:v139 count:16];
   }
 
   while (v10);
 LABEL_39:
 
-  v127 = 0u;
-  v128 = 0u;
+  v124 = 0u;
   v125 = 0u;
-  v126 = 0u;
-  v31 = selfCopy->_reinsertIntoLocal;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v125 objects:v140 count:16];
-  if (!v32)
+  v122 = 0u;
+  v123 = 0u;
+  v29 = selfCopy->_reinsertIntoLocal;
+  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v122 objects:v137 count:16];
+  if (!v30)
   {
     goto LABEL_70;
   }
 
-  v33 = v32;
-  v34 = *v126;
+  v31 = v30;
+  v32 = *v123;
   while (2)
   {
-    v35 = 0;
+    v33 = 0;
     while (2)
     {
-      if (*v126 != v34)
+      if (*v123 != v32)
       {
-        objc_enumerationMutation(v31);
+        objc_enumerationMutation(v29);
       }
 
-      v36 = *(*(&v125 + 1) + 8 * v35);
-      type2 = [v36 type];
+      v34 = *(*(&v122 + 1) + 8 * v33);
+      type2 = [v34 type];
       if ((type2 - 1) < 2)
       {
-        v124 = 0;
-        v43 = [v36 remoteItemWithAccessGroups:groupsCopy error:&v124];
-        v39 = v124;
-        if (v43)
+        v121 = 0;
+        v41 = [v34 remoteItemWithAccessGroups:groupsCopy error:&v121];
+        v37 = v121;
+        if (v41)
         {
-          contents3 = [v43 contents];
+          contents3 = [v41 contents];
           if (contents3)
           {
-            v123 = v39;
-            v45 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateLocalItemWithRemoteItem:contents3 inTransaction:transaction withAccessGroups:groupsCopy error:&v123];
-            v46 = v123;
+            v120 = v37;
+            v43 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateLocalItemWithRemoteItem:contents3 inTransaction:transaction withAccessGroups:groupsCopy error:&v120];
+            v44 = v120;
 
-            flags = [v36 flags];
-            v48 = flags;
-            if (v45)
+            flags = [v34 flags];
+            v46 = flags;
+            if (v43)
             {
-              if ([v43 isFullyDecoded])
+              if ([v41 isFullyDecoded])
               {
-                v49 = v48 & 0xFFFFFFF5;
+                v47 = v46 & 0xFFFFFFF5;
               }
 
               else
               {
-                v49 = v48 & 0xFFFFFFF5 | 2;
+                v47 = v46 & 0xFFFFFFF5 | 2;
               }
 
-              v50 = [[KCSharingMirrorEntry alloc] initWithUpdatedLocalItem:v45 forMirrorEntry:v36 flags:v49];
-              v97 = 1;
+              v48 = [[KCSharingMirrorEntry alloc] initWithUpdatedLocalItem:v43 forMirrorEntry:v34 flags:v47];
+              v94 = 1;
             }
 
             else
             {
-              v50 = [[KCSharingMirrorEntry alloc] initWithMirrorEntry:v36 flags:flags & 0xFFFFFFF5 | 8];
+              v48 = [[KCSharingMirrorEntry alloc] initWithMirrorEntry:v34 flags:flags & 0xFFFFFFF5 | 8];
             }
 
-            [v101 addObject:v50];
+            [v98 addObject:v48];
 
-            v39 = v46;
+            v37 = v44;
           }
 
           else
           {
-            v45 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v36, [v36 flags] & 0xFFFFFFF5 | 2);
-            [v101 addObject:v45];
+            v43 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v34, [v34 flags] & 0xFFFFFFF5 | 2);
+            [v98 addObject:v43];
           }
         }
 
         else
         {
-          contents3 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v36, [v36 flags] & 0xFFFFFFF5 | 2);
-          [v101 addObject:contents3];
+          contents3 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v34, [v34 flags] & 0xFFFFFFF5 | 2);
+          [v98 addObject:contents3];
         }
 
 LABEL_67:
@@ -1057,44 +1040,44 @@ LABEL_67:
       {
         if (!type2)
         {
-          v39 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v36, [v36 flags] & 0xFFFFFFF5 | 2);
-          [v101 addObject:v39];
+          v37 = -[KCSharingMirrorEntry initWithMirrorEntry:flags:]([KCSharingMirrorEntry alloc], "initWithMirrorEntry:flags:", v34, [v34 flags] & 0xFFFFFFF5 | 2);
+          [v98 addObject:v37];
           goto LABEL_67;
         }
 
         if (type2 == 3)
         {
-          v122 = 0;
-          v38 = [v36 shareWithAccessGroups:groupsCopy error:&v122];
-          v39 = v122;
-          flags2 = [v36 flags];
-          v41 = flags2;
-          if (v38)
+          v119 = 0;
+          v36 = [v34 shareWithAccessGroups:groupsCopy error:&v119];
+          v37 = v119;
+          flags2 = [v34 flags];
+          v39 = flags2;
+          if (v36)
           {
-            if ([v38 isFullyDecoded])
+            if ([v36 isFullyDecoded])
             {
-              v42 = v41 & 0xFFFFFFF5;
+              v40 = v39 & 0xFFFFFFF5;
             }
 
             else
             {
-              v42 = v41 & 0xFFFFFFF5 | 2;
+              v40 = v39 & 0xFFFFFFF5 | 2;
             }
           }
 
           else
           {
-            v42 = flags2 & 0xFFFFFFF5 | 2;
+            v40 = flags2 & 0xFFFFFFF5 | 2;
           }
 
-          v51 = [[KCSharingMirrorEntry alloc] initWithMirrorEntry:v36 flags:v42];
-          [v101 addObject:v51];
+          v49 = [[KCSharingMirrorEntry alloc] initWithMirrorEntry:v34 flags:v40];
+          [v98 addObject:v49];
 
           goto LABEL_67;
         }
       }
 
-      if (v33 != ++v35)
+      if (v31 != ++v33)
       {
         continue;
       }
@@ -1102,8 +1085,8 @@ LABEL_67:
       break;
     }
 
-    v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v125 objects:v140 count:16];
-    if (v33)
+    v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v122 objects:v137 count:16];
+    if (v31)
     {
       continue;
     }
@@ -1113,58 +1096,58 @@ LABEL_67:
 
 LABEL_70:
 
-  v120 = 0u;
-  v121 = 0u;
+  v117 = 0u;
   v118 = 0u;
-  v119 = 0u;
-  v52 = selfCopy->_insertIntoIncoming;
-  v53 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v118 objects:v139 count:16];
-  if (!v53)
+  v115 = 0u;
+  v116 = 0u;
+  v50 = selfCopy->_insertIntoIncoming;
+  v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v115 objects:v136 count:16];
+  if (!v51)
   {
     goto LABEL_83;
   }
 
-  v54 = v53;
-  v55 = *v119;
+  v52 = v51;
+  v53 = *v116;
   while (2)
   {
-    v56 = 0;
+    v54 = 0;
     while (2)
     {
-      if (*v119 != v55)
+      if (*v116 != v53)
       {
-        objc_enumerationMutation(v52);
+        objc_enumerationMutation(v50);
       }
 
-      v57 = *(*(&v118 + 1) + 8 * v56);
+      v55 = *(*(&v115 + 1) + 8 * v54);
       *buf = 0;
-      v58 = [v57 attributesWithAccessGroups:groupsCopy error:error];
-      if (!v58)
+      v56 = [v55 attributesWithAccessGroups:groupsCopy error:error];
+      if (!v56)
       {
         goto LABEL_117;
       }
 
-      v59 = v58;
+      v57 = v56;
       databaseItemClass = [objc_opt_class() databaseItemClass];
-      v61 = sub_10001A690(databaseItemClass, v59, dword_10039E2F8, buf);
-      if (!v61)
+      v59 = sub_10001A690(databaseItemClass, v57, dword_10039E2F8, buf);
+      if (!v59)
       {
 LABEL_118:
-        v86 = *buf;
+        v84 = *buf;
         if (error)
         {
           *error = *buf;
           *buf = 0;
-          v65 = infosCopy;
+          v63 = infosCopy;
         }
 
         else
         {
-          v65 = infosCopy;
+          v63 = infosCopy;
           if (*buf)
           {
             *buf = 0;
-            CFRelease(v86);
+            CFRelease(v84);
           }
         }
 
@@ -1173,46 +1156,46 @@ LABEL_130:
         goto LABEL_131;
       }
 
-      v116[0] = _NSConcreteStackBlock;
-      v116[1] = 3221225472;
-      v116[2] = sub_100059BD0;
-      v116[3] = &unk_100334A38;
-      v62 = v61;
-      v117 = v62;
-      if ((sub_10001AA4C(v62, transaction, buf, v116) & 1) == 0 && (sub_10016379C(*buf) & 1) == 0)
+      v113[0] = _NSConcreteStackBlock;
+      v113[1] = 3221225472;
+      v113[2] = sub_100059BD0;
+      v113[3] = &unk_100334A38;
+      v60 = v59;
+      v114 = v60;
+      if ((sub_10001AA4C(v60, transaction, buf, v113) & 1) == 0 && (sub_10016379C(*buf) & 1) == 0)
       {
-        v88 = *buf;
+        v85 = *buf;
         if (error)
         {
           *error = *buf;
           *buf = 0;
-          v65 = infosCopy;
+          v63 = infosCopy;
         }
 
         else
         {
-          v65 = infosCopy;
+          v63 = infosCopy;
           if (*buf)
           {
             *buf = 0;
-            CFRelease(v88);
+            CFRelease(v85);
           }
         }
 
-        v89 = v117;
+        v86 = v114;
 LABEL_129:
 
         goto LABEL_130;
       }
 
-      v63 = *buf;
+      v61 = *buf;
       if (*buf)
       {
         *buf = 0;
-        CFRelease(v63);
+        CFRelease(v61);
       }
 
-      if (v54 != ++v56)
+      if (v52 != ++v54)
       {
         continue;
       }
@@ -1220,8 +1203,8 @@ LABEL_129:
       break;
     }
 
-    v54 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v118 objects:v139 count:16];
-    if (v54)
+    v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v115 objects:v136 count:16];
+    if (v52)
     {
       continue;
     }
@@ -1231,44 +1214,43 @@ LABEL_129:
 
 LABEL_83:
 
-  v114 = 0u;
-  v115 = 0u;
+  v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  v52 = v101;
-  v64 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v112 objects:v138 count:16];
-  v65 = infosCopy;
-  if (v64)
+  v109 = 0u;
+  v110 = 0u;
+  v50 = v98;
+  v62 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v109 objects:v135 count:16];
+  v63 = infosCopy;
+  if (v62)
   {
-    v66 = v64;
-    v67 = *v113;
+    v64 = v62;
+    v65 = *v110;
     while (2)
     {
-      for (j = 0; j != v66; j = j + 1)
+      for (j = 0; j != v64; j = j + 1)
       {
-        if (*v113 != v67)
+        if (*v110 != v65)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v50);
         }
 
-        v69 = *(*(&v112 + 1) + 8 * j);
-        if (![(KCSharingDatabaseUpdatePlan *)selfCopy insertIntoMirrorWithMirrorEntry:v69 withAccessGroups:groupsCopy applyInTransaction:transaction updateInfos:infosCopy withError:error])
+        v67 = *(*(&v109 + 1) + 8 * j);
+        if (![(KCSharingDatabaseUpdatePlan *)selfCopy insertIntoMirrorWithMirrorEntry:v67 withAccessGroups:groupsCopy applyInTransaction:transaction updateInfos:infosCopy withError:error])
         {
-          v87 = selfCopy->_loggingIdentifier;
-          v59 = KCSharingLogObject();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v57 = KCSharingLogObject();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             *buf = 138477827;
-            *&buf[4] = v69;
-            _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to insert into mirror: %{private}@", buf, 0xCu);
+            *&buf[4] = v67;
+            _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Failed to insert into mirror: %{private}@", buf, 0xCu);
           }
 
           goto LABEL_130;
         }
       }
 
-      v66 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v112 objects:v138 count:16];
-      if (v66)
+      v64 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v109 objects:v135 count:16];
+      if (v64)
       {
         continue;
       }
@@ -1277,53 +1259,53 @@ LABEL_83:
     }
   }
 
-  v110 = 0u;
-  v111 = 0u;
+  v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v52 = selfCopy->_insertIntoOutgoing;
-  v70 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v108 objects:v137 count:16];
-  if (!v70)
+  v105 = 0u;
+  v106 = 0u;
+  v50 = selfCopy->_insertIntoOutgoing;
+  v68 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v105 objects:v134 count:16];
+  if (!v68)
   {
 LABEL_104:
 
-    v104 = 0u;
-    v105 = 0u;
+    v101 = 0u;
     v102 = 0u;
-    v103 = 0u;
-    v52 = selfCopy->_itemsToDelete;
-    v79 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v102 objects:v136 count:16];
-    if (v79)
+    v99 = 0u;
+    v100 = 0u;
+    v50 = selfCopy->_itemsToDelete;
+    v77 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v99 objects:v133 count:16];
+    if (v77)
     {
-      v80 = v79;
-      v81 = *v103;
-      v65 = infosCopy;
+      v78 = v77;
+      v79 = *v100;
+      v63 = infosCopy;
       errorCopy2 = error;
       while (2)
       {
-        for (k = 0; k != v80; k = k + 1)
+        for (k = 0; k != v78; k = k + 1)
         {
-          if (*v103 != v81)
+          if (*v100 != v79)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v50);
           }
 
-          v84 = *(*(&v102 + 1) + 8 * k);
+          v82 = *(*(&v99 + 1) + 8 * k);
           *buf = 0;
           if (infosCopy)
           {
-            v85 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateInfoForDeletion:v84];
-            if (v85)
+            v83 = [(KCSharingDatabaseUpdatePlan *)selfCopy updateInfoForDeletion:v82];
+            if (v83)
             {
-              [infosCopy addObject:v85];
+              [infosCopy addObject:v83];
             }
 
             errorCopy2 = error;
           }
 
-          if ((sub_1000171B0(v84, transaction, buf, &stru_100334A78) & 1) == 0)
+          if ((sub_1000171B0(v82, transaction, buf, &stru_100334A78) & 1) == 0)
           {
-            v92 = *buf;
+            v89 = *buf;
             if (errorCopy2)
             {
               *errorCopy2 = *buf;
@@ -1332,15 +1314,15 @@ LABEL_104:
             else if (*buf)
             {
               *buf = 0;
-              CFRelease(v92);
+              CFRelease(v89);
             }
 
             goto LABEL_131;
           }
         }
 
-        v80 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v102 objects:v136 count:16];
-        if (v80)
+        v78 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v99 objects:v133 count:16];
+        if (v78)
         {
           continue;
         }
@@ -1352,11 +1334,11 @@ LABEL_104:
     else
     {
 
-      v65 = infosCopy;
-      if ((v97 & 1) == 0)
+      v63 = infosCopy;
+      if ((v94 & 1) == 0)
       {
 LABEL_137:
-        v90 = 1;
+        v87 = 1;
         goto LABEL_132;
       }
     }
@@ -1365,74 +1347,74 @@ LABEL_137:
     goto LABEL_137;
   }
 
-  v71 = v70;
-  v72 = *v109;
+  v69 = v68;
+  v70 = *v106;
 LABEL_93:
-  v73 = 0;
+  v71 = 0;
   while (1)
   {
-    if (*v109 != v72)
+    if (*v106 != v70)
     {
-      objc_enumerationMutation(v52);
+      objc_enumerationMutation(v50);
     }
 
-    v74 = *(*(&v108 + 1) + 8 * v73);
+    v72 = *(*(&v105 + 1) + 8 * v71);
     *buf = 0;
-    v75 = [v74 attributesWithAccessGroups:groupsCopy error:error];
-    if (!v75)
+    v73 = [v72 attributesWithAccessGroups:groupsCopy error:error];
+    if (!v73)
     {
       break;
     }
 
-    v59 = v75;
+    v57 = v73;
     databaseItemClass2 = [objc_opt_class() databaseItemClass];
-    v77 = sub_10001A690(databaseItemClass2, v59, dword_10039E2F8, buf);
-    if (!v77)
+    v75 = sub_10001A690(databaseItemClass2, v57, dword_10039E2F8, buf);
+    if (!v75)
     {
       goto LABEL_118;
     }
 
-    v106[0] = _NSConcreteStackBlock;
-    v106[1] = 3221225472;
-    v106[2] = sub_100059BFC;
-    v106[3] = &unk_100334A38;
-    v62 = v77;
-    v107 = v62;
-    if ((sub_10001AA4C(v62, transaction, buf, v106) & 1) == 0 && (sub_10016379C(*buf) & 1) == 0)
+    v103[0] = _NSConcreteStackBlock;
+    v103[1] = 3221225472;
+    v103[2] = sub_100059BFC;
+    v103[3] = &unk_100334A38;
+    v60 = v75;
+    v104 = v60;
+    if ((sub_10001AA4C(v60, transaction, buf, v103) & 1) == 0 && (sub_10016379C(*buf) & 1) == 0)
     {
-      v93 = *buf;
+      v90 = *buf;
       if (error)
       {
         *error = *buf;
         *buf = 0;
-        v65 = infosCopy;
+        v63 = infosCopy;
       }
 
       else
       {
-        v65 = infosCopy;
+        v63 = infosCopy;
         if (*buf)
         {
           *buf = 0;
-          CFRelease(v93);
+          CFRelease(v90);
         }
       }
 
-      v89 = v107;
+      v86 = v104;
       goto LABEL_129;
     }
 
-    v78 = *buf;
+    v76 = *buf;
     if (*buf)
     {
       *buf = 0;
-      CFRelease(v78);
+      CFRelease(v76);
     }
 
-    if (v71 == ++v73)
+    if (v69 == ++v71)
     {
-      v71 = [(NSMutableArray *)v52 countByEnumeratingWithState:&v108 objects:v137 count:16];
-      if (v71)
+      v69 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v105 objects:v134 count:16];
+      if (v69)
       {
         goto LABEL_93;
       }
@@ -1442,13 +1424,13 @@ LABEL_93:
   }
 
 LABEL_117:
-  v65 = infosCopy;
+  v63 = infosCopy;
 LABEL_131:
 
-  v90 = 0;
+  v87 = 0;
 LABEL_132:
 
-  return v90;
+  return v87;
 }
 
 - (id)updateInfoForDeletion:(SecDbItem *)deletion
@@ -1459,34 +1441,34 @@ LABEL_132:
     goto LABEL_2;
   }
 
-  v8 = sub_100015B5C(deletion, @"deln");
-  if (!v8 || !CFEqual(v8, &off_100363FA0))
+  v7 = sub_100015B5C(deletion, @"deln");
+  if (!v7 || !CFEqual(v7, &off_100363FA0))
   {
     goto LABEL_2;
   }
 
-  v9 = sub_100015B5C(deletion, kSecAttrUUID);
-  if (v9)
+  v8 = sub_100015B5C(deletion, kSecAttrUUID);
+  if (v8)
   {
-    v10 = CKRecordNameZoneWideShare == 0;
+    v9 = CKRecordNameZoneWideShare == 0;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  if (v10)
+  if (v9)
   {
-    if (v9 != CKRecordNameZoneWideShare)
+    if (v8 != CKRecordNameZoneWideShare)
     {
 LABEL_2:
-      v6 = 0;
+      v5 = 0;
       goto LABEL_3;
     }
   }
 
-  else if (!CFEqual(v9, CKRecordNameZoneWideShare))
+  else if (!CFEqual(v8, CKRecordNameZoneWideShare))
   {
     goto LABEL_2;
   }
@@ -1496,60 +1478,58 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v12 = sub_100015B5C(deletion, @"zone");
-  if ([v12 hasPrefix:@"group-"])
+  v11 = sub_100015B5C(deletion, @"zone");
+  if ([v11 hasPrefix:@"group-"])
   {
-    v13 = [v12 substringFromIndex:{objc_msgSend(@"group-", "length")}];
+    v12 = [v11 substringFromIndex:{objc_msgSend(@"group-", "length")}];
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v6 = [[KCSharingGroupUpdateInfo alloc] initWithDepartedGroupID:v13];
-  loggingIdentifier = self->_loggingIdentifier;
-  v15 = KCSharingLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v5 = [[KCSharingGroupUpdateInfo alloc] initWithDepartedGroupID:v12];
+  v13 = KCSharingLogObject();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138477827;
-    v17 = v6;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Group update info: %{private}@", &v16, 0xCu);
+    v14 = 138477827;
+    v15 = v5;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Group update info: %{private}@", &v14, 0xCu);
   }
 
 LABEL_3:
 
-  return v6;
+  return v5;
 }
 
 - (id)groupUpdateInfoFrom:(SecDbItem *)from to:(id)to
 {
   toCopy = to;
-  v102 = 0;
-  v7 = [[KCSharingMirrorEntry alloc] initWithMirrorDatabaseItem:from error:&v102];
-  v8 = v102;
-  if (!v7)
+  v95 = 0;
+  v6 = [[KCSharingMirrorEntry alloc] initWithMirrorDatabaseItem:from error:&v95];
+  v7 = v95;
+  if (!v6)
   {
-    loggingIdentifier = self->_loggingIdentifier;
-    v62 = KCSharingLogObject();
-    if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v60 = KCSharingLogObject();
+    if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
 LABEL_63:
-      v65 = 0;
+      v63 = 0;
       goto LABEL_64;
     }
 
     *buf = 138412290;
-    v104 = v8;
-    v69 = "Existing stored share didn't turn into MirrorEntry: %@";
-    v70 = v62;
-    v71 = 12;
+    v97 = v7;
+    v65 = "Existing stored share didn't turn into MirrorEntry: %@";
+    v66 = v60;
+    v67 = 12;
 LABEL_72:
-    _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, v69, buf, v71);
+    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, v65, buf, v67);
     goto LABEL_63;
   }
 
-  record = [(KCSharingMirrorEntry *)v7 record];
+  record = [(KCSharingMirrorEntry *)v6 record];
   recordID = [record recordID];
   recordName = [recordID recordName];
   if (([recordName isEqual:CKRecordNameZoneWideShare] & 1) == 0)
@@ -1560,147 +1540,143 @@ LABEL_72:
 
   record2 = [toCopy record];
   [record2 recordID];
-  v13 = v82 = v8;
-  [v13 recordName];
-  v14 = v81 = self;
-  v15 = [v14 isEqual:CKRecordNameZoneWideShare];
+  v12 = v75 = v7;
+  recordName2 = [v12 recordName];
+  v14 = [recordName2 isEqual:CKRecordNameZoneWideShare];
 
-  self = v81;
-  v8 = v82;
-
-  if ((v15 & 1) == 0)
+  v7 = v75;
+  if ((v14 & 1) == 0)
   {
 LABEL_62:
-    v72 = self->_loggingIdentifier;
-    v62 = KCSharingLogObject();
-    if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v60 = KCSharingLogObject();
+    if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_63;
     }
 
     *buf = 0;
-    v69 = "Stored share or new share isn't actually a share?!";
-    v70 = v62;
-    v71 = 2;
+    v65 = "Stored share or new share isn't actually a share?!";
+    v66 = v60;
+    v67 = 2;
     goto LABEL_72;
   }
 
-  v78 = v7;
-  record3 = [(KCSharingMirrorEntry *)v7 record];
-  v79 = toCopy;
+  v72 = v6;
+  record3 = [(KCSharingMirrorEntry *)v6 record];
+  v73 = toCopy;
   record4 = [toCopy record];
-  v84 = +[NSMutableArray array];
-  v85 = +[NSMutableArray array];
-  v17 = +[NSMutableDictionary dictionary];
-  v98 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v80 = record3;
+  v77 = +[NSMutableArray array];
+  v78 = +[NSMutableArray array];
+  v16 = +[NSMutableDictionary dictionary];
+  v91 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v74 = record3;
   participants = [record3 participants];
-  v19 = [participants countByEnumeratingWithState:&v98 objects:v114 count:16];
-  if (v19)
+  v18 = [participants countByEnumeratingWithState:&v91 objects:v107 count:16];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v99;
+    v19 = v18;
+    v20 = *v92;
     do
     {
-      for (i = 0; i != v20; i = i + 1)
+      for (i = 0; i != v19; i = i + 1)
       {
-        if (*v99 != v21)
+        if (*v92 != v20)
         {
           objc_enumerationMutation(participants);
         }
 
-        v23 = *(*(&v98 + 1) + 8 * i);
-        userIdentity = [v23 userIdentity];
+        v22 = *(*(&v91 + 1) + 8 * i);
+        userIdentity = [v22 userIdentity];
         lookupInfo = [userIdentity lookupInfo];
-        v26 = sub_100031428(lookupInfo);
+        v25 = sub_100031428(lookupInfo);
 
-        if (v26)
+        if (v25)
         {
-          [v17 setObject:v23 forKeyedSubscript:v26];
+          [v16 setObject:v22 forKeyedSubscript:v25];
         }
       }
 
-      v20 = [participants countByEnumeratingWithState:&v98 objects:v114 count:16];
+      v19 = [participants countByEnumeratingWithState:&v91 objects:v107 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  v27 = +[NSMutableDictionary dictionary];
-  v94 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v97 = 0u;
+  v26 = +[NSMutableDictionary dictionary];
+  v87 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   participants2 = [record4 participants];
-  v29 = [participants2 countByEnumeratingWithState:&v94 objects:v113 count:16];
-  if (v29)
+  v28 = [participants2 countByEnumeratingWithState:&v87 objects:v106 count:16];
+  if (v28)
   {
-    v30 = v29;
-    v31 = *v95;
+    v29 = v28;
+    v30 = *v88;
     do
     {
-      for (j = 0; j != v30; j = j + 1)
+      for (j = 0; j != v29; j = j + 1)
       {
-        if (*v95 != v31)
+        if (*v88 != v30)
         {
           objc_enumerationMutation(participants2);
         }
 
-        v33 = *(*(&v94 + 1) + 8 * j);
-        userIdentity2 = [v33 userIdentity];
+        v32 = *(*(&v87 + 1) + 8 * j);
+        userIdentity2 = [v32 userIdentity];
         lookupInfo2 = [userIdentity2 lookupInfo];
-        v36 = sub_100031428(lookupInfo2);
+        v35 = sub_100031428(lookupInfo2);
 
-        if (v36)
+        if (v35)
         {
-          [v27 setObject:v33 forKeyedSubscript:v36];
+          [v26 setObject:v32 forKeyedSubscript:v35];
         }
       }
 
-      v30 = [participants2 countByEnumeratingWithState:&v94 objects:v113 count:16];
+      v29 = [participants2 countByEnumeratingWithState:&v87 objects:v106 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  participants3 = [v80 participants];
-  v38 = [participants3 countByEnumeratingWithState:&v90 objects:v112 count:16];
-  if (v38)
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  participants3 = [v74 participants];
+  v37 = [participants3 countByEnumeratingWithState:&v83 objects:v105 count:16];
+  if (v37)
   {
-    v39 = v38;
-    v40 = *v91;
+    v38 = v37;
+    v39 = *v84;
     do
     {
-      for (k = 0; k != v39; k = k + 1)
+      for (k = 0; k != v38; k = k + 1)
       {
-        if (*v91 != v40)
+        if (*v84 != v39)
         {
           objc_enumerationMutation(participants3);
         }
 
-        v42 = *(*(&v90 + 1) + 8 * k);
-        userIdentity3 = [v42 userIdentity];
+        v41 = *(*(&v83 + 1) + 8 * k);
+        userIdentity3 = [v41 userIdentity];
         lookupInfo3 = [userIdentity3 lookupInfo];
-        v45 = sub_100031428(lookupInfo3);
+        v44 = sub_100031428(lookupInfo3);
 
-        if (v45)
+        if (v44)
         {
-          v46 = [v27 objectForKeyedSubscript:v45];
-          if (v46)
+          v45 = [v26 objectForKeyedSubscript:v44];
+          if (v45)
           {
-            if ([v42 acceptanceStatus] != 2 && objc_msgSend(v46, "acceptanceStatus") == 2)
+            if ([v41 acceptanceStatus] != 2 && objc_msgSend(v45, "acceptanceStatus") == 2)
             {
-              v47 = sub_100031284(v46);
-              if (v47)
+              v46 = sub_100031284(v45);
+              if (v46)
               {
-                v48 = v84;
+                v47 = v77;
                 goto LABEL_35;
               }
 
@@ -1710,12 +1686,12 @@ LABEL_62:
 
           else
           {
-            v47 = sub_100031284(v42);
-            if (v47)
+            v46 = sub_100031284(v41);
+            if (v46)
             {
-              v48 = v85;
+              v47 = v78;
 LABEL_35:
-              [v48 addObject:v47];
+              [v47 addObject:v46];
             }
 
 LABEL_36:
@@ -1723,112 +1699,109 @@ LABEL_36:
         }
       }
 
-      v39 = [participants3 countByEnumeratingWithState:&v90 objects:v112 count:16];
+      v38 = [participants3 countByEnumeratingWithState:&v83 objects:v105 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   participants4 = [record4 participants];
-  v50 = [participants4 countByEnumeratingWithState:&v86 objects:v111 count:16];
-  if (v50)
+  v49 = [participants4 countByEnumeratingWithState:&v79 objects:v104 count:16];
+  if (v49)
   {
-    v51 = v50;
-    v52 = *v87;
+    v50 = v49;
+    v51 = *v80;
     do
     {
-      for (m = 0; m != v51; m = m + 1)
+      for (m = 0; m != v50; m = m + 1)
       {
-        if (*v87 != v52)
+        if (*v80 != v51)
         {
           objc_enumerationMutation(participants4);
         }
 
-        v54 = *(*(&v86 + 1) + 8 * m);
-        userIdentity4 = [v54 userIdentity];
+        v53 = *(*(&v79 + 1) + 8 * m);
+        userIdentity4 = [v53 userIdentity];
         lookupInfo4 = [userIdentity4 lookupInfo];
-        v57 = sub_100031428(lookupInfo4);
+        v56 = sub_100031428(lookupInfo4);
 
-        if (v57)
+        if (v56)
         {
-          v58 = [v17 objectForKeyedSubscript:v57];
-          if (!v58 && [v54 acceptanceStatus] == 2)
+          v57 = [v16 objectForKeyedSubscript:v56];
+          if (!v57 && [v53 acceptanceStatus] == 2)
           {
-            v59 = sub_100031284(v54);
-            if (v59)
+            v58 = sub_100031284(v53);
+            if (v58)
             {
-              [v84 addObject:v59];
+              [v77 addObject:v58];
             }
           }
         }
       }
 
-      v51 = [participants4 countByEnumeratingWithState:&v86 objects:v111 count:16];
+      v50 = [participants4 countByEnumeratingWithState:&v79 objects:v104 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
 
-  v60 = v81->_loggingIdentifier;
-  v61 = KCSharingLogObject();
-  v62 = v80;
-  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+  v59 = KCSharingLogObject();
+  v60 = v74;
+  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138478595;
-    v104 = v80;
-    v105 = 2113;
-    v106 = record4;
-    v107 = 2113;
-    v108 = v84;
-    v109 = 2113;
-    v110 = v85;
-    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Old Share: %{private}@ \n New Share: %{private}@ \n Added participants: %{private}@ \n Departed participants: %{private}@", buf, 0x2Au);
+    v97 = v74;
+    v98 = 2113;
+    v99 = record4;
+    v100 = 2113;
+    v101 = v77;
+    v102 = 2113;
+    v103 = v78;
+    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Old Share: %{private}@ \n New Share: %{private}@ \n Added participants: %{private}@ \n Departed participants: %{private}@", buf, 0x2Au);
   }
 
-  v8 = v82;
-  if ([v84 count])
+  v7 = v75;
+  if ([v77 count])
   {
-    v63 = [KCSharingGroupUpdateInfo alloc];
-    v64 = sub_1000314F8(record4);
-    v65 = [v63 initWithGroup:v64 addedParticipants:v84];
+    v61 = [KCSharingGroupUpdateInfo alloc];
+    v62 = sub_1000314F8(record4);
+    v63 = [v61 initWithGroup:v62 addedParticipants:v77];
 
-    v66 = v81->_loggingIdentifier;
-    v67 = KCSharingLogObject();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+    v64 = KCSharingLogObject();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v104 = v65;
-      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Group update info for added participants: %{private}@", buf, 0xCu);
+      v97 = v63;
+      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Group update info for added participants: %{private}@", buf, 0xCu);
     }
   }
 
   else
   {
-    v74 = v81->_loggingIdentifier;
-    v67 = KCSharingLogObject();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+    v64 = KCSharingLogObject();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
       recordID2 = [record4 recordID];
       zoneID = [recordID2 zoneID];
-      v77 = sub_100031160(zoneID);
+      v71 = sub_100031160(zoneID);
       *buf = 138412290;
-      v104 = v77;
-      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Group update for %@ with no new participants", buf, 0xCu);
+      v97 = v71;
+      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Group update for %@ with no new participants", buf, 0xCu);
     }
 
-    v65 = 0;
+    v63 = 0;
   }
 
-  toCopy = v79;
+  toCopy = v73;
 
-  v7 = v78;
+  v6 = v72;
 LABEL_64:
 
-  return v65;
+  return v63;
 }
 
 - (KCSharingDatabaseUpdatePlan)initWithLoggingIdentifier:(id)identifier

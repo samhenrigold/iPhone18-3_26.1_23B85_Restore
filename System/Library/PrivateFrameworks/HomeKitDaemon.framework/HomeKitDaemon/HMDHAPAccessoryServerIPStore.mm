@@ -42,16 +42,16 @@ LABEL_7:
 
 - (BOOL)writeDictionary:(id)dictionary error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke;
-  v24[3] = &unk_278678AF8;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke;
+  v23[3] = &unk_278678AF8;
   v8 = dictionary;
-  v25 = v8;
-  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v24];
+  v24 = v8;
+  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v23];
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
   v11 = HMFGetOSLogHandle();
@@ -61,11 +61,11 @@ LABEL_7:
     v13 = [dictionaryCopy count];
     v14 = [v8 count];
     *buf = 138543874;
-    v27 = v12;
-    v28 = 2048;
-    v29 = v13;
-    v30 = 2048;
-    v31 = v14;
+    v26 = v12;
+    v27 = 2048;
+    v28 = v13;
+    v29 = 2048;
+    v30 = v14;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Saving %lu entries to storage %lu", buf, 0x20u);
   }
 
@@ -88,9 +88,9 @@ LABEL_7:
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v27 = v21;
-        v28 = 2112;
-        v29 = dictionaryCopy;
+        v26 = v21;
+        v27 = 2112;
+        v28 = dictionaryCopy;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Error serializing data: %@", buf, 0x16u);
       }
 
@@ -100,7 +100,6 @@ LABEL_7:
     v17 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -113,7 +112,7 @@ void __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke(uin
 
 - (id)dictionaryFromStoreWithError:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEAC0];
   v6 = [(HMDHAPAccessoryServerIPStore *)self url];
   v7 = [v5 dictionaryWithContentsOfURL:v6 error:error];
@@ -121,14 +120,14 @@ void __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke(uin
   if (v7)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __61__HMDHAPAccessoryServerIPStore_dictionaryFromStoreWithError___block_invoke;
-    v23 = &unk_278689488;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __61__HMDHAPAccessoryServerIPStore_dictionaryFromStoreWithError___block_invoke;
+    v22 = &unk_278689488;
     selfCopy = self;
     v9 = dictionary;
-    v25 = v9;
-    [v7 enumerateKeysAndObjectsUsingBlock:&v20];
+    v24 = v9;
+    [v7 enumerateKeysAndObjectsUsingBlock:&v19];
     v10 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v12 = HMFGetOSLogHandle();
@@ -138,16 +137,16 @@ void __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke(uin
       v14 = [v9 count];
       v15 = [v7 count];
       *buf = 138543874;
-      v27 = v13;
-      v28 = 2048;
-      v29 = v14;
-      v30 = 2048;
-      v31 = v15;
+      v26 = v13;
+      v27 = 2048;
+      v28 = v14;
+      v29 = 2048;
+      v30 = v15;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Extracted %lu entries from storage containing %lu", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
-    v16 = v25;
+    v16 = v24;
     v17 = v9;
   }
 
@@ -156,14 +155,12 @@ void __54__HMDHAPAccessoryServerIPStore_writeDictionary_error___block_invoke(uin
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 void __61__HMDHAPAccessoryServerIPStore_dictionaryFromStoreWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [objc_alloc(MEMORY[0x277CFEA48]) initFromDictionary:v6];
@@ -180,19 +177,17 @@ void __61__HMDHAPAccessoryServerIPStore_dictionaryFromStoreWithError___block_inv
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543874;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@error creating cache data for device %@ from dictionary %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@error creating cache data for device %@ from dictionary %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -209,10 +204,9 @@ void __61__HMDHAPAccessoryServerIPStore_dictionaryFromStoreWithError___block_inv
 
 void __43__HMDHAPAccessoryServerIPStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_118372;
-  logCategory__hmf_once_v15_118372 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_118372;
+  logCategory__hmf_once_v15_118372 = v0;
 }
 
 @end

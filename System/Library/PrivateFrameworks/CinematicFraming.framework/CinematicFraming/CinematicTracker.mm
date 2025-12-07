@@ -101,7 +101,7 @@
         v21 = v20;
         if (v20)
         {
-          [v20 lastTimestamp];
+          objc_msgSend_lastTimestamp(v20);
         }
 
         else
@@ -308,7 +308,7 @@
             v29 = v28;
             if (v28)
             {
-              [v28 lastTimestamp];
+              objc_msgSend_lastTimestamp(v28);
             }
 
             else

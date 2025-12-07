@@ -2,11 +2,13 @@
 - (HRCClient)initWithDelegate:(id)delegate remoteObjectProxy:(id)proxy onQueue:(id)queue;
 - (HRCClientDelegate)delegate;
 - (void)_handleHeartRate:(id)rate;
+- (void)_requestOpportunisticUpdates:(BOOL)updates;
 - (void)_requestStreamingMode:(unint64_t)mode;
 - (void)_setUserWorkoutActivityType:(unint64_t)type locationType:(int64_t)locationType;
 - (void)_updateProcessName:(id)name;
 - (void)dealloc;
 - (void)handleHeartRate:(id)rate;
+- (void)reportClientConnectionUpdate:(BOOL)update;
 - (void)reportClientSnapshot;
 - (void)requestOpportunisticUpdates:(BOOL)updates;
 - (void)requestStreamingMode:(unint64_t)mode;
@@ -36,8 +38,7 @@
 
 - (void)dealloc
 {
-  [(HRCClient *)self reportClientConnectionUpdate:0];
-  v3 = sub_10000132C();
+  v3 = sub_10000132C([(HRCClient *)self reportClientConnectionUpdate:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     processName = self->_processName;
@@ -116,21 +117,45 @@
   dispatch_async(queue, v7);
 }
 
-- (void)_requestStreamingMode:(unint64_t)mode
+- (void)_requestOpportunisticUpdates:(BOOL)updates
 {
+  updatesCopy = updates;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     processName = [(HRCClient *)self processName];
     clientIdentifier = self->_clientIdentifier;
-    v9 = 138543874;
-    v10 = processName;
-    v11 = 2114;
-    v12 = clientIdentifier;
-    v13 = 2048;
+    v10 = 138543874;
+    v11 = processName;
+    v12 = 2114;
+    v13 = clientIdentifier;
+    v14 = 1024;
+    v15 = updatesCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ with uuid : %{public}@ requested opportunistic updates enabled : %d", &v10, 0x1Cu);
+  }
+
+  [(HRCClient *)self setOpportunisticMode:updatesCopy];
+  [(HRCClient *)self reportClientSnapshot];
+  delegate = [(HRCClient *)self delegate];
+  [delegate clientOpportunisticModeRequestUpdated];
+}
+
+- (void)_requestStreamingMode:(unint64_t)mode
+{
+  dispatch_assert_queue_V2(self->_queue);
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    processName = [(HRCClient *)self processName];
+    clientIdentifier = self->_clientIdentifier;
+    v10 = 138543874;
+    v11 = processName;
+    v12 = 2114;
+    v13 = clientIdentifier;
+    v14 = 2048;
     modeCopy = mode;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ with uuid : %{public}@ requested streaming mode : %lu", &v9, 0x20u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ with uuid : %{public}@ requested streaming mode : %lu", &v10, 0x20u);
   }
 
   [(HRCClient *)self setStreamingMode:mode];
@@ -143,8 +168,7 @@
 {
   nameCopy = name;
   dispatch_assert_queue_V2(self->_queue);
-  [(HRCClient *)self setProcessName:nameCopy];
-  v5 = sub_10000132C();
+  v5 = sub_10000132C([(HRCClient *)self setProcessName:nameCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     processName = self->_processName;
@@ -159,20 +183,20 @@
 - (void)_setUserWorkoutActivityType:(unint64_t)type locationType:(int64_t)locationType
 {
   dispatch_assert_queue_V2(self->_queue);
-  v7 = sub_10000132C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10000132C(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     processName = self->_processName;
     clientIdentifier = self->_clientIdentifier;
-    v11 = 138544130;
-    v12 = processName;
-    v13 = 2114;
-    v14 = clientIdentifier;
-    v15 = 2048;
+    v12 = 138544130;
+    v13 = processName;
+    v14 = 2114;
+    v15 = clientIdentifier;
+    v16 = 2048;
     typeCopy = type;
-    v17 = 2048;
+    v18 = 2048;
     locationTypeCopy = locationType;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ with uuid : %{public}@ updated workoutActivityType : %lu, locationType : %lu", &v11, 0x2Au);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ with uuid : %{public}@ updated workoutActivityType : %lu, locationType : %lu", &v12, 0x2Au);
   }
 
   delegate = [(HRCClient *)self delegate];
@@ -183,13 +207,13 @@
 {
   rateCopy = rate;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     processName = [(HRCClient *)self processName];
-    v7 = 138543362;
-    v8 = processName;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "received heart rate data to be sent to %{public}@ process", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = processName;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "received heart rate data to be sent to %{public}@ process", &v8, 0xCu);
   }
 
   [(HRCFrontEndClient *)self->_remoteObjectProxy handleHeartRateData:rateCopy];
@@ -197,39 +221,74 @@
 
 - (void)reportClientSnapshot
 {
-  v19[0] = @"process-name";
+  v20[0] = @"process-name";
   processName = [(HRCClient *)self processName];
-  v20[0] = processName;
-  v19[1] = @"connection-identifier";
+  v21[0] = processName;
+  v20[1] = @"connection-identifier";
   uUIDString = [(NSUUID *)self->_clientIdentifier UUIDString];
-  v20[1] = uUIDString;
-  v19[2] = @"streaming-mode";
+  v21[1] = uUIDString;
+  v20[2] = @"streaming-mode";
   v5 = [NSNumber numberWithUnsignedInteger:[(HRCClient *)self streamingMode]];
-  v20[2] = v5;
-  v19[3] = @"opportunistic-mode";
+  v21[2] = v5;
+  v20[3] = @"opportunistic-mode";
   v6 = [NSNumber numberWithBool:[(HRCClient *)self opportunisticMode]];
-  v20[3] = v6;
-  v7 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v21[3] = v6;
+  v7 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:4];
 
-  v8 = sub_10000132C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_10000132C(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     processName2 = [(HRCClient *)self processName];
     uUIDString2 = [(NSUUID *)self->_clientIdentifier UUIDString];
-    v11 = 138544130;
-    v12 = processName2;
-    v13 = 2114;
-    v14 = uUIDString2;
-    v15 = 2050;
+    v12 = 138544130;
+    v13 = processName2;
+    v14 = 2114;
+    v15 = uUIDString2;
+    v16 = 2050;
     streamingMode = [(HRCClient *)self streamingMode];
-    v17 = 1026;
+    v18 = 1026;
     opportunisticMode = [(HRCClient *)self opportunisticMode];
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "power telemetry :: client snapshot with name : %{public}@ , uuid : %{public}@, streaming-mode : %{public}lu , opportunistic-mode : %{public}d", &v11, 0x26u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "power telemetry :: client snapshot with name : %{public}@ , uuid : %{public}@, streaming-mode : %{public}lu , opportunistic-mode : %{public}d", &v12, 0x26u);
   }
 
   if (qword_1000488D8 != -1)
   {
     sub_10001104C();
+  }
+
+  PPSSendTelemetry();
+}
+
+- (void)reportClientConnectionUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v19[0] = self->_processName;
+  v18[0] = @"process-name";
+  v18[1] = @"connection-identifier";
+  uUIDString = [(NSUUID *)self->_clientIdentifier UUIDString];
+  v19[1] = uUIDString;
+  v18[2] = @"process-connected";
+  v6 = [NSNumber numberWithBool:updateCopy];
+  v19[2] = v6;
+  v7 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
+
+  v9 = sub_10000132C(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    processName = [(HRCClient *)self processName];
+    uUIDString2 = [(NSUUID *)self->_clientIdentifier UUIDString];
+    v12 = 138543874;
+    v13 = processName;
+    v14 = 2114;
+    v15 = uUIDString2;
+    v16 = 1026;
+    v17 = updateCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "power telemetry :: client connection with name : %{public}@ , uuid : %{public}@, process-connected : %{public}d", &v12, 0x1Cu);
+  }
+
+  if (qword_1000488E8 != -1)
+  {
+    sub_100011074();
   }
 
   PPSSendTelemetry();

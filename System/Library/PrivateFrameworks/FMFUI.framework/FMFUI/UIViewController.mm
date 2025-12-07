@@ -21,7 +21,7 @@ void __61__UIViewController_FMFModal__fmf_dismissModalViewController___block_inv
 
 uint64_t __61__UIViewController_FMFModal__fmf_dismissModalViewController___block_invoke_2(uint64_t a1)
 {
-  v2 = LogCategory_Daemon();
+  v2 = LogCategory_Daemon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

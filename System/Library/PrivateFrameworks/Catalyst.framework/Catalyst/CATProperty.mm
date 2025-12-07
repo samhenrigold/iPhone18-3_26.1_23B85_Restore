@@ -33,7 +33,7 @@ uint64_t __25__CATProperty_initialize__block_invoke()
 + (id)propertiesForClass:(Class)class
 {
   Superclass = class;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = NSStringFromClass(class);
   v5 = [CATPropertyPropertiesByClassName objectForKey:v4];
   v6 = v5;
@@ -66,21 +66,19 @@ uint64_t __25__CATProperty_initialize__block_invoke()
 
     while (Superclass);
     v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"name" ascending:1 selector:sel_localizedStandardCompare_];
-    v19[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v7 = [v8 sortedArrayUsingDescriptors:v15];
 
     [CATPropertyPropertiesByClassName setObject:v7 forKey:v4];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)propertiesForProtocol:(id)protocol
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   v4 = NSStringFromProtocol(protocolCopy);
   v5 = [CATPropertyPropertiesByProtocolName objectForKey:v4];
@@ -108,21 +106,19 @@ uint64_t __25__CATProperty_initialize__block_invoke()
 
     free(v9);
     v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"name" ascending:1 selector:sel_localizedStandardCompare_];
-    v19[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v7 = [v8 sortedArrayUsingDescriptors:v15];
 
     [CATPropertyPropertiesByProtocolName setObject:v7 forKey:v4];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (CATProperty)initWithName:(const char *)name attributes:(const char *)attributes
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (!name)
   {
     [CATProperty initWithName:a2 attributes:self];
@@ -142,9 +138,9 @@ LABEL_91:
   }
 
 LABEL_3:
-  v33.receiver = self;
-  v33.super_class = CATProperty;
-  v8 = [(CATProperty *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = CATProperty;
+  v8 = [(CATProperty *)&v32 init];
   if (v8)
   {
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:name];
@@ -153,7 +149,7 @@ LABEL_3:
 
     v8->_association = 0;
     v11 = strlen(attributes);
-    v12 = strcpy(&v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), attributes);
+    v12 = strcpy(&v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), attributes);
     v13 = strtok(v12, ",");
     if (v13)
     {
@@ -346,8 +342,8 @@ LABEL_3:
                     v27 = v26 - 4;
                     if (v26 > 4)
                     {
-                      v32 = &v32;
-                      v28 = strncpy(&v32 - ((v26 + 12) & 0xFFFFFFFFFFFFFFF0), v14 + 3, v27);
+                      v31 = &v31;
+                      v28 = strncpy(&v31 - ((v26 + 12) & 0xFFFFFFFFFFFFFFF0), v14 + 3, v27);
                       v28[v27] = 0;
                       v8->_objectClass = objc_getClass(v28);
                     }
@@ -409,7 +405,6 @@ LABEL_88:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

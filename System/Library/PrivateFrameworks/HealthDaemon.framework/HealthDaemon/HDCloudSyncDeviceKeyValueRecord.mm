@@ -52,25 +52,23 @@
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = &OBJC_METACLASS___HDCloudSyncDeviceKeyValueRecord;
-  v2 = objc_msgSendSuper2(&v9, sel_fieldsForUnprotectedSerialization);
-  v10 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS___HDCloudSyncDeviceKeyValueRecord;
+  v2 = objc_msgSendSuper2(&v8, sel_fieldsForUnprotectedSerialization);
+  v9 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   v4 = [HDCloudSyncSerializedField fieldForKey:@"HDCloudSyncDeviceContextRecordReference" classes:v3 encrypted:0];
-  v11[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [v2 arrayByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)initInZone:(id)zone deviceKeyValueEntry:(id)entry deviceContextRecord:(id)record UUID:(id)d
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   recordCopy = record;
   dCopy = d;
@@ -83,9 +81,9 @@
 
   v17 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:v16 zoneID:zoneCopy];
   v18 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"CloudSyncDeviceKeyValueRecordType" recordID:v17];
-  v32 = 0;
-  v19 = [recordCopy deviceContextWithError:&v32];
-  v20 = v32;
+  v31 = 0;
+  v19 = [recordCopy deviceContextWithError:&v31];
+  v20 = v31;
   if (v20)
   {
     _HKInitializeLogging();
@@ -93,7 +91,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v34 = v20;
+      v33 = v20;
       _os_log_fault_impl(&dword_228986000, v21, OS_LOG_TYPE_FAULT, "Error %@ fetching device context from record", buf, 0xCu);
     }
 
@@ -122,7 +120,6 @@
     selfCopy = self;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -176,11 +173,11 @@ LABEL_10:
 
 - (id)syncIdentity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   syncIdentity = [(HDCloudSyncCodableDeviceKeyValue *)self->_underlyingDeviceKeyValue syncIdentity];
-  v9 = 0;
-  v3 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v8];
+  v4 = v8;
 
   if (v3)
   {
@@ -194,12 +191,10 @@ LABEL_10:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v11 = v4;
+      v10 = v4;
       _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Failed to extract sync identity from codable %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

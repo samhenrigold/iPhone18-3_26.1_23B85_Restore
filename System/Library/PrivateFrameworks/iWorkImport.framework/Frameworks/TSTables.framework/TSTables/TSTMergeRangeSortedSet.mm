@@ -61,7 +61,7 @@
   v14 = v8 | v9;
   checkboxCopy = checkbox;
   os_unfair_lock_lock(&self->_lock);
-  sub_22141ED50(&self->_set, &rangeCopy);
+  sub_22141ED50(&self->_set, &rangeCopy, &rangeCopy);
   os_unfair_lock_unlock(&self->_lock);
 }
 

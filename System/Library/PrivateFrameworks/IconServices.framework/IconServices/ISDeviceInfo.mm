@@ -24,27 +24,22 @@
 - (unint64_t)ideom
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = [(ISDeviceInfo *)self deviceClass]- 1;
-  if (v3 < 0xB && ((0x42Fu >> v3) & 1) != 0)
+  deviceClass = [(ISDeviceInfo *)self deviceClass];
+  v4 = deviceClass - 1;
+  if (deviceClass - 1) < 0xB && ((0x42Fu >> v4))
   {
-    result = qword_1A782D0F8[v3];
+    return qword_1A782D0F8[v4];
   }
 
-  else
+  v6 = _ISDefaultLog(deviceClass);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = _ISDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v7[0] = 67109120;
-      v7[1] = [(ISDeviceInfo *)self deviceClass];
-      _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_DEFAULT, "Unknown device class: %d", v7, 8u);
-    }
-
-    result = 2;
+    v7[0] = 67109120;
+    v7[1] = [(ISDeviceInfo *)self deviceClass];
+    _os_log_impl(&dword_1A77B8000, v6, OS_LOG_TYPE_DEFAULT, "Unknown device class: %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 2;
 }
 
 uint64_t __30__ISDeviceInfo_sharedInstance__block_invoke()
@@ -166,13 +161,13 @@ LABEL_25:
   {
     switch(screenClass)
     {
-      case 26:
+      case 0x1A:
         v7 = 51.0;
         goto LABEL_27;
-      case 27:
+      case 0x1B:
         v5 = 0x4047000000000000;
         goto LABEL_26;
-      case 29:
+      case 0x1D:
         v5 = 0x404B000000000000;
         goto LABEL_26;
     }
@@ -204,7 +199,7 @@ LABEL_27:
   }
 
   v11 = MEMORY[0x1E695F060];
-  v12 = _ISDefaultLog();
+  v12 = _ISDefaultLog(screenClass);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;

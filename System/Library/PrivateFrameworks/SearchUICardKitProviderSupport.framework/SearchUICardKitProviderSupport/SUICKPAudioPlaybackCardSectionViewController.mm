@@ -28,11 +28,11 @@ uint64_t __66__SUICKPAudioPlaybackCardSectionViewController_cardSectionClasses__
 
 - (void)cardEventDidOccur:(unint64_t)occur withIdentifier:(id)identifier userInfo:(id)info
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v36.receiver = self;
-  v36.super_class = SUICKPAudioPlaybackCardSectionViewController;
-  [(CRKCardSectionViewController *)&v36 cardEventDidOccur:occur withIdentifier:identifierCopy userInfo:info];
+  v35.receiver = self;
+  v35.super_class = SUICKPAudioPlaybackCardSectionViewController;
+  [(CRKCardSectionViewController *)&v35 cardEventDidOccur:occur withIdentifier:identifierCopy userInfo:info];
   cardSection = [(CRKCardSectionViewController *)self cardSection];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -95,12 +95,12 @@ LABEL_25:
   playCommands = [view2 playCommands];
   v15 = identifierCopy;
   v16 = playCommands;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v18)
   {
 
@@ -108,18 +108,18 @@ LABEL_25:
   }
 
   v19 = v18;
-  v35 = view2;
-  v20 = *v38;
+  v34 = view2;
+  v20 = *v37;
   while (2)
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v38 != v20)
+      if (*v37 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      value = [*(*(&v37 + 1) + 8 * i) value];
+      value = [*(*(&v36 + 1) + 8 * i) value];
       referentialCommand = [value referentialCommand];
       referenceIdentifier = [referentialCommand referenceIdentifier];
 
@@ -135,7 +135,7 @@ LABEL_22:
       }
     }
 
-    v19 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v19 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v19)
     {
       continue;
@@ -150,13 +150,11 @@ LABEL_22:
   }
 
 LABEL_26:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEngageCardSection:(id)section
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   delegate = [(CRKCardSectionViewController *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -207,9 +205,9 @@ LABEL_26:
 
           cardSection6 = [(CRKCardSectionViewController *)self cardSection];
           playCommands = [cardSection6 playCommands];
-          v38 = @"CRKAudioPlaybackCardSectionIgnoresMuteSwitch";
-          v39[0] = MEMORY[0x277CBEC38];
-          v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+          v37 = @"CRKAudioPlaybackCardSectionIgnoresMuteSwitch";
+          v38[0] = MEMORY[0x277CBEC38];
+          v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
           [(SUICKPAudioPlaybackCardSectionViewController *)self _performCommands:playCommands applyingUserInfo:v36];
 
           goto LABEL_18;
@@ -265,67 +263,61 @@ LABEL_19:
       [SUICKPAudioPlaybackCardSectionViewController cardEventDidOccur:v28 withIdentifier:self userInfo:?];
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performCommands:(id)commands applyingUserInfo:(id)info
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   commandsCopy = commands;
   infoCopy = info;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v8 = [commandsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [commandsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(commandsCopy);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         [v12 setUserInfo:infoCopy];
         [(CRKCardSectionViewController *)self _performCommand:v12];
       }
 
-      v9 = [commandsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [commandsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardEventDidOccur:(void *)a1 withIdentifier:(void *)a2 userInfo:.cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 cardSection];
-  v5 = objc_opt_class();
-  OUTLINED_FUNCTION_0_0(&dword_264EDF000, v6, v7, "SUICKPAudioPlaybackCardSectionViewController using %@. Expecting SFAudioPlaybackCardSection", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = objc_opt_class();
+  v5 = *(&v12 + 4);
+  OUTLINED_FUNCTION_0_0(&dword_264EDF000, v6, v7, "SUICKPAudioPlaybackCardSectionViewController using %@. Expecting SFAudioPlaybackCardSection", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)cardEventDidOccur:(void *)a1 withIdentifier:(void *)a2 userInfo:.cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 view];
-  v5 = objc_opt_class();
-  OUTLINED_FUNCTION_0_0(&dword_264EDF000, v6, v7, "SUICKPAudioPlaybackCardSectionViewController view is %@. Expecting SearchUICardSectionViewUpdatable", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = objc_opt_class();
+  v5 = *(&v12 + 4);
+  OUTLINED_FUNCTION_0_0(&dword_264EDF000, v6, v7, "SUICKPAudioPlaybackCardSectionViewController view is %@. Expecting SearchUICardSectionViewUpdatable", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 @end

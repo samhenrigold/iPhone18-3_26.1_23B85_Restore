@@ -16,7 +16,7 @@
     return qword_226872718[type];
   }
 
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [(ATXSuggestedPagesUtils *)type modeForSuggestedPageType:v5];
@@ -139,30 +139,30 @@
 
 + (id)filterWidgets:(id)widgets bySize:(unint64_t)size usedPersonalities:(id)personalities
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
   personalitiesCopy = personalities;
-  v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = widgetsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x277CEB9B0]);
         extensionBundleId = [v13 extensionBundleId];
         widgetKind = [v13 widgetKind];
@@ -170,19 +170,17 @@
 
         if (([personalitiesCopy containsObject:v17] & 1) == 0 && objc_msgSend(v13, "size") == size)
         {
-          [v20 addObject:v13];
+          [v19 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 + (void)evenlyDistributeWidgets:(id)widgets inRange:(_NSRange)range amongStacks:(id)stacks usedPersonalities:(id)personalities maxWidgetsInStack:(unint64_t)stack
@@ -253,11 +251,11 @@ void __106__ATXSuggestedPagesUtils_evenlyDistributeWidgets_inRange_amongStacks_u
 
 + (id)sortWidgetsByDescendingScore:(id)score limit:(unint64_t)limit
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   scoreCopy = score;
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-  v15[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v8 = [scoreCopy sortedArrayUsingDescriptors:v7];
 
   if (limit)
@@ -283,18 +281,15 @@ void __106__ATXSuggestedPagesUtils_evenlyDistributeWidgets_inRange_amongStacks_u
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (void)modeForSuggestedPageType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXSuggestedPagesUtils: unhandled page type: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXSuggestedPagesUtils: unhandled page type: %ld", &v2, 0xCu);
 }
 
 @end

@@ -22,6 +22,7 @@
 - (BOOL)isLaunchPersona;
 - (CKPersona)initWithCoder:(id)coder;
 - (CKPersona)initWithIdentifier:(id)identifier type:(unint64_t)type;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (id)adopt:(id *)adopt;
 - (int64_t)isDataSeparated;
 - (unint64_t)hash;
@@ -87,7 +88,7 @@
 
 + (id)processInfo
 {
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
@@ -111,7 +112,7 @@ LABEL_6:
 + (void)setProcessInfo:(id)info
 {
   infoCopy = info;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v7 = infoCopy;
     selfCopy = self;
@@ -125,7 +126,7 @@ LABEL_6:
 
 + (id)userManager
 {
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
@@ -149,7 +150,7 @@ LABEL_6:
 + (void)setUserManager:(id)manager
 {
   managerCopy = manager;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v7 = managerCopy;
     selfCopy = self;
@@ -171,7 +172,7 @@ LABEL_6:
 
 + (BOOL)getOriginatorPersona:(id *)persona error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (persona)
   {
     *persona = 0;
@@ -182,25 +183,25 @@ LABEL_6:
     *error = 0;
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  if (voucher_get_current_persona_originator_info() || DWORD1(v15) == -1)
+  v15 = 0u;
+  v13 = 0u;
+  if (voucher_get_current_persona_originator_info() || DWORD1(v14) == -1)
   {
     if (persona)
     {
       *persona = objc_msgSend_launchPersona(self, v7, v8);
     }
 
-    v10 = 1;
+    return 1;
   }
 
   else
   {
-    v13[0] = v14;
-    v13[1] = v15;
-    v13[2] = v16;
-    v9 = objc_msgSend_personaFromPersonaInfo_error_(self, v7, v13, error);
+    v12[0] = v13;
+    v12[1] = v14;
+    v12[2] = v15;
+    v9 = objc_msgSend_personaFromPersonaInfo_error_(self, v7, v12, error);
     v10 = v9 != 0;
     if (persona && v9)
     {
@@ -209,13 +210,12 @@ LABEL_6:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)getProximatePersona:(id *)persona error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (persona)
   {
     *persona = 0;
@@ -226,25 +226,25 @@ LABEL_6:
     *error = 0;
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  if (voucher_get_current_persona_proximate_info() || DWORD1(v15) == -1)
+  v15 = 0u;
+  v13 = 0u;
+  if (voucher_get_current_persona_proximate_info() || DWORD1(v14) == -1)
   {
     if (persona)
     {
       *persona = objc_msgSend_launchPersona(self, v7, v8);
     }
 
-    v10 = 1;
+    return 1;
   }
 
   else
   {
-    v13[0] = v14;
-    v13[1] = v15;
-    v13[2] = v16;
-    v9 = objc_msgSend_personaFromPersonaInfo_error_(self, v7, v13, error);
+    v12[0] = v13;
+    v12[1] = v14;
+    v12[2] = v15;
+    v9 = objc_msgSend_personaFromPersonaInfo_error_(self, v7, v12, error);
     v10 = v9 != 0;
     if (persona && v9)
     {
@@ -253,120 +253,116 @@ LABEL_6:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (id)personaFromPersonaInfo:(proc_persona_info *)info error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  memset(v46, 0, sizeof(v46));
-  v45 = 0u;
-  v44 = 0u;
+  v46 = *MEMORY[0x1E69E9840];
+  v45 = 0;
+  memset(v44, 0, sizeof(v44));
   v43 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v40 = 2;
-  persona_id = info->persona_id;
+  v41 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v38 = 2;
   if (kpersona_info())
   {
-    v10 = objc_msgSend_sharedOptions(CKBehaviorOptions, v8, v9);
-    PersonaAttributes = objc_msgSend_allowsFetchPersonaAttributes(v10, v11, v12);
+    v9 = objc_msgSend_sharedOptions(CKBehaviorOptions, v7, v8);
+    PersonaAttributes = objc_msgSend_allowsFetchPersonaAttributes(v9, v10, v11);
 
     if (PersonaAttributes)
     {
-      v16 = objc_msgSend_sharedManager(MEMORY[0x1E69DF068], v14, v15);
-      v35 = 0;
-      v18 = objc_msgSend_listAllPersonaAttributesWithError_(v16, v17, &v35);
-      v19 = v35;
+      v15 = objc_msgSend_sharedManager(MEMORY[0x1E69DF068], v13, v14);
+      v33 = 0;
+      v17 = objc_msgSend_listAllPersonaAttributesWithError_(v15, v16, &v33);
+      v18 = v33;
 
-      if (!v18 || v19)
+      if (!v17 || v18)
       {
         if (error)
         {
-          v32 = v19;
-          v26 = 0;
-          *error = v19;
+          v31 = v18;
+          v25 = 0;
+          *error = v18;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
       }
 
       else
       {
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = sub_1886BBE14;
-        v36[3] = &unk_1E70C1E40;
-        v21 = *&info->pidversion;
-        v37 = *&info->unique_pid;
-        v38 = v21;
-        v39 = *info->macho_uuid;
-        v23 = objc_msgSend_CKFirstObjectPassingTest_(v18, v20, v36);
-        if (v23)
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = sub_1886BBE14;
+        v34[3] = &unk_1E70C1E40;
+        v20 = *&info->pidversion;
+        v35 = *&info->unique_pid;
+        v36 = v20;
+        v37 = *info->macho_uuid;
+        v22 = objc_msgSend_CKFirstObjectPassingTest_(v17, v19, v34);
+        if (v22)
         {
-          v24 = objc_msgSend_personaFromUserPersonaAttributes_(self, v22, v23);
-          v26 = v24;
-          if (v24)
+          v23 = objc_msgSend_personaFromUserPersonaAttributes_(self, v21, v22);
+          v25 = v23;
+          if (v23)
           {
-            v27 = v24;
+            v26 = v23;
           }
 
           else if (error)
           {
-            *error = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v25, @"CKInternalErrorDomain", 2003, @"Failed to resolve persona from persona attributes: %@", v23);
+            *error = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v24, @"CKInternalErrorDomain", 2003, @"Failed to resolve persona from persona attributes: %@", v22);
           }
         }
 
         else if (error)
         {
-          objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v22, @"CKInternalErrorDomain", 2003, @"Failed to fetch persona %u", info->persona_id);
-          *error = v26 = 0;
+          objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v21, @"CKInternalErrorDomain", 2003, @"Failed to fetch persona %u", info->persona_id);
+          *error = v25 = 0;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
       }
     }
 
     else if (error)
     {
-      objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v14, @"CKInternalErrorDomain", 2027, @"Fetching persona attributes is not supported per behavior options");
-      *error = v26 = 0;
+      objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v13, @"CKInternalErrorDomain", 2027, @"Fetching persona attributes is not supported per behavior options");
+      *error = v25 = 0;
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
   }
 
   else
   {
-    v28 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v8, &v46[4], 4);
-    if ((DWORD1(v41) - 2) > 4)
+    v27 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v7, &v44[4], 4);
+    if ((DWORD1(v39) - 2) > 4)
     {
-      v29 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v29 = qword_1886FEA30[DWORD1(v41) - 2];
+      v28 = qword_1886FEA30[DWORD1(v39) - 2];
     }
 
-    v30 = [CKPersona alloc];
-    v26 = objc_msgSend_initWithIdentifier_type_(v30, v31, v28, v29);
+    v29 = [CKPersona alloc];
+    v25 = objc_msgSend_initWithIdentifier_type_(v29, v30, v27, v28);
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 + (id)personaFromUserPersona:(id)persona
@@ -669,6 +665,26 @@ LABEL_7:
   return isEqualToString;
 }
 
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v4 = MEMORY[0x1E696AEC0];
+  v7 = objc_msgSend_type(self, a2, redact) - 1;
+  if (v7 > 4)
+  {
+    v8 = @"Unknown";
+  }
+
+  else
+  {
+    v8 = off_1E70C1EA0[v7];
+  }
+
+  v9 = objc_msgSend_identifier(self, v5, v6);
+  v11 = objc_msgSend_stringWithFormat_(v4, v10, @"%@(%@)", v8, v9);
+
+  return v11;
+}
+
 - (void)CKDescribePropertiesUsing:(id)using
 {
   usingCopy = using;
@@ -744,7 +760,7 @@ LABEL_7:
 
 - (id)adopt:(id *)adopt
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (adopt)
   {
     *adopt = 0;
@@ -753,9 +769,9 @@ LABEL_7:
   v5 = objc_msgSend_sharedManager(MEMORY[0x1E69DF068], a2, adopt);
   v8 = objc_msgSend_currentPersona(v5, v6, v7);
 
-  v37 = 0;
-  v10 = objc_msgSend_copyCurrentPersonaContextWithError_(v8, v9, &v37);
-  v11 = v37;
+  v36 = 0;
+  v10 = objc_msgSend_copyCurrentPersonaContextWithError_(v8, v9, &v36);
+  v11 = v36;
   if (v10)
   {
     if (ck_log_initialization_predicate != -1)
@@ -769,7 +785,7 @@ LABEL_7:
       v15 = v12;
       v18 = objc_msgSend_ckShortDescription(self, v16, v17);
       *buf = 138412290;
-      v39 = v18;
+      v38 = v18;
       _os_log_impl(&dword_1883EA000, v15, OS_LOG_TYPE_INFO, "Restoring persona: %@", buf, 0xCu);
     }
 
@@ -794,9 +810,9 @@ LABEL_7:
       v27 = v22;
       v30 = objc_msgSend_ckShortDescription(self, v28, v29);
       *buf = 138412546;
-      v39 = v30;
-      v40 = 2112;
-      v41 = v21;
+      v38 = v30;
+      v39 = 2112;
+      v40 = v21;
       _os_log_error_impl(&dword_1883EA000, v27, OS_LOG_TYPE_ERROR, "Failed to adopt persona %@, failed to restore persona context: %@", buf, 0x16u);
 
       if (adopt)
@@ -831,9 +847,9 @@ LABEL_22:
     v31 = v25;
     v34 = objc_msgSend_ckShortDescription(self, v32, v33);
     *buf = 138412546;
-    v39 = v34;
-    v40 = 2112;
-    v41 = v11;
+    v38 = v34;
+    v39 = 2112;
+    v40 = v11;
     _os_log_error_impl(&dword_1883EA000, v31, OS_LOG_TYPE_ERROR, "Failed to adopt persona %@, failed to copy current context: %@", buf, 0x16u);
 
     if (adopt)
@@ -854,14 +870,12 @@ LABEL_18:
   v24 = 0;
 LABEL_25:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (void)restore:(id)restore
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   restoreCopy = restore;
   v6 = objc_msgSend_sharedManager(MEMORY[0x1E69DF068], v4, v5);
   v9 = objc_msgSend_currentPersona(v6, v7, v8);
@@ -877,15 +891,13 @@ LABEL_25:
     v12 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412546;
-      v15 = restoreCopy;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_error_impl(&dword_1883EA000, v12, OS_LOG_TYPE_ERROR, "Failed to restore persona with context %@: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = restoreCopy;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_error_impl(&dword_1883EA000, v12, OS_LOG_TYPE_ERROR, "Failed to restore persona with context %@: %@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlock:(id)block

@@ -100,12 +100,12 @@ void __58__CSSiriClientBehaviorMonitor_fetchCurrentStreamingState___block_invoke
 
 void __60__CSSiriClientBehaviorMonitor_notifyAudioDeviceInfoUpdated___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[CSSiriClientBehaviorMonitor notifyAudioDeviceInfoUpdated:]_block_invoke";
+    v21 = "[CSSiriClientBehaviorMonitor notifyAudioDeviceInfoUpdated:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -119,27 +119,27 @@ void __60__CSSiriClientBehaviorMonitor_notifyAudioDeviceInfoUpdated___block_invo
   v8 = [v7 remoteDeviceUIDString];
   [v6 setDeviceId:v8];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = [*(a1 + 32) observers];
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           [v14 siriClientBehaviorMonitorAudioDeviceInfoUpdated:*(a1 + 40)];
@@ -149,13 +149,11 @@ void __60__CSSiriClientBehaviorMonitor_notifyAudioDeviceInfoUpdated___block_invo
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyReleaseAudioSession
@@ -171,36 +169,36 @@ void __60__CSSiriClientBehaviorMonitor_notifyAudioDeviceInfoUpdated___block_invo
 
 void __56__CSSiriClientBehaviorMonitor_notifyReleaseAudioSession__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSSiriClientBehaviorMonitor notifyReleaseAudioSession]_block_invoke";
+    v15 = "[CSSiriClientBehaviorMonitor notifyReleaseAudioSession]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Notify release of audio session", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) observers];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 siriClientBehaviorMonitorReleasedAudioSession:*(a1 + 32)];
@@ -210,13 +208,11 @@ void __56__CSSiriClientBehaviorMonitor_notifyReleaseAudioSession__block_invoke(u
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyActivateAudioSessionWithReason:(unint64_t)reason
@@ -233,39 +229,39 @@ void __56__CSSiriClientBehaviorMonitor_notifyReleaseAudioSession__block_invoke(u
 
 void __68__CSSiriClientBehaviorMonitor_notifyActivateAudioSessionWithReason___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     *buf = 136315394;
-    v17 = "[CSSiriClientBehaviorMonitor notifyActivateAudioSessionWithReason:]_block_invoke";
-    v18 = 2048;
-    v19 = v3;
+    v16 = "[CSSiriClientBehaviorMonitor notifyActivateAudioSessionWithReason:]_block_invoke";
+    v17 = 2048;
+    v18 = v3;
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s reason: %lu", buf, 0x16u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [*(a1 + 32) observers];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 siriClientBehaviorMonitor:*(a1 + 32) activatedAudioSessionWithReason:*(a1 + 40)];
@@ -275,13 +271,11 @@ void __68__CSSiriClientBehaviorMonitor_notifyActivateAudioSessionWithReason___bl
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDidStopStream:(id)stream withEventUUID:(id)d
@@ -303,36 +297,36 @@ void __68__CSSiriClientBehaviorMonitor_notifyActivateAudioSessionWithReason___bl
 
 void __65__CSSiriClientBehaviorMonitor_notifyDidStopStream_withEventUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSSiriClientBehaviorMonitor notifyDidStopStream:withEventUUID:]_block_invoke";
+    v15 = "[CSSiriClientBehaviorMonitor notifyDidStopStream:withEventUUID:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 0;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) observers];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 siriClientBehaviorMonitor:*(a1 + 32) didStopStream:*(a1 + 40) withEventUUID:*(a1 + 48)];
         if (objc_opt_respondsToSelector())
         {
@@ -340,13 +334,11 @@ void __65__CSSiriClientBehaviorMonitor_notifyDidStopStream_withEventUUID___block
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyWillStopStream:(id)stream reason:(unint64_t)reason withEventUUID:(id)d
@@ -369,35 +361,35 @@ void __65__CSSiriClientBehaviorMonitor_notifyDidStopStream_withEventUUID___block
 
 void __73__CSSiriClientBehaviorMonitor_notifyWillStopStream_reason_withEventUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSSiriClientBehaviorMonitor notifyWillStopStream:reason:withEventUUID:]_block_invoke";
+    v15 = "[CSSiriClientBehaviorMonitor notifyWillStopStream:reason:withEventUUID:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) observers];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 siriClientBehaviorMonitor:*(a1 + 32) willStopStream:*(a1 + 40) reason:*(a1 + 56)];
         if (objc_opt_respondsToSelector())
         {
@@ -405,13 +397,11 @@ void __73__CSSiriClientBehaviorMonitor_notifyWillStopStream_reason_withEventUUID
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDidStartStreamWithContext:(id)context successfully:(BOOL)successfully option:(id)option withEventUUID:(id)d
@@ -437,37 +427,37 @@ void __73__CSSiriClientBehaviorMonitor_notifyWillStopStream_reason_withEventUUID
 
 void __97__CSSiriClientBehaviorMonitor_notifyDidStartStreamWithContext_successfully_option_withEventUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSSiriClientBehaviorMonitor notifyDidStartStreamWithContext:successfully:option:withEventUUID:]_block_invoke";
+    v15 = "[CSSiriClientBehaviorMonitor notifyDidStartStreamWithContext:successfully:option:withEventUUID:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   [*(a1 + 32) setAudioRecordContext:*(a1 + 40)];
   *(*(a1 + 32) + 8) = *(a1 + 64);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) observers];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 siriClientBehaviorMonitor:*(a1 + 32) didStartStreamWithContext:*(a1 + 40) successfully:*(a1 + 64) option:*(a1 + 48) withEventUUID:*(a1 + 56)];
         if (*(a1 + 64) == 1 && (objc_opt_respondsToSelector() & 1) != 0)
         {
@@ -475,13 +465,11 @@ void __97__CSSiriClientBehaviorMonitor_notifyDidStartStreamWithContext_successfu
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyWillStartStreamWithContext:(id)context option:(id)option withEventUUID:(id)d
@@ -506,37 +494,37 @@ void __97__CSSiriClientBehaviorMonitor_notifyDidStartStreamWithContext_successfu
 
 void __85__CSSiriClientBehaviorMonitor_notifyWillStartStreamWithContext_option_withEventUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSSiriClientBehaviorMonitor notifyWillStartStreamWithContext:option:withEventUUID:]_block_invoke";
+    v15 = "[CSSiriClientBehaviorMonitor notifyWillStartStreamWithContext:option:withEventUUID:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   [*(a1 + 32) setAudioRecordContext:*(a1 + 40)];
   *(*(a1 + 32) + 8) = 1;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) observers];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 siriClientBehaviorMonitor:*(a1 + 32) willStartStreamWithContext:*(a1 + 40) option:*(a1 + 48)];
         if (objc_opt_respondsToSelector())
         {
@@ -544,13 +532,11 @@ void __85__CSSiriClientBehaviorMonitor_notifyWillStartStreamWithContext_option_w
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyPreparedSiriClientAudioStream:(id)stream successfully:(BOOL)successfully
@@ -570,7 +556,7 @@ void __85__CSSiriClientBehaviorMonitor_notifyWillStartStreamWithContext_option_w
 
 void __80__CSSiriClientBehaviorMonitor_notifyPreparedSiriClientAudioStream_successfully___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
@@ -581,33 +567,33 @@ void __80__CSSiriClientBehaviorMonitor_notifyPreparedSiriClientAudioStream_succe
     }
 
     *buf = 136315394;
-    v17 = "[CSSiriClientBehaviorMonitor notifyPreparedSiriClientAudioStream:successfully:]_block_invoke";
-    v18 = 2114;
-    v19 = v3;
+    v16 = "[CSSiriClientBehaviorMonitor notifyPreparedSiriClientAudioStream:successfully:]_block_invoke";
+    v17 = 2114;
+    v18 = v3;
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Successfully ? %{public}@", buf, 0x16u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [*(a1 + 32) observers];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 siriClientBehaviorMonitor:*(a1 + 32) preparedSiriClientAudioStream:*(a1 + 40) successfully:*(a1 + 48)];
@@ -617,13 +603,11 @@ void __80__CSSiriClientBehaviorMonitor_notifyPreparedSiriClientAudioStream_succe
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyFetchedSiriClientAudioStream:(id)stream successfully:(BOOL)successfully
@@ -643,7 +627,7 @@ void __80__CSSiriClientBehaviorMonitor_notifyPreparedSiriClientAudioStream_succe
 
 void __79__CSSiriClientBehaviorMonitor_notifyFetchedSiriClientAudioStream_successfully___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
@@ -654,33 +638,33 @@ void __79__CSSiriClientBehaviorMonitor_notifyFetchedSiriClientAudioStream_succes
     }
 
     *buf = 136315394;
-    v17 = "[CSSiriClientBehaviorMonitor notifyFetchedSiriClientAudioStream:successfully:]_block_invoke";
-    v18 = 2114;
-    v19 = v3;
+    v16 = "[CSSiriClientBehaviorMonitor notifyFetchedSiriClientAudioStream:successfully:]_block_invoke";
+    v17 = 2114;
+    v18 = v3;
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Successfully ? %{public}@", buf, 0x16u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [*(a1 + 32) observers];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 siriClientBehaviorMonitor:*(a1 + 32) fetchedSiriClientAudioStream:*(a1 + 40) successfully:*(a1 + 48)];
@@ -690,13 +674,11 @@ void __79__CSSiriClientBehaviorMonitor_notifyFetchedSiriClientAudioStream_succes
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterObserver:(id)observer

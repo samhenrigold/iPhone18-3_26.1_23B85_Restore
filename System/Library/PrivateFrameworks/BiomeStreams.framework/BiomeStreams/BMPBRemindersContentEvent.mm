@@ -190,44 +190,42 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_uniqueId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_domainId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_notes)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    isAllDay = self->_isAllDay;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -246,9 +244,8 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  completionDateTimestamp = self->_completionDateTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -262,28 +259,26 @@ LABEL_14:
   }
 
 LABEL_25:
-  dueDateTimestamp = self->_dueDateTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_15:
-    priority = self->_priority;
     PBDataWriterWriteSint32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_16:
   if (self->_contentProtection)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_personaId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -492,7 +487,6 @@ LABEL_8:
     }
   }
 
-  v7 = *(equalCopy + 92);
   if (*&self->_has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -521,7 +515,6 @@ LABEL_8:
     }
   }
 
-  v10 = *(equalCopy + 92);
   if ((*&self->_has & 0x10) == 0)
   {
     if ((*(equalCopy + 92) & 0x10) == 0)
@@ -530,7 +523,7 @@ LABEL_8:
     }
 
 LABEL_42:
-    v14 = 0;
+    v11 = 0;
     goto LABEL_43;
   }
 
@@ -539,7 +532,6 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v11 = *(equalCopy + 88);
   if (self->_isAllDay)
   {
     if ((*(equalCopy + 88) & 1) == 0)
@@ -602,17 +594,17 @@ LABEL_17:
   personaId = self->_personaId;
   if (personaId | *(equalCopy + 7))
   {
-    v14 = [(NSString *)personaId isEqual:?];
+    v11 = [(NSString *)personaId isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v11 = 1;
   }
 
 LABEL_43:
 
-  return v14;
+  return v11;
 }
 
 - (unint64_t)hash

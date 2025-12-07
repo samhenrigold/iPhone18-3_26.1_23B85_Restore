@@ -55,7 +55,7 @@
   ptr = self->_syncRecognizer.__ptr_;
   if (languageCopy)
   {
-    [languageCopy ear_toString];
+    objc_msgSend_ear_toString(languageCopy);
     if (typeCopy)
     {
       goto LABEL_3;
@@ -70,7 +70,7 @@
     if (typeCopy)
     {
 LABEL_3:
-      [typeCopy ear_toString];
+      objc_msgSend_ear_toString(typeCopy);
       if (idCopy)
       {
         goto LABEL_4;
@@ -86,7 +86,7 @@ LABEL_3:
   if (idCopy)
   {
 LABEL_4:
-    [idCopy ear_toString];
+    objc_msgSend_ear_toString(idCopy);
     if (sessionIdCopy)
     {
       goto LABEL_5;
@@ -114,11 +114,11 @@ LABEL_9:
   }
 
 LABEL_5:
-  [sessionIdCopy ear_toString];
+  objc_msgSend_ear_toString(sessionIdCopy);
   if (deviceIdCopy)
   {
 LABEL_6:
-    [deviceIdCopy ear_toString];
+    objc_msgSend_ear_toString(deviceIdCopy);
     goto LABEL_12;
   }
 
@@ -165,7 +165,7 @@ LABEL_12:
   ptr = self->_syncRecognizer.__ptr_;
   if (languageCopy)
   {
-    [languageCopy ear_toString];
+    objc_msgSend_ear_toString(languageCopy);
     if (typeCopy)
     {
       goto LABEL_3;
@@ -180,7 +180,7 @@ LABEL_12:
     if (typeCopy)
     {
 LABEL_3:
-      [typeCopy ear_toString];
+      objc_msgSend_ear_toString(typeCopy);
       if (idCopy)
       {
         goto LABEL_4;
@@ -196,7 +196,7 @@ LABEL_3:
   if (idCopy)
   {
 LABEL_4:
-    [idCopy ear_toString];
+    objc_msgSend_ear_toString(idCopy);
     if (sessionIdCopy)
     {
       goto LABEL_5;
@@ -224,11 +224,11 @@ LABEL_9:
   }
 
 LABEL_5:
-  [sessionIdCopy ear_toString];
+  objc_msgSend_ear_toString(sessionIdCopy);
   if (deviceIdCopy)
   {
 LABEL_6:
-    [deviceIdCopy ear_toString];
+    objc_msgSend_ear_toString(deviceIdCopy);
     goto LABEL_12;
   }
 
@@ -284,7 +284,7 @@ LABEL_12:
       memset(v42, 0, sizeof(v42));
       if (v7)
       {
-        [(_EARFormatter *)v7 formatWords:begin unrepairedWordsOut:v42 task:v33];
+        objc_msgSend_formatWords_unrepairedWordsOut_task_(v7);
         std::vector<quasar::Token>::__vdeallocate(__p);
         *__p = v40;
         *&v38 = v41;
@@ -410,7 +410,7 @@ LABEL_12:
   v15 = 0;
   v16 = 0;
   v14 = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v14, *v12, v12[1], 0xAAAAAAAAAAAAAAABLL * ((v12[1] - *v12) >> 3));
+  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v14, *v12, v12[1], 0xAAAAAAAAAAAAAAABLL * (v12[1] - *v12));
   if (v13)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -475,7 +475,7 @@ LABEL_12:
   v9 = 0;
   v10 = 0;
   v8 = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v8, *v6, v6[1], 0xAAAAAAAAAAAAAAABLL * ((v6[1] - *v6) >> 3));
+  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v8, *v6, v6[1], 0xAAAAAAAAAAAAAAABLL * (v6[1] - *v6));
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);

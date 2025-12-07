@@ -19,53 +19,50 @@
 
 - (BlastDoorMetadata)metadata
 {
-  v3 = type metadata accessor for Metadata();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for Metadata(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v6, type metadata accessor for Metadata);
-  v7 = type metadata accessor for _ObjCMetadataWrapper(0);
-  v8 = objc_allocWithZone(v7);
-  sub_213FB568C(v6, v8 + OBJC_IVAR___BlastDoorMetadata_metadata, type metadata accessor for Metadata);
-  v11.receiver = v8;
-  v11.super_class = v7;
-  v9 = [(BlastDoorTextMessage *)&v11 init];
-  sub_213FB5844(v6, type metadata accessor for Metadata);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v5, type metadata accessor for Metadata);
+  v6 = type metadata accessor for _ObjCMetadataWrapper(0);
+  v7 = objc_allocWithZone(v6);
+  sub_213FB568C(v5, v7 + OBJC_IVAR___BlastDoorMetadata_metadata, type metadata accessor for Metadata);
+  v10.receiver = v7;
+  v10.super_class = v6;
+  v8 = [(BlastDoorTextMessage *)&v10 init];
+  sub_213FB5844(v5, type metadata accessor for Metadata);
 
-  return v9;
+  return v8;
 }
 
 - (BlastDoorTextMessageMessageTypeWrapper)messageSubType
 {
   v3 = type metadata accessor for TextMessage.MessageType(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
-  v8 = type metadata accessor for TextMessage(0);
-  sub_213FB568C(&v7[*(v8 + 20)], v6, type metadata accessor for TextMessage.MessageType);
-  v9 = type metadata accessor for _ObjCEnumTextMessageMessageTypeWrapper(0);
-  v10 = objc_allocWithZone(v9);
-  sub_213FB568C(v6, v10 + OBJC_IVAR___BlastDoorTextMessageMessageTypeWrapper_textMessage_MessageType, type metadata accessor for TextMessage.MessageType);
-  v13.receiver = v10;
-  v13.super_class = v9;
-  v11 = [(BlastDoorTextMessage *)&v13 init];
-  sub_213FB5844(v6, type metadata accessor for TextMessage.MessageType);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
+  v7 = type metadata accessor for TextMessage(0);
+  sub_213FB568C(&v6[*(v7 + 20)], v5, type metadata accessor for TextMessage.MessageType);
+  v8 = type metadata accessor for _ObjCEnumTextMessageMessageTypeWrapper(0);
+  v9 = objc_allocWithZone(v8);
+  sub_213FB568C(v5, v9 + OBJC_IVAR___BlastDoorTextMessageMessageTypeWrapper_textMessage_MessageType, type metadata accessor for TextMessage.MessageType);
+  v12.receiver = v9;
+  v12.super_class = v8;
+  v10 = [(BlastDoorTextMessage *)&v12 init];
+  sub_213FB5844(v5, type metadata accessor for TextMessage.MessageType);
 
-  return v11;
+  return v10;
 }
 
 - (NSString)groupID
 {
   v3 = type metadata accessor for TextMessage(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v7, type metadata accessor for TextMessage);
-  v8 = &v7[*(v4 + 48)];
-  v9 = *(v8 + 3);
-  if (v9 == 1)
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v6, type metadata accessor for TextMessage);
+  v7 = &v6[*(v4 + 48)];
+  v8 = *(v7 + 3);
+  if (v8 == 1)
   {
     result = sub_2146DA018();
     __break(1u);
@@ -73,22 +70,21 @@
 
   else
   {
-    v10 = *(v8 + 2);
-    v11 = *(v8 + 3);
+    v9 = *(v7 + 2);
 
-    sub_213FB5844(v7, type metadata accessor for TextMessage);
-    if (v9)
+    sub_213FB5844(v6, type metadata accessor for TextMessage);
+    if (v8)
     {
-      v12 = sub_2146D9588();
-      sub_213FDC6D0(v10, v9);
+      v10 = sub_2146D9588();
+      sub_213FDC6D0(v9, v8);
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    return v12;
+    return v10;
   }
 
   return result;
@@ -181,34 +177,30 @@
 - (NSString)availabilityVerificationRecipientEncryptionValidationToken
 {
   v2 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
-  v3 = &v2[*(type metadata accessor for TextMessage(0) + 76)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for TextMessage(0) + 76) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)lastPublisherOfOffGridStatus
 {
   v3 = type metadata accessor for TextMessage(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v7, type metadata accessor for TextMessage);
-  v8 = &v7[*(v4 + 100)];
-  v9 = *(v8 + 3);
-  if (v9 == 1)
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorTextMessage_textMessage, v6, type metadata accessor for TextMessage);
+  v7 = &v6[*(v4 + 100)];
+  v8 = *(v7 + 3);
+  if (v8 == 1)
   {
     result = sub_2146DA018();
     __break(1u);
@@ -216,22 +208,21 @@
 
   else
   {
-    v10 = *(v8 + 2);
-    v11 = *(v8 + 3);
+    v9 = *(v7 + 2);
 
-    sub_213FB5844(v7, type metadata accessor for TextMessage);
-    if (v9)
+    sub_213FB5844(v6, type metadata accessor for TextMessage);
+    if (v8)
     {
-      v12 = sub_2146D9588();
-      sub_213FDC6D0(v10, v9);
+      v10 = sub_2146D9588();
+      sub_213FDC6D0(v9, v8);
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    return v12;
+    return v10;
   }
 
   return result;
@@ -271,24 +262,23 @@
 - (NSDate)scheduledDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C913090, &unk_2146E9DB0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
-  v8 = type metadata accessor for TextMessage(0);
-  sub_213FB2E54(&v7[*(v8 + 124)], v6, &qword_27C913090, &unk_2146E9DB0);
-  v9 = sub_2146D8B08();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
+  v7 = type metadata accessor for TextMessage(0);
+  sub_213FB2E54(&v6[*(v7 + 124)], v5, &qword_27C913090, &unk_2146E9DB0);
+  v8 = sub_2146D8B08();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_2146D8AD8();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_2146D8AD8();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSArray)replicatedFallbackGUIDs
@@ -311,21 +301,18 @@
 - (NSString)biaReferenceID
 {
   v2 = self + OBJC_IVAR___BlastDoorTextMessage_textMessage;
-  v3 = &v2[*(type metadata accessor for TextMessage(0) + 136)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for TextMessage(0) + 136) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (BlastDoorTextMessage)init

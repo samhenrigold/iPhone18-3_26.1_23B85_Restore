@@ -116,9 +116,11 @@
 {
   if (objc_opt_class() == self)
   {
-    sLog = os_log_create("com.apple.speech.localspeechrecognition", "SFLocalSpeechRecognitionClient");
+    v2 = os_log_create("com.apple.speech.localspeechrecognition", "SFLocalSpeechRecognitionClient");
+    v3 = sLog;
+    sLog = v2;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v2, v3);
   }
 }
 
@@ -171,29 +173,28 @@ uint64_t __38__SFLocalSpeechRecognitionClient_init__block_invoke_44(uint64_t a1)
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v7 = "[SFLocalSpeechRecognitionClient dealloc]";
+    v6 = "[SFLocalSpeechRecognitionClient dealloc]";
     _os_log_debug_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SFLocalSpeechRecognitionClient;
-  [(SFLocalSpeechRecognitionClient *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = SFLocalSpeechRecognitionClient;
+  [(SFLocalSpeechRecognitionClient *)&v4 dealloc];
 }
 
 void __38__SFLocalSpeechRecognitionClient_init__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v10 = @"com.apple.speech.localspeechrecognition";
+    v9 = @"com.apple.speech.localspeechrecognition";
     _os_log_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_INFO, "%@ Invalidated", buf, 0xCu);
   }
 
@@ -206,11 +207,9 @@ void __38__SFLocalSpeechRecognitionClient_init__block_invoke_2(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __38__SFLocalSpeechRecognitionClient_init__block_invoke_44;
     block[3] = &unk_1E797CAB8;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     dispatch_async(v5, block);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (SFLocalSpeechRecognitionDelegate)delegate
@@ -237,27 +236,22 @@ void __38__SFLocalSpeechRecognitionClient_init__block_invoke_2(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __89__SFLocalSpeechRecognitionClient_localSpeechRecognitionDidFinishDownloadingAssets_error___block_invoke(void *a1)
+void __89__SFLocalSpeechRecognitionClient_localSpeechRecognitionDidFinishDownloadingAssets_error___block_invoke(uint64_t a1)
 {
-  v8 = [*(a1[4] + 40) copy];
-  v2 = a1[4];
+  v7 = [*(*(a1 + 32) + 40) copy];
+  v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   *(v2 + 32) = 0;
 
-  v4 = a1[4];
+  v4 = *(a1 + 32);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  v6 = v8;
-  if (v8)
+  v6 = v7;
+  if (v7)
   {
-    if (!a1[5])
-    {
-      v7 = a1[6];
-    }
-
-    (*(v8 + 2))(v8);
-    v6 = v8;
+    (*(v7 + 2))(v7);
+    v6 = v7;
   }
 }
 
@@ -351,16 +345,16 @@ void __96__SFLocalSpeechRecognitionClient_localSpeechRecognitionDidDownloadAsset
 
 void __87__SFLocalSpeechRecognitionClient_synchronousEuclidConfigPathForLanguageStr_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -368,8 +362,6 @@ void __87__SFLocalSpeechRecognitionClient_synchronousEuclidConfigPathForLanguage
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_serviceProxyWithErrorHandler:(void *)handler
@@ -444,16 +436,16 @@ void __64__SFLocalSpeechRecognitionClient__serviceProxyWithErrorHandler___block_
 
 void __106__SFLocalSpeechRecognitionClient_synchronousEuclidNearestNeighborsForSource_numberOfNeighbors_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -461,8 +453,6 @@ void __106__SFLocalSpeechRecognitionClient_synchronousEuclidNearestNeighborsForS
   {
     (*(v5 + 16))(v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronousComputeEuclidEmbeddingsForSources:(id)sources completion:(id)completion
@@ -481,16 +471,16 @@ void __106__SFLocalSpeechRecognitionClient_synchronousEuclidNearestNeighborsForS
 
 void __90__SFLocalSpeechRecognitionClient_synchronousComputeEuclidEmbeddingsForSources_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -498,8 +488,6 @@ void __90__SFLocalSpeechRecognitionClient_synchronousComputeEuclidEmbeddingsForS
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronousCreateEuclidInstanceForLanguageStr:(id)str clientID:(id)d inputFormat:(int64_t)format loadingOption:(int64_t)option completion:(id)completion
@@ -519,16 +507,16 @@ void __90__SFLocalSpeechRecognitionClient_synchronousComputeEuclidEmbeddingsForS
 
 void __126__SFLocalSpeechRecognitionClient_synchronousCreateEuclidInstanceForLanguageStr_clientID_inputFormat_loadingOption_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -536,8 +524,6 @@ void __126__SFLocalSpeechRecognitionClient_synchronousCreateEuclidInstanceForLan
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)appLmNeedsRebuild:(id)rebuild language:(id)language sandboxExtensions:(id)extensions completion:(id)completion
@@ -558,16 +544,16 @@ void __126__SFLocalSpeechRecognitionClient_synchronousCreateEuclidInstanceForLan
 
 void __90__SFLocalSpeechRecognitionClient_appLmNeedsRebuild_language_sandboxExtensions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -575,8 +561,6 @@ void __90__SFLocalSpeechRecognitionClient_appLmNeedsRebuild_language_sandboxExte
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trainAppLmFromNgramCountsArtifact:(id)artifact forApp:(id)app language:(id)language writeToDirectory:(id)directory sandboxExtensions:(id)extensions completion:(id)completion
@@ -599,16 +583,16 @@ void __90__SFLocalSpeechRecognitionClient_appLmNeedsRebuild_language_sandboxExte
 
 void __130__SFLocalSpeechRecognitionClient_trainAppLmFromNgramCountsArtifact_forApp_language_writeToDirectory_sandboxExtensions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -616,8 +600,6 @@ void __130__SFLocalSpeechRecognitionClient_trainAppLmFromNgramCountsArtifact_for
   {
     (*(v5 + 16))(v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createNgramCountsArtifactFromPhraseCountArtifact:(id)artifact writeToDirectory:(id)directory sandboxExtensions:(id)extensions completion:(id)completion
@@ -638,16 +620,16 @@ void __130__SFLocalSpeechRecognitionClient_trainAppLmFromNgramCountsArtifact_for
 
 void __129__SFLocalSpeechRecognitionClient_createNgramCountsArtifactFromPhraseCountArtifact_writeToDirectory_sandboxExtensions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -655,8 +637,6 @@ void __129__SFLocalSpeechRecognitionClient_createNgramCountsArtifactFromPhraseCo
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createPhraseCountsArtifactWithIdentifier:(id)identifier rawPhraseCountsPath:(id)path customPronunciationsPath:(id)pronunciationsPath writeToDirectory:(id)directory sandboxExtensions:(id)extensions completion:(id)completion
@@ -679,16 +659,16 @@ void __129__SFLocalSpeechRecognitionClient_createNgramCountsArtifactFromPhraseCo
 
 void __166__SFLocalSpeechRecognitionClient_createPhraseCountsArtifactWithIdentifier_rawPhraseCountsPath_customPronunciationsPath_writeToDirectory_sandboxExtensions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -696,8 +676,6 @@ void __166__SFLocalSpeechRecognitionClient_createPhraseCountsArtifactWithIdentif
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trainAppLmFromNgramsSerializedData:(id)data customPronsData:(id)pronsData language:(id)language writeToDirectory:(id)directory sandboxExtension:(id)extension completion:(id)completion
@@ -720,16 +698,16 @@ void __166__SFLocalSpeechRecognitionClient_createPhraseCountsArtifactWithIdentif
 
 void __139__SFLocalSpeechRecognitionClient_trainAppLmFromNgramsSerializedData_customPronsData_language_writeToDirectory_sandboxExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -737,8 +715,6 @@ void __139__SFLocalSpeechRecognitionClient_trainAppLmFromNgramsSerializedData_cu
   {
     (*(v5 + 16))(v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wakeUpWithCompletion:(id)completion
@@ -756,16 +732,16 @@ void __139__SFLocalSpeechRecognitionClient_trainAppLmFromNgramsSerializedData_cu
 
 void __55__SFLocalSpeechRecognitionClient_wakeUpWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -773,8 +749,6 @@ void __55__SFLocalSpeechRecognitionClient_wakeUpWithCompletion___block_invoke(ui
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)metricsWithCompletion:(id)completion
@@ -792,16 +766,16 @@ void __55__SFLocalSpeechRecognitionClient_wakeUpWithCompletion___block_invoke(ui
 
 void __56__SFLocalSpeechRecognitionClient_metricsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -809,8 +783,6 @@ void __56__SFLocalSpeechRecognitionClient_metricsWithCompletion___block_invoke(u
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lmeThresholdWithCompletion:(id)completion
@@ -828,16 +800,16 @@ void __56__SFLocalSpeechRecognitionClient_metricsWithCompletion___block_invoke(u
 
 void __61__SFLocalSpeechRecognitionClient_lmeThresholdWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -845,8 +817,6 @@ void __61__SFLocalSpeechRecognitionClient_lmeThresholdWithCompletion___block_inv
   {
     (*(v5 + 16))(v5, -1);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deserializeNgramCountsData:(id)data completion:(id)completion
@@ -865,16 +835,16 @@ void __61__SFLocalSpeechRecognitionClient_lmeThresholdWithCompletion___block_inv
 
 void __72__SFLocalSpeechRecognitionClient_deserializeNgramCountsData_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -882,8 +852,6 @@ void __72__SFLocalSpeechRecognitionClient_deserializeNgramCountsData_completion_
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateNgramCountsSerializeDataWithCompletion:(id)completion
@@ -901,16 +869,16 @@ void __72__SFLocalSpeechRecognitionClient_deserializeNgramCountsData_completion_
 
 void __81__SFLocalSpeechRecognitionClient_generateNgramCountsSerializeDataWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -918,8 +886,6 @@ void __81__SFLocalSpeechRecognitionClient_generateNgramCountsSerializeDataWithCo
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trainFromPlainTextAndWriteToDirectory:(id)directory sandboxExtension:(id)extension completion:(id)completion
@@ -939,16 +905,16 @@ void __81__SFLocalSpeechRecognitionClient_generateNgramCountsSerializeDataWithCo
 
 void __100__SFLocalSpeechRecognitionClient_trainFromPlainTextAndWriteToDirectory_sandboxExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -956,8 +922,6 @@ void __100__SFLocalSpeechRecognitionClient_trainFromPlainTextAndWriteToDirectory
   {
     (*(v5 + 16))(v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)oovWordsAndFrequenciesWithCompletion:(id)completion
@@ -975,16 +939,16 @@ void __100__SFLocalSpeechRecognitionClient_trainFromPlainTextAndWriteToDirectory
 
 void __71__SFLocalSpeechRecognitionClient_oovWordsAndFrequenciesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -992,8 +956,6 @@ void __71__SFLocalSpeechRecognitionClient_oovWordsAndFrequenciesWithCompletion__
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addProns:(id)prons forWord:(id)word completion:(id)completion
@@ -1013,16 +975,16 @@ void __71__SFLocalSpeechRecognitionClient_oovWordsAndFrequenciesWithCompletion__
 
 void __62__SFLocalSpeechRecognitionClient_addProns_forWord_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1030,8 +992,6 @@ void __62__SFLocalSpeechRecognitionClient_addProns_forWord_completion___block_in
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSentenceToNgramCounts:(id)counts completion:(id)completion
@@ -1050,16 +1010,16 @@ void __62__SFLocalSpeechRecognitionClient_addProns_forWord_completion___block_in
 
 void __70__SFLocalSpeechRecognitionClient_addSentenceToNgramCounts_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1067,8 +1027,6 @@ void __70__SFLocalSpeechRecognitionClient_addSentenceToNgramCounts_completion___
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSentenceToNgramCounts:(id)counts
@@ -1080,19 +1038,17 @@ void __70__SFLocalSpeechRecognitionClient_addSentenceToNgramCounts_completion___
 
 void __59__SFLocalSpeechRecognitionClient_addSentenceToNgramCounts___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412546;
-    v6 = @"com.apple.speech.localspeechrecognition";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = @"com.apple.speech.localspeechrecognition";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeLmWithAssetPath:(id)path completion:(id)completion
@@ -1111,16 +1067,16 @@ void __59__SFLocalSpeechRecognitionClient_addSentenceToNgramCounts___block_invok
 
 void __71__SFLocalSpeechRecognitionClient_initializeLmWithAssetPath_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1128,8 +1084,6 @@ void __71__SFLocalSpeechRecognitionClient_initializeLmWithAssetPath_completion__
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeLmWithLocale:(id)locale clientID:(id)d completion:(id)completion
@@ -1149,16 +1103,16 @@ void __71__SFLocalSpeechRecognitionClient_initializeLmWithAssetPath_completion__
 
 void __77__SFLocalSpeechRecognitionClient_initializeLmWithLocale_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_INFO, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1166,8 +1120,6 @@ void __77__SFLocalSpeechRecognitionClient_initializeLmWithLocale_clientID_comple
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPurgeabilityForAssetWithConfig:(id)config purgeable:(BOOL)purgeable clientID:(id)d completion:(id)completion
@@ -1205,16 +1157,16 @@ void __98__SFLocalSpeechRecognitionClient_setPurgeabilityForAssetWithConfig_purg
 
 void __98__SFLocalSpeechRecognitionClient_setPurgeabilityForAssetWithConfig_purgeable_clientID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1222,8 +1174,6 @@ void __98__SFLocalSpeechRecognitionClient_setPurgeabilityForAssetWithConfig_purg
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_asynchronousServiceProxyWithErrorHandler:(uint64_t)handler
@@ -1264,16 +1214,16 @@ void __98__SFLocalSpeechRecognitionClient_setPurgeabilityForAssetWithConfig_purg
 
 void __70__SFLocalSpeechRecognitionClient_subscriptionsForClientId_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1281,8 +1231,6 @@ void __70__SFLocalSpeechRecognitionClient_subscriptionsForClientId_completion___
   {
     (*(v5 + 16))(v5, MEMORY[0x1E695E0F0]);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromAssetWithConfig:(id)config clientID:(id)d completion:(id)completion
@@ -1302,16 +1250,16 @@ void __70__SFLocalSpeechRecognitionClient_subscriptionsForClientId_completion___
 
 void __85__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1319,8 +1267,6 @@ void __85__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientI
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromAssetWithConfig:(id)config clientID:(id)d asyncCompletion:(id)completion
@@ -1357,16 +1303,16 @@ void __90__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientI
 
 void __90__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientID_asyncCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1374,8 +1320,6 @@ void __90__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientI
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configParametersForVoicemailWithLanguage:(id)language clientID:(id)d completion:(id)completion
@@ -1395,16 +1339,16 @@ void __90__SFLocalSpeechRecognitionClient_unsubscribeFromAssetWithConfig_clientI
 
 void __95__SFLocalSpeechRecognitionClient_configParametersForVoicemailWithLanguage_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1412,8 +1356,6 @@ void __95__SFLocalSpeechRecognitionClient_configParametersForVoicemailWithLangua
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAssetsForLanguage:(id)language clientID:(id)d completion:(id)completion
@@ -1433,16 +1375,16 @@ void __95__SFLocalSpeechRecognitionClient_configParametersForVoicemailWithLangua
 
 void __77__SFLocalSpeechRecognitionClient_fetchAssetsForLanguage_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1450,8 +1392,6 @@ void __77__SFLocalSpeechRecognitionClient_fetchAssetsForLanguage_clientID_comple
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadAssetsForConfig:(id)config clientID:(id)d expiration:(id)expiration detailedProgress:(id)progress completionHandler:(id)handler
@@ -1505,15 +1445,15 @@ void __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expi
 
 void __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_detailedProgress_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v14 = @"com.apple.speech.localspeechrecognition";
-    v15 = 2112;
-    v16 = v3;
+    v13 = @"com.apple.speech.localspeechrecognition";
+    v14 = 2112;
+    v15 = v3;
     _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", buf, 0x16u);
   }
 
@@ -1525,31 +1465,28 @@ void __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expi
   block[2] = __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_detailedProgress_completionHandler___block_invoke_57;
   block[3] = &unk_1E797C528;
   block[4] = v6;
-  v11 = v3;
-  v12 = v5;
+  v10 = v3;
+  v11 = v5;
   v8 = v3;
   dispatch_async(v7, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_detailedProgress_completionHandler___block_invoke_57(void *a1)
+uint64_t __113__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_detailedProgress_completionHandler___block_invoke_57(uint64_t a1)
 {
-  v2 = a1[4];
+  v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   *(v2 + 32) = 0;
 
-  v4 = a1[4];
+  v4 = *(a1 + 32);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  result = a1[6];
+  result = *(a1 + 48);
   if (result)
   {
-    v7 = a1[5];
-    v8 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v8();
+    return v7();
   }
 
   return result;
@@ -1622,15 +1559,15 @@ uint64_t __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_
 
 void __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_progress_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v14 = @"com.apple.speech.localspeechrecognition";
-    v15 = 2112;
-    v16 = v3;
+    v13 = @"com.apple.speech.localspeechrecognition";
+    v14 = 2112;
+    v15 = v3;
     _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", buf, 0x16u);
   }
 
@@ -1642,31 +1579,28 @@ void __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expi
   block[2] = __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_progress_completionHandler___block_invoke_56;
   block[3] = &unk_1E797C528;
   block[4] = v6;
-  v11 = v3;
-  v12 = v5;
+  v10 = v3;
+  v11 = v5;
   v8 = v3;
   dispatch_async(v7, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_progress_completionHandler___block_invoke_56(void *a1)
+uint64_t __105__SFLocalSpeechRecognitionClient_downloadAssetsForConfig_clientID_expiration_progress_completionHandler___block_invoke_56(uint64_t a1)
 {
-  v2 = a1[4];
+  v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   *(v2 + 32) = 0;
 
-  v4 = a1[4];
+  v4 = *(a1 + 32);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  result = a1[6];
+  result = *(a1 + 48);
   if (result)
   {
-    v7 = a1[5];
-    v8 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v8();
+    return v7();
   }
 
   return result;
@@ -1700,22 +1634,20 @@ void __66__SFLocalSpeechRecognitionClient_initializeWithSandboxExtensions___bloc
 
 void __66__SFLocalSpeechRecognitionClient_initializeWithSandboxExtensions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
   [WeakRetained localSpeechRecognitionClient:*(a1 + 32) speechRecognitionDidFail:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installedLanguagesForAssetType:(unint64_t)type synchronous:(BOOL)synchronous completion:(id)completion
@@ -1754,16 +1686,16 @@ void __66__SFLocalSpeechRecognitionClient_initializeWithSandboxExtensions___bloc
 
 void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchronous_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412546;
-    v9 = @"com.apple.speech.localspeechrecognition";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.speech.localspeechrecognition";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1772,8 +1704,6 @@ void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchro
     v6 = [MEMORY[0x1E695DFD8] set];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchronous_completion___block_invoke_52(uint64_t a1)
@@ -1790,16 +1720,16 @@ void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchro
 
 void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchronous_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412546;
-    v9 = @"com.apple.speech.localspeechrecognition";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.speech.localspeechrecognition";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1808,8 +1738,6 @@ void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchro
     v6 = [MEMORY[0x1E695DFD8] set];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)supportedLanguagesForAssetType:(unint64_t)type synchronous:(BOOL)synchronous completion:(id)completion
@@ -1848,16 +1776,16 @@ void __88__SFLocalSpeechRecognitionClient_installedLanguagesForAssetType_synchro
 
 void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchronous_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412546;
-    v9 = @"com.apple.speech.localspeechrecognition";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.speech.localspeechrecognition";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1866,8 +1794,6 @@ void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchro
     v6 = [MEMORY[0x1E695DEC8] array];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchronous_completion___block_invoke_50(uint64_t a1)
@@ -1884,16 +1810,16 @@ void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchro
 
 void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchronous_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412546;
-    v9 = @"com.apple.speech.localspeechrecognition";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.speech.localspeechrecognition";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1902,8 +1828,6 @@ void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchro
     v6 = [MEMORY[0x1E695DEC8] array];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)versionOfAssetWithConfig:(id)config clientID:(id)d completion:(id)completion
@@ -1923,16 +1847,16 @@ void __88__SFLocalSpeechRecognitionClient_supportedLanguagesForAssetType_synchro
 
 void __79__SFLocalSpeechRecognitionClient_versionOfAssetWithConfig_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1940,8 +1864,6 @@ void __79__SFLocalSpeechRecognitionClient_versionOfAssetWithConfig_clientID_comp
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installationStateForAssetConfig:(id)config clientID:(id)d completion:(id)completion
@@ -1961,16 +1883,16 @@ void __79__SFLocalSpeechRecognitionClient_versionOfAssetWithConfig_clientID_comp
 
 void __86__SFLocalSpeechRecognitionClient_installationStateForAssetConfig_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1978,8 +1900,6 @@ void __86__SFLocalSpeechRecognitionClient_installationStateForAssetConfig_client
   {
     (*(v5 + 16))(v5, 2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pathToAssetWithConfig:(id)config clientID:(id)d asyncCompletion:(id)completion
@@ -2016,16 +1936,16 @@ void __81__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_asyncCo
 
 void __81__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_asyncCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -2033,8 +1953,6 @@ void __81__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_asyncCo
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pathToAssetWithConfig:(id)config clientID:(id)d completion:(id)completion
@@ -2054,16 +1972,16 @@ void __81__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_asyncCo
 
 void __76__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -2071,8 +1989,6 @@ void __76__SFLocalSpeechRecognitionClient_pathToAssetWithConfig_clientID_complet
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preloadRecognizerForLanguage:(id)language task:(id)task clientID:(id)d recognitionOverrides:(id)overrides modelOverrideURL:(id)l completion:(id)completion
@@ -2118,16 +2034,16 @@ void __126__SFLocalSpeechRecognitionClient_preloadRecognizerForLanguage_task_cli
 
 void __126__SFLocalSpeechRecognitionClient_preloadRecognizerForLanguage_task_clientID_recognitionOverrides_modelOverrideURL_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -2135,8 +2051,6 @@ void __126__SFLocalSpeechRecognitionClient_preloadRecognizerForLanguage_task_cli
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelSpeech
@@ -2164,22 +2078,20 @@ void __46__SFLocalSpeechRecognitionClient_cancelSpeech__block_invoke(uint64_t a1
 
 void __46__SFLocalSpeechRecognitionClient_cancelSpeech__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
   [WeakRetained localSpeechRecognitionClient:*(a1 + 32) speechRecognitionDidFail:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopSpeech
@@ -2207,22 +2119,20 @@ void __44__SFLocalSpeechRecognitionClient_stopSpeech__block_invoke(uint64_t a1)
 
 void __44__SFLocalSpeechRecognitionClient_stopSpeech__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
   [WeakRetained localSpeechRecognitionClient:*(a1 + 32) speechRecordingDidFail:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAudioPacket:(id)packet
@@ -2253,22 +2163,20 @@ void __49__SFLocalSpeechRecognitionClient_addAudioPacket___block_invoke(uint64_t
 
 void __49__SFLocalSpeechRecognitionClient_addAudioPacket___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
   [WeakRetained localSpeechRecognitionClient:*(a1 + 32) speechRecordingDidFail:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRecordedAudioDictationWithParameters:(id)parameters
@@ -2320,32 +2228,30 @@ void __76__SFLocalSpeechRecognitionClient_startRecordedAudioDictationWithParamet
 
 void __76__SFLocalSpeechRecognitionClient_startRecordedAudioDictationWithParameters___block_invoke_47(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
-    v8 = @"com.apple.speech.localspeechrecognition";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = @"com.apple.speech.localspeechrecognition";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1AC5BC000, v4, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
   [WeakRetained localSpeechRecognitionClient:*(a1 + 32) speechRecognitionDidFail:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__SFLocalSpeechRecognitionClient_init__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v10 = @"com.apple.speech.localspeechrecognition";
+    v9 = @"com.apple.speech.localspeechrecognition";
     _os_log_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_INFO, "%@ Interrupted", buf, 0xCu);
   }
 
@@ -2358,11 +2264,9 @@ void __38__SFLocalSpeechRecognitionClient_init__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __38__SFLocalSpeechRecognitionClient_init__block_invoke_41;
     block[3] = &unk_1E797CAB8;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     dispatch_async(v5, block);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __38__SFLocalSpeechRecognitionClient_init__block_invoke_41(uint64_t a1)
@@ -2412,19 +2316,17 @@ uint64_t __38__SFLocalSpeechRecognitionClient_init__block_invoke_41(uint64_t a1)
 
 void __61__SFLocalSpeechRecognitionClient_cleanupCacheWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412546;
-    v6 = @"com.apple.speech.localspeechrecognition";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = @"com.apple.speech.localspeechrecognition";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logCoreAnalyticsEvent:(id)event withAnalytics:(id)analytics
@@ -2454,19 +2356,17 @@ void __70__SFLocalSpeechRecognitionClient_logCoreAnalyticsEvent_withAnalytics___
 
 void __70__SFLocalSpeechRecognitionClient_logCoreAnalyticsEvent_withAnalytics___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412546;
-    v6 = @"com.apple.speech.localspeechrecognition";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = @"com.apple.speech.localspeechrecognition";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1AC5BC000, v3, OS_LOG_TYPE_ERROR, "Received an error while accessing %@ service: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

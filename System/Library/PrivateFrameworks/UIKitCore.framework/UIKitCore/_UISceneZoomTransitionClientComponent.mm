@@ -108,7 +108,7 @@
 
 - (void)dismissInteraction:(id)interaction didBeginAtLocation:(CGPoint)location withVelocity:(CGPoint)velocity
 {
-  v8 = [(_UISceneZoomTransitionDismissInteractionActionToHost *)location.x actionForDismissInteractionDidBeginAtLocation:velocity.x withVelocity:velocity.y];
+  v8 = [_UISceneZoomTransitionDismissInteractionActionToHost actionForDismissInteractionDidBeginAtLocation:location.y withVelocity:velocity.x, velocity.y];
   clientScene = [(FBSSceneComponent *)self clientScene];
   v7 = [MEMORY[0x1E695DFD8] setWithObject:v8];
   [clientScene sendPrivateActions:v7];
@@ -124,7 +124,7 @@
 
 - (void)dismissInteraction:(id)interaction didDismissWithVelocity:(CGPoint)velocity
 {
-  v7 = [(_UISceneZoomTransitionDismissInteractionActionToHost *)velocity.x actionForDismissInteractionDidDismissWithVelocity:?];
+  v7 = [_UISceneZoomTransitionDismissInteractionActionToHost actionForDismissInteractionDidDismissWithVelocity:velocity.y];
   clientScene = [(FBSSceneComponent *)self clientScene];
   v6 = [MEMORY[0x1E695DFD8] setWithObject:v7];
   [clientScene sendPrivateActions:v6];
@@ -132,7 +132,7 @@
 
 - (void)dismissInteraction:(id)interaction didCancelWithVelocity:(CGPoint)velocity originalPosition:(CGPoint)position
 {
-  v8 = [(_UISceneZoomTransitionDismissInteractionActionToHost *)velocity.x actionForDismissInteractionDidCancelWithVelocity:position.x originalPosition:position.y];
+  v8 = [_UISceneZoomTransitionDismissInteractionActionToHost actionForDismissInteractionDidCancelWithVelocity:velocity.y originalPosition:position.x, position.y];
   clientScene = [(FBSSceneComponent *)self clientScene];
   v7 = [MEMORY[0x1E695DFD8] setWithObject:v8];
   [clientScene sendPrivateActions:v7];

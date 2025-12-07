@@ -1159,7 +1159,7 @@ LABEL_5:
   }
 }
 
-uint64_t __51__PKReportIssueViewController__submitButtonTapped___block_invoke_2(uint64_t a1)
+void *__51__PKReportIssueViewController__submitButtonTapped___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _reportIssueInBusinessChat];
   *(*(a1 + 32) + 1280) = 0;
@@ -1909,45 +1909,45 @@ void __80__PKReportIssueViewController__submitBankConnectTicketToMaps_withCorrel
   dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
-void __80__PKReportIssueViewController__submitBankConnectTicketToMaps_withCorrelationId___block_invoke_2(uint64_t a1)
+void __80__PKReportIssueViewController__submitBankConnectTicketToMaps_withCorrelationId___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Submitted merchant issue to maps with error: %@", &v10, 0xCu);
+    v4 = *(a1 + 32);
+    v11 = 138412290;
+    v12 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Submitted merchant issue to maps with error: %@", &v11, 0xCu);
   }
 
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
   *(*(a1 + 40) + 1264) = 0;
   [*(a1 + 40) _updateNavigationButtons];
-  v5 = *(a1 + 40);
-  if (v4)
+  v6 = *(a1 + 40);
+  if (v5)
   {
-    v6 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_ERROR_TITLE";
+    v7 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_ERROR_TITLE";
   }
 
   else
   {
-    v6 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_SUCCESS_TITLE";
+    v7 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_SUCCESS_TITLE";
   }
 
-  if (v4)
+  if (v5)
   {
-    v7 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_ERROR_MESSAGE";
+    v8 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_ERROR_MESSAGE";
   }
 
   else
   {
-    v7 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_SUCCESS_MESSAGE";
+    v8 = @"TRANSACTION_DETAILS_REPORT_PROBLEM_SUCCESS_MESSAGE";
   }
 
-  v8 = PKLocalizedPaymentString(&v6->isa);
   v9 = PKLocalizedPaymentString(&v7->isa);
-  [v5 _presentAlertWithTitle:v8 message:v9 dismissAfter:1];
+  v10 = PKLocalizedPaymentString(&v8->isa);
+  [v6 _presentAlertWithTitle:v9 message:v10 dismissAfter:1];
 }
 
 - (void)_reportIssueToMaps
@@ -1998,38 +1998,38 @@ void __49__PKReportIssueViewController__reportIssueToMaps__block_invoke(uint64_t
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __49__PKReportIssueViewController__reportIssueToMaps__block_invoke_2(uint64_t a1)
+void __49__PKReportIssueViewController__reportIssueToMaps__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Submitted merchant issue to maps with error: %@", buf, 0xCu);
+    v12 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Submitted merchant issue to maps with error: %@", buf, 0xCu);
   }
 
-  v4 = *(a1 + 40);
+  v5 = *(a1 + 40);
   if (*(a1 + 32))
   {
-    v4[1264] = 0;
+    v5[1264] = 0;
     [*(a1 + 40) _updateNavigationButtons];
-    v5 = *(a1 + 40);
-    v6 = PKLocalizedPaymentString(&cfstr_TransactionDet_70.isa);
-    v7 = PKLocalizedPaymentString(&cfstr_TransactionDet_71.isa);
-    [v5 _presentAlertWithTitle:v6 message:v7 dismissAfter:1];
+    v6 = *(a1 + 40);
+    v7 = PKLocalizedPaymentString(&cfstr_TransactionDet_70.isa);
+    v8 = PKLocalizedPaymentString(&cfstr_TransactionDet_71.isa);
+    [v6 _presentAlertWithTitle:v7 message:v8 dismissAfter:1];
   }
 
   else
   {
-    v8 = [*(a1 + 48) correlationId];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __49__PKReportIssueViewController__reportIssueToMaps__block_invoke_191;
-    v9[3] = &unk_1E8011D28;
-    v9[4] = *(a1 + 40);
-    [v4 _reprocessTransactionMerchantWithIssueReportIdentifier:v8 completion:v9];
+    v9 = [*(a1 + 48) correlationId];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __49__PKReportIssueViewController__reportIssueToMaps__block_invoke_191;
+    v10[3] = &unk_1E8011D28;
+    v10[4] = *(a1 + 40);
+    [v5 _reprocessTransactionMerchantWithIssueReportIdentifier:v9 completion:v10];
   }
 }
 

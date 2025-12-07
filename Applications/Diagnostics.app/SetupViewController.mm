@@ -28,8 +28,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100032040(disappear);
+  sub_100032040(disappearCopy, selfCopy);
 }
 
 - (void)applicationWillSuspend
@@ -53,7 +54,7 @@
 - (void)applicationDidResume
 {
   selfCopy = self;
-  sub_100039904();
+  sub_100039904(selfCopy, v2);
 }
 
 - (_TtC11Diagnostics19SetupViewController)initWithNibName:(id)name bundle:(id)bundle

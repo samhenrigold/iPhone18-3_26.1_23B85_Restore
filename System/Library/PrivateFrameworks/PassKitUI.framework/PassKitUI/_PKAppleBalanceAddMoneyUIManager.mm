@@ -76,7 +76,7 @@
   promotionCopy = promotion;
   selfCopy = self;
   sub_1BD70EBFC(fromCopy, context, configuration, promotion, v12, v13);
-  sub_1BD1107D8(v12);
+  sub_1BD1107D8(v12, v13);
 }
 
 - (void)presentAMSDirectTopUpFrom:(id)from context:(int64_t)context webViewDelegate:(id)delegate completion:(id)completion
@@ -99,7 +99,7 @@
   selfCopy = self;
   sub_1BD710144(0, fromCopy, context, 0, delegate, v10, v11);
 
-  sub_1BD1107D8(v10);
+  sub_1BD1107D8(v10, v11);
 
   swift_unknownObjectRelease();
 }
@@ -121,8 +121,9 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   v10 = sub_1BD1A8284(v8);
-
+  v8, v11, v12, v13, v14, v15, v16, v17;
   sub_1BD710144(2u, fromCopy, 2uLL, v10, delegate, 0, 0);
+  v10, v18, v19, v20, v21, v22, v23, v24;
 
   swift_unknownObjectRelease();
 }
@@ -130,7 +131,7 @@
 - (void)presentInStoreTopUpFrom:(id)from context:(int64_t)context token:(id)token
 {
   v9 = *(&self->super.isa + OBJC_IVAR____PKAppleBalanceAddMoneyUIManager_account);
-  v10 = objc_allocWithZone(type metadata accessor for InStoreTopUpTokenModel());
+  v10 = objc_allocWithZone(type metadata accessor for InStoreTopUpTokenModel(0));
   tokenCopy = token;
   fromCopy = from;
   selfCopy = self;

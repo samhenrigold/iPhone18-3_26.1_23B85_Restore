@@ -20,9 +20,10 @@
 
 uint64_t __46__ICRecorderStyleProvider_sharedStyleProvider__block_invoke()
 {
-  sharedStyleProvider__sharedStyleProvider = objc_opt_new();
+  v0 = objc_opt_new();
+  sharedStyleProvider__sharedStyleProvider = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (id)_platterTimeLabelFontWithTextStyle:(id)style traitCollection:(id)collection

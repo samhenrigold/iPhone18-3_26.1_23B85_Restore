@@ -357,14 +357,15 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
   }
 
   [(PDFPageLayer *)self bounds];
-  [WeakRetained convertRectToRootView:self fromPageLayer:{PDFRectFromCGRect(v16, v17, v18, v19)}];
-  v23.origin.x = v5;
-  v23.origin.y = v7;
-  v23.size.width = v9;
-  v23.size.height = v11;
-  v20 = PDFRectIntersectsRect(v22, v23);
+  PDFRectFromCGRect();
+  [WeakRetained convertRectToRootView:self fromPageLayer:?];
+  v19.origin.x = v5;
+  v19.origin.y = v7;
+  v19.size.width = v9;
+  v19.size.height = v11;
+  v16 = PDFRectIntersectsRect(v18, v19);
 
-  return v20;
+  return v16;
 }
 
 - (void)addPageLayerEffect:(id)effect
@@ -421,7 +422,7 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
   {
     [MEMORY[0x1E6979518] begin];
     [MEMORY[0x1E6979518] setDisableActions:1];
-    [(PDFPageLayer *)self layerEffectTransform];
+    objc_msgSend_layerEffectTransform(self);
     [(PDFPageLayer *)self _updateLayerEffect:v4 withPageTransform:&v5];
     [MEMORY[0x1E6979518] commit];
   }
@@ -435,7 +436,7 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
   v15 = 0u;
   v16 = 0u;
   v14 = 0u;
-  [(PDFPageLayer *)self layerEffectTransform];
+  objc_msgSend_layerEffectTransform(self);
   _pageLayerEffects = [(PDFPageLayer *)self _pageLayerEffects];
   v10 = 0u;
   v11 = 0u;
@@ -478,30 +479,31 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
 {
   effectCopy = effect;
   [effectCopy pageFrame];
-  v8 = v7;
-  CenterPoint = PDFRectGetCenterPoint(v9, v10, v7);
-  v13 = PDFPointToCGPoint(CenterPoint, v12);
-  v15 = vaddq_f64(*&transform->tx, vmlaq_n_f64(vmulq_n_f64(*&transform->c, v14), *&transform->a, v13));
-  v16 = PDFPointFromCGPoint(v15.f64[0], v15.f64[1]);
-  PDFRectMakeFromCenter(v16, v17, v8);
+  v7 = v6;
+  PDFRectGetCenterPoint(v8, v9, v6);
+  PDFPointToCGPoint();
+  PDFPointFromCGPoint();
+  PDFRectMakeFromCenter(v10, v11, v7);
   WeakRetained = objc_loadWeakRetained(&self->_page);
   rotation = [WeakRetained rotation];
-  v20 = objc_loadWeakRetained(&self->_renderingProperties);
-  [WeakRetained boundsForBox:{objc_msgSend(v20, "displayBox")}];
-  v22 = v21;
-  v24 = v23;
+  v14 = objc_loadWeakRetained(&self->_renderingProperties);
+  [WeakRetained boundsForBox:{objc_msgSend(v14, "displayBox")}];
+  v16 = v15;
+  v18 = v17;
 
-  PDFRectRotate(rotation, v22, v24);
-  v25 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v27.a = *MEMORY[0x1E695EFD0];
-  *&v27.c = v25;
-  *&v27.tx = *(MEMORY[0x1E695EFD0] + 32);
-  [effectCopy setFrame:{PDFRectToCGRect(objc_msgSend(effectCopy, "setAffineTransform:", &v27))}];
+  PDFRectRotate(rotation, v16, v18);
+  v19 = *(MEMORY[0x1E695EFD0] + 16);
+  *&v21.a = *MEMORY[0x1E695EFD0];
+  *&v21.c = v19;
+  *&v21.tx = *(MEMORY[0x1E695EFD0] + 32);
+  [effectCopy setAffineTransform:&v21];
+  PDFRectToCGRect();
+  [effectCopy setFrame:?];
   if ([effectCopy shouldRotateContent])
   {
-    v26 = PDFDegToRad(rotation);
-    CGAffineTransformMakeRotation(&v27, v26);
-    [effectCopy setAffineTransform:&v27];
+    v20 = PDFDegToRad(rotation);
+    CGAffineTransformMakeRotation(&v21, v20);
+    [effectCopy setAffineTransform:&v21];
   }
 
   [effectCopy update];
@@ -554,39 +556,40 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
 
 - (void)saveOriginalTileLayout
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v2 = self->_tiles;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
-        v8 = v7 + 128;
+        v7 = *(*(&v13 + 1) + 8 * v6);
+        v8 = v7 + 16;
         [v7 frame];
-        *v8 = PDFRectFromCGRect(v9, v10, v11, v12);
-        *(v8 + 1) = v13;
-        *(v8 + 2) = v14;
-        *(v8 + 3) = v15;
+        PDFRectFromCGRect();
+        *v8 = v9;
+        v8[1] = v10;
+        v8[2] = v11;
+        v8[3] = v12;
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -595,81 +598,79 @@ void __35__PDFPageLayer_setNeedsTilesUpdate__block_invoke(uint64_t a1)
 
 - (void)restoreOriginalTileLayout
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_tiles;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     v6 = *MEMORY[0x1E6979DC0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
-        v9 = PDFRectToCGRect(v3);
-        [v8 setFrame:{v9, v10}];
-        v3 = [v8 setContentsGravity:v6];
+        v8 = *(*(&v9 + 1) + 8 * v7);
+        PDFRectToCGRect();
+        [v8 setFrame:v9];
+        [v8 setContentsGravity:v6];
         ++v7;
       }
 
       while (v4 != v7);
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      v4 = v3;
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
 }
 
 - (void)applyTileLayoutScale:(double)scale
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_tiles;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = *MEMORY[0x1E6979DF0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
-        v10 = PDFRectToCGRect(v4);
-        [v9 setFrame:{v10, v11}];
-        v4 = [v9 setContentsGravity:v7];
+        v9 = *(*(&v10 + 1) + 8 * v8);
+        PDFRectToCGRect();
+        [v9 setFrame:v10];
+        [v9 setContentsGravity:v7];
         ++v8;
       }
 
       while (v5 != v8);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      v5 = v4;
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 }
 
@@ -1161,247 +1162,193 @@ LABEL_34:
   v9 = b.size.width;
   v10 = b.origin.y;
   v11 = b.origin.x;
-  v128[1] = *MEMORY[0x1E69E9840];
-  v148.origin.x = v11;
-  v148.origin.y = v10;
-  v148.size.width = v9;
-  v148.size.height = v8;
-  if (!PDFRectIntersectsRect(a, v148))
+  v102[1] = *MEMORY[0x1E69E9840];
+  v122.origin.x = v11;
+  v122.origin.y = v10;
+  v122.size.width = v9;
+  v122.size.height = v8;
+  if (!PDFRectIntersectsRect(a, v122))
   {
     v13 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{x, y, width, height}];
-    v128[0] = v13;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:1];
+    v102[0] = v13;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:1];
 LABEL_5:
 
     goto LABEL_6;
   }
 
-  v131.origin.x = v11;
-  v131.origin.y = v10;
-  v131.size.width = v9;
-  v131.size.height = v8;
-  v149.origin.x = x;
-  v149.origin.y = y;
-  v149.size.width = width;
-  v149.size.height = height;
-  if (PDFRectContainsRect(v131, v149))
+  v105.origin.x = v11;
+  v105.origin.y = v10;
+  v105.size.width = v9;
+  v105.size.height = v8;
+  v123.origin.x = x;
+  v123.origin.y = y;
+  v123.size.width = width;
+  v123.size.height = height;
+  if (PDFRectContainsRect(v105, v123))
   {
     v12 = 0;
     goto LABEL_6;
   }
 
   v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (x >= v11)
+  PDFPointMake();
+  v16 = v15;
+  v18 = v17;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v16, v18, v19, v20);
+  v124.origin.x = v21;
+  v124.origin.y = v22;
+  v124.size.width = v23;
+  v124.size.height = v24;
+  v106.origin.x = x;
+  v106.origin.y = y;
+  v106.size.width = width;
+  v106.size.height = height;
+  v107 = PDFRectIntersection(v106, v124);
+  if (v107.size.width > 0.0001 && v107.size.height > 0.0001)
   {
-    v15 = v11;
+    v25 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v107.origin.x, v107.origin.y}];
+    [v12 addObject:v25];
   }
 
-  else
+  PDFPointMake();
+  v27 = v26;
+  v29 = v28;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v27, v29, v30, v31);
+  v125.origin.x = v32;
+  v125.origin.y = v33;
+  v125.size.width = v34;
+  v125.size.height = v35;
+  v108.origin.x = x;
+  v108.origin.y = y;
+  v108.size.width = width;
+  v108.size.height = height;
+  v109 = PDFRectIntersection(v108, v125);
+  if (v109.size.width > 0.0001 && v109.size.height > 0.0001)
   {
-    v15 = x;
+    v36 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v109.origin.x, v109.origin.y}];
+    [v12 addObject:v36];
   }
 
-  if (y >= v10)
+  PDFPointMake();
+  v38 = v37;
+  v40 = v39;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v38, v40, v41, v42);
+  v126.origin.x = v43;
+  v126.origin.y = v44;
+  v126.size.width = v45;
+  v126.size.height = v46;
+  v110.origin.x = x;
+  v110.origin.y = y;
+  v110.size.width = width;
+  v110.size.height = height;
+  v111 = PDFRectIntersection(v110, v126);
+  if (v111.size.width > 0.0001 && v111.size.height > 0.0001)
   {
-    v16 = v10;
+    v47 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v111.origin.x, v111.origin.y}];
+    [v12 addObject:v47];
   }
 
-  else
+  PDFPointMake();
+  v49 = v48;
+  v51 = v50;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v49, v51, v52, v53);
+  v127.origin.x = v54;
+  v127.origin.y = v55;
+  v127.size.width = v56;
+  v127.size.height = v57;
+  v112.origin.x = x;
+  v112.origin.y = y;
+  v112.size.width = width;
+  v112.size.height = height;
+  v113 = PDFRectIntersection(v112, v127);
+  if (v113.size.width > 0.0001 && v113.size.height > 0.0001)
   {
-    v16 = y;
+    v58 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v113.origin.x, v113.origin.y}];
+    [v12 addObject:v58];
   }
 
-  v17 = x + width;
-  v127 = v11 + v9;
-  if (x + width < v11 + v9)
-  {
-    v17 = v11 + v9;
-  }
-
-  v124 = v15;
-  v125 = v17;
-  v18 = y + height;
-  v126 = v10 + v8;
-  if (y + height < v10 + v8)
-  {
-    v18 = v10 + v8;
-  }
-
-  v122 = v18;
-  v123 = v16;
-  v19 = PDFPointMake(v15, v16);
-  v21 = v20;
-  v22 = PDFPointMake(v11, v10);
-  v24 = v23;
-  v25.n128_f64[0] = v19;
-  v26.n128_u64[0] = v21;
-  PDFPageLayerTileRectFromPoints(v25, v26, v22, v24);
-  v150.origin.x = v27;
-  v150.origin.y = v28;
-  v150.size.width = v29;
-  v150.size.height = v30;
-  v132.origin.x = x;
-  v132.origin.y = y;
-  v132.size.width = width;
-  v132.size.height = height;
-  v133 = PDFRectIntersection(v132, v150);
-  if (v133.size.width > 0.0001 && v133.size.height > 0.0001)
-  {
-    v31 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v133.origin.x, v133.origin.y}];
-    [v12 addObject:v31];
-  }
-
-  v32 = PDFPointMake(v11, v123);
-  v34 = v33;
-  v35 = PDFPointMake(v127, v10);
-  v37 = v36;
-  v38.n128_f64[0] = v32;
-  v39.n128_u64[0] = v34;
-  PDFPageLayerTileRectFromPoints(v38, v39, v35, v37);
-  v151.origin.x = v40;
-  v151.origin.y = v41;
-  v151.size.width = v42;
-  v151.size.height = v43;
-  v134.origin.x = x;
-  v134.origin.y = y;
-  v134.size.width = width;
-  v134.size.height = height;
-  v135 = PDFRectIntersection(v134, v151);
-  if (v135.size.width > 0.0001 && v135.size.height > 0.0001)
-  {
-    v44 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v135.origin.x, v135.origin.y}];
-    [v12 addObject:v44];
-  }
-
-  v45 = PDFPointMake(v127, v123);
-  v47 = v46;
-  v48 = PDFPointMake(v125, v10);
-  v50 = v49;
-  v51.n128_f64[0] = v45;
-  v52.n128_u64[0] = v47;
-  PDFPageLayerTileRectFromPoints(v51, v52, v48, v50);
-  v152.origin.x = v53;
-  v152.origin.y = v54;
-  v152.size.width = v55;
-  v152.size.height = v56;
-  v136.origin.x = x;
-  v136.origin.y = y;
-  v136.size.width = width;
-  v136.size.height = height;
-  v137 = PDFRectIntersection(v136, v152);
-  if (v137.size.width > 0.0001 && v137.size.height > 0.0001)
-  {
-    v57 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v137.origin.x, v137.origin.y}];
-    [v12 addObject:v57];
-  }
-
-  v58 = PDFPointMake(v124, v10);
+  PDFPointMake();
   v60 = v59;
-  v61 = PDFPointMake(v11, v126);
-  v63 = v62;
-  v64.n128_f64[0] = v58;
-  v65.n128_u64[0] = v60;
-  PDFPageLayerTileRectFromPoints(v64, v65, v61, v63);
-  v153.origin.x = v66;
-  v153.origin.y = v67;
-  v153.size.width = v68;
-  v153.size.height = v69;
-  v138.origin.x = x;
-  v138.origin.y = y;
-  v138.size.width = width;
-  v138.size.height = height;
-  v139 = PDFRectIntersection(v138, v153);
-  if (v139.size.width > 0.0001 && v139.size.height > 0.0001)
+  v62 = v61;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v60, v62, v63, v64);
+  v128.origin.x = v65;
+  v128.origin.y = v66;
+  v128.size.width = v67;
+  v128.size.height = v68;
+  v114.origin.x = x;
+  v114.origin.y = y;
+  v114.size.width = width;
+  v114.size.height = height;
+  v115 = PDFRectIntersection(v114, v128);
+  if (v115.size.width > 0.0001 && v115.size.height > 0.0001)
   {
-    v70 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v139.origin.x, v139.origin.y}];
-    [v12 addObject:v70];
+    v69 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v115.origin.x, v115.origin.y}];
+    [v12 addObject:v69];
   }
 
-  v71 = PDFPointMake(v127, v10);
+  PDFPointMake();
+  v71 = v70;
   v73 = v72;
-  v74 = PDFPointMake(v125, v126);
-  v76 = v75;
-  v77.n128_f64[0] = v71;
-  v78.n128_u64[0] = v73;
-  PDFPageLayerTileRectFromPoints(v77, v78, v74, v76);
-  v154.origin.x = v79;
-  v154.origin.y = v80;
-  v154.size.width = v81;
-  v154.size.height = v82;
-  v140.origin.x = x;
-  v140.origin.y = y;
-  v140.size.width = width;
-  v140.size.height = height;
-  v141 = PDFRectIntersection(v140, v154);
-  if (v141.size.width > 0.0001 && v141.size.height > 0.0001)
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v71, v73, v74, v75);
+  v129.origin.x = v76;
+  v129.origin.y = v77;
+  v129.size.width = v78;
+  v129.size.height = v79;
+  v116.origin.x = x;
+  v116.origin.y = y;
+  v116.size.width = width;
+  v116.size.height = height;
+  v117 = PDFRectIntersection(v116, v129);
+  if (v117.size.width > 0.0001 && v117.size.height > 0.0001)
   {
-    v83 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v141.origin.x, v141.origin.y}];
-    [v12 addObject:v83];
+    v80 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v117.origin.x, v117.origin.y}];
+    [v12 addObject:v80];
   }
 
-  v84 = PDFPointMake(v124, v126);
-  v86 = v85;
-  v87 = PDFPointMake(v11, v122);
-  v89 = v88;
-  v90.n128_f64[0] = v84;
-  v91.n128_u64[0] = v86;
-  PDFPageLayerTileRectFromPoints(v90, v91, v87, v89);
-  v155.origin.x = v92;
-  v155.origin.y = v93;
-  v155.size.width = v94;
-  v155.size.height = v95;
-  v142.origin.x = x;
-  v142.origin.y = y;
-  v142.size.width = width;
-  v142.size.height = height;
-  v143 = PDFRectIntersection(v142, v155);
-  if (v143.size.width > 0.0001 && v143.size.height > 0.0001)
+  PDFPointMake();
+  v82 = v81;
+  v84 = v83;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v82, v84, v85, v86);
+  v130.origin.x = v87;
+  v130.origin.y = v88;
+  v130.size.width = v89;
+  v130.size.height = v90;
+  v118.origin.x = x;
+  v118.origin.y = y;
+  v118.size.width = width;
+  v118.size.height = height;
+  v119 = PDFRectIntersection(v118, v130);
+  if (v119.size.width > 0.0001 && v119.size.height > 0.0001)
   {
-    v96 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v143.origin.x, v143.origin.y}];
-    [v12 addObject:v96];
+    v91 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v119.origin.x, v119.origin.y}];
+    [v12 addObject:v91];
   }
 
-  v97 = PDFPointMake(v11, v126);
-  v99 = v98;
-  v100 = PDFPointMake(v127, v122);
-  v102 = v101;
-  v103.n128_f64[0] = v97;
-  v104.n128_u64[0] = v99;
-  PDFPageLayerTileRectFromPoints(v103, v104, v100, v102);
-  v156.origin.x = v105;
-  v156.origin.y = v106;
-  v156.size.width = v107;
-  v156.size.height = v108;
-  v144.origin.x = x;
-  v144.origin.y = y;
-  v144.size.width = width;
-  v144.size.height = height;
-  v145 = PDFRectIntersection(v144, v156);
-  if (v145.size.width > 0.0001 && v145.size.height > 0.0001)
+  PDFPointMake();
+  v93 = v92;
+  v95 = v94;
+  PDFPointMake();
+  PDFPageLayerTileRectFromPoints(v93, v95, v96, v97);
+  v131.origin.x = v98;
+  v131.origin.y = v99;
+  v131.size.width = v100;
+  v131.size.height = v101;
+  v120.origin.x = x;
+  v120.origin.y = y;
+  v120.size.width = width;
+  v120.size.height = height;
+  v121 = PDFRectIntersection(v120, v131);
+  if (v121.size.width > 0.0001 && v121.size.height > 0.0001)
   {
-    v109 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v145.origin.x, v145.origin.y}];
-    [v12 addObject:v109];
-  }
-
-  v110 = PDFPointMake(v127, v126);
-  v112 = v111;
-  v113 = PDFPointMake(v125, v122);
-  v115 = v114;
-  v116.n128_f64[0] = v110;
-  v117.n128_u64[0] = v112;
-  PDFPageLayerTileRectFromPoints(v116, v117, v113, v115);
-  v157.origin.x = v118;
-  v157.origin.y = v119;
-  v157.size.width = v120;
-  v157.size.height = v121;
-  v146.origin.x = x;
-  v146.origin.y = y;
-  v146.size.width = width;
-  v146.size.height = height;
-  v147 = PDFRectIntersection(v146, v157);
-  if (v147.size.width > 0.0001 && v147.size.height > 0.0001)
-  {
-    v13 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v147.origin.x, v147.origin.y}];
+    v13 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v121.origin.x, v121.origin.y}];
     [v12 addObject:v13];
     goto LABEL_5;
   }
@@ -1417,63 +1364,60 @@ LABEL_6:
   WeakRetained = objc_loadWeakRetained(&self->_geometryInterface);
   [boundsCopy bounds];
   [boundsCopy convertRect:self toLayer:?];
+
+  PDFRectFromCGRect();
   v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
-
-  v14 = PDFRectFromCGRect(v7, v9, v11, v13);
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
   [(PDFPageLayer *)self bounds];
-  v53.origin.x = PDFRectFromCGRect(v21, v22, v23, v24);
-  v58.origin.x = v14;
-  v58.origin.y = v16;
-  v58.size.width = v18;
-  v58.size.height = v20;
-  v54 = PDFRectIntersection(v53, v58);
-  [WeakRetained convertRectToRootView:self fromPageLayer:{v54.origin.x, v54.origin.y, v54.size.width, v54.size.height}];
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
+  PDFRectFromCGRect();
+  v47.origin.x = v7;
+  v47.origin.y = v9;
+  v47.size.width = v11;
+  v47.size.height = v13;
+  v43 = PDFRectIntersection(v42, v47);
+  [WeakRetained convertRectToRootView:self fromPageLayer:{v43.origin.x, v43.origin.y, v43.size.width, v43.size.height}];
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
   [WeakRetained rootViewBounds];
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
   if (objc_opt_respondsToSelector())
   {
     [WeakRetained extendedRootViewBounds];
-    v34 = v41;
-    v36 = v42;
-    v38 = v43;
-    v40 = v44;
+    v23 = v30;
+    v25 = v31;
+    v27 = v32;
+    v29 = v33;
   }
 
-  v55.origin.x = v26;
-  v55.origin.y = v28;
-  v55.size.width = v30;
-  v55.size.height = v32;
-  v59.origin.x = v34;
-  v59.origin.y = v36;
-  v59.size.width = v38;
-  v59.size.height = v40;
-  v56 = PDFRectIntersection(v55, v59);
-  x = v56.origin.x;
-  y = v56.origin.y;
-  width = v56.size.width;
-  height = v56.size.height;
+  v44.origin.x = v15;
+  v44.origin.y = v17;
+  v44.size.width = v19;
+  v44.size.height = v21;
+  v48.origin.x = v23;
+  v48.origin.y = v25;
+  v48.size.width = v27;
+  v48.size.height = v29;
+  v45 = PDFRectIntersection(v44, v48);
+  x = v45.origin.x;
+  y = v45.origin.y;
+  width = v45.size.width;
+  height = v45.size.height;
 
-  v49 = x;
-  v50 = y;
-  v51 = width;
-  v52 = height;
-  result.size.height = v52;
-  result.size.width = v51;
-  result.origin.y = v50;
-  result.origin.x = v49;
+  v38 = x;
+  v39 = y;
+  v40 = width;
+  v41 = height;
+  result.size.height = v41;
+  result.size.width = v40;
+  result.origin.y = v39;
+  result.origin.x = v38;
   return result;
 }
 
@@ -1495,33 +1439,34 @@ LABEL_6:
   }
 
   [(PDFPageLayer *)self frame];
-  v20 = PDFRectFromCGRect(v16, v17, v18, v19);
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
+  PDFRectFromCGRect();
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
   [WeakRetained convertRootViewRect:self toPageLayer:{v5, v7, v9, v11}];
-  v42.origin.x = v27;
-  v42.origin.y = v28;
-  v42.size.width = v29;
-  v42.size.height = v30;
-  v39.origin.x = v20;
-  v39.origin.y = v22;
-  v39.size.width = v24;
-  v39.size.height = v26;
-  v40 = PDFRectIntersection(v39, v42);
-  x = v40.origin.x;
-  y = v40.origin.y;
-  width = v40.size.width;
-  height = v40.size.height;
+  v39.origin.x = v24;
+  v39.origin.y = v25;
+  v39.size.width = v26;
+  v39.size.height = v27;
+  v36.origin.x = v17;
+  v36.origin.y = v19;
+  v36.size.width = v21;
+  v36.size.height = v23;
+  v37 = PDFRectIntersection(v36, v39);
+  x = v37.origin.x;
+  y = v37.origin.y;
+  width = v37.size.width;
+  height = v37.size.height;
 
-  v35 = x;
-  v36 = y;
-  v37 = width;
-  v38 = height;
-  result.size.height = v38;
-  result.size.width = v37;
-  result.origin.y = v36;
-  result.origin.x = v35;
+  v32 = x;
+  v33 = y;
+  v34 = width;
+  v35 = height;
+  result.size.height = v35;
+  result.size.width = v34;
+  result.origin.y = v33;
+  result.origin.x = v32;
   return result;
 }
 
@@ -1531,34 +1476,35 @@ LABEL_6:
   width = layer.size.width;
   y = layer.origin.y;
   x = layer.origin.x;
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v7 = self->_tiles;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v19 + 1) + 8 * i) frame];
-        if (vabdd_f64(PDFRectFromCGRect(v11, v12, v13, v14), x) < 0.0001 && vabdd_f64(v15, y) < 0.0001 && vabdd_f64(v16, width) < 0.0001 && vabdd_f64(v17, height) < 0.0001)
+        [*(*(&v16 + 1) + 8 * i) frame];
+        PDFRectFromCGRect();
+        if (vabdd_f64(v14, x) < 0.0001 && vabdd_f64(v11, y) < 0.0001 && vabdd_f64(v12, width) < 0.0001 && vabdd_f64(v13, height) < 0.0001)
         {
           LOBYTE(v8) = 1;
           goto LABEL_14;
         }
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -1644,7 +1590,7 @@ LABEL_14:
 
 - (void)_updateTiles
 {
-  v149 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_renderingProperties);
   if (!self->_tileLayerHidden && self->_allowUpdate && [WeakRetained enableTileUpdates])
   {
@@ -1663,8 +1609,8 @@ LABEL_14:
       v9 = v8;
       v11 = v10;
       oldPageRotation = self->_oldPageRotation;
-      v130 = v3;
-      if (oldPageRotation != [v3 rotation] || (v152.origin.x = v5, v152.origin.y = v7, v152.size.width = v9, v152.size.height = v11, !PDFRectEqualToRect(self->_oldBoundsForBox, v152)))
+      v111 = v3;
+      if (oldPageRotation != [v3 rotation] || (v133.origin.x = v5, v133.origin.y = v7, v133.size.width = v9, v133.size.height = v11, !PDFRectEqualToRect(self->_oldBoundsForBox, v133)))
       {
         self->_oldPageRotation = [v3 rotation];
         self->_oldBoundsForBox.origin.x = v5;
@@ -1685,51 +1631,50 @@ LABEL_14:
         [v13 extendedRootViewBounds];
         v15 = v22;
         v17 = v23;
-        v125 = v24;
+        v107 = v24;
         v21 = v25;
       }
 
       else
       {
-        v125 = v19;
+        v107 = v19;
       }
 
       v26 = isForcingUpdate;
       [(PDFPageLayer *)self bounds];
-      [v13 convertRectToRootView:self fromPageLayer:{PDFRectFromCGRect(v27, v28, v29, v30)}];
+      PDFRectFromCGRect();
+      [v13 convertRectToRootView:self fromPageLayer:?];
+      v28 = v27;
+      v30 = v29;
       v32 = v31;
       v34 = v33;
-      v36 = v35;
-      v38 = v37;
-      v129 = +[PDFTilePool sharedPool];
-      tileSurfaceSize = [v129 tileSurfaceSize];
-      v40.n128_u64[0] = 0;
-      v41.n128_u64[0] = 0;
-      [v13 convertRootViewRect:self toPageLayer:{PDFRectMake(v40, v41, tileSurfaceSize, tileSurfaceSize)}];
-      v117 = v42;
-      v116 = tileSurfaceSize / v42;
+      v110 = +[PDFTilePool sharedPool];
+      tileSurfaceSize = [v110 tileSurfaceSize];
+      PDFRectMake();
+      [v13 convertRootViewRect:self toPageLayer:?];
+      v100 = tileSurfaceSize / v36;
       obj = tileSurfaceSize;
-      if (vabdd_f64(self->_lastLayoutZoomFactor, tileSurfaceSize / v42) > 0.0001)
+      if (vabdd_f64(self->_lastLayoutZoomFactor, tileSurfaceSize / v36) > 0.0001)
       {
-        v43 = v34;
+        v37 = v30;
         date = [MEMORY[0x1E695DF00] date];
         [date timeIntervalSinceDate:self->_lastZoomChange];
-        v46 = v45;
+        v40 = v39;
 
-        if (self->_lastZoomChange && v46 < self->_zoomGenerationDelay)
+        if (self->_lastZoomChange && v40 < self->_zoomGenerationDelay)
         {
           if (!self->_zoomChangeScheduled)
           {
             self->_zoomChangeScheduled = 1;
             objc_initWeak(&location, self);
-            v47 = dispatch_time(0, (self->_zoomGenerationDelay * 1000000000.0));
+            v41 = dispatch_time(0, (self->_zoomGenerationDelay * 1000000000.0));
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __28__PDFPageLayer__updateTiles__block_invoke;
             block[3] = &unk_1E8151400;
-            objc_copyWeak(&v146, &location);
-            dispatch_after(v47, MEMORY[0x1E69E96A0], block);
-            objc_destroyWeak(&v146);
+            objc_copyWeak(&v127, &location);
+            dispatch_after(v41, MEMORY[0x1E69E96A0], block);
+            objc_destroyWeak(&v127);
             objc_destroyWeak(&location);
           }
 
@@ -1738,12 +1683,12 @@ LABEL_69:
           goto LABEL_70;
         }
 
-        self->_lastLayoutZoomFactor = v116;
-        self->_lastLayerFrameInRootView.origin.x = v32;
-        self->_lastLayerFrameInRootView.origin.y = v43;
-        v34 = v43;
-        self->_lastLayerFrameInRootView.size.width = v36;
-        self->_lastLayerFrameInRootView.size.height = v38;
+        self->_lastLayoutZoomFactor = v100;
+        self->_lastLayerFrameInRootView.origin.x = v28;
+        self->_lastLayerFrameInRootView.origin.y = v37;
+        v30 = v37;
+        self->_lastLayerFrameInRootView.size.width = v32;
+        self->_lastLayerFrameInRootView.size.height = v34;
         ++self->_generationCount;
         date2 = [MEMORY[0x1E695DF00] date];
         lastZoomChange = self->_lastZoomChange;
@@ -1754,232 +1699,225 @@ LABEL_69:
         tileSurfaceSize = obj;
       }
 
-      v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if (v32 < v15)
+      v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      if (v28 < v15)
       {
-        v53 = ((v15 - v32) / tileSurfaceSize);
+        v45 = ((v15 - v28) / tileSurfaceSize);
       }
 
       else
       {
-        v53 = 0;
+        v45 = 0;
       }
 
-      v112 = v34;
-      if (v34 < v17)
+      if (v30 < v17)
       {
-        v54 = ((v17 - v34) / tileSurfaceSize);
+        v46 = ((v17 - v30) / tileSurfaceSize);
       }
 
       else
       {
-        v54 = 0;
+        v46 = 0;
       }
 
-      v55 = v21 + v17 - v34;
-      v124 = v21;
-      if (v38 <= v21)
+      v47 = v21 + v17 - v30;
+      v106 = v21;
+      if (v34 <= v21)
       {
-        v55 = v38;
+        v47 = v34;
       }
 
-      v114 = (v55 / tileSurfaceSize);
-      v115 = v53;
-      if (v54 <= v114)
+      v98 = (v47 / tileSurfaceSize);
+      v99 = v45;
+      if (v46 <= v98)
       {
-        v56 = v125 + v15 - v32;
-        if (v36 <= v125)
+        v48 = v107 + v15 - v28;
+        if (v32 <= v107)
         {
-          v56 = v36;
+          v48 = v32;
         }
 
-        v113 = (v56 / tileSurfaceSize);
-        v57 = MEMORY[0x1E695EFD0];
-        v122 = v32;
-        v123 = v15;
-        v121 = v17;
+        v97 = (v48 / tileSurfaceSize);
+        v49 = MEMORY[0x1E695EFD0];
+        v105 = v15;
+        v104 = v17;
         do
         {
-          if (v115 <= v113)
+          if (v99 <= v97)
           {
-            v128 = v112 + v54 * tileSurfaceSize;
-            v58 = v115;
+            v50 = v99;
             do
             {
-              v51.n128_f64[0] = v32 + v58 * tileSurfaceSize;
-              v52.n128_f64[0] = v128;
-              v150.origin.x = PDFRectMake(v51, v52, tileSurfaceSize, tileSurfaceSize);
-              x = v150.origin.x;
-              y = v150.origin.y;
-              width = v150.size.width;
-              height = v150.size.height;
-              v153.origin.x = v15;
-              v153.origin.y = v17;
-              v153.size.height = v124;
-              v153.size.width = v125;
-              if (PDFRectIntersectsRect(v150, v153))
+              PDFRectMake();
+              x = v131.origin.x;
+              y = v131.origin.y;
+              width = v131.size.width;
+              height = v131.size.height;
+              v134.origin.x = v15;
+              v134.origin.y = v17;
+              v134.size.height = v106;
+              v134.size.width = v107;
+              if (PDFRectIntersectsRect(v131, v134))
               {
-                v52.n128_f64[0] = v117 * v54;
-                v51.n128_f64[0] = v117 * v58;
-                v63 = PDFRectMake(v51, v52, v117, v117);
-                v67 = v63;
-                v68 = v64;
-                v69 = v65;
-                v70 = v66;
-                if (v26 || ![(PDFPageLayer *)self _hasTileWithFrameInLayer:v63, v64, v65, v66])
+                PDFRectMake();
+                v59 = v55;
+                v60 = v56;
+                v61 = v57;
+                v62 = v58;
+                if (v26 || ![(PDFPageLayer *)self _hasTileWithFrameInLayer:v55, v56, v57, v58])
                 {
-                  v119 = v57[1];
-                  *&location.a = *v57;
-                  v120 = *&location.a;
-                  *&location.c = v119;
-                  *&location.tx = v57[2];
-                  v118 = *&location.tx;
-                  CGAffineTransformMakeTranslation(&t2, -v67, -v68);
-                  *&t1.a = v120;
-                  *&t1.c = v119;
-                  *&t1.tx = v118;
+                  v102 = v49[1];
+                  *&location.a = *v49;
+                  v103 = *&location.a;
+                  *&location.c = v102;
+                  *&location.tx = v49[2];
+                  v101 = *&location.tx;
+                  CGAffineTransformMakeTranslation(&t2, -v59, -v60);
+                  *&t1.a = v103;
+                  *&t1.c = v102;
+                  *&t1.tx = v101;
                   CGAffineTransformConcat(&location, &t1, &t2);
-                  CGAffineTransformMakeScale(&t1, v116, v116);
-                  v141 = location;
-                  CGAffineTransformConcat(&t2, &v141, &t1);
+                  CGAffineTransformMakeScale(&t1, v100, v100);
+                  v122 = location;
+                  CGAffineTransformConcat(&t2, &v122, &t1);
                   location = t2;
-                  v71 = [PDFPageLayerTile alloc];
+                  v63 = [PDFPageLayerTile alloc];
                   generationCount = self->_generationCount;
                   t2 = location;
-                  v116 = [(PDFPageLayerTile *)v71 initWithFrame:self forPageLayer:&t2 withRenderingTransform:generationCount tileContentsScale:v67 generationID:v68, v69, v70, v116];
-                  [(PDFPageLayerTile *)v116 setRootViewFrame:x, y, width, height];
+                  v100 = [(PDFPageLayerTile *)v63 initWithFrame:self forPageLayer:&t2 withRenderingTransform:generationCount tileContentsScale:v59 generationID:v60, v61, v62, v100];
+                  [(PDFPageLayerTile *)v100 setRootViewFrame:x, y, width, height];
                   if ([v13 flipsTileContents])
                   {
                     CGAffineTransformMakeScale(&t2, 1.0, -1.0);
-                    [(PDFPageLayerTile *)v116 setAffineTransform:&t2];
+                    [(PDFPageLayerTile *)v100 setAffineTransform:&t2];
                   }
 
-                  [v50 addObject:v116];
+                  [v44 addObject:v100];
                 }
               }
 
-              ++v58;
-              v32 = v122;
-              v15 = v123;
-              v17 = v121;
-              tileSurfaceSize = obj;
+              ++v50;
+              v15 = v105;
+              v17 = v104;
             }
 
-            while (v113 + 1 != v58);
+            while (v97 + 1 != v50);
           }
         }
 
-        while (v54++ != v114);
+        while (v46++ != v98);
       }
 
-      v75 = [(NSMutableArray *)self->_tiles sortedArrayUsingComparator:&__block_literal_global_215];
-      v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v137 = 0u;
-      v138 = 0u;
-      v139 = 0u;
-      v140 = 0u;
-      obja = v75;
-      v77 = [obja countByEnumeratingWithState:&v137 objects:v148 count:16];
-      if (v77)
+      v67 = [(NSMutableArray *)self->_tiles sortedArrayUsingComparator:&__block_literal_global_215];
+      v68 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v118 = 0u;
+      v119 = 0u;
+      v120 = 0u;
+      v121 = 0u;
+      obja = v67;
+      v69 = [obja countByEnumeratingWithState:&v118 objects:v129 count:16];
+      if (v69)
       {
-        v78 = v77;
-        v79 = *v138;
+        v70 = v69;
+        v71 = *v119;
         do
         {
-          for (i = 0; i != v78; ++i)
+          for (i = 0; i != v70; ++i)
           {
-            if (*v138 != v79)
+            if (*v119 != v71)
             {
               objc_enumerationMutation(obja);
             }
 
-            v81 = *(*(&v137 + 1) + 8 * i);
-            if (v81[30] >= self->_generationCount - 8 && (([*(*(&v137 + 1) + 8 * i) isWorking] & 1) != 0 || (objc_msgSend(v81, "hasContent") & 1) != 0 || v81[30] >= self->_generationCount))
+            v73 = *(*(&v118 + 1) + 8 * i);
+            if (v73[30] >= self->_generationCount - 8 && (([*(*(&v118 + 1) + 8 * i) isWorking] & 1) != 0 || (objc_msgSend(v73, "hasContent") & 1) != 0 || v73[30] >= self->_generationCount))
             {
-              [v81 bounds];
-              [v81 convertRect:self toLayer:?];
-              [v13 convertRectToRootView:self fromPageLayer:{PDFRectFromCGRect(v82, v83, v84, v85)}];
-              v154.origin.x = v15;
-              v154.origin.y = v17;
-              v154.size.width = v125;
-              v154.size.height = v124;
-              if (PDFRectIntersectsRect(v151, v154))
+              [v73 bounds];
+              [v73 convertRect:self toLayer:?];
+              PDFRectFromCGRect();
+              [v13 convertRectToRootView:self fromPageLayer:?];
+              v135.origin.x = v15;
+              v135.origin.y = v17;
+              v135.size.width = v107;
+              v135.size.height = v106;
+              if (PDFRectIntersectsRect(v132, v135))
               {
                 continue;
               }
             }
 
-            [v76 addObject:v81];
+            [v68 addObject:v73];
           }
 
-          v78 = [obja countByEnumeratingWithState:&v137 objects:v148 count:16];
+          v70 = [obja countByEnumeratingWithState:&v118 objects:v129 count:16];
         }
 
-        while (v78);
+        while (v70);
       }
 
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];
-      while ([v76 count])
+      while ([v68 count])
       {
-        lastObject = [v76 lastObject];
-        [v76 removeLastObject];
+        lastObject = [v68 lastObject];
+        [v68 removeLastObject];
         [lastObject removeFromSuperlayer];
         [(NSMutableArray *)self->_tiles removeObject:lastObject];
       }
 
       [MEMORY[0x1E6979518] commit];
       [v13 rootViewBounds];
-      CenterPoint = PDFRectGetCenterPoint(v87, v88, v89);
-      v136[0] = MEMORY[0x1E69E9820];
-      v136[1] = 3221225472;
-      v136[2] = __28__PDFPageLayer__updateTiles__block_invoke_3;
-      v136[3] = &__block_descriptor_48_e47_q24__0__PDFPageLayerTile_8__PDFPageLayerTile_16l;
-      *&v136[4] = CenterPoint;
-      v136[5] = v91;
-      v92 = [v50 sortedArrayUsingComparator:v136];
+      CenterPoint = PDFRectGetCenterPoint(v75, v76, v77);
+      v117[0] = MEMORY[0x1E69E9820];
+      v117[1] = 3221225472;
+      v117[2] = __28__PDFPageLayer__updateTiles__block_invoke_3;
+      v117[3] = &__block_descriptor_48_e47_q24__0__PDFPageLayerTile_8__PDFPageLayerTile_16l;
+      *&v117[4] = CenterPoint;
+      v117[5] = v79;
+      v80 = [v44 sortedArrayUsingComparator:v117];
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];
-      v134 = 0u;
-      v135 = 0u;
-      v132 = 0u;
-      v133 = 0u;
-      v93 = v92;
-      v94 = [v93 countByEnumeratingWithState:&v132 objects:v147 count:16];
-      if (v94)
+      v115 = 0u;
+      v116 = 0u;
+      v113 = 0u;
+      v114 = 0u;
+      v81 = v80;
+      v82 = [v81 countByEnumeratingWithState:&v113 objects:v128 count:16];
+      if (v82)
       {
-        v95 = v94;
-        v96 = *v133;
+        v83 = v82;
+        v84 = *v114;
         do
         {
-          for (j = 0; j != v95; ++j)
+          for (j = 0; j != v83; ++j)
           {
-            if (*v133 != v96)
+            if (*v114 != v84)
             {
-              objc_enumerationMutation(v93);
+              objc_enumerationMutation(v81);
             }
 
-            v98 = *(*(&v132 + 1) + 8 * j);
-            [(CALayer *)self->_tilesLayer addSublayer:v98];
-            [(NSMutableArray *)self->_tiles addObject:v98];
-            [v98 setZPosition:-800.0];
-            v99 = *(v98 + 104);
-            [v98 frame];
-            v104 = PDFRectFromCGRect(v100, v101, v102, v103);
-            v106 = v105;
+            v86 = *(*(&v113 + 1) + 8 * j);
+            [(CALayer *)self->_tilesLayer addSublayer:v86];
+            [(NSMutableArray *)self->_tiles addObject:v86];
+            [v86 setZPosition:-800.0];
+            v87 = *(v86 + 104);
+            [v86 frame];
+            PDFRectFromCGRect();
+            v89 = v88;
+            v91 = v90;
             ++_updateTiles_requestTag;
-            v107 = *(v98 + 56);
-            v108 = *(v98 + 88);
-            *&location.c = *(v98 + 72);
-            *&location.tx = v108;
-            *&location.a = v107;
-            [v129 requestPDFTileSurfaceForTarget:v98 forPage:v130 withRenderingProperties:WeakRetained atZoomFactor:&location frame:v99 transform:v104 tag:{v109, v106, v110}];
+            v92 = *(v86 + 56);
+            v93 = *(v86 + 88);
+            *&location.c = *(v86 + 72);
+            *&location.tx = v93;
+            *&location.a = v92;
+            [v110 requestPDFTileSurfaceForTarget:v86 forPage:v111 withRenderingProperties:WeakRetained atZoomFactor:&location frame:v87 transform:v89 tag:{v94, v91, v95}];
           }
 
-          v95 = [v93 countByEnumeratingWithState:&v132 objects:v147 count:16];
+          v83 = [v81 countByEnumeratingWithState:&v113 objects:v128 count:16];
         }
 
-        while (v95);
+        while (v83);
       }
 
       [MEMORY[0x1E6979518] commit];

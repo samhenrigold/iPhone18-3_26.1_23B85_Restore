@@ -121,7 +121,7 @@
         [v15 setValue:v35 forKey:@"tf"];
 
         memset(&v58, 0, sizeof(v58));
-        [securityAnalysis cumulativeLayerTransform];
+        objc_msgSend_cumulativeLayerTransform(securityAnalysis);
         CATransform3DGetAffineTransform(&transform, &v59);
         CGAffineTransformDecompose(&v58, &transform);
         v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d %d %d (%.2f) %d %d (%.2f, %.2f) %d (%.2f) %d (%.2f, %.2f) %d", v33 & 1, (v33 >> 1) & 1, (v33 >> 2) & 1, *&v58.rotation, (v33 >> 3) & 1, (v33 >> 4) & 1, *&v58.scale.width, *&v58.scale.height, (v33 >> 5) & 1, *&v58.horizontalShear, (v33 >> 6) & 1, *&v58.translation.dx, *&v58.translation.dy, (v33 >> 7) & 1];

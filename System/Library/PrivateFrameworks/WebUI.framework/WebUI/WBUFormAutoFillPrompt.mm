@@ -117,7 +117,7 @@ uint64_t __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_
   return v7();
 }
 
-void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v6 = MEMORY[0x277D750F8];
   v8 = MEMORY[0x277D85DD0];
@@ -133,7 +133,7 @@ void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_canc
     [*(a1 + 32) setPreferredAction:v7];
   }
 
-  if (*(a1 + 40) && [*(a1 + 48) count] - 2 == a3)
+  if (*(a1 + 40) && ([*(a1 + 48) count] - 2) == a3)
   {
     [*(a1 + 32) _addSectionDelimiter];
   }
@@ -141,13 +141,11 @@ void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_canc
 
 void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v4 = a2;
   v3 = MEMORY[0x2743DCFC0](*(a1 + 32));
   objc_sync_enter(v3);
-  v4 = *(a1 + 32);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v5 = *(a1 + 40);
     (*(*(a1 + 32) + 16))();
   }
 
@@ -156,10 +154,9 @@ void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_canc
 
 void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   v3 = MEMORY[0x2743DCFC0](*(a1 + 32));
   objc_sync_enter(v3);
-  v4 = *(a1 + 32);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
     (*(*(a1 + 32) + 16))();
@@ -172,7 +169,6 @@ void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_canc
 {
   obj = MEMORY[0x2743DCFC0](*(a1 + 32));
   objc_sync_enter(obj);
-  v2 = *(a1 + 32);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
     (*(*(a1 + 32) + 16))();
@@ -198,11 +194,11 @@ void __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_canc
   appWillEnterBackgroundObserver = v5;
 }
 
-uint64_t __203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_7(uint64_t result)
+id *__203__WBUFormAutoFillPrompt_showAutoFillPromptInWebView_title_message_cancelButtonTitle_otherButtonTitles_cancelWhenAppEntersBackground_makeFirstButtonSuggestedAction_headerViewController_completionHandler___block_invoke_7(id *result)
 {
   if (*(result + 48) == 1)
   {
-    return [*(result + 32) _dismissWithAction:*(result + 40)];
+    return [result[4] _dismissWithAction:result[5]];
   }
 
   return result;
@@ -457,10 +453,9 @@ uint64_t __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url
 
 void __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url_title_message_suggestedUsername_password_isGeneratedPassword_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   v3 = MEMORY[0x2743DCFC0](*(a1 + 32));
   objc_sync_enter(v3);
-  v4 = *(a1 + 32);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
     (*(*(a1 + 32) + 16))();
@@ -471,7 +466,7 @@ void __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url_tit
 
 void __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url_title_message_suggestedUsername_password_isGeneratedPassword_completionHandler___block_invoke_5(uint64_t a1, void *a2)
 {
-  v12 = a2;
+  v11 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v4 = [WeakRetained textFields];
   v5 = [v4 firstObject];
@@ -487,7 +482,6 @@ void __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url_tit
 
   v10 = MEMORY[0x2743DCFC0](*(a1 + 48));
   objc_sync_enter(v10);
-  v11 = *(a1 + 48);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
     (*(*(a1 + 48) + 16))();
@@ -500,7 +494,6 @@ void __147__WBUFormAutoFillPrompt_showAutoFillPromptForUsernameInWebView_url_tit
 {
   obj = MEMORY[0x2743DCFC0](*(a1 + 32));
   objc_sync_enter(obj);
-  v2 = *(a1 + 32);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
     (*(*(a1 + 32) + 16))();

@@ -60,7 +60,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -71,30 +71,30 @@
   if ([(NSMutableArray *)self->_fetchRequests count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_fetchRequests, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = self->_fetchRequests;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
           [v5 addObject:dictionaryRepresentation];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -109,60 +109,53 @@
     [dictionary setObject:v12 forKey:@"wantsBatchedResponse"];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    fullSyncVersion = self->_fullSyncVersion;
     PBDataWriterWriteUint32Field();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = self->_fetchRequests;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_fetchRequests;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    wantsBatchedResponse = self->_wantsBatchedResponse;
     PBDataWriterWriteBOOLField();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -199,7 +192,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -208,34 +201,34 @@
     *(v5 + 24) |= 1u;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_fetchRequests;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * v11) copyWithZone:{zone, v15}];
+        v12 = [*(*(&v14 + 1) + 8 * v11) copyWithZone:{zone, v14}];
         [v6 addFetchRequest:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -247,7 +240,6 @@
     v6[24] |= 2u;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -260,7 +252,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 24);
   if (has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_fullSyncVersion != *(equalCopy + 4))
@@ -285,7 +276,7 @@
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 24) & 2) == 0;
+  v7 = (*(equalCopy + 24) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) != 0)
@@ -303,17 +294,17 @@
         goto LABEL_12;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_13;
     }
 
 LABEL_12:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_13:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -344,7 +335,7 @@ LABEL_13:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 24))
@@ -353,31 +344,31 @@ LABEL_13:
     *&self->_has |= 1u;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 1);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NNMKProtoFetchBatchRequest *)self addFetchRequest:*(*(&v12 + 1) + 8 * v10++), v12];
+        [(NNMKProtoFetchBatchRequest *)self addFetchRequest:*(*(&v11 + 1) + 8 * v10++), v11];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -388,8 +379,6 @@ LABEL_13:
     self->_wantsBatchedResponse = v5[20];
     *&self->_has |= 2u;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

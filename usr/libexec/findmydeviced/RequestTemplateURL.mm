@@ -30,7 +30,7 @@
   v4 = [[NSURL alloc] initWithString:stringCopy];
   if (!v4)
   {
-    v5 = sub_100002880();
+    v5 = sub_100002880(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;

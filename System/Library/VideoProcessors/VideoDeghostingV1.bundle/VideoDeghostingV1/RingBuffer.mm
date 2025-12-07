@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)firstElement;
 - (void)lastElement;
+- (void)removeFirstElements:(int)elements;
 @end
 
 @implementation RingBuffer
@@ -50,6 +51,17 @@
 
     [(RingBuffer *)self incrementRingIndex:&self->_inputIndex];
   }
+}
+
+- (void)removeFirstElements:(int)elements
+{
+  v3 = *&elements;
+  if ([(RingBuffer *)self count]< elements)
+  {
+    v3 = [(RingBuffer *)self count];
+  }
+
+  [(RingBuffer *)self incrementRingIndex:&self->_outputIndex withCount:v3];
 }
 
 - (void)firstElement

@@ -119,15 +119,14 @@
 
   os_unfair_lock_lock(v4 + 4);
 
-  v6 = *(&selfCopy->super.super.isa + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection);
-  v7 = *(&self->super.super.isa + v3);
+  v6 = *(&self->super.super.isa + v3);
 
-  os_unfair_lock_unlock(v7 + 4);
+  os_unfair_lock_unlock(v6 + 4);
 
   type metadata accessor for PDRDevice();
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 @end

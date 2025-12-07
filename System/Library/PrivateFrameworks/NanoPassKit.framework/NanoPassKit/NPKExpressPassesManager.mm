@@ -57,7 +57,7 @@
 
 - (void)updateWithExpressPass:(id)pass siblingExpressPasses:(id)passes
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   passesCopy = passes;
   array = [MEMORY[0x277CBEB18] array];
@@ -67,7 +67,7 @@
     [array addObject:passCopy];
   }
 
-  v33 = passCopy;
+  v32 = passCopy;
   if (passesCopy)
   {
     [v9 addObjectsFromArray:passesCopy];
@@ -79,26 +79,26 @@
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v14 = self->_currentPasses;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v39;
+    v17 = *v38;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v39 != v17)
+        if (*v38 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * i);
+        v19 = *(*(&v37 + 1) + 8 * i);
         paymentPass = [v19 paymentPass];
         [v12 safelyAddObject:paymentPass];
 
@@ -106,7 +106,7 @@
         [v13 safelyAddObject:secureElementPass];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v16);
@@ -121,34 +121,32 @@
   self->_currentSecureElementPasses = v24;
 
   allObjects = [(NSHashTable *)self->_observers allObjects];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v27 = [allObjects countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v27 = [allObjects countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v35;
+    v29 = *v34;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v35 != v29)
+        if (*v34 != v29)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        [*(*(&v34 + 1) + 8 * j) passesDataSourceDidReloadPasses:self];
+        [*(*(&v33 + 1) + 8 * j) passesDataSourceDidReloadPasses:self];
       }
 
-      v28 = [allObjects countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v28 = [allObjects countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v28);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)passForUniqueID:(id)d

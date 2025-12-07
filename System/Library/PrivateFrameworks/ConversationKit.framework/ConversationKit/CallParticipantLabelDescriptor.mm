@@ -7,7 +7,7 @@
 
 - (NSArray)strings
 {
-  CallParticipantLabelDescriptor.strings.getter();
+  CallParticipantLabelDescriptor.strings.getter(self);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

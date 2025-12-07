@@ -12,17 +12,17 @@
 
 - (void)_requestCompleted
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     personID = [(MSMMCSProtocol *)self personID];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = personID;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Finished retrieving assets.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = personID;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Finished retrieving assets.", &v10, 0x16u);
   }
 
   itemCount = self->_itemCount;
@@ -50,12 +50,11 @@
   self->_authTokens = 0;
   self->_itemCount = 0;
   [(MSSubscribeStorageProtocolDelegate *)self->_delegate subscribeStorageProtocolDidFinishRetrievingAllAssets:self];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getItemDone:(unint64_t)done path:(id)path error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   errorCopy = error;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:done];
@@ -68,17 +67,17 @@
       v17 = v16;
       personID = [(MSMMCSProtocol *)self personID];
       mSVerboseDescription = [errorCopy MSVerboseDescription];
-      v33 = 138544386;
-      v34 = v16;
-      v35 = 2112;
-      v36 = personID;
-      v37 = 2114;
+      v32 = 138544386;
+      v33 = v16;
+      v34 = 2112;
+      v35 = personID;
+      v36 = 2114;
       doneCopy = v11;
-      v39 = 2112;
-      v40 = pathCopy;
-      v41 = 2114;
-      v42 = mSVerboseDescription;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Retrieved file for asset %{public}@ at path %@, error %{public}@", &v33, 0x34u);
+      v38 = 2112;
+      v39 = pathCopy;
+      v40 = 2114;
+      v41 = mSVerboseDescription;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Retrieved file for asset %{public}@ at path %@, error %{public}@", &v32, 0x34u);
     }
 
     [v11 setPath:pathCopy];
@@ -89,15 +88,15 @@
       v21 = v20;
       personID2 = [(MSMMCSProtocol *)self personID];
       mSVerboseDescription2 = [errorCopy MSVerboseDescription];
-      v33 = 138544130;
-      v34 = v20;
-      v35 = 2112;
-      v36 = personID2;
-      v37 = 2114;
+      v32 = 138544130;
+      v33 = v20;
+      v34 = 2112;
+      v35 = personID2;
+      v36 = 2114;
       doneCopy = v11;
-      v39 = 2114;
-      v40 = mSVerboseDescription2;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Retreived asset %{public}@ with error %{public}@", &v33, 0x2Au);
+      v38 = 2114;
+      v39 = mSVerboseDescription2;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Retreived asset %{public}@ with error %{public}@", &v32, 0x2Au);
 
       if (pathCopy)
       {
@@ -156,23 +155,21 @@ LABEL_15:
     v13 = objc_opt_class();
     v14 = v13;
     personID3 = [(MSMMCSProtocol *)self personID];
-    v33 = 138543874;
-    v34 = v13;
-    v35 = 2112;
-    v36 = personID3;
-    v37 = 2048;
+    v32 = 138543874;
+    v33 = v13;
+    v34 = 2112;
+    v35 = personID3;
+    v36 = 2048;
     doneCopy = done;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Cannot find asset for item ID %lld", &v33, 0x20u);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Cannot find asset for item ID %lld", &v32, 0x20u);
   }
 
 LABEL_18:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveAssets:(id)assets
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v5 = [assetsCopy count];
   self->_itemCount = v5;
@@ -183,15 +180,15 @@ LABEL_18:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v52 = objc_opt_class();
-    v53 = v52;
+    v49 = objc_opt_class();
+    v50 = v49;
     personID = [(MSMMCSProtocol *)self personID];
     *buf = 138543874;
-    *&buf[4] = v52;
-    v71 = 2112;
-    v72 = personID;
-    v73 = 2114;
-    v74 = assetsCopy;
+    *&buf[4] = v49;
+    v68 = 2112;
+    v69 = personID;
+    v70 = 2114;
+    v71 = assetsCopy;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Begin retrieving assets %{public}@", buf, 0x20u);
   }
 
@@ -220,10 +217,10 @@ LABEL_18:
         personID3 = [(MSMMCSProtocol *)self personID];
         *buf = 138543874;
         *&buf[4] = v13;
-        v71 = 2112;
-        v72 = personID3;
-        v73 = 2114;
-        v74 = mMCSURL;
+        v68 = 2112;
+        v69 = personID3;
+        v70 = 2114;
+        v71 = mMCSURL;
         _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@ - %@ Using contentURL %{public}@ from MSPlatform for download", buf, 0x20u);
       }
 
@@ -246,7 +243,7 @@ LABEL_18:
   }
 
 LABEL_11:
-  v58 = mMCSURL;
+  v55 = mMCSURL;
   v17 = 0;
   v18 = 0;
   do
@@ -290,8 +287,8 @@ LABEL_11:
       block[2] = __42__MSSubscribeMMCSProtocol_retrieveAssets___block_invoke;
       block[3] = &unk_278E92638;
       block[4] = self;
-      v67 = v19;
-      v68 = v32;
+      v64 = v19;
+      v65 = v32;
       v25 = v32;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
@@ -300,68 +297,66 @@ LABEL_11:
   }
 
   while (v18 < self->_itemCount);
-  mMCSURL = v58;
+  mMCSURL = v55;
   if (v17)
   {
     *buf = 0;
     [(MSMMCSProtocol *)self engine];
     [(MSMMCSProtocol *)self personID];
     MSPMMCSConnectionProperties();
-    itemIDs = self->_itemIDs;
-    signatures = self->_signatures;
     authTokens = self->_authTokens;
-    v56 = buf;
-    v35 = MMCSGetItems();
-    v36 = *buf;
-    if (!v35)
+    v53 = buf;
+    v33 = MMCSGetItems();
+    v34 = *buf;
+    if (!v33)
     {
-      v57 = assetsCopy;
+      v54 = assetsCopy;
       if (!*buf)
       {
-        v37 = MEMORY[0x277CCA9B8];
-        v38 = MSCFCopyLocalizedString(@"ERROR_SUBSCRIBER_CANNOT_RETRIEVE");
-        v36 = [v37 MSErrorWithDomain:@"MSSubscriberErrorDomain" code:5 description:{v38, authTokens, buf}];
+        v35 = MEMORY[0x277CCA9B8];
+        v36 = MSCFCopyLocalizedString(@"ERROR_SUBSCRIBER_CANNOT_RETRIEVE");
+        v34 = [v35 MSErrorWithDomain:@"MSSubscriberErrorDomain" code:5 description:{v36, authTokens, buf}];
       }
 
-      v64 = 0u;
-      v65 = 0u;
+      v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
-      v39 = self->_itemIDToAssetDict;
-      v40 = [(NSMutableDictionary *)v39 countByEnumeratingWithState:&v62 objects:v69 count:16];
-      if (v40)
+      v59 = 0u;
+      v60 = 0u;
+      v37 = self->_itemIDToAssetDict;
+      v38 = [(NSMutableDictionary *)v37 countByEnumeratingWithState:&v59 objects:v66 count:16];
+      if (v38)
       {
-        v41 = v40;
-        v42 = *v63;
-        v43 = MEMORY[0x277D85CD0];
+        v39 = v38;
+        v40 = *v60;
+        v41 = MEMORY[0x277D85CD0];
         do
         {
-          for (i = 0; i != v41; ++i)
+          for (i = 0; i != v39; ++i)
           {
-            if (*v63 != v42)
+            if (*v60 != v40)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(v37);
             }
 
-            v45 = [(NSMutableDictionary *)self->_itemIDToAssetDict objectForKey:*(*(&v62 + 1) + 8 * i), authTokens, v56];
-            v59[0] = MEMORY[0x277D85DD0];
-            v59[1] = 3221225472;
-            v59[2] = __42__MSSubscribeMMCSProtocol_retrieveAssets___block_invoke_20;
-            v59[3] = &unk_278E92638;
-            v59[4] = self;
-            v60 = v45;
-            v61 = v36;
-            v46 = v45;
-            dispatch_async(v43, v59);
+            v43 = [(NSMutableDictionary *)self->_itemIDToAssetDict objectForKey:*(*(&v59 + 1) + 8 * i), authTokens, v53];
+            v56[0] = MEMORY[0x277D85DD0];
+            v56[1] = 3221225472;
+            v56[2] = __42__MSSubscribeMMCSProtocol_retrieveAssets___block_invoke_20;
+            v56[3] = &unk_278E92638;
+            v56[4] = self;
+            v57 = v43;
+            v58 = v34;
+            v44 = v43;
+            dispatch_async(v41, v56);
           }
 
-          v41 = [(NSMutableDictionary *)v39 countByEnumeratingWithState:&v62 objects:v69 count:16];
+          v39 = [(NSMutableDictionary *)v37 countByEnumeratingWithState:&v59 objects:v66 count:16];
         }
 
-        while (v41);
+        while (v39);
       }
 
-      v47 = self->_itemIDToAssetDict;
+      v45 = self->_itemIDToAssetDict;
       self->_itemIDToAssetDict = 0;
 
       free(self->_itemIDs);
@@ -370,8 +365,8 @@ LABEL_11:
       self->_signatures = 0;
       free(self->_authTokens);
       self->_authTokens = 0;
-      assetsCopy = v57;
-      mMCSURL = v58;
+      assetsCopy = v54;
+      mMCSURL = v55;
     }
   }
 
@@ -380,81 +375,74 @@ LABEL_11:
 LABEL_41:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v48 = objc_opt_class();
-      v49 = v48;
+      v46 = objc_opt_class();
+      v47 = v46;
       personID4 = [(MSMMCSProtocol *)self personID];
       *buf = 138543618;
-      *&buf[4] = v48;
-      v71 = 2112;
-      v72 = personID4;
+      *&buf[4] = v46;
+      v68 = 2112;
+      v69 = personID4;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@ - %@ Nothing to retrieve.", buf, 0x16u);
     }
   }
 
 LABEL_38:
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MSSubscribeMMCSProtocol_retrieveAssets___block_invoke(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
-  v6[0] = @"asset";
-  v6[1] = @"error";
+  v5[0] = @"asset";
+  v5[1] = @"error";
   v3 = a1[6];
-  v7[0] = v1;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v6[0] = v1;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   [v2 _tellDelegateProtocolDidFinishRetrievingAssetParams:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MSSubscribeMMCSProtocol_retrieveAssets___block_invoke_20(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
-  v6[0] = @"asset";
-  v6[1] = @"error";
+  v5[0] = @"asset";
+  v5[1] = @"error";
   v3 = a1[6];
-  v7[0] = v1;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v6[0] = v1;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   [v2 _tellDelegateProtocolDidFinishRetrievingAssetParams:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tellDelegateProtocolDidFinishRetrievingAssetParams:(id)params
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = [paramsCopy objectForKey:@"asset"];
   v6 = [paramsCopy objectForKey:@"error"];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     personID = [(MSMMCSProtocol *)self personID];
     fileHash = [v5 fileHash];
     mSVerboseDescription = [v6 MSVerboseDescription];
-    v13 = 138544130;
-    v14 = v8;
-    v15 = 2112;
-    v16 = personID;
-    v17 = 2114;
-    v18 = fileHash;
-    v19 = 2114;
-    v20 = mSVerboseDescription;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Failed to get asset with hash %{public}@\nError: %{public}@", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v7;
+    v14 = 2112;
+    v15 = personID;
+    v16 = 2114;
+    v17 = fileHash;
+    v18 = 2114;
+    v19 = mSVerboseDescription;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@ - %@ Failed to get asset with hash %{public}@\nError: %{public}@", &v12, 0x2Au);
   }
 
   [(MSSubscribeStorageProtocolDelegate *)self->_delegate subscribeStorageProtocol:self didFinishRetrievingAsset:v5 error:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

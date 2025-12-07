@@ -28,7 +28,7 @@
 
 - (void)applicationLaunched
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   [(EMInteractionLogger *)self setAppLaunched:1];
   date = [MEMORY[0x1E695DF00] date];
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -36,29 +36,27 @@
   dictionaryRepresentation = [standardUserDefaults dictionaryRepresentation];
 
   v7 = [MEMORY[0x1E695DFD8] setWithObjects:{@"ConversationViewExcludesRelatedMessages", @"ConversationViewShowsNewestAtTop", @"LinesOfPreview", @"NumberOfActiveAccounts", @"DisableThreading", @"LeftEdgeSwipeAction", @"RightEdgeSwipeAction", @"ColumnLayoutMessageList", 0}];
-  v17[0] = @"NumberOfSnippetLines";
-  v17[1] = @"ConversationViewSortDescending";
-  v18[0] = &__block_literal_global_19;
-  v18[1] = &__block_literal_global_241;
-  v17[2] = @"ConversationViewSpansMailboxes";
-  v17[3] = @"AccountOrdering";
-  v18[2] = &__block_literal_global_247;
-  v18[3] = &__block_literal_global_253;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __42__EMInteractionLogger_applicationLaunched__block_invoke_5;
-  v13[3] = &unk_1E826D548;
+  v16[0] = @"NumberOfSnippetLines";
+  v16[1] = @"ConversationViewSortDescending";
+  v17[0] = &__block_literal_global_19;
+  v17[1] = &__block_literal_global_241;
+  v16[2] = @"ConversationViewSpansMailboxes";
+  v16[3] = @"AccountOrdering";
+  v17[2] = &__block_literal_global_247;
+  v17[3] = &__block_literal_global_253;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __42__EMInteractionLogger_applicationLaunched__block_invoke_5;
+  v12[3] = &unk_1E826D548;
   v9 = v7;
-  v14 = v9;
+  v13 = v9;
   v10 = v4;
-  v15 = v10;
+  v14 = v10;
   v11 = v8;
-  v16 = v11;
-  [dictionaryRepresentation enumerateKeysAndObjectsUsingBlock:v13];
+  v15 = v11;
+  [dictionaryRepresentation enumerateKeysAndObjectsUsingBlock:v12];
   [(EMInteractionLogger *)self _xpcLogEvent:@"app_launch" date:date data:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __42__EMInteractionLogger_applicationLaunched__block_invoke_5(id *a1, void *a2, void *a3)
@@ -245,29 +243,29 @@ LABEL_4:
 
 void __50__EMInteractionLogger__viewingEndedForAllMessages__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v2 = [*(a1 + 32) viewedMessages];
   v3 = [v2 allValues];
 
   obj = v3;
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v4)
   {
-    v5 = *v23;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         v8 = [v7 viewingStarted];
 
         if (v8)
@@ -281,17 +279,17 @@ void __50__EMInteractionLogger__viewingEndedForAllMessages__block_invoke(uint64_
           v15 = *(a1 + 32);
           v14 = *(a1 + 40);
           v16 = [v15 _rescopedMessageObjectID:v7];
-          v26[0] = @"duration";
+          v25[0] = @"duration";
           v17 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
-          v26[1] = @"scrolled_to_end";
-          v27[0] = v17;
-          v27[1] = v13;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+          v25[1] = @"scrolled_to_end";
+          v26[0] = v17;
+          v26[1] = v13;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
           [v15 _xpcLogEvent:@"message_view_end" date:v14 messageID:v16 data:v18];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v4);
@@ -299,13 +297,11 @@ void __50__EMInteractionLogger__viewingEndedForAllMessages__block_invoke(uint64_
 
   v19 = [*(a1 + 32) viewedMessages];
   [v19 removeAllObjects];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clickedLinkInMessage:(id)message scheme:(id)scheme
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   schemeCopy = scheme;
   date = [MEMORY[0x1E695DF00] date];
@@ -320,12 +316,10 @@ void __50__EMInteractionLogger__viewingEndedForAllMessages__block_invoke(uint64_
     v10 = &stru_1F45FD218;
   }
 
-  v13 = @"scheme";
-  v14[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"scheme";
+  v13[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [(EMInteractionLogger *)self _xpcLogEvent:@"link_clicked" date:date messageID:objectID data:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scrolledToEndOfMessage:(id)message
@@ -435,7 +429,7 @@ void __65__EMInteractionLogger_viewingStartedForMessage_messageListScope___block
 
 void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64_t a1)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) objectID];
   v5 = [*(a1 + 32) viewedMessages];
@@ -453,12 +447,12 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
     if (v11 > 0.1)
     {
       v12 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "scrolledToEnd")}];
-      v24[0] = @"duration";
+      v23[0] = @"duration";
       v13 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
-      v24[1] = @"scrolled_to_end";
-      v25[0] = v13;
-      v25[1] = v12;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v23[1] = @"scrolled_to_end";
+      v24[0] = v13;
+      v24[1] = v12;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
       v15 = [v14 mutableCopy];
 
       if (*(a1 + 56))
@@ -483,8 +477,6 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
     v22 = [v6 key];
     [v21 removeObjectForKey:v22];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)composeReplyStartedForMessage:(id)message
@@ -505,7 +497,7 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
 
 - (void)_logMessageListDisplayStartedMessageID:(id)d now:(id)now type:(id)type row:(int64_t)row cellStyle:(id)style
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   dCopy = d;
   nowCopy = now;
   typeCopy = type;
@@ -526,12 +518,12 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
     v17 = &stru_1F45FD218;
   }
 
-  v25[0] = v17;
-  v24[0] = @"message_list_type";
-  v24[1] = @"position";
+  v24[0] = v17;
+  v23[0] = @"message_list_type";
+  v23[1] = @"position";
   v18 = [MEMORY[0x1E696AD98] numberWithInteger:row];
   v19 = v18;
-  v24[2] = @"cell_style";
+  v23[2] = @"cell_style";
   if (styleCopy)
   {
     v20 = styleCopy;
@@ -542,17 +534,15 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
     v20 = &stru_1F45FD218;
   }
 
-  v25[1] = v18;
-  v25[2] = v20;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v24[1] = v18;
+  v24[2] = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
   [(EMInteractionLogger *)self _xpcLogEvent:@"message_list_display_started" date:nowCopy messageID:dCopy data:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logMessageListDisplayEndedForState:(id)state now:(id)now
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   nowCopy = now;
   viewingStarted = [stateCopy viewingStarted];
@@ -564,10 +554,10 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
     v11 = v10;
 
     messageObjectID = [stateCopy messageObjectID];
-    v19[0] = @"duration";
+    v18[0] = @"duration";
     v13 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
-    v20[0] = v13;
-    v19[1] = @"cell_style";
+    v19[0] = v13;
+    v18[1] = @"cell_style";
     cellStyle = [stateCopy cellStyle];
     v15 = cellStyle;
     v16 = &stru_1F45FD218;
@@ -576,12 +566,10 @@ void __51__EMInteractionLogger_viewingEndedForMessage_data___block_invoke(uint64
       v16 = cellStyle;
     }
 
-    v20[1] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v19[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
     [(EMInteractionLogger *)self _xpcLogEvent:@"message_list_display_ended" date:nowCopy messageID:messageObjectID data:v17];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageListDisplayStartedForListItem:(id)item messageListType:(id)type row:(int64_t)row cellStyle:(id)style
@@ -684,33 +672,33 @@ void __68__EMInteractionLogger_messageListDisplayEndedForListItem_cellStyle___bl
 
 void __61__EMInteractionLogger_messageListDisplayEndedForAllListItems__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) messageListMessages];
   v3 = [v2 allValues];
 
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 32) _logMessageListDisplayEndedForState:*(*(&v9 + 1) + 8 * v6++) now:*(a1 + 40)];
+        [*(a1 + 32) _logMessageListDisplayEndedForState:*(*(&v8 + 1) + 8 * v6++) now:*(a1 + 40)];
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -718,8 +706,6 @@ void __61__EMInteractionLogger_messageListDisplayEndedForAllListItems__block_inv
 
   v7 = [*(a1 + 32) messageListMessages];
   [v7 removeAllObjects];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageListTypeForMailboxes:(id)mailboxes
@@ -774,54 +760,46 @@ LABEL_13:
 
 id __42__EMInteractionLogger_applicationLaunched__block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v6 = @"LinesOfPreview";
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = @"LinesOfPreview";
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 id __42__EMInteractionLogger_applicationLaunched__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v6 = @"ConversationViewShowsNewestAtTop";
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = @"ConversationViewShowsNewestAtTop";
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 id __42__EMInteractionLogger_applicationLaunched__block_invoke_3(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v7 = @"ConversationViewExcludesRelatedMessages";
+  v6 = @"ConversationViewExcludesRelatedMessages";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v2, "BOOLValue") ^ 1}];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
 
 id __42__EMInteractionLogger_applicationLaunched__block_invoke_4(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v7 = @"NumberOfActiveAccounts";
+  v6 = @"NumberOfActiveAccounts";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v2, "count") - 1}];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

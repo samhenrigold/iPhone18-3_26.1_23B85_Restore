@@ -15,7 +15,7 @@
 - (_TtC6FindMy33FMSendLocationAlertViewController)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMSendLocationAlertViewController();
+  v7.super_class = type metadata accessor for FMSendLocationAlertViewController(0);
   coderCopy = coder;
   v5 = [(FMRecipientsViewController *)&v7 initWithCoder:coderCopy];
 

@@ -57,7 +57,6 @@
     objc_opt_class();
     if (!equal)
     {
-      languageCode = self->languageCode_;
       JreThrowNullPointerException();
     }
 
@@ -66,13 +65,13 @@
       JreThrowClassCastException();
     }
 
-    v5 = self->languageCode_;
-    if (!v5)
+    languageCode = self->languageCode_;
+    if (!languageCode)
     {
       goto LABEL_16;
     }
 
-    v6 = [(NSString *)v5 isEqual:*(equal + 2)];
+    v6 = [(NSString *)languageCode isEqual:*(equal + 2)];
     if (!v6)
     {
       return v6;
@@ -154,7 +153,7 @@ LABEL_16:
     return &stru_100484358;
   }
 
-  v7 = [JavaUtilLocale description]_0(&self->super.isa);
+  v7 = [JavaUtilLocale description]_0(self);
   if (!locale)
   {
     goto LABEL_12;
@@ -168,7 +167,7 @@ LABEL_16:
     return result;
   }
 
-  v10 = [JavaUtilLocale description]_0(&self->super.isa);
+  v10 = [JavaUtilLocale description]_0(self);
   if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1000458CC();
@@ -187,7 +186,7 @@ LABEL_12:
 
 - (id)description
 {
-  v1 = self + 4;
+  v1 = (self + 4);
   if (self[4])
   {
     return self[4];
@@ -223,7 +222,7 @@ LABEL_12:
     return &stru_100484358;
   }
 
-  v7 = [JavaUtilLocale description]_0(&self->super.isa);
+  v7 = [JavaUtilLocale description]_0(self);
   if ([(NSString *)self->languageCode_ isEqual:@"tl"])
   {
     v7 = sub_100184A34(@"fil", self->countryCode_, self->variantCode_);
@@ -410,7 +409,7 @@ LABEL_27:
     return self->variantCode_;
   }
 
-  v6 = [JavaUtilLocale description]_0(&self->super.isa);
+  v6 = [JavaUtilLocale description]_0(self);
   if (!locale)
   {
     goto LABEL_13;
@@ -424,7 +423,7 @@ LABEL_27:
     return result;
   }
 
-  v10 = [JavaUtilLocale description]_0(&self->super.isa);
+  v10 = [JavaUtilLocale description]_0(self);
   if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1000458CC();
@@ -449,10 +448,10 @@ LABEL_13:
 
   else
   {
-    sub_1000458CC();
+    self = sub_1000458CC();
   }
 
-  return LibcoreIcuICU_getISOCountries();
+  return LibcoreIcuICU_getISOCountries(self, a2);
 }
 
 + (id)getISOLanguages
@@ -463,10 +462,10 @@ LABEL_13:
 
   else
   {
-    sub_1000458CC();
+    self = sub_1000458CC();
   }
 
-  return LibcoreIcuICU_getISOLanguages();
+  return LibcoreIcuICU_getISOLanguages(self, a2);
 }
 
 - (unint64_t)hash

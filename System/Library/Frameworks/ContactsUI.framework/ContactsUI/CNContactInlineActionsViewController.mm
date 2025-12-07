@@ -128,8 +128,8 @@
 
   else
   {
-    contacts = [(CNContactInlineActionsViewController *)self contacts];
-    v4 = [contacts count] > 1;
+    v5 = objc_msgSend_contacts(self);
+    v4 = [v5 count] > 1;
   }
 
   return v4;
@@ -1235,16 +1235,16 @@ void __65__CNContactInlineActionsViewController_removeVisibleActionItems___block
 
 - (CNContact)contact
 {
-  contacts = [(CNContactInlineActionsViewController *)self contacts];
-  if ([contacts count] > 1)
+  v3 = objc_msgSend_contacts(self, a2);
+  if ([v3 count] > 1)
   {
     firstObject = 0;
   }
 
   else
   {
-    contacts2 = [(CNContactInlineActionsViewController *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v4 = objc_msgSend_contacts(self);
+    firstObject = [v4 firstObject];
   }
 
   return firstObject;

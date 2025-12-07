@@ -17,14 +17,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:1];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"backlightLevel" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:5 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -100,7 +98,7 @@ LABEL_14:
 
 - (id)jsonDictionary
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   absoluteTimestamp = [(BMDeviceBacklight *)self absoluteTimestamp];
   if (absoluteTimestamp)
   {
@@ -125,23 +123,23 @@ LABEL_14:
     v7 = 0;
   }
 
-  v13[0] = @"absoluteTimestamp";
+  v12[0] = @"absoluteTimestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = @"backlightLevel";
-  v14[0] = null;
+  v12[1] = @"backlightLevel";
+  v13[0] = null;
   null2 = v7;
   if (!v7)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = null2;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   if (v7)
   {
     if (v6)
@@ -160,14 +158,13 @@ LABEL_14:
   }
 
 LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (BMDeviceBacklight)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -204,16 +201,16 @@ LABEL_6:
         goto LABEL_14;
       }
 
-      v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v26 = *MEMORY[0x1E698F240];
-      v30 = *MEMORY[0x1E696A578];
+      v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v25 = *MEMORY[0x1E698F240];
+      v29 = *MEMORY[0x1E696A578];
       v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 2001 (CFAbsoluteTime)), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-      v31[0] = v17;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v27 = [v25 initWithDomain:v26 code:2 userInfo:v16];
+      v30[0] = v17;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v26 = [v24 initWithDomain:v25 code:2 userInfo:v16];
       v8 = 0;
       selfCopy = 0;
-      *error = v27;
+      *error = v26;
       goto LABEL_13;
     }
 
@@ -233,13 +230,13 @@ LABEL_9:
     {
       if (error)
       {
-        v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v22 = *MEMORY[0x1E698F240];
-        v28 = *MEMORY[0x1E696A578];
-        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"backlightLevel"];
-        v29 = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        *error = [v21 initWithDomain:v22 code:2 userInfo:v24];
+        v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v21 = *MEMORY[0x1E698F240];
+        v27 = *MEMORY[0x1E696A578];
+        v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"backlightLevel"];
+        v28 = v22;
+        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        *error = [v20 initWithDomain:v21 code:2 userInfo:v23];
       }
 
       v17 = 0;
@@ -260,7 +257,6 @@ LABEL_9:
 LABEL_13:
 
 LABEL_14:
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -276,19 +272,17 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_hasBacklightLevel)
   {
-    backlightLevel = self->_backlightLevel;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -498,14 +492,12 @@ LABEL_43:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"backlightLevel" number:2 type:5 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

@@ -35,7 +35,7 @@
   v8 = *MEMORY[0x1E69E9840];
   if (kind == 3)
   {
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138543362;
@@ -48,7 +48,7 @@
 
   else if (kind == 4)
   {
-    v4 = MCLogCategoryDefault();
+    v4 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138543362;
@@ -65,8 +65,7 @@
   v7 = *MEMORY[0x1E69E9840];
   if (kind == 4)
   {
-    [(MRUHardwareVolumeDataSource *)self cancelVolumeEvent];
-    v3 = MCLogCategoryDefault();
+    v3 = MCLogCategoryDefault([(MRUHardwareVolumeDataSource *)self cancelVolumeEvent]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138543362;
@@ -83,8 +82,7 @@
       return;
     }
 
-    [(MRUHardwareVolumeDataSource *)self cancelVolumeEvent];
-    v3 = MCLogCategoryDefault();
+    v3 = MCLogCategoryDefault([(MRUHardwareVolumeDataSource *)self cancelVolumeEvent]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138543362;
@@ -190,7 +188,7 @@ LABEL_7:
     }
 
     self->_pendingVolumeChange = fmin(v5, 1.0);
-    v6 = MCLogCategoryDefault();
+    v6 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       pendingVolumeChange = self->_pendingVolumeChange;

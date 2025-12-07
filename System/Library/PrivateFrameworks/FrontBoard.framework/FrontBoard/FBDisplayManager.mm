@@ -182,7 +182,7 @@ void __34__FBDisplayManager_sharedInstance__block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  if (UIKitLibraryCore() && (v5 = getUIApplicationClass()) != 0)
+  if (UIKitLibraryCore(0) && (v5 = getUIApplicationClass()) != 0)
   {
     v6 = [v5 displayManagerObserver];
   }
@@ -231,23 +231,22 @@ void __34__FBDisplayManager_sharedInstance__block_invoke_cold_1(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 32));
-    v4 = *(a1 + 40);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v7 = *(a1 + 40);
-    v8 = 138544642;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v6;
-    v12 = 2048;
-    v13 = v7;
-    v14 = 2114;
-    v15 = @"FBDisplayManager.m";
-    v16 = 1024;
-    v17 = 48;
-    v18 = 2114;
-    v19 = v2;
-    _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8, 0x3Au);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = *(a1 + 40);
+    v7 = 138544642;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2114;
+    v14 = @"FBDisplayManager.m";
+    v15 = 1024;
+    v16 = 48;
+    v17 = 2114;
+    v18 = v2;
+    _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v7, 0x3Au);
   }
 
   [v2 UTF8String];

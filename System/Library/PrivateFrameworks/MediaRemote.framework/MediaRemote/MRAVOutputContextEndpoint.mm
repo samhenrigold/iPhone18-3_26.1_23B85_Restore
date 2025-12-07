@@ -11,6 +11,7 @@
 - (void)_adjustOutputDeviceVolume:(int64_t)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion;
 - (void)_handleDeviceInfoDidChange:(id)change;
 - (void)_modifyTopologyWithRequest:(id)request withReplyQueue:(id)queue completion:(id)completion;
+- (void)_muteOutputDeviceVolume:(BOOL)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion;
 - (void)_reloadOutputDevicesFromContext;
 - (void)_setOutputDeviceVolume:(float)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion;
 - (void)dealloc;
@@ -18,6 +19,8 @@
 - (void)removeOutputDeviceFromParentGroup:(id)group queue:(id)queue completion:(id)completion;
 - (void)requestGroupSessionWithDetails:(id)details queue:(id)queue completion:(id)completion;
 - (void)resetPredictedOutputDevice;
+- (void)setAllowsHeadTrackedSpatialAudio:(BOOL)audio outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
+- (void)setConversationDetectionEnabled:(BOOL)enabled outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setHeadTrackedSpatialAudioMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setListeningMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setOrigin:(id)origin;
@@ -239,7 +242,7 @@
 
 - (void)setOutputDevices:(id)devices
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -251,28 +254,28 @@
     v9 = selfCopy->_outputDevices;
     selfCopy->_outputDevices = v8;
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = selfCopy->_outputDevices;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v27 objects:v41 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v40 count:16];
     if (v11)
     {
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v27 + 1) + 8 * i) setEndpoint:{selfCopy, v27}];
+          [*(*(&v26 + 1) + 8 * i) setEndpoint:{selfCopy, v26}];
         }
 
-        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v27 objects:v41 count:16];
+        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v40 count:16];
       }
 
       while (v11);
@@ -314,15 +317,15 @@ LABEL_17:
         name = [firstObject2 name];
         modelID3 = [firstObject2 modelID];
         *buf = 138544386;
-        v32 = uniqueIdentifier;
-        v33 = 2114;
-        v34 = localizedName;
-        v35 = 2114;
-        v36 = v23;
-        v37 = 2114;
-        v38 = name;
-        v39 = 2114;
-        v40 = modelID3;
+        v31 = uniqueIdentifier;
+        v32 = 2114;
+        v33 = localizedName;
+        v34 = 2114;
+        v35 = v23;
+        v36 = 2114;
+        v37 = name;
+        v38 = 2114;
+        v39 = modelID3;
         _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Updating Endpoint: %{public}@ | %{public}@ bt output device: %{public}@ | %{public}@ | %{public}@", buf, 0x34u);
       }
     }
@@ -332,8 +335,6 @@ LABEL_17:
 
 LABEL_18:
   objc_sync_exit(selfCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestGroupSessionWithDetails:(id)details queue:(id)queue completion:(id)completion
@@ -479,6 +480,34 @@ void __82__MRAVOutputContextEndpoint__modifyTopologyWithRequest_withReplyQueue_c
   }
 }
 
+- (void)_muteOutputDeviceVolume:(BOOL)volume outputDevice:(id)device details:(id)details queue:(id)queue completion:(id)completion
+{
+  volumeCopy = volume;
+  queueCopy = queue;
+  completionCopy = completion;
+  v14 = [(MROutputContextController *)self->_outputContextController muteVolume:volumeCopy outputDeviceUID:device details:details];
+  if (completionCopy)
+  {
+    v15 = queueCopy;
+    if (!queueCopy)
+    {
+      v15 = MEMORY[0x1E69E96A0];
+      v16 = MEMORY[0x1E69E96A0];
+    }
+
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __91__MRAVOutputContextEndpoint__muteOutputDeviceVolume_outputDevice_details_queue_completion___block_invoke;
+    v17[3] = &unk_1E769AB28;
+    v19 = completionCopy;
+    v18 = v14;
+    dispatch_async(v15, v17);
+    if (!queueCopy)
+    {
+    }
+  }
+}
+
 - (void)removeOutputDeviceFromParentGroup:(id)group queue:(id)queue completion:(id)completion
 {
   completionCopy = completion;
@@ -531,6 +560,44 @@ void __82__MRAVOutputContextEndpoint__modifyTopologyWithRequest_withReplyQueue_c
   }
 }
 
+- (void)setAllowsHeadTrackedSpatialAudio:(BOOL)audio outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
+{
+  audioCopy = audio;
+  queueCopy = queue;
+  completionCopy = completion;
+  v12 = [(MRAVEndpoint *)self outputDeviceWithUID:d];
+  v13 = v12;
+  if (v12)
+  {
+    v20 = 0;
+    [v12 setAllowsHeadTrackedSpatialAudio:audioCopy error:&v20];
+    v14 = v20;
+  }
+
+  else
+  {
+    v14 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:39];
+  }
+
+  v15 = v14;
+  if (completionCopy)
+  {
+    if (!queueCopy)
+    {
+      queueCopy = MEMORY[0x1E69E96A0];
+      v16 = MEMORY[0x1E69E96A0];
+    }
+
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __95__MRAVOutputContextEndpoint_setAllowsHeadTrackedSpatialAudio_outputDeviceUID_queue_completion___block_invoke;
+    block[3] = &unk_1E769AB28;
+    v19 = completionCopy;
+    v18 = v15;
+    dispatch_async(queueCopy, block);
+  }
+}
+
 - (void)setHeadTrackedSpatialAudioMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
 {
   modeCopy = mode;
@@ -565,6 +632,44 @@ void __82__MRAVOutputContextEndpoint__modifyTopologyWithRequest_withReplyQueue_c
     block[3] = &unk_1E769AB28;
     v20 = completionCopy;
     v19 = v16;
+    dispatch_async(queueCopy, block);
+  }
+}
+
+- (void)setConversationDetectionEnabled:(BOOL)enabled outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
+{
+  enabledCopy = enabled;
+  queueCopy = queue;
+  completionCopy = completion;
+  v12 = [(MRAVEndpoint *)self outputDeviceWithUID:d];
+  v13 = v12;
+  if (v12)
+  {
+    v20 = 0;
+    [v12 setConversationDetectionEnabled:enabledCopy error:&v20];
+    v14 = v20;
+  }
+
+  else
+  {
+    v14 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:39];
+  }
+
+  v15 = v14;
+  if (completionCopy)
+  {
+    if (!queueCopy)
+    {
+      queueCopy = MEMORY[0x1E69E96A0];
+      v16 = MEMORY[0x1E69E96A0];
+    }
+
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __94__MRAVOutputContextEndpoint_setConversationDetectionEnabled_outputDeviceUID_queue_completion___block_invoke;
+    block[3] = &unk_1E769AB28;
+    v19 = completionCopy;
+    v18 = v15;
     dispatch_async(queueCopy, block);
   }
 }

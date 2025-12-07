@@ -47,13 +47,14 @@ LABEL_6:
 - (void)setSourceType:(int64_t)type
 {
   selfCopy = self;
-  sub_100006FE0();
+  sub_100006FE0(selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100007020(disappear);
+  sub_100007020(disappearCopy);
 }
 
 @end

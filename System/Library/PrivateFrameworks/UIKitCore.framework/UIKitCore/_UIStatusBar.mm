@@ -648,7 +648,7 @@ LABEL_4:
   y = frame.origin.y;
   x = frame.origin.x;
   settingsCopy = settings;
-  [(_UIStatusBar *)self _effectiveScaleTransform];
+  objc_msgSend__effectiveScaleTransform(self);
   v22.origin.x = x;
   v22.origin.y = y;
   v22.size.width = width;
@@ -790,9 +790,9 @@ LABEL_4:
   {
     if (v7 && v8)
     {
-      v10 = [(UIColor *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (v10)
+      if (isEqual)
       {
         goto LABEL_10;
       }
@@ -820,7 +820,7 @@ LABEL_10:
 - (void)setStyleAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (([attributesCopy isEqual:self->_styleAttributes] & 1) == 0)
+  if ((objc_msgSend_isEqual_(attributesCopy) & 1) == 0)
   {
     v5 = [attributesCopy copy];
     styleAttributes = self->_styleAttributes;
@@ -1083,7 +1083,7 @@ LABEL_13:
     }
   }
 
-  [(_UIStatusBar *)self _updateDisplayedItemsWithData:v4 styleAttributes:0 extraAnimations:v5, *v16];
+  [(_UIStatusBar *)self _updateDisplayedItemsWithData:v4 styleAttributes:0 extraAnimations:v5, *v16, *&v16[8]];
   statusBarFlags = self->_statusBarFlags;
   if ((*&statusBarFlags & 0x200) != 0)
   {
@@ -1477,7 +1477,7 @@ LABEL_2:
     [(NSMutableDictionary *)self->_displayItemStates enumerateKeysAndObjectsUsingBlock:&__block_literal_global_117_1];
   }
 
-  [(_UIStatusBar *)self _effectiveScaleTransform];
+  objc_msgSend__effectiveScaleTransform(self);
   foregroundView = self->_foregroundView;
   v11[0] = v11[3];
   v11[1] = v11[4];
@@ -1616,9 +1616,9 @@ LABEL_2:
       }
 
       displayItems = [v41 displayItems];
-      v22 = [v6 isEqual:displayItems];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v22)
+      if (isEqual)
       {
         v23 = v42;
 LABEL_19:
@@ -2941,7 +2941,7 @@ LABEL_11:
   y = v7[1];
   width = v7[2];
   height = v7[3];
-  if ([identifierCopy isEqualToString:@"clockPartIdentifier"] && (objc_opt_respondsToSelector() & 1) != 0)
+  if (objc_msgSend_isEqualToString_(identifierCopy) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v68 = 0u;
     v69 = 0u;
@@ -3101,12 +3101,12 @@ LABEL_11:
   VisualProviderClassForScreen = _UIStatusBarGetVisualProviderClassForScreen(screenCopy, 0);
   if (lockScreenCopy && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [VisualProviderClassForScreen intrinsicLockScreenContentSizeForOrientation:orientation];
+    [(objc_class *)VisualProviderClassForScreen intrinsicLockScreenContentSizeForOrientation:orientation];
   }
 
   else
   {
-    [VisualProviderClassForScreen intrinsicContentSizeForOrientation:orientation];
+    [(objc_class *)VisualProviderClassForScreen intrinsicContentSizeForOrientation:orientation];
   }
 
   v14 = v12;

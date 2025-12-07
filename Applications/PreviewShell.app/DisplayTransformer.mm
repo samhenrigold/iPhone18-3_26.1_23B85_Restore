@@ -13,13 +13,12 @@
   configurationCopy = configuration;
   sub_10000F81C(inited);
   swift_setDeallocating();
-  v6 = *(inited + 16);
   swift_arrayDestroy();
   sub_10000F94C();
   sub_10000F998();
-  v7.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 @end

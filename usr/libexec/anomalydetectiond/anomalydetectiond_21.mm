@@ -1,6 +1,6 @@
-uint64_t CMMsl::FallSnippet::makeMeta(uint64_t this)
+void *CMMsl::FallSnippet::makeMeta(void *this)
 {
-  if (!*(this + 88))
+  if (!this[11])
   {
     operator new();
   }
@@ -8,9 +8,9 @@ uint64_t CMMsl::FallSnippet::makeMeta(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeAccel100(uint64_t this)
+void *CMMsl::FallSnippet::makeAccel100(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -18,9 +18,9 @@ uint64_t CMMsl::FallSnippet::makeAccel100(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeAccel800(uint64_t this)
+void *CMMsl::FallSnippet::makeAccel800(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -28,9 +28,9 @@ uint64_t CMMsl::FallSnippet::makeAccel800(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeGyro100(uint64_t this)
+void *CMMsl::FallSnippet::makeGyro100(void *this)
 {
-  if (!*(this + 64))
+  if (!this[8])
   {
     operator new();
   }
@@ -38,9 +38,9 @@ uint64_t CMMsl::FallSnippet::makeGyro100(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeGyro200(uint64_t this)
+void *CMMsl::FallSnippet::makeGyro200(void *this)
 {
-  if (!*(this + 72))
+  if (!this[9])
   {
     operator new();
   }
@@ -48,9 +48,9 @@ uint64_t CMMsl::FallSnippet::makeGyro200(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeDm(uint64_t this)
+void *CMMsl::FallSnippet::makeDm(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -58,9 +58,9 @@ uint64_t CMMsl::FallSnippet::makeDm(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makePressure(uint64_t this)
+void *CMMsl::FallSnippet::makePressure(void *this)
 {
-  if (!*(this + 104))
+  if (!this[13])
   {
     operator new();
   }
@@ -68,9 +68,9 @@ uint64_t CMMsl::FallSnippet::makePressure(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeHeartRate(uint64_t this)
+void *CMMsl::FallSnippet::makeHeartRate(void *this)
 {
-  if (!*(this + 80))
+  if (!this[10])
   {
     operator new();
   }
@@ -78,9 +78,9 @@ uint64_t CMMsl::FallSnippet::makeHeartRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeWristState(uint64_t this)
+void *CMMsl::FallSnippet::makeWristState(void *this)
 {
-  if (!*(this + 120))
+  if (!this[15])
   {
     operator new();
   }
@@ -88,9 +88,9 @@ uint64_t CMMsl::FallSnippet::makeWristState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeFallState(uint64_t this)
+void *CMMsl::FallSnippet::makeFallState(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -98,9 +98,9 @@ uint64_t CMMsl::FallSnippet::makeFallState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeFallStats(uint64_t this)
+void *CMMsl::FallSnippet::makeFallStats(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -108,9 +108,9 @@ uint64_t CMMsl::FallSnippet::makeFallStats(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeSuppressionFeatures(uint64_t this)
+void *CMMsl::FallSnippet::makeSuppressionFeatures(void *this)
 {
-  if (!*(this + 112))
+  if (!this[14])
   {
     operator new();
   }
@@ -118,9 +118,9 @@ uint64_t CMMsl::FallSnippet::makeSuppressionFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeDmAlwaysOn(uint64_t this)
+void *CMMsl::FallSnippet::makeDmAlwaysOn(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -128,9 +128,9 @@ uint64_t CMMsl::FallSnippet::makeDmAlwaysOn(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::FallSnippet::makeOdometerEntry(uint64_t this)
+void *CMMsl::FallSnippet::makeOdometerEntry(void *this)
 {
-  if (!*(this + 96))
+  if (!this[12])
   {
     operator new();
   }
@@ -2599,7 +2599,7 @@ float CMMsl::FallStats::FallStats(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::FallStats::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FallStats::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7505,7 +7505,7 @@ double CMMsl::FitnessMachineData::FitnessMachineData(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::FitnessMachineData::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FitnessMachineData::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

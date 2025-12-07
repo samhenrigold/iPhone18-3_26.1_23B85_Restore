@@ -9,9 +9,9 @@
 
 - (CHFriendListCompetitionTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v27.receiver = self;
-  v27.super_class = CHFriendListCompetitionTableViewCell;
-  v4 = [(CHFriendListCompetitionTableViewCell *)&v27 initWithStyle:style reuseIdentifier:identifier];
+  v28.receiver = self;
+  v28.super_class = CHFriendListCompetitionTableViewCell;
+  v4 = [(CHFriendListCompetitionTableViewCell *)&v28 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = +[UIColor systemBackgroundColor];
@@ -21,47 +21,47 @@
     contentView = [(CHFriendListCompetitionTableViewCell *)v4 contentView];
     [contentView setBackgroundColor:v6];
 
-    v8 = sub_10013A904();
+    v9 = sub_10013A904(v8);
     contentView2 = [(CHFriendListCompetitionTableViewCell *)v4 contentView];
     layer = [contentView2 layer];
-    [layer setCornerRadius:v8];
+    [layer setCornerRadius:v9];
 
-    v11 = +[ASCompetitionScoreViewConfiguration companionFriendListConfiguration];
+    v12 = +[ASCompetitionScoreViewConfiguration companionFriendListConfiguration];
     configuration = v4->_configuration;
-    v4->_configuration = v11;
+    v4->_configuration = v12;
 
     [(ASCompetitionScoreViewConfiguration *)v4->_configuration setSideMargin:16.0];
     [(ASCompetitionScoreViewConfiguration *)v4->_configuration setMinimumMiddleMargin:0.0];
-    v13 = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setNameFont:v13];
-
-    v14 = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
-    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setPrimaryScoreFont:v14];
+    v14 = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setNameFont:v14];
 
     v15 = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
-    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setPrimaryScoreUnitFont:v15];
+    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setPrimaryScoreFont:v15];
 
-    v16 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setSecondaryScoreFont:v16];
+    v16 = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setPrimaryScoreUnitFont:v16];
+
+    v17 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setSecondaryScoreFont:v17];
 
     [(CHFriendListCompetitionTableViewCell *)v4 _sectionWidth];
-    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setOpponentScoreViewWidth:v17 + 10.0];
-    v18 = [[ASCompetitionScoreView alloc] initWithConfiguration:v4->_configuration];
+    [(ASCompetitionScoreViewConfiguration *)v4->_configuration setOpponentScoreViewWidth:v18 + 10.0];
+    v19 = [[ASCompetitionScoreView alloc] initWithConfiguration:v4->_configuration];
     scoreView = v4->_scoreView;
-    v4->_scoreView = v18;
+    v4->_scoreView = v19;
 
     contentView3 = [(CHFriendListCompetitionTableViewCell *)v4 contentView];
     [contentView3 addSubview:v4->_scoreView];
 
-    v21 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    v22 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
     daysRemainingLabel = v4->_daysRemainingLabel;
-    v4->_daysRemainingLabel = v21;
+    v4->_daysRemainingLabel = v22;
 
-    v23 = +[UIColor as_lightCompetitionGold];
-    [(UILabel *)v4->_daysRemainingLabel setTextColor:v23];
+    v24 = +[UIColor as_lightCompetitionGold];
+    [(UILabel *)v4->_daysRemainingLabel setTextColor:v24];
 
-    v24 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    [(UILabel *)v4->_daysRemainingLabel setFont:v24];
+    v25 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    [(UILabel *)v4->_daysRemainingLabel setFont:v25];
 
     [(UILabel *)v4->_daysRemainingLabel setNumberOfLines:0];
     [(UILabel *)v4->_daysRemainingLabel setLineBreakMode:0];

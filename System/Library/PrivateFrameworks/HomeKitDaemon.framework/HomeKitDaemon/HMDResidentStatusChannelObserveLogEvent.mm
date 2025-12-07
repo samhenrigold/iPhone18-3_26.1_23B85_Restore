@@ -82,7 +82,7 @@
     [dictionary setObject:v10 forKeyedSubscript:@"countEmptyStatuses"];
   }
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }

@@ -41,7 +41,7 @@
   if (storagesCopy)
   {
     sub_1000060C8(0, &qword_1009391E0, REMObjectID_ptr);
-    sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr);
+    sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr, &protocol conformance descriptor for NSObject);
     v17 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -54,6 +54,7 @@
   sub_10000CE78(invocationCopy, v14, v16, v17, selfCopy, selfCopy, v10, sub_10000F378);
   _Block_release(v10);
 
+  v17, v18, v19, v20, v21, v22, v23, v24;
   _Block_release(v10);
   sub_10001BBA0(v14, v16);
 }
@@ -105,6 +106,7 @@
   if (iD)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    iD = v9;
   }
 
   _Block_copy(v8);
@@ -113,13 +115,14 @@
   sub_10057879C(d, selfCopy, v8);
   _Block_release(v8);
   _Block_release(v8);
+
+  iD, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)fetchMinimumSearchTermLengthByBaseLanguageWithCompletion:(id)completion
 {
   v5 = sub_1000F5104(&qword_100936FA8, &qword_100791B70);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
+  __chkstk_darwin(v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(completion);
   v10 = swift_allocObject();
@@ -145,24 +148,24 @@
 {
   v17 = _Block_copy(aBlock);
   sub_1000060C8(0, &unk_10093F580, REMAccountStorage_ptr);
-  v32 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v109 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &unk_10094F0C0, REMListStorage_ptr);
-  v30 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v107 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_100939BD0, REMListSectionStorage_ptr);
-  v29 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v106 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_10093A228, REMSmartListStorage_ptr);
-  v28 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v105 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_1009405A0, REMSmartListSectionStorage_ptr);
-  v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v104 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_10093C668, REMTemplateStorage_ptr);
-  v26 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v103 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_1009429C8, REMTemplateSectionStorage_ptr);
-  v25 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v102 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &unk_10093F670, REMReminderStorage_ptr);
-  v24 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v101 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_1009391E0, REMObjectID_ptr);
   sub_1000F5104(&unk_100945240, &qword_1007A0A70);
-  sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr);
+  sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr, &protocol conformance descriptor for NSObject);
   v18 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1000060C8(0, &qword_100939208, REMReplicaManagerSerializedData_ptr);
   v19 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
@@ -180,9 +183,22 @@
 
   selfCopy = self;
   _Block_copy(v17);
-  sub_100578DAC(v32, v30, v29, v28, v27, v26, v25, v24, v18, v19, v20, v22, mode, synchronously, kit, selfCopy, v17);
+  sub_100578DAC(v109, v107, v106, v105, v104, v103, v102, v101, v18, v19, v20, v22, mode, synchronously, kit, selfCopy, v17);
   _Block_release(v17);
   _Block_release(v17);
+
+  v109, v24, v25, v26, v27, v28, v29, v30;
+  v107, v31, v32, v33, v34, v35, v36, v37;
+  v106, v38, v39, v40, v41, v42, v43, v44;
+  v105, v45, v46, v47, v48, v49, v50, v51;
+  v104, v52, v53, v54, v55, v56, v57, v58;
+  v103, v59, v60, v61, v62, v63, v64, v65;
+  v102, v66, v67, v68, v69, v70, v71, v72;
+  v101, v73, v74, v75, v76, v77, v78, v79;
+  v18, v80, v81, v82, v83, v84, v85, v86;
+  v19, v87, v88, v89, v90, v91, v92, v93;
+
+  v22, v94, v95, v96, v97, v98, v99, v100;
 }
 
 - (void)createShareForObjectWithID:(id)d appIconData:(id)data completion:(id)completion
@@ -213,8 +229,7 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -240,6 +255,10 @@
   sub_10057D364(v13, v14, title, threshold, correctionsCopy, selfCopy, v12);
   _Block_release(v12);
   _Block_release(v12);
+
+  v13, v18, v19, v20, v21, v22, v23, v24;
+
+  v14, v25, v26, v27, v28, v29, v30, v31;
 }
 
 - (void)fetchShouldSuggestConvertToGroceryWithObjectID:(id)d usingGroceryClassifierWithGroceryLocaleID:(id)iD completion:(id)completion
@@ -274,6 +293,8 @@
   sub_10057DB94(locales, selfCopy, v6);
   _Block_release(v6);
   _Block_release(v6);
+
+  locales, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)fetchAutoCategorizationSuggestedSectionsForListName:(id)name reminderTitles:(id)titles existingSections:(id)sections completion:(id)completion
@@ -288,13 +309,17 @@
   sub_10057DE54(v8, v10, v11, v12, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v10, v14, v15, v16, v17, v18, v19, v20;
+  v11, v21, v22, v23, v24, v25, v26, v27;
+
+  v12, v28, v29, v30, v31, v32, v33, v34;
 }
 
 - (void)fetchIntelligentFeaturesMinimumSupportedVersionWith:(int64_t)with isInternalInstall:(BOOL)install completion:(id)completion
 {
   v9 = sub_1000F5104(&qword_100936FA8, &qword_100791B70);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
+  __chkstk_darwin(v9 - 8, v10);
   v12 = &v19 - v11;
   v13 = _Block_copy(completion);
   v14 = swift_allocObject();
@@ -321,8 +346,7 @@
 - (void)fetchSuggestedRemindersFromExtractionInput:(id)input completion:(id)completion
 {
   v6 = sub_1000F5104(&qword_100936FA8, &qword_100791B70);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
+  __chkstk_darwin(v6 - 8, v7);
   v9 = &v15 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -349,6 +373,8 @@
   sub_10057E2BC(v6, selfCopy, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)updateAccountWithACAccountID:(id)d restartDA:(BOOL)a completion:(id)completion
@@ -361,6 +387,8 @@
   sub_10057EC0C(v8, v10, a, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v10, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)requestToDeleteSyncDataWithAccountIdentifier:(id)identifier completion:(id)completion
@@ -416,6 +444,8 @@
   *(v9 + 16) = v7;
   selfCopy = self;
   sub_1005729E4(v8, repair, sub_1005805BC, v9);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)batchDeleteExpiredRemindersWith:(id)with completion:(id)completion
@@ -440,6 +470,8 @@
   sub_100580290(v8, dCopy, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 @end

@@ -173,37 +173,38 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = CLKComplicationIntentWidgetMigrationConfiguration;
-  [(CLKComplicationWidgetMigrationConfiguration *)&v11 encodeWithCoder:coderCopy];
+  v12.receiver = self;
+  v12.super_class = CLKComplicationIntentWidgetMigrationConfiguration;
+  [(CLKComplicationWidgetMigrationConfiguration *)&v12 encodeWithCoder:coderCopy];
   [coderCopy encodeObject:self->_kind forKey:@"_WidgetMigrationConfigurationKind"];
   [coderCopy encodeObject:self->_extensionBundleIdentifier forKey:@"_WidgetMigrationConfigurationKindExtensionBundleIdentifier"];
   v5 = self->_intent;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v6 = getINIntentWithTypedIntentSymbolLoc_ptr;
-  v20 = getINIntentWithTypedIntentSymbolLoc_ptr;
+  v21 = getINIntentWithTypedIntentSymbolLoc_ptr;
   if (!getINIntentWithTypedIntentSymbolLoc_ptr)
   {
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __getINIntentWithTypedIntentSymbolLoc_block_invoke;
-    v15 = &unk_278A1E6A0;
-    v16 = &v17;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __getINIntentWithTypedIntentSymbolLoc_block_invoke;
+    v16 = &unk_278A1E6A0;
+    v17 = &v18;
     v7 = IntentsLibrary();
     v8 = dlsym(v7, "INIntentWithTypedIntent");
-    *(v16[1] + 24) = v8;
-    getINIntentWithTypedIntentSymbolLoc_ptr = *(v16[1] + 24);
-    v6 = v18[3];
+    *(v17[1] + 24) = v8;
+    getINIntentWithTypedIntentSymbolLoc_ptr = *(v17[1] + 24);
+    v6 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v6)
   {
-    v10 = [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v10);
+    [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
+    v11 = v10;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v11);
   }
 
   v9 = v6(v5);
@@ -212,11 +213,11 @@
   [coderCopy encodeObject:self->_localizedDisplayName forKey:@"_WidgetMigrationConfigurationKindLocalizedDisplayName"];
 }
 
-- (uint64_t)encodeWithCoder:.cold.1()
+- (void)encodeWithCoder:.cold.1()
 {
-  dlerror();
-  abort_report_np();
-  return __getINIntentClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getINIntentClass_block_invoke_cold_1();
 }
 
 @end

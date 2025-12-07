@@ -5,10 +5,10 @@
 
 void __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_cold_1();
@@ -18,107 +18,107 @@ void __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke(uint64_t a1, 
   if (WeakRetained)
   {
     v9 = objc_autoreleasePoolPush();
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__45;
-    v49 = __Block_byref_object_dispose__45;
-    v50 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = __Block_byref_object_copy__45;
+    v51 = __Block_byref_object_dispose__45;
+    v52 = 0;
     v10 = WeakRetained[4];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_101;
-    v42[3] = &unk_27859BBE8;
-    v44 = &v45;
-    v43 = *(a1 + 32);
-    [v10 runWithLockAcquired:v42];
-    v11 = v46[5];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_101;
+    v44[3] = &unk_27859BBE8;
+    v46 = &v47;
+    v45 = *(a1 + 32);
+    [v10 runWithLockAcquired:v44];
+    v11 = v48[5];
     v12 = [MEMORY[0x277CFE338] appBundleIdKey];
     v13 = [v11 objectForKeyedSubscript:v12];
 
-    if ([WeakRetained isValidAppLaunchBundleId:v13])
+    v14 = [WeakRetained isValidAppLaunchBundleId:v13];
+    if (v14)
     {
-      if (![MEMORY[0x277CEB3B8] isAppClipForBundleId:v13])
+      v15 = [MEMORY[0x277CEB3B8] isAppClipForBundleId:v13];
+      if (!v15)
       {
-        v16 = [MEMORY[0x277CBEAA8] date];
-        v17 = v46[5];
-        v18 = [MEMORY[0x277CFE338] appLaunchReasonKey];
-        v19 = [v17 objectForKeyedSubscript:v18];
-        v20 = v19;
-        v21 = &stru_2839A6058;
-        if (v19)
+        v18 = [MEMORY[0x277CBEAA8] date];
+        v19 = v48[5];
+        v20 = [MEMORY[0x277CFE338] appLaunchReasonKey];
+        v21 = [v19 objectForKeyedSubscript:v20];
+        v22 = v21;
+        v23 = &stru_2839A6058;
+        if (v21)
         {
-          v21 = v19;
+          v23 = v21;
         }
 
-        v22 = v21;
+        v24 = v23;
 
-        v23 = __atxlog_handle_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v26 = __atxlog_handle_default(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_cold_2();
         }
 
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
-        v26 = [v25 stringByAppendingString:@"-appLaunch"];
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
+        v29 = [v28 stringByAppendingString:@"-appLaunch"];
 
-        v27 = v26;
-        v36 = v9;
-        [v26 UTF8String];
-        v28 = os_transaction_create();
-        v29 = MEMORY[0x277D425A0];
-        v30 = WeakRetained[1];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_107;
-        v37[3] = &unk_27859BC10;
-        v37[4] = WeakRetained;
-        v31 = v13;
-        v38 = v31;
-        v32 = v22;
-        v39 = v32;
-        v33 = v16;
-        v40 = v33;
-        v34 = v28;
-        v41 = v34;
-        [v29 runAsyncOnQueue:v30 afterDelaySeconds:v37 block:5.0];
+        v30 = v29;
+        v38 = v9;
+        [v29 UTF8String];
+        v31 = os_transaction_create();
+        v32 = MEMORY[0x277D425A0];
+        v33 = WeakRetained[1];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_107;
+        v39[3] = &unk_27859BC10;
+        v39[4] = WeakRetained;
+        v34 = v13;
+        v40 = v34;
+        v35 = v24;
+        v41 = v35;
+        v36 = v18;
+        v42 = v36;
+        v37 = v31;
+        v43 = v37;
+        [v32 runAsyncOnQueue:v33 afterDelaySeconds:v39 block:5.0];
 
-        v9 = v36;
-        _Block_object_dispose(&v45, 8);
+        v9 = v38;
+        _Block_object_dispose(&v47, 8);
 
         goto LABEL_17;
       }
 
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_default(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v52 = v13;
-        v15 = "Received an app clip bundle id: '%@' in app launch monitoring. Ignoring.";
+        v54 = v13;
+        v17 = "Received an app clip bundle id: '%@' in app launch monitoring. Ignoring.";
 LABEL_10:
-        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
       }
     }
 
     else
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v52 = v13;
-        v15 = "Received invalid bundle id: '%@' in app launch monitoring. Ignoring.";
+        v54 = v13;
+        v17 = "Received invalid bundle id: '%@' in app launch monitoring. Ignoring.";
         goto LABEL_10;
       }
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v47, 8);
 LABEL_17:
     objc_autoreleasePoolPop(v9);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_101(uint64_t a1, uint64_t a2)
@@ -271,15 +271,15 @@ void __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_i
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
   v6 = a1[5];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_invoke_7;
-  v15[3] = &unk_27859BB70;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_invoke_7;
+  v14[3] = &unk_27859BB70;
   v7 = v3;
   v8 = a1[6];
-  v16 = v7;
-  v17 = v8;
-  [_ATXAppLaunchMonitor mergeAppLaunches:v5 andBacklightTransitions:v6 callingAppLaunchBlock:v15];
+  v15 = v7;
+  v16 = v8;
+  [_ATXAppLaunchMonitor mergeAppLaunches:v5 andBacklightTransitions:v6 callingAppLaunchBlock:v14];
   v12 = a1[8];
   if (v12)
   {
@@ -287,8 +287,7 @@ void __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_i
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = a1[7];
-  v14 = objc_opt_self();
+  v13 = objc_opt_self();
 }
 
 void __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_invoke_7(uint64_t a1, void *a2, void *a3, void *a4, void *a5, char a6)
@@ -325,13 +324,6 @@ void __63___ATXAppLaunchMonitor_updateLaunchHistoryFromStream_callback___block_i
   }
 }
 
-id __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_107(uint64_t a1)
-{
-  [*(a1 + 32) handleAppOrClipLaunchNotificationForBundleId:*(a1 + 40) poweringAppClipBundleId:0 urlHash:0 isClip:0 appLaunchReason:*(a1 + 48) appClipLaunchReason:9 date:*(a1 + 56)];
-  v2 = *(a1 + 64);
-  return objc_opt_self();
-}
-
 uint64_t __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2[2];
@@ -347,14 +339,14 @@ uint64_t __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_2(uint64_
 
 void __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = __atxlog_handle_hero();
+  v5 = __atxlog_handle_hero(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Received clip launch with event: %@", buf, 0xCu);
   }
 
@@ -381,7 +373,7 @@ void __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke(uint64_t 
 
         else
         {
-          v9 = __atxlog_handle_hero();
+          v9 = __atxlog_handle_hero(0);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke_cold_1();
@@ -391,7 +383,7 @@ void __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke(uint64_t 
 
       else
       {
-        v8 = __atxlog_handle_hero();
+        v8 = __atxlog_handle_hero(0);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke_cold_2();
@@ -401,22 +393,20 @@ void __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke(uint64_t 
 
     else
     {
-      v7 = __atxlog_handle_hero();
+      v7 = __atxlog_handle_hero(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __48___ATXAppLaunchMonitor_registerForAppClipLaunch__block_invoke_cold_3();
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50___ATXAppLaunchMonitor_registerForBacklightChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_cold_1();
@@ -476,13 +466,6 @@ void __50___ATXAppLaunchMonitor_registerForBacklightChange__block_invoke_127(uin
   }
 }
 
-id __50___ATXAppLaunchMonitor_registerForBacklightChange__block_invoke_2(uint64_t a1)
-{
-  [*(a1 + 32) handleBacklightChangeNotificationWithValue:*(*(*(a1 + 56) + 8) + 24) date:*(a1 + 40)];
-  v2 = *(a1 + 48);
-  return objc_opt_self();
-}
-
 uint64_t __50___ATXAppLaunchMonitor_registerForBacklightChange__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2[2];
@@ -514,30 +497,21 @@ void __72___ATXAppLaunchMonitor_processDonationsForPreviousAppSessionEndIfNeeded
 
   if (*(*(*(a1 + 40) + 8) + 40) && *(*(*(a1 + 48) + 8) + 40))
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_default(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(*(*(a1 + 48) + 8) + 40);
-      v15 = *(*(*(a1 + 40) + 8) + 40);
+      v15 = *(*(*(a1 + 48) + 8) + 40);
+      v16 = *(*(*(a1 + 40) + 8) + 40);
       v18 = 138412546;
-      v19 = v14;
+      v19 = v15;
       v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Donation processing - Processing donations for %@, launched on: %@", &v18, 0x16u);
+      v21 = v16;
+      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Donation processing - Processing donations for %@, launched on: %@", &v18, 0x16u);
     }
 
-    v16 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-5.0];
-    [*(a1 + 32) updateActionPredictionPipelineForAppSession:*(*(*(a1 + 48) + 8) + 40) startDate:*(*(*(a1 + 40) + 8) + 40) endDate:v16];
+    v17 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-5.0];
+    [*(a1 + 32) updateActionPredictionPipelineForAppSession:*(*(*(a1 + 48) + 8) + 40) startDate:*(*(*(a1 + 40) + 8) + 40) endDate:v17];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-id __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke(uint64_t a1, uint64_t a2)
-{
-  [*(a2 + 32) stopAppUsageAtDate:*(a1 + 32)];
-  v3 = *(a1 + 40);
-  return objc_opt_self();
 }
 
 void __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke_135(uint64_t a1)
@@ -663,7 +637,7 @@ void __72___ATXAppLaunchMonitor_handleBacklightChangeNotificationWithValue_date_
 {
   v3 = a2;
   v4 = *(a1 + 48);
-  v7 = v3;
+  v6 = v3;
   if (v4 == 1)
   {
     [v3[5] addScreenLockAtDate:*(a1 + 32)];
@@ -674,8 +648,7 @@ void __72___ATXAppLaunchMonitor_handleBacklightChangeNotificationWithValue_date_
     [v3[4] stopAppUsageAtDate:*(a1 + 32)];
   }
 
-  v5 = *(a1 + 40);
-  v6 = objc_opt_self();
+  v5 = objc_opt_self();
 }
 
 void __36___ATXAppLaunchMonitor_clearHistory__block_invoke(uint64_t a1, void *a2)
@@ -794,33 +767,33 @@ void __67___ATXAppLaunchMonitor_addLaunchWithBundleId_date_timeZone_reason___blo
 
 void __28___ATXAppLaunchMonitor_stop__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = v2[2];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [v2[1] deregisterCallback:{*(*(&v10 + 1) + 8 * v7++), v10}];
+        [v2[1] deregisterCallback:{*(*(&v9 + 1) + 8 * v7++), v9}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -828,8 +801,6 @@ void __28___ATXAppLaunchMonitor_stop__block_invoke(uint64_t a1, void *a2)
 
   v8 = v2[1];
   v2[1] = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __43___ATXAppLaunchMonitor_startDeltaRecording__block_invoke(uint64_t a1, void *a2)
@@ -857,18 +828,9 @@ void __72___ATXAppLaunchMonitor_swapAppInFocusStream_andDisplayOnIntervalStream_
 
 void __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Identifier called: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __44___ATXAppLaunchMonitor_registerForAppChange__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_2263AA000, v0, v1, "Donation Processing - App change notification bundleId: '%@', launch reason: '%@'");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Identifier called: %@", v1, 0xCu);
 }
 
 @end

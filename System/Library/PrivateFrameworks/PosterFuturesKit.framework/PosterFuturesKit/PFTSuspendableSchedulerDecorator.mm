@@ -217,10 +217,7 @@ void __77__PFTSuspendableSchedulerDecorator_performCancellableBlock_qualityOfSer
 
   else
   {
-    v4 = [*(a1 + 32) _nts_enqueueCancellableBlock:*(a1 + 40) qualityOfService:*(a1 + 64)];
-    v5 = *(*(a1 + 56) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _nts_enqueueCancellableBlock:*(a1 + 40) qualityOfService:*(a1 + 64)];
 
     MEMORY[0x2821F96F8]();
   }

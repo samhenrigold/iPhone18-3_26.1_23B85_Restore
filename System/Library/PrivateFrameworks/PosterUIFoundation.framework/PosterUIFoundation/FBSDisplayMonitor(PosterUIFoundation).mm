@@ -11,9 +11,9 @@
     +[FBSDisplayMonitor(PosterUIFoundation) pui_sharedDisplayMonitor];
   }
 
-  v1 = pui_sharedDisplayMonitor_displayMonitor;
+  v2 = pui_sharedDisplayMonitor_displayMonitor;
 
-  return v1;
+  return v2;
 }
 
 @end

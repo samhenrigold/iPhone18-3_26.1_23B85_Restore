@@ -41,7 +41,7 @@ void __58__SidecarRelayDelegateConduit_sendDataRequest_completion___block_invoke
 
 void __58__SidecarRelayDelegateConduit_sendDataRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
@@ -54,26 +54,26 @@ void __58__SidecarRelayDelegateConduit_sendDataRequest_completion___block_invoke
   v6 = v3;
   if (v6)
   {
-    v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v10)
+    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      log = v10;
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      v10 = log;
-      if (v11)
+      log = v9;
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v9 = log;
+      if (v10)
       {
-        v12 = [v6 domain];
-        v13 = [v6 code];
-        v14 = [v6 localizedDescription];
+        v11 = [v6 domain];
+        v12 = [v6 code];
+        v13 = [v6 localizedDescription];
         *buf = 138543875;
-        v17 = v12;
-        v18 = 2048;
-        v19 = v13;
-        v20 = 2113;
-        v21 = v14;
+        v16 = v11;
+        v17 = 2048;
+        v18 = v12;
+        v19 = 2113;
+        v20 = v13;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v10 = log;
+        v9 = log;
       }
     }
   }
@@ -81,8 +81,6 @@ void __58__SidecarRelayDelegateConduit_sendDataRequest_completion___block_invoke
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x277CBEA90] data];
   (*(v7 + 16))(v7, v8, v6);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,7 +7,6 @@
 + (id)_energyTopic;
 + (id)_safetyAndSecurityTopic;
 - (BOOL)isEqual:(id)equal;
-- (BOOL)isMatter;
 - (HFAccessoryType)accessoryType;
 - (HFUserNotificationServiceTopic)init;
 - (HFUserNotificationServiceTopic)initWithServiceType:(id)type topicNameLocalizationKey:(id)key;
@@ -31,7 +30,7 @@
 
 - (HFUserNotificationServiceTopic)initWithServiceType:(id)type topicNameLocalizationKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v7 = MEMORY[0x277D755D0];
   keyCopy = key;
@@ -43,9 +42,9 @@
     v12 = HFLogForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = typeCopy;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "HFUserNotificationServiceTopic: Couldn't find SF Symbol for service type: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = typeCopy;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "HFUserNotificationServiceTopic: Couldn't find SF Symbol for service type: %@", &v17, 0xCu);
     }
 
     v11 = [HFServiceIconFactory defaultIconDescriptorForServiceType:typeCopy serviceSubtype:0];
@@ -55,7 +54,6 @@
   v14 = [MEMORY[0x277CBEB98] set];
   v15 = [(HFUserNotificationServiceTopic *)self initWithServiceTypes:v13 accessoryCategoryTypes:v14 topicNameLocalizationKey:keyCopy iconDescriptor:v11];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -253,13 +251,6 @@ void __45__HFUserNotificationServiceTopic_na_identity__block_invoke_2()
   return v3;
 }
 
-- (BOOL)isMatter
-{
-  accessoryType = self->_accessoryType;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
-}
-
 + (id)_announceTopic
 {
   if (qword_280E03380 != -1)
@@ -292,15 +283,13 @@ void __48__HFUserNotificationServiceTopic__announceTopic__block_invoke_2()
 
 void __48__HFUserNotificationServiceTopic__announceTopic__block_invoke_5()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = *MEMORY[0x277CCE8B0];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x277CCE8B0];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = qword_280E03398;
   qword_280E03398 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_safetyAndSecurityTopic
@@ -339,15 +328,13 @@ void __57__HFUserNotificationServiceTopic__safetyAndSecurityTopic__block_invoke_
 
 void __57__HFUserNotificationServiceTopic__safetyAndSecurityTopic__block_invoke_5()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = *MEMORY[0x277CCE8B0];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x277CCE8B0];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = qword_280E033B8;
   qword_280E033B8 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_activityHistoryTopic
@@ -407,17 +394,15 @@ void __46__HFUserNotificationServiceTopic__cameraTopic__block_invoke_2()
 
 void __46__HFUserNotificationServiceTopic__cameraTopic__block_invoke_5()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CCE948];
-  v6[0] = *MEMORY[0x277CCE8B8];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CCE8B8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_280E033E8;
   qword_280E033E8 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_energyTopic

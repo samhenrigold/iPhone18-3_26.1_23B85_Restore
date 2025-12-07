@@ -151,7 +151,7 @@ void __25__EMFocusController_init__block_invoke(uint64_t a1)
 
 - (void)_focusModeChanged
 {
-  v3 = _ef_log_EMFocusController();
+  v3 = _ef_log_EMFocusController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -196,45 +196,43 @@ void __38__EMFocusController__focusModeChanged__block_invoke_2(uint64_t a1)
   objc_storeStrong(*v2 + 4, v2[1]);
   v4 = [*(*v2 + 1) allObjects];
   os_unfair_lock_unlock(v3 + 10);
-  v5 = _ef_log_EMFocusController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _ef_log_EMFocusController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 40) ef_publicDescription];
+    v7 = [*(a1 + 40) ef_publicDescription];
     *buf = 138543362;
-    v18 = v6;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Current focus: %{public}@", buf, 0xCu);
+    v18 = v7;
+    _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "Current focus: %{public}@", buf, 0xCu);
   }
 
   v14 = 0u;
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v8)
+  v8 = v4;
+  v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v9)
   {
-    v9 = *v13;
+    v10 = *v13;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) currentFocusChanged:{*(a1 + 40), v12}];
+        [*(*(&v12 + 1) + 8 * v11++) currentFocusChanged:{*(a1 + 40), v12}];
       }
 
-      while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v9 != v11);
+      v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addObserver:(id)observer currentFocus:(id *)focus
@@ -350,9 +348,9 @@ id __62__EMFocusController_predicateForFocus_usingAccountRepository___block_invo
 
 - (id)_stateCaptureInformation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
-  v10 = @"Focused Account Identifiers";
+  v9 = @"Focused Account Identifiers";
   _currentFocusedAccountIdentifiers = [(EMFocusController *)self _currentFocusedAccountIdentifiers];
   allObjects = [_currentFocusedAccountIdentifiers allObjects];
   v5 = allObjects;
@@ -362,11 +360,10 @@ id __62__EMFocusController_predicateForFocus_usingAccountRepository___block_invo
     v6 = allObjects;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

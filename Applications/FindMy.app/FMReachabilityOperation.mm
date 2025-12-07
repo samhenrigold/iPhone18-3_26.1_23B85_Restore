@@ -9,14 +9,14 @@
   statusCopy = status;
   if (status)
   {
-    sub_10000905C(0, &qword_1006BEF40);
+    sub_10000905C(0, &qword_1006BEF40, NSNumber_ptr);
     statusCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   controllerCopy = controller;
   errorCopy = error;
   selfCopy = self;
-  sub_10048EAA4(statusCopy, error);
+  sub_10048EAA4(statusCopy, error, v13);
 }
 
 @end

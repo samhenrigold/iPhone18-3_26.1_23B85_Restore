@@ -62,10 +62,11 @@
 
 - (void)setActiveRequest:(id)request forTransactionID:(id)d
 {
-  sub_10003986C();
+  v6 = sub_10003986C();
+  v8 = v7;
   requestCopy = request;
   selfCopy = self;
-  sub_100028FF8(requestCopy);
+  sub_100028FF8(requestCopy, v6, v8);
 }
 
 - (void)removeActiveRequestForTransactionID:(id)d

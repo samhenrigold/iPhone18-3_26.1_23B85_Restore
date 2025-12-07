@@ -40,6 +40,7 @@
 - (void)_podcastsSettingsAction:(id)action;
 - (void)_reload;
 - (void)_setPodcastSwitchCell:(id)cell specifier:(id)specifier;
+- (void)_setPodcastsAreUserSet:(BOOL)set;
 - (void)_setSavedEpisodesSwitchCell:(id)cell specifier:(id)specifier;
 - (void)_setStationSwitchCell:(id)cell specifier:(id)specifier;
 - (void)_showSyncStorageWarning;
@@ -49,7 +50,10 @@
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MTBMainVC
@@ -119,6 +123,50 @@
   v3.super_class = MTBMainVC;
   [(MTBMainVC *)&v3 viewDidLoad];
   [(MTBMainVC *)self _configureHeaderIfNeeded];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MTBMainVC;
+  [(MTBMainVC *)&v5 viewWillAppear:appear];
+  syncInfoController = [(MTBMainVC *)self syncInfoController];
+  [syncInfoController beginObservingSyncInfo];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = MTBMainVC;
+  [(MTBMainVC *)&v11 viewDidAppear:appear];
+  v4 = +[NRPairedDeviceRegistry sharedInstance];
+  v5 = +[NRPairedDeviceRegistry activePairedDeviceSelectorBlock];
+  v6 = [v4 getAllDevicesWithArchivedAltAccountDevicesMatching:v5];
+  firstObject = [v6 firstObject];
+  v8 = [[NSUUID alloc] initWithUUIDString:@"2E9A45BB-4F07-4D6B-9B65-41933EED0DCA"];
+  v9 = [firstObject supportsCapability:v8];
+
+  if ((v9 & 1) == 0)
+  {
+    v10 = +[NMSSyncManager sharedManager];
+    [v10 beginReceivingSyncProgressUpdates];
+  }
+
+  [(MTBMainVC *)self _updateHeaderAndSyncProgress];
+  if ((byte_22FB0 & 1) == 0)
+  {
+    [(MTBMainVC *)self _launchPodcasts];
+    byte_22FB0 = 1;
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MTBMainVC;
+  [(MTBMainVC *)&v5 viewDidDisappear:disappear];
+  syncInfoController = [(MTBMainVC *)self syncInfoController];
+  [syncInfoController endObservingSyncInfo];
 }
 
 - (NMBUISyncInfoController)syncInfoController
@@ -286,6 +334,45 @@ LABEL_9:
 LABEL_14:
 
   return v4;
+}
+
+- (void)_setPodcastsAreUserSet:(BOOL)set
+{
+  setCopy = set;
+  v5 = +[NMSMediaPinningManager sharedManager];
+  pinnedPodcastsAreUserSet = [v5 pinnedPodcastsAreUserSet];
+
+  if (pinnedPodcastsAreUserSet != setCopy)
+  {
+    v7 = +[NMSMediaPinningManager sharedManager];
+    [v7 setPinnedPodcastsAreUserSet:setCopy];
+
+    syncGroupSpecifier = self->_syncGroupSpecifier;
+    if (setCopy)
+    {
+      _localizedEpisodeDownloadExplanation = [(MTBMainVC *)self _localizedEpisodeDownloadExplanation];
+      [(PSSpecifier *)syncGroupSpecifier setProperty:_localizedEpisodeDownloadExplanation forKey:PSFooterTextGroupKey];
+
+      [(MTBMainVC *)self reloadSpecifier:self->_syncGroupSpecifier];
+      _savedAndStationSpecifiers = [(MTBMainVC *)self _savedAndStationSpecifiers];
+      _podcastSpecifiers = [(MTBMainVC *)self _podcastSpecifiers];
+      v14 = [_savedAndStationSpecifiers arrayByAddingObjectsFromArray:_podcastSpecifiers];
+
+      [(MTBMainVC *)self insertContiguousSpecifiers:v14 afterSpecifierID:@"NMTSyncCustomCellSpecifierID" animated:1];
+    }
+
+    else
+    {
+      v12 = +[NSBundle podcastsFoundationBundle];
+      v13 = [v12 localizedStringForKey:@"UP_NEXT_FOOTER_STRING" value:@"Your iPhone will try to add one episode from each of the top 10 shows in Up Next." table:0];
+      [(PSSpecifier *)syncGroupSpecifier setProperty:v13 forKey:PSFooterTextGroupKey];
+
+      [(MTBMainVC *)self reloadSpecifier:self->_syncGroupSpecifier];
+      [(MTBMainVC *)self removeSpecifierID:@"NMTPodcastsGroupSpecifierID" animated:1];
+
+      [(MTBMainVC *)self removeSpecifierID:@"NMTPodcastStationsGroupSpecifierID" animated:1];
+    }
+  }
 }
 
 - (id)_syncGroupSpecifiers
@@ -1893,35 +1980,33 @@ LABEL_10:
     v11 = [v10 imageWithRenderingMode:2];
 
     +[NMBUIMediaTableCell artworkSize];
-    UIGraphicsBeginImageContextWithOptions(v35, 1, 0.0);
+    UIGraphicsBeginImageContextWithOptions(v33, 1, 0.0);
     v12 = [UIColor colorWithRed:0.247058824 green:0.247058824 blue:0.254901961 alpha:1.0];
     [v12 set];
 
     +[NMBUIMediaTableCell artworkSize];
     v14 = v13;
     +[NMBUIMediaTableCell artworkSize];
-    v36.size.height = v15;
-    v36.origin.x = 0.0;
-    v36.origin.y = 0.0;
-    v36.size.width = v14;
-    UIRectFill(v36);
+    v34.size.height = v15;
+    v34.origin.x = 0.0;
+    v34.origin.y = 0.0;
+    v34.size.width = v14;
+    UIRectFill(v34);
     [v11 size];
-    v16 = *&CGAffineTransformIdentity.a;
     __asm { FMOV            V4.2D, #24.0 }
 
-    v22 = vmulq_f64(*&CGAffineTransformIdentity.c, _Q4);
     _UIScaleTransformForAspectFitOfSizeInTargetSize();
     [v11 size];
     +[NMBUIMediaTableCell artworkSize];
     UIRectCenteredIntegralRectScale();
+    v22 = v21;
     v24 = v23;
     v26 = v25;
     v28 = v27;
-    v30 = v29;
-    v31 = +[UIColor systemGrayColor];
-    [v31 set];
+    v29 = +[UIColor systemGrayColor];
+    [v29 set];
 
-    [v11 drawInRect:{v24, v26, v28, v30}];
+    [v11 drawInRect:{v22, v24, v26, v28}];
     v7 = UIGraphicsGetImageFromCurrentImageContext();
 
     UIGraphicsEndImageContext();

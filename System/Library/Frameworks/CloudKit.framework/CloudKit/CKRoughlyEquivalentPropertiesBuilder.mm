@@ -35,38 +35,36 @@
 
 - (void)addPlistObjects:(id)objects
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v5, &v15, v19, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v5, &v14, v18, 16);
   if (v6)
   {
     v8 = v6;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         v12 = objc_msgSend_objectForKeyedSubscript_(objectsCopy, v7, v11);
         objc_msgSend_addPlistObject_forKey_(self, v13, v12, v11);
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v7, &v15, v19, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v7, &v14, v18, 16);
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPlistObject:(id)object forKey:(id)key

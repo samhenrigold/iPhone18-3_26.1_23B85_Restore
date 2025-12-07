@@ -14,10 +14,13 @@
 
 - (void)setSettings:(id)settings
 {
-  -[CLSettingsManagerInternal setSettingsDictionary:](self, "setSettingsDictionary:", [settings cl_deepMutableCopy]);
-  [MEMORY[0x1E695DF20] dictionaryWithDictionary:{-[CLSettingsManagerInternal settingsDictionary](self, "settingsDictionary")}];
+  v4 = objc_msgSend_cl_deepMutableCopy(settings, a2, settings);
+  objc_msgSend_setSettingsDictionary_(self, v5, v4);
+  v6 = MEMORY[0x1E695DF20];
+  v9 = objc_msgSend_settingsDictionary(self, v7, v8);
+  v11 = objc_msgSend_dictionaryWithDictionary_(v6, v10, v9);
 
-  MEMORY[0x1EEE66B58](self, sel_updateClientsWithDictionary_);
+  MEMORY[0x1EEE66B58](self, sel_updateClientsWithDictionary_, v11);
 }
 
 @end

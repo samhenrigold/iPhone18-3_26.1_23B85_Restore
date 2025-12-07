@@ -10,7 +10,7 @@
 
 - (id)matchVisibleParameterKeys:(id)keys checkingRequiredValuesInAction:(id)action
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   actionCopy = action;
   v8 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -19,29 +19,29 @@
 
   if ([v10 isSubsetOfSet:keysCopy])
   {
-    v32 = v10;
-    v33 = keysCopy;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v31 = v10;
+    v32 = keysCopy;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     obj = [(WFActionParameterSummaryValue *)self requiredValues];
-    v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v38;
-      v34 = actionCopy;
+      v13 = *v37;
+      v33 = actionCopy;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v37 + 1) + 8 * i);
+          v15 = *(*(&v36 + 1) + 8 * i);
           requiredValues = [(WFActionParameterSummaryValue *)self requiredValues];
           v17 = [requiredValues objectForKey:v15];
 
@@ -50,7 +50,7 @@
           if (objc_opt_isKindOfClass())
           {
             v19 = v18;
-            v36 = v17;
+            v35 = v17;
             v20 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v17, "BOOLValue")}];
             number = [v19 number];
             v22 = [number isEqualToNumber:v20];
@@ -59,15 +59,15 @@
             {
               v29 = [WFActionParameterSummaryValueMatchResult noMatchWithValue:self];
 
-              keysCopy = v33;
-              actionCopy = v34;
-              v10 = v32;
-              v17 = v36;
+              keysCopy = v32;
+              actionCopy = v33;
+              v10 = v31;
+              v17 = v35;
               goto LABEL_23;
             }
 
-            actionCopy = v34;
-            v23 = v36;
+            actionCopy = v33;
+            v23 = v35;
           }
 
           else
@@ -87,8 +87,8 @@
 LABEL_22:
               v29 = [WFActionParameterSummaryValueMatchResult noMatchWithValue:self];
               v19 = v18;
-              v10 = v32;
-              keysCopy = v33;
+              v10 = v31;
+              keysCopy = v32;
 LABEL_23:
 
               goto LABEL_24;
@@ -96,7 +96,7 @@ LABEL_23:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
         if (v12)
         {
           continue;
@@ -106,10 +106,10 @@ LABEL_23:
       }
     }
 
-    v10 = v32;
-    v26 = [v32 count];
-    keysCopy = v33;
-    if (v26 == [v33 count])
+    v10 = v31;
+    v26 = [v31 count];
+    keysCopy = v32;
+    if (v26 == [v32 count])
     {
       v27 = 2;
     }
@@ -119,7 +119,7 @@ LABEL_23:
       v27 = 1;
     }
 
-    v28 = -[WFActionParameterSummaryValueMatchResult initWithValue:matchType:numberOfMatchingParameters:]([WFActionParameterSummaryValueMatchResult alloc], "initWithValue:matchType:numberOfMatchingParameters:", self, v27, [v32 count]);
+    v28 = -[WFActionParameterSummaryValueMatchResult initWithValue:matchType:numberOfMatchingParameters:]([WFActionParameterSummaryValueMatchResult alloc], "initWithValue:matchType:numberOfMatchingParameters:", self, v27, [v31 count]);
   }
 
   else
@@ -129,8 +129,6 @@ LABEL_23:
 
   v29 = v28;
 LABEL_24:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

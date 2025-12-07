@@ -59,7 +59,7 @@
 
 - (id)cancel
 {
-  v2 = sub_10000285C();
+  v2 = sub_10000285C(self);
   if (v2)
   {
     v6[4] = v2;

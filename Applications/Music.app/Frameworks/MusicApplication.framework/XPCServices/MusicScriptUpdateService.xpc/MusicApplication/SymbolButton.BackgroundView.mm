@@ -18,11 +18,11 @@
 
 - (void)tintColorDidChange
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for SymbolButton.BackgroundView();
-  v2 = v3.receiver;
-  [(SymbolButton.BackgroundView *)&v3 tintColorDidChange];
-  sub_1003B55A0();
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for SymbolButton.BackgroundView(0, a2);
+  v2 = v5.receiver;
+  tintColorDidChange = [(SymbolButton.BackgroundView *)&v5 tintColorDidChange];
+  sub_1003B55A0(tintColorDidChange, v4);
 }
 
 - (_TtCC11MusicCoreUI12SymbolButtonP33_0D6450BB937596549C350B7D294A2A9314BackgroundView)initWithFrame:(CGRect)frame

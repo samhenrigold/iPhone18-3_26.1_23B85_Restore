@@ -18,7 +18,7 @@
     v6 = objc_opt_class();
     v7 = [resultCopy valueForAttribute:*MEMORY[0x277CC2760] withType:objc_opt_class()];
     v8 = [v6 whiteSpaceCondensedStringForString:v7];
-    [(SPUISNoteResultBuilder *)v5 setTitle:v8];
+    objc_msgSend_setTitle_(v5);
 
     v9 = [resultCopy valueForAttribute:*MEMORY[0x277CC2DF0] withType:objc_opt_class()];
     -[SPUISNoteResultBuilder setIsShared:](v5, "setIsShared:", [v9 BOOLValue]);
@@ -53,72 +53,69 @@
 
 - (id)buildInlineCardSection
 {
-  v91[1] = *MEMORY[0x277D85DE8];
-  v3 = 0x277D4C000uLL;
+  v88[1] = *MEMORY[0x277D85DE8];
   if ([(SPUISNoteResultBuilder *)self isLocked])
   {
-    v4 = MEMORY[0x277D4C598];
-    title = [SPUISUtilities localizedStringForKey:@"LOCKED"];
-    v83 = [v4 textWithString:title];
+    v3 = MEMORY[0x277D4C598];
+    v4 = [SPUISUtilities localizedStringForKey:@"LOCKED"];
+    v80 = [v3 textWithString:v4];
   }
 
   else
   {
-    title = [(SPUISNoteResultBuilder *)self title];
-    v6 = [(SPUISResultBuilder *)self buildHighlightedMatchedTextWithTitle:title headTruncation:1];
-    v7 = v6;
-    if (v6)
+    v4 = objc_msgSend_title(self);
+    v5 = [(SPUISResultBuilder *)self buildHighlightedMatchedTextWithTitle:v4 headTruncation:1];
+    v6 = v5;
+    if (v5)
     {
-      v8 = v6;
+      v7 = v5;
     }
 
     else
     {
-      v9 = MEMORY[0x277D4C598];
+      v8 = MEMORY[0x277D4C598];
       formattedBody = [(SPUISNoteResultBuilder *)self formattedBody];
-      v8 = [v9 textWithString:formattedBody];
+      v7 = [v8 textWithString:formattedBody];
     }
 
-    v83 = v8;
+    v80 = v7;
   }
 
-  v88.receiver = self;
-  v88.super_class = SPUISNoteResultBuilder;
-  buildInlineCardSection = [(SPUISResultBuilder *)&v88 buildInlineCardSection];
-  v12 = objc_opt_new();
+  v85.receiver = self;
+  v85.super_class = SPUISNoteResultBuilder;
+  buildInlineCardSection = [(SPUISResultBuilder *)&v85 buildInlineCardSection];
+  v11 = objc_opt_new();
   modificationDate = [(SPUISNoteResultBuilder *)self modificationDate];
 
   if (modificationDate)
   {
-    v14 = MEMORY[0x277D4C3A0];
-    v15 = MEMORY[0x277CCACA8];
+    v13 = MEMORY[0x277D4C3A0];
+    v14 = MEMORY[0x277CCACA8];
     modificationDate2 = [(SPUISNoteResultBuilder *)self modificationDate];
-    v17 = [SPUISDateFormatManager dynamicCompactStringFromDate:modificationDate2];
-    v18 = [v15 stringWithFormat:@"%@  ", v17];
-    v19 = [v14 textWithString:v18];
-    [v12 addObject:v19];
+    v16 = [SPUISDateFormatManager dynamicCompactStringFromDate:modificationDate2];
+    v17 = [v14 stringWithFormat:@"%@  ", v16];
+    v18 = [v13 textWithString:v17];
+    [v11 addObject:v18];
   }
 
   result = [(SPUISResultBuilder *)self result];
   formattedSnippet = [result formattedSnippet];
-  v22 = 0x277CBE000uLL;
+  v21 = 0x277CBE000uLL;
   if (formattedSnippet)
   {
-    v23 = formattedSnippet;
+    v22 = formattedSnippet;
     result2 = [(SPUISResultBuilder *)self result];
     formattedSnippet2 = [result2 formattedSnippet];
     formattedTextPieces = [formattedSnippet2 formattedTextPieces];
-    v27 = [formattedTextPieces count];
+    v26 = objc_msgSend_count(formattedTextPieces);
 
-    v3 = 0x277D4C000;
-    v22 = 0x277CBE000;
-
-    if (v27)
+    v21 = 0x277CBE000;
+    if (v26)
     {
       result3 = [(SPUISResultBuilder *)self result];
       formattedSnippet3 = [result3 formattedSnippet];
       formattedTextPieces2 = [formattedSnippet3 formattedTextPieces];
-      [v12 addObjectsFromArray:formattedTextPieces2];
+      [v11 addObjectsFromArray:formattedTextPieces2];
 
       goto LABEL_16;
     }
@@ -128,71 +125,70 @@
   {
   }
 
-  result3 = [v83 formattedTextPieces];
+  result3 = [v80 formattedTextPieces];
   if (result3)
   {
-    [v12 addObjectsFromArray:result3];
+    [v11 addObjectsFromArray:result3];
   }
 
   else
   {
-    v31 = MEMORY[0x277D4C3A0];
-    text = [v83 text];
-    v33 = [v31 textWithString:text];
-    v91[0] = v33;
-    [*(v22 + 2656) arrayWithObjects:v91 count:1];
-    v35 = v34 = v22;
-    [v12 addObjectsFromArray:v35];
+    v30 = MEMORY[0x277D4C3A0];
+    text = [v80 text];
+    v32 = [v30 textWithString:text];
+    v88[0] = v32;
+    [*(v21 + 2656) arrayWithObjects:v88 count:1];
+    v34 = v33 = v21;
+    [v11 addObjectsFromArray:v34];
 
-    v22 = v34;
+    v21 = v33;
   }
 
 LABEL_16:
 
-  v36 = *(v3 + 1432);
-  v37 = objc_opt_new();
-  [v37 setFormattedTextPieces:v12];
-  v90 = v37;
-  v38 = [*(v22 + 2656) arrayWithObjects:&v90 count:1];
-  [buildInlineCardSection setDescriptions:v38];
+  v35 = objc_opt_new();
+  [v35 setFormattedTextPieces:v11];
+  v87 = v35;
+  v36 = [*(v21 + 2656) arrayWithObjects:&v87 count:1];
+  [buildInlineCardSection setDescriptions:v36];
 
-  v39 = +[SPUISUtilities isMacOS];
-  v40 = objc_opt_new();
+  v37 = +[SPUISUtilities isMacOS];
+  v38 = objc_opt_new();
   folder = [(SPUISNoteResultBuilder *)self folder];
-  v42 = [folder length];
+  v40 = [folder length];
 
-  if (v39)
+  if (v37)
   {
-    if (v42)
+    if (v40)
     {
       folder2 = [(SPUISNoteResultBuilder *)self folder];
-      [v40 addObject:folder2];
+      [v38 addObject:folder2];
     }
 
     account = [(SPUISNoteResultBuilder *)self account];
-    v45 = [account length];
+    v43 = [account length];
 
-    if (v45)
+    if (v43)
     {
       account2 = [(SPUISNoteResultBuilder *)self account];
-      [v40 addObject:account2];
+      [v38 addObject:account2];
     }
 
-    footnote = [v40 componentsJoinedByString:@" · "];
+    footnote = [v38 componentsJoinedByString:@" · "];
     if ([footnote length])
     {
-      v48 = objc_opt_new();
-      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@" — %@", footnote];
-      [v48 setText:v49];
+      v46 = objc_opt_new();
+      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@" — %@", footnote];
+      [v46 setText:v47];
 
-      title2 = [buildInlineCardSection title];
-      formattedTextPieces3 = [title2 formattedTextPieces];
-      v52 = [formattedTextPieces3 arrayByAddingObject:v48];
-      title3 = [buildInlineCardSection title];
-      [title3 setFormattedTextPieces:v52];
+      v48 = objc_msgSend_title(buildInlineCardSection);
+      formattedTextPieces3 = [v48 formattedTextPieces];
+      v50 = [formattedTextPieces3 arrayByAddingObject:v46];
+      v51 = objc_msgSend_title(buildInlineCardSection);
+      [v51 setFormattedTextPieces:v50];
 
-      title4 = [buildInlineCardSection title];
-      formattedTextPieces4 = [title4 formattedTextPieces];
+      v52 = objc_msgSend_title(buildInlineCardSection);
+      formattedTextPieces4 = [v52 formattedTextPieces];
       firstObject = [formattedTextPieces4 firstObject];
       [firstObject setIsEmphasized:1];
     }
@@ -200,98 +196,96 @@ LABEL_16:
 
   else
   {
-    if (v42)
+    if (v40)
     {
-      v57 = objc_opt_new();
-      [v57 setSymbolName:@"folder"];
-      [v57 setIsTemplate:1];
-      v58 = objc_opt_new();
-      [v58 setGlyph:v57];
-      [v40 addObject:v58];
-      v59 = MEMORY[0x277D4C3A0];
-      v60 = MEMORY[0x277CCACA8];
+      v55 = objc_opt_new();
+      [v55 setSymbolName:@"folder"];
+      [v55 setIsTemplate:1];
+      v56 = objc_opt_new();
+      [v56 setGlyph:v55];
+      [v38 addObject:v56];
+      v57 = MEMORY[0x277D4C3A0];
+      v58 = MEMORY[0x277CCACA8];
       folder3 = [(SPUISNoteResultBuilder *)self folder];
-      v62 = [v60 stringWithFormat:@" %@", folder3];
-      v63 = [v59 textWithString:v62];
-      [v40 addObject:v63];
+      v60 = [v58 stringWithFormat:@" %@", folder3];
+      v61 = [v57 textWithString:v60];
+      [v38 addObject:v61];
     }
 
     account3 = [(SPUISNoteResultBuilder *)self account];
-    v65 = [account3 length];
+    v63 = [account3 length];
 
-    if (v65)
+    if (v63)
     {
-      v66 = MEMORY[0x277D4C3A0];
-      v67 = MEMORY[0x277CCACA8];
+      v64 = MEMORY[0x277D4C3A0];
+      v65 = MEMORY[0x277CCACA8];
       folder4 = [(SPUISNoteResultBuilder *)self folder];
       if ([folder4 length])
       {
-        v69 = @" — ";
+        v67 = @" — ";
       }
 
       else
       {
-        v69 = &stru_287C50EE8;
+        v67 = &stru_287C50EE8;
       }
 
       account4 = [(SPUISNoteResultBuilder *)self account];
-      v71 = [v67 stringWithFormat:@"%@%@", v69, account4];
-      v72 = [v66 textWithString:v71];
-      [v40 addObject:v72];
+      v69 = [v65 stringWithFormat:@"%@%@", v67, account4];
+      v70 = [v64 textWithString:v69];
+      [v38 addObject:v70];
     }
 
-    if ([v40 count])
+    if (objc_msgSend_count(v38))
     {
-      v86 = 0u;
-      v87 = 0u;
+      v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
-      v73 = v40;
-      v74 = [v73 countByEnumeratingWithState:&v84 objects:v89 count:16];
-      if (v74)
+      v81 = 0u;
+      v82 = 0u;
+      v71 = v38;
+      v72 = [v71 countByEnumeratingWithState:&v81 objects:v86 count:16];
+      if (v72)
       {
-        v75 = v74;
-        v76 = *v85;
+        v73 = v72;
+        v74 = *v82;
         do
         {
-          for (i = 0; i != v75; ++i)
+          for (i = 0; i != v73; ++i)
           {
-            if (*v85 != v76)
+            if (*v82 != v74)
             {
-              objc_enumerationMutation(v73);
+              objc_enumerationMutation(v71);
             }
 
-            [*(*(&v84 + 1) + 8 * i) setIsEmphasized:1];
+            [*(*(&v81 + 1) + 8 * i) setIsEmphasized:1];
           }
 
-          v75 = [v73 countByEnumeratingWithState:&v84 objects:v89 count:16];
+          v73 = [v71 countByEnumeratingWithState:&v81 objects:v86 count:16];
         }
 
-        while (v75);
+        while (v73);
       }
 
-      v78 = objc_opt_new();
-      v79 = [v73 copy];
-      [v78 setFormattedTextPieces:v79];
+      v76 = objc_opt_new();
+      v77 = [v71 copy];
+      [v76 setFormattedTextPieces:v77];
 
-      [buildInlineCardSection setFootnote:v78];
+      [buildInlineCardSection setFootnote:v76];
     }
 
     footnote = [buildInlineCardSection footnote];
     if (footnote)
     {
-      v80 = 1;
+      v78 = 1;
     }
 
     else
     {
-      v80 = 2;
+      v78 = 2;
     }
 
-    [v37 setMaxLines:v80];
+    [v35 setMaxLines:v78];
   }
-
-  v81 = *MEMORY[0x277D85DE8];
 
   return buildInlineCardSection;
 }
@@ -300,8 +294,8 @@ LABEL_16:
 {
   v3 = objc_opt_new();
   v4 = MEMORY[0x277D4C3A0];
-  title = [(SPUISNoteResultBuilder *)self title];
-  v6 = [v4 textWithString:title];
+  v5 = objc_msgSend_title(self);
+  v6 = [v4 textWithString:v5];
 
   [v6 setIsEmphasized:1];
   [v3 addObject:v6];

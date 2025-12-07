@@ -140,12 +140,12 @@ LABEL_13:
 
 - (id)addAccentKeyAction:(id)action
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen _referenceBounds];
-  Height = CGRectGetHeight(v20);
-  if (Height <= 1194.0 || ([MEMORY[0x277D759A0] mainScreen], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "_referenceBounds"), CGRectGetHeight(v21) > 1194.0) && -[TypistKeyboard isFloating](self, "isFloating"))
+  Height = CGRectGetHeight(v19);
+  if (Height <= 1194.0 || ([MEMORY[0x277D759A0] mainScreen], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "_referenceBounds"), CGRectGetHeight(v20) > 1194.0) && -[TypistKeyboard isFloating](self, "isFloating"))
   {
     acuteKeys = [(TypistKeyboardGreek *)self acuteKeys];
     if (acuteKeys)
@@ -160,8 +160,8 @@ LABEL_13:
         if (v13)
         {
           acuteDiacriticKey2 = [(TypistKeyboardGreek *)self acuteDiacriticKey];
-          v18[0] = acuteDiacriticKey2;
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+          v17[0] = acuteDiacriticKey2;
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
         }
 
         else
@@ -187,7 +187,6 @@ LABEL_13:
 LABEL_14:
 
 LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

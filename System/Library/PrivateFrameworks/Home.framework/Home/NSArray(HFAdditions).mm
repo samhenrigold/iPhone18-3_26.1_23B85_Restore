@@ -7,31 +7,31 @@
 
 - (id)hf_firstMostCommonObject
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA940] setWithArray:self];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [v2 countForObject:{v10, v16}];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [v2 countForObject:{v10, v15}];
         if (v11 > v6)
         {
           v12 = v11;
@@ -42,7 +42,7 @@
         }
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -52,8 +52,6 @@
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

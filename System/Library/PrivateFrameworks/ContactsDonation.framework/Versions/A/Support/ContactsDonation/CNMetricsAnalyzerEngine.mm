@@ -10,7 +10,7 @@
   v3 = [objc_allocWithZone(CNContactStore) init];
   *(&self->super.isa + OBJC_IVAR____TtC21contactsdonationagent23CNMetricsAnalyzerEngine_contactStore) = v3;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CNMetricsAnalyzerEngine();
+  v5.super_class = type metadata accessor for CNMetricsAnalyzerEngine(0);
   return [(CNMetricsAnalyzerEngine *)&v5 init];
 }
 

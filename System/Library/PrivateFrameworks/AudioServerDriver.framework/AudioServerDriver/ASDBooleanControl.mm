@@ -1,14 +1,45 @@
 @interface ASDBooleanControl
++ (id)invertControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
++ (id)jackControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
++ (id)muteControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
++ (id)phantomPowerControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
+- (ASDBooleanControl)initWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (BOOL)value;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)driverClassName;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (void)setValue:(BOOL)value;
 @end
 
 @implementation ASDBooleanControl
+
+- (ASDBooleanControl)initWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d
+{
+  v21.receiver = self;
+  v21.super_class = ASDBooleanControl;
+  v10 = [(ASDControl *)&v21 initWithElement:*&element inScope:*&scope withPlugin:plugin andObjectClassID:*&d];
+  v11 = v10;
+  if (v10)
+  {
+    v10->_value = value;
+    v10->_settable = settable;
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v12 bundleIdentifier];
+    v14 = MEMORY[0x277CCACA8];
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = [v14 stringWithFormat:@"%@.%@.%p", bundleIdentifier, v16, v11];
+    v18 = dispatch_queue_create([v17 UTF8String], 0);
+    valueQueue = v11->_valueQueue;
+    v11->_valueQueue = v18;
+  }
+
+  return v11;
+}
 
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property
 {
@@ -102,6 +133,49 @@
   }
 }
 
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_9;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v15 = [(ASDBooleanControl *)self hasProperty:?];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  v15 = [(ASDBooleanControl *)self isPropertySettable:property];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  if (property->mSelector != 1650685548)
+  {
+    v18.receiver = self;
+    v18.super_class = ASDBooleanControl;
+    LOBYTE(v15) = [(ASDObject *)&v18 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    return v15;
+  }
+
+  if (v10 != 4)
+  {
+LABEL_9:
+    LOBYTE(v15) = 0;
+    return v15;
+  }
+
+  v16 = *andData != 0;
+
+  LOBYTE(v15) = [(ASDBooleanControl *)self changeValue:v16];
+  return v15;
+}
+
 - (void)setValue:(BOOL)value
 {
   v10 = 0;
@@ -156,6 +230,87 @@ uint64_t __30__ASDBooleanControl_setValue___block_invoke(uint64_t result)
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
++ (id)muteControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v7 = *&scope;
+  v8 = *&element;
+  settableCopy = settable;
+  valueCopy = value;
+  pluginCopy = plugin;
+  v12 = [objc_alloc(objc_opt_class()) initWithValue:valueCopy isSettable:settableCopy forElement:v8 inScope:v7 withPlugin:pluginCopy andObjectClassID:1836414053];
+
+  return v12;
+}
+
++ (id)phantomPowerControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v7 = *&scope;
+  v8 = *&element;
+  settableCopy = settable;
+  valueCopy = value;
+  pluginCopy = plugin;
+  v12 = [objc_alloc(objc_opt_class()) initWithValue:valueCopy isSettable:settableCopy forElement:v8 inScope:v7 withPlugin:pluginCopy andObjectClassID:1885888878];
+
+  return v12;
+}
+
++ (id)invertControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v7 = *&scope;
+  v8 = *&element;
+  settableCopy = settable;
+  valueCopy = value;
+  pluginCopy = plugin;
+  v12 = [objc_alloc(objc_opt_class()) initWithValue:valueCopy isSettable:settableCopy forElement:v8 inScope:v7 withPlugin:pluginCopy andObjectClassID:1885893481];
+
+  return v12;
+}
+
++ (id)jackControlWithValue:(BOOL)value isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v7 = *&scope;
+  v8 = *&element;
+  settableCopy = settable;
+  valueCopy = value;
+  pluginCopy = plugin;
+  v12 = [objc_alloc(objc_opt_class()) initWithValue:valueCopy isSettable:settableCopy forElement:v8 inScope:v7 withPlugin:pluginCopy andObjectClassID:1784767339];
+
+  return v12;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v11.receiver = self;
+  v11.super_class = ASDBooleanControl;
+  indentCopy = indent;
+  v7 = [(ASDControl *)&v11 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  if ([(ASDBooleanControl *)self isSettable])
+  {
+    v8 = @"YES";
+  }
+
+  else
+  {
+    v8 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Settable: %@\n", indentCopy, v8, v11.receiver, v11.super_class];
+  if ([(ASDBooleanControl *)self value])
+  {
+    v9 = @"YES";
+  }
+
+  else
+  {
+    v9 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Value: %@\n", indentCopy, v9];
+
+  return v7;
 }
 
 - (id)driverClassName

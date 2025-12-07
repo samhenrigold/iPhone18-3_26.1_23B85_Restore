@@ -281,7 +281,7 @@
   v4 = objc_alloc(MEMORY[0x1E69B3B18]);
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   else
@@ -422,7 +422,7 @@ void __64__PIRetouchCacheNode_newRenderRequestWithOriginalRequest_error___block_
   v40 = 0u;
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   v16 = [PIRepairUtilities brushStrokeFromRetouchStrokeDictionary:strokeCopy];
@@ -451,7 +451,7 @@ void __64__PIRetouchCacheNode_newRenderRequestWithOriginalRequest_error___block_
     v32 = 0u;
     if (v16)
     {
-      [v16 extent];
+      objc_msgSend_extent(v16);
     }
 
     else

@@ -13,11 +13,11 @@
   linesCopy = lines;
   height = size.height;
   width = size.width;
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v35.receiver = self;
-  v35.super_class = UISTextParagraphDrawing;
-  v14 = [(UISTextParagraphDrawing *)&v35 init];
+  v36.receiver = self;
+  v36.super_class = UISTextParagraphDrawing;
+  v14 = [(UISTextParagraphDrawing *)&v36 init];
   v15 = v14;
   if (v14)
   {
@@ -42,9 +42,9 @@
     v21 = 0;
     v22 = width;
     v23 = CGPathCreateWithRect(*(&v19 - 3), 0);
-    v37.location = 0;
-    v37.length = 0;
-    Frame = CTFramesetterCreateFrame(v18, v37, v23, 0);
+    v38.location = 0;
+    v38.length = 0;
+    Frame = CTFramesetterCreateFrame(v18, v38, v23, 0);
     v15->_frame = Frame;
     Lines = CTFrameGetLines(Frame);
     Count = CFArrayGetCount(Lines);
@@ -62,18 +62,18 @@
     v15->_lineCount = v27;
     if (v27)
     {
-      CFArrayGetCount(Lines);
-      v28 = (&v32 - 2 * MEMORY[0x1EEE9AC00]());
-      v38.location = 0;
-      v38.length = 0;
-      CTFrameGetLineOrigins(v15->_frame, v38, v28);
+      v28 = CFArrayGetCount(Lines);
+      v29 = (&v33 - 2 * MEMORY[0x1EEE9AC00](v28));
+      v39.location = 0;
+      v39.length = 0;
+      CTFrameGetLineOrigins(v15->_frame, v39, v29);
       descent = 0.0;
       ascent = 0.0;
       ValueAtIndex = CFArrayGetValueAtIndex(Lines, 0);
       CTLineGetTypographicBounds(ValueAtIndex, &ascent, 0, 0);
-      v30 = CFArrayGetValueAtIndex(Lines, v15->_lineCount - 1);
-      CTLineGetTypographicBounds(v30, 0, &descent, 0);
-      v15->_drawingHeight = ceil((v28->y - v28[v15->_lineCount - 1].y + ascent + descent) * v15->_scale) / v15->_scale;
+      v31 = CFArrayGetValueAtIndex(Lines, v15->_lineCount - 1);
+      CTLineGetTypographicBounds(v31, 0, &descent, 0);
+      v15->_drawingHeight = ceil((v29->y - v29[v15->_lineCount - 1].y + ascent + descent) * v15->_scale) / v15->_scale;
     }
 
     if (v18)

@@ -270,8 +270,8 @@ LABEL_9:
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s Sending should speak update: %@ to current client %@", v8, 0x20u);
     }
 
-    _serviceDelegate = [(ADClientConnection *)self _serviceDelegate];
-    [_serviceDelegate shouldSpeakChanged:self->_combinedShouldSpeakState];
+    v7 = [(ADClientConnection *)self _serviceDelegate:*v8];
+    [v7 shouldSpeakChanged:self->_combinedShouldSpeakState];
   }
 }
 
@@ -288,7 +288,7 @@ LABEL_9:
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
-    [(NSXPCConnection *)xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection, a3);
     xpcConnection = self->_xpcConnection;
   }
 
@@ -645,7 +645,7 @@ LABEL_16:
   v16 = +[SiriCoreSymptomsReporter sharedInstance];
   processIdentifier = [(NSXPCConnection *)self->_xpcConnection processIdentifier];
   v14 = byte_100590548;
-  v15 = sub_100097574();
+  v15 = sub_100097574(processIdentifier);
   [v16 reportIssueForError:errorCopy type:type subtype:subtypeCopy context:contextCopy processIdentifier:processIdentifier walkboutStatus:v14 triggerForIDSIdentifiers:v15];
 }
 
@@ -656,7 +656,7 @@ LABEL_16:
   v13 = +[SiriCoreSymptomsReporter sharedInstance];
   processIdentifier = [(NSXPCConnection *)self->_xpcConnection processIdentifier];
   v11 = byte_100590548;
-  v12 = sub_100097574();
+  v12 = sub_100097574(processIdentifier);
   [v13 reportIssueForError:errorCopy type:type context:contextCopy processIdentifier:processIdentifier walkboutStatus:v11 triggerForIDSIdentifiers:v12];
 }
 
@@ -1686,10 +1686,10 @@ LABEL_16:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
-  v7 = [infoCopy objectForKey:AVAudioSessionInterruptionTypeKey];
+  v7 = objc_msgSend_objectForKey_(infoCopy);
   unsignedIntegerValue = [v7 unsignedIntegerValue];
 
-  v9 = [infoCopy objectForKey:AVAudioSessionInterruptionOptionKey];
+  v9 = objc_msgSend_objectForKey_(infoCopy);
   unsignedIntegerValue2 = [v9 unsignedIntegerValue];
 
   queue = self->_queue;

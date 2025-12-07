@@ -38,8 +38,8 @@
 
   v23 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"UILevel"];
   responderService = [(PLBatteryUIResponseTypeUISOCDrain *)self responderService];
-  storage = [responderService storage];
-  v22 = [storage entriesForKey:v23 inTimeRange:0 withFilters:{v16 + -1800.0, v18 + 1800.0}];
+  v21 = objc_msgSend_storage(responderService);
+  v22 = [v21 entriesForKey:v23 inTimeRange:0 withFilters:{v16 + -1800.0, v18 + 1800.0}];
   [(PLBatteryUIResponseTypeUISOCDrain *)self setUiLevelDrainEntries:v22];
 }
 
@@ -62,30 +62,30 @@
 {
   length = range.length;
   location = range.location;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   v7 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = entriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     v12 = location + length;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         entryDate = [v14 entryDate];
         if (entryDate)
         {
@@ -100,13 +100,11 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

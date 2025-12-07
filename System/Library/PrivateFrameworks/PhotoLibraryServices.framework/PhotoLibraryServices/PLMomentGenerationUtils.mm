@@ -355,10 +355,10 @@ uint64_t __63__PLMomentGenerationUtils__sortedOverlappingFrequentLocations___blo
   v4 = a2;
   v5 = a3;
   v6 = [v4 sortedMoments];
-  v7 = [v6 count];
+  v7 = objc_msgSend_count(v6);
 
   v8 = [v5 sortedMoments];
-  v9 = [v8 count];
+  v9 = objc_msgSend_count(v8);
 
   if (v7 > v9)
   {
@@ -373,11 +373,11 @@ LABEL_4:
   }
 
   v12 = [v4 dateInterval];
-  [v12 duration];
+  objc_msgSend_duration(v12);
   v14 = v13;
 
   v15 = [v5 dateInterval];
-  [v15 duration];
+  objc_msgSend_duration(v15);
   v17 = v16;
 
   if (v14 <= v17)
@@ -410,7 +410,7 @@ LABEL_5:
   v23 = *MEMORY[0x1E69E9840];
   v9 = [self frequentLocationsOverlappingStartDate:date endDate:endDate frequentLocations:locations];
   v10 = [self _sortedOverlappingFrequentLocations:v9];
-  v11 = [v10 count];
+  v11 = objc_msgSend_count(v10);
   if (v11 >= 2)
   {
     v12 = 2;

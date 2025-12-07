@@ -195,7 +195,7 @@ LABEL_11:
 
 - (BOOL)createRecognizer:(id *)recognizer
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->super._captionsQueue);
   if (!self->_recognizer)
   {
@@ -205,13 +205,13 @@ LABEL_11:
     {
       if (recognizer)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 71];
-        v18 = 4;
-        v19 = 1;
+        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 71];
+        v20 = 4;
+        v21 = 1;
 LABEL_33:
-        v30 = [VCSessionErrorUtils VCSessionCaptionsErrorEvent:v18 errorPath:v17 returnCode:v19];
+        v32 = [VCSessionErrorUtils VCSessionCaptionsErrorEvent:v20 errorPath:v19 returnCode:v21];
         result = 0;
-        *recognizer = v30;
+        *recognizer = v32;
         return result;
       }
 
@@ -221,16 +221,16 @@ LABEL_33:
     if ([(SFSpeechRecognizer *)v6 isAvailable])
     {
       [(SFSpeechRecognizer *)self->_recognizer setDelegate:self];
-      [(SFSpeechRecognizer *)self->_recognizer setDefaultTaskHint:1004];
-      v7 = micro();
+      v7 = [(SFSpeechRecognizer *)self->_recognizer setDefaultTaskHint:1004];
+      v9 = micro(v7, v8);
       recognizer = self->_recognizer;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __52__VCAudioCaptionsSpeechRecognizer_createRecognizer___block_invoke;
-      v31[3] = &unk_1E85F8288;
-      v31[4] = self;
-      *&v31[5] = v7;
-      [(SFSpeechRecognizer *)recognizer _prepareToRecognizeWithTaskHint:1004 completion:v31];
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __52__VCAudioCaptionsSpeechRecognizer_createRecognizer___block_invoke;
+      v33[3] = &unk_1E85F8288;
+      v33[4] = self;
+      *&v33[5] = v9;
+      [(SFSpeechRecognizer *)recognizer _prepareToRecognizeWithTaskHint:1004 completion:v33];
       return 1;
     }
 
@@ -238,24 +238,24 @@ LABEL_33:
     {
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v21 = VRTraceErrorLogLevelToCSTR();
-        v22 = *MEMORY[0x1E6986650];
+        v23 = VRTraceErrorLogLevelToCSTR();
+        v24 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           isAvailable = [(SFSpeechRecognizer *)self->_recognizer isAvailable];
           *buf = 136315906;
-          v33 = v21;
-          v34 = 2080;
-          v35 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
-          v36 = 1024;
-          v37 = 76;
+          v35 = v23;
+          v36 = 2080;
+          v37 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
           v38 = 1024;
-          LODWORD(v39) = isAvailable;
-          v24 = " [%s] %s:%d Recognizer is not available at this point: (%d)";
-          v25 = v22;
-          v26 = 34;
+          v39 = 76;
+          v40 = 1024;
+          LODWORD(v41) = isAvailable;
+          v26 = " [%s] %s:%d Recognizer is not available at this point: (%d)";
+          v27 = v24;
+          v28 = 34;
 LABEL_30:
-          _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, v24, buf, v26);
+          _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
         }
       }
     }
@@ -264,36 +264,36 @@ LABEL_30:
     {
       if (objc_opt_respondsToSelector())
       {
-        v20 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:sel_logPrefix];
+        v22 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v20 = &stru_1F570E008;
+        v22 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v27 = VRTraceErrorLogLevelToCSTR();
-        v28 = *MEMORY[0x1E6986650];
+        v29 = VRTraceErrorLogLevelToCSTR();
+        v30 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           isAvailable2 = [(SFSpeechRecognizer *)self->_recognizer isAvailable];
           *buf = 136316418;
-          v33 = v27;
-          v34 = 2080;
-          v35 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
-          v36 = 1024;
-          v37 = 76;
-          v38 = 2112;
-          v39 = v20;
-          v40 = 2048;
+          v35 = v29;
+          v36 = 2080;
+          v37 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
+          v38 = 1024;
+          v39 = 76;
+          v40 = 2112;
+          v41 = v22;
+          v42 = 2048;
           selfCopy2 = self;
-          v42 = 1024;
-          v43 = isAvailable2;
-          v24 = " [%s] %s:%d %@(%p) Recognizer is not available at this point: (%d)";
-          v25 = v28;
-          v26 = 54;
+          v44 = 1024;
+          v45 = isAvailable2;
+          v26 = " [%s] %s:%d %@(%p) Recognizer is not available at this point: (%d)";
+          v27 = v30;
+          v28 = 54;
           goto LABEL_30;
         }
       }
@@ -302,9 +302,9 @@ LABEL_30:
     self->_recognizer = 0;
     if (recognizer)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 80];
-      v18 = 5;
-      v19 = 2;
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 80];
+      v20 = 5;
+      v21 = 2;
       goto LABEL_33;
     }
 
@@ -318,22 +318,22 @@ LABEL_30:
       return 1;
     }
 
-    v9 = VRTraceErrorLogLevelToCSTR();
-    v10 = *MEMORY[0x1E6986650];
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       return 1;
     }
 
     *buf = 136315650;
-    v33 = v9;
-    v34 = 2080;
-    v35 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
-    v36 = 1024;
-    v37 = 65;
-    v11 = " [%s] %s:%d The speech recognizer already exists!!";
-    v12 = v10;
-    v13 = 28;
+    v35 = v11;
+    v36 = 2080;
+    v37 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
+    v38 = 1024;
+    v39 = 65;
+    v13 = " [%s] %s:%d The speech recognizer already exists!!";
+    v14 = v12;
+    v15 = 28;
   }
 
   else
@@ -353,36 +353,36 @@ LABEL_30:
       return 1;
     }
 
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v16 = VRTraceErrorLogLevelToCSTR();
+    v17 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       return 1;
     }
 
     *buf = 136316162;
-    v33 = v14;
-    v34 = 2080;
-    v35 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
-    v36 = 1024;
-    v37 = 65;
-    v38 = 2112;
-    v39 = v5;
-    v40 = 2048;
+    v35 = v16;
+    v36 = 2080;
+    v37 = "[VCAudioCaptionsSpeechRecognizer createRecognizer:]";
+    v38 = 1024;
+    v39 = 65;
+    v40 = 2112;
+    v41 = v5;
+    v42 = 2048;
     selfCopy2 = self;
-    v11 = " [%s] %s:%d %@(%p) The speech recognizer already exists!!";
-    v12 = v15;
-    v13 = 48;
+    v13 = " [%s] %s:%d %@(%p) The speech recognizer already exists!!";
+    v14 = v17;
+    v15 = 48;
   }
 
-  _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
+  _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
   return 1;
 }
 
 void __52__VCAudioCaptionsSpeechRecognizer_createRecognizer___block_invoke(uint64_t a1, uint64_t a2)
 {
   v33 = *MEMORY[0x1E69E9840];
-  v4 = micro();
+  v4 = micro(a1, a2);
   if (objc_opt_class() == *(a1 + 32))
   {
     if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -505,24 +505,24 @@ LABEL_12:
 
 - (BOOL)recognizerBufferSetupWithError:(id *)error
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   dispatch_semaphore_wait(self->super._teardownSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   v4 = [+[VCSpeechFrameworkWrapper defaultSpeechFrameworkWrapper](VCSpeechFrameworkWrapper "defaultSpeechFrameworkWrapper")];
   v5 = &OBJC_IVAR___VCMediaNegotiationBlob__faceTimeSettings;
   if (!v4)
   {
-    v64 = @"Recognizer request creation failed";
-    v65 = 3;
+    v69 = @"Recognizer request creation failed";
+    v70 = 3;
 LABEL_64:
     if (objc_opt_class() == self)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v71 = VRTraceErrorLogLevelToCSTR();
-        v72 = *MEMORY[0x1E6986650];
+        v76 = VRTraceErrorLogLevelToCSTR();
+        v77 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          [(VCAudioCaptionsSpeechRecognizer *)v71 recognizerBufferSetupWithError:v64, v72];
+          [(VCAudioCaptionsSpeechRecognizer *)v76 recognizerBufferSetupWithError:v69, v77];
         }
       }
     }
@@ -531,41 +531,41 @@ LABEL_64:
     {
       if (objc_opt_respondsToSelector())
       {
-        v70 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:sel_logPrefix];
+        v75 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v70 = &stru_1F570E008;
+        v75 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v73 = VRTraceErrorLogLevelToCSTR();
-        v74 = *MEMORY[0x1E6986650];
+        v78 = VRTraceErrorLogLevelToCSTR();
+        v79 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          v75 = [-[__CFString description](v64 "description")];
+          v80 = [-[__CFString description](v69 "description")];
           *buf = 136316418;
-          *&buf[4] = v73;
+          *&buf[4] = v78;
           *&buf[12] = 2080;
           *&buf[14] = "[VCAudioCaptionsSpeechRecognizer recognizerBufferSetupWithError:]";
           *&buf[22] = 1024;
           *&buf[24] = 202;
           *&buf[28] = 2112;
-          *&buf[30] = v70;
+          *&buf[30] = v75;
           *&buf[38] = 2048;
-          *v87 = self;
-          *&v87[8] = 2080;
-          *v88 = v75;
-          _os_log_error_impl(&dword_1DB56E000, v74, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) %s", buf, 0x3Au);
+          *v92 = self;
+          *&v92[8] = 2080;
+          *v93 = v80;
+          _os_log_error_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) %s", buf, 0x3Au);
         }
       }
     }
 
     if (error)
     {
-      *error = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 7, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 204], v65);
+      *error = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 7, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechRecognizer.m", 204], v70);
     }
 
     dispatch_semaphore_signal(self->super._teardownSemaphore);
@@ -582,8 +582,8 @@ LABEL_64:
       v10 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v78 = *[(AVAudioFormat *)nativeAudioFormat streamDescription];
-        v76 = [(AVAudioFormat *)nativeAudioFormat streamDescription][8];
+        v83 = *[(AVAudioFormat *)nativeAudioFormat streamDescription];
+        v81 = [(AVAudioFormat *)nativeAudioFormat streamDescription][8];
         v11 = [(AVAudioFormat *)nativeAudioFormat streamDescription][16];
         v12 = [(AVAudioFormat *)nativeAudioFormat streamDescription][20];
         v13 = [(AVAudioFormat *)nativeAudioFormat streamDescription][24];
@@ -596,20 +596,20 @@ LABEL_64:
         *&buf[22] = 1024;
         *&buf[24] = 147;
         *&buf[28] = 2048;
-        *&buf[30] = v78;
+        *&buf[30] = v83;
         *&buf[38] = 1024;
-        *v87 = v76;
-        *&v87[4] = 1024;
-        *&v87[6] = v11;
-        *v88 = 1024;
-        *&v88[2] = v12;
-        *&v88[6] = 1024;
-        *&v88[8] = v13;
+        *v92 = v81;
+        *&v92[4] = 1024;
+        *&v92[6] = v11;
+        *v93 = 1024;
+        *&v93[2] = v12;
+        *&v93[6] = 1024;
+        *&v93[8] = v13;
         v5 = &OBJC_IVAR___VCMediaNegotiationBlob__faceTimeSettings;
-        *&v88[12] = 1024;
-        *&v88[14] = v14;
-        *&v88[18] = 1024;
-        *v89 = v15;
+        *&v93[12] = 1024;
+        *&v93[14] = v14;
+        *&v93[18] = 1024;
+        *v94 = v15;
         v16 = " [%s] %s:%d Recognizer request created. Preferred format: samplerate=%f formatid=%x bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
         v17 = v10;
         v18 = 74;
@@ -637,8 +637,8 @@ LABEL_12:
       v20 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v79 = *[(AVAudioFormat *)nativeAudioFormat streamDescription];
-        v77 = [(AVAudioFormat *)nativeAudioFormat streamDescription][8];
+        v84 = *[(AVAudioFormat *)nativeAudioFormat streamDescription];
+        v82 = [(AVAudioFormat *)nativeAudioFormat streamDescription][8];
         v21 = [(AVAudioFormat *)nativeAudioFormat streamDescription][16];
         v22 = [(AVAudioFormat *)nativeAudioFormat streamDescription][20];
         v23 = [(AVAudioFormat *)nativeAudioFormat streamDescription][24];
@@ -653,22 +653,22 @@ LABEL_12:
         *&buf[28] = 2112;
         *&buf[30] = v8;
         *&buf[38] = 2048;
-        *v87 = self;
-        *&v87[8] = 2048;
-        *v88 = v79;
-        *&v88[8] = 1024;
-        *&v88[10] = v77;
-        *&v88[14] = 1024;
-        *&v88[16] = v21;
-        *v89 = 1024;
-        *&v89[2] = v22;
+        *v92 = self;
+        *&v92[8] = 2048;
+        *v93 = v84;
+        *&v93[8] = 1024;
+        *&v93[10] = v82;
+        *&v93[14] = 1024;
+        *&v93[16] = v21;
+        *v94 = 1024;
+        *&v94[2] = v22;
         v5 = &OBJC_IVAR___VCMediaNegotiationBlob__faceTimeSettings;
-        v90 = 1024;
-        v91 = v23;
-        v92 = 1024;
-        v93 = v24;
-        v94 = 1024;
-        v95 = v25;
+        v95 = 1024;
+        v96 = v23;
+        v97 = 1024;
+        v98 = v24;
+        v99 = 1024;
+        v100 = v25;
         v16 = " [%s] %s:%d %@(%p) Recognizer request created. Preferred format: samplerate=%f formatid=%x bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
         v17 = v20;
         v18 = 94;
@@ -685,20 +685,20 @@ LABEL_12:
   [(SFSpeechAudioBufferRecognitionRequest *)v6 setAddsPunctuation:1];
   if (![(VCAudioCaptions *)self updateAudioConverterForStreamDescription:[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription]])
   {
-    v66 = 0;
+    v71 = 0;
     audioBufferAllocator = 0;
-    v65 = 4;
-    v64 = @"Failed to create the converter. Captions will not be available";
+    v70 = 4;
+    v69 = @"Failed to create the converter. Captions will not be available";
     goto LABEL_61;
   }
 
   v26 = [(SFSpeechRecognizer *)self->_recognizer recognitionTaskWithRequest:v6 delegate:self];
   if (!v26)
   {
-    v66 = 0;
+    v71 = 0;
     audioBufferAllocator = 0;
-    v65 = 5;
-    v64 = @"recognizer task failed!";
+    v70 = 5;
+    v69 = @"recognizer task failed!";
     goto LABEL_61;
   }
 
@@ -758,9 +758,9 @@ LABEL_25:
         *&buf[28] = 2112;
         *&buf[30] = v28;
         *&buf[38] = 2048;
-        *v87 = self;
-        *&v87[8] = 2048;
-        *v88 = v37;
+        *v92 = self;
+        *&v92[8] = 2048;
+        *v93 = v37;
         v32 = " [%s] %s:%d %@(%p) Created recognizer task=%p";
         v33 = v36;
         v34 = 58;
@@ -783,7 +783,7 @@ LABEL_25:
       v41 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v80 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
+        v85 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
         v42 = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
         v43 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
         LODWORD(v44) = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
@@ -794,11 +794,11 @@ LABEL_25:
         *&buf[22] = 1024;
         *&buf[24] = 168;
         *&buf[28] = 1024;
-        *&buf[30] = v80;
+        *&buf[30] = v85;
         *&buf[34] = 1024;
         *&buf[36] = v42;
-        *v87 = 1024;
-        *&v87[2] = (v43 * v44 * 20.0) / 1000;
+        *v92 = 1024;
+        *&v92[2] = (v43 * v44 * 20.0) / 1000;
         v45 = " [%s] %s:%d Create captions audio buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
         v46 = v41;
         v47 = 46;
@@ -827,7 +827,7 @@ LABEL_38:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         v50 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
-        v81 = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
+        v86 = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
         v51 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
         LODWORD(v52) = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
         *buf = 136316930;
@@ -839,14 +839,14 @@ LABEL_38:
         *&buf[28] = 2112;
         *&buf[30] = v38;
         *&buf[38] = 2048;
-        *v87 = self;
-        *&v87[8] = 1024;
-        *v88 = v50;
+        *v92 = self;
+        *&v92[8] = 1024;
+        *v93 = v50;
         v5 = &OBJC_IVAR___VCMediaNegotiationBlob__faceTimeSettings;
-        *&v88[4] = 1024;
-        *&v88[6] = v81;
-        *&v88[10] = 1024;
-        *&v88[12] = (v51 * v52 * 20.0) / 1000;
+        *&v93[4] = 1024;
+        *&v93[6] = v86;
+        *&v93[10] = 1024;
+        *&v93[12] = (v51 * v52 * 20.0) / 1000;
         v45 = " [%s] %s:%d %@(%p) Create captions audio buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
         v46 = v49;
         v47 = 66;
@@ -858,27 +858,27 @@ LABEL_38:
   v53 = *MEMORY[0x1E695E480];
   v54 = *[(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription];
   LODWORD(v55) = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)v6 nativeAudioFormat] streamDescription][16];
-  audioBufferAllocator = VCAudioBufferAllocatorCreate(v53, (v54 * v55 * 20.0 / 1000.0), 2u);
+  audioBufferAllocator = VCAudioBufferAllocatorCreate(v53, (v54 * v55 * 20.0 / 1000.0), 2, v56, v57, v58, v59, v60);
   if (!audioBufferAllocator)
   {
-    v66 = 0;
-    v65 = 6;
-    v64 = @"Failed to create captions audio buffer allocator!!";
+    v71 = 0;
+    v70 = 6;
+    v69 = @"Failed to create captions audio buffer allocator!!";
     goto LABEL_61;
   }
 
 LABEL_40:
-  v56 = [VCCaptionTaskInfo alloc];
-  v57 = *(&self->super.super.super.isa + v27);
+  v61 = [VCCaptionTaskInfo alloc];
+  v62 = *(&self->super.super.super.isa + v27);
   streamToken = self->super._streamToken;
   ++self->super._currentUtteranceNumber;
-  v59 = [(VCCaptionTaskInfo *)v56 initWithTask:v57 token:streamToken utteranceNumber:?];
-  if (v59)
+  v64 = [(VCCaptionTaskInfo *)v61 initWithTask:v62 token:streamToken utteranceNumber:?];
+  if (v64)
   {
-    v60 = v59;
-    [(NSMutableArray *)self->super._captionTasks addObject:v59];
+    v65 = v64;
+    [(NSMutableArray *)self->super._captionTasks addObject:v64];
 
-    self->super._currentTaskInfo = v60;
+    self->super._currentTaskInfo = v65;
     if (self->super._lastAudioProcessedTime.flags)
     {
       *buf = *&self->super._lastAudioProcessedTime.value;
@@ -889,13 +889,13 @@ LABEL_40:
     self->_recognizerRequest = v6;
     self->super._audioBufferAllocator = audioBufferAllocator;
     streamDescription = [(AVAudioFormat *)[(SFSpeechAudioBufferRecognitionRequest *)self->_recognizerRequest nativeAudioFormat] streamDescription];
-    v85 = *&streamDescription->mBitsPerChannel;
-    v83 = *&streamDescription->mSampleRate;
-    v84 = *&streamDescription->mBytesPerPacket;
+    v90 = *&streamDescription->mBitsPerChannel;
+    v88 = *&streamDescription->mSampleRate;
+    v89 = *&streamDescription->mBytesPerPacket;
     captionsFormat = self->super._captionsFormat;
-    *buf = v83;
-    *&buf[16] = v84;
-    *&buf[32] = v85;
+    *buf = v88;
+    *&buf[16] = v89;
+    *&buf[32] = v90;
     [(ASBDWrapper *)captionsFormat setAsbd:buf];
     return *(&self->super.super.super.isa + v5[843]) != 0;
   }
@@ -911,46 +911,46 @@ LABEL_40:
       }
     }
 
-    v64 = 0;
-    v65 = 0;
-    v66 = 1;
+    v69 = 0;
+    v70 = 0;
+    v71 = 1;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v67 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:&selRef_maxAllowedBitrateForVCConnection_forLocalInterface_encodeRule_];
+      v72 = [(VCAudioCaptionsSpeechRecognizer *)self performSelector:&selRef_maxAllowedBitrateForVCConnection_forLocalInterface_encodeRule_];
     }
 
     else
     {
-      v67 = &stru_1F570E008;
+      v72 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v68 = VRTraceErrorLogLevelToCSTR();
-      v69 = *MEMORY[0x1E6986650];
+      v73 = VRTraceErrorLogLevelToCSTR();
+      v74 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        *&buf[4] = v68;
+        *&buf[4] = v73;
         *&buf[12] = 2080;
         *&buf[14] = "[VCAudioCaptionsSpeechRecognizer recognizerBufferSetupWithError:]";
         *&buf[22] = 1024;
         *&buf[24] = 176;
         *&buf[28] = 2112;
-        *&buf[30] = v67;
+        *&buf[30] = v72;
         *&buf[38] = 2048;
-        *v87 = self;
-        _os_log_error_impl(&dword_1DB56E000, v69, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) taskInfo failed to allocate", buf, 0x30u);
+        *v92 = self;
+        _os_log_error_impl(&dword_1DB56E000, v74, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) taskInfo failed to allocate", buf, 0x30u);
       }
     }
 
-    v64 = 0;
-    v65 = 0;
-    v66 = 1;
+    v69 = 0;
+    v70 = 0;
+    v71 = 1;
   }
 
 LABEL_61:
@@ -961,7 +961,7 @@ LABEL_61:
     CFRelease(audioBufferAllocator);
   }
 
-  if ((v66 & 1) == 0)
+  if ((v71 & 1) == 0)
   {
     goto LABEL_64;
   }
@@ -1455,11 +1455,11 @@ uint64_t __79__VCAudioCaptionsSpeechRecognizer_speechRecognitionTask_didFinishSu
   dispatch_async(captionsQueue, block);
 }
 
-uint64_t __74__VCAudioCaptionsSpeechRecognizer_speechRecognizer_availabilityDidChange___block_invoke(uint64_t a1)
+_BYTE *__74__VCAudioCaptionsSpeechRecognizer_speechRecognizer_availabilityDidChange___block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 168) != 1 || *(result + 170) != 1)
+  if (result[168] != 1 || result[170] != 1)
   {
     return result;
   }
@@ -1560,14 +1560,14 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCAudioCaptionsSpeechRecognizer-init FAILED", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCAudioCaptionsSpeechRecognizer-init FAILED", v2, v3, v4, v5);
 }
 
 - (void)recognizerBufferSetupWithError:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d taskInfo failed to allocate", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d taskInfo failed to allocate", v2, v3, v4, v5);
 }
 
 - (void)recognizerBufferSetupWithError:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
@@ -1588,7 +1588,7 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Sample buffer is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Sample buffer is nil", v2, v3, v4, v5);
 }
 
 - (void)speechRecognitionTask:(NSObject *)a3 didFinishSuccessfully:.cold.1(uint64_t a1, void *a2, NSObject *a3)

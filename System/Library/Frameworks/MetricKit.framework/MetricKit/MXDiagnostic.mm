@@ -139,7 +139,7 @@ LABEL_5:
 
 - (id)toDictionary
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   metaData = self->_metaData;
@@ -158,30 +158,30 @@ LABEL_5:
   if (self->_signpostData)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = self->_signpostData;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -197,8 +197,6 @@ LABEL_5:
   }
 
   [v3 setObject:@"1.0.0" forKey:@"version"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -2,10 +2,20 @@
 + (id)_createInjectionWithServerTruth:(BOOL)truth;
 + (id)clientTable;
 + (id)serverTable;
-+ (void)serverTable;
+- (BRCPQLInjectionServerClientTableBase)initWithServerTruth:(BOOL)truth;
 @end
 
 @implementation BRCPQLInjectionServerClientTableBase
+
+- (BRCPQLInjectionServerClientTableBase)initWithServerTruth:(BOOL)truth
+{
+  v4 = [objc_opt_class() _createInjectionWithServerTruth:truth];
+  v7.receiver = self;
+  v7.super_class = BRCPQLInjectionServerClientTableBase;
+  v5 = [(BRCPQLInjectionBase *)&v7 initWithActualInjection:v4];
+
+  return v5;
+}
 
 + (id)_createInjectionWithServerTruth:(BOOL)truth
 {
@@ -47,14 +57,6 @@
   }
 
   return &stru_2837504F0;
-}
-
-+ (void)serverTable
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Should be implemented by derived class%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

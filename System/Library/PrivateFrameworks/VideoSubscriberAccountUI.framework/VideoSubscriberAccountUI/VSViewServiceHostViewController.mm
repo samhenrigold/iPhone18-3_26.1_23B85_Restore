@@ -65,14 +65,14 @@
 
 - (void)enqueueViewServiceRequest:(id)request withIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   v8 = VSDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = requestCopy;
+    v13 = requestCopy;
     _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Will enque view service request in host view controller: %@", buf, 0xCu);
   }
 
@@ -91,8 +91,6 @@
   {
     [(VSViewServiceHostViewController *)self _connectToViewServiceForRequest:identifierCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_requestForID:(id)d
@@ -109,13 +107,13 @@
 
 - (void)_didCompleteRequest:(id)request
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = requestCopy;
+    v14 = requestCopy;
     _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Did complete request %@", buf, 0xCu);
   }
 
@@ -138,7 +136,7 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Will handle next request: %@", buf, 0xCu);
     }
 
@@ -157,8 +155,6 @@
     v10 = objc_alloc_init(MEMORY[0x277CE2298]);
     [(VSViewServiceHostViewController *)self setCurrentRequest:v10];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_request:(id)_request didFinishWithResponse:(id)response
@@ -266,41 +262,39 @@ void __75__VSViewServiceHostViewController__didChooseAdditionalProvidersForReque
 
 - (void)_cancelButtonPressed:(id)pressed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [(VSViewServiceHostViewController *)self requestsByID:pressed];
   allKeys = [v4 allKeys];
   v6 = [allKeys copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         [(VSViewServiceHostViewController *)self _didCancelRequest:v11];
         [(VSViewServiceHostViewController *)self _didCompleteRequest:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentViewServiceRemoteViewController:(id)controller
@@ -365,26 +359,24 @@ void __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTe
   {
     [v5 _removeRemoteViewControllerAsChildViewController];
     [*(a1 + 32) setRemoteViewController:0];
-    v12 = MEMORY[0x277D85DD0];
-    v6 = *(a1 + 40);
-    v13 = *(a1 + 32);
-    v14 = v3;
-    v7 = VSPrivateViewServiceCrashedErrorWithRecoveryHandler();
-    v8 = VSErrorLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MEMORY[0x277D85DD0];
+    v11 = *(a1 + 32);
+    v12 = v3;
+    v6 = VSPrivateViewServiceCrashedErrorWithRecoveryHandler();
+    v7 = VSErrorLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTerminateWithError___block_invoke_cold_1(v7, v8);
+      __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTerminateWithError___block_invoke_cold_1(v6, v7);
     }
 
-    v9 = VSAlertForError(v7, 0);
-    [*(a1 + 32) presentViewController:v9 animated:1 completion:{0, v12, 3221225472, __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTerminateWithError___block_invoke_2, &unk_279E19240, v13}];
+    v8 = VSAlertForError(v6, 0);
+    [*(a1 + 32) presentViewController:v8 animated:1 completion:{0, v10, 3221225472, __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTerminateWithError___block_invoke_2, &unk_279E19240, v11}];
   }
 
   else if ([v5 hasRetriedOnce])
   {
-    v10 = *(a1 + 40);
-    v11 = VSPublicError();
-    [*(a1 + 32) _request:v3 didFailWithError:v11];
+    v9 = VSPublicError();
+    [*(a1 + 32) _request:v3 didFailWithError:v9];
     [*(a1 + 32) _didCompleteRequest:v3];
   }
 
@@ -445,16 +437,16 @@ uint64_t __89__VSViewServiceHostViewController_viewServiceRemoteViewController_d
 
 - (void)_connectToViewServiceForRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = VSDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v26 = v7;
-    v27 = 2112;
-    v28 = requestCopy;
+    v25 = v7;
+    v26 = 2112;
+    v27 = requestCopy;
     _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Entering %@ for request %@.", buf, 0x16u);
   }
 
@@ -472,7 +464,7 @@ uint64_t __89__VSViewServiceHostViewController_viewServiceRemoteViewController_d
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = requestCopy;
+      v25 = requestCopy;
       _os_log_impl(&dword_270DD4000, v14, OS_LOG_TYPE_DEFAULT, "Will send request %@ to view service.", buf, 0xCu);
     }
 
@@ -484,7 +476,7 @@ uint64_t __89__VSViewServiceHostViewController_viewServiceRemoteViewController_d
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = requestCopy;
+      v25 = requestCopy;
       _os_log_impl(&dword_270DD4000, v17, OS_LOG_TYPE_DEFAULT, "Did send request %@ to view service.", buf, 0xCu);
     }
   }
@@ -495,24 +487,22 @@ uint64_t __89__VSViewServiceHostViewController_viewServiceRemoteViewController_d
     v18 = VSDefaultLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 0;
-      _os_log_impl(&dword_270DD4000, v18, OS_LOG_TYPE_DEFAULT, "Will construct remote view controller.", v24, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_270DD4000, v18, OS_LOG_TYPE_DEFAULT, "Will construct remote view controller.", v23, 2u);
     }
 
     viewControllerFactory = [(VSViewServiceHostViewController *)self viewControllerFactory];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __67__VSViewServiceHostViewController__connectToViewServiceForRequest___block_invoke;
-    v21[3] = &unk_279E192B8;
-    objc_copyWeak(&v23, buf);
-    v22 = requestCopy;
-    [viewControllerFactory viewServiceRemoteViewControllerWithCompletion:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __67__VSViewServiceHostViewController__connectToViewServiceForRequest___block_invoke;
+    v20[3] = &unk_279E192B8;
+    objc_copyWeak(&v22, buf);
+    v21 = requestCopy;
+    [viewControllerFactory viewServiceRemoteViewControllerWithCompletion:v20];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __67__VSViewServiceHostViewController__connectToViewServiceForRequest___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -579,11 +569,12 @@ void __67__VSViewServiceHostViewController__connectToViewServiceForRequest___blo
 - (void)_addRemoteViewControllerAsChildViewController
 {
   remoteViewController = [(VSViewServiceHostViewController *)self remoteViewController];
+  v4 = remoteViewController;
   if (remoteViewController)
   {
-    v7 = remoteViewController;
+    v8 = remoteViewController;
     [(VSViewServiceHostViewController *)self addChildViewController:remoteViewController];
-    view = [v7 view];
+    view = [v8 view];
     view2 = [(VSViewServiceHostViewController *)self view];
     [view2 bounds];
     [view setFrame:?];
@@ -592,10 +583,11 @@ void __67__VSViewServiceHostViewController__connectToViewServiceForRequest___blo
     view3 = [(VSViewServiceHostViewController *)self view];
     [view3 insertSubview:view atIndex:0];
 
-    [v7 didMoveToParentViewController:self];
+    [v8 didMoveToParentViewController:self];
+    v4 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](remoteViewController, v4);
 }
 
 - (VSViewServiceHostViewControllerDelegate)delegate
@@ -607,33 +599,29 @@ void __67__VSViewServiceHostViewController__connectToViewServiceForRequest___blo
 
 - (void)viewServiceRemoteViewController:(uint64_t)a1 didTerminateWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "View service did terminate with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "View service did terminate with error: %@", &v2, 0xCu);
 }
 
 void __89__VSViewServiceHostViewController_viewServiceRemoteViewController_didTerminateWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will present alert for termination error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will present alert for termination error: %@", &v2, 0xCu);
 }
 
 void __67__VSViewServiceHostViewController__connectToViewServiceForRequest___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = 138412546;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a2;
-  v5 = v8;
-  _os_log_error_impl(&dword_270DD4000, a3, OS_LOG_TYPE_ERROR, "Remote view controller error while displaying %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_270DD4000, a3, OS_LOG_TYPE_ERROR, "Remote view controller error while displaying %@: %@", &v6, 0x16u);
 }
 
 @end

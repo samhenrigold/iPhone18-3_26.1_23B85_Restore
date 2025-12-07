@@ -6,7 +6,7 @@
 
 + (id)uuidFromString:()MOExtensions
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([v3 length] < 0xC)
   {
@@ -26,9 +26,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v11 = v3;
-      LOWORD(v12[0]) = 2112;
-      *(v12 + 2) = uUID;
+      v10 = v3;
+      LOWORD(v11[0]) = 2112;
+      *(v11 + 2) = uUID;
       _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_INFO, "Input string is not valid, string, %@, UUID, %@", buf, 0x16u);
     }
   }
@@ -36,11 +36,9 @@
   else
   {
     [v4 getBytes:buf range:{0, 12}];
-    v12[0] = [v3 hash];
+    v11[0] = [v3 hash];
     uUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:buf];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return uUID;
 }

@@ -205,7 +205,7 @@ id __61__NTKCFaceDetailComplicationPickerViewController_viewDidLoad__block_invok
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   dataSource = [(NTKCFaceDetailComplicationPickerViewController *)self dataSource];
@@ -229,32 +229,32 @@ id __61__NTKCFaceDetailComplicationPickerViewController_viewDidLoad__block_invok
 
         if (snapshot)
         {
-          v17 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v19 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v46) = 0;
-            _os_log_impl(&dword_22D9C5000, v17, OS_LOG_TYPE_DEFAULT, "Did select More... under Contacts. Loading Contacts-specific picker UI.", &v46, 2u);
+            LOWORD(v50) = 0;
+            _os_log_impl(&dword_22D9C5000, v19, OS_LOG_TYPE_DEFAULT, "Did select More... under Contacts. Loading Contacts-specific picker UI.", &v50, 2u);
           }
 
           ntk_identifier2 = [v15 ntk_identifier];
           ntk_localizedSectionName = [v15 ntk_localizedSectionName];
           topLevelListProvider = [(NTKCFaceDetailComplicationPickerViewController *)self topLevelListProvider];
-          v21 = [topLevelListProvider detailListProviderForSectionIdentifier:ntk_identifier2];
+          v23 = [topLevelListProvider detailListProviderForSectionIdentifier:ntk_identifier2];
 
-          v22 = [[NTKComplicationPickerDetailViewConfiguration alloc] initWithDetailListProvider:v21 title:ntk_localizedSectionName];
-          v23 = NTKPeopleComplicationPickerViewController;
+          v24 = [[NTKComplicationPickerDetailViewConfiguration alloc] initWithDetailListProvider:v23 title:ntk_localizedSectionName];
+          v25 = NTKPeopleComplicationPickerViewController;
 LABEL_8:
-          v24 = [[v23 alloc] initWithDetailConfiguration:v22];
-          [v24 setDelegate:self];
+          v26 = [[v25 alloc] initWithDetailConfiguration:v24];
+          [v26 setDelegate:self];
 
 LABEL_34:
-          [(NTKCFaceDetailComplicationPickerViewController *)self showViewController:v24 sender:self];
+          [(NTKCFaceDetailComplicationPickerViewController *)self showViewController:v26 sender:self];
 
 LABEL_35:
           goto LABEL_36;
         }
 
-        if ((NTKUseComplicationEditor() & 1) == 0)
+        if ((NTKUseComplicationEditor(v17, v18) & 1) == 0)
         {
           ntk_identifier3 = [v15 ntk_identifier];
           appContainerBundleIdentifier = [MEMORY[0x277D2B980] appContainerBundleIdentifier];
@@ -264,20 +264,20 @@ LABEL_35:
 
             if (_showCustomHomePickerUI)
             {
-              v41 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v45 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v46) = 0;
-                _os_log_impl(&dword_22D9C5000, v41, OS_LOG_TYPE_DEFAULT, "Did select More... under NanoHome. Loading Home-specific picker UI.", &v46, 2u);
+                LOWORD(v50) = 0;
+                _os_log_impl(&dword_22D9C5000, v45, OS_LOG_TYPE_DEFAULT, "Did select More... under NanoHome. Loading Home-specific picker UI.", &v50, 2u);
               }
 
               ntk_identifier2 = [v15 ntk_identifier];
               ntk_localizedSectionName = [v15 ntk_localizedSectionName];
               topLevelListProvider2 = [(NTKCFaceDetailComplicationPickerViewController *)self topLevelListProvider];
-              v21 = [topLevelListProvider2 detailListProviderForSectionIdentifier:ntk_identifier2];
+              v23 = [topLevelListProvider2 detailListProviderForSectionIdentifier:ntk_identifier2];
 
-              v22 = [[NTKComplicationPickerDetailViewConfiguration alloc] initWithDetailListProvider:v21 title:ntk_localizedSectionName];
-              v23 = NTKHomeListPickerViewController;
+              v24 = [[NTKComplicationPickerDetailViewConfiguration alloc] initWithDetailListProvider:v23 title:ntk_localizedSectionName];
+              v25 = NTKHomeListPickerViewController;
               goto LABEL_8;
             }
           }
@@ -287,16 +287,16 @@ LABEL_35:
           }
         }
 
-        v44 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v48 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           ntk_identifier4 = [v15 ntk_identifier];
-          v46 = 138412290;
-          v47 = ntk_identifier4;
-          _os_log_impl(&dword_22D9C5000, v44, OS_LOG_TYPE_DEFAULT, "Did select More... under section %@", &v46, 0xCu);
+          v50 = 138412290;
+          v51 = ntk_identifier4;
+          _os_log_impl(&dword_22D9C5000, v48, OS_LOG_TYPE_DEFAULT, "Did select More... under section %@", &v50, 0xCu);
         }
 
-        v24 = [(NTKCFaceDetailComplicationPickerViewController *)self detailViewControllerForSectionInfo:v15];
+        v26 = [(NTKCFaceDetailComplicationPickerViewController *)self detailViewControllerForSectionInfo:v15];
         goto LABEL_34;
       }
 
@@ -311,10 +311,10 @@ LABEL_35:
     if (ntk_itemType != 4)
     {
 LABEL_20:
-      v30 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v34 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [NTKCFaceDetailComplicationPickerViewController tableView:v9 didSelectRowAtIndexPath:v30];
+        [NTKCFaceDetailComplicationPickerViewController tableView:v9 didSelectRowAtIndexPath:v34];
       }
 
 LABEL_22:
@@ -326,9 +326,9 @@ LABEL_11:
     [(NTKCFaceDetailComplicationPickerViewController *)self _setCheckmarkForTableView:viewCopy atIndexPath:pathCopy];
     v15 = v9;
     currentDevice = [MEMORY[0x277CBBAE8] currentDevice];
-    v26 = [NTKComplicationProvider providerForDevice:currentDevice];
+    v28 = [NTKComplicationProvider providerForDevice:currentDevice];
 
-    if (NTKUseComplicationEditor() && [v26 isComplicationConfigurable:v15])
+    if (NTKUseComplicationEditor(v29, v30) && [v28 isComplicationConfigurable:v15])
     {
       configurationEditorController = self->_configurationEditorController;
       delegate = [(NTKCFaceDetailComplicationPickerViewController *)self delegate];
@@ -358,10 +358,10 @@ LABEL_11:
   [(NTKCFaceDetailComplicationPickerViewController *)self _setCheckmarkForTableView:viewCopy atIndexPath:pathCopy];
   if (![(NTKCFaceDetailComplicationPickerViewController *)self _handleWidgetItemSelection:v9])
   {
-    v30 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = _NTKLoggingObjectForDomain(24, "NTKLoggingDomainCompanionApp");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(NTKCFaceDetailComplicationPickerViewController *)v30 tableView:v31 didSelectRowAtIndexPath:v32, v33, v34, v35, v36, v37];
+      [(NTKCFaceDetailComplicationPickerViewController *)v34 tableView:v35 didSelectRowAtIndexPath:v36, v37, v38, v39, v40, v41];
     }
 
     goto LABEL_22;

@@ -1,4 +1,5 @@
 @interface ComAppleContextkitCategoriesConstellation_Request_QIDCountPQ
+- (ComAppleContextkitCategoriesConstellation_Request_QIDCountPQ)initWithComAppleContextkitCategoriesConstellation_Request:(id)request withInt:(int)int;
 - (IOSObjectArray)popAllCountsFromArray;
 - (void)addItemWithNSString:(id)string withInt:(int)int;
 - (void)dealloc;
@@ -28,6 +29,14 @@
   }
 
   return v3;
+}
+
+- (ComAppleContextkitCategoriesConstellation_Request_QIDCountPQ)initWithComAppleContextkitCategoriesConstellation_Request:(id)request withInt:(int)int
+{
+  v4 = *&int;
+  JreStrongAssign(&self->this$0_, request);
+  OrgApacheLuceneUtilPriorityQueue_initWithInt_(self, v4, v6, v7, v8, v9, v10, v11);
+  return self;
 }
 
 - (void)addItemWithNSString:(id)string withInt:(int)int

@@ -9,43 +9,42 @@
 
 - (id)initFromXMLNode:(_xmlNode *)node parser:(id)parser
 {
-  v33.receiver = self;
-  v33.super_class = EQKitMathMLMLongDivision;
-  v8 = [(EQKitMathMLMLongDivision *)&v33 init];
-  if (v8)
+  v13.receiver = self;
+  v13.super_class = EQKitMathMLMLongDivision;
+  v6 = [(EQKitMathMLMLongDivision *)&v13 init];
+  if (v6)
   {
-    v9 = objc_msgSend_parseChildrenAsArrayFromXMLNode_(parser, v6, node, v7);
-    if (objc_msgSend_count(v9, v10, v11, v12) < 3)
+    v7 = [parser parseChildrenAsArrayFromXMLNode:node];
+    if ([v7 count] < 3)
     {
-      objc_msgSend_reportError_withNode_(parser, v13, 5, node);
+      [parser reportError:5 withNode:node];
 
       return 0;
     }
 
     else
     {
-      v15 = objc_msgSend_objectAtIndex_(v9, v13, 0, v14);
-      v8->mDivisor = v15;
-      objc_msgSend_setParent_(v15, v16, v8, v17);
-      v21 = objc_msgSend_mutableCopy(v9, v18, v19, v20);
-      objc_msgSend_removeObjectAtIndex_(v21, v22, 0, v23);
-      v24 = objc_alloc_init(EQKitMathMLMStackLine);
-      objc_msgSend_insertObject_atIndex_(v21, v25, v24, 1);
-      v26 = [EQKitMathMLMStack alloc];
-      v29 = objc_msgSend_initWithChildren_(v26, v27, v21, v28);
-      v8->mStack = v29;
-      objc_msgSend_setParent_(v29, v30, v8, v31);
+      v8 = [v7 objectAtIndex:0];
+      v6->mDivisor = v8;
+      [(EQKitMathMLNode *)v8 setParent:v6];
+      v9 = [v7 mutableCopy];
+      [v9 removeObjectAtIndex:0];
+      v10 = objc_alloc_init(EQKitMathMLMStackLine);
+      [v9 insertObject:v10 atIndex:1];
+      v11 = [[EQKitMathMLMStack alloc] initWithChildren:v9];
+      v6->mStack = v11;
+      [(EQKitMathMLNode *)v11 setParent:v6];
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (const)mathMLAttributes
 {
   if ((atomic_load_explicit(&qword_280A38960, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280A38960))
   {
-    sub_275C8E754(qword_280A38948, &dword_275D0BEF4, dword_275D0BEF8);
+    sub_275C8E754(qword_280A38948, &dword_275D0BEF4, &unk_275D0BEF8);
     __cxa_guard_release(&qword_280A38960);
   }
 

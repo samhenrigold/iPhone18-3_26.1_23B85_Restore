@@ -361,19 +361,21 @@ LABEL_15:
 
 - (void)setMaxLength:(int)length
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v10);
   internal = self->super.super.super.super._internal;
   if ((*(internal + 16) & 0x10) != 0 && *(*(internal + 13) + 24) == *(*MEMORY[0x1E69E2910] + 24))
   {
-    WebCore::HTMLTextFormControlElement::setMaxLength(internal);
-    if (v8 == 1)
+    WebCore::HTMLTextFormControlElement::setMaxLength(&v7, internal);
+    if (v9 == 1)
     {
-      v9[80] = v6;
-      v10 = v7;
+      v10[80] = v7;
+      v6 = v8;
+      v8 = 0;
+      v11 = v6;
       raiseDOMErrorException();
     }
 
-    WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v5);
+    WebCore::JSMainThreadNullState::~JSMainThreadNullState(v10, v5);
   }
 
   else
@@ -1694,7 +1696,7 @@ LABEL_9:
   }
 
   v4 = WebCore::RenderTextControl::textFormControlElement(v3);
-  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(v4);
+  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(&v15, v4);
   v5 = v15;
   if (v15)
   {
@@ -1771,7 +1773,7 @@ LABEL_13:
   v3 = WebCore::RenderTextControl::textFormControlElement(*(self->super.super.super.super._internal + 9));
   v4 = WebCore::RenderTextControl::textFormControlElement(v2);
   (*(*v4 + 1400))(&v17);
-  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(v3);
+  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(&v18, v3);
   v7 = v17;
   v17 = 0;
   if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)

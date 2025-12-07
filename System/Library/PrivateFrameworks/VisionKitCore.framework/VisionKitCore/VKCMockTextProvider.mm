@@ -61,7 +61,7 @@
   _Block_object_dispose(v19, 8);
 }
 
-void __46__VKCMockTextProvider_loadInfoFromDictionary___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __46__VKCMockTextProvider_loadInfoFromDictionary___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v10 = [[VKCMockTextLine alloc] initWithWordsArray:v5 startingIndex:*(*(*(a1 + 56) + 8) + 24)];
@@ -73,7 +73,7 @@ void __46__VKCMockTextProvider_loadInfoFromDictionary___block_invoke(uint64_t a1
   v9 = [(VKCMockTextLine *)v10 text];
   [v8 appendString:v9];
 
-  if ([*(a1 + 48) count] - 1 != a3)
+  if (([*(a1 + 48) count] - 1) != a3)
   {
     ++*(*(*(a1 + 56) + 8) + 24);
     [*(a1 + 40) appendString:@"\n"];

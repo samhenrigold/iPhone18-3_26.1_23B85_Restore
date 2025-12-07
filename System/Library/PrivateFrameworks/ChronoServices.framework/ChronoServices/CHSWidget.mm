@@ -64,7 +64,8 @@
   kind = [(CHSWidget *)self kind];
   [v3 appendString:kind withName:@"kind"];
 
-  v7 = CHSWidgetFamilyDescription([(CHSWidget *)self family]);
+  [(CHSWidget *)self family];
+  v7 = CHSWidgetFamilyDescription();
   [v3 appendString:v7 withName:@"family"];
 
   v8 = [v3 appendInt64:-[CHSIntentReference stableHash](self->_intentReference withName:{"stableHash"), @"intentHash"}];
@@ -163,17 +164,16 @@
     {
     }
 
-    v30 = CHSLogChronoServices();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v31 = CHSLogChronoServices(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
       extensionBundleIdentifier2 = [(CHSExtensionIdentity *)v19->_extensionIdentity extensionBundleIdentifier];
-      [CHSWidget initWithExtensionIdentity:extensionBundleIdentifier2 kind:&v19->_kind family:buf intentReference:v30 activityIdentifier:? personaIdentifier:?];
+      [CHSWidget initWithExtensionIdentity:extensionBundleIdentifier2 kind:&v19->_kind family:buf intentReference:v31 activityIdentifier:? personaIdentifier:?];
     }
   }
 
 LABEL_9:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -370,7 +370,8 @@ void __51__CHSWidget_descriptionBuilderWithMultilinePrefix___block_invoke(uint64
   [v4 appendString:? withName:?];
 
   v5 = *(a1 + 32);
-  v10 = CHSWidgetFamilyDescription([*(a1 + 40) family]);
+  [*(a1 + 40) family];
+  v10 = CHSWidgetFamilyDescription();
   [v5 appendString:? withName:?];
 
   v6 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 8) withName:@"intent"];
@@ -570,11 +571,10 @@ LABEL_23:
 
   v20 = [(CHSExtensionIdentity *)self->_extensionIdentity description];
   kind = self->_kind;
-  v22 = CHSWidgetFamilyDescription(self->_family);
-  activityIdentifier = self->_activityIdentifier;
-  v24 = [v18 stringWithFormat:@"%@[%@:%@:%@:%@%@:%@~%@]", v19, v20, kind, v22, stringValue, v17, activityIdentifier, self->_personaIdentifier];
+  v22 = CHSWidgetFamilyDescription();
+  v23 = [v18 stringWithFormat:@"%@[%@:%@:%@:%@%@:%@~%@]", v19, v20, kind, v22, stringValue, v17, self->_activityIdentifier, self->_personaIdentifier];
 
-  return v24;
+  return v23;
 }
 
 - (CHSWidget)initWithExtensionBundleIdentifier:(id)identifier containerBundleIdentifier:(id)bundleIdentifier kind:(id)kind family:(int64_t)family intent:(id)intent activityIdentifier:(id)activityIdentifier

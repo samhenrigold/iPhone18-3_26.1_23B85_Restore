@@ -301,7 +301,9 @@
 
 + (__EmojiTokenWrapper)_emojiTokenForDocumentID:(id)d usingLocaleData:(__EmojiLocaleDataWrapper *)data
 {
-  if ([d unsignedIntValue] != 1263 || (EMFIsDeviceInGreaterChina() & 1) == 0)
+  unsignedIntValue = [d unsignedIntValue];
+  v6 = unsignedIntValue;
+  if (unsignedIntValue != 1263 || (EMFIsDeviceInGreaterChina(unsignedIntValue) & 1) == 0)
   {
     result = CEMEmojiTokenCreateWithIndex();
     if (result)
@@ -309,7 +311,7 @@
       return result;
     }
 
-    log_emoji_token_creation_error();
+    log_emoji_token_creation_error(v6, data);
   }
 
   return 0;
@@ -328,8 +330,7 @@
 
   else
   {
-    [dCopy unsignedIntValue];
-    log_emoji_string_lookup_error();
+    log_emoji_string_lookup_error([dCopy unsignedIntValue], data);
     if (v7)
     {
       CFRelease(v7);

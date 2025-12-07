@@ -48,95 +48,88 @@
 
 void __64__SUUpdateDiscoveryDateManager_initWithDiscoveryDateDictionary___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v2 = [*(a1 + 32) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v33;
-    v6 = 0x277CCA000uLL;
-    v7 = 0x277CBE000uLL;
+    v5 = *v28;
     do
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        if (*v33 != v5)
+        if (*v28 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * v8);
-        v10 = *(v6 + 3240);
+        v7 = *(*(&v27 + 1) + 8 * v6);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = [*(a1 + 32) objectForKeyedSubscript:v9];
-          if (v25 && (v26 = *(v7 + 2728), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v22 = [*(a1 + 32) objectForKeyedSubscript:v7];
+          if (v22 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v27 = v2;
+            v23 = v2;
             if ([*(*(a1 + 40) + 24) count])
             {
-              v28 = 0;
+              v24 = 0;
               while (1)
               {
-                v29 = [*(*(a1 + 40) + 24) objectAtIndexedSubscript:v28];
-                v30 = [v29 laterDate:v25];
+                v25 = [*(*(a1 + 40) + 24) objectAtIndexedSubscript:v24];
+                v26 = [v25 laterDate:v22];
 
-                if (v30 == v25)
+                if (v26 == v22)
                 {
                   break;
                 }
 
-                if (++v28 >= [*(*(a1 + 40) + 24) count])
+                if (++v24 >= [*(*(a1 + 40) + 24) count])
                 {
                   goto LABEL_13;
                 }
               }
 
-              [*(*(a1 + 40) + 16) insertObject:v9 atIndex:v28];
-              [*(*(a1 + 40) + 24) insertObject:v25 atIndex:v28];
+              [*(*(a1 + 40) + 16) insertObject:v7 atIndex:v24];
+              [*(*(a1 + 40) + 24) insertObject:v22 atIndex:v24];
             }
 
             else
             {
 LABEL_13:
-              [*(*(a1 + 40) + 16) addObject:v9];
-              [*(*(a1 + 40) + 24) addObject:v25];
+              [*(*(a1 + 40) + 16) addObject:v7];
+              [*(*(a1 + 40) + 24) addObject:v22];
             }
 
-            v2 = v27;
-            v6 = 0x277CCA000;
-            v7 = 0x277CBE000;
+            v2 = v23;
           }
 
           else
           {
-            SULogInfo(@"discoveryDateDictionary value is unexpected type. File a radar!", v18, v19, v20, v21, v22, v23, v24, v32);
+            SULogInfo(@"discoveryDateDictionary value is unexpected type. File a radar!", v15, v16, v17, v18, v19, v20, v21, v27);
           }
         }
 
         else
         {
-          SULogInfo(@"discoveryDateDictionary key is unexpected type. File a radar!", v11, v12, v13, v14, v15, v16, v17, v32);
+          SULogInfo(@"discoveryDateDictionary key is unexpected type. File a radar!", v8, v9, v10, v11, v12, v13, v14, v27);
         }
 
-        ++v8;
+        ++v6;
       }
 
-      while (v8 != v4);
-      v4 = [v2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v6 != v4);
+      v4 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v4);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDiscoveryDate:(id)date forBuildVersion:(id)version
@@ -208,17 +201,17 @@ void *__65__SUUpdateDiscoveryDateManager_setDiscoveryDate_forBuildVersion___bloc
   dispatch_sync(stateQueue, v7);
 }
 
-unint64_t __67__SUUpdateDiscoveryDateManager_removeDiscoveryDateForBuildVersion___block_invoke(unint64_t result)
+void *__67__SUUpdateDiscoveryDateManager_removeDiscoveryDateForBuildVersion___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    v2 = [*(*(result + 40) + 16) indexOfObject:?];
-    result = [*(*(v1 + 40) + 16) count];
+    v2 = [*(result[5] + 16) indexOfObject:?];
+    result = [*(v1[5] + 16) count];
     if (v2 < result)
     {
-      [*(*(v1 + 40) + 16) removeObjectAtIndex:v2];
-      v3 = *(*(v1 + 40) + 24);
+      [*(v1[5] + 16) removeObjectAtIndex:v2];
+      v3 = *(v1[5] + 24);
 
       return [v3 removeObjectAtIndex:v2];
     }
@@ -255,7 +248,7 @@ unint64_t __67__SUUpdateDiscoveryDateManager_removeDiscoveryDateForBuildVersion_
 
 void __61__SUUpdateDiscoveryDateManager_discoveryDateforBuildVersion___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if ([*(a1[4] + 16) containsObject:a1[5]])
+  if ([*(a1[4] + 16) containsObject:{a1[5], a4, a5, a6, a7, a8}])
   {
     v10 = [*(a1[4] + 16) indexOfObject:a1[5]];
     if (v10 >= [*(a1[4] + 24) count])
@@ -271,7 +264,7 @@ void __61__SUUpdateDiscoveryDateManager_discoveryDateforBuildVersion___block_inv
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
 
-      MEMORY[0x2821F96F8]();
+      MEMORY[0x2821F96F8](v18, v20);
     }
   }
 }
@@ -359,7 +352,7 @@ void __56__SUUpdateDiscoveryDateManager_dictionaryRepresentation__block_invoke(u
   return stateQueue;
 }
 
-uint64_t __53__SUUpdateDiscoveryDateManager_containsBuildVersion___block_invoke(void *a1)
+void *__53__SUUpdateDiscoveryDateManager_containsBuildVersion___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

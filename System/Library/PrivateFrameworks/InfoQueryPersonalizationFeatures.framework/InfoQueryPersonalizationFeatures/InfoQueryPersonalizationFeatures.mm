@@ -1,20 +1,26 @@
 uint64_t sub_254B9E2F8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-id IQFLogCategoryDefault()
+void sub_254B9EF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id IQFLogCategoryDefault(uint64_t a1)
 {
   if (IQFLogCategoryDefault_onceToken != -1)
   {
     IQFLogCategoryDefault_cold_1();
   }
 
-  v1 = IQFLogCategoryDefault_defaultLog;
+  v2 = IQFLogCategoryDefault_defaultLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __IQFLogCategoryDefault_block_invoke()
@@ -24,9 +30,9 @@ uint64_t __IQFLogCategoryDefault_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_254B9FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254B9FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -45,9 +51,9 @@ void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_254BA1BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254BA1BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -59,16 +65,18 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t PegasusRequestPersonalizationFeatures.__allocating_init()()
@@ -132,29 +140,28 @@ void IQFMapsPersonalizationRanker.rankedEvents(for:completion:)(uint64_t a1, uin
   _Block_release(v8);
 }
 
-void closure #1 in IQFMapsPersonalizationRanker.rankedEvents(for:completion:)(int a1, id a2, void (*a3)(void))
+void closure #1 in IQFMapsPersonalizationRanker.rankedEvents(for:completion:)(uint64_t a1, id a2, void (*a3)(id, uint64_t))
 {
   if (a2)
   {
     v5 = a2;
-    (a3)(a2, 1);
+    a3(a2, 1);
   }
 
   else
   {
-    a3();
+    (a3)(a1);
   }
 }
 
 void thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [IQFMapsPersonalizationResult], @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   type metadata accessor for IQFMapsPersonalizationLocation(0, &lazy cache variable for type metadata for IQFMapsPersonalizationResult, &off_2797ACC90);
-  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -164,12 +171,11 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t type metadata accessor for IQFMapsPersonalizationLocation(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for IQFMapsPersonalizationLocation(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

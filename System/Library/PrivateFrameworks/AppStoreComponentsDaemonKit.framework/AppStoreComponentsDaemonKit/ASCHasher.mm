@@ -2,6 +2,7 @@
 + (unint64_t)executionSeed;
 - (ASCHasher)init;
 - (unint64_t)finalizeHash;
+- (void)combineBool:(BOOL)bool;
 - (void)combineBytes:(const void *)bytes length:(unint64_t)length;
 - (void)combineDouble:(double)double;
 - (void)combineInteger:(int64_t)integer;
@@ -48,6 +49,12 @@
 
   buffer = [(ASCHasher *)self buffer];
   [buffer appendBytes:bytes length:length];
+}
+
+- (void)combineBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:bool];
+  [(ASCHasher *)self combineObject:v4];
 }
 
 - (void)combineDouble:(double)double

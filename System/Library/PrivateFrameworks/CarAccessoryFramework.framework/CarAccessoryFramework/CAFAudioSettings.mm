@@ -129,28 +129,24 @@
 
 - (NSArray)volumes
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   volumeServices = [(CAFAudioSettings *)self volumeServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_typeCompare_];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [volumeServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (NSArray)equalizers
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   equalizerServices = [(CAFAudioSettings *)self equalizerServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"sortOrder" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [equalizerServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

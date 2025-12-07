@@ -20,7 +20,7 @@
   v13 = v12;
   cornerCurve = [(PUTileLayoutInfo *)self cornerCurve];
   cornerMask = [(PUTileLayoutInfo *)self cornerMask];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v17 = v16;
   [(PUTileLayoutInfo *)self contentsRect];

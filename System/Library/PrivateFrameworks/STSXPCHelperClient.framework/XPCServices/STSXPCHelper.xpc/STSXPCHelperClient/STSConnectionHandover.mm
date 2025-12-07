@@ -257,7 +257,7 @@
 
         else
         {
-          if (([v11 isWiFiAwareConfigurationRecord] & 1) == 0 && (objc_msgSend(v11, "isBluetoothLEConfigurationRecord") & 1) == 0 && !objc_msgSend(v11, "isNfcConfigurationRecord"))
+          if (([v11 isWiFiAwareConfigurationRecord] & 1) == 0 && (objc_msgSend_isBluetoothLEConfigurationRecord(v11) & 1) == 0 && !objc_msgSend_isNfcConfigurationRecord(v11))
           {
             identifier = [v11 identifier];
 
@@ -381,7 +381,7 @@ LABEL_38:
                 v79 = [[STSCHNdefRecordBundle alloc] initWithAlternativeRecord:v70 configurationRecord:v99 auxiliaryRecords:v72 errorRecord:v101];
                 isWiFiAwareConfigurationRecord = [v99 isWiFiAwareConfigurationRecord];
                 v81 = &off_100058598;
-                if (isWiFiAwareConfigurationRecord & 1) != 0 || (v82 = [v99 isBluetoothLEConfigurationRecord], v81 = off_100058588, (v82) || (v83 = objc_msgSend(v99, "isNfcConfigurationRecord"), v81 = off_100058590, v83))
+                if (isWiFiAwareConfigurationRecord & 1) != 0 || (v82 = objc_msgSend_isBluetoothLEConfigurationRecord(v99), v81 = off_100058588, (v82) || (v83 = objc_msgSend_isNfcConfigurationRecord(v99), v81 = off_100058590, v83))
                 {
                   v84 = [(__objc2_class *)*v81 connectionHandoverAlternativeCarrierWithBundle:v79];
                   [(STSConnectionHandover *)v90 addAlternativeCarrier:v84];

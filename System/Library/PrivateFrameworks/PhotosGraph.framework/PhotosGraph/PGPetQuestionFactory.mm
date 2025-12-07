@@ -8,19 +8,19 @@
 
 - (void)updateInitialQuestion:(id)question
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   questionCopy = question;
   workingContext = [(PGSurveyQuestionFactory *)self workingContext];
   photoLibrary = [workingContext photoLibrary];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__PGPetQuestionFactory_updateInitialQuestion___block_invoke;
-  v13[3] = &unk_27888A660;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__PGPetQuestionFactory_updateInitialQuestion___block_invoke;
+  v12[3] = &unk_27888A660;
   v7 = questionCopy;
-  v14 = v7;
-  v12 = 0;
-  [photoLibrary performChangesAndWait:v13 error:&v12];
-  v8 = v12;
+  v13 = v7;
+  v11 = 0;
+  [photoLibrary performChangesAndWait:v12 error:&v11];
+  v8 = v11;
 
   if (v8)
   {
@@ -30,12 +30,10 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[Questions] Error performing library changes for pet inital question: %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PGPetQuestionFactory_updateInitialQuestion___block_invoke(uint64_t a1)
@@ -64,27 +62,27 @@ void __46__PGPetQuestionFactory_updateInitialQuestion___block_invoke(uint64_t a1
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = _Block_copy(blockCopy);
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   if (v7)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v34[3] >= 0.01)
+    if (Current - v33[3] >= 0.01)
     {
-      v34[3] = Current;
-      v32 = 0;
-      v7[2](v7, &v32, 0.0);
-      v9 = *(v38 + 24) | v32;
-      *(v38 + 24) = v9;
+      v33[3] = Current;
+      v31 = 0;
+      v7[2](v7, &v31, 0.0);
+      v9 = *(v37 + 24) | v31;
+      *(v37 + 24) = v9;
       if (v9)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -95,9 +93,9 @@ LABEL_19:
         }
 
         *buf = 67109378;
-        v42 = 48;
-        v43 = 2080;
-        v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
+        v41 = 48;
+        v42 = 2080;
+        v43 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
         v10 = MEMORY[0x277D86220];
 LABEL_11:
         _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -108,25 +106,25 @@ LABEL_11:
     if (!limit)
     {
       v11 = CFAbsoluteTimeGetCurrent();
-      if (v11 - v34[3] < 0.01)
+      if (v11 - v33[3] < 0.01)
       {
         goto LABEL_19;
       }
 
-      v34[3] = v11;
-      v32 = 0;
-      v7[2](v7, &v32, 1.0);
-      v12 = *(v38 + 24) | v32;
-      *(v38 + 24) = v12;
+      v33[3] = v11;
+      v31 = 0;
+      v7[2](v7, &v31, 1.0);
+      v12 = *(v37 + 24) | v31;
+      *(v37 + 24) = v12;
       if ((v12 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_19;
       }
 
       *buf = 67109378;
-      v42 = 52;
-      v43 = 2080;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
+      v41 = 52;
+      v42 = 2080;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
       v10 = MEMORY[0x277D86220];
       goto LABEL_11;
     }
@@ -140,30 +138,30 @@ LABEL_11:
   v13 = [MEMORY[0x277CBEB58] set];
   workingContext = [(PGSurveyQuestionFactory *)self workingContext];
   photoLibrary = [workingContext photoLibrary];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __65__PGPetQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
-  v24[3] = &unk_278880418;
-  v24[4] = self;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __65__PGPetQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
+  v23[3] = &unk_278880418;
+  v23[4] = self;
   v16 = v13;
-  v25 = v16;
+  v24 = v16;
   v17 = photoLibrary;
-  v26 = v17;
+  v25 = v17;
   limitCopy = limit;
   v18 = v7;
-  v27 = v18;
-  v28 = &v33;
-  v31 = 0x3F847AE147AE147BLL;
-  v29 = &v37;
-  [workingContext performSynchronousConcurrentGraphReadUsingBlock:v24];
-  if (v7 && (v19 = CFAbsoluteTimeGetCurrent(), v19 - v34[3] >= 0.01) && (v34[3] = v19, v32 = 0, v18[2](v18, &v32, 1.0), v20 = *(v38 + 24) | v32, *(v38 + 24) = v20, (v20 & 1) != 0))
+  v26 = v18;
+  v27 = &v32;
+  v30 = 0x3F847AE147AE147BLL;
+  v28 = &v36;
+  [workingContext performSynchronousConcurrentGraphReadUsingBlock:v23];
+  if (v7 && (v19 = CFAbsoluteTimeGetCurrent(), v19 - v33[3] >= 0.01) && (v33[3] = v19, v31 = 0, v18[2](v18, &v31, 1.0), v20 = *(v37 + 24) | v31, *(v37 + 24) = v20, (v20 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v42 = 114;
-      v43 = 2080;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
+      v41 = 114;
+      v42 = 2080;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Pet/PGPetQuestionFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -176,17 +174,15 @@ LABEL_11:
   }
 
 LABEL_22:
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 
   return allObjects;
 }
 
 void __65__PGPetQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) initialPetQuestion];
   v5 = v4;
@@ -211,19 +207,19 @@ void __65__PGPetQuestionFactory_generateQuestionsWithLimit_progressBlock___block
         v10 = [v3 graph];
         v11 = [(PGGraphNodeCollection *)PGGraphPetNodeCollection nodesInGraph:v10];
 
-        v31 = v11;
+        v30 = v11;
         v12 = [v11 localIdentifiers];
         v13 = [v12 allObjects];
 
         v14 = [*(a1 + 48) librarySpecificFetchOptions];
         v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"faceCount" ascending:0];
-        v32[0] = v15;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+        v31[0] = v15;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
         [v14 setSortDescriptors:v16];
 
         [v14 setIncludedDetectionTypes:&unk_2844856A0];
         [v14 setPersonContext:1];
-        v30 = v14;
+        v29 = v14;
         v17 = [MEMORY[0x277CD9938] fetchPersonsWithLocalIdentifiers:v13 options:v14];
         if ([v17 count])
         {
@@ -284,8 +280,6 @@ LABEL_18:
     v9 = [[PGPetQuestion alloc] initWithPetUUID:@"PET_INITIAL_QUESTION_FAKE_ASSET" displayString:@"🐶 🐱" localFactoryScore:1.0];
     [*(a1 + 40) addObject:v9];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

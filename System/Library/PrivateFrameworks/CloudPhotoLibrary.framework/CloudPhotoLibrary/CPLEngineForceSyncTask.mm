@@ -58,21 +58,18 @@
   phaseDescription = [(CPLEngineSyncTask *)self->_currentTask phaseDescription];
   if (phaseDescription)
   {
-    v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-    currentTask = self->_currentTask;
-    v6 = [v4 initWithFormat:@"%@ %@", objc_opt_class(), phaseDescription];
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ %@", objc_opt_class(), phaseDescription];
   }
 
   else
   {
-    v7 = self->_currentTask;
-    v6 = [objc_opt_class() description];
+    v4 = [objc_opt_class() description];
   }
 
-  v8 = v6;
+  v5 = v4;
   os_unfair_lock_unlock(&self->_currentTaskLock);
 
-  return v8;
+  return v5;
 }
 
 - (void)task:(id)task didFinishWithError:(id)error
@@ -102,7 +99,7 @@
 
 void __50__CPLEngineForceSyncTask_task_didFinishWithError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _currentTask];
   if (v2 == *(a1 + 40))
   {
@@ -118,13 +115,13 @@ void __50__CPLEngineForceSyncTask_task_didFinishWithError___block_invoke(uint64_
           v5 = *(a1 + 32);
           v6 = *(a1 + 40);
           v7 = *(a1 + 48);
-          v14 = 138543874;
-          v15 = v5;
-          v16 = 2114;
-          v17 = v6;
-          v18 = 2112;
-          v19 = v7;
-          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed during %{public}@: %@", &v14, 0x20u);
+          v13 = 138543874;
+          v14 = v5;
+          v15 = 2114;
+          v16 = v6;
+          v17 = 2112;
+          v18 = v7;
+          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed during %{public}@: %@", &v13, 0x20u);
         }
 
         v3 = *(a1 + 48);
@@ -145,11 +142,11 @@ void __50__CPLEngineForceSyncTask_task_didFinishWithError___block_invoke(uint64_
           {
             v10 = *(a1 + 32);
             v11 = *(a1 + 40);
-            v14 = 138543618;
-            v15 = v10;
-            v16 = 2114;
-            v17 = v11;
-            _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has been cancelled during %{public}@", &v14, 0x16u);
+            v13 = 138543618;
+            v14 = v10;
+            v15 = 2114;
+            v16 = v11;
+            _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has been cancelled during %{public}@", &v13, 0x16u);
           }
 
           v8 = *(a1 + 32);
@@ -165,8 +162,6 @@ void __50__CPLEngineForceSyncTask_task_didFinishWithError___block_invoke(uint64_
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reallyCancel
@@ -315,7 +310,7 @@ void __38__CPLEngineForceSyncTask_reallyLaunch__block_invoke(uint64_t a1)
 
 - (void)_dispatchNextSyncTask
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   nextObject = [(NSEnumerator *)self->_syncTaskEnumerator nextObject];
   if (nextObject)
   {
@@ -325,11 +320,11 @@ void __38__CPLEngineForceSyncTask_reallyLaunch__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         taskIdentifier = [nextObject taskIdentifier];
-        v7 = 138543618;
+        v6 = 138543618;
         selfCopy = self;
-        v9 = 2114;
-        v10 = taskIdentifier;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: launching %{public}@", &v7, 0x16u);
+        v8 = 2114;
+        v9 = taskIdentifier;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: launching %{public}@", &v6, 0x16u);
       }
     }
 
@@ -340,8 +335,6 @@ void __38__CPLEngineForceSyncTask_reallyLaunch__block_invoke(uint64_t a1)
   {
     [(CPLEngineForceSyncTask *)self _finishWithError:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dropCurrentTask

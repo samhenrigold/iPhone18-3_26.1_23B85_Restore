@@ -72,11 +72,11 @@
 
 - (unint64_t)destinationColorSpaceName
 {
-  [(PXGMetalViewRenderDestination *)self displayConfiguration];
+  objc_msgSend_displayConfiguration(self, a2);
   result = v7;
   if (!v7)
   {
-    [(PXGMetalViewRenderDestination *)self displayConfiguration];
+    objc_msgSend_displayConfiguration(self);
     if (v6 == 1 && ([(PXGMetalViewRenderDestination *)self maximumDynamicRangeHeadroom], v4 > 1.0))
     {
       v5 = 14;

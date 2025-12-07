@@ -394,7 +394,7 @@ LABEL_41:
   {
     if (!self->_identityProofingManager)
     {
-      v6 = [objc_alloc(getCIDVUIProofingFlowManagerClass_0[0]()) initWithDelegate:self];
+      v6 = [objc_alloc(getCIDVUIProofingFlowManagerClass_0()) initWithDelegate:self];
       identityProofingManager = self->_identityProofingManager;
       self->_identityProofingManager = v6;
     }

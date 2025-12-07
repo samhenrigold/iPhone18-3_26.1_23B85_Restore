@@ -15,6 +15,7 @@
 - (void)fetchDataForKey:(id)key andCategory:(int64_t)category completion:(id)completion;
 - (void)fetchGeoCodingsForAddresses:(id)addresses completion:(id)completion;
 - (void)lJIqliFcwusu4FxD:(id)d be2xk53Wn161LTDz:(id)dz completion:(id)completion;
+- (void)llNEghuIdfPH7O8I:(BOOL)i all:(BOOL)all pregeneration:(BOOL)pregeneration workflowID:(id)d completion:(id)completion;
 - (void)ofLBc0SV56ddaijH:(id)h i7D0Lridvo8oYoNd:(id)nd completion:(id)completion;
 - (void)registerICloudLoginWithCompletion:(id)completion;
 - (void)uTtwJoGUgL3N0GVz;
@@ -459,25 +460,23 @@ void __46__Lt10zus2DOk3OfFf_fetchConfigWithCompletion___block_invoke_3(uint64_t 
 
 - (void)updateGeoCodingsForAddresses:(id)addresses locations:(id)locations
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   locationsCopy = locations;
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_71];
   if (addressesCopy && locationsCopy)
   {
     v9 = MEMORY[0x1E696ACC8];
-    v14[0] = @"addresses";
-    v14[1] = @"locations";
-    v15[0] = addressesCopy;
-    v15[1] = locationsCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
-    v13 = 0;
-    v11 = [v9 archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v13];
+    v13[0] = @"addresses";
+    v13[1] = @"locations";
+    v14[0] = addressesCopy;
+    v14[1] = locationsCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12 = 0;
+    v11 = [v9 archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v12];
 
     [v8 updateGeoCodingsXPC:v11 completion:&__block_literal_global_81];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchGeoCodingsForAddresses:(id)addresses completion:(id)completion
@@ -514,7 +513,7 @@ void __46__Lt10zus2DOk3OfFf_fetchConfigWithCompletion___block_invoke_3(uint64_t 
 
 void __59__Lt10zus2DOk3OfFf_fetchGeoCodingsForAddresses_completion___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if ([WeakRetained l7UrdRfCzeduYqtA:*(a1 + 32)])
@@ -527,9 +526,9 @@ void __59__Lt10zus2DOk3OfFf_fetchGeoCodingsForAddresses_completion___block_invok
     else
     {
       v7 = objc_opt_self();
-      v22 = 0;
-      v8 = [ASGeoCodingKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:v5 error:&v22];
-      v9 = v22;
+      v21 = 0;
+      v8 = [ASGeoCodingKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:v5 error:&v21];
+      v9 = v21;
 
       if (v9 || !v8)
       {
@@ -538,30 +537,29 @@ void __59__Lt10zus2DOk3OfFf_fetchGeoCodingsForAddresses_completion___block_invok
 
       else
       {
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
         v19 = 0u;
+        v20 = 0u;
+        v17 = 0u;
+        v18 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v18 + 1) + 8 * i);
-              v16 = objc_opt_self();
-              LOBYTE(v15) = objc_opt_isKindOfClass();
+              v15 = objc_opt_self();
+              isKindOfClass = objc_opt_isKindOfClass();
 
-              if ((v15 & 1) == 0)
+              if ((isKindOfClass & 1) == 0)
               {
                 (*(*(a1 + 40) + 16))();
 
@@ -569,7 +567,7 @@ void __59__Lt10zus2DOk3OfFf_fetchGeoCodingsForAddresses_completion___block_invok
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
             if (v12)
             {
               continue;
@@ -585,8 +583,38 @@ LABEL_18:
       }
     }
   }
+}
 
-  v17 = *MEMORY[0x1E69E9840];
+- (void)llNEghuIdfPH7O8I:(BOOL)i all:(BOOL)all pregeneration:(BOOL)pregeneration workflowID:(id)d completion:(id)completion
+{
+  pregenerationCopy = pregeneration;
+  allCopy = all;
+  iCopy = i;
+  dCopy = d;
+  completionCopy = completion;
+  v14 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_88];
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __77__Lt10zus2DOk3OfFf_llNEghuIdfPH7O8I_all_pregeneration_workflowID_completion___block_invoke_2;
+  aBlock[3] = &unk_1E85EDEB8;
+  v15 = completionCopy;
+  v26 = v15;
+  v16 = _Block_copy(aBlock);
+  v17 = [(Lt10zus2DOk3OfFf *)self BFzukpKGO3cStNGp:v16];
+  objc_initWeak(&location, self);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __77__Lt10zus2DOk3OfFf_llNEghuIdfPH7O8I_all_pregeneration_workflowID_completion___block_invoke_3;
+  v20[3] = &unk_1E85EDF80;
+  objc_copyWeak(&v23, &location);
+  v18 = v17;
+  v21 = v18;
+  v19 = v15;
+  v22 = v19;
+  [v14 llNEghuIdfPH7O8I:iCopy all:allCopy pregeneration:pregenerationCopy workflowID:dCopy completion:v20];
+
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&location);
 }
 
 void __77__Lt10zus2DOk3OfFf_llNEghuIdfPH7O8I_all_pregeneration_workflowID_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -987,43 +1015,42 @@ uint64_t __37__Lt10zus2DOk3OfFf_l7UrdRfCzeduYqtA___block_invoke(void *a1)
 
 void __36__Lt10zus2DOk3OfFf_uTtwJoGUgL3N0GVz__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:kCoreASErrorDomainCA];
   v4 = [v2 errorWithDomain:v3 code:-31 userInfo:0];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = [*(*(a1 + 32) + 16) allValues];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9++) + 16))();
+        (*(*(*(&v10 + 1) + 8 * v9++) + 16))();
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [*(*(a1 + 32) + 16) removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

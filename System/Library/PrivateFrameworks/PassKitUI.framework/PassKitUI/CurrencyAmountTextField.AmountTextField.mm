@@ -67,6 +67,7 @@
   selfCopy = self;
   LOBYTE(length) = sub_1BD3EAC48(fieldCopy, location, length, v9, v11);
 
+  v11, v14, v15, v16, v17, v18, v19, v20;
   return length & 1;
 }
 
@@ -93,13 +94,13 @@
     memset(v5, 0, sizeof(v5));
   }
 
-  sub_1BD0DE53C(v5, &qword_1EBD3EC90);
+  sub_1BD0DE53C(v5, &qword_1EBD3EC90, &unk_1BE0BC6B0);
   return 0;
 }
 
 - (id)selectionRectsForRange:(id)range
 {
-  sub_1BD0E5E8C(0, &unk_1EBD450F8);
+  sub_1BD0E5E8C(0, &unk_1EBD450F8, 0x1E69DD150);
   v3 = sub_1BE052724();
 
   return v3;

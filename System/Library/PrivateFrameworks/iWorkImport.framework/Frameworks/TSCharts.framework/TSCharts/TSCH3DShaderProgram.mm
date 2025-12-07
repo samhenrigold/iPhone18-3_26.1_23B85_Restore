@@ -238,7 +238,7 @@
 
 - (id)linkageOfVariable:(id)variable
 {
-  objc_msgSend_resultLinkageOfVariable_(self, a2, v3, v4, v5, variable);
+  objc_msgSend_resultLinkageOfVariable_(self, v3, v4, v5, a2, variable);
   v6 = v8;
 
   return v6;
@@ -291,27 +291,27 @@
 - (void)addUniformVariable:(id)variable
 {
   variableCopy = variable;
-  objc_msgSend_resultLinkageOfVariable_(self, v5, v6, v7, v8, variableCopy);
-  v9 = v56;
-  v14 = v9;
-  if ((v55 & 1) == 0)
+  objc_msgSend_resultLinkageOfVariable_(self, v5, v6, v7);
+  v8 = v55;
+  v13 = v8;
+  if ((v54 & 1) == 0)
   {
-    objc_msgSend_setShader_scope_(v9, v10, v11, v12, v13, 1, 4);
-    objc_msgSend_setShader_scope_(v14, v15, v16, v17, v18, 2, 4);
-    v23 = objc_msgSend_uniformLinkageFor_(self, v19, v20, v21, v22, variableCopy);
-    objc_msgSend_setLinkage_(v14, v24, v25, v26, v27, v23);
-    objc_msgSend_addDeclaredShader_scope_(v14, v28, v29, v30, v31, 1, 4);
-    objc_msgSend_addDeclaredShader_scope_(v14, v32, v33, v34, v35, 2, 4);
+    objc_msgSend_setShader_scope_(v8, v9, v10, v11, v12, 1, 4);
+    objc_msgSend_setShader_scope_(v13, v14, v15, v16, v17, 2, 4);
+    v22 = objc_msgSend_uniformLinkageFor_(self, v18, v19, v20, v21, variableCopy);
+    objc_msgSend_setLinkage_(v13, v23, v24, v25, v26, v22);
+    objc_msgSend_addDeclaredShader_scope_(v13, v27, v28, v29, v30, 1, 4);
+    objc_msgSend_addDeclaredShader_scope_(v13, v31, v32, v33, v34, 2, 4);
   }
 
-  if ((objc_msgSend_isUniform(v14, v10, v11, v12, v13) & 1) == 0)
+  if ((objc_msgSend_isUniform(v13, v9, v10, v11, v12) & 1) == 0)
   {
-    v40 = MEMORY[0x277D81150];
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, "[TSCH3DShaderProgram addUniformVariable:]");
-    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DShaderProgram.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v47, v48, v49, v50, v41, v46, 624, 0, "invalid linkage for uniform %@", v14);
+    v39 = MEMORY[0x277D81150];
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, v36, v37, v38, "[TSCH3DShaderProgram addUniformVariable:]");
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DShaderProgram.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v46, v47, v48, v49, v40, v45, 624, 0, "invalid linkage for uniform %@", v13);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53, v54);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53);
   }
 }
 

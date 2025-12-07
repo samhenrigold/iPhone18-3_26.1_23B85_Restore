@@ -102,10 +102,10 @@ void __54__NMSNotificationDispatcher_initWithNotificationName___block_invoke_2(u
   dispatch_async(queue, block);
 }
 
-uint64_t __60__NMSNotificationDispatcher_scheduleLocalDarwinNotification__block_invoke(uint64_t a1)
+void *__60__NMSNotificationDispatcher_scheduleLocalDarwinNotification__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (!*(result + 32))
+  if (!*(result + 4))
   {
     return [result _postLocalDarwinNotification];
   }
@@ -136,14 +136,14 @@ uint64_t __60__NMSNotificationDispatcher_scheduleLocalDarwinNotification__block_
   dispatch_async(queue, block);
 }
 
-uint64_t __49__NMSNotificationDispatcher_endWaitingForUpdates__block_invoke(uint64_t result)
+void *__49__NMSNotificationDispatcher_endWaitingForUpdates__block_invoke(void *result)
 {
-  --*(*(result + 32) + 32);
-  v1 = *(result + 32);
+  --*(*(result + 4) + 32);
+  v1 = *(result + 4);
   if (!*(v1 + 32) && *(v1 + 40) == 1)
   {
     *(v1 + 40) = 0;
-    return [*(result + 32) _postLocalDarwinNotification];
+    return [*(result + 4) _postLocalDarwinNotification];
   }
 
   return result;
@@ -151,7 +151,7 @@ uint64_t __49__NMSNotificationDispatcher_endWaitingForUpdates__block_invoke(uint
 
 - (void)_handleLocalNotificationIgnoringSenderPID:(BOOL)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -191,40 +191,37 @@ LABEL_8:
     }
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __71__NMSNotificationDispatcher__handleLocalNotificationIgnoringSenderPID___block_invoke;
-  v13[3] = &unk_27993E610;
-  v13[4] = self;
-  v14 = v7 == v6;
-  dispatch_async(MEMORY[0x277D85CD0], v13);
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __71__NMSNotificationDispatcher__handleLocalNotificationIgnoringSenderPID___block_invoke;
+  v12[3] = &unk_27993E610;
+  v12[4] = self;
+  v13 = v7 == v6;
+  dispatch_async(MEMORY[0x277D85CD0], v12);
 }
 
 void __71__NMSNotificationDispatcher__handleLocalNotificationIgnoringSenderPID___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = *(*(a1 + 32) + 56);
-  v7 = @"IsInProcessNotification";
+  v6 = @"IsInProcessNotification";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:v3 object:0 userInfo:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRemoteNotification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = NMLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     remoteDarwinNotificationName = self->_remoteDarwinNotificationName;
     *buf = 138412290;
-    v11 = remoteDarwinNotificationName;
+    v10 = remoteDarwinNotificationName;
     _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Received notification: %@", buf, 0xCu);
   }
 
@@ -243,40 +240,36 @@ void __71__NMSNotificationDispatcher__handleLocalNotificationIgnoringSenderPID__
   block[3] = &unk_27993DD20;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NMSNotificationDispatcher__handleRemoteNotification__block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = *(*(a1 + 32) + 56);
-  v6 = @"IsInProcessNotification";
-  v7[0] = MEMORY[0x277CBEC28];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"IsInProcessNotification";
+  v6[0] = MEMORY[0x277CBEC28];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 postNotificationName:v3 object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postLocalDarwinNotification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = NMLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     localDarwinNotificationName = self->_localDarwinNotificationName;
-    v8 = 138412290;
-    v9 = localDarwinNotificationName;
-    _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Posting notification: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = localDarwinNotificationName;
+    _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Posting notification: %@", &v7, 0xCu);
   }
 
   localNotifyToken = self->_localNotifyToken;
   v6 = getpid();
   notify_set_state(localNotifyToken, v6);
   notify_post([(NSString *)self->_localDarwinNotificationName UTF8String]);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NMSNotificationDispatcherDelegate)delegate

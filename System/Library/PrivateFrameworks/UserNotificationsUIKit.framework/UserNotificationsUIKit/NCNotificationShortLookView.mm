@@ -118,9 +118,9 @@
     v7 = v6;
 
     [(NCNotificationContentDisplaying *)self->_notificationContentView sizeThatFits:v5, v7];
-    BSRectWithSize();
+    v8 = BSRectWithSize();
     notificationContentView = self->_notificationContentView;
-    _NCMainScreenScale();
+    _NCMainScreenScale(v8, v10);
     UIRectIntegralWithScale();
 
     [(NCNotificationContentDisplaying *)notificationContentView setFrame:?];

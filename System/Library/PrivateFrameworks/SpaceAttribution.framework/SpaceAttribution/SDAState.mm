@@ -1,11 +1,13 @@
 @interface SDAState
 + (id)loadFromFileAtPath:(id)path;
 - (id)getElemForBundleId:(id)id volType:(int)type residency:(unsigned int)residency urgency:(int)urgency state:(int)state create:(BOOL)create;
+- (void)adjAveragesForBundleId:(id)id volType:(int)type volPath:(id)path residency:(unsigned int)residency WithNumOfPristine:(unint64_t)pristine sizeOfPristine:(unint64_t)ofPristine numOfDays:(unint64_t)days;
 - (void)enumerateAllAverageElementsOfVolType:(int)type UsingBlock:(id)block;
 - (void)fadeOldEntries;
 - (void)print;
 - (void)saveToFile;
 - (void)updateEventId:(unint64_t)id andDate:(id)date forVolPath:(id)path;
+- (void)updateSdaStateWithDenominatorInfo:(id)info volType:(int)type volPath:(id)path;
 @end
 
 @implementation SDAState
@@ -23,151 +25,148 @@
   v6 = [NSString stringWithFormat:@"%@/%@", v5, @"SpeculativeDownload.db"];
 
   [v4 setPathToDisk:v6];
-  v80 = 0;
-  v7 = [NSData dataWithContentsOfFile:v6 options:0 error:&v80];
-  v8 = v80;
+  v75 = 0;
+  v7 = [NSData dataWithContentsOfFile:v6 options:0 error:&v75];
+  v8 = v75;
   v9 = &SBSCopyDisplayIdentifiers_ptr;
-  v10 = &SBSCopyDisplayIdentifiers_ptr;
-  v78 = v6;
+  v73 = v6;
   if (v7)
   {
+    v10 = objc_opt_class();
     v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = objc_opt_class();
-    v14 = objc_opt_class();
-    v15 = [NSSet setWithObjects:v11, v12, v13, v14, objc_opt_class(), 0, v6];
-    v79 = v8;
-    v16 = v7;
-    v17 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v15 fromData:v7 error:&v79];
-    v18 = v79;
+    v14 = [NSSet setWithObjects:v10, v11, v12, v13, objc_opt_class(), 0, v6];
+    v74 = v8;
+    v15 = v7;
+    v16 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v14 fromData:v7 error:&v74];
+    v17 = v74;
 
-    if (!v18)
+    if (!v17)
     {
-      v20 = 0;
-      v10 = &SBSCopyDisplayIdentifiers_ptr;
-      v21 = v16;
+      v19 = 0;
+      v20 = v15;
       v9 = &SBSCopyDisplayIdentifiers_ptr;
       goto LABEL_13;
     }
 
-    v19 = SALog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = SALog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v76 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v7 length]);
-      v77 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v17 count]);
+      v71 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v7 length]);
+      v72 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v16 count]);
       *buf = 138412802;
-      v82 = v76;
-      v83 = 2112;
-      v84 = v77;
-      v85 = 2112;
-      v86 = v18;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Loading: [objDate length] %@ to [dict count] %@, err %@", buf, 0x20u);
+      v77 = v71;
+      v78 = 2112;
+      v79 = v72;
+      v80 = 2112;
+      v81 = v17;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Loading: [objDate length] %@ to [dict count] %@, err %@", buf, 0x20u);
     }
 
-    v20 = v18;
-    v10 = &SBSCopyDisplayIdentifiers_ptr;
-    v21 = v16;
+    v19 = v17;
+    v20 = v15;
     v9 = &SBSCopyDisplayIdentifiers_ptr;
   }
 
   else
   {
-    v21 = 0;
-    v19 = SALog();
-    v20 = v8;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = 0;
+    v18 = SALog();
+    v19 = v8;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10003FD80();
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
 LABEL_13:
-  v22 = [v17 objectForKey:@"SdaVersion"];
-  [v4 setSdaVersion:v22];
+  v21 = [v16 objectForKey:@"SdaVersion"];
+  [v4 setSdaVersion:v21];
 
   sdaVersion = [v4 sdaVersion];
-  if (sdaVersion && (v24 = sdaVersion, [v4 sdaVersion], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqualToNumber:", &off_1000689B8), v25, v24, (v26 & 1) != 0))
+  if (sdaVersion && (v23 = sdaVersion, [v4 sdaVersion], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToNumber:", &off_1000689B8), v24, v23, (v25 & 1) != 0))
   {
-    v27 = v20;
+    v26 = v19;
   }
 
   else
   {
     [v4 setSdaVersion:&off_1000689B8];
-    v28 = SALog();
-    v27 = v20;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = SALog();
+    v26 = v19;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       sdaVersion2 = [v4 sdaVersion];
       *buf = 138412290;
-      v82 = sdaVersion2;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "New SDA version %@", buf, 0xCu);
+      v77 = sdaVersion2;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "New SDA version %@", buf, 0xCu);
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  v30 = [v17 objectForKey:@"BuildVersion"];
-  [v4 setBuildVersion:v30];
+  v29 = [v16 objectForKey:@"BuildVersion"];
+  [v4 setBuildVersion:v29];
 
   buildVersion = [v4 buildVersion];
-  if (!buildVersion || (v32 = buildVersion, [v4 buildVersion], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "isEqual:", @"buildVersion unknown"), v33, v32, v34))
+  if (!buildVersion || (v31 = buildVersion, [v4 buildVersion], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "isEqual:", @"buildVersion unknown"), v32, v31, v33))
   {
-    v35 = SALog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v34 = SALog();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "updating kBuildVersion", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "updating kBuildVersion", buf, 2u);
     }
 
-    v36 = +[SASupport buildVersion];
-    [v4 setBuildVersion:v36];
+    v35 = +[SASupport buildVersion];
+    [v4 setBuildVersion:v35];
   }
 
-  v37 = [v17 objectForKey:@"LastUpdateDate"];
-  [v4 setLastUpdateDate:v37];
+  v36 = [v16 objectForKey:@"LastUpdateDate"];
+  [v4 setLastUpdateDate:v36];
 
   lastUpdateDate = [v4 lastUpdateDate];
 
   if (!lastUpdateDate)
   {
-    v39 = [v9[207] now];
-    [v4 setLastUpdateDate:v39];
+    v38 = [v9[207] now];
+    [v4 setLastUpdateDate:v38];
 
-    v40 = SALog();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v39 = SALog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       lastUpdateDate2 = [v4 lastUpdateDate];
       *buf = 138412290;
-      v82 = lastUpdateDate2;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "updating lastUpdateDate to %@", buf, 0xCu);
+      v77 = lastUpdateDate2;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "updating lastUpdateDate to %@", buf, 0xCu);
     }
   }
 
-  v42 = [v17 objectForKey:@"StartExecutionDate"];
-  [v4 setStartExecutionDate:v42];
+  v41 = [v16 objectForKey:@"StartExecutionDate"];
+  [v4 setStartExecutionDate:v41];
 
   startExecutionDate = [v4 startExecutionDate];
 
   if (!startExecutionDate)
   {
-    v44 = [v9[207] now];
-    [v4 setStartExecutionDate:v44];
+    v43 = [v9[207] now];
+    [v4 setStartExecutionDate:v43];
 
-    v45 = SALog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v44 = SALog();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       startExecutionDate2 = [v4 startExecutionDate];
       *buf = 138412290;
-      v82 = startExecutionDate2;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "updating startExecutionDate to %@", buf, 0xCu);
+      v77 = startExecutionDate2;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "updating startExecutionDate to %@", buf, 0xCu);
     }
   }
 
-  v47 = [v17 objectForKey:@"NumOfTraversal"];
-  [v4 setNumOfTraversal:v47];
+  v46 = [v16 objectForKey:@"NumOfTraversal"];
+  [v4 setNumOfTraversal:v46];
 
   numOfTraversal = [v4 numOfTraversal];
 
@@ -176,111 +175,107 @@ LABEL_13:
     [v4 setNumOfTraversal:&off_1000689D0];
   }
 
-  v49 = [v17 objectForKey:@"kExecutionOnGoing"];
-  [v4 setExecutionOnGoing:v49];
+  v48 = [v16 objectForKey:@"kExecutionOnGoing"];
+  [v4 setExecutionOnGoing:v48];
 
   executionOnGoing = [v4 executionOnGoing];
 
   if (!executionOnGoing)
   {
-    v51 = SALog();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v50 = SALog();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "No kExecutionOnGoing found", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "No kExecutionOnGoing found", buf, 2u);
     }
 
     [v4 setExecutionOnGoing:&off_1000689D0];
   }
 
-  v52 = [v17 objectForKey:@"FreeDiskSpaceAtStart"];
-  [v4 setFreeDiskSpaceAtStart:v52];
+  v51 = [v16 objectForKey:@"FreeDiskSpaceAtStart"];
+  [v4 setFreeDiskSpaceAtStart:v51];
 
   freeDiskSpaceAtStart = [v4 freeDiskSpaceAtStart];
 
   if (!freeDiskSpaceAtStart)
   {
-    v54 = SALog();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v53 = SALog();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "No kFreeDiskSpaceAtStart found", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "No kFreeDiskSpaceAtStart found", buf, 2u);
     }
 
     [v4 setFreeDiskSpaceAtStart:&off_1000689D0];
   }
 
-  v55 = [v17 objectForKey:@"DenominatorTable"];
-  [v4 setAveElem:v55];
+  v54 = [v16 objectForKey:@"DenominatorTable"];
+  [v4 setAveElem:v54];
 
   aveElem = [v4 aveElem];
 
   if (!aveElem)
   {
-    v57 = SALog();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v56 = SALog();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "No kDenominatorTable found", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "No kDenominatorTable found", buf, 2u);
     }
 
-    v58 = v10[210];
-    v59 = objc_opt_new();
-    [v4 setAveElem:v59];
+    v57 = objc_opt_new();
+    [v4 setAveElem:v57];
   }
 
-  v60 = [v17 objectForKey:@"LastEventIdPerVol"];
+  v58 = [v16 objectForKey:@"LastEventIdPerVol"];
+  if (!v58)
+  {
+    v59 = SALog();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "creating dictionary for kLastEventIdPerVol", buf, 2u);
+    }
+
+    v58 = objc_opt_new();
+  }
+
+  [v4 setLastEventIdPerVol:v58];
+  v60 = [v16 objectForKey:@"LastEventTimePerVol"];
   if (!v60)
   {
     v61 = SALog();
     if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "creating dictionary for kLastEventIdPerVol", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "creating dictionary for kLastEventTimePerVol", buf, 2u);
     }
 
-    v62 = v10[210];
     v60 = objc_opt_new();
   }
 
-  [v4 setLastEventIdPerVol:v60];
-  v63 = [v17 objectForKey:@"LastEventTimePerVol"];
-  if (!v63)
-  {
-    v64 = SALog();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "creating dictionary for kLastEventTimePerVol", buf, 2u);
-    }
-
-    v65 = v10[210];
-    v63 = objc_opt_new();
-  }
-
-  [v4 setLastEventTimePerVol:v63];
-  v66 = [v9[207] now];
+  [v4 setLastEventTimePerVol:v60];
+  v62 = [v9[207] now];
   lastUpdateDate3 = [v4 lastUpdateDate];
-  [v66 timeIntervalSinceDate:lastUpdateDate3];
-  v69 = v68;
+  [v62 timeIntervalSinceDate:lastUpdateDate3];
+  v65 = v64;
 
-  v70 = (v69 + 43200.0) / 86400.0;
-  if (v70 <= 1)
+  v66 = (v65 + 43200.0) / 86400.0;
+  if (v66 <= 1)
   {
-    v71 = 1;
+    v67 = 1;
   }
 
   else
   {
-    v71 = v70;
+    v67 = v66;
   }
 
-  v72 = [NSNumber numberWithUnsignedLongLong:v71];
-  [v4 setDaysSinceLastUpdate:v72];
+  v68 = [NSNumber numberWithUnsignedLongLong:v67];
+  [v4 setDaysSinceLastUpdate:v68];
 
-  v73 = v10[210];
-  v74 = objc_opt_new();
-  [v4 setHistogramPerVol:v74];
+  v69 = objc_opt_new();
+  [v4 setHistogramPerVol:v69];
 
   return v4;
 }
@@ -457,6 +452,78 @@ LABEL_20:
   v10 = blockCopy;
   v8 = blockCopy;
   [(NSMutableDictionary *)aveElem enumerateKeysAndObjectsUsingBlock:v9];
+}
+
+- (void)updateSdaStateWithDenominatorInfo:(id)info volType:(int)type volPath:(id)path
+{
+  v5 = *&type;
+  pathCopy = path;
+  daysSinceLastUpdate = self->_daysSinceLastUpdate;
+  infoCopy = info;
+  unsignedLongLongValue = [(NSNumber *)daysSinceLastUpdate unsignedLongLongValue];
+  [(SDAState *)self enumerateAllAverageElementsOfVolType:v5 UsingBlock:&stru_100065450];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000252D4;
+  v18[3] = &unk_1000654A0;
+  v18[4] = self;
+  v21 = v5;
+  v12 = pathCopy;
+  v19 = v12;
+  v20 = unsignedLongLongValue;
+  [infoCopy enumerateKeysAndObjectsUsingBlock:v18];
+
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100025480;
+  v14[3] = &unk_1000654F0;
+  v14[4] = self;
+  v15 = v12;
+  v17 = v5;
+  v16 = unsignedLongLongValue;
+  v13 = v12;
+  [(SDAState *)self enumerateAllAverageElementsOfVolType:v5 UsingBlock:v14];
+}
+
+- (void)adjAveragesForBundleId:(id)id volType:(int)type volPath:(id)path residency:(unsigned int)residency WithNumOfPristine:(unint64_t)pristine sizeOfPristine:(unint64_t)ofPristine numOfDays:(unint64_t)days
+{
+  v9 = *&residency;
+  v11 = *&type;
+  idCopy = id;
+  pathCopy = path;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v15 = [(NSMutableDictionary *)self->_histogramPerVol objectForKey:pathCopy];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000258A0;
+  v19[3] = &unk_1000654C8;
+  v19[4] = &v32;
+  v19[5] = &v28;
+  v19[6] = &v24;
+  v19[7] = &v20;
+  [v15 getNumAndSizeOfEventsForBundleId:idCopy volType:v11 residency:v9 reply:v19];
+  v16 = [(SDAState *)self getElemForBundleId:idCopy volType:v11 residency:v9 urgency:0 state:0 create:1];
+  [v16 adjElemWithNumOfPristine:pristine sizeOfPristine:ofPristine numOfClearedPristine:v25[3] sizeOfClearedPristine:v21[3] numOfEvents:v33[3] sizeOfEvents:v29[3] numOfDays:days];
+
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 - (void)print

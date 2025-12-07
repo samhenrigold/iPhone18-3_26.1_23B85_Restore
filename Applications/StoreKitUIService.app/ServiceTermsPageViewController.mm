@@ -8,8 +8,10 @@
 - (void)_willAppearInRemoteViewController:(id)controller;
 - (void)alertProxyDidCancel:(id)cancel;
 - (void)dealloc;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewServiceDidTerminateWithError:(id)error;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ServiceTermsPageViewController
@@ -21,6 +23,33 @@
   v3.receiver = self;
   v3.super_class = ServiceTermsPageViewController;
   [(ServiceTermsPageViewController *)&v3 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  objc_initWeak(&location, self);
+  v5 = +[ServiceAlertQueue defaultQueue];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10000EEE8;
+  v11[3] = &unk_1000516D8;
+  objc_copyWeak(&v12, &location);
+  [v5 getNextAlertForClassName:@"ServiceTermsPageViewController" completionBlock:v11];
+
+  _remoteViewControllerProxy = [(ServiceTermsPageViewController *)self _remoteViewControllerProxy];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [_remoteViewControllerProxy setIdleTimerDisabled:1 forReason:v8];
+
+  _remoteViewControllerProxy2 = [(ServiceTermsPageViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy2 setDesiredHardwareButtonEvents:16];
+
+  v10.receiver = self;
+  v10.super_class = ServiceTermsPageViewController;
+  [(ServiceTermsPageViewController *)&v10 viewDidAppear:appearCopy];
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&location);
 }
 
 - (void)viewDidLoad
@@ -65,20 +94,36 @@
     goto LABEL_10;
   }
 
-  v12 = 138412290;
-  v13 = errorCopy;
-  LODWORD(v11) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v11 = 138412290;
+  v12 = errorCopy;
+  v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: View service did terminate.", &v11, 12);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v12, v11];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
 LABEL_10:
   }
 
   [(ServiceTermsPageViewController *)self _dismissClientViewController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  remoteAlertProxy = self->_remoteAlertProxy;
+  if (remoteAlertProxy)
+  {
+    [(ServiceAlertProxy *)remoteAlertProxy setDelegate:0];
+    [(ServiceAlertProxy *)self->_remoteAlertProxy invalidate];
+    v6 = self->_remoteAlertProxy;
+    self->_remoteAlertProxy = 0;
+  }
+
+  v7.receiver = self;
+  v7.super_class = ServiceTermsPageViewController;
+  [(ServiceTermsPageViewController *)&v7 viewWillDisappear:disappearCopy];
 }
 
 - (void)_willAppearInRemoteViewController:(id)controller
@@ -98,37 +143,41 @@ LABEL_10:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  LODWORD(v11) = 138412290;
-  *(&v11 + 4) = objc_opt_class();
-  v8 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v10 = 138412290;
+  v11 = objc_opt_class();
+  v8 = v11;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Alert proxy did cancel.", &v10, 12);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(ServiceTermsPageViewController *)self _dismissClientViewController];
@@ -138,7 +187,7 @@ LABEL_9:
 {
   v9 = 0u;
   v10 = 0u;
-  [(ServiceTermsPageViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   v7 = v9;
   v8 = v10;
   if (sub_10000D270(&v7, @"com.apple.ios.StoreKit.terms-page") || (v7 = v9, v8 = v10, sub_10000D270(&v7, kSSITunesStorePrivateEntitlement)))
@@ -221,53 +270,44 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = 0;
-    v8 = [(ServiceTermsPageViewController *)self _checkEntitlementsWithError:&v30];
-    v9 = v30;
+    v29 = 0;
+    v8 = [(ServiceTermsPageViewController *)self _checkEntitlementsWithError:&v29];
+    v9 = v29;
     if (v8)
     {
       underlyingViewController = self->_underlyingViewController;
-      if (underlyingViewController)
+      if (underlyingViewController || (v11 = [SKTermsPageViewController alloc], [v7 objectForKey:@"terms"], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "initWithTerms:", v12), v14 = self->_underlyingViewController, self->_underlyingViewController = v13, v14, v12, -[SKTermsPageViewController setDelegate:](self->_underlyingViewController, "setDelegate:", self), (underlyingViewController = self->_underlyingViewController) != 0))
       {
-        goto LABEL_5;
-      }
-
-      v11 = [SKTermsPageViewController alloc];
-      v12 = [v7 objectForKey:@"terms"];
-      v13 = [v11 initWithTerms:v12];
-      v14 = self->_underlyingViewController;
-      self->_underlyingViewController = v13;
-
-      [(SKTermsPageViewController *)self->_underlyingViewController setDelegate:self];
-      underlyingViewController = self->_underlyingViewController;
-      if (underlyingViewController)
-      {
-LABEL_5:
         [(ServiceTermsPageViewController *)self presentViewController:underlyingViewController animated:1 completion:0];
-LABEL_27:
+LABEL_29:
 
-        goto LABEL_28;
+        goto LABEL_30;
       }
 
-LABEL_26:
+LABEL_28:
       [(ServiceTermsPageViewController *)self _dismiss];
-      goto LABEL_27;
+      goto LABEL_29;
     }
 
     v21 = +[SSLogConfig sharedConfig];
     shouldLog = [v21 shouldLog];
     if ([v21 shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [v21 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
@@ -275,68 +315,70 @@ LABEL_26:
     if (v23)
     {
       v25 = objc_opt_class();
-      v31 = 138412290;
-      v32 = v25;
+      v30 = 138412290;
+      v31 = v25;
       v26 = v25;
-      LODWORD(v29) = 12;
-      v28 = &v31;
-      v27 = _os_log_send_and_compose_impl();
+      v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Denying terms sheet for unentitled client.", &v30, 12);
 
       if (!v27)
       {
-LABEL_25:
+LABEL_27:
 
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v27 encoding:4, &v31, v29];
+      oSLogObject = [NSString stringWithCString:v27 encoding:4];
       free(v27);
       v28 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v15 = +[SSLogConfig sharedConfig];
   shouldLog2 = [v15 shouldLog];
   if ([v15 shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v17) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v17) = shouldLog2;
   }
 
   oSLogObject2 = [v15 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
 
   if (!v17)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v31 = 138412290;
-  v32 = objc_opt_class();
-  v19 = v32;
-  LODWORD(v29) = 12;
-  v20 = _os_log_send_and_compose_impl();
+  v30 = 138412290;
+  v31 = objc_opt_class();
+  v19 = v31;
+  v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@]: Invalid alert proxy, dismissing.", &v30, 12);
 
   if (v20)
   {
-    oSLogObject2 = [NSString stringWithCString:v20 encoding:4, &v31, v29];
+    oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
     free(v20);
     SSFileLog();
-LABEL_14:
+LABEL_15:
   }
 
   [(ServiceTermsPageViewController *)self _dismiss];
-LABEL_28:
+LABEL_30:
 }
 
 @end

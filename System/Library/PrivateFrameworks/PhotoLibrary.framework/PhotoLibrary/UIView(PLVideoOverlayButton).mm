@@ -7,9 +7,9 @@
 
 + (uint64_t)pl_videoOverlayButtonSize
 {
-  v0 = [MEMORY[0x277D755B8] imageNamed:@"PLVideoOverlayBackgroundMask" inBundle:{objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class())}];
+  v2 = [MEMORY[0x277D755B8] imageNamed:@"PLVideoOverlayBackgroundMask" inBundle:{objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class())}];
 
-  return [v0 size];
+  return [v2 size];
 }
 
 + (id)pl_videoOverlayButtonWithStyle:()PLVideoOverlayButton

@@ -42,8 +42,13 @@
 - (void)lastCommunicationLimitsModificationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)requestToManageContactsForDSID:(id)d completionHandler:(id)handler;
 - (void)restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:(id)handler;
+- (void)setManageContactsEnabled:(BOOL)enabled forDSID:(id)d completionHandler:(id)handler;
 - (void)setRestrictionsPasscode:(id)passcode completionHandler:(id)handler;
+- (void)setScreenTimeEnabledForLocalUser:(BOOL)user error:(id *)error;
+- (void)setScreenTimeEnabledForRemoteUserWithDSID:(id)d enabled:(BOOL)enabled error:(id *)error;
+- (void)setScreenTimeSyncEnabled:(BOOL)enabled error:(id *)error;
 - (void)shouldRequestMoreTimeWithCompletionHandler:(id)handler;
+- (void)updateAllowFindMyFriendsModification:(BOOL)modification forDSID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation STPrivateServiceClient
@@ -98,18 +103,18 @@ void __30__STPrivateServiceClient_init__block_invoke_92()
 
 - (id)isScreenTimeEnabledForLocalUserWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__19;
-  v18 = __Block_byref_object_dispose__19;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__19;
+  v21 = __Block_byref_object_dispose__19;
+  v22 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
@@ -123,26 +128,26 @@ void __30__STPrivateServiceClient_init__block_invoke_92()
   v9[2] = __67__STPrivateServiceClient_isScreenTimeEnabledForLocalUserWithError___block_invoke_2;
   v9[3] = &unk_1E7CE6BD0;
   v9[4] = &v11;
-  v9[5] = &v14;
+  v9[5] = &v17;
   [v5 isScreenTimeEnabledForLocalUserWithCompletionHandler:v9];
-  if (!v15[5])
+  if (!v18[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient isScreenTimeEnabledForLocalUserWithError:v12];
+      [STPrivateServiceClient isScreenTimeEnabledForLocalUserWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = v15[5];
+  v7 = v18[5];
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v7;
 }
@@ -169,50 +174,50 @@ void __67__STPrivateServiceClient_isScreenTimeEnabledForLocalUserWithError___blo
 - (BOOL)isScreenTimeEnabledForRemoteUserWithDSID:(id)d error:(id *)error
 {
   dCopy = d;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = __Block_byref_object_copy__19;
-  v15[3] = __Block_byref_object_dispose__19;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__19;
+  v18 = __Block_byref_object_dispose__19;
+  v19 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __73__STPrivateServiceClient_isScreenTimeEnabledForRemoteUserWithDSID_error___block_invoke;
   v13[3] = &unk_1E7CE71C8;
   v13[4] = &v14;
-  v13[5] = &v17;
+  v13[5] = &v20;
   v8 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
 
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = __73__STPrivateServiceClient_isScreenTimeEnabledForRemoteUserWithDSID_error___block_invoke_2;
   v12[3] = &unk_1E7CE6BD0;
-  v12[4] = &v17;
+  v12[4] = &v20;
   v12[5] = &v14;
   [v8 isScreenTimeEnabledForRemoteUserWithDSID:dCopy completionHandler:v12];
-  if (*(v15[0] + 40))
+  if (v15[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient isScreenTimeEnabledForLocalUserWithError:v15];
+      [STPrivateServiceClient isScreenTimeEnabledForLocalUserWithError:];
     }
 
     if (error)
     {
-      *error = *(v15[0] + 40);
+      *error = v15[5];
     }
   }
 
-  v10 = *(v18 + 24);
+  v10 = *(v21 + 24);
 
   _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v10;
 }
@@ -237,6 +242,46 @@ void __73__STPrivateServiceClient_isScreenTimeEnabledForRemoteUserWithDSID_error
   }
 }
 
+- (void)setScreenTimeEnabledForLocalUser:(BOOL)user error:(id *)error
+{
+  userCopy = user;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
+  connection = [(STPrivateServiceClient *)self connection];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __65__STPrivateServiceClient_setScreenTimeEnabledForLocalUser_error___block_invoke;
+  v10[3] = &unk_1E7CE6BA8;
+  v10[4] = &v11;
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
+
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __65__STPrivateServiceClient_setScreenTimeEnabledForLocalUser_error___block_invoke_2;
+  v9[3] = &unk_1E7CE6BA8;
+  v9[4] = &v11;
+  [v7 setScreenTimeEnabledForLocalUser:userCopy completionHandler:v9];
+  if (v12[5])
+  {
+    v8 = +[STLog privateService];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [STPrivateServiceClient setScreenTimeEnabledForLocalUser:error:];
+    }
+
+    if (error)
+    {
+      *error = v12[5];
+    }
+  }
+
+  _Block_object_dispose(&v11, 8);
+}
+
 void __65__STPrivateServiceClient_setScreenTimeEnabledForLocalUser_error___block_invoke_2(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -246,6 +291,61 @@ void __65__STPrivateServiceClient_setScreenTimeEnabledForLocalUser_error___block
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     v4 = v5;
   }
+}
+
+- (void)setScreenTimeEnabledForRemoteUserWithDSID:(id)d enabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v28 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__19;
+  v20 = __Block_byref_object_dispose__19;
+  v21 = 0;
+  connection = [(STPrivateServiceClient *)self connection];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __82__STPrivateServiceClient_setScreenTimeEnabledForRemoteUserWithDSID_enabled_error___block_invoke;
+  v15[3] = &unk_1E7CE6BA8;
+  v15[4] = &v16;
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v15];
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __82__STPrivateServiceClient_setScreenTimeEnabledForRemoteUserWithDSID_enabled_error___block_invoke_2;
+  v14[3] = &unk_1E7CE6BA8;
+  v14[4] = &v16;
+  [v10 setScreenTimeEnabledForRemoteUserWithDSID:dCopy enabled:enabledCopy completionHandler:v14];
+  if (v17[5])
+  {
+    v11 = +[STLog privateService];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = "clearing";
+      v13 = v17[5];
+      *buf = 136315650;
+      if (enabledCopy)
+      {
+        v12 = "setting";
+      }
+
+      v23 = v12;
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2114;
+      v27 = v13;
+      _os_log_error_impl(&dword_1B831F000, v11, OS_LOG_TYPE_ERROR, "Failed %s screenTime enabled for dsid %@ with error: %{public}@", buf, 0x20u);
+    }
+
+    if (error)
+    {
+      *error = v17[5];
+    }
+  }
+
+  _Block_object_dispose(&v16, 8);
 }
 
 void __82__STPrivateServiceClient_setScreenTimeEnabledForRemoteUserWithDSID_enabled_error___block_invoke_2(uint64_t a1, void *a2)
@@ -263,11 +363,11 @@ void __82__STPrivateServiceClient_setScreenTimeEnabledForRemoteUserWithDSID_enab
 {
   dCopy = d;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__19;
-  v13[3] = __Block_byref_object_dispose__19;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__19;
+  v16 = __Block_byref_object_dispose__19;
+  v17 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
@@ -282,17 +382,17 @@ void __82__STPrivateServiceClient_setScreenTimeEnabledForRemoteUserWithDSID_enab
   v10[3] = &unk_1E7CE6BA8;
   v10[4] = &v12;
   [v8 enableRemoteManagementForDSID:dCopy completionHandler:v10];
-  if (*(v13[0] + 40))
+  if (v13[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient enableRemoteManagementForDSID:dCopy error:v13];
+      [STPrivateServiceClient enableRemoteManagementForDSID:error:];
     }
 
     if (error)
     {
-      *error = *(v13[0] + 40);
+      *error = v13[5];
     }
   }
 
@@ -312,50 +412,50 @@ void __62__STPrivateServiceClient_enableRemoteManagementForDSID_error___block_in
 
 - (BOOL)isScreenTimeSyncEnabledWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __59__STPrivateServiceClient_isScreenTimeSyncEnabledWithError___block_invoke;
   v10[3] = &unk_1E7CE71C8;
   v10[4] = &v11;
-  v10[5] = &v14;
+  v10[5] = &v17;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __59__STPrivateServiceClient_isScreenTimeSyncEnabledWithError___block_invoke_2;
   v9[3] = &unk_1E7CE6BD0;
-  v9[4] = &v14;
+  v9[4] = &v17;
   v9[5] = &v11;
   [v5 isScreenTimeSyncEnabledWithCompletionHandler:v9];
-  if (*(v12[0] + 40))
+  if (v12[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient isScreenTimeSyncEnabledWithError:v12];
+      [STPrivateServiceClient isScreenTimeSyncEnabledWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = *(v15 + 24);
+  v7 = *(v18 + 24);
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
@@ -405,6 +505,46 @@ uint64_t __71__STPrivateServiceClient_isScreenTimeSyncEnabledWithCompletionHandl
   return result;
 }
 
+- (void)setScreenTimeSyncEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
+  connection = [(STPrivateServiceClient *)self connection];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __57__STPrivateServiceClient_setScreenTimeSyncEnabled_error___block_invoke;
+  v10[3] = &unk_1E7CE6BA8;
+  v10[4] = &v11;
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
+
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __57__STPrivateServiceClient_setScreenTimeSyncEnabled_error___block_invoke_2;
+  v9[3] = &unk_1E7CE6BA8;
+  v9[4] = &v11;
+  [v7 setScreenTimeSyncEnabled:enabledCopy completionHandler:v9];
+  if (v12[5])
+  {
+    v8 = +[STLog privateService];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [STPrivateServiceClient setScreenTimeSyncEnabled:error:];
+    }
+
+    if (error)
+    {
+      *error = v12[5];
+    }
+  }
+
+  _Block_object_dispose(&v11, 8);
+}
+
 void __57__STPrivateServiceClient_setScreenTimeSyncEnabled_error___block_invoke_2(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -418,50 +558,50 @@ void __57__STPrivateServiceClient_setScreenTimeSyncEnabled_error___block_invoke_
 
 - (BOOL)shouldRequestMoreTimeWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __57__STPrivateServiceClient_shouldRequestMoreTimeWithError___block_invoke;
   v10[3] = &unk_1E7CE71C8;
   v10[4] = &v11;
-  v10[5] = &v14;
+  v10[5] = &v17;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __57__STPrivateServiceClient_shouldRequestMoreTimeWithError___block_invoke_2;
   v9[3] = &unk_1E7CE6BD0;
-  v9[4] = &v14;
+  v9[4] = &v17;
   v9[5] = &v11;
   [v5 shouldRequestMoreTimeWithCompletionHandler:v9];
-  if (*(v12[0] + 40))
+  if (v12[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient shouldRequestMoreTimeWithError:v12];
+      [STPrivateServiceClient shouldRequestMoreTimeWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = *(v15 + 24);
+  v7 = *(v18 + 24);
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
@@ -544,50 +684,50 @@ void __69__STPrivateServiceClient_shouldRequestMoreTimeWithCompletionHandler___b
 - (BOOL)isContentPrivacyEnabledForDSID:(id)d error:(id *)error
 {
   dCopy = d;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = __Block_byref_object_copy__19;
-  v15[3] = __Block_byref_object_dispose__19;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__19;
+  v18 = __Block_byref_object_dispose__19;
+  v19 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __63__STPrivateServiceClient_isContentPrivacyEnabledForDSID_error___block_invoke;
   v13[3] = &unk_1E7CE71C8;
   v13[4] = &v14;
-  v13[5] = &v17;
+  v13[5] = &v20;
   v8 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
 
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = __63__STPrivateServiceClient_isContentPrivacyEnabledForDSID_error___block_invoke_2;
   v12[3] = &unk_1E7CE6BD0;
-  v12[4] = &v17;
+  v12[4] = &v20;
   v12[5] = &v14;
   [v8 isContentPrivacyEnabledForDSID:dCopy completionHandler:v12];
-  if (*(v15[0] + 40))
+  if (v15[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient isContentPrivacyEnabledForDSID:dCopy error:v15];
+      [STPrivateServiceClient isContentPrivacyEnabledForDSID:error:];
     }
 
     if (error)
     {
-      *error = *(v15[0] + 40);
+      *error = v15[5];
     }
   }
 
-  v10 = *(v18 + 24);
+  v10 = *(v21 + 24);
 
   _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v10;
 }
@@ -614,23 +754,23 @@ void __63__STPrivateServiceClient_isContentPrivacyEnabledForDSID_error___block_i
 
 - (BOOL)clearRestrictionsPasscodeWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __61__STPrivateServiceClient_clearRestrictionsPasscodeWithError___block_invoke;
   v10[3] = &unk_1E7CE71C8;
   v10[4] = &v11;
-  v10[5] = &v14;
+  v10[5] = &v17;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -638,26 +778,26 @@ void __63__STPrivateServiceClient_isContentPrivacyEnabledForDSID_error___block_i
   v9[2] = __61__STPrivateServiceClient_clearRestrictionsPasscodeWithError___block_invoke_2;
   v9[3] = &unk_1E7CE71C8;
   v9[4] = &v11;
-  v9[5] = &v14;
+  v9[5] = &v17;
   [v5 clearRestrictionsPasscodeWithCompletionHandler:v9];
-  if (*(v12[0] + 40))
+  if (v12[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient clearRestrictionsPasscodeWithError:v12];
+      [STPrivateServiceClient clearRestrictionsPasscodeWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = *(v15 + 24);
+  v7 = *(v18 + 24);
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
@@ -682,23 +822,23 @@ void __61__STPrivateServiceClient_clearRestrictionsPasscodeWithError___block_inv
 
 - (BOOL)isRestrictionsPasscodeSetWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __61__STPrivateServiceClient_isRestrictionsPasscodeSetWithError___block_invoke;
   v10[3] = &unk_1E7CE71C8;
   v10[4] = &v11;
-  v10[5] = &v14;
+  v10[5] = &v17;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -706,26 +846,26 @@ void __61__STPrivateServiceClient_clearRestrictionsPasscodeWithError___block_inv
   v9[2] = __61__STPrivateServiceClient_isRestrictionsPasscodeSetWithError___block_invoke_2;
   v9[3] = &unk_1E7CE6BD0;
   v9[4] = &v11;
-  v9[5] = &v14;
+  v9[5] = &v17;
   [v5 isRestrictionsPasscodeSetWithCompletionHandler:v9];
-  if (*(v12[0] + 40))
+  if (v12[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient clearRestrictionsPasscodeWithError:v12];
+      [STPrivateServiceClient clearRestrictionsPasscodeWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = *(v15 + 24);
+  v7 = *(v18 + 24);
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
@@ -808,23 +948,23 @@ void __73__STPrivateServiceClient_isRestrictionsPasscodeSetWithCompletionHandler
 
 - (BOOL)needsToSetRestrictionsPasscodeWithError:(id *)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__19;
-  v12[3] = __Block_byref_object_dispose__19;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__19;
+  v15 = __Block_byref_object_dispose__19;
+  v16 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __66__STPrivateServiceClient_needsToSetRestrictionsPasscodeWithError___block_invoke;
   v10[3] = &unk_1E7CE71C8;
   v10[4] = &v11;
-  v10[5] = &v14;
+  v10[5] = &v17;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v10];
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -832,26 +972,26 @@ void __73__STPrivateServiceClient_isRestrictionsPasscodeSetWithCompletionHandler
   v9[2] = __66__STPrivateServiceClient_needsToSetRestrictionsPasscodeWithError___block_invoke_2;
   v9[3] = &unk_1E7CE6BD0;
   v9[4] = &v11;
-  v9[5] = &v14;
+  v9[5] = &v17;
   [v5 needsToSetRestrictionsPasscodeWithCompletionHandler:v9];
-  if (*(v12[0] + 40))
+  if (v12[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient needsToSetRestrictionsPasscodeWithError:v12];
+      [STPrivateServiceClient needsToSetRestrictionsPasscodeWithError:];
     }
 
     if (error)
     {
-      *error = *(v12[0] + 40);
+      *error = v12[5];
     }
   }
 
-  v7 = *(v15 + 24);
+  v7 = *(v18 + 24);
 
   _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
@@ -1003,11 +1143,11 @@ void __69__STPrivateServiceClient_communicationPoliciesWithCompletionHandler___b
 - (id)communicationPoliciesWithError:(id *)error
 {
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__19;
-  v18[3] = __Block_byref_object_dispose__19;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__19;
+  v21 = __Block_byref_object_dispose__19;
+  v22 = 0;
   v11 = 0;
   v12 = &v11;
   v13 = 0x3032000000;
@@ -1029,17 +1169,17 @@ void __69__STPrivateServiceClient_communicationPoliciesWithCompletionHandler___b
   v9[4] = &v17;
   v9[5] = &v11;
   [v5 fetchCommunicationPoliciesWithCompletionHandler:v9];
-  if (*(v18[0] + 40))
+  if (v18[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient communicationPoliciesWithError:v18];
+      [STPrivateServiceClient communicationPoliciesWithError:];
     }
 
     if (error)
     {
-      *error = *(v18[0] + 40);
+      *error = v18[5];
     }
   }
 
@@ -1053,7 +1193,7 @@ void __69__STPrivateServiceClient_communicationPoliciesWithCompletionHandler___b
 
 void __57__STPrivateServiceClient_communicationPoliciesWithError___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v8 = a4;
   if (v8)
   {
@@ -1062,19 +1202,34 @@ void __57__STPrivateServiceClient_communicationPoliciesWithError___block_invoke_
 
   else
   {
-    v15[0] = @"STCommunicationPolicyKey";
+    v14[0] = @"STCommunicationPolicyKey";
     v9 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
-    v15[1] = @"STCommunicationWhileLimitedPolicyKey";
-    v16[0] = v9;
+    v14[1] = @"STCommunicationWhileLimitedPolicyKey";
+    v15[0] = v9;
     v10 = [MEMORY[0x1E696AD98] numberWithLongLong:a3];
-    v16[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v15[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     v12 = *(*(a1 + 40) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v11;
   }
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)setManageContactsEnabled:(BOOL)enabled forDSID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  dCopy = d;
+  connection = [(STPrivateServiceClient *)self connection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __77__STPrivateServiceClient_setManageContactsEnabled_forDSID_completionHandler___block_invoke;
+  v13[3] = &unk_1E7CE6CE8;
+  v14 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v13];
+
+  [v12 setManageContactsEnabled:enabledCopy forDSID:dCopy completionHandler:v11];
 }
 
 void __77__STPrivateServiceClient_setManageContactsEnabled_forDSID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1117,7 +1272,7 @@ void __75__STPrivateServiceClient_requestToManageContactsForDSID_completionHandl
   v4 = +[STLog privateService];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __75__STPrivateServiceClient_requestToManageContactsForDSID_completionHandler___block_invoke_cold_1(a1);
+    __75__STPrivateServiceClient_requestToManageContactsForDSID_completionHandler___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -1151,7 +1306,7 @@ void __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionH
   v4 = +[STLog privateService];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionHandler___block_invoke_cold_1(a1);
+    __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionHandler___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -1164,11 +1319,11 @@ void __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionH
 - (id)primaryiCloudCardDAVAccountIdentifierWithError:(id *)error
 {
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy__19;
-  v19[3] = __Block_byref_object_dispose__19;
-  v20 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__19;
+  v22 = __Block_byref_object_dispose__19;
+  v23 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
@@ -1177,18 +1332,18 @@ void __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionH
   v17[4] = &v18;
   v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v17];
 
-  if (*(v19[0] + 40))
+  if (v19[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:v19];
+      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:];
     }
 
     v7 = 0;
     if (error)
     {
-      *error = *(v19[0] + 40);
+      *error = v19[5];
     }
   }
 
@@ -1207,17 +1362,17 @@ void __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionH
     v10[4] = &v18;
     v10[5] = &v11;
     [v5 primaryiCloudCardDAVAccountIdentifierWithCompletionHandler:v10];
-    if (*(v19[0] + 40))
+    if (v19[5])
     {
       v8 = +[STLog privateService];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [STPrivateServiceClient primaryiCloudCardDAVAccountIdentifierWithError:v19];
+        [STPrivateServiceClient primaryiCloudCardDAVAccountIdentifierWithError:];
       }
 
       if (error)
       {
-        *error = *(v19[0] + 40);
+        *error = v19[5];
       }
     }
 
@@ -1243,11 +1398,11 @@ void __73__STPrivateServiceClient_primaryiCloudCardDAVAccountIdentifierWithError
 - (BOOL)contactsEditable
 {
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = __Block_byref_object_copy__19;
-  v14[3] = __Block_byref_object_dispose__19;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__19;
+  v17 = __Block_byref_object_dispose__19;
+  v18 = 0;
   v9 = 0;
   v10 = &v9;
   v11 = 0x2020000000;
@@ -1260,12 +1415,12 @@ void __73__STPrivateServiceClient_primaryiCloudCardDAVAccountIdentifierWithError
   v8[4] = &v13;
   v3 = [connection synchronousRemoteObjectProxyWithErrorHandler:v8];
 
-  if (*(v14[0] + 40))
+  if (v14[5])
   {
     v4 = +[STLog privateService];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(STPrivateServiceClient *)v14 contactsEditable];
+      [STPrivateServiceClient contactsEditable];
     }
   }
 
@@ -1332,11 +1487,11 @@ void __91__STPrivateServiceClient_lastCommunicationLimitsModificationDateForDSID
 - (void)applyDefaultUserPoliciesWithError:(id *)error
 {
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = __Block_byref_object_copy__19;
-  v10[3] = __Block_byref_object_dispose__19;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__19;
+  v13 = __Block_byref_object_dispose__19;
+  v14 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
@@ -1351,17 +1506,17 @@ void __91__STPrivateServiceClient_lastCommunicationLimitsModificationDateForDSID
   v7[3] = &unk_1E7CE6BA8;
   v7[4] = &v9;
   [v5 applyDefaultUserPoliciesWithCompletionHandler:v7];
-  if (*(v10[0] + 40))
+  if (v10[5])
   {
     v6 = +[STLog privateService];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient applyDefaultUserPoliciesWithError:v10];
+      [STPrivateServiceClient applyDefaultUserPoliciesWithError:];
     }
 
     if (error)
     {
-      *error = *(v10[0] + 40);
+      *error = v10[5];
     }
   }
 
@@ -1373,11 +1528,11 @@ void __91__STPrivateServiceClient_lastCommunicationLimitsModificationDateForDSID
   lCopy = l;
   titleCopy = title;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__19;
-  v18[3] = __Block_byref_object_dispose__19;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__19;
+  v21 = __Block_byref_object_dispose__19;
+  v22 = 0;
   connection = [(STPrivateServiceClient *)self connection];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
@@ -1392,18 +1547,18 @@ void __91__STPrivateServiceClient_lastCommunicationLimitsModificationDateForDSID
   v15[3] = &unk_1E7CE6BA8;
   v15[4] = &v17;
   [v11 permitWebFilterURL:lCopy pageTitle:titleCopy completionHandler:v15];
-  v12 = *(v18[0] + 40);
+  v12 = v18[5];
   if (v12)
   {
     v13 = +[STLog privateService];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient permitWebFilterURL:v18 pageTitle:? error:?];
+      [STPrivateServiceClient permitWebFilterURL:pageTitle:error:];
     }
 
     if (error)
     {
-      *error = *(v18[0] + 40);
+      *error = v18[5];
     }
   }
 
@@ -1542,6 +1697,23 @@ void __87__STPrivateServiceClient_isAllowFindMyFriendsModificationSetForDSID_com
   }
 }
 
+- (void)updateAllowFindMyFriendsModification:(BOOL)modification forDSID:(id)d completionHandler:(id)handler
+{
+  modificationCopy = modification;
+  handlerCopy = handler;
+  dCopy = d;
+  connection = [(STPrivateServiceClient *)self connection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __89__STPrivateServiceClient_updateAllowFindMyFriendsModification_forDSID_completionHandler___block_invoke;
+  v13[3] = &unk_1E7CE6CE8;
+  v14 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v13];
+
+  [v12 updateAllowFindMyFriendsModification:modificationCopy forDSID:dCopy completionHandler:v11];
+}
+
 void __89__STPrivateServiceClient_updateAllowFindMyFriendsModification_forDSID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1562,11 +1734,11 @@ void __89__STPrivateServiceClient_updateAllowFindMyFriendsModification_forDSID_c
 {
   identifierCopy = identifier;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = __Block_byref_object_copy__19;
-  v21[3] = __Block_byref_object_dispose__19;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__19;
+  v24 = __Block_byref_object_dispose__19;
+  v25 = 0;
   v14 = 0;
   v15 = &v14;
   v16 = 0x3032000000;
@@ -1588,17 +1760,17 @@ void __89__STPrivateServiceClient_updateAllowFindMyFriendsModification_forDSID_c
   v12[4] = &v20;
   v12[5] = &v14;
   [v8 shouldAllowOneMoreMinuteForBundleIdentifier:identifierCopy completionHandler:v12];
-  if (*(v21[0] + 40))
+  if (v21[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient shouldAllowOneMoreMinuteForBundleIdentifier:v21 error:?];
+      [STPrivateServiceClient shouldAllowOneMoreMinuteForBundleIdentifier:error:];
     }
 
     if (error)
     {
-      *error = *(v21[0] + 40);
+      *error = v21[5];
     }
   }
 
@@ -1624,11 +1796,11 @@ void __76__STPrivateServiceClient_shouldAllowOneMoreMinuteForBundleIdentifier_er
 {
   domainCopy = domain;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = __Block_byref_object_copy__19;
-  v21[3] = __Block_byref_object_dispose__19;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__19;
+  v24 = __Block_byref_object_dispose__19;
+  v25 = 0;
   v14 = 0;
   v15 = &v14;
   v16 = 0x3032000000;
@@ -1650,17 +1822,17 @@ void __76__STPrivateServiceClient_shouldAllowOneMoreMinuteForBundleIdentifier_er
   v12[4] = &v20;
   v12[5] = &v14;
   [v8 shouldAllowOneMoreMinuteForBundleIdentifier:domainCopy completionHandler:v12];
-  if (*(v21[0] + 40))
+  if (v21[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient shouldAllowOneMoreMinuteForWebDomain:v21 error:?];
+      [STPrivateServiceClient shouldAllowOneMoreMinuteForWebDomain:error:];
     }
 
     if (error)
     {
-      *error = *(v21[0] + 40);
+      *error = v21[5];
     }
   }
 
@@ -1686,11 +1858,11 @@ void __69__STPrivateServiceClient_shouldAllowOneMoreMinuteForWebDomain_error___b
 {
   identifierCopy = identifier;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = __Block_byref_object_copy__19;
-  v21[3] = __Block_byref_object_dispose__19;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__19;
+  v24 = __Block_byref_object_dispose__19;
+  v25 = 0;
   v14 = 0;
   v15 = &v14;
   v16 = 0x3032000000;
@@ -1712,17 +1884,17 @@ void __69__STPrivateServiceClient_shouldAllowOneMoreMinuteForWebDomain_error___b
   v12[4] = &v20;
   v12[5] = &v14;
   [v8 shouldAllowOneMoreMinuteForBundleIdentifier:identifierCopy completionHandler:v12];
-  if (*(v21[0] + 40))
+  if (v21[5])
   {
     v9 = +[STLog privateService];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [STPrivateServiceClient shouldAllowOneMoreMinuteForCategoryIdentifier:v21 error:?];
+      [STPrivateServiceClient shouldAllowOneMoreMinuteForCategoryIdentifier:error:];
     }
 
     if (error)
     {
-      *error = *(v21[0] + 40);
+      *error = v21[5];
     }
   }
 
@@ -2108,282 +2280,95 @@ void __96__STPrivateServiceClient_deleteAllWebHistoryForApplication_profileIdent
   }
 }
 
-- (void)isScreenTimeEnabledForLocalUserWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)isScreenTimeEnabledForLocalUserWithError:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed checking screenTime enabled with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed checking screenTime enabled with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)setScreenTimeEnabledForLocalUser:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
+- (void)isScreenTimeSyncEnabledWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "Failed %s screenTime enabled with error: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)enableRemoteManagementForDSID:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "Failed enabling RemoteManagement for dsid %@ with error: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isScreenTimeSyncEnabledWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed checking if cloud sync is enabled with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed checking if cloud sync is enabled with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)setScreenTimeSyncEnabled:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
+- (void)shouldRequestMoreTimeWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "Failed %s cloud sync enabled with error: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)shouldRequestMoreTimeWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed checking if user should request more time with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed checking if user should request more time with error: %{public}@", v2, v3, v4, v5);
 }
 
-void __69__STPrivateServiceClient_shouldRequestMoreTimeWithCompletionHandler___block_invoke_cold_1()
+- (void)clearRestrictionsPasscodeWithError:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed checking if user should request more time with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isContentPrivacyEnabledForDSID:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "Failed checking if content privacy is enabled for user %@ with error: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clearRestrictionsPasscodeWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed clearing restrictions passcode with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed clearing restrictions passcode with error: %{public}@", v2, v3, v4, v5);
 }
 
-void __73__STPrivateServiceClient_isRestrictionsPasscodeSetWithCompletionHandler___block_invoke_cold_1()
+- (void)needsToSetRestrictionsPasscodeWithError:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to get proxy with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__STPrivateServiceClient_isRestrictionsPasscodeSetWithCompletionHandler___block_invoke_103_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to check if restrictions passcode is set with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)needsToSetRestrictionsPasscodeWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to get needsToSetRestrictionsPasscode with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to get needsToSetRestrictionsPasscode with error: %{public}@", v2, v3, v4, v5);
 }
 
-void __68__STPrivateServiceClient_setRestrictionsPasscode_completionHandler___block_invoke_cold_1()
+- (void)communicationPoliciesWithError:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to update passcode with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __77__STPrivateServiceClient_authenticateRestrictionsPasscode_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to authenticate passcode with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __99__STPrivateServiceClient_restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch private service proxy with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)communicationPoliciesWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to fetch Communication Policies with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch Communication Policies with error: %{public}@", v2, v3, v4, v5);
 }
 
-void __77__STPrivateServiceClient_setManageContactsEnabled_forDSID_completionHandler___block_invoke_cold_1()
+- (void)primaryiCloudCardDAVAccountIdentifierWithError:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to set manageContactsEnabled with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__STPrivateServiceClient_requestToManageContactsForDSID_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v2, v3, "Failed to request to manage contacts for DSID %@ with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __79__STPrivateServiceClient_fetchContactManagementStateForDSID_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v2, v3, "Failed to get contactManagementState for DSID %@ with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)primaryiCloudCardDAVAccountIdentifierWithError:(uint64_t)a1 .cold.2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to fetch primary icloud DAV Account Identifier with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch primary icloud DAV Account Identifier with error: %{public}@", v2, v3, v4, v5);
 }
 
 - (void)contactsEditable
 {
-  OUTLINED_FUNCTION_0_4(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to get private service proxy with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to get private service proxy with error: %{public}@", v2, v3, v4, v5);
 }
 
-void __42__STPrivateServiceClient_contactsEditable__block_invoke_108_cold_1()
+- (void)applyDefaultUserPoliciesWithError:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch contactsEditable with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __91__STPrivateServiceClient_lastCommunicationLimitsModificationDateForDSID_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to get private service proxy with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applyDefaultUserPoliciesWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Applying default user policies failed with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Applying default user policies failed with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)permitWebFilterURL:(uint64_t)a1 pageTitle:error:.cold.1(uint64_t a1)
+- (void)permitWebFilterURL:pageTitle:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Allowing a page through web content filter in safari failed with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Allowing a page through web content filter in safari failed with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)shouldAllowOneMoreMinuteForBundleIdentifier:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)shouldAllowOneMoreMinuteForBundleIdentifier:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "shouldAllowOneMoreMinuteForBundleIdentifier failed with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "shouldAllowOneMoreMinuteForBundleIdentifier failed with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)shouldAllowOneMoreMinuteForWebDomain:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)shouldAllowOneMoreMinuteForWebDomain:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "shouldAllowOneMoreMinuteForWebDomain failed with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "shouldAllowOneMoreMinuteForWebDomain failed with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)shouldAllowOneMoreMinuteForCategoryIdentifier:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)shouldAllowOneMoreMinuteForCategoryIdentifier:error:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "shouldAllowOneMoreMinuteForCategoryIdentifier failed with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __64__STPrivateServiceClient_forceFamilyFetchWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "forceFamilyFetchWithCompletionHandler failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __79__STPrivateServiceClient_deleteWebHistoryForURL_application_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "deleteWebHistoryForURL failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __80__STPrivateServiceClient_deleteWebHistoryForURLs_application_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "deleteWebHistoryForURLs failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __82__STPrivateServiceClient_deleteWebHistoryForDomain_application_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "deleteWebHistoryForDomain failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __87__STPrivateServiceClient_deleteWebHistoryDuringInterval_application_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "deleteWebHistoryDuringInterval failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__STPrivateServiceClient_deleteAllWebHistoryForApplication_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "deleteAllWebHistoryForApplication failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "shouldAllowOneMoreMinuteForCategoryIdentifier failed with error: %{public}@", v2, v3, v4, v5);
 }
 
 @end

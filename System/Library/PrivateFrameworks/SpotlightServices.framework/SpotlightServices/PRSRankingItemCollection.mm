@@ -13,7 +13,7 @@
   bundleIdentifier = [(PRSRankingItemCollection *)self bundleIdentifier];
   countOfVisibleResults = [(PRSRankingItemCollection *)self countOfVisibleResults];
   arrayOfRankingItems = [(PRSRankingItemCollection *)self arrayOfRankingItems];
-  v8 = [v3 stringWithFormat:@"%@ %@ visible:%llu items:%llu", v4, bundleIdentifier, countOfVisibleResults, objc_msgSend(arrayOfRankingItems, "count")];
+  v8 = [v3 stringWithFormat:@"%@ %@ visible:%llu items:%llu", v4, bundleIdentifier, countOfVisibleResults, objc_msgSend_count(arrayOfRankingItems)];
 
   return v8;
 }

@@ -24,21 +24,18 @@
 
 - (void)handleDatabaseObliteration
 {
-  v5[1] = *MEMORY[0x29EDCA608];
+  v4[1] = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29EDB8E78];
-  v5[0] = *MEMORY[0x29EDBA988];
-  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x29EDBA988];
+  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v4 count:1];
   [v2 hk_deleteDomainsNamed:v3];
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 - (id)taskServerClasses
 {
-  v5[1] = *MEMORY[0x29EDCA608];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x29EDCA608];
+  v4[1] = *MEMORY[0x29EDCA608];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v4 count:1];
 
   return v2;
 }

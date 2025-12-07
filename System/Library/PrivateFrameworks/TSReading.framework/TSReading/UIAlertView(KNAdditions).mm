@@ -7,7 +7,7 @@
 
 - (void)initWithError:()KNAdditions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   localizedRecoverySuggestion = [a3 localizedRecoverySuggestion];
   if (!localizedRecoverySuggestion)
   {
@@ -16,39 +16,39 @@
 
   v6 = [self initWithTitle:objc_msgSend(a3 message:"localizedDescription") delegate:localizedRecoverySuggestion cancelButtonTitle:0 otherButtonTitles:{0, 0}];
   localizedRecoveryOptions = [a3 localizedRecoveryOptions];
-  if (localizedRecoveryOptions && (v8 = localizedRecoveryOptions, [localizedRecoveryOptions count]))
+  if (localizedRecoveryOptions && (v9 = localizedRecoveryOptions, (localizedRecoveryOptions = [localizedRecoveryOptions count]) != 0))
   {
-    v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v9)
+    v16 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v15;
+      v11 = v10;
+      v12 = *v16;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v15 != v11)
+          if (*v16 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          [v6 addButtonWithTitle:*(*(&v14 + 1) + 8 * i)];
+          [v6 addButtonWithTitle:*(*(&v15 + 1) + 8 * i)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
   }
 
   else
   {
-    [v6 addButtonWithTitle:{objc_msgSend(TSKBundle(), "localizedStringForKey:value:table:", @"OK", &stru_287D36338, @"TSKit"}];
+    [v6 addButtonWithTitle:{objc_msgSend(TSKBundle(localizedRecoveryOptions, v8), "localizedStringForKey:value:table:", @"OK", &stru_287D36338, @"TSKit"}];
   }
 
   return v6;

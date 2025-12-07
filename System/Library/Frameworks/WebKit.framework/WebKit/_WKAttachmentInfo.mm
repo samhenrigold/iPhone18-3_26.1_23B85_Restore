@@ -5,8 +5,8 @@
 - (NSString)name;
 - (_WKAttachmentInfo)initWithAttachment:(const void *)attachment;
 - (id).cxx_construct;
-- (uint64_t)data;
-- (uint64_t)name;
+- (void)data;
+- (void)name;
 @end
 
 @implementation _WKAttachmentInfo
@@ -141,41 +141,41 @@
 
 - (NSData)data
 {
-  v6 = 0;
+  v7 = 0;
   m_ptr = self->_attachment.m_ptr;
-  v3 = WTF::fastMalloc(0x10);
-  *v3 = &unk_1F10FAF68;
-  v3[1] = &v6;
-  v5 = v3;
-  API::Attachment::doWithFileWrapper(m_ptr, &v5);
-  (*(*v3 + 8))(v3);
-  return v6;
+  v4 = WTF::fastMalloc(v2, 0x10);
+  *v4 = &unk_1F10FAF68;
+  v4[1] = &v7;
+  v6 = v4;
+  API::Attachment::doWithFileWrapper(m_ptr, &v6);
+  (*(*v4 + 8))(v4);
+  return v7;
 }
 
 - (NSString)name
 {
-  v6 = 0;
+  v7 = 0;
   m_ptr = self->_attachment.m_ptr;
-  v3 = WTF::fastMalloc(0x10);
-  *v3 = &unk_1F10FAF90;
-  v3[1] = &v6;
-  v5 = v3;
-  API::Attachment::doWithFileWrapper(m_ptr, &v5);
-  (*(*v3 + 8))(v3);
-  return v6;
+  v4 = WTF::fastMalloc(v2, 0x10);
+  *v4 = &unk_1F10FAF90;
+  v4[1] = &v7;
+  v6 = v4;
+  API::Attachment::doWithFileWrapper(m_ptr, &v6);
+  (*(*v4 + 8))(v4);
+  return v7;
 }
 
 - (NSFileWrapper)fileWrapper
 {
-  v6 = 0;
+  v7 = 0;
   m_ptr = self->_attachment.m_ptr;
-  v3 = WTF::fastMalloc(0x10);
-  *v3 = &unk_1F10FAFB8;
-  v3[1] = &v6;
-  v5 = v3;
-  API::Attachment::doWithFileWrapper(m_ptr, &v5);
-  (*(*v3 + 8))(v3);
-  return v6;
+  v4 = WTF::fastMalloc(v2, 0x10);
+  *v4 = &unk_1F10FAFB8;
+  v4[1] = &v7;
+  v6 = v4;
+  API::Attachment::doWithFileWrapper(m_ptr, &v6);
+  (*(*v4 + 8))(v4);
+  return v7;
 }
 
 - (NSString)contentType
@@ -197,7 +197,7 @@
   return self;
 }
 
-- (uint64_t)data
+- (void)data
 {
   if ([a2 isRegularFile])
   {
@@ -213,7 +213,7 @@
   return result;
 }
 
-- (uint64_t)name
+- (void)name
 {
   if ([objc_msgSend(a2 "filename")])
   {

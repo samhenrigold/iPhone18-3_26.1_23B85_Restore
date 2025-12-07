@@ -37,16 +37,16 @@ void __71___UITextInputSessionMetaAccumulator_accumulatorWithName_accumulators__
   }
 }
 
-void __58___UITextInputSessionMetaAccumulator_increaseWithActions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __58___UITextInputSessionMetaAccumulator_increaseWithActions___block_invoke(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v11 = a2;
   if ([v11 depthRange] <= *(a1 + 56) && objc_msgSend(v11, "_increaseWithActions:", *(a1 + 32)))
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     v7 = *(a1 + 40);
-    if (*(v7 + 128) + 1 == a3)
+    if ((*(v7 + 128) + 1) == a3)
     {
-      v8 = [*(v7 + 120) count] - 1;
+      v8 = ([*(v7 + 120) count] - 1);
       v9 = *(a1 + 40);
       if (v8 == a3)
       {

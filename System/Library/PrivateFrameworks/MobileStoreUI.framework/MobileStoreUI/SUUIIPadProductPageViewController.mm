@@ -478,14 +478,14 @@ SUUIStorePageViewController *__72__SUUIIPadProductPageViewController_productPage
 {
   if (!self->_bannerText)
   {
-    v5 = SUUIAskPermissionFramework();
+    v5 = SUUIAskPermissionFramework(self, a2);
     v6 = SUUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v5);
-    v7 = SUUIAskPermissionFramework();
-    v8 = *SUUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v7);
-    v10 = [v6 _requestQueueForIdentifier:v8];
+    v8 = SUUIAskPermissionFramework(v6, v7);
+    v9 = *SUUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v8);
+    v11 = [v6 _requestQueueForIdentifier:v9];
     itemIdentifier = [(SUUIItem *)self->_item itemIdentifier];
 
-    [v10 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:0];
+    [v11 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:0];
   }
 }
 
@@ -796,7 +796,7 @@ LABEL_12:
   }
 
   domain = [errorCopy domain];
-  if ([domain isEqualToString:@"SUUIErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     code = [errorCopy code];
 

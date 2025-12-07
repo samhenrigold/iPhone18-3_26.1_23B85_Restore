@@ -1,5 +1,7 @@
 @interface GDXPCInternalService
+- (BOOL)behaviorUnderstandingClearAllDataWithShouldClearFeaturizer:(BOOL)featurizer shouldClearSampleGenerator:(BOOL)generator error:(id *)error;
 - (BOOL)behaviorUnderstandingClearEntityTaggingInjectedTagsWithError:(id *)error;
+- (BOOL)behaviorUnderstandingDigestWithShouldDigestFeaturizer:(BOOL)featurizer shouldDigestSampleGenerator:(BOOL)generator error:(id *)error;
 - (BOOL)behaviorUnderstandingInjectTagForPersonID:(id)d tagType:(id)type confidence:(double)confidence error:(id *)error;
 - (BOOL)behaviorUnderstandingMockEntityRelevanceContextWithDate:(id)date error:(id *)error;
 - (BOOL)benchmarkWithError:(id *)error;
@@ -19,6 +21,8 @@
 - (id)contextDataForSource:(id)source startDate:(id)date endDate:(id)endDate error:(id *)error;
 - (id)featureKeysWithError:(id *)error;
 - (id)generateActivityCentricLifeEventsFromStartDate:(id)date toEndDate:(id)endDate error:(id *)error;
+- (id)photosMetadataWithStartDate:(id)date endDate:(id)endDate maxEvents:(int64_t)events newestFirst:(BOOL)first error:(id *)error;
+- (id)resolveEntityWithRequest:(id)request enableSessionLogging:(BOOL)logging configName:(id)name encodedConfig:(id)config withError:(id *)error;
 - (id)statsWithError:(id *)error;
 - (id)statusWithError:(id *)error;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
@@ -85,58 +89,56 @@
 
 - (id)viewSqlWithName:(id)name statement:(id)statement error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   statementCopy = statement;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_1ABF14434;
-  v31 = sub_1ABF14444;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1ABF14434;
-  v25 = sub_1ABF14444;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1ABF14434;
+  v30 = sub_1ABF14444;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1ABF14434;
+  v24 = sub_1ABF14444;
+  v25 = 0;
   v10 = GDXPCLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = nameCopy;
+    v33 = nameCopy;
     _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: viewSql called [name=%@].", buf, 0xCu);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1ABF1484C;
-  v18[3] = &unk_1E79626B8;
-  v11 = nameCopy;
-  v19 = v11;
-  v20 = &v21;
-  v12 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = sub_1ABF14928;
-  v17[3] = &unk_1E79627E8;
-  v17[4] = &v27;
-  v17[5] = &v21;
-  [v12 viewSqlWithName:v11 statement:statementCopy completion:v17];
+  v17[2] = sub_1ABF1484C;
+  v17[3] = &unk_1E79626B8;
+  v11 = nameCopy;
+  v18 = v11;
+  v19 = &v20;
+  v12 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF14928;
+  v16[3] = &unk_1E79627E8;
+  v16[4] = &v26;
+  v16[5] = &v20;
+  [v12 viewSqlWithName:v11 statement:statementCopy completion:v16];
 
-  v13 = v28[5];
+  v13 = v27[5];
   if (error && !v13)
   {
-    *error = v22[5];
-    v13 = v28[5];
+    *error = v21[5];
+    v13 = v27[5];
   }
 
   v14 = v13;
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v14;
 }
@@ -338,60 +340,115 @@
 
 - (BOOL)behaviorUnderstandingMockEntityRelevanceContextWithDate:(id)date error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_1ABF14434;
-  v18 = sub_1ABF14444;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_1ABF14434;
+  v17 = sub_1ABF14444;
+  v18 = 0;
   v7 = GDXPCLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = dateCopy;
+    v24 = dateCopy;
     _os_log_impl(&dword_1ABA78000, v7, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding mockEntityRelevanceContext called with date: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1ABF15994;
-  v13[3] = &unk_1E7962878;
-  v13[4] = &v14;
-  v13[5] = &v20;
-  v8 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = sub_1ABF15A78;
-  v12[3] = &unk_1E79628A0;
-  v12[4] = &v20;
-  v12[5] = &v14;
-  [v8 behaviorUnderstandingMockEntityRelevanceContextWithDate:dateCopy completion:v12];
+  v12[2] = sub_1ABF15994;
+  v12[3] = &unk_1E7962878;
+  v12[4] = &v13;
+  v12[5] = &v19;
+  v8 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1ABF15A78;
+  v11[3] = &unk_1E79628A0;
+  v11[4] = &v19;
+  v11[5] = &v13;
+  [v8 behaviorUnderstandingMockEntityRelevanceContextWithDate:dateCopy completion:v11];
 
-  v9 = *(v21 + 24);
-  if (error && (v21[3] & 1) == 0)
+  v9 = *(v20 + 24);
+  if (error && (v20[3] & 1) == 0)
   {
-    *error = v15[5];
-    v9 = *(v21 + 24);
+    *error = v14[5];
+    v9 = *(v20 + 24);
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
   return v9 & 1;
 }
 
 - (id)generateActivityCentricLifeEventsFromStartDate:(id)date toEndDate:(id)endDate error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1ABF14434;
+  v27 = sub_1ABF14444;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1ABF14434;
+  v21 = sub_1ABF14444;
+  v22 = 0;
+  v10 = GDXPCLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v30 = dateCopy;
+    v31 = 2112;
+    v32 = endDateCopy;
+    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: generateActivityCentricLifeEvents called [startDate: %@, endDate: %@].", buf, 0x16u);
+  }
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF15D4C;
+  v16[3] = &unk_1E7962878;
+  v16[4] = &v17;
+  v16[5] = &v23;
+  v11 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF15E38;
+  v15[3] = &unk_1E79625F0;
+  v15[4] = &v23;
+  v15[5] = &v17;
+  [v11 generateActivityCentricLifeEventsFromStartDate:dateCopy toEndDate:endDateCopy completion:v15];
+
+  v12 = v24[5];
+  if (error && !v12)
+  {
+    *error = v18[5];
+    v12 = v24[5];
+  }
+
+  v13 = v12;
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
+
+  return v13;
+}
+
+- (id)behaviorUnderstandingSampleEntityTaggingFeaturesForPersonID:(id)d error:(id *)error
+{
+  v32 = *MEMORY[0x1E69E9840];
+  dCopy = d;
   v24 = 0;
   v25 = &v24;
   v26 = 0x3032000000;
@@ -404,177 +461,116 @@
   v21 = sub_1ABF14434;
   v22 = sub_1ABF14444;
   v23 = 0;
-  v10 = GDXPCLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412546;
-    v31 = dateCopy;
-    v32 = 2112;
-    v33 = endDateCopy;
-    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: generateActivityCentricLifeEvents called [startDate: %@, endDate: %@].", buf, 0x16u);
-  }
-
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1ABF15D4C;
-  v17[3] = &unk_1E7962878;
-  v17[4] = &v18;
-  v17[5] = &v24;
-  v11 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1ABF15E38;
-  v16[3] = &unk_1E79625F0;
-  v16[4] = &v24;
-  v16[5] = &v18;
-  [v11 generateActivityCentricLifeEventsFromStartDate:dateCopy toEndDate:endDateCopy completion:v16];
-
-  v12 = v25[5];
-  if (error && !v12)
-  {
-    *error = v19[5];
-    v12 = v25[5];
-  }
-
-  v13 = v12;
-  _Block_object_dispose(&v18, 8);
-
-  _Block_object_dispose(&v24, 8);
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
-}
-
-- (id)behaviorUnderstandingSampleEntityTaggingFeaturesForPersonID:(id)d error:(id *)error
-{
-  v33 = *MEMORY[0x1E69E9840];
-  dCopy = d;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_1ABF14434;
-  v29 = sub_1ABF14444;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1ABF14434;
-  v23 = sub_1ABF14444;
-  v24 = 0;
   v7 = GDXPCLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = dCopy;
+    v31 = dCopy;
     _os_log_impl(&dword_1ABA78000, v7, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding sampleEntityTaggingFeatures called [personID=%@].", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1ABF1615C;
-  v15[3] = &unk_1E79625C8;
-  v8 = dCopy;
-  v16 = v8;
-  v17 = &v19;
-  v18 = &v25;
-  v9 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = sub_1ABF16258;
-  v14[3] = &unk_1E79627E8;
-  v14[4] = &v25;
-  v14[5] = &v19;
-  [v9 behaviorUnderstandingSampleEntityTaggingFeaturesForPersonID:v8 completion:v14];
+  v14[2] = sub_1ABF1615C;
+  v14[3] = &unk_1E79625C8;
+  v8 = dCopy;
+  v15 = v8;
+  v16 = &v18;
+  v17 = &v24;
+  v9 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1ABF16258;
+  v13[3] = &unk_1E79627E8;
+  v13[4] = &v24;
+  v13[5] = &v18;
+  [v9 behaviorUnderstandingSampleEntityTaggingFeaturesForPersonID:v8 completion:v13];
 
-  v10 = v26[5];
+  v10 = v25[5];
   if (error && !v10)
   {
-    *error = v20[5];
-    v10 = v26[5];
+    *error = v19[5];
+    v10 = v25[5];
   }
 
   v11 = v10;
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v11;
 }
 
 - (id)behaviorUnderstandingEvaluateForBehaviorType:(id)type queryName:(id)name inferenceServiceInstanceId:(id)id error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   nameCopy = name;
   idCopy = id;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_1ABF14434;
-  v39 = sub_1ABF14444;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_1ABF14434;
-  v33 = sub_1ABF14444;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_1ABF14434;
+  v38 = sub_1ABF14444;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_1ABF14434;
+  v32 = sub_1ABF14444;
+  v33 = 0;
   v13 = GDXPCLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v42 = typeCopy;
-    v43 = 2112;
-    v44 = nameCopy;
-    v45 = 2112;
-    v46 = idCopy;
+    v41 = typeCopy;
+    v42 = 2112;
+    v43 = nameCopy;
+    v44 = 2112;
+    v45 = idCopy;
     _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding evaluate called [behaviorType=%@, queryName=%@, inferenceServiceInstanceId=%@].", buf, 0x20u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1ABF165EC;
-  v23[3] = &unk_1E7962618;
-  v14 = typeCopy;
-  v24 = v14;
-  v15 = nameCopy;
-  v25 = v15;
-  v16 = idCopy;
-  v26 = v16;
-  v27 = &v29;
-  v28 = &v35;
-  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v23];
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = sub_1ABF166FC;
-  v22[3] = &unk_1E79627B0;
-  v22[4] = &v35;
-  v22[5] = &v29;
-  [v17 behaviorUnderstandingEvaluateForBehaviorType:v14 queryName:v15 inferenceServiceInstanceId:v16 completion:v22];
+  v22[2] = sub_1ABF165EC;
+  v22[3] = &unk_1E7962618;
+  v14 = typeCopy;
+  v23 = v14;
+  v15 = nameCopy;
+  v24 = v15;
+  v16 = idCopy;
+  v25 = v16;
+  v26 = &v28;
+  v27 = &v34;
+  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1ABF166FC;
+  v21[3] = &unk_1E79627B0;
+  v21[4] = &v34;
+  v21[5] = &v28;
+  [v17 behaviorUnderstandingEvaluateForBehaviorType:v14 queryName:v15 inferenceServiceInstanceId:v16 completion:v21];
 
-  v18 = v36[5];
+  v18 = v35[5];
   if (error && !v18)
   {
-    *error = v30[5];
-    v18 = v36[5];
+    *error = v29[5];
+    v18 = v35[5];
   }
 
   v19 = v18;
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 
   return v19;
 }
 
-- (id)contextDataForSource:(id)source startDate:(id)date endDate:(id)endDate error:(id *)error
+- (id)photosMetadataWithStartDate:(id)date endDate:(id)endDate maxEvents:(int64_t)events newestFirst:(BOOL)first error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
-  sourceCopy = source;
+  firstCopy = first;
+  v49 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   v35 = 0;
@@ -589,38 +585,40 @@
   v32 = sub_1ABF14434;
   v33 = sub_1ABF14444;
   v34 = 0;
-  v13 = GDXPCLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = GDXPCLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 138412802;
+    *buf = 138413058;
     v42 = dateCopy;
     v43 = 2112;
     v44 = endDateCopy;
-    v45 = 2112;
-    v46 = sourceCopy;
-    _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: ContextData fetch called [startDate=%@, endDate=%@, source=%@].", buf, 0x20u);
+    v45 = 2048;
+    eventsCopy = events;
+    v47 = 1024;
+    v48 = firstCopy;
+    _os_log_impl(&dword_1ABA78000, v14, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: PhotosMetadataWithStartDate [startDate=%@, endDate=%@, maxEvents=%ld, newestFirst=%d].", buf, 0x26u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1ABF16F4C;
-  v23[3] = &unk_1E7962618;
-  v14 = dateCopy;
-  v24 = v14;
-  v15 = endDateCopy;
-  v25 = v15;
-  v16 = sourceCopy;
-  v26 = v16;
-  v27 = &v29;
-  v28 = &v35;
-  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v23];
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = sub_1ABF1705C;
-  v22[3] = &unk_1E79627E8;
-  v22[4] = &v35;
-  v22[5] = &v29;
-  [v17 contextDataForSource:v16 startDate:v14 endDate:v15 completion:v22];
+  v22[2] = sub_1ABF16A94;
+  v22[3] = &unk_1E7962690;
+  v15 = dateCopy;
+  v23 = v15;
+  v16 = endDateCopy;
+  v28 = firstCopy;
+  v24 = v16;
+  v25 = &v29;
+  v26 = &v35;
+  eventsCopy2 = events;
+  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1ABF16BB8;
+  v21[3] = &unk_1E7962668;
+  v21[4] = &v35;
+  v21[5] = &v29;
+  [v17 photosMetadataWithStartDate:v15 endDate:v16 maxEvents:events newestFirst:firstCopy completion:v21];
 
   v18 = v36[5];
   if (error && !v18)
@@ -634,262 +632,416 @@
   _Block_object_dispose(&v29, 8);
   _Block_object_dispose(&v35, 8);
 
-  v20 = *MEMORY[0x1E69E9840];
+  return v19;
+}
+
+- (id)contextDataForSource:(id)source startDate:(id)date endDate:(id)endDate error:(id *)error
+{
+  v46 = *MEMORY[0x1E69E9840];
+  sourceCopy = source;
+  dateCopy = date;
+  endDateCopy = endDate;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_1ABF14434;
+  v38 = sub_1ABF14444;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_1ABF14434;
+  v32 = sub_1ABF14444;
+  v33 = 0;
+  v13 = GDXPCLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412802;
+    v41 = dateCopy;
+    v42 = 2112;
+    v43 = endDateCopy;
+    v44 = 2112;
+    v45 = sourceCopy;
+    _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: ContextData fetch called [startDate=%@, endDate=%@, source=%@].", buf, 0x20u);
+  }
+
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1ABF16F4C;
+  v22[3] = &unk_1E7962618;
+  v14 = dateCopy;
+  v23 = v14;
+  v15 = endDateCopy;
+  v24 = v15;
+  v16 = sourceCopy;
+  v25 = v16;
+  v26 = &v28;
+  v27 = &v34;
+  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1ABF1705C;
+  v21[3] = &unk_1E79627E8;
+  v21[4] = &v34;
+  v21[5] = &v28;
+  [v17 contextDataForSource:v16 startDate:v14 endDate:v15 completion:v21];
+
+  v18 = v35[5];
+  if (error && !v18)
+  {
+    *error = v29[5];
+    v18 = v35[5];
+  }
+
+  v19 = v18;
+
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 
   return v19;
 }
 
 - (id)behaviorUnderstandingFeaturizedBehaviorsForFeatureName:(id)name behaviorType:(id)type error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typeCopy = type;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_1ABF14434;
-  v34 = sub_1ABF14444;
-  v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1ABF14434;
-  v28 = sub_1ABF14444;
-  v29 = 0;
-  v10 = GDXPCLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412546;
-    v37 = nameCopy;
-    v38 = 2112;
-    v39 = typeCopy;
-    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding featurizedBehaviors called [featureName=%@, behaviorType=%@].", buf, 0x16u);
-  }
-
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_1ABF173C0;
-  v19[3] = &unk_1E7962640;
-  v11 = nameCopy;
-  v20 = v11;
-  v12 = typeCopy;
-  v21 = v12;
-  v22 = &v24;
-  v23 = &v30;
-  v13 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v19];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1ABF174C4;
-  v18[3] = &unk_1E7962668;
-  v18[4] = &v30;
-  v18[5] = &v24;
-  [v13 behaviorUnderstandingFeaturizedBehaviorsForFeatureName:v11 behaviorType:v12 completion:v18];
-
-  v14 = v31[5];
-  if (error && !v14)
-  {
-    *error = v25[5];
-    v14 = v31[5];
-  }
-
-  v15 = v14;
-
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
-}
-
-- (id)behaviorUnderstandingHistogramsOfKind:(id)kind behaviorType:(id)type viewName:(id)name error:(id *)error
-{
-  v43 = *MEMORY[0x1E69E9840];
-  kindCopy = kind;
-  typeCopy = type;
-  nameCopy = name;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = sub_1ABF14434;
-  v37 = sub_1ABF14444;
-  v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_1ABF14434;
-  v31 = sub_1ABF14444;
-  v32 = 0;
-  v13 = GDXPCLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412546;
-    v40 = kindCopy;
-    v41 = 2112;
-    v42 = typeCopy;
-    _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding histograms called [kind=%@, behaviorType=%@].", buf, 0x16u);
-  }
-
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = sub_1ABF1783C;
-  v22[3] = &unk_1E7962640;
-  v14 = kindCopy;
-  v23 = v14;
-  v15 = typeCopy;
-  v24 = v15;
-  v25 = &v27;
-  v26 = &v33;
-  v16 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = sub_1ABF17940;
-  v21[3] = &unk_1E7962668;
-  v21[4] = &v33;
-  v21[5] = &v27;
-  [v16 behaviorUnderstandingHistogramsOfKind:v14 behaviorType:v15 viewName:nameCopy completion:v21];
-
-  v17 = v34[5];
-  if (error && !v17)
-  {
-    *error = v28[5];
-    v17 = v34[5];
-  }
-
-  v18 = v17;
-
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
-}
-
-- (id)behaviorUnderstandingFeaturizeBehaviorOfType:(id)type identifier:(id)identifier usingContextAt:(id)at error:(id *)error
-{
-  v47 = *MEMORY[0x1E69E9840];
-  typeCopy = type;
-  identifierCopy = identifier;
-  atCopy = at;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_1ABF14434;
-  v39 = sub_1ABF14444;
-  v40 = 0;
   v29 = 0;
   v30 = &v29;
   v31 = 0x3032000000;
   v32 = sub_1ABF14434;
   v33 = sub_1ABF14444;
   v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1ABF14434;
+  v27 = sub_1ABF14444;
+  v28 = 0;
+  v10 = GDXPCLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v36 = nameCopy;
+    v37 = 2112;
+    v38 = typeCopy;
+    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding featurizedBehaviors called [featureName=%@, behaviorType=%@].", buf, 0x16u);
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1ABF173C0;
+  v18[3] = &unk_1E7962640;
+  v11 = nameCopy;
+  v19 = v11;
+  v12 = typeCopy;
+  v20 = v12;
+  v21 = &v23;
+  v22 = &v29;
+  v13 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1ABF174C4;
+  v17[3] = &unk_1E7962668;
+  v17[4] = &v29;
+  v17[5] = &v23;
+  [v13 behaviorUnderstandingFeaturizedBehaviorsForFeatureName:v11 behaviorType:v12 completion:v17];
+
+  v14 = v30[5];
+  if (error && !v14)
+  {
+    *error = v24[5];
+    v14 = v30[5];
+  }
+
+  v15 = v14;
+
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
+
+  return v15;
+}
+
+- (id)behaviorUnderstandingHistogramsOfKind:(id)kind behaviorType:(id)type viewName:(id)name error:(id *)error
+{
+  v42 = *MEMORY[0x1E69E9840];
+  kindCopy = kind;
+  typeCopy = type;
+  nameCopy = name;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_1ABF14434;
+  v36 = sub_1ABF14444;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1ABF14434;
+  v30 = sub_1ABF14444;
+  v31 = 0;
+  v13 = GDXPCLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v39 = kindCopy;
+    v40 = 2112;
+    v41 = typeCopy;
+    _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding histograms called [kind=%@, behaviorType=%@].", buf, 0x16u);
+  }
+
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1ABF1783C;
+  v21[3] = &unk_1E7962640;
+  v14 = kindCopy;
+  v22 = v14;
+  v15 = typeCopy;
+  v23 = v15;
+  v24 = &v26;
+  v25 = &v32;
+  v16 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1ABF17940;
+  v20[3] = &unk_1E7962668;
+  v20[4] = &v32;
+  v20[5] = &v26;
+  [v16 behaviorUnderstandingHistogramsOfKind:v14 behaviorType:v15 viewName:nameCopy completion:v20];
+
+  v17 = v33[5];
+  if (error && !v17)
+  {
+    *error = v27[5];
+    v17 = v33[5];
+  }
+
+  v18 = v17;
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
+
+  return v18;
+}
+
+- (id)behaviorUnderstandingFeaturizeBehaviorOfType:(id)type identifier:(id)identifier usingContextAt:(id)at error:(id *)error
+{
+  v46 = *MEMORY[0x1E69E9840];
+  typeCopy = type;
+  identifierCopy = identifier;
+  atCopy = at;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_1ABF14434;
+  v38 = sub_1ABF14444;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_1ABF14434;
+  v32 = sub_1ABF14444;
+  v33 = 0;
   v13 = GDXPCLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v42 = typeCopy;
-    v43 = 2112;
-    v44 = identifierCopy;
-    v45 = 2112;
-    v46 = atCopy;
+    v41 = typeCopy;
+    v42 = 2112;
+    v43 = identifierCopy;
+    v44 = 2112;
+    v45 = atCopy;
     _os_log_impl(&dword_1ABA78000, v13, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding featurizeBehavior called [type=%@, identifier=%@, date=%@].", buf, 0x20u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1ABF17CD4;
-  v23[3] = &unk_1E7962618;
-  v14 = typeCopy;
-  v24 = v14;
-  v15 = identifierCopy;
-  v25 = v15;
-  v16 = atCopy;
-  v26 = v16;
-  v27 = &v29;
-  v28 = &v35;
-  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v23];
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = sub_1ABF17DE4;
-  v22[3] = &unk_1E79627B0;
-  v22[4] = &v35;
-  v22[5] = &v29;
-  [v17 behaviorUnderstandingFeaturizeBehaviorOfType:v14 identifier:v15 usingContextAt:v16 completion:v22];
+  v22[2] = sub_1ABF17CD4;
+  v22[3] = &unk_1E7962618;
+  v14 = typeCopy;
+  v23 = v14;
+  v15 = identifierCopy;
+  v24 = v15;
+  v16 = atCopy;
+  v25 = v16;
+  v26 = &v28;
+  v27 = &v34;
+  v17 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1ABF17DE4;
+  v21[3] = &unk_1E79627B0;
+  v21[4] = &v34;
+  v21[5] = &v28;
+  [v17 behaviorUnderstandingFeaturizeBehaviorOfType:v14 identifier:v15 usingContextAt:v16 completion:v21];
 
-  v18 = v36[5];
+  v18 = v35[5];
   if (error && !v18)
   {
-    *error = v30[5];
-    v18 = v36[5];
+    *error = v29[5];
+    v18 = v35[5];
   }
 
   v19 = v18;
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 
   return v19;
 }
 
 - (id)behaviorUnderstandingRecentBehaviorsOfType:(id)type error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_1ABF14434;
-  v29 = sub_1ABF14444;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1ABF14434;
-  v23 = sub_1ABF14444;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_1ABF14434;
+  v28 = sub_1ABF14444;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_1ABF14434;
+  v22 = sub_1ABF14444;
+  v23 = 0;
   v7 = GDXPCLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = typeCopy;
+    v31 = typeCopy;
     _os_log_impl(&dword_1ABA78000, v7, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding recentBehaviorsOfType called [type=%@].", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1ABF18108;
-  v15[3] = &unk_1E79625C8;
-  v8 = typeCopy;
-  v16 = v8;
-  v17 = &v19;
-  v18 = &v25;
-  v9 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = sub_1ABF18204;
-  v14[3] = &unk_1E79625F0;
-  v14[4] = &v25;
-  v14[5] = &v19;
-  [v9 behaviorUnderstandingRecentBehaviorsOfType:v8 completion:v14];
+  v14[2] = sub_1ABF18108;
+  v14[3] = &unk_1E79625C8;
+  v8 = typeCopy;
+  v15 = v8;
+  v16 = &v18;
+  v17 = &v24;
+  v9 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1ABF18204;
+  v13[3] = &unk_1E79625F0;
+  v13[4] = &v24;
+  v13[5] = &v18;
+  [v9 behaviorUnderstandingRecentBehaviorsOfType:v8 completion:v13];
 
-  v10 = v26[5];
+  v10 = v25[5];
   if (error && !v10)
   {
-    *error = v20[5];
-    v10 = v26[5];
+    *error = v19[5];
+    v10 = v25[5];
   }
 
   v11 = v10;
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v11;
+}
+
+- (BOOL)behaviorUnderstandingDigestWithShouldDigestFeaturizer:(BOOL)featurizer shouldDigestSampleGenerator:(BOOL)generator error:(id *)error
+{
+  generatorCopy = generator;
+  featurizerCopy = featurizer;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_1ABF14434;
+  v20 = sub_1ABF14444;
+  v21 = 0;
+  v9 = GDXPCLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v9, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding Digest called.", buf, 2u);
+  }
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1ABF184A0;
+  v14[3] = &unk_1E7962878;
+  v14[4] = &v16;
+  v14[5] = &v22;
+  v10 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1ABF18584;
+  v13[3] = &unk_1E79628A0;
+  v13[4] = &v22;
+  v13[5] = &v16;
+  [v10 behaviorUnderstandingDigestWithShouldDigestFeaturizer:featurizerCopy shouldDigestSampleGenerator:generatorCopy completion:v13];
+
+  v11 = *(v23 + 24);
+  if (error && (v23[3] & 1) == 0)
+  {
+    *error = v17[5];
+    v11 = *(v23 + 24);
+  }
+
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+  return v11 & 1;
+}
+
+- (BOOL)behaviorUnderstandingClearAllDataWithShouldClearFeaturizer:(BOOL)featurizer shouldClearSampleGenerator:(BOOL)generator error:(id *)error
+{
+  generatorCopy = generator;
+  featurizerCopy = featurizer;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_1ABF14434;
+  v20 = sub_1ABF14444;
+  v21 = 0;
+  v9 = GDXPCLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v9, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: Behavior Understanding ClearAllData called.", buf, 2u);
+  }
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1ABF187B8;
+  v14[3] = &unk_1E7962878;
+  v14[4] = &v16;
+  v14[5] = &v22;
+  v10 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1ABF1889C;
+  v13[3] = &unk_1E79628A0;
+  v13[4] = &v22;
+  v13[5] = &v16;
+  [v10 behaviorUnderstandingClearAllDataWithShouldClearFeaturizer:featurizerCopy shouldClearSampleGenerator:generatorCopy completion:v13];
+
+  v11 = *(v23 + 24);
+  if (error && (v23[3] & 1) == 0)
+  {
+    *error = v17[5];
+    v11 = *(v23 + 24);
+  }
+
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+  return v11 & 1;
 }
 
 - (id)behaviorUnderstandingStatusWithError:(id *)error
@@ -941,6 +1093,75 @@
   _Block_object_dispose(&v19, 8);
 
   return v8;
+}
+
+- (id)resolveEntityWithRequest:(id)request enableSessionLogging:(BOOL)logging configName:(id)name encodedConfig:(id)config withError:(id *)error
+{
+  loggingCopy = logging;
+  requestCopy = request;
+  nameCopy = name;
+  configCopy = config;
+  if (_os_feature_enabled_impl())
+  {
+    *v29 = 0;
+    v30 = v29;
+    v31 = 0x3032000000;
+    v32 = sub_1ABF14434;
+    v33 = sub_1ABF14444;
+    v34 = 0;
+    v15 = GDXPCLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1ABA78000, v15, OS_LOG_TYPE_DEFAULT, "GDXPCInternalService: resolveEntity called.", buf, 2u);
+    }
+
+    *buf = 0;
+    v24 = buf;
+    v25 = 0x3032000000;
+    v26 = sub_1ABF14434;
+    v27 = sub_1ABF14444;
+    v28 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_1ABF18F48;
+    v22[3] = &unk_1E79628C8;
+    v22[4] = buf;
+    v16 = [(GDXPCInternalService *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1ABF19014;
+    v21[3] = &unk_1E79625A0;
+    v21[4] = v29;
+    v21[5] = buf;
+    [v16 resolveEntityWithRequest:requestCopy enableSessionLogging:loggingCopy configName:nameCopy encodedConfig:configCopy completion:v21];
+
+    v17 = *(v30 + 5);
+    if (error && !v17)
+    {
+      *error = *(v24 + 5);
+      v17 = *(v30 + 5);
+    }
+
+    v18 = v17;
+    _Block_object_dispose(buf, 8);
+
+    _Block_object_dispose(v29, 8);
+  }
+
+  else
+  {
+    v19 = GDXPCLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *v29 = 0;
+      _os_log_impl(&dword_1ABA78000, v19, OS_LOG_TYPE_DEFAULT, "IntelligencePlatform|NERD is not enabled.", v29, 2u);
+    }
+
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (id)vectorSearchBenchmarkWithConfigFilePath:(id)path error:(id *)error

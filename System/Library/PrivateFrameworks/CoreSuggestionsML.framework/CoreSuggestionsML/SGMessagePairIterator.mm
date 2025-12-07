@@ -147,11 +147,11 @@ LABEL_24:
 
 - (SGMessagePairIterator)initWithStartDate:(id)date maxBatchSize:(unint64_t)size maxReplyLength:(unint64_t)length maxReplyGap:(double)gap
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v56.receiver = self;
-  v56.super_class = SGMessagePairIterator;
-  v11 = [(SGMessagePairIterator *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = SGMessagePairIterator;
+  v11 = [(SGMessagePairIterator *)&v55 init];
   v12 = v11;
   if (!v11)
   {
@@ -168,61 +168,61 @@ LABEL_24:
   latestProcessedDate = v12->_latestProcessedDate;
   v12->_latestProcessedDate = 0;
 
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
   v16 = getIMAttachmentCharacterStringSymbolLoc_ptr;
-  v60 = getIMAttachmentCharacterStringSymbolLoc_ptr;
+  v59 = getIMAttachmentCharacterStringSymbolLoc_ptr;
   if (!getIMAttachmentCharacterStringSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v66 = __getIMAttachmentCharacterStringSymbolLoc_block_invoke;
-    v67 = &unk_278EB8500;
-    v68 = &v57;
+    v65 = __getIMAttachmentCharacterStringSymbolLoc_block_invoke;
+    v66 = &unk_278EB8500;
+    v67 = &v56;
     v17 = IMFoundationLibrary();
     v18 = dlsym(v17, "IMAttachmentCharacterString");
-    *(v68[1] + 24) = v18;
-    getIMAttachmentCharacterStringSymbolLoc_ptr = *(v68[1] + 24);
-    v16 = v58[3];
+    *(v67[1] + 24) = v18;
+    getIMAttachmentCharacterStringSymbolLoc_ptr = *(v67[1] + 24);
+    v16 = v57[3];
   }
 
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v56, 8);
   if (!v16)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getIMAttachmentCharacterString(void)"];
-    [currentHandler handleFailureInFunction:v51 file:@"SGMessagePairIterator.m" lineNumber:26 description:{@"%s", dlerror()}];
+    v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getIMAttachmentCharacterString(void)"];
+    [currentHandler handleFailureInFunction:v50 file:@"SGMessagePairIterator.m" lineNumber:26 description:{@"%s", dlerror()}];
 
     goto LABEL_21;
   }
 
   objc_storeStrong(&v12->_attachmentCharacterString, *v16);
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
   v19 = getIMBreadcrumbCharacterStringSymbolLoc_ptr;
-  v60 = getIMBreadcrumbCharacterStringSymbolLoc_ptr;
+  v59 = getIMBreadcrumbCharacterStringSymbolLoc_ptr;
   if (!getIMBreadcrumbCharacterStringSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v66 = __getIMBreadcrumbCharacterStringSymbolLoc_block_invoke;
-    v67 = &unk_278EB8500;
-    v68 = &v57;
+    v65 = __getIMBreadcrumbCharacterStringSymbolLoc_block_invoke;
+    v66 = &unk_278EB8500;
+    v67 = &v56;
     v20 = IMFoundationLibrary();
     v21 = dlsym(v20, "IMBreadcrumbCharacterString");
-    *(v68[1] + 24) = v21;
-    getIMBreadcrumbCharacterStringSymbolLoc_ptr = *(v68[1] + 24);
-    v19 = v58[3];
+    *(v67[1] + 24) = v21;
+    getIMBreadcrumbCharacterStringSymbolLoc_ptr = *(v67[1] + 24);
+    v19 = v57[3];
   }
 
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v56, 8);
   if (!v19)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getIMBreadcrumbCharacterString(void)"];
-    [currentHandler2 handleFailureInFunction:v53 file:@"SGMessagePairIterator.m" lineNumber:27 description:{@"%s", dlerror()}];
+    v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getIMBreadcrumbCharacterString(void)"];
+    [currentHandler2 handleFailureInFunction:v52 file:@"SGMessagePairIterator.m" lineNumber:27 description:{@"%s", dlerror()}];
 
 LABEL_21:
     __break(1u);
@@ -237,47 +237,47 @@ LABEL_21:
   if (dateCopy)
   {
     v25 = MEMORY[0x277CCA920];
-    v64[0] = v24;
+    v63[0] = v24;
     dateCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"startDate > %@", dateCopy];
-    v64[1] = dateCopy;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+    v63[1] = dateCopy;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
     v28 = [v25 andPredicateWithSubpredicates:v27];
 
     v24 = v28;
   }
 
   v29 = MEMORY[0x277CCA920];
-  v63[0] = v24;
+  v62[0] = v24;
   v30 = MEMORY[0x277CFE260];
   intentsSourceID = [MEMORY[0x277CFE268] intentsSourceID];
   v32 = [v30 predicateForEventsWithSourceID:intentsSourceID bundleID:@"com.apple.MobileSMS"];
-  v63[1] = v32;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
+  v62[1] = v32;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
   v34 = [v29 andPredicateWithSubpredicates:v33];
 
   v35 = MEMORY[0x277CFE1E0];
   appIntentsStream = [MEMORY[0x277CFE298] appIntentsStream];
-  v62 = appIntentsStream;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+  v61 = appIntentsStream;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
   v38 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-  v61 = v38;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+  v60 = v38;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
   v40 = [v35 eventQueryWithPredicate:v34 eventStreams:v37 offset:0 limit:size sortDescriptors:v39];
 
   allDevices = [MEMORY[0x277CFE1E0] allDevices];
   [v40 setDeviceIDs:allDevices];
 
-  v55 = 0;
-  v42 = [knowledgeStore executeQuery:v40 error:&v55];
-  v43 = v55;
+  v54 = 0;
+  v42 = [knowledgeStore executeQuery:v40 error:&v54];
+  v43 = v54;
   messageEvents = v12->_messageEvents;
   v12->_messageEvents = v42;
 
   if (v43 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v49 = [v43 description];
+    v48 = [v43 description];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v49;
+    *(&buf + 4) = v48;
     _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to retrieve message events from CoreDuet. Error: %@", &buf, 0xCu);
   }
 
@@ -295,7 +295,6 @@ LABEL_17:
   v46 = 0;
 LABEL_18:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v46;
 }
 

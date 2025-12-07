@@ -60,7 +60,7 @@
 - (id)getSecureElementWrapperAndSetRouting
 {
   v4 = +[_NFHardwareManager sharedHardwareManager];
-  v5 = sub_10004BF2C();
+  v5 = sub_10004BF2C(NFRoutingConfig);
   lastKnownRoutingConfig = [v4 lastKnownRoutingConfig];
   if (sub_10004B630(lastKnownRoutingConfig, v5))
   {
@@ -506,39 +506,37 @@ LABEL_82:
   configCopy = config;
   if (![configCopy count])
   {
-    v35 = 1;
+    v32 = 1;
     goto LABEL_93;
   }
 
-  v103 = a2;
-  v109 = 0u;
-  v110 = 0u;
+  v100 = a2;
+  v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
+  v104 = 0u;
+  v105 = 0u;
   obj = configCopy;
-  v8 = [obj countByEnumeratingWithState:&v107 objects:v123 count:16];
+  v8 = [obj countByEnumeratingWithState:&v104 objects:v120 count:16];
   if (!v8)
   {
-    v35 = 1;
+    v32 = 1;
     goto LABEL_92;
   }
 
   v9 = v8;
-  v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-  v105 = *v108;
-  v102 = configCopy;
+  v102 = *v105;
+  v99 = configCopy;
   while (2)
   {
     for (i = 0; i != v9; i = i + 1)
     {
-      if (*v108 != v105)
+      if (*v105 != v102)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v107 + 1) + 8 * i);
-      v13 = [v12 objectForKeyedSubscript:@"appletIdentifier"];
-      v14 = v10[475];
+      v11 = *(*(&v104 + 1) + 8 * i);
+      v12 = [v11 objectForKeyedSubscript:@"appletIdentifier"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -547,277 +545,276 @@ LABEL_82:
         Logger = NFLogGetLogger();
         if (Logger)
         {
-          v62 = Logger;
+          v59 = Logger;
           Class = object_getClass(self);
           isMetaClass = class_isMetaClass(Class);
           ClassName = object_getClassName(self);
-          Name = sel_getName(v103);
-          v66 = 45;
+          Name = sel_getName(v100);
+          v63 = 45;
           if (isMetaClass)
+          {
+            v63 = 43;
+          }
+
+          v59(3, "%c[%{public}s %{public}s]:%i Wrong class for AID", v63, ClassName, Name, 243);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v64 = NFSharedLogGetLogger();
+        configCopy = v99;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        {
+          v65 = object_getClass(self);
+          if (class_isMetaClass(v65))
           {
             v66 = 43;
           }
 
-          v62(3, "%c[%{public}s %{public}s]:%i Wrong class for AID", v66, ClassName, Name, 243);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v67 = NFSharedLogGetLogger();
-        configCopy = v102;
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
-        {
-          v68 = object_getClass(self);
-          if (class_isMetaClass(v68))
-          {
-            v69 = 43;
-          }
-
           else
           {
-            v69 = 45;
+            v66 = 45;
           }
 
-          v70 = object_getClassName(self);
-          v71 = sel_getName(v103);
+          v67 = object_getClassName(self);
+          v68 = sel_getName(v100);
           *buf = 67109890;
-          v112 = v69;
-          v113 = 2082;
-          v114 = v70;
-          v115 = 2082;
-          v116 = v71;
-          v117 = 1024;
-          v118 = 243;
-          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Wrong class for AID", buf, 0x22u);
+          v109 = v66;
+          v110 = 2082;
+          v111 = v67;
+          v112 = 2082;
+          v113 = v68;
+          v114 = 1024;
+          v115 = 243;
+          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Wrong class for AID", buf, 0x22u);
         }
 
         [NFExceptionsCALogger postAnalyticsExpressSetupFailureEvent:0 context:1 error:0];
         goto LABEL_91;
       }
 
-      v15 = [v12 objectForKeyedSubscript:@"ExpressType"];
-      v16 = v10[475];
+      v13 = [v11 objectForKeyedSubscript:@"ExpressType"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || ![NFExpressConfig expressTypeForATLConfigKey:v15])
+      if ((objc_opt_isKindOfClass() & 1) == 0 || ![NFExpressConfig expressTypeForATLConfigKey:v13])
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v36 = NFLogGetLogger();
-        if (v36)
+        v33 = NFLogGetLogger();
+        if (v33)
         {
-          v37 = v36;
-          v38 = object_getClass(self);
-          v39 = class_isMetaClass(v38);
-          v40 = object_getClassName(self);
-          v97 = sel_getName(v103);
-          v41 = 45;
-          if (v39)
+          v34 = v33;
+          v35 = object_getClass(self);
+          v36 = class_isMetaClass(v35);
+          v37 = object_getClassName(self);
+          v94 = sel_getName(v100);
+          v38 = 45;
+          if (v36)
+          {
+            v38 = 43;
+          }
+
+          v34(3, "%c[%{public}s %{public}s]:%i Incorrect express type %{public}@ for %{public}@", v38, v37, v94, 253, v13, v12);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v39 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        {
+          v40 = object_getClass(self);
+          if (class_isMetaClass(v40))
           {
             v41 = 43;
           }
 
-          v37(3, "%c[%{public}s %{public}s]:%i Incorrect express type %{public}@ for %{public}@", v41, v40, v97, 253, v15, v13);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v42 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-        {
-          v43 = object_getClass(self);
-          if (class_isMetaClass(v43))
-          {
-            v44 = 43;
-          }
-
           else
           {
-            v44 = 45;
+            v41 = 45;
           }
 
-          v45 = object_getClassName(self);
-          v46 = sel_getName(v103);
+          v42 = object_getClassName(self);
+          v43 = sel_getName(v100);
           *buf = 67110402;
-          v112 = v44;
-          v113 = 2082;
-          v114 = v45;
-          v115 = 2082;
-          v116 = v46;
-          v117 = 1024;
-          v118 = 253;
-          v119 = 2114;
-          v120 = v15;
-          v121 = 2114;
-          v122 = v13;
-          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Incorrect express type %{public}@ for %{public}@", buf, 0x36u);
+          v109 = v41;
+          v110 = 2082;
+          v111 = v42;
+          v112 = 2082;
+          v113 = v43;
+          v114 = 1024;
+          v115 = 253;
+          v116 = 2114;
+          v117 = v13;
+          v118 = 2114;
+          v119 = v12;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Incorrect express type %{public}@ for %{public}@", buf, 0x36u);
         }
 
-        v47 = [[NSString alloc] initWithFormat:@"NFExpressConfigESE : validateAndUpdateExpressConfig, Error: Wrong express type %@ for %@", v15, v13];
-        sub_100199C14(NFBugCapture, @"Incorrect express type", v47, 0);
+        v44 = [[NSString alloc] initWithFormat:@"NFExpressConfigESE : validateAndUpdateExpressConfig, Error: Wrong express type %@ for %@", v13, v12];
+        sub_100199C14(NFBugCapture, @"Incorrect express type", v44, 0);
         [NFExceptionsCALogger postAnalyticsExpressSetupFailureEvent:1 context:2 error:0];
 
-        configCopy = v102;
+        configCopy = v99;
         goto LABEL_91;
       }
 
-      v17 = [v12 objectForKeyedSubscript:@"inSessionOnly"];
+      v14 = [v11 objectForKeyedSubscript:@"inSessionOnly"];
+
+      if (!v14)
+      {
+        [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:@"inSessionOnly"];
+      }
+
+      v15 = [v11 objectForKeyedSubscript:@"UWBExpressEnabled"];
+
+      if (!v15)
+      {
+        [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:@"UWBExpressEnabled"];
+      }
+
+      v16 = [v11 objectForKeyedSubscript:@"userChoice"];
+
+      if (!v16)
+      {
+        [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:@"userChoice"];
+      }
+
+      v17 = [v11 objectForKeyedSubscript:@"supportsUWB"];
 
       if (!v17)
       {
-        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"inSessionOnly"];
+        [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:@"supportsUWB"];
       }
 
-      v18 = [v12 objectForKeyedSubscript:@"UWBExpressEnabled"];
-
-      if (!v18)
-      {
-        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"UWBExpressEnabled"];
-      }
-
-      v19 = [v12 objectForKeyedSubscript:@"userChoice"];
-
-      if (!v19)
-      {
-        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"userChoice"];
-      }
-
-      v20 = [v12 objectForKeyedSubscript:@"supportsUWB"];
-
-      if (!v20)
-      {
-        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"supportsUWB"];
-      }
-
-      v106 = 0;
-      v21 = sub_10000ADB0(self, v13, !routingCopy, &v106);
-      v22 = v21;
-      if (routingCopy && (v106 & 1) != 0)
+      v103 = 0;
+      v18 = sub_10000ADB0(self, v12, !routingCopy, &v103);
+      v19 = v18;
+      if (routingCopy && (v103 & 1) != 0)
       {
         goto LABEL_35;
       }
 
-      if (!v21)
+      if (!v18)
       {
-        v72 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: %@ is not on SE", v13];
-        sub_100199C14(NFBugCapture, @"Unable to set as express", v72, 0);
+        v69 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: %@ is not on SE", v12];
+        sub_100199C14(NFBugCapture, @"Unable to set as express", v69, 0);
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v73 = NFLogGetLogger();
-        if (v73)
+        v70 = NFLogGetLogger();
+        if (v70)
         {
-          v74 = v73;
-          v75 = object_getClass(self);
-          v76 = class_isMetaClass(v75);
-          v95 = object_getClassName(self);
-          v100 = sel_getName(v103);
-          v77 = 45;
-          if (v76)
+          v71 = v70;
+          v72 = object_getClass(self);
+          v73 = class_isMetaClass(v72);
+          v92 = object_getClassName(self);
+          v97 = sel_getName(v100);
+          v74 = 45;
+          if (v73)
           {
-            v77 = 43;
+            v74 = 43;
           }
 
-          v74(3, "%c[%{public}s %{public}s]:%i %{public}@ not installed on eSE", v77, v95, v100, 282, v13);
+          v71(3, "%c[%{public}s %{public}s]:%i %{public}@ not installed on eSE", v74, v92, v97, 282, v12);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v55 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v52 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v78 = object_getClass(self);
-          if (class_isMetaClass(v78))
+          v75 = object_getClass(self);
+          if (class_isMetaClass(v75))
           {
-            v79 = 43;
+            v76 = 43;
           }
 
           else
           {
-            v79 = 45;
+            v76 = 45;
           }
 
-          v80 = object_getClassName(self);
-          v81 = sel_getName(v103);
+          v77 = object_getClassName(self);
+          v78 = sel_getName(v100);
           *buf = 67110146;
-          v112 = v79;
-          v113 = 2082;
-          v114 = v80;
-          v115 = 2082;
-          v116 = v81;
-          v117 = 1024;
-          v118 = 282;
-          v119 = 2114;
-          v120 = v13;
-          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ not installed on eSE", buf, 0x2Cu);
+          v109 = v76;
+          v110 = 2082;
+          v111 = v77;
+          v112 = 2082;
+          v113 = v78;
+          v114 = 1024;
+          v115 = 282;
+          v116 = 2114;
+          v117 = v12;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ not installed on eSE", buf, 0x2Cu);
         }
 
-        v60 = 3;
+        v57 = 3;
 LABEL_90:
-        configCopy = v102;
+        configCopy = v99;
 
-        [NFExceptionsCALogger postAnalyticsExpressSetupFailureEvent:0 context:v60 error:0];
+        [NFExceptionsCALogger postAnalyticsExpressSetupFailureEvent:0 context:v57 error:0];
 LABEL_91:
 
-        v35 = 0;
+        v32 = 0;
         goto LABEL_92;
       }
 
       selfCopy = self;
-      v24 = [v12 objectForKeyedSubscript:@"expressEnabled"];
-      if ([v24 BOOLValue])
+      v21 = [v11 objectForKeyedSubscript:@"expressEnabled"];
+      if ([v21 BOOLValue])
       {
-        authTransientSupport = [v22 authTransientSupport];
+        authTransientSupport = [v19 authTransientSupport];
 
         if (authTransientSupport)
         {
-          v82 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: Transient authorization enabled for %@", v13];
-          sub_100199C14(NFBugCapture, @"Unable to set as express", v82, 0);
+          v79 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: Transient authorization enabled for %@", v12];
+          sub_100199C14(NFBugCapture, @"Unable to set as express", v79, 0);
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v83 = NFLogGetLogger();
-          v84 = selfCopy;
-          if (v83)
+          v80 = NFLogGetLogger();
+          v81 = selfCopy;
+          if (v80)
           {
-            v85 = v83;
-            v86 = object_getClass(selfCopy);
-            v87 = class_isMetaClass(v86);
-            v96 = object_getClassName(selfCopy);
-            v101 = sel_getName(v103);
-            v88 = 45;
-            if (v87)
+            v82 = v80;
+            v83 = object_getClass(selfCopy);
+            v84 = class_isMetaClass(v83);
+            v93 = object_getClassName(selfCopy);
+            v98 = sel_getName(v100);
+            v85 = 45;
+            if (v84)
             {
-              v88 = 43;
+              v85 = 43;
             }
 
-            v85(3, "%c[%{public}s %{public}s]:%i Transient authorization enabled for %{public}@", v88, v96, v101, 294, v13);
+            v82(3, "%c[%{public}s %{public}s]:%i Transient authorization enabled for %{public}@", v85, v93, v98, 294, v12);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v55 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          v52 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
-            v89 = object_getClass(v84);
-            if (class_isMetaClass(v89))
+            v86 = object_getClass(v81);
+            if (class_isMetaClass(v86))
             {
-              v90 = 43;
+              v87 = 43;
             }
 
             else
             {
-              v90 = 45;
+              v87 = 45;
             }
 
-            v91 = object_getClassName(v84);
-            v92 = sel_getName(v103);
+            v88 = object_getClassName(v81);
+            v89 = sel_getName(v100);
             *buf = 67110146;
-            v112 = v90;
-            v113 = 2082;
-            v114 = v91;
-            v115 = 2082;
-            v116 = v92;
-            v117 = 1024;
-            v118 = 294;
-            v119 = 2114;
-            v120 = v13;
-            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Transient authorization enabled for %{public}@", buf, 0x2Cu);
+            v109 = v87;
+            v110 = 2082;
+            v111 = v88;
+            v112 = 2082;
+            v113 = v89;
+            v114 = 1024;
+            v115 = 294;
+            v116 = 2114;
+            v117 = v12;
+            _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Transient authorization enabled for %{public}@", buf, 0x2Cu);
           }
 
-          v60 = 4;
+          v57 = 4;
           goto LABEL_90;
         }
       }
@@ -826,107 +823,106 @@ LABEL_91:
       {
       }
 
-      if ([v22 lifecycleState] == 129 || objc_msgSend(v22, "lifecycleState") == 130)
+      if ([v19 lifecycleState] == 129 || objc_msgSend(v19, "lifecycleState") == 130)
       {
-        v48 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: Applet %@ is terminated/frozen", v13];
-        sub_100199C14(NFBugCapture, @"Unable to set as express", v48, 0);
+        v45 = [NSString stringWithFormat:@"NFExpressConfigESE: validateAndUpdateExpressConfig, Error: Applet %@ is terminated/frozen", v12];
+        sub_100199C14(NFBugCapture, @"Unable to set as express", v45, 0);
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v49 = NFLogGetLogger();
-        v50 = selfCopy;
-        if (v49)
+        v46 = NFLogGetLogger();
+        v47 = selfCopy;
+        if (v46)
         {
-          v51 = v49;
-          v52 = object_getClass(selfCopy);
-          v53 = class_isMetaClass(v52);
-          v94 = object_getClassName(selfCopy);
-          v98 = sel_getName(v103);
-          v54 = 45;
-          if (v53)
+          v48 = v46;
+          v49 = object_getClass(selfCopy);
+          v50 = class_isMetaClass(v49);
+          v91 = object_getClassName(selfCopy);
+          v95 = sel_getName(v100);
+          v51 = 45;
+          if (v50)
+          {
+            v51 = 43;
+          }
+
+          v48(3, "%c[%{public}s %{public}s]:%i Applet %{public}@ is terminated/frozen", v51, v91, v95, 307, v12);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v52 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        {
+          v53 = object_getClass(v47);
+          if (class_isMetaClass(v53))
           {
             v54 = 43;
           }
 
-          v51(3, "%c[%{public}s %{public}s]:%i Applet %{public}@ is terminated/frozen", v54, v94, v98, 307, v13);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v55 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
-        {
-          v56 = object_getClass(v50);
-          if (class_isMetaClass(v56))
-          {
-            v57 = 43;
-          }
-
           else
           {
-            v57 = 45;
+            v54 = 45;
           }
 
-          v58 = object_getClassName(v50);
-          v59 = sel_getName(v103);
+          v55 = object_getClassName(v47);
+          v56 = sel_getName(v100);
           *buf = 67110146;
-          v112 = v57;
-          v113 = 2082;
-          v114 = v58;
-          v115 = 2082;
-          v116 = v59;
-          v117 = 1024;
-          v118 = 307;
-          v119 = 2114;
-          v120 = v13;
-          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Applet %{public}@ is terminated/frozen", buf, 0x2Cu);
+          v109 = v54;
+          v110 = 2082;
+          v111 = v55;
+          v112 = 2082;
+          v113 = v56;
+          v114 = 1024;
+          v115 = 307;
+          v116 = 2114;
+          v117 = v12;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Applet %{public}@ is terminated/frozen", buf, 0x2Cu);
         }
 
-        v60 = 5;
+        v57 = 5;
         goto LABEL_90;
       }
 
-      v26 = [v12 objectForKeyedSubscript:@"moduleIdentifier"];
+      v23 = [v11 objectForKeyedSubscript:@"moduleIdentifier"];
 
       self = selfCopy;
-      if (!v26)
+      if (!v23)
       {
-        moduleIdentifier = [v22 moduleIdentifier];
-        [v12 setObject:moduleIdentifier forKeyedSubscript:@"moduleIdentifier"];
+        moduleIdentifier = [v19 moduleIdentifier];
+        [v11 setObject:moduleIdentifier forKeyedSubscript:@"moduleIdentifier"];
       }
 
-      v28 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v22 groupActivationStyle]);
-      [v12 setObject:v28 forKeyedSubscript:@"groupActivationStyle"];
+      v25 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v19 groupActivationStyle]);
+      [v11 setObject:v25 forKeyedSubscript:@"groupActivationStyle"];
 
-      moduleIdentifier2 = [v22 moduleIdentifier];
+      moduleIdentifier2 = [v19 moduleIdentifier];
 
-      v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
       if (moduleIdentifier2)
       {
-        moduleIdentifier3 = [v22 moduleIdentifier];
-        [v12 setObject:moduleIdentifier3 forKeyedSubscript:@"moduleIdentifier"];
+        moduleIdentifier3 = [v19 moduleIdentifier];
+        [v11 setObject:moduleIdentifier3 forKeyedSubscript:@"moduleIdentifier"];
       }
 
-      groupHeadID = [v22 groupHeadID];
+      groupHeadID = [v19 groupHeadID];
 
       if (groupHeadID)
       {
-        groupHeadID2 = [v22 groupHeadID];
-        [v12 setObject:groupHeadID2 forKeyedSubscript:@"groupHead"];
+        groupHeadID2 = [v19 groupHeadID];
+        [v11 setObject:groupHeadID2 forKeyedSubscript:@"groupHead"];
       }
 
-      groupMemberIDs = [v22 groupMemberIDs];
+      groupMemberIDs = [v19 groupMemberIDs];
 
       if (groupMemberIDs)
       {
-        groupMemberIDs2 = [v22 groupMemberIDs];
-        [v12 setObject:groupMemberIDs2 forKeyedSubscript:@"groupMembers"];
+        groupMemberIDs2 = [v19 groupMemberIDs];
+        [v11 setObject:groupMemberIDs2 forKeyedSubscript:@"groupMembers"];
       }
 
 LABEL_35:
     }
 
-    v9 = [obj countByEnumeratingWithState:&v107 objects:v123 count:16];
-    v35 = 1;
-    configCopy = v102;
+    v9 = [obj countByEnumeratingWithState:&v104 objects:v120 count:16];
+    v32 = 1;
+    configCopy = v99;
     if (v9)
     {
       continue;
@@ -938,7 +934,7 @@ LABEL_35:
 LABEL_92:
 
 LABEL_93:
-  return v35;
+  return v32;
 }
 
 - (id)fetchFromStorage

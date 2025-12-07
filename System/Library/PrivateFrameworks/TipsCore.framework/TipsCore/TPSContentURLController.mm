@@ -6,6 +6,7 @@
 + (id)_uiTestLocalURLForIdentifier:(id)identifier;
 + (id)assetPathFromAssetConfiguration:(id)configuration type:(int64_t)type;
 + (id)contentRequestURLWithContentMapHash:(id)hash;
++ (id)contentRequestURLWithContentMapHash:(id)hash variantIdentifiers:(id)identifiers useLanguageDefault:(BOOL)default;
 + (id)defaultHost;
 + (id)effectiveHost;
 + (id)languageStringWithLanguageDefault:(BOOL)default count:(unint64_t)count;
@@ -14,6 +15,7 @@
 + (id)platformQueryItem;
 + (id)preferredLocalizations;
 + (id)preferredLocalizationsWithCount:(unint64_t)count;
++ (id)requestURLForAPI:(id)i type:(id)type additionalQueryItems:(id)items useLanguageDefault:(BOOL)default apiVersion:(id)version;
 + (id)supportFlowRequestURL;
 + (id)userGuideURLForIdentifier:(id)identifier version:(id)version platformIndependent:(BOOL)independent subPath:(id)path;
 + (int64_t)majorVersionForVersionString:(id)string;
@@ -75,34 +77,30 @@
 
 + (id)metaRequestURL
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [self requestURLForAPI:@"meta" type:@"tips" additionalQueryItems:0 useLanguageDefault:1 apiVersion:0];
   v3 = +[TPSLogger default];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Meta URL %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Meta URL %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 + (id)supportFlowRequestURL
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [self requestURLForAPI:@"config" type:@"support" additionalQueryItems:0 useLanguageDefault:1 apiVersion:@"v1"];
   v3 = +[TPSLogger default];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Support Flow URL %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "Support Flow URL %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -317,6 +315,37 @@ LABEL_10:
   return v12;
 }
 
++ (id)contentRequestURLWithContentMapHash:(id)hash variantIdentifiers:(id)identifiers useLanguageDefault:(BOOL)default
+{
+  defaultCopy = default;
+  v18 = *MEMORY[0x1E69E9840];
+  hashCopy = hash;
+  identifiersCopy = identifiers;
+  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
+  if (hashCopy)
+  {
+    v11 = [MEMORY[0x1E696AF60] queryItemWithName:@"contentMapHash" value:hashCopy];
+    [v10 addObject:v11];
+  }
+
+  if ([identifiersCopy length])
+  {
+    v12 = [MEMORY[0x1E696AF60] queryItemWithName:@"variantId" value:identifiersCopy];
+    [v10 addObject:v12];
+  }
+
+  v13 = [self requestURLForAPI:@"content/documents" type:@"tips" additionalQueryItems:v10 useLanguageDefault:defaultCopy apiVersion:@"v2"];
+  v14 = +[TPSLogger default];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 138412290;
+    v17 = v13;
+    _os_log_impl(&dword_1C00A7000, v14, OS_LOG_TYPE_DEFAULT, "Documents URL %@", &v16, 0xCu);
+  }
+
+  return v13;
+}
+
 + (id)defaultHost
 {
   v2 = MEMORY[0x1E695DFF8];
@@ -347,9 +376,153 @@ LABEL_10:
   return v7;
 }
 
++ (id)requestURLForAPI:(id)i type:(id)type additionalQueryItems:(id)items useLanguageDefault:(BOOL)default apiVersion:(id)version
+{
+  defaultCopy = default;
+  v59 = *MEMORY[0x1E69E9840];
+  iCopy = i;
+  typeCopy = type;
+  itemsCopy = items;
+  versionCopy = version;
+  v16 = +[TPSDefaultsManager requestURL];
+  if ([v16 isAbsolutePath])
+  {
+    v17 = [MEMORY[0x1E695DFF8] URLWithString:v16];
+    v18 = +[TPSLogger default];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v58 = v17;
+      _os_log_impl(&dword_1C00A7000, v18, OS_LOG_TYPE_DEFAULT, "Attempting to load content from: Path %@", buf, 0xCu);
+    }
+
+    v19 = [self _uiTestLocalURLForIdentifier:iCopy];
+  }
+
+  else
+  {
+    v56 = iCopy;
+    if (!v16)
+    {
+      goto LABEL_9;
+    }
+
+    v54 = defaultCopy;
+    v20 = versionCopy;
+    v21 = iCopy;
+    firstObject = [itemsCopy firstObject];
+    name = [firstObject name];
+    v24 = [name isEqualToString:@"docId"];
+
+    if (v24)
+    {
+      firstObject2 = [itemsCopy firstObject];
+      value = [firstObject2 value];
+
+      v21 = value;
+    }
+
+    versionCopy = v20;
+    v27 = [v16 stringByAppendingPathComponent:v21];
+
+    v19 = [MEMORY[0x1E695DFF8] URLWithString:v27];
+
+    v16 = v27;
+    defaultCopy = v54;
+    if (!v19)
+    {
+LABEL_9:
+      effectiveHost = [objc_opt_class() effectiveHost];
+      v29 = [@"/" stringByAppendingPathComponent:@"api"];
+      v30 = v29;
+      if (versionCopy)
+      {
+        v31 = versionCopy;
+      }
+
+      else
+      {
+        v31 = @"v2";
+      }
+
+      v32 = [v29 stringByAppendingPathComponent:v31];
+
+      v55 = typeCopy;
+      v33 = [v32 stringByAppendingPathComponent:typeCopy];
+
+      v52 = [v33 stringByAppendingPathComponent:iCopy];
+
+      if (itemsCopy)
+      {
+        [MEMORY[0x1E695DF70] arrayWithArray:itemsCopy];
+      }
+
+      else
+      {
+        [MEMORY[0x1E695DF70] array];
+      }
+      v34 = ;
+      v53 = versionCopy;
+      modelQueryItem = [objc_opt_class() modelQueryItem];
+      v36 = v34;
+      if (modelQueryItem)
+      {
+        [v34 addObject:modelQueryItem];
+      }
+
+      v49 = itemsCopy;
+      v51 = modelQueryItem;
+      platformQueryItem = [objc_opt_class() platformQueryItem];
+      if (platformQueryItem)
+      {
+        [v34 addObject:platformQueryItem];
+      }
+
+      v50 = platformQueryItem;
+      v38 = [objc_opt_class() languageStringWithLanguageDefault:defaultCopy count:3];
+      v39 = [MEMORY[0x1E696AF60] queryItemWithName:@"lang" value:v38];
+      [v36 addObject:v39];
+      v40 = +[TPSDefaultsManager requestVersion];
+      if (!v40)
+      {
+        v48 = effectiveHost;
+        v41 = MGCopyAnswer();
+        v42 = [self majorVersionForVersionString:v41];
+        if (v42 <= +[TPSCommonDefines maxRequestVersion])
+        {
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"%d.0-%@", v42, v41];
+        }
+
+        else
+        {
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"%d.0", +[TPSCommonDefines maxRequestVersion](TPSCommonDefines, "maxRequestVersion"), v47];
+        }
+        v40 = ;
+
+        effectiveHost = v48;
+      }
+
+      v43 = [MEMORY[0x1E696AF60] queryItemWithName:@"osVersion" value:v40];
+      [v36 addObject:v43];
+      v44 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:effectiveHost resolvingAgainstBaseURL:0];
+      [v44 setPath:v52];
+      [v44 setQueryItems:v36];
+      [v44 URL];
+      v19 = v45 = effectiveHost;
+
+      versionCopy = v53;
+      typeCopy = v55;
+      itemsCopy = v49;
+      iCopy = v56;
+    }
+  }
+
+  return v19;
+}
+
 + (id)assetPathFromAssetConfiguration:(id)configuration type:(int64_t)type
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v7 = [configurationCopy identifierForType:type];
   if (!v7)
@@ -393,9 +566,9 @@ LABEL_10:
       v20 = +[TPSLogger default];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = absoluteString;
-        _os_log_impl(&dword_1C00A7000, v20, OS_LOG_TYPE_DEFAULT, "Generated loaded assets URL %@", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = absoluteString;
+        _os_log_impl(&dword_1C00A7000, v20, OS_LOG_TYPE_DEFAULT, "Generated loaded assets URL %@", &v24, 0xCu);
       }
 
       goto LABEL_15;
@@ -413,16 +586,15 @@ LABEL_10:
   v17 = +[TPSLogger default];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = absoluteString;
-    _os_log_impl(&dword_1C00A7000, v17, OS_LOG_TYPE_DEFAULT, "Generated asset URL %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = absoluteString;
+    _os_log_impl(&dword_1C00A7000, v17, OS_LOG_TYPE_DEFAULT, "Generated asset URL %@", &v24, 0xCu);
   }
 
   baseURL = v13;
 LABEL_15:
 
 LABEL_16:
-  v23 = *MEMORY[0x1E69E9840];
 
   return absoluteString;
 }

@@ -167,18 +167,16 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBConfidenceScoreComponent *)self hasScore])
   {
-    score = self->_score;
     PBDataWriterWriteFloatField();
   }
 
   source = [(_INPBConfidenceScoreComponent *)self source];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (source)
   {
-    source = self->_source;
     PBDataWriterWriteStringField();
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 

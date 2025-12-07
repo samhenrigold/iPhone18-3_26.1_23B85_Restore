@@ -46,18 +46,18 @@
     v12->_modelEspresso = v21;
 
     v23 = v12->_modelEspresso;
-    if (v23 && ![(VCPCNNModelEspresso *)v23 prepareModelWithConfig:configCopy]&& ((v27 = v12->_modelEspresso) == 0 ? (v28 = 0, v52 = 0u, v51 = 0) : ([(VCPCNNModelEspresso *)v27 inputBlob], v28 = *(&v52 + 1)), (v29 = v12->_modelEspresso) == 0 ? (v30 = 0, v49 = 0) : ([(VCPCNNModelEspresso *)v29 inputBlob], v30 = v50), (v31 = v12->_modelEspresso) == 0 ? (v32 = 0) : ([(VCPCNNModelEspresso *)v31 inputBlob], v32 = v48), (v33 = v30 * v28 * v32, v33 >> 62) ? (v34 = -1) : (v34 = 4 * v33), (v12->_inputData = operator new[](v34, MEMORY[0x1E69E5398]), (v35 = v12->_modelEspresso) == 0) ? (v36 = 0) : ([(VCPCNNModelEspresso *)v35 inputBlob], v36 = v52), (v12->_inputWidth = v36, (v37 = v12->_modelEspresso) == 0) ? (v38 = 0) : ([(VCPCNNModelEspresso *)v37 inputBlob], v38 = DWORD2(v52)), v12->_inputHeight = v38, v12->_inputData))
+    if (v23 && ![(VCPCNNModelEspresso *)v23 prepareModelWithConfig:configCopy]&& ((v27 = v12->_modelEspresso) == 0 ? (v28 = 0, v52 = 0u, v51 = 0) : (objc_msgSend_inputBlob(v27), v28 = *(&v52 + 1)), (v29 = v12->_modelEspresso) == 0 ? (v30 = 0, v49 = 0) : (objc_msgSend_inputBlob(v29), v30 = v50), (v31 = v12->_modelEspresso) == 0 ? (v32 = 0) : (objc_msgSend_inputBlob(v31), v32 = v48), (v33 = v30 * v28 * v32, v33 >> 62) ? (v34 = -1) : (v34 = 4 * v33), (v12->_inputData = operator new[](v34, MEMORY[0x1E69E5398]), (v35 = v12->_modelEspresso) == 0) ? (v36 = 0) : (objc_msgSend_inputBlob(v35), v36 = v52), (v12->_inputWidth = v36, (v37 = v12->_modelEspresso) == 0) ? (v38 = 0) : (objc_msgSend_inputBlob(v37), v38 = DWORD2(v52)), v12->_inputHeight = v38, v12->_inputData))
     {
       v39 = 0;
       v40 = 0;
       v41 = MEMORY[0x1E69E5398];
       while ([(NSArray *)v12->_outputNames count]> v40)
       {
-        [(VCPCNNModelEspresso *)v12->_modelEspresso outputBlobs];
+        objc_msgSend_outputBlobs(v12->_modelEspresso);
         v42 = *&v51[v39 + 88];
-        [(VCPCNNModelEspresso *)v12->_modelEspresso outputBlobs];
+        objc_msgSend_outputBlobs(v12->_modelEspresso);
         v43 = *&v49[v39 + 80];
-        [(VCPCNNModelEspresso *)v12->_modelEspresso outputBlobs];
+        objc_msgSend_outputBlobs(v12->_modelEspresso);
         v44 = v43 * v42 * *&__p[v39 + 96];
         if (v44 >> 62)
         {
@@ -235,7 +235,7 @@ LABEL_4:
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(modelEspresso);
     }
 
     else

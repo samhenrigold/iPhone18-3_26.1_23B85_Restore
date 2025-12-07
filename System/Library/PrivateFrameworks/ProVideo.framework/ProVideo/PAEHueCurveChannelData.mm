@@ -109,19 +109,19 @@
 - (void)reset
 {
   curve_private = self->_curve_private;
-  v3 = curve_private + 1;
-  v4 = curve_private[1];
-  v5 = curve_private[2];
+  v3 = (curve_private + 8);
+  v4 = *(curve_private + 1);
+  v5 = *(curve_private + 2);
   v6 = v4;
   if (v5 != v4)
   {
     v7 = v5 - 24;
-    v8 = (v5 - 24);
-    v9 = (v5 - 24);
+    v8 = v5 - 24;
+    v9 = v5 - 24;
     do
     {
       v10 = *v9;
-      v9 -= 3;
+      v9 -= 24;
       (*v10)(v8, v6);
       v7 -= 24;
       v11 = v8 == v4;
@@ -132,21 +132,21 @@
     v6 = *v3;
   }
 
-  curve_private[2] = v4;
-  std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cc::point_t<double,false,false> const*>,std::__wrap_iter<cc::point_t<double,false,false> const*>>(v3, v6, curve_private[14], curve_private[15], 0xAAAAAAAAAAAAAAABLL * ((curve_private[15] - curve_private[14]) >> 3));
-  v12 = curve_private[7];
-  curve_private[5] = curve_private[18];
-  v13 = curve_private[8];
+  *(curve_private + 2) = v4;
+  std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cc::point_t<double,false,false> const*>,std::__wrap_iter<cc::point_t<double,false,false> const*>>(v3, v6, *(curve_private + 14), *(curve_private + 15), 0xAAAAAAAAAAAAAAABLL * ((*(curve_private + 15) - *(curve_private + 14)) >> 3));
+  v12 = *(curve_private + 7);
+  *(curve_private + 5) = *(curve_private + 18);
+  v13 = *(curve_private + 8);
   v14 = v12;
   if (v13 != v12)
   {
     v15 = v13 - 24;
-    v16 = (v13 - 24);
-    v17 = (v13 - 24);
+    v16 = v13 - 24;
+    v17 = v13 - 24;
     do
     {
       v18 = *v17;
-      v17 -= 3;
+      v17 -= 24;
       (*v18)(v16, v14);
       v15 -= 24;
       v11 = v16 == v12;
@@ -154,12 +154,12 @@
     }
 
     while (!v11);
-    v14 = curve_private[7];
+    v14 = *(curve_private + 7);
   }
 
-  curve_private[8] = v12;
-  v19 = curve_private[20];
-  v20 = curve_private[21];
+  *(curve_private + 8) = v12;
+  v19 = *(curve_private + 20);
+  v20 = *(curve_private + 21);
 
   std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cc::point_t<double,false,false> const*>,std::__wrap_iter<cc::point_t<double,false,false> const*>>(curve_private + 7, v14, v19, v20, 0xAAAAAAAAAAAAAAABLL * ((v20 - v19) >> 3));
 }

@@ -1,5 +1,6 @@
 @interface TSPDocumentRevision
 + (TSPDocumentRevision)revisionWithRevisionString:(id)string;
++ (TSPDocumentRevision)revisionWithSequence:(int)sequence identifier:(id)identifier;
 + (id)documentRevisionAtURL:(id)l passphrase:(id)passphrase error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (NSString)revisionString;
@@ -67,9 +68,19 @@
   return selfCopy;
 }
 
++ (TSPDocumentRevision)revisionWithSequence:(int)sequence identifier:(id)identifier
+{
+  v4 = *&sequence;
+  identifierCopy = identifier;
+  v7 = [self alloc];
+  v9 = objc_msgSend_initWithSequence_identifier_(v7, v8, v4, identifierCopy);
+
+  return v9;
+}
+
 - (TSPDocumentRevision)initWithRevisionString:(id)string
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v6 = objc_msgSend_componentsSeparatedByString_(stringCopy, v5, @"::");
   if (objc_msgSend_count(v6, v7, v8) == 2)
@@ -104,11 +115,11 @@
         v40 = objc_msgSend_initWithUUIDString_(v37, v38, @"0d4664c7-0c82-4301-8c01-e2d4a551216e");
         if (!v40)
         {
-          TSUSetCrashReporterInfo();
-          v57 = MEMORY[0x277D81150];
-          v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "[TSPDocumentRevision initWithRevisionString:]", "[TSPDocumentRevision initWithRevisionString:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentRevision.mm", 69);
-          v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentRevision.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v62, v59, v61, 69, 1, "Should be able to create UUID from base UUID string.");
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should be able to create UUID from base UUID string.", "[TSPDocumentRevision initWithRevisionString:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentRevision.mm", 69);
+          v56 = MEMORY[0x277D81150];
+          v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "[TSPDocumentRevision initWithRevisionString:]");
+          v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDocumentRevision.mm");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v61, v58, v60, 69, 1, "Should be able to create UUID from base UUID string.");
 
           TSUCrashBreakpoint();
           abort();
@@ -124,10 +135,10 @@
 
     else
     {
-      v63[0] = 0;
-      v63[1] = 0;
+      v62[0] = 0;
+      v62[1] = 0;
       v53 = objc_alloc(MEMORY[0x277CCAD78]);
-      v29 = objc_msgSend_initWithUUIDBytes_(v53, v54, v63);
+      v29 = objc_msgSend_initWithUUIDBytes_(v53, v54, v62);
     }
 
     v43 = objc_msgSend_initWithSequence_identifier_(self, v28, v14, v29);
@@ -151,7 +162,6 @@ LABEL_13:
   selfCopy = 0;
 LABEL_14:
 
-  v55 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -17,29 +17,28 @@
 {
   v7 = sub_272376E5C();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_27237782C();
-  v14 = v13;
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_27237782C();
+  v13 = v12;
   sub_272376E3C();
   if (logs)
   {
-    v15 = sub_272377AFC();
+    v14 = sub_272377AFC();
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v16 = *(self->super.isa + 19);
+  v15 = *(self->super.isa + 19);
 
-  if (v16(v17))
+  if (v15(v16))
   {
-    v19 = v18;
+    v18 = v17;
     ObjectType = swift_getObjectType();
-    (*(v19 + 16))(v12, v14, v11, v15, ObjectType, v19);
+    (*(v18 + 16))(v11, v13, v10, v14, ObjectType, v18);
 
     swift_unknownObjectRelease();
   }
@@ -48,7 +47,7 @@
   {
   }
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)speechResultsWithResult:(id)result

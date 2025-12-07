@@ -38,9 +38,11 @@
 
 uint64_t __38__AFUIGuideCacheManager_sharedManager__block_invoke(uint64_t a1)
 {
-  sharedManager_sharedManager = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (AFUIGuideCacheManager)init
@@ -421,14 +423,14 @@ LABEL_9:
 {
   dateCopy = date;
   timeCopy = time;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   _cachedGuideUpdate = [(AFUIGuideCacheManager *)self _cachedGuideUpdate];
   languageCode = [_cachedGuideUpdate languageCode];
 
-  if (languageCode && (AFUIGetLanguageCode(), v10 = objc_claimAutoreleasedReturnValue(), v11 = [languageCode isEqualToString:v10], v10, (v11 & 1) != 0))
+  if (languageCode && (AFUIGetLanguageCode(v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v13 = [languageCode isEqualToString:v12], v12, (v13 & 1) != 0))
   {
     _pathForCachedGuideUpdate = [(AFUIGuideCacheManager *)self _pathForCachedGuideUpdate];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -437,26 +439,26 @@ LABEL_9:
     block[1] = 3221225472;
     block[2] = __71__AFUIGuideCacheManager__shouldCheckForUpdateAtDate_lastAppUpdateTime___block_invoke;
     block[3] = &unk_278CD63F0;
-    v20 = defaultManager;
-    v21 = _pathForCachedGuideUpdate;
-    v22 = timeCopy;
-    v24 = &v25;
-    v23 = dateCopy;
-    v15 = _pathForCachedGuideUpdate;
-    v16 = defaultManager;
+    v22 = defaultManager;
+    v23 = _pathForCachedGuideUpdate;
+    v24 = timeCopy;
+    v26 = &v27;
+    v25 = dateCopy;
+    v17 = _pathForCachedGuideUpdate;
+    v18 = defaultManager;
     dispatch_sync(cacheFileQueue, block);
 
-    v17 = *(v26 + 24);
+    v19 = *(v28 + 24);
   }
 
   else
   {
-    v17 = 1;
-    *(v26 + 24) = 1;
+    v19 = 1;
+    *(v28 + 24) = 1;
   }
 
-  _Block_object_dispose(&v25, 8);
-  return v17 & 1;
+  _Block_object_dispose(&v27, 8);
+  return v19 & 1;
 }
 
 void __71__AFUIGuideCacheManager__shouldCheckForUpdateAtDate_lastAppUpdateTime___block_invoke(uint64_t a1)

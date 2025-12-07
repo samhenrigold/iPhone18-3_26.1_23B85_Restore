@@ -49,9 +49,9 @@
 
 - (_DASThunderingHerdPolicy)init
 {
-  v31.receiver = self;
-  v31.super_class = _DASThunderingHerdPolicy;
-  v2 = [(_DASThunderingHerdPolicy *)&v31 init];
+  v29.receiver = self;
+  v29.super_class = _DASThunderingHerdPolicy;
+  v2 = [(_DASThunderingHerdPolicy *)&v29 init];
   v3 = v2;
   if (v2)
   {
@@ -72,53 +72,51 @@
     v3->_triggers = initializeTriggers;
 
     dispatch_source_set_timer(v3->_shortTermTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0xE8D4A51000uLL);
-    v12 = v3->_shortTermTimer;
     dispatch_set_qos_class_fallback();
-    v13 = v3->_shortTermTimer;
+    v12 = v3->_shortTermTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000730D8;
     handler[3] = &unk_1001B5668;
-    v14 = v3;
-    v30 = v14;
-    dispatch_source_set_event_handler(v13, handler);
+    v13 = v3;
+    v28 = v13;
+    dispatch_source_set_event_handler(v12, handler);
     dispatch_activate(v3->_shortTermTimer);
-    v15 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v3->_queue);
-    v16 = v14[7];
-    v14[7] = v15;
+    v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v3->_queue);
+    v15 = v13[7];
+    v13[7] = v14;
 
-    dispatch_source_set_timer(v14[7], 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0xE8D4A51000uLL);
-    v17 = v14[7];
+    dispatch_source_set_timer(v13[7], 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0xE8D4A51000uLL);
     dispatch_set_qos_class_fallback();
-    v18 = v14[7];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000730E4;
-    v27[3] = &unk_1001B5668;
-    v19 = v14;
-    v28 = v19;
-    dispatch_source_set_event_handler(v18, v27);
-    dispatch_activate(v14[7]);
-    v20 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.duetactivityscheduler"];
-    *(v19 + 10) = [v20 BOOLForKey:@"ignoreTH"];
+    v16 = v13[7];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_1000730E4;
+    v25[3] = &unk_1001B5668;
+    v17 = v13;
+    v26 = v17;
+    dispatch_source_set_event_handler(v16, v25);
+    dispatch_activate(v13[7]);
+    v18 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.duetactivityscheduler"];
+    *(v17 + 10) = [v18 BOOLForKey:@"ignoreTH"];
 
-    if (*(v19 + 10) == 1)
+    if (*(v17 + 10) == 1)
     {
-      v21 = [_DASDaemonLogger logForCategory:@"thpolicy"];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v19 = [_DASDaemonLogger logForCategory:@"thpolicy"];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Ignoring TH triggers!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Ignoring TH triggers!", buf, 2u);
       }
     }
 
-    v22 = v3->_queue;
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_1000730F0;
-    v24[3] = &unk_1001B5B78;
-    v25 = v19;
-    notify_register_dispatch("com.apple.dasd.thunderingHerdTrigger", &unk_10020B468, v22, v24);
+    v20 = v3->_queue;
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000730F0;
+    v22[3] = &unk_1001B5B78;
+    v23 = v17;
+    notify_register_dispatch("com.apple.dasd.thunderingHerdTrigger", &unk_10020B468, v20, v22);
   }
 
   return v3;
@@ -218,7 +216,6 @@
 {
   activityCopy = activity;
   stateCopy = state;
-  waitingForInactivity = self->_waitingForInactivity;
   if (self->_recentTriggerEvent)
   {
     if (!self->_waitingForInactivity)
@@ -243,62 +240,62 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v10 = [[_DASPolicyResponseRationale alloc] initWithPolicyName:@"Thundering Herd Policy"];
+    v9 = [[_DASPolicyResponseRationale alloc] initWithPolicyName:@"Thundering Herd Policy"];
     if (self->_recentTriggerEvent)
     {
-      [NSPredicate predicateWithFormat:@"timeSinceThunderingHerdTriggerEvent < %@", &off_1001C9B68, v20];
+      [NSPredicate predicateWithFormat:@"timeSinceThunderingHerdTriggerEvent < %@", &off_1001C9B68, v19];
     }
 
     else
     {
       if (!self->_waitingForInactivity || ![_DASDeviceActivityPolicy isDeviceInUse:stateCopy])
       {
+        v12 = 0;
         v13 = 0;
-        v14 = 0;
         goto LABEL_16;
       }
 
       [NSPredicate predicateWithFormat:@"deviceInUse == %u and timeSinceThunderingHerdTriggerEvent < %@", 1, &off_1001C9B80];
     }
-    v11 = ;
-    [(_DASPolicyResponseRationale *)v10 addRationaleWithCondition:v11];
+    v10 = ;
+    [(_DASPolicyResponseRationale *)v9 addRationaleWithCondition:v10];
 
-    v12 = [NSPredicate predicateWithFormat:@"recentTriggerReason == %@", self->_recentTriggerReason];
-    [(_DASPolicyResponseRationale *)v10 addRationaleWithCondition:v12];
+    v11 = [NSPredicate predicateWithFormat:@"recentTriggerReason == %@", self->_recentTriggerReason];
+    [(_DASPolicyResponseRationale *)v9 addRationaleWithCondition:v11];
 
-    v13 = 1;
-    v14 = 33;
+    v12 = 1;
+    v13 = 33;
 LABEL_16:
-    v21 = @"ThunderingHerd";
-    v15 = [NSNumber numberWithBool:v13];
-    v22 = v15;
-    v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = @"ThunderingHerd";
+    v14 = [NSNumber numberWithBool:v12];
+    v21 = v14;
+    v15 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
 
-    v17 = +[_DASPPSDataManager sharedInstance];
-    [v17 sendDataToPPS:v16 subsystem:@"BackgroundProcessing" category:@"SystemConditionsOther"];
+    v16 = +[_DASPPSDataManager sharedInstance];
+    [v16 sendDataToPPS:v15 subsystem:@"BackgroundProcessing" category:@"SystemConditionsOther"];
 
     if ([_DASPhotosPolicy isActivity:activityCopy consideredNonDiscretionary:stateCopy])
     {
-      v18 = [NSPredicate predicateWithFormat:@"isPhotosConsideredNonDiscretionary == 1"];
-      [(_DASPolicyResponseRationale *)v10 addRationaleWithCondition:v18];
+      v17 = [NSPredicate predicateWithFormat:@"isPhotosConsideredNonDiscretionary == 1"];
+      [(_DASPolicyResponseRationale *)v9 addRationaleWithCondition:v17];
 
-      [_DASPolicyResponse policyResponseWithScore:v10 validityDuration:0.8 rationale:0x384uLL];
+      [_DASPolicyResponse policyResponseWithScore:v9 validityDuration:0.8 rationale:0x384uLL];
     }
 
     else
     {
-      [_DASPolicyResponse policyResponseWithDecision:v14 validityDuration:v10 rationale:0x384uLL];
+      [_DASPolicyResponse policyResponseWithDecision:v13 validityDuration:v9 rationale:0x384uLL];
     }
-    v9 = ;
+    v8 = ;
 
     goto LABEL_20;
   }
 
 LABEL_8:
-  v9 = [_DASPolicyResponse policyResponseWithDecision:0 validityDuration:0 rationale:0x384uLL];
+  v8 = [_DASPolicyResponse policyResponseWithDecision:0 validityDuration:0 rationale:0x384uLL];
 LABEL_20:
 
-  return v9;
+  return v8;
 }
 
 @end

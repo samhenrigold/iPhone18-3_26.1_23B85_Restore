@@ -146,7 +146,7 @@ void __70__SBCaptureButtonRestrictionServer__authorizedClientBundleIdentifiers__
 {
   v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v7 = SBLogCameraCaptureRestriction();
+  v7 = SBLogCameraCaptureRestriction(connectionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -155,11 +155,11 @@ void __70__SBCaptureButtonRestrictionServer__authorizedClientBundleIdentifiers__
   }
 
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  versionedPID = [auditToken versionedPID];
+  v9 = objc_msgSend_auditToken(remoteProcess);
+  versionedPID = [v9 versionedPID];
 
-  LODWORD(auditToken) = [remoteProcess pid];
-  if (auditToken == getpid() || ![(SBCaptureButtonRestrictionServer *)self _remoteProcessIsAuthorizedClient:remoteProcess])
+  LODWORD(v9) = [remoteProcess pid];
+  if (v9 == getpid() || ![(SBCaptureButtonRestrictionServer *)self _remoteProcessIsAuthorizedClient:remoteProcess])
   {
     [connectionCopy invalidate];
   }
@@ -237,16 +237,16 @@ void __78__SBCaptureButtonRestrictionServer_listener_didReceiveConnection_withCo
 
 void __78__SBCaptureButtonRestrictionServer_listener_didReceiveConnection_withContext___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   dispatch_assert_queue_V2(WeakRetained[4]);
-  v5 = SBLogCameraCaptureRestriction();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogCameraCaptureRestriction(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "SBCaptureButtonRestrictionServer activated connection %{public}@", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "SBCaptureButtonRestrictionServer activated connection %{public}@", &v7, 0xCu);
   }
 }
 
@@ -302,37 +302,38 @@ void __76__SBCaptureButtonRestrictionServer_setCaptureButtonActionInhibited_opti
 
 - (uint64_t)_remoteProcessIsAuthorizedClient:(uint64_t)client
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (client)
   {
-    auditToken = [v3 auditToken];
-    if (([auditToken hasEntitlement:@"com.apple.springboard.capture-button-restriction"] & 1) != 0 || objc_msgSend(auditToken, "hasEntitlement:", @"com.apple.springboard.126E27E0-D025-4A46-B2F1-AF49D4E0B105"))
+    v5 = objc_msgSend_auditToken(v3);
+    if (([v5 hasEntitlement:@"com.apple.springboard.capture-button-restriction"] & 1) != 0 || objc_msgSend(v5, "hasEntitlement:", @"com.apple.springboard.126E27E0-D025-4A46-B2F1-AF49D4E0B105"))
     {
       bundleIdentifier = [v4 bundleIdentifier];
       _authorizedClientBundleIdentifiers = [(SBCaptureButtonRestrictionServer *)client _authorizedClientBundleIdentifiers];
-      client = [_authorizedClientBundleIdentifiers containsObject:bundleIdentifier];
+      client = objc_msgSend_containsObject_(_authorizedClientBundleIdentifiers);
 
       if ((client & 1) == 0)
       {
-        v10 = SBLogCameraCaptureRestriction();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v13 = SBLogCameraCaptureRestriction(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v11 = 138543618;
-          v12 = v4;
-          v13 = 2114;
-          v14 = bundleIdentifier;
-          _os_log_error_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_ERROR, "SBCaptureButtonRestrictionServer: process is not authorized to suppress the capture button %{public}@ -- %{public}@", &v11, 0x16u);
+          v14 = 138543618;
+          v15 = v4;
+          v16 = 2114;
+          v17 = bundleIdentifier;
+          _os_log_error_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_ERROR, "SBCaptureButtonRestrictionServer: process is not authorized to suppress the capture button %{public}@ -- %{public}@", &v14, 0x16u);
         }
       }
 
       goto LABEL_12;
     }
 
-    if (([auditToken hasEntitlement:@"com.apple.springboard.capture-button-restriction-internal"] & 1) != 0 || objc_msgSend(auditToken, "hasEntitlement:", @"com.apple.springboard.8CFFD00F-D62F-43B2-AA10-427657A783F4"))
+    if (([v5 hasEntitlement:@"com.apple.springboard.capture-button-restriction-internal"] & 1) != 0 || (v6 = objc_msgSend(v5, "hasEntitlement:", @"com.apple.springboard.8CFFD00F-D62F-43B2-AA10-427657A783F4"), v6))
     {
-      if (os_variant_has_internal_content())
+      has_internal_content = os_variant_has_internal_content();
+      if (has_internal_content)
       {
         client = 1;
 LABEL_13:
@@ -340,20 +341,20 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      bundleIdentifier = SBLogCameraCaptureRestriction();
+      bundleIdentifier = SBLogCameraCaptureRestriction(has_internal_content);
       if (!os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_11;
       }
 
-      v11 = 138543362;
-      v12 = v4;
-      v7 = "SBCaptureButtonRestrictionServer: process is not authorized to suppress the capture button on prod devices %{public}@";
+      v14 = 138543362;
+      v15 = v4;
+      v9 = "SBCaptureButtonRestrictionServer: process is not authorized to suppress the capture button on prod devices %{public}@";
     }
 
     else
     {
-      bundleIdentifier = SBLogCameraCaptureRestriction();
+      bundleIdentifier = SBLogCameraCaptureRestriction(v6);
       if (!os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_ERROR))
       {
 LABEL_11:
@@ -363,12 +364,12 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v11 = 138543362;
-      v12 = v4;
-      v7 = "SBCaptureButtonRestrictionServer: process is missing required entitlement %{public}@";
+      v14 = 138543362;
+      v15 = v4;
+      v9 = "SBCaptureButtonRestrictionServer: process is missing required entitlement %{public}@";
     }
 
-    _os_log_error_impl(&dword_21ED4E000, bundleIdentifier, OS_LOG_TYPE_ERROR, v7, &v11, 0xCu);
+    _os_log_error_impl(&dword_21ED4E000, bundleIdentifier, OS_LOG_TYPE_ERROR, v9, &v14, 0xCu);
     goto LABEL_11;
   }
 
@@ -379,26 +380,27 @@ LABEL_14:
 
 - (void)_removeCaptureButtonInhibitActionAssertionForVersionedPID:(void *)d reason:
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (self)
   {
     v6 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];
     v7 = [*(self + 24) objectForKey:v6];
+    v8 = v7;
     if (v7)
     {
-      v8 = SBLogCameraCaptureRestriction();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogCameraCaptureRestriction(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = NSStringFromBSVersionedPID();
-        v11 = 138543618;
-        v12 = v9;
-        v13 = 2114;
-        v14 = dCopy;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SBCaptureButtonRestrictionServer invalidate remote assertion for %{public}@ for reason %{public}@", &v11, 0x16u);
+        v10 = NSStringFromBSVersionedPID();
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2114;
+        v15 = dCopy;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "SBCaptureButtonRestrictionServer invalidate remote assertion for %{public}@ for reason %{public}@", &v12, 0x16u);
       }
 
-      wrappedAssertion = [v7 wrappedAssertion];
+      wrappedAssertion = [v8 wrappedAssertion];
       [wrappedAssertion invalidate];
 
       [*(self + 24) removeObjectForKey:v6];
@@ -411,9 +413,9 @@ LABEL_14:
   if (connection)
   {
     remoteProcess = [a2 remoteProcess];
-    auditToken = [remoteProcess auditToken];
+    v4 = objc_msgSend_auditToken(remoteProcess);
 
-    -[SBCaptureButtonRestrictionServer _removeCaptureButtonInhibitActionAssertionForVersionedPID:reason:](connection, [auditToken versionedPID], @"remote request");
+    -[SBCaptureButtonRestrictionServer _removeCaptureButtonInhibitActionAssertionForVersionedPID:reason:](connection, [v4 versionedPID], @"remote request");
   }
 }
 
@@ -423,9 +425,9 @@ LABEL_14:
   {
     v5 = a2;
     remoteProcess = [v5 remoteProcess];
-    auditToken = [remoteProcess auditToken];
+    v18 = objc_msgSend_auditToken(remoteProcess);
 
-    versionedPID = [auditToken versionedPID];
+    versionedPID = [v18 versionedPID];
     v8 = [MEMORY[0x277CCABB0] numberWithLongLong:versionedPID];
     v9 = objc_alloc_init(_SBCaptureButtonRestrictionServerAssertionWrapper);
     WeakRetained = objc_loadWeakRetained((self + 48));

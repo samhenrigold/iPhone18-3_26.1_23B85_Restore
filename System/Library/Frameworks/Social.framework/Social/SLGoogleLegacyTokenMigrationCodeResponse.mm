@@ -6,11 +6,11 @@
 
 - (SLGoogleLegacyTokenMigrationCodeResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v32.receiver = self;
-  v32.super_class = SLGoogleLegacyTokenMigrationCodeResponse;
-  v10 = [(SLGoogleLegacyTokenMigrationResponse *)&v32 initWithData:data urlResponse:responseCopy error:error];
+  v38.receiver = self;
+  v38.super_class = SLGoogleLegacyTokenMigrationCodeResponse;
+  v10 = [(SLGoogleLegacyTokenMigrationResponse *)&v38 initWithData:data urlResponse:responseCopy error:error];
   v11 = v10;
   if (!error)
   {
@@ -25,32 +25,32 @@
         v15 = [MEMORY[0x1E695DFF8] URLWithString:&stru_1F41EC300];
         v16 = [v13 cookiesWithResponseHeaderFields:allHeaderFields forURL:v15];
 
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
-        v29 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v29;
+          v20 = *v35;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v29 != v20)
+              if (*v35 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v28 + 1) + 8 * i);
+              v22 = *(*(&v34 + 1) + 8 * i);
               name = [v22 name];
               v24 = [name isEqualToString:@"oauth_code"];
 
               if (v24)
               {
-                _SLLog(v5, 5, @"Successfully got an auth code");
+                _SLLog(v5, 5, @"Successfully got an auth code", v25, v26, v27, v28, v29, v33);
                 value = [v22 value];
                 code = v11->_code;
                 v11->_code = value;
@@ -59,7 +59,7 @@
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
             if (v19)
             {
               continue;

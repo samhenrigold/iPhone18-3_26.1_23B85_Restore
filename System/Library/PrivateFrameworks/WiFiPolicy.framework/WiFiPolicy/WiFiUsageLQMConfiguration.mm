@@ -44,7 +44,7 @@
 
 + (void)getConfigForPlatform
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   p_info = TBTileMO.info;
   v3 = [_dataPathTelemetryConfig objectForKey:@"platformDependent"];
 
@@ -56,29 +56,29 @@
 
     if (isKindOfClass)
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       obj = [_dataPathTelemetryConfig objectForKeyedSubscript:@"platformDependent"];
-      v6 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v6 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       if (v6)
       {
         v7 = v6;
-        v42 = 0;
+        v41 = 0;
         v8 = @"validOnPlatforms";
-        v9 = *v47;
+        v9 = *v46;
 LABEL_5:
         v10 = 0;
-        v44 = v7;
+        v43 = v7;
         while (1)
         {
-          if (*v47 != v9)
+          if (*v46 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v46 + 1) + 8 * v10);
+          v11 = *(*(&v45 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -102,7 +102,7 @@ LABEL_5:
 
             v8 = v16;
             v9 = v14;
-            v7 = v44;
+            v7 = v43;
 LABEL_18:
             v25 = MEMORY[0x277CCACA8];
             v26 = [(__objc2_class_ro *)p_info[115] objectForKeyedSubscript:@"platformDependent"];
@@ -123,13 +123,13 @@ LABEL_18:
           v19 = v18;
           v20 = [v11 objectForKeyedSubscript:@"DataPathTelemetry"];
           objc_opt_class();
-          v43 = objc_opt_isKindOfClass();
+          v42 = objc_opt_isKindOfClass();
 
           p_info = v15;
           v8 = v16;
           v9 = v14;
-          v7 = v44;
-          if ((v43 & 1) == 0)
+          v7 = v43;
+          if ((v42 & 1) == 0)
           {
             goto LABEL_18;
           }
@@ -190,16 +190,16 @@ LABEL_18:
             goto LABEL_40;
           }
 
-          v42 = v23;
+          v41 = v23;
 LABEL_21:
           if (v7 == ++v10)
           {
-            v34 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v34 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
             v7 = v34;
             if (!v34)
             {
               v35 = 0;
-              v23 = v42;
+              v23 = v41;
               goto LABEL_40;
             }
 
@@ -244,8 +244,6 @@ LABEL_40:
 
   v40 = p_info[115];
   p_info[115] = v35;
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 @end

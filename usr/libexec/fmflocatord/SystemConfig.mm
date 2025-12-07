@@ -62,53 +62,55 @@
 
 - (id)initSingleton
 {
-  v17.receiver = self;
-  v17.super_class = SystemConfig;
-  v2 = [(SystemConfig *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = SystemConfig;
+  v2 = [(SystemConfig *)&v19 init];
   if (v2)
   {
-    v2->_isLocationServicesEnabled = +[CLLocationManager locationServicesEnabled];
-    v3 = sub_100002830();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = +[CLLocationManager locationServicesEnabled];
+    v2->_isLocationServicesEnabled = v3;
+    v4 = sub_100002830(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       isLocationServicesEnabled = v2->_isLocationServicesEnabled;
       *buf = 67109120;
-      LODWORD(v19) = isLocationServicesEnabled;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Initial LS auth status: %d", buf, 8u);
+      LODWORD(v21) = isLocationServicesEnabled;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Initial LS auth status: %d", buf, 8u);
     }
 
-    v5 = dispatch_queue_create("com.apple.icloud.fmflocatord.fmfconfig.LSStatusUpdateQ", 0);
+    v6 = dispatch_queue_create("com.apple.icloud.fmflocatord.fmfconfig.LSStatusUpdateQ", 0);
     locationServicesStatusUpdateQueue = v2->_locationServicesStatusUpdateQueue;
-    v2->_locationServicesStatusUpdateQueue = v5;
+    v2->_locationServicesStatusUpdateQueue = v6;
 
-    v7 = [[CLLocationManager alloc] initWithEffectiveBundlePath:@"/System/Library/PrivateFrameworks/FMF.framework" delegate:v2 onQueue:v2->_locationServicesStatusUpdateQueue];
+    v8 = [[CLLocationManager alloc] initWithEffectiveBundlePath:@"/System/Library/PrivateFrameworks/FMF.framework" delegate:v2 onQueue:v2->_locationServicesStatusUpdateQueue];
     fmfLocationManager = v2->_fmfLocationManager;
-    v2->_fmfLocationManager = v7;
+    v2->_fmfLocationManager = v8;
 
-    v2->_shareMyLocationSystemServiceStatus = [(CLLocationManager *)v2->_fmfLocationManager authorizationStatus];
-    v9 = sub_100002830();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    authorizationStatus = [(CLLocationManager *)v2->_fmfLocationManager authorizationStatus];
+    v2->_shareMyLocationSystemServiceStatus = authorizationStatus;
+    v11 = sub_100002830(authorizationStatus);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       isShareMyLocationSystemServiceEnabled = [(SystemConfig *)v2 isShareMyLocationSystemServiceEnabled];
-      v11 = @"disabled";
+      v13 = @"disabled";
       if (isShareMyLocationSystemServiceEnabled)
       {
-        v11 = @"enabled";
+        v13 = @"enabled";
       }
 
       *buf = 138412290;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Share My Location System Service is initially %@", buf, 0xCu);
+      v21 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Share My Location System Service is initially %@", buf, 0xCu);
     }
 
-    v12 = +[PreferencesMgr sharedInstance];
-    [(SystemConfig *)v2 setPreferencesMgr:v12];
+    v14 = +[PreferencesMgr sharedInstance];
+    [(SystemConfig *)v2 setPreferencesMgr:v14];
 
-    v13 = +[NSNotificationCenter defaultCenter];
-    [v13 addObserver:v2 selector:"deviceNameMayNeedUpdate" name:@"DeviceNameMayHaveChangedNotification" object:0];
+    v15 = +[NSNotificationCenter defaultCenter];
+    [v15 addObserver:v2 selector:"deviceNameMayNeedUpdate" name:@"DeviceNameMayHaveChangedNotification" object:0];
 
-    v14 = +[NSNotificationCenter defaultCenter];
-    [v14 addObserver:v2 selector:"localeMayNeedUpdate" name:@"DeviceLocaleMayHaveChangedNotification" object:0];
+    v16 = +[NSNotificationCenter defaultCenter];
+    [v16 addObserver:v2 selector:"localeMayNeedUpdate" name:@"DeviceLocaleMayHaveChangedNotification" object:0];
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100019DC0, @"com.apple.system.timezone", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
@@ -141,7 +143,7 @@
 
 - (void)_handleGestaltError:(int)error forKey:(__CFString *)key
 {
-  v6 = sub_100002830();
+  v6 = sub_100002830(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100037F50(key, error, v6);
@@ -197,7 +199,7 @@
 
 - (void)deviceNameMayNeedUpdate
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -208,9 +210,9 @@
   [(SystemConfig *)self setDeviceNameUpToDate:0];
   deviceName2 = [(SystemConfig *)self deviceName];
   v6 = deviceName2;
-  if (!deviceName && deviceName2 || deviceName && !deviceName2 || ([deviceName isEqualToString:deviceName2] & 1) == 0)
+  if (!deviceName && deviceName2 || deviceName && !deviceName2 || (deviceName2 = [deviceName isEqualToString:deviceName2], (deviceName2 & 1) == 0))
   {
-    v7 = sub_100002830();
+    v7 = sub_100002830(deviceName2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -289,7 +291,7 @@ LABEL_9:
     v2 = qword_1000701C8;
     if (!qword_1000701C8)
     {
-      v5 = sub_100002830();
+      v5 = sub_100002830(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_100037FEC(v5);
@@ -439,11 +441,11 @@ LABEL_9:
 
   if (!shareMyLocationSystemServiceStatus)
   {
-    AnalyticsSendEventLazy();
-    v4 = sub_100002830();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = AnalyticsSendEventLazy();
+    v5 = sub_100002830(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100038030(v4);
+      sub_100038030(v5);
     }
 
     fmfLocationManager = [(SystemConfig *)self fmfLocationManager];
@@ -494,19 +496,20 @@ LABEL_9:
 {
   v2 = [(SystemConfig *)self _BOOLGestaltQueryForKey:@"cellular-data"];
   v3 = MAGetActivationState();
-  v4 = sub_100002830();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v4 = v3;
+  v5 = sub_100002830(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_100038074(v2, v3, v4);
+    sub_100038074(v2, v4, v5);
   }
 
-  return v2 & v3;
+  return v2 & v4;
 }
 
 - (unint64_t)unlockState
 {
   v2 = MKBDeviceUnlockedSinceBoot();
-  v3 = sub_100002830();
+  v3 = sub_100002830(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100038104(v2, v3, v4, v5, v6, v7, v8, v9);

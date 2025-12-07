@@ -65,10 +65,10 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFStatusItem *)self home];
+  v5 = objc_msgSend_home(self);
   room = [(HFStatusItem *)self room];
   valueSource = [(HFStatusItem *)self valueSource];
-  v8 = [v4 initWithHome:home room:room valueSource:valueSource];
+  v8 = [v4 initWithHome:v5 room:room valueSource:valueSource];
 
   invalidationDate = [(HFStatusItem *)self invalidationDate];
   [v8 setInvalidationDate:invalidationDate];
@@ -111,33 +111,31 @@ void __37__HFStatusItem__criticalServiceTypes__block_invoke_2()
 
 void __55__HFStatusItem__serviceTypeToAssociatedServiceTypesMap__block_invoke_2()
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277CD0E20];
+  v13[3] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277CD0E20];
   v0 = *MEMORY[0x277CD0E58];
-  v12[0] = *MEMORY[0x277CD0E30];
-  v12[1] = v0;
+  v11[0] = *MEMORY[0x277CD0E30];
+  v11[1] = v0;
   v1 = *MEMORY[0x277CD0F60];
-  v12[2] = *MEMORY[0x277CD0F58];
-  v12[3] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277CD0ED0];
+  v11[2] = *MEMORY[0x277CD0F58];
+  v11[3] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277CD0ED0];
   v4 = *MEMORY[0x277CD0EA0];
-  v11[0] = *MEMORY[0x277CD0E40];
-  v3 = v11[0];
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v14[1] = v5;
-  v13[2] = *MEMORY[0x277CD0F08];
-  v10[0] = v3;
+  v10[0] = *MEMORY[0x277CD0E40];
+  v3 = v10[0];
   v10[1] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-  v14[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v13[1] = v5;
+  v12[2] = *MEMORY[0x277CD0F08];
+  v9[0] = v3;
+  v9[1] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v13[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
   v8 = qword_280E02348;
   qword_280E02348 = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_associatedServiceTypeToServiceTypeMap
@@ -358,18 +356,18 @@ LABEL_9:
 
 - (id)iconDescriptorForRepresentedHomeKitObjects:(id)objects
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   if ([objectsCopy count])
   {
     v5 = [MEMORY[0x277CBEB58] set];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__HFStatusItem_iconDescriptorForRepresentedHomeKitObjects___block_invoke;
-    v13[3] = &unk_277DFFB58;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__HFStatusItem_iconDescriptorForRepresentedHomeKitObjects___block_invoke;
+    v12[3] = &unk_277DFFB58;
     v6 = v5;
-    v14 = v6;
-    v7 = [objectsCopy na_map:v13];
+    v13 = v6;
+    v7 = [objectsCopy na_map:v12];
     if ([v7 count] == 1)
     {
       anyObject = [v7 anyObject];
@@ -388,12 +386,12 @@ LABEL_9:
         {
           *buf = 138413058;
           selfCopy = self;
-          v17 = 2112;
-          v18 = v9;
-          v19 = 2112;
-          v20 = v6;
-          v21 = 2112;
-          v22 = anyObject;
+          v16 = 2112;
+          v17 = v9;
+          v18 = 2112;
+          v19 = v6;
+          v20 = 2112;
+          v21 = anyObject;
           _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@ Invalid number of icon descriptors: %@ for service types: %@. Defaulting to %@.", buf, 0x2Au);
         }
       }
@@ -404,8 +402,6 @@ LABEL_9:
   {
     anyObject = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }
@@ -477,7 +473,7 @@ id __59__HFStatusItem_iconDescriptorForRepresentedHomeKitObjects___block_invoke(
 
   else
   {
-    [(HFStatusItem *)self home];
+    objc_msgSend_home(self);
   }
   v14 = ;
   hf_allVisibleServices = [v14 hf_allVisibleServices];
@@ -514,64 +510,46 @@ uint64_t __71__HFStatusItem__filteredServicesOfTypes_containingCharacteristicTyp
   v7 = v6;
 
   v8 = *(a1 + 32);
-  if (v8 && ![v8 containsObject:v7])
+  if (v8 && ![v8 containsObject:v7] || (v9 = *(a1 + 40)) != 0 && (v19[0] = MEMORY[0x277D85DD0], v19[1] = 3221225472, v19[2] = __71__HFStatusItem__filteredServicesOfTypes_containingCharacteristicTypes___block_invoke_2, v19[3] = &unk_277DF3130, v20 = v3, v10 = objc_msgSend(v9, "na_any:", v19), v20, !v10))
   {
-    goto LABEL_14;
-  }
-
-  v9 = *(a1 + 40);
-  if (v9)
-  {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __71__HFStatusItem__filteredServicesOfTypes_containingCharacteristicTypes___block_invoke_2;
-    v20[3] = &unk_277DF3130;
-    v21 = v3;
-    v10 = [v9 na_any:v20];
-
-    if (!v10)
-    {
-LABEL_14:
-      v15 = 0;
-      goto LABEL_15;
-    }
+    v14 = 0;
+    goto LABEL_15;
   }
 
   if (*(a1 + 32) && ([v3 hf_supportsHomeStatus] & 1) == 0)
   {
-    v17 = *(a1 + 32);
-    v18 = [v3 serviceType];
-    v15 = [v17 containsObject:v18];
+    v16 = *(a1 + 32);
+    v17 = [v3 serviceType];
+    v14 = [v16 containsObject:v17];
 
-    if (!v15)
+    if (!v14)
     {
       goto LABEL_15;
     }
 
-    v19 = [v3 hf_prettyDescription];
-    NSLog(&cfstr_AttemptingToEx_0.isa, v19);
-    v15 = 0;
+    v18 = [v3 hf_prettyDescription];
+    NSLog(&cfstr_AttemptingToEx_0.isa, v18);
+    v14 = 0;
 LABEL_19:
 
     goto LABEL_15;
   }
 
-  v11 = *(a1 + 48);
-  v12 = [objc_opt_class() _criticalServiceTypes];
-  v13 = [v3 serviceType];
-  v14 = [v12 containsObject:v13];
+  v11 = [objc_opt_class() _criticalServiceTypes];
+  v12 = [v3 serviceType];
+  v13 = [v11 containsObject:v12];
 
-  if ((v14 & 1) == 0 && [v3 hf_hasSetVisibleInHomeStatus] && (objc_msgSend(v3, "hf_isVisibleInHomeStatus") & 1) == 0)
+  if ((v13 & 1) == 0 && [v3 hf_hasSetVisibleInHomeStatus] && (objc_msgSend(v3, "hf_isVisibleInHomeStatus") & 1) == 0)
   {
-    v19 = [*(a1 + 48) room];
-    v15 = v19 != 0;
+    v18 = [*(a1 + 48) room];
+    v14 = v18 != 0;
     goto LABEL_19;
   }
 
-  v15 = 1;
+  v14 = 1;
 LABEL_15:
 
-  return v15;
+  return v14;
 }
 
 BOOL __71__HFStatusItem__filteredServicesOfTypes_containingCharacteristicTypes___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -911,14 +889,13 @@ LABEL_33:
 
 id __65__HFStatusItem_standardResultsForBatchReadResponse_serviceTypes___block_invoke_75(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() _associatedServiceTypeToServiceTypeMap];
-  v5 = [v4 objectForKey:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() _associatedServiceTypeToServiceTypeMap];
+  v4 = [v3 objectForKey:v2];
 
-  v6 = [MEMORY[0x277CBEB98] setWithArray:v5];
+  v5 = [MEMORY[0x277CBEB98] setWithArray:v4];
 
-  return v6;
+  return v5;
 }
 
 - (id)itemUpdateFromLatestResults

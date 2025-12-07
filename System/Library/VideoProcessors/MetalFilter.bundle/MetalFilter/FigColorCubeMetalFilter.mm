@@ -9,6 +9,7 @@
 - (int)createKernels;
 - (int)createPipelineStatesForCubeConversionWithVertexFunctionName:(id)name;
 - (int)createPipelineStatesWithFragmentName:(id)name vertexFunctionName:(id)functionName;
+- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)process;
 - (int)releaseResources;
@@ -150,9 +151,9 @@ LABEL_8:
 - (FigColorCubeMetalFilter)initWithCommandQueue:(id)queue
 {
   queueCopy = queue;
-  v19.receiver = self;
-  v19.super_class = FigColorCubeMetalFilter;
-  v5 = [(FigColorCubeMetalFilter *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FigColorCubeMetalFilter;
+  v5 = [(FigColorCubeMetalFilter *)&v18 init];
   if (v5)
   {
     v6 = [MEMORY[0x29EDB9F48] bundleForClass:objc_opt_class()];
@@ -169,35 +170,56 @@ LABEL_8:
 
       *(v5 + 2) = 540;
       device = [*(v5 + 1) device];
-      v13 = *(v5 + 2);
       MTLPixelFormatGetInfoForDevice();
 
       byte_2A18BA3F0 = 1;
       v5[504] = 0;
-      v14 = malloc_type_malloc(0x14uLL, 0x1000040742B88DAuLL);
-      *(v5 + 67) = v14;
-      *v14 = 0x100000020;
-      v14[3] = 0;
-      *(v14 + 16) = 0;
-      v15 = *(MEMORY[0x29EDB90D8] + 16);
+      v13 = malloc_type_malloc(0x14uLL, 0x1000040742B88DAuLL);
+      *(v5 + 67) = v13;
+      *v13 = 0x100000020;
+      v13[3] = 0;
+      *(v13 + 16) = 0;
+      v14 = *(MEMORY[0x29EDB90D8] + 16);
       *(v5 + 568) = *MEMORY[0x29EDB90D8];
-      *(v5 + 584) = v15;
+      *(v5 + 584) = v14;
       *(v5 + 115) = 0;
       *(v5 + 125) = 0;
     }
 
     else if (!sub_2957F1AB0(v6))
     {
-      v16 = 0;
+      v15 = 0;
       goto LABEL_5;
     }
   }
 
-  v16 = v5;
+  v15 = v5;
 LABEL_5:
-  v17 = v16;
+  v16 = v15;
 
-  return v17;
+  return v16;
+}
+
+- (int)prepareToProcess:(unsigned int)process
+{
+  createKernels = [(FigColorCubeMetalFilter *)self createKernels];
+  if (createKernels)
+  {
+    sub_2957F1B68(createKernels, &v6);
+    return v6;
+  }
+
+  else
+  {
+    result = [(FigColorCubeMetalFilter *)self allocateResources];
+    if (result)
+    {
+      sub_2957F1C24(result, &v7);
+      return v7;
+    }
+  }
+
+  return result;
 }
 
 - (int)prewarm
@@ -211,14 +233,14 @@ LABEL_5:
 
 - (int)_prewarmWithTuningParameters:(id)parameters
 {
-  createKernels = [(FigColorCubeMetalFilter *)self createKernels];
-  if (createKernels)
+  result = [(FigColorCubeMetalFilter *)self createKernels];
+  if (result)
   {
-    sub_2957F1CE0(createKernels, &v5);
-    LODWORD(createKernels) = v5;
+    sub_2957F1CE0(result, &v4);
+    return v4;
   }
 
-  return createKernels;
+  return result;
 }
 
 - (int)allocateResources
@@ -234,7 +256,7 @@ LABEL_5:
 
   if (v7)
   {
-    sub_2957F1D9C();
+    sub_2957F1D9C(v7);
 LABEL_24:
     [(FigColorCubeMetalFilter *)self releaseResources];
     goto LABEL_14;
@@ -255,7 +277,7 @@ LABEL_24:
 
   if (v7)
   {
-    sub_2957F1E14();
+    sub_2957F1E14(v7);
     goto LABEL_24;
   }
 
@@ -272,7 +294,7 @@ LABEL_24:
 
     if (v7)
     {
-      sub_2957F1E8C();
+      sub_2957F1E8C(v7);
 LABEL_19:
       v8 = v20;
       goto LABEL_24;
@@ -293,7 +315,7 @@ LABEL_19:
 
     if (v7)
     {
-      sub_2957F1F04();
+      sub_2957F1F04(v7);
       goto LABEL_24;
     }
 
@@ -303,7 +325,7 @@ LABEL_19:
   v28 = self->_filterDescriptor;
   if (!v28->var2)
   {
-    v7 = 0;
+    LODWORD(v7) = 0;
     goto LABEL_14;
   }
 
@@ -316,7 +338,7 @@ LABEL_19:
 
   if (v7)
   {
-    sub_2957F1F7C();
+    sub_2957F1F7C(v7);
     goto LABEL_19;
   }
 
@@ -334,7 +356,7 @@ LABEL_19:
 
   if (v7)
   {
-    sub_2957F1FF4();
+    sub_2957F1FF4(v7);
     goto LABEL_24;
   }
 
@@ -352,7 +374,7 @@ LABEL_19:
 
   if (v7)
   {
-    sub_2957F206C();
+    sub_2957F206C(v7);
     goto LABEL_24;
   }
 
@@ -371,7 +393,7 @@ LABEL_19:
 
   if (v7)
   {
-    sub_2957F20E4();
+    sub_2957F20E4(v7);
     goto LABEL_24;
   }
 
@@ -450,7 +472,7 @@ LABEL_14:
       }
     }
 
-    sub_2957F215C();
+    sub_2957F215C(v19);
     v21 = 1;
   }
 
@@ -613,12 +635,13 @@ LABEL_15:
 - (int)process
 {
   v2 = [(FigColorCubeMetalFilter *)self runWithInputPixelBuffer:self->_inputPixelBuffer mattePixelBuffer:self->_mattePixelbuffer outputPixelBuffer:self->_outputPixelBuffer targetRectangle:self->_targetRectangle.origin.x, self->_targetRectangle.origin.y, self->_targetRectangle.size.width, self->_targetRectangle.size.height];
+  v3 = v2;
   if (v2)
   {
-    sub_2957F224C();
+    sub_2957F224C(v2);
   }
 
-  return v2 != 0;
+  return v3 != 0;
 }
 
 - (int)runWithInputPixelBuffer:(__CVBuffer *)buffer mattePixelBuffer:(__CVBuffer *)pixelBuffer outputPixelBuffer:(__CVBuffer *)outputPixelBuffer targetRectangle:(CGRect)rectangle
@@ -646,20 +669,20 @@ LABEL_15:
   fgCubesTexture = self->_fgCubesTexture;
   width = [(MTLTexture *)self->_fgCubesTexture[self->_fgCubeToUseIndex] width];
   bgCubeTexture = self->_bgCubeTexture;
-  v15 = self->_bgCubeTexture[self->_bgCubeToUseIndex];
-  if (v15 && width != [(MTLTexture *)v15 width])
+  v16 = self->_bgCubeTexture[self->_bgCubeToUseIndex];
+  if (v16 && width != [(MTLTexture *)v16 width])
   {
-    sub_2957F22C4(&v77);
-    return v77;
+    sub_2957F22C4(&v86);
+    return v86;
   }
 
-  v16.f64[0] = width;
-  v17.f64[0] = width + -1.0;
-  v16.f64[1] = (width * width);
+  v17.f64[0] = width;
+  v18.f64[0] = width + -1.0;
+  v17.f64[1] = (width * width);
   __asm { FMOV            V1.2D, #1.0 }
 
-  v17.f64[1] = 1.0 / v17.f64[0];
-  v84 = vcvt_hight_f32_f64(vcvt_f32_f64(v17), vdivq_f64(_Q1, v16));
+  v18.f64[1] = 1.0 / v18.f64[0];
+  v93 = vcvt_hight_f32_f64(vcvt_f32_f64(v18), vdivq_f64(_Q1, v17));
   if (byte_2A18BA3F0)
   {
     yuvFormat = 10;
@@ -670,233 +693,238 @@ LABEL_15:
     yuvFormat = self->_yuvFormat;
   }
 
-  v24 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:buffer pixelFormat:yuvFormat usage:17 plane:0];
-  if (!v24)
+  v25 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:buffer pixelFormat:yuvFormat usage:17 plane:0];
+  if (!v25)
   {
-    sub_2957F2758(&v77);
-    return v77;
+    sub_2957F2758(&v86);
+    return v86;
   }
 
-  v25 = v24;
-  v26 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:outputPixelBuffer pixelFormat:yuvFormat usage:22 plane:0];
-  if (!v26)
+  v26 = v25;
+  v27 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:outputPixelBuffer pixelFormat:yuvFormat usage:22 plane:0];
+  if (!v27)
   {
-    sub_2957F2694(v25, &v77);
-    return v77;
+    sub_2957F2694(v26, &v86);
+    return v86;
   }
 
-  v27 = v26;
+  v28 = v27;
   if (byte_2A18BA3F0 == 1)
   {
-    v71 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:buffer pixelFormat:30 usage:17 plane:1];
-    if (!v71)
+    v78 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:buffer pixelFormat:30 usage:17 plane:1];
+    if (!v78)
     {
-      sub_2957F25C0(v27, v25, &v77);
-      return v77;
+      sub_2957F25C0(v28, v26, &v86);
+      return v86;
     }
 
-    v73 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:outputPixelBuffer pixelFormat:30 usage:22 plane:1];
-    if (!v73)
+    v82 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:outputPixelBuffer pixelFormat:30 usage:22 plane:1];
+    if (!v82)
     {
-      sub_2957F24C8(v71, v27, v25, &v77);
-      return v77;
+      sub_2957F24C8(v78, v28, v26, &v86);
+      return v86;
     }
   }
 
   else
   {
-    v73 = 0;
-    v71 = 0;
+    v82 = 0;
+    v78 = 0;
   }
 
-  v76 = v25;
+  v85 = v26;
   if (pixelBuffer)
   {
     PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
     metal = self->_metal;
     if (PixelFormatType == 1278226536)
     {
-      v30 = [(FigMetalContext *)metal bindPixelBufferToMTL2DTexture:pixelBuffer pixelFormat:25 usage:17 plane:0];
-      if (!v30)
+      v31 = [(FigMetalContext *)metal bindPixelBufferToMTL2DTexture:pixelBuffer pixelFormat:25 usage:17 plane:0];
+      if (!v31)
       {
-        goto LABEL_51;
+        fig_log_get_emitter();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v73, v74, bgCubeTexture, v77, v78, v80);
+        emitter = fig_log_get_emitter();
+        v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294893831, "<<<< FigColorCube >>>>", 580);
+LABEL_52:
+        v70 = v33;
+
+        goto LABEL_41;
       }
     }
 
     else
     {
-      v30 = [(FigMetalContext *)metal bindPixelBufferToMTL2DTexture:pixelBuffer pixelFormat:10 usage:17 plane:0];
-      if (!v30)
+      v31 = [(FigMetalContext *)metal bindPixelBufferToMTL2DTexture:pixelBuffer pixelFormat:10 usage:17 plane:0];
+      if (!v31)
       {
-LABEL_51:
         fig_log_get_emitter();
-        FigDebugAssert3();
-        fig_log_get_emitter();
-        v67 = FigSignalErrorAtGM();
-
-        goto LABEL_41;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v73, v74, bgCubeTexture, v77, v78, v80);
+        v72 = fig_log_get_emitter();
+        v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v72, 4294893831, "<<<< FigColorCube >>>>", 585);
+        goto LABEL_52;
       }
     }
   }
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
   useBgCube = self->_useBgCube;
-  v72 = v30;
-  v32 = v30 != 0;
-  height = [v27 height];
-  height2 = [v76 height];
+  v81 = v31;
+  v35 = v31 != 0;
+  height = [v28 height];
+  height2 = [v85 height];
   renderPassDescriptor = [MEMORY[0x29EDBB5F8] renderPassDescriptor];
   commandQueue = [(FigMetalContext *)self->_metal commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
   if (commandBuffer)
   {
-    v75 = v27;
+    v84 = v28;
     fullRangeVertexBuf = [(FigMetalContext *)self->_metal fullRangeVertexBuf];
-    v86.origin.x = x;
-    v86.origin.y = y;
-    v86.size.width = width;
-    v86.size.height = height;
-    if (CGRectIsNull(v86))
+    v95.origin.x = x;
+    v95.origin.y = y;
+    v95.size.width = width;
+    v95.size.height = height;
+    if (CGRectIsNull(v95))
     {
-      v39 = fullRangeVertexBuf;
+      v42 = fullRangeVertexBuf;
 LABEL_28:
-      v49 = v32 & useBgCube;
-      v50 = height > height2;
+      v52 = v35 & useBgCube;
+      v53 = height > height2;
       colorAttachments = [renderPassDescriptor colorAttachments];
-      v52 = [colorAttachments objectAtIndexedSubscript:0];
-      [v52 setTexture:v75];
+      v55 = [colorAttachments objectAtIndexedSubscript:0];
+      [v55 setTexture:v84];
 
-      v53 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
-      v54 = v53;
+      v56 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
+      v57 = v56;
       filterDescriptor = self->_filterDescriptor;
       var3 = filterDescriptor->var3;
       var4 = filterDescriptor->var4;
-      v58 = 24;
+      v61 = 24;
       if (byte_2A18BA3F0)
       {
-        v58 = 152;
+        v61 = 152;
       }
 
-      v69 = v50;
-      [v53 setRenderPipelineState:*(&self->super.isa + 64 * v49 + 32 * v50 + 16 * var3 + 8 * var4 + v58)];
-      [v54 setVertexBuffer:v39 offset:0 atIndex:0];
-      v25 = v76;
-      [v54 setFragmentTexture:v76 atIndex:0];
-      v59 = v71;
+      v75 = v53;
+      [v56 setRenderPipelineState:*(&self->super.isa + 64 * v52 + 32 * v53 + 16 * var3 + 8 * var4 + v61)];
+      [v57 setVertexBuffer:v42 offset:0 atIndex:0];
+      v26 = v85;
+      [v57 setFragmentTexture:v85 atIndex:0];
+      v62 = v78;
       if (byte_2A18BA3F0 == 1)
       {
-        [v54 setFragmentTexture:v71 atIndex:1];
+        [v57 setFragmentTexture:v78 atIndex:1];
       }
 
-      [v54 setFragmentTexture:fgCubesTexture[self->_fgCubeToUseIndex] atIndex:2];
-      if (v49)
+      [v57 setFragmentTexture:fgCubesTexture[self->_fgCubeToUseIndex] atIndex:2];
+      if (v52)
       {
-        [v54 setFragmentTexture:bgCubeTexture[self->_bgCubeToUseIndex] atIndex:3];
-        [v54 setFragmentTexture:v72 atIndex:4];
+        [v57 setFragmentTexture:bgCubeTexture[self->_bgCubeToUseIndex] atIndex:3];
+        [v57 setFragmentTexture:v81 atIndex:4];
       }
 
-      [v54 setFragmentBytes:&v84 length:16 atIndex:0];
-      width2 = [v76 width];
-      v77 = __PAIR64__([v76 height], width2);
-      [v54 setFragmentBytes:&v77 length:8 atIndex:1];
-      [v54 setFragmentBytes:&self->_matteToInputPixelBufferRotationDegrees length:4 atIndex:2];
-      [v54 drawPrimitives:4 vertexStart:0 vertexCount:4];
-      [v54 endEncoding];
+      [v57 setFragmentBytes:&v93 length:16 atIndex:0];
+      width2 = [v85 width];
+      v86 = __PAIR64__([v85 height], width2);
+      [v57 setFragmentBytes:&v86 length:8 atIndex:1];
+      [v57 setFragmentBytes:&self->_matteToInputPixelBufferRotationDegrees length:4 atIndex:2];
+      [v57 drawPrimitives:4 vertexStart:0 vertexCount:4];
+      [v57 endEncoding];
       if (byte_2A18BA3F0 == 1)
       {
         colorAttachments2 = [renderPassDescriptor colorAttachments];
-        v62 = [colorAttachments2 objectAtIndexedSubscript:0];
-        [v62 setTexture:v73];
+        v65 = [colorAttachments2 objectAtIndexedSubscript:0];
+        [v65 setTexture:v82];
 
-        v63 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
+        v66 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
 
-        [v63 setRenderPipelineState:self->_colorCubePipelineStateUV[v49][v69][self->_filterDescriptor->var3][self->_filterDescriptor->var4]];
+        [v66 setRenderPipelineState:self->_colorCubePipelineStateUV[v52][v75][self->_filterDescriptor->var3][self->_filterDescriptor->var4]];
         fullRangeVertexBuf2 = [(FigMetalContext *)self->_metal fullRangeVertexBuf];
-        [v63 setVertexBuffer:fullRangeVertexBuf2 offset:0 atIndex:0];
+        [v66 setVertexBuffer:fullRangeVertexBuf2 offset:0 atIndex:0];
 
-        [v63 setFragmentTexture:v76 atIndex:0];
-        [v63 setFragmentTexture:v71 atIndex:1];
-        [v63 setFragmentTexture:fgCubesTexture[self->_fgCubeToUseIndex] atIndex:2];
-        v65 = v72;
-        if (v49)
+        [v66 setFragmentTexture:v85 atIndex:0];
+        [v66 setFragmentTexture:v78 atIndex:1];
+        [v66 setFragmentTexture:fgCubesTexture[self->_fgCubeToUseIndex] atIndex:2];
+        v68 = v81;
+        if (v52)
         {
-          [v63 setFragmentTexture:bgCubeTexture[self->_bgCubeToUseIndex] atIndex:3];
-          [v63 setFragmentTexture:v72 atIndex:4];
+          [v66 setFragmentTexture:bgCubeTexture[self->_bgCubeToUseIndex] atIndex:3];
+          [v66 setFragmentTexture:v81 atIndex:4];
         }
 
-        [v63 setFragmentBytes:&v84 length:16 atIndex:0];
-        width3 = [v71 width];
-        v77 = __PAIR64__([v71 height], width3);
-        [v63 setFragmentBytes:&v77 length:8 atIndex:1];
-        [v63 drawPrimitives:4 vertexStart:0 vertexCount:4];
-        [v63 endEncoding];
+        [v66 setFragmentBytes:&v93 length:16 atIndex:0];
+        width3 = [v78 width];
+        v86 = __PAIR64__([v78 height], width3);
+        [v66 setFragmentBytes:&v86 length:8 atIndex:1];
+        [v66 drawPrimitives:4 vertexStart:0 vertexCount:4];
+        [v66 endEncoding];
       }
 
       else
       {
-        v63 = v54;
-        v65 = v72;
+        v66 = v57;
+        v68 = v81;
       }
 
       [commandBuffer setLabel:@"FigColorCube::run"];
       [commandBuffer commit];
 
-      v67 = 0;
-      v27 = v75;
+      v70 = 0;
+      v28 = v84;
       goto LABEL_40;
     }
 
-    *&v40 = x * 2.0 + -1.0;
-    *&v41 = y * -2.0 + 1.0;
-    v77 = __PAIR64__(v41, v40);
-    v42 = (x + width) * 2.0 + -1.0;
-    v78 = v42;
-    v79 = v41;
-    v43 = (y + height) * -2.0 + 1.0;
-    v80 = v40;
-    v81 = v43;
-    v82 = v42;
-    v83 = v43;
+    *&v43 = x * 2.0 + -1.0;
+    *&v44 = y * -2.0 + 1.0;
+    v86 = __PAIR64__(v44, v43);
+    v45 = (x + width) * 2.0 + -1.0;
+    v87 = v45;
+    v88 = v44;
+    v46 = (y + height) * -2.0 + 1.0;
+    v89 = v43;
+    v90 = v46;
+    v91 = v45;
+    v92 = v46;
     device = [(FigMetalContext *)self->_metal device];
-    v39 = [device newBufferWithBytes:&v77 length:32 options:0];
+    v42 = [device newBufferWithBytes:&v86 length:32 options:0];
 
-    if (v39)
+    if (v42)
     {
       colorAttachments3 = [renderPassDescriptor colorAttachments];
-      v46 = [colorAttachments3 objectAtIndexedSubscript:0];
-      [v46 setLoadAction:1];
+      v49 = [colorAttachments3 objectAtIndexedSubscript:0];
+      [v49 setLoadAction:1];
 
       colorAttachments4 = [renderPassDescriptor colorAttachments];
-      v48 = [colorAttachments4 objectAtIndexedSubscript:0];
-      [v48 setStoreAction:1];
+      v51 = [colorAttachments4 objectAtIndexedSubscript:0];
+      [v51 setStoreAction:1];
 
       goto LABEL_28;
     }
 
-    sub_2957F2370(&v77, v85);
-    v67 = v85[0];
-    v27 = v75;
-    v25 = v76;
+    sub_2957F2370(&v86, v94);
+    v70 = v94[0];
+    v28 = v84;
+    v26 = v85;
   }
 
   else
   {
-    sub_2957F241C(&v77);
-    v67 = v77;
-    v25 = v76;
+    sub_2957F241C(&v86);
+    v70 = v86;
+    v26 = v85;
   }
 
-  v59 = v71;
-  v65 = v72;
+  v62 = v78;
+  v68 = v81;
 LABEL_40:
 
 LABEL_41:
-  return v67;
+  return v70;
 }
 
 - (id)createPipelineStateWithVertexFunctionName:(id)name fragmentName:(id)fragmentName isLuma:(BOOL)luma useBgCube:(BOOL)cube manyFgCubes:(BOOL)cubes colorSpace:(int)space mixInGammaDomain:(BOOL)domain
@@ -1202,14 +1230,14 @@ LABEL_17:
   [v6 setUsage:7];
   if ((byte_2A18BA3F0 & 1) == 0)
   {
-    pixelBufferOut = 0;
+    pixelBufferOut[0] = 0;
     v38 = *MEMORY[0x29EDB96D0];
     v39 = MEMORY[0x29EDB8EA0];
     v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    CVPixelBufferCreate(*MEMORY[0x29EDB8ED8], 8uLL, 8uLL, 0x34323066u, v7, &pixelBufferOut);
-    if (!pixelBufferOut)
+    CVPixelBufferCreate(*MEMORY[0x29EDB8ED8], 8uLL, 8uLL, 0x34323066u, v7, pixelBufferOut);
+    if (!pixelBufferOut[0])
     {
-      sub_2957F2E04(v7);
+      sub_2957F2E04(v7, pixelBufferOut);
       goto LABEL_13;
     }
 
@@ -1243,7 +1271,7 @@ LABEL_17:
           [v6 setTextureType:2];
           [v6 setPixelFormat:objc_msgSend(v17, "intValue")];
           device = [(FigMetalContext *)v32->_metal device];
-          v11 = [device newTextureWithDescriptor:v6 iosurface:CVPixelBufferGetIOSurface(pixelBufferOut) plane:0];
+          v11 = [device newTextureWithDescriptor:v6 iosurface:CVPixelBufferGetIOSurface(pixelBufferOut[0]) plane:0];
 
           colorAttachments = [v5 colorAttachments];
           v20 = [colorAttachments objectAtIndexedSubscript:0];
@@ -1268,7 +1296,7 @@ LABEL_17:
       v7 = v31;
     }
 
-    CFRelease(pixelBufferOut);
+    CFRelease(pixelBufferOut[0]);
   }
 
   [v6 setTextureType:3];

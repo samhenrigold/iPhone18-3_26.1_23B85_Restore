@@ -25,7 +25,6 @@
 
 uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_instance_2 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -33,7 +32,7 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
 
 - (void)_loadAuditBundle:(id)bundle
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
@@ -43,16 +42,16 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
   {
     v7 = @"YES";
     *buf = 136315650;
-    v20 = "[AXAuditPluginManager _loadAuditBundle:]";
-    v21 = 2112;
+    v19 = "[AXAuditPluginManager _loadAuditBundle:]";
+    v20 = 2112;
     if (v6)
     {
       v7 = @"NO";
     }
 
-    v22 = v7;
-    v23 = 2112;
-    v24 = bundleCopy;
+    v21 = v7;
+    v22 = 2112;
+    v23 = bundleCopy;
     _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: shouldLoad: %@, %@ ", buf, 0x20u);
   }
 
@@ -62,9 +61,9 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v20 = "[AXAuditPluginManager _loadAuditBundle:]";
-      v21 = 2112;
-      v22 = v8;
+      v19 = "[AXAuditPluginManager _loadAuditBundle:]";
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: plugin: %@ ", buf, 0x16u);
     }
 
@@ -74,17 +73,17 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v20 = "[AXAuditPluginManager _loadAuditBundle:]";
-        v21 = 2112;
-        v22 = principalClass;
+        v19 = "[AXAuditPluginManager _loadAuditBundle:]";
+        v20 = 2112;
+        v21 = principalClass;
         _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: principalClass: %@ ", buf, 0x16u);
       }
 
       if ([(__CFString *)principalClass isSubclassOfClass:objc_opt_class()])
       {
-        v18 = 0;
-        v10 = [(__CFString *)v8 loadAndReturnError:&v18];
-        v11 = v18;
+        v17 = 0;
+        v10 = [(__CFString *)v8 loadAndReturnError:&v17];
+        v11 = v17;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           if (v10)
@@ -99,7 +98,7 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
 
           isLoaded = [(__CFString *)v8 isLoaded];
           *buf = 136315906;
-          v20 = "[AXAuditPluginManager _loadAuditBundle:]";
+          v19 = "[AXAuditPluginManager _loadAuditBundle:]";
           if (isLoaded)
           {
             v14 = @"YES";
@@ -110,12 +109,12 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
             v14 = @"NO";
           }
 
-          v21 = 2112;
-          v22 = v12;
-          v23 = 2112;
-          v24 = v11;
-          v25 = 2112;
-          v26 = v14;
+          v20 = 2112;
+          v21 = v12;
+          v22 = 2112;
+          v23 = v11;
+          v24 = 2112;
+          v25 = v14;
           _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: loaded: %@, error: %@, plugin.isLoaded: %@", buf, 0x2Au);
         }
 
@@ -129,37 +128,35 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadAuditBundles
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (![(AXAuditPluginManager *)self _didLoadBundles])
   {
     [(AXAuditPluginManager *)self set_didLoadBundles:1];
     v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v4 = [v3 pathsForResourcesOfType:@"bundle" inDirectory:0];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           lastPathComponent = [v9 lastPathComponent];
           v11 = [lastPathComponent hasPrefix:@"AccessibilityAudit"];
 
@@ -169,14 +166,12 @@ uint64_t __37__AXAuditPluginManager_sharedManager__block_invoke(uint64_t a1)
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

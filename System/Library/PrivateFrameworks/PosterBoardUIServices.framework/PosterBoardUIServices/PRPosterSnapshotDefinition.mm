@@ -5,9 +5,10 @@
 
 uint64_t __148__PRPosterSnapshotDefinition_AmbientAdditions__defaultAmbientPosterSnapshotDefinitionWithRenderingContent_ambientDisplayStyle_idealizedTime_isIdle___block_invoke()
 {
-  defaultAmbientPosterSnapshotDefinitionWithRenderingContent_ambientDisplayStyle_idealizedTime_isIdle__definitionRegistry = objc_opt_new();
+  v0 = objc_opt_new();
+  defaultAmbientPosterSnapshotDefinitionWithRenderingContent_ambientDisplayStyle_idealizedTime_isIdle__definitionRegistry = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 @end

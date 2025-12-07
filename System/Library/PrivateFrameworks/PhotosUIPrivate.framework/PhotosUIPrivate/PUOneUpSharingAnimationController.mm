@@ -33,7 +33,7 @@
   v7 = helperCopy;
   if (helperCopy)
   {
-    [helperCopy badgeInfo];
+    objc_msgSend_badgeInfo(helperCopy);
   }
 
   else
@@ -77,7 +77,7 @@
 
   if (v7)
   {
-    [v7 imageTransform];
+    objc_msgSend_imageTransform(v7);
   }
 
   else

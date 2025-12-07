@@ -37,48 +37,46 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AD60]);
-  changeClass = self->_changeClass;
-  v5 = [v3 initWithFormat:@"[<%@ %@", changeClass, self->_scopedIdentifier];
+  v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"[<%@ %@", self->_changeClass, self->_scopedIdentifier];
   change = self->_change;
   dropReason = self->_dropReason;
   if (change)
   {
-    v8 = [CPLRecordChange descriptionForChangeType:[(CPLRecordChange *)change changeType]];
-    v9 = v8;
+    v6 = [CPLRecordChange descriptionForChangeType:[(CPLRecordChange *)change changeType]];
+    v7 = v6;
     if (dropReason)
     {
-      [v5 appendFormat:@" [%@-R (%@)]", v8, self->_dropReason];
+      [v3 appendFormat:@" [%@-R (%@)]", v6, self->_dropReason];
     }
 
     else
     {
-      [v5 appendFormat:@" [%@]", v8, v15];
+      [v3 appendFormat:@" [%@]", v6, v13];
     }
   }
 
   else
   {
-    [v5 appendFormat:@" [dropped (%@)]", self->_dropReason];
+    [v3 appendFormat:@" [dropped (%@)]", self->_dropReason];
   }
 
   if ([(NSMutableSet *)self->_rulesForRecordFetch count])
   {
     allObjects = [(NSMutableSet *)self->_rulesForRecordFetch allObjects];
-    v11 = [allObjects componentsJoinedByString:{@", "}];
-    [v5 appendFormat:@" [fetch: %@]", v11];
+    v9 = [allObjects componentsJoinedByString:{@", "}];
+    [v3 appendFormat:@" [fetch: %@]", v9];
   }
 
   if ([(NSMutableDictionary *)self->_rulesForOtherRecordFetches count])
   {
     allKeys = [(NSMutableDictionary *)self->_rulesForOtherRecordFetches allKeys];
-    v13 = [allKeys componentsJoinedByString:{@", "}];
-    [v5 appendFormat:@" [other: %@]", v13];
+    v11 = [allKeys componentsJoinedByString:{@", "}];
+    [v3 appendFormat:@" [other: %@]", v11];
   }
 
-  [v5 appendString:@">"];
+  [v3 appendString:@">"];
 
-  return v5;
+  return v3;
 }
 
 - (unint64_t)estimatedResourceUploadSize
@@ -136,7 +134,7 @@ LABEL_7:
 
 - (void)updatePushRepositoryPriorityWithRecordOnServer:(id)server
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   change = self->_change;
   if (change)
@@ -145,24 +143,24 @@ LABEL_7:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v25 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v24 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v26 = self->_change;
-          v27 = NSStringFromSelector(a2);
+          v25 = self->_change;
+          v26 = NSStringFromSelector(a2);
           *buf = 138412546;
-          *&buf[4] = v26;
+          *&buf[4] = v25;
           *&buf[12] = 2112;
-          *&buf[14] = v27;
-          _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_ERROR, "%@ should not participate in %@", buf, 0x16u);
+          *&buf[14] = v26;
+          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "%@ should not participate in %@", buf, 0x16u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
-      v30 = self->_change;
-      v31 = NSStringFromSelector(a2);
-      [currentHandler handleFailureInMethod:a2 object:self file:v29 lineNumber:1081 description:{@"%@ should not participate in %@", v30, v31}];
+      v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
+      v29 = self->_change;
+      v30 = NSStringFromSelector(a2);
+      [currentHandler handleFailureInMethod:a2 object:self file:v28 lineNumber:1081 description:{@"%@ should not participate in %@", v29, v30}];
 
       abort();
     }
@@ -170,26 +168,26 @@ LABEL_7:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v38 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = 0;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOnServer___block_invoke;
-    v32[3] = &unk_1E861F648;
-    v32[5] = &v33;
-    v32[6] = buf;
-    v32[4] = self;
-    v7 = MEMORY[0x1E128EBA0](v32);
+    v37 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOnServer___block_invoke;
+    v31[3] = &unk_1E861F648;
+    v31[5] = &v32;
+    v31[6] = buf;
+    v31[4] = self;
+    v7 = MEMORY[0x1E128EBA0](v31);
     WeakRetained = objc_loadWeakRetained(&self->_items);
     sharingScopeIdentifier = [WeakRetained sharingScopeIdentifier];
 
     if (!sharingScopeIdentifier)
     {
 LABEL_20:
-      if ((v34[3] & 1) == 0)
+      if ((v33[3] & 1) == 0)
       {
         if ([(CPLRecordChange *)self->_change isFullRecord])
         {
@@ -236,7 +234,7 @@ LABEL_30:
 
 LABEL_34:
 
-      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v32, 8);
       _Block_object_dispose(buf, 8);
       goto LABEL_35;
     }
@@ -297,8 +295,6 @@ LABEL_19:
   }
 
 LABEL_35:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOnServer___block_invoke(void *a1, uint64_t a2)
@@ -321,7 +317,7 @@ uint64_t __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOn
 
 - (void)_bumpPushRepositoryPriority:(unint64_t)priority reason:(id)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (self->_change && self->_pushRepositoryPriority < priority)
   {
@@ -332,15 +328,15 @@ uint64_t __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOn
       {
         pushRepositoryPriority = self->_pushRepositoryPriority;
         change = self->_change;
-        v12 = 134218754;
-        v13 = pushRepositoryPriority;
-        v14 = 2048;
+        v11 = 134218754;
+        v12 = pushRepositoryPriority;
+        v13 = 2048;
         priorityCopy = priority;
-        v16 = 2112;
-        v17 = change;
-        v18 = 2112;
-        v19 = reasonCopy;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Moving priority from %lu to %lu for %@ - reason: %@", &v12, 0x2Au);
+        v15 = 2112;
+        v16 = change;
+        v17 = 2112;
+        v18 = reasonCopy;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Moving priority from %lu to %lu for %@ - reason: %@", &v11, 0x2Au);
       }
     }
 
@@ -349,35 +345,33 @@ uint64_t __75__CPLBeforeUploadCheckItem_updatePushRepositoryPriorityWithRecordOn
     WeakRetained = objc_loadWeakRetained(&self->_items);
     [WeakRetained itemShouldBeReinjectedInPushRepository:self];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)dropGeneratingDerivativesIfPossibleWithRecordOnServer:(id)server error:(id *)error
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   if (![(CPLRecordChange *)self->_change isAssetChange])
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v44 = serverCopy;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v43 = serverCopy;
     resources = [serverCopy resources];
-    v20 = [resources countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v20 = [resources countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (!v20)
     {
-      v46 = 0;
+      v45 = 0;
       v22 = 0;
 LABEL_54:
 
-      if (self->_needsToGenerateImageDerivatives && ([(CPLResourceTypeSet *)self->_resourcesToGenerateImageDerivatives isEmpty]& v46) == 1)
+      if (self->_needsToGenerateImageDerivatives && ([(CPLResourceTypeSet *)self->_resourcesToGenerateImageDerivatives isEmpty]& v45) == 1)
       {
         self->_needsToGenerateImageDerivatives = 0;
       }
 
-      serverCopy = v44;
+      serverCopy = v43;
       if (self->_needsToGenerateVideoComplementDerivatives && ([(CPLResourceTypeSet *)self->_resourcesToGenerateVideoComplementDerivatives isEmpty]& v22) == 1)
       {
         self->_needsToGenerateVideoComplementDerivatives = 0;
@@ -387,19 +381,19 @@ LABEL_54:
     }
 
     v21 = v20;
-    v46 = 0;
+    v45 = 0;
     v22 = 0;
-    v23 = *v48;
+    v23 = *v47;
 LABEL_26:
     v24 = 0;
     while (1)
     {
-      if (*v48 != v23)
+      if (*v47 != v23)
       {
         objc_enumerationMutation(resources);
       }
 
-      v25 = *(*(&v47 + 1) + 8 * v24);
+      v25 = *(*(&v46 + 1) + 8 * v24);
       resourceType = [v25 resourceType];
       v27 = resourceType;
       if (resourceType <= 0x1C)
@@ -457,13 +451,13 @@ LABEL_45:
 
       else
       {
-        v46 = 1;
+        v45 = 1;
       }
 
 LABEL_46:
       if (v21 == ++v24)
       {
-        v21 = [resources countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v21 = [resources countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (!v21)
         {
           goto LABEL_54;
@@ -489,9 +483,9 @@ LABEL_46:
         {
           change = self->_change;
           *buf = 138412546;
-          v57 = change;
-          v58 = 2112;
-          v59 = v7;
+          v56 = change;
+          v57 = 2112;
+          v58 = v7;
           v32 = "%@ has no adjustments while server record %@ has. Keeping server version";
           v33 = v30;
           v34 = 22;
@@ -511,7 +505,7 @@ LABEL_63:
       {
         v35 = self->_change;
         *buf = 138412290;
-        v57 = v35;
+        v56 = v35;
         v32 = "%@ has no adjustments. Keeping server version";
         v33 = v30;
         v34 = 12;
@@ -528,31 +522,31 @@ LABEL_64:
 
   if (adjustments2 && [adjustments isEqual:adjustments2])
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     resources2 = [v7 resources];
-    v11 = [resources2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v11 = [resources2 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v11)
     {
       v12 = v11;
-      v41 = adjustments;
-      v42 = v9;
-      v43 = v7;
+      v40 = adjustments;
+      v41 = v9;
+      v42 = v7;
       v13 = 0;
-      v45 = 0;
-      v14 = *v52;
+      v44 = 0;
+      v14 = *v51;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v52 != v14)
+          if (*v51 != v14)
           {
             objc_enumerationMutation(resources2);
           }
 
-          v16 = *(*(&v51 + 1) + 8 * i);
+          v16 = *(*(&v50 + 1) + 8 * i);
           resourceType2 = [v16 resourceType];
           if (resourceType2 <= 0x1C)
           {
@@ -562,8 +556,8 @@ LABEL_64:
               {
 
                 v36 = v7;
-                v38 = v41;
-                v37 = v42;
+                v38 = v40;
+                v37 = v41;
                 goto LABEL_66;
               }
             }
@@ -575,25 +569,25 @@ LABEL_64:
 
             else if (((1 << resourceType2) & 0x38) != 0)
             {
-              v45 = 1;
+              v44 = 1;
             }
           }
         }
 
-        v12 = [resources2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v12 = [resources2 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v12);
 
-      v38 = v41;
-      if (self->_needsToGenerateImageDerivatives & v45)
+      v38 = v40;
+      if (self->_needsToGenerateImageDerivatives & v44)
       {
         self->_needsToGenerateImageDerivatives = 0;
       }
 
       v18 = self->_needsToGenerateVideoComplementDerivatives & v13;
-      v36 = v43;
-      v37 = v42;
+      v36 = v42;
+      v37 = v41;
       if (v18)
       {
         self->_needsToGenerateVideoComplementDerivatives = 0;
@@ -613,7 +607,6 @@ LABEL_69:
 
 LABEL_72:
 
-  v39 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -643,34 +636,34 @@ LABEL_72:
 
 - (BOOL)rejectChangeWithReason:(id)reason error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (!self->_change)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         change = self->_change;
         *buf = 138412290;
-        v21 = change;
-        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Trying to reject already rejected or dropped %@", buf, 0xCu);
+        v20 = change;
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Trying to reject already rejected or dropped %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:871 description:{@"Trying to reject already rejected or dropped %@", self->_change}];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:871 description:{@"Trying to reject already rejected or dropped %@", self->_change}];
 
     abort();
   }
 
   v8 = reasonCopy;
   [(CPLBeforeUploadCheckItem *)self _dropChangeWithReason:@"rejected"];
-  v18 = @"CPLErrorRejectedReasonKey";
-  v19 = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v17 = @"CPLErrorRejectedReasonKey";
+  v18 = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   v10 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v9 description:@"%@", v8];
 
   if (error)
@@ -679,7 +672,6 @@ LABEL_72:
     *error = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -697,7 +689,7 @@ LABEL_72:
 
 - (void)dropSharingChangeWithReason:(id)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   change = self->_change;
   if (change && [(CPLRecordChange *)change hasChangeType:64])
@@ -706,19 +698,19 @@ LABEL_72:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v12 = self->_change;
+          v11 = self->_change;
           *buf = 138412290;
-          v16 = v12;
-          _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Trying to drop sharing change for unsupported %@", buf, 0xCu);
+          v15 = v11;
+          _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Trying to drop sharing change for unsupported %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:847 description:{@"Trying to drop sharing change for unsupported %@", self->_change}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:847 description:{@"Trying to drop sharing change for unsupported %@", self->_change}];
 
       abort();
     }
@@ -743,9 +735,9 @@ LABEL_72:
         {
           v9 = self->_change;
           *buf = 138412546;
-          v16 = v9;
-          v17 = 2112;
-          v18 = reasonCopy;
+          v15 = v9;
+          v16 = 2112;
+          v17 = reasonCopy;
           _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Dropping sharing change for %@ - reason: %@", buf, 0x16u);
         }
       }
@@ -753,13 +745,11 @@ LABEL_72:
       [(CPLRecordChange *)self->_change setChangeType:changeType & 0xFFFFFFFFFFFFFFBFLL];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dropChangeWithReason:(id)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (self->_change)
   {
@@ -769,46 +759,44 @@ LABEL_72:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         change = self->_change;
-        v8 = 138412546;
-        v9 = change;
-        v10 = 2112;
-        v11 = reasonCopy;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Dropping %@ - reason: %@", &v8, 0x16u);
+        v7 = 138412546;
+        v8 = change;
+        v9 = 2112;
+        v10 = reasonCopy;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Dropping %@ - reason: %@", &v7, 0x16u);
       }
     }
 
     [(CPLBeforeUploadCheckItem *)self _dropChangeWithReason:reasonCopy];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dropChangeWithReason:(id)reason
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (!self->_change)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         changeClass = self->_changeClass;
         *buf = 138412290;
-        v16 = changeClass;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Trying to drop an already dropped %@", buf, 0xCu);
+        v15 = changeClass;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to drop an already dropped %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:828 description:{@"Trying to drop an already dropped %@", self->_changeClass}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLBeforeUploadCheckItems.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:828 description:{@"Trying to drop an already dropped %@", self->_changeClass}];
 
     abort();
   }
 
-  v14 = reasonCopy;
+  v13 = reasonCopy;
   objc_storeStrong(&self->_dropReason, reason);
   *&self->_needsToGenerateImageDerivatives = 0;
   if ([(CPLRecordChange *)self->_change supportsResources]&& [(CPLRecordChange *)self->_change hasChangeType:8])
@@ -819,13 +807,11 @@ LABEL_72:
 
   change = self->_change;
   self->_change = 0;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dropResourceChangeWithReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   change = self->_change;
   if (change && [(CPLRecordChange *)change supportsResources]&& [(CPLRecordChange *)self->_change hasChangeType:8])
@@ -850,11 +836,11 @@ LABEL_72:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = self->_change;
-          v12 = 138412546;
-          v13 = v9;
-          v14 = 2112;
-          v15 = reasonCopy;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Dropping resource change for %@ - reason: %@", &v12, 0x16u);
+          v11 = 138412546;
+          v12 = v9;
+          v13 = 2112;
+          v14 = reasonCopy;
+          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Dropping resource change for %@ - reason: %@", &v11, 0x16u);
         }
       }
 
@@ -864,8 +850,6 @@ LABEL_72:
       [WeakRetained itemWillDropResourceChange:self];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)requestFetchOfRecordWithScopedIdentifier:(id)identifier forRule:(id)rule error:(id *)error
@@ -1183,21 +1167,21 @@ LABEL_24:
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v135 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_items);
   provider = [WeakRetained provider];
 
   scopedIdentifier = [(CPLRecordChange *)self->_change scopedIdentifier];
-  v131 = 0;
-  v8 = [provider willNeedToAccessRecordWithScopedIdentifier:scopedIdentifier error:&v131];
-  v9 = v131;
+  v127 = 0;
+  v8 = [provider willNeedToAccessRecordWithScopedIdentifier:scopedIdentifier error:&v127];
+  v9 = v127;
 
   if (v8)
   {
     relatedScopedIdentifier = [(CPLRecordChange *)self->_change relatedScopedIdentifier];
-    v130 = v9;
-    v11 = [(CPLBeforeUploadCheckItem *)self _addRelatedRecordWithScopedIdentifierToAdditionalRecords:relatedScopedIdentifier provider:provider error:&v130];
-    v12 = v130;
+    v126 = v9;
+    v11 = [(CPLBeforeUploadCheckItem *)self _addRelatedRecordWithScopedIdentifierToAdditionalRecords:relatedScopedIdentifier provider:provider error:&v126];
+    v12 = v126;
 
     if (!v11)
     {
@@ -1205,9 +1189,9 @@ LABEL_24:
     }
 
     secondaryScopedIdentifier = [(CPLRecordChange *)self->_change secondaryScopedIdentifier];
-    v129 = v12;
-    v11 = [(CPLBeforeUploadCheckItem *)self _addRelatedRecordWithScopedIdentifierToAdditionalRecords:secondaryScopedIdentifier provider:provider error:&v129];
-    v9 = v129;
+    v125 = v12;
+    v11 = [(CPLBeforeUploadCheckItem *)self _addRelatedRecordWithScopedIdentifierToAdditionalRecords:secondaryScopedIdentifier provider:provider error:&v125];
+    v9 = v125;
 
     if (!v11)
     {
@@ -1217,18 +1201,18 @@ LABEL_24:
 
     if ((self->_ruleGroups & 8) != 0 && ![(CPLRecordChange *)self->_change canLowerQuota]&& [(CPLRecordChange *)self->_change isAssetChange]&& !self->_pushRepositoryPriority)
     {
-      v80 = objc_loadWeakRetained(&self->_items);
-      shouldCheckOverQuotaChangesWithServer = [v80 shouldCheckOverQuotaChangesWithServer];
+      v77 = objc_loadWeakRetained(&self->_items);
+      shouldCheckOverQuotaChangesWithServer = [v77 shouldCheckOverQuotaChangesWithServer];
 
       if (shouldCheckOverQuotaChangesWithServer)
       {
         if ((self->_ruleGroups & 8) != 0)
         {
-          v128 = v9;
-          v82 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdatePushRepositoryPriorityWhenOverQuota" error:&v128];
-          v12 = v128;
+          v124 = v9;
+          v79 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdatePushRepositoryPriorityWhenOverQuota" error:&v124];
+          v12 = v124;
 
-          if (!v82)
+          if (!v79)
           {
             goto LABEL_22;
           }
@@ -1281,9 +1265,9 @@ LABEL_24:
               {
                 scopedIdentifier2 = [(CPLRecordChange *)self->_change scopedIdentifier];
                 *buf = 138412546;
-                v134 = scopedIdentifier2;
-                v135 = 2112;
-                v136 = relatedScopedIdentifier2;
+                v130 = scopedIdentifier2;
+                v131 = 2112;
+                v132 = relatedScopedIdentifier2;
                 _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "In order to share %@, we will need to ensure %@ is also shared", buf, 0x16u);
               }
             }
@@ -1297,9 +1281,9 @@ LABEL_18:
 
       if ((self->_ruleGroups & 2) != 0)
       {
-        v127 = v9;
-        LOBYTE(v31) = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"AvoidAccidentalUnshare" error:&v127];
-        v32 = v127;
+        v123 = v9;
+        LOBYTE(v31) = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"AvoidAccidentalUnshare" error:&v123];
+        v32 = v123;
       }
 
       else
@@ -1316,9 +1300,9 @@ LABEL_18:
           goto LABEL_19;
         }
 
-        v126 = v9;
-        v31 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdateRecordTargetForSharingChange" error:&v126];
-        v32 = v126;
+        v122 = v9;
+        v31 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdateRecordTargetForSharingChange" error:&v122];
+        v32 = v122;
       }
 
       v12 = v32;
@@ -1334,9 +1318,9 @@ LABEL_18:
 LABEL_19:
     if ((self->_ruleGroups & 2) != 0 && [(CPLRecordChange *)self->_change supportsSharing])
     {
-      v125 = v9;
-      v23 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdateRecordTargetDuringResetSync" error:&v125];
-      v12 = v125;
+      v121 = v9;
+      v23 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"UpdateRecordTargetDuringResetSync" error:&v121];
+      v12 = v121;
 
       if (!v23)
       {
@@ -1357,25 +1341,25 @@ LABEL_22:
       goto LABEL_95;
     }
 
-    v108 = [provider availableResourceTypesToUploadForChange:self->_change];
+    v104 = [provider availableResourceTypesToUploadForChange:self->_change];
     resourceCopyFromScopedIdentifier = [(CPLRecordChange *)self->_change resourceCopyFromScopedIdentifier];
     resources = [(CPLRecordChange *)self->_change resources];
     if ([(CPLRecordChange *)self->_change isAssetChange])
     {
       adjustments = [(CPLRecordChange *)self->_change adjustments];
-      v99 = adjustments != 0;
+      v95 = adjustments != 0;
     }
 
     else
     {
-      v99 = 0;
+      v95 = 0;
     }
 
     if (resourceCopyFromScopedIdentifier)
     {
-      v124 = 0;
-      v27 = [provider willNeedToAccessRecordWithScopedIdentifier:resourceCopyFromScopedIdentifier error:&v124];
-      v28 = v124;
+      v120 = 0;
+      v27 = [provider willNeedToAccessRecordWithScopedIdentifier:resourceCopyFromScopedIdentifier error:&v120];
+      v28 = v120;
       if (v27)
       {
         v29 = 1;
@@ -1390,25 +1374,25 @@ LABEL_22:
           {
             scopedIdentifier = self->_scopedIdentifier;
             *buf = 138412802;
-            v134 = resourceCopyFromScopedIdentifier;
-            v135 = 2112;
-            v136 = scopedIdentifier;
-            v137 = 2112;
-            v138 = v28;
+            v130 = resourceCopyFromScopedIdentifier;
+            v131 = 2112;
+            v132 = scopedIdentifier;
+            v133 = 2112;
+            v134 = v28;
             _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Can't copy resources from %@ to %@ as the source scope can't be accessed: %@", buf, 0x20u);
           }
         }
 
-        v123 = v12;
-        v29 = [(CPLBeforeUploadCheckItem *)self rejectChangeWithReason:@"invalid source scope for copy" error:&v123];
-        v35 = v123;
+        v119 = v12;
+        v29 = [(CPLBeforeUploadCheckItem *)self rejectChangeWithReason:@"invalid source scope for copy" error:&v119];
+        v35 = v119;
 
         v12 = v35;
       }
 
-      if ([resources count] != 0 || v99)
+      if ([resources count] != 0 || v95)
       {
-        isEmpty = [v108 isEmpty];
+        isEmpty = [v104 isEmpty];
       }
 
       else
@@ -1423,16 +1407,16 @@ LABEL_22:
         goto LABEL_94;
       }
 
-      v107 = v12;
+      v103 = v12;
     }
 
     else
     {
-      v107 = v12;
+      v103 = v12;
       isEmpty = 0;
     }
 
-    v97 = resourceCopyFromScopedIdentifier;
+    v93 = resourceCopyFromScopedIdentifier;
     errorCopy = error;
     v36 = objc_alloc_init(CPLResourceTypeSet);
     resourcesToGenerateImageDerivatives = self->_resourcesToGenerateImageDerivatives;
@@ -1443,40 +1427,40 @@ LABEL_22:
     self->_resourcesToGenerateVideoComplementDerivatives = v38;
 
     *&self->_needsToGenerateImageDerivatives = 257;
-    v119 = 0u;
-    v120 = 0u;
-    v121 = 0u;
-    v122 = 0u;
+    v115 = 0u;
+    v116 = 0u;
+    v117 = 0u;
+    v118 = 0u;
     obj = resources;
-    v106 = [obj countByEnumeratingWithState:&v119 objects:v132 count:16];
-    if (!v106)
+    v102 = [obj countByEnumeratingWithState:&v115 objects:v128 count:16];
+    if (!v102)
     {
-      LOBYTE(v109) = 0;
+      LOBYTE(v105) = 0;
       v40 = 0;
-      v101 = isEmpty;
+      v97 = isEmpty;
       goto LABEL_117;
     }
 
     v40 = 0;
-    v109 = 0;
-    v104 = *v120;
-    v101 = isEmpty;
-    v105 = provider;
+    v105 = 0;
+    v100 = *v116;
+    v97 = isEmpty;
+    v101 = provider;
 LABEL_53:
     v41 = 0;
     while (1)
     {
-      if (*v120 != v104)
+      if (*v116 != v100)
       {
         objc_enumerationMutation(obj);
       }
 
-      v42 = *(*(&v119 + 1) + 8 * v41);
+      v42 = *(*(&v115 + 1) + 8 * v41);
       resourceType = [v42 resourceType];
       v44 = [provider isResourceDynamic:v42];
-      if (v99 && !v109)
+      if (v95 && !v105)
       {
-        v109 = [CPLResource isAdjustedResourceType:resourceType];
+        v105 = [CPLResource isAdjustedResourceType:resourceType];
       }
 
       v45 = objc_loadWeakRetained(&self->_items);
@@ -1486,40 +1470,39 @@ LABEL_53:
 
       if (!v48)
       {
-        provider = v105;
+        provider = v101;
         error = errorCopy;
-        v61 = v107;
+        v61 = v103;
         if ((_CPLSilentLogging & 1) == 0)
         {
           v62 = __CPLCheckOSLogDomain();
           if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v134 = v42;
+            v130 = v42;
             _os_log_impl(&dword_1DC05A000, v62, OS_LOG_TYPE_ERROR, "Cloud resource %@ does not match any local resource for upload", buf, 0xCu);
           }
         }
 
         v63 = objc_alloc(MEMORY[0x1E696AEC0]);
         v64 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v42 resourceType]);
-        v65 = self->_change;
         domain = [v63 initWithFormat:@"Cloud resource %@ does not match any local resource of %@", v64, objc_opt_class()];
 
-        v67 = [CPLErrors invalidCloudCacheErrorWithReason:domain];
+        v66 = [CPLErrors invalidCloudCacheErrorWithReason:domain];
         v48 = 0;
 LABEL_90:
 
-        v55 = v67;
+        v55 = v66;
 LABEL_91:
 
 LABEL_92:
         v11 = 0;
-        v60 = v97;
+        v60 = v93;
 
         goto LABEL_93;
       }
 
-      if (!(v44 & 1 | (([v108 containsResourceType:resourceType] & 1) == 0)))
+      if (!(v44 & 1 | (([v104 containsResourceType:resourceType] & 1) == 0)))
       {
         break;
       }
@@ -1530,7 +1513,7 @@ LABEL_92:
       {
         [identity setAvailable:1];
 
-        v101 &= resourceType != 5;
+        v97 &= resourceType != 5;
       }
 
       else
@@ -1544,11 +1527,11 @@ LABEL_77:
 
       v40 |= isAvailable ^ 1;
       ++v41;
-      provider = v105;
-      if (v106 == v41)
+      provider = v101;
+      if (v102 == v41)
       {
-        v59 = [obj countByEnumeratingWithState:&v119 objects:v132 count:16];
-        v106 = v59;
+        v59 = [obj countByEnumeratingWithState:&v115 objects:v128 count:16];
+        v102 = v59;
         if (!v59)
         {
 LABEL_117:
@@ -1558,40 +1541,40 @@ LABEL_117:
             self->_needsToGenerateImageDerivatives = 0;
           }
 
-          v12 = v107;
-          v60 = v97;
+          v12 = v103;
+          v60 = v93;
           if (self->_needsToGenerateVideoComplementDerivatives && [(CPLResourceTypeSet *)self->_resourcesToGenerateVideoComplementDerivatives isEmpty])
           {
             self->_needsToGenerateVideoComplementDerivatives = 0;
           }
 
-          if (v40 & 1 | !v99 | v109)
+          if (v40 & 1 | !v95 | v105)
           {
             if ((v40 & 1) == 0)
             {
               error = errorCopy;
-              if ((v101 & 1) == 0)
+              if ((v97 & 1) == 0)
               {
                 v11 = 1;
                 goto LABEL_158;
               }
 
 LABEL_146:
-              v115 = v107;
-              v90 = v107;
-              v91 = &v115;
-              v11 = [(CPLBeforeUploadCheckItem *)self requestFetchOfRecordWithScopedIdentifier:v97 forRule:@"CopyDerivativesFromSource" error:&v115];
+              v111 = v103;
+              v86 = v103;
+              v87 = &v111;
+              v11 = [(CPLBeforeUploadCheckItem *)self requestFetchOfRecordWithScopedIdentifier:v93 forRule:@"CopyDerivativesFromSource" error:&v111];
 LABEL_157:
-              v12 = *v91;
+              v12 = *v87;
 
 LABEL_158:
               if ([(CPLBeforeUploadCheckItem *)self needsToGenerateDerivatives]&& v11)
               {
                 if ((self->_ruleGroups & 2) != 0)
                 {
-                  v114 = v12;
-                  v11 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"AvoidGeneratingDerivatives" error:&v114];
-                  v55 = v114;
+                  v110 = v12;
+                  v11 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"AvoidGeneratingDerivatives" error:&v110];
+                  v55 = v110;
 
 LABEL_93:
                   v12 = v55;
@@ -1622,7 +1605,7 @@ LABEL_112:
                 if (error && !v24)
                 {
 LABEL_114:
-                  v77 = v9;
+                  v75 = v9;
                   v24 = 0;
                   *error = v9;
                 }
@@ -1637,11 +1620,11 @@ LABEL_114:
 
               if ([(CPLRecordChange *)self->_change isFullRecord])
               {
-                v113 = v12;
-                v72 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"FullRecordAlreadyOnServer" error:&v113];
-                v9 = v113;
+                v109 = v12;
+                v71 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"FullRecordAlreadyOnServer" error:&v109];
+                v9 = v109;
 
-                if (v72)
+                if (v71)
                 {
                   v12 = v9;
                   goto LABEL_106;
@@ -1653,14 +1636,14 @@ LABEL_110:
               }
 
 LABEL_106:
-              if ((self->_ruleGroups & 2) != 0 && -[CPLRecordChange hasChangeType:](self->_change, "hasChangeType:", 32) && (v73 = self->_change, [objc_opt_class() copyPropertyBlockForDirection:1], (v74 = objc_claimAutoreleasedReturnValue()) != 0))
+              if ((self->_ruleGroups & 2) != 0 && -[CPLRecordChange hasChangeType:](self->_change, "hasChangeType:", 32) && ([objc_opt_class() copyPropertyBlockForDirection:1], (v72 = objc_claimAutoreleasedReturnValue()) != 0))
               {
-                v75 = v74;
-                v112 = v12;
-                v76 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"ForwardCompatibility" error:&v112];
-                v9 = v112;
+                v73 = v72;
+                v108 = v12;
+                v74 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"ForwardCompatibility" error:&v108];
+                v9 = v108;
 
-                if (!v76)
+                if (!v74)
                 {
                   goto LABEL_110;
                 }
@@ -1674,21 +1657,21 @@ LABEL_97:
 
               if ([(CPLRecordChange *)self->_change _shouldNotTrustCloudCache])
               {
-                v111 = v9;
-                v24 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"DontTrustCloudCache" error:&v111];
-                v69 = v111;
+                v107 = v9;
+                v24 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:@"DontTrustCloudCache" error:&v107];
+                v68 = v107;
 
                 relatedScopedIdentifier3 = [(CPLRecordChange *)self->_change relatedScopedIdentifier];
                 if (relatedScopedIdentifier3)
                 {
-                  v110 = v69;
-                  v24 = [(CPLBeforeUploadCheckItem *)self requestFetchOfRecordWithScopedIdentifier:relatedScopedIdentifier3 forRule:@"DontTrustCloudCache" error:&v110];
-                  v71 = v110;
+                  v106 = v68;
+                  v24 = [(CPLBeforeUploadCheckItem *)self requestFetchOfRecordWithScopedIdentifier:relatedScopedIdentifier3 forRule:@"DontTrustCloudCache" error:&v106];
+                  v70 = v106;
 
-                  v69 = v71;
+                  v68 = v70;
                 }
 
-                v9 = v69;
+                v9 = v68;
                 goto LABEL_112;
               }
 
@@ -1705,15 +1688,15 @@ LABEL_148:
               error = errorCopy;
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v88 = __CPLCheckOSLogDomain();
-                if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+                v84 = __CPLCheckOSLogDomain();
+                if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
                 {
-                  v89 = self->_change;
+                  v85 = self->_change;
                   *buf = 138412546;
-                  v134 = v89;
-                  v135 = 2112;
-                  v136 = v97;
-                  _os_log_impl(&dword_1DC05A000, v88, OS_LOG_TYPE_DEFAULT, "%@ is adjusted but has no adjusted resources - we will copy them from %@", buf, 0x16u);
+                  v130 = v85;
+                  v131 = 2112;
+                  v132 = v93;
+                  _os_log_impl(&dword_1DC05A000, v84, OS_LOG_TYPE_DEFAULT, "%@ is adjusted but has no adjusted resources - we will copy them from %@", buf, 0x16u);
                 }
               }
 
@@ -1722,36 +1705,36 @@ LABEL_148:
 
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v93 = __CPLCheckOSLogDomain();
-              if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+              v89 = __CPLCheckOSLogDomain();
+              if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
               {
-                v94 = self->_change;
+                v90 = self->_change;
                 *buf = 138412290;
-                v134 = v94;
-                _os_log_impl(&dword_1DC05A000, v93, OS_LOG_TYPE_DEFAULT, "%@ is adjusted but has no adjusted resources - considering the record as sparse", buf, 0xCu);
+                v130 = v90;
+                _os_log_impl(&dword_1DC05A000, v89, OS_LOG_TYPE_DEFAULT, "%@ is adjusted but has no adjusted resources - considering the record as sparse", buf, 0xCu);
               }
             }
           }
 
           if ([(CPLRecordChange *)self->_change allowsToOnlyUploadNewResources])
           {
-            v117 = v107;
-            v95 = @"OnlyUploadAddedResources";
-            v90 = v107;
-            v91 = &v117;
-            v96 = &v117;
+            v113 = v103;
+            v91 = @"OnlyUploadAddedResources";
+            v86 = v103;
+            v87 = &v113;
+            v92 = &v113;
           }
 
           else
           {
-            v116 = v107;
-            v95 = @"DropSparseResources";
-            v90 = v107;
-            v91 = &v116;
-            v96 = &v116;
+            v112 = v103;
+            v91 = @"DropSparseResources";
+            v86 = v103;
+            v87 = &v112;
+            v92 = &v112;
           }
 
-          v11 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:v95 error:v96];
+          v11 = [(CPLBeforeUploadCheckItem *)self requestFetchForRule:v91 error:v92];
           error = errorCopy;
           goto LABEL_157;
         }
@@ -1786,24 +1769,24 @@ LABEL_148:
         self->_needsToGenerateVideoComplementDerivatives = 0;
 LABEL_75:
         v53 = objc_loadWeakRetained(&self->_items);
-        v118 = v107;
-        v54 = [v53 willUploadCloudResource:v42 localResource:v48 forItem:self error:&v118];
-        v55 = v118;
+        v114 = v103;
+        v54 = [v53 willUploadCloudResource:v42 localResource:v48 forItem:self error:&v114];
+        v55 = v114;
 
         if (!v54)
         {
-          provider = v105;
+          provider = v101;
           error = errorCopy;
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v83 = __CPLCheckOSLogDomain();
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+            v80 = __CPLCheckOSLogDomain();
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v134 = v42;
-              v135 = 2112;
-              v136 = v55;
-              _os_log_impl(&dword_1DC05A000, v83, OS_LOG_TYPE_ERROR, "Can't create URL to upload cloud %@: %@", buf, 0x16u);
+              v130 = v42;
+              v131 = 2112;
+              v132 = v55;
+              _os_log_impl(&dword_1DC05A000, v80, OS_LOG_TYPE_ERROR, "Can't create URL to upload cloud %@: %@", buf, 0x16u);
             }
           }
 
@@ -1817,12 +1800,11 @@ LABEL_75:
 
           if (code == 4)
           {
-            v85 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v86 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v48 resourceType]);
-            v87 = self->_change;
-            domain = [v85 initWithFormat:@"Missing resource %@ on disk during push to transport for %@", v86, objc_opt_class()];
+            v82 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v83 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v48 resourceType]);
+            domain = [v82 initWithFormat:@"Missing resource %@ on disk during push to transport for %@", v83, objc_opt_class()];
 
-            v67 = [CPLErrors invalidClientCacheErrorWithReason:domain];
+            v66 = [CPLErrors invalidClientCacheErrorWithReason:domain];
             v61 = v55;
             goto LABEL_90;
           }
@@ -1834,7 +1816,7 @@ LABEL_75:
         [identity3 setFileURL:v54];
         [identity3 setAvailable:1];
 
-        v107 = v55;
+        v103 = v55;
         goto LABEL_77;
       }
 
@@ -1850,7 +1832,7 @@ LABEL_74:
         }
 
 LABEL_79:
-        if (resourceType != 1000 || !v99)
+        if (resourceType != 1000 || !v95)
         {
           goto LABEL_75;
         }
@@ -1874,7 +1856,6 @@ LABEL_79:
   v24 = 0;
 LABEL_115:
 
-  v78 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -1920,12 +1901,12 @@ LABEL_115:
 
 - (CPLBeforeUploadCheckItem)initWithChange:(id)change checkItems:(id)items
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   itemsCopy = items;
-  v21.receiver = self;
-  v21.super_class = CPLBeforeUploadCheckItem;
-  v9 = [(CPLBeforeUploadCheckItem *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = CPLBeforeUploadCheckItem;
+  v9 = [(CPLBeforeUploadCheckItem *)&v20 init];
   v10 = v9;
   if (v9)
   {
@@ -1968,7 +1949,6 @@ LABEL_115:
     v10->_pushRepositoryPriority = [itemsCopy pushRepositoryPriority];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

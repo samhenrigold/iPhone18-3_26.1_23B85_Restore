@@ -1,7 +1,10 @@
 @interface CSDRelayIDSDualSession
 - (BOOL)hasIdentifier:(id)identifier;
+- (CSDRelayIDSDualSession)initWithSessionProvider:(id)provider isInitiator:(BOOL)initiator remoteDestination:(id)destination remoteDevice:(id)device remoteProtocolVersion:(id)version identifiers:(id)identifiers;
+- (CSDRelayIDSDualSession)initWithSessionProvider:(id)provider isInitiator:(BOOL)initiator remoteProtocolVersion:(id)version;
 - (CSDRelayIDSDualSessionDelegate)delegate;
 - (NSArray)allIdentifiers;
+- (id)initAsReceiverWithSessionProvider:(id)provider remoteDestination:(id)destination remoteDevice:(id)device remoteProtocolVersion:(int)version identifiers:(id)identifiers;
 - (id)transport;
 - (void)addIdentifier:(id)identifier;
 - (void)addIdentifiers:(id)identifiers;
@@ -14,12 +17,15 @@
 - (void)removeIdentifiers:(id)identifiers;
 - (void)removePendingData;
 - (void)runBlocksPendingTransportAvailability:(BOOL)availability;
+- (void)runBlocksPendingTransportAvailabilityIfNecessary:(BOOL)necessary;
 - (void)sendData:(id)data toDestinations:(id)destinations completion:(id)completion;
 - (void)sendData:(id)data waitUntilConnected:(BOOL)connected completion:(id)completion;
 - (void)sendDataAndAcceptInvitationIfNecessary:(id)necessary;
 - (void)sendDataAndCancelInvitationIfNecessary:(id)necessary;
 - (void)sendDataAndDeclineInvitationIfNecessary:(id)necessary;
+- (void)sendDataAndSendInvitationIfNecessary:(id)necessary declineOnError:(BOOL)error;
 - (void)sendPendingData;
+- (void)sessionProvider:(id)provider endedWithReason:(unsigned int)reason error:(id)error;
 - (void)sessionProvider:(id)provider receivedInvitationAcceptFromID:(id)d withData:(id)data;
 - (void)sessionProvider:(id)provider receivedInvitationCancelFromID:(id)d withData:(id)data;
 - (void)sessionProvider:(id)provider receivedInvitationDeclineFromID:(id)d withData:(id)data;
@@ -28,6 +34,69 @@
 @end
 
 @implementation CSDRelayIDSDualSession
+
+- (CSDRelayIDSDualSession)initWithSessionProvider:(id)provider isInitiator:(BOOL)initiator remoteProtocolVersion:(id)version
+{
+  v7 = [NSAssertionHandler currentHandler:provider];
+  [v7 handleFailureInMethod:a2 object:self file:@"CSDRelayIDSDualSession.m" lineNumber:57 description:@"Use another initializer instead"];
+
+  return 0;
+}
+
+- (CSDRelayIDSDualSession)initWithSessionProvider:(id)provider isInitiator:(BOOL)initiator remoteDestination:(id)destination remoteDevice:(id)device remoteProtocolVersion:(id)version identifiers:(id)identifiers
+{
+  initiatorCopy = initiator;
+  destinationCopy = destination;
+  deviceCopy = device;
+  identifiersCopy = identifiers;
+  v29.receiver = self;
+  v29.super_class = CSDRelayIDSDualSession;
+  v18 = [(CSDIDSDualSession *)&v29 initWithSessionProvider:provider isInitiator:initiatorCopy remoteProtocolVersion:version];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_remoteDestination, destination);
+    objc_storeStrong(&v19->_remoteDevice, device);
+    v20 = +[NSMutableArray array];
+    pendingData = v19->_pendingData;
+    v19->_pendingData = v20;
+
+    v22 = [NSMutableSet setWithArray:identifiersCopy];
+    identifiers = v19->_identifiers;
+    v19->_identifiers = v22;
+
+    v24 = +[NSMutableArray array];
+    blocksPendingTransportAvailability = v19->_blocksPendingTransportAvailability;
+    v19->_blocksPendingTransportAvailability = v24;
+
+    sessionProvider = [(CSDIDSDualSession *)v19 sessionProvider];
+    v30[0] = IDSLinkPreferenceOptionPacketsPerSecondKey;
+    v30[1] = IDSLinkPreferenceOptionInputBytesPerSecondKey;
+    v31[0] = &off_10063EC30;
+    v31[1] = &off_10063EC48;
+    v30[2] = IDSLinkPreferenceOptionOutputBytesPerSecondKey;
+    v30[3] = IDSLinkPreferenceOptionIntent;
+    v31[2] = &off_10063EC48;
+    v31[3] = @"forceBTClassic";
+    v27 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:4];
+    [sessionProvider setStreamPreferences:v27];
+  }
+
+  return v19;
+}
+
+- (id)initAsReceiverWithSessionProvider:(id)provider remoteDestination:(id)destination remoteDevice:(id)device remoteProtocolVersion:(int)version identifiers:(id)identifiers
+{
+  v7 = *&version;
+  identifiersCopy = identifiers;
+  deviceCopy = device;
+  destinationCopy = destination;
+  providerCopy = provider;
+  v16 = [NSNumber numberWithInt:v7];
+  v17 = [(CSDRelayIDSDualSession *)self initWithSessionProvider:providerCopy isInitiator:0 remoteDestination:destinationCopy remoteDevice:deviceCopy remoteProtocolVersion:v16 identifiers:identifiersCopy];
+
+  return v17;
+}
 
 - (void)dealloc
 {
@@ -172,6 +241,34 @@
   [blocksPendingTransportAvailability2 removeAllObjects];
 }
 
+- (void)runBlocksPendingTransportAvailabilityIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  hasStarted = [(CSDRelayIDSDualSession *)self hasStarted];
+  if (hasStarted && ([(CSDRelayIDSDualSession *)self hasReceivedAccept]|| (hasStarted = [(CSDIDSDualSession *)self isInitiator], (hasStarted & 1) == 0)))
+  {
+
+    [(CSDRelayIDSDualSession *)self runBlocksPendingTransportAvailability:necessaryCopy];
+  }
+
+  else
+  {
+    v6 = sub_100004778(hasStarted);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 138413058;
+      selfCopy = self;
+      v9 = 1024;
+      hasStarted2 = [(CSDRelayIDSDualSession *)self hasStarted];
+      v11 = 1024;
+      hasReceivedAccept = [(CSDRelayIDSDualSession *)self hasReceivedAccept];
+      v13 = 1024;
+      isInitiator = [(CSDIDSDualSession *)self isInitiator];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "self: %@ not running pending blocks yet because self.hasStarted=%d self.hasReceivedAccept=%d self.isInitiator=%d", &v7, 0x1Eu);
+    }
+  }
+}
+
 - (void)runBlocksPendingTransportAvailability:(BOOL)availability
 {
   availabilityCopy = availability;
@@ -180,32 +277,34 @@
   v20 = 0u;
   v21 = 0u;
   obj = [(CSDRelayIDSDualSession *)self blocksPendingTransportAvailability];
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v30 count:16];
-  if (v5)
+  transport = [obj countByEnumeratingWithState:&v18 objects:v30 count:16];
+  if (transport)
   {
-    v6 = v5;
+    v6 = transport;
     v7 = *v19;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      v8 = 0;
+      do
       {
         if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * v8);
         if (availabilityCopy)
         {
           transport = [(CSDRelayIDSDualSession *)self transport];
+          v10 = transport;
         }
 
         else
         {
-          transport = 0;
+          v10 = 0;
         }
 
-        v11 = sub_100004778();
+        v11 = sub_100004778(transport);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           v12 = objc_retainBlock(v9);
@@ -221,20 +320,24 @@
           v24 = 2112;
           v25 = v12;
           v26 = 2112;
-          v27 = transport;
+          v27 = v10;
           v28 = 2112;
           v29 = v14;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "self: %@ running block %@ with transport %@ and %@ accept payload data", buf, 0x2Au);
         }
 
         acceptPayloadData2 = [(CSDRelayIDSDualSession *)self acceptPayloadData];
-        (v9)[2](v9, transport, acceptPayloadData2);
+        (v9)[2](v9, v10, acceptPayloadData2);
+
+        v8 = v8 + 1;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v30 count:16];
+      while (v6 != v8);
+      transport = [obj countByEnumeratingWithState:&v18 objects:v30 count:16];
+      v6 = transport;
     }
 
-    while (v6);
+    while (transport);
   }
 
   blocksPendingTransportAvailability = [(CSDRelayIDSDualSession *)self blocksPendingTransportAvailability];
@@ -244,7 +347,7 @@
 - (void)performBlockOnTransportAvailability:(id)availability
 {
   availabilityCopy = availability;
-  v5 = sub_100004778();
+  v5 = sub_100004778(availabilityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_retainBlock(availabilityCopy);
@@ -374,7 +477,7 @@
   connectedCopy = connected;
   dataCopy = data;
   completionCopy = completion;
-  v10 = sub_100004778();
+  v10 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138412290;
@@ -383,9 +486,9 @@
   }
 
   state = [(CSDIDSDualSession *)self state];
-  if (state - 1 < 2)
+  if ((state - 1) < 2)
   {
-    v14 = sub_100004778();
+    v14 = sub_100004778(state);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (connectedCopy)
     {
@@ -414,7 +517,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (state - 4 >= 2)
+  if ((state - 4) >= 2)
   {
     if (state != 3)
     {
@@ -427,7 +530,7 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    v16 = sub_100004778();
+    v16 = sub_100004778(state);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138412290;
@@ -438,7 +541,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  sessionProvider = sub_100004778();
+  sessionProvider = sub_100004778(state);
   if (os_log_type_enabled(sessionProvider, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138412290;
@@ -464,7 +567,7 @@ LABEL_23:
   dataCopy = data;
   destinationsCopy = destinations;
   completionCopy = completion;
-  v11 = sub_100004778();
+  v11 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412546;
@@ -475,7 +578,7 @@ LABEL_23:
   }
 
   state = [(CSDIDSDualSession *)self state];
-  if (state - 2 >= 4)
+  if ((state - 2) >= 4)
   {
     if (state != 1)
     {
@@ -488,7 +591,7 @@ LABEL_23:
       goto LABEL_12;
     }
 
-    v15 = sub_100004778();
+    v15 = sub_100004778(state);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412290;
@@ -503,7 +606,7 @@ LABEL_23:
 
   else
   {
-    sessionProvider = sub_100004778();
+    sessionProvider = sub_100004778(state);
     if (os_log_type_enabled(sessionProvider, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412290;
@@ -523,10 +626,33 @@ LABEL_12:
 LABEL_13:
 }
 
+- (void)sendDataAndSendInvitationIfNecessary:(id)necessary declineOnError:(BOOL)error
+{
+  errorCopy = error;
+  necessaryCopy = necessary;
+  v7 = sub_100004778(necessaryCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"non-nil";
+    if (!necessaryCopy)
+    {
+      v8 = @"nil";
+    }
+
+    v9 = 138412546;
+    selfCopy = self;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "self: %@ data: %@", &v9, 0x16u);
+  }
+
+  [(CSDIDSDualSession *)self _sendInvitationWithData:necessaryCopy declineOnError:errorCopy alwaysSendData:0];
+}
+
 - (void)sendDataAndAcceptInvitationIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v5 = sub_100004778();
+  v5 = sub_100004778(necessaryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"non-nil";
@@ -548,7 +674,7 @@ LABEL_13:
 - (void)sendDataAndCancelInvitationIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v5 = sub_100004778();
+  v5 = sub_100004778(necessaryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"non-nil";
@@ -570,7 +696,7 @@ LABEL_13:
 - (void)sendDataAndDeclineInvitationIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v5 = sub_100004778();
+  v5 = sub_100004778(necessaryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"non-nil";
@@ -592,15 +718,16 @@ LABEL_13:
 - (void)prepareToEnd
 {
   state = [(CSDIDSDualSession *)self state];
-  v4 = sub_100004778();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (state == 3)
+  v4 = state;
+  v5 = sub_100004778(state);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4 == 3)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Setting session %@ to ending for prepareToEnd", &v6, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting session %@ to ending for prepareToEnd", &v7, 0xCu);
     }
 
     [(CSDIDSDualSession *)self setState:4];
@@ -608,11 +735,11 @@ LABEL_13:
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v6 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not setting session %@ to ending for prepareToEnd because session is not connected", &v6, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not setting session %@ to ending for prepareToEnd because session is not connected", &v7, 0xCu);
     }
   }
 }
@@ -627,6 +754,18 @@ LABEL_13:
   [(CSDRelayIDSDualSession *)self runBlocksPendingTransportAvailabilityIfNecessary:1];
 }
 
+- (void)sessionProvider:(id)provider endedWithReason:(unsigned int)reason error:(id)error
+{
+  v5 = *&reason;
+  errorCopy = error;
+  providerCopy = provider;
+  [(CSDRelayIDSDualSession *)self removePendingData];
+  [(CSDRelayIDSDualSession *)self runBlocksPendingTransportAvailability:0];
+  v10.receiver = self;
+  v10.super_class = CSDRelayIDSDualSession;
+  [(CSDIDSDualSession *)&v10 sessionProvider:providerCopy endedWithReason:v5 error:errorCopy];
+}
+
 - (void)sessionProvider:(id)provider receivedInvitationAcceptFromID:(id)d withData:(id)data
 {
   dCopy = d;
@@ -638,8 +777,7 @@ LABEL_13:
   v10 = [IDSDestination destinationWithURI:dCopy];
   [(CSDRelayIDSDualSession *)self setRemoteDestination:v10];
   v11 = [delegate deviceForFromID:dCopy];
-  [(CSDRelayIDSDualSession *)self setRemoteDevice:v11];
-  v12 = sub_100004778();
+  v12 = sub_100004778([(CSDRelayIDSDualSession *)self setRemoteDevice:v11]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;
@@ -663,7 +801,7 @@ LABEL_13:
   delegate = [(CSDRelayIDSDualSession *)self delegate];
   v10 = [IDSDestination destinationWithURI:dCopy];
   v11 = [delegate deviceForFromID:dCopy];
-  v12 = sub_100004778();
+  v12 = sub_100004778(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;
@@ -687,7 +825,7 @@ LABEL_13:
   delegate = [(CSDRelayIDSDualSession *)self delegate];
   v10 = [IDSDestination destinationWithURI:dCopy];
   v11 = [delegate deviceForFromID:dCopy];
-  v12 = sub_100004778();
+  v12 = sub_100004778(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;
@@ -711,7 +849,7 @@ LABEL_13:
   delegate = [(CSDRelayIDSDualSession *)self delegate];
   v10 = [IDSDestination destinationWithURI:dCopy];
   v11 = [delegate deviceForFromID:dCopy];
-  v12 = sub_100004778();
+  v12 = sub_100004778(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;

@@ -43,12 +43,11 @@
 
 - (id)dictionaryEncoding
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   groupIdentifier = self->_groupIdentifier;
-  v6 = @"group_name";
-  v7[0] = groupIdentifier;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"group_name";
+  v6[0] = groupIdentifier;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

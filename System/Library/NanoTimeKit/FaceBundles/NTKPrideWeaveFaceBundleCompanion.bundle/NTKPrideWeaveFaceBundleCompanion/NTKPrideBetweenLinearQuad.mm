@@ -1,6 +1,8 @@
 @interface NTKPrideBetweenLinearQuad
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)noiseConfiguration;
 - (BOOL)preSemaphoreComputeForTime:(double)time;
+- (NTKPrideBetweenLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b;
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time;
 - (id)getNTKPrideSplineDefinitionFiller;
 - (id)noiseSamplePositionForControlPoint:(uint64_t)point inSpline:(uint64_t)spline;
 - (id)renderPipelineManager;
@@ -13,6 +15,27 @@
 @end
 
 @implementation NTKPrideBetweenLinearQuad
+
+- (NTKPrideBetweenLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b
+{
+  bCopy = b;
+  deviceCopy = device;
+  v7 = sub_1001C(deviceCopy, deviceCopy);
+  v8 = [NTKPrideTouchCrownHandler alloc];
+  LODWORD(v9) = 1.0;
+  LODWORD(v10) = 1.5;
+  v11 = [(NTKPrideTouchCrownHandler *)v8 initWithNumSplines:v7 strumWidth:0 strumSpeed:2 isCyclical:v9 padding:v10];
+  v14.receiver = self;
+  v14.super_class = NTKPrideBetweenLinearQuad;
+  v12 = [(NTKPrideLinearQuad *)&v14 initWithDevice:deviceCopy useXRsRGB:bCopy touchCrownHandler:v11];
+
+  if (v12)
+  {
+    [(NTKPrideLinearQuad *)v12 setFabricMode];
+  }
+
+  return v12;
+}
 
 - (void)dealloc
 {
@@ -44,6 +67,38 @@
   v3.receiver = self;
   v3.super_class = NTKPrideBetweenLinearQuad;
   [(NTKPrideLinearQuad *)&v3 applyTransitionFromBandedToFabricWithFraction:1.0];
+}
+
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time
+{
+  v5 = *&spline;
+  v6 = *&point;
+  v8 = 0.0;
+  if (spline && [(NTKPrideBetweenLinearQuad *)self numSplines]- 1 != spline)
+  {
+    v10 = v5 + 1;
+    if (dword_1B1F0[v5] == dword_1B1F0[v10])
+    {
+      [(NTKPrideLinearQuad *)&v15 computeAmplitudeForControlPoint:v6 inSpline:v5 atTime:time, self, NTKPrideBetweenLinearQuad, v16.receiver, v16.super_class];
+    }
+
+    else
+    {
+      [(NTKPrideLinearQuad *)&v16 computeAmplitudeForControlPoint:v6 inSpline:v10 atTime:time, v15.receiver, v15.super_class, self, NTKPrideBetweenLinearQuad];
+    }
+
+    v8 = v11;
+  }
+
+  v12 = *(&self->super._useXRsRGB + 2 * v5 + 1);
+  v13 = v12 | (1 << v6);
+  if (fabsf(v8) <= 0.2)
+  {
+    LOWORD(v13) = v12 & ~(1 << v6);
+  }
+
+  *(&self->super._useXRsRGB + 2 * v5 + 1) = v13;
+  return v8;
 }
 
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)noiseConfiguration
@@ -109,24 +164,21 @@
   {
     v4 = 0;
     v5 = 0;
-    v10 = vdupq_n_s32(0x437F0000u);
+    v7 = vdupq_n_s32(0x437F0000u);
     do
     {
-      useXRsRGB = [(NTKPrideLinearQuad *)self useXRsRGB];
-      v7 = dword_1B1F0[v5];
-      if (useXRsRGB)
+      if ([(NTKPrideLinearQuad *)self useXRsRGB])
       {
-        v8 = vmovl_s16(PRIDE_COLORS_2020_XR_SRGB[v7]);
         CLKUIConvertToRGBfFromXRSRGBf();
       }
 
       else
       {
-        v2 = v2 & 0xFFFFFFFF00000000 | PRIDE_COLORS_2020[v7];
+        v2 = v2 & 0xFFFFFFFF00000000 | PRIDE_COLORS_2020[dword_1B1F0[v5]];
         CLKUIConvertToRGBfFromSRGB8_fast();
       }
 
-      *(*(&self->super._currentStyle + 1) + v4) = v9;
+      *(*(&self->super._currentStyle + 1) + v4) = v6;
       ++v5;
       v4 += 32;
     }

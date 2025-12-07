@@ -8,6 +8,7 @@
 - (unint64_t)crxfClampingStatusForClampingStatus:(int64_t)status;
 - (unint64_t)crxfLensTypeForLensType:(int64_t)type;
 - (void)dealloc;
+- (void)decodeAppClipCodePayload:(id)payload allowUnsupportedRX:(BOOL)x withCompletionQueue:(id)queue completion:(id)completion;
 - (void)downloadCalibrationDataForACCPayload:(id)payload orASAKey:(id)key completionQueue:(id)queue completion:(id)completion;
 - (void)dumpDataStoreToFileHandle:(id)handle table:(id)table options:(unint64_t)options withCompletionQueue:(id)queue completion:(id)completion;
 - (void)fetchPrescriptionRecordsWithTimeout:(double)timeout completionQueue:(id)queue completion:(id)completion;
@@ -99,7 +100,7 @@ LABEL_10:
 
 - (void)downloadCalibrationDataForACCPayload:(id)payload orASAKey:(id)key completionQueue:(id)queue completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   keyCopy = key;
   queueCopy = queue;
@@ -120,31 +121,31 @@ LABEL_10:
       if (!v16)
       {
         v29 = [MEMORY[0x277CCA9B8] crxf_errorWithCode:32 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ServiceClient/CRXFCorePrescriptionServiceClient.m" line:351 userInfo:MEMORY[0x277CBEC10]];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_2;
-        v42[3] = &unk_278E9FCB8;
-        v43 = v29;
-        v44 = completionCopy;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_2;
+        v41[3] = &unk_278E9FCB8;
+        v42 = v29;
+        v43 = completionCopy;
         v18 = v29;
-        [queueCopy dispatchAsync:v42];
+        [queueCopy dispatchAsync:v41];
 
-        activate = v44;
+        activate = v43;
 LABEL_17:
 
         goto LABEL_18;
       }
 
-      v32 = keyCopy;
+      v31 = keyCopy;
     }
 
     else
     {
-      v32 = keyCopy;
+      v31 = keyCopy;
       v16 = 0;
     }
 
-    v31 = completionCopy;
+    v30 = completionCopy;
     v19 = [(CRXFCorePrescriptionServiceClient *)self addDownloadWithCompletionQueue:queueCopy completion:completionCopy];
     kdebug_trace();
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
@@ -152,15 +153,15 @@ LABEL_17:
       [CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:];
     }
 
-    v33 = payloadCopy;
+    v32 = payloadCopy;
     activate = [(CRXFServiceConnection *)self->_connection activate];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_179;
-    v41[3] = &unk_278E9FCE0;
-    v41[4] = self;
-    v41[5] = v19;
-    v21 = [activate remoteObjectProxyWithErrorHandler:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_179;
+    v40[3] = &unk_278E9FCE0;
+    v40[4] = self;
+    v40[5] = v19;
+    v21 = [activate remoteObjectProxyWithErrorHandler:v40];
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
@@ -168,11 +169,11 @@ LABEL_17:
       v24 = log;
       v25 = [v23 numberWithUnsignedInteger:v19];
       *buf = 136315650;
-      v49 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]";
-      v50 = 1024;
-      v51 = 379;
-      v52 = 2114;
-      v53 = v25;
+      v48 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]";
+      v49 = 1024;
+      v50 = 379;
+      v51 = 2114;
+      v52 = v25;
       _os_log_impl(&dword_24732C000, v24, OS_LOG_TYPE_INFO, "%s @%d: Starting XPC call for downloadID %{public}@", buf, 0x1Cu);
     }
 
@@ -183,40 +184,38 @@ LABEL_17:
     }
 
     fetchOptions = self->_fetchOptions;
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_182;
-    v34[3] = &unk_278E9FD30;
-    v35 = v16;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_182;
+    v33[3] = &unk_278E9FD30;
+    v34 = v16;
     selfCopy = self;
-    v40 = v19;
-    v37 = v14;
-    v38 = v21;
-    keyCopy = v32;
-    v39 = v32;
+    v39 = v19;
+    v36 = v14;
+    v37 = v21;
+    keyCopy = v31;
+    v38 = v31;
     v28 = v21;
     v18 = v16;
-    [v28 fetchCalibrationDataForACC:v18 orASAKey:v39 options:fetchOptions completionHandler:v34];
+    [v28 fetchCalibrationDataForACC:v18 orASAKey:v38 options:fetchOptions completionHandler:v33];
 
-    payloadCopy = v33;
-    completionCopy = v31;
+    payloadCopy = v32;
+    completionCopy = v30;
     goto LABEL_17;
   }
 
   v17 = [MEMORY[0x277CCA9B8] crxf_errorWithCode:23 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/ServiceClient/CRXFCorePrescriptionServiceClient.m" line:337 userInfo:MEMORY[0x277CBEC10]];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke;
-  v45[3] = &unk_278E9FCB8;
-  v46 = v17;
-  v47 = completionCopy;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke;
+  v44[3] = &unk_278E9FCB8;
+  v45 = v17;
+  v46 = completionCopy;
   v14 = v17;
-  [queueCopy dispatchAsync:v45];
+  [queueCopy dispatchAsync:v44];
 
-  v18 = v47;
+  v18 = v46;
 LABEL_18:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_179(uint64_t a1, void *a2)
@@ -233,10 +232,9 @@ void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPaylo
 
 void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_182(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  *(a1 + 32);
   kdebug_trace();
   v7 = *(*(a1 + 40) + 16);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
@@ -246,13 +244,13 @@ void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPaylo
     v10 = v7;
     v11 = [v8 numberWithUnsignedInteger:v9];
     *buf = 136315906;
-    v24 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]_block_invoke";
-    v25 = 1024;
-    v26 = 395;
-    v27 = 2114;
-    v28 = v11;
-    v29 = 2114;
-    v30 = v6;
+    v23 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]_block_invoke";
+    v24 = 1024;
+    v25 = 395;
+    v26 = 2114;
+    v27 = v11;
+    v28 = 2114;
+    v29 = v6;
     _os_log_impl(&dword_24732C000, v10, OS_LOG_TYPE_INFO, "%s @%d: XPC call completed for downloadID %{public}@ with error %{public}@", buf, 0x26u);
   }
 
@@ -277,9 +275,9 @@ LABEL_11:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v24 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]_block_invoke";
-        v25 = 1024;
-        v26 = 412;
+        v23 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]_block_invoke";
+        v24 = 1024;
+        v25 = 412;
         _os_log_impl(&dword_24732C000, v15, OS_LOG_TYPE_INFO, "%s @%d: Download failed with lens type Developer; retrying with lens type Demo", buf, 0x12u);
       }
 
@@ -287,14 +285,14 @@ LABEL_11:
       v17 = *(v16 + 56);
       v18 = *(a1 + 56);
       v19 = *(a1 + 64);
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_183;
-      v22[3] = &unk_278E9FD08;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_183;
+      v21[3] = &unk_278E9FD08;
       v20 = *(a1 + 72);
-      v22[4] = v16;
-      v22[5] = v20;
-      [v18 fetchCalibrationDataForACC:v14 orASAKey:v19 options:v17 completionHandler:v22];
+      v21[4] = v16;
+      v21[5] = v20;
+      [v18 fetchCalibrationDataForACC:v14 orASAKey:v19 options:v17 completionHandler:v21];
       goto LABEL_11;
     }
   }
@@ -302,8 +300,6 @@ LABEL_11:
   [*(*(a1 + 40) + 40) invalidate];
   [*(a1 + 40) finishDownloadWithID:*(a1 + 72) data:0 error:v6];
 LABEL_12:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_183(uint64_t a1, void *a2, void *a3)
@@ -396,31 +392,31 @@ void __81__CRXFCorePrescriptionServiceClient_fetchUserInfoWithCompletionQueue_co
 
 void __100__CRXFCorePrescriptionServiceClient_fetchPrescriptionRecordsWithTimeout_completionQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v41 = a3;
-  v43 = [MEMORY[0x277CBEB18] array];
+  v40 = a3;
+  v42 = [MEMORY[0x277CBEB18] array];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v5 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v45;
+    v7 = *v44;
     do
     {
       v8 = 0;
       do
       {
-        if (*v45 != v7)
+        if (*v44 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * v8);
+        v9 = *(*(&v43 + 1) + 8 * v8);
         v10 = [CRXFRXValues alloc];
         v11 = [v9 leftEye];
         [v11 sphere];
@@ -453,19 +449,18 @@ void __100__CRXFCorePrescriptionServiceClient_fetchPrescriptionRecordsWithTimeou
         v37 = [v9 enrollmentDate];
         v38 = [(CRXFPrescriptionRecord *)v34 initWithACCPayload:v35 enrollmentName:v36 enrollmentDate:v37 leftEyeRX:v21 rightEyeRX:v33];
 
-        [v43 addObject:v38];
+        [v42 addObject:v38];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v6 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v6);
   }
 
-  [*(a1 + 32) finishWithResult:v43 error:v41];
-  v39 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) finishWithResult:v42 error:v40];
 }
 
 - (void)purgeDataWithOptions:(unint64_t)options completionQueue:(id)queue completion:(id)completion
@@ -518,34 +513,34 @@ void __100__CRXFCorePrescriptionServiceClient_fetchPrescriptionRecordsWithTimeou
 
 void __110__CRXFCorePrescriptionServiceClient_validateAndApplySharedLensEnrollmentAssetsWithCompletionQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v21 = v6;
+    v20 = v6;
     v8 = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           v15 = [v14 lensCalibrationStatus];
           if (v15 == 2)
           {
@@ -564,13 +559,13 @@ void __110__CRXFCorePrescriptionServiceClient_validateAndApplySharedLensEnrollme
           [v8 addObject:v19];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
     }
 
-    v7 = v21;
+    v7 = v20;
   }
 
   else
@@ -579,8 +574,6 @@ void __110__CRXFCorePrescriptionServiceClient_validateAndApplySharedLensEnrollme
   }
 
   [*(a1 + 32) finishWithResult:v8 error:v7];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpDataStoreToFileHandle:(id)handle table:(id)table options:(unint64_t)options withCompletionQueue:(id)queue completion:(id)completion
@@ -607,6 +600,33 @@ void __110__CRXFCorePrescriptionServiceClient_validateAndApplySharedLensEnrollme
   v23 = v19;
   v21 = v19;
   [v20 dumpDataStoreToFileHandle:handleCopy table:tableCopy options:options completionHandler:v22];
+}
+
+- (void)decodeAppClipCodePayload:(id)payload allowUnsupportedRX:(BOOL)x withCompletionQueue:(id)queue completion:(id)completion
+{
+  xCopy = x;
+  completionCopy = completion;
+  queueCopy = queue;
+  payloadCopy = payload;
+  v13 = [CRXFServiceRequest alloc];
+  timeout = self->_timeout;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __112__CRXFCorePrescriptionServiceClient_decodeAppClipCodePayload_allowUnsupportedRX_withCompletionQueue_completion___block_invoke;
+  v21[3] = &unk_278E9FE48;
+  v22 = completionCopy;
+  v15 = completionCopy;
+  v16 = [(CRXFServiceRequest *)v13 initWithTimeout:queueCopy completionQueue:v21 completion:timeout];
+
+  v17 = [(CRXFServiceRequest *)v16 createProxyOnConnection:self->_connection];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __112__CRXFCorePrescriptionServiceClient_decodeAppClipCodePayload_allowUnsupportedRX_withCompletionQueue_completion___block_invoke_2;
+  v19[3] = &unk_278E9FE70;
+  v19[4] = self;
+  v20 = v16;
+  v18 = v16;
+  [v17 decodeAppClipCodePayload:payloadCopy allowUnsupportedRX:xCopy completionHandler:v19];
 }
 
 void __112__CRXFCorePrescriptionServiceClient_decodeAppClipCodePayload_allowUnsupportedRX_withCompletionQueue_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1052,68 +1072,62 @@ void __85__CRXFCorePrescriptionServiceClient_fetchSystemStatusWithCompletionQueu
 
 - (void)downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  *v3 = 136315907;
+  v6 = *MEMORY[0x277D85DE8];
+  *v2 = 136315907;
   OUTLINED_FUNCTION_0_0();
-  *&v3[7] = 368;
-  v3[9] = 2113;
-  v4 = @"com.apple.CorePrescription.CalibrationDataFetcher";
-  v5 = 2113;
-  v6 = v0;
-  _os_log_debug_impl(&dword_24732C000, v1, OS_LOG_TYPE_DEBUG, "%s @%d: Downloading calibration for service: %{private}@, ACC: %{private}@", v3, 0x26u);
-  v2 = *MEMORY[0x277D85DE8];
+  *&v2[7] = 368;
+  v2[9] = 2113;
+  v3 = @"com.apple.CorePrescription.CalibrationDataFetcher";
+  v4 = 2113;
+  v5 = v0;
+  _os_log_debug_impl(&dword_24732C000, v1, OS_LOG_TYPE_DEBUG, "%s @%d: Downloading calibration for service: %{private}@, ACC: %{private}@", v2, 0x26u);
 }
 
 - (void)downloadCalibrationDataForACCPayload:(os_log_t)log orASAKey:completionQueue:completion:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 56);
-  v5 = 136315906;
-  v6 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]";
-  v7 = 1024;
-  v8 = 381;
-  v9 = 2112;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v3;
-  _os_log_debug_impl(&dword_24732C000, log, OS_LOG_TYPE_DEBUG, "%s @%d: fetchAccessoryDataByACC with acc: %@, options: %@", &v5, 0x26u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = "[CRXFCorePrescriptionServiceClient downloadCalibrationDataForACCPayload:orASAKey:completionQueue:completion:]";
+  v6 = 1024;
+  v7 = 381;
+  v8 = 2112;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v3;
+  _os_log_debug_impl(&dword_24732C000, log, OS_LOG_TYPE_DEBUG, "%s @%d: fetchAccessoryDataByACC with acc: %@, options: %@", &v4, 0x26u);
 }
 
 void __110__CRXFCorePrescriptionServiceClient_downloadCalibrationDataForACCPayload_orASAKey_completionQueue_completion___block_invoke_179_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315650;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: remote proxy error: %{public}@", v2, 0x1Cu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: remote proxy error: %{public}@", v1, 0x1Cu);
 }
 
 - (void)finishDownloadWithID:data:error:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v3 = 136315650;
+  v4 = *MEMORY[0x277D85DE8];
+  *v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  *&v3[7] = 1413;
-  v3[9] = 2112;
-  v4 = v0;
-  _os_log_debug_impl(&dword_24732C000, v1, OS_LOG_TYPE_DEBUG, "%s @%d: Finishing download with error: %@", v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  *&v2[7] = 1413;
+  v2[9] = 2112;
+  v3 = v0;
+  _os_log_debug_impl(&dword_24732C000, v1, OS_LOG_TYPE_DEBUG, "%s @%d: Finishing download with error: %@", v2, 0x1Cu);
 }
 
 - (void)finishDownloadWithID:(void *)a1 data:(void *)a2 error:.cold.2(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 roundTripTime];
   v4 = [CRXUFormatters timeIntervalAsString:?];
-  v6[0] = 136315650;
+  v5[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_24732C000, v3, OS_LOG_TYPE_DEBUG, "%s @%d: XPC call roundtrip time: %{public}@", v6, 0x1Cu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24732C000, v3, OS_LOG_TYPE_DEBUG, "%s @%d: XPC call roundtrip time: %{public}@", v5, 0x1Cu);
 }
 
 @end

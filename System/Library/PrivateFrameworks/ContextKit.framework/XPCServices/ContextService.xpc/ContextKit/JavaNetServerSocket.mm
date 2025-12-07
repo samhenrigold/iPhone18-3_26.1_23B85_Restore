@@ -128,19 +128,12 @@
 
 - (NSString)description
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x40u);
+  v3 = new_JavaLangStringBuilder_initWithInt_(64);
   [(JavaLangStringBuilder *)v3 appendWithNSString:@"ServerSocket["];
   if ([(JavaNetServerSocket *)self isBound])
   {
     v4 = [(JavaLangStringBuilder *)v3 appendWithNSString:@"addr="];
-    if (!v4)
-    {
-      goto LABEL_16;
-    }
-
-    v5 = v4;
-    getInetAddress = [(JavaNetServerSocket *)self getInetAddress];
-    if (!getInetAddress || (v7 = [v5 appendWithNSString:{objc_msgSend(getInetAddress, "getHostName")}]) == 0 || (v8 = objc_msgSend(v7, "appendWithNSString:", @"/")) == 0 || (v9 = v8, (v10 = -[JavaNetServerSocket getInetAddress](self, "getInetAddress")) == 0) || (v11 = objc_msgSend(v9, "appendWithNSString:", objc_msgSend(v10, "getHostAddress"))) == 0 || (v12 = objc_msgSend(v11, "appendWithNSString:", @",port=0,localport=")) == 0 || (v13 = objc_msgSend(v12, "appendWithInt:", -[JavaNetServerSocket getLocalPort](self, "getLocalPort"))) == 0)
+    if (!v4 || (v5 = v4, (v6 = -[JavaNetServerSocket getInetAddress](self, "getInetAddress")) == 0) || (v7 = [v5 appendWithNSString:{objc_msgSend(v6, "getHostName")}]) == 0 || (v8 = objc_msgSend(v7, "appendWithNSString:", @"/")) == 0 || (v9 = v8, (v10 = -[JavaNetServerSocket getInetAddress](self, "getInetAddress")) == 0) || (v11 = objc_msgSend(v9, "appendWithNSString:", objc_msgSend(v10, "getHostAddress"))) == 0 || (v12 = objc_msgSend(v11, "appendWithNSString:", @",port=0,localport=")) == 0 || (v13 = objc_msgSend(v12, "appendWithInt:", -[JavaNetServerSocket getLocalPort](self, "getLocalPort"))) == 0)
     {
 LABEL_16:
       JreThrowNullPointerException();

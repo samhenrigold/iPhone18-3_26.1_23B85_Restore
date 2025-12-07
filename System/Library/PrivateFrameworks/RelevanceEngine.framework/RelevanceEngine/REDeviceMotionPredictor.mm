@@ -16,7 +16,7 @@
   _init = [(REPredictor *)&v7 _init];
   if (_init)
   {
-    if (!CoreMotionLibraryCore() || ![getCMMotionActivityManagerClass() isActivityAvailable])
+    if (!CoreMotionLibraryCore(0) || ![getCMMotionActivityManagerClass() isActivityAvailable])
     {
       v5 = RELogForDomain(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -49,16 +49,14 @@ LABEL_9:
 
 + (id)supportedFeatures
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature isStationaryFeature];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[REFeature deviceMotionFeature];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [(REFeatureSet *)v2 initWithFeatures:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

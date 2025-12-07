@@ -107,29 +107,24 @@ void __50__TPSInclusivityCondition__valuesFromValuesArray___block_invoke(uint64_
 
 - (void)_valuesFromValueTypeArray:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 valueType];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unknown value type for include/exclude: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unknown value type for include/exclude: %@", &v4, 0xCu);
 }
 
 void __50__TPSInclusivityCondition__valuesFromValuesArray___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = objc_opt_class();
-  v6 = *(a2 + 32);
-  v7 = v5;
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 2112;
-  v13 = objc_opt_class();
-  v8 = v13;
-  _os_log_error_impl(&dword_232D6F000, a3, OS_LOG_TYPE_ERROR, "Unexpected value element type (%@) for condition: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = objc_opt_class();
+  v5 = v4;
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = objc_opt_class();
+  v6 = v10;
+  _os_log_error_impl(&dword_232D6F000, a3, OS_LOG_TYPE_ERROR, "Unexpected value element type (%@) for condition: %@", &v7, 0x16u);
 }
 
 @end

@@ -11,7 +11,7 @@
 
 + (id)snapshotForDataSource:(id)source
 {
-  v3 = objc_allocWithZone(type metadata accessor for AccessoryDiagnosticInfoProtoDiagnosticInfoSnapshot());
+  v3 = objc_allocWithZone(type metadata accessor for AccessoryDiagnosticInfoProtoDiagnosticInfoSnapshot(0));
   v4 = swift_unknownObjectRetain();
   v5 = sub_2295A470C(v4);
 
@@ -967,83 +967,83 @@
     if ([v4 hasLastSetupInfo])
     {
       lastSetupInfo = [v4 lastSetupInfo];
-      v171 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(lastSetupInfo, "version")}];
-      [v209 setObject:v171 forKeyedSubscript:@"lastSetup.version"];
+      v172 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(lastSetupInfo, "version")}];
+      [v209 setObject:v172 forKeyedSubscript:@"lastSetup.version"];
 
-      v172 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sessionSetupOpenMSHH1")}];
-      [v209 setObject:v172 forKeyedSubscript:@"lastSetup.sessionSetupOpenMSHH1"];
+      v173 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sessionSetupOpenMSHH1")}];
+      [v209 setObject:v173 forKeyedSubscript:@"lastSetup.sessionSetupOpenMSHH1"];
 
-      v173 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "controllerKeyExchangeMSHH1")}];
-      [v209 setObject:v173 forKeyedSubscript:@"lastSetup.controllerKeyExchangeMSHH1"];
+      v174 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "controllerKeyExchangeMSHH1")}];
+      [v209 setObject:v174 forKeyedSubscript:@"lastSetup.controllerKeyExchangeMSHH1"];
 
-      v174 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "newAccessoryTransferMSHH1")}];
-      [v209 setObject:v174 forKeyedSubscript:@"lastSetup.newAccessoryTransferMSHH1"];
+      v175 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "newAccessoryTransferMSHH1")}];
+      [v209 setObject:v175 forKeyedSubscript:@"lastSetup.newAccessoryTransferMSHH1"];
 
-      v175 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sessionSetupCloseMSHH1")}];
-      [v209 setObject:v175 forKeyedSubscript:@"lastSetup.sessionSetupCloseMSHH1"];
+      v176 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sessionSetupCloseMSHH1")}];
+      [v209 setObject:v176 forKeyedSubscript:@"lastSetup.sessionSetupCloseMSHH1"];
 
-      v176 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "totalDurationMSHH1")}];
-      [v209 setObject:v176 forKeyedSubscript:@"lastSetup.totalDurationMSHH1"];
+      v177 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "totalDurationMSHH1")}];
+      [v209 setObject:v177 forKeyedSubscript:@"lastSetup.totalDurationMSHH1"];
 
-      v177 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sentinelZoneFetchMSHH1")}];
-      [v209 setObject:v177 forKeyedSubscript:@"lastSetup.sentinelZoneFetchMSHH1"];
+      v178 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "sentinelZoneFetchMSHH1")}];
+      [v209 setObject:v178 forKeyedSubscript:@"lastSetup.sentinelZoneFetchMSHH1"];
 
-      v178 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "accountSettleWaitMSHH2")}];
-      [v209 setObject:v178 forKeyedSubscript:@"lastSetup.accountSettleWaitMSHH2"];
+      v179 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "accountSettleWaitMSHH2")}];
+      [v209 setObject:v179 forKeyedSubscript:@"lastSetup.accountSettleWaitMSHH2"];
 
-      v179 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "currentDeviceIDSWaitMSHH2")}];
-      [v209 setObject:v179 forKeyedSubscript:@"lastSetup.currentDeviceIDSWaitMSHH2"];
+      v180 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "currentDeviceIDSWaitMSHH2")}];
+      [v209 setObject:v180 forKeyedSubscript:@"lastSetup.currentDeviceIDSWaitMSHH2"];
 
-      v180 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "homeManagerReadyMSHH2")}];
-      [v209 setObject:v180 forKeyedSubscript:@"lastSetup.homeManagerReadyMSHH2"];
+      v181 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "homeManagerReadyMSHH2")}];
+      [v209 setObject:v181 forKeyedSubscript:@"lastSetup.homeManagerReadyMSHH2"];
 
-      v181 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "firstCoreDataImportMSHH2")}];
-      [v209 setObject:v181 forKeyedSubscript:@"lastSetup.firstCoreDataImportMSHH2"];
+      v182 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "firstCoreDataImportMSHH2")}];
+      [v209 setObject:v182 forKeyedSubscript:@"lastSetup.firstCoreDataImportMSHH2"];
 
-      v182 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "accessoryAddMSHH2")}];
-      [v209 setObject:v182 forKeyedSubscript:@"lastSetup.accessoryAddMSHH2"];
+      v183 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "accessoryAddMSHH2")}];
+      [v209 setObject:v183 forKeyedSubscript:@"lastSetup.accessoryAddMSHH2"];
 
-      v183 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "settingsCreationMSHH2")}];
-      [v209 setObject:v183 forKeyedSubscript:@"lastSetup.settingsCreationMSHH2"];
+      v184 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "settingsCreationMSHH2")}];
+      [v209 setObject:v184 forKeyedSubscript:@"lastSetup.settingsCreationMSHH2"];
 
-      v184 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "pairingIdentityCreationMSHH2")}];
-      [v209 setObject:v184 forKeyedSubscript:@"lastSetup.pairingIdentityCreationMSHH2"];
+      v185 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "pairingIdentityCreationMSHH2")}];
+      [v209 setObject:v185 forKeyedSubscript:@"lastSetup.pairingIdentityCreationMSHH2"];
 
-      v185 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "siriReadyMSHH2")}];
-      [v209 setObject:v185 forKeyedSubscript:@"lastSetup.siriReadyMSHH2"];
+      v186 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "siriReadyMSHH2")}];
+      [v209 setObject:v186 forKeyedSubscript:@"lastSetup.siriReadyMSHH2"];
 
-      v186 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "eventRouterServerConnectionMSHH2")}];
-      [v209 setObject:v186 forKeyedSubscript:@"lastSetup.eventRouterServerConnectionMSHH2"];
+      v187 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "eventRouterServerConnectionMSHH2")}];
+      [v209 setObject:v187 forKeyedSubscript:@"lastSetup.eventRouterServerConnectionMSHH2"];
 
-      v187 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "primaryResidentElectionMSHH2")}];
-      [v209 setObject:v187 forKeyedSubscript:@"lastSetup.primaryResidentElectionMSHH2"];
+      v188 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "primaryResidentElectionMSHH2")}];
+      [v209 setObject:v188 forKeyedSubscript:@"lastSetup.primaryResidentElectionMSHH2"];
 
-      v188 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "eventRouterFirstEventPushMSHH2")}];
-      [v209 setObject:v188 forKeyedSubscript:@"lastSetup.eventRouterFirstEventPushMSHH2"];
+      v189 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "eventRouterFirstEventPushMSHH2")}];
+      [v209 setObject:v189 forKeyedSubscript:@"lastSetup.eventRouterFirstEventPushMSHH2"];
 
-      v189 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "totalDurationMSHH2")}];
-      [v209 setObject:v189 forKeyedSubscript:@"lastSetup.totalDurationMSHH2"];
+      v190 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "totalDurationMSHH2")}];
+      [v209 setObject:v190 forKeyedSubscript:@"lastSetup.totalDurationMSHH2"];
 
-      v190 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "iCloudAvailableINT")}];
-      [v209 setObject:v190 forKeyedSubscript:@"lastSetup.iCloudAvailableINT"];
+      v191 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "iCloudAvailableINT")}];
+      [v209 setObject:v191 forKeyedSubscript:@"lastSetup.iCloudAvailableINT"];
 
-      v191 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "iDSAvailableINT")}];
-      [v209 setObject:v191 forKeyedSubscript:@"lastSetup.iDSAvailableINT"];
+      v192 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "iDSAvailableINT")}];
+      [v209 setObject:v192 forKeyedSubscript:@"lastSetup.iDSAvailableINT"];
 
-      v192 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "manateeAvailableINT")}];
-      [v209 setObject:v192 forKeyedSubscript:@"lastSetup.manateeAvailableINT"];
+      v193 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "manateeAvailableINT")}];
+      [v209 setObject:v193 forKeyedSubscript:@"lastSetup.manateeAvailableINT"];
 
-      v193 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "networkAvailableINT")}];
-      [v209 setObject:v193 forKeyedSubscript:@"lastSetup.networkAvailableINT"];
+      v194 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(lastSetupInfo, "networkAvailableINT")}];
+      [v209 setObject:v194 forKeyedSubscript:@"lastSetup.networkAvailableINT"];
 
-      v194 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "lastKnownStageErrorCode")}];
-      [v209 setObject:v194 forKeyedSubscript:@"lastSetup.lastKnownStageErrorCode"];
+      v195 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "lastKnownStageErrorCode")}];
+      [v209 setObject:v195 forKeyedSubscript:@"lastSetup.lastKnownStageErrorCode"];
 
       lastKnownStageErrorDomain = [lastSetupInfo lastKnownStageErrorDomain];
       [v209 setObject:lastKnownStageErrorDomain forKeyedSubscript:@"lastSetup.lastKnownStageErrorDomain"];
 
-      v196 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "lastKnownStageUnderlyingErrorCode")}];
-      [v209 setObject:v196 forKeyedSubscript:@"lastSetup.lastKnownStageUnderlyingErrorCode"];
+      v197 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(lastSetupInfo, "lastKnownStageUnderlyingErrorCode")}];
+      [v209 setObject:v197 forKeyedSubscript:@"lastSetup.lastKnownStageUnderlyingErrorCode"];
 
       lastKnownStageUnderlyingErrorDomain = [lastSetupInfo lastKnownStageUnderlyingErrorDomain];
       [v209 setObject:lastKnownStageUnderlyingErrorDomain forKeyedSubscript:@"lastSetup.lastKnownStageUnderlyingErrorDomain"];
@@ -1051,8 +1051,8 @@
       lastKnownStageErrorString = [lastSetupInfo lastKnownStageErrorString];
       [v209 setObject:lastKnownStageErrorString forKeyedSubscript:@"lastSetup.lastKnownStageErrorString"];
 
-      v199 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(lastSetupInfo, "savedEventState")}];
-      [v209 setObject:v199 forKeyedSubscript:@"lastSetup.savedEventState"];
+      v200 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(lastSetupInfo, "savedEventState")}];
+      [v209 setObject:v200 forKeyedSubscript:@"lastSetup.savedEventState"];
     }
 
     v169 = v209;
@@ -1061,18 +1061,19 @@
     {
       [v209 setObject:@"true" forKeyedSubscript:@"isPrimaryResident"];
     }
+
+    v170 = objc_msgSend_copy(v209);
   }
 
   else
   {
     v169 = 0;
+    v170 = objc_msgSend_copy(0);
   }
 
-  v200 = [v169 copy];
+  v201 = v170;
 
-  v201 = *MEMORY[0x277D85DE8];
-
-  return v200;
+  return v201;
 }
 
 @end

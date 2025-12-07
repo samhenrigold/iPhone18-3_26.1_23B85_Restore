@@ -62,11 +62,11 @@ LABEL_8:
 
 + (id)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v19[0] = 0;
-  v6 = [representationCopy gc_requiredObjectForKey:@"Type" ofClass:objc_opt_class() error:v19];
-  v7 = v19[0];
+  v18[0] = 0;
+  v6 = [representationCopy gc_requiredObjectForKey:@"Type" ofClass:objc_opt_class() error:v18];
+  v7 = v18[0];
   if (v6)
   {
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GCGenericDeviceData%@ExpressionModelBuilder", v6];
@@ -89,13 +89,13 @@ LABEL_8:
       {
         v12 = MEMORY[0x1E696ABC0];
         v13 = *MEMORY[0x1E696A578];
-        v21[0] = @"Invalid 'Expression' definition.";
+        v20[0] = @"Invalid 'Expression' definition.";
         v14 = *MEMORY[0x1E696A588];
-        v20[0] = v13;
-        v20[1] = v14;
+        v19[0] = v13;
+        v19[1] = v14;
         v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' is not a valid expression type.", v6];
-        v21[1] = v15;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v20[1] = v15;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
         *error = [(NSError *)v12 gc_modelError:v16 userInfo:?];
       }
     }
@@ -103,58 +103,54 @@ LABEL_8:
 
   else
   {
-    [(GCGenericDeviceDataProcessorExpressionModel(Serialization) *)error modelWithDictionaryRepresentation:v7 error:&v22, v23];
+    [(GCGenericDeviceDataProcessorExpressionModel(Serialization) *)error modelWithDictionaryRepresentation:v7 error:v21, v22];
   }
 
   build = 0;
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return build;
 }
 
 - (id)buildExpressionWithContext:(id)context error:(id *)error
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v5 = MEMORY[0x1E696ABC0];
     v6 = *MEMORY[0x1E696A588];
-    v14 = *MEMORY[0x1E696A578];
-    v15 = v6;
+    v13 = *MEMORY[0x1E696A578];
+    v14 = v6;
     v7 = MEMORY[0x1E696AEC0];
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = [v7 stringWithFormat:@"Unsupported expression class: %@.", v9, v14, v15, @"Invalid expression."];
-    v16[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v14 count:2];
+    v10 = [v7 stringWithFormat:@"Unsupported expression class: %@.", v9, v13, v14, @"Invalid expression."];
+    v15[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v13 count:2];
     *error = [v5 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v11];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)buildReactiveExpressionWithContext:(id)context consumer:(id)consumer error:(id *)error
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v6 = MEMORY[0x1E696ABC0];
     v7 = *MEMORY[0x1E696A588];
-    v15 = *MEMORY[0x1E696A578];
-    v16 = v7;
+    v14 = *MEMORY[0x1E696A578];
+    v15 = v7;
     v8 = MEMORY[0x1E696AEC0];
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"Unsupported expression class: %@.", v10, v15, v16, @"Invalid expression."];
-    v17[1] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v15 count:2];
+    v11 = [v8 stringWithFormat:@"Unsupported expression class: %@.", v10, v14, v15, @"Invalid expression."];
+    v16[1] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v14 count:2];
     *error = [v6 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v12];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

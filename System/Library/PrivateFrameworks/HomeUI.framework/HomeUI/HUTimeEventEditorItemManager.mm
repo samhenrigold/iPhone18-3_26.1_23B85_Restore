@@ -111,86 +111,86 @@
   return v13;
 }
 
-id __74__HUTimeEventEditorItemManager_initWithTimeEvent_triggerBuilder_delegate___block_invoke(uint64_t a1)
+id __74__HUTimeEventEditorItemManager_initWithTimeEvent_triggerBuilder_delegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  v2 = [*(a1 + 32) timeEvent];
+  v3 = [*(a1 + 32) timeEvent];
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
+    v4 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = *MEMORY[0x277CD0FA8];
-  v7 = [WeakRetained defaultOffsetForSignificantEvent:*MEMORY[0x277CD0FA8]];
+  v7 = *MEMORY[0x277CD0FA8];
+  v8 = [WeakRetained defaultOffsetForSignificantEvent:*MEMORY[0x277CD0FA8]];
 
-  v8 = [v4 significantEvent];
-  v9 = [v8 isEqualToString:v6];
+  v9 = [v5 significantEvent];
+  v10 = [v9 isEqualToString:v7];
 
-  if (v9)
+  if (v10)
   {
-    v10 = [v4 significantEventOffset];
+    v11 = [v5 significantEventOffset];
 
-    v7 = v10;
+    v8 = v11;
   }
 
-  v11 = [MEMORY[0x277CD1EC0] hf_localizedStringForSignficantEvent:v6 offset:v7];
-  v12 = MEMORY[0x277D2C900];
-  v16 = *MEMORY[0x277D13F60];
-  v17[0] = v11;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-  v14 = [v12 futureWithResult:v13];
+  v12 = [MEMORY[0x277CD1EC0] hf_localizedStringForSignficantEvent:v7 offset:v8];
+  v13 = MEMORY[0x277D2C900];
+  v17 = *MEMORY[0x277D13F60];
+  v18[0] = v12;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v15 = [v13 futureWithResult:v14];
 
-  return v14;
+  return v15;
 }
 
-id __74__HUTimeEventEditorItemManager_initWithTimeEvent_triggerBuilder_delegate___block_invoke_2(uint64_t a1)
+id __74__HUTimeEventEditorItemManager_initWithTimeEvent_triggerBuilder_delegate___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  v2 = [*(a1 + 32) timeEvent];
+  v3 = [*(a1 + 32) timeEvent];
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
+    v4 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = *MEMORY[0x277CD0FB0];
-  v7 = [WeakRetained defaultOffsetForSignificantEvent:*MEMORY[0x277CD0FB0]];
+  v7 = *MEMORY[0x277CD0FB0];
+  v8 = [WeakRetained defaultOffsetForSignificantEvent:*MEMORY[0x277CD0FB0]];
 
-  v8 = [v4 significantEvent];
-  v9 = [v8 isEqualToString:v6];
+  v9 = [v5 significantEvent];
+  v10 = [v9 isEqualToString:v7];
 
-  if (v9)
+  if (v10)
   {
-    v10 = [v4 significantEventOffset];
+    v11 = [v5 significantEventOffset];
 
-    v7 = v10;
+    v8 = v11;
   }
 
-  v11 = [MEMORY[0x277CD1EC0] hf_localizedStringForSignficantEvent:v6 offset:v7];
-  v12 = MEMORY[0x277D2C900];
-  v16 = *MEMORY[0x277D13F60];
-  v17[0] = v11;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-  v14 = [v12 futureWithResult:v13];
+  v12 = [MEMORY[0x277CD1EC0] hf_localizedStringForSignficantEvent:v7 offset:v8];
+  v13 = MEMORY[0x277D2C900];
+  v17 = *MEMORY[0x277D13F60];
+  v18[0] = v12;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v15 = [v13 futureWithResult:v14];
 
-  return v14;
+  return v15;
 }
 
 - (void)setDatePickerShown:(BOOL)shown

@@ -330,7 +330,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -350,7 +349,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numTfoCookieReq = self->_numTfoCookieReq;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -365,7 +363,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  numTfoCookieRcv = self->_numTfoCookieRcv;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -380,7 +377,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  numTfoFallback = self->_numTfoFallback;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -395,7 +391,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  numTfoSynDataSent = self->_numTfoSynDataSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -410,7 +405,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  numTfoSynDataAcked = self->_numTfoSynDataAcked;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -425,7 +419,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  numTfoSynDataRcv = self->_numTfoSynDataRcv;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -440,7 +433,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  numTfoCookieReqRcv = self->_numTfoCookieReqRcv;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -452,7 +444,6 @@ LABEL_10:
     }
 
 LABEL_22:
-    numTfoCookieInvalid = self->_numTfoCookieInvalid;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -463,7 +454,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  numTfoCookieSent = self->_numTfoCookieSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -478,7 +468,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  numTfoBlackholed = self->_numTfoBlackholed;
 
   PBDataWriterWriteUint64Field();
 }

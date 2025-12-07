@@ -50,7 +50,7 @@
 - (void)_runPresentationAnimationWithTransition:(id)transition
 {
   transitionCopy = transition;
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(transitionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -85,7 +85,7 @@
 - (void)_runDismissalAnimationWithTransition:(id)transition
 {
   transitionCopy = transition;
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(transitionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

@@ -1,1677 +1,3 @@
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<signed char>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned __int8 *a4, unsigned int a5, unsigned __int8 *a6, uint64_t a7)
-{
-  if (a5 >= 2)
-  {
-    v9 = a2;
-    if (a5 == 2)
-    {
-      v10 = a4[-a3];
-      v11 = *a2;
-      if (v10 < v11)
-      {
-        *a2 = v10;
-        a4[-a3] = v11;
-      }
-    }
-
-    else if (a5 > 128)
-    {
-      v23 = a6;
-      v24 = a5;
-      if (a5 <= a7)
-      {
-        if (a5 - 65537 >= 0xFFFF00FF)
-        {
-        }
-
-        else
-        {
-          v27 = a5 >> 1;
-          v28 = a5 - (a5 >> 1);
-          v29 = &v23[v27];
-          v30 = &v23[v24];
-          v31 = &v23[v27];
-          while (v31 != v30)
-          {
-            v32 = *v31;
-            if (v32 < *v23)
-            {
-              ++v31;
-            }
-
-            else
-            {
-              LOBYTE(v32) = *v23++;
-            }
-
-            *v9 = v32;
-            v9 += a1;
-            if (v23 == v29)
-            {
-              while (v31 != v30)
-              {
-                v34 = *v31++;
-                *v9 = v34;
-                v9 += a1;
-              }
-
-              return;
-            }
-          }
-
-          while (v23 != v29)
-          {
-            v33 = *v23++;
-            *v9 = v33;
-            v9 += a1;
-          }
-        }
-      }
-
-      else
-      {
-        v25 = a5 >> 1;
-        v26 = a5 - (a5 >> 1);
-      }
-    }
-
-    else if (a2 != a4 || a1 != a3)
-    {
-      v14 = &a2[a1];
-      if (&a2[a1] != a4)
-      {
-        v15 = 0;
-        v16 = &a2[a1];
-        v17 = a2;
-        do
-        {
-          v18 = *v17;
-          v17 = v16;
-          v19 = *v16;
-          if (v19 < v18)
-          {
-            v20 = v15;
-            while (1)
-            {
-              v14[v20] = v18;
-              if (!v20)
-              {
-                break;
-              }
-
-              v18 = a2[v20 - a1];
-              v20 -= a1;
-              if (v19 >= v18)
-              {
-                v21 = &v14[v20];
-                goto LABEL_17;
-              }
-            }
-
-            v21 = a2;
-LABEL_17:
-            *v21 = v19;
-          }
-
-          v16 = &v17[a1];
-          v15 += a1;
-        }
-
-        while (&v17[a1] != a4);
-      }
-    }
-  }
-}
-
-void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIterator<signed char>,signed char *>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  bzero(v19, 0x808uLL);
-  if (a2 == a4)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v10 = a2;
-    do
-    {
-      ++v20[*v10 ^ 0x80];
-      v10 += a1;
-    }
-
-    while (v10 != a4);
-    v9 = v20[0];
-  }
-
-  for (i = 16; i != 2056; i += 8)
-  {
-    v9 += *&v19[i];
-    *&v19[i] = v9;
-  }
-
-  if (a2 != a4)
-  {
-    v12 = a2;
-    do
-    {
-      v13 = *v12;
-      v14 = *v12 ^ 0x80u;
-      v15 = *&v19[8 * v14];
-      *&v19[8 * v14] = v15 + 1;
-      a5[v15] = v13;
-      v12 += a1;
-    }
-
-    while (v12 != a4);
-  }
-
-  for (j = v21; j; --j)
-  {
-    v17 = *a5++;
-    *a2 = v17;
-    a2 += a1;
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<signed char>>(uint64_t result, _BYTE *a2, uint64_t a3, _BYTE *a4, unsigned int a5, _BYTE *a6)
-{
-  if (a5)
-  {
-    v6 = a6;
-    v8 = a2;
-    if (a5 == 1)
-    {
-LABEL_8:
-      *v6 = *v8;
-      return result;
-    }
-
-    if (a5 == 2)
-    {
-      v11 = a4[-a3];
-      v12 = *a2;
-      v13 = v11 < v12;
-      if (v11 >= v12)
-      {
-        LOBYTE(v11) = *a2;
-      }
-
-      *a6 = v11;
-      v6 = a6 + 1;
-      if (!v13)
-      {
-        v8 = &a4[-a3];
-      }
-
-      goto LABEL_8;
-    }
-
-    v14 = result;
-    if (a5 > 8)
-    {
-      v25 = a5 >> 1;
-      v26 = &a2[result * v25];
-      if (v14 * v25)
-      {
-        v27 = &v8[v14 * v25];
-        while (v27 != a4 || v14 != a3)
-        {
-          v28 = *v27;
-          v29 = *v8;
-          v30 = v28 < v29;
-          if (v28 < v29)
-          {
-            v31 = v14;
-          }
-
-          else
-          {
-            LOBYTE(v28) = *v8;
-            v31 = 0;
-          }
-
-          v27 += v31;
-          if (v30)
-          {
-            v32 = 0;
-          }
-
-          else
-          {
-            v32 = v14;
-          }
-
-          v8 += v32;
-          *v6++ = v28;
-          if (v8 == v26)
-          {
-            goto LABEL_38;
-          }
-        }
-
-        while (v8 != v26)
-        {
-          *v6++ = *v8;
-          v8 += v14;
-        }
-      }
-
-      else
-      {
-        v27 = &v8[v14 * v25];
-LABEL_38:
-        while (v27 != a4)
-        {
-          *v6++ = *v27;
-          v27 += v14;
-        }
-      }
-    }
-
-    else if (a2 != a4)
-    {
-      *a6 = *a2;
-      v15 = &a2[result];
-      if (&a2[result] != a4)
-      {
-        v16 = 0;
-        v17 = a6;
-        v18 = a6;
-        do
-        {
-          v20 = *v18++;
-          v19 = v20;
-          v21 = *v15;
-          if (v21 >= v20)
-          {
-            *v18 = v21;
-          }
-
-          else
-          {
-            v17[1] = v19;
-            v22 = a6;
-            if (v17 != a6)
-            {
-              v23 = v16;
-              while (1)
-              {
-                v22 = &a6[v23];
-                v24 = a6[v23 - 1];
-                if (*v15 >= v24)
-                {
-                  break;
-                }
-
-                *v22 = v24;
-                if (!--v23)
-                {
-                  v22 = a6;
-                  break;
-                }
-              }
-            }
-
-            *v22 = *v15;
-          }
-
-          v15 += result;
-          ++v16;
-          v17 = v18;
-        }
-
-        while (v15 != a4);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<signed char>>(uint64_t result, char *a2, uint64_t a3, char *a4, uint64_t a5, char *a6, int a7, int a8, char *a9, uint64_t a10)
-{
-  if (!a8)
-  {
-    return result;
-  }
-
-  v12 = result;
-  while (a8 > a10 && a7 > a10)
-  {
-    if (!a7)
-    {
-      return result;
-    }
-
-    v16 = 0;
-    v17 = *a4;
-    v18 = -a7;
-    while (1)
-    {
-      v19 = a2[v16];
-      if (v17 < v19)
-      {
-        break;
-      }
-
-      v16 += v12;
-      if (__CFADD__(v18++, 1))
-      {
-        return result;
-      }
-    }
-
-    v21 = &a2[v16];
-    if (-v18 >= a8)
-    {
-      if (v18 == -1)
-      {
-        a2[v16] = v17;
-        *a4 = v19;
-        return result;
-      }
-
-      v24 = &a2[v12 * (((v18 > 0) - v18) >> 1) + v16];
-      v29 = (a6 - a4) / a5;
-      if (v29)
-      {
-        v22 = a4;
-        do
-        {
-          v30 = v29 >> 1;
-          v31 = &v22[a3 * v30];
-          v32 = *v31;
-          v33 = &v31[a3];
-          LODWORD(v29) = v29 + ~(v29 >> 1);
-          if (v32 < *v24)
-          {
-            v22 = v33;
-          }
-
-          else
-          {
-            LODWORD(v29) = v30;
-          }
-        }
-
-        while (v29);
-      }
-
-      else
-      {
-        v22 = a4;
-      }
-
-      v35 = (-v18 / 2);
-      v34 = (v22 - a4) / a3;
-    }
-
-    else
-    {
-      v22 = &a4[a3 * ((a8 + (a8 >> 31)) >> 1)];
-      v23 = (a4 - a2 - v16) / a3;
-      if (v23)
-      {
-        v24 = &a2[v16];
-        do
-        {
-          v25 = v23 >> 1;
-          v26 = &v24[v12 * v25];
-          v27 = *v26;
-          v28 = &v26[v12];
-          LODWORD(v23) = v23 + ~(v23 >> 1);
-          if (*v22 < v27)
-          {
-            LODWORD(v23) = v25;
-          }
-
-          else
-          {
-            v24 = v28;
-          }
-        }
-
-        while (v23);
-      }
-
-      else
-      {
-        v24 = &a2[v16];
-      }
-
-      v34 = (a8 / 2);
-      v35 = (v24 - a2 - v16) / v12;
-    }
-
-    if (v24 != a4 || (v36 = v22, v37 = v12, v12 != a3))
-    {
-      v36 = v24;
-      v37 = v12;
-      if (a4 != v22)
-      {
-        if (&v24[v12] == a4 && v12 == a3)
-        {
-          v38 = 0;
-          v39 = *v24;
-          do
-          {
-            v24[v38] = a4[v38];
-            v38 += v12;
-          }
-
-          while (&a4[v38] != v22);
-          a4 = &v24[v38];
-          v24[v38] = v39;
-          v37 = v12;
-        }
-
-        else
-        {
-          if (&a4[a3] == v22)
-          {
-            v40 = &v22[-a3];
-            v41 = v22[-a3];
-            if (&v22[-a3] == v24)
-            {
-              a4 = v22;
-            }
-
-            else
-            {
-              a4 = v22;
-              v59 = v22;
-              do
-              {
-                v40 -= a3;
-                v59 -= a3;
-                *v59 = *v40;
-                a4 -= a3;
-              }
-
-              while (v40 != v24);
-            }
-
-            *v24 = v41;
-          }
-
-          else
-          {
-            v42 = (v22 - a4) / a3;
-            v43 = v42;
-            v44 = (a4 - v24) / a3;
-            v45 = v44;
-            if (v44 != v42)
-            {
-              do
-              {
-                v50 = v45;
-                v45 = v43;
-                v43 = v50 % v43;
-              }
-
-              while (v43);
-              v51 = v35;
-              if (v12)
-              {
-                v52 = &v24[v12 * v45];
-                v53 = v44 * v12;
-                do
-                {
-                  v52 -= v12;
-                  v54 = *v52;
-                  v55 = &v52[v53];
-                  v56 = v52;
-                  do
-                  {
-                    v57 = v55;
-                    *v56 = *v55;
-                    v58 = (v22 - v55) / a3;
-                    if (v44 >= v58)
-                    {
-                      v55 = &v24[(v44 - v58) * v12];
-                    }
-
-                    else
-                    {
-                      v55 = &v57[v53];
-                    }
-
-                    v56 = v57;
-                  }
-
-                  while (v55 != v52);
-                  *v57 = v54;
-                }
-
-                while (v52 != v24);
-              }
-
-              a4 = &v24[v42 * v12];
-              v37 = v12;
-              v35 = v51;
-              goto LABEL_67;
-            }
-
-            if (v24 != a4)
-            {
-              v46 = v24;
-              v47 = a4;
-              do
-              {
-                v48 = *v46;
-                *v46 = *v47;
-                *v47 = v48;
-                v46 += v12;
-                v47 += a3;
-              }
-
-              while (v46 != a4 && v47 != v22);
-            }
-          }
-
-          v37 = a3;
-        }
-
-LABEL_67:
-        v36 = a4;
-      }
-    }
-
-    a7 = -(v35 + v18);
-    v60 = a8 - v34;
-    v83 = a10;
-    v81 = a10;
-    if (v35 + v34 >= a8 - (v35 + v34) - v18)
-    {
-      v82 = v36;
-      v61 = a9;
-      v60 = v34;
-      a7 = v35;
-      a3 = v12;
-      v22 = v24;
-      v36 = v21;
-      a5 = v37;
-      a6 = v82;
-    }
-
-    else
-    {
-      v61 = a9;
-      v62 = v12;
-      v63 = v12;
-      v64 = v24;
-      v65 = a5;
-      v66 = a6;
-      a5 = v65;
-      a6 = v66;
-      v12 = v37;
-    }
-
-    a8 = v60;
-    a2 = v36;
-    a4 = v22;
-    a9 = v61;
-    a10 = v83;
-    if (!v60)
-    {
-      return result;
-    }
-  }
-
-  if (a7 <= a8)
-  {
-    if (a2 != a4)
-    {
-      v74 = a9;
-      v75 = a2;
-      do
-      {
-        *v74++ = *v75;
-        v75 += v12;
-      }
-
-      while (v75 != a4);
-      v76 = v74 - 1;
-      while (a4 != a6 || a3 != a5)
-      {
-        v77 = *a4;
-        if (v77 < *a9)
-        {
-          v78 = a3;
-        }
-
-        else
-        {
-          LOBYTE(v77) = *a9++;
-          v78 = 0;
-        }
-
-        a4 += v78;
-        *a2 = v77;
-        a2 += v12;
-        if (v74 == a9)
-        {
-          return result;
-        }
-      }
-
-      v79 = a9 - 1;
-      do
-      {
-        v80 = *++v79;
-        *a2 = v80;
-        a2 += v12;
-      }
-
-      while (v76 != v79);
-    }
-  }
-
-  else if (a6 != a4)
-  {
-    v67 = a9;
-    v68 = a4;
-    do
-    {
-      *v67++ = *v68;
-      v68 += a3;
-    }
-
-    while (v68 != a6);
-    v69 = -a5;
-    while (a2 != a4 || a3 != v12)
-    {
-      v70 = *(v67 - 1);
-      v71 = a4[-a3];
-      a6 -= a5;
-      v72 = v70 < v71;
-      if (v70 <= v71)
-      {
-        LOBYTE(v70) = a4[-a3];
-      }
-
-      if (v72)
-      {
-        a4 -= a3;
-      }
-
-      else
-      {
-        --v67;
-      }
-
-      *a6 = v70;
-      if (v67 == a9)
-      {
-        return result;
-      }
-    }
-
-    while (v67 != a9)
-    {
-      v73 = *--v67;
-      a6[v69] = v73;
-      v69 -= a5;
-    }
-  }
-
-  return result;
-}
-
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<short>>(uint64_t a1, char *a2, uint64_t a3, char *a4, unsigned int a5, __int16 *a6, uint64_t a7)
-{
-  if (a5 >= 2)
-  {
-    v9 = a2;
-    if (a5 == 2)
-    {
-      v10 = *&a4[-2 * a3];
-      v11 = *a2;
-      if (v10 < v11)
-      {
-        *a2 = v10;
-        *&a4[-2 * a3] = v11;
-      }
-    }
-
-    else if (a5 > 128)
-    {
-      v24 = a6;
-      v25 = a5;
-      if (a5 <= a7)
-      {
-        if (a5 - 65537 >= 0xFFFF03FF)
-        {
-        }
-
-        else
-        {
-          v28 = a5 >> 1;
-          v29 = a5 - (a5 >> 1);
-          v30 = &v24[v28];
-          v31 = 2 * a1;
-          v32 = v30;
-          v33 = &v24[v25];
-          while (v32 != v33)
-          {
-            v34 = *v32;
-            v35 = *v24;
-            v36 = v34 >= v35;
-            v37 = v34 < v35;
-            if (v34 >= v35)
-            {
-              LOWORD(v34) = *v24;
-            }
-
-            v24 += v36;
-            v32 += v37;
-            *v9 = v34;
-            v9 += v31;
-            if (v24 == v30)
-            {
-              while (v32 != v33)
-              {
-                v39 = *v32++;
-                *v9 = v39;
-                v9 += v31;
-              }
-
-              return;
-            }
-          }
-
-          while (v24 != v30)
-          {
-            v38 = *v24++;
-            *v9 = v38;
-            v9 += v31;
-          }
-        }
-      }
-
-      else
-      {
-        v26 = a5 >> 1;
-        v27 = a5 - (a5 >> 1);
-      }
-    }
-
-    else if (a2 != a4 || a1 != a3)
-    {
-      v14 = &a2[2 * a1];
-      if (v14 != a4)
-      {
-        v15 = 0;
-        v16 = 2 * a1;
-        v17 = &a2[2 * a1];
-        v18 = a2;
-        do
-        {
-          v19 = *v18;
-          v18 = v17;
-          v20 = *v17;
-          if (v20 < v19)
-          {
-            v21 = v15;
-            while (1)
-            {
-              *&v14[v21] = v19;
-              if (!v21)
-              {
-                break;
-              }
-
-              v19 = *&a2[v21 + -2 * a1];
-              v21 -= v16;
-              if (v20 >= v19)
-              {
-                v22 = &v14[v21];
-                goto LABEL_17;
-              }
-            }
-
-            v22 = a2;
-LABEL_17:
-            *v22 = v20;
-          }
-
-          v17 = &v18[2 * a1];
-          v15 += v16;
-        }
-
-        while (v17 != a4);
-      }
-    }
-  }
-}
-
-void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIterator<short>,short *>(uint64_t a1, char *a2, uint64_t a3, char *a4, __int16 *a5)
-{
-  v38 = *MEMORY[0x277D85DE8];
-  bzero(v36, 0x800uLL);
-  if (a2 == a4)
-  {
-    v10 = 0;
-    v11 = 1;
-  }
-
-  else
-  {
-    v12 = 0;
-    v11 = 1;
-    v13 = a2;
-    do
-    {
-      v14 = *v13;
-      v11 &= (v14 ^ 0x8000) >= v12;
-      ++v36[*v13];
-      ++*(v37 + (((v14 ^ 0x8000uLL) >> 6) & 0x3FC));
-      v13 += 2 * a1;
-      v12 = v14 ^ 0x8000;
-    }
-
-    while (v13 != a4);
-    v10 = v36[0];
-  }
-
-  v15 = 1;
-  v16 = v10;
-  do
-  {
-    v17 = v36[v15];
-    if (v16 <= v17)
-    {
-      v16 = v36[v15];
-    }
-
-    v10 += v17;
-    v36[v15++] = v10;
-  }
-
-  while (v15 != 256);
-  v18 = v37[0];
-  v19 = 257;
-  v20 = v37[0];
-  do
-  {
-    v21 = v36[v19];
-    if (v20 <= v21)
-    {
-      v20 = v36[v19];
-    }
-
-    v18 += v21;
-    v36[v19++] = v18;
-  }
-
-  while (v19 != 512);
-  if ((v11 & 1) == 0)
-  {
-    v22 = ((a4 - a2) >> 1) / a3;
-    if (v16 != v22 || v20 != v22)
-    {
-      v24 = v22;
-      if (v16 == v22)
-      {
-        if (a2 != a4)
-        {
-          v28 = a2;
-          v29 = a5;
-          do
-          {
-            *v29++ = *v28;
-            v28 += 2 * a1;
-          }
-
-          while (v28 != a4);
-        }
-      }
-
-      else if (a2 != a4)
-      {
-        v25 = 0;
-        do
-        {
-          v26 = *&a4[v25 + -2 * a3];
-          v27 = v36[v26] - 1;
-          v36[v26] = v27;
-          a5[v27] = v26;
-          v25 -= a3;
-        }
-
-        while ((a2 - a4) != v25);
-      }
-
-      v30 = v22 << 32;
-      if (v20 == v22)
-      {
-        if (v30)
-        {
-          do
-          {
-            v34 = *a5++;
-            *a2 = v34;
-            a2 += 2 * a1;
-            --v24;
-          }
-
-          while (v24 * 2);
-        }
-      }
-
-      else if (v30)
-      {
-        do
-        {
-          v31 = a5[v24 - 1];
-          v32 = (v31 >> 6) & 0x3FC ^ 0x200;
-          v33 = *(v37 + v32) - 1;
-          *(v37 + v32) = v33;
-          *&a2[2 * a1 * v33] = v31;
-          --v24;
-        }
-
-        while (v24 * 2);
-      }
-    }
-  }
-
-  v35 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<short>>(uint64_t result, __int16 *a2, uint64_t a3, __int16 *a4, unsigned int a5, __int16 *a6)
-{
-  if (a5)
-  {
-    v6 = a6;
-    v8 = a2;
-    if (a5 == 1)
-    {
-LABEL_8:
-      *v6 = *v8;
-      return result;
-    }
-
-    if (a5 == 2)
-    {
-      v11 = a4[-a3];
-      v12 = *a2;
-      v13 = v11 < v12;
-      if (v11 >= v12)
-      {
-        LOWORD(v11) = *a2;
-      }
-
-      *a6 = v11;
-      v6 = a6 + 1;
-      if (!v13)
-      {
-        v8 = &a4[-a3];
-      }
-
-      goto LABEL_8;
-    }
-
-    v14 = result;
-    if (a5 > 8)
-    {
-      v25 = a5 >> 1;
-      v26 = &a2[result * v25];
-      if (2 * v14 * v25)
-      {
-        v27 = &v8[v14 * v25];
-        while (v27 != a4 || v14 != a3)
-        {
-          v28 = *v27;
-          v29 = *v8;
-          v30 = v28 < v29;
-          if (v28 < v29)
-          {
-            v31 = v14;
-          }
-
-          else
-          {
-            LOWORD(v28) = *v8;
-            v31 = 0;
-          }
-
-          v27 += v31;
-          if (v30)
-          {
-            v32 = 0;
-          }
-
-          else
-          {
-            v32 = v14;
-          }
-
-          v8 += v32;
-          *v6++ = v28;
-          if (v8 == v26)
-          {
-            goto LABEL_36;
-          }
-        }
-
-        for (; v8 != v26; v8 += v14)
-        {
-          *v6++ = *v8;
-        }
-      }
-
-      else
-      {
-        v27 = &v8[v14 * v25];
-LABEL_36:
-        while (v27 != a4)
-        {
-          *v6++ = *v27;
-          v27 += v14;
-        }
-      }
-    }
-
-    else if (a2 != a4)
-    {
-      *a6 = *a2;
-      v15 = &a2[result];
-      if (v15 != a4)
-      {
-        v16 = 0;
-        v17 = a6;
-        v18 = a6;
-        do
-        {
-          v20 = *v18++;
-          v19 = v20;
-          v21 = *v15;
-          if (v21 >= v20)
-          {
-            *v18 = v21;
-          }
-
-          else
-          {
-            v17[1] = v19;
-            v22 = a6;
-            if (v17 != a6)
-            {
-              v23 = v16;
-              while (1)
-              {
-                v22 = (a6 + v23);
-                v24 = *(a6 + v23 - 2);
-                if (*v15 >= v24)
-                {
-                  break;
-                }
-
-                *v22 = v24;
-                v23 -= 2;
-                if (!v23)
-                {
-                  v22 = a6;
-                  break;
-                }
-              }
-            }
-
-            *v22 = *v15;
-          }
-
-          v15 += result;
-          v16 += 2;
-          v17 = v18;
-        }
-
-        while (v15 != a4);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<short>>(uint64_t result, char *a2, uint64_t a3, __int16 *a4, uint64_t a5, __int16 *a6, int a7, int a8, __int16 *a9, uint64_t a10)
-{
-  if (!a8)
-  {
-    return result;
-  }
-
-  v13 = result;
-  result = 0xFFFFFFFFLL;
-  while (a8 > a10 && a7 > a10)
-  {
-    if (!a7)
-    {
-      return result;
-    }
-
-    v17 = 0;
-    v18 = *a4;
-    v19 = -a7;
-    v20 = 2 * v13;
-    while (1)
-    {
-      v21 = *&a2[v17];
-      if (v18 < v21)
-      {
-        break;
-      }
-
-      v17 += v20;
-      if (__CFADD__(v19++, 1))
-      {
-        return result;
-      }
-    }
-
-    v23 = &a2[v17];
-    if (-v19 >= a8)
-    {
-      if (v19 == -1)
-      {
-        *&a2[v17] = v18;
-        *a4 = v21;
-        return result;
-      }
-
-      v26 = &a2[2 * v13 * (((v19 > 0) - v19) >> 1) + v17];
-      v31 = (a6 - a4) / a5;
-      if (v31)
-      {
-        v24 = a4;
-        do
-        {
-          v32 = v31 >> 1;
-          v33 = &v24[a3 * v32];
-          v34 = *v33;
-          v35 = &v33[a3];
-          LODWORD(v31) = v31 + ~(v31 >> 1);
-          if (v34 < *v26)
-          {
-            v24 = v35;
-          }
-
-          else
-          {
-            LODWORD(v31) = v32;
-          }
-        }
-
-        while (v31);
-      }
-
-      else
-      {
-        v24 = a4;
-      }
-
-      v37 = (-v19 / 2);
-      v36 = (v24 - a4) / a3;
-    }
-
-    else
-    {
-      v24 = &a4[a3 * ((a8 + (a8 >> 31)) >> 1)];
-      v25 = ((a4 - a2 - v17) >> 1) / a3;
-      if (v25)
-      {
-        v26 = &a2[v17];
-        do
-        {
-          v27 = v25 >> 1;
-          v28 = &v26[v13 * (v25 & 0xFFFFFFFE)];
-          v29 = *v28;
-          v30 = &v28[2 * v13];
-          LODWORD(v25) = v25 + ~(v25 >> 1);
-          if (*v24 < v29)
-          {
-            LODWORD(v25) = v27;
-          }
-
-          else
-          {
-            v26 = v30;
-          }
-        }
-
-        while (v25);
-      }
-
-      else
-      {
-        v26 = &a2[v17];
-      }
-
-      v36 = (a8 / 2);
-      v37 = ((v26 - a2 - v17) >> 1) / v13;
-    }
-
-    if (v26 != a4 || (v38 = v24, v39 = v13, v13 != a3))
-    {
-      v38 = v26;
-      v39 = v13;
-      if (a4 != v24)
-      {
-        if (&v26[2 * v13] == a4 && v13 == a3)
-        {
-          v40 = 0;
-          v41 = *v26;
-          do
-          {
-            *&v26[v40] = *(a4 + v40);
-            v40 += v20;
-          }
-
-          while ((a4 + v40) != v24);
-          a4 = &v26[v40];
-          *&v26[v40] = v41;
-          v39 = v13;
-        }
-
-        else
-        {
-          v42 = 2 * a3;
-          if (&a4[a3] == v24)
-          {
-            v43 = &v24[v42 / 0xFFFFFFFFFFFFFFFELL];
-            v44 = v24[-a3];
-            if (&v24[v42 / 0xFFFFFFFFFFFFFFFELL] == v26)
-            {
-              a4 = v24;
-            }
-
-            else
-            {
-              v62 = v24;
-              a4 = v24;
-              do
-              {
-                v43 -= a3;
-                v62 -= a3;
-                *v62 = *v43;
-                a4 = (a4 - v42);
-              }
-
-              while (v43 != v26);
-            }
-
-            *v26 = v44;
-          }
-
-          else
-          {
-            v45 = (v24 - a4) / a3;
-            v46 = v45;
-            v47 = ((a4 - v26) >> 1) / a3;
-            v48 = v47;
-            if (v47 != v45)
-            {
-              do
-              {
-                v53 = v48;
-                v48 = v46;
-                v46 = v53 % v46;
-              }
-
-              while (v46);
-              v54 = v37;
-              if (v13)
-              {
-                v55 = &v26[2 * v13 * v48];
-                v56 = v47 * v13;
-                do
-                {
-                  v55 -= v13;
-                  v57 = *v55;
-                  v58 = &v55[v56];
-                  v59 = v55;
-                  do
-                  {
-                    v60 = v58;
-                    *v59 = *v58;
-                    v61 = (v24 - v58) / a3;
-                    if (v47 >= v61)
-                    {
-                      v58 = &v26[2 * (v47 - v61) * v13];
-                    }
-
-                    else
-                    {
-                      v58 = &v60[v56];
-                    }
-
-                    v59 = v60;
-                  }
-
-                  while (v58 != v55);
-                  *v60 = v57;
-                }
-
-                while (v55 != v26);
-              }
-
-              a4 = &v26[2 * v45 * v13];
-              v39 = v13;
-              v37 = v54;
-              goto LABEL_67;
-            }
-
-            if (v26 != a4)
-            {
-              v49 = a4;
-              v50 = v26;
-              do
-              {
-                v51 = *v50;
-                *v50 = *v49;
-                *v49 = v51;
-                v50 = (v50 + v20);
-                v49 = (v49 + v42);
-              }
-
-              while (v50 != a4 && v49 != v24);
-            }
-          }
-
-          v39 = a3;
-        }
-
-LABEL_67:
-        v38 = a4;
-      }
-    }
-
-    a7 = -(v37 + v19);
-    v63 = a8 - v36;
-    v90 = a10;
-    v88 = a10;
-    if (v37 + v36 >= a8 - (v37 + v36) - v19)
-    {
-      v89 = v38;
-      v64 = a9;
-      v63 = v36;
-      a7 = v37;
-      a3 = v13;
-      v24 = v26;
-      v38 = v23;
-      a5 = v39;
-      a6 = v89;
-    }
-
-    else
-    {
-      v64 = a9;
-      v65 = v13;
-      v66 = v13;
-      v67 = v26;
-      v68 = a6;
-      v69 = a5;
-      a5 = v69;
-      a6 = v68;
-      v13 = v39;
-    }
-
-    a8 = v63;
-    a2 = v38;
-    a4 = v24;
-    a9 = v64;
-    a10 = v90;
-    result = 0xFFFFFFFFLL;
-    if (!v63)
-    {
-      return result;
-    }
-  }
-
-  if (a7 <= a8)
-  {
-    if (a2 != a4)
-    {
-      v75 = 2 * v13;
-      v76 = a2;
-      v77 = a9;
-      do
-      {
-        *v77++ = *v76;
-        v76 = (v76 + v75);
-      }
-
-      while (v76 != a4);
-      v78 = v77 - 1;
-      while (a4 != a6 || a3 != a5)
-      {
-        v79 = *a4;
-        v80 = *a9;
-        v81 = v79 < v80;
-        v82 = v79 >= v80;
-        if (v79 >= v80)
-        {
-          LOWORD(v79) = *a9;
-        }
-
-        a9 += v82;
-        if (v81)
-        {
-          v83 = a3;
-        }
-
-        else
-        {
-          v83 = 0;
-        }
-
-        a4 += v83;
-        *a2 = v79;
-        a2 += v75;
-        if (v77 == a9)
-        {
-          return result;
-        }
-      }
-
-      v84 = a9 - 1;
-      do
-      {
-        v85 = v84[1];
-        ++v84;
-        *a2 = v85;
-        a2 += v75;
-      }
-
-      while (v78 != v84);
-    }
-  }
-
-  else if (a6 != a4)
-  {
-    v70 = a4;
-    v71 = a9;
-    do
-    {
-      *v71++ = *v70;
-      v70 += a3;
-    }
-
-    while (v70 != a6);
-    while (a2 != a4 || a3 != v13)
-    {
-      v72 = *(v71 - 1);
-      v73 = a4[-a3];
-      a6 -= a5;
-      v74 = v72 < v73;
-      if (v72 <= v73)
-      {
-        LOWORD(v72) = a4[-a3];
-      }
-
-      if (v74)
-      {
-        a4 -= a3;
-      }
-
-      else
-      {
-        --v71;
-      }
-
-      *a6 = v72;
-      if (v71 == a9)
-      {
-        return result;
-      }
-    }
-
-    if (v71 != a9)
-    {
-      v86 = -1 * a5;
-      do
-      {
-        v87 = *--v71;
-        a6[v86] = v87;
-        v86 -= a5;
-      }
-
-      while (v71 != a9);
-    }
-  }
-
-  return result;
-}
-
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<int>>(uint64_t a1, int *a2, uint64_t a3, int *a4, unsigned int a5, int *a6, uint64_t a7)
-{
-  if (a5 >= 2)
-  {
-    v9 = a2;
-    if (a5 == 2)
-    {
-      v10 = a4[-a3];
-      v11 = *a2;
-      if (v10 < *a2)
-      {
-        *a2 = v10;
-        a4[-a3] = v11;
-      }
-    }
-
-    else if (a5 > 128)
-    {
-      v24 = a6;
-      v25 = a5;
-      if (a5 <= a7)
-      {
-        if (a5 - 65537 >= 0xFFFF03FF)
-        {
-        }
-
-        else
-        {
-          v28 = a5 >> 1;
-          v29 = a5 - (a5 >> 1);
-          v30 = &v24[v28];
-          v31 = 4 * a1;
-          v32 = v30;
-          v33 = &v24[v25];
-          while (v32 != v33)
-          {
-            v34 = *v32;
-            v35 = *v32 < *v24;
-            if (*v32 >= *v24)
-            {
-              v34 = *v24;
-            }
-
-            v24 += *v32 >= *v24;
-            v32 += v35;
-            *v9 = v34;
-            v9 += v31;
-            if (v24 == v30)
-            {
-              while (v32 != v33)
-              {
-                v37 = *v32++;
-                *v9 = v37;
-                v9 += v31;
-              }
-
-              return;
-            }
-          }
-
-          while (v24 != v30)
-          {
-            v36 = *v24++;
-            *v9 = v36;
-            v9 += v31;
-          }
-        }
-      }
-
-      else
-      {
-        v26 = a5 >> 1;
-        v27 = a5 - (a5 >> 1);
-      }
-    }
-
-    else if (a2 != a4 || a1 != a3)
-    {
-      v14 = &a2[a1];
-      if (v14 != a4)
-      {
-        v15 = 0;
-        v16 = 4 * a1;
-        v17 = &a2[a1];
-        v18 = a2;
-        do
-        {
-          v19 = *v18;
-          v18 = v17;
-          v20 = *v17;
-          if (v20 < v19)
-          {
-            v21 = v15;
-            while (1)
-            {
-              *(v14 + v21) = v19;
-              if (!v21)
-              {
-                break;
-              }
-
-              v19 = *(a2 + v21 + -4 * a1);
-              v21 -= v16;
-              if (v20 >= v19)
-              {
-                v22 = (v14 + v21);
-                goto LABEL_17;
-              }
-            }
-
-            v22 = a2;
-LABEL_17:
-            *v22 = v20;
-          }
-
-          v17 = &v18[a1];
-          v15 += v16;
-        }
-
-        while (v17 != a4);
-      }
-    }
-  }
-}
-
 void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIterator<int>,int *>(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
@@ -1680,8 +6,8 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
   v7 = v6;
   v9 = v8;
   v10 = v1;
-  v66 = *MEMORY[0x277D85DE8];
-  bzero(v62, 0x1000uLL);
+  v65 = *MEMORY[0x277D85DE8];
+  bzero(v61, 0x1000uLL);
   v11 = 4 * v10;
   if (v9 == v5)
   {
@@ -1698,85 +24,85 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
     {
       v16 = *v15;
       v13 &= (v16 ^ 0x80000000) >= v14;
-      ++v62[*v15];
-      ++v63[BYTE1(v16)];
-      ++v64[BYTE2(v16)];
-      ++*(v65 + (((v16 ^ 0x80000000uLL) >> 22) & 0x3FC));
+      ++v61[*v15];
+      ++v62[BYTE1(v16)];
+      ++v63[BYTE2(v16)];
+      ++*(v64 + (((v16 ^ 0x80000000uLL) >> 22) & 0x3FC));
       v15 = (v15 + v11);
       v14 = v16 ^ 0x80000000;
     }
 
     while (v15 != v5);
-    v12 = v62[0];
+    v12 = v61[0];
   }
 
   v17 = 1;
   v18 = v12;
   do
   {
-    v19 = v62[v17];
+    v19 = v61[v17];
     if (v18 <= v19)
     {
-      v18 = v62[v17];
+      v18 = v61[v17];
     }
 
     v12 += v19;
-    v62[v17++] = v12;
+    v61[v17++] = v12;
   }
 
   while (v17 != 256);
-  v60[0] = v18;
-  v20 = v63[0];
+  v59[0] = v18;
+  v20 = v62[0];
   v21 = 257;
-  v22 = v63[0];
+  v22 = v62[0];
   do
   {
-    v23 = v62[v21];
+    v23 = v61[v21];
     if (v22 <= v23)
     {
-      v22 = v62[v21];
+      v22 = v61[v21];
     }
 
     v20 += v23;
-    v62[v21++] = v20;
+    v61[v21++] = v20;
   }
 
   while (v21 != 512);
-  v60[1] = v22;
-  v24 = v64[0];
+  v59[1] = v22;
+  v24 = v63[0];
   v25 = 513;
-  v26 = v64[0];
+  v26 = v63[0];
   do
   {
-    v27 = v62[v25];
+    v27 = v61[v25];
     if (v26 <= v27)
     {
-      v26 = v62[v25];
+      v26 = v61[v25];
     }
 
     v24 += v27;
-    v62[v25++] = v24;
+    v61[v25++] = v24;
   }
 
   while (v25 != 768);
-  v61[0] = v26;
-  v28 = v65[0];
+  v60[0] = v26;
+  v28 = v64[0];
   v29 = 769;
-  v30 = v65[0];
+  v30 = v64[0];
   do
   {
-    v31 = v62[v29];
+    v31 = v61[v29];
     if (v30 <= v31)
     {
-      v30 = v62[v29];
+      v30 = v61[v29];
     }
 
     v28 += v31;
-    v62[v29++] = v28;
+    v61[v29++] = v28;
   }
 
   while (v29 != 1024);
-  v61[1] = v30;
+  v60[1] = v30;
   if ((v13 & 1) == 0)
   {
     v32 = 0;
@@ -1785,13 +111,13 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
     v35 = 4 * v7;
     v36 = &v5[-4 * v7];
     v37 = 1;
-    v38 = v60;
-    v39 = v62;
+    v38 = v59;
+    v39 = v61;
     do
     {
       v40 = v37;
       v41 = *v38;
-      v42 = v60[v32 | 1];
+      v42 = v59[v32 | 1];
       if (v41 != v33 || v42 != v33)
       {
         if (v41 == v33)
@@ -1847,7 +173,7 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
 
         else if (v34)
         {
-          v50 = &v62[256 * (v32 | 1)];
+          v50 = &v61[256 * (v32 | 1)];
           v51 = (8 * v32) | 8;
           v52 = v33;
           do
@@ -1864,15 +190,13 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
       }
 
       v37 = 0;
-      v38 = v61;
-      v39 = v64;
+      v38 = v60;
+      v39 = v63;
       v32 = 2;
     }
 
     while ((v40 & 1) != 0);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<int>>(uint64_t result, int *a2, uint64_t a3, int *a4, unsigned int a5, int *a6)
@@ -2103,7 +427,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v24 = a4;
       }
 
-      v37 = (-v19 / 2);
+      LODWORD(v37) = -v19 / 2;
       v36 = ((v24 - a4) >> 2) / a3;
     }
 
@@ -2140,7 +464,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v26 = &a2[v17];
       }
 
-      v36 = (a8 / 2);
+      LODWORD(v36) = a8 / 2;
       v37 = ((v26 - a2 - v17) >> 2) / v13;
     }
 
@@ -2250,7 +574,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
               a4 = &v26[4 * v45 * v13];
               v39 = v13;
-              v37 = v54;
+              LODWORD(v37) = v54;
               goto LABEL_67;
             }
 
@@ -2263,8 +587,8 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
                 v51 = *v50;
                 *v50 = *v49;
                 *v49 = v51;
-                v50 = (v50 + v20);
-                v49 = (v49 + v42);
+                v50 += v20;
+                v49 += v42;
               }
 
               while (v50 != a4 && v49 != v24);
@@ -2331,7 +655,7 @@ LABEL_67:
       do
       {
         *v77++ = *v76;
-        v76 = (v76 + v75);
+        v76 += v75;
       }
 
       while (v76 != a4);
@@ -2434,7 +758,7 @@ LABEL_67:
   return result;
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<long long>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, unsigned int a5, uint64_t *a6, uint64_t a7)
+void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<long long>>(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4, unsigned int a5, uint64_t *a6, uint64_t a7)
 {
   if (a5 >= 2)
   {
@@ -2465,7 +789,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::cor
           v28 = a5 >> 1;
           v29 = a5 - (a5 >> 1);
           v30 = &v24[v28];
-          v31 = 8 * a1;
+          v31 = 8 * result;
           v32 = v30;
           v33 = &v24[v25];
           while (v32 != v33)
@@ -2510,14 +834,14 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::cor
       }
     }
 
-    else if (a2 != a4 || a1 != a3)
+    else if (a2 != a4 || result != a3)
     {
-      v14 = &a2[a1];
+      v14 = &a2[result];
       if (v14 != a4)
       {
         v15 = 0;
-        v16 = 8 * a1;
-        v17 = &a2[a1];
+        v16 = 8 * result;
+        v17 = &a2[result];
         v18 = a2;
         do
         {
@@ -2535,7 +859,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::cor
                 break;
               }
 
-              v19 = *(a2 + v21 + -8 * a1);
+              v19 = *(a2 + v21 + -8 * result);
               v21 -= v16;
               if (v20 >= v19)
               {
@@ -2549,7 +873,7 @@ LABEL_17:
             *v22 = v20;
           }
 
-          v17 = &v18[a1];
+          v17 = &v18[result];
           v15 += v16;
         }
 
@@ -2567,10 +891,10 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
   v7 = v6;
   v9 = v8;
   v10 = v1;
-  v85 = *MEMORY[0x277D85DE8];
-  bzero(v77, 0x2000uLL);
-  v76 = 0;
+  v84 = *MEMORY[0x277D85DE8];
+  bzero(v76, 0x2000uLL);
   v75 = 0;
+  v74 = 0;
   v11 = 8 * v10;
   if (v9 == v5)
   {
@@ -2586,158 +910,158 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
     do
     {
       v16 = *v15;
-      ++v77[*v15];
-      ++v78[BYTE1(v16)];
+      ++v76[*v15];
+      ++v77[BYTE1(v16)];
       v13 &= (v16 ^ 0x8000000000000000) >= v14;
-      ++v79[BYTE2(v16)];
-      ++v80[BYTE3(v16)];
-      ++v81[BYTE4(v16)];
-      ++v82[BYTE5(v16)];
-      ++v83[BYTE6(v16)];
-      ++*(v84 + (((v16 ^ 0x8000000000000000) >> 54) & 0x3FC));
+      ++v78[BYTE2(v16)];
+      ++v79[BYTE3(v16)];
+      ++v80[BYTE4(v16)];
+      ++v81[BYTE5(v16)];
+      ++v82[BYTE6(v16)];
+      ++*(v83 + (((v16 ^ 0x8000000000000000) >> 54) & 0x3FC));
       v15 += v11;
       v14 = v16 ^ 0x8000000000000000;
     }
 
     while (v15 != v5);
-    v12 = v77[0];
+    v12 = v76[0];
   }
 
   v17 = 1;
   v18 = v12;
   do
   {
-    v19 = v77[v17];
+    v19 = v76[v17];
     if (v18 <= v19)
     {
-      v18 = v77[v17];
+      v18 = v76[v17];
     }
 
     v12 += v19;
-    v77[v17++] = v12;
+    v76[v17++] = v12;
   }
 
   while (v17 != 256);
-  v74[0] = v18;
-  v20 = v78[0];
+  v73[0] = v18;
+  v20 = v77[0];
   v21 = 257;
-  v22 = v78[0];
+  v22 = v77[0];
   do
   {
-    v23 = v77[v21];
+    v23 = v76[v21];
     if (v22 <= v23)
     {
-      v22 = v77[v21];
+      v22 = v76[v21];
     }
 
     v20 += v23;
-    v77[v21++] = v20;
+    v76[v21++] = v20;
   }
 
   while (v21 != 512);
-  v74[1] = v22;
-  v24 = v79[0];
+  v73[1] = v22;
+  v24 = v78[0];
   v25 = 513;
-  v26 = v79[0];
+  v26 = v78[0];
   do
   {
-    v27 = v77[v25];
+    v27 = v76[v25];
     if (v26 <= v27)
     {
-      v26 = v77[v25];
+      v26 = v76[v25];
     }
 
     v24 += v27;
-    v77[v25++] = v24;
+    v76[v25++] = v24;
   }
 
   while (v25 != 768);
-  v74[2] = v26;
-  v28 = v80[0];
+  v73[2] = v26;
+  v28 = v79[0];
   v29 = 769;
-  v30 = v80[0];
+  v30 = v79[0];
   do
   {
-    v31 = v77[v29];
+    v31 = v76[v29];
     if (v30 <= v31)
     {
-      v30 = v77[v29];
+      v30 = v76[v29];
     }
 
     v28 += v31;
-    v77[v29++] = v28;
+    v76[v29++] = v28;
   }
 
   while (v29 != 1024);
-  v74[3] = v30;
+  v73[3] = v30;
   v32 = 0x3FFFFFFFFFFFFF01;
-  v33 = v81[0];
-  v34 = v81[0];
+  v33 = v80[0];
+  v34 = v80[0];
   do
   {
-    v35 = v82[v32];
+    v35 = v81[v32];
     if (v34 <= v35)
     {
-      v34 = v82[v32];
+      v34 = v81[v32];
     }
 
     v33 += v35;
-    v82[v32++] = v33;
+    v81[v32++] = v33;
   }
 
   while (v32 * 4);
-  v74[4] = v34;
+  v73[4] = v34;
   v36 = 0x3FFFFFFFFFFFFF01;
-  v37 = v82[0];
-  v38 = v82[0];
+  v37 = v81[0];
+  v38 = v81[0];
   do
   {
-    v39 = v83[v36];
+    v39 = v82[v36];
     if (v38 <= v39)
     {
-      v38 = v83[v36];
+      v38 = v82[v36];
     }
 
     v37 += v39;
-    v83[v36++] = v37;
+    v82[v36++] = v37;
   }
 
   while (v36 * 4);
-  LODWORD(v75) = v38;
+  LODWORD(v74) = v38;
   v40 = 0x3FFFFFFFFFFFFF01;
-  v41 = v83[0];
-  v42 = v83[0];
+  v41 = v82[0];
+  v42 = v82[0];
   do
   {
-    v43 = v84[v40];
+    v43 = v83[v40];
     if (v42 <= v43)
     {
-      v42 = v84[v40];
+      v42 = v83[v40];
     }
 
     v41 += v43;
-    v84[v40++] = v41;
+    v83[v40++] = v41;
   }
 
   while (v40 * 4);
-  HIDWORD(v75) = v42;
-  v44 = v84[0];
+  HIDWORD(v74) = v42;
+  v44 = v83[0];
   v45 = 1793;
-  v46 = v84[0];
+  v46 = v83[0];
   do
   {
-    v47 = v77[v45];
+    v47 = v76[v45];
     if (v46 <= v47)
     {
-      v46 = v77[v45];
+      v46 = v76[v45];
     }
 
     v44 += v47;
-    v77[v45++] = v44;
+    v76[v45++] = v44;
   }
 
   while (v45 != 2048);
-  v76 = v46;
+  v75 = v46;
   if ((v13 & 1) == 0)
   {
     v48 = 0;
@@ -2747,8 +1071,8 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
     v52 = &v5[-8 * v7];
     do
     {
-      v53 = v74[v48];
-      v54 = v74[v48 | 1];
+      v53 = v73[v48];
+      v54 = v73[v48 | 1];
       if (v53 != v49 || v54 != v49)
       {
         if (v53 == v49)
@@ -2770,7 +1094,7 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
         else if (v9 != v5)
         {
           v56 = 0;
-          v57 = &v77[256 * v48];
+          v57 = &v76[256 * v48];
           do
           {
             v58 = *&v52[v56];
@@ -2805,7 +1129,7 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
 
         else if (v50)
         {
-          v63 = &v77[256 * (v48 | 1)];
+          v63 = &v76[256 * (v48 | 1)];
           v64 = v49;
           do
           {
@@ -2827,8 +1151,6 @@ void std::__radix_sort[abi:ne200100]<mlx::core::anonymous namespace::StridedIter
 
     while (!v72);
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<long long>>(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4, unsigned int a5, uint64_t *a6)
@@ -3060,7 +1382,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v24 = a4;
       }
 
-      v37 = (-v19 / 2);
+      LODWORD(v37) = -v19 / 2;
       v36 = ((v24 - a4) >> 3) / a3;
     }
 
@@ -3097,7 +1419,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v26 = &a2[v17];
       }
 
-      v36 = (a8 / 2);
+      LODWORD(v36) = a8 / 2;
       v37 = ((v26 - a2 - v17) >> 3) / v13;
     }
 
@@ -3207,7 +1529,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
               a4 = &v26[8 * v45 * v13];
               v39 = v13;
-              v37 = v54;
+              LODWORD(v37) = v54;
               goto LABEL_67;
             }
 
@@ -3220,8 +1542,8 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
                 v51 = *v50;
                 *v50 = *v49;
                 *v49 = v51;
-                v50 = (v50 + v20);
-                v49 = (v49 + v42);
+                v50 += v20;
+                v49 += v42;
               }
 
               while (v50 != a4 && v49 != v24);
@@ -3288,7 +1610,7 @@ LABEL_67:
       do
       {
         *v77++ = *v76;
-        v76 = (v76 + v75);
+        v76 += v75;
       }
 
       while (v76 != a4);
@@ -3415,45 +1737,46 @@ float std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::co
       v25 = a5;
       v26 = a5 - (a5 >> 1);
       v27 = &a2[a1 * v24];
-      if (a5 <= a7)
+      v28 = a5 >> 1;
+      if (v25 <= a7)
       {
-        v30 = &v23[v24];
-        v31 = 4 * a1;
-        v32 = v30;
-        v33 = &v23[v25];
-        while (v32 != v33)
+        v32 = &v23[v24];
+        v33 = 4 * a1;
+        v34 = v32;
+        v35 = &v23[v25];
+        while (v34 != v35)
         {
-          result = *v32;
-          v34 = *v32 < *v23;
-          if (*v32 >= *v23)
+          result = *v34;
+          v36 = *v34 < *v23;
+          if (*v34 >= *v23)
           {
             result = *v23;
           }
 
-          v23 += *v32 >= *v23;
-          v32 += v34;
+          v23 += *v34 >= *v23;
+          v34 += v36;
           *v10 = result;
-          v10 = (v10 + v31);
-          if (v23 == v30)
+          v10 = (v10 + v33);
+          if (v23 == v32)
           {
-            while (v32 != v33)
+            while (v34 != v35)
             {
-              v36 = *v32++;
-              result = v36;
-              *v10 = v36;
-              v10 = (v10 + v31);
+              v38 = *v34++;
+              result = v38;
+              *v10 = v38;
+              v10 = (v10 + v33);
             }
 
             return result;
           }
         }
 
-        while (v23 != v30)
+        while (v23 != v32)
         {
-          v35 = *v23++;
-          result = v35;
-          *v10 = v35;
-          v10 = (v10 + v31);
+          v37 = *v23++;
+          result = v37;
+          *v10 = v37;
+          v10 = (v10 + v33);
         }
       }
 
@@ -3553,34 +1876,34 @@ LABEL_8:
       v25 = &a2[a1 * v24];
       if (4 * a1 * v24)
       {
-        v26 = &v9[a1 * v24];
-        while (v26 != a4 || a1 != a3)
+        v27 = &v9[a1 * v24];
+        while (v27 != a4 || a1 != a3)
         {
-          result = *v26;
-          v27 = *v26 < *v9;
-          if (*v26 < *v9)
+          result = *v27;
+          v28 = *v27 < *v9;
+          if (*v27 < *v9)
           {
-            v28 = a1;
+            v29 = a1;
           }
 
           else
           {
             result = *v9;
-            v28 = 0;
+            v29 = 0;
           }
 
-          v26 += v28;
-          if (v27)
+          v27 += v29;
+          if (v28)
           {
-            v29 = 0;
+            v30 = 0;
           }
 
           else
           {
-            v29 = a1;
+            v30 = a1;
           }
 
-          v9 += v29;
+          v9 += v30;
           *v7++ = result;
           if (v9 == v25)
           {
@@ -3597,13 +1920,13 @@ LABEL_8:
 
       else
       {
-        v26 = &v9[a1 * v24];
+        v27 = &v9[a1 * v24];
 LABEL_36:
-        while (v26 != a4)
+        while (v27 != a4)
         {
-          result = *v26;
-          *v7++ = *v26;
-          v26 += a1;
+          result = *v27;
+          *v7++ = *v27;
+          v27 += a1;
         }
       }
     }
@@ -3718,6 +2041,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
       v31 = (a6 - a4) / a5;
       if (v31)
       {
+        result = *v25;
         v23 = a4;
         do
         {
@@ -3726,7 +2050,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
           v34 = *v33;
           v35 = &v33[a3];
           LODWORD(v31) = v31 + ~(v31 >> 1);
-          if (v34 < *v25)
+          if (v34 < result)
           {
             v23 = v35;
           }
@@ -3745,7 +2069,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
         v23 = a4;
       }
 
-      v37 = (v30 >> 1);
+      LODWORD(v37) = v30 >> 1;
       v36 = (v23 - a4) / a3;
     }
 
@@ -3755,6 +2079,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
       v24 = ((a4 - a2 - v17) >> 2) / a3;
       if (v24)
       {
+        result = *v23;
         v25 = (a2 + v17);
         do
         {
@@ -3763,7 +2088,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
           v28 = *v27;
           v29 = &v27[a1];
           LODWORD(v24) = v24 + ~(v24 >> 1);
-          if (*v23 < v28)
+          if (result < v28)
           {
             LODWORD(v24) = v26;
           }
@@ -3782,7 +2107,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
         v25 = (a2 + v17);
       }
 
-      v36 = (a8 / 2);
+      LODWORD(v36) = a8 / 2;
       v37 = ((v25 - a2 - v17) >> 2) / a1;
     }
 
@@ -3795,7 +2120,7 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
         if (&v25[a1] == a4 && a1 == a3)
         {
           v40 = 0;
-          v41 = *v25;
+          result = *v25;
           do
           {
             *(v25 + v40) = *(a4 + v40);
@@ -3804,112 +2129,112 @@ float std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::
 
           while ((a4 + v40) != v23);
           a4 = (v25 + v40);
-          *(v25 + v40) = v41;
+          *(v25 + v40) = result;
           v39 = a1;
         }
 
         else
         {
-          v42 = 4 * a3;
+          v41 = 4 * a3;
           if (&a4[a3] == v23)
           {
-            v43 = &v23[v42 / 0xFFFFFFFFFFFFFFFCLL];
-            v44 = v23[-a3];
-            if (&v23[v42 / 0xFFFFFFFFFFFFFFFCLL] == v25)
+            v42 = &v23[v41 / 0xFFFFFFFFFFFFFFFCLL];
+            result = v23[-a3];
+            if (&v23[v41 / 0xFFFFFFFFFFFFFFFCLL] == v25)
             {
               a4 = v23;
             }
 
             else
             {
-              v62 = v23;
+              v58 = v23;
               a4 = v23;
               do
               {
-                v43 -= a3;
-                v62 -= a3;
-                *v62 = *v43;
-                a4 = (a4 - v42);
+                v42 -= a3;
+                v58 -= a3;
+                *v58 = *v42;
+                a4 = (a4 - v41);
               }
 
-              while (v43 != v25);
+              while (v42 != v25);
             }
 
-            *v25 = v44;
+            *v25 = result;
           }
 
           else
           {
-            v45 = (v23 - a4) / a3;
+            v43 = (v23 - a4) / a3;
+            v44 = v43;
+            v45 = (a4 - v25) / a3;
             v46 = v45;
-            v47 = (a4 - v25) / a3;
-            v48 = v47;
-            if (v47 != v45)
+            if (v45 != v43)
             {
               do
               {
-                v53 = v48;
-                v48 = v46;
-                v46 = v53 % v46;
+                v50 = v46;
+                v46 = v44;
+                v44 = v50 % v44;
               }
 
-              while (v46);
-              v54 = v37;
+              while (v44);
+              v51 = v37;
               if (a1)
               {
-                v55 = &v25[a1 * v48];
-                v56 = v47 * a1;
+                v52 = &v25[a1 * v46];
+                v53 = v45 * a1;
                 do
                 {
-                  v55 -= a1;
-                  v57 = *v55;
-                  v58 = &v55[v56];
-                  v59 = v55;
+                  v52 -= a1;
+                  result = *v52;
+                  v54 = &v52[v53];
+                  v55 = v52;
                   do
                   {
-                    v60 = v58;
-                    *v59 = *v58;
-                    v61 = (v23 - v58) / a3;
-                    if (v47 >= v61)
+                    v56 = v54;
+                    *v55 = *v54;
+                    v57 = (v23 - v54) / a3;
+                    if (v45 >= v57)
                     {
-                      v58 = &v25[(v47 - v61) * a1];
+                      v54 = &v25[(v45 - v57) * a1];
                     }
 
                     else
                     {
-                      v58 = &v60[v56];
+                      v54 = &v56[v53];
                     }
 
-                    v59 = v60;
+                    v55 = v56;
                   }
 
-                  while (v58 != v55);
-                  *v60 = v57;
+                  while (v54 != v52);
+                  *v56 = result;
                 }
 
-                while (v55 != v25);
+                while (v52 != v25);
               }
 
-              a4 = &v25[v45 * a1];
+              a4 = &v25[v43 * a1];
               v39 = a1;
-              v37 = v54;
+              LODWORD(v37) = v51;
               goto LABEL_66;
             }
 
             if (v25 != a4)
             {
-              v49 = a4;
-              v50 = v25;
+              v47 = a4;
+              v48 = v25;
               do
               {
-                v51 = *v50;
-                *v50 = *v49;
-                *v49 = v51;
-                v50 = (v50 + v19);
-                v49 = (v49 + v42);
+                result = *v48;
+                *v48 = *v47;
+                *v47 = result;
+                v48 = (v48 + v19);
+                v47 = (v47 + v41);
               }
 
-              while (v50 != a4 && v49 != v23);
+              while (v48 != a4 && v47 != v23);
             }
           }
 
@@ -3922,41 +2247,41 @@ LABEL_66:
     }
 
     a7 = -(v37 + v18);
-    v63 = a8 - v36;
-    v85 = a11;
+    v59 = a8 - v36;
+    v81 = a11;
     if (v37 + v36 >= a8 - (v37 + v36) - v18)
     {
-      v84 = v38;
-      v64 = a10;
-      v63 = v36;
+      v80 = v38;
+      v60 = a10;
+      v59 = v36;
       a7 = v37;
       a3 = a1;
       v23 = v25;
       v38 = v22;
       a5 = v39;
-      a6 = v84;
+      a6 = v80;
     }
 
     else
     {
-      v83 = a10;
-      v64 = a10;
-      v65 = a1;
-      v66 = a1;
-      v67 = v25;
-      v68 = a5;
-      v69 = a6;
-      a5 = v68;
-      a6 = v69;
+      v79 = a10;
+      v60 = a10;
+      v61 = a1;
+      v62 = a1;
+      v63 = v25;
+      v64 = a5;
+      v65 = a6;
+      a5 = v64;
+      a6 = v65;
       a1 = v39;
     }
 
-    a8 = v63;
+    a8 = v59;
     a2 = v38;
     a4 = v23;
-    a10 = v64;
-    a11 = v85;
-    if (!v63)
+    a10 = v60;
+    a11 = v81;
+    if (!v59)
     {
       return result;
     }
@@ -3966,107 +2291,107 @@ LABEL_66:
   {
     if (a2 != a4)
     {
-      v73 = 4 * a1;
-      v74 = a2;
-      v75 = a10;
+      v69 = 4 * a1;
+      v70 = a2;
+      v71 = a10;
       do
       {
-        *v75++ = *v74;
-        v74 = (v74 + v73);
+        *v71++ = *v70;
+        v70 = (v70 + v69);
       }
 
-      while (v74 != a4);
-      v76 = v75 - 1;
+      while (v70 != a4);
+      v72 = v71 - 1;
       while (a4 != a6 || a3 != a5)
       {
         result = *a4;
-        v77 = *a4 < *a10;
+        v73 = *a4 < *a10;
         if (*a4 >= *a10)
         {
           result = *a10;
         }
 
         a10 += *a4 >= *a10;
-        if (v77)
+        if (v73)
         {
-          v78 = a3;
+          v74 = a3;
         }
 
         else
         {
-          v78 = 0;
+          v74 = 0;
         }
 
-        a4 += v78;
+        a4 += v74;
         *a2 = result;
-        a2 = (a2 + v73);
-        if (v75 == a10)
+        a2 = (a2 + v69);
+        if (v71 == a10)
         {
           return result;
         }
       }
 
-      v79 = a10 - 1;
+      v75 = a10 - 1;
       do
       {
-        v80 = v79[1];
-        ++v79;
-        result = v80;
-        *a2 = v80;
-        a2 = (a2 + v73);
+        v76 = v75[1];
+        ++v75;
+        result = v76;
+        *a2 = v76;
+        a2 = (a2 + v69);
       }
 
-      while (v76 != v79);
+      while (v72 != v75);
     }
   }
 
   else if (a6 != a4)
   {
-    v70 = a4;
-    v71 = a10;
+    v66 = a4;
+    v67 = a10;
     do
     {
-      result = *v70;
-      *v71++ = *v70;
-      v70 += a3;
+      result = *v66;
+      *v67++ = *v66;
+      v66 += a3;
     }
 
-    while (v70 != a6);
+    while (v66 != a6);
     while (a2 != a4 || a3 != a1)
     {
-      v72 = &a4[-a3];
-      result = *(v71 - 1);
+      v68 = &a4[-a3];
+      result = *(v67 - 1);
       a6 -= a5;
-      if (result >= *v72)
+      if (result >= *v68)
       {
-        --v71;
+        --v67;
       }
 
       else
       {
-        result = *v72;
+        result = *v68;
         a4 -= a3;
       }
 
       *a6 = result;
-      if (v71 == a10)
+      if (v67 == a10)
       {
         return result;
       }
     }
 
-    if (v71 != a10)
+    if (v67 != a10)
     {
-      v81 = -1 * a5;
+      v77 = -1 * a5;
       do
       {
-        v82 = *--v71;
-        result = v82;
-        a6[v81] = v82;
-        v81 -= a5;
+        v78 = *--v67;
+        result = v78;
+        a6[v77] = v78;
+        v77 -= a5;
       }
 
-      while (v71 != a10);
+      while (v67 != a10);
     }
   }
 
@@ -4097,45 +2422,46 @@ double std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::c
       v25 = a5;
       v26 = a5 - (a5 >> 1);
       v27 = &a2[a1 * v24];
-      if (a5 <= a7)
+      v28 = a5 >> 1;
+      if (v25 <= a7)
       {
-        v30 = &v23[v24];
-        v31 = 8 * a1;
-        v32 = v30;
-        v33 = &v23[v25];
-        while (v32 != v33)
+        v32 = &v23[v24];
+        v33 = 8 * a1;
+        v34 = v32;
+        v35 = &v23[v25];
+        while (v34 != v35)
         {
-          result = *v32;
-          v34 = *v32 < *v23;
-          if (*v32 >= *v23)
+          result = *v34;
+          v36 = *v34 < *v23;
+          if (*v34 >= *v23)
           {
             result = *v23;
           }
 
-          v23 += *v32 >= *v23;
-          v32 += v34;
+          v23 += *v34 >= *v23;
+          v34 += v36;
           *v10 = result;
-          v10 = (v10 + v31);
-          if (v23 == v30)
+          v10 = (v10 + v33);
+          if (v23 == v32)
           {
-            while (v32 != v33)
+            while (v34 != v35)
             {
-              v36 = *v32++;
-              result = v36;
-              *v10 = v36;
-              v10 = (v10 + v31);
+              v38 = *v34++;
+              result = v38;
+              *v10 = v38;
+              v10 = (v10 + v33);
             }
 
             return result;
           }
         }
 
-        while (v23 != v30)
+        while (v23 != v32)
         {
-          v35 = *v23++;
-          result = v35;
-          *v10 = v35;
-          v10 = (v10 + v31);
+          v37 = *v23++;
+          result = v37;
+          *v10 = v37;
+          v10 = (v10 + v33);
         }
       }
 
@@ -4235,34 +2561,34 @@ LABEL_8:
       v25 = &a2[a1 * v24];
       if (8 * a1 * v24)
       {
-        v26 = &v9[a1 * v24];
-        while (v26 != a4 || a1 != a3)
+        v27 = &v9[a1 * v24];
+        while (v27 != a4 || a1 != a3)
         {
-          result = *v26;
-          v27 = *v26 < *v9;
-          if (*v26 < *v9)
+          result = *v27;
+          v28 = *v27 < *v9;
+          if (*v27 < *v9)
           {
-            v28 = a1;
+            v29 = a1;
           }
 
           else
           {
             result = *v9;
-            v28 = 0;
+            v29 = 0;
           }
 
-          v26 += v28;
-          if (v27)
+          v27 += v29;
+          if (v28)
           {
-            v29 = 0;
+            v30 = 0;
           }
 
           else
           {
-            v29 = a1;
+            v30 = a1;
           }
 
-          v9 += v29;
+          v9 += v30;
           *v7++ = result;
           if (v9 == v25)
           {
@@ -4279,13 +2605,13 @@ LABEL_8:
 
       else
       {
-        v26 = &v9[a1 * v24];
+        v27 = &v9[a1 * v24];
 LABEL_36:
-        while (v26 != a4)
+        while (v27 != a4)
         {
-          result = *v26;
-          *v7++ = *v26;
-          v26 += a1;
+          result = *v27;
+          *v7++ = *v27;
+          v27 += a1;
         }
       }
     }
@@ -4400,6 +2726,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
       v31 = (a6 - a4) / a5;
       if (v31)
       {
+        result = *v25;
         v23 = a4;
         do
         {
@@ -4408,7 +2735,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
           v34 = *v33;
           v35 = &v33[a3];
           LODWORD(v31) = v31 + ~(v31 >> 1);
-          if (v34 < *v25)
+          if (v34 < result)
           {
             v23 = v35;
           }
@@ -4427,7 +2754,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         v23 = a4;
       }
 
-      v37 = (v30 >> 1);
+      LODWORD(v37) = v30 >> 1;
       v36 = (v23 - a4) / a3;
     }
 
@@ -4437,6 +2764,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
       v24 = ((a4 - a2 - v17) >> 3) / a3;
       if (v24)
       {
+        result = *v23;
         v25 = (a2 + v17);
         do
         {
@@ -4445,7 +2773,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
           v28 = *v27;
           v29 = &v27[a1];
           LODWORD(v24) = v24 + ~(v24 >> 1);
-          if (*v23 < v28)
+          if (result < v28)
           {
             LODWORD(v24) = v26;
           }
@@ -4464,7 +2792,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         v25 = (a2 + v17);
       }
 
-      v36 = (a8 / 2);
+      LODWORD(v36) = a8 / 2;
       v37 = ((v25 - a2 - v17) >> 3) / a1;
     }
 
@@ -4477,7 +2805,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         if (&v25[a1] == a4 && a1 == a3)
         {
           v40 = 0;
-          v41 = *v25;
+          result = *v25;
           do
           {
             *(v25 + v40) = *(a4 + v40);
@@ -4486,112 +2814,112 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
 
           while ((a4 + v40) != v23);
           a4 = (v25 + v40);
-          *(v25 + v40) = v41;
+          *(v25 + v40) = result;
           v39 = a1;
         }
 
         else
         {
-          v42 = 8 * a3;
+          v41 = 8 * a3;
           if (&a4[a3] == v23)
           {
-            v43 = &v23[v42 / 0xFFFFFFFFFFFFFFF8];
-            v44 = v23[-a3];
-            if (&v23[v42 / 0xFFFFFFFFFFFFFFF8] == v25)
+            v42 = &v23[v41 / 0xFFFFFFFFFFFFFFF8];
+            result = v23[-a3];
+            if (&v23[v41 / 0xFFFFFFFFFFFFFFF8] == v25)
             {
               a4 = v23;
             }
 
             else
             {
-              v62 = v23;
+              v58 = v23;
               a4 = v23;
               do
               {
-                v43 -= a3;
-                v62 -= a3;
-                *v62 = *v43;
-                a4 = (a4 - v42);
+                v42 -= a3;
+                v58 -= a3;
+                *v58 = *v42;
+                a4 = (a4 - v41);
               }
 
-              while (v43 != v25);
+              while (v42 != v25);
             }
 
-            *v25 = v44;
+            *v25 = result;
           }
 
           else
           {
-            v45 = (v23 - a4) / a3;
+            v43 = (v23 - a4) / a3;
+            v44 = v43;
+            v45 = (a4 - v25) / a3;
             v46 = v45;
-            v47 = (a4 - v25) / a3;
-            v48 = v47;
-            if (v47 != v45)
+            if (v45 != v43)
             {
               do
               {
-                v53 = v48;
-                v48 = v46;
-                v46 = v53 % v46;
+                v50 = v46;
+                v46 = v44;
+                v44 = v50 % v44;
               }
 
-              while (v46);
-              v54 = v37;
+              while (v44);
+              v51 = v37;
               if (a1)
               {
-                v55 = &v25[a1 * v48];
-                v56 = v47 * a1;
+                v52 = &v25[a1 * v46];
+                v53 = v45 * a1;
                 do
                 {
-                  v55 -= a1;
-                  v57 = *v55;
-                  v58 = &v55[v56];
-                  v59 = v55;
+                  v52 -= a1;
+                  result = *v52;
+                  v54 = &v52[v53];
+                  v55 = v52;
                   do
                   {
-                    v60 = v58;
-                    *v59 = *v58;
-                    v61 = (v23 - v58) / a3;
-                    if (v47 >= v61)
+                    v56 = v54;
+                    *v55 = *v54;
+                    v57 = (v23 - v54) / a3;
+                    if (v45 >= v57)
                     {
-                      v58 = &v25[(v47 - v61) * a1];
+                      v54 = &v25[(v45 - v57) * a1];
                     }
 
                     else
                     {
-                      v58 = &v60[v56];
+                      v54 = &v56[v53];
                     }
 
-                    v59 = v60;
+                    v55 = v56;
                   }
 
-                  while (v58 != v55);
-                  *v60 = v57;
+                  while (v54 != v52);
+                  *v56 = result;
                 }
 
-                while (v55 != v25);
+                while (v52 != v25);
               }
 
-              a4 = &v25[v45 * a1];
+              a4 = &v25[v43 * a1];
               v39 = a1;
-              v37 = v54;
+              LODWORD(v37) = v51;
               goto LABEL_66;
             }
 
             if (v25 != a4)
             {
-              v49 = a4;
-              v50 = v25;
+              v47 = a4;
+              v48 = v25;
               do
               {
-                v51 = *v50;
-                *v50 = *v49;
-                *v49 = v51;
-                v50 = (v50 + v19);
-                v49 = (v49 + v42);
+                result = *v48;
+                *v48 = *v47;
+                *v47 = result;
+                v48 = (v48 + v19);
+                v47 = (v47 + v41);
               }
 
-              while (v50 != a4 && v49 != v23);
+              while (v48 != a4 && v47 != v23);
             }
           }
 
@@ -4604,41 +2932,41 @@ LABEL_66:
     }
 
     a7 = -(v37 + v18);
-    v63 = a8 - v36;
-    v85 = a11;
+    v59 = a8 - v36;
+    v81 = a11;
     if (v37 + v36 >= a8 - (v37 + v36) - v18)
     {
-      v84 = v38;
-      v64 = a10;
-      v63 = v36;
+      v80 = v38;
+      v60 = a10;
+      v59 = v36;
       a7 = v37;
       a3 = a1;
       v23 = v25;
       v38 = v22;
       a5 = v39;
-      a6 = v84;
+      a6 = v80;
     }
 
     else
     {
-      v83 = a10;
-      v64 = a10;
-      v65 = a1;
-      v66 = a1;
-      v67 = v25;
-      v68 = a5;
-      v69 = a6;
-      a5 = v68;
-      a6 = v69;
+      v79 = a10;
+      v60 = a10;
+      v61 = a1;
+      v62 = a1;
+      v63 = v25;
+      v64 = a5;
+      v65 = a6;
+      a5 = v64;
+      a6 = v65;
       a1 = v39;
     }
 
-    a8 = v63;
+    a8 = v59;
     a2 = v38;
     a4 = v23;
-    a10 = v64;
-    a11 = v85;
-    if (!v63)
+    a10 = v60;
+    a11 = v81;
+    if (!v59)
     {
       return result;
     }
@@ -4648,114 +2976,114 @@ LABEL_66:
   {
     if (a2 != a4)
     {
-      v73 = 8 * a1;
-      v74 = a2;
-      v75 = a10;
+      v69 = 8 * a1;
+      v70 = a2;
+      v71 = a10;
       do
       {
-        *v75++ = *v74;
-        v74 = (v74 + v73);
+        *v71++ = *v70;
+        v70 = (v70 + v69);
       }
 
-      while (v74 != a4);
-      v76 = v75 - 1;
+      while (v70 != a4);
+      v72 = v71 - 1;
       while (a4 != a6 || a3 != a5)
       {
         result = *a4;
-        v77 = *a4 < *a10;
+        v73 = *a4 < *a10;
         if (*a4 >= *a10)
         {
           result = *a10;
         }
 
         a10 += *a4 >= *a10;
-        if (v77)
+        if (v73)
         {
-          v78 = a3;
+          v74 = a3;
         }
 
         else
         {
-          v78 = 0;
+          v74 = 0;
         }
 
-        a4 += v78;
+        a4 += v74;
         *a2 = result;
-        a2 = (a2 + v73);
-        if (v75 == a10)
+        a2 = (a2 + v69);
+        if (v71 == a10)
         {
           return result;
         }
       }
 
-      v79 = a10 - 1;
+      v75 = a10 - 1;
       do
       {
-        v80 = v79[1];
-        ++v79;
-        result = v80;
-        *a2 = v80;
-        a2 = (a2 + v73);
+        v76 = v75[1];
+        ++v75;
+        result = v76;
+        *a2 = v76;
+        a2 = (a2 + v69);
       }
 
-      while (v76 != v79);
+      while (v72 != v75);
     }
   }
 
   else if (a6 != a4)
   {
-    v70 = a4;
-    v71 = a10;
+    v66 = a4;
+    v67 = a10;
     do
     {
-      result = *v70;
-      *v71++ = *v70;
-      v70 += a3;
+      result = *v66;
+      *v67++ = *v66;
+      v66 += a3;
     }
 
-    while (v70 != a6);
+    while (v66 != a6);
     while (a2 != a4 || a3 != a1)
     {
-      v72 = &a4[-a3];
-      result = *(v71 - 1);
+      v68 = &a4[-a3];
+      result = *(v67 - 1);
       a6 -= a5;
-      if (result >= *v72)
+      if (result >= *v68)
       {
-        --v71;
+        --v67;
       }
 
       else
       {
-        result = *v72;
+        result = *v68;
         a4 -= a3;
       }
 
       *a6 = result;
-      if (v71 == a10)
+      if (v67 == a10)
       {
         return result;
       }
     }
 
-    if (v71 != a10)
+    if (v67 != a10)
     {
-      v81 = -1 * a5;
+      v77 = -1 * a5;
       do
       {
-        v82 = *--v71;
-        result = v82;
-        a6[v81] = v82;
-        v81 -= a5;
+        v78 = *--v67;
+        result = v78;
+        a6[v77] = v78;
+        v77 -= a5;
       }
 
-      while (v71 != a10);
+      while (v67 != a10);
     }
   }
 
   return result;
 }
 
-unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>@<H0>(uint64_t a1@<X0>, short float *a2@<X1>, uint64_t a3@<X2>, unsigned __int16 *a4@<X3>, unsigned int a5@<W4>, unsigned __int16 *a6@<X5>, uint64_t a7@<X6>, __n128 a8@<Q0>)
+unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>@<H0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, unsigned __int16 *a4@<X3>, unsigned int a5@<W4>, short float *a6@<X5>, uint64_t a7@<X6>, __n128 result@<Q0>)
 {
   if (a5 >= 2)
   {
@@ -4763,12 +3091,12 @@ unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void
     if (a5 == 2)
     {
       v11 = &a4[-a3];
-      a8.n128_u16[0] = *v11;
+      result.n128_u16[0] = *v11;
       v12 = *a2;
       if (*v11 < *a2)
       {
-        *a2 = *a8.n128_u16;
-        *&a4[-a3] = v12;
+        *a2 = result.n128_u16[0];
+        a4[-a3] = v12;
       }
     }
 
@@ -4778,46 +3106,47 @@ unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void
       v24 = a5 >> 1;
       v25 = a5;
       v26 = a5 - (a5 >> 1);
-      v27 = &a2[a1 * v24];
-      if (a5 <= a7)
+      v27 = &a2[2 * a1 * v24];
+      v28 = a5 >> 1;
+      if (v25 <= a7)
       {
-        v30 = &v23[v24];
-        v31 = 2 * a1;
-        v32 = v30;
-        v33 = &v23[v25];
-        while (v32 != v33)
+        v32 = &v23[v24];
+        v33 = 2 * a1;
+        v34 = v32;
+        v35 = &v23[v25];
+        while (v34 != v35)
         {
-          a8.n128_u16[0] = *v32;
-          v34 = *v32 < *v23;
-          if (*v32 >= *v23)
+          result.n128_u16[0] = *v34;
+          v36 = *v34 < *v23;
+          if (*v34 >= *v23)
           {
-            a8.n128_u16[0] = *v23;
+            result.n128_u16[0] = *v23;
           }
 
-          v23 += *v32 >= *v23;
-          v32 += v34;
-          *v10 = a8.n128_u16[0];
-          v10 += v31;
-          if (v23 == v30)
+          v23 += *v34 >= *v23;
+          v34 += v36;
+          *v10 = result.n128_u16[0];
+          v10 += v33;
+          if (v23 == v32)
           {
-            while (v32 != v33)
+            while (v34 != v35)
             {
-              v36 = *v32++;
-              a8.n128_u16[0] = v36;
-              *v10 = v36;
-              v10 += v31;
+              v38 = *v34++;
+              result.n128_u16[0] = v38;
+              *v10 = v38;
+              v10 += v33;
             }
 
-            return a8.n128_u16[0];
+            return result.n128_u16[0];
           }
         }
 
-        while (v23 != v30)
+        while (v23 != v32)
         {
-          v35 = *v23++;
-          *a8.n128_u16 = v35;
-          *v10 = v35;
-          v10 += v31;
+          v37 = *v23++;
+          *result.n128_u16 = v37;
+          *v10 = v37;
+          v10 += v33;
         }
       }
 
@@ -4828,18 +3157,18 @@ unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void
 
     else if (a2 != a4 || a1 != a3)
     {
-      v14 = &a2[a1];
+      v14 = &a2[2 * a1];
       if (v14 != a4)
       {
         v15 = 0;
         v16 = 2 * a1;
-        v17 = &a2[a1];
+        v17 = &a2[2 * a1];
         v18 = a2;
         do
         {
           v19 = *v18;
           v18 = v17;
-          a8.n128_u16[0] = *v17;
+          result.n128_u16[0] = *v17;
           if (*v17 < v19)
           {
             v20 = v15;
@@ -4851,9 +3180,9 @@ unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void
                 break;
               }
 
-              v19 = *(a2 + v20 + -2 * a1);
+              v19 = *&a2[v20 + -2 * a1];
               v20 -= v16;
-              if (*a8.n128_u16 >= v19)
+              if (*result.n128_u16 >= v19)
               {
                 v21 = (v14 + v20);
                 goto LABEL_17;
@@ -4862,7 +3191,7 @@ unsigned __int16 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void
 
             v21 = a2;
 LABEL_17:
-            *v21 = *a8.n128_u16;
+            *v21 = result.n128_u16[0];
           }
 
           v17 = &v18[a1];
@@ -4874,10 +3203,10 @@ LABEL_17:
     }
   }
 
-  return a8.n128_u16[0];
+  return result.n128_u16[0];
 }
 
-__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>(uint64_t a1, short float *a2, uint64_t a3, unsigned __int16 *a4, unsigned int a5, unsigned __int16 *a6, __n128 result)
+unsigned __int16 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>@<H0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, unsigned __int16 *a4@<X3>, unsigned int a5@<W4>, short float *a6@<X5>, __n128 a7@<Q0>)
 {
   if (a5)
   {
@@ -4886,9 +3215,9 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,m
     if (a5 == 1)
     {
 LABEL_8:
-      result.n128_u16[0] = *v9;
+      a7.n128_u16[0] = *v9;
       *v7 = *v9;
-      return result;
+      return a7.n128_u16[0];
     }
 
     if (a5 == 2)
@@ -4917,35 +3246,35 @@ LABEL_8:
       v25 = &a2[a1 * v24];
       if (2 * a1 * v24)
       {
-        v26 = &v9[a1 * v24];
-        while (v26 != a4 || a1 != a3)
+        v27 = &v9[a1 * v24];
+        while (v27 != a4 || a1 != a3)
         {
-          result.n128_u16[0] = *v26;
-          v27 = *v26 < *v9;
-          if (*v26 < *v9)
-          {
-            v28 = a1;
-          }
-
-          else
-          {
-            result.n128_u16[0] = *v9;
-            v28 = 0;
-          }
-
-          v26 += v28;
-          if (v27)
-          {
-            v29 = 0;
-          }
-
-          else
+          a7.n128_u16[0] = *v27;
+          v28 = *v27 < *v9;
+          if (*v27 < *v9)
           {
             v29 = a1;
           }
 
-          v9 += v29;
-          *v7++ = result.n128_u16[0];
+          else
+          {
+            a7.n128_u16[0] = *v9;
+            v29 = 0;
+          }
+
+          v27 += v29;
+          if (v28)
+          {
+            v30 = 0;
+          }
+
+          else
+          {
+            v30 = a1;
+          }
+
+          v9 += v30;
+          *v7++ = *a7.n128_u16;
           if (v9 == v25)
           {
             goto LABEL_36;
@@ -4954,27 +3283,27 @@ LABEL_8:
 
         for (; v9 != v25; v9 += a1)
         {
-          result.n128_u16[0] = *v9;
+          a7.n128_u16[0] = *v9;
           *v7++ = *v9;
         }
       }
 
       else
       {
-        v26 = &v9[a1 * v24];
+        v27 = &v9[a1 * v24];
 LABEL_36:
-        while (v26 != a4)
+        while (v27 != a4)
         {
-          result.n128_u16[0] = *v26;
-          *v7++ = *v26;
-          v26 += a1;
+          a7.n128_u16[0] = *v27;
+          *v7++ = *v27;
+          v27 += a1;
         }
       }
     }
 
     else if (a2 != a4)
     {
-      result.n128_u16[0] = *a2;
+      a7.n128_u16[0] = *a2;
       *a6 = *a2;
       v16 = &a2[a1];
       if (v16 != a4)
@@ -4985,7 +3314,7 @@ LABEL_36:
         do
         {
           v20 = *v19++;
-          *result.n128_u16 = v20;
+          *a7.n128_u16 = v20;
           if (*v16 >= v20)
           {
             *v19 = *v16;
@@ -4993,7 +3322,7 @@ LABEL_36:
 
           else
           {
-            v18[1] = *result.n128_u16;
+            v18[1] = *a7.n128_u16;
             v21 = a6;
             if (v18 != a6)
             {
@@ -5017,7 +3346,7 @@ LABEL_36:
               }
             }
 
-            result.n128_u16[0] = *v16;
+            a7.n128_u16[0] = *v16;
             *v21 = *v16;
           }
 
@@ -5031,21 +3360,21 @@ LABEL_36:
     }
   }
 
-  return result;
+  return a7.n128_u16[0];
 }
 
-__n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>(uint64_t a1, char *a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5, unsigned __int16 *a6, int a7, int a8, __n128 result, short float *a10, uint64_t a11)
+unsigned __int16 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<half>>@<H0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, char *a6@<X5>, int a7@<W6>, int a8@<W7>, __n128 result@<Q0>, short float *a10, uint64_t a11)
 {
   if (!a8)
   {
-    return result;
+    return result.n128_u16[0];
   }
 
   while (a8 > a11 && a7 > a11)
   {
     if (!a7)
     {
-      return result;
+      return result.n128_u16[0];
     }
 
     v17 = 0;
@@ -5063,7 +3392,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
       v17 += v19;
       if (__CFADD__(v18++, 1))
       {
-        return result;
+        return result.n128_u16[0];
       }
     }
 
@@ -5074,14 +3403,15 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
       {
         *&a2[v17] = result.n128_u16[0];
         *a4 = v20;
-        return result;
+        return result.n128_u16[0];
       }
 
       v30 = (v18 > 0) - v18;
       v25 = &a2[2 * a1 * (v30 >> 1) + v17];
-      v31 = (a6 - a4) / a5;
+      v31 = ((a6 - a4) >> 1) / a5;
       if (v31)
       {
+        result.n128_u16[0] = *v25;
         v23 = a4;
         do
         {
@@ -5090,7 +3420,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
           v34 = *v33;
           v35 = &v33[a3];
           LODWORD(v31) = v31 + ~(v31 >> 1);
-          if (v34 < *v25)
+          if (v34 < *result.n128_u16)
           {
             v23 = v35;
           }
@@ -5109,25 +3439,26 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         v23 = a4;
       }
 
-      v37 = (v30 >> 1);
+      LODWORD(v37) = v30 >> 1;
       v36 = ((v23 - a4) >> 1) / a3;
     }
 
     else
     {
-      v23 = &a4[a3 * ((a8 + (a8 >> 31)) >> 1)];
+      v23 = &a4[2 * a3 * ((a8 + (a8 >> 31)) >> 1)];
       v24 = ((a4 - a2 - v17) >> 1) / a3;
       if (v24)
       {
+        result.n128_u16[0] = *v23;
         v25 = &a2[v17];
         do
         {
           v26 = v24 >> 1;
-          v27 = (v25 + a1 * (v24 & 0xFFFFFFFE));
+          v27 = &v25[a1 * (v24 & 0xFFFFFFFE)];
           v28 = *v27;
           v29 = &v27[a1];
           LODWORD(v24) = v24 + ~(v24 >> 1);
-          if (*v23 < v28)
+          if (*result.n128_u16 < v28)
           {
             LODWORD(v24) = v26;
           }
@@ -5146,7 +3477,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         v25 = &a2[v17];
       }
 
-      v36 = (a8 / 2);
+      LODWORD(v36) = a8 / 2;
       v37 = ((v25 - a2 - v17) >> 1) / a1;
     }
 
@@ -5156,124 +3487,124 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
       v39 = a1;
       if (a4 != v23)
       {
-        if (&v25[a1] == a4 && a1 == a3)
+        if (&v25[2 * a1] == a4 && a1 == a3)
         {
           v40 = 0;
-          v41 = *v25;
+          result.n128_u16[0] = *v25;
           do
           {
-            *(v25 + v40) = *(a4 + v40);
+            *&v25[v40] = *&a4[v40];
             v40 += v19;
           }
 
-          while ((a4 + v40) != v23);
-          a4 = (v25 + v40);
-          *(v25 + v40) = v41;
+          while (&a4[v40] != v23);
+          a4 = &v25[v40];
+          *&v25[v40] = result.n128_u16[0];
           v39 = a1;
         }
 
         else
         {
-          v42 = 2 * a3;
-          if (&a4[a3] == v23)
+          v41 = 2 * a3;
+          if (&a4[2 * a3] == v23)
           {
-            v43 = &v23[v42 / 0xFFFFFFFFFFFFFFFELL];
-            v44 = v23[-a3];
-            if (&v23[v42 / 0xFFFFFFFFFFFFFFFELL] == v25)
+            v42 = &v23[v41 / 0xFFFFFFFFFFFFFFFELL];
+            result.n128_u16[0] = v23[-a3];
+            if (&v23[v41 / 0xFFFFFFFFFFFFFFFELL] == v25)
             {
               a4 = v23;
             }
 
             else
             {
-              v62 = v23;
+              v58 = v23;
               a4 = v23;
               do
               {
-                v43 -= a3;
-                v62 -= a3;
-                *v62 = *v43;
-                a4 = (a4 - v42);
+                v42 -= 2 * a3;
+                v58 -= a3;
+                *v58 = *v42;
+                a4 -= v41;
               }
 
-              while (v43 != v25);
+              while (v42 != v25);
             }
 
-            *v25 = v44;
+            *v25 = result.n128_u16[0];
           }
 
           else
           {
-            v45 = ((v23 - a4) >> 1) / a3;
+            v43 = ((v23 - a4) >> 1) / a3;
+            v44 = v43;
+            v45 = ((a4 - v25) >> 1) / a3;
             v46 = v45;
-            v47 = ((a4 - v25) >> 1) / a3;
-            v48 = v47;
-            if (v47 != v45)
+            if (v45 != v43)
             {
               do
               {
-                v53 = v48;
-                v48 = v46;
-                v46 = v53 % v46;
+                v50 = v46;
+                v46 = v44;
+                v44 = v50 % v44;
               }
 
-              while (v46);
-              v54 = v37;
+              while (v44);
+              v51 = v37;
               if (a1)
               {
-                v55 = &v25[a1 * v48];
-                v56 = v47 * a1;
+                v52 = &v25[2 * a1 * v46];
+                v53 = v45 * a1;
                 do
                 {
-                  v55 -= a1;
-                  v57 = *v55;
-                  v58 = &v55[v56];
-                  v59 = v55;
+                  v52 -= a1;
+                  result.n128_u16[0] = *v52;
+                  v54 = &v52[v53];
+                  v55 = v52;
                   do
                   {
-                    v60 = v58;
-                    *v59 = *v58;
-                    v61 = (v23 - v58) / a3;
-                    if (v47 >= v61)
+                    v56 = v54;
+                    *v55 = *v54;
+                    v57 = (v23 - v54) / a3;
+                    if (v45 >= v57)
                     {
-                      v58 = &v25[(v47 - v61) * a1];
+                      v54 = &v25[2 * (v45 - v57) * a1];
                     }
 
                     else
                     {
-                      v58 = &v60[v56];
+                      v54 = &v56[v53];
                     }
 
-                    v59 = v60;
+                    v55 = v56;
                   }
 
-                  while (v58 != v55);
-                  *v60 = v57;
+                  while (v54 != v52);
+                  *v56 = result.n128_u16[0];
                 }
 
-                while (v55 != v25);
+                while (v52 != v25);
               }
 
-              a4 = &v25[v45 * a1];
+              a4 = &v25[2 * v43 * a1];
               v39 = a1;
-              v37 = v54;
+              LODWORD(v37) = v51;
               goto LABEL_66;
             }
 
             if (v25 != a4)
             {
-              v49 = a4;
-              v50 = v25;
+              v47 = a4;
+              v48 = v25;
               do
               {
-                v51 = *v50;
-                *v50 = *v49;
-                *v49 = v51;
-                v50 = (v50 + v19);
-                v49 = (v49 + v42);
+                result.n128_u16[0] = *v48;
+                *v48 = *v47;
+                *v47 = result.n128_u16[0];
+                v48 = (v48 + v19);
+                v47 = (v47 + v41);
               }
 
-              while (v50 != a4 && v49 != v23);
+              while (v48 != a4 && v47 != v23);
             }
           }
 
@@ -5286,43 +3617,43 @@ LABEL_66:
     }
 
     a7 = -(v37 + v18);
-    v63 = a8 - v36;
-    v85 = a11;
+    v59 = a8 - v36;
+    v82 = a11;
     if (v37 + v36 >= a8 - (v37 + v36) - v18)
     {
-      v84 = v38;
-      v64 = a10;
-      v63 = v36;
+      v81 = v38;
+      v60 = a10;
+      v59 = v36;
       a7 = v37;
       a3 = a1;
       v23 = v25;
       v38 = v22;
       a5 = v39;
-      a6 = v84;
+      a6 = v81;
     }
 
     else
     {
-      v83 = a10;
-      v64 = a10;
-      v65 = a1;
-      v66 = a1;
-      v67 = v25;
-      v68 = a5;
-      v69 = a6;
-      a5 = v68;
-      a6 = v69;
+      v80 = a10;
+      v60 = a10;
+      v61 = a1;
+      v62 = a1;
+      v63 = v25;
+      v64 = a5;
+      v65 = a6;
+      a5 = v64;
+      a6 = v65;
       a1 = v39;
     }
 
-    a8 = v63;
+    a8 = v59;
     a2 = v38;
     a4 = v23;
-    a10 = v64;
-    a11 = v85;
-    if (!v63)
+    a10 = v60;
+    a11 = v82;
+    if (!v59)
     {
-      return result;
+      return result.n128_u16[0];
     }
   }
 
@@ -5330,110 +3661,110 @@ LABEL_66:
   {
     if (a2 != a4)
     {
-      v73 = 2 * a1;
-      v74 = a2;
-      v75 = a10;
+      v69 = 2 * a1;
+      v70 = a2;
+      v71 = a10;
       do
       {
-        *v75++ = *v74;
-        v74 = (v74 + v73);
+        *v71++ = *v70;
+        v70 = (v70 + v69);
       }
 
-      while (v74 != a4);
-      v76 = v75 - 1;
+      while (v70 != a4);
+      v72 = v71 - 1;
       while (a4 != a6 || a3 != a5)
       {
         result.n128_u16[0] = *a4;
-        v77 = *a4 < *a10;
+        v73 = *a4 < *a10;
         if (*a4 >= *a10)
         {
           result.n128_u16[0] = *a10;
         }
 
         a10 += *a4 >= *a10;
-        if (v77)
+        if (v73)
         {
-          v78 = a3;
+          v74 = a3;
         }
 
         else
         {
-          v78 = 0;
+          v74 = 0;
         }
 
-        a4 += v78;
+        a4 += 2 * v74;
         *a2 = result.n128_u16[0];
-        a2 += v73;
-        if (v75 == a10)
+        a2 += v69;
+        if (v71 == a10)
         {
-          return result;
+          return result.n128_u16[0];
         }
       }
 
-      v79 = a10 - 1;
+      v75 = a10 - 1;
       do
       {
-        v80 = *(v79++ + 1);
-        result.n128_u16[0] = v80;
-        *a2 = v80;
-        a2 += v73;
+        v76 = *(v75++ + 1);
+        result.n128_u16[0] = v76;
+        *a2 = v76;
+        a2 += v69;
       }
 
-      while (v76 != v79);
+      while (v72 != v75);
     }
   }
 
   else if (a6 != a4)
   {
-    v70 = a4;
-    v71 = a10;
+    v66 = a4;
+    v67 = a10;
     do
     {
-      result.n128_u16[0] = *v70;
-      *v71++ = *v70;
-      v70 += a3;
+      result.n128_u16[0] = *v66;
+      *v67++ = *v66;
+      v66 += a3;
     }
 
-    while (v70 != a6);
+    while (v66 != a6);
     while (a2 != a4 || a3 != a1)
     {
-      v72 = &a4[-a3];
-      result.n128_u16[0] = *(v71 - 1);
-      a6 -= a5;
-      if (*result.n128_u16 >= *v72)
+      v68 = &a4[-2 * a3];
+      result.n128_u16[0] = *(v67 - 1);
+      a6 -= 2 * a5;
+      if (*result.n128_u16 >= *v68)
       {
-        --v71;
+        --v67;
       }
 
       else
       {
-        result.n128_u16[0] = *v72;
-        a4 -= a3;
+        result.n128_u16[0] = *v68;
+        a4 -= 2 * a3;
       }
 
       *a6 = result.n128_u16[0];
-      if (v71 == a10)
+      if (v67 == a10)
       {
-        return result;
+        return result.n128_u16[0];
       }
     }
 
-    if (v71 != a10)
+    if (v67 != a10)
     {
-      v81 = -1 * a5;
+      v77 = -2 * a5;
       do
       {
-        v82 = *--v71;
-        result.n128_u16[0] = v82;
-        a6[v81] = v82;
-        v81 -= a5;
+        v78 = *(v67-- - 1);
+        result.n128_u16[0] = v78;
+        *&a6[v77] = v78;
+        v77 -= 2 * a5;
       }
 
-      while (v71 != a10);
+      while (v67 != a10);
     }
   }
 
-  return result;
+  return result.n128_u16[0];
 }
 
 uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::_MLX_BFloat16>>(uint64_t result, char *a2, uint64_t a3, unsigned __int16 *a4, unsigned int a5, unsigned __int16 *a6, uint64_t a7)
@@ -5462,45 +3793,46 @@ uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
         v25 = a5;
         v26 = a5 - (a5 >> 1);
         v27 = &a2[2 * result * v24];
-        if (a5 <= a7)
+        v28 = a5 >> 1;
+        if (v25 <= a7)
         {
-          v28 = &v23[v24];
-          v29 = 2 * v12;
-          v30 = v28;
-          v31 = &v23[v25];
-          while (v30 != v31)
+          v29 = &v23[v24];
+          v30 = 2 * v12;
+          v31 = v29;
+          v32 = &v23[v25];
+          while (v31 != v32)
           {
-            v32 = *v30;
-            v33 = *v23;
-            v34 = COERCE_FLOAT(v32 << 16) >= COERCE_FLOAT(v33 << 16);
-            v35 = COERCE_FLOAT(v32 << 16) < COERCE_FLOAT(v33 << 16);
-            if (COERCE_FLOAT(v32 << 16) >= COERCE_FLOAT(v33 << 16))
+            v33 = *v31;
+            v34 = *v23;
+            v35 = COERCE_FLOAT(v33 << 16) >= COERCE_FLOAT(v34 << 16);
+            v36 = COERCE_FLOAT(v33 << 16) < COERCE_FLOAT(v34 << 16);
+            if (COERCE_FLOAT(v33 << 16) >= COERCE_FLOAT(v34 << 16))
             {
-              LOWORD(v32) = *v23;
+              LOWORD(v33) = *v23;
             }
 
-            v23 += v34;
-            v30 += v35;
-            *v9 = v32;
-            v9 += v29;
-            if (v23 == v28)
+            v23 += v35;
+            v31 += v36;
+            *v9 = v33;
+            v9 += v30;
+            if (v23 == v29)
             {
-              while (v30 != v31)
+              while (v31 != v32)
               {
-                v37 = *v30++;
-                *v9 = v37;
-                v9 += v29;
+                v38 = *v31++;
+                *v9 = v38;
+                v9 += v30;
               }
 
               return result;
             }
           }
 
-          while (v23 != v28)
+          while (v23 != v29)
           {
-            v36 = *v23++;
-            *v9 = v36;
-            v9 += v29;
+            v37 = *v23++;
+            *v9 = v37;
+            v9 += v30;
           }
         }
 
@@ -5538,7 +3870,7 @@ uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
                 v20 -= v15;
                 if (COERCE_FLOAT(v19 << 16) >= COERCE_FLOAT(v18 << 16))
                 {
-                  v21 = v13 + v20;
+                  v21 = (v13 + v20);
                   goto LABEL_17;
                 }
               }
@@ -5561,7 +3893,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::_MLX_BFloat16>>(uint64_t result, _WORD *a2, uint64_t a3, _WORD *a4, unsigned int a5, _WORD *a6)
+uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::_MLX_BFloat16>>(uint64_t result, unsigned __int16 *a2, uint64_t a3, unsigned __int16 *a4, unsigned int a5, unsigned __int16 *a6)
 {
   if (a5)
   {
@@ -5716,7 +4048,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::_MLX_BFloat16>>(uint64_t result, char *a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5, unsigned __int16 *a6, int a7, int a8, unsigned __int16 *a9, uint64_t a10)
+uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::_MLX_BFloat16>>(uint64_t result, char *a2, uint64_t a3, char *a4, uint64_t a5, char *a6, int a7, int a8, unsigned __int16 *a9, uint64_t a10)
 {
   if (!a8)
   {
@@ -5762,7 +4094,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
       v31 = (v19 > 0) - v19;
       v26 = &a2[2 * v13 * (v31 >> 1) + v17];
-      v32 = (a6 - a4) / a5;
+      v32 = ((a6 - a4) >> 1) / a5;
       if (v32)
       {
         v24 = a4;
@@ -5792,13 +4124,13 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v24 = a4;
       }
 
-      v38 = (v31 >> 1);
-      v37 = (v24 - a4) / a3;
+      LODWORD(v38) = v31 >> 1;
+      v37 = ((v24 - a4) >> 1) / a3;
     }
 
     else
     {
-      v24 = &a4[a3 * ((a8 + (a8 >> 31)) >> 1)];
+      v24 = &a4[2 * a3 * ((a8 + (a8 >> 31)) >> 1)];
       v25 = ((a4 - a2 - v17) >> 1) / a3;
       if (v25)
       {
@@ -5806,9 +4138,9 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         do
         {
           v27 = v25 >> 1;
-          v28 = (v26 + v13 * (v25 & 0xFFFFFFFE));
+          v28 = &v26[v13 * (v25 & 0xFFFFFFFE)];
           LODWORD(v29) = *v28 << 16;
-          v30 = &v28[v13];
+          v30 = &v28[2 * v13];
           LODWORD(v25) = v25 + ~(v25 >> 1);
           if (COERCE_FLOAT(*v24 << 16) < v29)
           {
@@ -5829,7 +4161,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v26 = &a2[v17];
       }
 
-      v37 = (a8 / 2);
+      LODWORD(v37) = a8 / 2;
       v38 = ((v26 - a2 - v17) >> 1) / v13;
     }
 
@@ -5839,26 +4171,26 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
       v40 = v13;
       if (a4 != v24)
       {
-        if (&v26[v13] == a4 && v13 == a3)
+        if (&v26[2 * v13] == a4 && v13 == a3)
         {
           v41 = 0;
           v42 = *v26;
           do
           {
-            *(v26 + v41) = *(a4 + v41);
+            *&v26[v41] = *&a4[v41];
             v41 += v20;
           }
 
-          while ((a4 + v41) != v24);
-          a4 = (v26 + v41);
-          *(v26 + v41) = v42;
+          while (&a4[v41] != v24);
+          a4 = &v26[v41];
+          *&v26[v41] = v42;
           v40 = v13;
         }
 
         else
         {
           v43 = 2 * a3;
-          if (&a4[a3] == v24)
+          if (&a4[2 * a3] == v24)
           {
             v44 = &v24[v43 / 0xFFFFFFFFFFFFFFFELL];
             v45 = v24[-a3];
@@ -5873,10 +4205,10 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
               a4 = v24;
               do
               {
-                v44 -= a3;
+                v44 -= 2 * a3;
                 v63 -= a3;
                 *v63 = *v44;
-                a4 = (a4 - v43);
+                a4 -= v43;
               }
 
               while (v44 != v26);
@@ -5887,9 +4219,9 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
           else
           {
-            v46 = (v24 - a4) / a3;
+            v46 = ((v24 - a4) >> 1) / a3;
             v47 = v46;
-            v48 = (a4 - v26) / a3;
+            v48 = ((a4 - v26) >> 1) / a3;
             v49 = v48;
             if (v48 != v46)
             {
@@ -5904,27 +4236,27 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
               v55 = v38;
               if (v13)
               {
-                v56 = &v26[v13 * v49];
+                v56 = &v26[2 * v13 * v49];
                 v57 = v48 * v13;
                 do
                 {
-                  v56 -= v13;
+                  v56 -= 2 * v13;
                   v58 = *v56;
-                  v59 = &v56[v57];
+                  v59 = &v56[2 * v57];
                   v60 = v56;
                   do
                   {
                     v61 = v59;
                     *v60 = *v59;
-                    v62 = (v24 - v59) / a3;
+                    v62 = ((v24 - v59) >> 1) / a3;
                     if (v48 >= v62)
                     {
-                      v59 = &v26[(v48 - v62) * v13];
+                      v59 = &v26[2 * (v48 - v62) * v13];
                     }
 
                     else
                     {
-                      v59 = &v61[v57];
+                      v59 = &v61[2 * v57];
                     }
 
                     v60 = v61;
@@ -5937,9 +4269,9 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
                 while (v56 != v26);
               }
 
-              a4 = &v26[v46 * v13];
+              a4 = &v26[2 * v46 * v13];
               v40 = v13;
-              v38 = v55;
+              LODWORD(v38) = v55;
               goto LABEL_67;
             }
 
@@ -6046,7 +4378,7 @@ LABEL_67:
           v82 = 0;
         }
 
-        a4 += v82;
+        a4 += 2 * v82;
         *a2 = v78;
         a2 += v74;
         if (v76 == a9)
@@ -6082,16 +4414,16 @@ LABEL_67:
     while (a2 != a4 || a3 != v13)
     {
       v73 = *(v72 - 1);
-      a6 -= a5;
-      if (COERCE_FLOAT(v73 << 16) >= COERCE_FLOAT(a4[-a3] << 16))
+      a6 -= 2 * a5;
+      if (COERCE_FLOAT(v73 << 16) >= COERCE_FLOAT(*&a4[-2 * a3] << 16))
       {
         --v72;
       }
 
       else
       {
-        LOWORD(v73) = a4[-a3];
-        a4 -= a3;
+        LOWORD(v73) = *&a4[-2 * a3];
+        a4 -= 2 * a3;
       }
 
       *a6 = v73;
@@ -6103,12 +4435,12 @@ LABEL_67:
 
     if (v72 != a9)
     {
-      v85 = -1 * a5;
+      v85 = -2 * a5;
       do
       {
         v86 = *--v72;
-        a6[v85] = v86;
-        v85 -= a5;
+        *&a6[v85] = v86;
+        v85 -= 2 * a5;
       }
 
       while (v72 != a9);
@@ -6118,7 +4450,7 @@ LABEL_67:
   return result;
 }
 
-uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(uint64_t result, float *a2, uint64_t a3, float *a4, unsigned int a5, float *a6, uint64_t a7)
+uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(uint64_t result, float *a2, uint64_t a3, float *a4, unsigned int a5, uint64_t *a6, uint64_t a7)
 {
   if (a5 < 2)
   {
@@ -6147,50 +4479,47 @@ uint64_t std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx:
     v25 = a5;
     v26 = a5 - (a5 >> 1);
     v27 = &a2[2 * result * v24];
-    if (a5 <= a7)
+    v28 = a5 >> 1;
+    if (v25 <= a7)
     {
-      v28 = &v23[2 * v24];
-      v29 = 8 * v12;
-      v30 = v28;
-      v31 = &v23[2 * v25];
-      while (v30 != v31)
+      v29 = &v23[v24];
+      v30 = 8 * v12;
+      v31 = v29;
+      v32 = &v23[v25];
+      while (v31 != v32)
       {
-        if (*v23 > *v30 || *v23 == *v30 && v23[1] > v30[1])
+        if (*v23 > *v31 || *v23 == *v31 && *(v23 + 1) > *(v31 + 1))
         {
-          v33 = *v30;
-          v30 += 2;
-          v32 = v33;
+          v34 = *v31++;
+          v33 = v34;
         }
 
         else
         {
-          v34 = *v23;
-          v23 += 2;
-          v32 = v34;
+          v35 = *v23++;
+          v33 = v35;
         }
 
-        *v9 = v32;
-        v9 += v29;
-        if (v23 == v28)
+        *v9 = v33;
+        v9 = (v9 + v30);
+        if (v23 == v29)
         {
-          while (v30 != v31)
+          while (v31 != v32)
           {
-            v36 = *v30;
-            v30 += 2;
-            *v9 = v36;
-            v9 += v29;
+            v37 = *v31++;
+            *v9 = v37;
+            v9 = (v9 + v30);
           }
 
           return result;
         }
       }
 
-      while (v23 != v28)
+      while (v23 != v29)
       {
-        v35 = *v23;
-        v23 += 2;
-        *v9 = v35;
-        v9 += v29;
+        v36 = *v23++;
+        *v9 = v36;
+        v9 = (v9 + v30);
       }
     }
 
@@ -6274,7 +4603,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(uint64_t result, float *a2, uint64_t a3, float *a4, unsigned int a5, float *a6)
+uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(uint64_t result, float *a2, uint64_t a3, float *a4, unsigned int a5, uint64_t *a6)
 {
   if (a5)
   {
@@ -6299,7 +4628,7 @@ LABEL_10:
       }
 
       *a6 = *v8;
-      v6 = a6 + 2;
+      v6 = a6 + 1;
       goto LABEL_10;
     }
 
@@ -6325,7 +4654,7 @@ LABEL_10:
             v8 += 2 * v12;
           }
 
-          v6 += 2;
+          ++v6;
           if (v8 == v23)
           {
             goto LABEL_42;
@@ -6334,8 +4663,7 @@ LABEL_10:
 
         for (; v8 != v23; v8 += 2 * v12)
         {
-          *v6 = *v8;
-          v6 += 2;
+          *v6++ = *v8;
         }
       }
 
@@ -6345,8 +4673,7 @@ LABEL_10:
 LABEL_42:
         while (v24 != a4)
         {
-          *v6 = *v24;
-          v6 += 2;
+          *v6++ = *v24;
           v24 += 2 * v12;
         }
       }
@@ -6418,7 +4745,7 @@ LABEL_29:
   return result;
 }
 
-uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(uint64_t result, char *a2, uint64_t a3, float *a4, uint64_t a5, float *a6, int a7, int a8, float *a9, uint64_t a10)
+float *std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,mlx::core::anonymous namespace::StridedIterator<mlx::core::complex64_t>>(float *result, float *a2, uint64_t a3, float *a4, uint64_t a5, float *a6, int a7, int a8, float *a9, uint64_t a10)
 {
   if (!a8)
   {
@@ -6440,8 +4767,8 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
     v18 = 8 * v12;
     while (1)
     {
-      v19 = *&a2[v15];
-      if (v19 > v16 || v19 == v16 && *&a2[v15 + 4] > a4[1])
+      v19 = *(a2 + v15);
+      if (v19 > v16 || v19 == v16 && *(a2 + v15 + 4) > a4[1])
       {
         break;
       }
@@ -6453,19 +4780,19 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
       }
     }
 
-    v21 = &a2[v15];
+    v21 = a2 + v15;
     if (-v17 >= a8)
     {
       if (v17 == -1)
       {
-        v76 = *&a2[v15];
-        *&a2[v15] = *a4;
+        v76 = *(a2 + v15);
+        *(a2 + v15) = *a4;
         *a4 = v76;
         return result;
       }
 
       v28 = (v17 > 0) - v17;
-      v25 = &a2[8 * v12 * (v28 >> 1) + v15];
+      v25 = (&a2[2 * v12 * (v28 >> 1)] + v15);
       v29 = ((a6 - a4) >> 3) / a5;
       if (v29)
       {
@@ -6492,7 +4819,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
         v22 = a4;
       }
 
-      v34 = (v28 >> 1);
+      LODWORD(v34) = v28 >> 1;
       v33 = ((v22 - a4) >> 3) / a3;
     }
 
@@ -6503,7 +4830,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
       if (v23)
       {
         v24 = *v22;
-        v25 = &a2[v15];
+        v25 = (a2 + v15);
         do
         {
           v26 = v23 >> 1;
@@ -6522,10 +4849,10 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
       else
       {
-        v25 = &a2[v15];
+        v25 = (a2 + v15);
       }
 
-      v33 = (a8 / 2);
+      LODWORD(v33) = a8 / 2;
       v34 = ((v25 - a2 - v15) >> 3) / v12;
     }
 
@@ -6635,7 +4962,7 @@ uint64_t std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,ml
 
               a4 = &v25[2 * v42 * v12];
               v36 = v12;
-              v34 = v51;
+              LODWORD(v34) = v51;
               goto LABEL_71;
             }
 
@@ -6731,7 +5058,7 @@ LABEL_71:
           *a2 = v75;
         }
 
-        a2 += v71;
+        a2 = (a2 + v71);
         if (v73 == v13)
         {
           return result;
@@ -6744,7 +5071,7 @@ LABEL_71:
         v78 = *(v77 + 1);
         v77 += 2;
         *a2 = v78;
-        a2 += v71;
+        a2 = (a2 + v71);
       }
 
       while (v74 != v77);
@@ -6958,56 +5285,56 @@ void mlx::core::ArgPartition::eval_cpu(std::vector<mlx::core::array> const&,mlx:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v7, v7[1], (v7[1] - *v7) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 2);
       v8 = &v2524[4 * v3];
-      v9 = v2525 - (v8 + 4);
-      if (v2525 != v8 + 4)
+      v9 = v2525 - (v8 + 1);
+      if (v2525 != v8 + 1)
       {
-        memmove(&v2524[4 * v3], v8 + 4, v2525 - (v8 + 4));
+        memmove(&v2524[4 * v3], v8 + 1, v2525 - (v8 + 1));
       }
 
-      v2525 = &v8[v9];
+      v2525 = (v8 + v9);
       v10 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v10 + 24), *(v10 + 32), (*(v10 + 32) - *(v10 + 24)) >> 3);
       v11 = v3;
-      v12 = &v2521[8 * v3];
-      v13 = v2522 - (v12 + 8);
-      if (v2522 != v12 + 8)
+      v12 = &v2521[v3];
+      v13 = v2522 - (v12 + 1);
+      if (v2522 != v12 + 1)
       {
-        memmove(&v2521[8 * v3], v12 + 8, v2522 - (v12 + 8));
+        memmove(&v2521[v3], v12 + 1, v2522 - (v12 + 1));
       }
 
-      v2522 = &v12[v13];
+      v2522 = (v12 + v13);
       v14 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v14, v14[1], (v14[1] - *v14) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v14, *(v14 + 8), (*(v14 + 8) - *v14) >> 2);
       v15 = 4 * v3;
       v16 = &v2518[v15];
       v17 = v2519 - &v2518[v15 + 4];
       if (v2519 != &v2518[v15 + 4])
       {
-        memmove(&v2518[v15], &v2518[v15 + 4], v2519 - (v16 + 4));
+        memmove(&v2518[v15], &v2518[v15 + 4], v2519 - (v16 + 1));
       }
 
-      v2519 = &v16[v17];
+      v2519 = (v16 + v17);
       v18 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v18 + 24), *(v18 + 32), (*(v18 + 32) - *(v18 + 24)) >> 3);
-      v19 = &v2515[8 * v11];
-      v20 = v2516 - (v19 + 8);
-      if (v2516 != v19 + 8)
+      v19 = &v2515[v11];
+      v20 = v2516 - (v19 + 1);
+      if (v2516 != v19 + 1)
       {
-        memmove(&v2515[8 * v11], v19 + 8, v2516 - (v19 + 8));
+        memmove(&v2515[v11], v19 + 1, v2516 - (v19 + 1));
       }
 
-      v2516 = &v19[v20];
+      v2516 = (v19 + v20);
       v21 = *(*(*this + 24) + 8 * v11);
       v22 = *(*(*(this + 2) + 24) + 8 * v11);
       v23 = mlx::core::array::shape(this, v11);
@@ -7679,56 +6006,56 @@ LABEL_36:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1313, v1313[1], (v1313[1] - *v1313) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1313, *(v1313 + 8), (*(v1313 + 8) - *v1313) >> 2);
       v1314 = &v2524[4 * v1309];
-      v1315 = v2525 - (v1314 + 4);
-      if (v2525 != v1314 + 4)
+      v1315 = v2525 - (v1314 + 1);
+      if (v2525 != v1314 + 1)
       {
-        memmove(&v2524[4 * v1309], v1314 + 4, v2525 - (v1314 + 4));
+        memmove(&v2524[4 * v1309], v1314 + 1, v2525 - (v1314 + 1));
       }
 
-      v2525 = &v1314[v1315];
+      v2525 = (v1314 + v1315);
       v1316 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1316 + 24), *(v1316 + 32), (*(v1316 + 32) - *(v1316 + 24)) >> 3);
       v1317 = v1309;
-      v1318 = &v2521[8 * v1309];
-      v1319 = v2522 - (v1318 + 8);
-      if (v2522 != v1318 + 8)
+      v1318 = &v2521[v1309];
+      v1319 = v2522 - (v1318 + 1);
+      if (v2522 != v1318 + 1)
       {
-        memmove(&v2521[8 * v1309], v1318 + 8, v2522 - (v1318 + 8));
+        memmove(&v2521[v1309], v1318 + 1, v2522 - (v1318 + 1));
       }
 
-      v2522 = &v1318[v1319];
+      v2522 = (v1318 + v1319);
       v1320 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1320, v1320[1], (v1320[1] - *v1320) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1320, *(v1320 + 8), (*(v1320 + 8) - *v1320) >> 2);
       v1321 = 4 * v1309;
       v1322 = &v2518[v1321];
       v1323 = v2519 - &v2518[v1321 + 4];
       if (v2519 != &v2518[v1321 + 4])
       {
-        memmove(&v2518[v1321], &v2518[v1321 + 4], v2519 - (v1322 + 4));
+        memmove(&v2518[v1321], &v2518[v1321 + 4], v2519 - (v1322 + 1));
       }
 
-      v2519 = &v1322[v1323];
+      v2519 = (v1322 + v1323);
       v1324 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1324 + 24), *(v1324 + 32), (*(v1324 + 32) - *(v1324 + 24)) >> 3);
-      v1325 = &v2515[8 * v1317];
-      v1326 = v2516 - (v1325 + 8);
-      if (v2516 != v1325 + 8)
+      v1325 = &v2515[v1317];
+      v1326 = v2516 - (v1325 + 1);
+      if (v2516 != v1325 + 1)
       {
-        memmove(&v2515[8 * v1317], v1325 + 8, v2516 - (v1325 + 8));
+        memmove(&v2515[v1317], v1325 + 1, v2516 - (v1325 + 1));
       }
 
-      v2516 = &v1325[v1326];
+      v2516 = (v1325 + v1326);
       v1327 = *(*(*this + 24) + 8 * v1317);
       v1328 = *(*(*(this + 2) + 24) + 8 * v1317);
       v1329 = mlx::core::array::shape(this, v1317);
@@ -8414,56 +6741,56 @@ LABEL_2869:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v808, v808[1], (v808[1] - *v808) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v808, *(v808 + 8), (*(v808 + 8) - *v808) >> 2);
       v809 = &v2524[4 * v804];
-      v810 = v2525 - (v809 + 4);
-      if (v2525 != v809 + 4)
+      v810 = v2525 - (v809 + 1);
+      if (v2525 != v809 + 1)
       {
-        memmove(&v2524[4 * v804], v809 + 4, v2525 - (v809 + 4));
+        memmove(&v2524[4 * v804], v809 + 1, v2525 - (v809 + 1));
       }
 
-      v2525 = &v809[v810];
+      v2525 = (v809 + v810);
       v811 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v811 + 24), *(v811 + 32), (*(v811 + 32) - *(v811 + 24)) >> 3);
       v812 = v804;
-      v813 = &v2521[8 * v804];
-      v814 = v2522 - (v813 + 8);
-      if (v2522 != v813 + 8)
+      v813 = &v2521[v804];
+      v814 = v2522 - (v813 + 1);
+      if (v2522 != v813 + 1)
       {
-        memmove(&v2521[8 * v804], v813 + 8, v2522 - (v813 + 8));
+        memmove(&v2521[v804], v813 + 1, v2522 - (v813 + 1));
       }
 
-      v2522 = &v813[v814];
+      v2522 = (v813 + v814);
       v815 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v815, v815[1], (v815[1] - *v815) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v815, *(v815 + 8), (*(v815 + 8) - *v815) >> 2);
       v816 = 4 * v804;
       v817 = &v2518[v816];
       v818 = v2519 - &v2518[v816 + 4];
       if (v2519 != &v2518[v816 + 4])
       {
-        memmove(&v2518[v816], &v2518[v816 + 4], v2519 - (v817 + 4));
+        memmove(&v2518[v816], &v2518[v816 + 4], v2519 - (v817 + 1));
       }
 
-      v2519 = &v817[v818];
+      v2519 = (v817 + v818);
       v819 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v819 + 24), *(v819 + 32), (*(v819 + 32) - *(v819 + 24)) >> 3);
-      v820 = &v2515[8 * v812];
-      v821 = v2516 - (v820 + 8);
-      if (v2516 != v820 + 8)
+      v820 = &v2515[v812];
+      v821 = v2516 - (v820 + 1);
+      if (v2516 != v820 + 1)
       {
-        memmove(&v2515[8 * v812], v820 + 8, v2516 - (v820 + 8));
+        memmove(&v2515[v812], v820 + 1, v2516 - (v820 + 1));
       }
 
-      v2516 = &v820[v821];
+      v2516 = (v820 + v821);
       v822 = *(*(*this + 24) + 8 * v812);
       v823 = *(*(*(this + 2) + 24) + 8 * v812);
       v824 = mlx::core::array::shape(this, v812);
@@ -9145,56 +7472,56 @@ LABEL_2479:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v975, v975[1], (v975[1] - *v975) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v975, *(v975 + 8), (*(v975 + 8) - *v975) >> 2);
       v976 = &v2524[4 * v971];
-      v977 = v2525 - (v976 + 4);
-      if (v2525 != v976 + 4)
+      v977 = v2525 - (v976 + 1);
+      if (v2525 != v976 + 1)
       {
-        memmove(&v2524[4 * v971], v976 + 4, v2525 - (v976 + 4));
+        memmove(&v2524[4 * v971], v976 + 1, v2525 - (v976 + 1));
       }
 
-      v2525 = &v976[v977];
+      v2525 = (v976 + v977);
       v978 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v978 + 24), *(v978 + 32), (*(v978 + 32) - *(v978 + 24)) >> 3);
       v979 = v971;
-      v980 = &v2521[8 * v971];
-      v981 = v2522 - (v980 + 8);
-      if (v2522 != v980 + 8)
+      v980 = &v2521[v971];
+      v981 = v2522 - (v980 + 1);
+      if (v2522 != v980 + 1)
       {
-        memmove(&v2521[8 * v971], v980 + 8, v2522 - (v980 + 8));
+        memmove(&v2521[v971], v980 + 1, v2522 - (v980 + 1));
       }
 
-      v2522 = &v980[v981];
+      v2522 = (v980 + v981);
       v982 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v982, v982[1], (v982[1] - *v982) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v982, *(v982 + 8), (*(v982 + 8) - *v982) >> 2);
       v983 = 4 * v971;
       v984 = &v2518[v983];
       v985 = v2519 - &v2518[v983 + 4];
       if (v2519 != &v2518[v983 + 4])
       {
-        memmove(&v2518[v983], &v2518[v983 + 4], v2519 - (v984 + 4));
+        memmove(&v2518[v983], &v2518[v983 + 4], v2519 - (v984 + 1));
       }
 
-      v2519 = &v984[v985];
+      v2519 = (v984 + v985);
       v986 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v986 + 24), *(v986 + 32), (*(v986 + 32) - *(v986 + 24)) >> 3);
-      v987 = &v2515[8 * v979];
-      v988 = v2516 - (v987 + 8);
-      if (v2516 != v987 + 8)
+      v987 = &v2515[v979];
+      v988 = v2516 - (v987 + 1);
+      if (v2516 != v987 + 1)
       {
-        memmove(&v2515[8 * v979], v987 + 8, v2516 - (v987 + 8));
+        memmove(&v2515[v979], v987 + 1, v2516 - (v987 + 1));
       }
 
-      v2516 = &v987[v988];
+      v2516 = (v987 + v988);
       v989 = *(*(*this + 24) + 8 * v979);
       v990 = *(*(*(this + 2) + 24) + 8 * v979);
       v991 = mlx::core::array::shape(this, v979);
@@ -9867,56 +8194,56 @@ LABEL_1200:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v330, v330[1], (v330[1] - *v330) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v330, *(v330 + 8), (*(v330 + 8) - *v330) >> 2);
       v331 = &v2524[4 * v326];
-      v332 = v2525 - (v331 + 4);
-      if (v2525 != v331 + 4)
+      v332 = v2525 - (v331 + 1);
+      if (v2525 != v331 + 1)
       {
-        memmove(&v2524[4 * v326], v331 + 4, v2525 - (v331 + 4));
+        memmove(&v2524[4 * v326], v331 + 1, v2525 - (v331 + 1));
       }
 
-      v2525 = &v331[v332];
+      v2525 = (v331 + v332);
       v333 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v333 + 24), *(v333 + 32), (*(v333 + 32) - *(v333 + 24)) >> 3);
       v334 = v326;
-      v335 = &v2521[8 * v326];
-      v336 = v2522 - (v335 + 8);
-      if (v2522 != v335 + 8)
+      v335 = &v2521[v326];
+      v336 = v2522 - (v335 + 1);
+      if (v2522 != v335 + 1)
       {
-        memmove(&v2521[8 * v326], v335 + 8, v2522 - (v335 + 8));
+        memmove(&v2521[v326], v335 + 1, v2522 - (v335 + 1));
       }
 
-      v2522 = &v335[v336];
+      v2522 = (v335 + v336);
       v337 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v337, v337[1], (v337[1] - *v337) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v337, *(v337 + 8), (*(v337 + 8) - *v337) >> 2);
       v338 = 4 * v326;
       v339 = &v2518[v338];
       v340 = v2519 - &v2518[v338 + 4];
       if (v2519 != &v2518[v338 + 4])
       {
-        memmove(&v2518[v338], &v2518[v338 + 4], v2519 - (v339 + 4));
+        memmove(&v2518[v338], &v2518[v338 + 4], v2519 - (v339 + 1));
       }
 
-      v2519 = &v339[v340];
+      v2519 = (v339 + v340);
       v341 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v341 + 24), *(v341 + 32), (*(v341 + 32) - *(v341 + 24)) >> 3);
-      v342 = &v2515[8 * v334];
-      v343 = v2516 - (v342 + 8);
-      if (v2516 != v342 + 8)
+      v342 = &v2515[v334];
+      v343 = v2516 - (v342 + 1);
+      if (v2516 != v342 + 1)
       {
-        memmove(&v2515[8 * v334], v342 + 8, v2516 - (v342 + 8));
+        memmove(&v2515[v334], v342 + 1, v2516 - (v342 + 1));
       }
 
-      v2516 = &v342[v343];
+      v2516 = (v342 + v343);
       v344 = *(*(*this + 24) + 8 * v334);
       v345 = *(*(*(this + 2) + 24) + 8 * v334);
       v346 = mlx::core::array::shape(this, v334);
@@ -10588,56 +8915,56 @@ LABEL_425:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1482, v1482[1], (v1482[1] - *v1482) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1482, *(v1482 + 8), (*(v1482 + 8) - *v1482) >> 2);
       v1483 = &v2524[4 * v1478];
-      v1484 = v2525 - (v1483 + 4);
-      if (v2525 != v1483 + 4)
+      v1484 = v2525 - (v1483 + 1);
+      if (v2525 != v1483 + 1)
       {
-        memmove(&v2524[4 * v1478], v1483 + 4, v2525 - (v1483 + 4));
+        memmove(&v2524[4 * v1478], v1483 + 1, v2525 - (v1483 + 1));
       }
 
-      v2525 = &v1483[v1484];
+      v2525 = (v1483 + v1484);
       v1485 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1485 + 24), *(v1485 + 32), (*(v1485 + 32) - *(v1485 + 24)) >> 3);
       v1486 = v1478;
-      v1487 = &v2521[8 * v1478];
-      v1488 = v2522 - (v1487 + 8);
-      if (v2522 != v1487 + 8)
+      v1487 = &v2521[v1478];
+      v1488 = v2522 - (v1487 + 1);
+      if (v2522 != v1487 + 1)
       {
-        memmove(&v2521[8 * v1478], v1487 + 8, v2522 - (v1487 + 8));
+        memmove(&v2521[v1478], v1487 + 1, v2522 - (v1487 + 1));
       }
 
-      v2522 = &v1487[v1488];
+      v2522 = (v1487 + v1488);
       v1489 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1489, v1489[1], (v1489[1] - *v1489) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1489, *(v1489 + 8), (*(v1489 + 8) - *v1489) >> 2);
       v1490 = 4 * v1478;
       v1491 = &v2518[v1490];
       v1492 = v2519 - &v2518[v1490 + 4];
       if (v2519 != &v2518[v1490 + 4])
       {
-        memmove(&v2518[v1490], &v2518[v1490 + 4], v2519 - (v1491 + 4));
+        memmove(&v2518[v1490], &v2518[v1490 + 4], v2519 - (v1491 + 1));
       }
 
-      v2519 = &v1491[v1492];
+      v2519 = (v1491 + v1492);
       v1493 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1493 + 24), *(v1493 + 32), (*(v1493 + 32) - *(v1493 + 24)) >> 3);
-      v1494 = &v2515[8 * v1486];
-      v1495 = v2516 - (v1494 + 8);
-      if (v2516 != v1494 + 8)
+      v1494 = &v2515[v1486];
+      v1495 = v2516 - (v1494 + 1);
+      if (v2516 != v1494 + 1)
       {
-        memmove(&v2515[8 * v1486], v1494 + 8, v2516 - (v1494 + 8));
+        memmove(&v2515[v1486], v1494 + 1, v2516 - (v1494 + 1));
       }
 
-      v2516 = &v1494[v1495];
+      v2516 = (v1494 + v1495);
       v1496 = *(*(*this + 24) + 8 * v1486);
       v1497 = *(*(*(this + 2) + 24) + 8 * v1486);
       v1498 = mlx::core::array::shape(this, v1486);
@@ -11306,56 +9633,56 @@ LABEL_1837:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1821, v1821[1], (v1821[1] - *v1821) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1821, *(v1821 + 8), (*(v1821 + 8) - *v1821) >> 2);
       v1822 = &v2524[4 * v1817];
-      v1823 = v2525 - (v1822 + 4);
-      if (v2525 != v1822 + 4)
+      v1823 = v2525 - (v1822 + 1);
+      if (v2525 != v1822 + 1)
       {
-        memmove(&v2524[4 * v1817], v1822 + 4, v2525 - (v1822 + 4));
+        memmove(&v2524[4 * v1817], v1822 + 1, v2525 - (v1822 + 1));
       }
 
-      v2525 = &v1822[v1823];
+      v2525 = (v1822 + v1823);
       v1824 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1824 + 24), *(v1824 + 32), (*(v1824 + 32) - *(v1824 + 24)) >> 3);
       v1825 = v1817;
-      v1826 = &v2521[8 * v1817];
-      v1827 = v2522 - (v1826 + 8);
-      if (v2522 != v1826 + 8)
+      v1826 = &v2521[v1817];
+      v1827 = v2522 - (v1826 + 1);
+      if (v2522 != v1826 + 1)
       {
-        memmove(&v2521[8 * v1817], v1826 + 8, v2522 - (v1826 + 8));
+        memmove(&v2521[v1817], v1826 + 1, v2522 - (v1826 + 1));
       }
 
-      v2522 = &v1826[v1827];
+      v2522 = (v1826 + v1827);
       v1828 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1828, v1828[1], (v1828[1] - *v1828) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1828, *(v1828 + 8), (*(v1828 + 8) - *v1828) >> 2);
       v1829 = 4 * v1817;
       v1830 = &v2518[v1829];
       v1831 = v2519 - &v2518[v1829 + 4];
       if (v2519 != &v2518[v1829 + 4])
       {
-        memmove(&v2518[v1829], &v2518[v1829 + 4], v2519 - (v1830 + 4));
+        memmove(&v2518[v1829], &v2518[v1829 + 4], v2519 - (v1830 + 1));
       }
 
-      v2519 = &v1830[v1831];
+      v2519 = (v1830 + v1831);
       v1832 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1832 + 24), *(v1832 + 32), (*(v1832 + 32) - *(v1832 + 24)) >> 3);
-      v1833 = &v2515[8 * v1825];
-      v1834 = v2516 - (v1833 + 8);
-      if (v2516 != v1833 + 8)
+      v1833 = &v2515[v1825];
+      v1834 = v2516 - (v1833 + 1);
+      if (v2516 != v1833 + 1)
       {
-        memmove(&v2515[8 * v1825], v1833 + 8, v2516 - (v1833 + 8));
+        memmove(&v2515[v1825], v1833 + 1, v2516 - (v1833 + 1));
       }
 
-      v2516 = &v1833[v1834];
+      v2516 = (v1833 + v1834);
       v1835 = *(*(*this + 24) + 8 * v1825);
       v1836 = *(*(*(this + 2) + 24) + 8 * v1825);
       v1837 = mlx::core::array::shape(this, v1825);
@@ -12023,56 +10350,56 @@ LABEL_2302:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1144, v1144[1], (v1144[1] - *v1144) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1144, *(v1144 + 8), (*(v1144 + 8) - *v1144) >> 2);
       v1145 = &v2524[4 * v1140];
-      v1146 = v2525 - (v1145 + 4);
-      if (v2525 != v1145 + 4)
+      v1146 = v2525 - (v1145 + 1);
+      if (v2525 != v1145 + 1)
       {
-        memmove(&v2524[4 * v1140], v1145 + 4, v2525 - (v1145 + 4));
+        memmove(&v2524[4 * v1140], v1145 + 1, v2525 - (v1145 + 1));
       }
 
-      v2525 = &v1145[v1146];
+      v2525 = (v1145 + v1146);
       v1147 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1147 + 24), *(v1147 + 32), (*(v1147 + 32) - *(v1147 + 24)) >> 3);
       v1148 = v1140;
-      v1149 = &v2521[8 * v1140];
-      v1150 = v2522 - (v1149 + 8);
-      if (v2522 != v1149 + 8)
+      v1149 = &v2521[v1140];
+      v1150 = v2522 - (v1149 + 1);
+      if (v2522 != v1149 + 1)
       {
-        memmove(&v2521[8 * v1140], v1149 + 8, v2522 - (v1149 + 8));
+        memmove(&v2521[v1140], v1149 + 1, v2522 - (v1149 + 1));
       }
 
-      v2522 = &v1149[v1150];
+      v2522 = (v1149 + v1150);
       v1151 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1151, v1151[1], (v1151[1] - *v1151) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1151, *(v1151 + 8), (*(v1151 + 8) - *v1151) >> 2);
       v1152 = 4 * v1140;
       v1153 = &v2518[v1152];
       v1154 = v2519 - &v2518[v1152 + 4];
       if (v2519 != &v2518[v1152 + 4])
       {
-        memmove(&v2518[v1152], &v2518[v1152 + 4], v2519 - (v1153 + 4));
+        memmove(&v2518[v1152], &v2518[v1152 + 4], v2519 - (v1153 + 1));
       }
 
-      v2519 = &v1153[v1154];
+      v2519 = (v1153 + v1154);
       v1155 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1155 + 24), *(v1155 + 32), (*(v1155 + 32) - *(v1155 + 24)) >> 3);
-      v1156 = &v2515[8 * v1148];
-      v1157 = v2516 - (v1156 + 8);
-      if (v2516 != v1156 + 8)
+      v1156 = &v2515[v1148];
+      v1157 = v2516 - (v1156 + 1);
+      if (v2516 != v1156 + 1)
       {
-        memmove(&v2515[8 * v1148], v1156 + 8, v2516 - (v1156 + 8));
+        memmove(&v2515[v1148], v1156 + 1, v2516 - (v1156 + 1));
       }
 
-      v2516 = &v1156[v1157];
+      v2516 = (v1156 + v1157);
       v1158 = *(*(*this + 24) + 8 * v1148);
       v1159 = *(*(*(this + 2) + 24) + 8 * v1148);
       v1160 = mlx::core::array::shape(this, v1148);
@@ -12745,56 +11072,56 @@ LABEL_1412:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v2135, v2135[1], (v2135[1] - *v2135) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v2135, *(v2135 + 8), (*(v2135 + 8) - *v2135) >> 2);
       v2136 = &v2524[4 * v2131];
-      v2137 = v2525 - (v2136 + 4);
-      if (v2525 != v2136 + 4)
+      v2137 = v2525 - (v2136 + 1);
+      if (v2525 != v2136 + 1)
       {
-        memmove(&v2524[4 * v2131], v2136 + 4, v2525 - (v2136 + 4));
+        memmove(&v2524[4 * v2131], v2136 + 1, v2525 - (v2136 + 1));
       }
 
-      v2525 = &v2136[v2137];
+      v2525 = (v2136 + v2137);
       v2138 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v2138 + 24), *(v2138 + 32), (*(v2138 + 32) - *(v2138 + 24)) >> 3);
       v2139 = v2131;
-      v2140 = &v2521[8 * v2131];
-      v2141 = v2522 - (v2140 + 8);
-      if (v2522 != v2140 + 8)
+      v2140 = &v2521[v2131];
+      v2141 = v2522 - (v2140 + 1);
+      if (v2522 != v2140 + 1)
       {
-        memmove(&v2521[8 * v2131], v2140 + 8, v2522 - (v2140 + 8));
+        memmove(&v2521[v2131], v2140 + 1, v2522 - (v2140 + 1));
       }
 
-      v2522 = &v2140[v2141];
+      v2522 = (v2140 + v2141);
       v2142 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v2142, v2142[1], (v2142[1] - *v2142) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v2142, *(v2142 + 8), (*(v2142 + 8) - *v2142) >> 2);
       v2143 = 4 * v2131;
       v2144 = &v2518[v2143];
       v2145 = v2519 - &v2518[v2143 + 4];
       if (v2519 != &v2518[v2143 + 4])
       {
-        memmove(&v2518[v2143], &v2518[v2143 + 4], v2519 - (v2144 + 4));
+        memmove(&v2518[v2143], &v2518[v2143 + 4], v2519 - (v2144 + 1));
       }
 
-      v2519 = &v2144[v2145];
+      v2519 = (v2144 + v2145);
       v2146 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v2146 + 24), *(v2146 + 32), (*(v2146 + 32) - *(v2146 + 24)) >> 3);
-      v2147 = &v2515[8 * v2139];
-      v2148 = v2516 - (v2147 + 8);
-      if (v2516 != v2147 + 8)
+      v2147 = &v2515[v2139];
+      v2148 = v2516 - (v2147 + 1);
+      if (v2516 != v2147 + 1)
       {
-        memmove(&v2515[8 * v2139], v2147 + 8, v2516 - (v2147 + 8));
+        memmove(&v2515[v2139], v2147 + 1, v2516 - (v2147 + 1));
       }
 
-      v2516 = &v2147[v2148];
+      v2516 = (v2147 + v2148);
       v2149 = *(*(*this + 24) + 8 * v2139);
       v2150 = *(*(*(this + 2) + 24) + 8 * v2139);
       v2151 = mlx::core::array::shape(this, v2139);
@@ -13466,56 +11793,56 @@ LABEL_2690:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v653, v653[1], (v653[1] - *v653) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v653, *(v653 + 8), (*(v653 + 8) - *v653) >> 2);
       v654 = &v2524[4 * v649];
-      v655 = v2525 - (v654 + 4);
-      if (v2525 != v654 + 4)
+      v655 = v2525 - (v654 + 1);
+      if (v2525 != v654 + 1)
       {
-        memmove(&v2524[4 * v649], v654 + 4, v2525 - (v654 + 4));
+        memmove(&v2524[4 * v649], v654 + 1, v2525 - (v654 + 1));
       }
 
-      v2525 = &v654[v655];
+      v2525 = (v654 + v655);
       v656 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v656 + 24), *(v656 + 32), (*(v656 + 32) - *(v656 + 24)) >> 3);
       v657 = v649;
-      v658 = &v2521[8 * v649];
-      v659 = v2522 - (v658 + 8);
-      if (v2522 != v658 + 8)
+      v658 = &v2521[v649];
+      v659 = v2522 - (v658 + 1);
+      if (v2522 != v658 + 1)
       {
-        memmove(&v2521[8 * v649], v658 + 8, v2522 - (v658 + 8));
+        memmove(&v2521[v649], v658 + 1, v2522 - (v658 + 1));
       }
 
-      v2522 = &v658[v659];
+      v2522 = (v658 + v659);
       v660 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v660, v660[1], (v660[1] - *v660) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v660, *(v660 + 8), (*(v660 + 8) - *v660) >> 2);
       v661 = 4 * v649;
       v662 = &v2518[v661];
       v663 = v2519 - &v2518[v661 + 4];
       if (v2519 != &v2518[v661 + 4])
       {
-        memmove(&v2518[v661], &v2518[v661 + 4], v2519 - (v662 + 4));
+        memmove(&v2518[v661], &v2518[v661 + 4], v2519 - (v662 + 1));
       }
 
-      v2519 = &v662[v663];
+      v2519 = (v662 + v663);
       v664 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v664 + 24), *(v664 + 32), (*(v664 + 32) - *(v664 + 24)) >> 3);
-      v665 = &v2515[8 * v657];
-      v666 = v2516 - (v665 + 8);
-      if (v2516 != v665 + 8)
+      v665 = &v2515[v657];
+      v666 = v2516 - (v665 + 1);
+      if (v2516 != v665 + 1)
       {
-        memmove(&v2515[8 * v657], v665 + 8, v2516 - (v665 + 8));
+        memmove(&v2515[v657], v665 + 1, v2516 - (v665 + 1));
       }
 
-      v2516 = &v665[v666];
+      v2516 = (v665 + v666);
       v667 = *(*(*this + 24) + 8 * v657);
       v668 = *(*(*(this + 2) + 24) + 8 * v657);
       v669 = mlx::core::array::shape(this, v657);
@@ -14223,56 +12550,56 @@ LABEL_2870:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1982, v1982[1], (v1982[1] - *v1982) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1982, *(v1982 + 8), (*(v1982 + 8) - *v1982) >> 2);
       v1983 = &v2524[4 * v1978];
-      v1984 = v2525 - (v1983 + 4);
-      if (v2525 != v1983 + 4)
+      v1984 = v2525 - (v1983 + 1);
+      if (v2525 != v1983 + 1)
       {
-        memmove(&v2524[4 * v1978], v1983 + 4, v2525 - (v1983 + 4));
+        memmove(&v2524[4 * v1978], v1983 + 1, v2525 - (v1983 + 1));
       }
 
-      v2525 = &v1983[v1984];
+      v2525 = (v1983 + v1984);
       v1985 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1985 + 24), *(v1985 + 32), (*(v1985 + 32) - *(v1985 + 24)) >> 3);
       v1986 = v1978;
-      v1987 = &v2521[8 * v1978];
-      v1988 = v2522 - (v1987 + 8);
-      if (v2522 != v1987 + 8)
+      v1987 = &v2521[v1978];
+      v1988 = v2522 - (v1987 + 1);
+      if (v2522 != v1987 + 1)
       {
-        memmove(&v2521[8 * v1978], v1987 + 8, v2522 - (v1987 + 8));
+        memmove(&v2521[v1978], v1987 + 1, v2522 - (v1987 + 1));
       }
 
-      v2522 = &v1987[v1988];
+      v2522 = (v1987 + v1988);
       v1989 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1989, v1989[1], (v1989[1] - *v1989) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1989, *(v1989 + 8), (*(v1989 + 8) - *v1989) >> 2);
       v1990 = 4 * v1978;
       v1991 = &v2518[v1990];
       v1992 = v2519 - &v2518[v1990 + 4];
       if (v2519 != &v2518[v1990 + 4])
       {
-        memmove(&v2518[v1990], &v2518[v1990 + 4], v2519 - (v1991 + 4));
+        memmove(&v2518[v1990], &v2518[v1990 + 4], v2519 - (v1991 + 1));
       }
 
-      v2519 = &v1991[v1992];
+      v2519 = (v1991 + v1992);
       v1993 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1993 + 24), *(v1993 + 32), (*(v1993 + 32) - *(v1993 + 24)) >> 3);
-      v1994 = &v2515[8 * v1986];
-      v1995 = v2516 - (v1994 + 8);
-      if (v2516 != v1994 + 8)
+      v1994 = &v2515[v1986];
+      v1995 = v2516 - (v1994 + 1);
+      if (v2516 != v1994 + 1)
       {
-        memmove(&v2515[8 * v1986], v1994 + 8, v2516 - (v1994 + 8));
+        memmove(&v2515[v1986], v1994 + 1, v2516 - (v1994 + 1));
       }
 
-      v2516 = &v1994[v1995];
+      v2516 = (v1994 + v1995);
       v1996 = *(*(*this + 24) + 8 * v1986);
       v1997 = *(*(*(this + 2) + 24) + 8 * v1986);
       v1998 = mlx::core::array::shape(this, v1986);
@@ -14932,56 +13259,56 @@ LABEL_2514:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v176, v176[1], (v176[1] - *v176) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v176, *(v176 + 8), (*(v176 + 8) - *v176) >> 2);
       v177 = &v2524[4 * v172];
-      v178 = v2525 - (v177 + 4);
-      if (v2525 != v177 + 4)
+      v178 = v2525 - (v177 + 1);
+      if (v2525 != v177 + 1)
       {
-        memmove(&v2524[4 * v172], v177 + 4, v2525 - (v177 + 4));
+        memmove(&v2524[4 * v172], v177 + 1, v2525 - (v177 + 1));
       }
 
-      v2525 = &v177[v178];
+      v2525 = (v177 + v178);
       v179 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v179 + 24), *(v179 + 32), (*(v179 + 32) - *(v179 + 24)) >> 3);
       v180 = v172;
-      v181 = &v2521[8 * v172];
-      v182 = v2522 - (v181 + 8);
-      if (v2522 != v181 + 8)
+      v181 = &v2521[v172];
+      v182 = v2522 - (v181 + 1);
+      if (v2522 != v181 + 1)
       {
-        memmove(&v2521[8 * v172], v181 + 8, v2522 - (v181 + 8));
+        memmove(&v2521[v172], v181 + 1, v2522 - (v181 + 1));
       }
 
-      v2522 = &v181[v182];
+      v2522 = (v181 + v182);
       v183 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v183, v183[1], (v183[1] - *v183) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v183, *(v183 + 8), (*(v183 + 8) - *v183) >> 2);
       v184 = 4 * v172;
       v185 = &v2518[v184];
       v186 = v2519 - &v2518[v184 + 4];
       if (v2519 != &v2518[v184 + 4])
       {
-        memmove(&v2518[v184], &v2518[v184 + 4], v2519 - (v185 + 4));
+        memmove(&v2518[v184], &v2518[v184 + 4], v2519 - (v185 + 1));
       }
 
-      v2519 = &v185[v186];
+      v2519 = (v185 + v186);
       v187 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v187 + 24), *(v187 + 32), (*(v187 + 32) - *(v187 + 24)) >> 3);
-      v188 = &v2515[8 * v180];
-      v189 = v2516 - (v188 + 8);
-      if (v2516 != v188 + 8)
+      v188 = &v2515[v180];
+      v189 = v2516 - (v188 + 1);
+      if (v2516 != v188 + 1)
       {
-        memmove(&v2515[8 * v180], v188 + 8, v2516 - (v188 + 8));
+        memmove(&v2515[v180], v188 + 1, v2516 - (v188 + 1));
       }
 
-      v2516 = &v188[v189];
+      v2516 = (v188 + v189);
       v190 = *(*(*this + 24) + 8 * v180);
       v191 = *(*(*(this + 2) + 24) + 8 * v180);
       v192 = mlx::core::array::shape(this, v180);
@@ -15639,56 +13966,56 @@ LABEL_249:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v499, v499[1], (v499[1] - *v499) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v499, *(v499 + 8), (*(v499 + 8) - *v499) >> 2);
       v500 = &v2524[4 * v495];
-      v501 = v2525 - (v500 + 4);
-      if (v2525 != v500 + 4)
+      v501 = v2525 - (v500 + 1);
+      if (v2525 != v500 + 1)
       {
-        memmove(&v2524[4 * v495], v500 + 4, v2525 - (v500 + 4));
+        memmove(&v2524[4 * v495], v500 + 1, v2525 - (v500 + 1));
       }
 
-      v2525 = &v500[v501];
+      v2525 = (v500 + v501);
       v502 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v502 + 24), *(v502 + 32), (*(v502 + 32) - *(v502 + 24)) >> 3);
       v503 = v495;
-      v504 = &v2521[8 * v495];
-      v505 = v2522 - (v504 + 8);
-      if (v2522 != v504 + 8)
+      v504 = &v2521[v495];
+      v505 = v2522 - (v504 + 1);
+      if (v2522 != v504 + 1)
       {
-        memmove(&v2521[8 * v495], v504 + 8, v2522 - (v504 + 8));
+        memmove(&v2521[v495], v504 + 1, v2522 - (v504 + 1));
       }
 
-      v2522 = &v504[v505];
+      v2522 = (v504 + v505);
       v506 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v506, v506[1], (v506[1] - *v506) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v506, *(v506 + 8), (*(v506 + 8) - *v506) >> 2);
       v507 = 4 * v495;
       v508 = &v2518[v507];
       v509 = v2519 - &v2518[v507 + 4];
       if (v2519 != &v2518[v507 + 4])
       {
-        memmove(&v2518[v507], &v2518[v507 + 4], v2519 - (v508 + 4));
+        memmove(&v2518[v507], &v2518[v507 + 4], v2519 - (v508 + 1));
       }
 
-      v2519 = &v508[v509];
+      v2519 = (v508 + v509);
       v510 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v510 + 24), *(v510 + 32), (*(v510 + 32) - *(v510 + 24)) >> 3);
-      v511 = &v2515[8 * v503];
-      v512 = v2516 - (v511 + 8);
-      if (v2516 != v511 + 8)
+      v511 = &v2515[v503];
+      v512 = v2516 - (v511 + 1);
+      if (v2516 != v511 + 1)
       {
-        memmove(&v2515[8 * v503], v511 + 8, v2516 - (v511 + 8));
+        memmove(&v2515[v503], v511 + 1, v2516 - (v511 + 1));
       }
 
-      v2516 = &v511[v512];
+      v2516 = (v511 + v512);
       v513 = *(*(*this + 24) + 8 * v503);
       v514 = *(*(*(this + 2) + 24) + 8 * v503);
       v515 = mlx::core::array::shape(this, v503);
@@ -15740,56 +14067,56 @@ LABEL_249:
       v2525 = 0;
       v2526 = 0;
       v2524 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1644, v1644[1], (v1644[1] - *v1644) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2524, *v1644, *(v1644 + 8), (*(v1644 + 8) - *v1644) >> 2);
       v1645 = &v2524[4 * v1640];
-      v1646 = v2525 - (v1645 + 4);
-      if (v2525 != v1645 + 4)
+      v1646 = v2525 - (v1645 + 1);
+      if (v2525 != v1645 + 1)
       {
-        memmove(&v2524[4 * v1640], v1645 + 4, v2525 - (v1645 + 4));
+        memmove(&v2524[4 * v1640], v1645 + 1, v2525 - (v1645 + 1));
       }
 
-      v2525 = &v1645[v1646];
+      v2525 = (v1645 + v1646);
       v1647 = *this;
       v2522 = 0;
       v2523 = 0;
       v2521 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2521, *(v1647 + 24), *(v1647 + 32), (*(v1647 + 32) - *(v1647 + 24)) >> 3);
       v1648 = v1640;
-      v1649 = &v2521[8 * v1640];
-      v1650 = v2522 - (v1649 + 8);
-      if (v2522 != v1649 + 8)
+      v1649 = &v2521[v1640];
+      v1650 = v2522 - (v1649 + 1);
+      if (v2522 != v1649 + 1)
       {
-        memmove(&v2521[8 * v1640], v1649 + 8, v2522 - (v1649 + 8));
+        memmove(&v2521[v1640], v1649 + 1, v2522 - (v1649 + 1));
       }
 
-      v2522 = &v1649[v1650];
+      v2522 = (v1649 + v1650);
       v1651 = *(this + 2);
       v2519 = 0;
       v2520 = 0;
       v2518 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1651, v1651[1], (v1651[1] - *v1651) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v2518, *v1651, *(v1651 + 8), (*(v1651 + 8) - *v1651) >> 2);
       v1652 = 4 * v1640;
       v1653 = &v2518[v1652];
       v1654 = v2519 - &v2518[v1652 + 4];
       if (v2519 != &v2518[v1652 + 4])
       {
-        memmove(&v2518[v1652], &v2518[v1652 + 4], v2519 - (v1653 + 4));
+        memmove(&v2518[v1652], &v2518[v1652 + 4], v2519 - (v1653 + 1));
       }
 
-      v2519 = &v1653[v1654];
+      v2519 = (v1653 + v1654);
       v1655 = *(this + 2);
       v2516 = 0;
       v2517 = 0;
       v2515 = 0;
       std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v2515, *(v1655 + 24), *(v1655 + 32), (*(v1655 + 32) - *(v1655 + 24)) >> 3);
-      v1656 = &v2515[8 * v1648];
-      v1657 = v2516 - (v1656 + 8);
-      if (v2516 != v1656 + 8)
+      v1656 = &v2515[v1648];
+      v1657 = v2516 - (v1656 + 1);
+      if (v2516 != v1656 + 1)
       {
-        memmove(&v2515[8 * v1648], v1656 + 8, v2516 - (v1656 + 8));
+        memmove(&v2515[v1648], v1656 + 1, v2516 - (v1656 + 1));
       }
 
-      v2516 = &v1656[v1657];
+      v2516 = (v1656 + v1657);
       v1658 = *(*(*this + 24) + 8 * v1648);
       v1659 = *(*(*(this + 2) + 24) + 8 * v1648);
       v1660 = mlx::core::array::shape(this, v1648);

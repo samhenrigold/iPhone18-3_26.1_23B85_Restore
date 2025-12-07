@@ -1,5 +1,6 @@
 @interface APOdmlLogUtility
 + (id)printInSegments:(id)segments log:(id)log isPlugin:(BOOL)plugin;
++ (id)printModelDeltasInSegments:(id)segments isPlugin:(BOOL)plugin;
 + (void)logModelInputWithAdamID:(id)d adamID:(id)iD;
 + (void)logTrainingRowFeatures:(id)features;
 + (void)logWithLoggerKey:(id)key message:(id)message category:(unint64_t)category;
@@ -11,303 +12,301 @@
 
 + (void)logWithLoggerKey:(id)key message:(id)message category:(unint64_t)category
 {
-  v26[3] = *MEMORY[0x277D85DE8];
-  v26[0] = key;
-  v25[0] = @"loggerKey";
-  v25[1] = @"uniqueIdentifier";
+  v18[3] = *MEMORY[0x277D85DE8];
+  v18[0] = key;
+  v17[0] = @"loggerKey";
+  v17[1] = @"uniqueIdentifier";
   v7 = MEMORY[0x277CCAD78];
   messageCopy = message;
   keyCopy = key;
-  v12 = objc_msgSend_UUID(v7, v10, v11);
-  v15 = objc_msgSend_UUIDString(v12, v13, v14);
-  v25[2] = @"message";
-  v26[1] = v15;
-  v26[2] = messageCopy;
-  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v26, v25, 3);
+  uUID = [v7 UUID];
+  uUIDString = [uUID UUIDString];
+  v17[2] = @"message";
+  v18[1] = uUIDString;
+  v18[2] = messageCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
-  v18 = OdmlLogForCategory(category);
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v13 = OdmlLogForCategory(category);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = objc_msgSend_mlJSONString(v17, v19, v20);
-    v23 = 138477827;
-    v24 = v21;
-    _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_DEFAULT, "%{private}@", &v23, 0xCu);
+    mlJSONString = [v12 mlJSONString];
+    v15 = 138477827;
+    v16 = mlJSONString;
+    _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_DEFAULT, "%{private}@", &v15, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logModelInputWithAdamID:(id)d adamID:(id)iD
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   iDCopy = iD;
-  v8 = objc_msgSend_mlDictionaryForJSON(d, v6, v7);
-  v11 = objc_msgSend_mutableCopy(v8, v9, v10);
+  mlDictionaryForJSON = [d mlDictionaryForJSON];
+  v7 = [mlDictionaryForJSON mutableCopy];
 
-  if (v11)
+  if (v7)
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v11, v12, iDCopy, @"adamID");
-    v29[0] = @"adFeatures";
-    v28[0] = @"loggerKey";
-    v28[1] = @"uniqueIdentifier";
-    v15 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v13, v14);
-    v18 = objc_msgSend_UUIDString(v15, v16, v17);
-    v28[2] = @"message";
-    v29[1] = v18;
-    v29[2] = v11;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v29, v28, 3);
+    [v7 setObject:iDCopy forKeyedSubscript:@"adamID"];
+    v16[0] = @"adFeatures";
+    v15[0] = @"loggerKey";
+    v15[1] = @"uniqueIdentifier";
+    uUID = [MEMORY[0x277CCAD78] UUID];
+    uUIDString = [uUID UUIDString];
+    v15[2] = @"message";
+    v16[1] = uUIDString;
+    v16[2] = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
-    v21 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v11 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = objc_msgSend_description(v20, v22, v23);
-      v26 = 138477827;
-      v27 = v24;
-      _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_DEFAULT, "%{private}@", &v26, 0xCu);
+      v12 = [v10 description];
+      v13 = 138477827;
+      v14 = v12;
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_DEFAULT, "%{private}@", &v13, 0xCu);
     }
   }
 
   else
   {
-    v20 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v10 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_260ECB000, v20, OS_LOG_TYPE_ERROR, "Model inputs: Cannot Parse the Inputs.", &v26, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "Model inputs: Cannot Parse the Inputs.", &v13, 2u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logTrainingRowFeatures:(id)features
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  obj = objc_msgSend_features(featuresCopy, v4, v5);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v28, v32, 16);
-  if (v7)
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  obj = [featuresCopy features];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v4)
   {
-    v10 = v7;
-    v11 = *v29;
+    v5 = v4;
+    v6 = *v15;
     do
     {
-      v12 = 0;
+      v7 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
-        v14 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9);
-        v17 = objc_msgSend_rowID(featuresCopy, v15, v16);
-        objc_msgSend_setValue_forKey_(v14, v18, v17, @"trainingRowID");
+        v8 = *(*(&v14 + 1) + 8 * v7);
+        dictionary = [MEMORY[0x277CBEB38] dictionary];
+        rowID = [featuresCopy rowID];
+        [dictionary setValue:rowID forKey:@"trainingRowID"];
 
-        v21 = objc_msgSend_features(featuresCopy, v19, v20);
-        v23 = objc_msgSend_objectForKeyedSubscript_(v21, v22, v13);
-        objc_msgSend_setValue_forKey_(v14, v24, v23, v13);
+        features = [featuresCopy features];
+        v12 = [features objectForKeyedSubscript:v8];
+        [dictionary setValue:v12 forKey:v8];
 
-        objc_msgSend_logWithLoggerKey_message_category_(APOdmlLogUtility, v25, @"TrainingRowFeatures", v14, 11);
-        ++v12;
+        [APOdmlLogUtility logWithLoggerKey:@"TrainingRowFeatures" message:dictionary category:11];
+        ++v7;
       }
 
-      while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v28, v32, 16);
+      while (v5 != v7);
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v10);
+    while (v5);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)printDESRecordRowOrder:(id)order iterationNumber:(id)number
 {
   orderCopy = order;
   numberCopy = number;
-  v8 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
-  if (objc_msgSend_count(orderCopy, v9, v10))
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if ([orderCopy count])
   {
-    v12 = 0;
+    v7 = 0;
     do
     {
-      v13 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"index_%lu", v12);
-      v15 = objc_msgSend_objectAtIndexedSubscript_(orderCopy, v14, v12);
-      v18 = objc_msgSend_rowID(v15, v16, v17);
-      objc_msgSend_setValue_forKey_(v8, v19, v18, v13);
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"index_%lu", v7];
+      v9 = [orderCopy objectAtIndexedSubscript:v7];
+      rowID = [v9 rowID];
+      [dictionary setValue:rowID forKey:v8];
 
-      ++v12;
+      ++v7;
     }
 
-    while (v12 < objc_msgSend_count(orderCopy, v20, v21));
+    while (v7 < [orderCopy count]);
   }
 
-  objc_msgSend_setValue_forKey_(v8, v11, numberCopy, @"IterationNumber");
-  objc_msgSend_logWithLoggerKey_message_category_(APOdmlLogUtility, v22, @"RowOrder", v8, 11);
+  [dictionary setValue:numberCopy forKey:@"IterationNumber"];
+  [APOdmlLogUtility logWithLoggerKey:@"RowOrder" message:dictionary category:11];
 }
 
 + (void)printDESRecordInSegments:(id)segments isPlugin:(BOOL)plugin rowID:(id)d
 {
   pluginCopy = plugin;
-  v45 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
   dCopy = d;
   if (!dCopy)
   {
-    v9 = OdmlLogForCategory(9uLL);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = OdmlLogForCategory(9uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v36 = objc_opt_class();
-      v10 = v36;
-      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_DEFAULT, "%{private}@]: Generating random DES record ID for logging presave.", buf, 0xCu);
+      v25 = objc_opt_class();
+      v9 = v25;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_DEFAULT, "%{private}@]: Generating random DES record ID for logging presave.", buf, 0xCu);
     }
 
-    v13 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v11, v12);
-    dCopy = objc_msgSend_UUIDString(v13, v14, v15);
+    uUID = [MEMORY[0x277CCAD78] UUID];
+    dCopy = [uUID UUIDString];
   }
 
-  v32 = segmentsCopy;
-  v34 = objc_msgSend_mlJSONStringWithPrettyPrint_(segmentsCopy, v8, 0);
-  v18 = objc_msgSend_length(v34, v16, v17);
-  v21 = 0;
+  v21 = segmentsCopy;
+  v23 = [segmentsCopy mlJSONStringWithPrettyPrint:0];
+  v11 = [v23 length];
+  v12 = 0;
   if (pluginCopy)
   {
-    v22 = 11;
+    v13 = 11;
   }
 
   else
   {
-    v22 = 9;
+    v13 = 9;
   }
 
-  v23 = v18 / 5;
+  v14 = v11 / 5;
   do
   {
-    v24 = v21 * v23;
-    v25 = v23;
-    if (v21 == 4)
+    v15 = v12 * v14;
+    v16 = v14;
+    if (v12 == 4)
     {
-      v25 = objc_msgSend_length(v34, v19, v20) - v24;
+      v16 = [v23 length] - v15;
     }
 
-    v26 = OdmlLogForCategory(v22);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v17 = OdmlLogForCategory(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = objc_opt_class();
-      ++v21;
-      v28 = v27;
-      v30 = objc_msgSend_substringWithRange_(v34, v29, v24, v25);
+      v18 = objc_opt_class();
+      ++v12;
+      v19 = v18;
+      v20 = [v23 substringWithRange:{v15, v16}];
       *buf = 138478851;
-      v36 = v27;
-      v37 = 2113;
-      v38 = dCopy;
-      v39 = 2049;
-      v40 = v21;
-      v41 = 2049;
-      v42 = 5;
-      v43 = 2113;
-      v44 = v30;
-      _os_log_impl(&dword_260ECB000, v26, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Unarchived DES Record Dictionary %{private}@ (%{private}lu of %{private}lu): %{private}@", buf, 0x34u);
+      v25 = v18;
+      v26 = 2113;
+      v27 = dCopy;
+      v28 = 2049;
+      v29 = v12;
+      v30 = 2049;
+      v31 = 5;
+      v32 = 2113;
+      v33 = v20;
+      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Unarchived DES Record Dictionary %{private}@ (%{private}lu of %{private}lu): %{private}@", buf, 0x34u);
     }
 
     else
     {
-      ++v21;
+      ++v12;
     }
   }
 
-  while (v21 != 5);
+  while (v12 != 5);
+}
 
-  v31 = *MEMORY[0x277D85DE8];
++ (id)printModelDeltasInSegments:(id)segments isPlugin:(BOOL)plugin
+{
+  pluginCopy = plugin;
+  mlJSONString = [segments mlJSONString];
+  v7 = [self printInSegments:@"Model deltas" log:mlJSONString isPlugin:pluginCopy];
+
+  return v7;
 }
 
 + (id)printInSegments:(id)segments log:(id)log isPlugin:(BOOL)plugin
 {
   pluginCopy = plugin;
-  v59 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
   logCopy = log;
   v8 = MEMORY[0x277CCABB0];
-  v11 = objc_msgSend_length(logCopy, v9, v10);
-  v13 = objc_msgSend_numberWithUnsignedInteger_(v8, v12, v11);
-  objc_msgSend_floatValue(v13, v14, v15);
-  v19 = objc_msgSend_numberWithDouble_(v8, v17, v18, ceilf(v16 / 30000.0));
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(logCopy, "length")}];
+  [v9 floatValue];
+  v11 = [v8 numberWithDouble:ceilf(v10 / 30000.0)];
 
-  objc_msgSend_floatValue(v19, v20, v21);
-  if (v24 < 1.0)
+  [v11 floatValue];
+  if (v12 < 1.0)
   {
 
-    v19 = &unk_28736F218;
+    v11 = &unk_28736F218;
   }
 
-  v44 = v19;
-  v25 = objc_msgSend_unsignedIntegerValue(v19, v22, v23);
-  v28 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v26, v27);
-  v45 = objc_msgSend_UUIDString(v28, v29, v30);
+  v24 = v11;
+  unsignedIntegerValue = [v11 unsignedIntegerValue];
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  uUIDString = [uUID UUIDString];
 
-  if (v25)
+  if (unsignedIntegerValue)
   {
-    v33 = 0;
+    v15 = 0;
     if (pluginCopy)
     {
-      v34 = 11;
+      v16 = 11;
     }
 
     else
     {
-      v34 = 9;
+      v16 = 9;
     }
 
     do
     {
-      v35 = 30000 * v33;
-      v36 = 30000;
-      if (v33 == v25 - 1)
+      v17 = 30000 * v15;
+      v18 = 30000;
+      if (v15 == unsignedIntegerValue - 1)
       {
-        v36 = objc_msgSend_length(logCopy, v31, v32) - v35;
+        v18 = [logCopy length] - v17;
       }
 
-      v37 = OdmlLogForCategory(v34);
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v19 = OdmlLogForCategory(v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = objc_opt_class();
-        ++v33;
-        v39 = v38;
-        v41 = objc_msgSend_substringWithRange_(logCopy, v40, v35, v36);
+        v20 = objc_opt_class();
+        ++v15;
+        v21 = v20;
+        v22 = [logCopy substringWithRange:{v17, v18}];
         *buf = 138479107;
-        v48 = v38;
-        v49 = 2112;
-        v50 = segmentsCopy;
-        v51 = 2113;
-        v52 = v45;
-        v53 = 2049;
-        v54 = v33;
-        v55 = 2049;
-        v56 = v25;
-        v57 = 2113;
-        v58 = v41;
-        _os_log_impl(&dword_260ECB000, v37, OS_LOG_TYPE_DEFAULT, "[%{private}@]: %@ %{private}@ (%{private}lu of %{private}lu): %{private}@", buf, 0x3Eu);
+        v28 = v20;
+        v29 = 2112;
+        v30 = segmentsCopy;
+        v31 = 2113;
+        v32 = uUIDString;
+        v33 = 2049;
+        v34 = v15;
+        v35 = 2049;
+        v36 = unsignedIntegerValue;
+        v37 = 2113;
+        v38 = v22;
+        _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_DEFAULT, "[%{private}@]: %@ %{private}@ (%{private}lu of %{private}lu): %{private}@", buf, 0x3Eu);
       }
 
       else
       {
-        ++v33;
+        ++v15;
       }
     }
 
-    while (v33 != v25);
+    while (v15 != unsignedIntegerValue);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return uUIDString;
 }
 
 @end

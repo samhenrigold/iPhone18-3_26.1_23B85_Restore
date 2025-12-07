@@ -1,5 +1,7 @@
 @interface HMDMPCSendMRCommandOperation
 + (id)logCategory;
+- (HMDMPCSendMRCommandOperation)initWithCommand:(unsigned int)command destination:(id)destination options:(id)options externalObjectInterface:(id)interface;
+- (HMDMPCSendMRCommandOperation)initWithCommand:(unsigned int)command options:(id)options destination:(id)destination;
 - (HMDMPCSendMRCommandOperation)initWithPlaybackArchive:(id)archive destination:(id)destination options:(id)options externalObjectInterface:(id)interface;
 - (HMDMPCSendMRCommandOperation)initWithPlaybackArchive:(id)archive options:(id)options destination:(id)destination;
 - (NSArray)attributeDescriptions;
@@ -13,7 +15,7 @@
 
 - (int64_t)errorCodeForCurrentOperation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   playbackArchive = [(HMDMPCSendMRCommandOperation *)self playbackArchive];
 
   if (!playbackArchive)
@@ -28,31 +30,28 @@
       switch(unsignedIntValue)
       {
         case 0:
-          result = 2959;
-          goto LABEL_20;
+          return 2959;
         case 1:
-          result = 2960;
-          goto LABEL_20;
+          return 2960;
         case 3:
-          result = 2961;
-          goto LABEL_20;
+          return 2961;
       }
 
       v14 = objc_autoreleasePoolPush();
       selfCopy2 = self;
       v16 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v17 = HMFGetLogIdentifier();
-        mediaRemoteCommand3 = [(HMDMPCSendMRCommandOperation *)selfCopy2 mediaRemoteCommand];
-        v20 = 138543618;
-        v21 = v17;
-        v22 = 1024;
-        unsignedIntValue2 = [mediaRemoteCommand3 unsignedIntValue];
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unhandled MR command case %u", &v20, 0x12u);
-
-        goto LABEL_18;
+        goto LABEL_19;
       }
+
+      v17 = HMFGetLogIdentifier();
+      mediaRemoteCommand3 = [(HMDMPCSendMRCommandOperation *)selfCopy2 mediaRemoteCommand];
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 1024;
+      unsignedIntValue2 = [mediaRemoteCommand3 unsignedIntValue];
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unhandled MR command case %u", &v19, 0x12u);
     }
 
     else
@@ -60,19 +59,21 @@
       v14 = objc_autoreleasePoolPush();
       selfCopy2 = self;
       v16 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v17 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v17;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Generic MR command error", &v20, 0xCu);
-LABEL_18:
+LABEL_19:
+
+        objc_autoreleasePoolPop(v14);
+        return 2957;
       }
+
+      v17 = HMFGetLogIdentifier();
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Generic MR command error", &v19, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v14);
-    result = 2957;
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   playbackArchive2 = [(HMDMPCSendMRCommandOperation *)self playbackArchive];
@@ -81,53 +82,44 @@ LABEL_18:
 
   if (v6)
   {
-    result = 2964;
+    return 2964;
+  }
+
+  playbackArchive3 = [(HMDMPCSendMRCommandOperation *)self playbackArchive];
+  bundleIdentifier2 = [playbackArchive3 bundleIdentifier];
+  v13 = [bundleIdentifier2 hasPrefix:@"com.apple.Music"];
+
+  if (v13)
+  {
+    return 2963;
   }
 
   else
   {
-    playbackArchive3 = [(HMDMPCSendMRCommandOperation *)self playbackArchive];
-    bundleIdentifier2 = [playbackArchive3 bundleIdentifier];
-    v13 = [bundleIdentifier2 hasPrefix:@"com.apple.Music"];
-
-    if (v13)
-    {
-      result = 2963;
-    }
-
-    else
-    {
-      result = 2958;
-    }
+    return 2958;
   }
-
-LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   mediaRemoteCommand = [(HMDMPCSendMRCommandOperation *)self mediaRemoteCommand];
   v5 = [v3 initWithName:@"Media Remote Command" value:mediaRemoteCommand];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   options = [(HMDMPCSendMRCommandOperation *)self options];
   v8 = [v6 initWithName:@"Options" value:options];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   playbackArchive = [(HMDMPCSendMRCommandOperation *)self playbackArchive];
   v11 = [v9 initWithName:@"Playback Archive" value:playbackArchive];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   destination = [(HMDMPCSendMRCommandOperation *)self destination];
   v14 = [v12 initWithName:@"Destination" value:destination];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -146,27 +138,27 @@ LABEL_20:
 
 - (void)main
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   dependencies = [(HMDMPCSendMRCommandOperation *)self dependencies];
-  v4 = [dependencies countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v4 = [dependencies countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(dependencies);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         error = [v8 error];
 
         if (error)
@@ -177,7 +169,7 @@ LABEL_20:
         }
       }
 
-      v5 = [dependencies countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v5 = [dependencies countByEnumeratingWithState:&v25 objects:v35 count:16];
       if (v5)
       {
         continue;
@@ -206,14 +198,14 @@ LABEL_20:
     externalObjectInterface = [(HMDMPCSendMRCommandOperation *)self externalObjectInterface];
     createMPCAssistantCommand = [externalObjectInterface createMPCAssistantCommand];
 
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___block_invoke;
-    v33 = &unk_279730EC8;
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___block_invoke;
+    v32 = &unk_279730EC8;
     selfCopy2 = self;
-    v35 = createMPCAssistantCommand;
+    v34 = createMPCAssistantCommand;
     v19 = createMPCAssistantCommand;
-    [v19 sendCommand:unsignedIntValue toDestination:v16 withOptions:v15 completion:&v30];
+    [v19 sendCommand:unsignedIntValue toDestination:v16 withOptions:v15 completion:&v29];
     goto LABEL_16;
   }
 
@@ -238,14 +230,14 @@ LABEL_20:
     externalObjectInterface2 = [(HMDMPCSendMRCommandOperation *)self externalObjectInterface];
     createMPCAssistantCommand2 = [externalObjectInterface2 createMPCAssistantCommand];
 
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options___block_invoke;
-    v33 = &unk_279730EC8;
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options___block_invoke;
+    v32 = &unk_279730EC8;
     selfCopy2 = self;
-    v35 = createMPCAssistantCommand2;
+    v34 = createMPCAssistantCommand2;
     v19 = createMPCAssistantCommand2;
-    [v19 sendPlaybackArchive:v16 toDestination:v15 withOptions:v22 completion:&v30];
+    [v19 sendPlaybackArchive:v16 toDestination:v15 withOptions:v22 completion:&v29];
 
 LABEL_16:
   }
@@ -254,13 +246,11 @@ LABEL_17:
 
 LABEL_18:
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -269,22 +259,20 @@ void __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options_
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2080;
-    v15 = "[HMDMPCSendMRCommandOperation sendPlaybackArchive:destination:options:]_block_invoke";
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[HMDMPCSendMRCommandOperation] %s", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2080;
+    v14 = "[HMDMPCSendMRCommandOperation sendPlaybackArchive:destination:options:]_block_invoke";
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[HMDMPCSendMRCommandOperation] %s", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [(HMDMPCSendMRCommandOperation *)*(a1 + 32) generateMPCErrorOrFinishWithError:v5 statuses:v6];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateMPCErrorOrFinishWithError:(void *)error statuses:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   errorCopy = error;
   if (!self)
@@ -299,11 +287,11 @@ void __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options_
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v41 = v10;
-    v42 = 2112;
-    v43 = v5;
-    v44 = 2112;
-    v45 = errorCopy;
+    v40 = v10;
+    v41 = 2112;
+    v42 = v5;
+    v43 = 2112;
+    v44 = errorCopy;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@[HMDMPCSendMRCommandOperation] error %@ statuses %@", buf, 0x20u);
   }
 
@@ -334,7 +322,7 @@ void __72__HMDMPCSendMRCommandOperation_sendPlaybackArchive_destination_options_
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v17;
+      v40 = v17;
       v18 = "%{public}@[HMDMPCSendMRCommandOperation] discarding informational media remote error";
       v19 = v16;
       v20 = 12;
@@ -356,9 +344,9 @@ LABEL_14:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v17;
-      v42 = 2112;
-      v43 = v5;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v5;
       v18 = "%{public}@[HMDMPCSendMRCommandOperation] discarding informational media playback core assistant error: %@";
       v19 = v16;
       v20 = 22;
@@ -384,10 +372,10 @@ LABEL_24:
     }
 
     v26 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA068];
+    v37 = *MEMORY[0x277CCA068];
     errorCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"statuses %@", errorCopy];
-    v39 = errorCopy;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v38 = errorCopy;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     v29 = [v26 hmErrorWithCode:2005 userInfo:v28];
 
     v5 = 0;
@@ -420,9 +408,9 @@ LABEL_18:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v25;
-      v42 = 2112;
-      v43 = v5;
+      v40 = v25;
+      v41 = 2112;
+      v42 = v5;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@[HMDMPCSendMRCommandOperation] discarding pause media remote error and assuming success as there is no now playing application (%@)", buf, 0x16u);
     }
 
@@ -441,11 +429,11 @@ LABEL_32:
   {
     v36 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v41 = v36;
-    v42 = 2112;
-    v43 = v32;
-    v44 = 2112;
-    v45 = v29;
+    v40 = v36;
+    v41 = 2112;
+    v42 = v32;
+    v43 = 2112;
+    v44 = v29;
     _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@[HMDMPCSendMRCommandOperation] Cancel with error %@, underlying error: %@", buf, 0x20u);
   }
 
@@ -453,12 +441,11 @@ LABEL_32:
   [v34 cancelWithError:v32];
 
 LABEL_35:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -467,17 +454,15 @@ void __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___bloc
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2080;
-    v15 = "[HMDMPCSendMRCommandOperation sendMRCommand:destination:options:]_block_invoke";
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[HMDMPCSendMRCommandOperation] %s", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2080;
+    v14 = "[HMDMPCSendMRCommandOperation sendMRCommand:destination:options:]_block_invoke";
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[HMDMPCSendMRCommandOperation] %s", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [(HMDMPCSendMRCommandOperation *)*(a1 + 32) generateMPCErrorOrFinishWithError:v5 statuses:v6];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMPCSendMRCommandOperation)initWithPlaybackArchive:(id)archive destination:(id)destination options:(id)options externalObjectInterface:(id)interface
@@ -494,7 +479,7 @@ void __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___bloc
   {
     objc_storeStrong(&v15->_playbackArchive, archive);
     objc_storeStrong(&v16->_destination, destination);
-    v17 = [optionsCopy copy];
+    v17 = objc_msgSend_copy(optionsCopy);
     options = v16->_options;
     v16->_options = v17;
 
@@ -515,6 +500,43 @@ void __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___bloc
   return v12;
 }
 
+- (HMDMPCSendMRCommandOperation)initWithCommand:(unsigned int)command destination:(id)destination options:(id)options externalObjectInterface:(id)interface
+{
+  v9 = *&command;
+  destinationCopy = destination;
+  optionsCopy = options;
+  interfaceCopy = interface;
+  v20.receiver = self;
+  v20.super_class = HMDMPCSendMRCommandOperation;
+  v14 = [(HMFOperation *)&v20 initWithTimeout:0.0];
+  if (v14)
+  {
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
+    mediaRemoteCommand = v14->_mediaRemoteCommand;
+    v14->_mediaRemoteCommand = v15;
+
+    v17 = objc_msgSend_copy(optionsCopy);
+    options = v14->_options;
+    v14->_options = v17;
+
+    objc_storeStrong(&v14->_destination, destination);
+    objc_storeStrong(&v14->_externalObjectInterface, interface);
+  }
+
+  return v14;
+}
+
+- (HMDMPCSendMRCommandOperation)initWithCommand:(unsigned int)command options:(id)options destination:(id)destination
+{
+  v6 = *&command;
+  destinationCopy = destination;
+  optionsCopy = options;
+  v10 = objc_alloc_init(HMDMPCSendMRCommandOperationDefaultExternalObjectInterface);
+  v11 = [(HMDMPCSendMRCommandOperation *)self initWithCommand:v6 destination:destinationCopy options:optionsCopy externalObjectInterface:v10];
+
+  return v11;
+}
+
 + (id)logCategory
 {
   if (logCategory__hmf_once_t9_163885 != -1)
@@ -529,12 +551,11 @@ void __66__HMDMPCSendMRCommandOperation_sendMRCommand_destination_options___bloc
 
 uint64_t __43__HMDMPCSendMRCommandOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_163887;
-  logCategory__hmf_once_v10_163887 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_163887;
+  logCategory__hmf_once_v10_163887 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

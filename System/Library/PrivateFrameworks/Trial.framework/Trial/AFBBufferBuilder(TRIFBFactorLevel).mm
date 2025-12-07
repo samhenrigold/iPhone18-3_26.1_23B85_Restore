@@ -9,7 +9,7 @@
 
 - (id)trifbCreateFactorLevelUsingBlock:()TRIFBFactorLevel
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   if (!v5)
@@ -23,13 +23,13 @@
   selfCopy = self;
   if (v7)
   {
-    v31.receiver = v7;
-    v31.super_class = TRIFBFactorLevelBuilder;
-    v9 = objc_msgSendSuper2(&v31, sel_init);
+    v30.receiver = v7;
+    v30.super_class = TRIFBFactorLevelBuilder;
+    v9 = objc_msgSendSuper2(&v30, sel_init);
     v7 = v9;
     if (v9)
     {
-      objc_storeStrong(&v9->_owner, self);
+      objc_storeStrong(v9 + 1, self);
       firstError = [selfCopy firstError];
       v11 = firstError == 0;
 
@@ -66,9 +66,9 @@
           currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler2 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:3708 description:{@"%@", @"Failed to set required field metadata on a table of type: TRIFBFactorLevelBuilder"}];
 
-          v32[0] = *MEMORY[0x277CCA450];
-          v31.receiver = @"Failed to set required field metadata on a table of type: TRIFBFactorLevelBuilder";
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+          v31[0] = *MEMORY[0x277CCA450];
+          v30.receiver = @"Failed to set required field metadata on a table of type: TRIFBFactorLevelBuilder";
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
           v27 = objc_alloc(MEMORY[0x277CCA9B8]);
           v23 = [v27 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
           [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -79,9 +79,9 @@
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler3 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:3697 description:{@"%@", @"Failed to set required field level on a table of type: TRIFBFactorLevelBuilder"}];
 
-          v32[0] = *MEMORY[0x277CCA450];
-          v31.receiver = @"Failed to set required field level on a table of type: TRIFBFactorLevelBuilder";
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+          v31[0] = *MEMORY[0x277CCA450];
+          v30.receiver = @"Failed to set required field level on a table of type: TRIFBFactorLevelBuilder";
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
           v25 = objc_alloc(MEMORY[0x277CCA9B8]);
           v23 = [v25 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
           [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -93,9 +93,9 @@
         currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler4 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:3686 description:{@"%@", @"Failed to set required field name on a table of type: TRIFBFactorLevelBuilder"}];
 
-        v32[0] = *MEMORY[0x277CCA450];
-        v31.receiver = @"Failed to set required field name on a table of type: TRIFBFactorLevelBuilder";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+        v31[0] = *MEMORY[0x277CCA450];
+        v30.receiver = @"Failed to set required field name on a table of type: TRIFBFactorLevelBuilder";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
         v22 = objc_alloc(MEMORY[0x277CCA9B8]);
         v23 = [v22 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
         [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -113,14 +113,13 @@
 LABEL_21:
 
   objc_autoreleasePoolPop(v6);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)trifbCreateSortedVectorOfFactorLevelWithOffsets:()TRIFBFactorLevel
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -138,17 +137,17 @@ LABEL_21:
 
   else
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x4812000000;
-    v27 = __Block_byref_object_copy__641;
-    v28 = __Block_byref_object_dispose__642;
-    v29 = &unk_22EAF1499;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x4812000000;
+    v26 = __Block_byref_object_copy__641;
+    v27 = __Block_byref_object_dispose__642;
+    v28 = &unk_22EAF1499;
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
     __p = 0;
     v8 = [v5 count];
-    if (v8 > (v32 - __p) >> 2)
+    if (v8 > (v31 - __p) >> 2)
     {
       if (!(v8 >> 62))
       {
@@ -158,16 +157,16 @@ LABEL_21:
       std::vector<apple::aiml::flatbuffers2::Offset<void>>::__throw_length_error[abi:ne200100]();
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __86__AFBBufferBuilder_TRIFBFactorLevel__trifbCreateSortedVectorOfFactorLevelWithOffsets___block_invoke;
-    v23[3] = &unk_27885E940;
-    v23[4] = &v24;
-    [v5 enumerateObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __86__AFBBufferBuilder_TRIFBFactorLevel__trifbCreateSortedVectorOfFactorLevelWithOffsets___block_invoke;
+    v22[3] = &unk_27885E940;
+    v22[4] = &v23;
+    [v5 enumerateObjectsUsingBlock:v22];
     v9 = [self fbb];
     v10 = v9;
-    v11 = v25[6];
-    v12 = v25[7];
+    v11 = v24[6];
+    v12 = v24[7];
     v13 = (v12 - v11) >> 2;
     v14 = 126 - 2 * __clz(v13);
     if (v12 == v11)
@@ -177,10 +176,10 @@ LABEL_21:
 
     else
     {
-      v15 = v25[6];
+      v15 = v24[6];
     }
 
-    v33[0] = v9;
+    v32[0] = v9;
     if (v12 == v11)
     {
       v16 = 0;
@@ -191,7 +190,7 @@ LABEL_21:
       v16 = v14;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,apple::aiml::flatbuffers2::FlatBufferBuilder::TableKeyComparator<FactorMetadataKeyValue> &,apple::aiml::flatbuffers2::Offset<FactorMetadataKeyValue> *,false>(v15, &v15[v12 - v11], v33, v16, 1);
+    std::__introsort<std::_ClassicAlgPolicy,apple::aiml::flatbuffers2::FlatBufferBuilder::TableKeyComparator<FactorMetadataKeyValue> &,apple::aiml::flatbuffers2::Offset<FactorMetadataKeyValue> *,false>(v15, &v15[v12 - v11], v32, v16, 1);
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(v10, (v12 - v11) >> 2, 4uLL);
     if (v11 != v12)
     {
@@ -208,15 +207,13 @@ LABEL_21:
     }
 
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(v10, v13)}];
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
     if (__p)
     {
-      v31 = __p;
+      v30 = __p;
       operator delete(__p);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

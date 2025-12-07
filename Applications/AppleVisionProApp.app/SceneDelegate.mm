@@ -52,7 +52,7 @@
 - (_TtC17AppleVisionProApp13SceneDelegate)init
 {
   v3 = OBJC_IVAR____TtC17AppleVisionProApp13SceneDelegate_airplayReceiverLifecycleManager;
-  *(&self->super.isa + v3) = [objc_allocWithZone(type metadata accessor for AirplayReceiverLifecycleManager()) init];
+  *(&self->super.isa + v3) = [objc_allocWithZone(type metadata accessor for AirplayReceiverLifecycleManager(0)) init];
   v4 = (&self->super.isa + OBJC_IVAR____TtC17AppleVisionProApp13SceneDelegate_sceneIdentifierName);
   *v4 = 0;
   v4[1] = 0xE000000000000000;

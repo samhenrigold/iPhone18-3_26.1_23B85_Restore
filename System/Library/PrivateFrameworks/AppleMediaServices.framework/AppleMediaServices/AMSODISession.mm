@@ -468,7 +468,7 @@ void *__45__AMSODISession_provideUpdateWithAttributes___block_invoke_2(void *a1,
   return v10;
 }
 
-void __45__AMSODISession_provideUpdateWithAttributes___block_invoke_3(uint64_t a1, void *a2)
+void __45__AMSODISession_provideUpdateWithAttributes___block_invoke_3(void *a1, void *a2)
 {
   v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -494,20 +494,20 @@ void __45__AMSODISession_provideUpdateWithAttributes___block_invoke_3(uint64_t a
       _os_log_impl(&dword_192869000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update ODI attributes for error: %{public}@", &v13, 0x20u);
     }
 
-    v8 = *(a1 + 40);
+    v8 = a1[5];
     v9 = 0;
   }
 
   else
   {
-    v8 = *(a1 + 40);
+    v8 = a1[5];
     v9 = 1;
   }
 
   v10 = [AMSBoolean BOOLeanWithBool:v9];
   [v8 finishWithResult:v10];
 
-  v11 = *(*(a1 + 48) + 8);
+  v11 = *(a1[6] + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = 0;
 }

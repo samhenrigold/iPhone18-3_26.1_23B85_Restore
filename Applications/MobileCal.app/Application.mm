@@ -54,28 +54,29 @@
   v5 = dispatch_queue_create("com.apple.mobilecal.init", v4);
   dispatch_async(v5, &stru_100212080);
 
-  v12.receiver = self;
-  v12.super_class = Application;
-  v6 = [(Application *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = Application;
+  v6 = [(Application *)&v14 init];
+  v8 = v6;
   if (v6)
   {
-    CalUILogInitialize();
+    CalUILogInitialize(v6, v7);
     EKUILogInitIfNeeded();
-    v7 = kCalUILogHandle;
+    v9 = kCalUILogHandle;
     if (os_log_type_enabled(kCalUILogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
-      v9 = +[NSProcessInfo processInfo];
-      processName = [v9 processName];
+      v10 = v9;
+      v11 = +[NSProcessInfo processInfo];
+      processName = [v11 processName];
       *buf = 138412290;
-      v14 = processName;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Launching [%@]", buf, 0xCu);
+      v16 = processName;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Launching [%@]", buf, 0xCu);
     }
 
-    [(Application *)v6 setDelegate:v6];
+    [(Application *)v8 setDelegate:v8];
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)registerForStateCapture
@@ -109,7 +110,7 @@
 + (id)_setUpModel
 {
   v2 = [CUIKCalendarModel alloc];
-  v3 = sub_100002FE0();
+  v3 = sub_100002FE0(v2);
   v4 = [v2 initWithEventStore:v3 pasteboardManager:0];
 
   [v4 setAutoStartNotificationMonitor:0];

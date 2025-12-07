@@ -298,7 +298,7 @@
     [(_UIContentUnavailableView *)self _buttonAlpha];
     [(UIView *)self->_actionButton setAlpha:?];
     _flatTextColor = [(_UIContentUnavailableView *)self _flatTextColor];
-    v45 = +[UIColor blackColor];
+    v45 = objc_msgSend_blackColor(UIColor);
     style = self->_style;
     if (style)
     {
@@ -947,20 +947,25 @@ LABEL_45:
 - (void)setTitle:(id)title
 {
   titleCopy = title;
-  v11 = titleCopy;
-  if (!titleCopy || (v6 = [titleCopy length], v7 = v11, !v6))
+  v10 = titleCopy;
+  if (titleCopy && [titleCopy length])
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(v10, v10, self->_title);
+  }
+
+  else
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIContentUnavailableView.m" lineNumber:540 description:@"Title cannot be nil or empty"];
 
-    v7 = v11;
+    isEqualToString = objc_msgSend_isEqualToString_(v10, v10, self->_title);
   }
 
-  if (([v7 isEqualToString:self->_title] & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
-    v8 = [v11 copy];
+    v7 = [v10 copy];
     title = self->_title;
-    self->_title = v8;
+    self->_title = v7;
 
     [(UIView *)self setNeedsLayout];
   }
@@ -969,7 +974,7 @@ LABEL_45:
 - (void)setMessage:(id)message
 {
   messageCopy = message;
-  if (([messageCopy isEqualToString:self->_message] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(messageCopy) & 1) == 0)
   {
     v4 = [messageCopy copy];
     message = self->_message;
@@ -982,7 +987,7 @@ LABEL_45:
 - (void)setButtonTitle:(id)title
 {
   titleCopy = title;
-  if (([titleCopy isEqualToString:self->_buttonTitle] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     v4 = [titleCopy copy];
     buttonTitle = self->_buttonTitle;

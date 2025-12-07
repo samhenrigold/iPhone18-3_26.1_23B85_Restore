@@ -85,14 +85,13 @@
 
 - (ATXGamePlayKitDecisionTree)initWithCoder:(id)coder
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([(ATXGamePlayKitDecisionTree *)self init])
   {
     _ZNSt3__115allocate_sharedB8ne200100I27ATXGamePlayKitCDecisionTreeNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -127,7 +126,7 @@
 
 - (ATXGamePlayKitDecisionTree)initWithExamples:(id)examples actions:(id)actions attributes:(id)attributes maxDepth:(unint64_t)depth minSamplesSplit:(unint64_t)split ratioForLeafNodeDecision:(double)decision
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   examplesCopy = examples;
   actionsCopy = actions;
   attributesCopy = attributes;
@@ -161,28 +160,28 @@
         }
 
         v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(examplesCopy, "count")}];
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         v21 = actionsCopy;
-        v22 = [v21 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v48 objects:v52 count:16];
         if (v22)
         {
           LODWORD(v23) = 0;
-          v24 = *v50;
+          v24 = *v49;
           do
           {
             v25 = 0;
             v23 = v23;
             do
             {
-              if (*v50 != v24)
+              if (*v49 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v49 + 1) + 8 * v25);
+              v26 = *(*(&v48 + 1) + 8 * v25);
               v27 = [examplesCopy objectAtIndexedSubscript:v23];
               v28 = [v27 arrayByAddingObject:v26];
               [v20 addObject:v28];
@@ -192,7 +191,7 @@
             }
 
             while (v22 != v25);
-            v22 = [v21 countByEnumeratingWithState:&v49 objects:v53 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v48 objects:v52 count:16];
           }
 
           while (v22);
@@ -210,33 +209,33 @@
 
         v30 = v14->_decisionTree.__ptr_;
         v31 = *(v30 + 1);
-        v47 = *v30;
-        v48 = v31;
+        v46 = *v30;
+        v47 = v31;
         if (v31)
         {
           atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        ATXGamePlayKitCDecisionTree::cartTreeGrowth(v30, v20, attributesCopy, &v47, depthCopy, split, decision);
-        if (v48)
+        ATXGamePlayKitCDecisionTree::cartTreeGrowth(v30, v20, attributesCopy, &v46, depthCopy, split, decision);
+        if (v47)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v47);
         }
 
         if (!split && depthCopy == 1000000000)
         {
           v32 = objc_alloc(MEMORY[0x277CBFF08]);
           v33 = v14->_decisionTree.__ptr_;
+          v44 = 0;
           v45 = 0;
-          v46 = 0;
-          v34 = ATXGamePlayKitCDecisionTree::encodeWithCoder(v33, &v45, 0, 0, 0);
+          v34 = ATXGamePlayKitCDecisionTree::encodeWithCoder(v33, &v44, 0, 0, 0);
           v35 = [v32 _initWithFlattenedTree:v34];
           mlkitDecisionTree = v14->mlkitDecisionTree;
           v14->mlkitDecisionTree = v35;
 
-          if (v46)
+          if (v45)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v45);
           }
 
           v14->_isInduced = 1;
@@ -245,7 +244,6 @@
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -343,78 +341,78 @@
 
 - (id)findAccuracyWithExamples:(id)examples actions:(id)actions attributes:(id)attributes
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   examplesCopy = examples;
   actionsCopy = actions;
   attributesCopy = attributes;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = examplesCopy;
-  v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v8)
   {
-    v34 = 0;
+    v33 = 0;
     v9 = 0;
-    v29 = *v40;
+    v28 = *v39;
     do
     {
       v10 = 0;
-      v32 = v8;
+      v31 = v8;
       do
       {
-        if (*v40 != v29)
+        if (*v39 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * v10);
+        v11 = *(*(&v38 + 1) + 8 * v10);
         v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v33 = v9;
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
+        v32 = v9;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         v13 = attributesCopy;
-        v14 = [v13 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (v14)
         {
           v15 = 0;
-          v16 = *v36;
+          v16 = *v35;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v36 != v16)
+              if (*v35 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v35 + 1) + 8 * i);
+              v18 = *(*(&v34 + 1) + 8 * i);
               v19 = [v11 objectAtIndexedSubscript:v15];
               [v12 setObject:v19 forKey:v18];
 
               ++v15;
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v35 objects:v43 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
           }
 
           while (v14);
         }
 
         v20 = [(ATXGamePlayKitDecisionTree *)self findActionForAnswers:v12];
-        v21 = [actionsCopy objectAtIndexedSubscript:v34];
+        v21 = [actionsCopy objectAtIndexedSubscript:v33];
         v22 = [v21 isEqual:v20];
 
-        v9 = v33 + v22;
-        ++v34;
+        v9 = v32 + v22;
+        ++v33;
         ++v10;
       }
 
-      while (v10 != v32);
-      v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      while (v10 != v31);
+      v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v8);
@@ -427,8 +425,6 @@
   }
 
   v24 = [MEMORY[0x277CCABB0] numberWithDouble:{v23 / (objc_msgSend(obj, "count") + 0.000001)}];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

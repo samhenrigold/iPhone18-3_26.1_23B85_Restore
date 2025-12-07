@@ -21,7 +21,7 @@
 - (NSArray)accessibilitySupplementaryItemLabels
 {
   swift_beginAccess();
-  type metadata accessor for DynamicTypeLinkedLabel();
+  type metadata accessor for DynamicTypeLinkedLabel(0);
 
   v2.super.isa = sub_100753294().super.isa;
 

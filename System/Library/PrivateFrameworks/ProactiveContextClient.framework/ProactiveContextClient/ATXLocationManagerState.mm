@@ -58,11 +58,11 @@
 
 - (ATXLocationManagerState)initWithCoder:(id)coder
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = ATXLocationManagerState;
-  v5 = [(ATXLocationManagerState *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = ATXLocationManagerState;
+  v5 = [(ATXLocationManagerState *)&v27 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"currentLOI"];
@@ -89,15 +89,15 @@
     }
 
     v16 = MEMORY[0x277CBEB98];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v18 = [v16 setWithArray:v17];
 
     v19 = MEMORY[0x277CBEB98];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v21 = [v19 setWithArray:v20];
 
     v22 = [coderCopy decodeObjectOfClasses:v18 forKey:@"predictedNextLOIs"];
@@ -109,13 +109,12 @@
     v5->_predictedExitTimes = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)merge:(id)merge with:(id)with
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   withCopy = with;
   lastUpdateDate = [mergeCopy lastUpdateDate];
@@ -144,52 +143,52 @@
     v13 = mergeCopy;
   }
 
-  v52 = v13;
+  v51 = v13;
   v14 = objc_opt_new();
-  v60[0] = 0;
-  v60[1] = v60;
-  v60[2] = 0x3032000000;
-  v60[3] = __Block_byref_object_copy_;
-  v60[4] = __Block_byref_object_dispose_;
-  v61 = 0;
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __38__ATXLocationManagerState_merge_with___block_invoke;
-  v57[3] = &unk_279AB7C00;
-  v59 = v60;
-  v50 = v14;
-  v58 = v50;
-  v51 = MEMORY[0x2666EC640](v57);
-  previousLOI = [v52 previousLOI];
-  (v51)[2](v51, previousLOI);
+  v59[0] = 0;
+  v59[1] = v59;
+  v59[2] = 0x3032000000;
+  v59[3] = __Block_byref_object_copy_;
+  v59[4] = __Block_byref_object_dispose_;
+  v60 = 0;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __38__ATXLocationManagerState_merge_with___block_invoke;
+  v56[3] = &unk_279AB7C00;
+  v58 = v59;
+  v49 = v14;
+  v57 = v49;
+  v50 = MEMORY[0x2666EC640](v56);
+  previousLOI = [v51 previousLOI];
+  (v50)[2](v50, previousLOI);
 
-  currentLOI = [v52 currentLOI];
-  (v51)[2](v51, currentLOI);
+  currentLOI = [v51 currentLOI];
+  (v50)[2](v50, currentLOI);
 
   previousLOI2 = [v12 previousLOI];
-  (v51)[2](v51, previousLOI2);
+  (v50)[2](v50, previousLOI2);
 
   currentLOI2 = [v12 currentLOI];
-  (v51)[2](v51, currentLOI2);
+  (v50)[2](v50, currentLOI2);
 
   v19 = objc_opt_new();
-  if ([v50 count])
+  if ([v49 count])
   {
     currentLOI3 = [v12 currentLOI];
     v21 = currentLOI3 == 0;
 
     if (!v21)
     {
-      lastObject = [v50 lastObject];
+      lastObject = [v49 lastObject];
       [v19 setCurrentLOI:lastObject];
 
-      [v50 removeLastObject];
+      [v49 removeLastObject];
     }
   }
 
-  if ([v50 count])
+  if ([v49 count])
   {
-    lastObject2 = [v50 lastObject];
+    lastObject2 = [v49 lastObject];
     [v19 setPreviousLOI:lastObject2];
   }
 
@@ -202,7 +201,7 @@
 
   else
   {
-    [v52 predictedNextLOIs];
+    [v51 predictedNextLOIs];
   }
   v25 = ;
   [v19 setPredictedNextLOIs:v25];
@@ -216,34 +215,34 @@
 
   else
   {
-    [v52 predictedExitTimes];
+    [v51 predictedExitTimes];
   }
   v27 = ;
   [v19 setPredictedExitTimes:v27];
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  v62[0] = @"Home";
-  v62[1] = @"Work";
-  v62[2] = @"School";
-  v62[3] = @"Gym";
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
-  v29 = [v28 countByEnumeratingWithState:&v53 objects:v63 count:16];
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v61[0] = @"Home";
+  v61[1] = @"Work";
+  v61[2] = @"School";
+  v61[3] = @"Gym";
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
+  v29 = [v28 countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (v29)
   {
-    v30 = *v54;
+    v30 = *v53;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v54 != v30)
+        if (*v53 != v30)
         {
           objc_enumerationMutation(v28);
         }
 
-        v32 = *(*(&v53 + 1) + 8 * i);
+        v32 = *(*(&v52 + 1) + 8 * i);
         locationsOfInterest = [v12 locationsOfInterest];
         v34 = [locationsOfInterest valueForKey:v32];
 
@@ -255,28 +254,28 @@
 
         else
           v35 = {;
-          [v52 locationsOfInterest];
+          [v51 locationsOfInterest];
         }
         v36 = ;
         v37 = [v36 valueForKey:v32];
         [v35 setValue:v37 forKey:v32];
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v53 objects:v63 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v52 objects:v62 count:16];
     }
 
     while (v29);
   }
 
   currentLOI4 = [v19 currentLOI];
-  currentLOI5 = [v52 currentLOI];
+  currentLOI5 = [v51 currentLOI];
   if (currentLOI4 != currentLOI5)
   {
     goto LABEL_35;
   }
 
   previousLOI3 = [v19 previousLOI];
-  previousLOI4 = [v52 previousLOI];
+  previousLOI4 = [v51 previousLOI];
   if (previousLOI3 != previousLOI4)
   {
 LABEL_34:
@@ -286,7 +285,7 @@ LABEL_35:
   }
 
   predictedNextLOIs2 = [v19 predictedNextLOIs];
-  predictedNextLOIs3 = [v52 predictedNextLOIs];
+  predictedNextLOIs3 = [v51 predictedNextLOIs];
   if (!arraysAreEqual(predictedNextLOIs2, predictedNextLOIs3))
   {
 
@@ -294,12 +293,12 @@ LABEL_35:
   }
 
   predictedExitTimes2 = [v19 predictedExitTimes];
-  predictedExitTimes3 = [v52 predictedExitTimes];
+  predictedExitTimes3 = [v51 predictedExitTimes];
   v45 = arraysAreEqual(predictedExitTimes2, predictedExitTimes3);
 
   if (v45)
   {
-    lastUpdateDate4 = [v52 lastUpdateDate];
+    lastUpdateDate4 = [v51 lastUpdateDate];
     [v19 setLastUpdateDate:lastUpdateDate4];
     goto LABEL_37;
   }
@@ -309,8 +308,7 @@ LABEL_36:
   [v19 setLastUpdateDate:lastUpdateDate4];
 LABEL_37:
 
-  _Block_object_dispose(v60, 8);
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v59, 8);
 
   return v19;
 }

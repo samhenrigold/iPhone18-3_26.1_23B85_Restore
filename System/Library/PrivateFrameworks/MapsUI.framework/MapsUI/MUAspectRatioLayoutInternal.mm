@@ -25,12 +25,11 @@
 
 - (MULayoutItem)item
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUAspectRatioLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C5723500(v6);
+  sub_1C5723500(v5);
 
   return Strong;
 }
@@ -43,37 +42,32 @@
     [swift_unknownObjectRetain() _mapsui_disableTranslatesAutoresizingMaskIntoConstraints];
   }
 
-  v5 = *(&selfCopy->super.super.isa + OBJC_IVAR___MUAspectRatioLayoutInternal_builder);
-  sub_1C5623A68(v8);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  sub_1C5723648(v8, v7);
-  sub_1C5623B40(v7, v6);
+  sub_1C5723648(v7, v6);
+  sub_1C5623B40(v6, v5);
   swift_unknownObjectRelease();
-  sub_1C5723500(v8);
+  sub_1C5723500(v7);
 }
 
 - (double)aspectRatio
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUAspectRatioLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
 
-  v4 = *&v6[1];
-  sub_1C5723500(v6);
-  return v4;
+  v3 = *&v5[1];
+  sub_1C5723500(v5);
+  return v3;
 }
 
 - (void)setAspectRatio:(double)ratio
 {
-  v5 = OBJC_IVAR___MUAspectRatioLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUAspectRatioLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   ratioCopy = ratio;
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C5723648(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C5723500(v11);
+  sub_1C5723648(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C5723500(v7);
 }
 
 @end

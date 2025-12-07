@@ -9,9 +9,9 @@
 - (id)px_stringByIndentingNewLines;
 - (id)px_stringByRepeating:()PhotosUIFoundation;
 - (id)px_stringByTruncatingToLength:()PhotosUIFoundation addEllipsis:;
-- (uint64_t)px_endsWithFullStopOrEquivalentPunctuationMark;
 - (uint64_t)px_firstLetterRange;
 - (uint64_t)px_platformAgnosticHash;
+- (void)px_endsWithFullStopOrEquivalentPunctuationMark;
 @end
 
 @implementation NSString(PhotosUIFoundation)
@@ -61,13 +61,14 @@
 
 - (id)px_stringByAppendingDescriptionDetailsWithFormat:()PhotosUIFoundation
 {
-  v10 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, &a9);
-  v11 = [self px_stringByAppendingDescriptionDetails:v10];
+  va_start(va, a8);
+  v9 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, va);
+  v10 = [self px_stringByAppendingDescriptionDetails:v9];
 
-  return v11;
+  return v10;
 }
 
-- (uint64_t)px_endsWithFullStopOrEquivalentPunctuationMark
+- (void)px_endsWithFullStopOrEquivalentPunctuationMark
 {
   if (px_endsWithFullStopOrEquivalentPunctuationMark_onceToken != -1)
   {

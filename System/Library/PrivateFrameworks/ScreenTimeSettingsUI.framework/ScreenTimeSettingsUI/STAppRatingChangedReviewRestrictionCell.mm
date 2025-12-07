@@ -9,19 +9,19 @@
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFAA118);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFAA118, &qword_264CD4D58);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v11[-v7];
   specifierCopy = specifier;
   specifierCopy2 = specifier;
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFAA120);
-  sub_264C64918(&qword_27FFAA128, &qword_27FFAA120);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFAA120, &qword_264CD4D60);
+  sub_264C64918(&qword_27FFAA128, &qword_27FFAA120, &qword_264CD4D60, MEMORY[0x277CE1138]);
   sub_264CC3DFC();
   sub_264CC3ECC();
   v13[3] = v5;
-  v13[4] = sub_264C64918(&qword_27FFAA130, &qword_27FFAA118);
+  v13[4] = sub_264C64918(&qword_27FFAA130, &qword_27FFAA118, &qword_264CD4D58, MEMORY[0x277CDE1C0]);
   __swift_allocate_boxed_opaque_existential_1(v13);
   sub_264CC3DEC();
   (*(v6 + 8))(v8, v5);

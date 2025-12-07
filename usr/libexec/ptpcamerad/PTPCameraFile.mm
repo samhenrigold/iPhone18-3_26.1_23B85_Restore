@@ -4,10 +4,13 @@
 - (BOOL)isAppleDevice;
 - (BOOL)processMetadata:(id)metadata;
 - (BOOL)rawImageSupported;
+- (CGImage)copyThumbnailForPixelWidth:(unsigned int)width;
 - (PTPCameraFile)initWithObjectInfo:(id)info parent:(id)parent initiator:(id)initiator;
+- (id)altThumbnaillForMaxPixelSize:(unsigned int)size;
 - (id)fingerprintWithError:(id *)error;
 - (id)imageValidateSubImage:(id)image error:(id *)error;
 - (id)subImageDictForPixelWidth:(id)width;
+- (id)thumbnailForPixelWidth:(unsigned int)width;
 - (int)imageHeight;
 - (int)imageOrientation;
 - (int)imageWidth;
@@ -21,11 +24,39 @@
 - (void)imageScrapeAllocatedData:(char *)data length:(unint64_t)length bufferOffset:(unint64_t)offset;
 - (void)metadataWithOptions:(id)options reply:(id)reply;
 - (void)parseKeywords:(id)keywords;
+- (void)setHasThumbnail:(BOOL)thumbnail;
+- (void)setImageHeight:(int)height;
+- (void)setImageOrientation:(int)orientation;
+- (void)setImageWidth:(int)width;
 - (void)setSizeAndOrientationFromImageProperties:(id)properties;
 - (void)thumbnailDataWithOptions:(id)options reply:(id)reply;
 @end
 
 @implementation PTPCameraFile
+
+- (void)setHasThumbnail:(BOOL)thumbnail
+{
+  thumbnailCopy = thumbnail;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setHasThumbnail:thumbnailCopy];
+
+  if (thumbnailCopy)
+  {
+    if ([(PTPCameraFile *)self thumbSize])
+    {
+      return;
+    }
+
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  [(PTPCameraFile *)self setThumbSize:v6];
+}
 
 - (BOOL)hasThumbnail
 {
@@ -33,6 +64,27 @@
   hasThumbnail = [cameraItemProxy hasThumbnail];
 
   return hasThumbnail;
+}
+
+- (void)setImageHeight:(int)height
+{
+  v3 = *&height;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setHeight:v3];
+}
+
+- (void)setImageWidth:(int)width
+{
+  v3 = *&width;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setWidth:v3];
+}
+
+- (void)setImageOrientation:(int)orientation
+{
+  v3 = *&orientation;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setOrientation:v3];
 }
 
 - (int)imageHeight
@@ -881,6 +933,150 @@ LABEL_8:
   [(PTPCameraFile *)self fetchFullMetadata];
   metadata = [(PTPCameraItem *)self metadata];
   replyCopy[2](replyCopy, metadata);
+}
+
+- (id)altThumbnaillForMaxPixelSize:(unsigned int)size
+{
+  v3 = *&size;
+  v5 = [(PTPCameraFile *)self UTI];
+  identifier = [UTTypeImage identifier];
+
+  if (v5 != identifier)
+  {
+    goto LABEL_2;
+  }
+
+  [(PTPCameraFile *)self fetchFullMetadata];
+  info = 0;
+  mach_timebase_info(&info);
+  dword_1000338CC = 0;
+  *&dword_1000338CC = mach_absolute_time();
+  v8 = [(PTPCameraFile *)self copyThumbnailForPixelWidth:v3];
+  v9 = (((mach_absolute_time() - *&dword_1000338CC) * info.numer) / info.denom) / 1000000.0;
+  __ICOSLogCreate();
+  name = [(PTPCameraItem *)self name];
+  if ([name length] >= 0x15)
+  {
+    v11 = [name substringWithRange:{0, 18}];
+    v12 = [v11 stringByAppendingString:@".."];
+
+    name = v12;
+  }
+
+  if (v9 <= 300.0)
+  {
+    v13 = @"{𝚫}";
+  }
+
+  else
+  {
+    v13 = @"{⊗}";
+  }
+
+  v14 = [NSString stringWithFormat:@"[%d] <<<< copyThumbnailForPixelWidth", v3];
+  v15 = [NSString stringWithFormat:@"%@:[%5.0f ms]:%@", v13, v9, v14];
+
+  v16 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = name;
+    v18 = v16;
+    uTF8String = [name UTF8String];
+    *buf = 136446466;
+    v41 = uTF8String;
+    v42 = 2114;
+    v43 = v15;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  dword_1000338C8 = LODWORD(v9);
+  if (v8)
+  {
+    v38 = 0;
+    mach_timebase_info(&v38);
+    dword_1000338CC = 0;
+    *&dword_1000338CC = mach_absolute_time();
+    Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
+    identifier2 = [UTTypeJPEG identifier];
+    v21 = CGImageDestinationCreateWithData(Mutable, identifier2, 1uLL, 0);
+
+    if (v21)
+    {
+      CGImageDestinationAddImage(v21, v8, 0);
+      if (!CGImageDestinationFinalize(v21))
+      {
+
+        Mutable = 0;
+      }
+
+      CFRelease(v21);
+    }
+
+    else
+    {
+
+      Mutable = 0;
+    }
+
+    CFRelease(v8);
+    v22 = (((mach_absolute_time() - *&dword_1000338CC) * v38.numer) / v38.denom) / 1000000.0;
+    __ICOSLogCreate();
+    name2 = [(PTPCameraItem *)self name];
+    if ([name2 length] >= 0x15)
+    {
+      v24 = [name2 substringWithRange:{0, 18}];
+      v25 = [v24 stringByAppendingString:@".."];
+
+      name2 = v25;
+    }
+
+    if (v22 <= 300.0)
+    {
+      v26 = @"{𝚫}";
+    }
+
+    else
+    {
+      v26 = @"{⊗}";
+    }
+
+    v27 = [NSString stringWithFormat:@"[%d] <<<< CGImageDestinationFinalize", v3];
+    v28 = [NSString stringWithFormat:@"%@:[%5.0f ms]:%@", v26, v22, v27];
+
+    v29 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v30 = name2;
+      v31 = v29;
+      uTF8String2 = [name2 UTF8String];
+      *buf = 136446466;
+      v41 = uTF8String2;
+      v42 = 2114;
+      v43 = v28;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    dword_1000338C8 = LODWORD(v22);
+  }
+
+  else
+  {
+LABEL_2:
+    Mutable = 0;
+  }
+
+  v33 = [(PTPCameraFile *)self UTI];
+  identifier3 = [UTTypeMovie identifier];
+
+  if (v33 == identifier3)
+  {
+    v35 = [(PTPCameraFile *)self thumbnailForPixelWidth:160];
+    v36 = [v35 mutableCopy];
+
+    Mutable = v36;
+  }
+
+  return Mutable;
 }
 
 - (BOOL)imageIOSupported
@@ -1960,6 +2156,289 @@ LABEL_20:
   }
 
   return v9;
+}
+
+- (id)thumbnailForPixelWidth:(unsigned int)width
+{
+  v3 = *&width;
+  initiator = [(PTPCameraItem *)self initiator];
+  v10 = 0;
+  v6 = [initiator thumbDataFromFile:self maxPixelSize:v3 actualSize:&v10 useBuffer:0];
+  v7 = v6;
+  if (v6 && [v6 length])
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (CGImage)copyThumbnailForPixelWidth:(unsigned int)width
+{
+  v3 = *&width;
+  name = [(PTPCameraItem *)self name];
+  pathExtension = [name pathExtension];
+  TypeWithExtension = CGImageSourceGetTypeWithExtension();
+
+  v8 = [NSNumber numberWithInt:v3];
+  initiator = [(PTPCameraItem *)self initiator];
+  mtpProperties = [initiator mtpProperties];
+  v11 = [NSNumber numberWithUnsignedInt:[(PTPCameraItem *)self objectFormat]];
+  v12 = [mtpProperties objectForKeyedSubscript:v11];
+  v13 = [v12 containsObject:&off_10002F4C8];
+
+  if (v13)
+  {
+    initiator2 = [(PTPCameraItem *)self initiator];
+    v15 = [initiator2 mtpObjectRepData:{-[PTPCameraItem objHandle](self, "objHandle")}];
+
+    if (v15)
+    {
+      v16 = 0;
+      v17 = @"✓ MTP Representative Object";
+      goto LABEL_22;
+    }
+  }
+
+  v18 = [(PTPCameraFile *)self subImageDictForPixelWidth:v8];
+  v16 = v18;
+  v65 = v8;
+  if (!v18)
+  {
+    goto LABEL_31;
+  }
+
+  v19 = [v18 objectForKeyedSubscript:@"JPEGOffset"];
+  v20 = [v16 objectForKeyedSubscript:@"JPEGLength"];
+  unsignedIntegerValue = [v19 unsignedIntegerValue];
+  unsignedIntegerValue2 = [v20 unsignedIntegerValue];
+  v15 = unsignedIntegerValue2;
+  if (unsignedIntegerValue2)
+  {
+    v23 = unsignedIntegerValue2 + 12;
+    if (unsignedIntegerValue2 < -12)
+    {
+      v23 = unsignedIntegerValue2 + 16395;
+    }
+
+    v24 = malloc_type_malloc((v23 & 0xFFFFFFFFFFFFC000) + 0x4000, 0xDBD3455CuLL);
+    if (v24)
+    {
+      v25 = v24;
+      v26 = [(PTPCameraFile *)self readStream:v24 size:v15 offset:unsignedIntegerValue];
+      if (v15 == v26)
+      {
+        v15 = [NSData dataWithBytes:v25 + 12 length:v15];
+      }
+
+      else
+      {
+        v27 = v26;
+        v62 = TypeWithExtension;
+        __ICOSLogCreate();
+        name2 = [(PTPCameraItem *)self name];
+        if ([name2 length] < 0x15)
+        {
+          v64 = name2;
+        }
+
+        else
+        {
+          v63 = [name2 substringWithRange:{0, 18}];
+          v61 = [v63 stringByAppendingString:@".."];
+
+          v64 = v61;
+        }
+
+        v29 = [NSString stringWithFormat:@"Received %zu bytes, expected %lu", v27, v15];
+        v30 = _gICOSLog;
+        TypeWithExtension = v62;
+        if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+        {
+          sub_10001D134(v64, v30, v29);
+        }
+
+        v15 = 0;
+      }
+
+      free(v25);
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v8 = v65;
+  }
+
+  if (!v15)
+  {
+LABEL_31:
+    v41 = [NSMutableDictionary alloc];
+    v42 = [NSNumber numberWithLong:v3];
+    name4 = [v41 initWithObjectsAndKeys:{TypeWithExtension, kCGImageSourceTypeIdentifierHint, v42, kCGImageSourceThumbnailMaxPixelSize, kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways, 0}];
+
+    *&buf.version = xmmword_10002CB48;
+    *&buf.releaseBytePointer = *algn_10002CB58;
+    buf.releaseInfo = nullsub_1;
+    v43 = CGDataProviderCreateDirect(self, [(PTPCameraItem *)self size], &buf);
+    v44 = CGImageSourceCreateWithDataProvider(v43, name4);
+    Count = CGImageSourceGetCount(v44);
+    __ICOSLogCreate();
+    count = [NSString stringWithFormat:@"     numImages: %d\n", Count];
+    if (__ICLogTypeEnabled())
+    {
+      v47 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        *v66 = 138543362;
+        v67 = count;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%{public}@", v66, 0xCu);
+      }
+    }
+
+    if (Count)
+    {
+      v48 = 0;
+      v49 = 0;
+      do
+      {
+        ImageAtIndex = CGImageSourceCreateImageAtIndex(v44, v48, 0);
+        if (ImageAtIndex)
+        {
+          v51 = ImageAtIndex;
+          if (CGImageGetHeight(ImageAtIndex) > v3)
+          {
+            v49 = v48;
+          }
+
+          CFRelease(v51);
+        }
+
+        ++v48;
+      }
+
+      while (Count != v48);
+      if (v44)
+      {
+        goto LABEL_42;
+      }
+    }
+
+    else
+    {
+      v49 = 0;
+      if (v44)
+      {
+LABEL_42:
+        ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(v44, v49, name4);
+        CFRelease(v44);
+        CGDataProviderRelease(v43);
+        v8 = v65;
+        if (ThumbnailAtIndex)
+        {
+          __ICOSLogCreate();
+          name3 = [(PTPCameraItem *)self name];
+          if ([name3 length] >= 0x15)
+          {
+            v53 = [name3 substringWithRange:{0, 18}];
+            v54 = [v53 stringByAppendingString:@".."];
+
+            name3 = v54;
+          }
+
+          v55 = [NSString stringWithFormat:@"✓ ImageIO Created"];
+          v56 = _gICOSLog;
+          if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+          {
+            v57 = name3;
+            v58 = v56;
+            uTF8String = [name3 UTF8String];
+            *v66 = 136446466;
+            v67 = uTF8String;
+            v68 = 2114;
+            v69 = v55;
+            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v66, 0x16u);
+          }
+        }
+
+        goto LABEL_52;
+      }
+    }
+
+    CGDataProviderRelease(v43);
+    ThumbnailAtIndex = 0;
+    v8 = v65;
+LABEL_52:
+    v15 = 0;
+LABEL_53:
+
+    goto LABEL_54;
+  }
+
+  v17 = @"✓ Thumbnail SubImage Dict";
+LABEL_22:
+  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v32 = CGImageSourceCreateWithData(v15, 0);
+  CFDictionarySetValue(Mutable, kCGImageSourceThumbnailMaxPixelSize, v8);
+  CFDictionarySetValue(Mutable, kCGImageSourceCreateThumbnailFromImageAlways, kCFBooleanTrue);
+  if (v32)
+  {
+    ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(v32, 0, Mutable);
+    CFRelease(v32);
+    if (!Mutable)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_24;
+  }
+
+  ThumbnailAtIndex = 0;
+  if (Mutable)
+  {
+LABEL_24:
+    CFRelease(Mutable);
+  }
+
+LABEL_25:
+  if (ThumbnailAtIndex)
+  {
+    __ICOSLogCreate();
+    name4 = [(PTPCameraItem *)self name];
+    if ([(__CFDictionary *)name4 length]>= 0x15)
+    {
+      v35 = [(__CFDictionary *)name4 substringWithRange:0, 18];
+      v36 = [v35 stringByAppendingString:@".."];
+
+      name4 = v36;
+    }
+
+    v37 = [NSString stringWithFormat:@"%@", v17];
+    v38 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v39 = name4;
+      v40 = v38;
+      buf.version = 136446466;
+      *(&buf.version + 1) = [(__CFDictionary *)name4 UTF8String];
+      WORD2(buf.getBytePointer) = 2114;
+      *(&buf.getBytePointer + 6) = v37;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &buf, 0x16u);
+    }
+
+    goto LABEL_53;
+  }
+
+LABEL_54:
+
+  return ThumbnailAtIndex;
 }
 
 - (id)fingerprintWithError:(id *)error

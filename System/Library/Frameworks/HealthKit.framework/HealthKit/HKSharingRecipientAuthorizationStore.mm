@@ -23,9 +23,9 @@
 {
   storeCopy = store;
   identifierCopy = identifier;
-  v26.receiver = self;
-  v26.super_class = HKSharingRecipientAuthorizationStore;
-  v9 = [(HKSharingRecipientAuthorizationStore *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = HKSharingRecipientAuthorizationStore;
+  v9 = [(HKSharingRecipientAuthorizationStore *)&v27 init];
   v10 = v9;
   if (v9)
   {
@@ -47,10 +47,10 @@
     v19 = [HKObserverSet alloc];
     v20 = objc_opt_class();
     v21 = NSStringFromClass(v20);
-    v22 = HKLogSharing();
-    v23 = [(HKObserverSet *)v19 initWithName:v21 loggingCategory:v22];
+    v23 = HKLogSharing(v21, v22);
+    v24 = [(HKObserverSet *)v19 initWithName:v21 loggingCategory:v23];
     observers = v10->_observers;
-    v10->_observers = v23;
+    v10->_observers = v24;
   }
 
   return v10;
@@ -78,11 +78,11 @@
 void __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCompletion___block_invoke_2_cold_1(a1);
+    __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -110,11 +110,11 @@ void __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCo
 void __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarkedForDeletionWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarkedForDeletionWithCompletion___block_invoke_2_cold_1(a1);
+    __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarkedForDeletionWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -145,11 +145,11 @@ void __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarked
 void __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_completion___block_invoke_2_cold_1(a1);
+    __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -180,11 +180,11 @@ void __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_complet
 void __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_completion___block_invoke_2_cold_1(a1);
+    __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -212,11 +212,11 @@ void __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_comp
 void __61__HKSharingRecipientAuthorizationStore_revokeWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __61__HKSharingRecipientAuthorizationStore_revokeWithCompletion___block_invoke_2_cold_1(a1);
+    __61__HKSharingRecipientAuthorizationStore_revokeWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -282,12 +282,12 @@ uint64_t __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invok
 
 void __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogSharing(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3_cold_1(a1);
+    __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3_cold_1();
   }
 }
 
@@ -376,69 +376,62 @@ void __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3(
 
 void __64__HKSharingRecipientAuthorizationStore__registerRemoteObservers__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogSharing(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __64__HKSharingRecipientAuthorizationStore__registerRemoteObservers__block_invoke_2_cold_1(a1);
+    __64__HKSharingRecipientAuthorizationStore__registerRemoteObservers__block_invoke_2_cold_1();
   }
 }
 
-void __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __81__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error fetching sharing authorizations %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error fetching sharing authorizations %{public}@");
 }
 
-void __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarkedForDeletionWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __98__HKSharingRecipientAuthorizationStore_fetchSharingAuthorizationsMarkedForDeletionWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error fetching sharing authorizations marked for deletion %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error fetching sharing authorizations marked for deletion %{public}@");
 }
 
-void __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_completion___block_invoke_2_cold_1(uint64_t a1)
+void __76__HKSharingRecipientAuthorizationStore_addSharingAuthorizations_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: Error adding sharing authorizations %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "%{public}@: Error adding sharing authorizations %{public}@");
 }
 
-void __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_completion___block_invoke_2_cold_1(uint64_t a1)
+void __79__HKSharingRecipientAuthorizationStore_removeSharingAuthorizations_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: Error removing sharing authorizations %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "%{public}@: Error removing sharing authorizations %{public}@");
 }
 
-void __61__HKSharingRecipientAuthorizationStore_revokeWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __61__HKSharingRecipientAuthorizationStore_revokeWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: Error revoking sharing authorizations %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "%{public}@: Error revoking sharing authorizations %{public}@");
 }
 
-void __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3_cold_1(uint64_t a1)
+void __55__HKSharingRecipientAuthorizationStore_removeObserver___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error unregistering observers %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error unregistering observers %{public}@");
 }
 
-void __64__HKSharingRecipientAuthorizationStore__registerRemoteObservers__block_invoke_2_cold_1(uint64_t a1)
+void __64__HKSharingRecipientAuthorizationStore__registerRemoteObservers__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error registering observers %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error registering observers %{public}@");
 }
 
 @end

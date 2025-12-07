@@ -182,7 +182,6 @@ LABEL_19:
   CFPreferencesSetAppValue(@"AKBiometricRatchetIdentifierKey", location[0], *MEMORY[0x277CBF008]);
   CFPreferencesSynchronize(*v3, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)resultForSuccessfulArmingFromResponse:(id)response
@@ -211,7 +210,6 @@ LABEL_19:
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -270,7 +268,6 @@ LABEL_19:
 
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v19;
 
   return v4;

@@ -17,7 +17,7 @@
     selfCopy = self;
     v5 = sub_2204A80F0(v2, v3);
     v2(v5);
-    sub_2204DA45C(v2);
+    v6 = sub_2204DA45C(v2, v3);
   }
 
   else
@@ -25,13 +25,13 @@
     selfCopy2 = self;
   }
 
-  [(TextFieldAlertController *)self dismissViewControllerAnimated:1 completion:0];
+  [(TextFieldAlertController *)self dismissViewControllerAnimated:1 completion:0, v6];
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2206EA408();
+  sub_2206EA408(selfCopy, v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -57,7 +57,7 @@
 
 - (NSArray)keyCommands
 {
-  sub_22044D56C(0, &qword_281299860);
+  sub_22044D56C(0, &qword_281299860, 0x277D75650);
   sub_22089136C();
   selfCopy = self;
   v4 = sub_220891A8C();

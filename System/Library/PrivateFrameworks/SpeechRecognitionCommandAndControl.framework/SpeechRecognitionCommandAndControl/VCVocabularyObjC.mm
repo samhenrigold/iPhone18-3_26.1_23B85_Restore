@@ -44,7 +44,7 @@
 
 + (void)addVocabularyEntryWithString:(id)string
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v8 - v4;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -59,7 +59,7 @@
 
 + (void)addVocabularyEntryWithString:(id)string pronunciations:(id)pronunciations
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v9 - v5;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -84,7 +84,7 @@
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for VCSettings();
   v11 = static VCSettings.shared.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_26B405970;
   *(v12 + 32) = v8;

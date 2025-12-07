@@ -235,19 +235,19 @@
 
 - (BOOL)CA_validateValue:(id)value forKey:(id)key
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (value && [key isEqualToString:@"sourcePoints"])
   {
-    objc_opt_class();
+    v7 = objc_opt_class();
 
-    return CAObject_validateArrayOfClass(value);
+    return CAObject_validateArrayOfClass(value, v7);
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = CAMatchMoveAnimation;
-    return [&v8 CA_validateValue:value forKey:key];
+    v9.receiver = self;
+    v9.super_class = CAMatchMoveAnimation;
+    return [&v9 CA_validateValue:value forKey:key];
   }
 }
 

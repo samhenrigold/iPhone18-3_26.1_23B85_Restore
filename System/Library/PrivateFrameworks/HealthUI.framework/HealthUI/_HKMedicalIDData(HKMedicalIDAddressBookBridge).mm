@@ -6,6 +6,7 @@
 - (uint64_t)_updateIdentifierByPhoneNumberForEmergencyContact:()HKMedicalIDAddressBookBridge contactStore:;
 - (uint64_t)updateEmergencyContacts;
 - (uint64_t)updateEmergencyContactsAutopopulateForSecondaryProfileIfEmpty:()HKMedicalIDAddressBookBridge;
+- (void)_autopopulateEmergencyContactsForSecondaryProfile;
 - (void)loadDataFromCNContact:()HKMedicalIDAddressBookBridge;
 @end
 
@@ -18,9 +19,9 @@
     +[_HKMedicalIDData(HKMedicalIDAddressBookBridge) contactKeysToLoadForMedicalID];
   }
 
-  v1 = contactKeysToLoadForMedicalID_contactKeysToFetch;
+  v2 = contactKeysToLoadForMedicalID_contactKeysToFetch;
 
-  return v1;
+  return v2;
 }
 
 - (void)loadDataFromCNContact:()HKMedicalIDAddressBookBridge
@@ -532,9 +533,16 @@ LABEL_32:
     [_HKMedicalIDData(HKMedicalIDAddressBookBridge) _contactKeysToFetch];
   }
 
-  v1 = _contactKeysToFetch_contactKeys;
+  v2 = _contactKeysToFetch_contactKeys;
 
-  return v1;
+  return v2;
+}
+
+- (void)_autopopulateEmergencyContactsForSecondaryProfile
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_8(&dword_1C3942000, a2, a3, "%{public}@: Unable to fetch contact from the contact store", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

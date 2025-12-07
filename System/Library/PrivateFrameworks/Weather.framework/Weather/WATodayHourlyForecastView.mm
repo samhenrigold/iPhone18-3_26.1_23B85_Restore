@@ -14,10 +14,10 @@
 
 - (WATodayHourlyForecastView)initWithFrame:(CGRect)frame
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v36.receiver = self;
-  v36.super_class = WATodayHourlyForecastView;
-  v3 = [(WATodayHourlyForecastView *)&v36 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v38 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = WATodayHourlyForecastView;
+  v3 = [(WATodayHourlyForecastView *)&v35 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_opt_new();
@@ -63,38 +63,38 @@
     conditionsImageView = [(WATodayHourlyForecastView *)v3 conditionsImageView];
     [conditionsImageView setContentMode:2];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     temperatureLabelVisualEffectView2 = [(WATodayHourlyForecastView *)v3 temperatureLabelVisualEffectView];
-    v37[0] = temperatureLabelVisualEffectView2;
+    v36[0] = temperatureLabelVisualEffectView2;
     timeLabelVisualEffectView2 = [(WATodayHourlyForecastView *)v3 timeLabelVisualEffectView];
-    v37[1] = timeLabelVisualEffectView2;
+    v36[1] = timeLabelVisualEffectView2;
     conditionsImageView2 = [(WATodayHourlyForecastView *)v3 conditionsImageView];
-    v37[2] = conditionsImageView2;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+    v36[2] = conditionsImageView2;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
 
-    v25 = [v24 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v33;
+      v27 = *v32;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v33 != v27)
+          if (*v32 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v32 + 1) + 8 * i);
+          v29 = *(*(&v31 + 1) + 8 * i);
           [v29 setTranslatesAutoresizingMaskIntoConstraints:0];
           [(WATodayHourlyForecastView *)v3 addSubview:v29];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v26);
@@ -103,7 +103,6 @@
     [(WATodayHourlyForecastView *)v3 _setupConstraints];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -185,7 +184,7 @@
 
 - (void)_setupConstraints
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   constraints = [(WATodayHourlyForecastView *)self constraints];
 
   if (constraints)
@@ -212,7 +211,7 @@
   lastBaselineAnchor2 = [timeLabelVisualEffectView2 lastBaselineAnchor];
   conditionsImageView = [(WATodayHourlyForecastView *)self conditionsImageView];
   topAnchor2 = [conditionsImageView topAnchor];
-  v90 = v7;
+  v89 = v7;
   [v7 _scaledValueForValue:12.0];
   v19 = [lastBaselineAnchor2 constraintEqualToAnchor:topAnchor2 constant:-v18];
   [v9 addObject:v19];
@@ -228,7 +227,7 @@
   temperatureLabelVisualEffectView2 = [(WATodayHourlyForecastView *)self temperatureLabelVisualEffectView];
   lastBaselineAnchor4 = [temperatureLabelVisualEffectView2 lastBaselineAnchor];
   bottomAnchor2 = [(WATodayHourlyForecastView *)self bottomAnchor];
-  v89 = v8;
+  v88 = v8;
   [v8 _scaledValueForValue:17.0];
   v29 = [lastBaselineAnchor4 constraintEqualToAnchor:bottomAnchor2 constant:-v28];
   [v9 addObject:v29];
@@ -293,26 +292,26 @@
   v73 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
   [v9 addObject:v73];
 
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
   v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
   subviews = [(WATodayHourlyForecastView *)self subviews];
-  v75 = [subviews countByEnumeratingWithState:&v91 objects:v95 count:16];
+  v75 = [subviews countByEnumeratingWithState:&v90 objects:v94 count:16];
   if (v75)
   {
     v76 = v75;
-    v77 = *v92;
+    v77 = *v91;
     do
     {
       for (i = 0; i != v76; ++i)
       {
-        if (*v92 != v77)
+        if (*v91 != v77)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v79 = *(*(&v91 + 1) + 8 * i);
+        v79 = *(*(&v90 + 1) + 8 * i);
         centerXAnchor = [v79 centerXAnchor];
         centerXAnchor2 = [(WATodayHourlyForecastView *)self centerXAnchor];
         v82 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
@@ -324,7 +323,7 @@
         [v9 addObject:v85];
       }
 
-      v76 = [subviews countByEnumeratingWithState:&v91 objects:v95 count:16];
+      v76 = [subviews countByEnumeratingWithState:&v90 objects:v94 count:16];
     }
 
     while (v76);
@@ -334,8 +333,6 @@
   v86 = MEMORY[0x277CCAAD0];
   constraints3 = [(WATodayHourlyForecastView *)self constraints];
   [v86 activateConstraints:constraints3];
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 @end

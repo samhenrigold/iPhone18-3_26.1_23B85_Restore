@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)finish;
 - (void)resetWithOrgApacheLuceneStoreDataOutput:(id)output;
+- (void)writeValuesWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneUtilPackedAbstractBlockPackedWriter
@@ -94,6 +95,62 @@ LABEL_6:
   }
 
   self->finished_ = 1;
+}
+
+- (void)writeValuesWithInt:(int)int
+{
+  v8 = *&int;
+  if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100003648();
+  }
+
+  EncoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getEncoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_(OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], 2, v8, v3, v4, v5, v6, v7);
+  values = self->values_;
+  if (!values)
+  {
+    goto LABEL_17;
+  }
+
+  v12 = EncoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt;
+  if (!EncoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt)
+  {
+    goto LABEL_17;
+  }
+
+  size = values->super.size_;
+  v14 = (size / [EncoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt byteValueCount]);
+  v19 = [v12 byteBlockCount] * v14;
+  p_blocks = &self->blocks_;
+  blocks = self->blocks_;
+  if (!blocks || blocks->super.size_ < v19)
+  {
+    JreStrongAssignAndConsume(&self->blocks_, [IOSByteArray newArrayWithLength:v19]);
+  }
+
+  off = self->off_;
+  v23 = self->values_;
+  if (off < v23->super.size_)
+  {
+    JavaUtilArrays_fillWithLongArray_withInt_withInt_withLong_(self->values_, off, v23->super.size_, 0, v15, v16, v17, v18);
+    v23 = self->values_;
+  }
+
+  [v12 encodeWithLongArray:v23 withInt:0 withByteArray:*p_blocks withInt:0 withInt:v14];
+  if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100003648();
+  }
+
+  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] || (v24 = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] byteCountWithInt:2 withInt:self->off_ withInt:v8], (out = self->out_) == 0))
+  {
+LABEL_17:
+    JreThrowNullPointerException();
+  }
+
+  v26 = *p_blocks;
+
+  [(OrgApacheLuceneStoreDataOutput *)out writeBytesWithByteArray:v26 withInt:v24];
 }
 
 - (void)dealloc

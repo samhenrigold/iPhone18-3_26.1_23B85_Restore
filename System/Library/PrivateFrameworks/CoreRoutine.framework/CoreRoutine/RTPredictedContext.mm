@@ -133,22 +133,22 @@
 
 + (unint64_t)maskForSources:(id)sources
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityPredictedContext);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = NSStringFromSelector(a2);
       *buf = 138412803;
-      *&buf[4] = v11;
+      *&buf[4] = v10;
       *&buf[12] = 2112;
-      *&buf[14] = v12;
+      *&buf[14] = v11;
       *&buf[22] = 2117;
-      v25 = sourcesCopy;
+      v24 = sourcesCopy;
       _os_log_debug_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_DEBUG, "%@, %@, %{sensitive}@", buf, 0x20u);
     }
   }
@@ -156,36 +156,35 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v25 = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __37__RTPredictedContext_maskForSources___block_invoke;
-  v17[3] = &unk_1E80B4C80;
-  v17[4] = buf;
-  [sourcesCopy enumerateObjectsUsingBlock:v17];
+  v24 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __37__RTPredictedContext_maskForSources___block_invoke;
+  v16[3] = &unk_1E80B4C80;
+  v16[4] = buf;
+  [sourcesCopy enumerateObjectsUsingBlock:v16];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityPredictedContext);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = NSStringFromSelector(a2);
-      v16 = *(*&buf[8] + 24);
-      *v18 = 138412802;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2048;
-      v23 = v16;
-      _os_log_debug_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_DEBUG, "%@, %@, mask, %lu", v18, 0x20u);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = NSStringFromSelector(a2);
+      v15 = *(*&buf[8] + 24);
+      *v17 = 138412802;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2048;
+      v22 = v15;
+      _os_log_debug_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_DEBUG, "%@, %@, mask, %lu", v17, 0x20u);
     }
   }
 
   v7 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

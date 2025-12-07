@@ -445,12 +445,12 @@ uint64_t __63__ICSBackupStatusView_setBackupProgress_timeIntervalRemaining___blo
 - (void)updateViewsForBackupState:(int)state restoreState:(int)restoreState enabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v51 = *MEMORY[0x277D85DE8];
-  v9 = LogSubsystem();
+  v50 = *MEMORY[0x277D85DE8];
+  v9 = LogSubsystem(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v50) = state;
+    LODWORD(v49) = state;
     _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "update view for backup state: %d", buf, 8u);
   }
 
@@ -459,44 +459,42 @@ uint64_t __63__ICSBackupStatusView_setBackupProgress_timeIntervalRemaining___blo
   [(NSMutableSet *)self->_visibleSubviews removeAllObjects];
   if (state > 6)
   {
-    v11 = 0;
+    v10 = 0;
     goto LABEL_48;
   }
 
   if (((1 << state) & 0x79) == 0)
   {
-    v11 = [MEMORY[0x277CBEB18] arrayWithObjects:{self->_backupIssueLabel, self->_lastBackupLabel, 0}];
+    v10 = [MEMORY[0x277CBEB18] arrayWithObjects:{self->_backupIssueLabel, self->_lastBackupLabel, 0}];
     visibleSubviews = self->_visibleSubviews;
-    progressBar = self->_progressBar;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:{self->_spinner, progressBar, self->_statusLabel, self->_timeRemainingLabel, 0}];
-    [(NSMutableSet *)visibleSubviews addObjectsFromArray:v19];
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:{self->_spinner, self->_progressBar, self->_statusLabel, self->_timeRemainingLabel, 0}];
+    [(NSMutableSet *)visibleSubviews addObjectsFromArray:v18];
 
     [(UIActivityIndicatorView *)self->_spinner startAnimating];
     statusLabel = self->_statusLabel;
-    v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v22 = [v21 localizedStringForKey:@"BACKING_UP" value:&stru_288487370 table:@"Localizable-Backup"];
-    [(UILabel *)statusLabel setText:v22];
+    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v21 = [v20 localizedStringForKey:@"BACKING_UP" value:&stru_288487370 table:@"Localizable-Backup"];
+    [(UILabel *)statusLabel setText:v21];
 
     goto LABEL_48;
   }
 
-  v10 = self->_progressBar;
-  v11 = [MEMORY[0x277CBEB18] arrayWithObjects:{self->_spinner, v10, self->_statusLabel, self->_timeRemainingLabel, 0}];
-  [(UIActivityIndicatorView *)self->_spinner stopAnimating];
+  v10 = [MEMORY[0x277CBEB18] arrayWithObjects:{self->_spinner, self->_progressBar, self->_statusLabel, self->_timeRemainingLabel, 0}];
+  stopAnimating = [(UIActivityIndicatorView *)self->_spinner stopAnimating];
   if (!enabledCopy)
   {
-    [(NSMutableSet *)v11 addObject:self->_backupIssueLabel];
+    [(NSMutableSet *)v10 addObject:self->_backupIssueLabel];
     goto LABEL_48;
   }
 
   if (self->_backupError)
   {
-    v12 = LogSubsystem();
+    v12 = LogSubsystem(stopAnimating);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       backupError = self->_backupError;
       *buf = 138412290;
-      v50 = backupError;
+      v49 = backupError;
       _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "backup error only: %@", buf, 0xCu);
     }
 
@@ -547,8 +545,8 @@ LABEL_33:
       v28 = MEMORY[0x277D75418];
       v29 = @"BACKUP_ERROR_INSUFFICIENT_QUOTA";
 LABEL_51:
-      v41 = [v28 modelSpecificLocalizedStringKeyForKey:v29];
-      v25 = [v23 localizedStringForKey:v41 value:&stru_288487370 table:@"Localizable-Backup"];
+      v40 = [v28 modelSpecificLocalizedStringKeyForKey:v29];
+      v25 = [v23 localizedStringForKey:v40 value:&stru_288487370 table:@"Localizable-Backup"];
 
       goto LABEL_36;
     }
@@ -596,19 +594,23 @@ LABEL_34:
     }
   }
 
-  else if ([(NSArray *)self->_syncErrors count])
+  else
   {
-    v23 = LogSubsystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = [(NSArray *)self->_syncErrors count];
+    if (v22)
     {
-      syncErrors = self->_syncErrors;
-      *buf = 138412290;
-      v50 = syncErrors;
-      _os_log_impl(&dword_275819000, v23, OS_LOG_TYPE_DEFAULT, "sync errors only: %@", buf, 0xCu);
-    }
+      v23 = LogSubsystem(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        syncErrors = self->_syncErrors;
+        *buf = 138412290;
+        v49 = syncErrors;
+        _os_log_impl(&dword_275819000, v23, OS_LOG_TYPE_DEFAULT, "sync errors only: %@", buf, 0xCu);
+      }
 
-    v25 = 0;
-    goto LABEL_36;
+      v25 = 0;
+      goto LABEL_36;
+    }
   }
 
   v25 = 0;
@@ -620,7 +622,7 @@ LABEL_37:
 
   else
   {
-    [(NSMutableSet *)v11 addObject:self->_lastBackupLabel];
+    [(NSMutableSet *)v10 addObject:self->_lastBackupLabel];
 
     v30 = self->_backupError;
     self->_backupError = 0;
@@ -657,61 +659,59 @@ LABEL_37:
   else
   {
     backupIssueLabel = self->_backupIssueLabel;
-    v35 = v11;
+    v35 = v10;
   }
 
   [(NSMutableSet *)v35 addObject:backupIssueLabel];
 
 LABEL_48:
   v37 = MEMORY[0x277D75D18];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke;
-  v46[3] = &unk_27A666410;
-  v47 = v11;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke;
+  v45[3] = &unk_27A666410;
+  v46 = v10;
   selfCopy = self;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke_2;
-  v42[3] = &unk_27A666E28;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke_2;
+  v41[3] = &unk_27A666E28;
   stateCopy = state;
-  v45 = enabledCopy;
-  v42[4] = self;
-  v43 = v47;
-  v38 = v47;
-  [v37 animateWithDuration:0 delay:v46 options:v42 animations:0.400000006 completion:0.0];
+  v44 = enabledCopy;
+  v41[4] = self;
+  v42 = v46;
+  v38 = v46;
+  [v37 animateWithDuration:0 delay:v45 options:v41 animations:0.400000006 completion:0.0];
   [(ICSBackupStatusView *)self sizeToFit];
   [(ICSBackupStatusView *)self _layoutSubviews];
   superview = [(ICSBackupStatusView *)self superview];
   [(ICSBackupStatusView *)self frame];
   [superview setNeedsDisplayInRect:?];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         v8 = [v7 superview];
 
         if (v8)
@@ -720,32 +720,32 @@ void __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = *(*(a1 + 40) + 472);
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * j);
+        v14 = *(*(&v16 + 1) + 8 * j);
         v15 = [v14 superview];
 
         if (!v15)
@@ -757,53 +757,49 @@ void __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___
         [v14 setAlpha:1.0];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ICSBackupStatusView_updateViewsForBackupState_restoreState_enabled___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 464) == *(a1 + 48) && *(v1 + 468) == *(a1 + 52))
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          [*(*(&v8 + 1) + 8 * v6++) removeFromSuperview];
+          [*(*(&v7 + 1) + 8 * v6++) removeFromSuperview];
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

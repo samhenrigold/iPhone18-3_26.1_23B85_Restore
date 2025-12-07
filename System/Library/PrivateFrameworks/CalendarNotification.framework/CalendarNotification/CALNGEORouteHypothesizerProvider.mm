@@ -24,7 +24,6 @@
 
 uint64_t __50__CALNGEORouteHypothesizerProvider_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_4 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();

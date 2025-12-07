@@ -1,8 +1,8 @@
-objc_object *customRR_retain(objc_object *a1, double a2)
+objc_object *customRR_retain(objc_object *a1)
 {
-  if ((v3 & 2) != 0 && (*((v2 & 0xFFFFFFFF8) + 0x28) & 2) != 0)
+  if ((v2 & 2) != 0 && (*((v1 & 0xFFFFFFFF8) + 0x28) & 2) != 0)
   {
-    return swiftRetain(a1, a2);
+    return swiftRetain(a1);
   }
 
   else
@@ -42,6 +42,15 @@ id objc_claimAutoreleasedReturnValue(id a1, uint64_t a2, AutoreleasePoolPage *a3
 
 id objc_msgSend(id result, SEL a2, ...)
 {
+  va_start(va, a2);
+  v29 = va_arg(va, void);
+  v30 = va_arg(va, void);
+  v31 = va_arg(va, void);
+  v32 = va_arg(va, void);
+  v33 = va_arg(va, void);
+  v34 = va_arg(va, void);
+  v35 = va_arg(va, void);
+  v36 = va_arg(va, void);
   if (result > 0)
   {
     v16 = *result & 0x7FFFFFFFFFFFF8;
@@ -123,7 +132,7 @@ LABEL_3:
 
           if (!v26)
           {
-            return _objc_msgSend_uncached(result, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
+            return _objc_msgSend_uncached(result, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v29, v30, v31, v32, v33, v34, v35, v36);
           }
         }
 
@@ -131,30 +140,30 @@ LABEL_3:
       }
     }
 
-    return _objc_msgSend_uncached(result, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
+    return _objc_msgSend_uncached(result, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v29, v30, v31, v32, v33, v34, v35, v36);
   }
 
   return result;
 }
 
-objc_object *objc_msgLookup(objc_object *a1, objc_selector *a2)
+objc_object *objc_msgLookup(objc_object *result, objc_selector *a2)
 {
-  if (a1 > 0)
+  if (result > 0)
   {
-    v2 = a1->isa & 0x7FFFFFFFFFFFF8;
+    v2 = result->isa & 0x7FFFFFFFFFFFF8;
     goto LABEL_3;
   }
 
-  if (a1)
+  if (result)
   {
-    if ((a1 & 7) == 7)
+    if ((result & 7) == 7)
     {
-      v13 = a1 >> 55;
+      v13 = result >> 55;
     }
 
     else
     {
-      v13 = a1 & 7;
+      v13 = result & 7;
     }
 
     v2 = objc_debug_taggedpointer_classes[v13];
@@ -169,7 +178,7 @@ LABEL_3:
 
       if (a2 - byte_1FA920D78 == *((v3 & 0x7FFFFFFFFFFFFELL) + 8 * (((a2 - byte_1FA920D78) >> (v3 >> 55)) & (0x7FFFuLL >> (v3 >> 60)))) >> 38)
       {
-        return a1;
+        return result;
       }
 
       v2 += *((v3 & 0x7FFFFFFFFFFFFELL) - 16);
@@ -190,7 +199,7 @@ LABEL_3:
 
       if (!v7)
       {
-        return _objc_msgLookup_uncached(a1, a2);
+        return _objc_msgLookup_uncached(result, a2);
       }
 
       if (v6 < v4)
@@ -219,7 +228,7 @@ LABEL_3:
 
           if (!v12)
           {
-            return _objc_msgLookup_uncached(a1, a2);
+            return _objc_msgLookup_uncached(result, a2);
           }
         }
 
@@ -228,18 +237,20 @@ LABEL_3:
     }
   }
 
-  return a1;
-}
-
-id objc_msgSendSuper(objc_super *a1, SEL a2, ...)
-{
-  receiver = a1->receiver;
-  super_class = a1->super_class;
-  JUMPOUT(0x1800972D4);
+  return result;
 }
 
 id objc_msgSendSuper2(objc_super *a1, SEL a2, ...)
 {
+  va_start(va, a2);
+  v31 = va_arg(va, void);
+  v32 = va_arg(va, void);
+  v33 = va_arg(va, void);
+  v34 = va_arg(va, void);
+  v35 = va_arg(va, void);
+  v36 = va_arg(va, void);
+  v37 = va_arg(va, void);
+  v38 = va_arg(va, void);
   receiver = a1->receiver;
   for (i = *(a1->super_class + 1); ; i += *((v19 & 0x7FFFFFFFFFFFFELL) - 16))
   {
@@ -300,7 +311,7 @@ id objc_msgSendSuper2(objc_super *a1, SEL a2, ...)
 
         if (!v29)
         {
-          return _objc_msgSend_uncached(receiver, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
+          return _objc_msgSend_uncached(receiver, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v31, v32, v33, v34, v35, v36, v37, v38);
         }
       }
 
@@ -308,15 +319,15 @@ id objc_msgSendSuper2(objc_super *a1, SEL a2, ...)
     }
   }
 
-  return _objc_msgSend_uncached(receiver, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  return _objc_msgSend_uncached(receiver, a2, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v31, v32, v33, v34, v35, v36, v37, v38);
 }
 
-objc_object *objc_msgLookupSuper2(uint64_t a1, objc_selector *a2)
+objc_object *objc_msgLookupSuper2(objc_object **a1, objc_selector *a2)
 {
   result = *a1;
-  for (i = *(*(a1 + 8) + 8); ; i += *((v5 & 0x7FFFFFFFFFFFFELL) - 16))
+  for (i = a1[1][1].isa; ; i = (i + *((v5 & 0x7FFFFFFFFFFFFELL) - 16)))
   {
-    v5 = *(i + 16);
+    v5 = *(i + 2);
     if ((v5 & 1) == 0)
     {
       break;
@@ -383,11 +394,11 @@ objc_object *objc_msgLookupSuper2(uint64_t a1, objc_selector *a2)
   return result;
 }
 
-uint64_t _objc_msgSend_uncached(objc_object *a1, objc_selector *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, __n128 a10, __n128 a11, __n128 a12, __n128 a13, __n128 a14, __n128 a15, __n128 a16, ...)
+uint64_t _objc_msgSend_uncached(objc_object *a1, objc_selector *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, __n128 a10, __n128 a11, __n128 a12, __n128 a13, __n128 a14, __n128 a15, __n128 a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  v17 = lookUpImpOrForward(a1, a2, v16, 3u);
+  v25 = lookUpImpOrForward(a1, a2, v24, 3u);
 
-  return (v17)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+  return (v25)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 objc_object *_objc_msgLookup_uncached(objc_object *a1, objc_selector *a2)
@@ -403,8 +414,8 @@ uint64_t cache_getImp(uint64_t a1, unint64_t a2, uint64_t a3)
   v3 = *(a1 + 16);
   if (v3)
   {
-    v14 = *((v3 & 0x7FFFFFFFFFFFFELL) + 8 * (((a2 - &unk_1FA920D78) >> (v3 >> 55)) & (0x7FFFuLL >> (v3 >> 60))));
-    if (a2 - &unk_1FA920D78 == v14 >> 38)
+    v14 = *((v3 & 0x7FFFFFFFFFFFFELL) + 8 * (((a2 - byte_1FA920D78) >> (v3 >> 55)) & (0x7FFFuLL >> (v3 >> 60))));
+    if (a2 - byte_1FA920D78 == v14 >> 38)
     {
       return a1 - ((v14 << 26) >> 24);
     }
@@ -482,32 +493,29 @@ void method_invoke(void)
 {
   if (v1)
   {
-    v22 = v9;
-    v23 = v10;
-    v24 = v11;
-    v25 = v12;
-    v26 = v13;
-    v27 = v14;
-    v28 = v15;
-    v29 = v16;
-    v30 = v0;
-    v31 = v2;
-    v32 = v3;
-    v33 = v4;
-    v34 = v5;
-    v35 = v6;
-    v36 = v7;
+    v19 = v9;
+    v20 = v10;
+    v21 = v11;
+    v22 = v12;
+    v23 = v13;
+    v24 = v14;
+    v25 = v15;
+    v26 = v16;
+    v27 = v0;
+    v28 = v2;
+    v29 = v3;
+    v30 = v4;
+    v31 = v5;
+    v32 = v6;
+    v33 = v7;
     ImplementationAndName = _method_getImplementationAndName(v1);
 
-    ImplementationAndName(v30, v20, v31, v32, v33, v34, v35, v36, v22, v23, v24, v25, v26, v27, v28, v29);
+    ImplementationAndName(v27, v17, v28, v29, v30, v31, v32, v33, v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
   else
   {
-    v17 = (v1 & 0xFFFFFFFFFFFFFFFCLL);
-    v18 = v17[2];
-    v19 = *v17;
-    v18();
+    (*((v1 & 0xFFFFFFFFFFFFFFFCLL) + 16))();
   }
 }
 
@@ -558,7 +566,7 @@ LABEL_13:
   return a1;
 }
 
-uint64_t *moveTLSAutoreleaseToPool(uint64_t *result, uint64_t a2, AutoreleasePoolPage *a3)
+unint64_t moveTLSAutoreleaseToPool(unint64_t result, uint64_t a2, AutoreleasePoolPage *a3)
 {
   v3 = (result & 0xFFFFFFFFFFFFFFFCLL);
   if ((result & 0xFFFFFFFFFFFFFFFCLL) != 0)
@@ -837,7 +845,7 @@ id objc_autorelease(id a1)
       if ((*(v13 & 0x7FFFFFFFFFFFF8) - 1) >= 0xF && (*((v13 & 0x7FFFFFFFFFFFF8) + 0x20) & 0x8000000000000000) != 0)
       {
         class_initialize((v13 & 0x7FFFFFFFFFFFF8), a1);
-        moveTLSAutoreleaseToPool(*(StatusReg + 352), *(StatusReg + 360));
+        moveTLSAutoreleaseToPool(*(StatusReg + 352), *(StatusReg + 360), v16);
 LABEL_24:
         *(StatusReg + 352) = a1 | 3;
         *(StatusReg + 360) = v2;
@@ -954,14 +962,14 @@ LABEL_9:
   return result;
 }
 
-void weak_unregister_no_lock(void *a1, unint64_t a2, const char *a3, char *a4)
+void weak_unregister_no_lock(void *result, unint64_t a2, const char *a3, char *a4)
 {
   if (!a2)
   {
     return;
   }
 
-  v6 = weak_entry_for_referent(a1, a2, a3, a4);
+  v6 = weak_entry_for_referent(result, a2, a3, a4);
   if (!v6)
   {
     return;
@@ -997,9 +1005,9 @@ LABEL_12:
       if (DebugWeakErrors == 3)
       {
 LABEL_24:
-        v6 = (v19)("Attempted to unregister unknown __weak variable at %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", a3, v18);
+        v19("Attempted to unregister unknown __weak variable at %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", a3, v18);
 LABEL_25:
-        gdb_objc_class_changed(v6);
+        gdb_objc_class_changed();
 LABEL_26:
         v20 = *(v10 + 16);
         goto LABEL_27;
@@ -1007,7 +1015,7 @@ LABEL_26:
 
       if (DebugWeakErrors == 4)
       {
-        v6 = (_objc_stochastic_fault)("Attempted to unregister unknown __weak variable at %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", a3, v18);
+        _objc_stochastic_fault("Attempted to unregister unknown __weak variable at %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", a3, v18);
         goto LABEL_25;
       }
     }
@@ -1061,14 +1069,14 @@ LABEL_27:
       if (v22 == 40)
       {
 
-        weak_entry_remove(a1, v10);
+        weak_entry_remove(result, v10);
         return;
       }
     }
   }
 }
 
-unint64_t callSetWeaklyReferenced(unint64_t result)
+uint64_t callSetWeaklyReferenced(uint64_t result)
 {
   if (!result)
   {
@@ -1283,51 +1291,48 @@ unint64_t object_getMethodImplementation(unint64_t result, objc_selector *a2)
     return result;
   }
 
-  if ((result & 0x8000000000000000) != 0)
+  if ((result & 0x8000000000000000) == 0)
   {
-    v7 = &objc_debug_taggedpointer_classes[result & 7];
-    v8 = *v7;
-    if (*v7)
+    v3 = *result & 0x7FFFFFFFFFFFF8;
+    if (v3)
     {
-      v9 = *v7;
-      p_isa = &v8->isa;
-      if (v8 != __NSUnrecognizedTaggedPointer)
-      {
-        goto LABEL_6;
-      }
-
-      v10 = &objc_debug_taggedpointer_ext_classes[(result >> 55)];
-      v3 = *v10;
-      if (*v10)
-      {
-        v11 = *v10;
-        goto LABEL_5;
-      }
+      goto LABEL_4;
     }
 
     return 0;
   }
 
-  v3 = *result & 0x7FFFFFFFFFFFF8;
+  v6 = objc_debug_taggedpointer_classes[result & 7];
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v4 = objc_debug_taggedpointer_classes[result & 7];
+  if (v6 != __NSUnrecognizedTaggedPointer)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = objc_debug_taggedpointer_ext_classes[(result >> 55)];
   if (!v3)
   {
     return 0;
   }
 
-  v4 = *result & 0x7FFFFFFFFFFFF8;
+LABEL_4:
+  v4 = v3;
 LABEL_5:
-  p_isa = v3;
-LABEL_6:
   result = 0;
-  if (a2 && p_isa)
+  if (a2 && v4)
   {
-    v6 = *(p_isa[4] & 0xF00007FFFFFFFF8);
-    if ((v6 & 1) == 0)
+    v5 = *(v4[4] & 0xF00007FFFFFFFF8);
+    if ((v5 & 1) == 0)
     {
-      v6 = *(*((*p_isa & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
+      v5 = *(*((*v4 & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
     }
 
-    if ((v6 & 0x20000000) != 0 && ((result = cache_getImp(p_isa, a2, 0)) != 0 || (p_isa[2] & 1) != 0 && (result = cache_getImp(p_isa + *((p_isa[2] & 0x7FFFFFFFFFFFFELL) - 16), a2, 0)) != 0))
+    if ((v5 & 0x20000000) != 0 && ((result = cache_getImp(v4, a2, 0)) != 0 || (v4[2] & 1) != 0 && (result = cache_getImp(v4 + *((v4[2] & 0x7FFFFFFFFFFFFELL) - 16), a2, 0)) != 0))
     {
       if (result == _objc_msgForward_impcache)
       {
@@ -1337,7 +1342,7 @@ LABEL_6:
 
     else
     {
-      result = lookUpImpOrForward(0, a2, p_isa, 7u);
+      result = lookUpImpOrForward(0, a2, v4, 7u);
     }
 
     if (!result)
@@ -1353,16 +1358,16 @@ objc_object *_objc_rootAutorelease(objc_object *a1, uint64_t a2, AutoreleasePool
 {
   if ((a1 & 0x8000000000000000) == 0)
   {
-    v5.isa = a1->isa;
+    isa = a1->isa;
     if (a1->isa)
     {
-      if (!(v5.isa >> 55))
+      if (!(isa >> 55))
       {
         return a1;
       }
     }
 
-    else if (*((v5.isa & 0xFFFFFFFF8) + 0x1E) & 0x1000) != 0 && (objc_object::sidetable_isDeallocating(a1))
+    else if (*((isa & 0xFFFFFFFF8) + 0x1E) & 0x1000) != 0 && (objc_object::sidetable_isDeallocating(a1))
     {
       return a1;
     }
@@ -1377,7 +1382,7 @@ objc_object *_objc_rootAutorelease(objc_object *a1, uint64_t a2, AutoreleasePool
     else
     {
       moveTLSAutoreleaseToPool(v7, *(StatusReg + 360), a3);
-      v8.isa = a1->isa;
+      v8 = a1->isa;
       v9 = (a1->isa & 0xFFFFFFFF8);
       v10 = *(*(v9 + 4) & 0xF00007FFFFFFFF8);
       if ((v10 & 1) == 0)
@@ -1390,9 +1395,9 @@ objc_object *_objc_rootAutorelease(objc_object *a1, uint64_t a2, AutoreleasePool
         goto LABEL_11;
       }
 
-      if ((*(v8.isa & 0x7FFFFFFFFFFFF8) - 1) >= 0xF && (*((v8.isa & 0x7FFFFFFFFFFFF8) + 0x20) & 0x8000000000000000) != 0)
+      if ((*(v8 & 0x7FFFFFFFFFFFF8) - 1) >= 0xF && (*((v8 & 0x7FFFFFFFFFFFF8) + 0x20) & 0x8000000000000000) != 0)
       {
-        class_initialize((v8.isa & 0x7FFFFFFFFFFFF8), a1);
+        class_initialize((v8 & 0x7FFFFFFFFFFFF8), a1);
         moveTLSAutoreleaseToPool(*(StatusReg + 352), *(StatusReg + 360), v14);
 LABEL_11:
         *(StatusReg + 352) = a1 | 3;
@@ -1428,7 +1433,7 @@ id objc_allocWithZone(id result)
   return result;
 }
 
-unint64_t weak_register_no_lock(char **a1, int64_t a2, unint64_t a3, char *a4)
+unint64_t weak_register_no_lock(__int128 **a1, int64_t a2, uint64_t a3, char *a4)
 {
   v4 = a2;
   if (a2 >= 1)
@@ -1493,9 +1498,11 @@ LABEL_24:
 
     else
     {
-      v22[0] = -v4;
-      v22[1] = -a3;
-      memset(&v22[2], 0, 24);
+      *&v22 = -v4;
+      *(&v22 + 1) = -a3;
+      v24 = 0;
+      v25 = 0;
+      v23 = 0;
       v13 = a1[2];
       if (v13)
       {
@@ -1522,14 +1529,14 @@ LABEL_24:
         weak_resize(a1, v15);
       }
 
-      weak_entry_insert(a1, v22, v11, v12);
+      weak_entry_insert(a1, &v22, v11, v12);
     }
   }
 
   return v4;
 }
 
-void *weak_entry_insert(void *result, uint64_t a2, const char *a3, char *a4)
+void *weak_entry_insert(void *result, __int128 *a2, const char *a3, char *a4)
 {
   v4 = 0x8A970BE7488FDA55 * (-*a2 ^ (-*a2 >> 4));
   v5 = result[2];
@@ -1556,8 +1563,8 @@ void *weak_entry_insert(void *result, uint64_t a2, const char *a3, char *a4)
   }
 
   v10 = *a2;
-  v11 = *(a2 + 16);
-  *(v7 + 32) = *(a2 + 32);
+  v11 = a2[1];
+  *(v7 + 32) = *(a2 + 4);
   *v7 = v10;
   *(v7 + 16) = v11;
   ++result[1];
@@ -2049,99 +2056,97 @@ id objc_initWeak(id *location, id val)
       v10 = *v2 & 0x7FFFFFFFFFFFF8;
       if (!v10)
       {
-        goto LABEL_13;
+        goto LABEL_11;
       }
 
-      v11 = *v2 & 0x7FFFFFFFFFFFF8;
-LABEL_8:
-      v12 = v10;
-      goto LABEL_14;
+LABEL_7:
+      v11 = v10;
+      goto LABEL_12;
     }
 
     if (!*v7)
     {
-      goto LABEL_13;
+      goto LABEL_11;
     }
 
-    v12 = *v7;
+    v11 = *v7;
     if (*v7 == __NSUnrecognizedTaggedPointer)
     {
       v10 = *v8;
       if (!*v8)
       {
-LABEL_13:
-        v12 = 0;
-        goto LABEL_14;
+LABEL_11:
+        v11 = 0;
+        goto LABEL_12;
       }
 
-      v13 = *v8;
-      goto LABEL_8;
+      goto LABEL_7;
     }
 
-LABEL_14:
-    if (v12 == v4)
+LABEL_12:
+    if (v11 == v4)
     {
       break;
     }
 
-    v14 = *(*(v12 + 4) & 0xF00007FFFFFFFF8);
-    if ((v14 & 1) == 0)
+    v12 = *(*(v11 + 4) & 0xF00007FFFFFFFF8);
+    if ((v12 & 1) == 0)
     {
-      v14 = *(*((*v12 & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
+      v12 = *(*((*v11 & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
     }
 
-    if ((v14 & 0x20000000) != 0)
+    if ((v12 & 0x20000000) != 0)
     {
       break;
     }
 
-    v15 = *(StatusReg + 24);
-    v16 = v15;
-    atomic_compare_exchange_strong_explicit(v5, &v16, 0, memory_order_release, memory_order_relaxed);
-    if (v16 != v15)
+    v13 = *(StatusReg + 24);
+    v14 = v13;
+    atomic_compare_exchange_strong_explicit(v5, &v14, 0, memory_order_release, memory_order_relaxed);
+    if (v14 != v13)
     {
     }
 
-    class_initialize(v12, v2);
-    v4 = v12;
+    class_initialize(v11, v2);
+    v4 = v11;
   }
 
-  v17 = weak_register_no_lock(v5 + 4, v2, location, 1);
-  v2 = v17;
-  if (v17 >= 1)
+  v15 = weak_register_no_lock(v5 + 4, v2, location, 1);
+  v2 = v15;
+  if (v15 >= 1)
   {
-    v18 = *v17;
-    if (*v17)
+    v16 = *v15;
+    if (*v15)
     {
-      while ((v18 & 4) == 0)
+      while ((v16 & 4) == 0)
       {
-        v19 = v18;
-        atomic_compare_exchange_strong_explicit(v17, &v19, v18 | 4, memory_order_relaxed, memory_order_relaxed);
-        if (v19 == v18)
+        v17 = v16;
+        atomic_compare_exchange_strong_explicit(v15, &v17, v16 | 4, memory_order_relaxed, memory_order_relaxed);
+        if (v17 == v16)
         {
           break;
         }
 
-        v18 = v19;
-        if ((v19 & 1) == 0)
+        v16 = v17;
+        if ((v17 & 1) == 0)
         {
-          goto LABEL_26;
+          goto LABEL_24;
         }
       }
     }
 
     else
     {
-LABEL_26:
-      objc_object::sidetable_setWeaklyReferenced_nolock(v17);
+LABEL_24:
+      objc_object::sidetable_setWeaklyReferenced_nolock(v15);
     }
   }
 
   *location = v2;
-  v20 = *(StatusReg + 24);
-  v21 = v20;
-  atomic_compare_exchange_strong_explicit(v5, &v21, 0, memory_order_release, memory_order_relaxed);
-  if (v21 != v20)
+  v18 = *(StatusReg + 24);
+  v19 = v18;
+  atomic_compare_exchange_strong_explicit(v5, &v19, 0, memory_order_release, memory_order_relaxed);
+  if (v19 != v18)
   {
     os_unfair_lock_unlock(v5);
   }
@@ -2150,7 +2155,7 @@ LABEL_26:
   return v2;
 }
 
-void (*lookupMethodInClassAndLoadCache(uint64_t a1, objc_selector *a2))(void)
+void (*lookupMethodInClassAndLoadCache(char *a1, objc_selector *a2))(void)
 {
   Imp = cache_getImp(a1, a2, _objc_msgForward_impcache);
   if (!Imp)
@@ -2175,7 +2180,7 @@ void (*lookupMethodInClassAndLoadCache(uint64_t a1, objc_selector *a2))(void)
       Imp = _objc_msgForward_impcache;
     }
 
-    if ((*(a1 + 16) & 1) == 0)
+    if ((*(a1 + 2) & 1) == 0)
     {
       cache_t::insert((a1 + 16), a2, Imp, 0);
     }
@@ -2211,30 +2216,28 @@ void objc_copyWeak(id *to, id *from)
   objc_initWeak(to, WeakRetained);
 }
 
-uint64_t _objc_sync_enter_kind(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
+void _objc_sync_enter_kind(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   if (a1)
   {
     id2data(a1, a2, 0, a4);
 
-    return os_unfair_recursive_lock_lock_with_options();
+    os_unfair_recursive_lock_lock_with_options();
   }
 
   else
   {
     if (DebugNilSync)
     {
-      _objc_inform("NIL SYNC DEBUG: @synchronized(nil); set a breakpoint on objc_sync_nil to debug");
+      _objc_inform("NIL SYNC DEBUG: @synchronized(nil); set a breakpoint on objc_sync_nil to debug", a2);
     }
 
-    result = gdb_objc_class_changed();
+    gdb_objc_class_changed();
     if (DebugNilSync == 2)
     {
-      _objc_fatal("@synchronized(nil) is fatal", v5, v6, v7);
+      _objc_fatal("@synchronized(nil) is fatal", v4, v5, v6);
     }
   }
-
-  return result;
 }
 
 uint64_t _objc_sync_exit_kind(uint64_t result, uint64_t a2, uint64_t a3, char *a4)
@@ -2681,165 +2684,149 @@ LABEL_30:
   }
 
   v16 = 0;
-  v17 = a2 - &unk_1FA920D78;
+  v17 = a2 - byte_1FA920D78;
   while (1)
   {
-    v18 = &v14[2 * v16];
+    v18 = *&v14[2 * v16];
     v19 = *v18;
-    if (*v18)
-    {
-      v20 = *v18;
-    }
-
-    v21 = *v19;
-    v22 = *v19 > -1 || (v19 & 0x8000000000000000) != 0;
-    v23 = v22 ? 24 : 12;
-    v24 = v21 & 0xFFFC;
-    if ((~*v19 & 3) == 0 && v24 == v23)
+    v20 = *v18 > -1 || (v18 & 0x8000000000000000) != 0;
+    v21 = v20 ? 24 : 12;
+    v22 = v19 & 0xFFFC;
+    if ((~*v18 & 3) == 0 && v22 == v21)
     {
       break;
     }
 
-    if ((v19 & 0x8000000000000000) != 0)
+    if ((v18 & 0x8000000000000000) != 0)
     {
-      v77 = *(v19 + 4);
-      v82 = v77 * v24;
-      if ((v82 & 0xFFFFFFFF00000000) == 0)
+      v71 = *(v18 + 4);
+      v76 = v71 * v22;
+      if ((v76 & 0xFFFFFFFF00000000) == 0)
       {
-        v83 = v19 + 8;
-        v84 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-        v85 = (v83 + v82) & 0xFFFFFFFFFFFFFFFCLL;
-        if (v84 == v85)
+        v77 = v18 + 8;
+        v78 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+        v79 = (v77 + v76) & 0xFFFFFFFFFFFFFFFCLL;
+        if (v78 == v79)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
 
-        v86 = v24;
-        v87 = v85 | 2;
-        v88 = v84 | 2;
-        v28 = v84 | 2;
-        while (1)
+        v80 = v79 | 2;
+        v81 = v78 | 2;
+        v26 = v78 | 2;
+        while (*(v81 & 0xFFFFFFFFFFFFFFFCLL) != a2)
         {
-          v89 = *(v88 & 0xFFFFFFFFFFFFFFFCLL);
-          if (v89)
+          v26 += v22;
+          v81 += v22;
+          if (v26 == v80)
           {
-            v90 = *(v88 & 0xFFFFFFFFFFFFFFFCLL);
-          }
-
-          if (v89 == a2)
-          {
-            goto LABEL_112;
-          }
-
-          v28 += v86;
-          v88 += v86;
-          if (v28 == v87)
-          {
-            goto LABEL_113;
+            goto LABEL_105;
           }
         }
+
+        goto LABEL_104;
       }
 
-      goto LABEL_183;
+      goto LABEL_173;
     }
 
-    if ((v21 & 0x80000000) == 0)
+    if ((v19 & 0x80000000) == 0)
     {
-      v77 = *(v19 + 4);
-      v78 = v77 * v24;
-      if ((v78 & 0xFFFFFFFF00000000) == 0)
+      v71 = *(v18 + 4);
+      v72 = v71 * v22;
+      if ((v72 & 0xFFFFFFFF00000000) == 0)
       {
-        v79 = v19 + 8;
-        v80 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-        v81 = (v79 + v78) & 0xFFFFFFFFFFFFFFFCLL;
-        if (v80 == v81)
+        v73 = v18 + 8;
+        v74 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+        v75 = (v73 + v72) & 0xFFFFFFFFFFFFFFFCLL;
+        if (v74 == v75)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
 
-        v28 = v80;
-        while (*(v80 & 0xFFFFFFFFFFFFFFFCLL) != a2)
+        v26 = v74;
+        while (*(v74 & 0xFFFFFFFFFFFFFFFCLL) != a2)
         {
-          v28 += v24;
-          v80 += v24;
-          if (v28 == v81)
+          v26 += v22;
+          v74 += v22;
+          if (v26 == v75)
           {
-            goto LABEL_113;
+            goto LABEL_105;
           }
         }
 
-        goto LABEL_112;
+        goto LABEL_104;
       }
 
-      goto LABEL_183;
+      goto LABEL_173;
     }
 
-    if (dataSegmentsRanges > v19 || *algn_1ED3F62F8 <= v19)
+    if (dataSegmentsRanges > v18 || *algn_1ED3F62F8 <= v18)
     {
-      v77 = *(v19 + 4);
-      v97 = v77 * v24;
-      if ((v97 & 0xFFFFFFFF00000000) == 0)
+      v71 = *(v18 + 4);
+      v88 = v71 * v22;
+      if ((v88 & 0xFFFFFFFF00000000) == 0)
       {
-        v98 = v19 + 8;
-        v99 = (v98 + v97) & 0xFFFFFFFFFFFFFFFCLL;
-        if ((v98 & 0xFFFFFFFFFFFFFFFCLL) == v99)
+        v89 = v18 + 8;
+        v90 = (v89 + v88) & 0xFFFFFFFFFFFFFFFCLL;
+        if ((v89 & 0xFFFFFFFFFFFFFFFCLL) == v90)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
 
-        v100 = v98 & 0xFFFFFFFFFFFFFFFCLL | 1;
-        v28 = v100;
-        while (*((v100 & 0xFFFFFFFFFFFFFFFCLL) + *(v100 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
+        v91 = v89 & 0xFFFFFFFFFFFFFFFCLL | 1;
+        v26 = v91;
+        while (*((v91 & 0xFFFFFFFFFFFFFFFCLL) + *(v91 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
         {
-          v28 += v24;
-          v100 += v24;
-          if (v28 == (v99 | 1))
+          v26 += v22;
+          v91 += v22;
+          if (v26 == (v90 | 1))
           {
-            goto LABEL_113;
+            goto LABEL_105;
           }
         }
 
-        goto LABEL_112;
+        goto LABEL_104;
       }
 
-LABEL_183:
-      _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", a2, dataSegmentsRanges, *algn_1ED3F62F8, v77, v19, v24);
+LABEL_173:
+      _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", a2, dataSegmentsRanges, *algn_1ED3F62F8, v71, v18, v22);
     }
 
     if (dataSegmentsRanges <= a2 && *algn_1ED3F62F8 > a2)
     {
-      v77 = *(v19 + 4);
-      v91 = v77 * v24;
-      if ((v91 & 0xFFFFFFFF00000000) == 0)
+      v71 = *(v18 + 4);
+      v82 = v71 * v22;
+      if ((v82 & 0xFFFFFFFF00000000) == 0)
       {
-        v92 = v19 + 8;
-        v93 = v92 & 0xFFFFFFFFFFFFFFFCLL;
-        v94 = (v92 + v91) & 0xFFFFFFFFFFFFFFFCLL;
-        if (v93 == v94)
+        v83 = v18 + 8;
+        v84 = v83 & 0xFFFFFFFFFFFFFFFCLL;
+        v85 = (v83 + v82) & 0xFFFFFFFFFFFFFFFCLL;
+        if (v84 == v85)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
 
-        v95 = v94 | 1;
-        v96 = v93 | 1;
-        v28 = v96;
-        while ((&unk_1FA920D78 + *(v96 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
+        v86 = v85 | 1;
+        v87 = v84 | 1;
+        v26 = v87;
+        while (&byte_1FA920D78[*(v87 & 0xFFFFFFFFFFFFFFFCLL)] != a2)
         {
-          v28 += v24;
-          v96 += v24;
-          if (v28 == v95)
+          v26 += v22;
+          v87 += v22;
+          if (v26 == v86)
           {
-            goto LABEL_113;
+            goto LABEL_105;
           }
         }
 
-        goto LABEL_112;
+        goto LABEL_104;
       }
 
-      goto LABEL_183;
+      goto LABEL_173;
     }
 
-LABEL_113:
+LABEL_105:
     result = 0;
     if (++v16 == v13)
     {
@@ -2847,189 +2834,168 @@ LABEL_113:
     }
   }
 
-  if ((v19 & 0x8000000000000000) != 0)
+  if ((v18 & 0x8000000000000000) != 0)
   {
-    v34 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
-    v35 = *(v19 + 4);
-    if (v35 < 5)
+    v32 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
+    v33 = *(v18 + 4);
+    if (v33 < 5)
     {
-      v28 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
-      if (!v35)
+      v26 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
+      if (!v33)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
     }
 
     else
     {
-      v28 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
+      v26 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
       do
       {
-        result = v28 + v23 * (v35 >> 1);
-        v36 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-        if (v36)
+        result = v26 + v21 * (v33 >> 1);
+        v34 = *(result & 0xFFFFFFFFFFFFFFFCLL);
+        v35 = v34 >= a2;
+        if (v34 == a2)
         {
-          v37 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-        }
-
-        v38 = v36 >= a2;
-        if (v36 == a2)
-        {
-          if (result > v34)
+          if (result > v32)
           {
-            v57 = v28 + v23 * ((v35 >> 1) - 1);
-            while (1)
+            v53 = v26 + v21 * ((v33 >> 1) - 1);
+            while (*(v53 & 0xFFFFFFFFFFFFFFFCLL) == a2)
             {
-              v58 = *(v57 & 0xFFFFFFFFFFFFFFFCLL);
-              if (v58)
-              {
-                v59 = *(v57 & 0xFFFFFFFFFFFFFFFCLL);
-              }
-
-              if (v58 != a2)
-              {
-                break;
-              }
-
-              result -= v23;
-              v57 -= v23;
-              if (result <= v34)
+              result -= v21;
+              v53 -= v21;
+              if (result <= v32)
               {
                 return result;
               }
             }
           }
 
-          goto LABEL_111;
+          goto LABEL_103;
         }
 
-        v39 = v36 < a2;
-        if (!v38)
+        v36 = v34 < a2;
+        if (!v35)
         {
-          v28 = result + v23;
+          v26 = result + v21;
         }
 
-        v40 = v35 - v39;
-        v35 = v40 >> 1;
+        v37 = v33 - v36;
+        v33 = v37 >> 1;
       }
 
-      while (v40 > 9);
-      if (!v35)
+      while (v37 > 9);
+      if (!v33)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
     }
 
-    v41 = v35 - 1;
-    v42 = v28;
+    v38 = v33 - 1;
+    v39 = v26;
     while (1)
     {
-      v43 = v41;
-      v44 = *(v42 & 0xFFFFFFFFFFFFFFFCLL);
-      if (v44)
+      v40 = v38;
+      v41 = *(v39 & 0xFFFFFFFFFFFFFFFCLL);
+      if (v41 == a2)
       {
-        v45 = *(v42 & 0xFFFFFFFFFFFFFFFCLL);
+        goto LABEL_104;
       }
 
-      if (v44 == a2)
+      if (v41 <= a2)
       {
-        goto LABEL_112;
-      }
-
-      if (v44 <= a2)
-      {
-        v28 += v23;
-        v41 = v43 - 1;
-        v42 += v23;
-        if (v43)
+        v26 += v21;
+        v38 = v40 - 1;
+        v39 += v21;
+        if (v40)
         {
           continue;
         }
       }
 
-      goto LABEL_113;
+      goto LABEL_105;
     }
   }
 
-  if (v21 < 0)
+  if (v19 < 0)
   {
-    if (dataSegmentsRanges > v19 || *algn_1ED3F62F8 <= v19)
+    if (dataSegmentsRanges > v18 || *algn_1ED3F62F8 <= v18)
     {
-      v60 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-      v61 = *(v19 + 4);
-      if (v61 < 5)
+      v54 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
+      v55 = *(v18 + 4);
+      if (v55 < 5)
       {
-        v28 = v60;
-LABEL_116:
-        if (!v61)
+        v26 = v54;
+LABEL_108:
+        if (!v55)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
 
-        v67 = v61 - 1;
-        v68 = v28;
+        v61 = v55 - 1;
+        v62 = v26;
         while (1)
         {
-          v69 = *((v68 & 0xFFFFFFFFFFFFFFFCLL) + *(v68 & 0xFFFFFFFFFFFFFFFCLL));
-          if (v69 == a2)
+          v63 = *((v62 & 0xFFFFFFFFFFFFFFFCLL) + *(v62 & 0xFFFFFFFFFFFFFFFCLL));
+          if (v63 == a2)
           {
             break;
           }
 
-          v28 += v23;
-          v70 = v69 > a2 || v67-- == 0;
-          v68 += v23;
-          if (v70)
+          v26 += v21;
+          v64 = v63 > a2 || v61-- == 0;
+          v62 += v21;
+          if (v64)
           {
-            goto LABEL_113;
+            goto LABEL_105;
           }
         }
       }
 
       else
       {
-        v28 = v60;
+        v26 = v54;
         while (1)
         {
-          result = v28 + v23 * (v61 >> 1);
-          v62 = *((result & 0xFFFFFFFFFFFFFFFCLL) + *(result & 0xFFFFFFFFFFFFFFFCLL));
-          v63 = v62 >= a2;
-          if (v62 == a2)
+          result = v26 + v21 * (v55 >> 1);
+          v56 = *((result & 0xFFFFFFFFFFFFFFFCLL) + *(result & 0xFFFFFFFFFFFFFFFCLL));
+          v57 = v56 >= a2;
+          if (v56 == a2)
           {
             break;
           }
 
-          v64 = v62 < a2;
-          v65 = result + v23;
-          if (!v63)
+          v58 = v56 < a2;
+          v59 = result + v21;
+          if (!v57)
           {
-            v28 = v65;
+            v26 = v59;
           }
 
-          v66 = v61 - v64;
-          v61 = (v61 - v64) >> 1;
-          if (v66 <= 9)
+          v60 = v55 - v58;
+          v55 = (v55 - v58) >> 1;
+          if (v60 <= 9)
           {
-            goto LABEL_116;
+            goto LABEL_108;
           }
         }
 
-        if (result > v60)
+        if (result > v54)
         {
-          v71 = v28 + v23 * ((v61 >> 1) - 1);
-          while (*((v71 & 0xFFFFFFFFFFFFFFFCLL) + *(v71 & 0xFFFFFFFFFFFFFFFCLL)) == a2)
+          v65 = v26 + v21 * ((v55 >> 1) - 1);
+          while (*((v65 & 0xFFFFFFFFFFFFFFFCLL) + *(v65 & 0xFFFFFFFFFFFFFFFCLL)) == a2)
           {
-            result -= v23;
-            v71 -= v23;
-            if (result <= v60)
+            result -= v21;
+            v65 -= v21;
+            if (result <= v54)
             {
               return result;
             }
           }
         }
 
-LABEL_111:
-        v28 = result;
+LABEL_103:
+        v26 = result;
       }
     }
 
@@ -3037,173 +3003,173 @@ LABEL_111:
     {
       if (dataSegmentsRanges > a2 || *algn_1ED3F62F8 <= a2)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
 
-      v46 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-      v47 = *(v19 + 4);
-      if (v47 >= 5)
+      v42 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
+      v43 = *(v18 + 4);
+      if (v43 >= 5)
       {
-        v28 = v46;
+        v26 = v42;
         while (1)
         {
-          result = v28 + v23 * (v47 >> 1);
-          v48 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-          v49 = v17 > v48;
-          if (v17 == v48)
+          result = v26 + v21 * (v43 >> 1);
+          v44 = *(result & 0xFFFFFFFFFFFFFFFCLL);
+          v45 = v17 > v44;
+          if (v17 == v44)
           {
             break;
           }
 
-          v50 = v17 > v48;
-          v51 = result + v23;
-          if (v49)
+          v46 = v17 > v44;
+          v47 = result + v21;
+          if (v45)
           {
-            v28 = v51;
+            v26 = v47;
           }
 
-          v52 = v47 - v50;
-          v47 = (v47 - v50) >> 1;
-          if (v52 <= 9)
+          v48 = v43 - v46;
+          v43 = (v43 - v46) >> 1;
+          if (v48 <= 9)
           {
-            goto LABEL_131;
+            goto LABEL_123;
           }
         }
 
-        if (result > v46)
+        if (result > v42)
         {
-          v76 = v28 + v23 * ((v47 >> 1) - 1);
-          while (v17 == *(v76 & 0xFFFFFFFFFFFFFFFCLL))
+          v70 = v26 + v21 * ((v43 >> 1) - 1);
+          while (v17 == *(v70 & 0xFFFFFFFFFFFFFFFCLL))
           {
-            result -= v23;
-            v76 -= v23;
-            if (result <= v46)
+            result -= v21;
+            v70 -= v21;
+            if (result <= v42)
             {
               return result;
             }
           }
         }
 
-        goto LABEL_111;
+        goto LABEL_103;
       }
 
-      v28 = v46;
-LABEL_131:
-      if (!v47)
+      v26 = v42;
+LABEL_123:
+      if (!v43)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
 
-      v72 = v47 - 1;
-      v73 = v28;
+      v66 = v43 - 1;
+      v67 = v26;
       while (1)
       {
-        v74 = *(v73 & 0xFFFFFFFFFFFFFFFCLL);
-        if (v17 == v74)
+        v68 = *(v67 & 0xFFFFFFFFFFFFFFFCLL);
+        if (v17 == v68)
         {
           break;
         }
 
-        v28 += v23;
-        v75 = v17 < v74 || v72-- == 0;
-        v73 += v23;
-        if (v75)
+        v26 += v21;
+        v69 = v17 < v68 || v66-- == 0;
+        v67 += v21;
+        if (v69)
         {
-          goto LABEL_113;
+          goto LABEL_105;
         }
       }
     }
 
-LABEL_112:
-    result = v28;
-    if (!v28)
+LABEL_104:
+    result = v26;
+    if (!v26)
     {
-      goto LABEL_113;
+      goto LABEL_105;
     }
 
     return result;
   }
 
-  v26 = (v19 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-  v27 = *(v19 + 4);
-  if (v27 < 5)
+  v24 = (v18 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+  v25 = *(v18 + 4);
+  if (v25 < 5)
   {
-    v28 = v26;
-    if (!v27)
+    v26 = v24;
+    if (!v25)
     {
-      goto LABEL_113;
+      goto LABEL_105;
     }
 
-LABEL_88:
-    v53 = v27 - 1;
-    v54 = v28;
+LABEL_82:
+    v49 = v25 - 1;
+    v50 = v26;
     while (1)
     {
-      v55 = *(v54 & 0xFFFFFFFFFFFFFFFCLL);
-      if (v55 == a2)
+      v51 = *(v50 & 0xFFFFFFFFFFFFFFFCLL);
+      if (v51 == a2)
       {
-        goto LABEL_112;
+        goto LABEL_104;
       }
 
-      v28 += v23;
-      v56 = v55 > a2 || v53-- == 0;
-      v54 += v23;
-      if (v56)
+      v26 += v21;
+      v52 = v51 > a2 || v49-- == 0;
+      v50 += v21;
+      if (v52)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
     }
   }
 
-  v28 = v26;
+  v26 = v24;
   while (1)
   {
-    result = v28 + 24 * (v27 >> 1);
-    v29 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-    v30 = v29 >= a2;
-    if (v29 == a2)
+    result = v26 + 24 * (v25 >> 1);
+    v27 = *(result & 0xFFFFFFFFFFFFFFFCLL);
+    v28 = v27 >= a2;
+    if (v27 == a2)
     {
       break;
     }
 
-    v31 = v29 < a2;
-    v32 = result + 24;
-    if (!v30)
+    v29 = v27 < a2;
+    v30 = result + 24;
+    if (!v28)
     {
-      v28 = v32;
+      v26 = v30;
     }
 
-    v33 = v27 - v31;
-    v27 = (v27 - v31) >> 1;
-    if (v33 <= 9)
+    v31 = v25 - v29;
+    v25 = (v25 - v29) >> 1;
+    if (v31 <= 9)
     {
-      if (!v27)
+      if (!v25)
       {
-        goto LABEL_113;
+        goto LABEL_105;
       }
 
-      goto LABEL_88;
+      goto LABEL_82;
     }
   }
 
-  if (result <= v26)
+  if (result <= v24)
   {
-    goto LABEL_111;
+    goto LABEL_103;
   }
 
-  v101 = v28 + 24 * (v27 >> 1) - 24;
+  v92 = v26 + 24 * (v25 >> 1) - 24;
   do
   {
-    if (*(v101 & 0xFFFFFFFFFFFFFFFCLL) != a2)
+    if (*(v92 & 0xFFFFFFFFFFFFFFFCLL) != a2)
     {
       break;
     }
 
     result -= 24;
-    v101 -= 24;
+    v92 -= 24;
   }
 
-  while (result > v26);
+  while (result > v24);
   return result;
 }
 
@@ -3280,15 +3246,15 @@ void (*lookUpImpOrForward(objc_object *a1, objc_selector *a2, unint64_t a3, unsi
   }
 
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  atomic_compare_exchange_strong_explicit(&runtimeLock, &v8, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
+  atomic_compare_exchange_strong_explicit(runtimeLock, &v8, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
   if (v8)
   {
     os_unfair_lock_lock_with_options();
   }
 
-  if ((*a3 - 1) < 0xF || (*(a3 + 32) & 0x8000000000000000) == 0 || (v11 = *((*(a3 + 32) & 0xF00007FFFFFFFF8) + 4), dword_1ED3F6308 <= v11) || (*(qword_1ED3F6300 + 16 * v11) <= a3 ? (v12 = *(qword_1ED3F6300 + 16 * v11 + 8) > a3) : (v12 = 0), !v12))
+  if ((*a3 - 1) < 0xF || (*(a3 + 32) & 0x8000000000000000) == 0 || (v11 = *((*(a3 + 32) & 0xF00007FFFFFFFF8) + 4), qword_1ED3F6308 <= v11) || (*(qword_1ED3F6300 + 16 * v11) <= a3 ? (v12 = *(qword_1ED3F6300 + 16 * v11 + 8) > a3) : (v12 = 0), !v12))
   {
-    if (objc::allocatedClasses + 8 * qword_1ED3F6160 == objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>,DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>::find(-a3) && (dataSegmentsContain(a3, v35, v33, v34) & 1) == 0)
+    if ((objc::allocatedClasses + 8 * qword_1ED3F6160) == objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>,DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>::find(-a3) && (dataSegmentsContain(a3, v33, v34, v35) & 1) == 0)
     {
       _objc_fatal("Attempt to use unknown class %p.", v36, v37, v38, a3);
     }
@@ -3315,7 +3281,7 @@ LABEL_35:
         (atomic_load_explicit(&msgSendCacheMissHook, memory_order_acquire))(v16, a1, a2, v29);
       }
 
-      cache_t::insert((v16 + 16), a2, v29, a1);
+      cache_t::insert(v16 + 16, a2, v29, a1);
     }
 
     goto LABEL_40;
@@ -3391,10 +3357,10 @@ LABEL_32:
 LABEL_40:
   v30 = *(StatusReg + 24);
   v31 = v30;
-  atomic_compare_exchange_strong_explicit(&runtimeLock, &v31, 0, memory_order_release, memory_order_relaxed);
+  atomic_compare_exchange_strong_explicit(runtimeLock, &v31, 0, memory_order_release, memory_order_relaxed);
   if (v31 != v30)
   {
-    os_unfair_lock_unlock(&runtimeLock);
+    os_unfair_lock_unlock(runtimeLock);
   }
 
   if (((v29 == _objc_msgForward_impcache) & (v9 >> 2)) != 0)
@@ -3440,7 +3406,7 @@ LABEL_9:
   {
     v4 = 0;
     StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    atomic_compare_exchange_strong_explicit(&runtimeLock, &v4, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
+    atomic_compare_exchange_strong_explicit(runtimeLock, &v4, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
     if (v4)
     {
       os_unfair_lock_lock_with_options();
@@ -3449,10 +3415,10 @@ LABEL_9:
     v6 = method_t_remappedImp_nolock(v2);
     v7 = *(StatusReg + 24);
     v8 = v7;
-    atomic_compare_exchange_strong_explicit(&runtimeLock, &v8, 0, memory_order_release, memory_order_relaxed);
+    atomic_compare_exchange_strong_explicit(runtimeLock, &v8, 0, memory_order_release, memory_order_relaxed);
     if (v8 != v7)
     {
-      os_unfair_lock_unlock(&runtimeLock);
+      os_unfair_lock_unlock(runtimeLock);
     }
   }
 
@@ -3485,32 +3451,28 @@ void sub_18009B0F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void (*object_cxxConstructFromClass(void (*a1)(void), objc_class **a2, uint64_t a3))(void)
+void (*object_cxxConstructFromClass(objc_object *a1, objc_class **a2, uint64_t a3))(void)
 {
   v3 = a3;
   v5 = a1;
   v7 = a2 + 1;
   v6 = a2[1];
-  if (v6)
+  if (v6 && (*(v6 + 15) & 2) != 0 && !object_cxxConstructFromClass(a1, v6, a3))
   {
-    v8 = a2[1];
-    if ((*(v6 + 15) & 2) != 0 && !object_cxxConstructFromClass(a1, v6, a3))
-    {
-      return 0;
-    }
+    return 0;
   }
 
   Cache = lookupMethodInClassAndLoadCache(a2, SEL_cxx_construct);
   if (Cache != _objc_msgForward_impcache)
   {
-    v10 = Cache;
+    v9 = Cache;
     if (PrintCxxCtors)
     {
-      v12 = objc_class::nameForLogging(a2);
-      _objc_inform("CXX: calling C++ constructors for class %s", v12);
+      v11 = objc_class::nameForLogging(a2);
+      _objc_inform("CXX: calling C++ constructors for class %s", v11);
     }
 
-    if (!(v10)(v5))
+    if (!(v9)(v5))
     {
       if (*v7)
       {
@@ -3552,12 +3514,11 @@ LABEL_7:
     }
 
     *(StatusReg + 344) = v6;
-    v7 = *(v6 + 12);
     if (v4 == 1)
     {
-      v8 = v6[2];
-      v6[2] = v8 + 1;
-      *v8 = 0;
+      v7 = v6[2];
+      v6[2] = v7 + 1;
+      *v7 = 0;
     }
 
     return AutoreleasePoolPage::add(v6, this);
@@ -3575,13 +3536,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v9 = *StatusReg;
+  v8 = *StatusReg;
   ClassName = object_getClassName(this);
-  _objc_inform("MISSING POOLS: (%p) Object %p of class %s autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug", v9, this, ClassName);
+  _objc_inform("MISSING POOLS: (%p) Object %p of class %s autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug", v8, this, ClassName);
   gdb_objc_class_changed();
   if (DebugMissingPools == 2)
   {
-    _objc_fatal("Missing pools are a fatal error", v11, v12, v13);
+    _objc_fatal("Missing pools are a fatal error", v10, v11, v12);
   }
 
   return 0;
@@ -3628,7 +3589,7 @@ id objc_getProperty(id self, SEL _cmd, ptrdiff_t offset, BOOL atomic)
   }
 }
 
-unint64_t getMethodFromListArray<method_list_t **>(unint64_t a1, _BYTE *a2, const char *a3, char *a4)
+unint64_t getMethodFromListArray<method_list_t **>(unint64_t a1, char *a2, const char *a3, char *a4)
 {
   v5 = *a1;
   if (*a1 > -1 || (a1 & 0x8000000000000000) != 0)
@@ -3655,31 +3616,20 @@ unint64_t getMethodFromListArray<method_list_t **>(unint64_t a1, _BYTE *a2, cons
         {
           result = v12 + v7 * (v19 >> 1);
           v20 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-          if (v20)
-          {
-            v21 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-          }
-
           if (v20 == a2)
           {
             if (result > v18)
             {
-              v39 = v12 + v7 * ((v19 >> 1) - 1);
+              v37 = v12 + v7 * ((v19 >> 1) - 1);
               do
               {
-                v40 = *(v39 & 0xFFFFFFFFFFFFFFFCLL);
-                if (v40)
-                {
-                  v41 = *(v39 & 0xFFFFFFFFFFFFFFFCLL);
-                }
-
-                if (v40 != a2)
+                if (*(v37 & 0xFFFFFFFFFFFFFFFCLL) != a2)
                 {
                   break;
                 }
 
                 result -= v7;
-                v39 -= v7;
+                v37 -= v7;
               }
 
               while (result > v18);
@@ -3693,14 +3643,14 @@ unint64_t getMethodFromListArray<method_list_t **>(unint64_t a1, _BYTE *a2, cons
             v12 = result + v7;
           }
 
-          v22 = v19 - (v20 < a2);
-          v19 = v22 >> 1;
+          v21 = v19 - (v20 < a2);
+          v19 = v21 >> 1;
         }
 
-        while (v22 > 9);
+        while (v21 > 9);
         if (v19)
         {
-          goto LABEL_33;
+          goto LABEL_31;
         }
 
         return 0;
@@ -3709,30 +3659,25 @@ unint64_t getMethodFromListArray<method_list_t **>(unint64_t a1, _BYTE *a2, cons
       v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 2;
       if (v19)
       {
-LABEL_33:
-        v23 = v19 - 1;
-        v24 = v12;
+LABEL_31:
+        v22 = v19 - 1;
+        v23 = v12;
         while (1)
         {
-          v25 = v23;
-          v26 = *(v24 & 0xFFFFFFFFFFFFFFFCLL);
-          if (v26)
-          {
-            v27 = *(v24 & 0xFFFFFFFFFFFFFFFCLL);
-          }
-
-          if (v26 == a2)
+          v24 = v22;
+          v25 = *(v23 & 0xFFFFFFFFFFFFFFFCLL);
+          if (v25 == a2)
           {
             break;
           }
 
           result = 0;
-          if (v26 <= a2)
+          if (v25 <= a2)
           {
             v12 += v7;
-            --v23;
-            v24 += v7;
-            if (v25)
+            --v22;
+            v23 += v7;
+            if (v24)
             {
               continue;
             }
@@ -3751,77 +3696,77 @@ LABEL_33:
       {
         if (dataSegmentsRanges > a1 || *algn_1ED3F62F8 <= a1)
         {
-          v42 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-          v43 = *(a1 + 4);
-          if (v43 >= 5)
+          v38 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
+          v39 = *(a1 + 4);
+          if (v39 >= 5)
           {
             v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
             while (1)
             {
-              result = v12 + v7 * (v43 >> 1);
-              v44 = *((result & 0xFFFFFFFFFFFFFFFCLL) + *(result & 0xFFFFFFFFFFFFFFFCLL));
-              v45 = v44 >= a2;
-              if (v44 == a2)
+              result = v12 + v7 * (v39 >> 1);
+              v40 = *((result & 0xFFFFFFFFFFFFFFFCLL) + *(result & 0xFFFFFFFFFFFFFFFCLL));
+              v41 = v40 >= a2;
+              if (v40 == a2)
               {
                 break;
               }
 
-              v46 = v44 < a2;
-              if (!v45)
+              v42 = v40 < a2;
+              if (!v41)
               {
                 v12 = result + v7;
               }
 
-              v47 = v43 - v46;
-              v43 = v47 >> 1;
-              if (v47 <= 9)
+              v43 = v39 - v42;
+              v39 = v43 >> 1;
+              if (v43 <= 9)
               {
-                goto LABEL_80;
+                goto LABEL_74;
               }
             }
 
-            if (result > v42)
+            if (result > v38)
             {
-              v53 = v12 + v7 * ((v43 >> 1) - 1);
+              v49 = v12 + v7 * ((v39 >> 1) - 1);
               do
               {
-                if (*((v53 & 0xFFFFFFFFFFFFFFFCLL) + *(v53 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
+                if (*((v49 & 0xFFFFFFFFFFFFFFFCLL) + *(v49 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
                 {
                   break;
                 }
 
                 result -= v7;
-                v53 -= v7;
+                v49 -= v7;
               }
 
-              while (result > v42);
+              while (result > v38);
             }
 
             return result;
           }
 
           v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-LABEL_80:
-          if (!v43)
+LABEL_74:
+          if (!v39)
           {
             return 0;
           }
 
-          v49 = v43 - 1;
-          v50 = v12;
+          v45 = v39 - 1;
+          v46 = v12;
           while (1)
           {
-            v51 = *((v50 & 0xFFFFFFFFFFFFFFFCLL) + *(v50 & 0xFFFFFFFFFFFFFFFCLL));
-            if (v51 == a2)
+            v47 = *((v46 & 0xFFFFFFFFFFFFFFFCLL) + *(v46 & 0xFFFFFFFFFFFFFFFCLL));
+            if (v47 == a2)
             {
               break;
             }
 
             result = 0;
             v12 += v7;
-            v52 = v51 > a2 || v49-- == 0;
-            v50 += v7;
-            if (v52)
+            v48 = v47 > a2 || v45-- == 0;
+            v46 += v7;
+            if (v48)
             {
               return result;
             }
@@ -3836,78 +3781,78 @@ LABEL_80:
             return result;
           }
 
-          v28 = a2 - &unk_1FA920D78;
-          v29 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-          v30 = *(a1 + 4);
-          if (v30 >= 5)
+          v26 = a2 - byte_1FA920D78;
+          v27 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
+          v28 = *(a1 + 4);
+          if (v28 >= 5)
           {
             v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
             while (1)
             {
-              result = v12 + v7 * (v30 >> 1);
-              v31 = *(result & 0xFFFFFFFFFFFFFFFCLL);
-              v32 = v28 > v31;
-              if (v28 == v31)
+              result = v12 + v7 * (v28 >> 1);
+              v29 = *(result & 0xFFFFFFFFFFFFFFFCLL);
+              v30 = v26 > v29;
+              if (v26 == v29)
               {
                 break;
               }
 
-              v33 = v28 > v31;
-              if (v32)
+              v31 = v26 > v29;
+              if (v30)
               {
                 v12 = result + v7;
               }
 
-              v34 = v30 - v33;
-              v30 = v34 >> 1;
-              if (v34 <= 9)
+              v32 = v28 - v31;
+              v28 = v32 >> 1;
+              if (v32 <= 9)
               {
-                goto LABEL_95;
+                goto LABEL_89;
               }
             }
 
-            if (result > v29)
+            if (result > v27)
             {
-              v58 = v12 + v7 * ((v30 >> 1) - 1);
+              v54 = v12 + v7 * ((v28 >> 1) - 1);
               do
               {
-                if (v28 != *(v58 & 0xFFFFFFFFFFFFFFFCLL))
+                if (v26 != *(v54 & 0xFFFFFFFFFFFFFFFCLL))
                 {
                   break;
                 }
 
                 result -= v7;
-                v58 -= v7;
+                v54 -= v7;
               }
 
-              while (result > v29);
+              while (result > v27);
             }
 
             return result;
           }
 
           v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL | 1;
-LABEL_95:
-          if (!v30)
+LABEL_89:
+          if (!v28)
           {
             return 0;
           }
 
-          v54 = v30 - 1;
-          v55 = v12;
+          v50 = v28 - 1;
+          v51 = v12;
           while (1)
           {
-            v56 = *(v55 & 0xFFFFFFFFFFFFFFFCLL);
-            if (v28 == v56)
+            v52 = *(v51 & 0xFFFFFFFFFFFFFFFCLL);
+            if (v26 == v52)
             {
               break;
             }
 
             result = 0;
             v12 += v7;
-            v57 = v28 < v56 || v54-- == 0;
-            v55 += v7;
-            if (v57)
+            v53 = v26 < v52 || v50-- == 0;
+            v51 += v7;
+            if (v53)
             {
               return result;
             }
@@ -3931,16 +3876,16 @@ LABEL_95:
           {
             if (result > v10)
             {
-              v48 = v12 + 24 * (v11 >> 1) - 24;
+              v44 = v12 + 24 * (v11 >> 1) - 24;
               do
               {
-                if (*(v48 & 0xFFFFFFFFFFFFFFFCLL) != a2)
+                if (*(v44 & 0xFFFFFFFFFFFFFFFCLL) != a2)
                 {
                   break;
                 }
 
                 result -= 24;
-                v48 -= 24;
+                v44 -= 24;
               }
 
               while (result > v10);
@@ -3962,7 +3907,7 @@ LABEL_95:
         while (v17 > 9);
         if (v11)
         {
-          goto LABEL_52;
+          goto LABEL_48;
         }
 
         return 0;
@@ -3971,21 +3916,21 @@ LABEL_95:
       v12 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
       if (v11)
       {
-LABEL_52:
-        v35 = v11 - 1;
-        v36 = v12;
+LABEL_48:
+        v33 = v11 - 1;
+        v34 = v12;
         while (1)
         {
-          v37 = *(v36 & 0xFFFFFFFFFFFFFFFCLL);
-          if (v37 == a2)
+          v35 = *(v34 & 0xFFFFFFFFFFFFFFFCLL);
+          if (v35 == a2)
           {
             break;
           }
 
           v12 += v7;
-          v38 = v37 > a2 || v35-- == 0;
-          v36 += v7;
-          if (v38)
+          v36 = v35 > a2 || v33-- == 0;
+          v34 += v7;
+          if (v36)
           {
             return 0;
           }
@@ -4000,44 +3945,33 @@ LABEL_52:
 
   if ((a1 & 0x8000000000000000) != 0)
   {
-    v59 = *(a1 + 4);
-    v64 = v59 * (v5 & 0xFFFC);
-    if ((v64 & 0xFFFFFFFF00000000) != 0)
+    v55 = *(a1 + 4);
+    v60 = v55 * (v5 & 0xFFFC);
+    if ((v60 & 0xFFFFFFFF00000000) != 0)
     {
-      goto LABEL_146;
+      goto LABEL_138;
     }
 
-    v65 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-    v66 = (a1 + 8 + v64) & 0xFFFFFFFFFFFFFFFCLL;
-    if (v65 != v66)
+    v61 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+    v62 = (a1 + 8 + v60) & 0xFFFFFFFFFFFFFFFCLL;
+    if (v61 != v62)
     {
-      v67 = v8;
-      v68 = v66 | 2;
-      v69 = v65 | 2;
-      v63 = v65 | 2;
-      while (1)
+      v63 = v8;
+      v64 = v62 | 2;
+      v65 = v61 | 2;
+      v59 = v61 | 2;
+      while (*(v65 & 0xFFFFFFFFFFFFFFFCLL) != a2)
       {
-        v70 = *(v69 & 0xFFFFFFFFFFFFFFFCLL);
-        if (v70)
-        {
-          v71 = *(v69 & 0xFFFFFFFFFFFFFFFCLL);
-        }
-
-        if (v70 == a2)
-        {
-          break;
-        }
-
         result = 0;
-        v63 += v67;
-        v69 += v67;
-        if (v63 == v68)
+        v59 += v63;
+        v65 += v63;
+        if (v59 == v64)
         {
           return result;
         }
       }
 
-      return v63;
+      return v59;
     }
 
     return 0;
@@ -4045,100 +3979,100 @@ LABEL_52:
 
   if ((v5 & 0x80000000) == 0)
   {
-    v59 = *(a1 + 4);
-    v60 = v59 * (v5 & 0xFFFC);
-    if ((v60 & 0xFFFFFFFF00000000) == 0)
+    v55 = *(a1 + 4);
+    v56 = v55 * (v5 & 0xFFFC);
+    if ((v56 & 0xFFFFFFFF00000000) == 0)
     {
-      v61 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-      v62 = (a1 + 8 + v60) & 0xFFFFFFFFFFFFFFFCLL;
-      if (v61 != v62)
+      v57 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+      v58 = (a1 + 8 + v56) & 0xFFFFFFFFFFFFFFFCLL;
+      if (v57 != v58)
       {
-        v63 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-        while (*(v61 & 0xFFFFFFFFFFFFFFFCLL) != a2)
+        v59 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+        while (*(v57 & 0xFFFFFFFFFFFFFFFCLL) != a2)
         {
           result = 0;
-          v63 += v8;
-          v61 += v8;
-          if (v63 == v62)
+          v59 += v8;
+          v57 += v8;
+          if (v59 == v58)
           {
             return result;
           }
         }
 
-        return v63;
+        return v59;
       }
 
       return 0;
     }
 
-LABEL_146:
-    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", a2, a3, a4, v59, a1, v8);
+LABEL_138:
+    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", a2, a3, a4, v55, a1, v8);
   }
 
   if (dataSegmentsRanges > a1 || *algn_1ED3F62F8 <= a1)
   {
-    v59 = *(a1 + 4);
-    v79 = v59 * (v5 & 0xFFFC);
-    if ((v79 & 0xFFFFFFFF00000000) == 0)
+    v55 = *(a1 + 4);
+    v73 = v55 * (v5 & 0xFFFC);
+    if ((v73 & 0xFFFFFFFF00000000) == 0)
     {
-      v80 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-      v81 = (a1 + 8 + v79) & 0xFFFFFFFFFFFFFFFCLL;
-      if (v80 != v81)
+      v74 = (a1 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+      v75 = (a1 + 8 + v73) & 0xFFFFFFFFFFFFFFFCLL;
+      if (v74 != v75)
       {
-        v82 = v8;
-        v83 = v81 | 1;
-        v84 = v80 | 1;
-        v63 = v80 | 1;
-        while (*((v84 & 0xFFFFFFFFFFFFFFFCLL) + *(v84 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
+        v76 = v8;
+        v77 = v75 | 1;
+        v78 = v74 | 1;
+        v59 = v74 | 1;
+        while (*((v78 & 0xFFFFFFFFFFFFFFFCLL) + *(v78 & 0xFFFFFFFFFFFFFFFCLL)) != a2)
         {
           result = 0;
-          v63 += v82;
-          v84 += v82;
-          if (v63 == v83)
+          v59 += v76;
+          v78 += v76;
+          if (v59 == v77)
           {
             return result;
           }
         }
 
-        return v63;
+        return v59;
       }
 
       return 0;
     }
 
-    goto LABEL_146;
+    goto LABEL_138;
   }
 
   result = 0;
   if (dataSegmentsRanges <= a2 && *algn_1ED3F62F8 > a2)
   {
-    v59 = *(a1 + 4);
-    v72 = v59 * (v5 & 0xFFFC);
-    if ((v72 & 0xFFFFFFFF00000000) != 0)
+    v55 = *(a1 + 4);
+    v66 = v55 * (v5 & 0xFFFC);
+    if ((v66 & 0xFFFFFFFF00000000) != 0)
     {
-      goto LABEL_146;
+      goto LABEL_138;
     }
 
-    v73 = a1 + 8;
-    v74 = v73 & 0xFFFFFFFFFFFFFFFCLL;
-    v75 = (v73 + v72) & 0xFFFFFFFFFFFFFFFCLL;
-    if (v74 != v75)
+    v67 = a1 + 8;
+    v68 = v67 & 0xFFFFFFFFFFFFFFFCLL;
+    v69 = (v67 + v66) & 0xFFFFFFFFFFFFFFFCLL;
+    if (v68 != v69)
     {
-      v76 = v75 | 1;
-      v77 = v74 | 1;
-      v78 = v77;
-      while (&unk_1FA920D78 + *(v77 & 0xFFFFFFFFFFFFFFFCLL) != a2)
+      v70 = v69 | 1;
+      v71 = v68 | 1;
+      v72 = v71;
+      while (&byte_1FA920D78[*(v71 & 0xFFFFFFFFFFFFFFFCLL)] != a2)
       {
         result = 0;
-        v78 += v8;
-        v77 += v8;
-        if (v78 == v76)
+        v72 += v8;
+        v71 += v8;
+        if (v72 == v70)
         {
           return result;
         }
       }
 
-      return v78;
+      return v72;
     }
 
     return 0;
@@ -4147,23 +4081,23 @@ LABEL_146:
   return result;
 }
 
-void cache_t::insert(cache_t *this, objc_selector *a2, void (*a3)(void), objc_object *a4)
+void cache_t::insert(uint64_t this, objc_selector *a2, void (*a3)(void), objc_object *a4)
 {
-  v8 = *(*(this + 2) & 0xF00007FFFFFFFF8);
+  v8 = *(*(this + 16) & 0xF00007FFFFFFFF8);
   if ((v8 & 1) == 0)
   {
-    v8 = *(*((*(this - 2) & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
+    v8 = *(*((*(this - 16) & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8);
   }
 
   if ((v8 & 0x20000000) != 0)
   {
-    if ((*this & 1) != 0 || (*this != &_objc_empty_cache ? (v9 = HIWORD(*this) == 0, *this) : (v9 = 0), v9))
+    if ((*this & 1) != 0 || (*this != &_objc_empty_cache ? (v9 = HIWORD(*this) == 0) : (v9 = 0), v9))
     {
-      v19 = objc_class::nameForLogging((this - 16));
-      _objc_fatal("cache_t::insert() called with a preoptimized cache for %s", v20, v21, v22, v19);
+      v18 = objc_class::nameForLogging((this - 16));
+      _objc_fatal("cache_t::insert() called with a preoptimized cache for %s", v19, v20, v21, v18);
     }
 
-    v10 = *(this + 6);
+    v10 = *(this + 12);
     if (HIWORD(*this))
     {
       LODWORD(v11) = HIWORD(*this) + 1;
@@ -4186,34 +4120,33 @@ void cache_t::insert(cache_t *this, objc_selector *a2, void (*a3)(void), objc_ob
         v11 = 2;
       }
 
-      v15 = *this;
       atomic_store(cache_t::allocateBuckets(v11) | ((v11 - 1) << 48), this);
-      *(this + 6) = 0;
+      *(this + 12) = 0;
     }
 
     else if (v10 >= (7 * v11) >> 3 && (v11 > 8 || v11 <= v10))
     {
-      v16 = 2 * v11;
+      v15 = 2 * v11;
       if ((2 * v11) >= 0x10000)
       {
-        v16 = 0x10000;
+        v15 = 0x10000;
       }
 
       if (v11)
       {
-        v17 = v16;
+        v16 = v15;
       }
 
       else
       {
-        v17 = 2;
+        v16 = 2;
       }
 
-      v18 = *this;
-      atomic_store(cache_t::allocateBuckets(v17) | ((v17 - 1) << 48), this);
-      *(this + 6) = 0;
-      cache_t::collect_free(v18 & 0xFFFFFFFFFFFLL, v11);
-      LODWORD(v11) = v17;
+      v17 = *this;
+      atomic_store(cache_t::allocateBuckets(v16) | ((v16 - 1) << 48), this);
+      *(this + 12) = 0;
+      cache_t::collect_free(v17 & 0xFFFFFFFFFFFLL, v11);
+      LODWORD(v11) = v16;
     }
 
     v12 = (v11 - 1) & ((a2 >> 7) ^ a2);
@@ -4246,7 +4179,7 @@ void cache_t::insert(cache_t *this, objc_selector *a2, void (*a3)(void), objc_ob
       }
     }
 
-    ++*(this + 6);
+    ++*(this + 12);
     if (a3)
     {
       v14 = a3;
@@ -4345,23 +4278,21 @@ void objc_setProperty_nonatomic(id self, SEL _cmd, id newValue, ptrdiff_t offset
   }
 }
 
-uint64_t objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(uint64_t a1, unint64_t a2)
+char *objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(uint64_t a1, unint64_t a2)
 {
-  v5 = 0;
-  if (objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(a1, a2, &v5))
+  v4 = 0;
+  if (objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(a1, a2, &v4))
   {
-    return v5;
+    return v4;
   }
 
-  if (*a1)
+  else
   {
-    v4 = *a1;
+    return (*a1 + 24 * *(a1 + 16));
   }
-
-  return *a1 + 24 * *(a1 + 16);
 }
 
-void grow_refs_and_insert(void *a1, uint64_t a2)
+void grow_refs_and_insert(void *a1, unint64_t a2)
 {
   v4 = a1[3];
   if (v4)
@@ -4452,49 +4383,36 @@ id objc_getAssociatedObject(id object, const void *key)
 
   v6 = objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::find(-object);
   v7 = v6;
-  if (objc::AssociationsManager::_mapStorage + 32 * dword_1ED3F5F58 == v6)
+  if (objc::AssociationsManager::_mapStorage + 32 * dword_1ED3F5F58 == v6 || (v8 = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(v6 + 8, key), (*(v7 + 8) + 24 * *(v7 + 24)) == v8))
   {
-    goto LABEL_10;
-  }
-
-  v8 = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(v6 + 8, key);
-  v9 = *(v7 + 8);
-  if (v9)
-  {
-    v10 = *(v7 + 8);
-  }
-
-  if (v9 + 24 * *(v7 + 24) == v8)
-  {
-LABEL_10:
-    v11 = 0;
-    LOWORD(v12) = 0;
+    v9 = 0;
+    LOWORD(v10) = 0;
   }
 
   else
   {
-    v12 = *(v8 + 8);
-    v11 = *(v8 + 16);
-    if (v11 && (v12 & 0x100) != 0)
+    v10 = *(v8 + 1);
+    v9 = *(v8 + 2);
+    if (v9 && (v10 & 0x100) != 0)
     {
-      v13 = v11;
+      v11 = v9;
     }
   }
 
-  v14 = *(StatusReg + 24);
-  v15 = v14;
-  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v15, 0, memory_order_release, memory_order_relaxed);
-  if (v15 != v14)
+  v12 = *(StatusReg + 24);
+  v13 = v12;
+  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v13, 0, memory_order_release, memory_order_relaxed);
+  if (v13 != v12)
   {
     os_unfair_lock_unlock(&AssociationsManagerLock);
   }
 
-  if (!v11 || (v12 & 0x200) == 0)
+  if (!v9 || (v10 & 0x200) == 0)
   {
-    return v11;
+    return v9;
   }
 
-  return v11;
+  return v9;
 }
 
 void sub_18009C250(_Unwind_Exception *exception_object)
@@ -4510,83 +4428,78 @@ void sub_18009C250(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(uint64_t a1, unint64_t a2, void *a3)
+uint64_t objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(char **a1, unint64_t a2, char **a3)
 {
   v3 = *a1;
-  if (*a1)
+  v4 = *(a1 + 4);
+  if (v4)
   {
-    v4 = *a1;
-  }
-
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v6 = v5 - 1;
-    v7 = (v5 - 1) & (bswap64(0x8A970BE7488FDA55 * (a2 ^ (a2 >> 4))) ^ (1217387093 * (a2 ^ (a2 >> 4))));
-    v8 = &v3[3 * v7];
-    v9 = *v8;
-    if (*v8 == a2)
+    v5 = v4 - 1;
+    v6 = (v4 - 1) & (bswap64(0x8A970BE7488FDA55 * (a2 ^ (a2 >> 4))) ^ (1217387093 * (a2 ^ (a2 >> 4))));
+    v7 = &v3[3 * v6];
+    v8 = *v7;
+    if (*v7 == a2)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v12 = 0;
-      v13 = 1;
-      while (v9 != -1)
+      v11 = 0;
+      v12 = 1;
+      while (v8 != -1)
       {
-        if (v13 > v5)
+        if (v12 > v4)
         {
-          objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>,DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>::FatalCorruptHashTables(a1, v3, *(a1 + 16));
+          objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>,DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>::FatalCorruptHashTables(a1, v3, *(a1 + 4));
         }
 
-        if (v12)
+        if (v11)
         {
-          v14 = 0;
+          v13 = 0;
         }
 
         else
         {
-          v14 = v9 == -2;
+          v13 = v8 == -2;
         }
 
-        if (v14)
+        if (v13)
         {
-          v12 = v8;
+          v11 = v7;
         }
 
-        v15 = v7 + v13++;
-        v7 = v15 & v6;
-        v8 = &v3[3 * (v15 & v6)];
-        v9 = *v8;
-        v10 = 1;
-        if (*v8 == a2)
+        v14 = v6 + v12++;
+        v6 = v14 & v5;
+        v7 = &v3[3 * (v14 & v5)];
+        v8 = *v7;
+        v9 = 1;
+        if (*v7 == a2)
         {
-          goto LABEL_7;
+          goto LABEL_5;
         }
       }
 
-      v10 = 0;
-      if (v12)
+      v9 = 0;
+      if (v11)
       {
-        v8 = v12;
+        v7 = v11;
       }
     }
   }
 
   else
   {
-    v8 = 0;
-    v10 = 0;
+    v7 = 0;
+    v9 = 0;
   }
 
-LABEL_7:
-  *a3 = v8;
-  return v10;
+LABEL_5:
+  *a3 = v7;
+  return v9;
 }
 
-void append_referrer(void *a1, unint64_t a2, const char *a3, char *a4)
+void append_referrer(void *a1, uint64_t a2, const char *a3, char *a4)
 {
   if ((a1[2] & 3) == 2)
   {
@@ -4670,7 +4583,7 @@ Class object_setClass(Class result, Class a2)
 
       if ((v6 & 0x20000000) == 0)
       {
-        lookUpImpOrNilTryCache(0, "initialize", a2);
+        lookUpImpOrNilTryCache(0, "initialize", a2, 1);
       }
     }
 
@@ -4760,7 +4673,7 @@ BOOL class_isMetaClass(Class cls)
   return cls;
 }
 
-unint64_t objc_class::demangledName(objc_class *this, int a2)
+char *objc_class::demangledName(objc_class *this, int a2)
 {
   if ((*this - 1) < 0xF || (*(this + 4) & 0x8000000000000000) == 0 && (*((*(this + 4) & 0xF00007FFFFFFFF8) + 3) & 0x40) == 0)
   {
@@ -4773,88 +4686,88 @@ unint64_t objc_class::demangledName(objc_class *this, int a2)
   }
 
   v5 = *((*(this + 4) & 0xF00007FFFFFFFF8) + 8);
-  if ((v5 & 1) == 0 || (v6 = *((*(this + 4) & 0xF00007FFFFFFFF8) + 8), (v5 & 0xFFFFFFFFFFFFFFFELL) == 0) || (v4 = *((v5 & 0xFFFFFFFFFFFFFFFELL) + 32)) == 0)
+  if ((v5 & 1) == 0 || (v5 & 0xFFFFFFFFFFFFFFFELL) == 0 || (v4 = *((v5 & 0xFFFFFFFFFFFFFFFELL) + 32)) == 0)
   {
 LABEL_12:
     v4 = objc_class::mangledName(this);
-    v7 = copySwiftV1DemangledName(v4, 0);
-    v21 = v7;
+    v6 = copySwiftV1DemangledName(v4, 0);
+    v20 = v6;
     if ((*this - 1) >= 0xF && ((*(this + 4) & 0x8000000000000000) != 0 || (*((*(this + 4) & 0xF00007FFFFFFFF8) + 3) & 0x40) != 0))
     {
       if (a2)
       {
-        v13 = 0;
+        v12 = 0;
         StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-        atomic_compare_exchange_strong_explicit(&runtimeLock, &v13, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
-        if (v13)
+        atomic_compare_exchange_strong_explicit(runtimeLock, &v12, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
+        if (v12)
         {
           os_unfair_lock_lock_with_options();
         }
 
-        v15 = class_rw_t::extAllocIfNeeded((*(this + 4) & 0xF00007FFFFFFFF8));
-        v16 = *(StatusReg + 24);
-        v17 = v16;
-        atomic_compare_exchange_strong_explicit(&runtimeLock, &v17, 0, memory_order_release, memory_order_relaxed);
-        if (v17 != v16)
+        v14 = class_rw_t::extAllocIfNeeded((*(this + 4) & 0xF00007FFFFFFFF8));
+        v15 = *(StatusReg + 24);
+        v16 = v15;
+        atomic_compare_exchange_strong_explicit(runtimeLock, &v16, 0, memory_order_release, memory_order_relaxed);
+        if (v16 != v15)
         {
-          os_unfair_lock_unlock(&runtimeLock);
+          os_unfair_lock_unlock(runtimeLock);
         }
       }
 
       else
       {
-        v15 = class_rw_t::extAllocIfNeeded((*(this + 4) & 0xF00007FFFFFFFF8));
+        v14 = class_rw_t::extAllocIfNeeded((*(this + 4) & 0xF00007FFFFFFFF8));
       }
 
-      v18 = 0;
-      v19 = v21;
-      if (!v21)
+      v17 = 0;
+      v18 = v20;
+      if (!v20)
       {
-        v19 = v4;
+        v18 = v4;
       }
 
-      atomic_compare_exchange_strong(v15 + 4, &v18, v19);
-      if (v18 && v21)
+      atomic_compare_exchange_strong(v14 + 4, &v17, v18);
+      if (v17 && v20)
       {
-        free(v21);
+        free(v20);
       }
 
-      return v15[4];
+      return v14[4];
     }
 
-    else if (v7)
+    else if (v6)
     {
-      v8 = 0;
-      v9 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      atomic_compare_exchange_strong_explicit(&DemangleCacheLock, &v8, *(v9 + 24), memory_order_acquire, memory_order_acquire);
-      if (v8)
+      v7 = 0;
+      v8 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+      atomic_compare_exchange_strong_explicit(DemangleCacheLock, &v7, *(v8 + 24), memory_order_acquire, memory_order_acquire);
+      if (v7)
       {
         os_unfair_lock_lock_with_options();
       }
 
-      v10 = DemangleCache;
+      v9 = DemangleCache;
       if (!DemangleCache)
       {
-        v10 = malloc_type_malloc(0x18uLL, 0x201A97EDuLL);
-        *v10 = 0;
-        v10[1] = 0;
-        v10[2] = 0;
-        DemangleCache = v10;
+        v9 = malloc_type_malloc(0x18uLL, 0x201A97EDuLL);
+        *v9 = 0;
+        v9[1] = 0;
+        v9[2] = 0;
+        DemangleCache = v9;
       }
 
-      objc::DenseMapBase<objc::DenseMap<char const*,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<char const*>,objc::detail::DenseSetPair<char const*>>,char const*,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<char const*>,objc::detail::DenseSetPair<char const*>>::try_emplace<objc::detail::DenseSetEmpty&>(&v22, v10, &v21);
-      v4 = *v22;
-      v11 = *(v9 + 24);
-      v12 = v11;
-      atomic_compare_exchange_strong_explicit(&DemangleCacheLock, &v12, 0, memory_order_release, memory_order_relaxed);
-      if (v12 != v11)
+      objc::DenseMapBase<objc::DenseMap<char const*,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<char const*>,objc::detail::DenseSetPair<char const*>>,char const*,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<char const*>,objc::detail::DenseSetPair<char const*>>::try_emplace<objc::detail::DenseSetEmpty&>(&v21, v9, &v20);
+      v4 = *v21;
+      v10 = *(v8 + 24);
+      v11 = v10;
+      atomic_compare_exchange_strong_explicit(DemangleCacheLock, &v11, 0, memory_order_release, memory_order_relaxed);
+      if (v11 != v10)
       {
-        os_unfair_lock_unlock(&DemangleCacheLock);
+        os_unfair_lock_unlock(DemangleCacheLock);
       }
 
-      if (v4 != v21)
+      if (v4 != v20)
       {
-        free(v21);
+        free(v20);
       }
     }
   }
@@ -4893,17 +4806,15 @@ unint64_t class_rw_t::ro(class_rw_t *this)
   v1 = *(this + 1);
   if (v1)
   {
-    v4 = *(this + 1);
-    v5 = *(v1 & 0xFFFFFFFFFFFFFFFELL);
-    if (v5)
+    v3 = *(v1 & 0xFFFFFFFFFFFFFFFELL);
+    if (v3)
     {
-      return v5;
+      return v3;
     }
   }
 
   else if (v1)
   {
-    v2 = *(this + 1);
     return v1 & 0xFFFFFFFFFFFFFFFELL;
   }
 
@@ -5052,11 +4963,11 @@ LABEL_21:
     if (*(v7 + 10))
     {
       v35 = 0;
-      if ((objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>((v6 + 1), *v7, &v35) & 1) == 0)
+      if ((objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(v6 + 1, *v7, &v35) & 1) == 0)
       {
         inserted = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::InsertIntoBucketImpl<void const*>(v6 + 1, v7, v35);
         *inserted = *v7;
-        *(inserted + 1) = *(v7 + 8);
+        *(inserted + 8) = *(v7 + 8);
       }
 
       v14 = 1;
@@ -5251,7 +5162,7 @@ LABEL_79:
   free(v34);
 }
 
-void sub_18009D428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
+void sub_18009D428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   v17 = *(v15 + 24);
   v18 = v17;
@@ -5396,19 +5307,17 @@ objc_object *objc_object::rootAutorelease2(objc_object *this, uint64_t a2, Autor
   return this;
 }
 
-uint64_t *objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::find(uint64_t a1, uint64_t a2)
+char *objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::find(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
+  v4 = 0;
   {
-    return v5;
+    return v4;
   }
 
-  if (*a1)
+  else
   {
-    v4 = *a1;
+    return (*a1 + 16 * *(a1 + 16));
   }
-
-  return (*a1 + 16 * *(a1 + 16));
 }
 
 void objc_object::sidetable_clearDeallocating(objc_object *this)
@@ -5422,15 +5331,9 @@ void objc_object::sidetable_clearDeallocating(objc_object *this)
   }
 
   v8 = v5;
-  v9 = *(v3 + 1);
-  if (v9)
+  if ((*(v3 + 1) + 16 * v3[6]) != v5)
   {
-    v10 = *(v3 + 1);
-  }
-
-  if ((v9 + 16 * v3[6]) != v5)
-  {
-    if (v5[1])
+    if (v5[8])
     {
       weak_clear_no_lock(v3 + 4, this, v6, v7);
     }
@@ -5439,96 +5342,91 @@ void objc_object::sidetable_clearDeallocating(objc_object *this)
     *(v3 + 2) = vadd_s32(*(v3 + 4), 0x1FFFFFFFFLL);
   }
 
-  v11 = *(StatusReg + 24);
-  v12 = v11;
-  atomic_compare_exchange_strong_explicit(v3, &v12, 0, memory_order_release, memory_order_relaxed);
-  if (v12 != v11)
+  v9 = *(StatusReg + 24);
+  v10 = v9;
+  atomic_compare_exchange_strong_explicit(v3, &v10, 0, memory_order_release, memory_order_relaxed);
+  if (v10 != v9)
   {
 
     os_unfair_lock_unlock(v3);
   }
 }
 
-uint64_t objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::LookupBucketFor<DisguisedPtr<objc_object const>>(uint64_t a1, uint64_t a2, uint64_t **a3)
+uint64_t objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::LookupBucketFor<DisguisedPtr<objc_object const>>(char **a1, uint64_t a2, char **a3)
 {
   v3 = *a1;
-  if (*a1)
+  v4 = *(a1 + 4);
+  if (v4)
   {
-    v4 = *a1;
-  }
-
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v6 = 0x8A970BE7488FDA55 * (-a2 ^ (-a2 >> 4));
-    v7 = v5 - 1;
-    v8 = (v5 - 1) & (bswap64(v6) ^ v6);
-    v9 = &v3[2 * v8];
-    v10 = *v9;
-    if (*v9 == a2)
+    v5 = 0x8A970BE7488FDA55 * (-a2 ^ (-a2 >> 4));
+    v6 = v4 - 1;
+    v7 = (v4 - 1) & (bswap64(v5) ^ v5);
+    v8 = &v3[2 * v7];
+    v9 = *v8;
+    if (*v8 == a2)
     {
-      v11 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v13 = 0;
-      v14 = 1;
-      while (v10 != 1)
+      v12 = 0;
+      v13 = 1;
+      while (v9 != 1)
       {
-        if (v14 > v5)
+        if (v13 > v4)
         {
-          objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>,DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>::FatalCorruptHashTables(a1, v3, *(a1 + 16));
+          objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>,DisguisedPtr<objc_class>,PendingInitialize *,objc::DenseMapValueInfo<PendingInitialize *>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,PendingInitialize *>>::FatalCorruptHashTables(a1, v3, *(a1 + 4));
         }
 
-        if (v13)
+        if (v12)
         {
-          v15 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v15 = v10 == 2;
+          v14 = v9 == 2;
         }
 
-        if (v15)
+        if (v14)
         {
-          v13 = v9;
+          v12 = v8;
         }
 
-        if (!(v9[1] | v13))
+        if (!(*(v8 + 1) | v12))
         {
-          v13 = v9;
+          v12 = v8;
         }
 
-        v16 = v8 + v14++;
-        v8 = v16 & v7;
-        v9 = &v3[2 * (v16 & v7)];
-        v10 = *v9;
-        v11 = 1;
-        if (*v9 == a2)
+        v15 = v7 + v13++;
+        v7 = v15 & v6;
+        v8 = &v3[2 * (v15 & v6)];
+        v9 = *v8;
+        v10 = 1;
+        if (*v8 == a2)
         {
-          goto LABEL_7;
+          goto LABEL_5;
         }
       }
 
-      v11 = 0;
-      if (v13)
+      v10 = 0;
+      if (v12)
       {
-        v9 = v13;
+        v8 = v12;
       }
     }
   }
 
   else
   {
-    v9 = 0;
-    v11 = 0;
+    v8 = 0;
+    v10 = 0;
   }
 
-LABEL_7:
-  *a3 = v9;
-  return v11;
+LABEL_5:
+  *a3 = v8;
+  return v10;
 }
 
 void objc_setProperty_nonatomic_copy(id self, SEL _cmd, id newValue, ptrdiff_t offset)
@@ -5627,7 +5525,7 @@ LABEL_7:
               goto LABEL_21;
             }
 
-            v6 = (_objc_stochastic_fault)("__weak variable at %p holds %p instead of %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", v10, v11, a2, v13);
+            _objc_stochastic_fault("__weak variable at %p holds %p instead of %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", v10, v11, a2, v13);
           }
 
           else if (DebugWeakErrors)
@@ -5640,10 +5538,10 @@ LABEL_7:
 LABEL_21:
             v12 = _objc_inform;
 LABEL_22:
-            v6 = (v12)("__weak variable at %p holds %p instead of %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", v10, v11, a2, v13);
+            v12("__weak variable at %p holds %p instead of %p. This is probably incorrect use of objc_storeWeak() and objc_loadWeak().%s", v10, v11, a2, v13);
           }
 
-          v6 = gdb_objc_class_changed(v6);
+          gdb_objc_class_changed();
         }
       }
 
@@ -5674,32 +5572,15 @@ Class object_getClass(id a1)
     return 0;
   }
 
-  if ((a1 & 0x8000000000000000) != 0)
+  if ((a1 & 0x8000000000000000) == 0)
   {
-    v4 = (&objc_debug_taggedpointer_classes + 8 * (a1 & 7));
-    v1 = *v4;
-    if (*v4)
-    {
-      v5 = *v4;
-      if (v1 == __NSUnrecognizedTaggedPointer)
-      {
-        v6 = (&objc_debug_taggedpointer_ext_classes + 8 * (a1 >> 55));
-        v1 = *v6;
-        if (*v6)
-        {
-          v7 = *v6;
-        }
-      }
-    }
+    return (*a1 & 0x7FFFFFFFFFFFF8);
   }
 
-  else
+  v1 = objc_debug_taggedpointer_classes[a1 & 7];
+  if (v1 && v1 == __NSUnrecognizedTaggedPointer)
   {
-    v1 = (*a1 & 0x7FFFFFFFFFFFF8);
-    if (v1)
-    {
-      v2 = *a1 & 0x7FFFFFFFFFFFF8;
-    }
+    return objc_debug_taggedpointer_ext_classes[(a1 >> 55)];
   }
 
   return v1;
@@ -5730,7 +5611,7 @@ id objc_opt_new(void (*a1)(void))
   return [a1 v3];
 }
 
-unint64_t objc_object::changeIsa(objc_object *this, unint64_t a2, const char *a3, char *a4)
+uint64_t objc_object::changeIsa(objc_object *this, unint64_t a2, const char *a3, char *a4)
 {
   v6 = 0;
   v7 = 0;
@@ -6201,35 +6082,29 @@ LABEL_10:
   return *(a1 + 64) == a2[8];
 }
 
-uint64_t *objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::operator[](int32x2_t *a1, uint64_t *a2)
+char *objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>,DisguisedPtr<objc_object const>,unsigned long,anonymous namespace::RefcountMapValuePurgeable,objc::DenseMapInfo<DisguisedPtr<objc_object const>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object const>,unsigned long>>::operator[](int32x2_t *a1, uint64_t *a2)
 {
   v7 = 0;
   inserted = v7;
   if ((v4 & 1) == 0)
   {
     *inserted = *a2;
-    inserted[1] = 0;
+    *(inserted + 1) = 0;
   }
 
-  return inserted + 1;
+  return inserted + 8;
 }
 
 uint64_t objc_object::sidetable_isDeallocating(objc_object *this)
 {
-  v3 = *(v1 + 1);
-  if (v3)
-  {
-    v4 = *(v1 + 1);
-  }
-
-  if ((v3 + 16 * v1[6]) == v2)
+  if ((*(v1 + 1) + 16 * v1[6]) == v2)
   {
     return 0;
   }
 
   else
   {
-    return (*(v2 + 8) >> 1) & 1;
+    return (v2[8] >> 1) & 1;
   }
 }
 
@@ -6410,7 +6285,7 @@ BOOL class_conformsToProtocol(Class cls, Protocol *protocol)
 
     if ((*cls - 1) < 0xF || (*(cls + 4) & 0x8000000000000000) == 0 || (v7 = *((*(cls + 4) & 0xF00007FFFFFFFF8) + 4), qword_1ED3F6308 <= v7) || (*(qword_1ED3F6300 + 16 * v7) <= cls ? (v8 = *(qword_1ED3F6300 + 16 * v7 + 8) > cls) : (v8 = 0), !v8))
     {
-      if (objc::allocatedClasses + 8 * qword_1ED3F6160 == objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>,DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>::find(-cls) && (dataSegmentsContain(cls, v14, v12, v13) & 1) == 0)
+      if ((objc::allocatedClasses + 8 * qword_1ED3F6160) == objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>,DisguisedPtr<objc_class>,objc::detail::DenseSetEmpty,objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseSetPair<DisguisedPtr<objc_class>>>::find(-cls) && (dataSegmentsContain(cls, v12, v13, v14) & 1) == 0)
       {
         _objc_fatal("Attempt to use unknown class %p.", v15, v16, v17, cls);
       }
@@ -6447,46 +6322,44 @@ unint64_t *class_rw_t::protocols(unint64_t *this, uint64_t a2)
   v2 = *(a2 + 8);
   if (v2)
   {
-    v7 = *(a2 + 8);
     *this = 0;
-    v8 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 24);
-    if (v8)
+    v6 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 24);
+    if (v6)
     {
-      v5 = v8;
+      v4 = v6;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
     goto LABEL_13;
   }
 
-  v3 = *(a2 + 8);
   *this = 0;
-  v4 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 40);
-  v5 = v4 & 0xFFFFFFFFFFFFFFFELL;
-  if ((v4 & 1) == 0 && v5)
+  v3 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 40);
+  v4 = v3 & 0xFFFFFFFFFFFFFFFELL;
+  if ((v3 & 1) == 0 && v4)
   {
 LABEL_13:
-    *this = v5;
+    *this = v4;
     return this;
   }
 
-  if (v5)
+  if (v4)
   {
-    v6 = (*((v2 & 0xFFFFFFFFFFFFFFFELL) + 40) & 1) == 0;
+    v5 = (*((v2 & 0xFFFFFFFFFFFFFFFELL) + 40) & 1) == 0;
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  if (!v6)
+  if (!v5)
   {
-    v5 = v4 & 0xFFFFFFFFFFFFFFFCLL | 2;
+    v4 = v3 & 0xFFFFFFFFFFFFFFFCLL | 2;
     goto LABEL_13;
   }
 
@@ -6585,7 +6458,7 @@ LABEL_14:
           result[3] = (v8 + v10);
           v12 = result[1];
           v13 = *v12;
-          v14 = v12[1];
+          v14 = *(v12 + 1);
           v15 = v14 * v13;
           *(result + 5) = v9 + 1;
           if ((v15 & 0xFFFFFFFF00000000) != 0)
@@ -6752,7 +6625,7 @@ uint64_t protocol_conformsToProtocol_nolock(protocol_t *a1, const char **a2)
 uint64_t **list_array_tt<unsigned long,protocol_list_t,RawPtr>::iteratorImpl<false>::operator++(uint64_t **a1, uint64_t a2, const char *a3, char *a4)
 {
   v5 = a1[9];
-  v6 = (a1[8] + 1);
+  v6 = a1[8] + 1;
   a1[8] = v6;
   if (v6 != v5)
   {
@@ -6791,7 +6664,7 @@ uint64_t **list_array_tt<unsigned long,protocol_list_t,RawPtr>::iteratorImpl<fal
     a1[3] = (v9 + v10);
     v13 = a1[1];
     v15 = *v13;
-    v14 = v13[1];
+    v14 = *(v13 + 1);
     v16 = v14 * v15;
     *(a1 + 5) = v11 + 1;
     if ((v16 & 0xFFFFFFFF00000000) != 0)
@@ -6955,7 +6828,7 @@ LABEL_16:
   return a1;
 }
 
-const void *__sel_registerName(char *a1, int a2, int a3)
+const char *__sel_registerName(char *a1, int a2, int a3)
 {
   __s = a1;
   if (!a1)
@@ -6969,7 +6842,7 @@ const void *__sel_registerName(char *a1, int a2, int a3)
     if (a2)
     {
       v6 = 0;
-      atomic_compare_exchange_strong_explicit(&selLock, &v6, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
+      atomic_compare_exchange_strong_explicit(selLock, &v6, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
       if (v6)
       {
         os_unfair_lock_lock_with_options();
@@ -7007,10 +6880,10 @@ const void *__sel_registerName(char *a1, int a2, int a3)
 LABEL_15:
       v11 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
       v12 = v11;
-      atomic_compare_exchange_strong_explicit(&selLock, &v12, 0, memory_order_release, memory_order_relaxed);
+      atomic_compare_exchange_strong_explicit(selLock, &v12, 0, memory_order_release, memory_order_relaxed);
       if (v12 != v11)
       {
-        os_unfair_lock_unlock(&selLock);
+        os_unfair_lock_unlock(selLock);
       }
     }
   }
@@ -7024,10 +6897,10 @@ void sub_18009F60C(_Unwind_Exception *exception_object)
   {
     v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
     v4 = v3;
-    atomic_compare_exchange_strong_explicit(&selLock, &v4, 0, memory_order_release, memory_order_relaxed);
+    atomic_compare_exchange_strong_explicit(selLock, &v4, 0, memory_order_release, memory_order_relaxed);
     if (v4 != v3)
     {
-      os_unfair_lock_unlock(&selLock);
+      os_unfair_lock_unlock(selLock);
     }
   }
 
@@ -7044,31 +6917,11 @@ const char *namedClassTableHash(const char *result)
     {
       do
       {
-        v3 = *v1;
         v1 += 8;
         v2 -= 8;
       }
 
       while (v2 > 8);
-    }
-
-    if (v2 >= 5)
-    {
-      v4 = *v1;
-      v1 += 4;
-      v2 -= 4;
-    }
-
-    if (v2 >= 3)
-    {
-      v5 = *v1;
-      v1 += 2;
-      v2 -= 2;
-    }
-
-    if (v2 >= 2)
-    {
-      v6 = *v1;
     }
 
     return 0;
@@ -7085,7 +6938,7 @@ uint64_t getClassExceptSomeSwift(const char *a1)
     return ClassFromNamedClassTable;
   }
 
-  ClassFromNamedClassTable = getPreoptimizedClass();
+  ClassFromNamedClassTable = getPreoptimizedClass(a1);
   if (ClassFromNamedClassTable)
   {
     return ClassFromNamedClassTable;
@@ -7101,7 +6954,7 @@ uint64_t getClassExceptSomeSwift(const char *a1)
   PreoptimizedClass = getClassFromNamedClassTable(v5);
   if (!PreoptimizedClass)
   {
-    PreoptimizedClass = getPreoptimizedClass();
+    PreoptimizedClass = getPreoptimizedClass(v6);
   }
 
   free(v6);
@@ -7305,7 +7158,7 @@ BOOL _mapStrIsEqual(int a1, char *__s1, char *__s2)
   return v3 == *__s2 && strcmp(__s1, __s2) == 0;
 }
 
-uint64_t getPreoptimizedClass()
+uint64_t getPreoptimizedClass(uint64_t a1)
 {
   if (DisablePreopt || preoptimized != 1)
   {
@@ -7362,7 +7215,7 @@ IMP class_getMethodImplementation(Class cls, SEL name)
 
 void objc_setAssociatedObject(id object, const void *key, id value, void *policy)
 {
-  v49 = key;
+  v42 = key;
   if (!(object | value))
   {
     return;
@@ -7370,23 +7223,19 @@ void objc_setAssociatedObject(id object, const void *key, id value, void *policy
 
   if ((object & 0x8000000000000000) != 0)
   {
-    v10 = &objc_debug_taggedpointer_classes[object & 7];
-    v11 = *v10;
-    if (*v10)
+    v9 = objc_debug_taggedpointer_classes[object & 7];
+    if (v9)
     {
-      v12 = *v10;
-      v9 = v11;
-      if (v11 != __NSUnrecognizedTaggedPointer)
+      v8 = objc_debug_taggedpointer_classes[object & 7];
+      if (v9 != __NSUnrecognizedTaggedPointer)
       {
-        goto LABEL_11;
+        goto LABEL_9;
       }
 
-      v13 = &objc_debug_taggedpointer_ext_classes[(object >> 55)];
-      v7 = *v13;
-      if (*v13)
+      v7 = objc_debug_taggedpointer_ext_classes[(object >> 55)];
+      if (v7)
       {
-        v14 = *v13;
-        goto LABEL_5;
+        goto LABEL_4;
       }
     }
   }
@@ -7396,246 +7245,232 @@ void objc_setAssociatedObject(id object, const void *key, id value, void *policy
     v7 = *object & 0x7FFFFFFFFFFFF8;
     if (v7)
     {
-      v8 = *object & 0x7FFFFFFFFFFFF8;
-LABEL_5:
-      v9 = v7;
-      goto LABEL_11;
+LABEL_4:
+      v8 = v7;
+      goto LABEL_9;
     }
   }
 
-  v9 = 0;
-LABEL_11:
-  objc_class::realizeIfNeeded(v9);
-  if ((*((*(v9 + 4) & 0xF00007FFFFFFFF8) + 2) & 0x10) != 0)
+  v8 = 0;
+LABEL_9:
+  objc_class::realizeIfNeeded(v8);
+  if ((*((*(v8 + 4) & 0xF00007FFFFFFFF8) + 2) & 0x10) != 0)
   {
     ClassName = object_getClassName(object);
-    _objc_fatal("objc_setAssociatedObject called on instance (%p) of class %s which does not allow associated objects", v44, v45, v46, object, ClassName);
+    _objc_fatal("objc_setAssociatedObject called on instance (%p) of class %s which does not allow associated objects", v37, v38, v39, object, ClassName);
   }
 
   if (value)
   {
     if (policy == 3)
     {
-      v16 = [value copy];
+      v11 = [value copy];
     }
 
     else
     {
-      v15 = value;
+      v10 = value;
       if (policy != 1)
       {
-        goto LABEL_19;
+        goto LABEL_17;
       }
 
-      v16 = value;
+      v11 = value;
     }
 
-    v15 = v16;
+    v10 = v11;
   }
 
   else
   {
-    v15 = 0;
+    v10 = 0;
   }
 
-LABEL_19:
-  v17 = 0;
+LABEL_17:
+  v12 = 0;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v17, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
-  if (v17)
+  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v12, *(StatusReg + 24), memory_order_acquire, memory_order_acquire);
+  if (v12)
   {
     os_unfair_lock_lock_with_options();
   }
 
   if (!value)
   {
-    v21 = objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::find(-object);
-    v22 = v21;
-    if (objc::AssociationsManager::_mapStorage + 32 * dword_1ED3F5F58 == v21)
+    v16 = objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::find(-object);
+    v17 = v16;
+    if (objc::AssociationsManager::_mapStorage + 32 * dword_1ED3F5F58 == v16 || (v18 = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(v16 + 8, v42), (*&v17[1] + 24 * v17[3].u32[0]) == v18))
     {
-      goto LABEL_37;
+      LOBYTE(v20) = policy;
+      v19 = v10;
+      goto LABEL_66;
     }
 
-    v23 = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::find(v21 + 8, v49);
-    v24 = v22[1];
-    if (v24)
+    v20 = *(v18 + 1);
+    v19 = *(v18 + 2);
+    *(v18 + 1) = policy;
+    *(v18 + 2) = v10;
+    *v18 = -2;
+    v21 = vadd_s32(v17[2], 0x1FFFFFFFFLL);
+    v17[2] = v21;
+    v22 = v17[3].u32[0];
+    if (v21.i32[0])
     {
-      v25 = v22[1];
-    }
-
-    if ((*&v24 + 24 * v22[3].u32[0]) == v23)
-    {
-LABEL_37:
-      LOBYTE(v27) = policy;
-      v26 = v15;
-      goto LABEL_70;
-    }
-
-    v27 = v23[1];
-    v26 = v23[2];
-    v23[1] = policy;
-    v23[2] = v15;
-    *v23 = -2;
-    v28 = vadd_s32(v22[2], 0x1FFFFFFFFLL);
-    v22[2] = v28;
-    v29 = v22[3].u32[0];
-    if (v28.i32[0])
-    {
-      if (v29 < 0x401 || v29 >> 4 <= v28.i32[0] || (objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::grow(&v22[1], 2 * v28.i32[0]), v22[2].i32[0]))
+      if (v22 < 0x401 || v22 >> 4 <= v21.i32[0] || (objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::grow(&v17[1], 2 * v21.i32[0]), v17[2].i32[0]))
       {
-LABEL_70:
-        v40 = *(StatusReg + 24);
-        v41 = v40;
-        atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v41, 0, memory_order_release, memory_order_relaxed);
-        if (v41 != v40)
+LABEL_66:
+        v33 = *(StatusReg + 24);
+        v34 = v33;
+        atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v34, 0, memory_order_release, memory_order_relaxed);
+        if (v34 != v33)
         {
           os_unfair_lock_unlock(&AssociationsManagerLock);
         }
 
-        goto LABEL_72;
+        goto LABEL_68;
       }
     }
 
-    else if (v29)
+    else if (v22)
     {
-      if (v22[1])
+      if (v17[1])
       {
-        v31 = v22[1];
+        v24 = v17[1];
       }
 
       else
       {
-        v31 = 0;
+        v24 = 0;
       }
 
-      free(v31);
-      v22[1] = 0;
-      v22[2] = 0;
-      v22[3].i32[0] = 0;
+      free(v24);
+      v17[1] = 0;
+      v17[2] = 0;
+      v17[3].i32[0] = 0;
     }
 
     else
     {
-      v22[2] = 0;
+      v17[2] = 0;
     }
 
-    objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::erase(v22);
-    goto LABEL_70;
+    objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::erase(v17);
+    goto LABEL_66;
   }
 
-  v47[0] = 0;
-  v47[1] = 0;
-  v48 = 0;
-  v50 = 0;
-  v19 = objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v50);
-  v20 = v50;
-  if ((v19 & 1) == 0)
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
+  v43 = 0;
+  v14 = objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v43);
+  v15 = v43;
+  if ((v14 & 1) == 0)
   {
     if (4 * DWORD2(objc::AssociationsManager::_mapStorage) + 4 >= (3 * dword_1ED3F5F58))
     {
       objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::grow(2 * dword_1ED3F5F58);
-      v50 = 0;
-      objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v50);
+      v43 = 0;
+      objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v43);
     }
 
     else
     {
       if (dword_1ED3F5F58 + ~DWORD2(objc::AssociationsManager::_mapStorage) - HIDWORD(objc::AssociationsManager::_mapStorage) > dword_1ED3F5F58 >> 3)
       {
-LABEL_25:
-        if (*v20 == 2)
+LABEL_23:
+        if (*v15 == 2)
         {
           *(&objc::AssociationsManager::_mapStorage + 1) = vadd_s32(*(&objc::AssociationsManager::_mapStorage + 8), 0xFFFFFFFF00000001);
         }
 
-        else if (*v20 == 1)
+        else if (*v15 == 1)
         {
           ++DWORD2(objc::AssociationsManager::_mapStorage);
         }
 
         else
         {
-          if (*(v20 + 8))
+          if (*(v15 + 8))
           {
-            v30 = *(v20 + 8);
+            v23 = *(v15 + 8);
           }
 
           else
           {
-            v30 = 0;
+            v23 = 0;
           }
 
-          free(v30);
+          free(v23);
         }
 
-        *v20 = -object;
-        *(v20 + 16) = 0;
-        *(v20 + 24) = 0;
-        *(v20 + 8) = 0;
-        objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::swap((v20 + 8), v47);
-        goto LABEL_47;
+        *v15 = -object;
+        *(v15 + 16) = 0;
+        *(v15 + 24) = 0;
+        *(v15 + 8) = 0;
+        objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::swap((v15 + 8), v40);
+        goto LABEL_43;
       }
 
       objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::grow(dword_1ED3F5F58);
-      v50 = 0;
-      objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v50);
+      v43 = 0;
+      objc::DenseMapBase<objc::DenseMap<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>,DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,objc::DenseMapValueInfo<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>,objc::DenseMapInfo<DisguisedPtr<objc_object>>,objc::detail::DenseMapPair<DisguisedPtr<objc_object>,objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>>>::LookupBucketFor<DisguisedPtr<objc_object>>(-object, &v43);
     }
 
-    v20 = v50;
-    goto LABEL_25;
+    v15 = v43;
+    goto LABEL_23;
   }
 
-LABEL_47:
-  if (v47[0])
+LABEL_43:
+  if (v40[0])
   {
-    v32 = v47[0];
+    v25 = v40[0];
   }
 
   else
   {
-    v32 = 0;
+    v25 = 0;
   }
 
-  free(v32);
-  v47[0] = 0;
-  if (objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(v20 + 8, v49, v47))
+  free(v25);
+  v40[0] = 0;
+  if (objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>((v15 + 8), v42, v40))
   {
-    v33 = v47[0] + 2;
-    v26 = v47[0][2];
-    v27 = v47[0][1];
-    v47[0][1] = policy;
+    v26 = v40[0] + 16;
+    v19 = *(v40[0] + 2);
+    v20 = *(v40[0] + 1);
+    *(v40[0] + 1) = policy;
   }
 
   else
   {
-    inserted = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::InsertIntoBucketImpl<void const*>((v20 + 8), &v49, v47[0]);
-    LOBYTE(v27) = 0;
-    v26 = 0;
-    *inserted = v49;
-    inserted[1] = policy;
-    v33 = inserted + 2;
+    inserted = objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::InsertIntoBucketImpl<void const*>((v15 + 8), &v42, v40[0]);
+    LOBYTE(v20) = 0;
+    v19 = 0;
+    *inserted = v42;
+    *(inserted + 1) = policy;
+    v26 = inserted + 16;
   }
 
-  *v33 = v15;
-  v35 = *(StatusReg + 24);
-  v36 = v35;
-  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v36, 0, memory_order_release, memory_order_relaxed);
-  if (v36 != v35)
+  *v26 = v10;
+  v28 = *(StatusReg + 24);
+  v29 = v28;
+  atomic_compare_exchange_strong_explicit(&AssociationsManagerLock, &v29, 0, memory_order_release, memory_order_relaxed);
+  if (v29 != v28)
   {
     os_unfair_lock_unlock(&AssociationsManagerLock);
   }
 
   if (object < 0)
   {
-    v37 = 1;
+    v30 = 1;
   }
 
   else
   {
-    v37 = v19;
+    v30 = v14;
   }
 
-  if ((v37 & 1) == 0)
+  if ((v30 & 1) == 0)
   {
     if ((*object & 1) == 0 && (*((*object & 0xFFFFFFFF8) + 0x20) & 4) == 0 && ((*(*object & 0xFFFFFFFF8) - 1) < 0xF || (*((*((*object & 0xFFFFFFFF8) + 0x20) & 0xF00007FFFFFFFF8) + 3) & 0x40) == 0) && (*((*object & 0xFFFFFFFF8) + 0x1E) & 4) == 0)
     {
@@ -7646,29 +7481,29 @@ LABEL_47:
       }
     }
 
-    v38 = *object;
+    v31 = *object;
     if ((*object & 3) == 1)
     {
-      v39 = *object;
+      v32 = *object;
       do
       {
-        atomic_compare_exchange_strong_explicit(object, &v39, v38 | 2, memory_order_relaxed, memory_order_relaxed);
-        if (v39 == v38)
+        atomic_compare_exchange_strong_explicit(object, &v32, v31 | 2, memory_order_relaxed, memory_order_relaxed);
+        if (v32 == v31)
         {
           break;
         }
 
-        v38 = v39;
+        v31 = v32;
       }
 
-      while ((v39 & 3) == 1);
+      while ((v32 & 3) == 1);
     }
   }
 
-LABEL_72:
-  if (v26)
+LABEL_68:
+  if (v19)
   {
-    if (v27)
+    if (v20)
     {
     }
   }
@@ -7747,36 +7582,31 @@ uint64_t *objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueIn
     v2 = 0;
   }
 
-  if (*a2)
-  {
-    v3 = *a2;
-  }
-
   *result = *a2;
   if (v2)
   {
-    v4 = v2;
+    v3 = v2;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  *a2 = v4;
-  v5 = *(result + 2);
+  *a2 = v3;
+  v4 = *(result + 2);
   *(result + 2) = *(a2 + 2);
-  *(a2 + 2) = v5;
-  v6 = *(result + 3);
+  *(a2 + 2) = v4;
+  v5 = *(result + 3);
   *(result + 3) = *(a2 + 3);
-  *(a2 + 3) = v6;
-  v7 = *(result + 4);
+  *(a2 + 3) = v5;
+  v6 = *(result + 4);
   *(result + 4) = *(a2 + 4);
-  *(a2 + 4) = v7;
+  *(a2 + 4) = v6;
   return result;
 }
 
-void *objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::InsertIntoBucketImpl<void const*>(int32x2_t *a1, unint64_t *a2, void *a3)
+char *objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::InsertIntoBucketImpl<void const*>(int32x2_t *a1, unint64_t *a2, char *a3)
 {
   v5 = a1[1].i32[0];
   v6 = a1[2].u32[0];
@@ -7873,7 +7703,7 @@ LABEL_13:
       if (v3)
       {
         v18 = 24 * v3;
-        v19 = v4 + 2;
+        v19 = v4 + 16;
         do
         {
           v20 = *(v19 - 2);
@@ -7883,13 +7713,13 @@ LABEL_13:
             objc::DenseMapBase<objc::DenseMap<void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>,void const*,objc::ObjcAssociation,objc::DenseMapValueInfo<objc::ObjcAssociation>,objc::DenseMapInfo<void const*>,objc::detail::DenseMapPair<void const*,objc::ObjcAssociation>>::LookupBucketFor<void const*>(a1, v20, &v29);
             v21 = v29;
             v22 = *(v19 - 2);
-            v29[1] = 0;
-            v21[2] = 0;
+            *(v29 + 1) = 0;
+            *(v21 + 2) = 0;
             *v21 = v22;
-            v21[1] = *(v19 - 1);
+            *(v21 + 1) = *(v19 - 1);
             *(v19 - 1) = 0;
-            v23 = v21[2];
-            v21[2] = *v19;
+            v23 = *(v21 + 2);
+            *(v21 + 2) = *v19;
             *v19 = v23;
             ++*(a1 + 8);
           }
@@ -7970,7 +7800,6 @@ uint64_t *AutoreleasePoolPage::autoreleaseFullPage(objc_object *this, objc_objec
   }
 
   *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 344) = isa;
-  v6 = isa[6].isa;
   return AutoreleasePoolPage::add(isa, this);
 }
 
@@ -8010,7 +7839,7 @@ unint64_t objc_opt_class(unint64_t result)
   return result;
 }
 
-void (*lookUpImpOrForwardTryCache(objc_object *a1, unint64_t a2, objc_class *a3, unsigned int a4))(void)
+void (*lookUpImpOrForwardTryCache(objc_object *a1, objc_selector *a2, objc_class *a3, unsigned int a4))(void)
 {
   v8 = *(*(a3 + 4) & 0xF00007FFFFFFFF8);
   if ((v8 & 1) == 0)
@@ -8029,7 +7858,7 @@ void (*lookUpImpOrForwardTryCache(objc_object *a1, unint64_t a2, objc_class *a3,
   else
   {
 
-    return lookUpImpOrForward(a1, a2, a3);
+    return lookUpImpOrForward(a1, a2, a3, a4);
   }
 
   return result;
@@ -8252,7 +8081,7 @@ LABEL_5:
   return v6;
 }
 
-uint64_t list_array_tt<unsigned long,protocol_list_t,RawPtr>::iteratorImpl<false>::iteratorImpl(uint64_t a1, uint64_t a2, void *a3)
+uint64_t list_array_tt<unsigned long,protocol_list_t,RawPtr>::iteratorImpl<false>::iteratorImpl(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   list_array_tt<unsigned long,protocol_list_t,RawPtr>::ListIterator::ListIterator(a1, a2);
   list_array_tt<unsigned long,protocol_list_t,RawPtr>::ListIterator::ListIterator(v6 + 32, a3);
@@ -8265,7 +8094,7 @@ uint64_t list_array_tt<unsigned long,protocol_list_t,RawPtr>::iteratorImpl<false
   if (!v7)
   {
 LABEL_9:
-    if (*(a2 + 8) == a3[1])
+    if (a2[1] == a3[1])
     {
       goto LABEL_17;
     }
@@ -8286,7 +8115,7 @@ LABEL_2:
       goto LABEL_3;
     }
 
-    v13 = *(a2 + 24);
+    v13 = a2[3];
     v14 = a3[3];
   }
 
@@ -8297,7 +8126,7 @@ LABEL_2:
       goto LABEL_9;
     }
 
-    v13 = *(a2 + 8);
+    v13 = a2[1];
     v14 = a3[1];
   }
 
@@ -8312,14 +8141,14 @@ LABEL_3:
   {
     if (v8 == 2)
     {
-      v10 = *(a2 + 24);
+      v10 = a2[3];
       v11 = v10 + (*v10 >> 16);
     }
 
     else
     {
       v11 = 0;
-      v10 = *(a2 + 24);
+      v10 = a2[3];
     }
 
     *(a1 + 64) = v11 + 8;
@@ -8329,13 +8158,13 @@ LABEL_3:
 
   if (v8)
   {
-    *(a1 + 64) = **(a2 + 8) + 8;
-    v9 = **(a2 + 8);
+    *(a1 + 64) = *a2[1] + 8;
+    v9 = *a2[1];
     goto LABEL_16;
   }
 
 LABEL_5:
-  v9 = *(a2 + 8);
+  v9 = a2[1];
   *(a1 + 64) = v9 + 1;
 LABEL_16:
   *(a1 + 72) = &v9[*v9 + 1];
@@ -8348,10 +8177,9 @@ __n128 list_array_tt<unsigned long,protocol_list_t,RawPtr>::ListIterator::ListIt
 {
   v2 = *a2;
   *a1 = *a2;
-  v3 = *v2;
-  if (*v2 && (v4 = *v2, (v3 & 3u) > 1uLL))
+  if (*v2 && (*v2 & 3uLL) > 1)
   {
-    if ((v3 & 3) == 2)
+    if ((*v2 & 3) == 2)
     {
       result = *(a2 + 8);
       *(a1 + 24) = *(a2 + 24);
@@ -8430,7 +8258,7 @@ BOOL protocol_isEqual(Protocol *proto, Protocol *other)
   return proto;
 }
 
-uint64_t *objc_object::sidetable_setWeaklyReferenced_nolock(objc_object *this)
+char *objc_object::sidetable_setWeaklyReferenced_nolock(objc_object *this)
 {
   v2 = -this;
   *result |= 1uLL;
@@ -8594,7 +8422,7 @@ uint64_t _objc_rootRelease(uint64_t result)
   return result;
 }
 
-uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(uint64_t **a1, uint64_t a2, void *a3)
+uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(uint64_t **a1, uint64_t **a2, uint64_t **a3)
 {
   v6 = list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(a1, a2);
   list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(v6 + 4, a3);
@@ -8616,7 +8444,7 @@ uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::itera
       goto LABEL_3;
     }
 
-    v22 = *(a2 + 24);
+    v22 = a2[3];
     v23 = a3[3];
 LABEL_42:
     if (v22 == v23)
@@ -8629,7 +8457,7 @@ LABEL_3:
     {
       if ((**a2 & 3) == 2)
       {
-        v10 = (*(a2 + 24) + (**(a2 + 24) >> 16));
+        v10 = (a2[3] + (*a2[3] >> 16));
       }
 
       else
@@ -8642,27 +8470,27 @@ LABEL_3:
 
     if ((v9 & 3) != 0)
     {
-      v10 = **(a2 + 8);
+      v10 = *a2[1];
       goto LABEL_15;
     }
 
 LABEL_5:
-    v10 = *(a2 + 8);
+    v10 = a2[1];
 LABEL_15:
     v12 = *v10;
     v24[0] = v12 & 0xFFFC;
     v13 = v12 >> 31;
-    v14 = (v10 + 2) & 0xFFFFFFFFFFFFFFFCLL;
+    v14 = (v10 + 1) & 0xFFFFFFFFFFFFFFFCLL;
     if (v10 < 0)
     {
       v13 = 2;
     }
 
-    v15 = v13 | v14;
+    v15 = (v13 | v14);
     a1[8] = v24[0];
     if (v13 | v14)
     {
-      v15 = v13 | v14;
+      v15 = (v13 | v14);
     }
 
     a1[9] = v15;
@@ -8685,7 +8513,7 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      v18 = *(a2 + 24) + (**(a2 + 24) >> 16);
+      v18 = (a2[3] + (*a2[3] >> 16));
       if (!v18)
       {
         v17 = 0;
@@ -8710,7 +8538,7 @@ LABEL_29:
 
     if ((v16 & 3) != 0)
     {
-      v17 = **(a2 + 8);
+      v17 = *a2[1];
       if (!v17)
       {
         goto LABEL_30;
@@ -8720,7 +8548,7 @@ LABEL_29:
     else
     {
 LABEL_22:
-      v17 = *(a2 + 8);
+      v17 = a2[1];
       if (!v17)
       {
         goto LABEL_30;
@@ -8733,15 +8561,15 @@ LABEL_22:
 
   if ((v9 & 3) != 0)
   {
-    v22 = *(a2 + 8);
+    v22 = a2[1];
     v23 = a3[1];
     goto LABEL_42;
   }
 
 LABEL_9:
-  if (*(a2 + 8))
+  if (a2[1])
   {
-    v11 = *(a2 + 8);
+    v11 = a2[1];
   }
 
   else
@@ -8775,7 +8603,7 @@ uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::itera
   {
     if (v1 != v2)
     {
-      goto LABEL_14;
+      goto LABEL_12;
     }
 
     if (v4)
@@ -8784,7 +8612,7 @@ uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::itera
       {
         if ((v4 & 3) != 2)
         {
-          goto LABEL_14;
+          goto LABEL_12;
         }
 
         v6 = result[3];
@@ -8807,62 +8635,47 @@ uint64_t **list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::itera
         return result;
       }
 
-      goto LABEL_15;
+      goto LABEL_13;
     }
 
 LABEL_6:
-    if (result[1])
-    {
-      v5 = result[1];
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    v8 = result[5];
-    if (v8)
-    {
-      v9 = result[5];
-    }
-
-    if (v5 == v8)
+    v5 = result[1] ? result[1] : 0;
+    if (v5 == result[5])
     {
       return result;
     }
 
-LABEL_14:
+LABEL_12:
     if (!v4)
     {
-      v10 = 1;
-LABEL_19:
-      v11 = result[1];
-      goto LABEL_21;
-    }
-
-LABEL_15:
-    if ((v4 & 3) != 1)
-    {
-      v10 = 0;
-      if ((v4 & 3) != 0)
-      {
-        v11 = result[3] + (*result[3] >> 16);
-        goto LABEL_21;
-      }
-
+      v8 = 1;
+LABEL_17:
+      v9 = result[1];
       goto LABEL_19;
     }
 
-    v11 = *result[1];
-    v10 = 0;
-LABEL_21:
-    if (*(v11 + 4))
+LABEL_13:
+    if ((v4 & 3) != 1)
+    {
+      v8 = 0;
+      if ((v4 & 3) != 0)
+      {
+        v9 = (result[3] + (*result[3] >> 16));
+        goto LABEL_19;
+      }
+
+      goto LABEL_17;
+    }
+
+    v9 = *result[1];
+    v8 = 0;
+LABEL_19:
+    if (*(v9 + 1))
     {
       return result;
     }
 
-    if (v10)
+    if (v8)
     {
       v4 = 0;
       result[1] = 0;
@@ -8873,7 +8686,7 @@ LABEL_21:
       if ((v4 & 3) == 1)
       {
         ++result[1];
-        v12 = *v1;
+        v10 = *v1;
       }
 
       else
@@ -8883,51 +8696,51 @@ LABEL_21:
           result[1] = 0;
         }
 
-        v12 = v4;
+        v10 = v4;
       }
 
       v4 = 0;
-      if (v12)
+      if (v10)
       {
-        v4 = v12;
-        if ((v12 & 3) == 2)
+        v4 = v10;
+        if ((v10 & 3) == 2)
         {
-          v13 = result[3];
-          v15 = *(result + 4);
-          v14 = *(result + 5);
-          v16 = (v13 + v15);
-          result[3] = (v13 + v15);
-          v17 = result[1];
-          v18 = *v17;
-          v19 = v17[1];
-          v20 = v19 * v18;
-          *(result + 5) = v14 + 1;
-          if ((v20 & 0xFFFFFFFF00000000) != 0)
+          v11 = result[3];
+          v13 = *(result + 4);
+          v12 = *(result + 5);
+          v14 = (v11 + v13);
+          result[3] = (v11 + v13);
+          v15 = result[1];
+          v16 = *v15;
+          v17 = *(v15 + 1);
+          v18 = v17 * v16;
+          *(result + 5) = v12 + 1;
+          if ((v18 & 0xFFFFFFFF00000000) != 0)
           {
-            _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v14, v18, v20, v19, v17, v18);
+            _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v12, v16, v18, v17, v15, v16);
           }
 
-          v21 = v17 + v20 + 8;
-          v4 = v12;
-          if (v16 < v21)
+          v19 = v15 + v18 + 8;
+          v4 = v10;
+          if (v14 < v19)
           {
-            v22 = v14 + 2;
-            v23 = (v13 + 2 * v15);
+            v20 = v12 + 2;
+            v21 = (v11 + 2 * v13);
             do
             {
-              if (*(v3 + 8 * *v16))
+              if (*(v3 + 8 * *v14))
               {
                 break;
               }
 
-              v16 = (v16 + v15);
-              result[3] = v23;
-              *(result + 5) = v22++;
-              v23 = (v23 + v15);
+              v14 = (v14 + v13);
+              result[3] = v21;
+              *(result + 5) = v20++;
+              v21 = (v21 + v13);
             }
 
-            while (v16 < v21);
-            v4 = v12;
+            while (v14 < v19);
+            v4 = v10;
           }
         }
       }
@@ -9040,16 +8853,16 @@ void _objc_init()
     objc_bp_assist_cfg_np();
   }
 
-  classInitLock = 0;
+  classInitLock[0] = 0;
   pendingInitializeMapLock = 0;
-  selLock = 0;
+  selLock[0] = 0;
   loadMethodLock = 0;
   crashlog_lock = 0;
-  objcMsgLogLock = 0;
-  AltHandlerDebugLock = 0;
+  objcMsgLogLock[0] = 0;
+  AltHandlerDebugLock[0] = 0;
   AssociationsManagerLock = 0;
   runtimeLock[0] = 0;
-  DemangleCacheLock = 0;
+  DemangleCacheLock[0] = 0;
   v0 = &OBJC_IVAR___Object_isa;
   if (issetugid())
   {
@@ -9071,136 +8884,136 @@ void _objc_init()
     DisableClassROFaults = 1;
   }
 
-  v14 = *_NSGetEnviron();
-  if (!v14)
+  v13 = *_NSGetEnviron();
+  if (!v13)
   {
     goto LABEL_6;
   }
 
-  v15 = *v14;
-  if (!*v14)
+  v14 = *v13;
+  if (!*v13)
   {
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
     goto LABEL_90;
   }
 
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
   do
   {
-    if (!strncmp(v15, "Malloc", 6uLL) || !strncmp(v15, "DYLD", 4uLL) || !strncmp(v15, "NSZombiesEnabled", 0x10uLL))
+    if (!strncmp(v14, "Malloc", 6uLL) || !strncmp(v14, "DYLD", 4uLL) || !strncmp(v14, "NSZombiesEnabled", 0x10uLL))
     {
-      v18 = 1;
+      v17 = 1;
     }
 
-    if (!strncmp(v15, "OBJC_", 5uLL))
+    if (!strncmp(v14, "OBJC_", 5uLL))
     {
-      if (!strncmp(v15, "OBJC_HELP=", 0xAuLL))
+      if (!strncmp(v14, "OBJC_HELP=", 0xAuLL))
+      {
+        v15 = 1;
+        goto LABEL_37;
+      }
+
+      if (!strncmp(v14, "OBJC_PRINT_OPTIONS=", 0x13uLL))
       {
         v16 = 1;
         goto LABEL_37;
       }
 
-      if (!strncmp(v15, "OBJC_PRINT_OPTIONS=", 0x13uLL))
+      if (!strncmp(v14, "OBJC_DEBUG_POOL_DEPTH=", 0x16uLL))
       {
-        v17 = 1;
-        goto LABEL_37;
-      }
-
-      if (!strncmp(v15, "OBJC_DEBUG_POOL_DEPTH=", 0x16uLL))
-      {
-        v26 = strtol(v15 + 22, 0, 10);
-        if (v26 && (v26 - 0x80000000) >= 0xFFFFFFFF7FFFFFFFLL)
+        v25 = strtol(v14 + 22, 0, 10);
+        if (v25 && (v25 - 0x80000000) >= 0xFFFFFFFF7FFFFFFFLL)
         {
-          objc::PageCountWarning = v26;
+          objc::PageCountWarning = v25;
         }
       }
 
       else
       {
-        v20 = strchr(v15, 61);
-        if (!*v20)
+        v19 = strchr(v14, 61);
+        if (!*v19)
         {
           goto LABEL_37;
         }
 
-        v21 = v20;
-        v22 = v20 + 1;
-        v23 = &Settings;
-        v24 = 51;
+        v20 = v19;
+        v21 = v19 + 1;
+        v22 = &Settings;
+        v23 = 51;
         while (1)
         {
-          if (v23[32] != 1 || os_variant_allows_internal_security_policies())
+          if (v22[32] != 1 || os_variant_allows_internal_security_policies())
           {
-            v25 = *(v23 + 3);
-            if (v22 - *v14 == v25 + 1 && !strncmp(*v14, *(v23 + 1), v25))
+            v24 = *(v22 + 3);
+            if (v21 - *v13 == v24 + 1 && !strncmp(*v13, *(v22 + 1), v24))
             {
               break;
             }
           }
 
-          v23 += 40;
-          if (!--v24)
+          v22 += 40;
+          if (!--v23)
           {
             goto LABEL_37;
           }
         }
 
-        if (!strcasecmp(v22, "fatal") || !strcasecmp(v22, "halt"))
+        if (!strcasecmp(v21, "fatal") || !strcasecmp(v21, "halt"))
         {
-          v27 = *v23;
-          v28 = 2;
+          v26 = *v22;
+          v27 = 2;
 LABEL_69:
-          *v27 = v28;
+          *v26 = v27;
           goto LABEL_37;
         }
 
-        if (!strcasecmp(v22, "fault"))
+        if (!strcasecmp(v21, "fault"))
         {
-          v27 = *v23;
-          v28 = 3;
+          v26 = *v22;
+          v27 = 3;
           goto LABEL_69;
         }
 
-        if (strcasecmp(v22, "stochastic-fault") && strcasecmp(v22, "stochasticFault"))
+        if (strcasecmp(v21, "stochastic-fault") && strcasecmp(v21, "stochasticFault"))
         {
-          if (strcasecmp(v22, "yes") && strcasecmp(v22, "warn") && strcasecmp(v22, "true") && strcasecmp(v22, "on") && strcasecmp(v22, "y") && (*v22 != 49 || v21[2]))
+          if (strcasecmp(v21, "yes") && strcasecmp(v21, "warn") && strcasecmp(v21, "true") && strcasecmp(v21, "on") && strcasecmp(v21, "y") && (*v21 != 49 || v20[2]))
           {
-            **v23 = 0;
+            **v22 = 0;
             goto LABEL_37;
           }
 
-          v27 = *v23;
-          v28 = 1;
+          v26 = *v22;
+          v27 = 1;
           goto LABEL_69;
         }
 
-        **v23 = 4;
+        **v22 = 4;
       }
     }
 
 LABEL_37:
-    v19 = v14[1];
-    ++v14;
-    v15 = v19;
+    v18 = v13[1];
+    ++v13;
+    v14 = v18;
   }
 
-  while (v19);
-  if ((v18 & 1) == 0)
+  while (v18);
+  if ((v17 & 1) == 0)
   {
     v0 = &OBJC_IVAR___Object_isa;
     goto LABEL_90;
   }
 
-  v41 = getenv("DYLD_INSERT_LIBRARIES");
-  v42 = getenv("NSZombiesEnabled");
-  v43 = getenv("OBJC_DEBUG_POOL_ALLOCATION");
-  if (getenv("MallocStackLogging") || getenv("MallocStackLoggingNoCompact") || v42 && (*v42 | 0x20) == 0x79)
+  v37 = getenv("DYLD_INSERT_LIBRARIES");
+  v38 = getenv("NSZombiesEnabled");
+  v39 = getenv("OBJC_DEBUG_POOL_ALLOCATION");
+  if (getenv("MallocStackLogging") || getenv("MallocStackLoggingNoCompact") || v38 && (*v38 | 0x20) == 0x79)
   {
     v0 = &OBJC_IVAR___Object_isa;
-    if (v43)
+    if (v39)
     {
       goto LABEL_90;
     }
@@ -9209,12 +9022,12 @@ LABEL_37:
   }
 
   v0 = &OBJC_IVAR___Object_isa;
-  if (v41)
+  if (v37)
   {
-    v47 = strstr(v41, "libgmalloc");
-    if (!v43)
+    v43 = strstr(v37, "libgmalloc");
+    if (!v39)
     {
-      if (v47)
+      if (v43)
       {
 LABEL_87:
         DebugPoolAllocation = 1;
@@ -9228,19 +9041,19 @@ LABEL_90:
     DisablePreoptCaches = 1;
   }
 
-  if ((v16 | v17))
+  if ((v15 | v16))
   {
-    if (v16)
+    if (v15)
     {
       _objc_inform("Objective-C runtime debugging. Set variable=YES to enable.");
       _objc_inform("OBJC_HELP: describe available environment variables");
-      if (v17)
+      if (v16)
       {
         _objc_inform("OBJC_HELP is set");
       }
 
       _objc_inform("OBJC_PRINT_OPTIONS: list which options are set");
-      if (v17)
+      if (v16)
       {
         goto LABEL_115;
       }
@@ -9248,7 +9061,7 @@ LABEL_90:
 
     else
     {
-      if ((v17 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         goto LABEL_95;
       }
@@ -9258,34 +9071,34 @@ LABEL_115:
     }
 
 LABEL_95:
-    v44 = &off_1E69EA128;
-    v45 = 51;
+    v40 = &off_1E69EA128;
+    v41 = 51;
     while (2)
     {
-      if (*(v44 + 16) != 1 || os_variant_allows_internal_security_policies())
+      if (*(v40 + 16) != 1 || os_variant_allows_internal_security_policies())
       {
-        if (v16)
+        if (v15)
         {
-          _objc_inform("%s: %s", *(v44 - 1), *v44);
-          if (v17)
+          _objc_inform("%s: %s", *(v40 - 1), *v40);
+          if (v16)
           {
             goto LABEL_100;
           }
         }
 
-        else if (v17)
+        else if (v16)
         {
 LABEL_100:
-          v46 = **(v44 - 2) - 1;
-          if (v46 <= 3)
+          v42 = **(v40 - 2) - 1;
+          if (v42 <= 3)
           {
-            _objc_inform(off_1E69EA910[v46], *(v44 - 1));
+            _objc_inform(off_1E69EA910[v42], *(v40 - 1));
           }
         }
       }
 
-      v44 += 5;
-      if (!--v45)
+      v40 += 5;
+      if (!--v41)
       {
         break;
       }
@@ -9342,7 +9155,6 @@ LABEL_6:
   v10 = -1;
   while (1)
   {
-    v11 = objc::interestingSelectors[v8];
     objc_selector = _dyld_get_objc_selector();
     if (!objc_selector)
     {
@@ -9351,7 +9163,8 @@ LABEL_6:
 
     v10 &= ~objc_selector;
     v9 &= objc_selector;
-    if (++v8 == 15)
+    v8 += 8;
+    if (v8 == 120)
     {
       goto LABEL_21;
     }
@@ -9362,49 +9175,46 @@ LABEL_6:
 LABEL_21:
   objc::InterestingSelectorOnes = v9;
   objc::InterestingSelectorZeroes = v10;
-  v13 = v0[75];
-  if (!v13)
+  v12 = v0[75];
+  if (!v12)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  objc::disableEnforceClassRXPtrAuth = v13;
+  objc::disableEnforceClassRXPtrAuth = v12;
   objc::DenseMap<DisguisedPtr<objc_class>,objc::category_list,objc::DenseMapValueInfo<objc::category_list>,objc::DenseMapInfo<DisguisedPtr<objc_class>>,objc::detail::DenseMapPair<DisguisedPtr<objc_class>,objc::category_list>>::init(0x20);
   objc::allocatedClasses = 0;
   qword_1ED3F6158 = 0;
   qword_1ED3F6160 = 0;
   old_terminate = std::set_terminate(_objc_terminate);
-  v29 = -1;
+  v28 = -1;
   do
   {
-    ++v29;
+    ++v28;
   }
 
-  while (objc_restartableRanges[2 * v29]);
-  v30 = MEMORY[0x1E69E9A60];
-  v31 = *MEMORY[0x1E69E9A60];
-  v32 = task_restartable_ranges_register();
-  if (v32 == 6)
+  while (objc_restartableRanges[2 * v28]);
+  v29 = task_restartable_ranges_register();
+  if (v29 == 6)
   {
     shouldUseRestartableRanges = 1;
   }
 
   else
   {
-    v33 = v32;
-    if (v32)
+    v30 = v29;
+    if (v29)
     {
-      v48 = mach_error_string(v32);
-      _objc_fatal("task_restartable_ranges_register failed (result 0x%x: %s)", v49, v50, v51, v33, v48);
+      v44 = mach_error_string(v29);
+      _objc_fatal("task_restartable_ranges_register failed (result 0x%x: %s)", v45, v46, v47, v30, v44);
     }
 
-    v34 = *v30;
-    v35 = task_restartable_ranges_synchronize();
-    if (v35)
+    v31 = task_restartable_ranges_synchronize();
+    if (v31)
     {
-      v36 = v35;
-      v37 = mach_error_string(v35);
-      _objc_fatal("task_restartable_ranges_synchronize failed (result 0x%x: %s)", v38, v39, v40, v36, v37);
+      v32 = v31;
+      v33 = mach_error_string(v31);
+      _objc_fatal("task_restartable_ranges_synchronize failed (result 0x%x: %s)", v34, v35, v36, v32, v33);
     }
   }
 
@@ -9489,61 +9299,61 @@ Method *__cdecl class_copyMethodList(Class cls, unsigned int *outCount)
   }
 
   realizeAndInitializeIfNeeded_locked(0, cls, 0);
-  LODWORD(v6) = class_rw_t::methods(&v126, *(cls + 4) & 0xF00007FFFFFFFF8);
-  v116 = &v126;
-  v14 = v126;
-  if (!v126)
+  LODWORD(v6) = class_rw_t::methods(&v125, *(cls + 4) & 0xF00007FFFFFFFF8);
+  v115 = &v125;
+  v14 = v125;
+  if (!v125)
   {
     goto LABEL_11;
   }
 
-  v15 = v126 & 3;
-  if ((v126 & 3) == 0)
+  v15 = v125 & 3;
+  if ((v125 & 3) == 0)
   {
-    v12 = v126;
-    v117 = v126;
+    v12 = v125;
+    v116 = v125;
     goto LABEL_7;
   }
 
-  if (v126 > 3)
+  if (v125 > 3)
   {
     if (v15 != 2)
     {
       if (v15 == 1)
       {
-        v12 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-        if ((v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+        v12 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+        if ((v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
         {
           v12 += 2;
-          v117 = v12;
+          v116 = v12;
         }
       }
 
       goto LABEL_7;
     }
 
-    v12 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-    if ((v126 & 0xFFFFFFFFFFFFFFFCLL) == 0)
+    v12 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+    if ((v125 & 0xFFFFFFFFFFFFFFFCLL) == 0)
     {
 LABEL_7:
-      v112 = &v126;
+      v111 = &v125;
       goto LABEL_13;
     }
 
     if (DisablePreattachedCategories)
     {
-      v41 = *v12;
+      v40 = *v12;
       v19 = v12[1];
-      v106 = v19 * v41;
-      if ((v106 & 0xFFFFFFFF00000000) != 0)
+      v105 = v19 * v40;
+      if ((v105 & 0xFFFFFFFF00000000) != 0)
       {
-        goto LABEL_263;
+        goto LABEL_260;
       }
 
-      v13 = v41 | (v19 << 32);
-      v107 = v12 + v106 + 8;
-      v108 = v41 | ((v19 - 1) << 32);
-      v109 = v19 == 0;
+      v13 = v40 | (v19 << 32);
+      v106 = v12 + v105 + 8;
+      v107 = v40 | ((v19 - 1) << 32);
+      v108 = v19 == 0;
       if (v19)
       {
         v19 = v19;
@@ -9554,19 +9364,19 @@ LABEL_7:
         v19 = 0;
       }
 
-      if (v109)
+      if (v108)
       {
-        v7 = v107;
+        v7 = v106;
       }
 
       else
       {
-        v7 = (v107 - v41);
+        v7 = (v106 - v40);
       }
 
-      if (!v109)
+      if (!v108)
       {
-        v13 = v108;
+        v13 = v107;
       }
     }
 
@@ -9575,17 +9385,17 @@ LABEL_7:
       v7 = (v12 + 2);
       v13 = *v12;
       v19 = v12[1];
-      v41 = v13;
+      v40 = v13;
     }
 
-    v42 = v19 * v41;
-    if ((v42 & 0xFFFFFFFF00000000) != 0)
+    v41 = v19 * v40;
+    if ((v41 & 0xFFFFFFFF00000000) != 0)
     {
-      goto LABEL_263;
+      goto LABEL_260;
     }
 
     v6 = HIDWORD(v13);
-    for (i = v12 + v42 + 8; v7 < i; v6 = (v6 + 1))
+    for (i = v12 + v41 + 8; v7 < i; v6 = (v6 + 1))
     {
       if (*(objc_debug_headerInfoRWs + 8 + 8 * *v7))
       {
@@ -9595,38 +9405,38 @@ LABEL_7:
       v7 = (v7 + v13);
     }
 
-    v117 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-    v118 = v13 | (v6 << 32);
-    v119 = v7;
+    v116 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+    v117 = v13 | (v6 << 32);
+    v118 = v7;
   }
 
   else
   {
 LABEL_11:
     v12 = 0;
-    v117 = 0;
+    v116 = 0;
   }
 
-  v112 = &v126;
-  if (!v126)
+  v111 = &v125;
+  if (!v125)
   {
     v17 = 0;
 LABEL_22:
-    v113 = 0;
+    v112 = 0;
     goto LABEL_24;
   }
 
 LABEL_13:
-  v17 = (v126 & 3);
+  v17 = (v125 & 3);
   if (v17 <= 1)
   {
-    if ((v126 & 3) != 0)
+    if ((v125 & 3) != 0)
     {
-      v17 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-      if ((v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+      v17 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+      if ((v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
       {
         v17 += 2 * *v17 + 2;
-        v113 = v17;
+        v112 = v17;
       }
 
       goto LABEL_24;
@@ -9641,8 +9451,8 @@ LABEL_13:
     goto LABEL_24;
   }
 
-  v17 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-  if ((v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+  v17 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+  if ((v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
   {
     v18 = *v17;
     v19 = v17[1];
@@ -9650,22 +9460,22 @@ LABEL_13:
     if ((v20 & 0xFFFFFFFF00000000) == 0)
     {
       v9 = v17 + v20 + 8;
-      v113 = v126 & 0xFFFFFFFFFFFFFFFCLL;
-      v114 = v18 | (v19 << 32);
-      v115[0] = v9;
+      v112 = v125 & 0xFFFFFFFFFFFFFFFCLL;
+      v113 = v18 | (v19 << 32);
+      v114[0] = v9;
       goto LABEL_24;
     }
 
-    v12 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-    v41 = *v17;
-LABEL_263:
-    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v7, v8, v9, v10, v11, v19, v12, v41);
+    v12 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+    v40 = *v17;
+LABEL_260:
+    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v7, v8, v9, v10, v11, v19, v12, v40);
   }
 
 LABEL_24:
   v21 = 0;
-  v10 = &v116;
-  v11 = &v112;
+  v10 = &v115;
+  v11 = &v111;
   v8 = (objc_debug_headerInfoRWs + 8);
 LABEL_25:
   v22 = v12 + 2;
@@ -9677,21 +9487,21 @@ LABEL_26:
   v26 = v12;
   while (1)
   {
-    if (!v126)
+    if (!v125)
     {
       goto LABEL_30;
     }
 
-    if ((v126 & 3) > 1)
+    if ((v125 & 3) > 1)
     {
       break;
     }
 
-    if ((v126 & 3) != 0)
+    if ((v125 & 3) != 0)
     {
       if (v26 == v17)
       {
-        goto LABEL_66;
+        goto LABEL_63;
       }
 
       goto LABEL_42;
@@ -9722,26 +9532,21 @@ LABEL_37:
 LABEL_38:
     if (v27 == v28)
     {
-      goto LABEL_66;
+      goto LABEL_63;
     }
 
-    if (!v126)
+    if (!v125)
     {
       goto LABEL_44;
     }
 
     v26 = v25;
 LABEL_42:
-    if ((v126 & 3) <= 1)
+    if ((v125 & 3) <= 1)
     {
-      if ((v126 & 3) != 0)
+      if ((v125 & 3) != 0)
       {
         v29 = *v24;
-        if (*v24)
-        {
-          v30 = *v24;
-        }
-
         v25 = v24;
         v26 = v24;
       }
@@ -9766,58 +9571,58 @@ LABEL_44:
         }
       }
 
-LABEL_54:
+LABEL_51:
       v21 += v29[1];
-      if (!v126)
+      if (!v125)
       {
-        goto LABEL_64;
+        goto LABEL_61;
       }
 
-      goto LABEL_55;
+      goto LABEL_52;
     }
 
-    if ((v126 & 3) == 2)
+    if ((v125 & 3) == 2)
     {
       v29 = (v7 + (*v7 >> 16));
-      goto LABEL_54;
+      goto LABEL_51;
     }
 
     v21 += MEMORY[4];
-LABEL_55:
-    if ((v126 & 3) != 3)
+LABEL_52:
+    if ((v125 & 3) != 3)
     {
-      if ((v126 & 3) == 0)
+      if ((v125 & 3) == 0)
       {
-LABEL_64:
+LABEL_61:
         v22 = 0;
-LABEL_65:
-        v117 = v22;
+LABEL_62:
+        v116 = v22;
         v12 = v22;
         goto LABEL_25;
       }
 
-      if ((v126 & 3) == 1)
+      if ((v125 & 3) == 1)
       {
-        goto LABEL_65;
+        goto LABEL_62;
       }
 
       v23 = (v7 + v13);
-      v119 = v23;
-      v31 = *v12;
+      v118 = v23;
+      v30 = *v12;
       v19 = v12[1];
-      v32 = v19 * v31;
+      v31 = v19 * v30;
       LODWORD(v6) = v6 + 1;
-      HIDWORD(v118) = v6;
-      if ((v32 & 0xFFFFFFFF00000000) != 0)
+      HIDWORD(v117) = v6;
+      if ((v31 & 0xFFFFFFFF00000000) != 0)
       {
-        v41 = v31;
-        goto LABEL_263;
+        v40 = v30;
+        goto LABEL_260;
       }
 
-      v33 = v22 + v32;
-      if (v23 < v33)
+      v32 = v22 + v31;
+      if (v23 < v32)
       {
-        v34 = (v7 + 2 * v13);
+        v33 = (v7 + 2 * v13);
         do
         {
           if (*&v8[8 * *v23])
@@ -9826,726 +9631,726 @@ LABEL_65:
           }
 
           v23 = (v23 + v13);
-          v119 = v34;
+          v118 = v33;
           LODWORD(v6) = v6 + 1;
-          HIDWORD(v118) = v6;
-          v34 = (v34 + v13);
+          HIDWORD(v117) = v6;
+          v33 = (v33 + v13);
         }
 
-        while (v23 < v33);
+        while (v23 < v32);
       }
 
       goto LABEL_26;
     }
   }
 
-  if ((v126 & 3) != 2 || v7 != v9)
+  if ((v125 & 3) != 2 || v7 != v9)
   {
     goto LABEL_42;
   }
 
-LABEL_66:
+LABEL_63:
   if (!v21)
   {
-    v39 = 0;
+    v38 = 0;
     v16 = 0;
     if (outCount)
     {
-      goto LABEL_222;
+      goto LABEL_219;
     }
 
-    goto LABEL_223;
+    goto LABEL_220;
   }
 
-  v112 = &v126;
-  v35 = &v130;
-  if (!v126)
+  v111 = &v125;
+  v34 = &v129;
+  if (!v125)
   {
-    v113 = 0;
-    v129 = &v126;
-    goto LABEL_111;
+    v112 = 0;
+    v128 = &v125;
+    goto LABEL_108;
   }
 
-  v36 = &v113;
-  v37 = v126 & 3;
-  if ((v126 & 3) == 0)
+  v35 = &v112;
+  v36 = v125 & 3;
+  if ((v125 & 3) == 0)
   {
-    v38 = v126;
-    goto LABEL_70;
+    v37 = v125;
+    goto LABEL_67;
   }
 
-  if (v126 < 4)
+  if (v125 < 4)
   {
-    v40 = 0;
-    goto LABEL_76;
+    v39 = 0;
+    goto LABEL_73;
   }
 
-  if (v37 != 2)
+  if (v36 != 2)
   {
-    if (v37 == 1 && (v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+    if (v36 == 1 && (v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
     {
-      v38 = (v126 & 0xFFFFFFFFFFFFFFFCLL) + 8;
-LABEL_70:
-      v113 = v38;
+      v37 = (v125 & 0xFFFFFFFFFFFFFFFCLL) + 8;
+LABEL_67:
+      v112 = v37;
     }
 
-    goto LABEL_102;
+    goto LABEL_99;
   }
 
-  v44 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-  if ((v126 & 0xFFFFFFFFFFFFFFFCLL) == 0)
+  v43 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+  if ((v125 & 0xFFFFFFFFFFFFFFFCLL) == 0)
   {
-    goto LABEL_102;
+    goto LABEL_99;
   }
 
   if (!DisablePreattachedCategories)
   {
-    v40 = (v44 + 2);
-    v46 = *v44;
-    v45 = v44[1];
-    v47 = v46;
-    goto LABEL_97;
+    v39 = (v43 + 2);
+    v45 = *v43;
+    v44 = v43[1];
+    v46 = v45;
+    goto LABEL_94;
   }
 
-  v47 = *v44;
-  v45 = v44[1];
-  v110 = v45 * v47;
-  if ((v110 & 0xFFFFFFFF00000000) != 0)
+  v46 = *v43;
+  v44 = v43[1];
+  v109 = v44 * v46;
+  if ((v109 & 0xFFFFFFFF00000000) != 0)
   {
-    goto LABEL_265;
+    goto LABEL_262;
   }
 
-  v46 = v47 | (v45 << 32);
-  v40 = (v44 + v110 + 8);
-  v7 = (v47 | ((v45 - 1) << 32));
-  v111 = v45 == 0;
-  if (v45)
+  v45 = v46 | (v44 << 32);
+  v39 = (v43 + v109 + 8);
+  v7 = (v46 | ((v44 - 1) << 32));
+  v110 = v44 == 0;
+  if (v44)
   {
-    v45 = v45;
+    v44 = v44;
   }
 
   else
   {
-    v45 = 0;
+    v44 = 0;
   }
 
-  if (!v111)
+  if (!v110)
   {
-    v40 = (v40 - v47);
-    v46 = v7;
+    v39 = (v39 - v46);
+    v45 = v7;
   }
 
-LABEL_97:
-  v48 = v45 * v47;
-  if ((v48 & 0xFFFFFFFF00000000) != 0)
+LABEL_94:
+  v47 = v44 * v46;
+  if ((v47 & 0xFFFFFFFF00000000) != 0)
   {
-LABEL_265:
-    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v7, v8, v9, v45, v44, v47);
+LABEL_262:
+    _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v7, v8, v9, v44, v43, v46);
   }
 
-  v36 = v115;
-  v49 = HIDWORD(v46);
-  v50 = v44 + v48 + 8;
-  while (v40 < v50 && (*&v8[8 * *v40] & 1) == 0)
+  v35 = v114;
+  v48 = HIDWORD(v45);
+  v49 = v43 + v47 + 8;
+  while (v39 < v49 && (*&v8[8 * *v39] & 1) == 0)
   {
-    v40 = (v40 + v46);
-    v49 = (v49 + 1);
+    v39 = (v39 + v45);
+    v48 = (v48 + 1);
   }
 
-  v113 = v126 & 0xFFFFFFFFFFFFFFFCLL;
-  v114 = v46 | (v49 << 32);
-LABEL_76:
-  *v36 = v40;
-LABEL_102:
-  v129 = &v126;
+  v112 = v125 & 0xFFFFFFFFFFFFFFFCLL;
+  v113 = v45 | (v48 << 32);
+LABEL_73:
+  *v35 = v39;
+LABEL_99:
+  v128 = &v125;
   if ((v14 & 3u) > 1uLL)
   {
-    if (v37 != 2)
+    if (v36 != 2)
     {
-      goto LABEL_112;
+      goto LABEL_109;
     }
 
-    v44 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
+    v43 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
     if ((v14 & 0xFFFFFFFFFFFFFFFCLL) == 0)
     {
-      goto LABEL_112;
+      goto LABEL_109;
     }
 
-    v47 = *v44;
-    v45 = v44[1];
-    v51 = v45 * v47;
-    if ((v51 & 0xFFFFFFFF00000000) == 0)
+    v46 = *v43;
+    v44 = v43[1];
+    v50 = v44 * v46;
+    if ((v50 & 0xFFFFFFFF00000000) == 0)
     {
-      v35 = v132;
-      v14 = v44 + v51 + 8;
-      v130 = v44;
-      v131 = v47 | (v45 << 32);
-      goto LABEL_111;
+      v34 = v131;
+      v14 = v43 + v50 + 8;
+      v129 = v43;
+      v130 = v46 | (v44 << 32);
+      goto LABEL_108;
     }
 
-    goto LABEL_265;
+    goto LABEL_262;
   }
 
-  if (!v37)
+  if (!v36)
   {
     v14 = 0;
-    goto LABEL_111;
+    goto LABEL_108;
   }
 
-  v52 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
-  if (v52)
+  v51 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
+  if (v51)
   {
-    v14 = &v52[2 * *v52 + 2];
-LABEL_111:
-    *v35 = v14;
+    v14 = &v51[2 * *v51 + 2];
+LABEL_108:
+    *v34 = v14;
   }
 
+LABEL_109:
+  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(&v115, &v111, &v128);
+  v128 = &v125;
+  v55 = &v129;
+  if (!v125)
+  {
 LABEL_112:
-  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(&v116, &v112, &v129);
-  v129 = &v126;
-  v56 = &v130;
-  if (!v126)
-  {
-LABEL_115:
-    v57 = 0;
-    goto LABEL_116;
+    v56 = 0;
+    goto LABEL_113;
   }
 
-  if ((v126 & 3) > 1)
+  if ((v125 & 3) > 1)
   {
-    if ((v126 & 3) == 2)
+    if ((v125 & 3) == 2)
     {
-      v101 = (v126 & 0xFFFFFFFFFFFFFFFCLL);
-      if ((v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+      v100 = (v125 & 0xFFFFFFFFFFFFFFFCLL);
+      if ((v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
       {
-        v103 = *v101;
-        v102 = v101[1];
-        v104 = v102 * v103;
-        if ((v104 & 0xFFFFFFFF00000000) != 0)
+        v102 = *v100;
+        v101 = v100[1];
+        v103 = v101 * v102;
+        if ((v103 & 0xFFFFFFFF00000000) != 0)
         {
-          _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v53, v54, v55, v102, v126 & 0xFFFFFFFFFFFFFFFCLL, v103);
+          _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v52, v53, v54, v101, v125 & 0xFFFFFFFFFFFFFFFCLL, v102);
         }
 
-        v56 = v132;
-        v57 = v101 + v104 + 8;
-        v130 = v126 & 0xFFFFFFFFFFFFFFFCLL;
-        v131 = v103 | (v102 << 32);
-LABEL_116:
-        *v56 = v57;
+        v55 = v131;
+        v56 = v100 + v103 + 8;
+        v129 = v125 & 0xFFFFFFFFFFFFFFFCLL;
+        v130 = v102 | (v101 << 32);
+LABEL_113:
+        *v55 = v56;
       }
     }
   }
 
   else
   {
-    if ((v126 & 3) == 0)
+    if ((v125 & 3) == 0)
     {
-      goto LABEL_115;
+      goto LABEL_112;
     }
 
-    if ((v126 & 0xFFFFFFFFFFFFFFFCLL) != 0)
+    if ((v125 & 0xFFFFFFFFFFFFFFFCLL) != 0)
     {
-      v57 = (v126 & 0xFFFFFFFFFFFFFFFCLL) + 8 * *(v126 & 0xFFFFFFFFFFFFFFFCLL) + 8;
-      goto LABEL_116;
+      v56 = (v125 & 0xFFFFFFFFFFFFFFFCLL) + 8 * *(v125 & 0xFFFFFFFFFFFFFFFCLL) + 8;
+      goto LABEL_113;
     }
   }
 
-  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(v128, &v129);
-  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(v127, &v129);
-  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(&v112, v128, v127);
+  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(v127, &v128);
+  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::ListIterator::ListIterator(v126, &v128);
+  list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<true>::iteratorImpl(&v111, v127, v126);
   v16 = malloc_type_malloc(8 * (v21 + 1), 0x2004093837F09uLL);
-  v39 = 0;
+  v38 = 0;
   while (1)
   {
-    if (v116 != v112)
+    if (v115 != v111)
     {
-      goto LABEL_119;
+      goto LABEL_116;
     }
 
-    v62 = *v116;
-    if (*v116)
+    v61 = *v115;
+    if (*v115)
     {
-      if ((*v116 & 3) > 1)
+      if ((*v115 & 3) > 1)
       {
-        if ((*v116 & 3) != 2)
+        if ((*v115 & 3) != 2)
         {
-          goto LABEL_119;
+          goto LABEL_116;
         }
 
-        v67 = v119;
-        v68 = v115[0];
+        v66 = v118;
+        v67 = v114[0];
       }
 
       else
       {
-        if ((v62 & 3) == 0)
+        if ((v61 & 3) == 0)
         {
-          goto LABEL_124;
+          goto LABEL_121;
         }
 
-        v67 = v117;
-        v68 = v113;
+        v66 = v116;
+        v67 = v112;
       }
 
-      if (v67 != v68)
+      if (v66 != v67)
       {
-        goto LABEL_119;
+        goto LABEL_116;
       }
 
-      goto LABEL_164;
+      goto LABEL_161;
     }
 
-LABEL_124:
-    if (v117)
+LABEL_121:
+    if (v116)
     {
-      v63 = v117;
+      v62 = v116;
     }
 
     else
     {
-      v63 = 0;
+      v62 = 0;
     }
 
-    if (v63 != v113)
+    if (v62 != v112)
     {
-      goto LABEL_119;
+      goto LABEL_116;
     }
 
-LABEL_164:
-    if (v116 != v120)
+LABEL_161:
+    if (v115 != v119)
     {
-      goto LABEL_217;
+      goto LABEL_214;
     }
 
-    if (!v62)
+    if (!v61)
     {
       break;
     }
 
-    if ((*v116 & 3) > 1)
+    if ((*v115 & 3) > 1)
     {
-      if ((*v116 & 3) != 2)
+      if ((*v115 & 3) != 2)
       {
-        goto LABEL_217;
+        goto LABEL_214;
       }
 
-      v95 = v119;
-      v96 = v122;
+      v94 = v118;
+      v95 = v121;
     }
 
     else
     {
-      if ((v62 & 3) == 0)
+      if ((v61 & 3) == 0)
       {
         break;
       }
 
-      v95 = v117;
-      v96 = v121;
+      v94 = v116;
+      v95 = v120;
     }
 
-    if (v95 == v96)
+    if (v94 == v95)
     {
-      goto LABEL_221;
+      goto LABEL_218;
     }
 
-LABEL_217:
-    if (*(&v123 + 1))
+LABEL_214:
+    if (*(&v122 + 1))
     {
-      v97 = *(&v123 + 1);
-    }
-
-    else
-    {
-      v97 = 0;
-    }
-
-    if (v97 == v115[6])
-    {
-      goto LABEL_221;
-    }
-
-LABEL_119:
-    if (*(&v123 + 1))
-    {
-      v61 = *(&v123 + 1);
+      v96 = *(&v122 + 1);
     }
 
     else
     {
-      v61 = 0;
+      v96 = 0;
     }
 
-    v16[v39] = v61;
-    if (*(&v123 + 1))
+    if (v96 == v114[6])
     {
-      v64 = *(&v123 + 1) + v123;
-      *(&v123 + 1) = v64;
-      ++DWORD1(v123);
-      if (v64)
+      goto LABEL_218;
+    }
+
+LABEL_116:
+    if (*(&v122 + 1))
+    {
+      v60 = *(&v122 + 1);
+    }
+
+    else
+    {
+      v60 = 0;
+    }
+
+    v16[v38] = v60;
+    if (*(&v122 + 1))
+    {
+      v63 = *(&v122 + 1) + v122;
+      *(&v122 + 1) = v63;
+      ++DWORD1(v122);
+      if (v63)
       {
-        v65 = v64;
+        v64 = v63;
       }
 
       else
       {
-        v65 = 0;
+        v64 = 0;
       }
     }
 
     else
     {
-      v65 = 0;
-      HIDWORD(v123) = 0;
-      *(&v123 + 4) = (DWORD1(v123) + 1);
+      v64 = 0;
+      HIDWORD(v122) = 0;
+      *(&v122 + 4) = (DWORD1(v122) + 1);
     }
 
-    ++v39;
-    if (v65 != v125)
+    ++v38;
+    if (v64 != v124)
     {
       continue;
     }
 
-    v66 = *v116;
-    if (!*v116)
+    v65 = *v115;
+    if (!*v115)
     {
-      v117 = 0;
-      goto LABEL_147;
+      v116 = 0;
+      goto LABEL_144;
     }
 
-    if ((*v116 & 3) == 1)
+    if ((*v115 & 3) == 1)
     {
-      v117 += 2;
-      v66 = *v116;
-      if (!*v116)
+      v116 += 2;
+      v65 = *v115;
+      if (!*v115)
       {
-        goto LABEL_147;
+        goto LABEL_144;
       }
     }
 
-    else if ((v66 & 3) == 0)
+    else if ((v65 & 3) == 0)
     {
-      v117 = 0;
+      v116 = 0;
     }
 
-    if ((v66 & 3) == 2)
+    if ((v65 & 3) == 2)
     {
-      v69 = v119;
-      v70 = HIDWORD(v118);
-      v71 = (v119 + v118);
-      v119 = v71;
-      v73 = *v117;
-      v72 = v117[1];
-      v74 = v72 * v73;
-      ++HIDWORD(v118);
-      if ((v74 & 0xFFFFFFFF00000000) != 0)
+      v68 = v118;
+      v69 = HIDWORD(v117);
+      v70 = (v118 + v117);
+      v118 = v70;
+      v72 = *v116;
+      v71 = v116[1];
+      v73 = v71 * v72;
+      ++HIDWORD(v117);
+      if ((v73 & 0xFFFFFFFF00000000) != 0)
       {
-        _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v58, v59, v60, v72, v117, v73);
+        _objc_fatal("entsize_list_tt overflow: index %u in list %p with entsize %u", v57, v58, v59, v71, v116, v72);
       }
 
-      v75 = v117 + v74 + 8;
-      if (v71 < v75)
+      v74 = v116 + v73 + 8;
+      if (v70 < v74)
       {
-        v76 = v70 + 2;
-        v77 = (v69 + 2 * v118);
+        v75 = v69 + 2;
+        v76 = (v68 + 2 * v117);
         do
         {
-          if (*(objc_debug_headerInfoRWs + 8 + 8 * *v71))
+          if (*(objc_debug_headerInfoRWs + 8 + 8 * *v70))
           {
             break;
           }
 
-          v71 = (v71 + v118);
-          v119 = v77;
-          HIDWORD(v118) = v76++;
-          v77 = (v77 + v118);
+          v70 = (v70 + v117);
+          v118 = v76;
+          HIDWORD(v117) = v75++;
+          v76 = (v76 + v117);
         }
 
-        while (v71 < v75);
+        while (v70 < v74);
       }
     }
 
-LABEL_147:
-    list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<false>::skipEmptyLists(&v116);
-    v78 = *v116;
-    if (v116 != v120)
+LABEL_144:
+    list_array_tt<method_t,method_list_t,method_list_t_authed_ptr>::iteratorImpl<false>::skipEmptyLists(&v115);
+    v77 = *v115;
+    if (v115 != v119)
     {
-      goto LABEL_148;
+      goto LABEL_145;
     }
 
-    if (!v78)
+    if (!v77)
     {
-LABEL_155:
-      if (v117)
+LABEL_152:
+      if (v116)
       {
-        v81 = v117;
+        v80 = v116;
       }
 
       else
       {
-        v81 = 0;
+        v80 = 0;
       }
 
-      if (v81 == v121)
+      if (v80 == v120)
       {
         continue;
       }
 
-LABEL_148:
-      if (v78)
+LABEL_145:
+      if (v77)
       {
-LABEL_149:
-        v79 = *v116 & 3;
-        if (v79 > 1)
+LABEL_146:
+        v78 = *v115 & 3;
+        if (v78 > 1)
         {
-          if (v79 == 2)
+          if (v78 == 2)
           {
-            v80 = (v119 + (*v119 >> 16));
+            v79 = (v118 + (*v118 >> 16));
           }
 
           else
           {
-            v80 = 0;
+            v79 = 0;
           }
         }
 
         else
         {
-          if (!v79)
+          if (!v78)
           {
-            goto LABEL_151;
+            goto LABEL_148;
           }
 
-          v80 = *v117;
+          v79 = *v116;
         }
       }
 
       else
       {
-LABEL_151:
-        v80 = v117;
+LABEL_148:
+        v79 = v116;
       }
 
-      v83 = *v80;
-      v129 = (*v80 & 0xFFFCLL);
-      v84 = v83 >> 31;
-      v85 = (v80 + 2) & 0xFFFFFFFFFFFFFFFCLL;
-      if (v80 < 0)
+      v82 = *v79;
+      v128 = (*v79 & 0xFFFCLL);
+      v83 = v82 >> 31;
+      v84 = (v79 + 1) & 0xFFFFFFFFFFFFFFFCLL;
+      if (v79 < 0)
       {
-        v84 = 2;
+        v83 = 2;
       }
 
-      v86 = v84 | v85;
-      *&v123 = v129;
-      if (v84 | v85)
+      v85 = v83 | v84;
+      *&v122 = v128;
+      if (v83 | v84)
       {
-        v86 = v84 | v85;
+        v85 = v83 | v84;
       }
 
-      *(&v123 + 1) = v86;
-      if (!*v116)
+      *(&v122 + 1) = v85;
+      if (!*v115)
       {
-LABEL_179:
-        v87 = v117;
-        if (v117)
+LABEL_176:
+        v86 = v116;
+        if (v116)
         {
+          goto LABEL_182;
+        }
+
+        goto LABEL_185;
+      }
+
+      if ((*v115 & 3) > 1)
+      {
+        if ((*v115 & 3) == 2)
+        {
+          v87 = (v118 + (*v118 >> 16));
+          if (v87)
+          {
+            goto LABEL_184;
+          }
+
+          v86 = 0;
           goto LABEL_185;
         }
 
-        goto LABEL_188;
-      }
-
-      if ((*v116 & 3) > 1)
-      {
-        if ((*v116 & 3) == 2)
-        {
-          v88 = (v119 + (*v119 >> 16));
-          if (v88)
-          {
-            goto LABEL_187;
-          }
-
-          v87 = 0;
-          goto LABEL_188;
-        }
-
-        v89 = 0;
-        v128[0] = 0;
+        v88 = 0;
+        v127[0] = 0;
       }
 
       else
       {
-        if ((*v116 & 3) == 0)
+        if ((*v115 & 3) == 0)
         {
-          goto LABEL_179;
+          goto LABEL_176;
         }
 
-        v87 = *v117;
-        if (*v117)
+        v86 = *v116;
+        if (*v116)
         {
-LABEL_185:
-          if (v87)
+LABEL_182:
+          if (v86)
           {
-            v88 = v87;
-LABEL_187:
-            v87 = v88;
+            v87 = v86;
+LABEL_184:
+            v86 = v87;
           }
         }
 
-LABEL_188:
-        v128[0] = v87;
-        if (v87)
+LABEL_185:
+        v127[0] = v86;
+        if (v86)
         {
-          v89 = v87;
+          v88 = v86;
         }
 
         else
         {
-          v89 = 0;
+          v88 = 0;
         }
       }
 
-      entsize_list_tt<method_t,method_list_t,4294901763u,method_t::pointer_modifier>::signedEnd(&v129, v89, v59, v60);
-      v124 = v129;
-      if (v130)
+      entsize_list_tt<method_t,method_list_t,4294901763u,method_t::pointer_modifier>::signedEnd(&v128, v88, v58, v59);
+      v123 = v128;
+      if (v129)
       {
-        v90 = v130;
+        v89 = v129;
+      }
+
+      else
+      {
+        v89 = 0;
+      }
+
+      v124 = v89;
+      if (*(&v122 + 1))
+      {
+        v90 = *(&v122 + 1);
+        if (v89)
+        {
+          goto LABEL_194;
+        }
+
+LABEL_196:
+        v91 = 0;
       }
 
       else
       {
         v90 = 0;
-      }
-
-      v125 = v90;
-      if (*(&v123 + 1))
-      {
-        v91 = *(&v123 + 1);
-        if (v90)
+        if (!v89)
         {
-          goto LABEL_197;
+          goto LABEL_196;
         }
 
-LABEL_199:
-        v92 = 0;
+LABEL_194:
+        v91 = v89;
       }
 
-      else
-      {
-        v91 = 0;
-        if (!v90)
-        {
-          goto LABEL_199;
-        }
-
-LABEL_197:
-        v92 = v90;
-      }
-
-      if (v91 != v92)
+      if (v90 != v91)
       {
         continue;
       }
 
-      if (!*v116)
+      if (!*v115)
       {
-LABEL_233:
-        v105 = v117;
-        goto LABEL_238;
+LABEL_230:
+        v104 = v116;
+        goto LABEL_235;
       }
 
-      if ((*v116 & 3) > 1)
+      if ((*v115 & 3) > 1)
       {
-        if ((*v116 & 3) == 2)
+        if ((*v115 & 3) == 2)
         {
-          if ((v119 + (*v119 >> 16)))
+          if ((v118 + (*v118 >> 16)))
           {
-            v105 = (v119 + (*v119 >> 16));
+            v104 = (v118 + (*v118 >> 16));
           }
 
           else
           {
-            v105 = 0;
+            v104 = 0;
           }
 
-          goto LABEL_238;
+          goto LABEL_235;
         }
 
-        v105 = 0;
-        v129 = 0;
+        v104 = 0;
+        v128 = 0;
       }
 
       else
       {
-        if ((*v116 & 3) == 0)
+        if ((*v115 & 3) == 0)
         {
-          goto LABEL_233;
+          goto LABEL_230;
         }
 
-        v105 = *v117;
-LABEL_238:
-        v129 = v105;
+        v104 = *v116;
+LABEL_235:
+        v128 = v104;
       }
 
-      _objc_fatal("Assertion failed: (%s) - empty list %p encountered during iteration", v58, v59, v60, "m != mEnd", v105);
+      _objc_fatal("Assertion failed: (%s) - empty list %p encountered during iteration", v57, v58, v59, "m != mEnd", v104);
     }
 
-    if ((*v116 & 3) > 1)
+    if ((*v115 & 3) > 1)
     {
-      if ((*v116 & 3) != 2)
+      if ((*v115 & 3) != 2)
       {
-        goto LABEL_149;
+        goto LABEL_146;
       }
 
-      v93 = v119;
-      v94 = v122;
+      v92 = v118;
+      v93 = v121;
     }
 
     else
     {
-      if ((v78 & 3) == 0)
+      if ((v77 & 3) == 0)
       {
-        goto LABEL_155;
+        goto LABEL_152;
       }
 
-      v93 = v117;
-      v94 = v121;
+      v92 = v116;
+      v93 = v120;
     }
 
-    if (v93 != v94)
+    if (v92 != v93)
     {
-      goto LABEL_149;
+      goto LABEL_146;
     }
   }
 
-  if (v117)
+  if (v116)
   {
-    v82 = v117;
+    v81 = v116;
   }
 
   else
   {
-    v82 = 0;
+    v81 = 0;
   }
 
-  if (v82 != v121)
+  if (v81 != v120)
   {
-    goto LABEL_217;
+    goto LABEL_214;
   }
 
-LABEL_221:
-  v16[v39] = 0;
+LABEL_218:
+  v16[v38] = 0;
   if (outCount)
   {
-LABEL_222:
-    *outCount = v39;
+LABEL_219:
+    *outCount = v38;
   }
 
-LABEL_223:
-  v98 = *(StatusReg + 24);
-  v99 = v98;
-  atomic_compare_exchange_strong_explicit(runtimeLock, &v99, 0, memory_order_release, memory_order_relaxed);
-  if (v99 != v98)
+LABEL_220:
+  v97 = *(StatusReg + 24);
+  v98 = v97;
+  atomic_compare_exchange_strong_explicit(runtimeLock, &v98, 0, memory_order_release, memory_order_relaxed);
+  if (v98 != v97)
   {
     os_unfair_lock_unlock(runtimeLock);
   }

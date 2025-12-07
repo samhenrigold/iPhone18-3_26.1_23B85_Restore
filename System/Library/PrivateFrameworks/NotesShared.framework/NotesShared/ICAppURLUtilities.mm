@@ -2089,126 +2089,133 @@ LABEL_20:
 
 + (id)entityURIForNote:(id)note
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = &v14 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40, &unk_2150C7230);
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v15 - v6;
   noteCopy = note;
-  static ICAppURLUtilities.entityURI(for:)(noteCopy, v6);
+  static ICAppURLUtilities.entityURI(for:)(noteCopy, v7);
 
-  v8 = sub_2150A3750();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v9 = sub_2150A3750();
+  v10 = *(v9 - 8);
+  v11 = (*(v10 + 48))(v7, 1, v9);
+  v12 = 0;
+  if (v11 != 1)
   {
-    v12 = sub_2150A36B0();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v13 = sub_2150A36B0();
+    (*(v10 + 8))(v7, v9);
+    v12 = v13;
   }
 
-  return v11;
+  return v12;
 }
 
 + (id)objectIDURIRepresentationForHTMLNoteEntityURI:(id)i context:(id)context
 {
   v5 = sub_2150A3750();
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40);
-  MEMORY[0x28223BE20](v9 - 8);
-  v11 = &v17 - v10;
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40, &unk_2150C7230);
+  MEMORY[0x28223BE20](v10 - 8, v11);
+  v13 = &v19 - v12;
   sub_2150A36F0();
   swift_unknownObjectRetain();
-  static ICAppURLUtilities.objectIDURIRepresentation(forHTMLNoteEntityURI:context:)(context, v11);
+  static ICAppURLUtilities.objectIDURIRepresentation(forHTMLNoteEntityURI:context:)(context, v13);
   swift_unknownObjectRelease();
-  v12 = *(v6 + 8);
-  v12(v8, v5);
-  v13 = (*(v6 + 48))(v11, 1, v5);
-  v14 = 0;
-  if (v13 != 1)
+  v14 = *(v6 + 8);
+  v14(v9, v5);
+  v15 = (*(v6 + 48))(v13, 1, v5);
+  v16 = 0;
+  if (v15 != 1)
   {
-    v15 = sub_2150A36B0();
-    v12(v11, v5);
-    v14 = v15;
+    v17 = sub_2150A36B0();
+    v14(v13, v5);
+    v16 = v17;
   }
 
-  return v14;
+  return v16;
 }
 
 + (id)modernNoteIdentifierFromEntityURI:(id)i
 {
   v3 = sub_2150A3750();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2150A36F0();
-  _sSo17ICAppURLUtilitiesC11NotesSharedE20modernNoteIdentifier13fromEntityURISSSg10Foundation3URLV_tFZ_0();
-  v8 = v7;
-  (*(v4 + 8))(v6, v3);
-  if (v8)
+  _sSo17ICAppURLUtilitiesC11NotesSharedE20modernNoteIdentifier13fromEntityURISSSg10Foundation3URLV_tFZ_0(v7);
+  v9 = v8;
+  (*(v4 + 8))(v7, v3);
+  if (v9)
   {
-    v9 = sub_2150A4A90();
+    v10 = sub_2150A4A90();
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)objectIDForHTMLFolderEntityURI:(id)i context:(id)context
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40);
-  MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v13 - v7;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40, &unk_2150C7230);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v14 - v8;
   if (i)
   {
     sub_2150A36F0();
-    v9 = sub_2150A3750();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v10 = sub_2150A3750();
+    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v10 = sub_2150A3750();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v11 = sub_2150A3750();
+    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
   swift_unknownObjectRetain();
-  v11 = _sSo17ICAppURLUtilitiesC11NotesSharedE8objectID22forHTMLFolderEntityURI7contextSo015NSManagedObjectF0CSg10Foundation3URLVSg_So15ICLegacyContext_ptFZ_0(v8, context);
+  v12 = _sSo17ICAppURLUtilitiesC11NotesSharedE8objectID22forHTMLFolderEntityURI7contextSo015NSManagedObjectF0CSg10Foundation3URLVSg_So15ICLegacyContext_ptFZ_0(v9, context);
   swift_unknownObjectRelease();
-  sub_214F302D4(v8, &qword_27CA41D40);
+  sub_214F302D4(v9, &qword_27CA41D40, &unk_2150C7230);
 
-  return v11;
+  return v12;
 }
 
 + (id)objectIDForModernFolderEntityURI:(id)i noteContext:(id)context
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40);
-  MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v14 - v7;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D40, &unk_2150C7230);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v15 - v8;
   if (i)
   {
     sub_2150A36F0();
-    v9 = sub_2150A3750();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v10 = sub_2150A3750();
+    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v10 = sub_2150A3750();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v11 = sub_2150A3750();
+    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
   contextCopy = context;
-  v12 = _sSo17ICAppURLUtilitiesC11NotesSharedE8objectID24forModernFolderEntityURI11noteContextSo015NSManagedObjectF0CSg10Foundation3URLVSg_So06ICNoteM0CtFZ_0(v8, contextCopy);
+  v13 = _sSo17ICAppURLUtilitiesC11NotesSharedE8objectID24forModernFolderEntityURI11noteContextSo015NSManagedObjectF0CSg10Foundation3URLVSg_So06ICNoteM0CtFZ_0(v9, contextCopy);
 
-  sub_214F302D4(v8, &qword_27CA41D40);
+  sub_214F302D4(v9, &qword_27CA41D40, &unk_2150C7230);
 
-  return v12;
+  return v13;
+}
+
++ (void)predicateForNotesWithIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_214D51000, a2, a3, "invalid note identifier %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)firstQueryItemInURL:(uint64_t)a1 andHost:(uint64_t)a2 andQueryItemName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)

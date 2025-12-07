@@ -151,7 +151,7 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v48 = v11;
+    v49 = v11;
     v16 = [v14 objectForKeyedSubscript:@"sizeX"];
     v6->_sensorWidth = [v16 intValue];
 
@@ -196,6 +196,7 @@ LABEL_14:
     map->var1.var12 = [v29 intValue];
 
     v30 = [v14 objectForKeyedSubscript:@"tiles"];
+    v31 = v30;
     if (!v30)
     {
 LABEL_12:
@@ -203,60 +204,60 @@ LABEL_12:
       goto LABEL_14;
     }
 
-    v31 = map->var1.var12 * map->var1.var11;
-    if (v31 > 0x200)
+    v32 = map->var1.var12 * map->var1.var11;
+    if (v32 > 0x200)
     {
-      v32 = _PTLogSystem();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = _PTLogSystem(v30);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        [(PTFocusBlurMap *)v31 initWithFocusBlurMapDictionary:v32];
+        [(PTFocusBlurMap *)v32 initWithFocusBlurMapDictionary:v33];
       }
 
       goto LABEL_12;
     }
 
-    if (v31)
+    if (v32)
     {
-      v33 = 0;
+      v34 = 0;
       p_var5 = &v6->_map->var2[0].var5;
       do
       {
-        v35 = [v30 objectAtIndexedSubscript:v33];
-        v36 = [v35 objectForKeyedSubscript:@"defocus"];
-        [v36 floatValue];
-        *(p_var5 - 3) = vcvts_n_s32_f32(v37, 8uLL);
+        v36 = [v31 objectAtIndexedSubscript:v34];
+        v37 = [v36 objectForKeyedSubscript:@"defocus"];
+        [v37 floatValue];
+        *(p_var5 - 3) = vcvts_n_s32_f32(v38, 8uLL);
 
-        v38 = [v30 objectAtIndexedSubscript:v33];
-        v39 = [v38 objectForKeyedSubscript:@"conf"];
-        intValue = [v39 intValue];
-        v41 = intValue + 255;
+        v39 = [v31 objectAtIndexedSubscript:v34];
+        v40 = [v39 objectForKeyedSubscript:@"conf"];
+        intValue = [v40 intValue];
+        v42 = intValue + 255;
         if (intValue >= 0)
         {
-          HIBYTE(v41) = BYTE1(intValue);
+          HIBYTE(v42) = BYTE1(intValue);
         }
 
-        *(p_var5 - 4) = HIBYTE(v41);
+        *(p_var5 - 4) = HIBYTE(v42);
 
-        v42 = [v30 objectAtIndexedSubscript:v33];
-        v43 = [v42 objectForKeyedSubscript:@"flags"];
+        v43 = [v31 objectAtIndexedSubscript:v34];
+        v44 = [v43 objectForKeyedSubscript:@"flags"];
 
-        if (!v43)
+        if (!v44)
         {
           goto LABEL_12;
         }
 
-        v44 = [v43 objectForKeyedSubscript:@"valid"];
-        *(p_var5 - 2) = [v44 BOOLValue];
+        v45 = [v44 objectForKeyedSubscript:@"valid"];
+        *(p_var5 - 2) = [v45 BOOLValue];
 
-        v45 = [v43 objectForKeyedSubscript:@"flat"];
-        *(p_var5 - 1) = [v45 BOOLValue];
+        v46 = [v44 objectForKeyedSubscript:@"flat"];
+        *(p_var5 - 1) = [v46 BOOLValue];
 
-        v46 = [v43 objectForKeyedSubscript:@"level"];
-        *p_var5 = [v46 intValue];
+        v47 = [v44 objectForKeyedSubscript:@"level"];
+        *p_var5 = [v47 intValue];
         p_var5 += 8;
       }
 
-      while (v31 != ++v33);
+      while (v32 != ++v34);
     }
 
 LABEL_22:

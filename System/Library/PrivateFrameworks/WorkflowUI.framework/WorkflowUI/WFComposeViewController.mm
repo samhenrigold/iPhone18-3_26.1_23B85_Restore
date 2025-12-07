@@ -109,7 +109,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  WFComposeViewController.delegate.setter();
+  WFComposeViewController.delegate.setter(delegate);
 }
 
 - (NSUndoManager)undoManager
@@ -161,7 +161,7 @@
 
   WFComposeViewController.find(_:)();
 
-  sub_2747BC7EC(v6, &qword_28096D550);
+  sub_2747BC7EC(v6, &qword_28096D550, &unk_274A0FF50);
 }
 
 - (BOOL)willDeleteWhenClosed
@@ -229,7 +229,7 @@
 
   v8 = WFComposeViewController.canPerformAction(_:withSender:)(action, v10);
 
-  sub_2747BC7EC(v10, &qword_28096D550);
+  sub_2747BC7EC(v10, &qword_28096D550, &unk_274A0FF50);
   return v8 & 1;
 }
 
@@ -317,9 +317,10 @@
 
 - (void)appendActionWithIdentifier:(id)identifier
 {
-  _sSo32WFShortcutConcerningReportReasona10WorkflowUIE2idSSvg_0();
+  v4 = _sSo32WFShortcutConcerningReportReasona10WorkflowUIE2idSSvg_0();
+  v6 = v5;
   selfCopy = self;
-  sub_2748B463C();
+  sub_2748B463C(v4, v6);
 }
 
 - (void)requestDismissal

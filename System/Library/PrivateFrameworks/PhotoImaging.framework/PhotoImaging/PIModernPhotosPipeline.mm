@@ -228,8 +228,9 @@ LABEL_56:
             }
 
             *v760 = v781;
-            *&v760[8] = __PAIR64__(v81, v782);
+            *&v760[8] = v782;
             v725 = v81;
+            *&v760[12] = v81;
             v732 = v82;
             *&v760[16] = v82;
             v148 = [MEMORY[0x1E696B098] valueWithCMTime:v760];
@@ -256,8 +257,9 @@ LABEL_56:
       v63 = *&v760[16];
 
       *v760 = v781;
-      *&v760[8] = __PAIR64__(longLongValue4, v782);
+      *&v760[8] = v782;
       v725 = longLongValue4;
+      *&v760[12] = longLongValue4;
       v732 = v63;
       *&v760[16] = v63;
       v33 = v61;
@@ -313,8 +315,9 @@ LABEL_56:
     }
 
     *v760 = v781;
-    *&v760[8] = __PAIR64__(v71, v782);
+    *&v760[8] = v782;
     v725 = v71;
+    *&v760[12] = v71;
     v732 = v72;
     *&v760[16] = v72;
     v88 = [MEMORY[0x1E696B098] valueWithCMTime:v760];
@@ -636,7 +639,8 @@ LABEL_156:
             {
               v152 = objc_alloc(MEMORY[0x1E69B3BD8]);
               *v760 = v781;
-              *&v760[8] = __PAIR64__(v128, v782);
+              *&v760[8] = v782;
+              *&v760[12] = v128;
               *&v760[16] = v732;
               v153 = [MEMORY[0x1E696B098] valueWithCMTime:v760];
               v154 = NUMakeDictionary2();
@@ -1089,10 +1093,10 @@ LABEL_250:
                   v216 = MEMORY[0x1E696B098];
                   if (v742)
                   {
-                    [v742 time];
+                    objc_msgSend_time(v742);
                     if ((v766 & 0x100000000) != 0)
                     {
-                      [v742 time];
+                      objc_msgSend_time(v742);
 LABEL_242:
                       v217 = [v216 valueWithCMTime:v760];
                       v218 = NUMakeDictionary2();
@@ -1112,7 +1116,8 @@ LABEL_242:
                   }
 
                   *v760 = v781;
-                  *&v760[8] = __PAIR64__(v725, v782);
+                  *&v760[8] = v782;
+                  *&v760[12] = v725;
                   *&v760[16] = v732;
                   goto LABEL_242;
                 }
@@ -1313,7 +1318,8 @@ LABEL_577:
                     v287 = *&v760[16];
 
                     *v760 = v781;
-                    *&v760[8] = __PAIR64__(longLongValue7, v782);
+                    *&v760[8] = v782;
+                    *&v760[12] = longLongValue7;
                     *&v760[16] = v287;
                     v165 = [v751 livePhotoKeyFrameMetadataFromNode:v283 time:v760 error:errorCopy4];
 
@@ -1957,7 +1963,7 @@ LABEL_572:
                   memset(v760, 0, sizeof(v760));
                   if (v514)
                   {
-                    [v514 extent];
+                    objc_msgSend_extent(v514);
                   }
 
                   *v759 = *v760;
@@ -1987,7 +1993,7 @@ LABEL_571:
                   memset(v760, 0, sizeof(v760));
                   if (v740)
                   {
-                    [v740 extent];
+                    objc_msgSend_extent(v740);
                   }
 
                   *v759 = *v760;
@@ -2172,7 +2178,7 @@ LABEL_445:
                   {
                     if (v678)
                     {
-                      [v678 extent];
+                      objc_msgSend_extent(v678);
                     }
 
                     else
@@ -2187,7 +2193,7 @@ LABEL_445:
                   {
                     if (v678)
                     {
-                      [v678 extent];
+                      objc_msgSend_extent(v678);
                     }
 
                     else
@@ -2237,11 +2243,12 @@ LABEL_562:
                     if (v563)
                     {
                       memset(v760, 0, sizeof(v760));
-                      [v563 originalCleanAperture];
+                      objc_msgSend_originalCleanAperture(v563);
                       v565 = [MEMORY[0x1E696B098] valueWithBytes:v760 objCType:"{?={?=qq}{?=qq}}"];
                       [v682 setObject:v565 forKeyedSubscript:@"projectUsingCleanAperture"];
 
-                      *v759 = 0uLL;
+                      *&v759[8] = 0;
+                      *v759 = 0;
                       *v759 = [v564 originalSize];
                       *&v759[8] = v566;
                       v567 = [MEMORY[0x1E696B098] valueWithBytes:v759 objCType:"{?=qq}"];
@@ -2407,7 +2414,7 @@ LABEL_566:
 
                   if (v588)
                   {
-                    [v588 extent];
+                    objc_msgSend_extent(v588);
                     v590 = v754;
                   }
 
@@ -2419,7 +2426,7 @@ LABEL_566:
                   v600 = [v589 size];
                   if (v589)
                   {
-                    [v589 extent];
+                    objc_msgSend_extent(v589);
                     v601 = v753;
                   }
 

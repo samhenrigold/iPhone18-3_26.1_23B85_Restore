@@ -1,4 +1,4 @@
-void CASmartPreferences::AddHandler<int>(CASmartPreferences *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void CASmartPreferences::AddHandler<int>(CASmartPreferences *a1, __CFString *a2, uint64_t a3, uint64_t a4)
 {
   v5[8] = *MEMORY[0x277D85DE8];
   CASmartPreferences::instance(a1);
@@ -7,17 +7,17 @@ void CASmartPreferences::AddHandler<int>(CASmartPreferences *a1, uint64_t a2, ui
   operator new();
 }
 
-void sub_241629998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_241629998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v6 + 8);
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v11 + 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t PrefValueToPriority(const __CFString *a1, BOOL *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   valuePtr = -1;
   v4 = CFGetTypeID(a1);
   if (v4 == CFNumberGetTypeID())
@@ -82,9 +82,9 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v10 = 0;
-    v6 = sscanf(buffer, "%d", &v10);
-    v5 = v10 + 3;
+    v9 = 0;
+    v6 = sscanf(buffer, "%d", &v9);
+    v5 = v9 + 3;
     if (v6 != 1)
     {
       v5 = -1;
@@ -93,11 +93,10 @@ LABEL_22:
 
 LABEL_23:
   *a2 = v5 > 0;
-  v7 = *MEMORY[0x277D85DE8];
   return v5 & ~(v5 >> 31);
 }
 
-uint64_t CALog::RegisterScope(CALog *this, uint64_t a2, unint64_t a3, const char *a4, const char *a5, const char *a6)
+CALog::Scope *CALog::RegisterScope(CALog *this, uint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6)
 {
   if ((CALog::sSubscopeMask & a2) != 0)
   {
@@ -264,7 +263,7 @@ BOOL CALog::Scope::ScopeLogEnabled(CALog::Scope *this, int a2, unint64_t a3)
   return (v3 & ~*(this + 2)) != 0 && *(this + 2) >= a2;
 }
 
-uint64_t CALog::LogEnabled(int a1, uint64_t *a2)
+BOOL CALog::LogEnabled(int a1, uint64_t *a2)
 {
   v4 = *a2;
   if (a1 > 5)
@@ -280,16 +279,11 @@ LABEL_16:
       v8 = a2[1] >> CALog::sNumberScopeBits;
       if (v8)
       {
-        if ((a1 - 1) <= 6)
+        if ((a1 - 1) <= 6 && (*(v4 + 8 * (a1 - 1) + 72) & v8) != 0)
         {
-          a2[1];
-          if ((*(v4 + 8 * (a1 - 1) + 72) & v8) != 0)
-          {
-            return 1;
-          }
+          return 1;
         }
 
-        a2[1];
         if ((v8 & ~*(v4 + 16)) == 0)
         {
           return 0;
@@ -376,10 +370,10 @@ FILE *CALog::setFile(CALog *this, __sFILE *a2)
 
 void formatLikeOSLog(UInt8 *a1, uint64_t a2, unsigned __int8 *a3, unsigned int *a4)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_163;
+    return;
   }
 
   v4 = a1;
@@ -390,7 +384,7 @@ void formatLikeOSLog(UInt8 *a1, uint64_t a2, unsigned __int8 *a3, unsigned int *
   }
 
   v7 = MEMORY[0x277D85DE0];
-  v61 = &a1[a2 - 1];
+  v60 = &a1[a2 - 1];
   while (1)
   {
     v9 = a3 + 1;
@@ -420,22 +414,22 @@ LABEL_153:
     }
   }
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
-  *__dst = 0u;
+  v78 = 0u;
   v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v76 = 0u;
+  *__dst = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  *v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  *v65 = 0u;
+  v66 = 0u;
   v10 = *v9;
   if (v10 != 123)
   {
@@ -541,11 +535,11 @@ LABEL_153:
           v29 = 128;
         }
 
-        strlcpy(v66, v27 + 1, v29);
+        strlcpy(v65, v27 + 1, v29);
       }
     }
 
-    v9 = v12 + 1;
+    v9 = (v12 + 1);
     LOBYTE(v10) = v12[1];
     if (!v10)
     {
@@ -647,7 +641,7 @@ LABEL_68:
               v36 = v30 - (v12 + 1) + 2;
             }
 
-            p_format = v65;
+            p_format = v64;
             goto LABEL_78;
           }
         }
@@ -690,10 +684,10 @@ LABEL_78:
             a4 += 2;
             v53 = CFStringCreateWithFormat(0, 0, @"%@", *v52);
             usedBufLen = 0;
-            v83.length = CFStringGetLength(v53);
-            v5 = v61;
-            v83.location = 0;
-            CFStringGetBytes(v53, v83, 0x8000100u, 0, 0, v4, ~v4 + v61, &usedBufLen);
+            v82.length = CFStringGetLength(v53);
+            v5 = v60;
+            v82.location = 0;
+            CFStringGetBytes(v53, v82, 0x8000100u, 0, 0, v4, &v60[~v4], &usedBufLen);
             v54 = usedBufLen;
             v4[usedBufLen] = 0;
             v49 = (v54 >> 31) & 1;
@@ -721,8 +715,8 @@ LABEL_78:
               goto LABEL_133;
             }
 
-            v5 = v61;
-            snprintf(v4, v61 - v4, "<expected .* before %%P>");
+            v5 = v60;
+            snprintf(v4, v60 - v4, "<expected .* before %%P>");
             LOBYTE(v49) = 1;
 LABEL_156:
             if (v49)
@@ -777,12 +771,12 @@ LABEL_122:
 LABEL_143:
                   if (v18)
                   {
-                    v5 = v61;
+                    v5 = v60;
                     v46 = a4;
                     goto LABEL_145;
                   }
 
-                  v5 = v61;
+                  v5 = v60;
                   if (__dst[0])
                   {
                     goto LABEL_159;
@@ -791,7 +785,7 @@ LABEL_143:
 LABEL_148:
                   v43 = v5 - v4;
 LABEL_149:
-                  v44 = snprintf(v4, v43, &__format, v39, v60);
+                  v44 = snprintf(v4, v43, &__format, v39, v59);
                   goto LABEL_150;
                 }
 
@@ -814,7 +808,7 @@ LABEL_119:
                   v39 = *v55;
                 }
 
-                v5 = v61;
+                v5 = v60;
                 if (!v18)
                 {
                   if (__dst[0])
@@ -859,7 +853,7 @@ LABEL_146:
               {
 LABEL_139:
                 v51 = __dst[0];
-                v5 = v61;
+                v5 = v60;
 LABEL_140:
                 if (v51)
                 {
@@ -870,7 +864,7 @@ LABEL_140:
               }
 
 LABEL_109:
-              v5 = v61;
+              v5 = v60;
               v46 = a4;
 LABEL_128:
               a4 = v46 + 2;
@@ -883,7 +877,7 @@ LABEL_128:
             }
 
 LABEL_101:
-            v5 = v61;
+            v5 = v60;
             v40 = a4;
             a4 += 2;
             v41 = *v40;
@@ -897,8 +891,8 @@ LABEL_101:
               }
 
               v39 = *v42;
-              v43 = v61 - v4;
-              v60 = v41;
+              v43 = v60 - v4;
+              v59 = v41;
               goto LABEL_149;
             }
 
@@ -907,7 +901,7 @@ LABEL_101:
               goto LABEL_159;
             }
 
-            v44 = snprintf(v4, v61 - v4, &__format, v41, v60);
+            v44 = snprintf(v4, v60 - v4, &__format, v41, v59);
 LABEL_150:
             if ((v44 & 0x80000000) != 0)
             {
@@ -954,7 +948,7 @@ LABEL_132:
             LOBYTE(v49) = 0;
             *v4++ = v31;
 LABEL_133:
-            v5 = v61;
+            v5 = v60;
             goto LABEL_156;
           }
 
@@ -963,7 +957,7 @@ LABEL_133:
           v39 = *v50;
         }
 
-        v5 = v61;
+        v5 = v60;
         if (!v18)
         {
           v51 = __dst[0];
@@ -1010,13 +1004,11 @@ LABEL_159:
   }
 
   *v58 = 0;
-LABEL_163:
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void CALog::log_va(CALog *this, int a2, const CALog::Scope *a3, char *__s, int a5, const char *a6, char *__s1, CFStringRef format, va_list arguments)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     LOBYTE(v16) = 31;
@@ -1118,7 +1110,7 @@ LABEL_6:
   {
 LABEL_36:
     CALog::scopedPrint(this, a3, a2, __str);
-    goto LABEL_37;
+    return;
   }
 
   v29 = CFStringCreateWithFormatAndArguments(0, 0, format, arguments);
@@ -1131,9 +1123,9 @@ LABEL_36:
   else
   {
     usedBufLen[0] = 0;
-    v37.length = CFStringGetLength(v29);
-    v37.location = 0;
-    CFStringGetBytes(v29, v37, 0x8000100u, 0x3Fu, 0, 0, 0, usedBufLen);
+    v36.length = CFStringGetLength(v29);
+    v36.location = 0;
+    CFStringGetBytes(v29, v36, 0x8000100u, 0x3Fu, 0, 0, 0, usedBufLen);
     if ((usedBufLen[0] - 1) > 0x3FFE)
     {
       v31 = 0;
@@ -1142,10 +1134,10 @@ LABEL_36:
 
     else
     {
-      v33 = v17 + usedBufLen[0] + 1;
-      v31 = malloc_type_malloc(v33, 0x100004077774924uLL);
-      strlcpy(v31, __str, v33);
-      CFStringGetCString(v29, &v31[v17], (v33 - v17), 0x8000100u);
+      v32 = v17 + usedBufLen[0] + 1;
+      v31 = malloc_type_malloc(v32, 0x100004077774924uLL);
+      strlcpy(v31, __str, v32);
+      CFStringGetCString(v29, &v31[v17], (v32 - v17), 0x8000100u);
       v30 = v31;
     }
   }
@@ -1156,9 +1148,6 @@ LABEL_36:
   {
     free(v31);
   }
-
-LABEL_37:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void CALog::scopedPrint(CALog *this, const CALog::Scope *a2, int a3, const char *a4)
@@ -1172,14 +1161,12 @@ void CALog::scopedPrint(CALog *this, const CALog::Scope *a2, int a3, const char 
 
 void CALog::vprintf(CALog *this, int a2, const char *a3, va_list a4)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     vsnprintf(__str, 0x400uLL, a3, a4);
     CALog::print(this, a2, __str);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void CALog::print(CALog *this, int a2, const char *a3)
@@ -1224,14 +1211,15 @@ void CALog::print(CALog *this, int a2, const char *a3)
   }
 }
 
-void _CALog_Log(CALog *a1, const CALog::Scope *a2, char *a3, int a4, const char *a5, char *a6, uint64_t a7, uint64_t a8, char arguments)
+void _CALog_Log(CALog *a1, const CALog::Scope *a2, char *a3, int a4, const char *a5, char *a6, uint64_t a7, uint64_t a8, ...)
 {
-  v14 = a1;
-  v15 = CALog::Instance(a1);
-  CALog::log_va(v15, v14, a2, a3, a4, a5, a6, 0, &arguments);
+  va_start(va, a8);
+  v13 = a1;
+  v14 = CALog::Instance(a1);
+  CALog::log_va(v14, v13, a2, a3, a4, a5, a6, 0, va);
 }
 
-uint64_t _CALog_LogEnabled(int a1, uint64_t a2)
+BOOL _CALog_LogEnabled(int a1, uint64_t a2)
 {
   v3[0] = a2;
   v3[1] = 0;
@@ -1320,9 +1308,9 @@ uint64_t std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFSt
   return std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100]((a2 + 2), a1 + 16);
 }
 
-void std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(void *a1)
+void std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](a1 + 16);
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100]((a1 + 16));
 
   operator delete(a1);
 }
@@ -1515,7 +1503,7 @@ uint64_t ASDDSPStreamHelper::DSPStream::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t ASDDSPStreamHelper::DSPStream::writeMix(ASDDSPStreamHelper::DSPStream *this, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3)
+uint64_t ASDDSPStreamHelper::DSPStream::writeMix(ASDDSPStreamHelper::DSPStream *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3)
 {
   v5 = *(this + 7);
   if (!v5)
@@ -1529,19 +1517,17 @@ uint64_t ASDDSPStreamHelper::DSPStream::writeMix(ASDDSPStreamHelper::DSPStream *
     return 1852797029;
   }
 
-  v7 = *(v6 + 40);
-  if (*(v7 + 24) != 1)
+  if (*(*(v6 + 40) + 24) != 1)
   {
     ASDDSPStreamHelper::DSPStream::writeMix();
   }
 
-  v8 = *(v7 + 40);
-  v9 = *(v5 + 16);
+  v7 = *(v5 + 16);
 
-  return v9();
+  return v7();
 }
 
-uint64_t ASDDSPStreamHelper::DSPStream::readInput(ASDDSPStreamHelper::DSPStream *this, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3)
+uint64_t ASDDSPStreamHelper::DSPStream::readInput(ASDDSPStreamHelper::DSPStream *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3)
 {
   v5 = *(this + 6);
   if (!v5)
@@ -1555,16 +1541,14 @@ uint64_t ASDDSPStreamHelper::DSPStream::readInput(ASDDSPStreamHelper::DSPStream 
     return 1852797029;
   }
 
-  v7 = *(v6 + 40);
-  if (*(v7 + 24) != 1)
+  if (*(*(v6 + 40) + 24) != 1)
   {
     ASDDSPStreamHelper::DSPStream::writeMix();
   }
 
-  v8 = *(v7 + 40);
-  v9 = *(v5 + 16);
+  v7 = *(v5 + 16);
 
-  return v9();
+  return v7();
 }
 
 uint64_t ASDDSPStreamHelper::DSPStream::readIsolatedInput(ASDDSPStreamHelper::DSPStream *this, uint64_t a2, uint64_t a3, const AudioServerPlugInIOCycleInfo *a4)
@@ -1581,7 +1565,7 @@ uint64_t ASDDSPStreamHelper::DSPStream::readIsolatedInput(ASDDSPStreamHelper::DS
   }
 }
 
-uint64_t ASDDSPStreamHelper::DSPStream::setupIO(uint64_t a1, uint64_t a2, int a3, __int128 *a4)
+uint64_t ASDDSPStreamHelper::DSPStream::setupIO(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
   v4 = a4[1];
   v7[0] = *a4;
@@ -1630,7 +1614,7 @@ uint64_t SetupGraphIOData(uint64_t a1, int a2, __int128 *a3, uint64_t a4)
   return v12;
 }
 
-uint64_t ASDDSPStreamHelper::ASDDSPStreamHelper(uint64_t a1, __int128 *a2, const CAStreamBasicDescription *a3, uint64_t a4, int a5)
+uint64_t ASDDSPStreamHelper::ASDDSPStreamHelper(uint64_t a1, __int128 *a2, int **a3, uint64_t a4, int a5)
 {
   v10 = *a2;
   v11 = a2[1];
@@ -1669,7 +1653,7 @@ uint64_t ASDDSPStreamHelper::ASDDSPStreamHelper(uint64_t a1, __int128 *a2, const
   *(a1 + 344) = 0u;
   *(a1 + 353) = 0u;
   v21 = *a3;
-  v20 = *(a3 + 1);
+  v20 = a3[1];
   if (v20 == *a3)
   {
     v89 = "underlyingStreams.size() > 0";
@@ -1690,7 +1674,7 @@ LABEL_75:
   v24 = "stream.mFormat.IsInterleaved()";
   do
   {
-    if ((*(v21 + 20) & 0x20) != 0)
+    if ((v21[5] & 0x20) != 0)
     {
       v88 = 181;
       goto LABEL_72;
@@ -1726,7 +1710,7 @@ LABEL_72:
       v22 = v27 + 1;
     }
 
-    v21 = (v21 + 80);
+    v21 += 20;
   }
 
   while (v21 != v20);
@@ -2016,7 +2000,7 @@ LABEL_39:
 
   *(a1 + 192) = v57;
 LABEL_67:
-  if (*a3 != *(a3 + 1))
+  if (*a3 != a3[1])
   {
     ASDDSPStreamHelper::addStream(a1, *a3);
   }
@@ -2088,8 +2072,6 @@ void *std::vector<ASDDSPStreamHelper::DSPStream>::reserve(void *result, unint64_
   {
     if (a2 < 0x333333333333334)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<ASDDSPStreamHelper::DSPStream>>(result, a2);
     }
 
@@ -2099,43 +2081,37 @@ void *std::vector<ASDDSPStreamHelper::DSPStream>::reserve(void *result, unint64_
   return result;
 }
 
-void sub_24162C020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24162C020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ASDDSPStreamHelper::DSPStream>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<DSPGraph::GraphIOData>::reserve(void *result, unint64_t a2)
+void std::vector<DSPGraph::GraphIOData>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 4) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x333333333333334)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<DSPGraph::GraphIOData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<DSPGraph::GraphIOData>>(a1, a2);
     }
 
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<CAStreamBasicDescription>::reserve(void *result, unint64_t a2)
+void std::vector<CAStreamBasicDescription>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x666666666666667)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CAStreamBasicDescription>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CAStreamBasicDescription>>(a1, a2);
     }
 
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void ASDDSPStreamHelper::addStream(ASDDSPStreamHelper *this, const ASDDSPStreamHelper::DSPStream *a2)
@@ -2477,9 +2453,9 @@ uint64_t ASDDSPStreamHelper::deallocateStreamingResources(ASDDSPStreamHelper *th
   return result;
 }
 
-uint64_t ASDDSPStreamHelper::readInput(ASDDSPStreamHelper *this, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+uint64_t ASDDSPStreamHelper::readInput(ASDDSPStreamHelper *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if (a3)
@@ -2488,7 +2464,7 @@ uint64_t ASDDSPStreamHelper::readInput(ASDDSPStreamHelper *this, unsigned int a2
       if (std::mutex::try_lock((this + 304)))
       {
         v9 = *(v8 + 20);
-        v80 = v8;
+        v62 = v8;
         if (*(v8 + 368))
         {
           Input = (*(*(v9 + 48) + 16))();
@@ -2508,12 +2484,10 @@ uint64_t ASDDSPStreamHelper::readInput(ASDDSPStreamHelper *this, unsigned int a2
           v30 = -1;
           while (1)
           {
-            v31 = *(v9 + v29 + 72);
-            v32 = *(*(v31 + 5) + 16);
-            CAStreamBasicDescription::BytesToFrames(v31);
-            if (v33 < a2)
+            CAStreamBasicDescription::BytesToFrames(*(v9 + v29 + 72), *(*(*(v9 + v29 + 72) + 40) + 16));
+            if (v31 < a2)
             {
-              v67 = v9 + v29;
+              v54 = v9 + v29;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
@@ -2527,40 +2501,36 @@ uint64_t ASDDSPStreamHelper::readInput(ASDDSPStreamHelper *this, unsigned int a2
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                v68 = *(v67 + 72);
-                v69 = *(*(v68 + 5) + 16);
-                CAStreamBasicDescription::BytesToFrames(v68);
+                CAStreamBasicDescription::BytesToFrames(*(v54 + 72), *(*(*(v54 + 72) + 40) + 16));
                 *buf = 67109376;
                 *&buf[4] = a2;
                 *&buf[8] = 1024;
-                *&buf[10] = v70;
+                *&buf[10] = v55;
                 _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ioBufferFrameSize %d passed to DSP readInput exceeds ringbuffer capacity %d\n", buf, 0xEu);
               }
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
               {
-                v71 = *(v67 + 72);
-                v72 = *(*(v71 + 5) + 16);
-                CAStreamBasicDescription::BytesToFrames(v71);
-                ASDDSPStreamHelper::readInput(buf, a2, v73);
+                CAStreamBasicDescription::BytesToFrames(*(v54 + 72), *(*(*(v54 + 72) + 40) + 16));
+                ASDDSPStreamHelper::readInput(buf, a2, v56);
               }
 
               goto LABEL_61;
             }
 
-            v34 = *(v80 + 184);
-            if (0xCCCCCCCCCCCCCCCDLL * ((*(v80 + 192) - v34) >> 4) <= ++v30)
+            v32 = *(v62 + 184);
+            if (0xCCCCCCCCCCCCCCCDLL * ((*(v62 + 192) - v32) >> 4) <= ++v30)
             {
               std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
             }
 
-            v35 = *&a3->mInputTime.mRateScalar;
+            v33 = *&a3->mInputTime.mRateScalar;
             *buf = *&a3->mInputTime.mSampleTime;
-            *&buf[16] = v35;
-            v36 = *&a3->mInputTime.mSMPTETime.mHours;
-            v82 = *&a3->mInputTime.mSMPTETime.mSubframes;
-            v83 = v36;
-            if ((SetupGraphIOData(v34 + v29, a2, buf, *(v9 + v29 + 72)) & 1) == 0)
+            *&buf[16] = v33;
+            v34 = *&a3->mInputTime.mSMPTETime.mHours;
+            v64 = *&a3->mInputTime.mSMPTETime.mSubframes;
+            v65 = v34;
+            if ((SetupGraphIOData(v32 + v29, a2, buf, *(v9 + v29 + 72)) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
@@ -2596,20 +2566,20 @@ LABEL_61:
 
         Input = 1970171760;
 LABEL_30:
-        v8 = v80;
-        v37 = *(v80 + 256);
-        if (*(v80 + 264) == v37)
+        v8 = v62;
+        v35 = *(v62 + 256);
+        if (*(v62 + 264) == v35)
         {
           std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v38 = *&a3->mInputTime.mRateScalar;
+        v36 = *&a3->mInputTime.mRateScalar;
         *buf = *&a3->mInputTime.mSampleTime;
-        *&buf[16] = v38;
-        v39 = *&a3->mInputTime.mSMPTETime.mHours;
-        v82 = *&a3->mInputTime.mSMPTETime.mSubframes;
-        v83 = v39;
-        if ((SetupGraphIOData(v37, a2, buf, v80) & 1) == 0)
+        *&buf[16] = v36;
+        v37 = *&a3->mInputTime.mSMPTETime.mHours;
+        v64 = *&a3->mInputTime.mSMPTETime.mSubframes;
+        v65 = v37;
+        if ((SetupGraphIOData(v35, a2, buf, v62) & 1) == 0)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -2628,63 +2598,52 @@ LABEL_30:
             _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to setup Graph output buffer for DSP readInput\n", buf, 2u);
           }
 
-          v59 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-          if (v59)
+          v46 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+          if (v46)
           {
-            ASDDSPStreamHelper::readInput(v59, v60, v61, v62, v63, v64, v65, v66);
+            ASDDSPStreamHelper::readInput(v46, v47, v48, v49, v50, v51, v52, v53);
           }
 
           goto LABEL_65;
         }
 
-        v40 = *(v80 + 144);
-        atomic_fetch_add((v40 + 16), 1u);
-        v41 = atomic_load((v40 + 8));
-        if (!v41 || (caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::findSlotForKey(v41, -1), (v43 = v42) == 0))
+        v38 = *(v62 + 144);
+        atomic_fetch_add((v38 + 16), 1u);
+        v39 = atomic_load((v38 + 8));
+        if (!v39 || (caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::findSlotForKey(v39, -1), (v41 = v40) == 0))
         {
-          atomic_fetch_add((v40 + 16), 0xFFFFFFFF);
+          atomic_fetch_add((v38 + 16), 0xFFFFFFFF);
           __assert_rtn("readInput", "ASDDSPStreamHelper.mm", 321, "graphHelper");
         }
 
-        atomic_fetch_add(v42, 1u);
-        v44 = *(v42 + 16);
-        atomic_fetch_add((v40 + 16), 0xFFFFFFFF);
-        if (v44)
+        atomic_fetch_add(v40, 1u);
+        v42 = *(v40 + 16);
+        atomic_fetch_add((v38 + 16), 0xFFFFFFFF);
+        if (v42)
         {
-          v45 = *(v80 + 184);
-          if (*(v80 + 192) == v45)
+          if (*(v62 + 192) == *(v62 + 184))
           {
             goto LABEL_73;
           }
 
-          mSampleTime = a3->mInputTime.mSampleTime;
-          v47 = *(v45 + 8);
           kdebug_trace();
-          if (*(v44 + 2))
+          if (*(v42 + 2))
           {
-            v48 = *(v80 + 184);
-            v49 = *(v80 + 256);
-            v50 = *v80;
             DSPGraph::Graph::preflight();
-            if (*(v44 + 2))
+            if (*(v42 + 2))
             {
-              v8 = v80;
-              v51 = *(v80 + 184);
-              v52 = *(v80 + 256);
+              v8 = v62;
               DSPGraph::Graph::processMultiple();
-              ASDDSPStreamHelper::validateGraphAudio(v8, v44, *(v8 + 26), *(v8 + 35));
-              v53 = *(v80 + 184);
-              if (*(v80 + 192) != v53)
+              ASDDSPStreamHelper::validateGraphAudio(v8, v42, *(v8 + 26), *(v8 + 35));
+              if (*(v8 + 24) != *(v8 + 23))
               {
-                v54 = a3->mInputTime.mSampleTime;
-                v55 = *(v53 + 8);
                 kdebug_trace();
-                v56 = *(v80 + 24) * a2;
-                if (v56 <= *(*(v80 + 40) + 36))
+                v43 = *(v62 + 24) * a2;
+                if (v43 <= *(*(v62 + 40) + 36))
                 {
-                  ASDBufferList::copyDataFromBufferList(v80, a4, a2);
+                  ASDBufferList::copyDataFromBufferList(v62, a4, a2);
                   Input = 0;
-                  atomic_fetch_add(v43, 0xFFFFFFFF);
+                  atomic_fetch_add(v41, 0xFFFFFFFF);
                   goto LABEL_65;
                 }
 
@@ -2701,25 +2660,25 @@ LABEL_30:
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
-                  v57 = *(*(v80 + 40) + 36);
+                  v44 = *(*(v62 + 40) + 36);
                   *buf = 67109376;
-                  *&buf[4] = v56;
+                  *&buf[4] = v43;
                   *&buf[8] = 1024;
-                  *&buf[10] = v57;
+                  *&buf[10] = v44;
                   _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "numBytes %d passed to DSP readInput exceeds ringbuffer data size %d\n", buf, 0xEu);
                 }
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
                 {
-                  ASDDSPStreamHelper::readInput(v80 + 40, v56, v58);
+                  ASDDSPStreamHelper::readInput(v62 + 40, v43, v45);
                 }
 
-                atomic_fetch_add(v43, 0xFFFFFFFF);
+                atomic_fetch_add(v41, 0xFFFFFFFF);
 LABEL_64:
-                v8 = v80;
+                v8 = v62;
 LABEL_65:
                 std::mutex::unlock((v8 + 304));
-                goto LABEL_66;
+                return Input;
               }
 
 LABEL_73:
@@ -2727,25 +2686,25 @@ LABEL_73:
             }
           }
 
-          v76 = "mFormatMatchedGraph";
-          v77 = 38;
-          v78 = "ASDDSPGraphHelper.h";
-          v79 = "graphToProcess";
+          v58 = "mFormatMatchedGraph";
+          v59 = 38;
+          v60 = "ASDDSPGraphHelper.h";
+          v61 = "graphToProcess";
         }
 
         else
         {
-          v76 = "*graphHelper";
-          v77 = 322;
-          v78 = "ASDDSPStreamHelper.mm";
-          v79 = "readInput";
+          v58 = "*graphHelper";
+          v59 = 322;
+          v60 = "ASDDSPStreamHelper.mm";
+          v61 = "readInput";
         }
 
-        __assert_rtn(v79, v78, v77, v76);
+        __assert_rtn(v61, v60, v59, v58);
       }
 
-      bzero(a4, *(v8 + 6) * a2);
-      Input = 0;
+      bzero(a4, (*(v8 + 6) * a2));
+      return 0;
     }
 
     else
@@ -2803,8 +2762,6 @@ LABEL_73:
     }
   }
 
-LABEL_66:
-  v74 = *MEMORY[0x277D85DE8];
   return Input;
 }
 
@@ -2818,60 +2775,57 @@ void sub_24162D090(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   std::mutex::unlock((a10 + 304));
   if (a2 == 4)
   {
-    v12 = __cxa_begin_catch(exception_object);
+    __cxa_begin_catch(exception_object);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ASDDSPStreamHelper::readInput(v12);
+      ASDDSPStreamHelper::readInput();
     }
 
-    v13 = v12[2];
-    __cxa_end_catch();
-LABEL_16:
-    JUMPOUT(0x24162CF84);
+    goto LABEL_5;
   }
 
   if (a2 == 3)
   {
-    v14 = __cxa_begin_catch(exception_object);
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    __cxa_begin_catch(exception_object);
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_8:
-      ASDSRCStreamHelper::readInput(v14);
+      goto LABEL_5;
     }
   }
 
   else
   {
-    v14 = __cxa_begin_catch(exception_object);
-    v15 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    __cxa_begin_catch(exception_object);
+    v12 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     if (a2 != 2)
     {
-      if (v15)
+      if (v12)
       {
         ASDDSPStreamHelper::readInput();
       }
 
-      goto LABEL_14;
+LABEL_5:
+      __cxa_end_catch();
+      JUMPOUT(0x24162CF84);
     }
 
-    if (v15)
+    if (!v12)
     {
-      goto LABEL_8;
+      goto LABEL_5;
     }
   }
 
-LABEL_14:
-  __cxa_end_catch();
-  goto LABEL_16;
+  ASDSRCStreamHelper::readInput();
+  goto LABEL_5;
 }
 
 ASDDSPStreamHelper *ASDDSPStreamHelper::validateGraphAudio(ASDDSPStreamHelper *this, ASDDSPGraphHelper *a2, const CAStreamBasicDescription *a3, const CAStreamBasicDescription *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(this + 19))
   {
     v6 = this;
-    v19 = this;
+    v18 = this;
     v7 = *(this + 23);
     v8 = *(this + 24);
     if (v7 == v8)
@@ -2884,7 +2838,7 @@ ASDDSPStreamHelper *ASDDSPStreamHelper::validateGraphAudio(ASDDSPStreamHelper *t
       v10 = 0;
       while (1)
       {
-        this = ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(&v19, v7, a3);
+        this = ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(&v18, v7, a3);
         v11 = this;
         if (this)
         {
@@ -2907,7 +2861,7 @@ ASDDSPStreamHelper *ASDDSPStreamHelper::validateGraphAudio(ASDDSPStreamHelper *t
     {
       if (!v11)
       {
-        goto LABEL_30;
+        return this;
       }
 
 LABEL_15:
@@ -2919,7 +2873,7 @@ LABEL_15:
       v14 = 0;
       while (1)
       {
-        this = ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(&v19, v12, a4);
+        this = ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(&v18, v12, a4);
         v15 = this;
         if (this)
         {
@@ -2935,7 +2889,7 @@ LABEL_15:
             goto LABEL_15;
           }
 
-          goto LABEL_30;
+          return this;
         }
       }
     }
@@ -2978,11 +2932,9 @@ LABEL_15:
       ASDDSPStreamHelper::validateGraphAudio();
     }
 
-    this = DSPGraph::Graph::reset(v17);
+    return DSPGraph::Graph::reset(v17);
   }
 
-LABEL_30:
-  v18 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3010,20 +2962,19 @@ void *ASDBufferList::copyDataFromBufferList(ASDBufferList *this, void *__dst, in
   return memcpy(__dst, v6, v4);
 }
 
-uint64_t ASDDSPStreamHelper::processOutput(ASDDSPStreamHelper *this, int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
+uint64_t ASDDSPStreamHelper::processOutput(ASDDSPStreamHelper *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if (a3)
     {
       if (a5)
       {
+        v10 = a2;
         if (!std::mutex::try_lock((this + 304)))
         {
-LABEL_34:
-          v31 = 0;
-          goto LABEL_35;
+          return 0;
         }
 
         v12 = *(this + 18);
@@ -3041,14 +2992,14 @@ LABEL_34:
             atomic_fetch_add((v12 + 16), 0xFFFFFFFF);
             if (v17)
             {
-              ASDBufferList::setBufferListFromData((this + 48), a4, a2);
-              ASDBufferList::setBufferListFromData((this + 96), a5, a2);
+              ASDBufferList::setBufferListFromData((this + 48), a4, v10);
+              ASDBufferList::setBufferListFromData((this + 96), a5, v10);
               v18 = *&a3->mOutputTime.mRateScalar;
-              *v62 = *&a3->mOutputTime.mSampleTime;
-              *&v62[16] = v18;
+              *v56 = *&a3->mOutputTime.mSampleTime;
+              *&v56[16] = v18;
               v19 = *&a3->mOutputTime.mSMPTETime.mHours;
-              v63 = *&a3->mOutputTime.mSMPTETime.mSubframes;
-              v64 = v19;
+              v57 = *&a3->mOutputTime.mSMPTETime.mSubframes;
+              v58 = v19;
               v20 = *(this + 23);
               if (*(this + 24) == v20)
               {
@@ -3056,19 +3007,19 @@ LABEL_34:
               }
 
               v21 = *(this + 11) + 24;
-              *v20 = a2;
+              *v20 = v10;
               *(v20 + 4) = 0;
-              *(v20 + 8) = *v62;
-              *(v20 + 24) = *&v62[16];
-              *(v20 + 40) = v63;
-              *(v20 + 56) = v64;
+              *(v20 + 8) = *v56;
+              *(v20 + 24) = *&v56[16];
+              *(v20 + 40) = v57;
+              *(v20 + 56) = v58;
               *(v20 + 72) = v21;
               v22 = *&a3->mOutputTime.mRateScalar;
-              *v62 = *&a3->mOutputTime.mSampleTime;
-              *&v62[16] = v22;
+              *v56 = *&a3->mOutputTime.mSampleTime;
+              *&v56[16] = v22;
               v23 = *&a3->mOutputTime.mSMPTETime.mHours;
-              v63 = *&a3->mOutputTime.mSMPTETime.mSubframes;
-              v64 = v23;
+              v57 = *&a3->mOutputTime.mSMPTETime.mSubframes;
+              v58 = v23;
               v24 = *(this + 32);
               if (*(this + 33) == v24)
               {
@@ -3076,79 +3027,74 @@ LABEL_34:
               }
 
               v25 = *(this + 17) + 24;
-              *v24 = a2;
+              *v24 = v10;
               *(v24 + 4) = 0;
-              *(v24 + 8) = *v62;
-              *(v24 + 24) = *&v62[16];
-              *(v24 + 40) = v63;
-              *(v24 + 56) = v64;
+              *(v24 + 8) = *v56;
+              *(v24 + 24) = *&v56[16];
+              *(v24 + 40) = v57;
+              *(v24 + 56) = v58;
               *(v24 + 72) = v25;
               if (*(v17 + 2))
               {
-                v26 = *(this + 23);
-                v27 = *(this + 32);
-                v28 = *this;
                 DSPGraph::Graph::preflight();
                 if (*(v17 + 2))
                 {
-                  v29 = *(this + 23);
-                  v30 = *(this + 32);
                   DSPGraph::Graph::processMultiple();
                   ASDDSPStreamHelper::validateGraphAudio(this, v17, this, this);
                   atomic_fetch_add(v16, 0xFFFFFFFF);
 LABEL_33:
                   std::mutex::unlock((this + 304));
-                  goto LABEL_34;
+                  return 0;
                 }
               }
 
-              v58 = "mFormatMatchedGraph";
-              v59 = 38;
-              v60 = "ASDDSPGraphHelper.h";
-              v61 = "graphToProcess";
+              v52 = "mFormatMatchedGraph";
+              v53 = 38;
+              v54 = "ASDDSPGraphHelper.h";
+              v55 = "graphToProcess";
             }
 
             else
             {
-              v58 = "*graphHelper";
-              v59 = 403;
-              v60 = "ASDDSPStreamHelper.mm";
-              v61 = "processOutput";
+              v52 = "*graphHelper";
+              v53 = 403;
+              v54 = "ASDDSPStreamHelper.mm";
+              v55 = "processOutput";
             }
 
-            __assert_rtn(v61, v60, v59, v58);
+            __assert_rtn(v55, v54, v53, v52);
           }
 
           v13 = (v12 + 16);
         }
 
         atomic_fetch_add(v13, 0xFFFFFFFF);
-        memcpy(a5, a4, (*(this + 6) * a2));
+        memcpy(a5, a4, (*(this + 6) * v10));
         goto LABEL_33;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v62 = 136315650;
-        *&v62[4] = "NULL == ioSecondaryBuffer";
-        *&v62[12] = 2080;
-        *&v62[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
-        *&v62[22] = 1024;
-        *&v62[24] = 388;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v62, 0x1Cu);
+        *v56 = 136315650;
+        *&v56[4] = "NULL == ioSecondaryBuffer";
+        *&v56[12] = 2080;
+        *&v56[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
+        *&v56[22] = 1024;
+        *&v56[24] = 388;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v56, 0x1Cu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v62 = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioSecondaryBuffer passed to DSP processOutput\n", v62, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioSecondaryBuffer passed to DSP processOutput\n", v56, 2u);
       }
 
-      v31 = 1970171760;
-      v48 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v48)
+      v26 = 1970171760;
+      v43 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v43)
       {
-        ASDDSPStreamHelper::processOutput(v48, v49, v50, v51, v52, v53, v54, v55);
+        ASDDSPStreamHelper::processOutput(v43, v44, v45, v46, v47, v48, v49, v50);
       }
     }
 
@@ -3156,26 +3102,26 @@ LABEL_33:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v62 = 136315650;
-        *&v62[4] = "NULL == ioCycleInfo";
-        *&v62[12] = 2080;
-        *&v62[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
-        *&v62[22] = 1024;
-        *&v62[24] = 387;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v62, 0x1Cu);
+        *v56 = 136315650;
+        *&v56[4] = "NULL == ioCycleInfo";
+        *&v56[12] = 2080;
+        *&v56[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
+        *&v56[22] = 1024;
+        *&v56[24] = 387;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v56, 0x1Cu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v62 = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to DSP processOutput\n", v62, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to DSP processOutput\n", v56, 2u);
       }
 
-      v31 = 1970171760;
-      v40 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v40)
+      v26 = 1970171760;
+      v35 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v35)
       {
-        ASDDSPStreamHelper::processOutput(v40, v41, v42, v43, v44, v45, v46, v47);
+        ASDDSPStreamHelper::processOutput(v35, v36, v37, v38, v39, v40, v41, v42);
       }
     }
   }
@@ -3184,32 +3130,30 @@ LABEL_33:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v62 = 136315650;
-      *&v62[4] = "NULL == ioMainBuffer";
-      *&v62[12] = 2080;
-      *&v62[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
-      *&v62[22] = 1024;
-      *&v62[24] = 386;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v62, 0x1Cu);
+      *v56 = 136315650;
+      *&v56[4] = "NULL == ioMainBuffer";
+      *&v56[12] = 2080;
+      *&v56[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
+      *&v56[22] = 1024;
+      *&v56[24] = 386;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", v56, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v62 = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioMainBuffer passed to DSP processOutput\n", v62, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioMainBuffer passed to DSP processOutput\n", v56, 2u);
     }
 
-    v31 = 1970171760;
-    v32 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v32)
+    v26 = 1970171760;
+    v27 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+    if (v27)
     {
-      ASDDSPStreamHelper::processOutput(v32, v33, v34, v35, v36, v37, v38, v39);
+      ASDDSPStreamHelper::processOutput(v27, v28, v29, v30, v31, v32, v33, v34);
     }
   }
 
-LABEL_35:
-  v56 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v26;
 }
 
 void sub_24162D9A8(_Unwind_Exception *exception_object, int a2)
@@ -3223,56 +3167,53 @@ void sub_24162D9A8(_Unwind_Exception *exception_object, int a2)
   std::mutex::unlock((v2 + 304));
   if (a2 == 4)
   {
-    v6 = __cxa_begin_catch(exception_object);
+    __cxa_begin_catch(exception_object);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ASDDSPStreamHelper::readInput(v6);
+      ASDDSPStreamHelper::readInput();
     }
 
-    v7 = v6[2];
-    __cxa_end_catch();
-LABEL_16:
-    JUMPOUT(0x24162D918);
+    goto LABEL_5;
   }
 
   if (a2 == 3)
   {
-    v8 = __cxa_begin_catch(exception_object);
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    __cxa_begin_catch(exception_object);
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_8:
-      ASDSRCStreamHelper::readInput(v8);
+      goto LABEL_5;
     }
   }
 
   else
   {
-    v8 = __cxa_begin_catch(exception_object);
-    v9 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    __cxa_begin_catch(exception_object);
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     if (a2 != 2)
     {
-      if (v9)
+      if (v6)
       {
         ASDDSPStreamHelper::readInput();
       }
 
-      goto LABEL_14;
+LABEL_5:
+      __cxa_end_catch();
+      JUMPOUT(0x24162D918);
     }
 
-    if (v9)
+    if (!v6)
     {
-      goto LABEL_8;
+      goto LABEL_5;
     }
   }
 
-LABEL_14:
-  __cxa_end_catch();
-  goto LABEL_16;
+  ASDSRCStreamHelper::readInput();
+  goto LABEL_5;
 }
 
-uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -3299,7 +3240,7 @@ uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, unsigned int a2,
       ASDDSPStreamHelper::writeMix(v13, v14, v15, v16, v17, v18, v19, v20);
     }
 
-    goto LABEL_109;
+    return v12;
   }
 
   if (!a3)
@@ -3328,29 +3269,26 @@ uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, unsigned int a2,
       ASDDSPStreamHelper::writeMix(v21, v22, v23, v24, v25, v26, v27, v28);
     }
 
-    goto LABEL_109;
+    return v12;
   }
 
   v9 = std::mutex::try_lock((this + 304));
-  v126 = this;
+  v91 = this;
   if (!v9)
   {
     v30 = *(this + 29);
     v29 = *(this + 30);
     if (v30 == v29)
     {
-      v12 = 0;
-      goto LABEL_109;
+      return 0;
     }
 
-    v125 = 0;
+    v90 = 0;
     v31 = 1970171760;
     while (1)
     {
-      v32 = *(v30 + 9);
-      v33 = *(*(v32 + 5) + 16);
-      CAStreamBasicDescription::BytesToFrames(v32);
-      if (v34 < a2)
+      CAStreamBasicDescription::BytesToFrames(v30[9], *(*(v30[9] + 5) + 16));
+      if (v32 < a2)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -3365,49 +3303,45 @@ uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, unsigned int a2,
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v66 = *(v30 + 9);
-          v67 = *(*(v66 + 5) + 16);
-          CAStreamBasicDescription::BytesToFrames(v66);
+          CAStreamBasicDescription::BytesToFrames(v30[9], *(*(v30[9] + 5) + 16));
           LODWORD(buf.mIOCycleCounter) = 67109376;
           HIDWORD(buf.mIOCycleCounter) = a2;
           LOWORD(buf.mNominalIOBufferFrameSize) = 1024;
-          *(&buf.mNominalIOBufferFrameSize + 2) = v68;
+          *(&buf.mNominalIOBufferFrameSize + 2) = v57;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ioBufferFrameSize %d passed to DSP writeMix exceeds capacity %d on output streams\n", &buf, 0xEu);
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
         {
-          v112 = *(v30 + 9);
-          v113 = *(*(v112 + 5) + 16);
-          CAStreamBasicDescription::BytesToFrames(v112);
-          ASDDSPStreamHelper::writeMix(&buf, a2, v114);
+          CAStreamBasicDescription::BytesToFrames(v30[9], *(*(v30[9] + 5) + 16));
+          ASDDSPStreamHelper::writeMix(&buf, a2, v84);
         }
 
         v12 = v31;
         goto LABEL_107;
       }
 
-      v35 = *(v30 + 9);
-      v36 = *(v35 + 40);
-      v37 = *(v36 + 4);
-      if (v37)
+      v33 = v30[9];
+      v34 = *(v33 + 5);
+      v35 = *(v34 + 4);
+      if (v35)
       {
-        v38 = *(v35 + 24) * a2 > v37;
+        v36 = *(v33 + 6) * a2 > v35;
       }
 
       else
       {
-        v38 = 0;
+        v36 = 0;
       }
 
-      if (!v38)
+      if (!v36)
       {
-        CABufferList::SetNumBytes(v36, *(v35 + 24) * a2);
-        v36 = *(*(v30 + 9) + 40);
-        v37 = *(v36 + 4);
+        CABufferList::SetNumBytes(v34, *(v33 + 6) * a2);
+        v34 = *(v30[9] + 5);
+        v35 = *(v34 + 4);
       }
 
-      CABufferList::SetToZeroes(v36, v37);
+      CABufferList::SetToZeroes(v34, v35);
       v12 = ASDDSPStreamHelper::DSPStream::writeMix(v30, a2, a3);
       if (v12)
       {
@@ -3415,7 +3349,7 @@ uint64_t ASDDSPStreamHelper::writeMix(ASDDSPStreamHelper *this, unsigned int a2,
       }
 
       v31 = 0;
-      v30 = (v30 + 80);
+      v30 += 10;
       if (v30 == v29)
       {
         goto LABEL_107;
@@ -3440,11 +3374,11 @@ LABEL_60:
     {
       v12 = 0;
 LABEL_108:
-      std::mutex::unlock((v126 + 304));
-      goto LABEL_109;
+      std::mutex::unlock((v91 + 304));
+      return v12;
     }
 
-    v125 = v9;
+    v90 = v9;
     while (1)
     {
       v12 = (*(*(v10 + 56) + 16))();
@@ -3469,94 +3403,85 @@ LABEL_108:
     goto LABEL_60;
   }
 
-  v125 = v9;
+  v90 = v9;
   v12 = 1970171760;
-  v39 = *(this + 20);
-  v124 = *(this + 21);
-  if (v124 == v39)
+  v37 = *(this + 20);
+  v89 = *(this + 21);
+  if (v89 == v37)
   {
 LABEL_41:
-    v57 = *(this + 23);
-    if (*(this + 24) == v57)
+    v51 = *(this + 23);
+    if (*(this + 24) == v51)
     {
       std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
     }
 
-    v58 = *&a3->mOutputTime.mRateScalar;
+    v52 = *&a3->mOutputTime.mRateScalar;
     *&buf.mIOCycleCounter = *&a3->mOutputTime.mSampleTime;
-    *&buf.mCurrentTime.mSampleTime = v58;
-    v59 = *&a3->mOutputTime.mSMPTETime.mHours;
+    *&buf.mCurrentTime.mSampleTime = v52;
+    v53 = *&a3->mOutputTime.mSMPTETime.mHours;
     *&buf.mCurrentTime.mRateScalar = *&a3->mOutputTime.mSMPTETime.mSubframes;
-    *&buf.mCurrentTime.mSMPTETime.mSubframes = v59;
-    if (SetupGraphIOData(v57, a2, &buf, this))
+    *&buf.mCurrentTime.mSMPTETime.mSubframes = v53;
+    if (SetupGraphIOData(v51, a2, &buf, this))
     {
-      v60 = *(*(this + 5) + 16);
-      CAStreamBasicDescription::BytesToFrames(this);
-      if (v61 >= a2)
+      CAStreamBasicDescription::BytesToFrames(this, *(*(this + 5) + 16));
+      if (v54 >= a2)
       {
         ASDBufferList::copyDataToBufferList(this, a4, a2);
-        v84 = *(this + 29);
-        v85 = *(this + 30);
-        if (v84 == v85)
+        v69 = *(this + 29);
+        v70 = *(this + 30);
+        if (v69 == v70)
         {
 LABEL_85:
-          v94 = *(v126 + 18);
-          atomic_fetch_add((v94 + 16), 1u);
-          v95 = atomic_load((v94 + 8));
-          if (!v95 || (caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::findSlotForKey(v95, -1), (v97 = v96) == 0))
+          v77 = *(v91 + 18);
+          atomic_fetch_add((v77 + 16), 1u);
+          v78 = atomic_load((v77 + 8));
+          if (!v78 || (caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::findSlotForKey(v78, -1), (v80 = v79) == 0))
           {
-            atomic_fetch_add((v94 + 16), 0xFFFFFFFF);
+            atomic_fetch_add((v77 + 16), 0xFFFFFFFF);
             __assert_rtn("writeMix", "ASDDSPStreamHelper.mm", 509, "graphHelper");
           }
 
-          atomic_fetch_add(v96, 1u);
-          v98 = *(v96 + 16);
-          atomic_fetch_add((v94 + 16), 0xFFFFFFFF);
-          v99 = *(v126 + 23);
-          if (*(v126 + 24) == v99)
+          atomic_fetch_add(v79, 1u);
+          v81 = *(v79 + 16);
+          atomic_fetch_add((v77 + 16), 0xFFFFFFFF);
+          if (*(v91 + 24) == *(v91 + 23))
           {
             goto LABEL_114;
           }
 
-          mSampleTime = a3->mOutputTime.mSampleTime;
-          v101 = *(v99 + 8);
           kdebug_trace();
-          if (!*(v98 + 2) || (v102 = *(v126 + 23), v103 = *(v126 + 32), v104 = *v126, DSPGraph::Graph::preflight(), !*(v98 + 2)))
+          if (!*(v81 + 2) || (DSPGraph::Graph::preflight(), !*(v81 + 2)))
           {
             __assert_rtn("graphToProcess", "ASDDSPGraphHelper.h", 38, "mFormatMatchedGraph");
           }
 
-          v105 = *(v126 + 23);
-          v106 = *(v126 + 32);
           DSPGraph::Graph::processMultiple();
-          ASDDSPStreamHelper::validateGraphAudio(v126, v98, *(v126 + 26), *(v126 + 35));
-          v107 = *(v126 + 23);
-          if (*(v126 + 24) == v107)
+          ASDDSPStreamHelper::validateGraphAudio(v91, v81, *(v91 + 26), *(v91 + 35));
+          if (*(v91 + 24) == *(v91 + 23))
           {
 LABEL_114:
             std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v108 = a3->mOutputTime.mSampleTime;
-          v109 = *(v107 + 8);
           kdebug_trace();
-          v111 = *(v126 + 29);
-          v110 = *(v126 + 30);
+          v83 = *(v91 + 29);
+          v82 = *(v91 + 30);
           while (1)
           {
-            if (v111 == v110)
+            if (v83 == v82)
             {
               v12 = 0;
               goto LABEL_106;
             }
 
-            v12 = ASDDSPStreamHelper::DSPStream::writeMix(v111, a2, a3);
+            v12 = ASDDSPStreamHelper::DSPStream::writeMix(v83, a2, a3);
             if (v12)
             {
               break;
             }
 
-            v111 = (v111 + 80);
+            v83 = (v83 + 80);
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3565,36 +3490,34 @@ LABEL_114:
           }
 
 LABEL_106:
-          atomic_fetch_add(v97, 0xFFFFFFFF);
+          atomic_fetch_add(v80, 0xFFFFFFFF);
         }
 
         else
         {
-          v86 = 0;
-          v87 = -1;
+          v71 = 0;
+          v72 = -1;
           while (1)
           {
-            v88 = *(v84 + v86 + 72);
-            v89 = *(*(v88 + 5) + 16);
-            CAStreamBasicDescription::BytesToFrames(v88);
-            if (v90 < a2)
+            CAStreamBasicDescription::BytesToFrames(*(v69 + v71 + 72), *(*(*(v69 + v71 + 72) + 40) + 16));
+            if (v73 < a2)
             {
               break;
             }
 
-            v91 = *(v126 + 32);
-            if (0xCCCCCCCCCCCCCCCDLL * ((*(v126 + 33) - v91) >> 4) <= ++v87)
+            v74 = *(v91 + 32);
+            if (0xCCCCCCCCCCCCCCCDLL * ((*(v91 + 33) - v74) >> 4) <= ++v72)
             {
               std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
             }
 
-            v92 = *&a3->mOutputTime.mRateScalar;
+            v75 = *&a3->mOutputTime.mRateScalar;
             *&buf.mIOCycleCounter = *&a3->mOutputTime.mSampleTime;
-            *&buf.mCurrentTime.mSampleTime = v92;
-            v93 = *&a3->mOutputTime.mSMPTETime.mHours;
+            *&buf.mCurrentTime.mSampleTime = v75;
+            v76 = *&a3->mOutputTime.mSMPTETime.mHours;
             *&buf.mCurrentTime.mRateScalar = *&a3->mOutputTime.mSMPTETime.mSubframes;
-            *&buf.mCurrentTime.mSMPTETime.mSubframes = v93;
-            if ((SetupGraphIOData(v91 + v86, a2, &buf, *(v84 + v86 + 72)) & 1) == 0)
+            *&buf.mCurrentTime.mSMPTETime.mSubframes = v76;
+            if ((SetupGraphIOData(v74 + v71, a2, &buf, *(v69 + v71 + 72)) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
@@ -3604,14 +3527,14 @@ LABEL_106:
               goto LABEL_107;
             }
 
-            v86 += 80;
-            if (v84 + v86 == v85)
+            v71 += 80;
+            if (v69 + v71 == v70)
             {
               goto LABEL_85;
             }
           }
 
-          v115 = v84 + v86;
+          v85 = v69 + v71;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf.mIOCycleCounter) = 136315650;
@@ -3625,22 +3548,18 @@ LABEL_106:
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v116 = *(v115 + 72);
-            v117 = *(*(v116 + 5) + 16);
-            CAStreamBasicDescription::BytesToFrames(v116);
+            CAStreamBasicDescription::BytesToFrames(*(v85 + 72), *(*(*(v85 + 72) + 40) + 16));
             LODWORD(buf.mIOCycleCounter) = 67109376;
             HIDWORD(buf.mIOCycleCounter) = a2;
             LOWORD(buf.mNominalIOBufferFrameSize) = 1024;
-            *(&buf.mNominalIOBufferFrameSize + 2) = v118;
+            *(&buf.mNominalIOBufferFrameSize + 2) = v86;
             _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ioBufferFrameSize %d passed to DSP writeMix exceeds ringbuffer capacity %d on output streams\n", &buf, 0xEu);
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
           {
-            v119 = *(v115 + 72);
-            v120 = *(*(v119 + 5) + 16);
-            CAStreamBasicDescription::BytesToFrames(v119);
-            ASDDSPStreamHelper::writeMix(&buf, a2, v121);
+            CAStreamBasicDescription::BytesToFrames(*(v85 + 72), *(*(*(v85 + 72) + 40) + 16));
+            ASDDSPStreamHelper::writeMix(&buf, a2, v87);
           }
         }
       }
@@ -3660,20 +3579,18 @@ LABEL_106:
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v62 = *(*(this + 5) + 16);
-          CAStreamBasicDescription::BytesToFrames(this);
+          CAStreamBasicDescription::BytesToFrames(this, *(*(this + 5) + 16));
           LODWORD(buf.mIOCycleCounter) = 67109376;
           HIDWORD(buf.mIOCycleCounter) = a2;
           LOWORD(buf.mNominalIOBufferFrameSize) = 1024;
-          *(&buf.mNominalIOBufferFrameSize + 2) = v63;
+          *(&buf.mNominalIOBufferFrameSize + 2) = v55;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ioBufferFrameSize %d passed to DSP writeMix exceeds ringbuffer capacity %d\n", &buf, 0xEu);
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
         {
-          v64 = *(*(this + 5) + 16);
-          CAStreamBasicDescription::BytesToFrames(this);
-          ASDDSPStreamHelper::writeMix(&buf, a2, v65);
+          CAStreamBasicDescription::BytesToFrames(this, *(*(this + 5) + 16));
+          ASDDSPStreamHelper::writeMix(&buf, a2, v56);
         }
       }
     }
@@ -3697,63 +3614,59 @@ LABEL_106:
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to setup Graph output buffer for DSP writeMix\n", &buf, 2u);
       }
 
-      v69 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v69)
+      v58 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v58)
       {
-        ASDDSPStreamHelper::writeMix(v69, v70, v71, v72, v73, v74, v75, v76);
+        ASDDSPStreamHelper::writeMix(v58, v59, v60, v61, v62, v63, v64, v65);
       }
     }
   }
 
   else
   {
-    v40 = 0;
-    v41 = 0;
-    v42 = *&a3->mOutputTime.mSampleTime;
-    v43 = *&a3->mOutputTime.mSMPTETime.mSubframes;
+    v38 = 0;
+    v39 = 0;
+    v40 = *&a3->mOutputTime.mSampleTime;
+    v41 = *&a3->mOutputTime.mSMPTETime.mSubframes;
     *&buf.mOutputTime.mRateScalar = *&a3->mOutputTime.mRateScalar;
-    *&buf.mOutputTime.mSMPTETime.mSubframes = v43;
-    v44 = *&a3->mOutputTime.mSMPTETime.mSubframes;
-    v45 = *&a3->mMainHostTicksPerFrame;
+    *&buf.mOutputTime.mSMPTETime.mSubframes = v41;
+    v42 = *&a3->mOutputTime.mSMPTETime.mSubframes;
+    v43 = *&a3->mMainHostTicksPerFrame;
     *&buf.mOutputTime.mSMPTETime.mHours = *&a3->mOutputTime.mSMPTETime.mHours;
-    *&buf.mMainHostTicksPerFrame = v45;
-    v46 = *&a3->mCurrentTime.mSMPTETime.mSubframes;
+    *&buf.mMainHostTicksPerFrame = v43;
+    v44 = *&a3->mCurrentTime.mSMPTETime.mSubframes;
     *&buf.mCurrentTime.mRateScalar = *&a3->mCurrentTime.mRateScalar;
-    *&buf.mCurrentTime.mSMPTETime.mSubframes = v46;
-    v47 = *&a3->mInputTime.mSampleTime;
+    *&buf.mCurrentTime.mSMPTETime.mSubframes = v44;
+    v45 = *&a3->mInputTime.mSampleTime;
     *&buf.mCurrentTime.mSMPTETime.mHours = *&a3->mCurrentTime.mSMPTETime.mHours;
-    *&buf.mInputTime.mSampleTime = v47;
-    v48 = *&a3->mCurrentTime.mSampleTime;
+    *&buf.mInputTime.mSampleTime = v45;
+    v46 = *&a3->mCurrentTime.mSampleTime;
     *&buf.mIOCycleCounter = *&a3->mIOCycleCounter;
-    *&buf.mCurrentTime.mSampleTime = v48;
-    v49 = *&a3->mInputTime.mRateScalar;
-    v50 = *&a3->mInputTime.mSMPTETime.mSubframes;
-    *&buf.mInputTime.mSampleTime = v42;
+    *&buf.mCurrentTime.mSampleTime = v46;
+    v47 = *&a3->mInputTime.mSMPTETime.mSubframes;
+    *&buf.mInputTime.mSampleTime = v40;
     *&buf.mInputTime.mRateScalar = *&buf.mOutputTime.mRateScalar;
-    *&buf.mInputTime.mSMPTETime.mSubframes = v50;
-    v51 = *&a3->mInputTime.mSMPTETime.mHours;
-    v52 = *&a3->mOutputTime.mSampleTime;
-    *&buf.mInputTime.mSMPTETime.mSubframes = v44;
+    *&buf.mInputTime.mSMPTETime.mSubframes = v47;
+    v48 = *&a3->mOutputTime.mSampleTime;
+    *&buf.mInputTime.mSMPTETime.mSubframes = v42;
     *&buf.mInputTime.mSMPTETime.mHours = *&buf.mOutputTime.mSMPTETime.mHours;
-    *&buf.mOutputTime.mSampleTime = v52;
+    *&buf.mOutputTime.mSampleTime = v48;
     while (1)
     {
-      v53 = *(v39 + v40 + 72);
-      v54 = *(*(v53 + 5) + 16);
-      CAStreamBasicDescription::BytesToFrames(v53);
-      if (v55 < a2)
+      CAStreamBasicDescription::BytesToFrames(*(v37 + v38 + 72), *(*(*(v37 + v38 + 72) + 40) + 16));
+      if (v49 < a2)
       {
         break;
       }
 
-      v56 = *(this + 23);
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(this + 24) - v56) >> 4) <= ++v41)
+      v50 = *(this + 23);
+      if (0xCCCCCCCCCCCCCCCDLL * ((*(this + 24) - v50) >> 4) <= ++v39)
       {
         std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
       }
 
       mInputTime = buf.mInputTime;
-      if ((SetupGraphIOData(v56 + v40 + 80, a2, &mInputTime, *(v39 + v40 + 72)) & 1) == 0)
+      if ((SetupGraphIOData(v50 + v38 + 80, a2, &mInputTime, *(v37 + v38 + 72)) & 1) == 0)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -3763,7 +3676,7 @@ LABEL_106:
         goto LABEL_107;
       }
 
-      v12 = ASDDSPStreamHelper::DSPStream::readInput((v39 + v40), a2, &buf);
+      v12 = ASDDSPStreamHelper::DSPStream::readInput((v37 + v38), a2, &buf);
       if (v12)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3774,15 +3687,15 @@ LABEL_106:
         goto LABEL_107;
       }
 
-      v40 += 80;
-      if (v39 + v40 == v124)
+      v38 += 80;
+      if (v37 + v38 == v89)
       {
         v12 = 0;
         goto LABEL_41;
       }
     }
 
-    v77 = v39 + v40;
+    v66 = v37 + v38;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(mInputTime.mSampleTime) = 136315650;
@@ -3796,33 +3709,27 @@ LABEL_106:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v78 = *(v77 + 72);
-      v79 = *(*(v78 + 5) + 16);
-      CAStreamBasicDescription::BytesToFrames(v78);
+      CAStreamBasicDescription::BytesToFrames(*(v66 + 72), *(*(*(v66 + 72) + 40) + 16));
       LODWORD(mInputTime.mSampleTime) = 67109376;
       HIDWORD(mInputTime.mSampleTime) = a2;
       LOWORD(mInputTime.mHostTime) = 1024;
-      *(&mInputTime.mHostTime + 2) = v80;
+      *(&mInputTime.mHostTime + 2) = v67;
       _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ioBufferFrameSize %d passed to DSP writeMix exceeds ringbuffer capacity %d on input streams\n", &mInputTime, 0xEu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v81 = *(v77 + 72);
-      v82 = *(*(v81 + 5) + 16);
-      CAStreamBasicDescription::BytesToFrames(v81);
-      ASDDSPStreamHelper::writeMix(&mInputTime, a2, v83);
+      CAStreamBasicDescription::BytesToFrames(*(v66 + 72), *(*(*(v66 + 72) + 40) + 16));
+      ASDDSPStreamHelper::writeMix(&mInputTime, a2, v68);
     }
   }
 
 LABEL_107:
-  if (v125)
+  if (v90)
   {
     goto LABEL_108;
   }
 
-LABEL_109:
-  v122 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3840,51 +3747,48 @@ void sub_24162E7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a2 == 4)
   {
-    v15 = __cxa_begin_catch(exception_object);
+    __cxa_begin_catch(exception_object);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ASDDSPStreamHelper::readInput(v15);
+      ASDDSPStreamHelper::readInput();
     }
 
-    v16 = v15[2];
-    __cxa_end_catch();
-LABEL_18:
-    JUMPOUT(0x24162E704);
+    goto LABEL_7;
   }
 
   if (a2 == 3)
   {
-    v17 = __cxa_begin_catch(exception_object);
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    __cxa_begin_catch(exception_object);
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_10:
-      ASDSRCStreamHelper::readInput(v17);
+      goto LABEL_7;
     }
   }
 
   else
   {
-    v17 = __cxa_begin_catch(exception_object);
-    v18 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    __cxa_begin_catch(exception_object);
+    v15 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     if (a2 != 2)
     {
-      if (v18)
+      if (v15)
       {
         ASDDSPStreamHelper::readInput();
       }
 
-      goto LABEL_16;
+LABEL_7:
+      __cxa_end_catch();
+      JUMPOUT(0x24162E704);
     }
 
-    if (v18)
+    if (!v15)
     {
-      goto LABEL_10;
+      goto LABEL_7;
     }
   }
 
-LABEL_16:
-  __cxa_end_catch();
-  goto LABEL_18;
+  ASDSRCStreamHelper::readInput();
+  goto LABEL_7;
 }
 
 uint64_t ASDBufferList::copyDataToBufferList(ASDBufferList *this, void *a2, int a3)
@@ -3921,24 +3825,24 @@ uint64_t ASDBufferList::copyDataToBufferList(ASDBufferList *this, void *a2, int 
 
 uint64_t ASDDSPStreamHelper::readIsolatedInput(ASDDSPStreamHelper *this, uint64_t a2, uint64_t a3, const AudioServerPlugInIOCycleInfo *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315650;
-      v24 = "NULL == inIOCycleInfo";
-      v25 = 2080;
-      v26 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
-      v27 = 1024;
-      v28 = 582;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", &v23, 0x1Cu);
+      v22 = 136315650;
+      v23 = "NULL == inIOCycleInfo";
+      v24 = 2080;
+      v25 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDDSPStreamHelper.mm";
+      v26 = 1024;
+      v27 = 582;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", &v22, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to DSP readInput\n", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to DSP readInput\n", &v22, 2u);
     }
 
     v12 = 1970171760;
@@ -3948,7 +3852,7 @@ uint64_t ASDDSPStreamHelper::readIsolatedInput(ASDDSPStreamHelper *this, uint64_
       ASDDSPStreamHelper::readInput(v13, v14, v15, v16, v17, v18, v19, v20);
     }
 
-    goto LABEL_19;
+    return v12;
   }
 
   v8 = std::mutex::try_lock((this + 304));
@@ -3961,7 +3865,7 @@ uint64_t ASDDSPStreamHelper::readIsolatedInput(ASDDSPStreamHelper *this, uint64_
       v12 = 0;
       if (!v8)
       {
-        goto LABEL_19;
+        return v12;
       }
 
       goto LABEL_18;
@@ -3988,7 +3892,7 @@ LABEL_16:
   {
     if (!v8)
     {
-      goto LABEL_19;
+      return v12;
     }
 
     goto LABEL_18;
@@ -4001,8 +3905,6 @@ LABEL_18:
     std::mutex::unlock((this + 304));
   }
 
-LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4020,54 +3922,51 @@ void sub_24162EB98(_Unwind_Exception *exception_object, int a2)
 
   if (a2 == 4)
   {
-    v6 = __cxa_begin_catch(exception_object);
+    __cxa_begin_catch(exception_object);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ASDDSPStreamHelper::readInput(v6);
+      ASDDSPStreamHelper::readInput();
     }
 
-    v7 = v6[2];
-    __cxa_end_catch();
-LABEL_18:
-    JUMPOUT(0x24162EB50);
+    goto LABEL_7;
   }
 
   if (a2 == 3)
   {
-    v8 = __cxa_begin_catch(exception_object);
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    __cxa_begin_catch(exception_object);
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_10:
-      ASDSRCStreamHelper::readInput(v8);
+      goto LABEL_7;
     }
   }
 
   else
   {
-    v8 = __cxa_begin_catch(exception_object);
-    v9 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    __cxa_begin_catch(exception_object);
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     if (a2 != 2)
     {
-      if (v9)
+      if (v6)
       {
         ASDDSPStreamHelper::readInput();
       }
 
-      goto LABEL_16;
+LABEL_7:
+      __cxa_end_catch();
+      JUMPOUT(0x24162EB50);
     }
 
-    if (v9)
+    if (!v6)
     {
-      goto LABEL_10;
+      goto LABEL_7;
     }
   }
 
-LABEL_16:
-  __cxa_end_catch();
-  goto LABEL_18;
+  ASDSRCStreamHelper::readInput();
+  goto LABEL_7;
 }
 
-uint64_t ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t ASDDSPStreamHelper::validateGraphAudio(ASDDSPGraphHelper *,CAStreamBasicDescription const*,CAStreamBasicDescription const*)::$_0::operator()<DSPGraph::GraphIOData>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(*a1 + 152) == 2)
   {
@@ -4151,7 +4050,7 @@ LABEL_24:
   return (v7 << 32) | 2;
 }
 
-void CAStreamBasicDescription::BytesToFrames(CAStreamBasicDescription *this)
+void CAStreamBasicDescription::BytesToFrames(CAStreamBasicDescription *this, unsigned int a2)
 {
   if (!*(this + 6))
   {
@@ -4164,7 +4063,7 @@ void CAStreamBasicDescription::BytesToFrames(CAStreamBasicDescription *this)
   }
 }
 
-_DWORD *CABufferList::SetNumBytes(_DWORD *this, unsigned int a2)
+void CABufferList::SetNumBytes(_DWORD *this, unsigned int a2)
 {
   v2 = this[4];
   if (v2)
@@ -4217,10 +4116,8 @@ _DWORD *CABufferList::SetNumBytes(_DWORD *this, unsigned int a2)
   else
   {
     v11 = CABufferList::SetNumBytes();
-    return CABufferList::SetToZeroes(v11, v12);
+    CABufferList::SetToZeroes(v11, v12);
   }
-
-  return this;
 }
 
 void CABufferList::SetToZeroes(CABufferList *this, unsigned int a2)
@@ -4257,8 +4154,8 @@ void CABufferList::SetToZeroes(CABufferList *this, unsigned int a2)
 
   else
   {
-    v8 = CABufferList::SetToZeroes();
-    std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDDSPStreamHelper::DSPStream const&>(v8);
+    CABufferList::SetToZeroes();
+    std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDDSPStreamHelper::DSPStream const&>(v8, v9);
   }
 }
 
@@ -4312,9 +4209,9 @@ uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<AS
   return v12;
 }
 
-void sub_24162F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24162F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ASDDSPStreamHelper::DSPStream>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4328,24 +4225,11 @@ uint64_t OUTLINED_FUNCTION_1_4(uint64_t result, int a2, int a3, float a4)
   return result;
 }
 
-void OUTLINED_FUNCTION_4_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
-}
-
-uint64_t OUTLINED_FUNCTION_5_0@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 39);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_6_1(uint64_t result)
-{
-  v1 = *(result + 40);
-  v2 = *(result + 95);
-  return result;
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -4372,9 +4256,9 @@ void ResamplerInitLocker::~ResamplerInitLocker(ResamplerInitLocker *this)
   pthread_mutex_unlock(&sInitLocker);
 }
 
-void sub_241631414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241631414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4386,28 +4270,24 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2416322AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2416322AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ASDSRCStreamHelper::ASDSRCStreamHelper()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDSRCStreamHelper::allocateStreamingResources()
@@ -4423,69 +4303,59 @@ void ASDSRCStreamHelper::allocateStreamingResources()
   __assert_rtn("allocateStreamingResources", "ASDSRCStreamHelper.mm", 154, "mBuffer[1]");
 }
 
-void ASDSRCStreamHelper::readInput(unsigned int *a1)
+void ASDSRCStreamHelper::readInput()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void ASDSRCStreamHelper::readInput()
 {
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 {
-  OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void ASDSRCStreamHelper::readInput(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
-  (*(v2 + 16))(v1);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
+  (*(v0 + 16))();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void ASDSRCStreamHelper::writeMix(unsigned int *a1)
-{
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 void ASDSRCStreamHelper::writeMix()
+{
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_4();
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xEu);
+}
+
+{
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_4();
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xEu);
+}
+
+{
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_4();
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xEu);
+}
+
 {
   OUTLINED_FUNCTION_4();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
@@ -4498,45 +4368,28 @@ void ASDSRCStreamHelper::writeMix()
 
 void ASDSRCStreamHelper::readIsolatedInput(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = __cxa_begin_catch(a1);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     (*(*v1 + 16))(v1);
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = __cxa_begin_catch(a1);
-  OUTLINED_FUNCTION_3_0(v2);
+  v1 = __cxa_begin_catch(a1);
+  OUTLINED_FUNCTION_3_0(v1);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_7_0();
-    if (v5 < 0)
-    {
-      v6 = *v4;
-    }
-
     OUTLINED_FUNCTION_6_0();
-    if (v8 < 0)
-    {
-      v9 = *v7;
-    }
-
-    v10 = *(v1 + 40);
     OUTLINED_FUNCTION_0_1();
     OUTLINED_FUNCTION_3();
-    _os_log_error_impl(v11, v12, v13, v14, v15, 0x32u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x32u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>()
@@ -4546,30 +4399,24 @@ void ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>()
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>(uint64_t *a1)
 {
-  v1 = OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
-  (*(v2 + 16))(v1);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
+  (*(v0 + 16))();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = OUTLINED_FUNCTION_3_2(a1);
-  (*(v2 + 16))(v1);
+  OUTLINED_FUNCTION_3_2();
+  (*(v0 + 16))();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release()
@@ -4581,80 +4428,40 @@ void caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraph
 
 void ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(void *a1, _DWORD *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = __cxa_begin_catch(a1);
-  *a2 = v3[2];
+  *a2 = *(__cxa_begin_catch(a1) + 2);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (*(v3 + 95) < 0)
-    {
-      v5 = *(v3 + 9);
-    }
-
-    if (*(v3 + 39) < 0)
-    {
-      v6 = *(v3 + 2);
-    }
-
-    v7 = v3[10];
     OUTLINED_FUNCTION_0_1();
     OUTLINED_FUNCTION_3();
-    _os_log_error_impl(v8, v9, v10, v11, v12, 0x32u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x32u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   (*(*a1 + 16))(a1);
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>(void *a1, _DWORD *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = __cxa_begin_catch(a1);
   *a2 = v3[2];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (*(v3 + 95) < 0)
-    {
-      v5 = *(v3 + 9);
-    }
-
-    if (*(v3 + 39) < 0)
-    {
-      v6 = *(v3 + 2);
-    }
-
-    v12 = v3[10];
     OUTLINED_FUNCTION_3();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0x32u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x32u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDPluginInterfaceInfo::setRealTimeOperationVectorSize(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@: Attempt to move from vectors to maps for realtime operations.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@: Attempt to move from vectors to maps for realtime operations.", &v2, 0xCu);
 }
 
 void ASDBufferList::setBufferListFromData()
@@ -4724,49 +4531,39 @@ void ASDDSPStreamHelper::readInput()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+{
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6_1();
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
 void ASDDSPStreamHelper::readInput(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "Failed to setup Graph output buffer for DSP readInput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "Failed to setup Graph output buffer for DSP readInput\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP readInput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP readInput\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP readInput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP readInput\n", a5, a6, a7, a8, v8);
 }
 
 void ASDDSPStreamHelper::readInput(uint64_t a1, int a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 36);
-  v5[0] = 67109376;
-  v5[1] = a2;
-  v6 = 1024;
-  v7 = v3;
-  OUTLINED_FUNCTION_8(&dword_2415D8000, MEMORY[0x277D86220], a3, "numBytes %d passed to DSP readInput exceeds ringbuffer data size %d\n", v5);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void ASDDSPStreamHelper::readInput(uint64_t a1)
-{
-  v1 = OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
-  if (v3 < 0)
-  {
-    v4 = *v2;
-  }
-
-  OUTLINED_FUNCTION_6_1(v1);
-  if (v6 < 0)
-  {
-    v7 = *v5;
-  }
-
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x1Cu);
-  v13 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109376;
+  v4[1] = a2;
+  v5 = 1024;
+  v6 = v3;
+  OUTLINED_FUNCTION_8(&dword_2415D8000, MEMORY[0x277D86220], a3, "numBytes %d passed to DSP readInput exceeds ringbuffer data size %d\n", v4);
 }
 
 void ASDDSPStreamHelper::validateGraphAudio()
@@ -4775,11 +4572,9 @@ void ASDDSPStreamHelper::validateGraphAudio()
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4801,15 +4596,18 @@ void ASDBufferList::copyDataFromBufferList()
 
 void ASDDSPStreamHelper::processOutput(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioSecondaryBuffer passed to DSP processOutput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioSecondaryBuffer passed to DSP processOutput\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP processOutput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP processOutput\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP processOutput\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP processOutput\n", a5, a6, a7, a8, v8);
 }
 
 void ASDDSPStreamHelper::writeMix()
@@ -4851,15 +4649,18 @@ void ASDDSPStreamHelper::writeMix(uint64_t a1, int a2, int a3)
 
 void ASDDSPStreamHelper::writeMix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "Failed to setup Graph output buffer for DSP writeMix\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "Failed to setup Graph output buffer for DSP writeMix\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP writeMix\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioCycleInfo passed to DSP writeMix\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP writeMix\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_4_1(&dword_2415D8000, MEMORY[0x277D86220], a3, "NULL ioMainBuffer passed to DSP writeMix\n", a5, a6, a7, a8, v8);
 }
 
 void ASDBufferList::copyDataToBufferList()

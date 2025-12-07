@@ -37,61 +37,57 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"BatteryMetrics";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"BatteryMetrics";
   entryAggregateDefinitionAwdBattery = [self entryAggregateDefinitionAwdBattery];
-  v7[0] = entryAggregateDefinitionAwdBattery;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionAwdBattery;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionAwdBattery
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEE40;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"BatteryMetricsKey";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEE40;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"BatteryMetricsKey";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = @"BatteryMetricsValue";
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = @"BatteryMetricsValue";
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEE50;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEE50;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"BatteryMetricsValue";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEE50;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"BatteryMetricsValue";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
 
 - (void)startMetricCollection:(id)collection
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   runningMetrics = [(PLAWDAuxMetrics *)self runningMetrics];
   [runningMetrics addObject:collectionCopy];
@@ -102,12 +98,12 @@
     collectionCopy = [MEMORY[0x277D3F688] entryKeyForType:*MEMORY[0x277D3F5C8] andName:*MEMORY[0x277D3F750]];
     v7 = objc_alloc(MEMORY[0x277D3F1A8]);
     operator = [(PLAWDAuxMetrics *)self operator];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __38__PLAWDBattery_startMetricCollection___block_invoke;
-    v32[3] = &unk_279A58F10;
-    v32[4] = self;
-    v9 = [v7 initWithOperator:operator forEntryKey:collectionCopy withBlock:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __38__PLAWDBattery_startMetricCollection___block_invoke;
+    v31[3] = &unk_279A58F10;
+    v31[4] = self;
+    v9 = [v7 initWithOperator:operator forEntryKey:collectionCopy withBlock:v31];
 
     [(PLAWDBattery *)self setBatteryEventCallback:v9];
     if ([MEMORY[0x277D3F6A0] shouldLogDisplay])
@@ -115,18 +111,18 @@
       v10 = [MEMORY[0x277D3F6A0] entryKeyForType:*MEMORY[0x277D3F5E8] andName:*MEMORY[0x277D3F7B0]];
       v11 = objc_alloc(MEMORY[0x277D3F1A8]);
       operator2 = [(PLAWDAuxMetrics *)self operator];
-      v33 = &unk_2870FEF80;
-      v34 = @"Backlight";
-      v35 = @"Block";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      v36[0] = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __38__PLAWDBattery_startMetricCollection___block_invoke_53;
-      v31[3] = &unk_279A58F10;
-      v31[4] = self;
-      v15 = [v11 initWithOperator:operator2 forEntryKey:v10 withFilter:v14 withBlock:v31];
+      v32 = &unk_2870FEF80;
+      v33 = @"Backlight";
+      v34 = @"Block";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v35[0] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __38__PLAWDBattery_startMetricCollection___block_invoke_53;
+      v30[3] = &unk_279A58F10;
+      v30[4] = self;
+      v15 = [v11 initWithOperator:operator2 forEntryKey:v10 withFilter:v14 withBlock:v30];
 
       [(PLAWDBattery *)self setDisplayEventCallback:v15];
     }
@@ -169,14 +165,14 @@ LABEL_17:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v23 = objc_opt_class();
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __38__PLAWDBattery_startMetricCollection___block_invoke_67;
-    v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v29[4] = v23;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __38__PLAWDBattery_startMetricCollection___block_invoke_67;
+    v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v28[4] = v23;
     if (startMetricCollection__defaultOnce_65 != -1)
     {
-      dispatch_once(&startMetricCollection__defaultOnce_65, v29);
+      dispatch_once(&startMetricCollection__defaultOnce_65, v28);
     }
 
     if (startMetricCollection__classDebugEnabled_66 == 1)
@@ -199,38 +195,36 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLAWDBattery_startMetricCollection___block_invoke(uint64_t result, uint64_t a2)
+id *__38__PLAWDBattery_startMetricCollection___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleBatteryCallback:a2];
+    return [result[4] handleBatteryCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __38__PLAWDBattery_startMetricCollection___block_invoke_53(uint64_t result, uint64_t a2)
+id *__38__PLAWDBattery_startMetricCollection___block_invoke_53(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleDisplayCallback:a2];
+    return [result[4] handleDisplayCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __38__PLAWDBattery_startMetricCollection___block_invoke_2(uint64_t a1)
+void *__38__PLAWDBattery_startMetricCollection___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_1 = result;
   return result;
 }
 
-uint64_t __38__PLAWDBattery_startMetricCollection___block_invoke_67(uint64_t a1)
+void *__38__PLAWDBattery_startMetricCollection___block_invoke_67(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_66 = result;
@@ -288,7 +282,7 @@ uint64_t __38__PLAWDBattery_startMetricCollection___block_invoke_67(uint64_t a1)
   }
 }
 
-uint64_t __37__PLAWDBattery_stopMetricCollection___block_invoke(uint64_t a1)
+void *__37__PLAWDBattery_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_1 = result;
@@ -377,7 +371,7 @@ uint64_t __37__PLAWDBattery_stopMetricCollection___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __32__PLAWDBattery_initBatteryStats__block_invoke(uint64_t a1)
+void *__32__PLAWDBattery_initBatteryStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initBatteryStats_classDebugEnabled = result;
@@ -430,7 +424,7 @@ uint64_t __32__PLAWDBattery_initBatteryStats__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__PLAWDBattery_reInitBatteryStats__block_invoke(uint64_t a1)
+void *__34__PLAWDBattery_reInitBatteryStats__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reInitBatteryStats_classDebugEnabled = result;
@@ -652,28 +646,28 @@ LABEL_28:
   [(PLAWDBattery *)self setDispOnOffCnt:0];
 }
 
-uint64_t __61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke(uint64_t a1)
+void *__61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   processEnergyConsumedAndAddEntry_withVoltage__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_106(uint64_t a1)
+void *__61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_106(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   processEnergyConsumedAndAddEntry_withVoltage__classDebugEnabled_105 = result;
   return result;
 }
 
-uint64_t __61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_112(uint64_t a1)
+void *__61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_112(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   processEnergyConsumedAndAddEntry_withVoltage__classDebugEnabled_111 = result;
   return result;
 }
 
-uint64_t __61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_118(uint64_t a1)
+void *__61__PLAWDBattery_processEnergyConsumedAndAddEntry_withVoltage___block_invoke_118(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   processEnergyConsumedAndAddEntry_withVoltage__classDebugEnabled_117 = result;
@@ -782,7 +776,7 @@ LABEL_5:
 LABEL_19:
 }
 
-uint64_t __38__PLAWDBattery_handleBatteryCallback___block_invoke(uint64_t a1)
+void *__38__PLAWDBattery_handleBatteryCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBatteryCallback__classDebugEnabled_0 = result;
@@ -938,21 +932,21 @@ LABEL_3:
 LABEL_11:
 }
 
-uint64_t __38__PLAWDBattery_handleDisplayCallback___block_invoke(uint64_t a1)
+void *__38__PLAWDBattery_handleDisplayCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleDisplayCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __38__PLAWDBattery_handleDisplayCallback___block_invoke_133(uint64_t a1)
+void *__38__PLAWDBattery_handleDisplayCallback___block_invoke_133(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleDisplayCallback__classDebugEnabled_132 = result;
   return result;
 }
 
-uint64_t __38__PLAWDBattery_handleDisplayCallback___block_invoke_139(uint64_t a1)
+void *__38__PLAWDBattery_handleDisplayCallback___block_invoke_139(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleDisplayCallback__classDebugEnabled_138 = result;
@@ -1121,28 +1115,28 @@ LABEL_2:
   }
 }
 
-uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke(uint64_t a1)
+void *__36__PLAWDBattery_finalizeBatteryTable__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeBatteryTable_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_148(uint64_t a1)
+void *__36__PLAWDBattery_finalizeBatteryTable__block_invoke_148(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeBatteryTable_classDebugEnabled_147 = result;
   return result;
 }
 
-uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_154(uint64_t a1)
+void *__36__PLAWDBattery_finalizeBatteryTable__block_invoke_154(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeBatteryTable_classDebugEnabled_153 = result;
   return result;
 }
 
-uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
+void *__36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   finalizeBatteryTable_classDebugEnabled_159 = result;
@@ -1151,7 +1145,7 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
 
 - (BOOL)submitDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   connCopy = conn;
   v8 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(serverCopy, "unsignedIntValue")}];
@@ -1189,9 +1183,9 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
 
         if (submitDataToAWDServer_withAwdConn__classDebugEnabled_0 == 1)
         {
-          v58 = v18;
-          v60 = v15;
-          v62 = v8;
+          v57 = v18;
+          v59 = v15;
+          v61 = v8;
           v22 = v19;
           v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : %@", @"*******PLAWDMetricsService*******", v19];
           v24 = MEMORY[0x277D3F178];
@@ -1206,19 +1200,19 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v15 = v60;
-          v8 = v62;
-          v18 = v58;
+          v15 = v59;
+          v8 = v61;
+          v18 = v57;
           v19 = v22;
         }
       }
 
       if (v20)
       {
-        v59 = v18;
-        v61 = v15;
-        v63 = v8;
-        v56 = connCopy;
+        v58 = v18;
+        v60 = v15;
+        v62 = v8;
+        v55 = connCopy;
         [v20 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
         [v20 setEnergyConsumedDisplayOnMicroWatt:0];
         [v20 setEnergyConsumedDisplayOffMicroWatt:0];
@@ -1228,27 +1222,27 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
         [v20 setDurationPartialDispOn:0];
         [v20 setDurationPartialDispOff:0];
         [v20 setCycleCountKey:0];
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
         v66 = 0u;
-        v57 = v19;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v56 = v19;
         v29 = v19;
-        v30 = [v29 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v64 objects:v69 count:16];
         if (v30)
         {
           v31 = v30;
-          v32 = *v66;
+          v32 = *v65;
           do
           {
             for (i = 0; i != v31; ++i)
             {
-              if (*v66 != v32)
+              if (*v65 != v32)
               {
                 objc_enumerationMutation(v29);
               }
 
-              v34 = *(*(&v65 + 1) + 8 * i);
+              v34 = *(*(&v64 + 1) + 8 * i);
               v35 = [v34 objectForKeyedSubscript:@"BatteryMetricsKey"];
               v36 = [v34 objectForKeyedSubscript:@"BatteryMetricsValue"];
               [v36 doubleValue];
@@ -1290,7 +1284,7 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
               }
             }
 
-            v31 = [v29 countByEnumeratingWithState:&v65 objects:v70 count:16];
+            v31 = [v29 countByEnumeratingWithState:&v64 objects:v69 count:16];
           }
 
           while (v31);
@@ -1311,19 +1305,19 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
         }
 
         [(PLAWDBattery *)self setBatterySubmitCnt:[(PLAWDBattery *)self batterySubmitCnt]+ 1];
-        v19 = v57;
-        v8 = v63;
+        v19 = v56;
+        v8 = v62;
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v46 = objc_opt_class();
-          v64[0] = MEMORY[0x277D85DD0];
-          v64[1] = 3221225472;
-          v64[2] = __50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke_173;
-          v64[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v64[4] = v46;
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke_173;
+          v63[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v63[4] = v46;
           if (submitDataToAWDServer_withAwdConn__defaultOnce_171 != -1)
           {
-            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_171, v64);
+            dispatch_once(&submitDataToAWDServer_withAwdConn__defaultOnce_171, v63);
           }
 
           if (submitDataToAWDServer_withAwdConn__classDebugEnabled_172 == 1)
@@ -1341,16 +1335,16 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
               [PLAWDDisplay startMetricCollection:];
             }
 
-            v8 = v63;
-            v19 = v57;
+            v8 = v62;
+            v19 = v56;
           }
         }
 
         [v8 setMetric:v20];
 
-        connCopy = v56;
-        v18 = v59;
-        v15 = v61;
+        connCopy = v55;
+        v18 = v58;
+        v15 = v60;
       }
     }
 
@@ -1363,18 +1357,17 @@ uint64_t __36__PLAWDBattery_finalizeBatteryTable__block_invoke_160(uint64_t a1)
     v53 = 0;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v53;
 }
 
-uint64_t __50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke_173(uint64_t a1)
+void *__50__PLAWDBattery_submitDataToAWDServer_withAwdConn___block_invoke_173(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_172 = result;

@@ -11,6 +11,7 @@
 - (void)_addAccessory:(id)accessory activateTimer:(BOOL)timer;
 - (void)_removeAccessory:(id)accessory activateTimer:(BOOL)timer;
 - (void)_transmitAfter:(double)after;
+- (void)_transmitStatus:(BOOL)status;
 - (void)timerDidFire:(id)fire;
 @end
 
@@ -32,7 +33,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   owner = [(HMDResidentMeshResidentStorage *)self owner];
   v6 = owner;
@@ -51,9 +52,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v12;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Transmit timer fired; sending status update", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v12;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Transmit timer fired; sending status update", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -69,15 +70,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Resident mesh owner reference is nil", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Resident mesh owner reference is nil", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -90,9 +89,193 @@
   return uUIDString;
 }
 
+- (void)_transmitStatus:(BOOL)status
+{
+  statusCopy = status;
+  v49 = *MEMORY[0x277D85DE8];
+  owner = [(HMDResidentMeshResidentStorage *)self owner];
+  v6 = owner;
+  if (owner)
+  {
+    workQueue = [owner workQueue];
+    dispatch_assert_queue_V2(workQueue);
+
+    residentDevice = [(HMDResidentMeshResidentStorage *)self residentDevice];
+    resident = [v6 resident];
+    v10 = objc_autoreleasePoolPush();
+    v11 = v6;
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = HMFGetLogIdentifier();
+      v14 = HMFBooleanToString();
+      *buf = 138543618;
+      v46 = v13;
+      v47 = 2112;
+      v48 = v14;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Sending status update with force: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    [(HMDResidentMeshResidentStorage *)self setTransmitTimer:0];
+    if (![(HMDResidentMeshResidentStorage *)self _residentDidChange]&& !statusCopy)
+    {
+      v15 = objc_autoreleasePoolPush();
+      v16 = v11;
+      v17 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        v18 = HMFGetLogIdentifier();
+        device = [residentDevice device];
+        shortDescription = [device shortDescription];
+        *buf = 138543618;
+        v46 = v18;
+        v47 = 2112;
+        v48 = shortDescription;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Not sending status update (metrics for %@ did not change and not forced)", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v15);
+      goto LABEL_26;
+    }
+
+    v25 = [v11 _meshStorageForResidentDevice:residentDevice];
+    v26 = v25;
+    if (v25)
+    {
+      if ([v25 enabled])
+      {
+        residentDevice2 = [resident residentDevice];
+        v28 = [residentDevice isEqual:residentDevice2];
+
+        if (v28)
+        {
+          v29 = objc_autoreleasePoolPush();
+          v30 = v11;
+          v31 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          {
+            v32 = HMFGetLogIdentifier();
+            device2 = [residentDevice device];
+            shortDescription2 = [device2 shortDescription];
+            *buf = 138543618;
+            v46 = v32;
+            v47 = 2114;
+            v48 = shortDescription2;
+            v35 = "%{public}@Not sending status update (%{public}@ is ourself)";
+LABEL_19:
+            _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, v35, buf, 0x16u);
+LABEL_22:
+
+LABEL_23:
+          }
+        }
+
+        else
+        {
+          if (resident)
+          {
+            metrics = [(HMDResidentMeshResidentStorage *)self metrics];
+            [(HMDResidentMeshResidentStorage *)self setLastSentMetrics:metrics];
+
+            accessoryUUIDs = [(HMDResidentMeshResidentStorage *)self accessoryUUIDs];
+            [(HMDResidentMeshResidentStorage *)self setLastSentAccessoryUUIDs:accessoryUUIDs];
+
+            _buildPayload = [(HMDResidentMeshResidentStorage *)self _buildPayload];
+            v41[0] = MEMORY[0x277D85DD0];
+            v41[1] = 3221225472;
+            v41[2] = __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke;
+            v41[3] = &unk_279730A88;
+            v42 = v11;
+            v43 = residentDevice;
+            v44 = v26;
+            [v42 _sendMessage:@"kDeviceMeshUpdateKey" payload:_buildPayload target:v43 force:statusCopy responseHandler:v41];
+
+            goto LABEL_25;
+          }
+
+          v29 = objc_autoreleasePoolPush();
+          v30 = v11;
+          v31 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          {
+            v32 = HMFGetLogIdentifier();
+            *buf = 138543362;
+            v46 = v32;
+            _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Not sending status update (our resident device identifier is not set (probably unaccessible))", buf, 0xCu);
+            goto LABEL_23;
+          }
+        }
+      }
+
+      else
+      {
+        v29 = objc_autoreleasePoolPush();
+        v30 = v11;
+        v31 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        {
+          v32 = HMFGetLogIdentifier();
+          device2 = [v26 residentDevice];
+          shortDescription2 = [device2 device];
+          [shortDescription2 shortDescription];
+          v36 = v40 = v29;
+          *buf = 138543618;
+          v46 = v32;
+          v47 = 2114;
+          v48 = v36;
+          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Not sending status update (%{public}@ is not enabled)", buf, 0x16u);
+
+          v29 = v40;
+          goto LABEL_22;
+        }
+      }
+    }
+
+    else
+    {
+      v29 = objc_autoreleasePoolPush();
+      v30 = v11;
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      {
+        v32 = HMFGetLogIdentifier();
+        device2 = [residentDevice device];
+        shortDescription2 = [device2 shortDescription];
+        *buf = 138543618;
+        v46 = v32;
+        v47 = 2112;
+        v48 = shortDescription2;
+        v35 = "%{public}@Not sending status update (have not heard about %@ from device manager)";
+        goto LABEL_19;
+      }
+    }
+
+    objc_autoreleasePoolPop(v29);
+LABEL_25:
+
+LABEL_26:
+    goto LABEL_27;
+  }
+
+  v21 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v23 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  {
+    v24 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v46 = v24;
+    _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Resident mesh owner reference is nil", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v21);
+LABEL_27:
+}
+
 void __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke(id *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -106,13 +289,13 @@ void __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke(id *a1,
       v11 = HMFGetLogIdentifier();
       v12 = [a1[5] device];
       v13 = [v12 shortDescription];
-      v15 = 138543874;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to send status update to %{public}@: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to send status update to %{public}@: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -122,82 +305,78 @@ void __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke(id *a1,
   {
     [a1[6] setEnabled:{objc_msgSend(v6, "hmf_BOOLForKey:", @"kMeshDeviceStorageEnabled"}];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_buildPayload
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   owner = [(HMDResidentMeshResidentStorage *)self owner];
   resident = [owner resident];
   array = [MEMORY[0x277CBEB18] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   accessoryUUIDs = [resident accessoryUUIDs];
-  v6 = [accessoryUUIDs countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v6 = [accessoryUUIDs countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(accessoryUUIDs);
         }
 
-        uUIDString = [*(*(&v28 + 1) + 8 * i) UUIDString];
+        uUIDString = [*(*(&v27 + 1) + 8 * i) UUIDString];
         [array addObject:uUIDString];
       }
 
-      v7 = [accessoryUUIDs countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [accessoryUUIDs countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  v33[0] = &unk_286628C78;
-  v32[0] = @"kMeshVersion";
-  v32[1] = @"kMeshDeviceStorageGenerationCount";
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(resident, "generationCount")}];
-  v33[1] = v26;
-  v32[2] = @"kMeshDevice";
+  v32[0] = &unk_286628C78;
+  v31[0] = @"kMeshVersion";
+  v31[1] = @"kMeshDeviceStorageGenerationCount";
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(resident, "generationCount")}];
+  v32[1] = v25;
+  v31[2] = @"kMeshDevice";
   residentDevice = [resident residentDevice];
   device = [residentDevice device];
   [device identifier];
   v11 = resident;
-  v12 = v24 = resident;
+  v12 = v23 = resident;
   uUIDString2 = [v12 UUIDString];
-  v33[2] = uUIDString2;
-  v32[3] = @"kMeshDeviceStorageEnabled";
+  v32[2] = uUIDString2;
+  v31[3] = @"kMeshDeviceStorageEnabled";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v11, "enabled")}];
-  v33[3] = v14;
-  v32[4] = @"kMeshDeviceStorageAcccessories";
-  v15 = [array copy];
-  v33[4] = v15;
-  v32[5] = @"kMeshDeviceStorageAccessoriesWithLinkQuality";
+  v32[3] = v14;
+  v31[4] = @"kMeshDeviceStorageAcccessories";
+  v15 = objc_msgSend_copy(array);
+  v32[4] = v15;
+  v31[5] = @"kMeshDeviceStorageAccessoriesWithLinkQuality";
   accessoryListWithLinkQuality = [(HMDResidentMeshResidentStorage *)self accessoryListWithLinkQuality];
-  v17 = [accessoryListWithLinkQuality copy];
-  v33[5] = v17;
-  v32[6] = @"kMeshDeviceStorageSystemLoad";
+  v17 = objc_msgSend_copy(accessoryListWithLinkQuality);
+  v32[5] = v17;
+  v31[6] = @"kMeshDeviceStorageSystemLoad";
   loadMetrics = [owner loadMetrics];
-  v19 = [loadMetrics copy];
-  v33[6] = v19;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:7];
+  v19 = objc_msgSend_copy(loadMetrics);
+  v32[6] = v19;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:7];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (void)_transmitAfter:(double)after
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   owner = [(HMDResidentMeshResidentStorage *)self owner];
   if (!owner)
   {
@@ -207,9 +386,9 @@ void __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke(id *a1,
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot transmit after delay because owner reference is nil", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot transmit after delay because owner reference is nil", &v31, 0xCu);
     }
 
     v11 = v12;
@@ -226,9 +405,9 @@ void __50__HMDResidentMeshResidentStorage__transmitStatus___block_invoke(id *a1,
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Not scheduling transmit timer because one already exists", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Not scheduling transmit timer because one already exists", &v31, 0xCu);
     }
 
     v11 = v7;
@@ -247,9 +426,9 @@ LABEL_16:
     if (v20)
     {
       v30 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v30;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Not scheduling transmit timer because metrics didn't change", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v30;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Not scheduling transmit timer because metrics didn't change", &v31, 0xCu);
     }
 
     v11 = v17;
@@ -262,13 +441,13 @@ LABEL_16:
     residentDevice = [(HMDResidentMeshResidentStorage *)self residentDevice];
     device = [residentDevice device];
     shortDescription = [device shortDescription];
-    v32 = 138543874;
-    v33 = v21;
-    v34 = 2114;
-    v35 = shortDescription;
-    v36 = 2048;
+    v31 = 138543874;
+    v32 = v21;
+    v33 = 2114;
+    v34 = shortDescription;
+    v35 = 2048;
     afterCopy = after;
-    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Starting transmit timer for %{public}@ for %fs", &v32, 0x20u);
+    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Starting transmit timer for %{public}@ for %fs", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v17);
@@ -286,7 +465,6 @@ LABEL_16:
   [transmitTimer4 resume];
 
 LABEL_17:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_residentDidChange
@@ -311,7 +489,7 @@ LABEL_17:
 - (void)_removeAccessory:(id)accessory activateTimer:(BOOL)timer
 {
   timerCopy = timer;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   identifier = [accessoryCopy identifier];
 
@@ -331,9 +509,9 @@ LABEL_17:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v13;
-      v39 = 2112;
-      v40 = accessoryCopy;
+      v37 = v13;
+      v38 = 2112;
+      v39 = accessoryCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory: %@ with nil identifier sent to remove", buf, 0x16u);
     }
 
@@ -352,13 +530,13 @@ LABEL_17:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v20 = v36 = timerCopy;
+      v20 = v35 = timerCopy;
       owner2 = [(HMDResidentMeshResidentStorage *)self owner];
       resident = [owner2 resident];
       residentDevice = [resident residentDevice];
       device = [residentDevice device];
       [device shortDescription];
-      v21 = v35 = v17;
+      v21 = v34 = v17;
       uuid2 = [accessoryCopy uuid];
       residentDevice2 = [(HMDResidentMeshResidentStorage *)self residentDevice];
       device2 = [residentDevice2 device];
@@ -366,24 +544,24 @@ LABEL_17:
       v26 = shortDescription;
       *buf = 138544386;
       v27 = "NO";
-      v38 = v20;
-      if (v36)
+      v37 = v20;
+      if (v35)
       {
         v27 = "YES";
       }
 
-      v39 = 2114;
-      v40 = v21;
-      v41 = 2114;
-      v42 = uuid2;
-      v43 = 2114;
-      v44 = shortDescription;
-      v45 = 2080;
-      v46 = v27;
+      v38 = 2114;
+      v39 = v21;
+      v40 = 2114;
+      v41 = uuid2;
+      v42 = 2114;
+      v43 = shortDescription;
+      v44 = 2080;
+      v45 = v27;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Removing connectivity from %{public}@ to %{public}@ for %{public}@ (activateTimer=%s)", buf, 0x34u);
 
-      v17 = v35;
-      timerCopy = v36;
+      v17 = v34;
+      timerCopy = v35;
     }
 
     objc_autoreleasePoolPop(v17);
@@ -396,14 +574,12 @@ LABEL_17:
       [(HMDResidentMeshResidentStorage *)self _transmitAfter:10.0];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAccessory:(id)accessory activateTimer:(BOOL)timer
 {
   timerCopy = timer;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   uuid = [accessoryCopy uuid];
   owner = [(HMDResidentMeshResidentStorage *)self owner];
@@ -416,9 +592,9 @@ LABEL_17:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v12;
-      v41 = 2112;
-      v42 = accessoryCopy;
+      v39 = v12;
+      v40 = 2112;
+      v41 = accessoryCopy;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Adding accessory to mesh: %@", buf, 0x16u);
     }
 
@@ -453,13 +629,13 @@ LABEL_17:
 
     if ((v21 & 1) == 0 && ![(HMDResidentMeshResidentStorage *)selfCopy _testCanSkipReachabilityUpdateForAccessory:v13])
     {
-      v38 = timerCopy;
+      v37 = timerCopy;
       v22 = objc_autoreleasePoolPush();
       owner2 = [(HMDResidentMeshResidentStorage *)selfCopy owner];
       v24 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v37 = HMFGetLogIdentifier();
+        v36 = HMFGetLogIdentifier();
         owner3 = [(HMDResidentMeshResidentStorage *)selfCopy owner];
         resident = [owner3 resident];
         residentDevice = [resident residentDevice];
@@ -468,28 +644,28 @@ LABEL_17:
         residentDevice2 = [(HMDResidentMeshResidentStorage *)selfCopy residentDevice];
         device2 = [residentDevice2 device];
         [device2 shortDescription];
-        v26 = v36 = v22;
-        v30 = HMFBooleanToString();
+        v26 = v35 = v22;
+        v29 = HMFBooleanToString();
         *buf = 138544386;
-        v40 = v37;
-        v41 = 2114;
-        v42 = shortDescription;
-        v43 = 2114;
-        v44 = uuid;
-        v45 = 2114;
-        v46 = v26;
-        v47 = 2112;
-        v48 = v30;
+        v39 = v36;
+        v40 = 2114;
+        v41 = shortDescription;
+        v42 = 2114;
+        v43 = uuid;
+        v44 = 2114;
+        v45 = v26;
+        v46 = 2112;
+        v47 = v29;
         _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Adding connectivity from %{public}@ to %{public}@ for %{public}@ (activateTimer=%@)", buf, 0x34u);
 
-        v22 = v36;
+        v22 = v35;
       }
 
       objc_autoreleasePoolPop(v22);
       accessoryUUIDs2 = [(HMDResidentMeshResidentStorage *)selfCopy accessoryUUIDs];
       [accessoryUUIDs2 addObject:uuid];
 
-      if (v38 || v17)
+      if (v37 || v17)
       {
         [(HMDResidentMeshResidentStorage *)selfCopy _transmitAfter:10.0];
       }
@@ -503,14 +679,12 @@ LABEL_17:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v19;
+      v39 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@[HMDResidentMesh] Owner of Resident Device node disappeared out from under us.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_testCanSkipReachabilityUpdateForAccessory:(id)accessory
@@ -654,12 +828,11 @@ LABEL_7:
 
 uint64_t __45__HMDResidentMeshResidentStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24_106820;
-  logCategory__hmf_once_v24_106820 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24_106820;
+  logCategory__hmf_once_v24_106820 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

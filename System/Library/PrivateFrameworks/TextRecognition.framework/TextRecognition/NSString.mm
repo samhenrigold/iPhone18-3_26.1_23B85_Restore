@@ -1,5 +1,5 @@
 @interface NSString
-- (id)_crStringByAppendingString:(void *)string locale:(int)locale mergeHyphenatedWord:(char)word allowWhitespaceDelimiter:(uint64_t *)delimiter appendedStringRange:;
+- (id)_crStringByAppendingString:(void *)string locale:(int)locale mergeHyphenatedWord:(char)word allowWhitespaceDelimiter:(char *)delimiter appendedStringRange:;
 - (uint64_t)_codePointIsLatinCyrillicGreek:(__int16)greek;
 @end
 
@@ -134,7 +134,7 @@ id __52__NSString_CRDD___crDDFriendlyTextWithIndexMapping___block_invoke_8(uint6
 
 void __53__NSString_CRStringUtilities___crStartsWithUppercase__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [a2 characterAtIndex:0];
+  v9 = [a2 characterAtIndex:{0, a4, a5, a6}];
   v10 = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
   v11 = [v10 characterIsMember:v9];
 
@@ -149,7 +149,7 @@ void __53__NSString_CRStringUtilities___crStartsWithUppercase__block_invoke(uint
 
 void __53__NSString_CRStringUtilities___crStartsWithLowercase__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [a2 characterAtIndex:0];
+  v9 = [a2 characterAtIndex:{0, a4, a5, a6}];
   v10 = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
   v11 = [v10 characterIsMember:v9];
 
@@ -162,7 +162,7 @@ void __53__NSString_CRStringUtilities___crStartsWithLowercase__block_invoke(uint
   }
 }
 
-- (id)_crStringByAppendingString:(void *)string locale:(int)locale mergeHyphenatedWord:(char)word allowWhitespaceDelimiter:(uint64_t *)delimiter appendedStringRange:
+- (id)_crStringByAppendingString:(void *)string locale:(int)locale mergeHyphenatedWord:(char)word allowWhitespaceDelimiter:(char *)delimiter appendedStringRange:
 {
   v11 = a2;
   stringCopy = string;
@@ -325,7 +325,7 @@ LABEL_10:
   if (delimiter)
   {
     v38 = [selfCopy2 length];
-    v39 = [(__CFString *)v23 length]+ v38;
+    v39 = ([(__CFString *)v23 length]+ v38);
     v40 = [v11 length];
     *delimiter = v39;
     delimiter[1] = v40;

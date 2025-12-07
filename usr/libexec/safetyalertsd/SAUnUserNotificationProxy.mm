@@ -1023,17 +1023,12 @@ LABEL_136:
       {
         v52 = v51;
 
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
-        v122 = 0u;
+        memset(v121, 0, sizeof(v121));
         obj = v52;
-        if ([obj countByEnumeratingWithState:&v121 objects:v149 count:16])
+        if ([obj countByEnumeratingWithState:v121 objects:v146 count:16])
         {
-          *v122;
-          *v122;
-          v53 = **(&v121 + 1);
-          v54 = [**(&v121 + 1) objectAtIndexedSubscript:0];
+          v53 = **(&v121[0] + 1);
+          v54 = [**(&v121[0] + 1) objectAtIndexedSubscript:0];
           [v54 doubleValue];
           v56 = v55;
 
@@ -1059,15 +1054,15 @@ LABEL_136:
         if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68289795;
-          v143 = 0;
-          v144 = 2082;
-          v145 = "";
-          v146 = 2049;
-          *v147 = v28;
-          *&v147[8] = 2049;
-          *&v147[10] = v32;
-          *&v147[18] = 2049;
-          *&v147[20] = v48;
+          v140 = 0;
+          v141 = 2082;
+          v142 = "";
+          v143 = 2049;
+          *v144 = v28;
+          *&v144[8] = 2049;
+          *&v144[10] = v32;
+          *&v144[18] = 2049;
+          *&v144[20] = v48;
           _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,invalidEpicenterInfo, epiLat:%{private}0.1f, epiLon:%{private}0.1f, radius:%{private}0.1f}", buf, 0x30u);
         }
       }
@@ -1098,14 +1093,14 @@ LABEL_136:
 
         v71 = v68 * v69;
         buf[0] = 0;
-        v143 = -1;
-        *&v147[4] = 0x40C5180000000000;
-        *&v147[12] = 0u;
-        memset(v148, 0, 28);
+        v140 = -1;
+        *&v144[4] = 0x40C5180000000000;
+        *&v144[12] = 0u;
+        memset(v145, 0, 28);
         v72 = sub_10008E020();
         sub_10009019C(v72, buf);
-        v74 = *&v147[12];
-        if (*&v147[12] == *&v147[20])
+        v74 = *&v144[12];
+        if (*&v144[12] == *&v144[20])
         {
           v75 = -1.0;
         }
@@ -1133,7 +1128,7 @@ LABEL_136:
             ++v74;
           }
 
-          while (v74 != *&v147[20]);
+          while (v74 != *&v144[20]);
         }
 
         if (v75 > 0.0)
@@ -1156,13 +1151,13 @@ LABEL_136:
           v77 = SALogObjectGeneral;
           if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
           {
-            *v125 = 68289283;
-            v126 = 0;
-            v127 = 2082;
-            v128 = "";
-            v129 = 1025;
-            LODWORD(v130) = intValue3;
-            _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postIgneousRichNotification, alertInterface:%{private}d}", v125, 0x18u);
+            *v122 = 68289283;
+            v123 = 0;
+            v124 = 2082;
+            v125 = "";
+            v126 = 1025;
+            LODWORD(v127) = intValue3;
+            _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postIgneousRichNotification, alertInterface:%{private}d}", v122, 0x18u);
           }
         }
 
@@ -1203,17 +1198,17 @@ LABEL_136:
         v89 = SALogObjectGeneral;
         if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
         {
-          *v125 = 68289283;
-          v126 = 0;
-          v127 = 2082;
-          v128 = "";
-          v129 = 1025;
-          LODWORD(v130) = v88;
-          _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,mapDisplay, enabled:%{private}hhd}", v125, 0x18u);
+          *v122 = 68289283;
+          v123 = 0;
+          v124 = 2082;
+          v125 = "";
+          v126 = 1025;
+          LODWORD(v127) = v88;
+          _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,mapDisplay, enabled:%{private}hhd}", v122, 0x18u);
         }
 
-        v131 = [NSString stringWithUTF8String:"title"];
-        v108 = v131;
+        v128 = [NSString stringWithUTF8String:"title"];
+        v108 = v128;
         if (v76)
         {
           v90 = [v118 stringByAppendingString:v76];
@@ -1224,41 +1219,41 @@ LABEL_136:
           v90 = v118;
         }
 
-        v141[0] = v90;
+        v138[0] = v90;
         v109 = v76;
-        v132 = [NSString stringWithUTF8String:"body", v90];
-        v141[1] = v117;
-        v103 = v132;
+        v129 = [NSString stringWithUTF8String:"body", v90];
+        v138[1] = v117;
+        v103 = v129;
         v107 = [NSString stringWithUTF8String:"isSilent"];
-        v133 = v107;
-        v141[2] = v114;
+        v130 = v107;
+        v138[2] = v114;
         v106 = [NSString stringWithUTF8String:"isExtended"];
-        v134 = v106;
+        v131 = v106;
         v105 = [NSNumber numberWithBool:v88];
-        v141[3] = v105;
+        v138[3] = v105;
         v104 = [NSString stringWithUTF8String:"toneFile"];
-        v135 = v104;
-        v141[4] = v115;
+        v132 = v104;
+        v138[4] = v115;
         v102 = [NSString stringWithUTF8String:"userInfo"];
-        v136 = v102;
-        v141[5] = v78;
+        v133 = v102;
+        v138[5] = v78;
         v101 = [NSString stringWithUTF8String:"serverTs"];
-        v137 = v101;
+        v134 = v101;
         v100 = [NSNumber numberWithDouble:v18];
-        v141[6] = v100;
+        v138[6] = v100;
         v91 = [NSString stringWithUTF8String:"interface"];
-        v138 = v91;
+        v135 = v91;
         v92 = [NSNumber numberWithInt:intValue3];
-        v141[7] = v92;
+        v138[7] = v92;
         v93 = [NSString stringWithUTF8String:"isRelayed"];
-        v139 = v93;
+        v136 = v93;
         v94 = [NSNumber numberWithInt:v111];
-        v141[8] = v94;
+        v138[8] = v94;
         v95 = [NSString stringWithUTF8String:"level"];
-        v140 = v95;
+        v137 = v95;
         v96 = [NSNumber numberWithInt:v110];
-        v141[9] = v96;
-        v97 = [NSDictionary dictionaryWithObjects:v141 forKeys:&v131 count:10];
+        v138[9] = v96;
+        v97 = [NSDictionary dictionaryWithObjects:v138 forKeys:&v128 count:10];
 
         if (v109)
         {
@@ -1267,20 +1262,20 @@ LABEL_136:
         v98 = SALogObjectGeneral;
         if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
         {
-          *v125 = 68289283;
-          v126 = 0;
-          v127 = 2082;
-          v128 = "";
-          v129 = 2117;
-          v130 = v97;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,contentInfo, notifDetails:%{sensitive, location:escape_only}@}", v125, 0x1Cu);
+          *v122 = 68289283;
+          v123 = 0;
+          v124 = 2082;
+          v125 = "";
+          v126 = 2117;
+          v127 = v97;
+          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,contentInfo, notifDetails:%{sensitive, location:escape_only}@}", v122, 0x1Cu);
         }
 
         [(SAUnUserNotificationProxy *)self postNotification:v97];
-        if (*&v147[12])
+        if (*&v144[12])
         {
-          *&v147[20] = *&v147[12];
-          operator delete(*&v147[12]);
+          *&v144[20] = *&v144[12];
+          operator delete(*&v144[12]);
         }
       }
     }
@@ -1291,21 +1286,21 @@ LABEL_136:
       if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68290563;
-        v143 = 0;
-        v144 = 2082;
-        v145 = "";
-        v146 = 2113;
-        *v147 = v118;
-        *&v147[8] = 2113;
-        *&v147[10] = v117;
-        *&v147[18] = 2113;
-        *&v147[20] = v116;
-        *v148 = 2113;
-        *&v148[2] = v115;
-        *&v148[10] = 2113;
-        *&v148[12] = v114;
-        *&v148[20] = 2113;
-        *&v148[22] = v113;
+        v140 = 0;
+        v141 = 2082;
+        v142 = "";
+        v143 = 2113;
+        *v144 = v118;
+        *&v144[8] = 2113;
+        *&v144[10] = v117;
+        *&v144[18] = 2113;
+        *&v144[20] = v116;
+        *v145 = 2113;
+        *&v145[2] = v115;
+        *&v145[10] = 2113;
+        *&v145[12] = v114;
+        *&v145[20] = 2113;
+        *&v145[22] = v113;
         _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,postNotification,invalidContent, title:%{private, location:escape_only}@, body:%{private, location:escape_only}@, attribution:%{private, location:escape_only}@, tone:%{private, location:escape_only}@, isSilent:%{private, location:escape_only}@, uid:%{private, location:escape_only}@}", buf, 0x4Eu);
       }
     }
@@ -1317,9 +1312,9 @@ LABEL_136:
     if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
-      v143 = 0;
-      v144 = 2082;
-      v145 = "";
+      v140 = 0;
+      v141 = 2082;
+      v142 = "";
       _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#notif,#warning,postIgneousRichNotification,invalidArgs}", buf, 0x12u);
     }
   }

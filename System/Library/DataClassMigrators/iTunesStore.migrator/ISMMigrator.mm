@@ -71,16 +71,14 @@
     *(&v194 + 2) = didRestoreFromCloudBackup;
     HIWORD(v194) = 1024;
     v195 = didUpgrade;
-    LODWORD(v181) = 36;
-    v170 = buf;
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: didMigrateBackupFromDifferentDevice = %d | didRestoreFromBackup = %d | didRestoreFromCloudBackup = %d | didUpgrade = %d", buf, 36);
 
     if (!v13)
     {
       goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v13 encoding:4, buf, v181];
+    oSLogObject = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     v170 = oSLogObject;
     SSFileLog();
@@ -121,15 +119,14 @@ LABEL_13:
       *buf = 138543362;
       v191 = v73;
       LODWORD(v181) = 12;
-      v175 = buf;
-      v74 = _os_log_send_and_compose_impl();
+      v74 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &dword_0, oSLogObject2, 0, "[%{public}@] - Biometrics: Not an OS upgrade, setting AMS biometric state to ENABLED", buf, v181);
 
       if (!v74)
       {
         goto LABEL_105;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v74 encoding:4, buf, v181];
+      oSLogObject2 = [NSString stringWithCString:v74 encoding:4];
       free(v74);
       v175 = oSLogObject2;
       SSFileLog();
@@ -167,15 +164,14 @@ LABEL_105:
       *buf = 138543362;
       v191 = v79;
       LODWORD(v181) = 12;
-      v176 = buf;
-      v80 = _os_log_send_and_compose_impl();
+      v80 = _os_log_send_and_compose_impl(v78, 0, 0, 0, &dword_0, oSLogObject3, 0, "[%{public}@] - Biometrics: Not an OS upgrade, setting Legacy biometric state to ENABLED", buf, v181);
 
       if (!v80)
       {
         goto LABEL_116;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v80 encoding:4, buf, v181];
+      oSLogObject3 = [NSString stringWithCString:v80 encoding:4];
       free(v80);
       v176 = oSLogObject3;
       SSFileLog();
@@ -212,8 +208,7 @@ LABEL_116:
       *buf = 138543362;
       v191 = v85;
       LODWORD(v181) = 12;
-      v174 = buf;
-      v86 = _os_log_send_and_compose_impl();
+      v86 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &dword_0, oSLogObject4, 0, "[%{public}@] - Biometrics: Not an OS upgrade, setting Legacy biometric state enabled to ENABLED", buf, v181);
 
       if (!v86)
       {
@@ -227,7 +222,7 @@ LABEL_128:
         goto LABEL_129;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v86 encoding:4, buf, v181];
+      oSLogObject4 = [NSString stringWithCString:v86 encoding:4];
       free(v86);
       v174 = oSLogObject4;
       SSFileLog();
@@ -274,15 +269,14 @@ LABEL_128:
     v192 = 2112;
     *v193 = v22;
     LODWORD(v181) = 22;
-    v171 = buf;
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_0, oSLogObject5, 0, "[%{public}@] - Biometrics: Found AMS biometric state: %@", buf, v181);
 
     if (!v23)
     {
       goto LABEL_26;
     }
 
-    oSLogObject5 = [NSString stringWithCString:v23 encoding:4, buf, v181];
+    oSLogObject5 = [NSString stringWithCString:v23 encoding:4];
     free(v23);
     v171 = oSLogObject5;
     SSFileLog();
@@ -327,15 +321,14 @@ LABEL_26:
     v192 = 2112;
     *v193 = v31;
     LODWORD(v181) = 22;
-    v172 = buf;
-    v32 = _os_log_send_and_compose_impl();
+    v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_0, oSLogObject6, 0, "[%{public}@] - Biometrics: Found Legacy biometric state: %@", buf, v181);
 
     if (!v32)
     {
       goto LABEL_38;
     }
 
-    oSLogObject6 = [NSString stringWithCString:v32 encoding:4, buf, v181];
+    oSLogObject6 = [NSString stringWithCString:v32 encoding:4];
     free(v32);
     v172 = oSLogObject6;
     SSFileLog();
@@ -380,15 +373,14 @@ LABEL_38:
     v192 = 2112;
     *v193 = v40;
     LODWORD(v181) = 22;
-    v173 = buf;
-    v41 = _os_log_send_and_compose_impl();
+    v41 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_0, oSLogObject7, 0, "[%{public}@] - Biometrics: Did migrate to AMS: %@", buf, v181);
 
     if (!v41)
     {
       goto LABEL_50;
     }
 
-    oSLogObject7 = [NSString stringWithCString:v41 encoding:4, buf, v181];
+    oSLogObject7 = [NSString stringWithCString:v41 encoding:4];
     free(v41);
     v173 = oSLogObject7;
     SSFileLog();
@@ -434,8 +426,7 @@ LABEL_50:
     v192 = 2114;
     *v193 = v52;
     LODWORD(v181) = 22;
-    v174 = buf;
-    v53 = _os_log_send_and_compose_impl();
+    v53 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &dword_0, oSLogObject8, 0, "[%{public}@] - Biometrics: OS upgrade, is major version update? %{public}@", buf, v181);
 
     AppIntegerValue = v51;
     v24 = v50;
@@ -449,7 +440,7 @@ LABEL_50:
       goto LABEL_61;
     }
 
-    oSLogObject8 = [NSString stringWithCString:v53 encoding:4, buf, v181];
+    oSLogObject8 = [NSString stringWithCString:v53 encoding:4];
     free(v53);
     v174 = oSLogObject8;
     SSFileLog();
@@ -487,8 +478,7 @@ LABEL_61:
       *buf = 138543362;
       v191 = v59;
       LODWORD(v181) = 12;
-      v174 = buf;
-      v60 = _os_log_send_and_compose_impl();
+      v60 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &dword_0, oSLogObject9, 0, "[%{public}@] - Biometrics: Major OS upgrade, setting Legacy biometric state to UNSET", buf, v181);
 
       if (!v60)
       {
@@ -498,7 +488,7 @@ LABEL_76:
         goto LABEL_77;
       }
 
-      oSLogObject9 = [NSString stringWithCString:v60 encoding:4, buf, v181];
+      oSLogObject9 = [NSString stringWithCString:v60 encoding:4];
       free(v60);
       v174 = oSLogObject9;
       SSFileLog();
@@ -549,8 +539,7 @@ LABEL_77:
       *buf = 138543362;
       v191 = v66;
       LODWORD(v181) = 12;
-      v174 = buf;
-      v67 = _os_log_send_and_compose_impl();
+      v67 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &dword_0, oSLogObject10, 0, "[%{public}@] - Biometrics: Major OS upgrade, migrating AMS biometric state to UNSET", buf, v181);
 
       if (!v67)
       {
@@ -563,7 +552,7 @@ LABEL_129:
         goto LABEL_130;
       }
 
-      oSLogObject10 = [NSString stringWithCString:v67 encoding:4, buf, v181];
+      oSLogObject10 = [NSString stringWithCString:v67 encoding:4];
       free(v67);
       v174 = oSLogObject10;
       SSFileLog();
@@ -620,8 +609,7 @@ LABEL_251:
         *&v193[8] = 2114;
         v194 = v168;
         LODWORD(v181) = 32;
-        v174 = buf;
-        v169 = _os_log_send_and_compose_impl();
+        v169 = _os_log_send_and_compose_impl(v165, 0, 0, 0, &dword_0, oSLogObject11, 0, "[%{public}@] - Biometrics: Migrating legacy StoreServices biometric state (%{public}@) to AMS biometric state (%{public}@)", buf, v181);
 
         if (!v169)
         {
@@ -634,7 +622,7 @@ LABEL_262:
           goto LABEL_128;
         }
 
-        oSLogObject11 = [NSString stringWithCString:v169 encoding:4, buf, v181];
+        oSLogObject11 = [NSString stringWithCString:v169 encoding:4];
         free(v169);
         v174 = oSLogObject11;
         SSFileLog();
@@ -747,8 +735,7 @@ LABEL_142:
       *buf = 138543362;
       v191 = v102;
       LODWORD(v181) = 12;
-      v177 = buf;
-      v103 = _os_log_send_and_compose_impl();
+      v103 = _os_log_send_and_compose_impl(v101, 0, 0, 0, &dword_0, oSLogObject12, 0, "[%{public}@]: Scheduling AppStore Migrator", buf, v181);
 
       if (!v103)
       {
@@ -766,7 +753,7 @@ LABEL_163:
         goto LABEL_176;
       }
 
-      oSLogObject12 = [NSString stringWithCString:v103 encoding:4, buf, v181];
+      oSLogObject12 = [NSString stringWithCString:v103 encoding:4];
       free(v103);
       v177 = oSLogObject12;
       SSFileLog();
@@ -806,12 +793,11 @@ LABEL_163:
   *buf = 138543362;
   v191 = v109;
   LODWORD(v181) = 12;
-  v177 = buf;
-  v110 = _os_log_send_and_compose_impl();
+  v110 = _os_log_send_and_compose_impl(v108, 0, 0, 0, &dword_0, oSLogObject13, 0, "[%{public}@]: Scheduling iTunes Migrator", buf, v181);
 
   if (v110)
   {
-    oSLogObject13 = [NSString stringWithCString:v110 encoding:4, buf, v181];
+    oSLogObject13 = [NSString stringWithCString:v110 encoding:4];
     free(v110);
     v177 = oSLogObject13;
     SSFileLog();
@@ -861,15 +847,14 @@ LABEL_176:
     *buf = 138543362;
     v191 = v115;
     LODWORD(v181) = 12;
-    v178 = buf;
-    v116 = _os_log_send_and_compose_impl();
+    v116 = _os_log_send_and_compose_impl(v114, 0, 0, 0, &dword_0, oSLogObject14, 0, "%{public}@: Repairing accounts BEFORE migrating accounts.", buf, v181);
 
     if (!v116)
     {
       goto LABEL_188;
     }
 
-    oSLogObject14 = [NSString stringWithCString:v116 encoding:4, buf, v181];
+    oSLogObject14 = [NSString stringWithCString:v116 encoding:4];
     free(v116);
     v178 = oSLogObject14;
     SSFileLog();
@@ -910,8 +895,7 @@ LABEL_188:
       *buf = 138543362;
       v191 = v128;
       LODWORD(v181) = 12;
-      v179 = buf;
-      v129 = _os_log_send_and_compose_impl();
+      v129 = _os_log_send_and_compose_impl(v127, 0, 0, 0, &dword_0, oSLogObject15, 0, "%{public}@: No accounts were migrated, so we won't do a second cleanup pass.", buf, v181);
 
       if (!v129)
       {
@@ -920,7 +904,7 @@ LABEL_212:
         goto LABEL_213;
       }
 
-      oSLogObject15 = [NSString stringWithCString:v129 encoding:4, buf, v181];
+      oSLogObject15 = [NSString stringWithCString:v129 encoding:4];
       free(v129);
       v179 = oSLogObject15;
       SSFileLog();
@@ -960,12 +944,11 @@ LABEL_212:
   *buf = 138543362;
   v191 = v123;
   LODWORD(v181) = 12;
-  v179 = buf;
-  v124 = _os_log_send_and_compose_impl();
+  v124 = _os_log_send_and_compose_impl(v122, 0, 0, 0, &dword_0, oSLogObject16, 0, "%{public}@: Repairing accounts AFTER migrating accounts.", buf, v181);
 
   if (v124)
   {
-    oSLogObject16 = [NSString stringWithCString:v124 encoding:4, buf, v181];
+    oSLogObject16 = [NSString stringWithCString:v124 encoding:4];
     free(v124);
     v179 = oSLogObject16;
     SSFileLog();
@@ -1005,15 +988,14 @@ LABEL_214:
     *buf = 138543362;
     v191 = v134;
     LODWORD(v181) = 12;
-    v180 = buf;
-    v135 = _os_log_send_and_compose_impl();
+    v135 = _os_log_send_and_compose_impl(v133, 0, 0, 0, &dword_0, oSLogObject17, 0, "%{public}@: Starting migration to iTunes Feature Enabler.", buf, v181);
 
     if (!v135)
     {
       goto LABEL_225;
     }
 
-    oSLogObject17 = [NSString stringWithCString:v135 encoding:4, buf, v181];
+    oSLogObject17 = [NSString stringWithCString:v135 encoding:4];
     free(v135);
     v180 = oSLogObject17;
     SSFileLog();
@@ -1169,65 +1151,68 @@ LABEL_225:
   shouldLog = [_logConfig shouldLog];
   if ([_logConfig shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [_logConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (v4)
   {
-    v27 = 138543362;
-    v28 = objc_opt_class();
-    v6 = v28;
-    LODWORD(v21) = 12;
-    v20 = &v27;
-    v7 = _os_log_send_and_compose_impl();
+    v26 = 138543362;
+    v27 = objc_opt_class();
+    v6 = v27;
+    v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Cleaning follow ups", &v26, 12);
 
     if (!v7)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v27, v21];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     v20 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v8 = objc_alloc_init(AMSFollowUp);
   pendingFollowUps = [v8 pendingFollowUps];
   v10 = [pendingFollowUps resultWithError:0];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         identifier = [v16 identifier];
         v18 = [identifier hasSuffix:@"(null)"];
 
@@ -1237,7 +1222,7 @@ LABEL_12:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -1260,41 +1245,44 @@ LABEL_12:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      LODWORD(v48) = 138543362;
-      *(&v48 + 4) = objc_opt_class();
-      v17 = *(&v48 + 4);
-      LODWORD(v47) = 12;
-      v46 = &v48;
-      v18 = _os_log_send_and_compose_impl();
+      v50 = 138543362;
+      v51 = objc_opt_class();
+      v17 = v51;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Checking to see if we need to enable automatic downloads for audiobooks.", &v50, 12);
 
       if (!v18)
       {
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, &v48, v47, v48];
+      oSLogObject = [NSString stringWithCString:v18 encoding:4];
       free(v18);
-      v46 = oSLogObject;
+      v48 = oSLogObject;
       SSFileLog();
     }
 
-LABEL_25:
+LABEL_27:
     if (!accountCopy)
     {
       v13 = +[SSLogConfig sharedAccountsMigrationConfig];
@@ -1306,40 +1294,45 @@ LABEL_25:
       shouldLog2 = [v13 shouldLog];
       if ([v13 shouldLogToDisk])
       {
-        v30 = shouldLog2 | 2;
+        LODWORD(v33) = shouldLog2 | 2;
       }
 
       else
       {
-        v30 = shouldLog2;
+        LODWORD(v33) = shouldLog2;
       }
 
       oSLogObject2 = [v13 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v30 &= 2u;
+        v33 = v33;
       }
 
-      if (v30)
+      else
       {
-        v31 = objc_opt_class();
-        LODWORD(v48) = 138543362;
-        *(&v48 + 4) = v31;
-        v32 = v31;
-        LODWORD(v47) = 12;
-        v33 = _os_log_send_and_compose_impl();
+        v33 &= 2u;
+      }
 
-        if (!v33)
+      if (v33)
+      {
+        v34 = objc_opt_class();
+        v50 = 138543362;
+        v51 = v34;
+        v35 = v34;
+        LODWORD(v49) = 12;
+        v36 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: There's no active account. Skipping enabling automatic downloads.", &v50, v49);
+
+        if (!v36)
         {
-          goto LABEL_72;
+          goto LABEL_79;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v33 encoding:4, &v48, v47];
-        free(v33);
+        oSLogObject2 = [NSString stringWithCString:v36 encoding:4];
+        free(v36);
         SSFileLog();
       }
 
-      goto LABEL_71;
+      goto LABEL_78;
     }
 
     v19 = [accountCopy accountPropertyForKey:SSAccountPropertyAutomaticDownloadKinds];
@@ -1351,7 +1344,7 @@ LABEL_25:
     v22 = SSDownloadKindAudiobook;
     if (!v21 || ([v13 containsObject:SSDownloadKindAudiobook] & 1) != 0)
     {
-      v23 = [v13 containsObject:{v22, v46}];
+      v23 = [v13 containsObject:{v22, v48}];
       _logConfig2 = [objc_opt_class() _logConfig];
       oSLogObject2 = _logConfig2;
       if (v23)
@@ -1364,24 +1357,36 @@ LABEL_25:
         shouldLog3 = [oSLogObject2 shouldLog];
         if ([oSLogObject2 shouldLogToDisk])
         {
-          v27 = shouldLog3 | 2;
+          LODWORD(v27) = shouldLog3 | 2;
         }
 
         else
         {
-          v27 = shouldLog3;
+          LODWORD(v27) = shouldLog3;
         }
 
         v25OSLogObject = [oSLogObject2 OSLogObject];
-        if (!os_log_type_enabled(v25OSLogObject, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v25OSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v27 = v27;
+        }
+
+        else
         {
           v27 &= 2u;
         }
 
         if (!v27)
         {
-          goto LABEL_70;
+          goto LABEL_77;
         }
+
+        v29 = objc_opt_class();
+        v50 = 138543362;
+        v51 = v29;
+        v30 = v29;
+        LODWORD(v49) = 12;
+        v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_0, v25OSLogObject, 0, "%{public}@: Automatic downloads for audiobooks are already enabled.", &v50, v49);
       }
 
       else
@@ -1394,44 +1399,51 @@ LABEL_25:
         shouldLog4 = [oSLogObject2 shouldLog];
         if ([oSLogObject2 shouldLogToDisk])
         {
-          v35 = shouldLog4 | 2;
+          LODWORD(v38) = shouldLog4 | 2;
         }
 
         else
         {
-          v35 = shouldLog4;
+          LODWORD(v38) = shouldLog4;
         }
 
         v25OSLogObject = [oSLogObject2 OSLogObject];
-        if (!os_log_type_enabled(v25OSLogObject, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v25OSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v35 &= 2u;
+          v38 = v38;
         }
 
-        if (!v35)
+        else
         {
-          goto LABEL_70;
+          v38 &= 2u;
         }
+
+        if (!v38)
+        {
+          goto LABEL_77;
+        }
+
+        v39 = objc_opt_class();
+        v50 = 138543362;
+        v51 = v39;
+        v30 = v39;
+        LODWORD(v49) = 12;
+        v31 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_0, v25OSLogObject, 0, "%{public}@: Not enabling automatic downloads for audiobooks since it's not enabled for eBooks.", &v50, v49);
       }
 
-      v36 = objc_opt_class();
-      LODWORD(v48) = 138543362;
-      *(&v48 + 4) = v36;
-      v37 = v36;
-      LODWORD(v47) = 12;
-      v38 = _os_log_send_and_compose_impl();
+      v40 = v31;
 
-      if (v38)
+      if (v40)
       {
-        v25OSLogObject = [NSString stringWithCString:v38 encoding:4, &v48, v47];
-        free(v38);
+        v25OSLogObject = [NSString stringWithCString:v40 encoding:4];
+        free(v40);
         SSFileLog();
-LABEL_70:
+LABEL_77:
       }
 
-LABEL_71:
+LABEL_78:
 
-      goto LABEL_72;
+      goto LABEL_79;
     }
 
     _logConfig3 = [objc_opt_class() _logConfig];
@@ -1443,45 +1455,50 @@ LABEL_71:
     shouldLog5 = [_logConfig3 shouldLog];
     if ([_logConfig3 shouldLogToDisk])
     {
-      v41 = shouldLog5 | 2;
+      LODWORD(v43) = shouldLog5 | 2;
     }
 
     else
     {
-      v41 = shouldLog5;
+      LODWORD(v43) = shouldLog5;
     }
 
     oSLogObject3 = [_logConfig3 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v41 &= 2u;
+      v43 = v43;
     }
 
-    if (v41)
+    else
     {
-      v43 = objc_opt_class();
-      LODWORD(v48) = 138543362;
-      *(&v48 + 4) = v43;
-      v44 = v43;
-      LODWORD(v47) = 12;
-      v45 = _os_log_send_and_compose_impl();
+      v43 &= 2u;
+    }
 
-      if (!v45)
+    if (v43)
+    {
+      v45 = objc_opt_class();
+      v50 = 138543362;
+      v51 = v45;
+      v46 = v45;
+      LODWORD(v49) = 12;
+      v47 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Enabling automatic downloads for audiobooks since it's enabled for eBooks.", &v50, v49);
+
+      if (!v47)
       {
-LABEL_69:
+LABEL_76:
 
         oSLogObject2 = [[NSSet alloc] initWithObjects:{v22, 0}];
         v25OSLogObject = +[SSDevice currentDevice];
         [v25OSLogObject unionAutomaticDownloadKinds:oSLogObject2 withCompletionBlock:0];
-        goto LABEL_70;
+        goto LABEL_77;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v45 encoding:4, &v48, v47];
-      free(v45);
+      oSLogObject3 = [NSString stringWithCString:v47 encoding:4];
+      free(v47);
       SSFileLog();
     }
 
-    goto LABEL_69;
+    goto LABEL_76;
   }
 
   if (!_logConfig)
@@ -1492,42 +1509,46 @@ LABEL_69:
   shouldLog6 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog6 | 2;
+    LODWORD(v9) = shouldLog6 | 2;
   }
 
   else
   {
-    v9 = shouldLog6;
+    LODWORD(v9) = shouldLog6;
   }
 
   oSLogObject4 = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  LODWORD(v48) = 138543362;
-  *(&v48 + 4) = objc_opt_class();
-  v11 = *(&v48 + 4);
-  LODWORD(v47) = 12;
-  v12 = _os_log_send_and_compose_impl();
+  v50 = 138543362;
+  v51 = objc_opt_class();
+  v11 = v51;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_0, oSLogObject4, 0, "%{public}@: Clearing automatic download kinds after restoring a backup from a different device.", &v50, 12);
 
   if (v12)
   {
-    oSLogObject4 = [NSString stringWithCString:v12 encoding:4, &v48, v47, v48];
+    oSLogObject4 = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
   v13 = +[SSDevice currentDevice];
   [v13 setAutomaticDownloadKinds:0 withCompletionBlock:0];
-LABEL_72:
+LABEL_79:
 }
 
 - (void)_encryptAccountFlags
@@ -1565,16 +1586,14 @@ LABEL_72:
     v62 = 138543362;
     v63 = objc_opt_class();
     v7 = v63;
-    LODWORD(v53) = 12;
-    v51 = &v62;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Encrypting account flags if necessary.", &v62, 12);
 
     if (!v8)
     {
       goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v8 encoding:4, &v62, v53];
+    oSLogObject = [NSString stringWithCString:v8 encoding:4];
     free(v8);
     v51 = oSLogObject;
     SSFileLog();
@@ -1595,23 +1614,28 @@ LABEL_13:
     shouldLog2 = [_logConfig shouldLog];
     if ([_logConfig shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
     oSLogObject2 = [_logConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (!v13)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     v15 = objc_opt_class();
@@ -1621,16 +1645,15 @@ LABEL_13:
     v65 = _logConfig2;
     v16 = v15;
     LODWORD(v53) = 22;
-    v52 = &v62;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: Encrypting account flags for accounts: %{public}@", &v62, v53);
 
     if (v17)
     {
-      oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v62, v53];
+      oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       v52 = oSLogObject2;
       SSFileLog();
-LABEL_24:
+LABEL_25:
     }
   }
 
@@ -1645,16 +1668,21 @@ LABEL_24:
     shouldLog3 = [_logConfig2 shouldLog];
     if ([_logConfig2 shouldLogToDisk])
     {
-      v19 = shouldLog3 | 2;
+      LODWORD(v19) = shouldLog3 | 2;
     }
 
     else
     {
-      v19 = shouldLog3;
+      LODWORD(v19) = shouldLog3;
     }
 
     _logConfig = [_logConfig2 OSLogObject];
-    if (!os_log_type_enabled(_logConfig, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(_logConfig, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
@@ -1666,22 +1694,21 @@ LABEL_24:
       v63 = v20;
       v21 = v20;
       LODWORD(v53) = 12;
-      v52 = &v62;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_0, _logConfig, 0, "%{public}@: No accounts to encrypt.", &v62, v53);
 
       if (!v22)
       {
-        goto LABEL_36;
+        goto LABEL_38;
       }
 
-      _logConfig = [NSString stringWithCString:v22 encoding:4, &v62, v53];
+      _logConfig = [NSString stringWithCString:v22 encoding:4];
       free(v22);
       v52 = _logConfig;
       SSFileLog();
     }
   }
 
-LABEL_36:
+LABEL_38:
   v59 = 0u;
   v60 = 0u;
   v57 = 0u;
@@ -1734,7 +1761,7 @@ LABEL_36:
 
           if (!v31)
           {
-            goto LABEL_76;
+            goto LABEL_78;
           }
 
           v32 = objc_opt_class();
@@ -1744,9 +1771,8 @@ LABEL_36:
           v63 = v32;
           v64 = 2114;
           v65 = v34;
-          LODWORD(v53) = 22;
           v52 = &v62;
-          v35 = _os_log_send_and_compose_impl();
+          v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Not encrypting flag for local account. account = %{public}@");
         }
 
         else
@@ -1787,28 +1813,27 @@ LABEL_36:
               v63 = v41;
               v64 = 2114;
               v65 = v43;
-              LODWORD(v53) = 22;
               v52 = &v62;
-              v44 = _os_log_send_and_compose_impl();
+              v44 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_0, oSLogObject4, 0, "%{public}@: Encrypted account flags, saving account. account = %{public}@");
 
               if (v44)
               {
-                oSLogObject4 = [NSString stringWithCString:v44 encoding:4, &v62, v53];
+                oSLogObject4 = [NSString stringWithCString:v44 encoding:4];
                 free(v44);
                 v52 = oSLogObject4;
                 SSFileLog();
-                goto LABEL_63;
+                goto LABEL_65;
               }
             }
 
             else
             {
-LABEL_63:
+LABEL_65:
             }
 
             _logConfig3 = +[ACAccountStore ams_sharedAccountStore];
             v45 = [_logConfig3 ams_saveAccount:v26 verifyCredentials:0];
-            goto LABEL_77;
+            goto LABEL_79;
           }
 
           if (!_logConfig4)
@@ -1835,7 +1860,7 @@ LABEL_63:
 
           if (!v47)
           {
-            goto LABEL_76;
+            goto LABEL_78;
           }
 
           v48 = objc_opt_class();
@@ -1845,23 +1870,22 @@ LABEL_63:
           v63 = v48;
           v64 = 2114;
           v65 = v50;
-          LODWORD(v53) = 22;
           v52 = &v62;
-          v35 = _os_log_send_and_compose_impl();
+          v35 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Encrypting account flags failed or they were already encrypted. account = %{public}@");
         }
 
         if (!v35)
         {
-          goto LABEL_77;
+          goto LABEL_79;
         }
 
         oSLogObject3 = [NSString stringWithCString:v35 encoding:4];
         free(v35);
         v52 = oSLogObject3;
         SSFileLog();
-LABEL_76:
+LABEL_78:
 
-LABEL_77:
+LABEL_79:
       }
 
       v24 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
@@ -1887,16 +1911,21 @@ LABEL_77:
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
     oSLogObject = [v4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -1909,27 +1938,25 @@ LABEL_77:
       v63 = 2114;
       v64 = v3;
       v9 = v8;
-      LODWORD(v54) = 22;
-      v51 = &v61;
-      v10 = _os_log_send_and_compose_impl();
+      v10 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Error configuration regular expression parser: %{public}@", &v61, 22);
 
       if (!v10)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v10 encoding:4, &v61, v54];
+      oSLogObject = [NSString stringWithCString:v10 encoding:4];
       free(v10);
       v51 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v11 = +[NSUserDefaults standardUserDefaults];
   v12 = [v11 objectForKey:@"SSDeviceType"];
 
@@ -1941,7 +1968,7 @@ LABEL_14:
     if (v13)
     {
       v15 = [v2 matchesInString:v13 options:0 range:{0, objc_msgSend(v13, "length")}];
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
@@ -1951,7 +1978,7 @@ LABEL_14:
   }
 
   v15 = 0;
-LABEL_19:
+LABEL_20:
   if ([v15 count])
   {
     v16 = [v15 objectAtIndexedSubscript:0];
@@ -1974,16 +2001,21 @@ LABEL_19:
   shouldLog2 = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    v21 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v21 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
   oSLogObject2 = [v19 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
@@ -2000,21 +2032,20 @@ LABEL_19:
     v66 = v59;
     v24 = v23;
     LODWORD(v54) = 32;
-    v52 = &v61;
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: Updating from %{public}@ with major version number %{public}@", &v61, v54);
 
     if (!v25)
     {
-      goto LABEL_33;
+      goto LABEL_35;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v25 encoding:4, &v61, v54];
+    oSLogObject2 = [NSString stringWithCString:v25 encoding:4];
     free(v25);
     v52 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_33:
+LABEL_35:
   v26 = MGCopyAnswer();
   v27 = v26;
   if (v26)
@@ -2046,23 +2077,28 @@ LABEL_33:
   shouldLog3 = [v32 shouldLog];
   if ([v32 shouldLogToDisk])
   {
-    v34 = shouldLog3 | 2;
+    LODWORD(v34) = shouldLog3 | 2;
   }
 
   else
   {
-    v34 = shouldLog3;
+    LODWORD(v34) = shouldLog3;
   }
 
   oSLogObject3 = [v32 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  {
+    v34 = v34;
+  }
+
+  else
   {
     v34 &= 2u;
   }
 
   if (!v34)
   {
-    goto LABEL_48;
+    goto LABEL_51;
   }
 
   v36 = objc_opt_class();
@@ -2074,16 +2110,15 @@ LABEL_33:
   v66 = v58;
   v37 = v36;
   LODWORD(v54) = 32;
-  v53 = &v61;
-  v38 = _os_log_send_and_compose_impl();
+  v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Updating to %{public}@ with major version number %{public}@", &v61, v54);
 
   if (v38)
   {
-    oSLogObject3 = [NSString stringWithCString:v38 encoding:4, &v61, v54];
+    oSLogObject3 = [NSString stringWithCString:v38 encoding:4];
     free(v38);
     v53 = oSLogObject3;
     SSFileLog();
-LABEL_48:
+LABEL_51:
   }
 
   v39 = 0;
@@ -2101,23 +2136,28 @@ LABEL_48:
   shouldLog4 = [v40 shouldLog];
   if ([v40 shouldLogToDisk])
   {
-    v42 = shouldLog4 | 2;
+    LODWORD(v42) = shouldLog4 | 2;
   }
 
   else
   {
-    v42 = shouldLog4;
+    LODWORD(v42) = shouldLog4;
   }
 
   oSLogObject4 = [v40 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  {
+    v42 = v42;
+  }
+
+  else
   {
     v42 &= 2u;
   }
 
   if (!v42)
   {
-    goto LABEL_62;
+    goto LABEL_66;
   }
 
   v44 = objc_opt_class();
@@ -2130,17 +2170,17 @@ LABEL_48:
   v63 = 2114;
   v64 = v48;
   LODWORD(v54) = 22;
-  v49 = _os_log_send_and_compose_impl();
+  v49 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &dword_0, oSLogObject4, 0, "%{public}@: Is major version update: %{public}@", &v61, v54);
 
   v2 = v46;
   v3 = v45;
 
   if (v49)
   {
-    oSLogObject4 = [NSString stringWithCString:v49 encoding:4, &v61, v54];
+    oSLogObject4 = [NSString stringWithCString:v49 encoding:4];
     free(v49);
     SSFileLog();
-LABEL_62:
+LABEL_66:
   }
 
   return v39;
@@ -2157,37 +2197,41 @@ LABEL_62:
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v10) = 138543362;
-  *(&v10 + 4) = objc_opt_class();
-  v6 = *(&v10 + 4);
-  LODWORD(v9) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v9 = 138543362;
+  v10 = objc_opt_class();
+  v6 = v10;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Starting migration to Accounts.framework.", &v9, 12);
 
   if (v7)
   {
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v10, v9, v10];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   return +[SSAccountStore migrateToAccountsFramework];
@@ -2208,39 +2252,43 @@ LABEL_11:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      v29 = 138543362;
-      v30 = objc_opt_class();
-      v19 = v30;
-      LODWORD(v26) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v28 = 138543362;
+      v29 = objc_opt_class();
+      v19 = v29;
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: There's no active account. Skipping migration of the AutomaticDownloadKinds default.", &v28, 12);
 
       if (!v20)
       {
-        goto LABEL_37;
+        goto LABEL_40;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v29, v26];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_36;
+    goto LABEL_39;
   }
 
   v8 = kSSUserDefaultsIdentifier;
@@ -2257,42 +2305,46 @@ LABEL_11:
     shouldLog2 = [oSLogObject shouldLog];
     if ([oSLogObject shouldLogToDisk])
     {
-      v22 = shouldLog2 | 2;
+      LODWORD(v22) = shouldLog2 | 2;
     }
 
     else
     {
-      v22 = shouldLog2;
+      LODWORD(v22) = shouldLog2;
     }
 
     v11OSLogObject = [oSLogObject OSLogObject];
-    if (!os_log_type_enabled(v11OSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11OSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = v22;
+    }
+
+    else
     {
       v22 &= 2u;
     }
 
     if (!v22)
     {
-      goto LABEL_35;
+      goto LABEL_38;
     }
 
-    v29 = 138543362;
-    v30 = objc_opt_class();
-    v24 = v30;
-    LODWORD(v26) = 12;
-    v25 = _os_log_send_and_compose_impl();
+    v28 = 138543362;
+    v29 = objc_opt_class();
+    v24 = v29;
+    v25 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_0, v11OSLogObject, 0, "%{public}@: We didn't find a value for AutomaticDownloadKinds that needs to be migrated.", &v28, 12);
 
     if (v25)
     {
-      v11OSLogObject = [NSString stringWithCString:v25 encoding:4, &v29, v26];
+      v11OSLogObject = [NSString stringWithCString:v25 encoding:4];
       free(v25);
       SSFileLog();
-LABEL_35:
+LABEL_38:
     }
 
-LABEL_36:
+LABEL_39:
 
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   if (!v10)
@@ -2303,51 +2355,55 @@ LABEL_36:
   shouldLog3 = [oSLogObject shouldLog];
   if ([oSLogObject shouldLogToDisk])
   {
-    v13 = shouldLog3 | 2;
+    LODWORD(v13) = shouldLog3 | 2;
   }
 
   else
   {
-    v13 = shouldLog3;
+    LODWORD(v13) = shouldLog3;
   }
 
   v11OSLogObject2 = [oSLogObject OSLogObject];
-  if (!os_log_type_enabled(v11OSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v11OSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  v29 = 138543362;
-  v30 = objc_opt_class();
-  v15 = v30;
-  LODWORD(v26) = 12;
-  v16 = _os_log_send_and_compose_impl();
+  v28 = 138543362;
+  v29 = objc_opt_class();
+  v15 = v29;
+  v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_0, v11OSLogObject2, 0, "%{public}@: Found a value for AutomaticDownloadKinds. Migrating it to the active account.", &v28, 12);
 
   if (v16)
   {
-    v11OSLogObject2 = [NSString stringWithCString:v16 encoding:4, &v29, v26];
+    v11OSLogObject2 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   CFPreferencesSetAppValue(@"AutomaticDownloadKinds", 0, v8);
   CFPreferencesAppSynchronize(v8);
   [accountCopy setAutomaticDownloadKinds:v9];
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_52F4;
-  v27[3] = &unk_10428;
-  v27[4] = self;
-  v28 = accountCopy;
-  [storeCopy saveAccount:v28 verifyCredentials:0 completion:v27];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_52F4;
+  v26[3] = &unk_10428;
+  v26[4] = self;
+  v27 = accountCopy;
+  [storeCopy saveAccount:v27 verifyCredentials:0 completion:v26];
 
-LABEL_37:
+LABEL_40:
 }
 
 - (void)_migrateSandboxAccounts
@@ -2358,30 +2414,33 @@ LABEL_37:
     v2 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v2 shouldLog];
+  LODWORD(v3) = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(v3) = v3 | 2;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog &= 2u;
+    v3 = v3;
   }
 
-  if (shouldLog)
+  else
+  {
+    v3 &= 2u;
+  }
+
+  if (v3)
   {
     *location = 138543362;
     *&location[4] = objc_opt_class();
     v5 = *&location[4];
-    LODWORD(v45) = 12;
-    v44 = location;
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(v3, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Migrating sandbox accounts.", location, 12);
 
     if (v6)
     {
-      v7 = [NSString stringWithCString:v6 encoding:4, location, v45];
+      v7 = [NSString stringWithCString:v6 encoding:4];
       free(v6);
       v44 = v7;
       SSFileLog();
@@ -2425,19 +2484,24 @@ LABEL_37:
             v14 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v14 shouldLog];
+          LODWORD(v15) = [v14 shouldLog];
           if ([v14 shouldLogToDisk])
           {
-            shouldLog2 |= 2u;
+            LODWORD(v15) = v15 | 2;
           }
 
           oSLogObject2 = [v14 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog2 &= 2u;
+            v15 = v15;
           }
 
-          if (shouldLog2)
+          else
+          {
+            v15 &= 2u;
+          }
+
+          if (v15)
           {
             v17 = objc_opt_class();
             v18 = v17;
@@ -2447,22 +2511,21 @@ LABEL_37:
             v59 = 2114;
             v60 = hashedDescription;
             LODWORD(v45) = 22;
-            v44 = location;
-            v20 = _os_log_send_and_compose_impl();
+            v20 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: Migrating a sandbox account to the new account type. account = %{public}@", location, v45);
 
             if (v20)
             {
-              oSLogObject2 = [NSString stringWithCString:v20 encoding:4, location, v45];
+              oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
               free(v20);
               v44 = oSLogObject2;
               SSFileLog();
-              goto LABEL_26;
+              goto LABEL_28;
             }
           }
 
           else
           {
-LABEL_26:
+LABEL_28:
           }
 
           [v11 setAccountType:v47];
@@ -2472,7 +2535,7 @@ LABEL_26:
           v23 = v22;
           if (v21)
           {
-            goto LABEL_53;
+            goto LABEL_57;
           }
 
           domain = [v22 domain];
@@ -2488,41 +2551,45 @@ LABEL_26:
                 v26 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog3 = [v26 shouldLog];
+              LODWORD(v27) = [v26 shouldLog];
               if ([v26 shouldLogToDisk])
               {
-                shouldLog3 |= 2u;
+                LODWORD(v27) = v27 | 2;
               }
 
               oSLogObject3 = [v26 OSLogObject];
-              if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
               {
-                shouldLog3 &= 2u;
+                v27 = v27;
               }
 
-              if (shouldLog3)
+              else
+              {
+                v27 &= 2u;
+              }
+
+              if (v27)
               {
                 v29 = objc_opt_class();
                 *location = 138543362;
                 *&location[4] = v29;
                 v30 = v29;
                 LODWORD(v45) = 12;
-                v44 = location;
-                v31 = _os_log_send_and_compose_impl();
+                v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Failed to migrate the sandbox account because a sandbox version of it already exists. We'll remove it instead.", location, v45);
 
                 if (v31)
                 {
-                  oSLogObject3 = [NSString stringWithCString:v31 encoding:4, location, v45];
+                  oSLogObject3 = [NSString stringWithCString:v31 encoding:4];
                   free(v31);
                   v44 = oSLogObject3;
                   SSFileLog();
-                  goto LABEL_39;
+                  goto LABEL_42;
                 }
               }
 
               else
               {
-LABEL_39:
+LABEL_42:
               }
 
               objc_initWeak(location, self);
@@ -2534,7 +2601,7 @@ LABEL_39:
               [v50 removeAccount:v11 withCompletionHandler:v51];
               objc_destroyWeak(&v52);
               objc_destroyWeak(location);
-LABEL_53:
+LABEL_57:
 
               continue;
             }
@@ -2550,19 +2617,24 @@ LABEL_53:
             v32 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog4 = [v32 shouldLog];
+          LODWORD(v33) = [v32 shouldLog];
           if ([v32 shouldLogToDisk])
           {
-            shouldLog4 |= 2u;
+            LODWORD(v33) = v33 | 2;
           }
 
           oSLogObject4 = [v32 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
           {
-            shouldLog4 &= 2u;
+            v33 = v33;
           }
 
-          if (shouldLog4)
+          else
+          {
+            v33 &= 2u;
+          }
+
+          if (v33)
           {
             v35 = objc_opt_class();
             *location = 138543618;
@@ -2571,25 +2643,24 @@ LABEL_53:
             v60 = v23;
             v36 = v35;
             LODWORD(v45) = 22;
-            v44 = location;
-            v37 = _os_log_send_and_compose_impl();
+            v37 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_0, oSLogObject4, 16, "%{public}@: Failed to migrate the sandbox account. error = %{public}@", location, v45);
 
             if (v37)
             {
-              oSLogObject4 = [NSString stringWithCString:v37 encoding:4, location, v45];
+              oSLogObject4 = [NSString stringWithCString:v37 encoding:4];
               free(v37);
               v44 = oSLogObject4;
               SSFileLog();
-              goto LABEL_51;
+              goto LABEL_55;
             }
           }
 
           else
           {
-LABEL_51:
+LABEL_55:
           }
 
-          goto LABEL_53;
+          goto LABEL_57;
         }
       }
 
@@ -2605,21 +2676,26 @@ LABEL_51:
     v38 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog5 = [v38 shouldLog];
+  LODWORD(v39) = [v38 shouldLog];
   if ([v38 shouldLogToDisk])
   {
-    shouldLog5 |= 2u;
+    LODWORD(v39) = v39 | 2;
   }
 
   oSLogObject5 = [v38 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog5 &= 2u;
+    v39 = v39;
   }
 
-  if (!shouldLog5)
+  else
   {
-    goto LABEL_65;
+    v39 &= 2u;
+  }
+
+  if (!v39)
+  {
+    goto LABEL_70;
   }
 
   v41 = objc_opt_class();
@@ -2627,14 +2703,14 @@ LABEL_51:
   *&location[4] = v41;
   v42 = v41;
   LODWORD(v45) = 12;
-  v43 = _os_log_send_and_compose_impl();
+  v43 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_0, oSLogObject5, 0, "%{public}@: Finished migrating sandbox accounts.", location, v45);
 
   if (v43)
   {
-    oSLogObject5 = [NSString stringWithCString:v43 encoding:4, location, v45];
+    oSLogObject5 = [NSString stringWithCString:v43 encoding:4];
     free(v43);
     SSFileLog();
-LABEL_65:
+LABEL_70:
   }
 }
 
@@ -2694,8 +2770,7 @@ LABEL_65:
       v45 = 2112;
       v46 = sSServerPromptIdentifierAutomaticDownloadsAvailable;
       v20 = v19;
-      LODWORD(v38) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Found a value for %@. Migrating it to the active account.", &v43, 22);
 
       if (!v21)
       {
@@ -2761,7 +2836,7 @@ LABEL_42:
           v46 = v22;
           v30 = v29;
           LODWORD(v38) = 22;
-          v31 = _os_log_send_and_compose_impl();
+          v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: Found a value for %@. Migrating it to the active account.", &v43, v38);
 
           if (!v31)
           {
@@ -2773,7 +2848,7 @@ LABEL_28:
             goto LABEL_42;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v31 encoding:4, &v43, v38];
+          oSLogObject2 = [NSString stringWithCString:v31 encoding:4];
           free(v31);
           SSFileLog();
         }
@@ -2781,7 +2856,7 @@ LABEL_28:
         goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v43, v38];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
@@ -2825,12 +2900,11 @@ LABEL_28:
   v43 = 138543362;
   v44 = objc_opt_class();
   v36 = v44;
-  LODWORD(v38) = 12;
-  v37 = _os_log_send_and_compose_impl();
+  v37 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: There's no active account. Skipping migration of ServerPrompt defaults.", &v43, 12);
 
   if (v37)
   {
-    oSLogObject3 = [NSString stringWithCString:v37 encoding:4, &v43, v38];
+    oSLogObject3 = [NSString stringWithCString:v37 encoding:4];
     free(v37);
     SSFileLog();
 LABEL_40:
@@ -2850,37 +2924,41 @@ LABEL_44:
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v10) = 138543362;
-  *(&v10 + 4) = objc_opt_class();
-  v6 = *(&v10 + 4);
-  LODWORD(v9) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v9 = 138543362;
+  v10 = objc_opt_class();
+  v6 = v10;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Sending request to post push token", &v9, 12);
 
   if (v7)
   {
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v10, v9, v10];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v8 = objc_alloc_init(SSPushNotificationTokenRequest);
@@ -2937,32 +3015,32 @@ LABEL_11:
   emptyAccountsCopy = emptyAccounts;
   accountsCopy = accounts;
   +[SSAccountStore defaultStore];
-  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v40 = v50 = 0u;
-  accounts = [v40 accounts];
-  v7 = [accounts countByEnumeratingWithState:&v47 objects:v57 count:16];
+  v50 = 0u;
+  v41 = v51 = 0u;
+  accounts = [v41 accounts];
+  v7 = [accounts countByEnumeratingWithState:&v48 objects:v58 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v48;
-    v41 = accountsCopy;
-    v42 = emptyAccountsCopy;
-    v43 = accounts;
-    v44 = *v48;
+    v9 = *v49;
+    v42 = accountsCopy;
+    v43 = emptyAccountsCopy;
+    v44 = accounts;
+    v45 = *v49;
     do
     {
       v10 = 0;
-      v45 = v8;
+      v46 = v8;
       do
       {
-        if (*v48 != v9)
+        if (*v49 != v9)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * v10);
+        v11 = *(*(&v48 + 1) + 8 * v10);
         if (([v11 isLocalAccount] & 1) == 0)
         {
           backingAccount = [v11 backingAccount];
@@ -3005,9 +3083,9 @@ LABEL_11:
           if ((v15 & accountsCopy & 1) != 0 || v21 && emptyAccountsCopy)
           {
             v22 = +[SSAccountStore defaultStore];
-            v46 = 0;
-            v23 = [v22 removeAccount:v11 error:&v46];
-            v24 = v46;
+            v47 = 0;
+            v23 = [v22 removeAccount:v11 error:&v47];
+            v24 = v47;
 
             v25 = +[SSLogConfig sharedAccountsMigrationConfig];
             v26 = v25;
@@ -3045,17 +3123,17 @@ LABEL_11:
                 v31 = objc_opt_class();
                 v32 = v31;
                 hashedDescription = [v11 hashedDescription];
-                v51 = 138543618;
-                v52 = v31;
-                v53 = 2114;
-                v54 = hashedDescription;
-                LODWORD(v39) = 22;
-                v38 = &v51;
+                v52 = 138543618;
+                v53 = v31;
+                v54 = 2114;
+                v55 = hashedDescription;
+                LODWORD(v40) = 22;
+                v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: %{public}@ was broken or empty, so we removed it.", &v52, v40);
                 goto LABEL_38;
               }
 
 LABEL_40:
-              accounts = v43;
+              accounts = v44;
 LABEL_41:
             }
 
@@ -3075,60 +3153,60 @@ LABEL_41:
               oSLogObject = [v26 OSLogObject];
               if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
               {
-                v35 = shouldLog2;
+                v36 = shouldLog2;
               }
 
               else
               {
-                v35 = shouldLog2 & 2;
+                v36 = shouldLog2 & 2;
               }
 
-              if (!v35)
+              if (!v36)
               {
                 goto LABEL_40;
               }
 
-              v36 = objc_opt_class();
-              v32 = v36;
+              v37 = objc_opt_class();
+              v32 = v37;
               hashedDescription = [v11 hashedDescription];
-              v51 = 138543874;
-              v52 = v36;
-              v53 = 2114;
-              v54 = hashedDescription;
-              v55 = 2114;
-              v56 = v24;
-              LODWORD(v39) = 32;
-              v38 = &v51;
+              v52 = 138543874;
+              v53 = v37;
+              v54 = 2114;
+              v55 = hashedDescription;
+              v56 = 2114;
+              v57 = v24;
+              LODWORD(v40) = 32;
+              v34 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_0, oSLogObject, 16, "%{public}@: %{public}@ was broken or empty, but we failed to remove it. error = %{public}@", &v52, v40);
 LABEL_38:
-              v37 = _os_log_send_and_compose_impl();
+              v38 = v34;
 
-              if (v37)
+              if (v38)
               {
-                accountsCopy = v41;
-                emptyAccountsCopy = v42;
-                accounts = v43;
-                oSLogObject = [NSString stringWithCString:v37 encoding:4];
-                free(v37);
-                v38 = oSLogObject;
+                accountsCopy = v42;
+                emptyAccountsCopy = v43;
+                accounts = v44;
+                oSLogObject = [NSString stringWithCString:v38 encoding:4];
+                free(v38);
+                v39 = oSLogObject;
                 SSFileLog();
                 goto LABEL_41;
               }
 
-              accountsCopy = v41;
-              emptyAccountsCopy = v42;
-              accounts = v43;
+              accountsCopy = v42;
+              emptyAccountsCopy = v43;
+              accounts = v44;
             }
           }
 
-          v9 = v44;
-          v8 = v45;
+          v9 = v45;
+          v8 = v46;
         }
 
         v10 = v10 + 1;
       }
 
       while (v8 != v10);
-      v8 = [accounts countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v8 = [accounts countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
     while (v8);
@@ -3292,16 +3370,14 @@ LABEL_17:
     v53 = v10;
     v54 = 2114;
     v55 = hashedDescription;
-    LODWORD(v42) = 22;
-    v41 = &v52;
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: At the beginning of the cleanup, our active account was %{public}@.", &v52, 22);
 
     if (!v13)
     {
       goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v13 encoding:4, &v52, v42];
+    oSLogObject = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     v41 = oSLogObject;
     SSFileLog();
@@ -3356,8 +3432,7 @@ LABEL_13:
       v53 = v24;
       v25 = v24;
       LODWORD(v42) = 12;
-      v41 = &v52;
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: We didn't start the cleanup process with a valid active account. Deactivating all accounts.", &v52, v42);
 
       v17 = objc_msgSend_hashedDescription;
       if (!v26)
@@ -3365,7 +3440,7 @@ LABEL_13:
         goto LABEL_29;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v26 encoding:4, &v52, v42];
+      oSLogObject2 = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       v41 = oSLogObject2;
       SSFileLog();
@@ -3427,14 +3502,14 @@ LABEL_30:
       v53 = v38;
       v39 = v38;
       LODWORD(v42) = 12;
-      v40 = _os_log_send_and_compose_impl();
+      v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: There are no accounts we need to deactivate.", &v52, v42);
 
       if (!v40)
       {
         goto LABEL_51;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v40 encoding:4, &v52, v42];
+      oSLogObject3 = [NSString stringWithCString:v40 encoding:4];
       free(v40);
       SSFileLog();
     }
@@ -3648,14 +3723,14 @@ LABEL_30:
     firstObject = [allObjects firstObject];
   }
 
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
+  v49 = 0u;
   accountsCopy = allObjects;
-  v11 = [accountsCopy countByEnumeratingWithState:&v47 objects:v59 count:16];
+  v11 = [accountsCopy countByEnumeratingWithState:&v48 objects:v60 count:16];
   v12 = accountsCopy;
-  v40 = v11;
+  v41 = v11;
   if (!v11)
   {
 LABEL_40:
@@ -3664,30 +3739,30 @@ LABEL_40:
   }
 
   v13 = 0;
-  v39 = *v48;
-  v36 = accountsCopy;
+  v40 = *v49;
+  v37 = accountsCopy;
   selfCopy = self;
-  v35 = firstObject;
+  v36 = firstObject;
   do
   {
     v14 = 0;
     do
     {
-      if (*v48 != v39)
+      if (*v49 != v40)
       {
         objc_enumerationMutation(accountsCopy);
       }
 
-      v15 = *(*(&v47 + 1) + 8 * v14);
+      v15 = *(*(&v48 + 1) + 8 * v14);
       if (v15 != firstObject)
       {
-        v41 = [self _copyAccountPropertiesIfNeededFromAccount:*(*(&v47 + 1) + 8 * v14) toAccount:firstObject];
-        v46 = 0;
-        v16 = [storeCopy removeAccount:v15 error:&v46];
-        v17 = v46;
+        v42 = [self _copyAccountPropertiesIfNeededFromAccount:*(*(&v48 + 1) + 8 * v14) toAccount:firstObject];
+        v47 = 0;
+        v16 = [storeCopy removeAccount:v15 error:&v47];
+        v17 = v47;
         v18 = +[SSLogConfig sharedAccountsMigrationConfig];
         v19 = v18;
-        v42 = v13;
+        v43 = v13;
         if (v16)
         {
           if (!v18)
@@ -3723,19 +3798,19 @@ LABEL_40:
             v25 = v24;
             hashedDescription = [firstObject hashedDescription];
             hashedDescription2 = [v15 hashedDescription];
-            v51 = 138543874;
-            v52 = v24;
-            v53 = 2114;
-            v54 = hashedDescription;
-            v55 = 2114;
-            v56 = hashedDescription2;
-            LODWORD(v34) = 32;
-            v33 = &v51;
+            v52 = 138543874;
+            v53 = v24;
+            v54 = 2114;
+            v55 = hashedDescription;
+            v56 = 2114;
+            v57 = hashedDescription2;
+            LODWORD(v35) = 32;
+            v28 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Removed a duplicate of %{public}@. duplicate = %{public}@", &v52, v35);
             goto LABEL_30;
           }
 
 LABEL_32:
-          v32 = v42;
+          v33 = v43;
 LABEL_33:
         }
 
@@ -3755,77 +3830,77 @@ LABEL_33:
           oSLogObject = [v19 OSLogObject];
           if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
           {
-            v29 = shouldLog2;
+            v30 = shouldLog2;
           }
 
           else
           {
-            v29 = shouldLog2 & 2;
+            v30 = shouldLog2 & 2;
           }
 
-          if (!v29)
+          if (!v30)
           {
             goto LABEL_32;
           }
 
-          v30 = objc_opt_class();
-          v25 = v30;
+          v31 = objc_opt_class();
+          v25 = v31;
           hashedDescription = [firstObject hashedDescription];
           hashedDescription2 = [v15 hashedDescription];
-          v51 = 138544130;
-          v52 = v30;
-          v53 = 2114;
-          v54 = hashedDescription;
-          v55 = 2114;
-          v56 = hashedDescription2;
-          v57 = 2112;
-          v58 = v17;
-          LODWORD(v34) = 42;
-          v33 = &v51;
+          v52 = 138544130;
+          v53 = v31;
+          v54 = 2114;
+          v55 = hashedDescription;
+          v56 = 2114;
+          v57 = hashedDescription2;
+          v58 = 2112;
+          v59 = v17;
+          LODWORD(v35) = 42;
+          v28 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_0, oSLogObject, 16, "%{public}@: Failed to remove a duplicate of %{public}@. duplicate = %{public}@ | error = %@", &v52, v35);
 LABEL_30:
-          v31 = _os_log_send_and_compose_impl();
+          v32 = v28;
 
-          if (v31)
+          if (v32)
           {
-            accountsCopy = v36;
-            v32 = v42;
-            oSLogObject = [NSString stringWithCString:v31 encoding:4];
-            free(v31);
-            v33 = oSLogObject;
+            accountsCopy = v37;
+            v33 = v43;
+            oSLogObject = [NSString stringWithCString:v32 encoding:4];
+            free(v32);
+            v34 = oSLogObject;
             SSFileLog();
             self = selfCopy;
-            firstObject = v35;
+            firstObject = v36;
             goto LABEL_33;
           }
 
-          accountsCopy = v36;
+          accountsCopy = v37;
           self = selfCopy;
-          firstObject = v35;
-          v32 = v42;
+          firstObject = v36;
+          v33 = v43;
         }
 
-        v13 = v32 | v41;
+        v13 = v33 | v42;
       }
 
       v14 = v14 + 1;
     }
 
-    while (v40 != v14);
-    v40 = [accountsCopy countByEnumeratingWithState:&v47 objects:v59 count:16];
+    while (v41 != v14);
+    v41 = [accountsCopy countByEnumeratingWithState:&v48 objects:v60 count:16];
   }
 
-  while (v40);
+  while (v41);
 
   if (v13)
   {
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_87D8;
-    v43[3] = &unk_104E0;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_87D8;
+    v44[3] = &unk_104E0;
     selfCopy2 = self;
-    v44 = firstObject;
-    [storeCopy saveAccount:v44 verifyCredentials:0 completion:v43];
-    v12 = v44;
+    v45 = firstObject;
+    [storeCopy saveAccount:v45 verifyCredentials:0 completion:v44];
+    v12 = v45;
     goto LABEL_40;
   }
 
@@ -3849,39 +3924,43 @@ LABEL_42:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v15 = 138543618;
-  *&v15[4] = objc_opt_class();
-  *&v15[12] = 2114;
-  *&v15[14] = v5;
-  v10 = *&v15[4];
-  LODWORD(v14) = 22;
-  v11 = _os_log_send_and_compose_impl();
+  v14 = 138543618;
+  v15 = objc_opt_class();
+  v16 = 2114;
+  v17 = v5;
+  v10 = v15;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: currentAccounts = %{public}@", &v14, 22);
 
   if (v11)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, v15, v14, *v15, *&v15[16]];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [self _cleanupDuplicateAccounts];
@@ -3897,31 +3976,30 @@ LABEL_11:
 + (void)_repairAccountsWithStringDSID
 {
   +[SSAccountStore defaultStore];
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v30 = v40 = 0u;
-  obj = [v30 accounts];
-  v2 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v28 = v37 = 0u;
+  obj = [v28 accounts];
+  v2 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v38;
+    v4 = *v35;
     v5 = SSAccountPropertyDSIDKey;
-    v29 = v36;
-    v31 = SSAccountPropertyDSIDKey;
-    v32 = *v38;
+    v29 = SSAccountPropertyDSIDKey;
+    v30 = *v35;
     do
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v38 != v4)
+        if (*v35 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * i);
-        v8 = [v7 accountPropertyForKey:{v5, v27, v28, v29}];
+        v7 = *(*(&v34 + 1) + 8 * i);
+        v8 = [v7 accountPropertyForKey:{v5, v27}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3958,19 +4036,18 @@ LABEL_11:
             v14 = objc_opt_class();
             v15 = v14;
             hashedDescription = [v7 hashedDescription];
-            v41 = 138543618;
-            v42 = v14;
-            v4 = v32;
-            v43 = 2114;
-            v44 = hashedDescription;
-            LODWORD(v28) = 22;
-            v27 = &v41;
-            v17 = _os_log_send_and_compose_impl();
+            v38 = 138543618;
+            v39 = v14;
+            v4 = v30;
+            v40 = 2114;
+            v41 = hashedDescription;
+            v27 = &v38;
+            v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Found a DSID that's being stored as a NSString. Attempting to repair it. account = %{public}@");
 
-            v5 = v31;
+            v5 = v29;
             if (v17)
             {
-              oSLogObject = [NSString stringWithCString:v17 encoding:4, &v41, v28];
+              oSLogObject = [NSString stringWithCString:v17 encoding:4];
               free(v17);
               v27 = oSLogObject;
               SSFileLog();
@@ -3987,12 +4064,12 @@ LABEL_18:
           if (v18)
           {
             [v7 setUniqueIdentifier:v18];
-            v35[0] = _NSConcreteStackBlock;
-            v35[1] = 3221225472;
-            v36[0] = sub_9150;
-            v36[1] = &unk_105E0;
-            v36[2] = self;
-            [v30 saveAccount:v7 verifyCredentials:0 completion:v35];
+            v33[0] = _NSConcreteStackBlock;
+            v33[1] = 3221225472;
+            v33[2] = sub_9150;
+            v33[3] = &unk_105E0;
+            v33[4] = self;
+            [v28 saveAccount:v7 verifyCredentials:0 completion:v33];
 LABEL_33:
 
             goto LABEL_34;
@@ -4026,20 +4103,19 @@ LABEL_33:
             v23 = objc_opt_class();
             v24 = v23;
             v25 = SSHashIfNeeded();
-            v41 = 138543618;
-            v42 = v23;
-            v43 = 2114;
-            v44 = v25;
-            LODWORD(v28) = 22;
-            v27 = &v41;
-            v26 = _os_log_send_and_compose_impl();
+            v38 = 138543618;
+            v39 = v23;
+            v40 = 2114;
+            v41 = v25;
+            v27 = &v38;
+            v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_0, oSLogObject2, 16, "%{public}@: Failed to convert %{public}@ to a NSNumber.");
 
-            v5 = v31;
-            v4 = v32;
+            v5 = v29;
+            v4 = v30;
 
             if (v26)
             {
-              oSLogObject2 = [NSString stringWithCString:v26 encoding:4, &v41, v28];
+              oSLogObject2 = [NSString stringWithCString:v26 encoding:4];
               free(v26);
               v27 = oSLogObject2;
               SSFileLog();
@@ -4058,7 +4134,7 @@ LABEL_31:
 LABEL_34:
       }
 
-      v3 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v3 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v3);

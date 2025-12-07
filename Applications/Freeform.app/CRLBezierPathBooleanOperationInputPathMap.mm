@@ -41,12 +41,12 @@
         *&buf[10] = "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]";
         *&buf[18] = 2082;
         *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm";
-        v46 = 1024;
-        v47 = 703;
-        v48 = 2048;
-        v49 = location;
-        v50 = 2048;
-        v51 = v15;
+        v30 = 1024;
+        v31 = 703;
+        v32 = 2048;
+        v33 = location;
+        v34 = 2048;
+        v35 = v15;
         _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Start of range (%zu) must be in bounds [0, %zu).", buf, 0x36u);
       }
 
@@ -63,13 +63,12 @@
         sub_10130E89C();
       }
 
-      v43 = (self->_points.__end_ - self->_points.__begin_) >> 4;
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Start of range (%zu) must be in bounds [0, %zu).", v17, v18, v19, v20, v21, v22, v23, "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]");
-      v24 = [NSString stringWithUTF8String:"[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]"];
-      v25 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-      [CRLAssertionHandler handleFailureInFunction:v24 file:v25 lineNumber:703 isFatal:1 description:"Start of range (%zu) must be in bounds [0, %zu].", location, (self->_points.__end_ - self->_points.__begin_) >> 4, 703, location, v43);
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Start of range (%zu) must be in bounds [0, %zu).", "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm", 703, location, (self->_points.__end_ - self->_points.__begin_) >> 4);
+      v17 = [NSString stringWithUTF8String:"[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]"];
+      v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
+      [CRLAssertionHandler handleFailureInFunction:v17 file:v18 lineNumber:703 isFatal:1 description:"Start of range (%zu) must be in bounds [0, %zu].", location, (self->_points.__end_ - self->_points.__begin_) >> 4);
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v26, v27);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v19, v20);
     }
 
     else
@@ -78,7 +77,7 @@
       if (location + length <= v9 >> 4)
       {
         memset(buf, 0, 24);
-        sub_10041F844(buf, begin + 16 * location, begin + 16 * v10, (16 * length) >> 4);
+        sub_10041F844(buf, &begin[location], &begin[v10], (16 * length) >> 4);
         v11 = v7->_points.__begin_;
         if (v11)
         {
@@ -94,29 +93,29 @@
         return v7;
       }
 
-      v28 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v21 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10136E950();
       }
 
-      v29 = off_1019EDA68;
+      v22 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        v30 = (self->_points.__end_ - self->_points.__begin_) >> 4;
+        v23 = (self->_points.__end_ - self->_points.__begin_) >> 4;
         *buf = 67110402;
-        *&buf[4] = v28;
+        *&buf[4] = v21;
         *&buf[8] = 2082;
         *&buf[10] = "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]";
         *&buf[18] = 2082;
         *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm";
-        v46 = 1024;
-        v47 = 704;
-        v48 = 2048;
-        v49 = v10;
-        v50 = 2048;
-        v51 = v30;
-        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d End of range (%zu) must be in bounds [0, %zu].", buf, 0x36u);
+        v30 = 1024;
+        v31 = 704;
+        v32 = 2048;
+        v33 = v10;
+        v34 = 2048;
+        v35 = v23;
+        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d End of range (%zu) must be in bounds [0, %zu].", buf, 0x36u);
       }
 
       if (qword_101AD5A10 != -1)
@@ -124,21 +123,20 @@
         sub_10136E964();
       }
 
-      v31 = off_1019EDA68;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v24 = off_1019EDA68;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         +[CRLAssertionHandler packedBacktraceString];
         objc_claimAutoreleasedReturnValue();
         sub_10130E89C();
       }
 
-      v44 = (self->_points.__end_ - self->_points.__begin_) >> 4;
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d End of range (%zu) must be in bounds [0, %zu].", v32, v33, v34, v35, v36, v37, v38, "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]");
-      v39 = [NSString stringWithUTF8String:"[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]"];
-      v40 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
-      [CRLAssertionHandler handleFailureInFunction:v39 file:v40 lineNumber:704 isFatal:1 description:"End of range (%zu) must be in bounds [0, %zu].", v10, (self->_points.__end_ - self->_points.__begin_) >> 4, 704, v10, v44];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d End of range (%zu) must be in bounds [0, %zu].", "[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm", 704, v10, (self->_points.__end_ - self->_points.__begin_) >> 4);
+      v25 = [NSString stringWithUTF8String:"[CRLBezierPathBooleanOperationInputPathMap copyWithElementsInRange:]"];
+      v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPathBooleanOperationHelper.mm"];
+      [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:704 isFatal:1 description:"End of range (%zu) must be in bounds [0, %zu].", v10, (self->_points.__end_ - self->_points.__begin_) >> 4];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v41, v42);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
     }
 
     abort();

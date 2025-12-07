@@ -100,27 +100,26 @@
 
 - (void)_setupXPC
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   iDSOffGridStateManager = [MEMORY[0x1E69A5270] IDSOffGridStateManager];
   if (os_log_type_enabled(iDSOffGridStateManager, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [(IDSOffGridStateManager *)self uuid];
     *buf = 138412290;
-    v10 = uuid;
+    v9 = uuid;
     _os_log_impl(&dword_1959FF000, iDSOffGridStateManager, OS_LOG_TYPE_DEFAULT, "Setting up xpc for client %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   daemonController = self->_daemonController;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_195A582A4;
-  v7[3] = &unk_1E743F0E8;
-  objc_copyWeak(&v8, buf);
-  [(IDSXPCDaemonController *)daemonController performTask:v7];
-  objc_destroyWeak(&v8);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_195A582A4;
+  v6[3] = &unk_1E743F0E8;
+  objc_copyWeak(&v7, buf);
+  [(IDSXPCDaemonController *)daemonController performTask:v6];
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)offGridMode
@@ -556,7 +555,7 @@
 
 - (void)offGridModeUpdated:(int64_t)updated publishStatus:(int64_t)status error:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v9 = objc_alloc_init(IDSOffGridModeContext);
   [(IDSOffGridModeContext *)v9 setError:errorCopy];
@@ -566,10 +565,10 @@
   {
     *buf = 134218498;
     updatedCopy = updated;
-    v32 = 2048;
+    v31 = 2048;
     statusCopy = status;
-    v34 = 2112;
-    v35 = v9;
+    v33 = 2112;
+    v34 = v9;
     _os_log_impl(&dword_1959FF000, iDSOffGridStateManager, OS_LOG_TYPE_DEFAULT, "offGridModeStatusUpdated to: %ld PublishStatus: %ld context: %@", buf, 0x20u);
   }
 
@@ -590,7 +589,7 @@
       block[4] = self;
       updatedCopy2 = updated;
       statusCopy2 = status;
-      v27 = v9;
+      v26 = v9;
       dispatch_async(queue, block);
     }
   }
@@ -605,19 +604,17 @@
     if (v19)
     {
       v20 = self->_queue;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = sub_195A5C924;
-      v22[3] = &unk_1E7440800;
-      v22[4] = self;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_195A5C924;
+      v21[3] = &unk_1E7440800;
+      v21[4] = self;
       updatedCopy3 = updated;
       statusCopy3 = status;
-      v23 = v9;
-      dispatch_async(v20, v22);
+      v22 = v9;
+      dispatch_async(v20, v21);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contactInfoUpdated:(id)updated

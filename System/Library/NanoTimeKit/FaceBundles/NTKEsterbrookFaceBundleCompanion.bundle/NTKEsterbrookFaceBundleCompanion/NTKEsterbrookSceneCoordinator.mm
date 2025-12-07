@@ -87,7 +87,7 @@
   *&v3[OBJC_IVAR___NTKEsterbrookSceneView_tritiumProgress] = progress;
   selfCopy = self;
   v4 = v3;
-  sub_23BE05CF8();
+  sub_23BE05CF8(v4);
 }
 
 - (void)didTransitionToTritiumOn
@@ -152,7 +152,7 @@
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
-  v6 = sub_23BDE652C(&unk_27E1C8BA0);
+  v6 = sub_23BDE652C(&unk_27E1C8BA0, &qword_23BE3B548);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v14 - v7;
   if (date)
@@ -176,7 +176,7 @@
   v13 = *(selfCopy + OBJC_IVAR___NTKEsterbrookSceneCoordinator_sceneView);
   sub_23BE09AC8(1);
 
-  sub_23BDF5A94(v8, &unk_27E1C8BA0);
+  sub_23BDF5A94(v8, &unk_27E1C8BA0, &qword_23BE3B548);
 }
 
 - (void)setTimeOffset:(double)offset

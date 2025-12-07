@@ -1,8 +1,8 @@
 @interface _CSIRenditionBlockData
 + (uint64_t)sharedCache;
-- (BOOL)expandCSIBitmapData:(uint64_t)data fromSlice:(uint64_t)slice makeReadOnly:(uint64_t)only;
+- (BOOL)expandCSIBitmapData:(uint64_t)data fromSlice:(uint64_t)slice makeReadOnly:(int)only;
 - (_BYTE)setRowBytes:(_BYTE *)result;
-- (_DWORD)initWithBytes:(uint64_t)bytes pixelWidth:(int)width pixelHeight:(uint64_t)height sourceRowbytes:(uint64_t)rowbytes pixelFormat:;
+- (_DWORD)initWithBytes:(int)bytes pixelWidth:(int)width pixelHeight:(uint64_t)height sourceRowbytes:(uint64_t)rowbytes pixelFormat:;
 - (_DWORD)initWithPixelWidth:(int)width pixelHeight:(uint64_t)height sourceRowbytes:(uint64_t)rowbytes pixelFormat:;
 - (uint64_t)_makeReadOnly;
 - (void)_allocateImageBytes;
@@ -56,96 +56,96 @@
 {
   if (self)
   {
-    v10 = *(self + 32) * *(self + 24);
-    v11 = vm_page_size + v10 - 1;
-    v12 = -vm_page_size;
+    v2 = *(self + 32) * *(self + 24);
+    v3 = vm_page_size + v2 - 1;
+    v4 = -vm_page_size;
     if (qword_1ED4EC008 != -1)
     {
       dispatch_once(&qword_1ED4EC008, &__block_literal_global_13);
     }
 
-    v13 = v11 & v12;
+    v5 = v3 & v4;
     if (_MergedGlobals)
     {
       *(self + 16) = -1;
-      v14 = *(self + 200);
+      v6 = *(self + 200);
     }
 
     else
     {
-      v15 = mmap(0, v13, 3, 4098, 1275068416, 0);
-      *(self + 16) = v15;
-      if (v15 != -1 && madvise(v15, v13, 3) < 0)
+      v7 = mmap(0, v5, 3, 4098, 1275068416, 0);
+      *(self + 16) = v7;
+      if (v7 != -1 && madvise(v7, v5, 3) < 0)
       {
-        v16 = __error();
-        v17 = strerror(*v16);
-        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] madvise failed error:'%s'", v18, v19, v20, v21, v22, v23, v17);
+        v8 = __error();
+        v9 = strerror(*v8);
+        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] madvise failed error:'%s'", v9);
       }
 
-      v14 = *(self + 200) | 2;
+      v6 = *(self + 200) | 2;
     }
 
-    *(self + 200) = v14 | 1;
-    *(self + 192) = v13;
+    *(self + 200) = v6 | 1;
+    *(self + 192) = v5;
     [+[CUIRuntimeStatistics sharedRuntimeStatistics](CUIRuntimeStatistics "sharedRuntimeStatistics")];
     if (*(self + 16) == -1)
     {
       if ((_MergedGlobals & 1) == 0)
       {
-        v24 = __error();
-        v25 = strerror(*v24);
-        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] mmap failed error:'%s' using malloc now", v26, v27, v28, v29, v30, v31, v25);
+        v10 = __error();
+        v11 = strerror(*v10);
+        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] mmap failed error:'%s' using malloc now", v11);
       }
 
       *(self + 200) &= ~2u;
-      *(self + 16) = malloc_type_malloc(v10, 0x8AF4BAACuLL);
+      *(self + 16) = malloc_type_malloc(v2, 0x8AF4BAACuLL);
       __CFSetLastAllocationEventName();
       if (!*(self + 16))
       {
 
-        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] malloc failed error", v32, v33, v34, v35, v36, v37, a9);
+        _CUILog(4, "[_CSIRenditionBlockData _allocateImageBytes] malloc failed error");
       }
     }
   }
 }
 
-- (BOOL)expandCSIBitmapData:(uint64_t)data fromSlice:(uint64_t)slice makeReadOnly:(uint64_t)only
+- (BOOL)expandCSIBitmapData:(uint64_t)data fromSlice:(uint64_t)slice makeReadOnly:(int)only
 {
   if (!self)
   {
     return 0;
   }
 
-  v9 = *(self + 16);
-  if (!v9)
+  v6 = *(self + 16);
+  if (!v6)
   {
     return 0;
   }
 
-  onlyCopy = only;
-  v12 = *(a2 + 4);
+  onlyCopy2 = only;
+  v9 = *(a2 + 4);
   atomic_store(0, (self + 40));
-  v13 = *(a2 + 8);
-  if (v13 > 5)
+  v10 = *(a2 + 8);
+  if (v10 > 5)
   {
-    if (v13 <= 8)
+    if (v10 <= 8)
     {
-      if (v13 == 6)
+      if (v10 == 6)
       {
-        if ((decodeRadiosity((a2 + 16), *(a2 + 12), *(self + 32), v9) & 0x80000000) == 0)
+        if ((decodeRadiosity((a2 + 16), *(a2 + 12), *(self + 32), v6) & 0x80000000) == 0)
         {
           goto LABEL_70;
         }
 
 LABEL_63:
-        v46 = *(a2 + 8);
+        v31 = *(a2 + 8);
 LABEL_64:
-        v71 = CUIConvertCompressionTypeToString(v46);
-        _CUILog(4, "CoreUI: Unable to decompress stream for CSI image block data. '%s'", v47, v48, v49, v50, v51, v52, v71);
+        CUIConvertCompressionTypeToString(v31);
+        _CUILog(4, "CoreUI: Unable to decompress stream for CSI image block data. '%s'");
         goto LABEL_68;
       }
 
-      if (v13 != 7)
+      if (v10 != 7)
       {
         if (!CUIUncompressQuantizedImageData())
         {
@@ -156,7 +156,7 @@ LABEL_64:
       }
 
 LABEL_24:
-      if (CUIExpandATECompressedDataIntoBuffer(a2 + 16, (v12 >> 1) & 1, v9, *(self + 8), *(self + 32), a6, a7, a8))
+      if (CUIExpandATECompressedDataIntoBuffer(a2 + 16, (v9 >> 1) & 1, v6, *(self + 8), *(self + 32)))
       {
         goto LABEL_70;
       }
@@ -164,87 +164,87 @@ LABEL_24:
       goto LABEL_63;
     }
 
-    if (v13 <= 10)
+    if (v10 <= 10)
     {
-      if (v13 == 9)
+      if (v10 == 9)
       {
-        if (!CUIUncompressHEVCInfoData(a2 + 16, v9, *(self + 32), *(self + 8), only, a6, a7, a8))
+        if (!CUIUncompressHEVCInfoData(a2 + 16, v6, *(self + 32), *(self + 8)))
         {
           goto LABEL_63;
         }
       }
 
-      else if (!CUIUncompressDeepmapImageData((a2 + 16), *(a2 + 12), ((*(a2 + 4) << 31) >> 31) & *(a2 + 12), v9, slice, slice >> 32, *(self + 32), *(self + 8)))
+      else if (!CUIUncompressDeepmapImageData((a2 + 16), *(a2 + 12), ((*(a2 + 4) << 31) >> 31) & *(a2 + 12), v6, slice, slice >> 32, *(self + 32), *(self + 8)))
       {
         goto LABEL_63;
       }
 
 LABEL_70:
-      v14 = 1;
+      v11 = 1;
       goto LABEL_71;
     }
 
-    if (v13 == 11)
+    if (v10 == 11)
     {
-      if (!CUIUncompressDeepmap2ImageData((a2 + 16), *(a2 + 12), ((*(a2 + 4) << 31) >> 31) & *(a2 + 12), v9, slice, slice >> 32, *(self + 32), *(self + 8)))
+      if (!CUIUncompressDeepmap2ImageData((a2 + 16), *(a2 + 12), ((*(a2 + 4) << 31) >> 31) & *(a2 + 12), v6, slice, slice >> 32, *(self + 32), *(self + 8)))
       {
-        v70 = CUIConvertCompressionTypeToString(*(a2 + 8));
-        _CUILog(4, "CoreUI: Unable to decompress 2.0 stream for CSI image block data. '%s'", v40, v41, v42, v43, v44, v45, v70);
+        CUIConvertCompressionTypeToString(*(a2 + 8));
+        _CUILog(4, "CoreUI: Unable to decompress 2.0 stream for CSI image block data. '%s'");
 LABEL_68:
-        v14 = 0;
+        v11 = 0;
         goto LABEL_71;
       }
 
       goto LABEL_70;
     }
 
-    if (v13 == 12)
+    if (v10 == 12)
     {
       goto LABEL_24;
     }
 
 LABEL_67:
-    _CUILog(4, "CoreUI: unhandled compressiontype for CSI image block data.%d", data, slice, only, a6, a7, a8, *(a2 + 8));
+    _CUILog(4, "CoreUI: unhandled compressiontype for CSI image block data.%d");
     goto LABEL_68;
   }
 
-  if (v13 <= 1)
+  if (v10 <= 1)
   {
-    if (!v13)
+    if (!v10)
     {
-      v53 = *(a2 + 12);
-      if (*(self + 192) < v53)
+      v32 = *(a2 + 12);
+      if (*(self + 192) < v32)
       {
-        v72 = CUIConvertCompressionTypeToString(0);
-        _CUILog(4, "CoreUI: Unable to copy imagedata for rawbytes block data data. '%s'", v54, v55, v56, v57, v58, v59, v72);
+        CUIConvertCompressionTypeToString(0);
+        _CUILog(4, "CoreUI: Unable to copy imagedata for rawbytes block data data. '%s'");
         goto LABEL_68;
       }
 
-      memcpy(v9, (a2 + 16), v53);
+      memcpy(v6, (a2 + 16), v32);
       atomic_store(*(a2 + 12), (self + 40));
       goto LABEL_70;
     }
 
-    if (v13 == 1)
+    if (v10 == 1)
     {
       if (!*(a2 + 12))
       {
-        v46 = 1;
+        v31 = 1;
         goto LABEL_64;
       }
 
-      pk_decompressData((a2 + 16), v9, data, SHIDWORD(data), slice, SHIDWORD(slice), *(self + 32), *a2 == 1296844099);
+      pk_decompressData((a2 + 16), v6, data, SHIDWORD(data), slice, SHIDWORD(slice), *(self + 32), *a2 == 1296844099);
       goto LABEL_70;
     }
 
     goto LABEL_67;
   }
 
-  if ((v13 - 2) >= 3)
+  if ((v10 - 2) >= 3)
   {
-    if (v13 == 5)
+    if (v10 == 5)
     {
-      if (!CUIUncompressJPEGandLZFSEInfoData((a2 + 16), v9, *(self + 32), 8, 32, 8194, a7, a8))
+      if (!CUIUncompressJPEGandLZFSEInfoData((a2 + 16), v6, *(self + 32), 8, 32, 8194))
       {
         goto LABEL_63;
       }
@@ -259,127 +259,126 @@ LABEL_67:
   dest.height = &dest;
   dest.width = 0x2020000000;
   atomic_store(0, &dest.rowBytes);
-  v15 = a2 + 16;
-  v74 = *(a2 + 4);
-  onlyCopy2 = only;
-  if (v74)
+  v12 = a2 + 16;
+  v37 = *(a2 + 4);
+  if (v37)
   {
-    v17 = *(a2 + 12);
-    v16 = a2 + 16;
-    v15 = a2 + 36;
-    v20 = bswap32(*(a2 + 32));
-    v21 = bswap32(*(a2 + 28));
+    v14 = *(a2 + 12);
+    v13 = a2 + 16;
+    v12 = a2 + 36;
+    v17 = bswap32(*(a2 + 32));
+    v18 = bswap32(*(a2 + 28));
     if (*(a2 + 16) == 1262699075)
     {
-      v19 = v21;
+      v16 = v18;
     }
 
     else
     {
-      v20 = *(a2 + 32);
-      v19 = *(a2 + 28);
+      v17 = *(a2 + 32);
+      v16 = *(a2 + 28);
     }
 
-    v18 = *(a2 + 16) == 1262699075;
+    v15 = *(a2 + 16) == 1262699075;
   }
 
   else
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = *(self + 24);
-    v20 = *(a2 + 12);
+    v13 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = *(self + 24);
+    v17 = *(a2 + 12);
   }
 
-  v22 = 0;
-  v23 = 0;
-  if (v17 <= 1)
+  v19 = 0;
+  v20 = 0;
+  if (v14 <= 1)
   {
-    v24 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v24 = v17;
+    v21 = v14;
   }
 
   while (1)
   {
-    v79[0] = _NSConcreteStackBlock;
-    v79[1] = 3221225472;
-    v25 = v20;
-    v79[2] = __69___CSIRenditionBlockData_expandCSIBitmapData_fromSlice_makeReadOnly___block_invoke;
-    v79[3] = &unk_1E7251478;
-    v79[6] = v15;
-    v79[7] = v20;
-    v79[8] = a2;
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v22 = v17;
+    v42[2] = __69___CSIRenditionBlockData_expandCSIBitmapData_fromSlice_makeReadOnly___block_invoke;
+    v42[3] = &unk_1E7251478;
+    v42[6] = v12;
+    v42[7] = v17;
+    v42[8] = a2;
     dataCopy = data;
     sliceCopy = slice;
-    v80 = v22;
-    v81 = v19;
-    v79[4] = self;
-    v79[5] = &dest;
-    if (v74)
+    v43 = v19;
+    v44 = v16;
+    v42[4] = self;
+    v42[5] = &dest;
+    if (v37)
     {
-      if (!v23)
+      if (!v20)
       {
-        v23 = objc_alloc_init(NSMutableArray);
+        v20 = objc_alloc_init(NSMutableArray);
       }
 
-      v32 = [v79 copy];
-      [v23 addObject:v32];
+      v23 = [v42 copy];
+      [v20 addObject:v23];
     }
 
     else
     {
-      __69___CSIRenditionBlockData_expandCSIBitmapData_fromSlice_makeReadOnly___block_invoke(v79);
+      __69___CSIRenditionBlockData_expandCSIBitmapData_fromSlice_makeReadOnly___block_invoke(v42);
     }
 
-    if (!--v24)
+    if (!--v21)
     {
       break;
     }
 
-    v33 = v16 + v25;
-    v35 = *(v33 + 20);
-    v16 = v33 + 20;
-    v34 = v35;
-    if (v18)
+    v24 = v13 + v22;
+    v26 = *(v24 + 20);
+    v13 = v24 + 20;
+    v25 = v26;
+    if (v15)
     {
-      if (v34 == 1262699075)
+      if (v25 == 1262699075)
       {
-        v15 = v16 + 20;
+        v12 = v13 + 20;
 LABEL_45:
-        v36 = vrev32_s8(*(v16 + 12));
+        v27 = vrev32_s8(*(v13 + 12));
         goto LABEL_47;
       }
     }
 
-    else if (v34 == 1128416075)
+    else if (v25 == 1128416075)
     {
-      v15 = v16 + 20;
+      v12 = v13 + 20;
       goto LABEL_46;
     }
 
-    _CUILog(4, "CoreUI: Can't find the correct chunk '%d'", v26, v27, v28, v29, v30, v31, v34);
+    _CUILog(4, "CoreUI: Can't find the correct chunk '%d'", v25);
     [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:sel_expandCSIBitmapData_fromSlice_makeReadOnly_ file:self lineNumber:@"CUIThemeRendition.m" description:981, @"CoreUI: Can't find the correct chunk"];
-    v15 = v16 + 20;
-    if (v18)
+    v12 = v13 + 20;
+    if (v15)
     {
       goto LABEL_45;
     }
 
 LABEL_46:
-    v36 = *(v16 + 12);
+    v27 = *(v13 + 12);
 LABEL_47:
-    if (v36.i32[0])
+    if (v27.i32[0])
     {
-      v22 += v19;
-      v37 = atomic_load((dest.height + 24));
-      v20 = v36.u32[1];
-      v19 = v36.i32[0];
-      if (!v37)
+      v19 += v16;
+      v28 = atomic_load((dest.height + 24));
+      v17 = v27.u32[1];
+      v16 = v27.i32[0];
+      if (!v28)
       {
         continue;
       }
@@ -388,47 +387,47 @@ LABEL_47:
     break;
   }
 
-  onlyCopy = onlyCopy2;
-  if ((v74 & 1) != 0 && !atomic_load((dest.height + 24)))
+  onlyCopy2 = only;
+  if ((v37 & 1) != 0 && !atomic_load((dest.height + 24)))
   {
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __69___CSIRenditionBlockData_expandCSIBitmapData_fromSlice_makeReadOnly___block_invoke_2;
     block[3] = &unk_1E724A2D0;
-    block[4] = v23;
-    dispatch_apply([v23 count], 0, block);
+    block[4] = v20;
+    dispatch_apply([v20 count], 0, block);
   }
 
-  v39 = atomic_load((dest.height + 24));
-  v14 = v39 == 0;
-  if (v39)
+  v30 = atomic_load((dest.height + 24));
+  v11 = v30 == 0;
+  if (v30)
   {
-    _CUILog(4, "CoreUI: Image data corrupted", v26, v27, v28, v29, v30, v31, v69);
+    _CUILog(4, "CoreUI: Image data corrupted");
   }
 
   _Block_object_dispose(&dest, 8);
 LABEL_71:
   if (*(self + 8) == 1095911234 && *(self + 12) == 1)
   {
-    v60 = *(self + 24);
+    v33 = *(self + 24);
     dest.data = *(self + 16);
-    dest.height = v60;
-    v61 = *(self + 32);
+    dest.height = v33;
+    v34 = *(self + 32);
     dest.width = slice;
-    dest.rowBytes = v61;
+    dest.rowBytes = v34;
     *permuteMap = 50331906;
     if (vImagePermuteChannels_ARGB8888(&dest, &dest, permuteMap, 0) < 0)
     {
-      _CUILog(4, "CoreUI: Unable to permute pixel buffer", v62, v63, v64, v65, v66, v67, v69);
+      _CUILog(4, "CoreUI: Unable to permute pixel buffer");
     }
   }
 
-  if (onlyCopy)
+  if (onlyCopy2)
   {
     [(_CSIRenditionBlockData *)self _makeReadOnly];
   }
 
-  return v14;
+  return v11;
 }
 
 + (uint64_t)sharedCache
@@ -449,9 +448,9 @@ LABEL_71:
     return 0;
   }
 
-  v17.receiver = self;
-  v17.super_class = _CSIRenditionBlockData;
-  v8 = objc_msgSendSuper2(&v17, sel_init);
+  v10.receiver = self;
+  v10.super_class = _CSIRenditionBlockData;
+  v8 = objc_msgSendSuper2(&v10, sel_init);
   if (v8)
   {
     __bppFromBlockPixelFormat(rowbytes);
@@ -459,13 +458,13 @@ LABEL_71:
     v8[6] = width;
     *(v8 + 4) = CGBitmapGetAlignedBytesPerRow();
     *(v8 + 23) = height;
-    [(_CSIRenditionBlockData *)v8 _allocateImageBytes:v10];
+    [(_CSIRenditionBlockData *)v8 _allocateImageBytes];
   }
 
   return v8;
 }
 
-- (_DWORD)initWithBytes:(uint64_t)bytes pixelWidth:(int)width pixelHeight:(uint64_t)height sourceRowbytes:(uint64_t)rowbytes pixelFormat:
+- (_DWORD)initWithBytes:(int)bytes pixelWidth:(int)width pixelHeight:(uint64_t)height sourceRowbytes:(uint64_t)rowbytes pixelFormat:
 {
   if (!self)
   {

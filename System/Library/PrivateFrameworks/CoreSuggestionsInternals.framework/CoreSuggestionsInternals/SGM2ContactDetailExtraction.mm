@@ -3,7 +3,12 @@
 - (NSString)key;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)detailAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)extractionSignatureSourceAsString:(int)string;
+- (id)foundInSenderCNContactAsString:(int)string;
+- (id)outcomeAsString:(int)string;
+- (id)sourceAsString:(int)string;
 - (int)StringAsDetail:(id)detail;
 - (int)StringAsExtractionSignatureSource:(id)source;
 - (int)StringAsFoundInSenderCNContact:(id)contact;
@@ -297,7 +302,6 @@ LABEL_9:
       goto LABEL_44;
     }
 
-    v6 = *(equalCopy + 41);
     if (self->_signature)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -377,7 +381,7 @@ LABEL_9:
     }
 
 LABEL_44:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_45;
   }
 
@@ -386,7 +390,6 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v9 = *(equalCopy + 40);
   if (self->_isUnlikelyPhone)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -401,7 +404,7 @@ LABEL_44:
   }
 
 LABEL_39:
-  v7 = (*(equalCopy + 44) & 4) == 0;
+  v6 = (*(equalCopy + 44) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0 || self->_extractionSignatureSource != *(equalCopy + 4))
@@ -409,12 +412,12 @@ LABEL_39:
       goto LABEL_44;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_45:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -657,19 +660,18 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x80) == 0)
     {
@@ -688,9 +690,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  signature = self->_signature;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -704,9 +705,8 @@ LABEL_6:
   }
 
 LABEL_17:
-  detail = self->_detail;
   PBDataWriterWriteInt32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -720,9 +720,8 @@ LABEL_7:
   }
 
 LABEL_18:
-  outcome = self->_outcome;
   PBDataWriterWriteInt32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -736,9 +735,8 @@ LABEL_8:
   }
 
 LABEL_19:
-  foundInSenderCNContact = self->_foundInSenderCNContact;
   PBDataWriterWriteInt32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -752,9 +750,8 @@ LABEL_9:
   }
 
 LABEL_20:
-  extractionModelVersion = self->_extractionModelVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -768,15 +765,13 @@ LABEL_10:
   }
 
 LABEL_21:
-  isUnlikelyPhone = self->_isUnlikelyPhone;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    extractionSignatureSource = self->_extractionSignatureSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v6;
   }
 
 LABEL_12:
@@ -1009,6 +1004,21 @@ LABEL_37:
   return v4;
 }
 
+- (id)extractionSignatureSourceAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AF70[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasExtractionSignatureSource:(BOOL)source
 {
   if (source)
@@ -1093,6 +1103,21 @@ LABEL_37:
   return v4;
 }
 
+- (id)foundInSenderCNContactAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AF58[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasFoundInSenderCNContact:(BOOL)contact
 {
   if (contact)
@@ -1152,6 +1177,21 @@ LABEL_37:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)outcomeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AF30[string];
   }
 
   return v4;
@@ -1221,6 +1261,21 @@ LABEL_37:
   return v4;
 }
 
+- (id)detailAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AF08[string];
+  }
+
+  return v4;
+}
+
 - (int)detail
 {
   if (*&self->_has)
@@ -1260,6 +1315,29 @@ LABEL_37:
   else
   {
     v4 = [sourceCopy isEqualToString:@"SGMDocumentTypeMessage"];
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMDocumentTypeMessage";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMDocumentTypeEmail";
   }
 
   return v4;

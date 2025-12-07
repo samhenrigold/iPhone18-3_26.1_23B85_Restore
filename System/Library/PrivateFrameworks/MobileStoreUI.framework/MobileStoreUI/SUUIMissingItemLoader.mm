@@ -50,7 +50,7 @@
   }
 }
 
-uint64_t __69__SUUIMissingItemLoader_loadItemsForPageComponent_startIndex_reason___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
+void *__69__SUUIMissingItemLoader_loadItemsForPageComponent_startIndex_reason___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
 {
   [*(a1 + 32) addObject:a2];
   result = [*(a1 + 32) count];

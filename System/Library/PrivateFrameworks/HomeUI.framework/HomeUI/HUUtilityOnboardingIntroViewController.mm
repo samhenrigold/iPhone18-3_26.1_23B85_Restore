@@ -34,7 +34,7 @@
 
 - (Class)onboardingFlowClass
 {
-  sub_20CECF940(0, &qword_27C81E450);
+  sub_20CECF940(0, &qword_27C81E450, off_277DB19A0);
 
   return swift_getObjCClassFromMetadata();
 }

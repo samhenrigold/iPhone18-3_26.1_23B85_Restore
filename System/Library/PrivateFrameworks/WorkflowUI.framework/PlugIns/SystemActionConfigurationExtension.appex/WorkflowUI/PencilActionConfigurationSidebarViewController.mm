@@ -21,7 +21,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10000E9F4();
+  sub_10000E9F4(selfCopy);
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
@@ -33,7 +33,7 @@
   sub_100012E9C();
   viewCopy = view;
   selfCopy = self;
-  sub_10000FBFC();
+  sub_10000FBFC(selfCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -70,7 +70,7 @@
 {
   hideCopy = hide;
   selfCopy = self;
-  sub_1000102F4();
+  sub_1000102F4(selfCopy);
 }
 
 - (_TtC34SystemActionConfigurationExtension46PencilActionConfigurationSidebarViewController)initWithNibName:(id)name bundle:(id)bundle

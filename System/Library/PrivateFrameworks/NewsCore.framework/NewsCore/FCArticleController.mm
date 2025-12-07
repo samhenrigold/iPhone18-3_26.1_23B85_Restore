@@ -2,6 +2,7 @@
 - (FCArticleController)init;
 - (FCArticleController)initWithContext:(id)context;
 - (id)articleWithHeadline:(id)headline;
+- (id)articleWithID:(id)d forceArticleUpdate:(BOOL)update qualityOfService:(int64_t)service relativePriority:(int64_t)priority;
 - (id)articleWithID:(id)d relativePriority:(int64_t)priority;
 - (id)headlinesFetchOperationForArticleIDs:(id)ds;
 - (id)headlinesFetchOperationForArticleIDs:(id)ds ignoreCacheForArticleIDs:(id)iDs;
@@ -37,25 +38,25 @@
 
 - (FCArticleController)initWithContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
     *buf = 136315906;
-    v13 = "[FCArticleController initWithContext:]";
-    v14 = 2080;
-    v15 = "FCArticleController.m";
-    v16 = 1024;
-    v17 = 33;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCArticleController initWithContext:]";
+    v13 = 2080;
+    v14 = "FCArticleController.m";
+    v15 = 1024;
+    v16 = 33;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCArticleController;
-  v6 = [(FCArticleController *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCArticleController;
+  v6 = [(FCArticleController *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -71,7 +72,6 @@
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -99,9 +99,43 @@
   return v9;
 }
 
+- (id)articleWithID:(id)d forceArticleUpdate:(BOOL)update qualityOfService:(int64_t)service relativePriority:(int64_t)priority
+{
+  updateCopy = update;
+  v24 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  if (dCopy)
+  {
+    v11 = [FCArticle alloc];
+    context = [(FCArticleController *)self context];
+    v13 = [(FCArticle *)v11 initWithContext:context articleID:dCopy forceArticleUpdate:updateCopy qualityOfService:service relativePriority:priority];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
+      *buf = 136315906;
+      v17 = "[FCArticleController articleWithID:forceArticleUpdate:qualityOfService:relativePriority:]";
+      v18 = 2080;
+      v19 = "FCArticleController.m";
+      v20 = 1024;
+      v21 = 72;
+      v22 = 2114;
+      v23 = v15;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+    }
+
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 - (id)articleWithHeadline:(id)headline
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   headlineCopy = headline;
   if (headlineCopy)
   {
@@ -114,22 +148,20 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "headline != nil"];
+      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "headline != nil"];
       *buf = 136315906;
-      v12 = "[FCArticleController articleWithHeadline:]";
-      v13 = 2080;
-      v14 = "FCArticleController.m";
-      v15 = 1024;
-      v16 = 90;
-      v17 = 2114;
-      v18 = v10;
+      v11 = "[FCArticleController articleWithHeadline:]";
+      v12 = 2080;
+      v13 = "FCArticleController.m";
+      v14 = 1024;
+      v15 = 90;
+      v16 = 2114;
+      v17 = v9;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

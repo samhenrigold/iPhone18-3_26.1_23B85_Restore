@@ -189,7 +189,7 @@ LABEL_15:
     delegate = [(PXDisplayAssetVideoContentProviderRequest *)self delegate];
     if (v14)
     {
-      [v14 segmentTimeRange];
+      objc_msgSend_segmentTimeRange(v14);
     }
 
     else
@@ -261,7 +261,7 @@ LABEL_5:
       delegate2 = [(PXDisplayAssetVideoContentProviderRequest *)self delegate];
       if (v14)
       {
-        [v14 segmentTimeRange];
+        objc_msgSend_segmentTimeRange(v14);
       }
 
       else
@@ -392,16 +392,16 @@ LABEL_24:
   PXSetupPXVideoRequestOptionsForDeliveryQuality(v7, [v6 quality]);
   if (v6)
   {
-    [v6 segmentTimeRange];
+    objc_msgSend_segmentTimeRange(v6);
     if (BYTE12(v36))
     {
-      [v6 segmentTimeRange];
+      objc_msgSend_segmentTimeRange(v6);
       if (v35)
       {
-        [v6 segmentTimeRange];
+        objc_msgSend_segmentTimeRange(v6);
         if (!v34)
         {
-          [v6 segmentTimeRange];
+          objc_msgSend_segmentTimeRange(v6);
           if ((v33 & 0x8000000000000000) == 0)
           {
             v10 = +[PXVideoPlaybackSettings sharedInstance];
@@ -409,7 +409,7 @@ LABEL_24:
 
             if (isDownloadingVideoSegmentsEnabled)
             {
-              [v6 segmentTimeRange];
+              objc_msgSend_segmentTimeRange(v6);
               location[0] = location[3];
               location[1] = location[4];
               location[2] = location[5];

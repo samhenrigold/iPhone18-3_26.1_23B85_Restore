@@ -2,6 +2,7 @@
 - (CLDispatchSilo)initWithIdentifier:(id)identifier;
 - (CLDispatchSilo)initWithUnderlyingQueue:(id)queue;
 - (CLDispatchSilo)initWithUnderlyingQueue:(id)queue bePermissive:(BOOL)permissive;
+- (id)debugDescription;
 - (id)getTimeCoercibleVariantInstance;
 - (id)initMain;
 - (id)newTimer;
@@ -20,11 +21,11 @@
 
 - (void)intendToSync
 {
-  v37 = *MEMORY[0x1E69E9840];
-  if (+[CLAutoCohortUtilities autoCohortingEnabled])
+  v60 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_autoCohortingEnabled(CLAutoCohortUtilities, a2, v2))
   {
-    v3 = dispatch_get_specific("dispatchSilo");
-    if (v3)
+    v4 = dispatch_get_specific("dispatchSilo");
+    if (v4)
     {
       selfCopy = self;
       if (qword_1ED5FAD40 != -1)
@@ -32,75 +33,75 @@
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC69E0);
       }
 
-      v5 = qword_1ED5FAD48;
+      v6 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
       {
-        v6 = *(v3 + 8);
-        v7 = *(v3 + 80);
+        v9 = *(v4 + 8);
+        v10 = *(v4 + 80);
         identifier = selfCopy->super._identifier;
         cohortId = selfCopy->_cohortId;
         *buf = 68290050;
-        v26 = 0;
-        v27 = 2082;
-        v28 = &unk_1DF8255EF;
-        v29 = 2114;
-        v30 = v6;
-        v31 = 2114;
-        v32 = v7;
-        v33 = 2114;
-        v34 = identifier;
-        v35 = 2114;
-        v36 = cohortId;
-        _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#Cohorting Intend to sync, FromDispatchSilo:%{public, location:escape_only}@, FromCohortId:%{public, location:escape_only}@, ToDispatchSilo:%{public, location:escape_only}@, ToCohortId:%{public, location:escape_only}@}", buf, 0x3Au);
+        v49 = 0;
+        v50 = 2082;
+        v51 = &unk_1DF8255EF;
+        v52 = 2114;
+        v53 = v9;
+        v54 = 2114;
+        v55 = v10;
+        v56 = 2114;
+        v57 = identifier;
+        v58 = 2114;
+        v59 = cohortId;
+        _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#Cohorting Intend to sync, FromDispatchSilo:%{public, location:escape_only}@, FromCohortId:%{public, location:escape_only}@, ToDispatchSilo:%{public, location:escape_only}@, ToCohortId:%{public, location:escape_only}@}", buf, 0x3Au);
       }
 
-      intValue = [*(v3 + 80) intValue];
-      if (intValue <= [(NSNumber *)selfCopy->_cohortId intValue])
+      v13 = objc_msgSend_intValue(*(v4 + 80), v7, v8);
+      if (v13 <= objc_msgSend_intValue(selfCopy->_cohortId, v14, v15))
       {
         os_unfair_lock_lock(&unk_1ECE5D900);
-        identifier = [v3 identifier];
-        identifier2 = [(CLSilo *)selfCopy identifier];
-        v24[1] = identifier2;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
-        v14 = [CLAutoCohortUtilities isEdgeKnownToCauseCycle:v13];
+        v18 = objc_msgSend_identifier(v4, v16, v17);
+        v21 = objc_msgSend_identifier(selfCopy, v19, v20, v18);
+        v47[1] = v21;
+        v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, v47, 2);
+        isEdgeKnownToCauseCycle = objc_msgSend_isEdgeKnownToCauseCycle_(CLAutoCohortUtilities, v24, v23);
 
-        if (!v14)
+        if ((isEdgeKnownToCauseCycle & 1) == 0)
         {
-          v16 = sub_1DF81A9CC();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v26 = sub_1DF81A9CC();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
           {
-            identifier3 = [v3 identifier];
-            identifier4 = [(CLSilo *)selfCopy identifier];
+            v29 = objc_msgSend_identifier(v4, v27, v28);
+            v32 = objc_msgSend_identifier(selfCopy, v30, v31);
             *buf = 68289538;
-            v26 = 0;
-            v27 = 2082;
-            v28 = &unk_1DF8255EF;
-            v29 = 2114;
-            v30 = identifier3;
-            v31 = 2114;
-            v32 = identifier4;
-            _os_log_impl(&dword_1DF7FE000, v16, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#Cohorting Persist sync-get edge, fromSiloIdentifier:%{public, location:escape_only}@, toSiloIdentifier:%{public, location:escape_only}@}", buf, 0x26u);
+            v49 = 0;
+            v50 = 2082;
+            v51 = &unk_1DF8255EF;
+            v52 = 2114;
+            v53 = v29;
+            v54 = 2114;
+            v55 = v32;
+            _os_log_impl(&dword_1DF7FE000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#Cohorting Persist sync-get edge, fromSiloIdentifier:%{public, location:escape_only}@, toSiloIdentifier:%{public, location:escape_only}@}", buf, 0x26u);
           }
 
-          v19 = sub_1DF81A9CC();
-          if (os_signpost_enabled(v19))
+          v33 = sub_1DF81A9CC();
+          if (os_signpost_enabled(v33))
           {
-            identifier5 = [v3 identifier];
-            identifier6 = [(CLSilo *)selfCopy identifier];
+            v36 = objc_msgSend_identifier(v4, v34, v35);
+            v39 = objc_msgSend_identifier(selfCopy, v37, v38);
             *buf = 68289538;
-            v26 = 0;
-            v27 = 2082;
-            v28 = &unk_1DF8255EF;
-            v29 = 2114;
-            v30 = identifier5;
-            v31 = 2114;
-            v32 = identifier6;
-            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Cohorting Persist sync-get edge", "{msg%{public}.0s:#Cohorting Persist sync-get edge, fromSiloIdentifier:%{public, location:escape_only}@, toSiloIdentifier:%{public, location:escape_only}@}", buf, 0x26u);
+            v49 = 0;
+            v50 = 2082;
+            v51 = &unk_1DF8255EF;
+            v52 = 2114;
+            v53 = v36;
+            v54 = 2114;
+            v55 = v39;
+            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Cohorting Persist sync-get edge", "{msg%{public}.0s:#Cohorting Persist sync-get edge, fromSiloIdentifier:%{public, location:escape_only}@, toSiloIdentifier:%{public, location:escape_only}@}", buf, 0x26u);
           }
 
-          identifier7 = [v3 identifier];
-          identifier8 = [(CLSilo *)selfCopy identifier];
-          [CLAutoCohortUtilities persistEdgeFrom:identifier7 to:identifier8];
+          v42 = objc_msgSend_identifier(v4, v40, v41);
+          v45 = objc_msgSend_identifier(selfCopy, v43, v44);
+          objc_msgSend_persistEdgeFrom_to_(CLAutoCohortUtilities, v46, v42, v45);
 
           _Exit(0);
         }
@@ -109,26 +110,26 @@
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newTimer
 {
-  v3 = [[CLDispatchTimerScheduler alloc] initWithDispatchSilo:self];
+  v3 = [CLDispatchTimerScheduler alloc];
+  v5 = objc_msgSend_initWithDispatchSilo_(v3, v4, self);
   if (self->_useCLPermissiveTimer)
   {
-    v4 = off_1E86C7FE0;
+    v6 = off_1E86C7FE0;
   }
 
   else
   {
-    v4 = &off_1E86C8008;
+    v6 = &off_1E86C8008;
   }
 
-  v5 = [objc_alloc(*v4) initInSilo:self withScheduler:v3];
+  v7 = objc_alloc(*v6);
+  v9 = objc_msgSend_initInSilo_withScheduler_(v7, v8, self, v5);
 
-  return v5;
+  return v9;
 }
 
 - (id)initMain
@@ -147,59 +148,59 @@
 
 - (CLDispatchSilo)initWithIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_1DF8090DC;
-  v30 = sub_1DF80910C;
-  v31 = dispatch_get_global_queue(0, 0);
-  v5 = +[CLSilo globalConfiguration];
-  v6 = [v5 objectForKeyedSubscript:@"NameToCohortMap"];
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1DF8090DC;
+  v37 = sub_1DF80910C;
+  v38 = dispatch_get_global_queue(0, 0);
+  v7 = objc_msgSend_globalConfiguration(CLSilo, v5, v6);
+  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, @"NameToCohortMap");
 
-  v7 = [v6 objectForKeyedSubscript:identifierCopy];
-  if (v7 || ([&unk_1F5AC9BA8 containsObject:identifierCopy] & 1) == 0 && (objc_msgSend(v6, "objectForKeyedSubscript:", @"default"), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9, v10, identifierCopy);
+  if (v11 || (objc_msgSend_containsObject_(&unk_1F5AC9BA8, v12, identifierCopy) & 1) == 0 && (objc_msgSend_objectForKeyedSubscript_(v9, v16, @"default"), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v22 = sub_1DF81A900;
-    v23 = &unk_1E86C84F8;
-    v8 = v7;
-    v24 = v8;
-    v25 = &v26;
-    v9 = qword_1ED5FADF8;
-    v10 = v21;
-    if (v9 != -1)
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v29 = sub_1DF81A900;
+    v30 = &unk_1E86C84F8;
+    v13 = v11;
+    v31 = v13;
+    v32 = &v33;
+    v14 = qword_1ED5FADF8;
+    v15 = v28;
+    if (v14 != -1)
     {
       dispatch_once(&qword_1ED5FADF8, &unk_1F5AC69C0);
     }
 
     os_unfair_lock_lock(&unk_1ED5FADD8);
-    v22(v10, qword_1ED5FADF0);
+    v29(v15, qword_1ED5FADF0);
 
     os_unfair_lock_unlock(&unk_1ED5FADD8);
   }
 
   else
   {
-    v8 = 0;
+    v13 = 0;
   }
 
-  v20.receiver = self;
-  v20.super_class = CLDispatchSilo;
-  v11 = [(CLSilo *)&v20 initWithIdentifier:identifierCopy];
-  if (v11)
+  v27.receiver = self;
+  v27.super_class = CLDispatchSilo;
+  v17 = [(CLSilo *)&v27 initWithIdentifier:identifierCopy];
+  if (v17)
   {
-    v12 = identifierCopy;
-    uTF8String = [identifierCopy UTF8String];
-    v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v15 = dispatch_queue_create_with_target_V2(uTF8String, v14, v27[5]);
-    v16 = *(v11 + 7);
-    *(v11 + 7) = v15;
+    v18 = identifierCopy;
+    v21 = objc_msgSend_UTF8String(identifierCopy, v19, v20);
+    v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v23 = dispatch_queue_create_with_target_V2(v21, v22, v34[5]);
+    v24 = *(v17 + 7);
+    *(v17 + 7) = v23;
 
-    objc_storeStrong(v11 + 10, v8);
-    dispatch_queue_set_specific(*(v11 + 7), "dispatchSilo", v11, 0);
+    objc_storeStrong(v17 + 10, v13);
+    dispatch_queue_set_specific(*(v17 + 7), "dispatchSilo", v17, 0);
   }
 
   if (qword_1ED5FAD40 != -1)
@@ -207,44 +208,45 @@
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC69E0);
   }
 
-  v17 = qword_1ED5FAD48;
+  v25 = qword_1ED5FAD48;
   if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289538;
-    v33 = 0;
-    v34 = 2082;
-    v35 = &unk_1DF8255EF;
-    v36 = 2114;
-    v37 = identifierCopy;
-    v38 = 2114;
-    v39 = v8;
-    _os_log_impl(&dword_1DF7FE000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting CohortId assignment for silo, Silo:%{public, location:escape_only}@, CohortId:%{public, location:escape_only}@}", buf, 0x26u);
+    v40 = 0;
+    v41 = 2082;
+    v42 = &unk_1DF8255EF;
+    v43 = 2114;
+    v44 = identifierCopy;
+    v45 = 2114;
+    v46 = v13;
+    _os_log_impl(&dword_1DF7FE000, v25, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting CohortId assignment for silo, Silo:%{public, location:escape_only}@, CohortId:%{public, location:escape_only}@}", buf, 0x26u);
   }
 
-  _Block_object_dispose(&v26, 8);
-  v18 = *MEMORY[0x1E69E9840];
-  return v11;
+  _Block_object_dispose(&v33, 8);
+  return v17;
 }
 
 - (CLDispatchSilo)initWithUnderlyingQueue:(id)queue
 {
   queueCopy = queue;
-  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:dispatch_queue_get_label(queueCopy)];
-  v10.receiver = self;
-  v10.super_class = CLDispatchSilo;
-  v7 = [(CLSilo *)&v10 initWithIdentifier:v6];
-  v8 = v7;
-  if (v7)
+  v6 = MEMORY[0x1E696AEC0];
+  label = dispatch_queue_get_label(queueCopy);
+  v9 = objc_msgSend_stringWithUTF8String_(v6, v8, label);
+  v13.receiver = self;
+  v13.super_class = CLDispatchSilo;
+  v10 = [(CLSilo *)&v13 initWithIdentifier:v9];
+  v11 = v10;
+  if (v10)
   {
-    objc_storeStrong(&v7->_queue, queue);
+    objc_storeStrong(&v10->_queue, queue);
   }
 
-  return v8;
+  return v11;
 }
 
 - (CLDispatchSilo)initWithUnderlyingQueue:(id)queue bePermissive:(BOOL)permissive
 {
-  result = [(CLDispatchSilo *)self initWithUnderlyingQueue:queue];
+  result = objc_msgSend_initWithUnderlyingQueue_(self, a2, queue);
   if (result)
   {
     result->_useCLPermissiveTimer = permissive;
@@ -255,121 +257,120 @@
 
 - (id)getTimeCoercibleVariantInstance
 {
-  v2 = [[CLTimeCoercibleDispatchSilo alloc] initWithUnderlyingQueue:self->_queue];
+  v3 = [CLTimeCoercibleDispatchSilo alloc];
+  v5 = objc_msgSend_initWithUnderlyingQueue_(v3, v4, self->_queue);
 
-  return v2;
+  return v5;
 }
 
 - (void)suspend
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_isQueueSuspended)
   {
-    v4 = sub_1DF81A9CC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v3 = sub_1DF81A9CC();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_isQueueSuspended";
-      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_isQueueSuspended";
+      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    v4 = sub_1DF81A9CC();
+    if (os_signpost_enabled(v4))
+    {
+      *buf = 68289539;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_isQueueSuspended";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo currently does not support reference counting", "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     v5 = sub_1DF81A9CC();
-    if (os_signpost_enabled(v5))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_isQueueSuspended";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo currently does not support reference counting", "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_isQueueSuspended";
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v6 = sub_1DF81A9CC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_isQueueSuspended";
-      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLDispatchSilo.m", 277, "[CLDispatchSilo suspend]");
   }
 
   self->_isQueueSuspended = 1;
   queue = self->_queue;
-  v3 = *MEMORY[0x1E69E9840];
 
   dispatch_suspend(queue);
 }
 
 - (void)resume
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self->_isQueueSuspended)
   {
-    v4 = sub_1DF81A9CC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v3 = sub_1DF81A9CC();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "_isQueueSuspended";
-      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "_isQueueSuspended";
+      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    v4 = sub_1DF81A9CC();
+    if (os_signpost_enabled(v4))
+    {
+      *buf = 68289539;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "_isQueueSuspended";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo currently does not support reference counting", "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     v5 = sub_1DF81A9CC();
-    if (os_signpost_enabled(v5))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "_isQueueSuspended";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo currently does not support reference counting", "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "_isQueueSuspended";
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v6 = sub_1DF81A9CC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "_isQueueSuspended";
-      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo currently does not support reference counting, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLDispatchSilo.m", 284, "[CLDispatchSilo resume]");
   }
 
   dispatch_resume(self->_queue);
   self->_isQueueSuspended = 0;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setLatchedAbsoluteTimestamp:(double)timestamp
@@ -414,16 +415,16 @@
 - (void)sync:(id)sync
 {
   syncCopy = sync;
-  [(CLDispatchSilo *)self intendToSync];
+  objc_msgSend_intendToSync(self, v5, v6);
   queue = self->_queue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1DF81B198;
-  v7[3] = &unk_1E86C8370;
-  v7[4] = self;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1DF81B198;
+  v9[3] = &unk_1E86C8370;
+  v9[4] = self;
+  v10 = syncCopy;
   v8 = syncCopy;
-  v6 = syncCopy;
-  dispatch_sync(queue, v7);
+  dispatch_sync(queue, v9);
 }
 
 - (void)afterInterval:(double)interval async:(id)async
@@ -457,24 +458,31 @@
 
 - (id)operationQueue
 {
-  [(CLDispatchSilo *)self assertInside];
+  objc_msgSend_assertInside(self, a2, v2);
   operationQueue = self->_operationQueue;
   if (!operationQueue)
   {
-    v4 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-    v5 = self->_operationQueue;
-    self->_operationQueue = v4;
+    v5 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+    v6 = self->_operationQueue;
+    self->_operationQueue = v5;
 
-    v6 = MEMORY[0x1E696AEC0];
-    identifier = [(CLSilo *)self identifier];
-    v8 = [v6 stringWithFormat:@"%@.NSOperationQueue", identifier];
-    [(NSOperationQueue *)self->_operationQueue setName:v8];
+    v7 = MEMORY[0x1E696AEC0];
+    v10 = objc_msgSend_identifier(self, v8, v9);
+    v12 = objc_msgSend_stringWithFormat_(v7, v11, @"%@.NSOperationQueue", v10);
+    objc_msgSend_setName_(self->_operationQueue, v13, v12);
 
-    [(NSOperationQueue *)self->_operationQueue setUnderlyingQueue:self->_queue];
+    objc_msgSend_setUnderlyingQueue_(self->_operationQueue, v14, self->_queue);
     operationQueue = self->_operationQueue;
   }
 
   return operationQueue;
+}
+
+- (id)debugDescription
+{
+  v2 = MEMORY[0x1E696AEC0];
+  label = dispatch_queue_get_label(self->_queue);
+  return objc_msgSend_stringWithFormat_(v2, v4, @"CLDispatchSilo: %s", label);
 }
 
 @end

@@ -21,32 +21,32 @@
 
 + (NSArray)systemLocales
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
-  v4 = [preferredLanguages countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [preferredLanguages countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(preferredLanguages);
         }
 
-        v8 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v14 + 1) + 8 * i)];
+        v8 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v13 + 1) + 8 * i)];
         [v2 addObject:v8];
       }
 
-      v5 = [preferredLanguages countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [preferredLanguages countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -65,7 +65,6 @@
   }
 
   v11 = [v2 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -114,33 +113,33 @@ void __28__Localize_numberingSystems__block_invoke(uint64_t a1)
 
 + (void)enumerateLocales:(id)locales withBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   blockCopy = block;
   if (blockCopy)
   {
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = localesCopy;
+    v15 = localesCopy;
     v8 = localesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           v14 = [Localize localizationForLocale:v13];
           if (([v7 containsObject:v14] & 1) == 0)
           {
@@ -155,7 +154,7 @@ void __28__Localize_numberingSystems__block_invoke(uint64_t a1)
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -167,49 +166,45 @@ void __28__Localize_numberingSystems__block_invoke(uint64_t a1)
 
 LABEL_14:
 
-    localesCopy = v16;
+    localesCopy = v15;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)keyForLocales:(id)locales
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = localesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        localeIdentifier = [*(*(&v14 + 1) + 8 * i) localeIdentifier];
+        localeIdentifier = [*(*(&v13 + 1) + 8 * i) localeIdentifier];
         [v4 addObject:localeIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 componentsJoinedByString:@"|"];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -269,26 +264,8 @@ LABEL_6:
       v48 = *v23;
       if ([v10 characterIsMember:?])
       {
-        if (v19)
+        if (v19 && (v24 = v48, v24 >= [v19 zero]) && (v25 = v48, objc_msgSend(v19, "zero") + 10 > v25) || (objc_msgSend(MEMORY[0x1E696AEC0], "stringWithCharacters:length:", &v48, 1), v26 = objc_claimAutoreleasedReturnValue(), +[Localize numberingSystemForDigit:](Localize, "numberingSystemForDigit:", v26), v27 = objc_claimAutoreleasedReturnValue(), v19, v26, (v19 = v27) != 0))
         {
-          v24 = v48;
-          if (v24 >= [v19 zero])
-          {
-            v25 = v48;
-            if ([v19 zero] + 10 > v25)
-            {
-              goto LABEL_40;
-            }
-          }
-        }
-
-        v26 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v48 length:1];
-        v27 = [Localize numberingSystemForDigit:v26];
-
-        v19 = v27;
-        if (v27)
-        {
-LABEL_40:
           if ([v19 allowForOutput])
           {
             v28 = v48;
@@ -398,28 +375,28 @@ LABEL_7:
 
 void __45__Localize_numberingSystemOutputCharacterSet__block_invoke()
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v1 = +[Localize numberingSystems];
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         if ([v6 allowForOutput])
         {
           v7 = [v6 id];
@@ -433,7 +410,7 @@ void __45__Localize_numberingSystemOutputCharacterSet__block_invoke()
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v3);
@@ -442,8 +419,6 @@ void __45__Localize_numberingSystemOutputCharacterSet__block_invoke()
   v10 = [v0 copy];
   v11 = numberingSystemOutputCharacterSet_numberingSystemOutputCharacterSet;
   numberingSystemOutputCharacterSet_numberingSystemOutputCharacterSet = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)numberingSystemCharacterSet
@@ -460,36 +435,36 @@ void __45__Localize_numberingSystemOutputCharacterSet__block_invoke()
 
 void __39__Localize_numberingSystemCharacterSet__block_invoke()
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = +[Localize numberingSystems];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       v5 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = [*(*(&v10 + 1) + 8 * v5) digitsString];
+        v6 = [*(*(&v9 + 1) + 8 * v5) digitsString];
         [v0 addCharactersInString:v6];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
@@ -498,8 +473,6 @@ void __39__Localize_numberingSystemCharacterSet__block_invoke()
   v7 = [v0 copy];
   v8 = numberingSystemCharacterSet_numberingSystemCharacterSet;
   numberingSystemCharacterSet_numberingSystemCharacterSet = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)numberingSystemForDigit:(id)digit
@@ -518,57 +491,57 @@ void __39__Localize_numberingSystemCharacterSet__block_invoke()
 
 void __36__Localize_numberingSystemForDigit___block_invoke()
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = numberingSystemForDigit__digitToNumberingSystem;
   numberingSystemForDigit__digitToNumberingSystem = v0;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v2 = +[Localize numberingSystems];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
         v8 = [v7 digits];
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v15;
+          v11 = *v14;
           do
           {
             v12 = 0;
             do
             {
-              if (*v15 != v11)
+              if (*v14 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [numberingSystemForDigit__digitToNumberingSystem setObject:v7 forKeyedSubscript:*(*(&v14 + 1) + 8 * v12++)];
+              [numberingSystemForDigit__digitToNumberingSystem setObject:v7 forKeyedSubscript:*(*(&v13 + 1) + 8 * v12++)];
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
           }
 
           while (v10);
@@ -578,25 +551,23 @@ void __36__Localize_numberingSystemForDigit___block_invoke()
       }
 
       while (v6 != v4);
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initNumberingSystems:(id)systems
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   systemsCopy = systems;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __33__Localize_initNumberingSystems___block_invoke;
   aBlock[3] = &unk_1E815C1A0;
   v4 = systemsCopy;
-  v12 = v4;
+  v11 = v4;
   v5 = _Block_copy(aBlock);
   v5[2](v5, @"0123456789", @"latn");
   unumsys_openAvailableNames();
@@ -612,7 +583,7 @@ void __36__Localize_numberingSystemForDigit___block_invoke()
     unumsys_openByName();
     if (!MEMORY[0x1C6912EB0]())
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithCharacters:v13 length:unumsys_getDescription()];
+      v8 = [MEMORY[0x1E696AEC0] stringWithCharacters:v12 length:unumsys_getDescription()];
       v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:1];
       if (([(__CFString *)v9 isEqualToString:@"latn"]& 1) == 0)
       {
@@ -624,8 +595,6 @@ void __36__Localize_numberingSystemForDigit___block_invoke()
   }
 
   uenum_close();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __33__Localize_initNumberingSystems___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -709,73 +678,55 @@ uint64_t __65__Localize_cachedLocalizedStringForKey_value_table_localization___b
 
 + (id)localizationForLocale:(id)locale
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AAE8];
   localeCopy = locale;
   v5 = +[Localize availableLocaleNames];
   localeIdentifier = [localeCopy localeIdentifier];
 
-  v12[0] = localeIdentifier;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = localeIdentifier;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [v3 preferredLocalizationsFromArray:v5 forPreferences:v7];
 
   v9 = [v8 objectAtIndexedSubscript:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)locales:(id)locales withDefault:(id)default
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   defaultCopy = default;
   if (defaultCopy)
   {
-    if (!localesCopy)
+    if (!localesCopy || ![localesCopy count] || (objc_msgSend(localesCopy, "objectAtIndexedSubscript:", 0), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "localeIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(defaultCopy, "localeIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, (v10 & 1) == 0))
     {
-      goto LABEL_5;
-    }
-
-    if (![localesCopy count])
-    {
-      goto LABEL_5;
-    }
-
-    v7 = [localesCopy objectAtIndexedSubscript:0];
-    localeIdentifier = [v7 localeIdentifier];
-    localeIdentifier2 = [defaultCopy localeIdentifier];
-    v10 = [localeIdentifier isEqualToString:localeIdentifier2];
-
-    if ((v10 & 1) == 0)
-    {
-LABEL_5:
       v11 = objc_opt_new();
       [v11 addObject:defaultCopy];
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v12 = localesCopy;
-      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v24;
+        v15 = *v23;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v15)
+            if (*v23 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v23 + 1) + 8 * i);
-            localeIdentifier3 = [v17 localeIdentifier];
-            localeIdentifier4 = [defaultCopy localeIdentifier];
-            v20 = [localeIdentifier3 isEqualToString:localeIdentifier4];
+            v17 = *(*(&v22 + 1) + 8 * i);
+            localeIdentifier = [v17 localeIdentifier];
+            localeIdentifier2 = [defaultCopy localeIdentifier];
+            v20 = [localeIdentifier isEqualToString:localeIdentifier2];
 
             if ((v20 & 1) == 0)
             {
@@ -783,7 +734,7 @@ LABEL_5:
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v14);
@@ -792,8 +743,6 @@ LABEL_5:
       localesCopy = [v11 copy];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return localesCopy;
 }

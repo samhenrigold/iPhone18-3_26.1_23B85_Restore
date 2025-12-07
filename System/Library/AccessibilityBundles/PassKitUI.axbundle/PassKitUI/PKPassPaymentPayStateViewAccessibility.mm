@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (PKPassPaymentPayStateViewAccessibility)initWithFrame:(CGRect)frame;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_applyStatePreservingGlyphState:(BOOL)state overridingText:(id)text animated:(BOOL)animated completionHandler:(id)handler;
 - (void)emphasizeStateIfPossible:(int64_t)possible withOverrideText:(id)text;
 @end
 
@@ -47,6 +48,29 @@
   accessibilityLabel2 = [v9 accessibilityLabel];
 
   if (([accessibilityLabel2 isEqual:accessibilityLabel] & 1) == 0 && objc_msgSend(accessibilityLabel, "length") && objc_msgSend(accessibilityLabel2, "length"))
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], accessibilityLabel2);
+  }
+}
+
+- (void)_applyStatePreservingGlyphState:(BOOL)state overridingText:(id)text animated:(BOOL)animated completionHandler:(id)handler
+{
+  animatedCopy = animated;
+  stateCopy = state;
+  handlerCopy = handler;
+  textCopy = text;
+  v12 = [(PKPassPaymentPayStateViewAccessibility *)self safeValueForKey:@"_label"];
+  accessibilityLabel = [v12 accessibilityLabel];
+
+  v16.receiver = self;
+  v16.super_class = PKPassPaymentPayStateViewAccessibility;
+  [(PKPassPaymentPayStateViewAccessibility *)&v16 _applyStatePreservingGlyphState:stateCopy overridingText:textCopy animated:animatedCopy completionHandler:handlerCopy];
+
+  [(PKPassPaymentPayStateViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
+  v14 = [(PKPassPaymentPayStateViewAccessibility *)self safeValueForKey:@"_label"];
+  accessibilityLabel2 = [v14 accessibilityLabel];
+
+  if (([accessibilityLabel2 isEqual:accessibilityLabel] & 1) == 0 && objc_msgSend(accessibilityLabel2, "length"))
   {
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], accessibilityLabel2);
   }

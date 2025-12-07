@@ -8,24 +8,24 @@
 
 - (TSCESumAccumulator)init
 {
-  v12.receiver = self;
-  v12.super_class = TSCESumAccumulator;
-  v2 = [(TSCESumAccumulator *)&v12 init];
-  v7 = v2;
+  v11.receiver = self;
+  v11.super_class = TSCESumAccumulator;
+  v2 = [(TSCESumAccumulator *)&v11 init];
+  v6 = v2;
   if (v2)
   {
     v2->_dateAccumulator = 0;
     v2->_secondsToAdd = 0.0;
-    v8 = objc_msgSend_unitlessZero(TSCENumberValue, v3, v4, v5, v6);
-    numberAccumulator = v7->_numberAccumulator;
-    v7->_numberAccumulator = v8;
+    v7 = objc_msgSend_unitlessZero(TSCENumberValue, v3, v4, v5);
+    numberAccumulator = v6->_numberAccumulator;
+    v6->_numberAccumulator = v7;
 
-    *&v7->_mixedDurationsAndNumbers = 0;
-    error = v7->_error;
-    v7->_error = 0;
+    *&v6->_mixedDurationsAndNumbers = 0;
+    error = v6->_error;
+    v6->_error = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)addValue:(id)value evaluationContext:(id)context functionSpec:(id)spec
@@ -33,42 +33,42 @@
   valueCopy = value;
   contextCopy = context;
   p_error = &self->_error;
-  if (self->_error || (objc_msgSend_isNil(valueCopy, v9, v10, v11, v12) & 1) != 0)
+  if (self->_error || (objc_msgSend_isNil(valueCopy, v9, v10, v11) & 1) != 0)
   {
     goto LABEL_39;
   }
 
-  v22 = objc_msgSend_deepType_(valueCopy, v15, contextCopy, v16, v17);
-  if (v22 > 4)
+  v19 = objc_msgSend_deepType_(valueCopy, v14, contextCopy, v15);
+  if (v19 > 4)
   {
-    if (v22 != 5)
+    if (v19 != 5)
     {
-      if (v22 != 9)
+      if (v19 != 9)
       {
         goto LABEL_39;
       }
 
-      v25 = objc_msgSend_errorWithContext_(valueCopy, v18, contextCopy, v20, v21);
-      if (!v25)
+      v22 = objc_msgSend_errorWithContext_(valueCopy, v16, contextCopy, v18);
+      if (!v22)
       {
         goto LABEL_39;
       }
 
-      objc_storeStrong(&self->_error, v25);
+      objc_storeStrong(&self->_error, v22);
 LABEL_18:
 
       goto LABEL_39;
     }
 
-    v84 = 0;
-    v26 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(valueCopy, v18, contextCopy, spec, 0, &v84);
-    v35 = v84;
-    if (v35)
+    v74 = 0;
+    v23 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(valueCopy, v16, contextCopy, spec, 0, &v74);
+    v31 = v74;
+    if (v31)
     {
-      v25 = v35;
+      v22 = v31;
 LABEL_16:
-      v33 = &self->_error;
-      v34 = v25;
+      v29 = &self->_error;
+      v30 = v22;
       goto LABEL_17;
     }
 
@@ -81,119 +81,119 @@ LABEL_16:
         goto LABEL_34;
       }
 
-      if (objc_msgSend_dimensionsMatchModuloCurrency_(self->_numberAccumulator, v36, v26, v38, v39))
+      if (objc_msgSend_dimensionsMatchModuloCurrency_(self->_numberAccumulator, v32, v23, v34))
       {
         numberAccumulator = self->_numberAccumulator;
-        v83 = 0;
-        v65 = objc_msgSend_add_functionSpec_outError_(numberAccumulator, v36, v26, spec, &v83);
-        v25 = v83;
-        v66 = self->_numberAccumulator;
-        self->_numberAccumulator = v65;
+        v73 = 0;
+        v56 = objc_msgSend_add_functionSpec_outError_(numberAccumulator, v32, v23, spec, &v73);
+        v22 = v73;
+        v57 = self->_numberAccumulator;
+        self->_numberAccumulator = v56;
 
-        if (v25)
+        if (v22)
         {
           goto LABEL_16;
         }
 
 LABEL_34:
-        if (objc_msgSend_hasUnits(v26, v36, v37, v38, v39) && !objc_msgSend_dimension(v26, v67, v68, v69, v70))
+        if (objc_msgSend_hasUnits(v23, v32, v33, v34) && !objc_msgSend_dimension(v23, v58, v59, v60))
         {
-          objc_msgSend_rawTimeIntervalValue(v26, v67, v68, v69, v70);
-          v72 = v73 + self->_secondsToAdd;
+          objc_msgSend_rawTimeIntervalValue(v23, v58, v59, v60);
+          v62 = v63 + self->_secondsToAdd;
         }
 
         else
         {
-          objc_msgSend_timeIntervalRepresentation(v26, v67, v68, v69, v70);
-          v72 = self->_secondsToAdd + v71 * 86400.0;
+          objc_msgSend_timeIntervalRepresentation(v23, v58, v59, v60);
+          v62 = self->_secondsToAdd + v61 * 86400.0;
         }
 
-        self->_secondsToAdd = v72;
+        self->_secondsToAdd = v62;
         goto LABEL_38;
       }
     }
 
     else
     {
-      objc_storeStrong(&self->_numberAccumulator, v26);
+      objc_storeStrong(&self->_numberAccumulator, v23);
     }
 
     *p_foundANumber = 1;
     goto LABEL_34;
   }
 
-  if (v22 == 1)
+  if (v19 == 1)
   {
-    v82 = 0;
-    v26 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(valueCopy, v18, contextCopy, spec, 0, 0, &v82);
-    v27 = v82;
-    v28 = v82;
-    if (v28)
+    v72 = 0;
+    v23 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(valueCopy, v16, contextCopy, spec, 0, 0, &v72);
+    v24 = v72;
+    v25 = v72;
+    if (v25)
     {
-      v25 = v28;
-      v33 = &self->_error;
-      v34 = v27;
+      v22 = v25;
+      v29 = &self->_error;
+      v30 = v24;
 LABEL_17:
-      objc_storeStrong(v33, v34);
+      objc_storeStrong(v29, v30);
 
       goto LABEL_18;
     }
 
-    v80 = 0;
-    v81 = objc_msgSend_dimensions(v26, v29, v30, v31, v32);
-    v60 = contextCopy;
-    v74[0] = v60;
-    v74[1] = spec;
-    v75 = 0;
-    v76[0] = 0;
-    *(v76 + 7) = 0;
-    v77 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-    v78 = 0;
-    v79 = 0;
+    v70 = 0;
+    v71 = objc_msgSend_dimensions(v23, v26, v27, v28);
+    v51 = contextCopy;
+    v64[0] = v51;
+    v64[1] = spec;
+    v65 = 0;
+    v66[0] = 0;
+    *(v66 + 7) = 0;
+    v67 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+    v68 = 0;
+    v69 = 0;
     do
     {
-      v61 = objc_msgSend_valueAtGridCoord_accessContext_(v26, v58, *&v80, v74, v59);
-      objc_msgSend_addValue_evaluationContext_functionSpec_(self, v62, v61, v60, spec);
-      v80 = TSCEGridDimensions::nextCoordRowMajorOrder(&v81, &v80);
+      v52 = objc_msgSend_valueAtGridCoord_accessContext_(v23, v50, *&v70, v64);
+      objc_msgSend_addValue_evaluationContext_functionSpec_(self, v53, v52, v51, spec);
+      v70 = TSCEGridDimensions::nextCoordRowMajorOrder(&v71, &v70);
     }
 
-    while (v80.column != 0x7FFFFFFF && v80.row != 0x7FFFFFFF);
+    while (v70.column != 0x7FFFFFFF && v70.row != 0x7FFFFFFF);
 
 LABEL_38:
     goto LABEL_39;
   }
 
-  if (v22 == 3)
+  if (v19 == 3)
   {
     if (self->_dateAccumulator)
     {
-      v23 = objc_msgSend_invalidDateManipulationError(TSCEError, v18, v19, v20, v21);
-      v24 = *p_error;
-      *p_error = v23;
+      v20 = objc_msgSend_invalidDateManipulationError(TSCEError, v16, v17, v18);
+      v21 = *p_error;
+      *p_error = v20;
     }
 
     else
     {
-      v85 = 0;
-      v40 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(valueCopy, v18, contextCopy, spec, 0, &v85);
-      v41 = v85;
-      self->_dateAccumulator = v40;
+      v75 = 0;
+      v35 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(valueCopy, v16, contextCopy, spec, 0, &v75);
+      v36 = v75;
+      self->_dateAccumulator = v35;
 
       if (!self->_dateAccumulator)
       {
-        v45 = MEMORY[0x277D81150];
-        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSCESumAccumulator addValue:evaluationContext:functionSpec:]", v43, v44);
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCESumAccumulator.mm", v48, v49);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 63, 0, "Shouldn't get a nil date from something that says it's a date");
+        v39 = MEMORY[0x277D81150];
+        v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSCESumAccumulator addValue:evaluationContext:functionSpec:]", v38);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCESumAccumulator.mm", v42);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v44, v40, v43, 63, 0, "Shouldn't get a nil date from something that says it's a date");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47);
       }
 
-      if (v41)
+      if (v36)
       {
-        v56 = *p_error;
-        *p_error = v41;
-        v57 = v41;
+        v48 = *p_error;
+        *p_error = v36;
+        v49 = v36;
       }
     }
   }
@@ -206,34 +206,34 @@ LABEL_39:
   error = self->_error;
   if (error)
   {
-    v6 = objc_msgSend_errorValue_(TSCEErrorValue, a2, error, v3, v4);
+    v5 = objc_msgSend_errorValue_(TSCEErrorValue, a2, error, v3);
 LABEL_3:
-    v7 = v6;
+    v6 = v5;
     goto LABEL_9;
   }
 
   if (self->_dateAccumulator)
   {
-    v8 = objc_msgSend_dateByAddingTimeInterval_(self->_dateAccumulator, a2, function, v3, v4, self->_secondsToAdd);
-    v7 = objc_msgSend_dateValue_(TSCEDateValue, v9, v8, v10, v11);
+    v7 = objc_msgSend_dateByAddingTimeInterval_(self->_dateAccumulator, a2, function, v3, self->_secondsToAdd);
+    v6 = objc_msgSend_dateValue_(TSCEDateValue, v8, v7, v9);
   }
 
   else
   {
     if (!self->_mixedDurationsAndNumbers)
     {
-      v6 = objc_msgSend_copy(self->_numberAccumulator, a2, function, v3, v4);
+      v5 = objc_msgSend_copy(self->_numberAccumulator, a2, function, v3);
       goto LABEL_3;
     }
 
-    v8 = objc_msgSend_functionName(function, a2, function, v3, v4);
-    v15 = objc_msgSend_sumMixedDurationsAndUnitlessWithoutADateErrorForFunctionName_(TSCEError, v12, v8, v13, v14);
-    v7 = objc_msgSend_errorValue_(TSCEErrorValue, v16, v15, v17, v18);
+    v7 = objc_msgSend_functionName(function, a2, function, v3);
+    v12 = objc_msgSend_sumMixedDurationsAndUnitlessWithoutADateErrorForFunctionName_(TSCEError, v10, v7, v11);
+    v6 = objc_msgSend_errorValue_(TSCEErrorValue, v13, v12, v14);
   }
 
 LABEL_9:
 
-  return v7;
+  return v6;
 }
 
 @end

@@ -294,7 +294,7 @@ LABEL_35:
 
 - (PPQuickTypeItem)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = [coderCopy decodeObjectOfClass:v5 forKey:@"lab"];
@@ -316,7 +316,7 @@ LABEL_35:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = coderCopy;
+      v27 = coderCopy;
       _os_log_error_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_ERROR, "failed to decode label or value from %@", buf, 0xCu);
     }
 
@@ -325,10 +325,10 @@ LABEL_35:
 
   else
   {
-    v26 = [coderCopy decodeObjectOfClass:v5 forKey:@"nam"];
-    v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dat"];
-    v24 = [coderCopy decodeInt32ForKey:@"fld"];
-    v23 = [coderCopy decodeObjectOfClass:v5 forKey:@"obi"];
+    v25 = [coderCopy decodeObjectOfClass:v5 forKey:@"nam"];
+    v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dat"];
+    v23 = [coderCopy decodeInt32ForKey:@"fld"];
+    v22 = [coderCopy decodeObjectOfClass:v5 forKey:@"obi"];
     v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"owu"];
     v12 = [coderCopy decodeIntegerForKey:@"pag"];
     v13 = [coderCopy decodeBoolForKey:@"sag"];
@@ -337,15 +337,14 @@ LABEL_35:
     v16 = v15;
     v17 = [coderCopy decodeInt32ForKey:@"src"];
     v18 = [coderCopy decodeObjectOfClass:v5 forKey:@"sid"];
-    BYTE2(v22) = v17;
-    BYTE1(v22) = v14;
-    LOBYTE(v22) = v13;
-    self = [PPQuickTypeItem initWithLabel:"initWithLabel:value:name:date:fields:originatingBundleID:originatingWebsiteURL:predictionAge:shouldAggregate:flags:score:source:sourceIdentifier:" value:v6 name:v8 date:v26 fields:v25 originatingBundleID:v24 originatingWebsiteURL:v23 predictionAge:v16 shouldAggregate:v11 flags:v12 score:v22 source:v18 sourceIdentifier:?];
+    BYTE2(v21) = v17;
+    BYTE1(v21) = v14;
+    LOBYTE(v21) = v13;
+    self = [PPQuickTypeItem initWithLabel:"initWithLabel:value:name:date:fields:originatingBundleID:originatingWebsiteURL:predictionAge:shouldAggregate:flags:score:source:sourceIdentifier:" value:v6 name:v8 date:v25 fields:v24 originatingBundleID:v23 originatingWebsiteURL:v22 predictionAge:v16 shouldAggregate:v11 flags:v12 score:v21 source:v18 sourceIdentifier:?];
 
     selfCopy = self;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

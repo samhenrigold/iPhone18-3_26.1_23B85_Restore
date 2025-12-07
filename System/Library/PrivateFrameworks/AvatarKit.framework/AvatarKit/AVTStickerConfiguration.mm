@@ -27,121 +27,106 @@
 
 + (id)allStickerPackNames
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"stickers";
-  v5[1] = @"stickersPrerelease";
-  v5[2] = @"posesPack";
-  v5[3] = @"posesPackPrerelease";
-  v5[4] = @"memojiEditorThumbnails";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:@"stickers" count:{@"stickersPrerelease", @"posesPack", @"posesPackPrerelease", @"memojiEditorThumbnails", v4}];
 
   return v2;
 }
 
 + (id)_stickerConfigurationsForPuppetNamed:(id)named inStickerPack:(id)pack
 {
-  v28 = *MEMORY[0x1E69E9840];
   packCopy = pack;
   v20 = AVTPrecompiledStickerPackPlistForPuppetNamed(packCopy, named);
-  v7 = [v20 objectAtIndexedSubscript:1];
-  v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v7 = [v20 objectAtIndexedSubscript:?];
+  v8 = objc_alloc(MEMORY[0x1E695DF70]);
+  [v7 count];
+  v22 = [v8 initWithCapacity:?];
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v24;
+    v10 = v9;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v24 != v10)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(*(&v23 + 1) + 8 * i) stringByAppendingPathComponent:@"stickerConfiguration.json"];
-        v13 = +[AVTResourceLocator sharedResourceLocator];
-        v14 = [(AVTResourceLocator *)v13 urlForStickerResourceAtPath:v12 isDirectory:0];
+        v13 = [*(8 * i) stringByAppendingPathComponent:?];
+        v14 = +[AVTResourceLocator sharedResourceLocator];
+        v15 = [(AVTResourceLocator *)v14 urlForStickerResourceAtPath:v13 isDirectory:0];
 
-        v15 = [self alloc];
-        path = [v14 path];
-        v17 = [v15 initWithConfigurationAtPath:path forStickerPack:packCopy];
+        v16 = [self alloc];
+        path = [v15 path];
+        v18 = [v16 initWithConfigurationAtPath:? forStickerPack:?];
 
-        if (v17)
+        if (v18)
         {
-          [v22 addObject:v17];
+          [v22 addObject:?];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v9);
+    while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 + (id)_stickerConfigurationForPuppetNamed:(id)named inStickerPack:(id)pack stickerName:(id)name
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   packCopy = pack;
   nameCopy = name;
   v11 = AVTPrecompiledStickerPackPlistForPuppetNamed(packCopy, namedCopy);
-  v12 = [v11 objectAtIndexedSubscript:0];
-  v13 = [v12 indexOfObject:nameCopy];
-  if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+  v12 = [v11 objectAtIndexedSubscript:?];
+  if ([v12 indexOfObject:?] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v14 = avt_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = avt_default_log(0x7FFFFFFFFFFFFFFFLL);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v28 = nameCopy;
-      v29 = 2112;
-      v30 = packCopy;
-      v31 = 2112;
-      v32 = namedCopy;
-      _os_log_error_impl(&dword_1BB472000, v14, OS_LOG_TYPE_ERROR, "Error: Failed to find sticker %@ in pack %@ for puppet named %@", buf, 0x20u);
+      v25 = nameCopy;
+      v26 = 2112;
+      v27 = packCopy;
+      v28 = 2112;
+      v29 = namedCopy;
+      _os_log_error_impl(&dword_1BB472000, v13, OS_LOG_TYPE_ERROR, "Error: Failed to find sticker %@ in pack %@ for puppet named %@", buf, 0x20u);
     }
 
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v16 = v13;
-    v26 = [v11 objectAtIndexedSubscript:1];
-    v17 = [v26 objectAtIndexedSubscript:v16];
-    v18 = [v17 stringByAppendingPathComponent:@"stickerConfiguration.json"];
-    v19 = +[AVTResourceLocator sharedResourceLocator];
-    [(AVTResourceLocator *)v19 urlForStickerResourceAtPath:v18 isDirectory:0];
-    v21 = v20 = namedCopy;
+    v23 = [v11 objectAtIndexedSubscript:?];
+    v15 = [v23 objectAtIndexedSubscript:?];
+    v16 = [v15 stringByAppendingPathComponent:?];
+    v17 = +[AVTResourceLocator sharedResourceLocator];
+    [(AVTResourceLocator *)v17 urlForStickerResourceAtPath:v16 isDirectory:0];
+    v19 = v18 = namedCopy;
 
-    v22 = [self alloc];
-    path = [v21 path];
-    v15 = [v22 initWithConfigurationAtPath:path forStickerPack:packCopy];
+    v20 = [self alloc];
+    path = [v19 path];
+    v14 = [v20 initWithConfigurationAtPath:? forStickerPack:?];
 
-    namedCopy = v20;
+    namedCopy = v18;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v14;
 }
 
 + (id)unavailableAnimojiNamesForStickerPack:(id)pack
 {
   v3 = AVTPrecompiledStickerPackPlist(pack);
-  v4 = [v3 objectForKeyedSubscript:@"unavailableAnimoji"];
+  v4 = [v3 objectForKeyedSubscript:?];
   v5 = v4;
   if (v4)
   {
@@ -161,7 +146,7 @@
 + (id)_availableStickerNamesForPuppetNamed:(id)named inStickerPack:(id)pack
 {
   v4 = AVTPrecompiledStickerPackPlistForPuppetNamed(pack, named);
-  v5 = [v4 objectAtIndexedSubscript:0];
+  v5 = [v4 objectAtIndexedSubscript:?];
 
   return v5;
 }
@@ -172,15 +157,15 @@
   packCopy = pack;
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   v18 = 0;
-  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:8 error:&v18];
+  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:? options:? error:?];
   v10 = v18;
-  if (!v9 || (v11 = v10, v17 = v10, [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v17], v12 = objc_claimAutoreleasedReturnValue(), v13 = v17, v11, v13))
+  if (!v9 || (v11 = v10, v17 = v10, [MEMORY[0x1E696ACB0] JSONObjectWithData:? options:? error:?], v12 = objc_claimAutoreleasedReturnValue(), v13 = v17, v11, v13))
   {
-    v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"Sticker Configuration could not be created userInfo:{data not JSON or empty", 0}];
+    v16 = [MEMORY[0x1E695DF30] exceptionWithName:? reason:? userInfo:?];
     objc_exception_throw(v16);
   }
 
-  v14 = [(AVTStickerConfiguration *)self initWithConfigDictionary:v12 assetsPath:stringByDeletingLastPathComponent forStickerPack:packCopy];
+  v14 = [AVTStickerConfiguration initWithConfigDictionary:"initWithConfigDictionary:assetsPath:forStickerPack:" assetsPath:? forStickerPack:?];
 
   return v14;
 }
@@ -190,14 +175,14 @@
   dictionaryCopy = dictionary;
   pathCopy = path;
   packCopy = pack;
-  v12 = [dictionaryCopy objectForKey:@"options"];
-  lastPathComponent = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
+  v12 = [dictionaryCopy objectForKey:?];
+  lastPathComponent = [dictionaryCopy objectForKeyedSubscript:?];
   if (!lastPathComponent)
   {
     lastPathComponent = [pathCopy lastPathComponent];
   }
 
-  v14 = [(AVTStickerConfiguration *)self initWithName:lastPathComponent pose:0 bodyPose:0 props:0 shaders:0 camera:0 options:v12];
+  v14 = [AVTStickerConfiguration initWithName:"initWithName:pose:bodyPose:props:shaders:camera:options:" pose:v12 bodyPose:? props:? shaders:? camera:? options:?];
   v15 = v14;
   if (v14)
   {
@@ -219,7 +204,7 @@
   poseCopy = pose;
   nameCopy = name;
   physicalizedPose = [animation physicalizedPose];
-  v23 = [(AVTStickerConfiguration *)self initWithName:nameCopy pose:physicalizedPose bodyPose:poseCopy props:propsCopy shaders:shadersCopy camera:cameraCopy options:optionsCopy];
+  v23 = [AVTStickerConfiguration initWithName:"initWithName:pose:bodyPose:props:shaders:camera:options:" pose:optionsCopy bodyPose:? props:? shaders:? camera:? options:?];
 
   return v23;
 }
@@ -233,36 +218,37 @@
   shadersCopy = shaders;
   cameraCopy = camera;
   optionsCopy = options;
-  v35.receiver = self;
-  v35.super_class = AVTStickerConfiguration;
-  v18 = [(AVTStickerConfiguration *)&v35 init];
+  v36.receiver = self;
+  v36.super_class = AVTStickerConfiguration;
+  v18 = [(AVTStickerConfiguration *)&v36 init];
+  v19 = v18;
   if (v18)
   {
     if (!nameCopy)
     {
-      v19 = avt_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = avt_default_log(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [(AVTAnimoji *)v19 initWithName:v20 error:v21, v22, v23, v24, v25, v26];
+        [(AVTAnimoji *)v20 initWithName:v21 error:v22, v23, v24, v25, v26, v27];
       }
     }
 
-    v18->_lock._os_unfair_lock_opaque = 0;
-    objc_storeStrong(&v18->_name, name);
-    v27 = AVTLocalizedStickerName(nameCopy);
-    localizedName = v18->_localizedName;
-    v18->_localizedName = v27;
+    v19->_lock._os_unfair_lock_opaque = 0;
+    objc_storeStrong(&v19->_name, name);
+    v28 = AVTLocalizedStickerName(nameCopy);
+    localizedName = v19->_localizedName;
+    v19->_localizedName = v28;
 
-    objc_storeStrong(&v18->_physicalizedPose, pose);
-    objc_storeStrong(&v18->_bodyPose, bodyPose);
-    objc_storeStrong(&v18->_props, props);
-    objc_storeStrong(&v18->_shaderModifiers, shaders);
-    objc_storeStrong(&v18->_camera, camera);
-    v18->_stickerVersion = 1;
-    [(AVTStickerConfiguration *)v18 setupOptions:optionsCopy];
+    objc_storeStrong(&v19->_physicalizedPose, pose);
+    objc_storeStrong(&v19->_bodyPose, bodyPose);
+    objc_storeStrong(&v19->_props, props);
+    objc_storeStrong(&v19->_shaderModifiers, shaders);
+    objc_storeStrong(&v19->_camera, camera);
+    v19->_stickerVersion = 1;
+    [(AVTStickerConfiguration *)v19 setupOptions:?];
   }
 
-  return v18;
+  return v19;
 }
 
 - (id)framingMode
@@ -287,7 +273,7 @@
 
   else
   {
-    v2 = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:@"props"];
+    v2 = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:?];
     v3 = [v2 count];
   }
 
@@ -303,7 +289,7 @@
 
   else
   {
-    bodyPose = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:@"body-pose"];
+    bodyPose = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:?];
   }
 
   return bodyPose != 0;
@@ -324,8 +310,8 @@
 
   else
   {
-    v4 = [(NSDictionary *)configurationDictionary objectForKeyedSubscript:@"props"];
-    v5 = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:@"body-pose"];
+    v4 = [(NSDictionary *)configurationDictionary objectForKeyedSubscript:?];
+    v5 = [(NSDictionary *)self->_configurationDictionary objectForKeyedSubscript:?];
     v6 = ([v4 count] | v5) == 0;
   }
 
@@ -337,140 +323,131 @@
   v3 = [AVTAvatarPoseAnimation alloc];
   pose = [(AVTAvatarPhysicalizedPose *)self->_physicalizedPose pose];
   physicsStates = [(AVTAvatarPhysicalizedPose *)self->_physicalizedPose physicsStates];
-  v6 = [(AVTAvatarPoseAnimation *)v3 initWithStaticPose:pose staticPhysicsStates:physicsStates];
+  v6 = [AVTAvatarPoseAnimation initWithStaticPose:v3 staticPhysicsStates:"initWithStaticPose:staticPhysicsStates:"];
 
   return v6;
 }
 
 - (void)setupOptions:(id)options
 {
-  v48 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v5 = [optionsCopy objectForKeyedSubscript:@"size"];
+  v5 = [optionsCopy objectForKeyedSubscript:?];
   legacySizeOption = self->_legacySizeOption;
   self->_legacySizeOption = v5;
 
   if (self->_legacySizeOption && (setupOptions__done & 1) == 0)
   {
     setupOptions__done = 1;
-    v7 = avt_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = avt_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(AVTStickerConfiguration *)v7 setupOptions:v8, v9, v10, v11, v12, v13, v14];
+      [(AVTStickerConfiguration *)v8 setupOptions:v9, v10, v11, v12, v13, v14, v15];
     }
   }
 
-  v15 = [optionsCopy valueForKey:@"presetOverrides"];
-  v37 = v15;
-  if ([v15 count])
+  v16 = [optionsCopy valueForKey:?];
+  v38 = v16;
+  if ([v16 count])
   {
-    v36 = optionsCopy;
-    v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v15, "count")}];
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v18)
+    v37 = optionsCopy;
+    v17 = objc_alloc(MEMORY[0x1E695DF70]);
+    [v16 count];
+    v18 = [v17 initWithCapacity:?];
+    v19 = v16;
+    v20 = [v19 countByEnumeratingWithState:? objects:? count:?];
+    if (v20)
     {
-      v19 = v18;
-      v20 = *v43;
+      v21 = v20;
+      v22 = MEMORY[0];
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v21; i = (i + 1))
         {
-          if (*v43 != v20)
+          if (MEMORY[0] != v22)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v19);
           }
 
-          v22 = *(*(&v42 + 1) + 8 * i);
-          v23 = [v17 objectForKeyedSubscript:{v22, v36}];
-          v24 = [AVTStickerPresetOverride presetOverrideFromDictionary:v23 forCategoryName:v22];
+          v24 = [v19 objectForKeyedSubscript:v37];
+          v25 = [AVTStickerPresetOverride presetOverrideFromDictionary:"presetOverrideFromDictionary:forCategoryName:" forCategoryName:?];
 
-          [(NSArray *)v16 addObject:v24];
+          [(NSArray *)v18 addObject:?];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v21 = [v19 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v19);
+      while (v21);
     }
 
     presetOverrides = self->_presetOverrides;
-    self->_presetOverrides = v16;
+    self->_presetOverrides = v18;
 
-    optionsCopy = v36;
+    optionsCopy = v37;
   }
 
-  v26 = [optionsCopy valueForKey:{@"morpherOverrides", v36}];
-  if ([v26 count])
+  v27 = [optionsCopy valueForKey:v37];
+  if ([v27 count])
   {
-    v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v26, "count")}];
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v28 = v26;
-    v29 = [v28 countByEnumeratingWithState:&v38 objects:v46 count:16];
-    if (v29)
+    v28 = objc_alloc(MEMORY[0x1E695DF70]);
+    [v27 count];
+    v29 = [v28 initWithCapacity:?];
+    v30 = v27;
+    v31 = [v30 countByEnumeratingWithState:? objects:? count:?];
+    if (v31)
     {
-      v30 = v29;
-      v31 = *v39;
+      v32 = v31;
+      v33 = MEMORY[0];
       do
       {
-        for (j = 0; j != v30; ++j)
+        for (j = 0; j != v32; j = (j + 1))
         {
-          if (*v39 != v31)
+          if (MEMORY[0] != v33)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v30);
           }
 
-          v33 = [AVTStickerMorpherOverride morpherOverrideFromDictionary:*(*(&v38 + 1) + 8 * j)];
-          [(NSArray *)v27 addObject:v33];
+          v35 = [AVTStickerMorpherOverride morpherOverrideFromDictionary:?];
+          [(NSArray *)v29 addObject:?];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v32 = [v30 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v30);
+      while (v32);
     }
 
     morpherOverrides = self->_morpherOverrides;
-    self->_morpherOverrides = v27;
+    self->_morpherOverrides = v29;
 
-    v15 = v37;
+    v16 = v38;
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadIfNeeded
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a2, a3, "Error: Unreachable code: Unsupported file type for scene %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a2, a3, "Error: Unreachable code: Unsupported file type for scene %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = a3;
-  v9 = [v5 objectForKeyedSubscript:@"pose"];
-  v6 = objc_alloc_init(AVTStickerPoseAdjustment);
-  [(AVTStickerPoseAdjustment *)v6 setPresetCategory:a2];
-  v7 = [v5 objectForKeyedSubscript:@"value"];
+  v4 = a3;
+  v8 = [v4 objectForKeyedSubscript:?];
+  v5 = objc_alloc_init(AVTStickerPoseAdjustment);
+  [(AVTStickerPoseAdjustment *)v5 setPresetCategory:?];
+  v6 = [v4 objectForKeyedSubscript:?];
 
-  [(AVTStickerPoseAdjustment *)v6 setPresetIdentifier:v7];
-  v8 = [[AVTAvatarPose alloc] initWithDictionaryRepresentation:v9];
-  [(AVTStickerPoseAdjustment *)v6 setPose:v8];
+  [(AVTStickerPoseAdjustment *)v5 setPresetIdentifier:?];
+  v7 = [[AVTAvatarPose alloc] initWithDictionaryRepresentation:?];
+  [(AVTStickerPoseAdjustment *)v5 setPose:?];
 
-  [*(a1 + 32) addObject:v6];
+  [*(a1 + 32) addObject:?];
 }
 
 void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   AVTPresetCategoryFromString(a2);
   objc_opt_class();
@@ -481,40 +458,30 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:0 objects:? count:?];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = MEMORY[0];
       do
       {
-        v10 = 0;
-        do
+        for (i = 0; i != v8; i = (i + 1))
         {
-          if (*v14 != v9)
+          if (MEMORY[0] != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * v10);
-          (*(*(a1 + 32) + 16))(*(a1 + 32));
-          ++v10;
+          (*(*(a1 + 32) + 16))();
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unload
@@ -524,12 +491,12 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
     os_unfair_lock_lock(&self->_lock);
     if (self->_hasLoadedFromConfiguration && self->_configurationDictionary)
     {
-      [(AVTStickerConfiguration *)self setPhysicalizedPose:0];
-      [(AVTStickerConfiguration *)self setBodyPose:0];
-      [(AVTStickerConfiguration *)self setPoseAdjustments:0];
-      [(AVTStickerConfiguration *)self setProps:0];
-      [(AVTStickerConfiguration *)self setShaderModifiers:0];
-      [(AVTStickerConfiguration *)self setCamera:0];
+      [(AVTStickerConfiguration *)self setPhysicalizedPose:?];
+      [(AVTStickerConfiguration *)self setBodyPose:?];
+      [(AVTStickerConfiguration *)self setPoseAdjustments:?];
+      [(AVTStickerConfiguration *)self setProps:?];
+      [(AVTStickerConfiguration *)self setShaderModifiers:?];
+      [(AVTStickerConfiguration *)self setCamera:?];
       self->_hasLoadedFromConfiguration = 0;
     }
 
@@ -539,45 +506,44 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
 
 - (void)_updateDictionary:(id)dictionary withTargetPath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pathCopy = path;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   props = [(AVTStickerConfiguration *)self props];
-  v10 = [props countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [props countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(props);
         }
 
-        v14 = [*(*(&v16 + 1) + 8 * v13) dictionaryWithTargetPath:pathCopy];
-        [array addObject:v14];
+        v14 = [*(*(&v15 + 1) + 8 * v13) dictionaryWithTargetPath:?];
+        [array addObject:?];
 
-        ++v13;
+        v13 = (v13 + 1);
       }
 
       while (v11 != v13);
-      v11 = [props countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [props countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v11);
   }
 
-  [dictionaryCopy setObject:array forKeyedSubscript:@"props"];
-  v15 = *MEMORY[0x1E69E9840];
+  [dictionaryCopy setObject:? forKeyedSubscript:?];
 }
 
 - (id)description
@@ -588,14 +554,14 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
   v6 = name;
   if (self->_hasLoadedFromConfiguration)
   {
-    v7 = [(AVTStickerConfiguration *)self dictionaryWithTargetPath:@"/"];
+    v7 = [(AVTStickerConfiguration *)self dictionaryWithTargetPath:?];
     v8 = [v7 description];
-    v9 = [v3 stringWithFormat:@"<%@ %p | %@ %@>", v4, self, v6, v8];
+    v9 = [v3 stringWithFormat:v4, self, v6, v8];
   }
 
   else
   {
-    v9 = [v3 stringWithFormat:@"<%@ %p | %@ %@>", v4, self, name, @"Unloaded"];
+    v9 = [v3 stringWithFormat:v4, self, name, @"Unloaded"];
   }
 
   return v9;
@@ -617,7 +583,7 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
   }
 
   v7 = dictionary;
-  [(AVTStickerConfiguration *)self _updateDictionary:dictionary withTargetPath:pathCopy];
+  [AVTStickerConfiguration _updateDictionary:"_updateDictionary:withTargetPath:" withTargetPath:?];
 
   return v7;
 }
@@ -627,7 +593,7 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
   if ((size_done & 1) == 0)
   {
     size_done = 1;
-    v3 = avt_default_log();
+    v3 = avt_default_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(AVTStickerConfiguration *)v3 setupOptions:v4, v5, v6, v7, v8, v9, v10];
@@ -657,7 +623,7 @@ void __39__AVTStickerConfiguration_loadIfNeeded__block_invoke_2(uint64_t a1, voi
   if ((preRendered_done & 1) == 0)
   {
     preRendered_done = 1;
-    v2 = avt_default_log();
+    v2 = avt_default_log(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [(AVTStickerConfiguration(Deprecated) *)v2 preRendered:v3];

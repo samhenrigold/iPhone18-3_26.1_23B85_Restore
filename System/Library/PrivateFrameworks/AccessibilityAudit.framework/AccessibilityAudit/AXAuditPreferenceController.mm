@@ -3,6 +3,7 @@
 - (AXAuditPreferenceController)init;
 - (BOOL)spinRunloop;
 - (void)dealloc;
+- (void)setSpinRunloop:(BOOL)runloop;
 @end
 
 @implementation AXAuditPreferenceController
@@ -54,6 +55,13 @@ uint64_t __47__AXAuditPreferenceController_sharedController__block_invoke(uint64
   v4.receiver = self;
   v4.super_class = AXAuditPreferenceController;
   [(AXAuditPreferenceController *)&v4 dealloc];
+}
+
+- (void)setSpinRunloop:(BOOL)runloop
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:runloop];
+  preferenceDictionary = [(AXAuditPreferenceController *)self preferenceDictionary];
+  [preferenceDictionary setValue:v5 forKey:@"spinRunloop"];
 }
 
 - (BOOL)spinRunloop

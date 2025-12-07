@@ -3,8 +3,8 @@
 - (STDataAccessStatusDomainDataProvider)init;
 - (STLocationStatusDomainData)locationData;
 - (STMediaStatusDomainData)mediaData;
-- (id)_dataAccessAttributionsForAttributions:(uint64_t)attributions dataAccessType:(void *)type dataAccessAttributionProvider:;
-- (id)_internalQueue_generatedData;
+- (dispatch_queue_t)_internalQueue_generatedData;
+- (id)_dataAccessAttributionsForAttributions:(void *)attributions dataAccessType:(void *)type dataAccessAttributionProvider:;
 - (id)setLocationData:(id)data mediaData:(id)mediaData;
 - (void)_internalQueue_handleLocationData:(void *)data mediaData:;
 - (void)_internalQueue_makeAttributionRecent:(id *)recent;
@@ -15,7 +15,7 @@
 
 @implementation STDataAccessStatusDomainDataProvider
 
-- (id)_internalQueue_generatedData
+- (dispatch_queue_t)_internalQueue_generatedData
 {
   selfCopy = self;
   if (self)
@@ -25,7 +25,7 @@
     [v2 addObjectsFromArray:selfCopy[9]];
     [v2 addObjectsFromArray:selfCopy[11]];
     selfCopy = objc_alloc_init(MEMORY[0x277D6BA08]);
-    [selfCopy setDataAccessAttributions:v2];
+    [(dispatch_queue_t *)selfCopy setDataAccessAttributions:v2];
   }
 
   return selfCopy;
@@ -76,18 +76,18 @@
 
 - (void)_internalQueue_handleLocationData:(void *)data mediaData:
 {
-  v111 = *MEMORY[0x277D85DE8];
-  v76 = a2;
+  v110 = *MEMORY[0x277D85DE8];
+  v75 = a2;
   dataCopy = data;
   if (self)
   {
-    dispatch_assert_queue_V2(*(self + 40));
-    if ((*(self + 24) & 1) == 0)
+    dispatch_assert_queue_V2(self[5]);
+    if ((self[3] & 1) == 0)
     {
-      v5 = v76;
+      v5 = v75;
       v6 = dataCopy;
-      dispatch_assert_queue_V2(*(self + 40));
-      v75 = v6;
+      dispatch_assert_queue_V2(self[5]);
+      v74 = v6;
       if (!(v5 | v6))
       {
         objc_setProperty_nonatomic_copy(self, v7, 0, 56);
@@ -97,97 +97,97 @@ LABEL_54:
         goto LABEL_55;
       }
 
-      v74 = v5;
+      v73 = v5;
       val = self;
       cameraAttributions = [v6 cameraAttributions];
-      v73 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:cameraAttributions dataAccessType:1 dataAccessAttributionProvider:&__block_literal_global_16];
+      v72 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:cameraAttributions dataAccessType:1 dataAccessAttributionProvider:&__block_literal_global_16];
 
       microphoneAttributions = [v6 microphoneAttributions];
-      v72 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:microphoneAttributions dataAccessType:0 dataAccessAttributionProvider:&__block_literal_global_4];
+      v71 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:microphoneAttributions dataAccessType:0 dataAccessAttributionProvider:&__block_literal_global_4];
 
       mutedMicrophoneRecordingAttributions = [v6 mutedMicrophoneRecordingAttributions];
-      v71 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:mutedMicrophoneRecordingAttributions dataAccessType:3 dataAccessAttributionProvider:&__block_literal_global_14];
+      v70 = [(STDataAccessStatusDomainDataProvider *)self _dataAccessAttributionsForAttributions:mutedMicrophoneRecordingAttributions dataAccessType:3 dataAccessAttributionProvider:&__block_literal_global_14];
 
-      v11 = v74;
+      v11 = v73;
       activeDisplayModes = [v11 activeDisplayModes];
       attributions = [v11 attributions];
 
+      v107[0] = MEMORY[0x277D85DD0];
+      v107[1] = 3221225472;
+      v107[2] = __85__STDataAccessStatusDomainDataProvider__filteredLocationAttributionsForLocationData___block_invoke;
+      v107[3] = &__block_descriptor_40_e51_B16__0__STLocationStatusDomainLocationAttribution_8l;
+      v107[4] = activeDisplayModes;
+      v14 = [attributions bs_filter:v107];
+
       v108[0] = MEMORY[0x277D85DD0];
       v108[1] = 3221225472;
-      v108[2] = __85__STDataAccessStatusDomainDataProvider__filteredLocationAttributionsForLocationData___block_invoke;
-      v108[3] = &__block_descriptor_40_e51_B16__0__STLocationStatusDomainLocationAttribution_8l;
-      v108[4] = activeDisplayModes;
-      v14 = [attributions bs_filter:v108];
+      v108[2] = __85__STDataAccessStatusDomainDataProvider__filteredLocationAttributionsForLocationData___block_invoke_2;
+      v108[3] = &unk_279D35108;
+      v109 = (activeDisplayModes & 2) != 0;
+      v108[4] = val;
+      v69 = [v14 bs_map:v108];
 
-      v109[0] = MEMORY[0x277D85DD0];
-      v109[1] = 3221225472;
-      v109[2] = __85__STDataAccessStatusDomainDataProvider__filteredLocationAttributionsForLocationData___block_invoke_2;
-      v109[3] = &unk_279D35108;
-      v110 = (activeDisplayModes & 2) != 0;
-      v109[4] = val;
-      v70 = [v14 bs_map:v109];
-
-      v69 = [(STDataAccessStatusDomainDataProvider *)val _dataAccessAttributionsForAttributions:v70 dataAccessType:2 dataAccessAttributionProvider:&__block_literal_global_18];
-      v15 = [v73 mutableCopy];
-      [v15 addObjectsFromArray:v72];
+      v68 = [(STDataAccessStatusDomainDataProvider *)val _dataAccessAttributionsForAttributions:v69 dataAccessType:2 dataAccessAttributionProvider:&__block_literal_global_18];
+      v15 = [v72 mutableCopy];
       [v15 addObjectsFromArray:v71];
-      [v15 addObjectsFromArray:v69];
+      [v15 addObjectsFromArray:v70];
+      [v15 addObjectsFromArray:v68];
       v16 = v15;
-      dispatch_assert_queue_V2(*(val + 5));
-      v17 = *(val + 8);
+      dispatch_assert_queue_V2(val[5]);
+      v17 = val[8];
       objc_setProperty_nonatomic_copy(val, v18, v16, 64);
       v19 = [v16 mutableCopy];
       [v19 st_subtractArray:v17];
-      v66 = v17;
-      v67 = [v17 mutableCopy];
-      v68 = v16;
-      [v67 st_subtractArray:v16];
-      v84 = *(val + 9);
-      v85 = *(val + 10);
-      v83 = *(val + 11);
-      v20 = *(val + 12);
+      v65 = v17;
+      v66 = [v17 mutableCopy];
+      v67 = v16;
+      [v66 st_subtractArray:v16];
+      v83 = val[9];
+      v84 = val[10];
+      v82 = val[11];
+      v20 = val[12];
+      v97 = 0u;
       v98 = 0u;
       v99 = 0u;
       v100 = 0u;
-      v101 = 0u;
       obj = v19;
-      v80 = [obj countByEnumeratingWithState:&v98 objects:v109 count:16];
-      if (v80)
+      v79 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
+      if (v79)
       {
-        v79 = *v99;
+        v78 = *v98;
         do
         {
           v21 = 0;
           do
           {
-            if (*v99 != v79)
+            if (*v98 != v78)
             {
               v22 = v21;
               objc_enumerationMutation(obj);
               v21 = v22;
             }
 
-            v81 = v21;
-            v23 = *(*(&v98 + 1) + 8 * v21);
+            v80 = v21;
+            v23 = *(*(&v97 + 1) + 8 * v21);
+            v93 = 0u;
             v94 = 0u;
             v95 = 0u;
             v96 = 0u;
-            v97 = 0u;
-            allKeys = [v85 allKeys];
-            v25 = [allKeys countByEnumeratingWithState:&v94 objects:v108 count:16];
+            allKeys = [v84 allKeys];
+            v25 = [allKeys countByEnumeratingWithState:&v93 objects:v107 count:16];
             if (v25)
             {
-              v26 = *v95;
+              v26 = *v94;
               do
               {
                 for (i = 0; i != v25; ++i)
                 {
-                  if (*v95 != v26)
+                  if (*v94 != v26)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v28 = *(*(&v94 + 1) + 8 * i);
+                  v28 = *(*(&v93 + 1) + 8 * i);
                   attributedEntity = [v28 attributedEntity];
                   attributedEntity2 = [v23 attributedEntity];
                   if ([attributedEntity isEqual:attributedEntity2])
@@ -197,11 +197,11 @@ LABEL_54:
 
                     if (dataAccessType)
                     {
-                      v32 = [v85 objectForKey:v28];
+                      v32 = [v84 objectForKey:v28];
                       [v32 invalidate];
 
-                      [v85 removeObjectForKey:v28];
-                      [v84 removeObject:v28];
+                      [v84 removeObjectForKey:v28];
+                      [v83 removeObject:v28];
                     }
                   }
 
@@ -210,31 +210,31 @@ LABEL_54:
                   }
                 }
 
-                v25 = [allKeys countByEnumeratingWithState:&v94 objects:v108 count:16];
+                v25 = [allKeys countByEnumeratingWithState:&v93 objects:v107 count:16];
               }
 
               while (v25);
             }
 
-            v92 = 0u;
-            v93 = 0u;
-            v90 = 0u;
             v91 = 0u;
+            v92 = 0u;
+            v89 = 0u;
+            v90 = 0u;
             allKeys2 = [v20 allKeys];
-            v34 = [allKeys2 countByEnumeratingWithState:&v90 objects:v107 count:16];
+            v34 = [allKeys2 countByEnumeratingWithState:&v89 objects:v106 count:16];
             if (v34)
             {
-              v35 = *v91;
+              v35 = *v90;
               do
               {
                 for (j = 0; j != v34; ++j)
                 {
-                  if (*v91 != v35)
+                  if (*v90 != v35)
                   {
                     objc_enumerationMutation(allKeys2);
                   }
 
-                  v37 = *(*(&v90 + 1) + 8 * j);
+                  v37 = *(*(&v89 + 1) + 8 * j);
                   attributedEntity3 = [v37 attributedEntity];
                   attributedEntity4 = [v23 attributedEntity];
                   if ([attributedEntity3 isEqual:attributedEntity4])
@@ -248,7 +248,7 @@ LABEL_54:
                       [v41 invalidate];
 
                       [v20 removeObjectForKey:v37];
-                      [v83 removeObject:v37];
+                      [v82 removeObject:v37];
                     }
                   }
 
@@ -257,29 +257,29 @@ LABEL_54:
                   }
                 }
 
-                v34 = [allKeys2 countByEnumeratingWithState:&v90 objects:v107 count:16];
+                v34 = [allKeys2 countByEnumeratingWithState:&v89 objects:v106 count:16];
               }
 
               while (v34);
             }
 
-            v21 = v81 + 1;
+            v21 = v80 + 1;
           }
 
-          while (v81 + 1 != v80);
-          v80 = [obj countByEnumeratingWithState:&v98 objects:v109 count:16];
+          while (v80 + 1 != v79);
+          v79 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
         }
 
-        while (v80);
+        while (v79);
       }
 
-      v88 = 0u;
-      v89 = 0u;
-      v86 = 0u;
       v87 = 0u;
-      v42 = v67;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v42 = v66;
       v43 = 0;
-      v44 = [v42 countByEnumeratingWithState:&v86 objects:v106 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v85 objects:v105 count:16];
       if (!v44)
       {
 LABEL_51:
@@ -291,22 +291,22 @@ LABEL_51:
         }
 
         self = val;
-        v5 = v74;
+        v5 = v73;
         goto LABEL_54;
       }
 
-      v45 = *v87;
+      v45 = *v86;
       v46 = *MEMORY[0x277D6BD30];
 LABEL_36:
       v47 = 0;
       while (1)
       {
-        if (*v87 != v45)
+        if (*v86 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v48 = *(*(&v86 + 1) + 8 * v47);
+        v48 = *(*(&v85 + 1) + 8 * v47);
         [v48 accessDuration];
         v50 = v49;
         dataAccessType3 = [v48 dataAccessType];
@@ -351,30 +351,30 @@ LABEL_48:
 
         v57 = v48;
         objc_initWeak(&location, val);
-        v58 = *(val + 9);
+        v58 = val[9];
         [v58 addObject:v57];
 
         v59 = [objc_alloc(MEMORY[0x277CF0BD8]) initWithIdentifier:@"STDataAccessStatusDomain-MinimumDisplayTime"];
-        v60 = *(val + 10);
+        v60 = val[10];
         [v60 setObject:v59 forKey:v57];
 
-        v61 = *(val + 5);
-        v102[0] = MEMORY[0x277D85DD0];
-        v102[1] = 3221225472;
-        v102[2] = __104__STDataAccessStatusDomainDataProvider__internalQueue_beginWaitingForMinimumDisplayTime_forAttribution___block_invoke;
-        v102[3] = &unk_279D35150;
-        objc_copyWeak(&v104, &location);
+        v61 = val[5];
+        v101[0] = MEMORY[0x277D85DD0];
+        v101[1] = 3221225472;
+        v101[2] = __104__STDataAccessStatusDomainDataProvider__internalQueue_beginWaitingForMinimumDisplayTime_forAttribution___block_invoke;
+        v101[3] = &unk_279D35150;
+        objc_copyWeak(&v103, &location);
         v62 = v57;
-        v103 = v62;
-        [v59 scheduleWithFireInterval:v61 leewayInterval:v102 queue:v56 handler:0.5];
+        v102 = v62;
+        [v59 scheduleWithFireInterval:v61 leewayInterval:v101 queue:v56 handler:0.5];
 
-        objc_destroyWeak(&v104);
+        objc_destroyWeak(&v103);
         objc_destroyWeak(&location);
 
 LABEL_49:
         if (v44 == ++v47)
         {
-          v44 = [v42 countByEnumeratingWithState:&v86 objects:v106 count:16];
+          v44 = [v42 countByEnumeratingWithState:&v85 objects:v105 count:16];
           if (!v44)
           {
             goto LABEL_51;
@@ -387,8 +387,6 @@ LABEL_49:
   }
 
 LABEL_55:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -436,7 +434,7 @@ uint64_t __54__STDataAccessStatusDomainDataProvider_dataAccessData__block_invoke
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (STLocationStatusDomainData)locationData
@@ -477,7 +475,7 @@ uint64_t __52__STDataAccessStatusDomainDataProvider_locationData__block_invoke(u
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (STMediaStatusDomainData)mediaData
@@ -518,7 +516,7 @@ uint64_t __49__STDataAccessStatusDomainDataProvider_mediaData__block_invoke(uint
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)setLocationData:(id)data mediaData:(id)mediaData
@@ -561,41 +559,37 @@ uint64_t __49__STDataAccessStatusDomainDataProvider_mediaData__block_invoke(uint
 
 uint64_t __66__STDataAccessStatusDomainDataProvider_setLocationData_mediaData___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 8);
-  v4 = BSEqualObjects();
-  if ((v4 & 1) == 0)
+  v2 = BSEqualObjects();
+  if ((v2 & 1) == 0)
   {
-    v5 = [*(a1 + 32) copy];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 8);
-    *(v6 + 8) = v5;
+    v3 = [*(a1 + 32) copy];
+    v4 = *(a1 + 40);
+    v5 = *(v4 + 8);
+    *(v4 + 8) = v3;
   }
 
-  v8 = *(a1 + 48);
-  v9 = *(*(a1 + 40) + 16);
   if ((BSEqualObjects() & 1) == 0)
   {
-    v10 = [*(a1 + 48) copy];
-    v11 = *(a1 + 40);
-    v12 = *(v11 + 16);
-    *(v11 + 16) = v10;
+    v6 = [*(a1 + 48) copy];
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 16);
+    *(v7 + 16) = v6;
 
     goto LABEL_7;
   }
 
-  if ((v4 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
 LABEL_7:
     [(STDataAccessStatusDomainDataProvider *)*(a1 + 40) _internalQueue_handleLocationData:*(*(a1 + 40) + 16) mediaData:?];
   }
 
-  v13 = [*(*(a1 + 40) + 56) copy];
-  v14 = *(*(a1 + 56) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = v13;
+  v9 = [*(*(a1 + 40) + 56) copy];
+  v10 = *(*(a1 + 56) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v9, v11);
 }
 
 - (void)invalidate
@@ -618,24 +612,24 @@ LABEL_7:
   dispatch_sync(internalQueue, block);
 }
 
-uint64_t __50__STDataAccessStatusDomainDataProvider_invalidate__block_invoke(uint64_t result)
+void *__50__STDataAccessStatusDomainDataProvider_invalidate__block_invoke(void *result)
 {
   v1 = result;
-  v30 = *MEMORY[0x277D85DE8];
-  v2 = *(result + 32);
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = result[4];
   if (v2)
   {
     if (*(v2 + 24))
     {
-      goto LABEL_24;
+      return result;
     }
 
     *(v2 + 24) = 1;
-    v3 = *(result + 32);
+    v3 = result[4];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     if (v3)
     {
       v4 = *(v3 + 80);
@@ -650,41 +644,41 @@ uint64_t __50__STDataAccessStatusDomainDataProvider_invalidate__block_invoke(uin
   else
   {
     v4 = 0;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
   }
 
   v5 = [v4 allValues];
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v24 + 1) + 8 * i) invalidate];
+        [*(*(&v23 + 1) + 8 * i) invalidate];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v10 = *(v1 + 32);
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = v1[4];
   if (v10)
   {
     v11 = *(v10 + 96);
@@ -696,30 +690,30 @@ uint64_t __50__STDataAccessStatusDomainDataProvider_invalidate__block_invoke(uin
   }
 
   v12 = [v11 allValues];
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v20 + 1) + 8 * j) invalidate];
+        [*(*(&v19 + 1) + 8 * j) invalidate];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
   }
 
-  v17 = *(v1 + 32);
+  v17 = v1[4];
   if (v17)
   {
     v18 = *(v17 + 48);
@@ -730,10 +724,7 @@ uint64_t __50__STDataAccessStatusDomainDataProvider_invalidate__block_invoke(uin
     v18 = 0;
   }
 
-  result = [v18 invalidate];
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v18 invalidate];
 }
 
 - (void)_internalQueue_notifyForNewData:(uint64_t)data manualUpdate:
@@ -833,51 +824,51 @@ id __98__STDataAccessStatusDomainDataProvider__dataAccessAttributionsForMicropho
   return v4;
 }
 
-- (id)_dataAccessAttributionsForAttributions:(uint64_t)attributions dataAccessType:(void *)type dataAccessAttributionProvider:
+- (id)_dataAccessAttributionsForAttributions:(void *)attributions dataAccessType:(void *)type dataAccessAttributionProvider:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   typeCopy = type;
-  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v30 = [*(self + 64) mutableCopy];
+  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29 = [*(self + 64) mutableCopy];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v7;
-  v31 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v30)
   {
-    v29 = *v37;
+    v28 = *v36;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v37 != v29)
+        if (*v36 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * i);
+        v9 = *(*(&v35 + 1) + 8 * i);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v10 = v30;
-        v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v10 = v29;
+        v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v33;
+          v13 = *v32;
 LABEL_8:
           v14 = 0;
 LABEL_9:
-          if (*v33 != v13)
+          if (*v32 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * v14);
+          v15 = *(*(&v31 + 1) + 8 * v14);
           if ([v15 dataAccessType] != attributions)
           {
             goto LABEL_23;
@@ -929,7 +920,7 @@ LABEL_22:
                 [v10 st_removeFirstOccurrenceOfObject:v21];
                 v22 = v21;
 LABEL_30:
-                [v28 addObject:v21];
+                [v27 addObject:v21];
 
                 continue;
               }
@@ -937,7 +928,7 @@ LABEL_30:
 LABEL_23:
               if (v12 == ++v14)
               {
-                v12 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+                v12 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
                 if (v12)
                 {
                   goto LABEL_8;
@@ -969,15 +960,13 @@ LABEL_28:
         }
       }
 
-      v31 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v30 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 id __111__STDataAccessStatusDomainDataProvider__dataAccessAttributionsForMutedMicrophoneRecordingActivityAttributions___block_invoke(uint64_t a1, void *a2)

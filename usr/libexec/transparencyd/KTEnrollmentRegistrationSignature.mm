@@ -1,10 +1,48 @@
 @interface KTEnrollmentRegistrationSignature
 - (KTCheckIDSRegistrationInterface)idsRegistrationInterface;
+- (KTEnrollmentRegistrationSignature)initWithDependencies:(id)dependencies forceUpdate:(BOOL)update intendedState:(id)state errorState:(id)errorState idsRegistrationInterface:(id)interface signatureTracker:(id)tracker;
 - (KTSignatureTracker)signatureTracker;
 - (void)groupStart;
+- (void)recordKeyState:(int)state application:(id)application;
 @end
 
 @implementation KTEnrollmentRegistrationSignature
+
+- (KTEnrollmentRegistrationSignature)initWithDependencies:(id)dependencies forceUpdate:(BOOL)update intendedState:(id)state errorState:(id)errorState idsRegistrationInterface:(id)interface signatureTracker:(id)tracker
+{
+  updateCopy = update;
+  dependenciesCopy = dependencies;
+  stateCopy = state;
+  interfaceCopy = interface;
+  trackerCopy = tracker;
+  v21.receiver = self;
+  v21.super_class = KTEnrollmentRegistrationSignature;
+  v17 = [(KTGroupOperation *)&v21 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(KTEnrollmentRegistrationSignature *)v17 setDeps:dependenciesCopy];
+    [(KTEnrollmentRegistrationSignature *)v18 setForceUpdate:updateCopy];
+    [(KTEnrollmentRegistrationSignature *)v18 setNextState:stateCopy];
+    [(KTEnrollmentRegistrationSignature *)v18 setIdsRegistrationInterface:interfaceCopy];
+    [(KTEnrollmentRegistrationSignature *)v18 setSignatureTracker:trackerCopy];
+    v19 = v18;
+  }
+
+  return v18;
+}
+
+- (void)recordKeyState:(int)state application:(id)application
+{
+  v4 = *&state;
+  applicationCopy = application;
+  deps = [(KTEnrollmentRegistrationSignature *)self deps];
+  logger = [deps logger];
+  v8 = [NSNumber numberWithUnsignedInt:v4];
+  applicationCopy = [NSString stringWithFormat:@"TBS-%@-%@", @"k", applicationCopy];
+
+  [logger setNumberProperty:v8 forKey:applicationCopy];
+}
 
 - (void)groupStart
 {

@@ -6,7 +6,6 @@
 - (id)specifiers;
 - (void)_synchronizeDomainWithAccessor:(id)accessor keys:(id)keys withCompletion:(id)completion;
 - (void)dealloc;
-- (void)handleDidUnpair;
 - (void)registry:(id)registry changed:(id)changed properties:(id)properties;
 - (void)setBacklightExtendValue:(int64_t)value;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
@@ -82,13 +81,6 @@ LABEL_6:
   v4.receiver = self;
   v4.super_class = CSLPRFWakeScreenSettingsViewController;
   [(CSLPRFWakeScreenSettingsViewController *)&v4 dealloc];
-}
-
-- (void)handleDidUnpair
-{
-  systemPrefsDomainAccessor = self->_systemPrefsDomainAccessor;
-  self->_systemPrefsDomainAccessor = 0;
-  _objc_release_x1();
 }
 
 - (NPSDomainAccessor)systemPrefsDomainAccessor

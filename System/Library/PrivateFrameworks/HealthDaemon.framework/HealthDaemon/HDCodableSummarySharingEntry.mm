@@ -6,9 +6,14 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)directionAsString:(int)string;
+- (id)notificationStatusAsString:(int)string;
 - (id)shareOwnerParticipant;
 - (id)sharingEntry;
 - (id)sharingRecipientIdentifier;
+- (id)statusAsString:(int)string;
+- (id)typeAsString:(int)string;
+- (id)userWheelchairModeAsString:(int)string;
 - (int)StringAsDirection:(id)direction;
 - (int)StringAsNotificationStatus:(id)status;
 - (int)StringAsStatus:(id)status;
@@ -83,6 +88,29 @@
   *&self->_has = *&self->_has & 0xBF | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Request";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Invite";
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
@@ -127,6 +155,29 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)directionAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Incoming";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Outgoing";
+  }
+
+  return v4;
+}
+
 - (int)StringAsDirection:(id)direction
 {
   directionCopy = direction;
@@ -169,6 +220,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27861DE68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -283,6 +349,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)notificationStatusAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27861DE90[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsNotificationStatus:(id)status
 {
   statusCopy = status;
@@ -355,6 +436,21 @@
   *&self->_has = v3 & 0x80 | *&self->_has & 0x7F;
 }
 
+- (id)userWheelchairModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27861DEA8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsUserWheelchairMode:(id)mode
 {
   modeCopy = mode;
@@ -395,7 +491,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   uuid = self->_uuid;
@@ -580,30 +676,30 @@ LABEL_31:
   if ([(NSMutableArray *)self->_sharingAuthorizations count])
   {
     v29 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_sharingAuthorizations, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v30 = self->_sharingAuthorizations;
-    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v41;
+      v33 = *v40;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v41 != v33)
+          if (*v40 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          dictionaryRepresentation2 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [v29 addObject:dictionaryRepresentation2];
         }
 
-        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v32);
@@ -628,14 +724,12 @@ LABEL_31:
     [v4 setObject:v37 forKey:@"userWheelchairMode"];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -647,30 +741,29 @@ LABEL_31:
     PBDataWriterWriteStringField();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_allContactIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v7);
@@ -689,7 +782,6 @@ LABEL_31:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -709,12 +801,10 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  direction = self->_direction;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_19:
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
@@ -726,50 +816,46 @@ LABEL_20:
 
   if ((*&self->_has & 4) != 0)
   {
-    dateModified = self->_dateModified;
     PBDataWriterWriteDoubleField();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v14 = self->_authorizationCategories;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
-  if (v15)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v11 = self->_authorizationCategories;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v39;
+    v13 = v12;
+    v14 = *v27;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v39 != v17)
+        if (*v27 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
-  v20 = self->_has;
-  if (v20)
+  v16 = self->_has;
+  if (v16)
   {
-    dateAccepted = self->_dateAccepted;
     PBDataWriterWriteDoubleField();
-    v20 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v20 & 2) != 0)
+  if ((v16 & 2) != 0)
   {
-    dateInvited = self->_dateInvited;
     PBDataWriterWriteDoubleField();
   }
 
@@ -790,46 +876,41 @@ LABEL_20:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    notificationStatus = self->_notificationStatus;
     PBDataWriterWriteInt32Field();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v24 = self->_sharingAuthorizations;
-  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v34 objects:v46 count:16];
-  if (v25)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v17 = self->_sharingAuthorizations;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v18)
   {
-    v26 = v25;
-    v27 = *v35;
+    v19 = v18;
+    v20 = *v23;
     do
     {
-      for (k = 0; k != v26; ++k)
+      for (k = 0; k != v19; ++k)
       {
-        if (*v35 != v27)
+        if (*v23 != v20)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v17);
         }
 
-        v29 = *(*(&v34 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
-    while (v26);
+    while (v19);
   }
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    userWheelchairMode = self->_userWheelchairMode;
     PBDataWriterWriteInt32Field();
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -995,7 +1076,7 @@ LABEL_17:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 144);
@@ -1005,30 +1086,30 @@ LABEL_17:
   v9 = *(v5 + 104);
   *(v5 + 104) = v8;
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v10 = self->_allContactIdentifiers;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v53;
+    v13 = *v52;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v53 != v13)
+        if (*v52 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v52 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v51 + 1) + 8 * i) copyWithZone:zone];
         [v5 addAllContactIdentifiers:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v12);
@@ -1085,30 +1166,30 @@ LABEL_12:
     *(v5 + 152) |= 4u;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v23 = self->_authorizationCategories;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v49;
+    v26 = *v48;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v49 != v26)
+        if (*v48 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v48 + 1) + 8 * j) copyWithZone:zone];
+        v28 = [*(*(&v47 + 1) + 8 * j) copyWithZone:zone];
         [v5 addAuthorizationCategories:v28];
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v25);
@@ -1146,30 +1227,30 @@ LABEL_12:
     *(v5 + 152) |= 0x10u;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v36 = self->_sharingAuthorizations;
-  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v45;
+    v39 = *v44;
     do
     {
       for (k = 0; k != v38; ++k)
       {
-        if (*v45 != v39)
+        if (*v44 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = [*(*(&v44 + 1) + 8 * k) copyWithZone:{zone, v44}];
+        v41 = [*(*(&v43 + 1) + 8 * k) copyWithZone:{zone, v43}];
         [v5 addSharingAuthorizations:v41];
       }
 
-      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v38);
@@ -1181,7 +1262,6 @@ LABEL_12:
     *(v5 + 152) |= 0x80u;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1591,7 +1671,7 @@ LABEL_8:
 
 - (void)mergeFrom:(id)from
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 18))
   {
@@ -1603,29 +1683,29 @@ LABEL_8:
     [(HDCodableSummarySharingEntry *)self setPrimaryContactIdentifier:?];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v5 = *(fromCopy + 4);
-  v6 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HDCodableSummarySharingEntry *)self addAllContactIdentifiers:*(*(&v33 + 1) + 8 * i)];
+        [(HDCodableSummarySharingEntry *)self addAllContactIdentifiers:*(*(&v32 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v7);
@@ -1695,29 +1775,29 @@ LABEL_20:
     *&self->_has |= 4u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v13 = *(fromCopy + 5);
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(HDCodableSummarySharingEntry *)self addAuthorizationCategories:*(*(&v29 + 1) + 8 * j)];
+        [(HDCodableSummarySharingEntry *)self addAuthorizationCategories:*(*(&v28 + 1) + 8 * j)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v15);
@@ -1758,29 +1838,29 @@ LABEL_20:
     *&self->_has |= 0x10u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v19 = *(fromCopy + 14);
-  v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(HDCodableSummarySharingEntry *)self addSharingAuthorizations:*(*(&v25 + 1) + 8 * k), v25];
+        [(HDCodableSummarySharingEntry *)self addSharingAuthorizations:*(*(&v24 + 1) + 8 * k), v24];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v21);
@@ -1791,13 +1871,11 @@ LABEL_20:
     self->_userWheelchairMode = *(fromCopy + 34);
     *&self->_has |= 0x80u;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCodableSummarySharingEntry)initWithUUID:(id)d invitationUUID:(id)iD cloudKitIdentifier:(id)identifier primaryContactIdentifier:(id)contactIdentifier allContactIdentifiers:(id)identifiers firstName:(id)name lastName:(id)lastName sharingAuthorizations:(id)self0 userWheelchairMode:(int64_t)self1 type:(int64_t)self2 direction:(unint64_t)self3 status:(int64_t)self4 notificationStatus:(int64_t)self5 dateModified:(id)self6 dateInvited:(id)self7 dateAccepted:(id)self8 setupMetadata:(id)self9 ownerParticipant:(id)participant
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   identifierCopy = identifier;
@@ -1811,33 +1889,33 @@ LABEL_20:
   acceptedCopy = accepted;
   metadataCopy = metadata;
   participantCopy = participant;
-  v61.receiver = self;
-  v61.super_class = HDCodableSummarySharingEntry;
-  v34 = [(HDCodableSummarySharingEntry *)&v61 init];
+  v60.receiver = self;
+  v60.super_class = HDCodableSummarySharingEntry;
+  v34 = [(HDCodableSummarySharingEntry *)&v60 init];
   if (v34)
   {
-    v55 = modifiedCopy;
-    v53 = dCopy;
+    v54 = modifiedCopy;
+    v52 = dCopy;
     uUIDString = [dCopy UUIDString];
     [(HDCodableSummarySharingEntry *)v34 setUuid:uUIDString];
 
     uUIDString2 = [iDCopy UUIDString];
     [(HDCodableSummarySharingEntry *)v34 setInvitationUUID:uUIDString2];
 
-    v52 = identifierCopy;
-    v37 = [identifierCopy copy];
+    v51 = identifierCopy;
+    v37 = objc_msgSend_copy(identifierCopy);
     [(HDCodableSummarySharingEntry *)v34 setCloudKitIdentifier:v37];
 
-    v38 = [contactIdentifierCopy copy];
+    v38 = objc_msgSend_copy(contactIdentifierCopy);
     [(HDCodableSummarySharingEntry *)v34 setPrimaryContactIdentifier:v38];
 
-    v39 = [identifiersCopy copy];
+    v39 = objc_msgSend_copy(identifiersCopy);
     [(HDCodableSummarySharingEntry *)v34 setAllContactIdentifiers:v39];
 
-    v40 = [nameCopy copy];
+    v40 = objc_msgSend_copy(nameCopy);
     [(HDCodableSummarySharingEntry *)v34 setFirstName:v40];
 
-    v41 = [lastNameCopy copy];
+    v41 = objc_msgSend_copy(lastNameCopy);
     [(HDCodableSummarySharingEntry *)v34 setLastName:v41];
 
     [(HDCodableSummarySharingEntry *)v34 setUserWheelchairMode:mode];
@@ -1858,7 +1936,7 @@ LABEL_20:
       [(HDCodableSummarySharingEntry *)v34 setDateModified:?];
     }
 
-    dCopy = v53;
+    dCopy = v52;
     if (invitedCopy)
     {
       [invitedCopy timeIntervalSinceReferenceDate];
@@ -1874,9 +1952,9 @@ LABEL_20:
     [(HDCodableSummarySharingEntry *)v34 setSharingSetupMetadata:metadataCopy];
     if (participantCopy)
     {
-      v60 = 0;
-      v43 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:participantCopy requiringSecureCoding:1 error:&v60];
-      v44 = v60;
+      v59 = 0;
+      v43 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:participantCopy requiringSecureCoding:1 error:&v59];
+      v44 = v59;
       [(HDCodableSummarySharingEntry *)v34 setOwnerParticipant:v43];
 
       ownerParticipant = [(HDCodableSummarySharingEntry *)v34 ownerParticipant];
@@ -1888,11 +1966,11 @@ LABEL_20:
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v63 = v34;
-          v64 = 2114;
-          v65 = participantCopy;
-          v66 = 2114;
-          v67 = v44;
+          v62 = v34;
+          v63 = 2114;
+          v64 = participantCopy;
+          v65 = 2114;
+          v66 = v44;
           _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to archive owner participant %{public}@: %{public}@", buf, 0x20u);
         }
       }
@@ -1910,11 +1988,10 @@ LABEL_20:
     v49 = HDAuthorizationIdentifiersFromCodableSharingAuthorizations(sharingAuthorizations);
     [(HDCodableSummarySharingEntry *)v34 setAuthorizationCategories:v49];
 
-    identifierCopy = v52;
-    modifiedCopy = v55;
+    identifierCopy = v51;
+    modifiedCopy = v54;
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -1926,7 +2003,7 @@ LABEL_20:
   v21 = [v3 initWithUUIDString:uuid];
   primaryContactIdentifier = [(HDCodableSummarySharingEntry *)self primaryContactIdentifier];
   allContactIdentifiers = [(HDCodableSummarySharingEntry *)self allContactIdentifiers];
-  v4 = [allContactIdentifiers copy];
+  v4 = objc_msgSend_copy(allContactIdentifiers);
   firstName = [(HDCodableSummarySharingEntry *)self firstName];
   lastName = [(HDCodableSummarySharingEntry *)self lastName];
   userWheelchairMode = [(HDCodableSummarySharingEntry *)self userWheelchairMode];
@@ -2013,7 +2090,7 @@ LABEL_20:
   else if (*(equivalentCopy + 34))
   {
 LABEL_44:
-    v21 = 0;
+    v20 = 0;
     goto LABEL_45;
   }
 
@@ -2029,7 +2106,6 @@ LABEL_44:
     *&has = self->_has;
   }
 
-  v18 = equivalentCopy[152];
   if ((*&has & 0x40) != 0)
   {
     if ((equivalentCopy[152] & 0x40) == 0 || self->_type != *(equivalentCopy + 33))
@@ -2070,22 +2146,22 @@ LABEL_44:
   }
 
   sharingSetupMetadata = self->_sharingSetupMetadata;
-  v20 = *(equivalentCopy + 15);
-  if (sharingSetupMetadata == v20)
+  v19 = *(equivalentCopy + 15);
+  if (sharingSetupMetadata == v19)
   {
-    v21 = 1;
+    v20 = 1;
     goto LABEL_45;
   }
 
-  if (!v20)
+  if (!v19)
   {
     goto LABEL_44;
   }
 
-  v21 = [(HDCodableSharingSetupMetadata *)sharingSetupMetadata isEqual:?];
+  v20 = [(HDCodableSharingSetupMetadata *)sharingSetupMetadata isEqual:?];
 LABEL_45:
 
-  return v21;
+  return v20;
 }
 
 - (id)sharingRecipientIdentifier
@@ -2101,13 +2177,13 @@ LABEL_45:
 
 - (id)shareOwnerParticipant
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   ownerParticipant = [(HDCodableSummarySharingEntry *)self ownerParticipant];
   if (ownerParticipant)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:ownerParticipant error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:ownerParticipant error:&v8];
+    v5 = v8;
     if (!v4)
     {
       _HKInitializeLogging();
@@ -2116,10 +2192,10 @@ LABEL_45:
       {
         *buf = 138543874;
         selfCopy = self;
-        v12 = 2114;
-        v13 = ownerParticipant;
-        v14 = 2114;
-        v15 = v5;
+        v11 = 2114;
+        v12 = ownerParticipant;
+        v13 = 2114;
+        v14 = v5;
         _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to unarchive owner participant %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -2132,8 +2208,6 @@ LABEL_45:
     v4 = 0;
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

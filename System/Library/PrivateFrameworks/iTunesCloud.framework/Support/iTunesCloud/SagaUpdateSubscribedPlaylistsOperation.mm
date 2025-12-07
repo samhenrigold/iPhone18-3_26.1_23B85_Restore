@@ -1,4 +1,5 @@
 @interface SagaUpdateSubscribedPlaylistsOperation
+- (SagaUpdateSubscribedPlaylistsOperation)initWithClientIdentity:(id)identity SubscribedPlaylistSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval requestReason:(int64_t)reason;
 - (SagaUpdateSubscribedPlaylistsOperation)initWithConfiguration:(id)configuration clientIdentity:(id)identity subscribedPlaylistSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval requestReason:(int64_t)reason pinnedOnly:(BOOL)only;
 - (void)main;
 @end
@@ -89,6 +90,17 @@ LABEL_4:
   }
 
   return v15;
+}
+
+- (SagaUpdateSubscribedPlaylistsOperation)initWithClientIdentity:(id)identity SubscribedPlaylistSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval requestReason:(int64_t)reason
+{
+  intervalCopy = interval;
+  dsCopy = ds;
+  identityCopy = identity;
+  v12 = objc_opt_new();
+  v13 = [(SagaUpdateSubscribedPlaylistsOperation *)self initWithConfiguration:v12 clientIdentity:identityCopy subscribedPlaylistSagaIDs:dsCopy ignoreMinRefreshInterval:intervalCopy requestReason:reason pinnedOnly:0];
+
+  return v13;
 }
 
 @end

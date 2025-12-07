@@ -184,7 +184,7 @@
 
   selfCopy = self;
   NCNotificationRootModernList.animateUsingSpring(withTension:friction:interactive:type:animations:completion:)(interactive, type, sub_21E792C6C, v16, v15, v17, tension, friction);
-  sub_21E792694(v15);
+  sub_21E792694(v15, v17);
 }
 
 - (void)updateListViewVisibleRectForSize:(CGSize)size
@@ -546,7 +546,7 @@
 
   selfCopy = self;
   NCNotificationRootModernList.animate(byRetargetingType:animations:completion:)(type, sub_21E8B242C, v10, v9, v11);
-  sub_21E792694(v9);
+  sub_21E792694(v9, v11);
 }
 
 - (void)animateUsingSpringBehavior:(id)behavior tracking:(BOOL)tracking type:(unint64_t)type animations:(id)animations completion:(id)completion
@@ -570,7 +570,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   NCNotificationRootModernList.animate(usingSpringBehavior:tracking:type:animations:completion:)(behavior, tracking, type, sub_21E8B242C, v14, v13, v15);
-  sub_21E792694(v13);
+  sub_21E792694(v13, v15);
   swift_unknownObjectRelease();
 }
 
@@ -593,7 +593,7 @@
 
   selfCopy = self;
   NCNotificationRootModernList.animate(with:completion:)(v6, v5, v7);
-  sub_21E792694(v5);
+  sub_21E792694(v5, v7);
 }
 
 @end

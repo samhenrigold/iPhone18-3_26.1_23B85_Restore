@@ -8,36 +8,34 @@
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v6 = objc_alloc(MEMORY[0x1E699B958]);
   v7 = [MEMORY[0x1E699B8D0] textColumnWithName:@"table_name" collation:1 nullable:0];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"largest_deleted_rowid" nullable:0 defaultValue:&unk_1F45E6BE0];
-  v18[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
-  v17 = @"table_name";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+  v17[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16 = @"table_name";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
   v11 = [v6 initWithName:@"table_metadata" columns:v9 primaryKeyColumns:v10];
 
   v12 = MEMORY[0x1E695E0F0];
   *resolve = MEMORY[0x1E695E0F0];
   *toResolve = v12;
-  v16 = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
 
   return v13;
 }
 
 + (BOOL)updateLargestDeletedRowID:(int64_t)d forTableName:(id)name withConnection:(id)connection
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   connectionCopy = connection;
   v9 = objc_alloc(MEMORY[0x1E699B968]);
-  v22[0] = @"table_name";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = @"table_name";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   v11 = [v9 initWithTable:@"table_metadata" conflictTarget:v10];
 
   [v11 setObject:nameCopy forKeyedSubscript:@"table_name"];
@@ -49,16 +47,15 @@
   v15 = [v13 greaterThan:v14];
   [v11 setWhereClause:v15];
 
-  v21 = 0;
-  v16 = [connectionCopy executeUpsertStatement:v11 error:&v21];
-  v17 = v21;
+  v20 = 0;
+  v16 = [connectionCopy executeUpsertStatement:v11 error:&v20];
+  v17 = v20;
   if ((v16 & 1) == 0)
   {
     nameCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Updating largest_deleted_rowid for %@", nameCopy];
     [connectionCopy handleError:v17 message:nameCopy];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

@@ -439,7 +439,7 @@ LABEL_53:
   }
 
   v2 = atomic_load(&shouldCleanupFiles__lastCleanupTimeCache);
-  v3 = micro();
+  v3 = micro(self, a2);
   if ((v3 - v2) < 15)
   {
     return 0;

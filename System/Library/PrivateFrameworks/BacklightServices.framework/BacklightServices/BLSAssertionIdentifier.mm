@@ -39,7 +39,7 @@
   selfCopy = self;
   if (pid < 1 || hostPid <= 0)
   {
-    v11 = bls_assertions_log();
+    v11 = bls_assertions_log(self);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [BLSAssertionIdentifier initWithClientPid:pid hostPid:hostPid count:v11];
@@ -148,13 +148,12 @@
 
 - (void)initWithClientPid:(int)a1 hostPid:(int)a2 count:(os_log_t)log .cold.1(int a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2;
-  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "BLSAssertionIdentifier initialized with invalid clientPid:%d hostPid:%d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2;
+  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "BLSAssertionIdentifier initialized with invalid clientPid:%d hostPid:%d", v3, 0xEu);
 }
 
 @end

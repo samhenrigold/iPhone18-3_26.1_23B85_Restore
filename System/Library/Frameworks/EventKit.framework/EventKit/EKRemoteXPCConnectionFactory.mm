@@ -33,11 +33,13 @@
   return v3;
 }
 
-uint64_t __46__EKRemoteXPCConnectionFactory_sharedInstance__block_invoke()
+uint64_t __46__EKRemoteXPCConnectionFactory_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedInstance_sharedInstance = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (void)_unregisterConnection
@@ -79,9 +81,8 @@ uint64_t __46__EKRemoteXPCConnectionFactory_sharedInstance__block_invoke()
   return v8;
 }
 
-uint64_t __87__EKRemoteXPCConnectionFactory_tryNewConnectionWithExportedObject_interruptionHandler___block_invoke(uint64_t a1)
+uint64_t __87__EKRemoteXPCConnectionFactory_tryNewConnectionWithExportedObject_interruptionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
 
   return [v2 _unregisterConnection];

@@ -9,6 +9,7 @@
 + (id)deviceLockedError;
 + (id)generateSalt;
 + (id)hashForPasscode:(id)passcode usingMethod:(int)method salt:(id)salt customIterations:(unsigned int)iterations;
++ (id)hashForPasscodeContext:(id)context usingMethod:(int)method salt:(id)salt customIterations:(unsigned int)iterations;
 + (id)sharedManager;
 + (int)unlockScreenTypeForPasscodeCharacteristics:(id)characteristics outSimplePasscodeType:(int *)type;
 + (int)unlockScreenTypeForRestrictions:(id)restrictions outSimplePasscodeType:(int *)type;
@@ -17,6 +18,8 @@
 - (BOOL)currentPasscodeCompliesWithPolicyFromRestrictions:(id)restrictions outError:(id *)error;
 - (BOOL)isCurrentPasscodeCompliantOutError:(id *)error;
 - (BOOL)isPasscodeCompliantWithNamedPolicy:(id)policy outError:(id *)error;
+- (BOOL)passcode:(id)passcode compliesWithPolicyCheckHistory:(BOOL)history outError:(id *)error;
+- (BOOL)passcodeContext:(id)context compliesWithPolicyCheckHistory:(BOOL)history outError:(id *)error;
 - (BOOL)unlockDeviceWithPasscode:(id)passcode outError:(id *)error;
 - (BOOL)unlockDeviceWithPasscodeContext:(id)context outError:(id *)error;
 - (id)_currentPublicPasscodeDict;
@@ -45,6 +48,7 @@
 - (int)unlockScreenTypeWithPublicPasscodeDict:(id)dict isRecovery:(BOOL)recovery deviceHandle:(id)handle;
 - (int)unlockSimplePasscodeTypeForSharedDataVolume:(id)volume;
 - (int)unlockSimplePasscodeTypeForUser:(id)user;
+- (int)unlockSimplePasscodeTypeWithPublicPasscodeDict:(id)dict isRecovery:(BOOL)recovery deviceHandle:(id)handle;
 - (void)lockDeviceImmediately:(BOOL)immediately;
 @end
 
@@ -113,7 +117,7 @@ uint64_t __34__MCPasscodeManager_sharedManager__block_invoke()
 
 - (id)_publicPasscodeDictForUser:(id)user
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   userCopy = user;
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
@@ -127,16 +131,16 @@ uint64_t __34__MCPasscodeManager_sharedManager__block_invoke()
     isSharedIPad = 0;
   }
 
-  v18 = 0;
-  v8 = [mEMORY[0x1E69DF068] keybagOpaqueDataForUser:userCopy withError:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [mEMORY[0x1E69DF068] keybagOpaqueDataForUser:userCopy withError:&v17];
+  v9 = v17;
   if (v9)
   {
     v10 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v9;
+      v19 = v9;
       _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "Cannot read public passcode metadata for current user: %{public}@", buf, 0xCu);
     }
   }
@@ -152,16 +156,16 @@ uint64_t __34__MCPasscodeManager_sharedManager__block_invoke()
     goto LABEL_15;
   }
 
-  v17 = 0;
-  v11 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v8 options:0 format:0 error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v8 options:0 format:0 error:&v16];
+  v12 = v16;
   if (v12)
   {
     v13 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_ERROR, "Cannot read public passcode metadata: %{public}@", buf, 0xCu);
     }
   }
@@ -179,44 +183,42 @@ LABEL_15:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)_publicPasscodeDictSharedDataVolume:(id)volume
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69DF0C8];
   volumeCopy = volume;
   sharedManager = [v4 sharedManager];
-  v16 = 0;
-  v7 = [sharedManager keybagOpaqueDataOnSharedDataVolumePath:volumeCopy withError:&v16];
+  v15 = 0;
+  v7 = [sharedManager keybagOpaqueDataOnSharedDataVolumePath:volumeCopy withError:&v15];
 
-  v8 = v16;
+  v8 = v15;
   if (v8)
   {
     v9 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Cannot read public passcode metadata for shared data volume: %{public}@", buf, 0xCu);
     }
   }
 
   if ([v7 length] && -[MCPasscodeManager isPasscodeSet](self, "isPasscodeSet"))
   {
-    v15 = 0;
-    v10 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v7 options:0 format:0 error:&v15];
-    v11 = v15;
+    v14 = 0;
+    v10 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v7 options:0 format:0 error:&v14];
+    v11 = v14;
     if (v11)
     {
       v12 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Cannot read public passcode metadata: %{public}@", buf, 0xCu);
       }
     }
@@ -227,14 +229,12 @@ LABEL_17:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)_filterPublicPasscodeDict:(id)dict forGeneration:(id)generation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   generationCopy = generation;
   mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
@@ -261,9 +261,9 @@ LABEL_17:
         v14 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
-          v19 = 138543362;
-          v20 = generationCopy;
-          _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "Missing data for passcode generation %{public}@. Attempting to recover data", &v19, 0xCu);
+          v18 = 138543362;
+          v19 = generationCopy;
+          _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "Missing data for passcode generation %{public}@. Attempting to recover data", &v18, 0xCu);
         }
 
         v15 = [(MCPasscodeManager *)self _fixUpPublicPasscodeDict:dictCopy];
@@ -276,8 +276,8 @@ LABEL_17:
       v16 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "No passcode generation provided to filter public dictionary. Returning nil", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "No passcode generation provided to filter public dictionary. Returning nil", &v18, 2u);
       }
 
       v13 = 0;
@@ -289,14 +289,12 @@ LABEL_17:
     v13 = dictCopy;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)_fixUpPublicPasscodeDict:(id)dict
 {
-  v55[3] = *MEMORY[0x1E69E9840];
+  v54[3] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   if (!dictCopy || ![(MCPasscodeManager *)self isPasscodeSet])
   {
@@ -400,14 +398,14 @@ LABEL_17:
 
 LABEL_28:
     v8 = objc_opt_new();
-    v54[0] = @"keyboardType";
-    v54[1] = @"simpleType";
-    v55[0] = v18;
-    v55[1] = v22;
-    v50 = v22;
-    v54[2] = @"creationDate";
-    v55[2] = date;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+    v53[0] = @"keyboardType";
+    v53[1] = @"simpleType";
+    v54[0] = v18;
+    v54[1] = v22;
+    v49 = v22;
+    v53[2] = @"creationDate";
+    v54[2] = date;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:3];
     v33 = v32;
     if (v9)
     {
@@ -418,7 +416,7 @@ LABEL_28:
       {
         stringValue2 = [v34 stringValue];
         v36 = [dictCopy objectForKeyedSubscript:@"recoveryKeyboardType"];
-        v49 = v18;
+        v48 = v18;
         v37 = v36;
         v38 = &unk_1F1AA58A8;
         if (v36)
@@ -426,7 +424,7 @@ LABEL_28:
           v38 = v36;
         }
 
-        v46 = v38;
+        v45 = v38;
 
         v39 = [dictCopy objectForKeyedSubscript:@"recoverySimpleType"];
         v40 = v39;
@@ -439,16 +437,16 @@ LABEL_28:
         v42 = v41;
 
         date2 = [MEMORY[0x1E695DF00] date];
-        v52[0] = @"keyboardType";
-        v52[1] = @"simpleType";
-        v53[0] = v46;
-        v53[1] = v42;
-        v52[2] = @"creationDate";
-        v53[2] = date2;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:3];
+        v51[0] = @"keyboardType";
+        v51[1] = @"simpleType";
+        v52[0] = v45;
+        v52[1] = v42;
+        v51[2] = @"creationDate";
+        v52[2] = date2;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
 
         [v8 setObject:v43 forKeyedSubscript:stringValue2];
-        v18 = v49;
+        v18 = v48;
       }
     }
 
@@ -466,8 +464,6 @@ LABEL_37:
 
 LABEL_38:
 LABEL_39:
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -511,7 +507,7 @@ LABEL_10:
 
 - (id)_filterPasscodeCharacteristics:(id)characteristics forGeneration:(id)generation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   characteristicsCopy = characteristics;
   generationCopy = generation;
   mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
@@ -538,9 +534,9 @@ LABEL_10:
         v14 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
-          v19 = 138543362;
-          v20 = generationCopy;
-          _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "Missing characteristics for passcode generation %{public}@. Attempting to recover data", &v19, 0xCu);
+          v18 = 138543362;
+          v19 = generationCopy;
+          _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "Missing characteristics for passcode generation %{public}@. Attempting to recover data", &v18, 0xCu);
         }
 
         v15 = [(MCPasscodeManager *)self _fixUpPasscodeCharacteristics:characteristicsCopy];
@@ -553,8 +549,8 @@ LABEL_10:
       v16 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "No passcode generation provided to filter characteristics. Returning nil", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "No passcode generation provided to filter characteristics. Returning nil", &v18, 2u);
       }
 
       v13 = 0;
@@ -566,14 +562,12 @@ LABEL_10:
     v13 = characteristicsCopy;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)_fixUpPasscodeCharacteristics:(id)characteristics
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   characteristicsCopy = characteristics;
   if (characteristicsCopy && [(MCPasscodeManager *)self isPasscodeSet])
   {
@@ -591,14 +585,14 @@ LABEL_10:
 
     if (MCGestaltHasSEP() && (v7 & 1) != 0)
     {
-      v11 = MCKeybagCurrentPasscodeGeneration();
-      v12 = v11;
-      if (v11)
+      v10 = MCKeybagCurrentPasscodeGeneration();
+      v11 = v10;
+      if (v10)
       {
-        stringValue = [v11 stringValue];
-        v14 = [characteristicsCopy objectForKeyedSubscript:stringValue];
+        stringValue = [v10 stringValue];
+        v13 = [characteristicsCopy objectForKeyedSubscript:stringValue];
 
-        if (v14)
+        if (v13)
         {
           v8 = characteristicsCopy;
         }
@@ -607,19 +601,19 @@ LABEL_10:
         {
           mCMutableDeepCopy = [characteristicsCopy MCMutableDeepCopy];
           [mCMutableDeepCopy setObject:0 forKeyedSubscript:@"timestamp"];
-          v19 = stringValue;
-          v20[0] = mCMutableDeepCopy;
-          v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+          v18 = stringValue;
+          v19[0] = mCMutableDeepCopy;
+          v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
         }
       }
 
       else
       {
-        v16 = _MCLogObjects;
+        v15 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
-          *v18 = 0;
-          _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "Unable to determine current passcode generation", v18, 2u);
+          *v17 = 0;
+          _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "Unable to determine current passcode generation", v17, 2u);
         }
 
         v8 = characteristicsCopy;
@@ -628,11 +622,11 @@ LABEL_10:
 
     else
     {
-      v15 = _MCLogObjects;
+      v14 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_DEFAULT, "Passcode generation not supported. Nothing to migrate", v18, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEFAULT, "Passcode generation not supported. Nothing to migrate", v17, 2u);
       }
 
       v8 = characteristicsCopy;
@@ -644,22 +638,20 @@ LABEL_10:
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)lockDeviceImmediately:(BOOL)immediately
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (immediately)
   {
     v4 = [MEMORY[0x1E695DF20] dictionaryWithObject:*MEMORY[0x1E695E4D0] forKey:@"LockDeviceNow"];
     v5 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager locking device immediately...", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager locking device immediately...", &v12, 2u);
     }
   }
 
@@ -668,8 +660,8 @@ LABEL_10:
     v6 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager locking device...", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager locking device...", &v12, 2u);
     }
 
     v4 = 0;
@@ -684,32 +676,30 @@ LABEL_10:
     {
       v10 = v8;
       v11 = [(MCPasscodeManager *)self _mkbErrorStringForResult:v9];
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 1026;
-      v16 = v9;
-      _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to lock device with MKB error: %{public}@ (%{public}d)", &v13, 0x12u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 1026;
+      v15 = v9;
+      _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to lock device with MKB error: %{public}@ (%{public}d)", &v12, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager successfully locked device", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_DEFAULT, "MCPasscodeManager successfully locked device", &v12, 2u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)unlockDeviceWithPasscode:(id)passcode outError:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   passcodeCopy = passcode;
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "MCPasscodeManager unlocking device with passcode...", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "MCPasscodeManager unlocking device with passcode...", &v26, 2u);
   }
 
   v8 = [passcodeCopy dataUsingEncoding:4];
@@ -718,12 +708,12 @@ LABEL_10:
     v9 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v27) = 0;
+      LOWORD(v26) = 0;
       v10 = "MCPasscodeManager ignoring device unlock because MobileKeyBag is disabled.";
       v11 = v9;
       v12 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-      _os_log_impl(&dword_1A795B000, v11, v12, v10, &v27, 2u);
+      _os_log_impl(&dword_1A795B000, v11, v12, v10, &v26, 2u);
       goto LABEL_16;
     }
 
@@ -736,7 +726,7 @@ LABEL_15:
   {
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v27) = 0;
+      LOWORD(v26) = 0;
       v10 = "MCPasscodeManager successfully unlocked device with passcode.";
       v11 = v14;
       v12 = OS_LOG_TYPE_INFO;
@@ -756,11 +746,11 @@ LABEL_17:
   {
     v16 = v14;
     v17 = [(MCPasscodeManager *)self _mkbErrorStringForResult:v15];
-    v27 = 138543618;
-    v28 = v17;
-    v29 = 1026;
-    v30 = v15;
-    _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with passcode with MKB error: %{public}@ (%{public}d)", &v27, 0x12u);
+    v26 = 138543618;
+    v27 = v17;
+    v28 = 1026;
+    v29 = v15;
+    _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with passcode with MKB error: %{public}@ (%{public}d)", &v26, 0x12u);
   }
 
   _wrongPasscodeError = [(MCPasscodeManager *)self _wrongPasscodeError];
@@ -778,21 +768,21 @@ LABEL_17:
     {
       v21 = v20;
       mCVerboseDescription = [_wrongPasscodeError MCVerboseDescription];
-      v27 = 138543362;
-      v28 = mCVerboseDescription;
-      _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with error: %{public}@", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = mCVerboseDescription;
+      _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with error: %{public}@", &v26, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_INFO, "MCPasscodeManager failed to unlock device with empty passcode", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_INFO, "MCPasscodeManager failed to unlock device with empty passcode", &v26, 2u);
   }
 
   if (error)
   {
-    v26 = _wrongPasscodeError;
+    v25 = _wrongPasscodeError;
     v23 = 0;
     *error = _wrongPasscodeError;
   }
@@ -804,19 +794,18 @@ LABEL_17:
 
 LABEL_18:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (BOOL)unlockDeviceWithPasscodeContext:(id)context outError:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "MCPasscodeManager unlocking device with credential set...", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "MCPasscodeManager unlocking device with credential set...", &v21, 2u);
   }
 
   if (MKBGetDeviceLockState() == 3)
@@ -824,8 +813,8 @@ LABEL_18:
     v8 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCPasscodeManager ignoring device unlock because MobileKeyBag is disabled.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "MCPasscodeManager ignoring device unlock because MobileKeyBag is disabled.", &v21, 2u);
     }
 
     _wrongPasscodeError = 0;
@@ -843,11 +832,11 @@ LABEL_7:
     {
       v14 = v12;
       v15 = [(MCPasscodeManager *)self _mkbErrorStringForResult:v13];
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 1026;
-      v25 = v13;
-      _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with passcode with MKB error: %{public}@ (%{public}d)", &v22, 0x12u);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 1026;
+      v24 = v13;
+      _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with passcode with MKB error: %{public}@ (%{public}d)", &v21, 0x12u);
     }
 
     _wrongPasscodeError = [(MCPasscodeManager *)self _wrongPasscodeError];
@@ -863,16 +852,16 @@ LABEL_7:
       {
         v17 = v16;
         mCVerboseDescription = [_wrongPasscodeError MCVerboseDescription];
-        v22 = 138543362;
-        v23 = mCVerboseDescription;
-        _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with error: %{public}@", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = mCVerboseDescription;
+        _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_ERROR, "MCPasscodeManager failed to unlock device with error: %{public}@", &v21, 0xCu);
       }
     }
 
     else if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_INFO, "MCPasscodeManager failed to unlock device with empty credential set", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_INFO, "MCPasscodeManager failed to unlock device with empty credential set", &v21, 2u);
     }
 
     if (error)
@@ -893,8 +882,8 @@ LABEL_7:
     v10 = 1;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_INFO, "MCPasscodeManager successfully unlocked device with credential set.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_INFO, "MCPasscodeManager successfully unlocked device with credential set.", &v21, 2u);
     }
 
     _wrongPasscodeError = 0;
@@ -902,7 +891,6 @@ LABEL_7:
 
 LABEL_23:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1037,7 +1025,7 @@ LABEL_23:
 - (int)unlockScreenTypeWithPublicPasscodeDict:(id)dict isRecovery:(BOOL)recovery deviceHandle:(id)handle
 {
   recoveryCopy = recovery;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   handleCopy = handle;
   v10 = handleCopy;
@@ -1109,25 +1097,24 @@ LABEL_23:
     v25 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
-      v28 = 138544642;
-      v29 = v11;
-      v30 = 2114;
-      v31 = @"Full Keyboard";
-      v32 = 2114;
-      v33 = v17;
-      v34 = 2114;
-      v35 = v19;
-      v36 = 2114;
-      v37 = v23;
-      v38 = 2114;
-      v39 = v24;
-      _os_log_impl(&dword_1A795B000, v25, OS_LOG_TYPE_ERROR, "Unable to retrieve unlock screen type for generation %{public}@, defaulting to %{public}@. Public Dictionary Exists: %{public}@. Is Empty: %{public}@. Generation Exists: %{public}@. Is Recovery: %{public}@", &v28, 0x3Eu);
+      v27 = 138544642;
+      v28 = v11;
+      v29 = 2114;
+      v30 = @"Full Keyboard";
+      v31 = 2114;
+      v32 = v17;
+      v33 = 2114;
+      v34 = v19;
+      v35 = 2114;
+      v36 = v23;
+      v37 = 2114;
+      v38 = v24;
+      _os_log_impl(&dword_1A795B000, v25, OS_LOG_TYPE_ERROR, "Unable to retrieve unlock screen type for generation %{public}@, defaulting to %{public}@. Public Dictionary Exists: %{public}@. Is Empty: %{public}@. Generation Exists: %{public}@. Is Recovery: %{public}@", &v27, 0x3Eu);
     }
 
     intValue = 2;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
@@ -1158,11 +1145,119 @@ LABEL_23:
   return selfCopy;
 }
 
+- (int)unlockSimplePasscodeTypeWithPublicPasscodeDict:(id)dict isRecovery:(BOOL)recovery deviceHandle:(id)handle
+{
+  recoveryCopy = recovery;
+  v38 = *MEMORY[0x1E69E9840];
+  dictCopy = dict;
+  handleCopy = handle;
+  v10 = handleCopy;
+  if (recoveryCopy)
+  {
+    MCKeybagMementoPasscodeGenerationForHandle(handleCopy);
+  }
+
+  else
+  {
+    MCKeybagCurrentPasscodeGenerationForHandle(handleCopy);
+  }
+  v11 = ;
+  v12 = [(MCPasscodeManager *)self _filterPublicPasscodeDict:dictCopy forGeneration:v11];
+  v13 = [v12 objectForKeyedSubscript:@"simpleType"];
+  v14 = v13;
+  if (v13)
+  {
+    intValue = [v13 intValue];
+  }
+
+  else if ([(MCPasscodeManager *)self unlockScreenTypeWithPublicPasscodeDict:dictCopy isRecovery:recoveryCopy deviceHandle:v10])
+  {
+    if (dictCopy)
+    {
+      v16 = @"YES";
+    }
+
+    else
+    {
+      v16 = @"NO";
+    }
+
+    v17 = v16;
+    if ([dictCopy count])
+    {
+      v18 = @"NO";
+    }
+
+    else
+    {
+      v18 = @"YES";
+    }
+
+    v19 = v18;
+    if (v12)
+    {
+      v20 = @"YES";
+    }
+
+    else
+    {
+      v20 = @"NO";
+    }
+
+    v21 = v20;
+    if (recoveryCopy)
+    {
+      v22 = @"YES";
+    }
+
+    else
+    {
+      v22 = @"NO";
+    }
+
+    v23 = v21;
+    v24 = v22;
+    v25 = _MCLogObjects;
+    if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
+    {
+      v28 = 138544386;
+      v29 = v11;
+      v30 = 2114;
+      v31 = v17;
+      v32 = 2114;
+      v33 = v19;
+      v34 = 2114;
+      v35 = v23;
+      v36 = 2114;
+      v37 = v24;
+      _os_log_impl(&dword_1A795B000, v25, OS_LOG_TYPE_ERROR, "Unable to retrieve unlock simple type for generation %{public}@, defaulting to Not Simple. Public Dictionary Exists: %{public}@. Is Empty: %{public}@. Generation Exists: %{public}@. Is Recovery: %{public}@", &v28, 0x34u);
+    }
+
+    intValue = -1;
+  }
+
+  else
+  {
+    v26 = _MCLogObjects;
+    if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
+    {
+      v28 = 138543362;
+      v29 = v11;
+      _os_log_impl(&dword_1A795B000, v26, OS_LOG_TYPE_ERROR, "Unable to retrieve unlock simple type for generation %{public}@, but retrieved simple unlock screen. Defaulting to Simple 4 Digits", &v28, 0xCu);
+    }
+
+    intValue = 0;
+  }
+
+  return intValue;
+}
+
 - (int)_newPasscodeEntryScreenTypeWithOutSimplePasscodeType:(int *)type shouldBeMinimum:(BOOL)minimum
 {
   minimumCopy = minimum;
-  v17 = -1;
-  v7 = [(MCPasscodeManager *)self _minimumPasscodeEntryScreenTypeWithOutSimplePasscodeType:&v17];
+  v19 = -1;
+  v7 = [(MCPasscodeManager *)self _minimumPasscodeEntryScreenTypeWithOutSimplePasscodeType:&v19];
+  v9 = v7;
   if (v7)
   {
     if (minimumCopy)
@@ -1175,51 +1270,51 @@ LABEL_23:
   {
     if (minimumCopy)
     {
-      v7 = 0;
-      v17 &= ~(v17 >> 31);
+      v9 = 0;
+      v19 &= ~(v19 >> 31);
       goto LABEL_15;
     }
 
-    HasBiometricCapability = MCGestaltHasBiometricCapability();
-    v9 = v17;
+    HasBiometricCapability = MCGestaltHasBiometricCapability(v7, v8);
+    v11 = v19;
     if (HasBiometricCapability)
     {
-      if (v17 <= 1)
+      if (v19 <= 1)
       {
-        v9 = 1;
+        v11 = 1;
       }
     }
 
     else
     {
-      v9 = v17 & ~(v17 >> 31);
+      v11 = v19 & ~(v19 >> 31);
     }
 
-    v17 = v9;
+    v19 = v11;
   }
 
-  v10 = MCKeybagCurrentPasscodeGeneration();
+  v12 = MCKeybagCurrentPasscodeGeneration();
   _currentPublicPasscodeDict = [(MCPasscodeManager *)self _currentPublicPasscodeDict];
-  v12 = [(MCPasscodeManager *)self _filterPublicPasscodeDict:_currentPublicPasscodeDict forGeneration:v10];
+  v14 = [(MCPasscodeManager *)self _filterPublicPasscodeDict:_currentPublicPasscodeDict forGeneration:v12];
 
-  v13 = [v12 objectForKeyedSubscript:@"keyboardType"];
-  v14 = v13;
-  if (v13)
+  v15 = [v14 objectForKeyedSubscript:@"keyboardType"];
+  v16 = v15;
+  if (v15)
   {
-    intValue = [v13 intValue];
-    if (v7 <= intValue)
+    intValue = [v15 intValue];
+    if (v9 <= intValue)
     {
-      v7 = intValue;
+      v9 = intValue;
     }
   }
 
 LABEL_15:
   if (type)
   {
-    *type = v17;
+    *type = v19;
   }
 
-  return v7;
+  return v9;
 }
 
 - (int)_minimumPasscodeEntryScreenTypeWithOutSimplePasscodeType:(int *)type
@@ -1243,25 +1338,9 @@ LABEL_15:
 {
   characteristicsCopy = characteristics;
   v6 = characteristicsCopy;
-  if (!characteristicsCopy)
+  if (characteristicsCopy && ([characteristicsCopy objectForKey:@"length"], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "unsignedIntValue"), v7, v8) && (objc_msgSend(v6, "objectForKey:", @"allDigits"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v10))
   {
-    goto LABEL_8;
-  }
-
-  v7 = [characteristicsCopy objectForKey:@"length"];
-  unsignedIntValue = [v7 unsignedIntValue];
-
-  if (!unsignedIntValue)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = [v6 objectForKey:@"allDigits"];
-  bOOLValue = [v9 BOOLValue];
-
-  if (bOOLValue)
-  {
-    if (unsignedIntValue == 4)
+    if (v8 == 4)
     {
       v12 = 0;
       v11 = 0;
@@ -1273,7 +1352,7 @@ LABEL_15:
       goto LABEL_10;
     }
 
-    if (unsignedIntValue == 6)
+    if (v8 == 6)
     {
       v11 = 0;
       v12 = 1;
@@ -1290,7 +1369,6 @@ LABEL_15:
 
   else
   {
-LABEL_8:
     v11 = 2;
   }
 
@@ -1511,6 +1589,28 @@ LABEL_19:
   return v4;
 }
 
+- (BOOL)passcode:(id)passcode compliesWithPolicyCheckHistory:(BOOL)history outError:(id *)error
+{
+  historyCopy = history;
+  passcodeCopy = passcode;
+  v8 = +[MCRestrictionManager sharedManager];
+  currentRestrictions = [v8 currentRestrictions];
+
+  LOBYTE(error) = [MCPasscodeManager passcode:passcodeCopy compliesWithPolicyFromRestrictions:currentRestrictions checkHistory:historyCopy outError:error];
+  return error;
+}
+
+- (BOOL)passcodeContext:(id)context compliesWithPolicyCheckHistory:(BOOL)history outError:(id *)error
+{
+  historyCopy = history;
+  contextCopy = context;
+  v8 = +[MCRestrictionManager sharedManager];
+  currentRestrictions = [v8 currentRestrictions];
+
+  LOBYTE(error) = [MCPasscodeManager passcodeContext:contextCopy compliesWithPolicyFromRestrictions:currentRestrictions checkHistory:historyCopy outError:error];
+  return error;
+}
+
 + (BOOL)passcode:(id)passcode compliesWithPolicyFromRestrictions:(id)restrictions checkHistory:(BOOL)history outError:(id *)error
 {
   historyCopy = history;
@@ -1671,28 +1771,28 @@ LABEL_24:
 
 - (BOOL)isPasscodeCompliantWithNamedPolicy:(id)policy outError:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = policyCopy;
+    v32 = policyCopy;
     _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEFAULT, "Checking for passcode compliance against named policy: %@", buf, 0xCu);
   }
 
   if (+[MCPasscodeManager isDeviceUnlocked](MCPasscodeManager, "isDeviceUnlocked") || (+[MCPasscodeManager deviceLockedError], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v31 = 0;
-    v9 = [(MCPasscodeManager *)self _privatePasscodeDictWithOutError:&v31];
-    v10 = v31;
+    v30 = 0;
+    v9 = [(MCPasscodeManager *)self _privatePasscodeDictWithOutError:&v30];
+    v10 = v30;
     if (!v10)
     {
       if (+[MCPasscodeManager isDeviceUnlocked](MCPasscodeManager, "isDeviceUnlocked") || (+[MCPasscodeManager deviceLockedError], (v10 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        v16 = MCKeybagCurrentPasscodeGeneration();
-        v17 = [v9 objectForKeyedSubscript:@"characteristics"];
-        v8 = [(MCPasscodeManager *)self _filterPasscodeCharacteristics:v17 forGeneration:v16];
+        v15 = MCKeybagCurrentPasscodeGeneration();
+        v16 = [v9 objectForKeyedSubscript:@"characteristics"];
+        v8 = [(MCPasscodeManager *)self _filterPasscodeCharacteristics:v16 forGeneration:v15];
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         if ([policyCopy isEqualToString:@"ApplePayChinaPasscodePolicy"])
@@ -1702,19 +1802,19 @@ LABEL_24:
 
         else if (![policyCopy isEqualToString:@"AutoUnlockPasscodePolicy"])
         {
-          v21 = _MCLogObjects;
+          v20 = _MCLogObjects;
           if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v33 = policyCopy;
-            _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "Unknown passcode compliance policy: %{public}@", buf, 0xCu);
+            v32 = policyCopy;
+            _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_ERROR, "Unknown passcode compliance policy: %{public}@", buf, 0xCu);
           }
 
           if (error)
           {
-            v29 = MEMORY[0x1E696ABC0];
-            v30 = MCErrorArray(@"PASSCODE_ERROR_UNKNOWN_POLICY_P_POLICY", v22, v23, v24, v25, v26, v27, v28, policyCopy);
-            *error = [v29 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:5019 descriptionArray:v30 errorType:@"MCFatalError"];
+            v28 = MEMORY[0x1E696ABC0];
+            v29 = MCErrorArray(@"PASSCODE_ERROR_UNKNOWN_POLICY_P_POLICY", v21, v22, v23, v24, v25, v26, v27, policyCopy);
+            *error = [v28 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:5019 descriptionArray:v29 errorType:@"MCFatalError"];
           }
 
           goto LABEL_19;
@@ -1724,9 +1824,9 @@ LABEL_24:
 LABEL_19:
         if ([dictionary count])
         {
-          v19 = objc_opt_class();
+          v18 = objc_opt_class();
           passcodeCreationDate = [(MCPasscodeManager *)self passcodeCreationDate];
-          v13 = [v19 _passcodeCharacteristics:v8 creationDate:passcodeCreationDate compliesWithPolicyFromRestrictions:dictionary outError:0];
+          v13 = [v18 _passcodeCharacteristics:v8 creationDate:passcodeCreationDate compliesWithPolicyFromRestrictions:dictionary outError:0];
         }
 
         else
@@ -1751,22 +1851,21 @@ LABEL_19:
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v33 = policyCopy;
-    v34 = 2114;
-    v35 = v8;
+    v32 = policyCopy;
+    v33 = 2114;
+    v34 = v8;
     _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Unable to check passcode compliance with named policy %{public}@: %{public}@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)_passcodeCharacteristics:(id)characteristics creationDate:(id)date compliesWithPolicyFromRestrictions:(id)restrictions outError:(id *)error
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   restrictionsCopy = restrictions;
   characteristicsCopy = characteristics;
@@ -1776,7 +1875,7 @@ LABEL_12:
   v11 = [MCRestrictionManager valueForFeature:@"minLength" withRestrictionsDictionary:restrictionsCopy];
   unsignedIntValue2 = [v11 unsignedIntValue];
 
-  v73 = [MCRestrictionManager restrictedBoolForFeature:@"requireAlphanumeric" withRestrictionsDictionary:restrictionsCopy];
+  v72 = [MCRestrictionManager restrictedBoolForFeature:@"requireAlphanumeric" withRestrictionsDictionary:restrictionsCopy];
   v13 = [MCRestrictionManager restrictedBoolForFeature:@"forcePIN" withRestrictionsDictionary:restrictionsCopy];
   v14 = [MCRestrictionManager restrictedBoolForFeature:@"allowSimple" withRestrictionsDictionary:restrictionsCopy];
   v15 = [characteristicsCopy objectForKey:@"length"];
@@ -1797,7 +1896,7 @@ LABEL_12:
   v22 = [characteristicsCopy objectForKey:@"complexCharactersCount"];
 
   unsignedIntValue4 = [v22 unsignedIntValue];
-  if ((v13 == 1 || unsignedIntValue2 || unsignedIntValue || v73 == 1 || v14 == 2) && !unsignedIntValue3)
+  if ((v13 == 1 || unsignedIntValue2 || unsignedIntValue || v72 == 1 || v14 == 2) && !unsignedIntValue3)
   {
     goto LABEL_19;
   }
@@ -1856,18 +1955,18 @@ LABEL_20:
 
   if (((v14 == 2) & bOOLValue) == 1)
   {
-    v49 = MEMORY[0x1E696ABC0];
+    v48 = MEMORY[0x1E696ABC0];
     v37 = MCErrorArray(@"PASSCODE_QUALITY_REPEAT", v24, v25, v26, v27, v28, v29, v30, 0);
-    v38 = v49;
+    v38 = v48;
     v39 = 5003;
     goto LABEL_20;
   }
 
   if (((v14 == 2) & bOOLValue2) == 1)
   {
-    v50 = MEMORY[0x1E696ABC0];
+    v49 = MEMORY[0x1E696ABC0];
     v37 = MCErrorArray(@"PASSCODE_QUALITY_ASCENDING_DESCENDING", v24, v25, v26, v27, v28, v29, v30, 0);
-    v38 = v50;
+    v38 = v49;
     v39 = 5004;
     goto LABEL_20;
   }
@@ -1876,53 +1975,53 @@ LABEL_20:
   v41 = dateCopy;
   if (unsignedIntValue4 < unsignedIntValue)
   {
-    v51 = MEMORY[0x1E696ABC0];
+    v50 = MEMORY[0x1E696ABC0];
     v37 = MCErrorArray(@"PASSCODE_QUALITY_COMPLEX", v24, v25, v26, v27, v28, v29, v30, 0);
-    v52 = v51;
-    v53 = 5002;
+    v51 = v50;
+    v52 = 5002;
 LABEL_42:
-    v40 = [v52 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:v53 descriptionArray:v37 errorType:@"MCFatalError"];
+    v40 = [v51 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:v52 descriptionArray:v37 errorType:@"MCFatalError"];
     goto LABEL_21;
   }
 
-  if (!((v73 != 1) | bOOLValue3 & 1))
+  if (!((v72 != 1) | bOOLValue3 & 1))
+  {
+    v65 = MEMORY[0x1E696ABC0];
+    v37 = MCErrorArray(@"PASSCODE_QUALITY_ALPHA", v24, v25, v26, v27, v28, v29, v30, 0);
+    v51 = v65;
+    v52 = 5006;
+    goto LABEL_42;
+  }
+
+  if (!((v72 != 1) | bOOLValue4 & 1))
   {
     v66 = MEMORY[0x1E696ABC0];
-    v37 = MCErrorArray(@"PASSCODE_QUALITY_ALPHA", v24, v25, v26, v27, v28, v29, v30, 0);
-    v52 = v66;
-    v53 = 5006;
-    goto LABEL_42;
-  }
-
-  if (!((v73 != 1) | bOOLValue4 & 1))
-  {
-    v67 = MEMORY[0x1E696ABC0];
     v37 = MCErrorArray(@"PASSCODE_QUALITY_NUMBER", v24, v25, v26, v27, v28, v29, v30, 0);
-    v52 = v67;
-    v53 = 5005;
+    v51 = v66;
+    v52 = 5005;
     goto LABEL_42;
   }
 
-  v54 = [MCRestrictionManager valueForFeature:@"maxPINAgeInDays" withRestrictionsDictionary:restrictionsCopy];
-  v37 = v54;
+  v53 = [MCRestrictionManager valueForFeature:@"maxPINAgeInDays" withRestrictionsDictionary:restrictionsCopy];
+  v37 = v53;
   v40 = 0;
-  if (dateCopy && v54)
+  if (dateCopy && v53)
   {
-    unsignedIntValue6 = [v54 unsignedIntValue];
+    unsignedIntValue6 = [v53 unsignedIntValue];
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
     date = [MEMORY[0x1E695DF00] date];
-    v58 = [currentCalendar components:16 fromDate:dateCopy toDate:date options:0];
+    v57 = [currentCalendar components:16 fromDate:dateCopy toDate:date options:0];
 
-    if ([v58 day] < 0 || unsignedIntValue6 > objc_msgSend(v58, "day"))
+    if ([v57 day] < 0 || unsignedIntValue6 > objc_msgSend(v57, "day"))
     {
       v40 = 0;
     }
 
     else
     {
-      v68 = MEMORY[0x1E696ABC0];
-      v69 = MCErrorArray(@"PASSCODE_QUALITY_EXPIRED", v59, v60, v61, v62, v63, v64, v65, 0);
-      v40 = [v68 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:5007 descriptionArray:v69 errorType:@"MCFatalError"];
+      v67 = MEMORY[0x1E696ABC0];
+      v68 = MCErrorArray(@"PASSCODE_QUALITY_EXPIRED", v58, v59, v60, v61, v62, v63, v64, 0);
+      v40 = [v67 MCErrorWithDomain:@"MCPasscodeErrorDomain" code:5007 descriptionArray:v68 errorType:@"MCFatalError"];
     }
   }
 
@@ -1936,7 +2035,7 @@ LABEL_21:
       v44 = v43;
       mCVerboseDescription = [v40 MCVerboseDescription];
       *buf = 138543362;
-      v78 = mCVerboseDescription;
+      v77 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v44, OS_LOG_TYPE_DEFAULT, "Passcode does not meet criteria. Error: %{public}@", buf, 0xCu);
     }
 
@@ -1947,7 +2046,6 @@ LABEL_21:
     }
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v40 == 0;
 }
 
@@ -2384,10 +2482,10 @@ LABEL_26:
 
 + (id)characteristicsDictionaryFromPasscodeContext:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v4 = [MCExtractablePasscodeContextWrapper contextWrapperFromExternalizedContext:context outError:&v13];
-  v5 = v13;
+  v15 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v4 = [MCExtractablePasscodeContextWrapper contextWrapperFromExternalizedContext:context outError:&v12];
+  v5 = v12;
   if (v5)
   {
     v6 = _MCLogObjects;
@@ -2396,7 +2494,7 @@ LABEL_26:
       v7 = v6;
       mCVerboseDescription = [v5 MCVerboseDescription];
       *buf = 138412290;
-      v15 = mCVerboseDescription;
+      v14 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEFAULT, "Unable to retrieve passcode characteristics. Error: %@", buf, 0xCu);
     }
 
@@ -2408,8 +2506,6 @@ LABEL_26:
     passcode = [v4 passcode];
     v9 = [self characteristicsDictionaryFromPasscode:passcode];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2460,6 +2556,39 @@ LABEL_26:
 LABEL_11:
 
   return v10;
+}
+
++ (id)hashForPasscodeContext:(id)context usingMethod:(int)method salt:(id)salt customIterations:(unsigned int)iterations
+{
+  v6 = *&iterations;
+  v7 = *&method;
+  v22 = *MEMORY[0x1E69E9840];
+  saltCopy = salt;
+  v19 = 0;
+  v11 = [MCExtractablePasscodeContextWrapper contextWrapperFromExternalizedContext:context outError:&v19];
+  v12 = v19;
+  if (v12)
+  {
+    v13 = _MCLogObjects;
+    if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v13;
+      mCVerboseDescription = [v12 MCVerboseDescription];
+      *buf = 138412290;
+      v21 = mCVerboseDescription;
+      _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEFAULT, "Unable to create has for passcode. Error: %@", buf, 0xCu);
+    }
+
+    v16 = 0;
+  }
+
+  else
+  {
+    passcode = [v11 passcode];
+    v16 = [self hashForPasscode:passcode usingMethod:v7 salt:saltCopy customIterations:v6];
+  }
+
+  return v16;
 }
 
 @end

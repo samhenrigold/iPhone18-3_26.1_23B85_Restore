@@ -137,7 +137,8 @@ void ggl::MetalRenderer::frame(uint64_t a1, ggl::RenderTarget *this, uint64_t a3
       v24 = *(v18 + 24);
       v25 = *(v18 + 32);
       *buf = 2.0 / v23;
-      *&buf[4] = 0uLL;
+      *&buf[12] = 0;
+      *&buf[4] = 0;
       *&buf[20] = -2.0 / truncf(v22 / v20);
       v26 = v24 + -1.0;
       if (!v25)
@@ -313,14 +314,14 @@ void ggl::MetalRenderer::frame(uint64_t a1, ggl::RenderTarget *this, uint64_t a3
   }
 
 LABEL_42:
-  ggl::MetalDeviceContext::beginFrame(*(a1 + 432));
+  ggl::MetalDeviceContext::beginFrame(*(a1 + 432), &v150);
   ggl::MetalBindingManager::resetBindingCache(*(*(a1 + 432) + 8));
   if (v34 != v35)
   {
     v45 = v34;
     do
     {
-      ggl::MetalDeviceContext::beginPass(*(a1 + 432));
+      ggl::MetalDeviceContext::beginPass(*(a1 + 432), *v45, v45[1]);
       v46 = v45[1];
       v47 = v46[31];
       v48 = v46[32];
@@ -787,7 +788,7 @@ LABEL_177:
 LABEL_162:
     *(v106 + 160) = *(v106 + 152);
     *(v106 + 192) = *(v106 + 184);
-    ggl::MetalDeviceContext::endFrame(*(a1 + 432));
+    ggl::MetalDeviceContext::endFrame(*(a1 + 432), buf);
     operator new();
   }
 
@@ -868,7 +869,7 @@ LABEL_161:
   goto LABEL_162;
 }
 
-void sub_1B294A5F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52)
+void sub_1B294A5F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52)
 {
   geo::read_write_lock::unlock((v52 + 32));
   std::vector<std::function<void ()(NSError *)>,geo::allocator_adapter<std::function<void ()(NSError *)>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&a31);
@@ -1294,7 +1295,7 @@ void ggl::Debug::InstancedBasePipelineState::~InstancedBasePipelineState(ggl::De
   JUMPOUT(0x1B8C62190);
 }
 
-void md::DaVinciBaseMapEngineMode::applyMapDataTypeSettings(uint64_t **a1, uint64_t a2, void *a3)
+void md::DaVinciBaseMapEngineMode::applyMapDataTypeSettings(uint64_t ***a1, uint64_t a2, void *a3)
 {
   v5 = *(a2 + 41936);
   if (v5)
@@ -1749,7 +1750,7 @@ uint64_t md::CartographicTiledRenderLayer<md::MapTileDataRenderable<md::TrafficT
   return a1;
 }
 
-uint64_t ecs2::Runtime::_entities<md::ita::SetupRenderStates,md::ls::NeedsNewRenderState const&>(uint64_t a1, uint64_t **a2)
+char *ecs2::Runtime::_entities<md::ita::SetupRenderStates,md::ls::NeedsNewRenderState const&>(uint64_t a1, uint64_t **a2)
 {
   v28 = *MEMORY[0x1E69E9840];
   v3 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsNewRenderState>(a1);
@@ -2138,161 +2139,161 @@ void md::COverlayRenderLayer::~COverlayRenderLayer(md::COverlayRenderLayer *this
   v2 = *(this + 45);
   if (v2)
   {
-    std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::Textured::TileScalar>>>::reset[abi:nn200100]((v2 + 448), 0);
-    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::PoleTexturedBlendPipelineSetup>>::reset[abi:nn200100]((v2 + 440), 0);
-    v3 = *(v2 + 432);
+    std::unique_ptr<ggl::FragmentedPool<ggl::ConstantDataTyped<ggl::Textured::TileScalar>>>::reset[abi:nn200100](v2 + 56, 0);
+    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::PoleTexturedBlendPipelineSetup>>::reset[abi:nn200100](v2 + 55, 0);
+    v3 = v2[54];
     if (v3)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v3);
     }
 
-    v4 = *(v2 + 416);
+    v4 = v2[52];
     if (v4)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v4);
     }
 
-    v5 = *(v2 + 400);
+    v5 = v2[50];
     if (v5)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v5);
     }
 
-    v6 = *(v2 + 384);
+    v6 = v2[48];
     if (v6)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v6);
     }
 
-    v7 = *(v2 + 368);
+    v7 = v2[46];
     if (v7)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v7);
     }
 
-    v8 = *(v2 + 352);
-    *(v2 + 352) = 0;
+    v8 = v2[44];
+    v2[44] = 0;
     if (v8)
     {
       (*(*v8 + 8))(v8);
     }
 
-    std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100]((v2 + 344), 0);
-    std::unique_ptr<md::MaskingOverlayRenderable::SharedResources>::reset[abi:nn200100]((v2 + 336), 0);
-    std::unique_ptr<md::PolygonOverlayRenderable::SharedResources>::reset[abi:nn200100]((v2 + 328), 0);
-    std::unique_ptr<md::CircleOverlayRenderable::SharedResources>::reset[abi:nn200100]((v2 + 320), 0);
-    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup>>::reset[abi:nn200100]((v2 + 312), 0);
-    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendPos2DUVPipelineSetup>>::reset[abi:nn200100]((v2 + 304), 0);
-    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendPos4DUVPipelineSetup>>::reset[abi:nn200100]((v2 + 296), 0);
-    v9 = *(v2 + 288);
+    std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100](v2 + 43, 0);
+    std::unique_ptr<md::MaskingOverlayRenderable::SharedResources>::reset[abi:nn200100](v2 + 42, 0);
+    std::unique_ptr<md::PolygonOverlayRenderable::SharedResources>::reset[abi:nn200100](v2 + 41, 0);
+    std::unique_ptr<md::CircleOverlayRenderable::SharedResources>::reset[abi:nn200100](v2 + 40, 0);
+    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup>>::reset[abi:nn200100](v2 + 39, 0);
+    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendPos2DUVPipelineSetup>>::reset[abi:nn200100](v2 + 38, 0);
+    std::unique_ptr<ggl::FragmentedPool<ggl::Textured::SRGBBlendPos4DUVPipelineSetup>>::reset[abi:nn200100](v2 + 37, 0);
+    v9 = v2[36];
     if (v9)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v9);
     }
 
-    v10 = *(v2 + 272);
+    v10 = v2[34];
     if (v10)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v10);
     }
 
-    v11 = *(v2 + 256);
+    v11 = v2[32];
     if (v11)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v11);
     }
 
-    v12 = *(v2 + 240);
+    v12 = v2[30];
     if (v12)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v12);
     }
 
-    v13 = *(v2 + 224);
+    v13 = v2[28];
     if (v13)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v13);
     }
 
-    v14 = *(v2 + 208);
+    v14 = v2[26];
     if (v14)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v14);
     }
 
-    v15 = *(v2 + 192);
+    v15 = v2[24];
     if (v15)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v15);
     }
 
-    v16 = *(v2 + 176);
-    *(v2 + 176) = 0;
+    v16 = v2[22];
+    v2[22] = 0;
     if (v16)
     {
       (*(*v16 + 8))(v16);
     }
 
-    v17 = *(v2 + 168);
-    *(v2 + 168) = 0;
+    v17 = v2[21];
+    v2[21] = 0;
     if (v17)
     {
       (*(*v17 + 8))(v17);
     }
 
-    std::unique_ptr<ggl::FragmentedPool<ggl::PolygonSolidFill::MeshPipelineSetup>>::reset[abi:nn200100]((v2 + 160), 0);
-    v18 = *(v2 + 152);
+    std::unique_ptr<ggl::FragmentedPool<ggl::PolygonSolidFill::MeshPipelineSetup>>::reset[abi:nn200100](v2 + 20, 0);
+    v18 = v2[19];
     if (v18)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v18);
     }
 
-    std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100]((v2 + 136), 0);
-    std::unique_ptr<ggl::FragmentedPool<ggl::PolygonSolidFill::MeshPipelineSetup>>::reset[abi:nn200100]((v2 + 128), 0);
-    v19 = *(v2 + 120);
+    std::unique_ptr<ggl::FragmentedPool<ggl::RenderItem>>::reset[abi:nn200100](v2 + 17, 0);
+    std::unique_ptr<ggl::FragmentedPool<ggl::PolygonSolidFill::MeshPipelineSetup>>::reset[abi:nn200100](v2 + 16, 0);
+    v19 = v2[15];
     if (v19)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v19);
     }
 
-    v20 = *(v2 + 104);
-    *(v2 + 104) = 0;
+    v20 = v2[13];
+    v2[13] = 0;
     if (v20)
     {
       (*(*v20 + 8))(v20);
     }
 
-    v21 = *(v2 + 96);
-    *(v2 + 96) = 0;
+    v21 = v2[12];
+    v2[12] = 0;
     if (v21)
     {
       (*(*v21 + 8))(v21);
     }
 
-    v22 = *(v2 + 88);
+    v22 = v2[11];
     if (v22)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v22);
     }
 
-    v23 = *(v2 + 72);
-    *(v2 + 72) = 0;
+    v23 = v2[9];
+    v2[9] = 0;
     if (v23)
     {
       MEMORY[0x1B8C62190](v23, 0x1000C4049ECCB0CLL);
     }
 
-    v24 = *(v2 + 64);
-    *(v2 + 64) = 0;
+    v24 = v2[8];
+    v2[8] = 0;
     if (v24)
     {
       (*(*v24 + 8))(v24);
     }
 
-    for (i = 56; i != 40; i -= 8)
+    for (i = 7; i != 5; --i)
     {
-      v26 = *(v2 + i);
-      *(v2 + i) = 0;
+      v26 = v2[i];
+      v2[i] = 0;
       if (v26)
       {
         (*(*v26 + 8))(v26);
@@ -2301,17 +2302,17 @@ void md::COverlayRenderLayer::~COverlayRenderLayer(md::COverlayRenderLayer *this
 
     do
     {
-      v27 = *(v2 + i);
-      *(v2 + i) = 0;
+      v27 = v2[i];
+      v2[i] = 0;
       if (v27)
       {
         (*(*v27 + 8))(v27);
       }
 
-      i -= 8;
+      --i;
     }
 
-    while (i != -8);
+    while (i != -1);
     MEMORY[0x1B8C62190](v2, 0x20C4006C4E51DLL);
   }
 
@@ -2376,7 +2377,7 @@ uint64_t ggl::MetalResourceAccessor::beginAccess(uint64_t a1, const ggl::Buffer 
   }
 }
 
-uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::SetupRenderStates>,std::allocator<ecs2::ForwardToExecute<md::ita::SetupRenderStates>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
+char *std::__function::__func<ecs2::ForwardToExecute<md::ita::SetupRenderStates>,std::allocator<ecs2::ForwardToExecute<md::ita::SetupRenderStates>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
@@ -2543,13 +2544,13 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::vector<ggl::ConstantDataTyped<ggl::Textured::TileScalar> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Textured::TileScalar> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::ConstantDataTyped<ggl::Textured::TileScalar> *,geo::allocator_adapter<ggl::ConstantDataTyped<ggl::Textured::TileScalar> *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::ConstantDataTyped<ggl::Textured::TileScalar> *>(v2, v1);
   }
@@ -2860,13 +2861,13 @@ char *std::__function::__func<ecs2::ForwardToExecute<md::ita::SetupPredefinedRen
   return result;
 }
 
-void std::vector<ggl::Textured::PoleTexturedBlendPipelineSetup *,geo::allocator_adapter<ggl::Textured::PoleTexturedBlendPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::Textured::PoleTexturedBlendPipelineSetup *,geo::allocator_adapter<ggl::Textured::PoleTexturedBlendPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::Textured::PoleTexturedBlendPipelineSetup *>(v2, v1);
   }
@@ -3541,13 +3542,13 @@ void *ggl::FragmentedPool<ggl::MaskingOverlay::MaskingPipelineSetup>::~Fragmente
   return a1;
 }
 
-void std::vector<ggl::MaskingOverlay::MaskingPipelineSetup *,geo::allocator_adapter<ggl::MaskingOverlay::MaskingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::MaskingOverlay::MaskingPipelineSetup *,geo::allocator_adapter<ggl::MaskingOverlay::MaskingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::MaskingOverlay::MaskingPipelineSetup *>(v2, v1);
   }
@@ -3672,13 +3673,13 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsS2>()
   }
 }
 
-void std::vector<ggl::MaskingOverlay::FillPipelineSetup *,geo::allocator_adapter<ggl::MaskingOverlay::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::MaskingOverlay::FillPipelineSetup *,geo::allocator_adapter<ggl::MaskingOverlay::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::MaskingOverlay::FillPipelineSetup *>(v2, v1);
   }
@@ -4095,13 +4096,13 @@ void ggl::Clear::ClearPipelineSetup::typedReflection(ggl::Clear::ClearPipelineSe
   }
 }
 
-void std::vector<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::FillPipelineSetup *>(v2, v1);
   }
@@ -4244,7 +4245,7 @@ uint64_t geo::_retain_ptr<VKDeferredCameraController * {__strong},geo::_retain_o
   return a1;
 }
 
-uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::DetermineDataIDsNeeded>,std::allocator<ecs2::ForwardToExecute<md::ita::DetermineDataIDsNeeded>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
+Flyover *std::__function::__func<ecs2::ForwardToExecute<md::ita::DetermineDataIDsNeeded>,std::allocator<ecs2::ForwardToExecute<md::ita::DetermineDataIDsNeeded>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
@@ -4265,13 +4266,13 @@ void std::vector<std::pair<md::cc::CameraCommandType,std::variant<md::cc::Zoom,m
   }
 }
 
-void std::vector<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::AlphaFillPipelineSetup *>(v2, v1);
   }
@@ -4883,61 +4884,61 @@ char *std::__function::__func<ecs2::ForwardToExecute<md::ita::CreatePipelines>,s
   return result;
 }
 
-void ecs2::Runtime::_entities<md::ita::CheckIfPipelineStatesUpdateNeeded,md::ls::FunctionConstants &>(uint64_t a1)
+void ecs2::Runtime::_entities<md::ita::CheckIfPipelineStatesUpdateNeeded,md::ls::FunctionConstants &>(uint64_t a1, uint64_t *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = ecs2::BasicRegistry<void>::storage<md::ls::FunctionConstants>(*(a1 + 8));
-  v3 = v2[4];
-  v4 = v2[5];
-  v5 = _ZTWN4ecs27Runtime11_localStateE();
-  v6 = _ZTWN4ecs27Runtime11_stackIndexE();
-  v7 = v6;
-  if (v3 == v4)
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = ecs2::BasicRegistry<void>::storage<md::ls::FunctionConstants>(*(a1 + 8));
+  v4 = v3[4];
+  v5 = v3[5];
+  v6 = _ZTWN4ecs27Runtime11_localStateE();
+  v7 = _ZTWN4ecs27Runtime11_stackIndexE();
+  v8 = v7;
+  if (v4 == v5)
   {
-    LODWORD(v8) = 0;
+    LODWORD(v9) = 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     do
     {
-      v9 = (*(v2[7] + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 70 * (v8 & 0x3F));
-      *(v5 + 104 * *v7 + 24) = *v3;
-      if ((v9[69] & 1) != 0 || *v9 != v9[34] || v9[4] != v9[38] || v9[1] != v9[35] || v9[2] != v9[36] || v9[3] != v9[37] || v9[5] != v9[39] || v9[6] != v9[40] || v9[7] != v9[41] || v9[8] != v9[42] || v9[9] != v9[43] || v9[10] != v9[44] || v9[11] != v9[45] || v9[12] != v9[46] || v9[13] != v9[47] || v9[14] != v9[48] || v9[15] != v9[49] || v9[16] != v9[50] || v9[17] != v9[51] || v9[18] != v9[52] || v9[19] != v9[53] || v9[20] != v9[54] || v9[21] != v9[55] || v9[22] != v9[56] || v9[23] != v9[57] || v9[24] != v9[58] || v9[25] != v9[59] || v9[26] != v9[60] || v9[27] != v9[61] || v9[28] != v9[62] || v9[29] != v9[63] || v9[30] != v9[64] || v9[31] != v9[65] || v9[32] != v9[66] || v9[33] != v9[67])
+      v10 = (*(v3[7] + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 70 * (v9 & 0x3F));
+      *(v6 + 104 * *v8 + 24) = *v4;
+      if ((v10[69] & 1) != 0 || *v10 != v10[34] || v10[4] != v10[38] || v10[1] != v10[35] || v10[2] != v10[36] || v10[3] != v10[37] || v10[5] != v10[39] || v10[6] != v10[40] || v10[7] != v10[41] || v10[8] != v10[42] || v10[9] != v10[43] || v10[10] != v10[44] || v10[11] != v10[45] || v10[12] != v10[46] || v10[13] != v10[47] || v10[14] != v10[48] || v10[15] != v10[49] || v10[16] != v10[50] || v10[17] != v10[51] || v10[18] != v10[52] || v10[19] != v10[53] || v10[20] != v10[54] || v10[21] != v10[55] || v10[22] != v10[56] || v10[23] != v10[57] || v10[24] != v10[58] || v10[25] != v10[59] || v10[26] != v10[60] || v10[27] != v10[61] || v10[28] != v10[62] || v10[29] != v10[63] || v10[30] != v10[64] || v10[31] != v10[65] || v10[32] != v10[66] || v10[33] != v10[67])
       {
-        v9[68] = v9[69] ^ 1;
-        v9[69] = 0;
-        v10 = *(v9 + 1);
-        *(v9 + 34) = *v9;
-        *(v9 + 50) = v10;
-        *(v9 + 33) = *(v9 + 16);
-        v11 = ecs2::ExecutionTaskContext::currentEntity(v6);
-        v19[0] = &unk_1F2A175E0;
-        v19[1] = v11 << 32;
-        v20[3] = v20;
-        v19[3] = v19;
+        v10[68] = v10[69] ^ 1;
+        v10[69] = 0;
+        v11 = *(v10 + 1);
+        *(v10 + 34) = *v10;
+        *(v10 + 50) = v11;
+        *(v10 + 33) = *(v10 + 16);
+        v12 = ecs2::ExecutionTaskContext::currentEntity(v7);
         v20[0] = &unk_1F2A175E0;
-        v20[1] = v11 << 32;
-        v21 = 0;
+        v20[1] = v12 << 32;
+        v21[3] = v21;
+        v20[3] = v20;
+        v21[0] = &unk_1F2A175E0;
+        v21[1] = v12 << 32;
+        v22 = 0;
         ecs2::Runtime::queueCommand();
-        if (v21 != -1)
+        if (v22 != -1)
         {
-          (off_1F2A175A8[v21])(&v18, v20);
+          (off_1F2A175A8[v22])(&v19, v21);
         }
 
-        v21 = -1;
-        v6 = std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v19);
+        v22 = -1;
+        v7 = std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v20);
       }
 
-      ++v8;
-      ++v3;
+      ++v9;
+      ++v4;
     }
 
-    while (v3 != v4);
-    if (v8)
+    while (v4 != v5);
+    if (v9)
     {
-      v12 = *(a1 + 8);
+      v13 = *(a1 + 8);
       {
         ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::FunctionConstants>();
         unk_1EB83D2C0 = 0xC62D89929260CB56;
@@ -4945,31 +4946,31 @@ void ecs2::Runtime::_entities<md::ita::CheckIfPipelineStatesUpdateNeeded,md::ls:
         qword_1EB83D2D0 = 25;
       }
 
-      *(v12 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata) = *(v12 + 4096);
+      *(v13 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata) = *(v13 + 4096);
     }
   }
 
-  *(v5 + 104 * *v7 + 24) = -65536;
-  v13 = v5 + 104 * *v7;
-  v14 = *(v13 + 92);
-  *(v13 + 92) = v14 + 1;
-  *(v13 + 4 * v14 + 28) = v8;
-  v15 = v5 + 104 * *v7;
-  v17 = *(v15 + 92);
-  v16 = (v15 + 92);
-  if (v17 >= 0x10)
+  *(v6 + 104 * *v8 + 24) = -65536;
+  v14 = v6 + 104 * *v8;
+  v15 = *(v14 + 92);
+  *(v14 + 92) = v15 + 1;
+  *(v14 + 4 * v15 + 28) = v9;
+  v16 = v6 + 104 * *v8;
+  v18 = *(v16 + 92);
+  v17 = (v16 + 92);
+  if (v18 >= 0x10)
   {
-    *v16 = 0;
+    *v17 = 0;
   }
 }
 
-void std::vector<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::GradientPolylineOverlayRibbon::AlphaPipelineSetup *>(v2, v1);
   }
@@ -5013,17 +5014,17 @@ void std::__function::__func<ecs2::ForwardToExecute<md::ita::CheckIfPipelineStat
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
-  ecs2::Runtime::_entities<md::ita::CheckIfPipelineStatesUpdateNeeded,md::ls::FunctionConstants &>(a2);
+  ecs2::Runtime::_entities<md::ita::CheckIfPipelineStatesUpdateNeeded,md::ls::FunctionConstants &>(a2, (a1 + 8));
   *v2 = 0;
 }
 
-void std::vector<ggl::PolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::PolylineOverlayRibbon::FillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::PolylineOverlayRibbon::FillPipelineSetup *>(v2, v1);
   }
@@ -5331,9 +5332,9 @@ LABEL_51:
   return std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::FunctionConstants const&,md::ls::RequiredPipelinePoolID const&,md::ls::IsTransparent const&,md::ls::PipelineState const*)>::~__value_func[abi:nn200100](&v101);
 }
 
-void sub_1B29523AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B29523AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpdate const&,md::ls::FunctionConstants const&,md::ls::RequiredPipelinePoolID const&,md::ls::IsTransparent const&,md::ls::PipelineState const*)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5417,13 +5418,13 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::NeedsFunctionConstantsUpdate
   return result;
 }
 
-void std::vector<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::PolylineOverlayRibbon::AlphaFillPipelineSetup *>(v2, v1);
   }
@@ -5463,13 +5464,13 @@ void *ggl::FragmentedPool<ggl::PolylineOverlayRibbon::AlphaPipelineSetup>::~Frag
   return a1;
 }
 
-void std::vector<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,geo::allocator_adapter<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::PolylineOverlayRibbon::AlphaPipelineSetup *>(v2, v1);
   }
@@ -5821,18 +5822,18 @@ LABEL_29:
 
           if (v14)
           {
-            if (*v14 != *(v14 + 8))
+            if (v14->i64[0] != v14->i64[1])
             {
-              v16 = *(v14 + 57);
-              v17.i64[0] = *(v14 + 64);
-              v17.i64[1] = (1 << v16) + ~*(v14 + 60);
+              v16 = v14[3].u8[9];
+              v17.i64[0] = v14[4].i32[0];
+              v17.i64[1] = (1 << v16) + ~v14[3].i32[3];
               v18 = vmulq_n_f64(vmlsq_lane_f64(*a2, vcvtq_f64_s64(v17), 1.0 / (1 << v16), 0), (1 << v16));
               v19 = vcvt_hight_f32_f64(vcvt_f32_f64(v18), v18);
               LODWORD(v18.f64[0]) = vmovn_s32(vcgeq_f32(xmmword_1B33B09C0, v19)).u32[0];
               HIDWORD(v18.f64[0]) = vmovn_s32(vcgeq_f32(v19, xmmword_1B33B09C0)).i32[1];
               if ((vminv_u16(vcltz_s16(vshl_n_s16(*&v18.f64[0], 0xFuLL))) & 1) != 0 && v16 > v11)
               {
-                v35 = *(v14 + 57);
+                v35 = v14[3].u8[9];
                 v20 = md::ElevationRaster::elevationInMetersAtWorldPoint(v14, 1, *a2);
                 if (HIDWORD(v20))
                 {
@@ -5894,13 +5895,13 @@ uint64_t std::__function::__value_func<void ()(md::ls::NeedsFunctionConstantsUpd
   return a1;
 }
 
-void std::vector<ggl::PolygonOverlay::AntialiasPipelineSetup *,geo::allocator_adapter<ggl::PolygonOverlay::AntialiasPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::PolygonOverlay::AntialiasPipelineSetup *,geo::allocator_adapter<ggl::PolygonOverlay::AntialiasPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::PolygonOverlay::AntialiasPipelineSetup *>(v2, v1);
   }
@@ -5959,7 +5960,7 @@ void *ggl::FragmentedPool<ggl::PolygonOverlay::FillPipelineSetup>::~FragmentedPo
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonOverlay::FillPipelineSetup>>::~unique_ptr[abi:nn200100](void **a1)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::PolygonOverlay::FillPipelineSetup>>::~unique_ptr[abi:nn200100](uint64_t *a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5972,13 +5973,13 @@ void **std::unique_ptr<ggl::FragmentedPool<ggl::PolygonOverlay::FillPipelineSetu
   return a1;
 }
 
-void std::vector<ggl::PolygonOverlay::FillPipelineSetup *,geo::allocator_adapter<ggl::PolygonOverlay::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::PolygonOverlay::FillPipelineSetup *,geo::allocator_adapter<ggl::PolygonOverlay::FillPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::PolygonOverlay::FillPipelineSetup *>(v2, v1);
   }
@@ -6098,16 +6099,16 @@ uint64_t md::LogicManager::logic<md::ElevationLogic>(int8x8_t *a1)
   return 0;
 }
 
-uint64_t std::function<void ()(ggl::RenderItem *)>::operator()(uint64_t a1, uint64_t a2)
+ecs2::ExecutionTaskContext *std::function<void ()(ggl::RenderItem *)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v4 = a2;
+  v5 = a2;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, &v4);
+    return (*(*a1 + 48))(a1, &v5);
   }
 
   v3 = std::__throw_bad_function_call[abi:nn200100]();
-  return ecs2::Runtime::_entities<md::ita::UpdateColorRampGradientResources,md::ls::RenderItemID const&,md::ls::ColorRampDataHandle const&>(v3);
+  return ecs2::Runtime::_entities<md::ita::UpdateColorRampGradientResources,md::ls::RenderItemID const&,md::ls::ColorRampDataHandle const&>(v3, v4);
 }
 
 uint64_t ecs2::Runtime::_entities<md::ita::UpdateColorRampGradientResources,md::ls::RenderItemID const&,md::ls::ColorRampDataHandle const&>(uint64_t a1, uint64_t **a2)
@@ -6204,7 +6205,7 @@ uint64_t ecs2::Runtime::_entities<md::ita::UpdateColorRampGradientResources,md::
             goto LABEL_39;
           }
 
-          v25 = *(v20 + 8);
+          v25 = *(v20 + 1);
           v26 = ecs2::ExecutionTaskContext::currentEntity(v24);
           if (v25)
           {
@@ -6243,9 +6244,9 @@ uint64_t ecs2::Runtime::_entities<md::ita::UpdateColorRampGradientResources,md::
             goto LABEL_39;
           }
 
-          if (*(v20 + 16))
+          if (*(v20 + 2))
           {
-            *v51 = *(v20 + 16);
+            *v51 = *(v20 + 2);
             v51[8] = *(v20 + 24);
             ecs2::ExecutionTaskContext::currentEntity(v27);
             operator new();
@@ -6274,12 +6275,12 @@ LABEL_39:
             std::__throw_bad_optional_access[abi:nn200100]();
           }
 
-          v31 = *(v20 + 32);
+          v31 = *(v20 + 4);
           v30 = v20 + 32;
           if (v31)
           {
             *v51 = *v30;
-            v51[8] = *(v30 + 8);
+            v51[8] = v30[8];
             ecs2::ExecutionTaskContext::currentEntity(v29);
             operator new();
           }
@@ -8202,7 +8203,7 @@ void sub_1B295627C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::UpdateColorRampGradientResources>,std::allocator<ecs2::ForwardToExecute<md::ita::UpdateColorRampGradientResources>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
+ecs2::ExecutionTaskContext *std::__function::__func<ecs2::ForwardToExecute<md::ita::UpdateColorRampGradientResources>,std::allocator<ecs2::ForwardToExecute<md::ita::UpdateColorRampGradientResources>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = a2;
   v2 = (a1 + 8);
@@ -8361,7 +8362,7 @@ char *ecs2::Runtime::_entities<md::ita::UpdateStyleColorConstantDataHandle,md::l
     v24 = std::__hash_table<std::__hash_value_type<md::ColorStyleCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::StyleColor>>>,std::__unordered_map_hasher<md::ColorStyleCacheKey,std::__hash_value_type<md::ColorStyleCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::StyleColor>>>,md::ColorStyleCacheKeyHasher,std::equal_to<md::ColorStyleCacheKey>,true>,std::__unordered_map_equal<md::ColorStyleCacheKey,std::__hash_value_type<md::ColorStyleCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::StyleColor>>>,std::equal_to<md::ColorStyleCacheKey>,md::ColorStyleCacheKeyHasher,true>,std::allocator<std::__hash_value_type<md::ColorStyleCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::StyleColor>>>>>::find<md::ColorStyleCacheKey>(v17 + 1303, v158);
     if (v24)
     {
-      v25 = v24[5];
+      v25 = *(v24 + 5);
       if (v25)
       {
         goto LABEL_162;
@@ -9233,16 +9234,16 @@ LABEL_27:
       }
 
 LABEL_41:
-      v26 = [v4 attributes];
+      v26 = objc_msgSend_attributes(v4);
       v27 = [v26 objectAtIndexedSubscript:v5];
       [v27 setFormat:v19];
 
       v28 = *(v21 + 24);
-      v29 = [v4 attributes];
+      v29 = objc_msgSend_attributes(v4);
       v30 = [v29 objectAtIndexedSubscript:v5];
       [v30 setOffset:v28];
 
-      v31 = [v4 attributes];
+      v31 = objc_msgSend_attributes(v4);
       v32 = [v31 objectAtIndexedSubscript:v5];
       [v32 setBufferIndex:v6];
 
@@ -9717,13 +9718,13 @@ void gdc::Camera::convertToMercatorUnits(uint64_t a1)
   }
 }
 
-void std::vector<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup *,geo::allocator_adapter<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::Textured::SRGBBlendColormappedPos2DUVPipelineSetup *>(v2, v1);
   }

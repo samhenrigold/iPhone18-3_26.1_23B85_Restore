@@ -81,7 +81,7 @@
 
 - (void)invokePostApplyActions
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_postApplyActionsInvoked)
   {
     self->_postApplyActionsInvoked = 1;
@@ -94,40 +94,38 @@
       postApplyActionNames = self->_postApplyActionNames;
       self->_postApplyActionNames = 0;
 
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v6 = v3;
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           v10 = 0;
           do
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
+            (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addPostApplyActionIfNotPresent:(id)present usingBlock:(id)block
@@ -228,12 +226,11 @@ LABEL_8:
 
 uint64_t __48__HMDBackingStoreTransactionActions_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_46279;
-  logCategory__hmf_once_v4_46279 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_46279;
+  logCategory__hmf_once_v4_46279 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

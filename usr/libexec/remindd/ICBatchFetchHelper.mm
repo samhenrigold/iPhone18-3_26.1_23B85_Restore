@@ -47,7 +47,7 @@
     v14->_managedObjectIDCache = v21;
 
     [(NSCache *)v14->_managedObjectIDCache setCountLimit:limit];
-    atomic_store(size, &remainingDispatchQueueCapacity);
+    atomic_store(size, remainingDispatchQueueCapacity);
   }
 
   return v14;
@@ -58,16 +58,16 @@
   objectCopy = object;
   contextCopy = context;
   pairCopy = pair;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  v25 = 0;
-  v26[0] = &v25;
-  v26[1] = 0x3032000000;
-  v26[2] = sub_1000E38DC;
-  v26[3] = sub_1000E38EC;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3032000000;
+  v25[3] = sub_1000E38DC;
+  v25[4] = sub_1000E38EC;
+  v26 = 0;
   objectID = [objectCopy objectID];
 
   if (objectID)
@@ -83,24 +83,24 @@
         v18 = 3221225472;
         v19 = sub_1000E38F4;
         v20 = &unk_1008DC748;
-        v23 = &v28;
+        v23 = &v27;
         v21 = contextCopy;
         v22 = objectCopy;
-        v24 = &v25;
+        v24 = v25;
         [v21 performBlockAndWait:&v17];
-        if ((v29[3] & 1) == 0)
+        if ((v28[3] & 1) == 0)
         {
-          v13 = [REMLog cloudkit:v17];
+          v13 = objc_msgSend_cloudkit(REMLog, v17, v18, v19, v20, v21);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
-            sub_10076DACC(pairCopy, v26);
+            sub_10076DACC();
           }
         }
       }
 
       else
       {
-        v14 = +[REMLog cloudkit];
+        v14 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
           sub_10076DB58();
@@ -110,14 +110,14 @@
 
     else
     {
-      *(v29 + 24) = 1;
+      *(v28 + 24) = 1;
     }
   }
 
-  v15 = *(v29 + 24);
-  _Block_object_dispose(&v25, 8);
+  v15 = *(v28 + 24);
+  _Block_object_dispose(v25, 8);
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
   return v15;
 }
 
@@ -160,7 +160,7 @@
         if (v13)
         {
           [v6 addObject:v11];
-          v14 = +[REMLog cloudkit];
+          v14 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             LODWORD(buf) = 138543362;
@@ -183,7 +183,7 @@ LABEL_13:
           }
 
           [v6 addObject:v11];
-          v14 = +[REMLog cloudkit];
+          v14 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             LODWORD(buf) = 138543362;
@@ -274,7 +274,7 @@ LABEL_17:
 
     else
     {
-      v32 = +[REMLog cloudkit];
+      v32 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
         sub_10076DBC0(v32);
@@ -364,7 +364,7 @@ LABEL_17:
     dispatch_sync(queue2, neededCopy);
 
     v8 = CFAbsoluteTimeGetCurrent();
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
@@ -452,7 +452,7 @@ LABEL_17:
   }
 
   v9 = CFAbsoluteTimeGetCurrent();
-  v10 = +[REMLog cloudkit];
+  v10 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
@@ -499,7 +499,7 @@ LABEL_17:
   v32 = 0;
   if (!v11)
   {
-    v16 = +[REMLog cloudkit];
+    v16 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138543362;
@@ -514,7 +514,7 @@ LABEL_17:
 
   if (!WeakRetained)
   {
-    v16 = +[REMLog cloudkit];
+    v16 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       sub_10076DC90();
@@ -544,10 +544,10 @@ LABEL_9:
 
   if (*(*(&buf + 1) + 40))
   {
-    v14 = [REMLog cloudkit:v19];
+    v14 = objc_msgSend_cloudkit(REMLog, v19, v20, v21, v22, selfCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10076DC04(v9, &buf + 8);
+      sub_10076DC04();
     }
   }
 
@@ -558,7 +558,7 @@ LABEL_9:
       goto LABEL_14;
     }
 
-    v14 = [REMLog cloudkit:v19];
+    v14 = objc_msgSend_cloudkit(REMLog, v19, v20, v21, v22, selfCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *v33 = 138543362;
@@ -623,7 +623,7 @@ LABEL_15:
 
   if (v4)
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_10076DCF8();

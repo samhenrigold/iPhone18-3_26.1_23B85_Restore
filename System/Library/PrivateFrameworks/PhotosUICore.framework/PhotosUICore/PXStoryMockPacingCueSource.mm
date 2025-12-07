@@ -51,7 +51,7 @@
   return v5;
 }
 
-unint64_t __47__PXStoryMockPacingCueSource_initWithCueTimes___block_invoke(uint64_t a1, CMTime *a2)
+void *__47__PXStoryMockPacingCueSource_initWithCueTimes___block_invoke(uint64_t a1, CMTime *a2)
 {
   result = [*(a1 + 32) count];
   if (result)

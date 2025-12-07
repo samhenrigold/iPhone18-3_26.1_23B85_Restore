@@ -29,9 +29,11 @@
 
 uint64_t __28__MTImageStore_defaultStore__block_invoke(uint64_t a1)
 {
-  defaultStore_defaultStore_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = defaultStore_defaultStore_0;
+  defaultStore_defaultStore_0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (id)defaultBasePath

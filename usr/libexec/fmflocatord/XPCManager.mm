@@ -19,7 +19,7 @@
   v2 = qword_100070348;
   if (!qword_100070348)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -34,7 +34,7 @@
 
 - (XPCManager)init
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100038D28(v3);
@@ -45,26 +45,27 @@
 
 - (id)initSingleton
 {
-  v5.receiver = self;
-  v5.super_class = XPCManager;
-  v2 = [(XPCManager *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = XPCManager;
+  v2 = [(XPCManager *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002830();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002830(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100038D6C(v3);
+      sub_100038D6C(v4);
     }
 
-    objc_storeStrong(&qword_100070348, v2);
+    objc_storeStrong(&qword_100070348, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100036958(self, v3);
@@ -80,7 +81,7 @@
 
 - (void)initializeXPC
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;
@@ -101,7 +102,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = sub_100002830();
+  v5 = sub_100002830(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v10 = 138412290;

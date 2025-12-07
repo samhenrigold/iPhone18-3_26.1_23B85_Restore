@@ -14,7 +14,7 @@
 
 - (PLNSNotificationOperatorComposition)initWithOperator:(id)operator forNotification:(id)notification withBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v8 = MEMORY[0x1E695DEC8];
   blockCopy = block;
@@ -22,8 +22,7 @@
   operatorCopy = operator;
   v12 = [v8 arrayWithObjects:&notificationCopy count:1];
 
-  v13 = [(PLNSNotificationOperatorComposition *)self initWithOperator:operatorCopy forNotifications:v12 withBlock:blockCopy, notificationCopy, v17];
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = [(PLNSNotificationOperatorComposition *)self initWithOperator:operatorCopy forNotifications:v12 withBlock:blockCopy, notificationCopy, v16];
   return v13;
 }
 
@@ -45,18 +44,17 @@
 
 - (PLNSNotificationOperatorComposition)initWithWorkQueue:(id)queue forNotification:(id)notification withBlock:(id)block
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = PLNSNotificationOperatorComposition;
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = PLNSNotificationOperatorComposition;
   blockCopy = block;
   notificationCopy = notification;
   queueCopy = queue;
-  v10 = [(PLNSNotificationOperatorComposition *)&v15 init];
-  v16[0] = notificationCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:{1, v15.receiver, v15.super_class}];
+  v10 = [(PLNSNotificationOperatorComposition *)&v14 init];
+  v15[0] = notificationCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:{1, v14.receiver, v14.super_class}];
 
   v12 = [(PLNSNotificationOperatorComposition *)v10 initWithWorkQueue:queueCopy forNotifications:v11 withBlock:blockCopy];
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -138,29 +136,29 @@ void __52__PLNSNotificationOperatorComposition_notification___block_invoke(uint6
 
 - (void)listenForNotifications:(BOOL)notifications
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (notifications)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     notificationNames = [(PLNSNotificationOperatorComposition *)self notificationNames];
-    v5 = [notificationNames countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v5 = [notificationNames countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v27;
+      v7 = *v26;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v27 != v7)
+          if (*v26 != v7)
           {
             objc_enumerationMutation(notificationNames);
           }
 
-          v9 = *(*(&v26 + 1) + 8 * i);
+          v9 = *(*(&v25 + 1) + 8 * i);
           defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
           v11 = [defaultCenter _addObserver:self selector:sel_notification_ name:v9 object:0 options:1024];
 
@@ -172,7 +170,7 @@ void __52__PLNSNotificationOperatorComposition_notification___block_invoke(uint6
           os_unfair_lock_unlock(&self->_lock);
         }
 
-        v6 = [notificationNames countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v6 = [notificationNames countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v6);
@@ -184,38 +182,36 @@ void __52__PLNSNotificationOperatorComposition_notification___block_invoke(uint6
     os_unfair_lock_lock(&self->_lock);
     v14 = [(NSMutableArray *)self->_notificationObservers copy];
     os_unfair_lock_unlock(&self->_lock);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     notificationNames = v14;
-    v15 = [notificationNames countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v15 = [notificationNames countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(notificationNames);
           }
 
-          unsignedLongLongValue = [*(*(&v22 + 1) + 8 * j) unsignedLongLongValue];
+          unsignedLongLongValue = [*(*(&v21 + 1) + 8 * j) unsignedLongLongValue];
           defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
           [defaultCenter2 _removeObserver:unsignedLongLongValue];
         }
 
-        v16 = [notificationNames countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v16 = [notificationNames countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v16);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

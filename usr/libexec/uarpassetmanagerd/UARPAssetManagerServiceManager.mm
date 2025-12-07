@@ -46,125 +46,124 @@
 - (void)initServiceNameList
 {
   selfCopy = self;
-  v38[1] = a2;
-  v38[0] = +[NSMutableArray array];
-  v37 = [NSURL fileURLWithPath:@"/System/Library/PrivateFrameworks/UARPAssetManager.framework/XPCServices/" isDirectory:1];
-  v21 = +[NSFileManager defaultManager];
-  v36 = [(NSFileManager *)v21 enumeratorAtURL:v37 includingPropertiesForKeys:0 options:1 errorHandler:?];
+  v37[1] = a2;
+  v37[0] = +[NSMutableArray array];
+  v36 = [NSURL fileURLWithPath:@"/System/Library/PrivateFrameworks/UARPAssetManager.framework/XPCServices/" isDirectory:1];
+  v20 = +[NSFileManager defaultManager];
+  v35 = [(NSFileManager *)v20 enumeratorAtURL:v36 includingPropertiesForKeys:0 options:1 errorHandler:?];
 
-  location = [v36 nextObject];
+  location = [v35 nextObject];
   while (location)
   {
     context = objc_autoreleasePoolPush();
-    v33 = [NSBundle bundleWithURL:location];
-    if (v33)
+    v32 = [NSBundle bundleWithURL:location];
+    if (v32)
     {
-      infoDictionary = [v33 infoDictionary];
-      v15 = [infoDictionary objectForKeyedSubscript:@"UARP Asset Manager"];
-      bOOLValue = [v15 BOOLValue];
+      infoDictionary = [v32 infoDictionary];
+      v14 = [infoDictionary objectForKeyedSubscript:@"UARP Asset Manager"];
+      bOOLValue = [v14 BOOLValue];
 
       if (!bOOLValue)
       {
-        v34 = 4;
+        v33 = 4;
         goto LABEL_24;
       }
 
-      infoDictionary2 = [v33 infoDictionary];
-      v30 = [infoDictionary2 objectForKeyedSubscript:@"AssetType"];
+      infoDictionary2 = [v32 infoDictionary];
+      v29 = [infoDictionary2 objectForKeyedSubscript:@"AssetType"];
 
-      if (!v30)
+      if (!v29)
       {
-        v29 = selfCopy->_log;
-        v28 = 16;
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = selfCopy->_log;
+        v27 = 16;
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v12 = v29;
-          v13 = v28;
-          __os_log_helper_16_0_0(v27);
-          _os_log_error_impl(&_mh_execute_header, v12, v13, "No asset type found for Asset Manager Service", v27, 2u);
+          v11 = v28;
+          v12 = v27;
+          __os_log_helper_16_0_0(v26);
+          _os_log_error_impl(&_mh_execute_header, v11, v12, "No asset type found for Asset Manager Service", v26, 2u);
         }
 
-        objc_storeStrong(&v29, 0);
+        objc_storeStrong(&v28, 0);
       }
 
-      bundleIdentifier = [v33 bundleIdentifier];
+      bundleIdentifier = [v32 bundleIdentifier];
       if (bundleIdentifier)
       {
-        v25 = selfCopy->_log;
-        v24 = 1;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v24 = selfCopy->_log;
+        v23 = 1;
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v10 = v25;
-          v11 = v24;
-          __os_log_helper_16_2_1_8_64(v41, bundleIdentifier);
-          _os_log_impl(&_mh_execute_header, v10, v11, "Located UARP asset manager bundle %@", v41, 0xCu);
+          v9 = v24;
+          v10 = v23;
+          __os_log_helper_16_2_1_8_64(v40, bundleIdentifier);
+          _os_log_impl(&_mh_execute_header, v9, v10, "Located UARP asset manager bundle %@", v40, 0xCu);
         }
 
-        objc_storeStrong(&v25, 0);
-        if ([v30 isEqualToString:@"mobileasset"] == 1)
+        objc_storeStrong(&v24, 0);
+        if ([v29 isEqualToString:@"mobileasset"] == 1)
         {
-          v8 = [UARPAssetManagerServiceInstanceMobileAsset alloc];
-          bundleIdentifier2 = [v33 bundleIdentifier];
-          delegate = selfCopy->_delegate;
-          v23 = [UARPAssetManagerServiceInstanceMobileAsset initWithServiceName:v8 delegate:"initWithServiceName:delegate:"];
+          v7 = [UARPAssetManagerServiceInstanceMobileAsset alloc];
+          bundleIdentifier2 = [v32 bundleIdentifier];
+          v22 = [UARPAssetManagerServiceInstanceMobileAsset initWithServiceName:v7 delegate:"initWithServiceName:delegate:"];
 
-          [v38[0] addObject:v23];
-          objc_storeStrong(&v23, 0);
+          [v37[0] addObject:v22];
+          objc_storeStrong(&v22, 0);
           goto LABEL_22;
         }
 
         oslog = selfCopy->_log;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
-          v7 = oslog;
-          __os_log_helper_16_2_1_8_64(v40, v30);
-          _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Invalid asset manager type %@", v40, 0xCu);
+          v6 = oslog;
+          __os_log_helper_16_2_1_8_64(v39, v29);
+          _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Invalid asset manager type %@", v39, 0xCu);
         }
 
         objc_storeStrong(&oslog, 0);
-        v34 = 4;
+        v33 = 4;
       }
 
       else
       {
 LABEL_22:
-        v34 = 0;
+        v33 = 0;
       }
 
       objc_storeStrong(&bundleIdentifier, 0);
-      objc_storeStrong(&v30, 0);
+      objc_storeStrong(&v29, 0);
       goto LABEL_24;
     }
 
-    v32 = selfCopy->_log;
-    v31 = 16;
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = selfCopy->_log;
+    v30 = 16;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      log = v32;
-      type = v31;
-      __os_log_helper_16_2_1_8_66(v42, location);
-      _os_log_error_impl(&_mh_execute_header, log, type, "Unable to access XPC bundle at %{public}@", v42, 0xCu);
+      log = v31;
+      type = v30;
+      __os_log_helper_16_2_1_8_66(v41, location);
+      _os_log_error_impl(&_mh_execute_header, log, type, "Unable to access XPC bundle at %{public}@", v41, 0xCu);
     }
 
-    objc_storeStrong(&v32, 0);
-    v34 = 4;
+    objc_storeStrong(&v31, 0);
+    v33 = 4;
 LABEL_24:
-    objc_storeStrong(&v33, 0);
+    objc_storeStrong(&v32, 0);
     objc_autoreleasePoolPop(context);
-    nextObject = [v36 nextObject];
-    v4 = location;
+    nextObject = [v35 nextObject];
+    v3 = location;
     location = nextObject;
   }
 
-  v34 = 2;
+  v33 = 2;
   objc_storeStrong(&location, 0);
-  v5 = [[NSArray alloc] initWithArray:v38[0]];
+  v4 = [[NSArray alloc] initWithArray:v37[0]];
   assetManagerServiceList = selfCopy->_assetManagerServiceList;
-  selfCopy->_assetManagerServiceList = v5;
+  selfCopy->_assetManagerServiceList = v4;
 
+  objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
-  objc_storeStrong(&v37, 0);
-  objc_storeStrong(v38, 0);
+  objc_storeStrong(v37, 0);
 }
 
 - (void)subscribeForPersonality:(id)personality

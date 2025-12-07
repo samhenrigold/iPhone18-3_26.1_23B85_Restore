@@ -19,48 +19,44 @@
 
 + (id)entryEventPointDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"BLD";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"BLD";
   v2 = +[PLBLDService entryEventPointBLD];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventPointBLD
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
-  v18 = *MEMORY[0x277D3F568];
-  v19 = &unk_282C1BCF8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v21[0] = v2;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"BUIOutput";
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
+  v17 = *MEMORY[0x277D3F568];
+  v18 = &unk_282C1BCF8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v20[0] = v2;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"BUIOutput";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v17[0] = commonTypeDict_StringFormat;
-  v16[1] = @"JSON";
+  v16[0] = commonTypeDict_StringFormat;
+  v15[1] = @"JSON";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]2 commonTypeDict_BoolFormat];
-  v17[1] = commonTypeDict_BoolFormat;
-  v16[2] = @"LastUpDateTime";
+  v16[1] = commonTypeDict_BoolFormat;
+  v15[2] = @"LastUpDateTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v17[2] = commonTypeDict_DateFormat;
-  v16[3] = @"BLDRetail";
-  v14 = *MEMORY[0x277D3F5A8];
-  v15 = &unk_282C100E0;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v17[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[2] = commonTypeDict_DateFormat;
+  v15[3] = @"BLDRetail";
+  v13 = *MEMORY[0x277D3F5A8];
+  v14 = &unk_282C100E0;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v16[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v11;
 }
@@ -103,18 +99,17 @@
 
 id __40__PLBLDService_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = [*(a1 + 32) batteryBreakdownWithPayload:v6];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
+    v8 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __40__PLBLDService_initOperatorDependancies__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v9;
+    block[4] = v8;
     if (qword_2811F3F38 != -1)
     {
       dispatch_once(&qword_2811F3F38, block);
@@ -122,33 +117,31 @@ id __40__PLBLDService_initOperatorDependancies__block_invoke(uint64_t a1, uint64
 
     if (_MergedGlobals_1_7 == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%d: result=%@, payload=%@", "-[PLBLDService initOperatorDependancies]_block_invoke", 100, v7, v6];
-      v11 = MEMORY[0x277D3F178];
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLDService.m"];
-      v13 = [v12 lastPathComponent];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLDService initOperatorDependancies]_block_invoke"];
-      [v11 logMessage:v10 fromFile:v13 fromFunction:v14 fromLineNumber:100];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%d: result=%@, payload=%@", "-[PLBLDService initOperatorDependancies]_block_invoke", 100, v7, v6];
+      v10 = MEMORY[0x277D3F178];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLDService.m"];
+      v12 = [v11 lastPathComponent];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLDService initOperatorDependancies]_block_invoke"];
+      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:100];
 
-      v15 = PLLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = PLLogCommon();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v10;
-        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v21 = v9;
+        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v20 = @"result";
-  v21 = v7;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v18 = @"result";
+  v19 = v7;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
-uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1)
+void *__40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_7 = result;
@@ -157,7 +150,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
 
 - (id)batteryBreakdownWithPayload:(id)payload
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   v4 = [payload objectForKeyedSubscript:@"PLBatteryUIQueryTypeKey"];
   intValue = [v4 intValue];
 
@@ -166,14 +159,14 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v7 = objc_opt_class();
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke;
-    v108[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v108[4] = v7;
+    v107[0] = MEMORY[0x277D85DD0];
+    v107[1] = 3221225472;
+    v107[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke;
+    v107[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v107[4] = v7;
     if (qword_2811F3F40 != -1)
     {
-      dispatch_once(&qword_2811F3F40, v108);
+      dispatch_once(&qword_2811F3F40, v107);
     }
 
     if (byte_2811F3F31 == 1)
@@ -189,7 +182,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v110 = v8;
+        v109 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -200,7 +193,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
   if (intValue == 1)
   {
     monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
-    v102 = objc_opt_new();
+    v101 = objc_opt_new();
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v16 = [monotonicDate dateByAddingTimeInterval:-86400.0];
     v17 = monotonicDate;
@@ -209,23 +202,23 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
     [v17 timeIntervalSince1970];
     v21 = v20;
 
-    v99 = [(PLBatteryBreakdownService *)self batteryBreakdownWithTimeRange:1 withDataRange:v19 withEntryTimeInterval:v21 - v19 withQueryType:0.0, 0.0, 3600.0];
-    [dictionary setObject:v99 forKeyedSubscript:@"PLBatteryUIQueryRangeDayKey"];
+    v98 = [(PLBatteryBreakdownService *)self batteryBreakdownWithTimeRange:1 withDataRange:v19 withEntryTimeInterval:v21 - v19 withQueryType:0.0, 0.0, 3600.0];
+    [dictionary setObject:v98 forKeyedSubscript:@"PLBatteryUIQueryRangeDayKey"];
     v22 = [(PLBLDService *)self bldEntryWithBatteryBreakdown:dictionary];
-    v98 = v22;
+    v97 = v22;
     if ([MEMORY[0x277D3F258] isPowerlogHelperd])
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v23 = objc_opt_class();
-        v107[0] = MEMORY[0x277D85DD0];
-        v107[1] = 3221225472;
-        v107[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_67;
-        v107[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v107[4] = v23;
+        v106[0] = MEMORY[0x277D85DD0];
+        v106[1] = 3221225472;
+        v106[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_67;
+        v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v106[4] = v23;
         if (qword_2811F3F48 != -1)
         {
-          dispatch_once(&qword_2811F3F48, v107);
+          dispatch_once(&qword_2811F3F48, v106);
         }
 
         if (byte_2811F3F32 == 1)
@@ -241,18 +234,18 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v24;
+            v109 = v24;
             _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           self = selfCopy;
-          v22 = v98;
+          v22 = v97;
           v6 = &unk_21AA21000;
         }
       }
 
       serialized = [v22 serialized];
-      [v102 addObject:serialized];
+      [v101 addObject:serialized];
     }
 
     else
@@ -273,20 +266,20 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
     [dictionary2 setObject:v38 forKeyedSubscript:@"PLBatteryUIQueryRangeWeekKey"];
 
     v39 = [(PLBLDService *)self bldEntryWithBatteryBreakdown:dictionary2];
-    v96 = v39;
+    v95 = v39;
     if ([MEMORY[0x277D3F258] isPowerlogHelperd])
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v40 = objc_opt_class();
-        v106[0] = MEMORY[0x277D85DD0];
-        v106[1] = v6[311];
-        v106[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_76;
-        v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v106[4] = v40;
+        v105[0] = MEMORY[0x277D85DD0];
+        v105[1] = v6[311];
+        v105[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_76;
+        v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v105[4] = v40;
         if (qword_2811F3F50 != -1)
         {
-          dispatch_once(&qword_2811F3F50, v106);
+          dispatch_once(&qword_2811F3F50, v105);
         }
 
         if (byte_2811F3F33 == 1)
@@ -302,7 +295,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
           if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v41;
+            v109 = v41;
             _os_log_debug_impl(&dword_21A4C6000, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
@@ -312,7 +305,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
       }
 
       serialized2 = [v39 serialized];
-      [v102 addObject:serialized2];
+      [v101 addObject:serialized2];
     }
 
     else
@@ -320,7 +313,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
       [(PLOperator *)self logEntry:v39];
     }
 
-    v97 = v33;
+    v96 = v33;
     convertFromMonotonicToSystem = [v33 convertFromMonotonicToSystem];
     v49 = 6;
     v50 = v6[311];
@@ -368,7 +361,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
 
           if (byte_2811F3F34 == 1)
           {
-            v101 = v53;
+            v100 = v53;
             v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%d: past N days results generated", "-[PLBLDService batteryBreakdownWithPayload:]", 176];
             v68 = MEMORY[0x277D3F178];
             v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLDService.m"];
@@ -380,17 +373,17 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
             if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v110 = v67;
+              v109 = v67;
               _os_log_debug_impl(&dword_21A4C6000, v72, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
             self = selfCopy;
-            v53 = v101;
+            v53 = v100;
           }
         }
 
         serialized3 = [v65 serialized];
-        [v102 addObject:serialized3];
+        [v101 addObject:serialized3];
       }
 
       else
@@ -405,8 +398,8 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
 
     while (v49 != -1);
     dictionary4 = [MEMORY[0x277CBEB38] dictionary];
-    v75 = v99;
-    v76 = [v99 objectForKeyedSubscript:@"PLBatteryUIAppArrayKey"];
+    v75 = v98;
+    v76 = [v98 objectForKeyedSubscript:@"PLBatteryUIAppArrayKey"];
     v77 = [(PLBatteryBreakdownService *)self suggestionsWithEnergyEntries:v76];
     [dictionary4 setObject:v77 forKeyedSubscript:@"PLBatteryUISuggestionArrayKey"];
 
@@ -416,14 +409,14 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v79 = objc_opt_class();
-        v104[0] = MEMORY[0x277D85DD0];
-        v104[1] = v50;
-        v104[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_101;
-        v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v104[4] = v79;
+        v103[0] = MEMORY[0x277D85DD0];
+        v103[1] = v50;
+        v103[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_101;
+        v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v103[4] = v79;
         if (qword_2811F3F60 != -1)
         {
-          dispatch_once(&qword_2811F3F60, v104);
+          dispatch_once(&qword_2811F3F60, v103);
         }
 
         if (byte_2811F3F35 == 1)
@@ -439,7 +432,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
           if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v80;
+            v109 = v80;
             _os_log_debug_impl(&dword_21A4C6000, v85, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
@@ -448,7 +441,7 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
       }
 
       serialized4 = [v78 serialized];
-      [v102 addObject:serialized4];
+      [v101 addObject:serialized4];
     }
 
     else
@@ -460,84 +453,82 @@ uint64_t __40__PLBLDService_initOperatorDependancies__block_invoke_2(uint64_t a1
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v87 = objc_opt_class();
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = v50;
-      v103[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_107;
-      v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v103[4] = v87;
+      v102[0] = MEMORY[0x277D85DD0];
+      v102[1] = v50;
+      v102[2] = __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_107;
+      v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v102[4] = v87;
       if (qword_2811F3F68 != -1)
       {
-        dispatch_once(&qword_2811F3F68, v103);
+        dispatch_once(&qword_2811F3F68, v102);
       }
 
       if (byte_2811F3F36 == 1)
       {
-        v102 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%d: allEntries=%@", "-[PLBLDService batteryBreakdownWithPayload:]", 209, v102];
+        v101 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%d: allEntries=%@", "-[PLBLDService batteryBreakdownWithPayload:]", 209, v101];
         v89 = MEMORY[0x277D3F178];
         v90 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLDService.m"];
         lastPathComponent6 = [v90 lastPathComponent];
         v92 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLDService batteryBreakdownWithPayload:]"];
-        [v89 logMessage:v102 fromFile:lastPathComponent6 fromFunction:v92 fromLineNumber:209];
+        [v89 logMessage:v101 fromFile:lastPathComponent6 fromFunction:v92 fromLineNumber:209];
 
         v93 = PLLogCommon();
         if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v110 = v102;
+          v109 = v101;
           _os_log_debug_impl(&dword_21A4C6000, v93, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v75 = v99;
+        v75 = v98;
       }
     }
   }
 
   else
   {
-    v102 = 0;
+    v101 = 0;
   }
 
-  v94 = *MEMORY[0x277D85DE8];
-
-  return v102;
+  return v101;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F31 = result;
   return result;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_67(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke_67(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F32 = result;
   return result;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_76(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke_76(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F33 = result;
   return result;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_89(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke_89(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F34 = result;
   return result;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_101(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke_101(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F35 = result;
   return result;
 }
 
-uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_107(uint64_t a1)
+void *__44__PLBLDService_batteryBreakdownWithPayload___block_invoke_107(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F36 = result;
@@ -585,10 +576,10 @@ uint64_t __44__PLBLDService_batteryBreakdownWithPayload___block_invoke_107(uint6
 
 uint64_t __45__PLBLDService_bldEntryWithBatteryBreakdown___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  qword_2811F3F78 = [objc_opt_class() entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"BLD"];
+  v1 = [objc_opt_class() entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"BLD"];
+  qword_2811F3F78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1);
 }
 
 @end

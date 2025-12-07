@@ -29,7 +29,7 @@
       v34 = 0u;
       if (connectionCopy)
       {
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
       }
 
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.systemstatus.observerqueue.client-%d", BSPIDForAuditToken()];
@@ -154,7 +154,7 @@ void __68__STStatusDomainXPCClientHandle_initWithXPCConnection_serverHandle___bl
 
 void __68__STStatusDomainXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke_4(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -166,22 +166,22 @@ void __68__STStatusDomainXPCClientHandle_initWithXPCConnection_serverHandle___bl
     v3 = 0;
   }
 
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
@@ -190,13 +190,11 @@ void __68__STStatusDomainXPCClientHandle_initWithXPCConnection_serverHandle___bl
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_internalQueue_stopObservingDomain:(uint64_t)domain
@@ -440,7 +438,7 @@ void __65__STStatusDomainXPCClientHandle_reportUserInteraction_forDomain___block
 
 void __83__STStatusDomainXPCClientHandle_serverDataForDomains_preferredLocalizations_reply___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
   if (v2)
   {
@@ -470,34 +468,34 @@ void __83__STStatusDomainXPCClientHandle_serverDataForDomains_preferredLocalizat
       }
 
       v7 = [[STStatusDomainClientHandleWrapper alloc] initWithWrappedClientHandle:*(a1 + 40) preferredLocalizations:*(a1 + 48)];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
       v8 = *(a1 + 32);
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * i);
-            v14 = [WeakRetained dataForDomain:objc_msgSend(v13 client:{"unsignedIntegerValue", v16), v7}];
+            v13 = *(*(&v15 + 1) + 8 * i);
+            v14 = [WeakRetained dataForDomain:objc_msgSend(v13 client:{"unsignedIntegerValue", v15), v7}];
             if (v14)
             {
               [v2 setObject:v14 forKey:v13];
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);
@@ -511,8 +509,6 @@ void __83__STStatusDomainXPCClientHandle_serverDataForDomains_preferredLocalizat
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeData:(id)data forDomain:(unint64_t)domain withChangeContext:(id)context

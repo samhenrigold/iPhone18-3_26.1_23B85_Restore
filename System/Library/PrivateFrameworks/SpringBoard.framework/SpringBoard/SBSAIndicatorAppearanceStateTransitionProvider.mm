@@ -37,7 +37,7 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v67[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -74,7 +74,7 @@
     v8 = 0;
   }
 
-  v57 = contextCopy;
+  v60 = contextCopy;
 
   v9 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _updatedPreferencesForCompletedMilestonesWithContext:v8];
   maintainedPreferences = [v9 maintainedPreferences];
@@ -89,20 +89,20 @@
   if ((preferences & 1) == 0 && v15)
   {
     v16 = [[SBSAPreferencesDidChangeAction alloc] initWithReasons:&unk_28336E6D0];
-    v67[0] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+    v70[0] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
     v18 = [v9 copyByAddingActions:v17];
 
     v9 = v18;
   }
 
   indicatorElementContext = [v8 indicatorElementContext];
-  v58 = indicatorElementContext;
+  v61 = indicatorElementContext;
   if (indicatorAppearanceStateContext)
   {
     if (indicatorElementContext)
     {
-      v56 = indicatorAppearanceStateContext2;
+      v59 = indicatorAppearanceStateContext2;
       backlightLuminanceLevel = [v8 backlightLuminanceLevel];
       isReachabilityActiveOrAnimating = [v8 isReachabilityActiveOrAnimating];
       isAccessibilityZoomActiveAndEnabled = [v8 isAccessibilityZoomActiveAndEnabled];
@@ -114,78 +114,79 @@
       {
         [v8 elementContexts];
         v27 = v26 = isReachabilityActiveOrAnimating;
-        v55 = [v27 bs_containsObjectPassingTest:&__block_literal_global_221] ^ 1;
+        v58 = [v27 bs_containsObjectPassingTest:&__block_literal_global_221] ^ 1;
 
         isReachabilityActiveOrAnimating = v26;
       }
 
       else
       {
-        v55 = 0;
+        v58 = 0;
       }
 
-      if ([indicatorAppearanceStateContext isDisappeared])
+      isDisappeared = [indicatorAppearanceStateContext isDisappeared];
+      if (isDisappeared)
       {
         indicatorContainerViewDescription = [v9 indicatorContainerViewDescription];
         interfaceElementIdentifier = [indicatorContainerViewDescription interfaceElementIdentifier];
 
         activeIndicatorContainerIdentifier = self->_activeIndicatorContainerIdentifier;
-        v35 = SBLogSystemAperturePreferencesStackIndicator();
-        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
-        indicatorAppearanceStateContext2 = v56;
+        v37 = SBLogSystemAperturePreferencesStackIndicator(v36);
+        v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG);
+        indicatorAppearanceStateContext2 = v59;
         if (activeIndicatorContainerIdentifier == interfaceElementIdentifier)
         {
-          if (v36)
+          if (v38)
           {
             *buf = 134349570;
             queryIteration = [v8 queryIteration];
-            v62 = 2112;
-            *v63 = v58;
-            *&v63[8] = 2112;
-            v64 = indicatorAppearanceStateContext;
-            _os_log_debug_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEBUG, "[%{public}lu] Both indicators are disappeared but there is an element context: %@, so transition the interSensorRegion indicator to appear %@", buf, 0x20u);
+            v65 = 2112;
+            *v66 = v61;
+            *&v66[8] = 2112;
+            v67 = indicatorAppearanceStateContext;
+            _os_log_debug_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEBUG, "[%{public}lu] Both indicators are disappeared but there is an element context: %@, so transition the interSensorRegion indicator to appear %@", buf, 0x20u);
           }
 
-          v39 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _ensureInterSensorRegionIndicatorOnlyVisible:v9 context:v8];
+          v41 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _ensureInterSensorRegionIndicatorOnlyVisible:v9 context:v8];
         }
 
         else
         {
-          if (v36)
+          if (v38)
           {
             [SBSAIndicatorAppearanceStateTransitionProvider preferencesFromContext:v8];
           }
 
           objc_storeStrong(&self->_activeIndicatorContainerIdentifier, interfaceElementIdentifier);
           self->_hasAppearedOnce = 0;
-          v37 = [[SBSAPreferencesDidChangeAction alloc] initWithReasons:&unk_28336E6E8];
-          v66 = v37;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
-          v39 = [v9 copyByAddingActions:v38];
+          v39 = [[SBSAPreferencesDidChangeAction alloc] initWithReasons:&unk_28336E6E8];
+          v69 = v39;
+          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+          v41 = [v9 copyByAddingActions:v40];
 
-          v9 = v37;
+          v9 = v39;
         }
 
         goto LABEL_41;
       }
 
-      indicatorAppearanceStateContext2 = v56;
-      if (backlightLuminanceLevel < 1) | (isReachabilityActiveOrAnimating | isAccessibilityZoomActiveAndEnabled) & v24 & 1 || ((v55 ^ 1) & 1) != 0 || ([v58 indicatorNeedsDisplayWellKnownLocation])
+      indicatorAppearanceStateContext2 = v59;
+      if (backlightLuminanceLevel < 1) | (isReachabilityActiveOrAnimating | isAccessibilityZoomActiveAndEnabled) & v24 & 1 || ((v58 ^ 1) & 1) != 0 || (isDisappeared = [v61 indicatorNeedsDisplayWellKnownLocation], (isDisappeared))
       {
-        v40 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v42 = SBLogSystemAperturePreferencesStackIndicator(isDisappeared);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134350082;
           queryIteration = [v8 queryIteration];
-          v62 = 1024;
-          *v63 = isReachabilityActiveOrAnimating;
-          *&v63[4] = 1024;
-          *&v63[6] = backlightLuminanceLevel > 0;
-          LOWORD(v64) = 1024;
-          *(&v64 + 2) = v55;
-          HIWORD(v64) = 2112;
-          v65 = indicatorAppearanceStateContext;
-          _os_log_debug_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEBUG, "[%{public}lu] Ejection is not viable, so ensure the intersensor region indicator is visible, and the micro is accepted. Reachability active: %{BOOL}u; Backlight On: %{BOOL}u; Are there portrait elements in Jindo: %{BOOL}u; AppearanceStateContext: %@", buf, 0x28u);
+          v65 = 1024;
+          *v66 = isReachabilityActiveOrAnimating;
+          *&v66[4] = 1024;
+          *&v66[6] = backlightLuminanceLevel > 0;
+          LOWORD(v67) = 1024;
+          *(&v67 + 2) = v58;
+          HIWORD(v67) = 2112;
+          v68 = indicatorAppearanceStateContext;
+          _os_log_debug_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEBUG, "[%{public}lu] Ejection is not viable, so ensure the intersensor region indicator is visible, and the micro is accepted. Reachability active: %{BOOL}u; Backlight On: %{BOOL}u; Are there portrait elements in Jindo: %{BOOL}u; AppearanceStateContext: %@", buf, 0x28u);
         }
 
         v31 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _ensureInterSensorRegionIndicatorOnlyVisible:v9 context:v8];
@@ -193,8 +194,8 @@
 
       else
       {
-        v41 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v43 = SBLogSystemAperturePreferencesStackIndicator(isDisappeared);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
           [SBSAIndicatorAppearanceStateTransitionProvider preferencesFromContext:];
         }
@@ -208,10 +209,10 @@
       v31 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _ensureBothIndicatorsHidden:v9 context:v8];
     }
 
-    v39 = v31;
+    v41 = v31;
 
 LABEL_41:
-    v9 = v39;
+    v9 = v41;
     goto LABEL_42;
   }
 
@@ -230,37 +231,37 @@ LABEL_41:
 
   self->_hasAppearedOnce = 0;
 LABEL_42:
-  v42 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _updateIndicatorAppearStateWithPreferences:v9 context:v8];
+  v44 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _updateIndicatorAppearStateWithPreferences:v9 context:v8];
 
-  v43 = [v8 copyByUpdatingPreferences:v42];
-  v59.receiver = self;
-  v59.super_class = SBSAIndicatorAppearanceStateTransitionProvider;
-  v44 = [(SBSABasePreferencesProvider *)&v59 preferencesFromContext:v43];
-  if (v44)
+  v45 = [v8 copyByUpdatingPreferences:v44];
+  v62.receiver = self;
+  v62.super_class = SBSAIndicatorAppearanceStateTransitionProvider;
+  v46 = [(SBSABasePreferencesProvider *)&v62 preferencesFromContext:v45];
+  if (v46)
   {
-    v45 = objc_opt_self();
-    v46 = v44;
-    if (v45)
+    v47 = objc_opt_self();
+    v48 = v46;
+    if (v47)
     {
       if (objc_opt_isKindOfClass())
       {
-        v47 = v46;
+        v49 = v48;
       }
 
       else
       {
-        v47 = 0;
+        v49 = 0;
       }
     }
 
     else
     {
-      v47 = 0;
+      v49 = 0;
     }
 
-    v48 = v47;
+    v50 = v49;
 
-    if (!v48)
+    if (!v50)
     {
       [SBSAIndicatorAppearanceStateTransitionProvider preferencesFromContext:];
     }
@@ -268,33 +269,34 @@ LABEL_42:
 
   else
   {
-    v48 = 0;
+    v50 = 0;
   }
 
-  maintainedPreferences3 = [v48 maintainedPreferences];
+  maintainedPreferences3 = [v50 maintainedPreferences];
   indicatorAppearanceStateContext3 = [maintainedPreferences3 indicatorAppearanceStateContext];
 
-  if ((BSEqualObjects() & 1) == 0)
+  v53 = BSEqualObjects();
+  if ((v53 & 1) == 0)
   {
-    v51 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    v54 = SBLogSystemAperturePreferencesStackIndicator(v53);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
       queryIteration2 = [v8 queryIteration];
       *buf = 134349570;
       queryIteration = queryIteration2;
-      v62 = 2112;
-      *v63 = indicatorAppearanceStateContext3;
-      *&v63[8] = 2112;
-      v64 = indicatorAppearanceStateContext2;
-      _os_log_debug_impl(&dword_21ED4E000, v51, OS_LOG_TYPE_DEBUG, "[%{public}lu] indicator layout context updated: %@; from: %@", buf, 0x20u);
+      v65 = 2112;
+      *v66 = indicatorAppearanceStateContext3;
+      *&v66[8] = 2112;
+      v67 = indicatorAppearanceStateContext2;
+      _os_log_debug_impl(&dword_21ED4E000, v54, OS_LOG_TYPE_DEBUG, "[%{public}lu] indicator layout context updated: %@; from: %@", buf, 0x20u);
     }
 
-    v52 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _updatedPreferencesAddingMilestonesIfNeededWithPreferences:v48 context:v8];
+    v55 = [(SBSAIndicatorAppearanceStateTransitionProvider *)self _updatedPreferencesAddingMilestonesIfNeededWithPreferences:v50 context:v8];
 
-    v48 = v52;
+    v50 = v55;
   }
 
-  return v48;
+  return v50;
 }
 
 - (id)_ensureMicroRegionIndicatorOnlyVisible:(id)visible context:(id)context
@@ -599,7 +601,7 @@ void __109__SBSAIndicatorAppearanceStateTransitionProvider__transitionInterSenso
     *(v9 + 56) = 0;
   }
 
-  v11 = SBLogSystemAperturePreferencesStackIndicator();
+  v11 = SBLogSystemAperturePreferencesStackIndicator(v8);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [*(a1 + 40) queryIteration];
@@ -694,7 +696,7 @@ void __112__SBSAIndicatorAppearanceStateTransitionProvider__transitionInterSenso
     *(v9 + 32) = 0;
   }
 
-  v11 = SBLogSystemAperturePreferencesStackIndicator();
+  v11 = SBLogSystemAperturePreferencesStackIndicator(v8);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [*(a1 + 40) queryIteration];
@@ -789,7 +791,7 @@ void __114__SBSAIndicatorAppearanceStateTransitionProvider__transitionMicroRegio
     *(v9 + 40) = 0;
   }
 
-  v11 = SBLogSystemAperturePreferencesStackIndicator();
+  v11 = SBLogSystemAperturePreferencesStackIndicator(v8);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [*(a1 + 40) queryIteration];
@@ -816,7 +818,7 @@ LABEL_16:
     *(v15 + 72) = 0;
   }
 
-  v17 = SBLogSystemAperturePreferencesStackIndicator();
+  v17 = SBLogSystemAperturePreferencesStackIndicator(v14);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [*(a1 + 40) queryIteration];
@@ -911,7 +913,7 @@ void __118__SBSAIndicatorAppearanceStateTransitionProvider__transitionMicroRegio
     *(v9 + 40) = 0;
   }
 
-  v11 = SBLogSystemAperturePreferencesStackIndicator();
+  v11 = SBLogSystemAperturePreferencesStackIndicator(v8);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [*(a1 + 40) queryIteration];
@@ -938,7 +940,7 @@ LABEL_16:
     *(v15 + 72) = 0;
   }
 
-  v17 = SBLogSystemAperturePreferencesStackIndicator();
+  v17 = SBLogSystemAperturePreferencesStackIndicator(v14);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [*(a1 + 40) queryIteration];
@@ -980,7 +982,7 @@ LABEL_22:
 
   if (parentProvider == self)
   {
-    containerViewDescriptions = SBLogSystemAperturePreferencesStackIndicator();
+    containerViewDescriptions = SBLogSystemAperturePreferencesStackIndicator(v15);
     if (os_log_type_enabled(containerViewDescriptions, OS_LOG_TYPE_DEBUG))
     {
       [SBSAIndicatorAppearanceStateTransitionProvider _startMicroMitosisIfNecessary:context:];
@@ -993,38 +995,39 @@ LABEL_22:
     containerViewDescriptions = [v8 containerViewDescriptions];
     lastObject = [containerViewDescriptions lastObject];
     elementContexts = [contextCopy elementContexts];
-    v18 = SBSAElementContextAssociatedWithContainerViewDescription(lastObject, elementContexts, 0);
+    v19 = SBSAElementContextAssociatedWithContainerViewDescription(lastObject, elementContexts, 0);
 
-    layoutMode = [v18 layoutMode];
-    if ((layoutMode + 1) >= 3)
+    layoutMode = [v19 layoutMode];
+    if (layoutMode + 1 >= 3)
     {
       if (layoutMode == 3)
       {
-        v20 = 2;
+        v21 = 2;
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      v20 = [containerViewDescriptions count]> 1;
+      layoutMode = [containerViewDescriptions count];
+      v21 = layoutMode > 1;
     }
 
-    v21 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = SBLogSystemAperturePreferencesStackIndicator(layoutMode);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [SBSAIndicatorAppearanceStateTransitionProvider _startMicroMitosisIfNecessary:context:];
     }
 
-    v22 = [[SBSAIndicatorMitosisTransitionProvider alloc] initWithType:v20 reversed:0];
-    objc_storeWeak(&self->_indicatorMitosisProvider, v22);
-    [(SBSABasePreferencesProvider *)self setChildProvider:v22];
+    v23 = [[SBSAIndicatorMitosisTransitionProvider alloc] initWithType:v21 reversed:0];
+    objc_storeWeak(&self->_indicatorMitosisProvider, v23);
+    [(SBSABasePreferencesProvider *)self setChildProvider:v23];
 
-    WeakRetained = v22;
+    WeakRetained = v23;
   }
 
 LABEL_16:
@@ -1058,7 +1061,7 @@ LABEL_16:
 
   if (parentProvider == self)
   {
-    containerViewDescriptions = SBLogSystemAperturePreferencesStackIndicator();
+    containerViewDescriptions = SBLogSystemAperturePreferencesStackIndicator(v15);
     if (os_log_type_enabled(containerViewDescriptions, OS_LOG_TYPE_DEBUG))
     {
       [SBSAIndicatorAppearanceStateTransitionProvider _startMicroRecombinationIfNecessary:context:];
@@ -1071,38 +1074,39 @@ LABEL_16:
     containerViewDescriptions = [v8 containerViewDescriptions];
     lastObject = [containerViewDescriptions lastObject];
     elementContexts = [contextCopy elementContexts];
-    v18 = SBSAElementContextAssociatedWithContainerViewDescription(lastObject, elementContexts, 0);
+    v19 = SBSAElementContextAssociatedWithContainerViewDescription(lastObject, elementContexts, 0);
 
-    layoutMode = [v18 layoutMode];
-    if ((layoutMode + 1) >= 3)
+    layoutMode = [v19 layoutMode];
+    if (layoutMode + 1 >= 3)
     {
       if (layoutMode == 3)
       {
-        v20 = 2;
+        v21 = 2;
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      v20 = [containerViewDescriptions count]> 1;
+      layoutMode = [containerViewDescriptions count];
+      v21 = layoutMode > 1;
     }
 
-    v21 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = SBLogSystemAperturePreferencesStackIndicator(layoutMode);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [SBSAIndicatorAppearanceStateTransitionProvider _startMicroRecombinationIfNecessary:context:];
     }
 
-    v22 = [[SBSAIndicatorMitosisTransitionProvider alloc] initWithType:v20 reversed:1];
-    objc_storeWeak(&self->_indicatorRecombinationProvider, v22);
-    [(SBSABasePreferencesProvider *)self setChildProvider:v22];
+    v23 = [[SBSAIndicatorMitosisTransitionProvider alloc] initWithType:v21 reversed:1];
+    objc_storeWeak(&self->_indicatorRecombinationProvider, v23);
+    [(SBSABasePreferencesProvider *)self setChildProvider:v23];
 
-    WeakRetained = v22;
+    WeakRetained = v23;
   }
 
 LABEL_16:
@@ -1187,7 +1191,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v8 + 32))
     {
       v9 = *(v8 + 56);
-      v10 = SBLogSystemAperturePreferencesStackIndicator();
+      v10 = SBLogSystemAperturePreferencesStackIndicator(2);
       v11 = v10;
       if (v9)
       {
@@ -1225,7 +1229,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v19 + 56))
     {
       v20 = *(v19 + 32);
-      v21 = SBLogSystemAperturePreferencesStackIndicator();
+      v21 = SBLogSystemAperturePreferencesStackIndicator(1);
       v22 = v21;
       if (v20)
       {
@@ -1263,7 +1267,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v30 + 40))
     {
       v31 = *(v30 + 64);
-      v32 = SBLogSystemAperturePreferencesStackIndicator();
+      v32 = SBLogSystemAperturePreferencesStackIndicator(2);
       v33 = v32;
       if (v31)
       {
@@ -1301,7 +1305,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v41 + 64))
     {
       v42 = *(v41 + 40);
-      v43 = SBLogSystemAperturePreferencesStackIndicator();
+      v43 = SBLogSystemAperturePreferencesStackIndicator(1);
       v44 = v43;
       if (v42)
       {
@@ -1339,7 +1343,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v52 + 48))
     {
       v53 = *(v52 + 72);
-      v54 = SBLogSystemAperturePreferencesStackIndicator();
+      v54 = SBLogSystemAperturePreferencesStackIndicator(1);
       v55 = v54;
       if (v53)
       {
@@ -1377,7 +1381,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
     if (!*(v63 + 72))
     {
       v64 = *(v63 + 48);
-      v65 = SBLogSystemAperturePreferencesStackIndicator();
+      v65 = SBLogSystemAperturePreferencesStackIndicator(2);
       v66 = v65;
       if (v64)
       {
@@ -1454,7 +1458,7 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
 
 void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesForCompletedMilestonesWithContext___block_invoke(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1504,16 +1508,16 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
         *(v9 + 32) = 0;
 
         *(*(a1 + 32) + 104) = 1;
-        v11 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = SBLogSystemAperturePreferencesStackIndicator(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = [*(a1 + 40) queryIteration];
-          v13 = NSStringFromSBSAIndicatorAppearancePhase([v7 interSensorIndicatorPhase]);
-          v44 = 134349314;
-          v45 = v12;
-          v46 = 2112;
-          v47 = v13;
-          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change InterSensor indicator state to appeared from: %@", &v44, 0x16u);
+          v13 = [*(a1 + 40) queryIteration];
+          v14 = NSStringFromSBSAIndicatorAppearancePhase([v7 interSensorIndicatorPhase]);
+          v50 = 134349314;
+          v51 = v13;
+          v52 = 2112;
+          v53 = v14;
+          _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change InterSensor indicator state to appeared from: %@", &v50, 0x16u);
         }
 
         [v7 setInterSensorIndicatorPhase:3];
@@ -1524,26 +1528,26 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   if ([v7 interSensorIndicatorPhase] == 1)
   {
-    v14 = *(a1 + 32);
-    if (v14[7])
+    v15 = *(a1 + 32);
+    if (v15[7])
     {
       [&unk_28336F620 bs_CGFloatValue];
-      if ([v14 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 56) property:*(a1 + 40) context:?])
+      if ([v15 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 56) property:*(a1 + 40) context:?])
       {
-        v15 = *(a1 + 32);
-        v16 = *(v15 + 56);
-        *(v15 + 56) = 0;
+        v16 = *(a1 + 32);
+        v17 = *(v16 + 56);
+        *(v16 + 56) = 0;
 
-        v17 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = SBLogSystemAperturePreferencesStackIndicator(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [*(a1 + 40) queryIteration];
-          v19 = NSStringFromSBSAIndicatorAppearancePhase([v7 interSensorIndicatorPhase]);
-          v44 = 134349314;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v19;
-          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change InterSensor indicator state to disappeared from: %@", &v44, 0x16u);
+          v20 = [*(a1 + 40) queryIteration];
+          v21 = NSStringFromSBSAIndicatorAppearancePhase([v7 interSensorIndicatorPhase]);
+          v50 = 134349314;
+          v51 = v20;
+          v52 = 2112;
+          v53 = v21;
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change InterSensor indicator state to disappeared from: %@", &v50, 0x16u);
         }
 
         [v7 setInterSensorIndicatorPhase:0];
@@ -1554,26 +1558,26 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   if ([v7 microIndicatorPhase] == 2)
   {
-    v20 = *(a1 + 32);
-    if (v20[5])
+    v22 = *(a1 + 32);
+    if (v22[5])
     {
       [&unk_28336F620 bs_CGFloatValue];
-      if ([v20 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 40) property:*(a1 + 40) context:?])
+      if ([v22 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 40) property:*(a1 + 40) context:?])
       {
-        v21 = *(a1 + 32);
-        v22 = *(v21 + 40);
-        *(v21 + 40) = 0;
+        v23 = *(a1 + 32);
+        v24 = *(v23 + 40);
+        *(v23 + 40) = 0;
 
-        v23 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v26 = SBLogSystemAperturePreferencesStackIndicator(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = [*(a1 + 40) queryIteration];
-          v25 = NSStringFromSBSAIndicatorAppearancePhase([v7 microIndicatorPhase]);
-          v44 = 134349314;
-          v45 = v24;
-          v46 = 2112;
-          v47 = v25;
-          _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator state to appeared from: %@", &v44, 0x16u);
+          v27 = [*(a1 + 40) queryIteration];
+          v28 = NSStringFromSBSAIndicatorAppearancePhase([v7 microIndicatorPhase]);
+          v50 = 134349314;
+          v51 = v27;
+          v52 = 2112;
+          v53 = v28;
+          _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator state to appeared from: %@", &v50, 0x16u);
         }
 
         [v7 setMicroIndicatorPhase:3];
@@ -1584,26 +1588,26 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   if ([v7 microIndicatorPhase] == 1)
   {
-    v26 = *(a1 + 32);
-    if (v26[8])
+    v29 = *(a1 + 32);
+    if (v29[8])
     {
       [&unk_28336F620 bs_CGFloatValue];
-      if ([v26 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 64) property:*(a1 + 40) context:?])
+      if ([v29 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 64) property:*(a1 + 40) context:?])
       {
-        v27 = *(a1 + 32);
-        v28 = *(v27 + 64);
-        *(v27 + 64) = 0;
+        v30 = *(a1 + 32);
+        v31 = *(v30 + 64);
+        *(v30 + 64) = 0;
 
-        v29 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = SBLogSystemAperturePreferencesStackIndicator(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = [*(a1 + 40) queryIteration];
-          v31 = NSStringFromSBSAIndicatorAppearancePhase([v7 microIndicatorPhase]);
-          v44 = 134349314;
-          v45 = v30;
-          v46 = 2112;
-          v47 = v31;
-          _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator state to disappeared from: %@", &v44, 0x16u);
+          v34 = [*(a1 + 40) queryIteration];
+          v35 = NSStringFromSBSAIndicatorAppearancePhase([v7 microIndicatorPhase]);
+          v50 = 134349314;
+          v51 = v34;
+          v52 = 2112;
+          v53 = v35;
+          _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator state to disappeared from: %@", &v50, 0x16u);
         }
 
         [v7 setMicroIndicatorPhase:0];
@@ -1614,26 +1618,26 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   if ([v7 microIndicatorEjectionPhase] == 1)
   {
-    v32 = *(a1 + 32);
-    if (v32[6])
+    v36 = *(a1 + 32);
+    if (v36[6])
     {
       [&unk_28336F620 bs_CGFloatValue];
-      if ([v32 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 48) property:*(a1 + 40) context:?])
+      if ([v36 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 48) property:*(a1 + 40) context:?])
       {
-        v33 = *(a1 + 32);
-        v34 = *(v33 + 48);
-        *(v33 + 48) = 0;
+        v37 = *(a1 + 32);
+        v38 = *(v37 + 48);
+        *(v37 + 48) = 0;
 
-        v35 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v40 = SBLogSystemAperturePreferencesStackIndicator(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = [*(a1 + 40) queryIteration];
-          v37 = NSStringFromSBSAIndicatorEjectionPhase([v7 microIndicatorEjectionPhase]);
-          v44 = 134349314;
-          v45 = v36;
-          v46 = 2112;
-          v47 = v37;
-          _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator ejecting state to accepted from: %@", &v44, 0x16u);
+          v41 = [*(a1 + 40) queryIteration];
+          v42 = NSStringFromSBSAIndicatorEjectionPhase([v7 microIndicatorEjectionPhase]);
+          v50 = 134349314;
+          v51 = v41;
+          v52 = 2112;
+          v53 = v42;
+          _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator ejecting state to accepted from: %@", &v50, 0x16u);
         }
 
         [v7 setMicroIndicatorEjectionPhase:0];
@@ -1644,26 +1648,26 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   if ([v7 microIndicatorEjectionPhase] == 2)
   {
-    v38 = *(a1 + 32);
-    if (v38[9])
+    v43 = *(a1 + 32);
+    if (v43[9])
     {
       [&unk_28336F620 bs_CGFloatValue];
-      if ([v38 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 72) property:*(a1 + 40) context:?])
+      if ([v43 _milestoneDidReachExpectedMilestone:*(*(a1 + 32) + 72) property:*(a1 + 40) context:?])
       {
-        v39 = *(a1 + 32);
-        v40 = *(v39 + 72);
-        *(v39 + 72) = 0;
+        v44 = *(a1 + 32);
+        v45 = *(v44 + 72);
+        *(v44 + 72) = 0;
 
-        v41 = SBLogSystemAperturePreferencesStackIndicator();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v47 = SBLogSystemAperturePreferencesStackIndicator(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = [*(a1 + 40) queryIteration];
-          v43 = NSStringFromSBSAIndicatorEjectionPhase([v7 microIndicatorEjectionPhase]);
-          v44 = 134349314;
-          v45 = v42;
-          v46 = 2112;
-          v47 = v43;
-          _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator ejecting state to ejected from: %@", &v44, 0x16u);
+          v48 = [*(a1 + 40) queryIteration];
+          v49 = NSStringFromSBSAIndicatorEjectionPhase([v7 microIndicatorEjectionPhase]);
+          v50 = 134349314;
+          v51 = v48;
+          v52 = 2112;
+          v53 = v49;
+          _os_log_impl(&dword_21ED4E000, v47, OS_LOG_TYPE_DEFAULT, "[%{public}lu] Change micro indicator ejecting state to ejected from: %@", &v50, 0x16u);
         }
 
         [v7 setMicroIndicatorEjectionPhase:3];
@@ -1675,15 +1679,15 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
 - (BOOL)_milestoneDidReachExpectedMilestone:(double)milestone property:(id)property context:(id)context
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   contextCopy = context;
-  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
   animatedTransitionResults = [contextCopy animatedTransitionResults];
-  v10 = [animatedTransitionResults countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v10 = [animatedTransitionResults countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (!v10)
   {
 
@@ -1692,17 +1696,17 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
 
   v11 = v10;
   v12 = 0;
-  v13 = *v40;
+  v13 = *v41;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v40 != v13)
+      if (*v41 != v13)
       {
         objc_enumerationMutation(animatedTransitionResults);
       }
 
-      v15 = *(*(&v39 + 1) + 8 * i);
+      v15 = *(*(&v40 + 1) + 8 * i);
       associatedInterfaceElementPropertyIdentity = [v15 associatedInterfaceElementPropertyIdentity];
       v17 = BSEqualObjects();
 
@@ -1712,7 +1716,7 @@ void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesFo
       }
     }
 
-    v11 = [animatedTransitionResults countByEnumeratingWithState:&v39 objects:v51 count:16];
+    v11 = [animatedTransitionResults countByEnumeratingWithState:&v40 objects:v52 count:16];
   }
 
   while (v11);
@@ -1732,8 +1736,8 @@ LABEL_15:
 
     else
     {
-      v37 = v23;
-      v38 = contextCopy;
+      v38 = v23;
+      v39 = contextCopy;
       preferences2 = [contextCopy preferences];
       indicatorContainerViewDescription = [preferences2 indicatorContainerViewDescription];
       interfaceElementIdentifier2 = [indicatorContainerViewDescription interfaceElementIdentifier];
@@ -1743,32 +1747,32 @@ LABEL_15:
       if (v29)
       {
         v18 = 0;
-        contextCopy = v38;
+        contextCopy = v39;
         goto LABEL_23;
       }
 
-      preferences = SBLogSystemAperturePreferencesStackIndicator();
-      contextCopy = v38;
+      preferences = SBLogSystemAperturePreferencesStackIndicator(v30);
+      contextCopy = v39;
       if (os_log_type_enabled(preferences, OS_LOG_TYPE_ERROR))
       {
-        queryIteration = [v38 queryIteration];
-        v32 = [propertyCopy description];
-        preferences3 = [v38 preferences];
+        queryIteration = [v39 queryIteration];
+        v33 = [propertyCopy description];
+        preferences3 = [v39 preferences];
         maintainedPreferences = [preferences3 maintainedPreferences];
         indicatorAppearanceStateContext = [maintainedPreferences indicatorAppearanceStateContext];
-        v36 = [indicatorAppearanceStateContext description];
+        v37 = [indicatorAppearanceStateContext description];
         *buf = 134349826;
-        v44 = queryIteration;
-        v45 = 2112;
-        v46 = v32;
-        v47 = 2048;
+        v45 = queryIteration;
+        v46 = 2112;
+        v47 = v33;
+        v48 = 2048;
         milestoneCopy = milestone;
-        v49 = 2112;
-        v50 = v36;
+        v50 = 2112;
+        v51 = v37;
         _os_log_error_impl(&dword_21ED4E000, preferences, OS_LOG_TYPE_ERROR, "[%{public}lu] Container property identifier %@ is no longer being tracked for milestone: %f; assume that indicates the milestone is completed and we can push forward our state machine. IndicatorAppearStateContext is currently: %@", buf, 0x2Au);
       }
 
-      v24 = v37;
+      v24 = v38;
     }
 
     v18 = v24 ^ 1;
@@ -1995,42 +1999,42 @@ void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAd
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for intersensor region: disappearance milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for intersensor region: disappearance milestone exists", v3, v4, v5, v6);
 }
 
 void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAddingMilestonesIfNeededWithPreferences_context___block_invoke_cold_3(uint64_t a1)
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for intersensor region: appearance milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for intersensor region: appearance milestone exists", v3, v4, v5, v6);
 }
 
 void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAddingMilestonesIfNeededWithPreferences_context___block_invoke_cold_4(uint64_t a1)
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for micro region: disappearance milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for micro region: disappearance milestone exists", v3, v4, v5, v6);
 }
 
 void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAddingMilestonesIfNeededWithPreferences_context___block_invoke_cold_5(uint64_t a1)
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for micro region: appearance milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for micro region: appearance milestone exists", v3, v4, v5, v6);
 }
 
 void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAddingMilestonesIfNeededWithPreferences_context___block_invoke_cold_6(uint64_t a1)
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for micro region: ejected milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating appearance milestone for micro region: ejected milestone exists", v3, v4, v5, v6);
 }
 
 void __117__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesAddingMilestonesIfNeededWithPreferences_context___block_invoke_cold_7(uint64_t a1)
 {
   OUTLINED_FUNCTION_10_3(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for micro region: accepted milestone exists", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}lu] Creating disappearance milestone for micro region: accepted milestone exists", v3, v4, v5, v6);
 }
 
 void __103__SBSAIndicatorAppearanceStateTransitionProvider__updatedPreferencesForCompletedMilestonesWithContext___block_invoke_cold_1()

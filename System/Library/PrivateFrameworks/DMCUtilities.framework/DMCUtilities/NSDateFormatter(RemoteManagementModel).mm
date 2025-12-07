@@ -11,9 +11,9 @@
     +[NSDateFormatter(RemoteManagementModel) rmmodel_sharedRFC3339DateFormatter];
   }
 
-  v1 = rmmodel_sharedRFC3339DateFormatter_rfcFormatter;
+  v2 = rmmodel_sharedRFC3339DateFormatter_rfcFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

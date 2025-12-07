@@ -189,7 +189,7 @@
 
     [(UIView *)v12 setAlpha:0.08];
     [(UIView *)v12 setClipsToBounds:1];
-    v23 = +[UIColor blackColor];
+    v23 = objc_msgSend_blackColor(UIColor);
     cGColor = [v23 CGColor];
     layer8 = [(UIView *)v13 layer];
     [layer8 setBorderColor:cGColor];
@@ -626,12 +626,12 @@ LABEL_14:
   v45 = 0u;
   if (_animatableSelectionWidget)
   {
-    [_animatableSelectionWidget originShape:1];
+    objc_msgSend_originShape_(_animatableSelectionWidget);
   }
 
   else
   {
-    [(_UITextMagnifiedGlassLoupeView *)self _defaultOriginShape];
+    objc_msgSend__defaultOriginShape(self);
   }
 
   _isVertical = [(_UITextMagnifiedGlassLoupeView *)self _isVertical];

@@ -1,5 +1,8 @@
 @interface WKWebView(WKPrivate)
+- (WTF::StringImpl)_archiveWithConfiguration:()WKPrivate completionHandler:;
+- (WTF::StringImpl)_saveResources:()WKPrivate suggestedFileName:completionHandler:;
 - (WTF::StringImpl)_showWarningViewWithURL:()WKPrivate title:warning:detailsWithLinks:completionHandler:;
+- (_BYTE)_getInformationFromImageData:()WKPrivate completionHandler:;
 - (uint64_t)_adjustVisibilityForTargetedElements:()WKPrivate completionHandler:;
 - (uint64_t)_archiveWithConfiguration:()WKPrivate completionHandler:;
 - (uint64_t)_clearServiceWorkerEntitlementOverride:()WKPrivate;
@@ -247,8 +250,8 @@
   if (*(a2 + 368))
   {
     API::FrameTreeNode::create(a2, *(self + 16), &v7);
-    v3 = *(v7 + 8);
-    if (v3)
+    var1 = v7->var1;
+    if (var1)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -257,11 +260,11 @@
         return;
       }
 
-      v4 = v3;
+      v4 = var1;
     }
 
     (*(*(self + 8) + 16))();
-    if (v3)
+    if (var1)
     {
     }
 
@@ -269,7 +272,7 @@
     v7 = 0;
     if (v5)
     {
-      CFRelease(*(v5 + 8));
+      CFRelease(v5->var1);
     }
   }
 
@@ -305,8 +308,8 @@
     for (i = 368 * v5; i; i -= 368)
     {
       API::FrameTreeNode::create(v6, *(self + 16), &v11);
-      v8 = *(v11 + 8);
-      if (v8)
+      var1 = v11->var1;
+      if (var1)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -315,11 +318,11 @@
           return;
         }
 
-        v9 = v8;
+        v9 = var1;
       }
 
-      [v4 addObject:v8];
-      if (v8)
+      [v4 addObject:var1];
+      if (var1)
       {
       }
 
@@ -327,7 +330,7 @@
       v11 = 0;
       if (v10)
       {
-        CFRelease(*(v10 + 8));
+        CFRelease(v10->var1);
       }
 
       v6 += 368;
@@ -377,9 +380,9 @@
     {
     }
 
-    v7 = *(v4 + 8);
+    var1 = v4->var1;
 
-    CFRelease(v7);
+    CFRelease(var1);
   }
 
   else
@@ -412,9 +415,9 @@
 - (void)_startTextManipulationsWithConfiguration:()WKPrivate completion:
 {
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a2 + 36)];
-  v38 = a2;
+  v39 = a2;
   v4 = *(a2 + 36);
-  v39 = v3;
+  v40 = v3;
   if (v4)
   {
     v5 = 0;
@@ -424,130 +427,131 @@
     do
     {
       v9 = objc_alloc_init(*(v8 + 3280));
-      WTF::String::number(*(v6 + v5));
-      if (v40)
+      WTF::String::number(&v41, *(v6 + v5));
+      v10 = v41;
+      if (v41)
       {
-        atomic_fetch_add_explicit(v40, 2u, memory_order_relaxed);
-        MEMORY[0x19EB00B70](&v41, v40);
-        if (atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        atomic_fetch_add_explicit(v41, 2u, memory_order_relaxed);
+        MEMORY[0x19EB00B70](&v42, v10);
+        if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v40, v10);
+          WTF::StringImpl::destroy(v10, v11);
         }
       }
 
       else
       {
-        v41 = &stru_1F1147748;
-        v11 = &stru_1F1147748;
+        v42 = &stru_1F1147748;
+        v12 = &stru_1F1147748;
       }
 
-      [v9 setIdentifier:v41];
-      v13 = v41;
+      [v9 setIdentifier:v42];
+      v14 = v42;
+      v42 = 0;
+      if (v14)
+      {
+      }
+
+      v15 = v41;
       v41 = 0;
-      if (v13)
+      if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
+        WTF::StringImpl::destroy(v15, v13);
       }
 
-      v14 = v40;
-      v40 = 0;
-      if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v16 = *(v6 + v5 + 8);
+      if (v16)
       {
-        WTF::StringImpl::destroy(v14, v12);
-      }
-
-      v15 = *(v6 + v5 + 8);
-      if (v15)
-      {
-        atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
-        MEMORY[0x19EB00B70](&v41, v15);
-        if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
+        MEMORY[0x19EB00B70](&v42, v16);
+        if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v15, v16);
+          WTF::StringImpl::destroy(v16, v17);
         }
       }
 
       else
       {
-        v41 = &stru_1F1147748;
-        v17 = &stru_1F1147748;
+        v42 = &stru_1F1147748;
+        v18 = &stru_1F1147748;
       }
 
-      [v9 setContent:v41];
-      v18 = v41;
-      v41 = 0;
-      if (v18)
+      [v9 setContent:v42];
+      v19 = v42;
+      v42 = 0;
+      if (v19)
       {
       }
 
-      v19 = v6 + v5;
+      v20 = v6 + v5;
       [v9 setExcluded:*(v6 + v5 + 88)];
       if (*(v6 + v5 + 80) == 1)
       {
-        v20 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
-        if ((*(v19 + 80) & 1) == 0)
+        v21 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
+        if ((*(v20 + 80) & 1) == 0)
         {
           goto LABEL_56;
         }
 
-        v21 = v20;
+        v22 = v21;
         if (*(v6 + v5 + 32))
         {
-          WTF::URL::createCFURL(&v41, (v6 + v5 + 32));
-          [v21 setObject:v41 forKey:@"_WKTextManipulationTokenUserInfoDocumentURLKey"];
-          v22 = v41;
-          v41 = 0;
-          if (v22)
+          WTF::URL::createCFURL(&v42, (v6 + v5 + 32));
+          [v22 setObject:v42 forKey:@"_WKTextManipulationTokenUserInfoDocumentURLKey"];
+          v23 = v42;
+          v42 = 0;
+          if (v23)
           {
           }
 
-          if ((*(v19 + 80) & 1) == 0)
-          {
-            goto LABEL_56;
-          }
-        }
-
-        v23 = v8;
-        v24 = *(v19 + 16);
-        if (v24)
-        {
-          atomic_fetch_add_explicit(v24, 2u, memory_order_relaxed);
-          MEMORY[0x19EB00B70](&v41, v24);
-          if (atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
-          {
-            WTF::StringImpl::destroy(v24, v25);
-          }
-
-          [v21 setObject:v41 forKey:@"_WKTextManipulationTokenUserInfoTagNameKey"];
-          v26 = v41;
-          v41 = 0;
-          if (v26)
-          {
-          }
-
-          if ((*(v19 + 80) & 1) == 0)
+          if ((*(v20 + 80) & 1) == 0)
           {
             goto LABEL_56;
           }
         }
 
-        v27 = *(v6 + v5 + 24);
-        if (v27)
+        v24 = v8;
+        v25 = *(v20 + 16);
+        if (v25)
         {
-          atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
-          MEMORY[0x19EB00B70](&v41, v27);
-          if (atomic_fetch_add_explicit(v27, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          atomic_fetch_add_explicit(v25, 2u, memory_order_relaxed);
+          MEMORY[0x19EB00B70](&v42, v25);
+          if (atomic_fetch_add_explicit(v25, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v27, v28);
+            WTF::StringImpl::destroy(v25, v26);
           }
 
-          [v21 setObject:v41 forKey:@"_WKTextManipulationTokenUserInfoRoleAttributeKey"];
-          v29 = v41;
-          v41 = 0;
-          if (v29)
+          [v22 setObject:v42 forKey:@"_WKTextManipulationTokenUserInfoTagNameKey"];
+          v27 = v42;
+          v42 = 0;
+          if (v27)
           {
           }
 
-          if ((*(v19 + 80) & 1) == 0)
+          if ((*(v20 + 80) & 1) == 0)
+          {
+            goto LABEL_56;
+          }
+        }
+
+        v28 = *(v6 + v5 + 24);
+        if (v28)
+        {
+          atomic_fetch_add_explicit(v28, 2u, memory_order_relaxed);
+          MEMORY[0x19EB00B70](&v42, v28);
+          if (atomic_fetch_add_explicit(v28, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          {
+            WTF::StringImpl::destroy(v28, v29);
+          }
+
+          [v22 setObject:v42 forKey:@"_WKTextManipulationTokenUserInfoRoleAttributeKey"];
+          v30 = v42;
+          v42 = 0;
+          if (v30)
+          {
+          }
+
+          if ((*(v20 + 80) & 1) == 0)
           {
 LABEL_56:
             __break(1u);
@@ -555,18 +559,18 @@ LABEL_56:
           }
         }
 
-        [v21 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", *(v6 + v5 + 72)), @"_WKTextManipulationTokenUserInfoVisibilityKey"}];
-        v3 = v39;
-        v8 = v23;
+        [v22 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", *(v6 + v5 + 72)), @"_WKTextManipulationTokenUserInfoVisibilityKey"}];
+        v3 = v40;
+        v8 = v24;
       }
 
       else
       {
-        v21 = 0;
+        v22 = 0;
       }
 
-      [v9 setUserInfo:v21];
-      if (v21)
+      [v9 setUserInfo:v22];
+      if (v22)
       {
       }
 
@@ -581,35 +585,35 @@ LABEL_56:
     while (v7 != v5);
   }
 
-  WTF::makeString<unsigned long long,char,unsigned long long>(*v38, 45, *(v38 + 16), &v41);
-  v30 = [_WKTextManipulationItem alloc];
-  v31 = v41;
-  if (v41)
+  WTF::makeString<unsigned long long,char,unsigned long long>(*v39, 45, *(v39 + 16), &v42);
+  v31 = [_WKTextManipulationItem alloc];
+  v32 = v42;
+  if (v42)
   {
-    atomic_fetch_add_explicit(v41, 2u, memory_order_relaxed);
-    MEMORY[0x19EB00B70](&v40, v31);
-    if (atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v42, 2u, memory_order_relaxed);
+    MEMORY[0x19EB00B70](&v41, v32);
+    if (atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v31, v32);
+      WTF::StringImpl::destroy(v32, v33);
     }
   }
 
   else
   {
-    v40 = &stru_1F1147748;
-    v33 = &stru_1F1147748;
+    v41 = &stru_1F1147748;
+    v34 = &stru_1F1147748;
   }
 
-  *self = [(_WKTextManipulationItem *)v30 initWithIdentifier:v40 tokens:v3 isSubframe:*(v38 + 8) isCrossSiteSubframe:*(v38 + 9)];
-  v35 = v40;
-  v40 = 0;
-  if (v35)
+  *self = [(_WKTextManipulationItem *)v31 initWithIdentifier:v41 tokens:v3 isSubframe:*(v39 + 8) isCrossSiteSubframe:*(v39 + 9)];
+  v36 = v41;
+  v41 = 0;
+  if (v36)
   {
   }
 
-  v36 = v41;
-  v41 = 0;
-  if (!v36 || atomic_fetch_add_explicit(v36, 0xFFFFFFFE, memory_order_relaxed) != 2)
+  v37 = v42;
+  v42 = 0;
+  if (!v37 || atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) != 2)
   {
     if (!v3)
     {
@@ -619,7 +623,7 @@ LABEL_56:
     goto LABEL_52;
   }
 
-  WTF::StringImpl::destroy(v36, v34);
+  WTF::StringImpl::destroy(v37, v35);
   if (v3)
   {
 LABEL_52:
@@ -772,7 +776,7 @@ LABEL_52:
 
 - (void)_convertRect:()WKPrivate fromFrame:toMainFrameCoordinates:
 {
-  if (*(a2 + 16))
+  if (a2[1])
   {
     WebCore::FloatRect::operator CGRect();
     (*(*(self + 8) + 16))();
@@ -917,8 +921,8 @@ LABEL_52:
     v6 = &(*a2)[2 * v4];
     do
     {
-      v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(v5 + 3)];
-      v8 = *(v5 + 3);
+      v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(v5 + 12)];
+      v8 = *(v5 + 12);
       if (v8)
       {
         v9 = *v5;
@@ -946,7 +950,7 @@ LABEL_52:
         [v12 addObject:v7];
       }
 
-      v5 += 2;
+      v5 += 16;
     }
 
     while (v5 != v6);
@@ -1055,24 +1059,32 @@ LABEL_52:
 
 - (uint64_t)_getInformationFromImageData:()WKPrivate completionHandler:
 {
-  v35[1] = *MEMORY[0x1E69E9840];
-  result = mpark::detail::move_constructor<mpark::detail::traits<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>,(mpark::detail::Trait)1>::move_constructor(v29, a2);
-  if (v31)
+  *self = &unk_1F10F97A0;
+  _Block_release(self[1]);
+
+  return WTF::fastFree(self, v2);
+}
+
+- (_BYTE)_getInformationFromImageData:()WKPrivate completionHandler:
+{
+  v36[1] = *MEMORY[0x1E69E9840];
+  result = mpark::detail::move_constructor<mpark::detail::traits<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>,(mpark::detail::Trait)1>::move_constructor(v30, a2);
+  if (v32)
   {
     v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v34 = *MEMORY[0x1E696A578];
-    if (v31 != 1)
+    v35 = *MEMORY[0x1E696A578];
+    if (v32 != 1)
     {
       mpark::throw_bad_variant_access(v4);
     }
 
     v5 = v4;
     WebCore::descriptionString();
-    v6 = v32;
-    if (v32)
+    v6 = v33;
+    if (v33)
     {
-      atomic_fetch_add_explicit(v32, 2u, memory_order_relaxed);
-      MEMORY[0x19EB00B70](&v33, v6);
+      atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
+      MEMORY[0x19EB00B70](&v34, v6);
       if (atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v6, v7);
@@ -1081,123 +1093,124 @@ LABEL_52:
 
     else
     {
-      v33 = &stru_1F1147748;
-      v15 = &stru_1F1147748;
+      v34 = &stru_1F1147748;
+      v16 = &stru_1F1147748;
     }
 
-    v35[0] = v33;
-    v17 = -[mpark initWithDomain:code:userInfo:](v5, "initWithDomain:code:userInfo:", @"WKErrorDomain", 1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1]);
-    v18 = v33;
+    v36[0] = v34;
+    v18 = -[mpark initWithDomain:code:userInfo:](v5, "initWithDomain:code:userInfo:", @"WKErrorDomain", 1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1]);
+    v19 = v34;
+    v34 = 0;
+    if (v19)
+    {
+    }
+
+    v20 = v33;
     v33 = 0;
+    if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v20, v17);
+    }
+
+    (*(*(self + 8) + 16))();
     if (v18)
     {
     }
 
-    v19 = v32;
-    v32 = 0;
-    if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v19, v16);
-    }
-
-    (*(*(self + 8) + 16))();
-    if (v17)
-    {
-    }
-
-    return std::experimental::fundamentals_v3::expected<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>::~expected(v29, v20);
+    return std::experimental::fundamentals_v3::expected<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>::~expected(v30, v21);
   }
 
-  v8 = v29[0];
-  if (v29[0])
+  v8 = v30[0];
+  if (v30[0])
   {
-    atomic_fetch_add_explicit(v29[0], 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v30[0], 2u, memory_order_relaxed);
   }
 
-  v9 = v30;
-  if (!v30)
+  v9 = v31;
+  if (!v31)
   {
-    v11 = 0;
+    v12 = 0;
 LABEL_23:
-    v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v9];
+    v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v9];
     if (v9)
     {
-      v22 = 8 * v9;
-      v23 = v11;
+      v23 = 8 * v9;
+      v24 = v12;
       do
       {
-        v35[0] = *v23;
+        v36[0] = *v24;
         WebCore::IntSize::operator CGSize();
-        v24 = [MEMORY[0x1E696B098] valueWithCGSize:?];
-        if (v24)
+        v25 = [MEMORY[0x1E696B098] valueWithCGSize:?];
+        if (v25)
         {
-          [v21 addObject:v24];
+          [v22 addObject:v25];
         }
 
-        v23 = (v23 + 8);
-        v22 -= 8;
+        v24 = (v24 + 8);
+        v23 -= 8;
       }
 
-      while (v22);
+      while (v23);
     }
 
     if (v8)
     {
       atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
-      MEMORY[0x19EB00B70](v35, v8);
+      MEMORY[0x19EB00B70](v36, v8);
       if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v8, v25);
+        WTF::StringImpl::destroy(v8, v26);
       }
     }
 
     else
     {
-      v35[0] = &stru_1F1147748;
-      v26 = &stru_1F1147748;
+      v36[0] = &stru_1F1147748;
+      v27 = &stru_1F1147748;
     }
 
-    if (v21)
+    if (v22)
     {
-      v27 = v21;
+      v28 = v22;
     }
 
     (*(*(self + 8) + 16))();
-    v28 = v35[0];
-    v35[0] = 0;
-    if (v28)
+    v29 = v36[0];
+    v36[0] = 0;
+    if (v29)
     {
     }
 
-    if (v11)
+    if (v12)
     {
-      WTF::fastFree(v11, v20);
+      WTF::fastFree(v12, v21);
     }
 
     if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v8, v20);
+      WTF::StringImpl::destroy(v8, v21);
     }
 
-    return std::experimental::fundamentals_v3::expected<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>::~expected(v29, v20);
+    return std::experimental::fundamentals_v3::expected<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>::~expected(v30, v21);
   }
 
-  if (!(v30 >> 29))
+  v10 = (v31 >> 29);
+  if (!v10)
   {
-    v10 = WTF::fastMalloc((8 * v30));
-    v11 = v10;
-    if (v30)
+    v11 = WTF::fastMalloc(v10, (8 * v31));
+    v12 = v11;
+    if (v31)
     {
-      v12 = 0;
-      v13 = v29[1];
-      v14 = 8 * v30;
+      v13 = 0;
+      v14 = v30[1];
+      v15 = 8 * v31;
       do
       {
-        *(v10 + v12) = *&v13[v12 / 4];
-        v12 += 8;
+        v11[v13 / 8] = *&v14[v13 / 4];
+        v13 += 8;
       }
 
-      while (v14 != v12);
+      while (v15 != v13);
     }
 
     goto LABEL_23;
@@ -1451,6 +1464,14 @@ LABEL_5:
 
 - (uint64_t)_saveResources:()WKPrivate suggestedFileName:completionHandler:
 {
+  *self = &unk_1F10F99A8;
+  _Block_release(self[1]);
+
+  return WTF::fastFree(self, v2);
+}
+
+- (WTF::StringImpl)_saveResources:()WKPrivate suggestedFileName:completionHandler:
+{
   v14[1] = *MEMORY[0x1E69E9840];
   if ((*a2 & 0x100) != 0)
   {
@@ -1504,6 +1525,14 @@ LABEL_5:
 }
 
 - (uint64_t)_archiveWithConfiguration:()WKPrivate completionHandler:
+{
+  *self = &unk_1F10F99D0;
+  _Block_release(self[1]);
+
+  return WTF::fastFree(self, v2);
+}
+
+- (WTF::StringImpl)_archiveWithConfiguration:()WKPrivate completionHandler:
 {
   v14[1] = *MEMORY[0x1E69E9840];
   if ((*a2 & 0x100) != 0)
@@ -1624,11 +1653,11 @@ LABEL_5:
 - (uint64_t)_getContentsAsStringWithCompletionHandlerKeepIPCConnectionAliveForTesting:()WKPrivate
 {
   *self = &unk_1F10F9A48;
-  v2 = *(self + 16);
+  v3 = *(self + 16);
   *(self + 16) = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   _Block_release(*(self + 8));
@@ -1733,7 +1762,7 @@ LABEL_5:
 
   else
   {
-    createNSError(WKErrorUnknown, 0, &v6);
+    createNSError(&v6, WKErrorUnknown, 0);
   }
 
   (*(*(self + 8) + 16))();
@@ -1766,7 +1795,7 @@ LABEL_5:
     if (*(a2 + 272) == 1)
     {
       API::ApplicationManifest::create(a2, &v6);
-      if (*(v6 + 1) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (v6->var1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         __break(0xC471u);
       }
@@ -1778,7 +1807,7 @@ LABEL_5:
         v6 = 0;
         if (v4)
         {
-          CFRelease(*(v4 + 1));
+          CFRelease(v4->var1);
         }
       }
     }

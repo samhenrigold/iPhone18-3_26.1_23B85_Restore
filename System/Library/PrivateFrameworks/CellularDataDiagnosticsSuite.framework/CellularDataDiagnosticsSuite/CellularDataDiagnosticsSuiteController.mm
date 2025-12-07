@@ -22,14 +22,14 @@
   [(SpeedTestConfig *)v6 startDownloadTest:v7];
 }
 
-uint64_t __47__CellularDataDiagnosticsSuiteController_start__block_invoke(uint64_t a1)
+void *__47__CellularDataDiagnosticsSuiteController_start__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = DiagnosticsKitLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_24335C000, v2, OS_LOG_TYPE_INFO, "CellularThroughput: speed test passed", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_24335C000, v2, OS_LOG_TYPE_INFO, "CellularThroughput: speed test passed", &v8, 2u);
   }
 
   v3 = [*(a1 + 32) result];
@@ -40,18 +40,17 @@ uint64_t __47__CellularDataDiagnosticsSuiteController_start__block_invoke(uint64
   {
     v5 = [*(a1 + 32) result];
     v6 = [v5 statusCode];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: status code: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: status code: %@", &v8, 0xCu);
   }
 
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 32) setFinished:1];
+    return [*(a1 + 32) setFinished:1];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 

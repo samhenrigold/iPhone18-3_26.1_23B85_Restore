@@ -89,7 +89,7 @@ void __53__PKDashboardButtonCollectionViewCell_initWithFrame___block_invoke(uint
   [(PKDashboardCollectionViewCell *)&v4 layoutSubviews];
   contentView = [(PKDashboardButtonCollectionViewCell *)self contentView];
   [contentView bounds];
-  [(PKDashboardButtonCollectionViewCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -99,7 +99,7 @@ void __53__PKDashboardButtonCollectionViewCell_initWithFrame___block_invoke(uint
   v6 = *MEMORY[0x1E695EFF8];
   v7 = *(MEMORY[0x1E695EFF8] + 8);
   [(PKDashboardCollectionViewCell *)self horizontalInset];
-  [(PKDashboardButtonCollectionViewCell *)self _layoutWithBounds:1 isTemplateLayout:v6, v7, width + v8 * -2.0, height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, v6, v7, width + v8 * -2.0, height);
   v11 = fmin(height, 44.0);
   if (v10 < 44.0)
   {

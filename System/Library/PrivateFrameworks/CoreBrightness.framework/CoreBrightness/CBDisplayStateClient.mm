@@ -103,12 +103,11 @@ void __32__CBDisplayStateClient_activate__block_invoke_2(uint64_t a1, uint64_t a
   dispatch_async(v3, &block);
 }
 
-void __32__CBDisplayStateClient_activate__block_invoke_3(id *a1)
+double __32__CBDisplayStateClient_activate__block_invoke_3(id *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ([a1[4] isEqual:@"DisplayModeChangeComplete"])
   {
-    v3 = a1[5];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -117,20 +116,19 @@ void __32__CBDisplayStateClient_activate__block_invoke_3(id *a1)
 
     else
     {
-      v5 = *(a1[6] + 2);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v4 = *(a1[6] + 2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
-        v1 = a1[5];
-        v2 = objc_opt_class();
-        __os_log_helper_16_2_1_8_64(v6, v2);
-        _os_log_fault_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_FAULT, "unexpected display mode payload type (%@)", v6, 0xCu);
+        v1 = objc_opt_class();
+        __os_log_helper_16_2_1_8_64(v5, v1);
+        _os_log_fault_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_FAULT, "unexpected display mode payload type (%@)", v5, 0xCu);
       }
     }
   }
 
   MEMORY[0x1E69E5920](a1[4]);
-  MEMORY[0x1E69E5920](a1[5]);
-  *MEMORY[0x1E69E9840];
+  *&result = MEMORY[0x1E69E5920](a1[5]).n128_u64[0];
+  return result;
 }
 
 - (void)cancel
@@ -172,7 +170,7 @@ uint64_t __30__CBDisplayStateClient_cancel__block_invoke(uint64_t a1)
   dispatch_sync(queue, &block);
 }
 
-uint64_t __46__CBDisplayStateClient_setCompletionDelegate___block_invoke(uint64_t a1)
+void *__46__CBDisplayStateClient_setCompletionDelegate___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _removeCompletionDelegate];
   result = a1;
@@ -240,8 +238,6 @@ uint64_t __46__CBDisplayStateClient_setCompletionDelegate___block_invoke(uint64_
     v12 = handlerCopy;
     dispatch_async(delegateQueue, &block);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 double __60__CBDisplayStateClient__displayModeChangeCompletionHandler___block_invoke(uint64_t a1)
@@ -466,7 +462,6 @@ double __35__CBDisplayStateClient_displayMode__block_invoke(uint64_t a1)
   v8 = *(v33 + 24);
   _Block_object_dispose(&v27, 8);
   _Block_object_dispose(&v32, 8);
-  *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
@@ -493,7 +488,6 @@ void __67__CBDisplayStateClient_transitionToDisplayMode_withDuration_error___blo
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)switchToFlipbookState:(int64_t)state error:(id *)error
@@ -611,8 +605,6 @@ void __52__CBDisplayStateClient_switchToFlipbookState_error___block_invoke(void 
     __os_log_helper_16_0_1_8_0(v23, a1[6]);
     _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DisplayStateClientSwitchToFlipbookState", "%ld", v23, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __52__CBDisplayStateClient_switchToFlipbookState_error___block_invoke_27(uint64_t a1)

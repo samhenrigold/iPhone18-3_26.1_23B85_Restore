@@ -7,11 +7,11 @@
 
 - (_LTServerEndpointerFeatures)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = _LTServerEndpointerFeatures;
-  v5 = [(_LTServerEndpointerFeatures *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _LTServerEndpointerFeatures;
+  v5 = [(_LTServerEndpointerFeatures *)&v15 init];
   if (v5)
   {
     v5->_wordCount = [coderCopy decodeIntegerForKey:@"wordCount"];
@@ -19,9 +19,9 @@
     [coderCopy decodeDoubleForKey:@"eosLikelihood"];
     v5->_eosLikelihood = v6;
     v7 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v9 = [v7 setWithArray:v8];
 
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"pauseCounts"];
@@ -35,7 +35,6 @@
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

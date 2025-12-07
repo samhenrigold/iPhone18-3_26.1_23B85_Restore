@@ -16,7 +16,6 @@
 
 - (void)setCancellationHandler:(id)handler
 {
-  v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18FileProviderDaemon20DummyOperationClient_cancellationHandler);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18FileProviderDaemon20DummyOperationClient_cancellationHandler) = handler;
   swift_unknownObjectRetain();
 
@@ -33,6 +32,8 @@
   sub_1CF2F3C10(v8, error, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v8, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (_TtC18FileProviderDaemon20DummyOperationClient)init

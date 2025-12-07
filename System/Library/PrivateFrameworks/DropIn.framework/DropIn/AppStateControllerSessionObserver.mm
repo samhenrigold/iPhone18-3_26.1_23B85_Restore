@@ -54,28 +54,27 @@
 - (void)session:(id)session didUpdateSessionEndDate:(id)date
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF21578, &qword_249DDF7A0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  v9 = &v14 - v8;
   if (date)
   {
     sub_249DDC648();
-    v11 = sub_249DDC668();
-    v12 = 0;
+    v10 = sub_249DDC668();
+    v11 = 0;
   }
 
   else
   {
-    v11 = sub_249DDC668();
-    v12 = 1;
+    v10 = sub_249DDC668();
+    v11 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v10, v12, 1, v11);
+  __swift_storeEnumTagSinglePayload(v9, v11, 1, v10);
   sessionCopy = session;
   selfCopy = self;
-  sub_249DCAD38(sessionCopy, v10);
+  sub_249DCAD38(sessionCopy, v9);
 
-  sub_249DCBAB4(v10);
+  sub_249DCBAB4(v9);
 }
 
 - (void)serverDisconnectedForDropInCenter:(id)center

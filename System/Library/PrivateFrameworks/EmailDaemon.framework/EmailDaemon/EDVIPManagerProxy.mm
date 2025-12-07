@@ -87,42 +87,41 @@
 
 - (void)_vipsDidChange:(id)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   userInfo = [change userInfo];
   v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E699ABF0]];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E699ABE8]];
   os_unfair_lock_lock(&self->_observersLock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = self->_observersByIdentifier;
-  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        v12 = [(NSMapTable *)self->_observersByIdentifier objectForKey:v11, v14];
+        v11 = *(*(&v13 + 1) + 8 * i);
+        v12 = [(NSMapTable *)self->_observersByIdentifier objectForKey:v11, v13];
         [v12 observer:v11 updatedVIPs:v5 removedVIPs:v6];
       }
 
-      v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_observersLock);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

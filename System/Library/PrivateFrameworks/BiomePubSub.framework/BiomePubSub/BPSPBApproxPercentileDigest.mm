@@ -186,7 +186,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    min = self->_min;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -206,7 +205,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  max = self->_max;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -221,12 +219,10 @@ LABEL_4:
   }
 
 LABEL_19:
-  centroidCount = self->_centroidCount;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    bufferMultiplier = self->_bufferMultiplier;
     PBDataWriterWriteUint32Field();
   }
 
@@ -236,15 +232,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (self->_centroidMeans.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_centroidMeans.list[v7];
         PBDataWriterWriteFloatField();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_centroidMeans.count);
+      while (v6 < self->_centroidMeans.count);
     }
 
     PBDataWriterRecallMark();
@@ -256,15 +251,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (p_centroidWeights->count)
     {
-      v10 = 0;
+      v8 = 0;
       do
       {
-        v11 = p_centroidWeights->list[v10];
         PBDataWriterWriteUint32Field();
-        ++v10;
+        ++v8;
       }
 
-      while (v10 < p_centroidWeights->count);
+      while (v8 < p_centroidWeights->count);
     }
 
     PBDataWriterRecallMark();
@@ -418,7 +412,6 @@ LABEL_6:
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 72);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 72) & 8) == 0 || self->_min != *(equalCopy + 17))

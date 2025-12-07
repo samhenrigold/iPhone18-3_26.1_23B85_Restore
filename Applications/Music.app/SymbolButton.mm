@@ -72,20 +72,20 @@
 
 - (void)tintColorDidChange
 {
-  v3 = type metadata accessor for SymbolButton.Configuration(0);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SymbolButton(0);
-  v10.receiver = self;
-  v10.super_class = v6;
+  type metadata accessor for SymbolButton.Configuration(0);
+  __chkstk_darwin();
+  v4 = (&v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = type metadata accessor for SymbolButton(0);
+  v9.receiver = self;
+  v9.super_class = v5;
   selfCopy = self;
-  [(SymbolButton *)&v10 tintColorDidChange];
-  v8 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
+  [(SymbolButton *)&v9 tintColorDidChange];
+  v7 = OBJC_IVAR____TtC11MusicCoreUI12SymbolButton__configuration;
   swift_beginAccess();
-  sub_100BF8F8C(selfCopy + v8, v5, type metadata accessor for SymbolButton.Configuration);
-  sub_100BEF154(v5);
+  sub_100BF8F8C(selfCopy + v7, v4, type metadata accessor for SymbolButton.Configuration);
+  sub_100BEF154(v4);
 
-  sub_100BF7180(v5, type metadata accessor for SymbolButton.Configuration);
+  sub_100BF7180(v4, type metadata accessor for SymbolButton.Configuration);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -172,14 +172,16 @@ LABEL_5:
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  SymbolButton.isSelected.setter(selected);
+  SymbolButton.isSelected.setter(selectedCopy);
 }
 
 - (void)setEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  SymbolButton.isEnabled.setter(enabled);
+  SymbolButton.isEnabled.setter(enabledCopy);
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location

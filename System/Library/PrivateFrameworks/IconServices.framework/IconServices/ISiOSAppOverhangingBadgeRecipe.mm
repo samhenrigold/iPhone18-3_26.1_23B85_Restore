@@ -20,17 +20,17 @@
 
 void __57__ISiOSAppOverhangingBadgeRecipe_hintedMainIconBadgeRect__block_invoke()
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v0 = [(ISHintedValue *)[ISHintedRect alloc] initWithOptions:5];
   v1 = hintedMainIconBadgeRect_rect;
   hintedMainIconBadgeRect_rect = v0;
 
   v2 = [MEMORY[0x1E69A8980] iosAppIconSpecification];
   memset(&rect2[1], 0, 32);
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = [v2 allImageSpecifications];
-  v4 = [v3 countByEnumeratingWithState:&rect2[1] objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&rect2[1] objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
@@ -56,23 +56,21 @@ void __57__ISiOSAppOverhangingBadgeRecipe_hintedMainIconBadgeRect__block_invoke(
         v16 = round(v13 * 1.18);
         v17 = round(v14 * 1.18);
         [hintedMainIconBadgeRect_rect hintedRectForSize:{v16, v17}];
-        *&v25.origin.x = rect2[0];
-        v25.origin.y = v7;
-        v25.size.width = v8;
-        v25.size.height = v9;
-        if (CGRectEqualToRect(v24, v25))
+        *&v24.origin.x = rect2[0];
+        v24.origin.y = v7;
+        v24.size.width = v8;
+        v24.size.height = v9;
+        if (CGRectEqualToRect(v23, v24))
         {
           [hintedMainIconBadgeRect_rect addHintedRect:(v16 - v13) * 0.5 forSize:{(v17 - v15) * 0.5, v13, v15, v16, v17}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&rect2[1] objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&rect2[1] objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)hintedBadgeRect
@@ -89,36 +87,36 @@ void __57__ISiOSAppOverhangingBadgeRecipe_hintedMainIconBadgeRect__block_invoke(
 
 void __49__ISiOSAppOverhangingBadgeRecipe_hintedBadgeRect__block_invoke()
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v0 = [(ISHintedValue *)[ISHintedRect alloc] initWithOptions:5];
   v1 = hintedBadgeRect_rect;
   hintedBadgeRect_rect = v0;
 
   v2 = [MEMORY[0x1E69A8980] iosAppIconSpecification];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v3 = [v2 allImageSpecifications];
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
-    v18 = *(MEMORY[0x1E695F058] + 8);
-    v19 = *MEMORY[0x1E695F058];
+    v6 = *v20;
+    v17 = *(MEMORY[0x1E695F058] + 8);
+    v18 = *MEMORY[0x1E695F058];
     v7 = *(MEMORY[0x1E695F058] + 16);
     v8 = *(MEMORY[0x1E695F058] + 24);
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         [v10 size];
         v12 = v11;
         [v10 size];
@@ -126,23 +124,21 @@ void __49__ISiOSAppOverhangingBadgeRecipe_hintedBadgeRect__block_invoke()
         v15 = round(v12 * 1.18);
         v16 = round(v13 * 1.18);
         [hintedBadgeRect_rect hintedRectForSize:{v15, v16}];
-        v27.origin.y = v18;
-        v27.origin.x = v19;
-        v27.size.width = v7;
-        v27.size.height = v8;
-        if (CGRectEqualToRect(v26, v27))
+        v26.origin.y = v17;
+        v26.origin.x = v18;
+        v26.size.width = v7;
+        v26.size.height = v8;
+        if (CGRectEqualToRect(v25, v26))
         {
           [hintedBadgeRect_rect addHintedRect:v15 - v12 * 0.35 forSize:{0.0, v12 * 0.35, v14 * 0.35, v15, v16}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)layerTreeForSize:(CGSize)size scale:(double)scale

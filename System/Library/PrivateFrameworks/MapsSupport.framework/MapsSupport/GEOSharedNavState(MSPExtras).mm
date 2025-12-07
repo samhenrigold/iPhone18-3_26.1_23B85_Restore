@@ -1,4 +1,6 @@
 @interface GEOSharedNavState(MSPExtras)
+- (char)numberOfIntermediateStopsRemaining;
+- (char)stripForSendingArrival;
 - (id)composedRoute;
 - (id)destinationName;
 - (id)destinationWaypointInfo;
@@ -10,10 +12,6 @@
 - (id)nextWaypointInfo;
 - (id)senderName;
 - (id)senderNameOrHandle;
-- (uint64_t)isNavigatingToIntermediateStop;
-- (uint64_t)numberOfIntermediateStopsRemaining;
-- (uint64_t)stripArrivedOrClosedTrip;
-- (uint64_t)stripForSendingArrival;
 - (uint64_t)stripForSendingResuming;
 - (uint64_t)stripForSendingStoppedSharing;
 - (uint64_t)stripForSendingUpdatedETA;
@@ -25,8 +23,10 @@
 - (unint64_t)_polylineCoordinateForRoute:()MSPExtras;
 - (void)_createPlaceholderETAInfosForWaypoints:()MSPExtras;
 - (void)_msp_logWithCategory:()MSPExtras type:object:prefix:;
+- (void)isNavigatingToIntermediateStop;
 - (void)merge:()MSPExtras;
 - (void)setComposedRouteFromState:()MSPExtras;
+- (void)stripArrivedOrClosedTrip;
 - (void)truncatePointDataForPrivacy;
 - (void)updateElevationModelToLegacyEGM96;
 - (void)updateRouteInfoFromComposedRoute:()MSPExtras;
@@ -127,31 +127,32 @@ LABEL_6:
 - (void)merge:()MSPExtras
 {
   v4 = a3;
-  if ([v4 hasDestinationInfo])
+  hasDestinationInfo = [v4 hasDestinationInfo];
+  if (hasDestinationInfo)
   {
-    v5 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MSPGetSharedTripLog(hasDestinationInfo);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEFAULT, "Migrating legacy destinationInfo to modern waypointInfos", buf, 2u);
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "Migrating legacy destinationInfo to modern waypointInfos", buf, 2u);
     }
 
     [self clearWaypointInfos];
-    v6 = objc_alloc_init(MEMORY[0x277D0ED38]);
+    v7 = objc_alloc_init(MEMORY[0x277D0ED38]);
     destinationInfo = [v4 destinationInfo];
-    [v6 setMapItemStorage:destinationInfo];
+    [v7 setMapItemStorage:destinationInfo];
 
-    [self addWaypointInfo:v6];
+    [self addWaypointInfo:v7];
     [self setDestinationInfo:0];
   }
 
   if (([v4 hasLastLocation] & 1) == 0 && objc_msgSend(v4, "etaInfosCount") == 1)
   {
-    v8 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = MSPGetSharedTripLog(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v41 = 0;
-      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "Migrating legacy location in etaInfo to modern lastLocation", v41, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEFAULT, "Migrating legacy location in etaInfo to modern lastLocation", v44, 2u);
     }
 
     etaInfos = [v4 etaInfos];
@@ -159,14 +160,14 @@ LABEL_6:
 
     if ([lastObject hasLatitude] && objc_msgSend(lastObject, "hasLongitude"))
     {
-      v11 = objc_alloc_init(MEMORY[0x277D0ED18]);
-      v12 = objc_alloc_init(MEMORY[0x277D0EB58]);
+      v12 = objc_alloc_init(MEMORY[0x277D0ED18]);
+      v13 = objc_alloc_init(MEMORY[0x277D0EB58]);
       [lastObject latitude];
-      [v12 setLat:?];
+      [v13 setLat:?];
       [lastObject longitude];
-      [v12 setLng:?];
-      [v11 setCoordinate:v12];
-      [v4 setLastLocation:v11];
+      [v13 setLng:?];
+      [v12 setCoordinate:v13];
+      [v4 setLastLocation:v12];
       [lastObject setHasLatitude:0];
       [lastObject setHasLongitude:0];
     }
@@ -176,16 +177,17 @@ LABEL_6:
 
   if (composedRouteIfExists)
   {
-    if ([v4 hasRouteInfo])
+    hasRouteInfo = [v4 hasRouteInfo];
+    if (hasRouteInfo)
     {
-      v14 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = MSPGetSharedTripLog(hasRouteInfo);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = 0;
-        v15 = "Clearing generated composedRoute because incoming state has routeInfo";
-        v16 = &v40;
+        v43 = 0;
+        v17 = "Clearing generated composedRoute because incoming state has routeInfo";
+        v18 = &v43;
 LABEL_21:
-        _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEFAULT, v15, v16, 2u);
+        _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
         goto LABEL_22;
       }
 
@@ -195,14 +197,15 @@ LABEL_21:
     if ([v4 waypointInfosCount])
     {
       waypointInfosCount = [v4 waypointInfosCount];
-      if (waypointInfosCount != [self waypointInfosCount])
+      waypointInfosCount2 = [self waypointInfosCount];
+      if (waypointInfosCount != waypointInfosCount2)
       {
-        v14 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = MSPGetSharedTripLog(waypointInfosCount2);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v39) = 0;
-          v15 = "Clearing generated composedRoute because incoming waypoint count differs from ours";
-          v16 = &v39;
+          LOWORD(v42) = 0;
+          v17 = "Clearing generated composedRoute because incoming waypoint count differs from ours";
+          v18 = &v42;
           goto LABEL_21;
         }
 
@@ -218,10 +221,10 @@ LABEL_22:
     goto LABEL_31;
   }
 
-  hasRouteInfo = [self hasRouteInfo];
+  hasRouteInfo2 = [self hasRouteInfo];
   routeInfo = [v4 routeInfo];
   routeInfo6 = routeInfo;
-  if (hasRouteInfo)
+  if (hasRouteInfo2)
   {
     if ([routeInfo coordinatesCount])
     {
@@ -260,8 +263,8 @@ LABEL_31:
   if ([v4 etaInfosCount])
   {
     etaInfos2 = [v4 etaInfos];
-    v24 = [etaInfos2 mutableCopy];
-    [self setEtaInfos:v24];
+    v27 = [etaInfos2 mutableCopy];
+    [self setEtaInfos:v27];
   }
 
   if ([v4 hasSenderInfo])
@@ -334,8 +337,8 @@ LABEL_31:
   if ([v4 waypointInfosCount])
   {
     waypointInfos = [v4 waypointInfos];
-    v30 = [waypointInfos mutableCopy];
-    [self setWaypointInfos:v30];
+    v33 = [waypointInfos mutableCopy];
+    [self setWaypointInfos:v33];
   }
 
   if ([v4 hasLastLocation])
@@ -442,37 +445,38 @@ LABEL_31:
   v10 = a3;
   v11 = a5;
   v12 = a6;
+  v13 = v12;
   if (!v10)
   {
-    v10 = MSPGetSharedTripLog();
+    v10 = MSPGetSharedTripLog(v12);
   }
 
-  v13 = v10;
-  if (os_log_type_enabled(v13, a4))
+  v14 = v10;
+  if (os_log_type_enabled(v14, a4))
   {
-    v14 = v11;
+    v15 = v11;
     type = a4;
-    if (v14)
+    if (v15)
     {
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), v14];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), v15];
     }
 
     else
     {
-      v15 = @"<nil>";
+      v16 = @"<nil>";
     }
 
-    v16 = v15;
-    v17 = &stru_286950698;
-    if (v12)
+    v17 = v16;
+    v18 = &stru_286950698;
+    if (v13)
     {
-      v17 = v12;
+      v18 = v13;
     }
 
-    v68 = v17;
+    v68 = v18;
     groupIdentifier = [self groupIdentifier];
     hasTransportType = [self hasTransportType];
-    v86 = v12;
+    v86 = v13;
     if (hasTransportType)
     {
       transportType = [self transportType];
@@ -482,22 +486,22 @@ LABEL_31:
         goto LABEL_15;
       }
 
-      v19 = off_279866210[transportType];
+      v20 = off_279866210[transportType];
     }
 
     else
     {
-      v19 = @"n/a";
+      v20 = @"n/a";
     }
 
-    v95 = v19;
+    v95 = v20;
 LABEL_15:
     hasUpdatedTimestamp = [self hasUpdatedTimestamp];
     if (hasUpdatedTimestamp)
     {
-      v20 = MEMORY[0x277CBEAA8];
+      v21 = MEMORY[0x277CBEAA8];
       [self updatedTimestamp];
-      v94 = [v20 dateWithTimeIntervalSinceReferenceDate:?];
+      v94 = [v21 dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -505,14 +509,14 @@ LABEL_15:
       v94 = @"n/a";
     }
 
-    v21 = @"n/a";
+    v22 = @"n/a";
     hasLocalUpdatedTimestamp = [self hasLocalUpdatedTimestamp];
     v87 = v11;
     if (hasLocalUpdatedTimestamp)
     {
-      v22 = MEMORY[0x277CBEAA8];
+      v23 = MEMORY[0x277CBEAA8];
       [self localUpdatedTimestamp];
-      v93 = [v22 dateWithTimeIntervalSinceReferenceDate:?];
+      v93 = [v23 dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -522,18 +526,6 @@ LABEL_15:
 
     if ([self hasSenderInfo])
     {
-      v23 = @"YES";
-    }
-
-    else
-    {
-      v23 = @"NO";
-    }
-
-    v102 = v23;
-    senderInfo = [self senderInfo];
-    if ([senderInfo hasFromDisplayName])
-    {
       v24 = @"YES";
     }
 
@@ -542,121 +534,133 @@ LABEL_15:
       v24 = @"NO";
     }
 
-    v101 = v24;
+    v102 = v24;
+    senderInfo = [self senderInfo];
+    if ([senderInfo hasFromDisplayName])
+    {
+      v25 = @"YES";
+    }
+
+    else
+    {
+      v25 = @"NO";
+    }
+
+    v101 = v25;
     senderInfo2 = [self senderInfo];
     fromDisplayName = [senderInfo2 fromDisplayName];
     v78 = fromDisplayName;
     if (fromDisplayName)
     {
-      v26 = fromDisplayName;
+      v27 = fromDisplayName;
     }
 
     else
     {
-      v26 = @"n/a";
+      v27 = @"n/a";
     }
 
-    v63 = v26;
+    v63 = v27;
     senderInfo3 = [self senderInfo];
     if ([senderInfo3 hasFromIdentifier])
     {
-      v27 = @"YES";
+      v28 = @"YES";
     }
 
     else
     {
-      v27 = @"NO";
+      v28 = @"NO";
     }
 
-    v100 = v27;
+    v100 = v28;
     senderInfo4 = [self senderInfo];
     fromIdentifier = [senderInfo4 fromIdentifier];
     v75 = fromIdentifier;
     if (fromIdentifier)
     {
-      v29 = fromIdentifier;
+      v30 = fromIdentifier;
     }
 
     else
     {
-      v29 = @"n/a";
+      v30 = @"n/a";
     }
 
-    v62 = v29;
+    v62 = v30;
     senderInfo5 = [self senderInfo];
     if ([senderInfo5 hasLocalName])
     {
-      v30 = @"YES";
+      v31 = @"YES";
     }
 
     else
     {
-      v30 = @"NO";
+      v31 = @"NO";
     }
 
-    v99 = v30;
+    v99 = v31;
     senderInfo6 = [self senderInfo];
     localName = [senderInfo6 localName];
     v72 = localName;
     if (localName)
     {
-      v32 = localName;
+      v33 = localName;
     }
 
     else
     {
-      v32 = @"n/a";
+      v33 = @"n/a";
     }
 
-    v60 = v32;
+    v60 = v33;
     senderInfo7 = [self senderInfo];
     if ([senderInfo7 hasLocalContactIdentifier])
     {
-      v33 = @"YES";
+      v34 = @"YES";
     }
 
     else
     {
-      v33 = @"NO";
+      v34 = @"NO";
     }
 
-    v108 = v33;
+    v108 = v34;
     senderInfo8 = [self senderInfo];
     localContactIdentifier = [senderInfo8 localContactIdentifier];
     v69 = localContactIdentifier;
     if (localContactIdentifier)
     {
-      v35 = localContactIdentifier;
+      v36 = localContactIdentifier;
     }
 
     else
     {
-      v35 = @"n/a";
+      v36 = @"n/a";
     }
 
-    v59 = v35;
+    v59 = v36;
     hasArrived = [self hasArrived];
     if (hasArrived)
     {
       if ([self arrived])
       {
-        v36 = @"YES";
+        v37 = @"YES";
       }
 
       else
       {
-        v36 = @"NO";
+        v37 = @"NO";
       }
 
-      v21 = v36;
+      v22 = v37;
     }
 
     hasArrivedTimestamp = [self hasArrivedTimestamp];
     if (hasArrivedTimestamp)
     {
-      v37 = MEMORY[0x277CBEAA8];
+      v38 = MEMORY[0x277CBEAA8];
       [self arrivedTimestamp];
-      v91 = [v37 dateWithTimeIntervalSinceReferenceDate:?];
+      v91 = [v38 dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -669,15 +673,15 @@ LABEL_15:
     {
       if ([self closed])
       {
-        v38 = @"YES";
+        v39 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v39 = @"NO";
       }
 
-      v90 = v38;
+      v90 = v39;
     }
 
     else
@@ -688,9 +692,9 @@ LABEL_15:
     hasClosedTimestamp = [self hasClosedTimestamp];
     if (hasClosedTimestamp)
     {
-      v39 = MEMORY[0x277CBEAA8];
+      v40 = MEMORY[0x277CBEAA8];
       [self closedTimestamp];
-      v89 = [v39 dateWithTimeIntervalSinceReferenceDate:?];
+      v89 = [v40 dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -699,8 +703,8 @@ LABEL_15:
     }
 
     hasClosureReason = [self hasClosureReason];
-    v85 = v16;
-    v92 = v21;
+    v85 = v17;
+    v92 = v22;
     if (hasClosureReason)
     {
       v88 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "closureReason")}];
@@ -719,47 +723,47 @@ LABEL_15:
     v106 = [waypointInfos valueForKey:@"name"];
     if ([self hasLastLocation])
     {
-      v40 = @"YES";
+      v41 = @"YES";
     }
 
     else
     {
-      v40 = @"NO";
+      v41 = @"NO";
     }
 
-    v105 = v40;
+    v105 = v41;
     lastLocation = [self lastLocation];
     mspDescription = [lastLocation mspDescription];
-    v41 = MEMORY[0x277CCABB0];
-    routeInfo = [self routeInfo];
-    v96 = [v41 numberWithUnsignedInteger:{objc_msgSend(routeInfo, "routingPathLegsCount")}];
     v42 = MEMORY[0x277CCABB0];
+    routeInfo = [self routeInfo];
+    v96 = [v42 numberWithUnsignedInteger:{objc_msgSend(routeInfo, "routingPathLegsCount")}];
+    v43 = MEMORY[0x277CCABB0];
     routeInfo2 = [self routeInfo];
-    v44 = [v42 numberWithUnsignedInteger:{objc_msgSend(routeInfo2, "coordinatesCount")}];
-    v45 = MEMORY[0x277CCABB0];
+    v45 = [v43 numberWithUnsignedInteger:{objc_msgSend(routeInfo2, "coordinatesCount")}];
+    v46 = MEMORY[0x277CCABB0];
     routeInfo3 = [self routeInfo];
-    v47 = [v45 numberWithUnsignedInteger:{objc_msgSend(routeInfo3, "trafficColorsCount")}];
-    v48 = MEMORY[0x277CCABB0];
+    v48 = [v46 numberWithUnsignedInteger:{objc_msgSend(routeInfo3, "trafficColorsCount")}];
+    v49 = MEMORY[0x277CCABB0];
     routeInfo4 = [self routeInfo];
-    v50 = [v48 numberWithUnsignedInteger:{objc_msgSend(routeInfo4, "trafficColorOffsetsCount")}];
+    v51 = [v49 numberWithUnsignedInteger:{objc_msgSend(routeInfo4, "trafficColorOffsetsCount")}];
     hasReferenceFrame = [self hasReferenceFrame];
     if (hasReferenceFrame)
     {
       referenceFrame = [self referenceFrame];
       if (referenceFrame >= 3)
       {
-        v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", referenceFrame];
+        v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", referenceFrame];
       }
 
       else
       {
-        v53 = off_279866248[referenceFrame];
+        v54 = off_279866248[referenceFrame];
       }
     }
 
     else
     {
-      v53 = @"n/a";
+      v54 = @"n/a";
     }
 
     v112 = v68;
@@ -784,9 +788,9 @@ LABEL_15:
     v156 = v106;
     v158 = v105;
     v160 = mspDescription;
-    v164 = v44;
-    v166 = v47;
-    v168 = v50;
+    v164 = v45;
+    v166 = v48;
+    v168 = v51;
     v111 = 2114;
     v113 = 2114;
     v115 = 2114;
@@ -823,8 +827,8 @@ LABEL_15:
     v146 = v89;
     v154 = v97;
     v162 = v96;
-    v170 = v53;
-    _os_log_impl(&dword_25813A000, v13, type, "[%{public}@] %{public}@\n== Trip %{public}@ ====\n\ttransportType: %{public}@, lastUpdated: %{public}@, locallyUpdated: %{public}@\n\tsenderInfo: %{public}@, fromDisplayName: %{public}@ [ %{private}@ ], fromIdentifier: %{public}@ [ %{private}@ ], localName: %{public}@ [ %{private}@ ], localContactIdentifier: %{public}@ [ %{private}@ ]\n\tarrived: %{public}@, arrivedTimestamp: %{public}@, closed: %{public}@, closedTimestamp: %{public}@, closureReason: %{public}@\n\tETAs: %{public}@ %{private}@\n\twaypoints: %{public}@ %{private}@\n\tlocation: %{public}@ %{private}@ \n\troute: routingPathLegs: %{public}@, coordinates: %{public}@, trafficColors: %{public}@, trafficOffsets: %{public}@, referenceFrame: %{public}@\n================", buf, 0x138u);
+    v170 = v54;
+    _os_log_impl(&dword_25813A000, v14, type, "[%{public}@] %{public}@\n== Trip %{public}@ ====\n\ttransportType: %{public}@, lastUpdated: %{public}@, locallyUpdated: %{public}@\n\tsenderInfo: %{public}@, fromDisplayName: %{public}@ [ %{private}@ ], fromIdentifier: %{public}@ [ %{private}@ ], localName: %{public}@ [ %{private}@ ], localContactIdentifier: %{public}@ [ %{private}@ ]\n\tarrived: %{public}@, arrivedTimestamp: %{public}@, closed: %{public}@, closedTimestamp: %{public}@, closureReason: %{public}@\n\tETAs: %{public}@ %{private}@\n\twaypoints: %{public}@ %{private}@\n\tlocation: %{public}@ %{private}@ \n\troute: routingPathLegs: %{public}@, coordinates: %{public}@, trafficColors: %{public}@, trafficOffsets: %{public}@, referenceFrame: %{public}@\n================", buf, 0x138u);
     if (hasReferenceFrame)
     {
     }
@@ -833,7 +837,7 @@ LABEL_15:
     {
     }
 
-    v12 = v86;
+    v13 = v86;
     v11 = v87;
     if (hasClosedTimestamp)
     {
@@ -863,14 +867,12 @@ LABEL_15:
     {
     }
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)truncatePointDataForPrivacy
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v2 = MSPGetSharedTripLog();
+  v60 = *MEMORY[0x277D85DE8];
+  v2 = MSPGetSharedTripLog(self);
   v3 = os_signpost_id_generate(v2);
   v4 = v2;
   v5 = v4;
@@ -885,31 +887,32 @@ LABEL_15:
   if (composedRoute)
   {
     v8 = [self _polylineCoordinateForRoute:composedRoute];
-    if (GEOPolylineCoordinateIsInvalid())
+    IsInvalid = GEOPolylineCoordinateIsInvalid();
+    if (IsInvalid)
     {
-      v9 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = MSPGetSharedTripLog(IsInvalid);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: closestPointOnRoute returned GEOPolylineCoordinateInvalid", buf, 2u);
+        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: closestPointOnRoute returned GEOPolylineCoordinateInvalid", buf, 2u);
       }
 
-      v10 = v5;
-      v11 = v10;
+      v11 = v5;
+      v12 = v11;
       if (v6 > 0xFFFFFFFFFFFFFFFDLL)
       {
 
-        routeInfo = v11;
+        routeInfo = v12;
         goto LABEL_51;
       }
 
-      if (os_signpost_enabled(v10))
+      if (os_signpost_enabled(v11))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_25813A000, v11, OS_SIGNPOST_EVENT, v3, "truncatePointDataForPrivacy_EarlyExit_GEOPolylineCoordinateInvalid", &unk_2581CCE6D, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_25813A000, v12, OS_SIGNPOST_EVENT, v3, "truncatePointDataForPrivacy_EarlyExit_GEOPolylineCoordinateInvalid", &unk_2581CCE6D, buf, 2u);
       }
 
-      routeInfo = v11;
+      routeInfo = v12;
       if (os_signpost_enabled(routeInfo))
       {
         *buf = 0;
@@ -924,11 +927,11 @@ LABEL_18:
     routeInfo = [self routeInfo];
     if (!routeInfo)
     {
-      v15 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = MSPGetSharedTripLog(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy: missing routeInfo, creating on-demand", buf, 2u);
+        _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy: missing routeInfo, creating on-demand", buf, 2u);
       }
 
       routeInfo = objc_alloc_init(MEMORY[0x277D0ED20]);
@@ -936,170 +939,170 @@ LABEL_18:
     }
 
     spid = v3;
-    if ([composedRoute usesRoutingPathPoints])
+    usesRoutingPathPoints = [composedRoute usesRoutingPathPoints];
+    if (usesRoutingPathPoints)
     {
-      v16 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v18 = MSPGetSharedTripLog(usesRoutingPathPoints);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy truncating routingPathLeg from closest coordinate", buf, 2u);
+        _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy truncating routingPathLeg from closest coordinate", buf, 2u);
       }
 
-      v17 = [composedRoute routingPathDataFromStart:v8];
-      v18 = [v17 mutableCopy];
-      [routeInfo setRoutingPathLegs:v18];
+      v19 = [composedRoute routingPathDataFromStart:v8];
+      v20 = [v19 mutableCopy];
+      [routeInfo setRoutingPathLegs:v20];
     }
 
     [routeInfo clearCoordinates];
     pointCount = [composedRoute pointCount];
     if (pointCount)
     {
-      v20 = pointCount;
+      v22 = pointCount;
       pointCount2 = [composedRoute pointCount];
-      v22 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v24 = pointCount2;
+      v25 = MSPGetSharedTripLog(pointCount2);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v52 = v20;
-        v53 = 2048;
-        v54 = (2 * pointCount2);
-        _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy composed route coordinates count %lu (%lu)", buf, 0x16u);
+        v57 = v22;
+        v58 = 2048;
+        v59 = (2 * v24);
+        _os_log_impl(&dword_25813A000, v25, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy composed route coordinates count %lu (%lu)", buf, 0x16u);
       }
 
-      v23 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v27 = MSPGetSharedTripLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        LODWORD(v52) = v8;
-        _os_log_impl(&dword_25813A000, v23, OS_LOG_TYPE_DEBUG, "index for current location %u", buf, 8u);
+        LODWORD(v57) = v8;
+        _os_log_impl(&dword_25813A000, v27, OS_LOG_TYPE_DEBUG, "index for current location %u", buf, 8u);
       }
 
-      v24 = v20 - v8;
-      if (v20 <= v8)
+      v29 = v22 - v8;
+      if (v22 <= v8)
       {
-        v42 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v47 = MSPGetSharedTripLog(v28);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_25813A000, v42, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: index > number of coordinates", buf, 2u);
+          _os_log_impl(&dword_25813A000, v47, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: index > number of coordinates", buf, 2u);
         }
 
-        v43 = v5;
-        v44 = v43;
+        v48 = v5;
+        v49 = v48;
         if (v6 > 0xFFFFFFFFFFFFFFFDLL)
         {
 
-          v31 = v44;
+          v37 = v49;
         }
 
         else
         {
-          if (os_signpost_enabled(v43))
+          if (os_signpost_enabled(v48))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25813A000, v44, OS_SIGNPOST_EVENT, spid, "truncatePointDataForPrivacy_EarlyExit_NumberOfCoordinates", &unk_2581CCE6D, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25813A000, v49, OS_SIGNPOST_EVENT, spid, "truncatePointDataForPrivacy_EarlyExit_NumberOfCoordinates", &unk_2581CCE6D, buf, 2u);
           }
 
-          v31 = v44;
-          if (os_signpost_enabled(v31))
+          v37 = v49;
+          if (os_signpost_enabled(v37))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25813A000, v31, OS_SIGNPOST_INTERVAL_END, spid, "truncatePointDataForPrivacy", &unk_2581CCE6D, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25813A000, v37, OS_SIGNPOST_INTERVAL_END, spid, "truncatePointDataForPrivacy", &unk_2581CCE6D, buf, 2u);
           }
         }
 
         goto LABEL_49;
       }
 
-      v25 = v8;
+      v30 = v8;
       do
       {
-        [composedRoute pointAt:v25];
-        v27 = v26;
+        [composedRoute pointAt:v30];
+        v32 = v31;
         [routeInfo addCoordinates:?];
-        [routeInfo addCoordinates:v27];
-        ++v25;
-        --v24;
+        v33 = [routeInfo addCoordinates:v32];
+        ++v30;
+        --v29;
       }
 
-      while (v24);
-      v28 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      while (v29);
+      v34 = MSPGetSharedTripLog(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        v29 = vcvts_n_f32_u64([routeInfo coordinatesCount], 1uLL);
+        v35 = vcvts_n_f32_u64([routeInfo coordinatesCount], 1uLL);
         coordinatesCount = [routeInfo coordinatesCount];
         *buf = 134218240;
-        v52 = v29;
-        v53 = 2048;
-        v54 = coordinatesCount;
-        _os_log_impl(&dword_25813A000, v28, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy route info coordinates after truncation count %lu (%lu)", buf, 0x16u);
+        v57 = v35;
+        v58 = 2048;
+        v59 = coordinatesCount;
+        _os_log_impl(&dword_25813A000, v34, OS_LOG_TYPE_DEBUG, "truncatePointDataForPrivacy route info coordinates after truncation count %lu (%lu)", buf, 0x16u);
       }
     }
 
     [routeInfo clearTrafficColors];
     [routeInfo clearTrafficColorOffsets];
-    v31 = [composedRoute truncatedTrafficFromRouteCoordinate:v8];
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    routeTrafficColors = [v31 routeTrafficColors];
-    v33 = [routeTrafficColors countByEnumeratingWithState:&v46 objects:v50 count:16];
-    if (v33)
+    v37 = [composedRoute truncatedTrafficFromRouteCoordinate:v8];
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    routeTrafficColors = [v37 routeTrafficColors];
+    v39 = [routeTrafficColors countByEnumeratingWithState:&v51 objects:v55 count:16];
+    if (v39)
     {
-      v34 = v33;
-      v35 = *v47;
+      v40 = v39;
+      v41 = *v52;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v40; ++i)
         {
-          if (*v47 != v35)
+          if (*v52 != v41)
           {
             objc_enumerationMutation(routeTrafficColors);
           }
 
-          v37 = *(*(&v46 + 1) + 8 * i);
-          -[NSObject addTrafficColor:](routeInfo, "addTrafficColor:", [v37 color]);
-          [v37 offsetMeters];
-          [routeInfo addTrafficColorOffset:v38];
+          v43 = *(*(&v51 + 1) + 8 * i);
+          -[NSObject addTrafficColor:](routeInfo, "addTrafficColor:", [v43 color]);
+          [v43 offsetMeters];
+          [routeInfo addTrafficColorOffset:v44];
         }
 
-        v34 = [routeTrafficColors countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v40 = [routeTrafficColors countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
-      while (v34);
+      while (v40);
     }
 
-    v39 = v5;
-    v40 = v39;
-    if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+    v45 = v5;
+    v46 = v45;
+    if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_25813A000, v40, OS_SIGNPOST_INTERVAL_END, spid, "truncatePointDataForPrivacy", &unk_2581CCE6D, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_25813A000, v46, OS_SIGNPOST_INTERVAL_END, spid, "truncatePointDataForPrivacy", &unk_2581CCE6D, buf, 2u);
     }
 
 LABEL_49:
     goto LABEL_51;
   }
 
-  v13 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = MSPGetSharedTripLog(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: no composed route to truncate", buf, 2u);
+    _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "truncatePointDataForPrivacy early exit: no composed route to truncate", buf, 2u);
   }
 
-  v14 = v5;
-  routeInfo = v14;
-  if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = v5;
+  routeInfo = v15;
+  if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
     goto LABEL_18;
   }
 
 LABEL_51:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_polylineCoordinateForRoute:()MSPExtras
@@ -1154,7 +1157,7 @@ LABEL_3:
   v11 = [v4 closestPointOnRoute:{v9, v10}];
   v12 = v11;
   v13 = HIDWORD(v11);
-  v14 = MSPGetSharedTripLog();
+  v14 = MSPGetSharedTripLog(v11);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     v24 = 134217984;
@@ -1163,29 +1166,29 @@ LABEL_3:
   }
 
 LABEL_13:
-  if (GEOPolylineCoordinateIsInvalid())
+  IsInvalid = GEOPolylineCoordinateIsInvalid();
+  if (IsInvalid)
   {
-    v18 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = MSPGetSharedTripLog(IsInvalid);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       hasMatchedCoordinate = [lastLocation hasMatchedCoordinate];
-      v20 = @"NO";
+      v21 = @"NO";
       if (hasMatchedCoordinate)
       {
-        v20 = @"YES";
+        v21 = @"YES";
       }
 
-      v21 = v20;
+      v22 = v21;
       v24 = 138412290;
-      v25 = v21;
-      _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEBUG, "polylineCoordinateForRoute no valid closest index, will use whole route (sender provided: %@)", &v24, 0xCu);
+      v25 = v22;
+      _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_DEBUG, "polylineCoordinateForRoute no valid closest index, will use whole route (sender provided: %@)", &v24, 0xCu);
     }
 
     v13 = 0;
     v12 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12 | (v13 << 32);
 }
 
@@ -1195,37 +1198,38 @@ LABEL_13:
   if (composedRoute)
   {
     v3 = [self _polylineCoordinateForRoute:composedRoute];
-    if (!GEOPolylineCoordinateIsInvalid())
+    IsInvalid = GEOPolylineCoordinateIsInvalid();
+    if (!IsInvalid)
     {
       endRouteCoordinate = [composedRoute endRouteCoordinate];
-      v8 = [objc_alloc(MEMORY[0x277D0ECB0]) initWithRoute:composedRoute range:v3 desiredElevationModel:{endRouteCoordinate, 0}];
-      rawData = [v8 rawData];
-      v10 = [rawData mutableCopy];
+      v9 = [objc_alloc(MEMORY[0x277D0ECB0]) initWithRoute:composedRoute range:v3 desiredElevationModel:{endRouteCoordinate, 0}];
+      rawData = [v9 rawData];
+      v11 = [rawData mutableCopy];
       routeInfo = [self routeInfo];
-      [routeInfo setRoutingPathLegs:v10];
+      [routeInfo setRoutingPathLegs:v11];
 
       goto LABEL_10;
     }
 
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MSPGetSharedTripLog(IsInvalid);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = 0;
-      v5 = "updateElevationModelToLegacyEGM96 early exit: closestPointOnRoute returned GEOPolylineCoordinateInvalid";
-      v6 = &v12;
+      v13 = 0;
+      v6 = "updateElevationModelToLegacyEGM96 early exit: closestPointOnRoute returned GEOPolylineCoordinateInvalid";
+      v7 = &v13;
 LABEL_7:
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_ERROR, v5, v6, 2u);
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, v6, v7, 2u);
     }
   }
 
   else
   {
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MSPGetSharedTripLog(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v5 = "updateElevationModelToLegacyEGM96 early exit: no composed route";
-      v6 = buf;
+      v6 = "updateElevationModelToLegacyEGM96 early exit: no composed route";
+      v7 = buf;
       goto LABEL_7;
     }
   }
@@ -1235,33 +1239,33 @@ LABEL_10:
 
 - (uint64_t)updateWaypointsFromComposedRoute:()MSPExtras
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   legs = [a3 legs];
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(legs, "count")}];
-  v43 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(legs, "count")}];
+  v42 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(legs, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v5 = legs;
   v6 = v4;
   obj = v5;
-  v7 = [v5 countByEnumeratingWithState:&v45 objects:v49 count:16];
-  v44 = v4;
+  v7 = [v5 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v43 = v4;
   if (v7)
   {
     v8 = v7;
-    v9 = *v46;
+    v9 = *v45;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v46 != v9)
+        if (*v45 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         v12 = objc_alloc_init(MEMORY[0x277D0ED38]);
         [v6 addObject:v12];
         destination = [v11 destination];
@@ -1298,7 +1302,7 @@ LABEL_10:
           [chargingInfo chargingTime];
           [v22 setChargingTime:?];
           [v12 setChargingStationInfo:v22];
-          [v43 addObject:v22];
+          [v42 addObject:v22];
         }
 
         else
@@ -1317,51 +1321,41 @@ LABEL_10:
           [v12 setMapItemStorage:v22];
         }
 
-        v6 = v44;
+        v6 = v43;
 LABEL_14:
       }
 
-      v8 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v8 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v8);
   }
 
   v28 = [v6 count];
-  if (v28 != [self waypointInfosCount])
-  {
-    goto LABEL_20;
-  }
-
-  waypointInfos = [self waypointInfos];
-  v30 = v6;
-  v31 = waypointInfos;
-  if (!(v30 | v31) || (v32 = v31, v33 = [v30 isEqual:v31], v32, v30, v32, (v33 & 1) != 0))
+  if (v28 == [self waypointInfosCount] && ((objc_msgSend(self, "waypointInfos"), v29 = objc_claimAutoreleasedReturnValue(), v30 = v6, v31 = v29, !(v30 | v31)) || (v32 = v31, v33 = objc_msgSend(v30, "isEqual:", v31), v32, v30, v32, (v33 & 1) != 0)))
   {
     v34 = 0;
   }
 
   else
   {
-LABEL_20:
     [self setWaypointInfos:v6];
     [self setCurrentWaypointIndex:0];
     [self _createPlaceholderETAInfosForWaypoints:v6];
-    waypointInfos2 = [self waypointInfos];
-    lastObject = [waypointInfos2 lastObject];
+    waypointInfos = [self waypointInfos];
+    lastObject = [waypointInfos lastObject];
     mapItemStorage = [lastObject mapItemStorage];
     [self setDestinationInfo:mapItemStorage];
 
-    v6 = v44;
+    v6 = v43;
     routeInfo = [self routeInfo];
-    [routeInfo setChargingStations:v43];
+    [routeInfo setChargingStations:v42];
 
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     [self setUpdatedTimestamp:?];
     v34 = 1;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -1425,7 +1419,7 @@ LABEL_20:
 
 - (id)composedRoute
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   composedRouteIfExists = [self composedRouteIfExists];
   if (!composedRouteIfExists)
   {
@@ -1435,7 +1429,8 @@ LABEL_20:
 
     if (!v5)
     {
-      if (![routeInfo coordinatesCount])
+      coordinatesCount = [routeInfo coordinatesCount];
+      if (!coordinatesCount)
       {
 LABEL_40:
         composedRouteIfExists = 0;
@@ -1444,81 +1439,82 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      v13 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = MSPGetSharedTripLog(coordinatesCount);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v60 = [routeInfo coordinatesCount];
-        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "Building composedRoute from routeInfo (%lu coordinates)", buf, 0xCu);
+        *v64 = [routeInfo coordinatesCount];
+        _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, "Building composedRoute from routeInfo (%lu coordinates)", buf, 0xCu);
       }
 
-      v14 = [routeInfo coordinatesCount] >> 1;
-      v15 = objc_alloc_init(MEMORY[0x277D0ECD8]);
-      v16 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(routeInfo length:{"coordinates"), 16 * v14}];
-      [v15 setUnpackedLatLngVertices:v16];
+      v17 = [routeInfo coordinatesCount] >> 1;
+      v18 = objc_alloc_init(MEMORY[0x277D0ECD8]);
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(routeInfo length:{"coordinates"), 16 * v17}];
+      [v18 setUnpackedLatLngVertices:v19];
 
-      [v15 setTrafficColors:objc_msgSend(routeInfo count:{"trafficColors"), objc_msgSend(routeInfo, "trafficColorsCount")}];
-      [v15 setTrafficColorOffsets:objc_msgSend(routeInfo count:{"trafficColorOffsets"), objc_msgSend(routeInfo, "trafficColorOffsetsCount")}];
-      v17 = objc_alloc_init(MEMORY[0x277D0ED78]);
-      [v17 setManeuverStartZilchIndex:0];
-      v18 = (v14 - 1);
-      [v17 setManeuverEndBasicIndex:v18];
-      [v17 setManeuverEndZilchIndex:v18];
-      [v15 addStep:v17];
-      if ([v15 hasUnpackedLatLngVertices])
+      [v18 setTrafficColors:objc_msgSend(routeInfo count:{"trafficColors"), objc_msgSend(routeInfo, "trafficColorsCount")}];
+      [v18 setTrafficColorOffsets:objc_msgSend(routeInfo count:{"trafficColorOffsets"), objc_msgSend(routeInfo, "trafficColorOffsetsCount")}];
+      v20 = objc_alloc_init(MEMORY[0x277D0ED78]);
+      [v20 setManeuverStartZilchIndex:0];
+      v21 = (v17 - 1);
+      [v20 setManeuverEndBasicIndex:v21];
+      [v20 setManeuverEndZilchIndex:v21];
+      [v18 addStep:v20];
+      if ([v18 hasUnpackedLatLngVertices])
       {
-        [v15 coordinateAt:0];
-        v21 = [objc_alloc(MEMORY[0x277D0EB80]) initWithLatitude:v19 longitude:v20];
-        v22 = [objc_alloc(MEMORY[0x277D0EAF0]) initWithLocation:v21 isCurrentLocation:1];
-        v23 = objc_alloc(MEMORY[0x277D0EAF0]);
+        [v18 coordinateAt:0];
+        v24 = [objc_alloc(MEMORY[0x277D0EB80]) initWithLatitude:v22 longitude:v23];
+        v25 = [objc_alloc(MEMORY[0x277D0EAF0]) initWithLocation:v24 isCurrentLocation:1];
+        v26 = objc_alloc(MEMORY[0x277D0EAF0]);
         destinationWaypointMapItem = [self destinationWaypointMapItem];
-        v25 = [v23 initWithMapItem:destinationWaypointMapItem];
+        v28 = [v26 initWithMapItem:destinationWaypointMapItem];
 
-        v58[0] = v22;
-        v58[1] = v25;
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
-        v27 = [objc_alloc(MEMORY[0x277D0ECF0]) initWithWaypoints:v26 routeAttributes:0 directionsResponse:0];
+        v62[0] = v25;
+        v62[1] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+        v30 = [objc_alloc(MEMORY[0x277D0ECF0]) initWithWaypoints:v29 routeAttributes:0 directionsResponse:0];
       }
 
       else
       {
-        v27 = 0;
+        v30 = 0;
       }
 
-      v51 = objc_alloc_init(MEMORY[0x277D0EE38]);
-      [v51 addRouteLeg:v15];
-      composedRouteIfExists = [objc_alloc(MEMORY[0x277D0EAE8]) initWithGeoWaypointRoute:v51 initializerData:v27];
+      v56 = objc_alloc_init(MEMORY[0x277D0EE38]);
+      [v56 addRouteLeg:v18];
+      composedRouteIfExists = [objc_alloc(MEMORY[0x277D0EAE8]) initWithGeoWaypointRoute:v56 initializerData:v30];
 
 LABEL_47:
       [self setComposedRoute:composedRouteIfExists];
       goto LABEL_48;
     }
 
-    v6 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MSPGetSharedTripLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v60 = [routeInfo routingPathLegsCount];
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "Building composedRoute from routeInfo (%lu routingPathLegs)", buf, 0xCu);
+      *v64 = [routeInfo routingPathLegsCount];
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "Building composedRoute from routeInfo (%lu routingPathLegs)", buf, 0xCu);
     }
 
     trafficColorsCount = [routeInfo trafficColorsCount];
-    if (trafficColorsCount != [routeInfo trafficColorOffsetsCount])
+    trafficColorOffsetsCount = [routeInfo trafficColorOffsetsCount];
+    if (trafficColorsCount != trafficColorOffsetsCount)
     {
-      v8 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = MSPGetSharedTripLog(trafficColorOffsetsCount);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         trafficColorsCount2 = [routeInfo trafficColorsCount];
-        trafficColorOffsetsCount = [routeInfo trafficColorOffsetsCount];
+        trafficColorOffsetsCount2 = [routeInfo trafficColorOffsetsCount];
         *buf = 67109376;
-        *v60 = trafficColorsCount2;
-        *&v60[4] = 1024;
-        *&v60[6] = trafficColorOffsetsCount;
-        _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_ERROR, "SharedNavRouteInfo traffic colors count (%d) is not equal to traffic color offsets count (%d). Attempting to continue anyway", buf, 0xEu);
+        *v64 = trafficColorsCount2;
+        *&v64[4] = 1024;
+        *&v64[6] = trafficColorOffsetsCount2;
+        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "SharedNavRouteInfo traffic colors count (%d) is not equal to traffic color offsets count (%d). Attempting to continue anyway", buf, 0xEu);
       }
     }
 
-    v11 = objc_alloc(MEMORY[0x277CBEB18]);
+    v13 = objc_alloc(MEMORY[0x277CBEB18]);
     if ([self waypointInfosCount])
     {
       waypointInfosCount = [self waypointInfosCount];
@@ -1529,42 +1525,42 @@ LABEL_47:
       waypointInfosCount = 1;
     }
 
-    v15 = [v11 initWithCapacity:waypointInfosCount];
+    v18 = [v13 initWithCapacity:waypointInfosCount];
     if ([self waypointInfosCount])
     {
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
-      v55 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       waypointInfos = [self waypointInfos];
       destinationWaypointMapItem2 = [waypointInfos copy];
 
-      v30 = [destinationWaypointMapItem2 countByEnumeratingWithState:&v54 objects:v64 count:16];
-      if (v30)
+      v33 = [destinationWaypointMapItem2 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      if (v33)
       {
-        v31 = v30;
-        v32 = *v55;
+        v34 = v33;
+        v35 = *v59;
         do
         {
-          for (i = 0; i != v31; ++i)
+          for (i = 0; i != v34; ++i)
           {
-            if (*v55 != v32)
+            if (*v59 != v35)
             {
               objc_enumerationMutation(destinationWaypointMapItem2);
             }
 
-            v34 = *(*(&v54 + 1) + 8 * i);
-            v35 = objc_alloc(MEMORY[0x277D0EAF0]);
-            mapItemStorage = [v34 mapItemStorage];
-            v37 = [v35 initWithMapItem:mapItemStorage];
+            v37 = *(*(&v58 + 1) + 8 * i);
+            v38 = objc_alloc(MEMORY[0x277D0EAF0]);
+            mapItemStorage = [v37 mapItemStorage];
+            v40 = [v38 initWithMapItem:mapItemStorage];
 
-            [v15 addObject:v37];
+            [v18 addObject:v40];
           }
 
-          v31 = [destinationWaypointMapItem2 countByEnumeratingWithState:&v54 objects:v64 count:16];
+          v34 = [destinationWaypointMapItem2 countByEnumeratingWithState:&v58 objects:v68 count:16];
         }
 
-        while (v31);
+        while (v34);
       }
     }
 
@@ -1575,77 +1571,78 @@ LABEL_47:
         goto LABEL_29;
       }
 
-      v38 = objc_alloc(MEMORY[0x277D0EAF0]);
+      v41 = objc_alloc(MEMORY[0x277D0EAF0]);
       destinationWaypointMapItem2 = [self destinationWaypointMapItem];
-      v39 = [v38 initWithMapItem:destinationWaypointMapItem2];
-      [v15 addObject:v39];
+      v42 = [v41 initWithMapItem:destinationWaypointMapItem2];
+      [v18 addObject:v42];
     }
 
 LABEL_29:
     routingPathLegsCount = [routeInfo routingPathLegsCount];
-    if (routingPathLegsCount != [v15 count] && objc_msgSend(v15, "count") > routingPathLegsCount)
+    if (routingPathLegsCount != [v18 count] && objc_msgSend(v18, "count") > routingPathLegsCount)
     {
-      v41 = [v15 count] - routingPathLegsCount;
-      v42 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v44 = [v18 count];
+      v45 = v44 - routingPathLegsCount;
+      v46 = MSPGetSharedTripLog(v44);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = [v15 count];
+        v47 = [v18 count];
         *buf = 134218496;
-        *v60 = routingPathLegsCount;
-        *&v60[8] = 2048;
-        v61 = v43;
-        v62 = 2048;
-        v63 = v41;
-        _os_log_impl(&dword_25813A000, v42, OS_LOG_TYPE_DEFAULT, "Found %lu routingPathLegs for %lu waypoints, dropping %lu leading waypoints", buf, 0x20u);
+        *v64 = routingPathLegsCount;
+        *&v64[8] = 2048;
+        v65 = v47;
+        v66 = 2048;
+        v67 = v45;
+        _os_log_impl(&dword_25813A000, v46, OS_LOG_TYPE_DEFAULT, "Found %lu routingPathLegs for %lu waypoints, dropping %lu leading waypoints", buf, 0x20u);
       }
 
-      [v15 removeObjectsInRange:{0, v41}];
+      [v18 removeObjectsInRange:{0, v45}];
     }
 
-    if (![v15 count] || !routingPathLegsCount || routingPathLegsCount > objc_msgSend(v15, "count"))
+    v48 = [v18 count];
+    if (!v48 || !routingPathLegsCount || (v48 = [v18 count], routingPathLegsCount > v48))
     {
-      v44 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v49 = MSPGetSharedTripLog(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v45 = [v15 count];
+        v50 = [v18 count];
         *buf = 134218240;
-        *v60 = routingPathLegsCount;
-        *&v60[8] = 2048;
-        v61 = v45;
-        _os_log_impl(&dword_25813A000, v44, OS_LOG_TYPE_ERROR, "Cannot create composedRoute from %lu routingPathLegs and %lu waypoints", buf, 0x16u);
+        *v64 = routingPathLegsCount;
+        *&v64[8] = 2048;
+        v65 = v50;
+        _os_log_impl(&dword_25813A000, v49, OS_LOG_TYPE_ERROR, "Cannot create composedRoute from %lu routingPathLegs and %lu waypoints", buf, 0x16u);
       }
 
       goto LABEL_40;
     }
 
-    v17 = objc_opt_new();
-    [v17 setTransportType:{objc_msgSend(self, "transportType")}];
-    v46 = objc_alloc(MEMORY[0x277D0ECB0]);
+    v20 = objc_opt_new();
+    [v20 setTransportType:{objc_msgSend(self, "transportType")}];
+    v51 = objc_alloc(MEMORY[0x277D0ECB0]);
     routingPathLegs2 = [routeInfo routingPathLegs];
-    v48 = [v46 initWithRawData:routingPathLegs2 elevationModel:{objc_msgSend(routeInfo, "elevationModel")}];
-    [v17 setRawRouteGeometry:v48];
+    v53 = [v51 initWithRawData:routingPathLegs2 elevationModel:{objc_msgSend(routeInfo, "elevationModel")}];
+    [v20 setRawRouteGeometry:v53];
 
-    [v17 setDestinations:v15];
-    [v17 setIsOriginCurrentLocation:1];
-    [v17 setSource:4];
+    [v20 setDestinations:v18];
+    [v20 setIsOriginCurrentLocation:1];
+    [v20 setSource:4];
     trafficColorsCount3 = [routeInfo trafficColorsCount];
     if (trafficColorsCount3 >= [routeInfo trafficColorOffsetsCount])
     {
-      trafficColorOffsetsCount2 = [routeInfo trafficColorOffsetsCount];
+      trafficColorOffsetsCount3 = [routeInfo trafficColorOffsetsCount];
     }
 
     else
     {
-      trafficColorOffsetsCount2 = [routeInfo trafficColorsCount];
+      trafficColorOffsetsCount3 = [routeInfo trafficColorsCount];
     }
 
-    [v17 setTrafficColors:objc_msgSend(routeInfo offsets:"trafficColors") count:{objc_msgSend(routeInfo, "trafficColorOffsets"), trafficColorOffsetsCount2}];
-    composedRouteIfExists = [v17 buildRoute];
+    [v20 setTrafficColors:objc_msgSend(routeInfo offsets:"trafficColors") count:{objc_msgSend(routeInfo, "trafficColorOffsets"), trafficColorOffsetsCount3}];
+    composedRouteIfExists = [v20 buildRoute];
     goto LABEL_47;
   }
 
 LABEL_49:
-  v52 = *MEMORY[0x277D85DE8];
 
   return composedRouteIfExists;
 }
@@ -1668,20 +1665,21 @@ LABEL_49:
   return v1;
 }
 
-- (uint64_t)stripArrivedOrClosedTrip
+- (void)stripArrivedOrClosedTrip
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (![self arrived] || objc_msgSend(self, "hasClosed") && (objc_msgSend(self, "closed") & 1) != 0 || (result = objc_msgSend(self, "isNavigatingToIntermediateStop"), (result & 1) == 0))
   {
-    if ([self closed])
+    closed = [self closed];
+    if (closed)
     {
-      v3 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = MSPGetSharedTripLog(closed);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         groupIdentifier = [self groupIdentifier];
-        v8 = 138412290;
-        v9 = groupIdentifier;
-        _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEFAULT, "Stripping route and ETAs from trip %@ (closed)", &v8, 0xCu);
+        v9 = 138412290;
+        v10 = groupIdentifier;
+        _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "Stripping route and ETAs from trip %@ (closed)", &v9, 0xCu);
       }
 
       waypointInfos = [self waypointInfos];
@@ -1690,27 +1688,27 @@ LABEL_49:
 
     else
     {
-      if (![self arrived])
+      arrived = [self arrived];
+      if (!arrived)
       {
         goto LABEL_13;
       }
 
-      waypointInfos = MSPGetSharedTripLog();
+      waypointInfos = MSPGetSharedTripLog(arrived);
       if (os_log_type_enabled(waypointInfos, OS_LOG_TYPE_DEFAULT))
       {
         groupIdentifier2 = [self groupIdentifier];
-        v8 = 138412290;
-        v9 = groupIdentifier2;
-        _os_log_impl(&dword_25813A000, waypointInfos, OS_LOG_TYPE_DEFAULT, "Stripping route from trip %@ (arrived)", &v8, 0xCu);
+        v9 = 138412290;
+        v10 = groupIdentifier2;
+        _os_log_impl(&dword_25813A000, waypointInfos, OS_LOG_TYPE_DEFAULT, "Stripping route from trip %@ (arrived)", &v9, 0xCu);
       }
     }
 
 LABEL_13:
     [self setRouteInfo:0];
-    result = [self setComposedRoute:0];
+    return [self setComposedRoute:0];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1741,7 +1739,7 @@ LABEL_13:
   return lastObject;
 }
 
-- (uint64_t)numberOfIntermediateStopsRemaining
+- (char)numberOfIntermediateStopsRemaining
 {
   if ([self waypointInfosCount])
   {
@@ -1756,7 +1754,7 @@ LABEL_13:
       v3 = -1;
     }
 
-    return v3 + waypointInfosCount;
+    return (v3 + waypointInfosCount);
   }
 
   else
@@ -1768,7 +1766,7 @@ LABEL_13:
   }
 }
 
-- (uint64_t)isNavigatingToIntermediateStop
+- (void)isNavigatingToIntermediateStop
 {
   result = [self waypointInfosCount];
   if (result)
@@ -1777,7 +1775,7 @@ LABEL_13:
     if (result)
     {
       currentWaypointIndex = [self currentWaypointIndex];
-      return [self waypointInfosCount] - 1 > currentWaypointIndex;
+      return ([self waypointInfosCount] - 1 > currentWaypointIndex);
     }
   }
 
@@ -1853,7 +1851,7 @@ LABEL_13:
   return [self clearWaypointInfos];
 }
 
-- (uint64_t)stripForSendingArrival
+- (char)stripForSendingArrival
 {
   [self setSenderInfo:0];
   [self setRouteInfo:0];
@@ -1882,7 +1880,7 @@ LABEL_13:
         result = [self waypointInfosCount];
       }
 
-      while (v3 < result - 1);
+      while (v3 < (result - 1));
     }
   }
 

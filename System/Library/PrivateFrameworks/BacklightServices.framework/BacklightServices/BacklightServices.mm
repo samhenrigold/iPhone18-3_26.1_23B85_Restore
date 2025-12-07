@@ -1,13 +1,13 @@
-id bls_scenes_log()
+id bls_scenes_log(uint64_t a1)
 {
   if (bls_scenes_log_onceToken != -1)
   {
     bls_scenes_log_cold_1();
   }
 
-  v1 = bls_scenes_log___logger;
+  v2 = bls_scenes_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_scenes_log_block_invoke()
@@ -85,13 +85,14 @@ void OUTLINED_FUNCTION_10_0(os_unfair_lock_s *a1)
   os_unfair_lock_lock(v2);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-uint64_t OUTLINED_FUNCTION_6()
+uint64_t OUTLINED_FUNCTION_6(uint64_t a1)
 {
 
   return objc_opt_isKindOfClass();
@@ -108,40 +109,44 @@ id BLSShortLoggingStringForMachTime(uint64_t a1)
   return v6;
 }
 
-id bls_assertions_log()
+id bls_assertions_log(uint64_t a1)
 {
   if (bls_assertions_log_onceToken != -1)
   {
     bls_assertions_log_cold_1();
   }
 
-  v1 = bls_assertions_log___logger;
+  v2 = bls_assertions_log___logger;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint8_t buf)
+void OUTLINED_FUNCTION_3_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
 
-  _os_log_debug_impl(a1, v21, OS_LOG_TYPE_DEBUG, a4, &buf, 0x20u);
+  _os_log_debug_impl(a1, v20, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 BOOL OUTLINED_FUNCTION_9_0(NSObject *a1)
@@ -150,23 +155,25 @@ BOOL OUTLINED_FUNCTION_9_0(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_INFO);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint8_t buf)
+void OUTLINED_FUNCTION_4_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
 
-  _os_log_impl(a1, v21, OS_LOG_TYPE_INFO, a4, &buf, 0x20u);
+  _os_log_impl(a1, v20, OS_LOG_TYPE_INFO, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_4_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void OUTLINED_FUNCTION_4_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   a14 = v14;
 
   [(BLSAssertion *)v14 notifyObserversWithBlock:?];
 }
 
-void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 __CFString *NSStringFromBLSBacklightState(uint64_t a1)
@@ -260,29 +267,29 @@ void __NSStringFromBLSBacklightChangeEvents_block_invoke(uint64_t a1, void *a2, 
 
 void __NSStringFromBLSBacklightChangeEvents_block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * v7) changeRequest];
+        v8 = [*(*(&v13 + 1) + 8 * v7) changeRequest];
         v9 = *(*(a1 + 40) + 8);
         if (*(v9 + 24) == 1)
         {
@@ -307,13 +314,11 @@ void __NSStringFromBLSBacklightChangeEvents_block_invoke_3(uint64_t a1, void *a2
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *NSStringFromBLSBacklightChangeEvents(void *a1, void *a2)
@@ -360,7 +365,7 @@ LABEL_9:
 
   if (v6)
   {
-    v10 = bls_backlight_log();
+    v10 = bls_backlight_log(v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       NSStringFromBLSBacklightChangeEvents_cold_1(v3, v4, v10);
@@ -380,33 +385,32 @@ void __NSStringFromBLSBacklightChangeEvents_block_invoke_2(uint64_t a1, void *a2
 {
   v3 = a2;
   [v3 appendFormat:@"(%u){ ", *(a1 + 64)];
-  v4 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2020000000;
-  v10 = 1;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __NSStringFromBLSBacklightChangeEvents_block_invoke_3;
-  v6[3] = &unk_278428800;
-  v5 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v8 = v9;
-  [v5 appendCustomFormatWithName:0 block:v6];
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2020000000;
+  v9 = 1;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __NSStringFromBLSBacklightChangeEvents_block_invoke_3;
+  v5[3] = &unk_278428800;
+  v4 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  v7 = v8;
+  [v4 appendCustomFormatWithName:0 block:v5];
   [v3 appendString:@" } "];
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v8, 8);
 }
 
-void sub_21FE28864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21FE28864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t BLSEncode4Chars(void *a1, int a2)
+uint64_t BLSEncode4Chars(void *a1, uint64_t a2)
 {
   if ((strlen([a1 UTF8String]) - a2) < 1)
   {
@@ -469,16 +473,16 @@ id NSStringFromBLSAssertingObject(void *a1)
   return v5;
 }
 
-id bls_environment_log()
+id bls_environment_log(uint64_t a1)
 {
   if (bls_environment_log_onceToken != -1)
   {
     bls_environment_log_cold_1();
   }
 
-  v1 = bls_environment_log___logger;
+  v2 = bls_environment_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t BLSBacklightStateForVisuaState(void *a1)
@@ -562,9 +566,9 @@ void __NSStringFromBLSBacklightChangeEvents_block_invoke_4(id *a1)
   _Block_object_dispose(&v10, 8);
 }
 
-void sub_21FE2DA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21FE2DA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -578,18 +582,17 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void __NSStringFromBLSBacklightChangeEvents_block_invoke_70(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
-  v3 = [*(*(*(a1 + 56) + 8) + 40) state];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __NSStringFromBLSBacklightChangeEvents_block_invoke_2_71;
-  v5[3] = &unk_278428850;
-  v7 = *(a1 + 56);
-  v4 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = v3;
-  [v4 appendCustomFormatWithName:0 block:v5];
+  v2 = [*(*(*(a1 + 56) + 8) + 40) state];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __NSStringFromBLSBacklightChangeEvents_block_invoke_2_71;
+  v4[3] = &unk_278428850;
+  v6 = *(a1 + 56);
+  v3 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = v2;
+  [v3 appendCustomFormatWithName:0 block:v4];
 }
 
 void __NSStringFromBLSBacklightChangeEvents_block_invoke_2_71(uint64_t a1, void *a2)
@@ -703,14 +706,14 @@ void OUTLINED_FUNCTION_12()
   dispatch_assert_queue_V2(v2);
 }
 
-unint64_t BLSMachTimeFromNSTimeInterval(double a1)
+unint64_t BLSMachTimeFromNSTimeInterval(uint64_t a1, double a2)
 {
   if (BLSMachTimeFromNSTimeInterval_onceToken != -1)
   {
     [NSDate(BacklightServices) bls_machContinuousTime];
   }
 
-  return (a1 / *&BLSMachTimeFromNSTimeInterval___TimeScale);
+  return (a2 / *&BLSMachTimeFromNSTimeInterval___TimeScale);
 }
 
 id BLSLoggingStringForContinuousMachTime(double a1)
@@ -761,9 +764,9 @@ double __BLSMachTimeFromNSTimeInterval_block_invoke()
   return result;
 }
 
-void sub_21FE3097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21FE3097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -775,14 +778,14 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21FE30BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21FE30BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21FE33C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, void **a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_21FE33C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   v40 = v39;
 
@@ -790,9 +793,9 @@ void sub_21FE33C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_21FE33E24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21FE33E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   BLSTimelineEntryBookkeeper::~BLSTimelineEntryBookkeeper(va);
   _Unwind_Resume(a1);
 }
@@ -899,21 +902,21 @@ void *BLSTimelineEntryBookkeeper::presentationTimeForIndex(id *this, unint64_t a
   return v10;
 }
 
-uint64_t std::vector<BLSTimelineEntryBookkeeper>::__emplace_back_slow_path<BLSTimelineEntryBookkeeper const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<BLSTimelineEntryBookkeeper>::__emplace_back_slow_path<BLSTimelineEntryBookkeeper const&>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x38E38E38E38E38ELL)
   {
     std::vector<BLSTimelineEntryBookkeeper>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
   {
     v6 = 0x38E38E38E38E38ELL;
   }
@@ -942,14 +945,14 @@ uint64_t std::vector<BLSTimelineEntryBookkeeper>::__emplace_back_slow_path<BLSTi
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 49) = v8;
   *&v17 = v7 + 72;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v7 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<BLSTimelineEntryBookkeeper>,BLSTimelineEntryBookkeeper*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -958,9 +961,9 @@ uint64_t std::vector<BLSTimelineEntryBookkeeper>::__emplace_back_slow_path<BLSTi
   return v14;
 }
 
-void sub_21FE36A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21FE36A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<BLSTimelineEntryBookkeeper>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -996,7 +999,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<BLSTimelineEntryBookkeeper>,BLSTimelineEntryBookkeeper*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<BLSTimelineEntryBookkeeper>,BLSTimelineEntryBookkeeper*>(uint64_t a1, void **a2, __int128 *a3, uint64_t a4)
 {
   v15 = a4;
   v16 = a4;
@@ -1017,16 +1020,16 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<BL
       v8 = *v7;
       *v7 = 0uLL;
       *a4 = v8;
-      v9 = *(v7 + 1);
-      *(v7 + 1) = 0uLL;
+      v9 = v7[1];
+      v7[1] = 0uLL;
       *(a4 + 16) = v9;
-      v10 = v7[4];
-      v7[4] = 0;
+      v10 = *(v7 + 4);
+      *(v7 + 4) = 0;
       *(a4 + 32) = v10;
-      v11 = *(v7 + 5);
+      v11 = *(v7 + 40);
       *(a4 + 49) = *(v7 + 49);
       *(a4 + 40) = v11;
-      v7 += 9;
+      v7 = (v7 + 72);
       a4 += 72;
     }
 
@@ -1167,9 +1170,9 @@ uint64_t std::vector<BLSTimelineEntryBookkeeper>::__emplace_back_slow_path<BLSTi
   return v17;
 }
 
-void sub_21FE36F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21FE36F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<BLSTimelineEntryBookkeeper>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1232,7 +1235,7 @@ LABEL_6:
   return v2;
 }
 
-void std::vector<BLSTimelineEntryBookkeeper>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<BLSTimelineEntryBookkeeper>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -1254,7 +1257,7 @@ void std::vector<BLSTimelineEntryBookkeeper>::__base_destruct_at_end[abi:ne20010
   *(a1 + 8) = a2;
 }
 
-uint64_t std::vector<BLSTimelineEntryIterator>::__emplace_back_slow_path<BLSTimelineEntryIterator>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<BLSTimelineEntryIterator>::__emplace_back_slow_path<BLSTimelineEntryIterator>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -1315,9 +1318,9 @@ uint64_t std::vector<BLSTimelineEntryIterator>::__emplace_back_slow_path<BLSTime
   return v13;
 }
 
-void sub_21FE37478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21FE37478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<BLSTimelineEntryIterator>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1449,7 +1452,7 @@ uint64_t BLSTimelineEntriesCombiner::BLSTimelineEntriesCombiner(uint64_t a1, uin
   return a1;
 }
 
-void sub_21FE37774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_21FE37774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   a10 = v11;
   std::vector<BLSTimelineEntryIterator>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -1999,9 +2002,9 @@ void sub_21FE3D0A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21FE3D920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21FE3D920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2045,16 +2048,16 @@ uint64_t __bls_assertions_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id bls_backlight_log()
+id bls_backlight_log(uint64_t a1)
 {
   if (bls_backlight_log_onceToken != -1)
   {
     bls_backlight_log_cold_1();
   }
 
-  v1 = bls_backlight_log___logger;
+  v2 = bls_backlight_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_backlight_log_block_invoke()
@@ -2064,16 +2067,16 @@ uint64_t __bls_backlight_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id bls_budget_log()
+id bls_budget_log(uint64_t a1)
 {
   if (bls_budget_log_onceToken != -1)
   {
     bls_budget_log_cold_1();
   }
 
-  v1 = bls_budget_log___logger;
+  v2 = bls_budget_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_budget_log_block_invoke()
@@ -2083,16 +2086,16 @@ uint64_t __bls_budget_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id bls_diagnostics_log()
+id bls_diagnostics_log(uint64_t a1)
 {
   if (bls_diagnostics_log_onceToken != -1)
   {
     bls_diagnostics_log_cold_1();
   }
 
-  v1 = bls_diagnostics_log___logger;
+  v2 = bls_diagnostics_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_diagnostics_log_block_invoke()
@@ -2109,16 +2112,16 @@ uint64_t __bls_environment_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id bls_flipbook_log()
+id bls_flipbook_log(uint64_t a1)
 {
   if (bls_flipbook_log_onceToken != -1)
   {
     bls_flipbook_log_cold_1();
   }
 
-  v1 = bls_flipbook_log___logger;
+  v2 = bls_flipbook_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_flipbook_log_block_invoke()
@@ -2128,16 +2131,16 @@ uint64_t __bls_flipbook_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id bls_timelines_log()
+id bls_timelines_log(uint64_t a1)
 {
   if (bls_timelines_log_onceToken != -1)
   {
     bls_timelines_log_cold_1();
   }
 
-  v1 = bls_timelines_log___logger;
+  v2 = bls_timelines_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __bls_timelines_log_block_invoke()
@@ -2166,15 +2169,16 @@ __CFString *NSStringFromBLSAdjustedLuminance(uint64_t a1)
   }
 }
 
-void sub_21FE45358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_21FE45358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a32, 8);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v40 - 216), 8);
-  _Block_object_dispose((v40 - 184), 8);
-  _Block_object_dispose((v40 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v39 - 216), 8);
+  _Block_object_dispose((v39 - 184), 8);
+  _Block_object_dispose((v39 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2195,13 +2199,12 @@ __CFString *NSStringAbbreviatedFromBLSUpdateFidelity(uint64_t a1)
 
 void NSStringFromBLSBacklightChangeEvents_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "empty events array but abortedEventArray non-empty — events:%{public}@ abortedEvents:%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "empty events array but abortedEventArray non-empty — events:%{public}@ abortedEvents:%{public}@", &v3, 0x16u);
 }
 
 void NSStringFromBLSAlwaysOnSuppressionReason_cold_1()

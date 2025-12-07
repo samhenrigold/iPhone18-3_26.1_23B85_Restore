@@ -8,10 +8,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionWithContext:(id)context origName:(id)name;
 - (id)initAsShareAcceptFaultWithName:(id)name mode:(char)mode isDirectory:(BOOL)directory;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 - (id)logicalName;
 - (unint64_t)diffAgainstLocalInfo:(id)info;
 - (unsigned)itemScope;
-- (void)_markChildPropagationComplete;
 - (void)_markDead;
 - (void)_markDeadAsSharedTopLevelItemWithDocumentsItemID:(id)d;
 - (void)_markNeedsPropertiesPropagatedToChildren;
@@ -194,10 +194,36 @@
 
 - (void)_moveItemAsideWithUUIDString
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't move aside a root item!%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  uUIDString = [uUID UUIDString];
+
+  type = self->super._type;
+  if (type == 3)
+  {
+    v8 = uUIDString;
+  }
+
+  else if (type == 4)
+  {
+    v6 = brc_bread_crumbs();
+    v7 = brc_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      [BRCLocalStatInfo _moveItemAsideWithUUIDString];
+    }
+
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = [(NSString *)self->super._logicalName brc_representableHFSFileNameWithSuffix:uUIDString addedExtension:0 makeDotFile:0];
+    bouncedLogicalName = self->_bouncedLogicalName;
+    self->_bouncedLogicalName = 0;
+  }
+
+  v10 = self->_bouncedLogicalName;
+  self->_bouncedLogicalName = v8;
 }
 
 - (unint64_t)diffAgainstLocalInfo:(id)info
@@ -265,7 +291,6 @@ LABEL_13:
 - (void)_markZombieForCrossZoneMove
 {
   self->super._state = -3;
-  processingStamp = self->_processingStamp;
   self->_processingStamp = 0;
   MEMORY[0x2821F96F8]();
 }
@@ -275,7 +300,6 @@ LABEL_13:
   if (self->super._state != 1)
   {
     self->super._state = 1;
-    processingStamp = self->_processingStamp;
     self->_processingStamp = 0;
     MEMORY[0x2821F96F8]();
   }
@@ -323,6 +347,37 @@ LABEL_13:
   v5.receiver = self;
   v5.super_class = BRCLocalStatInfo;
   return [(BRCStatInfo *)&v5 checkStateWithItemID:d logToFile:file];
+}
+
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  setCopy = set;
+  v17.receiver = self;
+  v17.super_class = BRCLocalStatInfo;
+  v7 = [(BRCStatInfo *)&v17 initFromResultSet:setCopy pos:v4];
+  if (v7)
+  {
+    v8 = [setCopy numberAtIndex:(v4 + 16)];
+    v9 = v7[21];
+    v7[21] = v8;
+
+    v10 = [setCopy stringAtIndex:(v4 + 17)];
+    v11 = v7[19];
+    v7[19] = v10;
+
+    *(v7 + 160) = [setCopy intAtIndex:(v4 + 18)];
+    v7[16] = [setCopy unsignedLongLongAtIndex:(v4 + 19)];
+    v12 = [setCopy stringAtIndex:(v4 + 20)];
+    v13 = v7[17];
+    v7[17] = v12;
+
+    v14 = [setCopy stringAtIndex:(v4 + 21)];
+    v15 = v7[18];
+    v7[18] = v14;
+  }
+
+  return v7;
 }
 
 - (BRCLocalStatInfo)initWithLocalStatInfo:(id)info
@@ -405,11 +460,11 @@ LABEL_13:
 
 - (BRCLocalStatInfo)initWithImportObject:(id)object error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v24.receiver = self;
-  v24.super_class = BRCLocalStatInfo;
-  v7 = [(BRCLocalStatInfo *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = BRCLocalStatInfo;
+  v7 = [(BRCLocalStatInfo *)&v23 init];
   v8 = v7;
   if (!v7)
   {
@@ -428,9 +483,9 @@ LABEL_13:
     {
       if ([objectCopy isBRAlias])
       {
-        v19 = brc_bread_crumbs();
-        v20 = brc_default_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v18 = brc_bread_crumbs();
+        v19 = brc_default_log();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           [BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:];
         }
@@ -448,13 +503,13 @@ LABEL_13:
           goto LABEL_7;
         }
 
-        v21 = "(passed to caller)";
+        v20 = "(passed to caller)";
         *buf = 136315906;
-        v26 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
-        v27 = 2080;
+        v25 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
+        v26 = 2080;
         if (!error)
         {
-          v21 = "(ignored by caller)";
+          v20 = "(ignored by caller)";
         }
 
         goto LABEL_32;
@@ -474,9 +529,9 @@ LABEL_13:
       {
         if (([objectCopy isUnixDir] & 1) == 0)
         {
-          v22 = brc_bread_crumbs();
-          v23 = brc_default_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+          v21 = brc_bread_crumbs();
+          v22 = brc_default_log();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
             [BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:];
           }
@@ -494,13 +549,13 @@ LABEL_13:
             goto LABEL_7;
           }
 
-          v21 = "(passed to caller)";
+          v20 = "(passed to caller)";
           *buf = 136315906;
-          v26 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
-          v27 = 2080;
+          v25 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
+          v26 = 2080;
           if (!error)
           {
-            v21 = "(ignored by caller)";
+            v20 = "(ignored by caller)";
           }
 
           goto LABEL_32;
@@ -534,21 +589,21 @@ LABEL_14:
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, 0x90u))
   {
-    v21 = "(passed to caller)";
+    v20 = "(passed to caller)";
     *buf = 136315906;
-    v26 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
-    v27 = 2080;
+    v25 = "[BRCLocalStatInfo(FPFSAdditions) initWithImportObject:error:]";
+    v26 = 2080;
     if (!error)
     {
-      v21 = "(ignored by caller)";
+      v20 = "(ignored by caller)";
     }
 
 LABEL_32:
-    v28 = v21;
-    v29 = 2112;
-    v30 = v11;
-    v31 = 2112;
-    v32 = v12;
+    v27 = v20;
+    v28 = 2112;
+    v29 = v11;
+    v30 = 2112;
+    v31 = v12;
     _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
   }
 
@@ -564,7 +619,6 @@ LABEL_8:
   v15 = 0;
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -583,7 +637,7 @@ LABEL_15:
 
 + (id)_finderTagsFromImportObject:(id)object
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (![objectCopy hasFinderTags])
   {
@@ -593,11 +647,11 @@ LABEL_15:
   }
 
   fileURL = [objectCopy fileURL];
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v5 = [fileURL br_getTagNames:&v25 error:&v24];
-  v6 = v25;
-  v7 = v24;
+  v5 = [fileURL br_getTagNames:&v24 error:&v23];
+  v6 = v24;
+  v7 = v23;
 
   if ((v5 & 1) == 0)
   {
@@ -627,29 +681,29 @@ LABEL_15:
   }
 
   v10 = objc_alloc_init(BRFieldFinderTags);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v11 = v6;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(BRFieldFinderTags *)v10 addTags:*(*(&v20 + 1) + 8 * i), v20];
+        [(BRFieldFinderTags *)v10 addTags:*(*(&v19 + 1) + 8 * i), v19];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v13);
@@ -659,8 +713,6 @@ LABEL_19:
 
 LABEL_20:
   data = [(BRFieldFinderTags *)v10 data];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -733,7 +785,7 @@ LABEL_20:
 
 - (void)updateFromImportObject:(id)object onlyContentDependentProperties:(BOOL)properties
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if ([objectCopy isUnixDir] && (objc_msgSend(objectCopy, "isExecutable") & 1) == 0)
   {
@@ -741,11 +793,11 @@ LABEL_20:
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412546;
-      v23 = objectCopy;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Inaccessible folder %@%@", &v22, 0x16u);
+      v21 = 138412546;
+      v22 = objectCopy;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Inaccessible folder %@%@", &v21, 0x16u);
     }
   }
 
@@ -809,8 +861,6 @@ LABEL_20:
   {
     [(BRCStatInfo *)self setCreatorRowID:&unk_2837B0238];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCKInfo
@@ -847,40 +897,29 @@ LABEL_20:
 {
   if (!self->_processingStamp)
   {
-    v3 = [MEMORY[0x277CCABB0] numberWithLongLong:brc_current_date_nsec()];
-    processingStamp = self->_processingStamp;
-    self->_processingStamp = v3;
+    self->_processingStamp = [MEMORY[0x277CCABB0] numberWithLongLong:brc_current_date_nsec()];
 
     MEMORY[0x2821F96F8]();
   }
 }
 
-- (void)_markChildPropagationComplete
-{
-  processingStamp = self->_processingStamp;
-  self->_processingStamp = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)itemScope
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _itemScope != BRC_ITEM_SCOPE_UNKNOWN || _state == BRC_ITEM_STATE_TOMBSTONE%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _itemScope != BRC_ITEM_SCOPE_UNKNOWN || _state == BRC_ITEM_STATE_TOMBSTONE%@", &v6, 0xCu);
   }
 
   *a2 = *self;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)descriptionWithContext:origName:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -888,28 +927,16 @@ LABEL_20:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [s isKindOfClass:[NSMutableString class]]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [s isKindOfClass:[NSMutableString class]]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFilename:(void *)a1 forceBouncedLogicalName:serverName:.cold.1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] Not overriding name equal to bounced name %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setFilename:forceBouncedLogicalName:serverName:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: got a fault name%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] Not overriding name equal to bounced name %@%@", v3, DWORD2(v3));
 }
 
 @end

@@ -25,83 +25,83 @@
 {
   v67 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphGRUOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphGRUOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm");
   v11 = nameCopy;
   v66 = 260;
   v65[0] = __p;
   StringAttr = mlir::Builder::getStringAttr(builder, v65);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x2BFu, 0);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x2BFu, 0);
   if (v11)
   {
-    v15 = v11;
+    v16 = v11;
     builderCopy = builder;
     uTF8String = [v11 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v64 = v18;
-    if (v18)
+    *(&__dst.__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(&__dst, uTF8String, v18);
+      memmove(&__dst, uTF8String, v19);
     }
 
     builder = builderCopy;
-    v20 = &__dst + v19;
+    v21 = &__dst + v20;
   }
 
   else
   {
-    v64 = 7;
+    *(&__dst.__r_.__value_.__s + 23) = 7;
     qmemcpy(&__dst, "mps.gru", 7);
-    v20 = &__dst + 7;
+    v21 = &__dst.__r_.__value_.__s.__data_[7];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v13, &v60);
-  v21 = v60.__r_.__value_.__r.__words[0];
-  if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v61, v13, v14);
+  v22 = v61.__r_.__value_.__r.__words[0];
+  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v60;
+    v22 = &v61;
   }
 
-  v22 = 1;
+  v23 = 1;
   HIBYTE(v66) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v65[0] = v21;
-    v22 = 3;
+    v65[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v66) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v65);
-  v54 = mlir::NameLoc::get(v23, v14);
-  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v66) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v65);
+  v55 = mlir::NameLoc::get(v24, v15);
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v60.__r_.__value_.__l.__data_);
-    if ((v64 & 0x80000000) == 0)
+    operator delete(v61.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v64 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v56 < 0)
+  if (v57 < 0)
   {
     operator delete(__p[0]);
   }
@@ -110,37 +110,37 @@ LABEL_16:
   updateGateActivation = [(MPSGraphGRUDescriptor *)self->super._desc updateGateActivation];
   if (updateGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v26 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v26 = updateGateActivation;
+    v27 = updateGateActivation;
   }
 
   resetGateActivation = [(MPSGraphGRUDescriptor *)self->super._desc resetGateActivation];
   if (resetGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v28 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v28 = resetGateActivation;
+    v29 = resetGateActivation;
   }
 
   outputGateActivation = [(MPSGraphGRUDescriptor *)self->super._desc outputGateActivation];
-  v30 = outputGateActivation;
-  v31 = outputGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu);
+  v31 = outputGateActivation;
+  v32 = outputGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu);
   desc = self->super._desc;
-  if (v31)
+  if (v32)
   {
-    v33 = 1;
+    v34 = 1;
   }
 
   else
   {
-    v33 = v30;
+    v34 = v31;
   }
 
   if (desc->_hasInitState)
@@ -150,8 +150,8 @@ LABEL_16:
       goto LABEL_46;
     }
 
-    v34 = *(*values + 16);
-    v35 = 3;
+    v35 = *(*values + 16);
+    v36 = 3;
     if (!desc->_hasMask)
     {
       goto LABEL_30;
@@ -160,32 +160,32 @@ LABEL_16:
 
   else
   {
-    v34 = 0;
-    v35 = 2;
+    v35 = 0;
+    v36 = 2;
     if (!desc->_hasMask)
     {
 LABEL_30:
-      v51 = 0;
+      v52 = 0;
       goto LABEL_34;
     }
   }
 
-  if (v35 >= (*(values + 1) - *values) >> 3)
+  if (v36 >= (*(values + 1) - *values) >> 3)
   {
     goto LABEL_46;
   }
 
-  v51 = *(*values + 8 * v35++);
+  v52 = *(*values + 8 * v36++);
 LABEL_34:
-  v50 = v11;
-  v52 = v28;
-  v53 = v33;
+  v51 = v11;
+  v53 = v29;
+  v54 = v34;
   if (desc->_hasBias2)
   {
-    if (v35 < (*(values + 1) - *values) >> 3)
+    if (v36 < (*(values + 1) - *values) >> 3)
     {
-      v36 = training;
-      v37 = *(*values + 8 * v35);
+      v37 = training;
+      v38 = *(*values + 8 * v36);
       goto LABEL_38;
     }
 
@@ -193,43 +193,43 @@ LABEL_46:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v36 = training;
-  v37 = 0;
+  v37 = training;
+  v38 = 0;
 LABEL_38:
   resetGateFirst = [(MPSGraphGRUDescriptor *)desc resetGateFirst];
-  v39 = *values;
+  v40 = *values;
   if (*(values + 1) - *values <= 8uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v40 = resetGateFirst;
+  v41 = resetGateFirst;
   resetAfter = [(MPSGraphGRUDescriptor *)self->super._desc resetAfter];
   flipZ = [(MPSGraphGRUDescriptor *)self->super._desc flipZ];
-  v57 = v54;
-  Context = mlir::Attribute::getContext(&v57);
-  v44 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::GRUOp,void>::id, Context);
-  if ((v45 & 1) == 0)
+  v58 = v55;
+  Context = mlir::Attribute::getContext(&v58);
+  v45 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::GRUOp,void>::id, Context);
+  if ((v46 & 1) == 0)
   {
-    v62 = 1283;
-    v60.__r_.__value_.__r.__words[2] = "mps.gru";
-    v61 = 7;
-    v59 = 259;
-    llvm::operator+(&v60, &v58, &__dst);
+    v63 = 1283;
+    v61.__r_.__value_.__r.__words[2] = "mps.gru";
+    v62 = 7;
+    v60 = 259;
+    llvm::operator+(&v61, &v59, &__dst);
     llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v65, v54, v44);
-  mlir::mps::GRUOp::build(builder, v65, *v39, v39[1], v26, v52, v53, v40, v36, resetAfter, flipZ, v34, v51, v37);
-  v46 = mlir::OpBuilder::create(builder, v65);
-  v47 = *(v46[6] + 16);
+  mlir::OperationState::OperationState(v65, v55, v45);
+  mlir::mps::GRUOp::build(builder, v65, *v40, v40[1], v27, v53, v54, v41, v37, resetAfter, flipZ, v35, v52, v38);
+  v47 = mlir::OpBuilder::create(builder, v65);
+  v48 = *(*(v47 + 6) + 16);
   mlir::OperationState::~OperationState(v65);
-  if (v47 != &mlir::detail::TypeIDResolver<mlir::mps::GRUOp,void>::id)
+  if (v48 != &mlir::detail::TypeIDResolver<mlir::mps::GRUOp,void>::id)
   {
-    v46 = 0;
+    v47 = 0;
   }
 
-  return v46;
+  return v47;
 }
 
 - (id)partialDerivativesForInputTensors:(id)tensors incomingGradients:(id)gradients name:(id)name

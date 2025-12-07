@@ -9,7 +9,6 @@
 - (void)queryControllerDidUpdate:(id)update
 {
   v3 = *(&self->super.isa + OBJC_IVAR____TtCC18SmartStackSettings30AuthorizationExtensionProvider8Observer_queryHandler);
-  v4 = *&self->updateHandler[OBJC_IVAR____TtCC18SmartStackSettings30AuthorizationExtensionProvider8Observer_queryHandler];
   selfCopy = self;
   v3();
 }
@@ -17,7 +16,6 @@
 - (void)applicationsDidUninstall:(char *)uninstall
 {
   v1 = *&uninstall[OBJC_IVAR____TtCC18SmartStackSettings30AuthorizationExtensionProvider8Observer_updateHandler];
-  v2 = *&uninstall[OBJC_IVAR____TtCC18SmartStackSettings30AuthorizationExtensionProvider8Observer_updateHandler + 8];
   uninstallCopy = uninstall;
   v1();
 }

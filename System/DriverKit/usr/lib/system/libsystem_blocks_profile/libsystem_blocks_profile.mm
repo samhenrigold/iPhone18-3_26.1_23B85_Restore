@@ -13,11 +13,11 @@ uint64_t _call_custom_copy_helper(uint64_t a1, uint64_t a2)
     v2 = *(*(a2 + 24) + 16);
     if (v2)
     {
-      return v2();
+      return v2(a1);
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t _call_custom_dispose_helper(uint64_t result)
@@ -45,17 +45,17 @@ void *__cdecl _Block_copy(const void *aBlock)
   {
     do
     {
-      v7 = *(aBlock + 2);
-      if ((~v7 & 0xFFFE) == 0)
+      v3 = *(aBlock + 2);
+      if ((~v3 & 0xFFFE) == 0)
       {
         break;
       }
 
-      v8 = *(aBlock + 2);
-      atomic_compare_exchange_strong((aBlock + 8), &v8, v7 + 2);
+      v4 = *(aBlock + 2);
+      atomic_compare_exchange_strong((aBlock + 8), &v4, v3 + 2);
     }
 
-    while (v8 != v7);
+    while (v4 != v3);
     return aBlock;
   }
 
@@ -64,31 +64,23 @@ void *__cdecl _Block_copy(const void *aBlock)
     return aBlock;
   }
 
-  v2 = *(*(aBlock + 3) + 8);
-  v3 = malloc_type_malloc();
-  if (v3)
+  v2 = malloc_type_malloc();
+  if (v2)
   {
     if (!*(aBlock + 2))
     {
       _Block_copy_cold_1();
     }
 
-    v4 = *(aBlock + 2);
     _platform_memmove();
-    v5 = *(aBlock + 2);
-    if (v5)
-    {
-      v6 = *(aBlock + 2);
-    }
-
-    v3[2] = v5;
-    *(v3 + 2) &= 0xFFFF0000;
-    *(v3 + 2) |= 0x1000002u;
-    _call_custom_copy_helper(v3, aBlock);
-    *v3 = _NSConcreteMallocBlock;
+    v2[2] = *(aBlock + 2);
+    *(v2 + 2) &= 0xFFFF0000;
+    *(v2 + 2) |= 0x1000002u;
+    _call_custom_copy_helper(v2, aBlock);
+    *v2 = _NSConcreteMallocBlock;
   }
 
-  return v3;
+  return v2;
 }
 
 void _Block_release(const void *aBlock)
@@ -241,7 +233,7 @@ void _Block_object_assign(void *a1, const void *a2, const int a3)
       goto LABEL_12;
     }
 
-LABEL_29:
+LABEL_25:
     *a1 = v3;
     return;
   }
@@ -250,10 +242,10 @@ LABEL_29:
   {
     case 3u:
       _Block_retain_object[0](a2);
-      goto LABEL_29;
+      goto LABEL_25;
     case 7u:
       v3 = _Block_copy(a2);
-      goto LABEL_29;
+      goto LABEL_25;
     case 8u:
 LABEL_12:
       v7 = *(a2 + 1);
@@ -279,32 +271,19 @@ LABEL_12:
 
       else
       {
-        v10 = *(a2 + 5);
-        v11 = malloc_type_malloc();
-        *v11 = 0;
-        *(v11 + 16) = v3[4] | 0x1000004;
-        *(v11 + 8) = v11;
-        *(v3 + 1) = v11;
-        *(v11 + 20) = v3[5];
+        v10 = malloc_type_malloc();
+        *v10 = 0;
+        *(v10 + 16) = v3[4] | 0x1000004;
+        *(v10 + 8) = v10;
+        *(v3 + 1) = v10;
+        *(v10 + 20) = v3[5];
         if ((v3[4] & 0x2000000) != 0)
         {
-          v12 = *(v3 + 3);
-          if (v12)
-          {
-            v13 = *(v3 + 3);
-          }
-
-          *(v11 + 24) = v12;
-          v14 = *(v3 + 4);
-          if (v14)
-          {
-            v15 = *(v3 + 4);
-          }
-
-          *(v11 + 32) = v14;
+          *(v10 + 24) = *(v3 + 3);
+          *(v10 + 32) = *(v3 + 4);
           if (v3[4] >> 28 == 1)
           {
-            *(v11 + 40) = *(v3 + 5);
+            *(v10 + 40) = *(v3 + 5);
           }
 
           (*(v3 + 3))();
@@ -317,7 +296,7 @@ LABEL_12:
       }
 
       v3 = *(v3 + 1);
-      goto LABEL_29;
+      goto LABEL_25;
   }
 }
 

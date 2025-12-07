@@ -252,7 +252,7 @@ LABEL_9:
     if (v9)
     {
       errorCopy = error;
-      v10 = +[VisionCoreSemanticSegmentationInferenceNetworkDescriptor _objectClassIDsToObjectClassesDetectionStatusIndexesV7];
+      v10 = +[(VisionCoreSemanticSegmentationInferenceNetworkDescriptor *)self];
       v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v27 = 0u;
       v28 = 0u;
@@ -376,9 +376,9 @@ LABEL_13:
     dispatch_once(&_objectClassIDsToObjectClassesDetectionStatusIndexesV7_onceToken, &__block_literal_global_119);
   }
 
-  v0 = _objectClassIDsToObjectClassesDetectionStatusIndexesV7_objectClassIDsToObjectClassesDetectionStatusIndexes;
+  v1 = _objectClassIDsToObjectClassesDetectionStatusIndexesV7_objectClassIDsToObjectClassesDetectionStatusIndexes;
 
-  return v0;
+  return v1;
 }
 
 void __114__VisionCoreSemanticSegmentationInferenceNetworkDescriptor__objectClassIDsToObjectClassesDetectionStatusIndexesV7__block_invoke()
@@ -471,7 +471,7 @@ void __96__VisionCoreSemanticSegmentationInferenceNetworkDescriptor__objectClass
   v24 = *MEMORY[0x1E69E9840];
   if (version == 2)
   {
-    v7 = +[VisionCoreSemanticSegmentationInferenceNetworkDescriptor _objectClassIDsToObjectClassesDetectionStatusIndexesV7];
+    v7 = +[(VisionCoreSemanticSegmentationInferenceNetworkDescriptor *)self];
     v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
     allKeys = [v7 allKeys];
     v19 = 0u;

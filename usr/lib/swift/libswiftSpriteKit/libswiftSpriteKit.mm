@@ -1,4 +1,4 @@
-uint64_t copyImageData(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void copyImageData(_:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
   if (([a1 respondsToSelector_] & 1) == 0 || (v4 = objc_msgSend(a1, sel__copyImageData)) == 0)
   {
@@ -26,10 +26,9 @@ LABEL_6:
 
 LABEL_7:
   *(a2 + 24) = type metadata accessor for UIImage();
-  result = outlined consume of Data?(v6, v8);
+  outlined consume of Data?(v6, v8);
   *a2 = v11;
   *(a2 + 32) = 16;
-  return result;
 }
 
 unint64_t type metadata accessor for UIImage()
@@ -45,34 +44,32 @@ unint64_t type metadata accessor for UIImage()
   return result;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+void outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    outlined consume of Data._Representation(result, a2);
   }
-
-  return a1;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }

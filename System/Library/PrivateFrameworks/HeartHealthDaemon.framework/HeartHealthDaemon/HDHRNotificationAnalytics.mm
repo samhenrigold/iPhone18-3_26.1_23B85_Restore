@@ -1,6 +1,7 @@
 @interface HDHRNotificationAnalytics
 - (HDHRNotificationAnalytics)initWithEventSample:(id)sample areHealthNotificationsAuthorized:(BOOL)authorized;
 - (id)_createMetricFromEventSample:(id)sample;
+- (void)_setDoNotDisturbOn:(BOOL)on;
 - (void)submit;
 @end
 
@@ -9,16 +10,7 @@
 - (HDHRNotificationAnalytics)initWithEventSample:(id)sample areHealthNotificationsAuthorized:(BOOL)authorized
 {
   sampleCopy = sample;
-  if (!HKImproveHealthAndActivityAnalyticsAllowed())
-  {
-    goto LABEL_5;
-  }
-
-  v12.receiver = self;
-  v12.super_class = HDHRNotificationAnalytics;
-  v7 = [(HDHRNotificationAnalytics *)&v12 init];
-  self = v7;
-  if (!v7 || (v7->_areHealthNotificationsAuthorized = authorized, [(HDHRNotificationAnalytics *)v7 _createMetricFromEventSample:sampleCopy], v8 = objc_claimAutoreleasedReturnValue(), metric = self->_metric, self->_metric = v8, metric, self->_metric))
+  if (HKImproveHealthAndActivityAnalyticsAllowed() && ((v12.receiver = self, v12.super_class = HDHRNotificationAnalytics, v7 = [(HDHRNotificationAnalytics *)&v12 init], (self = v7) == 0) || (v7->_areHealthNotificationsAuthorized = authorized, [(HDHRNotificationAnalytics *)v7 _createMetricFromEventSample:sampleCopy], v8 = objc_claimAutoreleasedReturnValue(), metric = self->_metric, self->_metric = v8, metric, self->_metric)))
   {
     self = self;
     selfCopy = self;
@@ -26,7 +18,6 @@
 
   else
   {
-LABEL_5:
     selfCopy = 0;
   }
 
@@ -136,6 +127,12 @@ LABEL_24:
   return v14;
 }
 
+- (void)_setDoNotDisturbOn:(BOOL)on
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:on];
+  [(HDHRNotificationMetric *)self->_metric setDoNotDisturbOn:v4];
+}
+
 - (void)submit
 {
   objc_initWeak(&location, self);
@@ -163,25 +160,23 @@ LABEL_24:
 
 void __35__HDHRNotificationAnalytics_submit__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = v6;
-    v8 = [v3 error];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] User focus computed mode publisher finished with error: %{public}@", &v10, 0x16u);
+    v5 = objc_opt_class();
+    v6 = v5;
+    v7 = [v3 error];
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] User focus computed mode publisher finished with error: %{public}@", &v8, 0x16u);
   }
 
   [*(a1 + 32) _submitMetric];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __35__HDHRNotificationAnalytics_submit__block_invoke_313(uint64_t a1, void *a2)
@@ -218,38 +213,33 @@ void __35__HDHRNotificationAnalytics_submit__block_invoke_313(uint64_t a1, void 
 
 - (void)_createMetricFromEventSample:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
-  v11 = [a2 categoryType];
-  OUTLINED_FUNCTION_1_7(&dword_229486000, v4, v5, "[%{public}@] Analytics not compatible with sample type: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  v5 = [a2 categoryType];
+  *v12 = 138543618;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_1_7(&dword_229486000, v6, v7, "[%{public}@] Analytics not compatible with sample type: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 void __35__HDHRNotificationAnalytics_submit__block_invoke_313_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = [a2 eventBody];
-  OUTLINED_FUNCTION_0_8();
-  _os_log_debug_impl(&dword_229486000, a3, OS_LOG_TYPE_DEBUG, "[%{public}@] Received event: %{public}@", v9, 0x16u);
-
   v8 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_class();
+  v6 = [a2 eventBody];
+  OUTLINED_FUNCTION_0_8();
+  _os_log_debug_impl(&dword_229486000, a3, OS_LOG_TYPE_DEBUG, "[%{public}@] Received event: %{public}@", v7, 0x16u);
 }
 
 void __35__HDHRNotificationAnalytics_submit__block_invoke_313_cold_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = MEMORY[0x277CCABB0];
-  v6 = v4;
-  v7 = [v5 numberWithUnsignedChar:{objc_msgSend(a2, "error")}];
+  v3 = objc_opt_class();
+  v4 = MEMORY[0x277CCABB0];
+  v5 = v3;
+  v6 = [v4 numberWithUnsignedChar:{objc_msgSend(a2, "error")}];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_7(&dword_229486000, v8, v9, "[%{public}@] Received nil user focus computed mode with reason: %{public}@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_7(&dword_229486000, v7, v8, "[%{public}@] Received nil user focus computed mode with reason: %{public}@", v9, v10, v11, v12);
 }
 
 @end

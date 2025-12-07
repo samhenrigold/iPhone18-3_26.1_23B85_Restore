@@ -92,22 +92,20 @@ LABEL_13:
 
 - (void)_addNewTimerForSectionID:(id)d withExpirationDate:(id)date
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D3A180];
   dateCopy = date;
   dCopy = d;
   v9 = [v6 alloc];
-  v13 = @"sectionID";
-  v14[0] = dCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"sectionID";
+  v13[0] = dCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v11 = [v9 initWithFireDate:dateCopy serviceIdentifier:dCopy target:self selector:sel__queue_triggerDidFireForExpiryTimer_ userInfo:v10];
 
   [v11 setMinimumEarlyFireProportion:1.0];
   [v11 setUserVisible:1];
   [v11 scheduleInQueue:self->_queue];
   [(NSMutableDictionary *)self->_sectionIDsToAuthorizationExpiryTimers setObject:v11 forKey:dCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replaceExisitingTimerForSectionID:(id)d withExpirationDate:(id)date
@@ -129,23 +127,21 @@ LABEL_13:
 
 - (void)_queue_triggerDidFireForExpiryTimer:(id)timer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   userInfo = [timer userInfo];
   v5 = [userInfo valueForKey:@"sectionID"];
 
   v6 = BBLogSettings;
   if (os_log_type_enabled(BBLogSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Temporary authorization expired, effective authorization status has changed", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Temporary authorization expired, effective authorization status has changed", &v8, 0xCu);
   }
 
   [(NSMutableDictionary *)self->_sectionIDsToAuthorizationExpiryTimers removeObjectForKey:v5];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained didChangeEffectiveAuthorizationStatusForSectionID:v5];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BBSectionAuthorizationManagerDelegate)delegate

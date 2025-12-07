@@ -84,7 +84,7 @@ void __57__IRMobileAssetManager__handleMobileAssetLoadXPCActivity__block_invoke(
 
 - (void)_loadAvailableMobileAsset
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mobileAssetClient = [(IRMobileAssetManager *)self mobileAssetClient];
   lockAssetContent = [mobileAssetClient lockAssetContent];
 
@@ -103,30 +103,28 @@ void __57__IRMobileAssetManager__handleMobileAssetLoadXPCActivity__block_invoke(
       v10 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = getLockedAssetVersion;
-        _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_INFO, "#mobile-asset-manager, Locked Mobile Asset is same as current version or nil: %@. Skipping load", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = getLockedAssetVersion;
+        _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_INFO, "#mobile-asset-manager, Locked Mobile Asset is same as current version or nil: %@. Skipping load", &v12, 0xCu);
       }
     }
 
     mobileAssetClient3 = [(IRMobileAssetManager *)self mobileAssetClient];
     [mobileAssetClient3 unlockAssetContent];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadMobileAssetAtPath:(id)path assetVersion:(id)version
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   versionCopy = version;
   v7 = *MEMORY[0x277D21268];
   if (os_log_type_enabled(*MEMORY[0x277D21268], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = versionCopy;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#mobile-asset-manager, Loading MobileAsset. Version %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = versionCopy;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#mobile-asset-manager, Loading MobileAsset. Version %@", &v13, 0xCu);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -146,8 +144,6 @@ void __57__IRMobileAssetManager__handleMobileAssetLoadXPCActivity__block_invoke(
       [IRMobileAssetManager _loadMobileAssetAtPath:versionCopy assetVersion:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (IRBackgroundActivitiesManager)backgroundActivitiesManager
@@ -159,11 +155,10 @@ void __57__IRMobileAssetManager__handleMobileAssetLoadXPCActivity__block_invoke(
 
 - (void)_loadMobileAssetAtPath:(uint64_t)a1 assetVersion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#mobile-asset-manager, [ErrorId - load MobileAsset error] Could not find content of MobileAsset version %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#mobile-asset-manager, [ErrorId - load MobileAsset error] Could not find content of MobileAsset version %@", &v2, 0xCu);
 }
 
 @end

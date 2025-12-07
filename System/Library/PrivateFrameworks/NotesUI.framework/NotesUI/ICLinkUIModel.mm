@@ -11,17 +11,17 @@
 {
   attributesCopy = attributes;
   objc_opt_class();
-  v5 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+  v5 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   v6 = ICDynamicCast();
 
   objc_opt_class();
-  v7 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7940]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   v8 = ICCheckedDynamicCast();
   [v8 floatValue];
   v10 = v9;
 
   objc_opt_class();
-  v11 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
   v12 = ICCheckedDynamicCast();
 
@@ -76,7 +76,7 @@
   v8 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v7];
   [v6 appendAttributedString:v8];
 
-  v9 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   if ([v9 style] != 4)
   {
     v10 = objc_alloc(MEMORY[0x1E696AAB0]);

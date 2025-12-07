@@ -118,7 +118,7 @@ LABEL_27:
 
 - (id)jsonDictionary
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v25[6] = *MEMORY[0x1E69E9840];
   if ([(BMMLSELabeledDataStoreFeatureFeatureValue *)self hasIntValue])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMMLSELabeledDataStoreFeatureFeatureValue intValue](self, "intValue")}];
@@ -157,58 +157,58 @@ LABEL_27:
   doubleValuedVectorValue = [(BMMLSELabeledDataStoreFeatureFeatureValue *)self doubleValuedVectorValue];
   jsonDictionary = [doubleValuedVectorValue jsonDictionary];
 
-  v25[0] = @"intValue";
+  v24[0] = @"intValue";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null;
-  v24 = v3;
-  v26[0] = null;
-  v25[1] = @"doubleValue";
+  v22 = null;
+  v23 = v3;
+  v25[0] = null;
+  v24[1] = @"doubleValue";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null2;
-  v26[1] = null2;
-  v25[2] = @"stringValue";
+  v20 = null2;
+  v25[1] = null2;
+  v24[2] = @"stringValue";
   null3 = stringValue;
   if (!stringValue)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = null3;
-  v25[3] = @"BOOLValue";
+  v25[2] = null3;
+  v24[3] = @"BOOLValue";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25[4] = @"timeBucketValue";
+  v25[3] = null4;
+  v24[4] = @"timeBucketValue";
   null5 = v9;
   if (!v9)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"doubleValuedVectorValue";
+  v25[4] = null5;
+  v24[5] = @"doubleValuedVectorValue";
   null6 = jsonDictionary;
   if (!jsonDictionary)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:{6, v21}];
+  v25[5] = null6;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{6, v20}];
   if (jsonDictionary)
   {
     if (v9)
@@ -266,18 +266,16 @@ LABEL_27:
 LABEL_37:
 
 LABEL_28:
-  if (!v24)
+  if (!v23)
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (BMMLSELabeledDataStoreFeatureFeatureValue)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v69[1] = *MEMORY[0x1E69E9840];
+  v68[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"intValue"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -292,17 +290,17 @@ LABEL_28:
     v8 = v7;
 LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"doubleValue"];
-    v53 = v7;
+    v52 = v7;
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v55 = 0;
+      v54 = 0;
       goto LABEL_7;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v55 = v9;
+      v54 = v9;
 LABEL_7:
       v10 = [dictionaryCopy objectForKeyedSubscript:@"stringValue"];
       selfCopy = self;
@@ -311,8 +309,8 @@ LABEL_7:
         v11 = 0;
 LABEL_10:
         v12 = [dictionaryCopy objectForKeyedSubscript:@"BOOLValue"];
-        v51 = v11;
-        v52 = v8;
+        v50 = v11;
+        v51 = v8;
         if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           objc_opt_class();
@@ -320,34 +318,34 @@ LABEL_10:
           {
             if (!error)
             {
-              v54 = 0;
+              v53 = 0;
               v22 = 0;
               goto LABEL_58;
             }
 
             v34 = objc_alloc(MEMORY[0x1E696ABC0]);
             v35 = *MEMORY[0x1E698F240];
-            v62 = *MEMORY[0x1E696A578];
+            v61 = *MEMORY[0x1E696A578];
             errorCopy = error;
             v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"BOOLValue"];
-            v63 = v15;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+            v62 = v15;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
             v37 = v34;
-            v8 = v52;
+            v8 = v51;
             v38 = [v37 initWithDomain:v35 code:2 userInfo:v13];
-            v54 = 0;
+            v53 = 0;
             v22 = 0;
             *errorCopy = v38;
-            v11 = v51;
+            v11 = v50;
             goto LABEL_57;
           }
 
-          v54 = v12;
+          v53 = v12;
         }
 
         else
         {
-          v54 = 0;
+          v53 = 0;
         }
 
         v13 = [dictionaryCopy objectForKeyedSubscript:@"timeBucketValue"];
@@ -369,17 +367,17 @@ LABEL_10:
               {
                 v15 = 0;
                 v22 = 0;
-                v11 = v51;
+                v11 = v50;
                 goto LABEL_57;
               }
 
-              v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v49 = objc_alloc(MEMORY[0x1E696ABC0]);
               v44 = *MEMORY[0x1E698F240];
-              v60 = *MEMORY[0x1E696A578];
+              v59 = *MEMORY[0x1E696A578];
               v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"timeBucketValue"];
-              v61 = v39;
-              v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-              v45 = [v50 initWithDomain:v44 code:2 userInfo:v40];
+              v60 = v39;
+              v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+              v45 = [v49 initWithDomain:v44 code:2 userInfo:v40];
               v15 = 0;
               v22 = 0;
               *errorCopy3 = v45;
@@ -403,13 +401,13 @@ LABEL_10:
         {
           v40 = 0;
 LABEL_40:
-          v11 = v51;
-          v22 = -[BMMLSELabeledDataStoreFeatureFeatureValue initWithIntValue:doubleValue:stringValue:BOOLValue:timeBucketValue:doubleValuedVectorValue:](selfCopy, "initWithIntValue:doubleValue:stringValue:BOOLValue:timeBucketValue:doubleValuedVectorValue:", v52, v55, v51, v54, [v15 intValue], v40);
+          v11 = v50;
+          v22 = -[BMMLSELabeledDataStoreFeatureFeatureValue initWithIntValue:doubleValue:stringValue:BOOLValue:timeBucketValue:doubleValuedVectorValue:](selfCopy, "initWithIntValue:doubleValue:stringValue:BOOLValue:timeBucketValue:doubleValuedVectorValue:", v51, v54, v50, v53, [v15 intValue], v40);
           selfCopy = v22;
 LABEL_55:
 
 LABEL_56:
-          v8 = v52;
+          v8 = v51;
 LABEL_57:
 
           goto LABEL_58;
@@ -419,9 +417,9 @@ LABEL_57:
         if (objc_opt_isKindOfClass())
         {
           v41 = v39;
-          v57 = 0;
-          v40 = [[BMMLSELabeledDataStoreFeatureFeatureValueDoubleValuedVector alloc] initWithJSONDictionary:v41 error:&v57];
-          v42 = v57;
+          v56 = 0;
+          v40 = [[BMMLSELabeledDataStoreFeatureFeatureValueDoubleValuedVector alloc] initWithJSONDictionary:v41 error:&v56];
+          v42 = v56;
           if (!v42)
           {
 
@@ -442,22 +440,22 @@ LABEL_57:
           if (!errorCopy3)
           {
             v22 = 0;
-            v11 = v51;
+            v11 = v50;
             goto LABEL_56;
           }
 
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v48 = *MEMORY[0x1E698F240];
-          v58 = *MEMORY[0x1E696A578];
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v47 = *MEMORY[0x1E698F240];
+          v57 = *MEMORY[0x1E696A578];
           v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"doubleValuedVectorValue"];
-          v59 = v40;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-          *errorCopy3 = [v49 initWithDomain:v48 code:2 userInfo:v43];
+          v58 = v40;
+          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          *errorCopy3 = [v48 initWithDomain:v47 code:2 userInfo:v43];
         }
 
         v22 = 0;
 LABEL_54:
-        v11 = v51;
+        v11 = v50;
         goto LABEL_55;
       }
 
@@ -474,17 +472,17 @@ LABEL_54:
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy4 = error;
         v32 = *MEMORY[0x1E698F240];
-        v64 = *MEMORY[0x1E696A578];
-        v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"stringValue"];
-        v65 = v54;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v63 = *MEMORY[0x1E696A578];
+        v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"stringValue"];
+        v64 = v53;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         v33 = v30;
         v8 = v29;
         v22 = 0;
         *errorCopy4 = [v33 initWithDomain:v32 code:2 userInfo:v12];
         v11 = 0;
 LABEL_58:
-        v20 = v55;
+        v20 = v54;
 
         self = selfCopy;
         goto LABEL_59;
@@ -492,10 +490,10 @@ LABEL_58:
 
       v11 = 0;
       v22 = 0;
-      v20 = v55;
+      v20 = v54;
 LABEL_59:
 
-      v7 = v53;
+      v7 = v52;
       goto LABEL_60;
     }
 
@@ -505,10 +503,10 @@ LABEL_59:
       v24 = objc_alloc(MEMORY[0x1E696ABC0]);
       errorCopy5 = error;
       v26 = *MEMORY[0x1E698F240];
-      v66 = *MEMORY[0x1E696A578];
+      v65 = *MEMORY[0x1E696A578];
       v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"doubleValue"];
-      v67 = v27;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v66 = v27;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       v28 = v24;
       v8 = v23;
       v20 = 0;
@@ -530,10 +528,10 @@ LABEL_60:
     v17 = objc_alloc(MEMORY[0x1E696ABC0]);
     errorCopy6 = error;
     v19 = *MEMORY[0x1E698F240];
-    v68 = *MEMORY[0x1E696A578];
+    v67 = *MEMORY[0x1E696A578];
     v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"intValue"];
-    v69[0] = v20;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+    v68[0] = v20;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
     v21 = [v17 initWithDomain:v19 code:2 userInfo:v9];
     v8 = 0;
     v22 = 0;
@@ -545,7 +543,6 @@ LABEL_60:
   v22 = 0;
 LABEL_61:
 
-  v46 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -563,13 +560,11 @@ LABEL_61:
   toCopy = to;
   if (self->_hasIntValue)
   {
-    intValue = self->_intValue;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasDoubleValue)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
   }
 
@@ -580,11 +575,9 @@ LABEL_61:
 
   if (self->_hasBoolValue)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
   }
 
-  timeBucketValue = self->_timeBucketValue;
   PBDataWriterWriteUint32Field();
   if (self->_doubleValuedVectorValue)
   {
@@ -957,56 +950,52 @@ LABEL_76:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"intValue" number:1 type:4 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"doubleValue" number:2 type:0 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"stringValue" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"BOOLValue" number:4 type:12 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timeBucketValue" number:5 type:4 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"doubleValuedVectorValue" number:6 type:14 subMessageClass:objc_opt_class()];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"intValue" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"doubleValue" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"stringValue" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"BOOLValue" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timeBucketValue" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"doubleValuedVectorValue_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_163];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __52__BMMLSELabeledDataStoreFeatureFeatureValue_columns__block_invoke(uint64_t a1, void *a2)
+id __52__BMMLSELabeledDataStoreFeatureFeatureValue_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 doubleValuedVectorValue];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 doubleValuedVectorValue];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

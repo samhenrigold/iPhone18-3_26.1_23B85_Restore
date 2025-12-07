@@ -255,7 +255,7 @@
 
 - (void)writeTo:(id)to
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_messageId)
   {
@@ -279,7 +279,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteUint32Field();
   }
 
@@ -288,62 +287,60 @@
     PBDataWriterWriteStringField();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v6 = self->_tos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v7)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v5 = self->_tos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v38;
+    v7 = v6;
+    v8 = *v30;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v9)
+        if (*v30 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v12 = self->_ccs;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
-  if (v13)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v10 = self->_ccs;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v34;
+    v12 = v11;
+    v13 = *v26;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v34 != v15)
+        if (*v26 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v33 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   if (self->_dateSent)
@@ -361,33 +358,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v18 = self->_bccs;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v29 objects:v41 count:16];
-  if (v19)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v15 = self->_bccs;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v16)
   {
-    v20 = v19;
-    v21 = *v30;
+    v17 = v16;
+    v18 = *v22;
     do
     {
-      for (k = 0; k != v20; ++k)
+      for (k = 0; k != v17; ++k)
       {
-        if (*v30 != v21)
+        if (*v22 != v18)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v15);
         }
 
-        v23 = *(*(&v29 + 1) + 8 * k);
         PBDataWriterWriteStringField();
       }
 
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
-    while (v20);
+    while (v17);
   }
 
   if (self->_remoteId)
@@ -408,14 +404,12 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    isThreadSpecific = self->_isThreadSpecific;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    isSpecialMailboxSpecific = self->_isSpecialMailboxSpecific;
     PBDataWriterWriteUint32Field();
   }
 
@@ -426,11 +420,8 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    statusVersion = self->_statusVersion;
     PBDataWriterWriteUint32Field();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -579,7 +570,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_messageId copyWithZone:zone];
   v7 = *(v5 + 80);
@@ -607,59 +598,59 @@
   v15 = *(v5 + 56);
   *(v5 + 56) = v14;
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v16 = self->_tos;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v65 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v64 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v60;
+    v19 = *v59;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v60 != v19)
+        if (*v59 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v59 + 1) + 8 * i) copyWithZone:zone];
+        v21 = [*(*(&v58 + 1) + 8 * i) copyWithZone:zone];
         [v5 addTo:v21];
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v64 count:16];
     }
 
     while (v18);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v22 = self->_ccs;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v56;
+    v25 = *v55;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v56 != v25)
+        if (*v55 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [*(*(&v55 + 1) + 8 * j) copyWithZone:zone];
+        v27 = [*(*(&v54 + 1) + 8 * j) copyWithZone:zone];
         [v5 addCc:v27];
       }
 
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v24);
@@ -677,30 +668,30 @@
   v33 = *(v5 + 88);
   *(v5 + 88) = v32;
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v34 = self->_bccs;
-  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v52;
+    v37 = *v51;
     do
     {
       for (k = 0; k != v36; ++k)
       {
-        if (*v52 != v37)
+        if (*v51 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = [*(*(&v51 + 1) + 8 * k) copyWithZone:{zone, v51}];
+        v39 = [*(*(&v50 + 1) + 8 * k) copyWithZone:{zone, v50}];
         [v5 addBcc:v39];
       }
 
-      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v51 objects:v63 count:16];
+      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
     }
 
     while (v36);
@@ -732,7 +723,7 @@
     *(v5 + 148) |= 1u;
   }
 
-  v47 = [(NSString *)self->_publisherBulletinId copyWithZone:zone, v51];
+  v47 = [(NSString *)self->_publisherBulletinId copyWithZone:zone, v50];
   v48 = *(v5 + 104);
   *(v5 + 104) = v47;
 
@@ -742,7 +733,6 @@
     *(v5 + 148) |= 4u;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -790,7 +780,6 @@
     }
   }
 
-  v9 = *(equalCopy + 148);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 148) & 2) == 0 || self->_status != *(equalCopy + 30))
@@ -892,7 +881,6 @@
   }
 
   has = self->_has;
-  v21 = *(equalCopy + 148);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 148) & 8) == 0)
@@ -900,7 +888,6 @@
       goto LABEL_54;
     }
 
-    v22 = *(equalCopy + 144);
     if (self->_isThreadSpecific)
     {
       if ((*(equalCopy + 144) & 1) == 0)
@@ -943,12 +930,12 @@
     }
 
 LABEL_54:
-    v24 = 0;
+    v21 = 0;
     goto LABEL_55;
   }
 
 LABEL_49:
-  v24 = (*(equalCopy + 148) & 4) == 0;
+  v21 = (*(equalCopy + 148) & 4) == 0;
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 148) & 4) == 0 || self->_statusVersion != *(equalCopy + 31))
@@ -956,12 +943,12 @@ LABEL_49:
       goto LABEL_54;
     }
 
-    v24 = 1;
+    v21 = 1;
   }
 
 LABEL_55:
 
-  return v24;
+  return v21;
 }
 
 - (unint64_t)hash
@@ -1028,7 +1015,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 10))
   {
@@ -1061,57 +1048,57 @@ LABEL_9:
     [(NNMKProtoMessage *)self setFrom:?];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = *(fromCopy + 17);
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NNMKProtoMessage *)self addTo:*(*(&v30 + 1) + 8 * i)];
+        [(NNMKProtoMessage *)self addTo:*(*(&v29 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v10 = *(fromCopy + 3);
-  v11 = [v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v27;
+    v13 = *v26;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NNMKProtoMessage *)self addCc:*(*(&v26 + 1) + 8 * j)];
+        [(NNMKProtoMessage *)self addCc:*(*(&v25 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v12);
@@ -1132,29 +1119,29 @@ LABEL_9:
     [(NNMKProtoMessage *)self setMessageIdHeader:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v15 = *(fromCopy + 2);
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(NNMKProtoMessage *)self addBcc:*(*(&v22 + 1) + 8 * k), v22];
+        [(NNMKProtoMessage *)self addBcc:*(*(&v21 + 1) + 8 * k), v21];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v17);
@@ -1199,14 +1186,12 @@ LABEL_9:
     self->_statusVersion = *(fromCopy + 31);
     *&self->_has |= 4u;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)protoMessageFromMessage:(id)message organizedByThread:(BOOL)thread sanitizeMessageId:(BOOL)id supportsStandaloneMode:(BOOL)mode
 {
   idCopy = id;
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v10 = objc_alloc_init(NNMKProtoMessage);
   messageId = [messageCopy messageId];
@@ -1248,85 +1233,85 @@ LABEL_9:
   from = [messageCopy from];
   [(NNMKProtoMessage *)v10 setFrom:from];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v21 = [messageCopy to];
-  v22 = [v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v57;
+    v24 = *v56;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v57 != v24)
+        if (*v56 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(NNMKProtoMessage *)v10 addTo:*(*(&v56 + 1) + 8 * i)];
+        [(NNMKProtoMessage *)v10 addTo:*(*(&v55 + 1) + 8 * i)];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v23);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v26 = [messageCopy cc];
-  v27 = [v26 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v53;
+    v29 = *v52;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v53 != v29)
+        if (*v52 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(NNMKProtoMessage *)v10 addCc:*(*(&v52 + 1) + 8 * j)];
+        [(NNMKProtoMessage *)v10 addCc:*(*(&v51 + 1) + 8 * j)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
     while (v28);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v31 = [messageCopy bcc];
-  v32 = [v31 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v49;
+    v34 = *v48;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v49 != v34)
+        if (*v48 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        [(NNMKProtoMessage *)v10 addBcc:*(*(&v48 + 1) + 8 * k)];
+        [(NNMKProtoMessage *)v10 addBcc:*(*(&v47 + 1) + 8 * k)];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v47 objects:v59 count:16];
     }
 
     while (v33);
@@ -1364,8 +1349,6 @@ LABEL_9:
     publisherBulletinId = [messageCopy publisherBulletinId];
     [(NNMKProtoMessage *)v10 setNotificationMessageId:publisherBulletinId];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

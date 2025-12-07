@@ -18,23 +18,33 @@
 {
   if (!images)
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_37;
+      goto LABEL_39;
     }
 
-    goto LABEL_38;
+    v169 = objc_opt_class();
+    NSStringFromClass(v169);
+    v174 = @"[%@ initWithSourceImages...] sourceImages may not be nil";
+    v175 = 166;
+LABEL_38:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", v175, v174, v170, v171, v172, v173);
+    goto LABEL_39;
   }
 
   policyCopy = policy;
   objc_msgSend_count(images, a2, images, states, policy, v5, v6, v7);
   if (!objc_msgSend_count(images, v13, v14, v15, v16, v17, v18, v19))
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_37;
+      goto LABEL_39;
     }
 
+    v176 = objc_opt_class();
+    NSStringFromClass(v176);
+    v174 = @"[%@ initWithSourceImages...] sourceImages.count may not be 0";
+    v175 = 167;
     goto LABEL_38;
   }
 
@@ -45,21 +55,22 @@
     {
       if (MTLReportFailureTypeEnabled())
       {
-LABEL_37:
-        v161 = objc_opt_class();
-        NSStringFromClass(v161);
-        MTLReportFailure();
+        v177 = objc_opt_class();
+        NSStringFromClass(v177);
+        v174 = @"[%@ initWithSourceImages...] sourceStates.count may not be 0";
+        v175 = 170;
+        goto LABEL_38;
       }
 
-LABEL_38:
+LABEL_39:
 
       return 0;
     }
   }
 
-  v171.receiver = self;
-  v171.super_class = MPSNNFilterNode;
-  v40 = [(MPSNNFilterNode *)&v171 init];
+  v187.receiver = self;
+  v187.super_class = MPSNNFilterNode;
+  v40 = [(MPSNNFilterNode *)&v187 init];
   if (v40)
   {
     if (!policyCopy)
@@ -76,19 +87,19 @@ LABEL_38:
     if (v48)
     {
       v69 = 0;
-      for (i = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v63, 0, v64, v65, v66, v67, v68); ; i = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v72, v69, v73, v74, v75, v76, v77, v162, v164, v166, v168))
+      for (i = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v63, 0, v64, v65, v66, v67, v68); ; i = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v72, v69, v73, v74, v75, v76, v77, v178, v180, v182, v184))
       {
         v78 = i;
         if (*(i + 51) && !*(i + 16) && MTLReportFailureTypeEnabled())
         {
           v79 = objc_opt_class();
-          v170 = NSStringFromClass(v79);
+          v186 = NSStringFromClass(v79);
           v80 = NSStringFromSelector(a2);
-          v166 = v78;
-          v168 = objc_msgSend_debugDescription(v78, v81, v82, v83, v84, v85, v86, v87);
-          v162 = v170;
-          v164 = v80;
-          MTLReportFailure();
+          v182 = v78;
+          v184 = objc_msgSend_debugDescription(v78, v81, v82, v83, v84, v85, v86, v87);
+          v178 = v186;
+          v180 = v80;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", 0xC4, @"[%@ %@] Error: the source filter that produces the source image %p apparently has been released and no longer exists.\n\tConsequently, you wont be able to construct a graph to produce this image. The graph of nodes will not be usable.\n\n\tThis is a common mistake. The result image doesn't retain its parent. That would cause a reference cycle.\n\tYour application needs to keep the parent filter around so that the result image sticks around, until after\n\tsome other filter is initialized to consume the result image. The consuming filter will retain the parent filter\n\tof the intermediate image, so that all you need to keep a reference for is the last filter in the chain.\nImage:\n\t%@\n\t(parent filter no longer available, so can't be reported here.)\n\tNote: To prevent graph propagation beyond an image node, see -stopGradient.", v88, v89, v90, v91);
         }
 
         v71 = *(v78 + 16);
@@ -102,35 +113,35 @@ LABEL_38:
 
     if (states)
     {
-      v88 = objc_alloc(MEMORY[0x277CBEB18]);
-      v96 = objc_msgSend_count(states, v89, v90, v91, v92, v93, v94, v95);
-      v103 = objc_msgSend_initWithCapacity_(v88, v97, v96, v98, v99, v100, v101, v102);
-      v40->_sourceStates = v103;
-      objc_msgSend_setArray_(v103, v104, states, v105, v106, v107, v108, v109);
-      v117 = objc_msgSend_count(v40->_sourceStates, v110, v111, v112, v113, v114, v115, v116);
-      if (v117)
+      v92 = objc_alloc(MEMORY[0x277CBEB18]);
+      v100 = objc_msgSend_count(states, v93, v94, v95, v96, v97, v98, v99);
+      v107 = objc_msgSend_initWithCapacity_(v92, v101, v100, v102, v103, v104, v105, v106);
+      v40->_sourceStates = v107;
+      objc_msgSend_setArray_(v107, v108, states, v109, v110, v111, v112, v113);
+      v121 = objc_msgSend_count(v40->_sourceStates, v114, v115, v116, v117, v118, v119, v120);
+      if (v121)
       {
-        v124 = v117;
-        v125 = 0;
+        v128 = v121;
+        v129 = 0;
         v48 = 1;
-        for (j = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceStates, v118, 0, v119, v120, v121, v122, v123, v162, v164, v166, v168); ; j = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceStates, v128, v125, v129, v130, v131, v132, v133, v163, v165, v167, v169))
+        for (j = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceStates, v122, 0, v123, v124, v125, v126, v127, v178, v180, v182, v184); ; j = objc_msgSend_objectAtIndexedSubscript_(v40->_sourceStates, v132, v129, v133, v134, v135, v136, v137, v179, v181, v183, v185))
         {
-          v134 = j;
+          v138 = j;
           if (*(j + 34) && !*(j + 16) && MTLReportFailureTypeEnabled())
           {
-            v135 = objc_opt_class();
-            v136 = NSStringFromClass(v135);
-            v137 = NSStringFromSelector(a2);
-            v167 = v134;
-            v169 = objc_msgSend_debugDescription(v134, v138, v139, v140, v141, v142, v143, v144);
-            v163 = v136;
-            v165 = v137;
-            MTLReportFailure();
+            v139 = objc_opt_class();
+            v140 = NSStringFromClass(v139);
+            v141 = NSStringFromSelector(a2);
+            v183 = v138;
+            v185 = objc_msgSend_debugDescription(v138, v142, v143, v144, v145, v146, v147, v148);
+            v179 = v140;
+            v181 = v141;
+            MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", 0xD9, @"[%@ %@] Error: the source filter that produces the source state %p apparently has been released and no longer exists.\n\tConsequently, you wont be able to construct a graph to produce this state. The graph of nodes will not be usable.\n\n\tThis is a common mistake. The result state doesn't retain its parent. That would cause a reference cycle.\n\tYour application needs to keep the parent filter around so that the result state sticks around, until after\n\tsome other filter is initialized to consume the result state. The consuming filter will retain the parent filter\n\tof the intermediate image, so that all you need to keep a reference for is the last filter in the chain.\nState:\n\t%@\n\t(parent filter no longer available, so can't be reported here.)\n", v149, v150, v151, v152);
           }
 
-          v127 = *(v134 + 16);
-          ++*(v134 + 24);
-          if (v124 == ++v125)
+          v131 = *(v138 + 16);
+          ++*(v138 + 24);
+          if (v128 == ++v129)
           {
             break;
           }
@@ -145,22 +156,22 @@ LABEL_38:
 
     v40->_resultStates = 0;
     v40->_label = 0;
-    v145 = [MPSNNImageNode alloc];
-    v152 = objc_msgSend_initWithParent_(v145, v146, v40, v147, v148, v149, v150, v151);
-    v40->_resultImage = v152;
-    if (v152)
+    v153 = [MPSNNImageNode alloc];
+    v160 = objc_msgSend_initWithParent_(v153, v154, v40, v155, v156, v157, v158, v159);
+    v40->_resultImage = v160;
+    if (v160)
     {
-      v159 = v48 == 0;
+      v167 = v48 == 0;
     }
 
     else
     {
-      v159 = 1;
+      v167 = 1;
     }
 
-    if (!v159)
+    if (!v167)
     {
-      v40->_resultImage->_format = *(objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v153, 0, v154, v155, v156, v157, v158) + 40);
+      v40->_resultImage->_format = *(objc_msgSend_objectAtIndexedSubscript_(v40->_sourceImages, v161, 0, v162, v163, v164, v165, v166) + 40);
     }
   }
 
@@ -362,7 +373,7 @@ LABEL_38:
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", 0x168, @"[%@ newFilterNode] Internal error: child class fails to override this method.", v4, v5, v6, v7);
   }
 
   return 0;
@@ -374,11 +385,11 @@ LABEL_38:
   if (objc_msgSend_count(self->_sourceImages, v10, v11, v12, v13, v14, v15, v16) != 1 && MTLReportFailureTypeEnabled())
   {
     v32 = objc_opt_class();
-    v33 = NSStringFromClass(v32);
-    MTLReportFailure();
+    v37 = NSStringFromClass(v32);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", 0x183, @"[%@ gradientFilterWithSources:] This is not a unary filter. Please use gradientFiltersWithSources: (extra 's') instead. \n", v33, v34, v35, v36);
   }
 
-  v24 = objc_alloc(objc_msgSend_gradientClass(self, v17, v18, v19, v20, v21, v22, v23, v33));
+  v24 = objc_alloc(objc_msgSend_gradientClass(self, v17, v18, v19, v20, v21, v22, v23, v37));
   v30 = objc_msgSend_initWithGradientImages_forwardFilter_(v24, v25, gradientImages, self, v26, v27, v28, v29);
 
   return v30;
@@ -394,17 +405,17 @@ LABEL_38:
 
 - (NSArray)gradientFiltersWithSources:(NSArray *)gradientImages
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   objc_msgSend_count(self->_sourceImages, a2, gradientImages, v3, v4, v5, v6, v7);
   if (objc_msgSend_count(self->_sourceImages, v10, v11, v12, v13, v14, v15, v16) != 1 && MTLReportFailureTypeEnabled())
   {
     v29 = objc_opt_class();
-    v30 = NSStringFromClass(v29);
-    MTLReportFailure();
+    v34 = NSStringFromClass(v29);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraphNodes.mm", 0x192, @"[%@ gradientFilterWithSources:] Internal error: this isn't a unary filter and needs to override this method to return multiple filters\n", v30, v31, v32, v33);
   }
 
-  v31[0] = objc_msgSend_gradientFilterWithSources_(self, v17, gradientImages, v18, v19, v20, v21, v22, v30);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v31, 1, v24, v25, v26, v27);
+  v35[0] = objc_msgSend_gradientFilterWithSources_(self, v17, gradientImages, v18, v19, v20, v21, v22, v34);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v35, 1, v24, v25, v26, v27);
 }
 
 - (NSArray)gradientFiltersWithSource:(MPSNNImageNode *)gradientImage

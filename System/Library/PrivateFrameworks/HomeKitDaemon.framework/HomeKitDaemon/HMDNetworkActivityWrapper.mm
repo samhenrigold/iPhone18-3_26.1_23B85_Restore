@@ -31,27 +31,27 @@
 - (id)childActivityWithLabel:(unint64_t)label createIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   mutableChildren = [(HMDNetworkActivityWrapper *)self mutableChildren];
-  v8 = [mutableChildren countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [mutableChildren countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(mutableChildren);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 label] == label)
         {
           v13 = v12;
@@ -60,7 +60,7 @@
         }
       }
 
-      v9 = [mutableChildren countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [mutableChildren countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -82,14 +82,13 @@
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)submitMetrics:(id)metrics withName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   nameCopy = name;
   if (self->_completed)
@@ -101,7 +100,7 @@ LABEL_13:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Attempted to submit metrics after completion", buf, 0xCu);
     }
 
@@ -111,19 +110,17 @@ LABEL_13:
   else
   {
     v12 = xpc_dictionary_create(0, 0, 0);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __52__HMDNetworkActivityWrapper_submitMetrics_withName___block_invoke;
-    v16[3] = &unk_2786866F8;
-    v17 = v12;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __52__HMDNetworkActivityWrapper_submitMetrics_withName___block_invoke;
+    v15[3] = &unk_2786866F8;
+    v16 = v12;
     v13 = v12;
-    [metricsCopy enumerateKeysAndObjectsUsingBlock:v16];
+    [metricsCopy enumerateKeysAndObjectsUsingBlock:v15];
     activity = [(HMDNetworkActivityWrapper *)self activity];
     [nameCopy UTF8String];
     nw_activity_submit_metrics();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HMDNetworkActivityWrapper_submitMetrics_withName___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -202,7 +199,7 @@ void __52__HMDNetworkActivityWrapper_submitMetrics_withName___block_invoke(uint6
 - (NSSet)children
 {
   mutableChildren = [(HMDNetworkActivityWrapper *)self mutableChildren];
-  v3 = [mutableChildren copy];
+  v3 = objc_msgSend_copy(mutableChildren);
 
   return v3;
 }

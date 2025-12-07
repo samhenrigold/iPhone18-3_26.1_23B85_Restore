@@ -31,32 +31,32 @@
 
 - (void)migrateWorkflow
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
-    v26 = *v28;
+    v25 = *v27;
     do
     {
       v5 = 0;
       do
       {
-        if (*v28 != v26)
+        if (*v27 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v27 + 1) + 8 * v5);
+        v6 = *(*(&v26 + 1) + 8 * v5);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v8 = [v6 objectForKeyedSubscript:actionIdentifierKey];
 
-        if (([v8 isEqualToString:@"com.apple.iBooks.OpenBookIntent"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"com.apple.iBooks.PlayAudiobookIntent") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"com.apple.iBooksX.OpenBookIntent") & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"com.apple.iBooksX.PlayAudiobookIntent"))
+        if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || (objc_msgSend_isEqualToString_(v8) & 1) != 0 || (objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8))
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v10 = [v6 objectForKeyedSubscript:actionParametersKey];
@@ -70,7 +70,7 @@
           }
         }
 
-        if ([v8 isEqualToString:@"com.apple.iBooks.OpenRecentBookIntent"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"com.apple.iBooksX.OpenRecentBookIntent"))
+        if (objc_msgSend_isEqualToString_(v8) & 1) != 0 || (objc_msgSend_isEqualToString_(v8))
         {
           v14 = @"com.apple.iBooks.OpenBookIntent";
           v15 = @"OpenBookIntent";
@@ -91,7 +91,7 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        if (([v8 isEqualToString:@"com.apple.iBooks.PlayRecentAudiobookIntent"] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"com.apple.iBooksX.PlayRecentAudiobookIntent"))
+        if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8))
         {
           v14 = @"com.apple.iBooks.PlayAudiobookIntent";
           v15 = @"PlayAudiobookIntent";
@@ -104,7 +104,7 @@ LABEL_16:
       }
 
       while (v4 != v5);
-      v23 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v23 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       v4 = v23;
     }
 
@@ -112,7 +112,6 @@ LABEL_16:
   }
 
   [(WFWorkflowMigration *)self finish];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

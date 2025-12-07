@@ -278,27 +278,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  upsertWithItems = self->_upsertWithItems;
-  if (upsertWithItems | equalCopy[10])
-  {
-    if (![(SPProtoAudioFileQueuePlayerSetItems *)upsertWithItems isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  destroy = self->_destroy;
-  if (destroy | equalCopy[3] && ![(SPProtoObjectMessage *)destroy isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((setRate = self->_setRate, !(setRate | equalCopy[8])) || [(SPProtoAudioFileQueuePlayerSetRate *)setRate isEqual:?]) && ((replaceCurrentItem = self->_replaceCurrentItem, !(replaceCurrentItem | equalCopy[6])) || [(SPProtoAudioFilePlayerUpdateContainedIdentifier *)replaceCurrentItem isEqual:?]) && ((setStatus = self->_setStatus, !(setStatus | equalCopy[9])) || [(SPProtoAudioFilePlayerStatus *)setStatus isEqual:?]) && ((advanceToNextItem = self->_advanceToNextItem, !(advanceToNextItem | equalCopy[1])) || [(SPProtoObjectMessage *)advanceToNextItem isEqual:?]) && ((appendItem = self->_appendItem, !(appendItem | equalCopy[2])) || [(SPProtoAudioFilePlayerUpdateContainedIdentifier *)appendItem isEqual:?]) && ((removeItem = self->_removeItem, !(removeItem | equalCopy[5])) || [(SPProtoAudioFilePlayerUpdateContainedIdentifier *)removeItem isEqual:?]) && ((removeAllItems = self->_removeAllItems, !(removeAllItems | equalCopy[4])) || [(SPProtoObjectMessage *)removeAllItems isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((upsertWithItems = self->_upsertWithItems, !(upsertWithItems | equalCopy[10])) || -[SPProtoAudioFileQueuePlayerSetItems isEqual:](upsertWithItems, "isEqual:")) && ((destroy = self->_destroy, !(destroy | equalCopy[3])) || -[SPProtoObjectMessage isEqual:](destroy, "isEqual:")) && ((setRate = self->_setRate, !(setRate | equalCopy[8])) || -[SPProtoAudioFileQueuePlayerSetRate isEqual:](setRate, "isEqual:")) && ((replaceCurrentItem = self->_replaceCurrentItem, !(replaceCurrentItem | equalCopy[6])) || -[SPProtoAudioFilePlayerUpdateContainedIdentifier isEqual:](replaceCurrentItem, "isEqual:")) && ((setStatus = self->_setStatus, !(setStatus | equalCopy[9])) || -[SPProtoAudioFilePlayerStatus isEqual:](setStatus, "isEqual:")) && ((advanceToNextItem = self->_advanceToNextItem, !(advanceToNextItem | equalCopy[1])) || -[SPProtoObjectMessage isEqual:](advanceToNextItem, "isEqual:")) && ((appendItem = self->_appendItem, !(appendItem | equalCopy[2])) || -[SPProtoAudioFilePlayerUpdateContainedIdentifier isEqual:](appendItem, "isEqual:")) && ((removeItem = self->_removeItem, !(removeItem | equalCopy[5])) || -[SPProtoAudioFilePlayerUpdateContainedIdentifier isEqual:](removeItem, "isEqual:")) && ((removeAllItems = self->_removeAllItems, !(removeAllItems | equalCopy[4])) || -[SPProtoObjectMessage isEqual:](removeAllItems, "isEqual:")))
   {
     setCurrentItem = self->_setCurrentItem;
     if (setCurrentItem | equalCopy[7])
@@ -314,7 +294,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 

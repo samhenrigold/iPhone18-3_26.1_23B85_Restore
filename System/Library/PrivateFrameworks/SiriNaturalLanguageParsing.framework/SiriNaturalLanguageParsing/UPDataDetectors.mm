@@ -145,147 +145,142 @@
 
 - (id)initLoadFromDataDetectorsDirectoryPath:(id)path forLocale:(id)locale
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   localeCopy = locale;
-  v34.receiver = self;
-  v34.super_class = UPDataDetectors;
-  if ([(UPDataDetectors *)&v34 init])
+  v33.receiver = self;
+  v33.super_class = UPDataDetectors;
+  if ([(UPDataDetectors *)&v33 init])
   {
     v8 = pathCopy;
     __p[0] = [pathCopy UTF8String];
-    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v33, __p);
-    memset(v32, 0, sizeof(v32));
-    v31 = 0u;
-    *v29 = 0u;
-    memset(v30, 0, sizeof(v30));
-    memset(v28, 0, sizeof(v28));
+    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v32, __p);
+    memset(v31, 0, sizeof(v31));
+    v30 = 0u;
+    *v28 = 0u;
+    memset(v29, 0, sizeof(v29));
+    memset(v27, 0, sizeof(v27));
     *__p = 0u;
-    std::__fs::filesystem::path::path[abi:ne200100]<char [16],void>(&v35.__pn_, "addresses.cache");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v28[0]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [16],void>(&v34.__pn_, "addresses.cache");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v27[0]) < 0)
     {
       operator delete(__p[0]);
     }
 
-    *__p = *&v36.__pn_.__r_.__value_.__l.__data_;
-    v28[0] = v36.__pn_.__r_.__value_.__r.__words[2];
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *__p = *&v35.__pn_.__r_.__value_.__l.__data_;
+    v27[0] = v35.__pn_.__r_.__value_.__r.__words[2];
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::path::path[abi:ne200100]<char [16],void>(&v35.__pn_, "date_time.cache");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v28[3]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [16],void>(&v34.__pn_, "date_time.cache");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v27[3]) < 0)
     {
-      operator delete(v28[1]);
+      operator delete(v27[1]);
     }
 
-    *&v28[1] = v36;
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *&v27[1] = v35;
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>(&v35.__pn_, "flights.cache");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v30[0]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>(&v34.__pn_, "flights.cache");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v29[0]) < 0)
     {
-      operator delete(v29[0]);
+      operator delete(v28[0]);
     }
 
-    *v29 = *&v36.__pn_.__r_.__value_.__l.__data_;
-    v30[0] = v36.__pn_.__r_.__value_.__r.__words[2];
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *v28 = *&v35.__pn_.__r_.__value_.__l.__data_;
+    v29[0] = v35.__pn_.__r_.__value_.__r.__words[2];
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
-    memset(&v35, 0, sizeof(v35));
-    std::string::append[abi:ne200100]<char const*,0>(&v35.__pn_, "currencies.cache", "");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v30[3]) < 0)
+    memset(&v34, 0, sizeof(v34));
+    std::string::append[abi:ne200100]<char const*,0>(&v34.__pn_, "currencies.cache", "");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v29[3]) < 0)
     {
-      operator delete(v30[1]);
+      operator delete(v29[1]);
     }
 
-    *&v30[1] = v36;
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *&v29[1] = v35;
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>(&v35.__pn_, "numbers.cache");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v32[0]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>(&v34.__pn_, "numbers.cache");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v31[0]) < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
-    v31 = *&v36.__pn_.__r_.__value_.__l.__data_;
-    v32[0] = *(&v36.__pn_.__r_.__value_.__l + 2);
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    v30 = *&v35.__pn_.__r_.__value_.__l.__data_;
+    v31[0] = *(&v35.__pn_.__r_.__value_.__l + 2);
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v35.__pn_, "phone_mobile.cache");
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v32[3]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v34.__pn_, "phone_mobile.cache");
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v31[3]) < 0)
     {
-      operator delete(v32[1]);
+      operator delete(v31[1]);
     }
 
-    *&v32[1] = v36;
-    *(&v36.__pn_.__r_.__value_.__s + 23) = 0;
-    v36.__pn_.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *&v31[1] = v35;
+    *(&v35.__pn_.__r_.__value_.__s + 23) = 0;
+    v35.__pn_.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
     languageCode = [localeCopy languageCode];
     v10 = languageCode;
-    std::string::basic_string[abi:ne200100]<0>(&v25, [languageCode UTF8String]);
-    v11 = std::string::insert(&v25, 0, "addresses_");
+    std::string::basic_string[abi:ne200100]<0>(&v24, [languageCode UTF8String]);
+    v11 = std::string::insert(&v24, 0, "addresses_");
     v12 = *&v11->__r_.__value_.__l.__data_;
-    v26.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-    *&v26.__r_.__value_.__l.__data_ = v12;
+    v25.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&v25.__r_.__value_.__l.__data_ = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    v13 = std::string::append(&v26, ".cache");
+    v13 = std::string::append(&v25, ".cache");
     v14 = v13->__r_.__value_.__r.__words[0];
-    v37[0] = v13->__r_.__value_.__l.__size_;
-    *(v37 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
+    v36[0] = v13->__r_.__value_.__l.__size_;
+    *(v36 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
     v15 = HIBYTE(v13->__r_.__value_.__r.__words[2]);
     v13->__r_.__value_.__l.__size_ = 0;
     v13->__r_.__value_.__r.__words[2] = 0;
     v13->__r_.__value_.__r.__words[0] = 0;
-    *(&v35.__pn_.__r_.__value_.__r.__words[1] + 7) = *(v37 + 7);
-    v35.__pn_.__r_.__value_.__r.__words[0] = v14;
-    v35.__pn_.__r_.__value_.__l.__size_ = v37[0];
-    *(&v35.__pn_.__r_.__value_.__s + 23) = v15;
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *(&v34.__pn_.__r_.__value_.__r.__words[1] + 7) = *(v36 + 7);
+    v34.__pn_.__r_.__value_.__r.__words[0] = v14;
+    v34.__pn_.__r_.__value_.__l.__size_ = v36[0];
+    *(&v34.__pn_.__r_.__value_.__s + 23) = v15;
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v26.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -293,48 +288,48 @@
       operator delete(v25.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::__status(&v36, 0);
-    if (v35.__pn_.__r_.__value_.__s.__data_[0] && v35.__pn_.__r_.__value_.__s.__data_[0] != 255)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::operator=(__p, &v36.__pn_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v36.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    std::__fs::filesystem::__status(&v35, 0);
+    if (v34.__pn_.__r_.__value_.__s.__data_[0] && v34.__pn_.__r_.__value_.__s.__data_[0] != 255)
     {
-      operator delete(v36.__pn_.__r_.__value_.__l.__data_);
+      std::string::operator=(__p, &v35.__pn_);
+    }
+
+    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
     }
 
     localeIdentifier = [localeCopy localeIdentifier];
     v17 = localeIdentifier;
-    std::string::basic_string[abi:ne200100]<0>(&v25, [localeIdentifier UTF8String]);
-    v18 = std::string::insert(&v25, 0, "date_time_");
+    std::string::basic_string[abi:ne200100]<0>(&v24, [localeIdentifier UTF8String]);
+    v18 = std::string::insert(&v24, 0, "date_time_");
     v19 = *&v18->__r_.__value_.__l.__data_;
-    v26.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-    *&v26.__r_.__value_.__l.__data_ = v19;
+    v25.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+    *&v25.__r_.__value_.__l.__data_ = v19;
     v18->__r_.__value_.__l.__size_ = 0;
     v18->__r_.__value_.__r.__words[2] = 0;
     v18->__r_.__value_.__r.__words[0] = 0;
-    v20 = std::string::append(&v26, ".cache");
+    v20 = std::string::append(&v25, ".cache");
     v21 = v20->__r_.__value_.__r.__words[0];
-    v37[0] = v20->__r_.__value_.__l.__size_;
-    *(v37 + 7) = *(&v20->__r_.__value_.__r.__words[1] + 7);
+    v36[0] = v20->__r_.__value_.__l.__size_;
+    *(v36 + 7) = *(&v20->__r_.__value_.__r.__words[1] + 7);
     v22 = HIBYTE(v20->__r_.__value_.__r.__words[2]);
     v20->__r_.__value_.__l.__size_ = 0;
     v20->__r_.__value_.__r.__words[2] = 0;
     v20->__r_.__value_.__r.__words[0] = 0;
-    *(&v35.__pn_.__r_.__value_.__r.__words[1] + 7) = *(v37 + 7);
-    v35.__pn_.__r_.__value_.__r.__words[0] = v21;
-    v35.__pn_.__r_.__value_.__l.__size_ = v37[0];
-    *(&v35.__pn_.__r_.__value_.__s + 23) = v22;
-    std::__fs::filesystem::operator/[abi:ne200100](&v36.__pn_, &v33, &v35);
-    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    *(&v34.__pn_.__r_.__value_.__r.__words[1] + 7) = *(v36 + 7);
+    v34.__pn_.__r_.__value_.__r.__words[0] = v21;
+    v34.__pn_.__r_.__value_.__l.__size_ = v36[0];
+    *(&v34.__pn_.__r_.__value_.__s + 23) = v22;
+    std::__fs::filesystem::operator/[abi:ne200100](&v35.__pn_, &v32, &v34);
+    if (SHIBYTE(v34.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v26.__r_.__value_.__l.__data_);
+      operator delete(v34.__pn_.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -342,21 +337,25 @@
       operator delete(v25.__r_.__value_.__l.__data_);
     }
 
-    std::__fs::filesystem::__status(&v36, 0);
-    if (v35.__pn_.__r_.__value_.__s.__data_[0] && v35.__pn_.__r_.__value_.__s.__data_[0] != 255)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::operator=(&v28[1], &v36.__pn_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v36.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    std::__fs::filesystem::__status(&v35, 0);
+    if (v34.__pn_.__r_.__value_.__s.__data_[0] && v34.__pn_.__r_.__value_.__s.__data_[0] != 255)
     {
-      operator delete(v36.__pn_.__r_.__value_.__l.__data_);
+      std::string::operator=(&v27[1], &v35.__pn_);
+    }
+
+    if (SHIBYTE(v35.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v35.__pn_.__r_.__value_.__l.__data_);
     }
 
     operator new();
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

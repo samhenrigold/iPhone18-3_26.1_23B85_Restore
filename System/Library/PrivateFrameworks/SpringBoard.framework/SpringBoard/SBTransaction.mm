@@ -6,18 +6,19 @@
 
 - (SBTransaction)init
 {
-  v5.receiver = self;
-  v5.super_class = SBTransaction;
-  v2 = [(SBTransaction *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = SBTransaction;
+  v2 = [(SBTransaction *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = SBLogTransaction();
-    [(SBTransaction *)v2 _addDebugLogCategory:v3];
+    v4 = SBLogTransaction(v2);
+    [(SBTransaction *)v3 _addDebugLogCategory:v4];
 
-    [(SBTransaction *)v2 setAuditHistoryEnabled:1];
+    [(SBTransaction *)v3 setAuditHistoryEnabled:1];
   }
 
-  return v2;
+  return v3;
 }
 
 @end

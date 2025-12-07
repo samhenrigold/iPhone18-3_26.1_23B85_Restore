@@ -3693,7 +3693,7 @@ LABEL_13:
     if (!bOOLValue)
     {
 LABEL_24:
-      [(NSMutableDictionary *)self->_pendingUploads removeObjectForKey:identifier, *v37, *&v37[16]];
+      [(NSMutableDictionary *)self->_pendingUploads removeObjectForKey:identifier, *v37, *&v37[8]];
 
       goto LABEL_25;
     }

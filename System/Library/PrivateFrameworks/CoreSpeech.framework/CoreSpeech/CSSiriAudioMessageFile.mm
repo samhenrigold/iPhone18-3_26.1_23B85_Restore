@@ -127,8 +127,8 @@
 
   v13 = [CSPlainAudioFileWriter alloc];
   v14 = self->_recordedAudioFileURL;
-  +[CSFAudioStreamBasicDescriptionFactory lpcmMonoInterleavedASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmMonoInterleavedASBD];
+  objc_msgSend_lpcmMonoInterleavedASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmMonoInterleavedASBD(CSFAudioStreamBasicDescriptionFactory);
   v15 = [v13 initWithURL:v14 inputFormat:buf outputFormat:v17];
   audioFileWriter = self->_audioFileWriter;
   self->_audioFileWriter = v15;

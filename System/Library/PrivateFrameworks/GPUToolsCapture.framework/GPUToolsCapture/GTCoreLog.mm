@@ -27,7 +27,7 @@ uint64_t __GTCoreLog_getLogForTag_block_invoke(uint64_t a1)
   v7 = *(v6 + 16);
   *(v6 + 16) = v5;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v5, v7);
 }
 
 @end

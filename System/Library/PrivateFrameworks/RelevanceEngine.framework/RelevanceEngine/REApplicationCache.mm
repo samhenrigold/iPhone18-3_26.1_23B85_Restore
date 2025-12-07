@@ -139,7 +139,7 @@ uint64_t __36__REApplicationCache_sharedInstance__block_invoke()
   return removedCopy;
 }
 
-uint64_t __43__REApplicationCache_applicationIsRemoved___block_invoke(uint64_t a1)
+void *__43__REApplicationCache_applicationIsRemoved___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_applicationIsRemoved:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -185,7 +185,7 @@ uint64_t __43__REApplicationCache_applicationIsRemoved___block_invoke(uint64_t a
   return restrictedCopy;
 }
 
-uint64_t __46__REApplicationCache_applicationIsRestricted___block_invoke(uint64_t a1)
+void *__46__REApplicationCache_applicationIsRestricted___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_applicationIsRestricted:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -349,37 +349,35 @@ void __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___block
 {
   if (*(*(a1 + 32) + 48))
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = dispatch_semaphore_create(0);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___block_invoke_2;
-    v8[3] = &unk_2785FAE80;
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v9 = v4;
-    v10 = v6;
-    v8[4] = *(a1 + 32);
-    v7 = v4;
-    [v5 _queue_loadRemoteAppsCompletion:v8];
-    dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+    v3 = dispatch_semaphore_create(0);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___block_invoke_2;
+    v7[3] = &unk_2785FAE80;
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v8 = v3;
+    v9 = v5;
+    v7[4] = *(a1 + 32);
+    v6 = v3;
+    [v4 _queue_loadRemoteAppsCompletion:v7];
+    dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
   }
 }
 
-intptr_t __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___block_invoke_2(void *a1)
+intptr_t __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1[4] + 48);
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return dispatch_semaphore_signal(v3);
+  return dispatch_semaphore_signal(v2);
 }
 
 - (id)watchKitExtensionForApplication:(id)application
@@ -411,7 +409,7 @@ intptr_t __65__REApplicationCache__accessRemoteApplicationsMapWithCompletion___b
 
 void __54__REApplicationCache_watchKitExtensionForApplication___block_invoke(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
   v3 = 0x277CBE000;
   if (!v2)
@@ -420,26 +418,26 @@ void __54__REApplicationCache_watchKitExtensionForApplication___block_invoke(voi
     v5 = v4;
     if (v4 && [v4 isWatchKitApp])
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v6 = [v5 plugInKitPlugins];
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v21;
+        v9 = *v20;
 LABEL_6:
         v10 = 0;
         while (1)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * v10);
+          v11 = *(*(&v19 + 1) + 8 * v10);
           v12 = [v11 protocol];
           v13 = [v12 isEqualToString:@"com.apple.watchkit"];
 
@@ -450,7 +448,7 @@ LABEL_6:
 
           if (v8 == ++v10)
           {
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
             if (v8)
             {
               goto LABEL_6;
@@ -498,8 +496,6 @@ LABEL_15:
 
   v18 = *(v16 + 40);
   *(v16 + 40) = v17;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)typeForApplication:(id)application
@@ -556,7 +552,7 @@ void __41__REApplicationCache_typeForApplication___block_invoke(void *a1)
   return v3;
 }
 
-uint64_t __46__REApplicationCache__trackedApplicationCount__block_invoke(uint64_t a1)
+void *__46__REApplicationCache__trackedApplicationCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -596,7 +592,7 @@ void __51__REApplicationCache_clearNanoRegistryApplications__block_invoke_2(uint
 
 - (void)_queue_loadRemoteAppsCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = dispatch_get_global_queue(33, 0);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -604,62 +600,60 @@ void __51__REApplicationCache_clearNanoRegistryApplications__block_invoke_2(uint
     appProvider = self->_appProvider;
     *buf = 138412802;
     selfCopy = self;
-    v14 = 2112;
-    v15 = appProvider;
-    v16 = 2112;
-    v17 = v5;
+    v13 = 2112;
+    v14 = appProvider;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_22859F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ is loading apps using %@, completionQueue %@", buf, 0x20u);
   }
 
   v7 = self->_appProvider;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke;
-  v10[3] = &unk_2785FC368;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke;
+  v9[3] = &unk_2785FC368;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [(CSLPRFDefaultAppDataProvider *)v7 loadAppsWithCompletion:v10 completionQueue:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(CSLPRFDefaultAppDataProvider *)v7 loadAppsWithCompletion:v9 completionQueue:v5];
 }
 
 void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
     *buf = 138412546;
-    v27 = v4;
-    v28 = 1024;
-    v29 = [v3 count];
+    v26 = v4;
+    v27 = 1024;
+    v28 = [v3 count];
     _os_log_impl(&dword_22859F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ loaded %d apps, processing", buf, 0x12u);
   }
 
   v5 = -[REKeyValueMap initWithCapacity:]([REKeyValueMap alloc], "initWithCapacity:", [v3 count]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = [v3 allValues];
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v22 + 1) + 8 * v10) bundleID];
+        v11 = [*(*(&v21 + 1) + 8 * v10) bundleID];
         v12 = [MEMORY[0x277CBEB68] null];
         [(REKeyValueMap *)v5 addKey:v11 withValue:v12];
 
@@ -667,20 +661,20 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke(uin
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v8);
   }
 
   v13 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14;
-  v20[3] = &unk_2785FC340;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14;
+  v19[3] = &unk_2785FC340;
   v14 = v5;
-  v21 = v14;
-  [v13 enumerateBundlesOfType:1 block:v20];
+  v20 = v14;
+  [v13 enumerateBundlesOfType:1 block:v19];
 
   objc_storeStrong((*(a1 + 32) + 48), v5);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -689,11 +683,11 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke(uin
     v16 = [(REKeyValueMap *)v14 count];
     v17 = MEMORY[0x22AABC5E0](*(a1 + 40));
     *buf = 138412802;
-    v27 = v15;
-    v28 = 1024;
-    v29 = v16;
-    v30 = 2112;
-    v31 = v17;
+    v26 = v15;
+    v27 = 1024;
+    v28 = v16;
+    v29 = 2112;
+    v30 = v17;
     _os_log_impl(&dword_22859F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ mapps %d apps, calling %@", buf, 0x1Cu);
   }
 
@@ -702,37 +696,35 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke(uin
   {
     (*(v18 + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CC1E60];
   v4 = [a2 bundleURL];
   v5 = [v3 applicationProxyForBundleURL:v4];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = [v5 counterpartIdentifiers];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [*(a1 + 32) valueForKey:v11];
 
         if (v12)
@@ -743,13 +735,11 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearApplicationTypesMap
@@ -765,7 +755,7 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
 
 - (void)_init_loadApplicationTypesMapFromWorkspace:(id)workspace
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   workspaceCopy = workspace;
   v5 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
   nextObject = [v5 nextObject];
@@ -796,12 +786,10 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = [(NSMutableDictionary *)self->_applicationTypes count];
-    v17 = 134217984;
-    v18 = v15;
-    _os_log_impl(&dword_22859F000, v14, OS_LOG_TYPE_INFO, "[AppCache] Tracking %lu installed apps.", &v17, 0xCu);
+    v16 = 134217984;
+    v17 = v15;
+    _os_log_impl(&dword_22859F000, v14, OS_LOG_TYPE_INFO, "[AppCache] Tracking %lu installed apps.", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_loadStateForBundleID:(id)d
@@ -841,7 +829,7 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
 
 - (void)applicationStateDidChange:(id)change
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = RELogForDomain(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -851,28 +839,26 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
     v8 = [changeCopy valueForKeyPath:v7];
     v9 = [v8 componentsJoinedByString:{@", "}];
     *buf = 134218242;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v9;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v9;
     _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "[AppCache] %lu were changed: %{public}@.", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__REApplicationCache_applicationStateDidChange___block_invoke;
-  v13[3] = &unk_2785F9AE0;
-  v13[4] = self;
-  v14 = changeCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__REApplicationCache_applicationStateDidChange___block_invoke;
+  v12[3] = &unk_2785F9AE0;
+  v12[4] = self;
+  v13 = changeCopy;
   v11 = changeCopy;
-  dispatch_async(queue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v12);
 }
 
 - (void)applicationsDidInstall:(id)install
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   installCopy = install;
   v5 = RELogForDomain(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -882,9 +868,9 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
     v8 = [installCopy valueForKeyPath:v7];
     v9 = [v8 componentsJoinedByString:{@", "}];
     *buf = 134218242;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v9;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v9;
     _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "[AppCache] %lu were installed: %{public}@", buf, 0x16u);
   }
 
@@ -895,18 +881,16 @@ void __54__REApplicationCache__queue_loadRemoteAppsCompletion___block_invoke_14(
   block[2] = __45__REApplicationCache_applicationsDidInstall___block_invoke;
   block[3] = &unk_2785FB070;
   block[4] = self;
-  v16 = v10;
-  v17 = installCopy;
+  v15 = v10;
+  v16 = installCopy;
   v12 = installCopy;
   v13 = v10;
   dispatch_async(queue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __45__REApplicationCache_applicationsDidInstall___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 48);
   *(v2 + 48) = 0;
@@ -915,29 +899,29 @@ void __45__REApplicationCache_applicationsDidInstall___block_invoke(uint64_t a1)
   [*(a1 + 40) removeObjectsInArray:v4];
   if ([*(a1 + 40) count])
   {
-    v17 = v4;
+    v16 = v4;
     v5 = [*(a1 + 40) copy];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         v10 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v11 = *(*(&v20 + 1) + 8 * v10);
           v12 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v11 allowPlaceholder:0 error:0];
           v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "_typeForRecord:", v12)}];
           [*(*(a1 + 32) + 16) setObject:v13 forKeyedSubscript:v11];
@@ -946,7 +930,7 @@ void __45__REApplicationCache_applicationsDidInstall___block_invoke(uint64_t a1)
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -957,35 +941,31 @@ void __45__REApplicationCache_applicationsDidInstall___block_invoke(uint64_t a1)
     block[2] = __45__REApplicationCache_applicationsDidInstall___block_invoke_2;
     block[3] = &unk_2785F9AE0;
     v14 = *(a1 + 32);
-    v19 = v6;
-    v20 = v14;
+    v18 = v6;
+    v19 = v14;
     v15 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v4 = v17;
+    v4 = v16;
   }
 
   [*(a1 + 32) _queue_applicationsDidChange:*(a1 + 48)];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__REApplicationCache_applicationsDidInstall___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = @"REApplicationStateBundleIdentifiers";
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"REApplicationStateBundleIdentifiers";
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"REApplicationStateDidInstall" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
   v5 = RELogForDomain(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -995,50 +975,48 @@ void __45__REApplicationCache_applicationsDidInstall___block_invoke_2(uint64_t a
     v8 = [uninstallCopy valueForKeyPath:v7];
     v9 = [v8 componentsJoinedByString:{@", "}];
     *buf = 134218242;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v9;
+    v16 = v6;
+    v17 = 2114;
+    v18 = v9;
     _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "[AppCache] %lu were uninstalled: %{public}@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __47__REApplicationCache_applicationsDidUninstall___block_invoke;
-  v13[3] = &unk_2785F9AE0;
-  v14 = uninstallCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __47__REApplicationCache_applicationsDidUninstall___block_invoke;
+  v12[3] = &unk_2785F9AE0;
+  v13 = uninstallCopy;
   selfCopy = self;
   v11 = uninstallCopy;
-  dispatch_async(queue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v12);
 }
 
 void __47__REApplicationCache_applicationsDidUninstall___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v19 + 1) + 8 * v7) bundleIdentifier];
+        v8 = [*(*(&v18 + 1) + 8 * v7) bundleIdentifier];
         [v2 addObject:v8];
         [*(*(a1 + 40) + 16) removeObjectForKey:v8];
 
@@ -1046,71 +1024,67 @@ void __47__REApplicationCache_applicationsDidUninstall___block_invoke(uint64_t a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
 
   v9 = [v2 copy];
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __47__REApplicationCache_applicationsDidUninstall___block_invoke_2;
-  v16 = &unk_2785F9AE0;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __47__REApplicationCache_applicationsDidUninstall___block_invoke_2;
+  v15 = &unk_2785F9AE0;
   v10 = *(a1 + 40);
-  v17 = v9;
-  v18 = v10;
+  v16 = v9;
+  v17 = v10;
   v11 = v9;
-  dispatch_async(MEMORY[0x277D85CD0], &v13);
-  [*(a1 + 40) _queue_applicationsDidChange:{*(a1 + 32), v13, v14, v15, v16}];
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], &v12);
+  [*(a1 + 40) _queue_applicationsDidChange:{*(a1 + 32), v12, v13, v14, v15}];
 }
 
 void __47__REApplicationCache_applicationsDidUninstall___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = @"REApplicationStateBundleIdentifiers";
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"REApplicationStateBundleIdentifiers";
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"REApplicationStateDidUninstall" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_applicationsDidChange:(id)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changeCopy = change;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [changeCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [changeCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        bundleIdentifier = [*(*(&v12 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v11 + 1) + 8 * v8) bundleIdentifier];
         [(REApplicationCache *)self _queue_loadStateForBundleID:bundleIdentifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [changeCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [changeCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -1123,8 +1097,6 @@ void __47__REApplicationCache_applicationsDidUninstall___block_invoke_2(uint64_t
   block[3] = &unk_2785F9AB8;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__REApplicationCache__queue_applicationsDidChange___block_invoke(uint64_t a1)

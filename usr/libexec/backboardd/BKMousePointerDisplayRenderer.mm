@@ -8,6 +8,7 @@
 - (void)setPointerLayer:(id)layer;
 - (void)setPointerPosition:(CGPoint)position;
 - (void)setRootLayerProperties:(BKMousePointerDisplayRendererRootLayerProperties *)properties;
+- (void)setTransformLayerProperties:(BKMousePointerDisplayRendererTransformLayerProperties *)properties;
 @end
 
 @implementation BKMousePointerDisplayRenderer
@@ -61,6 +62,60 @@
   [(CALayer *)transformLayer setPosition:v13, v15];
 }
 
+- (void)setTransformLayerProperties:(BKMousePointerDisplayRendererTransformLayerProperties *)properties
+{
+  v5 = *&self->_transformLayerProperties.affineTransform.c;
+  *&t1.a = *&self->_transformLayerProperties.affineTransform.a;
+  *&t1.c = v5;
+  *&t1.tx = *&self->_transformLayerProperties.affineTransform.tx;
+  v6 = *&properties->affineTransform.c;
+  *&v16.a = *&properties->affineTransform.a;
+  *&v16.c = v6;
+  *&v16.tx = *&properties->affineTransform.tx;
+  if (!CGAffineTransformEqualToTransform(&t1, &v16) || (BSRectEqualToRect() & 1) == 0)
+  {
+    v7 = *&properties->affineTransform.c;
+    v8 = *&properties->affineTransform.tx;
+    size = properties->bounds.size;
+    self->_transformLayerProperties.bounds.origin = properties->bounds.origin;
+    self->_transformLayerProperties.bounds.size = size;
+    v10 = *&properties->affineTransform.a;
+    *&self->_transformLayerProperties.affineTransform.c = v7;
+    *&self->_transformLayerProperties.affineTransform.tx = v8;
+    *&self->_transformLayerProperties.affineTransform.a = v10;
+    *&v7 = self->_transformLayerProperties.bounds.origin.x;
+    *&v8 = self->_transformLayerProperties.bounds.origin.y;
+    *&v10 = self->_transformLayerProperties.bounds.size.width;
+    size.width = self->_transformLayerProperties.bounds.size.height;
+    if (!CGRectIsEmpty(*&v7) && !self->_transformLayer)
+    {
+      v11 = +[CALayer layer];
+      transformLayer = self->_transformLayer;
+      self->_transformLayer = v11;
+
+      if (self->_pointerLayer)
+      {
+        [(CALayer *)self->_transformLayer addSublayer:?];
+      }
+
+      rootLayer = self->_rootLayer;
+      if (rootLayer)
+      {
+        [(CALayer *)rootLayer addSublayer:self->_transformLayer];
+      }
+    }
+
+    [(CALayer *)self->_transformLayer setBounds:self->_transformLayerProperties.bounds.origin.x, self->_transformLayerProperties.bounds.origin.y, self->_transformLayerProperties.bounds.size.width, self->_transformLayerProperties.bounds.size.height];
+    v14 = self->_transformLayer;
+    v15 = *&self->_transformLayerProperties.affineTransform.c;
+    *&t1.a = *&self->_transformLayerProperties.affineTransform.a;
+    *&t1.c = v15;
+    *&t1.tx = *&self->_transformLayerProperties.affineTransform.tx;
+    [(CALayer *)v14 setAffineTransform:&t1];
+    [(BKMousePointerDisplayRenderer *)self _updateTransformLayerPosition];
+  }
+}
+
 - (void)setRootLayerProperties:(BKMousePointerDisplayRendererRootLayerProperties *)properties
 {
   v5 = *&self->_rootLayerProperties.affineTransform.c;
@@ -68,60 +123,42 @@
   *&t1.c = v5;
   *&t1.tx = *&self->_rootLayerProperties.affineTransform.tx;
   v6 = *&properties->affineTransform.c;
-  *&v45.a = *&properties->affineTransform.a;
-  *&v45.c = v6;
-  *&v45.tx = *&properties->affineTransform.tx;
-  if (!CGAffineTransformEqualToTransform(&t1, &v45))
+  *&v31.a = *&properties->affineTransform.a;
+  *&v31.c = v6;
+  *&v31.tx = *&properties->affineTransform.tx;
+  if (!CGAffineTransformEqualToTransform(&t1, &v31) || !BSRectEqualToRect() || (BSFloatEqualToFloat() & 1) == 0)
   {
-    goto LABEL_4;
-  }
-
-  x = self->_rootLayerProperties.bounds.origin.x;
-  y = self->_rootLayerProperties.bounds.origin.y;
-  width = self->_rootLayerProperties.bounds.size.width;
-  height = self->_rootLayerProperties.bounds.size.height;
-  v11 = properties->bounds.origin.x;
-  v12 = properties->bounds.origin.y;
-  v13 = properties->bounds.size.width;
-  v14 = properties->bounds.size.height;
-  if (!BSRectEqualToRect() || (v15 = self->_rootLayerProperties.displayScale, v16 = properties->displayScale, (BSFloatEqualToFloat() & 1) == 0))
-  {
-LABEL_4:
-    displayScale = self->_rootLayerProperties.displayScale;
     if (BSFloatEqualToFloat())
     {
-      v18 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v19 = self->_rootLayerProperties.displayScale;
-      v18 = BSFloatEqualToFloat();
+      v7 = BSFloatEqualToFloat();
     }
 
-    v20 = *&properties->affineTransform.tx;
+    v8 = *&properties->affineTransform.tx;
     origin = properties->bounds.origin;
     size = properties->bounds.size;
     self->_rootLayerProperties.displayScale = properties->displayScale;
-    v23 = *&properties->affineTransform.c;
+    v11 = *&properties->affineTransform.c;
     *&self->_rootLayerProperties.affineTransform.a = *&properties->affineTransform.a;
-    *&self->_rootLayerProperties.affineTransform.c = v23;
+    *&self->_rootLayerProperties.affineTransform.c = v11;
     self->_rootLayerProperties.bounds.origin = origin;
     self->_rootLayerProperties.bounds.size = size;
-    *&self->_rootLayerProperties.affineTransform.tx = v20;
-    *&v20 = self->_rootLayerProperties.displayScale;
+    *&self->_rootLayerProperties.affineTransform.tx = v8;
     if (BSFloatEqualToFloat())
     {
-      v24 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v25 = self->_rootLayerProperties.displayScale;
-      v24 = BSFloatEqualToFloat();
+      v12 = BSFloatEqualToFloat();
     }
 
-    if (v24 != v18)
+    if (v12 != v7)
     {
       [(CAContext *)self->_context setLayer:0];
       [(CAContext *)self->_context invalidate];
@@ -129,76 +166,72 @@ LABEL_4:
       self->_context = 0;
     }
 
-    if (!CGRectIsEmpty(self->_rootLayerProperties.bounds))
+    if (!CGRectIsEmpty(self->_rootLayerProperties.bounds) && BSFloatGreaterThanFloat())
     {
-      v27 = self->_rootLayerProperties.displayScale;
-      if (BSFloatGreaterThanFloat())
+      if (!self->_rootLayer)
       {
-        if (!self->_rootLayer)
-        {
-          v28 = +[CALayer layer];
-          rootLayer = self->_rootLayer;
-          self->_rootLayer = v28;
-        }
-
-        if (self->_transformLayer)
-        {
-          [(CALayer *)self->_rootLayer addSublayer:?];
-        }
-
-        v30 = self->_context;
-        if (!v30)
-        {
-          v47[0] = kCAContextDisplayable;
-          v47[1] = kCAContextDisplayName;
-          displayName = self->_displayName;
-          v48[0] = &__kCFBooleanTrue;
-          v48[1] = displayName;
-          v47[2] = kCAContextIgnoresHitTest;
-          v47[3] = kCAContextSecure;
-          v48[2] = &__kCFBooleanTrue;
-          v48[3] = &__kCFBooleanTrue;
-          v32 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:4];
-          v33 = [CAContext remoteContextWithOptions:v32];
-          v34 = self->_context;
-          self->_context = v33;
-
-          LODWORD(v35) = 1173553152;
-          [(CAContext *)self->_context setLevel:v35];
-          [(CAContext *)self->_context setSecure:1];
-
-          v30 = self->_context;
-        }
-
-        [(CAContext *)v30 setLayer:self->_rootLayer];
+        v14 = +[CALayer layer];
+        rootLayer = self->_rootLayer;
+        self->_rootLayer = v14;
       }
+
+      if (self->_transformLayer)
+      {
+        [(CALayer *)self->_rootLayer addSublayer:?];
+      }
+
+      v16 = self->_context;
+      if (!v16)
+      {
+        v33[0] = kCAContextDisplayable;
+        v33[1] = kCAContextDisplayName;
+        displayName = self->_displayName;
+        v34[0] = &__kCFBooleanTrue;
+        v34[1] = displayName;
+        v33[2] = kCAContextIgnoresHitTest;
+        v33[3] = kCAContextSecure;
+        v34[2] = &__kCFBooleanTrue;
+        v34[3] = &__kCFBooleanTrue;
+        v18 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:4];
+        v19 = [CAContext remoteContextWithOptions:v18];
+        v20 = self->_context;
+        self->_context = v19;
+
+        LODWORD(v21) = 1173553152;
+        [(CAContext *)self->_context setLevel:v21];
+        [(CAContext *)self->_context setSecure:1];
+
+        v16 = self->_context;
+      }
+
+      [(CAContext *)v16 setLayer:self->_rootLayer];
     }
 
-    v36 = self->_rootLayer;
-    v37 = *&self->_rootLayerProperties.affineTransform.c;
+    v22 = self->_rootLayer;
+    v23 = *&self->_rootLayerProperties.affineTransform.c;
     *&t1.a = *&self->_rootLayerProperties.affineTransform.a;
-    *&t1.c = v37;
+    *&t1.c = v23;
     *&t1.tx = *&self->_rootLayerProperties.affineTransform.tx;
-    [(CALayer *)v36 setAffineTransform:&t1];
+    [(CALayer *)v22 setAffineTransform:&t1];
     [(CALayer *)self->_rootLayer setRasterizationScale:self->_rootLayerProperties.displayScale];
     [(CALayer *)self->_rootLayer setBounds:self->_rootLayerProperties.bounds.origin.x, self->_rootLayerProperties.bounds.origin.y, self->_rootLayerProperties.bounds.size.width, self->_rootLayerProperties.bounds.size.height];
     bounds = self->_rootLayerProperties.bounds;
-    v38 = *&self->_rootLayerProperties.affineTransform.c;
+    v24 = *&self->_rootLayerProperties.affineTransform.c;
     *&t1.a = *&self->_rootLayerProperties.affineTransform.a;
-    *&t1.c = v38;
+    *&t1.c = v24;
     *&t1.tx = *&self->_rootLayerProperties.affineTransform.tx;
-    v50 = CGRectApplyAffineTransform(bounds, &t1);
-    v39 = v50.origin.x;
-    v40 = v50.origin.y;
-    v41 = v50.size.width;
-    v42 = v50.size.height;
-    v43 = self->_rootLayer;
-    MidX = CGRectGetMidX(v50);
-    v51.origin.x = v39;
-    v51.origin.y = v40;
-    v51.size.width = v41;
-    v51.size.height = v42;
-    [(CALayer *)v43 setPosition:MidX, CGRectGetMidY(v51)];
+    v36 = CGRectApplyAffineTransform(bounds, &t1);
+    x = v36.origin.x;
+    y = v36.origin.y;
+    width = v36.size.width;
+    height = v36.size.height;
+    v29 = self->_rootLayer;
+    MidX = CGRectGetMidX(v36);
+    v37.origin.x = x;
+    v37.origin.y = y;
+    v37.size.width = width;
+    v37.size.height = height;
+    [(CALayer *)v29 setPosition:MidX, CGRectGetMidY(v37)];
     [(BKMousePointerDisplayRenderer *)self _updateTransformLayerPosition];
   }
 }
@@ -207,8 +240,6 @@ LABEL_4:
 {
   y = position.y;
   x = position.x;
-  v6 = self->_pointerPosition.x;
-  v7 = self->_pointerPosition.y;
   if ((BSPointEqualToPoint() & 1) == 0)
   {
     self->_pointerPosition.x = x;
@@ -270,7 +301,7 @@ LABEL_4:
   v9 = v8;
   if (v8)
   {
-    [v8 geometryForDisplay:controllerCopy];
+    objc_msgSend_geometryForDisplay_(v8);
     v10 = 0.0;
     if (BSFloatLessThanOrEqualToFloat())
     {

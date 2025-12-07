@@ -1,9 +1,39 @@
+void sub_1000F3B6C(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    v3 = *(*(a1 + 32) + 8);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000F3C9C;
+    block[3] = &unk_10051CF58;
+    v7 = *(a1 + 48);
+    dispatch_async(v3, block);
+  }
+
+  else
+  {
+    v4 = AFSiriLogContextSession;
+    if (os_log_type_enabled(AFSiriLogContextSession, OS_LOG_TYPE_INFO))
+    {
+      v5 = *(a1 + 40);
+      *buf = 136315394;
+      v9 = "[ADSessionManager _sendCommand:opportunistically:logEvent:doSendPreProcessing:doSendPostProcessing:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s Dropped command: %@", buf, 0x16u);
+    }
+  }
+}
+
 void sub_1000F41BC(id a1)
 {
   v1 = [NSSet alloc];
-  qword_100590118 = [v1 initWithObjects:{SACFFetchScriptCommandClassIdentifier, SACFFetchScriptResponseClassIdentifier, 0}];
+  v2 = [v1 initWithObjects:{SACFFetchScriptCommandClassIdentifier, SACFFetchScriptResponseClassIdentifier, 0}];
+  v3 = qword_100590118;
+  qword_100590118 = v2;
 
-  _objc_release_x1();
+  _objc_release_x1(v2, v3);
 }
 
 void sub_1000F565C(uint64_t a1)
@@ -26,9 +56,11 @@ void sub_1000F6DB4(id a1)
   qword_100590100 = v2;
 
   v4 = [NSSet alloc];
-  qword_100590108 = [v4 initWithObjects:{SAClientSetupInfoClassIdentifier, SASyncGetAnchorsResponseClassIdentifier, SAGuidanceGuideUpdateClassIdentifier, SAUIGetResponseAlternativesPlaybackClassIdentifier, SASyncChunkAcceptedClassIdentifier, 0}];
+  v5 = [v4 initWithObjects:{SAClientSetupInfoClassIdentifier, SASyncGetAnchorsResponseClassIdentifier, SAGuidanceGuideUpdateClassIdentifier, SAUIGetResponseAlternativesPlaybackClassIdentifier, SASyncChunkAcceptedClassIdentifier, 0}];
+  v6 = qword_100590108;
+  qword_100590108 = v5;
 
-  _objc_release_x1();
+  _objc_release_x1(v5, v6);
 }
 
 void sub_1000F72D0(uint64_t a1)
@@ -310,7 +342,7 @@ LABEL_9:
   }
 
 LABEL_12:
-  v14 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1801 userInfo:0, *v19, *&v19[16], v20, v21];
+  v14 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1801 userInfo:0, *v19, *&v19[8], v20, v21];
   v12 = AFSiriLogContextDaemon;
   if (v14)
   {
@@ -1357,7 +1389,7 @@ void sub_1000FE234(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
 LABEL_7:
-    v14 = [AFBluetoothDeviceBooleanSettingResponse newWithBuilder:&stru_100511A00, *v21, *&v21[16], v22, v23];
+    v14 = [AFBluetoothDeviceBooleanSettingResponse newWithBuilder:&stru_100511A00, *v21, *&v21[8], v22, v23];
     goto LABEL_8;
   }
 
@@ -1510,7 +1542,7 @@ void sub_1000FE858(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
 LABEL_7:
-    v14 = [AFBluetoothDeviceBooleanSettingResponse newWithBuilder:&stru_100511A00, *v21, *&v21[16], v22, v23];
+    v14 = [AFBluetoothDeviceBooleanSettingResponse newWithBuilder:&stru_100511A00, *v21, *&v21[8], v22, v23];
     goto LABEL_8;
   }
 
@@ -2104,9 +2136,9 @@ void sub_10010203C(uint64_t a1, void *a2)
       buf[0] = _NSConcreteStackBlock;
       buf[1] = 3221225472;
       buf[2] = sub_1001023FC;
-      v11 = &unk_100511A48;
-      v13 = 0;
+      buf[3] = &unk_100511A48;
       v12 = 0;
+      v11 = 0;
       v7 = 0;
       v2 = [AFBluetoothWirelessSplitterSessionInfo newWithBuilder:buf];
     }
@@ -2121,7 +2153,7 @@ void sub_10010203C(uint64_t a1, void *a2)
     WORD2(buf[1]) = 2112;
     *(&buf[1] + 6) = v2;
     HIWORD(buf[2]) = 2112;
-    v11 = v9;
+    buf[3] = v9;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s Fetched Wireless Splitter session info %@ for %@.", buf, 0x20u);
   }
 
@@ -3509,41 +3541,41 @@ void sub_10010C700(uint64_t a1, void *a2, void *a3)
   dispatch_async(v7, block);
 }
 
-void sub_10010C7DC(uint64_t a1)
+void sub_10010C7DC(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v3 = AFSiriLogContextDaemon;
+    v4 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v4 = &stru_10051F508;
-      v5 = *(a1 + 32);
-      if (!v5)
+      v5 = &stru_10051F508;
+      v6 = *(a1 + 32);
+      if (!v6)
       {
-        v5 = &stru_10051F508;
+        v6 = &stru_10051F508;
       }
 
       if (*(a1 + 40))
       {
-        v4 = *(a1 + 40);
+        v5 = *(a1 + 40);
       }
 
-      v6 = 136315650;
-      v7 = "[ADContextManager _updateNavStatusWithContext:completion:]_block_invoke_3";
-      v8 = 2112;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s Could not fetch route! %@ %@", &v6, 0x20u);
+      v7 = 136315650;
+      v8 = "[ADContextManager _updateNavStatusWithContext:completion:]_block_invoke_3";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%s Could not fetch route! %@ %@", &v7, 0x20u);
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
   (*(*(a1 + 48) + 16))();
@@ -4333,7 +4365,7 @@ LABEL_15:
 
 void sub_10010FB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x250], 8);
   _Unwind_Resume(a1);
 }
@@ -5255,11 +5287,11 @@ LABEL_16:
   }
 }
 
-void sub_100114A80(void *a1)
+void sub_100114A80(void *a1, const char *a2)
 {
-  v1 = a1[6];
-  v2 = [*(a1[4] + 184) objectForKey:a1[5]];
-  (*(v1 + 16))(v1, v2);
+  v2 = a1[6];
+  v3 = objc_msgSend_objectForKey_(*(a1[4] + 184), a2, a1[5]);
+  (*(v2 + 16))(v2, v3);
 }
 
 void sub_100114C6C(uint64_t a1, void *a2)
@@ -5880,11 +5912,11 @@ void sub_100116B08(uint64_t a1, void *a2)
   _Block_object_dispose(v16, 8);
 }
 
-void sub_100116C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100116C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5926,7 +5958,7 @@ id sub_100116CA0(uint64_t a1, void *a2)
       v12 = *(*(*(a1 + 48) + 8) + 40);
     }
 
-    v7 = [v12 objectForKey:v11];
+    v7 = objc_msgSend_objectForKey_(v12);
 
     if (v7)
     {
@@ -6053,7 +6085,7 @@ id sub_100116CA0(uint64_t a1, void *a2)
     v18 = *(*(*(a1 + 56) + 8) + 40);
   }
 
-  v7 = [v18 objectForKey:{v17, v47, v48, v49}];
+  v7 = objc_msgSend_objectForKey_(v18, v47, v48, v49);
 
   if (v7)
   {
@@ -6801,11 +6833,11 @@ void sub_1001199BC(id a1)
   qword_100590170 = v1;
 }
 
-void sub_100119C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100119C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6990,44 +7022,43 @@ void sub_10011A1E0(id a1)
 
 void sub_10011A3D4(uint64_t a1)
 {
-  v44 = objc_alloc_init(NSMutableDictionary);
   v43 = objc_alloc_init(NSMutableDictionary);
+  v42 = objc_alloc_init(NSMutableDictionary);
   v38 = a1;
   group = dispatch_group_create();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+  v2 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v62;
+    v4 = *v61;
     v40 = _AFContextManagerServerMessageCollateContexts;
-    v41 = _AFContextManagerCollateContextsReplyKeyContexts;
-    v42 = *v62;
+    v41 = *v61;
     do
     {
       v5 = 0;
-      v45 = v3;
+      v44 = v3;
       do
       {
-        if (*v62 != v4)
+        if (*v61 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v61 + 1) + 8 * v5);
+        v6 = *(*(&v60 + 1) + 8 * v5);
         v7 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           v8 = v7;
           v9 = [v6 identifier];
           *buf = 136315394;
-          v67 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
-          v68 = 2112;
-          v69 = v9;
+          v66 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
+          v67 = 2112;
+          v68 = v9;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s ApplicationInfo identifier: %@", buf, 0x16u);
         }
 
@@ -7047,7 +7078,7 @@ void sub_10011A3D4(uint64_t a1)
         {
           v13 = objc_alloc_init(NSMutableArray);
           v14 = objc_alloc_init(NSMutableArray);
-          v49 = v10;
+          v48 = v10;
           v15 = v10;
           if (!v15)
           {
@@ -7073,9 +7104,9 @@ void sub_10011A3D4(uint64_t a1)
             if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v67 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
-              v68 = 2112;
-              v69 = v20;
+              v66 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
+              v67 = 2112;
+              v68 = v20;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s Attempting AFContextProvider lookup on %@", buf, 0x16u);
             }
 
@@ -7088,54 +7119,54 @@ void sub_10011A3D4(uint64_t a1)
               if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v67 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
-                v68 = 2112;
-                v69 = v15;
+                v66 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
+                v67 = 2112;
+                v68 = v15;
                 _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s No AFContextProvider server for %@", buf, 0x16u);
               }
 
               v24 = 0;
 LABEL_27:
-              v47 = v24;
-              v48 = v22;
-              v27 = [v24 objectForKey:v41];
+              v46 = v24;
+              v47 = v22;
+              v27 = objc_msgSend_objectForKey_(v24);
+              v56 = 0u;
               v57 = 0u;
               v58 = 0u;
               v59 = 0u;
-              v60 = 0u;
-              v28 = [v27 countByEnumeratingWithState:&v57 objects:v65 count:16];
+              v28 = [v27 countByEnumeratingWithState:&v56 objects:v64 count:16];
               if (v28)
               {
                 v29 = v28;
-                v30 = *v58;
+                v30 = *v57;
                 do
                 {
                   for (i = 0; i != v29; i = i + 1)
                   {
-                    if (*v58 != v30)
+                    if (*v57 != v30)
                     {
                       objc_enumerationMutation(v27);
                     }
 
-                    v32 = *(*(&v57 + 1) + 8 * i);
+                    v32 = *(*(&v56 + 1) + 8 * i);
                     [v13 addObjectsFromArray:v32];
                     v33 = [v32 af_lenientMappedArray:&stru_100511B50];
                     [v14 addObjectsFromArray:v33];
                   }
 
-                  v29 = [v27 countByEnumeratingWithState:&v57 objects:v65 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v56 objects:v64 count:16];
                 }
 
                 while (v29);
               }
 
-              [v44 setObject:v13 forKey:v15];
+              [v43 setObject:v13 forKey:v15];
               v34 = [[AFApplicationContext alloc] initWithAssociatedBundleIdentifier:v15 bulletin:0 aceContext:0 contextDictionary:0 aceContexts:v14];
-              [v43 setObject:v34 forKey:v15];
+              [v42 setObject:v34 forKey:v15];
 
-              v3 = v45;
-              v4 = v42;
-              v10 = v49;
+              v3 = v44;
+              v4 = v41;
+              v10 = v48;
               goto LABEL_35;
             }
           }
@@ -7147,9 +7178,9 @@ LABEL_22:
             if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v67 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
-              v68 = 2112;
-              v69 = v15;
+              v66 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
+              v67 = 2112;
+              v68 = v15;
               _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%s Skipping AFContextProvider lookup because %@ is not allow-listed", buf, 0x16u);
             }
 
@@ -7166,9 +7197,9 @@ LABEL_22:
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v67 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
-            v68 = 2112;
-            v69 = v24;
+            v66 = "[ADContextManager getAppContextForDeviceState:applicationInfos:completion:]_block_invoke";
+            v67 = 2112;
+            v68 = v24;
             _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s Reply context from remote center: %@", buf, 0x16u);
           }
 
@@ -7181,7 +7212,7 @@ LABEL_35:
       }
 
       while (v5 != v3);
-      v3 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v3 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
     }
 
     while (v3);
@@ -7191,15 +7222,15 @@ LABEL_35:
   block[1] = 3221225472;
   block[2] = sub_10011AA60;
   block[3] = &unk_1005183C8;
-  v50 = *(v38 + 40);
-  v35 = v50.i64[0];
-  v52 = vextq_s8(v50, v50, 8uLL);
-  v53 = v44;
-  v54 = v43;
-  v55 = *(v38 + 32);
-  v56 = *(v38 + 56);
-  v36 = v43;
-  v37 = v44;
+  v49 = *(v38 + 40);
+  v35 = v49.i64[0];
+  v51 = vextq_s8(v49, v49, 8uLL);
+  v52 = v43;
+  v53 = v42;
+  v54 = *(v38 + 32);
+  v55 = *(v38 + 56);
+  v36 = v42;
+  v37 = v43;
   dispatch_group_notify(group, v35, block);
 }
 
@@ -7239,7 +7270,7 @@ void sub_10011AB3C(uint64_t a1, void *a2, void *a3)
 
   if (v5 && v6)
   {
-    v8 = [*(a1 + 32) objectForKey:v6];
+    v8 = objc_msgSend_objectForKey_(*(a1 + 32));
     if (!v8)
     {
       v8 = objc_alloc_init(NSMutableArray);
@@ -7249,7 +7280,7 @@ void sub_10011AB3C(uint64_t a1, void *a2, void *a3)
     v9 = [v5 dictionary];
     [v8 addObject:v9];
 
-    v10 = [*(a1 + 40) objectForKey:v6];
+    v10 = objc_msgSend_objectForKey_(*(a1 + 40));
     if (v10)
     {
       v11 = v10;
@@ -7301,7 +7332,7 @@ void sub_10011AB3C(uint64_t a1, void *a2, void *a3)
         v20 = [*(*(&v31 + 1) + 8 * i) identifier];
         if (v20)
         {
-          v21 = [*(a1 + 32) objectForKey:v20];
+          v21 = objc_msgSend_objectForKey_(*(a1 + 32));
           v22 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v21, "count") + 1}];
           v23 = [*(a1 + 56) _appInfoWithBundleID:v20];
           v24 = [v23 dictionary];
@@ -7309,7 +7340,7 @@ void sub_10011AB3C(uint64_t a1, void *a2, void *a3)
 
           [v22 addObjectsFromArray:v21];
           [v15 addObject:v22];
-          v25 = [*(a1 + 40) objectForKey:v20];
+          v25 = objc_msgSend_objectForKey_(*(a1 + 40));
           if (v25)
           {
             [v29 addObject:v25];
@@ -7866,7 +7897,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_10011E234()
+uint64_t sub_10011E234(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1005901C8 = result;
@@ -7908,21 +7939,21 @@ void sub_10011E5B0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10011E7D8(uint64_t a1)
+void sub_10011E7D8(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 33) == 1 && (v3 = *(v2 + 8)) != 0)
+  v3 = *(a1 + 32);
+  if (*(v3 + 33) == 1 && (v4 = *(v3 + 8)) != 0)
   {
-    v4 = AFSiriLogContextConnection;
+    v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v4;
-      v9 = [NSNumber numberWithUnsignedInteger:v3];
+      v9 = v5;
+      v10 = [NSNumber numberWithUnsignedInteger:v4];
       *buf = 136315394;
-      v13 = "[AFSiriHeadphonesMonitor fetchPrivateSessionStateWithCompletion:]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%s Private session state: %@", buf, 0x16u);
+      v14 = "[AFSiriHeadphonesMonitor fetchPrivateSessionStateWithCompletion:]_block_invoke";
+      v15 = 2112;
+      v16 = v10;
+      _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s Private session state: %@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -7930,26 +7961,26 @@ void sub_10011E7D8(uint64_t a1)
 
   else
   {
-    v5 = AFSupportsWirelessSplitter();
-    v6 = *(a1 + 32);
-    if (v5)
+    v6 = AFSupportsWirelessSplitter();
+    v7 = *(a1 + 32);
+    if (v6)
     {
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_10011E9D8;
-      v10[3] = &unk_1005125A0;
-      v10[4] = v6;
-      v11 = *(a1 + 40);
-      [v6 _fetchWirelessSplitterSessionInfoAndStartObservingFromSourceWithCompletion:v10];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10011E9D8;
+      v11[3] = &unk_1005125A0;
+      v11[4] = v7;
+      v12 = *(a1 + 40);
+      [v7 _fetchWirelessSplitterSessionInfoAndStartObservingFromSourceWithCompletion:v11];
     }
 
     else
     {
-      v6[33] = 1;
+      v7[33] = 1;
       *(*(a1 + 32) + 8) = 1;
-      v7 = *(*(a1 + 40) + 16);
+      v8 = *(*(a1 + 40) + 16);
 
-      v7();
+      v8();
     }
   }
 }
@@ -8360,9 +8391,9 @@ id sub_10011FBEC(uint64_t a1)
   return [v2 addObject:v6];
 }
 
-void sub_10011FFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10011FFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8400,9 +8431,9 @@ void sub_1001200F0(void *a1)
   *(v3 + 40) = 0;
 }
 
-void sub_100120260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100120260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8515,18 +8546,18 @@ id sub_100120E88(uint64_t a1)
   return [v2 _updateInEarDetectionStateAndObserve];
 }
 
-_BYTE *sub_100120FB0(uint64_t a1)
+_BYTE *sub_100120FB0(uint64_t a1, uint64_t a2)
 {
-  v2 = AFSupportsWirelessSplitter();
+  v3 = AFSupportsWirelessSplitter();
   result = *(a1 + 32);
-  if (v2)
+  if (v3)
   {
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_100121044;
-    v4[3] = &unk_100512490;
-    v4[4] = result;
-    return [result _fetchWirelessSplitterSessionInfoAndStartObservingFromSourceWithCompletion:v4];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_100121044;
+    v5[3] = &unk_100512490;
+    v5[4] = result;
+    return [result _fetchWirelessSplitterSessionInfoAndStartObservingFromSourceWithCompletion:v5];
   }
 
   else
@@ -8611,11 +8642,13 @@ void sub_100121658(id a1, AFBluetoothHeadphoneInEarDetectionStateMutating *a2)
   [(AFBluetoothHeadphoneInEarDetectionStateMutating *)v2 setSecondaryInEarStatus:0];
 }
 
-uint64_t sub_1001216BC()
+uint64_t sub_1001216BC(uint64_t a1, uint64_t a2)
 {
-  qword_1005901B8 = [objc_alloc(objc_opt_class()) _init];
+  v2 = [objc_alloc(objc_opt_class()) _init];
+  v3 = qword_1005901B8;
+  qword_1005901B8 = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v3);
 }
 
 void sub_100121AAC(uint64_t a1)
@@ -8855,7 +8888,7 @@ void sub_100123444(uint64_t a1, int a2)
   else
   {
     v4 = [*(a1 + 32) announceIdToRemoteAssistantIdMap];
-    v5 = [v4 objectForKey:*(a1 + 40)];
+    v5 = objc_msgSend_objectForKey_(v4);
 
     if (v5)
     {
@@ -9262,7 +9295,7 @@ id sub_100125AEC(void *a1, void *a2)
         }
 
         v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [v6 objectForKey:{v11, v15}];
+        v12 = objc_msgSend_objectForKey_(v6, v15);
         v13 = sub_1001259A0(v11, v12, v4);
 
         if (v13)
@@ -9316,28 +9349,4 @@ id sub_100125C7C(void *a1, void *a2)
   }
 
   return v5;
-}
-
-id sub_100125DEC(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = a1;
-  v5 = [[CKRecordID alloc] initWithRecordName:v4 zoneID:v3];
-
-  return v5;
-}
-
-id sub_100125E60(void *a1)
-{
-  v1 = a1;
-  v6 = objc_opt_class();
-  v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v2 = [NSArray arrayWithObjects:&v6 count:5];
-  v3 = [NSSet setWithArray:v2, v6, v7, v8, v9];
-  v4 = [v1 _ad_dataOfClasses:v3];
-
-  return v4;
 }

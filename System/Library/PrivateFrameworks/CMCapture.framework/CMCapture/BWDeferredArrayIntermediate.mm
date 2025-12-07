@@ -7,7 +7,6 @@
 - (int)flush;
 - (int)setArchive:(id)archive;
 - (int)setURL:(id)l prefetchQueue:(id)queue;
-- (uint64_t)flush;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -29,7 +28,7 @@
 
   else
   {
-    [BWDeferredArrayIntermediate initWithArray:? tag:? URL:?];
+    [(BWDeferredArrayIntermediate *)self initWithArray:a2 tag:0 URL:tag, l];
     return 0;
   }
 
@@ -59,52 +58,52 @@
 
 - (int)setURL:(id)l prefetchQueue:(id)queue
 {
-  pthread_mutex_lock(&self->super.super._lock);
+  v7 = pthread_mutex_lock(&self->super.super._lock);
   if (self->_array)
   {
-    [BWDeferredArrayIntermediate setURL:prefetchQueue:];
-    v7 = -16135;
+    [BWDeferredArrayIntermediate setURL:v7 prefetchQueue:?];
+    v8 = -16135;
   }
 
   else
   {
     [(BWDeferredDataIntermediate *)self _setURL:l prefetchQueue:queue];
-    v7 = 0;
+    v8 = 0;
   }
 
   pthread_mutex_unlock(&self->super.super._lock);
-  return v7;
+  return v8;
 }
 
 - (int)setArchive:(id)archive
 {
-  pthread_mutex_lock(&self->super.super._lock);
+  v5 = pthread_mutex_lock(&self->super.super._lock);
   if (self->_array)
   {
-    [BWDeferredArrayIntermediate setArchive:];
+    [BWDeferredArrayIntermediate setArchive:v5];
 LABEL_9:
-    v6 = -16135;
+    v7 = -16135;
     goto LABEL_5;
   }
 
   if (self->super._archive)
   {
-    [BWDeferredArrayIntermediate setArchive:];
+    [BWDeferredArrayIntermediate setArchive:v5];
     goto LABEL_9;
   }
 
   if (self->super.super._URL)
   {
-    [BWDeferredArrayIntermediate setArchive:];
+    [BWDeferredArrayIntermediate setArchive:v5];
     goto LABEL_9;
   }
 
-  v5 = [archive copy];
-  v6 = 0;
-  self->super._archive = v5;
+  v6 = [archive copy];
+  v7 = 0;
+  self->super._archive = v6;
 LABEL_5:
   pthread_mutex_unlock(&self->super.super._lock);
-  return v6;
+  return v7;
 }
 
 - (id)fetchWithCustomClassesAndRetain:(id)retain err:(int *)err
@@ -172,59 +171,59 @@ LABEL_8:
 
 - (id)archive:(int *)archive
 {
-  v10 = 0;
-  pthread_mutex_lock(&self->super.super._lock);
+  v11 = 0;
+  v5 = pthread_mutex_lock(&self->super.super._lock);
   array = self->_array;
   if (array)
   {
-    if ([BWDeferredContainer archiveObject:array error:&v10])
+    if ([BWDeferredContainer archiveObject:array error:&v11])
     {
-      v6 = _CFXPCCreateXPCObjectFromCFObject();
-      v7 = v6;
-      if (v6)
+      v7 = _CFXPCCreateXPCObjectFromCFObject();
+      v8 = v7;
+      if (v7)
       {
-        CFAutorelease(v6);
-        v8 = 0;
+        CFAutorelease(v7);
+        v9 = 0;
       }
 
       else
       {
-        [BWDeferredArrayIntermediate archive:];
-        v8 = -16133;
+        [BWDeferredArrayIntermediate archive:?];
+        v9 = -16133;
       }
     }
 
     else
     {
-      [(BWDeferredArrayIntermediate *)&v10 archive:?];
-      v7 = 0;
-      v8 = v11;
+      [(BWDeferredArrayIntermediate *)&v11 archive:?];
+      v8 = 0;
+      v9 = v12;
     }
   }
 
   else
   {
-    [BWDeferredArrayIntermediate archive:];
-    v7 = 0;
-    v8 = -16136;
+    [BWDeferredArrayIntermediate archive:v5];
+    v8 = 0;
+    v9 = -16136;
   }
 
   pthread_mutex_unlock(&self->super.super._lock);
   if (archive)
   {
-    *archive = v8;
+    *archive = v9;
   }
 
-  return v7;
+  return v8;
 }
 
 - (int)flush
 {
-  v5 = 0;
-  pthread_mutex_lock(&self->super.super._lock);
+  v6 = 0;
+  v3 = pthread_mutex_lock(&self->super.super._lock);
   if (!self->super.super._URL)
   {
-    [BWDeferredArrayIntermediate flush];
+    [(BWDeferredArrayIntermediate *)v3 flush];
     goto LABEL_11;
   }
 
@@ -235,36 +234,36 @@ LABEL_8:
       goto LABEL_7;
     }
 
-    [BWDeferredArrayIntermediate flush];
+    [(BWDeferredArrayIntermediate *)v3 flush];
 LABEL_11:
-    v3 = -16136;
+    v4 = -16136;
     goto LABEL_8;
   }
 
   if (!self->super.super._dirty)
   {
 LABEL_7:
-    v3 = 0;
+    v4 = 0;
     goto LABEL_8;
   }
 
-  if ([BWDeferredContainer archiveObjectWithURL:"archiveObjectWithURL:object:error:" object:v5 error:?])
+  if ([BWDeferredContainer archiveObjectWithURL:"archiveObjectWithURL:object:error:" object:v6 error:?])
   {
 
-    v3 = 0;
+    v4 = 0;
     self->_array = 0;
     self->super.super._dirty = 0;
   }
 
   else
   {
-    [(BWDeferredArrayIntermediate *)&v5 flush];
-    v3 = v6;
+    [(BWDeferredArrayIntermediate *)&v6 flush];
+    v4 = v7;
   }
 
 LABEL_8:
   pthread_mutex_unlock(&self->super.super._lock);
-  return v3;
+  return v4;
 }
 
 - (id)description
@@ -284,27 +283,13 @@ LABEL_8:
   return v6;
 }
 
-- (void)initWithArray:(void *)a1 tag:URL:.cold.1(void *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
 - (uint64_t)archive:(id *)a1 .cold.2(id *a1, _DWORD *a2)
 {
-  LODWORD(v6) = 0;
-  FigDebugAssert3();
-  [*a1 code];
-  result = FigSignalErrorAtGM();
-  *a2 = result;
-  return result;
-}
-
-- (uint64_t)flush
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = [*self code];
+  v10 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v2, v12, v13, v14, v15, vars0, vars8);
+  v5 = qword_1EB58E478;
+  v6 = [*a1 code];
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, "<<<< BWDeferredContainerIntermediate >>>>", 0x4C9, v2, v7, v8, v11);
   *a2 = result;
   return result;
 }

@@ -14,7 +14,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MedicationsDayHistoryView();
+  v5.super_class = type metadata accessor for MedicationsDayHistoryView(0);
   [(MedicationsDayHistoryView *)&v5 dealloc];
 }
 

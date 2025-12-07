@@ -1,690 +1,6 @@
-void sub_1817B4E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  objc_sync_exit(v9);
-  _Unwind_Resume(a1);
-}
-
-void addPluginDataToNotificationDict(void *a1, void *a2)
-{
-  v12 = a1;
-  v3 = a2;
-  v4 = [v3 uniqueIdentifier];
-  v5 = [v4 UUIDString];
-
-  if (v5)
-  {
-    v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
-    v7 = [v3 bundleIdentifier];
-    if (v7)
-    {
-      [v6 setObject:v7 forKey:*MEMORY[0x1E695E4F0]];
-    }
-
-    v8 = [v3 effectiveBundleIdentifier];
-    if (v8)
-    {
-      [v6 setObject:v8 forKey:@"NSExtensionIdentifier"];
-    }
-
-    v9 = [v3 bundleVersion];
-    if (v9)
-    {
-      [v6 setObject:v9 forKey:*MEMORY[0x1E695E500]];
-    }
-
-    v10 = [v3 URL];
-    v11 = [v10 path];
-
-    if (v11)
-    {
-      [v6 setObject:v11 forKey:@"_LSBundlePath"];
-    }
-
-    if ([v6 count])
-    {
-      [v12 setObject:v6 forKey:v5];
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    v11 = 0;
-    v6 = 0;
-  }
-}
-
-void sub_1817B7124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1817B7EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1817B8344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__333(uint64_t a1, uint64_t a2)
-{
-  result = MEMORY[0x1865D71B0](*(a2 + 40));
-  *(a1 + 40) = result;
-  return result;
-}
-
-void sub_1817BA2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t initMKBDeviceUnlockedSinceBoot()
-{
-  v0 = MobileKeyBagLibrary_frameworkLibrary;
-  if (!MobileKeyBagLibrary_frameworkLibrary)
-  {
-    v0 = dlopen("/System/Library/PrivateFrameworks/MobileKeyBag.framework/MobileKeyBag", 2);
-    MobileKeyBagLibrary_frameworkLibrary = v0;
-  }
-
-  v1 = dlsym(v0, "MKBDeviceUnlockedSinceBoot");
-  softLinkMKBDeviceUnlockedSinceBoot[0] = v1;
-
-  return v1();
-}
-
-SEL __recordSelectorsForPluginNotification_block_invoke()
-{
-  v0 = 0;
-  recordSelectorsForPluginNotification_registeredSels = malloc_type_malloc(0x30uLL, 0x80040B8603338uLL);
-  *(recordSelectorsForPluginNotification_registeredSels + 40) = 0;
-  do
-  {
-    result = sel_registerName(recordSelectorsForPluginNotification_unregisteredSels[v0]);
-    *(recordSelectorsForPluginNotification_registeredSels + v0 * 8) = result;
-    ++v0;
-  }
-
-  while (v0 != 5);
-  return result;
-}
-
-void OUTLINED_FUNCTION_5_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
-}
-
-uint64_t LSPersonaTypeForPersonaAttributes(void *a1)
-{
-  v1 = a1;
-  if ([v1 isSystemPersona])
-  {
-    v2 = 3;
-  }
-
-  else if ([v1 isPersonalPersona])
-  {
-    v2 = 1;
-  }
-
-  else if ([v1 isEnterprisePersona])
-  {
-    v2 = 2;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2;
-}
-
-uint64_t _AppleIDAuthenticationAddAppleIDWithBlock(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, uint64_t a5)
-{
-  v7 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "AddAppleID: This operation is not supported anymore\n", buf, 2u);
-  }
-
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 0x40000000;
-  block[2] = ___AppleIDAuthenticationAddAppleIDWithBlock_block_invoke;
-  block[3] = &unk_1E6A1F498;
-  block[4] = a5;
-  dispatch_async(a4, block);
-  return 1;
-}
-
-uint64_t _AppleIDAuthenticationAddAppleID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2000000000;
-  v18 = 0;
-  v5 = dispatch_semaphore_create(0);
-  if (getAppleIDAuthDispatchQueue(void)::sOnce != -1)
-  {
-    _AppleIDAuthenticationAddAppleID_cold_1();
-  }
-
-  v6 = getAppleIDAuthDispatchQueue(void)::sAppleIDAuthDispatchQueue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1174405120;
-  v12[2] = ___AppleIDAuthenticationAddAppleID_block_invoke;
-  v12[3] = &unk_1EEF64868;
-  v12[4] = &v15;
-  v12[5] = a4;
-  object = v5;
-  v14 = 1;
-  dispatch_retain(v5);
-  _AppleIDAuthenticationAddAppleIDWithBlock(v7, v8, v9, v6, v12);
-  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  if (v14 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  v10 = *(v16 + 24);
-  dispatch_release(v5);
-  _Block_object_dispose(&v15, 8);
-  return v10;
-}
-
-void __copy_helper_block_8_48c14_ZTS9Semaphore(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 48);
-  *(a1 + 48) = v2;
-  *(a1 + 56) = 1;
-  dispatch_retain(v2);
-}
-
-void __destroy_helper_block_8_48c14_ZTS9Semaphore(uint64_t a1)
-{
-  if (*(a1 + 56) == 1)
-  {
-    dispatch_release(*(a1 + 48));
-  }
-}
-
-uint64_t _AppleIDAuthenticationForgetAppleIDWithBlock(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
-{
-  v6 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "ForgetAppleID: This operation is not supported anymore\n", buf, 2u);
-  }
-
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 0x40000000;
-  block[2] = ___AppleIDAuthenticationForgetAppleIDWithBlock_block_invoke;
-  block[3] = &unk_1E6A1F4C0;
-  block[4] = a4;
-  dispatch_async(a3, block);
-  return 1;
-}
-
-uint64_t _AppleIDAuthenticationForgetAppleID(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2000000000;
-  v16 = 0;
-  v4 = dispatch_semaphore_create(0);
-  if (getAppleIDAuthDispatchQueue(void)::sOnce != -1)
-  {
-    _AppleIDAuthenticationAddAppleID_cold_1();
-  }
-
-  v5 = getAppleIDAuthDispatchQueue(void)::sAppleIDAuthDispatchQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1174405120;
-  v10[2] = ___AppleIDAuthenticationForgetAppleID_block_invoke;
-  v10[3] = &unk_1EEF648A0;
-  v10[4] = &v13;
-  v10[5] = a3;
-  object = v4;
-  v12 = 1;
-  dispatch_retain(v4);
-  _AppleIDAuthenticationForgetAppleIDWithBlock(v6, v7, v5, v10);
-  dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
-  if (v12 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  v8 = *(v14 + 24);
-  dispatch_release(v4);
-  _Block_object_dispose(&v13, 8);
-  return v8;
-}
-
-uint64_t _AppleIDAuthenticationCopyAppleIDsWithBlock(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "CopyAppleIDs: Deferring to sharingd. \n", buf, 2u);
-  }
-
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 0x40000000;
-  v7[2] = ___AppleIDAuthenticationCopyAppleIDsWithBlock_block_invoke;
-  v7[3] = &unk_1E6A1F4E8;
-  v7[4] = a3;
-  softLinkSFAppleIDClientCopyMyAppleID(a2, v7);
-  return 1;
-}
-
-uint64_t _AppleIDAuthenticationCopyAppleIDs(uint64_t a1, uint64_t a2)
-{
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 0;
-  v3 = dispatch_semaphore_create(0);
-  if (getAppleIDAuthDispatchQueue(void)::sOnce != -1)
-  {
-    _AppleIDAuthenticationAddAppleID_cold_1();
-  }
-
-  v4 = getAppleIDAuthDispatchQueue(void)::sAppleIDAuthDispatchQueue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 1174405120;
-  v8[2] = ___AppleIDAuthenticationCopyAppleIDs_block_invoke;
-  v8[3] = &unk_1EEF648D8;
-  v8[4] = &v11;
-  v8[5] = a2;
-  object = v3;
-  v10 = 1;
-  dispatch_retain(v3);
-  _AppleIDAuthenticationCopyAppleIDsWithBlock(v5, v4, v8);
-  dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-  if (v10 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  v6 = v12[3];
-  dispatch_release(v3);
-  _Block_object_dispose(&v11, 8);
-  return v6;
-}
-
-uint64_t _AppleIDAuthenticationCopyCertificateInfoWithBlock(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v8 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "CopyCertificateInfo: Deferring to sharingd. \n", buf, 2u);
-  }
-
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 0x40000000;
-  v10[2] = ___AppleIDAuthenticationCopyCertificateInfoWithBlock_block_invoke;
-  v10[3] = &unk_1E6A1F510;
-  v10[4] = a5;
-  softLinkSFAppleIDClientCopyCertificateInfo(a1, a4, v10);
-  return 1;
-}
-
-uint64_t _AppleIDAuthenticationCopyCertificateInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2000000000;
-  v18 = 0;
-  v6 = dispatch_semaphore_create(0);
-  if (getAppleIDAuthDispatchQueue(void)::sOnce != -1)
-  {
-    _AppleIDAuthenticationAddAppleID_cold_1();
-  }
-
-  v7 = getAppleIDAuthDispatchQueue(void)::sAppleIDAuthDispatchQueue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1174405120;
-  v12[2] = ___AppleIDAuthenticationCopyCertificateInfo_block_invoke;
-  v12[3] = &unk_1EEF64910;
-  v12[4] = &v15;
-  v12[5] = a4;
-  object = v6;
-  v14 = 1;
-  dispatch_retain(v6);
-  _AppleIDAuthenticationCopyCertificateInfoWithBlock(a1, v8, v9, v7, v12);
-  dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
-  if (v14 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  v10 = v16[3];
-  dispatch_release(v6);
-  _Block_object_dispose(&v15, 8);
-  return v10;
-}
-
-uint64_t _AppleIDAuthenticationCopyMyInfoWithBlock(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
-{
-  v6 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "CopyMyInfo: this operation is not supported anymore.\n", buf, 2u);
-  }
-
-  result = 0;
-  if (a3)
-  {
-    if (a4)
-    {
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 0x40000000;
-      block[2] = ___AppleIDAuthenticationCopyMyInfoWithBlock_block_invoke;
-      block[3] = &unk_1E6A1F538;
-      block[4] = a4;
-      dispatch_async(a3, block);
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t _AppleIDAuthenticationCopyMyInfo(uint64_t a1, uint64_t a2, CFErrorRef *a3)
-{
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2000000000;
-  v16 = 0;
-  v4 = dispatch_semaphore_create(0);
-  if (getAppleIDAuthDispatchQueue(void)::sOnce != -1)
-  {
-    _AppleIDAuthenticationAddAppleID_cold_1();
-  }
-
-  v5 = getAppleIDAuthDispatchQueue(void)::sAppleIDAuthDispatchQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1174405120;
-  v10[2] = ___AppleIDAuthenticationCopyMyInfo_block_invoke;
-  v10[3] = &unk_1EEF64948;
-  v10[4] = &v13;
-  v10[5] = a3;
-  object = v4;
-  v12 = 1;
-  dispatch_retain(v4);
-  if (_AppleIDAuthenticationCopyMyInfoWithBlock(v6, v7, v5, v10))
-  {
-    dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
-  }
-
-  else if (a3)
-  {
-    *a3 = CFErrorCreate(*MEMORY[0x1E695E480], @"CSIdentityErrorDomain", -99, 0);
-  }
-
-  if (v12 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  v8 = v14[3];
-  dispatch_release(v4);
-  _Block_object_dispose(&v13, 8);
-  return v8;
-}
-
-uint64_t _AppleIDAuthenticationFindPersonWithBlock(const __CFDictionary *ValueAtIndex, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v7 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "FindPerson: Deferring to sharingd.", buf, 2u);
-  }
-
-  if (ValueAtIndex)
-  {
-    Value = CFDictionaryGetValue(ValueAtIndex, @"email");
-    TypeID = CFArrayGetTypeID();
-    if (Value && TypeID && CFGetTypeID(Value) != TypeID)
-    {
-      Value = 0;
-    }
-
-    v10 = CFDictionaryGetValue(ValueAtIndex, @"phone");
-    v11 = CFArrayGetTypeID();
-    if (v10 && v11 && CFGetTypeID(v10) != v11)
-    {
-      v10 = 0;
-    }
-
-    if (!Value || !CFArrayGetCount(Value) || (ValueAtIndex = CFArrayGetValueAtIndex(Value, 0), v12 = CFStringGetTypeID(), !ValueAtIndex) || v12 && CFGetTypeID(ValueAtIndex) != v12)
-    {
-      if (!v10 || !CFArrayGetCount(v10) || (ValueAtIndex = CFArrayGetValueAtIndex(v10, 0), v13 = CFStringGetTypeID(), ValueAtIndex) && v13 && CFGetTypeID(ValueAtIndex) != v13)
-      {
-        ValueAtIndex = 0;
-      }
-    }
-  }
-
-  else
-  {
-    CFArrayGetTypeID();
-    CFArrayGetTypeID();
-  }
-
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 0x40000000;
-  v15[2] = ___AppleIDAuthenticationFindPersonWithBlock_block_invoke;
-  v15[3] = &unk_1E6A1F560;
-  v15[4] = a4;
-  softLinkSFAppleIDClientCopyPersonInfo(ValueAtIndex, a3, v15);
-  return 1;
-}
-
-void _AppleIDAuthenticationFindPerson()
-{
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x2000000000;
-  v0[3] = 0;
-  operator new();
-}
-
-uint64_t _AppleIDCopySecIdentityForAppleIDAccount(uint64_t a1, uint64_t a2, CFErrorRef *a3)
-{
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2000000000;
-  v21 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
-  v5 = dispatch_semaphore_create(0);
-  v6 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v11[0]) = 0;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "CopySecIdentity: Deferring to sharingd. \n", v11, 2u);
-  }
-
-  global_queue = dispatch_get_global_queue(0, 0);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 1174405120;
-  v11[2] = ___ZL41__AppleIDCopySecIdentityForAppleIDAccountPK10__CFStringPK14__CFDictionaryPP9__CFError_block_invoke;
-  v11[3] = &unk_1EEF64A48;
-  v11[4] = &v14;
-  v11[5] = &v18;
-  object = v5;
-  v13 = 1;
-  dispatch_retain(v5);
-  softLinkSFAppleIDClientCopyIdentity(a1, global_queue, v11);
-  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  if (a3)
-  {
-    v8 = *(v19 + 6);
-    if (v8)
-    {
-      *a3 = CFErrorCreate(*MEMORY[0x1E695E480], *MEMORY[0x1E695E638], v8, 0);
-    }
-  }
-
-  v9 = v15[3];
-  if (v13 == 1)
-  {
-    dispatch_release(object);
-  }
-
-  dispatch_release(v5);
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
-  return v9;
-}
-
-CFStringRef _AppleIDCopyDSIDForCertificate(uint64_t a1, CFErrorRef *a2)
-{
-  v4 = AppleIDGetLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *v23 = 0;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "AppleIDCopyDSIDForCertificate\n", v23, 2u);
-  }
-
-  if (a1)
-  {
-    v5 = SecCertificateCopyCommonNames();
-    v6 = v5;
-    if (v5 && CFArrayGetCount(v5) >= 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v6, 0), TypeID = CFStringGetTypeID(), ValueAtIndex) && (!TypeID || CFGetTypeID(ValueAtIndex) == TypeID) && (v9 = CFRetain(ValueAtIndex)) != 0)
-    {
-      v10 = v9;
-      Length = CFStringGetLength(v9);
-      v12 = 0;
-      v13 = 1;
-      while (1)
-      {
-        v14 = v13;
-        v15 = off_1E6A1F5A8[v12];
-        if (CFStringHasPrefix(v10, v15))
-        {
-          break;
-        }
-
-        v13 = 0;
-        v12 = 1;
-        if ((v14 & 1) == 0)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      v19 = CFStringGetLength(v15);
-      if (v19 < Length)
-      {
-        v20 = v19;
-        v21 = *MEMORY[0x1E695E480];
-        v22 = CFStringGetLength(v10);
-        v24.location = v20 + 1;
-        v24.length = v22 + ~v20;
-        v17 = CFStringCreateWithSubstring(v21, v10, v24);
-        v13 = 0;
-        goto LABEL_36;
-      }
-
-      v13 = 0;
-LABEL_35:
-      v17 = 0;
-LABEL_36:
-      v16 = 0;
-      if (!a2)
-      {
-LABEL_18:
-        if (v6)
-        {
-          CFRelease(v6);
-        }
-
-        if ((v13 & 1) == 0)
-        {
-          CFRelease(v10);
-        }
-
-        if (!a2)
-        {
-          goto LABEL_28;
-        }
-
-        goto LABEL_26;
-      }
-    }
-
-    else
-    {
-      v16 = CFErrorCreate(*MEMORY[0x1E695E480], *MEMORY[0x1E695E638], -1, 0);
-      v10 = 0;
-      v17 = 0;
-      v13 = 1;
-      if (!a2)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    if (!v17 && !v16)
-    {
-      v16 = CFErrorCreate(*MEMORY[0x1E695E480], @"CSIdentityErrorDomain", -10, 0);
-    }
-
-    goto LABEL_18;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v16 = CFErrorCreate(*MEMORY[0x1E695E480], @"CSIdentityErrorDomain", -99, 0);
-  v17 = 0;
-LABEL_26:
-  if (!v17)
-  {
-    *a2 = v16;
-    return v17;
-  }
-
-LABEL_28:
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  return v17;
-}
-
 uint64_t _AppleIDAuthenticatePasswordWithBlock(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, uint64_t a5)
 {
-  v7 = AppleIDGetLogHandle();
+  v7 = AppleIDGetLogHandle(a1, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -737,7 +53,7 @@ uint64_t _AppleIDAuthenticatePassword(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
 uint64_t _AppleIDAuthenticationCopyStatusWithBlock(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = AppleIDGetLogHandle();
+  v5 = AppleIDGetLogHandle(a1, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -807,7 +123,7 @@ void __destroy_helper_block_8_56c14_ZTS9Semaphore(uint64_t a1)
 
 uint64_t _AppleIDUpdateLinkedIdentityProvisioningWithBlock(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
 {
-  v7 = AppleIDGetLogHandle();
+  v7 = AppleIDGetLogHandle(a1, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1048,7 +364,7 @@ uint64_t initkSFAppleIDClientAccountInfoAppleIDCFKey(void)
   return result;
 }
 
-uint64_t AppleIDGetLogHandle()
+uint64_t AppleIDGetLogHandle(uint64_t a1, uint64_t a2)
 {
   if (AppleIDGetLogHandle::sOnce != -1)
   {
@@ -1603,13 +919,13 @@ void AppleIDIdentity::~AppleIDIdentity(AppleIDIdentity *this)
   CFRelease(*(this + 4));
   CFRelease(*(this + 5));
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(this);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 {
   AppleIDIdentity::~AppleIDIdentity(this);
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(v1);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 void AppleIDIdentity::createCopy(AppleIDIdentity *this, const __CFAllocator *a2)
@@ -1624,22 +940,16 @@ void AppleIDIdentity::createCopy(AppleIDIdentity *this, const __CFAllocator *a2)
 
 uint64_t AppleIDIdentity::copyPrincipalName(AppleIDIdentity *this)
 {
-  v2 = (*(*this + 72))(this);
-  v4 = *(this + 4);
-  v3 = *(this + 5);
-  v5 = *(*v2 + 128);
+  v1 = *(*(*(*this + 72))(this) + 128);
 
-  return v5();
+  return v1();
 }
 
 uint64_t AppleIDIdentity::copyTrustSubjectDistinguishedName(AppleIDIdentity *this)
 {
-  v2 = (*(*this + 72))(this);
-  v4 = *(this + 4);
-  v3 = *(this + 5);
-  v5 = *(*v2 + 136);
+  v1 = *(*(*(*this + 72))(this) + 136);
 
-  return v5();
+  return v1();
 }
 
 uint64_t AppleIDIdentity::authenticateCertificateChain(AppleIDIdentity *this, const __CFArray *a2, __CFError **a3)
@@ -1731,80 +1041,80 @@ uint64_t AppleIDIdentityAuthority::copyAccountIdentifierForCertificate(AppleIDId
 
 const __CFString *AppleIDIdentityAuthority::copyAccountIdentifierForCertificateChain(AppleIDIdentityAuthority *this, const __CFArray *a2, __CFError **a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   trust = 0;
-  v23 = 0;
+  v24 = 0;
   AppleIDAuthorityPolicy = SecPolicyCreateAppleIDAuthorityPolicy();
   if (!AppleIDAuthorityPolicy)
   {
-    v18 = 0;
-    v19 = 14;
+    v19 = 0;
+    v20 = 14;
     goto LABEL_32;
   }
 
   v6 = SecTrustCreateWithCertificates(a2, AppleIDAuthorityPolicy, &trust);
   if (v6)
   {
-    LODWORD(v19) = v6;
-    v21 = AppleIDGetLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    LODWORD(v20) = v6;
+    v22 = AppleIDGetLogHandle(v6, v7);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v19 = v19;
+      v20 = v20;
       *buf = 134217984;
-      *&buf[4] = v19;
-      v22 = "### SecTrustCreateWithCertificates failed with error %ld";
+      *&buf[4] = v20;
+      v23 = "### SecTrustCreateWithCertificates failed with error %ld";
 LABEL_41:
-      _os_log_impl(&dword_18162D000, v21, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
 LABEL_43:
-      v18 = *MEMORY[0x1E695E638];
+      v19 = *MEMORY[0x1E695E638];
       goto LABEL_32;
     }
 
 LABEL_42:
-    v19 = v19;
+    v20 = v20;
     goto LABEL_43;
   }
 
-  v7 = MEMORY[0x1865D5B00](trust, &v23);
-  if (v7)
+  v8 = MEMORY[0x1865D5B00](trust, &v24);
+  if (v8)
   {
-    LODWORD(v19) = v7;
-    v21 = AppleIDGetLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    LODWORD(v20) = v8;
+    v22 = AppleIDGetLogHandle(v8, v9);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v19 = v19;
+      v20 = v20;
       *buf = 134217984;
-      *&buf[4] = v19;
-      v22 = "### SecTrustEvaluate failed with error %ld";
+      *&buf[4] = v20;
+      v23 = "### SecTrustEvaluate failed with error %ld";
       goto LABEL_41;
     }
 
     goto LABEL_42;
   }
 
-  v8 = 0;
-  v9 = 0;
-  if (v23 == 1 || v23 == 4)
+  v10 = 0;
+  v11 = 0;
+  if (v24 == 1 || v24 == 4)
   {
     goto LABEL_6;
   }
 
-  AppleIDIdentityAuthority::copyAccountIdentifierForCertificateChain(&v23, buf);
-  v18 = *buf;
-  v19 = 15;
+  AppleIDIdentityAuthority::copyAccountIdentifierForCertificateChain(&v24, buf);
+  v19 = *buf;
+  v20 = 15;
 LABEL_32:
-  if (v18)
+  if (v19)
   {
-    v20 = v18;
+    v21 = v19;
   }
 
   else
   {
-    v20 = @"CSIdentityErrorDomain";
+    v21 = @"CSIdentityErrorDomain";
   }
 
-  v9 = CFErrorCreate(*MEMORY[0x1E695E480], v20, v19, 0);
-  v8 = 1;
+  v11 = CFErrorCreate(*MEMORY[0x1E695E480], v21, v20, 0);
+  v10 = 1;
 LABEL_6:
   if (trust)
   {
@@ -1816,77 +1126,75 @@ LABEL_6:
     CFRelease(AppleIDAuthorityPolicy);
   }
 
-  if ((v8 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     CFArrayGetValueAtIndex(a2, 0);
-    v10 = SecCertificateCopyCommonNames();
-    if (v10)
+    v12 = SecCertificateCopyCommonNames();
+    if (v12)
     {
-      v11 = v10;
-      if (CFArrayGetCount(v10) >= 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v11, 0)) != 0)
+      v13 = v12;
+      if (CFArrayGetCount(v12) >= 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v13, 0)) != 0)
       {
-        v13 = ValueAtIndex;
+        v15 = ValueAtIndex;
         CFRetain(ValueAtIndex);
-        CFRelease(v11);
-        Length = CFStringGetLength(v13);
+        CFRelease(v13);
+        Length = CFStringGetLength(v15);
         if (Length > 69)
         {
-          if (CFStringHasPrefix(v13, @"com.apple.idms.appleid."))
+          if (CFStringHasPrefix(v15, @"com.apple.idms.appleid."))
           {
             goto LABEL_28;
           }
 
           syslog(3, "Invalid AppleID account identifier prefix");
-          v15 = -13;
+          v17 = -13;
         }
 
         else
         {
           syslog(3, "Invalid AppleID account identifier lenth %d", Length);
-          v15 = -12;
+          v17 = -12;
         }
 
-        v11 = v13;
+        v13 = v15;
       }
 
       else
       {
-        v15 = -10;
+        v17 = -10;
       }
 
-      CFRelease(v11);
+      CFRelease(v13);
     }
 
     else
     {
-      v15 = -10;
+      v17 = -10;
     }
 
-    v9 = CSCreateIdentityError(@"CSIdentityErrorDomain", v15);
+    v11 = CSCreateIdentityError(@"CSIdentityErrorDomain", v17);
   }
 
   if (a3)
   {
-    if (!v9)
+    if (!v11)
     {
-      v9 = CSCreateIdentityError(@"CSIdentityErrorDomain", -100);
+      v11 = CSCreateIdentityError(@"CSIdentityErrorDomain", -100);
     }
 
-    v13 = 0;
-    *a3 = v9;
-    goto LABEL_30;
+    v15 = 0;
+    *a3 = v11;
+    return v15;
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_28:
-  if (v9)
+  if (v11)
   {
-    CFRelease(v9);
+    CFRelease(v11);
   }
 
-LABEL_30:
-  v16 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v15;
 }
 
 CFArrayRef AppleIDIdentityAuthority::copyCertificateIssuerNames(AppleIDIdentityAuthority *this)
@@ -1909,32 +1217,27 @@ CFStringRef AppleIDIdentityAuthority::copyPrincipalForCertificate(uint64_t a1, u
   return CFStringCreateCopy(v4, v5);
 }
 
-AppleIDIdentityQuery *AppleIDIdentityAuthority::createQueryWithName(AppleIDIdentityAuthority *this, const __CFAllocator *a2, const __CFString *a3, uint64_t a4, uint64_t a5)
+void AppleIDIdentityAuthority::createQueryWithName(AppleIDIdentityAuthority *this, const __CFAllocator *a2, __CFString *a3, uint64_t a4, uint64_t a5)
 {
-  result = 0;
   if (a4 == 1 && a5 == 1)
   {
-    v9 = IdentityQuery::Class(0);
-    result = CFObject::Allocate(0x40, v9, a2, v10);
-    if (result)
+    v8 = IdentityQuery::Class(0);
+    v10 = CFObject::Allocate(0x40, v8, a2, v9);
+    if (v10)
     {
-      return AppleIDIdentityQuery::AppleIDIdentityQuery(result, a3, this);
+      AppleIDIdentityQuery::AppleIDIdentityQuery(v10, a3, this);
     }
   }
-
-  return result;
 }
 
-AppleIDIdentityQuery *AppleIDIdentityAuthority::createQueryWithProperties(AppleIDIdentityAuthority *this, const __CFAllocator *a2, const void *a3)
+void AppleIDIdentityAuthority::createQueryWithProperties(AppleIDIdentityAuthority *this, const __CFAllocator *a2, const void *a3)
 {
   v6 = IdentityQuery::Class(this);
-  result = CFObject::Allocate(0x40, v6, a2, v7);
-  if (result)
+  v8 = CFObject::Allocate(0x40, v6, a2, v7);
+  if (v8)
   {
-    return AppleIDIdentityQuery::AppleIDIdentityQuery(result, a3, this);
+    AppleIDIdentityQuery::AppleIDIdentityQuery(v8, a3, this);
   }
-
-  return result;
 }
 
 CFStringRef AppleIDIdentityAuthority::copyPrincipalForNamePair(AppleIDIdentityAuthority *this, const __CFString *a2, const __CFString *a3)
@@ -1955,7 +1258,7 @@ void AppleIDIdentityAuthority::~AppleIDIdentityAuthority(CFTypeRef *this)
 {
   IdentityAuthority::~IdentityAuthority(this);
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(v1);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 CFStringRef IdentityAuthority::copyLocalizedName(IdentityAuthority *this)
@@ -1974,18 +1277,17 @@ CFStringRef IdentityAuthority::copyLocalizedName(IdentityAuthority *this)
 
 void AppleIDIdentityAuthority::copyAccountIdentifierForCertificateChain(unsigned int *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = AppleIDGetLogHandle();
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = AppleIDGetLogHandle(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *a1;
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_ERROR, "### Invalid trust result %ld", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_ERROR, "### Invalid trust result %ld", &v6, 0xCu);
   }
 
   *a2 = @"CSIdentityErrorDomain";
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void AppleIDIdentityQuery::AppleIDIdentityQuery(AppleIDIdentityQuery *this, __CFString *a2, AppleIDIdentityAuthority *a3)
@@ -2159,13 +1461,13 @@ void AppleIDIdentityQuery::~AppleIDIdentityQuery(AppleIDIdentityQuery *this)
     *(this + 7) = 0;
   }
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(this);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 {
   AppleIDIdentityQuery::~AppleIDIdentityQuery(this);
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(v1);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 CFArrayRef AppleIDIdentityQuery::copyResults(AppleIDIdentityQuery *this)
@@ -2311,8 +1613,7 @@ uint64_t AppleIDIdentityQuery::execute(AppleIDIdentityQuery *this, unint64_t a2,
   if ((v3 & 0x80000000) == 0)
   {
     *(this + 1) = v3 | 0x80000000;
-    v4 = *(this + 3);
-    _AppleIDAuthenticationFindPerson();
+    _AppleIDAuthenticationFindPerson(*(this + 3), 0, a3);
   }
 
   return 0;
@@ -2325,7 +1626,7 @@ BOOL AppleIDIdentityQuery::executeAsynchronously(void *a1, uint64_t a2, uint64_t
   {
     a1[1] = v5 | 0x80000000;
     a1[4] = a3;
-    (*(*a3 + 16))(a3);
+    (*(*a3 + 16))(a3, a2);
     a1[5] = CFRetain(a4);
     a1[6] = CFRetain(a5);
     CFRetain(a1 - 2);
@@ -2512,25 +1813,25 @@ CFStringRef Identity::copyDebugDesc(Identity *this)
 
 CFTypeRef Identity::createReferenceData(Identity *this, const __CFAllocator *a2)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31[0] = 0;
+  v30[1] = *MEMORY[0x1E69E9840];
+  v29 = 0;
+  v30[0] = 0;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   v4 = *this;
-  v25 = *(this + 1);
+  v24 = *(this + 1);
   keys[0] = @"authority";
   v5 = (*(v4 + 72))(this, a2);
   values[0] = CFRetain(*(v5 + 8));
   keys[1] = @"class";
   v6 = CFGetAllocator(this - 16);
-  values[1] = CFNumberCreate(v6, kCFNumberLongType, &v25);
+  values[1] = CFNumberCreate(v6, kCFNumberLongType, &v24);
   if ((*(*this + 88))(this))
   {
-    v27 = @"uuid";
+    v26 = @"uuid";
     v7 = CFGetAllocator(this - 16);
     v8 = (*(*this + 88))(this);
-    v30 = CFUUIDCreateString(v7, v8);
+    v29 = CFUUIDCreateString(v7, v8);
     v9 = 3;
   }
 
@@ -2538,18 +1839,18 @@ CFTypeRef Identity::createReferenceData(Identity *this, const __CFAllocator *a2)
   {
     if ((*(*this + 64))(this))
     {
-      v10 = &v28;
-      v11 = v31;
-      v27 = @"name";
+      v10 = &v27;
+      v11 = v30;
+      v26 = @"name";
       v12 = (*(*this + 64))(this);
-      v30 = CFRetain(v12);
+      v29 = CFRetain(v12);
       v9 = 3;
     }
 
     else
     {
-      v11 = &v30;
-      v10 = &v27;
+      v11 = &v29;
+      v10 = &v26;
       v9 = 2;
     }
 
@@ -2595,33 +1896,28 @@ LABEL_15:
   }
 
   while (v18 != v17);
-  if (v16)
+  if (!v16)
   {
-    v20 = CFWriteStreamCreateWithAllocatedBuffers(a2, a2);
-    if (v20)
+    return 0;
+  }
+
+  v20 = CFWriteStreamCreateWithAllocatedBuffers(a2, a2);
+  if (v20)
+  {
+    v21 = v20;
+    if (CFWriteStreamOpen(v20))
     {
-      v21 = v20;
-      if (CFWriteStreamOpen(v20))
-      {
-        if (CFPropertyListWriteToStream(v16, v21, kCFPropertyListBinaryFormat_v1_0, 0) < 1)
-        {
-          v22 = 0;
-        }
-
-        else
-        {
-          v22 = CFWriteStreamCopyProperty(v21, *MEMORY[0x1E695E900]);
-        }
-
-        CFWriteStreamClose(v21);
-      }
-
-      else
+      if (CFPropertyListWriteToStream(v16, v21, kCFPropertyListBinaryFormat_v1_0, 0) < 1)
       {
         v22 = 0;
       }
 
-      CFRelease(v21);
+      else
+      {
+        v22 = CFWriteStreamCopyProperty(v21, *MEMORY[0x1E695E900]);
+      }
+
+      CFWriteStreamClose(v21);
     }
 
     else
@@ -2629,7 +1925,7 @@ LABEL_15:
       v22 = 0;
     }
 
-    CFRelease(v16);
+    CFRelease(v21);
   }
 
   else
@@ -2637,7 +1933,7 @@ LABEL_15:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
+  CFRelease(v16);
   return v22;
 }
 
@@ -2742,13 +2038,13 @@ void IdentityAuthority::~IdentityAuthority(CFTypeRef *this)
   CFRelease(this[1]);
   CFRelease(this[2]);
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(this);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 {
   IdentityAuthority::~IdentityAuthority(this);
 
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(v1);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 CFStringRef IdentityAuthority::copyDebugDesc(IdentityAuthority *this)
@@ -2829,7 +2125,6 @@ void CFClass::CFClass(CFClass *this, const char *a2)
 
 uint64_t CFObject::Allocate(CFObject *this, uint64_t a2, const CFClass *a3, const __CFAllocator *a4)
 {
-  v4 = *(a2 + 96);
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
@@ -2914,7 +2209,6 @@ LABEL_8:
     CFRelease(cf);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2959,7 +2253,7 @@ uint64_t _CSIdentityUpdateLinkedIdentityProvisioning(uint64_t a1, CFErrorRef *a2
   return 0;
 }
 
-uint64_t _CSDefaultLog()
+uint64_t _CSDefaultLog(uint64_t a1, uint64_t a2)
 {
   if (_CSDefaultLog_onceToken != -1)
   {
@@ -3109,7 +2403,7 @@ CFMutableStringRef createNormalizedDomainName(const __CFString *a1)
 
 __CFSet *_CSBackToMyMacCopyDomains()
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   Mutable = CFSetCreateMutable(0, 0, MEMORY[0x1E695E530]);
   v1 = copyBackToMyMacPreferences();
   if (v1)
@@ -3120,9 +2414,9 @@ __CFSet *_CSBackToMyMacCopyDomains()
     {
       v4 = Count;
       MEMORY[0x1EEE9AC00](Count);
-      v6 = (v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v6 = (v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
       v7 = v5 >= 0x200 ? 512 : v5;
-      bzero(v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
+      bzero(v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
       CFDictionaryGetKeysAndValues(v2, 0, v6);
       if (v4 >= 1)
       {
@@ -3147,7 +2441,6 @@ __CFSet *_CSBackToMyMacCopyDomains()
     CFRelease(v2);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -3296,7 +2589,7 @@ LABEL_27:
   return CFBooleanGetValue(v0);
 }
 
-CFStringRef _CSCopyCommentForServerName(const __CFAllocator *a1, CFStringRef theString)
+__CFString *_CSCopyCommentForServerName(const __CFAllocator *a1, CFStringRef theString)
 {
   if (_CSCopyCommentForServerName_sOnce != -1)
   {
@@ -3550,7 +2843,6 @@ uint64_t _status(unsigned int a1, uint64_t a2, const UInt8 *a3, unsigned int a4)
       v12 = 1;
     }
 
-    v13 = *(Value + 3);
     (*(Value + 2))(Value, v12, *(Value + 11));
     if (v10)
     {
@@ -3591,11 +2883,10 @@ void XCFURLEnumerate_cold_2()
 
 void _FSNodeGetNonFictionalDeviceNumber(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Could not get non-fictional device number: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Could not get non-fictional device number: %@", &v2, 0xCu);
 }
 
 void _LSAliasGet_cold_1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -3609,37 +2900,35 @@ void _LSAliasGet_cold_1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
 
 void computeIdentityString(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not escape bookmark string: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not escape bookmark string: %@", &v2, 0xCu);
 }
 
 void ___ZN14LaunchServices13AppsAnalyticsL16sendCurrentStateEv_block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "couldn't bind %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "couldn't bind %@: %@", &v4, 0x16u);
 }
 
 void LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Skipping bundle %llx during enumeration because it is third-party", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Skipping bundle %llx during enumeration because it is third-party", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::AppRecordEnumeration::findAppByIdentifierForEnumerator(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Found no viable bundles for bundle ID %{private}@", a5, a6, a7, a8, 3u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Found no viable bundles for bundle ID %{private}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 id *_LSApplicationRestrictionsManagerIsApplicationRestricted(id *a1, void *a2)
@@ -3654,7 +2943,7 @@ id *_LSApplicationRestrictionsManagerIsApplicationRestricted(id *a1, void *a2)
 
 void _LSServer_LSRegisterICLItem(void *a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [v3 legacyRecordDictionary];
@@ -3688,54 +2977,30 @@ LABEL_8:
 
   v7 = v5;
 LABEL_9:
-  v11[0] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   [(LSDatabaseRebuildContext *)v4 registerItems:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_RefreshContentInFrameworkAtURL_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _LSUnregisterAppWithBundleID_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSUnregisterAppWithBundleID_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void openOptionsModifiedForOneTapOpen_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void openOptionsModifiedForOneTapOpen_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSCommonOpenApplicationWithBundleIdentifier_cold_1()
@@ -3754,33 +3019,26 @@ void handleSaveObserverBehavior_cold_1()
 
 void _LSServer_UpdateDatabaseWithInfo_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_UpdateDatabaseWithInfo_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void _LSServer_PerformExternalRebuildRegistration_cold_1()
+void _LSServer_PerformExternalRebuildRegistration_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_0();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_20();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0xCu);
 }
 
 void _LSServer_PerformExternalRebuildRegistration_cold_2()
@@ -3799,20 +3057,16 @@ void _LSServer_NoteMigratorRunningInMigration_cold_1()
 
 void _LSServer_LSEnumerateAndRegisterAllCryptexContentWithContext_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _getBlockToUpdateBundleRecordFromMIAndNotifyIfChanged_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_NoteTerminationRequestForMISync_cold_1()
@@ -3822,21 +3076,11 @@ void _LSServer_NoteTerminationRequestForMISync_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void LSApplicationStateChangedCallback_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v0, v1, "Received %@ with %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void __LSApplicationWorkspacePluginsChangedCallback_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __LSApplicationWorkspacePluginsChangedCallback_block_invoke_cold_2()
@@ -3846,30 +3090,19 @@ void __LSApplicationWorkspacePluginsChangedCallback_block_invoke_cold_2()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __unsubscribeFromLSAWDistributedNotification_block_invoke_cold_1(uint64_t a1)
+void __unsubscribeFromLSAWDistributedNotification_block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, v1, v2, "Subscriber count negative overflow for %@. Some caller may have over-unsubscribed its LSAW observer, or neglected to add it in the first place.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, v0, v1, "Subscriber count negative overflow for %@. Some caller may have over-unsubscribed its LSAW observer, or neglected to add it in the first place.", v2, v3, v4, v5);
 }
 
-void _LSSetCrashReporterMessage_cold_1()
+void ___getBlockToUpdatePluginRecordFromMIAndNotifyIfChanged_block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___getBlockToUpdatePluginRecordFromMIAndNotifyIfChanged_block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void ___uninstallMIBundlesNotInSet_block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3880,49 +3113,45 @@ void ___uninstallMIBundlesNotInSet_block_invoke_cold_1(uint64_t a1, uint64_t a2,
 
 void _LSWriteBundlePlaceholderToURLInternal(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Creating placeholder for bundle %@ with no iTunesMetadata.plist, this app cannot be recovered!", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Creating placeholder for bundle %@ with no iTunesMetadata.plist, this app cannot be recovered!", &v2, 0xCu);
 }
 
 void LaunchServices::BindingEvaluator::ContentTypeBindingAllowsOverride(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Override allowed for content type %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Override allowed for content type %{public}@", &v2, 0xCu);
 }
 
 void LaunchServices::BindingEvaluation::runEvaluator()
 {
-  if (__cxa_guard_acquire(&qword_1ED4452E8))
+  if (__cxa_guard_acquire(byte_1ED4452E8))
   {
     _MergedGlobals_0 = 77998;
-    __cxa_guard_release(&qword_1ED4452E8);
+    __cxa_guard_release(byte_1ED4452E8);
   }
 }
 
 void LaunchServices::BindingEvaluation::getKindStringFromState(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "isBetaApp bundle lookup error %d, node %@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "isBetaApp bundle lookup error %d, node %@", v3, 0x12u);
 }
 
 void LaunchServices::BindingEvaluation::getKindStringFromState(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Canonical string not found for kind string %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Canonical string not found for kind string %@", &v2, 0xCu);
 }
 
 void _LSSetCrashMessage()
@@ -3936,11 +3165,10 @@ void _LSSetCrashMessage()
 
 void ___ZL18_LSSetCrashMessageP8NSString_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%s", &v2, 0xCu);
 }
 
 int *bindingListDataHasValidLength(int *result, unsigned int a2)
@@ -3982,24 +3210,22 @@ int *bindingListDataHasValidLength(int *result, unsigned int a2)
 
 void _LSBundleFindWithNode_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Bundle %{private}@ was not found by name. Doing a linear search for it.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Bundle %{private}@ was not found by name. Doing a linear search for it.", &v2, 0xCu);
 }
 
 void _LSBundleCopyOrCheckNode(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 136315651;
-  v5 = "_LSBundleCopyOrCheckNode";
-  v6 = 2113;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%s: error registering new node %{private}@: %{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 136315651;
+  v4 = "_LSBundleCopyOrCheckNode";
+  v5 = 2113;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%s: error registering new node %{private}@: %{public}@", &v3, 0x20u);
 }
 
 void _LSBundleGetLocalizedName_cold_1()
@@ -4032,66 +3258,39 @@ void _LSBundleGetLocalizedNameDictionary_cold_2()
 
 void _LSCreateResolvedURL_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "LaunchServices: getattrlist failed for URL %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "LaunchServices: getattrlist failed for URL %@", v1, 0xCu);
 }
 
 void _LSCreateResolvedURL_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "LaunchServices: CFURLGetFileSystemRepresentation failed for URL %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "LaunchServices: CFURLGetFileSystemRepresentation failed for URL %@", v1, 0xCu);
 }
 
 void _LSCreateResolvedURL_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEBUG, "failed to resolve symlinks in %@ <%@>", v3, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEBUG, "failed to resolve symlinks in %@ <%@>", v2, 0x16u);
+}
+
+void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_1()
+{
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8();
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Cheaply searching for volume %{private}@ in existing records", v1, 0xCu);
 }
 
-void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_1(uint64_t a1)
+void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEBUG, "Cheaply searching for volume %{private}@ in existing records", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_2(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEBUG, "Expensively searching for volume %{private}@ in existing records", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_3(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *a2;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v4, v5, "Found database record for volume %{private}@ with volume ID %llu");
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_cold_4(uint64_t *a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *a2;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v4, v5, "Adding database record for volume %{private}@ with volume ID %llu");
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Expensively searching for volume %{private}@ in existing records", v1, 0xCu);
 }
 
 void _LSCopyGroupContainerIdentifiersFromEntitlements_cold_1(uint64_t a1)
@@ -4103,29 +3302,23 @@ void _LSCopyGroupContainerIdentifiersFromEntitlements_cold_1(uint64_t a1)
 
 void _LSCopyDataContainerURLFromContainermanager_cold_1(uint64_t a1, uint64_t *a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5(a1, a2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_8(&dword_18162D000, v3, v4, "ContainerManager error fetching data container for %{private}@: %llu %{public}s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_8(&dword_18162D000, v2, v3, "ContainerManager error fetching data container for %{private}@: %llu %{public}s", v4, v5, v6, v7);
 }
 
 void _LSCopyGroupContainerURLSFromContainermanager_cold_1(uint64_t a1, uint64_t *a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5(a1, a2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_8(&dword_18162D000, v3, v4, "ContainerManager error fetching group containers for %{private}@: %llu %{public}s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_8(&dword_18162D000, v2, v3, "ContainerManager error fetching group containers for %{private}@: %llu %{public}s", v4, v5, v6, v7);
 }
 
 void _LSCopyEnvironmentVariablesFromContainermanager_cold_1(uint64_t a1, uint64_t *a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5(a1, a2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_8(&dword_18162D000, v3, v4, "ContainerManager error populating env variables for %{private}@: %llu %{public}s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_8(&dword_18162D000, v2, v3, "ContainerManager error populating env variables for %{private}@: %llu %{public}s", v4, v5, v6, v7);
 }
 
 void _LSGetValidApplicationCategoryTypeSet_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -4142,44 +3335,43 @@ void _LSDatabaseSetSequenceNumber()
   OUTLINED_FUNCTION_14();
   __src[26] = *MEMORY[0x1E69E9840];
   bzero(__src, 0xD0uLL);
-  _LSDatabaseGetHeader(v1, __src);
+  _LSDatabaseGetHeader(__src, v1);
   __src[22] = v0;
   memcpy(__dst, __src, sizeof(__dst));
-  _LSDatabaseSetHeader(v1);
-  v2 = *MEMORY[0x1E69E9840];
+  _LSDatabaseSetHeader(v1, __dst);
 }
 
 id _LSDatabaseGetSeededModelCode(_LSDatabase *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  bzero(v12, 0xD0uLL);
-  _LSDatabaseGetHeader(a1, v12);
+  v14 = *MEMORY[0x1E69E9840];
+  bzero(v11, 0xD0uLL);
+  _LSDatabaseGetHeader(v11, a1);
   memset(__dst, 0, sizeof(__dst));
-  strlcpy(__dst, v13, 0x40uLL);
+  strlcpy(__dst, v12, 0x40uLL);
   std::string::basic_string[abi:nn200100]<0>(&__p, __dst);
-  v2 = v11;
-  v3 = v11;
-  if (v11 < 0)
+  v2 = v10;
+  v3 = v10;
+  if (v10 < 0)
   {
-    v2 = v10;
+    v2 = v9;
   }
 
   if (!v2)
   {
-    if (v11 < 0)
+    if (v10 < 0)
     {
-      v10 = 1;
+      v9 = 1;
       p_p = __p;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
       p_p = &__p;
     }
 
     *p_p = 63;
-    v3 = v11;
+    v3 = v10;
   }
 
   if (v3 >= 0)
@@ -4193,12 +3385,10 @@ id _LSDatabaseGetSeededModelCode(_LSDatabase *a1)
   }
 
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
-  if (v11 < 0)
+  if (v10 < 0)
   {
     operator delete(__p);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -4213,37 +3403,33 @@ void sub_1817CC000(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _LSDatabaseSetMutable(void *a1)
+uint64_t _LSDatabaseSetMutable(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (v1)
-  {
-    v2 = v1[5];
-  }
+  v2 = a1;
 
   return _CSStoreSetMutable();
 }
 
 id _LSDatabaseCreateSnapshotAgainstAccessContext(void *a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  OUTLINED_FUNCTION_6_1();
-  v39 = v6;
-  OUTLINED_FUNCTION_5_1();
-  v40 = v7;
-  v41 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = v8;
-  OUTLINED_FUNCTION_6_1();
-  v33 = v9;
-  OUTLINED_FUNCTION_5_1();
-  v34 = v10;
   v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  OUTLINED_FUNCTION_6_1();
+  v38 = v6;
+  OUTLINED_FUNCTION_5_1();
+  v39 = v7;
+  v40 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = v8;
+  OUTLINED_FUNCTION_6_1();
+  v32 = v9;
+  OUTLINED_FUNCTION_5_1();
+  v33 = v10;
+  v34 = 0;
   v12 = v11;
   if (v12)
   {
@@ -4257,27 +3443,27 @@ id _LSDatabaseCreateSnapshotAgainstAccessContext(void *a1, uint64_t a2, void *a3
     v14 = 0;
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = ___ZL45_LSDatabaseCreateSnapshotAgainstAccessContextP11_LSDatabaseP22__CSStoreAccessContextPU15__autoreleasingP7NSError_block_invoke;
-  v25[3] = &unk_1E6A1B878;
-  v29 = v13;
-  v27 = &v30;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = ___ZL45_LSDatabaseCreateSnapshotAgainstAccessContextP11_LSDatabaseP22__CSStoreAccessContextPU15__autoreleasingP7NSError_block_invoke;
+  v24[3] = &unk_1E6A1B878;
+  v28 = v13;
+  v26 = &v29;
   v15 = v12;
-  v26 = v15;
-  v28 = &v36;
-  v16 = MEMORY[0x1865D71B0](v25);
+  v25 = v15;
+  v27 = &v35;
+  v16 = MEMORY[0x1865D71B0](v24);
   if (a2)
   {
     if (v14 && v14 != a2)
     {
-      v22 = [MEMORY[0x1E696AAA8] currentHandler];
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_LSDatabase *_LSDatabaseCreateSnapshotAgainstAccessContext(_LSDatabase *__strong, CSStoreAccessContextRef, NSError *__autoreleasing *)"}];
-      [v22 handleFailureInFunction:v23 file:@"LSDatabase.mm" lineNumber:2851 description:@"provided a snapshot queue but it was not equal to the queue in the db to snapshot"];
+      v21 = [MEMORY[0x1E696AAA8] currentHandler];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_LSDatabase *_LSDatabaseCreateSnapshotAgainstAccessContext(_LSDatabase *__strong, CSStoreAccessContextRef, NSError *__autoreleasing *)"}];
+      [v21 handleFailureInFunction:v22 file:@"LSDatabase.mm" lineNumber:2851 description:@"provided a snapshot queue but it was not equal to the queue in the db to snapshot"];
     }
 
     OUTLINED_FUNCTION_1_5();
-    v24 = v16;
+    v23 = v16;
     _CSStoreAccessContextAccessForRead();
   }
 
@@ -4291,33 +3477,32 @@ id _LSDatabaseCreateSnapshotAgainstAccessContext(void *a1, uint64_t a2, void *a3
     v16[2](v16);
   }
 
-  if (!v37[5])
+  if (!v36[5])
   {
     v17 = _LSDatabaseGetLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v21 = v31[5];
+      v20 = v30[5];
       *buf = 138543362;
-      v43 = v21;
+      v42 = v20;
       _os_log_error_impl(&dword_18162D000, v17, OS_LOG_TYPE_ERROR, "_LSDatabaseCreateSnapshotAgainstQueue failed with error %{public}@", buf, 0xCu);
     }
 
     if (a3)
     {
-      *a3 = v31[5];
+      *a3 = v30[5];
     }
   }
 
-  v18 = v37[5];
+  v18 = v36[5];
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
-void sub_1817CC634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_1817CC634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -4328,41 +3513,36 @@ void sub_1817CC634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void _LSSetLocalDatabaseIfNewer_cold_1()
 {
   OUTLINED_FUNCTION_20_0();
-  v1 = *(v0 + 176);
-  OUTLINED_FUNCTION_12_1(3.8521e-34, v0, v2, v3);
-  _os_log_debug_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEBUG, "Database with sequence number %llu is NOT newer than database with sequence number %llu, so NOT using it", v4, 0x16u);
+  OUTLINED_FUNCTION_12_1(3.8521e-34, v0, v1, v2);
+  _os_log_debug_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEBUG, "Database with sequence number %llu is NOT newer than database with sequence number %llu, so NOT using it", v3, 0x16u);
 }
 
 void _LSSetLocalDatabaseIfNewer_cold_2()
 {
   OUTLINED_FUNCTION_20_0();
-  v1 = *(v0 + 176);
-  OUTLINED_FUNCTION_12_1(3.8521e-34, v0, v2, v3);
-  _os_log_debug_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEBUG, "Database with sequence number %llu is newer than database with sequence number %llu, so using it", v4, 0x16u);
+  OUTLINED_FUNCTION_12_1(3.8521e-34, v0, v1, v2);
+  _os_log_debug_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEBUG, "Database with sequence number %llu is newer than database with sequence number %llu, so using it", v3, 0x16u);
 }
 
-void _LSDatabaseSetHeader(uint64_t *a1)
+void _LSDatabaseSetHeader()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v1, v2, "Failed to write database header: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Failed to write database header: %{public}@", v2, v3, v4, v5);
 }
 
-void _LSDatabaseCreateWithAccessContext_cold_1(uint64_t *a1)
+void _LSDatabaseCreateWithAccessContext_cold_1()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v1, v2, "CSStoreCreateMutableCopy failed with error %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "CSStoreCreateMutableCopy failed with error %{public}@", v2, v3, v4, v5);
 }
 
-void _LSDatabaseCreateWithAccessContext_cold_2(uint64_t *a1)
+void _LSDatabaseCreateWithAccessContext_cold_2()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v1, v2, "_LSSchemaConfigureForStore failed with error %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSSchemaConfigureForStore failed with error %{public}@", v2, v3, v4, v5);
 }
 
 void _LSDatabaseCreateWithAccessContext_cold_3(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -4382,12 +3562,11 @@ void _LSDatabaseCreateFromPersistentStore_cold_1(void *a1, uint8_t *buf, os_log_
 
 void _LSDatabaseCreateFromPersistentStore_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_18162D000, v1, OS_LOG_TYPE_ERROR, "_LSCreateStoreWithFileContents, unable to remove database file at %{public}@, error=%{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_18162D000, v1, OS_LOG_TYPE_ERROR, "_LSCreateStoreWithFileContents, unable to remove database file at %{public}@, error=%{public}@", v2, 0x16u);
 }
 
 void _LSDatabaseCreateFromPersistentStore_cold_3()
@@ -4395,22 +3574,6 @@ void _LSDatabaseCreateFromPersistentStore_cold_3()
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void _LSDatabaseCreateFromPersistentStore_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreateFromPersistentStoreIgnoringRecoveryFile failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSDatabaseCreateFromPersistentStore_cold_5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreateFromPersistentStoreIgnoringRecoveryFile failed (forcing empty) with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _LSDatabaseCreateRecoveryFile_cold_1(uint64_t a1, int *a2, uint8_t *buf, os_log_t log)
@@ -4431,11 +3594,9 @@ void _LSDatabaseCreateRecoveryFile_cold_1(uint64_t a1, int *a2, uint8_t *buf, os
 
 void _LSDatabaseCreateRecoveryFile_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSDatabaseCreateRecoveryFile_cold_3()
@@ -4453,24 +3614,18 @@ void _LSDatabaseCreateRecoveryFile_cold_3()
 
 void _LSDatabaseCreateFromPersistentStoreIgnoringRecoveryFile()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSCreateStoreWithFileContents Failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSCreateStoreWithFileContents Failed with error %{public}@", v2, v3, v4, v5);
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreate failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreate failed with error %{public}@", v2, v3, v4, v5);
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSCreateEmptyStore failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSCreateEmptyStore failed with error %{public}@", v2, v3, v4, v5);
 }
 
 {
@@ -4489,29 +3644,18 @@ void _LSDatabaseDeleteRecoveryFile_cold_1(uint64_t a1, int *a2, uint8_t *buf, os
   _os_log_fault_impl(&dword_18162D000, log, OS_LOG_TYPE_FAULT, "Error: Failed to remove recovery file %{public}s with errno %d", buf, 0x12u);
 }
 
-void _LSCreateStoreWithFileContents(uint64_t *a1)
+void _LSCreateStoreWithFileContents()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v1, v2, "_CSStoreCreateWithURL failed with error %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_CSStoreCreateWithURL failed with error %{public}@", v2, v3, v4, v5);
 }
 
 void _LSDatabaseClean()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _LSDatabaseCommit_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "NotifyToken::Post(%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _LSDatabaseCreateStringArrayCommon(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4519,14 +3663,6 @@ void _LSDatabaseCreateStringArrayCommon(uint8_t *buf, _BYTE *a2, os_log_t log)
   *buf = 0;
   *a2 = 0;
   _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Null string in input array while constructing string array, but the caller is OK with that.", buf, 2u);
-}
-
-void _LSContextInitCommon(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v1, v2, "Failed to initialize client context with error %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void _LSContextInvalidate_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -4550,128 +3686,73 @@ void _LSDatabaseSentinelDecrement_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void _LSResetServer_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error creating DB while resetting server: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSResetServer_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error creating store while resetting server: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_1(uint64_t a1, _DWORD *a2)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_1(uint64_t a1, int *a2)
 {
   OUTLINED_FUNCTION_18_0(a1, a2);
   v3 = *(v2 + 32);
-  if (v3)
-  {
-    v4 = v3[5];
-  }
-
-  v5 = *(v2 + 32);
+  v4 = *(v2 + 32);
   OUTLINED_FUNCTION_0_9();
-  v7 = *(v6 + 4);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_14_0();
 
   return _CSStoreWriteToUnit();
 }
 
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_2(uint64_t a1, _DWORD *a2)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_2(uint64_t a1, int *a2)
 {
   OUTLINED_FUNCTION_7_1(a1, a2);
   v3 = *(v2 + 32);
-  if (v3)
-  {
-    v4 = v3[5];
-  }
-
-  v5 = *(v2 + 32);
+  v4 = *(v2 + 32);
   OUTLINED_FUNCTION_0_9();
-  v7 = *(v6 + 4);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_14_0();
 
   return _CSStoreWriteToUnit();
 }
 
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_3(uint64_t a1, _DWORD *a2)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_cold_3(uint64_t a1, int *a2)
 {
   OUTLINED_FUNCTION_7_1(a1, a2);
   v3 = *(v2 + 32);
-  if (v3)
-  {
-    v4 = v3[5];
-  }
-
-  v5 = *(v2 + 32);
+  v4 = *(v2 + 32);
   OUTLINED_FUNCTION_0_9();
-  v7 = *(v6 + 4);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_14_0();
 
   return _CSStoreWriteToUnit();
 }
 
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_2_cold_1(uint64_t a1, _DWORD *a2)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_2_cold_1(uint64_t a1, int *a2)
 {
   OUTLINED_FUNCTION_18_0(a1, a2);
   v3 = *(v2 + 32);
-  if (v3)
-  {
-    v4 = v3[5];
-  }
-
-  v5 = *(v2 + 32);
+  v4 = *(v2 + 32);
   OUTLINED_FUNCTION_0_9();
-  v7 = *(v6 + 1588);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_14_0();
 
   return _CSStoreWriteToUnit();
 }
 
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_2_cold_2(uint64_t a1, _DWORD *a2)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_2_cold_2(uint64_t a1, int *a2)
 {
   OUTLINED_FUNCTION_7_1(a1, a2);
   v3 = *(v2 + 32);
-  if (v3)
-  {
-    v4 = v3[5];
-  }
-
-  v5 = *(v2 + 32);
+  v4 = *(v2 + 32);
   OUTLINED_FUNCTION_0_9();
-  v7 = *(v6 + 1588);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_14_0();
 
   return _CSStoreWriteToUnit();
-}
-
-void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Wrote corrupt store file %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_18162D000, v1, OS_LOG_TYPE_FAULT, "Failed to save database to %{public}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_18162D000, v1, OS_LOG_TYPE_FAULT, "Failed to save database to %{public}@: %{public}@", v2, 0x16u);
 }
 
 void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_3(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -4698,89 +3779,53 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
   _os_log_error_impl(&dword_18162D000, v5, OS_LOG_TYPE_ERROR, "%{public}s: error saving prefs for session %@: %i", v4, 0x1Cu);
 }
 
-void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error saving session: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void ___ZL34_LSDatabasePostChangeNotificationsP11_LSDatabase_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_10_0(&dword_18162D000, v3, v4, "database was reset, not clearing change notification flags.", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_10_0(&dword_18162D000, v3, v4, "database was reset, not clearing change notification flags.", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
 }
 
-void ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreateByRemappingDatabase failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreateByRemappingDatabase() returned error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "_LSDatabaseCreateFromPersistentStore() returned error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void _LSDatabaseContextStopAccessing_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Stopping database access (depth %li)", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Stopping database access (depth %li)", &v3, 0xCu);
 }
 
 void _LSDatabaseContextStartAccessingWithDomain_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Starting database access (depth %li, options: %llx)", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Starting database access (depth %li, options: %llx)", &v4, 0x16u);
 }
 
 void getXPCObjectForNodeAndStore(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not get file system representation of store node while making XPC object: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not get file system representation of store node while making XPC object: %@", &v2, 0xCu);
 }
 
 void getXPCObjectForNodeAndStore(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not create XPC representation of store while making XPC object: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not create XPC representation of store while making XPC object: %@", &v4, 0xCu);
 }
 
 void _LSContextCreateVisualizer_cold_1(void *a1, uint8_t *buf, void *a3, os_log_t log)
@@ -4792,58 +3837,44 @@ void _LSContextCreateVisualizer_cold_1(void *a1, uint8_t *buf, void *a3, os_log_
 
 void ___ZN14LaunchServices21DatabaseVisualizationL14getAllHandlersEP9LSContext_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Table %{public}@ has no handler functions and will not display well in CSStore Viewer.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Table %{public}@ has no handler functions and will not display well in CSStore Viewer.", &v2, 0xCu);
 }
 
 void _LSDefaultsBaseSystemContainerURL_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 136446722;
-  v6 = "NSURL *_LSDefaultsBaseSystemContainerURL(void)";
-  v7 = 2048;
-  v8 = v3;
-  v9 = 2082;
-  v10 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%{public}s: error %llu getting container path: %{public}s", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136446722;
+  v5 = "NSURL *_LSDefaultsBaseSystemContainerURL(void)";
+  v6 = 2048;
+  v7 = v3;
+  v8 = 2082;
+  v9 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%{public}s: error %llu getting container path: %{public}s", &v4, 0x20u);
 }
 
 void LaunchServices::DMFSupport::getPoliciesWithCompletionHandler(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "no DMFApplicationPolicyMonitor available in %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPoliciesWithCompletionHandler";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "no DMFApplicationPolicyMonitor available in %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ___ZN14LaunchServices10DMFSupportL17reloadAllPoliciesEP27DMFApplicationPolicyMonitor_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZN14LaunchServices10DMFSupportL17reloadAllPoliciesEP27DMFApplicationPolicyMonitor_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Failed to get DMF policy for all applications: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void LaunchServices::DMFSupport::addKnownPoliciesToCache()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4860,60 +3891,32 @@ void LaunchServices::DMFSupport::addKnownPoliciesToCache()
 
 void ___ZN14LaunchServices10DMFSupportL32getPoliciesWithCompletionHandlerEP5NSSetIP8NSStringEhU13block_pointerFvP12NSDictionaryIS3_P8NSNumberEP7NSErrorE_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZN14LaunchServices10DMFSupportL32getPoliciesWithCompletionHandlerEP5NSSetIP8NSStringEhU13block_pointerFvP12NSDictionaryIS3_P8NSNumberEP7NSErrorE_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "unable to get policies from DMF: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _LSDServiceGetXPCProxyForServiceClass_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "%{public}s: could not create NSXPCConnection to talk to lsd", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "id _LSDServiceGetXPCProxyForServiceClass(__unsafe_unretained Class _Nonnull, _LSDServiceDomain *const __strong _Nonnull, BOOL, void (^const __strong _Nonnull)(NSError *__strong))";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "%{public}s: could not create NSXPCConnection to talk to lsd", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _LSIsAuditTokenSandboxed_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "sandbox_check_by_audit_token failed in lsd! That's a bad bug! errno=%d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void _LSEnumeratorFireErrorHandler_cold_1()
-{
   v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Error during enumeration of %{private}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void _LSDBEnumeratorPrepareIfNeeded_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Failed to prepare enumerator %{private}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "sandbox_check_by_audit_token failed in lsd! That's a bad bug! errno=%d", v2, 8u);
 }
 
 void _LSDBEnumeratorPrepareIfNeeded_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Prepared enumerator %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Prepared enumerator %{private}@", &v2, 0xCu);
 }
 
 void _LSDBEnumeratorPrepareIfNeeded_cold_3(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -4927,31 +3930,28 @@ void _LSDBEnumeratorPrepareIfNeeded_cold_3(uint64_t a1, void *a2, uint8_t *buf, 
 
 void _LSGetOSStatusFromNSError_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Launch Services, forced to convert an NSError to an OSStatus, came up with kLSUnknownError for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Launch Services, forced to convert an NSError to an OSStatus, came up with kLSUnknownError for %{public}@", &v2, 0xCu);
 }
 
 void _LSGetOSStatusFromNSError_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "XPC error encountered: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "XPC error encountered: %{public}@", &v2, 0xCu);
 }
 
 void _LSGetOSStatusFromNSError_cold_3(int a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Launch Services encountered an error, converting to OSStatus %li: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Launch Services encountered an error, converting to OSStatus %li: %{public}@", &v3, 0x16u);
 }
 
 void LSInit_cold_1(unsigned int a1, uint8_t *buf, os_log_t log)
@@ -4961,7 +3961,7 @@ void LSInit_cold_1(unsigned int a1, uint8_t *buf, os_log_t log)
   _os_log_impl(&dword_18162D000, log, OS_LOG_TYPE_DEFAULT, "LaunchServices: Completed database seeding for uid %lli", buf, 0xCu);
 }
 
-__CFSet *_LSCreatePackageExtensionsArrayForContext(const __CFAllocator *a1, LSContext *a2)
+CFArrayRef _LSCreatePackageExtensionsArrayForContext(const __CFAllocator *a1, LSContext *a2)
 {
   result = _LSCopyPackageExtensions(a2);
   if (result)
@@ -4977,136 +3977,34 @@ __CFSet *_LSCreatePackageExtensionsArrayForContext(const __CFAllocator *a1, LSCo
 
 void _LSCopyUserActivityDomainNamesForBundleID_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446466;
-  v4 = "CFArrayRef _LSCopyUserActivityDomainNamesForBundleID(CFStringRef)";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Error in %{public}s: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136446466;
+  v3 = "CFArrayRef _LSCopyUserActivityDomainNamesForBundleID(CFStringRef)";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Error in %{public}s: %{public}@", &v2, 0x16u);
 }
 
 void ___ZL29pluginKitUserElectionStoreURLv_block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "Failed to get storage container: error=%llu", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "Failed to get storage container: error=%llu", &v3, 0xCu);
 }
 
 void ___ZL29pluginKitUserElectionStoreURLv_block_invoke_250_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZL29pluginKitUserElectionStoreURLv_block_invoke_250_cold_2(void *a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_7_2(a1, a2, 5.8381e-34);
   _os_log_debug_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEBUG, "Annotations are stored at [%{public}@]", v4, 0xCu);
-}
-
-void LSBundleMeetsBasicDefaultAppRequirements_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Bundle 0x%llx is a placeholder, so it cannot be a default app.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LSBundleMeetsBasicDefaultAppRequirements_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Bundle 0x%llx is not an application, so it cannot be a default app.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LSBundleMeetsBasicDefaultAppRequirements_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Bundle 0x%llx is in an unsupported location, so it cannot be a default app.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LSBundleMeetsBasicDefaultAppRequirements_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Bundle 0x%llx has an unsupported format, so it cannot be a default app.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __LSCopyClaimListWithoutClaimsClaimingDefaultAppTypes_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "claim for %@, which is a default app type. Ignoring this entire claim", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSServer_LSRemoveDefaultApp_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSServer_LSSetDefaultAppByTypeIdentifier_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Can't change category %lu!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSServer_LSSetDefaultAppByTypeIdentifier_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "couldn't write default apps state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LSDefaultAppCategoryMayBeChanged_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void LSDefaultAppCategoryMayBeChanged_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSServer_HasPreferenceEverBeenSetForDefaultAppCategory_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void std::__function::__func<_LSServer_NotePreferenceSetForCategory(LSDefaultAppCategory)::$_0,std::allocator<_LSServer_NotePreferenceSetForCategory(LSDefaultAppCategory)::$_0>,LaunchServices::LSDefaultAppsExtraState ()(std::optional<LaunchServices::LSDefaultAppsExtraState>,NSError *)>::operator()()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "couldn't read default apps set state to modify it, starting with default state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id _LSLazyPropertyListGetPropertyList(void *a1)
@@ -5123,93 +4021,67 @@ void LaunchServices::LocalizedString::localizeUnsafely(uint8_t *buf, _BYTE *a2, 
   _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "kLSDefaultLocalizedValueKey encountered in matching localizations set.", buf, 2u);
 }
 
-void LaunchServices::EligibilityCache::refreshAnswerForDomain()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "could not find answer for domain %llu: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void LaunchServices::EligibilityCache::getEligibilityGatedBrowsersCanBind(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't get answer for lithium domain: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't get answer for lithium domain: %@", &v2, 0xCu);
 }
 
 void LaunchServices::EligibilityCache::getEligibilityGatedBrowserEngineEmbeddersCanBind(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't get answer for boron domain: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void LaunchServices::EligibilityCache::eligibleForDomainFailingClosed()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Couldn't get answer for domain %llu: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't get answer for boron domain: %@", &v2, 0xCu);
 }
 
 void _LSCopierCallback(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Unknown MDTCopierCallbackType %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Unknown MDTCopierCallbackType %d", v2, 8u);
 }
 
 void anonymous namespace::StagedFileResource::~StagedFileResource(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Unable to remove open staging container %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Unable to remove open staging container %@: %@", &v4, 0x16u);
 }
 
 void makeStagingDirectoryURLInContainer()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "could not create new mailbox directory: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "could not create new mailbox directory: %@", v1, 0xCu);
 }
 
-void ___ZL34makeStagingDirectoryURLInContainerP5NSURLPU15__autoreleasingP7NSError_block_invoke_cold_1(uint64_t *a1)
+void ___ZL34makeStagingDirectoryURLInContainerP5NSURLPU15__autoreleasingP7NSError_block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void _LSOpenOperationPerformContinueAfterAsyncGather(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -5223,43 +4095,17 @@ void _LSOpenOperationPerformContinueAfterAsyncGather(uint64_t a1, void *a2, uint
 
 void ___ZL23_LSOpenOperationPerformP5NSURLP12NSFileHandleP8NSStringbS4_P12NSDictionaryIS4_P11objc_objectES9_PU42objcproto31LSOpenResourceOperationDelegate11objc_objectP15NSXPCConnectionU13block_pointerFvbP7NSErrorE_block_invoke_117_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to get bookmark string, continuing as usual. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZL23_LSUpdateDefaultHandlerP18LSApplicationProxyP5NSURL_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Failed to set default handler: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _LSPersistentIdentifierCompare_cold_1()
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_15();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v0, v1, "Persistent identifiers %p and %p are from the same database", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void _LSPersistentIdentifierCompare_cold_2()
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_15();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v0, v1, "Persistent identifiers %p and %p are exactly equal", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to get bookmark string, continuing as usual. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _LSPlistDataGetHint_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Getting plist hint for data %p", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Getting plist hint for data %p", &v2, 0xCu);
 }
 
 void _LSPlistDataGetValuesForKeys_cold_1(void *a1, uint8_t *buf, os_log_t log, void *a4)
@@ -5276,52 +4122,39 @@ void _LSPlistDataGetValuesForKeys_cold_2(void *a1, uint8_t *buf, os_log_t log, v
   _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Keys { %{public}@ } were requested and require us to take a slow path.", buf, 0xCu);
 }
 
-void _LSPluginIsValid_cold_1(uint64_t a1, unsigned int *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *a2;
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
 void LaunchServices::LSStatePlist::modify(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "couldn't write plist: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "couldn't write plist: %@", &v2, 0xCu);
 }
 
 void LaunchServices::LSStatePlist::save(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Couldn't write state plist to %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Couldn't write state plist to %@: %@", &v4, 0x16u);
 }
 
 void ___ZL39getkMISMinSupportedSignatureVersion_ptrv_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136446210;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "could not find kMISMinSupportedSignatureVersion in libmis: %{public}s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136446210;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "could not find kMISMinSupportedSignatureVersion in libmis: %{public}s", &v2, 0xCu);
 }
 
 void ___ZL39getkMISMinSupportedSignatureVersion_ptrv_block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136446210;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "could not dlopen libmis: %{public}s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136446210;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "could not dlopen libmis: %{public}s", &v2, 0xCu);
 }
 
 void LaunchServices::HandlerPrefs::display()
@@ -5340,107 +4173,48 @@ void ___ZN13LSHandlerPref12CopyHandlersEv_block_invoke_cold_1(uint8_t *buf, int 
   _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Handler prefs found; uid = %d; count = %ld;\n", buf, 0x12u);
 }
 
-void LaunchServices::PrefsStorage::_needsUpdate(uint64_t *a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *a1;
-  OUTLINED_FUNCTION_3_5();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "Failed to read preferences from lsd. They will be unavailable. %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void LaunchServices::PrefsStorage::_updateOtherProcesses()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Incremented prefs notify token value. New value is %llu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LaunchServices::PrefsStorage::_GetBundleIdentifierWithAppNode()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Node %{private}@ has no bundle ID.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "Failed to read preferences from lsd. They will be unavailable. %{public}@", v1, 0xCu);
 }
 
 void LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Deleting app node %{private}@ from prefs.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Deleting app node %{private}@ from prefs.", v2, v3, v4, v5);
 }
 
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_5();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Deleting app node %{private}@ from prefs, but not present. Ignoring.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void LaunchServices::PrefsStorage::setValueForNode()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Adding prefs[%{public}@] for the first time.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Deleting app node %{private}@ from prefs, but not present. Ignoring.", v2, v3, v4, v5);
 }
 
 void applyStorageACLToURL(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "failed to set ACL on %@: %{darwin.errno}d", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void bundleUnitsClaimingDefaultAppCategory(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void bundleUnitIDsForBindingScheme()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "failed to set ACL on %@: %{darwin.errno}d", &v3, 0x12u);
 }
 
 void nonPlaceholderBundleUnitIDForIdentifier(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "no bundle for %@: %lu", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "no bundle for %@: %lu", &v3, 0x16u);
 }
 
 uint64_t _LSGetHandlerRankFromDictKey(const __CFDictionary *a1, const void *a2)
@@ -5537,49 +4311,41 @@ uint64_t _LSGetRoleFromDictKey(const __CFDictionary *a1, const void *a2)
 
 void _LSServer_URLIsOnTrustedCryptex_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_URLIsOnTrustedCryptex_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_URLIsOnTrustedCryptex_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSFindOrRegisterBundleNode_cold_1(uint64_t *a1, unsigned int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Skipping check that bundleData (%p) != NULL because we don't expect we'll have a valid pointer (caller didn't ask us (%llx) to reinitialize LS database context, so data is known-stale)", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Skipping check that bundleData (%p) != NULL because we don't expect we'll have a valid pointer (caller didn't ask us (%llx) to reinitialize LS database context, so data is known-stale)", &v4, 0x16u);
 }
 
 void _LSUnregisterBundle_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Removing %{private}@ from protected apps store", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Removing %{private}@ from protected apps store", v1, 0xCu);
 }
 
 void _LSServerBundleRegistration_cold_1(NSObject *a1)
@@ -5593,16 +4359,14 @@ void _LSServerBundleRegistration_cold_1(NSObject *a1)
 
 void _LSServerItemInfoRegistration_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void getLibIDs()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_2))
+  if (__cxa_guard_acquire(_MergedGlobals_2))
   {
     qword_1ED445310 = @"com.apple.system-library";
     unk_1ED445318 = @"com.apple.local-library";
@@ -5610,18 +4374,17 @@ void getLibIDs()
     unk_1ED445328 = @"com.apple.user-library";
     qword_1ED445330 = @"com.apple.apple-internal-library";
 
-    __cxa_guard_release(&_MergedGlobals_2);
+    __cxa_guard_release(_MergedGlobals_2);
   }
 }
 
 void _LSRegisterPlugin()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_18162D000, v1, OS_LOG_TYPE_ERROR, "will not register %@: it is in an app clip and has EPID %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_18162D000, v1, OS_LOG_TYPE_ERROR, "will not register %@: it is in an app clip and has EPID %@", v2, 0x16u);
 }
 
 void _LSRegisterPlugin(NSObject *a1, id *a2, void *a3)
@@ -5637,159 +4400,115 @@ void _LSRegisterPlugin(NSObject *a1, id *a2, void *a3)
 
 void _LSCreateRegistrationDataForDirectoryNode()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSCreateRegistrationDataForDirectoryNode(NSObject *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_20();
     _os_log_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_20();
     _os_log_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_20();
     _os_log_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZL37_LSSchemeApprovalGetBouncebackHistoryv_block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZL37_LSSchemeApprovalGetBouncebackHistoryvEUb_E14backlightToken))
+  if (__cxa_guard_acquire(_ZGVZZL37_LSSchemeApprovalGetBouncebackHistoryvEUb_E14backlightToken))
   {
     __cxa_atexit(LaunchServices::notifyd::NotifyToken::~NotifyToken, &_ZZZL37_LSSchemeApprovalGetBouncebackHistoryvEUb_E14backlightToken, &dword_18162D000);
 
-    __cxa_guard_release(&_ZGVZZL37_LSSchemeApprovalGetBouncebackHistoryvEUb_E14backlightToken);
+    __cxa_guard_release(_ZGVZZL37_LSSchemeApprovalGetBouncebackHistoryvEUb_E14backlightToken);
   }
 }
 
 void _LSServer_RegisterItemInfo_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 8);
-  v4 = 136446722;
-  v5 = "OSStatus _LSServer_RegisterItemInfo(const LSRegistrationInfo *__strong, NSData *__strong, CFDictionaryRef, CFDictionaryRef, CSStoreUnitID *, CSStoreUnitID *, Boolean *, CFStringRef *)";
-  v6 = 2048;
-  v7 = 7;
-  v8 = 2048;
-  v9 = v2;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: registration info version should be %llu but is %llu", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void _LSServerMain_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 136446722;
+  v4 = "OSStatus _LSServer_RegisterItemInfo(const LSRegistrationInfo *__strong, NSData *__strong, CFDictionaryRef, CFDictionaryRef, CSStoreUnitID *, CSStoreUnitID *, Boolean *, CFStringRef *)";
+  v5 = 2048;
+  v6 = 7;
+  v7 = 2048;
+  v8 = v2;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: registration info version should be %llu but is %llu", &v3, 0x20u);
 }
 
 void _LSServerMain_cold_3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_fault_impl(&dword_18162D000, v0, OS_LOG_TYPE_FAULT, "could not set secure preferences class D: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_18162D000, v0, OS_LOG_TYPE_FAULT, "could not set secure preferences class D: %@", v1, 0xCu);
 }
 
-void _LSServerMain_cold_4()
+void _LSServerMain_cold_4(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [__LSDefaultsGetSharedInstance() databaseContainerDirectoryURL];
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void _LSServerMain_cold_6()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __listenForSigterm_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __listenForSigterm_block_invoke_7_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __listenForSigterm_block_invoke_7_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __performFirstBootWorkIfNecessary_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __migrateDefaultAppsToNewWorld_block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_GetiCloudHostNames_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _LSServer_GetiCloudHostNames_cold_3()
@@ -5801,18 +4520,15 @@ void _LSServer_GetiCloudHostNames_cold_3()
 
 void LaunchServices::URLOverrides::getiCloudHostNamesFromPlistAtURL()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "Error loading iCloud hosts plist from %{public}@: value was missing or not an array", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, v0, OS_LOG_TYPE_ERROR, "Error loading iCloud hosts plist from %{public}@: value was missing or not an array", v1, 0xCu);
 }
 
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Error loading iCloud hosts plist from %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void LaunchServices::URLOverrides::State::State()
@@ -5830,40 +4546,25 @@ void LaunchServices::URLOverrides::State::State()
 
 void ___ZN14LaunchServices12URLOverridesL20getURLOverrideCommonEP5NSURL_block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138478083;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138478083;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v1, v2, "XPC error getting URL override for %{private}@: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_18162D000, v1, v2, "XPC error getting URL override for %{private}@: %{public}@", v3, DWORD2(v3));
 }
 
 void ___ZN14LaunchServices12URLOverridesL20getURLOverrideCommonEP5NSURL_block_invoke_233_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138478083;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138478083;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v1, v2, "Error getting URL override for %{private}@: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZN14LaunchServices12URLOverridesL20getURLOverrideCommonEP5NSURL_block_invoke_233_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_10();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_18162D000, v1, v2, "Error getting URL override for %{private}@: %{public}@", v3, DWORD2(v3));
 }
 
 void ___ZN14LaunchServices12URLOverridesL18checkForiCloudHostEP15NSURLComponents_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void LaunchServices::URLPropertyProvider::prepareLocalizedNameValue(void *a1, uint8_t *buf, os_log_t log)
@@ -5875,51 +4576,51 @@ void LaunchServices::URLPropertyProvider::prepareLocalizedNameValue(void *a1, ui
 
 void LaunchServices::URLPropertyProvider::prepareDistinctLocalizedNameValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareDistinctLocalizedNameValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareLocalizedNameDictionaryValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareLocalizedNameDictionaryValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareLocalizedTypeDescriptionDictionaryValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareLocalizedTypeDescriptionDictionaryValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareArchitecturesValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareArchitecturesValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareCanSetStrongBindingValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareCanSetStrongBindingValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareStrongBindingValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareStrongBindingValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareVolumeLocalizedNameValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareVolumeLocalizedNameValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemValue()
@@ -5935,18 +4636,17 @@ void LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemValue()
 
 void LaunchServices::URLPropertyProvider::prepareApplicationDeviceManagementPolicyValue(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prepareApplicationDeviceManagementPolicyValue";
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a1, a3, "Can't provide property in %s with mimic", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _UTTypePrecachePropertiesOfIdentifiers_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136446210;
-  v3 = "void _UTTypePrecachePropertiesOfIdentifiers(CFArrayRef)";
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%{public}s is a no-op. Use the UniformTypeIdentifiers framework to get instances of the UTType class instead.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136446210;
+  v2 = "void _UTTypePrecachePropertiesOfIdentifiers(CFArrayRef)";
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "%{public}s is a no-op. Use the UniformTypeIdentifiers framework to get instances of the UTType class instead.", &v1, 0xCu);
 }
 
 void _UTTypeAddWithDeclarationDictionary_cold_1(void *a1, void *a2, uint64_t a3, NSObject *a4)
@@ -6040,14 +4740,14 @@ double gotLoadHelper_x8__OBJC_CLASS___BSProcessHandle(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_FileProvider(double a1)
+double dlopenHelper_FileProvider(double a1)
 {
   dlopen("/System/Library/Frameworks/FileProvider.framework/FileProvider", 0);
   atomic_store(1u, &dlopenHelperFlag_FileProvider);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_BaseBoard(double a1)
+double dlopenHelper_BaseBoard(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/BaseBoard.framework/BaseBoard", 0);
   atomic_store(1u, &dlopenHelperFlag_BaseBoard);

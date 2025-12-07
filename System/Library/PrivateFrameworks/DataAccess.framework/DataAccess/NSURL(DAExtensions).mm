@@ -326,24 +326,24 @@ LABEL_47:
 
 - (id)da_urlForLogging
 {
-  v2 = DALoggingwithCategory();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
+  v3 = DALoggingwithCategory();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
-  if (v3)
+  if (v4)
   {
     selfCopy = self;
   }
 
   else
   {
-    v5 = objc_alloc_init(MEMORY[0x277CCACE0]);
+    v6 = objc_alloc_init(MEMORY[0x277CCACE0]);
     scheme = [self scheme];
-    [v5 setScheme:scheme];
+    [v6 setScheme:scheme];
 
     host = [self host];
-    [v5 setHost:host];
+    [v6 setHost:host];
 
-    selfCopy = [v5 URL];
+    selfCopy = [v6 URL];
   }
 
   return selfCopy;

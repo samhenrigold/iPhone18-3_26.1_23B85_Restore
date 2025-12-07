@@ -12,7 +12,7 @@
 
 + (id)placeholdersMatchingIntrinsicContentSizeOfViews:(id)views reusingPlaceholders:(id)placeholders
 {
-  sub_18B7B0AC0(0, &qword_1EA9D46F0);
+  sub_18B7B0AC0(0, &qword_1EA9D46F0, 0x1E69DD250);
   v4 = sub_18BC20D98();
   v5 = sub_18BC20D98();
   _sSo17SFPlaceholderViewC12MobileSafariE12placeholders30matchingIntrinsicContentSizeOf7reusingSayABGSaySo6UIViewCG_AJtFZ_0(v4, v5);

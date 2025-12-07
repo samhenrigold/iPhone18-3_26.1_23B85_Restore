@@ -32,7 +32,7 @@ void WrdBookmark::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0;
   v6 = *(a2 + 40);
   *(a1 + 40) = v6;
-  operator new[](v6);
+  operator new[](v6, 0x1000C8077774924);
 }
 
 uint64_t WrdBookmarkTable::operator=(uint64_t a1, uint64_t a2)
@@ -773,9 +773,9 @@ void WrdCommandDescription::~WrdCommandDescription(WrdCommandDescription *this)
 
 void *WrdCPTable::operator=(void *a1, uint64_t a2)
 {
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   v3 = a1[1];
-  *(v4 + 8) = v3;
+  v4[1] = v3;
   v5 = *(a2 + 8);
   if (((*(a2 + 16) - v5) & 0x3FFFFFFFCLL) != 0)
   {
@@ -1402,7 +1402,7 @@ uint64_t WrdDocumentProperties::operator=(uint64_t a1, uint64_t a2)
   if (v123 && *(a2 + 232))
   {
     *(a1 + 240) = v123;
-    operator new[](v123);
+    operator new[](v123, 0x1000C8077774924);
   }
 
   v124 = *(a1 + 248);
@@ -1417,7 +1417,7 @@ uint64_t WrdDocumentProperties::operator=(uint64_t a1, uint64_t a2)
   if (v125 && *(a2 + 248))
   {
     *(a1 + 256) = v125;
-    operator new[](v125);
+    operator new[](v125, 0x1000C8077774924);
   }
 
   return a1;
@@ -1640,7 +1640,7 @@ void sub_25D5DDA7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WrdEmbeddedTTFRecordTable::append(void *a1, uint64_t a2)
+void *WrdEmbeddedTTFRecordTable::append(void *a1, uint64_t a2)
 {
   v5 = a2;
   v3 = a1[2];
@@ -1652,7 +1652,7 @@ uint64_t WrdEmbeddedTTFRecordTable::append(void *a1, uint64_t a2)
   else
   {
     *v3 = a2;
-    result = (v3 + 1);
+    result = v3 + 1;
   }
 
   a1[2] = result;
@@ -2120,17 +2120,17 @@ void sub_25D5DE930(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WrdFontFamilyName::operator=(uint64_t result, uint64_t a2)
+uint64_t WrdFontFamilyName::operator=(uint64_t a1, uint64_t a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
-    *(result + 56) = *(a2 + 56);
-    *(result + 80) = *(a2 + 80);
-    *(result + 82) = *(a2 + 82);
-    operator new[](10);
+    *(a1 + 56) = *(a2 + 56);
+    *(a1 + 80) = *(a2 + 80);
+    *(a1 + 82) = *(a2 + 82);
+    operator new[](10, 0x1000C8077774924);
   }
 
-  return result;
+  return a1;
 }
 
 void *WrdFontFamilyNameTable::operator=(void *a1, uint64_t a2)
@@ -2497,7 +2497,7 @@ void WrdListFormat::operator=(uint64_t a1, uint64_t a2)
   v15 = v14 & 0xFFFFF7FF | (((*(a2 + 50) >> 11) & 1) << 11);
   *(a1 + 50) = v15;
   *(a1 + 50) = v15 & 0xEFFF | *(a2 + 50) & 0x1000;
-  operator new[](18);
+  operator new[](18, 0x1000C80BDFB0063);
 }
 
 void sub_25D5DF870(_Unwind_Exception *exception_object)
@@ -2915,37 +2915,34 @@ void sub_25D5E02B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *CsHeapVector<WrdListFormat>::copyElements(void *a1, void *a2)
+void CsHeapVector<WrdListFormat>::copyElements(void *a1, void *a2)
 {
   v4 = a2[1] - *a2;
-  result = std::vector<WrdListFormat *,ChAllocator<WrdListFormat *>>::reserve(a1, v4 >> 3);
+  std::vector<WrdListFormat *,ChAllocator<WrdListFormat *>>::reserve(a1, v4 >> 3);
   if ((v4 >> 3))
   {
-    v6 = 0;
-    v7 = (v4 >> 3);
+    v5 = 0;
+    v6 = (v4 >> 3);
     do
     {
-      if (v6 >= ((a2[1] - *a2) >> 3))
+      if (v5 >= ((a2[1] - *a2) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v8 = (*(**(*a2 + 8 * v6) + 16))(*(*a2 + 8 * v6));
-      CsSimpleHeapVector<WrdListFormat>::pushBack(a1, &v8);
-      result = v8;
-      if (v8)
+      v7 = (*(**(*a2 + 8 * v5) + 16))(*(*a2 + 8 * v5));
+      CsSimpleHeapVector<WrdListFormat>::pushBack(a1, &v7);
+      if (v7)
       {
-        result = (*(*v8 + 8))(v8);
+        (*(*v7 + 8))(v7);
       }
 
-      v8 = 0;
-      ++v6;
+      v7 = 0;
+      ++v5;
     }
 
-    while (v7 != v6);
+    while (v6 != v5);
   }
-
-  return result;
 }
 
 void sub_25D5E04CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2958,14 +2955,12 @@ void sub_25D5E04CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<WrdListFormat *,ChAllocator<WrdListFormat *>>::reserve(void *result, unsigned int a2)
+void std::vector<WrdListFormat *,ChAllocator<WrdListFormat *>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 3) < a2)
+  if (((a1[2] - *a1) >> 3) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHeader *>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHeader *>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D5E0584(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -3459,7 +3454,7 @@ uint64_t WrdPAPXFKP::setGrpprlOffset(uint64_t this, unsigned int a2, unsigned in
   return this;
 }
 
-uint64_t WrdPAPXFKP::setGrpprlSize(WrdPAPXFKP *this, unsigned __int8 a2, unsigned int a3)
+uint64_t WrdPAPXFKP::setGrpprlSize(WrdPAPXFKP *this, uint64_t a2, unsigned int a3)
 {
   if (!*(this + 2))
   {
@@ -3468,7 +3463,7 @@ uint64_t WrdPAPXFKP::setGrpprlSize(WrdPAPXFKP *this, unsigned __int8 a2, unsigne
   }
 
   v5 = a3 & 1;
-  result = (*(*this + 32))(this);
+  result = (*(*this + 32))(this, a2);
   v7 = (*(this + 2) + result);
   if (!v5)
   {
@@ -3541,7 +3536,7 @@ void *WrdPAPXFKP::appendGrpprl(WrdPAPXFKP *this, const unsigned __int8 *a2, uint
   if (v12 == WrdFormattedDiskPage::s_unUndefinedOffset)
   {
     WrdPAPXFKP::setGrpprlOffset(this, v17, v14);
-    result = WrdPAPXFKP::setGrpprlSize(this, *(*(this + 2) + WrdFormattedDiskPage::s_unPageBufferSize - 1) - 1, v7);
+    result = WrdPAPXFKP::setGrpprlSize(this, (*(*(this + 2) + WrdFormattedDiskPage::s_unPageBufferSize - 1) - 1), v7);
     if (v7)
     {
       v19 = *(this + 2) + v14;
@@ -3621,19 +3616,19 @@ uint64_t WrdPAPXFKP::findGrpprlOffset(WrdPAPXFKP *this, unsigned int a2, const u
   return v13;
 }
 
-void std::vector<WrdTabDescriptor *,ChAllocator<WrdTabDescriptor *>>::resize(void *a1, unsigned int a2)
+void std::vector<WrdTabDescriptor *,ChAllocator<WrdTabDescriptor *>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<WrdTabDescriptor *,ChAllocator<WrdTabDescriptor *>>::__append(a1, v4);
+    std::vector<WrdTabDescriptor *,ChAllocator<WrdTabDescriptor *>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -4028,7 +4023,7 @@ void WrdRoutingRecipient::MailParameterBinary::~MailParameterBinary(WrdRoutingRe
   JUMPOUT(0x25F897000);
 }
 
-void *std::vector<WrdRoutingRecipient::MailParameter *,ChAllocator<WrdRoutingRecipient::MailParameter *>>::__assign_with_size[abi:ne200100]<WrdRoutingRecipient::MailParameter **,WrdRoutingRecipient::MailParameter **>(void *result, char *__src, char *a3, unsigned int a4)
+void **std::vector<WrdRoutingRecipient::MailParameter *,ChAllocator<WrdRoutingRecipient::MailParameter *>>::__assign_with_size[abi:ne200100]<WrdRoutingRecipient::MailParameter **,WrdRoutingRecipient::MailParameter **>(void **result, char *__src, char *a3, unsigned int a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4413,7 +4408,7 @@ LABEL_7:
     v14 = *(v10 + 8);
     v24 = v4;
     v25 = &v24;
-    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 168, &v24) + 8) = v14;
+    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 168, &v24, &std::piecewise_construct, &v25) + 8) = v14;
 LABEL_17:
     v15 = *v6;
     if (!*v6)
@@ -4471,7 +4466,7 @@ LABEL_34:
     v21 = *(v18 + 8);
     v24 = v4;
     v25 = &v24;
-    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 192, &v24) + 8) = v21;
+    *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 192, &v24, &std::piecewise_construct, &v25) + 8) = v21;
 LABEL_32:
     ++v4;
   }
@@ -4701,7 +4696,7 @@ uint64_t WrdStringWithDataTable::StringData::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v4;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   return a1;
@@ -4762,7 +4757,7 @@ LABEL_6:
 
   v6 = a2;
   v7 = &v6;
-  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v6)[5];
+  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v6, &std::piecewise_construct, &v7)[5];
 }
 
 uint64_t *WrdStyle::takeParaProps(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -4782,7 +4777,7 @@ uint64_t *WrdStyle::takeParaProps(uint64_t a1, unsigned int a2, uint64_t a3)
       {
         v11 = a2;
         v12 = &v11;
-        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11)[5];
+        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11, &std::piecewise_construct, &v12)[5];
         if (v8)
         {
           (*(*v8 + 8))(v8);
@@ -4790,7 +4785,7 @@ uint64_t *WrdStyle::takeParaProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
         v11 = a2;
         v12 = &v11;
-        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11)[5] = 0;
+        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11, &std::piecewise_construct, &v12)[5] = 0;
         break;
       }
 
@@ -4800,24 +4795,24 @@ uint64_t *WrdStyle::takeParaProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
   v11 = a2;
   v12 = &v11;
-  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11);
+  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v11, &std::piecewise_construct, &v12);
   result[5] = a3;
   return result;
 }
 
-void std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::resize(void *a1, unsigned int a2)
+void std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::__append(a1, v4);
+    std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -5342,7 +5337,7 @@ WrdTableProperties *WrdTableProperties::setTableRevisionSaveID(WrdTablePropertie
   return this;
 }
 
-void WrdTableProperties::deleteCells(WrdTableProperties *this, unsigned int a2, int a3)
+void WrdTableProperties::deleteCells(WrdTableProperties *this, signed int a2, int a3)
 {
   v4 = (this + 248);
   v3 = *(this + 31);
@@ -5406,35 +5401,35 @@ void WrdTableProperties::deleteCells(WrdTableProperties *this, unsigned int a2, 
   }
 }
 
-void std::vector<short,ChAllocator<short>>::resize(void *a1, unsigned int a2)
+void std::vector<short,ChAllocator<short>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<short,ChAllocator<short>>::__append(a1, v4);
+    std::vector<short,ChAllocator<short>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 2 * a2;
+    result[1] = *result + 2 * a2;
   }
 }
 
-void std::vector<WrdTableCellDescriptor *,ChAllocator<WrdTableCellDescriptor *>>::resize(void *a1, unsigned int a2)
+void std::vector<WrdTableCellDescriptor *,ChAllocator<WrdTableCellDescriptor *>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<WrdTableCellDescriptor *,ChAllocator<WrdTableCellDescriptor *>>::__append(a1, v4);
+    std::vector<WrdTableCellDescriptor *,ChAllocator<WrdTableCellDescriptor *>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -6345,7 +6340,7 @@ void WrdWorkBookTable::WrdWorkBookTable(WrdWorkBookTable *this)
   *(this + 3) = 0u;
 }
 
-void *WrdWorkBookTable::operator=(void *a1, uint64_t a2)
+WrdWorkBookTable *WrdWorkBookTable::operator=(WrdWorkBookTable *a1, uint64_t a2)
 {
   WrdWorkBookTable::clear(a1);
   v4 = *(a2 + 40);
@@ -6356,8 +6351,8 @@ void *WrdWorkBookTable::operator=(void *a1, uint64_t a2)
     {
       v6 = (*(**(v4 + 8 * v5) + 16))(*(v4 + 8 * v5));
       v10 = v6;
-      v7 = a1[6];
-      if (v7 >= a1[7])
+      v7 = *(a1 + 6);
+      if (v7 >= *(a1 + 7))
       {
         v8 = std::vector<WrdWorkBook *,ChAllocator<WrdWorkBook *>>::__emplace_back_slow_path<WrdWorkBook *>(a1 + 5, &v10);
       }
@@ -6368,7 +6363,7 @@ void *WrdWorkBookTable::operator=(void *a1, uint64_t a2)
         v8 = (v7 + 1);
       }
 
-      a1[6] = v8;
+      *(a1 + 6) = v8;
       ++v5;
       v4 = *(a2 + 40);
     }
@@ -6442,11 +6437,11 @@ void WrdWorkBookTable::~WrdWorkBookTable(WrdWorkBookTable *this)
   JUMPOUT(0x25F897000);
 }
 
-void WrdWorkBookTable::setCP(WrdWorkBookTable *this, unsigned int a2, int a3)
+void WrdWorkBookTable::setCP(void *this, unsigned int a2, int a3)
 {
-  v5 = *(this + 2);
-  v6 = (this + 16);
-  if (((*(this + 3) - v5) >> 2) <= a2)
+  v5 = this[2];
+  v6 = this + 2;
+  if (((this[3] - v5) >> 2) <= a2)
   {
     std::vector<int,ChAllocator<int>>::resize(this + 2, a2 + 1);
     v5 = *v6;
@@ -6685,7 +6680,7 @@ uint64_t WrdXmlElement::setDisplayType(uint64_t result, int a2)
   return result;
 }
 
-uint64_t WrdXmlElement::appendAttribute(void *a1, uint64_t *a2)
+void *WrdXmlElement::appendAttribute(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -6704,7 +6699,7 @@ uint64_t WrdXmlElement::appendAttribute(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[5] = result;
@@ -6828,7 +6823,7 @@ void *WrdXmlElementTable::clear(void *this)
   return this;
 }
 
-uint64_t WrdXmlElementTable::append(void *a1, uint64_t *a2)
+void *WrdXmlElementTable::append(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -6847,7 +6842,7 @@ uint64_t WrdXmlElementTable::append(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[2] = result;
@@ -7005,7 +7000,7 @@ void *WrdXmlSchema::release(void *this)
   return this;
 }
 
-uint64_t WrdXmlSchema::appendElement(void *a1, uint64_t *a2)
+void *WrdXmlSchema::appendElement(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -7024,7 +7019,7 @@ uint64_t WrdXmlSchema::appendElement(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[5] = result;
@@ -7032,7 +7027,7 @@ uint64_t WrdXmlSchema::appendElement(void *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t WrdXmlSchema::appendAttribute(void *a1, uint64_t *a2)
+void *WrdXmlSchema::appendAttribute(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -7051,7 +7046,7 @@ uint64_t WrdXmlSchema::appendAttribute(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[8] = result;
@@ -7085,7 +7080,7 @@ void WrdXmlSchemaTable::~WrdXmlSchemaTable(WrdXmlSchemaTable *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t WrdXmlSchemaTable::append(void *a1, uint64_t *a2)
+void *WrdXmlSchemaTable::append(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -7104,7 +7099,7 @@ uint64_t WrdXmlSchemaTable::append(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[2] = result;
@@ -7203,7 +7198,7 @@ void WrdBaseParser::parseBuffer(WrdBaseParser *this, CsColour *a2, const unsigne
   a2->var0 = a3[3] ^ 0xFF;
 }
 
-double WrdBaseParser::parseBRC10(WrdBaseParser *this, WrdBorder *a2, unsigned __int16 *a3, unsigned __int16 *a4)
+double WrdBaseParser::parseBRC10(WrdBaseParser *this, WrdBorder *a2, char *a3, char *a4)
 {
   if (!a3 || a3 >= a4 || (a4 - a3) <= 1)
   {
@@ -7368,7 +7363,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t WrdBaseParser::parseBRC80(WrdBaseParser *this, WrdBorder *a2, unsigned __int16 *a3, unsigned __int16 *a4)
+uint64_t WrdBaseParser::parseBRC80(WrdBaseParser *this, WrdBorder *a2, char *a3, char *a4)
 {
   if (!a3 || a3 >= a4 || (a4 - a3) <= 3)
   {
@@ -7406,7 +7401,7 @@ uint64_t WrdBaseParser::parseBuffer(WrdBaseParser *this, WrdDateTime *a2, unsign
   return result;
 }
 
-uint64_t WrdBaseParser::parseBuffer(WrdBaseParser *this, WrdDropCap *a2, unsigned __int16 *a3, unsigned __int16 *a4)
+uint64_t WrdBaseParser::parseBuffer(WrdBaseParser *this, WrdDropCap *a2, char *a3, char *a4)
 {
   if (!a3 || a3 >= a4 || (a4 - a3) <= 1)
   {
@@ -7543,7 +7538,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t WrdBaseParser::parseSHD80(WrdBaseParser *this, WrdShading *a2, unsigned __int16 *a3, unsigned __int16 *a4)
+uint64_t WrdBaseParser::parseSHD80(WrdBaseParser *this, WrdShading *a2, char *a3, char *a4)
 {
   if (!a3 || a3 >= a4 || (a4 - a3) <= 1)
   {
@@ -7926,7 +7921,7 @@ LABEL_10:
 LABEL_14:
   v13 = *(this + 4);
   v17 = &v16;
-  v14 = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 416), &v16);
+  v14 = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 416), &v16, &std::piecewise_construct, &v17);
   return WrdParser::parse(v13, a2, *(v14 + 8));
 }
 
@@ -7971,16 +7966,16 @@ void sub_25D5E91D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL WrdBinaryReader::read(uint64_t a1)
+BOOL WrdBinaryReader::read(OcBinaryReader *a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = (*(*a1 + 88))(a1);
-  *v3 = *L"Macros";
-  *&v3[3] = 0x73006F0072;
-  result = SsrwOOStorage::hasChild(v1, v3);
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = (*(a1->var0 + 11))(a1);
+  *v4 = *L"Macros";
+  *&v4[3] = 0x73006F0072;
+  result = SsrwOOStorage::hasChild(v2, v4);
   if (result)
   {
-    SsrwOOStorage::openStorage(v1, v3);
+    SsrwOOStorage::openStorage(v2, v4);
   }
 
   return result;
@@ -8046,19 +8041,19 @@ void WrdMark::WrdMark(WrdMark *this)
 void WrdMark::~WrdMark(WrdMark *this)
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 }
 
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 
   JUMPOUT(0x25F897000);
 }
 
-WrdParagraphProperties *handleCase0xC601(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int16 *a4)
+WrdParagraphProperties *handleCase0xC601(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
 {
-  if (*(a2 + 13) < 6u || a4 <= a3 || (a4 - a3) < 6)
+  if (*(a2 + 13) < 6u || a4 <= a3 || &a4[-a3] < 6)
   {
 
     return ChLogFunction("applySprm case: 0xC601 wrong variable sized buffer\n", 1, 4, "/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/compatibility/Word/Binary/Reader/WrdPapParser.cpp", 848);
@@ -8073,7 +8068,7 @@ WrdParagraphProperties *handleCase0xC601(uint64_t a1, uint64_t a2, unint64_t a3,
     if (v8 > v10[1] && v8 <= v10[0])
     {
       v9 = 0;
-      readUnsignedShort(result + v8 - v10[1], a4, &v9);
+      readUnsignedShort(result + 2 * (v8 - v10[1]), a4, &v9);
       return WrdParagraphProperties::setParagraphStyleIndex(a1, v9);
     }
   }
@@ -8117,7 +8112,7 @@ CsString *WrdPapParser::parseANLD80(WrdPapParser *this, WrdAutoNumberListDescrip
   return CsString::setCount((a2 + 16), WrdAutoNumberListDescriptor::s_bMaxNumberOfCharacters);
 }
 
-const unsigned __int8 *readShort(unsigned __int8 *a1, unsigned __int8 *a2, __int16 *a3)
+unsigned __int8 *readShort(unsigned __int8 *a1, unsigned __int8 *a2, __int16 *a3)
 {
   if (a2 <= a1 || a2 - a1 <= 1)
   {
@@ -8129,7 +8124,7 @@ const unsigned __int8 *readShort(unsigned __int8 *a1, unsigned __int8 *a2, __int
   return a1 + 2;
 }
 
-const unsigned __int8 *readUnsignedShort(unsigned __int16 *a1, unsigned __int16 *a2, unsigned __int16 *a3)
+unsigned __int16 *readUnsignedShort(char *a1, char *a2, unsigned __int16 *a3)
 {
   if (a2 <= a1 || a2 - a1 <= 1)
   {
@@ -8138,7 +8133,7 @@ const unsigned __int8 *readUnsignedShort(unsigned __int16 *a1, unsigned __int16 
   }
 
   *a3 = CsLeReadUInt16(a1);
-  return (a1 + 1);
+  return (a1 + 2);
 }
 
 void WrdParser::openDoc(WrdParser *this, __sFILE *a2)
@@ -8176,7 +8171,7 @@ uint64_t WrdParser::startFCLCB(WrdParser *this, unsigned int a2)
   return v4 | (v5 << 32);
 }
 
-void WrdParser::parseGrpprl(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WrdParagraphProperties *a9, WrdCharacterProperties *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void WrdParser::parseGrpprl(char *result, uint64_t a2, unsigned int a3, int a4, void **a5, WrdCharacterProperties *a6, WrdParagraphProperties *a7, WrdCharacterProperties *a8, WrdParagraphProperties *a9, WrdCharacterProperties *a10, WrdTableProperties *a11, WrdTableProperties *a12, WrdSectionProperties *a13, WrdSectionProperties *a14, uint64_t a15)
 {
   if (a3)
   {
@@ -8184,7 +8179,7 @@ void WrdParser::parseGrpprl(int a1, int a2, int a3, int a4, int a5, int a6, int 
   }
 }
 
-uint64_t WrdParser::applyHugePapx(uint64_t a1, uint64_t a2, uint64_t a3, int a4, WrdParagraphProperties *a5, uint64_t a6, uint64_t a7)
+uint64_t WrdParser::applyHugePapx(uint64_t a1, uint64_t a2, uint64_t a3, WrdParagraphProperties *a4, WrdParagraphProperties *a5, WrdTableProperties *a6, WrdTableProperties *a7)
 {
   result = *(a1 + 120);
   if (result)
@@ -8666,14 +8661,15 @@ CsString *WrdParser::parseString(WrdParser *this, SsrwOOStream *a2, CsString *a3
   return result;
 }
 
-uint64_t WrdParser::parse(WrdParser *this, WrdFormFieldBinaryData *a2, unsigned int a3)
+uint64_t WrdParser::parse(WrdParser *this, WrdFormFieldBinaryData *a2, uint64_t a3)
 {
   result = *(this + 15);
   if (result)
   {
+    v4 = a3;
     v5 = (*(*result + 168))(result);
     result = SsrwOOStgInfo::getSize(v5);
-    if (result > a3)
+    if (result > v4)
     {
       v6 = 0;
       operator new();
@@ -8745,22 +8741,22 @@ void sub_25D5ECE3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void WrdParser::applyPiece(uint64_t a1, uint64_t a2, int a3, int a4, int a5, WrdParagraphProperties *a6, WrdCharacterProperties *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void WrdParser::applyPiece(char *result, uint64_t a2, WrdCharacterProperties *a3, WrdParagraphProperties *a4, WrdCharacterProperties *a5, WrdParagraphProperties *a6, WrdCharacterProperties *a7, WrdTableProperties *a8, WrdTableProperties *a9, WrdSectionProperties *a10, WrdSectionProperties *a11, uint64_t a12)
 {
   v16 = *(a2 + 4);
   if (v16)
   {
-    v19 = v16 >> 1;
-    v20 = *(a1 + 272);
-    if (v19 >= *(v20 + 10))
+    v18 = v16 >> 1;
+    v19 = *(result + 34);
+    if (v18 >= *(v19 + 10))
     {
       exception = __cxa_allocate_exception(4uLL);
       *exception = 2001;
     }
 
-    (*(**(a1 + 128) + 16))(*(a1 + 128), *(*v20 + 4 * v19), 0);
-    v23 = (*(**(a1 + 128) + 80))(*(a1 + 128));
-    WrdParser::parseGrpprl(a1, *(a1 + 128), v23, 1, 0, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
+    (*(**(result + 16) + 16))(*(result + 16), *(*v19 + 4 * v18), 0);
+    v22 = (*(**(result + 16) + 80))(*(result + 16));
+    WrdParser::parseGrpprl(result, *(result + 16), v22, 1, 0, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
   }
 
   else
@@ -8770,11 +8766,10 @@ void WrdParser::applyPiece(uint64_t a1, uint64_t a2, int a3, int a4, int a5, Wrd
       return;
     }
 
-    v17 = *(a2 + 4);
-    if (v17 > 0x99)
+    if (v16 > 0x99u)
     {
-      v18 = v17 - 154 > 0x36 || ((1 << (v16 + 102)) & 0x40040401150001) == 0;
-      if (v18 && v17 != 240)
+      v17 = v16 - 154 > 0x36 || ((1 << (v16 + 102)) & 0x40040401150001) == 0;
+      if (v17 && v16 != 240)
       {
         return;
       }
@@ -8783,7 +8778,7 @@ LABEL_8:
       operator new();
     }
 
-    if (v17 == 10 || v17 == 16)
+    if (v16 == 10 || v16 == 16)
     {
       goto LABEL_8;
     }
@@ -8954,7 +8949,7 @@ void WrdParser::parse(WrdParser *this, WrdRoutingRecipient *a2)
     (*(**(this + 16) + 104))(*(this + 16));
   }
 
-  operator new[]((v7 + v6 - 28));
+  operator new[]((v7 + v6 - 28), 0x1000C8077774924);
 }
 
 unint64_t WrdParser::parse(unint64_t this, WrdUserRestrictionMap *a2)
@@ -8977,13 +8972,13 @@ unint64_t WrdParser::parse(unint64_t this, WrdUserRestrictionMap *a2)
         v8 = *(a2 + 2);
         if (v8 >= *(a2 + 3))
         {
-          v9 = std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back_slow_path<unsigned short const&>(a2 + 8, &v10);
+          v9 = std::vector<unsigned short,ChAllocator<unsigned short>>::__emplace_back_slow_path<unsigned short const&>(a2 + 1, &v10);
         }
 
         else
         {
           *v8 = v7;
-          v9 = (v8 + 1);
+          v9 = v8 + 1;
         }
 
         *(a2 + 2) = v9;
@@ -9032,17 +9027,17 @@ unint64_t WrdParser::parse(WrdParser *this, WrdXmlSchemaTable *a2)
   return result;
 }
 
-void sub_25D5EE080(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D5EE080(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v10)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WrdParser::parse(SsrwOOStream **this, WrdXmlSchema *a2)
+CsString *WrdParser::parse(SsrwOOStream **this, WrdXmlSchema *a2)
 {
   SsrwOOStream::readCsString(this[16], (a2 + 8));
   (*(this[16]->var0 + 2))(this[16], 4, 1);
@@ -9072,7 +9067,7 @@ uint64_t WrdParser::parse(SsrwOOStream **this, WrdXmlSchema *a2)
   return result;
 }
 
-uint64_t WrdParser::parse(WrdParser *this, WrdXmlElementTable *a2)
+void *WrdParser::parse(WrdParser *this, WrdXmlElementTable *a2)
 {
   result = WrdXmlElementTable::clear(a2);
   if (*(this + 116) >= 0x8Cu)
@@ -9119,11 +9114,11 @@ unint64_t WrdParser::parseDefinitions(WrdParser *this, WrdXmlElementTable *a2)
   return result;
 }
 
-void sub_25D5EE604(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D5EE604(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v10)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9182,9 +9177,9 @@ void WrdParser::parseEndPositions(WrdParser *this, WrdXmlElementTable *a2)
   *exception = 2001;
 }
 
-void sub_25D5EEA40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D5EEA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ChAutoPtr<ChVector<unsigned short>>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
@@ -9216,11 +9211,11 @@ WrdXmlAttribute *WrdParser::parse(WrdParser *this, WrdXmlElement *a2)
   return result;
 }
 
-void sub_25D5EEC70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D5EEC70(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v10)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9255,14 +9250,12 @@ uint64_t WrdParser::convertToRelativeCP(uint64_t a1, _DWORD *a2, int *a3, int a4
   return result;
 }
 
-void *std::vector<unsigned int,ChAllocator<unsigned int>>::reserve(void *result, unsigned int a2)
+void std::vector<unsigned int,ChAllocator<unsigned int>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 2) < a2)
+  if (((a1[2] - *a1) >> 2) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D5EEE08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -9764,7 +9757,7 @@ void sub_25D5EFB50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WrdPicParser::applySprm(uint64_t result, _WORD *a2, uint64_t a3, uint64_t a4, unsigned __int16 *a5, _WORD *a6)
+WrdBaseParser *WrdPicParser::applySprm(WrdBaseParser *result, _WORD *a2, uint64_t a3, uint64_t a4, char *a5, _WORD *a6)
 {
   if (!a4 || *a3 != 3)
   {

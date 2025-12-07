@@ -28,7 +28,7 @@
   v16 = v15;
   v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v19 = v18;
-  sub_10002C9FC(0, &qword_10032E498);
+  sub_10002C9FC(0, &qword_10032E498, BSAction_ptr);
   sub_100078254();
   v20 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_100075B6C(v11, v13, v14, v16, v17, v19, iCopy, v20, timer, button, bounds, style);
@@ -73,7 +73,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1000769E4();
+  sub_1000769E4(selfCopy);
 }
 
 - (void)scene:(id)scene clientDidConnect:(id)connect

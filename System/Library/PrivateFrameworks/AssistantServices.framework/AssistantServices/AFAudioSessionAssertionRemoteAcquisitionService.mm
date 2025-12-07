@@ -75,7 +75,7 @@ void __113__AFAudioSessionAssertionRemoteAcquisitionService_acquireAudioSessionA
 
 void __113__AFAudioSessionAssertionRemoteAcquisitionService_acquireAudioSessionAssertionWithContext_relinquishmentHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (![*(a1 + 32) timestamp])
   {
@@ -110,13 +110,13 @@ void __113__AFAudioSessionAssertionRemoteAcquisitionService_acquireAudioSessionA
   v12 = MEMORY[0x1E695DF90];
   v13 = v10;
   v14 = objc_alloc_init(v12);
-  v20[0] = @"processIdentifier";
+  v19[0] = @"processIdentifier";
   v15 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v9, "processIdentifier")}];
-  v20[1] = @"processName";
-  v21[0] = v15;
+  v19[1] = @"processName";
+  v20[0] = v15;
   v16 = [v9 processName];
-  v21[1] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
   [v14 addEntriesFromDictionary:v17];
 
   v18 = [v13 buildDictionaryRepresentation];
@@ -132,7 +132,6 @@ void __113__AFAudioSessionAssertionRemoteAcquisitionService_acquireAudioSessionA
   }
 
   [v3 setUserInfo:v14];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (AFAudioSessionAssertionRemoteAcquisitionService)initWithInstanceContext:(id)context

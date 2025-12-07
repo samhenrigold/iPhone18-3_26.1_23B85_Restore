@@ -161,7 +161,7 @@
       v5 = framework_log();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [SFCAPackageView animateToInitialStateWithCompletionHandler:];
+        [(SFCAPackageView *)self animateToInitialStateWithCompletionHandler:v5];
       }
 
       handlerCopy[2](handlerCopy);
@@ -197,7 +197,7 @@
     packageRootLayer2 = [(SFCAPackageView *)self packageRootLayer];
     [packageRootLayer2 setBeginTime:v6];
 
-    [(SFCAPackageView *)self duration];
+    objc_msgSend_duration(self);
     v9 = dispatch_time(0, (v8 * 1000000000.0));
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -242,7 +242,7 @@
     v12 = framework_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [SFCAPackageView animateToStateName:completionHandler:];
+      [SFCAPackageView animateToStateName:nameCopy completionHandler:self];
     }
 
     handlerCopy[2](handlerCopy);
@@ -284,7 +284,7 @@
     v7 = framework_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [SFCAPackageView _getStateWithName:];
+      [(SFCAPackageView *)nameCopy _getStateWithName:?];
     }
   }
 
@@ -345,27 +345,27 @@
   [completionHandlers removeAllObjects];
 }
 
-- (void)animateToInitialStateWithCompletionHandler:.cold.1()
+- (void)animateToInitialStateWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)animateToStateName:completionHandler:.cold.1()
+- (void)animateToStateName:(uint64_t)a1 completionHandler:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1_0(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_0(v2);
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-- (void)_getStateWithName:.cold.1()
+- (void)_getStateWithName:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1_0(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_0(v2);
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

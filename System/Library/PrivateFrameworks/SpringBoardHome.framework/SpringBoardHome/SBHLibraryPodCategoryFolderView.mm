@@ -50,7 +50,7 @@
 
 - (CGSize)_scrollViewContentSize
 {
-  [(SBHLibraryPodCategoryFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v8.receiver = self;
   v8.super_class = SBHLibraryPodCategoryFolderView;

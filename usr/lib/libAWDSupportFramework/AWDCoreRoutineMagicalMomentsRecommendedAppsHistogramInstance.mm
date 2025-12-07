@@ -78,14 +78,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    rank = self->_rank;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    confidence = self->_confidence;
 
     PBDataWriterWriteInt32Field();
   }

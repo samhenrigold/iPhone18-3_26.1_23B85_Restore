@@ -73,7 +73,7 @@
   return v5;
 }
 
-uint64_t __52__SUScriptSectionsController_sectionWithIdentifier___block_invoke(uint64_t a1)
+void *__52__SUScriptSectionsController_sectionWithIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copySectionWithIdentifier:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -89,7 +89,7 @@ uint64_t __52__SUScriptSectionsController_sectionWithIdentifier___block_invoke(u
   return v3;
 }
 
-uint64_t __38__SUScriptSectionsController_sections__block_invoke(uint64_t a1)
+void *__38__SUScriptSectionsController_sections__block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v2 = [objc_msgSend(objc_msgSend(*(a1 + 32) "clientInterface")];
@@ -119,7 +119,7 @@ uint64_t __38__SUScriptSectionsController_sections__block_invoke(uint64_t a1)
           [*(a1 + 40) addObject:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -159,7 +159,7 @@ uint64_t __38__SUScriptSectionsController_sections__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __45__SUScriptSectionsController_selectedSection__block_invoke(uint64_t a1)
+void *__45__SUScriptSectionsController_selectedSection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _fixedSelectedIdentifier];
   if (result)
@@ -206,7 +206,7 @@ uint64_t __45__SUScriptSectionsController_selectedSection__block_invoke(uint64_t
   }
 }
 
-uint64_t __63__SUScriptSectionsController_setRootViewController_forSection___block_invoke(id *a1)
+void *__63__SUScriptSectionsController_setRootViewController_forSection___block_invoke(id *a1)
 {
   result = [objc_msgSend(a1[4] "clientInterface")];
   if (result)

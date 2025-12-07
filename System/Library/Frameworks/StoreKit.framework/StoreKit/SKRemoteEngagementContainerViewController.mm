@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1B2506F50();
+  sub_1B2506F50(selfCopy);
 }
 
 - (void)didTapView:(id)view

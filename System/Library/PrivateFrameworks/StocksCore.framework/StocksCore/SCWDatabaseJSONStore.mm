@@ -28,21 +28,20 @@
 
 - (void)_applyCloudBackupEnabledPropertyToStoreURL
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = @"disable";
-  v5 = 134218498;
+  v4 = 134218498;
   selfCopy = self;
-  v7 = 2114;
+  v6 = 2114;
   if (a2)
   {
     v3 = @"enable";
   }
 
-  v8 = v3;
-  v9 = 2114;
-  v10 = a3;
-  _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%p failed to %{public}@ cloud backup for JSON database store: %{public}@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v7 = v3;
+  v8 = 2114;
+  v9 = a3;
+  _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%p failed to %{public}@ cloud backup for JSON database store: %{public}@", &v4, 0x20u);
 }
 
 + (id)preferredFileURLForSchema:(id)schema parentDirectoryURL:(id)l
@@ -68,17 +67,17 @@
 
 - (SCWDatabaseJSONStore)initWithSchema:(id)schema fileURL:(id)l allowedCommandClasses:(id)classes
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   lCopy = l;
   classesCopy = classes;
-  v51.receiver = self;
-  v51.super_class = SCWDatabaseJSONStore;
-  v12 = [(SCWDatabaseJSONStore *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = SCWDatabaseJSONStore;
+  v12 = [(SCWDatabaseJSONStore *)&v50 init];
   v13 = v12;
   if (v12)
   {
-    v46 = lCopy;
+    v45 = lCopy;
     objc_storeStrong(&v12->_storeURL, l);
     objc_storeStrong(&v13->_databaseSchema, schema);
     v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -131,43 +130,42 @@
     allowedCommandClasses = v13->_allowedCommandClasses;
     v13->_allowedCommandClasses = v33;
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     zoneSchemas = [schemaCopy zoneSchemas];
-    v36 = [zoneSchemas countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v36 = [zoneSchemas countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v48;
+      v38 = *v47;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v48 != v38)
+          if (*v47 != v38)
           {
             objc_enumerationMutation(zoneSchemas);
           }
 
-          v40 = *(*(&v47 + 1) + 8 * i);
+          v40 = *(*(&v46 + 1) + 8 * i);
           v41 = [[SCWZoneJSONStore alloc] initWithZoneSchema:v40 serverRecords:0 lastSyncDate:0 lastDirtyDate:0 serverChangeToken:0 pendingCommands:0];
           zoneStoresByName = [(SCWDatabaseJSONStore *)v13 zoneStoresByName];
           zoneName = [v40 zoneName];
           [zoneStoresByName setObject:v41 forKeyedSubscript:zoneName];
         }
 
-        v37 = [zoneSchemas countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v37 = [zoneSchemas countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v37);
     }
 
     [(SCWDatabaseJSONStore *)v13 _listenForChangesToFileURL:v13->_storeURL];
-    lCopy = v46;
+    lCopy = v45;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -229,12 +227,11 @@
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __41__SCWDatabaseJSONStore_readWithAccessor___block_invoke(uint64_t a1)
+void *__41__SCWDatabaseJSONStore_readWithAccessor___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) loadedFromDisk];
   if (result)
   {
-    v3 = *(a1 + 32);
     result = (*(*(a1 + 40) + 16))();
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
@@ -261,10 +258,9 @@ void __41__SCWDatabaseJSONStore_readWithAccessor___block_invoke_2(uint64_t a1, v
 uint64_t __41__SCWDatabaseJSONStore_readWithAccessor___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) _reloadIfNeededFromFileURL:*(a1 + 40)];
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)writeWithAccessor:(id)accessor
@@ -303,19 +299,18 @@ void __42__SCWDatabaseJSONStore_writeWithAccessor___block_invoke(uint64_t a1, vo
   dispatch_sync(v4, block);
 }
 
-uint64_t __42__SCWDatabaseJSONStore_writeWithAccessor___block_invoke_2(uint64_t a1)
+void *__42__SCWDatabaseJSONStore_writeWithAccessor___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _reloadIfNeededFromFileURL:*(a1 + 40)];
-  v2 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
   result = [*(a1 + 32) havePendingChanges];
   if ((result & 1) == 0)
   {
     [*(a1 + 32) setHavePendingChanges:1];
-    v4 = MEMORY[0x1E696ABF8];
-    v5 = *(a1 + 32);
+    v3 = MEMORY[0x1E696ABF8];
+    v4 = *(a1 + 32);
 
-    return [v4 addFilePresenter:v5];
+    return [v3 addFilePresenter:v4];
   }
 
   return result;
@@ -357,10 +352,9 @@ void __43__SCWDatabaseJSONStore_reloadWithAccessor___block_invoke(uint64_t a1, v
 uint64_t __43__SCWDatabaseJSONStore_reloadWithAccessor___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _reloadIfNeededFromFileURL:*(a1 + 40)];
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)readZone:(id)zone withAccessor:(id)accessor
@@ -425,36 +419,33 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
 
 - (void)operationThrottlerPerformOperation:(id)operation
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p JSON store will flush changes to disk", &v6, 0xCu);
+    _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p JSON store will flush changes to disk", &v5, 0xCu);
   }
 
   storeURL = [(SCWDatabaseJSONStore *)self storeURL];
   [(SCWDatabaseJSONStore *)self _saveIfNeededToFileURL:storeURL];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)savePresentedItemChangesWithCompletionHandler:(id)handler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p JSON store will flush changes to disk for another reader", &v7, 0xCu);
+    _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p JSON store will flush changes to disk for another reader", &v6, 0xCu);
   }
 
   storeURL = [(SCWDatabaseJSONStore *)self storeURL];
   [(SCWDatabaseJSONStore *)self _saveIfNeededToFileURL:storeURL];
 
   handlerCopy[2](handlerCopy, 0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)flushToDiskWithTimeout:(double)timeout
@@ -467,118 +458,118 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
 
 - (void)_saveToFileURL:(id)l
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v60 = objc_opt_new();
+  v59 = objc_opt_new();
   array = [MEMORY[0x1E695DF70] array];
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   foreignZoneDictsByName = [(SCWDatabaseJSONStore *)self foreignZoneDictsByName];
   allValues = [foreignZoneDictsByName allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v77 objects:v84 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v76 objects:v83 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v78;
+    v9 = *v77;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v78 != v9)
+        if (*v77 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [array addObject:*(*(&v77 + 1) + 8 * i)];
+        [array addObject:*(*(&v76 + 1) + 8 * i)];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v77 objects:v84 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v76 objects:v83 count:16];
     }
 
     while (v8);
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   zoneStoresByName = [(SCWDatabaseJSONStore *)self zoneStoresByName];
   allValues2 = [zoneStoresByName allValues];
 
   obj = allValues2;
-  v61 = [allValues2 countByEnumeratingWithState:&v73 objects:v83 count:16];
-  if (v61)
+  v60 = [allValues2 countByEnumeratingWithState:&v72 objects:v82 count:16];
+  if (v60)
   {
-    v58 = *v74;
-    v59 = array;
+    v57 = *v73;
+    v58 = array;
     do
     {
-      for (j = 0; j != v61; ++j)
+      for (j = 0; j != v60; ++j)
       {
-        if (*v74 != v58)
+        if (*v73 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v73 + 1) + 8 * j);
+        v14 = *(*(&v72 + 1) + 8 * j);
         array2 = [MEMORY[0x1E695DF70] array];
+        v68 = 0u;
         v69 = 0u;
         v70 = 0u;
         v71 = 0u;
-        v72 = 0u;
         serverRecords = [v14 serverRecords];
-        v17 = [serverRecords countByEnumeratingWithState:&v69 objects:v82 count:16];
+        v17 = [serverRecords countByEnumeratingWithState:&v68 objects:v81 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v70;
+          v19 = *v69;
           do
           {
             for (k = 0; k != v18; ++k)
             {
-              if (*v70 != v19)
+              if (*v69 != v19)
               {
                 objc_enumerationMutation(serverRecords);
               }
 
-              v21 = [(SCWDatabaseJSONStore *)self _encodeCodableObject:*(*(&v69 + 1) + 8 * k)];
+              v21 = [(SCWDatabaseJSONStore *)self _encodeCodableObject:*(*(&v68 + 1) + 8 * k)];
               [array2 addObject:v21];
             }
 
-            v18 = [serverRecords countByEnumeratingWithState:&v69 objects:v82 count:16];
+            v18 = [serverRecords countByEnumeratingWithState:&v68 objects:v81 count:16];
           }
 
           while (v18);
         }
 
         array3 = [MEMORY[0x1E695DF70] array];
+        v64 = 0u;
         v65 = 0u;
         v66 = 0u;
         v67 = 0u;
-        v68 = 0u;
         pendingCommands = [v14 pendingCommands];
-        v24 = [pendingCommands countByEnumeratingWithState:&v65 objects:v81 count:16];
+        v24 = [pendingCommands countByEnumeratingWithState:&v64 objects:v80 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v66;
+          v26 = *v65;
           do
           {
             for (m = 0; m != v25; ++m)
             {
-              if (*v66 != v26)
+              if (*v65 != v26)
               {
                 objc_enumerationMutation(pendingCommands);
               }
 
-              v28 = [(SCWDatabaseJSONStore *)self _encodeCodableObject:*(*(&v65 + 1) + 8 * m)];
+              v28 = [(SCWDatabaseJSONStore *)self _encodeCodableObject:*(*(&v64 + 1) + 8 * m)];
               [array3 addObject:v28];
             }
 
-            v25 = [pendingCommands countByEnumeratingWithState:&v65 objects:v81 count:16];
+            v25 = [pendingCommands countByEnumeratingWithState:&v64 objects:v80 count:16];
           }
 
           while (v25);
@@ -592,11 +583,11 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
         [dictionary setObject:array2 forKeyedSubscript:@"serverRecords"];
         [dictionary setObject:array3 forKeyedSubscript:@"pendingCommands"];
         lastSyncDate = [v14 lastSyncDate];
-        v33 = [v60 stringFromDate:lastSyncDate];
+        v33 = [v59 stringFromDate:lastSyncDate];
         [dictionary setObject:v33 forKeyedSubscript:@"lastSyncDate"];
 
         lastDirtyDate = [v14 lastDirtyDate];
-        v35 = [v60 stringFromDate:lastDirtyDate];
+        v35 = [v59 stringFromDate:lastDirtyDate];
         [dictionary setObject:v35 forKeyedSubscript:@"lastDirtyDate"];
 
         serverChangeToken = [v14 serverChangeToken];
@@ -608,23 +599,23 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
         v40 = [v38 numberWithUnsignedInteger:{objc_msgSend(zoneSchema2, "version")}];
         [dictionary setObject:v40 forKeyedSubscript:@"schemaVersion"];
 
-        array = v59;
-        [v59 addObject:dictionary];
+        array = v58;
+        [v58 addObject:dictionary];
       }
 
-      v61 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+      v60 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
     }
 
-    while (v61);
+    while (v60);
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   lastSyncDate2 = [(SCWDatabaseJSONStore *)self lastSyncDate];
-  v43 = [v60 stringFromDate:lastSyncDate2];
+  v43 = [v59 stringFromDate:lastSyncDate2];
   [dictionary2 setObject:v43 forKeyedSubscript:@"lastSyncDate"];
 
   lastDirtyDate2 = [(SCWDatabaseJSONStore *)self lastDirtyDate];
-  v45 = [v60 stringFromDate:lastDirtyDate2];
+  v45 = [v59 stringFromDate:lastDirtyDate2];
   [dictionary2 setObject:v45 forKeyedSubscript:@"lastDirtyDate"];
 
   serverChangeToken2 = [(SCWDatabaseJSONStore *)self serverChangeToken];
@@ -634,16 +625,16 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
   [dictionary2 setObject:array forKeyedSubscript:@"zones"];
   dictionary3 = [MEMORY[0x1E695DF90] dictionary];
   [dictionary3 setObject:dictionary2 forKeyedSubscript:@"database"];
-  v64 = 0;
-  v49 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary3 options:0 error:&v64];
-  v50 = v64;
+  v63 = 0;
+  v49 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary3 options:0 error:&v63];
+  v50 = v63;
   if (v49)
   {
     v51 = array;
     v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v49 encoding:4];
-    v63 = v50;
-    v53 = [v52 writeToURL:lCopy atomically:1 encoding:4 error:&v63];
-    v54 = v63;
+    v62 = v50;
+    v53 = [v52 writeToURL:lCopy atomically:1 encoding:4 error:&v62];
+    v54 = v62;
 
     if (v53)
     {
@@ -672,8 +663,6 @@ void __47__SCWDatabaseJSONStore_writeZone_withAccessor___block_invoke(uint64_t a
 
   [(SCWDatabaseJSONStore *)self _applyCloudBackupEnabledPropertyToStoreURL];
   ++self->_diskWriteCount;
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveIfNeededToFileURL:(id)l
@@ -704,7 +693,7 @@ void __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke(uint64_t a
   dispatch_sync(v4, v6);
 }
 
-uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint64_t a1)
+void *__47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) havePendingChanges];
   if (result)
@@ -722,31 +711,31 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
 
 - (void)_loadFromFileURL:(id)l
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v73 = objc_opt_new();
-  v69 = lCopy;
-  v70 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:lCopy encoding:4 error:0];
-  if (v70)
+  v72 = objc_opt_new();
+  v68 = lCopy;
+  v69 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:lCopy encoding:4 error:0];
+  if (v69)
   {
-    v5 = [v70 dataUsingEncoding:4];
-    v102 = 0;
-    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v102];
-    v7 = v102;
+    v5 = [v69 dataUsingEncoding:4];
+    v101 = 0;
+    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v101];
+    v7 = v101;
     v8 = v7;
     if (v6)
     {
-      v81 = v7;
-      v83 = v5;
+      v80 = v7;
+      v82 = v5;
       v9 = [v6 objectForKeyedSubscript:@"database"];
       v10 = [v9 objectForKeyedSubscript:@"lastSyncDate"];
-      v11 = [v73 dateFromString:v10];
+      v11 = [v72 dateFromString:v10];
       lastSyncDate = self->_lastSyncDate;
       self->_lastSyncDate = v11;
 
       v13 = [v9 objectForKeyedSubscript:@"lastDirtyDate"];
-      v14 = [v73 dateFromString:v13];
+      v14 = [v72 dateFromString:v13];
       lastDirtyDate = self->_lastDirtyDate;
       self->_lastDirtyDate = v14;
 
@@ -756,38 +745,38 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
       serverChangeToken = self->_serverChangeToken;
       self->_serverChangeToken = v18;
 
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
       v99 = 0u;
+      v100 = 0u;
+      v97 = 0u;
+      v98 = 0u;
       v20 = [v9 objectForKeyedSubscript:@"zones"];
-      v21 = [v20 countByEnumeratingWithState:&v98 objects:v114 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v97 objects:v113 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v99;
+        v23 = *v98;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v99 != v23)
+            if (*v98 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v98 + 1) + 8 * i);
+            v25 = *(*(&v97 + 1) + 8 * i);
             v26 = [v25 objectForKeyedSubscript:@"name"];
             [dictionary setObject:v25 forKeyedSubscript:v26];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v98 objects:v114 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v97 objects:v113 count:16];
         }
 
         while (v22);
       }
 
-      v8 = v81;
-      v5 = v83;
+      v8 = v80;
+      v5 = v82;
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -796,60 +785,60 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
     }
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   obj = [dictionary allKeys];
-  v75 = [obj countByEnumeratingWithState:&v94 objects:v113 count:16];
-  if (v75)
+  v74 = [obj countByEnumeratingWithState:&v93 objects:v112 count:16];
+  if (v74)
   {
-    v74 = *v95;
+    v73 = *v94;
     v27 = 0x1E695D000uLL;
     do
     {
-      for (j = 0; j != v75; ++j)
+      for (j = 0; j != v74; ++j)
       {
-        if (*v95 != v74)
+        if (*v94 != v73)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v94 + 1) + 8 * j);
+        v29 = *(*(&v93 + 1) + 8 * j);
         v30 = [dictionary objectForKeyedSubscript:v29];
         zoneStoresByName = [(SCWDatabaseJSONStore *)self zoneStoresByName];
-        v82 = v29;
+        v81 = v29;
         v32 = [zoneStoresByName objectForKeyedSubscript:v29];
 
         if (v32)
         {
-          v78 = j;
+          v77 = j;
           array = [*(v27 + 3952) array];
+          v89 = 0u;
           v90 = 0u;
           v91 = 0u;
           v92 = 0u;
-          v93 = 0u;
-          v80 = v30;
+          v79 = v30;
           v34 = [v30 objectForKeyedSubscript:@"serverRecords"];
-          v35 = [v34 countByEnumeratingWithState:&v90 objects:v112 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v89 objects:v111 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v91;
+            v37 = *v90;
             do
             {
               for (k = 0; k != v36; ++k)
               {
-                if (*v91 != v37)
+                if (*v90 != v37)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                v39 = *(*(&v90 + 1) + 8 * k);
+                v39 = *(*(&v89 + 1) + 8 * k);
                 v40 = objc_opt_class();
-                v89 = 0;
-                v41 = [(SCWDatabaseJSONStore *)self _decodeCodableObjectOfClass:v40 from:v39 error:&v89];
-                v42 = v89;
+                v88 = 0;
+                v41 = [(SCWDatabaseJSONStore *)self _decodeCodableObjectOfClass:v40 from:v39 error:&v88];
+                v42 = v88;
                 if (v41)
                 {
                   [array addObject:v41];
@@ -859,43 +848,43 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
                 {
                   *buf = 134218242;
                   selfCopy4 = self;
-                  v105 = 2114;
-                  v106 = v42;
+                  v104 = 2114;
+                  v105 = v42;
                   _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%p failed to decode server record with error: %{public}@", buf, 0x16u);
                 }
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v90 objects:v112 count:16];
+              v36 = [v34 countByEnumeratingWithState:&v89 objects:v111 count:16];
             }
 
             while (v36);
           }
 
           array2 = [*(v27 + 3952) array];
+          v84 = 0u;
           v85 = 0u;
           v86 = 0u;
           v87 = 0u;
-          v88 = 0u;
-          v44 = [v80 objectForKeyedSubscript:@"pendingCommands"];
-          v45 = [v44 countByEnumeratingWithState:&v85 objects:v111 count:16];
+          v44 = [v79 objectForKeyedSubscript:@"pendingCommands"];
+          v45 = [v44 countByEnumeratingWithState:&v84 objects:v110 count:16];
           if (v45)
           {
             v46 = v45;
-            v47 = *v86;
+            v47 = *v85;
             do
             {
               for (m = 0; m != v46; ++m)
               {
-                if (*v86 != v47)
+                if (*v85 != v47)
                 {
                   objc_enumerationMutation(v44);
                 }
 
-                v49 = *(*(&v85 + 1) + 8 * m);
+                v49 = *(*(&v84 + 1) + 8 * m);
                 allowedCommandClasses = [(SCWDatabaseJSONStore *)self allowedCommandClasses];
-                v84 = 0;
-                v51 = [(SCWDatabaseJSONStore *)self _decodeCodableObjectOfClasses:allowedCommandClasses from:v49 error:&v84];
-                v52 = v84;
+                v83 = 0;
+                v51 = [(SCWDatabaseJSONStore *)self _decodeCodableObjectOfClasses:allowedCommandClasses from:v49 error:&v83];
+                v52 = v83;
 
                 if (v51)
                 {
@@ -906,43 +895,43 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
                 {
                   *buf = 134218242;
                   selfCopy4 = self;
-                  v105 = 2114;
-                  v106 = v52;
+                  v104 = 2114;
+                  v105 = v52;
                   _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%p failed to decode command with error: %{public}@", buf, 0x16u);
                 }
               }
 
-              v46 = [v44 countByEnumeratingWithState:&v85 objects:v111 count:16];
+              v46 = [v44 countByEnumeratingWithState:&v84 objects:v110 count:16];
             }
 
             while (v46);
           }
 
-          v53 = [v80 objectForKeyedSubscript:@"lastSyncDate"];
-          v77 = [v73 dateFromString:v53];
+          v53 = [v79 objectForKeyedSubscript:@"lastSyncDate"];
+          v76 = [v72 dateFromString:v53];
 
-          v54 = [v80 objectForKeyedSubscript:@"lastDirtyDate"];
-          v55 = [v73 dateFromString:v54];
+          v54 = [v79 objectForKeyedSubscript:@"lastDirtyDate"];
+          v55 = [v72 dateFromString:v54];
 
           v56 = objc_opt_class();
-          v57 = [v80 objectForKeyedSubscript:@"serverChangeToken"];
+          v57 = [v79 objectForKeyedSubscript:@"serverChangeToken"];
           v58 = [(SCWDatabaseJSONStore *)self _decodeCodableObjectOfClass:v56 from:v57 error:0];
 
-          v59 = [v80 objectForKeyedSubscript:@"schemaVersion"];
+          v59 = [v79 objectForKeyedSubscript:@"schemaVersion"];
           databaseSchema = [(SCWDatabaseJSONStore *)self databaseSchema];
-          v61 = [databaseSchema schemaForZoneName:v82];
+          v61 = [databaseSchema schemaForZoneName:v81];
 
           version = [v61 version];
-          v76 = v59;
+          v75 = v59;
           if (version <= [v59 unsignedIntegerValue])
           {
-            v65 = v77;
-            j = v78;
+            v65 = v76;
+            j = v77;
           }
 
           else
           {
-            j = v78;
+            j = v77;
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
               zoneName = [v61 zoneName];
@@ -950,12 +939,12 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
               version2 = [v61 version];
               *buf = 134218754;
               selfCopy4 = self;
-              v105 = 2114;
-              v106 = zoneName;
-              v107 = 2048;
-              v108 = unsignedIntegerValue;
-              v109 = 2048;
-              v110 = version2;
+              v104 = 2114;
+              v105 = zoneName;
+              v106 = 2048;
+              v107 = unsignedIntegerValue;
+              v108 = 2048;
+              v109 = version2;
               _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p discarding sync state for zone %{public}@ due to version mismatch, persisted=%lu, current=%lu", buf, 0x2Au);
             }
 
@@ -966,10 +955,10 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
 
           v66 = [[SCWZoneJSONStore alloc] initWithZoneSchema:v61 serverRecords:array lastSyncDate:v65 lastDirtyDate:v55 serverChangeToken:v58 pendingCommands:array2];
           zoneStoresByName2 = [(SCWDatabaseJSONStore *)self zoneStoresByName];
-          [zoneStoresByName2 setObject:v66 forKeyedSubscript:v82];
+          [zoneStoresByName2 setObject:v66 forKeyedSubscript:v81];
 
           v27 = 0x1E695D000;
-          v30 = v80;
+          v30 = v79;
         }
 
         else
@@ -978,24 +967,23 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
           {
             *buf = 134218242;
             selfCopy4 = self;
-            v105 = 2114;
-            v106 = v82;
+            v104 = 2114;
+            v105 = v81;
             _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p preserving unknown zone %{public}@", buf, 0x16u);
           }
 
           array = [(SCWDatabaseJSONStore *)self foreignZoneDictsByName];
-          [array setObject:v30 forKeyedSubscript:v82];
+          [array setObject:v30 forKeyedSubscript:v81];
         }
       }
 
-      v75 = [obj countByEnumeratingWithState:&v94 objects:v113 count:16];
+      v74 = [obj countByEnumeratingWithState:&v93 objects:v112 count:16];
     }
 
-    while (v75);
+    while (v74);
   }
 
   ++self->_diskReadCount;
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_reloadIfNeededFromFileURL:(id)l
@@ -1061,11 +1049,11 @@ uint64_t __47__SCWDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint
 
 void __51__SCWDatabaseJSONStore__listenForChangesToFileURL___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v2 = [*(a1 + 32) accessQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -1073,56 +1061,55 @@ void __51__SCWDatabaseJSONStore__listenForChangesToFileURL___block_invoke(uint64
   block[3] = &unk_1E85E3498;
   v3 = *(a1 + 40);
   v4 = *(a1 + 32);
-  v16 = v3;
-  v17 = v4;
-  v18 = &v19;
+  v15 = v3;
+  v16 = v4;
+  v17 = &v18;
   dispatch_sync(v2, block);
 
-  if (*(v20 + 24) == 1)
+  if (*(v19 + 24) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
       *buf = 134217984;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%p JSON store will notify of external changes from another writer", buf, 0xCu);
     }
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v6 = [*(a1 + 32) observers];
-    v7 = [v6 countByEnumeratingWithState:&v11 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v22 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) storeCoordinatorDiscoveredExternalChanges:*(a1 + 32)];
+          [*(*(&v10 + 1) + 8 * v9++) storeCoordinatorDiscoveredExternalChanges:*(a1 + 32)];
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v11 objects:v23 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v22 count:16];
       }
 
       while (v7);
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __51__SCWDatabaseJSONStore__listenForChangesToFileURL___block_invoke_2(uint64_t a1)
+void *__51__SCWDatabaseJSONStore__listenForChangesToFileURL___block_invoke_2(uint64_t a1)
 {
   value = 0;
   getxattr([*(a1 + 32) fileSystemRepresentation], "com.apple.stocks.jsonStoreChangeTag", &value, 4uLL, 0, 0);
@@ -1190,30 +1177,6 @@ uint64_t __51__SCWDatabaseJSONStore__listenForChangesToFileURL___block_invoke_2(
   }
 
   return v10;
-}
-
-- (void)_saveToFileURL:.cold.1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v0, "%p failed to write database JSON to disk with error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_saveToFileURL:.cold.2()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v0, "%p failed to generate database JSON with error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_loadFromFileURL:.cold.1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v0, "%p failed to decode database JSON with error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

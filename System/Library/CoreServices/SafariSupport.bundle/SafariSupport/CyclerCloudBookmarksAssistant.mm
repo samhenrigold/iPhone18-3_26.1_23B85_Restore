@@ -74,7 +74,7 @@
     v7 = +[NSMutableOrderedSet orderedSet];
     v8 = 0;
     *&v9 = 138543362;
-    v21 = v9;
+    v23 = v9;
     do
     {
       firstObject = [v7 firstObject];
@@ -86,50 +86,50 @@
       v11 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyItemWithLocalID:firstObject database:v6];
       if (v11)
       {
-        v12 = v11;
-        v13 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdWithItem:v11];
+        v13 = v11;
+        v14 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdWithItem:v11];
 
-        if (!v13)
+        if (!v14)
         {
-          v14 = +[NSUUID UUID];
-          uUIDString = [v14 UUIDString];
-          v16 = [@"https://fake-dav-id-for-testing/" stringByAppendingString:uUIDString];
+          v15 = +[NSUUID UUID];
+          uUIDString = [v15 UUIDString];
+          v17 = [@"https://fake-dav-id-for-testing/" stringByAppendingString:uUIDString];
 
-          [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:v16 item:v12];
+          [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:v17 item:v13];
           v8 = 1;
         }
 
-        if ([(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:v12]== 1)
+        if ([(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:v13]== 1)
         {
-          v17 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:firstObject database:v6];
-          if (v17)
+          v19 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyLocalIDsInFolderWithLocalID:firstObject database:v6];
+          if (v19)
           {
-            [v7 unionSet:v17];
+            [v7 unionSet:v19];
           }
 
           else
           {
-            v19 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v18);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              *buf = v21;
-              v23 = firstObject;
-              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Received nil set of child local IDs for folder with local ID %{public}@ while generating DAV server IDs", buf, 0xCu);
+              *buf = v23;
+              v25 = firstObject;
+              _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Received nil set of child local IDs for folder with local ID %{public}@ while generating DAV server IDs", buf, 0xCu);
             }
           }
         }
 
-        CFRelease(v12);
+        CFRelease(v13);
       }
 
       else
       {
-        v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v12);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          *buf = v21;
-          v23 = firstObject;
-          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Trying to generate DAV server ID for bookmark with local ID %{public}@, but that bookmark doesn't exist", buf, 0xCu);
+          *buf = v23;
+          v25 = firstObject;
+          _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Trying to generate DAV server ID for bookmark with local ID %{public}@, but that bookmark doesn't exist", buf, 0xCu);
         }
       }
     }
@@ -142,8 +142,8 @@
 
   else
   {
-    v20 = [(CyclerCloudBookmarksAssistant *)self _errorWithCode:1];
-    (handlerCopy)[2](handlerCopy, v20);
+    v22 = [(CyclerCloudBookmarksAssistant *)self _errorWithCode:1];
+    (handlerCopy)[2](handlerCopy, v22);
   }
 }
 

@@ -16,6 +16,7 @@
 - (NSString)modelUID;
 - (NSString)name;
 - (NSString)serialNumber;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (int)acquisitionFailure;
 - (unsigned)transportType;
 - (void)setAcquired:(BOOL)acquired;
@@ -381,29 +382,29 @@ LABEL_7:
 
 - (NSArray)audioDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   audioDeviceObjectIDs = [(ASABox *)self audioDeviceObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = audioDeviceObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASAAudioDevice alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -412,13 +413,11 @@ LABEL_7:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -467,29 +466,29 @@ LABEL_7:
 
 - (NSArray)clockDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clockDeviceObjectIDs = [(ASABox *)self clockDeviceObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = clockDeviceObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASAClockDevice alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -498,15 +497,326 @@ LABEL_7:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return array;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v68 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v65.receiver = self;
+  v65.super_class = ASABox;
+  v7 = [(ASAObject *)&v65 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  v56 = [indentCopy stringByAppendingString:@"|        "];
+  name = [(ASABox *)self name];
+  [v7 appendFormat:@"%@|    Name: %s\n", indentCopy, objc_msgSend(name, "UTF8String")];
+
+  manufacturer = [(ASABox *)self manufacturer];
+  [v7 appendFormat:@"%@|    Manufacturer: %s\n", indentCopy, objc_msgSend(manufacturer, "UTF8String")];
+
+  modelName = [(ASABox *)self modelName];
+  [v7 appendFormat:@"%@|    Model Name: %s\n", indentCopy, objc_msgSend(modelName, "UTF8String")];
+
+  serialNumber = [(ASABox *)self serialNumber];
+  [v7 appendFormat:@"%@|    Serial Number: %s\n", indentCopy, objc_msgSend(serialNumber, "UTF8String")];
+
+  firmwareVersion = [(ASABox *)self firmwareVersion];
+  [v7 appendFormat:@"%@|    Firmware Version: %s\n", indentCopy, objc_msgSend(firmwareVersion, "UTF8String")];
+
+  boxUID = [(ASABox *)self boxUID];
+  [v7 appendFormat:@"%@|    Box UID: %s\n", indentCopy, objc_msgSend(boxUID, "UTF8String")];
+
+  modelUID = [(ASABox *)self modelUID];
+  [v7 appendFormat:@"%@|    Model UID: %s\n", indentCopy, objc_msgSend(modelUID, "UTF8String")];
+
+  transportType = [(ASABox *)self transportType];
+  LODWORD(v16) = transportType >> 24;
+  if (((transportType >> 24) - 32) >= 0x5F)
+  {
+    v16 = 32;
+  }
+
+  else
+  {
+    v16 = v16;
+  }
+
+  LODWORD(v17) = transportType << 8 >> 24;
+  if ((v17 - 32) >= 0x5F)
+  {
+    v17 = 32;
+  }
+
+  else
+  {
+    v17 = v17;
+  }
+
+  LODWORD(v18) = transportType >> 8;
+  if ((v18 - 32) >= 0x5F)
+  {
+    v18 = 32;
+  }
+
+  else
+  {
+    v18 = v18;
+  }
+
+  if ((transportType - 32) >= 0x5F)
+  {
+    v19 = 32;
+  }
+
+  else
+  {
+    v19 = transportType;
+  }
+
+  [v7 appendFormat:@"%@|    Transport Type: %c%c%c%c\n", indentCopy, v16, v17, v18, v19];
+  if ([(ASABox *)self hasAudio])
+  {
+    v20 = @"YES";
+  }
+
+  else
+  {
+    v20 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Has Audio: %@\n", indentCopy, v20];
+  if ([(ASABox *)self hasVideo])
+  {
+    v21 = @"YES";
+  }
+
+  else
+  {
+    v21 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Has Video: %@\n", indentCopy, v21];
+  if ([(ASABox *)self hasMIDI])
+  {
+    v22 = @"YES";
+  }
+
+  else
+  {
+    v22 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Has MIDI: %@\n", indentCopy, v22];
+  if ([(ASABox *)self isProtected])
+  {
+    v23 = @"YES";
+  }
+
+  else
+  {
+    v23 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Protected: %@\n", indentCopy, v23];
+  if ([(ASABox *)self isAcquired])
+  {
+    v24 = @"YES";
+  }
+
+  else
+  {
+    v24 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Acquired: %@\n", indentCopy, v24];
+  if ([(ASABox *)self isAcquireSettable])
+  {
+    v25 = @"YES";
+  }
+
+  else
+  {
+    v25 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Acquire Settable: %@\n", indentCopy, v25];
+  if ([(ASABox *)self isIdentifySettable])
+  {
+    v26 = @"YES";
+  }
+
+  else
+  {
+    v26 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Identify Settable: %@\n", indentCopy, v26];
+  if ([(ASABox *)self isNameSettable])
+  {
+    v27 = @"YES";
+  }
+
+  else
+  {
+    v27 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Name Settable: %@\n", indentCopy, v27];
+  acquisitionFailure = [(ASABox *)self acquisitionFailure];
+  LODWORD(v29) = acquisitionFailure >> 24;
+  if (((acquisitionFailure >> 24) - 32) >= 0x5F)
+  {
+    v29 = 32;
+  }
+
+  else
+  {
+    v29 = v29;
+  }
+
+  LODWORD(v30) = acquisitionFailure << 8 >> 24;
+  if ((v30 - 32) >= 0x5F)
+  {
+    v30 = 32;
+  }
+
+  else
+  {
+    v30 = v30;
+  }
+
+  LODWORD(v31) = acquisitionFailure >> 8;
+  if ((v31 - 32) >= 0x5F)
+  {
+    v31 = 32;
+  }
+
+  else
+  {
+    v31 = v31;
+  }
+
+  if ((acquisitionFailure - 32) >= 0x5F)
+  {
+    v32 = 32;
+  }
+
+  else
+  {
+    v32 = acquisitionFailure;
+  }
+
+  v33 = indentCopy;
+  [v7 appendFormat:@"%@|    Acquisition Failure: %c%c%c%c\n", indentCopy, v29, v30, v31, v32];
+  audioDeviceObjectIDs = [(ASABox *)self audioDeviceObjectIDs];
+  v55 = audioDeviceObjectIDs;
+  if ([audioDeviceObjectIDs count])
+  {
+    selfCopy = self;
+    [v7 appendFormat:@"%@|    Device Objects:\n", indentCopy];
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v35 = audioDeviceObjectIDs;
+    v36 = [v35 countByEnumeratingWithState:&v61 objects:v67 count:16];
+    if (v36)
+    {
+      v37 = v36;
+      v38 = 0;
+      v39 = *v62;
+      do
+      {
+        for (i = 0; i != v37; ++i)
+        {
+          if (*v62 != v39)
+          {
+            objc_enumerationMutation(v35);
+          }
+
+          if (treeCopy)
+          {
+            v41 = -[ASAObject initWithAudioObjectID:]([ASAAudioDevice alloc], "initWithAudioObjectID:", [*(*(&v61 + 1) + 8 * i) unsignedIntValue]);
+            v42 = [(ASAAudioDevice *)v41 diagnosticDescriptionWithIndent:v56 walkTree:1];
+            [v7 appendString:v42];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v33, v38, objc_msgSend(*(*(&v61 + 1) + 8 * i), "unsignedIntValue")];
+          }
+
+          v38 = (v38 + 1);
+        }
+
+        v37 = [v35 countByEnumeratingWithState:&v61 objects:v67 count:16];
+      }
+
+      while (v37);
+    }
+
+    self = selfCopy;
+    audioDeviceObjectIDs = v55;
+  }
+
+  clockDeviceObjectIDs = [(ASABox *)self clockDeviceObjectIDs];
+  if ([clockDeviceObjectIDs count])
+  {
+    [v7 appendFormat:@"%@|    Clock Device Objects:\n", v33];
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v54 = clockDeviceObjectIDs;
+    v44 = clockDeviceObjectIDs;
+    v45 = [v44 countByEnumeratingWithState:&v57 objects:v66 count:16];
+    if (v45)
+    {
+      v46 = v45;
+      v47 = 0;
+      v48 = *v58;
+      do
+      {
+        for (j = 0; j != v46; ++j)
+        {
+          if (*v58 != v48)
+          {
+            objc_enumerationMutation(v44);
+          }
+
+          if (treeCopy)
+          {
+            v50 = -[ASAObject initWithAudioObjectID:]([ASAClockDevice alloc], "initWithAudioObjectID:", [*(*(&v57 + 1) + 8 * j) unsignedIntValue]);
+            v51 = [(ASAClockDevice *)v50 diagnosticDescriptionWithIndent:v56 walkTree:1];
+            [v7 appendString:v51];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v33, v47, objc_msgSend(*(*(&v57 + 1) + 8 * j), "unsignedIntValue")];
+          }
+
+          v47 = (v47 + 1);
+        }
+
+        v46 = [v44 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      }
+
+      while (v46);
+    }
+
+    clockDeviceObjectIDs = v54;
+    audioDeviceObjectIDs = v55;
+  }
+
+  return v7;
 }
 
 @end

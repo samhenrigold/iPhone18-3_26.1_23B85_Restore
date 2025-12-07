@@ -8,13 +8,13 @@
 
 - (IOSurfaceSharedEventListener)initWithDispatchQueue:(id)queue
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = IOSurfaceSharedEventListener;
-  v4 = [(IOSurfaceSharedEventListener *)&v9 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = IOSurfaceSharedEventListener;
+  v4 = [(IOSurfaceSharedEventListener *)&v8 init];
   if (!v4)
   {
-    goto LABEL_9;
+    return v4;
   }
 
   if (queue)
@@ -29,8 +29,7 @@
     {
 LABEL_8:
 
-      v4 = 0;
-      goto LABEL_9;
+      return 0;
     }
   }
 
@@ -50,14 +49,12 @@ LABEL_8:
     goto LABEL_8;
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (self->_notificationPort)
   {
     IOSurfaceSharedEventRemoveEventListener(self);
@@ -71,10 +68,9 @@ LABEL_9:
     dispatch_release(dispatchQueue);
   }
 
-  v5.receiver = self;
-  v5.super_class = IOSurfaceSharedEventListener;
-  [(IOSurfaceSharedEventListener *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = IOSurfaceSharedEventListener;
+  [(IOSurfaceSharedEventListener *)&v4 dealloc];
 }
 
 - (void)_notifyEventPort:(unsigned int)port event:(id)event atValue:(unint64_t)value block:(id)block

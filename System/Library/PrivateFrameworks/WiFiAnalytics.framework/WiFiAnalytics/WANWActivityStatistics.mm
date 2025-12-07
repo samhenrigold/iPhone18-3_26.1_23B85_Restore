@@ -4,6 +4,7 @@
 - (WANWActivityStatistics)initWithWAActivityReport:(const void *)report length:(unint64_t)length;
 - (id)expandKeyNameLengths:(id)lengths;
 - (id)getTransformedFlattened:(int)flattened;
+- (id)getTransformedFlattenedFrom:(id)from style:(int)style index:(unsigned int)index;
 - (unsigned)awdMetricID;
 @end
 
@@ -11,11 +12,11 @@
 
 - (WANWActivityStatistics)initWithPBCodableData:(id)data
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v13.receiver = self;
-  v13.super_class = WANWActivityStatistics;
-  v5 = [(WANWActivityStatistics *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = WANWActivityStatistics;
+  v5 = [(WANWActivityStatistics *)&v12 init];
   v6 = v5;
   if (dataCopy && v5 && [dataCopy length])
   {
@@ -33,27 +34,26 @@
     {
       v10 = [dataCopy length];
       *buf = 136446978;
-      v15 = "[WANWActivityStatistics initWithPBCodableData:]";
-      v16 = 1024;
-      v17 = 63;
-      v18 = 1024;
-      v19 = v6 != 0;
-      v20 = 2048;
-      v21 = v10;
+      v14 = "[WANWActivityStatistics initWithPBCodableData:]";
+      v15 = 1024;
+      v16 = 63;
+      v17 = 1024;
+      v18 = v6 != 0;
+      v19 = 2048;
+      v20 = v10;
       _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:initWithPBCodableData Failed self %d length %lu", buf, 0x22u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (WANWActivityStatistics)initWithWAActivityReport:(const void *)report length:(unint64_t)length
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = WANWActivityStatistics;
-  v6 = [(WANWActivityStatistics *)&v21 init];
+  v27 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = WANWActivityStatistics;
+  v6 = [(WANWActivityStatistics *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -66,18 +66,18 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v23 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
-        v24 = 1024;
-        v25 = 97;
+        v22 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
+        v23 = 1024;
+        v24 = 97;
         _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:resultData failed", buf, 0x12u);
       }
 
       goto LABEL_18;
     }
 
-    v20 = 0;
-    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v20];
-    v11 = v20;
+    v19 = 0;
+    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v19];
+    v11 = v19;
     awdReport = v7->_awdReport;
     v7->_awdReport = v10;
 
@@ -93,16 +93,16 @@
 
     if (!v13)
     {
-      v18 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v23 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
-        v24 = 1024;
-        v25 = 100;
-        v26 = 2112;
-        v27 = v11;
-        _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessageAWD: %@", buf, 0x1Cu);
+        v22 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
+        v23 = 1024;
+        v24 = 100;
+        v25 = 2112;
+        v26 = v11;
+        _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessageAWD: %@", buf, 0x1Cu);
       }
 
 LABEL_18:
@@ -116,9 +116,9 @@ LABEL_18:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136446466;
-      v23 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
-      v24 = 1024;
-      v25 = 102;
+      v22 = "[WANWActivityStatistics initWithWAActivityReport:length:]";
+      v23 = 1024;
+      v24 = 102;
       _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_INFO, "%{public}s::%d:Success", buf, 0x12u);
     }
   }
@@ -126,7 +126,6 @@ LABEL_18:
   v15 = v7;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -145,7 +144,7 @@ LABEL_12:
 
 - (PBCodable)awdReport
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   fromInitWithPBCodableData = self->_fromInitWithPBCodableData;
   awdReport = self->_awdReport;
   if (fromInitWithPBCodableData)
@@ -160,25 +159,25 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v27 = "[WANWActivityStatistics awdReport]";
-      v28 = 1024;
-      v29 = 124;
+      v26 = "[WANWActivityStatistics awdReport]";
+      v27 = 1024;
+      v28 = 124;
       _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_ERROR, "%{public}s::%d:_awdReport missing Debug", buf, 0x12u);
     }
 
     awdReport = self->_awdReport;
     if (!awdReport)
     {
-      v20 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v27 = "[WANWActivityStatistics awdReport]";
-        v28 = 1024;
-        v29 = 128;
-        v21 = "%{public}s::%d:_awdReport missing";
+        v26 = "[WANWActivityStatistics awdReport]";
+        v27 = 1024;
+        v28 = 128;
+        v20 = "%{public}s::%d:_awdReport missing";
 LABEL_25:
-        _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, v21, buf, 0x12u);
+        _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0x12u);
       }
 
 LABEL_26:
@@ -193,45 +192,45 @@ LABEL_26:
 
   if (v8)
   {
-    v20 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v27 = "[WANWActivityStatistics awdReport]";
-      v28 = 1024;
-      v29 = 132;
-      v21 = "%{public}s::%d:_awdReport has activities already";
+      v26 = "[WANWActivityStatistics awdReport]";
+      v27 = 1024;
+      v28 = 132;
+      v20 = "%{public}s::%d:_awdReport has activities already";
       goto LABEL_25;
     }
 
     goto LABEL_26;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   externallyVisibleActivityUUIDs = [(WANWActivityStatistics *)self externallyVisibleActivityUUIDs];
-  v10 = [externallyVisibleActivityUUIDs countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v10 = [externallyVisibleActivityUUIDs countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(externallyVisibleActivityUUIDs);
         }
 
         v14 = self->_awdReport;
-        uUIDString = [*(*(&v22 + 1) + 8 * i) UUIDString];
+        uUIDString = [*(*(&v21 + 1) + 8 * i) UUIDString];
         [(PBCodable *)v14 addActivities:uUIDString];
       }
 
-      v11 = [externallyVisibleActivityUUIDs countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v11 = [externallyVisibleActivityUUIDs countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v11);
@@ -243,29 +242,135 @@ LABEL_26:
   {
     v17 = self->_awdReport;
     *buf = 136446722;
-    v27 = "[WANWActivityStatistics awdReport]";
-    v28 = 1024;
-    v29 = 143;
-    v30 = 2114;
-    v31 = v17;
+    v26 = "[WANWActivityStatistics awdReport]";
+    v27 = 1024;
+    v28 = 143;
+    v29 = 2114;
+    v30 = v17;
     _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Generated wifi nw_activity report: %{public}@", buf, 0x1Cu);
   }
 
   v5 = self->_awdReport;
 LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
+- (id)getTransformedFlattenedFrom:(id)from style:(int)style index:(unsigned int)index
+{
+  v5 = *&index;
+  v24 = *MEMORY[0x1E69E9840];
+  fromCopy = from;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [(WANWActivityStatistics *)self obj];
+
+  if (!v10)
+  {
+    if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
+    {
+      LOWORD(v20) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattenedFrom init", "", &v20, 2u);
+    }
+
+    v11 = [_TtC13WiFiAnalytics21WANWActivityTransform alloc];
+    awdReport = [(WANWActivityStatistics *)self awdReport];
+    dictionaryRepresentation = [awdReport dictionaryRepresentation];
+    v14 = [(WANWActivityTransform *)v11 initWithLater:dictionaryRepresentation early:fromCopy];
+    [(WANWActivityStatistics *)self setObj:v14];
+
+    if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
+    {
+      LOWORD(v20) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattenedFrom init", "", &v20, 2u);
+    }
+  }
+
+  if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
+  {
+    LOWORD(v20) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattenedFrom Transform", "", &v20, 2u);
+  }
+
+  v15 = [(WANWActivityStatistics *)self obj];
+
+  if (v15)
+  {
+    v16 = 0;
+    if (style > 1)
+    {
+      if (style == 2)
+      {
+        v17 = [(WANWActivityStatistics *)self obj];
+        getTransformedMeasurementForLogging = [v17 getTransformedMeasurementForLogging];
+      }
+
+      else
+      {
+        if (style != 3)
+        {
+          goto LABEL_23;
+        }
+
+        v17 = [(WANWActivityStatistics *)self obj];
+        getTransformedMeasurementForLogging = [v17 getTransformedMeasurementForP2PMetrics];
+      }
+    }
+
+    else if (style)
+    {
+      if (style != 1)
+      {
+        goto LABEL_23;
+      }
+
+      v17 = [(WANWActivityStatistics *)self obj];
+      getTransformedMeasurementForLogging = [v17 getTransformedMeasurementWithIndex:v5];
+    }
+
+    else
+    {
+      v17 = [(WANWActivityStatistics *)self obj];
+      getTransformedMeasurementForLogging = [v17 getTransformedMeasurementForTelemetryWithIndex:v5];
+    }
+
+    v16 = getTransformedMeasurementForLogging;
+  }
+
+  else
+  {
+    v17 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v20 = 136446466;
+      v21 = "[WANWActivityStatistics getTransformedFlattenedFrom:style:index:]";
+      v22 = 1024;
+      v23 = 193;
+      _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to create WANWActivityTransform", &v20, 0x12u);
+    }
+
+    v16 = 0;
+  }
+
+LABEL_23:
+  if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
+  {
+    LOWORD(v20) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattenedFrom Transform", "", &v20, 2u);
+  }
+
+  objc_autoreleasePoolPop(v9);
+
+  return v16;
+}
+
 - (id)getTransformedFlattened:(int)flattened
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened init", "", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened init", "", &v17, 2u);
   }
 
   v6 = [(WANWActivityStatistics *)self obj];
@@ -281,14 +386,14 @@ LABEL_18:
 
   if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened init", "", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened init", "", &v17, 2u);
   }
 
   if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened Transform", "", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened Transform", "", &v17, 2u);
   }
 
   v11 = [(WANWActivityStatistics *)self obj];
@@ -328,18 +433,18 @@ LABEL_18:
         v13 = WALogCategoryDefaultHandle();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v18 = 136446466;
-          v19 = "[WANWActivityStatistics getTransformedFlattened:]";
-          v20 = 1024;
-          v21 = 222;
-          _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:Invalid style for single parameter, timeOffset invalid", &v18, 0x12u);
+          v17 = 136446466;
+          v18 = "[WANWActivityStatistics getTransformedFlattened:]";
+          v19 = 1024;
+          v20 = 222;
+          _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:Invalid style for single parameter, timeOffset invalid", &v17, 0x12u);
         }
 
         v14 = WALogCategoryDefaultHandle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_fault_impl(&dword_1C8460000, v14, OS_LOG_TYPE_FAULT, "Invalid style for single parameter, timeOffset invalid", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_fault_impl(&dword_1C8460000, v14, OS_LOG_TYPE_FAULT, "Invalid style for single parameter, timeOffset invalid", &v17, 2u);
         }
 
         goto LABEL_19;
@@ -356,11 +461,11 @@ LABEL_18:
   v14 = WALogCategoryDefaultHandle();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v18 = 136446466;
-    v19 = "[WANWActivityStatistics getTransformedFlattened:]";
-    v20 = 1024;
-    v21 = 236;
-    _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to create WANWActivityTransform", &v18, 0x12u);
+    v17 = 136446466;
+    v18 = "[WANWActivityStatistics getTransformedFlattened:]";
+    v19 = 1024;
+    v20 = 236;
+    _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to create WANWActivityTransform", &v17, 0x12u);
   }
 
 LABEL_19:
@@ -370,19 +475,18 @@ LABEL_26:
 LABEL_27:
   if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened Transform", "", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getTransformedFlattened Transform", "", &v17, 2u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)expandKeyNameLengths:(id)lengths
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   lengthsCopy = lengths;
   v5 = objc_autoreleasePoolPush();
   v6 = [(WANWActivityStatistics *)self obj];
@@ -391,8 +495,8 @@ LABEL_27:
   {
     if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "expandKeyNameLengths", "", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "expandKeyNameLengths", "", &v11, 2u);
     }
 
     v7 = [(WANWActivityStatistics *)self obj];
@@ -400,8 +504,8 @@ LABEL_27:
 
     if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "expandKeyNameLengths", "", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C8460000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "expandKeyNameLengths", "", &v11, 2u);
     }
   }
 
@@ -410,19 +514,17 @@ LABEL_27:
     v9 = WALogCategoryDefaultHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136446466;
-      v13 = "[WANWActivityStatistics expandKeyNameLengths:]";
-      v14 = 1024;
-      v15 = 255;
-      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:No WATransformForTelemetry alloctated", &v12, 0x12u);
+      v11 = 136446466;
+      v12 = "[WANWActivityStatistics expandKeyNameLengths:]";
+      v13 = 1024;
+      v14 = 255;
+      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:No WATransformForTelemetry alloctated", &v11, 0x12u);
     }
 
     v8 = 0;
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

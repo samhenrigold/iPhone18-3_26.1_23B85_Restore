@@ -11,6 +11,7 @@
 - (void)setBackoffTimeout:(double)timeout showBackoffTitle:(BOOL)title passcodeFocused:(BOOL)focused;
 - (void)setPasscodeFocused:(BOOL)focused;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PasscodeEmbeddedViewController
@@ -375,6 +376,15 @@ id __42__PasscodeEmbeddedViewController_loadView__block_invoke(uint64_t a1)
   return v2;
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PasscodeEmbeddedViewController;
+  [(PasscodeEmbeddedViewController *)&v4 viewWillDisappear:disappear];
+  [(UITextField *)self->_passcodeField setText:&stru_1000ADB50];
+  [(UITextField *)self->_passcodeField endEditing:1];
+}
+
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
@@ -555,12 +565,11 @@ id __42__PasscodeEmbeddedViewController_loadView__block_invoke(uint64_t a1)
 id __85__PasscodeEmbeddedViewController_setBackoffTimeout_showBackoffTitle_passcodeFocused___block_invoke(uint64_t a1)
 {
   LODWORD(v1) = vcvtpd_s64_f64(*(a1 + 40) / 60.0);
-  v2 = *(a1 + 32);
-  v3 = [NSBundle bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"MINUTES_TO_UNBLOCK" value:&stru_1000ADB50 table:@"MobileUI"];
-  v5 = [NSString localizedStringWithFormat:v4, v1];
+  v2 = [NSBundle bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"MINUTES_TO_UNBLOCK" value:&stru_1000ADB50 table:@"MobileUI"];
+  v4 = [NSString localizedStringWithFormat:v3, v1];
 
-  return v5;
+  return v4;
 }
 
 void __85__PasscodeEmbeddedViewController_setBackoffTimeout_showBackoffTitle_passcodeFocused___block_invoke_2(uint64_t a1)

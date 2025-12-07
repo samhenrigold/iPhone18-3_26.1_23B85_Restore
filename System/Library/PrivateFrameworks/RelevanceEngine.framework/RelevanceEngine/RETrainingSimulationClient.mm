@@ -51,9 +51,9 @@
 {
   connectionCopy = connection;
   delegateCopy = delegate;
-  v25.receiver = self;
-  v25.super_class = RETrainingSimulationClient;
-  v9 = [(RETrainingSimulationClient *)&v25 init];
+  v27.receiver = self;
+  v27.super_class = RETrainingSimulationClient;
+  v9 = [(RETrainingSimulationClient *)&v27 init];
   v10 = v9;
   if (v9)
   {
@@ -64,32 +64,32 @@
 
     objc_storeStrong(&v10->_connection, connection);
     connection = v10->_connection;
-    v14 = RETrainingSimulationServerInterface();
-    [(NSXPCConnection *)connection setRemoteObjectInterface:v14];
+    v15 = RETrainingSimulationServerInterface(v14);
+    [(NSXPCConnection *)connection setRemoteObjectInterface:v15];
 
-    v15 = v10->_connection;
-    v16 = RETrainingSimulationClientInterface();
-    [(NSXPCConnection *)v15 setExportedInterface:v16];
+    v16 = v10->_connection;
+    v18 = RETrainingSimulationClientInterface(v17);
+    [(NSXPCConnection *)v16 setExportedInterface:v18];
 
     [(NSXPCConnection *)v10->_connection setExportedObject:v10];
     objc_initWeak(&location, v10);
-    v17 = v10->_connection;
+    v19 = v10->_connection;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __58__RETrainingSimulationClient_initWithConnection_delegate___block_invoke;
+    v24[3] = &unk_2785F9A90;
+    objc_copyWeak(&v25, &location);
+    [(NSXPCConnection *)v19 setInterruptionHandler:v24];
+    v20 = v10->_connection;
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __58__RETrainingSimulationClient_initWithConnection_delegate___block_invoke;
+    v22[2] = __58__RETrainingSimulationClient_initWithConnection_delegate___block_invoke_2;
     v22[3] = &unk_2785F9A90;
     objc_copyWeak(&v23, &location);
-    [(NSXPCConnection *)v17 setInterruptionHandler:v22];
-    v18 = v10->_connection;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __58__RETrainingSimulationClient_initWithConnection_delegate___block_invoke_2;
-    v20[3] = &unk_2785F9A90;
-    objc_copyWeak(&v21, &location);
-    [(NSXPCConnection *)v18 setInvalidationHandler:v20];
+    [(NSXPCConnection *)v20 setInvalidationHandler:v22];
     [(NSXPCConnection *)v10->_connection resume];
-    objc_destroyWeak(&v21);
     objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
@@ -132,7 +132,7 @@ void __49__RETrainingSimulationClient__handleInterruption__block_invoke(uint64_t
   v2 = RELogForDomain(10);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__RETrainingSimulationClient__handleInterruption__block_invoke_cold_1(a1);
+    __49__RETrainingSimulationClient__handleInterruption__block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) delegate];
@@ -161,7 +161,7 @@ void __49__RETrainingSimulationClient__handleInvalidation__block_invoke(uint64_t
   v2 = RELogForDomain(10);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__RETrainingSimulationClient__handleInvalidation__block_invoke_cold_1(a1);
+    __49__RETrainingSimulationClient__handleInvalidation__block_invoke_cold_1();
   }
 
   [*(*(a1 + 32) + 16) setExportedObject:0];
@@ -184,11 +184,11 @@ void __49__RETrainingSimulationClient__handleInvalidation__block_invoke(uint64_t
   engineCopy = engine;
   descriptionCopy = description;
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = __Block_byref_object_copy__23;
-  v14[3] = __Block_byref_object_dispose__23;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__23;
+  v17 = __Block_byref_object_dispose__23;
+  v18 = 0;
   connection = self->_connection;
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
@@ -202,12 +202,12 @@ void __49__RETrainingSimulationClient__handleInvalidation__block_invoke(uint64_t
   v11[3] = &unk_2785FCF10;
   v11[4] = &v13;
   [v9 relevanceEngine:engineCopy createElementFromDescription:descriptionCopy completion:v11];
-  if (*(v14[0] + 40))
+  if (v14[5])
   {
     v10 = RELogForDomain(10);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [RETrainingSimulationClient relevanceEngine:v14 createElementFromDescription:?];
+      [RETrainingSimulationClient relevanceEngine:createElementFromDescription:];
     }
   }
 
@@ -260,18 +260,18 @@ void __49__RETrainingSimulationClient__handleInvalidation__block_invoke(uint64_t
 
 - (id)availableRelevanceEngines
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__23;
-  v16 = __Block_byref_object_dispose__23;
-  v17 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__23;
+  v19 = __Block_byref_object_dispose__23;
+  v20 = 0;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = __Block_byref_object_copy__23;
-  v10[3] = __Block_byref_object_dispose__23;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__23;
+  v13 = __Block_byref_object_dispose__23;
+  v14 = 0;
   connection = self->_connection;
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
@@ -283,22 +283,22 @@ void __49__RETrainingSimulationClient__handleInvalidation__block_invoke(uint64_t
   v7[1] = 3221225472;
   v7[2] = __55__RETrainingSimulationClient_availableRelevanceEngines__block_invoke_2;
   v7[3] = &unk_2785FCF38;
-  v7[4] = &v12;
+  v7[4] = &v15;
   v7[5] = &v9;
   [v3 availableRelevanceEngines:v7];
-  if (*(v10[0] + 40))
+  if (v10[5])
   {
     v4 = RELogForDomain(10);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v10 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v5 = v13[5];
+  v5 = v16[5];
 
   _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v15, 8);
 
   return v5;
 }
@@ -321,16 +321,16 @@ void __55__RETrainingSimulationClient_availableRelevanceEngines__block_invoke_2(
 {
   engineCopy = engine;
   description1Copy = description1;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__23;
-  v16[3] = __Block_byref_object_dispose__23;
-  v17 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__23;
+  v19 = __Block_byref_object_dispose__23;
+  v20 = 0;
   connection = self->_connection;
   v14[0] = MEMORY[0x277D85DD0];
   v14[1] = 3221225472;
@@ -342,22 +342,22 @@ void __55__RETrainingSimulationClient_availableRelevanceEngines__block_invoke_2(
   v13[1] = 3221225472;
   v13[2] = __81__RETrainingSimulationClient_relevanceEngine_runActionOfElementWithDescription1___block_invoke_2;
   v13[3] = &unk_2785FCF60;
-  v13[4] = &v18;
+  v13[4] = &v21;
   v13[5] = &v15;
   [v9 relevanceEngine:engineCopy runActionOfElementWithDescription1:description1Copy completion:v13];
-  if (*(v16[0] + 40))
+  if (v16[5])
   {
     v10 = RELogForDomain(10);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v16 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v11 = *(v19 + 24);
+  v11 = *(v22 + 24);
 
   _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v11;
 }
@@ -365,18 +365,18 @@ void __55__RETrainingSimulationClient_availableRelevanceEngines__block_invoke_2(
 - (id)fetchAllElementIdentifiersInRelevanceEngine:(id)engine
 {
   engineCopy = engine;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__23;
-  v19 = __Block_byref_object_dispose__23;
-  v20 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__23;
+  v22 = __Block_byref_object_dispose__23;
+  v23 = 0;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__23;
-  v13[3] = __Block_byref_object_dispose__23;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__23;
+  v16 = __Block_byref_object_dispose__23;
+  v17 = 0;
   connection = self->_connection;
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
@@ -388,22 +388,22 @@ void __55__RETrainingSimulationClient_availableRelevanceEngines__block_invoke_2(
   v10[1] = 3221225472;
   v10[2] = __74__RETrainingSimulationClient_fetchAllElementIdentifiersInRelevanceEngine___block_invoke_2;
   v10[3] = &unk_2785FCF38;
-  v10[4] = &v15;
+  v10[4] = &v18;
   v10[5] = &v12;
   [v6 fetchAllElementIdentifiersInRelevanceEngine:engineCopy completion:v10];
-  if (*(v13[0] + 40))
+  if (v13[5])
   {
     v7 = RELogForDomain(10);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v13 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v8 = v16[5];
+  v8 = v19[5];
 
   _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v8;
 }
@@ -425,18 +425,18 @@ void __74__RETrainingSimulationClient_fetchAllElementIdentifiersInRelevanceEngin
 - (id)fetchAllElementsInRelevanceEngine:(id)engine
 {
   engineCopy = engine;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__23;
-  v19 = __Block_byref_object_dispose__23;
-  v20 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__23;
+  v22 = __Block_byref_object_dispose__23;
+  v23 = 0;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__23;
-  v13[3] = __Block_byref_object_dispose__23;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__23;
+  v16 = __Block_byref_object_dispose__23;
+  v17 = 0;
   connection = self->_connection;
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
@@ -448,22 +448,22 @@ void __74__RETrainingSimulationClient_fetchAllElementIdentifiersInRelevanceEngin
   v10[1] = 3221225472;
   v10[2] = __64__RETrainingSimulationClient_fetchAllElementsInRelevanceEngine___block_invoke_2;
   v10[3] = &unk_2785FCF38;
-  v10[4] = &v15;
+  v10[4] = &v18;
   v10[5] = &v12;
   [v6 fetchAllElementsInRelevanceEngine:engineCopy completion:v10];
-  if (*(v13[0] + 40))
+  if (v13[5])
   {
     v7 = RELogForDomain(10);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v13 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v8 = v16[5];
+  v8 = v19[5];
 
   _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v8;
 }
@@ -485,18 +485,18 @@ void __64__RETrainingSimulationClient_fetchAllElementsInRelevanceEngine___block_
 - (id)diagnosticLogFileForRelevanceEngine:(id)engine
 {
   engineCopy = engine;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__23;
-  v19 = __Block_byref_object_dispose__23;
-  v20 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__23;
+  v22 = __Block_byref_object_dispose__23;
+  v23 = 0;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__23;
-  v13[3] = __Block_byref_object_dispose__23;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__23;
+  v16 = __Block_byref_object_dispose__23;
+  v17 = 0;
   connection = self->_connection;
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
@@ -508,22 +508,22 @@ void __64__RETrainingSimulationClient_fetchAllElementsInRelevanceEngine___block_
   v10[1] = 3221225472;
   v10[2] = __66__RETrainingSimulationClient_diagnosticLogFileForRelevanceEngine___block_invoke_2;
   v10[3] = &unk_2785FCF88;
-  v10[4] = &v15;
+  v10[4] = &v18;
   v10[5] = &v12;
   [v6 gatherDiagnosticLogsForRelevanceEngine:engineCopy completion:v10];
-  if (*(v13[0] + 40))
+  if (v13[5])
   {
     v7 = RELogForDomain(10);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v13 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v8 = v16[5];
+  v8 = v19[5];
 
   _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v8;
 }
@@ -552,18 +552,18 @@ void __66__RETrainingSimulationClient_diagnosticLogFileForRelevanceEngine___bloc
 {
   engineCopy = engine;
   pathCopy = path;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__23;
-  v22 = __Block_byref_object_dispose__23;
-  v23 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__23;
+  v25 = __Block_byref_object_dispose__23;
+  v26 = 0;
   v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__23;
-  v16[3] = __Block_byref_object_dispose__23;
-  v17 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__23;
+  v19 = __Block_byref_object_dispose__23;
+  v20 = 0;
   connection = self->_connection;
   v14[0] = MEMORY[0x277D85DD0];
   v14[1] = 3221225472;
@@ -575,21 +575,21 @@ void __66__RETrainingSimulationClient_diagnosticLogFileForRelevanceEngine___bloc
   v13[1] = 3221225472;
   v13[2] = __66__RETrainingSimulationClient_relevanceEngine_encodedObjectAtPath___block_invoke_2;
   v13[3] = &unk_2785FCFB0;
-  v13[4] = &v18;
+  v13[4] = &v21;
   [v9 relevanceEngine:engineCopy encodedObjectAtPath:pathCopy completion:v13];
-  if (*(v16[0] + 40))
+  if (v16[5])
   {
     v10 = RELogForDomain(10);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(RETrainingSimulationClient *)v16 availableRelevanceEngines];
+      [RETrainingSimulationClient availableRelevanceEngines];
     }
   }
 
-  v11 = v19[5];
+  v11 = v22[5];
 
   _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v11;
 }
@@ -613,50 +613,29 @@ void __66__RETrainingSimulationClient_diagnosticLogFileForRelevanceEngine___bloc
   return WeakRetained;
 }
 
-void __49__RETrainingSimulationClient__handleInterruption__block_invoke_cold_1(uint64_t a1)
+- (void)relevanceEngine:createElementFromDescription:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 32) + 24);
+  OUTLINED_FUNCTION_0_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v2, v3, "Training Simulation connection (%@) was interrupted", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __49__RETrainingSimulationClient__handleInvalidation__block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 32) + 24);
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v2, v3, "Training Simulation connection (%@) was invalidated", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)relevanceEngine:(uint64_t)a1 createElementFromDescription:.cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v1, v2, "Unable to create element: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to create element: %@", v2, v3, v4, v5);
 }
 
 - (void)relevanceEngine:(uint64_t)a1 performCommand:(uint64_t)a2 withOptions:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a2 + 40);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Unable to perform command %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Unable to perform command %@: %@", &v4, 0x16u);
 }
 
 - (void)availableRelevanceEngines
 {
-  OUTLINED_FUNCTION_0_8(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_22859F000, v1, v2, "Unable to access engines: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_22859F000, v0, v1, "Unable to access engines: %@", v2, v3, v4, v5);
 }
 
 @end

@@ -39,7 +39,7 @@ void __95__PLModelMigrationAction_RevalidateFaceAreaPoints_performActionWithMana
 
 void __95__PLModelMigrationAction_RevalidateFaceAreaPoints_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = PLMigrationGetLog();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
 
@@ -49,64 +49,73 @@ void __95__PLModelMigrationAction_RevalidateFaceAreaPoints_performActionWithMana
 
     if (v4)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v5 = PLMigrationGetLog();
-      os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-      v6 = *(a1 + 40);
-      v12 = 134217984;
-      v13 = v6;
-      LODWORD(v11) = 12;
-      v7 = _os_log_send_and_compose_impl();
-
-      v8 = [*(a1 + 32) logger];
-      [v8 logWithMessage:v7 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{232, 1}];
-
-      if (v7 != buf)
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+      v7 = *(a1 + 40);
+      if (v6)
       {
-        free(v7);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v13 = 134217984;
+      v14 = v7;
+      v9 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v5, 1, "Updated %lu assets", &v13);
+
+      v10 = [*(a1 + 32) logger];
+      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{232, 1}];
+
+      if (v9 != buf)
+      {
+        free(v9);
       }
     }
 
     else
     {
-      v9 = PLMigrationGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v10 = *(a1 + 40);
+        v12 = *(a1 + 40);
         *buf = 134217984;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
       }
     }
   }
@@ -166,7 +175,7 @@ void __102__PLModelMigrationAction_CinematicVideoPopulateDepthType_performAction
 
 void __102__PLModelMigrationAction_CinematicVideoPopulateDepthType_performActionWithManagedObjectContext_error___block_invoke_198(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = PLMigrationGetLog();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
 
@@ -176,64 +185,73 @@ void __102__PLModelMigrationAction_CinematicVideoPopulateDepthType_performAction
 
     if (v4)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v5 = PLMigrationGetLog();
-      os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-      v6 = *(a1 + 40);
-      v12 = 134217984;
-      v13 = v6;
-      LODWORD(v11) = 12;
-      v7 = _os_log_send_and_compose_impl();
-
-      v8 = [*(a1 + 32) logger];
-      [v8 logWithMessage:v7 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{333, 1}];
-
-      if (v7 != buf)
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+      v7 = *(a1 + 40);
+      if (v6)
       {
-        free(v7);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v13 = 134217984;
+      v14 = v7;
+      v9 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v5, 1, "Updated %lu assets", &v13);
+
+      v10 = [*(a1 + 32) logger];
+      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{333, 1}];
+
+      if (v9 != buf)
+      {
+        free(v9);
       }
     }
 
     else
     {
-      v9 = PLMigrationGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v10 = *(a1 + 40);
+        v12 = *(a1 + 40);
         *buf = 134217984;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
       }
     }
   }
@@ -280,7 +298,7 @@ void __85__PLModelMigrationAction_updateACVideos_performActionWithManagedObjectC
 
 void __85__PLModelMigrationAction_updateACVideos_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = PLMigrationGetLog();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
 
@@ -290,64 +308,73 @@ void __85__PLModelMigrationAction_updateACVideos_performActionWithManagedObjectC
 
     if (v4)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v5 = PLMigrationGetLog();
-      os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-      v6 = *(a1 + 40);
-      v12 = 134217984;
-      v13 = v6;
-      LODWORD(v11) = 12;
-      v7 = _os_log_send_and_compose_impl();
-
-      v8 = [*(a1 + 32) logger];
-      [v8 logWithMessage:v7 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{434, 1}];
-
-      if (v7 != buf)
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+      v7 = *(a1 + 40);
+      if (v6)
       {
-        free(v7);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v13 = 134217984;
+      v14 = v7;
+      v9 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v5, 1, "Updated %lu assets", &v13);
+
+      v10 = [*(a1 + 32) logger];
+      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{434, 1}];
+
+      if (v9 != buf)
+      {
+        free(v9);
       }
     }
 
     else
     {
-      v9 = PLMigrationGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v10 = *(a1 + 40);
+        v12 = *(a1 + 40);
         *buf = 134217984;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
       }
     }
   }
@@ -480,7 +507,7 @@ void __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performA
 
 void __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = PLMigrationGetLog();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
 
@@ -490,64 +517,73 @@ void __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performA
 
     if (v4)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v5 = PLMigrationGetLog();
-      os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-      v6 = *(a1 + 40);
-      v12 = 134217984;
-      v13 = v6;
-      LODWORD(v11) = 12;
-      v7 = _os_log_send_and_compose_impl();
-
-      v8 = [*(a1 + 32) logger];
-      [v8 logWithMessage:v7 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{727, 1}];
-
-      if (v7 != buf)
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+      v7 = *(a1 + 40);
+      if (v6)
       {
-        free(v7);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v13 = 134217984;
+      v14 = v7;
+      v9 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v5, 1, "Updated %lu assets", &v13);
+
+      v10 = [*(a1 + 32) logger];
+      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{727, 1}];
+
+      if (v9 != buf)
+      {
+        free(v9);
       }
     }
 
     else
     {
-      v9 = PLMigrationGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v10 = *(a1 + 40);
+        v12 = *(a1 + 40);
         *buf = 134217984;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_INFO, "Updated %lu assets", buf, 0xCu);
       }
     }
   }
@@ -555,7 +591,7 @@ void __107__PLModelMigrationAction_FixDuplicateMergeCrashRecoveryAssets_performA
 
 void __106__PLModelMigrationAction_setInitialIsDetectedScreenshotValue_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -587,7 +623,7 @@ void __106__PLModelMigrationAction_setInitialIsDetectedScreenshotValue_performAc
 
 void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -595,8 +631,8 @@ void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performA
 
 void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v93 = *MEMORY[0x1E69E9840];
-  v50 = a2;
+  v94 = *MEMORY[0x1E69E9840];
+  v51 = a2;
   v7 = a3;
   v8 = [v7 objectID];
   v9 = a1[4];
@@ -618,31 +654,31 @@ void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performA
 
     if (v14)
     {
-      v48 = v12;
-      v49 = v8;
-      v51 = a1;
-      v54 = 0u;
+      v49 = v12;
+      v50 = v8;
+      v52 = a1;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
+      v54 = 0u;
       v15 = [v7 asset];
       v16 = [v15 modernResources];
 
-      v17 = [v16 countByEnumeratingWithState:&v52 objects:v92 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v53 objects:v93 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v53;
+        v19 = *v54;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v53 != v19)
+            if (*v54 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v52 + 1) + 8 * i);
+            v21 = *(*(&v53 + 1) + 8 * i);
             v22 = [v21 objectID];
             v23 = [v7 objectID];
             v24 = [v22 isEqual:v23];
@@ -666,92 +702,101 @@ void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performA
                     v31 = PLMigrationGetLog();
                     v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
 
-                    v33 = v51;
+                    v33 = v52;
                     if (v32)
                     {
-                      v34 = [v51[4] logger];
+                      v34 = [v52[4] logger];
 
                       if (v34)
                       {
-                        v90 = 0u;
                         v91 = 0u;
-                        v88 = 0u;
+                        v92 = 0u;
                         v89 = 0u;
-                        v86 = 0u;
+                        v90 = 0u;
                         v87 = 0u;
-                        v84 = 0u;
+                        v88 = 0u;
                         v85 = 0u;
-                        v82 = 0u;
+                        v86 = 0u;
                         v83 = 0u;
-                        v80 = 0u;
+                        v84 = 0u;
                         v81 = 0u;
-                        v78 = 0u;
+                        v82 = 0u;
                         v79 = 0u;
-                        v76 = 0u;
+                        v80 = 0u;
                         v77 = 0u;
-                        v74 = 0u;
+                        v78 = 0u;
                         v75 = 0u;
-                        v72 = 0u;
+                        v76 = 0u;
                         v73 = 0u;
-                        v70 = 0u;
+                        v74 = 0u;
                         v71 = 0u;
-                        v68 = 0u;
+                        v72 = 0u;
                         v69 = 0u;
-                        v66 = 0u;
+                        v70 = 0u;
                         v67 = 0u;
-                        v64 = 0u;
+                        v68 = 0u;
                         v65 = 0u;
-                        v62 = 0u;
+                        v66 = 0u;
                         v63 = 0u;
+                        v64 = 0u;
                         memset(buf, 0, sizeof(buf));
                         v35 = PLMigrationGetLog();
-                        os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-                        v36 = [v7 objectID];
-                        v37 = [v21 objectID];
-                        v57 = 138543618;
-                        v58 = v36;
-                        v59 = 2114;
-                        v60 = v37;
-                        LODWORD(v47) = 22;
-                        v38 = _os_log_send_and_compose_impl();
-
-                        v39 = [v51[4] logger];
-                        [v39 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{956, 0}];
-
-                        v33 = v51;
-                        if (v38 != buf)
+                        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                         {
-                          free(v38);
+                          v36 = 3;
+                        }
+
+                        else
+                        {
+                          v36 = 2;
+                        }
+
+                        v37 = [v7 objectID];
+                        v38 = [v21 objectID];
+                        v58 = 138543618;
+                        v59 = v37;
+                        v60 = 2114;
+                        v61 = v38;
+                        LODWORD(v48) = 22;
+                        v39 = _os_log_send_and_compose_impl(v36, 0, buf, 512, &dword_19BF1F000, v35, 0, "Deleting resource: %{public}@ as it duplicates another resource with an optimized version of the same UTI (%{public}@)", &v58, v48);
+
+                        v40 = [v52[4] logger];
+                        [v40 logWithMessage:v39 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{956, 0}];
+
+                        v33 = v52;
+                        if (v39 != buf)
+                        {
+                          free(v39);
                         }
                       }
 
                       else
                       {
-                        v40 = PLMigrationGetLog();
-                        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                        v41 = PLMigrationGetLog();
+                        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                         {
-                          v41 = [v7 objectID];
-                          v42 = [v21 objectID];
+                          v42 = [v7 objectID];
+                          v43 = [v21 objectID];
                           *buf = 138543618;
-                          *&buf[4] = v41;
+                          *&buf[4] = v42;
                           *&buf[12] = 2114;
-                          *&buf[14] = v42;
-                          _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_DEFAULT, "Deleting resource: %{public}@ as it duplicates another resource with an optimized version of the same UTI (%{public}@)", buf, 0x16u);
+                          *&buf[14] = v43;
+                          _os_log_impl(&dword_19BF1F000, v41, OS_LOG_TYPE_DEFAULT, "Deleting resource: %{public}@ as it duplicates another resource with an optimized version of the same UTI (%{public}@)", buf, 0x16u);
                         }
 
-                        v33 = v51;
+                        v33 = v52;
                       }
                     }
 
-                    [v50 deleteObject:v7];
+                    [v51 deleteObject:v7];
                     ++*(*(v33[7] + 8) + 24);
-                    v43 = [v7 asset];
-                    v44 = PLCanIncludeResourceInHints(v7, v43);
+                    v44 = [v7 asset];
+                    v45 = PLCanIncludeResourceInHints(v7, v44);
 
-                    if (v44)
+                    if (v45)
                     {
-                      v45 = [v7 asset];
-                      [v45 recalculateImageRequestHints];
+                      v46 = [v7 asset];
+                      [v46 recalculateImageRequestHints];
                     }
                   }
                 }
@@ -759,25 +804,25 @@ void __107__PLModelMigrationAction_dedupeResourcesWithSimilarCompactUTI_performA
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v52 objects:v92 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v53 objects:v93 count:16];
         }
 
         while (v18);
       }
 
-      v12 = v48;
-      v8 = v49;
-      a1 = v51;
+      v12 = v49;
+      v8 = v50;
+      a1 = v52;
     }
 
-    v46 = *(*(a1[8] + 8) + 40);
-    [v46 setCompletedUnitCount:{objc_msgSend(v46, "completedUnitCount") + 1}];
+    v47 = *(*(a1[8] + 8) + 40);
+    [v47 setCompletedUnitCount:{objc_msgSend(v47, "completedUnitCount") + 1}];
   }
 }
 
 void __91__PLModelMigrationAction_DrawAssetPersonEdges_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -814,181 +859,197 @@ void __91__PLModelMigrationAction_DrawAssetPersonEdges_performActionWithManagedO
     }
 
     v16 = *(*(a1[8] + 8) + 40);
-    [v16 setCompletedUnitCount:{objc_msgSend(v16, "completedUnitCount") + objc_msgSend(v6, "count")}];
+    [v16 setCompletedUnitCount:{objc_msgSend(v16, "completedUnitCount") + objc_msgSend_count(v6)}];
   }
 }
 
 void __91__PLModelMigrationAction_DrawAssetPersonEdges_performActionWithManagedObjectContext_error___block_invoke_376(uint64_t a1)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) managedObjectContext];
-  v25 = 0;
-  v3 = [PLSocialGroup runAssetContainmentOnAllSocialGroupsInContext:v2 error:&v25];
-  v4 = v25;
+  v26 = 0;
+  v3 = [PLSocialGroup runAssetContainmentOnAllSocialGroupsInContext:v2 error:&v26];
+  v4 = v26;
 
   v5 = PLMigrationGetLog();
   v6 = v5;
-  if (v3)
+  if (!v3)
   {
-    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v17 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-    if (!v7)
+    if (!v17)
     {
-      goto LABEL_16;
+      goto LABEL_22;
     }
 
-    v8 = [*(a1 + 40) logger];
+    v18 = [*(a1 + 40) logger];
 
-    if (v8)
+    if (v18)
     {
-      v58 = 0u;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
-      v48 = 0u;
+      v52 = 0u;
       v49 = 0u;
-      v46 = 0u;
+      v50 = 0u;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v35 = 0u;
-      v33 = 0u;
+      v38 = 0u;
+      v36 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
-      v29 = 0u;
+      v33 = 0u;
       v30 = 0u;
+      v31 = 0u;
       *buf = 0u;
-      v9 = PLMigrationGetLog();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v26) = 0;
-      LODWORD(v24) = 2;
-      v10 = _os_log_send_and_compose_impl();
+      v19 = PLMigrationGetLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = 3;
+      }
 
-      v11 = [*(a1 + 40) logger];
-      v12 = v11;
-      v13 = v10;
-      v14 = 1038;
-      v15 = 0;
-      goto LABEL_8;
-    }
+      else
+      {
+        v20 = 2;
+      }
 
-    v19 = PLMigrationGetLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      v20 = "Successfully ran asset containment on all groups in library";
-      v21 = v19;
-      v22 = OS_LOG_TYPE_DEFAULT;
-      v23 = 2;
-LABEL_14:
-      _os_log_impl(&dword_19BF1F000, v21, v22, v20, buf, v23);
-      goto LABEL_15;
-    }
+      v27 = 138412290;
+      v28 = v4;
+      v11 = _os_log_send_and_compose_impl(v20, 0, buf, 512, &dword_19BF1F000, v19, 16, "Failed to update containment for all groups with error: %@", &v27, 12);
 
-    goto LABEL_15;
-  }
-
-  v16 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-
-  if (!v16)
-  {
-    goto LABEL_16;
-  }
-
-  v17 = [*(a1 + 40) logger];
-
-  if (!v17)
-  {
-    v19 = PLMigrationGetLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      *&buf[4] = v4;
-      v20 = "Failed to update containment for all groups with error: %@";
-      v21 = v19;
-      v22 = OS_LOG_TYPE_ERROR;
-      v23 = 12;
+      v12 = [*(a1 + 40) logger];
+      v13 = v12;
+      v14 = v11;
+      v15 = 1036;
+      v16 = 16;
       goto LABEL_14;
     }
 
-LABEL_15:
+    v21 = PLMigrationGetLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      *&buf[4] = v4;
+      v22 = "Failed to update containment for all groups with error: %@";
+      v23 = v21;
+      v24 = OS_LOG_TYPE_ERROR;
+      v25 = 12;
+      goto LABEL_20;
+    }
 
-    goto LABEL_16;
+LABEL_21:
+
+    goto LABEL_22;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v35 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  *buf = 0u;
-  v18 = PLMigrationGetLog();
-  os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
-  v26 = 138412290;
-  v27 = v4;
-  LODWORD(v24) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  v11 = [*(a1 + 40) logger];
-  v12 = v11;
-  v13 = v10;
-  v14 = 1036;
-  v15 = 16;
-LABEL_8:
-  [v11 logWithMessage:v13 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{v14, v15}];
-
-  if (v10 != buf)
+  if (!v7)
   {
-    free(v10);
+    goto LABEL_22;
   }
 
-LABEL_16:
+  v8 = [*(a1 + 40) logger];
+
+  if (!v8)
+  {
+    v21 = PLMigrationGetLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      v22 = "Successfully ran asset containment on all groups in library";
+      v23 = v21;
+      v24 = OS_LOG_TYPE_DEFAULT;
+      v25 = 2;
+LABEL_20:
+      _os_log_impl(&dword_19BF1F000, v23, v24, v22, buf, v25);
+      goto LABEL_21;
+    }
+
+    goto LABEL_21;
+  }
+
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v36 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  *buf = 0u;
+  v9 = PLMigrationGetLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 3;
+  }
+
+  else
+  {
+    v10 = 2;
+  }
+
+  LOWORD(v27) = 0;
+  v11 = _os_log_send_and_compose_impl(v10, 0, buf, 512, &dword_19BF1F000, v9, 0, "Successfully ran asset containment on all groups in library", &v27, 2);
+
+  v12 = [*(a1 + 40) logger];
+  v13 = v12;
+  v14 = v11;
+  v15 = 1038;
+  v16 = 0;
+LABEL_14:
+  [v12 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{v15, v16}];
+
+  if (v11 != buf)
+  {
+    free(v11);
+  }
+
+LABEL_22:
 }
 
 void __98__PLModelMigrationAction_UpdateAssetAdjustmentsState_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -1051,7 +1112,7 @@ void __93__PLModelMigrationAction_UpdateAssetAdjustmentsState_isResetAfterRebuil
 
 void __101__PLModelMigrationAction_setInitialIsRecentlySavedValue_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -1083,7 +1144,7 @@ void __101__PLModelMigrationAction_setInitialIsRecentlySavedValue_performActionW
 
 void __122__PLModelMigrationAction_setInitialhasPeopleSceneMidOrGreaterConfidenceValue_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -1141,7 +1202,7 @@ void __102__PLModelMigrationAction_AddMissingAdjustedMediaMetadata_performAction
 
 uint64_t __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = MEMORY[0x1E695D5E0];
   v7 = +[PLGraphEdge entityName];
@@ -1150,32 +1211,32 @@ uint64_t __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNode
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"targetNode", v5];
   [v8 setPredicate:v9];
 
-  v41[0] = @"targetNode";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
+  v42[0] = @"targetNode";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
   [v8 setRelationshipKeyPathsForPrefetching:v10];
 
   v11 = [*(a1 + 32) executeFetchRequest:v8 error:a3];
   if (v11)
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_466;
-    v34[3] = &unk_1E7564AE8;
-    v35 = v12;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_466;
+    v35[3] = &unk_1E7564AE8;
+    v36 = v12;
     v13 = v12;
-    [v11 enumerateObjectsUsingBlock:v34];
+    [v11 enumerateObjectsUsingBlock:v35];
     v14 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:v5];
     [v14 minusSet:v13];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_2;
-    v31[3] = &unk_1E7564B10;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_2;
+    v32[3] = &unk_1E7564B10;
     v15 = *(a1 + 32);
     v16 = *(a1 + 56);
-    v32 = v15;
-    v33 = v16;
-    [v14 enumerateObjectsUsingBlock:v31];
+    v33 = v15;
+    v34 = v16;
+    [v14 enumerateObjectsUsingBlock:v32];
 
     v17 = 1;
   }
@@ -1193,37 +1254,46 @@ uint64_t __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNode
       {
         memset(buf, 0, sizeof(buf));
         v21 = PLMigrationGetLog();
-        os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        v22 = *(a1 + 48);
-        v23 = *a3;
-        v36 = 138543618;
-        v37 = v22;
-        v38 = 2112;
-        v39 = v23;
-        LODWORD(v30) = 22;
-        v24 = _os_log_send_and_compose_impl();
-
-        v25 = [*(a1 + 40) logger];
-        [v25 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1436, 16}];
-
-        if (v24 != buf)
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          free(v24);
+          v22 = 3;
+        }
+
+        else
+        {
+          v22 = 2;
+        }
+
+        v23 = *(a1 + 48);
+        v24 = *a3;
+        v37 = 138543618;
+        v38 = v23;
+        v39 = 2112;
+        v40 = v24;
+        LODWORD(v31) = 22;
+        v25 = _os_log_send_and_compose_impl(v22, 0, buf, 512, &dword_19BF1F000, v21, 16, "Failed to fetch edges for %{public}@. Error: %@", &v37, v31);
+
+        v26 = [*(a1 + 40) logger];
+        [v26 logWithMessage:v25 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1436, 16}];
+
+        if (v25 != buf)
+        {
+          free(v25);
         }
       }
 
       else
       {
-        v26 = PLMigrationGetLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v27 = PLMigrationGetLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v27 = *(a1 + 48);
-          v28 = *a3;
+          v28 = *(a1 + 48);
+          v29 = *a3;
           LODWORD(buf[0]) = 138543618;
-          *(buf + 4) = v27;
+          *(buf + 4) = v28;
           WORD6(buf[0]) = 2112;
-          *(buf + 14) = v28;
-          _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "Failed to fetch edges for %{public}@. Error: %@", buf, 0x16u);
+          *(buf + 14) = v29;
+          _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_ERROR, "Failed to fetch edges for %{public}@. Error: %@", buf, 0x16u);
         }
       }
     }
@@ -1247,7 +1317,7 @@ void __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_pe
   }
 }
 
-uint64_t __113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__113__PLModelMigrationAction_RemoveOrphanGeneratedAssetDescriptionNodes_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) deleteObject:a2];
   ++*(*(*(a1 + 40) + 8) + 24);
@@ -1289,7 +1359,7 @@ void __130__PLModelMigrationAction_AddDuplicateBackgroundJobItems__convertToPLMa
 {
   v57 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [v3 entity];
+  v4 = objc_msgSend_entity(v3);
   v5 = [v4 isEqual:*(a1 + 32)];
 
   if (v5)
@@ -1300,7 +1370,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v7 = [v3 entity];
+  v7 = objc_msgSend_entity(v3);
   v8 = [v7 isEqual:*(a1 + 48)];
 
   if (v8)
@@ -1309,7 +1379,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v9 = [v3 entity];
+  v9 = objc_msgSend_entity(v3);
   v10 = [v9 isEqual:*(a1 + 64)];
 
   if (v10)
@@ -1360,33 +1430,41 @@ LABEL_7:
       *buf = 0u;
       v26 = 0u;
       v14 = PLMigrationGetLog();
-      os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-      v15 = [v3 entity];
-      v16 = [v15 name];
-      v23 = 138543362;
-      v24 = v16;
-      LODWORD(v22) = 12;
-      v17 = _os_log_send_and_compose_impl();
-
-      v18 = [*(a1 + 80) logger];
-      [v18 logWithMessage:v17 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1811, 16}];
-
-      if (v17 != buf)
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        free(v17);
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v16 = objc_msgSend_entity(v3);
+      v17 = [v16 name];
+      v23 = 138543362;
+      v24 = v17;
+      v18 = _os_log_send_and_compose_impl(v15, 0, buf, 512, &dword_19BF1F000, v14, 16, "Unexpected entity type for limited selection: %{public}@", &v23, 12);
+
+      v19 = [*(a1 + 80) logger];
+      [v19 logWithMessage:v18 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1811, 16}];
+
+      if (v18 != buf)
+      {
+        free(v18);
       }
     }
 
     else
     {
-      v19 = PLMigrationGetLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = PLMigrationGetLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v20 = [v3 entity];
-        v21 = [v20 name];
+        v21 = objc_msgSend_entity(v3);
+        v22 = [v21 name];
         *buf = 138543362;
-        *&buf[4] = v21;
-        _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_ERROR, "Unexpected entity type for limited selection: %{public}@", buf, 0xCu);
+        *&buf[4] = v22;
+        _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_ERROR, "Unexpected entity type for limited selection: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -1435,9 +1513,9 @@ void __112__PLModelMigrationAction_AddDuplicateBackgroundJobItems__processTransa
 
   HIDWORD(v13) = -1030792151 * *(*(*(a1 + 72) + 8) + 24) + 85899344;
   LODWORD(v13) = HIDWORD(v13);
-  if ((v13 >> 3) < 0x147AE15 || [*(a1 + 56) count] >= 0x3E9)
+  if ((v13 >> 3) < 0x147AE15 || objc_msgSend_count(*(a1 + 56)) >= 0x3E9)
   {
-    if ([*(a1 + 56) count])
+    if (objc_msgSend_count(*(a1 + 56)))
     {
       v14 = *(a1 + 32);
       v15 = *(a1 + 56);
@@ -1518,7 +1596,7 @@ void __110__PLModelMigrationAction_PrepareSharedAssetContainerUpdateWorker_perfo
 
         v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 changedObjectID];
-        v12 = [v11 entity];
+        v12 = objc_msgSend_entity(v11);
         if ([v12 isEqual:*(a1 + 32)] && objc_msgSend(v10, "changeType") == 1)
         {
           v13 = [v10 updatedProperties];
@@ -1541,7 +1619,7 @@ void __110__PLModelMigrationAction_PrepareSharedAssetContainerUpdateWorker_perfo
     while (v7);
   }
 
-  if ([*(a1 + 48) count] > 0x3E7 || *(*(*(a1 + 72) + 8) + 24) >= 10000)
+  if (objc_msgSend_count(*(a1 + 48)) > 0x3E7 || *(*(*(a1 + 72) + 8) + 24) >= 10000)
   {
     *a3 = 1;
   }
@@ -1569,7 +1647,7 @@ void __92__PLModelMigrationAction_AddCloudFeedEntryUUID_performActionWithManaged
 
 void __62__PLModelMigrationAction_DropManualIndexes__dropManualIndexes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP INDEX IF EXISTS %@", a2];;
   v4 = PLMigrationGetLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -1580,62 +1658,71 @@ void __62__PLModelMigrationAction_DropManualIndexes__dropManualIndexes__block_in
 
     if (v6)
     {
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       *buf = 0u;
-      v15 = 0u;
+      v16 = 0u;
       v7 = PLMigrationGetLog();
-      os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      v12 = 138543362;
-      v13 = v3;
-      LODWORD(v11) = 12;
-      v8 = _os_log_send_and_compose_impl();
-
-      v9 = [*(a1 + 32) logger];
-      [v9 logWithMessage:v8 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{526, 0}];
-
-      if (v8 != buf)
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        free(v8);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v13 = 138543362;
+      v14 = v3;
+      v12 = 12;
+      v9 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v7, 0, "Executing statement with sql text '%{public}@'", &v13, v12);
+
+      v10 = [*(a1 + 32) logger];
+      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{526, 0}];
+
+      if (v9 != buf)
+      {
+        free(v9);
       }
     }
 
     else
     {
-      v10 = PLMigrationGetLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         *&buf[4] = v3;
-        _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_DEFAULT, "Executing statement with sql text '%{public}@'", buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "Executing statement with sql text '%{public}@'", buf, 0xCu);
       }
     }
   }
@@ -1661,7 +1748,7 @@ id __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_perfor
 
 void __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -1941,29 +2028,37 @@ LABEL_4:
       *buf = 0u;
       v18 = 0u;
       v10 = PLMigrationGetLog();
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
       v15 = 138412290;
       v16 = v3;
-      LODWORD(v14) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v11, 0, buf, 512, &dword_19BF1F000, v10, 16, "Failed to set contributor for asset %@ due to missing participant", &v15, 12);
 
-      v12 = [*(a1 + 64) logger];
-      [v12 logWithMessage:v11 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{257, 16}];
+      v13 = [*(a1 + 64) logger];
+      [v13 logWithMessage:v12 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{257, 16}];
 
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
 
     else
     {
-      v13 = PLMigrationGetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PLMigrationGetLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v3;
-        _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_ERROR, "Failed to set contributor for asset %@ due to missing participant", buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_ERROR, "Failed to set contributor for asset %@ due to missing participant", buf, 0xCu);
       }
     }
   }
@@ -2060,121 +2155,121 @@ LABEL_7:
 
 void __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateEdgesToNativelyModeledObjectsWithError_context___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v178 = *MEMORY[0x1E69E9840];
+  v180 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v95 = v5;
-  v94 = [PLGraphLabel fetchBuiltInLabelWithCode:2000 inContext:v5];
-  v96 = [MEMORY[0x1E695DF90] dictionary];
-  v106 = [MEMORY[0x1E695DFA8] set];
-  v105 = [MEMORY[0x1E695DFA8] set];
+  v97 = v5;
+  v96 = [PLGraphLabel fetchBuiltInLabelWithCode:2000 inContext:v5];
+  v98 = [MEMORY[0x1E695DF90] dictionary];
+  v108 = [MEMORY[0x1E695DFA8] set];
+  v107 = [MEMORY[0x1E695DFA8] set];
   v7 = [MEMORY[0x1E695DFA8] set];
-  v132 = 0u;
-  v133 = 0u;
   v134 = 0u;
   v135 = 0u;
+  v136 = 0u;
+  v137 = 0u;
   obj = v6;
-  v101 = [obj countByEnumeratingWithState:&v132 objects:v177 count:16];
-  if (v101)
+  v103 = [obj countByEnumeratingWithState:&v134 objects:v179 count:16];
+  if (v103)
   {
-    v99 = *v133;
+    v101 = *v135;
     do
     {
       v8 = 0;
       do
       {
-        if (*v133 != v99)
+        if (*v135 != v101)
         {
           objc_enumerationMutation(obj);
         }
 
-        v103 = v8;
-        v9 = *(*(&v132 + 1) + 8 * v8);
-        v128 = 0u;
-        v129 = 0u;
+        v105 = v8;
+        v9 = *(*(&v134 + 1) + 8 * v8);
         v130 = 0u;
         v131 = 0u;
-        v10 = [&unk_1F0FBF598 countByEnumeratingWithState:&v128 objects:v176 count:16];
+        v132 = 0u;
+        v133 = 0u;
+        v10 = [&unk_1F0FBF598 countByEnumeratingWithState:&v130 objects:v178 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v129;
+          v12 = *v131;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v129 != v12)
+              if (*v131 != v12)
               {
                 objc_enumerationMutation(&unk_1F0FBF598);
               }
 
-              v14 = [v9 valueForKey:*(*(&v128 + 1) + 8 * i)];
+              v14 = [v9 valueForKey:*(*(&v130 + 1) + 8 * i)];
               v15 = [v14 objectID];
 
               if (v15)
               {
-                [v106 addObject:v15];
+                [v108 addObject:v15];
               }
             }
 
-            v11 = [&unk_1F0FBF598 countByEnumeratingWithState:&v128 objects:v176 count:16];
+            v11 = [&unk_1F0FBF598 countByEnumeratingWithState:&v130 objects:v178 count:16];
           }
 
           while (v11);
         }
 
+        v128 = 0u;
+        v129 = 0u;
         v126 = 0u;
         v127 = 0u;
-        v124 = 0u;
-        v125 = 0u;
-        v16 = [&unk_1F0FBF5B0 countByEnumeratingWithState:&v124 objects:v175 count:16];
+        v16 = [&unk_1F0FBF5B0 countByEnumeratingWithState:&v126 objects:v177 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v125;
+          v18 = *v127;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v125 != v18)
+              if (*v127 != v18)
               {
                 objc_enumerationMutation(&unk_1F0FBF5B0);
               }
 
-              v20 = [v9 valueForKey:*(*(&v124 + 1) + 8 * j)];
+              v20 = [v9 valueForKey:*(*(&v126 + 1) + 8 * j)];
               v21 = [v20 objectID];
 
               if (v21)
               {
-                [v105 addObject:v21];
+                [v107 addObject:v21];
               }
             }
 
-            v17 = [&unk_1F0FBF5B0 countByEnumeratingWithState:&v124 objects:v175 count:16];
+            v17 = [&unk_1F0FBF5B0 countByEnumeratingWithState:&v126 objects:v177 count:16];
           }
 
           while (v17);
         }
 
+        v124 = 0u;
+        v125 = 0u;
         v122 = 0u;
         v123 = 0u;
-        v120 = 0u;
-        v121 = 0u;
-        v22 = [&unk_1F0FBF5C8 countByEnumeratingWithState:&v120 objects:v174 count:16];
+        v22 = [&unk_1F0FBF5C8 countByEnumeratingWithState:&v122 objects:v176 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v121;
+          v24 = *v123;
           do
           {
             for (k = 0; k != v23; ++k)
             {
-              if (*v121 != v24)
+              if (*v123 != v24)
               {
                 objc_enumerationMutation(&unk_1F0FBF5C8);
               }
 
-              v26 = [v9 valueForKey:*(*(&v120 + 1) + 8 * k)];
+              v26 = [v9 valueForKey:*(*(&v122 + 1) + 8 * k)];
               v27 = [v26 objectID];
 
               if (v27)
@@ -2183,78 +2278,78 @@ void __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateE
               }
             }
 
-            v23 = [&unk_1F0FBF5C8 countByEnumeratingWithState:&v120 objects:v174 count:16];
+            v23 = [&unk_1F0FBF5C8 countByEnumeratingWithState:&v122 objects:v176 count:16];
           }
 
           while (v23);
         }
 
-        v8 = v103 + 1;
+        v8 = v105 + 1;
       }
 
-      while ((v103 + 1) != v101);
-      v101 = [obj countByEnumeratingWithState:&v132 objects:v177 count:16];
+      while ((v105 + 1) != v103);
+      v103 = [obj countByEnumeratingWithState:&v134 objects:v179 count:16];
     }
 
-    while (v101);
+    while (v103);
   }
 
   v28 = +[PLGraphNode fetchRequest];
-  v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"primaryLabelCode = %d AND (actingAsset IN %@ OR actingPerson IN %@ or actingMoment IN %@)", 2000, v106, v105, v7];
+  v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"primaryLabelCode = %d AND (actingAsset IN %@ OR actingPerson IN %@ or actingMoment IN %@)", 2000, v108, v107, v7];
   [v28 setPredicate:v29];
 
-  v119 = 0;
-  v30 = [v5 executeFetchRequest:v28 error:&v119];
-  v31 = v119;
+  v121 = 0;
+  v30 = [v5 executeFetchRequest:v28 error:&v121];
+  v31 = v121;
   v32 = v31;
   if (v30)
   {
-    v91 = v31;
-    v92 = v30;
-    v100 = v28;
+    v93 = v31;
+    v94 = v30;
+    v102 = v28;
+    v119 = 0u;
+    v120 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v115 = 0u;
-    v116 = 0u;
-    v102 = v30;
-    v33 = [v102 countByEnumeratingWithState:&v115 objects:v138 count:16];
-    v34 = v96;
+    v104 = v30;
+    v33 = [v104 countByEnumeratingWithState:&v117 objects:v140 count:16];
+    v34 = v98;
     if (v33)
     {
       v35 = v33;
-      v104 = *v116;
+      v106 = *v118;
       while (1)
       {
         v36 = 0;
 LABEL_39:
-        if (*v116 != v104)
+        if (*v118 != v106)
         {
-          objc_enumerationMutation(v102);
+          objc_enumerationMutation(v104);
         }
 
-        v37 = *(*(&v115 + 1) + 8 * v36);
-        v111 = 0u;
-        v112 = 0u;
+        v37 = *(*(&v117 + 1) + 8 * v36);
         v113 = 0u;
         v114 = 0u;
-        v38 = [&unk_1F0FBF5E0 countByEnumeratingWithState:&v111 objects:v137 count:16];
+        v115 = 0u;
+        v116 = 0u;
+        v38 = [&unk_1F0FBF5E0 countByEnumeratingWithState:&v113 objects:v139 count:16];
         if (!v38)
         {
           break;
         }
 
         v39 = v38;
-        v40 = *v112;
+        v40 = *v114;
 LABEL_43:
         v41 = 0;
         while (1)
         {
-          if (*v112 != v40)
+          if (*v114 != v40)
           {
             objc_enumerationMutation(&unk_1F0FBF5E0);
           }
 
-          v42 = [v37 valueForKey:*(*(&v111 + 1) + 8 * v41)];
+          v42 = [v37 valueForKey:*(*(&v113 + 1) + 8 * v41)];
           v43 = [v42 objectID];
 
           if (v43)
@@ -2264,7 +2359,7 @@ LABEL_43:
 
           if (v39 == ++v41)
           {
-            v39 = [&unk_1F0FBF5E0 countByEnumeratingWithState:&v111 objects:v137 count:16];
+            v39 = [&unk_1F0FBF5E0 countByEnumeratingWithState:&v113 objects:v139 count:16];
             if (v39)
             {
               goto LABEL_43;
@@ -2274,15 +2369,15 @@ LABEL_43:
           }
         }
 
-        v34 = v96;
-        [v96 setObject:v37 forKeyedSubscript:v43];
+        v34 = v98;
+        [v98 setObject:v37 forKeyedSubscript:v43];
 
         if (++v36 != v35)
         {
           goto LABEL_39;
         }
 
-        v35 = [v102 countByEnumeratingWithState:&v115 objects:v138 count:16];
+        v35 = [v104 countByEnumeratingWithState:&v117 objects:v140 count:16];
         if (!v35)
         {
           goto LABEL_52;
@@ -2293,15 +2388,17 @@ LABEL_66:
       v68 = PLMigrationGetLog();
       v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
 
-      v46 = v94;
-      v34 = v96;
-      v30 = v92;
+      v46 = v96;
+      v34 = v98;
+      v30 = v94;
       if (v69)
       {
         v70 = [*(a1 + 32) logger];
 
         if (v70)
         {
+          v175 = 0u;
+          v174 = 0u;
           v173 = 0u;
           v172 = 0u;
           v171 = 0u;
@@ -2330,33 +2427,40 @@ LABEL_66:
           v148 = 0u;
           v147 = 0u;
           v146 = 0u;
-          v145 = 0u;
-          v144 = 0u;
           memset(buf, 0, sizeof(buf));
           v71 = PLMigrationGetLog();
-          os_log_type_enabled(v71, OS_LOG_TYPE_ERROR);
-          v139 = 138412290;
-          v140 = v37;
-          LODWORD(v90) = 12;
-          v72 = _os_log_send_and_compose_impl();
-
-          v73 = [*(a1 + 32) logger];
-          [v73 logWithMessage:v72 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1038, 16}];
-
-          if (v72 != buf)
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
-            free(v72);
+            v72 = 3;
+          }
+
+          else
+          {
+            v72 = 2;
+          }
+
+          v141 = 138412290;
+          v142 = v37;
+          LODWORD(v92) = 12;
+          v73 = _os_log_send_and_compose_impl(v72, 0, buf, 512, &dword_19BF1F000, v71, 16, "RelocateEdgesAndNormalizeNodeValues: migrating edges: failed to identify actorObject for actorNode: %@", &v141, v92);
+
+          v74 = [*(a1 + 32) logger];
+          [v74 logWithMessage:v73 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1038, 16}];
+
+          if (v73 != buf)
+          {
+            free(v73);
           }
         }
 
         else
         {
-          v85 = PLMigrationGetLog();
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          v87 = PLMigrationGetLog();
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             *&buf[4] = v37;
-            _os_log_impl(&dword_19BF1F000, v85, OS_LOG_TYPE_ERROR, "RelocateEdgesAndNormalizeNodeValues: migrating edges: failed to identify actorObject for actorNode: %@", buf, 0xCu);
+            _os_log_impl(&dword_19BF1F000, v87, OS_LOG_TYPE_ERROR, "RelocateEdgesAndNormalizeNodeValues: migrating edges: failed to identify actorObject for actorNode: %@", buf, 0xCu);
           }
         }
       }
@@ -2364,50 +2468,50 @@ LABEL_66:
       *(*(*(a1 + 40) + 8) + 24) = 0;
       *a4 = 1;
 
-      v28 = v100;
+      v28 = v102;
     }
 
     else
     {
 LABEL_52:
 
+      v111 = 0u;
+      v112 = 0u;
       v109 = 0u;
       v110 = 0u;
-      v107 = 0u;
-      v108 = 0u;
       v44 = obj;
-      v45 = [v44 countByEnumeratingWithState:&v107 objects:v136 count:16];
-      v46 = v94;
+      v45 = [v44 countByEnumeratingWithState:&v109 objects:v138 count:16];
+      v46 = v96;
       v47 = a1;
       if (v45)
       {
         v48 = v45;
-        v49 = *v108;
+        v49 = *v110;
         do
         {
           for (m = 0; m != v48; ++m)
           {
-            if (*v108 != v49)
+            if (*v110 != v49)
             {
               objc_enumerationMutation(v44);
             }
 
-            v51 = *(*(&v107 + 1) + 8 * m);
+            v51 = *(*(&v109 + 1) + 8 * m);
             v52 = [v51 sourceNode];
 
             if (!v52)
             {
               v53 = objc_opt_class();
               v54 = [v51 sourceAsset];
-              [v53 _encloseActor:v54 fromEdge:v51 isSource:1 actorLabel:v94 cache:v34];
+              [v53 _encloseActor:v54 fromEdge:v51 isSource:1 actorLabel:v96 cache:v34];
 
               v55 = objc_opt_class();
               v56 = [v51 sourcePerson];
-              [v55 _encloseActor:v56 fromEdge:v51 isSource:1 actorLabel:v94 cache:v34];
+              [v55 _encloseActor:v56 fromEdge:v51 isSource:1 actorLabel:v96 cache:v34];
 
               v57 = objc_opt_class();
               v58 = [v51 sourceMoment];
-              [v57 _encloseActor:v58 fromEdge:v51 isSource:1 actorLabel:v94 cache:v34];
+              [v57 _encloseActor:v58 fromEdge:v51 isSource:1 actorLabel:v96 cache:v34];
 
               v47 = a1;
             }
@@ -2418,15 +2522,15 @@ LABEL_52:
             {
               v60 = objc_opt_class();
               v61 = [v51 targetAsset];
-              [v60 _encloseActor:v61 fromEdge:v51 isSource:0 actorLabel:v94 cache:v34];
+              [v60 _encloseActor:v61 fromEdge:v51 isSource:0 actorLabel:v96 cache:v34];
 
               v62 = objc_opt_class();
               v63 = [v51 targetPerson];
-              [v62 _encloseActor:v63 fromEdge:v51 isSource:0 actorLabel:v94 cache:v34];
+              [v62 _encloseActor:v63 fromEdge:v51 isSource:0 actorLabel:v96 cache:v34];
 
               v64 = objc_opt_class();
               v65 = [v51 targetMoment];
-              [v64 _encloseActor:v65 fromEdge:v51 isSource:0 actorLabel:v94 cache:v34];
+              [v64 _encloseActor:v65 fromEdge:v51 isSource:0 actorLabel:v96 cache:v34];
 
               v47 = a1;
             }
@@ -2434,7 +2538,7 @@ LABEL_52:
             ++*(*(*(v47 + 48) + 8) + 24);
           }
 
-          v48 = [v44 countByEnumeratingWithState:&v107 objects:v136 count:16];
+          v48 = [v44 countByEnumeratingWithState:&v109 objects:v138 count:16];
         }
 
         while (v48);
@@ -2449,26 +2553,28 @@ LABEL_52:
         _os_log_impl(&dword_19BF1F000, v66, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating edges: %ld items processed...", buf, 0xCu);
       }
 
-      v28 = v100;
-      v30 = v92;
+      v28 = v102;
+      v30 = v94;
     }
 
-    v32 = v91;
+    v32 = v93;
   }
 
   else
   {
-    v74 = PLMigrationGetLog();
-    v75 = os_log_type_enabled(v74, OS_LOG_TYPE_ERROR);
+    v75 = PLMigrationGetLog();
+    v76 = os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
 
-    v46 = v94;
-    v34 = v96;
-    if (v75)
+    v46 = v96;
+    v34 = v98;
+    if (v76)
     {
-      v76 = [*(a1 + 32) logger];
+      v77 = [*(a1 + 32) logger];
 
-      if (v76)
+      if (v77)
       {
+        v175 = 0u;
+        v174 = 0u;
         v173 = 0u;
         v172 = 0u;
         v171 = 0u;
@@ -2497,53 +2603,60 @@ LABEL_52:
         v148 = 0u;
         v147 = 0u;
         v146 = 0u;
-        v145 = 0u;
-        v144 = 0u;
         memset(buf, 0, sizeof(buf));
-        v77 = PLMigrationGetLog();
-        os_log_type_enabled(v77, OS_LOG_TYPE_ERROR);
-        v78 = objc_opt_class();
-        v79 = NSStringFromClass(v78);
-        v80 = v32;
-        v81 = v79;
-        v139 = 138543618;
-        v140 = v79;
-        v141 = 2112;
-        v82 = v80;
-        v142 = v80;
-        LODWORD(v90) = 22;
-        v83 = _os_log_send_and_compose_impl();
-
-        v84 = [*(a1 + 32) logger];
-        [v84 logWithMessage:v83 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1019, 16}];
-
-        if (v83 != buf)
+        v78 = PLMigrationGetLog();
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
         {
-          free(v83);
+          v79 = 3;
         }
 
-        v34 = v96;
-        v32 = v82;
+        else
+        {
+          v79 = 2;
+        }
+
+        v80 = objc_opt_class();
+        v81 = NSStringFromClass(v80);
+        v82 = v32;
+        v83 = v81;
+        v141 = 138543618;
+        v142 = v81;
+        v143 = 2112;
+        v84 = v82;
+        v144 = v82;
+        LODWORD(v92) = 22;
+        v85 = _os_log_send_and_compose_impl(v79, 0, buf, 512, &dword_19BF1F000, v78, 16, "Failed to perform a fetch operation for %{public}@. Error: %@", &v141, v92);
+
+        v86 = [*(a1 + 32) logger];
+        [v86 logWithMessage:v85 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1019, 16}];
+
+        if (v85 != buf)
+        {
+          free(v85);
+        }
+
+        v34 = v98;
+        v32 = v84;
       }
 
       else
       {
-        v86 = PLMigrationGetLog();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+        v88 = PLMigrationGetLog();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
         {
-          v87 = objc_opt_class();
-          v88 = NSStringFromClass(v87);
+          v89 = objc_opt_class();
+          v90 = NSStringFromClass(v89);
           *buf = 138543618;
-          *&buf[4] = v88;
+          *&buf[4] = v90;
           *&buf[12] = 2112;
           *&buf[14] = v32;
-          _os_log_impl(&dword_19BF1F000, v86, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v88, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %@", buf, 0x16u);
         }
       }
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
-    v89 = v32;
+    v91 = v32;
     **(a1 + 56) = v32;
     *a4 = 1;
   }
@@ -2751,44 +2864,52 @@ void __121__PLModelMigrationAction_SetShareParticipantOnOrphanedCollectionShareA
         v37 = 0u;
         memset(buf, 0, sizeof(buf));
         v13 = PLMigrationGetLog();
-        os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = [v3 uuid];
-        v31 = 138543618;
-        v32 = v15;
-        v33 = 2114;
-        v34 = v16;
-        LODWORD(v30) = 22;
-        v17 = _os_log_send_and_compose_impl();
-
-        v18 = [*(a1 + 32) logger];
-        [v18 logWithMessage:v17 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1460, 0}];
-
-        if (v17 != buf)
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          free(v17);
+          v14 = 3;
+        }
+
+        else
+        {
+          v14 = 2;
+        }
+
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = [v3 uuid];
+        v31 = 138543618;
+        v32 = v16;
+        v33 = 2114;
+        v34 = v17;
+        v18 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "%{public}@: Asset missing collectionShare, uuid: %{public}@", &v31, 22);
+
+        v19 = [*(a1 + 32) logger];
+        [v19 logWithMessage:v18 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1460, 0}];
+
+        if (v18 != buf)
+        {
+          free(v18);
         }
       }
 
       else
       {
-        v26 = PLMigrationGetLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v27 = PLMigrationGetLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = objc_opt_class();
-          v28 = NSStringFromClass(v27);
-          v29 = [v3 uuid];
+          v28 = objc_opt_class();
+          v29 = NSStringFromClass(v28);
+          v30 = [v3 uuid];
           *buf = 138543618;
-          *&buf[4] = v28;
+          *&buf[4] = v29;
           *&buf[12] = 2114;
-          *&buf[14] = v29;
-          _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: Asset missing collectionShare, uuid: %{public}@", buf, 0x16u);
+          *&buf[14] = v30;
+          _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: Asset missing collectionShare, uuid: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    goto LABEL_19;
+    goto LABEL_22;
   }
 
   if ([v3 cloudIsMyAsset])
@@ -2809,49 +2930,49 @@ void __121__PLModelMigrationAction_SetShareParticipantOnOrphanedCollectionShareA
     v9 = [v4 currentUserParticipant];
     if (!v9)
     {
-LABEL_19:
+LABEL_22:
       ++*(*(*(a1 + 40) + 8) + 24);
-      goto LABEL_20;
+      goto LABEL_23;
     }
   }
 
   else
   {
-    v19 = [v3 cloudOwnerHashedPersonID];
+    v20 = [v3 cloudOwnerHashedPersonID];
 
-    if (!v19)
+    if (!v20)
     {
-      goto LABEL_19;
+      goto LABEL_22;
     }
 
-    v20 = PLMigrationGetLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = PLMigrationGetLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      v23 = [v3 cloudOwnerHashedPersonID];
-      v24 = [v3 uuid];
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = [v3 cloudOwnerHashedPersonID];
+      v25 = [v3 uuid];
       *buf = 138543874;
-      *&buf[4] = v22;
+      *&buf[4] = v23;
       *&buf[12] = 2114;
-      *&buf[14] = v23;
+      *&buf[14] = v24;
       *&buf[22] = 2114;
-      *&buf[24] = v24;
-      _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find other participant with hashedPersonID: %{public}@, attempting to set one now. Asset uuid: %{public}@", buf, 0x20u);
+      *&buf[24] = v25;
+      _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find other participant with hashedPersonID: %{public}@, attempting to set one now. Asset uuid: %{public}@", buf, 0x20u);
     }
 
-    v25 = [v3 cloudOwnerHashedPersonID];
-    v9 = [PLShareParticipant participantWithHashedPersonID:v25 inCollectionShare:v4];
+    v26 = [v3 cloudOwnerHashedPersonID];
+    v9 = [PLShareParticipant participantWithHashedPersonID:v26 inCollectionShare:v4];
 
     if (!v9)
     {
-      goto LABEL_19;
+      goto LABEL_22;
     }
   }
 
   [v3 setCollectionShare:v4 withContributor:v9];
 
-LABEL_20:
+LABEL_23:
 }
 
 void __86__PLModelMigrationAction_UpdateAlchemistAssetResourcesUniformTypeIdentifier_recipeIDs__block_invoke(uint64_t a1, uint64_t a2)
@@ -2867,9 +2988,9 @@ void __121__PLModelMigrationAction_UpdateAlchemistAssetResourcesUniformTypeIdent
   v3 = [v7 uniformTypeIdentifier];
   v4 = [v3 identifier];
   v5 = [*MEMORY[0x1E6982D60] identifier];
-  v6 = [v4 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v6)
+  if (isEqualToString)
   {
     [v7 setUniformTypeIdentifier:*(a1 + 32)];
   }
@@ -2885,20 +3006,22 @@ void __107__PLModelMigrationAction_RemoveExcessSocialGroupKeyAssetEdges_performA
 
 void __105__PLModelMigrationAction_SetShareParticipantOnCloudComments_performActionWithManagedObjectContext_error___block_invoke(uint64_t a1, void *a2)
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 collectionShare];
   if (!v4)
   {
-    v16 = PLMigrationGetLog();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v17 = PLMigrationGetLog();
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v17)
+    if (v18)
     {
-      v18 = [*(a1 + 32) logger];
+      v19 = [*(a1 + 32) logger];
 
-      if (v18)
+      if (v19)
       {
+        v89 = 0u;
+        v90 = 0u;
         v87 = 0u;
         v88 = 0u;
         v85 = 0u;
@@ -2927,48 +3050,54 @@ void __105__PLModelMigrationAction_SetShareParticipantOnCloudComments_performAct
         v64 = 0u;
         v61 = 0u;
         v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
         memset(buf, 0, sizeof(buf));
-        v19 = PLMigrationGetLog();
-        os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
-        v22 = [v3 cloudGUID];
-        v52 = 138543618;
-        v53 = v21;
-        v54 = 2114;
-        v55 = v22;
-        LODWORD(v51) = 22;
-        v23 = _os_log_send_and_compose_impl();
-
-        v24 = [*(a1 + 32) logger];
-        [v24 logWithMessage:v23 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1291, 0}];
-
-        if (v23 != buf)
+        v20 = PLMigrationGetLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          free(v23);
+          v21 = 3;
+        }
+
+        else
+        {
+          v21 = 2;
+        }
+
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        v24 = [v3 cloudGUID];
+        v54 = 138543618;
+        v55 = v23;
+        v56 = 2114;
+        v57 = v24;
+        v25 = _os_log_send_and_compose_impl(v21, 0, buf, 512, &dword_19BF1F000, v20, 0, "%{public}@: CloudSharedComment missing collectionShare, uuid: %{public}@", &v54, 22);
+
+        v26 = [*(a1 + 32) logger];
+        [v26 logWithMessage:v25 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1291, 0}];
+
+        if (v25 != buf)
+        {
+          free(v25);
         }
       }
 
       else
       {
-        v36 = PLMigrationGetLog();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v39 = PLMigrationGetLog();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = objc_opt_class();
-          v38 = NSStringFromClass(v37);
-          v39 = [v3 cloudGUID];
+          v40 = objc_opt_class();
+          v41 = NSStringFromClass(v40);
+          v42 = [v3 cloudGUID];
           *buf = 138543618;
-          *&buf[4] = v38;
+          *&buf[4] = v41;
           *&buf[12] = 2114;
-          *&buf[14] = v39;
-          _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@: CloudSharedComment missing collectionShare, uuid: %{public}@", buf, 0x16u);
+          *&buf[14] = v42;
+          _os_log_impl(&dword_19BF1F000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: CloudSharedComment missing collectionShare, uuid: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    goto LABEL_28;
+    goto LABEL_37;
   }
 
   v5 = [v3 isMyComment];
@@ -2976,19 +3105,21 @@ void __105__PLModelMigrationAction_SetShareParticipantOnCloudComments_performAct
 
   if (!v6)
   {
-    v25 = [v3 commenterHashedPersonID];
+    v27 = [v3 commenterHashedPersonID];
 
-    if (v25)
+    if (v27)
     {
-      v26 = PLMigrationGetLog();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+      v28 = PLMigrationGetLog();
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-      if (v27)
+      if (v29)
       {
-        v28 = [*(a1 + 32) logger];
+        v30 = [*(a1 + 32) logger];
 
-        if (v28)
+        if (v30)
         {
+          v89 = 0u;
+          v90 = 0u;
           v87 = 0u;
           v88 = 0u;
           v85 = 0u;
@@ -3017,65 +3148,71 @@ void __105__PLModelMigrationAction_SetShareParticipantOnCloudComments_performAct
           v64 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v59 = 0u;
-          v60 = 0u;
           memset(buf, 0, sizeof(buf));
-          v29 = PLMigrationGetLog();
-          os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
-          v32 = [v3 commenterHashedPersonID];
-          v33 = [v3 cloudGUID];
-          v52 = 138543874;
-          v53 = v31;
-          v54 = 2114;
-          v55 = v32;
-          v56 = 2114;
-          v57 = v33;
-          LODWORD(v51) = 32;
-          v34 = _os_log_send_and_compose_impl();
-
-          v35 = [*(a1 + 32) logger];
-          [v35 logWithMessage:v34 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1301, 0}];
-
-          if (v34 != buf)
+          v31 = PLMigrationGetLog();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            free(v34);
+            v32 = 3;
+          }
+
+          else
+          {
+            v32 = 2;
+          }
+
+          v33 = objc_opt_class();
+          v34 = NSStringFromClass(v33);
+          v35 = [v3 commenterHashedPersonID];
+          v36 = [v3 cloudGUID];
+          v54 = 138543874;
+          v55 = v34;
+          v56 = 2114;
+          v57 = v35;
+          v58 = 2114;
+          v59 = v36;
+          v37 = _os_log_send_and_compose_impl(v32, 0, buf, 512, &dword_19BF1F000, v31, 0, "%{public}@: could not find participant with hashedPersonID: %{public}@ for CloudSharedComment, uuid: %{public}@", &v54, 32);
+
+          v38 = [*(a1 + 32) logger];
+          [v38 logWithMessage:v37 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1301, 0}];
+
+          if (v37 != buf)
+          {
+            free(v37);
           }
         }
 
         else
         {
-          v45 = PLMigrationGetLog();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v48 = PLMigrationGetLog();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            v46 = objc_opt_class();
-            v47 = NSStringFromClass(v46);
-            v48 = [v3 commenterHashedPersonID];
-            v49 = [v3 cloudGUID];
+            v49 = objc_opt_class();
+            v50 = NSStringFromClass(v49);
+            v51 = [v3 commenterHashedPersonID];
+            v52 = [v3 cloudGUID];
             *buf = 138543874;
-            *&buf[4] = v47;
+            *&buf[4] = v50;
             *&buf[12] = 2114;
-            *&buf[14] = v48;
+            *&buf[14] = v51;
             *&buf[22] = 2114;
-            *&buf[24] = v49;
-            _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find participant with hashedPersonID: %{public}@ for CloudSharedComment, uuid: %{public}@", buf, 0x20u);
+            *&buf[24] = v52;
+            _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find participant with hashedPersonID: %{public}@ for CloudSharedComment, uuid: %{public}@", buf, 0x20u);
           }
         }
       }
 
-      v50 = [v3 commenterHashedPersonID];
-      v44 = [PLShareParticipant participantWithHashedPersonID:v50 inCollectionShare:v4];
+      v53 = [v3 commenterHashedPersonID];
+      v47 = [PLShareParticipant participantWithHashedPersonID:v53 inCollectionShare:v4];
 
-      if (v44)
+      if (v47)
       {
-        goto LABEL_23;
+        goto LABEL_32;
       }
     }
 
-LABEL_28:
+LABEL_37:
     ++*(*(*(a1 + 40) + 8) + 24);
-    goto LABEL_29;
+    goto LABEL_38;
   }
 
   v7 = PLMigrationGetLog();
@@ -3087,6 +3224,8 @@ LABEL_28:
 
     if (v9)
     {
+      v89 = 0u;
+      v90 = 0u;
       v87 = 0u;
       v88 = 0u;
       v85 = 0u;
@@ -3115,58 +3254,64 @@ LABEL_28:
       v64 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v59 = 0u;
-      v60 = 0u;
       memset(buf, 0, sizeof(buf));
       v10 = PLMigrationGetLog();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = [v3 cloudGUID];
-      v52 = 138543618;
-      v53 = v12;
-      v54 = 2114;
-      v55 = v13;
-      LODWORD(v51) = 22;
-      v14 = _os_log_send_and_compose_impl();
-
-      v15 = [*(a1 + 32) logger];
-      [v15 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1297, 0}];
-
-      if (v14 != buf)
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        free(v14);
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = [v3 cloudGUID];
+      v54 = 138543618;
+      v55 = v13;
+      v56 = 2114;
+      v57 = v14;
+      v15 = _os_log_send_and_compose_impl(v11, 0, buf, 512, &dword_19BF1F000, v10, 0, "%{public}@: could not find current participant for CloudSharedComment, uuid: %{public}@", &v54, 22);
+
+      v16 = [*(a1 + 32) logger];
+      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1297, 0}];
+
+      if (v15 != buf)
+      {
+        free(v15);
       }
     }
 
     else
     {
-      v40 = PLMigrationGetLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v43 = PLMigrationGetLog();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
-        v43 = [v3 cloudGUID];
+        v44 = objc_opt_class();
+        v45 = NSStringFromClass(v44);
+        v46 = [v3 cloudGUID];
         *buf = 138543618;
-        *&buf[4] = v42;
+        *&buf[4] = v45;
         *&buf[12] = 2114;
-        *&buf[14] = v43;
-        _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find current participant for CloudSharedComment, uuid: %{public}@", buf, 0x16u);
+        *&buf[14] = v46;
+        _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: could not find current participant for CloudSharedComment, uuid: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v44 = [v4 currentUserParticipant];
-  if (!v44)
+  v47 = [v4 currentUserParticipant];
+  if (!v47)
   {
-    goto LABEL_28;
+    goto LABEL_37;
   }
 
-LABEL_23:
-  [v3 setShareParticipant:v44];
+LABEL_32:
+  [v3 setShareParticipant:v47];
   ++*(*(*(a1 + 48) + 8) + 24);
 
-LABEL_29:
+LABEL_38:
 }
 
 void __133__PLModelMigrationAction_FixMultipleCurrentUserOwnerShareParticipantsOnCollectionShares_performActionWithManagedObjectContext_error___block_invoke(uint64_t a1, void *a2)
@@ -3255,7 +3400,7 @@ void __120__PLModelMigrationAction_DeleteFullSizeRenderVideosForLegacyAdjustedSl
 
 void __105__PLModelMigrationAction_SetStartEndDatesOnCollectionShares_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
+  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -3341,14 +3486,14 @@ void __122__PLModelMigrationAction_RemovePeopleMergeCandidatesForConfidenceCompu
         if (![v11 verifiedType])
         {
           v13 = [v11 mergeCandidates];
-          if ([v13 count] == 1)
+          if (objc_msgSend_count(v13) == 1)
           {
             v14 = [v11 mergeCandidates];
             v15 = [v14 anyObject];
             v16 = [v15 personUUID];
-            v17 = [v33 isEqualToString:v16];
+            isEqualToString = objc_msgSend_isEqualToString_(v33);
 
-            if (v17)
+            if (isEqualToString)
             {
               v18 = PLMigrationGetLog();
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -3374,7 +3519,7 @@ void __122__PLModelMigrationAction_RemovePeopleMergeCandidatesForConfidenceCompu
               [v21 setPersonBuilderState:1];
 
               v22 = [v11 mergeCandidatesWithConfidence];
-              v23 = [v22 count];
+              v23 = objc_msgSend_count(v22);
 
               if (v23)
               {
@@ -3618,7 +3763,7 @@ void __94__PLModelMigrationAction_UnTrashSharedDuplicates_performActionWithManag
   v6 = a2;
   v7 = [v6 master];
   v8 = [v7 objectIDsForRelationshipNamed:@"assets"];
-  v9 = [v8 count];
+  v9 = objc_msgSend_count(v8);
 
   if (v9 >= 2)
   {
@@ -3694,10 +3839,10 @@ void __115__PLModelMigrationAction_UpdateDuplicateProcessingState_processAssetSt
 
 void __101__PLModelMigrationAction_GenerateMemoryStartAndEndDates_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __101__PLModelMigrationAction_GenerateMemoryStartAndEndDates_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -3776,29 +3921,37 @@ id __115__PLModelMigrationAction_moveLocalVersionTokenFromPlistToGlobalValues_pe
         v21 = 0u;
         *buf = 0u;
         v10 = PLMigrationGetLog();
-        os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          v11 = 3;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
         v17 = 138412290;
         v18 = v6;
-        LODWORD(v15) = 12;
-        v11 = _os_log_send_and_compose_impl();
+        v12 = _os_log_send_and_compose_impl(v11, 0, buf, 512, &dword_19BF1F000, v10, 16, "Unable to unarchive token data: %@", &v17, 12);
 
-        v12 = [*(a1 + 40) logger];
-        [v12 logWithMessage:v11 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{274, 16}];
+        v13 = [*(a1 + 40) logger];
+        [v13 logWithMessage:v12 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{274, 16}];
 
-        if (v11 != buf)
+        if (v12 != buf)
         {
-          free(v11);
+          free(v12);
         }
       }
 
       else
       {
-        v13 = PLMigrationGetLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = PLMigrationGetLog();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = v6;
-          _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_ERROR, "Unable to unarchive token data: %@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_ERROR, "Unable to unarchive token data: %@", buf, 0xCu);
         }
       }
     }
@@ -3809,10 +3962,10 @@ id __115__PLModelMigrationAction_moveLocalVersionTokenFromPlistToGlobalValues_pe
 
 void __115__PLModelMigrationAction_MigrateMemoryPendingStateStoryToCreationType_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __115__PLModelMigrationAction_MigrateMemoryPendingStateStoryToCreationType_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -3841,10 +3994,10 @@ void __115__PLModelMigrationAction_MigrateMemoryPendingStateStoryToCreationType_
 
 void __106__PLModelMigrationAction_UpdatePlaybackControlBadgeAttribute_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __106__PLModelMigrationAction_UpdatePlaybackControlBadgeAttribute_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -3862,15 +4015,15 @@ void __106__PLModelMigrationAction_UpdatePlaybackControlBadgeAttribute_performAc
 
 void __98__PLModelMigrationAction_RemoveLabelsFromSyndication_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __98__PLModelMigrationAction_RemoveLabelsFromSyndication_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = *(a1 + 32);
   v8 = *(*(a1 + 48) + 8);
@@ -3880,103 +4033,111 @@ void __98__PLModelMigrationAction_RemoveLabelsFromSyndication_performActionWithM
   if (!v9)
   {
     v10 = *(*(a1 + 48) + 8);
-    v36 = *(v10 + 40);
-    v11 = [v6 removeFromAdditionalLabelsOnAllEdgesWithError:&v36];
-    objc_storeStrong((v10 + 40), v36);
+    v37 = *(v10 + 40);
+    v11 = [v6 removeFromAdditionalLabelsOnAllEdgesWithError:&v37];
+    objc_storeStrong((v10 + 40), v37);
     if (v11)
     {
       v12 = *(*(a1 + 48) + 8);
-      v35 = *(v12 + 40);
-      v13 = [v6 removeFromAdditionalLabelsOnAllNodesWithError:&v35];
-      objc_storeStrong((v12 + 40), v35);
+      v36 = *(v12 + 40);
+      v13 = [v6 removeFromAdditionalLabelsOnAllNodesWithError:&v36];
+      objc_storeStrong((v12 + 40), v36);
       if (v13)
       {
         [*(a1 + 40) deleteObject:v6];
         v14 = *(*(*(a1 + 64) + 8) + 40);
         [v14 setCompletedUnitCount:{objc_msgSend(v14, "completedUnitCount") + 1}];
-        goto LABEL_21;
+        goto LABEL_27;
       }
 
-      v25 = PLMigrationGetLog();
-      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+      v26 = PLMigrationGetLog();
+      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
 
-      if (v26)
+      if (v27)
       {
-        v27 = [*(a1 + 32) logger];
+        v28 = [*(a1 + 32) logger];
 
-        if (v27)
+        if (v28)
         {
-          v71 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
+          v47 = 0u;
+          v45 = 0u;
           v46 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v43 = 0u;
           memset(buf, 0, sizeof(buf));
-          v28 = PLMigrationGetLog();
-          os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-          v29 = *(*(*(a1 + 48) + 8) + 40);
-          v38 = 138412546;
-          v39 = v6;
-          v40 = 2112;
-          v41 = v29;
-          LODWORD(v34) = 22;
-          v20 = _os_log_send_and_compose_impl();
-
-          v21 = [*(a1 + 32) logger];
-          v22 = v21;
-          v23 = v20;
-          v24 = 594;
-LABEL_12:
-          [v21 logWithMessage:v23 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{v24, 16}];
-
-          if (v20 != buf)
+          v29 = PLMigrationGetLog();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            free(v20);
+            v30 = 3;
           }
 
-          goto LABEL_20;
+          else
+          {
+            v30 = 2;
+          }
+
+          v31 = *(*(*(a1 + 48) + 8) + 40);
+          v39 = 138412546;
+          v40 = v6;
+          v41 = 2112;
+          v42 = v31;
+          v21 = _os_log_send_and_compose_impl(v30, 0, buf, 512, &dword_19BF1F000, v29, 16, "failed to disassociate label: %@, from nodes with error: %@", &v39, 22);
+
+          v22 = [*(a1 + 32) logger];
+          v23 = v22;
+          v24 = v21;
+          v25 = 594;
+LABEL_18:
+          [v22 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{v25, 16}];
+
+          if (v21 != buf)
+          {
+            free(v21);
+          }
+
+          goto LABEL_26;
         }
 
-        v30 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v32 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_19;
+          goto LABEL_25;
         }
 
-        v33 = *(*(*(a1 + 48) + 8) + 40);
+        v35 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412546;
         *&buf[4] = v6;
         *&buf[12] = 2112;
-        *&buf[14] = v33;
-        v32 = "failed to disassociate label: %@, from nodes with error: %@";
-LABEL_18:
-        _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, v32, buf, 0x16u);
-LABEL_19:
+        *&buf[14] = v35;
+        v34 = "failed to disassociate label: %@, from nodes with error: %@";
+LABEL_24:
+        _os_log_impl(&dword_19BF1F000, v32, OS_LOG_TYPE_ERROR, v34, buf, 0x16u);
+LABEL_25:
       }
     }
 
@@ -3991,86 +4152,94 @@ LABEL_19:
 
         if (v17)
         {
-          v71 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
+          v47 = 0u;
+          v45 = 0u;
           v46 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v43 = 0u;
           memset(buf, 0, sizeof(buf));
           v18 = PLMigrationGetLog();
-          os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
-          v19 = *(*(*(a1 + 48) + 8) + 40);
-          v38 = 138412546;
-          v39 = v6;
-          v40 = 2112;
-          v41 = v19;
-          LODWORD(v34) = 22;
-          v20 = _os_log_send_and_compose_impl();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            v19 = 3;
+          }
 
-          v21 = [*(a1 + 32) logger];
-          v22 = v21;
-          v23 = v20;
-          v24 = 598;
-          goto LABEL_12;
+          else
+          {
+            v19 = 2;
+          }
+
+          v20 = *(*(*(a1 + 48) + 8) + 40);
+          v39 = 138412546;
+          v40 = v6;
+          v41 = 2112;
+          v42 = v20;
+          v21 = _os_log_send_and_compose_impl(v19, 0, buf, 512, &dword_19BF1F000, v18, 16, "failed to disassociate label: %@, from edges with error: %@", &v39, 22);
+
+          v22 = [*(a1 + 32) logger];
+          v23 = v22;
+          v24 = v21;
+          v25 = 598;
+          goto LABEL_18;
         }
 
-        v30 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v32 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_19;
+          goto LABEL_25;
         }
 
-        v31 = *(*(*(a1 + 48) + 8) + 40);
+        v33 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412546;
         *&buf[4] = v6;
         *&buf[12] = 2112;
-        *&buf[14] = v31;
-        v32 = "failed to disassociate label: %@, from edges with error: %@";
-        goto LABEL_18;
+        *&buf[14] = v33;
+        v34 = "failed to disassociate label: %@, from edges with error: %@";
+        goto LABEL_24;
       }
     }
 
-LABEL_20:
+LABEL_26:
     *(*(*(a1 + 56) + 8) + 24) = 3;
-    goto LABEL_21;
+    goto LABEL_27;
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 2;
   *a4 = 1;
-LABEL_21:
+LABEL_27:
 }
 
 void __117__PLModelMigrationAction_DeletePLGeneratedAssetDescriptionNodesAndLabel_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __117__PLModelMigrationAction_DeletePLGeneratedAssetDescriptionNodesAndLabel_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4095,10 +4264,10 @@ void __117__PLModelMigrationAction_DeletePLGeneratedAssetDescriptionNodesAndLabe
 
 void __105__PLModelMigrationAction_FixSignExtended32bSceneIdentifiers_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __105__PLModelMigrationAction_FixSignExtended32bSceneIdentifiers_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -4115,10 +4284,10 @@ void __105__PLModelMigrationAction_FixSignExtended32bSceneIdentifiers_performAct
 
 void __107__PLModelMigrationAction_ReKeyResourcesIncorrectlyStoredAsM4A_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __107__PLModelMigrationAction_ReKeyResourcesIncorrectlyStoredAsM4A_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4198,47 +4367,55 @@ void __107__PLModelMigrationAction_ReKeyResourcesIncorrectlyStoredAsM4A_performA
             v42 = 0u;
             memset(buf, 0, sizeof(buf));
             v21 = PLMigrationGetLog();
-            os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-            v22 = [v6 objectID];
-            v23 = [v6 dataStoreKey];
-            v24 = [v6 assetID];
-            v25 = [v23 fileURLForAssetID:v24];
-            v36 = 138412546;
-            v37 = v22;
-            v38 = 2112;
-            v39 = v25;
-            LODWORD(v34) = 22;
-            v26 = _os_log_send_and_compose_impl();
-
-            v27 = [*(a1 + 32) logger];
-            [v27 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{661, 0}];
-
-            if (v26 != buf)
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              free(v26);
+              v22 = 3;
+            }
+
+            else
+            {
+              v22 = 2;
+            }
+
+            v23 = [v6 objectID];
+            v24 = [v6 dataStoreKey];
+            v25 = [v6 assetID];
+            v26 = [v24 fileURLForAssetID:v25];
+            v36 = 138412546;
+            v37 = v23;
+            v38 = 2112;
+            v39 = v26;
+            v27 = _os_log_send_and_compose_impl(v22, 0, buf, 512, &dword_19BF1F000, v21, 0, "Patched dataStoreKeyData for resource with ID: %@, now points to: %@", &v36, 22);
+
+            v28 = [*(a1 + 32) logger];
+            [v28 logWithMessage:v27 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{661, 0}];
+
+            if (v27 != buf)
+            {
+              free(v27);
             }
           }
 
           else
           {
-            v28 = PLMigrationGetLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v29 = PLMigrationGetLog();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v29 = [v6 objectID];
-              v30 = [v6 dataStoreKey];
-              v31 = [v6 assetID];
-              v32 = [v30 fileURLForAssetID:v31];
+              v30 = [v6 objectID];
+              v31 = [v6 dataStoreKey];
+              v32 = [v6 assetID];
+              v33 = [v31 fileURLForAssetID:v32];
               *buf = 138412546;
-              *&buf[4] = v29;
+              *&buf[4] = v30;
               *&buf[12] = 2112;
-              *&buf[14] = v32;
-              _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_DEFAULT, "Patched dataStoreKeyData for resource with ID: %@, now points to: %@", buf, 0x16u);
+              *&buf[14] = v33;
+              _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_DEFAULT, "Patched dataStoreKeyData for resource with ID: %@, now points to: %@", buf, 0x16u);
             }
           }
         }
 
-        v33 = *(*(*(a1 + 56) + 8) + 40);
-        [v33 setCompletedUnitCount:{objc_msgSend(v33, "completedUnitCount") + 1}];
+        v34 = *(*(*(a1 + 56) + 8) + 40);
+        [v34 setCompletedUnitCount:{objc_msgSend(v34, "completedUnitCount") + 1}];
       }
     }
   }
@@ -4246,10 +4423,10 @@ void __107__PLModelMigrationAction_ReKeyResourcesIncorrectlyStoredAsM4A_performA
 
 void __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 uint64_t __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, void *a2)
@@ -4263,10 +4440,10 @@ uint64_t __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWi
 
 void __99__PLModelMigrationAction_RemoveUnverifiedSocialGroups_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __99__PLModelMigrationAction_RemoveUnverifiedSocialGroups_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4307,10 +4484,10 @@ uint64_t __107__PLModelMigrationAction_PopulateCloudFeedEntryIsMine__migrateEntr
 
 void __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4338,10 +4515,10 @@ void __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObje
 
 void __110__PLModelMigrationAction_ReevaluateAllowedForAnalysisForGPAssets_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __110__PLModelMigrationAction_ReevaluateAllowedForAnalysisForGPAssets_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4371,10 +4548,10 @@ void __110__PLModelMigrationAction_ReevaluateAllowedForAnalysisForGPAssets_perfo
 
 void __106__PLModelMigrationAction_FixComputeSyncResourceFileExtension_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __106__PLModelMigrationAction_FixComputeSyncResourceFileExtension_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4417,10 +4594,10 @@ void __106__PLModelMigrationAction_FixComputeSyncResourceFileExtension_performAc
 
 void __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 uint64_t __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4434,10 +4611,10 @@ uint64_t __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActi
 
 void __96__PLModelMigrationAction_DeleteInvalidSocialGroups_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __96__PLModelMigrationAction_DeleteInvalidSocialGroups_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -4445,7 +4622,7 @@ void __96__PLModelMigrationAction_DeleteInvalidSocialGroups_performActionWithMan
   v8 = a3;
   v4 = [(PLGraphNodeContainer *)PLSocialGroup newNodeContainerWithNode:?];
   v5 = [v4 members];
-  v6 = [v5 count];
+  v6 = objc_msgSend_count(v5);
 
   if (v6 <= 1)
   {
@@ -4459,10 +4636,10 @@ void __96__PLModelMigrationAction_DeleteInvalidSocialGroups_performActionWithMan
 
 void __99__PLModelMigrationAction_UpdateHighlightCollageAssets_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 uint64_t __99__PLModelMigrationAction_UpdateHighlightCollageAssets_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -4476,10 +4653,10 @@ uint64_t __99__PLModelMigrationAction_UpdateHighlightCollageAssets_performAction
 
 void __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -4488,7 +4665,7 @@ void __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithM
   v5 = a2;
   v6 = a3;
   v7 = [v6 modernResources];
-  v8 = [v7 count];
+  v8 = objc_msgSend_count(v7);
 
   if (v8 != 2)
   {
@@ -4635,7 +4812,7 @@ void __114__PLModelMigrationAction_ResetCustomSocialGroupDataForRejectedGroups_p
   }
 }
 
-uint64_t __104__PLModelMigrationAction_UpdateEditSuggestionImageRecipeID_performActionWithManagedObjectContext_error___block_invoke(uint64_t a1, void *a2)
+void *__104__PLModelMigrationAction_UpdateEditSuggestionImageRecipeID_performActionWithManagedObjectContext_error___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 setRecipeID:66137];
   ++*(*(*(a1 + 32) + 8) + 24);
@@ -4664,10 +4841,10 @@ void __103__PLModelMigrationAction_updateBrokenStyleableFromRebuild_performActio
 
 void __104__PLModelMigrationAction_FixAssetsWithMissingSaliencyRects_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __104__PLModelMigrationAction_FixAssetsWithMissingSaliencyRects_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4700,10 +4877,10 @@ void __104__PLModelMigrationAction_FixAssetsWithMissingSaliencyRects_performActi
 
 void __106__PLModelMigrationAction_InstallComputeSyncResourcesIfNeeded_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __106__PLModelMigrationAction_InstallComputeSyncResourcesIfNeeded_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -4784,7 +4961,7 @@ void __93__PLModelMigrationAction_DeleteEmptyGraphGroups_performActionWithManage
   if ([v3 socialGroupVerifiedType] == 2)
   {
     v4 = [v3 exclusiveAssetIDs];
-    v5 = [v4 count];
+    v5 = objc_msgSend_count(v4);
 
     if (!v5)
     {
@@ -5070,48 +5247,56 @@ void __101__PLModelMigrationAction_PushAssetsWithPetSyncableFaces_performActionW
         v31 = 0u;
         memset(buf, 0, sizeof(buf));
         v12 = PLMigrationGetLog();
-        os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-        v13 = [v8 scopedIdentifier];
-        v14 = [v6 uuid];
-        v25 = 138543618;
-        v26 = v13;
-        v27 = 2114;
-        v28 = v14;
-        LODWORD(v23) = 22;
-        v15 = _os_log_send_and_compose_impl();
-
-        v16 = [*(a1 + 32) logger];
-        [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{336, 0}];
-
-        if (v15 != buf)
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          free(v15);
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v14 = [v8 scopedIdentifier];
+        v15 = [v6 uuid];
+        v25 = 138543618;
+        v26 = v14;
+        v27 = 2114;
+        v28 = v15;
+        v16 = _os_log_send_and_compose_impl(v13, 0, buf, 512, &dword_19BF1F000, v12, 0, "[PushAssetsWithPetSyncableFaces] Setting asset %{public}@ to unpushed due to syncable pet face: %{public}@", &v25, 22);
+
+        v17 = [*(a1 + 32) logger];
+        [v17 logWithMessage:v16 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{336, 0}];
+
+        if (v16 != buf)
+        {
+          free(v16);
         }
       }
 
       else
       {
-        v17 = PLMigrationGetLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = PLMigrationGetLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [v8 scopedIdentifier];
-          v19 = [v6 uuid];
+          v19 = [v8 scopedIdentifier];
+          v20 = [v6 uuid];
           *buf = 138543618;
-          *&buf[4] = v18;
+          *&buf[4] = v19;
           *&buf[12] = 2114;
-          *&buf[14] = v19;
-          _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "[PushAssetsWithPetSyncableFaces] Setting asset %{public}@ to unpushed due to syncable pet face: %{public}@", buf, 0x16u);
+          *&buf[14] = v20;
+          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "[PushAssetsWithPetSyncableFaces] Setting asset %{public}@ to unpushed due to syncable pet face: %{public}@", buf, 0x16u);
         }
       }
     }
   }
 
-  v20 = *(a1 + 32);
-  v21 = *(*(a1 + 48) + 8);
-  obj = *(v21 + 40);
-  v22 = [v20 isCancelledWithError:&obj];
-  objc_storeStrong((v21 + 40), obj);
-  if (v22)
+  v21 = *(a1 + 32);
+  v22 = *(*(a1 + 48) + 8);
+  obj = *(v22 + 40);
+  v23 = [v21 isCancelledWithError:&obj];
+  objc_storeStrong((v22 + 40), obj);
+  if (v23)
   {
     *(*(*(a1 + 56) + 8) + 24) = 2;
     *a4 = 1;
@@ -5122,10 +5307,10 @@ void __101__PLModelMigrationAction_PushAssetsWithPetSyncableFaces_performActionW
 
 void __106__PLModelMigrationAction_MergeDetectedFacesAndDetectedTorsos_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __106__PLModelMigrationAction_MergeDetectedFacesAndDetectedTorsos_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -5168,10 +5353,10 @@ void __106__PLModelMigrationAction_MergeDetectedFacesAndDetectedTorsos_performAc
 
 void __109__PLModelMigrationAction_CopyStickerConfidenceScoreToAssetTable_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __109__PLModelMigrationAction_CopyStickerConfidenceScoreToAssetTable_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -5205,10 +5390,10 @@ void __109__PLModelMigrationAction_CopyStickerConfidenceScoreToAssetTable_perfor
 
 void __100__PLModelMigrationAction_LibraryScopeTrashedStateFixup_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 uint64_t __100__PLModelMigrationAction_LibraryScopeTrashedStateFixup_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -5232,10 +5417,10 @@ uint64_t __100__PLModelMigrationAction_LibraryScopeTrashedStateFixup_performActi
 
 void __103__PLModelMigrationAction_PopulatePersonCloudDetectionType_performActionWithManagedObjectContext_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend(a2 pendingParentUnitCount:{"count"), 0}];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = [*(a1 + 32) cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(a2) pendingParentUnitCount:0];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __103__PLModelMigrationAction_PopulatePersonCloudDetectionType_performActionWithManagedObjectContext_error___block_invoke_3(void *a1, uint64_t a2, void *a3, _BYTE *a4)

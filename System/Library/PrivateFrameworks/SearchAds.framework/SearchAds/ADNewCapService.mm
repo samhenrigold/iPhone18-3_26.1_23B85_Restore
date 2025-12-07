@@ -12,10 +12,10 @@
 
 - (ADNewCapService)initWithStorageType:(int64_t)type
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = ADNewCapService;
-  v4 = [(ADNewCapService *)&v51 init];
+  v53 = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = ADNewCapService;
+  v4 = [(ADNewCapService *)&v50 init];
   v9 = v4;
   if (!v4)
   {
@@ -92,90 +92,85 @@ LABEL_15:
     }
   }
 
-  v50 = APLogForCategory();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+  v49 = APLogForCategory();
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_264E42000, v50, OS_LOG_TYPE_ERROR, "Unknown Cap storage type: %ld", buf, 0xCu);
+    _os_log_impl(&dword_264E42000, v49, OS_LOG_TYPE_ERROR, "Unknown Cap storage type: %ld", buf, 0xCu);
   }
 
   v47 = 0;
 LABEL_20:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
 - (void)updateCapData:(id)data forType:(int64_t)type completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v10 = APLogForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[ADNewCapService updateCapData:forType:completionHandler:]";
+    v26 = "[ADNewCapService updateCapData:forType:completionHandler:]";
     _os_log_impl(&dword_264E42000, v10, OS_LOG_TYPE_DEFAULT, "API call to %s received.", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v15 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v11, v12, v13, v14);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_264E442FC;
-  v22[3] = &unk_279B88840;
-  objc_copyWeak(v25, buf);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_264E442FC;
+  v21[3] = &unk_279B88840;
+  objc_copyWeak(v24, buf);
   v16 = handlerCopy;
-  v24 = v16;
+  v23 = v16;
   v17 = dataCopy;
-  v23 = v17;
-  v25[1] = type;
-  objc_msgSend_addOperationWithBlock_(v15, v18, v22, v19, v20);
+  v22 = v17;
+  v24[1] = type;
+  objc_msgSend_addOperationWithBlock_(v15, v18, v21, v19, v20);
 
-  objc_destroyWeak(v25);
+  objc_destroyWeak(v24);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDownloadData:(id)data forType:(int64_t)type completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v10 = APLogForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[ADNewCapService updateDownloadData:forType:completionHandler:]";
+    v26 = "[ADNewCapService updateDownloadData:forType:completionHandler:]";
     _os_log_impl(&dword_264E42000, v10, OS_LOG_TYPE_DEFAULT, "API call to %s received.", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v15 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v11, v12, v13, v14);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_264E446B4;
-  v22[3] = &unk_279B88840;
-  objc_copyWeak(v25, buf);
-  v25[1] = type;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_264E446B4;
+  v21[3] = &unk_279B88840;
+  objc_copyWeak(v24, buf);
+  v24[1] = type;
   v16 = handlerCopy;
-  v24 = v16;
+  v23 = v16;
   v17 = dataCopy;
-  v23 = v17;
-  objc_msgSend_addOperationWithBlock_(v15, v18, v22, v19, v20);
+  v22 = v17;
+  objc_msgSend_addOperationWithBlock_(v15, v18, v21, v19, v20);
 
-  objc_destroyWeak(v25);
+  objc_destroyWeak(v24);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clickCountByLine
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_capData(self, a2, v2, v3, v4);
   v11 = objc_msgSend_maxClickCapElements(self, v7, v8, v9, v10);
   objc_msgSend_clickExpirationThresholdInSeconds(self, v12, v13, v14, v15);
@@ -192,21 +187,19 @@ LABEL_20:
       v27 = v19;
     }
 
-    v30 = 138543619;
-    v31 = v25;
-    v32 = 2113;
-    v33 = v27;
-    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEBUG, "[CappingService] Preparing click cap data for %{public}@. Loaded data: %{private}@.", &v30, 0x16u);
+    v29 = 138543619;
+    v30 = v25;
+    v31 = 2113;
+    v32 = v27;
+    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEBUG, "[CappingService] Preparing click cap data for %{public}@. Loaded data: %{private}@.", &v29, 0x16u);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)impressionCountByLine
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_capData(self, a2, v2, v3, v4);
   v11 = objc_msgSend_maxFrequencyCapElements(self, v7, v8, v9, v10);
   objc_msgSend_frequencyCapExpirationInSeconds(self, v12, v13, v14, v15);
@@ -223,14 +216,12 @@ LABEL_20:
       v27 = v19;
     }
 
-    v30 = 138543619;
-    v31 = v25;
-    v32 = 2113;
-    v33 = v27;
-    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEBUG, "[CappingService] Preparing impression cap data for %{public}@. Loaded data: %{private}@.", &v30, 0x16u);
+    v29 = 138543619;
+    v30 = v25;
+    v31 = 2113;
+    v32 = v27;
+    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEBUG, "[CappingService] Preparing impression cap data for %{public}@. Loaded data: %{private}@.", &v29, 0x16u);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

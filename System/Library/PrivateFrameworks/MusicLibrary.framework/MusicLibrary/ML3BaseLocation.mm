@@ -115,11 +115,11 @@
   objc_autoreleasePoolPop(context);
 }
 
-uint64_t __53__ML3BaseLocation_enumerateOrphanedAssetsUsingBlock___block_invoke(uint64_t result, uint64_t a2, void *a3)
+id *__53__ML3BaseLocation_enumerateOrphanedAssetsUsingBlock___block_invoke(id *result, uint64_t a2, void *a3)
 {
   if (*a3)
   {
-    return [*(result + 32) addObject:?];
+    return [result[4] addObject:?];
   }
 
   return result;

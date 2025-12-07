@@ -35,9 +35,9 @@ uint64_t __41__SBAssessmentModeMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)_init
 {
-  v11.receiver = self;
-  v11.super_class = SBAssessmentModeMonitor;
-  v2 = [(SBAssessmentModeMonitor *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = SBAssessmentModeMonitor;
+  v2 = [(SBAssessmentModeMonitor *)&v12 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x1E6985E90]);
@@ -46,14 +46,14 @@ uint64_t __41__SBAssessmentModeMonitor_sharedInstance__block_invoke(uint64_t a1)
     v2->_assessmentModeGestalt = v4;
 
     v6 = v2->_assessmentModeGestalt;
-    v7 = SBLogAssessmentMode();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = SBLogAssessmentMode(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v6)
     {
-      if (v8)
+      if (v9)
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Initalized AssessmentModeGestalt", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Initalized AssessmentModeGestalt", v11, 2u);
       }
 
       v2->_active = [(AEAssessmentModeGestalt *)v2->_assessmentModeGestalt isActive];
@@ -62,10 +62,10 @@ uint64_t __41__SBAssessmentModeMonitor_sharedInstance__block_invoke(uint64_t a1)
 
     else
     {
-      if (v8)
+      if (v9)
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Failed to initalize AssessmentModeGestalt", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Failed to initalize AssessmentModeGestalt", v11, 2u);
       }
 
       v2->_active = 0;
@@ -105,7 +105,7 @@ uint64_t __41__SBAssessmentModeMonitor_sharedInstance__block_invoke(uint64_t a1)
       if (active != bOOLValue)
       {
         v17 = bOOLValue;
-        v18 = SBLogAssessmentMode();
+        v18 = SBLogAssessmentMode(bOOLValue);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;

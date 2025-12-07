@@ -22,7 +22,7 @@
 
 - (void)server:(id)server didReceiveRequest:(id)request response:(id)response
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   responseCopy = response;
   hostname = [requestCopy hostname];
@@ -38,7 +38,7 @@
       {
         hostname2 = [requestCopy hostname];
         *buf = 138477827;
-        v24 = hostname2;
+        v23 = hostname2;
         _os_log_impl(&dword_2592D2000, v13, OS_LOG_TYPE_INFO, "srp for hostname is currently being used. hostname=%{private}@", buf, 0xCu);
       }
 
@@ -49,11 +49,11 @@
     {
       [(MKSRPPrecheck *)self->_precheck setServerForKey:hostname];
       v12 = [(MKSRPPrecheck *)self->_precheck serverForKey:hostname];
+      v20 = 0;
       v21 = 0;
-      v22 = 0;
-      [v12 generateSalt:&v22 pubkey:&v21];
-      v13 = v22;
-      v16 = v21;
+      [v12 generateSalt:&v21 pubkey:&v20];
+      v13 = v21;
+      v16 = v20;
       if (-[NSObject length](v13, "length") && [v16 length])
       {
         [v10 setObject:v13 forKeyedSubscript:@"salt"];
@@ -80,8 +80,6 @@
     v19 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:0 error:0];
     [responseCopy setBody:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

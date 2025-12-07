@@ -346,7 +346,7 @@ void __61__SBSRemoteDeviceReceiver__registerRemoveProfileByIdentifier__block_inv
 
 void __61__SBSRemoteDeviceReceiver__registerRemoveProfileByIdentifier__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -354,9 +354,9 @@ void __61__SBSRemoteDeviceReceiver__registerRemoveProfileByIdentifier__block_inv
   {
     if (v3)
     {
-      v8 = @"error";
-      v9[0] = v3;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = @"error";
+      v8[0] = v3;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       (*(v5 + 16))(v5, v6, 0, 0);
     }
 
@@ -365,8 +365,6 @@ void __61__SBSRemoteDeviceReceiver__registerRemoveProfileByIdentifier__block_inv
       (*(v5 + 16))(v5, 0, 0, 0);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterInstallProfileData
@@ -409,7 +407,7 @@ void __54__SBSRemoteDeviceReceiver__registerInstallProfileData__block_invoke(uin
 
 void __54__SBSRemoteDeviceReceiver__registerInstallProfileData__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -417,9 +415,9 @@ void __54__SBSRemoteDeviceReceiver__registerInstallProfileData__block_invoke_2(u
   {
     if (v3)
     {
-      v8 = @"error";
-      v9[0] = v3;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = @"error";
+      v8[0] = v3;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       (*(v5 + 16))(v5, v6, 0, 0);
     }
 
@@ -428,8 +426,6 @@ void __54__SBSRemoteDeviceReceiver__registerInstallProfileData__block_invoke_2(u
       (*(v5 + 16))(v5, 0, 0, 0);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterGetInstalledProfiles
@@ -469,7 +465,7 @@ void __56__SBSRemoteDeviceReceiver__registerGetInstalledProfiles__block_invoke(u
 
 void __56__SBSRemoteDeviceReceiver__registerGetInstalledProfiles__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -477,9 +473,9 @@ void __56__SBSRemoteDeviceReceiver__registerGetInstalledProfiles__block_invoke_2
   {
     if (v3)
     {
-      v8 = @"reply";
-      v9[0] = v3;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = @"reply";
+      v8[0] = v3;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       (*(v5 + 16))(v5, v6, 0, 0);
     }
 
@@ -488,8 +484,6 @@ void __56__SBSRemoteDeviceReceiver__registerGetInstalledProfiles__block_invoke_2
       (*(v5 + 16))(v5, 0, 0, 0);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterGetPowerEstimateForInterval
@@ -535,22 +529,20 @@ void __63__SBSRemoteDeviceReceiver__registerGetPowerEstimateForInterval__block_i
 
 void __63__SBSRemoteDeviceReceiver__registerGetPowerEstimateForInterval__block_invoke_2(uint64_t a1, double a2, float a3)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (v3)
   {
-    v10[0] = @"joulesEstimate";
-    v5 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    v10[1] = @"period";
-    v11[0] = v5;
+    v9[0] = @"joulesEstimate";
+    v5 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
+    v9[1] = @"period";
+    v10[0] = v5;
     *&v6 = a3;
     v7 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-    v11[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
     (*(v3 + 16))(v3, v8, 0, 0);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterRequestForFetchingAlarmsAndTimers
@@ -590,19 +582,17 @@ void __69__SBSRemoteDeviceReceiver__registerRequestForFetchingAlarmsAndTimers__b
 
 void __69__SBSRemoteDeviceReceiver__registerRequestForFetchingAlarmsAndTimers__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterIntercomWithOptions
@@ -856,18 +846,16 @@ void __58__SBSRemoteDeviceReceiver__registerIsDeviceStereoFollower__block_invoke
 
 void __58__SBSRemoteDeviceReceiver__registerIsDeviceStereoFollower__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v6 = @"reply";
+    v5 = @"reply";
     v3 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v7[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     (*(v2 + 16))(v2, v4, 0, 0);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterSetDeviceAsStereoLeader
@@ -983,18 +971,16 @@ void __45__SBSRemoteDeviceReceiver__registerGetVolume__block_invoke(uint64_t a1,
 
 void __45__SBSRemoteDeviceReceiver__registerGetVolume__block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
-    v5 = @"reply";
+    v4 = @"reply";
     v2 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    v6[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v5[0] = v2;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
     (*(v1 + 16))(v1, v3, 0, 0);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterSUScanForSoftwareUpdate
@@ -1176,19 +1162,17 @@ void __51__SBSRemoteDeviceReceiver__registerGetFeatureFlags__block_invoke(uint64
 
 void __51__SBSRemoteDeviceReceiver__registerGetFeatureFlags__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterDisassociateNetworkWithName
@@ -1728,19 +1712,17 @@ void __51__SBSRemoteDeviceReceiver__registerGetUserDefaults__block_invoke(uint64
 
 void __51__SBSRemoteDeviceReceiver__registerGetUserDefaults__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterStopTone
@@ -1892,19 +1874,17 @@ void __49__SBSRemoteDeviceReceiver__registerGetTuningInfo__block_invoke(uint64_t
 
 void __49__SBSRemoteDeviceReceiver__registerGetTuningInfo__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterGetLEDInfo
@@ -1944,19 +1924,17 @@ void __46__SBSRemoteDeviceReceiver__registerGetLEDInfo__block_invoke(uint64_t a1
 
 void __46__SBSRemoteDeviceReceiver__registerGetLEDInfo__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterGetSelectDebugInfo
@@ -1999,19 +1977,17 @@ void __54__SBSRemoteDeviceReceiver__registerGetSelectDebugInfo__block_invoke(uin
 
 void __54__SBSRemoteDeviceReceiver__registerGetSelectDebugInfo__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterGetAllDebugInfo
@@ -2051,19 +2027,17 @@ void __51__SBSRemoteDeviceReceiver__registerGetAllDebugInfo__block_invoke(uint64
 
 void __51__SBSRemoteDeviceReceiver__registerGetAllDebugInfo__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v7 = @"reply";
-    v8[0] = a2;
+    v6 = @"reply";
+    v7[0] = a2;
     v3 = MEMORY[0x277CBEAC0];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = [v3 dictionaryWithObjects:v7 forKeys:&v6 count:1];
     (*(v2 + 16))(v2, v5, 0, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterEverything
@@ -2180,11 +2154,11 @@ void __51__SBSRemoteDeviceReceiver__registerGetAllDebugInfo__block_invoke_2(uint
 
 - (SBSRemoteDeviceReceiver)initWithDelegate:(id)delegate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v14.receiver = self;
-  v14.super_class = SBSRemoteDeviceReceiver;
-  v5 = [(SBSRemoteDeviceReceiver *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = SBSRemoteDeviceReceiver;
+  v5 = [(SBSRemoteDeviceReceiver *)&v13 init];
   v6 = v5;
   if (v5)
   {
@@ -2201,7 +2175,7 @@ void __51__SBSRemoteDeviceReceiver__registerGetAllDebugInfo__block_invoke_2(uint
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "[SBSRemoteDeviceReceiver initWithDelegate:]";
+      v15 = "[SBSRemoteDeviceReceiver initWithDelegate:]";
       _os_log_impl(&dword_26B246000, v11, OS_LOG_TYPE_DEFAULT, "%s: companion link client start", buf, 0xCu);
     }
 
@@ -2210,13 +2184,12 @@ void __51__SBSRemoteDeviceReceiver__registerGetAllDebugInfo__block_invoke_2(uint
     [(SBSRemoteDeviceReceiver *)v6 _registerEverything];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __44__SBSRemoteDeviceReceiver_initWithDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   kdebug_trace();
   v3 = _SBSLoggingFacility();
@@ -2225,22 +2198,20 @@ void __44__SBSRemoteDeviceReceiver_initWithDelegate___block_invoke(uint64_t a1, 
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[SBSRemoteDeviceReceiver initWithDelegate:]_block_invoke";
-      v8 = 2112;
-      v9 = v2;
-      _os_log_error_impl(&dword_26B246000, v4, OS_LOG_TYPE_ERROR, "%s: Error activating companion link client '%@'", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[SBSRemoteDeviceReceiver initWithDelegate:]_block_invoke";
+      v7 = 2112;
+      v8 = v2;
+      _os_log_error_impl(&dword_26B246000, v4, OS_LOG_TYPE_ERROR, "%s: Error activating companion link client '%@'", &v5, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SBSRemoteDeviceReceiver initWithDelegate:]_block_invoke";
-    _os_log_impl(&dword_26B246000, v4, OS_LOG_TYPE_DEFAULT, "%s: companion link client activated succcessfully", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SBSRemoteDeviceReceiver initWithDelegate:]_block_invoke";
+    _os_log_impl(&dword_26B246000, v4, OS_LOG_TYPE_DEFAULT, "%s: companion link client activated succcessfully", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

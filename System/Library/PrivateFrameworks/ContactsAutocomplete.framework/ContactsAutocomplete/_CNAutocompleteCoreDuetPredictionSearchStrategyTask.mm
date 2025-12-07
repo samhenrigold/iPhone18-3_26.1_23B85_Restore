@@ -50,9 +50,7 @@
   context = self->_context;
   self->_context = v3;
 
-  v5 = [(_CNAutocompleteCoreDuetPredictionSearchStrategyTask *)self suggesterSettingsForFetchRequest:self->_request];
-  settings = self->_settings;
-  self->_settings = v5;
+  self->_settings = [(_CNAutocompleteCoreDuetPredictionSearchStrategyTask *)self suggesterSettingsForFetchRequest:self->_request];
 
   MEMORY[0x2821F96F8]();
 }
@@ -216,59 +214,57 @@ LABEL_12:
 
 - (void)runQuery
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v3 = CNALoggingContextTriage();
+  v27 = *MEMORY[0x277D85DE8];
+  v3 = CNALoggingContextTriage(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = CNALoggingContextPerformance();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = CNALoggingContextPerformance(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Searching CoreDuet", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Searching CoreDuet", "", buf, 2u);
   }
 
   currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
   cdPeopleSuggester = [currentEnvironment cdPeopleSuggester];
   context = self->_context;
   settings = self->_settings;
-  v20 = 0;
-  v11 = [cdPeopleSuggester suggestPeopleWithContext:context settings:settings error:&v20];
-  v12 = v20;
+  v22 = 0;
+  v12 = [cdPeopleSuggester suggestPeopleWithContext:context settings:settings error:&v22];
+  v13 = v22;
 
-  v13 = CNALoggingContextPerformance();
-  v14 = v13;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = CNALoggingContextPerformance(v14);
+  v16 = v15;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v14, OS_SIGNPOST_INTERVAL_END, v4, "Searching CoreDuet", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v16, OS_SIGNPOST_INTERVAL_END, v4, "Searching CoreDuet", "", buf, 2u);
   }
 
-  if (v11)
+  if (v12)
   {
-    v15 = v11;
+    v18 = v12;
     suggestions = self->_suggestions;
-    self->_suggestions = v15;
+    self->_suggestions = v18;
   }
 
   else
   {
-    v17 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = CNALoggingContextTriage(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       triageIdentifier = [(CNAutocompleteFetchRequest *)self->_request triageIdentifier];
       *buf = 138543618;
-      v22 = triageIdentifier;
-      v23 = 2114;
-      v24 = v12;
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Error searching CoreDuet: %{public}@", buf, 0x16u);
+      v24 = triageIdentifier;
+      v25 = 2114;
+      v26 = v13;
+      _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Error searching CoreDuet: %{public}@", buf, 0x16u);
     }
 
     suggestions = self->_suggestions;
     self->_suggestions = MEMORY[0x277CBEBF8];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertResults
@@ -330,7 +326,7 @@ LABEL_12:
   if ((type - 1) >= 3)
   {
     v6 = type;
-    v7 = CNALoggingContextDebug();
+    v7 = CNALoggingContextDebug(type);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
@@ -345,12 +341,12 @@ LABEL_12:
     if (v10)
     {
       identifier = [contactCopy identifier];
-      v12 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = CNALoggingContextDebug(identifier);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 138412290;
         v17 = identifier;
-        _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "No luck with the type, let's infer it from the handle (%@)", &v16, 0xCu);
+        _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "No luck with the type, let's infer it from the handle (%@)", &v16, 0xCu);
       }
 
       v5 = [objc_opt_class() _addressTypeFromHandle:identifier];
@@ -358,11 +354,11 @@ LABEL_12:
 
     else
     {
-      v13 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = CNALoggingContextDebug(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v16) = 0;
-        _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "Returning none address type", &v16, 2u);
+        _os_log_impl(&dword_2155FE000, v14, OS_LOG_TYPE_DEFAULT, "Returning none address type", &v16, 2u);
       }
 
       v5 = 0;
@@ -374,7 +370,6 @@ LABEL_12:
     v5 = qword_21565C260[type - 1];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -407,19 +402,18 @@ LABEL_12:
 
     else
     {
-      v12 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = CNALoggingContextDebug(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 138412290;
         v16 = handleCopy;
-        _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Unrecognized handle from duet: %@", &v15, 0xCu);
+        _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "Unrecognized handle from duet: %@", &v15, 0xCu);
       }
 
       v9 = 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -4,9 +4,18 @@
 - (id)_dictationOptionsWithTaskHint:(void *)hint requestIdentifier:;
 - (id)_sandboxExtensionsWithError:(uint64_t)error;
 - (void)_setAFDictationRequestParams:(uint64_t)params;
+- (void)setRequiresOnDeviceRecognition:(BOOL)requiresOnDeviceRecognition;
 @end
 
 @implementation SFSpeechRecognitionRequest
+
+- (void)setRequiresOnDeviceRecognition:(BOOL)requiresOnDeviceRecognition
+{
+  v3 = requiresOnDeviceRecognition;
+  [(SFSpeechRecognitionRequest *)self setDetectMultipleUtterances:?];
+
+  [(SFSpeechRecognitionRequest *)self _setForceOfflineRecognition:v3];
+}
 
 - (SFSpeechRecognitionRequest)init
 {

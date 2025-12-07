@@ -11,9 +11,9 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_isInWantToRead) = 0;
   v3 = OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_editionsIsInWantToRead;
-  *(&self->super.super.super.super.isa + v3) = sub_678C8(&_swiftEmptyArrayStorage);
+  *(&self->super.super.super.super.isa + v3) = sub_678C8(_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_editionsCoverResources;
-  *(&self->super.super.super.super.isa + v4) = sub_679C4(&_swiftEmptyArrayStorage);
+  *(&self->super.super.super.super.isa + v4) = sub_679C4(_swiftEmptyArrayStorage);
   v7.receiver = self;
   v7.super_class = type metadata accessor for WantToReadBarButtonItem();
   v5 = [(ProductFeedBarButtonItem *)&v7 init];
@@ -26,9 +26,9 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_isInWantToRead) = 0;
   v4 = OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_editionsIsInWantToRead;
-  *(&self->super.super.super.super.isa + v4) = sub_678C8(&_swiftEmptyArrayStorage);
+  *(&self->super.super.super.super.isa + v4) = sub_678C8(_swiftEmptyArrayStorage);
   v5 = OBJC_IVAR____TtC11BookStoreUI23WantToReadBarButtonItem_editionsCoverResources;
-  *(&self->super.super.super.super.isa + v5) = sub_679C4(&_swiftEmptyArrayStorage);
+  *(&self->super.super.super.super.isa + v5) = sub_679C4(_swiftEmptyArrayStorage);
   result = sub_2C6378();
   __break(1u);
   return result;
@@ -36,7 +36,7 @@
 
 - (void)libraryItemStateCenter:(id)center didUpdateItemState:(id)state forIdentifier:(id)identifier
 {
-  v7 = sub_6620C(&unk_3BDBB0);
+  v7 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = sub_2C58C8();
@@ -61,7 +61,7 @@
 
 - (void)imageResourceDidChangeImage:(id)image
 {
-  v4 = sub_6620C(&unk_3BDBB0);
+  v4 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = sub_2C5C58();

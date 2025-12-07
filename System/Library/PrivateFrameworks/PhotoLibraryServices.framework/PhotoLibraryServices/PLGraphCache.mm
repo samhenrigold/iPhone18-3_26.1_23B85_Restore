@@ -137,7 +137,7 @@ LABEL_5:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       logPrefix = [(PLGraphCache *)self logPrefix];
-      v16 = [v9 count];
+      v16 = objc_msgSend_count(v9);
       *buf = 138543618;
       v28 = logPrefix;
       v29 = 2048;
@@ -192,9 +192,9 @@ LABEL_15:
   return v2;
 }
 
-uint64_t __38__PLGraphCache_countOfCachedObjectIDs__block_invoke(uint64_t a1)
+void *__38__PLGraphCache_countOfCachedObjectIDs__block_invoke(uint64_t a1)
 {
-  result = [*(*(a1 + 32) + 16) count];
+  result = objc_msgSend_count(*(*(a1 + 32) + 16));
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }

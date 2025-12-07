@@ -287,7 +287,7 @@ LABEL_5:
               integerValue = [v10 integerValue];
               v19 = [(NSMapTable *)v32 objectForKey:v10];
               imageData = [(ARTechniqueGatherContext *)selfCopy imageData];
-              [imageData timestamp];
+              objc_msgSend_timestamp(imageData);
               *buf = 138544386;
               v43 = v17;
               v44 = 2048;
@@ -302,7 +302,7 @@ LABEL_5:
             }
 
             imageData2 = [(ARTechniqueGatherContext *)selfCopy imageData];
-            [imageData2 timestamp];
+            objc_msgSend_timestamp(imageData2);
 
             [v10 integerValue];
             kdebug_trace();
@@ -457,7 +457,7 @@ LABEL_6:
 
   [v5 appendFormat:@"Is Complete: %@\r", v8];
   imageData = [(ARTechniqueGatherContext *)self imageData];
-  [imageData timestamp];
+  objc_msgSend_timestamp(imageData);
   [v5 appendFormat:@"ImageData timestamp: %f\r", v10];
 
   os_unfair_lock_lock(&self->super._stateLock);

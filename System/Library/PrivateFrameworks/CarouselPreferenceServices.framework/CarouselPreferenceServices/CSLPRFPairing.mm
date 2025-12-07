@@ -19,7 +19,7 @@
 
 - (void)_didPair
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D37B50] = [MEMORY[0x277D37B50] sharedInstance];
   [mEMORY[0x277D37B50] removeDelegate:self];
 
@@ -30,21 +30,20 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     isTinker = selfCopy->_isTinker;
-    v8[0] = 67109120;
-    v8[1] = isTinker;
-    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_INFO, "Pairing didPair isTinker? %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = isTinker;
+    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_INFO, "Pairing didPair isTinker? %d", v7, 8u);
   }
 
   objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CSLPRFPairing)init
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = CSLPRFPairing;
-  v2 = [(CSLPRFPairing *)&v8 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = CSLPRFPairing;
+  v2 = [(CSLPRFPairing *)&v7 init];
   if (v2)
   {
     v2->_isTinker = _CSLPairingIsTinker();
@@ -53,7 +52,7 @@
     {
       isTinker = v2->_isTinker;
       *buf = 67109120;
-      v10 = isTinker;
+      v9 = isTinker;
       _os_log_impl(&dword_22CE92000, v3, OS_LOG_TYPE_INFO, "Pairing init isTinker? %d", buf, 8u);
     }
 
@@ -64,7 +63,6 @@
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

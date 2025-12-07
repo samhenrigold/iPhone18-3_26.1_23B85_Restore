@@ -87,31 +87,31 @@ uint64_t __33__AXBinaryMonitor_sharedInstance__block_invoke()
 
 void __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v1 = [MEMORY[0x1E696AAE8] allFrameworks];
   v2 = [MEMORY[0x1E696AAE8] allBundles];
   v3 = [v1 arrayByAddingObjectsFromArray:v2];
 
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 safeStringForKey:@"_resolvedPath"];
         if (!v9)
         {
@@ -121,7 +121,7 @@ void __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke()
         [v0 axSafelyAddObject:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -131,11 +131,9 @@ void __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke()
   block[1] = 3221225472;
   block[2] = __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke_2;
   block[3] = &unk_1E735AD18;
-  v13 = v0;
+  v12 = v0;
   v10 = v0;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke_3(uint64_t a1, void *a2)
@@ -228,7 +226,7 @@ void __43__AXBinaryMonitor_evaluateExistingBinaries__block_invoke_3(uint64_t a1,
   {
     v14 = @"not adding handler, block was null";
 LABEL_6:
-    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0.0, 0, 1, v14);
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, v14, v15);
     goto LABEL_7;
   }
 
@@ -238,21 +236,21 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke;
-  v18[3] = &unk_1E735BAF8;
-  v19 = v10;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke;
+  v19[3] = &unk_1E735BAF8;
+  v20 = v10;
   v12 = nameCopy;
-  v20 = v12;
-  v21 = v9;
-  AXPerformBlockSynchronouslyOnMainThread(v18);
+  v21 = v12;
+  v22 = v9;
+  AXPerformBlockSynchronouslyOnMainThread(v19);
   binaryMonitorQueue = [(AXBinaryMonitor *)self binaryMonitorQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke_2;
   block[3] = &unk_1E735B7E8;
-  v16 = v12;
+  v17 = v12;
   selfCopy = self;
   dispatch_async(binaryMonitorQueue, block);
 
@@ -370,30 +368,30 @@ void __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke_2(uint64_t 
 
 - (id)_frameworkNameForImage:(id)image
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   pathComponents = [image pathComponents];
   reverseObjectEnumerator = [pathComponents reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
-  v6 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 hasSuffix:@"framework"])
         {
           v11 = v10;
@@ -401,7 +399,7 @@ void __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke_2(uint64_t 
         }
       }
 
-      v7 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -414,34 +412,32 @@ void __46__AXBinaryMonitor__addHandler_withName_toMap___block_invoke_2(uint64_t 
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)_bundleNameForImage:(id)image
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   pathComponents = [image pathComponents];
-  v4 = [pathComponents countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [pathComponents countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(pathComponents);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         lowercaseString = [v8 lowercaseString];
         v10 = [lowercaseString hasSuffix:@"bundle"];
 
@@ -452,7 +448,7 @@ LABEL_11:
         }
       }
 
-      v5 = [pathComponents countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [pathComponents countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -465,34 +461,32 @@ LABEL_11:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)_appExtensionNameForImage:(id)image
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pathComponents = [image pathComponents];
-  v4 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(pathComponents);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 hasSuffix:@"appex"])
         {
           v9 = v8;
@@ -500,7 +494,7 @@ LABEL_11:
         }
       }
 
-      v5 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -513,34 +507,32 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_appNameForImage:(id)image
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pathComponents = [image pathComponents];
-  v4 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(pathComponents);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 hasSuffix:@"app"])
         {
           v9 = v8;
@@ -548,7 +540,7 @@ LABEL_11:
         }
       }
 
-      v5 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -561,34 +553,32 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_dylibNameForImage:(id)image
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pathComponents = [image pathComponents];
-  v4 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(pathComponents);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 hasSuffix:@"dylib"])
         {
           v9 = v8;
@@ -596,7 +586,7 @@ LABEL_11:
         }
       }
 
-      v5 = [pathComponents countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [pathComponents countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -609,48 +599,45 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)_applyHandlerBlocks:(id)blocks handlerMap:(id)map
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blocksCopy = blocks;
   mapCopy = map;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = [mapCopy objectForKey:{blocksCopy, 0}];
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v11++) + 16))();
+        (*(*(*(&v12 + 1) + 8 * v11++) + 16))();
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   [mapCopy removeObjectForKey:blocksCopy];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLoadedImagePath:(id)path

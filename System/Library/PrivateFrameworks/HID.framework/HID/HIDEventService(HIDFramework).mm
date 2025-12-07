@@ -25,16 +25,16 @@
 
 - (id)propertyForKey:()HIDFramework
 {
-  v0 = IOHIDServiceCopyProperty();
+  v3 = IOHIDServiceCopyProperty();
 
-  return v0;
+  return v3;
 }
 
 - (id)eventMatching:()HIDFramework
 {
-  v0 = IOHIDServiceCopyMatchingEvent();
+  v3 = IOHIDServiceCopyMatchingEvent();
 
-  return v0;
+  return v3;
 }
 
 @end

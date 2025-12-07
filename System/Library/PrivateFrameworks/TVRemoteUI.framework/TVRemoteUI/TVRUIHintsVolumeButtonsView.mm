@@ -158,15 +158,15 @@ LABEL_10:
 
 - (void)_setupConstraintsForButtonEdge:(unsigned int)edge buttonWidth:(double)width
 {
-  v68[10] = *MEMORY[0x277D85DE8];
+  v69[10] = *MEMORY[0x277D85DE8];
   buttonConstraints = [(TVRUIHintsVolumeButtonsView *)self buttonConstraints];
 
-  v8 = 0x277CCA000uLL;
+  v9 = 0x277CCA000uLL;
   if (buttonConstraints)
   {
-    v9 = MEMORY[0x277CCAAD0];
+    v10 = MEMORY[0x277CCAAD0];
     buttonConstraints2 = [(TVRUIHintsVolumeButtonsView *)self buttonConstraints];
-    [v9 deactivateConstraints:buttonConstraints2];
+    [v10 deactivateConstraints:buttonConstraints2];
 
     buttonConstraints3 = [(TVRUIHintsVolumeButtonsView *)self buttonConstraints];
     [buttonConstraints3 removeAllObjects];
@@ -175,84 +175,84 @@ LABEL_10:
   if (edge == 2)
   {
     buttonConstraints = self->_buttonConstraints;
-    v31 = [(TVRUIHintsVolumeButtonsView *)self _constraintsForLeftAndRightSideButtonsWithButtonWidth:width];
-    [(NSMutableArray *)buttonConstraints addObjectsFromArray:v31];
+    v32 = [(TVRUIHintsVolumeButtonsView *)self _constraintsForLeftAndRightSideButtonsWithButtonWidth:width];
+    [(NSMutableArray *)buttonConstraints addObjectsFromArray:v32];
 
-    v14 = self->_buttonConstraints;
+    v15 = self->_buttonConstraints;
     glyphView = [(TVRUIHintsVolumeButtonsView *)self glyphView];
     rightAnchor = [glyphView rightAnchor];
     volumeUpButtonView = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
     leftAnchor = [volumeUpButtonView leftAnchor];
     styleProvider = [(TVRUIHintsVolumeButtonsView *)self styleProvider];
     [styleProvider imageMargin];
-    v20 = -v32;
+    v21 = -v33;
   }
 
   else
   {
     if (edge == 1)
     {
-      v52 = self->_buttonConstraints;
+      v53 = self->_buttonConstraints;
       volumeDownButtonView = [(TVRUIHintsVolumeButtonsView *)self volumeDownButtonView];
       heightAnchor = [volumeDownButtonView heightAnchor];
       width = [heightAnchor constraintEqualToConstant:width + width];
-      v68[0] = width;
+      v69[0] = width;
       volumeDownButtonView2 = [(TVRUIHintsVolumeButtonsView *)self volumeDownButtonView];
       leftAnchor2 = [volumeDownButtonView2 leftAnchor];
       leftAnchor3 = [(TVRUIHintsVolumeButtonsView *)self leftAnchor];
-      v61 = [leftAnchor2 constraintEqualToAnchor:leftAnchor3];
-      v68[1] = v61;
+      v62 = [leftAnchor2 constraintEqualToAnchor:leftAnchor3];
+      v69[1] = v62;
       volumeDownButtonView3 = [(TVRUIHintsVolumeButtonsView *)self volumeDownButtonView];
       widthAnchor = [volumeDownButtonView3 widthAnchor];
       [(TVRUIHintsVolumeButtonsView *)self buttonHeight];
-      v58 = [widthAnchor constraintEqualToConstant:?];
-      v68[2] = v58;
+      v59 = [widthAnchor constraintEqualToConstant:?];
+      v69[2] = v59;
       volumeDownButtonView4 = [(TVRUIHintsVolumeButtonsView *)self volumeDownButtonView];
       bottomAnchor = [volumeDownButtonView4 bottomAnchor];
       bottomAnchor2 = [(TVRUIHintsVolumeButtonsView *)self bottomAnchor];
-      v54 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:width];
-      v68[3] = v54;
+      v55 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:width];
+      v69[3] = v55;
       volumeUpButtonView2 = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
       heightAnchor2 = [volumeUpButtonView2 heightAnchor];
       width2 = [heightAnchor2 constraintEqualToConstant:width + width];
-      v68[4] = width2;
+      v69[4] = width2;
       volumeUpButtonView3 = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
       widthAnchor2 = [volumeUpButtonView3 widthAnchor];
       [(TVRUIHintsVolumeButtonsView *)self buttonHeight];
-      v47 = [widthAnchor2 constraintEqualToConstant:?];
-      v68[5] = v47;
+      v48 = [widthAnchor2 constraintEqualToConstant:?];
+      v69[5] = v48;
       volumeUpButtonView4 = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
       rightAnchor2 = [volumeUpButtonView4 rightAnchor];
       rightAnchor3 = [(TVRUIHintsVolumeButtonsView *)self rightAnchor];
-      v43 = [rightAnchor2 constraintEqualToAnchor:rightAnchor3];
-      v68[6] = v43;
+      v44 = [rightAnchor2 constraintEqualToAnchor:rightAnchor3];
+      v69[6] = v44;
       volumeUpButtonView5 = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
       bottomAnchor3 = [volumeUpButtonView5 bottomAnchor];
       bottomAnchor4 = [(TVRUIHintsVolumeButtonsView *)self bottomAnchor];
-      v39 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:width];
-      v68[7] = v39;
+      v40 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:width];
+      v69[7] = v40;
       glyphView2 = [(TVRUIHintsVolumeButtonsView *)self glyphView];
       centerXAnchor = [glyphView2 centerXAnchor];
       centerXAnchor2 = [(TVRUIHintsVolumeButtonsView *)self centerXAnchor];
-      v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      v68[8] = v23;
+      v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+      v69[8] = v24;
       glyphView3 = [(TVRUIHintsVolumeButtonsView *)self glyphView];
       topAnchor = [glyphView3 topAnchor];
       volumeUpButtonView6 = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
       bottomAnchor5 = [volumeUpButtonView6 bottomAnchor];
       [(TVRUIHintsStyleProvider *)self->_styleProvider imageMargin];
-      v28 = [topAnchor constraintEqualToAnchor:bottomAnchor5 constant:?];
-      v68[9] = v28;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:10];
-      [(NSMutableArray *)v52 addObjectsFromArray:v29];
+      v29 = [topAnchor constraintEqualToAnchor:bottomAnchor5 constant:?];
+      v69[9] = v29;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:10];
+      [(NSMutableArray *)v53 addObjectsFromArray:v30];
 
-      v8 = 0x277CCA000;
+      v9 = 0x277CCA000;
       goto LABEL_13;
     }
 
     if (edge)
     {
-      glyphView = _TVRUIHintsLog();
+      glyphView = _TVRUIHintsLog(v8);
       if (os_log_type_enabled(glyphView, OS_LOG_TYPE_FAULT))
       {
         [TVRUIHintsVolumeButtonsView _setupConstraintsForButtonEdge:glyphView buttonWidth:?];
@@ -261,11 +261,11 @@ LABEL_10:
       goto LABEL_12;
     }
 
-    v12 = self->_buttonConstraints;
-    v13 = [(TVRUIHintsVolumeButtonsView *)self _constraintsForLeftAndRightSideButtonsWithButtonWidth:width];
-    [(NSMutableArray *)v12 addObjectsFromArray:v13];
+    v13 = self->_buttonConstraints;
+    v14 = [(TVRUIHintsVolumeButtonsView *)self _constraintsForLeftAndRightSideButtonsWithButtonWidth:width];
+    [(NSMutableArray *)v13 addObjectsFromArray:v14];
 
-    v14 = self->_buttonConstraints;
+    v15 = self->_buttonConstraints;
     glyphView = [(TVRUIHintsVolumeButtonsView *)self glyphView];
     rightAnchor = [glyphView leftAnchor];
     volumeUpButtonView = [(TVRUIHintsVolumeButtonsView *)self volumeUpButtonView];
@@ -274,19 +274,19 @@ LABEL_10:
     [styleProvider imageMargin];
   }
 
-  v33 = [rightAnchor constraintEqualToAnchor:leftAnchor constant:v20];
-  [(NSMutableArray *)v14 addObject:v33];
+  v34 = [rightAnchor constraintEqualToAnchor:leftAnchor constant:v21];
+  [(NSMutableArray *)v15 addObject:v34];
 
 LABEL_12:
 LABEL_13:
   buttonConstraints4 = [(TVRUIHintsVolumeButtonsView *)self buttonConstraints];
-  v35 = [buttonConstraints4 count];
+  v36 = [buttonConstraints4 count];
 
-  if (v35)
+  if (v36)
   {
-    v36 = *(v8 + 2768);
+    v37 = *(v9 + 2768);
     buttonConstraints5 = [(TVRUIHintsVolumeButtonsView *)self buttonConstraints];
-    [v36 activateConstraints:buttonConstraints5];
+    [v37 activateConstraints:buttonConstraints5];
   }
 }
 

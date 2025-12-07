@@ -47,10 +47,11 @@ id sub_100001134()
   return v1;
 }
 
-void sub_1000013D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1000013D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   _Block_object_dispose(&a9, 8);
-  _Block_object_dispose(&a13, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -203,9 +204,9 @@ id sub_100001A9C(void *a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_100001BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -370,54 +371,50 @@ void sub_100002278(uint64_t a1)
   sub_1000162C8(v3);
 }
 
-void sub_1000024B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000024B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000024D4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyAndEmptyBatchQueue];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _copyAndEmptyBatchQueue];
 
   return _objc_release_x1();
 }
 
-uint64_t sub_100005AA4()
+uint64_t sub_100005AA4(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_1000530A8;
-  v5 = qword_1000530A8;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_1000530A8;
+  v6 = qword_1000530A8;
   if (!qword_1000530A8)
   {
-    v6 = *off_10003C6A0;
-    v7 = *off_10003C6B0;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_1000530A8 = v3[3];
-    v0 = v3[3];
+    v7 = *off_10003C6A0;
+    v8 = *off_10003C6B0;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_1000530A8 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_100005BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100005BD0(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_1000530A8 = *(*(*(a1 + 32) + 8) + 24);
@@ -426,12 +423,24 @@ uint64_t sub_100005BD0(uint64_t a1)
 
 void sub_100005C68(uint64_t a1)
 {
-  if (!sub_100005AA4())
+  v7 = 0;
+  v2 = sub_100005AA4(&v7);
+  v3 = v7;
+  if (v2)
   {
-    v2 = abort_report_np();
-    free(v2);
+    if (!v7)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v7);
+  }
+
+  free(v3);
+LABEL_3:
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BGSystemTaskScheduler");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -440,8 +449,8 @@ void sub_100005C68(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    [(GEOAPServiceLocal *)v3 showUploadCounts:v4, v5];
+    v4 = abort_report_np("Unable to find class %s", "BGSystemTaskScheduler");
+    [(GEOAPServiceLocal *)v4 showUploadCounts:v5, v6];
   }
 }
 
@@ -473,44 +482,42 @@ void sub_1000077C0(uint64_t a1, char a2, double a3)
     v6 = [v5 components:28 fromDate:v4];
     v7 = [v5 dateFromComponents:v6];
 
-    v8 = GeoAnalyticsConfig_DailyNetEventAggregationLastRunTime[1];
     GEOConfigGetDate();
-
     [v6 setDay:{objc_msgSend(v6, "day") - 7}];
-    v9 = [v5 dateFromComponents:v6];
+    v8 = [v5 dateFromComponents:v6];
     GEOConfigSetDate();
-    v19 = v9;
-    v10 = [v5 components:28 fromDate:v9];
+    v18 = v8;
+    v9 = [v5 components:28 fromDate:v8];
 
-    [v10 setDay:{objc_msgSend(v10, "day") + 1}];
-    v11 = [v5 dateFromComponents:v10];
-    while ([v11 compare:v7] == -1)
+    [v9 setDay:{objc_msgSend(v9, "day") + 1}];
+    v10 = [v5 dateFromComponents:v9];
+    while ([v10 compare:v7] == -1)
     {
-      v12 = v11;
-      v13 = sub_10000776C();
-      v14 = os_signpost_id_generate(v13);
+      v11 = v10;
+      v12 = sub_10000776C();
+      v13 = os_signpost_id_generate(v12);
 
-      v15 = sub_10000776C();
-      v16 = v15;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      v14 = sub_10000776C();
+      v15 = v14;
+      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
         *buf = 138412290;
-        v21 = v12;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "DailyNetworkEvent", "for '%@'", buf, 0xCu);
+        v20 = v11;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "DailyNetworkEvent", "for '%@'", buf, 0xCu);
       }
 
-      [*(a1 + 32) runAggregationForDate:v12];
+      [*(a1 + 32) runAggregationForDate:v11];
       GEOConfigSetDate();
-      [v10 setDay:{objc_msgSend(v10, "day") + 1}];
-      v11 = [v5 dateFromComponents:v10];
+      [v9 setDay:{objc_msgSend(v9, "day") + 1}];
+      v10 = [v5 dateFromComponents:v9];
 
-      v17 = sub_10000776C();
-      v18 = v17;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+      v16 = sub_10000776C();
+      v17 = v16;
+      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         *buf = 138412290;
-        v21 = v11;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, v14, "DailyNetworkEvent", "for '%@'", buf, 0xCu);
+        v20 = v10;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_END, v13, "DailyNetworkEvent", "for '%@'", buf, 0xCu);
       }
     }
   }
@@ -875,104 +882,104 @@ LABEL_29:
 
 void sub_100009150(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v25 = objc_alloc_init(GEONetEventAggregateStats);
-  [*(a1 + 32) setLatencyStats:v25];
+  v18 = objc_alloc_init(GEONetEventAggregateStats);
+  [*(a1 + 32) setLatencyStats:v18];
+
+  v19 = [*(a1 + 32) latencyStats];
+  [v19 setMax:a4];
+
+  v20 = [*(a1 + 32) latencyStats];
+  [v20 setMin:a3];
+
+  v21 = [*(a1 + 32) latencyStats];
+  [v21 setP10:a5];
+
+  v22 = [*(a1 + 32) latencyStats];
+  [v22 setP25:a6];
+
+  v23 = [*(a1 + 32) latencyStats];
+  [v23 setP50:a7];
+
+  v24 = [*(a1 + 32) latencyStats];
+  [v24 setP75:a8];
+
+  v25 = [*(a1 + 32) latencyStats];
+  [v25 setP90:a9];
 
   v26 = [*(a1 + 32) latencyStats];
-  [v26 setMax:a4];
+  [v26 setP99:a10];
 
-  v27 = [*(a1 + 32) latencyStats];
-  [v27 setMin:a3];
-
-  v28 = [*(a1 + 32) latencyStats];
-  [v28 setP10:a5];
-
+  v27 = a2;
   v29 = [*(a1 + 32) latencyStats];
-  [v29 setP25:a6];
-
-  v30 = [*(a1 + 32) latencyStats];
-  [v30 setP50:a7];
-
-  v31 = [*(a1 + 32) latencyStats];
-  [v31 setP75:a8];
-
-  v32 = [*(a1 + 32) latencyStats];
-  [v32 setP90:a9];
-
-  v33 = [*(a1 + 32) latencyStats];
-  [v33 setP99:a10];
-
-  v34 = a2;
-  v36 = [*(a1 + 32) latencyStats];
-  [v36 setAlgMean:v34];
+  [v29 setAlgMean:v27];
 }
 
 void sub_100009318(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v25 = objc_alloc_init(GEONetEventAggregateStats);
-  [*(a1 + 32) setTxBytesStats:v25];
+  v18 = objc_alloc_init(GEONetEventAggregateStats);
+  [*(a1 + 32) setTxBytesStats:v18];
+
+  v19 = [*(a1 + 32) txBytesStats];
+  [v19 setMax:a4];
+
+  v20 = [*(a1 + 32) txBytesStats];
+  [v20 setMin:a3];
+
+  v21 = [*(a1 + 32) txBytesStats];
+  [v21 setP10:a5];
+
+  v22 = [*(a1 + 32) txBytesStats];
+  [v22 setP25:a6];
+
+  v23 = [*(a1 + 32) txBytesStats];
+  [v23 setP50:a7];
+
+  v24 = [*(a1 + 32) txBytesStats];
+  [v24 setP75:a8];
+
+  v25 = [*(a1 + 32) txBytesStats];
+  [v25 setP90:a9];
 
   v26 = [*(a1 + 32) txBytesStats];
-  [v26 setMax:a4];
+  [v26 setP99:a10];
 
-  v27 = [*(a1 + 32) txBytesStats];
-  [v27 setMin:a3];
-
-  v28 = [*(a1 + 32) txBytesStats];
-  [v28 setP10:a5];
-
+  v27 = a2;
   v29 = [*(a1 + 32) txBytesStats];
-  [v29 setP25:a6];
-
-  v30 = [*(a1 + 32) txBytesStats];
-  [v30 setP50:a7];
-
-  v31 = [*(a1 + 32) txBytesStats];
-  [v31 setP75:a8];
-
-  v32 = [*(a1 + 32) txBytesStats];
-  [v32 setP90:a9];
-
-  v33 = [*(a1 + 32) txBytesStats];
-  [v33 setP99:a10];
-
-  v34 = a2;
-  v36 = [*(a1 + 32) txBytesStats];
-  [v36 setAlgMean:v34];
+  [v29 setAlgMean:v27];
 }
 
 void sub_1000094E0(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v25 = objc_alloc_init(GEONetEventAggregateStats);
-  [*(a1 + 32) setRxBytesStats:v25];
+  v18 = objc_alloc_init(GEONetEventAggregateStats);
+  [*(a1 + 32) setRxBytesStats:v18];
+
+  v19 = [*(a1 + 32) rxBytesStats];
+  [v19 setMax:a4];
+
+  v20 = [*(a1 + 32) rxBytesStats];
+  [v20 setMin:a3];
+
+  v21 = [*(a1 + 32) rxBytesStats];
+  [v21 setP10:a5];
+
+  v22 = [*(a1 + 32) rxBytesStats];
+  [v22 setP25:a6];
+
+  v23 = [*(a1 + 32) rxBytesStats];
+  [v23 setP50:a7];
+
+  v24 = [*(a1 + 32) rxBytesStats];
+  [v24 setP75:a8];
+
+  v25 = [*(a1 + 32) rxBytesStats];
+  [v25 setP90:a9];
 
   v26 = [*(a1 + 32) rxBytesStats];
-  [v26 setMax:a4];
+  [v26 setP99:a10];
 
-  v27 = [*(a1 + 32) rxBytesStats];
-  [v27 setMin:a3];
-
-  v28 = [*(a1 + 32) rxBytesStats];
-  [v28 setP10:a5];
-
+  v27 = a2;
   v29 = [*(a1 + 32) rxBytesStats];
-  [v29 setP25:a6];
-
-  v30 = [*(a1 + 32) rxBytesStats];
-  [v30 setP50:a7];
-
-  v31 = [*(a1 + 32) rxBytesStats];
-  [v31 setP75:a8];
-
-  v32 = [*(a1 + 32) rxBytesStats];
-  [v32 setP90:a9];
-
-  v33 = [*(a1 + 32) rxBytesStats];
-  [v33 setP99:a10];
-
-  v34 = a2;
-  v36 = [*(a1 + 32) rxBytesStats];
-  [v36 setAlgMean:v34];
+  [v29 setAlgMean:v27];
 }
 
 void sub_100009A18(id a1)
@@ -1020,14 +1027,15 @@ void sub_10000AB90(id a1)
   _objc_release_x1();
 }
 
-void sub_10000B088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_10000B088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a47, 8);
   _Block_object_dispose(&a51, 8);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a61, 8);
-  _Block_object_dispose((v61 - 240), 8);
-  _Block_object_dispose((v61 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v60 - 240), 8);
+  _Block_object_dispose((v60 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1148,35 +1156,35 @@ uint64_t sub_10000B484(uint64_t a1)
 {
   if (*(*(*(a1 + 48) + 8) + 24))
   {
-    v32 = objc_alloc_init(NSMutableArray);
+    v30 = objc_alloc_init(NSMutableArray);
     if (*(a1 + 104) >= 1)
     {
       v2 = 0;
       do
       {
-        v34 = [[NSNumber alloc] initWithInt:v2];
+        v32 = [[NSNumber alloc] initWithInt:v2];
+        v36 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v42 = 0u;
         obj = *(a1 + 32);
-        v35 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-        if (v35)
+        v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v33)
         {
-          v33 = *v40;
+          v31 = *v37;
           do
           {
-            for (i = 0; i != v35; i = i + 1)
+            for (i = 0; i != v33; i = i + 1)
             {
-              if (*v40 != v33)
+              if (*v37 != v31)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v4 = *(*(&v39 + 1) + 8 * i);
+              v4 = *(*(&v36 + 1) + 8 * i);
               v5 = objc_autoreleasePoolPush();
               v6 = [*(a1 + 32) objectForKeyedSubscript:v4];
-              v7 = [v6 objectForKeyedSubscript:v34];
+              v7 = [v6 objectForKeyedSubscript:v32];
 
               if (v7)
               {
@@ -1199,17 +1207,17 @@ uint64_t sub_10000B484(uint64_t a1)
                 v14 = [v8 usageString];
                 [v9 setUsageString:v14];
 
-                [v32 addObject:v9];
+                [v30 addObject:v9];
                 v2 = v10;
               }
 
               objc_autoreleasePoolPop(v5);
             }
 
-            v35 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+            v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
           }
 
-          while (v35);
+          while (v33);
         }
 
         v2 = (v2 + 1);
@@ -1218,68 +1226,65 @@ uint64_t sub_10000B484(uint64_t a1)
       while (v2 < *(a1 + 104));
     }
 
-    v15 = GeoAnalyticsConfig_MapsLastUseDate[1];
     if (_GEOConfigHasValue())
     {
-      v16 = [NSNumber alloc];
+      v15 = [NSNumber alloc];
       GEOConfigGetDouble();
-      v17 = [v16 initWithDouble:?];
+      v16 = [v15 initWithDouble:?];
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    v18 = *(*(*(a1 + 56) + 8) + 40);
-    if (v18)
+    v17 = *(*(*(a1 + 56) + 8) + 40);
+    if (v17)
     {
-      [v18 timeIntervalSinceReferenceDate];
+      [v17 timeIntervalSinceReferenceDate];
       GEOConfigSetDouble();
     }
 
     if (*(*(*(a1 + 64) + 8) + 24) > 0.0)
     {
-      v19 = objc_alloc_init(GEODailyUseSummaryUseEvent);
-      [v19 setEventType:151];
-      [v19 setAppType:0];
-      v20 = *(*(*(a1 + 72) + 8) + 40);
-      if (v20 && v20 != *(a1 + 40))
+      v18 = objc_alloc_init(GEODailyUseSummaryUseEvent);
+      [v18 setEventType:151];
+      [v18 setAppType:0];
+      v19 = *(*(*(a1 + 72) + 8) + 40);
+      if (v19 && v19 != *(a1 + 40))
       {
-        [v19 setUsageString:@"Dropped counts"];
+        [v18 setUsageString:@"Dropped counts"];
       }
 
-      [v19 setCount:{+[GEOAPFuzzers fuzzDailyCount:forDailyUsageType:](GEOAPFuzzers, "fuzzDailyCount:forDailyUsageType:", *(*(*(a1 + 64) + 8) + 24), objc_msgSend(v19, "eventType"))}];
-      [v32 addObject:v19];
+      [v18 setCount:{+[GEOAPFuzzers fuzzDailyCount:forDailyUsageType:](GEOAPFuzzers, "fuzzDailyCount:forDailyUsageType:", *(*(*(a1 + 64) + 8) + 24), objc_msgSend(v18, "eventType"))}];
+      [v30 addObject:v18];
     }
 
     if (*(*(*(a1 + 80) + 8) + 24) > 0.0)
     {
-      v21 = objc_alloc_init(GEODailyUseSummaryUseEvent);
-      [v21 setEventType:166];
-      [v21 setAppType:0];
-      v22 = *(*(*(a1 + 88) + 8) + 40);
-      if (v22 && v22 != *(a1 + 40))
+      v20 = objc_alloc_init(GEODailyUseSummaryUseEvent);
+      [v20 setEventType:166];
+      [v20 setAppType:0];
+      v21 = *(*(*(a1 + 88) + 8) + 40);
+      if (v21 && v21 != *(a1 + 40))
       {
-        [v21 setUsageString:@"Dropped counts"];
+        [v20 setUsageString:@"Dropped counts"];
       }
 
-      [v21 setCount:{+[GEOAPFuzzers fuzzDailyCount:forDailyUsageType:](GEOAPFuzzers, "fuzzDailyCount:forDailyUsageType:", *(*(*(a1 + 80) + 8) + 24), objc_msgSend(v21, "eventType"))}];
-      [v32 addObject:v21];
+      [v20 setCount:{+[GEOAPFuzzers fuzzDailyCount:forDailyUsageType:](GEOAPFuzzers, "fuzzDailyCount:forDailyUsageType:", *(*(*(a1 + 80) + 8) + 24), objc_msgSend(v20, "eventType"))}];
+      [v30 addObject:v20];
     }
 
-    v23 = +[NSTimeZone defaultTimeZone];
-    v24 = +[NSDate dateWithTimeInterval:sinceDate:](NSDate, "dateWithTimeInterval:sinceDate:", *(*(*(a1 + 96) + 8) + 40), [v23 secondsFromGMTForDate:*(*(*(a1 + 96) + 8) + 40)]);
-    v25 = *(*(a1 + 96) + 8);
-    v26 = *(v25 + 40);
-    *(v25 + 40) = v24;
+    v22 = +[NSTimeZone defaultTimeZone];
+    v23 = +[NSDate dateWithTimeInterval:sinceDate:](NSDate, "dateWithTimeInterval:sinceDate:", *(*(*(a1 + 96) + 8) + 40), [v22 secondsFromGMTForDate:*(*(*(a1 + 96) + 8) + 40)]);
+    v24 = *(*(a1 + 96) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = v23;
 
-    v27 = *(a1 + 40);
-    v37 = v17;
-    v38 = *(a1 + 96);
-    v36 = v27;
-    v28 = v17;
-    v29 = v32;
+    v35 = v16;
+    v34 = *(a1 + 40);
+    v26 = v16;
+    v27 = v30;
     geo_dispatch_async_qos();
   }
 
@@ -1395,7 +1400,6 @@ uint64_t sub_10000C06C(uint64_t a1)
 {
   if (*(*(*(a1 + 32) + 8) + 40))
   {
-    v3 = *(a1 + 32);
     geo_dispatch_async_qos();
   }
 
@@ -1455,7 +1459,6 @@ void sub_10000C704(id a1)
 
 uint64_t sub_10000C740(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_100053118 = *(*(*(a1 + 32) + 8) + 24);
@@ -1490,7 +1493,7 @@ uint64_t sub_10000C7D8()
   v1 = v3[0];
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     __break(1u);
     goto LABEL_7;
   }
@@ -1504,9 +1507,9 @@ LABEL_7:
   return v0;
 }
 
-void sub_10000C91C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000C91C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1693,10 +1696,7 @@ uint64_t sub_10000E618(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000E630(uint64_t a1)
 {
-  v2 = objc_alloc_init(GEOAPDaemon);
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = objc_alloc_init(GEOAPDaemon);
 
   return _objc_release_x1();
 }
@@ -1715,9 +1715,9 @@ void *sub_10000E67C(void *result)
   return result;
 }
 
-void sub_10000E808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000E808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1803,9 +1803,9 @@ uint64_t sub_10000E8D4(uint64_t a1)
   return v13;
 }
 
-void sub_10000EB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000EB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1939,9 +1939,9 @@ id sub_10000F1D0(void *a1, uint64_t a2)
   return v11;
 }
 
-void sub_10000F38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000F38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2028,9 +2028,9 @@ uint64_t sub_10000F458(void *a1)
   return v14;
 }
 
-void sub_10000F6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000F6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2094,9 +2094,9 @@ uint64_t sub_10000F6C8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5
   return v19;
 }
 
-void sub_10000F960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000F960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2212,9 +2212,9 @@ id sub_10000FE50(uint64_t a1, uint64_t a2)
   return v23;
 }
 
-void sub_10001013C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001013C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2226,9 +2226,9 @@ id sub_100010154(uint64_t a1)
   return result;
 }
 
-void sub_100010298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100010298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2334,9 +2334,9 @@ LABEL_11:
   return v15;
 }
 
-void sub_100010628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2404,16 +2404,16 @@ LABEL_10:
   return v24;
 }
 
-void sub_1000108EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000108EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000109C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000109C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2553,9 +2553,9 @@ void sub_1000112E0(uint64_t a1)
   _Block_object_dispose(&v12, 8);
 }
 
-void sub_1000113F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000113F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2721,9 +2721,9 @@ void sub_100012018(uint64_t a1)
   _Block_object_dispose(v15, 8);
 }
 
-void sub_10001218C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10001218C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2900,7 +2900,7 @@ LABEL_10:
 LABEL_11:
 }
 
-void sub_100012FBC(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8)
+void sub_100012FBC(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8)
 {
   v95 = a6;
   v98 = a8;
@@ -2969,14 +2969,14 @@ void sub_100012FBC(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t
 
   v99 = [v93 uploadStages];
   v24 = [v99 count];
-  if ((v24 - 1) >= a3)
+  if (v24 - 1 >= a3)
   {
     v25 = a3;
   }
 
   else
   {
-    v25 = v24 - 1;
+    v25 = (v24 - 1);
   }
 
   v94 = v25;
@@ -3050,8 +3050,8 @@ LABEL_34:
 
   if ((v82 & 1) == 0)
   {
-    v75 = sub_100001E4C();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+    v74 = sub_100001E4C();
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
       *&buf[4] = v98;
@@ -3061,15 +3061,15 @@ LABEL_34:
       v119 = v85;
       *v120 = 2112;
       *&v120[2] = v83;
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "(%@) move %@ to %@ failed (%@)", buf, 0x2Au);
+      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "(%@) move %@ to %@ failed (%@)", buf, 0x2Au);
     }
 
-    v76 = +[NSFileManager defaultManager];
+    v75 = +[NSFileManager defaultManager];
     v112 = v83;
-    v77 = [v76 removeItemAtURL:v97 error:&v112];
+    v76 = [v75 removeItemAtURL:v97 error:&v112];
     v96 = v112;
 
-    if (v77)
+    if (v76)
     {
       goto LABEL_65;
     }
@@ -3122,22 +3122,22 @@ LABEL_62:
 
   if ((v39 & 1) == 0)
   {
-    v78 = sub_100001E4C();
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+    v77 = sub_100001E4C();
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       *&buf[4] = v98;
       *&buf[12] = 2112;
       *&buf[14] = v88;
-      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "(%@) starting stage %@ failed", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "(%@) starting stage %@ failed", buf, 0x16u);
     }
 
-    v79 = +[NSFileManager defaultManager];
+    v78 = +[NSFileManager defaultManager];
     v111 = v83;
-    v80 = [v79 removeItemAtURL:v85 error:&v111];
+    v79 = [v78 removeItemAtURL:v85 error:&v111];
     v96 = v111;
 
-    if (v80)
+    if (v79)
     {
       goto LABEL_65;
     }
@@ -3177,87 +3177,86 @@ LABEL_65:
   }
 
 LABEL_35:
-  v45 = GeoAnalyticsConfig__debug_KeepUploadFiles[1];
   if (GEOConfigGetBOOL())
   {
-    v46 = *(a1 + 32) == 0;
-    v47 = [NSString alloc];
-    v48 = [v97 absoluteString];
-    v49 = v48;
-    v50 = @"fail";
-    if (v46)
+    v45 = *(a1 + 32) == 0;
+    v46 = [NSString alloc];
+    v47 = [v97 absoluteString];
+    v48 = v47;
+    v49 = @"fail";
+    if (v45)
     {
-      v50 = @"success";
+      v49 = @"success";
     }
 
-    v51 = [v47 initWithFormat:@"%@-%@", v48, v50];
+    v50 = [v46 initWithFormat:@"%@-%@", v47, v49];
 
-    v52 = [[NSURL alloc] initWithString:v51];
-    v53 = +[NSFileManager defaultManager];
-    [v53 moveItemAtURL:v97 toURL:v52 error:0];
+    v51 = [[NSURL alloc] initWithString:v50];
+    v52 = +[NSFileManager defaultManager];
+    [v52 moveItemAtURL:v97 toURL:v51 error:0];
 
 LABEL_44:
     goto LABEL_45;
   }
 
-  v54 = +[NSFileManager defaultManager];
+  v53 = +[NSFileManager defaultManager];
   v110 = v96;
-  v55 = [v54 removeItemAtURL:v97 error:&v110];
-  v56 = v110;
+  v54 = [v53 removeItemAtURL:v97 error:&v110];
+  v55 = v110;
 
-  if ((v55 & 1) == 0)
+  if ((v54 & 1) == 0)
   {
-    v51 = sub_100001E4C();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v50 = sub_100001E4C();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       *&buf[4] = v98;
       *&buf[12] = 2112;
       *&buf[14] = v97;
       *&buf[22] = 2112;
-      v119 = v56;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "(%@) remove %@ failed (%@)", buf, 0x20u);
+      v119 = v55;
+      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "(%@) remove %@ failed (%@)", buf, 0x20u);
     }
 
-    v96 = v56;
+    v96 = v55;
     goto LABEL_44;
   }
 
-  v96 = v56;
+  v96 = v55;
 LABEL_45:
   [*(a1 + 40) _submitBatchesForUpload];
-  v57 = [*(*(a1 + 40) + 40) dateNow];
+  v56 = [*(*(a1 + 40) + 40) dateNow];
   v92 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-  v58 = [v92 component:32 fromDate:v57];
-  v59 = GEOBatchAnalyticsSessionType();
-  v60 = [NSNumber numberWithInt:v59];
-  v61 = [NSNumber numberWithInt:v87];
-  v62 = [NSNumber numberWithInt:*(a1 + 32) == 0];
-  [v57 timeIntervalSinceDate:v95];
-  LODWORD(v8) = vcvtpd_u64_f64(v63);
-  v64 = [NSNumber numberWithUnsignedInt:v8];
+  v57 = [v92 component:32 fromDate:v56];
+  v58 = GEOBatchAnalyticsSessionType();
+  v59 = [NSNumber numberWithInt:v58];
+  v60 = [NSNumber numberWithInt:v87];
+  v61 = [NSNumber numberWithInt:*(a1 + 32) == 0];
+  [v56 timeIntervalSinceDate:v95];
+  LODWORD(v8) = vcvtpd_u64_f64(v62);
+  v63 = [NSNumber numberWithUnsignedInt:v8];
   v101[0] = _NSConcreteStackBlock;
   v101[1] = 3221225472;
   v101[2] = sub_100013D48;
   v101[3] = &unk_10003D138;
   v106 = v94;
-  v65 = v61;
-  v102 = v65;
-  v66 = v64;
-  v103 = v66;
-  v107 = v58;
+  v64 = v60;
+  v102 = v64;
+  v65 = v63;
+  v103 = v65;
+  v107 = v57;
   v108 = a4;
   v109 = a5;
-  v67 = v62;
-  v104 = v67;
-  v68 = v60;
-  v105 = v68;
-  v69 = @"com.apple.GEOAP.uploadEvent";
-  v70 = v101;
+  v66 = v61;
+  v104 = v66;
+  v67 = v59;
+  v105 = v67;
+  v68 = @"com.apple.GEOAP.uploadEvent";
+  v69 = v101;
   v114 = 0;
   v115 = &v114;
   v116 = 0x2020000000;
-  v71 = off_100053120;
+  v70 = off_100053120;
   v117 = off_100053120;
   if (!off_100053120)
   {
@@ -3266,27 +3265,27 @@ LABEL_45:
     *&buf[16] = sub_10000C93C;
     v119 = &unk_10003CA28;
     *v120 = &v114;
-    v72 = sub_10000C7D8();
-    v73 = dlsym(v72, "AnalyticsSendEventLazy");
-    *(*(*v120 + 8) + 24) = v73;
+    v71 = sub_10000C7D8();
+    v72 = dlsym(v71, "AnalyticsSendEventLazy");
+    *(*(*v120 + 8) + 24) = v72;
     off_100053120 = *(*(*v120 + 8) + 24);
-    v71 = v115[3];
+    v70 = v115[3];
   }
 
   _Block_object_dispose(&v114, 8);
-  if (!v71)
+  if (!v70)
   {
-    dlerror();
-    abort_report_np();
+    v80 = dlerror();
+    abort_report_np("%s", v80);
     __break(1u);
   }
 
-  v71(@"com.apple.GEOAP.uploadEvent", v70);
+  v70(@"com.apple.GEOAP.uploadEvent", v69);
 
   if ([*(a1 + 40) _debugUploadCountersEnabled])
   {
-    v74 = +[GEOAPDebugPersistence sharedInstance];
-    [v74 addUploadHistoryForBatchUUID:v98 completionTime:v57 latency:v8 sessionType:v59 eventCount:a4 uploadSize:a5 uploadPolicy:__PAIR64__(v94 stageNum:v87)];
+    v73 = +[GEOAPDebugPersistence sharedInstance];
+    [v73 addUploadHistoryForBatchUUID:v98 completionTime:v56 latency:v8 sessionType:v58 eventCount:a4 uploadSize:a5 uploadPolicy:__PAIR64__(v94 stageNum:v87)];
   }
 
 LABEL_51:
@@ -3330,14 +3329,42 @@ void sub_100013EBC(id a1)
   _objc_release_x1();
 }
 
-void sub_100014F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_100014198(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int buf, __int128 a20)
+{
+  if (a2)
+  {
+    v21 = objc_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v22 = v21;
+      v23 = sub_100001E4C();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        buf = 138412546;
+        WORD2(a20) = 2112;
+        *(&a20 + 6) = v22;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "uploadTask '%@' could not resume '%@'", &buf, 0x16u);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x100014130);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x10001412CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_100014F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a51, 8);
   _Block_object_dispose(&a55, 8);
-  _Block_object_dispose((v69 - 256), 8);
+  _Block_object_dispose((v66 - 256), 8);
   _Block_object_dispose(&a61, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Unwind_Resume(a1);
 }
@@ -3390,7 +3417,7 @@ LABEL_12:
 
   __buf = 10;
   v16 = [v14 length];
-  v17 = v54;
+  v17 = v53;
   if (v16 < 0x80)
   {
     v22 = 1;
@@ -3454,10 +3481,10 @@ LABEL_46:
     v30 = *(v13 + 24);
     v31 = __error();
     v32 = strerror(*v31);
-    v49 = 138412546;
-    v50 = v30;
-    v51 = 2080;
-    v52 = v32;
+    v48 = 138412546;
+    v49 = v30;
+    v50 = 2080;
+    v51 = v32;
     v25 = "unable to write data to file '%@' (%s)";
     goto LABEL_27;
   }
@@ -3471,7 +3498,7 @@ LABEL_46:
     v24 = sub_100001E4C();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49) = 0;
+      LOWORD(v48) = 0;
       v25 = "compress process failed";
 LABEL_20:
       v26 = v24;
@@ -3482,12 +3509,12 @@ LABEL_20:
     goto LABEL_29;
   }
 
-  v38 = *(v13 + 80);
-  v39 = *(v13 + 40);
-  v40 = v38 - v39;
-  if (v38 != v39)
+  v37 = *(v13 + 80);
+  v38 = *(v13 + 40);
+  v39 = v37 - v38;
+  if (v37 != v38)
   {
-    if (write(*(v13 + 8), *(v13 + 72), v38 - v39) < v40)
+    if (write(*(v13 + 8), *(v13 + 72), v37 - v38) < v39)
     {
       v24 = sub_100001E4C();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -3498,22 +3525,22 @@ LABEL_20:
       goto LABEL_29;
     }
 
-    *(v13 + 96) += v40;
+    *(v13 + 96) += v39;
   }
 
   *(v13 + 48) = [v15 bytes];
-  v44 = [v15 length];
-  *(v13 + 56) = v44;
-  if (!v44)
+  v43 = [v15 length];
+  *(v13 + 56) = v43;
+  if (!v43)
   {
     goto LABEL_46;
   }
 
   while (1)
   {
-    v45 = *(v13 + 80);
+    v44 = *(v13 + 80);
     *(v13 + 32) = *(v13 + 72);
-    *(v13 + 40) = v45;
+    *(v13 + 40) = v44;
     if (compression_stream_process((v13 + 32), 0))
     {
       v24 = sub_100001E4C();
@@ -3522,15 +3549,15 @@ LABEL_20:
         goto LABEL_29;
       }
 
-      LOWORD(v49) = 0;
+      LOWORD(v48) = 0;
       v25 = "compress process failed";
       goto LABEL_20;
     }
 
-    v46 = *(v13 + 80);
-    v47 = *(v13 + 40);
-    v48 = v46 - v47;
-    if (v46 != v47)
+    v45 = *(v13 + 80);
+    v46 = *(v13 + 40);
+    v47 = v45 - v46;
+    if (v45 != v46)
     {
       break;
     }
@@ -3542,9 +3569,9 @@ LABEL_45:
     }
   }
 
-  if (write(*(v13 + 8), *(v13 + 72), v46 - v47) >= v48)
+  if (write(*(v13 + 8), *(v13 + 72), v45 - v46) >= v47)
   {
-    *(v13 + 96) += v48;
+    *(v13 + 96) += v47;
     goto LABEL_45;
   }
 
@@ -3555,19 +3582,19 @@ LABEL_45:
   }
 
 LABEL_37:
-  v41 = *(v13 + 24);
-  v42 = __error();
-  v43 = strerror(*v42);
-  v49 = 138412546;
-  v50 = v41;
-  v51 = 2080;
-  v52 = v43;
+  v40 = *(v13 + 24);
+  v41 = __error();
+  v42 = strerror(*v41);
+  v48 = 138412546;
+  v49 = v40;
+  v50 = 2080;
+  v51 = v42;
   v25 = "unable to write compressed data to file '%@' (%s)";
 LABEL_27:
   v26 = v24;
   v27 = 22;
 LABEL_28:
-  _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v25, &v49, v27);
+  _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v25, &v48, v27);
 LABEL_29:
 
 LABEL_30:
@@ -3575,13 +3602,12 @@ LABEL_30:
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     v34 = a1[6];
-    v35 = a1[13];
-    v36 = GEOBatchDescription();
-    v49 = 138412546;
-    v50 = v34;
-    v51 = 2112;
-    v52 = v36;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "(%@) unable to write upload record for %@; stopping here", &v49, 0x16u);
+    v35 = GEOBatchDescription();
+    v48 = 138412546;
+    v49 = v34;
+    v50 = 2112;
+    v51 = v35;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "(%@) unable to write upload record for %@; stopping here", &v48, 0x16u);
   }
 
   v23 = 0;
@@ -3599,12 +3625,11 @@ uint64_t sub_1000155C4(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 32);
-      v4 = *(a1 + 136);
-      v5 = GEOBatchDescription();
+      v4 = GEOBatchDescription();
       *buf = 138412546;
-      v66 = v3;
-      v67 = 2112;
-      v68 = v5;
+      v60 = v3;
+      v61 = 2112;
+      v62 = v4;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "(%@) aborting upload for %@", buf, 0x16u);
     }
 
@@ -3620,34 +3645,32 @@ LABEL_25:
 
       if (*(*(*(a1 + 128) + 8) + 24))
       {
-        v37 = sub_100001E4C();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v34 = sub_100001E4C();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          v38 = *(a1 + 32);
-          v39 = *(a1 + 136);
-          v40 = GEOBatchDescription();
-          v41 = *(*(*(a1 + 128) + 8) + 24);
+          v35 = *(a1 + 32);
+          v36 = GEOBatchDescription();
+          v37 = *(*(*(a1 + 128) + 8) + 24);
           *buf = 138412802;
-          v66 = v38;
-          v67 = 2112;
-          v68 = v40;
-          v69 = 2048;
-          v70 = v41;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "(%@) %@ had %llu expired records", buf, 0x20u);
+          v60 = v35;
+          v61 = 2112;
+          v62 = v36;
+          v63 = 2048;
+          v64 = v37;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "(%@) %@ had %llu expired records", buf, 0x20u);
         }
       }
 
-      v42 = *(*(*(a1 + 120) + 8) + 24);
-      return v42 & 1;
+      v38 = *(*(*(a1 + 120) + 8) + 24);
+      return v38 & 1;
     }
 
-    v35 = *(a1 + 32);
-    v36 = *(a1 + 136);
-    v23 = GEOBatchDescription();
+    v33 = *(a1 + 32);
+    v21 = GEOBatchDescription();
     *buf = 138412546;
-    v66 = v35;
-    v67 = 2112;
-    v68 = v23;
+    v60 = v33;
+    v61 = 2112;
+    v62 = v21;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "(%@) nothing to upload for %@", buf, 0x16u);
 LABEL_24:
 
@@ -3655,80 +3678,79 @@ LABEL_24:
   }
 
   [*(*(*(a1 + 96) + 8) + 40) timeIntervalSinceNow];
-  v7 = fmax(v6, 0.0);
-  if (*(a1 + 144) < v7)
+  v6 = fmax(v5, 0.0);
+  if (*(a1 + 144) < v6)
   {
-    v8 = sub_100001E4C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = sub_100001E4C();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 144);
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v12 = *(a1 + 48);
+      v8 = *(a1 + 144);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 48);
       *buf = 138413314;
-      v66 = v10;
-      v67 = 2112;
-      v68 = v11;
-      v69 = 2048;
-      v70 = v9;
-      v71 = 2112;
-      v72 = v12;
-      v73 = 2048;
-      v74 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "(%@) %@ TTL (%ld) preferred over %@ (%ld)", buf, 0x34u);
+      v60 = v9;
+      v61 = 2112;
+      v62 = v10;
+      v63 = 2048;
+      v64 = v8;
+      v65 = 2112;
+      v66 = v11;
+      v67 = 2048;
+      v68 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "(%@) %@ TTL (%ld) preferred over %@ (%ld)", buf, 0x34u);
     }
 
-    v7 = *(a1 + 144);
+    v6 = *(a1 + 144);
   }
 
-  v13 = sub_100001E4C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v12 = sub_100001E4C();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 136);
-    v16 = GEOBatchDescription();
-    v17 = *(a1 + 48);
-    v18 = *(*(*(a1 + 88) + 8) + 24);
-    v19 = *(*(*(a1 + 104) + 8) + 24);
+    v13 = *(a1 + 32);
+    v14 = GEOBatchDescription();
+    v15 = *(a1 + 48);
+    v16 = *(*(*(a1 + 88) + 8) + 24);
+    v17 = *(*(*(a1 + 104) + 8) + 24);
     *buf = 138413570;
-    v66 = v14;
-    v67 = 2112;
-    v68 = v16;
-    v69 = 2112;
-    v70 = v17;
-    v71 = 2048;
-    v72 = v18;
-    v73 = 2048;
-    v74 = v19;
-    v75 = 2048;
-    v76 = v7;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "(%@) %@ is using uploading policy type '%@' : %lu messages of size %lu with TTL %ld", buf, 0x3Eu);
+    v60 = v13;
+    v61 = 2112;
+    v62 = v14;
+    v63 = 2112;
+    v64 = v15;
+    v65 = 2048;
+    v66 = v16;
+    v67 = 2048;
+    v68 = v17;
+    v69 = 2048;
+    v70 = v6;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "(%@) %@ is using uploading policy type '%@' : %lu messages of size %lu with TTL %ld", buf, 0x3Eu);
   }
 
   v2 = sub_1000021C0(*(a1 + 136), *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 104) + 8) + 24), *(*(*(a1 + 112) + 8) + 40), *(a1 + 160), 0, *(a1 + 32));
-  v20 = +[GEOAPUtils GEOAPCachePath];
-  v21 = [v20 stringByAppendingPathComponent:v2];
+  v18 = +[GEOAPUtils GEOAPCachePath];
+  v19 = [v18 stringByAppendingPathComponent:v2];
 
-  v22 = *(a1 + 56);
-  v23 = v21;
-  if (!v22)
+  v20 = *(a1 + 56);
+  v21 = v19;
+  if (!v20)
   {
     goto LABEL_51;
   }
 
-  v24 = *(v22 + 8);
-  if (v24 < 0)
+  v22 = *(v20 + 8);
+  if (v22 < 0)
   {
     goto LABEL_51;
   }
 
-  if (*(v22 + 12) != 1)
+  if (*(v20 + 12) != 1)
   {
 LABEL_31:
-    if (lseek(v24, *(v22 + 88), 0) != *(v22 + 88))
+    if (lseek(v22, *(v20 + 88), 0) != *(v20 + 88))
     {
-      v30 = sub_100001E4C();
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v28 = sub_100001E4C();
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
       }
@@ -3736,109 +3758,108 @@ LABEL_31:
       goto LABEL_34;
     }
 
-    *(v22 + 96) = bswap32(*(v22 + 96));
-    if (write(*(v22 + 8), (v22 + 96), 4uLL) <= 3)
+    *(v20 + 96) = bswap32(*(v20 + 96));
+    if (write(*(v20 + 8), (v20 + 96), 4uLL) <= 3)
     {
-      v30 = sub_100001E4C();
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v28 = sub_100001E4C();
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
       }
 
 LABEL_34:
-      v43 = *(v22 + 24);
-      v44 = __error();
-      v45 = strerror(*v44);
+      v39 = *(v20 + 24);
+      v40 = __error();
+      v41 = strerror(*v40);
       *buf = 138412546;
-      v66 = v43;
-      v67 = 2080;
-      v68 = v45;
-      v34 = "unable to update finalized file '%@' with length (%s)";
+      v60 = v39;
+      v61 = 2080;
+      v62 = v41;
+      v32 = "unable to update finalized file '%@' with length (%s)";
 LABEL_49:
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, v34, buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, v32, buf, 0x16u);
       goto LABEL_50;
     }
 
-    close(*(v22 + 8));
-    *(v22 + 8) = -1;
-    v46 = [*(v22 + 24) fileSystemRepresentation];
-    v47 = [(std::__fs::filesystem::path *)v23 fileSystemRepresentation];
-    v48 = sub_100001E4C();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    close(*(v20 + 8));
+    *(v20 + 8) = -1;
+    v42 = [*(v20 + 24) fileSystemRepresentation];
+    v43 = [(std::__fs::filesystem::path *)v21 fileSystemRepresentation];
+    v44 = sub_100001E4C();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v66 = v46;
-      v67 = 2080;
-      v68 = v47;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "moving finalized file '%s' to '%s'", buf, 0x16u);
+      v60 = v42;
+      v61 = 2080;
+      v62 = v43;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "moving finalized file '%s' to '%s'", buf, 0x16u);
     }
 
-    rename(v46, v47, v49);
-    if (v50 < 0)
+    rename(v42, v43, v45);
+    if (v46 < 0)
     {
-      v30 = sub_100001E4C();
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v28 = sub_100001E4C();
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
       }
 
-      v57 = __error();
-      v58 = strerror(*v57);
+      v52 = __error();
+      v53 = strerror(*v52);
       *buf = 138412546;
-      v66 = v23;
-      v67 = 2080;
-      v68 = v58;
-      v34 = "unable to move finalized file to '%@' (%s)";
+      v60 = v21;
+      v61 = 2080;
+      v62 = v53;
+      v32 = "unable to move finalized file to '%@' (%s)";
       goto LABEL_49;
     }
 
-    if (chmod(v47, 0x120u) < 0)
+    if (chmod(v43, 0x120u) < 0)
     {
-      v51 = sub_100001E4C();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v47 = sub_100001E4C();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        v52 = __error();
-        v53 = strerror(*v52);
+        v48 = __error();
+        v49 = strerror(*v48);
         *buf = 138412546;
-        v66 = v23;
-        v67 = 2080;
-        v68 = v53;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "unable to set file perms on file '%@' (%s)", buf, 0x16u);
+        v60 = v21;
+        v61 = 2080;
+        v62 = v49;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "unable to set file perms on file '%@' (%s)", buf, 0x16u);
       }
     }
 
-    v54 = *(a1 + 64);
-    v55 = [NSURL fileURLWithPath:v23];
-    v56 = *(a1 + 136);
-    *(*(*(a1 + 120) + 8) + 24) = [v54 _startTaskForFile:v55 toDestination:*(a1 + 72) taskDescription:v2 analyticSessionType:GEOBatchAnalyticsSessionType() apURLsessionConfigType:*(a1 + 160) ttl:*(a1 + 144) startDelay:*(a1 + 152)];
+    v50 = *(a1 + 64);
+    v51 = [NSURL fileURLWithPath:v21];
+    *(*(*(a1 + 120) + 8) + 24) = [v50 _startTaskForFile:v51 toDestination:*(a1 + 72) taskDescription:v2 analyticSessionType:GEOBatchAnalyticsSessionType() apURLsessionConfigType:*(a1 + 160) ttl:*(a1 + 144) startDelay:*(a1 + 152)];
 
     goto LABEL_24;
   }
 
-  v64 = 0;
+  v58 = 0;
   while (1)
   {
-    *(v22 + 48) = &v64;
-    *(v22 + 56) = 0;
-    v25 = *(v22 + 80);
-    *(v22 + 32) = *(v22 + 72);
-    *(v22 + 40) = v25;
-    v26 = compression_stream_process((v22 + 32), 1);
-    v27 = *(v22 + 80);
-    v28 = *(v22 + 40);
-    v29 = v27 - v28;
-    if (v27 != v28)
+    *(v20 + 48) = &v58;
+    *(v20 + 56) = 0;
+    v23 = *(v20 + 80);
+    *(v20 + 32) = *(v20 + 72);
+    *(v20 + 40) = v23;
+    v24 = compression_stream_process((v20 + 32), 1);
+    v25 = *(v20 + 80);
+    v26 = *(v20 + 40);
+    v27 = v25 - v26;
+    if (v25 != v26)
     {
       break;
     }
 
 LABEL_18:
-    if (v26)
+    if (v24)
     {
-      if (v26 == COMPRESSION_STATUS_ERROR)
+      if (v24 == COMPRESSION_STATUS_ERROR)
       {
-        v30 = sub_100001E4C();
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v28 = sub_100001E4C();
+        if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_50;
         }
@@ -3846,54 +3867,53 @@ LABEL_18:
         goto LABEL_21;
       }
 
-      compression_stream_destroy((v22 + 32));
-      free(*(v22 + 72));
-      *(v22 + 12) = 0;
-      v24 = *(v22 + 8);
+      compression_stream_destroy((v20 + 32));
+      free(*(v20 + 72));
+      *(v20 + 12) = 0;
+      v22 = *(v20 + 8);
       goto LABEL_31;
     }
   }
 
-  if (write(*(v22 + 8), *(v22 + 72), v27 - v28) >= v29)
+  if (write(*(v20 + 8), *(v20 + 72), v25 - v26) >= v27)
   {
-    *(v22 + 96) += v29;
+    *(v20 + 96) += v27;
     goto LABEL_18;
   }
 
-  v30 = sub_100001E4C();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v28 = sub_100001E4C();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
 LABEL_21:
-    v31 = *(v22 + 24);
-    v32 = __error();
-    v33 = strerror(*v32);
+    v29 = *(v20 + 24);
+    v30 = __error();
+    v31 = strerror(*v30);
     *buf = 138412546;
-    v66 = v31;
-    v67 = 2080;
-    v68 = v33;
-    v34 = "unable to write finalized compressed data to file '%@' (%s)";
+    v60 = v29;
+    v61 = 2080;
+    v62 = v31;
+    v32 = "unable to write finalized compressed data to file '%@' (%s)";
     goto LABEL_49;
   }
 
 LABEL_50:
 
 LABEL_51:
-  v59 = sub_100001E4C();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+  v54 = sub_100001E4C();
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
   {
-    v60 = *(a1 + 32);
-    v61 = *(a1 + 136);
-    v62 = GEOBatchDescription();
+    v55 = *(a1 + 32);
+    v56 = GEOBatchDescription();
     *buf = 138412546;
-    v66 = v60;
-    v67 = 2112;
-    v68 = v62;
-    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "(%@) unable to finalize and close upload file for %@; will try upload later", buf, 0x16u);
+    v60 = v55;
+    v61 = 2112;
+    v62 = v56;
+    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "(%@) unable to finalize and close upload file for %@; will try upload later", buf, 0x16u);
   }
 
 LABEL_54:
-  v42 = 0;
-  return v42 & 1;
+  v38 = 0;
+  return v38 & 1;
 }
 
 void sub_100015E5C(uint64_t a1, void *a2, int a3)
@@ -3909,9 +3929,9 @@ void sub_100015E5C(uint64_t a1, void *a2, int a3)
       v9 = __error();
       v10 = strerror(*v9);
       *buf = 138412546;
-      v22 = v8;
-      v23 = 2080;
-      v24 = v10;
+      v21 = v8;
+      v22 = 2080;
+      v23 = v10;
       v11 = "unable to write ARPC header to file '%@' (%s)";
 LABEL_11:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, v11, buf, 0x16u);
@@ -3932,9 +3952,9 @@ LABEL_11:
       v13 = __error();
       v14 = strerror(*v13);
       *buf = 138412546;
-      v22 = v12;
-      v23 = 2080;
-      v24 = v14;
+      v21 = v12;
+      v22 = 2080;
+      v23 = v14;
       v11 = "unable to write len placeholder to file '%@' (%s)";
       goto LABEL_11;
     }
@@ -3951,7 +3971,6 @@ LABEL_12:
   {
     if (compression_stream_init((*(a1 + 32) + 32), COMPRESSION_STREAM_ENCODE, COMPRESSION_LZ4) == COMPRESSION_STATUS_OK)
     {
-      v18 = GeoAnalyticsConfig_CompressionOutputBufferSize[1];
       UInteger = GEOConfigGetUInteger();
       *(*(a1 + 32) + 72) = malloc_type_malloc(UInteger, 0xA36B6B99uLL);
       *(*(a1 + 32) + 80) = UInteger;
@@ -3968,9 +3987,9 @@ LABEL_12:
     v16 = __error();
     v17 = strerror(*v16);
     *buf = 138412546;
-    v22 = v15;
-    v23 = 2080;
-    v24 = v17;
+    v21 = v15;
+    v22 = 2080;
+    v23 = v17;
     v11 = "unable to initialize ARPC header to file '%@' (%s)";
     goto LABEL_11;
   }
@@ -4053,9 +4072,9 @@ id sub_100016370(uint64_t a1)
   }
 }
 
-void sub_100016A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4396,32 +4415,30 @@ id sub_100017748(uint64_t a1)
   v2 = sub_100001E4C();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v3 = *(a1 + 40);
-    v4 = GEOBatchDescription();
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "upload requested for %@", &v11, 0xCu);
+    v3 = GEOBatchDescription();
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "upload requested for %@", &v9, 0xCu);
   }
 
   [*(*(a1 + 32) + 56) _mustWait];
-  if (v5 == 0.0)
+  if (v4 == 0.0)
   {
     return [*(a1 + 32) _submitBatchForUploadWithBatchId:*(a1 + 40)];
   }
 
-  v6 = v5;
-  v7 = sub_100001E4C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v5 = v4;
+  v6 = sub_100001E4C();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 40);
-    v9 = GEOBatchDescription();
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%@ must wait; holddown in effect", &v11, 0xCu);
+    v7 = GEOBatchDescription();
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%@ must wait; holddown in effect", &v9, 0xCu);
   }
 
   [*(a1 + 32) _clearUploadTimer];
-  return [*(a1 + 32) _startHolddownTimerForDuration:v6];
+  return [*(a1 + 32) _startHolddownTimerForDuration:v5];
 }
 
 void sub_1000179BC(_Unwind_Exception *a1)
@@ -4437,35 +4454,33 @@ void sub_1000179D8(uint64_t a1)
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
-    v13 = 0;
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x2020000000;
+    v11 = 0;
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x2020000000;
+    v9 = 0;
     v4 = WeakRetained[1];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100017B6C;
-    v9[3] = &unk_10003D508;
-    v9[4] = v3;
-    v9[5] = &v14;
-    [v4 executeStatement:@"cntI" statementBlock:v9];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100017B6C;
+    v7[3] = &unk_10003D508;
+    v7[4] = v3;
+    v7[5] = v10;
+    [v4 executeStatement:@"cntI" statementBlock:v7];
     v5 = v3[1];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100017BD4;
-    v8[3] = &unk_10003D508;
-    v8[4] = v3;
-    v8[5] = &v10;
-    [v5 executeStatement:@"cntH" statementBlock:v8];
-    v6 = *(v15 + 6);
-    v7 = *(v11 + 6);
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100017BD4;
+    v6[3] = &unk_10003D508;
+    v6[4] = v3;
+    v6[5] = v8;
+    [v5 executeStatement:@"cntH" statementBlock:v6];
     (*(*(a1 + 32) + 16))();
-    _Block_object_dispose(&v10, 8);
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(v8, 8);
+    _Block_object_dispose(v10, 8);
   }
 
   else
@@ -4474,11 +4489,11 @@ void sub_1000179D8(uint64_t a1)
   }
 }
 
-void sub_100017B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100017B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5050,9 +5065,9 @@ void sub_100019B40(uint64_t a1)
   }
 }
 
-void sub_100019F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100019F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5066,10 +5081,7 @@ uint64_t sub_100019F80(uint64_t result, uint64_t a2)
 
 uint64_t sub_100019F98(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyAndEmptyBatchQueue];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _copyAndEmptyBatchQueue];
 
   return _objc_release_x1();
 }
@@ -5101,8 +5113,7 @@ void sub_10001A2D0(uint64_t a1, void *a2)
   v4 = v3;
   if (a1)
   {
-    v5 = *(a1 + 72);
-    v6 = v3;
+    v5 = v3;
     geo_isolate_sync();
   }
 }
@@ -5121,14 +5132,14 @@ id sub_10001A374(uint64_t a1)
   return [*(*(a1 + 40) + 64) removeObject:*(a1 + 32)];
 }
 
-void sub_10001A428(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
+void sub_10001A428(_BYTE *a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
   v9 = a2;
-  v50 = a4;
+  v49 = a4;
   v10 = a5;
   if (!a1)
   {
-    v29 = v50;
+    v29 = v49;
     goto LABEL_2101;
   }
 
@@ -5225,30 +5236,30 @@ void sub_10001A428(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v53 = v13;
+      v52 = v13;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "fast tracking analytic log message of type '%@'", buf, 0xCu);
     }
 
     v27 = objc_retainBlock(v10);
     v28 = a3;
-    v29 = v50;
-    [a1 _fastTrackElement:v25 withBatchID:v28 completionQueue:v50 completionBlock:v27];
+    v29 = v49;
+    [a1 _fastTrackElement:v25 withBatchID:v28 completionQueue:v49 completionBlock:v27];
   }
 
   else
   {
-    v29 = v50;
-    [a1 _storeQueueElem:v25 completionQueue:v50 completionBlock:v10];
+    v29 = v49;
+    [a1 _storeQueueElem:v25 completionQueue:v49 completionBlock:v10];
   }
 
-  if (*(a1 + 57) == 1)
+  if (a1[57] == 1)
   {
-    v47 = v10;
-    v48 = [[GEOLogMessage alloc] initWithData:v9];
-    v30 = [v48 logMsgEvents];
+    v46 = v10;
+    v47 = [[GEOLogMessage alloc] initWithData:v9];
+    v30 = [v47 logMsgEvents];
     v31 = [v30 firstObject];
 
-    v46 = v13;
+    v45 = v13;
     if ([v31 eventType] != 1)
     {
       v35 = v25;
@@ -5260,15 +5271,14 @@ void sub_10001A428(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
         v38 = v31;
 LABEL_2099:
 
-        v45 = *(a1 + 72);
-        v51 = v9;
+        v50 = v9;
         geo_isolate_sync();
 
         v16 = v37;
         v24 = v36;
         v25 = v35;
-        v13 = v46;
-        v10 = v47;
+        v13 = v45;
+        v10 = v46;
         goto LABEL_2100;
       }
 
@@ -5477,11 +5487,11 @@ LABEL_2099:
       }
 
       *buf = 138412290;
-      v53 = v40;
+      v52 = v40;
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "storing event type '%@'", buf, 0xCu);
 LABEL_2098:
 
-      v29 = v50;
+      v29 = v49;
       goto LABEL_2099;
     }
 
@@ -12615,9 +12625,9 @@ LABEL_2095:
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v53 = log;
-            v54 = 2112;
-            v55 = v40;
+            v52 = log;
+            v53 = 2112;
+            v54 = v40;
             _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "storing user A/T pair '%@ / %@'", buf, 0x16u);
           }
 
@@ -12736,15 +12746,15 @@ void start()
   else
   {
     v6 = +[NSFileManager defaultManager];
-    v26 = 0;
-    v7 = [v6 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v26];
-    v8 = v26;
+    v23 = 0;
+    v7 = [v6 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v23];
+    v8 = v23;
 
     if ((v7 & 1) == 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412290;
-      v25 = v8;
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "directory create error : (%@)", &v24, 0xCu);
+      v21 = 138412290;
+      v22 = v8;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "directory create error : (%@)", &v21, 0xCu);
     }
   }
 
@@ -12772,7 +12782,6 @@ void start()
   v17 = +[GEOPlatform sharedPlatform];
   if ([v17 isInternalInstall])
   {
-    v18 = GeoServicesConfig_GeoanalyticsdTapewormEnabled[1];
     BOOL = GEOConfigGetBOOL();
 
     if (!BOOL)
@@ -12780,18 +12789,16 @@ void start()
       goto LABEL_11;
     }
 
-    v20 = GeoServicesConfig_GeoanalyticsdTapewormTimerIntervalMs[1];
     GEOConfigGetUint64();
-    v21 = GeoServicesConfig_GeoanalyticsdTapewormInstructionCount[1];
     GEOConfigGetUint64();
     GEOGetApproximateTapewormIterations();
     v17 = GEOInsertTapewormOnDispatchTimer();
   }
 
 LABEL_11:
-  v22 = sub_10000E510();
-  v23 = qword_1000531D0;
-  qword_1000531D0 = v22;
+  v19 = sub_10000E510();
+  v20 = qword_1000531D0;
+  qword_1000531D0 = v19;
 
   sub_10000E67C(qword_1000531D0);
   objc_autoreleasePoolPop(v0);

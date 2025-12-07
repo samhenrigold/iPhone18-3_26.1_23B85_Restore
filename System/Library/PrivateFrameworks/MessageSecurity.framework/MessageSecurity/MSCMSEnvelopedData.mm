@@ -10,6 +10,7 @@
 - (MSCMSEnvelopedData)initWithEmbeddedContent:(id)content recipient:(id)recipient encryptionAlgorithm:(id)algorithm;
 - (id)bulkEncryptDecrypt:(unsigned int)decrypt algorithm:(unsigned int)algorithm mode:(unsigned int)mode key:(id)key iv:(id)iv error:(id *)error;
 - (id)encodeMessageSecurityObject:(id *)object;
+- (id)encryptDecryptContent:(id)content ccOperation:(unsigned int)operation error:(id *)error;
 - (id)findBestEncryptionAlgorithmForNewRecipient:(id)recipient;
 - (id)generateEncryptionKey:(id *)key;
 - (void)addRecipient:(id)recipient;
@@ -178,36 +179,13 @@
   }
 
   v11 = findBestMutuallySupportedEncryptionAlgorithm(v6);
-  if (!v11)
+  if (!v11 || recipientCopy && ([recipientCopy algorithmCapabilities], (v12 = objc_claimAutoreleasedReturnValue()) != 0) && (v13 = v12, objc_msgSend(recipientCopy, "algorithmCapabilities"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectAtIndex:", 0), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "containsObject:", v11), v15, v14, v13, !v16))
   {
-    goto LABEL_11;
-  }
-
-  if (!recipientCopy)
-  {
-    goto LABEL_10;
-  }
-
-  algorithmCapabilities3 = [recipientCopy algorithmCapabilities];
-  if (!algorithmCapabilities3)
-  {
-    goto LABEL_10;
-  }
-
-  v13 = algorithmCapabilities3;
-  algorithmCapabilities4 = [recipientCopy algorithmCapabilities];
-  v15 = [algorithmCapabilities4 objectAtIndex:0];
-  v16 = [v15 containsObject:v11];
-
-  if (!v16)
-  {
-LABEL_11:
     v17 = 0;
   }
 
   else
   {
-LABEL_10:
     v17 = [[MSAlgorithmIdentifier alloc] initWithOID:v11];
   }
 
@@ -332,7 +310,7 @@ uint64_t __35__MSCMSEnvelopedData_addRecipient___block_invoke()
 
 - (BOOL)encodeEncryptionParameters:(id *)parameters
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   if (parameters && *parameters)
   {
     v5 = [*parameters copy];
@@ -344,14 +322,14 @@ uint64_t __35__MSCMSEnvelopedData_addRecipient___block_invoke()
   }
 
   encryptionAlgorithm = self->_encryptionAlgorithm;
-  v40 = 0;
-  v7 = [(MSAlgorithmIdentifier *)encryptionAlgorithm blockSize:&v40];
-  v8 = v40;
+  v39 = 0;
+  v7 = [(MSAlgorithmIdentifier *)encryptionAlgorithm blockSize:&v39];
+  v8 = v39;
   if (v8)
   {
     [MSCMSEnvelopedData encodeEncryptionParameters:];
     v31 = 0;
-    v32 = v37;
+    v32 = v36;
 LABEL_26:
 
     v5 = v32;
@@ -375,11 +353,11 @@ LABEL_26:
 
     if ([(MSAlgorithmIdentifier *)self->_encryptionAlgorithm ccAlgorithm:0]== 5)
     {
-      v38 = v7;
-      v37 = 58;
-      v39 = v10;
-      v36 = 0;
-      v11 = length_CMSRC2CBCParameter(&v37);
+      v37 = v7;
+      v36 = 58;
+      v38 = v10;
+      v35 = 0;
+      v11 = length_CMSRC2CBCParameter(&v36);
       v12 = [MEMORY[0x277CBEB28] dataWithLength:v11];
       if (!v12)
       {
@@ -389,7 +367,7 @@ LABEL_17:
       }
 
       v13 = v12;
-      v14 = encode_CMSRC2CBCParameter([v12 mutableBytes] + v11 - 1, v11, &v37, &v36);
+      v14 = encode_CMSRC2CBCParameter([v12 mutableBytes] + v11 - 1, v11, &v36, &v35);
       if (v14)
       {
         v15 = v14;
@@ -397,13 +375,13 @@ LABEL_17:
         v16 = v15;
 LABEL_18:
         v20 = MEMORY[0x277CCA9B8];
-        v43 = *MEMORY[0x277CCA450];
-        v44[0] = @"Failed encoding type CMSRC2CBCParameter";
+        v42 = *MEMORY[0x277CCA450];
+        v43[0] = @"Failed encoding type CMSRC2CBCParameter";
         v21 = MEMORY[0x277CBEAC0];
-        v22 = v44;
-        v23 = &v43;
+        v22 = v43;
+        v23 = &v42;
 LABEL_21:
-        v24 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:{1, v36}];
+        v24 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:{1, v35}];
         v25 = [v20 errorWithDomain:@"com.apple.HeimASN1" code:v16 userInfo:v24];
 
         v13 = 0;
@@ -412,7 +390,7 @@ LABEL_21:
       }
 
 LABEL_15:
-      if (v11 == v36)
+      if (v11 == v35)
       {
 LABEL_22:
         if ([v13 length])
@@ -445,15 +423,15 @@ LABEL_34:
       goto LABEL_17;
     }
 
-    v37 = v7;
-    v38 = v10;
-    v36 = 0;
-    v11 = length_CMSCBCParameter(&v37);
+    v36 = v7;
+    v37 = v10;
+    v35 = 0;
+    v11 = length_CMSCBCParameter(&v36);
     v17 = [MEMORY[0x277CBEB28] dataWithLength:v11];
     if (v17)
     {
       v13 = v17;
-      v18 = encode_CMSCBCParameter([v17 mutableBytes] + v11 - 1, v11, &v37, &v36);
+      v18 = encode_CMSCBCParameter([v17 mutableBytes] + v11 - 1, v11, &v36, &v35);
       if (!v18)
       {
         goto LABEL_15;
@@ -470,11 +448,11 @@ LABEL_34:
     }
 
     v20 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA450];
-    v42 = @"Failed encoding type CMSCBCParameter";
+    v40 = *MEMORY[0x277CCA450];
+    v41 = @"Failed encoding type CMSCBCParameter";
     v21 = MEMORY[0x277CBEAC0];
-    v22 = &v42;
-    v23 = &v41;
+    v22 = &v41;
+    v23 = &v40;
     goto LABEL_21;
   }
 
@@ -493,25 +471,24 @@ LABEL_27:
 
 LABEL_29:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)checkDecryptionResult:(id)result
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v4 = resultCopy;
   if (resultCopy && [resultCopy length])
   {
-    v12 = *MEMORY[0x277CCA678];
-    v13[0] = MEMORY[0x277CBEC28];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v11 = 0;
+    v11 = *MEMORY[0x277CCA678];
+    v12[0] = MEMORY[0x277CBEC28];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = 0;
-    if ([MEMORY[0x277CCACA8] stringEncodingForData:v4 encodingOptions:v5 convertedString:&v10 usedLossyConversion:&v11])
+    v9 = 0;
+    if ([MEMORY[0x277CCACA8] stringEncodingForData:v4 encodingOptions:v5 convertedString:&v9 usedLossyConversion:&v10])
     {
-      v6 = v10 == 0;
+      v6 = v9 == 0;
     }
 
     else
@@ -519,7 +496,7 @@ LABEL_29:
       v6 = 1;
     }
 
-    if (v6 || v11 == 1)
+    if (v6 || v10 == 1)
     {
       [v4 bytes];
       [v4 length];
@@ -542,8 +519,155 @@ LABEL_29:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+- (id)encryptDecryptContent:(id)content ccOperation:(unsigned int)operation error:(id *)error
+{
+  v6 = *&operation;
+  contentCopy = content;
+  if (error && *error)
+  {
+    keyEncryptionAlgorithm = [*error copy];
+  }
+
+  else
+  {
+    keyEncryptionAlgorithm = 0;
+  }
+
+  encryptionAlgorithm = self->_encryptionAlgorithm;
+  v36 = 0;
+  v11 = [(MSAlgorithmIdentifier *)encryptionAlgorithm ccAlgorithm:&v36];
+  v12 = v36;
+  if (v12)
+  {
+    v22 = v12;
+    [MSCMSEnvelopedData encodeEncryptionParameters:];
+    v13 = 0;
+    goto LABEL_28;
+  }
+
+  if (v6)
+  {
+    v13 = [contentCopy key:0];
+    if (v13)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_17;
+  }
+
+  v35 = keyEncryptionAlgorithm;
+  v13 = [(MSCMSEnvelopedData *)self generateEncryptionKey:&v35];
+  v23 = v35;
+
+  keyEncryptionAlgorithm = v23;
+  if (!v13)
+  {
+LABEL_17:
+    [MSCMSEnvelopedData encryptDecryptContent:ccOperation:error:];
+    v22 = 0;
+LABEL_28:
+    v18 = 0;
+    v19 = v37;
+LABEL_23:
+
+    if (!error)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_8:
+  v14 = self->_encryptionAlgorithm;
+  v34 = 0;
+  error = [(MSAlgorithmIdentifier *)v14 ccMode:&v34, error];
+  v16 = v34;
+  if (v16)
+  {
+    v22 = v16;
+    [MSCMSEnvelopedData encodeEncryptionParameters:];
+    v18 = 0;
+    v19 = v37;
+LABEL_22:
+    error = v30;
+    goto LABEL_23;
+  }
+
+  if (!v6)
+  {
+    v33 = keyEncryptionAlgorithm;
+    [(MSCMSEnvelopedData *)self encodeEncryptionParameters:&v33];
+    v17 = v33;
+
+    keyEncryptionAlgorithm = v17;
+  }
+
+  v32 = keyEncryptionAlgorithm;
+  v18 = [(MSCMSEnvelopedData *)self bulkEncryptDecrypt:v6 algorithm:v11 mode:error key:v13 iv:0 error:&v32];
+  v19 = v32;
+
+  if (v6 == 1)
+  {
+    keyEncryptionAlgorithm = [contentCopy keyEncryptionAlgorithm];
+    algorithm = [keyEncryptionAlgorithm algorithm];
+    if ([algorithm isEqualToString:@"1.3.133.16.840.63.0.2"])
+    {
+      v21 = [(MSCMSEnvelopedData *)self checkDecryptionResult:v18];
+
+      if (v21)
+      {
+        goto LABEL_14;
+      }
+
+      keyEncryptionAlgorithm = [contentCopy key:1];
+      v31 = v19;
+      v24 = [(MSCMSEnvelopedData *)self bulkEncryptDecrypt:1 algorithm:v11 mode:error key:keyEncryptionAlgorithm iv:0 error:&v31];
+      v25 = v31;
+
+      if ([(MSCMSEnvelopedData *)self checkDecryptionResult:v24])
+      {
+        v26 = v24;
+
+        v18 = v26;
+      }
+
+      v22 = 0;
+      v19 = v25;
+    }
+
+    else
+    {
+
+      v22 = 0;
+    }
+
+    goto LABEL_22;
+  }
+
+LABEL_14:
+  v22 = 0;
+  error = v30;
+  if (!v30)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_24:
+  if (v19)
+  {
+    v27 = v19;
+    *error = v19;
+  }
+
+LABEL_26:
+  v28 = v18;
+
+  return v18;
 }
 
 uint64_t __64__MSCMSEnvelopedData_decodeMessageSecurityObject_options_error___block_invoke()
@@ -557,7 +681,7 @@ uint64_t __64__MSCMSEnvelopedData_decodeMessageSecurityObject_options_error___bl
 
 + (id)encodeOriginatorInfoCertificates:(id)certificates error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   certificatesCopy = certificates;
   if (error && *error)
   {
@@ -569,38 +693,38 @@ uint64_t __64__MSCMSEnvelopedData_decodeMessageSecurityObject_options_error___bl
     v6 = 0;
   }
 
-  v41 = 0;
-  v42 = 0;
-  v39 = 0;
   v40 = 0;
+  v41 = 0;
+  v38 = 0;
+  v39 = 0;
   if (certificatesCopy)
   {
-    v33 = v6;
-    LODWORD(v39) = [certificatesCopy count];
-    v7 = malloc_type_malloc(24 * v39, 0x10800404ACF7207uLL);
-    v40 = v7;
+    v32 = v6;
+    LODWORD(v38) = [certificatesCopy count];
+    v7 = malloc_type_malloc(24 * v38, 0x10800404ACF7207uLL);
+    v39 = v7;
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v9 = certificatesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v36;
+      v13 = *v35;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = SecCertificateCopyData(*(*(&v35 + 1) + 8 * i));
+          v15 = SecCertificateCopyData(*(*(&v34 + 1) + 8 * i));
           if (v15)
           {
             [v8 addObject:v15];
@@ -608,34 +732,34 @@ uint64_t __64__MSCMSEnvelopedData_decodeMessageSecurityObject_options_error___bl
             *v16 = 1;
             *(v16 + 1) = [(__CFData *)v15 length];
             bytes = [(__CFData *)v15 bytes];
-            v7 = v40;
-            *(v40 + 3 * v12++ + 2) = bytes;
+            v7 = v39;
+            *(v39 + 3 * v12++ + 2) = bytes;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v11);
     }
 
-    v41 = &v39;
-    v42 = 0;
-    v34 = 0;
-    v18 = length_OriginatorInfo(&v41);
+    v40 = &v38;
+    v41 = 0;
+    v33 = 0;
+    v18 = length_OriginatorInfo(&v40);
     v19 = [MEMORY[0x277CBEB28] dataWithLength:v18];
     if (v19)
     {
       v20 = v19;
-      v21 = encode_OriginatorInfo([v19 mutableBytes] + v18 - 1, v18, &v41, &v34);
+      v21 = encode_OriginatorInfo([v19 mutableBytes] + v18 - 1, v18, &v40, &v33);
       if (!v21)
       {
-        v27 = v18 == v34;
-        v6 = v33;
+        v27 = v18 == v33;
+        v6 = v32;
         if (!v27)
         {
-          v30 = asn1_abort();
-          return [(MSCMSEnvelopedData *)v30 type];
+          v29 = asn1_abort();
+          return [(MSCMSEnvelopedData *)v29 type];
         }
 
         goto LABEL_23;
@@ -652,14 +776,14 @@ uint64_t __64__MSCMSEnvelopedData_decodeMessageSecurityObject_options_error___bl
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v43 = *MEMORY[0x277CCA450];
-    v44 = @"Failed encoding type OriginatorInfo";
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v42 = *MEMORY[0x277CCA450];
+    v43 = @"Failed encoding type OriginatorInfo";
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
     v6 = [v25 errorWithDomain:@"com.apple.HeimASN1" code:v23 userInfo:v26];
 
     v20 = 0;
 LABEL_23:
-    free(v40);
+    free(v39);
     if (error && v6)
     {
       v28 = v6;
@@ -673,8 +797,6 @@ LABEL_23:
 
   v24 = 0;
 LABEL_27:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -755,9 +877,11 @@ LABEL_27:
     v16 = 0;
   }
 
-  v46[0] = 0;
-  v46[1] = 0;
-  memset(v45, 0, sizeof(v45));
+  v46 = 0;
+  v47[0] = 0;
+  v47[1] = 0;
+  v45[0] = 0;
+  v45[1] = 0;
   dataOutMoved = 0;
   cryptorRef = 0;
   v17 = [(MSAlgorithmIdentifier *)self->_encryptionAlgorithm ccAlgorithm:0];
@@ -767,7 +891,7 @@ LABEL_27:
   {
     v42 = keyCopy;
     errorCopy = error;
-    v21 = nsheim_decode_CMSRC2CBCParameter(parameters);
+    v21 = nsheim_decode_CMSRC2CBCParameter(parameters, &v46);
 
     if (v21)
     {
@@ -781,9 +905,9 @@ LABEL_27:
       goto LABEL_23;
     }
 
-    v22 = NSDataFromOctetString(v46);
+    v22 = NSDataFromOctetString(v47);
 
-    free_CMSRC2CBCParameter();
+    free_CMSRC2CBCParameter(&v46);
     ivCopy = v22;
     keyCopy = v42;
     if (v22)
@@ -796,7 +920,7 @@ LABEL_8:
 
   else
   {
-    v24 = nsheim_decode_CMSCBCParameter(parameters);
+    v24 = nsheim_decode_CMSCBCParameter(parameters, v45);
 
     if (v24)
     {
@@ -810,7 +934,7 @@ LABEL_8:
 
     v25 = NSDataFromOctetString(v45);
 
-    free_CMSCBCParameter();
+    free_CMSCBCParameter(v45);
     ivCopy = v25;
     if (v25)
     {
@@ -888,7 +1012,7 @@ LABEL_23:
 
 + (id)decodeMessageSecurityObject:(id)object options:(id)options error:(id *)error
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   optionsCopy = options;
   if (error && *error)
@@ -901,18 +1025,18 @@ LABEL_23:
     v12 = 0;
   }
 
-  v82 = 0;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
+  v79 = 0;
   v77 = 0u;
-  v13 = nsheim_decode_EnvelopedData(objectCopy);
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v74 = 0u;
+  v13 = nsheim_decode_EnvelopedData(objectCopy, &v74);
   v14 = MSErrorASN1Domain;
   if (v13)
   {
     v5 = v13;
-    if (nsheim_decode_SecCMS_EnvelopedData(objectCopy))
+    if (nsheim_decode_SecCMS_EnvelopedData(objectCopy, &v74))
     {
       v14 = MSErrorASN1Domain[0];
       v5 = v5;
@@ -926,11 +1050,11 @@ LABEL_23:
         v15 = -1;
       }
 
-      v18 = [MSError MSErrorWithDomain:v14 code:v5 underlyingError:v12 description:@"unable to decode envelopedData (%ld bytes)", v15];
+      v20 = [MSError MSErrorWithDomain:v14 code:v5 underlyingError:v12 description:@"unable to decode envelopedData (%ld bytes)", v15];
 
       dumpNSData("EnvelopedData", objectCopy);
       OUTLINED_FUNCTION_0_1();
-      v69 = 0;
+      v66 = 0;
       goto LABEL_52;
     }
   }
@@ -939,72 +1063,70 @@ LABEL_23:
   if (!v16)
   {
     OUTLINED_FUNCTION_0_1();
-    v69 = 0;
+    v66 = 0;
     goto LABEL_67;
   }
 
-  v17 = [MEMORY[0x277CCABB0] numberWithInt:v77];
+  v17 = [MEMORY[0x277CCABB0] numberWithInt:v74];
   [(MSCMSEnvelopedData *)v16 setVersion:v17];
 
   errorCopy = error;
-  v66 = optionsCopy;
-  if (*(&v77 + 1))
+  v63 = optionsCopy;
+  if (*(&v74 + 1))
   {
-    v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v18 = v12;
+    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = *(&v74 + 1);
+    v6 = v18;
+    v20 = v12;
     __dst[0] = 0uLL;
-    v19 = NSDataFromAny(*(&v77 + 1));
-    v14 = nsheim_decode_OriginatorInfo(v19);
+    v21 = NSDataFromAny(v19);
+    v14 = nsheim_decode_OriginatorInfo(v21, __dst);
 
-    v69 = v6;
+    v66 = v6;
     if (v14)
     {
-      v5 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:v14 underlyingError:v18 description:@"unable to decode envelopedData.originatorInfo"];
+      v5 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:v14 underlyingError:v20 description:@"unable to decode envelopedData.originatorInfo"];
     }
 
     else
     {
-      v5 = v18;
+      v5 = v20;
       if (v6)
       {
         v6 = *&__dst[0];
-        v5 = v18;
+        v5 = v20;
         if (*&__dst[0])
         {
-          v5 = v18;
+          v5 = v20;
           if (**&__dst[0])
           {
-            v20 = 0;
+            v22 = 0;
             v7 = 0;
             do
             {
-              v21 = *(*&__dst[0] + 8);
-              if (*(v21 + v20) == 1)
+              if (*(v6[1] + v22) == 1)
               {
-                v22 = v21 + v20;
-                v24 = *(v22 + 8);
-                v23 = *(v22 + 16);
-                v25 = SecCertificateCreateWithBytes();
-                if (v25)
+                v23 = SecCertificateCreateWithBytes();
+                if (v23)
                 {
-                  v26 = v25;
-                  [v69 addObject:v25];
+                  v24 = v23;
+                  [v66 addObject:v23];
                 }
               }
 
               ++v7;
-              v20 += 24;
+              v22 += 24;
             }
 
-            while (v7 < **&__dst[0]);
-            v5 = v18;
+            while (v7 < *v6);
+            v5 = v20;
             error = errorCopy;
           }
         }
       }
     }
 
-    free_OriginatorInfo();
+    free_OriginatorInfo(__dst);
 
     if (v14)
     {
@@ -1012,51 +1134,51 @@ LABEL_23:
       OUTLINED_FUNCTION_0_1();
 LABEL_52:
       v16 = 0;
-      v12 = v18;
+      v12 = v20;
       goto LABEL_67;
     }
 
-    v27 = v69;
+    v25 = v66;
   }
 
   else
   {
-    v27 = 0;
+    v25 = 0;
   }
 
-  v64 = objectCopy;
-  v69 = v27;
+  v61 = objectCopy;
+  v66 = v25;
   [(MSCMSEnvelopedData *)v16 setOriginatorCertificates:?];
-  if (v78)
+  if (v75)
   {
-    v28 = 0;
-    v29 = 0;
+    v26 = 0;
+    v27 = 0;
     v6 = 0;
     v5 = 0x2798BD000uLL;
-    v68 = 67109378;
+    v65 = 67109378;
     do
     {
-      v30 = v6;
-      v31 = v12;
+      v28 = v6;
+      v29 = v12;
       memset(__dst, 0, sizeof(__dst));
-      memcpy(__dst, (*(&v78 + 1) + v28), sizeof(__dst));
-      v75 = v12;
-      v6 = [MSCMSRecipientInfo decodeRecipientInfo:__dst certificates:v69 LAContext:0 error:&v75];
-      v12 = v75;
+      memcpy(__dst, (*(&v75 + 1) + v26), sizeof(__dst));
+      v72 = v12;
+      v6 = [MSCMSRecipientInfo decodeRecipientInfo:__dst certificates:v66 LAContext:0 error:&v72];
+      v12 = v72;
 
       if (v6)
       {
-        if (v69 && [v69 count])
+        if (v66 && [v66 count])
         {
           *buf = 0;
-          v32 = SecCertificateCopyKey([v69 objectAtIndex:0]);
+          v30 = SecCertificateCopyKey([v66 objectAtIndex:0]);
           SecKeyCopyPublicBytes();
-          if (v32)
+          if (v30)
           {
-            CFRelease(v32);
+            CFRelease(v30);
           }
 
-          v33 = *buf;
+          v31 = *buf;
           [v6 setOriginatorPubKey:*buf];
         }
 
@@ -1070,22 +1192,22 @@ LABEL_52:
           dispatch_once(&MS_DEFAULT_LOG_BLOCK, &__block_literal_global_38);
         }
 
-        v34 = MS_DEFAULT_LOG_INTERNAL;
+        v32 = MS_DEFAULT_LOG_INTERNAL;
         if (os_log_type_enabled(MS_DEFAULT_LOG_INTERNAL, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          *&buf[4] = v29;
-          v84 = 2112;
-          v85 = v12;
-          _os_log_impl(&dword_258C80000, v34, OS_LOG_TYPE_ERROR, "failed to decode recipient %u: %@", buf, 0x12u);
+          *&buf[4] = v27;
+          v81 = 2112;
+          v82 = v12;
+          _os_log_impl(&dword_258C80000, v32, OS_LOG_TYPE_ERROR, "failed to decode recipient %u: %@", buf, 0x12u);
         }
       }
 
-      ++v29;
-      v28 += 112;
+      ++v27;
+      v26 += 112;
     }
 
-    while (v29 < v78);
+    while (v27 < v75);
   }
 
   else
@@ -1098,154 +1220,154 @@ LABEL_52:
 
   if (!v14)
   {
-    v61 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:0 underlyingError:v12 description:@"unable to decode envelopedData.recipientInfos"];
+    v58 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:0 underlyingError:v12 description:@"unable to decode envelopedData.recipientInfos"];
 
     v7 = 0;
     OUTLINED_FUNCTION_1_1();
-    v12 = v61;
-    objectCopy = v64;
+    v12 = v58;
+    objectCopy = v61;
     error = errorCopy;
-    optionsCopy = v66;
+    optionsCopy = v63;
     goto LABEL_67;
   }
 
-  v36 = NSDataFromOctetString(*(&v81 + 1));
-  [(MSCMSEnvelopedData *)v16 setEncryptedContent:v36];
+  v34 = NSDataFromOctetString(*(&v78 + 1));
+  [(MSCMSEnvelopedData *)v16 setEncryptedContent:v34];
 
-  v74 = 0;
-  v37 = [MSAlgorithmIdentifier algorithmIdentifierWithAsn1AlgId:&v80 error:&v74];
-  v12 = v74;
-  v63 = v37;
-  [(MSCMSEnvelopedData *)v16 setEncryptionAlgorithm:v37];
+  v71 = 0;
+  v35 = [MSAlgorithmIdentifier algorithmIdentifierWithAsn1AlgId:&v77 error:&v71];
+  v12 = v71;
+  v60 = v35;
+  [(MSCMSEnvelopedData *)v16 setEncryptionAlgorithm:v35];
   recipients2 = [(MSCMSEnvelopedData *)v16 recipients];
-  v39 = [recipients2 count];
+  v37 = [recipients2 count];
 
-  objectCopy = v64;
-  if (v39)
+  objectCopy = v61;
+  if (v37)
   {
-    v40 = 0;
+    v38 = 0;
     while (1)
     {
       v5 = v6;
-      v41 = v12;
+      v39 = v12;
       recipients3 = [(MSCMSEnvelopedData *)v16 recipients];
-      v6 = [recipients3 objectAtIndex:v40];
+      v6 = [recipients3 objectAtIndex:v38];
 
-      v73 = v12;
-      v7 = [(MSCMSEnvelopedData *)v16 decryptContent:v6 error:&v73];
-      v12 = v73;
+      v70 = v12;
+      v7 = [(MSCMSEnvelopedData *)v16 decryptContent:v6 error:&v70];
+      v12 = v70;
 
       if (v7)
       {
         break;
       }
 
-      ++v40;
+      ++v38;
       recipients4 = [(MSCMSEnvelopedData *)v16 recipients];
       v5 = [recipients4 count];
 
-      if (v40 >= v5)
+      if (v38 >= v5)
       {
         goto LABEL_45;
       }
     }
 
-    v72 = 0;
-    v44 = [MSOID OIDWithAsn1OID:&v79 error:&v72];
-    v12 = v72;
-    if (v44)
+    v69 = 0;
+    v42 = [MSOID OIDWithAsn1OID:&v76 error:&v69];
+    v12 = v69;
+    if (v42)
     {
-      v68 = v44;
-      [(MSCMSEnvelopedData *)v16 setContentType:v44];
+      v65 = v42;
+      [(MSCMSEnvelopedData *)v16 setContentType:v42];
       contentType = [(MSCMSEnvelopedData *)v16 contentType];
-      v46 = [contentType isEqualToString:@"1.2.840.113549.1.7.1"];
+      v44 = [contentType isEqualToString:@"1.2.840.113549.1.7.1"];
 
       error = errorCopy;
-      optionsCopy = v66;
-      if (v46)
+      optionsCopy = v63;
+      if (v44)
       {
         [(MSCMSEnvelopedData *)v16 setDataContent:v7];
-        v67 = 0;
+        v64 = 0;
       }
 
       else
       {
         contentType2 = [(MSCMSEnvelopedData *)v16 contentType];
-        v71 = v12;
-        v48 = decodeEmbeddedCMSContent(contentType2, v7, v66, &v71);
-        v49 = v71;
+        v68 = v12;
+        v46 = decodeEmbeddedCMSContent(contentType2, v7, v63, &v68);
+        v47 = v68;
 
-        v67 = v48;
-        [(MSCMSEnvelopedData *)v16 setEmbeddedContent:v48];
-        v12 = v49;
+        v64 = v46;
+        [(MSCMSEnvelopedData *)v16 setEmbeddedContent:v46];
+        v12 = v47;
       }
 
-      v14 = v63;
-      if (!v82)
+      v14 = v60;
+      if (!v79)
       {
         v5 = 0;
         goto LABEL_66;
       }
 
       v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      if (v5 && (v50 = v82, *v82))
+      if (v5 && (v48 = v79, *v79))
       {
-        v51 = 0;
-        v52 = 0;
+        v49 = 0;
+        v50 = 0;
         do
         {
           memset(__dst, 0, 32);
-          v53 = (*(v50 + 1) + v51);
-          v54 = v53[1];
-          __dst[0] = *v53;
-          __dst[1] = v54;
-          v70 = v12;
-          v55 = [MSCMSAttribute decodeAttribute:__dst error:&v70];
-          v56 = v70;
+          v51 = (*(v48 + 1) + v49);
+          v52 = v51[1];
+          __dst[0] = *v51;
+          __dst[1] = v52;
+          v67 = v12;
+          v53 = [MSCMSAttribute decodeAttribute:__dst error:&v67];
+          v54 = v67;
 
-          if (v55)
+          if (v53)
           {
-            [v5 addObject:v55];
+            [v5 addObject:v53];
           }
 
-          ++v52;
-          v50 = v82;
-          v51 += 32;
-          v12 = v56;
+          ++v50;
+          v48 = v79;
+          v49 += 32;
+          v12 = v54;
         }
 
-        while (v52 < *v82);
+        while (v50 < *v79);
       }
 
       else
       {
-        v56 = v12;
+        v54 = v12;
       }
 
       if ([v5 count])
       {
-        v12 = v56;
-        objectCopy = v64;
+        v12 = v54;
+        objectCopy = v61;
         error = errorCopy;
-        optionsCopy = v66;
-        v14 = v63;
+        optionsCopy = v63;
+        v14 = v60;
 LABEL_66:
         [(MSCMSEnvelopedData *)v16 setUnprotectedAttributes:v5];
         goto LABEL_67;
       }
 
-      v12 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:0 underlyingError:v56 description:@"unable to decode envelopedData.unprotectedAttrs"];
+      v12 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:0 underlyingError:v54 description:@"unable to decode envelopedData.unprotectedAttrs"];
 
       v16 = 0;
-      objectCopy = v64;
+      objectCopy = v61;
     }
 
     else
     {
-      v62 = [MSError MSErrorWithDomain:MSErrorCMSDomain[0] code:-26275 underlyingError:v12 description:@"unable to get contentType from envelopedData.encryptedContentnInfo"];
+      v59 = [MSError MSErrorWithDomain:MSErrorCMSDomain[0] code:-26275 underlyingError:v12 description:@"unable to get contentType from envelopedData.encryptedContentnInfo"];
 
       OUTLINED_FUNCTION_1_1();
-      v12 = v62;
+      v12 = v59;
     }
   }
 
@@ -1258,21 +1380,19 @@ LABEL_45:
   }
 
   error = errorCopy;
-  optionsCopy = v66;
-  v14 = v63;
+  optionsCopy = v63;
+  v14 = v60;
 LABEL_67:
-  free_EnvelopedData();
+  free_EnvelopedData(&v74);
   if (error && v12)
   {
-    v57 = v12;
+    v55 = v12;
     *error = v12;
   }
 
-  v58 = v16;
+  v56 = v16;
 
-  v59 = *MEMORY[0x277D85DE8];
-
-  return v58;
+  return v56;
 }
 
 - (void)addRecipient:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)

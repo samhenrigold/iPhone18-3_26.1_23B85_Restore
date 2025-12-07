@@ -26,7 +26,7 @@
   v11 = [(HDInsertCodableSummarySharingEntryOperation *)&v16 init];
   if (v11)
   {
-    v12 = [entriesCopy copy];
+    v12 = objc_msgSend_copy(entriesCopy);
     codableEntries = v11->_codableEntries;
     v11->_codableEntries = v12;
 
@@ -50,7 +50,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
   if (self->_shouldResolveCNContact)
@@ -64,7 +64,7 @@
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v38 = [defaultWorkspace applicationIsInstalled:*MEMORY[0x277CCE3A8]];
+  v37 = [defaultWorkspace applicationIsInstalled:*MEMORY[0x277CCE3A8]];
 
   _HKInitializeLogging();
   v11 = HKLogSharing();
@@ -72,17 +72,17 @@
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v49 = 1024;
-    v50 = v38 ^ 1;
+    v48 = 1024;
+    v49 = v37 ^ 1;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Inserting codable entries with current pause state: %d", buf, 0x12u);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = self->_codableEntries;
-  v12 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v12 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (!v12)
   {
     v32 = 1;
@@ -90,19 +90,19 @@
   }
 
   v13 = v12;
-  v39 = *v43;
-  v36 = profileCopy;
+  v38 = *v42;
+  v35 = profileCopy;
   do
   {
     v14 = 0;
     do
     {
-      if (*v43 != v39)
+      if (*v42 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v42 + 1) + 8 * v14);
+      v15 = *(*(&v41 + 1) + 8 * v14);
       if (!self->_shouldResolveCNContact || hd_contactStoreWithHealthAppIdentity == 0)
       {
         v17 = 0;
@@ -110,7 +110,7 @@
 
       else
       {
-        v17 = HDCNContactForCodableEntry(*(*(&v42 + 1) + 8 * v14), hd_contactStoreWithHealthAppIdentity);
+        v17 = HDCNContactForCodableEntry(*(*(&v41 + 1) + 8 * v14), hd_contactStoreWithHealthAppIdentity);
       }
 
       if (self->_ignoreIfExists)
@@ -119,9 +119,9 @@
         uuid = [v15 uuid];
         v20 = [v18 initWithUUIDString:uuid];
 
-        v41 = 0;
-        v21 = [HDSummarySharingEntryEntity anyWithUUID:v20 transaction:transactionCopy error:&v41];
-        v22 = v41;
+        v40 = 0;
+        v21 = [HDSummarySharingEntryEntity anyWithUUID:v20 transaction:transactionCopy error:&v40];
+        v22 = v40;
         v23 = v22;
         if (v21)
         {
@@ -152,12 +152,12 @@
 
 LABEL_41:
           v32 = 0;
-          profileCopy = v36;
+          profileCopy = v35;
           goto LABEL_42;
         }
       }
 
-      if ((v38 & 1) != 0 || [v15 direction])
+      if ((v37 & 1) != 0 || [v15 direction])
       {
         v25 = 0;
       }
@@ -197,16 +197,15 @@ LABEL_29:
     }
 
     while (v13 != v14);
-    v31 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v31 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     v13 = v31;
     v32 = 1;
-    profileCopy = v36;
+    profileCopy = v35;
   }
 
   while (v31);
 LABEL_42:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v32;
 }
 

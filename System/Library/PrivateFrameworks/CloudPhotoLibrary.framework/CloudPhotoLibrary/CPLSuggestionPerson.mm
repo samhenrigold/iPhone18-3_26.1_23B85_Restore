@@ -87,7 +87,6 @@ LABEL_3:
     }
   }
 
-  v6 = *(equalCopy + 36);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_type != *(equalCopy + 8))
@@ -99,7 +98,7 @@ LABEL_3:
   else if ((*(equalCopy + 36) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -119,17 +118,17 @@ LABEL_16:
   context = self->_context;
   if (context | *(equalCopy + 1))
   {
-    v8 = [(NSString *)context isEqual:?];
+    v7 = [(NSString *)context isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -194,33 +193,31 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_personIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    feature = self->_feature;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_context)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

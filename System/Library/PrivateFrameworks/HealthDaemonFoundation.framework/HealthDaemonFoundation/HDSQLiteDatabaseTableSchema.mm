@@ -56,33 +56,33 @@ LABEL_11:
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   name = self->_name;
   allValues = [(NSDictionary *)self->_columns allValues];
   v6 = [allValues componentsJoinedByString:{@", "}];
   v7 = [v3 stringWithFormat:@"CREATE TABLE %@ (%@)", name, v6];;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = self->_indices;
-  v9 = [(NSSet *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [(NSSet *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         name = [v13 name];
         if ([v13 isUnique])
         {
@@ -97,13 +97,11 @@ LABEL_11:
         [v7 appendFormat:@" CREATE %@INDEX %@ on %@;", name, v15, v13];
       }
 
-      v10 = [(NSSet *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [(NSSet *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

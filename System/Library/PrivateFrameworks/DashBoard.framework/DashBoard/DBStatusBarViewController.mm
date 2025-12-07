@@ -45,8 +45,9 @@
 - (void)_createStatusBar
 {
   [self layout];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_0_4(&dword_248146000, v1, v2, "%s layout=%@", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_0_4(&dword_248146000, v1, v2, "%s layout=%@", v3, v4, v5, v6, v7);
 }
 
 - (void)viewDidLoad
@@ -91,8 +92,9 @@
 - (void)reload
 {
   [self layout];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_0_4(&dword_248146000, v1, v2, "%s layout=%@", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_0_4(&dword_248146000, v1, v2, "%s layout=%@", v3, v4, v5, v6, v7);
 }
 
 @end

@@ -309,7 +309,7 @@
 
 - (id)specifiers
 {
-  v189 = +[NSMutableArray array];
+  v191 = +[NSMutableArray array];
   v3 = [[AUSystemSettingsSpecifiersProvider alloc] initWithApplicationBundleIdentifier:@"com.apple.Maps"];
   [(MapsSettingsController *)self setSpecifiersProvider:v3];
 
@@ -344,16 +344,16 @@
     }
   }
 
-  v185 = v7;
+  v187 = v7;
   [v6 removeObjectsAtIndexes:v7];
-  [v189 addObjectsFromArray:v6];
-  v191 = @"com.apple.onboarding.maps";
-  v15 = [NSArray arrayWithObjects:&v191 count:1];
-  v186 = v6;
+  [v191 addObjectsFromArray:v6];
+  v193 = @"com.apple.onboarding.maps";
+  v15 = [NSArray arrayWithObjects:&v193 count:1];
+  v188 = v6;
   firstObject = [v6 firstObject];
   [(MapsSettingsController *)self _appendPrivacyFooterFromBundleIdentifiers:v15 toGroupSpecifier:firstObject selector:"_presentMapsAppPrivacySplashViewController"];
 
-  [(MapsSettingsController *)self _addOfflineSpecifiers:v189];
+  [(MapsSettingsController *)self _addOfflineSpecifiers:v191];
   v17 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v18 = [v17 localizedStringForKey:@"Maps" value:@"localized string not found" table:0];
 
@@ -370,11 +370,11 @@
   [v23 setProperty:@"TransportTypePreferenceGroupID" forKey:?];
   v25 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v26 = [v25 localizedStringForKey:@"Default Transportation Mode Footer [Settings]" value:@"localized string not found" table:0];
-  v179 = PSFooterTextGroupKey;
+  v181 = PSFooterTextGroupKey;
   [v23 setProperty:v26 forKey:?];
 
-  v184 = v23;
-  [v189 addObject:v23];
+  v186 = v23;
+  [v191 addObject:v23];
   v27 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v28 = [v27 localizedStringForKey:@"Driving Transportation Mode Label [Settings]" value:@"localized string not found" table:0];
   v29 = [PSSpecifier preferenceSpecifierNamed:v28 target:self set:0 get:0 detail:0 cell:3 edit:0];
@@ -382,7 +382,7 @@
   [v29 setProperty:@"TransportTypePreferenceDrivingID" forKey:v24];
   v30 = PSValueKey;
   [v29 setProperty:&off_8B650 forKey:PSValueKey];
-  [v189 addObject:v29];
+  [v191 addObject:v29];
   [*(&self->_emailAddress + 3) addObject:v29];
   v31 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v32 = [v31 localizedStringForKey:@"Walking Transportation Mode Label [Settings]" value:@"localized string not found" table:0];
@@ -390,16 +390,16 @@
 
   [v33 setProperty:@"TransportTypePreferenceWalkingID" forKey:v24];
   [v33 setProperty:&off_8B668 forKey:v30];
-  [v189 addObject:v33];
+  [v191 addObject:v33];
   [*(&self->_emailAddress + 3) addObject:v33];
   v34 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v35 = [v34 localizedStringForKey:@"Transit Transportation Mode Label [Settings]" value:@"localized string not found" table:0];
   v36 = [PSSpecifier preferenceSpecifierNamed:v35 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-  v188 = v24;
+  v190 = v24;
   [v36 setProperty:@"TransportTypePreferenceTransitID" forKey:v24];
   [v36 setProperty:&off_8B680 forKey:v30];
-  [v189 addObject:v36];
+  [v191 addObject:v36];
   [*(&self->_emailAddress + 3) addObject:v36];
   v37 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v38 = [v37 localizedStringForKey:@"Cycling Transportation Mode Label [Settings]" value:@"localized string not found" table:0];
@@ -408,7 +408,7 @@
 
   [v39 setProperty:@"TransportTypePreferenceBicycleID" forKey:v24];
   [v39 setProperty:&off_8B698 forKey:v30];
-  [v189 addObject:v39];
+  [v191 addObject:v39];
   [*(&self->_emailAddress + 3) addObject:v39];
   v40 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v41 = [v40 localizedStringForKey:@"Default Transportation Mode" value:@"localized string not found" table:0];
@@ -417,48 +417,48 @@
   v43 = [v42 localizedStringForKey:@"Directions Group Label [Settings]" value:@"localized string not found" table:0];
   v44 = [PSSpecifier preferenceSpecifierNamed:v43 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-  v183 = v44;
-  [v189 addObject:v44];
+  v185 = v44;
+  [v191 addObject:v44];
   v45 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v46 = [v45 localizedStringForKey:@"Driving Group Title [Settings]" value:@"localized string not found" table:0];
 
-  v182 = v46;
+  v184 = v46;
   v47 = [PSSpecifier preferenceSpecifierNamed:v46 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
   [v47 setProperty:@"DrivingLinkPreferenceID" forKey:v24];
-  [v189 addObject:v47];
+  [v191 addObject:v47];
   v48 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v49 = [v48 localizedStringForKey:@"Walking Label [Settings]" value:@"localized string not found" table:0];
 
-  v181 = v49;
+  v183 = v49;
   v50 = [PSSpecifier preferenceSpecifierNamed:v49 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
   [v50 setProperty:@"WalkingLinkPreferenceID" forKey:v24];
-  [v189 addObject:v50];
+  [v191 addObject:v50];
   v51 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v52 = [v51 localizedStringForKey:@"Transit Label [Settings]" value:@"localized string not found" table:0];
   v53 = [PSSpecifier preferenceSpecifierNamed:v52 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
   v54 = v24;
   [v53 setProperty:@"TransitLinkPreferenceID" forKey:v24];
-  [v189 addObject:v53];
+  [v191 addObject:v53];
   v55 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v56 = [v55 localizedStringForKey:@"Cycling Label [Settings]" value:@"localized string not found" table:0];
   v57 = [PSSpecifier preferenceSpecifierNamed:v56 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
   [v57 setProperty:@"CyclingLinkPreferenceID" forKey:v54];
-  [v189 addObject:v57];
+  [v191 addObject:v57];
   if ([(MapsSettingBaseController *)self supportsNavigation])
   {
     v58 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
-    [v189 addObject:v58];
+    [v191 addObject:v58];
     v59 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
     v60 = [v59 localizedStringForKey:@"Spoken Directions Label [Settings]" value:@"localized string not found" table:0];
     v61 = [PSSpecifier preferenceSpecifierNamed:v60 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
     [v61 setProperty:@"NavigationGuidanceLinkPreferenceID" forKey:v54];
-    [v189 addObject:v61];
-    [(MapsSettingsController *)self _addShareETASpecifiers:v189];
+    [v191 addObject:v61];
+    [(MapsSettingsController *)self _addShareETASpecifiers:v191];
 
     v57 = v61;
   }
@@ -467,16 +467,16 @@
   v63 = [v62 localizedStringForKey:@"Climate Group Label [Settings]" value:@"localized string not found" table:0];
   v64 = [PSSpecifier preferenceSpecifierNamed:v63 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-  v180 = v64;
-  [v189 addObject:v64];
+  v182 = v64;
+  [v191 addObject:v64];
   v65 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v66 = [v65 localizedStringForKey:@"Air Quality Index Switch Label [Settings]" value:@"localized string not found" table:0];
   v67 = [PSSpecifier preferenceSpecifierNamed:v66 target:self set:"_setShowAirQualityIndex:specifier:" get:"_showAirQualityIndex:" detail:0 cell:6 edit:0];
 
   v68 = PSEnabledKey;
   [v67 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
-  [v67 setProperty:@"AirQualityPreferenceID" forKey:v188];
-  [v189 addObject:v67];
+  [v67 setProperty:@"AirQualityPreferenceID" forKey:v190];
+  [v191 addObject:v67];
   v69 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v70 = [v69 localizedStringForKey:@"Air Quality Index" value:@"localized string not found" table:0];
 
@@ -485,10 +485,10 @@
   v73 = [v71 localizedStringForKey:@"Weather Conditions Switch Label [Settings]" value:@"localized string not found" table:0];
   v74 = [PSSpecifier preferenceSpecifierNamed:v73 target:selfCopy set:"_setShowWeatherConditions:specifier:" get:"_showWeatherConditions:" detail:0 cell:6 edit:0];
 
-  v75 = v189;
+  v75 = v191;
   [v74 setProperty:&__kCFBooleanTrue forKey:v68];
-  [v74 setProperty:@"WeatherConditionsPreferenceID" forKey:v188];
-  [v189 addObject:v74];
+  [v74 setProperty:@"WeatherConditionsPreferenceID" forKey:v190];
+  [v191 addObject:v74];
   v76 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
   v77 = [v76 localizedStringForKey:@"Weather Conditions" value:@"localized string not found" table:0];
 
@@ -499,25 +499,25 @@
     v80 = [v79 localizedStringForKey:@"Label Language Group Title [Settings]" value:@"localized string not found" table:0];
     v81 = [PSSpecifier preferenceSpecifierNamed:v80 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    [v189 addObject:v81];
+    [v191 addObject:v81];
     v82 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
     v83 = [v82 localizedStringForKey:@"Label Language Switch Label [Settings]" value:@"localized string not found" table:0];
     v84 = [PSSpecifier preferenceSpecifierNamed:v83 target:selfCopy set:"_setLabelLanguageAlwaysUILanguage:specifier:" get:"_labelLanguageAlwaysUILanguage:" detail:0 cell:6 edit:0];
 
-    v75 = v189;
+    v75 = v191;
     [v84 setProperty:&__kCFBooleanTrue forKey:v72];
-    [v84 setProperty:@"LabelLanguageAlwaysUIPreferenceID" forKey:v188];
-    [v189 addObject:v84];
+    [v84 setProperty:@"LabelLanguageAlwaysUIPreferenceID" forKey:v190];
+    [v191 addObject:v84];
     v78 = &PSBundlePathForPreferenceBundle_ptr;
     v85 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
     v86 = [v85 localizedStringForKey:@"Always in English" value:@"localized string not found" table:0];
 
-    v187 = v84;
+    v189 = v84;
   }
 
   else
   {
-    v187 = v74;
+    v189 = v74;
   }
 
   v87 = v72;
@@ -551,32 +551,32 @@
     [v75 addObject:v93];
     if (HaveValidAccountForMakingContributions)
     {
-      v177 = v93;
+      v179 = v93;
       v94 = v78;
       v95 = [v78[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
       v96 = [v95 localizedStringForKey:@"Ratings and Photos [Laguna Beach][Settings]" value:@"localized string not found" table:0];
       v97 = [PSSpecifier preferenceSpecifierNamed:v96 target:selfCopy set:"_setAllowsAddingRatingsAndPhotos:specifier:" get:"allowsAddingRatingsAndPhotos:" detail:0 cell:6 edit:0];
 
       [v97 setProperty:&__kCFBooleanTrue forKey:v72];
-      [v97 setProperty:@"RatingsAndPhotosPreferencesID" forKey:v188];
-      [v189 addObject:v97];
+      [v97 setProperty:@"RatingsAndPhotosPreferencesID" forKey:v190];
+      [v191 addObject:v97];
 
       v98 = v78[415];
       v99 = NSClassFromString(@"MapsSettingsController");
       v100 = v98;
-      v75 = v189;
+      v75 = v191;
       v101 = [v100 bundleForClass:v99];
       v102 = [v101 localizedStringForKey:@"Show Ratings and Photos Suggestions [Laguna Beach][Settings]" value:@"localized string not found" table:0];
       v103 = [PSSpecifier preferenceSpecifierNamed:v102 target:selfCopy set:"_setLagunaBeachSiriSuggestionsEnabled:specifier:" get:"lagunaBeachSiriSuggestionsEnabled:" detail:0 cell:6 edit:0];
 
       v78 = v94;
-      v93 = v177;
+      v93 = v179;
 
       [v103 setProperty:&__kCFBooleanTrue forKey:v72];
       [v103 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
       v87 = v72;
-      [v103 setProperty:@"ShowRatingsAndPhotosSuggestionsPreferencesID" forKey:v188];
-      [v189 addObject:v103];
+      [v103 setProperty:@"ShowRatingsAndPhotosSuggestionsPreferencesID" forKey:v190];
+      [v191 addObject:v103];
     }
 
     if (v89)
@@ -587,7 +587,7 @@
 
       [v106 setProperty:&__kCFBooleanTrue forKey:v87];
       [v106 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
-      [v106 setProperty:@"ImproveEVRoutingPreferencesID" forKey:v188];
+      [v106 setProperty:@"ImproveEVRoutingPreferencesID" forKey:v190];
       [v75 addObject:v106];
     }
 
@@ -610,17 +610,17 @@
     v113 = [v112 localizedStringForKey:@"Allow Photo Providers to Use Your Photos [Settings]" value:@"localized string not found" table:0];
     v114 = [PSSpecifier preferenceSpecifierNamed:v113 target:selfCopy set:"_setThirdPartyPhotoSharingEnabled:specifier:" get:"_thirdPartyPhotoSharingEnabled:" detail:0 cell:6 edit:0];
 
-    v75 = v189;
+    v75 = v191;
     [v114 setProperty:&__kCFBooleanTrue forKey:v87];
     [v114 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
     v115 = [NSNumber numberWithBool:[(MapsSettingsController *)selfCopy isThirdPartyPhotoSharingStatusLoading]];
     [v114 setProperty:v115 forKey:PSControlIsLoadingKey];
 
-    [v114 setProperty:@"AllowPhotoProvidersPreferencesID" forKey:v188];
-    [v189 addObject:v114];
+    [v114 setProperty:@"AllowPhotoProvidersPreferencesID" forKey:v190];
+    [v191 addObject:v114];
     v116 = [v110[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
     v117 = [v116 localizedStringForKey:@"Photo Sharing Footer [Settings]" value:@"localized string not found" table:0];
-    [v111 setProperty:v117 forKey:v179];
+    [v111 setProperty:v117 forKey:v181];
   }
 
   v118 = *(&selfCopy->_preferredTransportTypeSpecifiers + 3);
@@ -638,7 +638,8 @@
   restaurantBookingController = [(MapsSettingsController *)selfCopy restaurantBookingController];
   hasInstalledApplications2 = [restaurantBookingController hasInstalledApplications];
 
-  if (MapsFeature_IsEnabled_EVRouting())
+  IsEnabled_EVRouting = MapsFeature_IsEnabled_EVRouting();
+  if (IsEnabled_EVRouting)
   {
     evRoutingController2 = [(MapsSettingsController *)selfCopy evRoutingController];
     hasInstalledApplications3 = [evRoutingController2 hasInstalledApplications];
@@ -651,24 +652,24 @@
 
   if (((hasInstalledApplications | hasInstalledApplications2) & 1) != 0 || hasInstalledApplications3)
   {
-    v127 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v128 = [v127 localizedStringForKey:@"Extensions Group Title [Settings]" value:@"localized string not found" table:0];
-    v129 = [PSSpecifier preferenceSpecifierNamed:v128 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    v129 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v130 = [v129 localizedStringForKey:@"Extensions Group Title [Settings]" value:@"localized string not found" table:0];
+    v131 = [PSSpecifier preferenceSpecifierNamed:v130 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    v75 = v189;
-    v178 = v129;
-    [v189 addObject:v129];
+    v75 = v191;
+    v180 = v131;
+    [v191 addObject:v131];
     if (hasInstalledApplications)
     {
-      v145 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-      v146 = [v145 localizedStringForKey:@"Ride Booking Row [Settings]" value:@"localized string not found" table:0];
-      v147 = [PSSpecifier preferenceSpecifierNamed:v146 target:0 set:0 get:0 detail:0 cell:1 edit:0];
+      v147 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+      v148 = [v147 localizedStringForKey:@"Ride Booking Row [Settings]" value:@"localized string not found" table:0];
+      v149 = [PSSpecifier preferenceSpecifierNamed:v148 target:0 set:0 get:0 detail:0 cell:1 edit:0];
 
-      [(NSMutableSet *)v147 setProperty:&__kCFBooleanTrue forKey:v72];
-      [(NSMutableSet *)v147 setProperty:@"RideBookingPreferencesID" forKey:v188];
-      [v189 addObject:v147];
-      v148 = *(&selfCopy->_preferredTransportTypeSpecifiers + 3);
-      *(&selfCopy->_preferredTransportTypeSpecifiers + 3) = v147;
+      [(NSMutableSet *)v149 setProperty:&__kCFBooleanTrue forKey:v72];
+      [(NSMutableSet *)v149 setProperty:@"RideBookingPreferencesID" forKey:v190];
+      [v191 addObject:v149];
+      v150 = *(&selfCopy->_preferredTransportTypeSpecifiers + 3);
+      *(&selfCopy->_preferredTransportTypeSpecifiers + 3) = v149;
 
       if (!hasInstalledApplications2)
       {
@@ -681,14 +682,14 @@ LABEL_37:
         }
 
 LABEL_36:
-        v130 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-        v131 = [v130 localizedStringForKey:@"EV Routing Row [Settings]" value:@"localized string not found" table:0];
-        v132 = [PSSpecifier preferenceSpecifierNamed:v131 target:0 set:0 get:0 detail:0 cell:1 edit:0];
+        v132 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+        v133 = [v132 localizedStringForKey:@"EV Routing Row [Settings]" value:@"localized string not found" table:0];
+        v134 = [PSSpecifier preferenceSpecifierNamed:v133 target:0 set:0 get:0 detail:0 cell:1 edit:0];
 
-        [v189 addObject:v132];
-        [v132 setProperty:&__kCFBooleanTrue forKey:v72];
-        v133 = *(&selfCopy->_restaurantBookingLinkSpecifier + 3);
-        *(&selfCopy->_restaurantBookingLinkSpecifier + 3) = v132;
+        [v191 addObject:v134];
+        [v134 setProperty:&__kCFBooleanTrue forKey:v72];
+        v135 = *(&selfCopy->_restaurantBookingLinkSpecifier + 3);
+        *(&selfCopy->_restaurantBookingLinkSpecifier + 3) = v134;
 
         goto LABEL_37;
       }
@@ -699,14 +700,14 @@ LABEL_36:
       goto LABEL_35;
     }
 
-    v149 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v150 = [v149 localizedStringForKey:@"Restaurant Booking Row [Settings]" value:@"localized string not found" table:0];
-    v151 = [PSSpecifier preferenceSpecifierNamed:v150 target:0 set:0 get:0 detail:0 cell:1 edit:0];
+    v151 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v152 = [v151 localizedStringForKey:@"Restaurant Booking Row [Settings]" value:@"localized string not found" table:0];
+    v153 = [PSSpecifier preferenceSpecifierNamed:v152 target:0 set:0 get:0 detail:0 cell:1 edit:0];
 
-    [v189 addObject:v151];
-    [v151 setProperty:&__kCFBooleanTrue forKey:v72];
-    v152 = *(&selfCopy->_rideBookingLinkSpecifier + 3);
-    *(&selfCopy->_rideBookingLinkSpecifier + 3) = v151;
+    [v191 addObject:v153];
+    [v153 setProperty:&__kCFBooleanTrue forKey:v72];
+    v154 = *(&selfCopy->_rideBookingLinkSpecifier + 3);
+    *(&selfCopy->_rideBookingLinkSpecifier + 3) = v153;
 
     if (!hasInstalledApplications3)
     {
@@ -717,123 +718,123 @@ LABEL_36:
   }
 
 LABEL_38:
-  AutomaticParkedCarLocationSupported = IsFetchAutomaticParkedCarLocationSupported();
-  v135 = +[MCProfileConnection sharedConnection];
-  if ([v135 userMode] == 1)
+  AutomaticParkedCarLocationSupported = IsFetchAutomaticParkedCarLocationSupported(IsEnabled_EVRouting, v126);
+  v137 = +[MCProfileConnection sharedConnection];
+  if ([v137 userMode] == 1)
   {
-    v136 = &PSBundlePathForPreferenceBundle_ptr;
+    v138 = &PSBundlePathForPreferenceBundle_ptr;
 LABEL_52:
 
     goto LABEL_53;
   }
 
-  isEphemeralMultiUser = [v135 isEphemeralMultiUser];
+  isEphemeralMultiUser = [v137 isEphemeralMultiUser];
 
-  v136 = &PSBundlePathForPreferenceBundle_ptr;
+  v138 = &PSBundlePathForPreferenceBundle_ptr;
   if ((AutomaticParkedCarLocationSupported & (isEphemeralMultiUser ^ 1)) == 1)
   {
-    v138 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v139 = [v138 localizedStringForKey:@"Parked Car Group Tile [Settings]" value:@"localized string not found" table:0];
-    v135 = [PSSpecifier preferenceSpecifierNamed:v139 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    v140 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v141 = [v140 localizedStringForKey:@"Parked Car Group Tile [Settings]" value:@"localized string not found" table:0];
+    v137 = [PSSpecifier preferenceSpecifierNamed:v141 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    v140 = [(MapsSettingsController *)selfCopy parkedCarEnabled:0];
-    LOBYTE(v138) = [v140 BOOLValue];
+    v142 = [(MapsSettingsController *)selfCopy parkedCarEnabled:0];
+    LOBYTE(v140) = [v142 BOOLValue];
 
-    if (v138)
+    if (v140)
     {
-      v141 = MGGetBoolAnswer();
-      v142 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-      v143 = v142;
-      if (v141)
+      v143 = MGGetBoolAnswer();
+      v144 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+      v145 = v144;
+      if (v143)
       {
-        v144 = @"Parked Car Footer [Settings]";
+        v146 = @"Parked Car Footer [Settings]";
       }
 
       else
       {
-        v144 = @"Parked Car Footer [No CarPlay support] [Settings]";
+        v146 = @"Parked Car Footer [No CarPlay support] [Settings]";
       }
     }
 
     else
     {
-      v142 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-      v143 = v142;
-      v144 = @"Parked Car Footer [Disabled] [Settings]";
+      v144 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+      v145 = v144;
+      v146 = @"Parked Car Footer [Disabled] [Settings]";
     }
 
-    v153 = [v142 localizedStringForKey:v144 value:@"localized string not found" table:0];
-    [v135 setProperty:v153 forKey:v179];
+    v155 = [v144 localizedStringForKey:v146 value:@"localized string not found" table:0];
+    [v137 setProperty:v155 forKey:v181];
 
-    [v75 addObject:v135];
-    v154 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v155 = [v154 localizedStringForKey:@"Parked Car Switch Title [Settings]" value:@"localized string not found" table:0];
-    v156 = [PSSpecifier preferenceSpecifierNamed:v155 target:selfCopy set:"_setParkedCarEnabled:specifier:" get:"parkedCarEnabled:" detail:0 cell:6 edit:0];
+    [v75 addObject:v137];
+    v156 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v157 = [v156 localizedStringForKey:@"Parked Car Switch Title [Settings]" value:@"localized string not found" table:0];
+    v158 = [PSSpecifier preferenceSpecifierNamed:v157 target:selfCopy set:"_setParkedCarEnabled:specifier:" get:"parkedCarEnabled:" detail:0 cell:6 edit:0];
 
-    v157 = +[MCProfileConnection sharedConnection];
-    LODWORD(v154) = [v157 BOOLRestrictionForFeature:MCFeatureFindMyCarAllowed];
+    v159 = +[MCProfileConnection sharedConnection];
+    LODWORD(v156) = [v159 BOOLRestrictionForFeature:MCFeatureFindMyCarAllowed];
 
-    if (v154)
+    if (v156)
     {
-      [v156 setProperty:&__kCFBooleanFalse forKey:v72];
+      [v158 setProperty:&__kCFBooleanFalse forKey:v72];
     }
 
-    [v156 setProperty:@"ParkedCarPreferenceID" forKey:v188];
-    [v75 addObject:v156];
-    v158 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v159 = [v158 localizedStringForKey:@"Parked Car" value:@"localized string not found" table:0];
+    [v158 setProperty:@"ParkedCarPreferenceID" forKey:v190];
+    [v75 addObject:v158];
+    v160 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v161 = [v160 localizedStringForKey:@"Parked Car" value:@"localized string not found" table:0];
 
-    v187 = v156;
+    v189 = v158;
     goto LABEL_52;
   }
 
 LABEL_53:
   if ((MapsFeature_IsEnabled_RAPCommunityID() & 1) == 0 && _MKRAPIsAvailable() && *(&selfCopy->super + 1))
   {
-    v160 = [v136[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v161 = [v160 localizedStringForKey:@"Report an Issue Group Title [Settings]" value:@"localized string not found" table:0];
-    v162 = [PSSpecifier preferenceSpecifierNamed:v161 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    v162 = [v138[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v163 = [v162 localizedStringForKey:@"Report an Issue Group Title [Settings]" value:@"localized string not found" table:0];
+    v164 = [PSSpecifier preferenceSpecifierNamed:v163 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    [v189 addObject:v162];
-    v163 = [v136[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v164 = [v163 localizedStringForKey:@"Email Correspondence Switch Label [Settings]" value:@"localized string not found" table:0];
-    v165 = [PSSpecifier preferenceSpecifierNamed:v164 target:selfCopy set:"_setAllowEmailCorrespondence:specifier:" get:"_allowEmailCorrespondence:" detail:0 cell:6 edit:0];
+    [v191 addObject:v164];
+    v165 = [v138[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v166 = [v165 localizedStringForKey:@"Email Correspondence Switch Label [Settings]" value:@"localized string not found" table:0];
+    v167 = [PSSpecifier preferenceSpecifierNamed:v166 target:selfCopy set:"_setAllowEmailCorrespondence:specifier:" get:"_allowEmailCorrespondence:" detail:0 cell:6 edit:0];
 
-    [v165 setProperty:&__kCFBooleanTrue forKey:v72];
-    v166 = [v136[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v75 = v189;
-    v167 = [v166 localizedStringForKey:@"Report an Issue Explanation (Format) [Settings]" value:@"localized string not found" table:0];
-    v168 = [NSString stringWithFormat:v167, *(&selfCopy->super + 1)];
+    [v167 setProperty:&__kCFBooleanTrue forKey:v72];
+    v168 = [v138[415] bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v75 = v191;
+    v169 = [v168 localizedStringForKey:@"Report an Issue Explanation (Format) [Settings]" value:@"localized string not found" table:0];
+    v170 = [NSString stringWithFormat:v169, *(&selfCopy->super + 1)];
 
-    [v165 setProperty:v168 forKey:v179];
-    [v189 addObject:v165];
+    [v167 setProperty:v170 forKey:v181];
+    [v191 addObject:v167];
 
-    v169 = v165;
+    v171 = v167;
   }
 
   else
   {
-    v169 = v187;
+    v171 = v189;
   }
 
   if ([(MapsSettingsController *)selfCopy _shouldShowUKRegulatorySection])
   {
-    v170 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
-    [v75 addObject:v170];
-    v171 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v172 = [v171 localizedStringForKey:@"UK Online Safety Regulatory Button [Settings]" value:@"localized string not found" table:0];
-    v173 = [PSSpecifier preferenceSpecifierNamed:v172 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
+    v172 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    [v75 addObject:v172];
+    v173 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v174 = [v173 localizedStringForKey:@"UK Online Safety Regulatory Button [Settings]" value:@"localized string not found" table:0];
+    v175 = [PSSpecifier preferenceSpecifierNamed:v174 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
 
-    [v173 setButtonAction:"_showUKRegulatoryWebPage:"];
-    [v75 addObject:v173];
+    [v175 setButtonAction:"_showUKRegulatoryWebPage:"];
+    [v75 addObject:v175];
 
-    v169 = v173;
+    v171 = v175;
   }
 
   [(MapsSettingsController *)selfCopy setSpecifiers:v75];
-  v174 = [(MapsSettingsController *)selfCopy _specifierIDForTransportType:GEOGetUserTransportTypePreference()];
-  v175 = [(MapsSettingsController *)selfCopy specifierForID:v174];
-  [v184 setProperty:v175 forKey:PSRadioGroupCheckedSpecifierKey];
+  v176 = [(MapsSettingsController *)selfCopy _specifierIDForTransportType:GEOGetUserTransportTypePreference()];
+  v177 = [(MapsSettingsController *)selfCopy specifierForID:v176];
+  [v186 setProperty:v177 forKey:PSRadioGroupCheckedSpecifierKey];
 
   return v75;
 }
@@ -1536,7 +1537,7 @@ LABEL_6:
   var1 = key.var1;
   var0 = key.var0;
   v6 = key.var0 == 628 && key.var1 == &unk_74DF8;
-  if (v6 || (key.var0 == GeoOfflineConfig_AutomaticUpdatesEnabled ? (v7 = key.var1 == *(&GeoOfflineConfig_AutomaticUpdatesEnabled + 1)) : (v7 = 0), v7 || (key.var0 == GeoOfflineConfig_OptimizeStorageEnabled ? (v8 = key.var1 == *(&GeoOfflineConfig_OptimizeStorageEnabled + 1)) : (v8 = 0), v8 || (key.var0 == GeoOfflineConfig_SyncToWatchEnabled ? (v9 = key.var1 == *(&GeoOfflineConfig_SyncToWatchEnabled + 1)) : (v9 = 0), v9 || (key.var0 == 569 ? (v10 = key.var1 == &unk_73E80) : (v10 = 0), v10)))))
+  if (v6 || (key.var0 == LODWORD(GeoOfflineConfig_AutomaticUpdatesEnabled[0]) ? (v7 = key.var1 == GeoOfflineConfig_AutomaticUpdatesEnabled[1]) : (v7 = 0), v7 || (key.var0 == LODWORD(GeoOfflineConfig_OptimizeStorageEnabled[0]) ? (v8 = key.var1 == GeoOfflineConfig_OptimizeStorageEnabled[1]) : (v8 = 0), v8 || (key.var0 == LODWORD(GeoOfflineConfig_SyncToWatchEnabled[0]) ? (v9 = key.var1 == GeoOfflineConfig_SyncToWatchEnabled[1]) : (v9 = 0), v9 || (key.var0 == 569 ? (v10 = key.var1 == &unk_73E80) : (v10 = 0), v10)))))
   {
     [(MapsSettingsController *)self reloadSpecifiers];
   }

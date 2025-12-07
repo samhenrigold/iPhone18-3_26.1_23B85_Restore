@@ -84,7 +84,7 @@ void __57__VKCMockTextLine_loadWordsArrayFromWords_startingIndex___block_invoke(
   [*(a1 + 32) addObject:v4];
 }
 
-void __57__VKCMockTextLine_loadWordsArrayFromWords_startingIndex___block_invoke_151(uint64_t a1, void *a2, unint64_t a3)
+void __57__VKCMockTextLine_loadWordsArrayFromWords_startingIndex___block_invoke_151(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v13 = [v5 text];

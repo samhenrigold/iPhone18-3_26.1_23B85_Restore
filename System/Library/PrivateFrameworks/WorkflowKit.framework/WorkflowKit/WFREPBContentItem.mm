@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)encodingTypeAsString:(int)string;
 - (int)StringAsEncodingType:(id)type;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -59,9 +60,8 @@
     __assert_rtn("[WFREPBContentItem writeTo:]", "WFREPBContentItem.m", 87, "nil != self->_item");
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteDataField();
-  encodingType = self->_encodingType;
   PBDataWriterWriteInt32Field();
 }
 
@@ -112,9 +112,9 @@
 {
   typeCopy = type;
   v4 = 1;
-  if (([typeCopy isEqualToString:@"Protobuf"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) == 0)
   {
-    if ([typeCopy isEqualToString:@"NSSecureCoding"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
       v4 = 2;
     }
@@ -123,6 +123,26 @@
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)encodingTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Protobuf";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"NSSecureCoding";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

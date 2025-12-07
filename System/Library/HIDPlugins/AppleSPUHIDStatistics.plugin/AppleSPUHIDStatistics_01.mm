@@ -1,167 +1,83 @@
-uint64_t spu_log_device_time_to_mach_time(uint64_t a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
-{
-  v8 = *MEMORY[0x29EDBB110];
-  v9 = IOServiceMatching("AppleSPUTimesync");
-  MatchingService = IOServiceGetMatchingService(v8, v9);
-  if (MatchingService)
-  {
-    v11 = MatchingService;
-    v26 = 0;
-    valuePtr = 0;
-    v24 = 0;
-    v25 = 0;
-    CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"timesync", *MEMORY[0x29EDB8ED8], 0);
-    if (CFProperty)
-    {
-      v13 = CFProperty;
-      Value = CFDictionaryGetValue(CFProperty, @"ap");
-      v15 = CFNumberGetValue(Value, kCFNumberLongLongType, &valuePtr);
-      v16 = CFDictionaryGetValue(v13, @"ap-cont");
-      v17 = CFNumberGetValue(v16, kCFNumberLongLongType, &v26) & v15;
-      v18 = CFDictionaryGetValue(v13, @"spu");
-      v19 = CFNumberGetValue(v18, kCFNumberLongLongType, &v25);
-      v20 = CFDictionaryGetValue(v13, @"calendar");
-      v21 = v19 & CFNumberGetValue(v20, kCFNumberLongLongType, &v24);
-      if (a2)
-      {
-        *a2 = valuePtr + 1000 * a1 - v25;
-      }
-
-      v22 = v17 & v21;
-      if (a3)
-      {
-        *a3 = v26 + 1000 * a1 - v25;
-      }
-
-      if (a4)
-      {
-        *a4 = v24 + 1000 * a1 - v25;
-      }
-
-      CFRelease(v13);
-    }
-
-    else
-    {
-      sub_29D41B0A0();
-      v22 = 0;
-    }
-
-    IOObjectRelease(v11);
-  }
-
-  else
-  {
-    sub_29D41B0F8();
-    v22 = 0;
-  }
-
-  return v22 & 1;
-}
-
-uint64_t spu_log_calendar_time_to_walltime(unint64_t a1, char *a2, size_t a3)
-{
-  v7 = a1 / 0x3B9ACA00;
-  v5 = localtime(&v7);
-  strftime(a2, a3, "%b %d %T", v5);
-  return 1;
-}
-
-unint64_t spu_log_ns_to_mach_time(unint64_t a1)
-{
-  v2 = *&qword_2A17A28D0;
-  if (*&qword_2A17A28D0 == 0.0)
-  {
-    mach_timebase_info(&info);
-    LODWORD(v3) = info.numer;
-    LODWORD(v4) = info.denom;
-    v2 = v3 / v4;
-    qword_2A17A28D0 = *&v2;
-  }
-
-  return (a1 / v2);
-}
-
 BOOL spu_log_get_aop_logs(int a1, uint64_t a2, void (*a3)(void *, const char *, const void *, unint64_t, BOOL), void *a4)
 {
   input[1] = *MEMORY[0x29EDCA608];
   inputStruct = a1;
-  v66[23] = 7;
-  strcpy(v66, "AOP_log");
-  v67 = 0;
+  v65[23] = 7;
+  strcpy(v65, "AOP_log");
+  v66 = 0;
   input[0] = 35;
-  v64 = a2 << 8;
-  v65 = &unk_2A241D910;
+  v63 = a2 << 8;
+  v64 = &unk_2A241D910;
   outputStruct = malloc_type_malloc(a2 << 8, 0x1000040104B78CFuLL);
   if (outputStruct)
   {
-    v39 = AOPServiceConnect::connect(&v65);
-    if (v39)
+    v38 = AOPServiceConnect::connect(&v64);
+    if (v38)
     {
-      v5 = IOConnectCallMethod(v67, 3u, input, 1u, &inputStruct, 4uLL, 0, 0, outputStruct, &v64);
+      v5 = IOConnectCallMethod(v66, 3u, input, 1u, &inputStruct, 4uLL, 0, 0, outputStruct, &v63);
       if (v5)
       {
         sub_29D41B1A8(v5);
       }
 
-      else if (v64 >= 0x100)
+      else if (v63 >= 0x100)
       {
         v6 = 0;
-        v7 = v64 >> 8;
+        v7 = v63 >> 8;
         do
         {
           v8 = 0;
-          v62 = 0u;
-          memset(v63, 0, 176);
-          v60 = 0u;
           v61 = 0u;
-          v58 = 0u;
+          memset(v62, 0, 176);
           v59 = 0u;
-          v56 = 0u;
+          v60 = 0u;
           v57 = 0u;
-          v54 = 0u;
+          v58 = 0u;
           v55 = 0u;
-          v52 = 0u;
+          v56 = 0u;
           v53 = 0u;
-          v50 = 0u;
+          v54 = 0u;
           v51 = 0u;
-          v48 = 0u;
+          v52 = 0u;
           v49 = 0u;
-          v46 = 0u;
+          v50 = 0u;
           v47 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v43 = 0;
-          v44 = 0;
+          v46 = 0u;
+          v44 = 0u;
           v42 = 0;
+          v43 = 0;
+          v41 = 0;
           v9 = &outputStruct[256 * v6];
           v10 = *(v9 + 3);
           v12 = *v9;
           v11 = *(v9 + 1);
-          v48 = *(v9 + 2);
-          v49 = v10;
-          v46 = v12;
-          v47 = v11;
+          v47 = *(v9 + 2);
+          v48 = v10;
+          v45 = v12;
+          v46 = v11;
           v13 = *(v9 + 7);
           v15 = *(v9 + 4);
           v14 = *(v9 + 5);
-          v52 = *(v9 + 6);
-          v53 = v13;
-          v50 = v15;
-          v51 = v14;
+          v51 = *(v9 + 6);
+          v52 = v13;
+          v49 = v15;
+          v50 = v14;
           v16 = *(v9 + 11);
           v18 = *(v9 + 8);
           v17 = *(v9 + 9);
-          v56 = *(v9 + 10);
-          v57 = v16;
-          v54 = v18;
-          v55 = v17;
+          v55 = *(v9 + 10);
+          v56 = v16;
+          v53 = v18;
+          v54 = v17;
           v19 = *(v9 + 15);
           v21 = *(v9 + 12);
           v20 = *(v9 + 13);
-          v60 = *(v9 + 14);
-          v61 = v19;
-          v58 = v21;
-          v59 = v20;
+          v59 = *(v9 + 14);
+          v60 = v19;
+          v57 = v21;
+          v58 = v20;
           v22 = v9 + 256;
           v23 = v9;
           v24 = *v9;
@@ -181,15 +97,15 @@ BOOL spu_log_get_aop_logs(int a1, uint64_t a2, void (*a3)(void *, const char *, 
           }
 
           while (v27 && v27 != v22);
-          BYTE3(v45) = v8;
-          LOWORD(v45) = 24 * v8 + 272;
-          v29 = v63;
+          BYTE3(v44) = v8;
+          LOWORD(v44) = 24 * v8 + 272;
+          v29 = v62;
           do
           {
-            spu_log_device_time_to_mach_time(*(v9 + 1) >> 10, &v44, &v43, &v42);
+            spu_log_device_time_to_mach_time(*(v9 + 1) >> 10, &v43, &v42, &v41);
             *(v29 - 4) = *(v9 + 1);
-            v30 = spu_log_ns_to_mach_time(v43);
-            v31 = v42;
+            v30 = spu_log_ns_to_mach_time(v42);
+            v31 = v41;
             *(v29 - 1) = v30;
             *v29 = v31;
             v32 = &v9[(*(v9 + 1) >> 2) & 0xF0];
@@ -218,7 +134,7 @@ BOOL spu_log_get_aop_logs(int a1, uint64_t a2, void (*a3)(void *, const char *, 
           }
 
           while (!v35);
-          a3(a4, "AOPLOG", &v45, v45, 0);
+          a3(a4, "AOPLOG", &v44, v44, 0);
           ++v6;
         }
 
@@ -232,7 +148,7 @@ BOOL spu_log_get_aop_logs(int a1, uint64_t a2, void (*a3)(void *, const char *, 
     }
 
     free(outputStruct);
-    v36 = v39;
+    v36 = v38;
   }
 
   else
@@ -241,8 +157,7 @@ BOOL spu_log_get_aop_logs(int a1, uint64_t a2, void (*a3)(void *, const char *, 
     v36 = 0;
   }
 
-  AOPServiceConnect::~AOPServiceConnect(&v65);
-  v37 = *MEMORY[0x29EDCA608];
+  AOPServiceConnect::~AOPServiceConnect(&v64);
   return v36;
 }
 
@@ -296,16 +211,16 @@ uint64_t AOPServiceConnect::disconnect(AOPServiceConnect *this)
   return result;
 }
 
-const __CFBoolean *AppleSPUHIDStatistics::IOHIDServiceSupportsAggregateDictionary()
+const __CFBoolean *AppleSPUHIDStatistics::IOHIDServiceSupportsAggregateDictionary(uint64_t a1, uint64_t a2)
 {
   result = IOHIDServiceGetProperty();
   if (result)
   {
-    v1 = result;
-    v2 = CFGetTypeID(result);
-    if (v2 == CFBooleanGetTypeID())
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    if (v4 == CFBooleanGetTypeID())
     {
-      return (CFBooleanGetValue(v1) != 0);
+      return (CFBooleanGetValue(v3) != 0);
     }
 
     else
@@ -317,7 +232,7 @@ const __CFBoolean *AppleSPUHIDStatistics::IOHIDServiceSupportsAggregateDictionar
   return result;
 }
 
-const __CFNumber *AppleSPUHIDStatistics::getIOHIDServiceRegistryID()
+const __CFNumber *AppleSPUHIDStatistics::getIOHIDServiceRegistryID(uint64_t a1, uint64_t a2)
 {
   result = IOHIDServiceGetRegistryID();
   if (result)
@@ -337,7 +252,7 @@ const __CFNumber *AppleSPUHIDStatistics::getIOHIDServiceRegistryID()
   return result;
 }
 
-__CFString *AppleSPUHIDStatistics::keyForIndex(uint64_t a1, int a2)
+__CFString *AppleSPUHIDStatistics::keyForIndex(uint64_t a1, unsigned int a2)
 {
   if (a2 > 73)
   {
@@ -350,7 +265,7 @@ __CFString *AppleSPUHIDStatistics::keyForIndex(uint64_t a1, int a2)
   }
 }
 
-uint64_t spu_log_report_to_string(uint64_t result, unsigned __int8 *a2, unint64_t a3, int a4, char *a5, size_t a6)
+uint64_t spu_log_report_to_string(uint64_t result, char *a2, unint64_t a3, int a4, char *a5, size_t a6)
 {
   if (result)
   {
@@ -405,45 +320,16 @@ uint64_t spu_log_report_to_string(uint64_t result, unsigned __int8 *a2, unint64_
   return result;
 }
 
-uint64_t spu_log_print_report(void *a1, const char *a2, unsigned __int8 *a3, unint64_t a4, int a5)
+uint64_t spu_log_print_report(void *a1, const char *a2, char *a3, unint64_t a4, int a5)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  result = spu_log_report_to_string(a2, a3, a4, a5, v7, 0x800uLL);
+  v7 = *MEMORY[0x29EDCA608];
+  result = spu_log_report_to_string(a2, a3, a4, a5, v6, 0x800uLL);
   if (result)
   {
-    result = puts(v7);
+    return puts(v6);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
-}
-
-uint64_t sub_29D41B0A0()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  sub_29D41ACA8();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 32, 0);
-}
-
-uint64_t sub_29D41B0F8()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  sub_29D41ACA8();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 29, 0);
-}
-
-uint64_t sub_29D41B150()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  sub_29D41ACA8();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 135, 0);
-}
-
-uint64_t sub_29D41B208()
-{
-  v0 = *MEMORY[0x29EDCA610];
-  sub_29D41ACA8();
-  return fprintf(v1, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", v3, v4, v5, 132, 0);
 }
 
 CFUUIDBytes CFUUIDGetUUIDBytes(CFUUIDRef uuid)

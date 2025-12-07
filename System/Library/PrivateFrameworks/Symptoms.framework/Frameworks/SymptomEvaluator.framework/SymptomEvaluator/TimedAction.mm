@@ -9,12 +9,12 @@
 
 - (TimedAction)initWithConnId:(id)id interfaceIndex:(int)index owner:(id)owner target:(unint64_t)target
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   idCopy = id;
   ownerCopy = owner;
-  v30.receiver = self;
-  v30.super_class = TimedAction;
-  v13 = [(TimedAction *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = TimedAction;
+  v13 = [(TimedAction *)&v29 init];
   v14 = v13;
   if (!v13)
   {
@@ -37,13 +37,13 @@
 
     dispatch_source_set_timer(v14->_timer, v14->_target, 0xFFFFFFFFFFFFFFFFLL, 0);
     v19 = v14->_timer;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke;
-    v27[3] = &unk_27898CAB8;
-    v28 = v14;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke;
+    v26[3] = &unk_27898CAB8;
+    v27 = v14;
     indexCopy = index;
-    dispatch_source_set_event_handler(v19, v27);
+    dispatch_source_set_event_handler(v19, v26);
     dispatch_activate(v14->_timer);
 
 LABEL_5:
@@ -58,10 +58,10 @@ LABEL_5:
     owner = v14->_owner;
     target = v14->_target;
     *buf = 138412802;
-    v32 = connectionId;
-    v33 = 2112;
+    v31 = connectionId;
+    v32 = 2112;
     ownerCopy2 = owner;
-    v35 = 2048;
+    v34 = 2048;
     targetCopy = target;
     _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Progress Target: underspecifed action (id/who/target): %@/%@/%llu", buf, 0x20u);
   }
@@ -69,20 +69,19 @@ LABEL_5:
   v20 = 0;
 LABEL_9:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 void __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Progress Target: action fired for %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Progress Target: action fired for %@", &v10, 0xCu);
   }
 
   v4 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceIndex:*(a1 + 40)];
@@ -97,13 +96,11 @@ void __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke
   v8 = *(a1 + 32);
   v9 = *(v8 + 8);
   *(v8 + 8) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -118,15 +115,14 @@ void __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke
     dispatch_source_cancel(timer);
   }
 
-  v6.receiver = self;
-  v6.super_class = TimedAction;
-  [(TimedAction *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = TimedAction;
+  [(TimedAction *)&v5 dealloc];
 }
 
 - (void)setTarget:(unint64_t)target
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (target)
   {
     self->_target = target;
@@ -147,14 +143,12 @@ void __58__TimedAction_initWithConnId_interfaceIndex_owner_target___block_invoke
   v8 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2048;
+    v11 = 2048;
     targetCopy = target;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Progress Target: action updated for %@: %llu", &v10, 0x16u);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Progress Target: action updated for %@: %llu", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

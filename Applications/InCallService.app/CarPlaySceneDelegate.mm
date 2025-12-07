@@ -16,7 +16,7 @@
 {
   disconnectCopy = disconnect;
   selfCopy = self;
-  sub_1000374E8(disconnectCopy);
+  sub_1000374E8();
 }
 
 @end

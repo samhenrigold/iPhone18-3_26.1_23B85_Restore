@@ -3,7 +3,7 @@
 
 @implementation RCPEventHIDDigitizerEventCountOfTouchingContacts
 
-uint64_t ___RCPEventHIDDigitizerEventCountOfTouchingContacts_block_invoke(uint64_t a1)
+uint64_t ___RCPEventHIDDigitizerEventCountOfTouchingContacts_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = IOHIDEventGetIntegerValue();
   if (result)

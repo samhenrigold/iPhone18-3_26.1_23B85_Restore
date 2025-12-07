@@ -481,8 +481,10 @@ LABEL_74:
               *&buf[14] = v70;
               *&buf[22] = 2112;
               *&buf[24] = v60;
-              LOWORD(v83[0]) = 2112;
-              *(v83 + 2) = 0;
+              strcpy(v83, "@\b");
+              BYTE3(v83[0]) = 0;
+              WORD2(v83[0]) = 0;
+              *(v83 + 6) = 0;
               _os_log_impl(&dword_1A85E5000, v59, OS_LOG_TYPE_INFO, "Moving preview metadata from %@ to %@ success %@ error %@", buf, 0x2Au);
             }
           }
@@ -851,8 +853,10 @@ LABEL_12:
           *&buf[14] = rLCopy;
           *&buf[22] = 2112;
           *&buf[24] = @"NO";
-          LOWORD(v35[0]) = 2112;
-          *(v35 + 2) = 0;
+          strcpy(v35, "@\b");
+          BYTE3(v35[0]) = 0;
+          WORD2(v35[0]) = 0;
+          *(v35 + 6) = 0;
           _os_log_impl(&dword_1A85E5000, v26, OS_LOG_TYPE_INFO, "Moving preview metadata from %@ to %@ success %@ error %@", buf, 0x2Au);
         }
       }

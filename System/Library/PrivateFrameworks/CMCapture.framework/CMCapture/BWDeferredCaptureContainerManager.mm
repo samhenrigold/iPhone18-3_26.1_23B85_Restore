@@ -6,7 +6,6 @@
 - (__CVBuffer)newPixelBuffer:(id)buffer;
 - (id)copyRemoteContainerForApplicationID:(id)d captureRequestIdentifier:(id)identifier err:(int *)err;
 - (id)createCaptureContainerWithApplicationID:(id)d captureRequestIdentifier:(id)identifier err:(int *)err;
-- (id)lookupCaptureContainer:(id)container;
 - (id)manifestsForApplicationID:(id)d err:(int *)err;
 - (int)abortContainer:(id)container error:(int)error;
 - (int)addBufferPool:(id)pool;
@@ -17,14 +16,13 @@
 - (int)queryContainerStatusForApplicationID:(id)d captureRequestIdentifier:(id)identifier status:(int *)status;
 - (int)releaseRemoteContainerForApplicationID:(id)d captureRequestIdentifier:(id)identifier;
 - (int)removeBufferPool:(id)pool;
-- (uint64_t)_containerForCaptureRequestIdentifier:(void *)identifier array:(uint64_t *)array index:;
 - (uint64_t)_enumerateManifestsForApplicationID:(uint64_t)d manifestArray:(int)array deleteInvalidContainers:;
 - (uint64_t)_flushContainer:(void *)container container:;
 - (uint64_t)_handleExpiryTimer;
 - (uint64_t)_queryLowDiskThresholds:(uint64_t *)thresholds veryLowDiskThresholdBytes:;
-- (uint64_t)_reportCoreAnalyticsDataWithError:(void *)error container:;
+- (void)_containerForCaptureRequestIdentifier:(void *)identifier array:(uint64_t *)array index:;
+- (void)_reportCoreAnalyticsDataWithError:(void *)error container:;
 - (void)_rescheduleCacheExpiryTimer;
-- (void)_updateCacheEntryForContainer:(uint64_t)container release:;
 - (void)flush:(id)flush toMinimumCapacity:(unint64_t)capacity;
 @end
 
@@ -73,9 +71,9 @@ BWDeferredCaptureContainerManager *__51__BWDeferredCaptureContainerManager_share
 uint64_t __87__BWDeferredCaptureContainerManager__containerForCaptureRequestIdentifier_array_index___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v3 = [a2 captureRequestIdentifier];
+  [a2 captureRequestIdentifier];
 
-  return [v2 isEqualToString:v3];
+  return objc_msgSend_isEqualToString_(v2);
 }
 
 uint64_t __75__BWDeferredCaptureContainerManager__updateCacheEntryForContainer_release___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -100,21 +98,22 @@ uint64_t __75__BWDeferredCaptureContainerManager__updateCacheEntryForContainer_r
 
 - (id)createCaptureContainerWithApplicationID:(id)d captureRequestIdentifier:(id)identifier err:(int *)err
 {
+  selfCopy = self;
   v9 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    kdebug_trace();
+    self = kdebug_trace();
   }
 
   if (d && identifier)
   {
     v17 = 0;
     v16 = 0;
-    v10 = [(BWDeferredContainerManagerBase *)self _containerURLForApplicationID:d captureRequestIdentifier:identifier processingContainer:0 exists:&v17 isDirectory:0 resolvedApplicationID:&v16];
+    v10 = [(BWDeferredContainerManagerBase *)selfCopy _containerURLForApplicationID:d captureRequestIdentifier:identifier processingContainer:0 exists:&v17 isDirectory:0 resolvedApplicationID:&v16];
     if ((v17 & 1) == 0)
     {
       v11 = v10;
-      v12 = self->_cacheSize == 0;
+      v12 = selfCopy->_cacheSize == 0;
       v13 = [BWDeferredCaptureContainer alloc];
       v14 = [(BWDeferredCaptureContainer *)v13 initWithApplicationID:v16 captureRequestIdentifier:identifier baseFolderURL:v11 flushBuffersUponCommit:v12 err:err];
       LODWORD(identifier) = 0;
@@ -131,11 +130,11 @@ uint64_t __75__BWDeferredCaptureContainerManager__updateCacheEntryForContainer_r
 
   else
   {
-    [BWDeferredCaptureContainerManager createCaptureContainerWithApplicationID:captureRequestIdentifier:err:];
+    [BWDeferredCaptureContainerManager createCaptureContainerWithApplicationID:? captureRequestIdentifier:? err:?];
     identifier = 4294954516;
   }
 
-  [(BWDeferredCaptureContainerManager *)self _reportCoreAnalyticsDataWithError:identifier container:0];
+  [(BWDeferredCaptureContainerManager *)selfCopy _reportCoreAnalyticsDataWithError:identifier container:0];
   v14 = 0;
   if (err)
   {
@@ -160,17 +159,17 @@ LABEL_8:
     kdebug_trace();
   }
 
-  pthread_rwlock_wrlock(&self->super._lock);
+  v6 = pthread_rwlock_wrlock(&self->super._lock);
   if (container)
   {
     [(NSMutableArray *)self->_stagedContainers addObject:container];
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    [BWDeferredCaptureContainerManager addCaptureContainer:];
-    v6 = -12780;
+    [BWDeferredCaptureContainerManager addCaptureContainer:v6];
+    v7 = -12780;
   }
 
   pthread_rwlock_unlock(&self->super._lock);
@@ -179,7 +178,7 @@ LABEL_8:
     kdebug_trace();
   }
 
-  return v6;
+  return v7;
 }
 
 - (int)commitContainer:(id)container
@@ -215,7 +214,7 @@ LABEL_8:
 
         else
         {
-          [BWDeferredCaptureContainerManager _updateCacheEntryForContainer:? release:?];
+          [(BWDeferredCaptureContainerManager *)self _updateCacheEntryForContainer:v7 release:0];
         }
 
         goto LABEL_11;
@@ -251,42 +250,43 @@ LABEL_11:
     kdebug_trace();
   }
 
-  pthread_rwlock_wrlock(&self->super._lock);
+  v8 = pthread_rwlock_wrlock(&self->super._lock);
   if (!container)
   {
-    [BWDeferredCaptureContainerManager abortContainer:error:];
+    [BWDeferredCaptureContainerManager abortContainer:v8 error:?];
 LABEL_16:
-    v13 = -12780;
+    v14 = -12780;
     goto LABEL_11;
   }
 
   if (!self || (v8 = [(BWDeferredCaptureContainerManager *)self _containerForCaptureRequestIdentifier:container array:self->_stagedContainers index:0]) == 0)
   {
-    [BWDeferredCaptureContainerManager abortContainer:error:];
+    [BWDeferredCaptureContainerManager abortContainer:v8 error:?];
     goto LABEL_16;
   }
 
   v9 = v8;
   abort = [v8 abort];
+  v11 = abort;
   if (abort)
   {
-    [BWDeferredCaptureContainerManager abortContainer:error:];
+    [BWDeferredCaptureContainerManager abortContainer:abort error:?];
   }
 
   [(BWDeferredCaptureContainerManager *)self _reportCoreAnalyticsDataWithError:v4 container:v9];
   applicationID = [v9 applicationID];
   [(BWDeferredCaptureContainerManager *)self _removeContainerForCaptureRequestIdentifier:container array:self->_stagedContainers];
-  v15.receiver = self;
-  v15.super_class = BWDeferredCaptureContainerManager;
-  v12 = [(BWDeferredContainerManagerBase *)&v15 deleteContainerForApplicationID:applicationID captureRequestIdentifier:container];
-  if ((v12 & 0xFFFFFFFB) != 0)
+  v16.receiver = self;
+  v16.super_class = BWDeferredCaptureContainerManager;
+  v13 = [(BWDeferredContainerManagerBase *)&v16 deleteContainerForApplicationID:applicationID captureRequestIdentifier:container];
+  if ((v13 & 0xFFFFFFFB) != 0)
   {
-    v13 = v12;
+    v14 = v13;
   }
 
   else
   {
-    v13 = abort;
+    v14 = v11;
   }
 
 LABEL_11:
@@ -296,21 +296,22 @@ LABEL_11:
     kdebug_trace();
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)manifestsForApplicationID:(id)d err:(int *)err
 {
+  selfCopy = self;
   v7 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    kdebug_trace();
+    self = kdebug_trace();
   }
 
   if (d)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if (([d isEqualToString:0x1F216ED50] & 1) != 0 || objc_msgSend(d, "isEqualToString:", 0x1F2185190))
+    if ((objc_msgSend_isEqualToString_(d) & 1) != 0 || objc_msgSend_isEqualToString_(d))
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/mobile/Media/Deferred/CaptureContainers"];
@@ -333,7 +334,7 @@ LABEL_11:
               objc_enumerationMutation(v11);
             }
 
-            v16 = -[BWDeferredCaptureContainerManager _enumerateManifestsForApplicationID:manifestArray:deleteInvalidContainers:](self, [*(*(&v20 + 1) + 8 * i) lastPathComponent], v8, 1);
+            v16 = -[BWDeferredCaptureContainerManager _enumerateManifestsForApplicationID:manifestArray:deleteInvalidContainers:](selfCopy, [*(*(&v20 + 1) + 8 * i) lastPathComponent], v8, 1);
           }
 
           v17 = v16;
@@ -351,13 +352,13 @@ LABEL_11:
 
     else
     {
-      v17 = [(BWDeferredCaptureContainerManager *)self _enumerateManifestsForApplicationID:d manifestArray:v8 deleteInvalidContainers:1];
+      v17 = [(BWDeferredCaptureContainerManager *)selfCopy _enumerateManifestsForApplicationID:d manifestArray:v8 deleteInvalidContainers:1];
     }
   }
 
   else
   {
-    [BWDeferredCaptureContainerManager manifestsForApplicationID:err:];
+    [BWDeferredCaptureContainerManager manifestsForApplicationID:? err:?];
     v8 = 0;
     v17 = -16134;
   }
@@ -388,7 +389,7 @@ LABEL_11:
   if (self && (v9 = [(BWDeferredCaptureContainerManager *)self _containerForCaptureRequestIdentifier:identifier array:self->_cachedContainers index:0]) != 0)
   {
     v10 = v9;
-    [BWDeferredCaptureContainerManager _updateCacheEntryForContainer:? release:?];
+    [(BWDeferredCaptureContainerManager *)self _updateCacheEntryForContainer:v9 release:0];
     v11 = [v10 copyXPCEncoding:&v13];
     if (!v11)
     {
@@ -424,16 +425,16 @@ LABEL_11:
     kdebug_trace();
   }
 
-  pthread_rwlock_rdlock(&self->super._lock);
-  if (!self || ([BWDeferredCaptureContainerManager releaseRemoteContainerForApplicationID:identifier captureRequestIdentifier:?]& 1) != 0)
+  v7 = pthread_rwlock_rdlock(&self->super._lock);
+  if (!self || (v7 = [BWDeferredCaptureContainerManager releaseRemoteContainerForApplicationID:identifier captureRequestIdentifier:?], (v7 & 1) != 0))
   {
-    [BWDeferredCaptureContainerManager releaseRemoteContainerForApplicationID:captureRequestIdentifier:];
-    v7 = -16134;
+    [BWDeferredCaptureContainerManager releaseRemoteContainerForApplicationID:v7 captureRequestIdentifier:?];
+    v8 = -16134;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   pthread_rwlock_unlock(&self->super._lock);
@@ -442,30 +443,31 @@ LABEL_11:
     kdebug_trace();
   }
 
-  return v7;
+  return v8;
 }
 
 - (int)addBufferPool:(id)pool
 {
+  selfCopy = self;
   v5 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    kdebug_trace();
+    self = kdebug_trace();
   }
 
   if (pool)
   {
-    v6 = -[BWDeferredContainerPixelBufferPoolWrapper initWithVideoFormat:capacity:name:]([BWDeferredContainerPixelBufferPoolWrapper alloc], "initWithVideoFormat:capacity:name:", [pool videoFormat], objc_msgSend(pool, "capacity") * (self->_cacheSize + 1), objc_msgSend(pool, "name"));
-    pthread_rwlock_wrlock(&self->super._lock);
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->_pools, "setObject:forKeyedSubscript:", v6, [MEMORY[0x1E696B098] valueWithPointer:pool]);
+    v6 = -[BWDeferredContainerPixelBufferPoolWrapper initWithVideoFormat:capacity:name:]([BWDeferredContainerPixelBufferPoolWrapper alloc], "initWithVideoFormat:capacity:name:", [pool videoFormat], objc_msgSend(pool, "capacity") * (selfCopy->_cacheSize + 1), objc_msgSend(pool, "name"));
+    pthread_rwlock_wrlock(&selfCopy->super._lock);
+    -[NSMutableDictionary setObject:forKeyedSubscript:](selfCopy->_pools, "setObject:forKeyedSubscript:", v6, [MEMORY[0x1E696B098] valueWithPointer:pool]);
   }
 
   else
   {
-    [BWDeferredCaptureContainerManager addBufferPool:];
+    [BWDeferredCaptureContainerManager addBufferPool:?];
   }
 
-  pthread_rwlock_unlock(&self->super._lock);
+  pthread_rwlock_unlock(&selfCopy->super._lock);
   if (*v5 == 1)
   {
     kdebug_trace();
@@ -482,7 +484,7 @@ LABEL_11:
     kdebug_trace();
   }
 
-  pthread_rwlock_wrlock(&self->super._lock);
+  v6 = pthread_rwlock_wrlock(&self->super._lock);
   if (pool)
   {
     -[NSMutableDictionary removeObjectForKey:](self->_pools, "removeObjectForKey:", [MEMORY[0x1E696B098] valueWithPointer:pool]);
@@ -490,7 +492,7 @@ LABEL_11:
 
   else
   {
-    [BWDeferredCaptureContainerManager removeBufferPool:];
+    [BWDeferredCaptureContainerManager removeBufferPool:v6];
   }
 
   pthread_rwlock_unlock(&self->super._lock);
@@ -507,27 +509,26 @@ LABEL_11:
   bufferCopy = buffer;
   if (!buffer)
   {
-    [BWDeferredCaptureContainerManager newPixelBuffer:];
+    [(BWDeferredCaptureContainerManager *)self newPixelBuffer:a2];
 LABEL_7:
-    v7 = 0;
+    newPixelBuffer = 0;
     goto LABEL_4;
   }
 
   pthread_rwlock_rdlock(&self->super._lock);
   bufferCopy = -[NSMutableDictionary objectForKeyedSubscript:](self->_pools, "objectForKeyedSubscript:", [MEMORY[0x1E696B098] valueWithPointer:bufferCopy]);
   v5 = bufferCopy;
-  pthread_rwlock_unlock(&self->super._lock);
+  v6 = pthread_rwlock_unlock(&self->super._lock);
   if (!bufferCopy)
   {
-    [BWDeferredCaptureContainerManager newPixelBuffer:];
+    [BWDeferredCaptureContainerManager newPixelBuffer:v6];
     goto LABEL_7;
   }
 
-  [BWDeferredContainerPixelBufferPoolWrapper newPixelBuffer];
-  v7 = v6;
+  newPixelBuffer = [(BWDeferredContainerPixelBufferPoolWrapper *)bufferCopy newPixelBuffer];
 LABEL_4:
 
-  return v7;
+  return newPixelBuffer;
 }
 
 - (void)flush:(id)flush toMinimumCapacity:(unint64_t)capacity
@@ -544,7 +545,7 @@ LABEL_4:
 
   else
   {
-    [BWDeferredCaptureContainerManager flush:toMinimumCapacity:];
+    [(BWDeferredCaptureContainerManager *)self flush:a2 toMinimumCapacity:0, capacity];
     v8 = 0;
   }
 }
@@ -562,11 +563,13 @@ LABEL_4:
   if (statfs(fileSystemRepresentation, &v10))
   {
     OUTLINED_FUNCTION_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
   else if (fsctl(v10.f_mntonname, 0x4004681CuLL, &v9 + 4, 0))
   {
     OUTLINED_FUNCTION_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
   else
@@ -584,9 +587,9 @@ LABEL_4:
     }
 
     OUTLINED_FUNCTION_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
-  FigDebugAssert3();
   v7 = 524288000;
   v6 = 734003200;
   if (a2)
@@ -604,7 +607,7 @@ LABEL_7:
   return 0;
 }
 
-- (uint64_t)_containerForCaptureRequestIdentifier:(void *)identifier array:(uint64_t *)array index:
+- (void)_containerForCaptureRequestIdentifier:(void *)identifier array:(uint64_t *)array index:
 {
   if (result)
   {
@@ -695,7 +698,7 @@ void __63__BWDeferredCaptureContainerManager__flushContainer_container___block_i
   }
 }
 
-- (uint64_t)_reportCoreAnalyticsDataWithError:(void *)error container:
+- (void)_reportCoreAnalyticsDataWithError:(void *)error container:
 {
   if (result)
   {
@@ -733,18 +736,18 @@ void __63__BWDeferredCaptureContainerManager__flushContainer_container___block_i
     {
       dispatch_source_set_timer(*(self + 232), [objc_msgSend(*(self + 256) "firstObject")], 0xFFFFFFFFFFFFFFFFLL, 0);
       OUTLINED_FUNCTION_8_7();
-      v5 = 3221225472;
-      v6 = __64__BWDeferredCaptureContainerManager__rescheduleCacheExpiryTimer__block_invoke;
-      v7 = &unk_1E798F870;
+      v8 = 3221225472;
+      v9 = __64__BWDeferredCaptureContainerManager__rescheduleCacheExpiryTimer__block_invoke;
+      v10 = &unk_1E798F870;
       selfCopy = self;
-      dispatch_source_set_event_handler(v3, handler);
+      dispatch_source_set_event_handler(v3, &handler);
       dispatch_resume(*(self + 232));
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, handler, v8, v9, v10, selfCopy);
     }
 
     OUTLINED_FUNCTION_13_23();
@@ -787,14 +790,14 @@ void __63__BWDeferredCaptureContainerManager__flushContainer_container___block_i
     v5 = *(self + 272);
     [v4 preflush];
     OUTLINED_FUNCTION_8_7();
-    v10 = 3221225472;
+    v13 = 3221225472;
     OUTLINED_FUNCTION_9_28();
-    v11 = v6;
-    v12 = &unk_1E7997358;
-    v13 = v4;
+    v14 = v6;
+    v15 = &unk_1E7997358;
+    v16 = v4;
     selfCopy = self;
-    v15 = 0;
-    dispatch_async(v5, block);
+    v18 = 0;
+    dispatch_async(v5, &block);
     [(BWDeferredCaptureContainerManager *)self _rescheduleCacheExpiryTimer];
 LABEL_8:
     v7 = 0;
@@ -802,7 +805,7 @@ LABEL_8:
   }
 
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v10, v11, block, v13, v14, v15, v16);
   v7 = 4294951160;
 LABEL_9:
   pthread_rwlock_unlock((self + 8));
@@ -814,43 +817,6 @@ LABEL_9:
   }
 
   return v7;
-}
-
-- (void)_updateCacheEntryForContainer:(uint64_t)container release:
-{
-  if (container)
-  {
-    OUTLINED_FUNCTION_25_10();
-    v2 = v1;
-    v4 = v3;
-    v6 = v5;
-    if ([*(v5 + 256) count])
-    {
-      dispatch_suspend(*(v6 + 232));
-    }
-
-    if (v2)
-    {
-      if (!OUTLINED_FUNCTION_22_13([v4 captureRequestIdentifier]))
-      {
-        OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
-      }
-    }
-
-    else
-    {
-      v7 = v4;
-      OUTLINED_FUNCTION_22_13([v4 captureRequestIdentifier]);
-      [v4 setCached:1];
-      [v4 setCacheExpiryTime:{dispatch_time(0, 1000000000 * *(v6 + 228))}];
-      [*(v6 + 256) insertObject:v4 atIndex:{objc_msgSend(*(v6 + 256), "indexOfObject:inSortedRange:options:usingComparator:", v4, 0, objc_msgSend(*(v6 + 256), "count"), 1024, &__block_literal_global_99)}];
-    }
-
-    OUTLINED_FUNCTION_24_12();
-
-    [(BWDeferredCaptureContainerManager *)v8 _rescheduleCacheExpiryTimer];
-  }
 }
 
 - (BOOL)canDefer
@@ -869,54 +835,6 @@ LABEL_9:
   }
 
   return 1;
-}
-
-- (id)lookupCaptureContainer:(id)container
-{
-  OUTLINED_FUNCTION_25_10();
-  v4 = v3;
-  v6 = v5;
-  OUTLINED_FUNCTION_18();
-  if (v7)
-  {
-    OUTLINED_FUNCTION_12_28();
-    OUTLINED_FUNCTION_17_14();
-    kdebug_trace();
-  }
-
-  pthread_rwlock_rdlock((v6 + 8));
-  if (v4)
-  {
-    if (v6)
-    {
-      v8 = OUTLINED_FUNCTION_3_53();
-      v4 = [(BWDeferredCaptureContainerManager *)v8 _containerForCaptureRequestIdentifier:v9 array:v10 index:0];
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-  }
-
-  pthread_rwlock_unlock((v6 + 8));
-  OUTLINED_FUNCTION_18();
-  if (v7)
-  {
-    OUTLINED_FUNCTION_17_14();
-    kdebug_trace();
-  }
-
-  v11 = v4;
-  OUTLINED_FUNCTION_24_12();
-
-  return v12;
 }
 
 - (int)containerWaitForFlush:(id)flush
@@ -944,93 +862,91 @@ LABEL_9:
   }
 
   v7 = result;
-  v104[0] = 0;
-  v53 = a2;
+  v165[0] = 0;
+  v70 = a2;
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF.applicationID == %@"];
   pthread_rwlock_wrlock((v7 + 8));
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v103 = 0u;
+  v161 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  v164 = 0u;
   v9 = [*(v7 + 256) filteredArrayUsingPredicate:v8];
-  v10 = [v9 countByEnumeratingWithState:&v100 objects:v99 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v161 objects:v160 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v101;
+    v12 = *v162;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v101 != v12)
+        if (*v162 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v100 + 1) + 8 * i) manifest];
-        OUTLINED_FUNCTION_16_20();
+        OUTLINED_FUNCTION_16_20([*(*(&v161 + 1) + 8 * i) manifest]);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v100 objects:v99 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v161 objects:v160 count:16];
     }
 
     while (v11);
   }
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
+  v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
   v14 = [*(v7 + 248) filteredArrayUsingPredicate:v8];
-  v15 = [v14 countByEnumeratingWithState:&v95 objects:v94 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v156 objects:v155 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v96;
+    v17 = *v157;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v96 != v17)
+        if (*v157 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v95 + 1) + 8 * j) manifest];
-        OUTLINED_FUNCTION_16_20();
+        OUTLINED_FUNCTION_16_20([*(*(&v156 + 1) + 8 * j) manifest]);
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v95 objects:v94 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v156 objects:v155 count:16];
     }
 
     while (v16);
   }
 
   pthread_rwlock_unlock((v7 + 8));
-  v69 = @"/var/mobile/Media/Deferred/CaptureContainers";
-  v70 = a2;
-  v19 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v69, 2)}];
+  v130 = @"/var/mobile/Media/Deferred/CaptureContainers";
+  v131 = a2;
+  v19 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v130, 2)}];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v21 = [defaultManager enumeratorAtURL:v19 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:5 errorHandler:0];
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
+  v151 = 0u;
+  v152 = 0u;
+  v153 = 0u;
+  v154 = 0u;
   obj = v21;
-  result = [v21 countByEnumeratingWithState:&v90 objects:v89 count:16];
+  result = [v21 countByEnumeratingWithState:&v151 objects:v150 count:16];
   if (!result)
   {
     return result;
   }
 
   v23 = result;
-  HIDWORD(v58) = array;
-  v59 = v4;
+  HIDWORD(v95) = array;
+  v99 = v4;
   v24 = 0;
-  HIDWORD(v60) = 0;
-  v25 = *v91;
+  HIDWORD(v103) = 0;
+  v25 = *v152;
   *&v22 = 136316162;
-  *v57 = v22;
+  *v88 = v22;
   while (2)
   {
     v26 = 0;
@@ -1046,12 +962,12 @@ LABEL_9:
 
     do
     {
-      if (*v91 != v25)
+      if (*v152 != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v90 + 1) + 8 * v26);
+      v28 = *(*(&v151 + 1) + 8 * v26);
       v29 = objc_autoreleasePoolPush();
       v30 = objc_alloc(MEMORY[0x1E696AFB0]);
       v31 = [v30 initWithUUIDString:{objc_msgSend(v28, "lastPathComponent")}];
@@ -1066,36 +982,33 @@ LABEL_9:
         }
 
         pthread_rwlock_unlock((v7 + 8));
-        [BWDeferredContainer manifestDictionaryForURL:v28 err:v104];
-        if (!v104[0])
+        v39 = [BWDeferredContainer manifestDictionaryForURL:v28 err:v165];
+        if (!v165[0])
         {
-          OUTLINED_FUNCTION_16_20();
+          OUTLINED_FUNCTION_16_20(v39);
           goto LABEL_26;
         }
 
-        v54 = v59;
-        LODWORD(v53) = v104[0];
-        FigDebugAssert3();
+        LODWORD(v70) = v165[0];
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v70, v99, v78, v82, LODWORD(v88[0]), v88[1], v95, v99);
       }
 
       else
       {
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
-        v104[0] = -16132;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v70, v74, v78, v82, LODWORD(v88[0]), v88[1], v95, v99);
+        v165[0] = -16132;
       }
 
-      if (HIDWORD(v58))
+      if (HIDWORD(v96))
       {
-        v88 = 0;
-        type = OS_LOG_TYPE_DEFAULT;
-        v32 = OUTLINED_FUNCTION_15_18();
-        OUTLINED_FUNCTION_20_12(v32, v33, v34, v35, v36, v37, v38, v39, v53, v54, v55, v56, SHIDWORD(v56), v57[0], v57[1], v58, v59, v60, obj, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, type, v88);
+        v47 = OUTLINED_FUNCTION_15_18(qword_1EB58E458, v40, v41, v42, v43, v44, v45, v46, v71, v75, v79, v83, v89, v92, v96, v100, v103, obj, v109, v112, v115, v118, v121, v124, v127, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, 0, 0);
+        OUTLINED_FUNCTION_20_12(v47, v48, v49, v50, v51, v52, v53, v54, v72, v76, v80, v84, v86, v90, v93, v97, v101, v104, obja, v110, v113, v116, v119, v122, v125, v128, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, type, v149);
         OUTLINED_FUNCTION_17_17();
         if (v30)
         {
           [v28 path];
-          LODWORD(v62) = v57[0];
+          LODWORD(v109) = v88[0];
           OUTLINED_FUNCTION_11_26();
           OUTLINED_FUNCTION_6_40();
           _os_log_send_and_compose_impl();
@@ -1103,28 +1016,26 @@ LABEL_9:
 
         OUTLINED_FUNCTION_5_46();
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v69 = 0;
+        v130 = 0;
         [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-        v48 = HIDWORD(v60);
-        if (v69)
+        v63 = HIDWORD(v103);
+        if (v130)
         {
-          v48 = HIDWORD(v60) + 1;
+          v63 = HIDWORD(v103) + 1;
         }
 
-        HIDWORD(v60) = v48;
+        HIDWORD(v103) = v63;
       }
 
       else
       {
-        v88 = 0;
-        type = OS_LOG_TYPE_DEFAULT;
-        v40 = OUTLINED_FUNCTION_15_18();
-        OUTLINED_FUNCTION_20_12(v40, v41, v42, v43, v44, v45, v46, v47, v53, v54, v55, v56, SHIDWORD(v56), v57[0], v57[1], v58, v59, v60, obj, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, type, v88);
+        v55 = OUTLINED_FUNCTION_15_18(qword_1EB58E458, v40, v41, v42, v43, v44, v45, v46, v71, v75, v79, v83, v89, v92, v96, v100, v103, obj, v109, v112, v115, v118, v121, v124, v127, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, 0, 0);
+        OUTLINED_FUNCTION_20_12(v55, v56, v57, v58, v59, v60, v61, v62, v73, v77, v81, v85, v87, v91, v94, v98, v102, v105, objb, v111, v114, v117, v120, v123, v126, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, type, v149);
         OUTLINED_FUNCTION_17_17();
         if (v30)
         {
           [v28 path];
-          LODWORD(v62) = v57[0];
+          LODWORD(v109) = v88[0];
           OUTLINED_FUNCTION_11_26();
           OUTLINED_FUNCTION_6_40();
           _os_log_send_and_compose_impl();
@@ -1137,23 +1048,21 @@ LABEL_9:
 LABEL_26:
       if (v27 == v26)
       {
-        v88 = 0;
-        type = OS_LOG_TYPE_DEFAULT;
-        v50 = OUTLINED_FUNCTION_15_18();
-        v51 = v88;
-        if (os_log_type_enabled(v50, type))
+        v65 = OUTLINED_FUNCTION_15_18(qword_1EB58E458, v32, v33, v34, v35, v36, v37, v38, v70, v74, v78, v82, v88[0], v88[1], v95, v99, v103, obj, v109, v112, v115, v118, v121, v124, v127, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, 0, 0);
+        v66 = v149;
+        if (os_log_type_enabled(v65, type))
         {
-          v52 = v51;
+          v69 = v66;
         }
 
         else
         {
-          v52 = v51 & 0xFFFFFFFE;
+          v69 = v66 & 0xFFFFFFFE;
         }
 
-        if (v52)
+        if (v69)
         {
-          OUTLINED_FUNCTION_21();
+          OUTLINED_FUNCTION_21(v69, v67, &v130, v68, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_5_46();
@@ -1168,9 +1077,9 @@ LABEL_26:
     }
 
     while (v23 != v26);
-    v49 = [obj countByEnumeratingWithState:&v90 objects:v89 count:16];
-    v23 = v49;
-    if (v49)
+    v64 = [obj countByEnumeratingWithState:&v151 objects:v150 count:16];
+    v23 = v64;
+    if (v64)
     {
       continue;
     }
@@ -1179,14 +1088,14 @@ LABEL_26:
   }
 
 LABEL_51:
-  if (HIDWORD(v60))
+  if (HIDWORD(v103))
   {
     return 4294951157;
   }
 
   else
   {
-    return v104[0];
+    return v165[0];
   }
 }
 
@@ -1203,37 +1112,38 @@ LABEL_51:
   pthread_rwlock_wrlock(&self->super._lock);
   if (self)
   {
-    if (OUTLINED_FUNCTION_23_11(256))
+    v8 = OUTLINED_FUNCTION_23_11(256);
+    if (v8)
     {
-      [BWDeferredCaptureContainerManager _updateCacheEntryForContainer:? release:?];
-      v11 = 0;
-      LODWORD(v9) = 1;
+      [(BWDeferredCaptureContainerManager *)self _updateCacheEntryForContainer:v8 release:0];
+      v12 = 0;
+      LODWORD(v10) = 1;
       goto LABEL_11;
     }
 
-    v8 = OUTLINED_FUNCTION_23_11(248);
-    v9 = v8;
-    if (v8)
+    v9 = OUTLINED_FUNCTION_23_11(248);
+    v10 = v9;
+    if (v9)
     {
-      v10 = v8;
-      v11 = [v9 waitForFlushWithTimeoutInSeconds:7];
+      v11 = v9;
+      v12 = [v10 waitForFlushWithTimeoutInSeconds:7];
 
-      LODWORD(v9) = 0;
+      LODWORD(v10) = 0;
       goto LABEL_11;
     }
   }
 
   else
   {
-    LODWORD(v9) = 0;
+    LODWORD(v10) = 0;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_11:
   pthread_rwlock_unlock(&self->super._lock);
   if (status)
   {
-    *status = v9;
+    *status = v10;
   }
 
   OUTLINED_FUNCTION_10_27();
@@ -1243,7 +1153,7 @@ LABEL_11:
     kdebug_trace();
   }
 
-  return v11;
+  return v12;
 }
 
 - (int)deleteContainerForApplicationID:(id)d captureRequestIdentifier:(id)identifier
@@ -1260,7 +1170,7 @@ LABEL_11:
   if (!d || !identifier)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_27;
   }
 
@@ -1288,7 +1198,7 @@ LABEL_27:
   {
     v20 = v15;
     v26 = v15;
-    [BWDeferredCaptureContainerManager _updateCacheEntryForContainer:? release:?];
+    [(BWDeferredCaptureContainerManager *)self _updateCacheEntryForContainer:v20 release:1];
     goto LABEL_13;
   }
 
@@ -1347,46 +1257,15 @@ LABEL_14:
   return v30;
 }
 
-- (uint64_t)commitContainer:(_DWORD *)a1 .cold.2(_DWORD *a1)
+- (uint64_t)releaseRemoteContainerForApplicationID:(void *)a1 captureRequestIdentifier:(uint64_t)a2 .cold.1(void **a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_0();
-  result = FigDebugAssert3();
-  *a1 = -12780;
-  return result;
-}
-
-- (uint64_t)commitContainer:(_DWORD *)a1 .cold.3(_DWORD *a1)
-{
-  OUTLINED_FUNCTION_0();
-  result = FigDebugAssert3();
-  *a1 = -12780;
-  return result;
-}
-
-- (uint64_t)copyRemoteContainerForApplicationID:(_DWORD *)a1 captureRequestIdentifier:err:.cold.1(_DWORD *a1)
-{
-  OUTLINED_FUNCTION_0();
-  result = FigDebugAssert3();
-  *a1 = -16132;
-  return result;
-}
-
-- (uint64_t)copyRemoteContainerForApplicationID:(_DWORD *)a1 captureRequestIdentifier:err:.cold.2(_DWORD *a1)
-{
-  OUTLINED_FUNCTION_0();
-  result = FigDebugAssert3();
-  *a1 = -16134;
-  return result;
-}
-
-- (uint64_t)releaseRemoteContainerForApplicationID:(uint64_t)a1 captureRequestIdentifier:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  if (![(BWDeferredCaptureContainerManager *)a1 _containerForCaptureRequestIdentifier:a2 array:*(a1 + 256) index:0])
+  v3 = [(BWDeferredCaptureContainerManager *)a1 _containerForCaptureRequestIdentifier:a2 array:a1[32] index:0];
+  if (!v3)
   {
     return 1;
   }
 
-  [BWDeferredCaptureContainerManager _updateCacheEntryForContainer:a1 release:?];
+  [(BWDeferredCaptureContainerManager *)a1 _updateCacheEntryForContainer:v3 release:0];
   return 0;
 }
 

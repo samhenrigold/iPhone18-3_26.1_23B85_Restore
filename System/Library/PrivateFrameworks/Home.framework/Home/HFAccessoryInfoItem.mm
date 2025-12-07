@@ -210,8 +210,8 @@ LABEL_19:
   [dictionary setObject:v14 forKeyedSubscript:@"title"];
   [dictionary setObject:firmwareVersion forKeyedSubscript:@"description"];
   v25 = [firmwareVersion length];
-  home = [(HFAccessoryInfoItem *)self home];
-  hf_currentUserIsRestrictedGuest = [home hf_currentUserIsRestrictedGuest];
+  v26 = objc_msgSend_home(self);
+  hf_currentUserIsRestrictedGuest = [v26 hf_currentUserIsRestrictedGuest];
   if (v25)
   {
     v28 = hf_currentUserIsRestrictedGuest;

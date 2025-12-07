@@ -466,14 +466,22 @@
 - (void)setVisibleIndexPathsFilter:(id)filter
 {
   filterCopy = filter;
-  if (self->_visibleIndexPathsFilter != filterCopy && ([(NSSet *)filterCopy isEqual:?]& 1) == 0)
+  v6 = filterCopy;
+  if (self->_visibleIndexPathsFilter != filterCopy)
   {
-    objc_storeStrong(&self->_visibleIndexPathsFilter, filter);
-    [(GKGridLayout *)self updatePlaceholderVisibility];
-    [(GKGridLayout *)self invalidateLayout];
+    v7 = filterCopy;
+    filterCopy = [filterCopy isEqual:?];
+    v6 = v7;
+    if ((filterCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_visibleIndexPathsFilter, filter);
+      [(GKGridLayout *)self updatePlaceholderVisibility];
+      filterCopy = [(GKGridLayout *)self invalidateLayout];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](filterCopy, v6);
 }
 
 - (void)setLeftLayoutGuideOffset:(double)offset
@@ -918,7 +926,7 @@ LABEL_17:
   }
 }
 
-uint64_t __63__GKGridLayout_finalizeGlobalPresentationDataWithSectionRange___block_invoke(uint64_t a1, void *a2)
+void *__63__GKGridLayout_finalizeGlobalPresentationDataWithSectionRange___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(a1 + 32) + 552);
   result = [a2 frame];

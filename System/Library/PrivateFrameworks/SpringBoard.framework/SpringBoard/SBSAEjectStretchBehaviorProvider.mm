@@ -182,7 +182,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
 
     if (!v7)
     {
-      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_1();
+      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
     }
   }
 
@@ -200,7 +200,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
     if (v9)
     {
       v10[4] = 2;
-      v11 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+      v11 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_2(a1 + 48);
@@ -209,24 +209,24 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
 
     else
     {
-      v75 = v3;
+      v76 = v3;
       [v10 _startTimerIfNecessary:v7 context:*(*(*(a1 + 48) + 8) + 40)];
       v12 = [v7 containerViewDescriptions];
       v11 = [v12 mutableCopy];
 
       v13 = [v11 firstObject];
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2;
-      v77[3] = &unk_2783AD778;
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2;
+      v78[3] = &unk_2783AD778;
       v14 = *(a1 + 32);
       v15 = *(a1 + 40);
-      v80 = *(a1 + 64);
-      v77[4] = v14;
-      v78 = v15;
+      v81 = *(a1 + 64);
+      v78[4] = v14;
+      v79 = v15;
       v16 = v13;
-      v79 = v16;
-      v17 = [v16 copyWithBlock:v77];
+      v80 = v16;
+      v17 = [v16 copyWithBlock:v78];
       [v11 replaceObjectAtIndex:0 withObject:v17];
       [v7 setContainerViewDescriptions:v11];
       v18 = [*(a1 + 40) ejectionStretchSettings];
@@ -234,7 +234,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
       v20 = [v17 interfaceElementIdentifier];
       v21 = [(SBSAInterfaceElementPropertyIdentity *)v19 initWithAssociatedInterfaceElementIdentifier:v20 andProperty:@"bounds"];
 
-      v73 = v18;
+      v74 = v18;
       v22 = [objc_opt_class() newAnimatedTransitionDescriptionWithBehaviorSettings:v18];
       [v7 setAnimatedTransitionDescription:v22 forProperty:v21 withMilestones:0];
 
@@ -253,7 +253,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
       {
         v30 = [SBSAInterfaceElementPropertyIdentity alloc];
         [v29 interfaceElementIdentifier];
-        v31 = v72 = v16;
+        v31 = v73 = v16;
         v32 = [(SBSAInterfaceElementPropertyIdentity *)v30 initWithAssociatedInterfaceElementIdentifier:v31 andProperty:@"bounds"];
         [v7 associateAnimatedTransitionDescriptionOfProperty:v21 withProperty:v32 withMilestones:0];
 
@@ -267,21 +267,22 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
         v38 = [(SBSAInterfaceElementPropertyIdentity *)v36 initWithAssociatedInterfaceElementIdentifier:v37 andProperty:@"cornerRadius"];
         [v7 associateAnimatedTransitionDescriptionOfProperty:v21 withProperty:v38 withMilestones:0];
 
-        v16 = v72;
+        v16 = v73;
       }
 
-      v3 = v75;
+      v3 = v76;
     }
   }
 
   v39 = *(a1 + 32);
   if (v39[4] == 2)
   {
-    if ([v39 _checkContextForExpiredContractionMilestone:*(*(*(a1 + 48) + 8) + 40)])
+    v40 = [v39 _checkContextForExpiredContractionMilestone:*(*(*(a1 + 48) + 8) + 40)];
+    if (v40)
     {
       *(*(a1 + 32) + 32) = 3;
-      v40 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v41 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_3(a1 + 48);
       }
@@ -289,60 +290,60 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
 
     else
     {
-      v41 = [v7 containerViewDescriptions];
-      v40 = [v41 mutableCopy];
+      v42 = [v7 containerViewDescriptions];
+      v41 = [v42 mutableCopy];
 
-      v42 = [v40 firstObject];
-      v43 = [*(a1 + 40) ejectionContractionSettings];
-      v44 = [SBSAInterfaceElementPropertyIdentity alloc];
-      v45 = [v42 interfaceElementIdentifier];
-      v46 = [(SBSAInterfaceElementPropertyIdentity *)v44 initWithAssociatedInterfaceElementIdentifier:v45 andProperty:@"bounds"];
+      v43 = [v41 firstObject];
+      v44 = [*(a1 + 40) ejectionContractionSettings];
+      v45 = [SBSAInterfaceElementPropertyIdentity alloc];
+      v46 = [v43 interfaceElementIdentifier];
+      v47 = [(SBSAInterfaceElementPropertyIdentity *)v45 initWithAssociatedInterfaceElementIdentifier:v46 andProperty:@"bounds"];
 
       if (!*(*(a1 + 32) + 48))
       {
-        v47 = [(SBSAInterfaceElementPropertyIdentity *)v46 copy];
-        v48 = *(a1 + 32);
-        v49 = *(v48 + 48);
-        *(v48 + 48) = v47;
+        v48 = [(SBSAInterfaceElementPropertyIdentity *)v47 copy];
+        v49 = *(a1 + 32);
+        v50 = *(v49 + 48);
+        *(v49 + 48) = v48;
       }
 
-      v74 = v43;
-      v50 = [objc_opt_class() newAnimatedTransitionDescriptionWithBehaviorSettings:v43];
-      v51 = [MEMORY[0x277CBEB98] setWithObject:0x28336F620];
-      [v7 setAnimatedTransitionDescription:v50 forProperty:v46 withMilestones:v51];
+      v75 = v44;
+      v51 = [objc_opt_class() newAnimatedTransitionDescriptionWithBehaviorSettings:v44];
+      v52 = [MEMORY[0x277CBEB98] setWithObject:0x28336F620];
+      [v7 setAnimatedTransitionDescription:v51 forProperty:v47 withMilestones:v52];
 
-      v52 = [SBSAInterfaceElementPropertyIdentity alloc];
-      v53 = [v42 interfaceElementIdentifier];
-      v54 = [(SBSAInterfaceElementPropertyIdentity *)v52 initWithAssociatedInterfaceElementIdentifier:v53 andProperty:@"center"];
-      [v7 associateAnimatedTransitionDescriptionOfProperty:v46 withProperty:v54 withMilestones:0];
+      v53 = [SBSAInterfaceElementPropertyIdentity alloc];
+      v54 = [v43 interfaceElementIdentifier];
+      v55 = [(SBSAInterfaceElementPropertyIdentity *)v53 initWithAssociatedInterfaceElementIdentifier:v54 andProperty:@"center"];
+      [v7 associateAnimatedTransitionDescriptionOfProperty:v47 withProperty:v55 withMilestones:0];
 
-      v55 = [SBSAInterfaceElementPropertyIdentity alloc];
-      v56 = [v42 interfaceElementIdentifier];
-      v57 = [(SBSAInterfaceElementPropertyIdentity *)v55 initWithAssociatedInterfaceElementIdentifier:v56 andProperty:@"cornerRadius"];
-      [v7 associateAnimatedTransitionDescriptionOfProperty:v46 withProperty:v57 withMilestones:0];
+      v56 = [SBSAInterfaceElementPropertyIdentity alloc];
+      v57 = [v43 interfaceElementIdentifier];
+      v58 = [(SBSAInterfaceElementPropertyIdentity *)v56 initWithAssociatedInterfaceElementIdentifier:v57 andProperty:@"cornerRadius"];
+      [v7 associateAnimatedTransitionDescriptionOfProperty:v47 withProperty:v58 withMilestones:0];
 
-      v58 = v42;
-      v59 = [*(*(*(a1 + 56) + 8) + 40) indicatorContainerViewDescription];
-      if ([v40 count]== 1 && v59)
+      v59 = v43;
+      v60 = [*(*(*(a1 + 56) + 8) + 40) indicatorContainerViewDescription];
+      if ([v41 count]== 1 && v60)
       {
-        v60 = [SBSAInterfaceElementPropertyIdentity alloc];
-        v61 = [v58 interfaceElementIdentifier];
-        v62 = [(SBSAInterfaceElementPropertyIdentity *)v60 initWithAssociatedInterfaceElementIdentifier:v61 andProperty:?];
-        v63 = [SBSAInterfaceElementPropertyIdentity alloc];
-        [v59 interfaceElementIdentifier];
-        v64 = v76 = v3;
-        v65 = [(SBSAInterfaceElementPropertyIdentity *)v63 initWithAssociatedInterfaceElementIdentifier:v64 andProperty:@"center"];
-        [v7 associateAnimatedTransitionDescriptionOfProperty:v62 withProperty:v65 withMilestones:0];
+        v61 = [SBSAInterfaceElementPropertyIdentity alloc];
+        v62 = [v59 interfaceElementIdentifier];
+        v63 = [(SBSAInterfaceElementPropertyIdentity *)v61 initWithAssociatedInterfaceElementIdentifier:v62 andProperty:?];
+        v64 = [SBSAInterfaceElementPropertyIdentity alloc];
+        [v60 interfaceElementIdentifier];
+        v65 = v77 = v3;
+        v66 = [(SBSAInterfaceElementPropertyIdentity *)v64 initWithAssociatedInterfaceElementIdentifier:v65 andProperty:@"center"];
+        [v7 associateAnimatedTransitionDescriptionOfProperty:v63 withProperty:v66 withMilestones:0];
 
-        v66 = [SBSAInterfaceElementPropertyIdentity alloc];
-        v67 = [v58 interfaceElementIdentifier];
-        v68 = [(SBSAInterfaceElementPropertyIdentity *)v66 initWithAssociatedInterfaceElementIdentifier:v67 andProperty:@"cornerRadius"];
-        v69 = [SBSAInterfaceElementPropertyIdentity alloc];
-        v70 = [v59 interfaceElementIdentifier];
-        v71 = [(SBSAInterfaceElementPropertyIdentity *)v69 initWithAssociatedInterfaceElementIdentifier:v70 andProperty:@"cornerRadius"];
-        [v7 associateAnimatedTransitionDescriptionOfProperty:v68 withProperty:v71 withMilestones:0];
+        v67 = [SBSAInterfaceElementPropertyIdentity alloc];
+        v68 = [v59 interfaceElementIdentifier];
+        v69 = [(SBSAInterfaceElementPropertyIdentity *)v67 initWithAssociatedInterfaceElementIdentifier:v68 andProperty:@"cornerRadius"];
+        v70 = [SBSAInterfaceElementPropertyIdentity alloc];
+        v71 = [v60 interfaceElementIdentifier];
+        v72 = [(SBSAInterfaceElementPropertyIdentity *)v70 initWithAssociatedInterfaceElementIdentifier:v71 andProperty:@"cornerRadius"];
+        [v7 associateAnimatedTransitionDescriptionOfProperty:v69 withProperty:v72 withMilestones:0];
 
-        v3 = v76;
+        v3 = v77;
       }
     }
   }
@@ -377,7 +378,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
 
     if (!v6)
     {
-      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2_cold_1();
+      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2_cold_1(a1, v4);
     }
   }
 
@@ -429,7 +430,7 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
 
     if (!v6)
     {
-      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_29_cold_1();
+      __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_29_cold_1(a1, v4);
     }
   }
 
@@ -448,20 +449,20 @@ void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invok
   elapsedTimerDescriptions = [expiredCopy elapsedTimerDescriptions];
   if ([elapsedTimerDescriptions count])
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __52__SBSAEjectStretchBehaviorProvider__isTimerExpired___block_invoke;
-    v11[3] = &unk_2783B2950;
-    v11[4] = self;
-    v6 = [elapsedTimerDescriptions indexOfObjectPassingTest:v11];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __52__SBSAEjectStretchBehaviorProvider__isTimerExpired___block_invoke;
+    v12[3] = &unk_2783B2950;
+    v12[4] = self;
+    v6 = [elapsedTimerDescriptions indexOfObjectPassingTest:v12];
     v7 = v6 != 0x7FFFFFFFFFFFFFFFLL;
     if (v6 != 0x7FFFFFFFFFFFFFFFLL)
     {
       identifierOfActiveTimer = self->_identifierOfActiveTimer;
       self->_identifierOfActiveTimer = 0;
 
-      v9 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [SBSAEjectStretchBehaviorProvider _isTimerExpired:expiredCopy];
       }
@@ -512,8 +513,7 @@ uint64_t __52__SBSAEjectStretchBehaviorProvider__isTimerExpired___block_invoke(u
     }
 
     [v15 addObject:v10];
-    [necessaryCopy setTimerDescriptions:v15];
-    v16 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+    v16 = SBLogSystemAperturePreferencesStackDynamicsAnimations([necessaryCopy setTimerDescriptions:v15]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [SBSAEjectStretchBehaviorProvider _startTimerIfNecessary:contextCopy context:?];
@@ -590,59 +590,59 @@ LABEL_15:
   [v5 handleFailureInMethod:a2 object:a3 file:@"SBSAEjectStretchBehaviorProvider.m" lineNumber:38 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
-void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_1()
+void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
 void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_2(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_18(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Moving to Contracting phase", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Moving to Contracting phase", v3, v4, v5, v6);
 }
 
 void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_cold_3(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_18(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Complete", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Complete", v3, v4, v5, v6);
 }
 
-void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2_cold_1()
+void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_29_cold_1()
+void __59__SBSAEjectStretchBehaviorProvider_preferencesFromContext___block_invoke_29_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
 - (void)_isTimerExpired:(void *)a1 .cold.1(void *a1)
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Timer Expired", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Timer Expired", v3, v4, v5, v6);
 }
 
 - (void)_startTimerIfNecessary:(void *)a1 context:.cold.1(void *a1)
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Stretching, starting timer", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] [Eject] Stretching, starting timer", v3, v4, v5, v6);
 }
 
 @end

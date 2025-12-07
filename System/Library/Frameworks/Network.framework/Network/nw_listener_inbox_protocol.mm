@@ -62,7 +62,7 @@
     v8 = gLogObj;
     *buf = 136446210;
     v21 = "[nw_listener_inbox_protocol initWithProtocol:delegate:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s [super initWithDelegate:] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v17 = 0;

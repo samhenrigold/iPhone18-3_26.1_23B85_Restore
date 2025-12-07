@@ -2,10 +2,10 @@
 + (void)initialize;
 - (BWPhotoEncoderNode)initWithNodeConfiguration:(id)configuration sensorConfigurationsByPortType:(id)type semanticDevelopmentVersion:(int)version inferenceScheduler:(id)scheduler alwaysAwaitInference:(BOOL)inference portraitRenderQuality:(int)quality deferredPhotoProcessorEnabled:(BOOL)enabled clientIsCameraOrDerivative:(BOOL)self0;
 - (__CVBuffer)processorController:(id)controller newOutputPixelBufferForProcessorInput:(id)input type:(unint64_t)type dimensions:(id)dimensions;
-- (uint64_t)_addEligibleAuxImagesforExpectedAdjustedPhotoWithSbuf:(int)sbuf processingFlags:(uint64_t)flags stillImageSettings:(void *)settings encoderControllerInput:;
+- (id)_mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:;
+- (id)_removeNonPropagatedAttachedMediaFromSampleBuffer:(id *)result;
 - (uint64_t)_isOriginalPhotoAndExpectingAdjustedPhoto:(void *)photo stillImageSettings:;
-- (uint64_t)_mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:;
-- (uint64_t)_removeNonPropagatedAttachedMediaFromSampleBuffer:(uint64_t)result;
+- (void)_addEligibleAuxImagesforExpectedAdjustedPhotoWithSbuf:(int)sbuf processingFlags:(uint64_t)flags stillImageSettings:(void *)settings encoderControllerInput:;
 - (void)_releaseResources;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
@@ -112,7 +112,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     output = self->super._output;
 
@@ -225,7 +225,7 @@
 
           v15 = objc_alloc_init(BWNodeInputMediaConfiguration);
           v16 = objc_alloc_init(BWVideoFormatRequirements);
-          if ([v10 isEqualToString:0x1F21AABB0])
+          if (objc_msgSend_isEqualToString_(v10))
           {
             [(BWVideoFormatRequirements *)v16 setSupportedPixelFormats:&unk_1F22489B8];
             [(BWVideoFormatRequirements *)v16 setBytesPerRowAlignment:64];
@@ -269,10 +269,10 @@ LABEL_18:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v13 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(7, v13, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWPhotoEncoderNode.m", 362, @"LastShownDate:BWPhotoEncoderNode.m:362", @"LastShownBuild:BWPhotoEncoderNode.m:362", 0);
+    v14 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(7, v14, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWPhotoEncoderNode.m", 362, @"LastShownDate:BWPhotoEncoderNode.m:362", @"LastShownBuild:BWPhotoEncoderNode.m:362", 0);
 LABEL_12:
-    free(v13);
+    free(v14);
     v7 = 0;
 LABEL_13:
     [(BWPhotoEncoderNode *)buffer renderSampleBuffer:v7 forInput:?];
@@ -282,11 +282,11 @@ LABEL_13:
   v6 = CMGetAttachment(buffer, @"StillSettings", 0);
   if (!v6)
   {
-    v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v13 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(7, v13, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWPhotoEncoderNode.m", 364, @"LastShownDate:BWPhotoEncoderNode.m:364", @"LastShownBuild:BWPhotoEncoderNode.m:364", 0);
+    v14 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(7, v14, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWPhotoEncoderNode.m", 364, @"LastShownDate:BWPhotoEncoderNode.m:364", @"LastShownBuild:BWPhotoEncoderNode.m:364", 0);
     goto LABEL_12;
   }
 
@@ -302,14 +302,16 @@ LABEL_13:
   currentInputsCaptureRequestIdentifier = [(BWPhotoEncoderController *)self->_photoEncoderController currentInputsCaptureRequestIdentifier];
   if (currentInputsCaptureRequestIdentifier)
   {
-    if (!-[NSString isEqualToString:](currentInputsCaptureRequestIdentifier, "isEqualToString:", [objc_msgSend(v7 "requestedSettings")]))
+    v10 = currentInputsCaptureRequestIdentifier;
+    [objc_msgSend(v7 "requestedSettings")];
+    if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
     {
       [(BWPhotoEncoderController *)self->_photoEncoderController cancelProcessing];
     }
   }
 
-  v10 = (BWStillImageProcessingFlagsForSampleBuffer(buffer) >> 3) & 1;
-  if (![(BWPhotoEncoderController *)self->_photoEncoderController inputForStillImageSettings:v7 portType:BWSampleBufferGetPortType(buffer) portraitAdjustedImage:v10 optionalSampleBuffer:buffer forEarlyEncoding:0])
+  v11 = (BWStillImageProcessingFlagsForSampleBuffer(buffer) >> 3) & 1;
+  if (![(BWPhotoEncoderController *)self->_photoEncoderController inputForStillImageSettings:v7 portType:BWSampleBufferGetPortType(buffer) portraitAdjustedImage:v11 optionalSampleBuffer:buffer forEarlyEncoding:0])
   {
     goto LABEL_13;
   }
@@ -317,7 +319,9 @@ LABEL_13:
 
 - (void)handleNodeError:(id)error forInput:(id)input
 {
-  if (-[NSString isEqualToString:](-[BWPhotoEncoderController currentInputsCaptureRequestIdentifier](self->_photoEncoderController, "currentInputsCaptureRequestIdentifier", error, input), "isEqualToString:", [objc_msgSend(objc_msgSend(error "stillImageSettings")]))
+  v6 = [(BWPhotoEncoderController *)self->_photoEncoderController currentInputsCaptureRequestIdentifier:error];
+  [objc_msgSend(objc_msgSend(error "stillImageSettings")];
+  if (objc_msgSend_isEqualToString_(v6))
   {
     [(BWPhotoEncoderController *)self->_photoEncoderController cancelProcessing];
   }
@@ -345,10 +349,10 @@ LABEL_13:
     {
       if ([(BWStillImageNodeConfiguration *)self->_nodeConfiguration deferredPhotoProcessorEnabled])
       {
-        [BWPhotoEncoderNode processorController:input didFinishProcessingSampleBuffer:self type:v11 processorInput:buffer err:?];
+        [BWPhotoEncoderNode processorController:input didFinishProcessingSampleBuffer:&self->super.super.isa type:v11 processorInput:buffer err:?];
       }
 
-      [(BWPhotoEncoderNode *)self _removeNonPropagatedAttachedMediaFromSampleBuffer:buffer];
+      [(BWPhotoEncoderNode *)&self->super.super.isa _removeNonPropagatedAttachedMediaFromSampleBuffer:buffer];
       output = self->super._output;
 
       [(BWNodeOutput *)output emitSampleBuffer:buffer];
@@ -388,12 +392,12 @@ LABEL_13:
   [(BWNode *)&v3 dealloc];
 }
 
-- (uint64_t)_mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:
+- (id)_mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:
 {
   if (result)
   {
     v4 = result;
-    v5 = [*(result + 144) objectForKeyedSubscript:a2];
+    v5 = [result[18] objectForKeyedSubscript:a2];
     result = [objc_msgSend(key objectForKeyedSubscript:{*off_1E798A788), "floatValue"}];
     if (*(v4 + 176) != 1 || v6 == 0.0)
     {
@@ -405,12 +409,12 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_removeNonPropagatedAttachedMediaFromSampleBuffer:(uint64_t)result
+- (id)_removeNonPropagatedAttachedMediaFromSampleBuffer:(id *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 144);
+    v4 = result[18];
     OUTLINED_FUNCTION_43();
     result = [v4 countByEnumeratingWithState:? objects:? count:?];
     if (result)
@@ -429,7 +433,7 @@ LABEL_13:
           }
 
           v9 = *(8 * v8);
-          v10 = [*(v3 + 144) objectForKeyedSubscript:v9];
+          v10 = [v3[18] objectForKeyedSubscript:v9];
           AttachedMedia = BWSampleBufferGetAttachedMedia(a2, v9);
           v12 = CMGetAttachment(AttachedMedia, v7, 0);
           [(BWPhotoEncoderNode *)v3 _mainImageDownscalingFactorForAttachedMediaKey:v9 attachedMediaMetadata:v12];
@@ -442,7 +446,7 @@ LABEL_13:
             }
           }
 
-          ++v8;
+          v8 = (v8 + 1);
         }
 
         while (v5 != v8);
@@ -460,35 +464,39 @@ LABEL_13:
 
 - (void)handleStillImagePrewarmWithSettings:(id)settings resourceConfig:(id)config forInput:(id)input
 {
-  if (-[NSString isEqualToString:](self->_lastProcessedCaptureIdentifier, "isEqualToString:", [objc_msgSend(settings "requestedSettings")]))
+  lastProcessedCaptureIdentifier = self->_lastProcessedCaptureIdentifier;
+  [objc_msgSend(settings "requestedSettings")];
+  if (objc_msgSend_isEqualToString_(lastProcessedCaptureIdentifier))
   {
-    v10 = OUTLINED_FUNCTION_1_73();
-    if (OUTLINED_FUNCTION_4_49(v10))
+    v12 = OUTLINED_FUNCTION_1_73();
+    if (OUTLINED_FUNCTION_4_49(v12))
     {
-      v11 = v5;
+      v13 = v5;
     }
 
     else
     {
-      v11 = v5 & 0xFFFFFFFE;
+      v13 = v5 & 0xFFFFFFFE;
     }
 
-    if (!v11)
+    if (!v13)
     {
       goto LABEL_17;
     }
 
     [settings settingsID];
     [objc_msgSend(settings "requestedSettings")];
-    v21[0] = 136315651;
+    v23[0] = 136315651;
     OUTLINED_FUNCTION_0_59();
-    v22 = v12;
-    v19 = 32;
-    v18 = v21;
+    v24 = v14;
+    v21 = 32;
+    v20 = v23;
     goto LABEL_16;
   }
 
-  if (!-[NSString isEqualToString:](-[BWPhotoEncoderController currentInputsCaptureRequestIdentifier](self->_photoEncoderController, "currentInputsCaptureRequestIdentifier"), "isEqualToString:", [objc_msgSend(settings "requestedSettings")]))
+  currentInputsCaptureRequestIdentifier = [(BWPhotoEncoderController *)self->_photoEncoderController currentInputsCaptureRequestIdentifier];
+  [objc_msgSend(settings "requestedSettings")];
+  if ((objc_msgSend_isEqualToString_(currentInputsCaptureRequestIdentifier) & 1) == 0)
   {
     if (![(BWPhotoEncoderController *)self->_photoEncoderController currentInputsCaptureRequestIdentifier])
     {
@@ -496,18 +504,18 @@ LABEL_13:
       goto LABEL_5;
     }
 
-    v13 = OUTLINED_FUNCTION_1_73();
-    if (OUTLINED_FUNCTION_4_49(v13))
+    v15 = OUTLINED_FUNCTION_1_73();
+    if (OUTLINED_FUNCTION_4_49(v15))
     {
-      v14 = v5;
+      v16 = v5;
     }
 
     else
     {
-      v14 = v5 & 0xFFFFFFFE;
+      v16 = v5 & 0xFFFFFFFE;
     }
 
-    if (!v14)
+    if (!v16)
     {
 LABEL_17:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -515,24 +523,24 @@ LABEL_17:
     }
 
     [settings settingsID];
-    v15 = [objc_msgSend(settings "requestedSettings")];
+    v17 = [objc_msgSend(settings "requestedSettings")];
     [(BWPhotoEncoderController *)self->_photoEncoderController currentInputsCaptureRequestIdentifier];
-    v21[0] = 136315907;
+    v23[0] = 136315907;
     OUTLINED_FUNCTION_0_59();
-    v22 = v15;
-    v23 = v16;
     v24 = v17;
-    v19 = 42;
-    v18 = v21;
+    v25 = v18;
+    v26 = v19;
+    v21 = 42;
+    v20 = v23;
 LABEL_16:
     _os_log_send_and_compose_impl();
     goto LABEL_17;
   }
 
 LABEL_5:
-  v20.receiver = self;
-  v20.super_class = BWPhotoEncoderNode;
-  [(BWNode *)&v20 handleStillImagePrewarmWithSettings:settings resourceConfig:config forInput:input, v18, v19];
+  v22.receiver = self;
+  v22.super_class = BWPhotoEncoderNode;
+  [(BWNode *)&v22 handleStillImagePrewarmWithSettings:settings resourceConfig:config forInput:input, v20, v21];
 }
 
 - (uint64_t)_isOriginalPhotoAndExpectingAdjustedPhoto:(void *)photo stillImageSettings:
@@ -587,7 +595,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)_addEligibleAuxImagesforExpectedAdjustedPhotoWithSbuf:(int)sbuf processingFlags:(uint64_t)flags stillImageSettings:(void *)settings encoderControllerInput:
+- (void)_addEligibleAuxImagesforExpectedAdjustedPhotoWithSbuf:(int)sbuf processingFlags:(uint64_t)flags stillImageSettings:(void *)settings encoderControllerInput:
 {
   if (result)
   {
@@ -618,7 +626,7 @@ LABEL_5:
           v14 = *(8 * v13);
           AttachedMedia = BWSampleBufferGetAttachedMedia(a2, v14);
           [settings addSbufForPiecemealEncoding:AttachedMedia attachedMediakey:v14 primaryImageMetadata:CMGetAttachment(a2 processingFlags:{v12, 0), sbuf | 8u}];
-          ++v13;
+          v13 = v13 + 1;
         }
 
         while (v10 != v13);
@@ -726,12 +734,12 @@ LABEL_7:
   [*(a2 + 16) emitNodeError:v4];
 }
 
-- (uint64_t)processorController:(int)a3 didFinishProcessingSampleBuffer:(const void *)a4 type:processorInput:err:.cold.1(void *a1, uint64_t a2, int a3, const void *a4)
+- (void)processorController:(int)a3 didFinishProcessingSampleBuffer:(const void *)a4 type:processorInput:err:.cold.1(void *a1, id *a2, int a3, const void *a4)
 {
   result = -[BWPhotoEncoderNode _isOriginalPhotoAndExpectingAdjustedPhoto:stillImageSettings:](a2, a3, [a1 stillImageSettings]);
   if (result)
   {
-    v9 = [*(a2 + 160) inputForStillImageSettings:objc_msgSend(a1 portType:"stillImageSettings") portraitAdjustedImage:objc_msgSend(a1 optionalSampleBuffer:"portType") forEarlyEncoding:{1, 0, 0}];
+    v9 = [a2[20] inputForStillImageSettings:objc_msgSend(a1 portType:"stillImageSettings") portraitAdjustedImage:objc_msgSend(a1 optionalSampleBuffer:"portType") forEarlyEncoding:{1, 0, 0}];
     [a1 stillImageSettings];
 
     return [(BWPhotoEncoderNode *)a2 _addEligibleAuxImagesforExpectedAdjustedPhotoWithSbuf:a4 processingFlags:a3 stillImageSettings:v10 encoderControllerInput:v9];

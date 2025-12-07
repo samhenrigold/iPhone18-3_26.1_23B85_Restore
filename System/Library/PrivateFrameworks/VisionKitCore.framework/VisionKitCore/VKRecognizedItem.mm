@@ -128,7 +128,7 @@
     if (frameInfo)
     {
       v40 = v5;
-      [frameInfo visionToLayerTransform];
+      objc_msgSend_visionToLayerTransform(frameInfo);
       v5 = v40;
       v9 = v44;
       v7 = v45;
@@ -145,7 +145,7 @@
     {
       v27 = v11;
       v28 = v10;
-      [frameInfo visionToLayerTransform];
+      objc_msgSend_visionToLayerTransform(frameInfo);
       v11 = v27;
       v10 = v28;
       v12 = v44;
@@ -163,7 +163,7 @@
     {
       v29 = v15;
       v31 = v14;
-      [frameInfo visionToLayerTransform];
+      objc_msgSend_visionToLayerTransform(frameInfo);
       v15 = v29;
       v14 = v31;
       v17 = v44;
@@ -182,7 +182,7 @@
     {
       v32 = v20;
       v35 = v19;
-      [frameInfo visionToLayerTransform];
+      objc_msgSend_visionToLayerTransform(frameInfo);
       v20 = v32;
       v19 = v35;
       v21 = v44;
@@ -314,7 +314,7 @@
     v2 = frameInfo;
     if (frameInfo)
     {
-      [frameInfo visionToCroppedImageTransform];
+      objc_msgSend_visionToCroppedImageTransform(frameInfo);
     }
 
     else

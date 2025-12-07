@@ -14,6 +14,7 @@
 - (id)_enumerateItemsAtURL:(id)l;
 - (id)additionWithName:(id)name inNameSpace:(id)space error:(id *)error;
 - (id)additionsWithNames:(id)names inNameSpace:(id)space error:(id *)error;
+- (id)enumeratorForAdditionsInNameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions ordering:(int)ordering;
 - (id)getAdditionDictionary:(id)dictionary error:(id *)error;
 - (id)prepareAdditionCreationWithItemAtURL:(id)l byMoving:(BOOL)moving creationInfo:(id)info error:(id *)error;
 - (id)setAdditionNameSpace:(id)space value:(id)value error:(id *)error;
@@ -43,7 +44,7 @@
 
 - (GSTemporaryStorage)initWithLibraryURL:(id)l forItemAtURL:(id)rL error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   if (([rLCopy isFileURL] & 1) == 0)
@@ -51,9 +52,9 @@
     [GSTemporaryStorage initWithLibraryURL:a2 forItemAtURL:self error:?];
   }
 
-  v24.receiver = self;
-  v24.super_class = GSTemporaryStorage;
-  v12 = [(GSTemporaryStorage *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = GSTemporaryStorage;
+  v12 = [(GSTemporaryStorage *)&v23 init];
   if (v12)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -71,9 +72,9 @@
 
     [(NSURL *)v12->_libraryURL gs_chmod:448];
     v19 = v12->_stagingURL;
-    v25 = *MEMORY[0x277CCA180];
-    v26[0] = &unk_28627ABD0;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA180];
+    v25[0] = &unk_28627ABD0;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v21 = [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:1 attributes:v20 error:error];
 
     if (v21)
@@ -88,7 +89,6 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -139,15 +139,16 @@
   {
     *__error() = 22;
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"_lockFd isn't -1"];
-    v6 = *__error();
-    v7 = gs_default_log();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = __error();
+    v7 = *v6;
+    v8 = gs_default_log(v6);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
 LABEL_4:
 
       if (error)
       {
-        *error = _GSErrorForErrno(v6, v5);
+        *error = _GSErrorForErrno(v7, v5);
       }
 
       return 0;
@@ -158,14 +159,15 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v11 = open([(NSURL *)self->_libraryURL fileSystemRepresentation], 256);
-  self->_lockFd = v11;
-  if (v11 < 0)
+  v12 = open([(NSURL *)self->_libraryURL fileSystemRepresentation], 256);
+  self->_lockFd = v12;
+  if (v12 < 0)
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open %@ for locking", self->_libraryURL];
-    v6 = *__error();
-    v7 = gs_default_log();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v17 = __error();
+    v7 = *v17;
+    v8 = gs_default_log(v17);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_4;
     }
@@ -173,19 +175,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  if (flock(v11, flags))
+  if (flock(v12, flags))
   {
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to lock %@", self->_libraryURL];
-    v13 = *__error();
-    v14 = gs_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to lock %@", self->_libraryURL];
+    v14 = __error();
+    v15 = *v14;
+    v16 = gs_default_log(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [GSTemporaryStorage __lockWithFlags:error:];
     }
 
     if (error)
     {
-      *error = _GSErrorForErrno(v13, v12);
+      *error = _GSErrorForErrno(v15, v13);
     }
 
     [(GSTemporaryStorage *)self _unlock];
@@ -208,30 +211,26 @@ LABEL_3:
 
 - (void)_protectPath:(id)path
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   pathCopy = path;
   defaultManager = [v3 defaultManager];
-  v8 = *MEMORY[0x277CCA180];
-  v9[0] = &unk_28627ABE8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA180];
+  v8[0] = &unk_28627ABE8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [defaultManager setAttributes:v6 ofItemAtPath:pathCopy error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unprotectPath:(id)path
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   pathCopy = path;
   defaultManager = [v3 defaultManager];
-  v8 = *MEMORY[0x277CCA180];
-  v9[0] = &unk_28627ABD0;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA180];
+  v8[0] = &unk_28627ABD0;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [defaultManager setAttributes:v6 ofItemAtPath:pathCopy error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_URLForNameSpace:(id)space createIfNeeded:(BOOL)needed allowMissing:(BOOL)missing error:(id *)error
@@ -263,7 +262,7 @@ LABEL_3:
       if (!missingCopy || *__error() != 2)
       {
         v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-        v18 = gs_default_log();
+        v18 = gs_default_log(v17);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -302,7 +301,7 @@ LABEL_20:
 
 - (id)getAdditionDictionary:(id)dictionary error:(id *)error
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy url];
   fileSystemRepresentation = [v7 fileSystemRepresentation];
@@ -319,7 +318,7 @@ LABEL_8:
   if (access(fileSystemRepresentation, 0))
   {
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-    v12 = gs_default_log();
+    v12 = gs_default_log(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -335,22 +334,21 @@ LABEL_8:
   }
 
   [(GSTemporaryStorage *)self _unlock];
-  v20[0] = @"o";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
-  v21[0] = v16;
-  v20[1] = @"ns";
+  v19[0] = @"o";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
+  v20[0] = v15;
+  v19[1] = @"ns";
   nameSpace = [dictionaryCopy nameSpace];
-  v21[1] = nameSpace;
-  v20[2] = @"u";
-  v18 = [dictionaryCopy url];
-  v21[2] = v18;
-  v20[3] = @"cr";
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:v10];
-  v21[3] = v19;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v20[1] = nameSpace;
+  v19[2] = @"u";
+  v17 = [dictionaryCopy url];
+  v20[2] = v17;
+  v19[3] = @"cr";
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:v10];
+  v20[3] = v18;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -369,7 +367,7 @@ LABEL_9:
   if (access(fileSystemRepresentation, 0))
   {
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-    v11 = gs_default_log();
+    v11 = gs_default_log(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -405,7 +403,7 @@ LABEL_9:
   if (access(fileSystemRepresentation, 0))
   {
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-    v11 = gs_default_log();
+    v11 = gs_default_log(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -439,7 +437,7 @@ LABEL_9:
     if (access(fileSystemRepresentation, 0))
     {
       v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-      v12 = gs_default_log();
+      v12 = gs_default_log(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -471,7 +469,7 @@ LABEL_9:
 
 - (id)setAdditionNameSpace:(id)space value:(id)value error:(id *)error
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   valueCopy = value;
   if (![(GSTemporaryStorage *)self _writeLock:error])
@@ -500,17 +498,17 @@ LABEL_9:
       {
         v17 = GSGetGenerationOptions([v14 fileSystemRepresentation]);
         v18 = GSGetConflictResolved([v14 fileSystemRepresentation]);
-        v25[0] = @"o";
+        v24[0] = @"o";
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v17];
-        v26[0] = v19;
-        v26[1] = valueCopy;
-        v25[1] = @"ns";
-        v25[2] = @"u";
-        v26[2] = v14;
-        v25[3] = @"cr";
+        v25[0] = v19;
+        v25[1] = valueCopy;
+        v24[1] = @"ns";
+        v24[2] = @"u";
+        v25[2] = v14;
+        v24[3] = @"cr";
         v20 = [MEMORY[0x277CCABB0] numberWithBool:v18];
-        v26[3] = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+        v25[3] = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
       }
 
       else
@@ -538,7 +536,6 @@ LABEL_12:
   v22 = v21;
 
 LABEL_13:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -554,7 +551,7 @@ LABEL_13:
     if (access(fileSystemRepresentation, 0))
     {
       v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-      v12 = gs_default_log();
+      v12 = gs_default_log(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -748,7 +745,7 @@ LABEL_26:
 
 void __79__GSTemporaryStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke(uint64_t a1)
 {
-  v58[4] = *MEMORY[0x277D85DE8];
+  v57[4] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) path];
   v3 = [*(*(a1 + 32) + 24) pathComponents];
   v4 = [*(a1 + 40) path];
@@ -758,16 +755,16 @@ void __79__GSTemporaryStorage_createAdditionStagedAtURL_creationInfo_completionH
   {
     v6 = [*(a1 + 40) path];
     v7 = *(a1 + 48);
-    v53 = 0;
-    v8 = GSAdditionCreationInfoValidate(v6, v7, &v53);
-    v9 = v53;
+    v52 = 0;
+    v8 = GSAdditionCreationInfoValidate(v6, v7, &v52);
+    v9 = v52;
 
     if (v8)
     {
       v10 = *(a1 + 32);
-      v52 = v9;
-      v11 = [v10 _writeLock:&v52];
-      v12 = v52;
+      v51 = v9;
+      v11 = [v10 _writeLock:&v51];
+      v12 = v51;
 
       if (v11)
       {
@@ -775,16 +772,16 @@ void __79__GSTemporaryStorage_createAdditionStagedAtURL_creationInfo_completionH
         v14 = [v8 objectForKey:@"kGSAdditionName"];
         v15 = [v8 objectForKey:@"kGSAdditionOnDuplicate"];
         v16 = [v8 objectForKey:@"kGSAdditionOptions"];
-        v45 = [v8 objectForKey:@"kGSAdditionConflictResolved"];
+        v44 = [v8 objectForKey:@"kGSAdditionConflictResolved"];
         v17 = *(a1 + 32);
-        v51 = v12;
-        v18 = [v17 _URLForNameSpace:v13 createIfNeeded:1 allowMissing:0 error:&v51];
-        v19 = v51;
+        v50 = v12;
+        v18 = [v17 _URLForNameSpace:v13 createIfNeeded:1 allowMissing:0 error:&v50];
+        v19 = v50;
 
-        v46 = v16;
+        v45 = v16;
         if (!v18)
         {
-          v47 = 0;
+          v46 = 0;
           v34 = 0;
 LABEL_29:
           [v18 gs_chmod:320];
@@ -793,27 +790,27 @@ LABEL_29:
           goto LABEL_30;
         }
 
-        v44 = v14;
-        v47 = [v18 URLByAppendingPathComponent:v14];
-        v20 = [v47 fileSystemRepresentation];
+        v43 = v14;
+        v46 = [v18 URLByAppendingPathComponent:v14];
+        v20 = [v46 fileSystemRepresentation];
         v21 = access(v20, 0);
-        v43 = v15;
+        v42 = v15;
         if (!v21)
         {
           v35 = [v15 intValue];
           if (v35 == 1)
           {
-            v57[0] = @"o";
+            v56[0] = @"o";
             v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:GSGetGenerationOptions(v20)];
-            v58[0] = v30;
-            v58[1] = v13;
-            v57[1] = @"ns";
-            v57[2] = @"u";
-            v58[2] = v47;
-            v57[3] = @"cr";
+            v57[0] = v30;
+            v57[1] = v13;
+            v56[1] = @"ns";
+            v56[2] = @"u";
+            v57[2] = v46;
+            v56[3] = @"cr";
             v39 = [MEMORY[0x277CCABB0] numberWithBool:GSGetConflictResolved(v20)];
-            v58[3] = v39;
-            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
+            v57[3] = v39;
+            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
 
 LABEL_26:
             v34 = [[GSAddition alloc] _initWithStorage:*(a1 + 32) andDictionary:v31];
@@ -825,7 +822,7 @@ LABEL_27:
           if (!v35)
           {
             v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Generation already exists"];
-            v37 = gs_default_log();
+            v37 = gs_default_log(v36);
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               __79__GSTemporaryStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke_cold_1();
@@ -840,18 +837,18 @@ LABEL_27:
           }
         }
 
-        v42 = v13;
+        v41 = v13;
         v22 = [*(a1 + 40) fileSystemRepresentation];
-        v50 = v19;
-        v23 = GSSetGenerationOptions(v22, [v16 unsignedLongLongValue], &v50);
-        v9 = v50;
+        v49 = v19;
+        v23 = GSSetGenerationOptions(v22, [v16 unsignedLongLongValue], &v49);
+        v9 = v49;
 
         if (!v23)
         {
           v34 = 0;
-          v13 = v42;
-          v15 = v43;
-          v14 = v44;
+          v13 = v41;
+          v15 = v42;
+          v14 = v43;
 LABEL_30:
           (*(*(a1 + 56) + 16))();
           _RemoveTree([v5 fileSystemRepresentation], 0, 0);
@@ -863,52 +860,52 @@ LABEL_30:
         if (!v21)
         {
           v24 = MEMORY[0x277CBEBC0];
-          v56[0] = v5;
-          v41 = [MEMORY[0x277CCAD78] UUID];
-          v25 = [v41 UUIDString];
-          v56[1] = v25;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+          v55[0] = v5;
+          v40 = [MEMORY[0x277CCAD78] UUID];
+          v25 = [v40 UUIDString];
+          v55[1] = v25;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
           v27 = [v24 fileURLWithPathComponents:v26];
 
           v28 = v27;
-          v49 = v9;
-          LODWORD(v26) = _PathRename(v20, [v27 fileSystemRepresentation], &v49);
-          v19 = v49;
+          v48 = v9;
+          LODWORD(v26) = _PathRename(v20, [v27 fileSystemRepresentation], &v48);
+          v19 = v48;
 
           if (!v26)
           {
             v34 = 0;
-            v13 = v42;
+            v13 = v41;
             goto LABEL_28;
           }
 
           v9 = v19;
         }
 
-        v13 = v42;
-        v48 = v9;
-        v29 = _PathRename(v22, v20, &v48);
-        v19 = v48;
+        v13 = v41;
+        v47 = v9;
+        v29 = _PathRename(v22, v20, &v47);
+        v19 = v47;
 
         if (!v29)
         {
           v34 = 0;
 LABEL_28:
-          v15 = v43;
-          v14 = v44;
+          v15 = v42;
+          v14 = v43;
           goto LABEL_29;
         }
 
-        v54[0] = @"o";
-        v54[1] = @"ns";
-        v55[0] = v46;
-        v55[1] = v42;
-        v55[2] = v47;
-        v54[2] = @"u";
-        v54[3] = @"cr";
-        v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v45, "BOOLValue")}];
-        v55[3] = v30;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
+        v53[0] = @"o";
+        v53[1] = @"ns";
+        v54[0] = v45;
+        v54[1] = v41;
+        v54[2] = v46;
+        v53[2] = @"u";
+        v53[3] = @"cr";
+        v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v44, "BOOLValue")}];
+        v54[3] = v30;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:4];
         goto LABEL_26;
       }
 
@@ -928,7 +925,7 @@ LABEL_28:
   else
   {
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"not a staged URL: %@", *(a1 + 40)];
-    v33 = gs_default_log();
+    v33 = gs_default_log(v32);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
       GSLibraryCopyGeneration_cold_1();
@@ -940,8 +937,6 @@ LABEL_28:
   }
 
 LABEL_31:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)replaceDocumentWithContentsOfAddition:(id)addition preservingCurrentVersionWithCreationInfo:(id)info createdAddition:(id *)createdAddition error:(id *)error
@@ -1016,7 +1011,7 @@ LABEL_12:
 
 - (id)additionWithName:(id)name inNameSpace:(id)space error:(id *)error
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   spaceCopy = space;
   v10 = [(GSTemporaryStorage *)self _URLForNameSpace:spaceCopy createIfNeeded:0 allowMissing:0 error:error];
@@ -1033,7 +1028,7 @@ LABEL_12:
   if (access(fileSystemRepresentation, 0))
   {
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"The supplied addition doesn't exist"];
-    v15 = gs_default_log();
+    v15 = gs_default_log(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [NSString(GSExtensions) validateGSNameAllowingDot:error:];
@@ -1060,58 +1055,57 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v21[0] = @"o";
+  v20[0] = @"o";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:GSGetGenerationOptions(fileSystemRepresentation)];
-  v22[0] = v17;
-  v22[1] = spaceCopy;
-  v21[1] = @"ns";
-  v21[2] = @"u";
-  v22[2] = v12;
-  v21[3] = @"cr";
+  v21[0] = v17;
+  v21[1] = spaceCopy;
+  v20[1] = @"ns";
+  v20[2] = @"u";
+  v21[2] = v12;
+  v20[3] = @"cr";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:GSGetConflictResolved(fileSystemRepresentation)];
-  v22[3] = v18;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v18;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   [(GSTemporaryStorage *)self _unlock];
   v16 = [[GSAddition alloc] _initWithStorage:self andDictionary:v14];
 LABEL_12:
 
 LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)additionsWithNames:(id)names inNameSpace:(id)space error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   spaceCopy = space;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v11 = namesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v36;
+    v14 = *v35;
     errorCopy = error;
     selfCopy = self;
     while (2)
     {
       v15 = 0;
-      v34 = v13;
+      v33 = v13;
       do
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * v15);
+        v16 = *(*(&v34 + 1) + 8 * v15);
         v17 = [(GSTemporaryStorage *)self _URLForNameSpace:spaceCopy createIfNeeded:0 allowMissing:0 error:error];
         if (v17)
         {
@@ -1128,26 +1122,26 @@ LABEL_13:
               goto LABEL_15;
             }
 
-            v39[0] = @"o";
+            v38[0] = @"o";
             v21 = v14;
             v22 = v11;
             v23 = v10;
             v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:GSGetGenerationOptions(fileSystemRepresentation)];
-            v40[0] = v24;
-            v40[1] = spaceCopy;
-            v39[1] = @"ns";
-            v39[2] = @"u";
-            v40[2] = v19;
-            v39[3] = @"cr";
+            v39[0] = v24;
+            v39[1] = spaceCopy;
+            v38[1] = @"ns";
+            v38[2] = @"u";
+            v39[2] = v19;
+            v38[3] = @"cr";
             v25 = spaceCopy;
             v26 = [MEMORY[0x277CCABB0] numberWithBool:GSGetConflictResolved(fileSystemRepresentation)];
-            v40[3] = v26;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+            v39[3] = v26;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
 
             v10 = v23;
             v11 = v22;
             v14 = v21;
-            v13 = v34;
+            v13 = v33;
             self = selfCopy;
             [(GSTemporaryStorage *)selfCopy _unlock];
             v28 = [[GSAddition alloc] _initWithStorage:selfCopy andDictionary:v27];
@@ -1167,7 +1161,7 @@ LABEL_13:
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v13)
       {
         continue;
@@ -1180,9 +1174,16 @@ LABEL_13:
   v29 = v10;
 LABEL_15:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
+}
+
+- (id)enumeratorForAdditionsInNameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions ordering:(int)ordering
+{
+  v6 = *&ordering;
+  spaceCopy = space;
+  v11 = [[GSTemporaryAddtionEnumerator alloc] initWithStorage:self nameSpace:spaceCopy withOptions:options withoutOptions:withoutOptions ordering:v6];
+
+  return v11;
 }
 
 - (id)_enumerateItemsAtURL:(id)l
@@ -1229,98 +1230,98 @@ LABEL_15:
 
 void __56__GSTemporaryStorage_removeAdditions_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) URLByAppendingPathComponent:@".ns"];
   v3 = *(a1 + 32);
-  v36 = 0;
-  v4 = [v3 _writeLock:&v36];
-  v5 = v36;
+  v35 = 0;
+  v4 = [v3 _writeLock:&v35];
+  v5 = v35;
   if (v4)
   {
     [*(*(a1 + 32) + 8) gs_chmod:448];
     [v2 gs_chmod:448];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v6 = [*(a1 + 32) _enumerateItemsAtURL:v2];
-    v7 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v31 objects:v38 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v33;
+      v9 = *v32;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v33 != v9)
+          if (*v32 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v32 + 1) + 8 * i) gs_chmod:448];
+          [*(*(&v31 + 1) + 8 * i) gs_chmod:448];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v31 objects:v38 count:16];
       }
 
       while (v8);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = *(a1 + 40);
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(*(&v28 + 1) + 8 * j) url];
+          v16 = [*(*(&v27 + 1) + 8 * j) url];
           _RemoveTree([v16 fileSystemRepresentation], 0, 0);
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
       }
 
       while (v13);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v17 = [*(a1 + 32) _enumerateItemsAtURL:{v2, 0}];
-    v18 = [v17 countByEnumeratingWithState:&v24 objects:v37 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v23 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (k = 0; k != v19; ++k)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v24 + 1) + 8 * k);
+          v22 = *(*(&v23 + 1) + 8 * k);
           rmdir([v22 fileSystemRepresentation]);
           [v22 gs_chmod:448];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v24 objects:v37 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v23 objects:v36 count:16];
       }
 
       while (v19);
@@ -1332,8 +1333,6 @@ void __56__GSTemporaryStorage_removeAdditions_completionHandler___block_invoke_2
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllAdditionsForNamespaces:(id)namespaces completionHandler:(id)handler
@@ -1355,12 +1354,12 @@ void __56__GSTemporaryStorage_removeAdditions_completionHandler___block_invoke_2
 
 void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) URLByAppendingPathComponent:@".ns"];
   v3 = *(a1 + 32);
-  v34 = 0;
-  v4 = [v3 _writeLock:&v34];
-  v5 = v34;
+  v33 = 0;
+  v4 = [v3 _writeLock:&v33];
+  v5 = v33;
   if (v4)
   {
     [*(*(a1 + 32) + 8) gs_chmod:448];
@@ -1368,30 +1367,30 @@ void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler_
     v6 = *(a1 + 40);
     if (!v6 && (_RemoveTree([v2 fileSystemRepresentation], 0, 0), v2, v2 = 0, (v6 = *(a1 + 40)) == 0) || objc_msgSend(v6, "containsObject:", @"com.apple.documentVersions"))
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v7 = [*(a1 + 32) _enumerateItemsAtURL:*(*(a1 + 32) + 8)];
-      v8 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v8)
       {
         v9 = v8;
-        v25 = v5;
+        v24 = v5;
         v10 = 0;
-        v11 = *v31;
+        v11 = *v30;
         do
         {
           v12 = 0;
           v13 = v10;
           do
           {
-            if (*v31 != v11)
+            if (*v30 != v11)
             {
               objc_enumerationMutation(v7);
             }
 
-            v10 = *(*(&v30 + 1) + 8 * v12);
+            v10 = *(*(&v29 + 1) + 8 * v12);
 
             v14 = [v10 lastPathComponent];
             v15 = [v14 hasPrefix:@"."];
@@ -1406,36 +1405,36 @@ void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler_
           }
 
           while (v9 != v12);
-          v9 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
         }
 
         while (v9);
 
-        v5 = v25;
+        v5 = v24;
       }
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v16 = *(a1 + 40);
-    v17 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = 0;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v26 + 1) + 8 * i);
+          v22 = *(*(&v25 + 1) + 8 * i);
           if (([v22 isEqualToString:@"com.apple.documentVersions"] & 1) == 0)
           {
             v23 = [v2 URLByAppendingPathComponent:v22];
@@ -1445,7 +1444,7 @@ void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler_
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v18);
@@ -1466,8 +1465,6 @@ void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler_
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLibraryURL:(uint64_t)a1 forItemAtURL:(uint64_t)a2 error:.cold.1(uint64_t a1, uint64_t a2)
@@ -1479,19 +1476,9 @@ void __72__GSTemporaryStorage_removeAllAdditionsForNamespaces_completionHandler_
 - (void)__lockWithFlags:error:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v9 = *MEMORY[0x277D85DE8];
   strerror(v0);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_24FD46000, v1, v2, "[DEBUG] %@; error %d (%s)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __79__GSTemporaryStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24FD46000, v0, v1, "[DEBUG] %@; status %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24FD46000, v1, v2, "[DEBUG] %@; error %d (%s)", v3, v4, v5, v6);
 }
 
 @end

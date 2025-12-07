@@ -3,66 +3,63 @@ int main(int argc, const char **argv, const char **envp)
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v31 = *(v3 - 8);
   v32 = v3;
-  v4 = *(v31 + 64);
-  (__chkstk_darwin)();
-  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v5 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v30 = type metadata accessor for DispatchQoS();
-  v7 = *(v30 - 8);
-  v8 = *(v7 + 64);
-  (__chkstk_darwin)();
-  v10 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for Logger();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = (__chkstk_darwin)();
-  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v18 = &v29 - v17;
+  v6 = *(v30 - 8);
+  __chkstk_darwin(v30);
+  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Logger();
+  v10 = *(v9 - 8);
+  v11 = __chkstk_darwin(v9);
+  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = &v29 - v14;
   if (_set_user_dir_suffix())
   {
     static Logger.daemon.getter();
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v19, v20))
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v16, v17))
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v19, v20, "Entered non-macOS Sandbox", v21, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v16, v17, "Entered non-macOS Sandbox", v18, 2u);
     }
 
-    v22 = *(v12 + 8);
-    v22(v18, v11);
+    v19 = *(v10 + 8);
+    v19(v15, v9);
     static Logger.daemon.getter();
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v23, v24))
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v20, v21))
     {
-      v25 = swift_slowAlloc();
-      *v25 = 0;
-      _os_log_impl(&_mh_execute_header, v23, v24, "Starting daemon", v25, 2u);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v20, v21, "Starting daemon", v22, 2u);
     }
 
-    v22(v16, v11);
+    v19(v13, v9);
     type metadata accessor for CMLXPCServer();
     qword_100008030 = CMLXPCServer.__allocating_init()();
     dispatch thunk of CMLXPCServer.registerScheduledTasks()();
     dispatch thunk of CMLXPCServer.start()();
     sub_100001060();
     qword_100008038 = static OS_dispatch_source.makeSignalSource(signal:queue:)();
-    swift_getObjectType();
+    ObjectType = swift_getObjectType();
     aBlock[4] = sub_1000010AC;
     aBlock[5] = 0;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1000011D0;
     aBlock[3] = &unk_1000041A8;
-    v26 = _Block_copy(aBlock);
+    v24 = _Block_copy(aBlock);
     static DispatchQoS.unspecified.getter();
-    sub_10000122C();
+    sub_10000122C(ObjectType, v25, v26);
     OS_dispatch_source.setEventHandler(qos:flags:handler:)();
-    _Block_release(v26);
-    (*(v31 + 8))(v6, v32);
-    (*(v7 + 8))(v10, v30);
+    _Block_release(v24);
+    (*(v31 + 8))(v5, v32);
+    (*(v6 + 8))(v8, v30);
     swift_getObjectType();
     OS_dispatch_source.resume()();
     v27 = [objc_opt_self() mainRunLoop];
@@ -93,20 +90,19 @@ void sub_1000010AC()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.daemon.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Received SIGTERM, shutting down", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "Received SIGTERM, shutting down", v6, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   exit(0);
 }
 
@@ -127,16 +123,16 @@ uint64_t sub_100001214(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_10000122C()
+uint64_t sub_10000122C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  type metadata accessor for DispatchWorkItemFlags();
-  sub_1000012B4();
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  sub_1000012B4(v3, v4, v5);
   sub_10000130C(&qword_100008020, &unk_1000016A0);
   sub_100001354();
   return dispatch thunk of SetAlgebra.init<A>(_:)();
 }
 
-unint64_t sub_1000012B4()
+unint64_t sub_1000012B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_100008018;
   if (!qword_100008018)
@@ -154,7 +150,6 @@ uint64_t sub_10000130C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -180,7 +175,6 @@ uint64_t sub_1000013B8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

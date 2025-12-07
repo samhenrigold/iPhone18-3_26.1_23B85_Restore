@@ -60,11 +60,11 @@
 
 - (void)uploadPayloadsForInfos:(id)infos withEnvelopeStore:(id)store perPayloadCompletion:(id)completion completion:(id)a6
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
   storeCopy = store;
   completionCopy = completion;
-  v20 = a6;
+  v19 = a6;
   if (!infosCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NDAnalyticsPayloadUploader uploadPayloadsForInfos:withEnvelopeStore:perPayloadCompletion:completion:];
@@ -92,54 +92,52 @@ LABEL_6:
   }
 
   uploadQueue = [(NDAnalyticsPayloadUploader *)self uploadQueue];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = infosCopy;
-  v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v32;
+    v16 = *v31;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v32 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke;
-        v26[3] = &unk_27997A908;
-        v27 = v12;
-        v28 = v18;
+        v18 = *(*(&v30 + 1) + 8 * i);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke;
+        v25[3] = &unk_27997A908;
+        v26 = v12;
+        v27 = v18;
         selfCopy = self;
-        v30 = completionCopy;
-        [uploadQueue enqueueBlock:v26];
+        v29 = completionCopy;
+        [uploadQueue enqueueBlock:v25];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v15);
   }
 
-  if (v21)
+  if (v20)
   {
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke_4;
-    v24[3] = &unk_27997A930;
-    v25 = v21;
-    [uploadQueue enqueueBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke_4;
+    v23[3] = &unk_27997A930;
+    v24 = v20;
+    [uploadQueue enqueueBlock:v23];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke(uint64_t a1, void *a2)
@@ -221,14 +219,13 @@ uint64_t __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeSt
   return [v2 numberWithInt:v3];
 }
 
-void __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke_3(void *a1, uint64_t a2, void *a3)
+void __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a1[5];
+  v4 = *(a1 + 40);
   v5 = *(v4 + 16);
-  v7 = a3;
+  v6 = a3;
   v5(v4);
-  v6 = a1[4];
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 }
 
 uint64_t __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeStore_perPayloadCompletion_completion___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -241,50 +238,38 @@ uint64_t __103__NDAnalyticsPayloadUploader_uploadPayloadsForInfos_withEnvelopeSt
 
 - (void)initWithAppConfigurationManager:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfigurationManager"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appConfigurationManager", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)uploadPayloadsForInfos:withEnvelopeStore:perPayloadCompletion:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "payloadInfos"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "payloadInfos", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)uploadPayloadsForInfos:withEnvelopeStore:perPayloadCompletion:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "envelopeStore"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "envelopeStore", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)uploadPayloadsForInfos:withEnvelopeStore:perPayloadCompletion:completion:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "perPayloadCompletion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "perPayloadCompletion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

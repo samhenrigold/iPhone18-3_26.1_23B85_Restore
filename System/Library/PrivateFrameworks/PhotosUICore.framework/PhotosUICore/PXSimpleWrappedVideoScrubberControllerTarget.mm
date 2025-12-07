@@ -78,7 +78,7 @@ void __77__PXSimpleWrappedVideoScrubberControllerTarget_observable_didChange_con
   if (currentItem)
   {
     v6 = currentItem;
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
     currentItem = v6;
   }
 
@@ -97,7 +97,7 @@ void __77__PXSimpleWrappedVideoScrubberControllerTarget_observable_didChange_con
   result = self->_videoPlayer;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result currentTime];
+    return objc_msgSend_currentTime(result, a3);
   }
 
   retstr->var0 = 0;

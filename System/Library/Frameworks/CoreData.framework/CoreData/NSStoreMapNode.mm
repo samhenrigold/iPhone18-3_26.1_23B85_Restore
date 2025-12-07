@@ -48,7 +48,7 @@
     [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4864, &unk_1EF435710)}];
   }
 
-  v7 = [coder decodeObjectOfClasses:+[_PFRoutines attributeClassesForSecureCoding]() forKey:@"NSRelatedNodes"];
+  v7 = [coder decodeObjectOfClasses:+[_PFRoutines attributeClassesForSecureCoding](_PFRoutines) forKey:@"NSRelatedNodes"];
   v4->_relatedNodes = v7;
   if (!v7)
   {
@@ -149,7 +149,7 @@ LABEL_6:
       v6 = v5;
       if (!v5 || (v7 = [*(v5 + 32) objectForKey:*(map + 32)]) == 0)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't find entity %@ in model %@", *(map + 32), v6];
+        v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(map + 32), v6);
 
         *(map + 32) = 0;
         v9 = [_NSCoreDataException exceptionWithName:134020 code:v8 reason:0 userInfo:?];

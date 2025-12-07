@@ -568,7 +568,9 @@ void __39__PXZoomablePhotosAlphaAnimator__tick___block_invoke(uint64_t a1)
   if (allowedColumns != columnsCopy)
   {
     v12 = columnsCopy;
-    if (([(NSArray *)allowedColumns isEqual:columnsCopy]& 1) == 0)
+    allowedColumns = [(NSArray *)allowedColumns isEqual:columnsCopy];
+    columnsCopy = v12;
+    if ((allowedColumns & 1) == 0)
     {
       if ([(NSArray *)v12 count]>= 0xB)
       {
@@ -590,10 +592,11 @@ void __39__PXZoomablePhotosAlphaAnimator__tick___block_invoke(uint64_t a1)
       }
 
       self->_updateFlags.needsUpdate |= 1uLL;
+      columnsCopy = v12;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](allowedColumns, columnsCopy);
 }
 
 - (void)performChangesWithAnimation:(BOOL)animation changeBlock:(id)block
@@ -610,7 +613,7 @@ void __39__PXZoomablePhotosAlphaAnimator__tick___block_invoke(uint64_t a1)
   [(PXZoomablePhotosAlphaAnimator *)self performChanges:v8];
 }
 
-uint64_t __73__PXZoomablePhotosAlphaAnimator_performChangesWithAnimation_changeBlock___block_invoke(uint64_t a1)
+void *__73__PXZoomablePhotosAlphaAnimator_performChangesWithAnimation_changeBlock___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 1008);

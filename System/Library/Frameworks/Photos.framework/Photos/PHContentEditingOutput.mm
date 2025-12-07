@@ -19,6 +19,7 @@
 - (id)setAdjustmentsOptions;
 - (int64_t)baseVersion;
 - (void)_setupRequiredRenderedContentURLsWithEditingInput:(id)input options:(id)options;
+- (void)clearRenderedContentURL;
 - (void)encodeWithCoder:(id)coder;
 - (void)setAdjustmentData:(PHAdjustmentData *)adjustmentData;
 - (void)setBaseVersion:(int64_t)version;
@@ -519,6 +520,13 @@ LABEL_26:
   objc_sync_exit(selfCopy);
 
   return v3;
+}
+
+- (void)clearRenderedContentURL
+{
+  renderedContentURL = self->_renderedContentURL;
+  self->_renderedContentURL = 0;
+  MEMORY[0x1EEE66BB8](self, renderedContentURL);
 }
 
 - (id)renderURLWithExtensionForMediaType:(int64_t)type

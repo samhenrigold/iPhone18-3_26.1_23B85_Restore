@@ -6,7 +6,7 @@
 
 + (id)fetchAnnounceRegistrationWithHomeUUID:(id)d managedObjectContext:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   if (!dCopy)
@@ -19,9 +19,9 @@
   dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@)", @"homeUUID", dCopy];
   [v9 setPredicate:dCopy];
 
-  v20 = 0;
-  v11 = [v8 executeFetchRequest:v9 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [v8 executeFetchRequest:v9 error:&v19];
+  v12 = v19;
   if (v11)
   {
     firstObject = [v11 firstObject];
@@ -36,19 +36,17 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v22 = v17;
-      v23 = 2112;
-      v24 = dCopy;
-      v25 = 2112;
-      v26 = v12;
+      v21 = v17;
+      v22 = 2112;
+      v23 = dCopy;
+      v24 = 2112;
+      v25 = v12;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch announce user setting bulletin registration with homeUUID %@: error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     firstObject = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

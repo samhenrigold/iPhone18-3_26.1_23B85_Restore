@@ -122,7 +122,7 @@
 
       memset(v42, 0, sizeof(v42));
       v41 = 0u;
-      [v33 timeRange];
+      objc_msgSend_timeRange(v33);
       *&v40.value = v41;
       v40.epoch = *&v42[0];
       memset(&v39, 0, sizeof(v39));

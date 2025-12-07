@@ -63,35 +63,35 @@
   v11 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   [v3 setObject:v11 forKey:@"isThread"];
 
-  v12 = [v3 copy];
+  v12 = objc_msgSend_copy(v3);
 
   return v12;
 }
 
 - (BOOL)isThreadAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   [accessoryCopy transportInformationInstances];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = v19 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        hapAccessory = [*(*(&v17 + 1) + 8 * i) hapAccessory];
+        hapAccessory = [*(*(&v16 + 1) + 8 * i) hapAccessory];
         server = [hapAccessory server];
 
         objc_opt_class();
@@ -123,7 +123,7 @@ LABEL_16:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       v14 = 0;
       if (v6)
       {
@@ -141,7 +141,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

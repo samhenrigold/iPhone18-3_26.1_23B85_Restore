@@ -104,8 +104,8 @@
   [(CRLCurvedShadowRenderHelper *)self p_debugLogImage:v26 name:v27];
 
   [v26 extent];
-  v59 = CGRectInset(v58, v21, 0.0);
-  v28 = [v26 imageByCroppingToRect:{v59.origin.x, v59.origin.y, v59.size.width, v59.size.height}];
+  v60 = CGRectInset(v59, v21, 0.0);
+  v28 = [v26 imageByCroppingToRect:{v60.origin.x, v60.origin.y, v60.size.width, v60.size.height}];
   v29 = [NSString stringWithFormat:@"%d-%d--%@", dword_101A34910, 0, @"sourceCroppedImage"];
   [(CRLCurvedShadowRenderHelper *)self p_debugLogImage:v28 name:v29];
 
@@ -113,7 +113,7 @@
   v31 = [NSString stringWithFormat:@"%d-%d--%@", dword_101A34910, 0, @"alphaImage"];
   [(CRLCurvedShadowRenderHelper *)self p_debugLogImage:v30 name:v31];
 
-  v57 = shadowCopy;
+  v58 = shadowCopy;
   color = [shadowCopy color];
   v33 = [(CRLCurvedShadowRenderHelper *)self p_tintedCIImageFromImage:v30 withColor:color];
 
@@ -174,8 +174,8 @@
   {
     v48 = v47;
     [v45 extent];
-    v60.origin.x = sub_1001221E0(v49, v50, v51, v52);
-    CGContextDrawImage(context, v60, v48);
+    v61.origin.x = sub_1001221E0(v49, v50, v51, v52, v53);
+    CGContextDrawImage(context, v61, v48);
     CGImageRelease(v48);
   }
 
@@ -197,15 +197,15 @@
       sub_10133E3E8();
     }
 
-    v53 = off_1019EDA68;
+    v54 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130EFC0(v53);
+      sub_10130EFC0(v54);
     }
 
-    v54 = [NSString stringWithUTF8String:"[CRLCurvedShadowRenderHelper drawCurvedShadow:forImage:inContext:forUnscaledSize:withScaleFactor:]"];
-    v55 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCurvedShadowRenderHelper.m"];
-    [CRLAssertionHandler handleFailureInFunction:v54 file:v55 lineNumber:152 isFatal:0 description:"Cannot render curved shadow, the size is too large for the CIContext to convert back to a CGImage. Skipping render."];
+    v55 = [NSString stringWithUTF8String:"[CRLCurvedShadowRenderHelper drawCurvedShadow:forImage:inContext:forUnscaledSize:withScaleFactor:]"];
+    v56 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCurvedShadowRenderHelper.m"];
+    [CRLAssertionHandler handleFailureInFunction:v55 file:v56 lineNumber:152 isFatal:0 description:"Cannot render curved shadow, the size is too large for the CIContext to convert back to a CGImage. Skipping render."];
   }
 
   CGContextRestoreGState(context);

@@ -93,7 +93,7 @@
 
 + (id)setWithChartableQuantity:(id)quantity date:(id)date
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   quantityCopy = quantity;
   dateCopy = date;
   if (!quantityCopy)
@@ -103,11 +103,9 @@
 
   v9 = [self alloc];
   codings = [quantityCopy codings];
-  v15[0] = quantityCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = quantityCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v12 = [v9 _initWithMedicalCodings:codings date:dateCopy quantities:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -122,35 +120,36 @@
 
 - (void)addChartableCodedQuantities:(id)quantities
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   quantitiesCopy = quantities;
   selfCopy = self;
   compatibleUnit = [(HKChartableCodedQuantitySet *)self compatibleUnit];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(quantitiesCopy, "count")}];
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
   v7 = quantitiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
-        v22 = 0;
-        v13 = [v12 chartableCodedQuantityInUnit:compatibleUnit error:&v22];
-        v14 = v22;
+        v12 = *(*(&v24 + 1) + 8 * v11);
+        v23 = 0;
+        v13 = [v12 chartableCodedQuantityInUnit:compatibleUnit error:&v23];
+        v14 = v23;
+        v16 = v14;
         if (v13)
         {
           [v6 addObject:v13];
@@ -158,17 +157,17 @@
 
         else
         {
-          _HKInitializeLogging();
-          v15 = HKLogHealthRecords;
+          _HKInitializeLogging(v14, v15);
+          v17 = HKLogHealthRecords;
           if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
           {
-            v16 = v15;
-            v17 = HKSensitiveLogItem(v12);
+            v18 = v17;
+            v19 = HKSensitiveLogItem(v12);
             *buf = 138543618;
-            v28 = v17;
-            v29 = 2114;
-            v30 = v14;
-            _os_log_error_impl(&dword_19197B000, v16, OS_LOG_TYPE_ERROR, "Unable to add chartable coded quantity %{public}@ to set: %{public}@", buf, 0x16u);
+            v29 = v19;
+            v30 = 2114;
+            v31 = v16;
+            _os_log_error_impl(&dword_19197B000, v18, OS_LOG_TYPE_ERROR, "Unable to add chartable coded quantity %{public}@ to set: %{public}@", buf, 0x16u);
           }
         }
 
@@ -176,44 +175,42 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v9);
   }
 
-  v18 = [(NSArray *)selfCopy->_quantities arrayByAddingObjectsFromArray:v6];
+  v20 = [(NSArray *)selfCopy->_quantities arrayByAddingObjectsFromArray:v6];
   quantities = selfCopy->_quantities;
-  selfCopy->_quantities = v18;
-
-  v20 = *MEMORY[0x1E69E9840];
+  selfCopy->_quantities = v20;
 }
 
 - (id)chartableCodedQuantitySetConvertedToUnit:(id)unit error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   unitCopy = unit;
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_quantities, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = self->_quantities;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v18 + 1) + 8 * i) chartableCodedQuantityInUnit:unitCopy error:{error, v18}];
+        v13 = [*(*(&v17 + 1) + 8 * i) chartableCodedQuantityInUnit:unitCopy error:{error, v17}];
         if (!v13)
         {
 
@@ -225,7 +222,7 @@
         [v7 addObject:v13];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -237,8 +234,6 @@
 
   v15 = [objc_alloc(objc_opt_class()) _initWithMedicalCodings:self->_codings date:self->_date quantities:v7];
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -265,35 +260,35 @@ LABEL_11:
 
 - (double)minValueForUnit:(id)unit
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_quantities;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 1.79769313e308;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v12 + 1) + 8 * i) doubleValue];
+        [*(*(&v11 + 1) + 8 * i) doubleValue];
         if (v7 >= v9)
         {
           v7 = v9;
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -304,41 +299,40 @@ LABEL_11:
     v7 = 1.79769313e308;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (double)maxValueForUnit:(id)unit
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_quantities;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = -1.79769313e308;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v12 + 1) + 8 * i) doubleValue];
+        [*(*(&v11 + 1) + 8 * i) doubleValue];
         if (v7 < v9)
         {
           v7 = v9;
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -349,34 +343,33 @@ LABEL_11:
     v7 = -1.79769313e308;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (double)minValueIncludingReferenceRangeForUnit:(id)unit
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = self->_quantities;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     v7 = 1.79769313e308;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         rangeLow = [v9 rangeLow];
         [v9 doubleValue];
         v12 = v11;
@@ -398,7 +391,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -409,34 +402,33 @@ LABEL_11:
     v7 = 1.79769313e308;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (double)maxValueIncludingReferenceRangeForUnit:(id)unit
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = self->_quantities;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     v7 = -1.79769313e308;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         rangeHigh = [v9 rangeHigh];
         [v9 doubleValue];
         v12 = v11;
@@ -458,7 +450,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -469,7 +461,6 @@ LABEL_11:
     v7 = -1.79769313e308;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -49,7 +49,7 @@
   return v12 & 1;
 }
 
-uint64_t __31__PISliderNetBaseJob_complete___block_invoke(uint64_t a1, void *a2)
+void *__31__PISliderNetBaseJob_complete___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 CVPixelBuffer];
   v4 = [*(a1 + 32) colorSpace];

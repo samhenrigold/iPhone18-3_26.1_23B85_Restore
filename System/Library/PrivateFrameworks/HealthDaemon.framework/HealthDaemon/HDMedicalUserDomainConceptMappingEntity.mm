@@ -12,16 +12,14 @@
 
 + (id)foreignKeys
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"udc_id";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"udc_id";
   v2 = +[(HDUserDomainConceptEntity *)HDMedicalUserDomainConceptEntity];
-  v7[1] = @"data_id";
-  v8[0] = v2;
+  v6[1] = @"data_id";
+  v7[0] = v2;
   v3 = +[(HDDataEntity *)HDMedicalRecordEntity];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -43,7 +41,7 @@ LABEL_5:
     v14 = [v8 innerJoinClauseFromTable:disambiguatedDatabaseTable toTargetEntity:v10 as:0 localReference:*v11 targetKey:*v11];
     [v7 addObject:v14];
 
-    v15 = [v7 copy];
+    v15 = objc_msgSend_copy(v7);
     goto LABEL_7;
   }
 
@@ -165,11 +163,11 @@ uint64_t __157__HDMedicalUserDomainConceptMappingEntity_updateMappingFromRecordW
   return v9;
 }
 
-uint64_t __109__HDMedicalUserDomainConceptMappingEntity_unitTest_medicalRecordIDsForUserDomainConceptID_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __109__HDMedicalUserDomainConceptMappingEntity_unitTest_medicalRecordIDsForUserDomainConceptID_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  [v1 addObject:v2];
+  v2 = *(a1 + 32);
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  [v2 addObject:v3];
 
   return 1;
 }
@@ -203,11 +201,11 @@ uint64_t __109__HDMedicalUserDomainConceptMappingEntity_unitTest_medicalRecordID
   return v9;
 }
 
-uint64_t __109__HDMedicalUserDomainConceptMappingEntity_unitTest_userDomainConceptIDsForMedicalRecordID_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __109__HDMedicalUserDomainConceptMappingEntity_unitTest_userDomainConceptIDsForMedicalRecordID_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  [v1 addObject:v2];
+  v2 = *(a1 + 32);
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  [v2 addObject:v3];
 
   return 1;
 }

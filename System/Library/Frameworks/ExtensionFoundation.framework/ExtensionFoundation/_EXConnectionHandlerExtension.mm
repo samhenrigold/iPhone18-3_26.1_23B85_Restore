@@ -7,13 +7,11 @@
 
 - (void)willFinishLaunching
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(self);
+  v8 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_7();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldAcceptConnection:(id)connection

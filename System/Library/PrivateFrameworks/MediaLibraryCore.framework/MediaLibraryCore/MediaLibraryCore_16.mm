@@ -76,7 +76,7 @@ uint64_t mlcore::AnyInPredicate<double>::matches(void *a1, void *a2)
   return 0;
 }
 
-uint64_t mlcore::AnyInPredicate<double>::description@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::AnyInPredicate<double>::description@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
   v4 = a1[1];
@@ -240,7 +240,7 @@ uint64_t mlcore::AnyInPredicate<int>::matches(void *a1, void *a2)
   return 0;
 }
 
-uint64_t mlcore::AnyInPredicate<int>::description@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::AnyInPredicate<int>::description@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
   v4 = a1[1];
@@ -427,14 +427,14 @@ uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::matches(void *a1, void *a2
   return 0;
 }
 
-void sub_1D58F1B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1D58F1B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   mediaplatform::Data::~Data(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::description@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::description@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
   v4 = a1[1];
@@ -615,9 +615,9 @@ void mlcore::AnyInPredicate<long long>::AnyInPredicate(uint64_t a1, uint64_t a2,
   mlcore::AnyInPredicate<long long>::AnyInPredicate();
 }
 
-void sub_1D58F2054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F2054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -632,7 +632,8 @@ uint64_t std::unordered_set<long long>::unordered_set<std::__wrap_iter<long long
     v5 = a2;
     do
     {
-      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(a1, *v5++);
+      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(a1, *v5, v5);
+      ++v5;
     }
 
     while (v5 != a3);
@@ -641,28 +642,28 @@ uint64_t std::unordered_set<long long>::unordered_set<std::__wrap_iter<long long
   return a1;
 }
 
-void mlcore::AnyInPredicate<long long>::AnyInPredicate(void *a1, uint64_t *a2)
+void mlcore::AnyInPredicate<long long>::AnyInPredicate(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = (v3 - *a2) >> 3;
-  v8 = 0;
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v5 - *a2;
+  v10 = 0;
+  v11 = 0;
   v9 = 0;
-  v7 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<long long> * const*>,std::__wrap_iter<mlcore::ModelProperty<long long> * const*>>(&v7, v4, v3, v5);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<long long> * const*>,std::__wrap_iter<mlcore::ModelProperty<long long> * const*>>(&v9, v6, v5, v7);
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  v6 = v7;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), v7, v8, (v8 - v7) >> 3);
-  if (v6)
+  v8 = v9;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, v9, v10, (v10 - v9) >> 3);
+  if (v8)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 
   *a1 = &unk_1F50D7138;
-  mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>();
+  mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>((a1 + 4), a3);
 }
 
 void sub_1D58F21B0(_Unwind_Exception *exception_object)
@@ -678,7 +679,7 @@ void sub_1D58F21B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<long long> * const*>,std::__wrap_iter<mlcore::ModelProperty<long long> * const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<long long> * const*>,std::__wrap_iter<mlcore::ModelProperty<long long> * const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -700,10 +701,10 @@ void sub_1D58F2238(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>()
+void mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>(uint64_t a1, uint64_t a2)
 {
-  v0 = mlcore::SharedObject<std::unordered_set<long long>,int>::_mutex();
-  std::mutex::lock(v0);
+  v2 = mlcore::SharedObject<std::unordered_set<long long>,int>::_mutex();
+  std::mutex::lock(v2);
   {
     {
       operator new();
@@ -765,7 +766,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-void mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>(std::unordered_set<long long> const&)::{lambda(std::unordered_set<long long>*)#1}::operator()(int *a1, uint64_t a2)
+void mlcore::SharedObject<std::unordered_set<long long>,int>::create<std::unordered_set<long long> const&>(std::unordered_set<long long> const&)::{lambda(std::unordered_set<long long>*)#1}::operator()(unsigned int *a1, uint64_t a2)
 {
   v4 = mlcore::SharedObject<std::unordered_set<long long>,int>::_mutex();
   std::mutex::lock(v4);
@@ -992,32 +993,32 @@ void std::__shared_ptr_pointer<std::unordered_set<long long> *,mlcore::SharedObj
   JUMPOUT(0x1DA6EDD40);
 }
 
-void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *result, unint64_t a2)
+void std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *a1, unint64_t a2, void *a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -1025,68 +1026,66 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void sub_1D58F3014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F3014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void *mlcore::AnyInPredicateBase::AnyInPredicateBase(void *a1, uint64_t *a2)
+void *mlcore::AnyInPredicateBase::AnyInPredicateBase(void *a1, uint64_t a2)
 {
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   return a1;
 }
 
-uint64_t mlcore::AnyInPredicate<long long>::AnyInPredicate(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlcore::AnyInPredicate<long long>::AnyInPredicate(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = a2[1];
-  v7 = (v5 - *a2) >> 3;
+  v7 = v5 - *a2;
   v12 = 0;
   v13 = 0;
   v11 = 0;
@@ -1096,7 +1095,7 @@ uint64_t mlcore::AnyInPredicate<long long>::AnyInPredicate(uint64_t a1, uint64_t
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v8 = v11;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 8, v11, v12, (v12 - v11) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 8), v11, v12, (v12 - v11) >> 3);
   if (v8)
   {
     operator delete(v8);
@@ -1125,20 +1124,9 @@ void sub_1D58F316C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::AnyInPredicate<std::string>::AnyInPredicate(uint64_t a1, uint64_t a2, void **a3)
+void sub_1D58F31FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(&__p, *a3, a3[1]);
-  mlcore::AnyInPredicate<std::string>::AnyInPredicate();
-}
-
-{
-  std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::string const*>>(&__p, *a3, a3[1]);
-  mlcore::AnyInPredicate<std::string>::AnyInPredicate();
-}
-
-void sub_1D58F31FC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1153,7 +1141,7 @@ uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::st
     v5 = a2;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v5, v5);
       v5 += 3;
     }
 
@@ -1163,28 +1151,28 @@ uint64_t std::unordered_set<std::string>::unordered_set<std::__wrap_iter<std::st
   return a1;
 }
 
-void mlcore::AnyInPredicate<std::string>::AnyInPredicate(void *a1, uint64_t *a2)
+void mlcore::AnyInPredicate<std::string>::AnyInPredicate(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = (v3 - *a2) >> 3;
-  v8 = 0;
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v5 - *a2;
+  v10 = 0;
+  v11 = 0;
   v9 = 0;
-  v7 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>,std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>>(&v7, v4, v3, v5);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>,std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>>(&v9, v6, v5, v7);
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  v6 = v7;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), v7, v8, (v8 - v7) >> 3);
-  if (v6)
+  v8 = v9;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, v9, v10, (v10 - v9) >> 3);
+  if (v8)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 
   *a1 = &unk_1F50D7240;
-  mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>();
+  mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>((a1 + 4), a3);
 }
 
 void sub_1D58F3358(_Unwind_Exception *exception_object)
@@ -1200,7 +1188,7 @@ void sub_1D58F3358(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>,std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>,std::__wrap_iter<mlcore::ModelProperty<std::string> * const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1222,10 +1210,10 @@ void sub_1D58F33E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>()
+void mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>(uint64_t a1, uint64_t a2)
 {
-  v0 = mlcore::SharedObject<std::unordered_set<std::string>,int>::_mutex();
-  std::mutex::lock(v0);
+  v2 = mlcore::SharedObject<std::unordered_set<std::string>,int>::_mutex();
+  std::mutex::lock(v2);
   {
     {
       operator new();
@@ -1253,7 +1241,7 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, uint64_t a2
   std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, i + 2);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
@@ -1268,7 +1256,7 @@ uint64_t mlcore::SharedObject<std::unordered_set<std::string>,int>::_objects()
   return mlcore::SharedObject<std::unordered_set<std::string>,int>::_objects(void)::objects;
 }
 
-void mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>(std::unordered_set<std::string> const&)::{lambda(std::unordered_set<std::string>*)#1}::operator()(int *a1, uint64_t a2)
+void mlcore::SharedObject<std::unordered_set<std::string>,int>::create<std::unordered_set<std::string> const&>(std::unordered_set<std::string> const&)::{lambda(std::unordered_set<std::string>*)#1}::operator()(int *a1, void **a2)
 {
   v4 = mlcore::SharedObject<std::unordered_set<std::string>,int>::_mutex();
   std::mutex::lock(v4);
@@ -1319,35 +1307,35 @@ void std::__shared_ptr_pointer<std::unordered_set<std::string> *,mlcore::SharedO
   JUMPOUT(0x1DA6EDD40);
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, void *a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, void *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -1355,45 +1343,42 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 BOOL std::equal_to<std::string>::operator()[abi:ne200100](void *a1, void *a2)
@@ -1426,7 +1411,6 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1453,18 +1437,18 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-void sub_1D58F40B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F40B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::AnyInPredicate<std::string>::AnyInPredicate(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlcore::AnyInPredicate<std::string>::AnyInPredicate(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = a2[1];
-  v7 = (v5 - *a2) >> 3;
+  v7 = v5 - *a2;
   v12 = 0;
   v13 = 0;
   v11 = 0;
@@ -1474,7 +1458,7 @@ uint64_t mlcore::AnyInPredicate<std::string>::AnyInPredicate(uint64_t a1, uint64
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v8 = v11;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 8, v11, v12, (v12 - v11) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 8), v11, v12, (v12 - v11) >> 3);
   if (v8)
   {
     operator delete(v8);
@@ -1514,9 +1498,9 @@ void mlcore::AnyInPredicate<double>::AnyInPredicate(uint64_t a1, uint64_t a2, do
   mlcore::AnyInPredicate<double>::AnyInPredicate();
 }
 
-void sub_1D58F422C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F422C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1531,7 +1515,8 @@ uint64_t std::unordered_set<double>::unordered_set<std::__wrap_iter<double const
     v5 = a2;
     do
     {
-      std::__hash_table<double,std::hash<double>,std::equal_to<double>,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(a1, *v5++);
+      std::__hash_table<double,std::hash<double>,std::equal_to<double>,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(a1, v5, *v5);
+      ++v5;
     }
 
     while (v5 != a3);
@@ -1540,28 +1525,28 @@ uint64_t std::unordered_set<double>::unordered_set<std::__wrap_iter<double const
   return a1;
 }
 
-void mlcore::AnyInPredicate<double>::AnyInPredicate(void *a1, uint64_t *a2)
+void mlcore::AnyInPredicate<double>::AnyInPredicate(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = (v3 - *a2) >> 3;
-  v8 = 0;
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v5 - *a2;
+  v10 = 0;
+  v11 = 0;
   v9 = 0;
-  v7 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<double> * const*>,std::__wrap_iter<mlcore::ModelProperty<double> * const*>>(&v7, v4, v3, v5);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<double> * const*>,std::__wrap_iter<mlcore::ModelProperty<double> * const*>>(&v9, v6, v5, v7);
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  v6 = v7;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), v7, v8, (v8 - v7) >> 3);
-  if (v6)
+  v8 = v9;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, v9, v10, (v10 - v9) >> 3);
+  if (v8)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 
   *a1 = &unk_1F50D71E8;
-  mlcore::SharedObject<std::unordered_set<double>,int>::create<std::unordered_set<double> const&>();
+  mlcore::SharedObject<std::unordered_set<double>,int>::create<std::unordered_set<double> const&>((a1 + 4), a3);
 }
 
 void sub_1D58F4388(_Unwind_Exception *exception_object)
@@ -1577,7 +1562,7 @@ void sub_1D58F4388(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<double> * const*>,std::__wrap_iter<mlcore::ModelProperty<double> * const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<double> * const*>,std::__wrap_iter<mlcore::ModelProperty<double> * const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1599,10 +1584,10 @@ void sub_1D58F4410(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::SharedObject<std::unordered_set<double>,int>::create<std::unordered_set<double> const&>()
+void mlcore::SharedObject<std::unordered_set<double>,int>::create<std::unordered_set<double> const&>(uint64_t a1, uint64_t a2)
 {
-  v0 = mlcore::SharedObject<std::unordered_set<double>,int>::_mutex();
-  std::mutex::lock(v0);
+  v2 = mlcore::SharedObject<std::unordered_set<double>,int>::_mutex();
+  std::mutex::lock(v2);
   {
     {
       operator new();
@@ -1696,42 +1681,42 @@ void std::__shared_ptr_pointer<std::unordered_set<double> *,mlcore::SharedObject
   JUMPOUT(0x1DA6EDD40);
 }
 
-void *std::__hash_table<double,std::hash<double>,std::equal_to<double>,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(void *result, double a2)
+void std::__hash_table<double,std::hash<double>,std::equal_to<double>,std::allocator<double>>::__emplace_unique_key_args<double,double const&>(void *a1, double *a2, double a3)
 {
-  if (a2 == 0.0)
+  if (a3 == 0.0)
   {
-    v2 = 0.0;
+    v3 = 0.0;
   }
 
   else
   {
-    v2 = a2;
+    v3 = a3;
   }
 
-  v3 = result[1];
-  if (!*&v3)
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_21;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = v2;
-    if (*&v2 >= *&v3)
+    v6 = v3;
+    if (*&v3 >= *&v4)
     {
-      *&v5 = *&v2 % *&v3;
+      *&v6 = *&v3 % *&v4;
     }
   }
 
   else
   {
-    *&v5 = (*&v3 - 1) & *&v2;
+    *&v6 = (*&v4 - 1) & *&v3;
   }
 
-  v6 = *(*result + 8 * *&v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * *&v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_21:
     operator new();
@@ -1739,58 +1724,56 @@ LABEL_21:
 
   while (1)
   {
-    v8 = *(v7 + 1);
-    if (v8 == *&v2)
+    v9 = *(v8 + 1);
+    if (v9 == *&v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != *&v5)
+    if (v9 != *&v6)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_21;
     }
   }
 
-  if (v7[2] != a2)
+  if (v8[2] != a3)
   {
     goto LABEL_20;
   }
-
-  return result;
 }
 
-void sub_1D58F4F78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F4F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::AnyInPredicate<double>::AnyInPredicate(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlcore::AnyInPredicate<double>::AnyInPredicate(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = a2[1];
-  v7 = (v5 - *a2) >> 3;
+  v7 = v5 - *a2;
   v12 = 0;
   v13 = 0;
   v11 = 0;
@@ -1800,7 +1783,7 @@ uint64_t mlcore::AnyInPredicate<double>::AnyInPredicate(uint64_t a1, uint64_t *a
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v8 = v11;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 8, v11, v12, (v12 - v11) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 8), v11, v12, (v12 - v11) >> 3);
   if (v8)
   {
     operator delete(v8);
@@ -1840,9 +1823,9 @@ void mlcore::AnyInPredicate<int>::AnyInPredicate(uint64_t a1, uint64_t a2, int *
   mlcore::AnyInPredicate<int>::AnyInPredicate();
 }
 
-void sub_1D58F50F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F50F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1857,7 +1840,8 @@ uint64_t std::unordered_set<int>::unordered_set<std::__wrap_iter<int const*>>(ui
     v5 = a2;
     do
     {
-      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, *v5++);
+      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, *v5, v5);
+      ++v5;
     }
 
     while (v5 != a3);
@@ -1866,28 +1850,28 @@ uint64_t std::unordered_set<int>::unordered_set<std::__wrap_iter<int const*>>(ui
   return a1;
 }
 
-void mlcore::AnyInPredicate<int>::AnyInPredicate(void *a1, uint64_t *a2)
+void mlcore::AnyInPredicate<int>::AnyInPredicate(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = (v3 - *a2) >> 3;
-  v8 = 0;
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v5 - *a2;
+  v10 = 0;
+  v11 = 0;
   v9 = 0;
-  v7 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<int> * const*>,std::__wrap_iter<mlcore::ModelProperty<int> * const*>>(&v7, v4, v3, v5);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<int> * const*>,std::__wrap_iter<mlcore::ModelProperty<int> * const*>>(&v9, v6, v5, v7);
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  v6 = v7;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), v7, v8, (v8 - v7) >> 3);
-  if (v6)
+  v8 = v9;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, v9, v10, (v10 - v9) >> 3);
+  if (v8)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 
   *a1 = &unk_1F50D7190;
-  mlcore::SharedObject<std::unordered_set<int>,int>::create<std::unordered_set<int> const&>();
+  mlcore::SharedObject<std::unordered_set<int>,int>::create<std::unordered_set<int> const&>((a1 + 4), a3);
 }
 
 void sub_1D58F5250(_Unwind_Exception *exception_object)
@@ -1903,7 +1887,7 @@ void sub_1D58F5250(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<int> * const*>,std::__wrap_iter<mlcore::ModelProperty<int> * const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<int> * const*>,std::__wrap_iter<mlcore::ModelProperty<int> * const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1925,10 +1909,10 @@ void sub_1D58F52D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::SharedObject<std::unordered_set<int>,int>::create<std::unordered_set<int> const&>()
+void mlcore::SharedObject<std::unordered_set<int>,int>::create<std::unordered_set<int> const&>(uint64_t a1, uint64_t a2)
 {
-  v0 = mlcore::SharedObject<std::unordered_set<int>,int>::_mutex();
-  std::mutex::lock(v0);
+  v2 = mlcore::SharedObject<std::unordered_set<int>,int>::_mutex();
+  std::mutex::lock(v2);
   {
     {
       operator new();
@@ -2022,18 +2006,18 @@ void std::__shared_ptr_pointer<std::unordered_set<int> *,mlcore::SharedObject<st
   JUMPOUT(0x1DA6EDD40);
 }
 
-void sub_1D58F5C1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F5C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::AnyInPredicate<int>::AnyInPredicate(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlcore::AnyInPredicate<int>::AnyInPredicate(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = a2[1];
-  v7 = (v5 - *a2) >> 3;
+  v7 = v5 - *a2;
   v12 = 0;
   v13 = 0;
   v11 = 0;
@@ -2043,7 +2027,7 @@ uint64_t mlcore::AnyInPredicate<int>::AnyInPredicate(uint64_t a1, uint64_t *a2, 
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v8 = v11;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 8, v11, v12, (v12 - v11) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 8), v11, v12, (v12 - v11) >> 3);
   if (v8)
   {
     operator delete(v8);
@@ -2083,9 +2067,9 @@ void mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(uint64_t a1, ui
   mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate();
 }
 
-void sub_1D58F5DA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F5DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2100,7 +2084,7 @@ uint64_t std::unordered_set<mediaplatform::Data>::unordered_set<std::__wrap_iter
     v5 = a2;
     do
     {
-      std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::__emplace_unique_key_args<mediaplatform::Data,mediaplatform::Data const&>(a1, v5);
+      std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::__emplace_unique_key_args<mediaplatform::Data,mediaplatform::Data const&>(a1, v5, v5);
       v5 += 40;
     }
 
@@ -2110,28 +2094,28 @@ uint64_t std::unordered_set<mediaplatform::Data>::unordered_set<std::__wrap_iter
   return a1;
 }
 
-void mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(void *a1, uint64_t *a2)
+void mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = (v3 - *a2) >> 3;
-  v8 = 0;
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v5 - *a2;
+  v10 = 0;
+  v11 = 0;
   v9 = 0;
-  v7 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>,std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>>(&v7, v4, v3, v5);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>,std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>>(&v9, v6, v5, v7);
   *a1 = &unk_1F50D4A80;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  v6 = v7;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 1), v7, v8, (v8 - v7) >> 3);
-  if (v6)
+  v8 = v9;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 1, v9, v10, (v10 - v9) >> 3);
+  if (v8)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 
   *a1 = &unk_1F50D7298;
-  mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>();
+  mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>((a1 + 4), a3);
 }
 
 void sub_1D58F5F04(_Unwind_Exception *exception_object)
@@ -2177,7 +2161,7 @@ void std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::e
   }
 }
 
-uint64_t std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>,std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>,std::__wrap_iter<mlcore::ModelProperty<mediaplatform::Data> * const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2199,10 +2183,10 @@ void sub_1D58F602C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>()
+void mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>(uint64_t a1, uint64_t a2)
 {
-  v0 = mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::_mutex();
-  std::mutex::lock(v0);
+  v2 = mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::_mutex();
+  std::mutex::lock(v2);
   {
     {
       operator new();
@@ -2245,7 +2229,7 @@ uint64_t mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::_obj
   return mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::_objects(void)::objects;
 }
 
-void mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>(std::unordered_set<mediaplatform::Data> const&)::{lambda(std::unordered_set<mediaplatform::Data>*)#1}::operator()(int *a1, uint64_t a2)
+void mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::create<std::unordered_set<mediaplatform::Data> const&>(std::unordered_set<mediaplatform::Data> const&)::{lambda(std::unordered_set<mediaplatform::Data>*)#1}::operator()(unsigned int *a1, uint64_t a2)
 {
   v4 = mlcore::SharedObject<std::unordered_set<mediaplatform::Data>,int>::_mutex();
   std::mutex::lock(v4);
@@ -2465,82 +2449,82 @@ void std::__shared_ptr_pointer<std::unordered_set<mediaplatform::Data> *,mlcore:
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::__emplace_unique_key_args<mediaplatform::Data,mediaplatform::Data const&>(void *a1, uint64_t a2)
+uint64_t std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::__emplace_unique_key_args<mediaplatform::Data,mediaplatform::Data const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = std::hash<mediaplatform::Data>::operator()(*(a2 + 8), *(a2 + 24));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::hash<mediaplatform::Data>::operator()(*(a2 + 8), *(a2 + 24));
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_20:
     operator new();
   }
 
-  v12 = *(a2 + 8);
-  v13 = *(a2 + 24);
+  v13 = *(a2 + 8);
+  v14 = *(a2 + 24);
   while (1)
   {
-    v14 = v11[1];
-    if (v14 == v5)
+    v15 = v12[1];
+    if (v15 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v14 >= *&v6)
+      if (v15 >= *&v7)
       {
-        v14 %= *&v6;
+        v15 %= *&v7;
       }
     }
 
     else
     {
-      v14 &= *&v6 - 1;
+      v15 &= *&v7 - 1;
     }
 
-    if (v14 != v9)
+    if (v15 != v10)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_20;
     }
   }
 
-  if (v12 != v11[3])
+  if (v13 != v12[3])
   {
     goto LABEL_19;
   }
 
-  result = memcmp(v11[5], v13, v12);
+  result = memcmp(v12[5], v14, v13);
   if (result)
   {
     goto LABEL_19;
@@ -2549,9 +2533,9 @@ LABEL_19:
   return result;
 }
 
-void sub_1D58F6D48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F6D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<mediaplatform::Data,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<mediaplatform::Data,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2601,18 +2585,18 @@ uint64_t std::unique_ptr<std::__hash_node<mediaplatform::Data,void *>,std::__has
   return a1;
 }
 
-void sub_1D58F6EF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F6EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<mediaplatform::Data,std::hash<mediaplatform::Data>,std::equal_to<mediaplatform::Data>,std::allocator<mediaplatform::Data>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = a2[1];
-  v7 = (v5 - *a2) >> 3;
+  v7 = v5 - *a2;
   v12 = 0;
   v13 = 0;
   v11 = 0;
@@ -2622,7 +2606,7 @@ uint64_t mlcore::AnyInPredicate<mediaplatform::Data>::AnyInPredicate(uint64_t a1
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v8 = v11;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 8, v11, v12, (v12 - v11) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 8), v11, v12, (v12 - v11) >> 3);
   if (v8)
   {
     operator delete(v8);
@@ -2786,10 +2770,10 @@ LABEL_30:
   return MEMORY[0x1DA6EDCB0](&v26);
 }
 
-void sub_1D58F7388(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_1D58F7388(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  std::ostringstream::~ostringstream(&a8);
+  va_start(va, a25);
+  std::ostringstream::~ostringstream(&a12);
   MEMORY[0x1DA6EDCB0](va);
   _Unwind_Resume(a1);
 }
@@ -2801,7 +2785,7 @@ void mediaplatform::Describable::descriptionAttributes(void *a1@<X8>)
   a1[2] = 0;
 }
 
-unint64_t mediaplatform::Describable::className@<X0>(mediaplatform::Describable *this@<X0>, _BYTE *a2@<X8>)
+unint64_t mediaplatform::Describable::className@<X0>(mediaplatform::Describable *this@<X0>, void *a2@<X8>)
 {
   if (!this)
   {
@@ -2821,13 +2805,13 @@ unint64_t mediaplatform::Describable::className@<X0>(mediaplatform::Describable 
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, (v3 & 0x7FFFFFFFFFFFFFFFLL), result);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -2871,25 +2855,19 @@ uint64_t mlcore::TypedEntityClass<mlcore::Podcast>::databaseTable()
   return v0;
 }
 
-void *mediaplatform::Singleton<mlcore::AlbumTable>::sharedInstance(void *result)
+void mediaplatform::Singleton<mlcore::AlbumTable>::sharedInstance(void *a1)
 {
-  v1 = result;
   {
-    if (result)
-    {
-      _ZNSt3__115allocate_sharedB8ne200100IN6mlcore10AlbumTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-    }
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore10AlbumTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v2 = mediaplatform::Singleton<mlcore::AlbumTable>::sharedInstance(void)::instance;
-  *v1 = mediaplatform::Singleton<mlcore::AlbumTable>::sharedInstance(void)::instance;
-  v1[1] = v2;
+  *a1 = mediaplatform::Singleton<mlcore::AlbumTable>::sharedInstance(void)::instance;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1D58F7798(_Unwind_Exception *a1)
@@ -2907,11 +2885,11 @@ void std::__shared_ptr_emplace<mlcore::AlbumTable>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x1DA6EDD40);
 }
 
-void sub_1D58F7A2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58F7A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -2930,7 +2908,7 @@ void mlcore::TypedEntityClass<mlcore::Podcast>::~TypedEntityClass(mlcore::Entity
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Podcast::~Podcast(mlcore::Podcast *this)
+void mlcore::Podcast::~Podcast(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -3013,7 +2991,7 @@ _DWORD *MemNewHandle(size_t a1)
   return v2;
 }
 
-uint64_t MemResizeHandle(void ***a1, int a2)
+uint64_t MemResizeHandle(void ***a1, unsigned int a2)
 {
   if (!a1)
   {
@@ -3025,7 +3003,7 @@ uint64_t MemResizeHandle(void ***a1, int a2)
   {
     v5 = *(v4 + 2);
     v6 = v5 + a2;
-    if (a2 < 0 && v6 < 0)
+    if ((a2 & 0x80000000) != 0 && v6 < 0)
     {
       return 4294967246;
     }
@@ -3136,10 +3114,10 @@ void mlcore::SQLRenderer::popRenderingContext(mlcore::SQLRenderer *this)
   *(this + 9) = v1 - 16;
 }
 
-void mlcore::SQLRenderer::pushRenderingContext(mlcore::SQLRenderer *this)
+void mlcore::SQLRenderer::pushRenderingContext(uint64_t **this)
 {
-  (*(*this + 8))(&v1);
-  std::unordered_set<std::string>::unordered_set(v2, v1 + 48);
+  ((*this)[1])(&v2);
+  std::unordered_set<std::string>::unordered_set(v3, v2 + 48);
   operator new();
 }
 
@@ -3165,7 +3143,7 @@ void mlcore::SQLRenderer::stringForDatabaseBindParameter(mlcore::SQLRenderer *th
   *a3 = 63;
 }
 
-void mlcore::SQLRenderer::SQLRenderer(uint64_t a1)
+void mlcore::SQLRenderer::SQLRenderer(uint64_t a1, uint64_t a2)
 {
   *a1 = &unk_1F50D79D0;
   *(a1 + 8) = 0;
@@ -3178,16 +3156,16 @@ void mlcore::SQLRenderer::SQLRenderer(uint64_t a1)
   operator new();
 }
 
-void sub_1D58F8540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1D58F8540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  va_start(va, a5);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](va);
-  *(v3 + 32) = v4;
+  *(v5 + 32) = v6;
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v3 + 31) < 0)
+  if (*(v5 + 31) < 0)
   {
-    operator delete(*v6);
+    operator delete(*v8);
   }
 
   _Unwind_Resume(a1);
@@ -3245,13 +3223,13 @@ void sub_1D58F8688(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlcore::AndPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void mlcore::AndPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
+  v12 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = 0;
   v3 = *(a1 + 8);
   v4 = *(a1 + 16);
   if (v3 != v4)
@@ -3265,31 +3243,30 @@ void mlcore::AndPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, v
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v8 = a2[1];
-      v9 = *a2;
-      v10 = v8;
+      v8 = *(a2 + 8);
+      v9 = v8;
       if (v8)
       {
         atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(*v6 + 64))(&v11);
-      v12 = v11;
-      v11 = 0uLL;
-      std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::push_back[abi:ne200100](&v13, &v12);
-      if (*(&v12 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
-      }
-
+      (*(*v6 + 64))(&v10);
+      v11 = v10;
+      v10 = 0uLL;
+      std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::push_back[abi:ne200100](&v12, &v11);
       if (*(&v11 + 1))
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
       }
 
-      if (v10)
+      if (*(&v10 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+      }
+
+      if (v9)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       if (v7)
@@ -3301,15 +3278,15 @@ void mlcore::AndPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, v
     }
 
     while (v3 != v4);
-    if (v13 != v14)
+    if (v12 != v13)
     {
-      LODWORD(v11) = 1;
-      std::allocate_shared[abi:ne200100]<mediaplatform::SQLBinaryExpressionList,std::allocator<mediaplatform::SQLBinaryExpressionList>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> &,mediaplatform::SQLBinaryExpression::BinaryOperator,0>();
+      LODWORD(v10) = 1;
+      std::allocate_shared[abi:ne200100]<mediaplatform::SQLBinaryExpressionList,std::allocator<mediaplatform::SQLBinaryExpressionList>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> &,mediaplatform::SQLBinaryExpression::BinaryOperator,0>(&v11, &v12, &v10);
     }
   }
 
-  *&v12 = &v13;
-  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&v12);
+  *&v11 = &v12;
+  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&v11);
 }
 
 void sub_1D58F87FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, char a16)
@@ -3402,7 +3379,7 @@ void sub_1D58F8A54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlcore::AndPredicate::description@<X0>(mlcore::AndPredicate *this@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::AndPredicate::description@<X0>(mlcore::AndPredicate *this@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
   LOBYTE(__p[0]) = 40;
@@ -3485,13 +3462,13 @@ void mlcore::AndPredicate::~AndPredicate(mlcore::AndPredicate *this)
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](&v1);
 }
 
-void mlcore::OrPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void mlcore::OrPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
+  v12 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = 0;
   v3 = *(a1 + 8);
   v4 = *(a1 + 16);
   if (v3 != v4)
@@ -3505,31 +3482,30 @@ void mlcore::OrPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v8 = a2[1];
-      v9 = *a2;
-      v10 = v8;
+      v8 = *(a2 + 8);
+      v9 = v8;
       if (v8)
       {
         atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(*v6 + 64))(&v11);
-      v12 = v11;
-      v11 = 0uLL;
-      std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::push_back[abi:ne200100](&v13, &v12);
-      if (*(&v12 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
-      }
-
+      (*(*v6 + 64))(&v10);
+      v11 = v10;
+      v10 = 0uLL;
+      std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::push_back[abi:ne200100](&v12, &v11);
       if (*(&v11 + 1))
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11 + 1));
       }
 
-      if (v10)
+      if (*(&v10 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+      }
+
+      if (v9)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       if (v7)
@@ -3541,15 +3517,15 @@ void mlcore::OrPredicate::_SQLExpression(uint64_t a1@<X0>, uint64_t *a2@<X1>, vo
     }
 
     while (v3 != v4);
-    if (v13 != v14)
+    if (v12 != v13)
     {
-      LODWORD(v11) = 2;
-      std::allocate_shared[abi:ne200100]<mediaplatform::SQLBinaryExpressionList,std::allocator<mediaplatform::SQLBinaryExpressionList>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> &,mediaplatform::SQLBinaryExpression::BinaryOperator,0>();
+      LODWORD(v10) = 2;
+      std::allocate_shared[abi:ne200100]<mediaplatform::SQLBinaryExpressionList,std::allocator<mediaplatform::SQLBinaryExpressionList>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> &,mediaplatform::SQLBinaryExpression::BinaryOperator,0>(&v11, &v12, &v10);
     }
   }
 
-  *&v12 = &v13;
-  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&v12);
+  *&v11 = &v12;
+  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&v11);
 }
 
 void sub_1D58F8ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, char a16)
@@ -3627,7 +3603,7 @@ void sub_1D58F8FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlcore::OrPredicate::description@<X0>(mlcore::OrPredicate *this@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::OrPredicate::description@<X0>(mlcore::OrPredicate *this@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
   LOBYTE(__p[0]) = 40;
@@ -3710,20 +3686,19 @@ void mlcore::OrPredicate::~OrPredicate(mlcore::OrPredicate *this)
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](&v1);
 }
 
-void *mlcore::CompoundPredicate::CompoundPredicate(void *a1, uint64_t *a2)
+void *mlcore::CompoundPredicate::CompoundPredicate(void *a1, void **a2)
 {
   *a1 = &unk_1F50D4DD0;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>((a1 + 1), *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(a1 + 1, *a2, a2[1], (a2[1] - *a2) >> 4);
   return a1;
 }
 
-uint64_t mlcore::CreateAndPredicate@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
+uint64_t mlcore::CreateAndPredicate@<X0>(unint64_t **a1@<X0>, __n128 *a2@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a2 = 0uLL;
   v4 = std::remove[abi:ne200100]<std::__wrap_iter<std::shared_ptr<mlcore::Predicate> *>,decltype(nullptr)>(*a1, a1[1]);
   result = std::vector<std::shared_ptr<mlcore::Predicate>>::erase(a1, v4, a1[1]);
   v6 = *a1;
@@ -3737,8 +3712,8 @@ uint64_t mlcore::CreateAndPredicate@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a2 = v9;
-    a2[1] = v8;
+    a2->n128_u64[0] = v9;
+    a2->n128_u64[1] = v8;
   }
 
   else if (v7 >= 0x11)
@@ -3861,10 +3836,9 @@ void std::__shared_ptr_emplace<mlcore::AndPredicate>::~__shared_ptr_emplace(std:
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::CreateOrPredicate@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
+uint64_t mlcore::CreateOrPredicate@<X0>(uint64_t **a1@<X0>, __n128 *a2@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a2 = 0uLL;
   v4 = std::remove[abi:ne200100]<std::__wrap_iter<std::shared_ptr<mlcore::Predicate> *>,decltype(nullptr)>(*a1, a1[1]);
   result = std::vector<std::shared_ptr<mlcore::Predicate>>::erase(a1, v4, a1[1]);
   v6 = *a1;
@@ -3878,8 +3852,8 @@ uint64_t mlcore::CreateOrPredicate@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a2 = v9;
-    a2[1] = v8;
+    a2->n128_u64[0] = v9;
+    a2->n128_u64[1] = v8;
   }
 
   else if (v7 >= 0x11)
@@ -4831,32 +4805,32 @@ mlcore::CloudKVSTable *mlcore::CloudKVSTable::CloudKVSTable(mlcore::CloudKVSTabl
 
 void sub_1D58FB4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _Unwind_Exception *exception_objecta, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, unint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *__p, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
-  *(v80 + 592) = v86;
-  if (*(v80 + 623) < 0)
-  {
-    operator delete(*v85);
-  }
-
-  *(v80 + 544) = v84;
-  if (*(v80 + 575) < 0)
-  {
-    operator delete(*v83);
-  }
-
-  *(v80 + 496) = v82;
-  if (*(v80 + 527) < 0)
-  {
-    operator delete(*v81);
-  }
-
-  *(v80 + 448) = a31;
-  if (*(v80 + 479) < 0)
+  *(v74 + 592) = v80;
+  if (*(v74 + 623) < 0)
   {
     operator delete(*v79);
   }
 
-  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v78);
-  mediaplatform::DatabaseTable<std::string,long long,long long,double,long long,long long>::~DatabaseTable(v80);
+  *(v74 + 544) = v78;
+  if (*(v74 + 575) < 0)
+  {
+    operator delete(*v77);
+  }
+
+  *(v74 + 496) = v76;
+  if (*(v74 + 527) < 0)
+  {
+    operator delete(*v75);
+  }
+
+  *(v74 + 448) = a31;
+  if (*(v74 + 479) < 0)
+  {
+    operator delete(*v73);
+  }
+
+  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v72);
+  mediaplatform::DatabaseTable<std::string,long long,long long,double,long long,long long>::~DatabaseTable(v74);
   if (a49 < 0)
   {
     operator delete(__p);
@@ -4877,24 +4851,24 @@ void sub_1D58FB4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a52);
   }
 
-  if (a74 < 0)
-  {
-    operator delete(a73);
-  }
-
-  if (a72 < 0)
+  if (a68 < 0)
   {
     operator delete(a67);
   }
 
-  if (a78 < 0)
+  if (a66 < 0)
   {
-    operator delete(a77);
+    operator delete(a65);
   }
 
-  if (a76 < 0)
+  if (a72 < 0)
   {
-    operator delete(a75);
+    operator delete(a71);
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(a69);
   }
 
   STACK[0x218] = a36;
@@ -4922,9 +4896,16 @@ void sub_1D58FB4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D58FBB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<std::string,long long,long long,double,long long,long long>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D58FBB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4942,9 +4923,9 @@ void mediaplatform::DatabaseTable<std::string,long long,long long,double,long lo
   mediaplatform::ColumnNamesApplier::operator()<long long>(a2, a1 + 80);
 }
 
-void sub_1D58FBBD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D58FBBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5194,10 +5175,10 @@ uint64_t mediaplatform::DatabaseColumnTuple<5ul,mediaplatform::DatabaseColumn<lo
   return a1;
 }
 
-void mlcore::CloudKVSTable::keyColoumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::keyColoumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 415) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 49), *(this + 50));
@@ -5206,24 +5187,24 @@ void mlcore::CloudKVSTable::keyColoumn(mlcore::CloudKVSTable *this@<X0>, uint64_
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 392);
-    *(a2 + 24) = *(this + 51);
+    a1[3] = *(this + 51);
   }
 
-  *(a2 + 32) = *(this + 104);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 420);
+  *(a1 + 8) = *(this + 104);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 420);
   if (*(this + 447) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 53), *(this + 54));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 53), *(this + 54));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 424);
-    *(a2 + 56) = *(this + 55);
+    *(a1 + 5) = *(this + 424);
+    a1[7] = *(this + 55);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D58FC50C(_Unwind_Exception *exception_object)
@@ -5237,10 +5218,10 @@ void sub_1D58FC50C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::CloudKVSTable::playCountColumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::playCountColumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 479) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 57), *(this + 58));
@@ -5249,19 +5230,19 @@ void mlcore::CloudKVSTable::playCountColumn(mlcore::CloudKVSTable *this@<X0>, ui
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 456);
-    *(a2 + 24) = *(this + 59);
+    a1[3] = *(this + 59);
   }
 
-  *(a2 + 32) = *(this + 120);
-  *(a2 + 44) = *(this + 123);
-  *(a2 + 36) = *(this + 484);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 120);
+  *(a1 + 11) = *(this + 123);
+  *(a1 + 36) = *(this + 484);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::CloudKVSTable::hasBeenPlayedColumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::hasBeenPlayedColumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 527) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 63), *(this + 64));
@@ -5270,19 +5251,19 @@ void mlcore::CloudKVSTable::hasBeenPlayedColumn(mlcore::CloudKVSTable *this@<X0>
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 504);
-    *(a2 + 24) = *(this + 65);
+    a1[3] = *(this + 65);
   }
 
-  *(a2 + 32) = *(this + 132);
-  *(a2 + 44) = *(this + 135);
-  *(a2 + 36) = *(this + 532);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 132);
+  *(a1 + 11) = *(this + 135);
+  *(a1 + 36) = *(this + 532);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::CloudKVSTable::bookmarkTimeColumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::bookmarkTimeColumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 575) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 69), *(this + 70));
@@ -5291,19 +5272,19 @@ void mlcore::CloudKVSTable::bookmarkTimeColumn(mlcore::CloudKVSTable *this@<X0>,
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 552);
-    *(a2 + 24) = *(this + 71);
+    a1[3] = *(this + 71);
   }
 
-  *(a2 + 32) = *(this + 144);
-  *(a2 + 44) = *(this + 147);
-  *(a2 + 36) = *(this + 580);
-  *a2 = &unk_1F50D7B00;
+  *(a1 + 8) = *(this + 144);
+  *(a1 + 11) = *(this + 147);
+  *(a1 + 36) = *(this + 580);
+  *a1 = &unk_1F50D7B00;
 }
 
-void mlcore::CloudKVSTable::bookmarkSyncTimestampColumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::bookmarkSyncTimestampColumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 623) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 75), *(this + 76));
@@ -5312,19 +5293,19 @@ void mlcore::CloudKVSTable::bookmarkSyncTimestampColumn(mlcore::CloudKVSTable *t
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 600);
-    *(a2 + 24) = *(this + 77);
+    a1[3] = *(this + 77);
   }
 
-  *(a2 + 32) = *(this + 156);
-  *(a2 + 44) = *(this + 159);
-  *(a2 + 36) = *(this + 628);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 156);
+  *(a1 + 11) = *(this + 159);
+  *(a1 + 36) = *(this + 628);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::CloudKVSTable::bookmarkSyncRevisionColumn(mlcore::CloudKVSTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::CloudKVSTable::bookmarkSyncRevisionColumn(uint64_t *__return_ptr a1@<X8>, mlcore::CloudKVSTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 671) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 81), *(this + 82));
@@ -5333,21 +5314,20 @@ void mlcore::CloudKVSTable::bookmarkSyncRevisionColumn(mlcore::CloudKVSTable *th
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 648);
-    *(a2 + 24) = *(this + 83);
+    a1[3] = *(this + 83);
   }
 
-  *(a2 + 32) = *(this + 168);
-  *(a2 + 44) = *(this + 171);
-  *(a2 + 36) = *(this + 676);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 168);
+  *(a1 + 11) = *(this + 171);
+  *(a1 + 36) = *(this + 676);
+  *a1 = &unk_1F50D7AC0;
 }
 
-uint64_t mediaplatform::DatabaseTableBase::columnNames@<X0>(mediaplatform::DatabaseTableBase *this@<X0>, void *a2@<X8>)
+std::string *mediaplatform::DatabaseTableBase::columnNames@<X0>(__int128 **this@<X0>, std::string *a2@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *(this + 4), *(this + 5), 0xAAAAAAAAAAAAAAABLL * ((*(this + 5) - *(this + 4)) >> 3));
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  return std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, this[4], this[5], 0xAAAAAAAAAAAAAAABLL * ((this[5] - this[4]) >> 3));
 }
 
 void mediaplatform::DatabaseTableBase::~DatabaseTableBase(void **this)
@@ -5391,10 +5371,10 @@ void *mediaplatform::DatabaseTableBase::DatabaseTableBase(void *a1, __int128 *a2
 
 void mlcore::Entity::_SQLExpressionForIdentity(mlcore::Entity *this)
 {
-  v1 = (*(*this + 48))(this);
-  v2 = (*(*v1 + 96))(v1);
-  (*(*v2 + 24))(v3);
-  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,0>();
+  v2 = (*(*this + 48))(this);
+  v3 = (*(*v2 + 96))(v2);
+  (*(*v3 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,0>(&v5, v4[0]);
 }
 
 void sub_1D58FCAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, std::__shared_weak_count *a12, uint64_t a13, char a14)
@@ -5449,7 +5429,7 @@ void sub_1D58FCD5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mediaplatform::SQLLiteralValue<long long>::sql@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mediaplatform::SQLLiteralValue<long long>::sql@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
   v4 = *(a1 + 8);
@@ -5528,7 +5508,7 @@ LABEL_22:
   return MEMORY[0x1DA6EDCB0](&v19);
 }
 
-void sub_1D58FD054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1D58FD054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
 {
   if (a15 < 0)
   {
@@ -5569,20 +5549,18 @@ void std::__shared_ptr_emplace<mediaplatform::SQLLiteralValue<long long>>::~__sh
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Entity::descriptionAttributes(mlcore::Entity *this@<X0>, void *a2@<X8>)
+void mlcore::Entity::descriptionAttributes(mlcore::Entity *this@<X0>, std::string *a2@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  *&v4 = *MEMORY[0x1E69E9840];
   std::to_string(&__p, *(this + 28));
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &__p, &v5, 1uLL);
+  a2->__r_.__value_.__r.__words[0] = 0;
+  a2->__r_.__value_.__l.__size_ = 0;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &__p, &v4, 1uLL);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1D58FD280(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -5628,22 +5606,23 @@ void *mlcore::Entity::Entity(void *a1, uint64_t a2, uint64_t a3)
   return a1;
 }
 
-void mlcore::Entity::createWithType(mlcore::Entity *this@<X0>, void *a2@<X8>)
+void mlcore::Entity::createWithType(mlcore::Entity *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  v5 = a2;
+  *a3 = 0;
+  a3[1] = 0;
   if (this > 4)
   {
     if (this <= 7)
     {
       if (this == 5)
       {
-        std::allocate_shared[abi:ne200100]<mlcore::Composer,std::allocator<mlcore::Composer>,long long &,0>();
+        std::allocate_shared[abi:ne200100]<mlcore::Composer,std::allocator<mlcore::Composer>,long long &,0>(&v4, &v5);
       }
 
       if (this == 7)
       {
-        std::allocate_shared[abi:ne200100]<mlcore::Artist,std::allocator<mlcore::Artist>,long long &,0>();
+        std::allocate_shared[abi:ne200100]<mlcore::Artist,std::allocator<mlcore::Artist>,long long &,0>(&v4, &v5);
       }
     }
 
@@ -5654,7 +5633,7 @@ void mlcore::Entity::createWithType(mlcore::Entity *this@<X0>, void *a2@<X8>)
         case 8:
           operator new();
         case 9:
-          std::allocate_shared[abi:ne200100]<mlcore::PlaylistItem,std::allocator<mlcore::PlaylistItem>,long long &,0>();
+          std::allocate_shared[abi:ne200100]<mlcore::PlaylistItem,std::allocator<mlcore::PlaylistItem>,long long &,0>(&v4, &v5);
         case 0xD:
           operator new();
       }
@@ -5685,7 +5664,7 @@ void mlcore::Entity::createWithType(mlcore::Entity *this@<X0>, void *a2@<X8>)
 
     if (this == 1)
     {
-      std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>(&v4, &v5);
     }
   }
 
@@ -5718,28 +5697,28 @@ void std::__shared_ptr_emplace<mlcore::Genre>::~__shared_ptr_emplace(std::__shar
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::LocalizedSearchQuery::_perform(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlcore::LocalizedSearchQuery::_perform(uint64_t a1, std::exception **a2, uint64_t a3)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   v5[0] = *a2;
   v5[1] = v4;
   if (v4)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4[1], 1uLL, memory_order_relaxed);
   }
 
   std::__function::__value_func<void ()(std::shared_ptr<mlcore::QueryResult>)>::__value_func[abi:ne200100](v6, a3);
-  mlcore::LocalizedSearchQuery::_performWeightedSearch(a1, v5);
+  mlcore::LocalizedSearchQuery::_performWeightedSearch(a1, v5, v6);
 }
 
-void sub_1D58FDA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D58FDA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(std::shared_ptr<mlcore::QueryResult>)>::~__value_func[abi:ne200100](va);
-  if (v4)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   _Unwind_Resume(a1);
@@ -5770,21 +5749,19 @@ uint64_t std::__function::__value_func<void ()(std::shared_ptr<mlcore::QueryResu
   return a1;
 }
 
-void mlcore::LocalizedSearchQuery::_performWeightedSearch(uint64_t a1, std::exception **a2)
+void mlcore::LocalizedSearchQuery::_performWeightedSearch(uint64_t a1, std::exception **a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  v3 = (*a2)[3].__vftable;
-  v15 = (*a2)[2].__vftable;
-  if (v3)
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = *a2;
+  v4 = (*a2)[3].__vftable;
+  v14 = (*a2)[2].__vftable;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v3->~exception_0, 1uLL, memory_order_relaxed);
-    v2 = *a2;
+    atomic_fetch_add_explicit(&v4->~exception_0, 1uLL, memory_order_relaxed);
+    v3 = *a2;
   }
 
-  v4 = v2[6].__vftable;
-  v5 = v4->~exception_0;
-  v14 = v4->~exception;
+  v5 = v3[6].~exception_0;
   if (v5)
   {
     atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
@@ -5801,25 +5778,25 @@ void mlcore::LocalizedSearchQuery::_performWeightedSearch(uint64_t a1, std::exce
     }
 
     v9 = v7[3].__vftable;
-    v17[0] = v7[2];
-    v17[1].__vftable = v9;
+    v16[0] = v7[2];
+    v16[1].__vftable = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->~exception_0, 1uLL, memory_order_relaxed);
     }
 
-    v18 = v7;
-    v19 = v8;
+    v17 = v7;
+    v18 = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8[1], 1uLL, memory_order_relaxed);
     }
 
-    mlcore::EntityRevisionController::latestRevisionNumber(v17);
+    mlcore::EntityRevisionController::latestRevisionNumber(v16);
   }
 
-  what = v15[2].what;
-  v11 = v15[3].~exception;
+  what = v14[2].what;
+  v11 = v14[3].~exception;
   if (v11)
   {
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5834,12 +5811,12 @@ void mlcore::LocalizedSearchQuery::_performWeightedSearch(uint64_t a1, std::exce
 
   if (*(v12 + 399) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, *(v12 + 376), *(v12 + 384));
+    std::string::__init_copy_ctor_external(&v15, *(v12 + 376), *(v12 + 384));
   }
 
   else
   {
-    v16 = *(v12 + 376);
+    v15 = *(v12 + 376);
   }
 
   if (v13)
@@ -5878,11 +5855,11 @@ void sub_1D5900AE0(void *a1, int a2)
   JUMPOUT(0x1D59015E4);
 }
 
-void sub_1D5900AF8(uint64_t a1, int a2)
+void sub_1D5900AF8(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1D59015E4);
@@ -6016,12 +5993,11 @@ void sub_1D5900E80()
 
   if (SLOBYTE(STACK[0x317]) < 0)
   {
-    v1 = STACK[0x300];
     JUMPOUT(0x1D5900ED8);
   }
 
   std::__shared_weak_count::~__shared_weak_count(v0);
-  operator delete(v2);
+  operator delete(v1);
   JUMPOUT(0x1D5901604);
 }
 
@@ -6313,47 +6289,47 @@ void sub_1D59018A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(uint64_t *a1, uint64_t **a2, void **a3)
 {
-  v4 = *(a2 + 8);
-  v18 = *a2;
-  v19 = v4;
-  if (v4)
+  v5 = a2[1];
+  v19 = *a2;
+  v20 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v5 = std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(&v18);
-  if (v4)
+  v6 = std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(&v19);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_30;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v5;
-    if (v5 >= *&v6)
+    v10 = v6;
+    if (v6 >= *&v7)
     {
-      v9 = v5 % *&v6;
+      v10 = v6 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v5;
+    v10 = (*&v7 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_30:
     operator new();
@@ -6361,82 +6337,82 @@ LABEL_30:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_30;
     }
 
 LABEL_29:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_30;
     }
   }
 
-  v13 = v11[2];
-  v14 = v11[3];
-  if (v14)
-  {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v15 = *(a2 + 8);
-  v18 = *a2;
-  v19 = v15;
+  v14 = v12[2];
+  v15 = v12[3];
   if (v15)
   {
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(v13, &v18);
+  v16 = a2[1];
+  v19 = *a2;
+  v20 = v16;
+  if (v16)
+  {
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v17 = std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(v14, &v19);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
   if (v15)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_29;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1D5901DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D5901DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::find<std::shared_ptr<mlcore::LocalizedSearchScope>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::find<std::shared_ptr<mlcore::LocalizedSearchScope>>(void *a1, uint64_t **a2)
 {
-  v4 = std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](*a2, *(a2 + 8));
+  v4 = std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](*a2, a2[1]);
   v5 = a1[1];
   if (!*&v5)
   {
@@ -6575,35 +6551,35 @@ void std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::push_back[abi:n
   *(a1 + 8) = v6;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(float *a1, uint64_t **a2, void **a3)
 {
-  v4 = std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](*a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](*a2, a2[1]);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6611,87 +6587,87 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](v11[2], v11[3], a2))
+  if (!std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>::operator()[abi:ne200100](v12[2], v12[3], a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(uint64_t *a1, uint64_t **a2, void **a3)
 {
-  v4 = *(a2 + 8);
-  v18 = *a2;
-  v19 = v4;
-  if (v4)
+  v5 = a2[1];
+  v19 = *a2;
+  v20 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v5 = std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(&v18);
-  if (v4)
+  v6 = std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(&v19);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_30;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v5;
-    if (v5 >= *&v6)
+    v10 = v6;
+    if (v6 >= *&v7)
     {
-      v9 = v5 % *&v6;
+      v10 = v6 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v5;
+    v10 = (*&v7 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_30:
     operator new();
@@ -6699,80 +6675,80 @@ LABEL_30:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_30;
     }
 
 LABEL_29:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_30;
     }
   }
 
-  v13 = v11[2];
-  v14 = v11[3];
-  if (v14)
-  {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v15 = *(a2 + 8);
-  v18 = *a2;
-  v19 = v15;
+  v14 = v12[2];
+  v15 = v12[3];
   if (v15)
   {
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(v13, &v18);
+  v16 = a2[1];
+  v19 = *a2;
+  v20 = v16;
+  if (v16)
+  {
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v17 = std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>::operator()(v14, &v19);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
   if (v15)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_29;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1D5902940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D5902940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-char *std::vector<std::pair<int,mlcore::ModelPropertyBase *>>::__assign_with_size[abi:ne200100]<std::pair<int,mlcore::ModelPropertyBase *> const*,std::pair<int,mlcore::ModelPropertyBase *> const*>(uint64_t a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::pair<int,mlcore::ModelPropertyBase *>>::__assign_with_size[abi:ne200100]<std::pair<int,mlcore::ModelPropertyBase *> const*,std::pair<int,mlcore::ModelPropertyBase *> const*>(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = *(a1 + 16);
@@ -6819,8 +6795,7 @@ char *std::vector<std::pair<int,mlcore::ModelPropertyBase *>>::__assign_with_siz
     while (v5 != a3)
     {
       *result = *v5;
-      *(result + 1) = *(v5 + 8);
-      v5 += 16;
+      *(result + 1) = *(v5++ + 1);
       result += 16;
     }
 
@@ -6835,8 +6810,7 @@ char *std::vector<std::pair<int,mlcore::ModelPropertyBase *>>::__assign_with_siz
       do
       {
         *result = *v5;
-        *(result + 1) = *(v5 + 8);
-        v5 += 16;
+        *(result + 1) = *(v5++ + 1);
         result += 16;
       }
 
@@ -6872,35 +6846,35 @@ uint64_t std::__function::__value_func<void ()(long long,unsigned long,int,BOOL 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::__unordered_map_hasher<mlcore::LocalizedSearchScope *,std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::hash<mlcore::LocalizedSearchScope *>,std::equal_to<mlcore::LocalizedSearchScope *>,true>,std::__unordered_map_equal<mlcore::LocalizedSearchScope *,std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::equal_to<mlcore::LocalizedSearchScope *>,std::hash<mlcore::LocalizedSearchScope *>,true>,std::allocator<std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>>>::__emplace_unique_key_args<mlcore::LocalizedSearchScope *,std::piecewise_construct_t const&,std::tuple<mlcore::LocalizedSearchScope *&&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::__unordered_map_hasher<mlcore::LocalizedSearchScope *,std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::hash<mlcore::LocalizedSearchScope *>,std::equal_to<mlcore::LocalizedSearchScope *>,true>,std::__unordered_map_equal<mlcore::LocalizedSearchScope *,std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>,std::equal_to<mlcore::LocalizedSearchScope *>,std::hash<mlcore::LocalizedSearchScope *>,true>,std::allocator<std::__hash_value_type<mlcore::LocalizedSearchScope *,std::shared_ptr<mlcore::EntityQueryResult>>>>::__emplace_unique_key_args<mlcore::LocalizedSearchScope *,std::piecewise_construct_t const&,std::tuple<mlcore::LocalizedSearchScope *&&>,std::tuple<>>(void *a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -6908,44 +6882,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,std::vector<mlcore::ModelPropertyBase *>>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,std::vector<mlcore::ModelPropertyBase *>>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,std::vector<mlcore::ModelPropertyBase *>>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,std::vector<mlcore::ModelPropertyBase *>>>>::~__hash_table(uint64_t a1)
@@ -7097,9 +7071,9 @@ uint64_t mlcore::LocalizedSearchQueryResult::LocalizedSearchQueryResult(uint64_t
   return a1;
 }
 
-void sub_1D5903100(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5903100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlcore::MediaError::~MediaError(va);
   _Unwind_Resume(a1);
 }
@@ -7181,7 +7155,7 @@ void std::__shared_ptr_emplace<mlcore::MultiEntityQueryResult>::~__shared_ptr_em
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::LocalizedSearchQueryResult::LocalizedSearchQueryResult(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t mlcore::LocalizedSearchQueryResult::LocalizedSearchQueryResult(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(v18, "");
   mlcore::MediaError::MediaError(&v20, 0, v18);
@@ -7289,7 +7263,7 @@ LABEL_23:
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
   *(a1 + 216) = 0;
-  std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(a1 + 200, *a3, a3[1], (a3[1] - *a3) >> 4);
+  std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>((a1 + 200), *a3, a3[1], (a3[1] - *a3) >> 4);
   return a1;
 }
 
@@ -7300,7 +7274,7 @@ void sub_1D59037D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7375,28 +7349,28 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
   v8 = atomic_load((v7 + 88));
   *a5 = v8 & 1;
   v9 = *(**(a1 + 16) + 16 * v6);
-  v61 = v9;
+  v59 = v9;
   if (*(&v9 + 1))
   {
     atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   v10 = *(a1 + 24);
-  v45 = &v61;
-  v11 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v10, &v61);
+  v45 = &v59;
+  v11 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,long long>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v10, &v59, &v45);
   v13 = *(v7 + 56);
   v12 = *(v7 + 64);
   if (v12 != v13)
   {
     v14 = 0;
     v15 = v11[4];
-    v16 = *v61;
+    v16 = *v59;
     do
     {
       if ((v15 >> v14))
       {
         v17 = *(v13 + 16 * v14);
-        v60 = v17;
+        v58 = v17;
         if (*(&v17 + 1))
         {
           atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -7405,8 +7379,8 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
         if (*(v17 + 56) != *(v17 + 48))
         {
           v18 = *(a1 + 32);
-          v45 = &v60;
-          v19 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v18, &v60)[4];
+          v45 = &v58;
+          v19 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::EntityClass *>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v18, &v58, &v45)[4];
           v21 = *(v19 + 8);
           v20 = *(v19 + 16);
           if (v21 >= v20)
@@ -7464,8 +7438,8 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
         }
 
         v30 = *(a1 + 40);
-        v45 = &v60;
-        v31 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v30, &v60);
+        v45 = &v58;
+        v31 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v30, &v58, &v45);
         v32 = *(v7 + 80);
         if (!v32)
         {
@@ -7482,23 +7456,23 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
           v51 = 1065353216;
           v52 = 0u;
           v53 = 0u;
-          memset(v55, 0, sizeof(v55));
+          memset(v55, 0, 32);
           v54 = 1065353216;
-          v56 = 1065353216;
-          memset(v57, 0, sizeof(v57));
-          v58 = 1065353216;
+          v55[8] = 1.0;
+          memset(v56, 0, 32);
+          v56[8] = 1.0;
           v45 = &unk_1F50D7378;
-          v59 = &unk_1F50D73A0;
-          v62 = (*(*v16 + 120))(v16);
-          v63 = &v62;
-          v33 = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(v57, v62);
+          v57 = &unk_1F50D73A0;
+          v60 = (*(*v16 + 120))(v16);
+          v61[0] = &v60;
+          v33 = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(v56, v60, v61);
           *(v33 + 3) = v44;
-          v62 = mlcore::LocalizedSearchPropertyWeight(v33);
-          v63 = &v62;
-          *(std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(v55, v62) + 6) = v43;
+          v60 = mlcore::LocalizedSearchPropertyWeight(v33);
+          v61[0] = &v60;
+          *(std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(v55, v60, v61) + 6) = v43;
           v34 = *(a1 + 40);
-          v63 = &v60;
-          v35 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v34, &v60);
+          v61[0] = &v58;
+          v35 = std::__hash_table<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::__unordered_map_hasher<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::__unordered_map_equal<std::shared_ptr<mlcore::LocalizedSearchScope>,std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>,std::equal_to<std::shared_ptr<mlcore::LocalizedSearchScope>>,std::hash<std::shared_ptr<mlcore::LocalizedSearchScope>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<mlcore::LocalizedSearchScope>,std::shared_ptr<std::vector<mlcore::PropertyCache>>>>>::__emplace_unique_key_args<std::shared_ptr<mlcore::LocalizedSearchScope>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<mlcore::LocalizedSearchScope> const&>,std::tuple<>>(v34, &v58, v61);
           v36 = v35[4];
           v37 = *(v36 + 8);
           if (v37 >= *(v36 + 16))
@@ -7519,9 +7493,9 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
           mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(&v45);
         }
 
-        if (*(&v60 + 1))
+        if (*(&v58 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v60 + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v58 + 1));
         }
 
         v13 = *(v7 + 56);
@@ -7556,9 +7530,9 @@ void std::__function::__func<mlcore::LocalizedSearchQuery::_performWeightedSearc
     }
   }
 
-  if (*(&v61 + 1))
+  if (*(&v59 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v61 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v59 + 1));
   }
 }
 
@@ -8136,38 +8110,38 @@ uint64_t std::unordered_set<unsigned long>::unordered_set(uint64_t a1, uint64_t 
   std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a1, i[2]);
+    std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a1, i[2], i + 2);
   }
 
   return a1;
 }
 
-void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *result, unint64_t a2)
+void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t a2, void *a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8175,44 +8149,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 uint64_t std::__function::__value_func<void ()(long long,std::string,BOOL &)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -8727,7 +8699,7 @@ void mlcore::LocalizedSearchQuery::~LocalizedSearchQuery(void **this)
   }
 }
 
-void *mlcore::LocalizedSearchScope::LocalizedSearchScope(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void *mlcore::LocalizedSearchScope::LocalizedSearchScope(void *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v6 = *a3;
   v5 = a3[1];
@@ -8742,7 +8714,7 @@ void *mlcore::LocalizedSearchScope::LocalizedSearchScope(void *a1, uint64_t a2, 
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>((a1 + 3), *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(a1 + 3, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
@@ -8766,7 +8738,7 @@ uint64_t mlcore::LocalizedSearchScope::LocalizedSearchScope(uint64_t a1, uint64_
   *(a1 + 40) = 0u;
   *(a1 + 24) = 0u;
   *(a1 + 8) = 0u;
-  std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(a1 + 48, *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>((a1 + 48), *a2, a2[1], (a2[1] - *a2) >> 4);
   return a1;
 }
 
@@ -8893,7 +8865,7 @@ void sub_1D5905FA0(_Unwind_Exception *exception_object)
 
 void mlcore::LocalizedSearchQuery::setScopes(uint64_t *a1, uint64_t **a2)
 {
-  v2 = (a1 + 7);
+  v2 = a1 + 7;
   if (a1 + 7 != a2)
   {
     v5 = *a2;
@@ -8910,8 +8882,8 @@ void mlcore::LocalizedSearchQuery::setScopes(uint64_t *a1, uint64_t **a2)
         operator delete(*v2);
         v7 = 0;
         *v2 = 0;
-        *(v2 + 8) = 0;
-        *(v2 + 16) = 0;
+        v2[1] = 0;
+        v2[2] = 0;
       }
 
       if (!(v9 >> 60))
@@ -8942,9 +8914,9 @@ void mlcore::LocalizedSearchQuery::setScopes(uint64_t *a1, uint64_t **a2)
     if (v12 >= v6)
     {
       v13 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *>(*a2, a2[1], v8);
-      for (i = a1[8]; i != v13; i -= 2)
+      for (i = a1[8]; i != v13; i -= 16)
       {
-        v15 = *(i - 1);
+        v15 = *(i - 8);
         if (v15)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -9083,33 +9055,32 @@ LABEL_21:
 
   *a3 = v17;
   a3[1] = v16;
-  v18 = *(v7 + 3);
-  v19 = v7[7];
-  v20 = v7[6];
-  if (v19 == v20)
+  v18 = v7[7];
+  v19 = v7[6];
+  if (v18 == v19)
   {
-    v26 = *(v17 + 256);
-    v25 = *(v17 + 264);
-    if (v25)
+    v25 = *(v17 + 256);
+    v24 = *(v17 + 264);
+    if (v24)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
       v7 = *a2;
     }
 
+    v26 = 0;
     v27 = 0;
     v28 = 0;
-    v29 = 0;
-    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v27, v7[3], v7[4], (v7[4] - v7[3]) >> 3);
-    (*(*v26 + 16))(v26, &v27, **a2);
-    if (v27)
+    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v26, v7[3], v7[4], (v7[4] - v7[3]) >> 3);
+    (*(*v25 + 16))(v25, &v26, **a2);
+    if (v26)
     {
-      v28 = v27;
-      operator delete(v27);
+      v27 = v26;
+      operator delete(v26);
     }
 
-    if (v25)
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
   }
 
@@ -9117,45 +9088,45 @@ LABEL_21:
   {
     do
     {
-      v22 = *v20;
-      v21 = v20[1];
-      if (v21)
+      v21 = *v19;
+      v20 = v19[1];
+      if (v20)
       {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v24 = *(v17 + 256);
-      v23 = *(v17 + 264);
-      if (v23)
+      v23 = *(v17 + 256);
+      v22 = *(v17 + 264);
+      if (v22)
       {
-        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       __p = 0;
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
-      std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&__p, v22[3], v22[4], (v22[4] - v22[3]) >> 3);
-      (*(*v24 + 16))(v24, &__p, *v22);
+      std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&__p, *(v21 + 24), *(v21 + 32), (*(v21 + 32) - *(v21 + 24)) >> 3);
+      (*(*v23 + 16))(v23, &__p, *v21);
       if (__p)
       {
-        v31 = __p;
+        v30 = __p;
         operator delete(__p);
       }
 
-      if (v23)
+      if (v22)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       }
 
-      if (v21)
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
       }
 
-      v20 += 2;
+      v19 += 2;
     }
 
-    while (v20 != v19);
+    while (v19 != v18);
   }
 }
 
@@ -9179,20 +9150,18 @@ void sub_1D5906444(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mediaplatform::DatabaseStatement::descriptionAttributes(mediaplatform::DatabaseStatement *this@<X0>, void *a2@<X8>)
+void mediaplatform::DatabaseStatement::descriptionAttributes(mediaplatform::DatabaseStatement *this@<X0>, std::string *a2@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  *&v4 = *MEMORY[0x1E69E9840];
   mediaplatform::FormatString<std::string>(&__p, "sql='{0}'", this + 32);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &__p, &v5, 1uLL);
+  a2->__r_.__value_.__r.__words[0] = 0;
+  a2->__r_.__value_.__l.__size_ = 0;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &__p, &v4, 1uLL);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1D5906548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9233,7 +9202,7 @@ void mediaplatform::DatabaseStatement::~DatabaseStatement(mediaplatform::Databas
   }
 }
 
-_BYTE *mediaplatform::DatabaseBindParameter::sql@<X0>(uint64_t a1@<X0>, uint64_t (***a2)(void, uint64_t)@<X1>, _BYTE *a3@<X8>)
+void *mediaplatform::DatabaseBindParameter::sql@<X0>(uint64_t a1@<X0>, uint64_t (***a2)(void, uint64_t)@<X1>, void *a3@<X8>)
 {
   if (a2)
   {
@@ -9391,10 +9360,10 @@ LABEL_38:
   return MEMORY[0x1DA6EDCB0](&v26);
 }
 
-void sub_1D5906A5C(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_1D5906A5C(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  std::ostringstream::~ostringstream(&a8);
+  va_start(va, a25);
+  std::ostringstream::~ostringstream(&a12);
   MEMORY[0x1DA6EDCB0](va);
   _Unwind_Resume(a1);
 }
@@ -9414,7 +9383,7 @@ void mediaplatform::DatabaseParameterList::~DatabaseParameterList(mediaplatform:
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](&v1);
 }
 
-uint64_t mediaplatform::DatabaseStatement::DatabaseStatement(uint64_t a1, sqlite3 *db, uint64_t a3)
+uint64_t mediaplatform::DatabaseStatement::DatabaseStatement(uint64_t a1, sqlite3 *db, __int128 *a3)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -9422,13 +9391,13 @@ uint64_t mediaplatform::DatabaseStatement::DatabaseStatement(uint64_t a1, sqlite
   *(a1 + 24) = 0;
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 32), *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external((a1 + 32), *a3, *(a3 + 1));
   }
 
   else
   {
     v6 = *a3;
-    *(a1 + 48) = *(a3 + 16);
+    *(a1 + 48) = *(a3 + 2);
     *(a1 + 32) = v6;
   }
 
@@ -9528,26 +9497,25 @@ void sub_1D5906E18(_Unwind_Exception *exception_object)
 
 void mediaplatform::FormatImplementation<int,char const*,std::string>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v41 = a1;
+  v42 = *MEMORY[0x1E69E9840];
+  v38 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
   if (a1->__r_.__value_.__s.__data_[0])
   {
     v9 = 0;
     v10 = a3;
-    v11 = a1;
-    while (1)
+    for (i = a1; ; i = (i + 1))
     {
       if (v6 == 123)
       {
-        v12 = v11->__r_.__value_.__s.__data_[1];
+        v12 = i->__r_.__value_.__s.__data_[1];
         if (v12 != 123)
         {
           if (v12 == 42)
           {
-            v41 = &v11->__r_.__value_.__s.__data_[2];
-            v30 = v11->__r_.__value_.__s.__data_[2];
-            if ((v30 - 48) > 9)
+            v38 = &i->__r_.__value_.__s.__data_[2];
+            v27 = i->__r_.__value_.__s.__data_[2];
+            if ((v27 - 48) > 9)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
@@ -9555,24 +9523,24 @@ void mediaplatform::FormatImplementation<int,char const*,std::string>(std::strin
 
             else
             {
-              v31 = 0;
-              v32 = &v11->__r_.__value_.__s.__data_[3];
+              v28 = 0;
+              v29 = &i->__r_.__value_.__s.__data_[3];
               do
               {
-                v33 = v32;
-                v41 = v32;
-                v31 = (v30 & 0xF) + 10 * v31;
-                ++v32;
-                v35 = *v33;
-                v34 = (v33 - 1);
-                LOBYTE(v30) = v35;
+                v30 = v29;
+                v38 = v29;
+                v28 = (v27 & 0xF) + 10 * v28;
+                ++v29;
+                v32 = *v30;
+                v31 = (v30 - 1);
+                LOBYTE(v27) = v32;
               }
 
-              while ((v35 - 58) >= 0xFFFFFFF6);
-              v41 = (v34 + 2);
-              if (*(v32 - 1) == 125)
+              while ((v32 - 58) >= 0xFFFFFFF6);
+              v38 = (v31 + 2);
+              if (*(v29 - 1) == 125)
               {
-                mediaplatform::FormatterParameters<0ul,int,char const*,std::string>::formatOptionsAtIndex<int,char const*,std::string>(v31);
+                mediaplatform::FormatterParameters<0ul,int,char const*,std::string>::formatOptionsAtIndex<int,char const*,std::string>(v28);
               }
 
               exception = __cxa_allocate_exception(0x10uLL);
@@ -9582,146 +9550,146 @@ void mediaplatform::FormatImplementation<int,char const*,std::string>(std::strin
             __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          mediaplatform::FormatOptions::FormatOptions(&v37, &v41);
-          v15 = v41;
-          if (*(&v37 + 1))
+          mediaplatform::FormatOptions::FormatOptions(&v34, &v38);
+          v13 = v38;
+          if (*(&v34 + 1))
           {
-            if (*(&v37 + 1) == 1)
+            if (*(&v34 + 1) == 1)
             {
-              v20 = **(a4 + 8);
-              v42 = v20;
-              if (v20)
+              v18 = **(a4 + 8);
+              v39 = v18;
+              if (v18)
               {
-                v20 = strlen(v20);
+                v18 = strlen(v18);
               }
 
-              *v43 = v20;
-              *&v43[8] = v37;
-              *&v43[24] = v38;
-              *&v43[40] = v39;
-              v44 = v40;
-              v21 = *(&v38 + 1);
-              if (*(&v38 + 1) <= v20)
+              *v40 = v18;
+              *&v40[8] = v34;
+              *&v40[24] = v35;
+              *&v40[40] = v36;
+              v41 = v37;
+              v19 = *(&v35 + 1);
+              if (*(&v35 + 1) <= v18)
               {
-                v21 = v20;
+                v19 = v18;
               }
 
-              if (v38)
+              if (v35)
               {
-                v22 = v21;
+                v20 = v19;
               }
 
               else
               {
-                v22 = v20;
+                v20 = v18;
               }
 
-              mediaplatform::FormatImplementation<int,char const*,std::string>(v41, a2, &v22[v10], a4);
+              mediaplatform::FormatImplementation<int,char const*,std::string>(v38, a2, &v20[v10], a4);
               if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v23 = a2;
+                v21 = a2;
               }
 
               else
               {
-                v23 = a2->__r_.__value_.__r.__words[0];
+                v21 = a2->__r_.__value_.__r.__words[0];
               }
 
-              mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v37, v23 + v10, &v42);
+              mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v34, v21 + v10, &v39);
             }
 
             else
             {
-              if (*(&v37 + 1) != 2)
+              if (*(&v34 + 1) != 2)
               {
                 mediaplatform::FormatterParameters<3ul>::formatParameterAtIndex<mediaplatform::FormatterParameters<0ul,int,char const*,std::string>>();
               }
 
-              v16 = *a4;
-              v42 = v16;
-              *v43 = v37;
-              *&v43[16] = v38;
-              *&v43[32] = v39;
-              *&v43[48] = v40;
-              v17 = *(v16 + 23);
-              if ((v17 & 0x8000000000000000) != 0)
+              v14 = *a4;
+              v39 = v14;
+              *v40 = v34;
+              *&v40[16] = v35;
+              *&v40[32] = v36;
+              *&v40[48] = v37;
+              v15 = *(v14 + 23);
+              if ((v15 & 0x8000000000000000) != 0)
               {
-                v17 = *(v16 + 8);
+                v15 = *(v14 + 8);
               }
 
-              v18 = *(&v38 + 1);
-              if (*(&v38 + 1) <= v17)
+              v16 = *(&v35 + 1);
+              if (*(&v35 + 1) <= v15)
               {
-                v18 = v17;
+                v16 = v15;
               }
 
-              if (v38)
+              if (v35)
               {
-                v17 = v18;
+                v15 = v16;
               }
 
-              mediaplatform::FormatImplementation<int,char const*,std::string>(v41, a2, v17 + v10, a4);
+              mediaplatform::FormatImplementation<int,char const*,std::string>(v38, a2, v15 + v10, a4);
               if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v19 = a2;
+                v17 = a2;
               }
 
               else
               {
-                v19 = a2->__r_.__value_.__r.__words[0];
+                v17 = a2->__r_.__value_.__r.__words[0];
               }
 
-              mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v37, &v19[v10], &v42);
+              mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v34, v17 + v10, &v39);
             }
           }
 
           else
           {
-            mediaplatform::TypeFormatter<int,void>::TypeFormatter(&v42, **(a4 + 16), &v37);
-            if (v43[40] == 1 && *(v42 + 48) != 1)
+            mediaplatform::TypeFormatter<int,void>::TypeFormatter(&v39, **(a4 + 16), &v34);
+            if (v40[40] == 1 && *(v39 + 48) != 1)
             {
-              v24 = 32;
+              v22 = 32;
             }
 
             else
             {
-              v24 = 33;
+              v22 = 33;
             }
 
-            v25 = v24 - *&v43[32];
-            if (*(v42 + 50) == 1 && v25 <= *(v42 + 24))
+            v23 = v22 - *&v40[32];
+            if (*(v39 + 50) == 1 && v23 <= *(v39 + 24))
             {
-              v25 = *(v42 + 24);
+              v23 = *(v39 + 24);
             }
 
-            v26 = *(&v38 + 1);
-            if (*(&v38 + 1) <= v25)
+            v24 = *(&v35 + 1);
+            if (*(&v35 + 1) <= v23)
             {
-              v26 = v25;
+              v24 = v23;
             }
 
-            if (v38)
+            if (v35)
             {
-              v27 = v26;
+              v25 = v24;
             }
 
             else
             {
-              v27 = v25;
+              v25 = v23;
             }
 
-            mediaplatform::FormatImplementation<int,char const*,std::string>(v15, a2, v27 + v10, a4);
+            mediaplatform::FormatImplementation<int,char const*,std::string>(v13, a2, v25 + v10, a4);
             if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v28 = a2;
+              v26 = a2;
             }
 
             else
             {
-              v28 = a2->__r_.__value_.__r.__words[0];
+              v26 = a2->__r_.__value_.__r.__words[0];
             }
 
-            mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,int>(&v37, &v28[v10], &v42);
+            mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,int>(&v34, v26 + v10, &v39);
           }
 
           if (v10 != a3)
@@ -9729,36 +9697,29 @@ void mediaplatform::FormatImplementation<int,char const*,std::string>(std::strin
             mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
           }
 
-          goto LABEL_57;
+          return;
         }
 
         v9 = 1;
-        v11 = (v11 + 1);
+        i = (i + 1);
       }
 
       ++v10;
-      v41 = &v11->__r_.__value_.__s.__data_[1];
-      v6 = v11->__r_.__value_.__s.__data_[1];
-      v11 = (v11 + 1);
+      v38 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
       if (!v6)
       {
         std::string::resize(a2, v10, 0);
         if (v10 != a3)
         {
-          v13 = *MEMORY[0x1E69E9840];
 
           mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
-          return;
         }
 
-LABEL_57:
-        v29 = *MEMORY[0x1E69E9840];
         return;
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   std::string::resize(a2, a3, 0);
 }
@@ -9844,4 +9805,37 @@ void sub_1D59074F4(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t mediaplatform::DatabaseStatement::step(sqlite3_stmt **this)
+{
+  v2 = sqlite3_step(this[3]);
+  result = mediaplatform::DatabaseStatement::_checkSQLiteResult(this, v2);
+  *(this + 14) = v2;
+  return result;
+}
+
+uint64_t mediaplatform::DatabaseStatement::_checkSQLiteResult(uint64_t this, int a2)
+{
+  if ((a2 - 100) >= 2 && a2 != 0)
+  {
+    v4 = sqlite3_db_handle(*(this + 24));
+    v5 = sqlite3_errmsg(v4);
+    if ((a2 - 1) > 0x19)
+    {
+      v6 = 36;
+    }
+
+    else
+    {
+      v6 = *&asc_1D5AFEE50[4 * (a2 - 1)];
+    }
+
+    v9 = v6;
+    exception = __cxa_allocate_exception(0x40uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v8, v5);
+    mediaplatform::PlatformErrorCondition::PlatformErrorCondition(exception, &v9, &v8);
+  }
+
+  return this;
 }

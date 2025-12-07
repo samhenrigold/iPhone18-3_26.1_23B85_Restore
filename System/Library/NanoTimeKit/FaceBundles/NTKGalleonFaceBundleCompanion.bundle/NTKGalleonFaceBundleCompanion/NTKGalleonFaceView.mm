@@ -101,7 +101,7 @@
     v30 = objc_alloc(MEMORY[0x277D2C138]);
     v34 = objc_msgSend_device(v12, v31, v32, v33);
     sub_23BE9F174(v34, v84);
-    v36 = objc_msgSend_initWithFaceView_dialDiameter_device_(v30, v35, v12, deviceCopy, v84[0]);
+    v36 = objc_msgSend_initWithFaceView_dialDiameter_device_(v30, v35, v12, deviceCopy, *&v84[0].receiver);
     v37 = *(v12 + 128);
     *(v12 + 128) = v36;
 

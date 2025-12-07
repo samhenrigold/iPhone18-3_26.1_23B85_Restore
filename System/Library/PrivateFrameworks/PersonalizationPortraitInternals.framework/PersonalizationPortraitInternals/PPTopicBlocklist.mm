@@ -93,14 +93,14 @@ uint64_t __56__PPTopicBlocklist_indicesOfBlockedTopicsInRecordArray___block_invo
 
 - (void)_loadAssetData
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(self + 16) filepathForFactor:@"topicBlocklist.trie" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
   v3 = pp_topics_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v2;
-    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "Loading topic blocklist from %@.", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v2;
+    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "Loading topic blocklist from %@.", &v10, 0xCu);
   }
 
   if (!v2)
@@ -108,7 +108,7 @@ uint64_t __56__PPTopicBlocklist_indicesOfBlockedTopicsInRecordArray___block_invo
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v7 = "Failed to read path for topic blocklist.";
       v8 = v6;
       v9 = 2;
@@ -129,13 +129,13 @@ LABEL_8:
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v11 = 138412290;
-      v12 = v2;
+      v10 = 138412290;
+      v11 = v2;
       v7 = "Failed to initialize topic blocklist trie from file at %@";
       v8 = v6;
       v9 = 12;
 LABEL_11:
-      _os_log_fault_impl(&dword_23224A000, v8, OS_LOG_TYPE_FAULT, v7, &v11, v9);
+      _os_log_fault_impl(&dword_23224A000, v8, OS_LOG_TYPE_FAULT, v7, &v10, v9);
       goto LABEL_8;
     }
 
@@ -143,8 +143,6 @@ LABEL_11:
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PPTopicBlocklist_initWithTrialWrapper___block_invoke(uint64_t a1)

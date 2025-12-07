@@ -119,7 +119,7 @@
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "=ck-save= Adding a save for %{public}@ to %{public}@", buf, 0x16u);
 
     recordID2 = [recordCopy recordID];
-    _MBLog();
+    _MBLog(@"Db", "=ck-save= Adding a save for %{public}@ to %{public}@");
   }
 
   if (recordCopy)
@@ -286,11 +286,11 @@
   errorCopy = error;
   if ([infoCopy state] == 3)
   {
-    v24 = +[NSAssertionHandler currentHandler];
+    v25 = +[NSAssertionHandler currentHandler];
     record = [infoCopy record];
     recordID = [record recordID];
-    v27 = +[NSThread callStackSymbols];
-    [v24 handleFailureInMethod:a2 object:self file:@"MBCKBatchSave.m" lineNumber:205 description:{@"We've already finished saving record %@: %@", recordID, v27}];
+    v28 = +[NSThread callStackSymbols];
+    [v25 handleFailureInMethod:a2 object:self file:@"MBCKBatchSave.m" lineNumber:205 description:{@"We've already finished saving record %@: %@", recordID, v28}];
   }
 
   v12 = MBGetDefaultLog();
@@ -304,7 +304,7 @@
 
     record3 = [infoCopy record];
     recordID3 = [record3 recordID];
-    _MBLog();
+    _MBLog(@"Db", "=ck-save= Performing callbacks for save of record %{public}@", recordID3);
   }
 
   [infoCopy setState:3];
@@ -329,11 +329,11 @@
   v33 = delegate;
   v34 = recordCopy;
   v35 = completion;
-  v19 = completion;
-  v20 = recordCopy;
-  v21 = delegate;
-  v22 = infoCopy;
-  v23 = errorCopy;
+  v20 = completion;
+  v21 = recordCopy;
+  v22 = delegate;
+  v23 = infoCopy;
+  v24 = errorCopy;
   dispatch_async(callbackQueue, block);
 }
 
@@ -373,46 +373,37 @@
       v37 = v36;
       if (saveAttempts == 1)
       {
-        if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
-          goto LABEL_105;
+          *buf = 138543362;
+          v104 = recordID;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "=ck-save= Saved record %{public}@", buf, 0xCu);
+          _MBLog(@"Db", "=ck-save= Saved record %{public}@", recordID);
         }
-
-        *buf = 138543362;
-        v110 = recordID;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "=ck-save= Saved record %{public}@", buf, 0xCu);
       }
 
-      else
+      else if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_105;
-        }
-
         *buf = 138543618;
-        v110 = recordID;
-        v111 = 2048;
-        v112 = *&saveAttempts;
+        v104 = recordID;
+        v105 = 2048;
+        v106 = *&saveAttempts;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "=ck-save= Saved record %{public}@ after %lu attempts", buf, 0x16u);
+        _MBLog(@"Df", "=ck-save= Saved record %{public}@ after %lu attempts", recordID, saveAttempts);
       }
 
-LABEL_104:
-      _MBLog();
-      goto LABEL_105;
+      goto LABEL_103;
     }
 
     v21 = MBGetDefaultLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v110 = recordID;
-      v111 = 2112;
-      v112 = *&v17;
+      v104 = recordID;
+      v105 = 2112;
+      v106 = *&v17;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=ck-save= Handling save error for record %{public}@: %@", buf, 0x16u);
-      v84 = recordID;
-      v86 = v17;
-      _MBLog();
+      _MBLog(@"E ", "=ck-save= Handling save error for record %{public}@: %@", recordID, v17);
     }
 
     ckOperationTracker = [(MBCKBatchSave *)self ckOperationTracker];
@@ -428,9 +419,9 @@ LABEL_104:
       __assert_rtn("[MBCKBatchSave _handleCompletionForSaveInfo:operation:record:saveInfos:error:]", "MBCKBatchSave.m", 250, "policy");
     }
 
-    v100 = saveAttempts;
-    v101 = v23;
-    v102 = ckOperationPolicy;
+    v94 = saveAttempts;
+    v95 = v23;
+    v96 = ckOperationPolicy;
     [ckOperationPolicy retryAfterInterval];
     v26 = fmax(v25, 1.0);
     domain = [v17 domain];
@@ -446,13 +437,13 @@ LABEL_104:
           v26 = 5.0;
         }
 
-        goto LABEL_64;
+        goto LABEL_63;
       }
 
       v26 = 2.0;
-LABEL_63:
+LABEL_62:
       retryWhenNetworkDisconnected = 1;
-      goto LABEL_64;
+      goto LABEL_63;
     }
 
     code = [v17 code];
@@ -464,17 +455,13 @@ LABEL_63:
         if (code == 22)
         {
           v41 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-LABEL_62:
-
-            goto LABEL_63;
+            *buf = 138543362;
+            v104 = recordID;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit an atomic failure", buf, 0xCu);
+            _MBLog(@"E ", "=ck-save= Save of record %{public}@ hit an atomic failure", recordID);
           }
-
-          *buf = 138543362;
-          v110 = recordID;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit an atomic failure", buf, 0xCu);
-          v84 = recordID;
         }
 
         else
@@ -484,41 +471,37 @@ LABEL_62:
             if (code == 26)
             {
               selfCopy = self;
-              databaseManager = [v101 databaseManager];
+              databaseManager = [v95 databaseManager];
               if (!databaseManager)
               {
                 __assert_rtn("[MBCKBatchSave _handleCompletionForSaveInfo:operation:record:saveInfos:error:]", "MBCKBatchSave.m", 287, "databaseManager");
               }
 
               v32 = databaseManager;
-              account = [v101 account];
-              ckOperationGroup = [v101 ckOperationGroup];
-              xpcActivity = [v101 xpcActivity];
-              v107 = 0;
-              [v32 setUpSyncZoneWithAccount:account policy:v102 operationGroup:ckOperationGroup xpcActivity:xpcActivity error:&v107];
+              account = [v95 account];
+              ckOperationGroup = [v95 ckOperationGroup];
+              xpcActivity = [v95 xpcActivity];
+              v101 = 0;
+              [v32 setUpSyncZoneWithAccount:account policy:v96 operationGroup:ckOperationGroup xpcActivity:xpcActivity error:&v101];
 
               retryWhenNetworkDisconnected = 1;
               self = selfCopy;
             }
 
-            goto LABEL_64;
+            goto LABEL_63;
           }
 
           v41 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_62;
+            *buf = 138543362;
+            v104 = recordID;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ got a zone busy error", buf, 0xCu);
+            _MBLog(@"E ", "=ck-save= Save of record %{public}@ got a zone busy error", recordID);
           }
-
-          *buf = 138543362;
-          v110 = recordID;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ got a zone busy error", buf, 0xCu);
-          v84 = recordID;
         }
 
-LABEL_61:
-        _MBLog();
-        goto LABEL_62;
+        goto LABEL_61;
       }
 
       if (code == 7)
@@ -527,19 +510,18 @@ LABEL_61:
         if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v110 = recordID;
+          v104 = recordID;
           _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ was rate limited", buf, 0xCu);
-          v84 = recordID;
-          _MBLog();
+          _MBLog(@"E ", "=ck-save= Save of record %{public}@ was rate limited", recordID);
         }
 
         if ([MBError isNetworkDisconnectedError:v17])
         {
           retryWhenNetworkDisconnected = [(MBCKBatchSave *)self retryWhenNetworkDisconnected];
-          goto LABEL_64;
+          goto LABEL_63;
         }
 
-        goto LABEL_63;
+        goto LABEL_62;
       }
 
       if (code == 14)
@@ -549,14 +531,14 @@ LABEL_61:
         {
           record2 = [infoCopy record];
           userInfo = [v17 userInfo];
-          v94 = [userInfo objectForKeyedSubscript:CKRecordChangedErrorServerRecordKey];
+          v88 = [userInfo objectForKeyedSubscript:CKRecordChangedErrorServerRecordKey];
 
           userInfo2 = [v17 userInfo];
           v45 = [userInfo2 objectForKeyedSubscript:CKRecordChangedErrorAncestorRecordKey];
 
-          v90 = delegate;
-          v92 = v45;
-          v46 = [delegate handleMergeConflictWithOperationTracker:v101 attemptedRecord:record2 serverRecord:v94 originalRecord:v45];
+          v84 = delegate;
+          v86 = v45;
+          v46 = [delegate handleMergeConflictWithOperationTracker:v95 attemptedRecord:record2 serverRecord:v88 originalRecord:v45];
           retryWhenNetworkDisconnected = v46 != 0;
           v47 = MBGetDefaultLog();
           v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
@@ -565,22 +547,17 @@ LABEL_61:
             if (v48)
             {
               *buf = 138544386;
-              v110 = recordID;
+              v104 = recordID;
+              v105 = 2112;
+              v106 = *&record2;
+              v107 = 2112;
+              v108 = v88;
+              v109 = 2112;
+              v110 = v86;
               v111 = 2112;
-              v112 = *&record2;
-              v113 = 2112;
-              v114 = v94;
-              v115 = 2112;
-              v116 = v92;
-              v117 = 2112;
-              v118 = v46;
+              v112 = v46;
               _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "=ck-save= Merged record %{public}@, attemptedRecord:%@, serverRecord:%@, originalRecord:%@, mergedRecord:%@", buf, 0x34u);
-              v88 = v92;
-              v89 = v46;
-              v86 = record2;
-              v87 = v94;
-              v84 = recordID;
-              _MBLog();
+              _MBLog(@"Df", "=ck-save= Merged record %{public}@, attemptedRecord:%@, serverRecord:%@, originalRecord:%@, mergedRecord:%@", recordID, record2, v88, v86, v46);
             }
 
             [infoCopy setRecord:v46];
@@ -592,14 +569,13 @@ LABEL_61:
             if (v48)
             {
               *buf = 138543362;
-              v110 = recordID;
+              v104 = recordID;
               _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "=ck-save= Save delegate didn't want to merge record %{public}@", buf, 0xCu);
-              v84 = recordID;
-              _MBLog();
+              _MBLog(@"Df", "=ck-save= Save delegate didn't want to merge record %{public}@", recordID);
             }
           }
 
-          delegate = v90;
+          delegate = v84;
         }
 
         else
@@ -608,82 +584,82 @@ LABEL_61:
         }
       }
 
-LABEL_64:
+LABEL_63:
       if ([operationCopy atomic])
       {
-        v93 = infosCopy;
+        v87 = infosCopy;
         record3 = [infoCopy record];
         [record3 recordID];
-        v57 = v98 = self;
+        v57 = v92 = self;
         [v57 zoneID];
-        v58 = v95 = recordCopy;
+        v58 = v89 = recordCopy;
         +[CKRecordZone defaultRecordZone];
-        v59 = v91 = recordID;
+        v59 = v85 = recordID;
         zoneID = [v59 zoneID];
         v61 = [v58 isEqual:zoneID];
 
-        recordID = v91;
-        recordCopy = v95;
+        recordID = v85;
+        recordCopy = v89;
 
-        self = v98;
+        self = v92;
         if (v61)
         {
-LABEL_66:
-          infosCopy = v93;
+LABEL_65:
+          infosCopy = v87;
           if (!retryWhenNetworkDisconnected)
           {
-            goto LABEL_102;
+            goto LABEL_101;
           }
 
-          goto LABEL_89;
+          goto LABEL_88;
         }
 
-        infosCopy = v93;
+        infosCopy = v87;
         if (!retryWhenNetworkDisconnected && [MBError isCKError:v17 withCode:14])
         {
-LABEL_102:
+LABEL_101:
 
           v37 = MBGetDefaultLog();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v110 = recordID;
-            v111 = 2048;
-            v112 = *&v100;
-            v113 = 2112;
-            v114 = v17;
+            v104 = recordID;
+            v105 = 2048;
+            v106 = *&v94;
+            v107 = 2112;
+            v108 = v17;
             _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "=ck-save= Failed to save record %{public}@ after %lu attempts, error:%@", buf, 0x20u);
-            goto LABEL_104;
+            _MBLog(@"E ", "=ck-save= Failed to save record %{public}@ after %lu attempts, error:%@", recordID, v94, v17);
           }
 
-LABEL_105:
+LABEL_103:
 
           [(MBCKBatchSave *)self _performCallbacksForSaveInfo:infoCopy record:recordCopy error:v17];
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        v105 = 0u;
-        v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v62 = v93;
-        v63 = [v62 countByEnumeratingWithState:&v103 objects:v108 count:16];
+        v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
+        v62 = v87;
+        v63 = [v62 countByEnumeratingWithState:&v97 objects:v102 count:16];
         if (v63)
         {
           v64 = v63;
           v65 = 0;
           v66 = 0;
-          v67 = *v104;
+          v67 = *v98;
           do
           {
             for (i = 0; i != v64; i = i + 1)
             {
-              if (*v104 != v67)
+              if (*v98 != v67)
               {
                 objc_enumerationMutation(v62);
               }
 
-              v69 = *(*(&v103 + 1) + 8 * i);
+              v69 = *(*(&v97 + 1) + 8 * i);
               if (v69 != infoCopy)
               {
                 state = [v69 state];
@@ -699,52 +675,51 @@ LABEL_105:
               }
             }
 
-            v64 = [v62 countByEnumeratingWithState:&v103 objects:v108 count:16];
+            v64 = [v62 countByEnumeratingWithState:&v97 objects:v102 count:16];
           }
 
           while (v64);
 
           if (retryWhenNetworkDisconnected || (v65 & 1) == 0)
           {
-            recordCopy = v95;
-            self = v98;
-            recordID = v91;
+            recordCopy = v89;
+            self = v92;
+            recordID = v85;
             if ((retryWhenNetworkDisconnected & v66) == 1)
             {
               v71 = MBGetDefaultLog();
               if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v110 = v91;
+                v104 = v85;
                 _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "=ck-save= Not retrying %{public}@", buf, 0xCu);
-                _MBLog();
+                _MBLog(@"Df", "=ck-save= Not retrying %{public}@", v85);
               }
 
-              infosCopy = v93;
-              goto LABEL_101;
+              infosCopy = v87;
+              goto LABEL_100;
             }
 
-            goto LABEL_66;
+            goto LABEL_65;
           }
 
           v82 = MBGetDefaultLog();
-          infosCopy = v93;
-          recordCopy = v95;
-          recordID = v91;
-          self = v98;
+          infosCopy = v87;
+          recordCopy = v89;
+          recordID = v85;
+          self = v92;
           if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v110 = v91;
+            v104 = v85;
             _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "=ck-save= Forcing retry for %{public}@", buf, 0xCu);
-            v85 = v91;
-            _MBLog();
+            _MBLog(@"Df", "=ck-save= Forcing retry for %{public}@", v85);
           }
 
-LABEL_89:
-          if (v100 > [v102 maxRetryAttempts])
+LABEL_88:
+          if (v94 > [v96 maxRetryAttempts])
           {
-            goto LABEL_102;
+            goto LABEL_101;
           }
 
           userInfo3 = [v17 userInfo];
@@ -756,7 +731,7 @@ LABEL_89:
             v26 = v74;
           }
 
-          v99 = v73;
+          v93 = v73;
           v75 = fmax(v26, 0.0);
           delegate2 = [infoCopy delegate];
           if (objc_opt_respondsToSelector() & 1) == 0 || ([delegate2 shouldRetrySaveWithRetryAfterInterval:recordID recordID:v17 error:v75])
@@ -766,13 +741,13 @@ LABEL_89:
             if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
-              v110 = v77;
-              v111 = 2048;
-              v112 = v75;
-              v113 = 2048;
-              v114 = v100;
+              v104 = v77;
+              v105 = 2048;
+              v106 = v75;
+              v107 = 2048;
+              v108 = v94;
               _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "=ck-save= Retrying save of record %{public}@ in %0.3fs after %lu attempts", buf, 0x20u);
-              _MBLog();
+              _MBLog(@"Df", "=ck-save= Retrying save of record %{public}@ in %0.3fs after %lu attempts", v77, *&v75, v94);
             }
 
             v79 = [NSDate dateWithTimeIntervalSinceNow:v75];
@@ -780,8 +755,8 @@ LABEL_89:
 
             [infoCopy setState:1];
             recordID = v77;
-            v53 = v99;
-            goto LABEL_97;
+            v53 = v93;
+            goto LABEL_96;
           }
 
           selfCopy2 = self;
@@ -789,29 +764,29 @@ LABEL_89:
           if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v110 = recordID;
-            v111 = 2048;
-            v112 = v75;
+            v104 = recordID;
+            v105 = 2048;
+            v106 = v75;
             _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "=ck-save= Not retrying save of record %{public}@ in %0.3fs per delegate", buf, 0x16u);
-            _MBLog();
+            _MBLog(@"Df", "=ck-save= Not retrying save of record %{public}@ in %0.3fs per delegate", recordID, *&v75);
           }
 
           self = selfCopy2;
-          v71 = v99;
-LABEL_101:
+          v71 = v93;
+LABEL_100:
 
-          goto LABEL_102;
+          goto LABEL_101;
         }
 
-        self = v98;
+        self = v92;
       }
 
       if (!retryWhenNetworkDisconnected)
       {
-        goto LABEL_102;
+        goto LABEL_101;
       }
 
-      goto LABEL_89;
+      goto LABEL_88;
     }
 
     if (code <= 3)
@@ -827,10 +802,10 @@ LABEL_101:
         if (v52)
         {
           [(MBCKBatchSave *)selfCopy3 _handleCompletionForSaveInfo:infoCopy operation:operationCopy record:recordCopy saveInfos:infosCopy error:v52];
-LABEL_97:
+LABEL_96:
 
-LABEL_106:
-          goto LABEL_107;
+LABEL_104:
+          goto LABEL_105;
         }
 
         v83 = MBGetDefaultLog();
@@ -838,10 +813,9 @@ LABEL_106:
         if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v110 = recordID;
+          v104 = recordID;
           _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "=ck-save= No partial error found for record %{public}@", buf, 0xCu);
-          v84 = recordID;
-          _MBLog();
+          _MBLog(@"E ", "=ck-save= No partial error found for record %{public}@", recordID);
         }
       }
 
@@ -849,17 +823,16 @@ LABEL_106:
       {
         if (code != 3)
         {
-          goto LABEL_64;
+          goto LABEL_63;
         }
 
         v38 = MBGetDefaultLog();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v110 = recordID;
+          v104 = recordID;
           _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit a network unavailable error", buf, 0xCu);
-          v84 = recordID;
-          _MBLog();
+          _MBLog(@"E ", "=ck-save= Save of record %{public}@ hit a network unavailable error", recordID);
         }
 
         if (![MBError isNetworkDisconnectedError:v17]|| [(MBCKBatchSave *)self retryWhenNetworkDisconnected])
@@ -868,42 +841,42 @@ LABEL_106:
           v40 = 10.0;
 LABEL_52:
           v26 = fmax(v26, v39 + v40);
-          goto LABEL_63;
+          goto LABEL_62;
         }
       }
 
       retryWhenNetworkDisconnected = 0;
-      goto LABEL_64;
+      goto LABEL_63;
     }
 
     if (code != 4)
     {
       if (code != 6)
       {
-        goto LABEL_64;
+        goto LABEL_63;
       }
 
       v41 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_62;
+        *buf = 138543362;
+        v104 = recordID;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit a service unavailable error", buf, 0xCu);
+        _MBLog(@"E ", "=ck-save= Save of record %{public}@ hit a service unavailable error", recordID);
       }
 
-      *buf = 138543362;
-      v110 = recordID;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit a service unavailable error", buf, 0xCu);
-      v84 = recordID;
-      goto LABEL_61;
+LABEL_61:
+
+      goto LABEL_62;
     }
 
     v54 = MBGetDefaultLog();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v110 = recordID;
+      v104 = recordID;
       _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "=ck-save= Save of record %{public}@ hit a network failure error", buf, 0xCu);
-      v84 = recordID;
-      _MBLog();
+      _MBLog(@"E ", "=ck-save= Save of record %{public}@ hit a network failure error", recordID);
     }
 
     v39 = arc4random_uniform(5u);
@@ -911,7 +884,7 @@ LABEL_52:
     goto LABEL_52;
   }
 
-LABEL_107:
+LABEL_105:
 }
 
 - (void)_finishBatchedSavesWithCompletion:(id)completion
@@ -951,7 +924,7 @@ LABEL_107:
         v18 = 2112;
         v19 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=ck-save= Failed %{public}@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=ck-save= Failed %{public}@: %@", selfCopy, v8);
       }
     }
 
@@ -960,7 +933,7 @@ LABEL_107:
       *buf = 138543362;
       v17 = selfCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=ck-save= Finished %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "=ck-save= Finished %{public}@", selfCopy);
     }
 
     if (completionCopy)
@@ -988,46 +961,46 @@ LABEL_107:
     v7 = [v5 count];
     v8 = [v5 valueForKey:@"recordID"];
     *buf = 134218498;
-    v19 = v7;
-    v20 = 2114;
+    v20 = v7;
+    v21 = 2114;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v8;
+    v23 = 2114;
+    v24 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "=ck-save= Creating batch of %lu records for %{public}@, recordIDs:%{public}@", buf, 0x20u);
 
-    [v5 count];
-    v12 = [v5 valueForKey:@"recordID"];
-    _MBLog();
+    v9 = [v5 count];
+    v10 = [v5 valueForKey:@"recordID"];
+    _MBLog(@"Db", "=ck-save= Creating batch of %lu records for %{public}@, recordIDs:%{public}@", v9, self, v10);
   }
 
-  v9 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:v5 recordIDsToDelete:0];
-  objc_initWeak(buf, v9);
+  v11 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:v5 recordIDsToDelete:0];
+  objc_initWeak(buf, v11);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100104178;
+  v18[3] = &unk_1003BEAB0;
+  v18[4] = self;
+  [v11 setPerRecordProgressBlock:v18];
   v17[0] = _NSConcreteStackBlock;
   v17[1] = 3221225472;
-  v17[2] = sub_100104178;
-  v17[3] = &unk_1003BEAB0;
+  v17[2] = sub_1001044D0;
+  v17[3] = &unk_1003BEAD8;
   v17[4] = self;
-  [v9 setPerRecordProgressBlock:v17];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1001044D0;
-  v16[3] = &unk_1003BEAD8;
-  v16[4] = self;
-  [v9 setRecordsInFlightBlock:v16];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100104718;
-  v13[3] = &unk_1003BEB00;
-  objc_copyWeak(&v15, buf);
-  v13[4] = self;
-  v10 = infosCopy;
-  v14 = v10;
-  [v9 setPerRecordSaveBlock:v13];
+  [v11 setRecordsInFlightBlock:v17];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100104718;
+  v14[3] = &unk_1003BEB00;
+  objc_copyWeak(&v16, buf);
+  v14[4] = self;
+  v12 = infosCopy;
+  v15 = v12;
+  [v11 setPerRecordSaveBlock:v14];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 
-  return v9;
+  return v11;
 }
 
 - (void)_handleCompletionForSaveInfos:(id)infos operation:(id)operation savedRecords:(id)records operationError:(id)error
@@ -1085,7 +1058,7 @@ LABEL_107:
                 v49 = 2112;
                 v50 = recordsCopy;
                 _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "=ck-save= Received unexpected completion for operationID:%@, saveInfo:%@, saveInfos:%@, savedRecords:%@", buf, 0x2Au);
-                _MBLog();
+                _MBLog(@"F ", "=ck-save= Received unexpected completion for operationID:%@, saveInfo:%@, saveInfos:%@, savedRecords:%@", operationID, v19, v14, recordsCopy);
               }
 
               v41[0] = @"operationID";
@@ -1110,7 +1083,7 @@ LABEL_107:
               v45 = 2112;
               v46 = v19;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "=ck-save= Received unexpected completion for operationID:%@, saveInfo:%@", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"E ", "=ck-save= Received unexpected completion for operationID:%@, saveInfo:%@", operationID, v19);
             }
 
             errorCopy = [MBError errorWithCode:304 format:@"Unexpected nil error for operation %@", operationID];
@@ -1208,8 +1181,7 @@ LABEL_107:
     v43 = 2048;
     assetsSizeCopy = assetsSize;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "=ck-save= Saving a batch for %{public}@, sp:%ld, c:%lu, sz:%lu(%llu)", buf, 0x34u);
-    [infosCopy count];
-    _MBLog();
+    _MBLog(@"Df", "=ck-save= Saving a batch for %{public}@, sp:%ld, c:%lu, sz:%lu(%llu)", self, policy, [infosCopy count], size, assetsSize);
   }
 
   v14 = [(MBCKBatchSave *)self _createModifyOperationForSaveInfos:infosCopy];
@@ -1243,7 +1215,7 @@ LABEL_107:
     }
 
     operationID2 = [v14 operationID];
-    _MBLog();
+    _MBLog(@"Df", "=ck-save= Created operation %{public}@ for %{public}@, o:%ld", operationID2, self, v18);
   }
 
   saveGroup = [(MBCKBatchSave *)self saveGroup];
@@ -1258,9 +1230,9 @@ LABEL_107:
   v28 = ckOperationTracker;
   v29 = v14;
   v30 = ckOperationPolicy;
-  v23 = ckOperationPolicy;
-  v24 = v14;
-  v25 = ckOperationTracker;
+  v24 = ckOperationPolicy;
+  v25 = v14;
+  v26 = ckOperationTracker;
   dispatch_async(callbackQueue, block);
 
   objc_destroyWeak(&v33);
@@ -1362,8 +1334,7 @@ LABEL_107:
     v54 = 2048;
     v55 = v9;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=ck-save= Preparing to save a batch for %{public}@, c:%lu, sz:%lu(%llu), tq:%.3fs", buf, 0x34u);
-    [obj count];
-    _MBLog();
+    _MBLog(@"Df", "=ck-save= Preparing to save a batch for %{public}@, c:%lu, sz:%lu(%llu), tq:%.3fs", selfCopy, [obj count], v13, v12, v9);
   }
 
   if (v14)
@@ -1379,7 +1350,7 @@ LABEL_107:
       v48 = 2048;
       v49 = v29;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "=ck-save= Scheduling a batch for %{public}@ in %0.3fs", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=ck-save= Scheduling a batch for %{public}@ in %0.3fs", selfCopy, *&v29);
     }
 
     v30 = [MBOneShotTimer alloc];
@@ -1435,7 +1406,7 @@ LABEL_107:
 
   savesCopy = saves;
   ckOperationPolicy = [(MBCKBatchSave *)self ckOperationPolicy];
-  v42 = ckOperationPolicy;
+  v41 = ckOperationPolicy;
   v6 = ckOperationPolicy;
   if (!ckOperationPolicy)
   {
@@ -1446,21 +1417,21 @@ LABEL_107:
   maxBatchSize = [v6 maxBatchSize];
   maxBatchSaveAssetSize = [v6 maxBatchSaveAssetSize];
   saveIncrementally = [(MBCKBatchSave *)self saveIncrementally];
-  v44 = objc_opt_new();
+  v43 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   saveInfos = [(MBCKBatchSave *)selfCopy saveInfos];
   array = [saveInfos array];
 
-  v39 = array;
-  v41 = [array sortedArrayWithOptions:16 usingComparator:&stru_1003BEB70];
-  recordSavePolicy = [v42 recordSavePolicy];
-  objectEnumerator = [v41 objectEnumerator];
+  v38 = array;
+  v40 = [array sortedArrayWithOptions:16 usingComparator:&stru_1003BEB70];
+  recordSavePolicy = [v41 recordSavePolicy];
+  objectEnumerator = [v40 objectEnumerator];
   v10 = 0;
   v11 = 0;
   v12 = 0;
+  v47 = 0;
   v48 = 0;
-  v49 = 0;
   while (1)
   {
     nextObject = [objectEnumerator nextObject];
@@ -1527,14 +1498,14 @@ LABEL_107:
       goto LABEL_26;
     }
 
-    if (v15 >= maxBatchCount || recordSize + v49 > maxBatchSize)
+    if (v15 >= maxBatchCount || recordSize + v48 > maxBatchSize)
     {
       goto LABEL_10;
     }
 
-    if (v48)
+    if (v47)
     {
-      if (assetSize + v48 > maxBatchSaveAssetSize)
+      if (assetSize + v47 > maxBatchSaveAssetSize)
       {
         goto LABEL_10;
       }
@@ -1542,7 +1513,7 @@ LABEL_107:
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
 LABEL_26:
@@ -1554,12 +1525,12 @@ LABEL_26:
       {
         recordID2 = [record recordID];
         *buf = 138543362;
-        v56 = recordID2;
+        v55 = recordID2;
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "=ck-save= Adding record %{public}@ to save batch", buf, 0xCu);
       }
 
       recordID3 = [record recordID];
-      _MBLog();
+      _MBLog(@"Db", "=ck-save= Adding record %{public}@ to save batch", recordID3);
     }
 
     [nextObject setState:2];
@@ -1570,14 +1541,14 @@ LABEL_26:
       v12 = objc_opt_new();
     }
 
-    [v12 addObject:{nextObject, recordID3, v35}];
-    v49 += recordSize;
-    v48 += assetSize;
+    [v12 addObject:nextObject];
+    v48 += recordSize;
+    v47 += assetSize;
 LABEL_33:
 
-    v28 = zoneID;
+    v29 = zoneID;
     v10 = nextObject;
-    v11 = v28;
+    v11 = v29;
   }
 
   recordSavePolicy = savePolicy;
@@ -1595,25 +1566,23 @@ LABEL_10:
     {
       v20 = [v12 count];
       *buf = 134218242;
-      v56 = v20;
-      v57 = 2112;
-      v58 = v11;
+      v55 = v20;
+      v56 = 2112;
+      v57 = v11;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "=ck-save= Flushing %lu batched saves, zoneID:%@", buf, 0x16u);
     }
 
-    recordID3 = [v12 count];
-    v35 = v11;
-    _MBLog();
+    _MBLog(@"I ", "=ck-save= Flushing %lu batched saves, zoneID:%@", [v12 count], v11);
   }
 
-  [v44 addObject:v12];
+  [v43 addObject:v12];
   saveGroup = [(MBCKBatchSave *)selfCopy saveGroup];
   dispatch_group_enter(saveGroup);
 
   if (--savesCopy)
   {
+    v47 = 0;
     v48 = 0;
-    v49 = 0;
     v12 = 0;
     if (!nextObject)
     {
@@ -1631,33 +1600,33 @@ LABEL_44:
   }
 
   objc_sync_exit(selfCopy);
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
-  v29 = v44;
-  v30 = [v29 countByEnumeratingWithState:&v50 objects:v54 count:16];
-  if (v30)
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v30 = v43;
+  v31 = [v30 countByEnumeratingWithState:&v49 objects:v53 count:16];
+  if (v31)
   {
-    v31 = *v51;
+    v32 = *v50;
     do
     {
-      for (i = 0; i != v30; i = i + 1)
+      for (i = 0; i != v31; i = i + 1)
       {
-        if (*v51 != v31)
+        if (*v50 != v32)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v30);
         }
 
-        [(MBCKBatchSave *)selfCopy _scheduleBatchSaveOperationForSaveInfos:*(*(&v50 + 1) + 8 * i)];
+        [(MBCKBatchSave *)selfCopy _scheduleBatchSaveOperationForSaveInfos:*(*(&v49 + 1) + 8 * i)];
         saveGroup2 = [(MBCKBatchSave *)selfCopy saveGroup];
         dispatch_group_leave(saveGroup2);
       }
 
-      v30 = [v29 countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
-    while (v30);
+    while (v31);
   }
 }
 

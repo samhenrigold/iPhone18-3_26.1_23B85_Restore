@@ -1,93 +1,171 @@
-uint64_t io_catalog_get_data(unsigned int a1, int a2)
+uint64_t io_catalog_send_data(unsigned int a1, int a2, uint64_t a3, int a4, int *a5)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v9 = 0;
-  v12 = 0;
-  v11 = 0;
-  v7 = *MEMORY[0x1E69E99E0];
-  v8 = a2;
-  *&v6.msgh_bits = 0x2400001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB1600000000;
-  v2 = mach_msg2_internal();
-  v3 = v2;
-  if ((v2 - 268435458) <= 0xE && ((1 << (v2 - 2)) & 0x4003) != 0)
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = 1;
+  v10 = a3;
+  v11 = 16777472;
+  v12 = a4;
+  v13 = *MEMORY[0x1E69E99E0];
+  v14 = a2;
+  v15 = a4;
+  *&v8.msgh_bits = 0x3C80001513;
+  *&v8.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v8.msgh_voucher_port = 0xB1400000000;
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v8.msgh_local_port);
   }
 
-  else if (v2)
+  else if (v5)
   {
-    mig_dealloc_reply_port(v6.msgh_local_port);
+    mig_dealloc_reply_port(v8.msgh_local_port);
   }
 
   else
   {
-    v3 = 4294966995;
-    mach_msg_destroy(&v6);
+    v6 = 4294966995;
+    mach_msg_destroy(&v8);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v6;
 }
 
-uint64_t io_catalog_get_gen_count(unsigned int a1)
+uint64_t io_catalog_terminate(unsigned int a1, int a2, char *src)
 {
-  v6 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  memset(v10, 0, 140);
+  *reply_port = 0u;
+  v9 = 0u;
+  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  LODWORD(v10[0]) = a2;
+  if (MEMORY[0x1EEE9AC40])
+  {
+    v4 = mig_strncpy_zerofill(v10 + 12, src, 128);
+  }
+
+  else
+  {
+    v4 = mig_strncpy(v10 + 12, src, 128);
+  }
+
+  DWORD1(v10[0]) = 0;
+  DWORD2(v10[0]) = v4;
+  reply_port[0] = 5395;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 44;
+  *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
+  *&v9 = 0xB1500000000;
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(reply_port[3]);
+  }
+
+  else if (v5)
+  {
+    mig_dealloc_reply_port(reply_port[3]);
+  }
+
+  else
+  {
+    v6 = 4294966995;
+    mach_msg_destroy(reply_port);
+  }
+
+  return v6;
+}
+
+uint64_t io_catalog_get_data(unsigned int a1, int a2, void *a3, _DWORD *a4)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v10 = 0;
+  v13 = 0;
+  v12 = 0;
+  v8 = *MEMORY[0x1E69E99E0];
+  v9 = a2;
+  *&v7.msgh_bits = 0x2400001513;
+  *&v7.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v7.msgh_voucher_port = 0xB1600000000;
+  v4 = mach_msg2_internal();
+  v5 = v4;
+  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(v7.msgh_local_port);
+  }
+
+  else if (v4)
+  {
+    mig_dealloc_reply_port(v7.msgh_local_port);
+  }
+
+  else
+  {
+    v5 = 4294966995;
+    mach_msg_destroy(&v7);
+  }
+
+  return v5;
+}
+
+uint64_t io_catalog_get_gen_count(unsigned int a1, _DWORD *a2)
+{
   v7 = 0;
   v8 = 0;
-  *&v5.msgh_bits = 0x1800001513;
-  *&v5.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v5.msgh_voucher_port = 0xB1700000000;
-  v1 = mach_msg2_internal();
-  v2 = v1;
-  if ((v1 - 268435458) > 0xE || ((1 << (v1 - 2)) & 0x4003) == 0)
+  v9 = 0;
+  *&v6.msgh_bits = 0x1800001513;
+  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v6.msgh_voucher_port = 0xB1700000000;
+  v2 = mach_msg2_internal();
+  v3 = v2;
+  if ((v2 - 268435458) > 0xE || ((1 << (v2 - 2)) & 0x4003) == 0)
   {
-    if (v1)
+    if (v2)
     {
-      mig_dealloc_reply_port(v5.msgh_local_port);
+      mig_dealloc_reply_port(v6.msgh_local_port);
     }
 
     else
     {
-      v2 = 4294966995;
-      mach_msg_destroy(&v5);
+      v3 = 4294966995;
+      mach_msg_destroy(&v6);
     }
   }
 
   else
   {
-    mig_put_reply_port(v5.msgh_local_port);
+    mig_put_reply_port(v6.msgh_local_port);
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t io_catalog_module_loaded(unsigned int a1, const char *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  memset(v10, 0, sizeof(v10));
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
   *reply_port = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  v8 = 0u;
+  *(&v8 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v3 = mig_strncpy_zerofill(v9 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v3 = mig_strncpy(v9 + 8, a2, 128);
   }
 
-  LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  LODWORD(v9[0]) = 0;
+  DWORD1(v9[0]) = v3;
   reply_port[0] = 5395;
   reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
-  *&v9 = 0xB1800000000;
+  *&v8 = 0xB1800000000;
   v4 = mach_msg2_internal();
   v5 = v4;
   if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
@@ -106,11 +184,10 @@ uint64_t io_catalog_module_loaded(unsigned int a1, const char *a2)
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-uint64_t io_catalog_reset(unsigned int a1, int a2)
+uint64_t io_catalog_reset(unsigned int a1, unsigned int a2)
 {
   v9 = 0;
   v7 = *MEMORY[0x1E69E99E0];
@@ -142,7 +219,7 @@ uint64_t io_catalog_reset(unsigned int a1, int a2)
   return v3;
 }
 
-uint64_t io_service_request_probe(unsigned int a1, int a2)
+uint64_t io_service_request_probe(unsigned int a1, unsigned int a2)
 {
   v9 = 0;
   v7 = *MEMORY[0x1E69E99E0];
@@ -174,7 +251,7 @@ uint64_t io_service_request_probe(unsigned int a1, int a2)
   return v3;
 }
 
-uint64_t io_registry_entry_get_name_in_plane(unsigned int a1, const char *a2)
+uint64_t io_registry_entry_get_name_in_plane(unsigned int a1, const char *a2, char *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -184,43 +261,42 @@ uint64_t io_registry_entry_get_name_in_plane(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB1B00000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_service_match_property_table(unsigned int a1, const char *a2)
+uint64_t io_service_match_property_table(unsigned int a1, const char *a2, _DWORD *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   memset(v10, 0, 480);
@@ -229,76 +305,75 @@ uint64_t io_service_match_property_table(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 512);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 512);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 512);
+    v4 = mig_strncpy(v10 + 8, a2, 512);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB1C00000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_connect_get_notification_semaphore(unsigned int a1, int a2)
+uint64_t io_connect_get_notification_semaphore(unsigned int a1, unsigned int a2, _DWORD *a3)
 {
+  v11 = 0;
   v10 = 0;
-  v9 = 0;
-  v7 = *MEMORY[0x1E69E99E0];
-  v8 = a2;
-  *&v6.msgh_bits = 0x2400001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB2400000000;
-  v2 = mach_msg2_internal();
-  v3 = v2;
-  if ((v2 - 268435458) > 0xE || ((1 << (v2 - 2)) & 0x4003) == 0)
+  v8 = *MEMORY[0x1E69E99E0];
+  v9 = a2;
+  *&v7.msgh_bits = 0x2400001513;
+  *&v7.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v7.msgh_voucher_port = 0xB2400000000;
+  v3 = mach_msg2_internal();
+  v4 = v3;
+  if ((v3 - 268435458) > 0xE || ((1 << (v3 - 2)) & 0x4003) == 0)
   {
-    if (v2)
+    if (v3)
     {
-      mig_dealloc_reply_port(v6.msgh_local_port);
+      mig_dealloc_reply_port(v7.msgh_local_port);
     }
 
     else
     {
-      v3 = 4294966995;
-      mach_msg_destroy(&v6);
+      v4 = 4294966995;
+      mach_msg_destroy(&v7);
     }
   }
 
   else
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v7.msgh_local_port);
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t io_registry_entry_get_location_in_plane(unsigned int a1, const char *a2)
+uint64_t io_registry_entry_get_location_in_plane(unsigned int a1, const char *a2, char *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -308,77 +383,76 @@ uint64_t io_registry_entry_get_location_in_plane(unsigned int a1, const char *a2
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB2600000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char *a2, const char *a3, int a4, void *a5, _DWORD *a6)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v45 = 0;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v45 = *MEMORY[0x1E69E9840];
+  v44 = 0;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  memset(v28, 0, sizeof(v28));
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  memset(v27, 0, sizeof(v27));
   *reply_port = 0u;
-  *(&v28[0] + 1) = *MEMORY[0x1E69E99E0];
+  *(&v27[0] + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v11 = mig_strncpy_zerofill(&v28[1] + 8, a2, 128);
+    v11 = mig_strncpy_zerofill(&v27[1] + 8, a2, 128);
   }
 
   else
   {
-    v11 = mig_strncpy(&v28[1] + 8, a2, 128);
+    v11 = mig_strncpy(&v27[1] + 8, a2, 128);
   }
 
-  LODWORD(v28[1]) = 0;
-  DWORD1(v28[1]) = v11;
+  LODWORD(v27[1]) = 0;
+  DWORD1(v27[1]) = v11;
   v12 = (v11 + 3) & 0xFFFFFFFC;
   v13 = v12 + 52;
   v14 = reply_port + v12;
@@ -403,32 +477,32 @@ uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char 
   reply_port[0] = 5395;
   reply_port[1] = v19;
   *&reply_port[2] = __PAIR64__(v20, a1);
-  *&v28[0] = 0xB2700000000;
+  *&v27[0] = 0xB2700000000;
   v21 = mach_msg2_internal();
   v22 = v21;
   if ((v21 - 268435458) > 0xE || ((1 << (v21 - 2)) & 0x4003) == 0)
   {
     if (!v21)
     {
-      if (DWORD1(v28[0]) == 71)
+      if (DWORD1(v27[0]) == 71)
       {
         v22 = 4294966988;
       }
 
-      else if (DWORD1(v28[0]) == 2955)
+      else if (DWORD1(v27[0]) == 2955)
       {
         if ((reply_port[0] & 0x80000000) != 0)
         {
           v22 = 4294966996;
-          if (DWORD2(v28[0]) == 1 && reply_port[1] == 56 && !reply_port[2] && BYTE7(v28[1]) == 1)
+          if (DWORD2(v27[0]) == 1 && reply_port[1] == 56 && !reply_port[2] && BYTE7(v27[1]) == 1)
           {
-            v24 = DWORD2(v28[1]);
-            if (DWORD2(v28[1]) == DWORD1(v29))
+            v24 = DWORD2(v27[1]);
+            if (DWORD2(v27[1]) == DWORD1(v28))
             {
               v22 = 0;
-              *a5 = *(v28 + 12);
+              *a5 = *(v27 + 12);
               *a6 = v24;
-              goto LABEL_32;
+              return v22;
             }
           }
         }
@@ -436,7 +510,7 @@ uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char 
         else if (reply_port[1] == 36)
         {
           v22 = 4294966996;
-          if (LODWORD(v28[1]))
+          if (LODWORD(v27[1]))
           {
             if (reply_port[2])
             {
@@ -445,7 +519,7 @@ uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char 
 
             else
             {
-              v22 = LODWORD(v28[1]);
+              v22 = LODWORD(v27[1]);
             }
           }
         }
@@ -462,7 +536,7 @@ uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char 
       }
 
       mach_msg_destroy(reply_port);
-      goto LABEL_32;
+      return v22;
     }
 
     mig_dealloc_reply_port(reply_port[3]);
@@ -473,111 +547,108 @@ uint64_t io_registry_entry_get_property_recursively(unsigned int a1, const char 
     mig_put_reply_port(reply_port[3]);
   }
 
-LABEL_32:
-  v25 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
-uint64_t io_service_get_state(unsigned int a1)
+uint64_t io_service_get_state(unsigned int a1, void *a2, _DWORD *a3, void *a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v7 = 0u;
-  v8 = 0u;
-  *&v6.msgh_bits = 0x1800001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB2800000000;
-  v1 = mach_msg2_internal();
-  v2 = v1;
-  if ((v1 - 268435458) > 0xE || ((1 << (v1 - 2)) & 0x4003) == 0)
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v9 = 0u;
+  v10 = 0u;
+  *&v8.msgh_bits = 0x1800001513;
+  *&v8.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v8.msgh_voucher_port = 0xB2800000000;
+  v4 = mach_msg2_internal();
+  v5 = v4;
+  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
   {
-    if (v1)
+    if (v4)
     {
-      mig_dealloc_reply_port(v6.msgh_local_port);
+      mig_dealloc_reply_port(v8.msgh_local_port);
     }
 
     else
     {
-      v2 = 4294966995;
-      mach_msg_destroy(&v6);
+      v5 = 4294966995;
+      mach_msg_destroy(&v8);
     }
   }
 
   else
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v8.msgh_local_port);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v5;
 }
 
-uint64_t io_service_get_matching_services_ool(unsigned int a1, uint64_t a2, int a3)
+uint64_t io_service_get_matching_services_ool(unsigned int a1, uint64_t a2, int a3, _DWORD *a4, _DWORD *a5)
 {
-  v7 = 1;
-  v8 = a2;
-  v9 = 0x1000000;
-  v10 = a3;
-  v11 = *MEMORY[0x1E69E99E0];
+  v9 = 1;
+  v10 = a2;
+  v11 = 0x1000000;
   v12 = a3;
-  v13 = 0;
-  *&v6.msgh_bits = 0x3880001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB2900000000;
-  v3 = mach_msg2_internal();
-  v4 = v3;
-  if ((v3 - 268435458) <= 0xE && ((1 << (v3 - 2)) & 0x4003) != 0)
+  v13 = *MEMORY[0x1E69E99E0];
+  v14 = a3;
+  v15 = 0;
+  *&v8.msgh_bits = 0x3880001513;
+  *&v8.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v8.msgh_voucher_port = 0xB2900000000;
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v8.msgh_local_port);
   }
 
-  else if (v3)
+  else if (v5)
   {
-    mig_dealloc_reply_port(v6.msgh_local_port);
+    mig_dealloc_reply_port(v8.msgh_local_port);
   }
 
   else
   {
-    v4 = 4294966995;
-    mach_msg_destroy(&v6);
+    v6 = 4294966995;
+    mach_msg_destroy(&v8);
   }
 
-  return v4;
+  return v6;
 }
 
-uint64_t io_service_match_property_table_ool(unsigned int a1, uint64_t a2, int a3)
+uint64_t io_service_match_property_table_ool(unsigned int a1, uint64_t a2, int a3, int *a4, _DWORD *a5)
 {
-  v7 = 1;
-  v8 = a2;
-  v9 = 0x1000000;
-  v10 = a3;
-  v11 = *MEMORY[0x1E69E99E0];
+  v9 = 1;
+  v10 = a2;
+  v11 = 0x1000000;
   v12 = a3;
-  *&v6.msgh_bits = 0x3880001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB2A00000000;
-  v3 = mach_msg2_internal();
-  v4 = v3;
-  if ((v3 - 268435458) <= 0xE && ((1 << (v3 - 2)) & 0x4003) != 0)
+  v13 = *MEMORY[0x1E69E99E0];
+  v14 = a3;
+  *&v8.msgh_bits = 0x3880001513;
+  *&v8.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v8.msgh_voucher_port = 0xB2A00000000;
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v8.msgh_local_port);
   }
 
-  else if (v3)
+  else if (v5)
   {
-    mig_dealloc_reply_port(v6.msgh_local_port);
+    mig_dealloc_reply_port(v8.msgh_local_port);
   }
 
   else
   {
-    v4 = 4294966995;
-    mach_msg_destroy(&v6);
+    v6 = 4294966995;
+    mach_msg_destroy(&v8);
   }
 
-  return v4;
+  return v6;
 }
 
-uint64_t io_object_get_superclass(unsigned int a1, const char *a2)
+uint64_t io_object_get_superclass(unsigned int a1, const char *a2, char *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -587,43 +658,42 @@ uint64_t io_object_get_superclass(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB2C00000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_object_get_bundle_identifier(unsigned int a1, const char *a2)
+uint64_t io_object_get_bundle_identifier(unsigned int a1, const char *a2, char *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -633,58 +703,57 @@ uint64_t io_object_get_bundle_identifier(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB2D00000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_service_add_notification(unsigned int a1, const char *a2, const char *a3, int a4, const void *a5, unsigned int a6, _DWORD *a7)
+uint64_t io_service_add_notification(unsigned int a1, const char *a2, const char *a3, int a4, const void *a5, unsigned int a6, int *a7)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v28 = 0u;
-  memset(v29, 0, 464);
+  v29 = *MEMORY[0x1E69E9840];
+  v27 = 0u;
+  memset(v28, 0, 464);
   memset(&reply_port, 0, sizeof(reply_port));
-  v26 = 1;
-  v27 = a4;
-  DWORD1(v28) = 1310720;
-  *(&v28 + 1) = *MEMORY[0x1E69E99E0];
+  v25 = 1;
+  v26 = a4;
+  DWORD1(v27) = 1310720;
+  *(&v27 + 1) = *MEMORY[0x1E69E99E0];
   v12 = &reply_port - 128;
   if (MEMORY[0x1EEE9AC40])
   {
-    v13 = mig_strncpy_zerofill(v29 + 8, a2, 128);
-    LODWORD(v29[0]) = 0;
-    DWORD1(v29[0]) = v13;
+    v13 = mig_strncpy_zerofill(v28 + 8, a2, 128);
+    LODWORD(v28[0]) = 0;
+    DWORD1(v28[0]) = v13;
     v14 = (v13 + 3) & 0xFFFFFFFC;
     v15 = &v12[v14];
     v16 = mig_strncpy_zerofill(v15 + 192, a3, 512);
@@ -692,9 +761,9 @@ uint64_t io_service_add_notification(unsigned int a1, const char *a2, const char
 
   else
   {
-    v17 = mig_strncpy(v29 + 8, a2, 128);
-    LODWORD(v29[0]) = 0;
-    DWORD1(v29[0]) = v17;
+    v17 = mig_strncpy(v28 + 8, a2, 128);
+    LODWORD(v28[0]) = 0;
+    DWORD1(v28[0]) = v17;
     v14 = (v17 + 3) & 0xFFFFFFFC;
     v15 = &v12[v14];
     v16 = mig_strncpy(v15 + 192, a3, 512);
@@ -702,208 +771,198 @@ uint64_t io_service_add_notification(unsigned int a1, const char *a2, const char
 
   *(v15 + 46) = 0;
   *(v15 + 47) = v16;
-  if (a6 <= 8)
+  if (a6 > 8)
   {
-    v19 = (v16 + 3) & 0xFFFFFFFC;
-    v20 = &v15[v19];
-    memcpy(v20 + 196, a5, 8 * a6);
-    *(v20 + 48) = a6;
-    v21 = mig_get_reply_port();
-    reply_port.msgh_bits = -2147478253;
-    reply_port.msgh_size = v14 + 8 * a6 + v19 + 68;
-    *&reply_port.msgh_remote_port = __PAIR64__(v21, a1);
-    *&reply_port.msgh_voucher_port = 0xB3400000000;
-    v22 = mach_msg2_internal();
-    v18 = v22;
-    if ((v22 - 268435458) <= 0xE && ((1 << (v22 - 2)) & 0x4003) != 0)
-    {
-      mig_put_reply_port(reply_port.msgh_local_port);
-    }
+    return 4294966989;
+  }
 
-    else
+  v19 = (v16 + 3) & 0xFFFFFFFC;
+  v20 = &v15[v19];
+  memcpy(v20 + 196, a5, 8 * a6);
+  *(v20 + 48) = a6;
+  v21 = mig_get_reply_port();
+  reply_port.msgh_bits = -2147478253;
+  reply_port.msgh_size = v14 + 8 * a6 + v19 + 68;
+  *&reply_port.msgh_remote_port = __PAIR64__(v21, a1);
+  *&reply_port.msgh_voucher_port = 0xB3400000000;
+  v22 = mach_msg2_internal();
+  v18 = v22;
+  if ((v22 - 268435458) <= 0xE && ((1 << (v22 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(reply_port.msgh_local_port);
+  }
+
+  else
+  {
+    if (!v22)
     {
-      if (!v22)
+      if (reply_port.msgh_id == 71)
       {
-        if (reply_port.msgh_id == 71)
+        v18 = 4294966988;
+      }
+
+      else if (reply_port.msgh_id == 2968)
+      {
+        if ((reply_port.msgh_bits & 0x80000000) != 0)
         {
-          v18 = 4294966988;
+          v18 = 4294966996;
+          if (v25 == 1 && reply_port.msgh_size == 40 && !reply_port.msgh_remote_port && WORD3(v27) << 16 == 1114112)
+          {
+            v18 = 0;
+            *a7 = v26;
+            return v18;
+          }
         }
 
-        else if (reply_port.msgh_id == 2968)
+        else if (reply_port.msgh_size == 36)
         {
-          if ((reply_port.msgh_bits & 0x80000000) != 0)
+          v18 = 4294966996;
+          if (v27)
           {
-            v18 = 4294966996;
-            if (v26 == 1 && reply_port.msgh_size == 40 && !reply_port.msgh_remote_port && WORD3(v28) << 16 == 1114112)
+            if (reply_port.msgh_remote_port)
             {
-              v18 = 0;
-              *a7 = v27;
-              goto LABEL_28;
+              v18 = 4294966996;
             }
-          }
 
-          else if (reply_port.msgh_size == 36)
-          {
-            v18 = 4294966996;
-            if (v28)
+            else
             {
-              if (reply_port.msgh_remote_port)
-              {
-                v18 = 4294966996;
-              }
-
-              else
-              {
-                v18 = v28;
-              }
+              v18 = v27;
             }
-          }
-
-          else
-          {
-            v18 = 4294966996;
           }
         }
 
         else
         {
-          v18 = 4294966995;
+          v18 = 4294966996;
         }
-
-        mach_msg_destroy(&reply_port);
-        goto LABEL_28;
       }
 
-      mig_dealloc_reply_port(reply_port.msgh_local_port);
+      else
+      {
+        v18 = 4294966995;
+      }
+
+      mach_msg_destroy(&reply_port);
+      return v18;
     }
+
+    mig_dealloc_reply_port(reply_port.msgh_local_port);
   }
 
-  else
-  {
-    v18 = 4294966989;
-  }
-
-LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 uint64_t io_service_add_notification_ool(unsigned int a1, const char *a2, uint64_t a3, int a4, int a5, const void *a6, unsigned int a7, _DWORD *a8, _DWORD *a9)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v30 = 0u;
-  memset(v31, 0, sizeof(v31));
+  v31 = *MEMORY[0x1E69E9840];
+  v29 = 0u;
+  memset(v30, 0, sizeof(v30));
   memset(&reply_port, 0, sizeof(reply_port));
-  v25 = 2;
-  v26 = a3;
-  v27 = 0x1000000;
-  v28 = a4;
-  v29 = a5;
-  DWORD1(v30) = 1310720;
-  *(&v30 + 1) = *MEMORY[0x1E69E99E0];
+  v24 = 2;
+  v25 = a3;
+  v26 = 0x1000000;
+  v27 = a4;
+  v28 = a5;
+  DWORD1(v29) = 1310720;
+  *(&v29 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v14 = mig_strncpy_zerofill(v31 + 8, a2, 128);
+    v14 = mig_strncpy_zerofill(v30 + 8, a2, 128);
   }
 
   else
   {
-    v14 = mig_strncpy(v31 + 8, a2, 128);
+    v14 = mig_strncpy(v30 + 8, a2, 128);
   }
 
-  LODWORD(v31[0]) = 0;
-  DWORD1(v31[0]) = v14;
+  LODWORD(v30[0]) = 0;
+  DWORD1(v30[0]) = v14;
   v15 = (v14 + 3) & 0xFFFFFFFC;
   v16 = &reply_port + v15;
-  *(v31 + v15 + 8) = a4;
-  if (a7 <= 8)
+  *(v30 + v15 + 8) = a4;
+  if (a7 > 8)
   {
-    v18 = v16 - 128;
-    memcpy(v16 + 80, a6, 8 * a7);
-    *(v18 + 51) = a7;
-    v19 = mig_get_reply_port();
-    reply_port.msgh_bits = -2147478253;
-    reply_port.msgh_size = v15 + 8 * a7 + 80;
-    *&reply_port.msgh_remote_port = __PAIR64__(v19, a1);
-    *&reply_port.msgh_voucher_port = 0xB3600000000;
-    v20 = mach_msg2_internal();
-    v17 = v20;
-    if ((v20 - 268435458) <= 0xE && ((1 << (v20 - 2)) & 0x4003) != 0)
-    {
-      mig_put_reply_port(reply_port.msgh_local_port);
-    }
+    return 4294966989;
+  }
 
-    else
+  v18 = v16 - 128;
+  memcpy(v16 + 80, a6, 8 * a7);
+  *(v18 + 51) = a7;
+  v19 = mig_get_reply_port();
+  reply_port.msgh_bits = -2147478253;
+  reply_port.msgh_size = v15 + 8 * a7 + 80;
+  *&reply_port.msgh_remote_port = __PAIR64__(v19, a1);
+  *&reply_port.msgh_voucher_port = 0xB3600000000;
+  v20 = mach_msg2_internal();
+  v17 = v20;
+  if ((v20 - 268435458) <= 0xE && ((1 << (v20 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(reply_port.msgh_local_port);
+  }
+
+  else
+  {
+    if (!v20)
     {
-      if (!v20)
+      if (reply_port.msgh_id == 71)
       {
-        if (reply_port.msgh_id == 71)
+        v17 = 4294966988;
+      }
+
+      else if (reply_port.msgh_id == 2970)
+      {
+        if ((reply_port.msgh_bits & 0x80000000) != 0)
         {
-          v17 = 4294966988;
+          v17 = 4294966996;
+          if (v24 == 1 && reply_port.msgh_size == 52 && !reply_port.msgh_remote_port && HIWORD(v26) << 16 == 1114112)
+          {
+            v17 = 0;
+            v21 = v25;
+            *a8 = v29;
+            *a9 = v21;
+            return v17;
+          }
         }
 
-        else if (reply_port.msgh_id == 2970)
+        else if (reply_port.msgh_size == 36)
         {
-          if ((reply_port.msgh_bits & 0x80000000) != 0)
+          v17 = 4294966996;
+          if (HIDWORD(v25))
           {
-            v17 = 4294966996;
-            if (v25 == 1 && reply_port.msgh_size == 52 && !reply_port.msgh_remote_port && HIWORD(v27) << 16 == 1114112)
+            if (reply_port.msgh_remote_port)
             {
-              v17 = 0;
-              v21 = v26;
-              *a8 = v30;
-              *a9 = v21;
-              goto LABEL_28;
+              v17 = 4294966996;
             }
-          }
 
-          else if (reply_port.msgh_size == 36)
-          {
-            v17 = 4294966996;
-            if (HIDWORD(v26))
+            else
             {
-              if (reply_port.msgh_remote_port)
-              {
-                v17 = 4294966996;
-              }
-
-              else
-              {
-                v17 = HIDWORD(v26);
-              }
+              v17 = HIDWORD(v25);
             }
-          }
-
-          else
-          {
-            v17 = 4294966996;
           }
         }
 
         else
         {
-          v17 = 4294966995;
+          v17 = 4294966996;
         }
-
-        mach_msg_destroy(&reply_port);
-        goto LABEL_28;
       }
 
-      mig_dealloc_reply_port(reply_port.msgh_local_port);
+      else
+      {
+        v17 = 4294966995;
+      }
+
+      mach_msg_destroy(&reply_port);
+      return v17;
     }
+
+    mig_dealloc_reply_port(reply_port.msgh_local_port);
   }
 
-  else
-  {
-    v17 = 4294966989;
-  }
-
-LABEL_28:
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
-uint64_t io_service_get_matching_service(unsigned int a1, const char *a2)
+uint64_t io_service_get_matching_service(unsigned int a1, const char *a2, _DWORD *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   memset(v10, 0, 480);
@@ -912,76 +971,75 @@ uint64_t io_service_get_matching_service(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 512);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 512);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 512);
+    v4 = mig_strncpy(v10 + 8, a2, 512);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB3900000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_service_get_matching_service_ool(unsigned int a1, uint64_t a2, int a3)
+uint64_t io_service_get_matching_service_ool(unsigned int a1, uint64_t a2, int a3, _DWORD *a4, _DWORD *a5)
 {
-  v7 = 1;
-  v8 = a2;
-  v9 = 0x1000000;
-  v10 = a3;
-  v11 = *MEMORY[0x1E69E99E0];
+  v9 = 1;
+  v10 = a2;
+  v11 = 0x1000000;
   v12 = a3;
-  v13 = 0;
-  *&v6.msgh_bits = 0x3880001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB3A00000000;
-  v3 = mach_msg2_internal();
-  v4 = v3;
-  if ((v3 - 268435458) <= 0xE && ((1 << (v3 - 2)) & 0x4003) != 0)
+  v13 = *MEMORY[0x1E69E99E0];
+  v14 = a3;
+  v15 = 0;
+  *&v8.msgh_bits = 0x3880001513;
+  *&v8.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v8.msgh_voucher_port = 0xB3A00000000;
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v8.msgh_local_port);
   }
 
-  else if (v3)
+  else if (v5)
   {
-    mig_dealloc_reply_port(v6.msgh_local_port);
+    mig_dealloc_reply_port(v8.msgh_local_port);
   }
 
   else
   {
-    v4 = 4294966995;
-    mach_msg_destroy(&v6);
+    v6 = 4294966995;
+    mach_msg_destroy(&v8);
   }
 
-  return v4;
+  return v6;
 }
 
-uint64_t io_service_get_authorization_id(unsigned int a1)
+uint64_t io_service_get_authorization_id(unsigned int a1, void *a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   v7 = 0;
@@ -991,18 +1049,18 @@ uint64_t io_service_get_authorization_id(unsigned int a1)
   *&v6.msgh_bits = 0x1800001513;
   *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
   *&v6.msgh_voucher_port = 0xB3B00000000;
-  v1 = mach_msg2_internal();
-  v2 = v1;
-  if ((v1 - 268435458) > 0xE || ((1 << (v1 - 2)) & 0x4003) == 0)
+  v2 = mach_msg2_internal();
+  v3 = v2;
+  if ((v2 - 268435458) > 0xE || ((1 << (v2 - 2)) & 0x4003) == 0)
   {
-    if (v1)
+    if (v2)
     {
       mig_dealloc_reply_port(v6.msgh_local_port);
     }
 
     else
     {
-      v2 = 4294966995;
+      v3 = 4294966995;
       mach_msg_destroy(&v6);
     }
   }
@@ -1012,8 +1070,7 @@ uint64_t io_service_get_authorization_id(unsigned int a1)
     mig_put_reply_port(v6.msgh_local_port);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v3;
 }
 
 uint64_t io_service_set_authorization_id(unsigned int a1, uint64_t a2)
@@ -1048,75 +1105,74 @@ uint64_t io_service_set_authorization_id(unsigned int a1, uint64_t a2)
   return v3;
 }
 
-uint64_t io_registry_entry_get_properties_bin(unsigned int a1)
+uint64_t io_registry_entry_get_properties_bin(unsigned int a1, void *a2, _DWORD *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v7 = 0u;
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   v8 = 0u;
-  *&v6.msgh_bits = 0x1800001513;
-  *&v6.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v6.msgh_voucher_port = 0xB3E00000000;
-  v1 = mach_msg2_internal();
-  v2 = v1;
-  if ((v1 - 268435458) > 0xE || ((1 << (v1 - 2)) & 0x4003) == 0)
+  v9 = 0u;
+  *&v7.msgh_bits = 0x1800001513;
+  *&v7.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
+  *&v7.msgh_voucher_port = 0xB3E00000000;
+  v3 = mach_msg2_internal();
+  v4 = v3;
+  if ((v3 - 268435458) > 0xE || ((1 << (v3 - 2)) & 0x4003) == 0)
   {
-    if (v1)
+    if (v3)
     {
-      mig_dealloc_reply_port(v6.msgh_local_port);
+      mig_dealloc_reply_port(v7.msgh_local_port);
     }
 
     else
     {
-      v2 = 4294966995;
-      mach_msg_destroy(&v6);
+      v4 = 4294966995;
+      mach_msg_destroy(&v7);
     }
   }
 
   else
   {
-    mig_put_reply_port(v6.msgh_local_port);
+    mig_put_reply_port(v7.msgh_local_port);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v4;
 }
 
 uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, const char *a3, int a4, void *a5, _DWORD *a6)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v45 = 0;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v45 = *MEMORY[0x1E69E9840];
+  v44 = 0;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  memset(v28, 0, sizeof(v28));
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  memset(v27, 0, sizeof(v27));
   *reply_port = 0u;
-  *(&v28[0] + 1) = *MEMORY[0x1E69E99E0];
+  *(&v27[0] + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v11 = mig_strncpy_zerofill(&v28[1] + 8, a2, 128);
+    v11 = mig_strncpy_zerofill(&v27[1] + 8, a2, 128);
   }
 
   else
   {
-    v11 = mig_strncpy(&v28[1] + 8, a2, 128);
+    v11 = mig_strncpy(&v27[1] + 8, a2, 128);
   }
 
-  LODWORD(v28[1]) = 0;
-  DWORD1(v28[1]) = v11;
+  LODWORD(v27[1]) = 0;
+  DWORD1(v27[1]) = v11;
   v12 = (v11 + 3) & 0xFFFFFFFC;
   v13 = v12 + 52;
   v14 = reply_port + v12;
@@ -1141,32 +1197,32 @@ uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, con
   reply_port[0] = 5395;
   reply_port[1] = v19;
   *&reply_port[2] = __PAIR64__(v20, a1);
-  *&v28[0] = 0xB3F00000000;
+  *&v27[0] = 0xB3F00000000;
   v21 = mach_msg2_internal();
   v22 = v21;
   if ((v21 - 268435458) > 0xE || ((1 << (v21 - 2)) & 0x4003) == 0)
   {
     if (!v21)
     {
-      if (DWORD1(v28[0]) == 71)
+      if (DWORD1(v27[0]) == 71)
       {
         v22 = 4294966988;
       }
 
-      else if (DWORD1(v28[0]) == 2979)
+      else if (DWORD1(v27[0]) == 2979)
       {
         if ((reply_port[0] & 0x80000000) != 0)
         {
           v22 = 4294966996;
-          if (DWORD2(v28[0]) == 1 && reply_port[1] == 56 && !reply_port[2] && BYTE7(v28[1]) == 1)
+          if (DWORD2(v27[0]) == 1 && reply_port[1] == 56 && !reply_port[2] && BYTE7(v27[1]) == 1)
           {
-            v24 = DWORD2(v28[1]);
-            if (DWORD2(v28[1]) == DWORD1(v29))
+            v24 = DWORD2(v27[1]);
+            if (DWORD2(v27[1]) == DWORD1(v28))
             {
               v22 = 0;
-              *a5 = *(v28 + 12);
+              *a5 = *(v27 + 12);
               *a6 = v24;
-              goto LABEL_32;
+              return v22;
             }
           }
         }
@@ -1174,7 +1230,7 @@ uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, con
         else if (reply_port[1] == 36)
         {
           v22 = 4294966996;
-          if (LODWORD(v28[1]))
+          if (LODWORD(v27[1]))
           {
             if (reply_port[2])
             {
@@ -1183,7 +1239,7 @@ uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, con
 
             else
             {
-              v22 = LODWORD(v28[1]);
+              v22 = LODWORD(v27[1]);
             }
           }
         }
@@ -1200,7 +1256,7 @@ uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, con
       }
 
       mach_msg_destroy(reply_port);
-      goto LABEL_32;
+      return v22;
     }
 
     mig_dealloc_reply_port(reply_port[3]);
@@ -1211,89 +1267,83 @@ uint64_t io_registry_entry_get_property_bin(unsigned int a1, const char *a2, con
     mig_put_reply_port(reply_port[3]);
   }
 
-LABEL_32:
-  v25 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
-uint64_t io_service_match_property_table_bin()
+uint64_t io_service_match_property_table_bin(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0u;
+  v2 = MEMORY[0x1EEE9AC00](a1, a2);
+  v41 = *MEMORY[0x1E69E9840];
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
   *reply_port = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
-  if (v1 <= 0x1000)
+  v10 = 0u;
+  *(&v10 + 1) = *MEMORY[0x1E69E99E0];
+  if (v3 > 0x1000)
   {
-    v3 = v1;
-    v4 = v0;
-    __memcpy_chk();
-    LODWORD(v10) = v3;
-    reply_port[0] = 5395;
-    reply_port[1] = ((v3 + 3) & 0x3FFC) + 36;
-    *&reply_port[2] = __PAIR64__(mig_get_reply_port(), v4);
-    *&v9 = 0xB4200000000;
-    v5 = mach_msg2_internal();
-    v2 = v5;
-    if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
-    {
-      mig_put_reply_port(reply_port[3]);
-    }
+    return 4294966989;
+  }
 
-    else if (v5)
-    {
-      mig_dealloc_reply_port(reply_port[3]);
-    }
+  v5 = v3;
+  v6 = v2;
+  __memcpy_chk();
+  LODWORD(v11) = v5;
+  reply_port[0] = 5395;
+  reply_port[1] = ((v5 + 3) & 0x3FFC) + 36;
+  *&reply_port[2] = __PAIR64__(mig_get_reply_port(), v6);
+  *&v10 = 0xB4200000000;
+  v7 = mach_msg2_internal();
+  v4 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(reply_port[3]);
+  }
 
-    else
-    {
-      v2 = 4294966995;
-      mach_msg_destroy(reply_port);
-    }
+  else if (v7)
+  {
+    mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v2 = 4294966989;
+    v4 = 4294966995;
+    mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v4;
 }
 
-uint64_t io_registry_entry_get_path_ool(uint64_t a1)
+uint64_t io_registry_entry_get_path_ool(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1);
+  v3 = MEMORY[0x1EEE9AC00](a1, a2);
   v11 = *MEMORY[0x1E69E9840];
   memset(v10, 0, 480);
   *reply_port = 0u;
@@ -1301,177 +1351,174 @@ uint64_t io_registry_entry_get_path_ool(uint64_t a1)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, v1, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, v2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, v1, 128);
+    v4 = mig_strncpy(v10 + 8, v2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
-  *&reply_port[2] = __PAIR64__(mig_get_reply_port(), v2);
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
+  *&reply_port[2] = __PAIR64__(mig_get_reply_port(), v3);
   *&v9 = 0xB4500000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
-uint64_t io_registry_entry_from_path_ool()
+uint64_t io_registry_entry_from_path_ool(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v3 = v2;
+  v2 = MEMORY[0x1EEE9AC00](a1, a2);
   v5 = v4;
   v7 = v6;
-  v8 = v0;
-  v52 = *MEMORY[0x1E69E9840];
-  v50 = 0u;
+  v9 = v8;
+  v10 = v2;
+  v53 = *MEMORY[0x1E69E9840];
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  *&v23[8] = 0u;
+  v26 = 0u;
+  *&v24[8] = 0u;
   memset(&reply_port, 0, sizeof(reply_port));
-  v20 = 1;
-  v21 = v9;
-  v22 = 0x1000000;
-  *v23 = v6;
-  *&v23[4] = *MEMORY[0x1E69E99E0];
+  v21 = 1;
+  v22 = v11;
+  v23 = 0x1000000;
+  *v24 = v8;
+  *&v24[4] = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v10 = mig_strncpy_zerofill(&v23[20], v1, 4096);
+    v12 = mig_strncpy_zerofill(&v24[20], v3, 4096);
   }
 
   else
   {
-    v10 = mig_strncpy(&v23[20], v1, 4096);
+    v12 = mig_strncpy(&v24[20], v3, 4096);
   }
 
-  *&v23[12] = 0;
-  *&v23[16] = v10;
-  v11 = (v10 + 3) & 0xFFFFFFFC;
-  v12 = v11 + 64;
-  *&v23[v11 + 20] = v7;
-  v13 = mig_get_reply_port();
+  *&v24[12] = 0;
+  *&v24[16] = v12;
+  v13 = (v12 + 3) & 0xFFFFFFFC;
+  v14 = v13 + 64;
+  *&v24[v13 + 20] = v9;
+  v15 = mig_get_reply_port();
   reply_port.msgh_bits = -2147478253;
-  reply_port.msgh_size = v12;
-  *&reply_port.msgh_remote_port = __PAIR64__(v13, v8);
+  reply_port.msgh_size = v14;
+  *&reply_port.msgh_remote_port = __PAIR64__(v15, v10);
   *&reply_port.msgh_voucher_port = 0xB4600000000;
-  v14 = mach_msg2_internal();
-  v15 = v14;
-  if ((v14 - 268435458) <= 0xE && ((1 << (v14 - 2)) & 0x4003) != 0)
+  v16 = mach_msg2_internal();
+  v17 = v16;
+  if ((v16 - 268435458) <= 0xE && ((1 << (v16 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port.msgh_local_port);
   }
 
   else
   {
-    if (!v14)
+    if (!v16)
     {
       if (reply_port.msgh_id == 71)
       {
-        v15 = 4294966988;
+        v17 = 4294966988;
       }
 
       else if (reply_port.msgh_id == 2986)
       {
         if ((reply_port.msgh_bits & 0x80000000) != 0)
         {
-          v15 = 4294966996;
-          if (v20 == 1 && reply_port.msgh_size == 52 && !reply_port.msgh_remote_port && HIWORD(v22) << 16 == 1114112)
+          v17 = 4294966996;
+          if (v21 == 1 && reply_port.msgh_size == 52 && !reply_port.msgh_remote_port && HIWORD(v23) << 16 == 1114112)
           {
-            v15 = 0;
-            v16 = v21;
-            *v5 = *&v23[8];
-            *v3 = v16;
-            goto LABEL_26;
+            v17 = 0;
+            v18 = v22;
+            *v7 = *&v24[8];
+            *v5 = v18;
+            return v17;
           }
         }
 
         else if (reply_port.msgh_size == 36)
         {
-          v15 = 4294966996;
-          if (HIDWORD(v21))
+          v17 = 4294966996;
+          if (HIDWORD(v22))
           {
             if (reply_port.msgh_remote_port)
             {
-              v15 = 4294966996;
+              v17 = 4294966996;
             }
 
             else
             {
-              v15 = HIDWORD(v21);
+              v17 = HIDWORD(v22);
             }
           }
         }
 
         else
         {
-          v15 = 4294966996;
+          v17 = 4294966996;
         }
       }
 
       else
       {
-        v15 = 4294966995;
+        v17 = 4294966995;
       }
 
       mach_msg_destroy(&reply_port);
-      goto LABEL_26;
+      return v17;
     }
 
     mig_dealloc_reply_port(reply_port.msgh_local_port);
   }
 
-LABEL_26:
-  v17 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v17;
 }
 
-uint64_t io_device_tree_entry_exists_with_name(unsigned int a1, const char *a2)
+uint64_t io_device_tree_entry_exists_with_name(unsigned int a1, const char *a2, _DWORD *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -1481,40 +1528,39 @@ uint64_t io_device_tree_entry_exists_with_name(unsigned int a1, const char *a2)
   *(&v9 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 128);
+    v4 = mig_strncpy_zerofill(v10 + 8, a2, 128);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 128);
+    v4 = mig_strncpy(v10 + 8, a2, 128);
   }
 
   LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  DWORD1(v10[0]) = v4;
   reply_port[0] = 5395;
-  reply_port[1] = ((v3 + 3) & 0xFFFFFFFC) + 40;
+  reply_port[1] = ((v4 + 3) & 0xFFFFFFFC) + 40;
   *&reply_port[2] = __PAIR64__(mig_get_reply_port(), a1);
   *&v9 = 0xB4700000000;
-  v4 = mach_msg2_internal();
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v5 = mach_msg2_internal();
+  v6 = v5;
+  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
   }
 
-  else if (v4)
+  else if (v5)
   {
     mig_dealloc_reply_port(reply_port[3]);
   }
 
   else
   {
-    v5 = 4294966995;
+    v6 = 4294966995;
     mach_msg_destroy(reply_port);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 uint64_t DisplayID::checksum(DisplayID *this, unint64_t a2)
@@ -1753,13 +1799,13 @@ uint64_t IOAVAudioSampleRateScalar(unsigned int a1)
   }
 }
 
-uint64_t IOAVAudioLinkSampleRateForFormat(int a1, unsigned int a2)
+uint64_t IOAVAudioLinkSampleRateForFormat(int a1, int a2)
 {
   if ((a1 - 16) >= 5)
   {
     if ((a1 - 13) <= 2)
     {
-      return 4 * a2;
+      return (4 * a2);
     }
 
     else
@@ -1824,10 +1870,7 @@ uint64_t IOAVHDMIAudioClockRegenerationDataForLink(_DWORD *a1, uint64_t a2)
     }
   }
 
-  v11 = &v8[288 * i];
-  result = *(v11 - 2);
-  v12 = *(v11 - 1);
-  return result;
+  return *&v8[288 * i - 16];
 }
 
 uint64_t IOAVVideoTimingGetPixelClock(int *a1, unsigned int *a2)
@@ -1917,11 +1960,11 @@ uint64_t IOAVAudioGetChannelAllocation(void *__s2)
   return v2;
 }
 
-uint64_t IOAVAudioLinkGetHDMIAudioPacketType(int *a1)
+uint64_t IOAVAudioLinkGetHDMIAudioPacketType(unsigned int *a1)
 {
   v1 = *a1;
   v2 = *a1 > 0x14 || ((1 << *a1) & 0x1FF5FC) == 0;
-  if (!v2 && (a1[2] * a1[3] * a1[1]) > 0x5DC000)
+  if (!v2 && a1[2] * a1[3] * a1[1] > 0x5DC000)
   {
     return 1;
   }
@@ -2387,17 +2430,21 @@ const char *IOAVContentProtectionProtocolString(unint64_t a1)
   }
 }
 
-uint64_t IOAVGetVideoTimingData(int a1, int a2, int a3, int a4, uint64_t a5)
+uint64_t IOAVGetVideoTimingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (IOAVGetCEAVideoTimingData(a1, a2, a3, a4, a5) || (__IOAVGetStandardVideoTimingData(1, a1, a2, a3, a4, a5, 1) & 1) != 0 || (__IOAVGetStandardVideoTimingData(3, a1, a2, a3, a4, a5, 1) & 1) != 0)
+  v6 = a4;
+  v7 = a3;
+  v8 = a2;
+  v9 = a1;
+  if (IOAVGetCEAVideoTimingData(a1, a2, a3, a4, a5) || (__IOAVGetStandardVideoTimingData(1, v9, v8, v7, v6, a5, 1) & 1) != 0 || (__IOAVGetStandardVideoTimingData(3, v9, v8, v7, v6, a5, 1) & 1) != 0)
   {
     return 1;
   }
 
-  return __IOAVGetStandardVideoTimingData(2, a1, a2, a3, a4, a5, 1);
+  return __IOAVGetStandardVideoTimingData(2, v9, v8, v7, v6, a5, 1);
 }
 
-BOOL IOAVGetCEAVideoTimingData(int a1, int a2, int a3, int a4, uint64_t a5)
+BOOL IOAVGetCEAVideoTimingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = IOAVGetCEAVideoShortID(a1, a2, a3, a4);
   if (v6 <= 0xCF && (v7 = &IOAVGetVideoTimingTable::sCEATimingData[5 * v6], *a5 = *v7, *(a5 + 16) = v7[1], *(a5 + 32) = v7[2], *(a5 + 48) = v7[3], *(a5 + 64) = v7[4], *(a5 + 4)) && *(a5 + 36))
@@ -3172,7 +3219,7 @@ unint64_t IODPLinkSymbolClockForLinkBitRate(unint64_t a1)
   }
 }
 
-uint64_t IODPLinkRateScalar(int a1)
+uint64_t IODPLinkRateScalar(unsigned int a1)
 {
   if (a1 <= 128)
   {
@@ -3191,11 +3238,11 @@ uint64_t IODPLinkRateScalar(int a1)
   {
     switch(a1)
     {
-      case 129:
+      case 0x81u:
         return 10000000000;
-      case 132:
+      case 0x84u:
         return 13500000000;
-      case 130:
+      case 0x82u:
         return 20000000000;
     }
   }
@@ -3203,7 +3250,7 @@ uint64_t IODPLinkRateScalar(int a1)
   return 270000000 * a1;
 }
 
-uint64_t IODPLinkRateEnum(uint64_t a1)
+uint64_t IODPLinkRateEnum(unint64_t a1)
 {
   if (a1 <= 0x2540BE3FFLL)
   {
@@ -3219,7 +3266,7 @@ uint64_t IODPLinkRateEnum(uint64_t a1)
       return v1;
     }
 
-    return ((((a1 / 0xAuLL + 13500000) * 0x13E254E465D72C1BuLL) >> 64) >> 21);
+    return ((((a1 / 0xA + 13500000) * 0x13E254E465D72C1BuLL) >> 64) >> 21);
   }
 
   if (a1 == 10000000000)
@@ -3236,7 +3283,7 @@ uint64_t IODPLinkRateEnum(uint64_t a1)
 
   if (a1 != 20000000000)
   {
-    return ((((a1 / 0xAuLL + 13500000) * 0x13E254E465D72C1BuLL) >> 64) >> 21);
+    return ((((a1 / 0xA + 13500000) * 0x13E254E465D72C1BuLL) >> 64) >> 21);
   }
 
   LOBYTE(v1) = -126;
@@ -3291,7 +3338,7 @@ BOOL IODPDriveSettingsEqual(uint64_t a1, uint64_t a2, unsigned int a3)
   return v3;
 }
 
-uint64_t IODPDriveSettingsAreValid(unint64_t a1, int a2)
+uint64_t IODPDriveSettingsAreValid(unint64_t a1, unsigned int a2)
 {
   if (SHIDWORD(a1) <= 3 && a2 <= 3)
   {
@@ -4172,77 +4219,73 @@ uint64_t IOCircularDataQueueEnqueue(uint64_t a1, const void *a2, size_t a3)
     v5 = *(a1 + 16);
     if (v5)
     {
-      v6 = *(a1 + 16);
-      if (a3)
+      if (a3 && a2)
       {
-        if (a2)
+        v6 = *(a1 + 16);
+        if (*v5 != *(a1 + 24))
         {
-          v7 = *(a1 + 16);
-          if (*v5 != *(a1 + 24))
+          return 3758097105;
+        }
+
+        if (*(a1 + 48) >= a3)
+        {
+          v7 = *(a1 + 36);
+          if (!v7)
           {
-            return 3758097105;
+            return 3758097095;
           }
 
-          if (*(a1 + 48) >= a3)
+          v8 = *(a1 + 32);
+          v9 = *(a1 + 44);
+          _X4 = v5[2];
+          v11 = v5[3];
+          __dmb(9u);
+          if (v11 < 0)
           {
-            v8 = *(a1 + 36);
-            if (!v8)
-            {
-              return 3758097095;
-            }
+            return 3758097109;
+          }
 
-            v9 = *(a1 + 32);
-            v10 = *(a1 + 44);
-            _X4 = v5[2];
-            v12 = v5[3];
-            __dmb(9u);
-            if (v12 < 0)
-            {
-              return 3758097109;
-            }
+          v12 = _X4 + 1;
+          if (_X4 == -2)
+          {
+            return 3758097128;
+          }
 
-            v13 = _X4 + 1;
-            if (_X4 == -2)
+          if (((v11 * v7) & 0x8000000000000000) == 0)
+          {
+            v13 = (v5 + v11 * v7 + 32);
+            if (v13 < (v5 + v8))
             {
-              return 3758097128;
-            }
+              _X7 = v11;
+              __asm { CASPAL          X6, X7, X4, X5, [X9] }
 
-            if (((v12 * v8) & 0x8000000000000000) == 0)
-            {
-              v14 = (v5 + v12 * v8 + 32);
-              if (v14 < (v5 + v9))
+              if (_X6 == _X4)
               {
-                _X7 = v12;
-                __asm { CASPAL          X6, X7, X4, X5, [X9] }
-
-                if (_X6 == _X4)
+                v20 = (v11 + 1) % v9;
+                v21 = v11 & 0x3FFFFFFF00000000 | a3;
+                __dmb(0xBu);
+                *v13 = v12;
+                *(v5 + v11 * v7 + 40) = v21 | 0x8000000000000000;
+                *(v5 + v11 * v7 + 48) = *(a1 + 24);
+                memcpy(v5 + v11 * v7 + 64, a2, a3);
+                __dmb(0xBu);
+                *v13 = v12;
+                v13[1] = v21;
+                __dmb(0xBu);
+                *(v6 + 16) = v12;
+                *(v6 + 24) = v11 & 0x7FFFFFFF00000000 | v20;
+                if (**(a1 + 16) == *(a1 + 24))
                 {
-                  v21 = (v12 + 1) % v10;
-                  v22 = v12 & 0x3FFFFFFF00000000 | a3;
-                  __dmb(0xBu);
-                  *v14 = v13;
-                  *(v5 + v12 * v8 + 40) = v22 | 0x8000000000000000;
-                  *(v5 + v12 * v8 + 48) = *(a1 + 24);
-                  memcpy(v5 + v12 * v8 + 64, a2, a3);
-                  __dmb(0xBu);
-                  *v14 = v13;
-                  v14[1] = v22;
-                  __dmb(0xBu);
-                  *(v7 + 16) = v13;
-                  *(v7 + 24) = v12 & 0x7FFFFFFF00000000 | v21;
-                  if (**(a1 + 16) == *(a1 + 24))
-                  {
-                    return 0;
-                  }
-
-                  else
-                  {
-                    return 3758097105;
-                  }
+                  return 0;
                 }
 
-                return 3758097109;
+                else
+                {
+                  return 3758097105;
+                }
               }
+
+              return 3758097109;
             }
           }
         }
@@ -4267,7 +4310,6 @@ uint64_t IOCircularDataQueueIsCurrentDataValid()
     return result;
   }
 
-  v4 = *(v1 + 16);
   if (*v3 != *(v1 + 24))
   {
     return (v2 + 15);
@@ -4275,38 +4317,38 @@ uint64_t IOCircularDataQueueIsCurrentDataValid()
 
   if (*(v1 + 4) < *(v1 + 44))
   {
-    v5 = v3[3];
+    v4 = v3[3];
     __dmb(9u);
-    if ((v5 & 0x4000000000000000) != 0)
+    if ((v4 & 0x4000000000000000) != 0)
     {
       return (v2 + 19);
     }
 
-    v6 = HIDWORD(v5) & 0x3FFFFFFF;
-    if (v6 != *v1)
+    v5 = HIDWORD(v4) & 0x3FFFFFFF;
+    if (v5 != *v1)
     {
       return (v2 + 41);
     }
 
-    v7 = *(v1 + 36);
-    v8 = *(v1 + 4);
-    if (((v8 * v7) & 0x8000000000000000) == 0)
+    v6 = *(v1 + 36);
+    v7 = *(v1 + 4);
+    if (((v7 * v6) & 0x8000000000000000) == 0)
     {
-      v9 = (v3 + v8 * v7 + 32);
-      if (v9 < (v3 + *(v1 + 32)))
+      v8 = (v3 + v7 * v6 + 32);
+      if (v8 < (v3 + *(v1 + 32)))
       {
-        if (v9[2] == *(v1 + 24))
+        if (v8[2] == *(v1 + 24))
         {
-          v12 = v9;
-          v10 = *v9;
-          v11 = v12[1];
+          v11 = v8;
+          v9 = *v8;
+          v10 = v11[1];
           __dmb(9u);
           result = (v2 + 38);
-          if ((v11 & 0x8000000000000000) == 0 && (HIDWORD(v11) & 0x3FFFFFFF) == v6)
+          if ((v10 & 0x8000000000000000) == 0 && (HIDWORD(v10) & 0x3FFFFFFF) == v5)
           {
-            if (*(v1 + 8) == v10)
+            if (*(v1 + 8) == v9)
             {
-              v13 = v2 + 15;
+              v12 = v2 + 15;
               if (**(v1 + 16) == *(v1 + 24))
               {
                 return 0;
@@ -4314,7 +4356,7 @@ uint64_t IOCircularDataQueueIsCurrentDataValid()
 
               else
               {
-                return v13;
+                return v12;
               }
             }
 
@@ -4343,55 +4385,54 @@ uint64_t IOCircularDataQueueSetCursorLatest(uint64_t a1)
     v2 = *(a1 + 16);
     if (v2)
     {
-      v3 = *(a1 + 16);
       if (*v2 != *(a1 + 24))
       {
         return 3758097105;
       }
 
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 36);
-      v6 = v2[2];
-      v7 = v2[3];
+      v3 = *(a1 + 32);
+      v4 = *(a1 + 36);
+      v5 = v2[2];
+      v6 = v2[3];
       __dmb(9u);
-      if ((v7 & 0x4000000000000000) != 0)
+      if ((v6 & 0x4000000000000000) != 0)
       {
         return 3758097109;
       }
 
-      if (v6 == -1)
+      if (v5 == -1)
       {
         return 3758097127;
       }
 
-      v8 = v7;
-      if (!v7)
+      v7 = v6;
+      if (!v6)
       {
-        v8 = *(a1 + 44);
+        v7 = *(a1 + 44);
       }
 
-      v9 = v8 - 1;
+      v8 = v7 - 1;
       v1 = 3758097131;
-      if (((v5 * v9) & 0x8000000000000000) == 0)
+      if (((v4 * v8) & 0x8000000000000000) == 0)
       {
-        v10 = (v2 + v5 * v9 + 32);
-        if (v10 < (v2 + v4))
+        v9 = (v2 + v4 * v8 + 32);
+        if (v9 < (v2 + v3))
         {
-          if (v10[2] == *(a1 + 24))
+          if (v9[2] == *(a1 + 24))
           {
-            v11 = HIDWORD(v7) & 0x3FFFFFFF;
-            v13 = *v10;
-            v12 = v10[1];
+            v10 = HIDWORD(v6) & 0x3FFFFFFF;
+            v12 = *v9;
+            v11 = v9[1];
             __dmb(9u);
-            if ((HIDWORD(v12) & 0x3FFFFFFF) != v11)
+            if ((HIDWORD(v11) & 0x3FFFFFFF) != v10)
             {
               return 3758097131;
             }
 
             v1 = 0;
-            *a1 = v11;
-            *(a1 + 4) = v9;
-            *(a1 + 8) = v13;
+            *a1 = v10;
+            *(a1 + 4) = v8;
+            *(a1 + 8) = v12;
             return v1;
           }
 
@@ -4414,124 +4455,123 @@ uint64_t _getLatestInQueueMemInternal(uint64_t a1, uint64_t a2, uint64_t a3, cha
   }
 
   v9 = v7;
-  v10 = *(a1 + 16);
   if (!v7)
   {
     return result;
   }
 
-  v11 = v6;
+  v10 = v6;
   if (!v6)
   {
     return result;
   }
 
-  v12 = *(a1 + 16);
+  v11 = *(a1 + 16);
   if (*v8 != *(a1 + 24))
   {
     return (result + 15);
   }
 
-  v13 = *(a1 + 36);
-  v28 = *v7;
-  v29 = v8 + 4;
-  v14 = v8 + *(a1 + 32);
-  v15 = -5;
+  v12 = *(a1 + 36);
+  v27 = *v7;
+  v28 = v8 + 4;
+  v13 = v8 + *(a1 + 32);
+  v14 = -5;
   while (1)
   {
     *v9 = 0;
-    v17 = *(v12 + 16);
-    v16 = *(v12 + 24);
+    v16 = *(v11 + 16);
+    v15 = *(v11 + 24);
     __dmb(9u);
-    if ((v16 & 0x4000000000000000) != 0)
+    if ((v15 & 0x4000000000000000) != 0)
     {
       return OUTLINED_FUNCTION_2_1() + 19;
     }
 
-    if (v17 == -1)
+    if (v16 == -1)
     {
       return OUTLINED_FUNCTION_2_1() + 37;
     }
 
-    v18 = v16;
-    if (!v16)
+    v17 = v15;
+    if (!v15)
     {
-      v18 = *(a1 + 44);
+      v17 = *(a1 + 44);
     }
 
-    v19 = v18 - 1;
-    if (((v13 * v19) & 0x8000000000000000) != 0)
-    {
-      return OUTLINED_FUNCTION_2_1();
-    }
-
-    v20 = v29 + v13 * v19;
-    if (v20 >= v14)
+    v18 = v17 - 1;
+    if (((v12 * v18) & 0x8000000000000000) != 0)
     {
       return OUTLINED_FUNCTION_2_1();
     }
 
-    if (*(v20 + 2) != *(a1 + 24))
+    v19 = v28 + v12 * v18;
+    if (v19 >= v13)
+    {
+      return OUTLINED_FUNCTION_2_1();
+    }
+
+    if (*(v19 + 2) != *(a1 + 24))
     {
       goto LABEL_32;
     }
 
-    v21 = *v20;
-    v22 = *(v20 + 1);
+    v20 = *v19;
+    v21 = *(v19 + 1);
     __dmb(9u);
-    if (v17 != v21)
+    if (v16 != v20)
     {
       goto LABEL_24;
     }
 
-    if (v22 < 0)
+    if (v21 < 0)
     {
       goto LABEL_24;
     }
 
-    v23 = HIDWORD(v16) & 0x3FFFFFFF;
-    if ((HIDWORD(v22) & 0x3FFFFFFF) != v23)
+    v22 = HIDWORD(v15) & 0x3FFFFFFF;
+    if ((HIDWORD(v21) & 0x3FFFFFFF) != v22)
     {
       goto LABEL_24;
     }
 
-    *a1 = v23;
-    *(a1 + 4) = v19;
-    *(a1 + 8) = v21;
-    if (*(a1 + 36) < v22)
+    *a1 = v22;
+    *(a1 + 4) = v18;
+    *(a1 + 8) = v20;
+    if (*(a1 + 36) < v21)
     {
       return OUTLINED_FUNCTION_2_1() + 38;
     }
 
-    *v9 = v22;
+    *v9 = v21;
     if ((a4 & 1) == 0)
     {
       break;
     }
 
-    if (v22 > v28)
+    if (v21 > v27)
     {
       return OUTLINED_FUNCTION_2_1() + 38;
     }
 
-    memcpy(*v11, v20 + 32, v22);
-    v24 = *v20;
-    v25 = *(v20 + 1);
+    memcpy(*v10, v19 + 32, v21);
+    v23 = *v19;
+    v24 = *(v19 + 1);
     __dmb(9u);
-    if (v22 == v25 && v21 == v24)
+    if (v21 == v24 && v20 == v23)
     {
       goto LABEL_28;
     }
 
     *v9 = 0;
 LABEL_24:
-    if (__CFADD__(v15++, 1))
+    if (__CFADD__(v14++, 1))
     {
       return OUTLINED_FUNCTION_2_1() + 20;
     }
   }
 
-  *v11 = v20 + 32;
+  *v10 = v19 + 32;
 LABEL_28:
   if (**(a1 + 16) == *(a1 + 24))
   {
@@ -4543,122 +4583,121 @@ LABEL_32:
   return (result + 15);
 }
 
-uint64_t _getNextInQueueMemInternal(uint64_t a1)
+uint64_t _getNextInQueueMemInternal()
 {
-  OUTLINED_FUNCTION_1(a1);
-  result = (v2 - 38);
-  if (v5)
+  OUTLINED_FUNCTION_1();
+  result = (v1 - 38);
+  if (v4)
   {
-    v7 = v4;
-    if (v4)
+    v6 = v3;
+    if (v3)
     {
-      if (v3)
+      if (v2)
       {
-        v8 = *v4;
-        *v4 = 0;
-        if (*v5 != *(v1 + 24))
+        *v3 = 0;
+        if (*v4 != *(v0 + 24))
         {
-          return (v2 - 23);
+          return (v1 - 23);
         }
 
-        if (*(v1 + 4) >= *(v1 + 44))
+        if (*(v0 + 4) >= *(v0 + 44))
         {
-          return (v2 + 3);
+          return (v1 + 3);
         }
 
-        v9 = *(v1 + 32);
-        v10 = *(v1 + 36);
-        v11 = v5[2];
-        v12 = v5[3];
+        v7 = *(v0 + 32);
+        v8 = *(v0 + 36);
+        v9 = v4[2];
+        v10 = v4[3];
         __dmb(9u);
-        if ((v12 & 0x4000000000000000) != 0)
+        if ((v10 & 0x4000000000000000) != 0)
         {
-          return (v2 - 19);
+          return (v1 - 19);
         }
 
-        v13 = HIDWORD(v12) & 0x3FFFFFFF;
-        v14 = (v2 + 3);
-        if (*v1 != v13)
+        v11 = HIDWORD(v10) & 0x3FFFFFFF;
+        v12 = (v1 + 3);
+        if (*v0 != v11)
         {
-          return v14;
+          return v12;
         }
 
-        v15 = *(v1 + 8);
-        if (v11 < v15)
+        v13 = *(v0 + 8);
+        if (v9 < v13)
         {
-          return v14;
+          return v12;
         }
 
-        v14 = (v2 - 1);
-        if (v11 == -1 || v15 == v11 || (v12 & 0x8000000000000000) != 0 && v15 + 1 == v11)
+        v12 = (v1 - 1);
+        if (v9 == -1 || v13 == v9 || (v10 & 0x8000000000000000) != 0 && v13 + 1 == v9)
         {
-          return v14;
+          return v12;
         }
 
-        v16 = (*(v1 + 4) + 1) % *(v1 + 44);
-        if (((v10 * v16) & 0x8000000000000000) == 0)
+        v14 = (*(v0 + 4) + 1) % *(v0 + 44);
+        if (((v8 * v14) & 0x8000000000000000) == 0)
         {
-          v17 = (v5 + v10 * v16 + 32);
-          if (v17 < (v5 + v9))
+          v15 = (v4 + v8 * v14 + 32);
+          if (v15 < (v4 + v7))
           {
-            if (*(v5 + v10 * v16 + 48) != *(v1 + 24))
+            if (*(v4 + v8 * v14 + 48) != *(v0 + 24))
             {
-              return (v2 - 23);
+              return (v1 - 23);
             }
 
-            v18 = *v17;
-            v19 = *(v5 + v10 * v16 + 40);
+            v16 = *v15;
+            v17 = *(v4 + v8 * v14 + 40);
             __dmb(9u);
-            if ((HIDWORD(v19) & 0x3FFFFFFF) == v13)
+            if ((HIDWORD(v17) & 0x3FFFFFFF) == v11)
             {
-              if (v19 < 0)
+              if (v17 < 0)
               {
                 return OUTLINED_FUNCTION_3();
               }
 
-              if (*(v1 + 8) + 1 != v18)
+              if (*(v0 + 8) + 1 != v16)
               {
                 return OUTLINED_FUNCTION_3();
               }
 
               OUTLINED_FUNCTION_4();
-              if (!v23)
+              if (!v21)
               {
                 return OUTLINED_FUNCTION_3();
               }
 
-              *v7 = v19;
-              if (v21)
+              *v6 = v17;
+              if (v19)
               {
-                if (v19 > v22)
+                if (v17 > v20)
                 {
                   return OUTLINED_FUNCTION_3();
                 }
 
-                memcpy(*v20, v17 + 4, v19);
+                memcpy(*v18, v15 + 4, v17);
                 OUTLINED_FUNCTION_0_1();
-                v25 = v25 && v18 == v24;
-                if (!v25)
+                v23 = v23 && v16 == v22;
+                if (!v23)
                 {
-                  *v7 = 0;
-                  return v2;
+                  *v6 = 0;
+                  return v1;
                 }
               }
 
               else
               {
-                *v20 = v17 + 4;
+                *v18 = v15 + 4;
               }
 
-              if (**(v1 + 16) == *(v1 + 24))
+              if (**(v0 + 16) == *(v0 + 24))
               {
                 return 0;
               }
 
-              return (v2 - 23);
+              return (v1 - 23);
             }
 
-            return (v2 + 3);
+            return (v1 + 3);
           }
         }
       }
@@ -4668,113 +4707,112 @@ uint64_t _getNextInQueueMemInternal(uint64_t a1)
   return result;
 }
 
-uint64_t _getPrevInQueueMemInternal(uint64_t a1)
+uint64_t _getPrevInQueueMemInternal()
 {
-  OUTLINED_FUNCTION_1(a1);
-  result = (v2 - 38);
-  if (v5)
+  OUTLINED_FUNCTION_1();
+  result = (v1 - 38);
+  if (v4)
   {
-    v7 = v4;
-    if (v4)
+    v6 = v3;
+    if (v3)
     {
-      if (v3)
+      if (v2)
       {
-        v8 = *v4;
-        *v4 = 0;
-        if (*v5 != *(v1 + 24))
+        *v3 = 0;
+        if (*v4 != *(v0 + 24))
         {
-          return (v2 - 23);
+          return (v1 - 23);
         }
 
-        if (*(v1 + 4) >= *(v1 + 44))
+        if (*(v0 + 4) >= *(v0 + 44))
         {
-          return (v2 + 3);
+          return (v1 + 3);
         }
 
-        v9 = *(v1 + 32);
-        v10 = *(v1 + 36);
-        v12 = v5[2];
-        v11 = v5[3];
+        v7 = *(v0 + 32);
+        v8 = *(v0 + 36);
+        v10 = v4[2];
+        v9 = v4[3];
         __dmb(9u);
-        if ((v11 & 0x4000000000000000) != 0)
+        if ((v9 & 0x4000000000000000) != 0)
         {
-          return (v2 - 19);
+          return (v1 - 19);
         }
 
-        v13 = HIDWORD(v11) & 0x3FFFFFFF;
-        if (*v1 != v13 || v12 < *(v1 + 8))
+        v11 = HIDWORD(v9) & 0x3FFFFFFF;
+        if (*v0 != v11 || v10 < *(v0 + 8))
         {
-          return (v2 + 3);
+          return (v1 + 3);
         }
 
-        if (v12 == -1)
+        if (v10 == -1)
         {
-          return (v2 - 1);
+          return (v1 - 1);
         }
 
-        v14 = *(v1 + 4);
-        if (!v14)
+        v12 = *(v0 + 4);
+        if (!v12)
         {
-          v14 = *(v1 + 44);
+          v12 = *(v0 + 44);
         }
 
-        v15 = v14 - 1;
-        if (((v10 * v15) & 0x8000000000000000) == 0)
+        v13 = v12 - 1;
+        if (((v8 * v13) & 0x8000000000000000) == 0)
         {
-          v16 = (v5 + v10 * v15 + 32);
-          if (v16 < (v5 + v9))
+          v14 = (v4 + v8 * v13 + 32);
+          if (v14 < (v4 + v7))
           {
-            v17 = *v16;
-            v18 = *(v5 + v10 * v15 + 40);
+            v15 = *v14;
+            v16 = *(v4 + v8 * v13 + 40);
             __dmb(9u);
-            if (v18 < 0)
+            if (v16 < 0)
             {
               return OUTLINED_FUNCTION_3();
             }
 
-            v19 = v17 <= *(v1 + 8) && (HIDWORD(v18) & 0x3FFFFFFF) == v13;
-            if (!v19)
+            v17 = v15 <= *(v0 + 8) && (HIDWORD(v16) & 0x3FFFFFFF) == v11;
+            if (!v17)
             {
               return OUTLINED_FUNCTION_3();
             }
 
-            if (*(v5 + v10 * v15 + 48) == *(v1 + 24))
+            if (*(v4 + v8 * v13 + 48) == *(v0 + 24))
             {
               OUTLINED_FUNCTION_4();
-              if (!v23)
+              if (!v21)
               {
                 return OUTLINED_FUNCTION_3();
               }
 
-              *v7 = v18;
-              if (v21)
+              *v6 = v16;
+              if (v19)
               {
-                if (v18 > v22)
+                if (v16 > v20)
                 {
                   return OUTLINED_FUNCTION_3();
                 }
 
-                memcpy(*v20, v16 + 4, v18);
+                memcpy(*v18, v14 + 4, v16);
                 OUTLINED_FUNCTION_0_1();
-                if (!v19 || v17 != v24)
+                if (!v17 || v15 != v22)
                 {
-                  *v7 = 0;
-                  return v2;
+                  *v6 = 0;
+                  return v1;
                 }
               }
 
               else
               {
-                *v20 = v16 + 4;
+                *v18 = v14 + 4;
               }
 
-              if (**(v1 + 16) == *(v1 + 24))
+              if (**(v0 + 16) == *(v0 + 24))
               {
                 return 0;
               }
             }
 
-            return (v2 - 23);
+            return (v1 - 23);
           }
         }
       }
@@ -4784,7 +4822,7 @@ uint64_t _getPrevInQueueMemInternal(uint64_t a1)
   return result;
 }
 
-uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, uint64_t *a3, char a4)
+uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, void *a3, char a4)
 {
   v5 = *(a1 + 16);
   result = 3758097090;
@@ -4793,7 +4831,6 @@ uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, uint64_t *a3, char
     return result;
   }
 
-  v8 = *a3;
   *a3 = 0;
   if (*v5 != *(a1 + 24))
   {
@@ -4805,70 +4842,70 @@ uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, uint64_t *a3, char
     return 3758097131;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 36);
-  v12 = v5[2];
-  v11 = v5[3];
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 36);
+  v11 = v5[2];
+  v10 = v5[3];
   __dmb(9u);
-  if ((v11 & 0x4000000000000000) != 0)
+  if ((v10 & 0x4000000000000000) != 0)
   {
     return 3758097109;
   }
 
-  v13 = HIDWORD(v11) & 0x3FFFFFFF;
-  if (*a1 != v13 || v12 < *(a1 + 8))
+  v12 = HIDWORD(v10) & 0x3FFFFFFF;
+  if (*a1 != v12 || v11 < *(a1 + 8))
   {
     return 3758097131;
   }
 
-  if (v12 == -1)
+  if (v11 == -1)
   {
     return 3758097127;
   }
 
-  v14 = *(a1 + 4);
-  if (((v14 * v10) & 0x8000000000000000) != 0)
+  v13 = *(a1 + 4);
+  if (((v13 * v9) & 0x8000000000000000) != 0)
   {
     return result;
   }
 
-  v15 = (v5 + v14 * v10 + 32);
-  if (v15 >= (v5 + v9))
+  v14 = (v5 + v13 * v9 + 32);
+  if (v14 >= (v5 + v8))
   {
     return result;
   }
 
-  if (*(v5 + v14 * v10 + 48) != *(a1 + 24))
+  if (*(v5 + v13 * v9 + 48) != *(a1 + 24))
   {
     return 3758097105;
   }
 
-  v16 = *v15;
-  v17 = *(v5 + v14 * v10 + 40);
+  v15 = *v14;
+  v16 = *(v5 + v13 * v9 + 40);
   __dmb(9u);
-  if ((HIDWORD(v17) & 0x3FFFFFFF) != v13)
+  if ((HIDWORD(v16) & 0x3FFFFFFF) != v12)
   {
     return 3758097131;
   }
 
-  if (v17 < 0 || *(a1 + 8) != v16 || *(a1 + 36) < v17)
+  if (v16 < 0 || *(a1 + 8) != v15 || *(a1 + 36) < v16)
   {
     return OUTLINED_FUNCTION_3();
   }
 
-  *a3 = v17;
+  *a3 = v16;
   if (a4)
   {
     result = OUTLINED_FUNCTION_3();
-    if (v19 > v20)
+    if (v18 > v19)
     {
       return result;
     }
 
-    memcpy(*v18, v15 + 4, v19);
+    memcpy(*v17, v14 + 4, v18);
     OUTLINED_FUNCTION_0_1();
-    v22 = v22 && v16 == v21;
-    if (!v22)
+    v21 = v21 && v15 == v20;
+    if (!v21)
     {
       *a3 = 0;
       return 3758097109;
@@ -4877,7 +4914,7 @@ uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, uint64_t *a3, char
 
   else
   {
-    *a2 = v5 + v14 * v10 + 64;
+    *a2 = v5 + v13 * v9 + 64;
   }
 
   if (**(a1 + 16) == *(a1 + 24))
@@ -4891,9 +4928,15 @@ uint64_t _getCurrentInQueueMemInternal(uint64_t a1, void *a2, uint64_t *a3, char
   }
 }
 
-io_service_t *IODPHDMIControllerPortCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_service_t *IODPHDMIControllerPortCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IODPHDMIControllerPort"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IODPHDMIControllerPort"))
   {
     return 0;
   }
@@ -4909,8 +4952,8 @@ io_service_t *IODPHDMIControllerPortCreateWithService(uint64_t a1, io_registry_e
   {
     *(Instance + 16) = 0;
     *(Instance + 24) = 0;
-    *(Instance + 16) = a2;
-    IOObjectRetain(a2);
+    *(Instance + 16) = v2;
+    IOObjectRetain(v2);
     v5 = IOServiceOpen(v4[4], *MEMORY[0x1E69E9A60], 0x44504844u, v4 + 5);
     if (v5)
     {
@@ -4950,88 +4993,7 @@ uint64_t IODPHDMIControllerGetPCONStatus(uint64_t a1, BOOL *a2)
     *a2 = output[0] != 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
-}
-
-void IOCreatePlugInInterfaceForService_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "invalid io_service_t for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "io_service_t has invalid IOCFPlugInTypes for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_6()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_197195000, v0, v1, "IOServiceMatchPropertyTable failed for url %@ for %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_9()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "io_service_t has no plugin for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_11()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "io_service_t has no IOCFPlugInTypes for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_15()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "onePlugin invalid for pluginType %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_17()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "bundle invalid for pluginType %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_19()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "plist invalid for pluginType %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_21()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_197195000, v0, v1, "No plist for plugin url %@ for %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void IOCreatePlugInInterfaceForService_cold_23()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_197195000, v0, v1, "CFPlugInFindFactoriesForPlugInTypeInPlugIn failed for plugin url %@ for %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 __CFDictionary *IOHIDServiceConnectionCacheCopyDebugInfo(uint64_t a1)
@@ -5066,93 +5028,95 @@ __CFDictionary *IOHIDServiceConnectionCacheCopyDebugInfo(uint64_t a1)
   return v4;
 }
 
-CFTypeRef IOHIDSessionFilterCreate(const __CFAllocator *a1, CFBundleRef bundle, const __CFUUID *a3)
+uint64_t IOHIDSessionFilterCreate(const __CFAllocator *a1, CFBundleRef bundle, const __CFUUID *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   Identifier = CFBundleGetIdentifier(bundle);
   CStringPtr = CFStringGetCStringPtr(Identifier, 0x8000100u);
-  v7 = _IOHIDLog();
-  if (os_signpost_enabled(v7))
+  v8 = _IOHIDLog(CStringPtr, v7);
+  if (os_signpost_enabled(v8))
   {
     *buf = 136315138;
-    v27 = CStringPtr;
-    OUTLINED_FUNCTION_1_1(&dword_197195000, v8, v9, v10, "CreateSessionFilter", "%s", buf);
+    v28 = CStringPtr;
+    OUTLINED_FUNCTION_1_1(&dword_197195000, v9, v10, v11, "CreateSessionFilter", "%s", buf);
   }
 
   Private = __IOHIDSessionFilterCreatePrivate(a1);
+  v14 = Private;
   if (!Private)
   {
-    v15 = 0;
+    v17 = 0;
     goto LABEL_23;
   }
 
-  v12 = *MEMORY[0x1E695E4A8];
-  v13 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x1E695E4A8], 0x7Fu, 0x1Au, 0x3Au, 0xE6u, 0x3Eu, 0x3Du, 0x47u, 0xAu, 0xBDu, 0x15u, 0xA2u, 0xDDu, 0x7Eu, 0x1Bu, 0xB7u, 0x19u);
-  v14 = CFPlugInInstanceCreate(a1, a3, v13);
-  v15 = v14;
-  if (!v14)
+  v15 = *MEMORY[0x1E695E4A8];
+  v16 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x1E695E4A8], 0x7Fu, 0x1Au, 0x3Au, 0xE6u, 0x3Eu, 0x3Du, 0x47u, 0xAu, 0xBDu, 0x15u, 0xA2u, 0xDDu, 0x7Eu, 0x1Bu, 0xB7u, 0x19u);
+  Private = CFPlugInInstanceCreate(a1, a3, v16);
+  v17 = Private;
+  if (!Private)
   {
 LABEL_23:
-    v22 = 0;
+    v24 = 0;
     goto LABEL_15;
   }
 
-  v16 = *(*v14 + 8);
-  v17 = CFUUIDGetConstantUUIDWithBytes(v12, 0x19u, 0xD7u, 0x74u, 0x41u, 0xBBu, 0xC4u, 0x45u, 0x11u, 0x91u, 0x49u, 0x60u, 0x57u, 0x2Au, 0xBu, 1u, 0x5Cu);
-  v18 = CFUUIDGetUUIDBytes(v17);
-  if (v16(v15, *&v18.byte0, *&v18.byte8, Private + 24))
+  v18 = *(*Private + 8);
+  v19 = CFUUIDGetConstantUUIDWithBytes(v15, 0x19u, 0xD7u, 0x74u, 0x41u, 0xBBu, 0xC4u, 0x45u, 0x11u, 0x91u, 0x49u, 0x60u, 0x57u, 0x2Au, 0xBu, 1u, 0x5Cu);
+  v20 = CFUUIDGetUUIDBytes(v19);
+  if (v18(v17, *&v20.byte0, *&v20.byte8, v14 + 24))
   {
-    *(Private + 24) = 0;
+    *(v14 + 24) = 0;
   }
 
-  v19 = *(*v15 + 8);
-  v20 = CFUUIDGetConstantUUIDWithBytes(v12, 0x3Du, 0xC3u, 0x5Au, 0xA6u, 0xD3u, 0x5Cu, 0x44u, 0x5Bu, 0x9Au, 0x59u, 0xCAu, 3u, 0xDAu, 0x40u, 0x8Bu, 0x97u);
-  v21 = CFUUIDGetUUIDBytes(v20);
-  if (v19(v15, *&v21.byte0, *&v21.byte8, Private + 16))
+  v21 = *(*v17 + 8);
+  v22 = CFUUIDGetConstantUUIDWithBytes(v15, 0x3Du, 0xC3u, 0x5Au, 0xA6u, 0xD3u, 0x5Cu, 0x44u, 0x5Bu, 0x9Au, 0x59u, 0xCAu, 3u, 0xDAu, 0x40u, 0x8Bu, 0x97u);
+  v23 = CFUUIDGetUUIDBytes(v22);
+  Private = v21(v17, *&v23.byte0, *&v23.byte8, v14 + 16);
+  if (Private)
   {
-    *(Private + 16) = 0;
+    *(v14 + 16) = 0;
   }
 
-  else if (*(Private + 16))
+  else if (*(v14 + 16))
   {
     goto LABEL_12;
   }
 
-  if (!*(Private + 24))
+  if (!*(v14 + 24))
   {
     goto LABEL_23;
   }
 
 LABEL_12:
-  *(Private + 40) = Identifier;
+  *(v14 + 40) = Identifier;
   if (Identifier)
   {
     CFRetain(Identifier);
   }
 
-  *(Private + 48) = 1;
-  v22 = CFRetain(Private);
+  *(v14 + 48) = 1;
+  Private = CFRetain(v14);
+  v24 = Private;
 LABEL_15:
-  v23 = _IOHIDLog();
-  if (os_signpost_enabled(v23))
+  v25 = _IOHIDLog(Private, v13);
+  if (os_signpost_enabled(v25))
   {
     *buf = 136315138;
-    v27 = CStringPtr;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateSessionFilter", "%s", buf, 0xCu);
+    v28 = CStringPtr;
+    _os_signpost_emit_with_name_impl(&dword_197195000, v25, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateSessionFilter", "%s", buf, 0xCu);
   }
 
-  if (v15)
+  if (v17)
   {
-    (*(*v15 + 24))(v15);
+    (*(*v17 + 24))(v17);
   }
 
-  if (Private)
+  if (v14)
   {
-    CFRelease(Private);
+    CFRelease(v14);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v24;
 }
 
 uint64_t __IOHIDSessionFilterCreatePrivate(const __CFAllocator *a1)
@@ -5183,7 +5147,7 @@ uint64_t __IOHIDSessionFilterCreatePrivate(const __CFAllocator *a1)
 uint64_t IOHIDSessionFilterCreateWithClass(const __CFAllocator *a1, objc_class *a2, uint64_t a3, char a4)
 {
   v40 = *MEMORY[0x1E69E9840];
-  v8 = _IOHIDLog();
+  v8 = _IOHIDLog(a1, a2);
   if (os_signpost_enabled(v8))
   {
     v38 = 136315138;
@@ -5193,32 +5157,35 @@ uint64_t IOHIDSessionFilterCreateWithClass(const __CFAllocator *a1, objc_class *
 
   sel_getUid("alloc");
   v12 = OUTLINED_FUNCTION_0_3();
-  v14 = [v12 v13];
-  if (!v14)
+  Private = [v12 v13];
+  v16 = Private;
+  if (!Private)
   {
     goto LABEL_30;
   }
 
-  if (![v14 getUid("initWithSession:a3")])
+  if (![Private getUid("initWithSession:a3")])
   {
     v35 = _IOHIDLogCategory(0);
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    Private = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    if (Private)
     {
       LOWORD(v38) = 0;
       _os_log_error_impl(&dword_197195000, v35, OS_LOG_TYPE_ERROR, "IOHIDSessionFilterCreateWithClass Failed to initialize filter", &v38, 2u);
     }
 
-    v14 = 0;
+    v16 = 0;
     goto LABEL_30;
   }
 
   if (!objc_getProtocol("HIDSessionFilter"))
   {
     v36 = _IOHIDLogCategory(0);
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    Private = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    if (!Private)
     {
 LABEL_30:
-      v18 = 0;
+      v19 = 0;
       goto LABEL_31;
     }
 
@@ -5229,11 +5196,12 @@ LABEL_33:
     goto LABEL_30;
   }
 
-  v15 = OUTLINED_FUNCTION_0_3();
-  if (!class_conformsToProtocol(v15, v16))
+  v17 = OUTLINED_FUNCTION_0_3();
+  if (!class_conformsToProtocol(v17, v18))
   {
     v36 = _IOHIDLogCategory(0);
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    Private = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    if (!Private)
     {
       goto LABEL_30;
     }
@@ -5244,75 +5212,76 @@ LABEL_33:
   }
 
   Private = __IOHIDSessionFilterCreatePrivate(a1);
-  v18 = Private;
+  v19 = Private;
   if (!Private)
   {
 LABEL_31:
-    v29 = 1;
+    v30 = 1;
     goto LABEL_17;
   }
 
-  *(Private + 56) = v14;
+  *(Private + 56) = v16;
   *(Private + 64) = sel_getUid("propertyForKey:");
-  *(v18 + 72) = sel_getUid("setProperty:forKey:");
-  *(v18 + 80) = sel_getUid("filterEvent:forService:");
-  *(v18 + 88) = sel_getUid("activate");
-  v19 = CFGetAllocator(v18);
-  ClassName = object_getClassName(*(v18 + 56));
-  *(v18 + 40) = CFStringCreateWithCString(v19, ClassName, 0);
+  *(v19 + 72) = sel_getUid("setProperty:forKey:");
+  *(v19 + 80) = sel_getUid("filterEvent:forService:");
+  *(v19 + 88) = sel_getUid("activate");
+  v20 = CFGetAllocator(v19);
+  ClassName = object_getClassName(*(v19 + 56));
+  *(v19 + 40) = CFStringCreateWithCString(v20, ClassName, 0);
   sel_getUid("cancel");
-  v21 = OUTLINED_FUNCTION_0_3();
-  if (class_respondsToSelector(v21, v22))
+  v22 = OUTLINED_FUNCTION_0_3();
+  if (class_respondsToSelector(v22, v23))
   {
-    *(v18 + 96) = sel_getUid("cancel");
+    *(v19 + 96) = sel_getUid("cancel");
   }
 
   sel_getUid("serviceNotification:added:");
-  v23 = OUTLINED_FUNCTION_0_3();
-  if (class_respondsToSelector(v23, v24))
+  v24 = OUTLINED_FUNCTION_0_3();
+  if (class_respondsToSelector(v24, v25))
   {
-    *(v18 + 104) = sel_getUid("serviceNotification:added:");
+    *(v19 + 104) = sel_getUid("serviceNotification:added:");
   }
 
   sel_getUid("setDispatchQueue:");
-  v25 = OUTLINED_FUNCTION_0_3();
-  if (class_respondsToSelector(v25, v26))
+  v26 = OUTLINED_FUNCTION_0_3();
+  if (class_respondsToSelector(v26, v27))
   {
-    *(v18 + 112) = sel_getUid("setDispatchQueue:");
+    *(v19 + 112) = sel_getUid("setDispatchQueue:");
   }
 
   sel_getUid("filterEvent:toConnection:fromService:");
-  v27 = OUTLINED_FUNCTION_0_3();
-  if (class_respondsToSelector(v27, v28))
+  v28 = OUTLINED_FUNCTION_0_3();
+  Private = class_respondsToSelector(v28, v29);
+  if (Private)
   {
-    *(v18 + 120) = sel_getUid("filterEvent:toConnection:fromService:");
+    Private = sel_getUid("filterEvent:toConnection:fromService:");
+    *(v19 + 120) = Private;
   }
 
-  v29 = 0;
-  *(v18 + 48) = a4;
+  v30 = 0;
+  *(v19 + 48) = a4;
 LABEL_17:
-  v30 = _IOHIDLog();
-  if (os_signpost_enabled(v30))
+  v31 = _IOHIDLog(Private, v15);
+  if (os_signpost_enabled(v31))
   {
-    v31 = class_getName(a2);
+    v32 = class_getName(a2);
     v38 = 136315138;
-    Name = v31;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v30, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateSessionFilterClass", "%s", &v38, 0xCu);
+    Name = v32;
+    _os_signpost_emit_with_name_impl(&dword_197195000, v31, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateSessionFilterClass", "%s", &v38, 0xCu);
   }
 
-  v32 = v29 ^ 1;
-  if (!v14)
+  v33 = v30 ^ 1;
+  if (!v16)
   {
-    v32 = 1;
+    v33 = 1;
   }
 
-  if ((v32 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
-    CFRelease(v14);
+    CFRelease(v16);
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 void IOHIDSessionFilterUnscheduleFromDispatchQueue(uint64_t a1, NSObject *a2)
@@ -5341,29 +5310,26 @@ void IOHIDSessionFilterUnscheduleFromDispatchQueue(uint64_t a1, NSObject *a2)
 
 void IOHIDSessionFilterGetPropertyForClient_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "%@ is not serializable", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "%@ is not serializable", &v2, 0xCu);
 }
 
 void IOHIDCopyHIDParameterFromEventSystem_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = -536870184;
-  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "Fail to get parameter with status 0x%x", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = -536870184;
+  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "Fail to get parameter with status 0x%x", v1, 8u);
 }
 
 void IOHIDSetHIDParameterToEventSystem_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "Fail to set parameter with status 0x%x", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "Fail to set parameter with status 0x%x", v2, 8u);
 }
 
 IOHIDAccessType IOHIDCheckAccess(IOHIDRequestType requestType)
@@ -5473,55 +5439,44 @@ LABEL_11:
 
 void IOHIDSetCursorEnable_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDSetCursorBounds_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDSetOnScreenCursorBounds_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _IOHIDSetFixedMouseLocation_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(&dword_197195000, v0, OS_LOG_TYPE_DEBUG, "Set fixed mouse location failed:0x%x", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_197195000, v0, OS_LOG_TYPE_DEBUG, "Set fixed mouse location failed:0x%x", v1, 8u);
 }
 
 void IOHIDSetStateForSelector_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDSetStateForSelector_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDSetModifierLockState_cold_1()
@@ -5561,112 +5516,65 @@ void ____loadTCCFramework_block_invoke_cold_4()
 
 void __IOPSCopyExternalPowerAdapterDetails_block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Event handler is called %@\n", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Event handler is called %@\n", &v1, 0xCu);
 }
 
 void __IOPSGaugingMitigationGetState_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __IOPSSetBatteryDateOfFirstUse_block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Event handler is called %@\n", v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
-}
-
-void __IOPMUnregisterNotification_block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void processUserActivityMsg_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void processUserActivityMsg_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Event handler is called %@\n", v0, 0xCu);
 }
 
 void IOPMLogWakeProgress_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  v3 = 1024;
-  v4 = v0;
-  _os_log_debug_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Wake progress from %d. data: 0x%x\n", v2, 0xEu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void _conveyMachPortToPowerd_cold_1(int *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
+  v2 = 1024;
+  v3 = v0;
+  _os_log_debug_impl(&dword_197195000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Wake progress from %d. data: 0x%x\n", v1, 0xEu);
 }
 
 void __IOPMConnectionCreate_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _connectionCreate_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _connectionCreate_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __copyBatteryData_block_invoke_189_cold_1(uint64_t a1)
+io_connect_t *IOAVControlInterfaceCreateWithService(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
+  if (!a2)
+  {
+    return 0;
+  }
 
-io_connect_t *IOAVControlInterfaceCreateWithService(uint64_t a1, io_registry_entry_t a2)
-{
-  if (!a2 || !IOAVObjectConformsTo(a2, "IOAVControlInterface"))
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IOAVControlInterface"))
   {
     return 0;
   }
@@ -5684,8 +5592,8 @@ io_connect_t *IOAVControlInterfaceCreateWithService(uint64_t a1, io_registry_ent
     *(Instance + 3) = 0;
     v5 = Instance + 4;
     *(Instance + 4) = 0;
-    Instance[4] = a2;
-    IOObjectRetain(a2);
+    Instance[4] = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(*v5, *MEMORY[0x1E69E9A60], 0, v4 + 5))
     {
       v7 = v4;
@@ -5727,7 +5635,7 @@ CFArrayRef IOAVControlInterfaceCopyProperties(uint64_t a1)
 
 __CFString *IOHIDDeviceCopyDescription(io_object_t *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   memset(name, 0, sizeof(name));
   v2 = a1[2];
   if (v2)
@@ -5758,7 +5666,7 @@ __CFString *IOHIDDeviceCopyDescription(io_object_t *a1)
       IOObjectGetClass(v3, name);
     }
 
-    v20 = v3;
+    v19 = v3;
     v6 = CFGetAllocator(a1);
     v7 = CFGetAllocator(a1);
     v8 = CFStringCreateWithFormat(v6, 0, @"<IOHIDDevice %p [%p]  'ClassName=%s'", a1, v7, name);
@@ -5782,7 +5690,7 @@ LABEL_20:
       if (++v9 == 12)
       {
         CFStringAppend(Mutable, @">");
-        v3 = v20;
+        v3 = v19;
         goto LABEL_22;
       }
     }
@@ -5826,7 +5734,6 @@ LABEL_22:
     IOObjectRelease(v3);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -5860,7 +5767,7 @@ BOOL __IOHIDDeviceCallbackBaseDataIsEqual(CFDataRef theData, const __CFData *a2)
 
 void IOHIDDeviceSetDispatchQueue(IOHIDDeviceRef device, dispatch_queue_t queue)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   __IOHIDDeviceSetupAsyncSupport(device);
   bzero(__str, 0x100uLL);
@@ -5877,28 +5784,27 @@ void IOHIDDeviceSetDispatchQueue(IOHIDDeviceRef device, dispatch_queue_t queue)
   if (v6)
   {
     CFRetain(device);
-    v7 = *(device + 26);
     handler[5] = MEMORY[0x1E69E9820];
     handler[6] = 0x40000000;
     handler[7] = __IOHIDDeviceSetDispatchQueue_block_invoke;
     handler[8] = &__block_descriptor_tmp_26;
     handler[9] = device;
-    v8 = dispatch_mach_create();
-    *(device + 27) = v8;
-    if (v8)
+    v7 = dispatch_mach_create();
+    *(device + 27) = v7;
+    if (v7)
     {
-      v9 = *(device + 30);
-      if (v9)
+      v8 = *(device + 30);
+      if (v8)
       {
-        IOHIDQueueSetDispatchQueue(v9, *(device + 26));
+        IOHIDQueueSetDispatchQueue(v8, *(device + 26));
         CFRetain(device);
-        v10 = *(device + 30);
+        v9 = *(device + 30);
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 0x40000000;
         handler[2] = __IOHIDDeviceSetDispatchQueue_block_invoke_2;
         handler[3] = &__block_descriptor_tmp_27;
         handler[4] = device;
-        IOHIDQueueSetCancelHandler(v10, handler);
+        IOHIDQueueSetCancelHandler(v9, handler);
       }
     }
 
@@ -5909,7 +5815,6 @@ void IOHIDDeviceSetDispatchQueue(IOHIDDeviceRef device, dispatch_queue_t queue)
   }
 
   os_unfair_recursive_lock_unlock();
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDDeviceRegisterInputReportCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5964,61 +5869,68 @@ void __IOHIDDeviceRegisterInputReportCallback(void *a1, uint64_t a2, uint64_t a3
   CFRelease(a1);
 }
 
-void _IOHIDDeviceReleasePrivate_cold_1(uint64_t *a1, _OWORD *a2, unsigned int *a3)
+void _IOHIDDeviceReleasePrivate_cold_1(void *a1, _OWORD *a2, unsigned int *a3)
 {
   OUTLINED_FUNCTION_2_2(a1, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+  v4 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   atomic_load(a3);
-  OUTLINED_FUNCTION_0_4();
-  v5 = *a1;
+  if (v4)
+  {
+    v8 = 3;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_4(v8, v5, v6, v7, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void IOHIDDeviceCreate_cold_2(int a1, void *a2)
+void IOHIDDeviceCreate_cold_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = _IOHIDLog();
+  v3 = a1;
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = _IOHIDLog(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 67109120;
-    v6[1] = a1;
-    _os_log_error_impl(&dword_197195000, v4, OS_LOG_TYPE_ERROR, "IOObjectRetain:0x%x", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_error_impl(&dword_197195000, v4, OS_LOG_TYPE_ERROR, "IOObjectRetain:0x%x", v5, 8u);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void IOHIDDeviceCreate_cold_3(uint64_t *a1, int a2)
+void IOHIDDeviceCreate_cold_3(uint64_t *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = _IOHIDLog();
+  v2 = a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = _IOHIDLog(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *a1;
-    v7[0] = 67109376;
-    v7[1] = a2;
-    v8 = 2048;
-    v9 = v6;
-    _os_log_error_impl(&dword_197195000, v4, OS_LOG_TYPE_ERROR, "IOCreatePlugInInterfaceForService:0x%x for serviceID:%#llx", v7, 0x12u);
+    v5 = *a1;
+    v6[0] = 67109376;
+    v6[1] = v2;
+    v7 = 2048;
+    v8 = v5;
+    _os_log_error_impl(&dword_197195000, v4, OS_LOG_TYPE_ERROR, "IOCreatePlugInInterfaceForService:0x%x for serviceID:%#llx", v6, 0x12u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void IOHIDDeviceCreate_cold_4(int a1)
+void IOHIDDeviceCreate_cold_4(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   v5 = *MEMORY[0x1E69E9840];
-  v2 = _IOHIDLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _IOHIDLog(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_error_impl(&dword_197195000, v2, OS_LOG_TYPE_ERROR, "QueryInterface(kIOHIDDeviceDeviceInterfaceID):0x%x", v4, 8u);
+    v4[1] = v2;
+    _os_log_error_impl(&dword_197195000, v3, OS_LOG_TYPE_ERROR, "QueryInterface(kIOHIDDeviceDeviceInterfaceID):0x%x", v4, 8u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOHIDDeviceCreate_cold_5(uint64_t *a1, uint64_t a2)
@@ -6054,39 +5966,69 @@ void IOHIDDeviceSetProperty_cold_1(uint64_t a1, uint64_t a2)
   }
 }
 
-void __IOHIDDeviceSetupAsyncSupport_cold_2(uint64_t *a1, _OWORD *a2)
+void __IOHIDDeviceSetupAsyncSupport_cold_2(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_2(a1, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void __IOHIDDeviceSetupAsyncSupport_cold_3(uint64_t *a1, _OWORD *a2)
+void __IOHIDDeviceSetupAsyncSupport_cold_3(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_2(a1, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_4();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_4(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void IOHIDDeviceSetCancelHandler_cold_1(uint64_t *a1, _OWORD *a2)
+void IOHIDDeviceSetCancelHandler_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_2(a1, a2);
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-io_service_t *IODPPortCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_service_t *IODPPortCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IODPPort"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IODPPort"))
   {
     return 0;
   }
@@ -6103,8 +6045,8 @@ io_service_t *IODPPortCreateWithService(uint64_t a1, io_registry_entry_t a2)
     *(Instance + 2) = 0;
     *(Instance + 3) = 0;
     *(Instance + 4) = 0;
-    Instance[4] = a2;
-    IOObjectRetain(a2);
+    Instance[4] = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(v4[4], *MEMORY[0x1E69E9A60], 0x44505054u, v4 + 5) || getPortProperty(v4[4], v4 + 6, v4 + 7, v4 + 8))
     {
       CFRelease(v4);
@@ -6117,72 +6059,73 @@ io_service_t *IODPPortCreateWithService(uint64_t a1, io_registry_entry_t a2)
 
 uint64_t IODPPortGetVirtual(uint64_t a1, _DWORD *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = OUTLINED_FUNCTION_0_5(a1);
-  result = OUTLINED_FUNCTION_1_4(v3, 1u, v4, v5, v6, v7, v8, v9, v12, v13);
+  result = OUTLINED_FUNCTION_1_4(v3, 1u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
     *a2 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IODPPortGetAVRoot(uint64_t a1, CFStringRef *a2, _DWORD *a3, _DWORD *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   *a3 = 0;
   *a4 = 0;
   v6 = OUTLINED_FUNCTION_0_5(a1);
-  v13 = OUTLINED_FUNCTION_1_4(v6, 2u, v7, v8, v9, v10, v11, v12, v19, v20);
+  v13 = OUTLINED_FUNCTION_1_4(v6, 2u, v7, v8, v9, v10, v11, v12, v18, v19);
   if (v13)
   {
-    v14 = v13;
+    return v13;
+  }
+
+  v14 = 3758097086;
+  v15 = IORegistryEntryIDMatching(0xFFFFFFFFFFFFFFFFLL);
+  if (v15)
+  {
+    MatchingService = IOServiceGetMatchingService(0, v15);
+    if (MatchingService)
+    {
+      v14 = 0;
+      *a2 = IORegistryEntryCopyPath(MatchingService, "IODeviceTree");
+      *a4 = -1;
+    }
+
+    else
+    {
+      return 3758097088;
+    }
+  }
+
+  return v14;
+}
+
+void _IOHIDObjectRetainCount_cold_1(void *a1, _OWORD *a2)
+{
+  *a1 = 0;
+  a2[3] = 0u;
+  a2[4] = 0u;
+  a2[1] = 0u;
+  a2[2] = 0u;
+  *a2 = 0u;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
   }
 
   else
   {
-    v14 = 3758097086;
-    v15 = IORegistryEntryIDMatching(0xFFFFFFFFFFFFFFFFLL);
-    if (v15)
-    {
-      MatchingService = IOServiceGetMatchingService(0, v15);
-      if (MatchingService)
-      {
-        v14 = 0;
-        *a2 = IORegistryEntryCopyPath(MatchingService, "IODeviceTree");
-        *a4 = -1;
-      }
-
-      else
-      {
-        v14 = 3758097088;
-      }
-    }
+    v5 = 2;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v14;
-}
-
-void _IOHIDObjectRetainCount_cold_1(uint64_t *a1, _OWORD *a2)
-{
-  *a1 = 0;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
-  *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void _IOHIDObjectRetainCount_cold_2(uint64_t *a1, _OWORD *a2)
+void _IOHIDObjectRetainCount_cold_2(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -6190,32 +6133,32 @@ void _IOHIDObjectRetainCount_cold_2(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
 IOReturn IOHIDManagerOpen(IOHIDManagerRef manager, IOOptionBits options)
 {
-  if (*(manager + 144))
+  if (!*(manager + 144) && (*(manager + 144) = 1, *(manager + 37) = options, *(manager + 4)))
+  {
+    return __ApplyToDevices(manager);
+  }
+
+  else
   {
     return 0;
   }
-
-  *(manager + 144) = 1;
-  *(manager + 37) = options;
-  if (!*(manager + 4))
-  {
-    return 0;
-  }
-
-  *(manager + 30);
-  *(manager + 22);
-  v3 = *(manager + 25);
-  *(manager + 24);
-  return __ApplyToDevices(manager);
 }
 
 IOReturn IOHIDManagerClose(IOHIDManagerRef manager, IOOptionBits options)
@@ -6253,26 +6196,26 @@ IOReturn IOHIDManagerClose(IOHIDManagerRef manager, IOOptionBits options)
 uint64_t __IOHIDManagerSaveProperties()
 {
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_1();
+  OUTLINED_FUNCTION_3_1(v2);
   if (*(v0 + 156))
   {
-    v2 = *(v0 + 56);
-    if (v2)
+    v3 = *(v0 + 56);
+    if (v3)
     {
-      __IOHIDPropertySaveToKeyWithSpecialKeys(v2, @"com.apple.iohidmanager", 0, v1);
+      __IOHIDPropertySaveToKeyWithSpecialKeys(v3, @"com.apple.iohidmanager", 0, v1);
       *(v0 + 156) = 0;
     }
   }
 
   if (*(v0 + 32))
   {
-    v3 = CFGetAllocator(v0);
-    Copy = CFSetCreateCopy(v3, *(v0 + 32));
+    v4 = CFGetAllocator(v0);
+    Copy = CFSetCreateCopy(v4, *(v0 + 32));
     if (Copy)
     {
-      v5 = Copy;
+      v6 = Copy;
       CFSetApplyFunction(Copy, __IOHIDSaveDeviceSet, v1);
-      CFRelease(v5);
+      CFRelease(v6);
     }
   }
 
@@ -6283,7 +6226,7 @@ Boolean IOHIDManagerSetProperty(IOHIDManagerRef manager, CFStringRef key, CFType
 {
   v11[0] = key;
   v11[1] = value;
-  OUTLINED_FUNCTION_3_1();
+  OUTLINED_FUNCTION_3_1(manager);
   Mutable = *(manager + 7);
   if (!Mutable)
   {
@@ -6377,13 +6320,12 @@ LABEL_9:
 LABEL_10:
   if ((v6 & 0x1020) != 0)
   {
-    v7 = *v1;
     os_unfair_recursive_lock_lock_with_options();
     Mutable = *(*v1 + 64);
     if (!Mutable)
     {
-      v9 = CFGetAllocator(*v1);
-      Mutable = CFDictionaryCreateMutable(v9, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      v8 = CFGetAllocator(*v1);
+      Mutable = CFDictionaryCreateMutable(v8, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       *(*v1 + 64) = Mutable;
     }
 
@@ -6397,44 +6339,43 @@ LABEL_10:
         CFNumberGetValue(Property, kCFNumberCFIndexType, &valuePtr);
       }
 
-      v12 = CFGetAllocator(*v1);
-      v13 = CFDataCreateMutable(v12, valuePtr);
-      Value = v13;
-      if (v13)
+      v11 = CFGetAllocator(*v1);
+      v12 = CFDataCreateMutable(v11, valuePtr);
+      Value = v12;
+      if (v12)
       {
-        CFDataSetLength(v13, valuePtr);
+        CFDataSetLength(v12, valuePtr);
         CFDictionarySetValue(*(*v1 + 64), v0, Value);
         CFRelease(Value);
       }
     }
 
-    v14 = *v1;
     os_unfair_recursive_lock_unlock();
-    v15 = *(v1 + 2);
+    v13 = *(v1 + 2);
     MutableBytePtr = CFDataGetMutableBytePtr(Value);
     Length = CFDataGetLength(Value);
-    v18 = *v1;
-    v19 = *(*v1 + 184);
-    if ((v15 & 0x20) != 0)
+    v16 = *v1;
+    v17 = *(*v1 + 184);
+    if ((v13 & 0x20) != 0)
     {
-      IOHIDDeviceRegisterInputReportCallback(v0, MutableBytePtr, Length, *(v18 + 24), v19);
+      IOHIDDeviceRegisterInputReportCallback(v0, MutableBytePtr, Length, *(v16 + 24), v17);
     }
 
     else
     {
-      IOHIDDeviceRegisterInputReportWithTimeStampCallback(v0, MutableBytePtr, Length, *(v18 + 25), v19);
+      IOHIDDeviceRegisterInputReportWithTimeStampCallback(v0, MutableBytePtr, Length, *(v16 + 25), v17);
     }
   }
 
-  v20 = *(v1 + 2);
-  if ((v20 & 0x40) != 0)
+  v18 = *(v1 + 2);
+  if ((v18 & 0x40) != 0)
   {
     IOHIDDeviceScheduleWithRunLoop(v0, *(*v1 + 80), *(*v1 + 88));
-    v20 = *(v1 + 2);
-    if ((v20 & 0x80) == 0)
+    v18 = *(v1 + 2);
+    if ((v18 & 0x80) == 0)
     {
 LABEL_26:
-      if ((v20 & 0x100) == 0)
+      if ((v18 & 0x100) == 0)
       {
         goto LABEL_27;
       }
@@ -6443,17 +6384,17 @@ LABEL_26:
     }
   }
 
-  else if ((v20 & 0x80) == 0)
+  else if ((v18 & 0x80) == 0)
   {
     goto LABEL_26;
   }
 
   IOHIDDeviceUnscheduleFromRunLoop(v0, *(*v1 + 80), *(*v1 + 88));
-  v20 = *(v1 + 2);
-  if ((v20 & 0x100) == 0)
+  v18 = *(v1 + 2);
+  if ((v18 & 0x100) == 0)
   {
 LABEL_27:
-    if ((v20 & 0x200) == 0)
+    if ((v18 & 0x200) == 0)
     {
       goto LABEL_28;
     }
@@ -6463,11 +6404,11 @@ LABEL_27:
 
 LABEL_41:
   IOHIDDeviceSetDispatchQueue(v0, *(v3 + 96));
-  v20 = *(v1 + 2);
-  if ((v20 & 0x200) == 0)
+  v18 = *(v1 + 2);
+  if ((v18 & 0x200) == 0)
   {
 LABEL_28:
-    if ((v20 & 0x400) == 0)
+    if ((v18 & 0x400) == 0)
     {
       goto LABEL_29;
     }
@@ -6484,20 +6425,20 @@ LABEL_43:
 
 LABEL_42:
   ++*(v3 + 112);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 0x40000000;
-  v23[2] = ____IOHIDManagerDeviceApplier_block_invoke;
-  v23[3] = &__block_descriptor_tmp_18_1;
-  v23[4] = v3;
-  IOHIDDeviceSetCancelHandler(v0, v23);
-  v20 = *(v1 + 2);
-  if ((v20 & 0x400) != 0)
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 0x40000000;
+  v21[2] = ____IOHIDManagerDeviceApplier_block_invoke;
+  v21[3] = &__block_descriptor_tmp_18_1;
+  v21[4] = v3;
+  IOHIDDeviceSetCancelHandler(v0, v21);
+  v18 = *(v1 + 2);
+  if ((v18 & 0x400) != 0)
   {
     goto LABEL_43;
   }
 
 LABEL_29:
-  if ((v20 & 0x800) != 0)
+  if ((v18 & 0x800) != 0)
   {
 LABEL_30:
     IOHIDDeviceCancel(v0);
@@ -6512,15 +6453,15 @@ LABEL_31:
 LABEL_34:
   if ((v1[8] & 4) != 0)
   {
-    v21 = *v1;
-    v22 = *(*v1 + 136);
-    if (v22)
+    v19 = *v1;
+    v20 = *(*v1 + 136);
+    if (v20)
     {
-      v4 = CFDictionaryGetValue(v22, v0);
-      v21 = *v1;
+      v4 = CFDictionaryGetValue(v20, v0);
+      v19 = *v1;
     }
 
-    v21[27](v21[26], v4, v21, v0);
+    v19[27](v19[26], v4, v19, v0);
   }
 }
 
@@ -6532,32 +6473,31 @@ uint64_t __IOHIDManagerInitialEnumCallback(uint64_t a1)
   if (v2)
   {
     os_unfair_recursive_lock_lock_with_options();
-    v3 = *(a1 + 120);
     OUTLINED_FUNCTION_0_6();
-    CFSetApplyFunction(v4, v5, v6);
+    CFSetApplyFunction(v3, v4, v5);
     os_unfair_recursive_lock_unlock();
   }
 
   os_unfair_recursive_lock_lock_with_options();
-  v7 = *(a1 + 128);
-  if (v7)
+  v6 = *(a1 + 128);
+  if (v6)
   {
-    CFRunLoopSourceInvalidate(v7);
+    CFRunLoopSourceInvalidate(v6);
     CFRelease(*(a1 + 128));
     *(a1 + 128) = 0;
   }
 
-  v8 = *(a1 + 120);
-  if (v8)
+  v7 = *(a1 + 120);
+  if (v7)
   {
-    CFRelease(v8);
+    CFRelease(v7);
     *(a1 + 120) = 0;
   }
 
-  v9 = *(a1 + 136);
-  if (v9)
+  v8 = *(a1 + 136);
+  if (v8)
   {
-    CFRelease(v9);
+    CFRelease(v8);
     *(a1 + 136) = 0;
   }
 
@@ -6595,14 +6535,13 @@ void IOHIDManagerUnscheduleFromRunLoop_cold_1(uint64_t a1, CFSetRef *a2, void *a
 
 void __IOHIDManagerSetDeviceMatching_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "IOServiceAddMatchingNotification:0x%x", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "IOServiceAddMatchingNotification:0x%x", v2, 8u);
 }
 
-void IOHIDManagerSetDispatchQueue_cold_1(uint64_t *a1, _OWORD *a2)
+void IOHIDManagerSetDispatchQueue_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -6610,14 +6549,22 @@ void IOHIDManagerSetDispatchQueue_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void IOHIDManagerSetCancelHandler_cold_1(uint64_t *a1, _OWORD *a2)
+void IOHIDManagerSetCancelHandler_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -6625,9 +6572,17 @@ void IOHIDManagerSetCancelHandler_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
@@ -6636,11 +6591,10 @@ uint64_t IOHIDManagerActivate_cold_1()
 {
   OUTLINED_FUNCTION_2_3();
   os_unfair_recursive_lock_lock_with_options();
-  *(v0 + 216);
   os_unfair_recursive_lock_unlock();
   __ApplyToDevices(v0);
   os_unfair_recursive_lock_lock_with_options();
-  v2 = *(v0 + 72);
+  v2 = v0[9];
   if (v2)
   {
     IONotificationPortSetDispatchQueue(v2, *v1);
@@ -6649,7 +6603,7 @@ uint64_t IOHIDManagerActivate_cold_1()
   return os_unfair_recursive_lock_unlock();
 }
 
-void __IOHIDManagerExtRelease_cold_1(uint64_t *a1, _OWORD *a2, unsigned int *a3)
+void __IOHIDManagerExtRelease_cold_1(void *a1, _OWORD *a2, unsigned int *a3)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -6660,7 +6614,6 @@ void __IOHIDManagerExtRelease_cold_1(uint64_t *a1, _OWORD *a2, unsigned int *a3)
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   atomic_load(a3);
   _os_log_send_and_compose_impl();
-  v5 = *a1;
   _os_crash_msg();
   __break(1u);
 }
@@ -6670,15 +6623,14 @@ void IOHIDQueueScheduleWithRunLoop_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_5(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_1_3();
-  v3 = *v2;
+  OUTLINED_FUNCTION_1_3(v2, v3, v4, v5, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void *__IOHIDQueueSetupAsyncSupport_cold_2(void *result, CFRunLoopSourceContext *a2, void **a3, BOOL *a4)
+__CFRunLoopSource *__IOHIDQueueSetupAsyncSupport_cold_2(__CFRunLoopSource *result, CFRunLoopSourceContext *a2, __CFRunLoopSource **a3, BOOL *a4)
 {
-  if (result[5])
+  if (*(result + 5))
   {
     v8 = 1;
   }
@@ -6686,18 +6638,18 @@ void *__IOHIDQueueSetupAsyncSupport_cold_2(void *result, CFRunLoopSourceContext 
   else
   {
     v7 = result;
-    result = (*(*result[3] + 32))(result[3], a3);
+    result = (*(**(result + 3) + 32))(*(result + 3), a3);
     v8 = 0;
     if (!result)
     {
       result = *a3;
       if (*a3)
       {
-        v7[5] = result;
+        *(v7 + 5) = result;
         CFRunLoopSourceGetContext(result, a2);
-        result = memcpy(v7 + 6, a2, 0x48uLL);
-        v9 = v7[7];
-        v7[15] = v9;
+        result = memcpy(v7 + 48, a2, 0x48uLL);
+        v9 = *(v7 + 7);
+        *(v7 + 15) = v9;
         v8 = v9 != 0;
       }
     }
@@ -6707,9 +6659,9 @@ void *__IOHIDQueueSetupAsyncSupport_cold_2(void *result, CFRunLoopSourceContext 
   return result;
 }
 
-uint64_t IOHIDQueueSetDispatchQueue_cold_1(NSObject *a1, void *a2, void *a3)
+dispatch_queue_t IOHIDQueueSetDispatchQueue_cold_1(NSObject *a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   bzero(__str, 0x100uLL);
   label = dispatch_queue_get_label(a1);
   v7 = "";
@@ -6724,7 +6676,6 @@ uint64_t IOHIDQueueSetDispatchQueue_cold_1(NSObject *a1, void *a2, void *a3)
   if (result)
   {
     _IOHIDObjectInternalRetain(a2);
-    v9 = a2[18];
     *a3 = MEMORY[0x1E69E9820];
     a3[1] = 0x40000000;
     a3[2] = __IOHIDQueueSetDispatchQueue_block_invoke;
@@ -6734,11 +6685,10 @@ uint64_t IOHIDQueueSetDispatchQueue_cold_1(NSObject *a1, void *a2, void *a3)
     a2[19] = result;
     if (!result)
     {
-      result = _IOHIDObjectInternalRelease(a2);
+      return _IOHIDObjectInternalRelease(a2);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6747,8 +6697,7 @@ void IOHIDQueueSetCancelHandler_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_5(a1, a2);
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_1_3();
-  v3 = *v2;
+  OUTLINED_FUNCTION_1_3(v2, v3, v4, v5, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
@@ -6788,7 +6737,7 @@ __CFString *__IOHIDEventEventCopyDebugDescWithIndentLevel(uint64_t a1)
   OUTLINED_FUNCTION_26();
   Name = IOHIDEventTypeGetName(v3);
   v5 = __descriptorCallbacks[v3];
-  Latency = IOHIDEventGetLatency(v2, 0x3E8u);
+  Latency = IOHIDEventGetLatency(v2, 1000);
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
   if (Mutable)
   {
@@ -6899,7 +6848,7 @@ __CFString *__IOHIDEventEventCopyDebugDescWithIndentLevel(uint64_t a1)
           ValueAtIndex = CFArrayGetValueAtIndex(*(v2 + 72), i);
           if (ValueAtIndex)
           {
-            v29 = __IOHIDEventEventCopyDebugDescWithIndentLevel(ValueAtIndex, v1 + 1);
+            v29 = __IOHIDEventEventCopyDebugDescWithIndentLevel(ValueAtIndex);
             if (v29)
             {
               v30 = v29;
@@ -6917,61 +6866,60 @@ __CFString *__IOHIDEventEventCopyDebugDescWithIndentLevel(uint64_t a1)
   return Mutable;
 }
 
-uint64_t IOHIDEventCreateKeyboardEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+HIDEvent *IOHIDEventCreateKeyboardEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   OUTLINED_FUNCTION_19();
   result = IOHIDEventCreate(v9, 3, v10, v8 | 1u);
   if (result)
   {
-    v12 = *(result + 96);
-    *(v12 + 16) = v6;
-    *(v12 + 18) = v5;
-    *(v12 + 20) = a5;
-    *(v12 + 28) = 1;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = v6;
+    *(eventData + 9) = v5;
+    *(eventData + 5) = a5;
+    *(eventData + 28) = 1;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateUnicodeEventWithQuality(uint64_t a1, uint64_t a2, const void *a3, size_t a4, int a5, int a6)
+HIDEvent *IOHIDEventCreateUnicodeEventWithQuality(uint64_t a1, uint64_t a2, const void *a3, size_t a4, int a5, int a6)
 {
   v9 = a2;
   v10 = _IOHIDEventCreate(a1, a4 + 28, 30, a2, a6 | 1u);
   if (v10)
   {
-    if (_MergedGlobals[0] && _MergedGlobals[0]() && off_1ED446908)
+    if (_MergedGlobals && _MergedGlobals() && off_1ED446908)
     {
       v9 = off_1ED446908(v9);
     }
 
-    *(v10 + 8) = v9;
-    v11 = *(v10 + 96);
+    v10->_event.timeStamp = v9;
     OUTLINED_FUNCTION_16();
-    if (v15)
+    if (v14)
     {
-      v13 = v14;
+      v12 = v13;
     }
 
-    v12[4] = a5;
-    v12[5] = v13;
-    v12[6] = a4;
-    memmove(v12 + 7, a3, a4);
+    v11[4] = a5;
+    v11[5] = v12;
+    v11[6] = a4;
+    memmove(v11 + 7, a3, a4);
   }
 
   return v10;
 }
 
-uint64_t IOHIDEventCreateButtonEvent()
+HIDEvent *IOHIDEventCreateButtonEvent()
 {
   OUTLINED_FUNCTION_3_2();
   result = IOHIDEventCreate(v1, 2, v2, v3);
   if (result)
   {
-    v5 = *(result + 96);
-    *(v5 + 24) = 256;
-    *(v5 + 28) = 0;
-    *(v5 + 16) = v0;
-    *(v5 + 20) = 0x10000;
+    eventData = result->_event.eventData;
+    *(eventData + 12) = 256;
+    *(eventData + 7) = 0;
+    *(eventData + 4) = v0;
+    *(eventData + 5) = 0x10000;
   }
 
   return result;
@@ -6983,9 +6931,9 @@ void __IOHIDEventCreateButtonEvent(uint64_t a1, uint64_t a2, uint64_t a3, char a
   v11 = IOHIDEventCreate(v9, 2, v10, v8 | 1u);
   if (v11)
   {
-    v12 = *(v11 + 96);
-    *(v12 + 24) = a4;
-    *(v12 + 28) = a5;
+    eventData = v11->_event.eventData;
+    *(eventData + 24) = a4;
+    *(eventData + 7) = a5;
     OUTLINED_FUNCTION_16();
     if (v16)
     {
@@ -6998,7 +6946,7 @@ void __IOHIDEventCreateButtonEvent(uint64_t a1, uint64_t a2, uint64_t a3, char a
   }
 }
 
-void *IOHIDEventCreateRelativePointerEvent(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+HIDEvent *IOHIDEventCreateRelativePointerEvent(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
 {
   OUTLINED_FUNCTION_2_5();
   v10 = v9;
@@ -7007,8 +6955,8 @@ void *IOHIDEventCreateRelativePointerEvent(uint64_t a1, uint64_t a2, unsigned in
   v15 = v14;
   if (v14)
   {
-    v16 = v14[12];
-    if (v16)
+    eventData = v14->_event.eventData;
+    if (eventData)
     {
       v17 = OUTLINED_FUNCTION_23();
       if (v17)
@@ -7028,7 +6976,7 @@ void *IOHIDEventCreateRelativePointerEvent(uint64_t a1, uint64_t a2, unsigned in
         *(*(v19 + 12) + 32) = v4;
       }
 
-      *(v16 + 40) = a3;
+      *(eventData + 10) = a3;
       if (a4 != a3)
       {
         v21 = a4 ^ a3;
@@ -7036,7 +6984,7 @@ void *IOHIDEventCreateRelativePointerEvent(uint64_t a1, uint64_t a2, unsigned in
         {
           if (v21)
           {
-            __IOHIDEventCreateButtonEvent(v12, v10, *(v16 + 40), 1, a3 & 1);
+            __IOHIDEventCreateButtonEvent(v12, v10, *(eventData + 10), 1, a3 & 1);
             if (v23)
             {
               v24 = v23;
@@ -7097,25 +7045,23 @@ void __IOHIDEventCreateAxisEvent()
 {
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_18();
-  v4 = IOHIDEventCreate(v0, v1, v2, v3);
-  if (v4)
+  if (IOHIDEventCreate(v0, v1, v2, v3))
   {
-    v5 = *(v4 + 96);
     OUTLINED_FUNCTION_17();
-    OUTLINED_FUNCTION_13(v6);
-    *(v7 + 24) = v8;
+    OUTLINED_FUNCTION_13(v4);
+    *(v5 + 24) = v6;
   }
 }
 
-uint64_t IOHIDEventCreateDeviceOrientationEventWithUsage()
+HIDEvent *IOHIDEventCreateDeviceOrientationEventWithUsage()
 {
   OUTLINED_FUNCTION_5_0();
   result = IOHIDEventCreate(v1, 10, v2, v3);
   if (result)
   {
-    v5 = *(result + 96);
-    *(v5 + 32) = 1;
-    *(v5 + 16) = v0;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = 1;
+    *(eventData + 4) = v0;
   }
 
   return result;
@@ -7124,14 +7070,12 @@ uint64_t IOHIDEventCreateDeviceOrientationEventWithUsage()
 void IOHIDEventCreatePolarOrientationEvent()
 {
   OUTLINED_FUNCTION_2_5();
-  v3 = IOHIDEventCreate(v0, 10, v1, v2);
-  if (v3)
+  if (IOHIDEventCreate(v0, 10, v1, v2))
   {
-    v4 = *(v3 + 96);
     OUTLINED_FUNCTION_17();
-    OUTLINED_FUNCTION_13(v5);
-    *(v6 + 24) = v7;
-    *(v6 + 32) = 0;
+    OUTLINED_FUNCTION_13(v3);
+    *(v4 + 24) = v5;
+    *(v4 + 32) = 0;
   }
 }
 
@@ -7140,9 +7084,9 @@ void IOHIDEventCreateQuaternionOrientationEvent(uint64_t a1, uint64_t a2, uint64
   v7 = IOHIDEventCreate(a1, 10, a2, a3);
   if (v7)
   {
-    v8 = *(v7 + 96);
-    *(v8 + 16) = vcvtd_n_s64_f64(a4, 0x10uLL);
-    *(v8 + 20) = vcvtd_n_s64_f64(a5, 0x10uLL);
+    eventData = v7->_event.eventData;
+    *(eventData + 4) = vcvtd_n_s64_f64(a4, 0x10uLL);
+    *(eventData + 5) = vcvtd_n_s64_f64(a5, 0x10uLL);
     OUTLINED_FUNCTION_14();
     v9[6] = v10;
     v9[7] = v11;
@@ -7150,104 +7094,104 @@ void IOHIDEventCreateQuaternionOrientationEvent(uint64_t a1, uint64_t a2, uint64
   }
 }
 
-uint64_t __IOHIDEventCreateMotionEvent(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
+HIDEvent *__IOHIDEventCreateMotionEvent(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
 {
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_18();
   result = IOHIDEventCreate(v12, v13, v14, v15);
   if (result)
   {
-    v17 = *(result + 96);
-    v17[4] = vcvtd_n_s64_f64(v8, 0x10uLL);
-    v17[5] = vcvtd_n_s64_f64(v7, 0x10uLL);
-    v17[6] = vcvtd_n_s64_f64(v6, 0x10uLL);
-    v17[7] = a4;
-    v17[8] = a5;
-    v17[9] = a6;
+    eventData = result->_event.eventData;
+    *(eventData + 4) = vcvtd_n_s64_f64(v8, 0x10uLL);
+    *(eventData + 5) = vcvtd_n_s64_f64(v7, 0x10uLL);
+    *(eventData + 6) = vcvtd_n_s64_f64(v6, 0x10uLL);
+    *(eventData + 7) = a4;
+    *(eventData + 8) = a5;
+    *(eventData + 9) = a6;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateAmbientLightSensorEvent()
+HIDEvent *IOHIDEventCreateAmbientLightSensorEvent()
 {
   OUTLINED_FUNCTION_3_2();
   result = IOHIDEventCreate(v1, 12, v2, v3);
   if (result)
   {
-    *(*(result + 96) + 16) = v0;
+    *(result->_event.eventData + 4) = v0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateProximtyLevelEvent()
+HIDEvent *IOHIDEventCreateProximtyLevelEvent()
 {
   OUTLINED_FUNCTION_20();
   result = IOHIDEventCreate(v3, 14, v4, v2 | 1u);
   if (result)
   {
-    v6 = *(result + 96);
-    *(v6 + 16) = v1;
-    *(v6 + 18) = 0;
-    *(v6 + 20) = v0;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = v1;
+    *(eventData + 9) = 0;
+    *(eventData + 5) = v0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateTouchSensitiveButtonEvent(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
+HIDEvent *IOHIDEventCreateTouchSensitiveButtonEvent(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
   OUTLINED_FUNCTION_19();
   result = IOHIDEventCreate(v12, 42, v13, v14);
   if (result)
   {
-    v16 = *(result + 96);
-    *(v16 + 16) = v8;
-    *(v16 + 18) = v7;
-    *(v16 + 24) = a1;
-    *(v16 + 32) = a2;
-    *(v16 + 40) = a7 != 0;
+    eventData = result->_event.eventData;
+    *(eventData + 8) = v8;
+    *(eventData + 9) = v7;
+    *(eventData + 3) = a1;
+    *(eventData + 4) = a2;
+    *(eventData + 40) = a7 != 0;
     v17 = vdupq_n_s64(0x7FF8000000000000uLL);
-    *(v16 + 48) = v17;
-    *(v16 + 64) = v17;
-    *(v16 + 44) = 0;
+    *(eventData + 3) = v17;
+    *(eventData + 4) = v17;
+    *(eventData + 11) = 0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateTouchSensitiveButtonEventWithRadius(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, int a5, int a6, uint64_t a7, double a8, double a9, double a10, double a11, double a12, double a13)
+HIDEvent *IOHIDEventCreateTouchSensitiveButtonEventWithRadius(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, int a5, int a6, uint64_t a7, double a8, double a9, double a10, double a11, double a12, double a13)
 {
   result = IOHIDEventCreate(a1, 42, a2, a7);
   if (result)
   {
-    v24 = *(result + 96);
-    *(v24 + 48) = a8;
-    *(v24 + 56) = a9;
-    *(v24 + 24) = a10;
-    *(v24 + 32) = a11;
-    *(v24 + 64) = a12;
-    *(v24 + 72) = a13;
-    *(v24 + 44) = a5;
-    *(v24 + 16) = a3;
-    *(v24 + 18) = a4;
-    *(v24 + 40) = a6 != 0;
+    eventData = result->_event.eventData;
+    *(eventData + 6) = a8;
+    *(eventData + 7) = a9;
+    *(eventData + 3) = a10;
+    *(eventData + 4) = a11;
+    *(eventData + 8) = a12;
+    *(eventData + 9) = a13;
+    *(eventData + 11) = a5;
+    *(eventData + 8) = a3;
+    *(eventData + 9) = a4;
+    *(eventData + 40) = a6 != 0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateSwipeEvent()
+HIDEvent *IOHIDEventCreateSwipeEvent()
 {
   OUTLINED_FUNCTION_5_0();
   result = IOHIDEventCreate(v1, 16, v2, v3);
   if (result)
   {
-    v5 = *(result + 96);
-    *(v5 + 28) = v0;
-    *(v5 + 16) = 0;
-    *(v5 + 32) = 0;
+    eventData = result->_event.eventData;
+    *(eventData + 7) = v0;
+    *(eventData + 2) = 0;
+    *(eventData + 4) = 0;
   }
 
   return result;
@@ -7263,10 +7207,10 @@ void __IOHIDEventCreateSwipeEventOfTypeWithFlavor()
   v10 = IOHIDEventCreate(v6, v7, v8, v9);
   if (v10)
   {
-    v11 = *(v10 + 96);
-    *(v11 + 28) = v5;
-    *(v11 + 32) = v3;
-    *(v11 + 34) = v1;
+    eventData = v10->_event.eventData;
+    *(eventData + 7) = v5;
+    *(eventData + 16) = v3;
+    *(eventData + 17) = v1;
     OUTLINED_FUNCTION_17();
     if (v15)
     {
@@ -7280,15 +7224,15 @@ void __IOHIDEventCreateSwipeEventOfTypeWithFlavor()
   }
 }
 
-uint64_t IOHIDEventCreateProgressEvent(double a1)
+HIDEvent *IOHIDEventCreateProgressEvent(double a1)
 {
   OUTLINED_FUNCTION_3_2();
   result = IOHIDEventCreate(v3, 18, v4, v5);
   if (result)
   {
-    v7 = *(result + 96);
-    *(v7 + 16) = v1;
-    *(v7 + 20) = a1;
+    eventData = result->_event.eventData;
+    *(eventData + 4) = v1;
+    *(eventData + 5) = a1;
   }
 
   return result;
@@ -7297,42 +7241,37 @@ uint64_t IOHIDEventCreateProgressEvent(double a1)
 void IOHIDEventCreateBiometricEvent()
 {
   OUTLINED_FUNCTION_3_2();
-  v4 = IOHIDEventCreate(v1, 29, v2, v3);
-  if (v4)
+  if (IOHIDEventCreate(v1, 29, v2, v3))
   {
-    v5 = *(v4 + 96);
     OUTLINED_FUNCTION_16();
-    if (v9)
+    if (v7)
     {
-      v7 = v8;
+      v5 = v6;
     }
 
-    *(v6 + 16) = v0;
-    *(v6 + 20) = v7;
-    *(v6 + 24) = 0;
-    *(v6 + 32) = 0;
+    *(v4 + 16) = v0;
+    *(v4 + 20) = v5;
+    *(v4 + 24) = 0;
+    *(v4 + 32) = 0;
   }
 }
 
-uint64_t IOHIDEventCreateAtmosphericPressureEvent(uint64_t a1, uint64_t a2, int a3, int a4)
+void IOHIDEventCreateAtmosphericPressureEvent(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  result = IOHIDEventCreate(a1, 31, a2, a4 | 1u);
-  if (result)
+  if (IOHIDEventCreate(a1, 31, a2, a4 | 1u))
   {
-    result = OUTLINED_FUNCTION_6(result);
-    if (v9)
+    OUTLINED_FUNCTION_6();
+    if (v8)
     {
-      v6 = v8;
+      v5 = v7;
     }
 
-    *(v7 + 16) = v6;
-    *(v7 + 20) = a3;
+    *(v6 + 16) = v5;
+    *(v6 + 20) = a3;
   }
-
-  return result;
 }
 
-uint64_t IOHIDEventCreateSymbolicHotKeyEvent()
+HIDEvent *IOHIDEventCreateSymbolicHotKeyEvent()
 {
   OUTLINED_FUNCTION_5_0();
   if (v4)
@@ -7348,13 +7287,13 @@ uint64_t IOHIDEventCreateSymbolicHotKeyEvent()
   result = IOHIDEventCreate(v1, 24, v2, v5);
   if (result)
   {
-    *(*(result + 96) + 16) = v0;
+    *(result->_event.eventData + 4) = v0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateLEDEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+HIDEvent *IOHIDEventCreateLEDEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   OUTLINED_FUNCTION_19();
   result = IOHIDEventCreate(v9, 26, v10, v8 | 1u);
@@ -7371,133 +7310,127 @@ uint64_t IOHIDEventCreateLEDEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     }
 
     v13 = 1 << (v5 - 1);
-    v14 = *(result + 96);
+    eventData = result->_event.eventData;
     if (!v12)
     {
       v13 = v6;
     }
 
-    *(v14 + 16) = v13;
-    *(v14 + 20) = v5;
-    *(v14 + 24) = a5;
+    *(eventData + 4) = v13;
+    *(eventData + 20) = v5;
+    *(eventData + 6) = a5;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateForceEvent(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, double a6, double a7)
+HIDEvent *IOHIDEventCreateForceEvent(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, double a6, double a7)
 {
   result = IOHIDEventCreate(a1, 32, a2, a5);
   if (result)
   {
-    v12 = *(result + 96);
-    v12[4] = a3;
-    v12[5] = vcvtd_n_s64_f64(a6, 0x10uLL);
-    v12[6] = a4;
-    v12[7] = vcvtd_n_s64_f64(a7, 0x10uLL);
+    eventData = result->_event.eventData;
+    *(eventData + 4) = a3;
+    *(eventData + 5) = vcvtd_n_s64_f64(a6, 0x10uLL);
+    *(eventData + 6) = a4;
+    *(eventData + 7) = vcvtd_n_s64_f64(a7, 0x10uLL);
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateMotionActivtyEvent()
+void IOHIDEventCreateMotionActivtyEvent()
 {
   OUTLINED_FUNCTION_5_0();
-  result = IOHIDEventCreate(v1, 33, v2, v3);
-  if (result)
+  if (IOHIDEventCreate(v1, 33, v2, v3))
   {
-    result = OUTLINED_FUNCTION_6(result);
-    if (v8)
+    OUTLINED_FUNCTION_6();
+    if (v7)
     {
-      v5 = v7;
+      v4 = v6;
     }
 
-    *(v6 + 16) = v0;
-    *(v6 + 20) = v5;
+    *(v5 + 16) = v0;
+    *(v5 + 20) = v4;
   }
-
-  return result;
 }
 
-uint64_t IOHIDEventCreateMotionGestureEvent()
+void IOHIDEventCreateMotionGestureEvent()
 {
   OUTLINED_FUNCTION_5_0();
-  result = IOHIDEventCreate(v1, 34, v2, v3);
-  if (result)
+  if (IOHIDEventCreate(v1, 34, v2, v3))
   {
-    result = OUTLINED_FUNCTION_6(result);
-    if (v8)
+    OUTLINED_FUNCTION_6();
+    if (v7)
     {
-      v5 = v7;
+      v4 = v6;
     }
 
-    *(v6 + 16) = v0;
-    *(v6 + 20) = v5;
+    *(v5 + 16) = v0;
+    *(v5 + 20) = v4;
   }
-
-  return result;
 }
 
-uint64_t IOHIDEventCreateGameControllerEvent(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18, int a19, unsigned int a20)
+HIDEvent *IOHIDEventCreateGameControllerEvent(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18, int a19, unsigned int a20)
 {
   result = IOHIDEventCreate(a1, 35, a2, a20);
   if (result)
   {
-    v27 = *(result + 96);
-    v27[4] = a3;
-    v27[5] = a4;
-    v27[6] = a5;
-    v27[7] = a6;
-    v27[8] = a7;
-    v27[9] = a8;
-    v27[10] = a9;
-    v27[11] = a10;
-    v27[12] = a11;
-    v27[13] = a12;
-    v27[14] = a13;
-    v27[15] = a14;
-    v27[16] = a15;
-    v27[17] = a16;
-    v27[18] = a17;
-    v27[19] = a18;
-    v27[20] = a19;
+    eventData = result->_event.eventData;
+    *(eventData + 4) = a3;
+    *(eventData + 5) = a4;
+    *(eventData + 6) = a5;
+    *(eventData + 7) = a6;
+    *(eventData + 8) = a7;
+    *(eventData + 9) = a8;
+    *(eventData + 10) = a9;
+    *(eventData + 11) = a10;
+    *(eventData + 12) = a11;
+    *(eventData + 13) = a12;
+    *(eventData + 14) = a13;
+    *(eventData + 15) = a14;
+    *(eventData + 16) = a15;
+    *(eventData + 17) = a16;
+    *(eventData + 18) = a17;
+    *(eventData + 19) = a18;
+    *(eventData + 20) = a19;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateGenericGestureEvent()
+HIDEvent *IOHIDEventCreateGenericGestureEvent()
 {
   OUTLINED_FUNCTION_5_0();
   result = IOHIDEventCreate(v1, 39, v2, v3);
   if (result)
   {
-    *(*(result + 96) + 16) = v0;
+    *(result->_event.eventData + 4) = v0;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateForceStageEvent(double a1, double a2, double a3, double a4, double a5)
+HIDEvent *IOHIDEventCreateForceStageEvent(double a1, double a2, double a3, double a4, double a5)
 {
   OUTLINED_FUNCTION_20();
   result = IOHIDEventCreate(v12, 41, v13, v14);
   if (result)
   {
-    v16 = *(result + 96);
-    *(v16 + 16) = v6;
-    *(v16 + 20) = v5;
-    *(v16 + 24) = a1;
-    *(v16 + 32) = a2;
-    *(v16 + 40) = a3;
-    *(v16 + 48) = a4;
-    *(v16 + 56) = a5;
+    eventData = result->_event.eventData;
+    *(eventData + 4) = v6;
+    *(eventData + 20) = v5;
+    *(eventData + 3) = a1;
+    *(eventData + 4) = a2;
+    *(eventData + 5) = a3;
+    *(eventData + 6) = a4;
+    *(eventData + 7) = a5;
   }
 
   return result;
 }
 
-uint64_t IOHIDEventCreateHeartRateEvent(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+HIDEvent *IOHIDEventCreateHeartRateEvent(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   v5 = IOHIDEventCreate(a1, 43, a2, a4);
   if (v5)
@@ -7530,11 +7463,11 @@ uint64_t IOHIDEventCreateHeartRateEvent(uint64_t a1, uint64_t a2, int a3, uint64
   return v5;
 }
 
-uint64_t IOHIDEventRemoveEvent(uint64_t result, void *a2)
+void *IOHIDEventRemoveEvent(void *result, void *a2)
 {
   if (a2)
   {
-    if (*(result + 72))
+    if (result[9])
     {
       v3 = a2[10];
       if (v3)
@@ -8334,11 +8267,10 @@ void __IOHIDEventTypeDescriptorMultiAxisPointer()
 
 void IOHIDEventGetPolicy_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "unexpected policy request %llu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "unexpected policy request %llu", &v2, 0xCu);
 }
 
 __CFDictionary *__IOAVClassMatching(uint64_t a1, __CFString *a2, unsigned int a3, int a4)
@@ -8462,54 +8394,54 @@ uint64_t __IOAVCopyFirstMatchingIOAVObjectOfType(uint64_t a1, uint64_t (*a2)(voi
 
 uint64_t IOHIDEventSystemCreate(const __CFAllocator *a1)
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   keys = 0;
   mach_absolute_time();
   OUTLINED_FUNCTION_0_10();
   _IOHIDDebugTrace(v2, v3, v4, v5, v6, v7);
-  v8 = _IOHIDLog();
-  if (os_signpost_enabled(v8))
+  v10 = _IOHIDLog(v8, v9);
+  if (os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemCreate", &unk_19724ED59, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_197195000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemCreate", &unk_19724ED59, buf, 2u);
   }
 
-  v9 = IOHIDPreferencesCopyDomain(@"allocator", @"com.apple.iohid");
-  if (v9)
+  v11 = IOHIDPreferencesCopyDomain(@"allocator", @"com.apple.iohid");
+  if (v11)
   {
-    v10 = v9;
-    v11 = CFEqual(v9, @"default");
-    v12 = *MEMORY[0x1E695E480];
-    if (v11)
+    v12 = v11;
+    if (CFEqual(v11, @"default"))
     {
       a1 = *MEMORY[0x1E695E480];
     }
 
-    CFRelease(v10);
+    CFRelease(v12);
   }
 
   v13 = *MEMORY[0x1E69E99F8];
   *buf = 0;
   if (!bootstrap_look_up2())
   {
-    v73 = MEMORY[0x1E69E9A60];
+    v65 = MEMORY[0x1E69E9A60];
     mach_port_deallocate(*MEMORY[0x1E69E9A60], *buf);
-    if (bootstrap_check_in(v13, "com.apple.iohideventsystem", buf))
+    v66 = bootstrap_check_in(v13, "com.apple.iohideventsystem", buf);
+    if (v66)
     {
-      v74 = _IOHIDLog();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v68 = _IOHIDLog(v66, v67);
+      Instance = os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT);
+      if (Instance)
       {
         *buf = 67109120;
-        LODWORD(v111) = 0;
-        _os_log_impl(&dword_197195000, v74, OS_LOG_TYPE_DEFAULT, "__bootstrap_status:0x%x", buf, 8u);
+        LODWORD(v106) = 0;
+        _os_log_impl(&dword_197195000, v68, OS_LOG_TYPE_DEFAULT, "__bootstrap_status:0x%x", buf, 8u);
       }
 
-      v72 = 0;
-      v15 = 0;
+      v64 = 0;
+      v16 = 0;
       goto LABEL_43;
     }
 
-    mach_port_mod_refs(*v73, *buf, 1u, -1);
+    mach_port_mod_refs(*v65, *buf, 1u, -1);
   }
 
   if (!_MergedGlobals_2)
@@ -8518,303 +8450,311 @@ uint64_t IOHIDEventSystemCreate(const __CFAllocator *a1)
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v15 = Instance;
+  v16 = Instance;
   if (!Instance)
   {
     goto LABEL_42;
   }
 
   bzero((Instance + 16), 0x1B8uLL);
-  *(v15 + 160) = 0;
-  v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v17 = hid_dispatch_queue_create("HID - IOService Enumeration", v16, qword_1ED446AC0, __IOHIDSystemEnumerationQueueWillExecute, __IOHIDSystemEnumerationQueueDidExecute, v15);
-  *(v15 + 144) = v17;
-  if (!v17)
+  *(v16 + 160) = 0;
+  v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  Instance = hid_dispatch_queue_create("HID - IOService Enumeration", v17, qword_1ED446AC0, __IOHIDSystemEnumerationQueueWillExecute, __IOHIDSystemEnumerationQueueDidExecute, v16);
+  *(v16 + 144) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
   v18 = OUTLINED_FUNCTION_2_6();
-  Mutable = CFDictionaryCreateMutable(v18, v19, v20, v21);
-  *(v15 + 16) = Mutable;
-  if (!Mutable)
+  Instance = CFDictionaryCreateMutable(v18, v19, v20, v21);
+  *(v16 + 16) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v23 = OUTLINED_FUNCTION_2_6();
-  v27 = CFDictionaryCreateMutable(v23, v24, v25, v26);
-  *(v15 + 24) = v27;
-  if (!v27)
+  v22 = OUTLINED_FUNCTION_2_6();
+  Instance = CFDictionaryCreateMutable(v22, v23, v24, v25);
+  *(v16 + 24) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v28 = CFGetAllocator(v15);
-  v29 = CFDictionaryCreateMutable(v28, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  *(v15 + 176) = v29;
-  if (!v29)
+  v26 = CFGetAllocator(v16);
+  Instance = CFDictionaryCreateMutable(v26, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  *(v16 + 176) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  *v105 = xmmword_1F0B910A0;
-  v106 = *&off_1F0B910B0;
-  *v107 = xmmword_1F0B910C0;
+  *v100 = xmmword_1F0B910A0;
+  v101 = *&off_1F0B910B0;
+  *v102 = xmmword_1F0B910C0;
+  v27 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v27, v28, v29);
+  *(v16 + 40) = Instance;
+  if (!Instance)
+  {
+    goto LABEL_42;
+  }
+
   v30 = OUTLINED_FUNCTION_2_6();
-  v33 = CFSetCreateMutable(v30, v31, v32);
-  *(v15 + 40) = v33;
-  if (!v33)
+  Instance = CFSetCreateMutable(v30, v31, v32);
+  *(v16 + 48) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v34 = OUTLINED_FUNCTION_2_6();
-  v37 = CFSetCreateMutable(v34, v35, v36);
-  *(v15 + 48) = v37;
-  if (!v37)
+  v33 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v33, v34, v35);
+  *(v16 + 56) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v38 = OUTLINED_FUNCTION_2_6();
-  v41 = CFSetCreateMutable(v38, v39, v40);
-  *(v15 + 56) = v41;
-  if (!v41)
+  v36 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v36, v37, v38);
+  *(v16 + 64) = Instance;
+  if (!Instance)
+  {
+    goto LABEL_42;
+  }
+
+  v39 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v39, v40, v41);
+  *(v16 + 72) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
   v42 = OUTLINED_FUNCTION_2_6();
-  v45 = CFSetCreateMutable(v42, v43, v44);
-  *(v15 + 64) = v45;
-  if (!v45)
+  Instance = CFArrayCreateMutable(v42, v43, v44);
+  *(v16 + 80) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v46 = OUTLINED_FUNCTION_2_6();
-  v49 = CFSetCreateMutable(v46, v47, v48);
-  *(v15 + 72) = v49;
-  if (!v49)
+  v45 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v45, v46, v47);
+  *(v16 + 424) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v50 = OUTLINED_FUNCTION_2_6();
-  v53 = CFArrayCreateMutable(v50, v51, v52);
-  *(v15 + 80) = v53;
-  if (!v53)
+  v48 = OUTLINED_FUNCTION_2_6();
+  Instance = CFSetCreateMutable(v48, v49, v50);
+  *(v16 + 432) = Instance;
+  if (!Instance)
   {
     goto LABEL_42;
   }
 
-  v54 = OUTLINED_FUNCTION_2_6();
-  v57 = CFSetCreateMutable(v54, v55, v56);
-  *(v15 + 424) = v57;
-  if (!v57)
+  v51 = OUTLINED_FUNCTION_2_6();
+  v52 = IOHIDSessionCreate(v51);
+  *(v16 + 128) = v52;
+  if (!v52)
   {
-    goto LABEL_42;
-  }
-
-  v58 = OUTLINED_FUNCTION_2_6();
-  v61 = CFSetCreateMutable(v58, v59, v60);
-  *(v15 + 432) = v61;
-  if (!v61)
-  {
-    goto LABEL_42;
-  }
-
-  v62 = OUTLINED_FUNCTION_2_6();
-  v63 = IOHIDSessionCreate(v62);
-  *(v15 + 128) = v63;
-  if (!v63)
-  {
-    v75 = _IOHIDLog();
-    if (OUTLINED_FUNCTION_5_1(v75))
+    v69 = _IOHIDLog(0, v53);
+    Instance = OUTLINED_FUNCTION_5_1(v69);
+    if (Instance)
     {
       *buf = 0;
-      v82 = "IOHIDSessionCreate";
+      v75 = "IOHIDSessionCreate";
 LABEL_41:
-      OUTLINED_FUNCTION_4_1(&dword_197195000, v76, v77, v82, v78, v79, v80, v81, v105[0], v105[1], v106, *(&v106 + 1), v107[0], v107[1], v108, keys, buf[0]);
+      OUTLINED_FUNCTION_4_1(&dword_197195000, v15, v70, v75, v71, v72, v73, v74, v100[0], v100[1], v101, *(&v101 + 1), v102[0], v102[1], v103, keys);
     }
 
 LABEL_42:
-    v72 = 0;
+    v64 = 0;
 LABEL_43:
-    v66 = 0;
-    v65 = 0;
+    v57 = 0;
+    v56 = 0;
     goto LABEL_44;
   }
 
-  v64 = IOHIDEventServerCreate(a1, v15);
-  *(v15 + 152) = v64;
-  if (!v64)
+  v54 = IOHIDEventServerCreate(a1, v16);
+  *(v16 + 152) = v54;
+  if (!v54)
   {
-    v83 = _IOHIDLog();
-    if (OUTLINED_FUNCTION_5_1(v83))
+    v76 = _IOHIDLog(0, v55);
+    Instance = OUTLINED_FUNCTION_5_1(v76);
+    if (Instance)
     {
       *buf = 0;
-      v82 = "IOHIDEventServerCreate";
+      v75 = "IOHIDEventServerCreate";
       goto LABEL_41;
     }
 
     goto LABEL_42;
   }
 
-  __IOHIDEventSystem_debug = v15;
-  v65 = IOServiceMatching("IOService");
-  if (!v65)
+  __IOHIDEventSystem_debug = v16;
+  Instance = IOServiceMatching("IOService");
+  v56 = Instance;
+  if (!Instance)
   {
-    v72 = 0;
-    v66 = 0;
+    v64 = 0;
+    v57 = 0;
     goto LABEL_44;
   }
 
   keys = @"HIDServiceSupport";
-  v66 = CFDictionaryCreate(a1, &keys, MEMORY[0x1E695E4D0], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (!v66)
+  Instance = CFDictionaryCreate(a1, &keys, MEMORY[0x1E695E4D0], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v57 = Instance;
+  if (!Instance)
   {
     goto LABEL_66;
   }
 
-  CFDictionarySetValue(v65, @"IOPropertyMatch", v66);
-  v67 = IONotificationPortCreate(0);
-  if (!v67)
+  CFDictionarySetValue(v56, @"IOPropertyMatch", Instance);
+  v58 = IONotificationPortCreate(0);
+  if (!v58)
   {
 LABEL_64:
-    *(v15 + 96) = 0;
-    v98 = _IOHIDLog();
-    if (OUTLINED_FUNCTION_5_1(v98))
+    *(v16 + 96) = 0;
+    v94 = _IOHIDLog(v58, v59);
+    Instance = OUTLINED_FUNCTION_5_1(v94);
+    if (Instance)
     {
-      OUTLINED_FUNCTION_4_1(&dword_197195000, v99, v100, "__IOHIDEventSystemCreateNotification", v101, v102, v103, v104, v105[0], v105[1], v106, *(&v106 + 1), v107[0], v107[1], v108, keys, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_4_1(&dword_197195000, v15, v95, "__IOHIDEventSystemCreateNotification", v96, v97, v98, v99, v100[0], v100[1], v101, *(&v101 + 1), v102[0], v102[1], v103, keys);
     }
 
 LABEL_66:
-    v72 = 0;
+    v64 = 0;
     goto LABEL_44;
   }
 
-  v68 = v67;
-  IONotificationPortSetDispatchQueue(v67, *(v15 + 144));
-  CFRetain(v65);
-  if (IOServiceAddMatchingNotification(v68, "IOServiceFirstMatch", v65, __IOHIDEventSystemServicePublished, v15, (v15 + 168)))
+  v60 = v58;
+  IONotificationPortSetDispatchQueue(v58, *(v16 + 144));
+  CFRetain(v56);
+  if (IOServiceAddMatchingNotification(v60, "IOServiceFirstMatch", v56, __IOHIDEventSystemServicePublished, v16, (v16 + 168)))
   {
-    IONotificationPortDestroy(v68);
+    IONotificationPortDestroy(v60);
     goto LABEL_64;
   }
 
-  __IOHIDEventSystemServicePublished(v15, *(v15 + 168));
-  *(v15 + 96) = v68;
-  v69 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v15 + 144));
-  *(v15 + 440) = v69;
-  if (v69)
+  __IOHIDEventSystemServicePublished(v16, *(v16 + 168));
+  *(v16 + 96) = v60;
+  v61 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v16 + 144));
+  *(v16 + 440) = v61;
+  if (v61)
   {
-    dispatch_source_set_event_handler(v69, &__block_literal_global_10);
-    v70 = *(v15 + 440);
-    v71 = dispatch_time(0, 300000000000);
-    dispatch_source_set_timer(v70, v71, 0xFFFFFFFFFFFFFFFFLL, 0);
-    dispatch_resume(*(v15 + 440));
+    dispatch_source_set_event_handler(v61, &__block_literal_global_10);
+    v62 = *(v16 + 440);
+    v63 = dispatch_time(0, 300000000000);
+    dispatch_source_set_timer(v62, v63, 0xFFFFFFFFFFFFFFFFLL, 0);
+    dispatch_resume(*(v16 + 440));
   }
 
-  CFRetain(v15);
-  v72 = v15;
+  Instance = CFRetain(v16);
+  v64 = v16;
 LABEL_44:
-  v84 = _IOHIDLog();
-  if (os_signpost_enabled(v84))
+  v77 = _IOHIDLog(Instance, v15);
+  if (os_signpost_enabled(v77))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v84, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemCreate", &unk_19724ED59, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_197195000, v77, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemCreate", &unk_19724ED59, buf, 2u);
   }
 
-  if (v66)
+  if (v57)
   {
-    CFRelease(v66);
+    CFRelease(v57);
   }
 
-  if (v65)
+  if (v56)
   {
-    CFRelease(v65);
+    CFRelease(v56);
   }
 
-  if (v15)
+  if (v16)
   {
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
   OUTLINED_FUNCTION_0_10();
-  _IOHIDDebugTrace(v85, v86, v87, v88, v89, v90);
-  qword_1ED446AC8 = IOHIDAnalyticsEventCreate(@"com.apple.hid.analytics.event-system", 0);
-  if (qword_1ED446AC8)
+  _IOHIDDebugTrace(v78, v79, v80, v81, v82, v83);
+  v84 = IOHIDAnalyticsEventCreate(@"com.apple.hid.analytics.event-system", 0);
+  qword_1ED446AC8 = v84;
+  if (v84)
   {
     IOHIDAnalyticsEventAddField();
     IOHIDAnalyticsEventAddField();
-    IOHIDAnalyticsEventActivate();
+    v84 = IOHIDAnalyticsEventActivate();
   }
 
-  v91 = _IOHIDLog();
-  if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+  v86 = _IOHIDLog(v84, v85);
+  if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
   {
-    v92 = mach_absolute_time();
-    v93 = OUTLINED_FUNCTION_6_0(v92);
+    v87 = mach_absolute_time();
+    v88 = OUTLINED_FUNCTION_6_0(v87);
     *buf = 134217984;
-    v111 = v93;
-    _os_log_impl(&dword_197195000, v91, OS_LOG_TYPE_DEFAULT, "IOHIDEventSystemCreate:%lldus", buf, 0xCu);
+    v106 = v88;
+    _os_log_impl(&dword_197195000, v86, OS_LOG_TYPE_DEFAULT, "IOHIDEventSystemCreate:%lldus", buf, 0xCu);
   }
 
-  v94 = mach_absolute_time();
-  OUTLINED_FUNCTION_6_0(v94);
+  v89 = mach_absolute_time();
+  OUTLINED_FUNCTION_6_0(v89);
+  v91 = qword_1ED446AC8;
   if (qword_1ED446AC8)
   {
-    IOHIDAnalyticsEventSetIntegerValueForField();
+    v91 = IOHIDAnalyticsEventSetIntegerValueForField();
   }
 
-  if (!v72)
+  if (!v64)
   {
-    v95 = _IOHIDLog();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_FAULT))
+    v92 = _IOHIDLog(v91, v90);
+    if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_197195000, v95, OS_LOG_TYPE_FAULT, "IOHIDEventSystemCreate error", buf, 2u);
+      _os_log_fault_impl(&dword_197195000, v92, OS_LOG_TYPE_FAULT, "IOHIDEventSystemCreate error", buf, 2u);
     }
   }
 
-  v96 = *MEMORY[0x1E69E9840];
-  return v72;
+  return v64;
 }
 
 uint64_t IOHIDEventSystemOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   mach_absolute_time();
   OUTLINED_FUNCTION_0_10();
   _IOHIDDebugTrace(v10, v11, v12, v13, v14, v15);
-  v16 = _IOHIDLog();
-  if (os_signpost_enabled(v16))
+  v18 = _IOHIDLog(v16, v17);
+  if (os_signpost_enabled(v18))
   {
-    LOWORD(v42) = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemOpen", &unk_19724ED59, &v42, 2u);
+    LOWORD(v49) = 0;
+    _os_signpost_emit_with_name_impl(&dword_197195000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemOpen", &unk_19724ED59, &v49, 2u);
   }
 
-  v17 = *(a1 + 128);
-  v18 = *(a1 + 152);
+  v19 = *(a1 + 128);
+  v20 = *(a1 + 152);
   *(a1 + 448) = a5 & 1;
-  v19 = IOHIDSessionOpen(v17, a1, __IOHIDEventSystemEventCallback, 0);
-  if (v19)
+  v21 = IOHIDSessionOpen(v19, a1, __IOHIDEventSystemEventCallback, 0);
+  v23 = v21;
+  if (v21)
   {
-    v20 = *(a1 + 136);
-    if (v20 || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), OUTLINED_FUNCTION_0_10(), v20 = hid_dispatch_queue_create(v21, v22, v23, v24, v25, v26), (*(a1 + 136) = v20) != 0))
+    v24 = *(a1 + 136);
+    if (v24 || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), OUTLINED_FUNCTION_0_10(), v24 = hid_dispatch_queue_create(v25, v26, v27, v28, v29, v30), (*(a1 + 136) = v24) != 0))
     {
-      IOHIDEventServerScheduleWithDispatchQueue(v18, v20);
+      IOHIDEventServerScheduleWithDispatchQueue(v20, v24);
     }
 
     else
     {
-      v41 = _IOHIDLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v48 = _IOHIDLog(0, 0);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v42) = 0;
-        _os_log_error_impl(&dword_197195000, v41, OS_LOG_TYPE_ERROR, "Failed to create server dipatch queue", &v42, 2u);
+        LOWORD(v49) = 0;
+        _os_log_error_impl(&dword_197195000, v48, OS_LOG_TYPE_ERROR, "Failed to create server dipatch queue", &v49, 2u);
       }
     }
 
@@ -8822,47 +8762,47 @@ uint64_t IOHIDEventSystemOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
     *(a1 + 104) = a3;
     *(a1 + 112) = a2;
     *(a1 + 120) = a4;
-    os_unfair_recursive_lock_unlock();
+    v21 = os_unfair_recursive_lock_unlock();
   }
 
-  v27 = _IOHIDLog();
-  if (os_signpost_enabled(v27))
+  v31 = _IOHIDLog(v21, v22);
+  if (os_signpost_enabled(v31))
   {
-    LOWORD(v42) = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemOpen", &unk_19724ED59, &v42, 2u);
+    LOWORD(v49) = 0;
+    _os_signpost_emit_with_name_impl(&dword_197195000, v31, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemOpen", &unk_19724ED59, &v49, 2u);
   }
 
   OUTLINED_FUNCTION_0_10();
-  _IOHIDDebugTrace(v28, v29, v30, v31, v32, v33);
-  v34 = _IOHIDLog();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  _IOHIDDebugTrace(v32, v33, v34, v35, v36, v37);
+  v40 = _IOHIDLog(v38, v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = mach_absolute_time();
-    v36 = OUTLINED_FUNCTION_6_0(v35);
-    v42 = 134217984;
-    v43 = v36;
-    _os_log_impl(&dword_197195000, v34, OS_LOG_TYPE_DEFAULT, "IOHIDEventSystemOpen:%lldus", &v42, 0xCu);
+    v41 = mach_absolute_time();
+    v42 = OUTLINED_FUNCTION_6_0(v41);
+    v49 = 134217984;
+    v50 = v42;
+    _os_log_impl(&dword_197195000, v40, OS_LOG_TYPE_DEFAULT, "IOHIDEventSystemOpen:%lldus", &v49, 0xCu);
   }
 
-  v37 = mach_absolute_time();
-  OUTLINED_FUNCTION_6_0(v37);
+  v43 = mach_absolute_time();
+  OUTLINED_FUNCTION_6_0(v43);
+  v45 = qword_1ED446AC8;
   if (qword_1ED446AC8)
   {
-    IOHIDAnalyticsEventSetIntegerValueForField();
+    v45 = IOHIDAnalyticsEventSetIntegerValueForField();
   }
 
-  if (!v19)
+  if (!v23)
   {
-    v38 = _IOHIDLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v46 = _IOHIDLog(v45, v44);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v42) = 0;
-      _os_log_fault_impl(&dword_197195000, v38, OS_LOG_TYPE_FAULT, "IOHIDEventSystemOpen error", &v42, 2u);
+      LOWORD(v49) = 0;
+      _os_log_fault_impl(&dword_197195000, v46, OS_LOG_TYPE_FAULT, "IOHIDEventSystemOpen error", &v49, 2u);
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v23;
 }
 
 void _IOHIDEventSystemRegisterEventFilter(uint64_t a1, CFSetRef *a2)
@@ -8923,7 +8863,7 @@ __CFDictionary *_IOHIDEventSystemCopyRecord(CFTypeRef *a1)
   return Mutable;
 }
 
-const __CFNumber *_IOHIDEventSystemClientServiceConformsTo(uint64_t a1, IOHIDServiceClientRef service)
+const __CFNumber *_IOHIDEventSystemClientServiceConformsTo(uint64_t a1, IOHIDServiceClientRef service, uint64_t a3, uint64_t a4)
 {
   result = IOHIDServiceClientGetRegistryID(service);
   valuePtr = 0;
@@ -8959,12 +8899,11 @@ uint64_t IOHIDEventSystemClientRegistryIDConformsTo(uint64_t a1, uint64_t a2)
 
     v7 = v6;
     os_unfair_recursive_lock_lock_with_options();
-    v8 = *(v2 + 32);
     CFDataGetBytePtr(v7);
     Length = CFDataGetLength(v7);
-    v17 = OUTLINED_FUNCTION_10_0(Length, v10, v11, v12, v13, v14, v15, v16, v29, 0);
-    v18 = v17;
-    if (v17 == 268435459)
+    v16 = OUTLINED_FUNCTION_10_0(Length, v9, v10, v11, v12, v13, v14, v15, v27, 0);
+    v17 = v16;
+    if (v16 == 268435459)
     {
       if (*(v2 + 384) || *(v2 + 400))
       {
@@ -8972,17 +8911,16 @@ uint64_t IOHIDEventSystemClientRegistryIDConformsTo(uint64_t a1, uint64_t a2)
         goto LABEL_8;
       }
 
-      __IOHIDEventSystemClientTerminationCallback(v17, v2, 0);
-      v19 = *(v2 + 32);
+      __IOHIDEventSystemClientTerminationCallback(v16, v2, 0);
       CFDataGetBytePtr(v7);
-      v20 = CFDataGetLength(v7);
-      v18 = OUTLINED_FUNCTION_10_0(v20, v21, v22, v23, v24, v25, v26, v27, v30, SHIDWORD(v30));
+      v18 = CFDataGetLength(v7);
+      v17 = OUTLINED_FUNCTION_10_0(v18, v19, v20, v21, v22, v23, v24, v25, v28, SHIDWORD(v28));
     }
 
     os_unfair_recursive_lock_unlock();
-    if (!v18)
+    if (!v17)
     {
-      v2 = HIDWORD(v30) != 0;
+      v2 = HIDWORD(v28) != 0;
       goto LABEL_12;
     }
 
@@ -9246,7 +9184,7 @@ uint64_t _iohideventsystem_client_dispatch_service_records_changed(unsigned int 
 
 uint64_t IOHIDVirtualServiceClientRemove(__IOHIDServiceClient *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   EventSystemClient = _IOHIDVirtuaServiceClientGetEventSystemClient(a1);
   RegistryID = IOHIDServiceClientGetRegistryID(a1);
@@ -9258,11 +9196,11 @@ uint64_t IOHIDVirtualServiceClientRemove(__IOHIDServiceClient *a1)
     if (v4)
     {
       v5 = v4;
-      v6 = _IOHIDLogCategory(0xDu);
+      v6 = _IOHIDLogCategory(13);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v11 = v5;
+        v10 = v5;
         _os_log_error_impl(&dword_197195000, v6, OS_LOG_TYPE_ERROR, "io_hideventsystem_remove_virtual_service:%x", buf, 8u);
       }
     }
@@ -9270,9 +9208,7 @@ uint64_t IOHIDVirtualServiceClientRemove(__IOHIDServiceClient *a1)
 
   _IOHIDVirtualServiceClientNotification(a1, 3, 0);
   CFDictionaryRemoveValue(*(EventSystemClient + 104), valuePtr);
-  result = os_unfair_recursive_lock_unlock();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 uint64_t _iohideventsystem_client_refresh(unsigned int a1)
@@ -9298,43 +9234,43 @@ uint64_t _iohideventsystem_client_refresh(unsigned int a1)
       Copy = CFDictionaryCreateCopy(*MEMORY[0x1E695E480], *(v4 + 96));
       if (Copy)
       {
-        v7 = Copy;
-        v8 = io_hideventsystem_do_client_refresh(*(v4 + 32), &v24, &v23);
-        v9 = _IOHIDLogCategory(0xDu);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v8 = Copy;
+        v9 = io_hideventsystem_do_client_refresh(*(v4 + 32), &v24, &v23, v7);
+        v10 = _IOHIDLogCategory(13);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v8;
-          _os_log_impl(&dword_197195000, v9, OS_LOG_TYPE_INFO, "io_hideventsystem_do_client_refresh:0x%x", buf, 8u);
+          *&buf[4] = v9;
+          _os_log_impl(&dword_197195000, v10, OS_LOG_TYPE_INFO, "io_hideventsystem_do_client_refresh:0x%x", buf, 8u);
         }
 
-        if (v8)
+        if (v9)
         {
           os_unfair_recursive_lock_unlock();
-          v10 = v7;
+          v11 = v8;
 LABEL_21:
-          CFRelease(v10);
-          goto LABEL_22;
+          CFRelease(v11);
+          return 0;
         }
 
-        v11 = v24;
-        v12 = v23;
+        v12 = v24;
+        v13 = v23;
         TypeID = CFArrayGetTypeID();
-        v14 = _IOHIDUnserializeAndVMDeallocWithTypeID(v11, v12, TypeID);
+        v15 = _IOHIDUnserializeAndVMDeallocWithTypeID(v12, v13, TypeID);
         CFDictionaryRemoveAllValues(*(v4 + 96));
-        v15 = _IOHIDLogCategory(0xDu);
-        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-        if (v14)
+        v16 = _IOHIDLogCategory(13);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v15)
         {
-          if (v16)
+          if (v17)
           {
-            Count = CFArrayGetCount(v14);
-            v18 = CFDictionaryGetCount(v7);
+            Count = CFArrayGetCount(v15);
+            v19 = CFDictionaryGetCount(v8);
             *buf = 134218240;
             *&buf[4] = Count;
             *&buf[12] = 2048;
-            *&buf[14] = v18;
-            _os_log_impl(&dword_197195000, v15, OS_LOG_TYPE_DEFAULT, "HID Event System Client refreshed with %ld services, cached matching had %ld services", buf, 0x16u);
+            *&buf[14] = v19;
+            _os_log_impl(&dword_197195000, v16, OS_LOG_TYPE_DEFAULT, "HID Event System Client refreshed with %ld services, cached matching had %ld services", buf, 0x16u);
           }
 
           *buf = MEMORY[0x1E69E9820];
@@ -9342,29 +9278,29 @@ LABEL_21:
           *&buf[16] = ____IOHIDEventSystemClientCacheServices_block_invoke;
           v26 = &__block_descriptor_tmp_132;
           v27 = v4;
-          _IOHIDCFArrayApplyBlock(v14, buf);
+          _IOHIDCFArrayApplyBlock(v15, buf);
         }
 
-        else if (v16)
+        else if (v17)
         {
           *buf = 0;
-          _os_log_impl(&dword_197195000, v15, OS_LOG_TYPE_DEFAULT, "HID Event System Client refreshed but no services returned", buf, 2u);
+          _os_log_impl(&dword_197195000, v16, OS_LOG_TYPE_DEFAULT, "HID Event System Client refreshed but no services returned", buf, 2u);
         }
 
-        CFDictionaryApplyFunction(v7, __IOHIDEventSystemClientServiceReplaceCallback, *(v4 + 96));
-        v19 = CFGetAllocator(v4);
-        v20 = CFDictionaryCreateCopy(v19, *(v4 + 96));
+        CFDictionaryApplyFunction(v8, __IOHIDEventSystemClientServiceReplaceCallback, *(v4 + 96));
+        v20 = CFGetAllocator(v4);
+        v21 = CFDictionaryCreateCopy(v20, *(v4 + 96));
         os_unfair_recursive_lock_unlock();
-        __IOHIDEventSystemClientHandleServiceCacheRefresh(v4, v7, v20);
-        CFRelease(v7);
-        if (v14)
+        __IOHIDEventSystemClientHandleServiceCacheRefresh(v4, v8, v21);
+        CFRelease(v8);
+        if (v15)
         {
-          CFRelease(v14);
+          CFRelease(v15);
         }
 
-        if (v20)
+        if (v21)
         {
-          v10 = v20;
+          v11 = v21;
           goto LABEL_21;
         }
       }
@@ -9376,14 +9312,12 @@ LABEL_21:
     }
   }
 
-LABEL_22:
-  v21 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 void __IOHIDEventSystemClientInitReplyPort_cold_1()
 {
-  v0 = _IOHIDLogCategory(0xDu);
+  v0 = _IOHIDLogCategory(13);
   if (OUTLINED_FUNCTION_6_1(v0))
   {
     OUTLINED_FUNCTION_1_8();
@@ -9393,7 +9327,7 @@ void __IOHIDEventSystemClientInitReplyPort_cold_1()
 
 void __IOHIDEventSystemClientInitReplyPort_cold_2()
 {
-  v0 = _IOHIDLogCategory(0xDu);
+  v0 = _IOHIDLogCategory(13);
   if (OUTLINED_FUNCTION_6_1(v0))
   {
     OUTLINED_FUNCTION_1_8();
@@ -9403,7 +9337,7 @@ void __IOHIDEventSystemClientInitReplyPort_cold_2()
 
 void __IOHIDEventSystemClientInitReplyPort_cold_3()
 {
-  v0 = _IOHIDLogCategory(0xDu);
+  v0 = _IOHIDLogCategory(13);
   if (OUTLINED_FUNCTION_6_1(v0))
   {
     OUTLINED_FUNCTION_1_8();
@@ -9425,90 +9359,65 @@ void IOHIDEventSystemClient_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __IOHIDEventSystemClientRefresh_cold_1(int *a1)
+void __IOHIDEventSystemClientRefresh_cold_1(unsigned int *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
   xpc_strerror();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDEventSystemClientRefresh_cold_2(kern_return_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   bootstrap_strerror(a1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDEventSystemClientRefresh_cold_3(kern_return_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_6_1(v3))
+  v2 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_6_1(v2))
   {
     bootstrap_strerror(a1);
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDEventSystemClientRefresh_cold_4(mach_error_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_6_1(v3))
+  v2 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_6_1(v2))
   {
     mach_error_string(a1);
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDEventSystemClientRefresh_cold_6(mach_error_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_6_1(v3))
+  v2 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_6_1(v2))
   {
     mach_error_string(a1);
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDEventSystemClientRefresh_cold_7()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = _IOHIDLogCategory(0xDu);
+  v0 = _IOHIDLogCategory(13);
   if (OUTLINED_FUNCTION_6_1(v0))
   {
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __IOHIDEventSystemClientStartQueue_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _IOHIDEventSystemClientCopyMatchingEventForService_cold_1()
@@ -9568,14 +9477,6 @@ void _IOHIDEventSystemClientCopyMatchingEventForService_cold_6()
   *v0 = 0;
 }
 
-void IOHIDVirtualServiceClientCreateWithCallbacks_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void IOHIDVirtualServiceClientCreateWithCallbacks_cold_2()
 {
   v1 = OUTLINED_FUNCTION_16_0();
@@ -9586,14 +9487,6 @@ void IOHIDVirtualServiceClientCreateWithCallbacks_cold_2()
   }
 
   *v0 = 0;
-}
-
-void IOHIDVirtualServiceClientDispatchEvent_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDVirtualServiceClientDispatchEvent_cold_2()
@@ -9610,142 +9503,115 @@ void IOHIDVirtualServiceClientDispatchEvent_cold_2()
 
 void _iohideventsystem_client_dispatch_virtual_service_copy_property_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _iohideventsystem_client_dispatch_virtual_service_copy_property_cold_2(uint64_t a1, const void *a2, char a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v7 = OUTLINED_FUNCTION_11_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = OUTLINED_FUNCTION_11_0();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 134217984;
-    v11 = a1;
-    _os_log_error_impl(&dword_197195000, v7, OS_LOG_TYPE_ERROR, "HIDVS (id:%llx) client does not exist", &v10, 0xCu);
+    v8 = 134217984;
+    v9 = a1;
+    _os_log_error_impl(&dword_197195000, v6, OS_LOG_TYPE_ERROR, "HIDVS (id:%llx) client does not exist", &v8, 0xCu);
   }
 
   CFRelease(a2);
-  v8 = *MEMORY[0x1E69E9840];
   return a3 & 1;
 }
 
 void _iohideventsystem_client_dispatch_virtual_service_copy_property_cold_3()
 {
-  v0 = *MEMORY[0x1E69E9840];
-  v1 = OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_6_1(v1))
+  v0 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_6_1(v0))
   {
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void _iohideventsystem_client_dispatch_virtual_service_set_property_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _iohideventsystem_client_dispatch_virtual_service_set_property_cold_2(_DWORD *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   *a1 = -536870212;
-  v1 = _IOHIDLogCategory(0xDu);
+  v1 = _IOHIDLogCategory(13);
   if (OUTLINED_FUNCTION_6_1(v1))
   {
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void _iohideventsystem_client_dispatch_virtual_service_set_property_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _iohideventsystem_client_dispatch_virtual_service_set_property_cold_4(_DWORD *a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_15_0(a1);
-  if (OUTLINED_FUNCTION_6_1(v2))
+  v1 = OUTLINED_FUNCTION_15_0(a1);
+  if (OUTLINED_FUNCTION_6_1(v1))
   {
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _iohideventsystem_client_dispatch_virtual_service_notification_cold_2(uint64_t a1, char a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v4 = OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_12(v4))
+  v3 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_12(v3))
   {
     OUTLINED_FUNCTION_2_7();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return a2 & 1;
 }
 
 void _iohideventsystem_output_event_to_virtual_service_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _iohideventsystem_output_event_to_virtual_service_cold_2(_DWORD *a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_15_0(a1);
-  if (OUTLINED_FUNCTION_6_1(v2))
-  {
-    OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void _iohideventsystem_copy_event_from_virtual_service_cold_2()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  v1 = OUTLINED_FUNCTION_11_0();
+  v1 = OUTLINED_FUNCTION_15_0(a1);
   if (OUTLINED_FUNCTION_6_1(v1))
   {
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void IOHIDNotificationInvalidate_cold_1(uint64_t *a1, _OWORD *a2)
+void _iohideventsystem_copy_event_from_virtual_service_cold_2()
+{
+  v0 = OUTLINED_FUNCTION_11_0();
+  if (OUTLINED_FUNCTION_6_1(v0))
+  {
+    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_1_8();
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  }
+}
+
+void IOHIDNotificationInvalidate_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -9753,9 +9619,132 @@ void IOHIDNotificationInvalidate_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
+}
+
+void IOHIDNotificationInvalidate_cold_2(void *a1, _OWORD *a2)
+{
+  *a1 = 0;
+  a2[3] = 0u;
+  a2[4] = 0u;
+  a2[1] = 0u;
+  a2[2] = 0u;
+  *a2 = 0u;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_1_3(v5, v2, v3, v4, &dword_197195000);
+  _os_crash_msg();
+  __break(1u);
+}
+
+HIDEventService *_IOHIDServiceCreateVirtual(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5)
+{
+  VirtualNoInit = __IOHIDServiceCreateVirtualNoInit(a1, a2, a3, a4, a5);
+  v7 = VirtualNoInit;
+  if (VirtualNoInit && !__IOHIDServiceInit(VirtualNoInit, a2))
+  {
+    CFRelease(v7);
+    return 0;
+  }
+
+  return v7;
+}
+
+uint64_t __IOHIDServiceRunLoopCompatibilityThread()
+{
+  v16 = *MEMORY[0x1E69E9840];
+  memset(&context, 0, sizeof(context));
+  v10 = 0;
+  v9 = 0;
+  pthread_setname_np("IOHIDService - RunLoopCompatibilityThread");
+  v0 = pthread_self();
+  v1 = pthread_getschedparam(v0, &v9, &v10);
+  if (!v1)
+  {
+    v3 = _IOHIDLog(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      sched_priority = v10.sched_priority;
+      v14 = 1024;
+      v15 = v9;
+      _os_log_impl(&dword_197195000, v3, OS_LOG_TYPE_DEFAULT, "IOHIDService compatibility thread running at priority %d and schedule %d.", buf, 0xEu);
+    }
+  }
+
+  v4 = CFRunLoopSourceCreate(*MEMORY[0x1E695E480], 0, &context);
+  if (v4)
+  {
+    v5 = v4;
+    Current = CFRunLoopGetCurrent();
+    v7 = *MEMORY[0x1E695E8E0];
+    qword_1EAF1D008 = Current;
+    qword_1EAF1D010 = v7;
+    CFRunLoopAddSource(Current, v5, v7);
+    pthread_mutex_lock(&stru_1EAF1D018);
+    pthread_cond_signal(&stru_1EAF1D058);
+    pthread_mutex_unlock(&stru_1EAF1D018);
+    CFRunLoopRun();
+    CFRunLoopRemoveSource(qword_1EAF1D008, v5, qword_1EAF1D010);
+    CFRelease(v5);
+  }
+
+  return 0;
+}
+
+CFMutableDictionaryRef _IOHIDServiceCopyPropertiesForClient(uint64_t a1, const __CFArray *a2, uint64_t a3)
+{
+  Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v7 = Mutable;
+  if (Mutable)
+  {
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 0x40000000;
+    v9[2] = ___IOHIDServiceCopyPropertiesForClient_block_invoke;
+    v9[3] = &__block_descriptor_tmp_64;
+    v9[4] = a1;
+    v9[5] = a3;
+    v9[6] = Mutable;
+    _IOHIDCFArrayApplyBlock(a2, v9);
+    if (!CFDictionaryGetCount(v7))
+    {
+      CFRelease(v7);
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t __IOHIDServiceEventCompatibilityCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  if (a1)
+  {
+    if (a4)
+    {
+      return __IOHIDServiceEventCallback(a1, a2, a3, a4);
+    }
+  }
+
+  return a1;
 }

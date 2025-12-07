@@ -63,7 +63,7 @@
   v11.receiver = self;
   v11.super_class = SBHFloatingDockSeparatorView;
   [(SBHFloatingDockSeparatorView *)&v11 layoutSubviews];
-  [(SBHFloatingDockSeparatorView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;

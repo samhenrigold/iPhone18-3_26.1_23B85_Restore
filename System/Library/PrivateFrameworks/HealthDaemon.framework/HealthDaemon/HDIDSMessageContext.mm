@@ -60,7 +60,7 @@ LABEL_8:
 - (NSString)originalGUID
 {
   originalGUID = [(IDSMessageContext *)self->_context originalGUID];
-  v3 = [originalGUID copy];
+  v3 = objc_msgSend_copy(originalGUID);
 
   return v3;
 }

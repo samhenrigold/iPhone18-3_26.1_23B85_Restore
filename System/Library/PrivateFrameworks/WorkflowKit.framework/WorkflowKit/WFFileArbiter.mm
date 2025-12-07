@@ -11,40 +11,38 @@
   dCopy = d;
   completionCopy = completion;
   v10 = objc_opt_new();
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__20844;
-  v22 = __Block_byref_object_dispose__20845;
-  v23 = 0;
-  v16[4] = &v18;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy__20844;
+  v16[4] = __Block_byref_object_dispose__20845;
   v17 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke;
-  v16[3] = &unk_1E8378BD0;
-  [v10 coordinateReadingItemAtURL:lCopy options:0 error:&v17 byAccessor:v16];
-  v11 = v17;
-  v12 = v19[5];
-  v13 = *MEMORY[0x1E69E0E60];
-  v15 = completionCopy;
-  v14 = dCopy;
+  v14[4] = v16;
+  v15 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke;
+  v14[3] = &unk_1E8378BD0;
+  [v10 coordinateReadingItemAtURL:lCopy options:0 error:&v15 byAccessor:v14];
+  v11 = v15;
+  v13 = completionCopy;
+  v12 = dCopy;
   FPExtendBookmarkForDocumentURL();
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(v16, 8);
 }
 
 void __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke_2(void *a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v5 = [MEMORY[0x1E69E0938] standardClient];
     v6 = [*(*(a1[6] + 8) + 40) path];
     v7 = a1[4];
-    v18 = 0;
-    v8 = [v5 createBookmarkWithBookmarkableString:a2 path:v6 workflowID:v7 error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [v5 createBookmarkWithBookmarkableString:a2 path:v6 workflowID:v7 error:&v17];
+    v9 = v17;
 
     v10 = getWFFilesLogObject();
     v11 = v10;
@@ -53,7 +51,7 @@ void __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke";
+        v19 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke";
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%s Successfully created bookmark", buf, 0xCu);
       }
 
@@ -65,9 +63,9 @@ void __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke";
-        v21 = 2112;
-        v22 = v9;
+        v19 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke";
+        v20 = 2112;
+        v21 = v9;
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Could not create bookmark with error: %@ ", buf, 0x16u);
       }
 
@@ -93,16 +91,14 @@ void __57__WFFileArbiter_extendDocumentURL_workflowID_completion___block_invoke_
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke_2";
-      v21 = 2112;
-      v22 = a3;
+      v19 = "[WFFileArbiter extendDocumentURL:workflowID:completion:]_block_invoke_2";
+      v20 = 2112;
+      v21 = a3;
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Could not extend bookmark with error: %@", buf, 0x16u);
     }
 
     (*(a1[5] + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extendDocumentURLs:(id)ls workflowID:(id)d completion:(id)completion
@@ -159,7 +155,7 @@ uint64_t __58__WFFileArbiter_extendDocumentURLs_workflowID_completion___block_in
     v4 = a3;
   }
 
-  return (*(v3 + 16))(v3, v4);
+  return (*(v3 + 16))(v3, v4, a3);
 }
 
 @end

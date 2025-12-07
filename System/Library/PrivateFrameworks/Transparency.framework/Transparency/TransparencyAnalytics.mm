@@ -19,6 +19,8 @@
 - (void)loadCollectionConfiguration;
 - (void)logHardFailureForEventNamed:(id)named withAttributes:(id)attributes;
 - (void)logMetric:(id)metric withName:(id)name;
+- (void)logResultForEvent:(id)event hardFailure:(BOOL)failure result:(id)result;
+- (void)logResultForEvent:(id)event hardFailure:(BOOL)failure result:(id)result withAttributes:(id)attributes;
 - (void)logRockwellForEventNamed:(id)named withAttributes:(id)attributes;
 - (void)logSoftFailureForEventNamed:(id)named withAttributes:(id)attributes;
 - (void)logSuccessForEventNamed:(id)named;
@@ -174,19 +176,17 @@ uint64_t __40__TransparencyAnalytics_setupCollection__block_invoke_2()
 
 void __46__TransparencyAnalytics_analyticsApplications__block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"IDS";
-  v5[1] = @"TLT";
-  v5[2] = @"CK";
-  v5[3] = @"MP";
-  v5[4] = @"FT";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
+  v4[0] = @"IDS";
+  v4[1] = @"TLT";
+  v4[2] = @"CK";
+  v4[3] = @"MP";
+  v4[4] = @"FT";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = analyticsApplications_applications;
   analyticsApplications_applications = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)doWithAnalyticsForEventName:(id)name error:(id *)error block:(id)block
@@ -348,17 +348,17 @@ LABEL_21:
 
 + (id)errorChain:(id)chain depth:(unint64_t)depth
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   if (depth <= 5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v32[0] = @"domain";
+    v31[0] = @"domain";
     domain = [chainCopy domain];
-    v32[1] = @"code";
-    v33[0] = domain;
+    v31[1] = @"code";
+    v32[0] = domain;
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(chainCopy, "code")}];
-    v33[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
     v10 = [v9 mutableCopy];
 
     userInfo = [chainCopy userInfo];
@@ -372,44 +372,44 @@ LABEL_21:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = v10;
+      v25 = v10;
       array = [MEMORY[0x1E695DF70] array];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v17 = v15;
-      v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v28;
+        v20 = *v27;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v28 != v20)
+            if (*v27 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = [self errorChain:*(*(&v27 + 1) + 8 * i) depth:depth + 1];
+            v22 = [self errorChain:*(*(&v26 + 1) + 8 * i) depth:depth + 1];
             if (v22)
             {
               [array addObject:v22];
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v19);
       }
 
-      v10 = v26;
+      v10 = v25;
       if ([array count])
       {
-        [v26 setObject:array forKeyedSubscript:@"multiple"];
+        [v25 setObject:array forKeyedSubscript:@"multiple"];
       }
     }
 
@@ -420,8 +420,6 @@ LABEL_21:
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -584,15 +582,15 @@ LABEL_21:
 
 void __53__TransparencyAnalytics_addUserInfoAttributes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 hasPrefix:@"swt"])
   {
     v7 = [v5 substringFromIndex:3];
-    v11 = v7;
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = v7;
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     if ([MEMORY[0x1E696ACB0] isValidJSONObject:v8])
     {
       [*(a1 + 32) setObject:v6 forKeyedSubscript:v7];
@@ -604,8 +602,89 @@ void __53__TransparencyAnalytics_addUserInfoAttributes_error___block_invoke(uint
       [*(a1 + 32) setObject:v9 forKeyedSubscript:v7];
     }
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)logResultForEvent:(id)event hardFailure:(BOOL)failure result:(id)result
+{
+  failureCopy = failure;
+  v19[2] = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  resultCopy = result;
+  if (![(TransparencyAnalytics *)self skipLogResult:resultCopy])
+  {
+    if (self->_sfanalytics)
+    {
+      v18[0] = @"transparencyVersion";
+      v10 = [MEMORY[0x1E696AD98] numberWithLongLong:114];
+      v18[1] = @"ktEnvironment";
+      v19[0] = v10;
+      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[TransparencySettings getEnvironment](TransparencySettings, "getEnvironment")}];
+      v19[1] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      v13 = [v12 mutableCopy];
+
+      [(TransparencyAnalytics *)self addUserInfoAttributes:v13 error:resultCopy];
+      [(SFAnalytics *)self->_sfanalytics logResultForEvent:eventCopy hardFailure:failureCopy result:resultCopy withAttributes:v13];
+    }
+
+    else
+    {
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __62__TransparencyAnalytics_logResultForEvent_hardFailure_result___block_invoke;
+      v14[3] = &unk_1E87020D0;
+      v15 = eventCopy;
+      v17 = failureCopy;
+      v16 = resultCopy;
+      [TransparencyXPCConnection invokeXPCAsynchronousCallWithBlock:v14 errorHandler:&__block_literal_global_132];
+
+      v13 = v15;
+    }
+  }
+}
+
+- (void)logResultForEvent:(id)event hardFailure:(BOOL)failure result:(id)result withAttributes:(id)attributes
+{
+  failureCopy = failure;
+  eventCopy = event;
+  resultCopy = result;
+  attributesCopy = attributes;
+  v13 = attributesCopy;
+  if (self->_sfanalytics)
+  {
+    if (attributesCopy)
+    {
+      dictionary = [attributesCopy mutableCopy];
+    }
+
+    else
+    {
+      dictionary = [MEMORY[0x1E695DF90] dictionary];
+    }
+
+    v15 = dictionary;
+    [(TransparencyAnalytics *)self addUserInfoAttributes:dictionary error:resultCopy];
+    v16 = [MEMORY[0x1E696AD98] numberWithLongLong:114];
+    [v15 setObject:v16 forKeyedSubscript:@"transparencyVersion"];
+
+    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[TransparencySettings getEnvironment](TransparencySettings, "getEnvironment")}];
+    [v15 setObject:v17 forKeyedSubscript:@"ktEnvironment"];
+
+    [(SFAnalytics *)self->_sfanalytics logResultForEvent:eventCopy hardFailure:failureCopy result:resultCopy withAttributes:v15];
+  }
+
+  else
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __77__TransparencyAnalytics_logResultForEvent_hardFailure_result_withAttributes___block_invoke;
+    v18[3] = &unk_1E87020F8;
+    v19 = eventCopy;
+    v22 = failureCopy;
+    v20 = resultCopy;
+    v21 = v13;
+    [TransparencyXPCConnection invokeXPCAsynchronousCallWithBlock:v18 errorHandler:&__block_literal_global_135];
+  }
 }
 
 - (void)logMetric:(id)metric withName:(id)name
@@ -812,12 +891,11 @@ uint64_t __51__TransparencyAnalytics_removeMultiSamplerForName___block_invoke()
 {
   dataCopy = data;
   [(SFAnalytics *)self->_sfanalytics updateCollectionConfigurationWithData:?];
-  sfanalytics = self->_sfanalytics;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = +[SWTransparencySFAnalytics logger];
-    [v5 updateCollectionConfigurationWithData:dataCopy];
+    v4 = +[SWTransparencySFAnalytics logger];
+    [v4 updateCollectionConfigurationWithData:dataCopy];
 
     notify_post(kTransparencySFACollectionUpdateName);
   }
@@ -844,7 +922,7 @@ uint64_t __51__TransparencyAnalytics_removeMultiSamplerForName___block_invoke()
 
 - (id)nfsReporting
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   nfsObserver = [(TransparencyAnalytics *)selfCopy nfsObserver];
@@ -854,31 +932,31 @@ uint64_t __51__TransparencyAnalytics_removeMultiSamplerForName___block_invoke()
   if ([allObjects count])
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v6 = allObjects;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           status = [v10 status];
           name = [v10 name];
           [dictionary setObject:status forKeyedSubscript:name];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -889,8 +967,6 @@ uint64_t __51__TransparencyAnalytics_removeMultiSamplerForName___block_invoke()
   {
     dictionary = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

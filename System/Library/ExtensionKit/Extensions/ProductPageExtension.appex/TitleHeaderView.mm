@@ -19,14 +19,15 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension15TitleHeaderView_accessoryAction);
   if (v3)
   {
-    v8[3] = sub_100016F40(0, &unk_10094BB70);
-    v8[0] = view;
+    v6 = *&self->eyebrowText[OBJC_IVAR____TtC20ProductPageExtension15TitleHeaderView_accessoryAction];
+    v9[3] = sub_100016F40(0, &unk_10094BB70, UIControl_ptr);
+    v9[0] = view;
     viewCopy = view;
     selfCopy = self;
-    sub_10001CE50(v3);
-    v3(v8);
-    sub_1000167E0(v3);
-    sub_10000CFBC(v8, &unk_1009434C0);
+    sub_10001CE50(v3, v6);
+    v3(v9);
+    sub_1000167E0(v3, v6);
+    sub_10000CFBC(v9, &unk_1009434C0, &qword_100783F60);
   }
 }
 
@@ -35,13 +36,14 @@
   height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v6 = sub_1001914C0(width, height);
-  v8 = v7;
+  v6.n128_f64[0] = width;
+  v7 = sub_1001914C0(v6, height);
+  v9 = v8;
 
-  v9 = v6;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

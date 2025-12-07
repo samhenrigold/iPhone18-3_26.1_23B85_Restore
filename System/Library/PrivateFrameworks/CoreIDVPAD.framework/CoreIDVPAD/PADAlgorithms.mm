@@ -700,7 +700,7 @@ LABEL_73:
 - (id)_retrieveFaceprintsFromPredictorUsingFACInput:(id)input
 {
   inputCopy = input;
-  vision::mod::LivenessCheckPredictor::getIDmatchingFrameIndex(self->_predictor.__ptr_, &__p);
+  vision::mod::LivenessCheckPredictor::getIDmatchingFrameIndex(&__p, self->_predictor.__ptr_);
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
   v6 = __p;
   if (v20 != __p)
@@ -770,7 +770,7 @@ PADAlgorithmFACFaceprintResult *__63__PADAlgorithms__retrieveFaceprintsFromPredi
 - (id)_retrieveReferenceFramesFromPredictor
 {
   v12 = *MEMORY[0x277D85DE8];
-  vision::mod::LivenessCheckPredictor::getRaiseEyebrowsReferenceIndex(self->_predictor.__ptr_, &__p);
+  vision::mod::LivenessCheckPredictor::getRaiseEyebrowsReferenceIndex(&__p, self->_predictor.__ptr_);
   v2 = [MEMORY[0x277CBEBF8] mutableCopy];
   if (v9 != __p)
   {
@@ -1136,6 +1136,13 @@ LABEL_47:
   *(self + 24) = 0u;
   *(self + 8) = 0u;
   return self;
+}
+
+- (void)processFacePoseInput:(uint64_t)a3 gesture:(uint64_t)a4 error:(uint64_t)a5 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_1(&dword_245686000, a2, a3, "Invalid gesture %i.", a5, a6, a7, a8, v8);
 }
 
 @end

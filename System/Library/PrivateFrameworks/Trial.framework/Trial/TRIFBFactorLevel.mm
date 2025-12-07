@@ -242,18 +242,18 @@ LABEL_10:
   v8 = metadata;
   if (metadata)
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 1;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __36__TRIFBFactorLevel_verifyUTF8Fields__block_invoke;
-    v27[3] = &unk_27885E918;
-    v27[4] = &v28;
-    [metadata enumerateObjectsUsingBlock:v27];
-    v9 = *(v29 + 24);
-    _Block_object_dispose(&v28, 8);
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 1;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __36__TRIFBFactorLevel_verifyUTF8Fields__block_invoke;
+    v19[3] = &unk_27885E918;
+    v19[4] = &v20;
+    [metadata enumerateObjectsUsingBlock:v19];
+    v9 = *(v21 + 24);
+    _Block_object_dispose(&v20, 8);
     if ((v9 & 1) == 0)
     {
 
@@ -271,14 +271,12 @@ LABEL_10:
 
   if (!*ptr[-v11 + 4].var0)
   {
-    v17 = -v11;
+    v15 = -v11;
 LABEL_19:
     if (v12 >= 0xF)
     {
-      if (*ptr[v17 + 14].var0)
+      if (*ptr[v15 + 14].var0)
       {
-        v18 = &ptr[*ptr[v17 + 14].var0];
-        v19 = &v18[*v18->var0];
         valid = AFBIsValidUTF8();
         if (!valid)
         {
@@ -286,17 +284,15 @@ LABEL_19:
         }
 
         ptr = self->_ptr;
-        v20 = *ptr->var0;
-        v17 = -v20;
-        v12 = *ptr[-v20].var0;
+        v16 = *ptr->var0;
+        v15 = -v16;
+        v12 = *ptr[-v16].var0;
       }
 
       if (v12 >= 0x11)
       {
-        if (*ptr[v17 + 16].var0)
+        if (*ptr[v15 + 16].var0)
         {
-          v21 = &ptr[*ptr[v17 + 16].var0];
-          v22 = &v21[*v21->var0];
           valid = AFBIsValidUTF8();
           if (!valid)
           {
@@ -304,20 +300,15 @@ LABEL_19:
           }
 
           ptr = self->_ptr;
-          v23 = *ptr->var0;
-          v17 = -v23;
-          v12 = *ptr[-v23].var0;
+          v17 = *ptr->var0;
+          v15 = -v17;
+          v12 = *ptr[-v17].var0;
         }
 
-        if (v12 >= 0x13)
+        if (v12 >= 0x13 && *ptr[v15 + 18].var0)
         {
-          v24 = *ptr[v17 + 18].var0;
-          if (v24)
-          {
-            v25 = *ptr[v24].var0;
-            LOBYTE(valid) = AFBIsValidUTF8();
-            return valid;
-          }
+          LOBYTE(valid) = AFBIsValidUTF8();
+          return valid;
         }
       }
     }
@@ -327,15 +318,13 @@ LABEL_30:
     return valid;
   }
 
-  v13 = &ptr[*ptr[-v11 + 4].var0];
-  v14 = &v13[*v13->var0];
   valid = AFBIsValidUTF8();
   if (valid)
   {
     ptr = self->_ptr;
-    v16 = *ptr->var0;
-    v17 = -v16;
-    v12 = *ptr[-v16].var0;
+    v14 = *ptr->var0;
+    v15 = -v14;
+    v12 = *ptr[-v14].var0;
     goto LABEL_19;
   }
 
@@ -414,7 +403,7 @@ TRIFBFactorMetadataKeyValue *__28__TRIFBFactorLevel_metadata__block_invoke(uint6
   return v6;
 }
 
-uint64_t __36__TRIFBFactorLevel_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__36__TRIFBFactorLevel_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 verifyUTF8Fields];
   if ((result & 1) == 0)

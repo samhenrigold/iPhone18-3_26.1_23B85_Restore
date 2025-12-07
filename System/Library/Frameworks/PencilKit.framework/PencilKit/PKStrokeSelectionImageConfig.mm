@@ -48,10 +48,10 @@
 
 - (unint64_t)hash
 {
-  v3 = PKHashBytes(&self->_strokeBounds, 32);
-  v4 = PKHashBytes(&self->_imageViewBounds, 32) ^ v3;
-  v5 = PKHashBytes(&self->_scale, 8);
-  return v4 ^ v5 ^ PKHashBytes(&self->_imageSize, 16) ^ self->_invertedColors ^ (2 * self->_rotated);
+  v3 = PKHashBytes(&self->_strokeBounds, 0x20u);
+  v4 = PKHashBytes(&self->_imageViewBounds, 0x20u) ^ v3;
+  v5 = PKHashBytes(&self->_scale, 8u);
+  return v4 ^ v5 ^ PKHashBytes(&self->_imageSize, 0x10u) ^ self->_invertedColors ^ (2 * self->_rotated);
 }
 
 - (BOOL)isEqual:(id)equal

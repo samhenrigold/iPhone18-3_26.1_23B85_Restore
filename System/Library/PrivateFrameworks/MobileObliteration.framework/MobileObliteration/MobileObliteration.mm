@@ -1,11 +1,11 @@
 uint64_t setOblitNVRAMKeyDirect()
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   mainPort = 0;
-  v54 = 0u;
-  v55 = 0u;
-  *__str = 0u;
   v53 = 0u;
+  v54 = 0u;
+  *__str = 0u;
+  v52 = 0u;
   snprintf(__str, 0x40uLL, "%d", 0);
   if (MEMORY[0x259CAEB90](*MEMORY[0x277D85F18], &mainPort))
   {
@@ -43,31 +43,31 @@ uint64_t setOblitNVRAMKeyDirect()
 
     else
     {
-      v33 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "IONVRAM-FORCESYNCNOW-PROPERTY", 0x8000100u);
-      if (v33)
+      v32 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "IONVRAM-FORCESYNCNOW-PROPERTY", 0x8000100u);
+      if (v32)
       {
-        v34 = v33;
-        if (!IORegistryEntrySetCFProperty(v8, v33, v19))
+        v33 = v32;
+        if (!IORegistryEntrySetCFProperty(v8, v32, v19))
         {
           v22 = 0;
           goto LABEL_16;
         }
 
-        v35 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        if (v35)
+        v34 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        if (v34)
         {
-          setOblitNVRAMKeyDirect_cold_5(v35, v36, v37, v38, v39, v40, v41, v42);
+          setOblitNVRAMKeyDirect_cold_5(v34, v35, v36, v37, v38, v39, v40, v41);
         }
 
-        CFRelease(v34);
+        CFRelease(v33);
       }
 
       else
       {
-        v43 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        if (v43)
+        v42 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        if (v42)
         {
-          setOblitNVRAMKeyDirect_cold_6(v43, v44, v45, v46, v47, v48, v49, v50);
+          setOblitNVRAMKeyDirect_cold_6(v42, v43, v44, v45, v46, v47, v48, v49);
         }
       }
     }
@@ -97,13 +97,12 @@ LABEL_17:
   }
 
   IOObjectRelease(v8);
-  v31 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t Mobile_Obliterate(const __CFDictionary *a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v2 = 0xFFFFFFFFLL;
   v3 = dispatch_queue_create("com.apple.obliteration.timeout_block", 0);
   if (v3 && (v4 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, &__block_literal_global)) != 0)
@@ -129,7 +128,7 @@ uint64_t Mobile_Obliterate(const __CFDictionary *a1)
     Mobile_Obliterate_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     if (!a1)
     {
-      goto LABEL_62;
+      return v2;
     }
 
     goto LABEL_8;
@@ -138,7 +137,7 @@ uint64_t Mobile_Obliterate(const __CFDictionary *a1)
 LABEL_7:
   if (!a1)
   {
-    goto LABEL_62;
+    return v2;
   }
 
 LABEL_8:
@@ -168,17 +167,17 @@ LABEL_18:
   }
 
   v20 = getpid();
-  v64 = 0u;
-  v65 = 0u;
-  buffer = 0u;
   v63 = 0u;
+  v64 = 0u;
+  buffer = 0u;
+  v62 = 0u;
   if (proc_pidinfo(v20, 13, 1uLL, &buffer, 64) != 64)
   {
     goto LABEL_18;
   }
 
-  *cStr = v63;
-  v61 = 0;
+  *cStr = v62;
+  v60 = 0;
   v21 = *MEMORY[0x277CBECE8];
   v22 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
   if (!v22)
@@ -322,8 +321,6 @@ LABEL_59:
     CFRelease(v18);
   }
 
-LABEL_62:
-  v57 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -343,10 +340,11 @@ void *__delete_all_applets_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 _BYTE *OUTLINED_FUNCTION_1(_BYTE *result, _BYTE *a2)
@@ -364,9 +362,8 @@ void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
 
 void setOblitNVRAMKeyDirect_cold_4(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_259B47000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not save value:%08x", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_259B47000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not save value:%08x", v1, 8u);
 }

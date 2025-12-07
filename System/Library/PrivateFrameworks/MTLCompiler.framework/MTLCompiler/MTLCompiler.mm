@@ -64,53 +64,56 @@ uint64_t MTLCompilerBuiltInFileReaderImpl::readString(MTLCompilerBuiltInFileRead
   return v4 + v1;
 }
 
-uint64_t MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(void *a1, int a2, char *__s2)
+uint64_t MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(void *a1, uint64_t a2, char *__s2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   FunctionOffset = StaticHashTable::findFunctionOffset((a1 + 1), __s2);
-  if (FunctionOffset == -1 || (v5 = FunctionOffset + 4, v6 = a1[8], v5 > v6) || v6 < (*(a1[6] + FunctionOffset) + v5))
+  if (FunctionOffset == -1)
+  {
+    return 0;
+  }
+
+  v5 = FunctionOffset + 4;
+  v6 = a1[8];
+  if (v5 > v6 || v6 < (*(a1[6] + FunctionOffset) + v5))
+  {
+    return 0;
+  }
+
+  llvm::MemoryBuffer::getMemBuffer();
+  llvm::MemoryBuffer::getMemBufferRef(v10, v11);
+  llvm::parseBitcodeFile();
+  llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(v12, v13);
+  llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(v12);
+  if (v14)
   {
     v7 = 0;
   }
 
   else
   {
-    llvm::MemoryBuffer::getMemBuffer();
-    llvm::MemoryBuffer::getMemBufferRef(v11, v12);
-    llvm::parseBitcodeFile();
-    llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(v13, v14);
-    llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(v13);
-    if (v15)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = v14[0];
-      v14[0] = 0;
-      std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](v14);
-    }
-
-    v10 = v12;
-    v12 = 0;
-    if (v10)
-    {
-      (*(*v10 + 8))(v10);
-    }
+    v7 = v13[0];
+    v13[0] = 0;
+    std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](v13);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v11;
+  v11 = 0;
+  if (v9)
+  {
+    (*(*v9 + 8))(v9);
+  }
+
   return v7;
 }
 
-void sub_257A7AA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_257A7AA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(va);
-  if (a7)
+  if (a13)
   {
-    (*(*a7 + 8))(a7);
+    (*(*a13 + 8))(a13);
   }
 
   _Unwind_Resume(a1);
@@ -158,29 +161,29 @@ uint64_t StaticHashTable::findFunctionOffset(StaticHashTable *this, const char *
   return 0xFFFFFFFFLL;
 }
 
-void llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
+void llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (a1[1])
+  if (a2[1])
   {
-    v3 = *a1;
-    *a1 = 0;
-    v7 = v3;
-    v4 = llvm::errorToErrorCodeAndEmitErrors();
-    *(a2 + 16) |= 1u;
-    *a2 = v4;
-    *(a2 + 8) = v5;
-    if (v7)
+    v4 = *a2;
+    *a2 = 0;
+    v8 = v4;
+    v5 = llvm::errorToErrorCodeAndEmitErrors();
+    *(a3 + 16) |= 1u;
+    *a3 = v5;
+    *(a3 + 8) = v6;
+    if (v8)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v8 + 8))(v8);
     }
   }
 
   else
   {
-    *(a2 + 16) &= ~1u;
-    v6 = *a1;
-    *a1 = 0;
-    *a2 = v6;
+    *(a3 + 16) &= ~1u;
+    v7 = *a2;
+    *a2 = 0;
+    *a3 = v7;
   }
 }
 
@@ -194,207 +197,203 @@ void sub_257A7ABB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLCompilerBuiltInFileReaderImpl::getBuiltinsModule(void *a1, int a2, char **a3)
+uint64_t MTLCompilerBuiltInFileReaderImpl::getBuiltinsModule(void *a1, uint64_t a2, char **a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = *a3;
   v4 = a3[1];
   if (*a3 == v4)
   {
-    v7 = 0;
+    return 0;
   }
 
-  else
+  v7 = 0;
+  do
   {
-    v7 = 0;
-    do
+    v8 = v3;
+    if (v3[23] < 0)
     {
-      v8 = v3;
-      if (v3[23] < 0)
+      v8 = *v3;
+    }
+
+    BuiltinModuleByName = MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(a1, a2, v8);
+    if (BuiltinModuleByName)
+    {
+      if (v7)
       {
-        v8 = *v3;
+        v38 = BuiltinModuleByName;
+        v42 = 0;
+        v10 = llvm::Linker::linkModules();
+        std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<llvm::MallocAllocator> const&)>::~__value_func[abi:ne200100](v41);
+        std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](&v38);
+        if (v10)
+        {
+LABEL_53:
+          abort();
+        }
       }
 
-      BuiltinModuleByName = MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(a1, a2, v8);
-      if (BuiltinModuleByName)
+      else
       {
-        if (v7)
+        v7 = BuiltinModuleByName;
+      }
+    }
+
+    v3 += 24;
+  }
+
+  while (v3 != v4);
+  if (v7)
+  {
+    v36 = 0;
+    v37 = 0;
+    __p = 0;
+    v11 = v7 + 8;
+    v12 = *(v7 + 16);
+    if (v12 != v7 + 8)
+    {
+      do
+      {
+        if (v12)
         {
-          v39 = BuiltinModuleByName;
-          v43 = 0;
-          v10 = llvm::Linker::linkModules();
-          std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<llvm::MallocAllocator> const&)>::~__value_func[abi:ne200100](v42);
-          std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](&v39);
-          if (v10)
-          {
-LABEL_53:
-            abort();
-          }
+          v13 = (v12 - 56);
         }
 
         else
         {
-          v7 = BuiltinModuleByName;
+          v13 = 0;
         }
-      }
 
-      v3 += 24;
-    }
-
-    while (v3 != v4);
-    if (v7)
-    {
-      v37 = 0;
-      v38 = 0;
-      __p = 0;
-      v11 = v7 + 8;
-      v12 = *(v7 + 16);
-      if (v12 != v7 + 8)
-      {
-        do
+        if ((*(v13 + 32) & 0xF) == 0)
         {
-          if (v12)
+          v32[0] = llvm::Value::getName(v13);
+          v32[1] = v14;
+          llvm::StringRef::str(v32, v33);
+          if (v34 >= 0)
           {
-            v13 = (v12 - 56);
+            v15 = v33;
           }
 
           else
           {
-            v13 = 0;
+            v15 = v33[0];
           }
 
-          if ((*(v13 + 32) & 0xF) == 0)
+          v16 = MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(a1, a2, v15);
+          if (v16)
           {
-            v33[0] = llvm::Value::getName(v13);
-            v33[1] = v14;
-            llvm::StringRef::str(v33, v34);
-            if (v35 >= 0)
+            v17 = v36;
+            if (v36 >= v37)
             {
-              v15 = v34;
-            }
-
-            else
-            {
-              v15 = v34[0];
-            }
-
-            v16 = MTLCompilerBuiltInFileReaderImpl::getBuiltinModuleByName(a1, a2, v15);
-            if (v16)
-            {
-              v17 = v37;
-              if (v37 >= v38)
+              v19 = (v36 - __p) >> 3;
+              if ((v19 + 1) >> 61)
               {
-                v19 = (v37 - __p) >> 3;
-                if ((v19 + 1) >> 61)
-                {
-                  std::vector<llvm::Module *>::__throw_length_error[abi:ne200100]();
-                }
+                std::vector<llvm::Module *>::__throw_length_error[abi:ne200100]();
+              }
 
-                v20 = (v38 - __p) >> 2;
-                if (v20 <= v19 + 1)
-                {
-                  v20 = v19 + 1;
-                }
+              v20 = (v37 - __p) >> 2;
+              if (v20 <= v19 + 1)
+              {
+                v20 = v19 + 1;
+              }
 
-                if (v38 - __p >= 0x7FFFFFFFFFFFFFF8)
-                {
-                  v21 = 0x1FFFFFFFFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v21 = v20;
-                }
-
-                if (v21)
-                {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<llvm::Module *>>(&__p, v21);
-                }
-
-                v22 = (8 * v19);
-                *v22 = v16;
-                v18 = 8 * v19 + 8;
-                v23 = v22 - (v37 - __p);
-                memcpy(v23, __p, v37 - __p);
-                v24 = __p;
-                __p = v23;
-                v37 = v18;
-                v38 = 0;
-                if (v24)
-                {
-                  operator delete(v24);
-                }
+              if (v37 - __p >= 0x7FFFFFFFFFFFFFF8)
+              {
+                v21 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                *v37 = v16;
-                v18 = (v17 + 8);
+                v21 = v20;
               }
 
-              v37 = v18;
+              if (v21)
+              {
+                std::__allocate_at_least[abi:ne200100]<std::allocator<llvm::Module *>>(&__p, v21);
+              }
+
+              v22 = (8 * v19);
+              *v22 = v16;
+              v18 = 8 * v19 + 8;
+              v23 = v22 - (v36 - __p);
+              memcpy(v23, __p, v36 - __p);
+              v24 = __p;
+              __p = v23;
+              v36 = v18;
+              v37 = 0;
+              if (v24)
+              {
+                operator delete(v24);
+              }
             }
 
-            if (v35 < 0)
+            else
             {
-              operator delete(v34[0]);
+              *v36 = v16;
+              v18 = (v17 + 8);
             }
+
+            v36 = v18;
           }
 
-          v12 = *(v12 + 8);
-        }
-
-        while (v12 != v11);
-        v25 = __p;
-        v26 = v37;
-        while (v25 != v26)
-        {
-          v32 = *v25;
-          v41 = 0;
-          v27 = llvm::Linker::linkModules();
-          std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<llvm::MallocAllocator> const&)>::~__value_func[abi:ne200100](v40);
-          std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](&v32);
-          if (v27)
+          if (v34 < 0)
           {
-            goto LABEL_53;
+            operator delete(v33[0]);
           }
-
-          ++v25;
         }
+
+        v12 = *(v12 + 8);
       }
 
-      for (i = *(v7 + 16); i != v11; i = *(i + 8))
+      while (v12 != v11);
+      v25 = __p;
+      v26 = v36;
+      while (v25 != v26)
       {
-        if (i)
+        v31 = *v25;
+        v40 = 0;
+        v27 = llvm::Linker::linkModules();
+        std::__function::__value_func<void ()(llvm::Module &,llvm::StringSet<llvm::MallocAllocator> const&)>::~__value_func[abi:ne200100](v39);
+        std::unique_ptr<llvm::Module>::~unique_ptr[abi:ne200100](&v31);
+        if (v27)
         {
-          v29 = (i - 56);
+          goto LABEL_53;
         }
 
-        else
-        {
-          v29 = 0;
-        }
-
-        if (llvm::GlobalValue::isDeclaration(v29))
-        {
-          llvm::GlobalValue::setLinkage(v29, 0);
-        }
-
-        else
-        {
-          *(v29 + 8) = *(v29 + 8) & 0xFFFFBFC0 | 0x4007;
-        }
+        ++v25;
       }
+    }
 
-      if (__p)
+    for (i = *(v7 + 16); i != v11; i = *(i + 8))
+    {
+      if (i)
       {
-        v37 = __p;
-        operator delete(__p);
+        v29 = (i - 56);
       }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      if (llvm::GlobalValue::isDeclaration(v29))
+      {
+        llvm::GlobalValue::setLinkage(v29, 0);
+      }
+
+      else
+      {
+        *(v29 + 8) = *(v29 + 8) & 0xFFFFBFC0 | 0x4007;
+      }
+    }
+
+    if (__p)
+    {
+      v36 = __p;
+      operator delete(__p);
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -448,7 +447,7 @@ const void **llvm::StringRef::str@<X0>(const void **this@<X0>, void *a2@<X8>)
       this = memmove(a2, v3, v4);
     }
 
-    *(a2 + v4) = 0;
+    v4[a2] = 0;
   }
 
   else
@@ -606,7 +605,7 @@ void sub_257A7B284(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t MTLCompilerBuiltInFileReaderImpl::open(MTLCompilerBuiltInFileReaderImpl *this, const char *__s)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -619,25 +618,25 @@ uint64_t MTLCompilerBuiltInFileReaderImpl::open(MTLCompilerBuiltInFileReaderImpl
     operator new();
   }
 
-  v24 = v4;
+  v23 = v4;
   if (v4)
   {
     memcpy(&__p, __s, v4);
   }
 
   *(&__p + v5) = 0;
-  v26 = 260;
+  v25 = 260;
   p_p = &__p;
   llvm::MemoryBuffer::getFile();
-  if (v24 < 0)
+  if (v23 < 0)
   {
     operator delete(__p);
   }
 
-  if (v28)
+  if (v27)
   {
-    v6 = v27;
-    if (v27)
+    v6 = v26;
+    if (v26)
     {
       goto LABEL_26;
     }
@@ -645,10 +644,10 @@ uint64_t MTLCompilerBuiltInFileReaderImpl::open(MTLCompilerBuiltInFileReaderImpl
 
   else
   {
-    v6 = v27;
+    v6 = v26;
   }
 
-  v27 = 0;
+  v26 = 0;
   v7 = *(this + 5);
   *(this + 5) = v6;
   if (v7)
@@ -714,21 +713,20 @@ uint64_t MTLCompilerBuiltInFileReaderImpl::open(MTLCompilerBuiltInFileReaderImpl
 LABEL_26:
   v19 = 0;
 LABEL_27:
-  if ((v28 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v20 = v27;
-    v27 = 0;
+    v20 = v26;
+    v26 = 0;
     if (v20)
     {
       (*(*v20 + 8))(v20);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
-void sub_257A7B52C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _Unwind_Exception *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_257A7B52C(_Unwind_Exception *exception_object, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _Unwind_Exception *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   v22 = exception_object;
   if ((a22 & 1) == 0)

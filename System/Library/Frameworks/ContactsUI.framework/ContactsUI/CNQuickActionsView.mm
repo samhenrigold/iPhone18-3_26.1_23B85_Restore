@@ -234,7 +234,7 @@ LABEL_7:
 
   else if (!v22)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNQuickActionsView.m", 365, 5, @"Failed to retrieve default action with %@", v25, v26, v27, v28, v23);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNQuickActionsView.m", 365, 5u, @"Failed to retrieve default action with %@", v25, v26, v27, v28, v23);
   }
 
   userActionType = v32;
@@ -458,7 +458,7 @@ void __52__CNQuickActionsView__widthForButtonCount_itemSize___block_invoke(uint6
   v18[1] = *MEMORY[0x1E69E9840];
   actionsManager = [(CNQuickActionsView *)self actionsManager];
   v4 = actionsManager;
-  if (actionsManager && ([actionsManager contacts], v5 = objc_claimAutoreleasedReturnValue(), -[CNQuickActionsView contact](self, "contact"), v6 = objc_claimAutoreleasedReturnValue(), v18[0] = v6, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 1), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "isEqual:", v7), v7, v6, v5, (v8 & 1) != 0))
+  if (actionsManager && (objc_msgSend_contacts(actionsManager), v5 = objc_claimAutoreleasedReturnValue(), -[CNQuickActionsView contact](self, "contact"), v6 = objc_claimAutoreleasedReturnValue(), v18[0] = v6, [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "isEqual:", v7), v7, v6, v5, (v8 & 1) != 0))
   {
     v9 = v4;
   }

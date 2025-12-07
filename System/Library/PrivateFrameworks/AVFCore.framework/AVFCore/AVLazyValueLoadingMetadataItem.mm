@@ -22,9 +22,9 @@
 
 - (id)_initWithFigMetadataDictionary:(id)dictionary valueLoadingHandler:(id)handler
 {
-  v8.receiver = self;
-  v8.super_class = AVLazyValueLoadingMetadataItem;
-  v5 = [(AVMetadataItem *)&v8 _initWithFigMetadataDictionary:dictionary];
+  v9.receiver = self;
+  v9.super_class = AVLazyValueLoadingMetadataItem;
+  v5 = [(AVMetadataItem *)&v9 _initWithFigMetadataDictionary:dictionary];
   if (v5)
   {
     v6 = objc_alloc_init(AVLazyValueLoadingMetadataItemInternal);
@@ -45,7 +45,7 @@
         *(v5[2] + 40) = 2;
       }
 
-      *(v5[2] + 64) = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avmetadataitem");
+      *(v5[2] + 64) = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avmetadataitem", v7);
     }
 
     else

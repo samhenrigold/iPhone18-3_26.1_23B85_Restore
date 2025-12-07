@@ -121,7 +121,7 @@
 
 void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName_deprecatedAttribute_sortAttribute_relationship_relatedEntityName_relatedAttribute_relatedSortAttribute_fetchBatchSize___block_invoke(uint64_t a1)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) fetchPropertyForEntityName:*(a1 + 40) propertyToFetch:*(a1 + 48) distinctResults:1 byAndPredicates:0 sortDescriptors:0 andLimit:0];
   if ([v2 count])
   {
@@ -138,29 +138,27 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
       v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*(a1 + 80) ascending:1];
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
-      v24[0] = v9;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = v9;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       v13 = *(a1 + 104);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName_deprecatedAttribute_sortAttribute_relationship_relatedEntityName_relatedAttribute_relatedSortAttribute_fetchBatchSize___block_invoke_2;
-      v18[3] = &unk_2798D4A98;
-      v18[4] = *(a1 + 32);
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 88);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName_deprecatedAttribute_sortAttribute_relationship_relatedEntityName_relatedAttribute_relatedSortAttribute_fetchBatchSize___block_invoke_2;
+      v17[3] = &unk_2798D4A98;
+      v17[4] = *(a1 + 32);
+      v18 = *(a1 + 48);
+      v19 = *(a1 + 88);
       v14 = v3;
       v15 = *(a1 + 96);
-      v21 = v14;
-      v23 = v15;
-      v22 = *(a1 + 40);
-      [v10 efficientlyFetchManagedObjectsWithEntityName:v11 byAndPredicates:0 sortDescriptors:v12 andLimit:0 fetchBatchSize:v13 andApplyBlock:v18];
+      v20 = v14;
+      v22 = v15;
+      v21 = *(a1 + 40);
+      [v10 efficientlyFetchManagedObjectsWithEntityName:v11 byAndPredicates:0 sortDescriptors:v12 andLimit:0 fetchBatchSize:v13 andApplyBlock:v17];
     }
   }
 
   v16 = [*(a1 + 32) managedObjectContext];
   [v16 reset];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName_deprecatedAttribute_sortAttribute_relationship_relatedEntityName_relatedAttribute_relatedSortAttribute_fetchBatchSize___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -177,30 +175,30 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
 
 - (void)_migrateBatch:(id)batch forDeprecatedAttribute:(id)attribute relationship:(id)relationship withRelationUUIDMap:(id)map
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   attributeCopy = attribute;
   relationshipCopy = relationship;
   mapCopy = map;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = batchCopy;
-  v13 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         v17 = [v16 valueForKey:attributeCopy];
         v18 = [mapCopy objectForKeyedSubscript:v17];
 
@@ -214,18 +212,16 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
         [v16 setValue:0 forKey:attributeCopy];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_commitBatchForEntityName:(id)name migratingAttribute:(id)attribute stop:(BOOL *)stop
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   attributeCopy = attribute;
   managedObjectContext = [(ULStore *)self managedObjectContext];
@@ -234,9 +230,9 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
   if (hasChanges)
   {
     managedObjectContext2 = [(ULStore *)self managedObjectContext];
-    v21 = 0;
-    v13 = [managedObjectContext2 save:&v21];
-    v14 = v21;
+    v20 = 0;
+    v13 = [managedObjectContext2 save:&v20];
+    v14 = v20;
 
     if (v14)
     {
@@ -250,15 +246,15 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_FAULT))
       {
         *buf = 68289795;
-        v23 = 0;
-        v24 = 2082;
-        v25 = "";
-        v26 = 2114;
-        v27 = v14;
-        v28 = 2113;
-        v29 = nameCopy;
-        v30 = 2113;
-        v31 = attributeCopy;
+        v22 = 0;
+        v23 = 2082;
+        v24 = "";
+        v25 = 2114;
+        v26 = v14;
+        v27 = 2113;
+        v28 = nameCopy;
+        v29 = 2113;
+        v30 = attributeCopy;
         _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Version Migration: Error migrating batch. Could not save changes to store, error:%{public, location:escape_only}@, Migrating Entity:%{private, location:escape_only}@, Migrating Property:%{private, location:escape_only}@}", buf, 0x30u);
       }
 
@@ -271,15 +267,15 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
       if (os_signpost_enabled(logObject_MicroLocation_Default))
       {
         *buf = 68289795;
-        v23 = 0;
-        v24 = 2082;
-        v25 = "";
-        v26 = 2114;
-        v27 = v14;
-        v28 = 2113;
-        v29 = nameCopy;
-        v30 = 2113;
-        v31 = attributeCopy;
+        v22 = 0;
+        v23 = 2082;
+        v24 = "";
+        v25 = 2114;
+        v26 = v14;
+        v27 = 2113;
+        v28 = nameCopy;
+        v29 = 2113;
+        v30 = attributeCopy;
         _os_signpost_emit_with_name_impl(&dword_258FE9000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Version Migration: Error migrating batch. Could not save changes to store", "{msg%{public}.0s:Version Migration: Error migrating batch. Could not save changes to store, error:%{public, location:escape_only}@, Migrating Entity:%{private, location:escape_only}@, Migrating Property:%{private, location:escape_only}@}", buf, 0x30u);
       }
 
@@ -294,13 +290,12 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
     v13 = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_getUUIDToObjectIDMapForRelatedEntityName:(id)name relatedAttribute:(id)attribute relatedSortAttribute:(id)sortAttribute filterUUIDs:(id)ds
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   attributeCopy = attribute;
   sortAttributeCopy = sortAttribute;
@@ -313,72 +308,68 @@ void __190__ULVersionMigrationStore__migrateAttributeToRelationshipForEntityName
   }
 
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:sortAttributeCopy ascending:1];
-  v36[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   managedObjectContext = [(ULStore *)self managedObjectContext];
   v19 = [(ULStore *)self fetchManagedObjectsWithEntityName:nameCopy byAndPredicates:array sortDescriptors:v17 andLimit:0 returnObjectsAsFaults:1 withManagedObjectContext:managedObjectContext];
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__26;
-  v34 = __Block_byref_object_dispose__26;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__26;
+  v33 = __Block_byref_object_dispose__26;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   managedObjectContext2 = [(ULStore *)self managedObjectContext];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __119__ULVersionMigrationStore__getUUIDToObjectIDMapForRelatedEntityName_relatedAttribute_relatedSortAttribute_filterUUIDs___block_invoke;
-  v26[3] = &unk_2798D4578;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __119__ULVersionMigrationStore__getUUIDToObjectIDMapForRelatedEntityName_relatedAttribute_relatedSortAttribute_filterUUIDs___block_invoke;
+  v25[3] = &unk_2798D4578;
   v21 = v19;
-  v27 = v21;
-  v29 = &v30;
+  v26 = v21;
+  v28 = &v29;
   v22 = attributeCopy;
-  v28 = v22;
-  [managedObjectContext2 performBlockAndWait:v26];
+  v27 = v22;
+  [managedObjectContext2 performBlockAndWait:v25];
 
-  v23 = v31[5];
-  _Block_object_dispose(&v30, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = v30[5];
+  _Block_object_dispose(&v29, 8);
 
   return v23;
 }
 
 void __119__ULVersionMigrationStore__getUUIDToObjectIDMapForRelatedEntityName_relatedAttribute_relatedSortAttribute_filterUUIDs___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [v6 objectID];
         v8 = *(*(*(a1 + 48) + 8) + 40);
         v9 = [v6 valueForKey:*(a1 + 40)];
         [v8 setObject:v7 forKeyedSubscript:v9];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_migrateAttributesToRelationships
@@ -484,7 +475,7 @@ void __119__ULVersionMigrationStore__getUUIDToObjectIDMapForRelatedEntityName_re
 
 void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke(uint64_t a1)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -508,12 +499,12 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke(uint64_t
       v14 = [v12 predicateWithFormat:@"%K IN %@", @"loiId", v13];
       [v10 addObject:v14];
 
-      v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:1];
+      v28 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:1];
       v15 = *(a1 + 32);
       v16 = objc_opt_class();
-      v28 = NSStringFromClass(v16);
-      v33[0] = v29;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+      v27 = NSStringFromClass(v16);
+      v32[0] = v28;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
       v18 = +[ULDefaultsSingleton shared];
       v19 = [v18 defaultsDictionary];
 
@@ -531,23 +522,21 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke(uint64_t
 
       v23 = v22;
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59;
-      v30[3] = &unk_2798D4AE8;
-      v30[4] = *(a1 + 32);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59;
+      v29[3] = &unk_2798D4AE8;
+      v29[4] = *(a1 + 32);
       v24 = v9;
       v25 = *(a1 + 40);
-      v31 = v24;
-      v32 = v25;
-      [v15 efficientlyFetchManagedObjectsWithEntityName:v28 byAndPredicates:v10 sortDescriptors:v17 andLimit:0 fetchBatchSize:v23 andApplyBlock:v30];
+      v30 = v24;
+      v31 = v25;
+      [v15 efficientlyFetchManagedObjectsWithEntityName:v27 byAndPredicates:v10 sortDescriptors:v17 andLimit:0 fetchBatchSize:v23 andApplyBlock:v29];
     }
   }
 
   v26 = [*(a1 + 32) managedObjectContext];
   [v26 reset];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint64_t a1, void *a2, uint64_t a3)
@@ -568,28 +557,28 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
 
 - (void)_migrateConfigurationInBatch:(id)batch withLOIMap:(id)map
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   mapCopy = map;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = batchCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         loiId = [v12 loiId];
         v14 = [mapCopy objectForKeyedSubscript:loiId];
 
@@ -611,32 +600,30 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createWiFiHistogramMOFromConfigurationMO:(id)o withLOIObjectID:(id)d
 {
   oCopy = o;
   dCopy = d;
-  v8 = [(ULVersionMigrationStore *)self _getConfigProtoFromConfigurationMO:oCopy];
-  if (v13)
+  ConfigProtoFromConfigurationMO = objc_msgSend__getConfigProtoFromConfigurationMO_(self);
+  if (v14)
   {
-    if ((*(v13 + 48) & 4) != 0)
+    if ((*(v14 + 48) & 4) != 0)
     {
-      v10 = *(v13 + 16);
+      v10 = *(v14 + 16);
       if (!v10)
       {
-        v10 = *(CLMicroLocationProto::Configuration::default_instance(v8) + 16);
+        v10 = *(CLMicroLocationProto::Configuration::default_instance(ConfigProtoFromConfigurationMO) + 16);
       }
 
       CLMicroLocationProto::WifiHistogram::WifiHistogram(buf, v10);
-      CLMicroLocationProto::WifiHistogram::ByteSize(buf);
+      CLMicroLocationProto::WifiHistogram::ByteSize(buf, v11);
       operator new[]();
     }
 
@@ -652,11 +639,11 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "Version Migration: wifiHistogram proto not found in configuration", buf, 2u);
     }
 
-    v11 = v13;
-    v13 = 0;
-    if (v11)
+    v12 = v14;
+    v14 = 0;
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
   }
 }
@@ -665,19 +652,19 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
 {
   oCopy = o;
   dCopy = d;
-  v8 = [(ULVersionMigrationStore *)self _getConfigProtoFromConfigurationMO:oCopy];
-  if (v13)
+  ConfigProtoFromConfigurationMO = objc_msgSend__getConfigProtoFromConfigurationMO_(self);
+  if (v14)
   {
-    if ((*(v13 + 48) & 8) != 0)
+    if ((*(v14 + 48) & 8) != 0)
     {
-      v10 = *(v13 + 24);
+      v10 = *(v14 + 24);
       if (!v10)
       {
-        v10 = *(CLMicroLocationProto::Configuration::default_instance(v8) + 24);
+        v10 = *(CLMicroLocationProto::Configuration::default_instance(ConfigProtoFromConfigurationMO) + 24);
       }
 
       CLMicroLocationProto::AnchorAppearanceConfiguration::AnchorAppearanceConfiguration(buf, v10);
-      CLMicroLocationProto::AnchorAppearanceConfiguration::ByteSize(buf);
+      CLMicroLocationProto::AnchorAppearanceConfiguration::ByteSize(buf, v11);
       operator new[]();
     }
 
@@ -693,11 +680,11 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "Version Migration: anchorAppearance proto not found in configuration", buf, 2u);
     }
 
-    v11 = v13;
-    v13 = 0;
-    if (v11)
+    v12 = v14;
+    v14 = 0;
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
   }
 }
@@ -724,7 +711,7 @@ void __49__ULVersionMigrationStore__migrateConfigurations__block_invoke_59(uint6
 
 void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke(uint64_t a1)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -748,12 +735,12 @@ void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke(uint64_
       v14 = [v12 predicateWithFormat:@"%K IN %@", @"loiId", v13];
       [v10 addObject:v14];
 
-      v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"recordingTimestamp" ascending:1];
+      v28 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"recordingTimestamp" ascending:1];
       v15 = *(a1 + 32);
       v16 = objc_opt_class();
-      v28 = NSStringFromClass(v16);
-      v33[0] = v29;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+      v27 = NSStringFromClass(v16);
+      v32[0] = v28;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
       v18 = +[ULDefaultsSingleton shared];
       v19 = [v18 defaultsDictionary];
 
@@ -771,23 +758,21 @@ void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke(uint64_
 
       v23 = v22;
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2;
-      v30[3] = &unk_2798D4AE8;
-      v30[4] = *(a1 + 32);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2;
+      v29[3] = &unk_2798D4AE8;
+      v29[4] = *(a1 + 32);
       v24 = v9;
       v25 = *(a1 + 40);
-      v31 = v24;
-      v32 = v25;
-      [v15 efficientlyFetchManagedObjectsWithEntityName:v28 byAndPredicates:v10 sortDescriptors:v17 andLimit:0 fetchBatchSize:v23 andApplyBlock:v30];
+      v30 = v24;
+      v31 = v25;
+      [v15 efficientlyFetchManagedObjectsWithEntityName:v27 byAndPredicates:v10 sortDescriptors:v17 andLimit:0 fetchBatchSize:v23 andApplyBlock:v29];
     }
   }
 
   v26 = [*(a1 + 32) managedObjectContext];
   [v26 reset];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -808,28 +793,28 @@ void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2(uint6
 
 - (void)_migrateRecordingEventsInBatch:(id)batch withRelationUUIDMap:(id)map
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   mapCopy = map;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = batchCopy;
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         loiId = [v11 loiId];
         v13 = [mapCopy objectForKeyedSubscript:loiId];
 
@@ -851,13 +836,11 @@ void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2(uint6
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_createScanningEventFromRecordingEvent:(id)event withRelatedLOIObjectID:(id)d
@@ -985,7 +968,7 @@ void __50__ULVersionMigrationStore__migrateRecordingEvents__block_invoke_2(uint6
 
 void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -999,12 +982,12 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke(uint64_t a
     v9 = [v7 predicateWithFormat:@"%K IN %@", @"recordingUUID", v8];
     [v6 addObject:v9];
 
-    v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:1];
+    v23 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:1];
     v10 = *(a1 + 32);
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
-    v28[0] = v24;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = v23;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     v14 = +[ULDefaultsSingleton shared];
     v15 = [v14 defaultsDictionary];
 
@@ -1022,22 +1005,20 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke(uint64_t a
 
     v19 = v18;
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2;
-    v25[3] = &unk_2798D4AE8;
-    v25[4] = *(a1 + 32);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2;
+    v24[3] = &unk_2798D4AE8;
+    v24[4] = *(a1 + 32);
     v20 = v5;
     v21 = *(a1 + 40);
-    v26 = v20;
-    v27 = v21;
-    [v10 efficientlyFetchManagedObjectsWithEntityName:v12 byAndPredicates:v6 sortDescriptors:v13 andLimit:0 fetchBatchSize:v19 andApplyBlock:v25];
+    v25 = v20;
+    v26 = v21;
+    [v10 efficientlyFetchManagedObjectsWithEntityName:v12 byAndPredicates:v6 sortDescriptors:v13 andLimit:0 fetchBatchSize:v19 andApplyBlock:v24];
   }
 
   v22 = [*(a1 + 32) managedObjectContext];
   [v22 reset];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -1058,28 +1039,28 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
 
 - (void)_migrateMeasurementsInBatch:(id)batch withRelationUUIDMap:(id)map
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   mapCopy = map;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = batchCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         recordingUUID = [v12 recordingUUID];
         v14 = [mapCopy objectForKeyedSubscript:recordingUUID];
 
@@ -1089,13 +1070,11 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createMeasurementFromDeprecatedMeasurement:(id)measurement withRelatedScanningEventObjectID:(id)d
@@ -1158,7 +1137,7 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
 
 - (void)_createBLEMeasurementFromDeprecatedMeasurement:(id)measurement withMeasurementProto:()unique_ptr<CLMicroLocationProto:(std:(id)proto :default_delete<CLMicroLocationProto::Measurement>>)a4 :Measurement andRelatedScanningEventObjectID:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   measurementCopy = measurement;
   protoCopy = proto;
   if ((a4.var0->var0[9] & 0x40) != 0)
@@ -1194,16 +1173,16 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
         v19 = *(CLMicroLocationProto::Measurement::default_instance(v17) + 48);
       }
 
-      CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v19 + 48), v33);
-      if (v34 == 1)
+      CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v19 + 48), v32);
+      if (v33 == 1)
       {
         v20 = objc_alloc(MEMORY[0x277CCAD78]);
-        if ((v34 & 1) == 0)
+        if ((v33 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v21 = [v20 initWithUUIDBytes:v33];
+        v21 = [v20 initWithUUIDBytes:v32];
         uUIDString = [v21 UUIDString];
         [(ULBLEMeasurementMO *)v12 setSourceIdsUUID:uUIDString];
       }
@@ -1228,33 +1207,31 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
       v26 = *(v25 + 40);
       if (*(v26 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v31, *v26, *(v26 + 1));
+        std::string::__init_copy_ctor_external(&v30, *v26, *(v26 + 1));
       }
 
       else
       {
         v27 = *v26;
-        v31.__r_.__value_.__r.__words[2] = *(v26 + 2);
-        *&v31.__r_.__value_.__l.__data_ = v27;
+        v30.__r_.__value_.__r.__words[2] = *(v26 + 2);
+        *&v30.__r_.__value_.__l.__data_ = v27;
       }
 
-      v32 = 1;
-      [(ULVersionMigrationStore *)self anchorDeviceModelAllowedMap];
-      [(ULBLEMeasurementMO *)v12 setDeviceModel:CLMicroLocationUtils::convertModelStringToDeviceModel(&v31, v29)];
-      std::__tree<std::__value_type<std::string,DeviceModel>,std::__map_value_compare<std::string,std::__value_type<std::string,DeviceModel>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,DeviceModel>>>::destroy(v29, v30);
-      if (v32 == 1 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      v31 = 1;
+      objc_msgSend_anchorDeviceModelAllowedMap(self);
+      [(ULBLEMeasurementMO *)v12 setDeviceModel:CLMicroLocationUtils::convertModelStringToDeviceModel(&v30, v28)];
+      std::__tree<std::__value_type<std::string,DeviceModel>,std::__map_value_compare<std::string,std::__value_type<std::string,DeviceModel>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,DeviceModel>>>::destroy(v28, v29);
+      if (v31 == 1 && SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v31.__r_.__value_.__l.__data_);
+        operator delete(v30.__r_.__value_.__l.__data_);
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createUWBMeasurementFromDeprecatedMeasurement:(id)measurement withMeasurementProto:()unique_ptr<CLMicroLocationProto:(std:(id)proto :default_delete<CLMicroLocationProto::Measurement>>)a4 :Measurement andRelatedScanningEventObjectID:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   measurementCopy = measurement;
   protoCopy = proto;
   if ((a4.var0->var0[9] & 0x80) != 0)
@@ -1291,16 +1268,16 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
         v20 = *(CLMicroLocationProto::Measurement::default_instance(v18) + 56);
       }
 
-      CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v20 + 32), v27);
-      if (v28 == 1)
+      CLMicroLocationProtobufHelper::uuidFromProtobuf(*(v20 + 32), v26);
+      if (v27 == 1)
       {
         v21 = objc_alloc(MEMORY[0x277CCAD78]);
-        if ((v28 & 1) == 0)
+        if ((v27 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v22 = [v21 initWithUUIDBytes:v27];
+        v22 = [v21 initWithUUIDBytes:v26];
         uUIDString = [v22 UUIDString];
         [(ULUWBMeasurementMO *)v12 setSourceIdsUUID:uUIDString];
       }
@@ -1318,8 +1295,6 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
       [(ULUWBMeasurementMO *)v12 setDeviceModel:2];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_connectLabelsToScanningEvents
@@ -1355,7 +1330,7 @@ void __47__ULVersionMigrationStore__migrateMeasurements__block_invoke_2(uint64_t
 
 void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -1374,27 +1349,25 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke(
     v12 = *(a1 + 32);
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
-    v26[0] = v11;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = v11;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     v16 = ULSettings::get<ULSettings::LabelTableMigrationPageSize>();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_2;
-    v22[3] = &unk_2798D4B10;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_2;
+    v21[3] = &unk_2798D4B10;
     v17 = *(a1 + 40);
-    v22[4] = *(a1 + 32);
-    v23 = v17;
+    v21[4] = *(a1 + 32);
+    v22 = v17;
     v18 = v6;
     v19 = *(a1 + 48);
-    v24 = v18;
-    v25 = v19;
-    [v12 efficientlyFetchManagedObjectsWithEntityName:v14 byAndPredicates:v7 sortDescriptors:v15 andLimit:0 fetchBatchSize:v16 andApplyBlock:v22];
+    v23 = v18;
+    v24 = v19;
+    [v12 efficientlyFetchManagedObjectsWithEntityName:v14 byAndPredicates:v7 sortDescriptors:v15 andLimit:0 fetchBatchSize:v16 andApplyBlock:v21];
   }
 
   v20 = [*(a1 + 32) managedObjectContext];
   [v20 reset];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -1416,29 +1389,29 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_
 - (void)_connectLabelsInBatch:(id)batch withTriggerUUIDMap:(id)map andScanEventsUUIDMap:(id)dMap
 {
   selfCopy = self;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   mapCopy = map;
   dMapCopy = dMap;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = batchCopy;
-  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         triggerUUID_deprecated = [v13 triggerUUID_deprecated];
         v15 = [mapCopy objectForKeyedSubscript:triggerUUID_deprecated];
 
@@ -1460,57 +1433,55 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getTriggerToRecordingUUIDMap
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v24 = [(ULStore *)self fetchPropertyForEntityName:v4 propertyToFetch:@"triggerUUID_deprecated" distinctResults:1 byAndPredicates:0 sortDescriptors:0 andLimit:0];
+  v23 = [(ULStore *)self fetchPropertyForEntityName:v4 propertyToFetch:@"triggerUUID_deprecated" distinctResults:1 byAndPredicates:0 sortDescriptors:0 andLimit:0];
 
   array = [MEMORY[0x277CBEB18] array];
-  v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"triggerUUID", v24];
+  v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"triggerUUID", v23];
   [array addObject:v6];
 
-  v25 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"receivedTimestamp" ascending:1];
-  v33[0] = @"triggerUUID";
-  v33[1] = @"recordingUUID";
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"receivedTimestamp" ascending:1];
+  v32[0] = @"triggerUUID";
+  v32[1] = @"recordingUUID";
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v32 = v25;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-  LOBYTE(v22) = 1;
-  v23 = [(ULStore *)self fetchPropertiesForEntityName:v8 propertiesToFetch:v26 propertiesToGroupBy:0 distinctResults:1 byAndPredicates:array sortDescriptors:v9 andLimit:0 resetContext:v22];
+  v31 = v24;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  LOBYTE(v21) = 1;
+  v22 = [(ULStore *)self fetchPropertiesForEntityName:v8 propertiesToFetch:v25 propertiesToGroupBy:0 distinctResults:1 byAndPredicates:array sortDescriptors:v9 andLimit:0 resetContext:v21];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v11 = v23;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v11 = v22;
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v12)
   {
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * i);
+        v15 = *(*(&v26 + 1) + 8 * i);
         v16 = [v15 objectForKeyedSubscript:@"triggerUUID"];
         v17 = [v15 objectForKeyedSubscript:@"recordingUUID"];
         v18 = v17;
@@ -1530,40 +1501,38 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)_updateContextLayersForLabelsInBatch:(id)batch
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   batchCopy = batch;
-  v4 = [batchCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [batchCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(batchCopy);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = objc_alloc(MEMORY[0x277CCAD78]);
         service = [v7 service];
         serviceUUID = [service serviceUUID];
@@ -1576,13 +1545,11 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_
       }
 
       while (v4 != v6);
-      v4 = [batchCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [batchCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateLabelsContextLayers
@@ -1607,7 +1574,7 @@ void __57__ULVersionMigrationStore__connectLabelsToScanningEvents__block_invoke_
 
 void __53__ULVersionMigrationStore__updateLabelsContextLayers__block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"receivedTimestamp" ascending:1];
   v3 = [MEMORY[0x277CBEB18] array];
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"contextLayerType", &unk_286A71C40];
@@ -1619,20 +1586,18 @@ void __53__ULVersionMigrationStore__updateLabelsContextLayers__block_invoke(uint
   v6 = *(a1 + 32);
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v15[0] = v2;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v2;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v10 = ULSettings::get<ULSettings::LabelTableMigrationPageSize>();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__ULVersionMigrationStore__updateLabelsContextLayers__block_invoke_109;
-  v13[3] = &unk_2798D4528;
-  v14 = *(a1 + 32);
-  [v6 efficientlyFetchManagedObjectsWithEntityName:v8 byAndPredicates:v3 sortDescriptors:v9 andLimit:0 fetchBatchSize:v10 andApplyBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__ULVersionMigrationStore__updateLabelsContextLayers__block_invoke_109;
+  v12[3] = &unk_2798D4528;
+  v13 = *(a1 + 32);
+  [v6 efficientlyFetchManagedObjectsWithEntityName:v8 byAndPredicates:v3 sortDescriptors:v9 andLimit:0 fetchBatchSize:v10 andApplyBlock:v12];
 
   v11 = [*(a1 + 32) managedObjectContext];
   [v11 reset];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ULVersionMigrationStore__updateLabelsContextLayers__block_invoke_109(uint64_t a1, void *a2, uint64_t a3)

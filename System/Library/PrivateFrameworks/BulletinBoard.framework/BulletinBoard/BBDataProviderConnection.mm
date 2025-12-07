@@ -100,67 +100,67 @@
 
 - (void)_queue_setServerProxy:(id)proxy
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dispatch_assert_queue_V2(self->_queue);
   serverProxy = self->_serverProxy;
   if (serverProxy != proxyCopy)
   {
-    v29 = proxyCopy;
-    v28 = serverProxy != 0;
+    v28 = proxyCopy;
+    v27 = serverProxy != 0;
     objc_storeStrong(&self->_serverProxy, proxy);
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v7 = self->_dataProvidersBySectionID;
-    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (v8)
     {
-      v9 = *v51;
+      v9 = *v50;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v51 != v9)
+          if (*v50 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = [(NSMutableDictionary *)self->_dataProvidersBySectionID objectForKey:*(*(&v50 + 1) + 8 * i)];
+          v11 = [(NSMutableDictionary *)self->_dataProvidersBySectionID objectForKey:*(*(&v49 + 1) + 8 * i)];
           [v11 setServerProxy:0];
         }
 
-        v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v50 objects:v56 count:16];
+        v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
       while (v8);
     }
 
-    if (v29)
+    if (v28)
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       allValues = [(NSMutableDictionary *)self->_parentFactoriesBySectionID allValues];
-      v13 = [allValues countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v45 objects:v54 count:16];
       if (v13)
       {
-        v14 = *v47;
+        v14 = *v46;
         do
         {
           for (j = 0; j != v13; ++j)
           {
-            if (*v47 != v14)
+            if (*v46 != v14)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [(BBDataProviderConnectionServerProxy *)self->_serverProxy addParentSectionFactory:*(*(&v46 + 1) + 8 * j)];
+            [(BBDataProviderConnectionServerProxy *)self->_serverProxy addParentSectionFactory:*(*(&v45 + 1) + 8 * j)];
           }
 
-          v13 = [allValues countByEnumeratingWithState:&v46 objects:v55 count:16];
+          v13 = [allValues countByEnumeratingWithState:&v45 objects:v54 count:16];
         }
 
         while (v13);
@@ -170,44 +170,44 @@
       objc_initWeak(&from, self->_serverProxy);
       v16 = dispatch_group_create();
       v17 = [(NSMutableDictionary *)self->_dataProvidersBySectionID copy];
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v39 objects:v53 count:16];
       if (v19)
       {
-        v20 = *v41;
+        v20 = *v40;
         do
         {
           for (k = 0; k != v19; ++k)
           {
-            if (*v41 != v20)
+            if (*v40 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v40 + 1) + 8 * k);
+            v22 = *(*(&v39 + 1) + 8 * k);
             dispatch_group_enter(v16);
             v23 = [v18 objectForKey:v22];
-            v35[0] = MEMORY[0x277D85DD0];
-            v35[1] = 3221225472;
-            v35[2] = __50__BBDataProviderConnection__queue_setServerProxy___block_invoke;
-            v35[3] = &unk_278D2A678;
-            objc_copyWeak(&v38, &location);
-            objc_copyWeak(&v39, &from);
-            v35[4] = v22;
+            v34[0] = MEMORY[0x277D85DD0];
+            v34[1] = 3221225472;
+            v34[2] = __50__BBDataProviderConnection__queue_setServerProxy___block_invoke;
+            v34[3] = &unk_278D2A678;
+            objc_copyWeak(&v37, &location);
+            objc_copyWeak(&v38, &from);
+            v34[4] = v22;
             v24 = v23;
-            v36 = v24;
-            v37 = v16;
-            [v24 updateIdentity:v35];
+            v35 = v24;
+            v36 = v16;
+            [v24 updateIdentity:v34];
 
-            objc_destroyWeak(&v39);
             objc_destroyWeak(&v38);
+            objc_destroyWeak(&v37);
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v40 objects:v54 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v39 objects:v53 count:16];
         }
 
         while (v19);
@@ -218,19 +218,19 @@
       block[1] = 3221225472;
       block[2] = __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_3;
       block[3] = &unk_278D2A6A0;
-      objc_copyWeak(&v32, &location);
-      objc_copyWeak(&v33, &from);
-      v34 = v28;
-      v31 = v18;
+      objc_copyWeak(&v31, &location);
+      objc_copyWeak(&v32, &from);
+      v33 = v27;
+      v30 = v18;
       v26 = v18;
       dispatch_group_notify(v16, queue, block);
 
-      objc_destroyWeak(&v33);
       objc_destroyWeak(&v32);
+      objc_destroyWeak(&v31);
 
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
-      proxyCopy = v29;
+      proxyCopy = v28;
     }
 
     else
@@ -242,8 +242,6 @@
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BBDataProviderConnection__queue_setServerProxy___block_invoke(uint64_t a1, void *a2)
@@ -281,7 +279,7 @@ void __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_2(uint6
 
 void __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_3(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
   v4 = v3;
@@ -293,70 +291,65 @@ void __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_3(uint6
     }
 
     *(WeakRetained + 48) = 1;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(a1 + 32) objectForKey:*(*(&v14 + 1) + 8 * v9)];
+          v10 = [*(a1 + 32) objectForKey:*(*(&v13 + 1) + 8 * v9)];
           [v10 dataProviderDidLoad];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
 
     v11 = WeakRetained[4];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_4;
-    v13[3] = &unk_278D2A600;
-    v13[4] = WeakRetained;
-    [v11 clientIsReady:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_4;
+    v12[3] = &unk_278D2A600;
+    v12[4] = WeakRetained;
+    [v11 clientIsReady:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BBDataProviderConnection__queue_setServerProxy___block_invoke_4(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v7 = *(*(a1 + 32) + 72);
-    v9 = 138543618;
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = *(*(a1 + 32) + 72);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
     v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ CONNECTED", &v9, 0x16u);
+    _os_log_impl(&dword_241EFF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: %@ CONNECTED", &v7, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addDataProvider:(id)provider withCompletionHandler:(id)handler
@@ -500,10 +493,9 @@ uint64_t __67__BBDataProviderConnection__addDataProvider_withCompletionHandler__
   result = *(a1 + 32);
   if (result)
   {
-    v4 = *(*(*(a1 + 40) + 8) + 40);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -570,33 +562,33 @@ void __60__BBDataProviderConnection_removeDataProviderWithSectionID___block_invo
 
 - (void)_invalidate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allKeys = [(NSMutableDictionary *)self->_dataProvidersBySectionID allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [(NSMutableDictionary *)self->_dataProvidersBySectionID objectForKeyedSubscript:v8];
         [v9 setServerProxy:0];
         [(BBDataProviderConnectionServerProxy *)self->_serverProxy removeDataProviderWithSectionID:v8];
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
@@ -613,11 +605,9 @@ void __60__BBDataProviderConnection_removeDataProviderWithSectionID___block_invo
   {
     serviceName = self->_serviceName;
     *buf = 138543362;
-    v19 = serviceName;
+    v18 = serviceName;
     _os_log_impl(&dword_241EFF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ has been invalidated", buf, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate

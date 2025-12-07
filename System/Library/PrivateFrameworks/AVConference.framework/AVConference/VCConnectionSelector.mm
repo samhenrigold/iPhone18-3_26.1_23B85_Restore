@@ -638,7 +638,7 @@ LABEL_17:
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_0();
         v9 = 247;
-        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d new connection selection policy is nil", v4, v5, v6, v7, v8[0]);
+        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d new connection selection policy is nil", v4, v5, v6, v7);
       }
     }
 
@@ -694,7 +694,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_5_16(&dword_1DB56E000, v8, v9, " [%s] %s:%d current connection is nil", v10, v11, v12, v13, v14);
+      OUTLINED_FUNCTION_5_16(&dword_1DB56E000, v8, v9, " [%s] %s:%d current connection is nil", v10, v11, v12, v13);
     }
   }
 
@@ -722,7 +722,7 @@ LABEL_17:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_5_16(&dword_1DB56E000, v8, v9, " [%s] %s:%d new connection is nil", v10, v11, v12, v13, v14);
+      OUTLINED_FUNCTION_5_16(&dword_1DB56E000, v8, v9, " [%s] %s:%d new connection is nil", v10, v11, v12, v13);
     }
   }
 

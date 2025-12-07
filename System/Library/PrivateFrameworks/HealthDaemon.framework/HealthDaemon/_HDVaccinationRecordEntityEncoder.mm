@@ -8,28 +8,26 @@
 
 - (id)orderedProperties
 {
-  v9[15] = *MEMORY[0x277D85DE8];
-  v9[0] = @"vaccination_codings";
-  v9[1] = @"expiration_date";
-  v9[2] = @"dose_number";
-  v9[3] = @"dose_quantity";
-  v9[4] = @"lot_number";
-  v9[5] = @"performer";
-  v9[6] = @"body_site_codings";
-  v9[7] = @"reaction";
-  v9[8] = @"not_given";
-  v9[9] = @"administration_date";
-  v9[10] = @"status_coding";
-  v9[11] = @"patient_reported";
-  v9[12] = @"route_codings";
-  v9[13] = @"reasons_codings";
-  v9[14] = @"reasons_not_given_codings";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:15];
+  v8[15] = *MEMORY[0x277D85DE8];
+  v8[0] = @"vaccination_codings";
+  v8[1] = @"expiration_date";
+  v8[2] = @"dose_number";
+  v8[3] = @"dose_quantity";
+  v8[4] = @"lot_number";
+  v8[5] = @"performer";
+  v8[6] = @"body_site_codings";
+  v8[7] = @"reaction";
+  v8[8] = @"not_given";
+  v8[9] = @"administration_date";
+  v8[10] = @"status_coding";
+  v8[11] = @"patient_reported";
+  v8[12] = @"route_codings";
+  v8[13] = @"reasons_codings";
+  v8[14] = @"reasons_not_given_codings";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:15];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

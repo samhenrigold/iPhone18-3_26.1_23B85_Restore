@@ -8,64 +8,65 @@
 
 - (void)_updateAnimationAndPriorityAssertions
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 40));
     platformElementHost = [WeakRetained platformElementHost];
     layoutMode = [WeakRetained layoutMode];
     isValid = [*(self + 24) isValid];
-    if ([WeakRetained isExpanding] && layoutMode >= 1)
+    isExpanding = [WeakRetained isExpanding];
+    if (isExpanding && layoutMode >= 1)
     {
       if (layoutMode > 2)
       {
-        v6 = 1;
+        v7 = 1;
       }
 
       else
       {
-        v6 = 2;
+        v7 = 2;
       }
 
-      if (!isValid || *(self + 32) != v6)
+      if (!isValid || *(self + 32) != v7)
       {
-        v7 = SBLogSystemActionPreviewing();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = SBLogSystemActionPreviewing(isExpanding);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v36 = SBStringFromSBSADynamicPersistentAnimation(*(self + 32));
-          v37 = SBStringFromSBSADynamicPersistentAnimation(v6);
+          v38 = SBStringFromSBSADynamicPersistentAnimation(*(self + 32));
+          v39 = SBStringFromSBSADynamicPersistentAnimation(v7);
           OUTLINED_FUNCTION_1_16();
-          v62 = 2112;
-          v63 = v36;
           v64 = 2112;
           v65 = v38;
-          _os_log_debug_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEBUG, "(%@) Updating expansion animation style from %@ to %@", v61, 0x20u);
+          v66 = 2112;
+          v67 = v40;
+          _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "(%@) Updating expansion animation style from %@ to %@", v63, 0x20u);
         }
 
         [*(self + 24) invalidateWithReason:@"Changing animation style"];
-        v8 = [platformElementHost elementRequestsPersistentAnimationOfType:v6];
-        v9 = *(self + 24);
-        *(self + 24) = v8;
+        v9 = [platformElementHost elementRequestsPersistentAnimationOfType:v7];
+        v10 = *(self + 24);
+        *(self + 24) = v9;
 
-        *(self + 32) = v6;
+        *(self + 32) = v7;
       }
     }
 
     else if (isValid)
     {
-      v10 = SBLogSystemActionPreviewing();
-      if (OUTLINED_FUNCTION_2_22(v10))
+      v11 = SBLogSystemActionPreviewing(isExpanding);
+      if (OUTLINED_FUNCTION_2_22(v11))
       {
-        v39 = SBStringFromSBSADynamicPersistentAnimation(*(self + 32));
+        v41 = SBStringFromSBSADynamicPersistentAnimation(*(self + 32));
         OUTLINED_FUNCTION_1_16();
-        v62 = 2112;
-        v63 = v40;
+        v64 = 2112;
+        v65 = v42;
         OUTLINED_FUNCTION_0_32();
-        _os_log_debug_impl(v41, v42, v43, v44, v45, 0x16u);
+        _os_log_debug_impl(v43, v44, v45, v46, v47, 0x16u);
       }
 
       [*(self + 24) invalidateWithReason:@"Stopped expanding"];
-      v11 = *(self + 24);
+      v12 = *(self + 24);
       *(self + 24) = 0;
 
       *(self + 32) = 0;
@@ -78,44 +79,44 @@
     {
       if (urgentAndImportantAssertion)
       {
-        v17 = isUrgent;
+        v19 = isUrgent;
       }
 
       else
       {
-        v17 = 1;
+        v19 = 1;
       }
 
-      if (v17)
+      if (v19)
       {
 LABEL_29:
         if (SAHasActivityBehavior())
         {
           isPreviewing = [WeakRetained isPreviewing];
-          v20 = *(self + 16);
-          if (!isPreviewing || v20)
+          v22 = *(self + 16);
+          if (!isPreviewing || v22)
           {
-            if (v20)
+            if (v22)
             {
-              v29 = isPreviewing;
+              v31 = isPreviewing;
             }
 
             else
             {
-              v29 = 1;
+              v31 = 1;
             }
 
-            if (v29)
+            if (v31)
             {
               goto LABEL_47;
             }
 
-            v30 = SBLogSystemActionPreviewing();
-            if (OUTLINED_FUNCTION_2_22(v30))
+            v32 = SBLogSystemActionPreviewing(isPreviewing);
+            if (OUTLINED_FUNCTION_2_22(v32))
             {
               OUTLINED_FUNCTION_1_16();
               OUTLINED_FUNCTION_0_32();
-              _os_log_debug_impl(v56, v57, v58, v59, v60, 0xCu);
+              _os_log_debug_impl(v58, v59, v60, v61, v62, 0xCu);
             }
 
             [*(self + 16) invalidateWithReason:@"Stopped previewing"];
@@ -125,12 +126,12 @@ LABEL_29:
 
           else
           {
-            v21 = SBLogSystemActionPreviewing();
-            if (OUTLINED_FUNCTION_2_22(v21))
+            v23 = SBLogSystemActionPreviewing(isPreviewing);
+            if (OUTLINED_FUNCTION_2_22(v23))
             {
               OUTLINED_FUNCTION_1_16();
               OUTLINED_FUNCTION_0_32();
-              _os_log_debug_impl(v51, v52, v53, v54, v55, 0xCu);
+              _os_log_debug_impl(v53, v54, v55, v56, v57, 0xCu);
             }
 
             activityHost = [WeakRetained activityHost];
@@ -139,21 +140,21 @@ LABEL_29:
               layoutMode2 = [WeakRetained layoutMode];
               if (layoutMode2 <= 2)
               {
-                v24 = 2;
+                v26 = 2;
               }
 
               else
               {
-                v24 = layoutMode2;
+                v26 = layoutMode2;
               }
 
-              v25 = [activityHost systemManagedAlertingActivityAssertionWithReason:@"Previewing" preferredLayoutMode:v24];
-              v26 = objc_opt_class();
-              v27 = NSStringFromClass(v26);
-              [v25 setAutomaticallyInvalidatable:0 lockingWithKey:v27 reason:@"Previewing"];
+              v27 = [activityHost systemManagedAlertingActivityAssertionWithReason:@"Previewing" preferredLayoutMode:v26];
+              v28 = objc_opt_class();
+              v29 = NSStringFromClass(v28);
+              [v27 setAutomaticallyInvalidatable:0 lockingWithKey:v29 reason:@"Previewing"];
 
-              v28 = *(self + 16);
-              *(self + 16) = v25;
+              v30 = *(self + 16);
+              *(self + 16) = v27;
             }
           }
         }
@@ -163,32 +164,32 @@ LABEL_47:
         return;
       }
 
-      v18 = SBLogSystemActionPreviewing();
-      if (OUTLINED_FUNCTION_2_22(v18))
+      v20 = SBLogSystemActionPreviewing(v15);
+      if (OUTLINED_FUNCTION_2_22(v20))
       {
         OUTLINED_FUNCTION_1_16();
         OUTLINED_FUNCTION_0_32();
-        _os_log_debug_impl(v46, v47, v48, v49, v50, 0xCu);
+        _os_log_debug_impl(v48, v49, v50, v51, v52, 0xCu);
       }
 
       [*(self + 8) invalidateWithReason:@"Not urgent"];
-      v16 = *(self + 8);
+      v18 = *(self + 8);
       *(self + 8) = 0;
     }
 
     else
     {
-      v14 = SBLogSystemActionPreviewing();
-      if (OUTLINED_FUNCTION_2_22(v14))
+      v16 = SBLogSystemActionPreviewing(v15);
+      if (OUTLINED_FUNCTION_2_22(v16))
       {
         OUTLINED_FUNCTION_1_16();
         OUTLINED_FUNCTION_0_32();
-        _os_log_debug_impl(v31, v32, v33, v34, v35, 0xCu);
+        _os_log_debug_impl(v33, v34, v35, v36, v37, 0xCu);
       }
 
-      v15 = [platformElementHost requestUrgentAndImportantPriorityWithReason:@"Urgent"];
-      v16 = *(self + 8);
-      *(self + 8) = v15;
+      v17 = [platformElementHost requestUrgentAndImportantPriorityWithReason:@"Urgent"];
+      v18 = *(self + 8);
+      *(self + 8) = v17;
     }
 
     goto LABEL_29;

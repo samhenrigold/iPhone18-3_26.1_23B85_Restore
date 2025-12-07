@@ -1,31 +1,3 @@
-void sub_2450627F8(std::locale *a1)
-{
-  a1->__locale_ = &unk_2857FD2E8;
-  std::locale::~locale(a1 + 2);
-  a1->__locale_ = &unk_2857FD2B8;
-  locale = a1[1].__locale_;
-  if (locale)
-  {
-    (*(*locale + 8))(locale);
-  }
-
-  JUMPOUT(0x245D61480);
-}
-
-std::locale *sub_2450628A4(std::locale *a1)
-{
-  a1->__locale_ = &unk_2857FD2E8;
-  std::locale::~locale(a1 + 2);
-  a1->__locale_ = &unk_2857FD2B8;
-  locale = a1[1].__locale_;
-  if (locale)
-  {
-    (*(*locale + 8))(locale);
-  }
-
-  return a1;
-}
-
 unsigned __int8 *sub_245062930(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   if (a2 != a3)
@@ -37,7 +9,7 @@ unsigned __int8 *sub_245062930(uint64_t a1, unsigned __int8 *a2, unsigned __int8
       v11 = (v7 - 46) > 0x2E || ((1 << (v7 - 46)) & 0x600000000001) == 0;
       if (v11)
       {
-        sub_24505E184(a1);
+        sub_24505E184(a1, v7);
       }
 
       if (v6 == a3 || v7 != 92)
@@ -50,10 +22,10 @@ unsigned __int8 *sub_245062930(uint64_t a1, unsigned __int8 *a2, unsigned __int8
 
       else
       {
-        v12 = *v6 - 36;
-        if (v12 <= 0x3A && ((1 << v12) & 0x580000000000441) != 0)
+        v12 = *v6;
+        if ((v12 - 36) <= 0x3A && ((1 << (v12 - 36)) & 0x580000000000441) != 0)
         {
-          sub_24505E184(a1);
+          sub_24505E184(a1, v12);
         }
       }
     }
@@ -71,32 +43,30 @@ unsigned __int8 *sub_245062930(uint64_t a1, unsigned __int8 *a2, unsigned __int8
         operator new();
       }
 
-      v13 = *(a1 + 28);
       while (v10 != a3)
       {
-        v14 = *(a1 + 56);
-        v15 = *(a1 + 28);
-        v16 = sub_245062930(a1, v10, a3);
-        if (v16 == v10)
+        v13 = *(a1 + 56);
+        v14 = *(a1 + 28);
+        v15 = sub_245062930(a1, v10, a3);
+        if (v15 == v10)
         {
           break;
         }
 
-        v17 = *(a1 + 28);
-        v18 = sub_245062C4C(a1, v16, a3);
-        v11 = v18 == v10;
-        v10 = v18;
+        v16 = sub_245062C4C(a1, v15, a3, v13, v14 + 1, *(a1 + 28) + 1);
+        v11 = v16 == v10;
+        v10 = v16;
         if (v11)
         {
-          goto LABEL_35;
+          goto LABEL_34;
         }
       }
 
-      v18 = v10;
-LABEL_35:
-      if (v18 != a3 && v18 + 1 != a3 && *v18 == 92 && v18[1] == 41)
+      v16 = v10;
+LABEL_34:
+      if (v16 != a3 && v16 + 1 != a3 && *v16 == 92 && v16[1] == 41)
       {
-        result = &v18[2 * (v18[1] == 41)];
+        result = &v16[2 * (v16[1] == 41)];
         if ((*(a1 + 24) & 2) == 0)
         {
           operator new();
@@ -106,85 +76,85 @@ LABEL_35:
       }
 
       sub_24505A11C();
-LABEL_43:
-      v19 = sub_24505A11C();
-      return sub_245062C4C(v19, v20, v21);
+LABEL_42:
+      v17 = sub_24505A11C();
+      return sub_245062C4C(v17, v18, v19, v20, v21, v22);
     }
 
     if (((v9 & 0xF8) == 0x30 || (v9 & 0xFE) == 0x38) && (v9 - 49) <= 8)
     {
       if ((v9 - 48) <= *(a1 + 28))
       {
-        sub_245062224(a1);
+        sub_245062224(a1, v9 - 48);
       }
 
-      goto LABEL_43;
+      goto LABEL_42;
     }
   }
 
   return result;
 }
 
-uint64_t sub_245062C4C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+unsigned __int8 *sub_245062C4C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, int a5, int a6)
 {
   if (a2 == a3)
   {
     return a2;
   }
 
-  v3 = *a2;
-  if (v3 == 42)
+  v6 = *a2;
+  if (v6 == 42)
   {
     operator new();
   }
 
-  if (a2 + 1 == a3 || v3 != 92 || a2[1] != 123)
+  if (a2 + 1 == a3 || v6 != 92 || a2[1] != 123)
   {
     return a2;
   }
 
-  v5 = &a2[2 * (a2[1] == 123)];
-  if (v5 != a3)
+  v8 = &a2[2 * (a2[1] == 123)];
+  if (v8 != a3)
   {
-    v6 = *v5;
-    if ((v6 & 0xF8) == 0x30 || (v6 & 0xFE) == 0x38)
+    v9 = *v8;
+    if ((v9 & 0xF8) == 0x30 || (v9 & 0xFE) == 0x38)
     {
-      v7 = v6 - 48;
-      v8 = v5 + 1;
-      if (v5 + 1 != a3)
+      v10 = v9 - 48;
+      v11 = v8 + 1;
+      if (v8 + 1 != a3)
       {
         while (1)
         {
-          v9 = *v8;
-          if ((v9 & 0xF8) != 0x30 && (v9 & 0xFE) != 0x38)
+          v12 = *v11;
+          if ((v12 & 0xF8) != 0x30 && (v12 & 0xFE) != 0x38)
           {
             break;
           }
 
-          if (v7 >= 214748364)
+          if (v10 >= 214748364)
           {
             goto LABEL_41;
           }
 
-          v7 = v9 + 10 * v7 - 48;
-          if (++v8 == a3)
+          v10 = v12 + 10 * v10 - 48;
+          if (++v11 == a3)
           {
-            v8 = a3;
+            v11 = a3;
             break;
           }
         }
       }
 
-      if (v8 == a3)
+      if (v11 == a3)
       {
         goto LABEL_42;
       }
 
-      v10 = v8 + 1;
-      v11 = *v8;
-      if (v11 != 44)
+      v13 = v11 + 1;
+      v14 = *v11;
+      if (v14 != 44)
       {
-        if (v10 != a3 && v11 == 92 && *v10 == 125)
+        if (v13 != a3 && v14 == 92 && *v13 == 125)
         {
           operator new();
         }
@@ -192,29 +162,29 @@ uint64_t sub_245062C4C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
         goto LABEL_42;
       }
 
-      if (v10 != a3 && ((v12 = *v10, (v12 & 0xF8) == 0x30) || (v12 & 0xFE) == 0x38))
+      if (v13 != a3 && ((v15 = *v13, (v15 & 0xF8) == 0x30) || (v15 & 0xFE) == 0x38))
       {
-        v13 = v12 - 48;
-        v10 = v8 + 2;
-        if (v8 + 2 != a3)
+        v16 = v15 - 48;
+        v13 = v11 + 2;
+        if (v11 + 2 != a3)
         {
           while (1)
           {
-            v14 = *v10;
-            if ((v14 & 0xF8) != 0x30 && (v14 & 0xFE) != 0x38)
+            v17 = *v13;
+            if ((v17 & 0xF8) != 0x30 && (v17 & 0xFE) != 0x38)
             {
               break;
             }
 
-            if (v13 >= 214748364)
+            if (v16 >= 214748364)
             {
               goto LABEL_41;
             }
 
-            v13 = v14 + 10 * v13 - 48;
-            if (++v10 == a3)
+            v16 = v17 + 10 * v16 - 48;
+            if (++v13 == a3)
             {
-              v10 = a3;
+              v13 = a3;
               break;
             }
           }
@@ -223,20 +193,20 @@ uint64_t sub_245062C4C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 
       else
       {
-        v13 = -1;
+        v16 = -1;
       }
 
-      if (v10 == a3 || v10 + 1 == a3 || *v10 != 92 || v10[1] != 125)
+      if (v13 == a3 || v13 + 1 == a3 || *v13 != 92 || v13[1] != 125)
       {
         goto LABEL_42;
       }
 
-      if (v13 == -1)
+      if (v16 == -1)
       {
         operator new();
       }
 
-      if (v13 >= v7)
+      if (v16 >= v10)
       {
         operator new();
       }
@@ -246,8 +216,8 @@ uint64_t sub_245062C4C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 LABEL_41:
   sub_24505A11C();
 LABEL_42:
-  v15 = sub_24505A11C();
-  return sub_245063184(v15, v16);
+  v18 = sub_24505A11C();
+  return sub_245063184(v18, v19);
 }
 
 uint64_t sub_245063184(uint64_t result, uint64_t a2)
@@ -319,13 +289,13 @@ unsigned __int8 *sub_245063368(uint64_t a1, unsigned __int8 *a2, unsigned __int8
       {
         if (a2 + 1 != a3)
         {
-          v10 = a2[1];
-          if (v10 == 66)
+          v16 = a2[1];
+          if (v16 == 66)
           {
             operator new();
           }
 
-          if (v10 == 98)
+          if (v16 == 98)
           {
             operator new();
           }
@@ -355,13 +325,27 @@ unsigned __int8 *sub_245063368(uint64_t a1, unsigned __int8 *a2, unsigned __int8
         if (v5 && v6 != a3)
         {
           v8 = *v6;
-          if (v8 == 33 || v8 == 61)
+          if (v8 == 33)
           {
-            sub_245064034(v15);
-            v15[6] = *(a1 + 24);
-            sub_245059938(v15, a2 + 3, a3);
-            v14 = *(a1 + 28);
-            sub_245064090();
+            sub_245064034(v20);
+            v21 = *(a1 + 24);
+            sub_245059938(v20, a2 + 3, a3);
+            v12 = *(a1 + 28);
+            v13 = a1;
+            v14 = 1;
+LABEL_26:
+            sub_245064090(v13, v20, v14, v12);
+          }
+
+          if (v8 == 61)
+          {
+            sub_245064034(v20);
+            v21 = *(a1 + 24);
+            sub_245059938(v20, a2 + 3, a3);
+            v12 = *(a1 + 28);
+            v13 = a1;
+            v14 = 0;
+            goto LABEL_26;
           }
         }
       }
@@ -414,17 +398,16 @@ unsigned __int8 *sub_245063690(uint64_t a1, unsigned __int8 *a2, unsigned __int8
                 operator new();
               }
 
-              v13 = *(a1 + 28);
               v8 = (a1 + 36);
               ++*(a1 + 36);
-              v16 = sub_245063C60(a1, v7, a3);
-              if (v16 == a3)
+              v15 = sub_245063C60(a1, v7, a3);
+              if (v15 == a3)
               {
                 goto LABEL_65;
               }
 
-              v11 = v16;
-              if (*v16 != 41)
+              v11 = v15;
+              if (*v15 != 41)
               {
                 goto LABEL_65;
               }
@@ -463,7 +446,7 @@ LABEL_66:
       }
 
 LABEL_45:
-      sub_24505E184(a1);
+      sub_24505E184(a1, v3);
     }
 
     return a2;
@@ -508,20 +491,20 @@ LABEL_64:
   if (a2 + 1 == a3)
   {
 LABEL_67:
-    v21 = sub_24505A11C();
-    return sub_245063C60(v21, v22, v23);
+    v20 = sub_24505A11C();
+    return sub_245063C60(v20, v21, v22);
   }
 
   v6 = *v5;
   if (v6 == 48)
   {
-    sub_24505E184(a1);
+    sub_24505E184(a1, 0);
   }
 
   if ((v6 - 49) <= 8)
   {
-    v17 = (v6 - 48);
-    v18 = a2 + 2;
+    v16 = (v6 - 48);
+    v17 = a2 + 2;
     if (a2 + 2 == a3)
     {
       goto LABEL_46;
@@ -529,28 +512,28 @@ LABEL_67:
 
     do
     {
-      v19 = *v18;
-      if ((v19 - 48) > 9)
+      v18 = *v17;
+      if ((v18 - 48) > 9)
       {
         break;
       }
 
-      if (v17 >= 0x19999999)
+      if (v16 >= 0x19999999)
       {
         goto LABEL_66;
       }
 
-      v17 = v19 + 10 * v17 - 48;
-      ++v18;
+      v16 = v18 + 10 * v16 - 48;
+      ++v17;
     }
 
-    while (v18 != a3);
-    if (v17)
+    while (v17 != a3);
+    if (v16)
     {
 LABEL_46:
-      if (v17 <= *(a1 + 28))
+      if (v16 <= *(a1 + 28))
       {
-        sub_245062224(a1);
+        sub_245062224(a1, v16);
       }
     }
 
@@ -594,59 +577,56 @@ LABEL_46:
 
 unsigned __int8 *sub_245063C60(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
-  v6 = *(a1 + 56);
   result = a2;
   while (1)
   {
-    v8 = result;
+    v7 = result;
     result = sub_245063368(a1, result, a3);
-    if (result == v8)
+    if (result == v7)
     {
       break;
     }
 
 LABEL_2:
-    if (result == v8)
+    if (result == v7)
     {
       goto LABEL_7;
     }
   }
 
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 28);
-  v11 = sub_245063690(a1);
-  if (v11 != v8)
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 28);
+  v10 = sub_245063690(a1, v7, a3);
+  if (v10 != v7)
   {
-    v12 = *(a1 + 28);
-    result = sub_24505E2EC(a1, v11, a3);
+    result = sub_24505E2EC(a1, v10, a3, v8, v9 + 1, *(a1 + 28) + 1);
     goto LABEL_2;
   }
 
-  result = v8;
+  result = v7;
 LABEL_7:
-  if (v8 == a2)
+  if (v7 == a2)
   {
     operator new();
   }
 
-  if (v8 != a3 && *result == 124)
+  if (v7 != a3 && *result == 124)
   {
-    v13 = *(a1 + 56);
-    v14 = result + 1;
-    v15 = result + 1;
+    v11 = result + 1;
+    v12 = result + 1;
     while (1)
     {
-      v16 = v15;
-      v15 = sub_245063368(a1, v15, a3);
-      if (v15 == v16)
+      v13 = v12;
+      v12 = sub_245063368(a1, v12, a3);
+      if (v12 == v13)
       {
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 28);
-        v19 = sub_245063690(a1);
-        if (v19 == v16)
+        v14 = *(a1 + 56);
+        v15 = *(a1 + 28);
+        v16 = sub_245063690(a1, v13, a3);
+        if (v16 == v13)
         {
 LABEL_18:
-          if (v16 == v14)
+          if (v13 == v11)
           {
             operator new();
           }
@@ -654,11 +634,10 @@ LABEL_18:
           operator new();
         }
 
-        v20 = *(a1 + 28);
-        v15 = sub_24505E2EC(a1, v19, a3);
+        v12 = sub_24505E2EC(a1, v16, a3, v14, v15 + 1, *(a1 + 28) + 1);
       }
 
-      if (v15 == v16)
+      if (v12 == v13)
       {
         goto LABEL_18;
       }
@@ -722,58 +701,57 @@ void sub_245064158(std::locale *a1)
 
 void sub_2450641D4(uint64_t a1, uint64_t a2)
 {
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v26 = 0uLL;
+  v25 = 0uLL;
+  v26 = 0;
   v27 = 0;
   v28 = 0;
-  v29 = 0;
   __p = 0;
-  v19 = 0;
+  v18 = 0;
   v4 = (*(a1 + 44) + 1);
   v6 = *(a2 + 16);
   v5 = *(a2 + 24);
-  v20 = 0;
-  *&v21 = v5;
-  *(&v21 + 1) = v5;
-  v22 = 0;
-  sub_24505A204(&__p, v4, &v21);
+  v19 = 0;
+  *&v20 = v5;
+  *(&v20 + 1) = v5;
+  v21 = 0;
+  sub_24505A204(&__p, v4, &v20);
+  v22 = v6;
   v23 = v6;
-  v24 = v6;
-  v25 = 0;
+  v24 = 0;
+  v25 = v20;
   v26 = v21;
-  v27 = v22;
-  v29 = v6;
-  v28 = 1;
-  v7 = *(a2 + 88) & 0xFFF;
-  v8 = *(a2 + 16);
-  if (v8 == *(a2 + 8))
+  v28 = v6;
+  v27 = 1;
+  v7 = *(a2 + 16);
+  if (v7 == *(a2 + 8))
   {
-    v9 = *(a2 + 92);
+    v8 = *(a2 + 92);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (*(a1 + 84) == sub_24505A3DC(a1 + 16, v8, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v9))
+  if (*(a1 + 84) == sub_24505A3DC(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
-    v10 = __p;
+    v9 = __p;
     goto LABEL_10;
   }
 
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
-  v10 = __p;
-  v11 = 0xAAAAAAAAAAAAAAABLL * ((v19 - __p) >> 3);
-  if (v11 < 2)
+  v9 = __p;
+  v10 = 0xAAAAAAAAAAAAAAABLL * ((v18 - __p) >> 3);
+  if (v10 < 2)
   {
 LABEL_10:
-    if (!v10)
+    if (!v9)
     {
       return;
     }
@@ -781,20 +759,20 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v12 = *(a1 + 80);
-  v13 = *(a2 + 32);
-  v14 = 2;
-  for (i = 1; i < v11; i = v14++)
+  v11 = *(a1 + 80);
+  v12 = *(a2 + 32);
+  v13 = 2;
+  for (i = 1; i < v10; i = v13++)
   {
-    v16 = &v10[24 * i];
-    v17 = v13 + 24 * (v12 + v14 - 2);
-    *v17 = *v16;
-    *(v17 + 16) = v16[16];
+    v15 = &v9[24 * i];
+    v16 = v12 + 24 * (v11 + v13 - 2);
+    *v16 = *v15;
+    *(v16 + 16) = v15[16];
   }
 
 LABEL_11:
 
-  operator delete(v10);
+  operator delete(v9);
 }
 
 void sub_24506435C(std::locale *a1)
@@ -1350,8 +1328,7 @@ LABEL_30:
 
 void cva::utils::string::replace_whitespace(char *a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   if (a1[23] >= 0)
   {
@@ -1481,8 +1458,7 @@ LABEL_8:
             sub_24504FAF4();
           }
 
-          v30 = a2->__r_.__value_.__r.__words[0];
-LABEL_57:
+LABEL_56:
           operator new();
         }
 
@@ -1495,7 +1471,7 @@ LABEL_57:
       {
         if (*(&a2->__r_.__value_.__s + 23) == 22)
         {
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
         v21 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
@@ -1847,7 +1823,7 @@ LABEL_27:
   return result;
 }
 
-double cva::utils::string::common_suffix@<D0>(__int128 **a1@<X0>, uint64_t a2@<X8>)
+double cva::utils::string::common_suffix@<D0>(char **a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *a1;
   v3 = a1[1];
@@ -1859,7 +1835,7 @@ double cva::utils::string::common_suffix@<D0>(__int128 **a1@<X0>, uint64_t a2@<X
 
   else
   {
-    if (*(v4 + 23) < 0)
+    if (v4[23] < 0)
     {
       sub_24505989C(a2, *v4, *(v4 + 1));
       v4 = *a1;
@@ -1879,7 +1855,7 @@ double cva::utils::string::common_suffix@<D0>(__int128 **a1@<X0>, uint64_t a2@<X
       v8 = 0;
       do
       {
-        cva::utils::string::common_suffix(a2, (v4 + v7), &v10);
+        cva::utils::string::common_suffix(a2, &v4[v7], &v10);
         if (*(a2 + 23) < 0)
         {
           operator delete(*a2);
@@ -1900,12 +1876,12 @@ double cva::utils::string::common_suffix@<D0>(__int128 **a1@<X0>, uint64_t a2@<X
   return *&v6;
 }
 
-void cva::utils::string::split(uint64_t a1, uint64_t *a2, char *__s, int a4)
+void cva::utils::string::split(void ***a1, uint64_t *a2, char *__s, int a4)
 {
   v41 = a4;
   v7 = strlen(__s);
   v8 = *a1;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   while (v9 != v8)
   {
     v10 = *(v9 - 1);
@@ -1916,7 +1892,7 @@ void cva::utils::string::split(uint64_t a1, uint64_t *a2, char *__s, int a4)
     }
   }
 
-  *(a1 + 8) = v8;
+  a1[1] = v8;
   if (!v7)
   {
     v12 = *(a2 + 23);
@@ -2104,7 +2080,7 @@ LABEL_47:
     if ((v41 & 1) == 0)
     {
       v28 = *a1;
-      v29 = *(a1 + 8);
+      v29 = a1[1];
       v30 = v29 - *a1;
       v31 = 0xAAAAAAAAAAAAAAABLL * (v30 >> 3);
       v32 = v11 + ~v19;
@@ -2124,18 +2100,18 @@ LABEL_47:
             }
           }
 
-          *(a1 + 8) = v37;
+          a1[1] = v37;
         }
       }
 
       else
       {
-        v34 = *(a1 + 16);
-        if (0xAAAAAAAAAAAAAAABLL * ((v34 - v29) >> 3) < v32)
+        v34 = a1[2];
+        if (0xAAAAAAAAAAAAAAABLL * (v34 - v29) < v32)
         {
           if (v33 <= 0xAAAAAAAAAAAAAAALL)
           {
-            v35 = 0xAAAAAAAAAAAAAAABLL * ((v34 - v28) >> 3);
+            v35 = 0xAAAAAAAAAAAAAAABLL * (v34 - v28);
             if (2 * v35 > v33)
             {
               v33 = 2 * v35;
@@ -2164,11 +2140,11 @@ LABEL_47:
 
         if (v32)
         {
-          bzero(*(a1 + 8), 24 * ((24 * v32 - 24) / 0x18) + 24);
+          bzero(a1[1], 24 * ((24 * v32 - 24) / 0x18) + 24);
           v29 += 3 * ((24 * v32 - 24) / 0x18) + 3;
         }
 
-        *(a1 + 8) = v29;
+        a1[1] = v29;
       }
     }
   }
@@ -2258,8 +2234,7 @@ void sub_245065C58(uint64_t a1, __int128 *a2)
     v11 = 24 * v7;
     *v11 = *a2;
     *(v11 + 16) = *(a2 + 2);
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = 24 * v7 + 24;
     v12 = *a1;
@@ -2280,8 +2255,7 @@ void sub_245065C58(uint64_t a1, __int128 *a2)
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v3 + 24;
   }
@@ -2345,10 +2319,10 @@ __int128 **cva::utils::string::join@<X0>(__int128 **result@<X0>, uint64_t a2@<X1
 
       std::string::append(a3, v12, v13);
       v14 = *v4 + v9;
-      v17 = *(v14 + 24);
+      v17 = *(v14 + 3);
       v15 = v14 + 24;
       v16 = v17;
-      v18 = *(v15 + 23);
+      v18 = v15[23];
       if (v18 >= 0)
       {
         v19 = v15;
@@ -2361,12 +2335,12 @@ __int128 **cva::utils::string::join@<X0>(__int128 **result@<X0>, uint64_t a2@<X1
 
       if (v18 >= 0)
       {
-        v20 = *(v15 + 23);
+        v20 = v15[23];
       }
 
       else
       {
-        v20 = *(v15 + 8);
+        v20 = *(v15 + 1);
       }
 
       result = std::string::append(a3, v19, v20);
@@ -2448,7 +2422,7 @@ uint64_t cva::utils::string::to_lower(uint64_t result)
   return result;
 }
 
-uint64_t cva::utils::string::iequals(char *a1, char *a2)
+BOOL cva::utils::string::iequals(char *a1, char *a2)
 {
   v2 = a1[23];
   v3 = v2;
@@ -2510,7 +2484,7 @@ uint64_t cva::utils::string::iequals(char *a1, char *a2)
   return result;
 }
 
-uint64_t cva::utils::string::istarts_with(char *a1, char *a2)
+BOOL cva::utils::string::istarts_with(char *a1, char *a2)
 {
   v2 = a2[23];
   v3 = v2;
@@ -2572,7 +2546,7 @@ uint64_t cva::utils::string::istarts_with(char *a1, char *a2)
   return result;
 }
 
-uint64_t cva::utils::string::iends_with(uint64_t *a1, char *a2)
+BOOL cva::utils::string::iends_with(uint64_t **a1, char *a2)
 {
   v2 = a2[23];
   v3 = v2;
@@ -2826,7 +2800,7 @@ void cva::VecLibSparse<float>::multiply(uint64_t a1, __int128 *a2, __int128 *a3)
 
 void sub_2450663E8(uint64_t a1, int *a2, uint64_t a3, float a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = 4;
   if (*(a1 + 24))
   {
@@ -2845,31 +2819,135 @@ void sub_2450663E8(uint64_t a1, int *a2, uint64_t a3, float a4)
 
   v6 = *(a3 + 8);
   v7 = *a3;
-  if (v6 < *a3)
+  if (v6 >= *a3)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v9 = a2[2];
+    v10 = *a2;
+    if (v9 >= *a2)
     {
-      buf.structure.rowCount = 136315906;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v6;
-      WORD1(buf.structure.rowIndices) = 2080;
-      *(&buf.structure.rowIndices + 4) = "Y";
-      *(&buf.structure.blockSize + 1) = 1024;
-      *(&buf.structure.blockSize + 1) = v7;
-      v8 = MEMORY[0x277D86220];
-LABEL_12:
-      _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+      if (*(a3 + 12))
+      {
+        v11 = 4;
+      }
+
+      else
+      {
+        v11 = 0;
+        v7 = *(a3 + 4);
+      }
+
+      v12 = (a2[3] & 1) == 0;
+      v13 = a2[v12];
+      v14 = *(a3 + v11);
+      v15 = (a2[3] & 1) != 0;
+      v16 = a2[v15];
+      if (v7 == v13)
+      {
+        if (v7 <= 0)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            buf.structure.rowCount = 136315650;
+            *&buf.structure.columnCount = "Y";
+            WORD2(buf.structure.columnStarts) = 1024;
+            *(&buf.structure.columnStarts + 6) = v14;
+            WORD1(buf.structure.rowIndices) = 1024;
+            HIDWORD(buf.structure.rowIndices) = v7;
+            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
+          }
+
+          goto LABEL_36;
+        }
+
+        v17 = *(a1 + 28);
+        v18 = *(a1 + v5) * v17;
+        v19 = *(a1 + v4) * v17;
+        if (v14 == v18)
+        {
+          if (v16 == v19)
+          {
+            v20 = *(a1 + 16);
+            *&buf.structure.rowCount = *a1;
+            *&buf.structure.rowIndices = v20;
+            buf.data = *(a1 + 32);
+            x = *a2;
+            v23 = *a3;
+            _SparseSpMV_Float(a4, &buf, &x, 0, &v23);
+            return;
+          }
+
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "X";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v16;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+
+        else
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "Y";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v14;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+      }
+
+      else
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_36;
+        }
+
+        buf.structure.rowCount = 136316418;
+        *&buf.structure.columnCount = "Y";
+        WORD2(buf.structure.columnStarts) = 1024;
+        *(&buf.structure.columnStarts + 6) = v14;
+        WORD1(buf.structure.rowIndices) = 1024;
+        HIDWORD(buf.structure.rowIndices) = v7;
+        buf.structure.attributes = 2080;
+        *&buf.structure.blockSize = "X";
+        WORD1(buf.data) = 1024;
+        HIDWORD(buf.data) = v16;
+        v26 = 1024;
+        v27 = v13;
+        v21 = MEMORY[0x277D86220];
+        v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      }
+
+      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
       goto LABEL_36;
     }
 
-    goto LABEL_36;
-  }
-
-  v9 = a2[2];
-  v10 = *a2;
-  if (v9 < *a2)
-  {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       buf.structure.rowCount = 136315906;
@@ -2883,130 +2961,25 @@ LABEL_12:
       v8 = MEMORY[0x277D86220];
       goto LABEL_12;
     }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    buf.structure.rowCount = 136315906;
+    *&buf.structure.columnCount = "Y";
+    WORD2(buf.structure.columnStarts) = 1024;
+    *(&buf.structure.columnStarts + 6) = v6;
+    WORD1(buf.structure.rowIndices) = 2080;
+    *(&buf.structure.rowIndices + 4) = "Y";
+    *(&buf.structure.blockSize + 1) = 1024;
+    *(&buf.structure.blockSize + 1) = v7;
+    v8 = MEMORY[0x277D86220];
+LABEL_12:
+    _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+  }
 
 LABEL_36:
-    _SparseTrap();
-    goto LABEL_37;
-  }
-
-  if (*(a3 + 12))
-  {
-    v11 = 4;
-  }
-
-  else
-  {
-    v11 = 0;
-    v7 = *(a3 + 4);
-  }
-
-  v12 = (a2[3] & 1) == 0;
-  v13 = a2[v12];
-  v14 = *(a3 + v11);
-  v15 = (a2[3] & 1) != 0;
-  v16 = a2[v15];
-  if (v7 != v13)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "X";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v16;
-    v27 = 1024;
-    v28 = v13;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-LABEL_35:
-    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
-    goto LABEL_36;
-  }
-
-  if (v7 <= 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      buf.structure.rowCount = 136315650;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v14;
-      WORD1(buf.structure.rowIndices) = 1024;
-      HIDWORD(buf.structure.rowIndices) = v7;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
-    }
-
-    goto LABEL_36;
-  }
-
-  v17 = *(a1 + 28);
-  v18 = *(a1 + v5) * v17;
-  v19 = *(a1 + v4) * v17;
-  if (v14 != v18)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  if (v16 != v19)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "X";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v16;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  v20 = *(a1 + 16);
-  *&buf.structure.rowCount = *a1;
-  *&buf.structure.rowIndices = v20;
-  buf.data = *(a1 + 32);
-  x = *a2;
-  v24 = *a3;
-  _SparseSpMV_Float(a4, &buf, &x, 0, &v24);
-LABEL_37:
-  v23 = *MEMORY[0x277D85DE8];
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::multiply(uint64_t a1, __int128 *a2, __int128 *a3, float a4)
@@ -3022,18 +2995,18 @@ void cva::VecLibSparse<float>::multiply(uint64_t a1, __int128 *a2, __int128 *a3,
   sub_2450663E8(v9, &v7, &v5, a4);
 }
 
-void cva::VecLibSparse<float>::multiply(uint64_t a1, uint64_t a2, uint64_t a3)
+void cva::VecLibSparse<float>::multiply(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 16);
   v4[0] = *a1;
   v4[1] = v3;
   v5 = *(a1 + 32);
-  sub_2450668B0(v4, *a2, *(a2 + 8), *a3, *(a3 + 8), 1.0);
+  sub_2450668B0(v4, *a2, a2[1], *a3, a3[1], 1.0);
 }
 
 void sub_2450668B0(uint64_t a1, int a2, float *a3, int a4, float *a5, float a6)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 28);
   v8 = 4;
   if (*(a1 + 24))
@@ -3057,9 +3030,7 @@ void sub_2450668B0(uint64_t a1, int a2, float *a3, int a4, float *a5, float a6)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_12:
-      _SparseTrap();
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     A.structure.rowCount = 67109888;
@@ -3077,13 +3048,28 @@ LABEL_15:
     goto LABEL_12;
   }
 
-  if (v10 != a4)
+  if (v10 == a4)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_12;
-    }
+    v12 = *(a1 + 16);
+    *&A.structure.rowCount = *a1;
+    *&A.structure.rowIndices = v12;
+    A.data = *(a1 + 32);
+    x.rowCount = a2;
+    x.columnCount = 1;
+    x.columnStride = a2;
+    x.attributes = 0;
+    x.data = a3;
+    v16.rowCount = a4;
+    v16.columnCount = 1;
+    v16.columnStride = a4;
+    v16.attributes = 0;
+    v16.data = a5;
+    _SparseSpMV_Float(a6, &A, &x, 0, &v16);
+    return;
+  }
 
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
     A.structure.rowCount = 67109888;
     A.structure.columnCount = v10;
     LOWORD(A.structure.columnStarts) = 1024;
@@ -3097,23 +3083,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = *(a1 + 16);
-  *&A.structure.rowCount = *a1;
-  *&A.structure.rowIndices = v12;
-  A.data = *(a1 + 32);
-  x.rowCount = a2;
-  x.columnCount = 1;
-  x.columnStride = a2;
-  x.attributes = 0;
-  x.data = a3;
-  v17.rowCount = a4;
-  v17.columnCount = 1;
-  v17.columnStride = a4;
-  v17.attributes = 0;
-  v17.data = a5;
-  _SparseSpMV_Float(a6, &A, &x, 0, &v17);
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::multiply(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
@@ -3140,7 +3111,7 @@ void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 *
 
 void sub_245066B04(uint64_t a1, int *a2, uint64_t a3, float a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = 4;
   if (*(a1 + 24))
   {
@@ -3159,31 +3130,135 @@ void sub_245066B04(uint64_t a1, int *a2, uint64_t a3, float a4)
 
   v6 = *(a3 + 8);
   v7 = *a3;
-  if (v6 < *a3)
+  if (v6 >= *a3)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v9 = a2[2];
+    v10 = *a2;
+    if (v9 >= *a2)
     {
-      buf.structure.rowCount = 136315906;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v6;
-      WORD1(buf.structure.rowIndices) = 2080;
-      *(&buf.structure.rowIndices + 4) = "Y";
-      *(&buf.structure.blockSize + 1) = 1024;
-      *(&buf.structure.blockSize + 1) = v7;
-      v8 = MEMORY[0x277D86220];
-LABEL_12:
-      _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+      if (*(a3 + 12))
+      {
+        v11 = 4;
+      }
+
+      else
+      {
+        v11 = 0;
+        v7 = *(a3 + 4);
+      }
+
+      v12 = (a2[3] & 1) == 0;
+      v13 = a2[v12];
+      v14 = *(a3 + v11);
+      v15 = (a2[3] & 1) != 0;
+      v16 = a2[v15];
+      if (v7 == v13)
+      {
+        if (v7 <= 0)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            buf.structure.rowCount = 136315650;
+            *&buf.structure.columnCount = "Y";
+            WORD2(buf.structure.columnStarts) = 1024;
+            *(&buf.structure.columnStarts + 6) = v14;
+            WORD1(buf.structure.rowIndices) = 1024;
+            HIDWORD(buf.structure.rowIndices) = v7;
+            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
+          }
+
+          goto LABEL_36;
+        }
+
+        v17 = *(a1 + 28);
+        v18 = *(a1 + v5) * v17;
+        v19 = *(a1 + v4) * v17;
+        if (v14 == v18)
+        {
+          if (v16 == v19)
+          {
+            v20 = *(a1 + 16);
+            *&buf.structure.rowCount = *a1;
+            *&buf.structure.rowIndices = v20;
+            buf.data = *(a1 + 32);
+            x = *a2;
+            v23 = *a3;
+            _SparseSpMV_Float(a4, &buf, &x, 1, &v23);
+            return;
+          }
+
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "X";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v16;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+
+        else
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "Y";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v14;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+      }
+
+      else
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_36;
+        }
+
+        buf.structure.rowCount = 136316418;
+        *&buf.structure.columnCount = "Y";
+        WORD2(buf.structure.columnStarts) = 1024;
+        *(&buf.structure.columnStarts + 6) = v14;
+        WORD1(buf.structure.rowIndices) = 1024;
+        HIDWORD(buf.structure.rowIndices) = v7;
+        buf.structure.attributes = 2080;
+        *&buf.structure.blockSize = "X";
+        WORD1(buf.data) = 1024;
+        HIDWORD(buf.data) = v16;
+        v26 = 1024;
+        v27 = v13;
+        v21 = MEMORY[0x277D86220];
+        v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      }
+
+      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
       goto LABEL_36;
     }
 
-    goto LABEL_36;
-  }
-
-  v9 = a2[2];
-  v10 = *a2;
-  if (v9 < *a2)
-  {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       buf.structure.rowCount = 136315906;
@@ -3197,130 +3272,25 @@ LABEL_12:
       v8 = MEMORY[0x277D86220];
       goto LABEL_12;
     }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    buf.structure.rowCount = 136315906;
+    *&buf.structure.columnCount = "Y";
+    WORD2(buf.structure.columnStarts) = 1024;
+    *(&buf.structure.columnStarts + 6) = v6;
+    WORD1(buf.structure.rowIndices) = 2080;
+    *(&buf.structure.rowIndices + 4) = "Y";
+    *(&buf.structure.blockSize + 1) = 1024;
+    *(&buf.structure.blockSize + 1) = v7;
+    v8 = MEMORY[0x277D86220];
+LABEL_12:
+    _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+  }
 
 LABEL_36:
-    _SparseTrap();
-    goto LABEL_37;
-  }
-
-  if (*(a3 + 12))
-  {
-    v11 = 4;
-  }
-
-  else
-  {
-    v11 = 0;
-    v7 = *(a3 + 4);
-  }
-
-  v12 = (a2[3] & 1) == 0;
-  v13 = a2[v12];
-  v14 = *(a3 + v11);
-  v15 = (a2[3] & 1) != 0;
-  v16 = a2[v15];
-  if (v7 != v13)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "X";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v16;
-    v27 = 1024;
-    v28 = v13;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-LABEL_35:
-    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
-    goto LABEL_36;
-  }
-
-  if (v7 <= 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      buf.structure.rowCount = 136315650;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v14;
-      WORD1(buf.structure.rowIndices) = 1024;
-      HIDWORD(buf.structure.rowIndices) = v7;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
-    }
-
-    goto LABEL_36;
-  }
-
-  v17 = *(a1 + 28);
-  v18 = *(a1 + v5) * v17;
-  v19 = *(a1 + v4) * v17;
-  if (v14 != v18)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  if (v16 != v19)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "X";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v16;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  v20 = *(a1 + 16);
-  *&buf.structure.rowCount = *a1;
-  *&buf.structure.rowIndices = v20;
-  buf.data = *(a1 + 32);
-  x = *a2;
-  v24 = *a3;
-  _SparseSpMV_Float(a4, &buf, &x, 1, &v24);
-LABEL_37:
-  v23 = *MEMORY[0x277D85DE8];
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 *a3, float a4)
@@ -3336,18 +3306,18 @@ void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 *
   sub_245066B04(v9, &v7, &v5, a4);
 }
 
-void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3)
+void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 16);
   v4[0] = *a1;
   v4[1] = v3;
   v5 = *(a1 + 32);
-  sub_245066FCC(v4, *a2, *(a2 + 8), *a3, *(a3 + 8), 1.0);
+  sub_245066FCC(v4, *a2, a2[1], *a3, a3[1], 1.0);
 }
 
 void sub_245066FCC(uint64_t a1, int a2, float *a3, int a4, float *a5, float a6)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 28);
   v8 = 4;
   if (*(a1 + 24))
@@ -3371,9 +3341,7 @@ void sub_245066FCC(uint64_t a1, int a2, float *a3, int a4, float *a5, float a6)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_12:
-      _SparseTrap();
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     A.structure.rowCount = 67109888;
@@ -3391,13 +3359,28 @@ LABEL_15:
     goto LABEL_12;
   }
 
-  if (v10 != a4)
+  if (v10 == a4)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_12;
-    }
+    v12 = *(a1 + 16);
+    *&A.structure.rowCount = *a1;
+    *&A.structure.rowIndices = v12;
+    A.data = *(a1 + 32);
+    x.rowCount = a2;
+    x.columnCount = 1;
+    x.columnStride = a2;
+    x.attributes = 0;
+    x.data = a3;
+    v16.rowCount = a4;
+    v16.columnCount = 1;
+    v16.columnStride = a4;
+    v16.attributes = 0;
+    v16.data = a5;
+    _SparseSpMV_Float(a6, &A, &x, 1, &v16);
+    return;
+  }
 
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
     A.structure.rowCount = 67109888;
     A.structure.columnCount = v10;
     LOWORD(A.structure.columnStarts) = 1024;
@@ -3411,23 +3394,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = *(a1 + 16);
-  *&A.structure.rowCount = *a1;
-  *&A.structure.rowIndices = v12;
-  A.data = *(a1 + 32);
-  x.rowCount = a2;
-  x.columnCount = 1;
-  x.columnStride = a2;
-  x.attributes = 0;
-  x.data = a3;
-  v17.rowCount = a4;
-  v17.columnCount = 1;
-  v17.columnStride = a4;
-  v17.attributes = 0;
-  v17.data = a5;
-  _SparseSpMV_Float(a6, &A, &x, 1, &v17);
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::multiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
@@ -3544,153 +3512,149 @@ __n128 cva::VecLibSparse<float>::release(uint64_t a1)
 
 void cva::VecLibSparse<float>::retain(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 48);
-  *&v7.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-  *&v7.symbolicFactorization.factorSize_Float = v1;
+  *&v6.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
+  *&v6.symbolicFactorization.factorSize_Float = v1;
   v2 = *(a1 + 80);
-  *&v7.userFactorStorage = *(a1 + 64);
-  *&v7.solveWorkspaceRequiredStatic = v2;
-  v8 = *(a1 + 96);
+  *&v6.userFactorStorage = *(a1 + 64);
+  *&v6.solveWorkspaceRequiredStatic = v2;
+  v7 = *(a1 + 96);
   v3 = *(a1 + 16);
-  *&v7.status = *a1;
-  *&v7.symbolicFactorization.columnCount = v3;
-  if (v7.symbolicFactorization.status || !v7.symbolicFactorization.workspaceSize_Float)
+  *&v6.status = *a1;
+  *&v6.symbolicFactorization.columnCount = v3;
+  if (v6.symbolicFactorization.status || !v6.symbolicFactorization.workspaceSize_Float)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_7:
-      _SparseTrap();
-      goto LABEL_10;
+      *v8 = 0;
+      v5 = MEMORY[0x277D86220];
+      goto LABEL_14;
     }
 
-    *v9 = 0;
-    v6 = MEMORY[0x277D86220];
-LABEL_14:
-    _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Can only retain valid numeric factorizations.\n", v9, 2u);
-    goto LABEL_7;
+LABEL_7:
+    _SparseTrap();
+    return;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(v9, &v7.symbolicFactorization);
-  v4 = *&v9[40];
-  if (v7.status || !v7.solveWorkspaceRequiredStatic)
+  _SparseGetOptionsFromSymbolicFactor(v8, &v6.symbolicFactorization);
+  v4 = *&v8[40];
+  if (v6.status == SparseStatusOK && v6.solveWorkspaceRequiredStatic)
   {
-    if (*&v9[40])
-    {
-      v22 = 0;
-      v21 = 0u;
-      v20 = 0u;
-      v19 = 0u;
-      v18 = 0u;
-      v17 = 0u;
-      v16 = 0u;
-      v15 = 0u;
-      v14 = 0u;
-      v13 = 0u;
-      v12 = 0u;
-      v11 = 0u;
-      v10 = 0u;
-      *&v9[47] = 0u;
-      strcpy(v9, "Can only retain valid numeric factorizations.\n");
-      v4(v9);
-      goto LABEL_10;
-    }
+    _SparseRetainNumeric_Float(&v6);
+    return;
+  }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!*&v8[40])
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
+      *v8 = 0;
+      v5 = MEMORY[0x277D86220];
+LABEL_14:
+      _os_log_error_impl(&dword_245028000, v5, OS_LOG_TYPE_ERROR, "Can only retain valid numeric factorizations.\n", v8, 2u);
       goto LABEL_7;
     }
 
-    *v9 = 0;
-    v6 = MEMORY[0x277D86220];
-    goto LABEL_14;
+    goto LABEL_7;
   }
 
-  _SparseRetainNumeric_Float(&v7);
-LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
+  v21 = 0;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v11 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  *&v8[47] = 0u;
+  strcpy(v8, "Can only retain valid numeric factorizations.\n");
+  v4(v8);
 }
 
 void cva::VecLibSparse<float>::retain(__int128 *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = a1[5];
-  v12 = a1[4];
-  v13 = v1;
+  v11 = a1[4];
+  v12 = v1;
   v2 = a1[7];
-  v14 = a1[6];
-  v15 = v2;
+  v13 = a1[6];
+  v14 = v2;
   v3 = a1[1];
-  v8 = *a1;
-  v9 = v3;
+  v7 = *a1;
+  v8 = v3;
   v4 = a1[3];
-  v10 = a1[2];
-  v11 = v4;
-  if (v3 || !*(&v10 + 1))
+  v9 = a1[2];
+  v10 = v4;
+  if (v3 || !*(&v9 + 1))
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_7:
-      _SparseTrap();
-      goto LABEL_10;
+      LOWORD(v15.control) = 0;
+      v6 = MEMORY[0x277D86220];
+      goto LABEL_14;
     }
 
-    LOWORD(v16.control) = 0;
-    v7 = MEMORY[0x277D86220];
-LABEL_14:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Can only retain valid objects.\n", &v16, 2u);
-    goto LABEL_7;
+LABEL_7:
+    _SparseTrap();
+    return;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v16, &v9);
-  reportError = v16.reportError;
-  if (DWORD2(v8) || !*(&v13 + 1))
+  _SparseGetOptionsFromSymbolicFactor(&v15, &v8);
+  reportError = v15.reportError;
+  if (!DWORD2(v7) && *(&v12 + 1))
   {
-    if (v16.reportError)
-    {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      *&v16.free = 0u;
-      v17 = 0u;
-      strcpy(&v16, "Can only retain valid objects.\n");
-      (reportError)(&v16);
-      goto LABEL_10;
-    }
+    _SparseRetainNumeric_Float((&v7 + 8));
+    return;
+  }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!v15.reportError)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
+      LOWORD(v15.control) = 0;
+      v6 = MEMORY[0x277D86220];
+LABEL_14:
+      _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Can only retain valid objects.\n", &v15, 2u);
       goto LABEL_7;
     }
 
-    LOWORD(v16.control) = 0;
-    v7 = MEMORY[0x277D86220];
-    goto LABEL_14;
+    goto LABEL_7;
   }
 
-  _SparseRetainNumeric_Float((&v8 + 8));
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  *&v15.free = 0u;
+  v16 = 0u;
+  strcpy(&v15, "Can only retain valid objects.\n");
+  (reportError)(&v15);
 }
 
-void cva::VecLibSparse<float>::factor(int factorType@<W1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
+void cva::VecLibSparse<float>::factor(uint64_t factorType@<X1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   *&Matrix.structure.rowCount = *a2;
   *&Matrix.structure.rowIndices = v4;
   Matrix.data = *(a2 + 32);
   sfoptions = *byte_2857FDB18;
-  v10 = *ymmword_24508ABA0;
+  v9 = *ymmword_24508ABA0;
   if (Matrix.structure.rowCount <= 0)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3699,9 +3663,9 @@ void cva::VecLibSparse<float>::factor(int factorType@<W1>, uint64_t a2@<X0>, uin
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = Matrix.structure.rowCount;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = Matrix.structure.rowCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.rowCount must be > 0, but is %d.\n";
 LABEL_14:
@@ -3717,9 +3681,9 @@ LABEL_14:
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = Matrix.structure.rowCount;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = Matrix.structure.rowCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.columnCount must be > 0, but is %d.\n";
     goto LABEL_14;
@@ -3733,9 +3697,9 @@ LABEL_14:
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = 0;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = 0;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.blockSize must be > 0, but is %d.]n";
     goto LABEL_14;
@@ -3747,19 +3711,19 @@ LABEL_14:
     if ((factorType - 80) < 4)
     {
       _SparseFactorLU_Float();
-      goto LABEL_17;
+      return;
     }
 
     if ((factorType - 40) <= 1)
     {
-      _SparseFactorQR_Float(a3, factorType, &Matrix, &sfoptions, &v10);
-      goto LABEL_17;
+      _SparseFactorQR_Float(a3, factorType, &Matrix, &sfoptions, &v9);
+      return;
     }
 
     if (v5 == 12)
     {
-      _SparseFactorSymmetric_Float(a3, factorType, &Matrix, &sfoptions, &v10);
-      goto LABEL_17;
+      _SparseFactorSymmetric_Float(a3, factorType, &Matrix, &sfoptions, &v9);
+      return;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3775,14 +3739,14 @@ LABEL_14:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v14 = "Matrix.structure";
-    v15 = 2080;
-    v16 = "Matrix.structure";
-    v17 = 1024;
+    v13 = "Matrix.structure";
+    v14 = 2080;
+    v15 = "Matrix.structure";
+    v16 = 1024;
     rowCount = Matrix.structure.rowCount;
-    v19 = 2080;
-    v20 = "Matrix.structure";
-    v21 = 1024;
+    v18 = 2080;
+    v19 = "Matrix.structure";
+    v20 = 1024;
     columnCount = Matrix.structure.columnCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n";
@@ -3802,107 +3766,105 @@ LABEL_16:
   *(a3 + 16) = 0u;
   *a3 = -4;
   *(a3 + 8) = -4;
-LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void cva::VecLibSparse<float>::refactor(__int128 *a1, SparseOpaqueFactorization_Float *factor)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v13 = *a1;
-  v14 = a1[1];
-  v15 = *(a1 + 4);
+  v36 = *MEMORY[0x277D85DE8];
+  v12 = *a1;
+  v13 = a1[1];
+  v14 = *(a1 + 4);
   p_symbolicFactorization = &factor->symbolicFactorization;
   if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19.control) = 0;
-      v10 = MEMORY[0x277D86220];
-      v11 = "Factorization does not hold a completed matrix factorization.\n";
-      goto LABEL_22;
-    }
-
-LABEL_3:
-    _SparseTrap();
-    goto LABEL_4;
-  }
-
-  memset(&v17, 0, sizeof(v17));
-  _SparseGetOptionsFromNumericFactor_Float(&v17, factor);
-  v16 = v17;
-  if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v19.control) = 0;
-      v10 = MEMORY[0x277D86220];
-      v11 = "Factorization does not hold a valid symbolic matrix factorization.\n";
-LABEL_22:
-      _os_log_error_impl(&dword_245028000, v10, OS_LOG_TYPE_ERROR, v11, &v19, 2u);
       goto LABEL_3;
     }
 
+    LOWORD(v18.control) = 0;
+    v9 = MEMORY[0x277D86220];
+    v10 = "Factorization does not hold a completed matrix factorization.\n";
+LABEL_21:
+    _os_log_error_impl(&dword_245028000, v9, OS_LOG_TYPE_ERROR, v10, &v18, 2u);
     goto LABEL_3;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v19, p_symbolicFactorization);
-  free = v19.free;
-  reportError = v19.reportError;
-  v7 = (v19.malloc)(factor->symbolicFactorization.workspaceSize_Double);
-  if (!v7)
+  memset(&v16, 0, sizeof(v16));
+  _SparseGetOptionsFromNumericFactor_Float(&v16, factor);
+  v15 = v16;
+  if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_3;
+    }
+
+    LOWORD(v18.control) = 0;
+    v9 = MEMORY[0x277D86220];
+    v10 = "Factorization does not hold a valid symbolic matrix factorization.\n";
+    goto LABEL_21;
+  }
+
+  _SparseGetOptionsFromSymbolicFactor(&v18, p_symbolicFactorization);
+  free = v18.free;
+  reportError = v18.reportError;
+  v6 = (v18.malloc)(factor->symbolicFactorization.workspaceSize_Double);
+  if (!v6)
   {
     factor->status = SparseInternalError;
     if (reportError)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      memset(&v19, 0, sizeof(v19));
-      snprintf(&v19, 0x100uLL, "Failed to allocate workspace of size %ld.", factor->symbolicFactorization.workspaceSize_Double);
-      (reportError)(&v19);
-      goto LABEL_4;
+      v21 = 0u;
+      v19 = 0u;
+      memset(&v18, 0, sizeof(v18));
+      snprintf(&v18, 0x100uLL, "Failed to allocate workspace of size %ld.", factor->symbolicFactorization.workspaceSize_Double);
+      (reportError)(&v18);
+      return;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       workspaceSize_Double = factor->symbolicFactorization.workspaceSize_Double;
-      v19.control = 134217984;
-      *&v19.orderMethod = workspaceSize_Double;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.", &v19, 0xCu);
+      v18.control = 134217984;
+      *&v18.orderMethod = workspaceSize_Double;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.", &v18, 0xCu);
     }
 
-    goto LABEL_3;
+LABEL_3:
+    _SparseTrap();
+    return;
   }
 
-  v8 = v7;
-  *&v19.control = v13;
-  *&v19.ignoreRowsAndColumns = v14;
-  v19.free = v15;
-  nfoptions = v16;
-  if (v13 == factor->symbolicFactorization.rowCount && *&v19.orderMethod == factor->symbolicFactorization.columnCount && BYTE4(v19.malloc) == LOBYTE(factor->symbolicFactorization.factorization) && ((*&factor->symbolicFactorization.attributes ^ LOWORD(v19.malloc)) & 1) == 0)
+  v7 = v6;
+  *&v18.control = v12;
+  *&v18.ignoreRowsAndColumns = v13;
+  v18.free = v14;
+  nfoptions = v15;
+  if (v12 == factor->symbolicFactorization.rowCount && *&v18.orderMethod == factor->symbolicFactorization.columnCount && BYTE4(v18.malloc) == LOBYTE(factor->symbolicFactorization.factorization) && ((*&factor->symbolicFactorization.attributes ^ LOWORD(v18.malloc)) & 1) == 0)
   {
-    v9 = BYTE1(factor->symbolicFactorization.factorization);
-    if ((v9 - 80) >= 4)
+    v8 = BYTE1(factor->symbolicFactorization.factorization);
+    if ((v8 - 80) >= 4)
     {
-      if ((v9 - 40) > 1)
+      if ((v8 - 40) > 1)
       {
-        _SparseRefactorSymmetric_Float(&v19, factor, &nfoptions, v7);
+        _SparseRefactorSymmetric_Float(&v18, factor, &nfoptions, v6);
       }
 
       else
       {
-        _SparseRefactorQR_Float(&v19, factor, &nfoptions, v7);
+        _SparseRefactorQR_Float(&v18, factor, &nfoptions, v6);
       }
     }
 
@@ -3917,247 +3879,216 @@ LABEL_22:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v34 = "Matrix";
-      v35 = 2080;
-      v36 = "Factored->symbolicFactorization";
+      v33 = "Matrix";
+      v34 = 2080;
+      v35 = "Factored->symbolicFactorization";
       _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s does not match that used for symbolic factorization stored in %s.\n", buf, 0x16u);
     }
 
     _SparseTrap();
   }
 
-  (free)(v8);
-LABEL_4:
-  v3 = *MEMORY[0x277D85DE8];
+  (free)(v7);
 }
 
 void cva::VecLibSparse<float>::solve(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  if (!a4)
+  v53 = *MEMORY[0x277D85DE8];
+  if (a4)
   {
-    v8 = *(a1 + 80);
+    v4 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
-    *&Factored.solveWorkspaceRequiredStatic = v8;
-    v37 = *(a1 + 96);
-    v9 = *(a1 + 16);
+    *&Factored.solveWorkspaceRequiredStatic = v4;
+    v36 = *(a1 + 96);
+    v5 = *(a1 + 16);
     *&Factored.status = *a1;
-    *&Factored.symbolicFactorization.columnCount = v9;
-    v10 = *(a1 + 48);
+    *&Factored.symbolicFactorization.columnCount = v5;
+    v6 = *(a1 + 48);
     *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-    *&Factored.symbolicFactorization.factorSize_Float = v10;
-    if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float)
+    *&Factored.symbolicFactorization.factorSize_Float = v6;
+    if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v12 = *a3;
+      v13 = *(a3 + 8);
+      v14 = *a2;
+      v15 = *(a2 + 8);
+      _SparseGetOptionsFromSymbolicFactor(&v39, &Factored.symbolicFactorization);
+      reportError = v39.reportError;
+      if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
-        goto LABEL_7;
-      }
-
-      LOWORD(v40.control) = 0;
-      v7 = MEMORY[0x277D86220];
-      goto LABEL_58;
-    }
-
-    v21 = *a3;
-    v22 = *(a3 + 8);
-    v23 = *a2;
-    v24 = *(a2 + 8);
-    _SparseGetOptionsFromSymbolicFactor(&v40, &Factored.symbolicFactorization);
-    reportError = v40.reportError;
-    if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
-    {
-      if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-      {
-        v26 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      else
-      {
-        v26 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-      {
-        v27 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      else
-      {
-        v27 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-      {
-        v28 = v26;
-      }
-
-      else
-      {
-        v28 = v27;
-      }
-
-      if (v27 == v23)
-      {
-        if (v28 == v21)
+        if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          free = v40.free;
-          Soln.rowCount = v21;
-          Soln.columnCount = 1;
-          *&Soln.attributes = 0;
-          Soln.data = v22;
-          Soln.columnStride = v21;
-          *&v38.attributes = 0;
-          v38.data = v24;
-          v38.rowCount = v23;
-          v38.columnCount = 1;
-          v38.columnStride = v23;
-          v30 = v37 + Factored.solveWorkspaceRequiredPerRHS;
-          v31 = (v40.malloc)(v37 + Factored.solveWorkspaceRequiredPerRHS);
-          if (v31)
-          {
-            v32 = v31;
-            _SparseSolveOpaque_Float(&Factored, &Soln, &v38, v31);
-            (free)(v32);
-            goto LABEL_8;
-          }
-
-          if (!reportError)
-          {
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_7;
-            }
-
-            v40.control = 134217984;
-            *&v40.orderMethod = v30;
-            v33 = MEMORY[0x277D86220];
-            v34 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-            goto LABEL_61;
-          }
-
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v41 = 0u;
-          memset(&v40, 0, sizeof(v40));
-          snprintf(&v40, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-          goto LABEL_66;
+          v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
-        if (!v40.reportError)
+        else
         {
+          v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+        {
+          v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        else
+        {
+          v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+        {
+          v19 = v17;
+        }
+
+        else
+        {
+          v19 = v18;
+        }
+
+        if (v18 == v14)
+        {
+          if (v19 == v12)
+          {
+            v39.control = v12;
+            *&v39.orderMethod = 1;
+            v39.ignoreRowsAndColumns = v13;
+            v39.order = v12;
+            Soln.rowCount = v14;
+            Soln.columnCount = 1;
+            *&Soln.attributes = 0;
+            Soln.data = v15;
+            Soln.columnStride = v14;
+            _SparseSolveOpaque_Float(&Factored, &v39, &Soln, a4);
+            return;
+          }
+
+          if (v39.reportError)
+          {
+            goto LABEL_54;
+          }
+
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v40.control = 136316162;
-            *&v40.orderMethod = "b";
-            *(&v40.order + 6) = v21;
-            WORD1(v40.ignoreRowsAndColumns) = 2080;
-            WORD2(v40.order) = 1024;
-            *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-            WORD2(v40.malloc) = 1024;
-            *(&v40.malloc + 6) = v28;
-            WORD1(v40.free) = 1024;
-            HIDWORD(v40.free) = v23;
-            v35 = MEMORY[0x277D86220];
-            goto LABEL_75;
+            v39.control = 136316162;
+            *&v39.orderMethod = "b";
+            *(&v39.order + 6) = v12;
+            WORD1(v39.ignoreRowsAndColumns) = 2080;
+            WORD2(v39.order) = 1024;
+            *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+            WORD2(v39.malloc) = 1024;
+            *(&v39.malloc + 6) = v19;
+            WORD1(v39.free) = 1024;
+            HIDWORD(v39.free) = v14;
+            v34 = MEMORY[0x277D86220];
+            goto LABEL_74;
           }
 
-          goto LABEL_7;
+LABEL_7:
+          _SparseTrap();
+          return;
         }
-      }
 
-      else if (!v40.reportError)
-      {
+        if (v39.reportError)
+        {
+LABEL_54:
+          v51 = 0u;
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
+          v40 = 0u;
+          memset(&v39, 0, sizeof(v39));
+          snprintf(&v39, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+          goto LABEL_55;
+        }
+
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_7;
         }
 
-        v40.control = 136316162;
-        *&v40.orderMethod = "x";
-        *(&v40.order + 6) = v23;
-        WORD1(v40.ignoreRowsAndColumns) = 2080;
-        WORD2(v40.order) = 1024;
-        *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-        WORD2(v40.malloc) = 1024;
-        *(&v40.malloc + 6) = v28;
-        WORD1(v40.free) = 1024;
-        HIDWORD(v40.free) = v27;
-        v35 = MEMORY[0x277D86220];
-        goto LABEL_75;
+        v39.control = 136316162;
+        *&v39.orderMethod = "x";
+        *(&v39.order + 6) = v14;
+        WORD1(v39.ignoreRowsAndColumns) = 2080;
+        WORD2(v39.order) = 1024;
+        *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+        WORD2(v39.malloc) = 1024;
+        *(&v39.malloc + 6) = v19;
+        WORD1(v39.free) = 1024;
+        HIDWORD(v39.free) = v18;
+        v34 = MEMORY[0x277D86220];
+LABEL_74:
+        _os_log_error_impl(&dword_245028000, v34, OS_LOG_TYPE_ERROR, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n", &v39, 0x28u);
+        goto LABEL_7;
       }
 
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-      goto LABEL_66;
-    }
+      if (v39.reportError)
+      {
+        v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v40 = 0u;
+        memset(&v39, 0, sizeof(v39));
+        snprintf(&v39, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_55:
+        (reportError)(&v39);
+        return;
+      }
 
-    if (!v40.reportError)
-    {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v40.control = 136315138;
-      *&v40.orderMethod = "Factored";
-      v33 = MEMORY[0x277D86220];
-      v34 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_61;
+      v39.control = 136315138;
+      *&v39.orderMethod = "Factored";
+      v32 = MEMORY[0x277D86220];
+      v33 = "%s does not hold a completed matrix factorization.\n";
+LABEL_60:
+      _os_log_error_impl(&dword_245028000, v32, OS_LOG_TYPE_ERROR, v33, &v39, 0xCu);
+      goto LABEL_7;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v41 = 0u;
-    memset(&v40, 0, sizeof(v40));
-    snprintf(&v40, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_66:
-    (reportError)(&v40);
-    goto LABEL_8;
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_7;
+    }
+
+    LOWORD(v39.control) = 0;
+    v7 = MEMORY[0x277D86220];
+LABEL_57:
+    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v39, 2u);
+    goto LABEL_7;
   }
 
-  v4 = *(a1 + 80);
+  v8 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
-  *&Factored.solveWorkspaceRequiredStatic = v4;
-  v37 = *(a1 + 96);
-  v5 = *(a1 + 16);
+  *&Factored.solveWorkspaceRequiredStatic = v8;
+  v36 = *(a1 + 96);
+  v9 = *(a1 + 16);
   *&Factored.status = *a1;
-  *&Factored.symbolicFactorization.columnCount = v5;
-  v6 = *(a1 + 48);
+  *&Factored.symbolicFactorization.columnCount = v9;
+  v10 = *(a1 + 48);
   *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-  *&Factored.symbolicFactorization.factorSize_Float = v6;
+  *&Factored.symbolicFactorization.factorSize_Float = v10;
   if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4165,182 +4096,209 @@ LABEL_66:
       goto LABEL_7;
     }
 
-    LOWORD(v40.control) = 0;
+    LOWORD(v39.control) = 0;
     v7 = MEMORY[0x277D86220];
-LABEL_58:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v40, 2u);
-    goto LABEL_7;
+    goto LABEL_57;
   }
 
-  v13 = *a3;
-  v14 = *(a3 + 8);
-  v15 = *a2;
-  v16 = *(a2 + 8);
-  _SparseGetOptionsFromSymbolicFactor(&v40, &Factored.symbolicFactorization);
-  v17 = v40.reportError;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+  v20 = *a3;
+  v21 = *(a3 + 8);
+  v22 = *a2;
+  v23 = *(a2 + 8);
+  _SparseGetOptionsFromSymbolicFactor(&v39, &Factored.symbolicFactorization);
+  v24 = v39.reportError;
+  if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
   {
-    if (v40.reportError)
+    if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
     {
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_56:
-      (v17)(&v40);
-      goto LABEL_8;
+      v25 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
     }
 
+    else
+    {
+      v25 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+    {
+      v26 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    else
+    {
+      v26 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+    {
+      v27 = v25;
+    }
+
+    else
+    {
+      v27 = v26;
+    }
+
+    if (v26 == v22)
+    {
+      if (v27 == v20)
+      {
+        free = v39.free;
+        Soln.rowCount = v20;
+        Soln.columnCount = 1;
+        *&Soln.attributes = 0;
+        Soln.data = v21;
+        Soln.columnStride = v20;
+        *&v37.attributes = 0;
+        v37.data = v23;
+        v37.rowCount = v22;
+        v37.columnCount = 1;
+        v37.columnStride = v22;
+        v29 = v36 + Factored.solveWorkspaceRequiredPerRHS;
+        v30 = (v39.malloc)(v36 + Factored.solveWorkspaceRequiredPerRHS);
+        if (v30)
+        {
+          v31 = v30;
+          _SparseSolveOpaque_Float(&Factored, &Soln, &v37, v30);
+          (free)(v31);
+          return;
+        }
+
+        if (!v24)
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_7;
+          }
+
+          v39.control = 134217984;
+          *&v39.orderMethod = v29;
+          v32 = MEMORY[0x277D86220];
+          v33 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+          goto LABEL_60;
+        }
+
+        v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v40 = 0u;
+        memset(&v39, 0, sizeof(v39));
+        snprintf(&v39, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+        goto LABEL_65;
+      }
+
+      if (!v39.reportError)
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v39.control = 136316162;
+          *&v39.orderMethod = "b";
+          *(&v39.order + 6) = v20;
+          WORD1(v39.ignoreRowsAndColumns) = 2080;
+          WORD2(v39.order) = 1024;
+          *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+          WORD2(v39.malloc) = 1024;
+          *(&v39.malloc + 6) = v27;
+          WORD1(v39.free) = 1024;
+          HIDWORD(v39.free) = v22;
+          v34 = MEMORY[0x277D86220];
+          goto LABEL_74;
+        }
+
+        goto LABEL_7;
+      }
+    }
+
+    else if (!v39.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v39.control = 136316162;
+      *&v39.orderMethod = "x";
+      *(&v39.order + 6) = v22;
+      WORD1(v39.ignoreRowsAndColumns) = 2080;
+      WORD2(v39.order) = 1024;
+      *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+      WORD2(v39.malloc) = 1024;
+      *(&v39.malloc + 6) = v27;
+      WORD1(v39.free) = 1024;
+      HIDWORD(v39.free) = v26;
+      v34 = MEMORY[0x277D86220];
+      goto LABEL_74;
+    }
+
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v40 = 0u;
+    memset(&v39, 0, sizeof(v39));
+    snprintf(&v39, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+    goto LABEL_65;
+  }
+
+  if (!v39.reportError)
+  {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
 
-    v40.control = 136315138;
-    *&v40.orderMethod = "Factored";
-    v33 = MEMORY[0x277D86220];
-    v34 = "%s does not hold a completed matrix factorization.\n";
-LABEL_61:
-    _os_log_error_impl(&dword_245028000, v33, OS_LOG_TYPE_ERROR, v34, &v40, 0xCu);
-    goto LABEL_7;
+    v39.control = 136315138;
+    *&v39.orderMethod = "Factored";
+    v32 = MEMORY[0x277D86220];
+    v33 = "%s does not hold a completed matrix factorization.\n";
+    goto LABEL_60;
   }
 
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v19 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v19 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-  {
-    v20 = v18;
-  }
-
-  else
-  {
-    v20 = v19;
-  }
-
-  if (v19 != v15)
-  {
-    if (v40.reportError)
-    {
-LABEL_55:
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-      goto LABEL_56;
-    }
-
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_7;
-    }
-
-    v40.control = 136316162;
-    *&v40.orderMethod = "x";
-    *(&v40.order + 6) = v15;
-    WORD1(v40.ignoreRowsAndColumns) = 2080;
-    WORD2(v40.order) = 1024;
-    *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-    WORD2(v40.malloc) = 1024;
-    *(&v40.malloc + 6) = v20;
-    WORD1(v40.free) = 1024;
-    HIDWORD(v40.free) = v19;
-    v35 = MEMORY[0x277D86220];
-LABEL_75:
-    _os_log_error_impl(&dword_245028000, v35, OS_LOG_TYPE_ERROR, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n", &v40, 0x28u);
-    goto LABEL_7;
-  }
-
-  if (v20 == v13)
-  {
-    v40.control = v13;
-    *&v40.orderMethod = 1;
-    v40.ignoreRowsAndColumns = v14;
-    v40.order = v13;
-    Soln.rowCount = v15;
-    Soln.columnCount = 1;
-    *&Soln.attributes = 0;
-    Soln.data = v16;
-    Soln.columnStride = v15;
-    _SparseSolveOpaque_Float(&Factored, &v40, &Soln, a4);
-    goto LABEL_8;
-  }
-
-  if (v40.reportError)
-  {
-    goto LABEL_55;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    v40.control = 136316162;
-    *&v40.orderMethod = "b";
-    *(&v40.order + 6) = v13;
-    WORD1(v40.ignoreRowsAndColumns) = 2080;
-    WORD2(v40.order) = 1024;
-    *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-    WORD2(v40.malloc) = 1024;
-    *(&v40.malloc + 6) = v20;
-    WORD1(v40.free) = 1024;
-    HIDWORD(v40.free) = v15;
-    v35 = MEMORY[0x277D86220];
-    goto LABEL_75;
-  }
-
-LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
+  memset(&v39, 0, sizeof(v39));
+  snprintf(&v39, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_65:
+  (v24)(&v39);
 }
 
 void cva::VecLibSparse<float>::solve(uint64_t a1, DenseMatrix_Float *a2, DenseMatrix_Float *a3, void *a4)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     v4 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
     *&Factored.solveWorkspaceRequiredStatic = v4;
-    v44 = *(a1 + 96);
+    v43 = *(a1 + 96);
     v5 = *(a1 + 16);
     *&Factored.status = *a1;
     *&Factored.symbolicFactorization.columnCount = v5;
@@ -4351,50 +4309,50 @@ void cva::VecLibSparse<float>::solve(uint64_t a1, DenseMatrix_Float *a2, DenseMa
     Soln = *a2;
     if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      _SparseGetOptionsFromSymbolicFactor(&v45, &Factored.symbolicFactorization);
-      reportError = v45.reportError;
+      _SparseGetOptionsFromSymbolicFactor(&v44, &Factored.symbolicFactorization);
+      reportError = v44.reportError;
       if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
         if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v13 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         else
         {
-          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v13 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         else
         {
-          v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
         {
-          v16 = v14;
+          v15 = v13;
         }
 
         else
         {
-          v16 = v15;
+          v15 = v14;
         }
 
         if (RHS.columnStride < RHS.rowCount)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-            goto LABEL_49;
+            goto LABEL_48;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_80;
+            goto LABEL_79;
           }
 
           goto LABEL_7;
@@ -4402,25 +4360,25 @@ void cva::VecLibSparse<float>::solve(uint64_t a1, DenseMatrix_Float *a2, DenseMa
 
         if (Soln.columnStride < Soln.rowCount)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-LABEL_49:
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
+LABEL_48:
             v56 = 0u;
-            v53 = 0u;
+            v57 = 0u;
             v54 = 0u;
-            v51 = 0u;
+            v55 = 0u;
             v52 = 0u;
-            v49 = 0u;
+            v53 = 0u;
             v50 = 0u;
-            v47 = 0u;
+            v51 = 0u;
             v48 = 0u;
+            v49 = 0u;
             v46 = 0u;
-            memset(&v45, 0, sizeof(v45));
-            snprintf(&v45, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-            goto LABEL_50;
+            v47 = 0u;
+            v45 = 0u;
+            memset(&v44, 0, sizeof(v44));
+            snprintf(&v44, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+            goto LABEL_49;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4428,17 +4386,17 @@ LABEL_49:
             goto LABEL_7;
           }
 
-LABEL_108:
-          v45.control = 136315906;
-          *&v45.orderMethod = "X";
-          WORD2(v45.order) = 1024;
-          *(&v45.order + 6) = Soln.columnStride;
-          WORD1(v45.ignoreRowsAndColumns) = 2080;
-          *(&v45.ignoreRowsAndColumns + 4) = "X";
-          WORD2(v45.malloc) = 1024;
-          *(&v45.malloc + 6) = Soln.rowCount;
-          v27 = MEMORY[0x277D86220];
-          goto LABEL_109;
+LABEL_107:
+          v44.control = 136315906;
+          *&v44.orderMethod = "X";
+          WORD2(v44.order) = 1024;
+          *(&v44.order + 6) = Soln.columnStride;
+          WORD1(v44.ignoreRowsAndColumns) = 2080;
+          *(&v44.ignoreRowsAndColumns + 4) = "X";
+          WORD2(v44.malloc) = 1024;
+          *(&v44.malloc + 6) = Soln.rowCount;
+          v26 = MEMORY[0x277D86220];
+          goto LABEL_108;
         }
 
         if (*&RHS.attributes)
@@ -4463,44 +4421,44 @@ LABEL_108:
 
         if (*&Soln.attributes)
         {
-          v25 = Soln.rowCount;
+          v24 = Soln.rowCount;
         }
 
         else
         {
-          v25 = Soln.columnCount;
+          v24 = Soln.columnCount;
         }
 
         if (*&Soln.attributes)
         {
-          v26 = Soln.columnCount;
+          v25 = Soln.columnCount;
         }
 
         else
         {
-          v26 = Soln.rowCount;
+          v25 = Soln.rowCount;
         }
 
-        if (rowCount != v25)
+        if (rowCount != v24)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
             v56 = 0u;
-            v53 = 0u;
+            v57 = 0u;
             v54 = 0u;
-            v51 = 0u;
+            v55 = 0u;
             v52 = 0u;
-            v49 = 0u;
+            v53 = 0u;
             v50 = 0u;
-            v47 = 0u;
+            v51 = 0u;
             v48 = 0u;
+            v49 = 0u;
             v46 = 0u;
-            memset(&v45, 0, sizeof(v45));
-            snprintf(&v45, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
-            goto LABEL_50;
+            v47 = 0u;
+            v45 = 0u;
+            memset(&v44, 0, sizeof(v44));
+            snprintf(&v44, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+            goto LABEL_49;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4508,51 +4466,51 @@ LABEL_108:
             goto LABEL_7;
           }
 
-          v45.control = 136316418;
-          *&v45.orderMethod = "B";
-          WORD2(v45.order) = 1024;
-          *(&v45.order + 6) = columnCount;
-          WORD1(v45.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-          LOWORD(v45.malloc) = 2080;
-          *(&v45.malloc + 2) = "X";
-          WORD1(v45.free) = 1024;
-          HIDWORD(v45.free) = v26;
-          LOWORD(v45.reportError) = 1024;
-          *(&v45.reportError + 2) = v25;
-          v36 = MEMORY[0x277D86220];
-          v37 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-          goto LABEL_143;
+          v44.control = 136316418;
+          *&v44.orderMethod = "B";
+          WORD2(v44.order) = 1024;
+          *(&v44.order + 6) = columnCount;
+          WORD1(v44.ignoreRowsAndColumns) = 1024;
+          HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+          LOWORD(v44.malloc) = 2080;
+          *(&v44.malloc + 2) = "X";
+          WORD1(v44.free) = 1024;
+          HIDWORD(v44.free) = v25;
+          LOWORD(v44.reportError) = 1024;
+          *(&v44.reportError + 2) = v24;
+          v35 = MEMORY[0x277D86220];
+          v36 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+          goto LABEL_142;
         }
 
         if (rowCount > 0)
         {
-          if (columnCount == v16)
+          if (columnCount == v15)
           {
-            if (v26 == v15)
+            if (v25 == v14)
             {
               _SparseSolveOpaque_Float(&Factored, &RHS, &Soln, a4);
-              goto LABEL_8;
+              return;
             }
 
-            if (v45.reportError)
+            if (v44.reportError)
             {
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
               v56 = 0u;
-              v53 = 0u;
+              v57 = 0u;
               v54 = 0u;
-              v51 = 0u;
+              v55 = 0u;
               v52 = 0u;
-              v49 = 0u;
+              v53 = 0u;
               v50 = 0u;
-              v47 = 0u;
+              v51 = 0u;
               v48 = 0u;
+              v49 = 0u;
               v46 = 0u;
-              memset(&v45, 0, sizeof(v45));
-              v38 = "X";
-              goto LABEL_124;
+              v47 = 0u;
+              v45 = 0u;
+              memset(&v44, 0, sizeof(v44));
+              v37 = "X";
+              goto LABEL_123;
             }
 
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4560,44 +4518,44 @@ LABEL_108:
               goto LABEL_7;
             }
 
-            v45.control = 136316418;
-            *&v45.orderMethod = "X";
-            WORD2(v45.order) = 1024;
-            *(&v45.order + 6) = v26;
-            WORD1(v45.ignoreRowsAndColumns) = 1024;
-            HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-            LOWORD(v45.malloc) = 2080;
-            *(&v45.malloc + 2) = "matrix factorization Factored";
-            WORD1(v45.free) = 1024;
-            HIDWORD(v45.free) = v15;
-            LOWORD(v45.reportError) = 1024;
-            *(&v45.reportError + 2) = v16;
-            v36 = MEMORY[0x277D86220];
-            v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+            v44.control = 136316418;
+            *&v44.orderMethod = "X";
+            WORD2(v44.order) = 1024;
+            *(&v44.order + 6) = v25;
+            WORD1(v44.ignoreRowsAndColumns) = 1024;
+            HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+            LOWORD(v44.malloc) = 2080;
+            *(&v44.malloc + 2) = "matrix factorization Factored";
+            WORD1(v44.free) = 1024;
+            HIDWORD(v44.free) = v14;
+            LOWORD(v44.reportError) = 1024;
+            *(&v44.reportError + 2) = v15;
+            v35 = MEMORY[0x277D86220];
+            v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
           }
 
           else
           {
-            if (v45.reportError)
+            if (v44.reportError)
             {
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
               v56 = 0u;
-              v53 = 0u;
+              v57 = 0u;
               v54 = 0u;
-              v51 = 0u;
+              v55 = 0u;
               v52 = 0u;
-              v49 = 0u;
+              v53 = 0u;
               v50 = 0u;
-              v47 = 0u;
+              v51 = 0u;
               v48 = 0u;
+              v49 = 0u;
               v46 = 0u;
-              memset(&v45, 0, sizeof(v45));
-              v38 = "B";
-LABEL_124:
-              snprintf(&v45, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v38);
-              goto LABEL_50;
+              v47 = 0u;
+              v45 = 0u;
+              memset(&v44, 0, sizeof(v44));
+              v37 = "B";
+LABEL_123:
+              snprintf(&v44, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v37);
+              goto LABEL_49;
             }
 
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4605,45 +4563,45 @@ LABEL_124:
               goto LABEL_7;
             }
 
-            v45.control = 136316418;
-            *&v45.orderMethod = "B";
-            WORD2(v45.order) = 1024;
-            *(&v45.order + 6) = columnCount;
-            WORD1(v45.ignoreRowsAndColumns) = 1024;
-            HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-            LOWORD(v45.malloc) = 2080;
-            *(&v45.malloc + 2) = "matrix factorization Factored";
-            WORD1(v45.free) = 1024;
-            HIDWORD(v45.free) = v15;
-            LOWORD(v45.reportError) = 1024;
-            *(&v45.reportError + 2) = v16;
-            v36 = MEMORY[0x277D86220];
-            v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+            v44.control = 136316418;
+            *&v44.orderMethod = "B";
+            WORD2(v44.order) = 1024;
+            *(&v44.order + 6) = columnCount;
+            WORD1(v44.ignoreRowsAndColumns) = 1024;
+            HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+            LOWORD(v44.malloc) = 2080;
+            *(&v44.malloc + 2) = "matrix factorization Factored";
+            WORD1(v44.free) = 1024;
+            HIDWORD(v44.free) = v14;
+            LOWORD(v44.reportError) = 1024;
+            *(&v44.reportError + 2) = v15;
+            v35 = MEMORY[0x277D86220];
+            v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
           }
 
-LABEL_143:
-          _os_log_error_impl(&dword_245028000, v36, OS_LOG_TYPE_ERROR, v37, &v45, 0x2Eu);
+LABEL_142:
+          _os_log_error_impl(&dword_245028000, v35, OS_LOG_TYPE_ERROR, v36, &v44, 0x2Eu);
           goto LABEL_7;
         }
 
-        if (v45.reportError)
+        if (v44.reportError)
         {
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
           v46 = 0u;
-          memset(&v45, 0, sizeof(v45));
-          snprintf(&v45, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-          goto LABEL_50;
+          v47 = 0u;
+          v45 = 0u;
+          memset(&v44, 0, sizeof(v44));
+          snprintf(&v44, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+          goto LABEL_49;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4651,38 +4609,38 @@ LABEL_143:
           goto LABEL_7;
         }
 
-        v45.control = 136315650;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = columnCount;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-        v40 = MEMORY[0x277D86220];
-LABEL_134:
-        _os_log_error_impl(&dword_245028000, v40, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v45, 0x18u);
+        v44.control = 136315650;
+        *&v44.orderMethod = "B";
+        WORD2(v44.order) = 1024;
+        *(&v44.order + 6) = columnCount;
+        WORD1(v44.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+        v39 = MEMORY[0x277D86220];
+LABEL_133:
+        _os_log_error_impl(&dword_245028000, v39, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v44, 0x18u);
         goto LABEL_7;
       }
 
-      if (v45.reportError)
+      if (v44.reportError)
       {
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        memset(&v45, 0, sizeof(v45));
-        snprintf(&v45, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_50:
-        (reportError)(&v45);
-        goto LABEL_8;
+        v47 = 0u;
+        v45 = 0u;
+        memset(&v44, 0, sizeof(v44));
+        snprintf(&v44, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_49:
+        (reportError)(&v44);
+        return;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4690,12 +4648,12 @@ LABEL_50:
         goto LABEL_7;
       }
 
-      v45.control = 136315138;
-      *&v45.orderMethod = "Factored";
-      v21 = MEMORY[0x277D86220];
-      v22 = "%s does not hold a completed matrix factorization.\n";
-LABEL_78:
-      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &v45, 0xCu);
+      v44.control = 136315138;
+      *&v44.orderMethod = "Factored";
+      v20 = MEMORY[0x277D86220];
+      v21 = "%s does not hold a completed matrix factorization.\n";
+LABEL_77:
+      _os_log_error_impl(&dword_245028000, v20, OS_LOG_TYPE_ERROR, v21, &v44, 0xCu);
       goto LABEL_7;
     }
 
@@ -4704,17 +4662,17 @@ LABEL_78:
       goto LABEL_7;
     }
 
-    LOWORD(v45.control) = 0;
+    LOWORD(v44.control) = 0;
     v7 = MEMORY[0x277D86220];
-LABEL_75:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v45, 2u);
+LABEL_74:
+    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v44, 2u);
     goto LABEL_7;
   }
 
   v8 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
   *&Factored.solveWorkspaceRequiredStatic = v8;
-  v44 = *(a1 + 96);
+  v43 = *(a1 + 96);
   v9 = *(a1 + 16);
   *&Factored.status = *a1;
   *&Factored.symbolicFactorization.columnCount = v9;
@@ -4730,404 +4688,400 @@ LABEL_75:
       goto LABEL_7;
     }
 
-    LOWORD(v45.control) = 0;
+    LOWORD(v44.control) = 0;
     v7 = MEMORY[0x277D86220];
-    goto LABEL_75;
+    goto LABEL_74;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v45, &Factored.symbolicFactorization);
-  v17 = v45.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v44, &Factored.symbolicFactorization);
+  v16 = v44.reportError;
   if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
   {
-    if (!v45.reportError)
+    if (!v44.reportError)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v45.control = 136315138;
-      *&v45.orderMethod = "Factored";
-      v21 = MEMORY[0x277D86220];
-      v22 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_78;
+      v44.control = 136315138;
+      *&v44.orderMethod = "Factored";
+      v20 = MEMORY[0x277D86220];
+      v21 = "%s does not hold a completed matrix factorization.\n";
+      goto LABEL_77;
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v53 = 0u;
+    v57 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    memset(&v45, 0, sizeof(v45));
-    snprintf(&v45, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_56:
-    (v17)(&v45);
-    goto LABEL_8;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_55:
+    (v16)(&v44);
+    return;
   }
 
   if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
   {
-    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
   else
+  {
+    v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
   {
     v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v19 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
   else
   {
-    v19 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
   if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v19;
+    v19 = v18;
   }
 
-  if (RHS.columnStride >= RHS.rowCount)
+  if (RHS.columnStride < RHS.rowCount)
   {
-    if (Soln.columnStride < Soln.rowCount)
+    if (!v44.reportError)
     {
-      if (!v45.reportError)
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        goto LABEL_108;
+LABEL_79:
+        v44.control = 136315906;
+        *&v44.orderMethod = "B";
+        WORD2(v44.order) = 1024;
+        *(&v44.order + 6) = RHS.columnStride;
+        WORD1(v44.ignoreRowsAndColumns) = 2080;
+        *(&v44.ignoreRowsAndColumns + 4) = "B";
+        WORD2(v44.malloc) = 1024;
+        *(&v44.malloc + 6) = RHS.rowCount;
+        v26 = MEMORY[0x277D86220];
+LABEL_108:
+        _os_log_error_impl(&dword_245028000, v26, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v44, 0x22u);
       }
-
-      goto LABEL_55;
-    }
-
-    if (*&RHS.attributes)
-    {
-      v28 = RHS.rowCount;
-    }
-
-    else
-    {
-      v28 = RHS.columnCount;
-    }
-
-    if (*&RHS.attributes)
-    {
-      v29 = RHS.columnCount;
-    }
-
-    else
-    {
-      v29 = RHS.rowCount;
-    }
-
-    if (*&Soln.attributes)
-    {
-      v30 = Soln.rowCount;
-    }
-
-    else
-    {
-      v30 = Soln.columnCount;
-    }
-
-    if (*&Soln.attributes)
-    {
-      v31 = Soln.columnCount;
-    }
-
-    else
-    {
-      v31 = Soln.rowCount;
-    }
-
-    if (v28 != v30)
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "X";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v31;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v30;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      snprintf(&v45, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
-      goto LABEL_56;
-    }
-
-    if (v28 <= 0)
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136315650;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        v40 = MEMORY[0x277D86220];
-        goto LABEL_134;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      snprintf(&v45, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-      goto LABEL_56;
-    }
-
-    if (v29 == v20)
-    {
-      if (v31 == v19)
-      {
-        free = v45.free;
-        v33 = Factored.solveWorkspaceRequiredPerRHS + v44 * v28;
-        v34 = (v45.malloc)(v33);
-        if (v34)
-        {
-          v35 = v34;
-          _SparseSolveOpaque_Float(&Factored, &RHS, &Soln, v34);
-          (free)(v35);
-          goto LABEL_8;
-        }
-
-        if (!v17)
-        {
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_7;
-          }
-
-          v45.control = 134217984;
-          *&v45.orderMethod = v33;
-          v21 = MEMORY[0x277D86220];
-          v22 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-          goto LABEL_78;
-        }
-
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v46 = 0u;
-        memset(&v45, 0, sizeof(v45));
-        snprintf(&v45, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-        goto LABEL_56;
-      }
-
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "X";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v31;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "matrix factorization Factored";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v19;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v20;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      v39 = "X";
-    }
-
-    else
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "matrix factorization Factored";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v19;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v20;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      v39 = "B";
-    }
-
-    snprintf(&v45, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v39);
-    goto LABEL_56;
-  }
-
-  if (v45.reportError)
-  {
-LABEL_55:
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v46 = 0u;
-    memset(&v45, 0, sizeof(v45));
-    snprintf(&v45, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-    goto LABEL_56;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-LABEL_80:
-    v45.control = 136315906;
-    *&v45.orderMethod = "B";
-    WORD2(v45.order) = 1024;
-    *(&v45.order + 6) = RHS.columnStride;
-    WORD1(v45.ignoreRowsAndColumns) = 2080;
-    *(&v45.ignoreRowsAndColumns + 4) = "B";
-    WORD2(v45.malloc) = 1024;
-    *(&v45.malloc + 6) = RHS.rowCount;
-    v27 = MEMORY[0x277D86220];
-LABEL_109:
-    _os_log_error_impl(&dword_245028000, v27, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v45, 0x22u);
-  }
 
 LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
+      _SparseTrap();
+      return;
+    }
+
+LABEL_54:
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+    goto LABEL_55;
+  }
+
+  if (Soln.columnStride < Soln.rowCount)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_107;
+    }
+
+    goto LABEL_54;
+  }
+
+  if (*&RHS.attributes)
+  {
+    v27 = RHS.rowCount;
+  }
+
+  else
+  {
+    v27 = RHS.columnCount;
+  }
+
+  if (*&RHS.attributes)
+  {
+    v28 = RHS.columnCount;
+  }
+
+  else
+  {
+    v28 = RHS.rowCount;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v29 = Soln.rowCount;
+  }
+
+  else
+  {
+    v29 = Soln.columnCount;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v30 = Soln.columnCount;
+  }
+
+  else
+  {
+    v30 = Soln.rowCount;
+  }
+
+  if (v27 != v29)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "X";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v30;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v29;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+    goto LABEL_55;
+  }
+
+  if (v27 <= 0)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136315650;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      v39 = MEMORY[0x277D86220];
+      goto LABEL_133;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+    goto LABEL_55;
+  }
+
+  if (v28 != v19)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "matrix factorization Factored";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v18;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v19;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    v38 = "B";
+    goto LABEL_130;
+  }
+
+  if (v30 != v18)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "X";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v30;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "matrix factorization Factored";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v18;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v19;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    v38 = "X";
+LABEL_130:
+    snprintf(&v44, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v38);
+    goto LABEL_55;
+  }
+
+  free = v44.free;
+  v32 = Factored.solveWorkspaceRequiredPerRHS + v43 * v27;
+  v33 = (v44.malloc)(v32);
+  if (!v33)
+  {
+    if (!v16)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 134217984;
+      *&v44.orderMethod = v32;
+      v20 = MEMORY[0x277D86220];
+      v21 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+      goto LABEL_77;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+    goto LABEL_55;
+  }
+
+  v34 = v33;
+  _SparseSolveOpaque_Float(&Factored, &RHS, &Soln, v33);
+  (free)(v34);
 }
 
 void cva::VecLibSparse<float>::solve(uint64_t a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
     *&Factored.solveWorkspaceRequiredStatic = v3;
-    v28 = *(a1 + 96);
+    v27 = *(a1 + 96);
     v4 = *(a1 + 16);
     *&Factored.status = *a1;
     *&Factored.symbolicFactorization.columnCount = v4;
@@ -5136,85 +5090,83 @@ void cva::VecLibSparse<float>::solve(uint64_t a1, uint64_t a2, void *a3)
     *&Factored.symbolicFactorization.factorSize_Float = v5;
     if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      v12 = *a2;
-      v13 = *(a2 + 8);
-      _SparseGetOptionsFromSymbolicFactor(&v30, &Factored.symbolicFactorization);
-      reportError = v30.reportError;
+      v11 = *a2;
+      v12 = *(a2 + 8);
+      _SparseGetOptionsFromSymbolicFactor(&v29, &Factored.symbolicFactorization);
+      reportError = v29.reportError;
       if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
-        v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-        if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v15)
+        v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v14)
         {
-          v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
-        if (v15 == v12)
+        if (v14 == v11)
         {
-          v30.control = v12;
-          *&v30.orderMethod = 1;
-          v30.ignoreRowsAndColumns = v13;
-          v30.order = v12;
-          _SparseSolveOpaque_Float(&Factored, 0, &v30, a3);
-          goto LABEL_8;
+          v29.control = v11;
+          *&v29.orderMethod = 1;
+          v29.ignoreRowsAndColumns = v12;
+          v29.order = v11;
+          _SparseSolveOpaque_Float(&Factored, 0, &v29, a3);
+          return;
         }
 
-        if (v30.reportError)
+        if (v29.reportError)
         {
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
-          v36 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          v34 = 0u;
+          v38 = 0u;
           v35 = 0u;
-          v32 = 0u;
+          v36 = 0u;
           v33 = 0u;
+          v34 = 0u;
           v31 = 0u;
-          memset(&v30, 0, sizeof(v30));
-          snprintf(&v30, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
+          v32 = 0u;
+          v30 = 0u;
+          memset(&v29, 0, sizeof(v29));
+          snprintf(&v29, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
           goto LABEL_34;
         }
 
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v30.control = 136315650;
-          *&v30.orderMethod = "xb";
-          WORD2(v30.order) = 1024;
-          *(&v30.order + 6) = v12;
-          WORD1(v30.ignoreRowsAndColumns) = 2080;
-          *(&v30.ignoreRowsAndColumns + 4) = "Factored";
-          v26 = MEMORY[0x277D86220];
-LABEL_51:
-          _os_log_error_impl(&dword_245028000, v26, OS_LOG_TYPE_ERROR, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n", &v30, 0x1Cu);
           goto LABEL_7;
         }
 
-        goto LABEL_7;
+        v29.control = 136315650;
+        *&v29.orderMethod = "xb";
+        WORD2(v29.order) = 1024;
+        *(&v29.order + 6) = v11;
+        WORD1(v29.ignoreRowsAndColumns) = 2080;
+        *(&v29.ignoreRowsAndColumns + 4) = "Factored";
+        v25 = MEMORY[0x277D86220];
+        goto LABEL_51;
       }
 
-      if (v30.reportError)
+      if (v29.reportError)
       {
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
-        v36 = 0u;
+        v40 = 0u;
         v37 = 0u;
-        v34 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
+        v34 = 0u;
         v31 = 0u;
-        memset(&v30, 0, sizeof(v30));
-        snprintf(&v30, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+        v32 = 0u;
+        v30 = 0u;
+        memset(&v29, 0, sizeof(v29));
+        snprintf(&v29, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
 LABEL_34:
-        (reportError)(&v30);
-        goto LABEL_8;
+        (reportError)(&v29);
+        return;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5222,192 +5174,195 @@ LABEL_34:
         goto LABEL_7;
       }
 
-      v30.control = 136315138;
-      *&v30.orderMethod = "Factored";
-      v24 = MEMORY[0x277D86220];
-      v25 = "%s does not hold a completed matrix factorization.\n";
-LABEL_43:
-      _os_log_error_impl(&dword_245028000, v24, OS_LOG_TYPE_ERROR, v25, &v30, 0xCu);
-      goto LABEL_7;
+      v29.control = 136315138;
+      *&v29.orderMethod = "Factored";
+      v23 = MEMORY[0x277D86220];
+      v24 = "%s does not hold a completed matrix factorization.\n";
+      goto LABEL_43;
     }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
+      LOWORD(v29.control) = 0;
+      v6 = MEMORY[0x277D86220];
+LABEL_40:
+      _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v29, 2u);
       goto LABEL_7;
     }
 
-    LOWORD(v30.control) = 0;
-    v6 = MEMORY[0x277D86220];
-LABEL_40:
-    _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v30, 2u);
     goto LABEL_7;
   }
 
   v7 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
   *&Factored.solveWorkspaceRequiredStatic = v7;
-  v28 = *(a1 + 96);
+  v27 = *(a1 + 96);
   v8 = *(a1 + 16);
   *&Factored.status = *a1;
   *&Factored.symbolicFactorization.columnCount = v8;
   v9 = *(a1 + 48);
   *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
   *&Factored.symbolicFactorization.factorSize_Float = v9;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float)
+  if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v15 = *a2;
+    v16 = *(a2 + 8);
+    _SparseGetOptionsFromSymbolicFactor(&v29, &Factored.symbolicFactorization);
+    v17 = v29.reportError;
+    if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
     {
-      goto LABEL_7;
+      if (!v29.reportError)
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_7;
+        }
+
+        v29.control = 136315138;
+        *&v29.orderMethod = "Factored";
+        v23 = MEMORY[0x277D86220];
+        v24 = "%s does not hold a completed matrix factorization.\n";
+        goto LABEL_43;
+      }
+
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v30 = 0u;
+      memset(&v29, 0, sizeof(v29));
+      snprintf(&v29, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
     }
 
-    LOWORD(v30.control) = 0;
-    v6 = MEMORY[0x277D86220];
-    goto LABEL_40;
-  }
-
-  v16 = *a2;
-  v17 = *(a2 + 8);
-  _SparseGetOptionsFromSymbolicFactor(&v30, &Factored.symbolicFactorization);
-  v18 = v30.reportError;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
-  {
-    if (!v30.reportError)
+    else
     {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+      if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v18)
       {
+        v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+      }
+
+      if (v18 == v15)
+      {
+        free = v29.free;
+        Soln.rowCount = v15;
+        Soln.columnCount = 1;
+        *&Soln.attributes = 0;
+        Soln.data = v16;
+        Soln.columnStride = v15;
+        v20 = v27 + Factored.solveWorkspaceRequiredPerRHS;
+        v21 = (v29.malloc)(v27 + Factored.solveWorkspaceRequiredPerRHS);
+        if (v21)
+        {
+          v22 = v21;
+          _SparseSolveOpaque_Float(&Factored, 0, &Soln, v21);
+          (free)(v22);
+          return;
+        }
+
+        if (v17)
+        {
+          v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          v30 = 0u;
+          memset(&v29, 0, sizeof(v29));
+          snprintf(&v29, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+          goto LABEL_48;
+        }
+
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_7;
+        }
+
+        v29.control = 134217984;
+        *&v29.orderMethod = v20;
+        v23 = MEMORY[0x277D86220];
+        v24 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+LABEL_43:
+        _os_log_error_impl(&dword_245028000, v23, OS_LOG_TYPE_ERROR, v24, &v29, 0xCu);
         goto LABEL_7;
       }
 
-      v30.control = 136315138;
-      *&v30.orderMethod = "Factored";
-      v24 = MEMORY[0x277D86220];
-      v25 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_43;
+      if (!v29.reportError)
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v29.control = 136315650;
+          *&v29.orderMethod = "xb";
+          WORD2(v29.order) = 1024;
+          *(&v29.order + 6) = v15;
+          WORD1(v29.ignoreRowsAndColumns) = 2080;
+          *(&v29.ignoreRowsAndColumns + 4) = "Factored";
+          v25 = MEMORY[0x277D86220];
+LABEL_51:
+          _os_log_error_impl(&dword_245028000, v25, OS_LOG_TYPE_ERROR, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n", &v29, 0x1Cu);
+          goto LABEL_7;
+        }
+
+        goto LABEL_7;
+      }
+
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v30 = 0u;
+      memset(&v29, 0, sizeof(v29));
+      snprintf(&v29, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v31 = 0u;
-    memset(&v30, 0, sizeof(v30));
-    snprintf(&v30, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
 LABEL_48:
-    (v18)(&v30);
-    goto LABEL_8;
-  }
-
-  v19 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v19)
-  {
-    v19 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if (v19 == v16)
-  {
-    free = v30.free;
-    Soln.rowCount = v16;
-    Soln.columnCount = 1;
-    *&Soln.attributes = 0;
-    Soln.data = v17;
-    Soln.columnStride = v16;
-    v21 = v28 + Factored.solveWorkspaceRequiredPerRHS;
-    v22 = (v30.malloc)(v28 + Factored.solveWorkspaceRequiredPerRHS);
-    if (v22)
-    {
-      v23 = v22;
-      _SparseSolveOpaque_Float(&Factored, 0, &Soln, v22);
-      (free)(v23);
-      goto LABEL_8;
-    }
-
-    if (!v18)
-    {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_7;
-      }
-
-      v30.control = 134217984;
-      *&v30.orderMethod = v21;
-      v24 = MEMORY[0x277D86220];
-      v25 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-      goto LABEL_43;
-    }
-
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v31 = 0u;
-    memset(&v30, 0, sizeof(v30));
-    snprintf(&v30, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-    goto LABEL_48;
-  }
-
-  if (v30.reportError)
-  {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v31 = 0u;
-    memset(&v30, 0, sizeof(v30));
-    snprintf(&v30, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
-    goto LABEL_48;
+    (v17)(&v29);
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v30.control = 136315650;
-    *&v30.orderMethod = "xb";
-    WORD2(v30.order) = 1024;
-    *(&v30.order + 6) = v16;
-    WORD1(v30.ignoreRowsAndColumns) = 2080;
-    *(&v30.ignoreRowsAndColumns + 4) = "Factored";
-    v26 = MEMORY[0x277D86220];
-    goto LABEL_51;
+    LOWORD(v29.control) = 0;
+    v6 = MEMORY[0x277D86220];
+    goto LABEL_40;
   }
 
 LABEL_7:
   _SparseTrap();
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void cva::VecLibSparse<float>::solve(uint64_t a1, DenseMatrix_Float *a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
     *&Factored.solveWorkspaceRequiredStatic = v3;
-    v30 = *(a1 + 96);
+    v29 = *(a1 + 96);
     v4 = *(a1 + 16);
     *&Factored.status = *a1;
     *&Factored.symbolicFactorization.columnCount = v4;
@@ -5417,37 +5372,37 @@ void cva::VecLibSparse<float>::solve(uint64_t a1, DenseMatrix_Float *a2, void *a
     Soln = *a2;
     if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      _SparseGetOptionsFromSymbolicFactor(&v31, &Factored.symbolicFactorization);
-      reportError = v31.reportError;
+      _SparseGetOptionsFromSymbolicFactor(&v30, &Factored.symbolicFactorization);
+      reportError = v30.reportError;
       if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
         if (Soln.columnStride < Soln.rowCount)
         {
-          if (v31.reportError)
+          if (v30.reportError)
           {
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
             v42 = 0u;
-            v39 = 0u;
+            v43 = 0u;
             v40 = 0u;
-            v37 = 0u;
+            v41 = 0u;
             v38 = 0u;
-            v35 = 0u;
+            v39 = 0u;
             v36 = 0u;
-            v33 = 0u;
+            v37 = 0u;
             v34 = 0u;
+            v35 = 0u;
             v32 = 0u;
-            memset(&v31, 0, sizeof(v31));
-            snprintf(&v31, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-LABEL_27:
-            (reportError)(&v31);
-            goto LABEL_8;
+            v33 = 0u;
+            v31 = 0u;
+            memset(&v30, 0, sizeof(v30));
+            snprintf(&v30, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+LABEL_26:
+            (reportError)(&v30);
+            return;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_70;
+            goto LABEL_69;
           }
 
           goto LABEL_7;
@@ -5477,38 +5432,38 @@ LABEL_27:
         {
           if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) <= Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization))
           {
-            v16 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
           }
 
           else
           {
-            v16 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
           }
 
-          if (columnCount == v16)
+          if (columnCount == v15)
           {
             _SparseSolveOpaque_Float(&Factored, 0, &Soln, a3);
-            goto LABEL_8;
+            return;
           }
 
-          if (v31.reportError)
+          if (v30.reportError)
           {
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
             v42 = 0u;
-            v39 = 0u;
+            v43 = 0u;
             v40 = 0u;
-            v37 = 0u;
+            v41 = 0u;
             v38 = 0u;
-            v35 = 0u;
+            v39 = 0u;
             v36 = 0u;
-            v33 = 0u;
+            v37 = 0u;
             v34 = 0u;
+            v35 = 0u;
             v32 = 0u;
-            memset(&v31, 0, sizeof(v31));
-            snprintf(&v31, 0x100uLL, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n");
-            goto LABEL_27;
+            v33 = 0u;
+            v31 = 0u;
+            memset(&v30, 0, sizeof(v30));
+            snprintf(&v30, 0x100uLL, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n");
+            goto LABEL_26;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5516,40 +5471,40 @@ LABEL_27:
             goto LABEL_7;
           }
 
-          v31.control = 136316162;
-          *&v31.orderMethod = "XB";
-          WORD2(v31.order) = 1024;
-          *(&v31.order + 6) = columnCount;
-          WORD1(v31.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v31.ignoreRowsAndColumns) = rowCount;
-          LOWORD(v31.malloc) = 2080;
-          *(&v31.malloc + 2) = "Factored";
-          WORD1(v31.free) = 1024;
-          HIDWORD(v31.free) = v16;
-          v27 = MEMORY[0x277D86220];
-LABEL_86:
-          _os_log_error_impl(&dword_245028000, v27, OS_LOG_TYPE_ERROR, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n", &v31, 0x28u);
+          v30.control = 136316162;
+          *&v30.orderMethod = "XB";
+          WORD2(v30.order) = 1024;
+          *(&v30.order + 6) = columnCount;
+          WORD1(v30.ignoreRowsAndColumns) = 1024;
+          HIDWORD(v30.ignoreRowsAndColumns) = rowCount;
+          LOWORD(v30.malloc) = 2080;
+          *(&v30.malloc + 2) = "Factored";
+          WORD1(v30.free) = 1024;
+          HIDWORD(v30.free) = v15;
+          v26 = MEMORY[0x277D86220];
+LABEL_85:
+          _os_log_error_impl(&dword_245028000, v26, OS_LOG_TYPE_ERROR, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n", &v30, 0x28u);
           goto LABEL_7;
         }
 
-        if (v31.reportError)
+        if (v30.reportError)
         {
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
           v42 = 0u;
-          v39 = 0u;
+          v43 = 0u;
           v40 = 0u;
-          v37 = 0u;
+          v41 = 0u;
           v38 = 0u;
-          v35 = 0u;
+          v39 = 0u;
           v36 = 0u;
-          v33 = 0u;
+          v37 = 0u;
           v34 = 0u;
+          v35 = 0u;
           v32 = 0u;
-          memset(&v31, 0, sizeof(v31));
-          snprintf(&v31, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-          goto LABEL_27;
+          v33 = 0u;
+          v31 = 0u;
+          memset(&v30, 0, sizeof(v30));
+          snprintf(&v30, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+          goto LABEL_26;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5557,36 +5512,36 @@ LABEL_86:
           goto LABEL_7;
         }
 
-        v31.control = 136315650;
-        *&v31.orderMethod = "XB";
-        WORD2(v31.order) = 1024;
-        *(&v31.order + 6) = columnCount;
-        WORD1(v31.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v31.ignoreRowsAndColumns) = rowCount;
-        v26 = MEMORY[0x277D86220];
-LABEL_81:
-        _os_log_error_impl(&dword_245028000, v26, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v31, 0x18u);
+        v30.control = 136315650;
+        *&v30.orderMethod = "XB";
+        WORD2(v30.order) = 1024;
+        *(&v30.order + 6) = columnCount;
+        WORD1(v30.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v30.ignoreRowsAndColumns) = rowCount;
+        v25 = MEMORY[0x277D86220];
+LABEL_80:
+        _os_log_error_impl(&dword_245028000, v25, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v30, 0x18u);
         goto LABEL_7;
       }
 
-      if (v31.reportError)
+      if (v30.reportError)
       {
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
-        v37 = 0u;
+        v41 = 0u;
         v38 = 0u;
-        v35 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
+        v35 = 0u;
         v32 = 0u;
-        memset(&v31, 0, sizeof(v31));
-        snprintf(&v31, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-        goto LABEL_27;
+        v33 = 0u;
+        v31 = 0u;
+        memset(&v30, 0, sizeof(v30));
+        snprintf(&v30, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+        goto LABEL_26;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5594,12 +5549,12 @@ LABEL_81:
         goto LABEL_7;
       }
 
-      v31.control = 136315138;
-      *&v31.orderMethod = "Factored";
-      v17 = MEMORY[0x277D86220];
-      v18 = "%s does not hold a completed matrix factorization.\n";
-LABEL_62:
-      _os_log_error_impl(&dword_245028000, v17, OS_LOG_TYPE_ERROR, v18, &v31, 0xCu);
+      v30.control = 136315138;
+      *&v30.orderMethod = "Factored";
+      v16 = MEMORY[0x277D86220];
+      v17 = "%s does not hold a completed matrix factorization.\n";
+LABEL_61:
+      _os_log_error_impl(&dword_245028000, v16, OS_LOG_TYPE_ERROR, v17, &v30, 0xCu);
       goto LABEL_7;
     }
 
@@ -5608,17 +5563,17 @@ LABEL_62:
       goto LABEL_7;
     }
 
-    LOWORD(v31.control) = 0;
+    LOWORD(v30.control) = 0;
     v6 = MEMORY[0x277D86220];
-LABEL_59:
-    _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v31, 2u);
+LABEL_58:
+    _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v30, 2u);
     goto LABEL_7;
   }
 
   v7 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
   *&Factored.solveWorkspaceRequiredStatic = v7;
-  v30 = *(a1 + 96);
+  v29 = *(a1 + 96);
   v8 = *(a1 + 16);
   *&Factored.status = *a1;
   *&Factored.symbolicFactorization.columnCount = v8;
@@ -5633,248 +5588,241 @@ LABEL_59:
       goto LABEL_7;
     }
 
-    LOWORD(v31.control) = 0;
+    LOWORD(v30.control) = 0;
     v6 = MEMORY[0x277D86220];
-    goto LABEL_59;
+    goto LABEL_58;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v31, &Factored.symbolicFactorization);
-  v13 = v31.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v30, &Factored.symbolicFactorization);
+  v12 = v30.reportError;
   if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
   {
-    if (!v31.reportError)
+    if (!v30.reportError)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v31.control = 136315138;
-      *&v31.orderMethod = "Factored";
-      v17 = MEMORY[0x277D86220];
-      v18 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_62;
+      v30.control = 136315138;
+      *&v30.orderMethod = "Factored";
+      v16 = MEMORY[0x277D86220];
+      v17 = "%s does not hold a completed matrix factorization.\n";
+      goto LABEL_61;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v32 = 0u;
-    memset(&v31, 0, sizeof(v31));
-    snprintf(&v31, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_30:
-    (v13)(&v31);
-    goto LABEL_8;
-  }
-
-  if (Soln.columnStride >= Soln.rowCount)
-  {
-    if (*&Soln.attributes)
-    {
-      v19 = Soln.columnCount;
-    }
-
-    else
-    {
-      v19 = Soln.rowCount;
-    }
-
-    if (*&Soln.attributes)
-    {
-      v20 = Soln.rowCount;
-    }
-
-    else
-    {
-      v20 = Soln.columnCount;
-    }
-
-    if (v20 <= 0)
-    {
-      if (!v31.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v31.control = 136315650;
-        *&v31.orderMethod = "XB";
-        WORD2(v31.order) = 1024;
-        *(&v31.order + 6) = v19;
-        WORD1(v31.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v31.ignoreRowsAndColumns) = v20;
-        v26 = MEMORY[0x277D86220];
-        goto LABEL_81;
-      }
-
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v32 = 0u;
-      memset(&v31, 0, sizeof(v31));
-      snprintf(&v31, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-    }
-
-    else
-    {
-      if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) <= Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization))
-      {
-        v21 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      else
-      {
-        v21 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      if (v19 == v21)
-      {
-        free = v31.free;
-        v23 = Factored.solveWorkspaceRequiredPerRHS + v30 * v20;
-        v24 = (v31.malloc)(v23);
-        if (v24)
-        {
-          v25 = v24;
-          _SparseSolveOpaque_Float(&Factored, 0, &Soln, v24);
-          (free)(v25);
-          goto LABEL_8;
-        }
-
-        if (!v13)
-        {
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_7;
-          }
-
-          v31.control = 134217984;
-          *&v31.orderMethod = v23;
-          v17 = MEMORY[0x277D86220];
-          v18 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-          goto LABEL_62;
-        }
-
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v32 = 0u;
-        memset(&v31, 0, sizeof(v31));
-        snprintf(&v31, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-      }
-
-      else
-      {
-        if (!v31.reportError)
-        {
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_7;
-          }
-
-          v31.control = 136316162;
-          *&v31.orderMethod = "XB";
-          WORD2(v31.order) = 1024;
-          *(&v31.order + 6) = v19;
-          WORD1(v31.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v31.ignoreRowsAndColumns) = v20;
-          LOWORD(v31.malloc) = 2080;
-          *(&v31.malloc + 2) = "Factored";
-          WORD1(v31.free) = 1024;
-          HIDWORD(v31.free) = v21;
-          v27 = MEMORY[0x277D86220];
-          goto LABEL_86;
-        }
-
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v32 = 0u;
-        memset(&v31, 0, sizeof(v31));
-        snprintf(&v31, 0x100uLL, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n");
-      }
-    }
-
-    goto LABEL_30;
-  }
-
-  if (v31.reportError)
-  {
     v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    memset(&v31, 0, sizeof(v31));
-    snprintf(&v31, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-    goto LABEL_30;
+    v33 = 0u;
+    v31 = 0u;
+    memset(&v30, 0, sizeof(v30));
+    snprintf(&v30, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_29:
+    (v12)(&v30);
+    return;
   }
 
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (Soln.columnStride < Soln.rowCount)
   {
-LABEL_70:
-    v31.control = 136315906;
-    *&v31.orderMethod = "XB";
-    WORD2(v31.order) = 1024;
-    *(&v31.order + 6) = Soln.columnStride;
-    WORD1(v31.ignoreRowsAndColumns) = 2080;
-    *(&v31.ignoreRowsAndColumns + 4) = "XB";
-    WORD2(v31.malloc) = 1024;
-    *(&v31.malloc + 6) = Soln.rowCount;
-    _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v31, 0x22u);
-  }
+    if (!v30.reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+LABEL_69:
+        v30.control = 136315906;
+        *&v30.orderMethod = "XB";
+        WORD2(v30.order) = 1024;
+        *(&v30.order + 6) = Soln.columnStride;
+        WORD1(v30.ignoreRowsAndColumns) = 2080;
+        *(&v30.ignoreRowsAndColumns + 4) = "XB";
+        WORD2(v30.malloc) = 1024;
+        *(&v30.malloc + 6) = Soln.rowCount;
+        _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v30, 0x22u);
+      }
 
 LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
+      _SparseTrap();
+      return;
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    memset(&v30, 0, sizeof(v30));
+    snprintf(&v30, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+    goto LABEL_29;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v18 = Soln.columnCount;
+  }
+
+  else
+  {
+    v18 = Soln.rowCount;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v19 = Soln.rowCount;
+  }
+
+  else
+  {
+    v19 = Soln.columnCount;
+  }
+
+  if (v19 <= 0)
+  {
+    if (!v30.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v30.control = 136315650;
+      *&v30.orderMethod = "XB";
+      WORD2(v30.order) = 1024;
+      *(&v30.order + 6) = v18;
+      WORD1(v30.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v30.ignoreRowsAndColumns) = v19;
+      v25 = MEMORY[0x277D86220];
+      goto LABEL_80;
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    memset(&v30, 0, sizeof(v30));
+    snprintf(&v30, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+    goto LABEL_29;
+  }
+
+  if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) <= Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization))
+  {
+    v20 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  else
+  {
+    v20 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  if (v18 != v20)
+  {
+    if (!v30.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v30.control = 136316162;
+      *&v30.orderMethod = "XB";
+      WORD2(v30.order) = 1024;
+      *(&v30.order + 6) = v18;
+      WORD1(v30.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v30.ignoreRowsAndColumns) = v19;
+      LOWORD(v30.malloc) = 2080;
+      *(&v30.malloc + 2) = "Factored";
+      WORD1(v30.free) = 1024;
+      HIDWORD(v30.free) = v20;
+      v26 = MEMORY[0x277D86220];
+      goto LABEL_85;
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    memset(&v30, 0, sizeof(v30));
+    snprintf(&v30, 0x100uLL, "%s (%dx%d) is not consistent with largest dimension of matrix factorization %s (%d).\n");
+    goto LABEL_29;
+  }
+
+  free = v30.free;
+  v22 = Factored.solveWorkspaceRequiredPerRHS + v29 * v19;
+  v23 = (v30.malloc)(v22);
+  if (!v23)
+  {
+    if (!v12)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v30.control = 134217984;
+      *&v30.orderMethod = v22;
+      v16 = MEMORY[0x277D86220];
+      v17 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+      goto LABEL_61;
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    memset(&v30, 0, sizeof(v30));
+    snprintf(&v30, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+    goto LABEL_29;
+  }
+
+  v24 = v23;
+  _SparseSolveOpaque_Float(&Factored, 0, &Soln, v23);
+  (free)(v24);
 }
 
-void cva::VecLibSparse<float>::subfactor(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double cva::VecLibSparse<float>::subfactor@<D0>(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v29 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 48);
@@ -5887,40 +5835,46 @@ void cva::VecLibSparse<float>::subfactor(int a1@<W0>, uint64_t a2@<X1>, uint64_t
   v6 = *(a2 + 16);
   *&v24.status = *a2;
   *&v24.symbolicFactorization.columnCount = v6;
-  if (v24.symbolicFactorization.status || !v24.symbolicFactorization.workspaceSize_Float || v24.status || !v24.solveWorkspaceRequiredStatic)
+  if (v24.symbolicFactorization.status == SparseStatusOK && v24.symbolicFactorization.workspaceSize_Float && v24.status == SparseStatusOK && v24.solveWorkspaceRequiredStatic)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    _SparseGetOptionsFromSymbolicFactor(v28, &v24.symbolicFactorization);
+    v8 = *&v28[40];
+    if (a1 > 5)
     {
-      *v28 = 0;
-      v9 = MEMORY[0x277D86220];
-      v10 = "Bad factor.\n";
-      goto LABEL_51;
-    }
-
-LABEL_15:
-    _SparseTrap();
-LABEL_48:
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *(a3 + 96) = 0u;
-    *(a3 + 112) = 0u;
-    *(a3 + 64) = 0u;
-    *(a3 + 80) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 8) = -3;
-    *(a3 + 16) = -3;
-    goto LABEL_49;
-  }
-
-  _SparseGetOptionsFromSymbolicFactor(v28, &v24.symbolicFactorization);
-  v8 = *&v28[40];
-  if (a1 > 5)
-  {
-    if ((a1 - 7) < 2)
-    {
-      if ((BYTE1(v24.symbolicFactorization.factorization) & 0xFE) != 0x28)
+      if ((a1 - 7) < 2)
       {
+        if ((BYTE1(v24.symbolicFactorization.factorization) & 0xFE) != 0x28)
+        {
+          if (!*&v28[40])
+          {
+            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_15;
+            }
+
+            *v28 = 0;
+            v9 = MEMORY[0x277D86220];
+            v10 = "Subfactor Type only valid for QR and CholeskyAtA factorizations.\n";
+            goto LABEL_50;
+          }
+
+          memset(&v28[66], 0, 190);
+          strcpy(&v28[64], "\n");
+          v21 = "Subfactor Type only valid for QR and CholeskyAtA factorizations.\n";
+          goto LABEL_46;
+        }
+
+        v13 = 4;
+        goto LABEL_39;
+      }
+
+      if ((a1 - 9) < 2)
+      {
+        if (BYTE1(v24.symbolicFactorization.factorization) - 81 < 3)
+        {
+          goto LABEL_38;
+        }
+
         if (!*&v28[40])
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5930,72 +5884,195 @@ LABEL_48:
 
           *v28 = 0;
           v9 = MEMORY[0x277D86220];
-          v10 = "Subfactor Type only valid for QR and CholeskyAtA factorizations.\n";
-          goto LABEL_51;
+          v10 = "Subfactor Type only valid for LU factorization.\n";
+          goto LABEL_50;
         }
 
-        memset(&v28[66], 0, 190);
-        strcpy(&v28[64], "\n");
-        v20 = "Subfactor Type only valid for QR and CholeskyAtA factorizations.\n";
-        goto LABEL_46;
+        memset(&v28[48], 0, 208);
+        v11 = "Subfactor Type only valid for LU factorization.\n";
+        goto LABEL_26;
       }
 
-      v13 = 4;
-      goto LABEL_39;
+      if (a1 == 6)
+      {
+        v14 = BYTE1(v24.symbolicFactorization.factorization) - 40;
+        if (v14 <= 0x2B && ((1 << v14) & 0xE0000000001) != 0)
+        {
+          goto LABEL_38;
+        }
+
+        if (!*&v28[40])
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_15;
+          }
+
+          *v28 = 0;
+          v9 = MEMORY[0x277D86220];
+          v10 = "SparseSubfactorQ only valid for QR or LU factorizations.\n";
+          goto LABEL_50;
+        }
+
+        memset(&v28[58], 0, 198);
+        strcpy(v28, "SparseSubfactorQ only valid for QR or LU factorizations.\n");
+        goto LABEL_47;
+      }
     }
 
-    if ((a1 - 9) < 2)
+    else
     {
-      if (BYTE1(v24.symbolicFactorization.factorization) - 81 < 3)
+      if (a1 > 2)
+      {
+        if (a1 != 3)
+        {
+          if (a1 != 4)
+          {
+            if (BYTE1(v24.symbolicFactorization.factorization) >= 5u || ((0x1Du >> SBYTE1(v24.symbolicFactorization.factorization)) & 1) == 0)
+            {
+              if (!*&v28[40])
+              {
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                {
+                  *v28 = 0;
+                  v9 = MEMORY[0x277D86220];
+                  v10 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
+LABEL_50:
+                  _os_log_error_impl(&dword_245028000, v9, OS_LOG_TYPE_ERROR, v10, v28, 2u);
+                  goto LABEL_15;
+                }
+
+                goto LABEL_15;
+              }
+
+              goto LABEL_45;
+            }
+
+            goto LABEL_38;
+          }
+
+          if (BYTE1(v24.symbolicFactorization.factorization) - 2 < 3)
+          {
+LABEL_38:
+            v13 = 2;
+            goto LABEL_39;
+          }
+
+          if (!*&v28[40])
+          {
+            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_15;
+            }
+
+            *v28 = 0;
+            v9 = MEMORY[0x277D86220];
+            v10 = "Subfactor Type only valid for LDL^T factorizations.\n";
+            goto LABEL_50;
+          }
+
+          memset(&v28[53], 0, 203);
+          strcpy(v28, "Subfactor Type only valid for LDL^T factorizations.\n");
+LABEL_47:
+          v8(v28);
+          goto LABEL_48;
+        }
+
+        if (BYTE1(v24.symbolicFactorization.factorization) >= 5u || ((0x1Du >> SBYTE1(v24.symbolicFactorization.factorization)) & 1) == 0)
+        {
+          if (!*&v28[40])
+          {
+            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_15;
+            }
+
+            *v28 = 0;
+            v9 = MEMORY[0x277D86220];
+            v10 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
+            goto LABEL_50;
+          }
+
+LABEL_45:
+          memset(&v28[66], 0, 190);
+          strcpy(&v28[64], "\n");
+          v21 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
+LABEL_46:
+          v22 = *(v21 + 1);
+          *v28 = *v21;
+          *&v28[16] = v22;
+          v23 = *(v21 + 3);
+          *&v28[32] = *(v21 + 2);
+          *&v28[48] = v23;
+          goto LABEL_47;
+        }
+
+        v13 = 6;
+LABEL_39:
+        _SparseRetainNumeric_Float(&v24);
+        workPerRHS = 0;
+        workStatic = 0;
+        *v28 = v24;
+        *&v28[96] = v25;
+        _SparseGetWorkspaceRequired_Float(a1, v28, &workStatic, &workPerRHS);
+        v15 = *&v24.symbolicFactorization.workspaceSize_Float;
+        *(a3 + 56) = *&v24.symbolicFactorization.factorSize_Float;
+        v16 = *&v24.solveWorkspaceRequiredStatic;
+        *(a3 + 72) = *&v24.userFactorStorage;
+        *(a3 + 88) = v16;
+        result = *&v24.status;
+        v18 = *&v24.symbolicFactorization.columnCount;
+        *(a3 + 8) = *&v24.status;
+        *(a3 + 24) = v18;
+        *a3 = v13;
+        *(a3 + 2) = 0;
+        *(a3 + 4) = a1;
+        v19 = v25;
+        *(a3 + 40) = v15;
+        v20 = workStatic;
+        *(a3 + 104) = v19;
+        *(a3 + 112) = v20;
+        *(a3 + 120) = workPerRHS;
+        return result;
+      }
+
+      if (a1 == 1)
       {
         goto LABEL_38;
       }
 
-      if (!*&v28[40])
+      if (a1 == 2)
       {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        if (BYTE1(v24.symbolicFactorization.factorization) - 2 < 3)
         {
-          goto LABEL_15;
+          goto LABEL_38;
         }
 
-        *v28 = 0;
-        v9 = MEMORY[0x277D86220];
-        v10 = "Subfactor Type only valid for LU factorization.\n";
-        goto LABEL_51;
-      }
-
-      memset(&v28[48], 0, 208);
-      v11 = "Subfactor Type only valid for LU factorization.\n";
-      goto LABEL_26;
-    }
-
-    if (a1 == 6)
-    {
-      v14 = BYTE1(v24.symbolicFactorization.factorization) - 40;
-      if (v14 <= 0x2B && ((1 << v14) & 0xE0000000001) != 0)
-      {
-        goto LABEL_38;
-      }
-
-      if (!*&v28[40])
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        if (!*&v28[40])
         {
-          goto LABEL_15;
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_15;
+          }
+
+          *v28 = 0;
+          v9 = MEMORY[0x277D86220];
+          v10 = "Subfactor Type only valid for LDL^T factorization.\n";
+          goto LABEL_50;
         }
 
-        *v28 = 0;
-        v9 = MEMORY[0x277D86220];
-        v10 = "SparseSubfactorQ only valid for QR or LU factorizations.\n";
-        goto LABEL_51;
+        memset(&v28[52], 0, 204);
+        strcpy(&v28[48], "n.\n");
+        v11 = "Subfactor Type only valid for LDL^T factorization.\n";
+LABEL_26:
+        v12 = *(v11 + 1);
+        *v28 = *v11;
+        *&v28[16] = v12;
+        *&v28[32] = *(v11 + 2);
+        goto LABEL_47;
       }
-
-      memset(&v28[58], 0, 198);
-      strcpy(v28, "SparseSubfactorQ only valid for QR or LU factorizations.\n");
-      goto LABEL_47;
     }
 
-LABEL_42:
     if (!*&v28[40])
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -6006,7 +6083,7 @@ LABEL_42:
       *v28 = 0;
       v9 = MEMORY[0x277D86220];
       v10 = "Invalid subfactor type.";
-      goto LABEL_51;
+      goto LABEL_50;
     }
 
     memset(&v28[24], 0, 232);
@@ -6014,160 +6091,32 @@ LABEL_42:
     goto LABEL_47;
   }
 
-  if (a1 <= 2)
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (a1 == 1)
-    {
-      goto LABEL_38;
-    }
-
-    if (a1 == 2)
-    {
-      if (BYTE1(v24.symbolicFactorization.factorization) - 2 < 3)
-      {
-        goto LABEL_38;
-      }
-
-      if (!*&v28[40])
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_15;
-        }
-
-        *v28 = 0;
-        v9 = MEMORY[0x277D86220];
-        v10 = "Subfactor Type only valid for LDL^T factorization.\n";
-        goto LABEL_51;
-      }
-
-      memset(&v28[52], 0, 204);
-      strcpy(&v28[48], "n.\n");
-      v11 = "Subfactor Type only valid for LDL^T factorization.\n";
-LABEL_26:
-      v12 = *(v11 + 1);
-      *v28 = *v11;
-      *&v28[16] = v12;
-      *&v28[32] = *(v11 + 2);
-      goto LABEL_47;
-    }
-
-    goto LABEL_42;
+    *v28 = 0;
+    v9 = MEMORY[0x277D86220];
+    v10 = "Bad factor.\n";
+    goto LABEL_50;
   }
 
-  if (a1 != 3)
-  {
-    if (a1 != 4)
-    {
-      if (BYTE1(v24.symbolicFactorization.factorization) >= 5u || ((0x1Du >> SBYTE1(v24.symbolicFactorization.factorization)) & 1) == 0)
-      {
-        if (!*&v28[40])
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            *v28 = 0;
-            v9 = MEMORY[0x277D86220];
-            v10 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
-LABEL_51:
-            _os_log_error_impl(&dword_245028000, v9, OS_LOG_TYPE_ERROR, v10, v28, 2u);
-            goto LABEL_15;
-          }
-
-          goto LABEL_15;
-        }
-
-        goto LABEL_45;
-      }
-
-      goto LABEL_38;
-    }
-
-    if (BYTE1(v24.symbolicFactorization.factorization) - 2 < 3)
-    {
-LABEL_38:
-      v13 = 2;
-      goto LABEL_39;
-    }
-
-    if (!*&v28[40])
-    {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *v28 = 0;
-      v9 = MEMORY[0x277D86220];
-      v10 = "Subfactor Type only valid for LDL^T factorizations.\n";
-      goto LABEL_51;
-    }
-
-    memset(&v28[53], 0, 203);
-    strcpy(v28, "Subfactor Type only valid for LDL^T factorizations.\n");
-LABEL_47:
-    v8(v28);
-    goto LABEL_48;
-  }
-
-  if (BYTE1(v24.symbolicFactorization.factorization) >= 5u || ((0x1Du >> SBYTE1(v24.symbolicFactorization.factorization)) & 1) == 0)
-  {
-    if (!*&v28[40])
-    {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *v28 = 0;
-      v9 = MEMORY[0x277D86220];
-      v10 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
-      goto LABEL_51;
-    }
-
-LABEL_45:
-    memset(&v28[66], 0, 190);
-    strcpy(&v28[64], "\n");
-    v20 = "Subfactor Type only valid for Cholesky and LDL^T factorizations.\n";
-LABEL_46:
-    v21 = *(v20 + 1);
-    *v28 = *v20;
-    *&v28[16] = v21;
-    v22 = *(v20 + 3);
-    *&v28[32] = *(v20 + 2);
-    *&v28[48] = v22;
-    goto LABEL_47;
-  }
-
-  v13 = 6;
-LABEL_39:
-  _SparseRetainNumeric_Float(&v24);
-  workPerRHS = 0;
-  workStatic = 0;
-  *v28 = v24;
-  *&v28[96] = v25;
-  _SparseGetWorkspaceRequired_Float(a1, v28, &workStatic, &workPerRHS);
-  v15 = *&v24.symbolicFactorization.workspaceSize_Float;
-  *(a3 + 56) = *&v24.symbolicFactorization.factorSize_Float;
-  v16 = *&v24.solveWorkspaceRequiredStatic;
-  *(a3 + 72) = *&v24.userFactorStorage;
-  *(a3 + 88) = v16;
-  v17 = *&v24.symbolicFactorization.columnCount;
-  *(a3 + 8) = *&v24.status;
-  *(a3 + 24) = v17;
-  *a3 = v13;
-  *(a3 + 2) = 0;
-  *(a3 + 4) = a1;
-  v18 = v25;
-  *(a3 + 40) = v15;
-  v19 = workStatic;
-  *(a3 + 104) = v18;
-  *(a3 + 112) = v19;
-  *(a3 + 120) = workPerRHS;
-LABEL_49:
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_15:
+  _SparseTrap();
+LABEL_48:
+  result = 0.0;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 96) = 0u;
+  *(a3 + 112) = 0u;
+  *(a3 + 64) = 0u;
+  *(a3 + 80) = 0u;
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *(a3 + 8) = -3;
+  *(a3 + 16) = -3;
+  return result;
 }
 
-void cva::VecLibSparse<float>::solve(_OWORD *a1, uint64_t a2, uint64_t a3, char *a4)
+void cva::VecLibSparse<float>::solve(_OWORD *a1, int *a2, uint64_t a3, char *a4)
 {
   v4 = a1[5];
   v14[4] = a1[4];
@@ -6183,7 +6132,7 @@ void cva::VecLibSparse<float>::solve(_OWORD *a1, uint64_t a2, uint64_t a3, char 
   v14[3] = v7;
   v8 = *(a3 + 8);
   v9 = *a2;
-  v10 = *(a2 + 8);
+  v10 = *(a2 + 1);
   v12[0] = *a3;
   v12[1] = 1;
   v12[2] = v12[0];
@@ -6207,20 +6156,20 @@ void cva::VecLibSparse<float>::solve(_OWORD *a1, uint64_t a2, uint64_t a3, char 
 
 void sub_24506A8F8(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const DenseMatrix_Float *a3, char *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (!*(&a1->contents + 2))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v36.control) = 0;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v36, 2u);
+      LOWORD(v35.control) = 0;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v35, 2u);
     }
 
     goto LABEL_65;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v36, &a1->factor.symbolicFactorization);
-  reportError = v36.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v35, &a1->factor.symbolicFactorization);
+  reportError = v35.reportError;
   attributes = a1->attributes;
   factorization_low = LOBYTE(a1->factor.symbolicFactorization.factorization);
   v11 = a1->factor.symbolicFactorization.rowCount * factorization_low;
@@ -6274,28 +6223,26 @@ void sub_24506A8F8(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const Den
   v19 = *a2;
   if (v18 < *a2)
   {
-    if (v36.reportError)
+    if (v35.reportError)
     {
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v36.control = 136315906;
-      *&v36.orderMethod = "B";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = v18;
-      WORD1(v36.ignoreRowsAndColumns) = 2080;
-      *(&v36.ignoreRowsAndColumns + 4) = "B";
-      WORD2(v36.malloc) = 1024;
-      *(&v36.malloc + 6) = v19;
-      v23 = MEMORY[0x277D86220];
-LABEL_48:
-      _os_log_error_impl(&dword_245028000, v23, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v36, 0x22u);
       goto LABEL_65;
     }
 
-    goto LABEL_65;
+    v35.control = 136315906;
+    *&v35.orderMethod = "B";
+    WORD2(v35.order) = 1024;
+    *(&v35.order + 6) = v18;
+    WORD1(v35.ignoreRowsAndColumns) = 2080;
+    *(&v35.ignoreRowsAndColumns + 4) = "B";
+    WORD2(v35.malloc) = 1024;
+    *(&v35.malloc + 6) = v19;
+    v23 = MEMORY[0x277D86220];
+    goto LABEL_48;
   }
 
   columnStride = a3->columnStride;
@@ -6340,36 +6287,36 @@ LABEL_48:
     {
       if (v19 <= 0)
       {
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
-          snprintf(&v36, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
+          snprintf(&v35, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
           goto LABEL_27;
         }
 
         v33 = v26;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v36.control = 136315650;
-          *&v36.orderMethod = "B";
-          WORD2(v36.order) = 1024;
-          *(&v36.order + 6) = v33;
-          WORD1(v36.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v36.ignoreRowsAndColumns) = v19;
-          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v36, 0x18u);
+          v35.control = 136315650;
+          *&v35.orderMethod = "B";
+          WORD2(v35.order) = 1024;
+          *(&v35.order + 6) = v33;
+          WORD1(v35.ignoreRowsAndColumns) = 1024;
+          HIDWORD(v35.ignoreRowsAndColumns) = v19;
+          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v35, 0x18u);
         }
 
         goto LABEL_65;
@@ -6380,25 +6327,25 @@ LABEL_48:
         if (v28 == v16)
         {
           _SparseSolveSubfactor_Float(a1, a2, a3, a4);
-          goto LABEL_66;
+          return;
         }
 
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
           v32 = "X";
           goto LABEL_57;
         }
@@ -6408,43 +6355,43 @@ LABEL_48:
           goto LABEL_65;
         }
 
-        v36.control = 136316418;
-        *&v36.orderMethod = "X";
-        WORD2(v36.order) = 1024;
-        *(&v36.order + 6) = v28;
-        WORD1(v36.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v36.ignoreRowsAndColumns) = v19;
-        LOWORD(v36.malloc) = 2080;
-        *(&v36.malloc + 2) = "subfactor dimension";
-        WORD1(v36.free) = 1024;
-        HIDWORD(v36.free) = v16;
-        LOWORD(v36.reportError) = 1024;
-        *(&v36.reportError + 2) = v17;
+        v35.control = 136316418;
+        *&v35.orderMethod = "X";
+        WORD2(v35.order) = 1024;
+        *(&v35.order + 6) = v28;
+        WORD1(v35.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v35.ignoreRowsAndColumns) = v19;
+        LOWORD(v35.malloc) = 2080;
+        *(&v35.malloc + 2) = "subfactor dimension";
+        WORD1(v35.free) = 1024;
+        HIDWORD(v35.free) = v16;
+        LOWORD(v35.reportError) = 1024;
+        *(&v35.reportError + 2) = v17;
         v30 = MEMORY[0x277D86220];
         v31 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
       }
 
       else
       {
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
           v32 = "B";
 LABEL_57:
-          snprintf(&v36, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v32);
+          snprintf(&v35, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v32);
           goto LABEL_27;
         }
 
@@ -6454,18 +6401,18 @@ LABEL_57:
           goto LABEL_65;
         }
 
-        v36.control = 136316418;
-        *&v36.orderMethod = "B";
-        WORD2(v36.order) = 1024;
-        *(&v36.order + 6) = v34;
-        WORD1(v36.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v36.ignoreRowsAndColumns) = v19;
-        LOWORD(v36.malloc) = 2080;
-        *(&v36.malloc + 2) = "subfactor dimension";
-        WORD1(v36.free) = 1024;
-        HIDWORD(v36.free) = v16;
-        LOWORD(v36.reportError) = 1024;
-        *(&v36.reportError + 2) = v17;
+        v35.control = 136316418;
+        *&v35.orderMethod = "B";
+        WORD2(v35.order) = 1024;
+        *(&v35.order + 6) = v34;
+        WORD1(v35.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v35.ignoreRowsAndColumns) = v19;
+        LOWORD(v35.malloc) = 2080;
+        *(&v35.malloc + 2) = "subfactor dimension";
+        WORD1(v35.free) = 1024;
+        HIDWORD(v35.free) = v16;
+        LOWORD(v35.reportError) = 1024;
+        *(&v35.reportError + 2) = v17;
         v30 = MEMORY[0x277D86220];
         v31 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
       }
@@ -6473,23 +6420,23 @@ LABEL_57:
 
     else
     {
-      if (v36.reportError)
+      if (v35.reportError)
       {
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
+        v40 = 0u;
         v37 = 0u;
-        memset(&v36, 0, sizeof(v36));
-        snprintf(&v36, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+        v38 = 0u;
+        v36 = 0u;
+        memset(&v35, 0, sizeof(v35));
+        snprintf(&v35, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
         goto LABEL_27;
       }
 
@@ -6499,85 +6446,85 @@ LABEL_57:
         goto LABEL_65;
       }
 
-      v36.control = 136316418;
-      *&v36.orderMethod = "B";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = v29;
-      WORD1(v36.ignoreRowsAndColumns) = 1024;
-      HIDWORD(v36.ignoreRowsAndColumns) = v19;
-      LOWORD(v36.malloc) = 2080;
-      *(&v36.malloc + 2) = "X";
-      WORD1(v36.free) = 1024;
-      HIDWORD(v36.free) = v28;
-      LOWORD(v36.reportError) = 1024;
-      *(&v36.reportError + 2) = v25;
+      v35.control = 136316418;
+      *&v35.orderMethod = "B";
+      WORD2(v35.order) = 1024;
+      *(&v35.order + 6) = v29;
+      WORD1(v35.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v35.ignoreRowsAndColumns) = v19;
+      LOWORD(v35.malloc) = 2080;
+      *(&v35.malloc + 2) = "X";
+      WORD1(v35.free) = 1024;
+      HIDWORD(v35.free) = v28;
+      LOWORD(v35.reportError) = 1024;
+      *(&v35.reportError + 2) = v25;
       v30 = MEMORY[0x277D86220];
       v31 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
     }
 
-    _os_log_error_impl(&dword_245028000, v30, OS_LOG_TYPE_ERROR, v31, &v36, 0x2Eu);
+    _os_log_error_impl(&dword_245028000, v30, OS_LOG_TYPE_ERROR, v31, &v35, 0x2Eu);
     goto LABEL_65;
   }
 
-  if (!v36.reportError)
+  if (v35.reportError)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v36.control = 136315906;
-      *&v36.orderMethod = "X";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = columnStride;
-      WORD1(v36.ignoreRowsAndColumns) = 2080;
-      *(&v36.ignoreRowsAndColumns + 4) = "X";
-      WORD2(v36.malloc) = 1024;
-      *(&v36.malloc + 6) = rowCount;
-      v23 = MEMORY[0x277D86220];
-      goto LABEL_48;
-    }
-
-LABEL_65:
-    _SparseTrap();
-    goto LABEL_66;
+LABEL_26:
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v36 = 0u;
+    memset(&v35, 0, sizeof(v35));
+    snprintf(&v35, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+LABEL_27:
+    (reportError)(&v35);
+    return;
   }
 
-LABEL_26:
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v37 = 0u;
-  memset(&v36, 0, sizeof(v36));
-  snprintf(&v36, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-LABEL_27:
-  (reportError)(&v36);
-LABEL_66:
-  v35 = *MEMORY[0x277D85DE8];
+  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_65;
+  }
+
+  v35.control = 136315906;
+  *&v35.orderMethod = "X";
+  WORD2(v35.order) = 1024;
+  *(&v35.order + 6) = columnStride;
+  WORD1(v35.ignoreRowsAndColumns) = 2080;
+  *(&v35.ignoreRowsAndColumns + 4) = "X";
+  WORD2(v35.malloc) = 1024;
+  *(&v35.malloc + 6) = rowCount;
+  v23 = MEMORY[0x277D86220];
+LABEL_48:
+  _os_log_error_impl(&dword_245028000, v23, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v35, 0x22u);
+LABEL_65:
+  _SparseTrap();
 }
 
 void sub_24506AF5C(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const DenseMatrix_Float *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!*(&a1->contents + 2))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v35.control) = 0;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factorization.\n", &v35, 2u);
+      LOWORD(v34.control) = 0;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factorization.\n", &v34, 2u);
     }
 
     goto LABEL_70;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v35, &a1->factor.symbolicFactorization);
-  reportError = v35.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v34, &a1->factor.symbolicFactorization);
+  reportError = v34.reportError;
   attributes = a1->attributes;
   factorization_low = LOBYTE(a1->factor.symbolicFactorization.factorization);
   v9 = a1->factor.symbolicFactorization.rowCount * factorization_low;
@@ -6631,326 +6578,320 @@ void sub_24506AF5C(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const Den
   v17 = *a2;
   if (v16 < *a2)
   {
-    if (v35.reportError)
+    if (v34.reportError)
     {
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v35.control = 136315906;
-      *&v35.orderMethod = "B";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = v16;
-      WORD1(v35.ignoreRowsAndColumns) = 2080;
-      *(&v35.ignoreRowsAndColumns + 4) = "B";
-      WORD2(v35.malloc) = 1024;
-      *(&v35.malloc + 6) = v17;
-      v21 = MEMORY[0x277D86220];
-LABEL_49:
-      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v35, 0x22u);
       goto LABEL_70;
     }
 
-    goto LABEL_70;
+    v34.control = 136315906;
+    *&v34.orderMethod = "B";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v16;
+    WORD1(v34.ignoreRowsAndColumns) = 2080;
+    *(&v34.ignoreRowsAndColumns + 4) = "B";
+    WORD2(v34.malloc) = 1024;
+    *(&v34.malloc + 6) = v17;
+    v21 = MEMORY[0x277D86220];
+    goto LABEL_49;
   }
 
   columnStride = a3->columnStride;
   rowCount = a3->rowCount;
-  if (columnStride >= a3->rowCount)
+  if (columnStride < a3->rowCount)
   {
-    if (*(a2 + 12))
+    if (v34.reportError)
     {
-      v20 = 4;
+LABEL_26:
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+LABEL_27:
+      (reportError)(&v34);
+      return;
     }
 
-    else
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v20 = 0;
-      v17 = *(a2 + 4);
+      goto LABEL_70;
     }
 
-    if (*&a3->attributes)
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = 4;
-    }
-
-    v23 = *(&a3->rowCount + v22);
-    v24 = *(a2 + v20);
-    if (*&a3->attributes)
-    {
-      v25 = 4;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v26 = *(&a3->rowCount + v25);
-    if (v17 == v23)
-    {
-      if (v17 <= 0)
-      {
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          snprintf(&v35, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-          goto LABEL_27;
-        }
-
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          v35.control = 136315650;
-          *&v35.orderMethod = "B";
-          WORD2(v35.order) = 1024;
-          *(&v35.order + 6) = v24;
-          WORD1(v35.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v35.ignoreRowsAndColumns) = v17;
-          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v35, 0x18u);
-        }
-
-        goto LABEL_70;
-      }
-
-      if (v24 == v15)
-      {
-        if (v26 == v14)
-        {
-          free = v35.free;
-          v28 = a1->workspaceRequiredPerRHS + *&a1[1].attributes * v17;
-          v29 = (v35.malloc)(v28);
-          if (v29)
-          {
-            v30 = v29;
-            _SparseSolveSubfactor_Float(a1, a2, a3, v29);
-            (free)(v30);
-            goto LABEL_71;
-          }
-
-          if (reportError)
-          {
-            v47 = 0u;
-            v48 = 0u;
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
-            v42 = 0u;
-            v39 = 0u;
-            v40 = 0u;
-            v37 = 0u;
-            v38 = 0u;
-            v36 = 0u;
-            memset(&v35, 0, sizeof(v35));
-            snprintf(&v35, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
-            goto LABEL_27;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            v35.control = 134217984;
-            *&v35.orderMethod = v28;
-            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", &v35, 0xCu);
-          }
-
-          goto LABEL_70;
-        }
-
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          v33 = "X";
-          goto LABEL_58;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_70;
-        }
-
-        v35.control = 136316418;
-        *&v35.orderMethod = "X";
-        WORD2(v35.order) = 1024;
-        *(&v35.order + 6) = v26;
-        WORD1(v35.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v35.ignoreRowsAndColumns) = v17;
-        LOWORD(v35.malloc) = 2080;
-        *(&v35.malloc + 2) = "subfactor dimension";
-        WORD1(v35.free) = 1024;
-        HIDWORD(v35.free) = v14;
-        LOWORD(v35.reportError) = 1024;
-        *(&v35.reportError + 2) = v15;
-        v31 = MEMORY[0x277D86220];
-        v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-      }
-
-      else
-      {
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          v33 = "B";
-LABEL_58:
-          snprintf(&v35, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v33);
-          goto LABEL_27;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_70;
-        }
-
-        v35.control = 136316418;
-        *&v35.orderMethod = "B";
-        WORD2(v35.order) = 1024;
-        *(&v35.order + 6) = v24;
-        WORD1(v35.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v35.ignoreRowsAndColumns) = v17;
-        LOWORD(v35.malloc) = 2080;
-        *(&v35.malloc + 2) = "subfactor dimension";
-        WORD1(v35.free) = 1024;
-        HIDWORD(v35.free) = v14;
-        LOWORD(v35.reportError) = 1024;
-        *(&v35.reportError + 2) = v15;
-        v31 = MEMORY[0x277D86220];
-        v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-      }
-    }
-
-    else
-    {
-      if (v35.reportError)
-      {
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        memset(&v35, 0, sizeof(v35));
-        snprintf(&v35, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
-        goto LABEL_27;
-      }
-
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_70;
-      }
-
-      v35.control = 136316418;
-      *&v35.orderMethod = "B";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = v24;
-      WORD1(v35.ignoreRowsAndColumns) = 1024;
-      HIDWORD(v35.ignoreRowsAndColumns) = v17;
-      LOWORD(v35.malloc) = 2080;
-      *(&v35.malloc + 2) = "X";
-      WORD1(v35.free) = 1024;
-      HIDWORD(v35.free) = v26;
-      LOWORD(v35.reportError) = 1024;
-      *(&v35.reportError + 2) = v23;
-      v31 = MEMORY[0x277D86220];
-      v32 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-    }
-
-    _os_log_error_impl(&dword_245028000, v31, OS_LOG_TYPE_ERROR, v32, &v35, 0x2Eu);
+    v34.control = 136315906;
+    *&v34.orderMethod = "X";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = columnStride;
+    WORD1(v34.ignoreRowsAndColumns) = 2080;
+    *(&v34.ignoreRowsAndColumns + 4) = "X";
+    WORD2(v34.malloc) = 1024;
+    *(&v34.malloc + 6) = rowCount;
+    v21 = MEMORY[0x277D86220];
+LABEL_49:
+    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v34, 0x22u);
     goto LABEL_70;
   }
 
-  if (!v35.reportError)
+  if (*(a2 + 12))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v35.control = 136315906;
-      *&v35.orderMethod = "X";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = columnStride;
-      WORD1(v35.ignoreRowsAndColumns) = 2080;
-      *(&v35.ignoreRowsAndColumns + 4) = "X";
-      WORD2(v35.malloc) = 1024;
-      *(&v35.malloc + 6) = rowCount;
-      v21 = MEMORY[0x277D86220];
-      goto LABEL_49;
-    }
-
-LABEL_70:
-    _SparseTrap();
-    goto LABEL_71;
+    v20 = 4;
   }
 
-LABEL_26:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v36 = 0u;
-  memset(&v35, 0, sizeof(v35));
-  snprintf(&v35, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-LABEL_27:
-  (reportError)(&v35);
-LABEL_71:
-  v34 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v20 = 0;
+    v17 = *(a2 + 4);
+  }
+
+  if (*&a3->attributes)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = 4;
+  }
+
+  v23 = *(&a3->rowCount + v22);
+  v24 = *(a2 + v20);
+  if (*&a3->attributes)
+  {
+    v25 = 4;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  v26 = *(&a3->rowCount + v25);
+  if (v17 != v23)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+      goto LABEL_27;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "B";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v24;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "X";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v26;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v23;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+    goto LABEL_67;
+  }
+
+  if (v17 <= 0)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+      goto LABEL_27;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v34.control = 136315650;
+      *&v34.orderMethod = "B";
+      WORD2(v34.order) = 1024;
+      *(&v34.order + 6) = v24;
+      WORD1(v34.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v34.ignoreRowsAndColumns) = v17;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v34, 0x18u);
+    }
+
+    goto LABEL_70;
+  }
+
+  if (v24 != v15)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      v33 = "B";
+LABEL_58:
+      snprintf(&v34, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v33);
+      goto LABEL_27;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "B";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v24;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "subfactor dimension";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v14;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v15;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+LABEL_67:
+    _os_log_error_impl(&dword_245028000, v31, OS_LOG_TYPE_ERROR, v32, &v34, 0x2Eu);
+    goto LABEL_70;
+  }
+
+  if (v26 != v14)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      v33 = "X";
+      goto LABEL_58;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "X";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v26;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "subfactor dimension";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v14;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v15;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+    goto LABEL_67;
+  }
+
+  free = v34.free;
+  v28 = a1->workspaceRequiredPerRHS + *&a1[1].attributes * v17;
+  v29 = (v34.malloc)(v28);
+  if (v29)
+  {
+    v30 = v29;
+    _SparseSolveSubfactor_Float(a1, a2, a3, v29);
+    (free)(v30);
+    return;
+  }
+
+  if (reportError)
+  {
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v35 = 0u;
+    memset(&v34, 0, sizeof(v34));
+    snprintf(&v34, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
+    goto LABEL_27;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v34.control = 134217984;
+    *&v34.orderMethod = v28;
+    _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", &v34, 0xCu);
+  }
+
+LABEL_70:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::solve(_OWORD *a1, DenseMatrix_Float *a2, __int128 *a3, char *a4)
@@ -7014,7 +6955,7 @@ void cva::VecLibSparse<float>::solve(_OWORD *a1, uint64_t a2, char *a3)
 
 void sub_24506B7E0(uint64_t a1, uint64_t a2, char *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 4))
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -7022,14 +6963,16 @@ void sub_24506B7E0(uint64_t a1, uint64_t a2, char *a3)
       goto LABEL_22;
     }
 
-    *v20 = 0;
-    v18 = MEMORY[0x277D86220];
-    v19 = "Subfactor does not hold a valid factor subobject.\n";
-    goto LABEL_34;
+    *v19 = 0;
+    v17 = MEMORY[0x277D86220];
+    v18 = "Subfactor does not hold a valid factor subobject.\n";
+LABEL_33:
+    _os_log_error_impl(&dword_245028000, v17, OS_LOG_TYPE_ERROR, v18, v19, 2u);
+    goto LABEL_22;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(v20, (a1 + 16));
-  v6 = *&v20[40];
+  _SparseGetOptionsFromSymbolicFactor(v19, (a1 + 16));
+  v6 = *&v19[40];
   v7 = 4;
   if (*(a2 + 12))
   {
@@ -7047,90 +6990,86 @@ void sub_24506B7E0(uint64_t a1, uint64_t a2, char *a3)
     v7 = 0;
   }
 
-  if (v9 <= 0)
+  if (v9 > 0)
   {
-    if (*&v20[40])
+    v10 = *(a2 + v7);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 20) * v11;
+    v13 = *(a1 + 24) * v11;
+    if (v12 >= v13)
     {
-      memset(&v20[34], 0, 222);
-      strcpy(v20, "XB must have non-zero dimension.\n");
-LABEL_27:
-      v6(v20);
-      goto LABEL_28;
+      v14 = v13;
     }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    else
     {
-LABEL_22:
-      _SparseTrap();
-      goto LABEL_28;
+      v14 = v12;
     }
 
-    *v20 = 0;
-    v18 = MEMORY[0x277D86220];
-    v19 = "XB must have non-zero dimension.\n";
-LABEL_34:
-    _os_log_error_impl(&dword_245028000, v18, OS_LOG_TYPE_ERROR, v19, v20, 2u);
-    goto LABEL_22;
-  }
-
-  v10 = *(a2 + v7);
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 20) * v11;
-  v13 = *(a1 + 24) * v11;
-  if (v12 >= v13)
-  {
-    v14 = v13;
-  }
-
-  else
-  {
-    v14 = v12;
-  }
-
-  if (v12 > v13)
-  {
-    v13 = v12;
-  }
-
-  if (*(a1 + 4) == 6 && *(a1 + 33) == 40)
-  {
-    v16 = v13;
-  }
-
-  else
-  {
-    v16 = v14;
-  }
-
-  if (v10 != v16)
-  {
-    if (*&v20[40])
+    if (v12 > v13)
     {
-      memset(v20, 0, sizeof(v20));
-      snprintf(v20, 0x100uLL, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v10, v16);
+      v13 = v12;
+    }
+
+    if (*(a1 + 4) == 6 && *(a1 + 33) == 40)
+    {
+      v16 = v13;
+    }
+
+    else
+    {
+      v16 = v14;
+    }
+
+    if (v10 == v16)
+    {
+      _SparseSolveSubfactor_Float(a1, 0, a2, a3);
+      return;
+    }
+
+    if (*&v19[40])
+    {
+      memset(v19, 0, sizeof(v19));
+      snprintf(v19, 0x100uLL, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v10, v16);
       goto LABEL_27;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v20 = 67109376;
-      *&v20[4] = v10;
-      *&v20[8] = 1024;
-      *&v20[10] = v16;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v20, 0xEu);
+      *v19 = 67109376;
+      *&v19[4] = v10;
+      *&v19[8] = 1024;
+      *&v19[10] = v16;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v19, 0xEu);
     }
 
-    goto LABEL_22;
+LABEL_22:
+    _SparseTrap();
+    return;
   }
 
-  _SparseSolveSubfactor_Float(a1, 0, a2, a3);
-LABEL_28:
-  v17 = *MEMORY[0x277D85DE8];
+  if (!*&v19[40])
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_22;
+    }
+
+    *v19 = 0;
+    v17 = MEMORY[0x277D86220];
+    v18 = "XB must have non-zero dimension.\n";
+    goto LABEL_33;
+  }
+
+  memset(&v19[34], 0, 222);
+  strcpy(v19, "XB must have non-zero dimension.\n");
+LABEL_27:
+  v6(v19);
 }
 
 void sub_24506BA6C(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 4))
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -7138,14 +7077,14 @@ void sub_24506BA6C(uint64_t a1, uint64_t a2)
       goto LABEL_24;
     }
 
-    *v24 = 0;
+    *v23 = 0;
     v21 = MEMORY[0x277D86220];
     v22 = "Subfactor does not hold a valid factorization.\n";
     goto LABEL_40;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(v24, (a1 + 16));
-  v4 = *&v24[40];
+  _SparseGetOptionsFromSymbolicFactor(v23, (a1 + 16));
+  v4 = *&v23[40];
   v5 = *(a2 + 12);
   v6 = (v5 & 1) == 0;
   v7 = 4;
@@ -7167,10 +7106,10 @@ void sub_24506BA6C(uint64_t a1, uint64_t a2)
 
   if (v9 <= 0)
   {
-    if (*&v24[40])
+    if (*&v23[40])
     {
-      memset(&v24[34], 0, 222);
-      strcpy(v24, "XB must have non-zero dimension.\n");
+      memset(&v23[34], 0, 222);
+      strcpy(v23, "XB must have non-zero dimension.\n");
       goto LABEL_33;
     }
 
@@ -7179,11 +7118,11 @@ void sub_24506BA6C(uint64_t a1, uint64_t a2)
       goto LABEL_24;
     }
 
-    *v24 = 0;
+    *v23 = 0;
     v21 = MEMORY[0x277D86220];
     v22 = "XB must have non-zero dimension.\n";
 LABEL_40:
-    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, v24, 2u);
+    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, v23, 2u);
     goto LABEL_24;
   }
 
@@ -7216,58 +7155,56 @@ LABEL_40:
     v16 = v14;
   }
 
-  if (v10 != v16)
+  if (v10 == v16)
   {
-    if (!*&v24[40])
+    v17 = *&v23[32];
+    v18 = *(a1 + 112) + *(a1 + 120) * v9;
+    v19 = (*&v23[24])(v18);
+    if (v19)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        *v24 = 67109376;
-        *&v24[4] = v10;
-        *&v24[8] = 1024;
-        *&v24[10] = v16;
-        _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v24, 0xEu);
-      }
-
-      goto LABEL_24;
+      v20 = v19;
+      _SparseSolveSubfactor_Float(a1, 0, a2, v19);
+      v17(v20);
+      return;
     }
 
-    memset(v24, 0, sizeof(v24));
-    snprintf(v24, 0x100uLL, "XB dimension (%d) must match maximum subfactor dimension (%d).\n");
-LABEL_33:
-    v4(v24);
-    goto LABEL_34;
-  }
-
-  v17 = *&v24[32];
-  v18 = *(a1 + 112) + *(a1 + 120) * v9;
-  v19 = (*&v24[24])(v18);
-  if (!v19)
-  {
     if (v4)
     {
-      memset(v24, 0, sizeof(v24));
-      snprintf(v24, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
+      memset(v23, 0, sizeof(v23));
+      snprintf(v23, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
       goto LABEL_33;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v24 = 134217984;
-      *&v24[4] = v18;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", v24, 0xCu);
+      *v23 = 134217984;
+      *&v23[4] = v18;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", v23, 0xCu);
     }
 
 LABEL_24:
     _SparseTrap();
-    goto LABEL_34;
+    return;
   }
 
-  v20 = v19;
-  _SparseSolveSubfactor_Float(a1, 0, a2, v19);
-  v17(v20);
-LABEL_34:
-  v23 = *MEMORY[0x277D85DE8];
+  if (!*&v23[40])
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      *v23 = 67109376;
+      *&v23[4] = v10;
+      *&v23[8] = 1024;
+      *&v23[10] = v16;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XB dimension (%d) must match maximum subfactor dimension (%d).\n", v23, 0xEu);
+    }
+
+    goto LABEL_24;
+  }
+
+  memset(v23, 0, sizeof(v23));
+  snprintf(v23, 0x100uLL, "XB dimension (%d) must match maximum subfactor dimension (%d).\n");
+LABEL_33:
+  v4(v23);
 }
 
 void cva::VecLibSparse<float>::solve(_OWORD *a1, __int128 *a2, char *a3)
@@ -7297,7 +7234,7 @@ void cva::VecLibSparse<float>::solve(_OWORD *a1, __int128 *a2, char *a3)
   }
 }
 
-void cva::VecLibSparse<float>::multiply(_OWORD *a1, DenseMatrix_Float *a2, DenseMatrix_Float *a3, char *a4)
+void cva::VecLibSparse<float>::multiply(_OWORD *a1, __int128 *a2, __int128 *a3, char *a4)
 {
   v4 = a1[5];
   v10[4] = a1[4];
@@ -7326,20 +7263,20 @@ void cva::VecLibSparse<float>::multiply(_OWORD *a1, DenseMatrix_Float *a2, Dense
 
 void sub_24506BF00(const SparseOpaqueSubfactor_Float *a1, const DenseMatrix_Float *a2, uint64_t a3, char *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (!*(&a1->contents + 2))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v36.control) = 0;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v36, 2u);
+      LOWORD(v35.control) = 0;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v35, 2u);
     }
 
     goto LABEL_65;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v36, &a1->factor.symbolicFactorization);
-  reportError = v36.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v35, &a1->factor.symbolicFactorization);
+  reportError = v35.reportError;
   attributes = a1->attributes;
   factorization_low = LOBYTE(a1->factor.symbolicFactorization.factorization);
   v11 = a1->factor.symbolicFactorization.rowCount * factorization_low;
@@ -7393,28 +7330,26 @@ void sub_24506BF00(const SparseOpaqueSubfactor_Float *a1, const DenseMatrix_Floa
   v19 = *a3;
   if (v18 < *a3)
   {
-    if (v36.reportError)
+    if (v35.reportError)
     {
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v36.control = 136315906;
-      *&v36.orderMethod = "Y";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = v18;
-      WORD1(v36.ignoreRowsAndColumns) = 2080;
-      *(&v36.ignoreRowsAndColumns + 4) = "Y";
-      WORD2(v36.malloc) = 1024;
-      *(&v36.malloc + 6) = v19;
-      v23 = MEMORY[0x277D86220];
-LABEL_48:
-      _os_log_error_impl(&dword_245028000, v23, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v36, 0x22u);
       goto LABEL_65;
     }
 
-    goto LABEL_65;
+    v35.control = 136315906;
+    *&v35.orderMethod = "Y";
+    WORD2(v35.order) = 1024;
+    *(&v35.order + 6) = v18;
+    WORD1(v35.ignoreRowsAndColumns) = 2080;
+    *(&v35.ignoreRowsAndColumns + 4) = "Y";
+    WORD2(v35.malloc) = 1024;
+    *(&v35.malloc + 6) = v19;
+    v23 = MEMORY[0x277D86220];
+    goto LABEL_48;
   }
 
   columnStride = a2->columnStride;
@@ -7459,36 +7394,36 @@ LABEL_48:
     {
       if (v19 <= 0)
       {
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
-          snprintf(&v36, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
+          snprintf(&v35, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
           goto LABEL_27;
         }
 
         v33 = v26;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v36.control = 136315650;
-          *&v36.orderMethod = "Y";
-          WORD2(v36.order) = 1024;
-          *(&v36.order + 6) = v33;
-          WORD1(v36.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v36.ignoreRowsAndColumns) = v19;
-          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v36, 0x18u);
+          v35.control = 136315650;
+          *&v35.orderMethod = "Y";
+          WORD2(v35.order) = 1024;
+          *(&v35.order + 6) = v33;
+          WORD1(v35.ignoreRowsAndColumns) = 1024;
+          HIDWORD(v35.ignoreRowsAndColumns) = v19;
+          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v35, 0x18u);
         }
 
         goto LABEL_65;
@@ -7499,25 +7434,25 @@ LABEL_48:
         if (v28 == v16)
         {
           _SparseMultiplySubfactor_Float(a1, a2, a3, a4);
-          goto LABEL_66;
+          return;
         }
 
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
           v32 = "X";
           goto LABEL_57;
         }
@@ -7527,43 +7462,43 @@ LABEL_48:
           goto LABEL_65;
         }
 
-        v36.control = 136316418;
-        *&v36.orderMethod = "X";
-        WORD2(v36.order) = 1024;
-        *(&v36.order + 6) = v28;
-        WORD1(v36.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v36.ignoreRowsAndColumns) = v19;
-        LOWORD(v36.malloc) = 2080;
-        *(&v36.malloc + 2) = "subfactor dimension";
-        WORD1(v36.free) = 1024;
-        HIDWORD(v36.free) = v16;
-        LOWORD(v36.reportError) = 1024;
-        *(&v36.reportError + 2) = v17;
+        v35.control = 136316418;
+        *&v35.orderMethod = "X";
+        WORD2(v35.order) = 1024;
+        *(&v35.order + 6) = v28;
+        WORD1(v35.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v35.ignoreRowsAndColumns) = v19;
+        LOWORD(v35.malloc) = 2080;
+        *(&v35.malloc + 2) = "subfactor dimension";
+        WORD1(v35.free) = 1024;
+        HIDWORD(v35.free) = v16;
+        LOWORD(v35.reportError) = 1024;
+        *(&v35.reportError + 2) = v17;
         v30 = MEMORY[0x277D86220];
         v31 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
       }
 
       else
       {
-        if (v36.reportError)
+        if (v35.reportError)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
+          v44 = 0u;
           v41 = 0u;
-          v38 = 0u;
+          v42 = 0u;
           v39 = 0u;
+          v40 = 0u;
           v37 = 0u;
-          memset(&v36, 0, sizeof(v36));
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
           v32 = "Y";
 LABEL_57:
-          snprintf(&v36, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v32);
+          snprintf(&v35, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v32);
           goto LABEL_27;
         }
 
@@ -7573,18 +7508,18 @@ LABEL_57:
           goto LABEL_65;
         }
 
-        v36.control = 136316418;
-        *&v36.orderMethod = "Y";
-        WORD2(v36.order) = 1024;
-        *(&v36.order + 6) = v34;
-        WORD1(v36.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v36.ignoreRowsAndColumns) = v19;
-        LOWORD(v36.malloc) = 2080;
-        *(&v36.malloc + 2) = "subfactor dimension";
-        WORD1(v36.free) = 1024;
-        HIDWORD(v36.free) = v16;
-        LOWORD(v36.reportError) = 1024;
-        *(&v36.reportError + 2) = v17;
+        v35.control = 136316418;
+        *&v35.orderMethod = "Y";
+        WORD2(v35.order) = 1024;
+        *(&v35.order + 6) = v34;
+        WORD1(v35.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v35.ignoreRowsAndColumns) = v19;
+        LOWORD(v35.malloc) = 2080;
+        *(&v35.malloc + 2) = "subfactor dimension";
+        WORD1(v35.free) = 1024;
+        HIDWORD(v35.free) = v16;
+        LOWORD(v35.reportError) = 1024;
+        *(&v35.reportError + 2) = v17;
         v30 = MEMORY[0x277D86220];
         v31 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
       }
@@ -7592,23 +7527,23 @@ LABEL_57:
 
     else
     {
-      if (v36.reportError)
+      if (v35.reportError)
       {
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
+        v40 = 0u;
         v37 = 0u;
-        memset(&v36, 0, sizeof(v36));
-        snprintf(&v36, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "Y");
+        v38 = 0u;
+        v36 = 0u;
+        memset(&v35, 0, sizeof(v35));
+        snprintf(&v35, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "Y");
         goto LABEL_27;
       }
 
@@ -7618,85 +7553,85 @@ LABEL_57:
         goto LABEL_65;
       }
 
-      v36.control = 136316418;
-      *&v36.orderMethod = "Y";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = v29;
-      WORD1(v36.ignoreRowsAndColumns) = 1024;
-      HIDWORD(v36.ignoreRowsAndColumns) = v19;
-      LOWORD(v36.malloc) = 2080;
-      *(&v36.malloc + 2) = "X";
-      WORD1(v36.free) = 1024;
-      HIDWORD(v36.free) = v28;
-      LOWORD(v36.reportError) = 1024;
-      *(&v36.reportError + 2) = v25;
+      v35.control = 136316418;
+      *&v35.orderMethod = "Y";
+      WORD2(v35.order) = 1024;
+      *(&v35.order + 6) = v29;
+      WORD1(v35.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v35.ignoreRowsAndColumns) = v19;
+      LOWORD(v35.malloc) = 2080;
+      *(&v35.malloc + 2) = "X";
+      WORD1(v35.free) = 1024;
+      HIDWORD(v35.free) = v28;
+      LOWORD(v35.reportError) = 1024;
+      *(&v35.reportError + 2) = v25;
       v30 = MEMORY[0x277D86220];
       v31 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
     }
 
-    _os_log_error_impl(&dword_245028000, v30, OS_LOG_TYPE_ERROR, v31, &v36, 0x2Eu);
+    _os_log_error_impl(&dword_245028000, v30, OS_LOG_TYPE_ERROR, v31, &v35, 0x2Eu);
     goto LABEL_65;
   }
 
-  if (!v36.reportError)
+  if (v35.reportError)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v36.control = 136315906;
-      *&v36.orderMethod = "X";
-      WORD2(v36.order) = 1024;
-      *(&v36.order + 6) = columnStride;
-      WORD1(v36.ignoreRowsAndColumns) = 2080;
-      *(&v36.ignoreRowsAndColumns + 4) = "X";
-      WORD2(v36.malloc) = 1024;
-      *(&v36.malloc + 6) = rowCount;
-      v23 = MEMORY[0x277D86220];
-      goto LABEL_48;
-    }
-
-LABEL_65:
-    _SparseTrap();
-    goto LABEL_66;
+LABEL_26:
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v36 = 0u;
+    memset(&v35, 0, sizeof(v35));
+    snprintf(&v35, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+LABEL_27:
+    (reportError)(&v35);
+    return;
   }
 
-LABEL_26:
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v37 = 0u;
-  memset(&v36, 0, sizeof(v36));
-  snprintf(&v36, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-LABEL_27:
-  (reportError)(&v36);
-LABEL_66:
-  v35 = *MEMORY[0x277D85DE8];
+  if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_65;
+  }
+
+  v35.control = 136315906;
+  *&v35.orderMethod = "X";
+  WORD2(v35.order) = 1024;
+  *(&v35.order + 6) = columnStride;
+  WORD1(v35.ignoreRowsAndColumns) = 2080;
+  *(&v35.ignoreRowsAndColumns + 4) = "X";
+  WORD2(v35.malloc) = 1024;
+  *(&v35.malloc + 6) = rowCount;
+  v23 = MEMORY[0x277D86220];
+LABEL_48:
+  _os_log_error_impl(&dword_245028000, v23, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v35, 0x22u);
+LABEL_65:
+  _SparseTrap();
 }
 
 void sub_24506C564(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const DenseMatrix_Float *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!*(&a1->contents + 2))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v35.control) = 0;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v35, 2u);
+      LOWORD(v34.control) = 0;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Subfactor does not hold a valid factor subobject.\n", &v34, 2u);
     }
 
     goto LABEL_70;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v35, &a1->factor.symbolicFactorization);
-  reportError = v35.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v34, &a1->factor.symbolicFactorization);
+  reportError = v34.reportError;
   attributes = a1->attributes;
   factorization_low = LOBYTE(a1->factor.symbolicFactorization.factorization);
   v9 = a1->factor.symbolicFactorization.rowCount * factorization_low;
@@ -7750,326 +7685,320 @@ void sub_24506C564(const SparseOpaqueSubfactor_Float *a1, uint64_t a2, const Den
   v17 = *a2;
   if (v16 < *a2)
   {
-    if (v35.reportError)
+    if (v34.reportError)
     {
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v35.control = 136315906;
-      *&v35.orderMethod = "X";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = v16;
-      WORD1(v35.ignoreRowsAndColumns) = 2080;
-      *(&v35.ignoreRowsAndColumns + 4) = "X";
-      WORD2(v35.malloc) = 1024;
-      *(&v35.malloc + 6) = v17;
-      v21 = MEMORY[0x277D86220];
-LABEL_49:
-      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v35, 0x22u);
       goto LABEL_70;
     }
 
-    goto LABEL_70;
+    v34.control = 136315906;
+    *&v34.orderMethod = "X";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v16;
+    WORD1(v34.ignoreRowsAndColumns) = 2080;
+    *(&v34.ignoreRowsAndColumns + 4) = "X";
+    WORD2(v34.malloc) = 1024;
+    *(&v34.malloc + 6) = v17;
+    v21 = MEMORY[0x277D86220];
+    goto LABEL_49;
   }
 
   columnStride = a3->columnStride;
   rowCount = a3->rowCount;
-  if (columnStride >= a3->rowCount)
+  if (columnStride < a3->rowCount)
   {
-    if (*(a2 + 12))
+    if (v34.reportError)
     {
-      v20 = 4;
+LABEL_26:
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+LABEL_27:
+      (reportError)(&v34);
+      return;
     }
 
-    else
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v20 = 0;
-      v17 = *(a2 + 4);
+      goto LABEL_70;
     }
 
-    if (*&a3->attributes)
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = 4;
-    }
-
-    v23 = *(&a3->rowCount + v22);
-    v24 = *(a2 + v20);
-    if (*&a3->attributes)
-    {
-      v25 = 4;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v26 = *(&a3->rowCount + v25);
-    if (v17 == v23)
-    {
-      if (v17 <= 0)
-      {
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          snprintf(&v35, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-          goto LABEL_27;
-        }
-
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          v35.control = 136315650;
-          *&v35.orderMethod = "X";
-          WORD2(v35.order) = 1024;
-          *(&v35.order + 6) = v24;
-          WORD1(v35.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v35.ignoreRowsAndColumns) = v17;
-          _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v35, 0x18u);
-        }
-
-        goto LABEL_70;
-      }
-
-      if (v24 == v14)
-      {
-        if (v26 == v15)
-        {
-          free = v35.free;
-          v28 = a1->workspaceRequiredPerRHS + *&a1[1].attributes * v17;
-          v29 = (v35.malloc)(v28);
-          if (v29)
-          {
-            v30 = v29;
-            _SparseMultiplySubfactor_Float(a1, a2, a3, v29);
-            (free)(v30);
-            goto LABEL_71;
-          }
-
-          if (reportError)
-          {
-            v47 = 0u;
-            v48 = 0u;
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
-            v42 = 0u;
-            v39 = 0u;
-            v40 = 0u;
-            v37 = 0u;
-            v38 = 0u;
-            v36 = 0u;
-            memset(&v35, 0, sizeof(v35));
-            snprintf(&v35, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
-            goto LABEL_27;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            v35.control = 134217984;
-            *&v35.orderMethod = v28;
-            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", &v35, 0xCu);
-          }
-
-          goto LABEL_70;
-        }
-
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          v33 = "Y";
-          goto LABEL_58;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_70;
-        }
-
-        v35.control = 136316418;
-        *&v35.orderMethod = "Y";
-        WORD2(v35.order) = 1024;
-        *(&v35.order + 6) = v26;
-        WORD1(v35.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v35.ignoreRowsAndColumns) = v17;
-        LOWORD(v35.malloc) = 2080;
-        *(&v35.malloc + 2) = "subfactor dimension";
-        WORD1(v35.free) = 1024;
-        HIDWORD(v35.free) = v15;
-        LOWORD(v35.reportError) = 1024;
-        *(&v35.reportError + 2) = v14;
-        v31 = MEMORY[0x277D86220];
-        v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-      }
-
-      else
-      {
-        if (v35.reportError)
-        {
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v36 = 0u;
-          memset(&v35, 0, sizeof(v35));
-          v33 = "X";
-LABEL_58:
-          snprintf(&v35, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v33);
-          goto LABEL_27;
-        }
-
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_70;
-        }
-
-        v35.control = 136316418;
-        *&v35.orderMethod = "X";
-        WORD2(v35.order) = 1024;
-        *(&v35.order + 6) = v24;
-        WORD1(v35.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v35.ignoreRowsAndColumns) = v17;
-        LOWORD(v35.malloc) = 2080;
-        *(&v35.malloc + 2) = "subfactor dimension";
-        WORD1(v35.free) = 1024;
-        HIDWORD(v35.free) = v15;
-        LOWORD(v35.reportError) = 1024;
-        *(&v35.reportError + 2) = v14;
-        v31 = MEMORY[0x277D86220];
-        v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-      }
-    }
-
-    else
-    {
-      if (v35.reportError)
-      {
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        memset(&v35, 0, sizeof(v35));
-        snprintf(&v35, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "X");
-        goto LABEL_27;
-      }
-
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_70;
-      }
-
-      v35.control = 136316418;
-      *&v35.orderMethod = "X";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = v24;
-      WORD1(v35.ignoreRowsAndColumns) = 1024;
-      HIDWORD(v35.ignoreRowsAndColumns) = v17;
-      LOWORD(v35.malloc) = 2080;
-      *(&v35.malloc + 2) = "Y";
-      WORD1(v35.free) = 1024;
-      HIDWORD(v35.free) = v26;
-      LOWORD(v35.reportError) = 1024;
-      *(&v35.reportError + 2) = v23;
-      v31 = MEMORY[0x277D86220];
-      v32 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-    }
-
-    _os_log_error_impl(&dword_245028000, v31, OS_LOG_TYPE_ERROR, v32, &v35, 0x2Eu);
+    v34.control = 136315906;
+    *&v34.orderMethod = "Y";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = columnStride;
+    WORD1(v34.ignoreRowsAndColumns) = 2080;
+    *(&v34.ignoreRowsAndColumns + 4) = "Y";
+    WORD2(v34.malloc) = 1024;
+    *(&v34.malloc + 6) = rowCount;
+    v21 = MEMORY[0x277D86220];
+LABEL_49:
+    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v34, 0x22u);
     goto LABEL_70;
   }
 
-  if (!v35.reportError)
+  if (*(a2 + 12))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v35.control = 136315906;
-      *&v35.orderMethod = "Y";
-      WORD2(v35.order) = 1024;
-      *(&v35.order + 6) = columnStride;
-      WORD1(v35.ignoreRowsAndColumns) = 2080;
-      *(&v35.ignoreRowsAndColumns + 4) = "Y";
-      WORD2(v35.malloc) = 1024;
-      *(&v35.malloc + 6) = rowCount;
-      v21 = MEMORY[0x277D86220];
-      goto LABEL_49;
-    }
-
-LABEL_70:
-    _SparseTrap();
-    goto LABEL_71;
+    v20 = 4;
   }
 
-LABEL_26:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v36 = 0u;
-  memset(&v35, 0, sizeof(v35));
-  snprintf(&v35, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-LABEL_27:
-  (reportError)(&v35);
-LABEL_71:
-  v34 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v20 = 0;
+    v17 = *(a2 + 4);
+  }
+
+  if (*&a3->attributes)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = 4;
+  }
+
+  v23 = *(&a3->rowCount + v22);
+  v24 = *(a2 + v20);
+  if (*&a3->attributes)
+  {
+    v25 = 4;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  v26 = *(&a3->rowCount + v25);
+  if (v17 != v23)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "X");
+      goto LABEL_27;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "X";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v24;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "Y";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v26;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v23;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+    goto LABEL_67;
+  }
+
+  if (v17 <= 0)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      snprintf(&v34, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+      goto LABEL_27;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v34.control = 136315650;
+      *&v34.orderMethod = "X";
+      WORD2(v34.order) = 1024;
+      *(&v34.order + 6) = v24;
+      WORD1(v34.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v34.ignoreRowsAndColumns) = v17;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v34, 0x18u);
+    }
+
+    goto LABEL_70;
+  }
+
+  if (v24 != v14)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      v33 = "X";
+LABEL_58:
+      snprintf(&v34, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v33);
+      goto LABEL_27;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "X";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v24;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "subfactor dimension";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v15;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v14;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+LABEL_67:
+    _os_log_error_impl(&dword_245028000, v31, OS_LOG_TYPE_ERROR, v32, &v34, 0x2Eu);
+    goto LABEL_70;
+  }
+
+  if (v26 != v15)
+  {
+    if (v34.reportError)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = 0u;
+      memset(&v34, 0, sizeof(v34));
+      v33 = "Y";
+      goto LABEL_58;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_70;
+    }
+
+    v34.control = 136316418;
+    *&v34.orderMethod = "Y";
+    WORD2(v34.order) = 1024;
+    *(&v34.order + 6) = v26;
+    WORD1(v34.ignoreRowsAndColumns) = 1024;
+    HIDWORD(v34.ignoreRowsAndColumns) = v17;
+    LOWORD(v34.malloc) = 2080;
+    *(&v34.malloc + 2) = "subfactor dimension";
+    WORD1(v34.free) = 1024;
+    HIDWORD(v34.free) = v15;
+    LOWORD(v34.reportError) = 1024;
+    *(&v34.reportError + 2) = v14;
+    v31 = MEMORY[0x277D86220];
+    v32 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+    goto LABEL_67;
+  }
+
+  free = v34.free;
+  v28 = a1->workspaceRequiredPerRHS + *&a1[1].attributes * v17;
+  v29 = (v34.malloc)(v28);
+  if (v29)
+  {
+    v30 = v29;
+    _SparseMultiplySubfactor_Float(a1, a2, a3, v29);
+    (free)(v30);
+    return;
+  }
+
+  if (reportError)
+  {
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v35 = 0u;
+    memset(&v34, 0, sizeof(v34));
+    snprintf(&v34, 0x100uLL, "Failed to allocate workspace of size %ld.\n");
+    goto LABEL_27;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v34.control = 134217984;
+    *&v34.orderMethod = v28;
+    _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.\n", &v34, 0xCu);
+  }
+
+LABEL_70:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<float>::multiply(_OWORD *a1, uint64_t a2, uint64_t a3, char *a4)
@@ -8125,7 +8054,7 @@ void cva::VecLibSparse<double>::multiply(uint64_t a1, __int128 *a2, __int128 *a3
 
 void sub_24506CDA8(uint64_t a1, int *a2, uint64_t a3, double a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = 4;
   if (*(a1 + 24))
   {
@@ -8144,31 +8073,135 @@ void sub_24506CDA8(uint64_t a1, int *a2, uint64_t a3, double a4)
 
   v6 = *(a3 + 8);
   v7 = *a3;
-  if (v6 < *a3)
+  if (v6 >= *a3)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v9 = a2[2];
+    v10 = *a2;
+    if (v9 >= *a2)
     {
-      buf.structure.rowCount = 136315906;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v6;
-      WORD1(buf.structure.rowIndices) = 2080;
-      *(&buf.structure.rowIndices + 4) = "Y";
-      *(&buf.structure.blockSize + 1) = 1024;
-      *(&buf.structure.blockSize + 1) = v7;
-      v8 = MEMORY[0x277D86220];
-LABEL_12:
-      _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+      if (*(a3 + 12))
+      {
+        v11 = 4;
+      }
+
+      else
+      {
+        v11 = 0;
+        v7 = *(a3 + 4);
+      }
+
+      v12 = (a2[3] & 1) == 0;
+      v13 = a2[v12];
+      v14 = *(a3 + v11);
+      v15 = (a2[3] & 1) != 0;
+      v16 = a2[v15];
+      if (v7 == v13)
+      {
+        if (v7 <= 0)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            buf.structure.rowCount = 136315650;
+            *&buf.structure.columnCount = "Y";
+            WORD2(buf.structure.columnStarts) = 1024;
+            *(&buf.structure.columnStarts + 6) = v14;
+            WORD1(buf.structure.rowIndices) = 1024;
+            HIDWORD(buf.structure.rowIndices) = v7;
+            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
+          }
+
+          goto LABEL_36;
+        }
+
+        v17 = *(a1 + 28);
+        v18 = *(a1 + v5) * v17;
+        v19 = *(a1 + v4) * v17;
+        if (v14 == v18)
+        {
+          if (v16 == v19)
+          {
+            v20 = *(a1 + 16);
+            *&buf.structure.rowCount = *a1;
+            *&buf.structure.rowIndices = v20;
+            buf.data = *(a1 + 32);
+            x = *a2;
+            v23 = *a3;
+            _SparseSpMV_Double(a4, &buf, &x, 0, &v23);
+            return;
+          }
+
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "X";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v16;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+
+        else
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "Y";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v14;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+      }
+
+      else
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_36;
+        }
+
+        buf.structure.rowCount = 136316418;
+        *&buf.structure.columnCount = "Y";
+        WORD2(buf.structure.columnStarts) = 1024;
+        *(&buf.structure.columnStarts + 6) = v14;
+        WORD1(buf.structure.rowIndices) = 1024;
+        HIDWORD(buf.structure.rowIndices) = v7;
+        buf.structure.attributes = 2080;
+        *&buf.structure.blockSize = "X";
+        WORD1(buf.data) = 1024;
+        HIDWORD(buf.data) = v16;
+        v26 = 1024;
+        v27 = v13;
+        v21 = MEMORY[0x277D86220];
+        v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      }
+
+      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
       goto LABEL_36;
     }
 
-    goto LABEL_36;
-  }
-
-  v9 = a2[2];
-  v10 = *a2;
-  if (v9 < *a2)
-  {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       buf.structure.rowCount = 136315906;
@@ -8182,130 +8215,25 @@ LABEL_12:
       v8 = MEMORY[0x277D86220];
       goto LABEL_12;
     }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    buf.structure.rowCount = 136315906;
+    *&buf.structure.columnCount = "Y";
+    WORD2(buf.structure.columnStarts) = 1024;
+    *(&buf.structure.columnStarts + 6) = v6;
+    WORD1(buf.structure.rowIndices) = 2080;
+    *(&buf.structure.rowIndices + 4) = "Y";
+    *(&buf.structure.blockSize + 1) = 1024;
+    *(&buf.structure.blockSize + 1) = v7;
+    v8 = MEMORY[0x277D86220];
+LABEL_12:
+    _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+  }
 
 LABEL_36:
-    _SparseTrap();
-    goto LABEL_37;
-  }
-
-  if (*(a3 + 12))
-  {
-    v11 = 4;
-  }
-
-  else
-  {
-    v11 = 0;
-    v7 = *(a3 + 4);
-  }
-
-  v12 = (a2[3] & 1) == 0;
-  v13 = a2[v12];
-  v14 = *(a3 + v11);
-  v15 = (a2[3] & 1) != 0;
-  v16 = a2[v15];
-  if (v7 != v13)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "X";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v16;
-    v27 = 1024;
-    v28 = v13;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-LABEL_35:
-    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
-    goto LABEL_36;
-  }
-
-  if (v7 <= 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      buf.structure.rowCount = 136315650;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v14;
-      WORD1(buf.structure.rowIndices) = 1024;
-      HIDWORD(buf.structure.rowIndices) = v7;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
-    }
-
-    goto LABEL_36;
-  }
-
-  v17 = *(a1 + 28);
-  v18 = *(a1 + v5) * v17;
-  v19 = *(a1 + v4) * v17;
-  if (v14 != v18)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  if (v16 != v19)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "X";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v16;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  v20 = *(a1 + 16);
-  *&buf.structure.rowCount = *a1;
-  *&buf.structure.rowIndices = v20;
-  buf.data = *(a1 + 32);
-  x = *a2;
-  v24 = *a3;
-  _SparseSpMV_Double(a4, &buf, &x, 0, &v24);
-LABEL_37:
-  v23 = *MEMORY[0x277D85DE8];
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<double>::multiply(uint64_t a1, __int128 *a2, __int128 *a3, double a4)
@@ -8321,18 +8249,18 @@ void cva::VecLibSparse<double>::multiply(uint64_t a1, __int128 *a2, __int128 *a3
   sub_24506CDA8(v9, &v7, &v5, a4);
 }
 
-void cva::VecLibSparse<double>::multiply(uint64_t a1, uint64_t a2, uint64_t a3)
+void cva::VecLibSparse<double>::multiply(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 16);
   v4[0] = *a1;
   v4[1] = v3;
   v5 = *(a1 + 32);
-  sub_24506D270(v4, *a2, *(a2 + 8), *a3, *(a3 + 8), 1.0);
+  sub_24506D270(v4, *a2, a2[1], *a3, a3[1], 1.0);
 }
 
 void sub_24506D270(uint64_t a1, int a2, double *a3, int a4, double *a5, double a6)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 28);
   v8 = 4;
   if (*(a1 + 24))
@@ -8356,9 +8284,7 @@ void sub_24506D270(uint64_t a1, int a2, double *a3, int a4, double *a5, double a
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_12:
-      _SparseTrap();
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     A.structure.rowCount = 67109888;
@@ -8376,13 +8302,28 @@ LABEL_15:
     goto LABEL_12;
   }
 
-  if (v10 != a4)
+  if (v10 == a4)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_12;
-    }
+    v12 = *(a1 + 16);
+    *&A.structure.rowCount = *a1;
+    *&A.structure.rowIndices = v12;
+    A.data = *(a1 + 32);
+    x.rowCount = a2;
+    x.columnCount = 1;
+    x.columnStride = a2;
+    x.attributes = 0;
+    x.data = a3;
+    v16.rowCount = a4;
+    v16.columnCount = 1;
+    v16.columnStride = a4;
+    v16.attributes = 0;
+    v16.data = a5;
+    _SparseSpMV_Double(a6, &A, &x, 0, &v16);
+    return;
+  }
 
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
     A.structure.rowCount = 67109888;
     A.structure.columnCount = v10;
     LOWORD(A.structure.columnStarts) = 1024;
@@ -8396,23 +8337,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = *(a1 + 16);
-  *&A.structure.rowCount = *a1;
-  *&A.structure.rowIndices = v12;
-  A.data = *(a1 + 32);
-  x.rowCount = a2;
-  x.columnCount = 1;
-  x.columnStride = a2;
-  x.attributes = 0;
-  x.data = a3;
-  v17.rowCount = a4;
-  v17.columnCount = 1;
-  v17.columnStride = a4;
-  v17.attributes = 0;
-  v17.data = a5;
-  _SparseSpMV_Double(a6, &A, &x, 0, &v17);
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<double>::multiply(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
@@ -8439,7 +8365,7 @@ void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 
 
 void sub_24506D4C4(uint64_t a1, int *a2, uint64_t a3, double a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = 4;
   if (*(a1 + 24))
   {
@@ -8458,31 +8384,135 @@ void sub_24506D4C4(uint64_t a1, int *a2, uint64_t a3, double a4)
 
   v6 = *(a3 + 8);
   v7 = *a3;
-  if (v6 < *a3)
+  if (v6 >= *a3)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v9 = a2[2];
+    v10 = *a2;
+    if (v9 >= *a2)
     {
-      buf.structure.rowCount = 136315906;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v6;
-      WORD1(buf.structure.rowIndices) = 2080;
-      *(&buf.structure.rowIndices + 4) = "Y";
-      *(&buf.structure.blockSize + 1) = 1024;
-      *(&buf.structure.blockSize + 1) = v7;
-      v8 = MEMORY[0x277D86220];
-LABEL_12:
-      _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+      if (*(a3 + 12))
+      {
+        v11 = 4;
+      }
+
+      else
+      {
+        v11 = 0;
+        v7 = *(a3 + 4);
+      }
+
+      v12 = (a2[3] & 1) == 0;
+      v13 = a2[v12];
+      v14 = *(a3 + v11);
+      v15 = (a2[3] & 1) != 0;
+      v16 = a2[v15];
+      if (v7 == v13)
+      {
+        if (v7 <= 0)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            buf.structure.rowCount = 136315650;
+            *&buf.structure.columnCount = "Y";
+            WORD2(buf.structure.columnStarts) = 1024;
+            *(&buf.structure.columnStarts + 6) = v14;
+            WORD1(buf.structure.rowIndices) = 1024;
+            HIDWORD(buf.structure.rowIndices) = v7;
+            _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
+          }
+
+          goto LABEL_36;
+        }
+
+        v17 = *(a1 + 28);
+        v18 = *(a1 + v5) * v17;
+        v19 = *(a1 + v4) * v17;
+        if (v14 == v18)
+        {
+          if (v16 == v19)
+          {
+            v20 = *(a1 + 16);
+            *&buf.structure.rowCount = *a1;
+            *&buf.structure.rowIndices = v20;
+            buf.data = *(a1 + 32);
+            x = *a2;
+            v23 = *a3;
+            _SparseSpMV_Double(a4, &buf, &x, 1, &v23);
+            return;
+          }
+
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "X";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v16;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+
+        else
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_36;
+          }
+
+          buf.structure.rowCount = 136316418;
+          *&buf.structure.columnCount = "Y";
+          WORD2(buf.structure.columnStarts) = 1024;
+          *(&buf.structure.columnStarts + 6) = v14;
+          WORD1(buf.structure.rowIndices) = 1024;
+          HIDWORD(buf.structure.rowIndices) = v7;
+          buf.structure.attributes = 2080;
+          *&buf.structure.blockSize = "matrix A";
+          WORD1(buf.data) = 1024;
+          HIDWORD(buf.data) = v19;
+          v26 = 1024;
+          v27 = v18;
+          v21 = MEMORY[0x277D86220];
+          v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+        }
+      }
+
+      else
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_36;
+        }
+
+        buf.structure.rowCount = 136316418;
+        *&buf.structure.columnCount = "Y";
+        WORD2(buf.structure.columnStarts) = 1024;
+        *(&buf.structure.columnStarts + 6) = v14;
+        WORD1(buf.structure.rowIndices) = 1024;
+        HIDWORD(buf.structure.rowIndices) = v7;
+        buf.structure.attributes = 2080;
+        *&buf.structure.blockSize = "X";
+        WORD1(buf.data) = 1024;
+        HIDWORD(buf.data) = v16;
+        v26 = 1024;
+        v27 = v13;
+        v21 = MEMORY[0x277D86220];
+        v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      }
+
+      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
       goto LABEL_36;
     }
 
-    goto LABEL_36;
-  }
-
-  v9 = a2[2];
-  v10 = *a2;
-  if (v9 < *a2)
-  {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       buf.structure.rowCount = 136315906;
@@ -8496,130 +8526,25 @@ LABEL_12:
       v8 = MEMORY[0x277D86220];
       goto LABEL_12;
     }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    buf.structure.rowCount = 136315906;
+    *&buf.structure.columnCount = "Y";
+    WORD2(buf.structure.columnStarts) = 1024;
+    *(&buf.structure.columnStarts + 6) = v6;
+    WORD1(buf.structure.rowIndices) = 2080;
+    *(&buf.structure.rowIndices + 4) = "Y";
+    *(&buf.structure.blockSize + 1) = 1024;
+    *(&buf.structure.blockSize + 1) = v7;
+    v8 = MEMORY[0x277D86220];
+LABEL_12:
+    _os_log_error_impl(&dword_245028000, v8, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &buf, 0x22u);
+  }
 
 LABEL_36:
-    _SparseTrap();
-    goto LABEL_37;
-  }
-
-  if (*(a3 + 12))
-  {
-    v11 = 4;
-  }
-
-  else
-  {
-    v11 = 0;
-    v7 = *(a3 + 4);
-  }
-
-  v12 = (a2[3] & 1) == 0;
-  v13 = a2[v12];
-  v14 = *(a3 + v11);
-  v15 = (a2[3] & 1) != 0;
-  v16 = a2[v15];
-  if (v7 != v13)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "X";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v16;
-    v27 = 1024;
-    v28 = v13;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-LABEL_35:
-    _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &buf, 0x2Eu);
-    goto LABEL_36;
-  }
-
-  if (v7 <= 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      buf.structure.rowCount = 136315650;
-      *&buf.structure.columnCount = "Y";
-      WORD2(buf.structure.columnStarts) = 1024;
-      *(&buf.structure.columnStarts + 6) = v14;
-      WORD1(buf.structure.rowIndices) = 1024;
-      HIDWORD(buf.structure.rowIndices) = v7;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &buf, 0x18u);
-    }
-
-    goto LABEL_36;
-  }
-
-  v17 = *(a1 + 28);
-  v18 = *(a1 + v5) * v17;
-  v19 = *(a1 + v4) * v17;
-  if (v14 != v18)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "Y";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v14;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  if (v16 != v19)
-  {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_36;
-    }
-
-    buf.structure.rowCount = 136316418;
-    *&buf.structure.columnCount = "X";
-    WORD2(buf.structure.columnStarts) = 1024;
-    *(&buf.structure.columnStarts + 6) = v16;
-    WORD1(buf.structure.rowIndices) = 1024;
-    HIDWORD(buf.structure.rowIndices) = v7;
-    buf.structure.attributes = 2080;
-    *&buf.structure.blockSize = "matrix A";
-    WORD1(buf.data) = 1024;
-    HIDWORD(buf.data) = v19;
-    v27 = 1024;
-    v28 = v18;
-    v21 = MEMORY[0x277D86220];
-    v22 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-    goto LABEL_35;
-  }
-
-  v20 = *(a1 + 16);
-  *&buf.structure.rowCount = *a1;
-  *&buf.structure.rowIndices = v20;
-  buf.data = *(a1 + 32);
-  x = *a2;
-  v24 = *a3;
-  _SparseSpMV_Double(a4, &buf, &x, 1, &v24);
-LABEL_37:
-  v23 = *MEMORY[0x277D85DE8];
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 *a3, double a4)
@@ -8635,18 +8560,18 @@ void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, __int128 *a2, __int128 
   sub_24506D4C4(v9, &v7, &v5, a4);
 }
 
-void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3)
+void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 16);
   v4[0] = *a1;
   v4[1] = v3;
   v5 = *(a1 + 32);
-  sub_24506D98C(v4, *a2, *(a2 + 8), *a3, *(a3 + 8), 1.0);
+  sub_24506D98C(v4, *a2, a2[1], *a3, a3[1], 1.0);
 }
 
 void sub_24506D98C(uint64_t a1, int a2, double *a3, int a4, double *a5, double a6)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 28);
   v8 = 4;
   if (*(a1 + 24))
@@ -8670,9 +8595,7 @@ void sub_24506D98C(uint64_t a1, int a2, double *a3, int a4, double *a5, double a
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_12:
-      _SparseTrap();
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     A.structure.rowCount = 67109888;
@@ -8690,13 +8613,28 @@ LABEL_15:
     goto LABEL_12;
   }
 
-  if (v10 != a4)
+  if (v10 == a4)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_12;
-    }
+    v12 = *(a1 + 16);
+    *&A.structure.rowCount = *a1;
+    *&A.structure.rowIndices = v12;
+    A.data = *(a1 + 32);
+    x.rowCount = a2;
+    x.columnCount = 1;
+    x.columnStride = a2;
+    x.attributes = 0;
+    x.data = a3;
+    v16.rowCount = a4;
+    v16.columnCount = 1;
+    v16.columnStride = a4;
+    v16.attributes = 0;
+    v16.data = a5;
+    _SparseSpMV_Double(a6, &A, &x, 1, &v16);
+    return;
+  }
 
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
     A.structure.rowCount = 67109888;
     A.structure.columnCount = v10;
     LOWORD(A.structure.columnStarts) = 1024;
@@ -8710,23 +8648,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = *(a1 + 16);
-  *&A.structure.rowCount = *a1;
-  *&A.structure.rowIndices = v12;
-  A.data = *(a1 + 32);
-  x.rowCount = a2;
-  x.columnCount = 1;
-  x.columnStride = a2;
-  x.attributes = 0;
-  x.data = a3;
-  v17.rowCount = a4;
-  v17.columnCount = 1;
-  v17.columnStride = a4;
-  v17.attributes = 0;
-  v17.data = a5;
-  _SparseSpMV_Double(a6, &A, &x, 1, &v17);
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  _SparseTrap();
 }
 
 void cva::VecLibSparse<double>::multiplyAdd(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
@@ -8843,153 +8766,149 @@ __n128 cva::VecLibSparse<double>::release(uint64_t a1)
 
 void cva::VecLibSparse<double>::retain(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 48);
-  *&v7.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-  *&v7.symbolicFactorization.factorSize_Float = v1;
+  *&v6.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
+  *&v6.symbolicFactorization.factorSize_Float = v1;
   v2 = *(a1 + 80);
-  *&v7.userFactorStorage = *(a1 + 64);
-  *&v7.solveWorkspaceRequiredStatic = v2;
-  v8 = *(a1 + 96);
+  *&v6.userFactorStorage = *(a1 + 64);
+  *&v6.solveWorkspaceRequiredStatic = v2;
+  v7 = *(a1 + 96);
   v3 = *(a1 + 16);
-  *&v7.status = *a1;
-  *&v7.symbolicFactorization.columnCount = v3;
-  if (v7.symbolicFactorization.status || !v7.symbolicFactorization.workspaceSize_Float)
+  *&v6.status = *a1;
+  *&v6.symbolicFactorization.columnCount = v3;
+  if (v6.symbolicFactorization.status || !v6.symbolicFactorization.workspaceSize_Float)
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_7:
-      _SparseTrap();
-      goto LABEL_10;
+      *v8 = 0;
+      v5 = MEMORY[0x277D86220];
+      goto LABEL_14;
     }
 
-    *v9 = 0;
-    v6 = MEMORY[0x277D86220];
-LABEL_14:
-    _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Can only retain valid numeric factorizations.\n", v9, 2u);
-    goto LABEL_7;
+LABEL_7:
+    _SparseTrap();
+    return;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(v9, &v7.symbolicFactorization);
-  v4 = *&v9[40];
-  if (v7.status || !v7.solveWorkspaceRequiredStatic)
+  _SparseGetOptionsFromSymbolicFactor(v8, &v6.symbolicFactorization);
+  v4 = *&v8[40];
+  if (v6.status == SparseStatusOK && v6.solveWorkspaceRequiredStatic)
   {
-    if (*&v9[40])
-    {
-      v22 = 0;
-      v21 = 0u;
-      v20 = 0u;
-      v19 = 0u;
-      v18 = 0u;
-      v17 = 0u;
-      v16 = 0u;
-      v15 = 0u;
-      v14 = 0u;
-      v13 = 0u;
-      v12 = 0u;
-      v11 = 0u;
-      v10 = 0u;
-      *&v9[47] = 0u;
-      strcpy(v9, "Can only retain valid numeric factorizations.\n");
-      v4(v9);
-      goto LABEL_10;
-    }
+    _SparseRetainNumeric_Double(&v6);
+    return;
+  }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!*&v8[40])
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
+      *v8 = 0;
+      v5 = MEMORY[0x277D86220];
+LABEL_14:
+      _os_log_error_impl(&dword_245028000, v5, OS_LOG_TYPE_ERROR, "Can only retain valid numeric factorizations.\n", v8, 2u);
       goto LABEL_7;
     }
 
-    *v9 = 0;
-    v6 = MEMORY[0x277D86220];
-    goto LABEL_14;
+    goto LABEL_7;
   }
 
-  _SparseRetainNumeric_Double(&v7);
-LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
+  v21 = 0;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v11 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  *&v8[47] = 0u;
+  strcpy(v8, "Can only retain valid numeric factorizations.\n");
+  v4(v8);
 }
 
 void cva::VecLibSparse<double>::retain(__int128 *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = a1[5];
-  v12 = a1[4];
-  v13 = v1;
+  v11 = a1[4];
+  v12 = v1;
   v2 = a1[7];
-  v14 = a1[6];
-  v15 = v2;
+  v13 = a1[6];
+  v14 = v2;
   v3 = a1[1];
-  v8 = *a1;
-  v9 = v3;
+  v7 = *a1;
+  v8 = v3;
   v4 = a1[3];
-  v10 = a1[2];
-  v11 = v4;
-  if (v3 || !*(&v10 + 1))
+  v9 = a1[2];
+  v10 = v4;
+  if (v3 || !*(&v9 + 1))
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-LABEL_7:
-      _SparseTrap();
-      goto LABEL_10;
+      LOWORD(v15.control) = 0;
+      v6 = MEMORY[0x277D86220];
+      goto LABEL_14;
     }
 
-    LOWORD(v16.control) = 0;
-    v7 = MEMORY[0x277D86220];
-LABEL_14:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Can only retain valid objects.\n", &v16, 2u);
-    goto LABEL_7;
+LABEL_7:
+    _SparseTrap();
+    return;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v16, &v9);
-  reportError = v16.reportError;
-  if (DWORD2(v8) || !*(&v13 + 1))
+  _SparseGetOptionsFromSymbolicFactor(&v15, &v8);
+  reportError = v15.reportError;
+  if (!DWORD2(v7) && *(&v12 + 1))
   {
-    if (v16.reportError)
-    {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      *&v16.free = 0u;
-      v17 = 0u;
-      strcpy(&v16, "Can only retain valid objects.\n");
-      (reportError)(&v16);
-      goto LABEL_10;
-    }
+    _SparseRetainNumeric_Double((&v7 + 8));
+    return;
+  }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!v15.reportError)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
+      LOWORD(v15.control) = 0;
+      v6 = MEMORY[0x277D86220];
+LABEL_14:
+      _os_log_error_impl(&dword_245028000, v6, OS_LOG_TYPE_ERROR, "Can only retain valid objects.\n", &v15, 2u);
       goto LABEL_7;
     }
 
-    LOWORD(v16.control) = 0;
-    v7 = MEMORY[0x277D86220];
-    goto LABEL_14;
+    goto LABEL_7;
   }
 
-  _SparseRetainNumeric_Double((&v8 + 8));
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  *&v15.free = 0u;
+  v16 = 0u;
+  strcpy(&v15, "Can only retain valid objects.\n");
+  (reportError)(&v15);
 }
 
-void cva::VecLibSparse<double>::factor(int factorType@<W1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
+void cva::VecLibSparse<double>::factor(uint64_t factorType@<X1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   *&Matrix.structure.rowCount = *a2;
   *&Matrix.structure.rowIndices = v4;
   Matrix.data = *(a2 + 32);
   sfoptions = *byte_2857FDB18;
-  v10 = *ymmword_24508ABC0;
+  v9 = *ymmword_24508ABC0;
   if (Matrix.structure.rowCount <= 0)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -8998,9 +8917,9 @@ void cva::VecLibSparse<double>::factor(int factorType@<W1>, uint64_t a2@<X0>, ui
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = Matrix.structure.rowCount;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = Matrix.structure.rowCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.rowCount must be > 0, but is %d.\n";
 LABEL_14:
@@ -9016,9 +8935,9 @@ LABEL_14:
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = Matrix.structure.rowCount;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = Matrix.structure.rowCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.columnCount must be > 0, but is %d.\n";
     goto LABEL_14;
@@ -9032,9 +8951,9 @@ LABEL_14:
     }
 
     *buf = 136315394;
-    v14 = "Matrix.structure";
-    v15 = 1024;
-    LODWORD(v16) = 0;
+    v13 = "Matrix.structure";
+    v14 = 1024;
+    LODWORD(v15) = 0;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.blockSize must be > 0, but is %d.]n";
     goto LABEL_14;
@@ -9046,19 +8965,19 @@ LABEL_14:
     if ((factorType - 80) < 4)
     {
       _SparseFactorLU_Double();
-      goto LABEL_17;
+      return;
     }
 
     if ((factorType - 40) <= 1)
     {
-      _SparseFactorQR_Double(a3, factorType, &Matrix, &sfoptions, &v10);
-      goto LABEL_17;
+      _SparseFactorQR_Double(a3, factorType, &Matrix, &sfoptions, &v9);
+      return;
     }
 
     if (v5 == 12)
     {
-      _SparseFactorSymmetric_Double(a3, factorType, &Matrix, &sfoptions, &v10);
-      goto LABEL_17;
+      _SparseFactorSymmetric_Double(a3, factorType, &Matrix, &sfoptions, &v9);
+      return;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9074,14 +8993,14 @@ LABEL_14:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v14 = "Matrix.structure";
-    v15 = 2080;
-    v16 = "Matrix.structure";
-    v17 = 1024;
+    v13 = "Matrix.structure";
+    v14 = 2080;
+    v15 = "Matrix.structure";
+    v16 = 1024;
     rowCount = Matrix.structure.rowCount;
-    v19 = 2080;
-    v20 = "Matrix.structure";
-    v21 = 1024;
+    v18 = 2080;
+    v19 = "Matrix.structure";
+    v20 = 1024;
     columnCount = Matrix.structure.columnCount;
     v6 = MEMORY[0x277D86220];
     v7 = "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n";
@@ -9101,107 +9020,105 @@ LABEL_16:
   *(a3 + 16) = 0u;
   *a3 = -4;
   *(a3 + 8) = -4;
-LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void cva::VecLibSparse<double>::refactor(__int128 *a1, SparseOpaqueFactorization_Double *factor)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v13 = *a1;
-  v14 = a1[1];
-  v15 = *(a1 + 4);
+  v36 = *MEMORY[0x277D85DE8];
+  v12 = *a1;
+  v13 = a1[1];
+  v14 = *(a1 + 4);
   p_symbolicFactorization = &factor->symbolicFactorization;
   if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19.control) = 0;
-      v10 = MEMORY[0x277D86220];
-      v11 = "Factorization does not hold a completed matrix factorization.\n";
-      goto LABEL_22;
-    }
-
-LABEL_3:
-    _SparseTrap();
-    goto LABEL_4;
-  }
-
-  memset(&v17, 0, sizeof(v17));
-  _SparseGetOptionsFromNumericFactor_Double(&v17, factor);
-  v16 = v17;
-  if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v19.control) = 0;
-      v10 = MEMORY[0x277D86220];
-      v11 = "Factorization does not hold a valid symbolic matrix factorization.\n";
-LABEL_22:
-      _os_log_error_impl(&dword_245028000, v10, OS_LOG_TYPE_ERROR, v11, &v19, 2u);
       goto LABEL_3;
     }
 
+    LOWORD(v18.control) = 0;
+    v9 = MEMORY[0x277D86220];
+    v10 = "Factorization does not hold a completed matrix factorization.\n";
+LABEL_21:
+    _os_log_error_impl(&dword_245028000, v9, OS_LOG_TYPE_ERROR, v10, &v18, 2u);
     goto LABEL_3;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v19, p_symbolicFactorization);
-  free = v19.free;
-  reportError = v19.reportError;
-  v7 = (v19.malloc)(factor->symbolicFactorization.factorSize_Float);
-  if (!v7)
+  memset(&v16, 0, sizeof(v16));
+  _SparseGetOptionsFromNumericFactor_Double(&v16, factor);
+  v15 = v16;
+  if (factor->symbolicFactorization.status || !factor->symbolicFactorization.workspaceSize_Float)
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_3;
+    }
+
+    LOWORD(v18.control) = 0;
+    v9 = MEMORY[0x277D86220];
+    v10 = "Factorization does not hold a valid symbolic matrix factorization.\n";
+    goto LABEL_21;
+  }
+
+  _SparseGetOptionsFromSymbolicFactor(&v18, p_symbolicFactorization);
+  free = v18.free;
+  reportError = v18.reportError;
+  v6 = (v18.malloc)(factor->symbolicFactorization.factorSize_Float);
+  if (!v6)
   {
     factor->status = SparseInternalError;
     if (reportError)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      memset(&v19, 0, sizeof(v19));
-      snprintf(&v19, 0x100uLL, "Failed to allocate workspace of size %ld.", factor->symbolicFactorization.factorSize_Float);
-      (reportError)(&v19);
-      goto LABEL_4;
+      v21 = 0u;
+      v19 = 0u;
+      memset(&v18, 0, sizeof(v18));
+      snprintf(&v18, 0x100uLL, "Failed to allocate workspace of size %ld.", factor->symbolicFactorization.factorSize_Float);
+      (reportError)(&v18);
+      return;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       factorSize_Float = factor->symbolicFactorization.factorSize_Float;
-      v19.control = 134217984;
-      *&v19.orderMethod = factorSize_Float;
-      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.", &v19, 0xCu);
+      v18.control = 134217984;
+      *&v18.orderMethod = factorSize_Float;
+      _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to allocate workspace of size %ld.", &v18, 0xCu);
     }
 
-    goto LABEL_3;
+LABEL_3:
+    _SparseTrap();
+    return;
   }
 
-  v8 = v7;
-  *&v19.control = v13;
-  *&v19.ignoreRowsAndColumns = v14;
-  v19.free = v15;
-  nfoptions = v16;
-  if (v13 == factor->symbolicFactorization.rowCount && *&v19.orderMethod == factor->symbolicFactorization.columnCount && BYTE4(v19.malloc) == LOBYTE(factor->symbolicFactorization.factorization) && ((*&factor->symbolicFactorization.attributes ^ LOWORD(v19.malloc)) & 1) == 0)
+  v7 = v6;
+  *&v18.control = v12;
+  *&v18.ignoreRowsAndColumns = v13;
+  v18.free = v14;
+  nfoptions = v15;
+  if (v12 == factor->symbolicFactorization.rowCount && *&v18.orderMethod == factor->symbolicFactorization.columnCount && BYTE4(v18.malloc) == LOBYTE(factor->symbolicFactorization.factorization) && ((*&factor->symbolicFactorization.attributes ^ LOWORD(v18.malloc)) & 1) == 0)
   {
-    v9 = BYTE1(factor->symbolicFactorization.factorization);
-    if ((v9 - 80) >= 4)
+    v8 = BYTE1(factor->symbolicFactorization.factorization);
+    if ((v8 - 80) >= 4)
     {
-      if ((v9 - 40) > 1)
+      if ((v8 - 40) > 1)
       {
-        _SparseRefactorSymmetric_Double(&v19, factor, &nfoptions, v7);
+        _SparseRefactorSymmetric_Double(&v18, factor, &nfoptions, v6);
       }
 
       else
       {
-        _SparseRefactorQR_Double(&v19, factor, &nfoptions, v7);
+        _SparseRefactorQR_Double(&v18, factor, &nfoptions, v6);
       }
     }
 
@@ -9216,247 +9133,216 @@ LABEL_22:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v34 = "Matrix";
-      v35 = 2080;
-      v36 = "Factored->symbolicFactorization";
+      v33 = "Matrix";
+      v34 = 2080;
+      v35 = "Factored->symbolicFactorization";
       _os_log_error_impl(&dword_245028000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s does not match that used for symbolic factorization stored in %s.\n", buf, 0x16u);
     }
 
     _SparseTrap();
   }
 
-  (free)(v8);
-LABEL_4:
-  v3 = *MEMORY[0x277D85DE8];
+  (free)(v7);
 }
 
 void cva::VecLibSparse<double>::solve(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  if (!a4)
+  v53 = *MEMORY[0x277D85DE8];
+  if (a4)
   {
-    v8 = *(a1 + 80);
+    v4 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
-    *&Factored.solveWorkspaceRequiredStatic = v8;
-    v37 = *(a1 + 96);
-    v9 = *(a1 + 16);
+    *&Factored.solveWorkspaceRequiredStatic = v4;
+    v36 = *(a1 + 96);
+    v5 = *(a1 + 16);
     *&Factored.status = *a1;
-    *&Factored.symbolicFactorization.columnCount = v9;
-    v10 = *(a1 + 48);
+    *&Factored.symbolicFactorization.columnCount = v5;
+    v6 = *(a1 + 48);
     *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-    *&Factored.symbolicFactorization.factorSize_Float = v10;
-    if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float)
+    *&Factored.symbolicFactorization.factorSize_Float = v6;
+    if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v12 = *a3;
+      v13 = *(a3 + 8);
+      v14 = *a2;
+      v15 = *(a2 + 8);
+      _SparseGetOptionsFromSymbolicFactor(&v39, &Factored.symbolicFactorization);
+      reportError = v39.reportError;
+      if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
-        goto LABEL_7;
-      }
-
-      LOWORD(v40.control) = 0;
-      v7 = MEMORY[0x277D86220];
-      goto LABEL_58;
-    }
-
-    v21 = *a3;
-    v22 = *(a3 + 8);
-    v23 = *a2;
-    v24 = *(a2 + 8);
-    _SparseGetOptionsFromSymbolicFactor(&v40, &Factored.symbolicFactorization);
-    reportError = v40.reportError;
-    if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
-    {
-      if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-      {
-        v26 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      else
-      {
-        v26 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-      {
-        v27 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      else
-      {
-        v27 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-      }
-
-      if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-      {
-        v28 = v26;
-      }
-
-      else
-      {
-        v28 = v27;
-      }
-
-      if (v27 == v23)
-      {
-        if (v28 == v21)
+        if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          free = v40.free;
-          Soln.rowCount = v21;
-          Soln.columnCount = 1;
-          *&Soln.attributes = 0;
-          Soln.data = v22;
-          Soln.columnStride = v21;
-          *&v38.attributes = 0;
-          v38.data = v24;
-          v38.rowCount = v23;
-          v38.columnCount = 1;
-          v38.columnStride = v23;
-          v30 = v37 + Factored.solveWorkspaceRequiredPerRHS;
-          v31 = (v40.malloc)(v37 + Factored.solveWorkspaceRequiredPerRHS);
-          if (v31)
-          {
-            v32 = v31;
-            _SparseSolveOpaque_Double(&Factored, &Soln, &v38, v31);
-            (free)(v32);
-            goto LABEL_8;
-          }
-
-          if (!reportError)
-          {
-            if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_7;
-            }
-
-            v40.control = 134217984;
-            *&v40.orderMethod = v30;
-            v33 = MEMORY[0x277D86220];
-            v34 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-            goto LABEL_61;
-          }
-
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v41 = 0u;
-          memset(&v40, 0, sizeof(v40));
-          snprintf(&v40, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-          goto LABEL_66;
+          v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
-        if (!v40.reportError)
+        else
         {
+          v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+        {
+          v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        else
+        {
+          v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+        }
+
+        if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+        {
+          v19 = v17;
+        }
+
+        else
+        {
+          v19 = v18;
+        }
+
+        if (v18 == v14)
+        {
+          if (v19 == v12)
+          {
+            v39.control = v12;
+            *&v39.orderMethod = 1;
+            v39.ignoreRowsAndColumns = v13;
+            v39.order = v12;
+            Soln.rowCount = v14;
+            Soln.columnCount = 1;
+            *&Soln.attributes = 0;
+            Soln.data = v15;
+            Soln.columnStride = v14;
+            _SparseSolveOpaque_Double(&Factored, &v39, &Soln, a4);
+            return;
+          }
+
+          if (v39.reportError)
+          {
+            goto LABEL_54;
+          }
+
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v40.control = 136316162;
-            *&v40.orderMethod = "b";
-            *(&v40.order + 6) = v21;
-            WORD1(v40.ignoreRowsAndColumns) = 2080;
-            WORD2(v40.order) = 1024;
-            *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-            WORD2(v40.malloc) = 1024;
-            *(&v40.malloc + 6) = v28;
-            WORD1(v40.free) = 1024;
-            HIDWORD(v40.free) = v23;
-            v35 = MEMORY[0x277D86220];
-            goto LABEL_75;
+            v39.control = 136316162;
+            *&v39.orderMethod = "b";
+            *(&v39.order + 6) = v12;
+            WORD1(v39.ignoreRowsAndColumns) = 2080;
+            WORD2(v39.order) = 1024;
+            *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+            WORD2(v39.malloc) = 1024;
+            *(&v39.malloc + 6) = v19;
+            WORD1(v39.free) = 1024;
+            HIDWORD(v39.free) = v14;
+            v34 = MEMORY[0x277D86220];
+            goto LABEL_74;
           }
 
-          goto LABEL_7;
+LABEL_7:
+          _SparseTrap();
+          return;
         }
-      }
 
-      else if (!v40.reportError)
-      {
+        if (v39.reportError)
+        {
+LABEL_54:
+          v51 = 0u;
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
+          v40 = 0u;
+          memset(&v39, 0, sizeof(v39));
+          snprintf(&v39, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+          goto LABEL_55;
+        }
+
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_7;
         }
 
-        v40.control = 136316162;
-        *&v40.orderMethod = "x";
-        *(&v40.order + 6) = v23;
-        WORD1(v40.ignoreRowsAndColumns) = 2080;
-        WORD2(v40.order) = 1024;
-        *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-        WORD2(v40.malloc) = 1024;
-        *(&v40.malloc + 6) = v28;
-        WORD1(v40.free) = 1024;
-        HIDWORD(v40.free) = v27;
-        v35 = MEMORY[0x277D86220];
-        goto LABEL_75;
+        v39.control = 136316162;
+        *&v39.orderMethod = "x";
+        *(&v39.order + 6) = v14;
+        WORD1(v39.ignoreRowsAndColumns) = 2080;
+        WORD2(v39.order) = 1024;
+        *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+        WORD2(v39.malloc) = 1024;
+        *(&v39.malloc + 6) = v19;
+        WORD1(v39.free) = 1024;
+        HIDWORD(v39.free) = v18;
+        v34 = MEMORY[0x277D86220];
+LABEL_74:
+        _os_log_error_impl(&dword_245028000, v34, OS_LOG_TYPE_ERROR, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n", &v39, 0x28u);
+        goto LABEL_7;
       }
 
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-      goto LABEL_66;
-    }
+      if (v39.reportError)
+      {
+        v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v40 = 0u;
+        memset(&v39, 0, sizeof(v39));
+        snprintf(&v39, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_55:
+        (reportError)(&v39);
+        return;
+      }
 
-    if (!v40.reportError)
-    {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v40.control = 136315138;
-      *&v40.orderMethod = "Factored";
-      v33 = MEMORY[0x277D86220];
-      v34 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_61;
+      v39.control = 136315138;
+      *&v39.orderMethod = "Factored";
+      v32 = MEMORY[0x277D86220];
+      v33 = "%s does not hold a completed matrix factorization.\n";
+LABEL_60:
+      _os_log_error_impl(&dword_245028000, v32, OS_LOG_TYPE_ERROR, v33, &v39, 0xCu);
+      goto LABEL_7;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v41 = 0u;
-    memset(&v40, 0, sizeof(v40));
-    snprintf(&v40, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_66:
-    (reportError)(&v40);
-    goto LABEL_8;
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_7;
+    }
+
+    LOWORD(v39.control) = 0;
+    v7 = MEMORY[0x277D86220];
+LABEL_57:
+    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v39, 2u);
+    goto LABEL_7;
   }
 
-  v4 = *(a1 + 80);
+  v8 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
-  *&Factored.solveWorkspaceRequiredStatic = v4;
-  v37 = *(a1 + 96);
-  v5 = *(a1 + 16);
+  *&Factored.solveWorkspaceRequiredStatic = v8;
+  v36 = *(a1 + 96);
+  v9 = *(a1 + 16);
   *&Factored.status = *a1;
-  *&Factored.symbolicFactorization.columnCount = v5;
-  v6 = *(a1 + 48);
+  *&Factored.symbolicFactorization.columnCount = v9;
+  v10 = *(a1 + 48);
   *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 32);
-  *&Factored.symbolicFactorization.factorSize_Float = v6;
+  *&Factored.symbolicFactorization.factorSize_Float = v10;
   if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9464,182 +9350,209 @@ LABEL_66:
       goto LABEL_7;
     }
 
-    LOWORD(v40.control) = 0;
+    LOWORD(v39.control) = 0;
     v7 = MEMORY[0x277D86220];
-LABEL_58:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v40, 2u);
-    goto LABEL_7;
+    goto LABEL_57;
   }
 
-  v13 = *a3;
-  v14 = *(a3 + 8);
-  v15 = *a2;
-  v16 = *(a2 + 8);
-  _SparseGetOptionsFromSymbolicFactor(&v40, &Factored.symbolicFactorization);
-  v17 = v40.reportError;
-  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+  v20 = *a3;
+  v21 = *(a3 + 8);
+  v22 = *a2;
+  v23 = *(a2 + 8);
+  _SparseGetOptionsFromSymbolicFactor(&v39, &Factored.symbolicFactorization);
+  v24 = v39.reportError;
+  if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
   {
-    if (v40.reportError)
+    if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
     {
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_56:
-      (v17)(&v40);
-      goto LABEL_8;
+      v25 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
     }
 
+    else
+    {
+      v25 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+    {
+      v26 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    else
+    {
+      v26 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    }
+
+    if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+    {
+      v27 = v25;
+    }
+
+    else
+    {
+      v27 = v26;
+    }
+
+    if (v26 == v22)
+    {
+      if (v27 == v20)
+      {
+        free = v39.free;
+        Soln.rowCount = v20;
+        Soln.columnCount = 1;
+        *&Soln.attributes = 0;
+        Soln.data = v21;
+        Soln.columnStride = v20;
+        *&v37.attributes = 0;
+        v37.data = v23;
+        v37.rowCount = v22;
+        v37.columnCount = 1;
+        v37.columnStride = v22;
+        v29 = v36 + Factored.solveWorkspaceRequiredPerRHS;
+        v30 = (v39.malloc)(v36 + Factored.solveWorkspaceRequiredPerRHS);
+        if (v30)
+        {
+          v31 = v30;
+          _SparseSolveOpaque_Double(&Factored, &Soln, &v37, v30);
+          (free)(v31);
+          return;
+        }
+
+        if (!v24)
+        {
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_7;
+          }
+
+          v39.control = 134217984;
+          *&v39.orderMethod = v29;
+          v32 = MEMORY[0x277D86220];
+          v33 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+          goto LABEL_60;
+        }
+
+        v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v40 = 0u;
+        memset(&v39, 0, sizeof(v39));
+        snprintf(&v39, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+        goto LABEL_65;
+      }
+
+      if (!v39.reportError)
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v39.control = 136316162;
+          *&v39.orderMethod = "b";
+          *(&v39.order + 6) = v20;
+          WORD1(v39.ignoreRowsAndColumns) = 2080;
+          WORD2(v39.order) = 1024;
+          *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+          WORD2(v39.malloc) = 1024;
+          *(&v39.malloc + 6) = v27;
+          WORD1(v39.free) = 1024;
+          HIDWORD(v39.free) = v22;
+          v34 = MEMORY[0x277D86220];
+          goto LABEL_74;
+        }
+
+        goto LABEL_7;
+      }
+    }
+
+    else if (!v39.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v39.control = 136316162;
+      *&v39.orderMethod = "x";
+      *(&v39.order + 6) = v22;
+      WORD1(v39.ignoreRowsAndColumns) = 2080;
+      WORD2(v39.order) = 1024;
+      *(&v39.ignoreRowsAndColumns + 4) = "Factored";
+      WORD2(v39.malloc) = 1024;
+      *(&v39.malloc + 6) = v27;
+      WORD1(v39.free) = 1024;
+      HIDWORD(v39.free) = v26;
+      v34 = MEMORY[0x277D86220];
+      goto LABEL_74;
+    }
+
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v40 = 0u;
+    memset(&v39, 0, sizeof(v39));
+    snprintf(&v39, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+    goto LABEL_65;
+  }
+
+  if (!v39.reportError)
+  {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
 
-    v40.control = 136315138;
-    *&v40.orderMethod = "Factored";
-    v33 = MEMORY[0x277D86220];
-    v34 = "%s does not hold a completed matrix factorization.\n";
-LABEL_61:
-    _os_log_error_impl(&dword_245028000, v33, OS_LOG_TYPE_ERROR, v34, &v40, 0xCu);
-    goto LABEL_7;
+    v39.control = 136315138;
+    *&v39.orderMethod = "Factored";
+    v32 = MEMORY[0x277D86220];
+    v33 = "%s does not hold a completed matrix factorization.\n";
+    goto LABEL_60;
   }
 
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v19 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  else
-  {
-    v19 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
-  if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
-  {
-    v20 = v18;
-  }
-
-  else
-  {
-    v20 = v19;
-  }
-
-  if (v19 != v15)
-  {
-    if (v40.reportError)
-    {
-LABEL_55:
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      memset(&v40, 0, sizeof(v40));
-      snprintf(&v40, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
-      goto LABEL_56;
-    }
-
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_7;
-    }
-
-    v40.control = 136316162;
-    *&v40.orderMethod = "x";
-    *(&v40.order + 6) = v15;
-    WORD1(v40.ignoreRowsAndColumns) = 2080;
-    WORD2(v40.order) = 1024;
-    *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-    WORD2(v40.malloc) = 1024;
-    *(&v40.malloc + 6) = v20;
-    WORD1(v40.free) = 1024;
-    HIDWORD(v40.free) = v19;
-    v35 = MEMORY[0x277D86220];
-LABEL_75:
-    _os_log_error_impl(&dword_245028000, v35, OS_LOG_TYPE_ERROR, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n", &v40, 0x28u);
-    goto LABEL_7;
-  }
-
-  if (v20 == v13)
-  {
-    v40.control = v13;
-    *&v40.orderMethod = 1;
-    v40.ignoreRowsAndColumns = v14;
-    v40.order = v13;
-    Soln.rowCount = v15;
-    Soln.columnCount = 1;
-    *&Soln.attributes = 0;
-    Soln.data = v16;
-    Soln.columnStride = v15;
-    _SparseSolveOpaque_Double(&Factored, &v40, &Soln, a4);
-    goto LABEL_8;
-  }
-
-  if (v40.reportError)
-  {
-    goto LABEL_55;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    v40.control = 136316162;
-    *&v40.orderMethod = "b";
-    *(&v40.order + 6) = v13;
-    WORD1(v40.ignoreRowsAndColumns) = 2080;
-    WORD2(v40.order) = 1024;
-    *(&v40.ignoreRowsAndColumns + 4) = "Factored";
-    WORD2(v40.malloc) = 1024;
-    *(&v40.malloc + 6) = v20;
-    WORD1(v40.free) = 1024;
-    HIDWORD(v40.free) = v15;
-    v35 = MEMORY[0x277D86220];
-    goto LABEL_75;
-  }
-
-LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
+  memset(&v39, 0, sizeof(v39));
+  snprintf(&v39, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_65:
+  (v24)(&v39);
 }
 
 void cva::VecLibSparse<double>::solve(uint64_t a1, DenseMatrix_Double *a2, DenseMatrix_Double *a3, void *a4)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     v4 = *(a1 + 80);
     *&Factored.userFactorStorage = *(a1 + 64);
     *&Factored.solveWorkspaceRequiredStatic = v4;
-    v44 = *(a1 + 96);
+    v43 = *(a1 + 96);
     v5 = *(a1 + 16);
     *&Factored.status = *a1;
     *&Factored.symbolicFactorization.columnCount = v5;
@@ -9650,50 +9563,50 @@ void cva::VecLibSparse<double>::solve(uint64_t a1, DenseMatrix_Double *a2, Dense
     Soln = *a2;
     if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float)
     {
-      _SparseGetOptionsFromSymbolicFactor(&v45, &Factored.symbolicFactorization);
-      reportError = v45.reportError;
+      _SparseGetOptionsFromSymbolicFactor(&v44, &Factored.symbolicFactorization);
+      reportError = v44.reportError;
       if (Factored.symbolicFactorization.status == SparseStatusOK && Factored.symbolicFactorization.workspaceSize_Float && Factored.status == SparseStatusOK && Factored.solveWorkspaceRequiredStatic)
       {
         if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v13 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         else
         {
-          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v13 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
         {
-          v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v14 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         else
         {
-          v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+          v14 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
         }
 
         if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
         {
-          v16 = v14;
+          v15 = v13;
         }
 
         else
         {
-          v16 = v15;
+          v15 = v14;
         }
 
         if (RHS.columnStride < RHS.rowCount)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-            goto LABEL_49;
+            goto LABEL_48;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_80;
+            goto LABEL_79;
           }
 
           goto LABEL_7;
@@ -9701,25 +9614,25 @@ void cva::VecLibSparse<double>::solve(uint64_t a1, DenseMatrix_Double *a2, Dense
 
         if (Soln.columnStride < Soln.rowCount)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-LABEL_49:
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
+LABEL_48:
             v56 = 0u;
-            v53 = 0u;
+            v57 = 0u;
             v54 = 0u;
-            v51 = 0u;
+            v55 = 0u;
             v52 = 0u;
-            v49 = 0u;
+            v53 = 0u;
             v50 = 0u;
-            v47 = 0u;
+            v51 = 0u;
             v48 = 0u;
+            v49 = 0u;
             v46 = 0u;
-            memset(&v45, 0, sizeof(v45));
-            snprintf(&v45, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-            goto LABEL_50;
+            v47 = 0u;
+            v45 = 0u;
+            memset(&v44, 0, sizeof(v44));
+            snprintf(&v44, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+            goto LABEL_49;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9727,17 +9640,17 @@ LABEL_49:
             goto LABEL_7;
           }
 
-LABEL_108:
-          v45.control = 136315906;
-          *&v45.orderMethod = "X";
-          WORD2(v45.order) = 1024;
-          *(&v45.order + 6) = Soln.columnStride;
-          WORD1(v45.ignoreRowsAndColumns) = 2080;
-          *(&v45.ignoreRowsAndColumns + 4) = "X";
-          WORD2(v45.malloc) = 1024;
-          *(&v45.malloc + 6) = Soln.rowCount;
-          v27 = MEMORY[0x277D86220];
-          goto LABEL_109;
+LABEL_107:
+          v44.control = 136315906;
+          *&v44.orderMethod = "X";
+          WORD2(v44.order) = 1024;
+          *(&v44.order + 6) = Soln.columnStride;
+          WORD1(v44.ignoreRowsAndColumns) = 2080;
+          *(&v44.ignoreRowsAndColumns + 4) = "X";
+          WORD2(v44.malloc) = 1024;
+          *(&v44.malloc + 6) = Soln.rowCount;
+          v26 = MEMORY[0x277D86220];
+          goto LABEL_108;
         }
 
         if (*&RHS.attributes)
@@ -9762,44 +9675,44 @@ LABEL_108:
 
         if (*&Soln.attributes)
         {
-          v25 = Soln.rowCount;
+          v24 = Soln.rowCount;
         }
 
         else
         {
-          v25 = Soln.columnCount;
+          v24 = Soln.columnCount;
         }
 
         if (*&Soln.attributes)
         {
-          v26 = Soln.columnCount;
+          v25 = Soln.columnCount;
         }
 
         else
         {
-          v26 = Soln.rowCount;
+          v25 = Soln.rowCount;
         }
 
-        if (rowCount != v25)
+        if (rowCount != v24)
         {
-          if (v45.reportError)
+          if (v44.reportError)
           {
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
             v56 = 0u;
-            v53 = 0u;
+            v57 = 0u;
             v54 = 0u;
-            v51 = 0u;
+            v55 = 0u;
             v52 = 0u;
-            v49 = 0u;
+            v53 = 0u;
             v50 = 0u;
-            v47 = 0u;
+            v51 = 0u;
             v48 = 0u;
+            v49 = 0u;
             v46 = 0u;
-            memset(&v45, 0, sizeof(v45));
-            snprintf(&v45, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
-            goto LABEL_50;
+            v47 = 0u;
+            v45 = 0u;
+            memset(&v44, 0, sizeof(v44));
+            snprintf(&v44, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+            goto LABEL_49;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9807,51 +9720,51 @@ LABEL_108:
             goto LABEL_7;
           }
 
-          v45.control = 136316418;
-          *&v45.orderMethod = "B";
-          WORD2(v45.order) = 1024;
-          *(&v45.order + 6) = columnCount;
-          WORD1(v45.ignoreRowsAndColumns) = 1024;
-          HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-          LOWORD(v45.malloc) = 2080;
-          *(&v45.malloc + 2) = "X";
-          WORD1(v45.free) = 1024;
-          HIDWORD(v45.free) = v26;
-          LOWORD(v45.reportError) = 1024;
-          *(&v45.reportError + 2) = v25;
-          v36 = MEMORY[0x277D86220];
-          v37 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-          goto LABEL_143;
+          v44.control = 136316418;
+          *&v44.orderMethod = "B";
+          WORD2(v44.order) = 1024;
+          *(&v44.order + 6) = columnCount;
+          WORD1(v44.ignoreRowsAndColumns) = 1024;
+          HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+          LOWORD(v44.malloc) = 2080;
+          *(&v44.malloc + 2) = "X";
+          WORD1(v44.free) = 1024;
+          HIDWORD(v44.free) = v25;
+          LOWORD(v44.reportError) = 1024;
+          *(&v44.reportError + 2) = v24;
+          v35 = MEMORY[0x277D86220];
+          v36 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+          goto LABEL_142;
         }
 
         if (rowCount > 0)
         {
-          if (columnCount == v16)
+          if (columnCount == v15)
           {
-            if (v26 == v15)
+            if (v25 == v14)
             {
               _SparseSolveOpaque_Double(&Factored, &RHS, &Soln, a4);
-              goto LABEL_8;
+              return;
             }
 
-            if (v45.reportError)
+            if (v44.reportError)
             {
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
               v56 = 0u;
-              v53 = 0u;
+              v57 = 0u;
               v54 = 0u;
-              v51 = 0u;
+              v55 = 0u;
               v52 = 0u;
-              v49 = 0u;
+              v53 = 0u;
               v50 = 0u;
-              v47 = 0u;
+              v51 = 0u;
               v48 = 0u;
+              v49 = 0u;
               v46 = 0u;
-              memset(&v45, 0, sizeof(v45));
-              v38 = "X";
-              goto LABEL_124;
+              v47 = 0u;
+              v45 = 0u;
+              memset(&v44, 0, sizeof(v44));
+              v37 = "X";
+              goto LABEL_123;
             }
 
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9859,44 +9772,44 @@ LABEL_108:
               goto LABEL_7;
             }
 
-            v45.control = 136316418;
-            *&v45.orderMethod = "X";
-            WORD2(v45.order) = 1024;
-            *(&v45.order + 6) = v26;
-            WORD1(v45.ignoreRowsAndColumns) = 1024;
-            HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-            LOWORD(v45.malloc) = 2080;
-            *(&v45.malloc + 2) = "matrix factorization Factored";
-            WORD1(v45.free) = 1024;
-            HIDWORD(v45.free) = v15;
-            LOWORD(v45.reportError) = 1024;
-            *(&v45.reportError + 2) = v16;
-            v36 = MEMORY[0x277D86220];
-            v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+            v44.control = 136316418;
+            *&v44.orderMethod = "X";
+            WORD2(v44.order) = 1024;
+            *(&v44.order + 6) = v25;
+            WORD1(v44.ignoreRowsAndColumns) = 1024;
+            HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+            LOWORD(v44.malloc) = 2080;
+            *(&v44.malloc + 2) = "matrix factorization Factored";
+            WORD1(v44.free) = 1024;
+            HIDWORD(v44.free) = v14;
+            LOWORD(v44.reportError) = 1024;
+            *(&v44.reportError + 2) = v15;
+            v35 = MEMORY[0x277D86220];
+            v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
           }
 
           else
           {
-            if (v45.reportError)
+            if (v44.reportError)
             {
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
               v56 = 0u;
-              v53 = 0u;
+              v57 = 0u;
               v54 = 0u;
-              v51 = 0u;
+              v55 = 0u;
               v52 = 0u;
-              v49 = 0u;
+              v53 = 0u;
               v50 = 0u;
-              v47 = 0u;
+              v51 = 0u;
               v48 = 0u;
+              v49 = 0u;
               v46 = 0u;
-              memset(&v45, 0, sizeof(v45));
-              v38 = "B";
-LABEL_124:
-              snprintf(&v45, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v38);
-              goto LABEL_50;
+              v47 = 0u;
+              v45 = 0u;
+              memset(&v44, 0, sizeof(v44));
+              v37 = "B";
+LABEL_123:
+              snprintf(&v44, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v37);
+              goto LABEL_49;
             }
 
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9904,45 +9817,45 @@ LABEL_124:
               goto LABEL_7;
             }
 
-            v45.control = 136316418;
-            *&v45.orderMethod = "B";
-            WORD2(v45.order) = 1024;
-            *(&v45.order + 6) = columnCount;
-            WORD1(v45.ignoreRowsAndColumns) = 1024;
-            HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-            LOWORD(v45.malloc) = 2080;
-            *(&v45.malloc + 2) = "matrix factorization Factored";
-            WORD1(v45.free) = 1024;
-            HIDWORD(v45.free) = v15;
-            LOWORD(v45.reportError) = 1024;
-            *(&v45.reportError + 2) = v16;
-            v36 = MEMORY[0x277D86220];
-            v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+            v44.control = 136316418;
+            *&v44.orderMethod = "B";
+            WORD2(v44.order) = 1024;
+            *(&v44.order + 6) = columnCount;
+            WORD1(v44.ignoreRowsAndColumns) = 1024;
+            HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+            LOWORD(v44.malloc) = 2080;
+            *(&v44.malloc + 2) = "matrix factorization Factored";
+            WORD1(v44.free) = 1024;
+            HIDWORD(v44.free) = v14;
+            LOWORD(v44.reportError) = 1024;
+            *(&v44.reportError + 2) = v15;
+            v35 = MEMORY[0x277D86220];
+            v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
           }
 
-LABEL_143:
-          _os_log_error_impl(&dword_245028000, v36, OS_LOG_TYPE_ERROR, v37, &v45, 0x2Eu);
+LABEL_142:
+          _os_log_error_impl(&dword_245028000, v35, OS_LOG_TYPE_ERROR, v36, &v44, 0x2Eu);
           goto LABEL_7;
         }
 
-        if (v45.reportError)
+        if (v44.reportError)
         {
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
           v46 = 0u;
-          memset(&v45, 0, sizeof(v45));
-          snprintf(&v45, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-          goto LABEL_50;
+          v47 = 0u;
+          v45 = 0u;
+          memset(&v44, 0, sizeof(v44));
+          snprintf(&v44, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+          goto LABEL_49;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9950,38 +9863,38 @@ LABEL_143:
           goto LABEL_7;
         }
 
-        v45.control = 136315650;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = columnCount;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = rowCount;
-        v40 = MEMORY[0x277D86220];
-LABEL_134:
-        _os_log_error_impl(&dword_245028000, v40, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v45, 0x18u);
+        v44.control = 136315650;
+        *&v44.orderMethod = "B";
+        WORD2(v44.order) = 1024;
+        *(&v44.order + 6) = columnCount;
+        WORD1(v44.ignoreRowsAndColumns) = 1024;
+        HIDWORD(v44.ignoreRowsAndColumns) = rowCount;
+        v39 = MEMORY[0x277D86220];
+LABEL_133:
+        _os_log_error_impl(&dword_245028000, v39, OS_LOG_TYPE_ERROR, "%s (%dx%d) must represent at least one right-hand side.\n", &v44, 0x18u);
         goto LABEL_7;
       }
 
-      if (v45.reportError)
+      if (v44.reportError)
       {
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        memset(&v45, 0, sizeof(v45));
-        snprintf(&v45, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_50:
-        (reportError)(&v45);
-        goto LABEL_8;
+        v47 = 0u;
+        v45 = 0u;
+        memset(&v44, 0, sizeof(v44));
+        snprintf(&v44, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_49:
+        (reportError)(&v44);
+        return;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -9989,12 +9902,12 @@ LABEL_50:
         goto LABEL_7;
       }
 
-      v45.control = 136315138;
-      *&v45.orderMethod = "Factored";
-      v21 = MEMORY[0x277D86220];
-      v22 = "%s does not hold a completed matrix factorization.\n";
-LABEL_78:
-      _os_log_error_impl(&dword_245028000, v21, OS_LOG_TYPE_ERROR, v22, &v45, 0xCu);
+      v44.control = 136315138;
+      *&v44.orderMethod = "Factored";
+      v20 = MEMORY[0x277D86220];
+      v21 = "%s does not hold a completed matrix factorization.\n";
+LABEL_77:
+      _os_log_error_impl(&dword_245028000, v20, OS_LOG_TYPE_ERROR, v21, &v44, 0xCu);
       goto LABEL_7;
     }
 
@@ -10003,17 +9916,17 @@ LABEL_78:
       goto LABEL_7;
     }
 
-    LOWORD(v45.control) = 0;
+    LOWORD(v44.control) = 0;
     v7 = MEMORY[0x277D86220];
-LABEL_75:
-    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v45, 2u);
+LABEL_74:
+    _os_log_error_impl(&dword_245028000, v7, OS_LOG_TYPE_ERROR, "Factored does not hold a completed matrix factorization.\n", &v44, 2u);
     goto LABEL_7;
   }
 
   v8 = *(a1 + 80);
   *&Factored.userFactorStorage = *(a1 + 64);
   *&Factored.solveWorkspaceRequiredStatic = v8;
-  v44 = *(a1 + 96);
+  v43 = *(a1 + 96);
   v9 = *(a1 + 16);
   *&Factored.status = *a1;
   *&Factored.symbolicFactorization.columnCount = v9;
@@ -10029,391 +9942,387 @@ LABEL_75:
       goto LABEL_7;
     }
 
-    LOWORD(v45.control) = 0;
+    LOWORD(v44.control) = 0;
     v7 = MEMORY[0x277D86220];
-    goto LABEL_75;
+    goto LABEL_74;
   }
 
-  _SparseGetOptionsFromSymbolicFactor(&v45, &Factored.symbolicFactorization);
-  v17 = v45.reportError;
+  _SparseGetOptionsFromSymbolicFactor(&v44, &Factored.symbolicFactorization);
+  v16 = v44.reportError;
   if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
   {
-    if (!v45.reportError)
+    if (!v44.reportError)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_7;
       }
 
-      v45.control = 136315138;
-      *&v45.orderMethod = "Factored";
-      v21 = MEMORY[0x277D86220];
-      v22 = "%s does not hold a completed matrix factorization.\n";
-      goto LABEL_78;
+      v44.control = 136315138;
+      *&v44.orderMethod = "Factored";
+      v20 = MEMORY[0x277D86220];
+      v21 = "%s does not hold a completed matrix factorization.\n";
+      goto LABEL_77;
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v53 = 0u;
+    v57 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    memset(&v45, 0, sizeof(v45));
-    snprintf(&v45, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
-LABEL_56:
-    (v17)(&v45);
-    goto LABEL_8;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+LABEL_55:
+    (v16)(&v44);
+    return;
   }
 
   if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
   {
-    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    v17 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
   else
+  {
+    v17 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
   {
     v18 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
-  if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
-  {
-    v19 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
-  }
-
   else
   {
-    v19 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+    v18 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
   }
 
   if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v19;
+    v19 = v18;
   }
 
-  if (RHS.columnStride >= RHS.rowCount)
+  if (RHS.columnStride < RHS.rowCount)
   {
-    if (Soln.columnStride < Soln.rowCount)
+    if (!v44.reportError)
     {
-      if (!v45.reportError)
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        goto LABEL_108;
+LABEL_79:
+        v44.control = 136315906;
+        *&v44.orderMethod = "B";
+        WORD2(v44.order) = 1024;
+        *(&v44.order + 6) = RHS.columnStride;
+        WORD1(v44.ignoreRowsAndColumns) = 2080;
+        *(&v44.ignoreRowsAndColumns + 4) = "B";
+        WORD2(v44.malloc) = 1024;
+        *(&v44.malloc + 6) = RHS.rowCount;
+        v26 = MEMORY[0x277D86220];
+LABEL_108:
+        _os_log_error_impl(&dword_245028000, v26, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v44, 0x22u);
       }
-
-      goto LABEL_55;
-    }
-
-    if (*&RHS.attributes)
-    {
-      v28 = RHS.rowCount;
-    }
-
-    else
-    {
-      v28 = RHS.columnCount;
-    }
-
-    if (*&RHS.attributes)
-    {
-      v29 = RHS.columnCount;
-    }
-
-    else
-    {
-      v29 = RHS.rowCount;
-    }
-
-    if (*&Soln.attributes)
-    {
-      v30 = Soln.rowCount;
-    }
-
-    else
-    {
-      v30 = Soln.columnCount;
-    }
-
-    if (*&Soln.attributes)
-    {
-      v31 = Soln.columnCount;
-    }
-
-    else
-    {
-      v31 = Soln.rowCount;
-    }
-
-    if (v28 != v30)
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "X";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v31;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v30;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      snprintf(&v45, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
-      goto LABEL_56;
-    }
-
-    if (v28 <= 0)
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136315650;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        v40 = MEMORY[0x277D86220];
-        goto LABEL_134;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      snprintf(&v45, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
-      goto LABEL_56;
-    }
-
-    if (v29 == v20)
-    {
-      if (v31 == v19)
-      {
-        free = v45.free;
-        v33 = Factored.solveWorkspaceRequiredPerRHS + v44 * v28;
-        v34 = (v45.malloc)(v33);
-        if (v34)
-        {
-          v35 = v34;
-          _SparseSolveOpaque_Double(&Factored, &RHS, &Soln, v34);
-          (free)(v35);
-          goto LABEL_8;
-        }
-
-        if (!v17)
-        {
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_7;
-          }
-
-          v45.control = 134217984;
-          *&v45.orderMethod = v33;
-          v21 = MEMORY[0x277D86220];
-          v22 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
-          goto LABEL_78;
-        }
-
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v46 = 0u;
-        memset(&v45, 0, sizeof(v45));
-        snprintf(&v45, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
-        goto LABEL_56;
-      }
-
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "X";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v31;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "matrix factorization Factored";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v19;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v20;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      v39 = "X";
-    }
-
-    else
-    {
-      if (!v45.reportError)
-      {
-        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_7;
-        }
-
-        v45.control = 136316418;
-        *&v45.orderMethod = "B";
-        WORD2(v45.order) = 1024;
-        *(&v45.order + 6) = v29;
-        WORD1(v45.ignoreRowsAndColumns) = 1024;
-        HIDWORD(v45.ignoreRowsAndColumns) = v28;
-        LOWORD(v45.malloc) = 2080;
-        *(&v45.malloc + 2) = "matrix factorization Factored";
-        WORD1(v45.free) = 1024;
-        HIDWORD(v45.free) = v19;
-        LOWORD(v45.reportError) = 1024;
-        *(&v45.reportError + 2) = v20;
-        v36 = MEMORY[0x277D86220];
-        v37 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
-        goto LABEL_143;
-      }
-
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v46 = 0u;
-      memset(&v45, 0, sizeof(v45));
-      v39 = "B";
-    }
-
-    snprintf(&v45, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v39);
-    goto LABEL_56;
-  }
-
-  if (v45.reportError)
-  {
-LABEL_55:
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v46 = 0u;
-    memset(&v45, 0, sizeof(v45));
-    snprintf(&v45, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
-    goto LABEL_56;
-  }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-LABEL_80:
-    v45.control = 136315906;
-    *&v45.orderMethod = "B";
-    WORD2(v45.order) = 1024;
-    *(&v45.order + 6) = RHS.columnStride;
-    WORD1(v45.ignoreRowsAndColumns) = 2080;
-    *(&v45.ignoreRowsAndColumns + 4) = "B";
-    WORD2(v45.malloc) = 1024;
-    *(&v45.malloc + 6) = RHS.rowCount;
-    v27 = MEMORY[0x277D86220];
-LABEL_109:
-    _os_log_error_impl(&dword_245028000, v27, OS_LOG_TYPE_ERROR, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n", &v45, 0x22u);
-  }
 
 LABEL_7:
-  _SparseTrap();
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
+      _SparseTrap();
+      return;
+    }
+
+LABEL_54:
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s.columnStride (%d) must be at least %s.rowCount (%d).\n");
+    goto LABEL_55;
+  }
+
+  if (Soln.columnStride < Soln.rowCount)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_107;
+    }
+
+    goto LABEL_54;
+  }
+
+  if (*&RHS.attributes)
+  {
+    v27 = RHS.rowCount;
+  }
+
+  else
+  {
+    v27 = RHS.columnCount;
+  }
+
+  if (*&RHS.attributes)
+  {
+    v28 = RHS.columnCount;
+  }
+
+  else
+  {
+    v28 = RHS.rowCount;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v29 = Soln.rowCount;
+  }
+
+  else
+  {
+    v29 = Soln.columnCount;
+  }
+
+  if (*&Soln.attributes)
+  {
+    v30 = Soln.columnCount;
+  }
+
+  else
+  {
+    v30 = Soln.rowCount;
+  }
+
+  if (v27 != v29)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "X";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v30;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v29;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s (%dx%d) and %s (%dx%d) do not represent the same number of right-hand sides.\n", "B");
+    goto LABEL_55;
+  }
+
+  if (v27 <= 0)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136315650;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      v39 = MEMORY[0x277D86220];
+      goto LABEL_133;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "%s (%dx%d) must represent at least one right-hand side.\n");
+    goto LABEL_55;
+  }
+
+  if (v28 != v19)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "B";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v28;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "matrix factorization Factored";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v18;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v19;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    v38 = "B";
+    goto LABEL_130;
+  }
+
+  if (v30 != v18)
+  {
+    if (!v44.reportError)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 136316418;
+      *&v44.orderMethod = "X";
+      WORD2(v44.order) = 1024;
+      *(&v44.order + 6) = v30;
+      WORD1(v44.ignoreRowsAndColumns) = 1024;
+      HIDWORD(v44.ignoreRowsAndColumns) = v27;
+      LOWORD(v44.malloc) = 2080;
+      *(&v44.malloc + 2) = "matrix factorization Factored";
+      WORD1(v44.free) = 1024;
+      HIDWORD(v44.free) = v18;
+      LOWORD(v44.reportError) = 1024;
+      *(&v44.reportError + 2) = v19;
+      v35 = MEMORY[0x277D86220];
+      v36 = "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n";
+      goto LABEL_142;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    v38 = "X";
+LABEL_130:
+    snprintf(&v44, 0x100uLL, "%s (size %dx%d) does not match dimensions of %s (%d x %d).\n", v38);
+    goto LABEL_55;
+  }
+
+  free = v44.free;
+  v32 = Factored.solveWorkspaceRequiredPerRHS + v43 * v27;
+  v33 = (v44.malloc)(v32);
+  if (!v33)
+  {
+    if (!v16)
+    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_7;
+      }
+
+      v44.control = 134217984;
+      *&v44.orderMethod = v32;
+      v20 = MEMORY[0x277D86220];
+      v21 = "Failed to allocate workspace of size %ld for SparseSolve().\n";
+      goto LABEL_77;
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = 0u;
+    memset(&v44, 0, sizeof(v44));
+    snprintf(&v44, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+    goto LABEL_55;
+  }
+
+  v34 = v33;
+  _SparseSolveOpaque_Double(&Factored, &RHS, &Soln, v33);
+  (free)(v34);
 }

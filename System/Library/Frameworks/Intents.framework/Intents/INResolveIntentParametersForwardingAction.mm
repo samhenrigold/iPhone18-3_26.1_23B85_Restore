@@ -30,18 +30,17 @@
 
 void __115__INResolveIntentParametersForwardingAction__completionHandlerForSingleParameterNamed_withActionCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [[INExtensionContextSlotResolutionResult alloc] initWithResult:-1 data:v3];
 
   v5 = [INResolveIntentParametersForwardingActionResponse alloc];
-  v9 = *(a1 + 32);
-  v10[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *(a1 + 32);
+  v9[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [(INResolveIntentParametersForwardingActionResponse *)v5 initWithSuccess:1 updatedIntent:0 parameterResolutionResults:v6 error:0];
 
   (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_completionHandlerForMultipleParametersWithActionCompletionHandler:(id)handler
@@ -145,22 +144,21 @@ void __112__INResolveIntentParametersForwardingAction__completionHandlerForMulti
 
 - (INResolveIntentParametersForwardingAction)initWithIntent:(id)intent parameterName:(id)name
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v12.receiver = self;
-  v12.super_class = INResolveIntentParametersForwardingAction;
-  v7 = [(INIntentForwardingAction *)&v12 initWithIntent:intent];
+  v11.receiver = self;
+  v11.super_class = INResolveIntentParametersForwardingAction;
+  v7 = [(INIntentForwardingAction *)&v11 initWithIntent:intent];
   if (v7)
   {
-    v13[0] = nameCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = nameCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     parameterNames = v7->_parameterNames;
     v7->_parameterNames = v8;
 
     v7->_resolvesAllParameters = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

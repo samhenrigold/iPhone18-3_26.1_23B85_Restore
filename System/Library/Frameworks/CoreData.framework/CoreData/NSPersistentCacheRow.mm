@@ -1,4 +1,6 @@
 @interface NSPersistentCacheRow
+- (NSPersistentCacheRow)initWithOptions:(unsigned int)options andTimestamp:(double)timestamp;
+- (char)toManyOffsetForProperty:(char *)result;
 - (double)timestampForProperty:(uint64_t)property;
 - (id)objectID;
 - (unint64_t)version;
@@ -7,8 +9,7 @@
 - (void)dealloc;
 - (void)release;
 - (void)setAncillaryOrderKeys:(void *)keys forProperty:options:andTimestamp:;
-- (void)setRelatedObjectIDs:(void *)ds forProperty:(void *)property options:(void *)options andTimestamp:(double)timestamp;
-- (void)toManyOffsetForProperty:(void *)result;
+- (void)setRelatedObjectIDs:(char *)ds forProperty:(void *)property options:(void *)options andTimestamp:(double)timestamp;
 - (void)updateMissingRelationshipCachesFromOriginal:(void *)result;
 @end
 
@@ -77,17 +78,31 @@
   _PFDeallocateObject(self);
 }
 
+- (NSPersistentCacheRow)initWithOptions:(unsigned int)options andTimestamp:(double)timestamp
+{
+  v6.receiver = self;
+  v6.super_class = NSPersistentCacheRow;
+  result = [(NSPersistentCacheRow *)&v6 init];
+  if (result)
+  {
+    result->_birth = timestamp;
+    result->_toManyMap = 0;
+  }
+
+  return result;
+}
+
 - (id)objectID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (unint64_t)version
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
@@ -190,7 +205,7 @@
   return result;
 }
 
-- (void)toManyOffsetForProperty:(void *)result
+- (char)toManyOffsetForProperty:(char *)result
 {
   if (result)
   {
@@ -236,11 +251,11 @@
   return result;
 }
 
-- (void)setRelatedObjectIDs:(void *)ds forProperty:(void *)property options:(void *)options andTimestamp:(double)timestamp
+- (void)setRelatedObjectIDs:(char *)ds forProperty:(void *)property options:(void *)options andTimestamp:(double)timestamp
 {
   if (ds)
   {
-    if (!ds[3])
+    if (!*(ds + 3))
     {
       [(NSPersistentCacheRow *)ds _initializeRelationshipCaches];
     }
@@ -252,14 +267,14 @@
 
     v8 = [(NSPersistentCacheRow *)ds toManyOffsetForProperty:options];
     v9 = 3 * v8;
-    *(ds[3] + 24 * v8) = timestamp;
+    *(*(ds + 3) + 24 * v8) = timestamp;
     v10 = 3 * v8 + 1;
-    v11 = *(ds[3] + 8 * v10);
+    v11 = *(*(ds + 3) + 8 * v10);
     if (v11 != property)
     {
-      *(ds[3] + 8 * v10) = property;
+      *(*(ds + 3) + 8 * v10) = property;
 
-      v12 = ds[3] + 8 * v9;
+      v12 = *(ds + 3) + 8 * v9;
       v13 = *(v12 + 16);
       *(v12 + 16) = 0;
     }

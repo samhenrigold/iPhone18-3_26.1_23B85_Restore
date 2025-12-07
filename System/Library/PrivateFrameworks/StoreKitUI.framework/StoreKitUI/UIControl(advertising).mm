@@ -13,9 +13,9 @@
     [UIControl(advertising) adPrivacyData];
   }
 
-  v2 = objc_getAssociatedObject(self, sel_adPrivacyData);
+  v3 = objc_getAssociatedObject(self, sel_adPrivacyData);
 
-  return v2;
+  return v3;
 }
 
 - (void)setAdPrivacyData:()advertising

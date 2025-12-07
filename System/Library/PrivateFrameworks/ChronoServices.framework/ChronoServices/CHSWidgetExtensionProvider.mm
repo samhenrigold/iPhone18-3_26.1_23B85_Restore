@@ -12,6 +12,7 @@
 - (id)controlDescriptorForIdentifiable:(id)identifiable;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
+- (id)initIncludingIntents:(BOOL)intents;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
 - (id)widgetDescriptorForIdentifiable:(id)identifiable;
@@ -65,65 +66,64 @@ void __49__CHSWidgetExtensionProvider__widgetExtensionSet__block_invoke(uint64_t
 
 - (void)_lock_loadContentInitiallySynchronouslyIfNecessary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!self->_lock_subscription)
   {
     _isEDUMode = [(CHSWidgetExtensionProvider *)self _isEDUMode];
-    v4 = CHSLogChronoServices();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (_isEDUMode)
+    v4 = _isEDUMode;
+    v5 = CHSLogChronoServices(_isEDUMode);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (v4)
     {
-      if (v5)
+      if (v6)
       {
         *buf = 134217984;
         selfCopy3 = self;
-        _os_log_impl(&dword_195EB2000, v4, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Skipping sync load because in EDU mode.", buf, 0xCu);
+        _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Skipping sync load because in EDU mode.", buf, 0xCu);
       }
 
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      if (v5)
+      if (v6)
       {
-        v8 = [(CHSWidgetExtensionProviderOptions *)self->_lock_providerOptions description];
+        v9 = [(CHSWidgetExtensionProviderOptions *)self->_lock_providerOptions description];
         *buf = 134218242;
         selfCopy3 = self;
-        v19 = 2114;
-        v20 = v8;
-        _os_log_impl(&dword_195EB2000, v4, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Loading synchronously options: %{public}@.", buf, 0x16u);
+        v20 = 2114;
+        v21 = v9;
+        _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Loading synchronously options: %{public}@.", buf, 0x16u);
       }
 
       lock_connection = self->_lock_connection;
-      v15 = 0;
       v16 = 0;
-      v10 = [(CHSChronoServicesConnection *)lock_connection subscribeToExtensions:&v16 fromClient:self withOptions:self->_lock_providerOptions outExtensions:&v15];
+      v17 = 0;
+      v11 = [(CHSChronoServicesConnection *)lock_connection subscribeToExtensions:&v17 fromClient:self withOptions:self->_lock_providerOptions outExtensions:&v16];
+      v8 = v17;
       v7 = v16;
-      v6 = v15;
       lock_subscription = self->_lock_subscription;
-      self->_lock_subscription = v10;
+      self->_lock_subscription = v11;
 
-      v4 = CHSLogChronoServices();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = CHSLogChronoServices(v13);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [v6 count];
-        v13 = [(CHSWidgetExtensionProviderOptions *)self->_lock_providerOptions description];
+        v14 = [v7 count];
+        v15 = [(CHSWidgetExtensionProviderOptions *)self->_lock_providerOptions description];
         *buf = 134218498;
         selfCopy3 = self;
-        v19 = 2048;
-        v20 = v12;
-        v21 = 2114;
-        v22 = v13;
-        _os_log_impl(&dword_195EB2000, v4, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Loaded synchronously - %lu received, options: %{public}@.", buf, 0x20u);
+        v20 = 2048;
+        v21 = v14;
+        v22 = 2114;
+        v23 = v15;
+        _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Loaded synchronously - %lu received, options: %{public}@.", buf, 0x20u);
       }
     }
 
-    [(CHSWidgetExtensionProvider *)self _lock_widgetExtensionsDidChange:v6 postNotification:0 reason:@"initial sync"];
+    [(CHSWidgetExtensionProvider *)self _lock_widgetExtensionsDidChange:v7 postNotification:0 reason:@"initial sync"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)containers
@@ -190,6 +190,17 @@ uint64_t __46__CHSWidgetExtensionProvider_initWithOptions___block_invoke()
   }
 
   return v5;
+}
+
+- (id)initIncludingIntents:(BOOL)intents
+{
+  intentsCopy = intents;
+  v5 = [CHSWidgetExtensionProviderOptions alloc];
+  v6 = objc_alloc_init(CHSWidgetDescriptorsPredicate);
+  v7 = [(CHSWidgetExtensionProviderOptions *)v5 initWithWidgetsPredicate:v6 controlsPredicate:0 includeIntents:intentsCopy];
+
+  v8 = [(CHSWidgetExtensionProvider *)self initWithOptions:v7];
+  return v8;
 }
 
 - (CHSWidgetExtensionProvider)init
@@ -301,8 +312,8 @@ void __77__CHSWidgetExtensionProvider_initWithConnection_providerOptions_eduProv
 
   if (!v7)
   {
-    v8 = CHSLogChronoServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CHSLogChronoServices(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       succinctDescription = [(CHSWidgetExtensionProvider *)self succinctDescription];
       [(CHSWidgetExtensionProvider *)succinctDescription widgetDescriptorForIdentifiable:extensionIdentity, v14];
@@ -310,11 +321,9 @@ void __77__CHSWidgetExtensionProvider_initWithConnection_providerOptions_eduProv
   }
 
   kind = [identifiableCopy kind];
-  v11 = [v7 widgetDescriptorForKind:kind];
+  v12 = [v7 widgetDescriptorForKind:kind];
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)controlDescriptorForControl:(id)control
@@ -334,8 +343,8 @@ void __77__CHSWidgetExtensionProvider_initWithConnection_providerOptions_eduProv
 
   if (!v7)
   {
-    v8 = CHSLogChronoServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CHSLogChronoServices(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       succinctDescription = [(CHSWidgetExtensionProvider *)self succinctDescription];
       [(CHSWidgetExtensionProvider *)succinctDescription controlDescriptorForIdentifiable:extensionIdentity, v14];
@@ -343,11 +352,9 @@ void __77__CHSWidgetExtensionProvider_initWithConnection_providerOptions_eduProv
   }
 
   kind = [identifiableCopy kind];
-  v11 = [v7 controlDescriptorForKind:kind];
+  v12 = [v7 controlDescriptorForKind:kind];
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)widgetExtensionContainerForContainerBundleIdentifier:(id)identifier
@@ -384,34 +391,31 @@ void __77__CHSWidgetExtensionProvider_initWithConnection_providerOptions_eduProv
   os_unfair_lock_unlock(&self->_lock);
 }
 
-uint64_t __47__CHSWidgetExtensionProvider_registerObserver___block_invoke(uint64_t result)
+void *__47__CHSWidgetExtensionProvider_registerObserver___block_invoke(void *result)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v13 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
   if ((*(v1 + 56) & 1) == 0)
   {
     v2 = result;
-    [*(v1 + 72) addObject:*(result + 40)];
-    v3 = CHSLogChronoServices();
+    v3 = CHSLogChronoServices([*(v1 + 72) addObject:result[5]]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = MEMORY[0x1E696AEC0];
-      v6 = *(v2 + 32);
-      v5 = *(v2 + 40);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = [v4 stringWithFormat:@"<%@:%p>", v8, *(v2 + 40)];
+      v5 = v2[4];
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v8 = [v4 stringWithFormat:@"<%@:%p>", v7, v2[5]];
       *buf = 134218242;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v9;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v8;
       _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Add observer: %{public}@.", buf, 0x16u);
     }
 
-    result = [*(v2 + 32) _lock_loadContentInitiallySynchronouslyIfNecessary];
+    return [v2[4] _lock_loadContentInitiallySynchronouslyIfNecessary];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -433,26 +437,23 @@ uint64_t __47__CHSWidgetExtensionProvider_registerObserver___block_invoke(uint64
 
 uint64_t __49__CHSWidgetExtensionProvider_unregisterObserver___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = MEMORY[0x1E696AEC0];
-    v5 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = [v3 stringWithFormat:@"<%@:%p>", v7, *(a1 + 40)];
+    v4 = *(a1 + 32);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = [v3 stringWithFormat:@"<%@:%p>", v6, *(a1 + 40)];
     *buf = 134218242;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v8;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v7;
     _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Remove observer: %{public}@.", buf, 0x16u);
   }
 
-  result = [*(*(a1 + 32) + 72) removeObject:*(a1 + 40)];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 72) removeObject:*(a1 + 40)];
 }
 
 - (void)invalidate
@@ -618,19 +619,19 @@ void __68__CHSWidgetExtensionProvider_descriptionBuilderWithMultilinePrefix___bl
 - (void)_lock_widgetExtensionsDidChange:(id)change postNotification:(BOOL)notification reason:(id)reason
 {
   notificationCopy = notification;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   reasonCopy = reason;
-  v10 = CHSLogChronoServices();
+  v10 = CHSLogChronoServices(reasonCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 134218498;
+    v16 = 134218498;
     selfCopy = self;
-    v19 = 2048;
-    v20 = [changeCopy count];
-    v21 = 2114;
-    v22 = reasonCopy;
-    _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Widget extensions changed - %lu received for %{public}@.", &v17, 0x20u);
+    v18 = 2048;
+    v19 = [changeCopy count];
+    v20 = 2114;
+    v21 = reasonCopy;
+    _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "<CHSWidgetExtensionProvider:%p> Widget extensions changed - %lu received for %{public}@.", &v16, 0x20u);
   }
 
   if (!changeCopy)
@@ -657,8 +658,6 @@ void __68__CHSWidgetExtensionProvider_descriptionBuilderWithMultilinePrefix___bl
     lock_iconVersionByExtensionIdentity = self->_lock_iconVersionByExtensionIdentity;
     self->_lock_iconVersionByExtensionIdentity = v12;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_makeWidgetExtensionSetWithExtensions:(id)extensions iconResolver:(id)resolver
@@ -681,49 +680,47 @@ void __68__CHSWidgetExtensionProvider_descriptionBuilderWithMultilinePrefix___bl
 
 - (void)_lock_notifyObserversExtensionsDidChange
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [(NSHashTable *)self->_lock_observers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          v9[0] = MEMORY[0x1E69E9820];
-          v9[1] = 3221225472;
-          v9[2] = __70__CHSWidgetExtensionProvider__lock_notifyObserversExtensionsDidChange__block_invoke;
-          v9[3] = &unk_1E7453000;
-          v9[4] = v7;
-          v9[5] = self;
-          dispatch_async(__calloutQueue_0, v9);
+          v8[0] = MEMORY[0x1E69E9820];
+          v8[1] = 3221225472;
+          v8[2] = __70__CHSWidgetExtensionProvider__lock_notifyObserversExtensionsDidChange__block_invoke;
+          v8[3] = &unk_1E7453000;
+          v8[4] = v7;
+          v8[5] = self;
+          dispatch_async(__calloutQueue_0, v8);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)widgetDescriptorForIdentifiable:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)

@@ -810,7 +810,7 @@ float CMMsl::KappaHighSpeedCrashResult::KappaHighSpeedCrashResult(uint64_t a1, u
   return result;
 }
 
-CMMsl *CMMsl::KappaHighSpeedCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaHighSpeedCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3244,7 +3244,7 @@ float CMMsl::KappaLackOfMotionResult::KappaLackOfMotionResult(uint64_t a1, uint6
   return result;
 }
 
-CMMsl *CMMsl::KappaLackOfMotionResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaLackOfMotionResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6112,7 +6112,7 @@ float CMMsl::KappaLocalAudioResult::KappaLocalAudioResult(uint64_t a1, uint64_t 
   return result;
 }
 
-CMMsl *CMMsl::KappaLocalAudioResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaLocalAudioResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

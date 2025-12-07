@@ -117,10 +117,10 @@ void __36__FPDAccessControlStore_sharedStore__block_invoke()
   dispatch_async(syncQueue, block);
 }
 
-uint64_t __50__FPDAccessControlStore_reopenDatabaseAfterUnlock__block_invoke(uint64_t a1)
+uint64_t __50__FPDAccessControlStore_reopenDatabaseAfterUnlock__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __50__FPDAccessControlStore_reopenDatabaseAfterUnlock__block_invoke_cold_1();
   }
@@ -130,17 +130,14 @@ uint64_t __50__FPDAccessControlStore_reopenDatabaseAfterUnlock__block_invoke(uin
 
 - (void)openDatabase
 {
-  v10 = *MEMORY[0x1E69E9840];
   fp_prettyDescription = [self fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Cannot open access control database. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Cannot open access control database. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)validateDatabase:(id)database
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   userVersion = [databaseCopy userVersion];
   if (!userVersion)
@@ -159,16 +156,16 @@ uint64_t __50__FPDAccessControlStore_reopenDatabaseAfterUnlock__block_invoke(uin
           [FPDAccessControlStore validateDatabase:];
         }
 
-        v28 = lastError;
-        v10 = [databaseCopy destroyDatabaseWithError:&v28];
-        v11 = v28;
+        v27 = lastError;
+        v10 = [databaseCopy destroyDatabaseWithError:&v27];
+        v11 = v27;
 
         if ((v10 & 1) == 0)
         {
-          v20 = fp_current_or_default_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+          v19 = fp_current_or_default_log();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
-            [(FPDAccessControlStore *)v11 validateDatabase:v20];
+            [(FPDAccessControlStore *)v11 validateDatabase:v19];
           }
 
           abort();
@@ -190,10 +187,10 @@ LABEL_10:
 
   unsignedIntegerValue = [userVersion unsignedIntegerValue];
   v13 = [(NSURL *)self->_databaseBaseURL URLByAppendingPathExtension:@"plist"];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = unsignedIntegerValue;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = unsignedIntegerValue;
   if (unsignedIntegerValue <= 3)
   {
     v14 = MEMORY[0x1E69E9820];
@@ -202,38 +199,36 @@ LABEL_10:
       v15 = fp_current_or_default_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v25[3];
+        v16 = v24[3];
         *buf = 134218240;
-        v30 = v16;
-        v31 = 2048;
-        v32 = v16 + 1;
+        v29 = v16;
+        v30 = 2048;
+        v31 = v16 + 1;
         _os_log_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEFAULT, "[NOTICE] migrating from %lu to %lu", buf, 0x16u);
       }
 
-      v21[0] = v14;
-      v21[1] = 3221225472;
-      v21[2] = __42__FPDAccessControlStore_validateDatabase___block_invoke;
-      v21[3] = &unk_1E83BF5D8;
-      v23 = &v24;
-      v22 = v13;
-      v17 = [databaseCopy performWithFlags:10 action:v21];
+      v20[0] = v14;
+      v20[1] = 3221225472;
+      v20[2] = __42__FPDAccessControlStore_validateDatabase___block_invoke;
+      v20[3] = &unk_1E83BF5D8;
+      v22 = &v23;
+      v21 = v13;
+      v17 = [databaseCopy performWithFlags:10 action:v20];
 
       if (!v17)
       {
         break;
       }
 
-      v18 = v25[3] + 1;
-      v25[3] = v18;
+      v18 = v24[3] + 1;
+      v24[3] = v18;
     }
 
     while (v18 < 4);
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
   [databaseCopy performWithFlags:0 action:&__block_literal_global_35];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__FPDAccessControlStore_validateDatabase___block_invoke(uint64_t a1, void *a2)
@@ -547,17 +542,19 @@ void __41__FPDAccessControlStore_addLRUSignature___block_invoke(uint64_t a1, voi
   v17 = v16;
   sub_1CEFE48D8(sessionIdentifier, v15);
 
+  v10, v18, v19, v20, v21, v22, v23, v24;
   if (v17)
   {
-    v18 = sub_1CF9E6888();
+    v25 = sub_1CF9E6888();
+    v17, v26, v27, v28, v29, v30, v31, v32;
   }
 
   else
   {
-    v18 = 0;
+    v25 = 0;
   }
 
-  return v18;
+  return v25;
 }
 
 - (id)swift_verifyBookmark:(id)bookmark consumerIdentifier:(id)identifier installSessionIdentifier:(id)sessionIdentifier
@@ -582,6 +579,9 @@ void __41__FPDAccessControlStore_addLRUSignature___block_invoke(uint64_t a1, voi
   v17 = sub_1CF711874(v7, v9, v10, v12, sessionIdentifier, v16);
   sub_1CEFE48D8(sessionIdentifier, v16);
 
+  v9, v18, v19, v20, v21, v22, v23, v24;
+  v12, v25, v26, v27, v28, v29, v30, v31;
+
   return v17;
 }
 
@@ -590,87 +590,76 @@ void __41__FPDAccessControlStore_addLRUSignature___block_invoke(uint64_t a1, voi
   v4 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
   v6 = v5;
   selfCopy = self;
-  sub_1CF71290C(v4, v6, v13);
-
-  if (v13[1])
+  sub_1CF71290C(v4, v6, &v27);
+  v6, v8, v9, v10, v11, v12, v13, v14;
+  if (v28)
   {
-    v9 = v13[3];
-    v8 = v13[4];
-    v10 = v13[2];
-
-    v11 = [objc_allocWithZone(MEMORY[0x1E69673A0]) initWithProviderID:v10 domainIdentifier:v9 itemIdentifier:v8];
+    v23 = v30;
+    v22 = v31;
+    v24 = v29;
+    v28, v15, v16, v17, v18, v19, v20, v21;
+    v25 = [objc_allocWithZone(MEMORY[0x1E69673A0]) initWithProviderID:v24 domainIdentifier:v23 itemIdentifier:v22];
   }
 
   else
   {
-    v11 = 0;
+    v25 = 0;
   }
 
-  return v11;
+  return v25;
 }
 
 - (void)validateDatabase:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_FAULT, "[CRIT] failed to destroy database after corruption: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_FAULT, "[CRIT] failed to destroy database after corruption: %@", v4, 0xCu);
 }
 
 void __42__FPDAccessControlStore_validateDatabase___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 lastError];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed to migrate legacy database; %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed to migrate legacy database; %@", v4, v5, v6, v7);
 }
 
 - (void)bookmarkForItemID:(NSObject *)a3 consumerIdentifier:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = [a2 bundleIdentifier];
   v6 = [a2 installSessionIdentifier];
   OUTLINED_FUNCTION_3_0();
-  v11 = v5;
-  v12 = v7;
-  v13 = v8;
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] extending bookmark to %@ for %@ (%@)", v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v5;
+  v11 = v7;
+  v12 = v8;
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] extending bookmark to %@ for %@ (%@)", v9, 0x20u);
 }
 
 - (void)bookmarkForItemID:consumerIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] extending bookmark to %@ for %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] extending bookmark to %@ for %@", v2, 0x16u);
 }
 
 - (void)verifyBookmark:(void *)a1 auditToken:(NSObject *)a2 consumerIdentifier:.cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [a1 bundleIdentifier];
   v5 = [a1 installSessionIdentifier];
   OUTLINED_FUNCTION_3_0();
-  v9 = v6;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] verifying bookmark for %@ (%@)", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = v6;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] verifying bookmark for %@ (%@)", v7, 0x16u);
 }
 
 - (void)verifyBookmark:auditToken:consumerIdentifier:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] verifying bookmark for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] verifying bookmark for %@", v1, 0xCu);
 }
 
 @end

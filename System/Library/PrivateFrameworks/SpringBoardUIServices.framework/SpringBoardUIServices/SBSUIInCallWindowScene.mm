@@ -74,9 +74,9 @@
   BSDispatchMain();
 }
 
-uint64_t __37__SBSUIInCallWindowScene__invalidate__block_invoke(uint64_t result)
+void *__37__SBSUIInCallWindowScene__invalidate__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 520))
+  if (*(result[4] + 520))
   {
     return [MEMORY[0x1E69D4250] notePresentationEndForRequestWithIdentifier:?];
   }

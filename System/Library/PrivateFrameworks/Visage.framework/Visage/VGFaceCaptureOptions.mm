@@ -803,7 +803,7 @@
 
 - (VGFaceCaptureOptions)initWithCoder:(id)coder
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(VGFaceCaptureOptions *)self init];
   if (v5)
@@ -811,9 +811,9 @@
     v5->_requiredYawPoses = [coderCopy decodeIntegerForKey:@"requiredYawPoses"];
     v5->_requiredPitchPoses = [coderCopy decodeIntegerForKey:@"requiredPitchPoses"];
     v6 = MEMORY[0x277CBEB98];
-    v72[0] = objc_opt_class();
-    v72[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+    v71[0] = objc_opt_class();
+    v71[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"requiredExpressions"];
     requiredExpressions = v5->_requiredExpressions;
@@ -1078,7 +1078,6 @@
     v69 = v5;
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1182,100 +1181,8 @@ LABEL_30:
 
     requiredExpressions = self->_requiredExpressions;
     requiredExpressions = [v5 requiredExpressions];
-    if (![requiredExpressions isEqualToArray:requiredExpressions])
+    if (![requiredExpressions isEqualToArray:requiredExpressions] || (yawLimit = self->_yawLimit, objc_msgSend(v5, "yawLimit"), yawLimit != v11) || (pitchLimit = self->_pitchLimit, objc_msgSend(v5, "pitchLimit"), pitchLimit != v13) || (eyesForwardYawSensitivity = self->_eyesForwardYawSensitivity, objc_msgSend(v5, "eyesForwardYawSensitivity"), eyesForwardYawSensitivity != v15) || (eyesForwardPitchSensitivity = self->_eyesForwardPitchSensitivity, objc_msgSend(v5, "eyesForwardPitchSensitivity"), eyesForwardPitchSensitivity != v17) || (leftMarginHeadRatio = self->_leftMarginHeadRatio, objc_msgSend(v5, "leftMarginHeadRatio"), leftMarginHeadRatio != v19) || (rightMarginHeadRatio = self->_rightMarginHeadRatio, objc_msgSend(v5, "rightMarginHeadRatio"), rightMarginHeadRatio != v21) || (topMarginHeadRatio = self->_topMarginHeadRatio, objc_msgSend(v5, "topMarginHeadRatio"), topMarginHeadRatio != v23) || (bottomMarginHeadRatio = self->_bottomMarginHeadRatio, objc_msgSend(v5, "bottomMarginHeadRatio"), bottomMarginHeadRatio != v25) || (leftMarginFrontPoseHeadRatio = self->_leftMarginFrontPoseHeadRatio, objc_msgSend(v5, "leftMarginFrontPoseHeadRatio"), leftMarginFrontPoseHeadRatio != v27) || (rightMarginFrontPoseHeadRatio = self->_rightMarginFrontPoseHeadRatio, objc_msgSend(v5, "rightMarginFrontPoseHeadRatio"), rightMarginFrontPoseHeadRatio != v29) || (bottomMarginFrontPoseDelta = self->_bottomMarginFrontPoseDelta, objc_msgSend(v5, "bottomMarginFrontPoseDelta"), bottomMarginFrontPoseDelta != v31) || (bottomMarginPitchPoseDelta = self->_bottomMarginPitchPoseDelta, objc_msgSend(v5, "bottomMarginPitchPoseDelta"), bottomMarginPitchPoseDelta != v33) || (eyesOpenSensitivity = self->_eyesOpenSensitivity, objc_msgSend(v5, "eyesOpenSensitivity"), eyesOpenSensitivity != v35) || (neutralExpressionLowerBound = self->_neutralExpressionLowerBound, objc_msgSend(v5, "neutralExpressionLowerBound"), neutralExpressionLowerBound != v37) || (neutralExpressionUpperBound = self->_neutralExpressionUpperBound, objc_msgSend(v5, "neutralExpressionUpperBound"), neutralExpressionUpperBound != v39) || (v40 = self, writeDebugData = self->_writeDebugData, writeDebugData != objc_msgSend(v5, "writeDebugData")))
     {
-      goto LABEL_28;
-    }
-
-    yawLimit = self->_yawLimit;
-    [v5 yawLimit];
-    if (yawLimit != v11)
-    {
-      goto LABEL_28;
-    }
-
-    pitchLimit = self->_pitchLimit;
-    [v5 pitchLimit];
-    if (pitchLimit != v13)
-    {
-      goto LABEL_28;
-    }
-
-    eyesForwardYawSensitivity = self->_eyesForwardYawSensitivity;
-    [v5 eyesForwardYawSensitivity];
-    if (eyesForwardYawSensitivity != v15)
-    {
-      goto LABEL_28;
-    }
-
-    eyesForwardPitchSensitivity = self->_eyesForwardPitchSensitivity;
-    [v5 eyesForwardPitchSensitivity];
-    if (eyesForwardPitchSensitivity != v17)
-    {
-      goto LABEL_28;
-    }
-
-    leftMarginHeadRatio = self->_leftMarginHeadRatio;
-    [v5 leftMarginHeadRatio];
-    if (leftMarginHeadRatio != v19)
-    {
-      goto LABEL_28;
-    }
-
-    rightMarginHeadRatio = self->_rightMarginHeadRatio;
-    [v5 rightMarginHeadRatio];
-    if (rightMarginHeadRatio != v21)
-    {
-      goto LABEL_28;
-    }
-
-    topMarginHeadRatio = self->_topMarginHeadRatio;
-    [v5 topMarginHeadRatio];
-    if (topMarginHeadRatio != v23)
-    {
-      goto LABEL_28;
-    }
-
-    bottomMarginHeadRatio = self->_bottomMarginHeadRatio;
-    [v5 bottomMarginHeadRatio];
-    if (bottomMarginHeadRatio != v25)
-    {
-      goto LABEL_28;
-    }
-
-    leftMarginFrontPoseHeadRatio = self->_leftMarginFrontPoseHeadRatio;
-    [v5 leftMarginFrontPoseHeadRatio];
-    if (leftMarginFrontPoseHeadRatio != v27)
-    {
-      goto LABEL_28;
-    }
-
-    rightMarginFrontPoseHeadRatio = self->_rightMarginFrontPoseHeadRatio;
-    [v5 rightMarginFrontPoseHeadRatio];
-    if (rightMarginFrontPoseHeadRatio != v29)
-    {
-      goto LABEL_28;
-    }
-
-    bottomMarginFrontPoseDelta = self->_bottomMarginFrontPoseDelta;
-    [v5 bottomMarginFrontPoseDelta];
-    if (bottomMarginFrontPoseDelta != v31)
-    {
-      goto LABEL_28;
-    }
-
-    bottomMarginPitchPoseDelta = self->_bottomMarginPitchPoseDelta;
-    [v5 bottomMarginPitchPoseDelta];
-    if (bottomMarginPitchPoseDelta != v33)
-    {
-      goto LABEL_28;
-    }
-
-    eyesOpenSensitivity = self->_eyesOpenSensitivity;
-    [v5 eyesOpenSensitivity];
-    if (eyesOpenSensitivity != v35 || (neutralExpressionLowerBound = self->_neutralExpressionLowerBound, [v5 neutralExpressionLowerBound], neutralExpressionLowerBound != v37) || (neutralExpressionUpperBound = self->_neutralExpressionUpperBound, objc_msgSend(v5, "neutralExpressionUpperBound"), neutralExpressionUpperBound != v39) || (v40 = self, writeDebugData = self->_writeDebugData, writeDebugData != objc_msgSend(v5, "writeDebugData")))
-    {
-LABEL_28:
       v45 = 0;
 LABEL_29:
 
@@ -1307,27 +1214,8 @@ LABEL_29:
     v44 = 1;
 LABEL_34:
     useLookAtForEyesForward = v40->_useLookAtForEyesForward;
-    if (useLookAtForEyesForward != [v5 useLookAtForEyesForward])
+    if (useLookAtForEyesForward != [v5 useLookAtForEyesForward] || (ensureEyesForwardOnFrontPose = v40->_ensureEyesForwardOnFrontPose, ensureEyesForwardOnFrontPose != objc_msgSend(v5, "ensureEyesForwardOnFrontPose")) || (ensureEyesOpenOnFrontPose = v40->_ensureEyesOpenOnFrontPose, ensureEyesOpenOnFrontPose != objc_msgSend(v5, "ensureEyesOpenOnFrontPose")) || (ensureEyesOpenOnNonFrontPose = v40->_ensureEyesOpenOnNonFrontPose, ensureEyesOpenOnNonFrontPose != objc_msgSend(v5, "ensureEyesOpenOnNonFrontPose")) || (ensureNeutralExpressionOnFrontPose = v40->_ensureNeutralExpressionOnFrontPose, ensureNeutralExpressionOnFrontPose != objc_msgSend(v5, "ensureNeutralExpressionOnFrontPose")) || (ensureAlmostNeutralExpressionOnNonFrontPose = v40->_ensureAlmostNeutralExpressionOnNonFrontPose, ensureAlmostNeutralExpressionOnNonFrontPose != objc_msgSend(v5, "ensureAlmostNeutralExpressionOnNonFrontPose")) || (useFaceTrackingDictionary = v40->_useFaceTrackingDictionary, useFaceTrackingDictionary != objc_msgSend(v5, "useFaceTrackingDictionary")) || (useFKInternalFaceDetector = v40->_useFKInternalFaceDetector, useFKInternalFaceDetector != objc_msgSend(v5, "useFKInternalFaceDetector")) || (useFKForceCPU = v40->_useFKForceCPU, useFKForceCPU != objc_msgSend(v5, "useFKForceCPU")) || (convertFKTrackingDictToARKitDict = v40->_convertFKTrackingDictToARKitDict, convertFKTrackingDictToARKitDict != objc_msgSend(v5, "convertFKTrackingDictToARKitDict")) || (sendMetrics = v40->_sendMetrics, sendMetrics != objc_msgSend(v5, "sendMetrics")))
     {
-      goto LABEL_50;
-    }
-
-    ensureEyesForwardOnFrontPose = v40->_ensureEyesForwardOnFrontPose;
-    if (ensureEyesForwardOnFrontPose != [v5 ensureEyesForwardOnFrontPose])
-    {
-      goto LABEL_50;
-    }
-
-    ensureEyesOpenOnFrontPose = v40->_ensureEyesOpenOnFrontPose;
-    if (ensureEyesOpenOnFrontPose != [v5 ensureEyesOpenOnFrontPose])
-    {
-      goto LABEL_50;
-    }
-
-    ensureEyesOpenOnNonFrontPose = v40->_ensureEyesOpenOnNonFrontPose;
-    if (ensureEyesOpenOnNonFrontPose != [v5 ensureEyesOpenOnNonFrontPose] || (ensureNeutralExpressionOnFrontPose = v40->_ensureNeutralExpressionOnFrontPose, ensureNeutralExpressionOnFrontPose != objc_msgSend(v5, "ensureNeutralExpressionOnFrontPose")) || (ensureAlmostNeutralExpressionOnNonFrontPose = v40->_ensureAlmostNeutralExpressionOnNonFrontPose, ensureAlmostNeutralExpressionOnNonFrontPose != objc_msgSend(v5, "ensureAlmostNeutralExpressionOnNonFrontPose")) || (useFaceTrackingDictionary = v40->_useFaceTrackingDictionary, useFaceTrackingDictionary != objc_msgSend(v5, "useFaceTrackingDictionary")) || (useFKInternalFaceDetector = v40->_useFKInternalFaceDetector, useFKInternalFaceDetector != objc_msgSend(v5, "useFKInternalFaceDetector")) || (useFKForceCPU = v40->_useFKForceCPU, useFKForceCPU != objc_msgSend(v5, "useFKForceCPU")) || (convertFKTrackingDictToARKitDict = v40->_convertFKTrackingDictToARKitDict, convertFKTrackingDictToARKitDict != objc_msgSend(v5, "convertFKTrackingDictToARKitDict")) || (sendMetrics = v40->_sendMetrics, sendMetrics != objc_msgSend(v5, "sendMetrics")))
-    {
-LABEL_50:
       v45 = 0;
       if ((v44 & 1) == 0)
       {
@@ -1363,36 +1251,8 @@ LABEL_50:
     v102 = 1;
 LABEL_56:
     useSimpleSelector = v40->_useSimpleSelector;
-    if (useSimpleSelector != [v5 useSimpleSelector])
+    if (useSimpleSelector != [v5 useSimpleSelector] || (simpleSelectorMinOffsetAngle = v40->_simpleSelectorMinOffsetAngle, objc_msgSend(v5, "simpleSelectorMinOffsetAngle"), simpleSelectorMinOffsetAngle != v62) || (simpleSelectorMaxOffsetAngle = v40->_simpleSelectorMaxOffsetAngle, objc_msgSend(v5, "simpleSelectorMaxOffsetAngle"), simpleSelectorMaxOffsetAngle != v64) || (useDistanceFilter = v40->_useDistanceFilter, useDistanceFilter != objc_msgSend(v5, "useDistanceFilter")) || (distanceFilterCloseThreshold = v40->_distanceFilterCloseThreshold, objc_msgSend(v5, "distanceFilterCloseThreshold"), distanceFilterCloseThreshold != v67) || (distanceFilterFarThreshold = v40->_distanceFilterFarThreshold, objc_msgSend(v5, "distanceFilterFarThreshold"), distanceFilterFarThreshold != v69) || (useVNFilters = v40->_useVNFilters, useVNFilters != objc_msgSend(v5, "useVNFilters")) || (useVNFiltersEnrollment = v40->_useVNFiltersEnrollment, useVNFiltersEnrollment != objc_msgSend(v5, "useVNFiltersEnrollment")) || (vnFrontPoseBlinkThreshold = v40->_vnFrontPoseBlinkThreshold, objc_msgSend(v5, "vnFrontPoseBlinkThreshold"), vnFrontPoseBlinkThreshold != v73))
     {
-      goto LABEL_70;
-    }
-
-    simpleSelectorMinOffsetAngle = v40->_simpleSelectorMinOffsetAngle;
-    [v5 simpleSelectorMinOffsetAngle];
-    if (simpleSelectorMinOffsetAngle != v62)
-    {
-      goto LABEL_70;
-    }
-
-    simpleSelectorMaxOffsetAngle = v40->_simpleSelectorMaxOffsetAngle;
-    [v5 simpleSelectorMaxOffsetAngle];
-    if (simpleSelectorMaxOffsetAngle != v64)
-    {
-      goto LABEL_70;
-    }
-
-    useDistanceFilter = v40->_useDistanceFilter;
-    if (useDistanceFilter != [v5 useDistanceFilter])
-    {
-      goto LABEL_70;
-    }
-
-    distanceFilterCloseThreshold = v40->_distanceFilterCloseThreshold;
-    [v5 distanceFilterCloseThreshold];
-    if (distanceFilterCloseThreshold != v67 || (distanceFilterFarThreshold = v40->_distanceFilterFarThreshold, [v5 distanceFilterFarThreshold], distanceFilterFarThreshold != v69) || (useVNFilters = v40->_useVNFilters, useVNFilters != objc_msgSend(v5, "useVNFilters")) || (useVNFiltersEnrollment = v40->_useVNFiltersEnrollment, useVNFiltersEnrollment != objc_msgSend(v5, "useVNFiltersEnrollment")) || (vnFrontPoseBlinkThreshold = v40->_vnFrontPoseBlinkThreshold, objc_msgSend(v5, "vnFrontPoseBlinkThreshold"), vnFrontPoseBlinkThreshold != v73))
-    {
-LABEL_70:
       v45 = 0;
       goto LABEL_71;
     }
@@ -1470,25 +1330,7 @@ LABEL_87:
     v90 = 1;
 LABEL_94:
     useFovMarginsFilterFrontPose = v40->_useFovMarginsFilterFrontPose;
-    if (useFovMarginsFilterFrontPose != [v5 useFovMarginsFilterFrontPose])
-    {
-      goto LABEL_105;
-    }
-
-    useFovMarginsFilterNonFrontPose = v40->_useFovMarginsFilterNonFrontPose;
-    if (useFovMarginsFilterNonFrontPose != [v5 useFovMarginsFilterNonFrontPose])
-    {
-      goto LABEL_105;
-    }
-
-    useDepthFovFilter = v40->_useDepthFovFilter;
-    if (useDepthFovFilter != [v5 useDepthFovFilter])
-    {
-      goto LABEL_105;
-    }
-
-    useDepthFovFilterForBadAlignment = v40->_useDepthFovFilterForBadAlignment;
-    if (useDepthFovFilterForBadAlignment == [v5 useDepthFovFilterForBadAlignment] && (useAmbientLightFilter = v40->_useAmbientLightFilter, useAmbientLightFilter == objc_msgSend(v5, "useAmbientLightFilter")) && (ambientLightFilterLowThreshold = v40->_ambientLightFilterLowThreshold, objc_msgSend(v5, "ambientLightFilterLowThreshold"), ambientLightFilterLowThreshold == v83) && (useTrackedFaceIdentifierFilter = v40->_useTrackedFaceIdentifierFilter, useTrackedFaceIdentifierFilter == objc_msgSend(v5, "useTrackedFaceIdentifierFilter")) && (useVNFaceLandmarksFilter = v40->_useVNFaceLandmarksFilter, useVNFaceLandmarksFilter == objc_msgSend(v5, "useVNFaceLandmarksFilter")) && (useMotionBlurFilter = v40->_useMotionBlurFilter, useMotionBlurFilter == objc_msgSend(v5, "useMotionBlurFilter")))
+    if (useFovMarginsFilterFrontPose == [v5 useFovMarginsFilterFrontPose] && (useFovMarginsFilterNonFrontPose = v40->_useFovMarginsFilterNonFrontPose, useFovMarginsFilterNonFrontPose == objc_msgSend(v5, "useFovMarginsFilterNonFrontPose")) && (useDepthFovFilter = v40->_useDepthFovFilter, useDepthFovFilter == objc_msgSend(v5, "useDepthFovFilter")) && (useDepthFovFilterForBadAlignment = v40->_useDepthFovFilterForBadAlignment, useDepthFovFilterForBadAlignment == objc_msgSend(v5, "useDepthFovFilterForBadAlignment")) && (useAmbientLightFilter = v40->_useAmbientLightFilter, useAmbientLightFilter == objc_msgSend(v5, "useAmbientLightFilter")) && (ambientLightFilterLowThreshold = v40->_ambientLightFilterLowThreshold, objc_msgSend(v5, "ambientLightFilterLowThreshold"), ambientLightFilterLowThreshold == v83) && (useTrackedFaceIdentifierFilter = v40->_useTrackedFaceIdentifierFilter, useTrackedFaceIdentifierFilter == objc_msgSend(v5, "useTrackedFaceIdentifierFilter")) && (useVNFaceLandmarksFilter = v40->_useVNFaceLandmarksFilter, useVNFaceLandmarksFilter == objc_msgSend(v5, "useVNFaceLandmarksFilter")) && (useMotionBlurFilter = v40->_useMotionBlurFilter, useMotionBlurFilter == objc_msgSend(v5, "useMotionBlurFilter")))
     {
       motionBlurThreshold = v40->_motionBlurThreshold;
       [v5 motionBlurThreshold];
@@ -1585,7 +1427,6 @@ LABEL_109:
 
     else
     {
-LABEL_105:
       v45 = 0;
       if (!v90)
       {
@@ -1606,78 +1447,78 @@ LABEL_31:
 
 - (id)toDictionary
 {
-  v94[53] = *MEMORY[0x277D85DE8];
-  v93[0] = @"requiredYawPoses";
-  v92 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_requiredYawPoses];
-  v94[0] = v92;
-  v93[1] = @"requiredPitchPoses";
+  v93[53] = *MEMORY[0x277D85DE8];
+  v92[0] = @"requiredYawPoses";
+  v91 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_requiredYawPoses];
+  v93[0] = v91;
+  v92[1] = @"requiredPitchPoses";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_requiredPitchPoses];
   requiredExpressions = self->_requiredExpressions;
-  v91 = v3;
-  v94[1] = v3;
-  v94[2] = requiredExpressions;
-  v93[2] = @"requiredExpressions";
-  v93[3] = @"yawLimit";
+  v90 = v3;
+  v93[1] = v3;
+  v93[2] = requiredExpressions;
+  v92[2] = @"requiredExpressions";
+  v92[3] = @"yawLimit";
   *&v5 = self->_yawLimit;
-  v90 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v94[3] = v90;
-  v93[4] = @"pitchLimit";
+  v89 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
+  v93[3] = v89;
+  v92[4] = @"pitchLimit";
   *&v6 = self->_pitchLimit;
-  v89 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v94[4] = v89;
-  v93[5] = @"eyesForwardYawSensitivity";
+  v88 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+  v93[4] = v88;
+  v92[5] = @"eyesForwardYawSensitivity";
   *&v7 = self->_eyesForwardYawSensitivity;
-  v88 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v94[5] = v88;
-  v93[6] = @"eyesForwardPitchSensitivity";
+  v87 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
+  v93[5] = v87;
+  v92[6] = @"eyesForwardPitchSensitivity";
   *&v8 = self->_eyesForwardPitchSensitivity;
-  v87 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v94[6] = v87;
-  v93[7] = @"leftMarginHeadRatio";
+  v86 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v93[6] = v86;
+  v92[7] = @"leftMarginHeadRatio";
   *&v9 = self->_leftMarginHeadRatio;
-  v86 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v94[7] = v86;
-  v93[8] = @"rightMarginHeadRatio";
+  v85 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+  v93[7] = v85;
+  v92[8] = @"rightMarginHeadRatio";
   *&v10 = self->_rightMarginHeadRatio;
-  v85 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v94[8] = v85;
-  v93[9] = @"topMarginHeadRatio";
+  v84 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+  v93[8] = v84;
+  v92[9] = @"topMarginHeadRatio";
   *&v11 = self->_topMarginHeadRatio;
-  v84 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v94[9] = v84;
-  v93[10] = @"bottomMarginHeadRatio";
+  v83 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v93[9] = v83;
+  v92[10] = @"bottomMarginHeadRatio";
   *&v12 = self->_bottomMarginHeadRatio;
-  v83 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v94[10] = v83;
-  v93[11] = @"leftMarginFrontPoseHeadRatio";
+  v82 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+  v93[10] = v82;
+  v92[11] = @"leftMarginFrontPoseHeadRatio";
   *&v13 = self->_leftMarginFrontPoseHeadRatio;
-  v82 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  v94[11] = v82;
-  v93[12] = @"rightMarginFrontPoseHeadRatio";
+  v81 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+  v93[11] = v81;
+  v92[12] = @"rightMarginFrontPoseHeadRatio";
   *&v14 = self->_rightMarginFrontPoseHeadRatio;
-  v81 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v94[12] = v81;
-  v93[13] = @"bottomMarginFrontPoseDelta";
+  v80 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+  v93[12] = v80;
+  v92[13] = @"bottomMarginFrontPoseDelta";
   *&v15 = self->_bottomMarginFrontPoseDelta;
-  v80 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-  v94[13] = v80;
-  v93[14] = @"bottomMarginPitchPoseDelta";
+  v79 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+  v93[13] = v79;
+  v92[14] = @"bottomMarginPitchPoseDelta";
   *&v16 = self->_bottomMarginPitchPoseDelta;
-  v79 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v94[14] = v79;
-  v93[15] = @"eyesOpenSensitivity";
+  v78 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+  v93[14] = v78;
+  v92[15] = @"eyesOpenSensitivity";
   *&v17 = self->_eyesOpenSensitivity;
-  v78 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-  v94[15] = v78;
-  v93[16] = @"neutralExpressionLowerBound";
+  v77 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+  v93[15] = v77;
+  v92[16] = @"neutralExpressionLowerBound";
   *&v18 = self->_neutralExpressionLowerBound;
-  v77 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v94[16] = v77;
-  v93[17] = @"neutralExpressionUpperBound";
+  v76 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+  v93[16] = v76;
+  v92[17] = @"neutralExpressionUpperBound";
   *&v19 = self->_neutralExpressionUpperBound;
-  v76 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v94[17] = v76;
-  v93[18] = @"writeDebugData";
+  v75 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+  v93[17] = v75;
+  v92[18] = @"writeDebugData";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:self->_writeDebugData];
   debugDataPath = self->_debugDataPath;
   toDictionary = @"nil";
@@ -1686,88 +1527,88 @@ LABEL_31:
     debugDataPath = @"nil";
   }
 
-  v75 = v20;
-  v94[18] = v20;
-  v94[19] = debugDataPath;
-  v93[19] = @"debugDataPath";
-  v93[20] = @"useLookAtForEyesForward";
-  v74 = [MEMORY[0x277CCABB0] numberWithBool:self->_useLookAtForEyesForward];
-  v94[20] = v74;
-  v93[21] = @"ensureEyesForwardOnFrontPose";
-  v73 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesForwardOnFrontPose];
-  v94[21] = v73;
-  v93[22] = @"ensureEyesOpenOnFrontPose";
-  v72 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesOpenOnFrontPose];
-  v94[22] = v72;
-  v93[23] = @"ensureEyesOpenOnNonFrontPose";
-  v71 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesOpenOnNonFrontPose];
-  v94[23] = v71;
-  v93[24] = @"ensureAlmostNeutralExpressionOnNonFrontPose";
-  v70 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureAlmostNeutralExpressionOnNonFrontPose];
-  v94[24] = v70;
-  v93[25] = @"useFaceTrackingDictionary";
-  v68 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFaceTrackingDictionary];
-  v94[25] = v68;
-  v93[26] = @"useFKInternalFaceDetector";
-  v67 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFKInternalFaceDetector];
-  v94[26] = v67;
-  v93[27] = @"useFKForceCPU";
-  v66 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFKForceCPU];
-  v94[27] = v66;
-  v93[28] = @"convertFKTrackingDictToARKitDict";
-  v65 = [MEMORY[0x277CCABB0] numberWithBool:self->_convertFKTrackingDictToARKitDict];
-  v94[28] = v65;
-  v93[29] = @"sendMetrics";
+  v74 = v20;
+  v93[18] = v20;
+  v93[19] = debugDataPath;
+  v92[19] = @"debugDataPath";
+  v92[20] = @"useLookAtForEyesForward";
+  v73 = [MEMORY[0x277CCABB0] numberWithBool:self->_useLookAtForEyesForward];
+  v93[20] = v73;
+  v92[21] = @"ensureEyesForwardOnFrontPose";
+  v72 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesForwardOnFrontPose];
+  v93[21] = v72;
+  v92[22] = @"ensureEyesOpenOnFrontPose";
+  v71 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesOpenOnFrontPose];
+  v93[22] = v71;
+  v92[23] = @"ensureEyesOpenOnNonFrontPose";
+  v70 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureEyesOpenOnNonFrontPose];
+  v93[23] = v70;
+  v92[24] = @"ensureAlmostNeutralExpressionOnNonFrontPose";
+  v69 = [MEMORY[0x277CCABB0] numberWithBool:self->_ensureAlmostNeutralExpressionOnNonFrontPose];
+  v93[24] = v69;
+  v92[25] = @"useFaceTrackingDictionary";
+  v67 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFaceTrackingDictionary];
+  v93[25] = v67;
+  v92[26] = @"useFKInternalFaceDetector";
+  v66 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFKInternalFaceDetector];
+  v93[26] = v66;
+  v92[27] = @"useFKForceCPU";
+  v65 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFKForceCPU];
+  v93[27] = v65;
+  v92[28] = @"convertFKTrackingDictToARKitDict";
+  v64 = [MEMORY[0x277CCABB0] numberWithBool:self->_convertFKTrackingDictToARKitDict];
+  v93[28] = v64;
+  v92[29] = @"sendMetrics";
   v23 = [MEMORY[0x277CCABB0] numberWithBool:self->_sendMetrics];
   cameraImageColorSpaceName = self->_cameraImageColorSpaceName;
-  v64 = v23;
-  v94[29] = v23;
-  v94[30] = cameraImageColorSpaceName;
-  v93[30] = @"cameraImageColorSpaceName";
-  v93[31] = @"useSimpleSelector";
-  v63 = [MEMORY[0x277CCABB0] numberWithBool:self->_useSimpleSelector];
-  v94[31] = v63;
-  v93[32] = @"simpleSelectorMinOffsetAngle";
+  v63 = v23;
+  v93[29] = v23;
+  v93[30] = cameraImageColorSpaceName;
+  v92[30] = @"cameraImageColorSpaceName";
+  v92[31] = @"useSimpleSelector";
+  v62 = [MEMORY[0x277CCABB0] numberWithBool:self->_useSimpleSelector];
+  v93[31] = v62;
+  v92[32] = @"simpleSelectorMinOffsetAngle";
   *&v25 = self->_simpleSelectorMinOffsetAngle;
-  v62 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-  v94[32] = v62;
-  v93[33] = @"simpleSelectorMaxOffsetAngle";
+  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
+  v93[32] = v61;
+  v92[33] = @"simpleSelectorMaxOffsetAngle";
   *&v26 = self->_simpleSelectorMaxOffsetAngle;
-  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-  v94[33] = v61;
-  v93[34] = @"useDistanceFilter";
-  v60 = [MEMORY[0x277CCABB0] numberWithBool:self->_useDistanceFilter];
-  v94[34] = v60;
-  v93[35] = @"distanceFilterCloseThreshold";
+  v60 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+  v93[33] = v60;
+  v92[34] = @"useDistanceFilter";
+  v59 = [MEMORY[0x277CCABB0] numberWithBool:self->_useDistanceFilter];
+  v93[34] = v59;
+  v92[35] = @"distanceFilterCloseThreshold";
   *&v27 = self->_distanceFilterCloseThreshold;
-  v59 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-  v94[35] = v59;
-  v93[36] = @"distanceFilterFarThreshold";
+  v58 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+  v93[35] = v58;
+  v92[36] = @"distanceFilterFarThreshold";
   *&v28 = self->_distanceFilterFarThreshold;
-  v58 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-  v94[36] = v58;
-  v93[37] = @"useVNFilters";
-  v57 = [MEMORY[0x277CCABB0] numberWithBool:self->_useVNFilters];
-  v94[37] = v57;
-  v93[38] = @"useVNFiltersEnrollment";
-  v56 = [MEMORY[0x277CCABB0] numberWithBool:self->_useVNFiltersEnrollment];
-  v94[38] = v56;
-  v93[39] = @"vnFrontPoseBlinkThreshold";
+  v57 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+  v93[36] = v57;
+  v92[37] = @"useVNFilters";
+  v56 = [MEMORY[0x277CCABB0] numberWithBool:self->_useVNFilters];
+  v93[37] = v56;
+  v92[38] = @"useVNFiltersEnrollment";
+  v55 = [MEMORY[0x277CCABB0] numberWithBool:self->_useVNFiltersEnrollment];
+  v93[38] = v55;
+  v92[39] = @"vnFrontPoseBlinkThreshold";
   *&v29 = self->_vnFrontPoseBlinkThreshold;
-  v55 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-  v94[39] = v55;
-  v93[40] = @"bodyPoseGuidanceOptions";
+  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
+  v93[39] = v54;
+  v92[40] = @"bodyPoseGuidanceOptions";
   bodyPoseGuidanceOptions = self->_bodyPoseGuidanceOptions;
-  v54 = bodyPoseGuidanceOptions;
+  v53 = bodyPoseGuidanceOptions;
   if (bodyPoseGuidanceOptions)
   {
     toDictionary = [(VGBodyPoseGuidanceOptions *)bodyPoseGuidanceOptions toDictionary];
   }
 
-  v94[40] = toDictionary;
-  v93[41] = @"selectionFrustum";
+  v93[40] = toDictionary;
+  v92[41] = @"selectionFrustum";
   selectionFrustum = self->_selectionFrustum;
-  v53 = selectionFrustum;
+  v52 = selectionFrustum;
   if (selectionFrustum)
   {
     toDictionary2 = [(VGFaceSelectionFrustum *)selectionFrustum toDictionary];
@@ -1778,12 +1619,12 @@ LABEL_31:
     toDictionary2 = @"nil";
   }
 
-  v50 = toDictionary2;
-  v94[41] = toDictionary2;
-  v93[42] = @"frontPoseSelectionFrustum";
+  v49 = toDictionary2;
+  v93[41] = toDictionary2;
+  v92[42] = @"frontPoseSelectionFrustum";
   frontPoseSelectionFrustum = self->_frontPoseSelectionFrustum;
-  v69 = toDictionary;
-  v52 = frontPoseSelectionFrustum;
+  v68 = toDictionary;
+  v51 = frontPoseSelectionFrustum;
   if (frontPoseSelectionFrustum)
   {
     toDictionary3 = [(VGFaceSelectionFrustum *)frontPoseSelectionFrustum toDictionary];
@@ -1794,40 +1635,44 @@ LABEL_31:
     toDictionary3 = @"nil";
   }
 
-  v94[42] = toDictionary3;
-  v93[43] = @"useFovMarginsFilterFrontPose";
-  v51 = [MEMORY[0x277CCABB0] numberWithBool:{self->_useFovMarginsFilterFrontPose, toDictionary3}];
-  v94[43] = v51;
-  v93[44] = @"useFovMarginsFilterNonFrontPose";
+  v93[42] = toDictionary3;
+  v92[43] = @"useFovMarginsFilterFrontPose";
+  v50 = [MEMORY[0x277CCABB0] numberWithBool:{self->_useFovMarginsFilterFrontPose, toDictionary3}];
+  v93[43] = v50;
+  v92[44] = @"useFovMarginsFilterNonFrontPose";
   v35 = [MEMORY[0x277CCABB0] numberWithBool:self->_useFovMarginsFilterNonFrontPose];
-  v94[44] = v35;
-  v93[45] = @"useDepthFovFilter";
+  v93[44] = v35;
+  v92[45] = @"useDepthFovFilter";
   v36 = [MEMORY[0x277CCABB0] numberWithBool:self->_useDepthFovFilter];
-  v94[45] = v36;
-  v93[46] = @"useDepthFovFilterForBadAlignment";
+  v93[45] = v36;
+  v92[46] = @"useDepthFovFilterForBadAlignment";
   v37 = [MEMORY[0x277CCABB0] numberWithBool:self->_useDepthFovFilterForBadAlignment];
-  v94[46] = v37;
-  v93[47] = @"useAmbientLightFilter";
+  v93[46] = v37;
+  v92[47] = @"useAmbientLightFilter";
   v38 = [MEMORY[0x277CCABB0] numberWithBool:self->_useAmbientLightFilter];
-  v94[47] = v38;
-  v93[48] = @"ambientLightFilterLowThreshold";
+  v93[47] = v38;
+  v92[48] = @"ambientLightFilterLowThreshold";
   *&v39 = self->_ambientLightFilterLowThreshold;
   v40 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
-  v94[48] = v40;
-  v93[49] = @"useTrackedFaceIdentifierFilter";
+  v93[48] = v40;
+  v92[49] = @"useTrackedFaceIdentifierFilter";
   v41 = [MEMORY[0x277CCABB0] numberWithBool:self->_useTrackedFaceIdentifierFilter];
-  v94[49] = v41;
-  v93[50] = @"useVNFaceLandmarksFilter";
+  v93[49] = v41;
+  v92[50] = @"useVNFaceLandmarksFilter";
   v42 = [MEMORY[0x277CCABB0] numberWithBool:self->_useVNFaceLandmarksFilter];
-  v94[50] = v42;
-  v93[51] = @"useMotionBlurFilter";
+  v93[50] = v42;
+  v92[51] = @"useMotionBlurFilter";
   v43 = [MEMORY[0x277CCABB0] numberWithBool:self->_useMotionBlurFilter];
-  v94[51] = v43;
-  v93[52] = @"motionBlurThreshold";
+  v93[51] = v43;
+  v92[52] = @"motionBlurThreshold";
   *&v44 = self->_motionBlurThreshold;
   v45 = [MEMORY[0x277CCABB0] numberWithFloat:v44];
-  v94[52] = v45;
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:53];
+  v93[52] = v45;
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:53];
+
+  if (v51)
+  {
+  }
 
   if (v52)
   {
@@ -1836,12 +1681,6 @@ LABEL_31:
   if (v53)
   {
   }
-
-  if (v54)
-  {
-  }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }

@@ -3,7 +3,7 @@
 
 @implementation AXSPhotosensitiveVisualDebuggingEnabled
 
-uint64_t ___AXSPhotosensitiveVisualDebuggingEnabled_block_invoke()
+void *___AXSPhotosensitiveVisualDebuggingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

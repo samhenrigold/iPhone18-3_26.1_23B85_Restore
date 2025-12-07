@@ -38,37 +38,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  changeType = [(HMDHouseholdHomeDataChangedLogEvent *)self changeType];
-  if (changeType != [v6 changeType])
-  {
-    goto LABEL_10;
-  }
-
-  v8 = [(HMDHouseholdHomeDataChangedLogEvent *)self count];
-  if (v8 != [v6 count])
-  {
-    goto LABEL_10;
-  }
-
-  modelName = [(HMDHouseholdHomeDataChangedLogEvent *)self modelName];
-  modelName2 = [v6 modelName];
-  v11 = HMFEqualObjects();
-
-  if (!v11)
-  {
-    goto LABEL_10;
-  }
-
-  propertyName = [(HMDHouseholdHomeDataChangedLogEvent *)self propertyName];
-  propertyName2 = [v6 propertyName];
-  v14 = HMFEqualObjects();
-
-  if (v14)
+  if (v6 && (v7 = -[HMDHouseholdHomeDataChangedLogEvent changeType](self, "changeType"), v7 == [v6 changeType]) && (v8 = -[HMDHouseholdHomeDataChangedLogEvent count](self, "count"), v8 == objc_msgSend(v6, "count")) && (-[HMDHouseholdHomeDataChangedLogEvent modelName](self, "modelName"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "modelName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11) && (-[HMDHouseholdHomeDataChangedLogEvent propertyName](self, "propertyName"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "propertyName"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14))
   {
     homeUUID = [(HMMHomeLogEvent *)self homeUUID];
     homeUUID2 = [v6 homeUUID];
@@ -77,7 +47,6 @@
 
   else
   {
-LABEL_10:
     v17 = 0;
   }
 
@@ -86,15 +55,15 @@ LABEL_10:
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v15[0] = @"changeType";
+  v14[0] = @"changeType";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeDataChangedLogEvent changeType](self, "changeType")}];
-  v15[1] = @"homeDataChangedCount";
-  v16[0] = v4;
+  v14[1] = @"homeDataChangedCount";
+  v15[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDHouseholdHomeDataChangedLogEvent count](self, "count")}];
-  v16[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v7 = [v3 dictionaryWithDictionary:v6];
 
   modelName = [(HMDHouseholdHomeDataChangedLogEvent *)self modelName];
@@ -113,9 +82,7 @@ LABEL_10:
     [v7 setObject:propertyName2 forKeyedSubscript:@"propertyName"];
   }
 
-  v12 = [v7 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(v7);
 
   return v12;
 }
@@ -129,18 +96,18 @@ LABEL_10:
 
 - (id)serializedLogEvent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v6;
-    v24 = 2112;
-    v25 = selfCopy;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@serializing: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v6;
+    v23 = 2112;
+    v24 = selfCopy;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@serializing: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -176,17 +143,15 @@ LABEL_10:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     v18 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v18;
-    v24 = 2112;
-    v25 = dictionary;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@serialized as: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v18;
+    v23 = 2112;
+    v24 = dictionary;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@serialized as: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
-  v19 = [(HMDHouseholdHomeDataChangedLogEvent *)dictionary copy];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = objc_msgSend_copy(dictionary);
 
   return v19;
 }

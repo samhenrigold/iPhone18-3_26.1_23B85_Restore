@@ -11,11 +11,11 @@
 
 - (TPSyncingPolicy)initWithCoder:(id)coder
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = TPSyncingPolicy;
-  v5 = [(TPSyncingPolicy *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = TPSyncingPolicy;
+  v5 = [(TPSyncingPolicy *)&v29 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
@@ -27,18 +27,18 @@
     v5->_model = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"keyViewMapping"];
     keyViewMapping = v5->_keyViewMapping;
     v5->_keyViewMapping = v13;
 
     v15 = MEMORY[0x277CBEB98];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"viewList"];
@@ -87,7 +87,6 @@
     v5->_isInheritedAccount = [coderCopy decodeBoolForKey:@"isInheritedAccount"];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -161,29 +160,29 @@
 
 - (id)mapDictionaryToView:(id)view
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   [(TPSyncingPolicy *)self keyViewMapping];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = v23 = 0u;
-  view2 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = v22 = 0u;
+  view2 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (view2)
   {
-    v8 = *v21;
+    v8 = *v20;
     *&v7 = 138543618;
-    v18 = v7;
+    v17 = v7;
     do
     {
       for (i = 0; i != view2; i = i + 1)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         view = [v10 view];
         if (view)
         {
@@ -192,19 +191,19 @@
           if (matchingRule)
           {
             matchingRule2 = [v10 matchingRule];
-            v19 = 0;
-            v14 = [matchingRule2 matches:viewCopy error:&v19];
-            view = v19;
+            v18 = 0;
+            v14 = [matchingRule2 matches:viewCopy error:&v18];
+            view = v18;
 
             if (view)
             {
               v15 = TPClassificationLog();
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v18;
-                v25 = v10;
-                v26 = 2114;
-                v27 = view;
+                *buf = v17;
+                v24 = v10;
+                v25 = 2114;
+                v26 = view;
                 _os_log_impl(&dword_26F78B000, v15, OS_LOG_TYPE_DEFAULT, "Error matching with rule %{public}@: %{public}@", buf, 0x16u);
               }
             }
@@ -224,15 +223,13 @@
         }
       }
 
-      view2 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      view2 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (view2);
   }
 
 LABEL_17:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return view2;
 }

@@ -2,7 +2,11 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBHomeEntity)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deviceTypeAsString:(int)string;
+- (id)deviceTypesAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
+- (id)sceneTypeAsString:(int)string;
 - (int)StringAsDeviceType:(id)type;
 - (int)StringAsDeviceTypes:(id)types;
 - (int)StringAsEntityType:(id)type;
@@ -26,7 +30,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBHomeEntity *)self hasDeviceType])
   {
@@ -140,30 +144,30 @@
   if ([(NSArray *)self->_zones count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v29 = self->_zones;
-    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v38;
+      v32 = *v37;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v38 != v32)
+          if (*v37 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          dictionaryRepresentation7 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation7];
         }
 
-        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v31);
@@ -171,8 +175,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"zones"];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -579,32 +581,29 @@ LABEL_56:
 
 - (void)writeTo:(id)to
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBHomeEntity *)self hasDeviceType])
   {
-    deviceType = self->_deviceType;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_deviceTypes.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_deviceTypes.list[v6];
       PBDataWriterWriteInt32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_deviceTypes.count);
+    while (v5 < self->_deviceTypes.count);
   }
 
   entityIdentifier = [(_INPBHomeEntity *)self entityIdentifier];
 
   if (entityIdentifier)
   {
-    entityIdentifier = self->_entityIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -618,7 +617,6 @@ LABEL_56:
 
   if ([(_INPBHomeEntity *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -656,48 +654,47 @@ LABEL_56:
 
   if ([(_INPBHomeEntity *)self hasSceneType])
   {
-    sceneType = self->_sceneType;
     PBDataWriterWriteInt32Field();
   }
 
-  v22 = [(_INPBHomeEntity *)self zone];
+  v17 = [(_INPBHomeEntity *)self zone];
 
-  if (v22)
+  if (v17)
   {
-    v23 = [(_INPBHomeEntity *)self zone];
+    v18 = [(_INPBHomeEntity *)self zone];
     PBDataWriterWriteSubmessage();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v24 = self->_zones;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v25)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v19 = self->_zones;
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v20)
   {
-    v26 = v25;
-    v27 = *v32;
+    v21 = v20;
+    v22 = *v25;
     do
     {
-      for (i = 0; i != v26; ++i)
+      v23 = 0;
+      do
       {
-        if (*v32 != v27)
+        if (*v25 != v22)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v19);
         }
 
-        v29 = *(*(&v31 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v23;
       }
 
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      while (v21 != v23);
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v26);
+    while (v21);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addZones:(id)zones
@@ -758,6 +755,21 @@ LABEL_56:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sceneTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E6C0 + string);
   }
 
   return v4;
@@ -834,6 +846,21 @@ LABEL_56:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E688 + string);
   }
 
   return v4;
@@ -1114,6 +1141,21 @@ LABEL_56:
   return v4;
 }
 
+- (id)deviceTypesAsString:(int)string
+{
+  if (string < 0x32 && ((0x3FFFFF79FFEEFuLL >> string) & 1) != 0)
+  {
+    v4 = *(&off_1E727E4F8 + string);
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)addDeviceTypes:(int)types
 {
   if (types != 0x7FFFFFFF)
@@ -1353,6 +1395,21 @@ LABEL_56:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)deviceTypeAsString:(int)string
+{
+  if (string < 0x32 && ((0x3FFFFF79FFEEFuLL >> string) & 1) != 0)
+  {
+    v4 = *(&off_1E727E4F8 + string);
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

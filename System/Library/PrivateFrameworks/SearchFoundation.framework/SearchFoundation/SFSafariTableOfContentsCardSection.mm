@@ -13,11 +13,11 @@
 
 - (SFSafariTableOfContentsCardSection)initWithProtobuf:(id)protobuf
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v23.receiver = self;
-  v23.super_class = SFSafariTableOfContentsCardSection;
-  v5 = [(SFCardSection *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SFSafariTableOfContentsCardSection;
+  v5 = [(SFCardSection *)&v22 init];
   if (v5)
   {
     if ([protobufCopy tableOfContentsType])
@@ -41,33 +41,33 @@
       v7 = 0;
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     tableOfContentsItems2 = [protobufCopy tableOfContentsItems];
-    v9 = [tableOfContentsItems2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v9 = [tableOfContentsItems2 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(tableOfContentsItems2);
           }
 
-          v13 = [[SFSafariTableOfContentsItem alloc] initWithProtobuf:*(*(&v19 + 1) + 8 * i)];
+          v13 = [[SFSafariTableOfContentsItem alloc] initWithProtobuf:*(*(&v18 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [tableOfContentsItems2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v10 = [tableOfContentsItems2 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v10);
@@ -85,7 +85,6 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

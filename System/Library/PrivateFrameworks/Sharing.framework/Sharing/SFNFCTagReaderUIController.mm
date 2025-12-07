@@ -17,20 +17,19 @@
 
 - (SFNFCTagReaderUIController)init
 {
-  v7.receiver = self;
-  v7.super_class = SFNFCTagReaderUIController;
-  v2 = [(SFNFCTagReaderUIController *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFNFCTagReaderUIController;
+  v2 = [(SFNFCTagReaderUIController *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    *&v3->_mode = xmmword_1A998FEC0;
+    *&v2->_mode = xmmword_1A998FEC0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)setPurpose:(id)purpose
@@ -94,7 +93,7 @@ void __41__SFNFCTagReaderUIController_setPurpose___block_invoke_2(uint64_t a1, v
     v5 = v2;
     if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __41__SFNFCTagReaderUIController_setPurpose___block_invoke_2_cold_1();
+      __41__SFNFCTagReaderUIController_setPurpose___block_invoke_2_cold_1(v3);
       v3 = v5;
     }
   }
@@ -121,62 +120,64 @@ void __41__SFNFCTagReaderUIController_setPurpose___block_invoke_2(uint64_t a1, v
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+  v7 = completionCopy;
+  if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
-    [SFNFCTagReaderUIController _activateWithCompletion:];
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [(SFNFCTagReaderUIController *)completionCopy _activateWithCompletion:v5, v6];
+    }
   }
 
   [(SFNFCTagReaderUIController *)self _ensureXPCStarted];
   listenerEndpoint = [(CUXPCAgent *)self->_xpcAgent listenerEndpoint];
   if (listenerEndpoint)
   {
-    v6 = _os_activity_create(&dword_1A9662000, "Sharing/SFNFCTagReaderUIController/nfcTagReaderUIActivateWithEndpoint", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v9 = _os_activity_create(&dword_1A9662000, "Sharing/SFNFCTagReaderUIController/nfcTagReaderUIActivateWithEndpoint", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    os_activity_scope_enter(v6, &state);
+    os_activity_scope_enter(v9, &state);
     xpcCnx = self->_xpcCnx;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke;
-    v19[3] = &unk_1E788B6D8;
-    v8 = completionCopy;
-    v20 = v8;
-    v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v19];
-    v22[0] = @"mode";
-    v10 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mode];
-    v23[0] = v10;
-    v22[1] = @"operationMode";
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:self->_operationMode];
-    v12 = v11;
-    v22[2] = @"purpose";
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke;
+    v21[3] = &unk_1E788B6D8;
+    v11 = v7;
+    v22 = v11;
+    v12 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v21];
+    v24[0] = @"mode";
+    v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mode];
+    v25[0] = v13;
+    v24[1] = @"operationMode";
+    v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_operationMode];
+    v15 = v14;
+    v24[2] = @"purpose";
     purpose = self->_purpose;
     if (!purpose)
     {
       purpose = &stru_1F1D30528;
     }
 
-    v23[1] = v11;
-    v23[2] = purpose;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2;
-    v17[3] = &unk_1E788B6D8;
-    v18 = v8;
-    [v9 nfcTagReaderUIActivateWithEndpoint:listenerEndpoint params:v14 completion:v17];
+    v25[1] = v14;
+    v25[2] = purpose;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2;
+    v19[3] = &unk_1E788B6D8;
+    v20 = v11;
+    [v12 nfcTagReaderUIActivateWithEndpoint:listenerEndpoint params:v17 completion:v19];
 
     os_activity_scope_leave(&state);
   }
 
-  else if (completionCopy)
+  else if (v7)
   {
-    v15 = NSErrorWithOSStatusF();
-    (*(completionCopy + 2))(completionCopy, v15);
+    v18 = NSErrorWithOSStatusF(4294960534, "No XPC endpoint");
+    (v7)[2](v7, v18);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -189,7 +190,7 @@ void __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke(uin
     {
       if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_cold_1();
+        __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_cold_1(v3);
         v3 = v6;
       }
     }
@@ -206,34 +207,35 @@ void __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke(uin
 void __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v5 = v3;
+  v8 = v3;
   if (v3)
   {
     if (gLogCategory_SFNFCTagReaderUIController <= 60)
     {
-      if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_SFNFCTagReaderUIController != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
       {
-        __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2_cold_1();
+        __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2_cold_1(v5);
 LABEL_15:
-        v3 = v7;
+        v5 = v8;
       }
     }
   }
 
   else if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
-    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v5 = _LogCategory_Initialize(), v3 = 0, v5))
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2_cold_2();
+      __54__SFNFCTagReaderUIController__activateWithCompletion___block_invoke_2_cold_2(v3, v5, v4);
       goto LABEL_15;
     }
   }
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v7);
-    v3 = v7;
+    (*(v7 + 16))(v7, v8);
+    v5 = v8;
   }
 }
 
@@ -314,7 +316,7 @@ LABEL_15:
 
     else if (gLogCategory_SFNFCTagReaderUIController <= 60 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
     {
-      [SFNFCTagReaderUIController _ensureXPCStarted];
+      [(SFNFCTagReaderUIController *)v12 _ensureXPCStarted];
     }
   }
 }
@@ -332,21 +334,24 @@ uint64_t __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_2(uint
 
 void __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v8 = a2;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
   if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
   {
-    __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_3_cold_1();
+    __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_3_cold_1(v8);
   }
 
   objc_storeStrong((*(a1 + 32) + 64), a2);
-  v4 = *(a1 + 32);
-  if (*(v4 + 40) == 1)
+  v7 = *(a1 + 32);
+  if (*(v7 + 40) == 1)
   {
-    *(v4 + 40) = 0;
-    if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+    *(v7 + 40) = 0;
+    if (gLogCategory_SFNFCTagReaderUIController <= 30)
     {
-      __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_3_cold_2();
+      if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_3_cold_2(v4, v5, v6);
+      }
     }
 
     [*(a1 + 32) _nfcTagScannedCount];
@@ -359,7 +364,7 @@ void __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_4(uint64_t
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
   if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
   {
-    __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_4_cold_1();
+    __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_4_cold_1(v9);
   }
 
   v3 = *(a1 + 32);
@@ -374,7 +379,7 @@ void __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_4(uint64_t
   v5 = *(v3 + 72);
   if (v5)
   {
-    v6 = NSErrorWithOSStatusF();
+    v6 = NSErrorWithOSStatusF(4294960573, "Unexpected UI end");
     (*(v5 + 16))(v5, v6);
 
     v7 = *(a1 + 32);
@@ -386,26 +391,32 @@ void __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_4(uint64_t
 uint64_t __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_5(uint64_t a1)
 {
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
-  if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
-    __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_5_cold_1();
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_5_cold_1(v2, v3, v4);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 48);
-  *(v2 + 48) = 0;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 48);
+  *(v5 + 48) = 0;
 
-  v4 = *(a1 + 32);
+  v7 = *(a1 + 32);
 
-  return [v4 _invalidated];
+  return [v7 _invalidated];
 }
 
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFNFCTagReaderUIController <= 50 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFNFCTagReaderUIController <= 50)
   {
-    [SFNFCTagReaderUIController _interrupted];
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      [(SFNFCTagReaderUIController *)v2 _interrupted];
+    }
   }
 }
 
@@ -420,24 +431,27 @@ uint64_t __47__SFNFCTagReaderUIController__ensureXPCStarted__block_invoke_5(uint
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __40__SFNFCTagReaderUIController_invalidate__block_invoke(uint64_t result)
+void *__40__SFNFCTagReaderUIController_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 24) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 24) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 24) = 1;
-    if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 24) = 1;
+    if (gLogCategory_SFNFCTagReaderUIController <= 30)
     {
-      __40__SFNFCTagReaderUIController_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFNFCTagReaderUIController != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __40__SFNFCTagReaderUIController_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(*(v6 + 32) + 48) invalidate];
-    [*(*(v6 + 32) + 56) invalidate];
-    v7 = *(v6 + 32);
+    [*(v8[4] + 48) invalidate];
+    [*(v8[4] + 56) invalidate];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -448,9 +462,12 @@ uint64_t __40__SFNFCTagReaderUIController_invalidate__block_invoke(uint64_t resu
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFNFCTagReaderUIController <= 50 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFNFCTagReaderUIController <= 50)
     {
-      [SFNFCTagReaderUIController _invalidated];
+      if (gLogCategory_SFNFCTagReaderUIController != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFNFCTagReaderUIController *)v3 _invalidated];
+      }
     }
 
     if (!self->_xpcAgent && !self->_xpcCnx && !self->_xpcUICnx)
@@ -459,20 +476,23 @@ uint64_t __40__SFNFCTagReaderUIController_invalidate__block_invoke(uint64_t resu
       if (invalidationHandler)
       {
         invalidationHandler[2](invalidationHandler, 0);
-        v4 = self->_invalidationHandler;
+        v7 = self->_invalidationHandler;
       }
 
       else
       {
-        v4 = 0;
+        v7 = 0;
       }
 
       self->_invalidationHandler = 0;
 
       self->_invalidateDone = 1;
-      if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFNFCTagReaderUIController <= 30)
       {
-        [SFNFCTagReaderUIController _invalidated];
+        if (gLogCategory_SFNFCTagReaderUIController != -1 || (v8 = _LogCategory_Initialize(), v8))
+        {
+          [(SFNFCTagReaderUIController *)v8 _invalidated];
+        }
       }
     }
   }
@@ -480,13 +500,14 @@ uint64_t __40__SFNFCTagReaderUIController_invalidate__block_invoke(uint64_t resu
 
 - (void)nfcTagScannedCount:(int64_t)count
 {
-  self->_nfcTagScanCount += count;
+  nfcTagScanCount = self->_nfcTagScanCount + count;
+  self->_nfcTagScanCount = nfcTagScanCount;
   if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
     if (gLogCategory_SFNFCTagReaderUIController != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFNFCTagReaderUIController, "[SFNFCTagReaderUIController nfcTagScannedCount:]", 30, "NFC tag scanned (%ld total)\n", nfcTagScanCount);
       goto LABEL_5;
     }
 
@@ -505,13 +526,13 @@ LABEL_5:
 - (void)_nfcTagScannedCount
 {
   v3 = [(CUXPCAgentConnection *)self->_xpcUICnx remoteObjectProxyWithErrorHandler:&__block_literal_global_178_0];
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
     v6 = v3;
     [v3 nfcTagScannedCount:self->_nfcTagScanCount];
 LABEL_3:
-    v4 = v6;
+    v5 = v6;
     goto LABEL_7;
   }
 
@@ -519,9 +540,9 @@ LABEL_3:
   if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
     v6 = 0;
-    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v5 = _LogCategory_Initialize(), v4 = 0, v5))
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      [SFNFCTagReaderUIController _nfcTagScannedCount];
+      [(SFNFCTagReaderUIController *)v3 _nfcTagScannedCount];
       goto LABEL_3;
     }
   }
@@ -538,7 +559,7 @@ void __49__SFNFCTagReaderUIController__nfcTagScannedCount__block_invoke(uint64_t
     v5 = v2;
     if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __49__SFNFCTagReaderUIController__nfcTagScannedCount__block_invoke_cold_1();
+      __49__SFNFCTagReaderUIController__nfcTagScannedCount__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -548,9 +569,12 @@ void __49__SFNFCTagReaderUIController__nfcTagScannedCount__block_invoke(uint64_t
 {
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
-    [SFNFCTagReaderUIController uiActivatedWithCompletion:];
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      [(SFNFCTagReaderUIController *)v4 uiActivatedWithCompletion:v5, v6];
+    }
   }
 
   if (self->_nfcTagScanCount >= 1)
@@ -565,18 +589,21 @@ void __49__SFNFCTagReaderUIController__nfcTagScannedCount__block_invoke(uint64_t
 {
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFNFCTagReaderUIController <= 30 && (gLogCategory_SFNFCTagReaderUIController != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFNFCTagReaderUIController <= 30)
   {
-    [SFNFCTagReaderUIController uiInvalidatedWithCompletion:];
+    if (gLogCategory_SFNFCTagReaderUIController != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      [(SFNFCTagReaderUIController *)v4 uiInvalidatedWithCompletion:v5, v6];
+    }
   }
 
   invalidationHandler = self->_invalidationHandler;
   if (invalidationHandler)
   {
-    v5 = NSErrorWithOSStatusF();
-    invalidationHandler[2](invalidationHandler, v5);
+    v8 = NSErrorWithOSStatusF(4294960573, "User dismissed");
+    invalidationHandler[2](invalidationHandler, v8);
 
-    v6 = self->_invalidationHandler;
+    v9 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
   }
 

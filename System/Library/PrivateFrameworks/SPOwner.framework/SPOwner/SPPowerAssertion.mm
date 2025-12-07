@@ -56,26 +56,27 @@ void __24__SPPowerAssertion_hold__block_invoke(uint64_t a1)
     v3 = [*(a1 + 32) powerAssertionOption];
     AssertionID = 0;
     v4 = IOPMAssertionCreateWithProperties(v3, &AssertionID);
+    v5 = v4;
     if (v4)
     {
-      v5 = LogCategory_PowerManagement();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = LogCategory_PowerManagement(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v11 = v3;
         v12 = 1024;
-        v13 = v4;
-        _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "IOPMAssertionCreateWithProperties %@ failed with error: (%d)", buf, 0x12u);
+        v13 = v5;
+        _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "IOPMAssertionCreateWithProperties %@ failed with error: (%d)", buf, 0x12u);
       }
     }
 
     else
     {
-      v6 = LogCategory_PowerManagement();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = LogCategory_PowerManagement(v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [*(a1 + 32) assertionName];
-        __24__SPPowerAssertion_hold__block_invoke_cold_1(v7, &AssertionID, buf, v6);
+        v8 = [*(a1 + 32) assertionName];
+        __24__SPPowerAssertion_hold__block_invoke_cold_1(v8, &AssertionID, buf, v7);
       }
 
       *(*(a1 + 32) + 8) = AssertionID;
@@ -83,8 +84,6 @@ void __24__SPPowerAssertion_hold__block_invoke(uint64_t a1)
 
     objc_autoreleasePoolPop(v2);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)powerAssertionOption
@@ -151,7 +150,7 @@ void __24__SPPowerAssertion_hold__block_invoke(uint64_t a1)
 
 - (void)_drop
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   powerAssertionId = self->_powerAssertionId;
   if (powerAssertionId)
   {
@@ -159,12 +158,12 @@ void __24__SPPowerAssertion_hold__block_invoke(uint64_t a1)
     if (v4)
     {
       v5 = v4;
-      v6 = LogCategory_PowerManagement();
+      v6 = LogCategory_PowerManagement(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v8[0] = 67109120;
-        v8[1] = v5;
-        _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "IOPMAssertionRelease failed with error: (%d)", v8, 8u);
+        v7[0] = 67109120;
+        v7[1] = v5;
+        _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "IOPMAssertionRelease failed with error: (%d)", v7, 8u);
       }
     }
 
@@ -173,8 +172,6 @@ void __24__SPPowerAssertion_hold__block_invoke(uint64_t a1)
       self->_powerAssertionId = 0;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

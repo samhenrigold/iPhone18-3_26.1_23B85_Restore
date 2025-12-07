@@ -23,7 +23,7 @@
 
 - (void)startWithOptions:(id)options
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   Value = 0;
   if (optionsCopy && @"gl-option-client-type")
@@ -46,49 +46,45 @@
   {
     if (_IDSShouldLogTransport())
     {
-      v12 = unsignedIntValue;
-      _IDSLogTransport(@"GL", @"IDS", @"enable secure control message for client type: %u.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"enable secure control message for client type: %u.", v8, v9, v10, v11, v12, unsignedIntValue);
+      if (_IDSShouldLog(0))
       {
-        v12 = unsignedIntValue;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"enable secure control message for client type: %u.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"enable secure control message for client type: %u.", v13, v14, v15, v16, unsignedIntValue);
       }
     }
   }
 
-  v8 = +[IDSFoundationLog NonFTGL];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v17 = +[IDSFoundationLog NonFTGL];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     idsSessionID = self->super._idsSessionID;
     *buf = 138412546;
     selfCopy = self;
-    v17 = 2112;
-    v18 = idsSessionID;
-    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "Start GL %@ for IDSSessionID: %@ (FaceTime:NO, isMultiway:NO).", buf, 0x16u);
+    v42 = 2112;
+    v43 = idsSessionID;
+    _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "Start GL %@ for IDSSessionID: %@ (FaceTime:NO, isMultiway:NO).", buf, 0x16u);
   }
 
   if (IMGetDomainBoolForKey())
   {
     self->super._startPort = 16393;
     self->super._portRange = 10;
-    v10 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       LODWORD(selfCopy) = unsignedIntValue;
-      _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.", buf, 8u);
+      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v13 = unsignedIntValue;
-        _IDSLogTransport(@"GL", @"IDS", @"Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.", v20, v21, v22, v23, v24, unsignedIntValue);
+        if (_IDSShouldLog(0))
         {
-          v13 = unsignedIntValue;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"Use FaceTime port range (with UseFaceTimePortRange defaults) for clientType %u.", v25, v26, v27, v28, unsignedIntValue);
         }
       }
     }
@@ -98,32 +94,30 @@
   {
     self->super._startPort = 16403;
     self->super._portRange = 70;
-    v11 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v29 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       LODWORD(selfCopy) = unsignedIntValue;
-      _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "Use GameKit port range for clientType %u.", buf, 8u);
+      _os_log_impl(&dword_1A7AD9000, v29, OS_LOG_TYPE_DEFAULT, "Use GameKit port range for clientType %u.", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v13 = unsignedIntValue;
-        _IDSLogTransport(@"GL", @"IDS", @"Use GameKit port range for clientType %u.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"Use GameKit port range for clientType %u.", v30, v31, v32, v33, v34, unsignedIntValue);
+        if (_IDSShouldLog(0))
         {
-          v13 = unsignedIntValue;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"Use GameKit port range for clientType %u.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"Use GameKit port range for clientType %u.", v35, v36, v37, v38, unsignedIntValue);
         }
       }
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = IDSNonFTGL;
-  [(IDSGlobalLink *)&v14 startWithOptions:optionsCopy, v13];
+  v39.receiver = self;
+  v39.super_class = IDSNonFTGL;
+  [(IDSGlobalLink *)&v39 startWithOptions:optionsCopy];
   self->super._enableSKE = 0;
   self->super._reduceCellularUsage = 0;
   self->super._reduceRelayLinkCreation = 0;
@@ -165,18 +159,18 @@
       v6 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "connection data is delayed, send it now.", v7, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "connection data is delayed, send it now.", v16, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"connection data is delayed, send it now.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"connection data is delayed, send it now.", v7, v8, v9, v10, v11, *v16);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"connection data is delayed, send it now.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"connection data is delayed, send it now.", v12, v13, v14, v15, *v16);
           }
         }
       }
@@ -363,29 +357,29 @@ LABEL_8:
 
 - (void)_selectBetterDefaultCandidatePair:(id)pair
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   pairCopy = pair;
   if (!self->super._allowOnlyOneQR && self->super._isInitiator)
   {
     [(NSMutableDictionary *)self->super._tokenToCandidatePairs allValues];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v5 = v14 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v5 = v22 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v22;
 LABEL_5:
       v8 = 0;
       while (1)
       {
-        if (*v14 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v21 + 1) + 8 * v8);
         if ([v9 isNominated])
         {
           break;
@@ -393,7 +387,7 @@ LABEL_5:
 
         if (v6 == ++v8)
         {
-          v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
           if (v6)
           {
             goto LABEL_5;
@@ -414,7 +408,7 @@ LABEL_5:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = pairCopy;
+        v26 = pairCopy;
         _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "select better candidate pair %@.", buf, 0xCu);
       }
 
@@ -422,12 +416,10 @@ LABEL_5:
       {
         if (_IDSShouldLogTransport())
         {
-          v12 = pairCopy;
-          _IDSLogTransport(@"GL", @"IDS", @"select better candidate pair %@.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"select better candidate pair %@.", v12, v13, v14, v15, v16, pairCopy);
+          if (_IDSShouldLog(0))
           {
-            v12 = pairCopy;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"select better candidate pair %@.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"select better candidate pair %@.", v17, v18, v19, v20, pairCopy);
           }
         }
       }
@@ -469,7 +461,7 @@ LABEL_3:
       }
 
       v7 = *(*(&v13 + 1) + 8 * v6);
-      isRelayStunCandidatePair = [v7 isRelayStunCandidatePair];
+      isRelayStunCandidatePair = objc_msgSend_isRelayStunCandidatePair(v7, v13);
       state = [v7 state];
       if (isRelayStunCandidatePair)
       {
@@ -511,7 +503,7 @@ LABEL_15:
 
 - (void)_selectDefaultCandidatePair
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (!self->super._allowOnlyOneQR && self->super._isInitiator)
   {
     _nextConnectedCandidatePair = [(IDSNonFTGL *)self _nextConnectedCandidatePair];
@@ -521,7 +513,7 @@ LABEL_15:
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = _nextConnectedCandidatePair;
+        v52 = _nextConnectedCandidatePair;
         _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "currentBestPair: %@.", buf, 0xCu);
       }
 
@@ -529,98 +521,92 @@ LABEL_15:
       {
         if (_IDSShouldLogTransport())
         {
-          v19 = _nextConnectedCandidatePair;
-          _IDSLogTransport(@"GL", @"IDS", @"currentBestPair: %@.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"currentBestPair: %@.", v5, v6, v7, v8, v9, _nextConnectedCandidatePair);
+          if (_IDSShouldLog(0))
           {
-            v19 = _nextConnectedCandidatePair;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"currentBestPair: %@.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"currentBestPair: %@.", v10, v11, v12, v13, _nextConnectedCandidatePair);
           }
         }
       }
 
       [(NSMutableDictionary *)self->super._tokenToCandidatePairs allValues];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
-      v5 = v22 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v6)
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v14 = v47 = 0u;
+      v15 = [v14 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (v15)
       {
-        v7 = *v22;
+        v16 = *v47;
         do
         {
-          for (i = 0; i != v6; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v7)
+            if (*v47 != v16)
             {
-              objc_enumerationMutation(v5);
+              objc_enumerationMutation(v14);
             }
 
-            v9 = *(*(&v21 + 1) + 8 * i);
-            state = [v9 state];
-            if (([v9 isEqual:_nextConnectedCandidatePair] & 1) == 0)
+            v18 = *(*(&v46 + 1) + 8 * i);
+            state = [v18 state];
+            if (([v18 isEqual:_nextConnectedCandidatePair] & 1) == 0)
             {
-              isRelayStunCandidatePair = [v9 isRelayStunCandidatePair];
-              v12 = state == 4 ? 0 : isRelayStunCandidatePair;
-              if ((v12 & 1) == 0)
+              isRelayStunCandidatePair = objc_msgSend_isRelayStunCandidatePair(v18);
+              v21 = state == 4 ? 0 : isRelayStunCandidatePair;
+              if ((v21 & 1) == 0)
               {
-                isRelayStunCandidatePair2 = [v9 isRelayStunCandidatePair];
-                v14 = state == 3 ? 1 : isRelayStunCandidatePair2;
-                if (v14 == 1 && [(IDSNonFTGL *)self _isBetterCandidatePair:_nextConnectedCandidatePair newCandidatePair:v9])
+                v22 = objc_msgSend_isRelayStunCandidatePair(v18);
+                v23 = state == 3 ? 1 : v22;
+                if (v23 == 1 && [(IDSNonFTGL *)self _isBetterCandidatePair:_nextConnectedCandidatePair newCandidatePair:v18])
                 {
-                  v15 = v9;
+                  v24 = v18;
 
-                  v16 = OSLogHandleForTransportCategory();
-                  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+                  v25 = OSLogHandleForTransportCategory();
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v27 = v15;
-                    _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "new currentBestPair: %@", buf, 0xCu);
+                    v52 = v24;
+                    _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "new currentBestPair: %@", buf, 0xCu);
                   }
 
                   if (os_log_shim_legacy_logging_enabled())
                   {
                     if (_IDSShouldLogTransport())
                     {
-                      v20 = v15;
-                      _IDSLogTransport(@"GL", @"IDS", @"new currentBestPair: %@");
-                      if (_IDSShouldLog())
+                      _IDSLogTransport(@"GL", @"IDS", @"new currentBestPair: %@", v26, v27, v28, v29, v30, v24);
+                      if (_IDSShouldLog(0))
                       {
-                        v20 = v15;
-                        _IDSLogV(0, @"IDSFoundation", @"GL", @"new currentBestPair: %@");
+                        _IDSLogV(0, @"IDSFoundation", @"GL", @"new currentBestPair: %@", v31, v32, v33, v34, v24);
                       }
                     }
                   }
 
-                  _nextConnectedCandidatePair = v15;
+                  _nextConnectedCandidatePair = v24;
                 }
               }
             }
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v46 objects:v50 count:16];
         }
 
-        while (v6);
+        while (v15);
       }
 
-      v17 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v35 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = _nextConnectedCandidatePair;
-        _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "selected best candidate pair %@.", buf, 0xCu);
+        v52 = _nextConnectedCandidatePair;
+        _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "selected best candidate pair %@.", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        v20 = _nextConnectedCandidatePair;
-        _IDSLogTransport(@"GL", @"IDS", @"selected best candidate pair %@.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"selected best candidate pair %@.", v36, v37, v38, v39, v40, _nextConnectedCandidatePair);
+        if (_IDSShouldLog(0))
         {
-          v20 = _nextConnectedCandidatePair;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"selected best candidate pair %@.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"selected best candidate pair %@.", v41, v42, v43, v44, _nextConnectedCandidatePair);
         }
       }
 
@@ -690,7 +676,7 @@ LABEL_6:
 
 - (void)_setDefaultCandidatePairForNonFT
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->super._allowOnlyOneQR)
   {
     _nextConnectedCandidatePair = [(IDSNonFTGL *)self _nextConnectedCandidatePair];
@@ -701,23 +687,23 @@ LABEL_6:
       {
         candidatePairToken = [_nextConnectedCandidatePair candidatePairToken];
         *buf = 138412290;
-        v8 = candidatePairToken;
+        v18 = candidatePairToken;
         _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "default candidate pair is removed, switch to %@.", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
         candidatePairToken2 = [_nextConnectedCandidatePair candidatePairToken];
-        _IDSLogTransport(@"GL", @"IDS", @"default candidate pair is removed, switch to %@.");
+        _IDSLogTransport(@"GL", @"IDS", @"default candidate pair is removed, switch to %@.", v7, v8, v9, v10, v11, candidatePairToken2);
 
-        if (_IDSShouldLog())
+        if (_IDSShouldLog(0))
         {
-          candidatePairToken2 = [_nextConnectedCandidatePair candidatePairToken];
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"default candidate pair is removed, switch to %@.");
+          candidatePairToken3 = [_nextConnectedCandidatePair candidatePairToken];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"default candidate pair is removed, switch to %@.", v13, v14, v15, v16, candidatePairToken3);
         }
       }
 
-      [(IDSGlobalLink *)self _updateDefaultCandidatePair:_nextConnectedCandidatePair, candidatePairToken2];
+      [(IDSGlobalLink *)self _updateDefaultCandidatePair:_nextConnectedCandidatePair];
     }
   }
 

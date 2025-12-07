@@ -42,17 +42,7 @@
   v29.receiver = self;
   v29.super_class = NMRLinkAgentServer;
   v2 = [(NMRLinkAgentServer *)&v29 init];
-  if (!v2)
-  {
-    goto LABEL_3;
-  }
-
-  v3 = +[NRPairedDeviceRegistry sharedInstance];
-  getActivePairedDevice = [v3 getActivePairedDevice];
-  v5 = [[NSUUID alloc] initWithUUIDString:@"AD00FAC5-9C37-4D0C-8F16-9B00B4C821C6"];
-  v6 = [getActivePairedDevice supportsCapability:v5];
-
-  if ((v6 & 1) == 0)
+  if (v2 && (+[NRPairedDeviceRegistry sharedInstance](NRPairedDeviceRegistry, "sharedInstance"), v3 = objc_claimAutoreleasedReturnValue(), [v3 getActivePairedDevice], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend([NSUUID alloc], "initWithUUIDString:", @"AD00FAC5-9C37-4D0C-8F16-9B00B4C821C6"), v6 = objc_msgSend(v4, "supportsCapability:", v5), v5, v4, v3, (v6 & 1) == 0))
   {
     v8 = sub_10002C180(2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -109,7 +99,6 @@
 
   else
   {
-LABEL_3:
     v7 = 0;
   }
 

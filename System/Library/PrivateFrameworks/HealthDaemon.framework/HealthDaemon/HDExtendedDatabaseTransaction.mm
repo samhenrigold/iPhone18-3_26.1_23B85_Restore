@@ -133,13 +133,13 @@
 
 void __103__HDExtendedDatabaseTransaction_initWithDatabase_context_transactionTimeout_continuationTimeout_error___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x277CCA9B8] hk_error:103 description:@"Rollback due to automatic rollback timer timeout"];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v11 = 0;
-  v5 = [WeakRetained rollbackDueToError:v3 errorOut:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [WeakRetained rollbackDueToError:v3 errorOut:&v10];
+  v6 = v10;
 
   if ((v5 & 1) == 0)
   {
@@ -147,16 +147,15 @@ void __103__HDExtendedDatabaseTransaction_initWithDatabase_context_transactionTi
     v7 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v9 = v7;
-      v10 = objc_loadWeakRetained((a1 + 32));
+      v8 = v7;
+      v9 = objc_loadWeakRetained((a1 + 32));
       *buf = 138412290;
-      v13 = v10;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "'%@', rollback due to automatic rollback timer timeout", buf, 0xCu);
+      v12 = v9;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "'%@', rollback due to automatic rollback timer timeout", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableAutomaticRollbackTimer
@@ -221,13 +220,13 @@ void __103__HDExtendedDatabaseTransaction_initWithDatabase_context_transactionTi
 
 void __103__HDExtendedDatabaseTransaction_initWithDatabase_context_transactionTimeout_continuationTimeout_error___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x277CCA9B8] hk_error:103 description:@"Rollback due to transaction timeout"];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v11 = 0;
-  v5 = [WeakRetained rollbackDueToError:v3 errorOut:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [WeakRetained rollbackDueToError:v3 errorOut:&v10];
+  v6 = v10;
 
   if ((v5 & 1) == 0)
   {
@@ -235,16 +234,15 @@ void __103__HDExtendedDatabaseTransaction_initWithDatabase_context_transactionTi
     v7 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v9 = v7;
-      v10 = objc_loadWeakRetained((a1 + 32));
+      v8 = v7;
+      v9 = objc_loadWeakRetained((a1 + 32));
       *buf = 138412290;
-      v13 = v10;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "'%@', rollback due to transaction timeout", buf, 0xCu);
+      v12 = v9;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "'%@', rollback due to transaction timeout", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -385,7 +383,7 @@ uint64_t __61__HDExtendedDatabaseTransaction_rollbackDueToError_errorOut___block
 
 uint64_t __72__HDExtendedDatabaseTransaction__transaction_runTransactionWithContext___block_invoke(void *a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   *(a1[4] + 80) = 1;
   *(*(a1[5] + 8) + 24) = 1;
@@ -429,7 +427,7 @@ uint64_t __72__HDExtendedDatabaseTransaction__transaction_runTransactionWithCont
           {
             v24 = a1[4];
             *buf = 138412290;
-            v32 = v24;
+            v31 = v24;
             _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "'%@', rollback due to HDExtendedDatabaseTransaction continuation timeout", buf, 0xCu);
           }
         }
@@ -440,10 +438,10 @@ uint64_t __72__HDExtendedDatabaseTransaction__transaction_runTransactionWithCont
           v17 = *(v16 + 72);
           if (v17)
           {
-            v30 = 0;
-            v18 = (*(v17 + 16))(v17, v5, &v30);
-            v19 = v30;
-            v20 = v30;
+            v29 = 0;
+            v18 = (*(v17 + 16))(v17, v5, &v29);
+            v19 = v29;
+            v20 = v29;
             *(a1[4] + 8) = v18;
             v21 = a1[4];
             if ((*(v21 + 8) & 1) == 0)
@@ -495,14 +493,13 @@ uint64_t __72__HDExtendedDatabaseTransaction__transaction_runTransactionWithCont
   {
     v26 = *(a1[4] + 88);
     *buf = 138412290;
-    v32 = v26;
+    v31 = v26;
     _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_INFO, "Transaction was rolled back, last error: %@", buf, 0xCu);
   }
 
   v27 = 0;
 LABEL_26:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

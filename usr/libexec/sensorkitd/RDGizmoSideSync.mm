@@ -101,7 +101,7 @@ LABEL_69:
     v87 = qword_100071B88;
     if (qword_100071B88)
     {
-      v142 = sub_10001EA7C(&self->super.isa);
+      v142 = sub_10001EA7C(self);
       v147 = 0u;
       v148 = 0u;
       v149 = 0u;
@@ -298,7 +298,7 @@ LABEL_115:
               unsignedLongLongValue2 = [v36 unsignedLongLongValue];
               unsignedLongLongValue3 = [v40 unsignedLongLongValue];
               [v42 doubleValue];
-              v53 = SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unsignedLongLongValue, unsignedLongLongValue2, v52, unsignedLongLongValue3, &v167);
+              v53 = SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unsignedLongLongValue, unsignedLongLongValue2, unsignedLongLongValue3, &v167, v52);
               powerAssertion = self->_powerAssertion;
               if (powerAssertion)
               {
@@ -532,7 +532,7 @@ LABEL_146:
 
   v64 = [message objectForKeyedSubscript:@"RDGizmoSyncSensorIdentifierKey"];
   v65 = [message objectForKeyedSubscript:@"RDGizmoSyncSamplesURLKey"];
-  sub_10001FF84(self, [v65 lastPathComponent]);
+  sub_10001FF84(&self->super.isa, [v65 lastPathComponent]);
   if (self)
   {
     fileURLs = self->_fileURLs;
@@ -1060,7 +1060,7 @@ LABEL_11:
     v13 = [objc_msgSend(v11 objectForKeyedSubscript:{@"RDGizmoSyncSamplesURLKey", "lastPathComponent"}];
     if (v13)
     {
-      sub_10001FF84(self, v13);
+      sub_10001FF84(&self->super.isa, v13);
     }
   }
 
@@ -1121,7 +1121,7 @@ LABEL_11:
   *(&v67 + 1) = 3221225472;
   v68 = sub_1000211A8;
   v69 = &unk_100061220;
-  v74 = (sub_10001EA7C(&self->super.isa) & 2) != 0;
+  v74 = (sub_10001EA7C(self) & 2) != 0;
   v72 = &v57;
   v73 = 20;
   selfCopy = self;
@@ -1288,7 +1288,7 @@ LABEL_29:
     v42 = -v42;
   }
 
-  lastPathComponent = [(NSURL *)sub_10001ADB4(v41 + v40 + v42) lastPathComponent];
+  lastPathComponent = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
   v44 = sub_10000E610([RDArchiveableDatastore alloc], &v37->super.isa);
   v45 = sub_10000FBB0(v44, lastPathComponent);
 

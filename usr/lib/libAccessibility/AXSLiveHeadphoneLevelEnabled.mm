@@ -3,7 +3,7 @@
 
 @implementation AXSLiveHeadphoneLevelEnabled
 
-uint64_t ___AXSLiveHeadphoneLevelEnabled_block_invoke()
+void *___AXSLiveHeadphoneLevelEnabled_block_invoke()
 {
   if (kAXSLiveHeadphoneLevelEnabledDidChangeNotification && !_processIsResponsibleForPreferenceObserving())
   {

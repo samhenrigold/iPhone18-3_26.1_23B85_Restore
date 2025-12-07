@@ -6,124 +6,108 @@
 
 - (_HMCameraSettingsControl)initWithCameraProfile:(id)profile profileUniqueIdentifier:(id)identifier service:(id)service
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
-  v41.receiver = self;
-  v41.super_class = _HMCameraSettingsControl;
-  v9 = [(_HMCameraControl *)&v41 initWithCameraProfile:profile profileUniqueIdentifier:identifier];
+  v40.receiver = self;
+  v40.super_class = _HMCameraSettingsControl;
+  v9 = [(_HMCameraControl *)&v40 initWithCameraProfile:profile profileUniqueIdentifier:identifier];
   if (v9)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     characteristics = [serviceCopy characteristics];
-    v11 = [characteristics countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v11 = [characteristics countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v38;
+      v13 = *v37;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(characteristics);
           }
 
-          v15 = *(*(&v37 + 1) + 8 * i);
-          characteristicType = [v15 characteristicType];
-          v17 = [characteristicType isEqualToString:@"0000011B-0000-1000-8000-0026BB765291"];
+          v15 = *(*(&v36 + 1) + 8 * i);
+          v16 = objc_msgSend_characteristicType(v15);
+          v17 = [v16 isEqualToString:@"0000011B-0000-1000-8000-0026BB765291"];
 
           v18 = &OBJC_IVAR____HMCameraSettingsControl__nightVision;
-          if (v17)
+          if ((v17 & 1) == 0)
           {
-            goto LABEL_16;
-          }
+            v19 = objc_msgSend_characteristicType(v15);
+            v20 = [v19 isEqualToString:@"0000007B-0000-1000-8000-0026BB765291"];
 
-          characteristicType2 = [v15 characteristicType];
-          v20 = [characteristicType2 isEqualToString:@"0000007B-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__targetHorizontalTilt;
-          if (v20)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType3 = [v15 characteristicType];
-          v22 = [characteristicType3 isEqualToString:@"0000006C-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__currentHorizontalTilt;
-          if (v22)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType4 = [v15 characteristicType];
-          v24 = [characteristicType4 isEqualToString:@"0000007D-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__targetVerticalTilt;
-          if (v24)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType5 = [v15 characteristicType];
-          v26 = [characteristicType5 isEqualToString:@"0000006E-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__currentVerticalTilt;
-          if (v26)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType6 = [v15 characteristicType];
-          v28 = [characteristicType6 isEqualToString:@"0000011C-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__opticalZoom;
-          if (v28)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType7 = [v15 characteristicType];
-          v30 = [characteristicType7 isEqualToString:@"0000011D-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__digitalZoom;
-          if (v30)
-          {
-            goto LABEL_16;
-          }
-
-          characteristicType8 = [v15 characteristicType];
-          v32 = [characteristicType8 isEqualToString:@"0000011E-0000-1000-8000-0026BB765291"];
-
-          v18 = &OBJC_IVAR____HMCameraSettingsControl__imageRotation;
-          if ((v32 & 1) == 0)
-          {
-            characteristicType9 = [v15 characteristicType];
-            v34 = [characteristicType9 isEqualToString:@"0000011F-0000-1000-8000-0026BB765291"];
-
-            v18 = &OBJC_IVAR____HMCameraSettingsControl__imageMirroring;
-            if (!v34)
+            v18 = &OBJC_IVAR____HMCameraSettingsControl__targetHorizontalTilt;
+            if ((v20 & 1) == 0)
             {
-              continue;
+              v21 = objc_msgSend_characteristicType(v15);
+              v22 = [v21 isEqualToString:@"0000006C-0000-1000-8000-0026BB765291"];
+
+              v18 = &OBJC_IVAR____HMCameraSettingsControl__currentHorizontalTilt;
+              if ((v22 & 1) == 0)
+              {
+                v23 = objc_msgSend_characteristicType(v15);
+                v24 = [v23 isEqualToString:@"0000007D-0000-1000-8000-0026BB765291"];
+
+                v18 = &OBJC_IVAR____HMCameraSettingsControl__targetVerticalTilt;
+                if ((v24 & 1) == 0)
+                {
+                  v25 = objc_msgSend_characteristicType(v15);
+                  v26 = [v25 isEqualToString:@"0000006E-0000-1000-8000-0026BB765291"];
+
+                  v18 = &OBJC_IVAR____HMCameraSettingsControl__currentVerticalTilt;
+                  if ((v26 & 1) == 0)
+                  {
+                    v27 = objc_msgSend_characteristicType(v15);
+                    v28 = [v27 isEqualToString:@"0000011C-0000-1000-8000-0026BB765291"];
+
+                    v18 = &OBJC_IVAR____HMCameraSettingsControl__opticalZoom;
+                    if ((v28 & 1) == 0)
+                    {
+                      v29 = objc_msgSend_characteristicType(v15);
+                      v30 = [v29 isEqualToString:@"0000011D-0000-1000-8000-0026BB765291"];
+
+                      v18 = &OBJC_IVAR____HMCameraSettingsControl__digitalZoom;
+                      if ((v30 & 1) == 0)
+                      {
+                        v31 = objc_msgSend_characteristicType(v15);
+                        v32 = [v31 isEqualToString:@"0000011E-0000-1000-8000-0026BB765291"];
+
+                        v18 = &OBJC_IVAR____HMCameraSettingsControl__imageRotation;
+                        if ((v32 & 1) == 0)
+                        {
+                          v33 = objc_msgSend_characteristicType(v15);
+                          v34 = [v33 isEqualToString:@"0000011F-0000-1000-8000-0026BB765291"];
+
+                          v18 = &OBJC_IVAR____HMCameraSettingsControl__imageMirroring;
+                          if (!v34)
+                          {
+                            continue;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
 
-LABEL_16:
           objc_storeStrong((&v9->super.super.isa + *v18), v15);
         }
 
-        v12 = [characteristics countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v12 = [characteristics countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v12);
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

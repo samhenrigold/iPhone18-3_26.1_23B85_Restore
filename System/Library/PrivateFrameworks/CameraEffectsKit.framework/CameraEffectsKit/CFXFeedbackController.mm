@@ -205,13 +205,17 @@
 - (void)performPressButtonFeedback:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v2 = [a1 _debugStringForPairedFeedback:a2];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Mismatched paired pressed feedback calls for %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Mismatched paired pressed feedback calls for %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)performReleaseButtonFeedback:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v2 = [a1 _debugStringForPairedFeedback:a2];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Mismatched paired released feedback calls for %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Mismatched paired released feedback calls for %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

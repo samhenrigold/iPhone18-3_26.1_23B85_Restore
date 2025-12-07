@@ -100,7 +100,7 @@ LABEL_15:
   return v2;
 }
 
-uint64_t __30__MISystemAppState_sharedList__block_invoke()
+uint64_t __30__MISystemAppState_sharedList__block_invoke(uint64_t a1)
 {
   sharedList_sharedList = objc_alloc_init(objc_opt_class());
 

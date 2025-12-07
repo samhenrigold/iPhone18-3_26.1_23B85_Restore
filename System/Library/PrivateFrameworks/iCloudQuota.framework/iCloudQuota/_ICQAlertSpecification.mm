@@ -124,25 +124,25 @@ LABEL_8:
 
 - (void)setServerDict:(id)dict
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   objc_storeStrong(&self->_serverDict, dict);
-  v6 = [dictCopy objectForKeyedSubscript:@"title"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   [(_ICQAlertSpecification *)self setTitle:v6];
 
-  v7 = [dictCopy objectForKeyedSubscript:@"mesg"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   [(_ICQAlertSpecification *)self setMessage:v7];
 
-  v8 = [dictCopy objectForKeyedSubscript:@"altMesg"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   [(_ICQAlertSpecification *)self setAltMessage:v8];
 
-  v9 = [dictCopy objectForKeyedSubscript:@"hideOnLock"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   selfCopy = self;
   [(_ICQAlertSpecification *)self setDisableLockScreenAlert:_ICQBooleanForServerObjectDefault(v9, 0)];
 
-  v10 = [dictCopy objectForKeyedSubscript:@"actions"];
+  v10 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   v11 = v10;
-  v38 = dictCopy;
+  v37 = dictCopy;
   if (v10)
   {
     v12 = v10;
@@ -150,41 +150,41 @@ LABEL_8:
 
   else
   {
-    v12 = [dictCopy objectForKeyedSubscript:@"Actions"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   }
 
   v13 = v12;
 
   v14 = v13;
   v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v14, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = v14;
-  v16 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v16 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v39 = -1;
-    v19 = *v42;
+    v38 = -1;
+    v19 = *v41;
     while (1)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v42 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v41 + 1) + 8 * i);
+        v21 = *(*(&v40 + 1) + 8 * i);
         v22 = _ICQLinkForServerMessageParameter(v21);
         if (v22)
         {
           [v15 addObject:v22];
           v23 = v21;
-          v24 = [v23 objectForKeyedSubscript:@"btnDefault"];
+          v24 = objc_msgSend_objectForKeyedSubscript_(v23);
           v25 = v24;
           if (v24)
           {
@@ -193,7 +193,7 @@ LABEL_8:
 
           else
           {
-            v26 = [v23 objectForKeyedSubscript:@"BtnDefault"];
+            v26 = objc_msgSend_objectForKeyedSubscript_(v23);
           }
 
           v27 = v26;
@@ -224,7 +224,7 @@ LABEL_8:
             goto LABEL_25;
           }
 
-          v30 = [v23 objectForKeyedSubscript:@"btnAction"];
+          v30 = objc_msgSend_objectForKeyedSubscript_(v23);
           v31 = v30;
           if (v30)
           {
@@ -233,7 +233,7 @@ LABEL_8:
 
           else
           {
-            v32 = [v23 objectForKeyedSubscript:@"BtnAction"];
+            v32 = objc_msgSend_objectForKeyedSubscript_(v23);
           }
 
           v33 = v32;
@@ -249,7 +249,7 @@ LABEL_8:
           if (v34)
           {
 LABEL_25:
-            v39 = v18;
+            v38 = v18;
           }
 
 LABEL_26:
@@ -257,7 +257,7 @@ LABEL_26:
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v17 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (!v17)
       {
         goto LABEL_31;
@@ -265,13 +265,11 @@ LABEL_26:
     }
   }
 
-  v39 = -1;
+  v38 = -1;
 LABEL_31:
 
   v35 = [v15 copy];
-  [(_ICQAlertSpecification *)selfCopy _setLinks:v35 defaultIndex:v39];
-
-  v36 = *MEMORY[0x277D85DE8];
+  [(_ICQAlertSpecification *)selfCopy _setLinks:v35 defaultIndex:v38];
 }
 
 + (id)alertSpecificationSampleForLevel:(int64_t)level

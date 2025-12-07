@@ -7,7 +7,6 @@
 + (BOOL)resetStateOnUnplug;
 + (id)fetchEstimatedCountryCode;
 + (id)log;
-+ (void)fetchEstimatedCountryCode;
 + (void)isDemoDevice;
 + (void)resetStateOnUnplug;
 @end
@@ -264,48 +263,32 @@ LABEL_24:
   return bOOLValue;
 }
 
-+ (void)fetchEstimatedCountryCode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_21B766000, v0, v1, "Last known estimated countries = %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)isDemoDevice
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isPluggedIntoEligiblePowerSourceWithContext:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 BOOLValue];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_5(&dword_21B766000, v1, v2, "TestMode: Power source value set to %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_21B766000, v1, v2, "TestMode: Power source value set to %d", v3, v4, v5, v6);
 }
 
 + (void)isPluggedIntoEligiblePowerSourceWithContext:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)resetStateOnUnplug
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self BOOLValue];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_5(&dword_21B766000, v1, v2, "TestMode: Allow reset state on unplug set to %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_21B766000, v1, v2, "TestMode: Allow reset state on unplug set to %d", v3, v4, v5, v6);
 }
 
 @end

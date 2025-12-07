@@ -12,7 +12,7 @@
   v14.receiver = self;
   v14.super_class = TUIShelfLayout;
   [(TUILayout *)&v14 onChildrenUpdated];
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self);
   controller = [(TUILayout *)self controller];
   content = [v3 content];
   v6 = [controller layoutForModel:content];
@@ -53,7 +53,7 @@
 {
   [(TUILayout *)self computeWidth];
   v4 = v3;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   contentWidth = [v5 contentWidth];
   v8 = v7;
 
@@ -70,7 +70,7 @@
   v18 = v17;
   v20 = v19;
 
-  v21 = [(TUILayout *)self box];
+  v21 = objc_msgSend_box(self);
   respectsSafeArea = [v21 respectsSafeArea];
   v23 = 0;
   left = UIEdgeInsetsZero.left;
@@ -125,8 +125,8 @@
   [(TUILayout *)self->_content setContainingWidth:v28];
   [(TUILayout *)self containingHeight];
   [(TUILayout *)self->_content setContainingHeight:?];
-  [(TUILayout *)self->_content validateLayout];
-  [(TUILayout *)self->_content computedTransformedSize];
+  objc_msgSend_validateLayout(self->_content);
+  objc_msgSend_computedTransformedSize(self->_content);
   v30 = v29;
   v32 = v31;
   v33 = v18 + (v27 - v29) * 0.5;
@@ -160,7 +160,7 @@
     }
 
     [(TUILayout *)self->_contentBackground setFlexedHeight:v38];
-    [(TUILayout *)self->_contentBackground validateLayout];
+    objc_msgSend_validateLayout(self->_contentBackground);
     [(TUILayout *)self->_contentBackground setComputedOrigin:v33, 0.0];
   }
 
@@ -193,7 +193,7 @@
     }
 
     [(TUILayout *)self->_background setFlexedHeight:v43];
-    [(TUILayout *)self->_background validateLayout];
+    objc_msgSend_validateLayout(self->_background);
     [(TUILayout *)self->_background setComputedOrigin:CGPointZero.x, CGPointZero.y];
   }
 

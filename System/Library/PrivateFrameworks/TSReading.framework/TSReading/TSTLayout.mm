@@ -121,8 +121,8 @@
     [objc_msgSend(v6 "spaceBundle")];
     [*(v6 + 38) invalidateTableNameHeight];
     v6[384] = 0;
-    *(v6 + 30) = TSDEdgeInsetsInvalid;
-    *(v6 + 31) = unk_26CA67D00;
+    *(v6 + 30) = *TSDEdgeInsetsInvalid;
+    *(v6 + 31) = *&TSDEdgeInsetsInvalid[16];
     *(v6 + 136) = 0;
     __asm { FMOV            V0.2D, #1.0 }
 
@@ -236,7 +236,7 @@
         v9 = v8;
       }
 
-      ++v8;
+      v8 = (v8 + 1);
     }
 
     while (TableNumberOfRows != v8);
@@ -269,7 +269,7 @@
         v17 = v16;
       }
 
-      ++v16;
+      v16 = (v16 + 1);
     }
 
     while (v15 != v16);
@@ -475,7 +475,7 @@ LABEL_6:
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -499,7 +499,7 @@ LABEL_6:
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -521,7 +521,7 @@ LABEL_6:
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else
@@ -782,11 +782,11 @@ LABEL_82:
         v117 = 0u;
         if (space)
         {
-          [(TSTLayoutSpace *)space transformToCanvas];
+          objc_msgSend_transformToCanvas(space);
           v115 = 0u;
           v116 = 0u;
           v114 = 0u;
-          [(TSTLayoutSpace *)space transformToDevice];
+          objc_msgSend_transformToDevice(space);
         }
 
         else
@@ -1047,11 +1047,11 @@ LABEL_126:
   v117 = 0u;
   if (space2)
   {
-    [(TSTLayoutSpace *)space2 transformToCanvas];
+    objc_msgSend_transformToCanvas(space2);
     v115 = 0u;
     v116 = 0u;
     v114 = 0u;
-    [(TSTLayoutSpace *)space2 transformToDevice];
+    objc_msgSend_transformToDevice(space2);
   }
 
   else
@@ -2564,13 +2564,13 @@ LABEL_126:
   }
 
   v11 = objc_alloc_init(TSTCell);
-  if (!TSTCellAtCellID([(TSTLayout *)self tableModel], *&dCopy, v11) && v11)
+  if (!TSTCellAtCellID([(TSTLayout *)self tableModel], dCopy, v11) && v11)
   {
     v12 = *(&v11->mPrivate + 1);
     v13 = v12 > 7;
     v14 = (1 << v12) & 0xA4;
     v15 = v13 || v14 == 0;
-    if (!v15 && [(TSSStyle *)TSTTableGetTextStyleAtCellID([(TSTLayout *)self tableModel] intValueForProperty:0), "intValueForProperty:", 86]== 4)
+    if (!v15 && [(TSSStyle *)TSTTableGetTextStyleAtCellID([(TSTLayout *)self tableModel] intValueForProperty:dCopy, 0), "intValueForProperty:", 86]== 4)
     {
       return 1;
     }

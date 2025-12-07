@@ -29,7 +29,7 @@
 - (_TtC14VoiceTriggerUI37VisualIntelligenceIntroViewController)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  VisualIntelligenceIntroViewController.init(delegate:)();
+  VisualIntelligenceIntroViewController.init(delegate:)(delegate);
   return result;
 }
 

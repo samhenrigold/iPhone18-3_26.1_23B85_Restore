@@ -63,25 +63,25 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v189 = *MEMORY[0x277D85DE8];
-  *v158 = 0;
+  v188 = *MEMORY[0x277D85DE8];
+  *v157 = 0;
   unsignedCharValue = 0;
-  v160 = 0;
-  v162 = 0;
-  v165 = 0;
-  v169 = 0;
-  v171 = 0;
-  v174 = 0;
+  v159 = 0;
+  v161 = 0;
+  v164 = 0;
+  v168 = 0;
+  v170 = 0;
+  v173 = 0;
   unsignedCharValue2 = 0;
   unsignedCharValue3 = 0;
-  v178 = 0;
-  v182 = 0;
-  memset(v164, 0, sizeof(v164));
-  v157[0] = 0;
-  v157[1] = 0;
-  v156 = v157;
+  v177 = 0;
+  v181 = 0;
+  memset(v163, 0, sizeof(v163));
+  v156[0] = 0;
+  v156[1] = 0;
+  v155 = v156;
   connectionID = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self connectionID];
-  *v158 = [connectionID unsignedShortValue];
+  *v157 = [connectionID unsignedShortValue];
 
   transportOptions = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
   streamUsage = [transportOptions streamUsage];
@@ -93,27 +93,27 @@
 
   if (!v8)
   {
-    v160 = 1;
-    v161 = 0;
+    v159 = 1;
+    v160 = 0;
     transportOptions3 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     videoStreamID2 = [transportOptions3 videoStreamID];
     v11 = videoStreamID2 == 0;
 
     if (v11)
     {
-      if (BYTE2(v161) == 1)
+      if (BYTE2(v160) == 1)
       {
-        BYTE2(v161) = 0;
+        BYTE2(v160) = 0;
       }
     }
 
     else
     {
-      LOWORD(v161) = 0;
-      BYTE2(v161) = 1;
+      LOWORD(v160) = 0;
+      BYTE2(v160) = 1;
       transportOptions4 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       videoStreamID3 = [transportOptions4 videoStreamID];
-      LOWORD(v161) = [videoStreamID3 unsignedShortValue];
+      LOWORD(v160) = [videoStreamID3 unsignedShortValue];
     }
   }
 
@@ -123,44 +123,44 @@
 
   if (!v16)
   {
-    v162 = 1;
-    v163 = 0;
+    v161 = 1;
+    v162 = 0;
     transportOptions6 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     audioStreamID2 = [transportOptions6 audioStreamID];
     v19 = audioStreamID2 == 0;
 
     if (v19)
     {
-      if (BYTE2(v163) == 1)
+      if (BYTE2(v162) == 1)
       {
-        BYTE2(v163) = 0;
+        BYTE2(v162) = 0;
       }
     }
 
     else
     {
-      LOWORD(v163) = 0;
-      BYTE2(v163) = 1;
+      LOWORD(v162) = 0;
+      BYTE2(v162) = 1;
       transportOptions7 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       audioStreamID3 = [transportOptions7 audioStreamID];
-      LOWORD(v163) = [audioStreamID3 unsignedShortValue];
+      LOWORD(v162) = [audioStreamID3 unsignedShortValue];
     }
   }
 
   transportOptions8 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
   endpointID = [transportOptions8 endpointID];
-  *v164 = [endpointID unsignedShortValue];
+  *v163 = [endpointID unsignedShortValue];
 
   transportOptions9 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
   v25 = [transportOptions9 url];
   v26 = v25;
   sub_238DB9BD8(buf, [v25 UTF8String], objc_msgSend(v25, "lengthOfBytesUsingEncoding:", 4));
 
-  *&v164[2] = *buf;
+  *&v163[2] = *buf;
   transportOptions10 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
   triggerOptions = [transportOptions10 triggerOptions];
   triggerType = [triggerOptions triggerType];
-  v164[18] = [triggerType unsignedCharValue];
+  v163[18] = [triggerType unsignedCharValue];
 
   transportOptions11 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
   triggerOptions2 = [transportOptions11 triggerOptions];
@@ -169,10 +169,10 @@
 
   if (!v33)
   {
-    v165 = 1;
-    v167 = 0;
-    v168 = 0;
+    v164 = 1;
     v166 = 0;
+    v167 = 0;
+    v165 = 0;
     transportOptions12 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions3 = [transportOptions12 triggerOptions];
     motionZones2 = [triggerOptions3 motionZones];
@@ -180,17 +180,17 @@
 
     if (v37)
     {
-      if (v168 == 1)
+      if (v167 == 1)
       {
-        LOBYTE(v168) = 0;
+        LOBYTE(v167) = 0;
       }
     }
 
     else
     {
+      v165 = 0;
       v166 = 0;
-      v167 = 0;
-      LOBYTE(v168) = 1;
+      LOBYTE(v167) = 1;
       transportOptions13 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       triggerOptions4 = [transportOptions13 triggerOptions];
       motionZones3 = [triggerOptions4 motionZones];
@@ -201,8 +201,8 @@
         operator new();
       }
 
+      v165 = 0;
       v166 = 0;
-      v167 = 0;
     }
   }
 
@@ -213,8 +213,8 @@
 
   if (!v45)
   {
-    v169 = 1;
-    v170 = 0;
+    v168 = 1;
+    v169 = 0;
     transportOptions15 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions6 = [transportOptions15 triggerOptions];
     motionSensitivity2 = [triggerOptions6 motionSensitivity];
@@ -222,19 +222,19 @@
 
     if (v49)
     {
-      if (HIBYTE(v170) == 1)
+      if (HIBYTE(v169) == 1)
       {
-        HIBYTE(v170) = 0;
+        HIBYTE(v169) = 0;
       }
     }
 
     else
     {
-      v170 = 256;
+      v169 = 256;
       transportOptions16 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       triggerOptions7 = [transportOptions16 triggerOptions];
       motionSensitivity3 = [triggerOptions7 motionSensitivity];
-      LOBYTE(v170) = [motionSensitivity3 unsignedCharValue];
+      LOBYTE(v169) = [motionSensitivity3 unsignedCharValue];
     }
   }
 
@@ -245,32 +245,32 @@
 
   if (!v56)
   {
-    v171 = 1;
+    v170 = 1;
+    v171 = 0;
     v172 = 0;
-    v173 = 0;
     transportOptions18 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions9 = [transportOptions18 triggerOptions];
     motionTimeControl2 = [triggerOptions9 motionTimeControl];
     initialDuration = [motionTimeControl2 initialDuration];
-    LOWORD(v172) = [initialDuration unsignedShortValue];
+    LOWORD(v171) = [initialDuration unsignedShortValue];
 
     transportOptions19 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions10 = [transportOptions19 triggerOptions];
     motionTimeControl3 = [triggerOptions10 motionTimeControl];
     augmentationDuration = [motionTimeControl3 augmentationDuration];
-    WORD1(v172) = [augmentationDuration unsignedShortValue];
+    WORD1(v171) = [augmentationDuration unsignedShortValue];
 
     transportOptions20 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions11 = [transportOptions20 triggerOptions];
     motionTimeControl4 = [triggerOptions11 motionTimeControl];
     maxDuration = [motionTimeControl4 maxDuration];
-    HIDWORD(v172) = [maxDuration unsignedIntValue];
+    HIDWORD(v171) = [maxDuration unsignedIntValue];
 
     transportOptions21 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions12 = [transportOptions21 triggerOptions];
     motionTimeControl5 = [triggerOptions12 motionTimeControl];
     blindDuration = [motionTimeControl5 blindDuration];
-    LOWORD(v173) = [blindDuration unsignedShortValue];
+    LOWORD(v172) = [blindDuration unsignedShortValue];
   }
 
   transportOptions22 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
@@ -280,7 +280,7 @@
 
   if (!v76)
   {
-    v174 = 1;
+    v173 = 1;
     unsignedShortValue = 0;
     transportOptions23 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     triggerOptions14 = [transportOptions23 triggerOptions];
@@ -304,33 +304,33 @@
 
   if (!v88)
   {
-    v178 = 1;
-    memset(v179, 0, sizeof(v179));
-    v180 = 0u;
-    memset(v181, 0, sizeof(v181));
+    v177 = 1;
+    memset(v178, 0, sizeof(v178));
+    v179 = 0u;
+    memset(v180, 0, sizeof(v180));
     transportOptions27 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions3 = [transportOptions27 containerOptions];
     cmafContainerOptions2 = [containerOptions3 cmafContainerOptions];
     cmafInterface = [cmafContainerOptions2 cmafInterface];
-    LOBYTE(v179[0]) = [cmafInterface unsignedCharValue];
+    LOBYTE(v178[0]) = [cmafInterface unsignedCharValue];
 
     transportOptions28 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions4 = [transportOptions28 containerOptions];
     cmafContainerOptions3 = [containerOptions4 cmafContainerOptions];
     segmentDuration = [cmafContainerOptions3 segmentDuration];
-    WORD1(v179[0]) = [segmentDuration unsignedShortValue];
+    WORD1(v178[0]) = [segmentDuration unsignedShortValue];
 
     transportOptions29 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions5 = [transportOptions29 containerOptions];
     cmafContainerOptions4 = [containerOptions5 cmafContainerOptions];
     chunkDuration = [cmafContainerOptions4 chunkDuration];
-    WORD2(v179[0]) = [chunkDuration unsignedShortValue];
+    WORD2(v178[0]) = [chunkDuration unsignedShortValue];
 
     transportOptions30 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions6 = [transportOptions30 containerOptions];
     cmafContainerOptions5 = [containerOptions6 cmafContainerOptions];
     sessionGroup = [cmafContainerOptions5 sessionGroup];
-    BYTE6(v179[0]) = [sessionGroup unsignedCharValue];
+    BYTE6(v178[0]) = [sessionGroup unsignedCharValue];
 
     transportOptions31 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions7 = [transportOptions31 containerOptions];
@@ -339,7 +339,7 @@
     v109 = trackName;
     sub_238DB9BD8(buf, [trackName UTF8String], objc_msgSend(trackName, "lengthOfBytesUsingEncoding:", 4));
 
-    *(v179 + 8) = *buf;
+    *(v178 + 8) = *buf;
     transportOptions32 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     containerOptions8 = [transportOptions32 containerOptions];
     cmafContainerOptions7 = [containerOptions8 cmafContainerOptions];
@@ -348,8 +348,8 @@
 
     if (!v114)
     {
-      BYTE8(v179[1]) = 1;
-      v180 = 0uLL;
+      BYTE8(v178[1]) = 1;
+      v179 = 0uLL;
       transportOptions33 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       containerOptions9 = [transportOptions33 containerOptions];
       cmafContainerOptions8 = [containerOptions9 cmafContainerOptions];
@@ -357,7 +357,7 @@
       v119 = cencKey2;
       sub_238DB6950(buf, [cencKey2 bytes], objc_msgSend(cencKey2, "length"));
 
-      v180 = *buf;
+      v179 = *buf;
     }
 
     transportOptions34 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
@@ -368,9 +368,9 @@
 
     if (!v124)
     {
-      LOBYTE(v181[0]) = 1;
-      *(&v181[0] + 1) = 0;
-      *&v181[1] = 0;
+      LOBYTE(v180[0]) = 1;
+      *(&v180[0] + 1) = 0;
+      *&v180[1] = 0;
       transportOptions35 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       containerOptions11 = [transportOptions35 containerOptions];
       cmafContainerOptions10 = [containerOptions11 cmafContainerOptions];
@@ -378,7 +378,7 @@
       v129 = cencKeyID2;
       sub_238DB6950(buf, [cencKeyID2 bytes], objc_msgSend(cencKeyID2, "length"));
 
-      *(v181 + 8) = *buf;
+      *(v180 + 8) = *buf;
     }
 
     transportOptions36 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
@@ -389,12 +389,12 @@
 
     if (!v134)
     {
-      WORD4(v181[1]) = 1;
+      WORD4(v180[1]) = 1;
       transportOptions37 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
       containerOptions13 = [transportOptions37 containerOptions];
       cmafContainerOptions12 = [containerOptions13 cmafContainerOptions];
       metadataEnabled2 = [cmafContainerOptions12 metadataEnabled];
-      BYTE9(v181[1]) = [metadataEnabled2 BOOLValue];
+      BYTE9(v180[1]) = [metadataEnabled2 BOOLValue];
     }
   }
 
@@ -404,42 +404,42 @@
 
   if (!v141)
   {
-    v182 = 1;
+    v181 = 1;
     unsignedIntValue = 0;
     transportOptions39 = [(MTRPushAVStreamTransportClusterModifyPushTransportParams *)self transportOptions];
     expiryTime2 = [transportOptions39 expiryTime];
     unsignedIntValue = [expiryTime2 unsignedIntValue];
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v155);
-  if (v155)
+  sub_2393D9C18(0x62FuLL, 0, &v154);
+  if (v154)
   {
     sub_2393C7B90(buf);
+    v185 = 0;
     v186 = 0;
+    v184 = &unk_284BB83A8;
     v187 = 0;
-    v185 = &unk_284BB83A8;
-    v188 = 0;
-    sub_238EA16C4(&v185, &v155, 0);
-    sub_2393C7BF0(buf, &v185, 0xFFFFFFFF);
-    v144 = sub_238F24C2C(v158, buf, 0x100uLL);
+    sub_238EA16C4(&v184, &v154, 0);
+    sub_2393C7BF0(buf, &v184, 0xFFFFFFFF);
+    v144 = sub_238F24C2C(v157, buf, 0x100uLL);
     v146 = v144;
-    if (v144 || (v144 = sub_238DD2EFC(buf, &v155), v146 = v144, v144))
+    if (v144 || (v144 = sub_238DD2EFC(buf, &v154), v146 = v144, v144))
     {
       v147 = v145;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v155);
+      sub_238DD2F90(reader, &v154);
       v144 = sub_2393C7114(reader, 21, 256);
-      v147 = v152;
+      v147 = v151;
       v146 = v144;
     }
 
     v148 = v144 & 0xFFFFFFFF00000000;
-    v185 = &unk_284BB83A8;
-    sub_238EA1758(&v187);
+    v184 = &unk_284BB83A8;
     sub_238EA1758(&v186);
+    sub_238EA1758(&v185);
   }
 
   else
@@ -449,14 +449,13 @@
     v146 = 11;
   }
 
-  sub_238EA1758(&v155);
-  sub_238EA1790(&v156);
-  v149 = *MEMORY[0x277D85DE8];
-  v150 = v148 | v146;
-  v151 = v147;
-  result.mFile = v151;
-  result.mError = v150;
-  result.mLine = HIDWORD(v150);
+  sub_238EA1758(&v154);
+  sub_238EA1790(&v155);
+  v149 = v148 | v146;
+  v150 = v147;
+  result.mFile = v150;
+  result.mError = v149;
+  result.mLine = HIDWORD(v149);
   return result;
 }
 

@@ -183,7 +183,6 @@ LABEL_18:
 
   if (currencyCode)
   {
-    currencyCode = self->_currencyCode;
     PBDataWriterWriteStringField();
   }
 
@@ -197,12 +196,11 @@ LABEL_18:
 
   title = [(_INPBRideFareLineItem *)self title];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (title)
   {
-    title = self->_title;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

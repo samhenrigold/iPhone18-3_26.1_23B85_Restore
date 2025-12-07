@@ -23,26 +23,24 @@
 
 + (void)presentStoreProductViewControllerWithAppAdamID:(id)d bundleIdentifier:(id)identifier presentingViewController:(id)controller
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v8 = [self overriddenIfNecessaryAppAdamID:d];
   if ([v8 length])
   {
     v9 = objc_alloc_init(MEMORY[0x1E697BAA0]);
-    v12 = *MEMORY[0x1E697BB38];
-    v13[0] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E697BB38];
+    v12[0] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [v9 loadProductWithParameters:v10 completionBlock:0];
 
     [controllerCopy presentViewController:v9 animated:1 completion:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldPresentStoreProductViewControllerWithAttribution:(id)attribution
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   attributionCopy = attribution;
   if ([attributionCopy shouldOpenInAppStore])
   {
@@ -70,9 +68,9 @@
 
       if ([v6 length])
       {
-        v17 = 0;
-        v9 = [objc_alloc(MEMORY[0x1E69635F8]) initWithStoreItemIdentifier:-[NSObject longLongValue](v6 error:{"longLongValue"), &v17}];
-        v10 = v17;
+        v16 = 0;
+        v9 = [objc_alloc(MEMORY[0x1E69635F8]) initWithStoreItemIdentifier:-[NSObject longLongValue](v6 error:{"longLongValue"), &v16}];
+        v10 = v16;
         applicationState = [v9 applicationState];
         isInstalled = [applicationState isInstalled];
 
@@ -82,7 +80,7 @@
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v19 = v10;
+            v18 = v10;
             _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "Unable to check install state with error %@", buf, 0xCu);
           }
         }
@@ -111,7 +109,6 @@ LABEL_19:
   v7 = 0;
 LABEL_20:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

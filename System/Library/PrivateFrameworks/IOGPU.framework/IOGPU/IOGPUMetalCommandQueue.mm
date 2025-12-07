@@ -28,7 +28,7 @@
 
 - (IOGPUMetalCommandQueue)initWithDevice:(id)device descriptor:(id)descriptor args:(IOGPUDeviceNewCommandQueueArgs *)args argsSize:(unsigned int)size
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   if (!args)
   {
     [IOGPUMetalCommandQueue initWithDevice:descriptor:args:argsSize:];
@@ -39,8 +39,8 @@
     [IOGPUMetalCommandQueue initWithDevice:descriptor:args:argsSize:];
   }
 
-  v29.receiver = self;
-  v29.super_class = IOGPUMetalCommandQueue;
+  v28.receiver = self;
+  v28.super_class = IOGPUMetalCommandQueue;
   v10 = [_MTLCommandQueue initWithDevice:sel_initWithDevice_descriptor_ descriptor:?];
   if (v10)
   {
@@ -82,7 +82,7 @@
       iterator = 0;
       if (!MEMORY[0x1CCA976B0]([device acceleratorPort], "IOService", 0, &iterator))
       {
-        v26 = v15;
+        v25 = v15;
         v17 = IOIteratorNext(iterator);
         if (v17)
         {
@@ -98,11 +98,11 @@
               if (v22)
               {
                 v23 = v22;
-                v32[0] = @"Count";
-                v32[1] = @"Process";
-                v33[0] = v21;
-                v33[1] = v22;
-                [v16 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v33, v32, 2)}];
+                v31[0] = @"Count";
+                v31[1] = @"Process";
+                v32[0] = v21;
+                v32[1] = v22;
+                [v16 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v32, v31, 2)}];
               }
             }
 
@@ -117,11 +117,11 @@
         IOObjectRelease(iterator);
       }
 
-      [v16 sortUsingComparator:{&__block_literal_global, v26}];
+      [v16 sortUsingComparator:{&__block_literal_global, v25}];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v31 = v16;
+        v30 = v16;
         _os_log_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Command queue creation failed.  Worst processes %{public}@", buf, 0xCu);
       }
 
@@ -131,36 +131,30 @@
       }
 
       objc_autoreleasePoolPop(v15);
-      v10 = 0;
+      return 0;
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (IOGPUMetalCommandQueue)initWithDevice:(id)device descriptor:(id)descriptor
 {
-  v7 = *MEMORY[0x1E69E9840];
-  memset(v6, 0, 512);
-  result = [(IOGPUMetalCommandQueue *)self initWithDevice:device descriptor:descriptor args:v6 argsSize:1032];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = *MEMORY[0x1E69E9840];
+  memset(v5, 0, 512);
+  return [(IOGPUMetalCommandQueue *)self initWithDevice:device descriptor:descriptor args:v5 argsSize:1032];
 }
 
 - (void)setLabel:(id)label
 {
-  v9.receiver = self;
-  v9.super_class = IOGPUMetalCommandQueue;
-  [(_MTLCommandQueue *)&v9 setLabel:?];
+  v7.receiver = self;
+  v7.super_class = IOGPUMetalCommandQueue;
+  [(_MTLCommandQueue *)&v7 setLabel:?];
   if (*__globalGPUCommPage)
   {
     deviceRef = [(MTLDevice *)self->_device deviceRef];
-    v6 = *(&self->super.super.super.isa + *MEMORY[0x1E69742F0]);
-    v7 = *MEMORY[0x1E69742F8];
-    v8 = *(&self->super.super.super.isa + v7);
-    [label cStringUsingEncoding:1];
-    *(&self->super.super.super.isa + v7) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, v6, v8);
+    v6 = *MEMORY[0x1E69742F8];
+    *(&self->super.super.super.isa + v6) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, *(&self->super.super.super.isa + *MEMORY[0x1E69742F0]), *(&self->super.super.super.isa + v6), [label cStringUsingEncoding:1]);
   }
 }
 
@@ -273,21 +267,21 @@
 
 - (void)_submitCommandBuffers:(id *)buffers count:(unint64_t)count
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   cmdBufArgsSize = [(MTLDevice *)self->_device cmdBufArgsSize];
   if (HIDWORD(count))
   {
     [IOGPUMetalCommandQueue _submitCommandBuffers:count:];
   }
 
-  v27 = 0;
+  v26 = 0;
   v8 = cmdBufArgsSize;
   MEMORY[0x1EEE9AC00](cmdBufArgsSize, cmdBufArgsSize * count);
-  v23 = &v22 - v9;
-  bzero(&v22 - v9, v10);
+  v22 = &v21 - v9;
+  bzero(&v21 - v9, v10);
   if (count)
   {
-    v11 = v23;
+    v11 = v22;
     countCopy = count;
     do
     {
@@ -300,11 +294,7 @@
 
       if (*__globalGPUCommPage)
       {
-        [objc_msgSend(v13 "commandQueue")];
-        [objc_msgSend(v13 "device")];
-        [objc_msgSend(v13 "commandQueue")];
-        [v13 globalTraceObjectID];
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 3, [objc_msgSend(v13 "commandQueue")], objc_msgSend(objc_msgSend(v13, "device"), "globalTraceObjectID"), objc_msgSend(objc_msgSend(v13, "commandQueue"), "globalTraceObjectID"), objc_msgSend(v13, "globalTraceObjectID"));
       }
 
       v11 += v8;
@@ -315,7 +305,7 @@
     while (countCopy);
   }
 
-  v14 = IOGPUCommandQueueSubmitCommandBuffers(self->_commandQueue, 0, count, v23, v8, &v27);
+  v14 = IOGPUCommandQueueSubmitCommandBuffers(self->_commandQueue, 0, count, v22, v8, &v26);
   if (v14)
   {
     if (v14 == 268435459)
@@ -342,7 +332,7 @@
     {
       v17 = *MEMORY[0x1E69742E0];
       v18 = MEMORY[0x1E69E9820];
-      v19 = (v23 + 16);
+      v19 = (v22 + 16);
       do
       {
         v20 = *(&self->super.super.super.isa + v17);
@@ -350,8 +340,8 @@
         block[1] = 3221225472;
         block[2] = __54__IOGPUMetalCommandQueue__submitCommandBuffers_count___block_invoke;
         block[3] = &unk_1E83629C0;
-        v25 = *v19;
-        v26 = v16;
+        v24 = *v19;
+        v25 = v16;
         dispatch_async(v20, block);
         v19 = (v19 + v8);
         --count;
@@ -360,19 +350,16 @@
       while (count);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __54__IOGPUMetalCommandQueue__submitCommandBuffers_count___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
-  v2 = *(a1 + 48);
   (*(*(a1 + 40) + 16))();
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 - (void)dispatchAvailableCompletionNotifications
@@ -386,11 +373,10 @@ void __54__IOGPUMetalCommandQueue__submitCommandBuffers_count___block_invoke(uin
 
 - (void)initWithDevice:(uint64_t)a1 descriptor:args:argsSize:.cold.2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Command queue creation failed.  Worst processes %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Command queue creation failed.  Worst processes %{public}@", &v1, 0xCu);
 }
 
 @end

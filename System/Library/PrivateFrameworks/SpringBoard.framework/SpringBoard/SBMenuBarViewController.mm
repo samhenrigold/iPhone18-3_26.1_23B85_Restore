@@ -282,7 +282,7 @@ uint64_t __74__SBMenuBarViewController_dismissAnimated_alongsideAnimations_compl
   v10 = [(SBMenuBarViewController *)self _addOverflowMenuToContainerIfNeededForcingViewLayout:0];
   v11 = objc_loadWeakRetained(&self->_delegate);
   memset(&v23, 0, sizeof(v23));
-  [(SBMenuBarHeaderContainerView *)self->_menuHeaderContainerView frame];
+  objc_msgSend_frame(self->_menuHeaderContainerView);
   MinX = CGRectGetMinX(v24);
   [v11 containerHeightForMenuBarViewController:self];
   CGAffineTransformMakeTranslation(&v23, MinX, -v13);
@@ -2283,7 +2283,7 @@ void __88__SBMenuBarViewController__uiDeferredMenuElementForMainMenuDeferredElem
     v8 = processHandle;
     if (processHandle)
     {
-      [processHandle auditToken];
+      objc_msgSend_auditToken(processHandle);
     }
 
     else
@@ -2319,18 +2319,19 @@ void __50__SBMenuBarViewController__runCommandFromContext___block_invoke(uint64_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = SBLogMenuBar();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SBLogMenuBar(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __50__SBMenuBarViewController__runCommandFromContext___block_invoke_cold_1(WeakRetained, v6, v8);
+      __50__SBMenuBarViewController__runCommandFromContext___block_invoke_cold_1(v8, v6, v9);
     }
   }
 
-  v10 = *(a1 + 32);
-  v11 = v5;
-  v9 = v5;
+  v11 = *(a1 + 32);
+  v12 = v5;
+  v10 = v5;
   BSDispatchMain();
 }
 
@@ -2423,7 +2424,7 @@ void __50__SBMenuBarViewController__runCommandFromContext___block_invoke(uint64_
 
               else
               {
-                v13 = SBLogMenuBar();
+                v13 = SBLogMenuBar(firstIndex);
                 if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
                 {
                   *buf = v22;

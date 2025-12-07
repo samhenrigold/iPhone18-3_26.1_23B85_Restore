@@ -1,8 +1,8 @@
 @interface EGStillImageDisparitySubgraph
 + (void)initialize;
 - (EGStillImageDisparitySubgraph)initWithName:(id)name stillImageSettings:(id)settings nodeConfiguration:(id)configuration resourceCoordinator:(id)coordinator delegate:(id)delegate;
+- (id)_processorControllerOutputForType:(id *)result;
 - (uint64_t)_build;
-- (uint64_t)_processorControllerOutputForType:(uint64_t)result;
 - (void)dealloc;
 @end
 
@@ -91,17 +91,17 @@
   return 0;
 }
 
-- (uint64_t)_processorControllerOutputForType:(uint64_t)result
+- (id)_processorControllerOutputForType:(id *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = [*(result + 144) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", a2)}];
+    v4 = [result[18] objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", a2)}];
     if (!v4)
     {
       v5 = [[EGStillImageProcessorControllerSourceNode alloc] initWithType:a2];
       [OUTLINED_FUNCTION_18_0() installNode:0];
-      [*(v3 + 144) setObject:0 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", a2)}];
+      [v3[18] setObject:0 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", a2)}];
     }
 
     return [v4 processorControllerOutput];

@@ -7,7 +7,9 @@
 - (BOOL)isProfilingEnabled;
 - (BOOL)isStatEnabled;
 - (BOOL)setBackgroundGPUPriority:(unint64_t)priority;
+- (BOOL)setBackgroundGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset;
 - (BOOL)setGPUPriority:(unint64_t)priority;
+- (BOOL)setGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset;
 - (BOOL)skipRender;
 - (MTLToolsCommandQueue)initWithBaseObject:(id)object parent:(id)parent;
 - (NSString)label;
@@ -44,8 +46,13 @@
 - (void)removeInternalResidencySets:(id *)sets count:(unint64_t)count;
 - (void)removeResidencySet:(id)set;
 - (void)removeResidencySets:(const void *)sets count:(unint64_t)count;
+- (void)setBackgroundTrackingPID:(int)d;
 - (void)setCompletionQueue:(id)queue;
+- (void)setExecutionEnabled:(BOOL)enabled;
 - (void)setLabel:(id)label;
+- (void)setProfilingEnabled:(BOOL)enabled;
+- (void)setSkipRender:(BOOL)render;
+- (void)setStatEnabled:(BOOL)enabled;
 - (void)setStatLocations:(unint64_t)locations;
 - (void)setStatOptions:(unint64_t)options;
 - (void)setSubmissionQueue:(id)queue;
@@ -173,6 +180,14 @@
   return [baseObject setGPUPriority:priority];
 }
 
+- (BOOL)setGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset
+{
+  offsetCopy = offset;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject setGPUPriority:priority offset:offsetCopy];
+}
+
 - (unint64_t)getBackgroundGPUPriority
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -185,6 +200,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject setBackgroundGPUPriority:priority];
+}
+
+- (BOOL)setBackgroundGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset
+{
+  offsetCopy = offset;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject setBackgroundGPUPriority:priority offset:offsetCopy];
 }
 
 - (unint64_t)maxCommandBufferCount
@@ -201,6 +224,14 @@
   return [baseObject backgroundTrackingPID];
 }
 
+- (void)setBackgroundTrackingPID:(int)d
+{
+  v3 = *&d;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setBackgroundTrackingPID:v3];
+}
+
 - (void)finish
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -215,6 +246,14 @@
   return [baseObject skipRender];
 }
 
+- (void)setSkipRender:(BOOL)render
+{
+  renderCopy = render;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setSkipRender:renderCopy];
+}
+
 - (BOOL)executionEnabled
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -222,11 +261,27 @@
   return [baseObject executionEnabled];
 }
 
+- (void)setExecutionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setExecutionEnabled:enabledCopy];
+}
+
 - (BOOL)isProfilingEnabled
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject isProfilingEnabled];
+}
+
+- (void)setProfilingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setProfilingEnabled:enabledCopy];
 }
 
 - (void)setCompletionQueue:(id)queue
@@ -374,6 +429,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject isStatEnabled];
+}
+
+- (void)setStatEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStatEnabled:enabledCopy];
 }
 
 - (unint64_t)getStatOptions

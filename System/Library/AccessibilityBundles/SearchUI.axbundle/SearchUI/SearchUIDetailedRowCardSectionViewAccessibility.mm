@@ -205,11 +205,11 @@ uint64_t __69__SearchUIDetailedRowCardSectionViewAccessibility_accessibilityLabe
 
 - (id)automationCustomProperties
 {
-  v14[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   v2 = [(SearchUIDetailedRowCardSectionViewAccessibility *)self safeValueForKey:@"contentView"];
   v3 = [v2 safeUIViewForKey:@"detailsView"];
 
-  v13[0] = @"Title";
+  v12[0] = @"Title";
   accessibilityLabel = [v3 accessibilityLabel];
   v5 = accessibilityLabel;
   if (accessibilityLabel)
@@ -222,8 +222,8 @@ uint64_t __69__SearchUIDetailedRowCardSectionViewAccessibility_accessibilityLabe
     v6 = &stru_2A22CFF00;
   }
 
-  v13[1] = @"Subtitle";
-  v14[0] = v6;
+  v12[1] = @"Subtitle";
+  v13[0] = v6;
   accessibilityValue = [v3 accessibilityValue];
   v8 = accessibilityValue;
   if (accessibilityValue)
@@ -236,10 +236,8 @@ uint64_t __69__SearchUIDetailedRowCardSectionViewAccessibility_accessibilityLabe
     v9 = &stru_2A22CFF00;
   }
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x29EDCA608];
+  v13[1] = v9;
+  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }

@@ -40,7 +40,7 @@
 
 - (id)contentDestinationWithError:(id *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([(objc_class *)[(WFAction *)self contentItemClass] isEqual:objc_opt_class()])
   {
     v4 = MEMORY[0x1E69E0E58];
@@ -61,20 +61,19 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v8 = getWFSecurityLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v7 = getWFSecurityLogObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    v9 = NSStringFromClass([(WFAction *)self contentItemClass]);
-    v10 = 136315394;
-    v11 = "[WFContentItemSetterAction contentDestinationWithError:]";
-    v12 = 2112;
-    v13 = v9;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Missing a contentDestination for %@", &v10, 0x16u);
+    v8 = NSStringFromClass([(WFAction *)self contentItemClass]);
+    v9 = 136315394;
+    v10 = "[WFContentItemSetterAction contentDestinationWithError:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Missing a contentDestination for %@", &v9, 0x16u);
   }
 
   v5 = 0;
 LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -170,18 +169,8 @@ LABEL_7:
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ([(WFContentItemSetterAction *)self selectedProperty], v32 = objc_claimAutoreleasedReturnValue(), [(WFContentItemSetterAction *)self parameterKeyForProperty:v32], v33 = objc_claimAutoreleasedReturnValue(), [(WFAction *)self parameterValueForKey:v33 ofClass:objc_opt_class()], v31 = objc_claimAutoreleasedReturnValue(), v33, v32, !v31))
     {
-      goto LABEL_19;
-    }
-
-    selectedProperty = [(WFContentItemSetterAction *)self selectedProperty];
-    v33 = [(WFContentItemSetterAction *)self parameterKeyForProperty:selectedProperty];
-    v31 = [(WFAction *)self parameterValueForKey:v33 ofClass:objc_opt_class()];
-
-    if (!v31)
-    {
-LABEL_19:
       v11 = valueCopy;
       goto LABEL_8;
     }
@@ -211,16 +200,16 @@ LABEL_8:
 
 - (void)presentAlertWithUserInterface:(id)interface input:(id)input completion:(id)completion
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   inputCopy = input;
   completionCopy = completion;
   v11 = objc_opt_new();
   items = [inputCopy items];
   localizedTypeDescription = [(objc_class *)[(WFAction *)self contentItemClass] localizedTypeDescription];
-  v39 = inputCopy;
-  v40 = interfaceCopy;
-  v38 = completionCopy;
+  v38 = inputCopy;
+  v39 = interfaceCopy;
+  v37 = completionCopy;
   v14 = items;
   if ([(objc_class *)[(WFAction *)self contentItemClass] canLowercaseTypeDescription])
   {
@@ -238,40 +227,40 @@ LABEL_8:
   v22 = [v17 stringWithFormat:v18, lowercaseString, localizedTypeDescription];
   [v16 setTitle:v22];
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke;
-  v48[3] = &unk_1E8378830;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke;
+  v47[3] = &unk_1E8378830;
   v23 = v11;
-  v49 = v23;
+  v48 = v23;
   v24 = v16;
-  v50 = v24;
+  v49 = v24;
   v25 = v14;
-  v26 = [v14 if_compactMap:v48];
+  v26 = [v14 if_compactMap:v47];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v27 = [v26 countByEnumeratingWithState:&v44 objects:v51 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v45;
+    v29 = *v44;
     do
     {
       v30 = 0;
       do
       {
-        if (*v45 != v29)
+        if (*v44 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [v24 addButton:*(*(&v44 + 1) + 8 * v30++)];
+        [v24 addButton:*(*(&v43 + 1) + 8 * v30++)];
       }
 
       while (v28 != v30);
-      v28 = [v26 countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v43 objects:v50 count:16];
     }
 
     while (v28);
@@ -282,19 +271,18 @@ LABEL_8:
 
   v32 = MEMORY[0x1E6996C78];
   v33 = WFLocalizedString(@"Done");
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke_3;
-  v41[3] = &unk_1E837E1F8;
-  v42 = v26;
-  v43 = v38;
-  v34 = v38;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke_3;
+  v40[3] = &unk_1E837E1F8;
+  v41 = v26;
+  v42 = v37;
+  v34 = v37;
   v35 = v26;
-  v36 = [v32 buttonWithTitle:v33 style:0 preferred:1 handler:v41];
+  v36 = [v32 buttonWithTitle:v33 style:0 preferred:1 handler:v40];
   [v24 addButton:v36];
 
-  [v40 presentAlert:v24];
-  v37 = *MEMORY[0x1E69E9840];
+  [v39 presentAlert:v24];
 }
 
 id __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -316,28 +304,28 @@ id __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completio
 
 void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 isSelected])
         {
           v9 = [v8 contentItem];
@@ -345,7 +333,7 @@ void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_complet
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -354,13 +342,11 @@ void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_complet
   v10 = *(a1 + 40);
   v11 = [MEMORY[0x1E6996D40] collectionWithItems:v2];
   (*(v10 + 16))(v10, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_completion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) buttons];
   v3 = [v2 objectAtIndexedSubscript:*(a1 + 40)];
   v4 = objc_opt_class();
@@ -370,16 +356,16 @@ void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_complet
     v7 = getWFGeneralLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315906;
-      v11 = "WFEnforceClass";
-      v12 = 2114;
-      v13 = v5;
-      v14 = 2114;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v4;
-      v8 = v15;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Missing a contentDestination for %@", &v10, 0x2Au);
+      v9 = 136315906;
+      v10 = "WFEnforceClass";
+      v11 = 2114;
+      v12 = v5;
+      v13 = 2114;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v4;
+      v8 = v14;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Missing a contentDestination for %@", &v9, 0x2Au);
     }
 
     v6 = 0;
@@ -391,7 +377,6 @@ void __76__WFContentItemSetterAction_presentAlertWithUserInterface_input_complet
   }
 
   [v6 setSelected:{objc_msgSend(v6, "isSelected") ^ 1}];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userValueForSelectedPropertyWithCompletion:(id)completion
@@ -451,7 +436,7 @@ void __72__WFContentItemSetterAction_userValueForSelectedPropertyWithCompletion_
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selectedProperty = [(WFContentItemSetterAction *)self selectedProperty];
 
@@ -480,23 +465,23 @@ void __72__WFContentItemSetterAction_userValueForSelectedPropertyWithCompletion_
       v10 = [(WFContentItemSetterAction *)self changeTransactionWithInput:firstObject];
       if (!v10)
       {
-        v23 = MEMORY[0x1E695DF90];
-        v41 = *MEMORY[0x1E696A588];
-        v24 = MEMORY[0x1E696AEC0];
-        v25 = WFLocalizedString(@"The provided %@ cannot be edited.");
-        v26 = [v24 stringWithFormat:v25, localizedTypeDescription];
-        v42[0] = v26;
-        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-        v11 = [v23 dictionaryWithDictionary:v27];
+        v22 = MEMORY[0x1E695DF90];
+        v40 = *MEMORY[0x1E696A588];
+        v23 = MEMORY[0x1E696AEC0];
+        v24 = WFLocalizedString(@"The provided %@ cannot be edited.");
+        v25 = [v23 stringWithFormat:v24, localizedTypeDescription];
+        v41[0] = v25;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+        v11 = [v22 dictionaryWithDictionary:v26];
 
         if ([(objc_class *)[(WFAction *)self contentItemClass] isEqual:objc_opt_class()])
         {
-          v28 = WFLocalizedString(@"Please use the Select Contact or Find Contacts action instead to provide a contact.");
-          [v11 setObject:v28 forKeyedSubscript:*MEMORY[0x1E696A578]];
+          v27 = WFLocalizedString(@"Please use the Select Contact or Find Contacts action instead to provide a contact.");
+          [v11 setObject:v27 forKeyedSubscript:*MEMORY[0x1E696A578]];
         }
 
-        v29 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:6 userInfo:v11];
-        [(WFAction *)self finishRunningWithError:v29];
+        v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:6 userInfo:v11];
+        [(WFAction *)self finishRunningWithError:v28];
 
         goto LABEL_26;
       }
@@ -511,7 +496,7 @@ void __72__WFContentItemSetterAction_userValueForSelectedPropertyWithCompletion_
       aBlock[3] = &unk_1E8378748;
       aBlock[4] = self;
       v13 = v10;
-      v40 = v13;
+      v39 = v13;
       v14 = _Block_copy(aBlock);
       mode = [v13 mode];
       if ([mode isEqual:*MEMORY[0x1E6997020]])
@@ -525,27 +510,27 @@ void __72__WFContentItemSetterAction_userValueForSelectedPropertyWithCompletion_
           if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             v19 = [(WFAction *)self parameterValueForKey:@"RemoveSpecifiedValue" ofClass:objc_opt_class()];
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_10;
-            v34[3] = &unk_1E8378790;
-            v35 = v14;
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_10;
+            v33[3] = &unk_1E8378790;
+            v34 = v14;
             selectedProperty3 = [(WFContentItemSetterAction *)self selectedProperty];
             propertyClasses = [selectedProperty3 propertyClasses];
-            [v19 getObjectRepresentations:v34 forClass:{objc_msgSend(propertyClasses, "firstObject")}];
+            [v19 getObjectRepresentations:v33 forClass:{objc_msgSend(propertyClasses, "firstObject")}];
           }
 
           else
           {
             selectedProperty4 = [(WFContentItemSetterAction *)self selectedProperty];
-            v36[0] = MEMORY[0x1E69E9820];
-            v36[1] = 3221225472;
-            v36[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_4;
-            v36[3] = &unk_1E83787B8;
-            v36[4] = self;
-            v37 = localizedTypeDescription;
-            v38 = v14;
-            [selectedProperty4 getValuesForObject:firstObject completionHandler:v36];
+            v35[0] = MEMORY[0x1E69E9820];
+            v35[1] = 3221225472;
+            v35[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_4;
+            v35[3] = &unk_1E83787B8;
+            v35[4] = self;
+            v36 = localizedTypeDescription;
+            v37 = v14;
+            [selectedProperty4 getValuesForObject:firstObject completionHandler:v35];
           }
 
           goto LABEL_25;
@@ -556,14 +541,14 @@ void __72__WFContentItemSetterAction_userValueForSelectedPropertyWithCompletion_
       {
       }
 
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_11;
-      v31[3] = &unk_1E83790C8;
-      v31[4] = self;
-      v33 = v14;
-      v32 = firstObject;
-      [(WFContentItemSetterAction *)self userValueForSelectedPropertyWithCompletion:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_11;
+      v30[3] = &unk_1E83790C8;
+      v30[4] = self;
+      v32 = v14;
+      v31 = firstObject;
+      [(WFContentItemSetterAction *)self userValueForSelectedPropertyWithCompletion:v30];
 
 LABEL_25:
 LABEL_26:
@@ -582,7 +567,6 @@ LABEL_26:
 LABEL_15:
 
 LABEL_17:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)
@@ -602,7 +586,7 @@ void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke(u
 
 void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_4(uint64_t a1, void *a2)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E6996D40];
   v4 = [a2 if_compactMap:&__block_literal_global_460];
   v5 = [v3 collectionWithItems:v4];
@@ -627,32 +611,30 @@ void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_4
   if (v13)
   {
     v15 = [*(a1 + 32) userInterface];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_7;
-    v26[3] = &unk_1E837BF20;
-    v26[4] = *(a1 + 32);
-    v27 = *(a1 + 48);
-    [v14 presentAlertWithUserInterface:v15 input:v5 completion:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_7;
+    v25[3] = &unk_1E837BF20;
+    v25[4] = *(a1 + 32);
+    v26 = *(a1 + 48);
+    [v14 presentAlertWithUserInterface:v15 input:v5 completion:v25];
   }
 
   else
   {
     v16 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
+    v27 = *MEMORY[0x1E696A578];
     v17 = MEMORY[0x1E696AEC0];
     v18 = [v14 selectedProperty];
     v19 = [v18 name];
     v20 = [v19 localizedLowercaseString];
     v21 = [v17 stringWithFormat:@"There are no %@ to remove from the %@.", v20, *(a1 + 40)];
     v22 = WFLocalizedString(v21);
-    v29[0] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v28[0] = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v24 = [v16 errorWithDomain:@"WFActionErrorDomain" code:6 userInfo:v23];
     [v14 finishRunningWithError:v24];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_11(id *a1, void *a2)
@@ -693,29 +675,29 @@ void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_1
 
     if (v9)
     {
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_12;
-      v35[3] = &unk_1E837F588;
-      v36 = a1[6];
-      [v3 getFileRepresentations:v35 forType:0];
-      v10 = v36;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_12;
+      v34[3] = &unk_1E837F588;
+      v35 = a1[6];
+      [v3 getFileRepresentations:v34 forType:0];
+      v10 = v35;
     }
 
     else
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_13;
-      v32[3] = &unk_1E837A538;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_13;
+      v31[3] = &unk_1E837A538;
       v14 = a1[6];
-      v33 = a1[4];
-      v34 = v14;
-      v15 = [v33 selectedProperty];
+      v32 = a1[4];
+      v33 = v14;
+      v15 = [v32 selectedProperty];
       v16 = [v15 propertyClasses];
-      [v3 getObjectRepresentations:v32 forClass:{objc_msgSend(v16, "firstObject")}];
+      [v3 getObjectRepresentations:v31 forClass:{objc_msgSend(v16, "firstObject")}];
 
-      v10 = v34;
+      v10 = v33;
     }
 
     goto LABEL_14;
@@ -724,18 +706,18 @@ void __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_1
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_15;
-    v29[3] = &unk_1E83787E0;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __56__WFContentItemSetterAction_runAsynchronouslyWithInput___block_invoke_15;
+    v28[3] = &unk_1E83787E0;
     v11 = a1[6];
-    v30 = a1[4];
-    v31 = v11;
-    v12 = [v30 selectedProperty];
+    v29 = a1[4];
+    v30 = v11;
+    v12 = [v29 selectedProperty];
     v13 = [v12 propertyClasses];
-    [v3 getObjectRepresentation:v29 forClass:{objc_msgSend(v13, "firstObject")}];
+    [v3 getObjectRepresentation:v28 forClass:{objc_msgSend(v13, "firstObject")}];
 
-    v10 = v31;
+    v10 = v30;
 LABEL_14:
 
     goto LABEL_22;
@@ -752,28 +734,27 @@ LABEL_14:
       v19 = [v3 unitString];
       v20 = [WFDurationQuantityFieldParameter calendarUnitFromUnitString:v19];
 
-      v21 = a1[5];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v22 = [a1[5] event];
-        v23 = [v22 startDate];
+        v21 = [a1[5] event];
+        v22 = [v21 startDate];
       }
 
       else
       {
-        v23 = [MEMORY[0x1E695DF00] date];
+        v22 = [MEMORY[0x1E695DF00] date];
       }
 
-      v24 = [MEMORY[0x1E695DEE8] currentCalendar];
-      v25 = [v3 magnitude];
-      v26 = [v24 dateByAddingUnit:v20 value:objc_msgSend(v25 toDate:"integerValue") options:{v23, 0}];
+      v23 = [MEMORY[0x1E695DEE8] currentCalendar];
+      v24 = [v3 magnitude];
+      v25 = [v23 dateByAddingUnit:v20 value:objc_msgSend(v24 toDate:"integerValue") options:{v22, 0}];
 
-      v27 = MEMORY[0x1E696AD98];
-      [v26 timeIntervalSinceDate:v23];
-      v28 = [v27 numberWithDouble:?];
+      v26 = MEMORY[0x1E696AD98];
+      [v25 timeIntervalSinceDate:v22];
+      v27 = [v26 numberWithDouble:?];
 
-      v3 = v28;
+      v3 = v27;
     }
   }
 
@@ -1177,51 +1158,51 @@ LABEL_18:
 
 - (id)parameterDefinitions
 {
-  v139[5] = *MEMORY[0x1E69E9840];
+  v138[5] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = [WFParameterDefinition alloc];
-  v138[0] = @"Class";
+  v137[0] = @"Class";
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v139[0] = v6;
-  v139[1] = @"WFContentItemPropertyName";
-  v138[1] = @"Key";
-  v138[2] = @"Label";
+  v138[0] = v6;
+  v138[1] = @"WFContentItemPropertyName";
+  v137[1] = @"Key";
+  v137[2] = @"Label";
   v7 = WFLocalizedStringResourceWithKey(@"Detail (ContentItemSetter)", @"Detail");
-  v139[2] = v7;
-  v138[3] = @"DisallowedVariableTypes";
-  v137 = @"Variable";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
-  v139[3] = v8;
-  v138[4] = @"Description";
+  v138[2] = v7;
+  v137[3] = @"DisallowedVariableTypes";
+  v136 = @"Variable";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:1];
+  v138[3] = v8;
+  v137[4] = @"Description";
   v9 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:1];
-  v139[4] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v139 forKeys:v138 count:5];
+  v138[4] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:v137 count:5];
   v11 = [(WFParameterDefinition *)v4 initWithDictionary:v10];
   [v3 addObject:v11];
 
   v12 = [WFParameterDefinition alloc];
-  v135[0] = @"Class";
+  v134[0] = @"Class";
   v13 = objc_opt_class();
   v14 = NSStringFromClass(v13);
-  v136[0] = v14;
-  v136[1] = @"Mode";
-  v135[1] = @"Key";
-  v135[2] = @"Description";
+  v135[0] = v14;
+  v135[1] = @"Mode";
+  v134[1] = @"Key";
+  v134[2] = @"Description";
   v15 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:2];
-  v136[2] = v15;
-  v135[3] = @"DisallowedVariableTypes";
-  v134 = @"Variable";
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v134 count:1];
-  v136[3] = v16;
-  v135[4] = @"Label";
+  v135[2] = v15;
+  v134[3] = @"DisallowedVariableTypes";
+  v133 = @"Variable";
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
+  v135[3] = v16;
+  v134[4] = @"Label";
   v17 = WFLocalizedStringResourceWithKey(@"Edit (ContentItemSetter)", @"Edit");
-  v135[5] = @"DefaultValue";
+  v134[5] = @"DefaultValue";
   v18 = *MEMORY[0x1E6997030];
-  v136[4] = v17;
-  v136[5] = v18;
-  v92 = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v136 forKeys:v135 count:6];
+  v135[4] = v17;
+  v135[5] = v18;
+  v91 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v135 forKeys:v134 count:6];
   v20 = [(WFParameterDefinition *)v12 initWithDictionary:v19];
   [v3 addObject:v20];
 
@@ -1229,91 +1210,91 @@ LABEL_18:
   if (inputParameterKey)
   {
     v22 = [WFParameterDefinition alloc];
-    v132[0] = @"Class";
+    v131[0] = @"Class";
     v23 = objc_opt_class();
     v24 = NSStringFromClass(v23);
-    v133[0] = v24;
-    v133[1] = inputParameterKey;
-    v132[1] = @"Key";
-    v132[2] = @"Label";
+    v132[0] = v24;
+    v132[1] = inputParameterKey;
+    v131[1] = @"Key";
+    v131[2] = @"Label";
     v25 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:0];
-    v133[2] = v25;
-    v132[3] = @"Placeholder";
+    v132[2] = v25;
+    v131[3] = @"Placeholder";
     v26 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:0];
-    v133[3] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v133 forKeys:v132 count:4];
+    v132[3] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:v131 count:4];
     v28 = [(WFParameterDefinition *)v22 initWithDictionary:v27];
     [v3 addObject:v28];
   }
 
-  v98 = inputParameterKey;
-  v99 = [WFParameterDefinition alloc];
-  v130[0] = @"Class";
+  v97 = inputParameterKey;
+  v98 = [WFParameterDefinition alloc];
+  v129[0] = @"Class";
   v29 = objc_opt_class();
-  v103 = NSStringFromClass(v29);
-  v131[0] = v103;
-  v131[1] = @"RemoveSpecifiedValue";
-  v130[1] = @"Key";
-  v130[2] = @"Label";
-  v101 = WFLocalizedStringResourceWithKey(@"Specified (ContentItemSetter)", @"Specified");
-  v131[2] = v101;
-  v130[3] = @"Description";
-  v95 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:3];
-  v131[3] = v95;
-  v130[4] = @"RequiredResources";
-  v127[0] = @"WFParameterKey";
-  v127[1] = @"WFParameterValue";
+  v102 = NSStringFromClass(v29);
+  v130[0] = v102;
+  v130[1] = @"RemoveSpecifiedValue";
+  v129[1] = @"Key";
+  v129[2] = @"Label";
+  v100 = WFLocalizedStringResourceWithKey(@"Specified (ContentItemSetter)", @"Specified");
+  v130[2] = v100;
+  v129[3] = @"Description";
+  v94 = [[WFContentItemSetterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:3];
+  v130[3] = v94;
+  v129[4] = @"RequiredResources";
+  v126[0] = @"WFParameterKey";
+  v126[1] = @"WFParameterValue";
   v30 = *MEMORY[0x1E6997020];
-  v128[0] = @"Mode";
-  v128[1] = v30;
-  v127[2] = @"WFResourceClass";
+  v127[0] = @"Mode";
+  v127[1] = v30;
+  v126[2] = @"WFResourceClass";
   v31 = objc_opt_class();
-  v93 = NSStringFromClass(v31);
-  v128[2] = v93;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:3];
-  v129[0] = v32;
-  v126[0] = @"WFContentItemPropertyName";
-  v125[0] = @"WFParameterKey";
-  v125[1] = @"WFParameterValues";
+  v92 = NSStringFromClass(v31);
+  v127[2] = v92;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:3];
+  v128[0] = v32;
+  v125[0] = @"WFContentItemPropertyName";
+  v124[0] = @"WFParameterKey";
+  v124[1] = @"WFParameterValues";
   properties = [(WFContentItemSetterAction *)self properties];
   v34 = [properties if_compactMap:&__block_literal_global_33840];
-  v126[1] = v34;
-  v125[2] = @"WFResourceClass";
+  v125[1] = v34;
+  v124[2] = @"WFResourceClass";
   v35 = objc_opt_class();
   v36 = NSStringFromClass(v35);
-  v126[2] = v36;
-  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v126 forKeys:v125 count:3];
-  v129[1] = v37;
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:2];
-  v131[4] = v38;
-  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v131 forKeys:v130 count:5];
-  v40 = [(WFParameterDefinition *)v99 initWithDictionary:v39];
-  v100 = v3;
+  v125[2] = v36;
+  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v125 forKeys:v124 count:3];
+  v128[1] = v37;
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:2];
+  v130[4] = v38;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:v129 count:5];
+  v40 = [(WFParameterDefinition *)v98 initWithDictionary:v39];
+  v99 = v3;
   [v3 addObject:v40];
 
   v41 = objc_opt_new();
-  v104 = objc_opt_new();
-  v102 = objc_opt_new();
+  v103 = objc_opt_new();
+  v101 = objc_opt_new();
+  v104 = 0u;
   v105 = 0u;
   v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
   properties2 = [(WFContentItemSetterAction *)self properties];
-  v43 = [properties2 countByEnumeratingWithState:&v105 objects:v124 count:16];
+  v43 = [properties2 countByEnumeratingWithState:&v104 objects:v123 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v106;
+    v45 = *v105;
     do
     {
       for (i = 0; i != v44; ++i)
       {
-        if (*v106 != v45)
+        if (*v105 != v45)
         {
           objc_enumerationMutation(properties2);
         }
 
-        v47 = *(*(&v105 + 1) + 8 * i);
+        v47 = *(*(&v104 + 1) + 8 * i);
         v48 = [(WFContentItemSetterAction *)self parameterKeyForProperty:v47];
         v49 = [v41 valueForKey:v48];
 
@@ -1333,133 +1314,131 @@ LABEL_18:
           if ([v47 isLabeledValue])
           {
             name = [v47 name];
-            [v104 addObject:name];
+            [v103 addObject:name];
           }
 
           if ([v47 hasPropertyClass:objc_opt_class()])
           {
             name2 = [v47 name];
-            [v102 addObject:name2];
+            [v101 addObject:name2];
           }
         }
       }
 
-      v44 = [properties2 countByEnumeratingWithState:&v105 objects:v124 count:16];
+      v44 = [properties2 countByEnumeratingWithState:&v104 objects:v123 count:16];
     }
 
     while (v44);
   }
 
   allValues = [v41 allValues];
-  [v100 addObjectsFromArray:allValues];
+  [v99 addObjectsFromArray:allValues];
 
-  v58 = v104;
-  if ([v104 count])
+  v58 = v103;
+  if ([v103 count])
   {
     v59 = [WFParameterDefinition alloc];
-    v122[0] = @"Class";
+    v121[0] = @"Class";
     v60 = objc_opt_class();
-    v96 = NSStringFromClass(v60);
-    v123[0] = v96;
-    v123[1] = @"ValueLabel";
-    v122[1] = @"Key";
-    v122[2] = @"Label";
+    v95 = NSStringFromClass(v60);
+    v122[0] = v95;
+    v122[1] = @"ValueLabel";
+    v121[1] = @"Key";
+    v121[2] = @"Label";
     v61 = WFLocalizedStringResourceWithKey(@"Label (ContentItemSetter)", @"Label");
     v62 = *MEMORY[0x1E69E1260];
-    v123[2] = v61;
-    v123[3] = v62;
-    v122[3] = @"AutocapitalizationType";
-    v122[4] = @"RequiredResources";
-    v119[0] = @"WFParameterKey";
-    v119[1] = @"WFParameterValues";
-    v120[0] = @"WFContentItemPropertyName";
-    v120[1] = v104;
-    v119[2] = @"WFResourceClass";
+    v122[2] = v61;
+    v122[3] = v62;
+    v121[3] = @"AutocapitalizationType";
+    v121[4] = @"RequiredResources";
+    v118[0] = @"WFParameterKey";
+    v118[1] = @"WFParameterValues";
+    v119[0] = @"WFContentItemPropertyName";
+    v119[1] = v103;
+    v118[2] = @"WFResourceClass";
     v63 = objc_opt_class();
     v64 = NSStringFromClass(v63);
-    v120[2] = v64;
-    v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v120 forKeys:v119 count:3];
-    v121[0] = v65;
-    v117[0] = @"WFParameterKey";
-    v117[1] = @"WFParameterValue";
+    v119[2] = v64;
+    v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v119 forKeys:v118 count:3];
+    v120[0] = v65;
+    v116[0] = @"WFParameterKey";
+    v116[1] = @"WFParameterValue";
     v66 = *MEMORY[0x1E6997018];
-    v118[0] = @"Mode";
-    v118[1] = v66;
-    v117[2] = @"WFResourceClass";
+    v117[0] = @"Mode";
+    v117[1] = v66;
+    v116[2] = @"WFResourceClass";
     v67 = objc_opt_class();
     v68 = NSStringFromClass(v67);
-    v118[2] = v68;
-    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v118 forKeys:v117 count:3];
-    v121[1] = v69;
-    v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:2];
-    v123[4] = v70;
-    v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:v122 count:5];
+    v117[2] = v68;
+    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v117 forKeys:v116 count:3];
+    v120[1] = v69;
+    v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:2];
+    v122[4] = v70;
+    v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:v121 count:5];
     v72 = [(WFParameterDefinition *)v59 initWithDictionary:v71];
-    [v100 addObject:v72];
+    [v99 addObject:v72];
 
-    v58 = v104;
+    v58 = v103;
   }
 
-  v73 = v102;
-  if ([v102 count])
+  v73 = v101;
+  if ([v101 count])
   {
-    v90 = [WFParameterDefinition alloc];
-    v115[0] = @"Class";
+    v89 = [WFParameterDefinition alloc];
+    v114[0] = @"Class";
     v74 = objc_opt_class();
-    v97 = NSStringFromClass(v74);
-    v116[0] = v97;
-    v116[1] = @"ValueLabel";
-    v115[1] = @"Key";
-    v115[2] = @"Label";
-    v94 = WFLocalizedStringResourceWithKey(@"Role (ContentItemSetter)", @"Role");
-    v116[2] = v94;
-    v115[3] = @"OnDisplayName";
-    v91 = WFLocalizedStringResourceWithKey(@"Required (ContentItemSetterRole)", @"Required");
-    v116[3] = v91;
-    v115[4] = @"OffDisplayName";
-    v89 = WFLocalizedStringResourceWithKey(@"Optional (ContentItemSetterRole)", @"Optional");
-    v116[4] = v89;
-    v115[5] = @"DefaultValue";
+    v96 = NSStringFromClass(v74);
+    v115[0] = v96;
+    v115[1] = @"ValueLabel";
+    v114[1] = @"Key";
+    v114[2] = @"Label";
+    v93 = WFLocalizedStringResourceWithKey(@"Role (ContentItemSetter)", @"Role");
+    v115[2] = v93;
+    v114[3] = @"OnDisplayName";
+    v90 = WFLocalizedStringResourceWithKey(@"Required (ContentItemSetterRole)", @"Required");
+    v115[3] = v90;
+    v114[4] = @"OffDisplayName";
+    v88 = WFLocalizedStringResourceWithKey(@"Optional (ContentItemSetterRole)", @"Optional");
+    v115[4] = v88;
+    v114[5] = @"DefaultValue";
     v75 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    v116[5] = v75;
-    v115[6] = @"RequiredResources";
-    v112[0] = @"WFParameterKey";
-    v112[1] = @"WFParameterValues";
-    v113[0] = @"WFContentItemPropertyName";
-    v113[1] = v102;
-    v112[2] = @"WFResourceClass";
+    v115[5] = v75;
+    v114[6] = @"RequiredResources";
+    v111[0] = @"WFParameterKey";
+    v111[1] = @"WFParameterValues";
+    v112[0] = @"WFContentItemPropertyName";
+    v112[1] = v101;
+    v111[2] = @"WFResourceClass";
     v76 = objc_opt_class();
     v77 = NSStringFromClass(v76);
-    v113[2] = v77;
-    v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v113 forKeys:v112 count:3];
-    v114[0] = v78;
-    v111[0] = @"Mode";
-    v110[0] = @"WFParameterKey";
-    v110[1] = @"WFParameterValues";
+    v112[2] = v77;
+    v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:3];
+    v113[0] = v78;
+    v110[0] = @"Mode";
+    v109[0] = @"WFParameterKey";
+    v109[1] = @"WFParameterValues";
     v79 = *MEMORY[0x1E6997018];
-    v109[0] = v92;
-    v109[1] = v79;
-    v80 = [MEMORY[0x1E695DEC8] arrayWithObjects:v109 count:2];
-    v111[1] = v80;
-    v110[2] = @"WFResourceClass";
+    v108[0] = v91;
+    v108[1] = v79;
+    v80 = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:2];
+    v110[1] = v80;
+    v109[2] = @"WFResourceClass";
     v81 = objc_opt_class();
     v82 = NSStringFromClass(v81);
-    v111[2] = v82;
-    v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:3];
-    v114[1] = v83;
-    v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:v114 count:2];
-    v116[6] = v84;
-    v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:7];
-    v86 = [(WFParameterDefinition *)v90 initWithDictionary:v85];
-    [v100 addObject:v86];
+    v110[2] = v82;
+    v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:3];
+    v113[1] = v83;
+    v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:v113 count:2];
+    v115[6] = v84;
+    v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:v114 count:7];
+    v86 = [(WFParameterDefinition *)v89 initWithDictionary:v85];
+    [v99 addObject:v86];
 
-    v73 = v102;
-    v58 = v104;
+    v73 = v101;
+    v58 = v103;
   }
 
-  v87 = *MEMORY[0x1E69E9840];
-
-  return v100;
+  return v99;
 }
 
 id __49__WFContentItemSetterAction_parameterDefinitions__block_invoke(uint64_t a1, void *a2)
@@ -1484,7 +1463,7 @@ id __49__WFContentItemSetterAction_parameterDefinitions__block_invoke(uint64_t a
   v19.receiver = self;
   v19.super_class = WFContentItemSetterAction;
   v7 = [(WFAction *)&v19 setParameterState:state forKey:keyCopy];
-  if (v7 && [keyCopy isEqualToString:@"WFContentItemPropertyName"])
+  if (v7 && objc_msgSend_isEqualToString_(keyCopy))
   {
     [(WFAction *)self outputDetailsUpdated];
     v8 = [(WFAction *)self parameterStateForKey:@"Mode"];
@@ -1522,7 +1501,7 @@ LABEL_8:
     [v17 reloadPossibleStates];
   }
 
-  if (([keyCopy isEqualToString:@"WFContentItemPropertyName"] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"Mode"))
+  if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
   {
     [(WFContentItemSetterAction *)self setPromptForSelectedParameter];
   }
@@ -1532,35 +1511,33 @@ LABEL_8:
 
 - (id)requiredResourceForProperty:(id)property
 {
-  v20[2] = *MEMORY[0x1E69E9840];
-  v19[0] = @"WFContentItemPropertyName";
-  v18[0] = @"WFParameterKey";
-  v18[1] = @"WFParameterValue";
+  v19[2] = *MEMORY[0x1E69E9840];
+  v18[0] = @"WFContentItemPropertyName";
+  v17[0] = @"WFParameterKey";
+  v17[1] = @"WFParameterValue";
   name = [property name];
-  v19[1] = name;
-  v18[2] = @"WFResourceClass";
+  v18[1] = name;
+  v17[2] = @"WFResourceClass";
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v19[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v20[0] = v6;
-  v17[0] = @"Mode";
-  v16[0] = @"WFParameterKey";
-  v16[1] = @"WFParameterValues";
+  v18[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v19[0] = v6;
+  v16[0] = @"Mode";
+  v15[0] = @"WFParameterKey";
+  v15[1] = @"WFParameterValues";
   v7 = *MEMORY[0x1E6997018];
-  v15[0] = *MEMORY[0x1E6997030];
-  v15[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
-  v17[1] = v8;
-  v16[2] = @"WFResourceClass";
+  v14[0] = *MEMORY[0x1E6997030];
+  v14[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v16[1] = v8;
+  v15[2] = @"WFResourceClass";
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v17[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v20[1] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v19[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
 
   return v12;
 }
@@ -1633,10 +1610,9 @@ LABEL_8:
 
 - (id)outputContentClasses
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = [(WFAction *)self contentItemClass];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = [(WFAction *)self contentItemClass];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -1679,65 +1655,65 @@ LABEL_8:
 
 - (id)parameterSummary
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v51 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__}", @"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__}");
-  v50 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__} as ${ValueLabel}", @"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__} as ${ValueLabel}");
-  v49 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput}", @"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput}");
-  v48 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput} as ${ValueLabel}", @"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput} as ${ValueLabel}");
-  v52 = objc_opt_new();
+  v67 = *MEMORY[0x1E69E9840];
+  v50 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__}", @"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__}");
+  v49 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__} as ${ValueLabel}", @"${Mode} ${WFContentItemPropertyName} of ${WFInput} to ${__PARAMETER__} as ${ValueLabel}");
+  v48 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput}", @"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput}");
+  v47 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput} as ${ValueLabel}", @"${Mode} ${WFContentItemPropertyName} ${__PARAMETER__} to ${WFInput} as ${ValueLabel}");
+  v51 = objc_opt_new();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v54 = *MEMORY[0x1E6997018];
+  v53 = *MEMORY[0x1E6997018];
   v3 = *MEMORY[0x1E6997018];
-  v55 = *MEMORY[0x1E6997030];
-  v66[0] = *MEMORY[0x1E6997030];
-  v66[1] = v3;
-  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
-  v46 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
-  if (v46)
+  v54 = *MEMORY[0x1E6997030];
+  v65[0] = *MEMORY[0x1E6997030];
+  v65[1] = v3;
+  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+  v45 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+  if (v45)
   {
-    v45 = *v62;
+    v44 = *v61;
     selfCopy = self;
     do
     {
       v4 = 0;
       do
       {
-        if (*v62 != v45)
+        if (*v61 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v47 = v4;
-        v5 = *(*(&v61 + 1) + 8 * v4);
+        v46 = v4;
+        v5 = *(*(&v60 + 1) + 8 * v4);
+        v56 = 0u;
         v57 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
         properties = [(WFContentItemSetterAction *)self properties];
-        v6 = [properties countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v6 = [properties countByEnumeratingWithState:&v56 objects:v64 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v58;
+          v8 = *v57;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v58 != v8)
+              if (*v57 != v8)
               {
                 objc_enumerationMutation(properties);
               }
 
-              v10 = *(*(&v57 + 1) + 8 * i);
+              v10 = *(*(&v56 + 1) + 8 * i);
               allowedTransactionModes = [v10 allowedTransactionModes];
               v12 = [allowedTransactionModes containsObject:v5];
 
               if (v12)
               {
-                if ([v10 isLabeledValue] && (objc_msgSend(v5, "isEqual:", v54) & 1) != 0 || objc_msgSend(v10, "hasPropertyClass:", objc_opt_class()))
+                if ([v10 isLabeledValue] && (objc_msgSend(v5, "isEqual:", v53) & 1) != 0 || objc_msgSend(v10, "hasPropertyClass:", objc_opt_class()))
                 {
                   v13 = 1;
                   v14 = @",ValueLabel";
@@ -1749,7 +1725,7 @@ LABEL_8:
                   v14 = &stru_1F4A1C408;
                 }
 
-                if ([v5 isEqual:v55])
+                if ([v5 isEqual:v54])
                 {
                   v15 = MEMORY[0x1E696AEC0];
                   v16 = selfCopy;
@@ -1757,13 +1733,13 @@ LABEL_8:
                   v18 = [v15 stringWithFormat:@"Mode(Set), WFContentItemPropertyName, WFInput, %@%@", v17, v14];
 
                   v19 = v13 == 0;
-                  v21 = v50;
-                  v20 = v51;
+                  v21 = v49;
+                  v20 = v50;
                 }
 
                 else
                 {
-                  if (![v5 isEqual:v54])
+                  if (![v5 isEqual:v53])
                   {
                     continue;
                   }
@@ -1774,8 +1750,8 @@ LABEL_8:
                   v18 = [v22 stringWithFormat:@"Mode(Append), WFInput, WFContentItemPropertyName, %@%@", v23, v14];
 
                   v19 = v13 == 0;
-                  v21 = v48;
-                  v20 = v49;
+                  v21 = v47;
+                  v20 = v48;
                 }
 
                 if (v19)
@@ -1793,49 +1769,48 @@ LABEL_8:
                 v27 = [localize stringByReplacingOccurrencesOfString:@"__PARAMETER__" withString:v26];
 
                 v28 = [[WFActionParameterSummaryValue alloc] initWithKey:v18 localizedSummaryString:v27];
-                [v52 addObject:v28];
+                [v51 addObject:v28];
               }
             }
 
-            v7 = [properties countByEnumeratingWithState:&v57 objects:v65 count:16];
+            v7 = [properties countByEnumeratingWithState:&v56 objects:v64 count:16];
           }
 
           while (v7);
         }
 
-        v4 = v47 + 1;
+        v4 = v46 + 1;
         self = selfCopy;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+      while (v46 + 1 != v45);
+      v45 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   v29 = [WFActionParameterSummaryValue alloc];
   v30 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} of ${WFInput}", @"${Mode} ${WFContentItemPropertyName} of ${WFInput}");
   v31 = [(WFActionParameterSummaryValue *)v29 initWithKey:@"Mode summaryString:WFContentItemPropertyName, WFInput", v30];
-  [v52 addObject:v31];
+  [v51 addObject:v31];
 
   v32 = [WFActionParameterSummaryValue alloc];
   v33 = WFLocalizedStringResourceWithKey(@"${Mode} ${RemoveSpecifiedValue} ${WFContentItemPropertyName} from ${WFInput}", @"${Mode} ${RemoveSpecifiedValue} ${WFContentItemPropertyName} from ${WFInput}");
   v34 = [(WFActionParameterSummaryValue *)v32 initWithKey:@"Mode(Remove) summaryString:RemoveSpecifiedValue, WFContentItemPropertyName, WFInput", v33];
-  [v52 addObject:v34];
+  [v51 addObject:v34];
 
   v35 = [WFActionParameterSummaryValue alloc];
   v36 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} from ${WFInput}", @"${Mode} ${WFContentItemPropertyName} from ${WFInput}");
   v37 = [(WFActionParameterSummaryValue *)v35 initWithKey:@"Mode(Remove) summaryString:WFContentItemPropertyName, WFInput", v36];
-  [v52 addObject:v37];
+  [v51 addObject:v37];
 
   v38 = [WFActionParameterSummaryValue alloc];
   v39 = WFLocalizedStringResourceWithKey(@"${Mode} ${WFContentItemPropertyName} from ${WFInput}", @"${Mode} ${WFContentItemPropertyName} from ${WFInput}");
   v40 = [(WFActionParameterSummaryValue *)v38 initWithKey:@"Mode(RemoveAll) summaryString:WFContentItemPropertyName, WFInput", v39];
-  [v52 addObject:v40];
+  [v51 addObject:v40];
 
-  v41 = [[WFActionParameterSummary alloc] initWithValues:v52];
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = [[WFActionParameterSummary alloc] initWithValues:v51];
 
   return v41;
 }

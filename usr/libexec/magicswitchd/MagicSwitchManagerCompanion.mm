@@ -3,6 +3,7 @@
 - (MagicSwitchManagerCompanionDelegate)delegate;
 - (id)inactiveWatches;
 - (void)activeWatchAssertionTimerFired;
+- (void)activeWatchDidChangeWristStateWithPreviousWristState:(unsigned __int8)state;
 - (void)dealloc;
 - (void)didDiscoverInactiveWatch:(id)watch withWristState:(unsigned __int8)state;
 - (void)invalidate;
@@ -313,6 +314,19 @@ LABEL_24:
 
   activeWatchAssertionTimer = self->_activeWatchAssertionTimer;
   self->_activeWatchAssertionTimer = 0;
+
+  [(MagicSwitchManagerCompanion *)self updateState];
+}
+
+- (void)activeWatchDidChangeWristStateWithPreviousWristState:(unsigned __int8)state
+{
+  activeWatchAssertionTimer = self->_activeWatchAssertionTimer;
+  if (activeWatchAssertionTimer)
+  {
+    [(AbstractTimer *)activeWatchAssertionTimer invalidate];
+    v5 = self->_activeWatchAssertionTimer;
+    self->_activeWatchAssertionTimer = 0;
+  }
 
   [(MagicSwitchManagerCompanion *)self updateState];
 }

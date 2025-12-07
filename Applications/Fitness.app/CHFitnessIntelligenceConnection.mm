@@ -12,7 +12,7 @@
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   FitnessIntelligenceConnection.init()();
   (*(v4 + 32))(self + OBJC_IVAR___CHFitnessIntelligenceConnection_bridgedValue, v6, v3);
-  v7 = type metadata accessor for FitnessIntelligenceConnectionBridge();
+  v7 = type metadata accessor for FitnessIntelligenceConnectionBridge(0);
   v9.receiver = self;
   v9.super_class = v7;
   return [(CHFitnessIntelligenceConnection *)&v9 init];

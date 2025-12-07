@@ -172,7 +172,7 @@
 - (id)contentImageWithTitle:(id)title
 {
   titleCopy = title;
-  [(PREditingTitledButton *)self metrics];
+  objc_msgSend_metrics(self);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -356,7 +356,7 @@ LABEL_9:
 
   else
   {
-    [(PREditingTitledButton *)self metrics];
+    objc_msgSend_metrics(self);
     editingTitledButtonTitle = [MEMORY[0x1E69DCAD8] configurationWithPointSize:5 weight:v6];
     v7 = objc_opt_class();
     v8 = objc_opt_class();

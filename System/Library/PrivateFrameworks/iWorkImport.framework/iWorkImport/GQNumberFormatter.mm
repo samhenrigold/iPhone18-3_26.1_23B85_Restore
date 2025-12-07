@@ -2,6 +2,8 @@
 + (id)availableCurrencyCodes;
 + (id)currencySymbolForCurrencyCode:(id)code;
 + (id)currentLocaleCurrencyCode;
++ (id)defaultFormatStringForValueType:(int)type;
++ (id)defaultFormatStringForValueType:(int)type negativeStyle:(int)style;
 + (id)displayNameForCurrencyCode:(id)code;
 + (id)formatString:(id)string transformedForNegativeStyle:(int)style;
 + (id)formatterForLocale:(__CFLocale *)locale;
@@ -209,6 +211,23 @@ LABEL_13:
   v2 = [NSString stringWithFormat:@"0123456789@#.-, E+;'*%%%C%C", 8240, 164];
 
   return [NSCharacterSet characterSetWithCharactersInString:v2];
+}
+
++ (id)defaultFormatStringForValueType:(int)type negativeStyle:(int)style
+{
+  v4 = *&style;
+  v5 = *&type;
+  v6 = [self formatterForLocale:0];
+
+  return [v6 defaultFormatStringForValueType:v5 negativeStyle:v4];
+}
+
++ (id)defaultFormatStringForValueType:(int)type
+{
+  v3 = *&type;
+  v4 = [self formatterForLocale:0];
+
+  return [v4 defaultFormatStringForValueType:v3];
 }
 
 + (id)localizedPercentSymbol

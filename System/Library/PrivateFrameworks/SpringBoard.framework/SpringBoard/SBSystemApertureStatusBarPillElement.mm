@@ -40,14 +40,14 @@
 
     v8 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277D6BC10], *MEMORY[0x277D6BC60], *MEMORY[0x277D6BD08], *MEMORY[0x277D6BC68], *MEMORY[0x277D6BCD8], *MEMORY[0x277D6BCE8], *MEMORY[0x277D6BCE0], @"com.apple.systemstatus.background-activity.CallRecording", 0}];
     v9 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D6BCF8]];
-    if ([v8 containsObject:v5->_representedBackgroundActivityIdentifier])
+    if (objc_msgSend_containsObject_(v8))
     {
       v10 = MEMORY[0x277D67FD0];
     }
 
     else
     {
-      if (![v9 containsObject:v5->_representedBackgroundActivityIdentifier])
+      if (!objc_msgSend_containsObject_(v9))
       {
         v13 = MEMORY[0x277CCACA8];
         v14 = objc_opt_class();
@@ -190,7 +190,7 @@ LABEL_13:
 {
   idCopy = id;
   representedBackgroundActivityIdentifiers = [(SBSystemApertureStatusBarPillElement *)self representedBackgroundActivityIdentifiers];
-  v7 = ([representedBackgroundActivityIdentifiers containsObject:*MEMORY[0x277D6BCA8]] & 1) == 0 && -[SBSystemApertureStatusBarPillElement _isAssociatedWithApplicationWithBundleIdentifier:](self, "_isAssociatedWithApplicationWithBundleIdentifier:", idCopy);
+  v7 = (objc_msgSend_containsObject_(representedBackgroundActivityIdentifiers) & 1) == 0 && [(SBSystemApertureStatusBarPillElement *)self _isAssociatedWithApplicationWithBundleIdentifier:idCopy];
 
   return v7;
 }

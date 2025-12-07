@@ -19,7 +19,6 @@
   userInfoValues = @"recognition action not implemented";
   userInfoKeys[0] = v3;
   v4 = CFErrorCreateWithUserInfoKeysAndValues(v2, @"VSErrorDomain", -4009, userInfoKeys, &userInfoValues, 1);
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

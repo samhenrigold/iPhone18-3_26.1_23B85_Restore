@@ -63,7 +63,7 @@ uint64_t __64__HKHRBloodPressureJournal_HKHRTestingSupport__hkhr_defaultDate__bl
 
 + (id)hkhr_defaultTimeIntervals
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = [@"8:00" componentsSeparatedByString:@":"];
   v3 = [@"22:00" componentsSeparatedByString:@":"];
   if ([v2 count] != 2)
@@ -94,18 +94,16 @@ uint64_t __64__HKHRBloodPressureJournal_HKHRTestingSupport__hkhr_defaultDate__bl
 
   [v8 setSecond:0];
   v11 = [[HKHRBloodPressureJournalScheduleTimeInterval alloc] initWithDayWindowType:1 scheduledTime:v8];
-  v15[0] = v7;
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = v7;
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   return v12;
 }
 
 + (id)hkhr_timeIntervalsWithWake:(id)wake bed:(id)bed
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   bedCopy = bed;
   v6 = [wake componentsSeparatedByString:@":"];
   v7 = [bedCopy componentsSeparatedByString:@":"];
@@ -138,11 +136,9 @@ uint64_t __64__HKHRBloodPressureJournal_HKHRTestingSupport__hkhr_defaultDate__bl
 
   [v12 setSecond:0];
   v15 = [[HKHRBloodPressureJournalScheduleTimeInterval alloc] initWithDayWindowType:1 scheduledTime:v12];
-  v19[0] = v11;
-  v19[1] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[0] = v11;
+  v18[1] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
 
   return v16;
 }
@@ -408,26 +404,26 @@ LABEL_23:
 
 - (id)wakeupTimeInterval
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   timeIntervals = [(HKHRBloodPressureJournal *)self timeIntervals];
-  v3 = [timeIntervals countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [timeIntervals countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(timeIntervals);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if (![v6 dayWindowType])
         {
           v3 = v6;
@@ -435,7 +431,7 @@ LABEL_23:
         }
       }
 
-      v3 = [timeIntervals countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [timeIntervals countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -447,33 +443,31 @@ LABEL_23:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)bedtimeTimeInterval
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   timeIntervals = [(HKHRBloodPressureJournal *)self timeIntervals];
-  v3 = [timeIntervals countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [timeIntervals countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(timeIntervals);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 dayWindowType] == 1)
         {
           v3 = v6;
@@ -481,7 +475,7 @@ LABEL_11:
         }
       }
 
-      v3 = [timeIntervals countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [timeIntervals countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -492,8 +486,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

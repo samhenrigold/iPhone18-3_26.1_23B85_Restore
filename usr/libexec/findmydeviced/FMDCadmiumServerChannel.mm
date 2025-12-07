@@ -173,31 +173,32 @@
   protectionSpace = [challengeCopy protectionSpace];
   host = [protectionSpace host];
 
-  if (([host isEqualToString:@"gateway.icloud.com"] & 1) != 0 || v10)
+  v13 = [host isEqualToString:@"gateway.icloud.com"];
+  if ((v13 & 1) != 0 || v10)
   {
     handlerCopy[2](handlerCopy, 1, 0);
   }
 
   else
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Detecting authentication method", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Detecting authentication method", buf, 2u);
     }
 
     protectionSpace2 = [challengeCopy protectionSpace];
     authenticationMethod = [protectionSpace2 authenticationMethod];
-    v16 = [authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+    v17 = [authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 
-    if (v16)
+    if (v17)
     {
-      v17 = sub_100002880();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100002880(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Setting server trust policy", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Setting server trust policy", buf, 2u);
       }
 
       host2 = [protectionSpace2 host];
@@ -206,120 +207,122 @@
       if (AppleFMiPService)
       {
         serverTrust = [protectionSpace2 serverTrust];
-        v21 = SecTrustSetPolicies(serverTrust, AppleFMiPService);
+        v23 = SecTrustSetPolicies(serverTrust, AppleFMiPService);
         CFRelease(AppleFMiPService);
-        if (v21)
+        if (v23)
         {
-          v22 = sub_100002880();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v25 = sub_100002880(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            *&buf[4] = v21;
-            _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Error setting the trust policies : %ld", buf, 0xCu);
+            *&buf[4] = v23;
+            _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Error setting the trust policies : %ld", buf, 0xCu);
           }
 
-          v36 = @"FMDUnerlyingErrorKey";
-          v23 = [NSError errorWithDomain:@"SecTrustSetPolicies" code:v21 userInfo:0];
-          v37 = v23;
-          v24 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-          v25 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:0 userInfo:v24];
+          v40 = @"FMDUnerlyingErrorKey";
+          v26 = [NSError errorWithDomain:@"SecTrustSetPolicies" code:v23 userInfo:0];
+          v41 = v26;
+          v27 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+          v28 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:0 userInfo:v27];
 
-          v26 = 0;
-          v27 = 2;
+          v29 = 0;
+          v30 = 2;
         }
 
         else
         {
           *buf = 0;
-          if (SecTrustEvaluateWithError(serverTrust, buf))
+          v33 = SecTrustEvaluateWithError(serverTrust, buf);
+          if (v33)
           {
-            v26 = [NSURLCredential credentialForTrust:serverTrust];
-            v30 = sub_100002880();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v29 = [NSURLCredential credentialForTrust:serverTrust];
+            v34 = sub_100002880(v29);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
-              *v33 = 0;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Pinning success - presenting fmip trust as credential.", v33, 2u);
+              *v37 = 0;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "FMDCadmiumServerChannel Pinning success - presenting fmip trust as credential.", v37, 2u);
             }
 
-            v25 = 0;
-            v27 = 0;
+            v28 = 0;
+            v30 = 0;
           }
 
           else
           {
-            v31 = sub_100002880();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v35 = sub_100002880(v33);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              sub_10022A134(v31);
+              sub_10022A134(v35);
             }
 
-            v39 = @"FMDUnerlyingErrorKey";
-            v30 = [NSError errorWithDomain:@"SecTrustEvaluate" code:1 userInfo:0];
-            v40 = v30;
-            v32 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-            v25 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:1 userInfo:v32];
+            v43 = @"FMDUnerlyingErrorKey";
+            v34 = [NSError errorWithDomain:@"SecTrustEvaluate" code:1 userInfo:0];
+            v44 = v34;
+            v36 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+            v28 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:1 userInfo:v36];
 
-            v26 = 0;
-            v27 = 2;
+            v29 = 0;
+            v30 = 2;
           }
         }
       }
 
       else
       {
-        v34 = @"FMDUnerlyingErrorKey";
-        v28 = [NSError errorWithDomain:@"SecPolicyCreateAppleFMiPService" code:0 userInfo:0];
-        v35 = v28;
-        v29 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        v27 = 2;
-        v25 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:2 userInfo:v29];
+        v38 = @"FMDUnerlyingErrorKey";
+        v31 = [NSError errorWithDomain:@"SecPolicyCreateAppleFMiPService" code:0 userInfo:0];
+        v39 = v31;
+        v32 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v30 = 2;
+        v28 = [NSError errorWithDomain:@"FMDCadmiumServerChannelPinningErrorDomain" code:2 userInfo:v32];
 
-        v26 = 0;
+        v29 = 0;
       }
 
-      [(FMDCadmiumServerChannel *)self _logRequestError:v25];
+      [(FMDCadmiumServerChannel *)self _logRequestError:v28];
     }
 
     else
     {
-      v26 = 0;
-      v27 = 1;
+      v29 = 0;
+      v30 = 1;
     }
 
-    (handlerCopy)[2](handlerCopy, v27, v26);
+    (handlerCopy)[2](handlerCopy, v30, v29);
   }
 }
 
 - (void)_logRequestError:(id)error
 {
   errorCopy = error;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(errorCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Network error occured %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Network error occured %@", &v11, 0xCu);
     }
 
-    v5 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:@"FMDCadmiumServerChannelRequestFailedEventName"];
-    userInfo = [errorCopy userInfo];
-    v7 = [userInfo objectForKeyedSubscript:@"FMDUnerlyingErrorKey"];
+    v6 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:@"FMDCadmiumServerChannelRequestFailedEventName"];
+    userInfo = [v4 userInfo];
+    v8 = [userInfo objectForKeyedSubscript:@"FMDUnerlyingErrorKey"];
 
-    if (v7)
+    if (v8)
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = errorCopy;
+      v9 = v4;
     }
 
-    [(FMDEventLoggerEventDataPeekError *)v5 setError:v8];
-    v9 = +[FMDEventLogger sharedLogger];
-    [v9 logEvent:v5];
+    [(FMDEventLoggerEventDataPeekError *)v6 setError:v9];
+    v10 = +[FMDEventLogger sharedLogger];
+    [v10 logEvent:v6];
   }
 }
 

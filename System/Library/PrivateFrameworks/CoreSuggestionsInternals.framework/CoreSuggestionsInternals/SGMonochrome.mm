@@ -21,7 +21,7 @@
   }
 
   v10 = [stringByExtractingPlainTextFromHTML_tableDelimiters_stripLinks__htmlNodeRegex matchesInString:v8 options:0 range:{0, objc_msgSend(v8, "length")}];
-  if (![v10 count] || objc_msgSend(v10, "count") >= 2)
+  if (!objc_msgSend_count(v10) || objc_msgSend_count(v10) >= 2)
   {
     v11 = objc_autoreleasePoolPush();
     v12 = [@"<html>" stringByAppendingString:v8];
@@ -161,9 +161,11 @@ LABEL_27:
 
 uint64_t __79__SGMonochrome_stringByExtractingPlainTextFromHTML_tableDelimiters_stripLinks___block_invoke()
 {
-  stringByExtractingPlainTextFromHTML_tableDelimiters_stripLinks__htmlNodeRegex = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"<html.*?>" options:1 error:0];
+  v0 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"<html.*?>" options:1 error:0];
+  v1 = stringByExtractingPlainTextFromHTML_tableDelimiters_stripLinks__htmlNodeRegex;
+  stringByExtractingPlainTextFromHTML_tableDelimiters_stripLinks__htmlNodeRegex = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

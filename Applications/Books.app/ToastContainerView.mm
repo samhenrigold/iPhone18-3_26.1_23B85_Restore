@@ -12,7 +12,7 @@
   isa = [v2 interactions];
   if (!isa)
   {
-    sub_1001F1160(&qword_100ADAF30);
+    sub_1001F1160(&qword_100ADAF30, &unk_100826090);
     sub_1007A25E4();
     isa = sub_1007A25D4().super.isa;
   }

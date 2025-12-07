@@ -29,15 +29,15 @@
 
 - (unint64_t)computeFlagsForInput:(id)input
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   if ([inputCopy isFromMe])
   {
-    v28[3] |= 0x8004uLL;
+    v27[3] |= 0x8004uLL;
     chat = [inputCopy chat];
     if ([chat style] == 45)
     {
@@ -54,7 +54,7 @@
       }
     }
 
-    v28[3] |= 0x1000uLL;
+    v27[3] |= 0x1000uLL;
   }
 
 LABEL_6:
@@ -67,20 +67,20 @@ LABEL_6:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v32 = gUID;
+        v31 = gUID;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Message guid was in readReceiptsForMissingMessage cache: %@", buf, 0xCu);
       }
     }
 
-    v10 = v28;
-    v11 = v28[3] | 0x2000;
-    v28[3] = v11;
+    v10 = v27;
+    v11 = v27[3] | 0x2000;
+    v27[3] = v11;
   }
 
   else
   {
-    v10 = v28;
-    v11 = v28[3];
+    v10 = v27;
+    v11 = v27[3];
   }
 
   v10[3] = v11 | 1;
@@ -89,51 +89,50 @@ LABEL_6:
 
   richBody2 = [inputCopy richBody];
   v15 = *MEMORY[0x277D19F28];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = sub_22B656BB0;
-  v24 = &unk_278707128;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = sub_22B656BB0;
+  v23 = &unk_278707128;
   v16 = inputCopy;
-  v25 = v16;
-  v26 = &v27;
-  [richBody2 enumerateAttribute:v15 inRange:0 options:v13 usingBlock:{0, &v21}];
+  v24 = v16;
+  v25 = &v26;
+  [richBody2 enumerateAttribute:v15 inRange:0 options:v13 usingBlock:{0, &v20}];
 
   if ([v16 isExpirable])
   {
-    v28[3] |= 0x1000000uLL;
+    v27[3] |= 0x1000000uLL;
   }
 
   if ([v16 isAutoReply])
   {
-    v28[3] |= 0x40uLL;
+    v27[3] |= 0x40uLL;
   }
 
   if ([v16 wasDetonated])
   {
-    v28[3] |= 0x1000000000uLL;
+    v27[3] |= 0x1000000000uLL;
   }
 
   if ([v16 isSOS])
   {
-    v28[3] |= 0x8000000000uLL;
+    v27[3] |= 0x8000000000uLL;
   }
 
   isCritical = [v16 isCritical];
-  v18 = v28[3];
+  v18 = v27[3];
   if (isCritical)
   {
     v18 |= 0x4000000000uLL;
-    v28[3] = v18;
+    v27[3] = v18;
   }
 
-  _Block_object_dispose(&v27, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
   return v18;
 }
 
 - (id)createMessageItemWithInput:(id)input
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   richBody = [inputCopy richBody];
   v5 = [(IMTextMessageProcessingPipelineComponent *)self computeFlagsForInput:inputCopy];
@@ -175,7 +174,7 @@ LABEL_6:
     {
       guid = [v15 guid];
       *buf = 138412290;
-      v33 = guid;
+      v32 = guid;
       _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "createMessageItemWithInput created a detonated message for guid: %@", buf, 0xCu);
     }
   }
@@ -196,8 +195,6 @@ LABEL_6:
       [chat2 addBIAContextWithUserID:_stripFZIDPrefix2 referenceID:biaReferenceID2];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -383,7 +380,7 @@ LABEL_21:
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -393,9 +390,9 @@ LABEL_21:
       v6 = objc_opt_class();
       gUID = [inputCopy GUID];
       *buf = 138412546;
-      v37 = v6;
-      v38 = 2112;
-      v39 = gUID;
+      v36 = v6;
+      v37 = 2112;
+      v38 = gUID;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<%@> Started processing for Message GUID: %@", buf, 0x16u);
     }
   }
@@ -472,8 +469,8 @@ LABEL_27:
 LABEL_26:
     firstObject = [(IMTextMessageProcessingPipelineComponent *)self createMessageItemWithInput:inputCopy];
     [(IMTextMessageProcessingPipelineComponent *)self _configureAccountForMessageItem:firstObject input:inputCopy];
-    v35 = firstObject;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+    v34 = firstObject;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
     [inputCopy setMessageItems:v32];
 
     v30 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
@@ -488,9 +485,9 @@ LABEL_26:
       associatedMessageGUID4 = [inputCopy associatedMessageGUID];
       gUID3 = [inputCopy GUID];
       *buf = 138412546;
-      v37 = associatedMessageGUID4;
-      v38 = 2112;
-      v39 = gUID3;
+      v36 = associatedMessageGUID4;
+      v37 = 2112;
+      v38 = gUID3;
       _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "<IMTextMessageProcessingPipelineComponent> Found associated GUID %@ for %@. Cross Service Association message has already binded this message to an IML. Dropping.", buf, 0x16u);
     }
   }
@@ -500,7 +497,6 @@ LABEL_26:
   v27 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v26];
 
 LABEL_28:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

@@ -69,7 +69,7 @@
 
 + (id)sha1HmacForString:(id)string key:(id)key
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!key)
   {
     +[MBDigest sha1HmacForString:key:];
@@ -80,9 +80,7 @@
   [string UTF8String];
   [string lengthOfBytesUsingEncoding:4];
   CCHmacOneShot();
-  result = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:20];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DEF0] dataWithBytes:v7 length:20];
 }
 
 - (id)digestForData:(id)data

@@ -2,6 +2,7 @@
 - (BOOL)isHotspotFirstEngaged;
 - (BOOL)shouldEnforceLightThermalPressure;
 - (BOOL)shouldForceThermalLevelForThreshold:(int)threshold;
+- (SupervisorControl)initWithMitigationType:(int)type paramInfo:(__CFDictionary *)info;
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
 - (int)computePackageCEforSeedingSource:(unsigned __int8)source;
@@ -10,6 +11,7 @@
 - (unsigned)chooseEffectiveSeedingSource;
 - (unsigned)seedControlEffort;
 - (void)applyAlternateTarget:(BOOL)target;
+- (void)calculateControlEffort:(float)effort trigger:(float)trigger;
 - (void)dealloc;
 - (void)overrideTargetTemperature:(float)temperature;
 - (void)resetTargetTemperature;
@@ -18,6 +20,57 @@
 @end
 
 @implementation SupervisorControl
+
+- (SupervisorControl)initWithMitigationType:(int)type paramInfo:(__CFDictionary *)info
+{
+  v5 = *&type;
+  v11.receiver = self;
+  v11.super_class = SupervisorControl;
+  v6 = [(PidComponent *)&v11 initPIDWith:info];
+  v7 = v6;
+  if (v6)
+  {
+    *(v6 + 92) = -COERCE_DOUBLE(0x8000000080000000);
+    v6[13] = -COERCE_DOUBLE(0x8000000080000000);
+    *(v6 + 100) = 0;
+    *(v6 + 112) = 0;
+    *(v6 + 116) = -COERCE_DOUBLE(0x8000000080000000);
+    *(v6 + 124) = 0;
+    *(v6 + 17) = 0;
+    *(v6 + 128) = 0;
+    *(v6 + 11) = v5;
+    *(v6 + 22) = 0;
+    *(v6 + 21) = 1077936128;
+    *(v6 + 19) = -1082130432;
+    *(v6 + 20) = -1082130432;
+    v6[19] = 0.0;
+    *(v6 + 160) = 0;
+    *(v6 + 37) = -1082130432;
+    v8 = kCFAllocatorDefault;
+    if (info)
+    {
+      Value = CFDictionaryGetValue(info, @"description");
+      *(v7 + 6) = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d %@ ", v5, Value);
+      sub_100002A20(info, @"THERMAL_TRAP_LOAD", kCFNumberFloatType, v7 + 76);
+      sub_100002A20(info, @"THERMAL_TRAP_SLEEP", kCFNumberFloatType, v7 + 10);
+      sub_100002A20(info, @"ReleaseHysteresis", kCFNumberFloatType, v7 + 84);
+      sub_100002A20(info, @"ForcedThermalLevelTarget0", kCFNumberFloatType, v7 + 92);
+      sub_100002A20(info, @"ForcedThermalLevelTarget0Hysteresis", kCFNumberFloatType, v7 + 12);
+      sub_100002A20(info, @"ForcedThermalLevelTarget1", kCFNumberFloatType, v7 + 13);
+      sub_100002A20(info, @"ForcedThermalLevelTarget1Hysteresis", kCFNumberFloatType, v7 + 108);
+      sub_100002A20(info, @"ForcedThermalPressureLevelLightTarget", kCFNumberFloatType, v7 + 116);
+      sub_100002A20(info, @"ForcedThermalPressureLevelLightHysteresis", kCFNumberFloatType, v7 + 15);
+      sub_100002A20(info, @"seedingSource", kCFNumberIntType, v7 + 20);
+      sub_100002A20(info, @"alternateTarget", kCFNumberFloatType, v7 + 148);
+      v8 = kCFAllocatorDefault;
+    }
+
+    *(v7 + 17) = CFStringCreateWithFormat(v8, 0, @"CE%d", v5);
+    *(v7 + 36) = *(v7 + 9);
+  }
+
+  return v7;
+}
 
 - (void)setDecisionTableSection:(id)section
 {
@@ -151,6 +204,40 @@ LABEL_24:
   }
 
   self->forcedThermalPressureLevelLight.isTriggered = TARGET < status;
+}
+
+- (void)calculateControlEffort:(float)effort trigger:(float)trigger
+{
+  *&v7 = trigger;
+  [(SupervisorControl *)self updateHotSpotTemperatureAndStatus:v7];
+  if ([(SupervisorControl *)self isHotspotFirstEngaged]&& self->seedingSource)
+  {
+    seedControlEffort = [(SupervisorControl *)self seedControlEffort];
+    *&v9 = trigger;
+    [(PidComponent *)self applySeedToIntegratorFromControlEffort:seedControlEffort currentTemperature:v9];
+    self->super.controlEffort = seedControlEffort;
+    return;
+  }
+
+  v10 = vabds_f32(effort, trigger);
+  if (v10 < 0.01)
+  {
+    selfCopy = self;
+    v15 = SupervisorControl;
+    v11 = &selfCopy;
+LABEL_9:
+    *&v10 = effort;
+    objc_msgSendSuper2(v11, "calculateControlEffort:", v10, selfCopy2, v13, selfCopy, v15);
+    return;
+  }
+
+  if (self->forcedThermalPressureLevelLight.isTriggered || ![(PidComponent *)self isIntegratorAtMin])
+  {
+    selfCopy2 = self;
+    v13 = SupervisorControl;
+    v11 = &selfCopy2;
+    goto LABEL_9;
+  }
 }
 
 - (unsigned)seedControlEffort

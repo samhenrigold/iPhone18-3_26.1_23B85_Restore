@@ -10,15 +10,16 @@
 + (id)recordForExtensionBundleId:(id)id
 {
   idCopy = id;
-  v8 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:idCopy error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:idCopy error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXApplicationExtensionRecord *)idCopy recordForExtensionBundleId:v5, v6];
+      [(ATXApplicationExtensionRecord *)idCopy recordForExtensionBundleId:v6, v7];
     }
 
 LABEL_4:
@@ -28,10 +29,10 @@ LABEL_4:
 
   if (!v4)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXApplicationRecord *)idCopy recordForBundleId:v6];
+      [(ATXApplicationRecord *)idCopy recordForBundleId:v7];
     }
 
     goto LABEL_4;

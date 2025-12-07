@@ -58,7 +58,7 @@ void sub_25BA27A28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -70,11 +70,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::destroy(uint64_t a1, char *a2)
@@ -92,18 +92,18 @@ void std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_va
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -114,7 +114,7 @@ void *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_v
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -132,8 +132,8 @@ void *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_v
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -149,7 +149,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -175,12 +175,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -194,22 +194,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -243,13 +243,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -291,7 +291,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -422,13 +422,13 @@ uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_val
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>();
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>(v5);
   }
 
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_leaf_high(uint64_t a1, void *a2, void *a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_leaf_high(uint64_t a1, void *a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -539,9 +539,9 @@ uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value
   return a1;
 }
 
-void sub_25BA28280(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25BA28280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -659,18 +659,18 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t nws_log_obj()
+uint64_t nws_log_obj(uint64_t a1, uint64_t a2)
 {
   if (nws_log_obj_g_init != -1)
   {
@@ -687,7 +687,7 @@ os_log_t __nws_log_obj_block_invoke()
   return result;
 }
 
-uint64_t nws_algos_log_obj()
+uint64_t nws_algos_log_obj(uint64_t a1, uint64_t a2)
 {
   if (nws_algos_log_obj_g_init != -1)
   {
@@ -728,7 +728,7 @@ void sub_25BA28980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25BA29240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, char a11)
+void sub_25BA29240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, char a11)
 {
   a10 = &a11;
   std::vector<AlgosScoreCombinerFrameRow>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -736,7 +736,7 @@ void sub_25BA29240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-double amean(const AlgosScoreCombinerFrameRow **a1)
+double amean(const std::string **a1)
 {
   v1 = *a1;
   v2 = a1[1];
@@ -769,7 +769,7 @@ double amean(const AlgosScoreCombinerFrameRow **a1)
   return v4;
 }
 
-double stddev(const AlgosScoreCombinerFrameRow **a1)
+double stddev(const std::string **a1)
 {
   if ((a1[1] - *a1) > 0x40)
   {
@@ -825,16 +825,16 @@ double stddev(const AlgosScoreCombinerFrameRow **a1)
   }
 }
 
-uint64_t std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<AlgosScoreCombinerFrameRow>(uint64_t a1, const AlgosScoreCombinerFrameRow *a2)
+uint64_t std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<AlgosScoreCombinerFrameRow>(AlgosScoreCombinerFrameRow **a1, const std::string *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 6;
+  v2 = (a1[1] - *a1) >> 6;
   v3 = v2 + 1;
   if ((v2 + 1) >> 58)
   {
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 5 > v3)
   {
     v3 = v6 >> 5;
@@ -860,14 +860,14 @@ uint64_t std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<Algos
   v15 = (v2 << 6);
   AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow((v2 << 6), a2);
   v16 = ((v2 << 6) + 64);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = ((v2 << 6) + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AlgosScoreCombinerFrameRow>,AlgosScoreCombinerFrameRow*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -876,9 +876,9 @@ uint64_t std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<Algos
   return v13;
 }
 
-void sub_25BA2954C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25BA2954C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AlgosScoreCombinerFrameRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -912,7 +912,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AlgosS
     while (v6 != a3)
     {
       std::__destroy_at[abi:ne200100]<std::pair<std::string,std::string>,0>(v6);
-      v6 += 64;
+      v6 = (v6 + 64);
     }
   }
 }
@@ -952,7 +952,7 @@ uint64_t std::__split_buffer<AlgosScoreCombinerFrameRow>::~__split_buffer(uint64
   return a1;
 }
 
-uint64_t std::vector<AlgosScoreCombinerFrameRow>::__init_with_size[abi:ne200100]<AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<AlgosScoreCombinerFrameRow>::__init_with_size[abi:ne200100]<AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -962,14 +962,14 @@ uint64_t std::vector<AlgosScoreCombinerFrameRow>::__init_with_size[abi:ne200100]
   return result;
 }
 
-void sub_25BA2971C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_25BA2971C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<AlgosScoreCombinerFrameRow>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<AlgosScoreCombinerFrameRow>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<AlgosScoreCombinerFrameRow>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -979,7 +979,7 @@ void std::vector<AlgosScoreCombinerFrameRow>::__vallocate[abi:ne200100](uint64_t
   std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
 }
 
-AlgosScoreCombinerFrameRow *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<AlgosScoreCombinerFrameRow>,AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(uint64_t a1, const AlgosScoreCombinerFrameRow *a2, const AlgosScoreCombinerFrameRow *a3, AlgosScoreCombinerFrameRow *a4)
+AlgosScoreCombinerFrameRow *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<AlgosScoreCombinerFrameRow>,AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(uint64_t a1, const std::string *a2, const std::string *a3, AlgosScoreCombinerFrameRow *a4)
 {
   if (a2 != a3)
   {
@@ -1043,12 +1043,12 @@ void std::vector<AlgosScoreCombinerFrameRow>::__destroy_vector::operator()[abi:n
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,false>(std::string *a1, std::string *a2, uint64_t (**a3)(std::string *, const AlgosScoreCombinerFrameRow *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,false>(std::string *result, std::string *a2, uint64_t (**a3)(const AlgosScoreCombinerFrameRow *, const AlgosScoreCombinerFrameRow *), uint64_t a4, char a5)
 {
   v7 = a2;
-  v8 = a1;
+  v8 = result;
   v46 = a2;
-  v47 = a1;
+  v47 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
@@ -1064,7 +1064,7 @@ LABEL_2:
       {
         v43 = *a3;
         v46 = (v7 - 64);
-        if ((v43)(v7 - 64))
+        if ((v43)(&v7[-3].__r_.__value_.__r.__words[1]))
         {
           v42 = &v47;
           v45 = &v46;
@@ -1094,17 +1094,17 @@ LABEL_2:
       v46 = (v7 - 64);
       v51 = (v8 + 64);
       v52.__r_.__value_.__r.__words[0] = v8;
-      v49 = (v8 + 192);
+      v49 = v8 + 8;
       v50 = (v8 + 128);
       v48 = (v7 - 64);
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(v8, (v8 + 64), (v8 + 128), v8 + 8, a3);
-      if ((*a3)((v7 - 64), (v8 + 192)))
+      if ((*a3)(&v7[-3].__r_.__value_.__r.__words[1], &v8[8]))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCombinerFrameRow *&,AlgosScoreCombinerFrameRow *&>(&v49, &v48);
-        if ((*a3)(v49, (v8 + 128)))
+        if ((*a3)(v49, &v8[5].__r_.__value_.__r.__words[1]))
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCombinerFrameRow *&,AlgosScoreCombinerFrameRow *&>(&v50, &v49);
-          if ((*a3)(v50, (v8 + 64)))
+          if ((*a3)(v50, &v8[2].__r_.__value_.__r.__words[2]))
           {
             std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCombinerFrameRow *&,AlgosScoreCombinerFrameRow *&>(&v51, &v50);
             v38 = (*a3)(v51, v8);
@@ -1126,7 +1126,7 @@ LABEL_10:
 
       else
       {
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(v8, v7, a3);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(&v8->__r_.__value_.__l.__data_, &v7->__r_.__value_.__l.__data_, a3);
       }
 
       return;
@@ -1237,7 +1237,7 @@ LABEL_29:
     v52.__r_.__value_.__r.__words[0] = &v47[2].__r_.__value_.__r.__words[2];
     v50 = (v46 - 128);
     v23 = (*a3)(v22 - 64);
-    v24 = (*a3)((v46 - 128), (v22 - 64));
+    v24 = (*a3)(&v46[-6].__r_.__value_.__r.__words[2], (v22 - 64));
     if (v23)
     {
       if (v24)
@@ -1277,7 +1277,7 @@ LABEL_45:
     v52.__r_.__value_.__r.__words[0] = &v47[5].__r_.__value_.__l.__size_;
     v50 = v46 - 8;
     v27 = (*a3)(v22 + 64);
-    v28 = (*a3)(v46 - 8, (v22 + 64));
+    v28 = (*a3)(&v46[-8], (v22 + 64));
     if (v27)
     {
       if (v28)
@@ -1379,7 +1379,7 @@ LABEL_69:
 
 LABEL_71:
     v7 = v46;
-    if (((*a3)((v8 - 64), v8) & 1) == 0)
+    if (((*a3)(&v8[-3].__r_.__value_.__r.__words[1], v8) & 1) == 0)
     {
       v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,AlgosScoreCombinerFrameRow *,BOOL (*&)(AlgosScoreCombinerFrameRow&,AlgosScoreCombinerFrameRow&)>(v8, v46, a3);
       goto LABEL_81;
@@ -1410,7 +1410,7 @@ LABEL_72:
       {
 LABEL_79:
         std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,false>(v8, v35, a3, -i, a5 & 1);
-        v8 = &v35[2].__r_.__value_.__r.__words[2];
+        v8 = (v35 + 64);
 LABEL_81:
         a5 = 0;
         v47 = v8;
@@ -1419,17 +1419,17 @@ LABEL_81:
       }
 
       v47 = (v35 + 64);
-      v8 = &v35[2].__r_.__value_.__r.__words[2];
+      v8 = (v35 + 64);
     }
   }
 
-  v39 = (v8 + 64);
+  v39 = &v8[2].__r_.__value_.__r.__words[2];
   v46 = (v7 - 64);
   v51 = (v8 + 64);
   v52.__r_.__value_.__r.__words[0] = v8;
   v50 = (v7 - 64);
-  v40 = (*a3)((v8 + 64), v8);
-  v41 = (*a3)((v7 - 64), v39);
+  v40 = (*a3)(&v8[2].__r_.__value_.__r.__words[2], v8);
+  v41 = (*a3)(&v7[-3].__r_.__value_.__r.__words[1], v39);
   if (v40)
   {
     if (v41)
@@ -1467,14 +1467,14 @@ LABEL_104:
   }
 }
 
-void sub_25BA29F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25BA29F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::pair<std::string,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCombinerFrameRow *&,AlgosScoreCombinerFrameRow *&>(const AlgosScoreCombinerFrameRow **a1, std::string **a2)
+void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCombinerFrameRow *&,AlgosScoreCombinerFrameRow *&>(std::string **a1, std::string **a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -1492,7 +1492,7 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AlgosScoreCo
   }
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(const AlgosScoreCombinerFrameRow *a1, std::string *a2, std::string *a3, std::string *a4, uint64_t (**a5)(std::string *, const AlgosScoreCombinerFrameRow *))
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(std::string *a1, std::string *a2, std::string *a3, std::string *a4, uint64_t (**a5)(const AlgosScoreCombinerFrameRow *, const AlgosScoreCombinerFrameRow *))
 {
   v16 = a2;
   v17 = a1;
@@ -1547,12 +1547,12 @@ LABEL_10:
   }
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(const AlgosScoreCombinerFrameRow *a1, const AlgosScoreCombinerFrameRow *a2, uint64_t (**a3)(std::string *, uint64_t))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(std::string *a1, std::string::size_type *a2, uint64_t (**a3)(void **, uint64_t))
 {
   if (a1 != a2)
   {
-    v5 = (a1 + 64);
-    if ((a1 + 64) != a2)
+    v5 = &a1[2].__r_.__value_.__r.__words[2];
+    if (&a1[2].__r_.__value_.__r.__words[2] != a2)
     {
       v7 = 0;
       v8 = a1;
@@ -1572,7 +1572,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosS
               break;
             }
 
-            v11 = (*a3)(&v13, a1 + v10 - 64);
+            v11 = (*a3)(&v13.__r_.__value_.__l.__data_, &a1[-2] + v10 - 16);
             v10 -= 64;
             if ((v11 & 1) == 0)
             {
@@ -1595,22 +1595,22 @@ LABEL_10:
           }
         }
 
-        v5 = (v8 + 64);
+        v5 = &v8[2].__r_.__value_.__r.__words[2];
         v7 += 64;
       }
 
-      while ((v8 + 64) != a2);
+      while (&v8[2].__r_.__value_.__r.__words[2] != a2);
     }
   }
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(uint64_t a1, const AlgosScoreCombinerFrameRow *a2, uint64_t (**a3)(std::string *, const AlgosScoreCombinerFrameRow *))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(void **a1, void **a2, uint64_t (**a3)(void **, const AlgosScoreCombinerFrameRow *))
 {
   if (a1 != a2)
   {
     v4 = a1;
-    v5 = (a1 + 64);
-    if ((a1 + 64) != a2)
+    v5 = a1 + 8;
+    if (a1 + 8 != a2)
     {
       do
       {
@@ -1621,10 +1621,10 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
           do
           {
             AlgosScoreCombinerFrameRow::operator=((v4 + 64), v4);
-            v4 = (v4 - 64);
+            v4 -= 64;
           }
 
-          while (((*a3)(&v8, v4) & 1) != 0);
+          while (((*a3)(&v8.__r_.__value_.__l.__data_, v4) & 1) != 0);
           AlgosScoreCombinerFrameRow::operator=((v4 + 64), &v8);
           if (v10 < 0)
           {
@@ -1637,21 +1637,21 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
           }
         }
 
-        v5 = (v7 + 64);
+        v5 = &v7[2].__r_.__value_.__r.__words[2];
         v4 = v7;
       }
 
-      while ((v7 + 64) != a2);
+      while (&v7[2].__r_.__value_.__r.__words[2] != a2);
     }
   }
 }
 
-const AlgosScoreCombinerFrameRow *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,AlgosScoreCombinerFrameRow *,BOOL (*&)(AlgosScoreCombinerFrameRow&,AlgosScoreCombinerFrameRow&)>(const AlgosScoreCombinerFrameRow *a1, std::string *a2, unsigned int (**a3)(std::string *))
+std::string *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,AlgosScoreCombinerFrameRow *,BOOL (*&)(AlgosScoreCombinerFrameRow&,AlgosScoreCombinerFrameRow&)>(std::string *a1, std::string *a2, uint64_t (**a3)(std::string *, std::string *))
 {
   v15 = a2;
   v16 = a1;
   AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(&v12, a1);
-  if ((*a3)(&v12, &a2[-3].__r_.__value_.__l.__size_))
+  if ((*a3)(&v12, (a2 - 64)))
   {
     v6 = a1;
     do
@@ -1718,7 +1718,7 @@ const AlgosScoreCombinerFrameRow *std::__partition_with_equals_on_left[abi:ne200
     while (v16 < v15);
   }
 
-  if ((v6 - 64) != a1)
+  if (&v6[-3].__r_.__value_.__r.__words[1] != a1)
   {
     AlgosScoreCombinerFrameRow::operator=(a1, (v6 - 64));
   }
@@ -1738,7 +1738,7 @@ const AlgosScoreCombinerFrameRow *std::__partition_with_equals_on_left[abi:ne200
   return v10;
 }
 
-std::string *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,AlgosScoreCombinerFrameRow *,BOOL (*&)(AlgosScoreCombinerFrameRow&,AlgosScoreCombinerFrameRow&)>(const AlgosScoreCombinerFrameRow *a1, std::string *a2, uint64_t (**a3)(void))
+std::string *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,AlgosScoreCombinerFrameRow *,BOOL (*&)(AlgosScoreCombinerFrameRow&,AlgosScoreCombinerFrameRow&)>(std::string *a1, std::string *a2, uint64_t (**a3)(std::string *, std::string *))
 {
   v17 = a2;
   AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(&v14, a1);
@@ -1766,7 +1766,7 @@ std::string *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAl
       v17 = v6;
     }
 
-    while (((v10)(v6, &v14) & 1) == 0);
+    while ((v10(v6, &v14) & 1) == 0);
   }
 
   else
@@ -1808,7 +1808,7 @@ std::string *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAl
   }
 
   v12 = (v11 - 64);
-  if ((v11 - 64) != a1)
+  if (&v11[-3].__r_.__value_.__r.__words[1] != a1)
   {
     AlgosScoreCombinerFrameRow::operator=(a1, (v11 - 64));
   }
@@ -1827,7 +1827,7 @@ std::string *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAl
   return v12;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(std::string::size_type a1, const AlgosScoreCombinerFrameRow *a2, uint64_t (**a3)(std::string *, const AlgosScoreCombinerFrameRow *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(std::string::size_type a1, const std::string *a2, uint64_t (**a3)(const AlgosScoreCombinerFrameRow *, const AlgosScoreCombinerFrameRow *))
 {
   v29 = a2;
   v30 = a1;
@@ -1842,7 +1842,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     if (v6 == 2)
     {
       v7 = *a3;
-      v29 = (a2 - 64);
+      v29 = &a2[-3].__r_.__value_.__r.__words[1];
       if ((v7)())
       {
         v8 = &v30;
@@ -1924,7 +1924,7 @@ LABEL_35:
 
               if (++v22 == 8)
               {
-                return (v21 + 64) == v24;
+                return &v21[2].__r_.__value_.__r.__words[2] == v24;
               }
             }
 
@@ -1957,7 +1957,7 @@ LABEL_35:
   {
     if (v6 == 4)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(a1, (a1 + 64), (a1 + 128), (a2 - 64), a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(a1, (a1 + 64), (a1 + 128), &a2[-3].__r_.__value_.__r.__words[1], a3);
       return 1;
     }
 
@@ -1969,9 +1969,9 @@ LABEL_35:
     v26.__r_.__value_.__r.__words[0] = a1;
     v33 = (a1 + 128);
     v34 = (a1 + 64);
-    v10 = (a2 - 64);
+    v10 = &a2[-3].__r_.__value_.__r.__words[1];
     v32 = (a1 + 192);
-    v31 = (a2 - 64);
+    v31 = &a2[-3].__r_.__value_.__r.__words[1];
     std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,0>(a1, (a1 + 64), (a1 + 128), (a1 + 192), a3);
     if (!(*a3)(v10, (a1 + 192)))
     {
@@ -1996,9 +1996,9 @@ LABEL_35:
   }
 
   v12 = (a1 + 64);
-  v13 = (a2 - 64);
+  v13 = &a2[-3].__r_.__value_.__r.__words[1];
   v26.__r_.__value_.__r.__words[0] = a1;
-  v33 = (a2 - 64);
+  v33 = &a2[-3].__r_.__value_.__r.__words[1];
   v34 = (a1 + 64);
   v14 = (*a3)((a1 + 64), a1);
   v15 = (*a3)(v13, v12);
@@ -2040,7 +2040,7 @@ LABEL_22:
   return 1;
 }
 
-const AlgosScoreCombinerFrameRow *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(std::string *a1, const AlgosScoreCombinerFrameRow *a2, const AlgosScoreCombinerFrameRow *a3, uint64_t (**a4)(const std::string *, const AlgosScoreCombinerFrameRow *))
+std::string *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*,AlgosScoreCombinerFrameRow*>(std::string *a1, std::string *a2, const AlgosScoreCombinerFrameRow *a3, uint64_t (**a4)(uint64_t, const AlgosScoreCombinerFrameRow *))
 {
   v16 = a1;
   if (a1 != a2)
@@ -2075,7 +2075,7 @@ const AlgosScoreCombinerFrameRow *std::__partial_sort_impl[abi:ne200100]<std::_C
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(v16, a4, v8, v16);
         }
 
-        v12 = (v15 + 64);
+        v12 = &v15[2].__r_.__value_.__r.__words[2];
         v15 = v12;
       }
 
@@ -2102,7 +2102,7 @@ const AlgosScoreCombinerFrameRow *std::__partial_sort_impl[abi:ne200100]<std::_C
   return a3;
 }
 
-void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(uint64_t a1, uint64_t (**a2)(const std::string *, const AlgosScoreCombinerFrameRow *), uint64_t a3, const AlgosScoreCombinerFrameRow *a4)
+void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(uint64_t a1, uint64_t (**a2)(uint64_t, const AlgosScoreCombinerFrameRow *), uint64_t a3, std::string *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -2141,7 +2141,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreC
             v11 = v15;
           }
 
-          else if ((*a2)((a1 + (v15 << 6)), &v12[2].__r_.__value_.__r.__words[2]))
+          else if ((*a2)(a1 + (v15 << 6), &v12[2].__r_.__value_.__r.__words[2]))
           {
             v12 = (v12 + 64);
           }
@@ -2170,7 +2170,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreC
   }
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(const AlgosScoreCombinerFrameRow *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(std::string *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
@@ -2231,7 +2231,7 @@ const std::string *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,B
   return v9;
 }
 
-void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(const std::string *, std::string *), uint64_t a4)
+void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCombinerFrameRow &,AlgosScoreCombinerFrameRow &),AlgosScoreCombinerFrameRow*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(const AlgosScoreCombinerFrameRow *, void **), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -2256,7 +2256,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCom
         v9 = v10;
       }
 
-      while (((*a3)(v8, &v11) & 1) != 0);
+      while (((*a3)(v8, &v11.__r_.__value_.__l.__data_) & 1) != 0);
       AlgosScoreCombinerFrameRow::operator=(v10, &v11);
       if (v13 < 0)
       {
@@ -2271,7 +2271,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(AlgosScoreCom
   }
 }
 
-double standard_moment(const AlgosScoreCombinerFrameRow **a1, int a2)
+double standard_moment(const std::string **a1, int a2)
 {
   v2 = (a1[1] - *a1) >> 6;
   if (v2 > 2)
@@ -2373,18 +2373,16 @@ std::string *AlgosScoreCombinerFrameRow::operator=(std::string *a1, const std::s
   return a1;
 }
 
-_BYTE *AlgosScoreCombinerFrameRow::GetHeaderDescription@<X0>(_BYTE *a1@<X8>)
+void *AlgosScoreCombinerFrameRow::GetHeaderDescription@<X0>(void *a1@<X8>)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  snprintf(__str, 0x100uLL, "     %-10s %-10s %-10s %-10s", "score", "type", "weight", "label");
-  result = std::string::basic_string[abi:ne200100]<0>(a1, __str);
   v4 = *MEMORY[0x277D85DE8];
-  return result;
+  snprintf(__str, 0x100uLL, "     %-10s %-10s %-10s %-10s", "score", "type", "weight", "label");
+  return std::string::basic_string[abi:ne200100]<0>(a1, __str);
 }
 
-_BYTE *AlgosScoreCombinerFrameRow::GetRawDescription@<X0>(AlgosScoreCombinerFrameRow *this@<X0>, _BYTE *a2@<X8>)
+void *AlgosScoreCombinerFrameRow::GetRawDescription@<X0>(AlgosScoreCombinerFrameRow *this@<X0>, void *a2@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = this;
   if (*(this + 23) < 0)
   {
@@ -2398,9 +2396,7 @@ _BYTE *AlgosScoreCombinerFrameRow::GetRawDescription@<X0>(AlgosScoreCombinerFram
   }
 
   snprintf(__str, 0x100uLL, "%-10.3f %-10s %-10.3f %-10s", *(this + 7), v3, *(this + 6), v4);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, __str);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a2, __str);
 }
 
 void AlgosScoreCombinerFrame::DebugPrint(const std::string **this, int a2)
@@ -2536,7 +2532,7 @@ void sub_25BA2E2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void AlgosScoreStreamFrameRow::GetParam(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void AlgosScoreStreamFrameRow::GetParam(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
   v7 = std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::find<std::string>(a1 + 40, a2);
   if (a1 + 48 == v7)
@@ -2686,9 +2682,9 @@ uint64_t std::vector<AlgosScoreStreamFrameRow>::__emplace_back_slow_path<AlgosSc
   return v13;
 }
 
-void sub_25BA2FD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25BA2FD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AlgosScoreStreamFrameRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2806,8 +2802,8 @@ void std::vector<AlgosScoreStreamFrameRow>::__destroy_vector::operator()[abi:ne2
     {
       do
       {
-        v6 = v4 - 64;
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 8;
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 

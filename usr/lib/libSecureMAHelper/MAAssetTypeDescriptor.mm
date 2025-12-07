@@ -207,44 +207,44 @@ void __46__MAAssetTypeDescriptor__assetTypeDescriptors__block_invoke()
 
 + (void)_loadDescriptorsFromPath:(void *)path intoDictionary:
 {
-  v42[1] = *MEMORY[0x29EDCA608];
+  v41[1] = *MEMORY[0x29EDCA608];
   v4 = a2;
   pathCopy = path;
   objc_opt_self();
   defaultManager = [MEMORY[0x29EDB9FB8] defaultManager];
   v6 = [MEMORY[0x29EDB8E70] fileURLWithPath:v4];
-  v30 = *MEMORY[0x29EDB8D58];
-  v42[0] = *MEMORY[0x29EDB8D58];
-  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v42 count:1];
-  v36 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtURL:v6 includingPropertiesForKeys:v7 options:4 error:&v36];
-  v9 = v36;
+  v29 = *MEMORY[0x29EDB8D58];
+  v41[0] = *MEMORY[0x29EDB8D58];
+  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v41 count:1];
+  v35 = 0;
+  v8 = [defaultManager contentsOfDirectoryAtURL:v6 includingPropertiesForKeys:v7 options:4 error:&v35];
+  v9 = v35;
 
   if (v8)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v11)
     {
       v12 = v11;
-      v26 = v9;
-      v27 = v8;
-      v28 = v4;
-      v13 = *v33;
+      v25 = v9;
+      v26 = v8;
+      v27 = v4;
+      v13 = *v32;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v33 != v13)
+          if (*v32 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * i);
+          v15 = *(*(&v31 + 1) + 8 * i);
           v16 = objc_autoreleasePoolPush();
           lastPathComponent = [v15 lastPathComponent];
           v18 = lastPathComponent;
@@ -254,13 +254,13 @@ void __46__MAAssetTypeDescriptor__assetTypeDescriptors__block_invoke()
             v20 = stringByDeletingPathExtension;
             if (stringByDeletingPathExtension && [stringByDeletingPathExtension length])
             {
-              v31 = 0;
-              v21 = [v15 getResourceValue:&v31 forKey:v30 error:0];
-              v22 = v31;
+              v30 = 0;
+              v21 = [v15 getResourceValue:&v30 forKey:v29 error:0];
+              v22 = v30;
               v23 = v22;
               if (!v21 || [v22 BOOLValue])
               {
-                v24 = [MEMORY[0x29EDB8DC0] dictionaryWithContentsOfURL:{v15, v26, v27, v28}];
+                v24 = [MEMORY[0x29EDB8DC0] dictionaryWithContentsOfURL:{v15, v25, v26, v27}];
                 if (v24)
                 {
                   [pathCopy setObject:v24 forKeyedSubscript:v20];
@@ -272,13 +272,13 @@ void __46__MAAssetTypeDescriptor__assetTypeDescriptors__block_invoke()
           objc_autoreleasePoolPop(v16);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v12);
-      v8 = v27;
-      v4 = v28;
-      v9 = v26;
+      v8 = v26;
+      v4 = v27;
+      v9 = v25;
     }
   }
 
@@ -288,14 +288,12 @@ void __46__MAAssetTypeDescriptor__assetTypeDescriptors__block_invoke()
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v39 = v4;
-      v40 = 2112;
-      v41 = v9;
+      v38 = v4;
+      v39 = 2112;
+      v40 = v9;
       _os_log_impl(&dword_2981ED000, v10, OS_LOG_TYPE_ERROR, "Failed to load asset descriptors from path %{public}@. %@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void __52__MAAssetTypeDescriptor__secureAssetTypeDescriptors__block_invoke()
@@ -335,18 +333,18 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"Asset Specifiers"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0_1())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0_1(v3))
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v3 = MEMORY[0x29EDB8E90];
+    v4 = MEMORY[0x29EDB8E90];
   }
 
-  return v3;
+  return v4;
 }
 
 - (NSDictionary)assetProperties
@@ -357,18 +355,18 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"MobileAssetProperties"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0_1())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0_1(v3))
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v3 = MEMORY[0x29EDB8EA0];
+    v4 = MEMORY[0x29EDB8EA0];
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)shouldMakeDataVault
@@ -379,8 +377,8 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"Make Repository Data Vault"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0_1())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0_1(v3))
   {
     bOOLValue = [v2 BOOLValue];
   }
@@ -401,8 +399,8 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"RemoveV1Assets"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0_1())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0_1(v3))
   {
     bOOLValue = [v2 BOOLValue];
   }

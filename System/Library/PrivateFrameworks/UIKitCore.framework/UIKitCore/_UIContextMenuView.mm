@@ -518,16 +518,16 @@ LABEL_5:
   }
 
   departingNode = [(_UIContextMenuView *)self departingNode];
-  menu = [departingNode menu];
+  v27 = objc_msgSend_menu(departingNode);
   v28 = menuCopy;
   v19 = v28;
-  if (menu == v28)
+  if (v27 == v28)
   {
   }
 
   else
   {
-    if (!v28 || !menu)
+    if (!v28 || !v27)
     {
 
       if (v15)
@@ -538,9 +538,9 @@ LABEL_5:
       goto LABEL_47;
     }
 
-    v29 = [menu isEqual:v28];
+    isEqual = objc_msgSend_isEqual_(v27);
 
-    if ((v29 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       if (v15)
       {
@@ -1108,26 +1108,26 @@ LABEL_30:
   elementCopy = element;
   currentListView = [(_UIContextMenuView *)self currentListView];
   displayedMenu = [currentListView displayedMenu];
-  v7 = [elementCopy isEqual:displayedMenu];
+  isEqual = objc_msgSend_isEqual_(elementCopy);
 
-  if (v7)
+  if (isEqual)
   {
     submenus = [(_UIContextMenuView *)self submenus];
     current = [submenus current];
     previous = [current previous];
-    menu = [previous menu];
+    v11 = objc_msgSend_menu(previous);
 
     elementCopy = current;
 LABEL_5:
 
-    elementCopy = menu;
+    elementCopy = v11;
     goto LABEL_6;
   }
 
   if ([currentListView allowsAlternates])
   {
     submenus = +[_UIContextMenuModifierKeyService sharedService];
-    menu = _UIMenuElementAlternateForModifierFlags(elementCopy, [submenus currentModifierFlags]);
+    v11 = _UIMenuElementAlternateForModifierFlags(elementCopy, [submenus currentModifierFlags]);
     goto LABEL_5;
   }
 
@@ -1229,8 +1229,8 @@ LABEL_14:
             submenus2 = [(_UIContextMenuView *)self submenus];
             current = [submenus2 current];
             previous = [current previous];
-            menu = [previous menu];
-            [(_UIContextMenuView *)self _performActionForElement:menu];
+            v22 = objc_msgSend_menu(previous);
+            [(_UIContextMenuView *)self _performActionForElement:v22];
           }
         }
 
@@ -1361,7 +1361,7 @@ LABEL_30:
   selectionGestureRecognizer = [(_UIContextMenuView *)self selectionGestureRecognizer];
   numberOfTouches = [selectionGestureRecognizer numberOfTouches];
 
-  if ((((numberOfTouches != 0) ^ -[_UIContextMenuView hasTrackingTouch](self, "hasTrackingTouch")) & 1) != 0 || ([pathCopy isEqual:highlightedIndexPath] & 1) == 0 && (-[_UIContextMenuView unselectableIndexPath](self, "unselectableIndexPath"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(pathCopy, "isEqual:", v17), v17, (v18 & 1) == 0))
+  if ((((numberOfTouches != 0) ^ [(_UIContextMenuView *)self hasTrackingTouch]) & 1) != 0 || (objc_msgSend_isEqual_(pathCopy) & 1) == 0 && ([(_UIContextMenuView *)self unselectableIndexPath], v17 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(pathCopy), v17, (isEqual & 1) == 0))
   {
     [(_UIContextMenuView *)self setHasTrackingTouch:numberOfTouches != 0];
     [(_UIContextMenuView *)self _clearAutoNavigationTimer];
@@ -1386,9 +1386,9 @@ LABEL_30:
       v30 = feedbackCopy;
       image = [v16 image];
       v20 = _UIImageName(image);
-      v21 = [v20 isEqualToString:@"doc.on.clipboard"];
+      isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-      if (v21)
+      if (isEqualToString)
       {
         appearanceDate = [(_UIContextMenuView *)self appearanceDate];
         _UIPasteboardAnalyticsReportEvent(@"ContextMenu", appearanceDate);
@@ -1637,7 +1637,7 @@ LABEL_17:
     {
       currentListView3 = [(_UIContextMenuView *)self currentListView];
       displayedMenu = [currentListView3 displayedMenu];
-      v12 = [current isEqual:displayedMenu] ^ 1;
+      v12 = objc_msgSend_isEqual_(current) ^ 1;
     }
 
     submenus4 = [(_UIContextMenuView *)self submenus];
@@ -1688,10 +1688,10 @@ LABEL_18:
     submenus3 = [(_UIContextMenuView *)self submenus];
     current2 = [submenus3 current];
     previous = [current2 previous];
-    menu = [previous menu];
+    v10 = objc_msgSend_menu(previous);
 
     [(_UIContextMenuView *)self setRetainHighlightOnMenuNavigation:1];
-    [(_UIContextMenuView *)self _handleSelectionForElement:menu];
+    [(_UIContextMenuView *)self _handleSelectionForElement:v10];
   }
 }
 
@@ -1706,7 +1706,7 @@ LABEL_18:
     currentListView2 = [(_UIContextMenuView *)self currentListView];
     v7 = [currentListView2 elementAtIndexPath:highlightedIndexPath];
 
-    if ([v7 _isLeaf] & 1) != 0 || (-[_UIContextMenuView currentListView](self, "currentListView"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "displayedMenu"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "isEqual:", v9), v9, v8, (v10))
+    if ([v7 _isLeaf] & 1) != 0 || (-[_UIContextMenuView currentListView](self, "currentListView"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "displayedMenu"), v9 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v7), v9, v8, (isEqual))
     {
       submenus = [(_UIContextMenuView *)self submenus];
       current = [submenus current];
@@ -1772,9 +1772,9 @@ LABEL_18:
   elementCopy = element;
   previous = [elementCopy previous];
   listView = [previous listView];
-  menu = [elementCopy menu];
+  v7 = objc_msgSend_menu(elementCopy);
 
-  v8 = [listView cellForElement:menu];
+  v8 = [listView cellForElement:v7];
 
   window = [v8 window];
 

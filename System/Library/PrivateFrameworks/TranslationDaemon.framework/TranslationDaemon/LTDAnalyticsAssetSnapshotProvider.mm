@@ -7,56 +7,57 @@ void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion
 {
   v5 = a3;
   v6 = [_LTDAssetService filterConfigAssetFromAssets:a2];
-  v7 = v6;
+  v8 = v6;
   if (!v5 && v6)
   {
     goto LABEL_5;
   }
 
-  v8 = _LTOSLogAssets();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = _LTOSLogAssets(v6, v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  if (v10)
   {
     __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_cold_1();
-    if (v7)
+    if (v8)
     {
       goto LABEL_5;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
 LABEL_5:
-    v9 = [v7 assetVersion];
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", v9];
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v12 = [v8 assetVersion];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", v12];
+    v14 = *(*(a1 + 40) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
     goto LABEL_6;
   }
 
-  v18 = _LTOSLogAssets();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v23 = _LTOSLogAssets(v10, v11);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_cold_2();
   }
 
 LABEL_6:
-  v13 = [v7 assetBuild];
+  v16 = [v8 assetBuild];
 
-  if (!v13)
+  if (!v16)
   {
-    v14 = _LTOSLogAssets();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v19 = _LTOSLogAssets(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_cold_3();
     }
   }
 
-  v15 = [v7 assetBuild];
-  v16 = *(*(a1 + 48) + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = v15;
+  v20 = [v8 assetBuild];
+  v21 = *(*(a1 + 48) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v20;
 
   dispatch_group_leave(*(a1 + 32));
 }
@@ -65,11 +66,11 @@ void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion
 {
   v5 = a3;
   v6 = [_LTDAssetService filterConfigAssetFromAssets:a2];
-  v7 = v6;
+  v8 = v6;
   if (v5 || !v6)
   {
-    v12 = _LTOSLogAssets();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _LTOSLogAssets(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_3_cold_1();
     }
@@ -77,11 +78,11 @@ void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion
 
   else
   {
-    v8 = [v6 assetVersion];
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", v8];
-    v10 = *(*(a1 + 40) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v9 = [v6 assetVersion];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", v9];
+    v11 = *(*(a1 + 40) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -91,22 +92,6 @@ void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion
 {
   v2 = [[_LTDAnalyticsAssetSnapshot alloc] initWithAssetBuild:*(*(a1[5] + 8) + 40) expectedAssetVersion:*(*(a1[6] + 8) + 40) installedAssetVersion:*(*(a1[7] + 8) + 40)];
   (*(a1[4] + 16))();
-}
-
-void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73___LTDAnalyticsAssetSnapshotProvider_collectAssetSnapshotWithCompletion___block_invoke_3_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

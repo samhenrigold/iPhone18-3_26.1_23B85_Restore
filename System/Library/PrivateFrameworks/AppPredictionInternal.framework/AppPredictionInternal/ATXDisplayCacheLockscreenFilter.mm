@@ -21,62 +21,61 @@
   predictionsCopy = predictions;
   criteriaCopy = criteria;
   v8 = +[ATXLockscreenBlacklist sharedInstance];
-  if (![v8 isPredictionGloballyDisabled])
+  isPredictionGloballyDisabled = [v8 isPredictionGloballyDisabled];
+  if (!isPredictionGloballyDisabled)
   {
-    v11 = +[ATXNotificationsLoggingServer sharedInstance];
-    getLockscreenBundleIds = [v11 getLockscreenBundleIds];
+    v12 = +[ATXNotificationsLoggingServer sharedInstance];
+    getLockscreenBundleIds = [v12 getLockscreenBundleIds];
 
     blacklist = [v8 blacklist];
-    v12 = objc_opt_new();
+    v13 = objc_opt_new();
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
     v24[2] = __91__ATXDisplayCacheLockscreenFilter_indicesOfLockScreenActionsForActionPredictions_criteria___block_invoke;
     v24[3] = &unk_278599960;
     selfCopy = self;
-    v13 = blacklist;
-    v25 = v13;
-    v14 = getLockscreenBundleIds;
-    v26 = v14;
+    v14 = blacklist;
+    v25 = v14;
+    v15 = getLockscreenBundleIds;
+    v26 = v15;
     v28 = criteriaCopy;
-    v15 = v12;
-    v27 = v15;
+    v16 = v13;
+    v27 = v16;
     [predictionsCopy enumerateObjectsUsingBlock:v24];
-    v16 = [predictionsCopy count];
-    v17 = [v15 count];
-    v18 = __atxlog_handle_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = [predictionsCopy count];
+    v18 = [v16 count];
+    v19 = __atxlog_handle_default(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      +[ATXDisplayCacheLockscreenFilter indicesOfLockScreenActionsForActionPredictions:criteria:].cold.1(buf, v16 - v17, [predictionsCopy count], v18);
+      +[ATXDisplayCacheLockscreenFilter indicesOfLockScreenActionsForActionPredictions:criteria:].cold.1(buf, v17 - v18, [predictionsCopy count], v19);
     }
 
-    if ([v15 count])
+    if ([v16 count])
     {
-      v19 = [predictionsCopy objectsAtIndexes:v15];
-      if ([self _getPredictionConfidenceForActions:v19] == 1)
+      v20 = [predictionsCopy objectsAtIndexes:v16];
+      if ([self _getPredictionConfidenceForActions:v20] == 1)
       {
-        v10 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndex:{objc_msgSend(v15, "firstIndex")}];
+        v11 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndex:{objc_msgSend(v16, "firstIndex")}];
 
 LABEL_12:
         goto LABEL_13;
       }
     }
 
-    v10 = objc_opt_new();
+    v11 = objc_opt_new();
     goto LABEL_12;
   }
 
-  v9 = __atxlog_handle_default();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_default(isPredictionGloballyDisabled);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [ATXDisplayCacheLockscreenFilter indicesOfLockScreenActionsForActionPredictions:v9 criteria:?];
+    [ATXDisplayCacheLockscreenFilter indicesOfLockScreenActionsForActionPredictions:v10 criteria:?];
   }
 
-  v10 = objc_opt_new();
+  v11 = objc_opt_new();
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void __91__ATXDisplayCacheLockscreenFilter_indicesOfLockScreenActionsForActionPredictions_criteria___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -141,7 +140,7 @@ void __91__ATXDisplayCacheLockscreenFilter_indicesOfLockScreenActionsForActionPr
 
 + (unint64_t)_getPredictionConfidenceForActions:(id)actions
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   v4 = +[_ATXGlobals sharedInstance];
   firstObject = [actionsCopy firstObject];
@@ -157,8 +156,8 @@ void __91__ATXDisplayCacheLockscreenFilter_indicesOfLockScreenActionsForActionPr
     v12 = +[_ATXAppLaunchHistogramManager sharedInstance];
     firstObject4 = [v12 histogramForLaunchType:14];
 
-    v33[0] = actionKey;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = actionKey;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     [firstObject4 totalLaunchesForBundleIds:v14];
     v16 = v15;
 
@@ -192,7 +191,6 @@ LABEL_6:
   v11 = 1;
 LABEL_7:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

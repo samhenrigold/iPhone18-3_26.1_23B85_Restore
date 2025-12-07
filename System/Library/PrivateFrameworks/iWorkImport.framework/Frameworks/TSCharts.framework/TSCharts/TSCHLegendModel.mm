@@ -487,7 +487,7 @@ LABEL_5:
       v6 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v4 = sub_276406958(v6);
+    v4 = sub_276406958(v6, a2);
     *(archive + 24) = v4;
   }
 

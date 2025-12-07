@@ -27,34 +27,34 @@
 
 - (id)eventsFromRecords:(id)records
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = [recordsCopy count];
-  v42 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5];
+  v41 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5];
   context = objc_autoreleasePoolPush();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v6 = recordsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v43 objects:v53 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v42 objects:v52 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v44;
-    v40 = *v44;
+    v9 = *v43;
+    v39 = *v43;
     selfCopy = self;
     do
     {
       v10 = 0;
       do
       {
-        if (*v44 != v9)
+        if (*v43 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * v10);
+        v11 = *(*(&v42 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = [(_DKEventCKConverter *)self eventDataFromRecord:v11];
         v14 = v13;
@@ -84,11 +84,11 @@
                 v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:urgency];
                 v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[_DKPREvent length](startDate, "length")}];
                 *buf = 138543874;
-                v48 = v30;
-                v49 = 2112;
-                v50 = v31;
-                v51 = 2112;
-                v52 = v32;
+                v47 = v30;
+                v48 = 2112;
+                v49 = v31;
+                v50 = 2112;
+                v51 = v32;
                 _os_log_error_impl(&dword_191750000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event, unexpected uncompressed length of %@ or compressedData length of %@", buf, 0x20u);
               }
             }
@@ -114,13 +114,13 @@
                 }
 
 LABEL_21:
-                v9 = v40;
+                v9 = v39;
                 self = selfCopy;
 LABEL_22:
 
                 if (v24)
                 {
-                  [v42 addObject:v24];
+                  [v41 addObject:v24];
                 }
 
                 goto LABEL_25;
@@ -130,15 +130,15 @@ LABEL_22:
               v29 = +[_CDLogging syncChannel];
               if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
-                v38 = [objc_opt_class() description];
+                v37 = [objc_opt_class() description];
                 v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v28];
                 v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:urgency];
                 *buf = 138543874;
-                v48 = v38;
-                v49 = 2112;
-                v50 = v33;
-                v51 = 2112;
-                v52 = v34;
+                v47 = v37;
+                v48 = 2112;
+                v49 = v33;
+                v50 = 2112;
+                v51 = v34;
                 _os_log_error_impl(&dword_191750000, v29, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event, uncompressed size %@ does not match uncompressed length %@", buf, 0x20u);
               }
 
@@ -165,7 +165,7 @@ LABEL_25:
       }
 
       while (v8 != v10);
-      v35 = [v6 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v35 = [v6 countByEnumeratingWithState:&v42 objects:v52 count:16];
       v8 = v35;
     }
 
@@ -173,80 +173,79 @@ LABEL_25:
   }
 
   objc_autoreleasePoolPop(context);
-  v36 = *MEMORY[0x1E69E9840];
 
-  return v42;
+  return v41;
 }
 
 - (id)recordsFromEvents:(id)events
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   v4 = [eventsCopy count];
-  v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:v4];
+  v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:v4];
   context = objc_autoreleasePoolPush();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v37;
     do
     {
       v9 = 0;
       do
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v37 + 1) + 8 * v9);
+        v10 = *(*(&v36 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         toPBCodable = [v10 toPBCodable];
         data = [toPBCodable data];
         if (data)
         {
           v14 = [_CDSizeMetricFamily sizeMetricFamilyWithName:?];
-          v35 = [(_CDSizeMetricFamily *)v14 sizeMetricWithName:0 string:1024 scale:?];
-          CDSizeMetricAddSize(v35, [data length]);
-          v36 = v14;
+          v34 = [(_CDSizeMetricFamily *)v14 sizeMetricWithName:0 string:1024 scale:?];
+          CDSizeMetricAddSize(v34, [data length]);
+          v35 = v14;
           if ([data length] >= 0x401 && !(objc_msgSend(data, "length") >> 13))
           {
             v15 = [data length];
-            v30 = malloc_type_malloc(v15, 0x2E3396AuLL);
-            v16 = compression_encode_buffer(v30, v15, [data bytes], objc_msgSend(data, "length"), 0, COMPRESSION_LZFSE);
+            v29 = malloc_type_malloc(v15, 0x2E3396AuLL);
+            v16 = compression_encode_buffer(v29, v15, [data bytes], objc_msgSend(data, "length"), 0, COMPRESSION_LZFSE);
             if (v16 && (v17 = v16, [data length] * 0.75 > v16))
             {
-              v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v30 length:v17 freeWhenDone:1];
-              v14 = v36;
+              v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v29 length:v17 freeWhenDone:1];
+              v14 = v35;
               if (v18)
               {
                 v19 = v18;
-                v31 = +[_CDLogging syncChannel];
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+                v30 = +[_CDLogging syncChannel];
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                 {
                   src_buffer = [objc_opt_class() description];
-                  v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v19, "length")}];
+                  v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v19, "length")}];
                   v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(data, "length")}];
                   *buf = 138543874;
-                  v42 = src_buffer;
-                  v43 = 2112;
-                  v44 = v27;
-                  v45 = 2112;
-                  v46 = v20;
+                  v41 = src_buffer;
+                  v42 = 2112;
+                  v43 = v26;
+                  v44 = 2112;
+                  v45 = v20;
                   v21 = v20;
-                  _os_log_debug_impl(&dword_191750000, v31, OS_LOG_TYPE_DEBUG, "%{public}@: Event compressed to %@ (from %@)", buf, 0x20u);
+                  _os_log_debug_impl(&dword_191750000, v30, OS_LOG_TYPE_DEBUG, "%{public}@: Event compressed to %@ (from %@)", buf, 0x20u);
 
-                  v14 = v36;
+                  v14 = v35;
                 }
 
-                v32 = [(_CDSizeMetricFamily *)v14 sizeMetricWithName:0 string:1024 scale:?];
-                CDSizeMetricAddSize(v32, [v19 length]);
+                v31 = [(_CDSizeMetricFamily *)v14 sizeMetricWithName:0 string:1024 scale:?];
+                CDSizeMetricAddSize(v31, [v19 length]);
                 v22 = -[_DKEventData initWithCompressedData:uncompressedLength:version:]([_DKEventData alloc], v19, [data length], 2);
 
                 goto LABEL_19;
@@ -255,8 +254,8 @@ LABEL_25:
 
             else
             {
-              free(v30);
-              v14 = v36;
+              free(v29);
+              v14 = v35;
             }
           }
 
@@ -268,7 +267,7 @@ LABEL_19:
           v23 = [(_DKEventCKConverter *)self recordFromEventData:v22 event:v10];
           if (v23)
           {
-            [v33 addObject:v23];
+            [v32 addObject:v23];
           }
         }
 
@@ -277,7 +276,7 @@ LABEL_19:
       }
 
       while (v7 != v9);
-      v24 = [v5 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v24 = [v5 countByEnumeratingWithState:&v36 objects:v46 count:16];
       v7 = v24;
     }
 
@@ -285,37 +284,36 @@ LABEL_19:
   }
 
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x1E69E9840];
 
-  return v33;
+  return v32;
 }
 
 - (id)recordIDsFromEventIDs:(id)ds
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [dsCopy count];
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = dsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = objc_alloc(MEMORY[0x1E695BA70]);
         uUIDString = [v12 UUIDString];
         v15 = [v13 initWithRecordName:uUIDString zoneID:self->_zoneID];
@@ -326,54 +324,52 @@ LABEL_19:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)eventIDsFromRecordIDsAndTypes:(id)types
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   v4 = [typesCopy count];
-  v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:v4];
+  v25 = [MEMORY[0x1E695DF70] arrayWithCapacity:v4];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = typesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v41 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v40 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v28;
+    v9 = *v27;
     v10 = 0x1E696A000uLL;
     *&v7 = 138544386;
-    v20 = v7;
+    v19 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
-        v13 = [v5 objectForKeyedSubscript:{v12, v20}];
+        v12 = *(*(&v26 + 1) + 8 * i);
+        v13 = [v5 objectForKeyedSubscript:{v12, v19}];
         if ([v13 isEqualToString:@"DKEvent"])
         {
           recordName = [v12 recordName];
           v15 = [objc_alloc(*(v10 + 4016)) initWithUUIDString:recordName];
           if (v15)
           {
-            [v26 addObject:v15];
+            [v25 addObject:v15];
           }
 
           else
@@ -381,22 +377,22 @@ LABEL_19:
             v16 = +[_CDLogging syncChannel];
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v25 = [objc_opt_class() description];
+              v24 = [objc_opt_class() description];
               recordName2 = [v12 recordName];
               zoneID = [v12 zoneID];
               zoneName = [zoneID zoneName];
               zoneID2 = [v12 zoneID];
               ownerName = [zoneID2 ownerName];
-              *buf = v20;
-              v32 = v25;
-              v33 = 2114;
-              v34 = @"DKEvent";
-              v35 = 2114;
-              v36 = recordName2;
-              v37 = 2114;
-              v38 = zoneName;
-              v39 = 2114;
-              v40 = ownerName;
+              *buf = v19;
+              v31 = v24;
+              v32 = 2114;
+              v33 = @"DKEvent";
+              v34 = 2114;
+              v35 = recordName2;
+              v36 = 2114;
+              v37 = zoneName;
+              v38 = 2114;
+              v39 = ownerName;
               _os_log_error_impl(&dword_191750000, v16, OS_LOG_TYPE_ERROR, "%{public}@: CKRecordID of type %{public}@ has an invalid UUIDString recordName:%{public}@ (zoneName:%{public}@ ownerName:%{public}@)", buf, 0x34u);
             }
 
@@ -405,20 +401,18 @@ LABEL_19:
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v27 objects:v41 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v26 objects:v40 count:16];
     }
 
     while (v8);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 - (id)eventDataFromRecord:(uint64_t)record
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (record)
@@ -446,10 +440,10 @@ LABEL_19:
           v13 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v19 = [objc_opt_class() description];
-            v20 = 138543362;
-            v21 = v19;
-            _os_log_error_impl(&dword_191750000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Unable to decode event", &v20, 0xCu);
+            v18 = [objc_opt_class() description];
+            v19 = 138543362;
+            v20 = v18;
+            _os_log_error_impl(&dword_191750000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Unable to decode event", &v19, 0xCu);
           }
         }
       }
@@ -459,12 +453,12 @@ LABEL_19:
         v9 = +[_CDLogging syncChannel];
         if (os_log_type_enabled(&v9->super.super, OS_LOG_TYPE_ERROR))
         {
-          v18 = [objc_opt_class() description];
-          v20 = 138543618;
-          v21 = v18;
-          v22 = 2112;
-          v23 = @"encryptedEvent";
-          _os_log_error_impl(&dword_191750000, &v9->super.super, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Missing value '%@'", &v20, 0x16u);
+          v17 = [objc_opt_class() description];
+          v19 = 138543618;
+          v20 = v17;
+          v21 = 2112;
+          v22 = @"encryptedEvent";
+          _os_log_error_impl(&dword_191750000, &v9->super.super, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Missing value '%@'", &v19, 0x16u);
         }
 
         v11 = 0;
@@ -476,13 +470,13 @@ LABEL_19:
       v8 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v16 = [objc_opt_class() description];
+        v15 = [objc_opt_class() description];
         recordType2 = [v4 recordType];
-        v20 = 138543618;
-        v21 = v16;
-        v22 = 2114;
-        v23 = recordType2;
-        _os_log_error_impl(&dword_191750000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Unexpected record type: %{public}@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v15;
+        v21 = 2114;
+        v22 = recordType2;
+        _os_log_error_impl(&dword_191750000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event record: Unexpected record type: %{public}@", &v19, 0x16u);
       }
 
       v11 = 0;
@@ -494,14 +488,12 @@ LABEL_19:
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)recordFromEventData:(void *)data event:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (self)
   {
@@ -533,18 +525,18 @@ LABEL_19:
         v16 = +[_CDLogging syncChannel];
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v22 = [objc_opt_class() description];
+          v21 = [objc_opt_class() description];
           uUID2 = [dataCopy UUID];
           uUIDString2 = [uUID2 UUIDString];
           creationDate3 = [dataCopy creationDate];
           dk_localtimeString = [(NSDate *)creationDate3 dk_localtimeString];
-          v27 = 138543874;
-          v28 = v22;
-          v29 = 2114;
-          v30 = uUIDString2;
-          v31 = 2114;
-          v32 = dk_localtimeString;
-          _os_log_error_impl(&dword_191750000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Faking creation date on event %{public}@ (created %{public}@)", &v27, 0x20u);
+          v26 = 138543874;
+          v27 = v21;
+          v28 = 2114;
+          v29 = uUIDString2;
+          v30 = 2114;
+          v31 = dk_localtimeString;
+          _os_log_error_impl(&dword_191750000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Faking creation date on event %{public}@ (created %{public}@)", &v26, 0x20u);
         }
       }
 
@@ -558,10 +550,10 @@ LABEL_19:
       v10 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v21 = [objc_opt_class() description];
-        v27 = 138543362;
-        v28 = v21;
-        _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event: Unable to encode event", &v27, 0xCu);
+        v20 = [objc_opt_class() description];
+        v26 = 138543362;
+        v27 = v20;
+        _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Dropping event: Unable to encode event", &v26, 0xCu);
       }
 
       v11 = 0;
@@ -572,8 +564,6 @@ LABEL_19:
   {
     v11 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -1,9 +1,62 @@
 @interface SCRO2DBrailleListContent
+- (SCRO2DBrailleListContent)initWithBrailleData:(id)data width:(int64_t)width height:(int64_t)height wordWrap:(BOOL)wrap;
 - (id)multiLineBraille;
 - (void)drawOnCanvas:(id)canvas;
 @end
 
 @implementation SCRO2DBrailleListContent
+
+- (SCRO2DBrailleListContent)initWithBrailleData:(id)data width:(int64_t)width height:(int64_t)height wordWrap:(BOOL)wrap
+{
+  wrapCopy = wrap;
+  dataCopy = data;
+  v25.receiver = self;
+  v25.super_class = SCRO2DBrailleListContent;
+  v12 = [(SCRO2DBrailleListContent *)&v25 init];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_itemPreviewMode = 1;
+    objc_storeStrong(&v12->_data, data);
+    v13->_width = width;
+    v13->_height = height;
+    v14 = [SCRO2DBrailleString brailleStringsFromBrailleData:dataCopy];
+    strings = v13->_strings;
+    v13->_strings = v14;
+
+    v13->_focusedIndex = [dataCopy focusedIndex];
+    v16 = objc_opt_new();
+    if ([(NSArray *)v13->_strings count])
+    {
+      v17 = 0;
+      do
+      {
+        v18 = [(NSArray *)v13->_strings objectAtIndex:v17];
+        v19 = [v18 brailleLinesForWidth:v13->_width - 1 indent:0 focused:v17 == v13->_focusedIndex wordWrap:wrapCopy];
+        [(NSArray *)v16 addObject:v19];
+
+        ++v17;
+      }
+
+      while (v17 < [(NSArray *)v13->_strings count]);
+    }
+
+    brailleLineLists = v13->_brailleLineLists;
+    v13->_brailleLineLists = v16;
+
+    alignAtTop = [dataCopy alignAtTop];
+    focusedIndex = v13->_focusedIndex;
+    if ((alignAtTop & 1) == 0)
+    {
+      focusedIndex = focusedIndex - v13->_height + 1;
+    }
+
+    v13->_firstDisplayedLine = focusedIndex;
+    v23 = v13;
+  }
+
+  return v13;
+}
 
 - (void)drawOnCanvas:(id)canvas
 {

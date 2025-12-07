@@ -138,7 +138,7 @@
 
 - (HFTriggerActionSetsBuilder)triggerActionSetsBuilder
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   home = [(WFHFTriggerActionSetsBuilderParameterState *)self home];
   if (home)
   {
@@ -152,17 +152,15 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       homeIdentifier = [(WFHFTriggerActionSetsBuilderParameterState *)self homeIdentifier];
-      v10 = 136315394;
-      v11 = "[WFHFTriggerActionSetsBuilderParameterState triggerActionSetsBuilder]";
-      v12 = 2114;
-      v13 = homeIdentifier;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to find home with identifier: %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[WFHFTriggerActionSetsBuilderParameterState triggerActionSetsBuilder]";
+      v11 = 2114;
+      v12 = homeIdentifier;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to find home with identifier: %{public}@", &v9, 0x16u);
     }
 
     v5 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

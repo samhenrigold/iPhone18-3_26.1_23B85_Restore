@@ -22,11 +22,11 @@
 
 - (_RECoreLocationLocationManager)initWithEffectiveBundlePath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v19.receiver = self;
-  v19.super_class = _RECoreLocationLocationManager;
-  v5 = [(_RECoreLocationLocationManager *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = _RECoreLocationLocationManager;
+  v5 = [(_RECoreLocationLocationManager *)&v18 init];
   if (v5)
   {
     v6 = dispatch_queue_create("com.apple.relevanceengine.corelocationmanager", 0);
@@ -34,14 +34,14 @@
     *(v5 + 8) = v6;
 
     dispatch_suspend(*(v5 + 8));
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __62___RECoreLocationLocationManager_initWithEffectiveBundlePath___block_invoke;
-    v16[3] = &unk_2785F9AE0;
-    v17 = pathCopy;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __62___RECoreLocationLocationManager_initWithEffectiveBundlePath___block_invoke;
+    v15[3] = &unk_2785F9AE0;
+    v16 = pathCopy;
     v8 = v5;
-    v18 = v8;
-    dispatch_async(MEMORY[0x277D85CD0], v16);
+    v17 = v8;
+    dispatch_async(MEMORY[0x277D85CD0], v15);
     v9 = objc_alloc_init(MEMORY[0x277CCAAF8]);
     v10 = v8[2];
     v8[2] = v9;
@@ -54,12 +54,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&dword_22859F000, v13, OS_LOG_TYPE_DEFAULT, "_RECoreLocationLocationManager initialized. %@", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

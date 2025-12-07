@@ -2,6 +2,7 @@
 + (BOOL)isVoLTESwitchTurnedOnByDefaultAndHidden:(id)hidden;
 + (BOOL)shouldShow2GSwitchForSubscriptionContext:(id)context;
 + (BOOL)shouldShow5GSASwitchForSubscriptionContext:(id)context RATMode:(int)mode;
++ (BOOL)shouldShowAnyVoiceAndDataSwitchSpecifierForContext:(id)context RATMode:(int)mode;
 + (BOOL)shouldShowVoLTESwitchForSubscriptionContext:(id)context RATMode:(int)mode;
 + (BOOL)shouldShowVoNRSwitchForSubscriptionContext:(id)context RATMode:(int)mode;
 + (id)getLoggerForSlot:(int64_t)slot;
@@ -16,7 +17,7 @@
 
 + (BOOL)shouldShowVoLTESwitchForSubscriptionContext:(id)context RATMode:(int)mode
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
   v7 = [v6 canSetCapabilityVoLTE:contextCopy];
@@ -57,27 +58,26 @@
       v13 = "No";
     }
 
-    v16 = 136315650;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v13;
+    v15 = 136315650;
+    v16 = v12;
+    v17 = 2080;
+    v18 = v13;
     if (mode > 2)
     {
       v11 = "Yes";
     }
 
-    v20 = 2080;
-    v21 = v11;
-    _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, "Should show VoLTE switch: %s, can set VoLTE: %s, is RAT mode LTE or above: %s", &v16, 0x20u);
+    v19 = 2080;
+    v20 = v11;
+    _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, "Should show VoLTE switch: %s, can set VoLTE: %s, is RAT mode LTE or above: %s", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (BOOL)isVoLTESwitchTurnedOnByDefaultAndHidden:(id)hidden
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   hiddenCopy = hidden;
   v4 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
   v5 = [v4 capabilityEnabledVoLTE:hiddenCopy];
@@ -112,21 +112,20 @@
       v14 = "No";
     }
 
-    v17 = 136315650;
-    v18 = v13;
-    v19 = 2080;
-    v20 = v14;
+    v16 = 136315650;
+    v17 = v13;
+    v18 = 2080;
+    v19 = v14;
     if ((v8 & 1) == 0)
     {
       v12 = "Yes";
     }
 
-    v21 = 2080;
-    v22 = v12;
-    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "Is VoLTE Switch turned on by default and hidden: %s, is switch on by default: %s, is switch hidden: %s", &v17, 0x20u);
+    v20 = 2080;
+    v21 = v12;
+    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "Is VoLTE Switch turned on by default and hidden: %s, is switch on by default: %s, is switch hidden: %s", &v16, 0x20u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5 & v9;
 }
 
@@ -141,7 +140,7 @@
 
 + (BOOL)shouldShow5GSASwitchForSubscriptionContext:(id)context RATMode:(int)mode
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = +[PSUI5GStandaloneCache sharedInstance];
   v7 = [v6 is5GSASupportedForContext:contextCopy];
@@ -182,21 +181,20 @@
       v13 = "No";
     }
 
-    v16 = 136315650;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v13;
+    v15 = 136315650;
+    v16 = v12;
+    v17 = 2080;
+    v18 = v13;
     if (mode > 3)
     {
       v11 = "Yes";
     }
 
-    v20 = 2080;
-    v21 = v11;
-    _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, "Should show 5G SA Switch: %s, is 5G SA supported: %s, is RAT mode above LTE: %s", &v16, 0x20u);
+    v19 = 2080;
+    v20 = v11;
+    _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, "Should show 5G SA Switch: %s, is 5G SA supported: %s, is RAT mode above LTE: %s", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -213,7 +211,7 @@
 
 + (BOOL)shouldShowVoNRSwitchForSubscriptionContext:(id)context RATMode:(int)mode
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = +[PSUI5GStandaloneCache sharedInstance];
   v7 = [v6 is5GSAEnabledForContext:contextCopy];
@@ -272,8 +270,8 @@
       v19 = "No";
     }
 
-    v25 = 136316162;
-    v26 = v18;
+    v24 = 136316162;
+    v25 = v18;
     if (mode <= 3)
     {
       v20 = "No";
@@ -284,8 +282,8 @@
       v20 = "Yes";
     }
 
-    v27 = 2080;
-    v28 = v19;
+    v26 = 2080;
+    v27 = v19;
     if ((v9 & v7) != 0)
     {
       v21 = "Yes";
@@ -296,10 +294,10 @@
       v21 = "No";
     }
 
-    v29 = 2080;
-    v30 = v20;
-    v31 = 2080;
-    v32 = v21;
+    v28 = 2080;
+    v29 = v20;
+    v30 = 2080;
+    v31 = v21;
     if (((v9 ^ 1) & v11) != 0)
     {
       v22 = "Yes";
@@ -310,12 +308,11 @@
       v22 = "No";
     }
 
-    v33 = 2080;
-    v34 = v22;
-    _os_log_impl(&dword_2658DE000, v17, OS_LOG_TYPE_DEFAULT, "Should show VoNR switch: %s, can set VoNR: %s, rat mode is above LTE: %s, 5G SA supported and enabled: %s, 5G SA not supported and enabled by default: %s", &v25, 0x34u);
+    v32 = 2080;
+    v33 = v22;
+    _os_log_impl(&dword_2658DE000, v17, OS_LOG_TYPE_DEFAULT, "Should show VoNR switch: %s, can set VoNR: %s, rat mode is above LTE: %s, 5G SA supported and enabled: %s, 5G SA not supported and enabled by default: %s", &v24, 0x34u);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -326,6 +323,76 @@
   v7 = [[PSUIVoNRSwitchSpecifier alloc] initWithHostController:controllerCopy parentSpecifier:specifierCopy];
 
   return v7;
+}
+
++ (BOOL)shouldShowAnyVoiceAndDataSwitchSpecifierForContext:(id)context RATMode:(int)mode
+{
+  v4 = *&mode;
+  v25 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v6 = +[PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory getLoggerForSlot:](PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory, "getLoggerForSlot:", [contextCopy slotID]);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Should we show any voice and data switch?", &v17, 2u);
+  }
+
+  v7 = [PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory shouldShowVoLTESwitchForSubscriptionContext:contextCopy RATMode:v4];
+  v8 = [PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory shouldShow5GSASwitchForSubscriptionContext:contextCopy RATMode:v4];
+  v9 = [PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory shouldShowVoNRSwitchForSubscriptionContext:contextCopy RATMode:v4];
+  slotID = [contextCopy slotID];
+
+  v11 = [PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory getLoggerForSlot:slotID];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = "not";
+    if (v7 || v8 || v9)
+    {
+      v12 = "";
+    }
+
+    if (v7)
+    {
+      v13 = "Yes";
+    }
+
+    else
+    {
+      v13 = "No";
+    }
+
+    v17 = 136315906;
+    v18 = v12;
+    if (v8)
+    {
+      v14 = "Yes";
+    }
+
+    else
+    {
+      v14 = "No";
+    }
+
+    v19 = 2080;
+    v20 = v13;
+    v21 = 2080;
+    v22 = v14;
+    if (v9)
+    {
+      v15 = "Yes";
+    }
+
+    else
+    {
+      v15 = "No";
+    }
+
+    v23 = 2080;
+    v24 = v15;
+    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "We should %s show any voice and data switch: VoLTE: %s, 5GSA: %s, VoNR: %s", &v17, 0x2Au);
+  }
+
+  return v7 || v8 || v9;
 }
 
 + (BOOL)shouldShow2GSwitchForSubscriptionContext:(id)context

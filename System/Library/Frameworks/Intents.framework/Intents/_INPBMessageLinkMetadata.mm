@@ -3,6 +3,7 @@
 - (_INPBMessageLinkMetadata)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)linkMediaTypeAsString:(int)string;
 - (int)StringAsLinkMediaType:(id)type;
 - (unint64_t)hash;
 - (void)addIconURL:(id)l;
@@ -2132,13 +2133,12 @@ LABEL_262:
 
 - (void)writeTo:(id)to
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   toCopy = to;
   albumArtist = [(_INPBMessageLinkMetadata *)self albumArtist];
 
   if (albumArtist)
   {
-    albumArtist = self->_albumArtist;
     PBDataWriterWriteStringField();
   }
 
@@ -2146,7 +2146,6 @@ LABEL_262:
 
   if (albumName)
   {
-    albumName = self->_albumName;
     PBDataWriterWriteStringField();
   }
 
@@ -2154,7 +2153,6 @@ LABEL_262:
 
   if (appleTvSubtitle)
   {
-    appleTvSubtitle = self->_appleTvSubtitle;
     PBDataWriterWriteStringField();
   }
 
@@ -2162,7 +2160,6 @@ LABEL_262:
 
   if (appleTvTitle)
   {
-    appleTvTitle = self->_appleTvTitle;
     PBDataWriterWriteStringField();
   }
 
@@ -2170,7 +2167,6 @@ LABEL_262:
 
   if (artistGenre)
   {
-    artistGenre = self->_artistGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2178,7 +2174,6 @@ LABEL_262:
 
   if (artistName)
   {
-    artistName = self->_artistName;
     PBDataWriterWriteStringField();
   }
 
@@ -2186,7 +2181,6 @@ LABEL_262:
 
   if (audioBookAuthor)
   {
-    audioBookAuthor = self->_audioBookAuthor;
     PBDataWriterWriteStringField();
   }
 
@@ -2194,7 +2188,6 @@ LABEL_262:
 
   if (audioBookName)
   {
-    audioBookName = self->_audioBookName;
     PBDataWriterWriteStringField();
   }
 
@@ -2202,7 +2195,6 @@ LABEL_262:
 
   if (audioBookNarrator)
   {
-    audioBookNarrator = self->_audioBookNarrator;
     PBDataWriterWriteStringField();
   }
 
@@ -2210,7 +2202,6 @@ LABEL_262:
 
   if (bookAuthor)
   {
-    bookAuthor = self->_bookAuthor;
     PBDataWriterWriteStringField();
   }
 
@@ -2218,7 +2209,6 @@ LABEL_262:
 
   if (bookName)
   {
-    bookName = self->_bookName;
     PBDataWriterWriteStringField();
   }
 
@@ -2226,7 +2216,6 @@ LABEL_262:
 
   if (creator)
   {
-    creator = self->_creator;
     PBDataWriterWriteStringField();
   }
 
@@ -2234,7 +2223,6 @@ LABEL_262:
 
   if (iTunesStoreFrontIdentifier)
   {
-    iTunesStoreFrontIdentifier = self->_iTunesStoreFrontIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -2242,85 +2230,80 @@ LABEL_262:
 
   if (iTunesStoreIdentifier)
   {
-    iTunesStoreIdentifier = self->_iTunesStoreIdentifier;
     PBDataWriterWriteStringField();
   }
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v33 = self->_iconURLs;
-  v34 = [(NSArray *)v33 countByEnumeratingWithState:&v121 objects:v126 count:16];
-  if (v34)
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v19 = self->_iconURLs;
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v70 objects:v75 count:16];
+  if (v20)
   {
-    v35 = v34;
-    v36 = *v122;
+    v21 = v20;
+    v22 = *v71;
     do
     {
-      v37 = 0;
+      v23 = 0;
       do
       {
-        if (*v122 != v36)
+        if (*v71 != v22)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v19);
         }
 
-        v38 = *(*(&v121 + 1) + 8 * v37);
         PBDataWriterWriteStringField();
-        ++v37;
+        ++v23;
       }
 
-      while (v35 != v37);
-      v35 = [(NSArray *)v33 countByEnumeratingWithState:&v121 objects:v126 count:16];
+      while (v21 != v23);
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v70 objects:v75 count:16];
     }
 
-    while (v35);
+    while (v21);
   }
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
-  v118 = 0u;
-  v39 = self->_imageURLs;
-  v40 = [(NSArray *)v39 countByEnumeratingWithState:&v117 objects:v125 count:16];
-  if (v40)
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v24 = self->_imageURLs;
+  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v66 objects:v74 count:16];
+  if (v25)
   {
-    v41 = v40;
-    v42 = *v118;
+    v26 = v25;
+    v27 = *v67;
     do
     {
-      v43 = 0;
+      v28 = 0;
       do
       {
-        if (*v118 != v42)
+        if (*v67 != v27)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v24);
         }
 
-        v44 = *(*(&v117 + 1) + 8 * v43);
         PBDataWriterWriteStringField();
-        ++v43;
+        ++v28;
       }
 
-      while (v41 != v43);
-      v41 = [(NSArray *)v39 countByEnumeratingWithState:&v117 objects:v125 count:16];
+      while (v26 != v28);
+      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v66 objects:v74 count:16];
     }
 
-    while (v41);
+    while (v26);
   }
 
   itemType = [(_INPBMessageLinkMetadata *)self itemType];
 
   if (itemType)
   {
-    itemType = self->_itemType;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBMessageLinkMetadata *)self hasLinkMediaType])
   {
-    linkMediaType = self->_linkMediaType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2336,7 +2319,6 @@ LABEL_262:
 
   if (movieBundleGenre)
   {
-    movieBundleGenre = self->_movieBundleGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2344,7 +2326,6 @@ LABEL_262:
 
   if (movieBundleName)
   {
-    movieBundleName = self->_movieBundleName;
     PBDataWriterWriteStringField();
   }
 
@@ -2352,7 +2333,6 @@ LABEL_262:
 
   if (movieGenre)
   {
-    movieGenre = self->_movieGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2360,7 +2340,6 @@ LABEL_262:
 
   if (movieName)
   {
-    movieName = self->_movieName;
     PBDataWriterWriteStringField();
   }
 
@@ -2368,7 +2347,6 @@ LABEL_262:
 
   if (musicVideoArtist)
   {
-    musicVideoArtist = self->_musicVideoArtist;
     PBDataWriterWriteStringField();
   }
 
@@ -2376,7 +2354,6 @@ LABEL_262:
 
   if (musicVideoName)
   {
-    musicVideoName = self->_musicVideoName;
     PBDataWriterWriteStringField();
   }
 
@@ -2384,7 +2361,6 @@ LABEL_262:
 
   if (openGraphType)
   {
-    openGraphType = self->_openGraphType;
     PBDataWriterWriteStringField();
   }
 
@@ -2392,7 +2368,6 @@ LABEL_262:
 
   if (originalURL)
   {
-    originalURL = self->_originalURL;
     PBDataWriterWriteStringField();
   }
 
@@ -2400,7 +2375,6 @@ LABEL_262:
 
   if (playlistCurator)
   {
-    playlistCurator = self->_playlistCurator;
     PBDataWriterWriteStringField();
   }
 
@@ -2408,7 +2382,6 @@ LABEL_262:
 
   if (playlistName)
   {
-    playlistName = self->_playlistName;
     PBDataWriterWriteStringField();
   }
 
@@ -2416,7 +2389,6 @@ LABEL_262:
 
   if (podcastArtist)
   {
-    podcastArtist = self->_podcastArtist;
     PBDataWriterWriteStringField();
   }
 
@@ -2424,7 +2396,6 @@ LABEL_262:
 
   if (podcastEpisodeArtist)
   {
-    podcastEpisodeArtist = self->_podcastEpisodeArtist;
     PBDataWriterWriteStringField();
   }
 
@@ -2432,7 +2403,6 @@ LABEL_262:
 
   if (podcastEpisodeName)
   {
-    podcastEpisodeName = self->_podcastEpisodeName;
     PBDataWriterWriteStringField();
   }
 
@@ -2440,7 +2410,6 @@ LABEL_262:
 
   if (podcastEpisodePodcastName)
   {
-    podcastEpisodePodcastName = self->_podcastEpisodePodcastName;
     PBDataWriterWriteStringField();
   }
 
@@ -2456,7 +2425,6 @@ LABEL_262:
 
   if (podcastName)
   {
-    podcastName = self->_podcastName;
     PBDataWriterWriteStringField();
   }
 
@@ -2464,7 +2432,6 @@ LABEL_262:
 
   if (radioCurator)
   {
-    radioCurator = self->_radioCurator;
     PBDataWriterWriteStringField();
   }
 
@@ -2472,7 +2439,6 @@ LABEL_262:
 
   if (radioName)
   {
-    radioName = self->_radioName;
     PBDataWriterWriteStringField();
   }
 
@@ -2480,7 +2446,6 @@ LABEL_262:
 
   if (siteName)
   {
-    siteName = self->_siteName;
     PBDataWriterWriteStringField();
   }
 
@@ -2488,7 +2453,6 @@ LABEL_262:
 
   if (softwareGenre)
   {
-    softwareGenre = self->_softwareGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2496,7 +2460,6 @@ LABEL_262:
 
   if (softwareName)
   {
-    softwareName = self->_softwareName;
     PBDataWriterWriteStringField();
   }
 
@@ -2504,7 +2467,6 @@ LABEL_262:
 
   if (softwarePlatform)
   {
-    softwarePlatform = self->_softwarePlatform;
     PBDataWriterWriteStringField();
   }
 
@@ -2512,7 +2474,6 @@ LABEL_262:
 
   if (songAlbum)
   {
-    songAlbum = self->_songAlbum;
     PBDataWriterWriteStringField();
   }
 
@@ -2520,7 +2481,6 @@ LABEL_262:
 
   if (songArtist)
   {
-    songArtist = self->_songArtist;
     PBDataWriterWriteStringField();
   }
 
@@ -2528,7 +2488,6 @@ LABEL_262:
 
   if (songTitle)
   {
-    songTitle = self->_songTitle;
     PBDataWriterWriteStringField();
   }
 
@@ -2536,7 +2495,6 @@ LABEL_262:
 
   if (summary)
   {
-    summary = self->_summary;
     PBDataWriterWriteStringField();
   }
 
@@ -2544,7 +2502,6 @@ LABEL_262:
 
   if (title)
   {
-    title = self->_title;
     PBDataWriterWriteStringField();
   }
 
@@ -2552,7 +2509,6 @@ LABEL_262:
 
   if (tvEpisodeEpisodeName)
   {
-    tvEpisodeEpisodeName = self->_tvEpisodeEpisodeName;
     PBDataWriterWriteStringField();
   }
 
@@ -2560,7 +2516,6 @@ LABEL_262:
 
   if (tvEpisodeGenre)
   {
-    tvEpisodeGenre = self->_tvEpisodeGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2568,7 +2523,6 @@ LABEL_262:
 
   if (tvEpisodeSeasonName)
   {
-    tvEpisodeSeasonName = self->_tvEpisodeSeasonName;
     PBDataWriterWriteStringField();
   }
 
@@ -2576,7 +2530,6 @@ LABEL_262:
 
   if (tvSeasonGenre)
   {
-    tvSeasonGenre = self->_tvSeasonGenre;
     PBDataWriterWriteStringField();
   }
 
@@ -2584,7 +2537,6 @@ LABEL_262:
 
   if (tvSeasonName)
   {
-    tvSeasonName = self->_tvSeasonName;
     PBDataWriterWriteStringField();
   }
 
@@ -2592,11 +2544,8 @@ LABEL_262:
 
   if (tvShowName)
   {
-    tvShowName = self->_tvShowName;
     PBDataWriterWriteStringField();
   }
-
-  v116 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTvShowName:(id)name
@@ -2983,6 +2932,168 @@ LABEL_262:
   else
   {
     v4 = 10;
+  }
+
+  return v4;
+}
+
+- (id)linkMediaTypeAsString:(int)string
+{
+  if (string > 99)
+  {
+    if (string <= 139)
+    {
+      if (string > 119)
+      {
+        if (string == 120)
+        {
+          v4 = @"PODCAST_EPISODE";
+
+          return v4;
+        }
+
+        if (string == 130)
+        {
+          v4 = @"TV_EPISODE";
+
+          return v4;
+        }
+      }
+
+      else
+      {
+        if (string == 100)
+        {
+          v4 = @"AUDIO_BOOK";
+
+          return v4;
+        }
+
+        if (string == 110)
+        {
+          v4 = @"PODCAST";
+
+          return v4;
+        }
+      }
+    }
+
+    else if (string <= 159)
+    {
+      if (string == 140)
+      {
+        v4 = @"TV_SEASON";
+
+        return v4;
+      }
+
+      if (string == 150)
+      {
+        v4 = @"MOVIE";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 160:
+          v4 = @"TV_SHOW";
+
+          return v4;
+        case 170:
+          v4 = @"MOVIE_BUNDLE";
+
+          return v4;
+        case 180:
+          v4 = @"APPLE_TV";
+
+          return v4;
+      }
+    }
+
+LABEL_80:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 49)
+  {
+    if (string > 29)
+    {
+      if (string == 30)
+      {
+        v4 = @"ALBUM";
+
+        return v4;
+      }
+
+      if (string == 40)
+      {
+        v4 = @"MUSIC_VIDEO";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 10)
+      {
+        v4 = @"UNKNOWN_LINK_TYPE";
+
+        return v4;
+      }
+
+      if (string == 20)
+      {
+        v4 = @"SONG";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_80;
+  }
+
+  if (string <= 69)
+  {
+    if (string == 50)
+    {
+      v4 = @"ARTIST";
+
+      return v4;
+    }
+
+    if (string == 60)
+    {
+      v4 = @"PLAYLIST";
+
+      return v4;
+    }
+
+    goto LABEL_80;
+  }
+
+  switch(string)
+  {
+    case 'F':
+      v4 = @"RADIO";
+
+      break;
+    case 'P':
+      v4 = @"SOFTWARE";
+
+      break;
+    case 'Z':
+      v4 = @"BOOK";
+
+      return v4;
+    default:
+      goto LABEL_80;
   }
 
   return v4;

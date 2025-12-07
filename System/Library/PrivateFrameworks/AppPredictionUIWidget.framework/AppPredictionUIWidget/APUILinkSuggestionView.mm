@@ -23,7 +23,8 @@
     executableObject = [executableSpecification executableObject];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       objc_storeStrong(&self->_linkAction, executableObject);
       bundleId = [executableObject bundleId];
@@ -45,8 +46,8 @@
 
     else
     {
-      v17 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_ui(isKindOfClass);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [APUILinkSuggestionView layoutSuggestion:];
       }
@@ -55,7 +56,7 @@
 
   else
   {
-    executableObject = __atxlog_handle_ui();
+    executableObject = __atxlog_handle_ui(0);
     if (os_log_type_enabled(executableObject, OS_LOG_TYPE_ERROR))
     {
       [APUILinkSuggestionView layoutSuggestion:];
@@ -66,9 +67,10 @@
 - (void)_tapRecognized:(id)recognized
 {
   recognizedCopy = recognized;
-  if (![(APUISuggestionView *)self canEngageSuggestion])
+  canEngageSuggestion = [(APUISuggestionView *)self canEngageSuggestion];
+  if ((canEngageSuggestion & 1) == 0)
   {
-    workflowRunnerClient = __atxlog_handle_ui();
+    workflowRunnerClient = __atxlog_handle_ui(canEngageSuggestion);
     if (os_log_type_enabled(workflowRunnerClient, OS_LOG_TYPE_ERROR))
     {
       [APUIActionSuggestionView _tapRecognized:];
@@ -84,42 +86,40 @@
     suggestion = [(APUISuggestionView *)self suggestion];
     [delegate view:self didTapSuggestion:suggestion];
 
-    v7 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_ui(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: Invoking ShortcutsRuntime for link action execution", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: Invoking ShortcutsRuntime for link action execution", v15, 2u);
     }
 
-    v8 = objc_alloc(MEMORY[0x277D7A150]);
+    v10 = objc_alloc(MEMORY[0x277D7A150]);
     action = [(ATXLinkActionContainer *)self->_linkAction action];
     bundleId = [(ATXLinkActionContainer *)self->_linkAction bundleId];
-    v11 = [v8 initWithLinkAction:action bundleIdentifier:bundleId resultSurface:1];
+    v13 = [v10 initWithLinkAction:action bundleIdentifier:bundleId resultSurface:1];
 
-    [v11 setDelegate:self];
-    [v11 start];
+    [v13 setDelegate:self];
+    [v13 start];
     workflowRunnerClient = self->_workflowRunnerClient;
-    self->_workflowRunnerClient = v11;
+    self->_workflowRunnerClient = v13;
 LABEL_8:
   }
 }
 
 - (void)workflowRunnerClient:(id)client didStartRunningWorkflowWithProgress:(id)progress
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   progressCopy = progress;
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(progressCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218240;
-    v10 = clientCopy;
-    v11 = 2048;
-    v12 = progressCopy;
-    _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: workflowRunnerClient: <%p> didStartRunningWorkflowWithProgress: <%p>", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = clientCopy;
+    v10 = 2048;
+    v11 = progressCopy;
+    _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: workflowRunnerClient: <%p> didStartRunningWorkflowWithProgress: <%p>", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workflowRunnerClient:(id)client didFinishRunningWorkflowWithOutput:(id)output error:(id)error cancelled:(BOOL)cancelled
@@ -128,7 +128,7 @@ LABEL_8:
   v22 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   errorCopy = error;
-  v11 = __atxlog_handle_ui();
+  v11 = __atxlog_handle_ui(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -140,50 +140,48 @@ LABEL_8:
   {
     if (cancelledCopy)
     {
-      v15 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_ui(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_240036000, v15, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: ShortcutsRuntime was cancelled", buf, 2u);
+        _os_log_impl(&dword_240036000, v16, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: ShortcutsRuntime was cancelled", buf, 2u);
       }
     }
 
     if (errorCopy)
     {
-      v16 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_ui(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [APUIActionSuggestionView workflowRunnerClient:didFinishRunningWorkflowWithOutput:error:cancelled:];
       }
     }
 
-    v13 = v18;
+    v14 = v18;
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
-    v14 = __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowWithOutput_error_cancelled___block_invoke_64;
+    v15 = __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowWithOutput_error_cancelled___block_invoke_64;
   }
 
   else
   {
-    v12 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_ui(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_240036000, v12, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: ShortcutsRuntime completed successfully.", buf, 2u);
+      _os_log_impl(&dword_240036000, v13, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: ShortcutsRuntime completed successfully.", buf, 2u);
     }
 
-    v13 = v19;
+    v14 = v19;
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v14 = __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowWithOutput_error_cancelled___block_invoke;
+    v15 = __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowWithOutput_error_cancelled___block_invoke;
   }
 
-  v13[2] = v14;
-  v13[3] = &unk_278C90A18;
-  v13[4] = self;
-  dispatch_async(MEMORY[0x277D85CD0], v13);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v14[2] = v15;
+  v14[3] = &unk_278C90A18;
+  v14[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], v14);
 }
 
 void __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowWithOutput_error_cancelled___block_invoke(uint64_t a1)
@@ -200,22 +198,6 @@ void __98__APUILinkSuggestionView_workflowRunnerClient_didFinishRunningWorkflowW
   v2 = *(a1 + 32);
   v3 = [v2 suggestion];
   [v4 view:v2 didFailExecutingSuggestion:v3];
-}
-
-- (void)layoutSuggestion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_240036000, v0, v1, "e:%ld * SuggestionsWidget: error: suggestion is not a link action", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)layoutSuggestion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_240036000, v0, v1, "e:%ld * SuggestionsWidget: No suggestions provided to LinkSuggestionView", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -69,32 +69,38 @@
   v12 = _Block_copy(activityHandler);
   if (v10)
   {
-    *(swift_allocObject() + 16) = v10;
+    v13 = swift_allocObject();
+    *(v13 + 16) = v10;
     v10 = sub_1000D2C9C;
   }
 
-  v13 = swift_allocObject();
-  *(v13 + 16) = v11;
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = swift_allocObject();
+  *(v14 + 16) = v11;
   if (v12)
   {
-    v14 = swift_allocObject();
-    *(v14 + 16) = v12;
+    v15 = swift_allocObject();
+    *(v15 + 16) = v12;
     v12 = sub_1000D2CB0;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   traitsCopy = traits;
   selfCopy = self;
-  v17 = sub_1000D0728(traits, sub_1000D2C9C, v13, v12, v14);
-  sub_1000588AC(v12);
+  v18 = sub_1000D0728(traits, sub_1000D2C9C, v14, v12, v15);
+  sub_1000588AC(v12, v15);
 
-  sub_1000588AC(v10);
+  sub_1000588AC(v10, v13);
 
-  return v17;
+  return v18;
 }
 
 - (void)recordRAPInformation:(id)information

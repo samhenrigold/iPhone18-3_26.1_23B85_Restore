@@ -267,19 +267,17 @@ LABEL_11:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  v4 = mode - 12;
-  if (mode - 12) <= 7 && ((0x8Bu >> v4))
+  if (mode - 12) <= 7 && ((0x8Bu >> (mode - 12)))
   {
-    v5 = *off_14528[v4];
-    v6 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (id)editOptionsThatHideEditModes

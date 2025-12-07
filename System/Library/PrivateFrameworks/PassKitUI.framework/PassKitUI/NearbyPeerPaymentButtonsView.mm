@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1BD3BD018();
+  sub_1BD3BD018(v2);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

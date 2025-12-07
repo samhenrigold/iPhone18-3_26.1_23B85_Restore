@@ -12,7 +12,7 @@
   selfCopy = self;
   sub_20CF87E7C();
 
-  sub_20CECF940(0, &qword_27C81DBE8);
+  sub_20CECF940(0, &qword_27C81DBE8, 0x277D75240);
   v3 = sub_20D567A58();
 
   return v3;

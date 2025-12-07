@@ -58,69 +58,65 @@
   showCopy = show;
   configurationCopy = configuration;
   delegateCopy = delegate;
-  v66.receiver = self;
-  v66.super_class = KNPlaybackSession;
-  v12 = [(KNPlaybackSession *)&v66 init];
+  v41.receiver = self;
+  v41.super_class = KNPlaybackSession;
+  v12 = [(KNPlaybackSession *)&v41 init];
   v13 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->_show, show);
-    objc_storeStrong((v13 + 8), configuration);
-    objc_msgSend_size(showCopy, v14, v15);
+    objc_storeStrong(&v13->_configuration, configuration);
+    [showCopy size];
+    v15 = v14;
     v17 = v16;
-    v19 = v18;
-    v22 = objc_msgSend_layerHost(configurationCopy, v20, v21);
-    v25 = objc_msgSend_rootLayer(v22, v23, v24);
+    layerHost = [configurationCopy layerHost];
+    rootLayer = [layerHost rootLayer];
 
-    v28 = objc_msgSend_layer(MEMORY[0x277CD9ED0], v26, v27);
-    v29 = objc_opt_class();
-    objc_msgSend_p_viewScaleByUpdatingShowLayerGeometry_forConfiguration_showSize_(v29, v30, v28, configurationCopy, v17, v19);
-    v32 = v31;
-    objc_msgSend_addSublayer_(v25, v33, v28);
-    v34 = [KNAnimationContext alloc];
-    v36 = objc_msgSend_initWithShowSize_viewScale_showLayer_(v34, v35, v28, v17, v19, v32);
-    v37 = *(v13 + 136);
-    *(v13 + 136) = v36;
+    layer = [MEMORY[0x277CD9ED0] layer];
+    [objc_opt_class() p_viewScaleByUpdatingShowLayerGeometry:layer forConfiguration:configurationCopy showSize:{v15, v17}];
+    v22 = v21;
+    [rootLayer addSublayer:layer];
+    v23 = [[KNAnimationContext alloc] initWithShowSize:layer viewScale:v15 showLayer:v17, v22];
+    animationContext = v13->_animationContext;
+    v13->_animationContext = v23;
 
-    v38 = objc_opt_class();
-    objc_msgSend_p_updateAnimationContext_fromConfiguration_(v38, v39, *(v13 + 136), configurationCopy);
-    v40 = objc_alloc_init(KNAnimationRegistryWithFallbacks);
-    v41 = *(v13 + 144);
-    *(v13 + 144) = v40;
+    [objc_opt_class() p_updateAnimationContext:v13->_animationContext fromConfiguration:configurationCopy];
+    v25 = objc_alloc_init(KNAnimationRegistryWithFallbacks);
+    registry = v13->_registry;
+    v13->_registry = v25;
 
-    isMetalEnabled = objc_msgSend_isMetalEnabled(configurationCopy, v42, v43);
-    objc_storeWeak((v13 + 104), delegateCopy);
-    *(v13 + 79) = 1;
-    *(v13 + 74) = 1;
-    *(v13 + 85) = 1;
-    *(v13 + 200) = isMetalEnabled;
-    *(v13 + 69) = 1;
-    objc_msgSend_autoplayBuildDelay(showCopy, v45, v46);
-    *(v13 + 184) = v47;
-    objc_msgSend_autoplayTransitionDelay(showCopy, v48, v49);
-    *(v13 + 176) = v50;
-    v51 = [KNAnimatedTextureManager alloc];
-    v53 = objc_msgSend_initWithSession_(v51, v52, v13);
-    v54 = *(v13 + 128);
-    *(v13 + 128) = v53;
+    isMetalEnabled = [configurationCopy isMetalEnabled];
+    objc_storeWeak(&v13->_canvasDelegate, delegateCopy);
+    v13->_shouldShowVideoReflectionsAndMasks = 1;
+    v13->_shouldDrawTexturesAsynchronously = 1;
+    v13->_shouldShowLiveVideos = 1;
+    v13->_floatingCommentBehavior = isMetalEnabled;
+    v13->_isShowLayerVisible = 1;
+    [showCopy autoplayBuildDelay];
+    v13->_autoplayBuildDelay = v28;
+    [showCopy autoplayTransitionDelay];
+    v13->_autoplayTransitionDelay = v29;
+    v30 = [[KNAnimatedTextureManager alloc] initWithSession:v13];
+    textureManager = v13->_textureManager;
+    v13->_textureManager = v30;
 
-    if (objc_msgSend_isResponsivenessLoggingEnabled(KNAnimationUtils, v55, v56))
+    if (+[KNAnimationUtils isResponsivenessLoggingEnabled])
     {
-      v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v58 = *(v13 + 224);
-      *(v13 + 224) = v57;
+      v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      eventDurationArray = v13->_eventDurationArray;
+      v13->_eventDurationArray = v32;
 
-      v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v60 = *(v13 + 216);
-      *(v13 + 216) = v59;
+      v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      animationDurationArray = v13->_animationDurationArray;
+      v13->_animationDurationArray = v34;
 
-      v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v62 = *(v13 + 232);
-      *(v13 + 232) = v61;
+      v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      workDurationArray = v13->_workDurationArray;
+      v13->_workDurationArray = v36;
 
-      v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v64 = *(v13 + 240);
-      *(v13 + 240) = v63;
+      v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      animationStringArray = v13->_animationStringArray;
+      v13->_animationStringArray = v38;
     }
   }
 
@@ -144,66 +140,66 @@
 
 - (BOOL)shouldShowInstructionalText
 {
-  v3 = objc_msgSend_canvasDelegate(self, a2, v2);
+  canvasDelegate = [(KNPlaybackSession *)self canvasDelegate];
   if (objc_opt_respondsToSelector())
   {
-    shouldShowInstructionalTextForLayout = objc_msgSend_shouldShowInstructionalTextForLayout_(v3, v4, 0);
+    v3 = [canvasDelegate shouldShowInstructionalTextForLayout:0];
   }
 
   else
   {
-    shouldShowInstructionalTextForLayout = 0;
+    v3 = 0;
   }
 
-  return shouldShowInstructionalTextForLayout;
+  return v3;
 }
 
 - (TSKAccessController)accessController
 {
   WeakRetained = objc_loadWeakRetained(&self->_canvasDelegate);
-  v5 = objc_msgSend_documentRoot(WeakRetained, v3, v4);
-  v8 = objc_msgSend_accessController(v5, v6, v7);
+  documentRoot = [WeakRetained documentRoot];
+  accessController = [documentRoot accessController];
 
-  return v8;
+  return accessController;
 }
 
 - (void)performSlideRead:(id)read
 {
   readCopy = read;
-  v7 = objc_msgSend_accessController(self, v5, v6);
+  accessController = [(KNPlaybackSession *)self accessController];
   accessControllerReadTicket = self->_accessControllerReadTicket;
-  v10 = v7;
+  v7 = accessController;
   if (accessControllerReadTicket)
   {
-    objc_msgSend_performReadWithTicket_block_(v7, v8, accessControllerReadTicket, readCopy);
+    [accessController performReadWithTicket:accessControllerReadTicket block:readCopy];
   }
 
   else
   {
-    objc_msgSend_performRead_(v7, v8, readCopy);
+    [accessController performRead:readCopy];
   }
 }
 
 - (void)gotoSlideNode:(id)node
 {
   nodeCopy = node;
-  v16 = nodeCopy;
+  v9 = nodeCopy;
   if (!nodeCopy)
   {
     v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], 0, "[KNPlaybackSession gotoSlideNode:]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 232, 0, "invalid nil value for '%{public}s'", "slideNode");
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSession gotoSlideNode:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:232 isFatal:0 description:{"invalid nil value for '%{public}s'", "slideNode"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     nodeCopy = 0;
   }
 
-  v13 = objc_msgSend_p_nextBestSlideNodeToSlideNode_(self, nodeCopy, nodeCopy);
-  if (v13)
+  v8 = [(KNPlaybackSession *)self p_nextBestSlideNodeToSlideNode:nodeCopy];
+  if (v8)
   {
-    objc_msgSend_p_setCurrentSlideNode_(self, v12, v13);
-    objc_msgSend_dropABreadCrumb(self, v14, v15);
+    [(KNPlaybackSession *)self p_setCurrentSlideNode:v8];
+    [(KNPlaybackSession *)self dropABreadCrumb];
   }
 }
 
@@ -212,8 +208,8 @@
   currentSlideNode = self->_currentSlideNode;
   if (currentSlideNode)
   {
-    currentSlideNode = objc_msgSend_slide(currentSlideNode, a2, v2);
-    v3 = vars8;
+    currentSlideNode = [currentSlideNode slide];
+    v2 = vars8;
   }
 
   return currentSlideNode;
@@ -222,235 +218,235 @@
 - (id)nextSlideNodeAfterSlideNode:(id)node
 {
   nodeCopy = node;
-  v7 = nodeCopy;
+  v5 = nodeCopy;
   alternateNextSlideNode = self->_alternateNextSlideNode;
   if (alternateNextSlideNode && self->_currentSlideNode == nodeCopy)
   {
-    v34 = alternateNextSlideNode;
+    v16 = alternateNextSlideNode;
     goto LABEL_21;
   }
 
-  if (self->_shouldRespectSkippedSlides || !objc_msgSend_isSkipped(nodeCopy, v5, v6))
+  if (self->_shouldRespectSkippedSlides || ![(KNSlideNode *)nodeCopy isSkipped])
   {
-    v9 = objc_msgSend_slideTree(self->_show, v5, v6);
-    v12 = objc_msgSend_visibleSlideNodes(v9, v13, v14);
+    slideTree = [(KNShow *)self->_show slideTree];
+    visibleSlideNodes = [slideTree visibleSlideNodes];
   }
 
   else
   {
-    v9 = objc_msgSend_slideTree(self->_show, v5, v6);
-    v12 = objc_msgSend_slideNodes(v9, v10, v11);
+    slideTree = [(KNShow *)self->_show slideTree];
+    visibleSlideNodes = [slideTree slideNodes];
   }
 
-  v15 = v12;
+  v9 = visibleSlideNodes;
 
-  v18 = objc_msgSend_slideNodesWithinPlayableRange(self, v16, v17);
+  slideNodesWithinPlayableRange = [(KNPlaybackSession *)self slideNodesWithinPlayableRange];
 
-  if (v18)
+  if (slideNodesWithinPlayableRange)
   {
-    v21 = objc_msgSend_slideNodesWithinPlayableRange(self, v19, v20);
-    v23 = objc_msgSend_p_intersectArraysWithUUIDEquality_secondArray_(self, v22, v15, v21);
+    slideNodesWithinPlayableRange2 = [(KNPlaybackSession *)self slideNodesWithinPlayableRange];
+    v12 = [(KNPlaybackSession *)self p_intersectArraysWithUUIDEquality:v9 secondArray:slideNodesWithinPlayableRange2];
 
-    v15 = v23;
+    v9 = v12;
   }
 
-  if (objc_msgSend_p_checkArrayInclusionIncludingUUID_object_(self, v19, v15, v7))
+  if ([(KNPlaybackSession *)self p_checkArrayInclusionIncludingUUID:v9 object:v5])
   {
-    v26 = objc_msgSend_lastObject(v15, v24, v25);
-    v28 = objc_msgSend_p_checkNodeEqualityIncludingUUID_secondSlideNode_(self, v27, v26, v7);
+    lastObject = [v9 lastObject];
+    v14 = [(KNPlaybackSession *)self p_checkNodeEqualityIncludingUUID:lastObject secondSlideNode:v5];
 
-    if (v28)
+    if (v14)
     {
-      if ((objc_msgSend_loopPresentation(self->_show, v29, v30) & 1) == 0 && !objc_msgSend_shouldAlwaysLoop(self, v31, v32))
+      if (![(KNShow *)self->_show loopPresentation]&& ![(KNPlaybackSession *)self shouldAlwaysLoop])
       {
-        v34 = 0;
+        v16 = 0;
         goto LABEL_20;
       }
 
-      v33 = objc_msgSend_firstObject(v15, v31, v32);
+      firstObject = [v9 firstObject];
     }
 
     else
     {
-      v35 = objc_msgSend_p_findIndexIncludingUUID_object_(self, v29, v15, v7) + 1;
-      if (v35 >= objc_msgSend_count(v15, v36, v37))
+      v17 = [(KNPlaybackSession *)self p_findIndexIncludingUUID:v9 object:v5]+ 1;
+      if (v17 >= [v9 count])
       {
-        v39 = MEMORY[0x277D81150];
-        v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[KNPlaybackSession nextSlideNodeAfterSlideNode:]");
-        v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v43, v40, v42, 286, 0, "Index of next slide node is out of bounds.");
+        v18 = MEMORY[0x277D81150];
+        v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSession nextSlideNodeAfterSlideNode:]"];
+        v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m"];
+        [v18 handleFailureInFunction:v19 file:v20 lineNumber:286 isFatal:0 description:"Index of next slide node is out of bounds."];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
       }
 
-      v33 = objc_msgSend_objectAtIndexedSubscript_(v15, v38, v35);
+      firstObject = [v9 objectAtIndexedSubscript:v17];
     }
   }
 
   else
   {
-    v33 = objc_msgSend_p_nextBestSlideNodeToSlideNode_(self, v24, v7);
+    firstObject = [(KNPlaybackSession *)self p_nextBestSlideNodeToSlideNode:v5];
   }
 
-  v34 = v33;
+  v16 = firstObject;
 LABEL_20:
 
 LABEL_21:
 
-  return v34;
+  return v16;
 }
 
 - (id)p_nextBestSlideNodeToSlideNode:(id)node
 {
   nodeCopy = node;
-  IsPlayable = objc_msgSend_p_slideNodeIsPlayable_(self, v5, nodeCopy);
-  v9 = nodeCopy;
+  v5 = [(KNPlaybackSession *)self p_slideNodeIsPlayable:nodeCopy];
+  previous = nodeCopy;
   if (nodeCopy)
   {
-    v9 = nodeCopy;
-    if ((IsPlayable & 1) == 0)
+    previous = nodeCopy;
+    if (!v5)
     {
-      v9 = nodeCopy;
+      previous = nodeCopy;
       do
       {
-        v10 = v9;
-        v9 = objc_msgSend_previous(v9, v7, v8);
+        v7 = previous;
+        previous = [previous previous];
 
-        v12 = objc_msgSend_p_slideNodeIsPlayable_(self, v11, v9);
+        v8 = [(KNPlaybackSession *)self p_slideNodeIsPlayable:previous];
       }
 
-      while (v9 && !v12);
-      if (!v9)
+      while (previous && !v8);
+      if (!previous)
       {
-        v9 = objc_msgSend_next(nodeCopy, v7, v8);
-        v14 = objc_msgSend_p_slideNodeIsPlayable_(self, v13, v9);
-        if (v9 && (v14 & 1) == 0)
+        previous = [nodeCopy next];
+        v9 = [(KNPlaybackSession *)self p_slideNodeIsPlayable:previous];
+        if (previous && !v9)
         {
           do
           {
-            v17 = v9;
-            v9 = objc_msgSend_next(v9, v15, v16);
+            v10 = previous;
+            previous = [previous next];
 
-            v19 = objc_msgSend_p_slideNodeIsPlayable_(self, v18, v9);
+            v11 = [(KNPlaybackSession *)self p_slideNodeIsPlayable:previous];
           }
 
-          while (v9 && !v19);
+          while (previous && !v11);
         }
 
-        if (!v9)
+        if (!previous)
         {
-          v20 = MEMORY[0x277D81150];
-          v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNPlaybackSession p_nextBestSlideNodeToSlideNode:]");
-          v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v24, v21, v23, 323, 0, "SERIOUS BUG: Show slide tree should never be mutually exclusive from playback session slide tree.");
+          v12 = MEMORY[0x277D81150];
+          v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSession p_nextBestSlideNodeToSlideNode:]"];
+          v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m"];
+          [v12 handleFailureInFunction:v13 file:v14 lineNumber:323 isFatal:0 description:"SERIOUS BUG: Show slide tree should never be mutually exclusive from playback session slide tree."];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26);
-          v9 = 0;
+          [MEMORY[0x277D81150] logBacktraceThrottled];
+          previous = 0;
         }
       }
     }
   }
 
-  return v9;
+  return previous;
 }
 
 - (KNSlide)nextSlideAfterCurrent
 {
-  v3 = objc_msgSend_nextSlideNodeAfterCurrent(self, a2, v2);
-  v6 = objc_msgSend_slide(v3, v4, v5);
+  nextSlideNodeAfterCurrent = [(KNPlaybackSession *)self nextSlideNodeAfterCurrent];
+  slide = [nextSlideNodeAfterCurrent slide];
 
-  return v6;
+  return slide;
 }
 
 - (id)gotoNextSlide
 {
-  v6 = objc_msgSend_nextSlideNodeAfterCurrent(self, a2, v2);
-  if (v6)
+  nextSlideNodeAfterCurrent = [(KNPlaybackSession *)self nextSlideNodeAfterCurrent];
+  if (nextSlideNodeAfterCurrent)
   {
-    objc_msgSend_p_setCurrentSlideNode_(self, v4, v6);
-    v9 = objc_msgSend_slide(self->_currentSlideNode, v7, v8);
+    [(KNPlaybackSession *)self p_setCurrentSlideNode:nextSlideNodeAfterCurrent];
+    slide = [(KNSlideNode *)self->_currentSlideNode slide];
   }
 
   else
   {
-    v9 = 0;
+    slide = 0;
   }
 
-  objc_msgSend_dropABreadCrumb(self, v4, v5);
+  [(KNPlaybackSession *)self dropABreadCrumb];
 
-  return v9;
+  return slide;
 }
 
 - (id)previousSlideNodeBeforeSlideNode:(id)node
 {
   nodeCopy = node;
-  v7 = objc_msgSend_playableSlideNodes(self, v5, v6);
-  if ((objc_msgSend_p_slideNodeIsPlayable_(self, v8, nodeCopy) & 1) == 0)
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  if (![(KNPlaybackSession *)self p_slideNodeIsPlayable:nodeCopy])
   {
-    v18 = objc_msgSend_p_nextBestSlideNodeToSlideNode_(self, v9, nodeCopy);
+    lastObject = [(KNPlaybackSession *)self p_nextBestSlideNodeToSlideNode:nodeCopy];
     goto LABEL_10;
   }
 
-  v11 = objc_msgSend_firstObject(v7, v9, v10);
-  v13 = objc_msgSend_p_checkNodeEqualityIncludingUUID_secondSlideNode_(self, v12, v11, nodeCopy);
+  firstObject = [playableSlideNodes firstObject];
+  v7 = [(KNPlaybackSession *)self p_checkNodeEqualityIncludingUUID:firstObject secondSlideNode:nodeCopy];
 
-  if (!v13)
+  if (!v7)
   {
-    IndexIncludingUUID_object = objc_msgSend_p_findIndexIncludingUUID_object_(self, v14, v7, nodeCopy);
-    if (!IndexIncludingUUID_object)
+    v9 = [(KNPlaybackSession *)self p_findIndexIncludingUUID:playableSlideNodes object:nodeCopy];
+    if (!v9)
     {
-      v21 = MEMORY[0x277D81150];
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[KNPlaybackSession previousSlideNodeBeforeSlideNode:]");
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v25, v22, v24, 366, 0, "Index of previous slide node is out of bounds.");
+      v10 = MEMORY[0x277D81150];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSession previousSlideNodeBeforeSlideNode:]"];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m"];
+      [v10 handleFailureInFunction:v11 file:v12 lineNumber:366 isFatal:0 description:"Index of previous slide node is out of bounds."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
-    v18 = objc_msgSend_objectAtIndexedSubscript_(v7, v19, IndexIncludingUUID_object - 1);
+    lastObject = [playableSlideNodes objectAtIndexedSubscript:v9 - 1];
     goto LABEL_10;
   }
 
-  if ((objc_msgSend_loopPresentation(self->_show, v14, v15) & 1) != 0 || objc_msgSend_shouldAlwaysLoop(self, v16, v17))
+  if ([(KNShow *)self->_show loopPresentation]|| [(KNPlaybackSession *)self shouldAlwaysLoop])
   {
-    v18 = objc_msgSend_lastObject(v7, v16, v17);
+    lastObject = [playableSlideNodes lastObject];
 LABEL_10:
-    v28 = v18;
+    v13 = lastObject;
     goto LABEL_11;
   }
 
-  v28 = 0;
+  v13 = 0;
 LABEL_11:
 
-  return v28;
+  return v13;
 }
 
 - (id)gotoPreviousSlide
 {
-  v6 = objc_msgSend_previousSlideNodeBeforeCurrent(self, a2, v2);
-  if (v6)
+  previousSlideNodeBeforeCurrent = [(KNPlaybackSession *)self previousSlideNodeBeforeCurrent];
+  if (previousSlideNodeBeforeCurrent)
   {
-    objc_msgSend_p_setCurrentSlideNode_(self, v4, v6);
-    v9 = objc_msgSend_slide(self->_currentSlideNode, v7, v8);
+    [(KNPlaybackSession *)self p_setCurrentSlideNode:previousSlideNodeBeforeCurrent];
+    slide = [(KNSlideNode *)self->_currentSlideNode slide];
   }
 
   else
   {
-    v9 = 0;
+    slide = 0;
   }
 
-  objc_msgSend_dropABreadCrumb(self, v4, v5);
+  [(KNPlaybackSession *)self dropABreadCrumb];
 
-  return v9;
+  return slide;
 }
 
 - (BOOL)atBeginningOfDeck
 {
   selfCopy = self;
   currentSlideNode = self->_currentSlideNode;
-  v5 = objc_msgSend_playableSlideNodes(self, a2, v2);
-  v8 = objc_msgSend_firstObject(v5, v6, v7);
-  LOBYTE(selfCopy) = objc_msgSend_p_checkNodeEqualityIncludingUUID_secondSlideNode_(selfCopy, v9, currentSlideNode, v8);
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  firstObject = [playableSlideNodes firstObject];
+  LOBYTE(selfCopy) = [(KNPlaybackSession *)selfCopy p_checkNodeEqualityIncludingUUID:currentSlideNode secondSlideNode:firstObject];
 
   return selfCopy;
 }
@@ -459,47 +455,47 @@ LABEL_11:
 {
   selfCopy = self;
   currentSlideNode = self->_currentSlideNode;
-  v5 = objc_msgSend_playableSlideNodes(self, a2, v2);
-  v8 = objc_msgSend_lastObject(v5, v6, v7);
-  LOBYTE(selfCopy) = objc_msgSend_p_checkNodeEqualityIncludingUUID_secondSlideNode_(selfCopy, v9, currentSlideNode, v8);
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  lastObject = [playableSlideNodes lastObject];
+  LOBYTE(selfCopy) = [(KNPlaybackSession *)selfCopy p_checkNodeEqualityIncludingUUID:currentSlideNode secondSlideNode:lastObject];
 
   return selfCopy;
 }
 
 - (KNSlideNode)firstSlideNode
 {
-  v3 = objc_msgSend_playableSlideNodes(self, a2, v2);
-  v6 = objc_msgSend_firstObject(v3, v4, v5);
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  firstObject = [playableSlideNodes firstObject];
 
-  return v6;
+  return firstObject;
 }
 
 - (id)gotoFirstSlide
 {
-  v4 = objc_msgSend_firstSlideNode(self, a2, v2);
-  objc_msgSend_p_setCurrentSlideNode_(self, v5, v4);
-  objc_msgSend_dropABreadCrumb(self, v6, v7);
-  v10 = objc_msgSend_slide(v4, v8, v9);
+  firstSlideNode = [(KNPlaybackSession *)self firstSlideNode];
+  [(KNPlaybackSession *)self p_setCurrentSlideNode:firstSlideNode];
+  [(KNPlaybackSession *)self dropABreadCrumb];
+  slide = [firstSlideNode slide];
 
-  return v10;
+  return slide;
 }
 
 - (KNSlideNode)lastSlideNode
 {
-  v3 = objc_msgSend_playableSlideNodes(self, a2, v2);
-  v6 = objc_msgSend_lastObject(v3, v4, v5);
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  lastObject = [playableSlideNodes lastObject];
 
-  return v6;
+  return lastObject;
 }
 
 - (id)gotoLastSlide
 {
-  v4 = objc_msgSend_lastSlideNode(self, a2, v2);
-  objc_msgSend_p_setCurrentSlideNode_(self, v5, v4);
-  objc_msgSend_dropABreadCrumb(self, v6, v7);
-  v10 = objc_msgSend_slide(v4, v8, v9);
+  lastSlideNode = [(KNPlaybackSession *)self lastSlideNode];
+  [(KNPlaybackSession *)self p_setCurrentSlideNode:lastSlideNode];
+  [(KNPlaybackSession *)self dropABreadCrumb];
+  slide = [lastSlideNode slide];
 
-  return v10;
+  return slide;
 }
 
 - (NSArray)breadCrumbTrail
@@ -517,7 +513,7 @@ LABEL_11:
 
 - (void)setBreadCrumbTrail:(id)trail
 {
-  v4 = objc_msgSend_mutableCopy(trail, a2, trail);
+  v4 = [trail mutableCopy];
   breadCrumbTrail = self->_breadCrumbTrail;
   self->_breadCrumbTrail = v4;
 }
@@ -527,99 +523,97 @@ LABEL_11:
   breadCrumbTrail = self->_breadCrumbTrail;
   if (!breadCrumbTrail)
   {
-    v5 = objc_alloc(MEMORY[0x277CBEB18]);
-    v7 = objc_msgSend_initWithCapacity_(v5, v6, 1);
-    v8 = self->_breadCrumbTrail;
-    self->_breadCrumbTrail = v7;
+    v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
+    v5 = self->_breadCrumbTrail;
+    self->_breadCrumbTrail = v4;
 
     breadCrumbTrail = self->_breadCrumbTrail;
   }
 
   currentSlideNode = self->_currentSlideNode;
-  v10 = objc_msgSend_lastObject(breadCrumbTrail, a2, v2);
+  lastObject = [(NSMutableArray *)breadCrumbTrail lastObject];
 
-  if (currentSlideNode != v10)
+  if (currentSlideNode != lastObject)
   {
-    v13 = self->_currentSlideNode;
-    v12 = self->_breadCrumbTrail;
+    v9 = self->_currentSlideNode;
+    v8 = self->_breadCrumbTrail;
 
-    objc_msgSend_addObject_(v12, v11, v13);
+    [(NSMutableArray *)v8 addObject:v9];
   }
 }
 
 - (id)breadCrumb
 {
   v3 = self->_currentSlideNode;
-  if (!objc_msgSend_count(self->_breadCrumbTrail, v4, v5))
+  if (![(NSMutableArray *)self->_breadCrumbTrail count])
   {
     goto LABEL_4;
   }
 
-  v8 = objc_msgSend_lastObject(self->_breadCrumbTrail, v6, v7);
+  lastObject = [(NSMutableArray *)self->_breadCrumbTrail lastObject];
 
-  objc_msgSend_removeLastObject(self->_breadCrumbTrail, v9, v10);
-  if (v8 != self->_currentSlideNode)
+  [(NSMutableArray *)self->_breadCrumbTrail removeLastObject];
+  if (lastObject != self->_currentSlideNode)
   {
-    v3 = v8;
+    v3 = lastObject;
 LABEL_4:
-    v13 = v3;
-    v8 = v13;
+    breadCrumb = v3;
+    lastObject = breadCrumb;
     goto LABEL_6;
   }
 
-  v13 = objc_msgSend_breadCrumb(self, v11, v12);
+  breadCrumb = [(KNPlaybackSession *)self breadCrumb];
 LABEL_6:
 
-  return v13;
+  return breadCrumb;
 }
 
 - (KNAnimatedSlideView)animatedSlideViewForCurrentSlide
 {
-  currentSlideNode = self->_currentSlideNode;
-  if (currentSlideNode)
+  if (self->_currentSlideNode)
   {
-    v4 = objc_msgSend_animatedSlideViewFor_(self, a2, currentSlideNode);
+    v3 = [(KNPlaybackSession *)self animatedSlideViewFor:?];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)animatedSlideViewFor:(id)for
 {
   forCopy = for;
-  v7 = objc_msgSend_textureManager(self, v5, v6);
-  v9 = objc_msgSend_ASVForSlideNode_(v7, v8, forCopy);
+  textureManager = [(KNPlaybackSession *)self textureManager];
+  v6 = [textureManager ASVForSlideNode:forCopy];
 
-  return v9;
+  return v6;
 }
 
 - (unint64_t)slideNumberForSlideNode:(id)node
 {
   show = self->_show;
   nodeCopy = node;
-  v7 = objc_msgSend_slideTree(show, v5, v6);
-  v9 = objc_msgSend_slideNumberForSlideNode_(v7, v8, nodeCopy);
+  slideTree = [(KNShow *)show slideTree];
+  v6 = [slideTree slideNumberForSlideNode:nodeCopy];
 
-  return v9;
+  return v6;
 }
 
 - (BOOL)isPrintingCanvas
 {
-  v4 = objc_msgSend_canvasDelegate(self, a2, v2);
-  v5 = objc_opt_respondsToSelector();
+  canvasDelegate = [(KNPlaybackSession *)self canvasDelegate];
+  v4 = objc_opt_respondsToSelector();
 
-  if ((v5 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
     return 0;
   }
 
-  v8 = objc_msgSend_canvasDelegate(self, v6, v7);
-  isPrintingCanvas = objc_msgSend_isPrintingCanvas(v8, v9, v10);
+  canvasDelegate2 = [(KNPlaybackSession *)self canvasDelegate];
+  isPrintingCanvas = [canvasDelegate2 isPrintingCanvas];
 
   return isPrintingCanvas;
 }
@@ -631,28 +625,28 @@ LABEL_6:
     return 1;
   }
 
-  v4 = objc_msgSend_showLayer(self->_animationContext, a2, v2);
-  v3 = v4 == 0;
+  showLayer = [(KNAnimationContext *)self->_animationContext showLayer];
+  v2 = showLayer == 0;
 
-  return v3;
+  return v2;
 }
 
 - (double)showScale
 {
-  v6 = objc_msgSend_animationContext(self, a2, v2);
-  if (v6)
+  animationContext = [(KNPlaybackSession *)self animationContext];
+  if (animationContext)
   {
-    v7 = objc_msgSend_animationContext(self, v4, v5);
-    objc_msgSend_showScale(v7, v8, v9);
-    v11 = v10;
+    animationContext2 = [(KNPlaybackSession *)self animationContext];
+    [animationContext2 showScale];
+    v6 = v5;
   }
 
   else
   {
-    v11 = 1.0;
+    v6 = 1.0;
   }
 
-  return v11;
+  return v6;
 }
 
 - (BOOL)canMakeInfoVisible:(id)visible allowAudioOnlyMovies:(BOOL)movies
@@ -661,11 +655,11 @@ LABEL_6:
   if (!movies)
   {
     objc_opt_class();
-    v9 = TSUDynamicCast();
-    if (v9)
+    v7 = TSUDynamicCast();
+    if (v7)
     {
-      v10 = v9;
-      isAudioOnly = objc_msgSend_isAudioOnly(v9, v6, v7);
+      v8 = v7;
+      isAudioOnly = [v7 isAudioOnly];
 
       if (isAudioOnly)
       {
@@ -674,7 +668,7 @@ LABEL_6:
     }
   }
 
-  if ((objc_msgSend_shouldShowLiveVideos(self, v6, v7) & 1) == 0)
+  if (![(KNPlaybackSession *)self shouldShowLiveVideos])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -683,7 +677,7 @@ LABEL_6:
     }
   }
 
-  if (objc_msgSend_floatingCommentBehavior(self, v12, v13) == 1)
+  if ([(KNPlaybackSession *)self floatingCommentBehavior]== 1)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -693,150 +687,149 @@ LABEL_6:
   }
 
   objc_opt_class();
-  v15 = TSUDynamicCast();
-  if (v15)
+  v11 = TSUDynamicCast();
+  if (v11)
   {
-    v18 = v15;
-    v19 = objc_msgSend_imageData(v15, v16, v17);
-    v22 = objc_msgSend_sharedPool(MEMORY[0x277D802D0], v20, v21);
-    v24 = objc_msgSend_providerForData_shouldValidate_(v22, v23, v19, 0);
+    v12 = v11;
+    imageData = [v11 imageData];
+    mEMORY[0x277D802D0] = [MEMORY[0x277D802D0] sharedPool];
+    v15 = [mEMORY[0x277D802D0] providerForData:imageData shouldValidate:0];
 
-    if (!objc_msgSend_isError(v24, v25, v26))
+    if (![v15 isError])
     {
 LABEL_15:
 
       goto LABEL_16;
     }
 
-    v29 = objc_msgSend_thumbnailImageData(v18, v27, v28);
-    v32 = objc_msgSend_sharedPool(MEMORY[0x277D802D0], v30, v31);
-    v34 = objc_msgSend_providerForData_shouldValidate_(v32, v33, v29, 0);
+    thumbnailImageData = [v12 thumbnailImageData];
+    mEMORY[0x277D802D0]2 = [MEMORY[0x277D802D0] sharedPool];
+    v18 = [mEMORY[0x277D802D0]2 providerForData:thumbnailImageData shouldValidate:0];
 
-    if (!objc_msgSend_isError(v34, v35, v36))
+    if (![v18 isError])
     {
 LABEL_14:
 
       goto LABEL_15;
     }
 
-    v39 = objc_msgSend_fallbackColor(v19, v37, v38);
-    if (v39)
+    fallbackColor = [imageData fallbackColor];
+    if (fallbackColor)
     {
 
       goto LABEL_14;
     }
 
-    v63 = objc_msgSend_fallbackColor(v29, v40, v41);
+    fallbackColor2 = [thumbnailImageData fallbackColor];
 
-    if (!v63)
+    if (!fallbackColor2)
     {
 LABEL_8:
-      v14 = 0;
+      v10 = 0;
       goto LABEL_26;
     }
   }
 
 LABEL_16:
   objc_opt_class();
-  v42 = TSUDynamicCast();
-  v45 = v42;
-  if (v42)
+  v20 = TSUDynamicCast();
+  v21 = v20;
+  if (v20)
   {
-    v46 = objc_msgSend_fill(v42, v43, v44);
+    fill = [v20 fill];
     objc_opt_class();
-    v47 = TSUDynamicCast();
-    v50 = v47;
-    if (v47)
+    v23 = TSUDynamicCast();
+    v24 = v23;
+    if (v23)
     {
-      v51 = objc_msgSend_imageData(v47, v48, v49);
-      v54 = objc_msgSend_sharedPool(MEMORY[0x277D802D0], v52, v53);
-      v56 = objc_msgSend_providerForData_shouldValidate_(v54, v55, v51, 0);
+      imageData2 = [v23 imageData];
+      mEMORY[0x277D802D0]3 = [MEMORY[0x277D802D0] sharedPool];
+      v27 = [mEMORY[0x277D802D0]3 providerForData:imageData2 shouldValidate:0];
 
-      if (objc_msgSend_isError(v56, v57, v58))
+      if ([v27 isError])
       {
-        v61 = objc_msgSend_fallbackColor(v51, v59, v60);
-        v14 = v61 != 0;
+        fallbackColor3 = [imageData2 fallbackColor];
+        v10 = fallbackColor3 != 0;
       }
 
       else
       {
-        v14 = 1;
+        v10 = 1;
       }
     }
 
     else
     {
-      v14 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v14 = 1;
+    v10 = 1;
   }
 
 LABEL_26:
-  return v14;
+  return v10;
 }
 
 - (id)newCanvasForInfos:(id)infos
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
   v5 = objc_alloc_init(MEMORY[0x277D801E0]);
-  v8 = objc_msgSend_canvasDelegate(self, v6, v7);
-  objc_msgSend_setDelegate_(v5, v9, v8);
+  canvasDelegate = [(KNPlaybackSession *)self canvasDelegate];
+  [v5 setDelegate:canvasDelegate];
 
-  v12 = objc_msgSend_animationContext(self, v10, v11);
-  objc_msgSend_unscaledSlideRect(v12, v13, v14);
-  objc_msgSend_setUnscaledSize_(v5, v15, v16, v17, v18);
-  objc_msgSend_viewScale(v12, v19, v20);
-  objc_msgSend_setViewScale_(v5, v21, v22);
-  objc_msgSend_setInfosToDisplay_(v5, v23, infosCopy);
-  v26 = objc_msgSend_supportsHDR(self, v24, v25);
-  objc_msgSend_setSupportsHDR_(v5, v27, v26);
-  v55 = 0u;
-  v56 = 0u;
-  v54 = 0u;
-  v30 = objc_msgSend_layoutController(v5, v28, v29, 0, 0);
-  v33 = objc_msgSend_rootLayout(v30, v31, v32);
-  v36 = objc_msgSend_children(v33, v34, v35);
+  animationContext = [(KNPlaybackSession *)self animationContext];
+  [animationContext unscaledSlideRect];
+  [v5 setUnscaledSize:{v8, v9}];
+  [animationContext viewScale];
+  [v5 setViewScale:?];
+  [v5 setInfosToDisplay:infosCopy];
+  [v5 setSupportsHDR:{-[KNPlaybackSession supportsHDR](self, "supportsHDR")}];
+  v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
+  layoutController = [v5 layoutController];
+  rootLayout = [layoutController rootLayout];
+  children = [rootLayout children];
 
-  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v53, v57, 16);
-  if (v38)
+  v13 = [children countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v13)
   {
-    v39 = v38;
-    v40 = *v54;
+    v14 = v13;
+    v15 = *v22;
     do
     {
-      v41 = 0;
+      v16 = 0;
       do
       {
-        if (*v54 != v40)
+        if (*v22 != v15)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(children);
         }
 
         objc_opt_class();
-        v42 = TSUDynamicCast();
-        v45 = v42;
-        if (v42)
+        v17 = TSUDynamicCast();
+        v18 = v17;
+        if (v17)
         {
-          v46 = objc_msgSend_containedLayout(v42, v43, v44);
-          objc_msgSend_invalidateTextLayout(v46, v47, v48);
+          containedLayout = [v17 containedLayout];
+          [containedLayout invalidateTextLayout];
         }
 
-        ++v41;
+        ++v16;
       }
 
-      while (v39 != v41);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v49, &v53, v57, 16);
+      while (v14 != v16);
+      v14 = [children countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v39);
+    while (v14);
   }
 
-  objc_msgSend_nonInteractiveLayoutIfNeeded(v5, v50, v51);
+  [v5 nonInteractiveLayoutIfNeeded];
   return v5;
 }
 
@@ -844,12 +837,12 @@ LABEL_26:
 {
   canvasCopy = canvas;
   infoCopy = info;
-  v10 = objc_msgSend_layoutController(canvasCopy, v8, v9);
-  v12 = objc_msgSend_layoutForInfo_(v10, v11, infoCopy);
+  layoutController = [canvasCopy layoutController];
+  v9 = [layoutController layoutForInfo:infoCopy];
 
-  v14 = objc_msgSend_repForLayout_(canvasCopy, v13, v12);
+  v10 = [canvasCopy repForLayout:v9];
 
-  shouldBeDisplayedInShowMode = objc_msgSend_shouldBeDisplayedInShowMode(v12, v15, v16);
+  shouldBeDisplayedInShowMode = [v9 shouldBeDisplayedInShowMode];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -861,16 +854,16 @@ LABEL_26:
     goto LABEL_5;
   }
 
-  if (objc_msgSend_floatingCommentBehavior(self, v18, v19) == 1)
+  if ([(KNPlaybackSession *)self floatingCommentBehavior]== 1)
   {
 LABEL_5:
 
-    v14 = 0;
+    v10 = 0;
   }
 
 LABEL_6:
 
-  return v14;
+  return v10;
 }
 
 - (void)waitUntilSlideTextureRenderingIsCompleteForIdentifier:(id)identifier
@@ -878,30 +871,30 @@ LABEL_6:
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v6 = objc_msgSend_canvasDelegate(self, v4, v5);
-    v9 = objc_msgSend_documentRoot(v6, v7, v8);
-    v12 = objc_msgSend_accessController(v9, v10, v11);
+    canvasDelegate = [(KNPlaybackSession *)self canvasDelegate];
+    documentRoot = [canvasDelegate documentRoot];
+    accessController = [documentRoot accessController];
 
-    objc_msgSend_waitOnIdentifier_(v12, v13, identifierCopy);
+    [accessController waitOnIdentifier:identifierCopy];
   }
 
   else
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNPlaybackSession waitUntilSlideTextureRenderingIsCompleteForIdentifier:]");
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 618, 0, "invalid nil value for '%{public}s'", "identifier");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSession waitUntilSlideTextureRenderingIsCompleteForIdentifier:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSession.m"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:618 isFatal:0 description:{"invalid nil value for '%{public}s'", "identifier"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 }
 
 - (void)executeEndShowHandlerAfterDelay:(double)delay
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CBE738];
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v7, 1);
-  objc_msgSend_performSelector_withObject_afterDelay_inModes_(self, v6, sel_p_executeEndShowHandler, 0, v5, delay);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CBE738];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  [(KNPlaybackSession *)self performSelector:sel_p_executeEndShowHandler withObject:0 afterDelay:v5 inModes:delay];
 
   self->_hasEndShowHandlerBeenCancelled = 0;
 }
@@ -920,52 +913,49 @@ LABEL_6:
 
 - (BOOL)isPreCachingOperationActive
 {
-  v3 = objc_msgSend_currentThread(MEMORY[0x277CCACC8], a2, v2);
-  v6 = objc_msgSend_threadDictionary(v3, v4, v5);
-  v8 = objc_msgSend_objectForKeyedSubscript_(v6, v7, *MEMORY[0x277D805D8]);
-  v9 = v8 != 0;
+  currentThread = [MEMORY[0x277CCACC8] currentThread];
+  threadDictionary = [currentThread threadDictionary];
+  v4 = [threadDictionary objectForKeyedSubscript:*MEMORY[0x277D805D8]];
+  v5 = v4 != 0;
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)isTexturePreCachingThread
 {
-  v3 = objc_msgSend_currentThread(MEMORY[0x277CCACC8], a2, v2);
-  v6 = objc_msgSend_threadDictionary(v3, v4, v5);
-  v8 = objc_msgSend_objectForKeyedSubscript_(v6, v7, *MEMORY[0x277D80478]);
-  v9 = v8 != 0;
+  currentThread = [MEMORY[0x277CCACC8] currentThread];
+  threadDictionary = [currentThread threadDictionary];
+  v4 = [threadDictionary objectForKeyedSubscript:*MEMORY[0x277D80478]];
+  v5 = v4 != 0;
 
-  return v9;
+  return v5;
 }
 
 - (void)didChangeRootLayerGeometryAndScreenEnvironment
 {
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, v2);
-  v4 = MEMORY[0x277CD9FF0];
-  isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v5, v6);
-  objc_msgSend_activateBackground_(v4, v8, isMainThread ^ 1u);
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v9, 1);
-  v33 = self->_configuration;
-  v12 = objc_msgSend_configurationWithUpdatedLayerScreenEnvironment(self->_configuration, v10, v11);
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] activateBackground:{objc_msgSend(MEMORY[0x277CCACC8], "isMainThread") ^ 1}];
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  v11 = self->_configuration;
+  configurationWithUpdatedLayerScreenEnvironment = [(KNPlaybackSessionConfiguration *)self->_configuration configurationWithUpdatedLayerScreenEnvironment];
   configuration = self->_configuration;
-  self->_configuration = v12;
+  self->_configuration = configurationWithUpdatedLayerScreenEnvironment;
 
-  v14 = objc_opt_class();
-  v17 = objc_msgSend_showLayer(self->_animationContext, v15, v16);
-  v18 = self->_configuration;
-  v21 = objc_msgSend_show(self, v19, v20);
-  objc_msgSend_size(v21, v22, v23);
-  objc_msgSend_p_viewScaleByUpdatingShowLayerGeometry_forConfiguration_showSize_(v14, v24, v17, v18);
-  v26 = v25;
+  v5 = objc_opt_class();
+  showLayer = [(KNAnimationContext *)self->_animationContext showLayer];
+  v7 = self->_configuration;
+  show = [(KNPlaybackSession *)self show];
+  [show size];
+  [v5 p_viewScaleByUpdatingShowLayerGeometry:showLayer forConfiguration:v7 showSize:?];
+  v10 = v9;
 
-  if (v33 != self->_configuration)
+  if (v11 != self->_configuration)
   {
-    v29 = objc_opt_class();
-    objc_msgSend_p_updateAnimationContext_fromConfiguration_(v29, v30, self->_animationContext, self->_configuration);
+    [objc_opt_class() p_updateAnimationContext:self->_animationContext fromConfiguration:self->_configuration];
   }
 
-  objc_msgSend_updateGeometryToFitShowLayerAtViewScale_(self->_animationContext, v27, v28, v26);
-  objc_msgSend_commit(MEMORY[0x277CD9FF0], v31, v32);
+  [(KNAnimationContext *)self->_animationContext updateGeometryToFitShowLayerAtViewScale:v10];
+  [MEMORY[0x277CD9FF0] commit];
 }
 
 + (double)p_viewScaleByUpdatingShowLayerGeometry:(id)geometry forConfiguration:(id)configuration showSize:(CGSize)size
@@ -974,136 +964,133 @@ LABEL_6:
   width = size.width;
   geometryCopy = geometry;
   configurationCopy = configuration;
-  objc_msgSend_canvasViewScaleForUnscaledSize_(configurationCopy, v10, v11, width, height);
-  v15 = v14;
-  if (v14 < 1.0 && (objc_msgSend_shouldDisableViewScaling(KNAnimationUtils, v12, v13) & 1) != 0)
+  [configurationCopy canvasViewScaleForUnscaledSize:{width, height}];
+  v11 = v10;
+  if (v10 < 1.0 && +[KNAnimationUtils shouldDisableViewScaling])
   {
     TSURectWithSize();
-    objc_msgSend_setFrame_(geometryCopy, v16, v17);
-    v20 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v18, v19, v15);
-    objc_msgSend_setValue_forKeyPath_(geometryCopy, v21, v20, @"transform.scale.xy");
+    [geometryCopy setFrame:?];
+    v12 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
+    [geometryCopy setValue:v12 forKeyPath:@"transform.scale.xy"];
 
-    v15 = 1.0;
+    v11 = 1.0;
   }
 
   else
   {
-    objc_msgSend_boundsSize(configurationCopy, v12, v13);
+    [configurationCopy boundsSize];
     TSURectWithSize();
-    objc_msgSend_setFrame_(geometryCopy, v22, v23);
+    [geometryCopy setFrame:?];
   }
 
-  return v15;
+  return v11;
 }
 
 + (void)p_updateAnimationContext:(id)context fromConfiguration:(id)configuration
 {
   configurationCopy = configuration;
   contextCopy = context;
-  v8 = objc_msgSend_colorSpace(configurationCopy, v6, v7);
-  objc_msgSend_setColorSpace_(contextCopy, v9, v8);
-  objc_msgSend_pixelAspectRatio(configurationCopy, v10, v11);
-  v13 = v12;
+  [contextCopy setColorSpace:{objc_msgSend(configurationCopy, "colorSpace")}];
+  [configurationCopy pixelAspectRatio];
+  v7 = v6;
 
-  objc_msgSend_setPixelAspectRatio_(contextCopy, v14, v15, v13);
+  [contextCopy setPixelAspectRatio:v7];
 }
 
 - (NSArray)playableSlideNodes
 {
   shouldRespectSkippedSlides = self->_shouldRespectSkippedSlides;
-  v5 = objc_msgSend_slideTree(self->_show, a2, v2);
-  v8 = v5;
+  slideTree = [(KNShow *)self->_show slideTree];
+  v5 = slideTree;
   if (shouldRespectSkippedSlides)
   {
-    objc_msgSend_visibleSlideNodes(v5, v6, v7);
+    [slideTree visibleSlideNodes];
   }
 
   else
   {
-    objc_msgSend_slideNodes(v5, v6, v7);
+    [slideTree slideNodes];
   }
-  v9 = ;
+  v6 = ;
 
-  v12 = objc_msgSend_slideNodesWithinPlayableRange(self, v10, v11);
+  slideNodesWithinPlayableRange = [(KNPlaybackSession *)self slideNodesWithinPlayableRange];
 
-  if (v12)
+  if (slideNodesWithinPlayableRange)
   {
-    v15 = objc_msgSend_slideNodesWithinPlayableRange(self, v13, v14);
-    v17 = objc_msgSend_p_intersectArraysWithUUIDEquality_secondArray_(self, v16, v9, v15);
+    slideNodesWithinPlayableRange2 = [(KNPlaybackSession *)self slideNodesWithinPlayableRange];
+    v9 = [(KNPlaybackSession *)self p_intersectArraysWithUUIDEquality:v6 secondArray:slideNodesWithinPlayableRange2];
 
-    v9 = v17;
+    v6 = v9;
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)enableMetalBadge:(BOOL)badge
 {
   badgeCopy = badge;
-  objc_msgSend_begin(MEMORY[0x277CD9FF0], a2, badge);
+  [MEMORY[0x277CD9FF0] begin];
   v5 = 1;
-  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v6, 1);
-  v7 = MEMORY[0x277CD9FF0];
-  isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v8, v9);
-  objc_msgSend_activateBackground_(v7, v11, isMainThread ^ 1u);
-  objc_msgSend_setHidden_(self->_noMetalBadgeLayer, v12, badgeCopy);
+  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  [MEMORY[0x277CD9FF0] activateBackground:{objc_msgSend(MEMORY[0x277CCACC8], "isMainThread") ^ 1}];
+  [(CALayer *)self->_noMetalBadgeLayer setHidden:badgeCopy];
   if (badgeCopy)
   {
-    v5 = objc_msgSend_isSceneRenderingEnabled(self, v13, v14) ^ 1;
+    v5 = [(KNPlaybackSession *)self isSceneRenderingEnabled]^ 1;
   }
 
-  objc_msgSend_setHidden_(self->_sceneRenderingMetalBadgeLayer, v13, v5);
-  v17 = MEMORY[0x277CD9FF0];
+  [(CALayer *)self->_sceneRenderingMetalBadgeLayer setHidden:v5];
+  v6 = MEMORY[0x277CD9FF0];
 
-  objc_msgSend_commit(v17, v15, v16);
+  [v6 commit];
 }
 
 - (id)p_intersectArraysWithUUIDEquality:(id)equality secondArray:(id)array
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   equalityCopy = equality;
   arrayCopy = array;
-  v10 = objc_msgSend_array(MEMORY[0x277CBEB18], v8, v9);
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = equalityCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v20, v24, 16);
-  if (v13)
+  array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v9 = equalityCopy;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v10)
   {
-    v15 = v13;
-    v16 = *v21;
+    v11 = v10;
+    v12 = *v17;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v16)
+        if (*v17 != v12)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v9);
         }
 
-        v18 = *(*(&v20 + 1) + 8 * i);
-        if (objc_msgSend_p_checkArrayInclusionIncludingUUID_object_(self, v14, arrayCopy, v18, v20))
+        v14 = *(*(&v16 + 1) + 8 * i);
+        if ([(KNPlaybackSession *)self p_checkArrayInclusionIncludingUUID:arrayCopy object:v14, v16])
         {
-          objc_msgSend_addObject_(v10, v14, v18);
+          [array addObject:v14];
         }
       }
 
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v20, v24, 16);
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v15);
+    while (v11);
   }
 
-  return v10;
+  return array;
 }
 
 - (BOOL)p_slideNodeIsPlayable:(id)playable
 {
   playableCopy = playable;
-  v7 = objc_msgSend_playableSlideNodes(self, v5, v6);
-  LOBYTE(self) = objc_msgSend_p_checkArrayInclusionIncludingUUID_object_(self, v8, v7, playableCopy);
+  playableSlideNodes = [(KNPlaybackSession *)self playableSlideNodes];
+  LOBYTE(self) = [(KNPlaybackSession *)self p_checkArrayInclusionIncludingUUID:playableSlideNodes object:playableCopy];
 
   return self;
 }
@@ -1112,22 +1099,22 @@ LABEL_6:
 {
   dCopy = d;
   objectCopy = object;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_275DAF684;
-  v11[3] = &unk_27A697EB8;
-  v11[4] = self;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_275DAF684;
+  v10[3] = &unk_27A697EB8;
+  v10[4] = self;
   v8 = objectCopy;
-  v12 = v8;
-  v13 = &v14;
-  objc_msgSend_enumerateObjectsUsingBlock_(dCopy, v9, v11);
-  LOBYTE(self) = *(v15 + 24);
+  v11 = v8;
+  v12 = &v13;
+  [dCopy enumerateObjectsUsingBlock:v10];
+  LOBYTE(self) = *(v14 + 24);
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
   return self;
 }
 
@@ -1135,23 +1122,23 @@ LABEL_6:
 {
   dCopy = d;
   objectCopy = object;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0x7FFFFFFFFFFFFFFFLL;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_275DAF7D8;
-  v12[3] = &unk_27A697EB8;
-  v12[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0x7FFFFFFFFFFFFFFFLL;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_275DAF7D8;
+  v11[3] = &unk_27A697EB8;
+  v11[4] = self;
   v8 = objectCopy;
-  v13 = v8;
-  v14 = &v15;
-  objc_msgSend_enumerateObjectsUsingBlock_(dCopy, v9, v12);
-  v10 = v16[3];
+  v12 = v8;
+  v13 = &v14;
+  [dCopy enumerateObjectsUsingBlock:v11];
+  v9 = v15[3];
 
-  _Block_object_dispose(&v15, 8);
-  return v10;
+  _Block_object_dispose(&v14, 8);
+  return v9;
 }
 
 - (int64_t)analyticsVisitedSlideCount
@@ -1159,7 +1146,7 @@ LABEL_6:
   result = self->_analyticsSlideNodesVisited;
   if (result)
   {
-    return objc_msgSend_count(result, a2, v2);
+    return [result count];
   }
 
   return result;
@@ -1169,18 +1156,18 @@ LABEL_6:
 {
   nodeCopy = node;
   analyticsSlideNodesVisited = self->_analyticsSlideNodesVisited;
-  v9 = nodeCopy;
+  v8 = nodeCopy;
   if (!analyticsSlideNodesVisited)
   {
-    v7 = objc_msgSend_set(MEMORY[0x277CBEB58], nodeCopy, v5);
-    v8 = self->_analyticsSlideNodesVisited;
-    self->_analyticsSlideNodesVisited = v7;
+    v6 = [MEMORY[0x277CBEB58] set];
+    v7 = self->_analyticsSlideNodesVisited;
+    self->_analyticsSlideNodesVisited = v6;
 
-    nodeCopy = v9;
+    nodeCopy = v8;
     analyticsSlideNodesVisited = self->_analyticsSlideNodesVisited;
   }
 
-  objc_msgSend_addObject_(analyticsSlideNodesVisited, nodeCopy, nodeCopy);
+  [(NSMutableSet *)analyticsSlideNodesVisited addObject:nodeCopy];
 }
 
 - (TSDCanvasDelegate)canvasDelegate

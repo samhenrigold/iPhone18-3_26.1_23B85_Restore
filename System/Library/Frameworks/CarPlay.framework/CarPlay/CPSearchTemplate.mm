@@ -132,15 +132,15 @@ LABEL_4:
         }
       }
 
-      v11 = v9;
+      v12 = v9;
 
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_16;
       }
 
-      v12 = [*(a1 + 32) delegate];
-      [v12 searchTemplate:*(a1 + 32) selectedResult:v11 completionHandler:*(a1 + 48)];
+      v13 = [*(a1 + 32) delegate];
+      [v13 searchTemplate:*(a1 + 32) selectedResult:v12 completionHandler:*(a1 + 48)];
     }
 
     else
@@ -148,21 +148,19 @@ LABEL_4:
 LABEL_13:
 
 LABEL_16:
-      v11 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = CarPlayFrameworkGeneralLogging(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __96__CPSearchTemplate_searchTemplateWithIdentifier_selectedResultWithIdentifier_completionHandler___block_invoke_cold_1(a1, v11);
+        __96__CPSearchTemplate_searchTemplateWithIdentifier_selectedResultWithIdentifier_completionHandler___block_invoke_cold_1(a1, v12);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)searchTemplateSearchButtonPressedWithIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = CarPlayFrameworkGeneralLogging();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -176,7 +174,6 @@ LABEL_16:
   block[3] = &unk_278A105A0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CPSearchTemplate_searchTemplateSearchButtonPressedWithIdentifier___block_invoke(uint64_t a1)
@@ -184,23 +181,23 @@ void __68__CPSearchTemplate_searchTemplateSearchButtonPressedWithIdentifier___bl
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  v5 = v4;
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Search Template Delegate will handle search button pressed", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Search Template Delegate will handle search button pressed", v7, 2u);
     }
 
-    v5 = [*(a1 + 32) delegate];
-    [v5 searchTemplateSearchButtonPressed:*(a1 + 32)];
+    v6 = [*(a1 + 32) delegate];
+    [v6 searchTemplateSearchButtonPressed:*(a1 + 32)];
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __68__CPSearchTemplate_searchTemplateSearchButtonPressedWithIdentifier___block_invoke_cold_1(v5);
+    __68__CPSearchTemplate_searchTemplateSearchButtonPressedWithIdentifier___block_invoke_cold_1(v6);
   }
 }
 
@@ -213,12 +210,11 @@ void __68__CPSearchTemplate_searchTemplateSearchButtonPressedWithIdentifier___bl
 
 void __96__CPSearchTemplate_searchTemplateWithIdentifier_selectedResultWithIdentifier_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Failed to find a local item for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Failed to find a local item for %@", &v3, 0xCu);
 }
 
 @end

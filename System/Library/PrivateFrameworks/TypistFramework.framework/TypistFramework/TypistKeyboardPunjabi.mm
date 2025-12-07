@@ -48,11 +48,11 @@ LABEL_5:
 
 - (id)addAccentKeyAction:(id)action
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen _referenceBounds];
-  if (CGRectGetHeight(v18) <= 1194.0)
+  if (CGRectGetHeight(v17) <= 1194.0)
   {
 
     goto LABEL_7;
@@ -71,13 +71,13 @@ LABEL_7:
   {
     if ([actionCopy isEqualToString:@"ਈ"])
     {
-      v14 = [(TypistKeyboard *)self findKeyOnAnyPlane:@"ੀ"];
-      v8 = v14;
-      if (v14)
+      v13 = [(TypistKeyboard *)self findKeyOnAnyPlane:@"ੀ"];
+      v8 = v13;
+      if (v13)
       {
-        v15 = v14;
+        v14 = v13;
         v9 = MEMORY[0x277CBEA60];
-        v10 = &v15;
+        v10 = &v14;
         goto LABEL_14;
       }
 
@@ -96,15 +96,14 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v16[0] = v7;
+  v15[0] = v7;
   v9 = MEMORY[0x277CBEA60];
-  v10 = v16;
+  v10 = v15;
 LABEL_14:
   v11 = [v9 arrayWithObjects:v10 count:1];
 LABEL_16:
 
 LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

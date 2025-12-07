@@ -35,7 +35,7 @@
 
 - (FCIssueBookmark)initWithIssueType:(int64_t)type articleID:(id)d pageID:(id)iD
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   v10 = iDCopy;
@@ -48,13 +48,13 @@
 
     v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueType != FCIssueTypeANF || articleID != nil"];
     *buf = 136315906;
-    v23 = "[FCIssueBookmark initWithIssueType:articleID:pageID:]";
-    v24 = 2080;
-    v25 = "FCIssueBookmark.m";
-    v26 = 1024;
-    v27 = 30;
-    v28 = 2114;
-    v29 = v11;
+    v22 = "[FCIssueBookmark initWithIssueType:articleID:pageID:]";
+    v23 = 2080;
+    v24 = "FCIssueBookmark.m";
+    v25 = 1024;
+    v26 = 30;
+    v27 = 2114;
+    v28 = v11;
     v12 = MEMORY[0x1E69E9C10];
     goto LABEL_12;
   }
@@ -63,22 +63,22 @@
   {
     v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueType != FCIssueTypePDF || pageID != nil"];
     *buf = 136315906;
-    v23 = "[FCIssueBookmark initWithIssueType:articleID:pageID:]";
-    v24 = 2080;
-    v25 = "FCIssueBookmark.m";
-    v26 = 1024;
-    v27 = 31;
-    v28 = 2114;
-    v29 = v11;
+    v22 = "[FCIssueBookmark initWithIssueType:articleID:pageID:]";
+    v23 = 2080;
+    v24 = "FCIssueBookmark.m";
+    v25 = 1024;
+    v26 = 31;
+    v27 = 2114;
+    v28 = v11;
     v12 = MEMORY[0x1E69E9C10];
 LABEL_12:
     _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_8:
-  v21.receiver = self;
-  v21.super_class = FCIssueBookmark;
-  v13 = [(FCIssueBookmark *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = FCIssueBookmark;
+  v13 = [(FCIssueBookmark *)&v20 init];
   v14 = v13;
   if (v13)
   {
@@ -92,56 +92,51 @@ LABEL_8:
     v14->_pageID = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)PDFBookmarkWithPageID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "pageID != nil"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "pageID != nil"];
     *buf = 136315906;
-    v9 = "+[FCIssueBookmark PDFBookmarkWithPageID:]";
-    v10 = 2080;
-    v11 = "FCIssueBookmark.m";
-    v12 = 1024;
-    v13 = 45;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "+[FCIssueBookmark PDFBookmarkWithPageID:]";
+    v9 = 2080;
+    v10 = "FCIssueBookmark.m";
+    v11 = 1024;
+    v12 = 45;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v4 = [[FCIssueBookmark alloc] initWithIssueType:1 articleID:0 pageID:dCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)ANFBookmarkWithArticleID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
     *buf = 136315906;
-    v9 = "+[FCIssueBookmark ANFBookmarkWithArticleID:]";
-    v10 = 2080;
-    v11 = "FCIssueBookmark.m";
-    v12 = 1024;
-    v13 = 54;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "+[FCIssueBookmark ANFBookmarkWithArticleID:]";
+    v9 = 2080;
+    v10 = "FCIssueBookmark.m";
+    v11 = 1024;
+    v12 = 54;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v4 = [[FCIssueBookmark alloc] initWithIssueType:0 articleID:dCopy pageID:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

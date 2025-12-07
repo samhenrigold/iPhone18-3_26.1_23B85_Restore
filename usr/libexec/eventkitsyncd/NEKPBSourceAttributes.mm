@@ -481,19 +481,18 @@ LABEL_31:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v21 = toCopy;
+  v7 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   has = self->_has;
   if (has)
   {
-    defaultAlarmOffset = self->_defaultAlarmOffset;
     PBDataWriterWriteUint32Field();
-    toCopy = v21;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -512,9 +511,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  type = self->_type;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -528,9 +526,8 @@ LABEL_6:
   }
 
 LABEL_36:
-  isEnabled = self->_isEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -544,65 +541,62 @@ LABEL_7:
   }
 
 LABEL_37:
-  isFacebook = self->_isFacebook;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
+  toCopy = v7;
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_8:
-    usesSelfAttendee = self->_usesSelfAttendee;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
 LABEL_9:
   if (self->_constraintsDescriptionPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   if (self->_externalID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   if (self->_externalModificationTag)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   if (self->_creatorBundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   if (self->_creatorCodeSigningIdentity)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
   if (self->_accountPersistentID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x1000) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x1000) != 0)
   {
-    supportsSharedCalendars = self->_supportsSharedCalendars;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
-    v7 = self->_has;
-    if ((v7 & 0x10) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x10) == 0)
     {
 LABEL_23:
-      if ((v7 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_24;
       }
@@ -611,19 +605,18 @@ LABEL_23:
     }
   }
 
-  else if ((v7 & 0x10) == 0)
+  else if ((v6 & 0x10) == 0)
   {
     goto LABEL_23;
   }
 
-  allowsTasks = self->_allowsTasks;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 8) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 8) == 0)
   {
 LABEL_24:
-    if ((v7 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_25;
     }
@@ -632,14 +625,13 @@ LABEL_24:
   }
 
 LABEL_41:
-  allowsEvents = self->_allowsEvents;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 4) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 4) == 0)
   {
 LABEL_25:
-    if ((v7 & 0x200) == 0)
+    if ((v6 & 0x200) == 0)
     {
       goto LABEL_26;
     }
@@ -648,14 +640,13 @@ LABEL_25:
   }
 
 LABEL_42:
-  allowsCalendarAddDeleteModify = self->_allowsCalendarAddDeleteModify;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 0x200) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x200) == 0)
   {
 LABEL_26:
-    if ((v7 & 0x400) == 0)
+    if ((v6 & 0x400) == 0)
     {
       goto LABEL_27;
     }
@@ -664,14 +655,13 @@ LABEL_26:
   }
 
 LABEL_43:
-  onlyCreatorCanModify = self->_onlyCreatorCanModify;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 0x400) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x400) == 0)
   {
 LABEL_27:
-    if ((v7 & 0x800) == 0)
+    if ((v6 & 0x800) == 0)
     {
       goto LABEL_28;
     }
@@ -680,14 +670,13 @@ LABEL_27:
   }
 
 LABEL_44:
-  snoozeAlarmRequiresDetach = self->_snoozeAlarmRequiresDetach;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 0x800) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x800) == 0)
   {
 LABEL_28:
-    if ((v7 & 0x100) == 0)
+    if ((v6 & 0x100) == 0)
     {
       goto LABEL_29;
     }
@@ -696,14 +685,13 @@ LABEL_28:
   }
 
 LABEL_45:
-  supportsAlarmAcknowledgedDate = self->_supportsAlarmAcknowledgedDate;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
-  v7 = self->_has;
-  if ((v7 & 0x100) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x100) == 0)
   {
 LABEL_29:
-    if ((v7 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_31;
     }
@@ -712,15 +700,13 @@ LABEL_29:
   }
 
 LABEL_46:
-  isLocalStore = self->_isLocalStore;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
+  toCopy = v7;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_30:
-    isBirthdayStore = self->_isBirthdayStore;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v7;
   }
 
 LABEL_31:
@@ -1231,7 +1217,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v17 = *(equalCopy + 80);
     if (self->_isEnabled)
     {
       if ((*(equalCopy + 80) & 1) == 0)
@@ -1258,7 +1243,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v18 = *(equalCopy + 81);
     if (self->_isFacebook)
     {
       if ((*(equalCopy + 81) & 1) == 0)
@@ -1285,7 +1269,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v19 = *(equalCopy + 87);
     if (self->_usesSelfAttendee)
     {
       if ((*(equalCopy + 87) & 1) == 0)
@@ -1365,7 +1348,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v20 = *(equalCopy + 86);
     if (self->_supportsSharedCalendars)
     {
       if ((*(equalCopy + 86) & 1) == 0)
@@ -1392,7 +1374,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v21 = *(equalCopy + 78);
     if (self->_allowsTasks)
     {
       if ((*(equalCopy + 78) & 1) == 0)
@@ -1419,7 +1400,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v22 = *(equalCopy + 77);
     if (self->_allowsEvents)
     {
       if ((*(equalCopy + 77) & 1) == 0)
@@ -1446,7 +1426,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v23 = *(equalCopy + 76);
     if (self->_allowsCalendarAddDeleteModify)
     {
       if ((*(equalCopy + 76) & 1) == 0)
@@ -1473,7 +1452,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v24 = *(equalCopy + 83);
     if (self->_onlyCreatorCanModify)
     {
       if ((*(equalCopy + 83) & 1) == 0)
@@ -1500,7 +1478,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v25 = *(equalCopy + 84);
     if (self->_snoozeAlarmRequiresDetach)
     {
       if ((*(equalCopy + 84) & 1) == 0)
@@ -1527,7 +1504,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v26 = *(equalCopy + 85);
     if (self->_supportsAlarmAcknowledgedDate)
     {
       if ((*(equalCopy + 85) & 1) == 0)
@@ -1554,7 +1530,6 @@ LABEL_16:
       goto LABEL_121;
     }
 
-    v27 = *(equalCopy + 82);
     if (self->_isLocalStore)
     {
       if ((*(equalCopy + 82) & 1) == 0)

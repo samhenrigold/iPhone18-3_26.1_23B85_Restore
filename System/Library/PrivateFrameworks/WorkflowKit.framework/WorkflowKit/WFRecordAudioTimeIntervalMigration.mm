@@ -30,7 +30,7 @@
 
 void __53__WFRecordAudioTimeIntervalMigration_migrateWorkflow__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [v3 objectForKeyedSubscript:@"WFRecordingTimeInterval"];
   objc_opt_class();
@@ -52,97 +52,95 @@ LABEL_5:
   {
     [v4 doubleValue];
     v9 = v8;
-    v24[0] = @"sec";
-    v24[1] = @"min";
-    v24[2] = @"hr";
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+    v23[0] = @"sec";
+    v23[1] = @"min";
+    v23[2] = @"hr";
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
     v7 = [WFDurationQuantityFieldParameter stateForDuration:v6 possibleUnits:v9];
     goto LABEL_5;
   }
 
-  v13 = v4;
-  if (v13)
+  v12 = v4;
+  if (v12)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = v13;
+      v13 = v12;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v10 = v14;
+  v10 = v13;
 
-  v15 = [v10 objectForKeyedSubscript:@"WFSerializationType"];
-  if (v15)
+  v14 = [v10 objectForKeyedSubscript:@"WFSerializationType"];
+  if (v14)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = v15;
+      v15 = v14;
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v11 = v16;
+  v11 = v15;
 
-  if (([v11 isEqualToString:@"WFQuantityFieldValue"] & 1) == 0 && objc_msgSend(v11, "isEqualToString:", @"WFTextTokenAttachment"))
+  if ((objc_msgSend_isEqualToString_(v11) & 1) == 0 && objc_msgSend_isEqualToString_(v11))
   {
-    v17 = [v10 objectForKeyedSubscript:@"Value"];
-    if (v17)
+    v16 = [v10 objectForKeyedSubscript:@"Value"];
+    if (v16)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = v17;
+        v17 = v16;
       }
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    v19 = v18;
+    v18 = v17;
 
-    v20 = objc_opt_new();
-    [v20 setValue:v19 forKey:@"Magnitude"];
+    v19 = objc_opt_new();
+    [v19 setValue:v18 forKey:@"Magnitude"];
 
-    [v20 setValue:@"sec" forKey:@"Unit"];
-    v22[0] = @"WFSerializationType";
-    v22[1] = @"Value";
-    v23[0] = @"WFQuantityFieldValue";
-    v23[1] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
-    [v3 setObject:v21 forKeyedSubscript:@"WFRecordingTimeInterval"];
+    [v19 setValue:@"sec" forKey:@"Unit"];
+    v21[0] = @"WFSerializationType";
+    v21[1] = @"Value";
+    v22[0] = @"WFQuantityFieldValue";
+    v22[1] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    [v3 setObject:v20 forKeyedSubscript:@"WFRecordingTimeInterval"];
   }
 
 LABEL_6:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

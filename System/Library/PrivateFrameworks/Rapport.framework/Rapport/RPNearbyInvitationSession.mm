@@ -81,28 +81,30 @@
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v14 = 0;
+  NSAppendPrintF(&v14, "RPNearbyInvitationSession %{ptr} ", self);
+  v3 = v14;
   v4 = v3;
   serviceType = self->_serviceType;
   if (serviceType)
   {
-    v12 = v3;
-    v10 = serviceType;
-    NSAppendPrintF();
-    v6 = v12;
+    v13 = v3;
+    v6 = serviceType;
+    NSAppendPrintF(&v13, " ST %@", v6);
+    v7 = v13;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   destinationDevice = self->_destinationDevice;
   if (destinationDevice)
   {
-    v11 = destinationDevice;
-    NSAppendPrintF();
-    v8 = v4;
+    v12 = v4;
+    v9 = destinationDevice;
+    NSAppendPrintF(&v12, ", dst %@", v9);
+    v10 = v12;
 
-    v4 = v8;
+    v4 = v10;
   }
 
   return v4;
@@ -126,7 +128,7 @@
 {
   reactivateCopy = reactivate;
   completionCopy = completion;
-  v7 = completionCopy;
+  v9 = completionCopy;
   if (!self->_server)
   {
     if (reactivateCopy)
@@ -135,33 +137,40 @@
       {
         goto LABEL_12;
       }
+
+      v10 = "Re-activate\n";
     }
 
-    else if (gLogCategory_RPNearbyInvitationSession > 30 || gLogCategory_RPNearbyInvitationSession == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_12;
+      if (gLogCategory_RPNearbyInvitationSession > 30 || gLogCategory_RPNearbyInvitationSession == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_12;
+      }
+
+      v10 = "Activate\n";
     }
 
-    [RPNearbyInvitationSession _activateWithCompletion:reactivate:];
+    [(RPNearbyInvitationSession *)v10 _activateWithCompletion:v7 reactivate:v8];
 LABEL_12:
     [(RPNearbyInvitationSession *)self _ensureXPCStarted];
     xpcCnx = self->_xpcCnx;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke;
+    v17[3] = &unk_1E7C93500;
+    v17[4] = self;
+    v19 = reactivateCopy;
+    v12 = v9;
+    v18 = v12;
+    v13 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v17];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
-    v14[2] = __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke;
-    v14[3] = &unk_1E7C93500;
-    v14[4] = self;
+    v14[2] = __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2;
+    v14[3] = &unk_1E7C92F88;
     v16 = reactivateCopy;
-    v9 = v7;
-    v15 = v9;
-    v10 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2;
-    v11[3] = &unk_1E7C92F88;
-    v13 = reactivateCopy;
-    v12 = v9;
-    [v10 nearbyInvitationActivateSession:self completion:v11];
+    v15 = v12;
+    [v13 nearbyInvitationActivateSession:self completion:v14];
 
     goto LABEL_13;
   }
@@ -179,61 +188,63 @@ void __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_
   v3 = a2;
   if (*(*(a1 + 32) + 24) == 1)
   {
-    v7 = v3;
-    v4 = RPNestedErrorF();
+    v14 = v3;
+    v9 = RPNestedErrorF(v3, 4294896148, "Invalidated", v4, v5, v6, v7, v8, v13);
 
-    v3 = v4;
+    v3 = v9;
   }
 
-  v8 = v3;
+  v15 = v3;
   if (*(a1 + 48) == 1)
   {
     if (gLogCategory_RPNearbyInvitationSession <= 90 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
     {
-LABEL_16:
-      __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_cold_1();
+      v10 = "### Re-activate XPC error: %{error}\n";
+LABEL_17:
+      __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_cold_1(v10, v15);
     }
   }
 
   else if (gLogCategory_RPNearbyInvitationSession <= 90 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_16;
+    v10 = "### Activate XPC error: %{error}\n";
+    goto LABEL_17;
   }
 
-  v5 = *(a1 + 40);
-  v6 = v8;
-  if (v5)
+  v11 = *(a1 + 40);
+  v12 = v15;
+  if (v11)
   {
-    (*(v5 + 16))(v5, v8);
-    v6 = v8;
+    (*(v11 + 16))(v11, v15);
+    v12 = v15;
   }
 }
 
 void __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v10 = v3;
+  v5 = v3;
+  v9 = v3;
   if (v3)
   {
     if (*(a1 + 40))
     {
       if (gLogCategory_RPNearbyInvitationSession <= 90)
       {
-        if (gLogCategory_RPNearbyInvitationSession != -1 || (v5 = _LogCategory_Initialize(), v3 = v10, v5))
+        if (gLogCategory_RPNearbyInvitationSession != -1 || (v6 = _LogCategory_Initialize(), v5 = v9, v6))
         {
-          __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+          __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_2(v5);
 LABEL_20:
-          v3 = v10;
+          v5 = v9;
         }
       }
     }
 
     else if (gLogCategory_RPNearbyInvitationSession <= 90)
     {
-      if (gLogCategory_RPNearbyInvitationSession != -1 || (v7 = _LogCategory_Initialize(), v3 = v10, v7))
+      if (gLogCategory_RPNearbyInvitationSession != -1 || (v7 = _LogCategory_Initialize(), v5 = v9, v7))
       {
-        __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+        __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_1(v5);
         goto LABEL_20;
       }
     }
@@ -243,9 +254,9 @@ LABEL_20:
   {
     if (gLogCategory_RPNearbyInvitationSession <= 30)
     {
-      if (gLogCategory_RPNearbyInvitationSession != -1 || (v6 = _LogCategory_Initialize(), v3 = 0, v6))
+      if (gLogCategory_RPNearbyInvitationSession != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_4();
+        __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_4(v3, v5, v4);
         goto LABEL_20;
       }
     }
@@ -253,18 +264,18 @@ LABEL_20:
 
   else if (gLogCategory_RPNearbyInvitationSession <= 30)
   {
-    if (gLogCategory_RPNearbyInvitationSession != -1 || (v8 = _LogCategory_Initialize(), v3 = 0, v8))
+    if (gLogCategory_RPNearbyInvitationSession != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_3();
+      __64__RPNearbyInvitationSession__activateWithCompletion_reactivate___block_invoke_2_cold_3(v3, v5, v4);
       goto LABEL_20;
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v9 + 16))(v9, v10);
-    v3 = v10;
+    (*(v8 + 16))(v8, v9);
+    v5 = v9;
   }
 }
 
@@ -377,52 +388,55 @@ void __58__RPNearbyInvitationSession_nearbyInvitationSessionError___block_invoke
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__RPNearbyInvitationSession_invalidate__block_invoke(uint64_t result)
+void *__39__RPNearbyInvitationSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 24) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 24) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 24) = 1;
-    if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
+    v5 = result;
+    *(v4 + 24) = 1;
+    if (gLogCategory_RPNearbyInvitationSession <= 30)
     {
-      __39__RPNearbyInvitationSession_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPNearbyInvitationSession != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __39__RPNearbyInvitationSession_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v4 = *(v3 + 32);
-    if (*(v4 + 104))
+    v6 = v5[4];
+    if (*(v6 + 104))
     {
-      v5 = *(v4 + 112);
-      if (v5)
+      v7 = *(v6 + 112);
+      if (v7)
       {
-        v6 = [*(*(v3 + 32) + 120) remoteObjectProxy];
-        [v6 nearbyInvitationInvalidateSessionID:v5];
+        v8 = [*(v5[4] + 120) remoteObjectProxy];
+        [v8 nearbyInvitationInvalidateSessionID:v7];
       }
 
-      v7 = *(v3 + 32);
-      v8 = *(v7 + 104);
-      *(v7 + 104) = 0;
+      v9 = v5[4];
+      v10 = *(v9 + 104);
+      *(v9 + 104) = 0;
 
-      v9 = *(v3 + 32);
-      v10 = *(v9 + 112);
-      *(v9 + 112) = 0;
+      v11 = v5[4];
+      v12 = *(v11 + 112);
+      *(v11 + 112) = 0;
 
-      v11 = *(v3 + 32);
-      v12 = *(v11 + 120);
-      *(v11 + 120) = 0;
+      v13 = v5[4];
+      v14 = *(v13 + 120);
+      *(v13 + 120) = 0;
     }
 
     else
     {
-      v13 = [*(v4 + 120) remoteObjectProxy];
-      [v13 nearbyInvitationInvalidateClientSession];
+      v15 = [*(v6 + 120) remoteObjectProxy];
+      [v15 nearbyInvitationInvalidateClientSession];
 
-      [*(*(v3 + 32) + 120) invalidate];
+      [*(v5[4] + 120) invalidate];
     }
 
-    v14 = *(v3 + 32);
+    v16 = v5[4];
 
-    return [v14 _invalidated];
+    return [v16 _invalidated];
   }
 
   return result;
@@ -448,9 +462,12 @@ uint64_t __39__RPNearbyInvitationSession_invalidate__block_invoke(uint64_t resul
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPNearbyInvitationSession <= 30)
     {
-      [RPNearbyInvitationSession _invalidated];
+      if (gLogCategory_RPNearbyInvitationSession != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        [(RPNearbyInvitationSession *)v6 _invalidated];
+      }
     }
   }
 }
@@ -479,7 +496,7 @@ void __61__RPNearbyInvitationSession_registerEventID_options_handler___block_inv
 {
   if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    __61__RPNearbyInvitationSession_registerEventID_options_handler___block_invoke_cold_1(a1);
+    __61__RPNearbyInvitationSession_registerEventID_options_handler___block_invoke_cold_1();
   }
 
   v6 = objc_alloc_init(RPEventRegistration);
@@ -518,7 +535,7 @@ uint64_t __47__RPNearbyInvitationSession_deregisterEventID___block_invoke(uint64
 {
   if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    __47__RPNearbyInvitationSession_deregisterEventID___block_invoke_cold_1(a1);
+    __47__RPNearbyInvitationSession_deregisterEventID___block_invoke_cold_1();
   }
 
   v2 = *(a1 + 32);
@@ -537,76 +554,74 @@ uint64_t __47__RPNearbyInvitationSession_deregisterEventID___block_invoke(uint64
   {
     [(RPNearbyInvitationSession *)self _ensureXPCStarted];
     xpcCnx = self->_xpcCnx;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke;
-    v24[3] = &unk_1E7C937A8;
-    v24[4] = self;
-    v17 = dCopy;
-    v25 = v17;
-    v18 = completionCopy;
-    v26 = v18;
-    v19 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v24];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke_2;
-    v21[3] = &unk_1E7C93470;
-    v22 = v17;
-    v23 = v18;
-    [v19 nearbyInvitationSendEventID:v22 event:eventCopy options:optionsCopy completion:v21];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke;
+    v31[3] = &unk_1E7C937A8;
+    v31[4] = self;
+    v23 = dCopy;
+    v32 = v23;
+    v24 = completionCopy;
+    v33 = v24;
+    v25 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v31];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke_2;
+    v28[3] = &unk_1E7C93470;
+    v29 = v23;
+    v30 = v24;
+    [v25 nearbyInvitationSendEventID:v29 event:eventCopy options:optionsCopy completion:v28];
   }
 
   else if (completionCopy)
   {
-    v20 = RPErrorF();
-    (*(completionCopy + 2))(completionCopy, v20);
+    v26 = RPErrorF(4294960591, "Non-DirectPeer destination", v16, v17, v18, v19, v20, v21, v27);
+    (*(completionCopy + 2))(completionCopy, v26);
   }
 }
 
 void __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v9 = v3;
   if (*(a1[4] + 24) == 1)
   {
-    v9 = v3;
-    v5 = RPNestedErrorF();
+    v14 = v3;
+    v10 = RPNestedErrorF(v3, 4294896148, "Invalidated", v4, v5, v6, v7, v8, v13);
 
-    v4 = v5;
+    v9 = v10;
   }
 
-  v10 = v4;
+  v15 = v9;
   if (gLogCategory_RPNearbyInvitationSession <= 90)
   {
-    if (gLogCategory_RPNearbyInvitationSession != -1 || (v6 = _LogCategory_Initialize(), v4 = v10, v6))
+    if (gLogCategory_RPNearbyInvitationSession != -1 || (v11 = _LogCategory_Initialize(), v9 = v15, v11))
     {
-      v8 = a1[5];
-      LogPrintF();
-      v4 = v10;
+      LogPrintF(&gLogCategory_RPNearbyInvitationSession, "[RPNearbyInvitationSession sendEventID:event:destinationID:options:completion:]_block_invoke", 90, "### SendEventID '%@' XPC error: %{error}\n", a1[5], v9);
+      v9 = v15;
     }
   }
 
-  v7 = a1[6];
-  if (v7)
+  v12 = a1[6];
+  if (v12)
   {
-    (*(v7 + 16))(v7, v10);
-    v4 = v10;
+    (*(v12 + 16))(v12, v15);
+    v9 = v15;
   }
 }
 
 void __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v6 = v3;
   if (v3)
   {
     if (gLogCategory_RPNearbyInvitationSession <= 90)
     {
-      if (gLogCategory_RPNearbyInvitationSession != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_RPNearbyInvitationSession != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        v6 = *(a1 + 32);
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(&gLogCategory_RPNearbyInvitationSession, "[RPNearbyInvitationSession sendEventID:event:destinationID:options:completion:]_block_invoke_2", 90, "### SendEventID '%@' failed: %{error}\n", *(a1 + 32), v3);
+        v3 = v6;
       }
     }
   }
@@ -614,14 +629,14 @@ void __80__RPNearbyInvitationSession_sendEventID_event_destinationID_options_com
   v5 = *(a1 + 40);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
 - (void)nearbyInvitationReceivedEventID:(id)d event:(id)event options:(id)options sessionID:(id)iD
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   eventCopy = event;
   optionsCopy = options;
@@ -640,23 +655,23 @@ LABEL_3:
     goto LABEL_6;
   }
 
-  v17 = [(NSMutableDictionary *)self->_eventRegistrations objectForKeyedSubscript:@"*"];
-  if (v17)
+  v16 = [(NSMutableDictionary *)self->_eventRegistrations objectForKeyedSubscript:@"*"];
+  if (v16)
   {
-    v13 = v17;
+    v13 = v16;
     if (optionsCopy)
     {
-      v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:optionsCopy];
-      [v18 setObject:dCopy forKeyedSubscript:@"eventID"];
+      v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:optionsCopy];
+      [v17 setObject:dCopy forKeyedSubscript:@"eventID"];
 
-      optionsCopy = v18;
+      optionsCopy = v17;
     }
 
     else
     {
-      v19 = @"eventID";
-      v20[0] = dCopy;
-      optionsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = @"eventID";
+      v19[0] = dCopy;
+      optionsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     }
 
     goto LABEL_3;
@@ -664,12 +679,10 @@ LABEL_3:
 
   if (gLogCategory_RPNearbyInvitationSession <= 90 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    [RPNearbyInvitationSession nearbyInvitationReceivedEventID:event:options:sessionID:];
+    [RPNearbyInvitationSession nearbyInvitationReceivedEventID:dCopy event:? options:? sessionID:?];
   }
 
 LABEL_6:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerRequestID:(id)d options:(id)options handler:(id)handler
@@ -696,7 +709,7 @@ void __63__RPNearbyInvitationSession_registerRequestID_options_handler___block_i
 {
   if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    __63__RPNearbyInvitationSession_registerRequestID_options_handler___block_invoke_cold_1(a1);
+    __63__RPNearbyInvitationSession_registerRequestID_options_handler___block_invoke_cold_1();
   }
 
   v6 = objc_alloc_init(RPRequestRegistration);
@@ -735,7 +748,7 @@ uint64_t __49__RPNearbyInvitationSession_deregisterRequestID___block_invoke(uint
 {
   if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    __49__RPNearbyInvitationSession_deregisterRequestID___block_invoke_cold_1(a1);
+    __49__RPNearbyInvitationSession_deregisterRequestID___block_invoke_cold_1();
   }
 
   v2 = *(a1 + 32);
@@ -753,7 +766,7 @@ uint64_t __49__RPNearbyInvitationSession_deregisterRequestID___block_invoke(uint
   handlerCopy = handler;
   if (gLogCategory_RPNearbyInvitationSession <= 30 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    [RPNearbyInvitationSession sendRequestID:requestCopy request:? destinationID:? options:? responseHandler:?];
+    [RPNearbyInvitationSession sendRequestID:requestCopy request:dCopy destinationID:? options:? responseHandler:?];
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -785,71 +798,72 @@ uint64_t __49__RPNearbyInvitationSession_deregisterRequestID___block_invoke(uint
   {
     [(RPNearbyInvitationSession *)self _ensureXPCStarted];
     xpcCnx = self->_xpcCnx;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke;
-    v24[3] = &unk_1E7C937A8;
-    v24[4] = self;
-    v17 = dCopy;
-    v25 = v17;
-    v18 = handlerCopy;
-    v26 = v18;
-    v19 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v24];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke_2;
-    v21[3] = &unk_1E7C94DB8;
-    v22 = v17;
-    v23 = v18;
-    [v19 nearbyInvitationSendRequestID:v22 request:requestCopy options:optionsCopy responseHandler:v21];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke;
+    v31[3] = &unk_1E7C937A8;
+    v31[4] = self;
+    v23 = dCopy;
+    v32 = v23;
+    v24 = handlerCopy;
+    v33 = v24;
+    v25 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v31];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke_2;
+    v28[3] = &unk_1E7C94DB8;
+    v29 = v23;
+    v30 = v24;
+    [v25 nearbyInvitationSendRequestID:v29 request:requestCopy options:optionsCopy responseHandler:v28];
   }
 
   else if (handlerCopy)
   {
-    v20 = RPErrorF();
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v20);
+    v26 = RPErrorF(4294960591, "Non-DirectPeer destination", v16, v17, v18, v19, v20, v21, v27);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v26);
   }
 }
 
 void __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v8 = v3;
   if (*(a1[4] + 24) == 1)
   {
-    v7 = v3;
-    v5 = RPNestedErrorF();
+    v12 = v3;
+    v9 = RPNestedErrorF(v3, 4294896148, "Invalidated", v3, v4, v5, v6, v7, v11);
 
-    v4 = v5;
+    v8 = v9;
   }
 
-  v8 = v4;
-  if (gLogCategory_RPNearbyInvitationSession <= 90 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
+  v13 = v8;
+  if (gLogCategory_RPNearbyInvitationSession <= 90)
   {
-    v6 = a1[5];
-    LogPrintF();
+    if (gLogCategory_RPNearbyInvitationSession != -1 || (v10 = _LogCategory_Initialize(), v8 = v13, v10))
+    {
+      LogPrintF(&gLogCategory_RPNearbyInvitationSession, "[RPNearbyInvitationSession _sendRequestID:request:destinationID:options:responseHandler:]_block_invoke", 90, "### SendRequestID '%@' XPC error: %{error}\n", a1[5], v8);
+    }
   }
 
-  (*(a1[6] + 16))(a1[6], 0);
+  (*(a1[6] + 16))();
 }
 
 void __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_options_responseHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v10 = a2;
+  v9 = a2;
   v7 = a3;
   v8 = a4;
   if (v8 && gLogCategory_RPNearbyInvitationSession <= 90 && (gLogCategory_RPNearbyInvitationSession != -1 || _LogCategory_Initialize()))
   {
-    v9 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPNearbyInvitationSession, "[RPNearbyInvitationSession _sendRequestID:request:destinationID:options:responseHandler:]_block_invoke_2", 90, "### SendRequestID '%@' failed: %{error}\n", *(a1 + 32), v8);
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v10);
+  (*(*(a1 + 40) + 16))();
 }
 
 - (void)nearbyInvitationReceivedRequestID:(id)d request:(id)request options:(id)options responseHandler:(id)handler sessionID:(id)iD
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   requestCopy = request;
   optionsCopy = options;
@@ -862,28 +876,28 @@ void __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_option
 
   else
   {
-    v20 = [(NSMutableDictionary *)self->_requestRegistrations objectForKeyedSubscript:@"*"];
-    if (!v20)
+    v19 = [(NSMutableDictionary *)self->_requestRegistrations objectForKeyedSubscript:@"*"];
+    if (!v19)
     {
-      v16 = RPErrorF();
+      v16 = RPErrorF(4294960582, "No request handler for '%@'", v20, v21, v22, v23, v24, v25, dCopy);
       (*(handlerCopy + 2))(handlerCopy, 0, 0, v16);
       goto LABEL_6;
     }
 
-    v16 = v20;
+    v16 = v19;
     if (optionsCopy)
     {
-      v21 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:optionsCopy];
-      [v21 setObject:dCopy forKeyedSubscript:@"requestID"];
+      v26 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:optionsCopy];
+      [v26 setObject:dCopy forKeyedSubscript:@"requestID"];
 
-      optionsCopy = v21;
+      optionsCopy = v26;
     }
 
     else
     {
-      v22 = @"requestID";
-      v23[0] = dCopy;
-      optionsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v27 = @"requestID";
+      v28[0] = dCopy;
+      optionsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     }
   }
 
@@ -895,7 +909,6 @@ void __90__RPNearbyInvitationSession__sendRequestID_request_destinationID_option
   }
 
 LABEL_6:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

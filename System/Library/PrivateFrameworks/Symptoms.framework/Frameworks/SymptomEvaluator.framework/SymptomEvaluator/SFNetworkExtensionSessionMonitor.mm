@@ -1,9 +1,71 @@
 @interface SFNetworkExtensionSessionMonitor
 - (BOOL)_setUpNESessionForConfigurationID:(id)d neSessionType:(int)type statusChangedCallback:(id)callback;
+- (SFNetworkExtensionSessionMonitor)initWithQueue:(id)queue configID:(id)d neSessionType:(int)type statusChangedCallback:(id)callback;
 - (void)dealloc;
 @end
 
 @implementation SFNetworkExtensionSessionMonitor
+
+- (SFNetworkExtensionSessionMonitor)initWithQueue:(id)queue configID:(id)d neSessionType:(int)type statusChangedCallback:(id)callback
+{
+  v7 = *&type;
+  v32 = *MEMORY[0x277D85DE8];
+  queueCopy = queue;
+  dCopy = d;
+  callbackCopy = callback;
+  v29.receiver = self;
+  v29.super_class = SFNetworkExtensionSessionMonitor;
+  v14 = [(SFNetworkExtensionSessionMonitor *)&v29 init];
+  if (!v14)
+  {
+    goto LABEL_7;
+  }
+
+  v15 = otherLogHandle;
+  if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v31 = dCopy;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "NEStateRelay: Initializing an NESession, Configuration ID: %@", buf, 0xCu);
+  }
+
+  objc_storeStrong(&v14->_configurationID, d);
+  objc_storeStrong(&v14->_queue, queue);
+  objc_initWeak(buf, v14);
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __95__SFNetworkExtensionSessionMonitor_initWithQueue_configID_neSessionType_statusChangedCallback___block_invoke;
+  v26 = &unk_27898F1B8;
+  objc_copyWeak(&v28, buf);
+  v16 = dCopy;
+  v27 = v16;
+  v17 = _Block_copy(&v23);
+  defaultNEStatusChangedCallback = v14->_defaultNEStatusChangedCallback;
+  v14->_defaultNEStatusChangedCallback = v17;
+
+  v19 = callbackCopy;
+  if (!callbackCopy)
+  {
+    v19 = v14->_defaultNEStatusChangedCallback;
+  }
+
+  v20 = [(SFNetworkExtensionSessionMonitor *)v14 _setUpNESessionForConfigurationID:v16 neSessionType:v7 statusChangedCallback:v19, v23, v24, v25, v26];
+
+  objc_destroyWeak(&v28);
+  objc_destroyWeak(buf);
+  if (!v20)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+LABEL_7:
+    v21 = v14;
+  }
+
+  return v21;
+}
 
 void __95__SFNetworkExtensionSessionMonitor_initWithQueue_configID_neSessionType_statusChangedCallback___block_invoke(uint64_t a1, int a2)
 {
@@ -30,7 +92,7 @@ void __95__SFNetworkExtensionSessionMonitor_initWithQueue_configID_neSessionType
 
 void __95__SFNetworkExtensionSessionMonitor_initWithQueue_configID_neSessionType_statusChangedCallback___block_invoke_2(uint64_t a1, int a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2 <= 2)
   {
@@ -38,223 +100,208 @@ void __95__SFNetworkExtensionSessionMonitor_initWithQueue_configID_neSessionType
     {
       case 0:
         [v3 setConnected:0];
-        v15 = otherLogHandle;
-        if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+        v13 = otherLogHandle;
+        if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v16 = *(a1 + 32);
-          v6 = v15;
-          v17 = objc_opt_class();
-          v8 = NSStringFromClass(v17);
-          v18 = *(a1 + 40);
-          v36 = 138412546;
-          v37 = v8;
-          v38 = 2112;
-          v39 = v18;
-          v10 = "NEStateRelay: %@ -- NESessionStatusInvalid, Configuration ID: %@";
-          goto LABEL_22;
+          return;
         }
 
-        goto LABEL_23;
+        v5 = v13;
+        v14 = objc_opt_class();
+        v7 = NSStringFromClass(v14);
+        v15 = *(a1 + 40);
+        v28 = 138412546;
+        v29 = v7;
+        v30 = 2112;
+        v31 = v15;
+        v9 = "NEStateRelay: %@ -- NESessionStatusInvalid, Configuration ID: %@";
+        goto LABEL_22;
       case 1:
         [v3 setConnected:0];
-        v27 = otherLogHandle;
-        if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+        v22 = otherLogHandle;
+        if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v28 = *(a1 + 32);
-          v6 = v27;
-          v29 = objc_opt_class();
-          v8 = NSStringFromClass(v29);
-          v30 = *(a1 + 40);
-          v36 = 138412546;
-          v37 = v8;
-          v38 = 2112;
-          v39 = v30;
-          v10 = "NEStateRelay: %@ -- NESessionStatusDisconnected, Configuration ID: %@";
-          goto LABEL_22;
+          return;
         }
 
-        goto LABEL_23;
+        v5 = v22;
+        v23 = objc_opt_class();
+        v7 = NSStringFromClass(v23);
+        v24 = *(a1 + 40);
+        v28 = 138412546;
+        v29 = v7;
+        v30 = 2112;
+        v31 = v24;
+        v9 = "NEStateRelay: %@ -- NESessionStatusDisconnected, Configuration ID: %@";
+        goto LABEL_22;
       case 2:
         [v3 setConnected:0];
         v4 = otherLogHandle;
-        if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+        if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v5 = *(a1 + 32);
-          v6 = v4;
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
-          v9 = *(a1 + 40);
-          v36 = 138412546;
-          v37 = v8;
-          v38 = 2112;
-          v39 = v9;
-          v10 = "NEStateRelay: %@ -- NESessionStatusConnecting, Configuration ID: %@";
-LABEL_22:
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, v10, &v36, 0x16u);
-
-          goto LABEL_23;
+          return;
         }
 
-        goto LABEL_23;
+        v5 = v4;
+        v6 = objc_opt_class();
+        v7 = NSStringFromClass(v6);
+        v8 = *(a1 + 40);
+        v28 = 138412546;
+        v29 = v7;
+        v30 = 2112;
+        v31 = v8;
+        v9 = "NEStateRelay: %@ -- NESessionStatusConnecting, Configuration ID: %@";
+        goto LABEL_22;
     }
 
 LABEL_16:
     [v3 setConnected:0];
-    v23 = otherLogHandle;
-    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+    v19 = otherLogHandle;
+    if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v24 = *(a1 + 32);
-      v6 = v23;
-      v25 = objc_opt_class();
-      v8 = NSStringFromClass(v25);
-      v26 = *(a1 + 40);
-      v36 = 138412546;
-      v37 = v8;
-      v38 = 2112;
-      v39 = v26;
-      v10 = "NEStateRelay: %@ -- Invalid NESessionStatus, Configuration ID: %@";
-      goto LABEL_22;
+      return;
     }
 
-    goto LABEL_23;
+    v5 = v19;
+    v20 = objc_opt_class();
+    v7 = NSStringFromClass(v20);
+    v21 = *(a1 + 40);
+    v28 = 138412546;
+    v29 = v7;
+    v30 = 2112;
+    v31 = v21;
+    v9 = "NEStateRelay: %@ -- Invalid NESessionStatus, Configuration ID: %@";
+    goto LABEL_22;
   }
 
   if (a2 == 5)
   {
     [v3 setConnected:0];
-    v19 = otherLogHandle;
-    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+    v16 = otherLogHandle;
+    if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(a1 + 32);
-      v6 = v19;
-      v21 = objc_opt_class();
-      v8 = NSStringFromClass(v21);
-      v22 = *(a1 + 40);
-      v36 = 138412546;
-      v37 = v8;
-      v38 = 2112;
-      v39 = v22;
-      v10 = "NEStateRelay: %@ -- NESessionStatusDisconnecting, Configuration ID: %@";
-      goto LABEL_22;
+      return;
     }
 
-    goto LABEL_23;
-  }
-
-  if (a2 == 4)
-  {
-    [v3 setConnected:0];
-    v31 = otherLogHandle;
-    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
-    {
-      v32 = *(a1 + 32);
-      v6 = v31;
-      v33 = objc_opt_class();
-      v8 = NSStringFromClass(v33);
-      v34 = *(a1 + 40);
-      v36 = 138412546;
-      v37 = v8;
-      v38 = 2112;
-      v39 = v34;
-      v10 = "NEStateRelay: %@ -- NESessionStatusReasserting, Configuration ID: %@";
-      goto LABEL_22;
-    }
-
-    goto LABEL_23;
-  }
-
-  if (a2 != 3)
-  {
-    goto LABEL_16;
-  }
-
-  [v3 setConnected:1];
-  v11 = otherLogHandle;
-  if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
-  {
-    v12 = *(a1 + 32);
-    v6 = v11;
-    v13 = objc_opt_class();
-    v8 = NSStringFromClass(v13);
-    v14 = *(a1 + 40);
-    v36 = 138412546;
-    v37 = v8;
-    v38 = 2112;
-    v39 = v14;
-    v10 = "NEStateRelay: %@ -- NESessionStatusConnected, Configuration ID: %@";
+    v5 = v16;
+    v17 = objc_opt_class();
+    v7 = NSStringFromClass(v17);
+    v18 = *(a1 + 40);
+    v28 = 138412546;
+    v29 = v7;
+    v30 = 2112;
+    v31 = v18;
+    v9 = "NEStateRelay: %@ -- NESessionStatusDisconnecting, Configuration ID: %@";
     goto LABEL_22;
   }
 
-LABEL_23:
-  v35 = *MEMORY[0x277D85DE8];
+  if (a2 != 4)
+  {
+    if (a2 == 3)
+    {
+      [v3 setConnected:1];
+      v10 = otherLogHandle;
+      if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        return;
+      }
+
+      v5 = v10;
+      v11 = objc_opt_class();
+      v7 = NSStringFromClass(v11);
+      v12 = *(a1 + 40);
+      v28 = 138412546;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v12;
+      v9 = "NEStateRelay: %@ -- NESessionStatusConnected, Configuration ID: %@";
+      goto LABEL_22;
+    }
+
+    goto LABEL_16;
+  }
+
+  [v3 setConnected:0];
+  v25 = otherLogHandle;
+  if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    return;
+  }
+
+  v5 = v25;
+  v26 = objc_opt_class();
+  v7 = NSStringFromClass(v26);
+  v27 = *(a1 + 40);
+  v28 = 138412546;
+  v29 = v7;
+  v30 = 2112;
+  v31 = v27;
+  v9 = "NEStateRelay: %@ -- NESessionStatusReasserting, Configuration ID: %@";
+LABEL_22:
+  _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, v9, &v28, 0x16u);
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     configurationID = self->_configurationID;
     *buf = 138412290;
-    v10 = configurationID;
+    v7 = configurationID;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "NEStateRelay: Deallocating the NESession Object for configuration ID: %@", buf, 0xCu);
   }
 
-  session = self->_session;
   ne_session_cancel();
-  v6 = self->_session;
   ne_session_release();
   self->_session = 0;
-  v8.receiver = self;
-  v8.super_class = SFNetworkExtensionSessionMonitor;
-  [(SFNetworkExtensionSessionMonitor *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SFNetworkExtensionSessionMonitor;
+  [(SFNetworkExtensionSessionMonitor *)&v5 dealloc];
 }
 
 - (BOOL)_setUpNESessionForConfigurationID:(id)d neSessionType:(int)type statusChangedCallback:(id)callback
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   callbackCopy = callback;
-  v22[0] = 0;
-  v22[1] = 0;
-  [dCopy getUUIDBytes:v22];
+  v20[0] = 0;
+  v20[1] = 0;
+  [dCopy getUUIDBytes:v20];
   v9 = ne_session_create();
   self->_session = v9;
   if (v9)
   {
-    queue = self->_queue;
     ne_session_set_event_handler();
-    v11 = otherLogHandle;
+    v10 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412546;
-      v19 = dCopy;
-      v20 = 2080;
-      v21 = v22;
-      v12 = "NEStateRelay: Set Event handler for session: ConfigurationID: %@ config_id: %s";
-      v13 = v11;
-      v14 = 22;
+      v16 = 138412546;
+      v17 = dCopy;
+      v18 = 2080;
+      v19 = v20;
+      v11 = "NEStateRelay: Set Event handler for session: ConfigurationID: %@ config_id: %s";
+      v12 = v10;
+      v13 = 22;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, v12, &v18, v14);
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, v11, &v16, v13);
     }
   }
 
   else
   {
-    v15 = otherLogHandle;
+    v14 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v18) = 0;
-      v12 = "NEStateRelay: Session returned nil!";
-      v13 = v15;
-      v14 = 2;
+      LOWORD(v16) = 0;
+      v11 = "NEStateRelay: Session returned nil!";
+      v12 = v14;
+      v13 = 2;
       goto LABEL_6;
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9 != 0;
 }
 

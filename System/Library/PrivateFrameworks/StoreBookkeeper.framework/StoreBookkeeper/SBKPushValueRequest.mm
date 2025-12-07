@@ -24,20 +24,20 @@
 
 + (id)propertyListBodyWithTransaction:(id)transaction
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v15[0] = @"domain";
+  v14[0] = @"domain";
   domain = [transactionCopy domain];
-  v16[0] = domain;
-  v15[1] = @"key";
+  v15[0] = domain;
+  v14[1] = @"key";
   requestItemPayloadPair = [transactionCopy requestItemPayloadPair];
   kvsKey = [requestItemPayloadPair kvsKey];
-  v16[1] = kvsKey;
-  v15[2] = @"value";
+  v15[1] = kvsKey;
+  v14[2] = @"value";
   requestItemPayloadPair2 = [transactionCopy requestItemPayloadPair];
   kvsPayload = [requestItemPayloadPair2 kvsPayload];
-  v16[2] = kvsPayload;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = kvsPayload;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   v10 = [v9 mutableCopy];
 
   requestItemVersionAnchor = [transactionCopy requestItemVersionAnchor];
@@ -47,8 +47,6 @@
     requestItemVersionAnchor2 = [transactionCopy requestItemVersionAnchor];
     [v10 setObject:requestItemVersionAnchor2 forKeyedSubscript:@"base-version"];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

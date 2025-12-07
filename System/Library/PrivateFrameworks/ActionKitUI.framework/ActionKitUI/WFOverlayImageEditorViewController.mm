@@ -12,6 +12,7 @@
 - (void)resetOverlayImageViewTransformations;
 - (void)setCurrentFile:(id)file;
 - (void)setOpacitySliderVisible:(BOOL)visible;
+- (void)setRotationEnabled:(BOOL)enabled;
 - (void)viewDidLoad;
 @end
 
@@ -173,6 +174,13 @@ void __56__WFOverlayImageEditorViewController_finishEditingImage__block_invoke_4
   [canvasView reset];
 }
 
+- (void)setRotationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  canvasView = [(WFOverlayImageEditorViewController *)self canvasView];
+  [canvasView setRotationEnabled:enabledCopy];
+}
+
 - (BOOL)rotationEnabled
 {
   canvasView = [(WFOverlayImageEditorViewController *)self canvasView];
@@ -238,7 +246,7 @@ void __62__WFOverlayImageEditorViewController_setOpacitySliderVisible___block_in
 
 - (void)setCurrentFile:(id)file
 {
-  v89[1] = *MEMORY[0x277D85DE8];
+  v88[1] = *MEMORY[0x277D85DE8];
   fileCopy = file;
   objc_storeStrong(&self->_currentFile, file);
   v6 = WFImageSourceCreateFromFile();
@@ -276,21 +284,21 @@ void __62__WFOverlayImageEditorViewController_setOpacitySliderVisible___block_in
     goto LABEL_16;
   }
 
-  v73 = v8;
-  v74 = v7;
-  v75 = fileCopy;
+  v72 = v8;
+  v73 = v7;
+  v74 = fileCopy;
   canvasView2 = [(WFOverlayImageEditorViewController *)self canvasView];
   [canvasView2 setUserInteractionEnabled:0];
   view5 = [(WFOverlayImageEditorViewController *)self view];
   [view5 insertSubview:v12 aboveSubview:canvasView2];
 
-  v88 = @"offset";
+  v87 = @"offset";
   v16 = MEMORY[0x277CCABB0];
   view6 = [(WFOverlayImageEditorViewController *)self view];
   [view6 frame];
   v19 = [v16 numberWithDouble:v18];
-  v89[0] = v19;
-  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:&v88 count:1];
+  v88[0] = v19;
+  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:&v87 count:1];
 
   v20 = MEMORY[0x277CCAAD0];
   view7 = [(WFOverlayImageEditorViewController *)self view];
@@ -304,11 +312,11 @@ void __62__WFOverlayImageEditorViewController_setOpacitySliderVisible___block_in
   v28 = [v25 constraintWithItem:v12 attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v27];
 
   view10 = [(WFOverlayImageEditorViewController *)self view];
-  v71 = v24;
+  v70 = v24;
   [view10 addConstraint:v24];
 
   view11 = [(WFOverlayImageEditorViewController *)self view];
-  v70 = v28;
+  v69 = v28;
   [view11 addConstraint:v28];
 
   view12 = [(WFOverlayImageEditorViewController *)self view];
@@ -324,31 +332,31 @@ void __62__WFOverlayImageEditorViewController_setOpacitySliderVisible___block_in
   view14 = [(WFOverlayImageEditorViewController *)self view];
   [view14 layoutIfNeeded];
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   view15 = [(WFOverlayImageEditorViewController *)self view];
   constraints = [view15 constraints];
 
-  v40 = [constraints countByEnumeratingWithState:&v83 objects:v87 count:16];
+  v40 = [constraints countByEnumeratingWithState:&v82 objects:v86 count:16];
   if (!v40)
   {
     goto LABEL_14;
   }
 
   v41 = v40;
-  v42 = *v84;
+  v42 = *v83;
   do
   {
     for (i = 0; i != v41; ++i)
     {
-      if (*v84 != v42)
+      if (*v83 != v42)
       {
         objc_enumerationMutation(constraints);
       }
 
-      v44 = *(*(&v83 + 1) + 8 * i);
+      v44 = *(*(&v82 + 1) + 8 * i);
       firstItem = [v44 firstItem];
       v46 = firstItem;
       if (firstItem == canvasView2)
@@ -369,7 +377,7 @@ void __62__WFOverlayImageEditorViewController_setOpacitySliderVisible___block_in
       [view16 removeConstraint:v44];
     }
 
-    v41 = [constraints countByEnumeratingWithState:&v83 objects:v87 count:16];
+    v41 = [constraints countByEnumeratingWithState:&v82 objects:v86 count:16];
   }
 
   while (v41);
@@ -383,39 +391,37 @@ LABEL_14:
   [view17 addConstraints:v52];
 
   view18 = [(WFOverlayImageEditorViewController *)self view];
-  v54 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:[oldCanvasView(==offset)]-(offset)-|" options:0 metrics:v72 views:v50];
+  v54 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:[oldCanvasView(==offset)]-(offset)-|" options:0 metrics:v71 views:v50];
   [view18 addConstraints:v54];
 
-  [v71 setConstant:0.0];
+  [v70 setConstant:0.0];
   optionsView = [(WFOverlayImageEditorViewController *)self optionsView];
   [optionsView setUserInteractionEnabled:0];
 
   v56 = MEMORY[0x277D75D18];
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __53__WFOverlayImageEditorViewController_setCurrentFile___block_invoke;
-  v82[3] = &unk_278C37538;
-  v82[4] = self;
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __53__WFOverlayImageEditorViewController_setCurrentFile___block_invoke_2;
-  v76[3] = &unk_278C36870;
-  v77 = canvasView2;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __53__WFOverlayImageEditorViewController_setCurrentFile___block_invoke;
+  v81[3] = &unk_278C37538;
+  v81[4] = self;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __53__WFOverlayImageEditorViewController_setCurrentFile___block_invoke_2;
+  v75[3] = &unk_278C36870;
+  v76 = canvasView2;
   selfCopy = self;
-  v79 = v71;
-  v80 = v70;
-  v81 = v12;
-  v57 = v70;
-  v58 = v71;
+  v78 = v70;
+  v79 = v69;
+  v80 = v12;
+  v57 = v69;
+  v58 = v70;
   v59 = canvasView2;
-  [v56 animateWithDuration:v82 animations:v76 completion:0.3];
+  [v56 animateWithDuration:v81 animations:v75 completion:0.3];
 
-  v7 = v74;
-  fileCopy = v75;
-  v8 = v73;
+  v7 = v73;
+  fileCopy = v74;
+  v8 = v72;
 LABEL_16:
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFOverlayImageEditorViewController_setCurrentFile___block_invoke(uint64_t a1)

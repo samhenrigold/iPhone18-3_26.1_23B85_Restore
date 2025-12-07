@@ -75,7 +75,7 @@
 
 + (id)createFromDict:(id)dict possibleError:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v7 = [dictCopy objectForKey:@"bucketBoundaries"];
   v8 = [dictCopy objectForKey:@"minValue"];
@@ -113,7 +113,7 @@ LABEL_36:
   if (!v7)
   {
     [v10 floatValue];
-    if (v24 != [v11 intValue] || (v43 = self, v25 = objc_msgSend(v11, "unsignedIntValue"), v25 != objc_msgSend(v11, "intValue")) || !objc_msgSend(v11, "unsignedIntValue"))
+    if (v24 != [v11 intValue] || (v42 = self, v25 = objc_msgSend(v11, "unsignedIntValue"), v25 != objc_msgSend(v11, "intValue")) || !objc_msgSend(v11, "unsignedIntValue"))
     {
       if (!error)
       {
@@ -134,32 +134,32 @@ LABEL_36:
       goto LABEL_49;
     }
 
-    v29 = [[v43 alloc] initWithMinValue:v8 maxValue:v9 bucketCount:v11];
+    v29 = [[v42 alloc] initWithMinValue:v8 maxValue:v9 bucketCount:v11];
     goto LABEL_45;
   }
 
   selfCopy = self;
   errorCopy = error;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v17 = v7;
-  v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v46;
+    v20 = *v45;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v46 != v20)
+        if (*v45 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v45 + 1) + 8 * i);
+        v22 = *(*(&v44 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -174,7 +174,7 @@ LABEL_36:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v19)
       {
         continue;
@@ -192,7 +192,7 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    [MEMORY[0x277CCACA8] stringWithFormat:@"You must have at least 2 elements for %@", @"bucketBoundaries", v41];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"You must have at least 2 elements for %@", @"bucketBoundaries", v40];
     goto LABEL_49;
   }
 
@@ -206,24 +206,24 @@ LABEL_45:
     goto LABEL_37;
   }
 
-  v32 = 1;
+  v31 = 1;
   while (1)
   {
-    v33 = [v17 objectAtIndexedSubscript:v32];
-    [v33 floatValue];
-    v35 = v34;
-    v36 = v32 - 1;
-    v37 = [v17 objectAtIndexedSubscript:v36];
-    [v37 floatValue];
-    v39 = v38;
+    v32 = [v17 objectAtIndexedSubscript:v31];
+    [v32 floatValue];
+    v34 = v33;
+    v35 = v31 - 1;
+    v36 = [v17 objectAtIndexedSubscript:v35];
+    [v36 floatValue];
+    v38 = v37;
 
-    if (v35 <= v39)
+    if (v34 <= v38)
     {
       break;
     }
 
-    v32 = v36 + 2;
-    if ([v17 count] <= v32)
+    v31 = v35 + 2;
+    if ([v17 count] <= v31)
     {
       goto LABEL_44;
     }
@@ -231,16 +231,14 @@ LABEL_45:
 
   if (errorCopy)
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"The entries for %@ must be monotonically increasing", @"bucketBoundaries", v41];
-    v40 = LABEL_49:;
-    *error = [FedStatsError errorWithCode:302 description:v40];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"The entries for %@ must be monotonically increasing", @"bucketBoundaries", v40];
+    v39 = LABEL_49:;
+    *error = [FedStatsError errorWithCode:302 description:v39];
 
     goto LABEL_36;
   }
 
 LABEL_37:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -439,7 +437,7 @@ LABEL_13:
 
 - (id)indexToInterval:(id)interval
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (intervalCopy)
   {
@@ -447,11 +445,11 @@ LABEL_13:
     {
       bucketBoundaries = [(FedStatsBucketedType *)self bucketBoundaries];
       stepSize2 = [bucketBoundaries objectAtIndex:{objc_msgSend(intervalCopy, "unsignedLongValue") - 1}];
-      v24[0] = stepSize2;
+      v23[0] = stepSize2;
       bucketBoundaries2 = [(FedStatsBucketedType *)self bucketBoundaries];
       v8 = [bucketBoundaries2 objectAtIndex:{objc_msgSend(intervalCopy, "unsignedLongValue")}];
-      v24[1] = v8;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+      v23[1] = v8;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
 
 LABEL_6:
       goto LABEL_8;
@@ -469,22 +467,20 @@ LABEL_6:
 
       *&v17 = v16;
       bucketBoundaries = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-      v23[0] = bucketBoundaries;
+      v22[0] = bucketBoundaries;
       v18 = MEMORY[0x277CCABB0];
       stepSize2 = [(FedStatsBucketedType *)self stepSize];
       [stepSize2 floatValue];
       *&v20 = v16 + v19;
       bucketBoundaries2 = [v18 numberWithFloat:v20];
-      v23[1] = bucketBoundaries2;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+      v22[1] = bucketBoundaries2;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
       goto LABEL_6;
     }
   }
 
   v9 = 0;
 LABEL_8:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

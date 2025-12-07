@@ -64,7 +64,7 @@
 - (void)setDefaultValues
 {
   selfCopy = self;
-  sub_1891C7680();
+  sub_1891C7680(selfCopy);
 }
 
 + (id)settingsControllerModule

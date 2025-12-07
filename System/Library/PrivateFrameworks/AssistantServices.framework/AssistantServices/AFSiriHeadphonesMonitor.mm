@@ -147,7 +147,7 @@
       _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Scheduled JS Discovery notification for %@(%@)", buf, 0x20u);
     }
 
-    v14 = [(NSMutableDictionary *)self->_devicesScheduledForJSNotification objectForKey:address];
+    v14 = objc_msgSend_objectForKey_(self->_devicesScheduledForJSNotification);
 
     if (!v14)
     {
@@ -336,7 +336,7 @@
   if (devicesScheduledForJSNotification)
   {
     btAddress = [changeCopy btAddress];
-    v7 = [(NSMutableDictionary *)devicesScheduledForJSNotification objectForKey:btAddress];
+    v7 = objc_msgSend_objectForKey_(devicesScheduledForJSNotification);
 
     if (v7)
     {
@@ -357,7 +357,7 @@
 
       v12 = self->_devicesScheduledForJSNotification;
       btAddress3 = [changeCopy btAddress];
-      v14 = [(NSMutableDictionary *)v12 objectForKey:btAddress3];
+      v14 = objc_msgSend_objectForKey_(v12);
 
       v15 = self->_devicesScheduledForJSNotification;
       btAddress4 = [changeCopy btAddress];

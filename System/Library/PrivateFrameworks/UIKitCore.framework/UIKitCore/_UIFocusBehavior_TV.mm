@@ -57,7 +57,7 @@
   if (v2)
   {
     v3 = _os_feature_enabled_impl();
-    LOBYTE(v2) = v3 & (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_B519_SupportsIndirectRotaryMovement, @"B519_SupportsIndirectRotaryMovement", _UIInternalPreferenceUpdateBool) | (byte_1EA95E7C4 != 0));
+    LOBYTE(v2) = v3 & (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_B519_SupportsIndirectRotaryMovement, @"B519_SupportsIndirectRotaryMovement", _UIInternalPreferenceUpdateBool) || byte_1EA95E7C4 != 0);
   }
 
   return v2;

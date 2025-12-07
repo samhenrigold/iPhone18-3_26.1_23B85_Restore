@@ -89,7 +89,7 @@
     v13 = [[PVRenderRequestJobDelegate alloc] initWithRequest:requestCopy completionHandler:handlerCopy pvRenderer:self];
     if (requestCopy)
     {
-      [requestCopy time];
+      objc_msgSend_time(requestCopy);
     }
 
     else
@@ -99,13 +99,13 @@
       v16 = 0;
     }
 
-    [(PVRendererBase *)self startJobForDelegate:v13 time:&v14 playback:1];
+    objc_msgSend_startJobForDelegate_time_playback_(self, v14, v15, v16);
     if (v17)
     {
-      (*(*v17 + 24))(v17);
+      (*(*v17 + 24))();
     }
 
-    [(PVRenderer *)self _statsLogCheck:v14];
+    [(PVRenderer *)self _statsLogCheck];
   }
 
   else
@@ -122,7 +122,7 @@
   v7 = v6;
   v9 = v8;
   highQuality = [effectsCopy highQuality];
-  [(PVRenderer *)self frameDuration];
+  objc_msgSend_frameDuration(self);
   v11 = HGObject::operator new(0xA8uLL);
   v16 = v15;
   v17.width = v7;
@@ -189,66 +189,68 @@
   width = buffer.width;
   v9 = v4;
   *v4 = 0;
-  if (PVIsMultiplaneCoreVideo420Format(format) || PVIsMultiplaneCoreVideo422Format(v5))
+  CVPixelBuffer = PVIsMultiplaneCoreVideo420Format(format);
+  if ((CVPixelBuffer & 1) != 0 || (CVPixelBuffer = PVIsMultiplaneCoreVideo422Format(v5), CVPixelBuffer))
   {
-    v32.width = width;
-    v32.height = height;
-    if (!PVCanCreateCVPixelBuffer(v32))
+    v34.width = width;
+    v34.height = height;
+    CVPixelBuffer = PVCanCreateCVPixelBuffer(v34, CVPixelBuffer, v11);
+    if ((CVPixelBuffer & 1) == 0)
     {
-      v10 = PVMaximumCVPixelBufferSize();
-      if (width > v10)
+      v12 = PVMaximumCVPixelBufferSize(CVPixelBuffer, v11);
+      if (width > v12)
       {
-        width = v10;
+        width = v12;
       }
 
-      if (height > v10)
+      if (height > v12)
       {
-        height = v10;
+        height = v12;
       }
 
       NSLog(&cfstr_ErrorMultiplan.isa);
     }
   }
 
-  v33.width = width;
-  v33.height = height;
-  if (PVCanCreateCVPixelBuffer(v33))
+  v35.width = width;
+  v35.height = height;
+  if (PVCanCreateCVPixelBuffer(v35, CVPixelBuffer, v11))
   {
-    [(PVRenderer *)self hgCVPixelBufferFromCVPoolForSize:v5 withFormat:width, height];
-    if (v30)
+    objc_msgSend_hgCVPixelBufferFromCVPoolForSize_withFormat_(self, width, height);
+    if (v32)
     {
-      v12 = *(v30 + 3);
+      v14 = *(v32 + 3);
       compositingContext = [(PVRendererBase *)self compositingContext];
       outputColorSpace = [compositingContext outputColorSpace];
-      PVAddColorSpaceAttributesToCVPixelBuffer(v12, outputColorSpace);
+      PVAddColorSpaceAttributesToCVPixelBuffer(v14, outputColorSpace);
 
-      if (PVIsMultiplaneCoreVideo420Format(v5) || PVIsMultiplaneCoreVideo422Format(v5))
+      if ((PVIsMultiplaneCoreVideo420Format(v5) & 1) != 0 || PVIsMultiplaneCoreVideo422Format(v5))
       {
         if (PVIs10BitMultiplaneCoreVideoX420Format(v5) || PVIs10BitMultiplaneCoreVideoX422Format(v5))
         {
-          v16 = 3;
+          v18 = 3;
         }
 
         else
         {
-          v16 = 1;
+          v18 = 1;
         }
 
-        HGCVBitmap::create(&v30, v16, 0, &v29);
+        HGCVBitmap::create(&v31, &v32, v18, 0);
       }
 
       else
       {
-        v27 = HGCV::HGFormatForCVPixelFormat(v5, 0, v15);
-        HGCVBitmap::create(&v30, v27, 0, &v29);
+        v29 = HGCV::HGFormatForCVPixelFormat(v5, 0, v17);
+        HGCVBitmap::create(&v31, &v32, v29, 0);
       }
 
-      v28 = v29;
-      if (v29)
+      v30 = v31;
+      if (v31)
       {
-        *v9 = v29;
-        (*(*v28 + 16))(v28);
-        (*(*v28 + 24))(v28);
+        *v9 = v31;
+        (*(*v30 + 16))(v30);
+        (*(*v30 + 24))(v30);
       }
     }
 
@@ -257,31 +259,31 @@
       NSLog(&cfstr_ErrorGetdestin.isa);
     }
 
-    v26 = v30;
-    if (v30)
+    v28 = v32;
+    if (v32)
     {
-      return (*(*v30 + 24))(v30);
+      return (*(*v32 + 24))(v32);
     }
   }
 
   else
   {
-    v17 = width;
-    v18 = height;
-    v19 = HGRectMake4f(v11, 0.0, 0.0, v17, v18);
-    v21 = v20;
-    v23 = HGCV::HGFormatForCVPixelFormat(v5, 0, v22);
+    v19 = width;
+    v20 = height;
+    v21 = HGRectMake4f(v13, 0.0, 0.0, v19, v20);
+    v23 = v22;
+    v25 = HGCV::HGFormatForCVPixelFormat(v5, 0, v24);
     compositingContext2 = [(PVRendererBase *)self compositingContext];
     outputColorSpace2 = [compositingContext2 outputColorSpace];
-    PVCreateHGBitmapWithStorage(v19, v21, v23, outputColorSpace2, &v30);
-    if (v30)
+    PVCreateHGBitmapWithStorage(v21, v23, v25, outputColorSpace2, &v32);
+    if (v32)
     {
-      *v9 = v30;
-      v30 = 0;
+      *v9 = v32;
+      v32 = 0;
     }
   }
 
-  return v26;
+  return v28;
 }
 
 - (void)renderJobFinished:(HGRef<PVRenderJob>)finished
@@ -498,7 +500,7 @@ LABEL_18:
 LABEL_19:
         pixelBufferOut = 0;
         CVPixelBufferPoolCreatePixelBuffer(0, *(v13 + 40), &pixelBufferOut);
-        HGCVPixelBuffer::convert(pixelBufferOut, &v20);
+        HGCVPixelBuffer::convert(&v20, pixelBufferOut);
         if (v20)
         {
           *v9 = v20;
@@ -527,7 +529,7 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  HGCVPixelBuffer::create(width, height, v5, &pixelBufferOut);
+  HGCVPixelBuffer::create(&pixelBufferOut, width, height, v5);
   if (pixelBufferOut)
   {
     *v9 = pixelBufferOut;

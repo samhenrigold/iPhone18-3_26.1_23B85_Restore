@@ -11,6 +11,8 @@
 - (id)_treatmentIdForExperiment:(id)experiment fromResolverList:(id)list;
 - (id)counterfactualFactorsStatesForNamespace:(id)namespace;
 - (id)experimentIdentifiersForNamespace:(id)namespace;
+- (id)factorProviderForNamespaceName:(id)name parentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId fromFactorPackSetWithDir:(id)dir resolvedPath:(id *)path;
+- (id)globalFactorProviderForNamespaceName:(id)name parentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId fromFactorPackId:(id)packId resolvedPath:(id *)path;
 - (id)resolvePropertyListFactorProviderChainForNamespaceName:(id)name;
 - (id)resolvePropertyListGlobalFactorProviderChainForNamespaceName:(id)name;
 - (id)resolveTargetedFactorPackSetForExperimentDeployment:(id)deployment;
@@ -99,10 +101,10 @@ void __41__TRIActiveFactorProvidersParser_dispose__block_invoke_4(uint64_t a1, u
 
 - (id)resolvePropertyListFactorProviderChainForNamespaceName:(id)name
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v81 = 0;
-  v5 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithResolvedPath:&v81];
+  v80 = 0;
+  v5 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithResolvedPath:&v80];
   v6 = v5;
   if (!v5)
   {
@@ -143,7 +145,7 @@ void __41__TRIActiveFactorProvidersParser_dispose__block_invoke_4(uint64_t a1, u
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v8 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v45 = objc_alloc(MEMORY[0x277CCACA8]);
-    v18 = [v45 initWithFormat:@"plplist contains unexpected toplevel content: %@", v81];
+    v18 = [v45 initWithFormat:@"plplist contains unexpected toplevel content: %@", v80];
     [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v18];
     goto LABEL_53;
   }
@@ -159,50 +161,50 @@ LABEL_53:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v48 = objc_alloc(MEMORY[0x277CCACA8]);
-    v44 = [v48 initWithFormat:@"plplist contains non-array provider chain: %@", v81];
+    v47 = objc_alloc(MEMORY[0x277CCACA8]);
+    v44 = [v47 initWithFormat:@"plplist contains non-array provider chain: %@", v80];
     [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v44];
     v12 = MEMORY[0x277CBEBF8];
     goto LABEL_65;
   }
 
   v19 = objc_opt_new();
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   obj = v18;
-  v72 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
-  if (!v72)
+  v71 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
+  if (!v71)
   {
     goto LABEL_51;
   }
 
-  v73 = *v78;
-  v74 = v17;
-  v66 = v19;
+  v72 = *v77;
+  v73 = v17;
+  v65 = v19;
   while (2)
   {
     v20 = 0;
     do
     {
-      if (*v78 != v73)
+      if (*v77 != v72)
       {
         objc_enumerationMutation(obj);
       }
 
-      v75 = v20;
-      v21 = *(*(&v77 + 1) + 8 * v20);
+      v74 = v20;
+      v21 = *(*(&v76 + 1) + 8 * v20);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || [v21 count] != 2)
       {
-        v49 = objc_alloc(MEMORY[0x277CCACA8]);
-        v24 = [v49 initWithFormat:@"plplist contains bad provider chain: %@", v81];
+        v48 = objc_alloc(MEMORY[0x277CCACA8]);
+        v24 = [v48 initWithFormat:@"plplist contains bad provider chain: %@", v80];
         [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v24];
 LABEL_64:
 
         v12 = MEMORY[0x277CBEBF8];
-        v44 = v66;
+        v44 = v65;
         goto LABEL_65;
       }
 
@@ -219,12 +221,12 @@ LABEL_64:
           v25 = [v8 objectForKeyedSubscript:v24];
           if (!v25 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            v50 = objc_alloc(MEMORY[0x277CCACA8]);
-            v51 = [v50 initWithFormat:@"plplist contains bad rollout deployment: %@", v81];
-            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v51];
+            v49 = objc_alloc(MEMORY[0x277CCACA8]);
+            v50 = [v49 initWithFormat:@"plplist contains bad rollout deployment: %@", v80];
+            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v50];
 
 LABEL_63:
-            v17 = v74;
+            v17 = v73;
             goto LABEL_64;
           }
 
@@ -232,26 +234,26 @@ LABEL_63:
           v27 = [(TRIActiveFactorProvidersParser *)self resolveTargetedFactorPackSetForRolloutDeployment:v26];
           if (v27)
           {
-            v61 = v25;
-            v76 = 0;
+            v60 = v25;
+            v75 = 0;
             v28 = v27;
             rolloutId = [(TRIRolloutDeployment *)v26 rolloutId];
-            v69 = v26;
+            v68 = v26;
             deploymentId = [(TRIRolloutDeployment *)v26 deploymentId];
-            v63 = v28;
+            v62 = v28;
             path = [v28 path];
-            v57 = [(TRIActiveFactorProvidersParser *)self factorProviderForNamespaceName:nameCopy parentId:rolloutId deploymentId:deploymentId treatmentId:0 fromFactorPackSetWithDir:path resolvedPath:&v76];
+            v56 = [(TRIActiveFactorProvidersParser *)self factorProviderForNamespaceName:nameCopy parentId:rolloutId deploymentId:deploymentId treatmentId:0 fromFactorPackSetWithDir:path resolvedPath:&v75];
 
-            if (v57)
+            if (v56)
             {
               v30 = [TRITypedFactorProvider alloc];
-              v31 = [(TRITypedFactorProvider *)v30 initWithType:2 provider:v57 logDesc:v76];
-              [v66 addObject:v31];
+              v31 = [(TRITypedFactorProvider *)v30 initWithType:2 provider:v56 logDesc:v75];
+              [v65 addObject:v31];
             }
 
-            v26 = v69;
-            v25 = v61;
-            v27 = v63;
+            v26 = v68;
+            v25 = v60;
+            v27 = v62;
           }
 
           goto LABEL_49;
@@ -268,81 +270,81 @@ LABEL_63:
 
 LABEL_48:
         v43 = objc_alloc(MEMORY[0x277CCACA8]);
-        v24 = [v43 initWithFormat:@"plplist at %@ contains unsupported provider chain element: %@", v81, v21];
+        v24 = [v43 initWithFormat:@"plplist at %@ contains unsupported provider chain element: %@", v80, v21];
         [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v24];
         goto LABEL_49;
       }
 
       v33 = [v21 objectAtIndexedSubscript:1];
       objc_opt_class();
-      v70 = objc_opt_isKindOfClass();
+      v69 = objc_opt_isKindOfClass();
 
-      if ((v70 & 1) == 0)
+      if ((v69 & 1) == 0)
       {
         goto LABEL_48;
       }
 
       v24 = [v21 objectAtIndexedSubscript:1];
       [v13 objectForKeyedSubscript:v24];
-      v71 = v17 = v74;
-      if (!v71 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v70 = v17 = v73;
+      if (!v70 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v52 = objc_alloc(MEMORY[0x277CCACA8]);
-        v53 = [v52 initWithFormat:@"plplist contains bad experiment deployment: %@ for map: %@", v81, v13];
-        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v53];
+        v51 = objc_alloc(MEMORY[0x277CCACA8]);
+        v52 = [v51 initWithFormat:@"plplist contains bad experiment deployment: %@ for map: %@", v80, v13];
+        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v52];
 
         goto LABEL_64;
       }
 
-      v34 = [v74 objectForKeyedSubscript:v24];
+      v34 = [v73 objectForKeyedSubscript:v24];
       if (!v34 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v54 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"plplist contains experiment deployment with bad treatment ID: %@", v34];
-        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v54];
+        v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"plplist contains experiment deployment with bad treatment ID: %@", v34];
+        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v53];
 
         goto LABEL_63;
       }
 
-      v35 = -[TRIExperimentDeployment initWithExperimentId:deploymentId:]([TRIExperimentDeployment alloc], "initWithExperimentId:deploymentId:", v24, [v71 intValue]);
+      v35 = -[TRIExperimentDeployment initWithExperimentId:deploymentId:]([TRIExperimentDeployment alloc], "initWithExperimentId:deploymentId:", v24, [v70 intValue]);
       v36 = [(TRIActiveFactorProvidersParser *)self resolveTargetedFactorPackSetForExperimentDeployment:v35];
       if (v36)
       {
-        v76 = 0;
-        v58 = v34;
+        v75 = 0;
+        v57 = v34;
         v37 = v36;
         [(TRIExperimentDeployment *)v35 experimentId];
-        v64 = v62 = v35;
+        v63 = v61 = v35;
         deploymentId2 = [(TRIExperimentDeployment *)v35 deploymentId];
-        v60 = v37;
+        v59 = v37;
         v39 = v37;
-        v34 = v58;
+        v34 = v57;
         path2 = [v39 path];
-        v40 = [(TRIActiveFactorProvidersParser *)self factorProviderForNamespaceName:nameCopy parentId:v64 deploymentId:deploymentId2 treatmentId:v58 fromFactorPackSetWithDir:path2 resolvedPath:&v76];
+        v40 = [(TRIActiveFactorProvidersParser *)self factorProviderForNamespaceName:nameCopy parentId:v63 deploymentId:deploymentId2 treatmentId:v57 fromFactorPackSetWithDir:path2 resolvedPath:&v75];
 
         if (v40)
         {
           v41 = [TRITypedFactorProvider alloc];
-          v65 = v40;
-          v42 = [(TRITypedFactorProvider *)v41 initWithType:32 provider:v40 logDesc:v76];
-          [v66 addObject:v42];
+          v64 = v40;
+          v42 = [(TRITypedFactorProvider *)v41 initWithType:32 provider:v40 logDesc:v75];
+          [v65 addObject:v42];
 
-          v40 = v65;
+          v40 = v64;
         }
 
-        v36 = v60;
-        v35 = v62;
+        v36 = v59;
+        v35 = v61;
       }
 
 LABEL_49:
-      v17 = v74;
+      v17 = v73;
 
-      v20 = v75 + 1;
+      v20 = v74 + 1;
     }
 
-    while (v72 != v75 + 1);
-    v19 = v66;
-    v72 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
-    if (v72)
+    while (v71 != v74 + 1);
+    v19 = v65;
+    v71 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
+    if (v71)
     {
       continue;
     }
@@ -359,17 +361,15 @@ LABEL_65:
 LABEL_54:
 LABEL_55:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)resolvePropertyListGlobalFactorProviderChainForNamespaceName:(id)name
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v78 = 0;
-  v5 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithGlobalRolloutsResolvedPath:&v78];
+  v77 = 0;
+  v5 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithGlobalRolloutsResolvedPath:&v77];
   v6 = v5;
   if (!v5)
   {
@@ -411,7 +411,7 @@ LABEL_55:
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v8 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v18 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v39 = objc_alloc(MEMORY[0x277CCACA8]);
-    v19 = [v39 initWithFormat:@"plplist contains unexpected toplevel content: %@", v78];
+    v19 = [v39 initWithFormat:@"plplist contains unexpected toplevel content: %@", v77];
     [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v19];
     goto LABEL_54;
   }
@@ -427,105 +427,105 @@ LABEL_54:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v42 = objc_alloc(MEMORY[0x277CCACA8]);
-    v20 = [v42 initWithFormat:@"plplist contains non-array provider chain: %@", v78];
+    v41 = objc_alloc(MEMORY[0x277CCACA8]);
+    v20 = [v41 initWithFormat:@"plplist contains non-array provider chain: %@", v77];
     [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v20];
     v13 = MEMORY[0x277CBEBF8];
     goto LABEL_67;
   }
 
   v20 = objc_opt_new();
-  v56 = [v8 objectForKeyedSubscript:nameCopy];
-  if (!v56)
+  v55 = [v8 objectForKeyedSubscript:nameCopy];
+  if (!v55)
   {
     goto LABEL_52;
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   obj = v19;
-  v61 = [obj countByEnumeratingWithState:&v74 objects:v79 count:16];
-  if (!v61)
+  v60 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+  if (!v60)
   {
     goto LABEL_51;
   }
 
-  v62 = *v75;
-  v63 = v20;
+  v61 = *v74;
+  v62 = v20;
   while (2)
   {
     v21 = 0;
     do
     {
-      if (*v75 != v62)
+      if (*v74 != v61)
       {
         v22 = v21;
         objc_enumerationMutation(obj);
         v21 = v22;
       }
 
-      v72 = v21;
-      v23 = *(*(&v74 + 1) + 8 * v21);
+      v71 = v21;
+      v23 = *(*(&v73 + 1) + 8 * v21);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || [v23 count] != 2)
       {
-        v43 = objc_alloc(MEMORY[0x277CCACA8]);
-        v44 = [v43 initWithFormat:@"plplist contains bad provider chain: %@", v78];
-        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v44];
+        v42 = objc_alloc(MEMORY[0x277CCACA8]);
+        v43 = [v42 initWithFormat:@"plplist contains bad provider chain: %@", v77];
+        [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v43];
 LABEL_65:
 
         v13 = MEMORY[0x277CBEBF8];
-        v20 = v63;
+        v20 = v62;
         goto LABEL_66;
       }
 
-      v69 = [v23 objectAtIndexedSubscript:0];
+      v68 = [v23 objectAtIndexedSubscript:0];
       if ([@"rolloutV2" isEqual:?])
       {
-        v64 = [v23 objectAtIndexedSubscript:1];
+        v63 = [v23 objectAtIndexedSubscript:1];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v70 = [v23 objectAtIndexedSubscript:1];
+          v69 = [v23 objectAtIndexedSubscript:1];
           v24 = [v9 objectForKeyedSubscript:?];
-          v58 = v24;
+          v57 = v24;
           if (!v24 || (v25 = v24, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            v45 = objc_alloc(MEMORY[0x277CCACA8]);
-            v46 = [v45 initWithFormat:@"plplist contains bad rollout deployment: %@", v78];
-            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v46];
+            v44 = objc_alloc(MEMORY[0x277CCACA8]);
+            v45 = [v44 initWithFormat:@"plplist contains bad rollout deployment: %@", v77];
+            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v45];
 
-            v47 = v58;
+            v46 = v57;
 LABEL_64:
 
-            v44 = v70;
+            v43 = v69;
             goto LABEL_65;
           }
 
-          v26 = -[TRIRolloutDeployment initWithRolloutId:deploymentId:]([TRIRolloutDeployment alloc], "initWithRolloutId:deploymentId:", v70, [v25 intValue]);
-          v73 = 0;
+          v26 = -[TRIRolloutDeployment initWithRolloutId:deploymentId:]([TRIRolloutDeployment alloc], "initWithRolloutId:deploymentId:", v69, [v25 intValue]);
+          v72 = 0;
           rolloutId = [(TRIRolloutDeployment *)v26 rolloutId];
-          v52 = v26;
-          v27 = [(TRIActiveFactorProvidersParser *)self globalFactorProviderForNamespaceName:nameCopy parentId:rolloutId deploymentId:[(TRIRolloutDeployment *)v26 deploymentId] treatmentId:0 fromFactorPackId:v56 resolvedPath:&v73];
+          v51 = v26;
+          v27 = [(TRIActiveFactorProvidersParser *)self globalFactorProviderForNamespaceName:nameCopy parentId:rolloutId deploymentId:[(TRIRolloutDeployment *)v26 deploymentId] treatmentId:0 fromFactorPackId:v55 resolvedPath:&v72];
 
           if (v27)
           {
             v28 = [TRITypedFactorProvider alloc];
-            v66 = v27;
-            v29 = [(TRITypedFactorProvider *)v28 initWithType:2 provider:v27 logDesc:v73];
-            [v63 addObject:v29];
+            v65 = v27;
+            v29 = [(TRITypedFactorProvider *)v28 initWithType:2 provider:v27 logDesc:v72];
+            [v62 addObject:v29];
 
-            v27 = v66;
+            v27 = v65;
           }
 
-          v30 = v58;
+          v30 = v57;
 LABEL_46:
 
-          v37 = v70;
+          v37 = v69;
           goto LABEL_49;
         }
       }
@@ -534,56 +534,56 @@ LABEL_46:
       {
       }
 
-      v71 = [v23 objectAtIndexedSubscript:0];
+      v70 = [v23 objectAtIndexedSubscript:0];
       if ([@"experiment" isEqual:?])
       {
-        v67 = [v23 objectAtIndexedSubscript:1];
+        v66 = [v23 objectAtIndexedSubscript:1];
         objc_opt_class();
-        v59 = objc_opt_isKindOfClass();
+        v58 = objc_opt_isKindOfClass();
 
-        if (v59)
+        if (v58)
         {
           v31 = [v23 objectAtIndexedSubscript:1];
-          v68 = [v14 objectForKeyedSubscript:v31];
-          v70 = v31;
-          if (!v68 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+          v67 = [v14 objectForKeyedSubscript:v31];
+          v69 = v31;
+          if (!v67 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            v48 = objc_alloc(MEMORY[0x277CCACA8]);
-            v49 = [v48 initWithFormat:@"plplist (global) contains bad experiment deployment: %@ for map: %@", v78, v14];
-            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v49];
+            v47 = objc_alloc(MEMORY[0x277CCACA8]);
+            v48 = [v47 initWithFormat:@"plplist (global) contains bad experiment deployment: %@ for map: %@", v77, v14];
+            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v48];
 
-            v44 = v70;
+            v43 = v69;
             goto LABEL_65;
           }
 
           v32 = [v18 objectForKeyedSubscript:v31];
-          v60 = v32;
+          v59 = v32;
           if (!v32 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"plplist contains experiment deployment with bad treatment ID: %@", v32];
-            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v50];
+            v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"plplist contains experiment deployment with bad treatment ID: %@", v32];
+            [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v49];
 
-            v47 = v68;
+            v46 = v67;
             goto LABEL_64;
           }
 
-          v33 = -[TRIExperimentDeployment initWithExperimentId:deploymentId:]([TRIExperimentDeployment alloc], "initWithExperimentId:deploymentId:", v70, [v68 intValue]);
-          v73 = 0;
+          v33 = -[TRIExperimentDeployment initWithExperimentId:deploymentId:]([TRIExperimentDeployment alloc], "initWithExperimentId:deploymentId:", v69, [v67 intValue]);
+          v72 = 0;
           [(TRIExperimentDeployment *)v33 experimentId];
-          v53 = v51 = v33;
-          v34 = [(TRIActiveFactorProvidersParser *)self globalFactorProviderForNamespaceName:nameCopy parentId:v53 deploymentId:[(TRIExperimentDeployment *)v33 deploymentId] treatmentId:v60 fromFactorPackId:v56 resolvedPath:&v73];
+          v52 = v50 = v33;
+          v34 = [(TRIActiveFactorProvidersParser *)self globalFactorProviderForNamespaceName:nameCopy parentId:v52 deploymentId:[(TRIExperimentDeployment *)v33 deploymentId] treatmentId:v59 fromFactorPackId:v55 resolvedPath:&v72];
 
           if (v34)
           {
             v35 = [TRITypedFactorProvider alloc];
-            v54 = v34;
-            v36 = [(TRITypedFactorProvider *)v35 initWithType:32 provider:v34 logDesc:v73];
-            [v63 addObject:v36];
+            v53 = v34;
+            v36 = [(TRITypedFactorProvider *)v35 initWithType:32 provider:v34 logDesc:v72];
+            [v62 addObject:v36];
 
-            v34 = v54;
+            v34 = v53;
           }
 
-          v30 = v68;
+          v30 = v67;
           goto LABEL_46;
         }
       }
@@ -593,17 +593,17 @@ LABEL_46:
       }
 
       v38 = objc_alloc(MEMORY[0x277CCACA8]);
-      v37 = [v38 initWithFormat:@"plplist at %@ contains unsupported provider chain element: %@", v78, v23];
+      v37 = [v38 initWithFormat:@"plplist at %@ contains unsupported provider chain element: %@", v77, v23];
       [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:v37];
 LABEL_49:
 
-      v21 = v72 + 1;
-      v20 = v63;
+      v21 = v71 + 1;
+      v20 = v62;
     }
 
-    while (v61 != v72 + 1);
-    v61 = [obj countByEnumeratingWithState:&v74 objects:v79 count:16];
-    if (v61)
+    while (v60 != v71 + 1);
+    v60 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+    if (v60)
     {
       continue;
     }
@@ -621,7 +621,6 @@ LABEL_67:
 LABEL_55:
 
 LABEL_56:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -655,7 +654,7 @@ LABEL_56:
 
 void __83__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForRolloutDeployment___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[3] objectForKeyedSubscript:*(a1 + 32)];
   v5 = *(*(a1 + 48) + 8);
@@ -670,16 +669,16 @@ void __83__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForRollout
     v10 = [v8 initWithFormat:@"v2/rolloutV2/%@/%d/%@", v9, objc_msgSend(*(a1 + 32), "deploymentId"), @"targetedFactorPackSet"];
     v11 = [v7 stringByAppendingPathComponent:v10];
 
-    bzero(v32, 0x400uLL);
+    bzero(v31, 0x400uLL);
     *__error() = 0;
-    v12 = [*(a1 + 40) _realpathWithFileSystemRepresentation:objc_msgSend(v11 buffer:{"fileSystemRepresentation"), v32}];
+    v12 = [*(a1 + 40) _realpathWithFileSystemRepresentation:objc_msgSend(v11 buffer:{"fileSystemRepresentation"), v31}];
     if (v12)
     {
       v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v12];
       if (!v13)
       {
-        v25 = [MEMORY[0x277CCA890] currentHandler];
-        [v25 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:375 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
+        v24 = [MEMORY[0x277CCA890] currentHandler];
+        [v24 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:375 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
       }
 
       v14 = [v13 lastPathComponent];
@@ -712,15 +711,15 @@ LABEL_13:
       v13 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v22 = __error();
-        v23 = strerror(*v22);
-        v24 = *__error();
+        v21 = __error();
+        v22 = strerror(*v21);
+        v23 = *__error();
         *buf = 138412802;
-        v27 = v11;
-        v28 = 2080;
-        v29 = v23;
-        v30 = 1024;
-        v31 = v24;
+        v26 = v11;
+        v27 = 2080;
+        v28 = v22;
+        v29 = 1024;
+        v30 = v23;
         _os_log_error_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_ERROR, "Unable to resolve rollout deployment %@: %s (%d)", buf, 0x1Cu);
       }
     }
@@ -729,8 +728,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveTargetedFactorPackSetForExperimentDeployment:(id)deployment
@@ -770,7 +767,7 @@ LABEL_14:
 
 void __86__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperimentDeployment___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[4] objectForKeyedSubscript:*(a1 + 32)];
   v5 = *(*(a1 + 48) + 8);
@@ -785,15 +782,15 @@ void __86__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperim
     v10 = [v8 initWithFormat:@"v2/experiment/%@/%d/%@", v9, objc_msgSend(*(a1 + 32), "deploymentId"), @"targetedFactorPackSet"];
     v11 = [v7 stringByAppendingPathComponent:v10];
 
-    bzero(v32, 0x400uLL);
-    v12 = [*(a1 + 40) _realpathWithFileSystemRepresentation:objc_msgSend(v11 buffer:{"fileSystemRepresentation"), v32}];
+    bzero(v31, 0x400uLL);
+    v12 = [*(a1 + 40) _realpathWithFileSystemRepresentation:objc_msgSend(v11 buffer:{"fileSystemRepresentation"), v31}];
     if (v12)
     {
       v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v12];
       if (!v13)
       {
-        v25 = [MEMORY[0x277CCA890] currentHandler];
-        [v25 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:419 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
+        v24 = [MEMORY[0x277CCA890] currentHandler];
+        [v24 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:419 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
       }
 
       v14 = [v13 lastPathComponent];
@@ -826,15 +823,15 @@ LABEL_13:
       v13 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v22 = __error();
-        v23 = strerror(*v22);
-        v24 = *__error();
+        v21 = __error();
+        v22 = strerror(*v21);
+        v23 = *__error();
         *buf = 138412802;
-        v27 = v11;
-        v28 = 2080;
-        v29 = v23;
-        v30 = 1024;
-        v31 = v24;
+        v26 = v11;
+        v27 = 2080;
+        v28 = v22;
+        v29 = 1024;
+        v30 = v23;
         _os_log_error_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_ERROR, "Unable to resolve experiment deployment %@: %s (%d)", buf, 0x1Cu);
       }
     }
@@ -843,8 +840,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveTargetedFactorPackSetForExperimentFactorsState:(id)state
@@ -884,7 +879,7 @@ LABEL_14:
 
 void __88__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperimentFactorsState___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[5] objectForKeyedSubscript:*(a1 + 32)];
   v5 = *(*(a1 + 48) + 8);
@@ -897,8 +892,8 @@ void __88__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperim
     v8 = [*(a1 + 32) treatmentId];
     if (!v8)
     {
-      v21 = [MEMORY[0x277CCA890] currentHandler];
-      [v21 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:459 description:{@"Expression was unexpectedly nil/false: %@", @"experimentFactorsState.treatmentId"}];
+      v20 = [MEMORY[0x277CCA890] currentHandler];
+      [v20 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:459 description:{@"Expression was unexpectedly nil/false: %@", @"experimentFactorsState.treatmentId"}];
     }
 
     v9 = [v7 objectForKeyedSubscript:v8];
@@ -910,7 +905,7 @@ void __88__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperim
       {
         v19 = *(a1 + 32);
         *buf = 138412290;
-        v26 = v19;
+        v25 = v19;
         _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "No FPS ID found trying to resolve factors state %@", buf, 0xCu);
       }
 
@@ -928,8 +923,8 @@ void __88__TRIActiveFactorProvidersParser_resolveTargetedFactorPackSetForExperim
       v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v13];
       if (!v14)
       {
-        v22 = [MEMORY[0x277CCA890] currentHandler];
-        [v22 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:478 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
+        v21 = [MEMORY[0x277CCA890] currentHandler];
+        [v21 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"TRIActiveFactorProvidersParser.m" lineNumber:478 description:{@"Expression was unexpectedly nil/false: %@", @"[[NSString alloc] initWithUTF8String:expandedPath]"}];
       }
 
       v15 = [[TRIReferenceManagedDirReaderLock alloc] initWithDir:v14];
@@ -956,9 +951,9 @@ LABEL_17:
       v14 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 138412290;
-        v24 = v12;
-        _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "Unable to resolve factor pack set path %@", v23, 0xCu);
+        *v22 = 138412290;
+        v23 = v12;
+        _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "Unable to resolve factor pack set path %@", v22, 0xCu);
       }
     }
 
@@ -966,8 +961,118 @@ LABEL_17:
   }
 
 LABEL_18:
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (id)factorProviderForNamespaceName:(id)name parentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId fromFactorPackSetWithDir:(id)dir resolvedPath:(id *)path
+{
+  v11 = *&deploymentId;
+  v45[2] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  idCopy = id;
+  treatmentIdCopy = treatmentId;
+  dirCopy = dir;
+  nameCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%@", @"factorPacks", nameCopy];
+  v18 = [dirCopy stringByAppendingPathComponent:nameCopy];
+
+  nameCopy2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%@", @"legacyNamespaceFactorPacks", nameCopy];
+  v20 = [dirCopy stringByAppendingPathComponent:nameCopy2];
+
+  v45[0] = v18;
+  v45[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v22 = [TRINamespaceResolver preferredPathForFactorDataWithCandidatePaths:v21];
+  v23 = *path;
+  *path = v22;
+
+  memset(&v44, 0, sizeof(v44));
+  if (lstat([*path fileSystemRepresentation], &v44) && *__error() == 2)
+  {
+    v24 = TRILogCategory_ClientFramework();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      lastPathComponent = [dirCopy lastPathComponent];
+      *buf = 138413058;
+      v37 = idCopy;
+      v38 = 1024;
+      v39 = v11;
+      v40 = 2112;
+      v41 = lastPathComponent;
+      v42 = 2112;
+      v43 = nameCopy;
+      _os_log_impl(&dword_22EA6B000, v24, OS_LOG_TYPE_DEFAULT, "Deployment %@.%d resolves to factor pack set %@ with no factor pack for %@.", buf, 0x26u);
+    }
+
+    v26 = 0;
+    v27 = treatmentIdCopy;
+  }
+
+  else
+  {
+    buf[0] = 0;
+    v28 = [(TRIActiveFactorProvidersParser *)self _getFactorPackPathForNamespaceName:nameCopy withCandidatePath:*path parentId:idCopy deploymentId:v11 promotable:buf];
+    v29 = *path;
+    *path = v28;
+
+    triStringByResolvingSymlinksInPath = [*path triStringByResolvingSymlinksInPath];
+    v31 = [TRIFPNamespaceFactorProvider alloc];
+    v27 = treatmentIdCopy;
+    v32 = [(TRIFPNamespaceFactorProvider *)v31 initWithPath:*path parentId:idCopy deploymentId:v11 treatmentId:treatmentIdCopy promotable:buf[0]];
+    if (!v32)
+    {
+      v33 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      {
+        v44.st_dev = 138412290;
+        *&v44.st_mode = triStringByResolvingSymlinksInPath;
+        _os_log_error_impl(&dword_22EA6B000, v33, OS_LOG_TYPE_ERROR, "Failed to open factor pack: %@", &v44, 0xCu);
+      }
+    }
+
+    v26 = v32;
+  }
+
+  return v26;
+}
+
+- (id)globalFactorProviderForNamespaceName:(id)name parentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId fromFactorPackId:(id)packId resolvedPath:(id *)path
+{
+  v10 = *&deploymentId;
+  v29 = *MEMORY[0x277D85DE8];
+  paths = self->_paths;
+  packIdCopy = packId;
+  treatmentIdCopy = treatmentId;
+  idCopy = id;
+  nameCopy = name;
+  v18 = [(TRIPaths *)paths treatmentsDirUsingGlobal:1];
+  packIdCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%@/%@", nameCopy, @"factorPacks", packIdCopy];
+
+  v20 = [v18 stringByAppendingPathComponent:packIdCopy];
+  v21 = *path;
+  *path = v20;
+
+  triStringByResolvingSymlinksInPath = [*path triStringByResolvingSymlinksInPath];
+  v23 = [[TRIFPNamespaceFactorProvider alloc] initWithPath:*path parentId:idCopy deploymentId:v10 treatmentId:treatmentIdCopy promotable:1];
+
+  v24 = TRILogCategory_ClientFramework();
+  v25 = v24;
+  if (v23)
+  {
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v28 = triStringByResolvingSymlinksInPath;
+      _os_log_impl(&dword_22EA6B000, v25, OS_LOG_TYPE_DEFAULT, "Factor provider found path to factor pack: %@", buf, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v28 = triStringByResolvingSymlinksInPath;
+    _os_log_error_impl(&dword_22EA6B000, v25, OS_LOG_TYPE_ERROR, "Failed to open factor pack: %@", buf, 0xCu);
+  }
+
+  return v23;
 }
 
 - (id)counterfactualFactorsStatesForNamespace:(id)namespace
@@ -1143,13 +1248,13 @@ LABEL_13:
 
 - (id)_experimentIdForNamespace:(id)namespace fromResolverList:(id)list
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   namespaceCopy = namespace;
   v7 = [list objectForKeyedSubscript:@"namespaceMap"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:@"plplist contains unexpected toplevel content."];
-    v24 = 0;
+    v22 = 0;
     goto LABEL_25;
   }
 
@@ -1167,59 +1272,58 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  v30 = 0u;
-  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v10 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (!v10)
   {
     goto LABEL_18;
   }
 
   v11 = v10;
-  v12 = *v29;
-  v25 = namespaceCopy;
-  v26 = v8;
+  v12 = *v27;
+  v23 = namespaceCopy;
+  v24 = v8;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v29 != v12)
+      if (*v27 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v28 + 1) + 8 * i);
-      v15 = *(v9 + 2656);
+      v14 = *(*(&v26 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || [v14 count] != 2)
       {
         [(TRIActiveFactorProvidersParser *)self _faultOnceWithMessage:@"plplist contains bad provider chain."];
-        v24 = 0;
+        v22 = 0;
         goto LABEL_29;
       }
 
-      v16 = [v14 objectAtIndexedSubscript:0];
-      if ([@"experiment" isEqual:v16])
+      v15 = [v14 objectAtIndexedSubscript:0];
+      if ([@"experiment" isEqual:v15])
       {
         [v14 objectAtIndexedSubscript:1];
-        v17 = v12;
-        v19 = v18 = v9;
+        v16 = v12;
+        v18 = v17 = v9;
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
-        v9 = v18;
-        v12 = v17;
+        v9 = v17;
+        v12 = v16;
 
         if (isKindOfClass)
         {
-          v24 = [v14 objectAtIndexedSubscript:1];
+          v22 = [v14 objectAtIndexedSubscript:1];
 LABEL_29:
 
-          namespaceCopy = v25;
-          v8 = v26;
+          namespaceCopy = v23;
+          v8 = v24;
           goto LABEL_24;
         }
       }
@@ -1229,9 +1333,9 @@ LABEL_29:
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
-    namespaceCopy = v25;
-    v8 = v26;
+    v11 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+    namespaceCopy = v23;
+    v8 = v24;
     if (v11)
     {
       continue;
@@ -1242,22 +1346,21 @@ LABEL_29:
 
 LABEL_18:
 
-  v21 = TRILogCategory_ClientFramework();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v20 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v33 = namespaceCopy;
-    _os_log_impl(&dword_22EA6B000, v21, OS_LOG_TYPE_INFO, "Active factor provider does not contain experiment for %@:", buf, 0xCu);
+    v31 = namespaceCopy;
+    _os_log_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_INFO, "Active factor provider does not contain experiment for %@:", buf, 0xCu);
   }
 
 LABEL_23:
-  v24 = 0;
+  v22 = 0;
 LABEL_24:
 
 LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
 
-  return v24;
+  return v22;
 }
 
 - (id)_deploymentIdForExperiment:(id)experiment fromResolverList:(id)list
@@ -1405,9 +1508,9 @@ void __69__TRIActiveFactorProvidersParser__resolveTreatmentFactorPackSetIdMap__b
 
 - (id)_resolveCounterfactualTreatmentsMap
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v2 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithResolvedPath:&v11];
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v2 = [(TRIActiveFactorProvidersParser *)self _resolverPropertyListWithResolvedPath:&v10];
   v3 = v2;
   if (!v2)
   {
@@ -1431,7 +1534,7 @@ LABEL_8:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = v11;
+        v12 = v10;
         _os_log_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEFAULT, "Counterfactuals treatments mapping does not exist in plplist: %@", buf, 0xCu);
       }
 
@@ -1451,7 +1554,6 @@ LABEL_11:
   v6 = v7;
 
 LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1489,7 +1591,7 @@ LABEL_12:
 
 void __72__TRIActiveFactorProvidersParser__resolverPropertyListWithResolvedPath___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[1];
   if (v4)
@@ -1502,24 +1604,24 @@ void __72__TRIActiveFactorProvidersParser__resolverPropertyListWithResolvedPath_
   {
     if (*__error() == 1)
     {
-      v6 = *(a1 + 40);
-      v7 = objc_alloc(MEMORY[0x277CCACA8]);
-      v8 = [*(*(a1 + 40) + 8) namespaceDescriptorsDir];
-      v9 = [v7 initWithFormat:@"Cannot access %@ - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", v8];
-      [v6 _faultOnceWithMessage:v9];
+      v5 = *(a1 + 40);
+      v6 = objc_alloc(MEMORY[0x277CCACA8]);
+      v7 = [*(*(a1 + 40) + 8) namespaceDescriptorsDir];
+      v8 = [v6 initWithFormat:@"Cannot access %@ - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", v7];
+      [v5 _faultOnceWithMessage:v8];
 
       goto LABEL_3;
     }
 
     if (*__error() == 2)
     {
-      v10 = TRILogCategory_ClientFramework();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138412290;
-        v19 = v11;
-        _os_log_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_DEFAULT, "Namespace resolver file not present: %@", buf, 0xCu);
+        v18 = v10;
+        _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "Namespace resolver file not present: %@", buf, 0xCu);
       }
 
 LABEL_16:
@@ -1528,26 +1630,26 @@ LABEL_16:
     }
   }
 
-  v12 = *(a1 + 32);
-  v17 = 0;
-  v13 = [MEMORY[0x277D425D8] propertyListWithPath:v12 error:&v17];
-  v10 = v17;
-  v14 = v3[1];
-  v3[1] = v13;
+  v11 = *(a1 + 32);
+  v16 = 0;
+  v12 = [MEMORY[0x277D425D8] propertyListWithPath:v11 error:&v16];
+  v9 = v16;
+  v13 = v3[1];
+  v3[1] = v12;
 
   if (!v3[1])
   {
     if ((v3[6] & 1) == 0)
     {
-      v15 = TRILogCategory_ClientFramework();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
+        v15 = *(a1 + 32);
         *buf = 138412546;
-        v19 = v16;
-        v20 = 2112;
-        v21 = v10;
-        _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "Error opening namespace resolver file %@: %@", buf, 0x16u);
+        v18 = v15;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "Error opening namespace resolver file %@: %@", buf, 0x16u);
       }
 
       *(v3 + 48) = 1;
@@ -1560,8 +1662,6 @@ LABEL_16:
 LABEL_2:
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), v4);
 LABEL_3:
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_resolverPropertyListWithGlobalRolloutsResolvedPath:(id *)path
@@ -1597,7 +1697,7 @@ LABEL_3:
 
 void __86__TRIActiveFactorProvidersParser__resolverPropertyListWithGlobalRolloutsResolvedPath___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[2];
   if (v4)
@@ -1610,24 +1710,24 @@ void __86__TRIActiveFactorProvidersParser__resolverPropertyListWithGlobalRollout
   {
     if (*__error() == 1)
     {
-      v6 = *(a1 + 40);
-      v7 = objc_alloc(MEMORY[0x277CCACA8]);
-      v8 = [*(*(a1 + 40) + 8) namespaceDescriptorsDir];
-      v9 = [v7 initWithFormat:@"Cannot access %@ - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", v8];
-      [v6 _faultOnceWithMessage:v9];
+      v5 = *(a1 + 40);
+      v6 = objc_alloc(MEMORY[0x277CCACA8]);
+      v7 = [*(*(a1 + 40) + 8) namespaceDescriptorsDir];
+      v8 = [v6 initWithFormat:@"Cannot access %@ - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", v7];
+      [v5 _faultOnceWithMessage:v8];
 
       goto LABEL_3;
     }
 
     if (*__error() == 2)
     {
-      v10 = TRILogCategory_ClientFramework();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138412290;
-        v19 = v11;
-        _os_log_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_DEFAULT, "Namespace resolver file not present: %@", buf, 0xCu);
+        v18 = v10;
+        _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "Namespace resolver file not present: %@", buf, 0xCu);
       }
 
 LABEL_16:
@@ -1636,26 +1736,26 @@ LABEL_16:
     }
   }
 
-  v12 = *(a1 + 32);
-  v17 = 0;
-  v13 = [MEMORY[0x277D425D8] propertyListWithPath:v12 error:&v17];
-  v10 = v17;
-  v14 = v3[2];
-  v3[2] = v13;
+  v11 = *(a1 + 32);
+  v16 = 0;
+  v12 = [MEMORY[0x277D425D8] propertyListWithPath:v11 error:&v16];
+  v9 = v16;
+  v13 = v3[2];
+  v3[2] = v12;
 
   if (!v3[2])
   {
     if ((v3[6] & 1) == 0)
     {
-      v15 = TRILogCategory_ClientFramework();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
+        v15 = *(a1 + 32);
         *buf = 138412546;
-        v19 = v16;
-        v20 = 2112;
-        v21 = v10;
-        _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "Error opening namespace resolver file %@: %@", buf, 0x16u);
+        v18 = v15;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "Error opening namespace resolver file %@: %@", buf, 0x16u);
       }
 
       *(v3 + 48) = 1;
@@ -1668,13 +1768,11 @@ LABEL_16:
 LABEL_2:
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), v4);
 LABEL_3:
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getFactorPackPathForNamespaceName:(id)name withCandidatePath:(id)path parentId:(id)id deploymentId:(int)deploymentId promotable:(BOOL *)promotable
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
   idCopy = id;
@@ -1692,9 +1790,9 @@ LABEL_3:
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v78 = v17;
-        v79 = 2112;
-        v80 = nameCopy;
+        v77 = v17;
+        v78 = 2112;
+        v79 = nameCopy;
         _os_log_error_impl(&dword_22EA6B000, v41, OS_LOG_TYPE_ERROR, "Could not validate factor pack id from %@ for namespace %@", buf, 0x16u);
       }
 
@@ -1703,35 +1801,35 @@ LABEL_3:
     }
 
     deploymentIdCopy = deploymentId;
-    v69 = nameCopy;
+    v68 = nameCopy;
     v20 = [TRINamespaceResolver promotionDirForNamespaceName:nameCopy withPaths:self->_paths];
     v21 = [v20 stringByAppendingPathComponent:@"provisional.pb"];
 
-    v75 = 0;
-    v68 = v21;
-    v22 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v21 options:0 error:&v75];
-    v23 = v75;
+    v74 = 0;
+    v67 = v21;
+    v22 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v21 options:0 error:&v74];
+    v23 = v74;
     v24 = v23;
-    v67 = v22;
+    v66 = v22;
     if (v22)
     {
-      v74 = v23;
-      v25 = [MEMORY[0x277D73BA0] parseFromData:v22 error:&v74];
-      v66 = v74;
+      v73 = v23;
+      v25 = [MEMORY[0x277D73BA0] parseFromData:v22 error:&v73];
+      v65 = v73;
 
       if (!v25)
       {
         v46 = TRILogCategory_ClientFramework();
-        v42 = v68;
-        v45 = v66;
+        v42 = v67;
+        v45 = v65;
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v78 = v68;
-          v79 = 2112;
-          v80 = v69;
-          v81 = 2112;
-          v82 = v66;
+          v77 = v67;
+          v78 = 2112;
+          v79 = v68;
+          v80 = 2112;
+          v81 = v65;
           _os_log_error_impl(&dword_22EA6B000, v46, OS_LOG_TYPE_ERROR, "Error parsing provisional file %@ for namespace %@: %@", buf, 0x20u);
         }
 
@@ -1739,30 +1837,30 @@ LABEL_3:
         goto LABEL_47;
       }
 
-      v64 = idCopy;
-      if (![v25 hasFactorPackId] || (objc_msgSend(v25, "factorPackId"), v63 = v25, v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isEqualToString:", v19), v26, v25 = v63, (v27 & 1) == 0))
+      v63 = idCopy;
+      if (![v25 hasFactorPackId] || (objc_msgSend(v25, "factorPackId"), v62 = v25, v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isEqualToString:", v19), v26, v25 = v62, (v27 & 1) == 0))
       {
         v40 = pathCopy;
-        idCopy = v64;
-        v42 = v68;
-        v45 = v66;
+        idCopy = v63;
+        v42 = v67;
+        v45 = v65;
 LABEL_47:
 
         v24 = v45;
         goto LABEL_48;
       }
 
-      v76[0] = @"promoted";
-      v76[1] = @"legacyPromoted";
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __120__TRIActiveFactorProvidersParser__getFactorPackPathForNamespaceName_withCandidatePath_parentId_deploymentId_promotable___block_invoke;
-      v71[3] = &unk_27885E0F0;
-      v62 = v69;
-      v72 = v62;
+      v75[0] = @"promoted";
+      v75[1] = @"legacyPromoted";
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __120__TRIActiveFactorProvidersParser__getFactorPackPathForNamespaceName_withCandidatePath_parentId_deploymentId_promotable___block_invoke;
+      v70[3] = &unk_27885E0F0;
+      v61 = v68;
+      v71 = v61;
       selfCopy = self;
-      v29 = [v28 _pas_mappedArrayWithTransform:v71];
+      v29 = [v28 _pas_mappedArrayWithTransform:v70];
 
       v30 = [TRINamespaceResolver preferredPathForFactorDataWithCandidatePaths:v29];
 
@@ -1780,10 +1878,10 @@ LABEL_47:
       if ((v33 & 1) == 0)
       {
         v40 = pathCopy;
-        v25 = v63;
-        idCopy = v64;
-        v42 = v68;
-        v45 = v66;
+        v25 = v62;
+        idCopy = v63;
+        v42 = v67;
+        v45 = v65;
 LABEL_46:
 
         goto LABEL_47;
@@ -1791,44 +1889,44 @@ LABEL_46:
 
       triStringByResolvingSymlinksInPath2 = [v32 triStringByResolvingSymlinksInPath];
       v36 = triStringByResolvingSymlinksInPath2;
-      v25 = v63;
+      v25 = v62;
       if (!triStringByResolvingSymlinksInPath2)
       {
         v48 = TRILogCategory_ClientFramework();
-        v45 = v66;
+        v45 = v65;
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v78 = v34;
-          v79 = 2112;
-          v80 = v62;
-          v81 = 2112;
-          v82 = v66;
+          v77 = v34;
+          v78 = 2112;
+          v79 = v61;
+          v80 = 2112;
+          v81 = v65;
           _os_log_error_impl(&dword_22EA6B000, v48, OS_LOG_TYPE_ERROR, "Could not resolve symlink at %@ for namespace %@: %@", buf, 0x20u);
         }
 
         v40 = pathCopy;
-        idCopy = v64;
-        v42 = v68;
+        idCopy = v63;
+        v42 = v67;
         goto LABEL_45;
       }
 
       lastPathComponent2 = [triStringByResolvingSymlinksInPath2 lastPathComponent];
       v38 = TRIValidateFactorPackId(lastPathComponent2);
 
-      v61 = v38;
+      v60 = v38;
       if (!v38)
       {
         v49 = TRILogCategory_ClientFramework();
-        idCopy = v64;
-        v42 = v68;
-        v45 = v66;
+        idCopy = v63;
+        v42 = v67;
+        v45 = v65;
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v78 = v36;
-          v79 = 2112;
-          v80 = v62;
+          v77 = v36;
+          v78 = 2112;
+          v79 = v61;
           _os_log_error_impl(&dword_22EA6B000, v49, OS_LOG_TYPE_ERROR, "Could not validate factor pack id from %@ for namespace %@", buf, 0x16u);
         }
 
@@ -1836,74 +1934,74 @@ LABEL_46:
         goto LABEL_44;
       }
 
-      idCopy = v64;
+      idCopy = v63;
       if ([v38 isEqualToString:v19])
       {
         *promotable = 0;
       }
 
-      else if ([v63 hasAttempts] && objc_msgSend(v63, "attempts") >= 5)
+      else if ([v62 hasAttempts] && objc_msgSend(v62, "attempts") >= 5)
       {
         *promotable = 0;
         if (!+[TRIProcessInfo hostingProcessIsTriald])
         {
-          v45 = v66;
+          v45 = v65;
           if (+[TRIProcessInfo hostingProcessIsTrialdSystem])
           {
             v50 = v34;
-            idCopy = v64;
+            idCopy = v63;
           }
 
           else
           {
-            idCopy = v64;
-            if (![v63 hasRejected] || (objc_msgSend(v63, "rejected") & 1) == 0)
+            idCopy = v63;
+            if (![v62 hasRejected] || (objc_msgSend(v62, "rejected") & 1) == 0)
             {
-              v60 = v34;
-              v53 = [TRIRolloutDeployment deploymentWithRolloutId:v64 deploymentId:deploymentIdCopy];
-              v54 = TRILogCategory_ClientFramework();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              v59 = v34;
+              v52 = [TRIRolloutDeployment deploymentWithRolloutId:v63 deploymentId:deploymentIdCopy];
+              v53 = TRILogCategory_ClientFramework();
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412802;
-                v78 = v19;
-                v79 = 2112;
-                v80 = v53;
-                v81 = 2112;
-                v82 = v62;
-                _os_log_error_impl(&dword_22EA6B000, v54, OS_LOG_TYPE_ERROR, "Rejecting factor pack id %@ from rollout deployment %@ for namespace %@", buf, 0x20u);
+                v77 = v19;
+                v78 = 2112;
+                v79 = v52;
+                v80 = 2112;
+                v81 = v61;
+                _os_log_error_impl(&dword_22EA6B000, v53, OS_LOG_TYPE_ERROR, "Rejecting factor pack id %@ from rollout deployment %@ for namespace %@", buf, 0x20u);
               }
 
-              v55 = objc_opt_new();
-              v70 = v66;
-              v56 = [v55 rejectFactorPackId:v19 forNamespaceName:v62 rolloutDeployment:v53 error:&v70];
-              v57 = v70;
+              v54 = objc_opt_new();
+              v69 = v65;
+              v55 = [v54 rejectFactorPackId:v19 forNamespaceName:v61 rolloutDeployment:v52 error:&v69];
+              v56 = v69;
 
-              v42 = v68;
-              if ((v56 & 1) == 0)
+              v42 = v67;
+              if ((v55 & 1) == 0)
               {
-                v58 = TRILogCategory_ClientFramework();
-                if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                v57 = TRILogCategory_ClientFramework();
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v78 = v19;
-                  v79 = 2112;
-                  v80 = v62;
-                  _os_log_error_impl(&dword_22EA6B000, v58, OS_LOG_TYPE_ERROR, "Could not note factor pack id %@ rejected for namespace %@", buf, 0x16u);
+                  v77 = v19;
+                  v78 = 2112;
+                  v79 = v61;
+                  _os_log_error_impl(&dword_22EA6B000, v57, OS_LOG_TYPE_ERROR, "Could not note factor pack id %@ rejected for namespace %@", buf, 0x16u);
                 }
               }
 
-              v50 = v60;
-              v45 = v57;
-              v34 = v60;
-              v25 = v63;
-              idCopy = v64;
+              v50 = v59;
+              v45 = v56;
+              v34 = v59;
+              v25 = v62;
+              idCopy = v63;
               goto LABEL_44;
             }
 
             v50 = v34;
           }
 
-          v42 = v68;
+          v42 = v67;
 LABEL_44:
           v40 = v50;
 
@@ -1912,10 +2010,10 @@ LABEL_45:
         }
 
         v50 = v34;
-        idCopy = v64;
+        idCopy = v63;
 LABEL_43:
-        v42 = v68;
-        v45 = v66;
+        v42 = v67;
+        v45 = v65;
         goto LABEL_44;
       }
 
@@ -1923,7 +2021,7 @@ LABEL_43:
       goto LABEL_43;
     }
 
-    v42 = v68;
+    v42 = v67;
     if (v23)
     {
       domain = [v23 domain];
@@ -1937,7 +2035,7 @@ LABEL_32:
           v40 = pathCopy;
 LABEL_48:
 
-          nameCopy = v69;
+          nameCopy = v68;
 LABEL_49:
 
           goto LABEL_50;
@@ -1953,11 +2051,11 @@ LABEL_49:
     if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v78 = v68;
-      v79 = 2112;
-      v80 = v69;
-      v81 = 2112;
-      v82 = v24;
+      v77 = v67;
+      v78 = 2112;
+      v79 = v68;
+      v80 = 2112;
+      v81 = v24;
       _os_log_error_impl(&dword_22EA6B000, v47, OS_LOG_TYPE_ERROR, "Error opening provisional file %@ for namespace %@: %@", buf, 0x20u);
     }
 
@@ -1968,16 +2066,14 @@ LABEL_49:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v78 = pathCopy;
-    v79 = 2112;
-    v80 = nameCopy;
+    v77 = pathCopy;
+    v78 = 2112;
+    v79 = nameCopy;
     _os_log_error_impl(&dword_22EA6B000, v39, OS_LOG_TYPE_ERROR, "Could not resolved symlink at %@ for namespace %@", buf, 0x16u);
   }
 
   v40 = pathCopy;
 LABEL_50:
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -2008,23 +2104,21 @@ id __120__TRIActiveFactorProvidersParser__getFactorPackPathForNamespaceName_with
 
 void __56__TRIActiveFactorProvidersParser__faultOnceWithMessage___block_invoke(uint64_t a1, _BYTE *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((a2[48] & 1) == 0)
   {
     v4 = a2;
     v5 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_error_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_ERROR, "%@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_error_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_ERROR, "%@", &v7, 0xCu);
     }
 
     a2[48] = 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (char)_realpathWithFileSystemRepresentation:(const char *)representation buffer:(char *)buffer

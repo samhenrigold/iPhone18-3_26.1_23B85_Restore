@@ -17,10 +17,16 @@
 {
   if (identifier)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  return specialized ReportTableViewCell.init(style:reuseIdentifier:)();
+  else
+  {
+    v4 = 0;
+    v5 = 0;
+  }
+
+  return specialized ReportTableViewCell.init(style:reuseIdentifier:)(v4, v5);
 }
 
 - (PHReportTableViewCell)initWithCoder:(id)coder

@@ -27,46 +27,44 @@ uint64_t __59__TIZhuyinPunctuationManager_shareZhuyinPunctuationManager__block_i
 
 - (id)candidatesFor:(id)for
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   forCopy = for;
   punctuationMap = [(TIZhuyinPunctuationManager *)self punctuationMap];
   v6 = [punctuationMap objectForKeyedSubscript:forCopy];
 
   v7 = [MEMORY[0x29EDB9F48] bundleForClass:objc_opt_class()];
   array = [MEMORY[0x29EDB8DE8] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = v6;
-  v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [MEMORY[0x29EDC7088] candidateWithCandidate:v13 forInput:0];
         v15 = [v7 localizedStringForKey:v13 value:&stru_2A252F9A8 table:@"CIMPunctuationDescription_zh_Hant"];
         [v14 setAlternativeText:v15];
         [array addObject:v14];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return array;
 }

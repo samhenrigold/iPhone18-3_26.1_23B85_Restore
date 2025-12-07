@@ -115,25 +115,25 @@ uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, const char *
 
 uint64_t _WCwapic_start(mach_port_t a1, __int128 *a2, vm_address_t a3, int a4, mach_msg_timeout_t a5)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v8 = a2[1];
-  v20 = *a2;
-  v16 = 1;
-  v17 = a3;
-  v18 = 16777473;
-  v19[0] = a4;
-  *&v19[1] = *MEMORY[0x29EDCA690];
-  v21 = v8;
-  v22 = a4;
+  v19 = *a2;
+  v15 = 1;
+  v16 = a3;
+  v17 = 16777473;
+  v18[0] = a4;
+  *&v18[1] = *MEMORY[0x29EDCA690];
+  v20 = v8;
+  v21 = a4;
   reply_port = mig_get_reply_port();
-  *&v15.msgh_bits = 2147489043;
-  v15.msgh_remote_port = a1;
-  v15.msgh_local_port = reply_port;
-  *&v15.msgh_voucher_port = 0x36C158900000000;
+  *&v14.msgh_bits = 2147489043;
+  v14.msgh_remote_port = a1;
+  v14.msgh_local_port = reply_port;
+  *&v14.msgh_voucher_port = 0x36C158900000000;
   if (MEMORY[0x2A1C7C4D8])
   {
-    voucher_mach_msg_set(&v15);
-    msgh_local_port = v15.msgh_local_port;
+    voucher_mach_msg_set(&v14);
+    msgh_local_port = v14.msgh_local_port;
   }
 
   else
@@ -141,31 +141,31 @@ uint64_t _WCwapic_start(mach_port_t a1, __int128 *a2, vm_address_t a3, int a4, m
     msgh_local_port = reply_port;
   }
 
-  v11 = mach_msg(&v15, 275, 0x58u, 0x2Cu, msgh_local_port, a5, 0);
+  v11 = mach_msg(&v14, 275, 0x58u, 0x2Cu, msgh_local_port, a5, 0);
   v12 = v11;
   if ((v11 - 268435458) <= 0xE && ((1 << (v11 - 2)) & 0x4003) != 0)
   {
-    mig_put_reply_port(v15.msgh_local_port);
+    mig_put_reply_port(v14.msgh_local_port);
   }
 
   else
   {
     if (!v11)
     {
-      if (v15.msgh_id == 71)
+      if (v14.msgh_id == 71)
       {
         v12 = 4294966988;
       }
 
-      else if (v15.msgh_id == 57415149)
+      else if (v14.msgh_id == 57415149)
       {
         v12 = 4294966996;
-        if ((v15.msgh_bits & 0x80000000) == 0 && *&v15.msgh_size == 36)
+        if ((v14.msgh_bits & 0x80000000) == 0 && v14.msgh_size == 36 && !v14.msgh_remote_port)
         {
-          v12 = HIDWORD(v17);
-          if (!HIDWORD(v17))
+          v12 = HIDWORD(v16);
+          if (!HIDWORD(v16))
           {
-            goto LABEL_22;
+            return v12;
           }
         }
       }
@@ -175,35 +175,33 @@ uint64_t _WCwapic_start(mach_port_t a1, __int128 *a2, vm_address_t a3, int a4, m
         v12 = 4294966995;
       }
 
-      mach_msg_destroy(&v15);
-      goto LABEL_22;
+      mach_msg_destroy(&v14);
+      return v12;
     }
 
-    mig_dealloc_reply_port(v15.msgh_local_port);
+    mig_dealloc_reply_port(v14.msgh_local_port);
   }
 
   if (v12 == 268435460)
   {
-    if (v17 != a3)
+    if (v16 != a3)
     {
-      mig_deallocate(v17, v19[0]);
+      mig_deallocate(v16, v18[0]);
     }
 
-    v12 = 268435460;
+    return 268435460;
   }
 
-LABEL_22:
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t _WCwapic_stop(mach_port_t a1, __int128 *a2, mach_msg_timeout_t timeout)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v8 = *MEMORY[0x29EDCA690];
+  v10 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA690];
   v4 = a2[1];
-  v9 = *a2;
-  v10 = v4;
+  v8 = *a2;
+  v9 = v4;
   *&msg.msgh_bits = 19;
   msg.msgh_voucher_port = 0;
   msg.msgh_id = 57415050;
@@ -214,18 +212,16 @@ uint64_t _WCwapic_stop(mach_port_t a1, __int128 *a2, mach_msg_timeout_t timeout)
     voucher_mach_msg_set(&msg);
   }
 
-  result = mach_msg(&msg, 17, 0x40u, 0, 0, timeout, 0);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return mach_msg(&msg, 17, 0x40u, 0, 0, timeout, 0);
 }
 
 uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_timeout_t a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v16 = *MEMORY[0x29EDCA690];
+  v18 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA690];
   v7 = a2[1];
-  v17 = *a2;
-  v18 = v7;
+  v16 = *a2;
+  v17 = v7;
   reply_port = mig_get_reply_port();
   *&msg.msgh_bits = 5395;
   msg.msgh_remote_port = a1;
@@ -249,7 +245,7 @@ uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_time
     if (v10)
     {
       mig_dealloc_reply_port(msg.msgh_local_port);
-      goto LABEL_25;
+      return v11;
     }
 
     if (msg.msgh_id == 71)
@@ -265,11 +261,11 @@ uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_time
         {
           if (!msg.msgh_remote_port)
           {
-            v11 = v17;
-            if (!v17)
+            v11 = v16;
+            if (!v16)
             {
-              *a3 = DWORD1(v17);
-              goto LABEL_25;
+              *a3 = DWORD1(v16);
+              return v11;
             }
 
             goto LABEL_24;
@@ -285,7 +281,7 @@ uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_time
 
           else
           {
-            v12 = v17 == 0;
+            v12 = v16 == 0;
           }
 
           if (v12)
@@ -295,7 +291,7 @@ uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_time
 
           else
           {
-            v11 = v17;
+            v11 = v16;
           }
 
           goto LABEL_24;
@@ -312,12 +308,10 @@ uint64_t _WCwapic_status(mach_port_t a1, __int128 *a2, _DWORD *a3, mach_msg_time
 
 LABEL_24:
     mach_msg_destroy(&msg);
-    goto LABEL_25;
+    return v11;
   }
 
   mig_put_reply_port(msg.msgh_local_port);
-LABEL_25:
-  v13 = *MEMORY[0x29EDCA608];
   return v11;
 }
 

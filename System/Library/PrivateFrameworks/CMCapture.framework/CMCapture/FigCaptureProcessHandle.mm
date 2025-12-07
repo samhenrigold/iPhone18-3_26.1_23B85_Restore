@@ -91,7 +91,7 @@
   {
     v7 = v6;
     v8 = MEMORY[0x1E6963620];
-    [v6 auditToken];
+    objc_msgSend_auditToken(v6);
     return -[FigCaptureProcessHandle _initWithRBSProcessHandle:bundleRecord:](self, "_initWithRBSProcessHandle:bundleRecord:", v7, [v8 bundleRecordForAuditToken:v10 error:0]);
   }
 
@@ -140,7 +140,7 @@
   result = self->_rbsProcessHandle;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result auditToken];
+    return objc_msgSend_auditToken(result, a3);
   }
 
   *retstr->var0 = 0u;
@@ -262,7 +262,7 @@ uint64_t __107__FigCaptureProcessHandle_RunningBoard__rbsProcessMonitorForEndowm
               [v17 sourcePid];
               v18 = BSBundleIDForPID();
               sourcePid = [v17 sourcePid];
-              if (sourcePid == [v10 sourcePid] || objc_msgSend(v18, "isEqualToString:", 0x1F21855F0))
+              if (sourcePid == [v10 sourcePid] || objc_msgSend_isEqualToString_(v18))
               {
                 targetPid = [v17 targetPid];
                 goto LABEL_18;
@@ -371,7 +371,8 @@ LABEL_18:
 
 - (void)_initWithAuditToken:(void *)a3 error:.cold.1(void *a1, void *a2, void *a3)
 {
-  FigDebugAssert3();
+  v7 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v3, v8, v9, v10, v11, vars0, vars8);
   if (a2 && *a1)
   {
     *a2 = *a1;
@@ -380,7 +381,8 @@ LABEL_18:
 
 - (void)_initWithPID:(void *)a3 error:.cold.1(void *a1, void *a2, void *a3)
 {
-  FigDebugAssert3();
+  v7 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v3, v8, v9, v10, v11, vars0, vars8);
   if (a2 && *a1)
   {
     *a2 = *a1;

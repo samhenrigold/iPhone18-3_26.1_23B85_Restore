@@ -215,12 +215,11 @@ void __79__SBSApplicationClient_updateDynamicApplicationShortcutItems_bundleIden
   [(FBSServiceFacilityClient *)self sendMessage:v7 withType:4];
 }
 
-uint64_t __76__SBSApplicationClient_triggerShowAllWindowsForApplicationBundleIdentifier___block_invoke(uint64_t a1)
+double __76__SBSApplicationClient_triggerShowAllWindowsForApplicationBundleIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = *(a1 + 32);
-  if (result)
+  if (*(a1 + 32))
   {
-    return BSSerializeStringToXPCDictionaryWithKey();
+    BSSerializeStringToXPCDictionaryWithKey();
   }
 
   return result;
@@ -240,12 +239,11 @@ uint64_t __76__SBSApplicationClient_triggerShowAllWindowsForApplicationBundleIde
   [(FBSServiceFacilityClient *)self sendMessage:v7 withType:5];
 }
 
-uint64_t __71__SBSApplicationClient_requestShelfPresentationForSceneWithIdentifier___block_invoke(uint64_t a1)
+double __71__SBSApplicationClient_requestShelfPresentationForSceneWithIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = *(a1 + 32);
-  if (result)
+  if (*(a1 + 32))
   {
-    return BSSerializeStringToXPCDictionaryWithKey();
+    BSSerializeStringToXPCDictionaryWithKey();
   }
 
   return result;

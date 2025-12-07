@@ -35,31 +35,32 @@
 {
   infoCopy = info;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if (qword_10003E730 != -1)
     {
       sub_100018E38();
     }
 
-    v4 = qword_10003E738;
+    v5 = qword_10003E738;
     bundleId = [infoCopy bundleId];
-    v6 = [v4 objectForKey:bundleId];
+    v7 = [v5 objectForKey:bundleId];
 
-    if (v6)
+    if (v7)
     {
-      v7 = v6;
-      shortenedBundle2 = v7;
+      v8 = v7;
+      shortenedBundle2 = v8;
       goto LABEL_28;
     }
 
-    v9 = [LSApplicationRecord alloc];
+    v10 = [LSApplicationRecord alloc];
     bundleId2 = [infoCopy bundleId];
-    v28 = 0;
-    v11 = [v9 initWithBundleIdentifier:bundleId2 allowPlaceholder:0 error:&v28];
-    v12 = v28;
+    v30 = 0;
+    v12 = [v10 initWithBundleIdentifier:bundleId2 allowPlaceholder:0 error:&v30];
+    v13 = v30;
 
-    if (!v12)
+    if (!v13)
     {
       if (sub_100017864())
       {
@@ -70,49 +71,49 @@
       {
         +[HTPrefs sharedPrefs];
       }
-      v22 = ;
-      thirdPartyDevPreferredLanguages = [v22 thirdPartyDevPreferredLanguages];
+      v24 = ;
+      thirdPartyDevPreferredLanguages = [v24 thirdPartyDevPreferredLanguages];
 
       if ([thirdPartyDevPreferredLanguages count])
       {
-        [v11 localizedNameWithPreferredLocalizations:thirdPartyDevPreferredLanguages];
+        [v12 localizedNameWithPreferredLocalizations:thirdPartyDevPreferredLanguages];
       }
 
       else
       {
-        [v11 localizedName];
+        [v12 localizedName];
       }
-      v24 = ;
-      v25 = qword_10003E738;
+      v26 = ;
+      v27 = qword_10003E738;
       bundleId3 = [infoCopy bundleId];
-      [v25 setObject:v24 forKey:bundleId3];
+      [v27 setObject:v26 forKey:bundleId3];
 
-      v7 = v24;
-      shortenedBundle2 = v7;
+      v8 = v26;
+      shortenedBundle2 = v8;
       goto LABEL_27;
     }
 
-    domain = [v12 domain];
-    v14 = domain;
+    domain = [v13 domain];
+    v15 = domain;
     if (domain == NSOSStatusErrorDomain)
     {
-      code = [v12 code];
+      code = [v13 code];
 
       if (code == -10814)
       {
-        v16 = sub_100002F0C();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100002F0C(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           bundleId4 = [infoCopy bundleId];
           *buf = 138412290;
-          v30 = bundleId4;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "There is no LS application record for bundle id %@", buf, 0xCu);
+          v32 = bundleId4;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "There is no LS application record for bundle id %@", buf, 0xCu);
         }
 
-        v18 = qword_10003E738;
+        v20 = qword_10003E738;
         shortenedBundle = [infoCopy shortenedBundle];
         bundleId5 = [infoCopy bundleId];
-        [v18 setObject:shortenedBundle forKey:bundleId5];
+        [v20 setObject:shortenedBundle forKey:bundleId5];
 
         goto LABEL_21;
       }
@@ -122,24 +123,24 @@
     {
     }
 
-    v21 = sub_100002F0C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = sub_100002F0C(v16);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_100018E4C(infoCopy, v12, v21);
+      sub_100018E4C(infoCopy, v13, v23);
     }
 
 LABEL_21:
     shortenedBundle2 = [infoCopy shortenedBundle];
-    v7 = 0;
+    v8 = 0;
 LABEL_27:
 
     goto LABEL_28;
   }
 
-  v7 = sub_100002F0C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_100002F0C(isKindOfClass);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_100018DF4(v7);
+    sub_100018DF4(v8);
   }
 
   shortenedBundle2 = &stru_100031B80;
@@ -185,8 +186,7 @@ LABEL_28:
     v5 = 1.0;
   }
 
-  [(HUDContext *)self setHUD_background_opacity:v5];
-  v6 = sub_10000A9AC();
+  v6 = sub_10000A9AC([(HUDContext *)self setHUD_background_opacity:v5]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100018EF8(self);
@@ -197,19 +197,19 @@ LABEL_28:
 {
   contextCopy = context;
   queueCopy = queue;
-  v40.receiver = self;
-  v40.super_class = HUDContext;
-  v9 = [(HUDContext *)&v40 init];
+  v41.receiver = self;
+  v41.super_class = HUDContext;
+  v9 = [(HUDContext *)&v41 init];
   if (v9)
   {
     objc_initWeak(&location, v9);
     v10 = [UISCurrentUserInterfaceStyleValue alloc];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_1000070D4;
-    v37[3] = &unk_100030A90;
-    objc_copyWeak(&v38, &location);
-    v11 = [v10 initWithChangesDeliveredOnQueue:queueCopy toBlock:v37];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_1000070D4;
+    v38[3] = &unk_100030A90;
+    objc_copyWeak(&v39, &location);
+    v11 = [v10 initWithChangesDeliveredOnQueue:queueCopy toBlock:v38];
     userInterfaceStyleObserver = v9->_userInterfaceStyleObserver;
     v9->_userInterfaceStyleObserver = v11;
 
@@ -238,33 +238,33 @@ LABEL_28:
 
     v9->_sidePadding = 0.0;
     v9->_lastKnownFirstKeyLayerHeight = 0.0;
-    LOBYTE(v32) = 0;
-    v21 = [[HTHangHUDInfo alloc] initWithHangStartTime:0 hangEndTime:0 receivedTimestamp:0 hangDurationMS:&stru_100031B80 hudString:&stru_100031B80 shortenedBundle:@"com.apple.HangHUD" bundleId:10000.0 timedOut:v32];
+    LOBYTE(v33) = 0;
+    v21 = [[HTHangHUDInfo alloc] initWithHangStartTime:0 hangEndTime:0 receivedTimestamp:0 hangDurationMS:&stru_100031B80 hudString:&stru_100031B80 shortenedBundle:@"com.apple.HangHUD" bundleId:10000.0 timedOut:v33];
     v22 = [HangHUDLine alloc];
     queue = v9->_queue;
     currentTheme = v9->_currentTheme;
-    sub_100016E74();
-    v25 = [(HangHUDLine *)v22 initWithQueue:queue processName:&stru_100031B80 theme:currentTheme fontSize:0 lineDelegate:?];
-    [(HangHUDLine *)v25 update:v21 options:0];
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_100007114;
-    v33[3] = &unk_100030AB8;
-    v26 = v9;
-    v34 = v26;
-    v27 = v21;
+    sub_100016E74(&v22->super, v25);
+    v26 = [(HangHUDLine *)v22 initWithQueue:queue processName:&stru_100031B80 theme:currentTheme fontSize:0 lineDelegate:?];
+    [(HangHUDLine *)v26 update:v21 options:0];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_100007114;
+    v34[3] = &unk_100030AB8;
+    v27 = v9;
     v35 = v27;
-    v28 = v25;
+    v28 = v21;
     v36 = v28;
-    [(HUDContext *)v26 performHUDUpdate:v33];
-    [(HUDContext *)v26 clearHUDLinesAnimated:0];
-    v29 = +[CADisplay mainDisplay];
-    [v29 addObserver:v26 forKeyPath:@"currentOrientation" options:3 context:0];
-
+    v29 = v26;
+    v37 = v29;
+    [(HUDContext *)v27 performHUDUpdate:v34];
+    [(HUDContext *)v27 clearHUDLinesAnimated:0];
     v30 = +[CADisplay mainDisplay];
-    [v30 addObserver:v26 forKeyPath:@"bounds" options:3 context:0];
+    [v30 addObserver:v27 forKeyPath:@"currentOrientation" options:3 context:0];
 
-    objc_destroyWeak(&v38);
+    v31 = +[CADisplay mainDisplay];
+    [v31 addObserver:v27 forKeyPath:@"bounds" options:3 context:0];
+
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
 
@@ -292,7 +292,7 @@ LABEL_28:
 
 - (void)invalidate
 {
-  v3 = sub_100002F0C();
+  v3 = sub_100002F0C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     hudRenderContext = [(HUDContext *)self hudRenderContext];
@@ -362,7 +362,7 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v3 = sub_100002F0C();
+  v3 = sub_100002F0C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100018F74();
@@ -423,7 +423,7 @@ LABEL_6:
 - (void)clearHUDLinesAnimated:(BOOL)animated withCompletion:(id)completion
 {
   completionCopy = completion;
-  v7 = sub_100002F0C();
+  v7 = sub_100002F0C(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     hudLines = [(HUDContext *)self hudLines];
@@ -439,11 +439,11 @@ LABEL_6:
 
   if (v10)
   {
-    v13 = sub_100002F0C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = sub_100002F0C(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, " Invalid HUD line clear request found. The number of HUD lines is 0.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, " Invalid HUD line clear request found. The number of HUD lines is 0.", buf, 2u);
     }
   }
 
@@ -461,26 +461,26 @@ LABEL_6:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3042000000;
-      v21 = sub_100008100;
-      v22 = sub_10000810C;
-      objc_initWeak(v23, self);
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_100008114;
-      v19[3] = &unk_100030B40;
-      v19[4] = self;
-      v19[5] = buf;
-      [CATransaction setCompletionBlock:v19];
-      v11 = [CABasicAnimation animationWithKeyPath:@"opacity"];
-      [v11 setRemovedOnCompletion:0];
-      [v11 setFillMode:kCAFillModeForwards];
-      [v11 setToValue:&off_100035CA8];
-      [v11 setDuration:0.2];
+      v22 = sub_100008100;
+      v23 = sub_10000810C;
+      objc_initWeak(v24, self);
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_100008114;
+      v20[3] = &unk_100030B40;
+      v20[4] = self;
+      v20[5] = buf;
+      [CATransaction setCompletionBlock:v20];
+      v12 = [CABasicAnimation animationWithKeyPath:@"opacity"];
+      [v12 setRemovedOnCompletion:0];
+      [v12 setFillMode:kCAFillModeForwards];
+      [v12 setToValue:&off_100035CA8];
+      [v12 setDuration:0.2];
       containerLayer = [(HUDContext *)self containerLayer];
-      [containerLayer addAnimation:v11 forKey:0];
+      [containerLayer addAnimation:v12 forKey:0];
 
       _Block_object_dispose(buf, 8);
-      objc_destroyWeak(v23);
+      objc_destroyWeak(v24);
     }
 
     else
@@ -511,8 +511,7 @@ LABEL_6:
 {
   hangsCopy = hangs;
   completionCopy = completion;
-  [(HUDContext *)self setLastKnownHangs:hangsCopy];
-  v8 = sub_100002F0C();
+  v8 = sub_100002F0C([(HUDContext *)self setLastKnownHangs:hangsCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100018FF4(hangsCopy);
@@ -520,33 +519,34 @@ LABEL_6:
 
   v9 = sub_100017548(hangsCopy, 5u);
   v10 = [v9 count];
-  if ([hangsCopy count] && v10)
+  v11 = [hangsCopy count];
+  if (v11 && v10)
   {
-    v11 = mach_absolute_time();
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100008520;
-    v15[3] = &unk_100030B90;
-    v15[4] = self;
-    v16 = hangsCopy;
-    v17 = v9;
-    v18 = v10;
-    v19 = v11;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100008948;
-    v13[3] = &unk_100030BB8;
-    v14 = completionCopy;
-    [(HUDContext *)self performHUDUpdate:v15 withCompletion:v13];
+    v12 = mach_absolute_time();
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100008520;
+    v16[3] = &unk_100030B90;
+    v16[4] = self;
+    v17 = hangsCopy;
+    v18 = v9;
+    v19 = v10;
+    v20 = v12;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100008948;
+    v14[3] = &unk_100030BB8;
+    v15 = completionCopy;
+    [(HUDContext *)self performHUDUpdate:v16 withCompletion:v14];
   }
 
   else
   {
-    v12 = sub_100002F0C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = sub_100002F0C(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Passed 0 hangs, removing the HUD from screen", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Passed 0 hangs, removing the HUD from screen", buf, 2u);
     }
 
     [(HUDContext *)self clearHUDLinesAnimated:1];
@@ -560,38 +560,39 @@ LABEL_6:
   v8 = dCopy;
   v9 = sub_10001766C(v8, 5u);
   v10 = [v9 count];
-  if ([v8 count] && v10)
+  v11 = [v8 count];
+  if (v11 && v10)
   {
-    v11 = mach_absolute_time();
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100008B30;
-    v16[3] = &unk_100030B90;
-    v16[4] = self;
-    v17 = v8;
-    v18 = v9;
-    v19 = v10;
-    v20 = v11;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100008FF0;
-    v14[3] = &unk_100030BB8;
-    v15 = completionCopy;
-    [(HUDContext *)self performHUDUpdate:v16 withCompletion:v14];
+    v12 = mach_absolute_time();
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100008B30;
+    v17[3] = &unk_100030B90;
+    v17[4] = self;
+    v18 = v8;
+    v19 = v9;
+    v20 = v10;
+    v21 = v12;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100008FF0;
+    v15[3] = &unk_100030BB8;
+    v16 = completionCopy;
+    [(HUDContext *)self performHUDUpdate:v17 withCompletion:v15];
   }
 
   else
   {
-    v12 = sub_100002F0C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = sub_100002F0C(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Passed 0 HUD content, removing the HUD from screen", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Passed 0 HUD content, removing the HUD from screen", buf, 2u);
     }
 
     [(HUDContext *)self clearHUDLinesAnimated:1 withCompletion:completionCopy];
-    v13 = +[HangDataStreamStatusTracker sharedInstance];
-    [v13 initializeStatus];
+    v14 = +[HangDataStreamStatusTracker sharedInstance];
+    [v14 initializeStatus];
   }
 }
 
@@ -603,80 +604,80 @@ LABEL_6:
   v8 = +[CADisplay mainDisplay];
   currentOrientation = [v8 currentOrientation];
 
-  v10 = kCADisplayOrientationRotation0;
-  v11 = kCADisplayOrientationRotation180;
+  v11 = kCADisplayOrientationRotation0;
+  v12 = kCADisplayOrientationRotation180;
   if (currentOrientation != kCADisplayOrientationRotation0 && currentOrientation != kCADisplayOrientationRotation180)
   {
-    v15 = height + sub_100017140();
-    v16 = width + self->_sidePadding * 2.0;
-    y = (sub_1000171F0() - v16) * 0.5;
+    v16 = height + sub_100017140(v10);
+    v17 = width + self->_sidePadding * 2.0;
+    y = (sub_1000171F0() - v17) * 0.5;
     if (currentOrientation == kCADisplayOrientationRotation270)
     {
-      x = sub_100016D30() - v15 - x;
-      CGAffineTransformMakeRotation(&v27, 1.57079633);
+      x = sub_100016D30() - v16 - x;
+      CGAffineTransformMakeRotation(&v28, 1.57079633);
       containerLayer = [(HUDContext *)self containerLayer];
       containerLayer2 = containerLayer;
-      *&v24.m11 = *&v27.a;
-      *&v24.m13 = *&v27.c;
-      v19 = *&v27.tx;
+      *&v25.m11 = *&v28.a;
+      *&v25.m13 = *&v28.c;
+      v20 = *&v28.tx;
     }
 
     else
     {
-      CGAffineTransformMakeRotation(&v26, -1.57079633);
+      CGAffineTransformMakeRotation(&v27, -1.57079633);
       containerLayer = [(HUDContext *)self containerLayer];
       containerLayer2 = containerLayer;
-      *&v24.m11 = *&v26.a;
-      *&v24.m13 = *&v26.c;
-      v19 = *&v26.tx;
+      *&v25.m11 = *&v27.a;
+      *&v25.m13 = *&v27.c;
+      v20 = *&v27.tx;
     }
 
-    *&v24.m21 = v19;
-    [containerLayer setAffineTransform:&v24];
+    *&v25.m21 = v20;
+    [containerLayer setAffineTransform:&v25];
     goto LABEL_16;
   }
 
-  v15 = width + self->_sidePadding * 2.0;
-  v16 = height + sub_100017140();
-  v13 = sub_100016D30();
-  if (currentOrientation == v10)
+  v16 = width + self->_sidePadding * 2.0;
+  v17 = height + sub_100017140(v10);
+  v14 = sub_100016D30();
+  if (currentOrientation == v11)
   {
-    v20 = (v13 - v15) * 0.5;
+    v21 = (v14 - v16) * 0.5;
     containerLayer2 = [(HUDContext *)self containerLayer];
-    v21 = *&CGAffineTransformIdentity.c;
-    *&v24.m11 = *&CGAffineTransformIdentity.a;
-    *&v24.m13 = v21;
-    *&v24.m21 = *&CGAffineTransformIdentity.tx;
-    [containerLayer2 setAffineTransform:&v24];
+    v22 = *&CGAffineTransformIdentity.c;
+    *&v25.m11 = *&CGAffineTransformIdentity.a;
+    *&v25.m13 = v22;
+    *&v25.m21 = *&CGAffineTransformIdentity.tx;
+    [containerLayer2 setAffineTransform:&v25];
     y = x;
 LABEL_15:
-    x = v20;
+    x = v21;
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  if (currentOrientation == v11)
+  if (currentOrientation == v12)
   {
-    v20 = (v13 - v15) * 0.5;
-    y = sub_1000171F0() - x - v16;
-    CGAffineTransformMakeRotation(&v28, 3.14159265);
+    v21 = (v14 - v16) * 0.5;
+    y = sub_1000171F0() - x - v17;
+    CGAffineTransformMakeRotation(&v29, 3.14159265);
     containerLayer2 = [(HUDContext *)self containerLayer];
-    *&v24.m11 = v28;
-    [containerLayer2 setAffineTransform:&v24];
+    *&v25.m11 = v29;
+    [containerLayer2 setAffineTransform:&v25];
     goto LABEL_15;
   }
 
   x = CGRectZero.origin.x;
   y = CGRectZero.origin.y;
 LABEL_17:
-  CATransform3DMakeTranslation(&v25, x, y, 0.0);
+  CATransform3DMakeTranslation(&v26, x, y, 0.0);
   rootLayer = [(HUDContext *)self rootLayer];
-  v24 = v25;
-  [rootLayer setSublayerTransform:&v24];
+  v25 = v26;
+  [rootLayer setSublayerTransform:&v25];
 
   containerLayer3 = [(HUDContext *)self containerLayer];
-  [containerLayer3 setFrame:{0.0, 0.0, v15, v16}];
+  [containerLayer3 setFrame:{0.0, 0.0, v16, v17}];
 }
 
 - (void)updateHUDLineWithId:(id)id content:(id)content options:(unint64_t)options
@@ -695,8 +696,8 @@ LABEL_17:
       v13 = [HangHUDLine alloc];
       queue = self->_queue;
       currentTheme = self->_currentTheme;
-      sub_100016E74();
-      v17 = v16;
+      sub_100016E74(&v13->super, v16);
+      v18 = v17;
       if ([(HUDContext *)self isInstantiatedInHangHUDProcess])
       {
         selfCopy = 0;
@@ -707,17 +708,17 @@ LABEL_17:
         selfCopy = self;
       }
 
-      v19 = [(HangHUDLine *)v13 initWithQueue:queue processName:v12 theme:currentTheme fontSize:selfCopy lineDelegate:v17];
-      v20 = sub_10000A9AC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v20 = [(HangHUDLine *)v13 initWithQueue:queue processName:v12 theme:currentTheme fontSize:selfCopy lineDelegate:v18];
+      v21 = sub_10000A9AC(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138412802;
-        v27 = v12;
-        v28 = 2048;
+        v27 = 138412802;
+        v28 = v12;
+        v29 = 2048;
         hangStartTime = [contentCopy hangStartTime];
-        v30 = 2112;
-        v31 = idCopy;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "A new HUD line is created for %@ with HANG start timestamp of %llu in mach absolute time. contentId:%@", &v26, 0x20u);
+        v31 = 2112;
+        v32 = idCopy;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "A new HUD line is created for %@ with HANG start timestamp of %llu in mach absolute time. contentId:%@", &v27, 0x20u);
       }
     }
 
@@ -730,58 +731,58 @@ LABEL_17:
       }
 
       v12 = contentCopy;
-      v19 = [[ProcExitHUDLine alloc] initWithProcExitRecord:v12 theme:self->_currentTheme lineDelegate:0];
-      v20 = sub_10000A9AC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v20 = [[ProcExitHUDLine alloc] initWithProcExitRecord:v12 theme:self->_currentTheme lineDelegate:0];
+      v21 = sub_10000A9AC(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         processName = [v12 processName];
-        v26 = 138412546;
-        v27 = processName;
-        v28 = 2048;
+        v27 = 138412546;
+        v28 = processName;
+        v29 = 2048;
         hangStartTime = [v12 exitTimestamp];
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "A new HUD line is created for %@ with EXIT timestamp of %llu in mach absolute time.", &v26, 0x16u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "A new HUD line is created for %@ with EXIT timestamp of %llu in mach absolute time.", &v27, 0x16u);
       }
     }
 
-    if (v19)
+    if (v20)
     {
       hudLines2 = [(HUDContext *)self hudLines];
-      [hudLines2 setObject:v19 forKeyedSubscript:idCopy];
+      [hudLines2 setObject:v20 forKeyedSubscript:idCopy];
 
       containerLayer = [(HUDContext *)self containerLayer];
-      [containerLayer addSublayer:v19];
+      [containerLayer addSublayer:v20];
     }
   }
 
 LABEL_13:
   hudLines3 = [(HUDContext *)self hudLines];
-  v25 = [hudLines3 objectForKeyedSubscript:idCopy];
-  [v25 update:contentCopy options:options];
+  v26 = [hudLines3 objectForKeyedSubscript:idCopy];
+  [v26 update:contentCopy options:options];
 }
 
 - (CGSize)layoutHUDLines:(unint64_t)lines ids:(id)ids
 {
   idsCopy = ids;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
   [(HUDContext *)self lastKnownMaxKeyLayerWidth];
-  v38 = v8;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v41 = v8;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   [(HUDContext *)self minimumValueLayerWidth];
-  v34 = v9;
+  v37 = v9;
   hudLines = [(HUDContext *)self hudLines];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100009870;
-  v30[3] = &unk_100030BE0;
-  v30[4] = &v35;
-  v30[5] = &v31;
-  [hudLines enumerateKeysAndObjectsUsingBlock:v30];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_100009870;
+  v33[3] = &unk_100030BE0;
+  v33[4] = &v38;
+  v33[5] = &v34;
+  [hudLines enumerateKeysAndObjectsUsingBlock:v33];
 
-  [(HUDContext *)self setLastKnownMaxKeyLayerWidth:v36[3]];
+  [(HUDContext *)self setLastKnownMaxKeyLayerWidth:v39[3]];
   if (lines)
   {
     hudLines = [(HUDContext *)self hudLines];
@@ -794,59 +795,59 @@ LABEL_13:
     v11 = 0;
   }
 
-  [(HUDContext *)self updateCornerRadiusAndSidePaddingIfNecessary:v11];
+  v12 = [(HUDContext *)self updateCornerRadiusAndSidePaddingIfNecessary:v11];
   if (lines)
   {
   }
 
-  v12 = v36[3];
-  v13 = sub_1000172DC();
-  v14 = v32[3];
+  v14 = v39[3];
+  v15 = sub_1000172DC(v12, v13);
+  v16 = v35[3];
   sub_100017288();
-  v16 = v15;
+  v18 = v17;
   sidePadding = self->_sidePadding;
-  v18 = sub_100017140();
-  v19 = fmin(v12 + v13 + v14, v16 + sidePadding * -2.0);
+  v21 = sub_100017140(v20);
+  v22 = fmin(v14 + v15 + v16, v18 + sidePadding * -2.0);
   if (lines)
   {
-    v20 = 0;
+    v23 = 0;
     do
     {
       hudLines2 = [(HUDContext *)self hudLines];
-      v22 = [idsCopy objectAtIndexedSubscript:v20];
-      v23 = [hudLines2 objectForKeyedSubscript:v22];
+      v25 = [idsCopy objectAtIndexedSubscript:v23];
+      v26 = [hudLines2 objectForKeyedSubscript:v25];
 
-      [v23 setPreferredKeyLayerWidth:v36[3]];
-      [v23 setPreferredValueLayerWidth:v32[3]];
-      v24 = self->_sidePadding;
-      keyLayer = [v23 keyLayer];
+      [v26 setPreferredKeyLayerWidth:v39[3]];
+      [v26 setPreferredValueLayerWidth:v35[3]];
+      v27 = self->_sidePadding;
+      keyLayer = [v26 keyLayer];
       [keyLayer preferredFrameSize];
-      [v23 setFrame:{v24, v18, v19, v26}];
+      [v26 setFrame:{v27, v21, v22, v29}];
 
-      [v23 frame];
-      if (v20 >= lines - 1)
+      [v26 frame];
+      if (v23 >= lines - 1)
       {
-        v18 = v18 + v27;
+        v21 = v21 + v30;
       }
 
       else
       {
-        v18 = v18 + v27 + 5.0;
+        v21 = v21 + v30 + 5.0;
       }
 
-      ++v20;
+      ++v23;
     }
 
-    while (lines != v20);
+    while (lines != v23);
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
 
-  v28 = v19;
-  v29 = v18;
-  result.height = v29;
-  result.width = v28;
+  v31 = v22;
+  v32 = v21;
+  result.height = v32;
+  result.width = v31;
   return result;
 }
 
@@ -870,28 +871,26 @@ LABEL_13:
       lastKnownFirstKeyLayerHeight = self->_lastKnownFirstKeyLayerHeight;
     }
 
-    v9 = sub_100017140();
-    [(CALayer *)self->_containerLayer setCornerRadius:v9 + lastKnownFirstKeyLayerHeight * 0.5];
+    v9 = sub_100017140(necessaryCopy);
+    v10 = [(CALayer *)self->_containerLayer setCornerRadius:v9 + lastKnownFirstKeyLayerHeight * 0.5];
     self->_sidePadding = v9 + lastKnownFirstKeyLayerHeight * 0.5;
-    v10 = sub_100002F0C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002F0C(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218496;
-      v12 = v9 + lastKnownFirstKeyLayerHeight * 0.5;
-      v13 = 2048;
-      v14 = v9;
-      v15 = 2048;
-      v16 = lastKnownFirstKeyLayerHeight;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "HangTracer HUD changed corner radius to %lf for padding %lf & line height %lf", &v11, 0x20u);
+      v12 = 134218496;
+      v13 = v9 + lastKnownFirstKeyLayerHeight * 0.5;
+      v14 = 2048;
+      v15 = v9;
+      v16 = 2048;
+      v17 = lastKnownFirstKeyLayerHeight;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "HangTracer HUD changed corner radius to %lf for padding %lf & line height %lf", &v12, 0x20u);
     }
   }
 }
 
 - (void)updateCurrentTheme
 {
-  v3 = sub_1000066F8([(UISCurrentUserInterfaceStyleValue *)self->_userInterfaceStyleObserver userInterfaceStyle]);
-  currentTheme = self->_currentTheme;
-  self->_currentTheme = v3;
+  self->_currentTheme = sub_1000066F8([(UISCurrentUserInterfaceStyleValue *)self->_userInterfaceStyleObserver userInterfaceStyle]);
 
   _objc_release_x1();
 }
@@ -930,14 +929,14 @@ LABEL_13:
 
   if (!firstObject)
   {
-    v8 = sub_100002F0C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002F0C(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = 0;
-      v12 = 2112;
-      v13 = lineCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "A key %@ was not found for line %@, this should not happen!", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = 0;
+      v13 = 2112;
+      v14 = lineCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "A key %@ was not found for line %@, this should not happen!", &v11, 0x16u);
     }
   }
 

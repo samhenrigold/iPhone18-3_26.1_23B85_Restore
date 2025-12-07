@@ -264,28 +264,27 @@ LABEL_23:
     mainDatabase = self->_mainDatabase;
     if (self->_auxDatabase)
     {
-      v11 = self->_mainDatabase;
       mainDatabase = CalDatabaseCreateWithAuxDatabaseRef();
-      v12 = mainDatabase;
+      v11 = mainDatabase;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     if (mainDatabase)
     {
       if (CalDatabaseBackupDatabaseFile())
       {
-        if (v12)
+        if (v11)
         {
-          CFRelease(v12);
+          CFRelease(v11);
         }
 
         if ([(CADDiagnosticsDatabaseCollectorDBInfo *)self redactAndCompress:v9 context:databaseCopy])
         {
-          v14 = 2;
+          v13 = 2;
           goto LABEL_19;
         }
       }
@@ -293,9 +292,9 @@ LABEL_23:
       else
       {
         [databaseCopy logError:@"Unable to backup database"];
-        if (v12)
+        if (v11)
         {
-          CFRelease(v12);
+          CFRelease(v11);
         }
       }
     }
@@ -315,9 +314,9 @@ LABEL_23:
   }
 
   p_outputURL = &self->_outputURL;
-  v14 = 3;
+  v13 = 3;
 LABEL_19:
-  [databaseCopy setStatus:v14 forFile:*p_outputURL];
+  [databaseCopy setStatus:v13 forFile:*p_outputURL];
 }
 
 - (void)collectMovedAsideDatabase:(id)database

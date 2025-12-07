@@ -15,6 +15,7 @@
 - (signed)readShortWithLong:(int64_t)long;
 - (void)dealloc;
 - (void)seekWithLong:(int64_t)long;
+- (void)setBufferSizeWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneStoreBufferedIndexInput
@@ -75,14 +76,46 @@
   return result;
 }
 
+- (void)setBufferSizeWithInt:(int)int
+{
+  if (self->bufferSize_ != int)
+  {
+    LODWORD(v8) = int;
+    sub_1000F9684(*&int, a2, *&int, v3, v4, v5, v6, v7);
+    self->bufferSize_ = v8;
+    if (self->buffer_)
+    {
+      v10 = [IOSByteArray arrayWithLength:v8];
+      bufferPosition = self->bufferPosition_;
+      v12 = self->bufferLength_ - bufferPosition;
+      if (v12 >= v8)
+      {
+        v8 = v8;
+      }
+
+      else
+      {
+        v8 = v12;
+      }
+
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->buffer_, bufferPosition, v10, 0, v8);
+      self->bufferStart_ += self->bufferPosition_;
+      self->bufferPosition_ = 0;
+      self->bufferLength_ = v8;
+
+      [(OrgApacheLuceneStoreBufferedIndexInput *)self newBufferWithByteArray:v10];
+    }
+  }
+}
+
 - (signed)readShort
 {
   bufferPosition = self->bufferPosition_;
   if (self->bufferLength_ - bufferPosition < 2)
   {
-    v11.receiver = self;
-    v11.super_class = OrgApacheLuceneStoreBufferedIndexInput;
-    return [(OrgApacheLuceneStoreDataInput *)&v11 readShort];
+    v10.receiver = self;
+    v10.super_class = OrgApacheLuceneStoreBufferedIndexInput;
+    return [(OrgApacheLuceneStoreDataInput *)&v10 readShort];
   }
 
   else
@@ -96,20 +129,20 @@
     }
 
     size = buffer->super.size_;
-    if ((bufferPosition & 0x80000000) != 0 || (v7 = self->buffer_, bufferPosition >= size))
+    if ((bufferPosition & 0x80000000) != 0 || bufferPosition >= size)
     {
       IOSArray_throwOutOfBoundsWithMsg(size, bufferPosition);
     }
 
-    v8 = *(&buffer->super.size_ + bufferPosition + 4) << 8;
+    v7 = *(&buffer->super.size_ + bufferPosition + 4) << 8;
     self->bufferPosition_ = v4 + 1;
-    v9 = buffer->super.size_;
-    if (v4 < 0 || v4 >= v9)
+    v8 = buffer->super.size_;
+    if (v4 < 0 || v4 >= v8)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v9, v4);
+      IOSArray_throwOutOfBoundsWithMsg(v8, v4);
     }
 
-    return v8 | *(&buffer->super.size_ + v4 + 4);
+    return v7 | *(&buffer->super.size_ + v4 + 4);
   }
 }
 

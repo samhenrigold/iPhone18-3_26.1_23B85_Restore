@@ -144,7 +144,7 @@ LABEL_12:
 
   viewCopy = view;
   selfCopy = self;
-  sub_269CDA7D8(row, component, 1, v10);
+  sub_269CDA7D8(row, component, 1);
 }
 
 @end

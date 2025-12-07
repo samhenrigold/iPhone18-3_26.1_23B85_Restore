@@ -48,31 +48,28 @@
 
 - (id)getAssetLocale
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[CustomAsset getAssetLocale]";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s CustomAssets don't support getAssetLocale method.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CustomAsset getAssetLocale]";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s CustomAssets don't support getAssetLocale method.", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)appendPathWithServiceAssetFolder:(id)folder
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[CustomAsset appendPathWithServiceAssetFolder:]";
-    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s CustomAssets don't support appendPathWithServiceAssetFolder method.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CustomAsset appendPathWithServiceAssetFolder:]";
+    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s CustomAssets don't support appendPathWithServiceAssetFolder method.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)toDictionary

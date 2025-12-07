@@ -63,6 +63,8 @@
 - (void)didNotifyPluginID:(id)d instanceID:(id)iD value:(id)value;
 - (void)didRequestPluginID:(id)d instanceID:(id)iD value:(id)value withResponse:(id)response;
 - (void)didUpdatePluginID:(id)d values:(id)values;
+- (void)enableNotificationForCharacteristic:(id)characteristic enable:(BOOL)enable response:(id)response;
+- (void)enableNotificationForControl:(id)control enable:(BOOL)enable response:(id)response;
 - (void)invalidate;
 - (void)notifyControl:(id)control value:(id)value;
 - (void)performGroupRead:(id)read completion:(id)completion;
@@ -86,9 +88,9 @@
 {
   managerCopy = manager;
   carCopy = car;
-  v40.receiver = self;
-  v40.super_class = CAFCar;
-  v9 = [(CAFCar *)&v40 init];
+  v41.receiver = self;
+  v41.super_class = CAFCar;
+  v9 = [(CAFCar *)&v41 init];
   v10 = v9;
   if (v9)
   {
@@ -153,8 +155,8 @@
     cachedDescription = [(CAFCar *)v10 cachedDescription];
     [cachedDescription setNeedsRefreshDescription];
 
-    v38 = CAFCarLogging();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v39 = CAFCarLogging(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       [CAFCar initWithManager:car:];
     }
@@ -165,10 +167,15 @@
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = CAFCarManagerLogging(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFCar dealloc];
+  }
+
+  v4.receiver = self;
+  v4.super_class = CAFCar;
+  [(CAFCar *)&v4 dealloc];
 }
 
 - (BOOL)rightHandDrive
@@ -194,7 +201,7 @@
   if (self->_receivedAllValues != values)
   {
     valuesCopy = values;
-    v5 = CAFCarLogging();
+    v5 = CAFCarLogging(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v11 = @"NO";
@@ -228,12 +235,12 @@
       cachedDescription = [(CAFCar *)self cachedDescription];
       [cachedDescription setNeedsRefreshDescription];
 
-      v7 = CARSignpostLogForCategory();
-      if (os_signpost_enabled(v7))
+      v8 = CARSignpostLogForCategory();
+      if (os_signpost_enabled(v8))
       {
         v13 = 138412290;
         selfCopy2 = self;
-        _os_signpost_emit_with_name_impl(&dword_231618000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAllValues", "%@", &v13, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedAllValues", "%@", &v13, 0xCu);
       }
 
       combineObserver = [(CAFCar *)self combineObserver];
@@ -245,15 +252,13 @@
 
     else
     {
-      observers = CAFGeneralLogging();
+      observers = CAFGeneralLogging(v6);
       if (os_log_type_enabled(observers, OS_LOG_TYPE_FAULT))
       {
         [CAFCar setReceivedAllValues:];
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accessoriesForCategory:(id)category
@@ -267,11 +272,9 @@
 
 - (void)refreshAllCharacteristics
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer
@@ -298,115 +301,112 @@
 
 - (void)_refreshAccessories
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke(uint64_t a1)
+void __29__CAFCar__refreshAccessories__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CAFCarLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __29__CAFCar__refreshAccessories__block_invoke_cold_1(a1);
+    __29__CAFCar__refreshAccessories__block_invoke_cold_1();
   }
 
-  v46 = 0;
-  v47[0] = &v46;
-  v47[1] = 0x2020000000;
-  v48 = 0;
-  v4 = *(a1 + 32);
-  v3 = (a1 + 32);
-  v5 = [v4 accessories];
-  v6 = [v5 mutableCopy];
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v5 = *(a1 + 32);
+  v4 = (a1 + 32);
+  v6 = [v5 accessories];
+  v7 = [v6 mutableCopy];
 
-  v7 = [*v3 accessoriesByCategory];
-  v8 = [v7 mutableCopy];
+  v8 = [*v4 accessoriesByCategory];
+  v9 = [v8 mutableCopy];
 
-  v9 = objc_opt_new();
   v10 = objc_opt_new();
-  v11 = [*v3 updatables];
-  v12 = [v11 mutableCopy];
+  v11 = objc_opt_new();
+  v12 = [*v4 updatables];
+  v13 = [v12 mutableCopy];
 
-  v13 = [*v3 car];
-  v14 = [v13 pluginConfigs];
-  v15 = [v14 copy];
+  v14 = [*v4 car];
+  v15 = [v14 pluginConfigs];
+  v16 = [v15 copy];
 
-  v16 = objc_opt_new();
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __29__CAFCar__refreshAccessories__block_invoke_92;
-  v38[3] = &unk_27890D7D8;
-  v38[4] = *v3;
-  v17 = v6;
-  v39 = v17;
-  v45 = &v46;
-  v18 = v9;
+  v17 = objc_opt_new();
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __29__CAFCar__refreshAccessories__block_invoke_92;
+  v39[3] = &unk_27890D7D8;
+  v39[4] = *v4;
+  v18 = v7;
   v40 = v18;
-  v19 = v12;
+  v46 = &v47;
+  v19 = v10;
   v41 = v19;
-  v20 = v10;
+  v20 = v13;
   v42 = v20;
-  v21 = v8;
+  v21 = v11;
   v43 = v21;
-  v22 = v16;
+  v22 = v9;
   v44 = v22;
-  [v15 enumerateKeysAndObjectsUsingBlock:v38];
-  v23 = [*v3 processedPluginIDs];
-  [v23 addObjectsFromArray:v22];
+  v23 = v17;
+  v45 = v23;
+  [v16 enumerateKeysAndObjectsUsingBlock:v39];
+  v24 = [*v4 processedPluginIDs];
+  [v24 addObjectsFromArray:v23];
 
-  if (*(v47[0] + 24) == 1)
+  if (*(v48 + 24) == 1)
   {
-    [*v3 setAccessories:v17];
-    [*v3 setAccessoriesByCategory:v21];
-    v24 = [v17 allValues];
-    [*v3 setAllAccessories:v24];
+    [*v4 setAccessories:v18];
+    [*v4 setAccessoriesByCategory:v22];
+    v25 = [v18 allValues];
+    [*v4 setAllAccessories:v25];
 
-    [*v3 setUpdatables:v19];
-    v25 = [*v3 cachedDescription];
-    [v25 setNeedsRefreshDescription];
+    [*v4 setUpdatables:v20];
+    v26 = [*v4 cachedDescription];
+    [v26 setNeedsRefreshDescription];
 
-    v26 = [*v3 combineObserver];
-    [v26 carDidUpdateAccessories:*v3];
+    v27 = [*v4 combineObserver];
+    [v27 carDidUpdateAccessories:*v4];
 
-    v27 = [*v3 observers];
-    [v27 carDidUpdateAccessories:*v3];
+    v28 = [*v4 observers];
+    [v28 carDidUpdateAccessories:*v4];
   }
 
-  if ([*v3 isConfigured])
+  if ([*v4 isConfigured])
   {
-    v28 = [*v3 cachedDescription];
-    [v28 setNeedsRefreshDescription];
+    v29 = [*v4 cachedDescription];
+    [v29 setNeedsRefreshDescription];
 
-    v29 = [*v3 observers];
-    [v29 carIsConfigured:*v3];
+    v30 = [*v4 observers];
+    [v30 carIsConfigured:*v4];
 
-    v30 = [*v3 observers];
-    [v30 carHasAllBridges:*v3];
+    v31 = [*v4 observers];
+    [v31 carHasAllBridges:*v4];
 
-    v31 = [*v3 valueMonitor];
-    [v31 signalReadyToMonitor];
+    v32 = [*v4 valueMonitor];
+    [v32 signalReadyToMonitor];
 
-    v32 = [*v3 valueMonitor];
-    [*v3 setReceivedAllValues:{objc_msgSend(v32, "receivedAllValues")}];
+    v33 = [*v4 valueMonitor];
+    [*v4 setReceivedAllValues:{objc_msgSend(v33, "receivedAllValues")}];
   }
 
-  [*v3 _groupInitialization:v18 controls:v20];
-  v33 = CAFCarLogging();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v34 = CAFCarLogging([*v4 _groupInitialization:v19 controls:v21]);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    __29__CAFCar__refreshAccessories__block_invoke_cold_2(v3, v47);
+    __29__CAFCar__refreshAccessories__block_invoke_cold_2();
   }
 
-  v34 = CARSignpostLogForCategory();
-  if (*v3)
+  v35 = CARSignpostLogForCategory();
+  if (*v4)
   {
-    v35 = CARSignpostLogForCategory();
-    v36 = os_signpost_id_make_with_pointer(v35, *v3);
+    v36 = CARSignpostLogForCategory();
+    v37 = os_signpost_id_make_with_pointer(v36, *v4);
 
-    if (v36 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+    if (v37 - 1 > 0xFFFFFFFFFFFFFFFDLL)
     {
       goto LABEL_15;
     }
@@ -414,18 +414,18 @@ void __29__CAFCar__refreshAccessories__block_invoke(uint64_t a1)
 
   else
   {
-    v36 = 0xEEEEB0B5B2B2EEEELL;
+    v37 = 0xEEEEB0B5B2B2EEEELL;
   }
 
-  if (os_signpost_enabled(v34))
+  if (os_signpost_enabled(v35))
   {
-    *v37 = 0;
-    _os_signpost_emit_with_name_impl(&dword_231618000, v34, OS_SIGNPOST_INTERVAL_END, v36, "Car-RefreshAccessories", &unk_231733279, v37, 2u);
+    *v38 = 0;
+    _os_signpost_emit_with_name_impl(&dword_231618000, v35, OS_SIGNPOST_INTERVAL_END, v37, "Car-RefreshAccessories", &unk_231733279, v38, 2u);
   }
 
 LABEL_15:
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v47, 8);
 }
 
 void __29__CAFCar__refreshAccessories__block_invoke_92(uint64_t a1, void *a2, void *a3)
@@ -435,11 +435,11 @@ void __29__CAFCar__refreshAccessories__block_invoke_92(uint64_t a1, void *a2, vo
   v7 = [*(a1 + 32) processedPluginIDs];
   v8 = [v7 containsObject:v5];
 
-  v9 = CAFCarLogging();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+  v10 = CAFCarLogging(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
   if (v8)
   {
-    if (v10)
+    if (v11)
     {
       __29__CAFCar__refreshAccessories__block_invoke_92_cold_3();
     }
@@ -447,47 +447,46 @@ void __29__CAFCar__refreshAccessories__block_invoke_92(uint64_t a1, void *a2, vo
 
   else
   {
-    if (v10)
+    if (v11)
     {
       __29__CAFCar__refreshAccessories__block_invoke_92_cold_1();
     }
 
     objc_opt_class();
-    v11 = [v6 objectForKeyedSubscript:@"accessories"];
-    if (v11 && (objc_opt_isKindOfClass() & 1) != 0)
+    v12 = [v6 objectForKeyedSubscript:@"accessories"];
+    if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v9 = v11;
+      v10 = v12;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    if (v9)
+    if (v10)
     {
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __29__CAFCar__refreshAccessories__block_invoke_94;
-      v21 = &unk_27890D7B0;
-      v22 = v5;
-      v17 = *(a1 + 32);
-      v12 = *(&v17 + 1);
-      v27 = *(a1 + 88);
-      v13 = *(a1 + 48);
-      v14 = *(a1 + 56);
-      *&v15 = v13;
-      *(&v15 + 1) = v14;
-      v23 = v17;
-      v24 = v15;
-      v25 = *(a1 + 64);
-      v26 = *(a1 + 72);
-      [v9 enumerateObjectsUsingBlock:&v18];
+      v19 = MEMORY[0x277D85DD0];
+      v20 = 3221225472;
+      v21 = __29__CAFCar__refreshAccessories__block_invoke_94;
+      v22 = &unk_27890D7B0;
+      v23 = v5;
+      v18 = *(a1 + 32);
+      v13 = *(&v18 + 1);
+      v28 = *(a1 + 88);
+      v14 = *(a1 + 48);
+      v15 = *(a1 + 56);
+      *&v16 = v14;
+      *(&v16 + 1) = v15;
+      v24 = v18;
+      v25 = v16;
+      v26 = *(a1 + 64);
+      v27 = *(a1 + 72);
+      [v10 enumerateObjectsUsingBlock:&v19];
     }
 
-    [*(a1 + 80) addObject:{v5, v17, v18, v19, v20, v21}];
-    v16 = CAFCarLogging();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = CAFCarLogging([*(a1 + 80) addObject:{v5, v18, v19, v20, v21, v22}]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       __29__CAFCar__refreshAccessories__block_invoke_92_cold_2();
     }
@@ -515,102 +514,102 @@ void __29__CAFCar__refreshAccessories__block_invoke_94(uint64_t a1, void *a2)
 
     if (!v6)
     {
-      v8 = CAFCarLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = CAFCarLogging(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __29__CAFCar__refreshAccessories__block_invoke_94_cold_3(a1);
+        __29__CAFCar__refreshAccessories__block_invoke_94_cold_3();
       }
 
       goto LABEL_24;
     }
 
-    v8 = [CAFCarConfiguration getType:v4];
-    v9 = [*(a1 + 40) accessoryTypes];
-    [v9 addObject:v8];
+    v10 = [CAFCarConfiguration getType:v4];
+    v11 = [*(a1 + 40) accessoryTypes];
+    [v11 addObject:v10];
 
-    v10 = [*(a1 + 40) carManager];
-    v11 = [v10 shouldAllocAccessoryType:v8];
+    v12 = [*(a1 + 40) carManager];
+    v13 = [v12 shouldAllocAccessoryType:v10];
 
-    if (!v11)
+    if (!v13)
     {
 LABEL_24:
 
-      v7 = v4;
+      v8 = v4;
       goto LABEL_25;
     }
 
-    v12 = [CAFCarConfiguration getUUID:*(a1 + 32) instanceID:v6];
-    v13 = [*(a1 + 48) objectForKeyedSubscript:v12];
-    if (!v13)
+    v14 = [CAFCarConfiguration getUUID:*(a1 + 32) instanceID:v6];
+    v15 = [*(a1 + 48) objectForKeyedSubscript:v14];
+    if (!v15)
     {
-      v14 = CAFCarLogging();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v16 = CAFCarLogging(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        __29__CAFCar__refreshAccessories__block_invoke_94_cold_1((a1 + 32));
+        __29__CAFCar__refreshAccessories__block_invoke_94_cold_1();
       }
 
-      v15 = [CAFAccessory accessoryWithCar:*(a1 + 40) pluginID:*(a1 + 32) config:v4];
-      if (!v15)
+      v17 = [CAFAccessory accessoryWithCar:*(a1 + 40) pluginID:*(a1 + 32) config:v4];
+      if (!v17)
       {
-        v13 = CAFCarLogging();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = CAFCarLogging(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          __29__CAFCar__refreshAccessories__block_invoke_94_cold_2((a1 + 32));
+          __29__CAFCar__refreshAccessories__block_invoke_94_cold_2();
         }
 
         goto LABEL_21;
       }
 
-      v13 = v15;
+      v15 = v17;
       *(*(*(a1 + 88) + 8) + 24) = 1;
-      [*(a1 + 48) setObject:v15 forKeyedSubscript:v12];
-      if (([v13 receivedAllValues]& 1) == 0)
+      [*(a1 + 48) setObject:v17 forKeyedSubscript:v14];
+      if (([v15 receivedAllValues]& 1) == 0)
       {
-        v16 = [*(a1 + 40) valueMonitor];
-        v17 = [v13 uniqueIdentifier];
-        [v16 monitorForValue:v17];
+        v18 = [*(a1 + 40) valueMonitor];
+        v19 = [v15 uniqueIdentifier];
+        [v18 monitorForValue:v19];
       }
 
-      v18 = [v13 allCharacteristics];
-      [*(a1 + 56) addObjectsFromArray:v18];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __29__CAFCar__refreshAccessories__block_invoke_98;
-      v30[3] = &unk_27890D760;
+      v20 = [v15 allCharacteristics];
+      [*(a1 + 56) addObjectsFromArray:v20];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __29__CAFCar__refreshAccessories__block_invoke_98;
+      v32[3] = &unk_27890D760;
+      v33 = *(a1 + 64);
+      [v20 enumerateObjectsUsingBlock:v32];
+      v21 = [v15 allControls];
+      [*(a1 + 72) addObjectsFromArray:v21];
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __29__CAFCar__refreshAccessories__block_invoke_2;
+      v30 = &unk_27890D788;
       v31 = *(a1 + 64);
-      [v18 enumerateObjectsUsingBlock:v30];
-      v19 = [v13 allControls];
-      [*(a1 + 72) addObjectsFromArray:v19];
-      v25 = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __29__CAFCar__refreshAccessories__block_invoke_2;
-      v28 = &unk_27890D788;
-      v29 = *(a1 + 64);
-      [v19 enumerateObjectsUsingBlock:&v25];
+      [v21 enumerateObjectsUsingBlock:&v27];
     }
 
-    v20 = *(a1 + 80);
-    v21 = [v13 categoryType:v25];
-    v22 = [v20 objectForKeyedSubscript:v21];
+    v22 = *(a1 + 80);
+    v23 = [v15 categoryType:v27];
+    v24 = [v22 objectForKeyedSubscript:v23];
 
-    if (!v22)
+    if (!v24)
     {
-      v22 = objc_opt_new();
-      v23 = *(a1 + 80);
-      v24 = [v13 categoryType];
-      [v23 setObject:v22 forKeyedSubscript:v24];
+      v24 = objc_opt_new();
+      v25 = *(a1 + 80);
+      v26 = [v15 categoryType];
+      [v25 setObject:v24 forKeyedSubscript:v26];
     }
 
-    [v22 addObject:v13];
+    [v24 addObject:v15];
 
 LABEL_21:
     goto LABEL_24;
   }
 
-  v7 = CAFCarLogging();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = CAFCarLogging(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    __29__CAFCar__refreshAccessories__block_invoke_94_cold_4(a1);
+    __29__CAFCar__refreshAccessories__block_invoke_94_cold_4();
   }
 
 LABEL_25:
@@ -618,7 +617,7 @@ LABEL_25:
 
 void __29__CAFCar__refreshAccessories__block_invoke_98(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 pluginID];
   v5 = [*(a1 + 32) objectForKeyedSubscript:v4];
@@ -628,42 +627,40 @@ void __29__CAFCar__refreshAccessories__block_invoke_98(uint64_t a1, void *a2)
     [*(a1 + 32) setObject:v5 forKeyedSubscript:v4];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = [v3 allInstanceIDs];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:v3 forKeyedSubscript:*(*(&v12 + 1) + 8 * v10++)];
+        [v5 setObject:v3 forKeyedSubscript:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __29__CAFCar__refreshAccessories__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 pluginID];
   v5 = [*(a1 + 32) objectForKeyedSubscript:v4];
@@ -673,37 +670,35 @@ void __29__CAFCar__refreshAccessories__block_invoke_2(uint64_t a1, void *a2)
     [*(a1 + 32) setObject:v5 forKeyedSubscript:v4];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = [v3 allInstanceIDs];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:v3 forKeyedSubscript:*(*(&v12 + 1) + 8 * v10++)];
+        [v5 setObject:v3 forKeyedSubscript:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performGroupRead:(id)read completion:(id)completion
@@ -728,61 +723,62 @@ void __29__CAFCar__refreshAccessories__block_invoke_2(uint64_t a1, void *a2)
 
 - (void)_groupInitialization:(id)initialization controls:(id)controls
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   initializationCopy = initialization;
   controlsCopy = controls;
   v7 = [(CAFGroupRequest *)[CAFGroupReadRequest alloc] initWithCar:self];
   v8 = [(CAFGroupRequest *)[CAFGroupEnableNotificationRequest alloc] initWithCar:self];
-  v9 = CAFCarLogging();
+  v9 = CAFCarLogging(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v61 = [initializationCopy count];
-    v62 = 2112;
-    v63 = v7;
-    v64 = 2112;
-    v65 = v8;
+    v68 = [initializationCopy count];
+    v69 = 2112;
+    v70 = v7;
+    v71 = 2112;
+    v72 = v8;
     _os_log_debug_impl(&dword_231618000, v9, OS_LOG_TYPE_DEBUG, "Group initialization start (count=%lu) read=%@ notify=%@", buf, 0x20u);
   }
 
-  v48 = v7;
+  v55 = v7;
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v10 = initializationCopy;
-  v11 = [v10 countByEnumeratingWithState:&v56 objects:v73 count:16];
-  v49 = v8;
-  v50 = v10;
+  v11 = [v10 countByEnumeratingWithState:&v63 objects:v80 count:16];
+  v56 = v8;
+  v57 = v10;
   if (!v11)
   {
-    v51 = 0;
+    v58 = 0;
     v13 = 0;
     v14 = 0;
     goto LABEL_30;
   }
 
   v12 = v11;
-  v51 = 0;
+  v58 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = *v57;
+  v15 = *v64;
   do
   {
     v16 = 0;
     do
     {
-      if (*v57 != v15)
+      if (*v64 != v15)
       {
         objc_enumerationMutation(v10);
       }
 
-      v17 = *(*(&v56 + 1) + 8 * v16);
-      if (([v17 shouldInitialize] & 1) == 0)
+      v17 = *(*(&v63 + 1) + 8 * v16);
+      shouldInitialize = [v17 shouldInitialize];
+      if ((shouldInitialize & 1) == 0)
       {
-        v18 = CAFCarLogging();
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = CAFCarLogging(shouldInitialize);
+        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_13;
         }
@@ -790,18 +786,19 @@ void __29__CAFCar__refreshAccessories__block_invoke_2(uint64_t a1, void *a2)
         pluginID = [v17 pluginID];
         instanceID = [v17 instanceID];
         *buf = 138412546;
-        v61 = pluginID;
-        v62 = 2112;
-        v63 = instanceID;
-        v21 = v18;
-        v22 = "Skipping pluginID: %@ instanceID: %@";
+        v68 = pluginID;
+        v69 = 2112;
+        v70 = instanceID;
+        v23 = v20;
+        v24 = "Skipping pluginID: %@ instanceID: %@";
         goto LABEL_26;
       }
 
-      if ([v17 hasLargePayload])
+      hasLargePayload = [v17 hasLargePayload];
+      if (hasLargePayload)
       {
-        v18 = CAFCarLogging();
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = CAFCarLogging(hasLargePayload);
+        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
 LABEL_13:
 
@@ -812,33 +809,34 @@ LABEL_13:
         pluginID = [v17 pluginID];
         instanceID = [v17 instanceID];
         *buf = 138412546;
-        v61 = pluginID;
-        v62 = 2112;
-        v63 = instanceID;
-        v21 = v18;
-        v22 = "Skipping large payload pluginID: %@ instanceID: %@";
+        v68 = pluginID;
+        v69 = 2112;
+        v70 = instanceID;
+        v23 = v20;
+        v24 = "Skipping large payload pluginID: %@ instanceID: %@";
 LABEL_26:
-        _os_log_debug_impl(&dword_231618000, v21, OS_LOG_TYPE_DEBUG, v22, buf, 0x16u);
+        _os_log_debug_impl(&dword_231618000, v23, OS_LOG_TYPE_DEBUG, v24, buf, 0x16u);
 
-        v10 = v50;
+        v10 = v57;
         goto LABEL_13;
       }
 
-      if ([v17 notifies])
+      notifies = [v17 notifies];
+      if (notifies)
       {
-        v23 = CAFCarLogging();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v26 = CAFCarLogging(notifies);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           pluginID2 = [v17 pluginID];
           instanceID2 = [v17 instanceID];
           *buf = 138412546;
-          v61 = pluginID2;
-          v62 = 2112;
-          v63 = instanceID2;
-          _os_log_debug_impl(&dword_231618000, v23, OS_LOG_TYPE_DEBUG, "Notifies pluginID: %@ instanceID: %@", buf, 0x16u);
+          v68 = pluginID2;
+          v69 = 2112;
+          v70 = instanceID2;
+          _os_log_debug_impl(&dword_231618000, v26, OS_LOG_TYPE_DEBUG, "Notifies pluginID: %@ instanceID: %@", buf, 0x16u);
 
-          v8 = v49;
-          v10 = v50;
+          v8 = v56;
+          v10 = v57;
         }
 
         [(CAFGroupRequest *)v8 addCharacteristic:v17];
@@ -846,26 +844,30 @@ LABEL_26:
         ++v13;
       }
 
-      else if ([v17 readable] && (objc_msgSend(v17, "hasInitialValue") & 1) == 0)
+      else if ([v17 readable])
       {
-        v24 = CAFCarLogging();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        hasInitialValue = [v17 hasInitialValue];
+        if ((hasInitialValue & 1) == 0)
         {
-          pluginID3 = [v17 pluginID];
-          instanceID3 = [v17 instanceID];
-          *buf = 138412546;
-          v61 = pluginID3;
-          v62 = 2112;
-          v63 = instanceID3;
-          _os_log_debug_impl(&dword_231618000, v24, OS_LOG_TYPE_DEBUG, "Read pluginID: %@ instanceID: %@", buf, 0x16u);
+          v28 = CAFCarLogging(hasInitialValue);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          {
+            pluginID3 = [v17 pluginID];
+            instanceID3 = [v17 instanceID];
+            *buf = 138412546;
+            v68 = pluginID3;
+            v69 = 2112;
+            v70 = instanceID3;
+            _os_log_debug_impl(&dword_231618000, v28, OS_LOG_TYPE_DEBUG, "Read pluginID: %@ instanceID: %@", buf, 0x16u);
 
-          v10 = v50;
-          v8 = v49;
+            v10 = v57;
+            v8 = v56;
+          }
+
+          [(CAFGroupRequest *)v55 addCharacteristic:v17];
+          [v17 groupInitializationRequested];
+          v58 = (v58 + 1);
         }
-
-        [(CAFGroupRequest *)v48 addCharacteristic:v17];
-        [v17 groupInitializationRequested];
-        v51 = (v51 + 1);
       }
 
 LABEL_14:
@@ -873,100 +875,102 @@ LABEL_14:
     }
 
     while (v12 != v16);
-    v29 = [v10 countByEnumeratingWithState:&v56 objects:v73 count:16];
-    v12 = v29;
+    v33 = [v10 countByEnumeratingWithState:&v63 objects:v80 count:16];
+    v12 = v33;
   }
 
-  while (v29);
+  while (v33);
 LABEL_30:
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v30 = controlsCopy;
-  v31 = [v30 countByEnumeratingWithState:&v52 objects:v72 count:16];
-  if (v31)
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v34 = controlsCopy;
+  v35 = [v34 countByEnumeratingWithState:&v59 objects:v79 count:16];
+  if (v35)
   {
-    v32 = v31;
-    v33 = *v53;
+    v36 = v35;
+    v37 = *v60;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v53 != v33)
+        if (*v60 != v37)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v34);
         }
 
-        v35 = *(*(&v52 + 1) + 8 * i);
-        if ([v35 shouldInitialize])
+        v39 = *(*(&v59 + 1) + 8 * i);
+        shouldInitialize2 = [v39 shouldInitialize];
+        if (shouldInitialize2)
         {
-          if ([v35 notifies])
+          notifies2 = [v39 notifies];
+          if (notifies2)
           {
-            v36 = CAFCarLogging();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+            v42 = CAFCarLogging(notifies2);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
-              pluginID4 = [v35 pluginID];
-              instanceID4 = [v35 instanceID];
+              pluginID4 = [v39 pluginID];
+              instanceID4 = [v39 instanceID];
               *buf = 138412546;
-              v61 = pluginID4;
-              v62 = 2112;
-              v63 = instanceID4;
-              _os_log_debug_impl(&dword_231618000, v36, OS_LOG_TYPE_DEBUG, "Notifies pluginID: %@ instanceID: %@", buf, 0x16u);
+              v68 = pluginID4;
+              v69 = 2112;
+              v70 = instanceID4;
+              _os_log_debug_impl(&dword_231618000, v42, OS_LOG_TYPE_DEBUG, "Notifies pluginID: %@ instanceID: %@", buf, 0x16u);
 
-              v8 = v49;
+              v8 = v56;
             }
 
-            [(CAFGroupEnableNotificationRequest *)v8 addControl:v35];
+            [(CAFGroupEnableNotificationRequest *)v8 addControl:v39];
             ++v13;
           }
         }
 
         else
         {
-          v37 = CAFCarLogging();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v43 = CAFCarLogging(shouldInitialize2);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            pluginID5 = [v35 pluginID];
-            instanceID5 = [v35 instanceID];
+            pluginID5 = [v39 pluginID];
+            instanceID5 = [v39 instanceID];
             *buf = 138412546;
-            v61 = pluginID5;
-            v62 = 2112;
-            v63 = instanceID5;
-            _os_log_debug_impl(&dword_231618000, v37, OS_LOG_TYPE_DEBUG, "Skipping pluginID: %@ instanceID: %@", buf, 0x16u);
+            v68 = pluginID5;
+            v69 = 2112;
+            v70 = instanceID5;
+            _os_log_debug_impl(&dword_231618000, v43, OS_LOG_TYPE_DEBUG, "Skipping pluginID: %@ instanceID: %@", buf, 0x16u);
 
-            v8 = v49;
+            v8 = v56;
           }
 
           v14 = (v14 + 1);
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v52 objects:v72 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v59 objects:v79 count:16];
     }
 
-    while (v32);
+    while (v36);
   }
 
-  v42 = CAFCarLogging();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v49 = CAFCarLogging(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
-    v45 = [v50 count];
-    v46 = [v30 count];
+    v52 = [v57 count];
+    v53 = [v34 count];
     *buf = 134219266;
-    v61 = v46 + v45;
-    v62 = 2048;
-    v63 = v14;
-    v64 = 2048;
-    v65 = v51;
-    v66 = 2048;
-    v67 = v13;
-    v68 = 2112;
-    v69 = v48;
-    v70 = 2112;
-    v71 = v8;
-    _os_log_debug_impl(&dword_231618000, v42, OS_LOG_TYPE_DEBUG, "Group initialization perform (total: %lu skipped: %lu read: %lu notify: %lu) read: %@ notify: %@", buf, 0x3Eu);
+    v68 = v53 + v52;
+    v69 = 2048;
+    v70 = v14;
+    v71 = 2048;
+    v72 = v58;
+    v73 = 2048;
+    v74 = v13;
+    v75 = 2112;
+    v76 = v55;
+    v77 = 2112;
+    v78 = v8;
+    _os_log_debug_impl(&dword_231618000, v49, OS_LOG_TYPE_DEBUG, "Group initialization perform (total: %lu skipped: %lu read: %lu notify: %lu) read: %@ notify: %@", buf, 0x3Eu);
   }
 
   if ([(CAFGroupRequest *)v8 count])
@@ -974,33 +978,32 @@ LABEL_30:
     [(CAFGroupRequest *)v8 performWithCompletion:&__block_literal_global_5];
   }
 
-  if ([(CAFGroupRequest *)v48 count])
+  v50 = [(CAFGroupRequest *)v55 count];
+  if (v50)
   {
-    [(CAFGroupRequest *)v48 performWithCompletion:&__block_literal_global_111_0];
+    v50 = [(CAFGroupRequest *)v55 performWithCompletion:&__block_literal_global_111_0];
   }
 
-  v43 = CAFCarLogging();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v51 = CAFCarLogging(v50);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
     [CAFCar _groupInitialization:controls:];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
-void __40__CAFCar__groupInitialization_controls___block_invoke()
+void __40__CAFCar__groupInitialization_controls___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = CAFCarLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __40__CAFCar__groupInitialization_controls___block_invoke_cold_1();
   }
 }
 
-void __40__CAFCar__groupInitialization_controls___block_invoke_109()
+void __40__CAFCar__groupInitialization_controls___block_invoke_109(uint64_t a1, uint64_t a2)
 {
-  v0 = CAFCarLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __40__CAFCar__groupInitialization_controls___block_invoke_109_cold_1();
   }
@@ -1056,18 +1059,18 @@ void __40__CAFCar__groupInitialization_controls___block_invoke_109()
   dispatch_async(refreshQueue, block);
 }
 
-uint64_t __25__CAFCar_trimAccessories__block_invoke(uint64_t a1)
+uint64_t __25__CAFCar_trimAccessories__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CAFCarLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __25__CAFCar_trimAccessories__block_invoke_cold_1(a1);
+    __25__CAFCar_trimAccessories__block_invoke_cold_1();
   }
 
-  v3 = MEMORY[0x277CBEC10];
+  v4 = MEMORY[0x277CBEC10];
   [*(a1 + 32) setAccessories:MEMORY[0x277CBEC10]];
   [*(a1 + 32) setAllAccessories:MEMORY[0x277CBEBF8]];
-  [*(a1 + 32) setAccessoriesByCategory:v3];
+  [*(a1 + 32) setAccessoriesByCategory:v4];
   return [*(a1 + 32) setTrimmedAccessories:1];
 }
 
@@ -1087,10 +1090,10 @@ uint64_t __25__CAFCar_trimAccessories__block_invoke(uint64_t a1)
   [(CAFGroupRequest *)v5 performWithCompletion:v7];
 }
 
-void __47__CAFCar_removeRegistrationForCharacteristics___block_invoke(uint64_t a1)
+void __47__CAFCar_removeRegistrationForCharacteristics___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CAFCarLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __47__CAFCar_removeRegistrationForCharacteristics___block_invoke_cold_1(a1);
   }
@@ -1111,10 +1114,10 @@ void __47__CAFCar_removeRegistrationForCharacteristics___block_invoke(uint64_t a
   [(CAFGroupRequest *)v5 performWithCompletion:v7];
 }
 
-void __44__CAFCar_addRegistrationForCharacteristics___block_invoke(uint64_t a1)
+void __44__CAFCar_addRegistrationForCharacteristics___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CAFCarLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = CAFCarLogging(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __44__CAFCar_addRegistrationForCharacteristics___block_invoke_cold_1(a1);
   }
@@ -1122,13 +1125,13 @@ void __44__CAFCar_addRegistrationForCharacteristics___block_invoke(uint64_t a1)
 
 - (void)didUpdatePluginID:(id)d values:(id)values
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   valuesCopy = values;
   if (!valuesCopy)
   {
-    v11 = CAFGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = CAFGeneralLogging(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CAFCar didUpdatePluginID:values:];
     }
@@ -1137,12 +1140,13 @@ void __44__CAFCar_addRegistrationForCharacteristics___block_invoke(uint64_t a1)
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = CAFGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = CAFGeneralLogging(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(CAFCar *)dCopy didUpdatePluginID:valuesCopy values:v11];
+      [(CAFCar *)dCopy didUpdatePluginID:valuesCopy values:v12];
     }
 
 LABEL_10:
@@ -1150,35 +1154,35 @@ LABEL_10:
     goto LABEL_17;
   }
 
-  v8 = CARSignpostLogForCategory();
+  v9 = CARSignpostLogForCategory();
   if (!self)
   {
-    v10 = 0xEEEEB0B5B2B2EEEELL;
+    v11 = 0xEEEEB0B5B2B2EEEELL;
 LABEL_12:
-    if (os_signpost_enabled(v8))
+    if (os_signpost_enabled(v9))
     {
       *buf = 138412546;
-      v19 = dCopy;
-      v20 = 2048;
-      v21 = [valuesCopy count];
-      _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "Car-UpdateValues", "Update values from pluginID: %@ with value count %ld", buf, 0x16u);
+      v20 = dCopy;
+      v21 = 2048;
+      v22 = [valuesCopy count];
+      _os_signpost_emit_with_name_impl(&dword_231618000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Car-UpdateValues", "Update values from pluginID: %@ with value count %ld", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
-  v9 = CARSignpostLogForCategory();
-  v10 = os_signpost_id_make_with_pointer(v9, self);
+  v10 = CARSignpostLogForCategory();
+  v11 = os_signpost_id_make_with_pointer(v10, self);
 
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     goto LABEL_12;
   }
 
 LABEL_14:
 
-  v12 = CAFGeneralLogging();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = CAFGeneralLogging(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [CAFCar didUpdatePluginID:dCopy values:valuesCopy];
   }
@@ -1189,12 +1193,11 @@ LABEL_14:
   block[2] = __35__CAFCar_didUpdatePluginID_values___block_invoke;
   block[3] = &unk_27890D598;
   block[4] = self;
-  v16 = dCopy;
-  v17 = valuesCopy;
+  v17 = dCopy;
+  v18 = valuesCopy;
   dispatch_async(refreshQueue, block);
 
 LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __35__CAFCar_didUpdatePluginID_values___block_invoke(id *a1)
@@ -1205,61 +1208,62 @@ void __35__CAFCar_didUpdatePluginID_values___block_invoke(id *a1)
 
   if (v4)
   {
-    v5 = [MEMORY[0x277CBEB38] dictionary];
-    v6 = a1[6];
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __35__CAFCar_didUpdatePluginID_values___block_invoke_116;
-    v17 = &unk_27890D848;
-    v18 = v4;
-    v19 = a1[5];
-    v20 = a1[6];
-    v7 = v5;
-    v21 = v7;
-    [v6 enumerateKeysAndObjectsUsingBlock:&v14];
-    if ([a1[6] count] >= 2)
+    v6 = [MEMORY[0x277CBEB38] dictionary];
+    v7 = a1[6];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __35__CAFCar_didUpdatePluginID_values___block_invoke_116;
+    v19 = &unk_27890D848;
+    v20 = v4;
+    v21 = a1[5];
+    v22 = a1[6];
+    v8 = v6;
+    v23 = v8;
+    [v7 enumerateKeysAndObjectsUsingBlock:&v16];
+    v9 = [a1[6] count];
+    if (v9 >= 2)
     {
-      v8 = CAFCarLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = CAFCarLogging(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_1(a1 + 6, v7);
+        __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_1(a1 + 6, v8);
       }
 
-      [v7 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_122];
+      v9 = [v8 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_122];
     }
 
-    v9 = CAFGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = CAFGeneralLogging(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_2(a1 + 5, a1 + 6);
+      __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_2((a1 + 5), a1 + 6);
     }
 
-    v10 = CARSignpostLogForCategory();
-    if (!a1[4] || (CARSignpostLogForCategory(), v11 = objc_claimAutoreleasedReturnValue(), v2 = os_signpost_id_make_with_pointer(v11, a1[4]), v11, v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
+    v12 = CARSignpostLogForCategory();
+    if (!a1[4] || (CARSignpostLogForCategory(), v13 = objc_claimAutoreleasedReturnValue(), v2 = os_signpost_id_make_with_pointer(v13, a1[4]), v13, v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
     {
-      if (os_signpost_enabled(v10))
+      if (os_signpost_enabled(v12))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_231618000, v10, OS_SIGNPOST_INTERVAL_END, v2, "Car-UpdateValues", &unk_231733279, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_231618000, v12, OS_SIGNPOST_INTERVAL_END, v2, "Car-UpdateValues", &unk_231733279, buf, 2u);
       }
     }
   }
 
   else
   {
-    v12 = CAFGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CAFGeneralLogging(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_3(a1 + 5);
+      __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_3();
     }
 
-    v7 = CARSignpostLogForCategory();
-    if (!a1[4] || (CARSignpostLogForCategory(), v13 = objc_claimAutoreleasedReturnValue(), v2 = os_signpost_id_make_with_pointer(v13, a1[4]), v13, v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
+    v8 = CARSignpostLogForCategory();
+    if (!a1[4] || (CARSignpostLogForCategory(), v15 = objc_claimAutoreleasedReturnValue(), v2 = os_signpost_id_make_with_pointer(v15, a1[4]), v15, v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
     {
-      if (os_signpost_enabled(v7))
+      if (os_signpost_enabled(v8))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_231618000, v7, OS_SIGNPOST_INTERVAL_END, v2, "Car-UpdateValues", &unk_231733279, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_INTERVAL_END, v2, "Car-UpdateValues", &unk_231733279, buf, 2u);
       }
     }
   }
@@ -1273,10 +1277,10 @@ void __35__CAFCar_didUpdatePluginID_values___block_invoke_116(id *a1, void *a2, 
   v8 = v7;
   if (!v7)
   {
-    v9 = CAFCarLogging();
+    v9 = CAFCarLogging(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __35__CAFCar_didUpdatePluginID_values___block_invoke_116_cold_1(a1);
+      __35__CAFCar_didUpdatePluginID_values___block_invoke_116_cold_1();
     }
 
     goto LABEL_9;
@@ -1353,8 +1357,8 @@ void __35__CAFCar_didUpdatePluginID_values___block_invoke_119(uint64_t a1, uint6
 
 LABEL_7:
 
-  v17 = CAFGeneralLogging();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = CAFGeneralLogging(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     v24 = [valueCopy count];
     *buf = 138412802;
@@ -1363,7 +1367,7 @@ LABEL_7:
     v33 = iDCopy;
     v34 = 2048;
     v35 = v24;
-    _os_log_debug_impl(&dword_231618000, v17, OS_LOG_TYPE_DEBUG, "Request received from pluginID: %@ instanceID: %@ with request count %ld START", buf, 0x20u);
+    _os_log_debug_impl(&dword_231618000, v18, OS_LOG_TYPE_DEBUG, "Request received from pluginID: %@ instanceID: %@ with request count %ld START", buf, 0x20u);
   }
 
   refreshQueue = [(CAFCar *)self refreshQueue];
@@ -1376,129 +1380,126 @@ LABEL_7:
   v28 = valueCopy;
   v29 = responseCopy;
   v27 = iDCopy;
-  v19 = valueCopy;
-  v20 = iDCopy;
-  v21 = responseCopy;
-  v22 = dCopy;
+  v20 = valueCopy;
+  v21 = iDCopy;
+  v22 = responseCopy;
+  v23 = dCopy;
   dispatch_async(refreshQueue, block);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) updatables];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
   if (!v3)
   {
-    v9 = CAFGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CAFGeneralLogging(v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_3((a1 + 40));
+      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_3();
     }
 
-    v10 = CARSignpostLogForCategory();
+    v12 = CARSignpostLogForCategory();
     if (*(a1 + 32))
     {
-      v11 = CARSignpostLogForCategory();
-      v12 = os_signpost_id_make_with_pointer(v11, *(a1 + 32));
+      v13 = CARSignpostLogForCategory();
+      v14 = os_signpost_id_make_with_pointer(v13, *(a1 + 32));
 
-      if (v12 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+      if (v14 - 1 > 0xFFFFFFFFFFFFFFFDLL)
       {
 LABEL_23:
 
-        v15 = *(a1 + 64);
-        v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
-        (*(v15 + 16))(v15, 0, v4);
+        v17 = *(a1 + 64);
+        v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
+        (*(v17 + 16))(v17, 0, v5);
         goto LABEL_24;
       }
     }
 
     else
     {
-      v12 = 0xEEEEB0B5B2B2EEEELL;
+      v14 = 0xEEEEB0B5B2B2EEEELL;
     }
 
-    if (os_signpost_enabled(v10))
+    if (os_signpost_enabled(v12))
     {
-      LOWORD(v20) = 0;
-      _os_signpost_emit_with_name_impl(&dword_231618000, v10, OS_SIGNPOST_INTERVAL_END, v12, "Car-RequestValues", &unk_231733279, &v20, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_231618000, v12, OS_SIGNPOST_INTERVAL_END, v14, "Car-RequestValues", &unk_231733279, &v21, 2u);
     }
 
     goto LABEL_23;
   }
 
-  v4 = [v3 objectForKeyedSubscript:*(a1 + 48)];
-  if (!v4)
+  v5 = [v3 objectForKeyedSubscript:*(a1 + 48)];
+  if (!v5)
   {
-    v13 = CAFCarLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = CAFCarLogging(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_2((a1 + 40), (a1 + 48));
+      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_2();
     }
 
     goto LABEL_18;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = CAFCarLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = CAFCarLogging(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_1((a1 + 40), (a1 + 48));
+      __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_1();
     }
 
 LABEL_18:
 
-    v14 = *(a1 + 64);
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
-    (*(v14 + 16))(v14, 0, v6);
+    v16 = *(a1 + 64);
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
+    (*(v16 + 16))(v16, 0, v8);
     goto LABEL_19;
   }
 
-  [v4 handleRequestWithValue:*(a1 + 56) withResponse:*(a1 + 64)];
-  v5 = CAFGeneralLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = CAFGeneralLogging([v5 handleRequestWithValue:*(a1 + 56) withResponse:*(a1 + 64)]);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 48);
-    v19 = [*(a1 + 56) count];
-    v20 = 138412802;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v18;
-    v24 = 2048;
-    v25 = v19;
-    _os_log_debug_impl(&dword_231618000, v5, OS_LOG_TYPE_DEBUG, "Request received from pluginID: %@ instanceID: %@ with request count %ld END", &v20, 0x20u);
+    v18 = *(a1 + 40);
+    v19 = *(a1 + 48);
+    v20 = [*(a1 + 56) count];
+    v21 = 138412802;
+    v22 = v18;
+    v23 = 2112;
+    v24 = v19;
+    v25 = 2048;
+    v26 = v20;
+    _os_log_debug_impl(&dword_231618000, v7, OS_LOG_TYPE_DEBUG, "Request received from pluginID: %@ instanceID: %@ with request count %ld END", &v21, 0x20u);
   }
 
-  v6 = CARSignpostLogForCategory();
+  v8 = CARSignpostLogForCategory();
   if (!*(a1 + 32))
   {
-    v8 = 0xEEEEB0B5B2B2EEEELL;
+    v10 = 0xEEEEB0B5B2B2EEEELL;
     goto LABEL_26;
   }
 
-  v7 = CARSignpostLogForCategory();
-  v8 = os_signpost_id_make_with_pointer(v7, *(a1 + 32));
+  v9 = CARSignpostLogForCategory();
+  v10 = os_signpost_id_make_with_pointer(v9, *(a1 + 32));
 
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
 LABEL_26:
-    if (os_signpost_enabled(v6))
+    if (os_signpost_enabled(v8))
     {
-      LOWORD(v20) = 0;
-      _os_signpost_emit_with_name_impl(&dword_231618000, v6, OS_SIGNPOST_INTERVAL_END, v8, "Car-RequestValues", &unk_231733279, &v20, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_INTERVAL_END, v10, "Car-RequestValues", &unk_231733279, &v21, 2u);
     }
   }
 
 LABEL_19:
 
 LABEL_24:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didNotifyPluginID:(id)d instanceID:(id)iD value:(id)value
@@ -1537,8 +1538,8 @@ LABEL_24:
 
 LABEL_7:
 
-  v14 = CAFGeneralLogging();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = CAFGeneralLogging(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v20 = [valueCopy count];
     *buf = 138412802;
@@ -1547,7 +1548,7 @@ LABEL_7:
     v28 = iDCopy;
     v29 = 2048;
     v30 = v20;
-    _os_log_debug_impl(&dword_231618000, v14, OS_LOG_TYPE_DEBUG, "Notification received from pluginID: %@ instanceID: %@ with request count %ld START", buf, 0x20u);
+    _os_log_debug_impl(&dword_231618000, v15, OS_LOG_TYPE_DEBUG, "Notification received from pluginID: %@ instanceID: %@ with request count %ld START", buf, 0x20u);
   }
 
   refreshQueue = [(CAFCar *)self refreshQueue];
@@ -1559,69 +1560,67 @@ LABEL_7:
   v22 = dCopy;
   v23 = iDCopy;
   v24 = valueCopy;
-  v16 = valueCopy;
-  v17 = iDCopy;
-  v18 = dCopy;
+  v17 = valueCopy;
+  v18 = iDCopy;
+  v19 = dCopy;
   dispatch_async(refreshQueue, v21);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) updatables];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
   if (v3)
   {
-    v4 = [v3 objectForKeyedSubscript:*(a1 + 48)];
-    if (!v4)
+    v5 = [v3 objectForKeyedSubscript:*(a1 + 48)];
+    if (!v5)
     {
-      v6 = CAFCarLogging();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = CAFCarLogging(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_2((a1 + 40), (a1 + 48));
+        __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_2();
       }
 
       goto LABEL_24;
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v6 = CAFCarLogging();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = CAFCarLogging(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_1((a1 + 40), (a1 + 48));
+        __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_1();
       }
 
       goto LABEL_24;
     }
 
-    [v4 handleNotificationWithValue:*(a1 + 56)];
-    v5 = CAFGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = CAFGeneralLogging([v5 handleNotificationWithValue:*(a1 + 56)]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 48);
-      v15 = [*(a1 + 56) count];
-      v16 = 138412802;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      v20 = 2048;
-      v21 = v15;
-      _os_log_debug_impl(&dword_231618000, v5, OS_LOG_TYPE_DEBUG, "Notification received from pluginID: %@ instanceID: %@ with request count %ld END", &v16, 0x20u);
+      v14 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      v16 = [*(a1 + 56) count];
+      v17 = 138412802;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2048;
+      v22 = v16;
+      _os_log_debug_impl(&dword_231618000, v7, OS_LOG_TYPE_DEBUG, "Notification received from pluginID: %@ instanceID: %@ with request count %ld END", &v17, 0x20u);
     }
 
-    v6 = CARSignpostLogForCategory();
+    v8 = CARSignpostLogForCategory();
     if (*(a1 + 32))
     {
-      v7 = CARSignpostLogForCategory();
-      v8 = os_signpost_id_make_with_pointer(v7, *(a1 + 32));
+      v9 = CARSignpostLogForCategory();
+      v10 = os_signpost_id_make_with_pointer(v9, *(a1 + 32));
 
-      if (v8 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+      if (v10 - 1 > 0xFFFFFFFFFFFFFFFDLL)
       {
 LABEL_24:
 
@@ -1631,31 +1630,31 @@ LABEL_24:
 
     else
     {
-      v8 = 0xEEEEB0B5B2B2EEEELL;
+      v10 = 0xEEEEB0B5B2B2EEEELL;
     }
 
-    if (os_signpost_enabled(v6))
+    if (os_signpost_enabled(v8))
     {
-      LOWORD(v16) = 0;
-      _os_signpost_emit_with_name_impl(&dword_231618000, v6, OS_SIGNPOST_INTERVAL_END, v8, "Car-RequestValues", &unk_231733279, &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_231618000, v8, OS_SIGNPOST_INTERVAL_END, v10, "Car-RequestValues", &unk_231733279, &v17, 2u);
     }
 
     goto LABEL_24;
   }
 
-  v9 = CAFGeneralLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = CAFGeneralLogging(v4);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_3((a1 + 40));
+    __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_3();
   }
 
-  v4 = CARSignpostLogForCategory();
+  v5 = CARSignpostLogForCategory();
   if (*(a1 + 32))
   {
-    v10 = CARSignpostLogForCategory();
-    v11 = os_signpost_id_make_with_pointer(v10, *(a1 + 32));
+    v12 = CARSignpostLogForCategory();
+    v13 = os_signpost_id_make_with_pointer(v12, *(a1 + 32));
 
-    if (v11 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+    if (v13 - 1 > 0xFFFFFFFFFFFFFFFDLL)
     {
       goto LABEL_25;
     }
@@ -1663,18 +1662,16 @@ LABEL_24:
 
   else
   {
-    v11 = 0xEEEEB0B5B2B2EEEELL;
+    v13 = 0xEEEEB0B5B2B2EEEELL;
   }
 
-  if (os_signpost_enabled(v4))
+  if (os_signpost_enabled(v5))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_231618000, v4, OS_SIGNPOST_INTERVAL_END, v11, "Car-RequestValues", &unk_231733279, &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_231618000, v5, OS_SIGNPOST_INTERVAL_END, v13, "Car-RequestValues", &unk_231733279, &v17, 2u);
   }
 
 LABEL_25:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestControl:(id)control value:(id)value response:(id)response
@@ -1711,6 +1708,24 @@ LABEL_25:
   [carManager writeCharacteristic:characteristicCopy value:valueCopy response:responseCopy];
 }
 
+- (void)enableNotificationForCharacteristic:(id)characteristic enable:(BOOL)enable response:(id)response
+{
+  enableCopy = enable;
+  responseCopy = response;
+  characteristicCopy = characteristic;
+  carManager = [(CAFCar *)self carManager];
+  [carManager enableNotificationForCharacteristic:characteristicCopy enable:enableCopy response:responseCopy];
+}
+
+- (void)enableNotificationForControl:(id)control enable:(BOOL)enable response:(id)response
+{
+  enableCopy = enable;
+  responseCopy = response;
+  controlCopy = control;
+  carManager = [(CAFCar *)self carManager];
+  [carManager enableNotificationForControl:controlCopy enable:enableCopy response:responseCopy];
+}
+
 - (void)performGroupedRequest:(id)request key:(id)key value:(id)value withResponse:(id)response
 {
   responseCopy = response;
@@ -1732,38 +1747,36 @@ LABEL_25:
 
 - (void)refreshCharacteristics:(id)characteristics
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [characteristicsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [characteristicsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(characteristicsCopy);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) updateValueRequiringRead:1];
+        [*(*(&v8 + 1) + 8 * v7++) updateValueRequiringRead:1];
       }
 
       while (v5 != v7);
-      v5 = [characteristicsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [characteristicsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accessoryReceivedAllValues:(id)values
@@ -1822,14 +1835,11 @@ LABEL_25:
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
   allAccessories = [self allAccessories];
   [allAccessories count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CAFCarObserver)combineObserver
@@ -2762,88 +2772,73 @@ uint64_t __51__CAFCar_CAFNowPlaying__mediaSourceWithIdentifier___block_invoke(ui
 
 - (void)initWithManager:car:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_cold_1(uint64_t a1)
+void __29__CAFCar__refreshAccessories__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_cold_2(uint64_t *a1, uint64_t *a2)
+void __29__CAFCar__refreshAccessories__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, a2, *MEMORY[0x277D85DE8]);
-  *(v2 + 24);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_231618000, v3, v4, "%{public}@ done didUpdate=%@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_231618000, v0, v1, "%{public}@ done didUpdate=%@");
 }
 
 void __29__CAFCar__refreshAccessories__block_invoke_92_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__CAFCar__refreshAccessories__block_invoke_92_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__CAFCar__refreshAccessories__block_invoke_92_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_94_cold_1(uint64_t *a1)
+void __29__CAFCar__refreshAccessories__block_invoke_94_cold_1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_231618000, v1, v2, "New accessory from pluginID: %@ instanceID: %@ found");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_231618000, v0, v1, "New accessory from pluginID: %@ instanceID: %@ found");
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_94_cold_2(uint64_t *a1)
+void __29__CAFCar__refreshAccessories__block_invoke_94_cold_2()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v1, v2, "Creating accessory from pluginID: %@ instanceID: %@ failed");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_231618000, v0, v1, "Creating accessory from pluginID: %@ instanceID: %@ failed");
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_94_cold_3(uint64_t a1)
+void __29__CAFCar__refreshAccessories__block_invoke_94_cold_3()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v1, v2, "Parsing accessory config from pluginID: %@ failed for instanceID", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Parsing accessory config from pluginID: %@ failed for instanceID", v2, v3, v4, v5);
 }
 
-void __29__CAFCar__refreshAccessories__block_invoke_94_cold_4(uint64_t a1)
+void __29__CAFCar__refreshAccessories__block_invoke_94_cold_4()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v1, v2, "Parsing accessory config from pluginID: %@ failed for accessory", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Parsing accessory config from pluginID: %@ failed for accessory", v2, v3, v4, v5);
 }
 
 - (void)_groupInitialization:controls:.cold.1()
@@ -2867,156 +2862,115 @@ void __40__CAFCar__groupInitialization_controls___block_invoke_109_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __25__CAFCar_trimAccessories__block_invoke_cold_1(uint64_t a1)
+void __25__CAFCar_trimAccessories__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __47__CAFCar_removeRegistrationForCharacteristics___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   [*(a1 + 40) count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void __44__CAFCar_addRegistrationForCharacteristics___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   [*(a1 + 40) count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 - (void)didUpdatePluginID:(NSObject *)a3 values:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = objc_opt_class();
-  v4 = v9;
-  _os_log_error_impl(&dword_231618000, a3, OS_LOG_TYPE_ERROR, "Error updating pluginID: %@ with wrong updates type: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = objc_opt_class();
+  v4 = v8;
+  _os_log_error_impl(&dword_231618000, a3, OS_LOG_TYPE_ERROR, "Error updating pluginID: %@ with wrong updates type: %@", &v5, 0x16u);
 }
 
 - (void)didUpdatePluginID:(uint64_t)a1 values:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   [a2 count];
   v3 = [a2 allKeys];
   v4 = [v3 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didUpdatePluginID:values:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Error updating pluginID: %@ without values", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_1(id *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [*a1 count];
   [a2 count];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_2(uint64_t *a1, id *a2)
+void __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_2(uint64_t a1, id *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   [*a2 count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_3(uint64_t *a1)
+void __35__CAFCar_didUpdatePluginID_values___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v1, v2, "Update values from pluginID: %@, but updatables do not exist.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Update values from pluginID: %@, but updatables do not exist.", v2, v3, v4, v5);
 }
 
-void __35__CAFCar_didUpdatePluginID_values___block_invoke_116_cold_1(uint64_t a1)
+void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v2, v3, "Received update from pluginID: %@, but updatable for instanceID: %@ does not exist.");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_231618000, v0, v1, "Request received from pluginID: %@, but updatable for instanceID: %@ is not a control.");
 }
 
-void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_1(uint64_t *a1, uint64_t *a2)
+void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v2, v3, "Request received from pluginID: %@, but updatable for instanceID: %@ is not a control.");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_231618000, v0, v1, "Request received from pluginID: %@, but updatable for instanceID: %@ does not exist.");
 }
 
-void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_2(uint64_t *a1, uint64_t *a2)
+void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_5_0(a1, a2, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v2, v3, "Request received from pluginID: %@, but updatable for instanceID: %@ does not exist.");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __59__CAFCar_didRequestPluginID_instanceID_value_withResponse___block_invoke_cold_3(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v1, v2, "Request received from pluginID: %@, but updatables do not exist.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Request received from pluginID: %@, but updatables do not exist.", v2, v3, v4, v5);
 }
 
-void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_1(uint64_t *a1, uint64_t *a2)
+void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_0(a1, a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v2, v3, "Notification received from pluginID: %@, but updatable for instanceID: %@ is not a control.");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_231618000, v0, v1, "Notification received from pluginID: %@, but updatable for instanceID: %@ is not a control.");
 }
 
-void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_2(uint64_t *a1, uint64_t *a2)
+void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_231618000, v2, v3, "Notification received from pluginID: %@, but updatable for instanceID: %@ does not exist.");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_231618000, v0, v1, "Notification received from pluginID: %@, but updatable for instanceID: %@ does not exist.");
 }
 
-void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_3(uint64_t *a1)
+void __45__CAFCar_didNotifyPluginID_instanceID_value___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_8_0(&dword_231618000, v1, v2, "Notification received from pluginID: %@, but updatables do not exist.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_231618000, v0, v1, "Notification received from pluginID: %@, but updatables do not exist.", v2, v3, v4, v5);
 }
 
 @end

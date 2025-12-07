@@ -9,8 +9,12 @@
 - (void)dealloc;
 - (void)didReceiveMemoryWarning;
 - (void)preferredContentSizeChanged:(id)changed;
+- (void)setCertificateTitle:(id)title issuer:(id)issuer purpose:(id)purpose expiration:(id)expiration properties:(id)properties isRoot:(BOOL)root action:(int)action;
+- (void)setShowCertificateButton:(BOOL)button localizedTitle:(id)title localizedDescription:(id)description destructive:(BOOL)destructive handler:(id)handler;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CertificateViewController
@@ -68,11 +72,76 @@
   [(CertificateViewController *)&v2 viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CertificateViewController;
+  [(CertificateViewController *)&v5 viewWillAppear:appear];
+  tableView = [(CertificateViewController *)self tableView];
+  [tableView reloadData];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CertificateViewController;
+  [(CertificateViewController *)&v4 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"kCertInfoSheetViewControllerDismissedNotification" object:0];
+}
+
 - (void)didReceiveMemoryWarning
 {
   v2.receiver = self;
   v2.super_class = CertificateViewController;
   [(CertificateViewController *)&v2 didReceiveMemoryWarning];
+}
+
+- (void)setCertificateTitle:(id)title issuer:(id)issuer purpose:(id)purpose expiration:(id)expiration properties:(id)properties isRoot:(BOOL)root action:(int)action
+{
+  rootCopy = root;
+  propertiesCopy = properties;
+  expirationCopy = expiration;
+  purposeCopy = purpose;
+  issuerCopy = issuer;
+  [(CertificateViewController *)self setCertificateTitle:title];
+  [(CertificateViewController *)self setCertificateIssuer:issuerCopy];
+
+  [(CertificateViewController *)self setCertificatePurpose:purposeCopy];
+  [(CertificateViewController *)self setCertificateExpiration:expirationCopy];
+
+  [(CertificateViewController *)self setCertificateProperties:propertiesCopy];
+  [(CertificateViewController *)self setCertificateIsRoot:rootCopy];
+  [(CertificateViewController *)self setCertUIAction:action];
+  tableView = [(CertificateViewController *)self tableView];
+  [tableView reloadData];
+}
+
+- (void)setShowCertificateButton:(BOOL)button localizedTitle:(id)title localizedDescription:(id)description destructive:(BOOL)destructive handler:(id)handler
+{
+  destructiveCopy = destructive;
+  buttonCopy = button;
+  titleCopy = title;
+  descriptionCopy = description;
+  handlerCopy = handler;
+  [(CertificateViewController *)self setShowCertificateButton:buttonCopy];
+  if (buttonCopy)
+  {
+    [(CertificateViewController *)self setCertificateButtonTitle:titleCopy];
+    [(CertificateViewController *)self setCertificateButtonDescription:descriptionCopy];
+    [(CertificateViewController *)self setCertificateButtonActionHandler:handlerCopy];
+    [(CertificateViewController *)self setCertificateButtonIsDestructiveAction:destructiveCopy];
+  }
+
+  else
+  {
+    [(CertificateViewController *)self setCertificateButtonTitle:0];
+    [(CertificateViewController *)self setCertificateButtonDescription:0];
+    [(CertificateViewController *)self setCertificateButtonActionHandler:0];
+  }
+
+  tableView = [(CertificateViewController *)self tableView];
+  [tableView reloadData];
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view

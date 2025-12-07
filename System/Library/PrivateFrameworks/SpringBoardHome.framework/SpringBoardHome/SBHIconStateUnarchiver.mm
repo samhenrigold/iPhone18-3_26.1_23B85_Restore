@@ -171,14 +171,15 @@ LABEL_3:
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       v9 = [(SBHIconStateUnarchiver *)self _iconFromRepresentation:representationCopy withContext:contextCopy];
       goto LABEL_3;
     }
 
-    v14 = SBLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = SBLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateUnarchiver _nodeFromRepresentation:context:];
     }
@@ -207,7 +208,7 @@ LABEL_11:
 
 - (id)_iconFromRepresentation:(id)representation withContext:(id)context
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   contextCopy = context;
   iconSource = [(SBHIconStateUnarchiver *)self iconSource];
@@ -228,50 +229,51 @@ LABEL_11:
     }
 
     effectiveDelegate = v12;
-    if (([v12 isEqualToString:v11] & 1) == 0)
+    v19 = [v12 isEqualToString:v11];
+    if ((v19 & 1) == 0)
     {
-      v17 = SBLogIcon();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v20 = SBLogIcon(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v29 = 138412546;
-        v30 = v11;
-        v31 = 2112;
-        v32 = effectiveDelegate;
-        _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_INFO, "Migrated identifier for %@ to %@", &v29, 0x16u);
+        v35 = 138412546;
+        v36 = v11;
+        v37 = 2112;
+        v38 = effectiveDelegate;
+        _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_INFO, "Migrated identifier for %@ to %@", &v35, 0x16u);
       }
 
       [contextCopy _noteSignificantDeviation];
     }
 
-    v18 = [iconSource leafIconForIdentifier:effectiveDelegate];
-    v19 = v18;
-    if (iconModel && v18)
+    v21 = [iconSource leafIconForIdentifier:effectiveDelegate];
+    v22 = v21;
+    if (iconModel && v21)
     {
-      if (([iconModel isIconVisible:v18] & 1) == 0)
+      if (([iconModel isIconVisible:v21] & 1) == 0)
       {
 
 LABEL_22:
-        v20 = SBLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v23 = SBLogCommon(v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = 138412290;
-          v30 = v11;
-          _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "could not find icon for representation -> %@", &v29, 0xCu);
+          v35 = 138412290;
+          v36 = v11;
+          _os_log_impl(&dword_1BEB18000, v23, OS_LOG_TYPE_DEFAULT, "could not find icon for representation -> %@", &v35, 0xCu);
         }
 
         if ([(SBHIconStateUnarchiver *)self shouldLeaveGapForMissingIconWithIdentifier:effectiveDelegate])
         {
-          v19 = [(SBLeafIcon *)[SBHIconStateUnarchivingSlugIcon alloc] initWithLeafIdentifier:effectiveDelegate applicationBundleID:0];
+          v22 = [(SBLeafIcon *)[SBHIconStateUnarchivingSlugIcon alloc] initWithLeafIdentifier:effectiveDelegate applicationBundleID:0];
         }
 
         else
         {
-          v19 = 0;
+          v22 = 0;
         }
       }
     }
 
-    else if (!v18)
+    else if (!v21)
     {
       goto LABEL_22;
     }
@@ -282,10 +284,11 @@ LABEL_32:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = SBLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = SBLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
     }
@@ -298,11 +301,11 @@ LABEL_32:
   {
     if ([v11 isEqual:@"app"])
     {
-      v13 = [(SBHIconStateUnarchiver *)self _applicationIconFromRepresentation:representationCopy context:contextCopy];
-      if (!v13)
+      v14 = [(SBHIconStateUnarchiver *)self _applicationIconFromRepresentation:representationCopy context:contextCopy];
+      if (!v14)
       {
-        v14 = SBLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = SBLogCommon(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
         }
@@ -311,13 +314,13 @@ LABEL_32:
       }
 
 LABEL_35:
-      v19 = v13;
+      v22 = v14;
       goto LABEL_38;
     }
 
     if ([v11 isEqual:@"fileStack"])
     {
-      v13 = [(SBHIconStateUnarchiver *)self _fileStackIconFromRepresentation:representationCopy context:contextCopy];
+      v14 = [(SBHIconStateUnarchiver *)self _fileStackIconFromRepresentation:representationCopy context:contextCopy];
       goto LABEL_35;
     }
 
@@ -327,33 +330,33 @@ LABEL_35:
     }
 
     effectiveDelegate = [(SBHIconStateUnarchiver *)self effectiveDelegate];
-    v25 = [representationCopy objectForKey:@"iconLists"];
-    if (v25)
+    v30 = [representationCopy objectForKey:@"iconLists"];
+    if (v30)
     {
     }
 
     else if (objc_opt_respondsToSelector())
     {
-      v19 = [effectiveDelegate iconStateUnarchiver:self iconForRepresentation:representationCopy];
-      if (v19)
+      v22 = [effectiveDelegate iconStateUnarchiver:self iconForRepresentation:representationCopy];
+      if (v22)
       {
         goto LABEL_32;
       }
     }
 
     [contextCopy _noteEnteredNode];
-    v26 = [(SBHIconStateUnarchiver *)self _folderFromRepresentation:representationCopy withContext:contextCopy];
-    v27 = v26;
-    if (!v26 || [v26 isEmpty] && -[SBHIconStateUnarchiver removesEmptyFolders](self, "removesEmptyFolders") && objc_msgSend(v27, "shouldRemoveWhenEmpty"))
+    v31 = [(SBHIconStateUnarchiver *)self _folderFromRepresentation:representationCopy withContext:contextCopy];
+    v32 = v31;
+    if (!v31 || [v31 isEmpty] && -[SBHIconStateUnarchiver removesEmptyFolders](self, "removesEmptyFolders") && objc_msgSend(v32, "shouldRemoveWhenEmpty"))
     {
-      [contextCopy _noteExitedNode];
+      _noteExitedNode = [contextCopy _noteExitedNode];
     }
 
     else
     {
-      v19 = [(SBHIconStateUnarchiver *)self _newFolderIconForFolder:v27];
-      [contextCopy _noteExitedNode];
-      if (v19)
+      v22 = [(SBHIconStateUnarchiver *)self _newFolderIconForFolder:v32];
+      _noteExitedNode = [contextCopy _noteExitedNode];
+      if (v22)
       {
 LABEL_68:
 
@@ -361,24 +364,24 @@ LABEL_68:
       }
     }
 
-    v28 = SBLogCommon();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v34 = SBLogCommon(_noteExitedNode);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
     }
 
-    v19 = 0;
+    v22 = 0;
     goto LABEL_68;
   }
 
-  v13 = [(SBHIconStateUnarchiver *)self _widgetIconFromRepresentation:representationCopy context:contextCopy];
-  if (v13)
+  v14 = [(SBHIconStateUnarchiver *)self _widgetIconFromRepresentation:representationCopy context:contextCopy];
+  if (v14)
   {
     goto LABEL_35;
   }
 
-  v14 = SBLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = SBLogCommon(0);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
   }
@@ -387,16 +390,17 @@ LABEL_30:
 
   [contextCopy _noteSignificantDeviation];
 LABEL_37:
-  v19 = 0;
+  v22 = 0;
 LABEL_38:
 
-  if (v19)
+  if (v22)
   {
-    nodeIdentifier = [(SBLeafIcon *)v19 nodeIdentifier];
-    if ([contextCopy _isNodeIdentifierAlreadyUnarchived:nodeIdentifier])
+    nodeIdentifier = [(SBLeafIcon *)v22 nodeIdentifier];
+    v25 = [contextCopy _isNodeIdentifierAlreadyUnarchived:nodeIdentifier];
+    if (v25)
     {
-      v22 = SBLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = SBLogCommon(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
       }
@@ -404,7 +408,7 @@ LABEL_38:
 
     else
     {
-      if (!iconModel || [iconModel isIconVisible:v19])
+      if (!iconModel || (v28 = [iconModel isIconVisible:v22], v28))
       {
         [contextCopy _noteNodeIdentifierWasUnarchived:nodeIdentifier];
 LABEL_51:
@@ -412,32 +416,32 @@ LABEL_51:
         goto LABEL_52;
       }
 
-      v22 = SBLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = SBLogCommon(v28);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [SBHIconStateUnarchiver _iconFromRepresentation:withContext:];
       }
     }
 
     [contextCopy _noteSignificantDeviation];
-    v19 = 0;
+    v22 = 0;
     goto LABEL_51;
   }
 
 LABEL_42:
-  v23 = SBLogCommon();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v27 = SBLogCommon(v17);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
-    v29 = 138412290;
-    v30 = representationCopy;
-    _os_log_impl(&dword_1BEB18000, v23, OS_LOG_TYPE_INFO, "could not find icon for representation=%@", &v29, 0xCu);
+    v35 = 138412290;
+    v36 = representationCopy;
+    _os_log_impl(&dword_1BEB18000, v27, OS_LOG_TYPE_INFO, "could not find icon for representation=%@", &v35, 0xCu);
   }
 
   [contextCopy _noteSignificantDeviation];
-  v19 = 0;
+  v22 = 0;
 LABEL_52:
 
-  return v19;
+  return v22;
 }
 
 - (Class)_folderClassForFolderType:(id)type context:(id)context
@@ -1018,7 +1022,7 @@ LABEL_8:
 
 - (id)_folderFromRepresentation:(id)representation withContext:(id)context
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   contextCopy = context;
   v8 = [representationCopy objectForKey:@"listType"];
@@ -1037,25 +1041,25 @@ LABEL_8:
   if (v10)
   {
     v11 = v10;
-    v76 = contextCopy;
+    v80 = contextCopy;
     v12 = v8;
     v13 = [(SBHIconStateUnarchiver *)self _listGridSizeForFolderClass:v10];
     _maxListCountForFolders = [(SBHIconStateUnarchiver *)self _maxListCountForFolders];
     _gridSizeClassSizes = [(SBHIconStateUnarchiver *)self _gridSizeClassSizes];
-    v87 = 0;
-    v88 = 0;
-    v86 = 0;
+    v91 = 0;
+    v92 = 0;
+    v90 = 0;
     v16 = representationCopy;
-    [(SBHIconStateUnarchiver *)self _getFolderDisplayName:&v88 defaultDisplayName:&v87 uniqueIdentifier:&v86 forRepresentation:representationCopy];
-    v17 = v88;
-    v18 = v87;
-    v19 = v86;
+    [(SBHIconStateUnarchiver *)self _getFolderDisplayName:&v92 defaultDisplayName:&v91 uniqueIdentifier:&v90 forRepresentation:representationCopy];
+    v17 = v92;
+    v18 = v91;
+    v19 = v90;
     v20 = [v11 alloc];
-    v72 = v19;
-    v73 = v17;
+    v76 = v19;
+    v77 = v17;
     v21 = _maxListCountForFolders;
     v22 = v18;
-    v74 = _gridSizeClassSizes;
+    v78 = _gridSizeClassSizes;
     v23 = [v20 initWithUniqueIdentifier:v19 displayName:v17 maxListCount:v21 listGridSize:*&v13 iconGridSizeClassSizes:_gridSizeClassSizes];
     v24 = v23;
     if (v18)
@@ -1063,83 +1067,84 @@ LABEL_8:
       [v23 setDefaultDisplayName:v18];
     }
 
-    v75 = [(SBHIconStateUnarchiver *)self propertiesForFolderClass:v11];
+    v79 = [(SBHIconStateUnarchiver *)self propertiesForFolderClass:v11];
     [SBHIconStateUnarchiver applyProperties:"applyProperties:asDefaultPropertiesToFolder:" asDefaultPropertiesToFolder:?];
-    v71 = [v24 startCoalescingContentChangesForReason:@"folderFromRepresentation"];
-    [v76 _pushFolder:v24];
+    v75 = [v24 startCoalescingContentChangesForReason:@"folderFromRepresentation"];
+    [v80 _pushFolder:v24];
     representationCopy = v16;
     v25 = [v16 objectForKey:@"iconLists"];
     v8 = v12;
     if (v25)
     {
-      v69 = v22;
+      v73 = v22;
       v26 = [representationCopy objectForKey:@"listUniqueIdentifiers"];
       v27 = [representationCopy objectForKey:@"listMetadata"];
       objc_opt_class();
       v28 = v25;
-      if (objc_opt_isKindOfClass() & 1) != 0 && (!v26 || (objc_opt_self(), v29 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v29, (isKindOfClass)))
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass & 1) != 0 && (!v26 || (objc_opt_self(), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_opt_isKindOfClass(), v30, (v31)))
       {
-        v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v28, "count")}];
-        v78[0] = MEMORY[0x1E69E9820];
-        v78[1] = 3221225472;
-        v78[2] = __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke;
-        v78[3] = &unk_1E808A6A0;
-        v79 = v26;
-        v80 = v31;
-        v32 = v24;
-        v81 = v32;
+        v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v28, "count")}];
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v82[2] = __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke;
+        v82[3] = &unk_1E808A6A0;
+        v83 = v26;
+        v84 = v32;
+        v33 = v24;
+        v85 = v33;
         selfCopy = self;
-        v83 = v75;
-        contextCopy = v76;
-        v84 = v76;
-        v85 = v27;
-        v33 = v31;
-        [v28 enumerateObjectsUsingBlock:v78];
+        v87 = v79;
+        contextCopy = v80;
+        v88 = v80;
+        v89 = v27;
         v34 = v32;
+        [v28 enumerateObjectsUsingBlock:v82];
+        v35 = v33;
         v25 = v28;
-        [v34 _setLists:v33];
+        [v35 _setLists:v34];
       }
 
       else
       {
-        v36 = SBLogCommon();
-        contextCopy = v76;
+        v37 = SBLogCommon(isKindOfClass);
+        contextCopy = v80;
         v25 = v28;
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _folderFromRepresentation:withContext:];
         }
 
-        [v76 _noteRepresentationIsCorrupted];
+        [v80 _noteRepresentationIsCorrupted];
       }
 
-      v22 = v69;
+      v22 = v73;
     }
 
     else
     {
-      v37 = SBLogCommon();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = SBLogCommon(0);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         [SBHIconStateUnarchiver _folderFromRepresentation:withContext:];
       }
 
-      contextCopy = v76;
-      [v76 _noteRepresentationIsCorrupted];
+      contextCopy = v80;
+      [v80 _noteRepresentationIsCorrupted];
     }
 
-    v38 = objc_opt_self();
-    v39 = objc_opt_isKindOfClass();
+    v39 = objc_opt_self();
+    v40 = objc_opt_isKindOfClass();
 
-    if (v39)
+    if (v40)
     {
-      v40 = v24;
-      v41 = [representationCopy objectForKey:@"buttonBar"];
-      v67 = v41;
-      if (v41 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v41 = v24;
+      v42 = [representationCopy objectForKey:@"buttonBar"];
+      v71 = v42;
+      if (v42 && (objc_opt_class(), v43 = objc_opt_isKindOfClass(), (v43 & 1) == 0))
       {
-        v44 = SBLogCommon();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v46 = SBLogCommon(v43);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _folderFromRepresentation:withContext:];
         }
@@ -1150,40 +1155,40 @@ LABEL_8:
       else
       {
         dockListProperties = [(SBHIconStateUnarchiver *)self dockListProperties];
-        v43 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v41 properties:dockListProperties identifier:0 context:contextCopy overflow:0];
-        [v40 _setDock:v43];
+        v45 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v42 properties:dockListProperties identifier:0 context:contextCopy overflow:0];
+        [v41 _setDock:v45];
       }
 
-      v77 = v40;
+      v81 = v41;
       effectiveDelegate = [(SBHIconStateUnarchiver *)self effectiveDelegate];
       if ((objc_opt_respondsToSelector() & 1) != 0 && [effectiveDelegate isDockUtilitiesSupportedForIconStateUnarchiver:self])
       {
-        v45 = [representationCopy objectForKey:@"dockUtilities"];
-        if (v45 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        v47 = [representationCopy objectForKey:@"dockUtilities"];
+        if (v47 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
-          v66 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+          v70 = objc_alloc_init(MEMORY[0x1E695DEC8]);
           [(SBHIconStateUnarchiver *)self dockListProperties];
-          v49 = v47 = v45;
-          dockUtilitiesListProperties = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v66 properties:v49 identifier:0 context:contextCopy overflow:0];
+          v51 = v49 = v47;
+          dockUtilitiesListProperties = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v70 properties:v51 identifier:0 context:contextCopy overflow:0];
 
-          [v77 _setDockUtilities:dockUtilitiesListProperties];
+          [v81 _setDockUtilities:dockUtilitiesListProperties];
         }
 
         else
         {
           dockUtilitiesListProperties = [(SBHIconStateUnarchiver *)self dockUtilitiesListProperties];
-          [(SBHIconStateUnarchiver *)self _listFromRepresentation:v45 properties:dockUtilitiesListProperties identifier:0 context:contextCopy overflow:0];
-          v48 = v47 = v45;
-          [v77 _setDockUtilities:v48];
+          [(SBHIconStateUnarchiver *)self _listFromRepresentation:v47 properties:dockUtilitiesListProperties identifier:0 context:contextCopy overflow:0];
+          v50 = v49 = v47;
+          [v81 _setDockUtilities:v50];
         }
       }
 
-      v50 = [representationCopy objectForKey:@"today"];
-      v68 = v25;
-      if (v50 && (objc_opt_self(), v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_opt_isKindOfClass(), v51, (v52 & 1) == 0))
+      v52 = [representationCopy objectForKey:@"today"];
+      v72 = v25;
+      if (v52 && (objc_opt_self(), v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_opt_isKindOfClass(), v53, (v54 & 1) == 0))
       {
-        v55 = SBLogCommon();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v58 = SBLogCommon(v55);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _folderFromRepresentation:withContext:];
         }
@@ -1194,32 +1199,32 @@ LABEL_8:
       else
       {
         todayListProperties = [(SBHIconStateUnarchiver *)self todayListProperties];
-        v54 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v50 properties:todayListProperties identifier:0 context:contextCopy overflow:0];
-        [v77 _setTodayList:v54];
+        v57 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v52 properties:todayListProperties identifier:0 context:contextCopy overflow:0];
+        [v81 _setTodayList:v57];
       }
 
-      v56 = [representationCopy objectForKey:@"ignored"];
-      if (v56 && (objc_opt_self(), v57 = objc_claimAutoreleasedReturnValue(), v58 = objc_opt_isKindOfClass(), v57, (v58 & 1) == 0))
+      v59 = [representationCopy objectForKey:@"ignored"];
+      if (v59 && (objc_opt_self(), v60 = objc_claimAutoreleasedReturnValue(), v61 = objc_opt_isKindOfClass(), v60, (v61 & 1) == 0))
       {
-        v62 = SBLogCommon();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        v66 = SBLogCommon(v62);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _folderFromRepresentation:withContext:];
         }
 
         [contextCopy _noteRepresentationIsCorrupted];
-        v25 = v68;
-        v61 = v77;
+        v25 = v72;
+        v65 = v81;
       }
 
       else
       {
         ignoredListProperties = [(SBHIconStateUnarchiver *)self ignoredListProperties];
-        v60 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v56 properties:ignoredListProperties identifier:0 context:contextCopy overflow:0];
-        [v77 _setIgnoredList:v60];
+        v64 = [(SBHIconStateUnarchiver *)self _listFromRepresentation:v59 properties:ignoredListProperties identifier:0 context:contextCopy overflow:0];
+        [v81 _setIgnoredList:v64];
 
-        v61 = v77;
-        v25 = v68;
+        v65 = v81;
+        v25 = v72;
       }
     }
 
@@ -1231,18 +1236,18 @@ LABEL_8:
     }
 
     _popFolder = [contextCopy _popFolder];
-    [v71 invalidate];
+    [v75 invalidate];
     [v24 markIconStateClean];
   }
 
   else
   {
-    v35 = SBLogCommon();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    v36 = SBLogCommon(0);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v90 = representationCopy;
-      _os_log_impl(&dword_1BEB18000, v35, OS_LOG_TYPE_INFO, "could not construct folder for representation=%@", buf, 0xCu);
+      v94 = representationCopy;
+      _os_log_impl(&dword_1BEB18000, v36, OS_LOG_TYPE_INFO, "could not construct folder for representation=%@", buf, 0xCu);
     }
 
     [contextCopy _noteSignificantDeviation];
@@ -1254,7 +1259,7 @@ LABEL_8:
 
 void __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([*(a1 + 32) count] <= a3)
   {
@@ -1263,20 +1268,22 @@ void __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_
 
   else
   {
-    v6 = [*(a1 + 32) objectAtIndex:a3];
+    v6 = objc_msgSend_objectAtIndex_(*(a1 + 32));
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (!v6 || (objc_opt_self(), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_opt_isKindOfClass(), v7, (v8)))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (!v6 || (objc_opt_self(), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_opt_isKindOfClass(), v8, (v9)))
   {
-    v9 = [*(a1 + 40) count];
-    if (v9 < [*(a1 + 48) maxListCount])
+    v10 = [*(a1 + 40) count];
+    v11 = [*(a1 + 48) maxListCount];
+    if (v10 < v11)
     {
-      v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v11 = [*(a1 + 56) _listFromRepresentation:v5 properties:*(a1 + 64) identifier:v6 context:*(a1 + 72) overflow:v10];
-      if (v11)
+      v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v13 = [*(a1 + 56) _listFromRepresentation:v5 properties:*(a1 + 64) identifier:v6 context:*(a1 + 72) overflow:v12];
+      if (v13)
       {
-        [*(a1 + 40) addObject:v11];
+        [*(a1 + 40) addObject:v13];
       }
 
       if (!v6)
@@ -1284,89 +1291,89 @@ void __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_
         goto LABEL_47;
       }
 
-      v12 = [*(a1 + 80) objectForKey:v6];
-      if (!v12)
+      v14 = [*(a1 + 80) objectForKey:v6];
+      if (!v14)
       {
         goto LABEL_47;
       }
 
-      v13 = v12;
-      v14 = [v12 objectForKey:@"hiddenDate"];
-      v62 = v14;
-      if (v14)
+      v15 = v14;
+      v16 = [v14 objectForKey:@"hiddenDate"];
+      v66 = v16;
+      if (v16)
       {
-        v15 = v14;
-        v16 = v11;
-        v17 = 1;
-        v18 = v15;
+        v17 = v16;
+        v18 = v13;
+        v19 = 1;
+        v20 = v17;
       }
 
       else
       {
-        v16 = v11;
-        v17 = 0;
-        v18 = 0;
+        v18 = v13;
+        v19 = 0;
+        v20 = 0;
       }
 
-      [v16 setHidden:v17 byUser:1 hiddenDate:v18];
-      v61 = [v13 objectForKey:@"focusModeIdentifiers"];
-      v60 = [MEMORY[0x1E695DFD8] setWithArray:?];
-      [v11 setFocusModeIdentifiers:?];
-      v21 = [v13 objectForKey:@"overflowSlotCount"];
-      v22 = v13;
-      v23 = [v21 unsignedIntegerValue];
+      [v18 setHidden:v19 byUser:1 hiddenDate:v20];
+      v65 = [v15 objectForKey:@"focusModeIdentifiers"];
+      v64 = [MEMORY[0x1E695DFD8] setWithArray:?];
+      [v13 setFocusModeIdentifiers:?];
+      v23 = [v15 objectForKey:@"overflowSlotCount"];
+      v24 = v15;
+      v25 = [v23 unsignedIntegerValue];
 
-      [v11 setOverflowSlotCount:v23];
-      v64 = v22;
-      v24 = [v22 objectForKey:@"rotatedOrder"];
-      v25 = objc_opt_self();
-      v63 = v24;
-      LOBYTE(v24) = objc_opt_isKindOfClass();
+      [v13 setOverflowSlotCount:v25];
+      v68 = v24;
+      v26 = [v24 objectForKey:@"rotatedOrder"];
+      v27 = objc_opt_self();
+      v67 = v26;
+      LOBYTE(v26) = objc_opt_isKindOfClass();
 
-      if (v24)
+      if (v26)
       {
-        v69 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v63, "count")}];
-        v73 = 0u;
-        v74 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        obj = v63;
-        v26 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
-        if (v26)
+        v73 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v67, "count")}];
+        v77 = 0u;
+        v78 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        obj = v67;
+        v28 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
+        if (v28)
         {
-          v27 = v26;
-          v67 = *v74;
+          v29 = v28;
+          v71 = *v78;
 LABEL_24:
-          v28 = 0;
+          v30 = 0;
           while (1)
           {
-            if (*v74 != v67)
+            if (*v78 != v71)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v73 + 1) + 8 * v28);
-            v30 = objc_opt_self();
-            isKindOfClass = objc_opt_isKindOfClass();
+            v31 = *(*(&v77 + 1) + 8 * v30);
+            v32 = objc_opt_self();
+            v33 = objc_opt_isKindOfClass();
 
-            if ((isKindOfClass & 1) == 0)
+            if ((v33 & 1) == 0)
             {
               break;
             }
 
-            v32 = [v11 directlyContainedIconWithIdentifier:v29];
-            if (!v32)
+            v34 = [v13 directlyContainedIconWithIdentifier:v31];
+            if (!v34)
             {
               break;
             }
 
-            v33 = v32;
-            [v69 addObject:v32];
+            v35 = v34;
+            [v73 addObject:v34];
 
-            if (v27 == ++v28)
+            if (v29 == ++v30)
             {
-              v27 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
-              if (v27)
+              v29 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
+              if (v29)
               {
                 goto LABEL_24;
               }
@@ -1376,94 +1383,95 @@ LABEL_24:
           }
         }
 
-        v34 = [v69 count];
-        if (v34 == [v11 numberOfIcons])
+        v36 = [v73 count];
+        if (v36 == [v13 numberOfIcons])
         {
-          [v11 _setRotatedIcons:v69 clearRotatedFixedIconLocations:1];
+          [v13 _setRotatedIcons:v73 clearRotatedFixedIconLocations:1];
         }
       }
 
-      v35 = v64;
-      v70 = [v64 objectForKey:@"fixedLocations"];
-      v36 = [v64 objectForKey:@"fixedLocationsGridColumns"];
-      v37 = [v64 objectForKey:@"fixedLocationsGridRows"];
-      v38 = v37;
-      v39 = *(a1 + 64);
-      if (v39 && *(v39 + 64))
+      v37 = v68;
+      v74 = [v68 objectForKey:@"fixedLocations"];
+      v38 = [v68 objectForKey:@"fixedLocationsGridColumns"];
+      v39 = [v68 objectForKey:@"fixedLocationsGridRows"];
+      v40 = v39;
+      v41 = *(a1 + 64);
+      if (v41 && *(v41 + 64))
       {
-        v68 = v37;
-        v40 = objc_opt_self();
+        v72 = v39;
+        v42 = objc_opt_self();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_45:
 
-          v35 = v64;
-          v38 = v68;
+          v37 = v68;
+          v40 = v72;
           goto LABEL_46;
         }
 
-        v41 = objc_opt_self();
-        v42 = v36;
-        v43 = v41;
-        obja = v42;
+        v43 = objc_opt_self();
+        v44 = v38;
+        v45 = v43;
+        obja = v44;
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
 LABEL_44:
-          v36 = obja;
+          v38 = obja;
           goto LABEL_45;
         }
 
-        v44 = objc_opt_self();
-        v38 = v68;
-        v45 = objc_opt_isKindOfClass();
+        v46 = objc_opt_self();
+        v40 = v72;
+        v47 = objc_opt_isKindOfClass();
 
-        v35 = v64;
-        v36 = obja;
-        if (v45)
+        v37 = v68;
+        v38 = obja;
+        if (v47)
         {
-          v46 = [obja unsignedIntegerValue];
-          v47 = [v68 unsignedIntegerValue];
-          v48 = [v11 gridSize];
-          if (SBHIconGridSizeEqualToIconGridSize(v46 | (v47 << 16), v48))
+          v48 = [obja unsignedIntegerValue];
+          v49 = [v72 unsignedIntegerValue];
+          v50 = [v13 gridSize];
+          v51 = SBHIconGridSizeEqualToIconGridSize(v48 | (v49 << 16), v50);
+          if (v51)
           {
-            v49 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-            v71[0] = MEMORY[0x1E69E9820];
-            v71[1] = 3221225472;
-            v71[2] = __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke_2;
-            v71[3] = &unk_1E808A678;
-            v40 = v49;
-            v72 = v40;
-            [v11 enumerateIconsUsingBlock:v71];
-            v50 = [*(a1 + 56) _sanitizedFixedIconLocationsFromDictionary:v70 iconIdentifiers:v40];
-            [v11 addFixedIconLocations:v50 options:0];
-            [v11 removeFixedIconLocationsIfPossibleWithGridCellInfoOptions:0];
-            v51 = [v64 objectForKey:@"rotatedFixedLocations"];
-            v52 = objc_opt_self();
-            v53 = objc_opt_isKindOfClass();
+            v52 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v75[0] = MEMORY[0x1E69E9820];
+            v75[1] = 3221225472;
+            v75[2] = __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke_2;
+            v75[3] = &unk_1E808A678;
+            v42 = v52;
+            v76 = v42;
+            [v13 enumerateIconsUsingBlock:v75];
+            v53 = [*(a1 + 56) _sanitizedFixedIconLocationsFromDictionary:v74 iconIdentifiers:v42];
+            [v13 addFixedIconLocations:v53 options:0];
+            [v13 removeFixedIconLocationsIfPossibleWithGridCellInfoOptions:0];
+            v54 = [v68 objectForKey:@"rotatedFixedLocations"];
+            v55 = objc_opt_self();
+            v56 = objc_opt_isKindOfClass();
 
-            if (v53)
+            if (v56)
             {
-              v54 = [*(a1 + 56) _sanitizedFixedIconLocationsFromDictionary:v51 iconIdentifiers:v40];
-              [v11 setRotatedFixedIconLocations:v54];
-              [v11 removeFixedIconLocationsIfPossibleWithGridCellInfoOptions:2];
+              v57 = [*(a1 + 56) _sanitizedFixedIconLocationsFromDictionary:v54 iconIdentifiers:v42];
+              [v13 setRotatedFixedIconLocations:v57];
+              [v13 removeFixedIconLocationsIfPossibleWithGridCellInfoOptions:2];
             }
           }
 
           else
           {
-            v40 = SBLogCommon();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            v42 = SBLogCommon(v51);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218752;
-              v78 = v46;
-              v79 = 2048;
-              v80 = v47;
-              v81 = 2048;
               v82 = v48;
               v83 = 2048;
-              v84 = HIWORD(v48);
-              _os_log_impl(&dword_1BEB18000, v40, OS_LOG_TYPE_DEFAULT, "Discarding fixed icon positions because archived grid size (%lu×%lu) does not match actual list size (%lu×%lu)", buf, 0x2Au);
+              v84 = v49;
+              v85 = 2048;
+              v86 = v50;
+              v87 = 2048;
+              v88 = HIWORD(v50);
+              _os_log_impl(&dword_1BEB18000, v42, OS_LOG_TYPE_DEFAULT, "Discarding fixed icon positions because archived grid size (%lu×%lu) does not match actual list size (%lu×%lu)", buf, 0x2Au);
             }
           }
 
@@ -1476,35 +1484,36 @@ LABEL_46:
       do
       {
 LABEL_47:
-        v55 = v11;
-        if (![v10 count])
+        v58 = v13;
+        if (![v12 count])
         {
           break;
         }
 
-        v56 = [*(a1 + 40) count];
-        if (v56 >= [*(a1 + 48) maxListCount])
+        v59 = [*(a1 + 40) count];
+        if (v59 >= [*(a1 + 48) maxListCount])
         {
           break;
         }
 
-        v57 = [v10 copy];
-        [v10 removeAllObjects];
-        v11 = [*(a1 + 56) _listWithIcons:v57 properties:*(a1 + 64) identifier:0 folder:*(a1 + 48) overflow:v10];
+        v60 = [v12 copy];
+        [v12 removeAllObjects];
+        v13 = [*(a1 + 56) _listWithIcons:v60 properties:*(a1 + 64) identifier:0 folder:*(a1 + 48) overflow:v12];
 
-        if (v11 && ([v11 isEmpty] & 1) == 0)
+        if (v13 && ([v13 isEmpty] & 1) == 0)
         {
-          [*(a1 + 40) addObject:v11];
+          [*(a1 + 40) addObject:v13];
         }
 
-        v58 = [v57 isEqualToArray:v10];
+        v61 = [v60 isEqualToArray:v12];
       }
 
-      while (!v58);
-      if ([v10 count])
+      while (!v61);
+      v62 = [v12 count];
+      if (v62)
       {
-        v59 = SBLogCommon();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v63 = SBLogCommon(v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke_cold_3();
         }
@@ -1513,8 +1522,8 @@ LABEL_47:
       goto LABEL_58;
     }
 
-    v20 = SBLogCommon();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = SBLogCommon(v11);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke_cold_2();
     }
@@ -1522,8 +1531,8 @@ LABEL_47:
 
   else
   {
-    v19 = SBLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = SBLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___block_invoke_cold_1();
     }
@@ -1588,7 +1597,7 @@ uint64_t __64__SBHIconStateUnarchiver__folderFromRepresentation_withContext___bl
 
         else
         {
-          v23 = SBLogCommon();
+          v23 = SBLogCommon(0);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
@@ -1670,7 +1679,7 @@ uint64_t __79__SBHIconStateUnarchiver__listWithIcons_properties_identifier_folde
 
       else
       {
-        v18 = SBLogCommon();
+        v18 = SBLogCommon(0);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           v21 = 138412290;
@@ -1706,7 +1715,7 @@ uint64_t __79__SBHIconStateUnarchiver__listWithIcons_properties_identifier_folde
 
 - (id)_widgetIconFromRepresentation:(id)representation context:(id)context
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   contextCopy = context;
   v8 = [representationCopy objectForKey:@"displayIdentifier"];
@@ -1734,7 +1743,7 @@ uint64_t __79__SBHIconStateUnarchiver__listWithIcons_properties_identifier_folde
     if ([v18 isEqualToString:@"com.apple.news.widget"])
     {
       v19 = [representationCopy objectForKey:@"widgetIdentifier"];
-      v72 = v13;
+      v76 = v13;
       v20 = representationCopy;
       v21 = v14;
       selfCopy = self;
@@ -1746,7 +1755,7 @@ uint64_t __79__SBHIconStateUnarchiver__listWithIcons_properties_identifier_folde
       self = selfCopy;
       v14 = v21;
       representationCopy = v20;
-      v13 = v72;
+      v13 = v76;
     }
 
     else
@@ -1779,61 +1788,61 @@ LABEL_10:
 LABEL_11:
   selfCopy2 = self;
   v28 = [(SBHIconStateUnarchiver *)self _customIconElementFromRepresentation:representationCopy context:contextCopy];
-  v67 = v14;
-  v68 = v28;
+  v71 = v14;
+  v72 = v28;
   if (!v28)
   {
-    v71 = v17;
-    v33 = [representationCopy objectForKey:@"elements"];
-    v34 = objc_opt_self();
-    v35 = objc_opt_isKindOfClass();
+    v75 = v17;
+    v34 = [representationCopy objectForKey:@"elements"];
+    v35 = objc_opt_self();
+    v36 = objc_opt_isKindOfClass();
 
-    if ((v35 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
 
-      v64 = 0;
-      v17 = v71;
+      v68 = 0;
+      v17 = v75;
       goto LABEL_73;
     }
 
-    v66 = v8;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    uniqueIdentifier2 = v33;
-    v36 = [uniqueIdentifier2 countByEnumeratingWithState:&v74 objects:v82 count:16];
-    if (!v36)
+    v70 = v8;
+    v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    uniqueIdentifier2 = v34;
+    v37 = [uniqueIdentifier2 countByEnumeratingWithState:&v78 objects:v86 count:16];
+    if (!v37)
     {
 
-      v17 = v71;
+      v17 = v75;
       goto LABEL_56;
     }
 
-    v37 = v36;
-    v73 = v13;
-    v38 = *v75;
-    v70 = contextCopy;
+    v38 = v37;
+    v77 = v13;
+    v39 = *v79;
+    v74 = contextCopy;
 LABEL_20:
-    v39 = 0;
+    v40 = 0;
     while (1)
     {
-      if (*v75 != v38)
+      if (*v79 != v39)
       {
         objc_enumerationMutation(uniqueIdentifier2);
       }
 
-      v40 = *(*(&v74 + 1) + 8 * v39);
-      v41 = objc_opt_self();
-      v42 = objc_opt_isKindOfClass();
+      v41 = *(*(&v78 + 1) + 8 * v40);
+      v42 = objc_opt_self();
+      v43 = objc_opt_isKindOfClass();
 
-      if ((v42 & 1) == 0)
+      if ((v43 & 1) == 0)
       {
         goto LABEL_43;
       }
 
-      v43 = [(SBHIconStateUnarchiver *)self _customIconElementFromRepresentation:v40 context:contextCopy];
-      if (v43)
+      v44 = [(SBHIconStateUnarchiver *)self _customIconElementFromRepresentation:v41 context:contextCopy];
+      if (v44)
       {
         break;
       }
@@ -1841,15 +1850,15 @@ LABEL_20:
 LABEL_42:
 
 LABEL_43:
-      if (v37 == ++v39)
+      if (v38 == ++v40)
       {
-        v49 = [uniqueIdentifier2 countByEnumeratingWithState:&v74 objects:v82 count:16];
-        v37 = v49;
-        if (!v49)
+        v52 = [uniqueIdentifier2 countByEnumeratingWithState:&v78 objects:v86 count:16];
+        v38 = v52;
+        if (!v52)
         {
 
-          v17 = v71;
-          v13 = v73;
+          v17 = v75;
+          v13 = v77;
           goto LABEL_57;
         }
 
@@ -1857,53 +1866,55 @@ LABEL_43:
       }
     }
 
-    v44 = objc_opt_self();
+    v45 = objc_opt_self();
     if (objc_opt_isKindOfClass())
     {
-      uniqueIdentifier = [v43 uniqueIdentifier];
+      uniqueIdentifier = [v44 uniqueIdentifier];
 
       if (uniqueIdentifier)
       {
-        if ([contextCopy _isWidgetUniqueIdentifierAlreadyUnarchived:uniqueIdentifier])
+        v47 = [contextCopy _isWidgetUniqueIdentifierAlreadyUnarchived:uniqueIdentifier];
+        if (v47)
         {
-          v46 = SBLogCommon();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v48 = SBLogCommon(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v79 = v43;
-            v80 = 2112;
-            v81 = v73;
-            _os_log_error_impl(&dword_1BEB18000, v46, OS_LOG_TYPE_ERROR, "detected duplicate widget '%@' to icon '%@'", buf, 0x16u);
+            v83 = v44;
+            v84 = 2112;
+            v85 = v77;
+            _os_log_error_impl(&dword_1BEB18000, v48, OS_LOG_TYPE_ERROR, "detected duplicate widget '%@' to icon '%@'", buf, 0x16u);
           }
 
           goto LABEL_39;
         }
 
-        v47 = 0;
+        v49 = 0;
 LABEL_33:
-        if ([(SBHIconStateUnarchiver *)self _canAddIconDataSource:v43 toIcon:v73 withGridSizeClass:v71])
+        v50 = [(SBHIconStateUnarchiver *)self _canAddIconDataSource:v44 toIcon:v77 withGridSizeClass:v75];
+        if (v50)
         {
-          [(SBLeafIcon *)v73 addIconDataSource:v43];
-          contextCopy = v70;
-          if ((v47 & 1) == 0)
+          [(SBLeafIcon *)v77 addIconDataSource:v44];
+          contextCopy = v74;
+          if ((v49 & 1) == 0)
           {
-            [v70 _noteWidgetUniqueIdentifierWasUnarchived:uniqueIdentifier];
+            [v74 _noteWidgetUniqueIdentifierWasUnarchived:uniqueIdentifier];
           }
 
           goto LABEL_41;
         }
 
-        v48 = SBLogCommon();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v51 = SBLogCommon(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v79 = v43;
-          v80 = 2112;
-          v81 = v73;
-          _os_log_error_impl(&dword_1BEB18000, v48, OS_LOG_TYPE_ERROR, "can't add widget '%@' to icon '%@'", buf, 0x16u);
+          v83 = v44;
+          v84 = 2112;
+          v85 = v77;
+          _os_log_error_impl(&dword_1BEB18000, v51, OS_LOG_TYPE_ERROR, "can't add widget '%@' to icon '%@'", buf, 0x16u);
         }
 
-        contextCopy = v70;
+        contextCopy = v74;
 LABEL_39:
         [contextCopy _noteSignificantDeviation];
 LABEL_41:
@@ -1918,12 +1929,12 @@ LABEL_41:
       uniqueIdentifier = 0;
     }
 
-    v47 = 1;
+    v49 = 1;
     goto LABEL_33;
   }
 
   v29 = v28;
-  v66 = v8;
+  v70 = v8;
   v30 = objc_opt_self();
   if (objc_opt_isKindOfClass())
   {
@@ -1931,10 +1942,11 @@ LABEL_41:
 
     if (uniqueIdentifier2)
     {
-      if ([contextCopy _isWidgetUniqueIdentifierAlreadyUnarchived:uniqueIdentifier2])
+      v32 = [contextCopy _isWidgetUniqueIdentifierAlreadyUnarchived:uniqueIdentifier2];
+      if (v32)
       {
-        v32 = SBLogCommon();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = SBLogCommon(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [SBHIconStateUnarchiver _widgetIconFromRepresentation:context:];
         }
@@ -1945,7 +1957,7 @@ LABEL_55:
         goto LABEL_56;
       }
 
-      v50 = 0;
+      v53 = 0;
       goto LABEL_50;
     }
   }
@@ -1956,12 +1968,13 @@ LABEL_55:
     uniqueIdentifier2 = 0;
   }
 
-  v50 = 1;
+  v53 = 1;
 LABEL_50:
-  if (![(SBHIconStateUnarchiver *)selfCopy2 _canAddIconDataSource:v29 toIcon:v13 withGridSizeClass:v17])
+  v54 = [(SBHIconStateUnarchiver *)selfCopy2 _canAddIconDataSource:v29 toIcon:v13 withGridSizeClass:v17];
+  if (!v54)
   {
-    v32 = SBLogCommon();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v33 = SBLogCommon(v54);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateUnarchiver _widgetIconFromRepresentation:context:];
     }
@@ -1970,7 +1983,7 @@ LABEL_50:
   }
 
   [(SBLeafIcon *)v13 addIconDataSource:v29];
-  if ((v50 & 1) == 0)
+  if ((v53 & 1) == 0)
   {
     [contextCopy _noteWidgetUniqueIdentifierWasUnarchived:uniqueIdentifier2];
   }
@@ -1979,72 +1992,72 @@ LABEL_56:
   self = selfCopy2;
 LABEL_57:
 
-  v51 = [representationCopy objectForKey:@"userSelectedElementIdentifier"];
-  if (v51)
+  v55 = [representationCopy objectForKey:@"userSelectedElementIdentifier"];
+  if (v55)
   {
-    v52 = [(SBLeafIcon *)v13 firstIconDataSourceWithUniqueIdentifier:v51];
-    v53 = SBLogIcon();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v56 = [(SBLeafIcon *)v13 firstIconDataSourceWithUniqueIdentifier:v55];
+    v57 = SBLogIcon(v56);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       [(SBIcon *)v13 uniqueIdentifier];
-      v55 = v54 = v17;
+      v59 = v58 = v17;
       *buf = 138412546;
-      v79 = v52;
-      v80 = 2112;
-      v81 = v55;
-      _os_log_impl(&dword_1BEB18000, v53, OS_LOG_TYPE_DEFAULT, "Setting last user selected data source after unarchiving: %@ for: %@", buf, 0x16u);
+      v83 = v56;
+      v84 = 2112;
+      v85 = v59;
+      _os_log_impl(&dword_1BEB18000, v57, OS_LOG_TYPE_DEFAULT, "Setting last user selected data source after unarchiving: %@ for: %@", buf, 0x16u);
 
-      v17 = v54;
+      v17 = v58;
     }
 
-    [(SBWidgetIcon *)v13 setLastUserSelectedDataSource:v52];
+    [(SBWidgetIcon *)v13 setLastUserSelectedDataSource:v56];
     [(SBLeafIcon *)v13 _updateActiveDataSource];
   }
 
-  v56 = [representationCopy objectForKey:@"allowsSuggestions"];
+  v60 = [representationCopy objectForKey:@"allowsSuggestions"];
   if (objc_opt_respondsToSelector())
   {
-    -[SBWidgetIcon setAllowsSuggestions:](v13, "setAllowsSuggestions:", [v56 BOOLValue]);
+    -[SBWidgetIcon setAllowsSuggestions:](v13, "setAllowsSuggestions:", [v60 BOOLValue]);
   }
 
-  v57 = [representationCopy objectForKey:@"allowsExternalSuggestions"];
+  v61 = [representationCopy objectForKey:@"allowsExternalSuggestions"];
   if (objc_opt_respondsToSelector())
   {
-    -[SBWidgetIcon setAllowsExternalSuggestions:](v13, "setAllowsExternalSuggestions:", [v57 BOOLValue]);
+    -[SBWidgetIcon setAllowsExternalSuggestions:](v13, "setAllowsExternalSuggestions:", [v61 BOOLValue]);
   }
 
   effectiveDelegate = [(SBHIconStateUnarchiver *)self effectiveDelegate];
   if (objc_opt_respondsToSelector())
   {
-    v59 = [effectiveDelegate iconStateUnarchiver:self didUnarchiveWidgetIcon:v13];
-    v60 = v59;
-    if (v59)
+    v63 = [effectiveDelegate iconStateUnarchiver:self didUnarchiveWidgetIcon:v13];
+    v64 = v63;
+    if (v63)
     {
-      v61 = v17;
-      v62 = v59;
+      v65 = v17;
+      v66 = v63;
 
-      v13 = v62;
-      v17 = v61;
+      v13 = v66;
+      v17 = v65;
     }
   }
 
   if ([(SBLeafIcon *)v13 iconDataSourceCount])
   {
-    v63 = v13;
+    v67 = v13;
   }
 
   else
   {
-    v63 = 0;
+    v67 = 0;
   }
 
-  v64 = v63;
+  v68 = v67;
 
-  v8 = v66;
-  v14 = v67;
+  v8 = v70;
+  v14 = v71;
 LABEL_73:
 
-  return v64;
+  return v68;
 }
 
 - (id)_fileStackIconFromRepresentation:(id)representation context:(id)context
@@ -2155,7 +2168,7 @@ LABEL_73:
 
 - (id)_customIconElementFromRepresentation:(id)representation context:(id)context
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   contextCopy = context;
   v8 = [representationCopy objectForKey:@"uniqueIdentifier"];
@@ -2201,7 +2214,7 @@ LABEL_73:
     v21 = objc_opt_self();
     v22 = objc_opt_isKindOfClass();
 
-    v44 = contextCopy;
+    v45 = contextCopy;
     if ((v22 & 1) == 0)
     {
 
@@ -2214,7 +2227,7 @@ LABEL_73:
 
     if ((v25 & 1) == 0)
     {
-      [v44 _noteSignificantDeviation];
+      [v45 _noteSignificantDeviation];
 
       v23 = 0;
     }
@@ -2231,25 +2244,25 @@ LABEL_73:
       {
         v28 = [(SBHIconStateUnarchiver *)selfCopy supportedGridSizeClassesForWidgetWithKind:v17 extensionBundleIdentifier:v20 containerBundleIdentifier:v23];
         v26 = [[SBHWidget alloc] initWithUniqueIdentifier:v8 kind:v17 extensionBundleIdentifier:v20 containerBundleIdentifier:v23 supportedGridSizeClasses:v28];
-        v29 = SBLogWidgets();
+        v29 = SBLogWidgets(v26);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           extensionBundleIdentifier = [(SBHWidget *)v26 extensionBundleIdentifier];
-          v42 = v28;
+          v43 = v28;
           [(SBHWidget *)v26 uniqueIdentifier];
           *buf = 138543618;
-          v46 = extensionBundleIdentifier;
-          v48 = v47 = 2114;
-          v30 = v48;
+          v47 = extensionBundleIdentifier;
+          v49 = v48 = 2114;
+          v30 = v49;
           _os_log_impl(&dword_1BEB18000, v29, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created from arhive.", buf, 0x16u);
 
-          v28 = v42;
+          v28 = v43;
         }
       }
     }
 
     self = selfCopy;
-    contextCopy = v44;
+    contextCopy = v45;
     if (!v10)
     {
       goto LABEL_37;
@@ -2316,9 +2329,11 @@ LABEL_33:
   }
 
   effectiveDelegate = [(SBHIconStateUnarchiver *)self effectiveDelegate];
-  if (objc_opt_respondsToSelector())
+  v40 = objc_opt_respondsToSelector();
+  if (v40)
   {
-    v26 = [effectiveDelegate iconStateUnarchiver:self iconDataSourceForRepresentation:representationCopy];
+    v40 = [effectiveDelegate iconStateUnarchiver:self iconDataSourceForRepresentation:representationCopy];
+    v26 = v40;
   }
 
   else
@@ -2328,8 +2343,8 @@ LABEL_33:
 
   if (v9 && !v26)
   {
-    v40 = SBLogCommon();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v41 = SBLogCommon(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateUnarchiver _customIconElementFromRepresentation:context:];
     }
@@ -2515,7 +2530,7 @@ LABEL_7:
 
 - (id)_listWithIcons:(id)icons properties:(id)properties identifier:(id)identifier folder:(id)folder overflow:(id)overflow
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   iconsCopy = icons;
   propertiesCopy = properties;
   identifierCopy = identifier;
@@ -2542,8 +2557,8 @@ LABEL_7:
     v17 = 0;
   }
 
-  v63 = folderCopy;
-  v64 = identifierCopy;
+  v67 = folderCopy;
+  v68 = identifierCopy;
   v18 = [v16 initWithUniqueIdentifier:identifierCopy folder:folderCopy gridSize:v15 gridSizeClassSizes:v17];
   v19 = v18;
   if (propertiesCopy)
@@ -2589,7 +2604,7 @@ LABEL_7:
   }
 
   [v19 setRotatedIconGridSizeClassSizes:v22];
-  v65 = propertiesCopy;
+  v69 = propertiesCopy;
   if (propertiesCopy)
   {
     v23 = *(propertiesCopy + 11);
@@ -2600,35 +2615,36 @@ LABEL_7:
     v23 = 0;
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v24 = iconsCopy;
-  v25 = [v24 countByEnumeratingWithState:&v71 objects:v76 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v75 objects:v80 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v72;
+    v27 = *v76;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v72 != v27)
+        if (*v76 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v71 + 1) + 8 * i);
+        v29 = *(*(&v75 + 1) + 8 * i);
         numberOfIcons = [v19 numberOfIcons];
-        if (numberOfIcons >= [v19 maxNumberOfIcons])
+        maxNumberOfIcons = [v19 maxNumberOfIcons];
+        if (numberOfIcons >= maxNumberOfIcons)
         {
-          v42 = SBLogCommon();
-          v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
-          if (v43)
+          v45 = SBLogCommon(maxNumberOfIcons);
+          v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+          if (v46)
           {
-            OUTLINED_FUNCTION_6_0(v43, v44, v45, v46, v47, v48, v49, v50, v62, v63, v64, v65, v51);
-            _os_log_impl(&dword_1BEB18000, v42, OS_LOG_TYPE_DEFAULT, "list is too small to add icon -> icon=%@ list=%@", v52, 0x16u);
+            OUTLINED_FUNCTION_6_0(v46, v47, v48, v49, v50, v51, v52, v53, v54, v66, v67, v68, v69, v55);
+            _os_log_impl(&dword_1BEB18000, v45, OS_LOG_TYPE_DEFAULT, "list is too small to add icon -> icon=%@ list=%@", v56, 0x16u);
           }
 
           [overflowCopy addObject:v29];
@@ -2636,64 +2652,65 @@ LABEL_7:
 
         else
         {
-          v31 = [v19 addIcon:v29 options:v23];
-          if ([v31 containsObject:v29])
+          v32 = [v19 addIcon:v29 options:v23];
+          v33 = [v32 containsObject:v29];
+          if (v33)
           {
-            v32 = SBLogCommon();
-            v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-            if (v33)
+            v34 = SBLogCommon(v33);
+            v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+            if (v35)
             {
-              OUTLINED_FUNCTION_6_0(v33, v34, v35, v36, v37, v38, v39, v40, v62, v63, v64, v65, v41);
-              _os_log_error_impl(&dword_1BEB18000, v32, OS_LOG_TYPE_ERROR, "could not add icon to list -> icon=%@ list=%@", v53, 0x16u);
+              OUTLINED_FUNCTION_6_0(v35, v36, v37, v38, v39, v40, v41, v42, v43, v66, v67, v68, v69, v44);
+              _os_log_error_impl(&dword_1BEB18000, v34, OS_LOG_TYPE_ERROR, "could not add icon to list -> icon=%@ list=%@", v57, 0x16u);
             }
           }
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v71 objects:v76 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v75 objects:v80 count:16];
     }
 
     while (v26);
   }
 
-  v54 = [v19 directlyContainedIconsPassingTest:&__block_literal_global_16];
-  if ([v54 count])
+  v58 = [v19 directlyContainedIconsPassingTest:&__block_literal_global_16];
+  if ([v58 count])
   {
     if ([v19 allowsFixedIconLocations])
     {
-      v55 = [OUTLINED_FUNCTION_9_0() gridCellInfoWithOptions:?];
-      v67 = 0u;
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v56 = v54;
-      v57 = [v56 countByEnumeratingWithState:&v67 objects:v75 count:16];
-      if (v57)
+      v59 = [OUTLINED_FUNCTION_9_0() gridCellInfoWithOptions:?];
+      v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v60 = v58;
+      v61 = [v60 countByEnumeratingWithState:&v71 objects:v79 count:16];
+      if (v61)
       {
-        v58 = v57;
-        v59 = *v68;
+        v62 = v61;
+        v63 = *v72;
         do
         {
-          for (j = 0; j != v58; ++j)
+          for (j = 0; j != v62; ++j)
           {
-            if (*v68 != v59)
+            if (*v72 != v63)
             {
-              objc_enumerationMutation(v56);
+              objc_enumerationMutation(v60);
             }
 
-            [v55 setIconIndex:0x7FFFFFFFFFFFFFFFLL forGridCellIndex:{objc_msgSend(v19, "gridCellIndexForIcon:gridCellInfo:", *(*(&v67 + 1) + 8 * j), v55)}];
+            [v59 setIconIndex:0x7FFFFFFFFFFFFFFFLL forGridCellIndex:{objc_msgSend(v19, "gridCellIndexForIcon:gridCellInfo:", *(*(&v71 + 1) + 8 * j), v59)}];
           }
 
-          v58 = [v56 countByEnumeratingWithState:&v67 objects:v75 count:16];
+          v62 = [v60 countByEnumeratingWithState:&v71 objects:v79 count:16];
         }
 
-        while (v58);
+        while (v62);
       }
 
-      [v19 addOrRemoveFixedIconLocationsIfNecessaryWithGridCellInfo:v55];
+      [v19 addOrRemoveFixedIconLocationsIfNecessaryWithGridCellInfo:v59];
     }
 
-    [v19 removeIcons:v54 options:0];
+    [v19 removeIcons:v58 options:0];
   }
 
   [v19 markIconStateClean];

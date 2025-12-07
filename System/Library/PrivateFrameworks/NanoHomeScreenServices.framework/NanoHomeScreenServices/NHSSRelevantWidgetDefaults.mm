@@ -74,7 +74,7 @@ uint64_t __44__NHSSRelevantWidgetDefaults_sharedInstance__block_invoke()
     v11 = v10;
     if (v6)
     {
-      v12 = NHSSLogDefault();
+      v12 = NHSSLogDefault(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(NHSSRelevantWidgetDefaults *)v6 relevantWidgets];
@@ -89,7 +89,7 @@ uint64_t __44__NHSSRelevantWidgetDefaults_sharedInstance__block_invoke()
         goto LABEL_11;
       }
 
-      v12 = NHSSLogDefault();
+      v12 = NHSSLogDefault(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -103,7 +103,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v4 = NHSSLogDefault();
+  v4 = NHSSLogDefault(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(NHSSRelevantWidgetDefaults *)v4 relevantWidgets];
@@ -136,49 +136,50 @@ void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke(uint64_t
   {
     v4 = (a1 + 32);
     v3 = *(a1 + 32);
-    v15 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
-    v6 = v15;
+    v16 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
+    v6 = v16;
     if (!v6)
     {
-      if ([v5 length] <= 0x3D090)
+      v7 = [v5 length];
+      if (v7 <= 0x3D090)
       {
         [v2 setObject:v5 forKey:@"relevantWidgets"];
-        v9 = [v2 synchronize];
-        v8 = objc_alloc_init(MEMORY[0x277D2BA60]);
-        v10 = [MEMORY[0x277CBEB98] setWithObject:@"relevantWidgets"];
-        [v8 synchronizeNanoDomain:@"com.apple.NanoHomeScreen.RelevantWidgetDefaults" keys:v10];
+        v10 = [v2 synchronize];
+        v9 = objc_alloc_init(MEMORY[0x277D2BA60]);
+        v11 = [MEMORY[0x277CBEB98] setWithObject:@"relevantWidgets"];
+        [v9 synchronizeNanoDomain:@"com.apple.NanoHomeScreen.RelevantWidgetDefaults" keys:v11];
         [*(a1 + 40) relevantWidgetDefaultsDidChange];
       }
 
       else
       {
-        v7 = NHSSLogDefault();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = NHSSLogDefault(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_cold_1(v5, v4, v7);
+          __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_cold_1(v5, v4, v8);
         }
 
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16;
-        v11[3] = &unk_279932E68;
-        v12 = v5;
-        v14 = 250000;
-        v13 = *v4;
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16;
+        v12[3] = &unk_279932E68;
+        v13 = v5;
+        v15 = 250000;
+        v14 = *v4;
         if (_NHSSRelevantWidgetDefaultsChangedNotificationName_block_invoke_onceToken != -1)
         {
-          dispatch_once(&_NHSSRelevantWidgetDefaultsChangedNotificationName_block_invoke_onceToken, v11);
+          dispatch_once(&_NHSSRelevantWidgetDefaultsChangedNotificationName_block_invoke_onceToken, v12);
         }
 
-        v8 = v12;
+        v9 = v13;
       }
     }
   }
 
   else
   {
-    v6 = NHSSLogDefault();
+    v6 = NHSSLogDefault(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_cold_2(v6);
@@ -188,7 +189,7 @@ void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke(uint64_t
 
 void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16(uint64_t a1)
 {
-  v2 = NHSSLogDefault();
+  v2 = NHSSLogDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16_cold_1(a1, v2);
@@ -232,81 +233,76 @@ void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16(uint6
 
 - (void)_mainQueue_notifyObserversDefaultsDidChange
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_observers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = allObjects;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) relevantWidgetDefaultsDidChange];
+        [*(*(&v9 + 1) + 8 * v8++) relevantWidgetDefaultsDidChange];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relevantWidgets
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25B171000, a2, OS_LOG_TYPE_ERROR, "NHSSRelevantWidgetDefaults: Decoding error, returning empty array as fallback. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25B171000, a2, OS_LOG_TYPE_ERROR, "NHSSRelevantWidgetDefaults: Decoding error, returning empty array as fallback. Error: %@", &v2, 0xCu);
 }
 
 void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_cold_1(void *a1, uint64_t *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [a1 length];
   v6 = *a2;
-  v8 = 134218498;
-  v9 = v5;
-  v10 = 2048;
-  v11 = 250000;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_25B171000, a3, OS_LOG_TYPE_ERROR, "NHSSRelevantWidgetDefaults: Data is %ld bytes, which is over threshold of %ld bytes. This shouldn't happen. relevantWidgets: %@", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v5;
+  v9 = 2048;
+  v10 = 250000;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_25B171000, a3, OS_LOG_TYPE_ERROR, "NHSSRelevantWidgetDefaults: Data is %ld bytes, which is over threshold of %ld bytes. This shouldn't happen. relevantWidgets: %@", &v7, 0x20u);
 }
 
 void __49__NHSSRelevantWidgetDefaults_setRelevantWidgets___block_invoke_16_cold_1(uint64_t a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) length];
   v6 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_fault_impl(&dword_25B171000, a2, OS_LOG_TYPE_FAULT, "NHSSRelevantWidgetDefaults: Data is %ld bytes, which is over threshold of %ld bytes. This shouldn't happen. relevantWidgets: %@", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_fault_impl(&dword_25B171000, a2, OS_LOG_TYPE_FAULT, "NHSSRelevantWidgetDefaults: Data is %ld bytes, which is over threshold of %ld bytes. This shouldn't happen. relevantWidgets: %@", &v7, 0x20u);
 }
 
 @end

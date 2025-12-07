@@ -7,8 +7,6 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore14AccessResponse_answerType);
-  v9 = self->answerType[OBJC_IVAR____TtC14ScreenTimeCore14AccessResponse_answerType];
   coderCopy = coder;
   selfCopy = self;
   AnswerType.rawValue.getter();

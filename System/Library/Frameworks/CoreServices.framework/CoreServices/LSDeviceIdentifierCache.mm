@@ -5,7 +5,7 @@
 
 void __94___LSDeviceIdentifierCache_getIdentifierOfType_vendorName_bundleIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32) || !*(a1 + 40))
   {
     v9 = 0;
@@ -64,13 +64,13 @@ LABEL_38:
 
     if (+[LSHRNSupport deviceConfiguredForHRN])
     {
-      v30[0] = 0;
-      v30[1] = 0;
+      v29[0] = 0;
+      v29[1] = 0;
       v11 = [*(a1 + 48) deviceIdentifierVendorSeed];
-      [v11 getUUIDBytes:v30];
+      [v11 getUUIDBytes:v29];
 
       v12 = *(a1 + 32);
-      v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v30 length:16];
+      v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v29 length:16];
       v9 = [LSHRNSupport vendorIDFromVendorName:v12 seedData:v13 error:0];
 
       goto LABEL_40;
@@ -172,8 +172,6 @@ LABEL_41:
   {
     (*(v28 + 16))(v28, v9);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __93___LSDeviceIdentifierCache_clearIdentifiersForUninstallationWithVendorName_bundleIdentifier___block_invoke(uint64_t a1)
@@ -204,26 +202,26 @@ void __93___LSDeviceIdentifierCache_clearIdentifiersForUninstallationWithVendorN
   }
 }
 
-void __54___LSDeviceIdentifierCache_clearAllIdentifiersOfType___block_invoke(uint64_t a1)
+void __54___LSDeviceIdentifierCache_clearAllIdentifiersOfType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() isInEducationMode])
+  if ([__LSDefaultsGetSharedInstance(a1 a2)])
   {
-    v13 = [*(*(a1 + 32) + 48) mutableCopy];
-    if (v13)
+    v14 = [*(*(a1 + 32) + 48) mutableCopy];
+    if (v14)
     {
-      v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-      v3 = [v13 objectForKeyedSubscript:v2];
+      v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
+      v4 = [v14 objectForKeyedSubscript:v3];
 
-      if (v3)
+      if (v4)
       {
-        v4 = [*(a1 + 32) generateSomePerUserEntropyNotDispatched];
-        v5 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-        [v13 setObject:v4 forKeyedSubscript:v5];
+        v5 = [*(a1 + 32) generateSomePerUserEntropyNotDispatched];
+        v6 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
+        [v14 setObject:v5 forKeyedSubscript:v6];
 
-        v6 = [v13 copy];
-        v7 = *(a1 + 32);
-        v8 = *(v7 + 48);
-        *(v7 + 48) = v6;
+        v7 = [v14 copy];
+        v8 = *(a1 + 32);
+        v9 = *(v8 + 48);
+        *(v8 + 48) = v7;
 
         [*(a1 + 32) save];
       }
@@ -234,94 +232,95 @@ LABEL_15:
     return;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  if (v10 == 2)
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 40);
+  if (v11 == 2)
   {
-    v11 = v9[3];
-    v9[3] = 0;
+    v12 = v10[3];
+    v10[3] = 0;
   }
 
   else
   {
-    if (v10 != 1)
+    if (v11 != 1)
     {
-      v13 = [v9 identifiersOfTypeNotDispatched:?];
-      if (v13 && [v13 count])
+      v14 = [v10 identifiersOfTypeNotDispatched:?];
+      if (v14 && [v14 count])
       {
-        [v13 removeAllObjects];
+        [v14 removeAllObjects];
         [*(a1 + 32) save];
       }
 
       goto LABEL_15;
     }
 
-    v11 = v9[2];
-    v9[2] = 0;
+    v12 = v10[2];
+    v10[2] = 0;
   }
 
-  v12 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  [v12 save];
+  [v13 save];
 }
 
 void __32___LSDeviceIdentifierCache_save__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) allIdentifiersNotDispatched];
   if (v2)
   {
     v3 = *(*(a1 + 32) + 56);
+    v4 = v3;
     if (!v3)
     {
-      v6 = _LSDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _LSDefaultLog(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get identifiers file URL.", buf, 2u);
+        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Failed to get identifiers file URL.", buf, 2u);
       }
 
       goto LABEL_22;
     }
 
-    v4 = _LSDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _LSDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v3 path];
+      v6 = [v4 path];
       *buf = 138412290;
-      v24 = v5;
-      _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Writing identifiers file to %@", buf, 0xCu);
+      v29 = v6;
+      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "Writing identifiers file to %@", buf, 0xCu);
     }
 
-    v6 = [v2 mutableCopy];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 16);
-    if (v8)
+    v7 = [v2 mutableCopy];
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 16);
+    if (v9)
     {
-      v9 = [v8 UUIDString];
-      [v6 setObject:v9 forKeyedSubscript:@"LSAdvertiserIdentifier"];
+      v10 = [v9 UUIDString];
+      [v7 setObject:v10 forKeyedSubscript:@"LSAdvertiserIdentifier"];
 
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
     }
 
-    v10 = *(v7 + 24);
-    if (v10)
+    v11 = *(v8 + 24);
+    if (v11)
     {
-      v11 = [v10 UUIDString];
-      [v6 setObject:v11 forKeyedSubscript:@"LSVendorSeed"];
+      v12 = [v11 UUIDString];
+      [v7 setObject:v12 forKeyedSubscript:@"LSVendorSeed"];
     }
 
-    v22 = 0;
-    v12 = [MEMORY[0x1E696AE40] dataWithPropertyList:v6 format:200 options:0 error:&v22];
-    v13 = v22;
-    v14 = v13;
-    if (v12)
+    v27 = 0;
+    v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:v7 format:200 options:0 error:&v27];
+    v14 = v27;
+    v15 = v14;
+    if (v13)
     {
-      v21 = v13;
-      v15 = [v12 writeToURL:v3 options:1073741825 error:&v21];
-      v16 = v21;
+      v26 = v14;
+      v16 = [v13 writeToURL:v4 options:1073741825 error:&v26];
+      v17 = v26;
 
-      if (v15)
+      if (v16)
       {
 LABEL_21:
 
@@ -329,51 +328,53 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v17 = _LSDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = _LSDefaultLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = v16;
-        _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Failed to write plist data for identifiers: %@", buf, 0xCu);
+        v29 = v17;
+        _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEFAULT, "Failed to write plist data for identifiers: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v17 = _LSDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = _LSDefaultLog(v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = v14;
-        _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Failed to create plist data for identifiers: %@", buf, 0xCu);
+        v29 = v15;
+        _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEFAULT, "Failed to create plist data for identifiers: %@", buf, 0xCu);
       }
 
-      v16 = v14;
+      v17 = v15;
     }
 
     goto LABEL_21;
   }
 
-  v3 = _LSDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _LSDefaultLog(0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Failed to get identifiers.", buf, 2u);
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get identifiers.", buf, 2u);
   }
 
 LABEL_23:
 
-  if (*(*(a1 + 32) + 48) && [__LSDefaultsGetSharedInstance() isInEducationMode])
+  if (*(*(a1 + 32) + 48))
   {
-    v18 = _LSPerUserEntropyURL();
-    if (v18)
+    v22 = [__LSDefaultsGetSharedInstance(v20 v21)];
+    if (v22)
     {
-      v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(*(a1 + 32) + 48)];
-      [v19 writeToURL:v18 options:1073741825 error:0];
+      v24 = _LSPerUserEntropyURL(v22, v23);
+      if (v24)
+      {
+        v25 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(*(a1 + 32) + 48)];
+        [v25 writeToURL:v24 options:1073741825 error:0];
+      }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

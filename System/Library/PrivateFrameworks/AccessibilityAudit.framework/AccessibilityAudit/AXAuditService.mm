@@ -237,57 +237,57 @@ void __39__AXAuditService_requestHostAPIVersion__block_invoke_2(uint64_t a1)
 
 void __49__AXAuditService_auditer_didCompleteWithResults___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v19 = a1;
+  v18 = a1;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       v7 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v24 + 1) + 8 * v7) allIssues];
+        v8 = [*(*(&v23 + 1) + 8 * v7) allIssues];
         if ([v8 count])
         {
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
           v9 = v8;
-          v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v21;
+            v12 = *v20;
             do
             {
               v13 = 0;
               do
               {
-                if (*v21 != v12)
+                if (*v20 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                [v2 addObject:*(*(&v20 + 1) + 8 * v13++)];
+                [v2 addObject:*(*(&v19 + 1) + 8 * v13++)];
               }
 
               while (v11 != v13);
-              v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v11);
@@ -298,7 +298,7 @@ void __49__AXAuditService_auditer_didCompleteWithResults___block_invoke(uint64_t
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v5);
@@ -308,13 +308,11 @@ void __49__AXAuditService_auditer_didCompleteWithResults___block_invoke(uint64_t
   v15 = [v14 transportDictionaryForObject:v2];
 
   v16 = [MEMORY[0x277D03668] messageWithSelector:sel_hostDeviceDidCompleteAuditCategoriesWithAuditIssues_ objectArguments:{v15, 0}];
-  v17 = [*(v19 + 40) connection];
+  v17 = [*(v18 + 40) connection];
   [v17 sendControlAsync:v16 replyHandler:0];
 
-  [*(v19 + 40) setRunningAudit:0];
-  [*(v19 + 40) setCurrentAuditer:0];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [*(v18 + 40) setRunningAudit:0];
+  [*(v18 + 40) setCurrentAuditer:0];
 }
 
 - (void)connectionInterrupted
@@ -503,29 +501,29 @@ void __40__AXAuditService_deviceBeginAuditTypes___block_invoke(uint64_t a1)
 
 - (void)deviceHighlightIssues:(id)issues
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   issuesCopy = issues;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = issuesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if ([v11 count])
         {
           v12 = +[AXAuditObjectTransportManager sharedManager];
@@ -541,14 +539,13 @@ void __40__AXAuditService_deviceBeginAuditTypes___block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   [(AXAuditService *)self highlightElements:array];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

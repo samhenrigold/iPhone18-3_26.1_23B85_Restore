@@ -942,7 +942,7 @@ void __79__MPModelLibraryTransientStateController_transientDefaultActionForModel
 LABEL_12:
 }
 
-uint64_t __79__MPModelLibraryTransientStateController_transientDefaultActionForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__79__MPModelLibraryTransientStateController_transientDefaultActionForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -958,7 +958,7 @@ uint64_t __79__MPModelLibraryTransientStateController_transientDefaultActionForM
   return result;
 }
 
-uint64_t __79__MPModelLibraryTransientStateController_transientDefaultActionForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__79__MPModelLibraryTransientStateController_transientDefaultActionForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1079,7 +1079,7 @@ void __77__MPModelLibraryTransientStateController_transientPinnedStateForModelOb
 LABEL_12:
 }
 
-uint64_t __77__MPModelLibraryTransientStateController_transientPinnedStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__77__MPModelLibraryTransientStateController_transientPinnedStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1095,7 +1095,7 @@ uint64_t __77__MPModelLibraryTransientStateController_transientPinnedStateForMod
   return result;
 }
 
-uint64_t __77__MPModelLibraryTransientStateController_transientPinnedStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__77__MPModelLibraryTransientStateController_transientPinnedStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1216,7 +1216,7 @@ void __79__MPModelLibraryTransientStateController_transientFavoriteStateForModel
 LABEL_12:
 }
 
-uint64_t __79__MPModelLibraryTransientStateController_transientFavoriteStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__79__MPModelLibraryTransientStateController_transientFavoriteStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1232,7 +1232,7 @@ uint64_t __79__MPModelLibraryTransientStateController_transientFavoriteStateForM
   return result;
 }
 
-uint64_t __79__MPModelLibraryTransientStateController_transientFavoriteStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__79__MPModelLibraryTransientStateController_transientFavoriteStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1353,7 +1353,7 @@ void __80__MPModelLibraryTransientStateController_transientKeepLocalStateForMode
 LABEL_12:
 }
 
-uint64_t __80__MPModelLibraryTransientStateController_transientKeepLocalStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__80__MPModelLibraryTransientStateController_transientKeepLocalStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1369,7 +1369,7 @@ uint64_t __80__MPModelLibraryTransientStateController_transientKeepLocalStateFor
   return result;
 }
 
-uint64_t __80__MPModelLibraryTransientStateController_transientKeepLocalStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__80__MPModelLibraryTransientStateController_transientKeepLocalStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1490,7 +1490,7 @@ void __74__MPModelLibraryTransientStateController_transientAddStateForModelObjec
 LABEL_12:
 }
 
-uint64_t __74__MPModelLibraryTransientStateController_transientAddStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__74__MPModelLibraryTransientStateController_transientAddStateForModelObject___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)
@@ -1506,7 +1506,7 @@ uint64_t __74__MPModelLibraryTransientStateController_transientAddStateForModelO
   return result;
 }
 
-uint64_t __74__MPModelLibraryTransientStateController_transientAddStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__74__MPModelLibraryTransientStateController_transientAddStateForModelObject___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 intersectsSet:*(a1 + 32)];
   if (result)

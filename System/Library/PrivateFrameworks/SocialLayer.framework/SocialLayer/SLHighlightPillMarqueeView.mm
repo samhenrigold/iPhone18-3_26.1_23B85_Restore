@@ -19,9 +19,9 @@
   y = frame.origin.y;
   x = frame.origin.x;
   viewCopy = view;
-  v38.receiver = self;
-  v38.super_class = SLHighlightPillMarqueeView;
-  height = [(SLHighlightPillMarqueeView *)&v38 initWithFrame:x, y, width, height];
+  v39.receiver = self;
+  v39.super_class = SLHighlightPillMarqueeView;
+  height = [(SLHighlightPillMarqueeView *)&v39 initWithFrame:x, y, width, height];
   v11 = height;
   if (height)
   {
@@ -39,34 +39,34 @@
     [(SLHighlightPillMarqueeView *)v11 addSubview:replicatorView2];
 
     v15 = MEMORY[0x277D755B8];
-    v16 = SLFrameworkBundle();
+    v17 = SLFrameworkBundle(v16);
     traitCollection = [(SLHighlightPillMarqueeView *)v11 traitCollection];
-    v18 = [v15 imageNamed:@"SLAttributionViewMarqueeMask" inBundle:v16 compatibleWithTraitCollection:traitCollection];
+    v19 = [v15 imageNamed:@"SLAttributionViewMarqueeMask" inBundle:v17 compatibleWithTraitCollection:traitCollection];
 
-    [v18 size];
-    v20 = 1.0 / v19;
+    [v19 size];
+    v21 = 1.0 / v20;
     layer = [MEMORY[0x277CD9ED0] layer];
     [(SLHighlightPillMarqueeView *)v11 setMaskLayer:layer];
 
-    cGImage = [v18 CGImage];
+    cGImage = [v19 CGImage];
     maskLayer = [(SLHighlightPillMarqueeView *)v11 maskLayer];
     [maskLayer setContents:cGImage];
 
     maskLayer2 = [(SLHighlightPillMarqueeView *)v11 maskLayer];
-    [maskLayer2 setContentsCenter:{0.5 - v20 * 0.5, 0.0, v20, 1.0}];
+    [maskLayer2 setContentsCenter:{0.5 - v21 * 0.5, 0.0, v21, 1.0}];
 
-    [v18 scale];
-    v26 = v25;
+    [v19 scale];
+    v27 = v26;
     maskLayer3 = [(SLHighlightPillMarqueeView *)v11 maskLayer];
-    [maskLayer3 setContentsScale:v26];
+    [maskLayer3 setContentsScale:v27];
 
     [(SLHighlightPillMarqueeView *)v11 bounds];
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
+    v30 = v29;
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
     maskLayer4 = [(SLHighlightPillMarqueeView *)v11 maskLayer];
-    [maskLayer4 setFrame:{v29, v31, v33, v35}];
+    [maskLayer4 setFrame:{v30, v32, v34, v36}];
   }
 
   return v11;
@@ -290,25 +290,15 @@ LABEL_11:
 
 LABEL_22:
   replicatorViewEndingPositionXConstraint = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-  if (!replicatorViewEndingPositionXConstraint)
+  if (!replicatorViewEndingPositionXConstraint || (v39 = replicatorViewEndingPositionXConstraint, -[SLHighlightPillMarqueeView replicatorViewEndingPositionXConstraint](self, "replicatorViewEndingPositionXConstraint"), v40 = objc_claimAutoreleasedReturnValue(), [v40 firstAnchor], v41 = objc_claimAutoreleasedReturnValue(), v41, v40, v39, v41 != centerXAnchor))
   {
-    goto LABEL_24;
-  }
-
-  v39 = replicatorViewEndingPositionXConstraint;
-  replicatorViewEndingPositionXConstraint2 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-  firstAnchor2 = [replicatorViewEndingPositionXConstraint2 firstAnchor];
-
-  if (firstAnchor2 != centerXAnchor)
-  {
-LABEL_24:
-    replicatorViewEndingPositionXConstraint3 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-    isActive2 = [replicatorViewEndingPositionXConstraint3 isActive];
+    replicatorViewEndingPositionXConstraint2 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+    isActive2 = [replicatorViewEndingPositionXConstraint2 isActive];
 
     if (isActive2)
     {
-      replicatorViewEndingPositionXConstraint4 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-      [v4 addObject:replicatorViewEndingPositionXConstraint4];
+      replicatorViewEndingPositionXConstraint3 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+      [v4 addObject:replicatorViewEndingPositionXConstraint3];
     }
 
     pillView2 = [(SLHighlightPillMarqueeView *)self pillView];
@@ -339,35 +329,35 @@ LABEL_24:
       [v4 addObject:replicatorViewStartingPositionXConstraint7];
     }
 
-    replicatorViewEndingPositionXConstraint5 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-    isActive4 = [replicatorViewEndingPositionXConstraint5 isActive];
+    replicatorViewEndingPositionXConstraint4 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+    isActive4 = [replicatorViewEndingPositionXConstraint4 isActive];
 
     if ((isActive4 & 1) == 0)
     {
-      replicatorViewEndingPositionXConstraint6 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+      replicatorViewEndingPositionXConstraint5 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
 LABEL_38:
-      v64 = replicatorViewEndingPositionXConstraint6;
-      [v3 addObject:replicatorViewEndingPositionXConstraint6];
+      v64 = replicatorViewEndingPositionXConstraint5;
+      [v3 addObject:replicatorViewEndingPositionXConstraint5];
     }
   }
 
   else
   {
-    replicatorViewEndingPositionXConstraint7 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-    isActive5 = [replicatorViewEndingPositionXConstraint7 isActive];
+    replicatorViewEndingPositionXConstraint6 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+    isActive5 = [replicatorViewEndingPositionXConstraint6 isActive];
 
     if (isActive5)
     {
-      replicatorViewEndingPositionXConstraint8 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-      [v4 addObject:replicatorViewEndingPositionXConstraint8];
+      replicatorViewEndingPositionXConstraint7 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+      [v4 addObject:replicatorViewEndingPositionXConstraint7];
     }
 
-    replicatorViewEndingPositionXConstraint9 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
-    isActive6 = [replicatorViewEndingPositionXConstraint9 isActive];
+    replicatorViewEndingPositionXConstraint8 = [(SLHighlightPillMarqueeView *)self replicatorViewEndingPositionXConstraint];
+    isActive6 = [replicatorViewEndingPositionXConstraint8 isActive];
 
     if ((isActive6 & 1) == 0)
     {
-      replicatorViewEndingPositionXConstraint6 = [(SLHighlightPillMarqueeView *)self replicatorViewStartingPositionXConstraint];
+      replicatorViewEndingPositionXConstraint5 = [(SLHighlightPillMarqueeView *)self replicatorViewStartingPositionXConstraint];
       goto LABEL_38;
     }
   }

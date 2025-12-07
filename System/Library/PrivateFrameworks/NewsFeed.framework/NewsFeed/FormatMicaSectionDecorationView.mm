@@ -26,7 +26,7 @@
   *v10 = v11;
   v10[1] = v13;
   v14 = OBJC_IVAR____TtC8NewsFeed31FormatMicaSectionDecorationView_model;
-  v15 = type metadata accessor for FormatMicaSectionDecorationItem();
+  v15 = type metadata accessor for FormatMicaSectionDecorationItem(0);
   (*(*(v15 - 8) + 56))(self + v14, 1, 1, v15);
   result = sub_1D726402C();
   __break(1u);

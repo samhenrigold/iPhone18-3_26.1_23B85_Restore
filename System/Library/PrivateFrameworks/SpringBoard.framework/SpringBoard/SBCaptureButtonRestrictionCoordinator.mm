@@ -43,28 +43,28 @@
   {
     objc_initWeak(&location, self);
     v8 = MEMORY[0x277CF0BD0];
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __95__SBCaptureButtonRestrictionCoordinator_inhibitCaptureButtonActionAssertionWithReason_options___block_invoke;
-    v19 = &unk_2783AD688;
-    objc_copyWeak(&v20, &location);
-    v9 = [v8 assertionWithIdentifier:@"CaptureButtonRestrictions" stateDidChangeHandler:&v16];
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __95__SBCaptureButtonRestrictionCoordinator_inhibitCaptureButtonActionAssertionWithReason_options___block_invoke;
+    v20 = &unk_2783AD688;
+    objc_copyWeak(&v21, &location);
+    v9 = [v8 assertionWithIdentifier:@"CaptureButtonRestrictions" stateDidChangeHandler:&v17];
     v10 = self->_inhibitedAssertion;
     self->_inhibitedAssertion = v9;
 
     v11 = self->_inhibitedAssertion;
-    v12 = SBLogCameraCaptureRestriction();
-    [(BSCompoundAssertion *)v11 setLog:v12, v16, v17, v18, v19];
+    v13 = SBLogCameraCaptureRestriction(v12);
+    [(BSCompoundAssertion *)v11 setLog:v13, v17, v18, v19, v20];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
     inhibitedAssertion = self->_inhibitedAssertion;
   }
 
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:options];
-  v14 = [(BSCompoundAssertion *)inhibitedAssertion acquireForReason:reasonCopy withContext:v13];
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:options];
+  v15 = [(BSCompoundAssertion *)inhibitedAssertion acquireForReason:reasonCopy withContext:v14];
 
-  return v14;
+  return v15;
 }
 
 void __95__SBCaptureButtonRestrictionCoordinator_inhibitCaptureButtonActionAssertionWithReason_options___block_invoke(uint64_t a1)

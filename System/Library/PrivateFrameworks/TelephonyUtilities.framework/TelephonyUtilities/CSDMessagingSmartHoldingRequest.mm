@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsRequestType:(id)type;
 - (int)requestType;
 - (unint64_t)hash;
@@ -26,6 +27,21 @@
   {
     return 1;
   }
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061BE10[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestType:(id)type
@@ -108,24 +124,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_callUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    requestType = self->_requestType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

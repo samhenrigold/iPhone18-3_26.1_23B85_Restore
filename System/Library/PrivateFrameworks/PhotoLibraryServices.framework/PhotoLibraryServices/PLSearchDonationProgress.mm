@@ -18,7 +18,7 @@
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:d];
   [(NSMutableDictionary *)lock_queryByTaskID removeObjectForKey:v5];
 
-  if (![(NSMutableDictionary *)self->_lock_queryByTaskID count])
+  if (!objc_msgSend_count(self->_lock_queryByTaskID))
   {
     lock_spotlightSandboxExtension = self->_lock_spotlightSandboxExtension;
     self->_lock_spotlightSandboxExtension = 0;
@@ -29,12 +29,12 @@
 {
   lock_queryByTaskID = self->_lock_queryByTaskID;
   queryCopy = query;
-  v8 = [(NSMutableDictionary *)lock_queryByTaskID count];
+  v8 = objc_msgSend_count(lock_queryByTaskID);
   v9 = self->_lock_queryByTaskID;
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:d];
   [(NSMutableDictionary *)v9 setObject:queryCopy forKeyedSubscript:v10];
 
-  if (!v8 && [(NSMutableDictionary *)self->_lock_queryByTaskID count]== 1)
+  if (!v8 && objc_msgSend_count(self->_lock_queryByTaskID) == 1)
   {
     v11 = [[PLSearchSpotlightSandboxExtension alloc] initWithPathManager:self->_pathManager];
     lock_spotlightSandboxExtension = self->_lock_spotlightSandboxExtension;
@@ -485,7 +485,7 @@ LABEL_24:
 void __71__PLSearchDonationProgress__newSearchQueryForTaskID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = [a2 count];
+  v3 = objc_msgSend_count(a2);
   v4 = PLSearchBackendDonationProgressGetLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -643,27 +643,27 @@ void __88__PLSearchDonationProgress_donationProgressForMediaProcessingTaskIDs_co
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __88__PLSearchDonationProgress_donationProgressForMediaProcessingTaskIDs_completionHandler___block_invoke_2(uint64_t a1)
+void __88__PLSearchDonationProgress_donationProgressForMediaProcessingTaskIDs_completionHandler___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (*(a1 + 40))
   {
-    if (![*(a1 + 32) count] && !*(*(*(a1 + 48) + 8) + 40))
+    if (!objc_msgSend_count(*(a1 + 32), a2) && !*(*(*(a1 + 48) + 8) + 40))
     {
-      v2 = MEMORY[0x1E696ABC0];
-      v3 = *MEMORY[0x1E69BFF48];
-      v10 = *MEMORY[0x1E696A278];
-      v11[0] = @"No valid child progress objects";
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-      v5 = [v2 errorWithDomain:v3 code:41008 userInfo:v4];
-      v6 = *(*(a1 + 48) + 8);
-      v7 = *(v6 + 40);
-      *(v6 + 40) = v5;
+      v3 = MEMORY[0x1E696ABC0];
+      v4 = *MEMORY[0x1E69BFF48];
+      v11 = *MEMORY[0x1E696A278];
+      v12[0] = @"No valid child progress objects";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v6 = [v3 errorWithDomain:v4 code:41008 userInfo:v5];
+      v7 = *(*(a1 + 48) + 8);
+      v8 = *(v7 + 40);
+      *(v7 + 40) = v6;
     }
 
-    v8 = *(a1 + 40);
-    v9 = [*(a1 + 32) copy];
-    (*(v8 + 16))(v8, v9, *(*(*(a1 + 48) + 8) + 40));
+    v9 = *(a1 + 40);
+    v10 = [*(a1 + 32) copy];
+    (*(v9 + 16))(v9, v10, *(*(*(a1 + 48) + 8) + 40));
   }
 }
 

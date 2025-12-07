@@ -342,10 +342,9 @@ uint64_t __73__WFDynamicEnumerationParameter_loadPossibleStatesWithCompletionHan
   *(*(a1 + 32) + 288) = 2;
   [*(a1 + 32) lock_setPossibleStatesCollection:*(a1 + 48)];
   os_unfair_lock_unlock((*(a1 + 32) + 248));
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (NSArray)possibleStates
@@ -512,7 +511,7 @@ void __90__WFDynamicEnumerationParameter_loadDefaultSerializedRepresentationWith
 
 void __90__WFDynamicEnumerationParameter_loadDefaultSerializedRepresentationWithCompletionHandler___block_invoke_4(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3)
@@ -529,9 +528,9 @@ LABEL_12:
 
     v5 = [*(a1 + 32) localizedDescription];
     *buf = 136315394;
-    v14 = "[WFDynamicEnumerationParameter loadDefaultSerializedRepresentationWithCompletionHandler:]_block_invoke_4";
-    v15 = 2112;
-    v16 = v5;
+    v13 = "[WFDynamicEnumerationParameter loadDefaultSerializedRepresentationWithCompletionHandler:]_block_invoke_4";
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Error loading default serialized representation for dynamic enumeration: %{error}@", buf, 0x16u);
 LABEL_11:
 
@@ -563,15 +562,15 @@ LABEL_11:
 
 LABEL_15:
     objc_storeStrong((*(a1 + 40) + 272), *(a1 + 48));
-    v12.receiver = *(a1 + 40);
-    v12.super_class = WFDynamicEnumerationParameter;
-    objc_msgSendSuper2(&v12, sel_defaultSerializedRepresentationDidChange);
+    v11.receiver = *(a1 + 40);
+    v11.super_class = WFDynamicEnumerationParameter;
+    objc_msgSendSuper2(&v11, sel_defaultSerializedRepresentationDidChange);
     goto LABEL_13;
   }
 
-  v11 = [v4 isEqual:v7];
+  v10 = [v4 isEqual:v7];
 
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     goto LABEL_15;
   }
@@ -579,8 +578,6 @@ LABEL_15:
 LABEL_13:
   v9 = [*(a1 + 40) defaultStateLoadingGroup];
   dispatch_group_leave(v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFDynamicEnumerationParameter_loadDefaultSerializedRepresentationWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -761,7 +758,7 @@ void __90__WFDynamicEnumerationParameter_loadDefaultSerializedRepresentationWith
 
 void __53__WFDynamicEnumerationParameter_reloadPossibleStates__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -769,11 +766,11 @@ void __53__WFDynamicEnumerationParameter_reloadPossibleStates__block_invoke(uint
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v3 localizedDescription];
-      v7 = 136315394;
-      v8 = "[WFDynamicEnumerationParameter reloadPossibleStates]_block_invoke";
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Error reloading possible states: %{error}@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[WFDynamicEnumerationParameter reloadPossibleStates]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Error reloading possible states: %{error}@", &v6, 0x16u);
     }
   }
 
@@ -781,8 +778,6 @@ void __53__WFDynamicEnumerationParameter_reloadPossibleStates__block_invoke(uint
   {
     [*(a1 + 32) possibleStatesDidChange];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)possibleStatesDidChange
@@ -938,38 +933,37 @@ void __98__WFDynamicEnumerationParameter_WFParameterPicker__wf_loadStatesWithSea
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = objc_alloc(MEMORY[0x1E696E918]);
-    v6 = [*(a1 + 32) possibleStates];
-    v7 = v6;
-    if (v6)
+    v4 = objc_alloc(MEMORY[0x1E696E918]);
+    v5 = [*(a1 + 32) possibleStates];
+    v6 = v5;
+    if (v5)
     {
-      v8 = v6;
+      v7 = v5;
     }
 
     else
     {
-      v8 = MEMORY[0x1E695E0F0];
+      v7 = MEMORY[0x1E695E0F0];
     }
 
-    v9 = [v5 initWithItems:v8];
+    v8 = [v4 initWithItems:v7];
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __98__WFDynamicEnumerationParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_2;
-    v12[3] = &unk_1E837E1F8;
-    v10 = *(a1 + 40);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __98__WFDynamicEnumerationParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_2;
+    v11[3] = &unk_1E837E1F8;
+    v9 = *(a1 + 40);
+    v12 = v8;
     v13 = v9;
-    v14 = v10;
-    v11 = v9;
-    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v10 = v8;
+    dispatch_async(MEMORY[0x1E69E96A0], v11);
   }
 }
 

@@ -32,20 +32,20 @@
 
 - (unsigned)generateImageWithContext:(id)context captureInfo:(id *)info error:(id *)error
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   launchRequest = [contextCopy launchRequest];
   applicationCompatibilityInfo = [contextCopy applicationCompatibilityInfo];
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x3032000000;
-  v84 = __Block_byref_object_copy__4;
-  v85 = __Block_byref_object_dispose__4;
-  v86 = 0;
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x2020000000;
-  v80 = -1;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__4;
+  v87 = __Block_byref_object_dispose__4;
+  v88 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = -1;
   if (!contextCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -87,18 +87,18 @@
 
   v12 = MEMORY[0x277CC1E90];
   bundleIdentifier5 = [applicationCompatibilityInfo bundleIdentifier];
-  v76 = 0;
-  v55 = [v12 bundleRecordWithBundleIdentifier:bundleIdentifier5 allowPlaceholder:0 error:&v76];
-  v56 = v76;
+  v78 = 0;
+  v57 = [v12 bundleRecordWithBundleIdentifier:bundleIdentifier5 allowPlaceholder:0 error:&v78];
+  v58 = v78;
 
-  if (v56)
+  if (v58)
   {
     v14 = [XBLaunchImageError alloc];
     bundleIdentifier6 = [applicationCompatibilityInfo bundleIdentifier];
     v16 = [(XBLaunchImageError *)v14 initWithCode:4 bundleID:bundleIdentifier6 reason:@"Failed to get LSBundleRecord" fatal:0];
     v17 = 0;
-    v18 = v82[5];
-    v82[5] = v16;
+    v18 = v84[5];
+    v84[5] = v16;
 LABEL_13:
 
     goto LABEL_14;
@@ -111,12 +111,12 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  bundleIdentifier6 = v55;
+  bundleIdentifier6 = v57;
   isDeletableSystemApplication = [bundleIdentifier6 isDeletableSystemApplication];
   v17 = isDeletableSystemApplication;
   if (isDeletableSystemApplication)
   {
-    v18 = XBLogCapture();
+    v18 = XBLogCapture(isDeletableSystemApplication);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -129,7 +129,7 @@ LABEL_13:
 LABEL_14:
 
 LABEL_15:
-  v19 = v82[5];
+  v19 = v84[5];
   if ((v17 & 1) != 0 || v19)
   {
     goto LABEL_33;
@@ -148,37 +148,41 @@ LABEL_15:
     if ([v22 isStoryboard])
     {
       name = [v22 name];
-      v27 = v82;
-      v75 = v82[5];
-      XBValidateStoryboard(name, v25, &v75);
-      objc_storeStrong(v27 + 5, v75);
-    }
-
-    else if ([v22 isXIB])
-    {
-      name = [v22 name];
-      v36 = v82;
-      obj = v82[5];
-      XBValidateNib(name, v25, &obj);
-      objc_storeStrong(v36 + 5, obj);
+      v27 = v84;
+      v77 = v84[5];
+      XBValidateStoryboard(name, v25, &v77);
+      objc_storeStrong(v27 + 5, v77);
     }
 
     else
     {
-      name = XBLogCapture();
-      if (os_log_type_enabled(name, OS_LOG_TYPE_DEFAULT))
+      isXIB = [v22 isXIB];
+      if (isXIB)
       {
-        *buf = 0;
-        _os_log_impl(&dword_26B5EF000, name, OS_LOG_TYPE_DEFAULT, "Nothing to validate", buf, 2u);
+        name = [v22 name];
+        v37 = v84;
+        obj = v84[5];
+        XBValidateNib(name, v25, &obj);
+        objc_storeStrong(v37 + 5, obj);
+      }
+
+      else
+      {
+        name = XBLogCapture(isXIB);
+        if (os_log_type_enabled(name, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_26B5EF000, name, OS_LOG_TYPE_DEFAULT, "Nothing to validate", buf, 2u);
+        }
       }
     }
 
-    if (v82[5])
+    if (v84[5])
     {
       goto LABEL_32;
     }
 
-    bundleIdentifier7 = XBLogCapture();
+    bundleIdentifier7 = XBLogCapture(v38);
     if (os_log_type_enabled(bundleIdentifier7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -194,99 +198,98 @@ LABEL_15:
     launchInterfaceIdentifier2 = [launchRequest launchInterfaceIdentifier];
     v33 = [v31 stringWithFormat:@"Validation failed to construct NSBundle for %@ at %@.", launchInterfaceIdentifier2, bundlePath];
     v34 = [(XBLaunchImageError *)v29 initWithCode:4 bundleID:bundleIdentifier7 reason:v33 fatal:0];
-    v35 = v82[5];
-    v82[5] = v34;
+    v35 = v84[5];
+    v84[5] = v34;
 
     self = selfCopy;
   }
 
 LABEL_32:
-  v19 = v82[5];
+  v19 = v84[5];
 LABEL_33:
   if (v19)
   {
     goto LABEL_49;
   }
 
-  v37 = objc_alloc_init(MEMORY[0x277CF0B78]);
+  v39 = objc_alloc_init(MEMORY[0x277CF0B78]);
   [contextCopy timeout];
-  if (v38 > 0.0)
+  if (v40 > 0.0)
   {
-    v39 = dispatch_time(0, (v38 * 1000000000.0));
-    v40 = dispatch_get_global_queue(21, 0);
+    v41 = dispatch_time(0, (v40 * 1000000000.0));
+    v42 = dispatch_get_global_queue(21, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_38;
     block[3] = &unk_279CF9D68;
-    v70 = v37;
+    v72 = v39;
     selfCopy2 = self;
-    v73 = &v81;
-    v71 = applicationCompatibilityInfo;
-    dispatch_after(v39, v40, block);
+    v75 = &v83;
+    v73 = applicationCompatibilityInfo;
+    dispatch_after(v41, v42, block);
   }
 
   *buf = 0;
-  v88 = buf;
-  v89 = 0x3032000000;
-  v90 = __Block_byref_object_copy__4;
-  v91 = __Block_byref_object_dispose__4;
-  v92 = 0;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_43;
-  v65[3] = &unk_279CF9D90;
-  v66 = applicationCompatibilityInfo;
-  v67 = launchRequest;
-  v68 = info != 0;
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_2;
-  v59[3] = &unk_279CF9DB8;
-  v41 = v37;
-  v60 = v41;
-  v62 = &v77;
-  v63 = &v81;
-  v64 = buf;
-  v61 = v66;
-  [(BSBaseXPCClient *)self _sendMessage:v65 withReplyHandler:v59 waitForReply:1 waitDuration:-1];
+  v90 = buf;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__4;
+  v93 = __Block_byref_object_dispose__4;
+  v94 = 0;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_43;
+  v67[3] = &unk_279CF9D90;
+  v68 = applicationCompatibilityInfo;
+  v69 = launchRequest;
+  v70 = info != 0;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_2;
+  v61[3] = &unk_279CF9DB8;
+  v43 = v39;
+  v62 = v43;
+  v64 = &v79;
+  v65 = &v83;
+  v66 = buf;
+  v63 = v68;
+  [(BSBaseXPCClient *)self _sendMessage:v67 withReplyHandler:v61 waitForReply:1 waitDuration:-1];
   if (info)
   {
-    *info = *(v88 + 5);
+    *info = *(v90 + 5);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = v82[5];
+  v19 = v84[5];
   if (v19)
   {
 LABEL_49:
     if ([v19 isFatal])
     {
-      [(BSBaseXPCClient *)self invalidate];
-      v42 = XBLogCapture();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = XBLogCapture([(BSBaseXPCClient *)self invalidate]);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         bundleIdentifier8 = [applicationCompatibilityInfo bundleIdentifier];
-        [XBLaunchImageProviderClient generateImageWithContext:bundleIdentifier8 captureInfo:buf error:v42];
+        [XBLaunchImageProviderClient generateImageWithContext:bundleIdentifier8 captureInfo:buf error:v44];
       }
     }
 
-    *error = v82[5];
+    *error = v84[5];
   }
 
-  v44 = *(v78 + 6);
+  v46 = *(v80 + 6);
 
-  _Block_object_dispose(&v77, 8);
-  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v83, 8);
 
-  return v44;
+  return v46;
 }
 
-uint64_t __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_38(uint64_t a1)
+void *__74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_38(uint64_t a1)
 {
   result = [*(a1 + 32) setFlag:1];
   if (result)
   {
-    v3 = XBLogCapture();
+    v3 = XBLogCapture(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_error___block_invoke_38_cold_1(a1, v3);
@@ -357,7 +360,7 @@ uint64_t __74__XBLaunchImageProviderClient_generateImageWithContext_captureInfo_
     [(XBLaunchImageProviderClient *)a2 preheatServiceWithTimeout:self];
   }
 
-  v4 = XBLogDaemonLifecycle();
+  v4 = XBLogDaemonLifecycle(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;

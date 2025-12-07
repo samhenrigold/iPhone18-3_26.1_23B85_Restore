@@ -1,3 +1,538 @@
+uint64_t VTDecompressionSessionRemoteClient_FlushPixelBufferPool(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a1;
+  v11 = 0;
+  *&msg[20] = 0u;
+  *&msg[4] = 0;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v3;
+  *&msg[12] = special_reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x472500000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v5 = *&msg[12];
+  }
+
+  else
+  {
+    v5 = special_reply_port;
+  }
+
+  v6 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v5, *MEMORY[0x1E695FF48], 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  {
+    if (!v6)
+    {
+      if (*&msg[20] == 71)
+      {
+        v7 = 4294966988;
+      }
+
+      else if (*&msg[20] == 18313)
+      {
+        v7 = 4294966996;
+        if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
+        {
+          v7 = *&msg[32];
+          if (!*&msg[32])
+          {
+            return v7;
+          }
+        }
+      }
+
+      else
+      {
+        v7 = 4294966995;
+      }
+
+LABEL_23:
+      mach_msg_destroy(msg);
+      return v7;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v7 - 268435459) <= 1)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+    goto LABEL_23;
+  }
+
+  return v7;
+}
+
+uint64_t VTDecompressionSessionRemoteClient_GetMinOutputPresentationTimeStampOfFramesBeingDecoded(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a1;
+  v15 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
+  v13 = 0u;
+  *&msg[20] = 0u;
+  *&msg[4] = 0;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v4;
+  *&msg[12] = special_reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x472600000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v6 = *&msg[12];
+  }
+
+  else
+  {
+    v6 = special_reply_port;
+  }
+
+  v7 = mach_msg(msg, 3162387, 0x18u, 0x44u, v6, *MEMORY[0x1E695FF48], 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (*&msg[20] == 71)
+      {
+        v8 = 4294966988;
+      }
+
+      else if (*&msg[20] == 18314)
+      {
+        if ((*msg & 0x80000000) == 0)
+        {
+          if (*&msg[4] == 60)
+          {
+            if (!*&msg[8])
+            {
+              v8 = *&msg[32];
+              if (!*&msg[32])
+              {
+                *a2 = v13;
+                *(a2 + 16) = v14;
+                return v8;
+              }
+
+              goto LABEL_29;
+            }
+          }
+
+          else if (*&msg[4] == 36)
+          {
+            if (*&msg[8])
+            {
+              v10 = 1;
+            }
+
+            else
+            {
+              v10 = *&msg[32] == 0;
+            }
+
+            if (v10)
+            {
+              v8 = 4294966996;
+            }
+
+            else
+            {
+              v8 = *&msg[32];
+            }
+
+            goto LABEL_29;
+          }
+        }
+
+        v8 = 4294966996;
+      }
+
+      else
+      {
+        v8 = 4294966995;
+      }
+
+LABEL_29:
+      mach_msg_destroy(msg);
+      return v8;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v8 - 268435459) <= 1)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+    goto LABEL_29;
+  }
+
+  return v8;
+}
+
+uint64_t VTDecompressionSessionRemoteClient_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+{
+  v7 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  memset(v17, 0, sizeof(v17));
+  v16 = 0u;
+  *&msg[20] = 0u;
+  *&msg[4] = 0;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v7;
+  *&msg[12] = special_reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x472700000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v9 = *&msg[12];
+  }
+
+  else
+  {
+    v9 = special_reply_port;
+  }
+
+  v10 = mach_msg(msg, 3162387, 0x18u, 0x60u, v9, *MEMORY[0x1E695FF48], 0);
+  v11 = v10;
+  if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
+  {
+    if (!v10)
+    {
+      if (*&msg[20] == 71)
+      {
+        v11 = 4294966988;
+      }
+
+      else if (*&msg[20] == 18315)
+      {
+        if ((*msg & 0x80000000) == 0)
+        {
+          if (*&msg[4] == 88)
+          {
+            if (!*&msg[8])
+            {
+              v11 = *&msg[32];
+              if (!*&msg[32])
+              {
+                *a2 = v16;
+                *(a2 + 16) = *v17;
+                *a3 = *&v17[8];
+                *(a3 + 16) = *&v17[24];
+                *a4 = *&v17[32];
+                return v11;
+              }
+
+              goto LABEL_29;
+            }
+          }
+
+          else if (*&msg[4] == 36)
+          {
+            if (*&msg[8])
+            {
+              v13 = 1;
+            }
+
+            else
+            {
+              v13 = *&msg[32] == 0;
+            }
+
+            if (v13)
+            {
+              v11 = 4294966996;
+            }
+
+            else
+            {
+              v11 = *&msg[32];
+            }
+
+            goto LABEL_29;
+          }
+        }
+
+        v11 = 4294966996;
+      }
+
+      else
+      {
+        v11 = 4294966995;
+      }
+
+LABEL_29:
+      mach_msg_destroy(msg);
+      return v11;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v11 - 268435459) <= 1)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+    goto LABEL_29;
+  }
+
+  return v11;
+}
+
+uint64_t VTDecompressionSessionRemoteClient_GetNextPendingNotification(uint64_t a1, _DWORD *a2, void *a3, char *a4, void *a5, _DWORD *a6)
+{
+  v11 = a1;
+  v24 = *MEMORY[0x1E69E9840];
+  memset(v23, 0, 444);
+  v22 = 0u;
+  v21 = 0u;
+  *&msg[20] = 0u;
+  *&msg[4] = 0;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v11;
+  *&msg[12] = special_reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x472800000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v13 = *&msg[12];
+  }
+
+  else
+  {
+    v13 = special_reply_port;
+  }
+
+  v14 = mach_msg(msg, 3162387, 0x18u, 0x254u, v13, *MEMORY[0x1E695FF48], 0);
+  v15 = v14;
+  if ((v14 - 268435458) > 0xE || ((1 << (v14 - 2)) & 0x4003) == 0)
+  {
+    if (!v14)
+    {
+      if (*&msg[20] == 71)
+      {
+        v15 = 4294966988;
+      }
+
+      else if (*&msg[20] == 18316)
+      {
+        if ((*msg & 0x80000000) == 0)
+        {
+          if (*&msg[4] == 36)
+          {
+            v15 = 4294966996;
+            if (*&msg[32])
+            {
+              if (*&msg[8])
+              {
+                v15 = 4294966996;
+              }
+
+              else
+              {
+                v15 = *&msg[32];
+              }
+            }
+          }
+
+          else
+          {
+            v15 = 4294966996;
+          }
+
+          goto LABEL_31;
+        }
+
+        v15 = 4294966996;
+        if (*&msg[24] == 1 && (*&msg[4] - 76) <= 0x200 && !*&msg[8] && BYTE3(v21) == 1 && LODWORD(v23[0]) <= 0x200 && (*&msg[4] - 76) >= LODWORD(v23[0]))
+        {
+          v16 = (LODWORD(v23[0]) + 3) & 0xFFFFFFFC;
+          if (*&msg[4] == v16 + 76)
+          {
+            v17 = &msg[v16];
+            if (DWORD1(v21) == *(v17 + 18))
+            {
+              v18 = v17 - 512;
+              *a2 = v22;
+              *a3 = *(&v22 + 4);
+              mig_strncpy(a4, v23 + 4, 512);
+              v15 = 0;
+              *a5 = *&msg[28];
+              *a6 = *(v18 + 146);
+              return v15;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        v15 = 4294966995;
+      }
+
+LABEL_31:
+      mach_msg_destroy(msg);
+      return v15;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v15 - 268435459) <= 1)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+    goto LABEL_31;
+  }
+
+  return v15;
+}
+
+uint64_t VTDecompressionSessionRemoteClient_TileCreate(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, char *src, int *a9, void *a10, uint64_t *a11, int *a12)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  memset(v32, 0, 416);
+  v30 = 0;
+  v31 = 0u;
+  v24 = 0x13000000000000;
+  memset(&name, 0, sizeof(name));
+  v22 = 3;
+  v23 = a2;
+  v25 = a4;
+  LODWORD(v26) = 16777472;
+  HIDWORD(v26) = a5;
+  v27 = a6;
+  v28 = 16777472;
+  v29 = a7;
+  v30 = *MEMORY[0x1E69E99E0];
+  *&v31 = a3;
+  *(&v31 + 1) = __PAIR64__(a7, a5);
+  if (MEMORY[0x1EEE9AC40])
+  {
+    v13 = mig_strncpy_zerofill(v32 + 8, src, 512);
+  }
+
+  else
+  {
+    v13 = mig_strncpy(v32 + 8, src, 512);
+  }
+
+  LODWORD(v32[0]) = 0;
+  DWORD1(v32[0]) = v13;
+  v14 = (v13 + 3) & 0xFFFFFFFC;
+  special_reply_port = mig_get_special_reply_port();
+  name.msgh_remote_port = a1;
+  name.msgh_local_port = special_reply_port;
+  name.msgh_bits = -2147478253;
+  *&name.msgh_voucher_port = 0x472900000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(&name);
+    msgh_local_port = name.msgh_local_port;
+  }
+
+  else
+  {
+    msgh_local_port = special_reply_port;
+  }
+
+  v17 = mach_msg(&name, 3162387, v14 + 104, 0x4Cu, msgh_local_port, *MEMORY[0x1E695FF48], 0);
+  v18 = v17;
+  if ((v17 - 268435458) > 0xE || ((1 << (v17 - 2)) & 0x4003) == 0)
+  {
+    if (!v17)
+    {
+      if (name.msgh_id == 71)
+      {
+        v18 = 4294966988;
+      }
+
+      else if (name.msgh_id == 18317)
+      {
+        if ((name.msgh_bits & 0x80000000) == 0)
+        {
+          if (name.msgh_size == 36)
+          {
+            v18 = 4294966996;
+            if (v24)
+            {
+              if (name.msgh_remote_port)
+              {
+                v18 = 4294966996;
+              }
+
+              else
+              {
+                v18 = v24;
+              }
+            }
+          }
+
+          else
+          {
+            v18 = 4294966996;
+          }
+
+          goto LABEL_30;
+        }
+
+        v18 = 4294966996;
+        if (v22 == 1 && name.msgh_size == 68 && !name.msgh_remote_port && HIWORD(v24) << 16 == 1114112)
+        {
+          v18 = 0;
+          *a9 = v23;
+          v19 = v27;
+          *a10 = v26;
+          *a11 = v19;
+          *a12 = v28;
+          return v18;
+        }
+      }
+
+      else
+      {
+        v18 = 4294966995;
+      }
+
+LABEL_30:
+      mach_msg_destroy(&name);
+      return v18;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v18 - 268435459) <= 1)
+  {
+    if ((name.msgh_bits & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], name.msgh_local_port);
+    }
+
+    goto LABEL_30;
+  }
+
+  return v18;
+}
+
 uint64_t VTDecompressionSessionRemoteClient_DecodeTile(int a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, int a9, uint64_t a10, int a11, uint64_t a12)
 {
   *&msg[20] = 0u;
@@ -109,7 +644,7 @@ uint64_t (*vtdecompressionsession_server_routine(uint64_t a1))()
   }
 }
 
-uint64_t _XCreate(uint64_t result, uint64_t a2)
+unsigned int *_XCreate(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -118,23 +653,23 @@ uint64_t _XCreate(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 4)
+  if (result[6] != 4)
   {
     goto LABEL_20;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if ((v5 - 637) < 0xFFFFFDFF)
   {
     goto LABEL_20;
   }
 
-  if (*(result + 38) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1 || *(result + 83) != 1)
+  if (*(result + 19) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1 || *(result + 83) != 1)
   {
     goto LABEL_19;
   }
 
-  v6 = *(result + 120);
+  v6 = result[30];
   v3 = -304;
   if (v6 > 0x200 || v5 - 124 < v6)
   {
@@ -146,14 +681,14 @@ uint64_t _XCreate(uint64_t result, uint64_t a2)
     goto LABEL_2;
   }
 
-  if (*(result + 52) != *(result + 104) || *(result + 68) != *(result + 108) || *(result + 84) != *(result + 112))
+  if (result[13] != result[26] || result[17] != result[27] || result[21] != result[28])
   {
 LABEL_19:
     v3 = -300;
     goto LABEL_20;
   }
 
-  result = memchr((result + 124), 0, v5 - 124);
+  result = memchr(result + 31, 0, v5 - 124);
   if (!result)
   {
 LABEL_2:
@@ -163,27 +698,27 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v7 = ((v5 + 3) & 0x7FC) + v4;
-  if (*v7 || *(v7 + 4) <= 0x1Fu)
+  v7 = v4 + ((v5 + 3) & 0x7FC);
+  if (*v7 || *(v7 + 1) <= 0x1Fu)
   {
     v3 = -309;
     goto LABEL_20;
   }
 
   *(a2 + 32) = 0x14000000000000;
-  v8 = *(v4 + 12);
-  v9 = *(v4 + 28);
-  v10 = *(v4 + 96);
-  v11 = *(v4 + 40);
-  v12 = *(v4 + 52);
-  v13 = *(v4 + 56);
-  v14 = *(v4 + 68);
-  v15 = *(v4 + 72);
-  v16 = *(v4 + 84);
+  v8 = v4[3];
+  v9 = v4[7];
+  v10 = *(v4 + 12);
+  v11 = *(v4 + 5);
+  v12 = v4[13];
+  v13 = *(v4 + 7);
+  v14 = v4[17];
+  v15 = *(v4 + 9);
+  v16 = v4[21];
   v17 = *(v7 + 36);
   v18[0] = *(v7 + 20);
   v18[1] = v17;
-  result = VTDecompressionSessionRemoteServer_Create(v8, v9, v18, v10, v11, v12, v13, v14, v15, v16, (v4 + 124), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
+  result = VTDecompressionSessionRemoteServer_Create(v8, v9, v18, v10, v11, v12, v13, v14, v15, v16, v4 + 124, (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
   if (!result)
   {
     *(a2 + 40) = *MEMORY[0x1E69E99E0];
@@ -311,7 +846,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _XSetProperty(uint64_t result, uint64_t a2)
+unsigned int *_XSetProperty(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -320,12 +855,12 @@ uint64_t _XSetProperty(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 1)
+  if (result[6] != 1)
   {
     goto LABEL_3;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if (v5 - 577 < 0xFFFFFDFF)
   {
     goto LABEL_3;
@@ -336,7 +871,7 @@ uint64_t _XSetProperty(uint64_t result, uint64_t a2)
     goto LABEL_18;
   }
 
-  v6 = *(result + 56);
+  v6 = result[14];
   if (v6 > 0x200)
   {
 LABEL_2:
@@ -359,7 +894,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(result + 40);
+  v8 = result[10];
   if (v8 != *(result + v7 + 60))
   {
 LABEL_18:
@@ -377,13 +912,13 @@ LABEL_18:
     v9 = v5;
   }
 
-  result = memchr((result + 60), 0, v9 - 60);
+  result = memchr(result + 15, 0, v9 - 60);
   if (!result)
   {
     goto LABEL_2;
   }
 
-  result = VTDecompressionSessionRemoteServer_SetProperty(*(v4 + 12), (v4 + 60), *(v4 + 28), v8, (a2 + 36));
+  result = VTDecompressionSessionRemoteServer_SetProperty(v4[3], v4 + 60, *(v4 + 7), v8, (a2 + 36));
   *(a2 + 32) = result;
   *(a2 + 24) = *MEMORY[0x1E69E99E0];
   if (!result)
@@ -707,7 +1242,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t _XTileCreate(uint64_t result, uint64_t a2)
+unsigned int *_XTileCreate(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -716,23 +1251,23 @@ uint64_t _XTileCreate(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 3)
+  if (result[6] != 3)
   {
     goto LABEL_18;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if ((v5 - 617) < 0xFFFFFDFF)
   {
     goto LABEL_18;
   }
 
-  if (*(result + 38) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
+  if (*(result + 19) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
   {
     goto LABEL_17;
   }
 
-  v6 = *(result + 100);
+  v6 = result[25];
   v3 = -304;
   if (v6 > 0x200 || v5 - 104 < v6)
   {
@@ -744,14 +1279,14 @@ uint64_t _XTileCreate(uint64_t result, uint64_t a2)
     goto LABEL_2;
   }
 
-  if (*(result + 52) != *(result + 88) || *(result + 68) != *(result + 92))
+  if (result[13] != result[22] || result[17] != result[23])
   {
 LABEL_17:
     v3 = -300;
     goto LABEL_18;
   }
 
-  result = memchr((result + 104), 0, v5 - 104);
+  result = memchr(result + 26, 0, v5 - 104);
   if (!result)
   {
 LABEL_2:
@@ -761,25 +1296,25 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v7 = ((v5 + 3) & 0x7FC) + v4;
-  if (*v7 || *(v7 + 4) <= 0x1Fu)
+  v7 = v4 + ((v5 + 3) & 0x7FC);
+  if (*v7 || *(v7 + 1) <= 0x1Fu)
   {
     v3 = -309;
     goto LABEL_18;
   }
 
   *(a2 + 32) = 0x14000000000000;
-  v8 = *(v4 + 12);
-  v9 = *(v4 + 28);
-  v10 = *(v4 + 80);
-  v11 = *(v4 + 40);
-  v12 = *(v4 + 52);
-  v13 = *(v4 + 56);
-  v14 = *(v4 + 68);
+  v8 = v4[3];
+  v9 = v4[7];
+  v10 = *(v4 + 10);
+  v11 = *(v4 + 5);
+  v12 = v4[13];
+  v13 = *(v4 + 7);
+  v14 = v4[17];
   v15 = *(v7 + 36);
   v16[0] = *(v7 + 20);
   v16[1] = v15;
-  result = VTDecompressionSessionRemoteServer_TileCreate(v8, v9, v16, v10, v11, v12, v13, v14, (v4 + 104), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
+  result = VTDecompressionSessionRemoteServer_TileCreate(v8, v9, v16, v10, v11, v12, v13, v14, v4 + 104, (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
   if (!result)
   {
     *(a2 + 40) = *MEMORY[0x1E69E99E0];
@@ -861,7 +1396,7 @@ _DWORD *_XEnableMIO(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t VTCompressionSessionRemoteClient_Create(mach_port_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, uint64_t a7, unsigned int a8, uint64_t a9, unsigned int a10, uint64_t a11, unsigned int a12, char *src, _DWORD *a14, void *a15, uint64_t *a16, int *a17)
+uint64_t VTCompressionSessionRemoteClient_Create(mach_port_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, uint64_t a7, unsigned int a8, uint64_t a9, unsigned int a10, uint64_t a11, unsigned int a12, char *src, int *a14, void *a15, uint64_t *a16, int *a17)
 {
   v42 = *MEMORY[0x1E69E9840];
   memset(v41, 0, 384);
@@ -994,65 +1529,66 @@ LABEL_30:
   return v23;
 }
 
-uint64_t VTCompressionSessionRemoteClient_Destroy(int a1)
+uint64_t VTCompressionSessionRemoteClient_Destroy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = 0;
+  v3 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v3;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x477D00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v5 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v5 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v3, *MEMORY[0x1E695FF48], 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  v6 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v5, *MEMORY[0x1E695FF48], 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
-    if (!v4)
+    if (!v6)
     {
       if (*&msg[20] == 71)
       {
-        v5 = 4294966988;
+        v7 = 4294966988;
       }
 
       else if (*&msg[20] == 18401)
       {
-        v5 = 4294966996;
+        v7 = 4294966996;
         if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
         {
-          v5 = *&msg[32];
+          v7 = *&msg[32];
           if (!*&msg[32])
           {
-            return v5;
+            return v7;
           }
         }
       }
 
       else
       {
-        v5 = 4294966995;
+        v7 = 4294966995;
       }
 
 LABEL_23:
       mach_msg_destroy(msg);
-      return v5;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v5 - 268435459) <= 1)
+  if ((v7 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -1062,18 +1598,19 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  return v5;
+  return v7;
 }
 
-uint64_t VTCompressionSessionRemoteClient_CopySupportedPropertyDictionary(int a1, void *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTCompressionSessionRemoteClient_CopySupportedPropertyDictionary(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v16 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x477E00000000;
@@ -1169,15 +1706,16 @@ LABEL_31:
   return v11;
 }
 
-uint64_t VTCompressionSessionRemoteClient_CopySerializableProperties(int a1, void *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTCompressionSessionRemoteClient_CopySerializableProperties(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v16 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x477F00000000;
@@ -1571,15 +2109,16 @@ LABEL_29:
   return v13;
 }
 
-uint64_t VTCompressionSessionRemoteClient_SetMultiPassStorage(mach_port_t a1, int a2, _DWORD *a3)
+uint64_t VTCompressionSessionRemoteClient_SetMultiPassStorage(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
+  v4 = a1;
   v13 = 1;
   v15 = 0u;
   v12.msgh_size = 0;
   v14 = a2;
   DWORD1(v15) = 1245184;
   special_reply_port = mig_get_special_reply_port();
-  v12.msgh_remote_port = a1;
+  v12.msgh_remote_port = v4;
   v12.msgh_local_port = special_reply_port;
   v12.msgh_bits = -2147478253;
   *&v12.msgh_voucher_port = 0x478200000000;
@@ -1679,8 +2218,9 @@ LABEL_29:
   return v8;
 }
 
-uint64_t VTCompressionSessionRemoteClient_SetProperties(mach_port_t a1, uint64_t a2, int a3, int *a4)
+uint64_t VTCompressionSessionRemoteClient_SetProperties(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
+  v5 = a1;
   v20 = *MEMORY[0x1E69E9840];
   v14 = 1;
   v15 = a2;
@@ -1690,7 +2230,7 @@ uint64_t VTCompressionSessionRemoteClient_SetProperties(mach_port_t a1, uint64_t
   v19 = a3;
   special_reply_port = mig_get_special_reply_port();
   *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
+  v13.msgh_remote_port = v5;
   v13.msgh_local_port = special_reply_port;
   *&v13.msgh_voucher_port = 0x478300000000;
   if (MEMORY[0x1EEE9AC50])
@@ -1920,8 +2460,9 @@ uint64_t VTCompressionSessionRemoteClient_EncodeFrame(mach_port_name_t a1, int a
   return v32;
 }
 
-uint64_t VTCompressionSessionRemoteClient_DequeueNextPendingEncodedFrame(int a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, void *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, void *a11, _DWORD *a12, uint64_t a13, _DWORD *a14)
+uint64_t VTCompressionSessionRemoteClient_DequeueNextPendingEncodedFrame(uint64_t a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, void *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, void *a11, _DWORD *a12, uint64_t a13, _DWORD *a14)
 {
+  v21 = a1;
   v46 = *MEMORY[0x1E69E9840];
   v45 = 0;
   v44 = 0u;
@@ -1934,7 +2475,7 @@ uint64_t VTCompressionSessionRemoteClient_DequeueNextPendingEncodedFrame(int a1,
   *&name_12[4] = 0u;
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v21;
   name_8 = special_reply_port;
   v33 = 5395;
   *name_12 = 0x478600000000;
@@ -2078,15 +2619,16 @@ uint64_t VTCompressionSessionRemoteClient_CompleteFrames(mach_port_t a1, __int12
   return v2;
 }
 
-uint64_t VTCompressionSessionRemoteClient_BeginPass(int a1, int a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTCompressionSessionRemoteClient_BeginPass(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
 {
+  v6 = a1;
   *&msg[20] = 0u;
   v16 = 0u;
   *&msg[4] = 0u;
   *&msg[24] = *MEMORY[0x1E69E99E0];
   *&msg[32] = a2;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v6;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x478800000000;
@@ -2188,14 +2730,15 @@ LABEL_29:
   return v10;
 }
 
-uint64_t VTCompressionSessionRemoteClient_EndPass(int a1, _DWORD *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTCompressionSessionRemoteClient_EndPass(uint64_t a1, _DWORD *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = 0;
   v17 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x478900000000;
@@ -2298,8 +2841,9 @@ LABEL_29:
   return v11;
 }
 
-uint64_t VTCompressionSessionRemoteClient_GetTimeRangesForNextPass(int a1, void *a2, void *a3, _DWORD *a4, _DWORD *a5)
+uint64_t VTCompressionSessionRemoteClient_GetTimeRangesForNextPass(uint64_t a1, void *a2, void *a3, _DWORD *a4, _DWORD *a5)
 {
+  v9 = a1;
   v21 = *MEMORY[0x1E69E9840];
   v20 = 0;
   v18 = 0u;
@@ -2307,7 +2851,7 @@ uint64_t VTCompressionSessionRemoteClient_GetTimeRangesForNextPass(int a1, void 
   *&msg[4] = 0;
   *&msg[20] = 0u;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v9;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x478A00000000;
@@ -2539,65 +3083,66 @@ LABEL_30:
   return v20;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MultiPassStorageDestroy(int a1)
+uint64_t VTCompressionSessionRemoteClient_MultiPassStorageDestroy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = 0;
+  v3 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v3;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x478C00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v5 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v5 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v3, *MEMORY[0x1E695FF48], 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  v6 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v5, *MEMORY[0x1E695FF48], 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
-    if (!v4)
+    if (!v6)
     {
       if (*&msg[20] == 71)
       {
-        v5 = 4294966988;
+        v7 = 4294966988;
       }
 
       else if (*&msg[20] == 18416)
       {
-        v5 = 4294966996;
+        v7 = 4294966996;
         if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
         {
-          v5 = *&msg[32];
+          v7 = *&msg[32];
           if (!*&msg[32])
           {
-            return v5;
+            return v7;
           }
         }
       }
 
       else
       {
-        v5 = 4294966995;
+        v7 = 4294966995;
       }
 
 LABEL_23:
       mach_msg_destroy(msg);
-      return v5;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v5 - 268435459) <= 1)
+  if ((v7 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -2607,7 +3152,7 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  return v5;
+  return v7;
 }
 
 uint64_t VTCompressionSessionRemoteClient_MultiPassStorageSetIdentifier(mach_port_name_t a1, const char *a2, _DWORD *a3)
@@ -2731,15 +3276,16 @@ LABEL_29:
   return v10;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyIdentifier(mach_port_t a1, char *a2)
+uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyIdentifier(uint64_t a1, char *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v13 = *MEMORY[0x1E69E9840];
   memset(&msg[20].msgh_size, 0, 28);
   memset(&msg[1].msgh_local_port, 0, 448);
   *&msg[0].msgh_id = 0u;
   msg[0].msgh_size = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg[0].msgh_remote_port = a1;
+  msg[0].msgh_remote_port = v4;
   msg[0].msgh_local_port = special_reply_port;
   msg[0].msgh_bits = 5395;
   *&msg[0].msgh_voucher_port = 0x478E00000000;
@@ -2754,11 +3300,11 @@ uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyIdentifier(mach_po
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(msg, 3162387, 0x18u, 0x234u, msgh_local_port, *MEMORY[0x1E695FF48], 0);
-  msgh_remote_port = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v7 = mach_msg(msg, 3162387, 0x18u, 0x234u, msgh_local_port, *MEMORY[0x1E695FF48], 0);
+  msgh_remote_port = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v7)
     {
       if (msg[0].msgh_id == 71)
       {
@@ -2773,15 +3319,15 @@ uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyIdentifier(mach_po
           {
             if (msg[1].msgh_remote_port)
             {
-              v8 = msg[0].msgh_remote_port == 0;
+              v9 = msg[0].msgh_remote_port == 0;
             }
 
             else
             {
-              v8 = 0;
+              v9 = 0;
             }
 
-            if (v8 && msg[0].msgh_size == 36)
+            if (v9 && msg[0].msgh_size == 36)
             {
               msgh_remote_port = msg[1].msgh_remote_port;
             }
@@ -2840,8 +3386,9 @@ LABEL_28:
   return msgh_remote_port;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MultiPassStorageSetDataAtTimeStamp(mach_port_t a1, __int128 *a2, int a3, uint64_t a4, int a5, int *a6)
+uint64_t VTCompressionSessionRemoteClient_MultiPassStorageSetDataAtTimeStamp(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, int a5, int *a6)
 {
+  v7 = a1;
   v25 = *MEMORY[0x1E69E9840];
   v16 = 1;
   v17 = a4;
@@ -2854,7 +3401,7 @@ uint64_t VTCompressionSessionRemoteClient_MultiPassStorageSetDataAtTimeStamp(mac
   v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&v15.msgh_bits = 2147489043;
-  v15.msgh_remote_port = a1;
+  v15.msgh_remote_port = v7;
   v15.msgh_local_port = special_reply_port;
   *&v15.msgh_voucher_port = 0x478F00000000;
   if (MEMORY[0x1EEE9AC50])
@@ -3206,8 +3753,9 @@ LABEL_29:
   return v15;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyDataAtTimeStamp(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5, _DWORD *a6)
+uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyDataAtTimeStamp(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, _DWORD *a6)
 {
+  v9 = a1;
   v19 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 48);
   *msg_4 = 0u;
@@ -3216,7 +3764,7 @@ uint64_t VTCompressionSessionRemoteClient_MultiPassStorageCopyDataAtTimeStamp(in
   *&msg_4[44] = *(a2 + 16);
   *&msg_4[52] = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v9;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x479200000000;
@@ -3312,8 +3860,9 @@ LABEL_31:
   return v13;
 }
 
-uint64_t VTCompressionSessionRemoteClient_GetNextPendingNotification(int a1, _DWORD *a2, void *a3, char *a4, void *a5, _DWORD *a6)
+uint64_t VTCompressionSessionRemoteClient_GetNextPendingNotification(uint64_t a1, _DWORD *a2, void *a3, char *a4, void *a5, _DWORD *a6)
 {
+  v11 = a1;
   v24 = *MEMORY[0x1E69E9840];
   memset(v23, 0, 444);
   v22 = 0u;
@@ -3321,7 +3870,7 @@ uint64_t VTCompressionSessionRemoteClient_GetNextPendingNotification(int a1, _DW
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v11;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x479300000000;
@@ -3424,7 +3973,7 @@ LABEL_31:
   return v15;
 }
 
-uint64_t VTCompressionSessionRemoteClient_TileCreate(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9, char *src, _DWORD *a11, void *a12, void *a13, int *a14)
+uint64_t VTCompressionSessionRemoteClient_TileCreate(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9, char *src, int *a11, void *a12, uint64_t *a13, int *a14)
 {
   v36 = *MEMORY[0x1E69E9840];
   v34 = 0u;
@@ -3648,7 +4197,7 @@ uint64_t VTCompressionSessionRemoteClient_CompleteTiles(mach_port_t a1)
   return v1;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MotionEstimationCreate(mach_port_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, int a7, char *src, _DWORD *a9, void *a10, void *a11, _DWORD *a12)
+uint64_t VTCompressionSessionRemoteClient_MotionEstimationCreate(mach_port_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, int a7, char *src, int *a9, void *a10, void *a11, _DWORD *a12)
 {
   v30 = *MEMORY[0x1E69E9840];
   v28 = 0u;
@@ -3773,15 +4322,16 @@ LABEL_30:
   return v18;
 }
 
-uint64_t VTCompressionSessionRemoteClient_MotionEstimationCopySourcePixelBufferAttributes(int a1, void *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTCompressionSessionRemoteClient_MotionEstimationCopySourcePixelBufferAttributes(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v16 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x479900000000;
@@ -3945,8 +4495,9 @@ uint64_t VTCompressionSessionRemoteClient_CompleteMotionEstimation(mach_port_t a
   return v1;
 }
 
-uint64_t VTCompressionSessionRemoteClient_CopyTemporalFilterList(mach_port_t a1, uint64_t a2, int a3, void *a4, _DWORD *a5, _DWORD *a6)
+uint64_t VTCompressionSessionRemoteClient_CopyTemporalFilterList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, _DWORD *a6)
 {
+  v9 = a1;
   msg.msgh_id = 0;
   v22 = 0;
   v23 = 0u;
@@ -3958,7 +4509,7 @@ uint64_t VTCompressionSessionRemoteClient_CopyTemporalFilterList(mach_port_t a1,
   v22 = *MEMORY[0x1E69E99E0];
   LODWORD(v23) = a3;
   special_reply_port = mig_get_special_reply_port();
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v9;
   msg.msgh_local_port = special_reply_port;
   msg.msgh_bits = -2147478253;
   *&msg.msgh_voucher_port = 0x479C00000000;
@@ -4054,7 +4605,7 @@ LABEL_31:
   return v13;
 }
 
-uint64_t VTCompressionSessionRemoteClient_TemporalFilterCreate(mach_port_t a1, int a2, uint64_t a3, char *src, int a5, int a6, uint64_t a7, int a8, uint64_t a9, int a10, uint64_t a11, int a12, uint64_t a13, int a14, const char *a15, _DWORD *a16, void *a17, uint64_t *a18, int *a19)
+uint64_t VTCompressionSessionRemoteClient_TemporalFilterCreate(mach_port_t a1, int a2, uint64_t a3, char *src, int a5, int a6, uint64_t a7, int a8, uint64_t a9, int a10, uint64_t a11, int a12, uint64_t a13, int a14, const char *a15, int *a16, void *a17, uint64_t *a18, int *a19)
 {
   v56 = *MEMORY[0x1E69E9840];
   memset(v55, 0, 352);
@@ -4386,7 +4937,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _XSetProperty_0(uint64_t result, uint64_t a2)
+unsigned int *_XSetProperty_0(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -4395,12 +4946,12 @@ uint64_t _XSetProperty_0(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 1)
+  if (result[6] != 1)
   {
     goto LABEL_3;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if (v5 - 577 < 0xFFFFFDFF)
   {
     goto LABEL_3;
@@ -4411,7 +4962,7 @@ uint64_t _XSetProperty_0(uint64_t result, uint64_t a2)
     goto LABEL_18;
   }
 
-  v6 = *(result + 56);
+  v6 = result[14];
   if (v6 > 0x200)
   {
 LABEL_2:
@@ -4434,7 +4985,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(result + 40);
+  v8 = result[10];
   if (v8 != *(result + v7 + 60))
   {
 LABEL_18:
@@ -4452,13 +5003,13 @@ LABEL_18:
     v9 = v5;
   }
 
-  result = memchr((result + 60), 0, v9 - 60);
+  result = memchr(result + 15, 0, v9 - 60);
   if (!result)
   {
     goto LABEL_2;
   }
 
-  result = VTCompressionSessionRemoteServer_SetProperty(*(v4 + 12), (v4 + 60), *(v4 + 28), v8, (a2 + 36));
+  result = VTCompressionSessionRemoteServer_SetProperty(v4[3], v4 + 60, *(v4 + 7), v8, (a2 + 36));
   *(a2 + 32) = result;
   *(a2 + 24) = *MEMORY[0x1E69E99E0];
   if (!result)
@@ -4738,7 +5289,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t _XMultiPassStorageCreate(uint64_t result, uint64_t a2)
+unsigned int *_XMultiPassStorageCreate(unsigned int *result, uint64_t a2)
 {
   v19 = *MEMORY[0x1E69E9840];
   if ((*result & 0x80000000) == 0)
@@ -4748,23 +5299,23 @@ uint64_t _XMultiPassStorageCreate(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 3)
+  if (result[6] != 3)
   {
     goto LABEL_18;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if ((v5 - 665) < 0xFFFFFDFF)
   {
     goto LABEL_18;
   }
 
-  if (*(result + 38) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
+  if (*(result + 19) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
   {
     goto LABEL_17;
   }
 
-  v6 = *(result + 148);
+  v6 = result[37];
   v3 = -304;
   if (v6 > 0x200 || v5 - 152 < v6)
   {
@@ -4776,14 +5327,14 @@ uint64_t _XMultiPassStorageCreate(uint64_t result, uint64_t a2)
     goto LABEL_2;
   }
 
-  if (*(result + 52) != *(result + 88) || *(result + 68) != *(result + 140))
+  if (result[13] != result[22] || result[17] != result[35])
   {
 LABEL_17:
     v3 = -300;
     goto LABEL_18;
   }
 
-  result = memchr((result + 152), 0, v5 - 152);
+  result = memchr(result + 38, 0, v5 - 152);
   if (!result)
   {
 LABEL_2:
@@ -4793,29 +5344,29 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v7 = ((v5 + 3) & 0x7FC) + v4;
-  if (*v7 || *(v7 + 4) <= 0x1Fu)
+  v7 = v4 + ((v5 + 3) & 0x7FC);
+  if (*v7 || *(v7 + 1) <= 0x1Fu)
   {
     v3 = -309;
     goto LABEL_18;
   }
 
   *(a2 + 32) = 0x14000000000000;
-  v8 = *(v4 + 12);
-  v9 = *(v4 + 28);
-  v10 = *(v4 + 80);
-  v11 = *(v4 + 40);
-  v12 = *(v4 + 52);
-  v13 = *(v4 + 56);
-  v14 = *(v4 + 68);
+  v8 = v4[3];
+  v9 = v4[7];
+  v10 = *(v4 + 10);
+  v11 = *(v4 + 5);
+  v12 = v4[13];
+  v13 = *(v4 + 7);
+  v14 = v4[17];
   v15 = *(v7 + 36);
   v17[0] = *(v7 + 20);
   v17[1] = v15;
-  v16 = *(v4 + 108);
-  v18[0] = *(v4 + 92);
+  v16 = *(v4 + 27);
+  v18[0] = *(v4 + 23);
   v18[1] = v16;
-  v18[2] = *(v4 + 124);
-  result = VTCompressionSessionRemoteServer_MultiPassStorageCreate(v8, v9, v17, v10, v11, v12, v18, v13, v14, (v4 + 152), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
+  v18[2] = *(v4 + 31);
+  result = VTCompressionSessionRemoteServer_MultiPassStorageCreate(v8, v9, v17, v10, v11, v12, v18, v13, v14, v4 + 152, (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
   if (!result)
   {
     *(a2 + 40) = *MEMORY[0x1E69E99E0];
@@ -4947,7 +5498,7 @@ _DWORD *_XMultiPassStorageGetTimeStamp(_DWORD *result, uint64_t a2)
     v9 = v3[3];
     v10 = *(v3 + 2);
     v11 = *(v3 + 6);
-    result = VTCompressionSessionRemoteServer_MultiPassStorageGetTimeStamp(v9, &v10, v3 + 64, (a2 + 36), (a2 + 60));
+    result = VTCompressionSessionRemoteServer_MultiPassStorageGetTimeStamp(v9, &v10, v3 + 64, a2 + 36, (a2 + 60));
     *(a2 + 32) = result;
     *(a2 + 24) = *MEMORY[0x1E69E99E0];
     if (!result)
@@ -4973,7 +5524,7 @@ _DWORD *_XMultiPassStorageGetTimeStampAndDuration(_DWORD *result, uint64_t a2)
     v9 = v3[3];
     v10 = *(v3 + 2);
     v11 = *(v3 + 6);
-    result = VTCompressionSessionRemoteServer_MultiPassStorageGetTimeStampAndDuration(v9, &v10, v3 + 64, (a2 + 36), (a2 + 60), (a2 + 84));
+    result = VTCompressionSessionRemoteServer_MultiPassStorageGetTimeStampAndDuration(v9, &v10, v3 + 64, (a2 + 36), a2 + 60, (a2 + 84));
     *(a2 + 32) = result;
     *(a2 + 24) = *MEMORY[0x1E69E99E0];
     if (!result)
@@ -5068,7 +5619,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t _XTileCreate_0(uint64_t result, uint64_t a2)
+unsigned int *_XTileCreate_0(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -5077,23 +5628,23 @@ uint64_t _XTileCreate_0(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 3)
+  if (result[6] != 3)
   {
     goto LABEL_18;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if ((v5 - 629) < 0xFFFFFDFF)
   {
     goto LABEL_18;
   }
 
-  if (*(result + 38) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
+  if (*(result + 19) << 16 != 1114112 || *(result + 51) != 1 || *(result + 67) != 1)
   {
     goto LABEL_17;
   }
 
-  v6 = *(result + 112);
+  v6 = result[28];
   v3 = -304;
   if (v6 > 0x200 || v5 - 116 < v6)
   {
@@ -5105,14 +5656,14 @@ uint64_t _XTileCreate_0(uint64_t result, uint64_t a2)
     goto LABEL_2;
   }
 
-  if (*(result + 52) != *(result + 100) || *(result + 68) != *(result + 104))
+  if (result[13] != result[25] || result[17] != result[26])
   {
 LABEL_17:
     v3 = -300;
     goto LABEL_18;
   }
 
-  result = memchr((result + 116), 0, v5 - 116);
+  result = memchr(result + 29, 0, v5 - 116);
   if (!result)
   {
 LABEL_2:
@@ -5122,25 +5673,25 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v7 = ((v5 + 3) & 0x7FC) + v4;
-  if (*v7 || *(v7 + 4) <= 0x1Fu)
+  v7 = v4 + ((v5 + 3) & 0x7FC);
+  if (*v7 || *(v7 + 1) <= 0x1Fu)
   {
     v3 = -309;
     goto LABEL_18;
   }
 
   *(a2 + 32) = 0x14000000000000;
-  v8 = *(v4 + 12);
-  v9 = *(v4 + 28);
-  v10 = *(v4 + 96);
-  v11 = *(v4 + 40);
-  v12 = *(v4 + 52);
-  v13 = *(v4 + 56);
-  v14 = *(v4 + 68);
+  v8 = v4[3];
+  v9 = v4[7];
+  v10 = v4[24];
+  v11 = *(v4 + 5);
+  v12 = v4[13];
+  v13 = *(v4 + 7);
+  v14 = v4[17];
   v15 = *(v7 + 36);
   v16[0] = *(v7 + 20);
   v16[1] = v15;
-  result = VTCompressionSessionRemoteServer_TileCreate(v8, v9, v16, *(v4 + 80), *(v4 + 88), v10, v11, v12, v13, v14, (v4 + 116), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
+  result = VTCompressionSessionRemoteServer_TileCreate(v8, v9, v16, *(v4 + 10), *(v4 + 11), v10, v11, v12, v13, v14, v4 + 116, (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
   if (!result)
   {
     *(a2 + 40) = *MEMORY[0x1E69E99E0];
@@ -5222,7 +5773,7 @@ _DWORD *_XCompleteTiles(_DWORD *result, uint64_t a2)
   return result;
 }
 
-uint64_t _XMotionEstimationCreate(uint64_t result, uint64_t a2)
+unsigned int *_XMotionEstimationCreate(unsigned int *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0)
   {
@@ -5231,23 +5782,23 @@ uint64_t _XMotionEstimationCreate(uint64_t result, uint64_t a2)
 
   v4 = result;
   v3 = -304;
-  if (*(result + 24) != 2)
+  if (result[6] != 2)
   {
     goto LABEL_3;
   }
 
-  v5 = *(result + 4);
+  v5 = result[1];
   if ((v5 - 605) < 0xFFFFFDFF)
   {
     goto LABEL_3;
   }
 
-  if (*(result + 38) << 16 != 1114112 || *(result + 51) != 1)
+  if (*(result + 19) << 16 != 1114112 || *(result + 51) != 1)
   {
     goto LABEL_18;
   }
 
-  v6 = *(result + 88);
+  v6 = result[22];
   v3 = -304;
   if (v6 > 0x200 || v5 - 92 < v6)
   {
@@ -5259,14 +5810,14 @@ uint64_t _XMotionEstimationCreate(uint64_t result, uint64_t a2)
     goto LABEL_2;
   }
 
-  if (*(result + 52) != *(result + 80))
+  if (result[13] != result[20])
   {
 LABEL_18:
     v3 = -300;
     goto LABEL_3;
   }
 
-  result = memchr((result + 92), 0, v5 - 92);
+  result = memchr(result + 23, 0, v5 - 92);
   if (!result)
   {
 LABEL_2:
@@ -5276,25 +5827,25 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v7 = ((v5 + 3) & 0x7FC) + v4;
-  if (*v7 || *(v7 + 4) <= 0x1Fu)
+  v7 = v4 + ((v5 + 3) & 0x7FC);
+  if (*v7 || *(v7 + 1) <= 0x1Fu)
   {
     v3 = -309;
     goto LABEL_3;
   }
 
   *(a2 + 32) = 0x14000000000000;
-  v8 = *(v4 + 12);
-  v9 = *(v4 + 28);
-  v10 = *(v4 + 64);
-  v11 = *(v4 + 72);
-  v12 = *(v4 + 76);
-  v13 = *(v4 + 40);
-  v14 = *(v4 + 52);
+  v8 = v4[3];
+  v9 = v4[7];
+  v10 = *(v4 + 8);
+  v11 = v4[18];
+  v12 = v4[19];
+  v13 = *(v4 + 5);
+  v14 = v4[13];
   v15 = *(v7 + 36);
   v16[0] = *(v7 + 20);
   v16[1] = v15;
-  result = VTCompressionSessionRemoteServer_MotionEstimationCreate(v8, v9, v16, v10, v11, v12, v13, v14, (v4 + 92), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
+  result = VTCompressionSessionRemoteServer_MotionEstimationCreate(v8, v9, v16, v10, v11, v12, v13, v14, (v4 + 23), (a2 + 28), (a2 + 48), (a2 + 56), (a2 + 64));
   if (!result)
   {
     *(a2 + 40) = *MEMORY[0x1E69E99E0];
@@ -5348,7 +5899,7 @@ uint64_t _XEstimateMotion(uint64_t result, uint64_t a2)
         v4 = *(result + 80);
         if (v4 == *(result + 96))
         {
-          result = VTCompressionSessionRemoteServer_EstimateMotion(*(result + 12), *(result + 28), *(result + 40), v3, *(result + 56), *(result + 68), v4, *(result + 100));
+          result = VTCompressionSessionRemoteServer_EstimateMotion(*(result + 12), *(result + 28), *(result + 40), v3, *(result + 56), *(result + 68), v4, *(result + 100), *(result + 104));
           *(a2 + 32) = result;
           return result;
         }
@@ -5891,15 +6442,6 @@ __n128 VTConvertFloatRectToIntRect(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void VTPixelTransferChainAppendScalerNode(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CFTypeRef cf, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
-{
-  OUTLINED_FUNCTION_53();
-  VTPixelTransferNodeGetClassID();
-  CMDerivedObjectCreate();
-  FigSignalErrorAtGM();
-  OUTLINED_FUNCTION_52();
-}
-
 uint64_t VTPixelTransferNodeDynamicCopyProperty(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   *a4 = 0;
@@ -6277,7 +6819,7 @@ size_t vt_Scale_HalfFloat_Y_and_UVPlanes(__CVBuffer *a1, int8x16_t *a2, __CVBuff
   return v66;
 }
 
-size_t vt_Scale_101010_Together(__CVBuffer *a1, int8x16_t *a2, __CVBuffer *a3, int8x16_t *a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, int a10)
+size_t vt_Scale_101010_Together(__CVBuffer *a1, int8x16_t *a2, __CVBuffer *a3, int8x16_t *a4, uint64_t a5, uint64_t a6, int a7, int a8, uint64_t a9, int a10)
 {
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   v16 = OUTLINED_FUNCTION_17();
@@ -6340,348 +6882,354 @@ size_t vt_Scale_floatARGB_Together(__CVBuffer *a1, uint64_t a2, uint64_t a3, uin
   return v22;
 }
 
-uint64_t VTPixelTransferSessionCreateScalingParameters(__CVBuffer *a1, unint64_t a2, unint64_t a3, __CFString *a4, __int128 *a5, __int128 *a6, const void *a7, const void *a8, uint64_t a9, void *a10, void *a11, CFDictionaryRef *a12, const __CFNumber **a13)
+uint64_t VTPixelTransferSessionCreateScalingParameters(__CVBuffer *a1, unint64_t a2, unint64_t a3, __CFString *a4, __int128 *a5, __int128 *a6, const void *a7, const void *a8, unsigned int a9, unsigned int a10, void *a11, void *a12, CFDictionaryRef *a13, CFTypeRef *a14)
 {
+  v97 = 0;
+  *v98 = 0;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
   v93 = 0;
-  *v94 = 0;
-  v91 = 0;
   v92 = 0;
-  v90 = 0;
-  v89 = 0;
-  v88 = 0;
-  v20 = CVBufferCopyAttachment(a1, *MEMORY[0x1E6965D70], 0);
+  v21 = CVBufferCopyAttachment(a1, *MEMORY[0x1E6965D70], 0);
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(a1);
-  v81 = v20;
-  vtBufferGetCleanRect(Width, Height, v20, &v94[1], v94, &v93 + 1, &v93, &v92 + 1, &v92);
-  v23 = a5[1];
-  v85 = *a5;
-  v86 = v23;
-  v87 = a5[2];
-  v24 = vtBufferApplyCropToRect(&v85, SHIDWORD(v93), v93, SHIDWORD(v92), v92, &v93 + 1, &v93, &v92 + 1, &v92, &v88 + 1);
-  if (v24 || (v25 = a2, CleanRect = vtBufferGetCleanRect(a2, a3, a7, &v91 + 1, &v91, &v90 + 1, &v90, &v89 + 1, &v89), v27 = a6[1], v85 = *a6, v86 = v27, v87 = a6[2], v24 = vtBufferApplyCropToRect(&v85, SHIDWORD(v90), v90, SHIDWORD(v89), v89, &v90 + 1, &v90, &v89 + 1, &v89, &v88), v24))
+  v85 = v21;
+  vtBufferGetCleanRect(Width, Height, v21, &v98[1], v98, &v97 + 1, &v97, &v96 + 1, &v96);
+  v24 = a5[1];
+  v89 = *a5;
+  v90 = v24;
+  v91 = a5[2];
+  v25 = vtBufferApplyCropToRect(&v89, SHIDWORD(v97), v97, SHIDWORD(v96), v96, &v97 + 1, &v97, &v96 + 1, &v96, &v92 + 1);
+  if (v25 || (v26 = a2, CleanRect = vtBufferGetCleanRect(a2, a3, a7, &v95 + 1, &v95, &v94 + 1, &v94, &v93 + 1, &v93), v28 = a6[1], v89 = *a6, v90 = v28, v91 = a6[2], v25 = vtBufferApplyCropToRect(&v89, SHIDWORD(v94), v94, SHIDWORD(v93), v93, &v94 + 1, &v94, &v93 + 1, &v93, &v92), v25))
   {
-    v58 = v24;
+    v62 = v25;
     goto LABEL_57;
   }
 
-  if (v94[1] && v94[0] && HIDWORD(v91) && v91)
+  if (v98[1] && v98[0] && HIDWORD(v95) && v95)
   {
-    if (v94[1] != HIDWORD(v91) || v94[0] != v91)
+    if (v98[1] != HIDWORD(v95) || v98[0] != v95)
     {
-      vtRoundDimensionsToPixelBlockBoundary();
-      vtRoundDimensionsToPixelBlockBoundary();
+      vtRoundDimensionsToPixelBlockBoundary(a9, &v98[1], v98);
+      vtRoundDimensionsToPixelBlockBoundary(a10, &v95 + 1, &v95);
     }
 
-    if (v88)
+    if (v92)
     {
-      v29 = @"CropSourceToCleanAperture";
-    }
-
-    else
-    {
-      v29 = a4;
-    }
-
-    if (v29)
-    {
-      v30 = v29;
+      v30 = @"CropSourceToCleanAperture";
     }
 
     else
     {
-      v30 = @"Normal";
+      v30 = a4;
     }
 
-    if (CFEqual(v30, @"CropSourceToCleanAperture"))
+    if (v30)
+    {
+      v31 = v30;
+    }
+
+    else
+    {
+      v31 = @"Normal";
+    }
+
+    if (CFEqual(v31, @"CropSourceToCleanAperture"))
     {
       if (CleanRect)
       {
-        *a12 = CFRetain(a7);
+        *a13 = CFRetain(a7);
       }
 
       if (a8)
       {
-        *a13 = CFRetain(a8);
+        *a14 = CFRetain(a8);
       }
 
       goto LABEL_53;
     }
 
-    v31 = CFEqual(v30, @"Letterbox");
-    if (v31)
+    v32 = CFEqual(v31, @"Letterbox");
+    if (v32)
     {
-      v84 = 0.0;
-      *&v85 = 0;
-      v82 = 0.0;
-      v83 = 0.0;
-      v32 = OUTLINED_FUNCTION_59(v31, *MEMORY[0x1E6965EF8]);
+      v88 = 0.0;
+      *&v89 = 0;
+      v86 = 0.0;
+      v87 = 0.0;
+      v33 = OUTLINED_FUNCTION_59(v32, *MEMORY[0x1E6965EF8]);
       if (CleanRect)
       {
-        *a12 = CFRetain(a7);
+        *a13 = CFRetain(a7);
       }
 
-      v34 = v92;
-      v33 = HIDWORD(v92);
-      vtBufferGetPixelAndPictureAspectRatio(v32, SHIDWORD(v92), v92, &v85, &v83);
-      v35 = a8;
+      v35 = v96;
+      v34 = HIDWORD(v96);
+      vtBufferGetPixelAndPictureAspectRatio(v33, SHIDWORD(v96), v96, &v89, &v87);
+      v36 = a8;
       if (a8)
       {
-        v36 = a8;
+        v37 = a8;
       }
 
       else
       {
-        v36 = v32;
+        v37 = v33;
       }
 
-      v37 = HIDWORD(v89);
-      v38 = v89;
-      vtBufferGetPixelAndPictureAspectRatio(v36, SHIDWORD(v89), v89, &v84, &v82);
-      if (a8 || (v35 = v32) != 0)
+      v38 = HIDWORD(v93);
+      v39 = v93;
+      vtBufferGetPixelAndPictureAspectRatio(v37, SHIDWORD(v93), v93, &v88, &v86);
+      if (a8 || (v36 = v33) != 0)
       {
-        *a13 = CFRetain(v35);
+        *a14 = CFRetain(v36);
       }
 
-      if (v83 <= v82)
+      if (v87 <= v86)
       {
-        if (v83 >= v82 || (v52 = OUTLINED_FUNCTION_20(v37, *&v85 * (v38 * v33), v34, v84), v54 = vcvtmd_s64_f64(v52 + v53), v54 < 1))
+        if (v87 >= v86 || (v56 = OUTLINED_FUNCTION_20(v38, *&v89 * (v39 * v34), v35, v88), v58 = vcvtmd_s64_f64(v56 + v57), v58 < 1))
         {
 LABEL_51:
-          if (v32)
+          if (v33)
           {
-            CFRelease(v32);
+            CFRelease(v33);
           }
 
           goto LABEL_53;
         }
 
-        HIDWORD(v90) += v54 >> 1;
-        vtRoundDimensionsToPixelBlockBoundary();
-        HIDWORD(v89) = v37 - v54;
+        HIDWORD(v94) += v58 >> 1;
+        vtRoundDimensionsToPixelBlockBoundary(a10, &v94 + 1, 0);
+        HIDWORD(v93) = v38 - v58;
+        v45 = &v93 + 1;
+        v44 = a10;
+        v43 = 0;
       }
 
       else
       {
-        v39 = OUTLINED_FUNCTION_20(v38, v84 * (v37 * v34), v33, *&v85);
-        v41 = vcvtmd_s64_f64(v39 + v40);
-        if (v41 < 1)
+        v40 = OUTLINED_FUNCTION_20(v39, v88 * (v38 * v35), v34, *&v89);
+        v42 = vcvtmd_s64_f64(v40 + v41);
+        if (v42 < 1)
         {
           goto LABEL_51;
         }
 
-        LODWORD(v90) = v90 + (v41 >> 1);
-        vtRoundDimensionsToPixelBlockBoundary();
-        LODWORD(v89) = v38 - v41;
+        LODWORD(v94) = v94 + (v42 >> 1);
+        vtRoundDimensionsToPixelBlockBoundary(a10, 0, &v94);
+        LODWORD(v93) = v39 - v42;
+        v43 = &v93;
+        v44 = a10;
+        v45 = 0;
       }
 
-      vtRoundDimensionsToPixelBlockBoundary();
+      vtRoundDimensionsToPixelBlockBoundary(v44, v45, v43);
       goto LABEL_51;
     }
 
-    v42 = CFEqual(v30, @"Trim");
-    if (v42)
+    v46 = CFEqual(v31, @"Trim");
+    if (v46)
     {
-      v84 = 0.0;
-      *&v85 = 0;
-      v82 = 0.0;
-      v83 = 0.0;
-      v32 = OUTLINED_FUNCTION_59(v42, *MEMORY[0x1E6965EF8]);
+      v88 = 0.0;
+      *&v89 = 0;
+      v86 = 0.0;
+      v87 = 0.0;
+      v33 = OUTLINED_FUNCTION_59(v46, *MEMORY[0x1E6965EF8]);
       if (CleanRect)
       {
-        *a12 = CFRetain(a7);
+        *a13 = CFRetain(a7);
       }
 
-      v44 = v92;
-      v43 = HIDWORD(v92);
-      vtBufferGetPixelAndPictureAspectRatio(v32, SHIDWORD(v92), v92, &v85, &v83);
-      v45 = a8;
+      v48 = v96;
+      v47 = HIDWORD(v96);
+      vtBufferGetPixelAndPictureAspectRatio(v33, SHIDWORD(v96), v96, &v89, &v87);
+      v49 = a8;
       if (a8)
       {
-        v46 = a8;
+        v50 = a8;
       }
 
       else
       {
-        v46 = v32;
+        v50 = v33;
       }
 
-      v47 = HIDWORD(v89);
-      v48 = v89;
-      vtBufferGetPixelAndPictureAspectRatio(v46, SHIDWORD(v89), v89, &v84, &v82);
-      if (a8 || (v45 = v32) != 0)
+      v51 = HIDWORD(v93);
+      v52 = v93;
+      vtBufferGetPixelAndPictureAspectRatio(v50, SHIDWORD(v93), v93, &v88, &v86);
+      if (a8 || (v49 = v33) != 0)
       {
-        *a13 = CFRetain(v45);
+        *a14 = CFRetain(v49);
       }
 
-      if (v83 <= v82)
+      if (v87 <= v86)
       {
-        if (v83 < v82)
+        if (v87 < v86)
         {
-          v70 = OUTLINED_FUNCTION_20(v44, *&v85 * (v48 * v43), v47, v84);
-          v72 = vcvtmd_s64_f64(v71 + v70 * v71);
-          if (v72 >= 1)
+          v74 = OUTLINED_FUNCTION_20(v48, *&v89 * (v52 * v47), v51, v88);
+          v76 = vcvtmd_s64_f64(v75 + v74 * v75);
+          if (v76 >= 1)
           {
-            LODWORD(v92) = v44 - 2 * v72;
-            LODWORD(v93) = v93 + v72;
+            LODWORD(v96) = v48 - 2 * v76;
+            LODWORD(v97) = v97 + v76;
           }
         }
       }
 
       else
       {
-        v49 = OUTLINED_FUNCTION_20(v43, v84 * (v47 * v44), v48, *&v85);
-        v51 = vcvtmd_s64_f64(v50 + v49 * v50);
-        if (v51 >= 1)
+        v53 = OUTLINED_FUNCTION_20(v47, v88 * (v51 * v48), v52, *&v89);
+        v55 = vcvtmd_s64_f64(v54 + v53 * v54);
+        if (v55 >= 1)
         {
-          HIDWORD(v92) = v43 - 2 * v51;
-          HIDWORD(v93) += v51;
+          HIDWORD(v96) = v47 - 2 * v55;
+          HIDWORD(v97) += v55;
         }
       }
 
       goto LABEL_51;
     }
 
-    v63 = v94[0];
-    v64 = v94[1];
-    v65 = *(a5 + 2);
-    v66 = *(a5 + 3);
-    v67 = *(a5 + 4);
-    v68 = *(a5 + 5);
-    v69 = v67 < 1;
-    if (v67 < 1)
+    v67 = v98[0];
+    v68 = v98[1];
+    v69 = *(a5 + 2);
+    v70 = *(a5 + 3);
+    v71 = *(a5 + 4);
+    v72 = *(a5 + 5);
+    v73 = v71 < 1;
+    if (v71 < 1)
     {
-      v65 += v67;
-      LODWORD(v67) = 0;
+      v69 += v71;
+      LODWORD(v71) = 0;
     }
 
     else
     {
-      v64 = v94[1] - v67;
-      if (v94[1] - v67 < 1)
+      v68 = v98[1] - v71;
+      if (v98[1] - v71 < 1)
       {
         goto LABEL_70;
       }
     }
 
-    if (v68 < 1)
+    if (v72 < 1)
     {
-      v66 += v68;
-      LODWORD(v68) = 0;
+      v70 += v72;
+      LODWORD(v72) = 0;
     }
 
     else
     {
-      v63 = v94[0] - v68;
-      if (v94[0] - v68 < 1)
+      v67 = v98[0] - v72;
+      if (v98[0] - v72 < 1)
       {
 LABEL_70:
-        v58 = 4294954394;
+        v62 = 4294954394;
         goto LABEL_57;
       }
 
-      v69 = 0;
+      v73 = 0;
     }
 
-    if (v65 < v64)
+    if (v69 < v68)
     {
-      v73 = v65;
-    }
-
-    else
-    {
-      v73 = v64;
-    }
-
-    if (v66 < v63)
-    {
-      v74 = v66;
+      v77 = v69;
     }
 
     else
     {
-      v74 = v63;
+      v77 = v68;
     }
 
-    if (!v69 || (v66 >= v63 ? (v75 = v65 < v64) : (v75 = 1), v75))
+    if (v70 < v67)
     {
-      if (a12)
+      v78 = v70;
+    }
+
+    else
+    {
+      v78 = v67;
+    }
+
+    if (!v73 || (v70 >= v67 ? (v79 = v69 < v68) : (v79 = 1), v79))
+    {
+      if (a13)
       {
-        vtBufferCreateScaledCleanRectFromCropCleanRect(v67, v68, v73, v74, SHIDWORD(v93), v93, SHIDWORD(v92), v92, v25, a3, a12);
+        vtBufferCreateScaledCleanRectFromCropCleanRect(v71, v72, v77, v78, SHIDWORD(v97), v97, SHIDWORD(v96), v96, v26, a3, a13);
       }
 
-      if (!a13)
+      if (!a14)
       {
         goto LABEL_92;
       }
 
-      v76 = a13;
-      v79 = a1;
-      v77 = v73;
-      v78 = v74;
+      v80 = a14;
+      v83 = a1;
+      v81 = v77;
+      v82 = v78;
     }
 
     else
     {
-      if (a12)
+      if (a13)
       {
-        vtBufferCreateScaledCleanRect(a1, v25, a3, a12);
+        vtBufferCreateScaledCleanRect(a1, v26, a3, a13);
       }
 
-      if (!a13)
+      if (!a14)
       {
         goto LABEL_92;
       }
 
-      v76 = a13;
-      v78 = v94[0];
-      v77 = v94[1];
-      v79 = a1;
+      v80 = a14;
+      v82 = v98[0];
+      v81 = v98[1];
+      v83 = a1;
     }
 
-    vtBufferCreateScaledPixelAspectRatio(v79, v77, v78, v25, a3, v76);
+    vtBufferCreateScaledPixelAspectRatio(v83, v81, v82, v26, a3, v80);
 LABEL_92:
-    v93 = __PAIR64__(v67, v68);
-    v92 = __PAIR64__(v73, v74);
-    v90 = 0;
-    v89 = v91;
+    v97 = __PAIR64__(v71, v72);
+    v96 = __PAIR64__(v77, v78);
+    v94 = 0;
+    v93 = v95;
   }
 
 LABEL_53:
-  if (a10)
-  {
-    v55 = v94[0];
-    *a10 = v94[1];
-    a10[1] = v55;
-    v56 = v93;
-    a10[4] = SHIDWORD(v93);
-    a10[5] = v56;
-    v57 = v92;
-    a10[2] = SHIDWORD(v92);
-    a10[3] = v57;
-  }
-
-  v58 = 0;
   if (a11)
   {
-    v59 = v91;
-    *a11 = SHIDWORD(v91);
+    v59 = v98[0];
+    *a11 = v98[1];
     a11[1] = v59;
-    v60 = v90;
-    a11[4] = SHIDWORD(v90);
+    v60 = v97;
+    a11[4] = SHIDWORD(v97);
     a11[5] = v60;
-    v61 = v89;
-    a11[2] = SHIDWORD(v89);
+    v61 = v96;
+    a11[2] = SHIDWORD(v96);
     a11[3] = v61;
   }
 
-LABEL_57:
-  if (v81)
+  v62 = 0;
+  if (a12)
   {
-    CFRelease(v81);
+    v63 = v95;
+    *a12 = SHIDWORD(v95);
+    a12[1] = v63;
+    v64 = v94;
+    a12[4] = SHIDWORD(v94);
+    a12[5] = v64;
+    v65 = v93;
+    a12[2] = SHIDWORD(v93);
+    a12[3] = v65;
   }
 
-  return v58;
+LABEL_57:
+  if (v85)
+  {
+    CFRelease(v85);
+  }
+
+  return v62;
 }
 
 uint64_t VTPixelTransferSessionFlush(uint64_t a1, CVOptionFlags a2)
@@ -6700,16 +7248,16 @@ uint64_t VTPixelTransferSessionFlush(uint64_t a1, CVOptionFlags a2)
   return result;
 }
 
-void VTRequiresUnalignedBlackFill()
+void VTRequiresUnalignedBlackFill(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_53();
-  if (v1 && v0)
+  if (v25 && v24)
   {
     Value = FigCFDictionaryGetValue();
-    v3 = Value;
-    if (Value && (v4 = CFGetTypeID(Value), v4 == CFArrayGetTypeID()))
+    v27 = Value;
+    if (Value && (v28 = CFGetTypeID(Value), v28 == CFArrayGetTypeID()))
     {
-      Count = CFArrayGetCount(v3);
+      Count = CFArrayGetCount(v27);
       if (!Count)
       {
         goto LABEL_12;
@@ -6723,9 +7271,9 @@ void VTRequiresUnalignedBlackFill()
 
     for (i = 0; i != Count; ++i)
     {
-      if (v3)
+      if (v27)
       {
-        CFArrayGetValueAtIndex(v3, i);
+        CFArrayGetValueAtIndex(v27, i);
       }
 
       FigCFDictionaryGetInt32IfPresent();
@@ -6768,7 +7316,7 @@ uint64_t vtPixelTransferAppendvImageBlitterNodeCallback(uint64_t a1, unsigned in
     goto LABEL_5;
   }
 
-  appended = VTPixelTransferChainAppendSoftwareNode(*a6, cf, 0, v21, v22, v20);
+  appended = VTPixelTransferChainAppendSoftwareNode(*a6, cf, 0, v21, v22, v20, 0);
   v22 = 0;
   v16 = cf;
   if (cf)
@@ -6791,7 +7339,7 @@ uint64_t VTPixelTransferNodeSoftwareDoTransfer()
   v4 = OUTLINED_FUNCTION_44();
   OUTLINED_FUNCTION_47(v4, v5, v6, v7, v8, v9, v10, v11, v13, v14, v15[0], v15[1], v15[2], v15[3], v15[4], v15[5], v16[0], v16[1], v16[2]);
   VTConvertFloatRectToIntRect(v0, v15);
-  return vtPixelTransferSession_InvokeBlitter(v3[3], v3[4], v3[5], v3 + 7, v3 + 8, v2, v1, v16, v15);
+  return vtPixelTransferSession_InvokeBlitter(*(v3 + 24), *(v3 + 32), *(v3 + 40), (v3 + 56), (v3 + 64), v2, v1, v16, v15);
 }
 
 uint64_t VTPixelTransferNodeScalerDoTransfer()
@@ -6848,7 +7396,9 @@ LABEL_6:
     return result;
   }
 
-  return FigSignalErrorAtGM();
+  v10 = qword_1ED6D3EF0;
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 4294954394, "<<<< VTPixelTransferSession >>>>", 4414, v4);
 }
 
 vImage_Error vt_VImage_Copy_420v_32ARGB()
@@ -6882,7 +7432,7 @@ vImage_Error vt_VImage_Copy_420v_32ARGB()
         return 4294945520;
       }
 
-      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, *v19, v19[4], v20, v21, v22, v23, v24);
+      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, SHIDWORD(v19), v20, v21, v22, v23, v24);
     }
   }
 
@@ -6920,7 +7470,7 @@ vImage_Error vt_VImage_Copy_420v_32BGRA()
         return 4294945520;
       }
 
-      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, *v19, v19[4], v20, v21, v22, v23, v24);
+      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, SHIDWORD(v19), v20, v21, v22, v23, v24);
     }
   }
 
@@ -6958,7 +7508,7 @@ vImage_Error vt_VImage_Copy_420f_32BGRA()
         return 4294945520;
       }
 
-      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, *v19, v19[4], v20, v21, v22, v23, v24);
+      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, SHIDWORD(v19), v20, v21, v22, v23, v24);
     }
   }
 
@@ -6996,7 +7546,7 @@ vImage_Error vt_VImage_Copy_420f_32ARGB()
         return 4294945520;
       }
 
-      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, *v19, v19[4], v20, v21, v22, v23, v24);
+      return OUTLINED_FUNCTION_18(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, SHIDWORD(v19), v20, v21, v22, v23, v24);
     }
   }
 
@@ -7570,8 +8120,8 @@ LABEL_100:
 
 uint64_t vtPixelTransferSessionBuildChainFromBasicTransfer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
 {
-  HIDWORD(v60) = *(a1 + 1139);
-  v67 = 0;
+  HIDWORD(v101) = *(a1 + 1139);
+  v117[0] = 0;
   if (*(a1 + 769))
   {
     v9 = 1;
@@ -7582,30 +8132,39 @@ uint64_t vtPixelTransferSessionBuildChainFromBasicTransfer(uint64_t a1, uint64_t
     v9 = *(a1 + 786) != 0;
   }
 
-  v11 = *(a1 + 608);
-  v10 = *(a1 + 624);
-  v12 = *(a1 + 672);
-  v13 = *(a1 + 272);
-  v14 = *(a1 + 248);
-  v15 = *(a1 + 256);
-  v16 = *(a1 + 264);
-  v17 = *(a1 + 232);
-  v61 = *(a1 + 240);
-  v62 = v14;
-  if (v17)
+  v10 = *(a1 + 592);
+  v11 = *(a1 + 600);
+  v13 = *(a1 + 608);
+  v12 = *(a1 + 624);
+  v14 = *(a1 + 640);
+  v15 = *(a1 + 648);
+  v16 = *(a1 + 656);
+  v17 = *(a1 + 672);
+  v18 = *(a1 + 272);
+  v19 = *(a1 + 248);
+  v20 = *(a1 + 256);
+  v21 = *(a1 + 264);
+  v22 = *(a1 + 232);
+  *&v102 = *(a1 + 240);
+  *(&v102 + 1) = v19;
+  if (v22)
   {
-    v63 = v12;
-    v64 = v11;
-    v65 = v10;
-    v66 = v13;
-    PixelFormatType = CVPixelBufferGetPixelFormatType(v17);
-    if (!v15 || (Width = v15, (Height = v16) == 0))
+    v103 = v17;
+    v104 = v13;
+    v105 = v12;
+    v107 = v18;
+    v109 = v16;
+    PixelFormatType = CVPixelBufferGetPixelFormatType(v22);
+    if (!v20 || (Width = v20, (Height = v21) == 0))
     {
       Width = CVPixelBufferGetWidth(*(a1 + 232));
       Height = CVPixelBufferGetHeight(*(a1 + 232));
     }
 
-    VTPixelTransferChainCreatePixelBufferPoolAttributes(PixelFormatType, v9, Width, Height, &v67);
+    VTPixelTransferChainCreatePixelBufferPoolAttributes(PixelFormatType, v9, Width, Height, v117);
+    v18 = v107;
+    v16 = v109;
+    v17 = v103;
   }
 
   else
@@ -7613,12 +8172,29 @@ uint64_t vtPixelTransferSessionBuildChainFromBasicTransfer(uint64_t a1, uint64_t
     LODWORD(PixelFormatType) = 0;
   }
 
-  v21 = *(a1 + 752);
-  if (v21 && *(v21 + 56))
+  v26 = vcvtq_f64_s64(v17);
+  v27 = *(a1 + 752);
+  v28 = vcvtq_f64_s64(v16);
+  v29 = vcvtq_f64_s64(v18);
+  if (v27 && *(v27 + 56))
   {
     if (*(a1 + 768))
     {
-      goto LABEL_13;
+      OUTLINED_FUNCTION_64();
+      v30 = *(a1 + 572);
+      v31 = *(a1 + 576);
+      v33 = *(v32 + 48);
+      v34 = *(v32 + 64);
+      *&v114 = v10;
+      *(&v114 + 1) = v11;
+      v115 = v36;
+      v116 = v35;
+      *&v111 = v14;
+      *(&v111 + 1) = v15;
+      v112 = v37;
+      v113 = v38;
+      appended = vtPixelTransferChainAppendDynamicNode(v39, 0, v40, v41, v30, &v114, v31, &v111, v33, v42, v34);
+      goto LABEL_23;
     }
 
     if ((*(a1 + 696) || *(a1 + 704)) && !*(a1 + 216))
@@ -7626,49 +8202,49 @@ uint64_t vtPixelTransferSessionBuildChainFromBasicTransfer(uint64_t a1, uint64_t
       if (*(a1 + 580) == PixelFormatType)
       {
         OUTLINED_FUNCTION_64();
-        appended = OUTLINED_FUNCTION_33(v36, v37);
+        appended = OUTLINED_FUNCTION_33(v64, v65, v66, v67, *(a1 + 572), v68, v69, v70, v71, v98, v99, v100, v101, v102, v103.i64[0], v103.i64[1], v104, *(&v104 + 1), v105, *(&v105 + 1), v107.i64[0], v107.i64[1], v109.i64[0], v109.i64[1], v111, v112, *&v113.f64[0], *&v113.f64[1]);
         if (!appended)
         {
           OUTLINED_FUNCTION_50();
-          appended = VTPixelTransferChainAppendSoftwareNode(v38, 0, v39, v40, v41, v42);
+          appended = VTPixelTransferChainAppendSoftwareNode(v72, 0, v73, v74, v75, v76, 0);
         }
 
         goto LABEL_23;
       }
 
+      v106 = v29;
+      v108 = v28;
+      v110 = v26;
       OUTLINED_FUNCTION_50();
-      appended = VTPixelTransferChainAppendSoftwareNode(v50, v51, v52, v53, v54, v55);
+      appended = VTPixelTransferChainAppendSoftwareNode(v84, v85, v86, v87, v88, v89, 0);
       if (appended)
       {
 LABEL_23:
-        v31 = appended;
+        v52 = appended;
         goto LABEL_25;
       }
 
-LABEL_13:
-      OUTLINED_FUNCTION_64();
-      appended = vtPixelTransferChainAppendDynamicNode();
-      goto LABEL_23;
+      goto LABEL_51;
     }
   }
 
-  v23 = *(a1 + 696);
-  if (v23)
+  v44 = *(a1 + 696);
+  if (v44)
   {
     if (!*(a1 + 216))
     {
-      v24 = *(a1 + 704);
+      v45 = *(a1 + 704);
 LABEL_24:
-      VTPixelTransferChainAppendSoftwareNode(*(a1 + 32), 0, v23, v24, *(a1 + 712), *(a1 + 720));
-      v31 = 0;
+      VTPixelTransferChainAppendSoftwareNode(*(a1 + 32), 0, v44, v45, *(a1 + 712), *(a1 + 720), 0);
+      v52 = 0;
       goto LABEL_25;
     }
 
     goto LABEL_22;
   }
 
-  v24 = *(a1 + 704);
-  if (v24)
+  v45 = *(a1 + 704);
+  if (v45)
   {
     if (!*(a1 + 216))
     {
@@ -7677,87 +8253,105 @@ LABEL_24:
 
 LABEL_22:
     OUTLINED_FUNCTION_50();
-    appended = VTPixelTransferChainAppendSoftwareNode(v25, v26, v27, v28, v29, v30);
+    appended = VTPixelTransferChainAppendSoftwareNode(v46, v47, v48, v49, v50, v51, 0);
     if (appended)
     {
       goto LABEL_23;
     }
 
-    v56 = *(a1 + 32);
-    v33 = *(a1 + 216);
+    v90 = *(a1 + 32);
+    v54 = *(a1 + 216);
 LABEL_49:
-    OUTLINED_FUNCTION_32(v56, v33, v23, v24, a5, a6, a7, a8, v57, v58, v59, v60, v61, v62, v63, *(&v63 + 1), v64, *(&v64 + 1), v65, *(&v65 + 1), v66, *(&v66 + 1));
+    appended = OUTLINED_FUNCTION_32(v90, v54, v44, v45, a5, a6, a7, a8, v98, v99, v100, v101, v102, *(&v102 + 1), v103.i64[0], v103.i64[1], v104, *(&v104 + 1), v105, *(&v105 + 1), v107.i64[0], v107.i64[1]);
     goto LABEL_23;
   }
 
   if (!*(a1 + 1184))
   {
-    v33 = *(a1 + 216);
-    if (v33)
+    v54 = *(a1 + 216);
+    if (v54)
     {
-      v56 = *(a1 + 32);
+      v90 = *(a1 + 32);
       goto LABEL_49;
     }
   }
 
   if (*(a1 + 1184))
   {
-    if (v21 && *(v21 + 56))
+    if (v27 && *(v27 + 56))
     {
-      if (*(a1 + 572) != PixelFormatType && *(a1 + 580) != PixelFormatType)
+      if (*(a1 + 572) == PixelFormatType || *(a1 + 580) == PixelFormatType)
       {
-        appended = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
+        OUTLINED_FUNCTION_64();
+        appended = OUTLINED_FUNCTION_33(v55, v56, v57, v58, v59, v60, v61, v62, v63, v98, v99, v100, v101, v102, v103.i64[0], v103.i64[1], v104, *(&v104 + 1), v105, *(&v105 + 1), v107.i64[0], v107.i64[1], v109.i64[0], v109.i64[1], v111, v112, *&v113.f64[0], *&v113.f64[1]);
         if (appended)
         {
           goto LABEL_23;
         }
 
-        goto LABEL_13;
+LABEL_54:
+        appended = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
+        goto LABEL_23;
       }
 
-      OUTLINED_FUNCTION_64();
-      appended = OUTLINED_FUNCTION_33(v34, v35);
+      v106 = v29;
+      v108 = v28;
+      v110 = v26;
+      appended = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
       if (appended)
       {
         goto LABEL_23;
       }
 
-LABEL_54:
-      appended = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
+LABEL_51:
+      OUTLINED_FUNCTION_64();
+      v91 = *(a1 + 576);
+      v92 = *(a1 + 752);
+      v93 = *(v92 + 48);
+      v94 = *(v92 + 64);
+      v114 = v102;
+      v115 = v106;
+      *&v116 = v20;
+      *(&v116 + 1) = v21;
+      *&v111 = v14;
+      *(&v111 + 1) = v15;
+      v112 = v110;
+      v113 = v108;
+      appended = vtPixelTransferChainAppendDynamicNode(v95, 0, v96, v97, PixelFormatType, &v114, v91, &v111, v93, *(&v93 + 1), v94);
       goto LABEL_23;
     }
 
-    v43 = *(a1 + 216);
-    if (!v43)
+    v77 = *(a1 + 216);
+    if (!v77)
     {
       goto LABEL_54;
     }
 
     if (*(a1 + 256) == *(a1 + 656) && *(a1 + 264) == *(a1 + 664))
     {
-      OUTLINED_FUNCTION_32(*(a1 + 32), v43, 0, 0, a5, a6, a7, a8, v57, v58, v59, v60, v61, v62, v63, *(&v63 + 1), v64, *(&v64 + 1), v65, *(&v65 + 1), v66, *(&v66 + 1));
+      OUTLINED_FUNCTION_32(*(a1 + 32), v77, 0, 0, a5, a6, a7, a8, v98, v99, v100, v101, v102, *(&v102 + 1), v103.i64[0], v103.i64[1], v104, *(&v104 + 1), v105, *(&v105 + 1), v107.i64[0], v107.i64[1]);
       goto LABEL_54;
     }
 
-    v31 = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
-    if (!v31)
+    v52 = VTPixelTransferChainAppendNode(*(a1 + 32), *(a1 + 1160));
+    if (!v52)
     {
-      OUTLINED_FUNCTION_32(*(a1 + 32), *(a1 + 216), v44, v45, v46, v47, v48, v49, v57, v58, v59, v60, v61, v62, v63, *(&v63 + 1), v64, *(&v64 + 1), v65, *(&v65 + 1), v66, *(&v66 + 1));
+      OUTLINED_FUNCTION_32(*(a1 + 32), *(a1 + 216), v78, v79, v80, v81, v82, v83, v98, v99, v100, v101, v102, *(&v102 + 1), v103.i64[0], v103.i64[1], v104, *(&v104 + 1), v105, *(&v105 + 1), v107.i64[0], v107.i64[1]);
     }
   }
 
   else
   {
-    v31 = 4294954391;
+    v52 = 4294954391;
   }
 
 LABEL_25:
-  if (v67)
+  if (v117[0])
   {
-    CFRelease(v67);
+    CFRelease(v117[0]);
   }
 
-  return v31;
+  return v52;
 }
 
 vImage_Error vtVImageConverterProc(__CVBuffer *a1, __CVBuffer *a2, uint64_t a3)
@@ -7801,12 +8395,12 @@ vImage_Error vtVImageConverterProc(__CVBuffer *a1, __CVBuffer *a2, uint64_t a3)
   return v16;
 }
 
-uint64_t vtCreateDynamicSession(uint64_t a1, CVPixelBufferRef pixelBuffer, OSType a3, int64x2_t *a4, CVPixelBufferRef a5, OSType a6, int64x2_t *a7, int a8, char a9, char a10, char a11, char a12, char *a13, _BYTE *a14, _BYTE *a15)
+uint64_t vtCreateDynamicSession(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, int64x2_t *a4, CVPixelBufferRef a5, uint64_t a6, int64x2_t *a7, int a8, char a9, char a10, char a11, char a12, char *a13, _BYTE *a14, char *a15)
 {
   buffer = 0;
-  v86 = 0u;
   v87 = 0u;
-  v85 = 0u;
+  v88 = 0u;
+  v86 = 0u;
   if (pixelBuffer)
   {
     v23 = a5 == 0;
@@ -7818,7 +8412,7 @@ uint64_t vtCreateDynamicSession(uint64_t a1, CVPixelBufferRef pixelBuffer, OSTyp
   }
 
   v24 = v23;
-  v84 = 0;
+  v85 = 0;
   if (!pixelBuffer && a4)
   {
     if (CVPixelBufferGetPixelFormatType(a5) == a3)
@@ -7831,12 +8425,12 @@ uint64_t vtCreateDynamicSession(uint64_t a1, CVPixelBufferRef pixelBuffer, OSTyp
 LABEL_43:
         pixelBuffera = v34;
         v38 = a4[1];
-        v85 = *a4;
-        v86 = v38;
+        v86 = *a4;
+        v87 = v38;
         v39 = a4[2];
 LABEL_48:
-        v87 = v39;
-        v78 = 1;
+        v88 = v39;
+        v79 = 1;
         a8 = 1;
         goto LABEL_49;
       }
@@ -7951,8 +8545,8 @@ LABEL_46:
 LABEL_47:
     pixelBuffera = v37;
     v40 = a7[1];
-    v85 = *a7;
-    v86 = v40;
+    v86 = *a7;
+    v87 = v40;
     v39 = a7[2];
     goto LABEL_48;
   }
@@ -7968,7 +8562,7 @@ LABEL_47:
 LABEL_36:
     pixelBuffera = 0;
     v30 = 0;
-    v78 = 1;
+    v79 = 1;
     goto LABEL_49;
   }
 
@@ -7979,23 +8573,23 @@ LABEL_36:
   }
 
 LABEL_21:
-  v78 = v24;
+  v79 = v24;
   v30 = CFRetain(a5);
   pixelBuffera = 0;
 LABEL_49:
   v41 = a4[1];
-  v92 = *a4;
-  v74 = a7;
-  v75 = a4;
-  v93 = vcvtq_f64_s64(a4[2]);
-  v94 = vcvtq_f64_s64(v41);
+  v93 = *a4;
+  v75 = a7;
+  v76 = a4;
+  v94 = vcvtq_f64_s64(a4[2]);
+  v95 = vcvtq_f64_s64(v41);
   v42 = a7[1];
   v43 = vcvtq_f64_s64(a7[2]);
-  v89 = *a7;
-  v90 = v43;
-  v80 = *(a1 + 776);
-  v82 = (a1 + 752);
-  v83 = v30;
+  v90 = *a7;
+  v91 = v43;
+  v81 = *(a1 + 776);
+  v83 = (a1 + 752);
+  v84 = v30;
   v44 = *(a1 + 752);
   v45 = v44 == 0;
   if (v44)
@@ -8008,7 +8602,7 @@ LABEL_49:
     v46 = gVTPixelTransferServiceList;
   }
 
-  v91 = vcvtq_f64_s64(v42);
+  v92 = vcvtq_f64_s64(v42);
   if (!(v30 | v27) || !v46)
   {
 LABEL_81:
@@ -8018,7 +8612,8 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  v79 = *MEMORY[0x1E695E480];
+  v74 = a15;
+  v80 = *MEMORY[0x1E695E480];
   while (1)
   {
     if (!vtPixelTransferServiceNodeMatchesSourceAndDestinationPixelFormats(v46, a3, a6) || a8 && (*(v46 + 32) & 1) == 0)
@@ -8061,13 +8656,13 @@ LABEL_81:
     }
 
 LABEL_73:
-    if (!(*(v46 + 48))(v79, v80, v27, &v92, v30, &v89, &v84))
+    if (!(*(v46 + 48))(v80, v81, v27, &v93, v30, &v90, &v85))
     {
       v51 = (a1 + 752);
       goto LABEL_107;
     }
 
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v74, v75, v76);
 LABEL_75:
     v49 = (v46 + 72);
     if (!v45)
@@ -8101,17 +8696,17 @@ LABEL_75:
       v48(*(a1 + 760));
     }
 
-    *v82 = 0;
+    *v83 = 0;
     *(a1 + 760) = 0;
     goto LABEL_73;
   }
 
-  v84 = *(a1 + 760);
+  v85 = *(a1 + 760);
   v51 = (a1 + 752);
-  *v82 = 0;
+  *v83 = 0;
   *(a1 + 760) = 0;
 LABEL_107:
-  v59 = v78;
+  v59 = v79;
   if (buffer)
   {
     v59 = 0;
@@ -8126,7 +8721,7 @@ LABEL_107:
   }
 
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffera);
-  v61 = vtCreateIntermediatePixelBuffer(pixelBuffera, PixelFormatType, &v85, *(v46 + 32), &buffer);
+  v61 = vtCreateIntermediatePixelBuffer(pixelBuffera, PixelFormatType, &v86, *(v46 + 32), &buffer);
   if (v61)
   {
     v55 = v61;
@@ -8156,62 +8751,62 @@ LABEL_118:
     v64 = *(v46 + 56);
     if (v64)
     {
-      v93 = 0u;
       v94 = 0u;
+      v95 = 0u;
+      v93 = 0u;
+      v91 = 0u;
       v92 = 0u;
       v90 = 0u;
-      v91 = 0u;
-      v89 = 0u;
-      if (v75)
+      if (v76)
       {
-        v65 = v75[1];
-        v92 = *v75;
-        v66 = v75[2];
+        v65 = v76[1];
+        v93 = *v76;
+        v66 = v76[2];
         goto LABEL_121;
       }
 
       if (pixelBuffer)
       {
-        v92.i64[0] = CVPixelBufferGetWidth(pixelBuffer);
+        v93.i64[0] = CVPixelBufferGetWidth(pixelBuffer);
         Height = CVPixelBufferGetHeight(pixelBuffer);
-        v93 = 0uLL;
-        v92.i64[1] = Height;
-        v94.f64[0] = v92.i64[0];
-        v94.f64[1] = Height;
+        v94 = 0uLL;
+        v93.i64[1] = Height;
+        v95.f64[0] = v93.i64[0];
+        v95.f64[1] = Height;
         v64 = *(v46 + 56);
       }
 
       else
       {
-        v65 = v86;
-        v92 = v85;
-        v66 = v87;
+        v65 = v87;
+        v93 = v86;
+        v66 = v88;
 LABEL_121:
-        v93 = vcvtq_f64_s64(v66);
-        v94 = vcvtq_f64_s64(v65);
+        v94 = vcvtq_f64_s64(v66);
+        v95 = vcvtq_f64_s64(v65);
       }
 
-      v68 = v74[1];
-      v69 = vcvtq_f64_s64(v74[2]);
-      v89 = *v74;
-      v90 = v69;
-      v91 = vcvtq_f64_s64(v68);
-      if (v64(v84, *(a1 + 776), v53, &v92, v83, &v89))
+      v68 = v75[1];
+      v69 = vcvtq_f64_s64(v75[2]);
+      v90 = *v75;
+      v91 = v69;
+      v92 = vcvtq_f64_s64(v68);
+      if (v64(v85, *(a1 + 776), v53, &v93, v84, &v90))
       {
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v74, v75, v76);
         goto LABEL_82;
       }
 
-      if (a15)
+      if (v74)
       {
-        *a15 = 1;
+        *v74 = 1;
       }
     }
 
     *(a1 + 752) = v46;
-    *(a1 + 760) = v84;
-    v84 = 0;
-    if (v78)
+    *(a1 + 760) = v85;
+    v85 = 0;
+    if (v79)
     {
       *(a1 + 768) = 0;
       v70 = *(a1 + 232);
@@ -8229,10 +8824,10 @@ LABEL_121:
 
       v46 = 0;
       v55 = 0;
-      v72 = v86;
-      *(a1 + 240) = v85;
+      v72 = v87;
+      *(a1 + 240) = v86;
       *(a1 + 256) = v72;
-      *(a1 + 272) = v87;
+      *(a1 + 272) = v88;
       v54 = 1;
     }
 
@@ -8256,7 +8851,7 @@ LABEL_121:
   else
   {
     v63 = *(v46 + 40);
-    if (v63 && v63(buffer, v83))
+    if (v63 && v63(buffer, v84))
     {
       goto LABEL_118;
     }
@@ -8284,7 +8879,7 @@ LABEL_82:
       v53 = v27;
     }
 
-    v56 = v83;
+    v56 = v84;
   }
 
   if (v53)
@@ -8310,7 +8905,7 @@ LABEL_94:
 
   if (v46)
   {
-    (*(v46 + 64))(v84);
+    (*(v46 + 64))(v85);
   }
 
   if (a13)
@@ -8332,7 +8927,7 @@ LABEL_94:
   return v55;
 }
 
-unint64_t vtBuildMetalSession(__CVBuffer *a1, uint64_t a2, __CVBuffer *a3, uint64_t a4, int a5, const __CFDictionary *a6, void *a7, int a8, __CFDictionary **a9)
+uint64_t vtBuildMetalSession(__CVBuffer *a1, void *a2, __CVBuffer *a3, void *a4, int a5, const __CFDictionary *a6, void *a7, int a8, __CFDictionary **a9)
 {
   v30 = 0;
   cf = 0;
@@ -8469,11 +9064,11 @@ LABEL_34:
   return v9;
 }
 
-uint64_t vtPixelTransferSession_BuildColorCorrector(__CVBuffer *a1, OSType a2, CGColorSpace *a3, const __CFDictionary *a4, const __CFDictionary *a5, char a6, __CVBuffer *a7, OSType a8, uint64_t a9, CFDictionaryRef a10, const __CFDictionary *a11, char a12, char a13, char a14, void *a15, unsigned __int8 a16, const __CFDictionary *a17, __CFDictionary **a18, _BYTE *a19, const __CFDictionary *a20, __int16 a21, int *a22, void *a23, void *a24, void (**a25)(uint64_t), CFTypeRef *a26, CFTypeRef *a27, CVPixelBufferRef *a28, CVPixelBufferRef *a29, VTPixelTransferSessionRef *a30, VTPixelTransferSessionRef *a31)
+uint64_t vtPixelTransferSession_BuildColorCorrector(__CVBuffer *a1, uint64_t a2, CGColorSpace *a3, const __CFDictionary *a4, const __CFDictionary *a5, unsigned int a6, __CVBuffer *a7, uint64_t a8, uint64_t a9, CFDictionaryRef a10, const __CFDictionary *a11, int a12, char a13, char a14, void *a15, char a16, const __CFDictionary *a17, __CFDictionary **a18, _BYTE *a19, const __CFDictionary *a20, __int16 a22, int *a23, void *a24, void *a25, void (**a26)(uint64_t), CFTypeRef *a27, CFTypeRef *a28, CVPixelBufferRef *a29, CVPixelBufferRef *a30, VTPixelTransferSessionRef *a31, VTPixelTransferSessionRef *a32)
 {
-  v34 = a31;
-  v35 = a28;
-  v36 = a22;
+  v34 = a32;
+  v35 = a29;
+  v36 = a23;
   v123[1] = *MEMORY[0x1E69E9840];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   v38 = CVPixelBufferGetPixelFormatType(a7);
@@ -8487,11 +9082,11 @@ uint64_t vtPixelTransferSession_BuildColorCorrector(__CVBuffer *a1, OSType a2, C
   v112 = 0;
   v113 = 0;
   cf = 0;
-  *a28 = 0;
   *a29 = 0;
   *a30 = 0;
   *a31 = 0;
-  if (!a22 || *a22 == 4)
+  *a32 = 0;
+  if (!a23 || *a23 == 4)
   {
     v39 = 0;
     Mutable = 0;
@@ -8534,7 +9129,7 @@ uint64_t vtPixelTransferSession_BuildColorCorrector(__CVBuffer *a1, OSType a2, C
       if (v50)
       {
         OUTLINED_FUNCTION_55();
-        v34 = a31;
+        v34 = a32;
         if (!v44)
         {
 LABEL_30:
@@ -8580,8 +9175,8 @@ LABEL_23:
         v104 = v55;
       }
 
-      v36 = a22;
-      v34 = a31;
+      v36 = a23;
+      v34 = a32;
       if (v55)
       {
         CFRelease(v55);
@@ -8607,8 +9202,8 @@ LABEL_28:
 
 LABEL_146:
     OUTLINED_FUNCTION_55();
-    v36 = a22;
-    v34 = a31;
+    v36 = a23;
+    v34 = a32;
     goto LABEL_28;
   }
 
@@ -8617,7 +9212,7 @@ LABEL_32:
   v39 = 0;
   if (a14 && !v35)
   {
-    v39 = VTPixelBlitterColorHandlingOptimized_setup(a2, a5, a8, a11, a20, a21, HIBYTE(a21), &v113, &v114, &cf, &v112);
+    v39 = VTPixelBlitterColorHandlingOptimized_setup(a2, a5, a8, a11, a20, a22, HIBYTE(a22), &v113, &v114, &cf, &v112);
     if (v39)
     {
       if (v112)
@@ -8981,25 +9576,25 @@ LABEL_59:
   v41 = 0;
   v68 = 1;
 LABEL_113:
-  *a28 = v120;
-  *a29 = v119;
+  *a29 = v120;
+  *a30 = v119;
   v119 = 0;
   v120 = 0;
-  *a30 = pixelTransferSessionOut;
+  *a31 = pixelTransferSessionOut;
   *v34 = v117;
   v117 = 0;
   pixelTransferSessionOut = 0;
   *a19 = v103;
   *a18 = v61;
-  *a23 = v114;
-  *a24 = v113;
-  *a25 = v112;
-  *a26 = cf;
+  *a24 = v114;
+  *a25 = v113;
+  *a26 = v112;
+  *a27 = cf;
   v113 = 0;
   v114 = 0;
   cf = 0;
   v112 = 0;
-  *a27 = v115;
+  *a28 = v115;
   v115 = 0;
   *v36 = v68;
   if (!v39)
@@ -9102,7 +9697,7 @@ uint64_t vtPixelTransferAppendSimpleSoftwareNodeCallback(uint64_t a1, unsigned i
         v11 = 0;
       }
 
-      CurrentDimensions = VTPixelTransferChainAppendSoftwareNode(*a6, cf, *(a3 + 8), v12, v11, v13);
+      CurrentDimensions = VTPixelTransferChainAppendSoftwareNode(*a6, cf, *(a3 + 8), v12, v11, v13, 0);
     }
   }
 
@@ -9117,7 +9712,7 @@ uint64_t vtPixelTransferAppendSimpleSoftwareNodeCallback(uint64_t a1, unsigned i
 
 uint64_t vtCreateIntermediatePixelBuffer_cold_1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -9231,1592 +9826,4 @@ BOOL VTDoesIOServiceSupportRegistryKey(const __CFString *a1, const __CFString *a
   v4 = FigCFEqual() == 0;
   CFRelease(v3);
   return v4;
-}
-
-uint64_t vt_Copy_x422_v210(uint64_t a1)
-{
-  if (a1)
-  {
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_1();
-    v7 = v5[1];
-    v8 = *v4;
-    v9 = v4[1];
-    v14[12] = *v5;
-    v14[13] = v8;
-    v14[14] = v7;
-    v14[15] = v9;
-    v10 = *v2;
-    v14[16] = *v3;
-    v14[17] = v10;
-    v15 = 0;
-    BYTE4(v15) = *v1;
-    if (v1[1] && (v11 = v6, v6 >= 2))
-    {
-      global_queue = dispatch_get_global_queue(0, 0);
-      dispatch_apply_f(v11, global_queue, v14, vt_Copy_x422_v210_internal);
-    }
-
-    else
-    {
-      vt_Copy_x422_v210_internal(v14);
-    }
-  }
-
-  return 0;
-}
-
-uint64_t vt_Copy_v210_x422(uint64_t a1)
-{
-  if (a1)
-  {
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_1();
-    v7 = *v4;
-    v14[12] = *v5;
-    v14[13] = v7;
-    v8 = v3[1];
-    v9 = *v2;
-    v10 = v2[1];
-    v14[14] = *v3;
-    v14[15] = v9;
-    v14[16] = v8;
-    v14[17] = v10;
-    v15 = 0;
-    BYTE4(v15) = *v1;
-    if (v1[1] && (v11 = v6, v6 >= 2))
-    {
-      global_queue = dispatch_get_global_queue(0, 0);
-      dispatch_apply_f(v11, global_queue, v14, vt_Copy_v210_x422_internal);
-    }
-
-    else
-    {
-      vt_Copy_v210_x422_internal(v14);
-    }
-  }
-
-  return 0;
-}
-
-uint64_t vtPixelTransferAppendDynamicNodeCallback(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  cf = 0;
-  v7 = *(a2 + 4) ^ *(a1 + 4);
-  v8 = (v7 >> 4) & 1;
-  v9 = v7 & 0x18;
-  v10 = &kVTRotation_180;
-  if (v9 == 24)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = (v7 >> 3) & 1;
-  }
-
-  if (v9 == 24)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v10 = &kVTRotation_0;
-    v12 = (v7 >> 4) & 1;
-  }
-
-  v13 = (v7 & 8) == 0;
-  if (v8)
-  {
-    v13 = 0;
-  }
-
-  v14 = &kVTRotation_CCW90;
-  if (!v8)
-  {
-    v14 = &kVTRotation_CW90;
-  }
-
-  v15 = v9 == 24;
-  if (v9 == 24)
-  {
-    v13 = 0;
-    v16 = &kVTRotation_CW90;
-  }
-
-  else
-  {
-    v16 = v14;
-  }
-
-  if (!v15)
-  {
-    v8 = 0;
-  }
-
-  if ((v7 & 4) != 0)
-  {
-    v17 = v13;
-  }
-
-  else
-  {
-    v17 = v11;
-  }
-
-  if ((v7 & 4) != 0)
-  {
-    v18 = v16;
-  }
-
-  else
-  {
-    v18 = v10;
-  }
-
-  if ((v7 & 4) != 0)
-  {
-    v19 = v8;
-  }
-
-  else
-  {
-    v19 = v12;
-  }
-
-  v28 = 0u;
-  *v29 = 0u;
-  v20 = *v18;
-  VTPixelTransferGraphGetCurrentDimensions(a1, a2, a3, a6, 0, &v28);
-  MutableCopy = FigCFDictionaryCreateMutableCopy();
-  if (!MutableCopy)
-  {
-    return 0;
-  }
-
-  v22 = MutableCopy;
-  if (v20 == @"Rotation0")
-  {
-    CFDictionaryRemoveValue(MutableCopy, @"Rotation");
-  }
-
-  else
-  {
-    FigCFDictionarySetValue();
-  }
-
-  if (v19)
-  {
-    FigCFDictionarySetValue();
-  }
-
-  else
-  {
-    CFDictionaryRemoveValue(v22, @"FlipHorizontalOrientation");
-  }
-
-  if (v17)
-  {
-    FigCFDictionarySetValue();
-    if ((v7 & 2) == 0)
-    {
-LABEL_34:
-      CFDictionaryRemoveValue(v22, @"DestinationColorPrimaries");
-      CFDictionaryRemoveValue(v22, @"DestinationTransferFunction");
-      goto LABEL_37;
-    }
-  }
-
-  else
-  {
-    CFDictionaryRemoveValue(v22, @"FlipVerticalOrientation");
-    if ((v7 & 2) == 0)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  FigCFDictionaryGetValue();
-  FigCFDictionaryGetValue();
-  FigCFDictionarySetValue();
-  FigCFDictionarySetValue();
-LABEL_37:
-  PixelBufferPoolAttributes = VTPixelTransferChainCreatePixelBufferPoolAttributes(*a2, 1, v29[0], v29[1], &cf);
-  v24 = cf;
-  if (PixelBufferPoolAttributes)
-  {
-    appended = PixelBufferPoolAttributes;
-    if (!cf)
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_39;
-  }
-
-  appended = vtPixelTransferChainAppendDynamicNode();
-  v24 = cf;
-  if (cf)
-  {
-LABEL_39:
-    CFRelease(v24);
-  }
-
-LABEL_40:
-  CFRelease(v22);
-  return appended;
-}
-
-uint64_t vtPixelTransferAppendColorProcessingBlitterNodeCallback(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v25 = 0;
-  v26 = 0;
-  v24 = 0;
-  StringForIntegerCodePoint = CVYCbCrMatrixGetStringForIntegerCodePoint(*(a1 + 5));
-  v11 = CVYCbCrMatrixGetStringForIntegerCodePoint(*(a2 + 5));
-  cf = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v12 = (*(a6 + 26) & 3) != 0;
-  VTPixelTransferGraphGetCurrentDimensions(a1, a2, v13, a6, 0, &v21);
-  MutableCopy = 0;
-  v15 = *MEMORY[0x1E695E480];
-  if (((*(a2 + 4) ^ *(a1 + 4)) & 2) == 0 || (Mutable = FigCFDictionaryCreateMutableCopy(), MutableCopy = FigCFDictionaryCreateMutableCopy(), !Mutable))
-  {
-    Mutable = CFDictionaryCreateMutable(v15, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  }
-
-  if (!MutableCopy)
-  {
-    MutableCopy = CFDictionaryCreateMutable(v15, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  }
-
-  appended = 4294954392;
-  if (Mutable && MutableCopy)
-  {
-    v18 = MEMORY[0x1E6965F98];
-    if (StringForIntegerCodePoint)
-    {
-      CFDictionarySetValue(Mutable, *MEMORY[0x1E6965F98], StringForIntegerCodePoint);
-    }
-
-    if (v11)
-    {
-      CFDictionarySetValue(MutableCopy, *v18, v11);
-    }
-
-    PixelBufferPoolAttributes = VTPixelBlitterColorHandlingOptimized_setup(*a1, Mutable, *a2, MutableCopy, 0, *(a6 + 170), *(a6 + 171), &v26, &v25, a3 + 32, &v24);
-    if (PixelBufferPoolAttributes || (PixelBufferPoolAttributes = VTPixelTransferChainCreatePixelBufferPoolAttributes(*a2, v12, *&v22, *(&v22 + 1), &cf), PixelBufferPoolAttributes))
-    {
-      appended = PixelBufferPoolAttributes;
-    }
-
-    else
-    {
-      appended = VTPixelTransferChainAppendSoftwareNode(*a6, cf, 0, v25, v26, v24);
-      v26 = 0;
-    }
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if (v24 && v26)
-  {
-    (v24)();
-  }
-
-  if (Mutable)
-  {
-    CFRelease(Mutable);
-  }
-
-  if (MutableCopy)
-  {
-    CFRelease(MutableCopy);
-  }
-
-  return appended;
-}
-
-uint64_t vtPixelTransferAppendScalerNodeCallback(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v27 = 0;
-  bzero(v25, 0x118uLL);
-  v10 = *(a1 + 7);
-  v11 = *(a2 + 7);
-  v23 = 0u;
-  v24 = 0u;
-  *v21 = 0u;
-  v22 = 0u;
-  *v19 = 0u;
-  v20 = 0u;
-  *v17 = 0u;
-  *v18 = 0u;
-  v12 = *(a6 + 26);
-  VTPixelTransferGraphGetCurrentDimensions(a1, a2, v13, a6, 0, &v23);
-  v14 = VTPixelTransferChainCreatePixelBufferPoolAttributes(*a2, (v12 & 3) != 0, v24.f64[0], v24.f64[1], &v27);
-  if (!v14)
-  {
-    VTConvertFloatRectToIntRect(a6 + 28, &v20);
-    VTConvertFloatRectToIntRect(a6 + 76, v17);
-    *v18 = vcvtq_s64_f64(vcvtq_f64_f32(vrnda_f32(vcvt_f32_f64(v24))));
-    *v19 = vcvtq_s64_f64(vcvtq_f64_f32(vrnda_f32(vcvt_f32_f64(v23))));
-    vtAllocatePlanarBuffersCommon(*a1, &v20, v25);
-    vtAllocatePlanarBuffersCommon(*a2, v17, v26);
-    VTPixelTransferChainAppendScalerNode(*a6, *(a3 + 8), v25, *(a6 + 168), v10 & 0x40, v11 & 0x40, *(a6 + 169), *(a6 + 136), v27, *(a3 + 32), v17[0], v17[1], v18[0], v18[1], v19[0], v19[1], v20, *(&v20 + 1), v21[0], v21[1], v22, *(&v22 + 1));
-  }
-
-  v15 = v14;
-  vtFreePlanarBuffers(v25);
-  vtFreePlanarBuffers(v26);
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
-  return v15;
-}
-
-uint64_t VTPixelTransferGraphBuildChain_cold_1(_DWORD *a1)
-{
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
-}
-
-uint64_t VTPixelTransferGraphBuildChain_cold_2(_DWORD *a1)
-{
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
-}
-
-void VTCompressionSessionSetProperty(uint64_t a1, void *value, const __CFNumber *a3)
-{
-  if (!a1 || *(a1 + 16) == 2)
-  {
-    goto LABEL_19;
-  }
-
-  if (*(a1 + 24))
-  {
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_7_0();
-
-    VTCompressionSessionRemote_SetProperty(v6, v7, v8);
-    return;
-  }
-
-  vtCoreAnalyticsSaveUserConfiguredCompressionProperty(value, a3, a1);
-  if (*(a1 + 850))
-  {
-    v10 = OUTLINED_FUNCTION_5_0();
-    if (vtCompressionSessionIsPropertyHandledByRateControl(v10, v11))
-    {
-      OUTLINED_FUNCTION_6_0();
-      OUTLINED_FUNCTION_7_0();
-
-      VTRateControlSessionSetProperty(v12);
-      return;
-    }
-  }
-
-  if (!vtCompressionSessionIsPropertyHandledByVideoToolbox(value))
-  {
-    v15 = OUTLINED_FUNCTION_5_0();
-    if (!vtCompressionSessionIsPropertyHandledByVideoEncoder(v15, v16))
-    {
-      goto LABEL_19;
-    }
-
-    if (!*(a1 + 850))
-    {
-      if (*(a1 + 851))
-      {
-        v20 = OUTLINED_FUNCTION_5_0();
-        if (vtCompressionSessionIsPropertyHandledByRateControl(v20, v21))
-        {
-          OUTLINED_FUNCTION_6_0();
-          VTRateControlSessionSetProperty(v22);
-        }
-      }
-    }
-
-    if (*(*(CMBaseObjectGetVTable() + 8) + 56))
-    {
-      OUTLINED_FUNCTION_6_0();
-      v17();
-    }
-
-    if (!CFEqual(@"AverageDataRate", value) && !CFEqual(@"AverageBitRate", value) && !CFEqual(@"ConvergenceDurationForAverageDataRate", value) && !CFEqual(@"DataRateLimits", value) && !CFEqual(@"MoreFramesBeforeStart", value) && !CFEqual(@"MoreFramesAfterEnd", value) && !CFEqual(@"RequestedMaxEncoderLatency", value) && !CFEqual(@"SourceFrameCount", value) && !CFEqual(@"ExpectedFrameRate", value) && !CFEqual(@"ExpectedDuration", value))
-    {
-      *(a1 + 256) = 1;
-    }
-
-    if (CFEqual(@"ProfileLevel", value))
-    {
-      v18 = *(a1 + 600);
-      if (v18 == a3)
-      {
-        goto LABEL_56;
-      }
-
-      *(a1 + 600) = a3;
-      if (a3)
-      {
-        CFRetain(a3);
-      }
-
-      if (!v18)
-      {
-        goto LABEL_56;
-      }
-
-      v19 = v18;
-      goto LABEL_43;
-    }
-
-    if (CFEqual(@"ExpectedFrameRate", value))
-    {
-      v23 = (a1 + 728);
-      if (a3)
-      {
-        v24 = a3;
-        v25 = kCFNumberFloat32Type;
-LABEL_54:
-        CFNumberGetValue(v24, v25, v23);
-        goto LABEL_56;
-      }
-    }
-
-    else
-    {
-      if (!CFEqual(@"OutputBitDepth", value))
-      {
-        goto LABEL_56;
-      }
-
-      v23 = (a1 + 608);
-      if (a3)
-      {
-        v24 = a3;
-        v25 = kCFNumberSInt32Type;
-        goto LABEL_54;
-      }
-    }
-
-    *v23 = 0;
-    goto LABEL_56;
-  }
-
-  if (CFEqual(@"PixelBufferPoolIsShared", value) || CFEqual(@"VideoEncoderPixelBufferAttributes", value) || CFEqual(@"PoolPixelBufferAttributesSeed", value) || CFEqual(@"PoolPixelBufferAttributes", value) || CFEqual(@"NumberOfPendingFrames", value) || CFEqual(@"CurrentHDRMetadataGenerationState", value))
-  {
-    goto LABEL_19;
-  }
-
-  if (!CFEqual(@"PixelTransferProperties", value))
-  {
-    if (!OUTLINED_FUNCTION_12_0() && !OUTLINED_FUNCTION_8_0() && !OUTLINED_FUNCTION_11_0() && !CFEqual(@"FieldDetail", value) && !CFEqual(@"ComponentRange", value) && !OUTLINED_FUNCTION_17_0() && !CFEqual(@"TransferFunction", value) && !CFEqual(@"GammaLevel", value) && !CFEqual(@"YCbCrMatrix", value) && !CFEqual(@"ICCProfile", value) && !CFEqual(@"MasteringDisplayColorVolume", value) && !CFEqual(@"ContentLightLevelInfo", value) && !CFEqual(@"MultiPassStorage", value) && !CFEqual(@"AuxiliaryTypeInfo", value) && !CFEqual(@"ChromaLocationTopField", value) && !CFEqual(@"ChromaLocationBottomField", value) && !CFEqual(@"AmbientViewingEnvironment", value) && !CFEqual(@"PrepareEncodedSampleBuffersForPaddedWrites", value) && !CFEqual(@"HasLeftStereoEyeView", value) && !CFEqual(@"HasRightStereoEyeView", value) && !CFEqual(@"HasEyeViewsReversed", value) && !CFEqual(@"HasAdditionalViews", value) && !CFEqual(@"HeroEye", value) && !CFEqual(@"ProjectionKind", value) && !CFEqual(@"ViewPackingKind", value) && !CFEqual(@"TransportIdentifier", value) && !CFEqual(@"WarpKind", value) && !CFEqual(@"StereoCameraBaseline", value) && !CFEqual(@"HorizontalDisparityAdjustment", value) && !CFEqual(@"CameraCalibrationDataLensCollection", value) && !CFEqual(@"HorizontalFieldOfView", value) && !CFEqual(@"PowerLogSessionID", value) && !CFEqual(@"InputQueueMaxCount", value))
-    {
-      if (CFEqual(@"MaximizePowerEfficiency", value))
-      {
-        if (a3)
-        {
-          v49 = CFGetTypeID(a3);
-          if (v49 == CFBooleanGetTypeID())
-          {
-            *(a1 + 569) = CFBooleanGetValue(a3);
-            goto LABEL_106;
-          }
-        }
-
-        goto LABEL_19;
-      }
-
-      if (CFEqual(@"HDRMetadataInsertionMode", value))
-      {
-        if (!*(a1 + 593))
-        {
-          goto LABEL_56;
-        }
-
-        if (*(a1 + 96))
-        {
-          goto LABEL_19;
-        }
-
-        if (!vtCompressionSessionValidateHDRMetadata(a1, a3))
-        {
-          *(a1 + 624) = 0;
-          if (FigCFEqual())
-          {
-            v51 = MEMORY[0x1E695E4D0];
-LABEL_241:
-            *(a1 + 616) = *v51;
-            goto LABEL_56;
-          }
-
-          if (!*(a1 + 693) || !FigCFEqual())
-          {
-            v51 = MEMORY[0x1E695E4C0];
-            goto LABEL_241;
-          }
-
-          *(a1 + 616) = *MEMORY[0x1E695E4D0];
-          *(a1 + 624) = 1;
-        }
-
-LABEL_56:
-        OUTLINED_FUNCTION_7_0();
-        return;
-      }
-
-      if (CFEqual(@"PreserveDynamicHDRMetadata", value))
-      {
-        if (a3)
-        {
-          if (*(a1 + 593))
-          {
-            v50 = CFGetTypeID(a3);
-            if (v50 == CFBooleanGetTypeID())
-            {
-              *(a1 + 652) = CFBooleanGetValue(a3);
-            }
-          }
-        }
-
-        goto LABEL_56;
-      }
-
-      if (CFEqual(@"InitialHDRMetadataGenerationState", value))
-      {
-        if (!vtCompressionSessionValidateInitialHDRMetadataState(a3))
-        {
-          if (!*(a1 + 96))
-          {
-            v54 = *(a1 + 664);
-            if (v54 != a3)
-            {
-              *(a1 + 664) = a3;
-              if (a3)
-              {
-                CFRetain(a3);
-              }
-
-              if (v54)
-              {
-                CFRelease(v54);
-              }
-            }
-
-            goto LABEL_56;
-          }
-
-          goto LABEL_19;
-        }
-
-        goto LABEL_56;
-      }
-
-      if (CFEqual(@"AmbientViewingEnvironment", value))
-      {
-        if (*(a1 + 689))
-        {
-          v52 = OUTLINED_FUNCTION_5_0();
-          *(a1 + 690) = vtCompressionSessionIsPropertyHandledByVideoEncoder(v52, v53);
-          vtCompressionSessionUpdateAmbientViewingEnvironment(a1, a3);
-          if (*(a1 + 690))
-          {
-            goto LABEL_107;
-          }
-        }
-
-        goto LABEL_56;
-      }
-
-      if (!OUTLINED_FUNCTION_12_0() && !OUTLINED_FUNCTION_11_0() && !OUTLINED_FUNCTION_8_0())
-      {
-        if (CFEqual(@"AllowPixelTransfer", value))
-        {
-          if (a3)
-          {
-            v66 = CFGetTypeID(a3);
-            if (v66 == CFBooleanGetTypeID())
-            {
-              *(a1 + 568) = *MEMORY[0x1E695E4D0] == a3;
-              goto LABEL_56;
-            }
-          }
-
-          goto LABEL_19;
-        }
-
-        if (!CFEqual(@"LowMemory", value))
-        {
-          goto LABEL_56;
-        }
-
-        if (!a3 || (v68 = CFGetTypeID(a3), v68 != CFBooleanGetTypeID()))
-        {
-LABEL_19:
-          fig_log_get_emitter();
-          OUTLINED_FUNCTION_1_1();
-          OUTLINED_FUNCTION_7_0();
-
-          FigSignalErrorAtGM();
-          return;
-        }
-
-        if (*MEMORY[0x1E695E4D0] == a3)
-        {
-          *(a1 + 592) = 1;
-          if (!vtCompressionSessionIsPropertyHandledByVideoEncoder(a1, @"InputQueueMaxCount"))
-          {
-            goto LABEL_56;
-          }
-
-          valuePtr = -1;
-          v69 = *MEMORY[0x1E695E480];
-          p_valuePtr = &valuePtr;
-        }
-
-        else
-        {
-          *(a1 + 592) = 0;
-          if (!vtCompressionSessionIsPropertyHandledByVideoEncoder(a1, @"InputQueueMaxCount"))
-          {
-            goto LABEL_56;
-          }
-
-          v69 = *MEMORY[0x1E695E480];
-          p_valuePtr = (a1 + 272);
-        }
-
-        v76 = CFNumberCreate(v69, kCFNumberIntType, p_valuePtr);
-        VTVideoEncoderSetProperty(*(a1 + 472), @"InputQueueMaxCount", v76);
-        if (!v76)
-        {
-          goto LABEL_56;
-        }
-
-        goto LABEL_404;
-      }
-
-      if (a3)
-      {
-        TypeID = CFNumberGetTypeID();
-        if (TypeID == CFGetTypeID(a3))
-        {
-          if (OUTLINED_FUNCTION_12_0())
-          {
-            v67 = (a1 + 572);
-          }
-
-          else
-          {
-            if (!OUTLINED_FUNCTION_11_0())
-            {
-              goto LABEL_369;
-            }
-
-            v67 = (a1 + 576);
-          }
-
-          CFNumberGetValue(a3, kCFNumberSInt32Type, v67);
-        }
-
-        else
-        {
-          if (!OUTLINED_FUNCTION_8_0())
-          {
-            goto LABEL_19;
-          }
-
-          v64 = CFGetTypeID(a3);
-          if (v64 == CFBooleanGetTypeID())
-          {
-            v65 = *(a1 + 584);
-            *(a1 + 584) = a3;
-            CFRetain(a3);
-LABEL_365:
-            if (v65)
-            {
-              CFRelease(v65);
-            }
-          }
-        }
-
-LABEL_369:
-        if (*(a1 + 544))
-        {
-          if (OUTLINED_FUNCTION_11_0())
-          {
-            VTSessionSetProperty(*(a1 + 544), @"ClientPID", a3);
-          }
-
-          if (OUTLINED_FUNCTION_8_0())
-          {
-            VTSessionSetProperty(*(a1 + 544), @"RealTime", a3);
-          }
-        }
-
-        if (*(a1 + 408))
-        {
-          if (OUTLINED_FUNCTION_11_0())
-          {
-            VTSessionSetProperty(*(a1 + 408), @"ClientPID", a3);
-          }
-
-          if (OUTLINED_FUNCTION_8_0())
-          {
-            VTSessionSetProperty(*(a1 + 408), @"RealTime", a3);
-          }
-        }
-
-        if (vtCompressionSessionDispatchQueuesUpdatePriorityAndClientPID(a1))
-        {
-          goto LABEL_56;
-        }
-
-        v71 = OUTLINED_FUNCTION_5_0();
-        if (vtCompressionSessionIsPropertyHandledByVideoEncoder(v71, v72))
-        {
-          OUTLINED_FUNCTION_6_0();
-          VTVideoEncoderSetProperty(v73, v74, v75);
-        }
-
-        if (!OUTLINED_FUNCTION_8_0() || !vtCompressionSessionIsPropertyHandledByVideoEncoder(a1, @"FigThreadPriority") || *(a1 + 572))
-        {
-          goto LABEL_56;
-        }
-
-        v77 = *(a1 + 584);
-        if (*MEMORY[0x1E695E4D0] == v77)
-        {
-          v80 = 0;
-        }
-
-        else
-        {
-          v78 = *MEMORY[0x1E695E4C0] == v77;
-          v80 = 8 * v78;
-          if (!v78)
-          {
-            goto LABEL_56;
-          }
-        }
-
-        v76 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v80);
-        VTVideoEncoderSetProperty(*(a1 + 472), @"FigThreadPriority", v76);
-        if (!v76)
-        {
-          goto LABEL_56;
-        }
-
-LABEL_404:
-        v19 = v76;
-LABEL_43:
-        CFRelease(v19);
-        goto LABEL_56;
-      }
-
-      if (!OUTLINED_FUNCTION_8_0())
-      {
-        goto LABEL_19;
-      }
-
-      v65 = *(a1 + 584);
-      *(a1 + 584) = 0;
-      goto LABEL_365;
-    }
-
-    if (OUTLINED_FUNCTION_12_0())
-    {
-      HasLeftStereoEyeView = vtCompressionSessionValidatePixelAspectRatio(a3);
-      goto LABEL_118;
-    }
-
-    if (OUTLINED_FUNCTION_8_0())
-    {
-      HasLeftStereoEyeView = vtCompressionSessionValidateCleanAperture(a1, a3);
-      goto LABEL_118;
-    }
-
-    if (OUTLINED_FUNCTION_11_0())
-    {
-      HasLeftStereoEyeView = vtCompressionSessionValidateFieldCount(a3);
-      goto LABEL_118;
-    }
-
-    if (CFEqual(@"FieldDetail", value))
-    {
-      HasLeftStereoEyeView = vtCompressionSessionValidateFieldDetail(a3);
-      goto LABEL_118;
-    }
-
-    if (CFEqual(@"ComponentRange", value))
-    {
-      HasLeftStereoEyeView = vtCompressionSessionValidatePixelFormatComponentRange(a3);
-LABEL_118:
-      if (HasLeftStereoEyeView)
-      {
-        goto LABEL_56;
-      }
-
-LABEL_119:
-      v41 = OUTLINED_FUNCTION_5_0();
-      if (vtCompressionSessionIsPropertyHandledByVideoEncoder(v41, v42))
-      {
-        if (*(a1 + 96) == 1 || !FigVideoCodecTypeIsHEVCFlavor(*(a1 + 48)) || !OUTLINED_FUNCTION_17_0() && !CFEqual(@"TransferFunction", value) && !CFEqual(@"YCbCrMatrix", value))
-        {
-          OUTLINED_FUNCTION_6_0();
-          if (!VTVideoEncoderSetProperty(v43, v44, v45))
-          {
-            if (CFEqual(@"MultiPassStorage", value))
-            {
-              v46 = *(a1 + 816);
-              *(a1 + 816) = a3;
-              if (!a3)
-              {
-                goto LABEL_248;
-              }
-
-LABEL_247:
-              CFRetain(a3);
-              goto LABEL_248;
-            }
-          }
-        }
-
-LABEL_250:
-        *(a1 + 256) = 1;
-        goto LABEL_56;
-      }
-
-LABEL_245:
-      if (OUTLINED_FUNCTION_12_0())
-      {
-        v46 = *(a1 + 136);
-        *(a1 + 136) = a3;
-        if (!a3)
-        {
-          goto LABEL_248;
-        }
-
-        goto LABEL_247;
-      }
-
-      if (OUTLINED_FUNCTION_8_0())
-      {
-        v46 = *(a1 + 144);
-        *(a1 + 144) = a3;
-        if (a3)
-        {
-          goto LABEL_247;
-        }
-
-        goto LABEL_248;
-      }
-
-      if (OUTLINED_FUNCTION_11_0())
-      {
-        v46 = *(a1 + 152);
-        *(a1 + 152) = a3;
-        if (a3)
-        {
-          goto LABEL_247;
-        }
-
-        goto LABEL_248;
-      }
-
-      if (CFEqual(@"FieldDetail", value))
-      {
-        v46 = *(a1 + 160);
-        *(a1 + 160) = a3;
-        if (a3)
-        {
-          goto LABEL_247;
-        }
-
-        goto LABEL_248;
-      }
-
-      if (CFEqual(@"ComponentRange", value))
-      {
-        v46 = *(a1 + 168);
-        *(a1 + 168) = a3;
-        if (a3)
-        {
-          goto LABEL_247;
-        }
-
-        goto LABEL_248;
-      }
-
-      if (OUTLINED_FUNCTION_17_0())
-      {
-        v55 = *(a1 + 176);
-        *(a1 + 176) = a3;
-        if (a3)
-        {
-          goto LABEL_265;
-        }
-      }
-
-      else
-      {
-        if (CFEqual(@"TransferFunction", value))
-        {
-          v55 = *(a1 + 184);
-          *(a1 + 184) = a3;
-          if (!a3)
-          {
-            goto LABEL_266;
-          }
-
-          goto LABEL_265;
-        }
-
-        if (CFEqual(@"GammaLevel", value))
-        {
-          v55 = *(a1 + 192);
-          *(a1 + 192) = a3;
-          if (!a3)
-          {
-            goto LABEL_266;
-          }
-
-          goto LABEL_265;
-        }
-
-        if (CFEqual(@"YCbCrMatrix", value))
-        {
-          v55 = *(a1 + 200);
-          *(a1 + 200) = a3;
-          if (!a3)
-          {
-            goto LABEL_266;
-          }
-
-          goto LABEL_265;
-        }
-
-        if (CFEqual(@"ICCProfile", value))
-        {
-          v55 = *(a1 + 208);
-          *(a1 + 208) = a3;
-          if (!a3)
-          {
-            goto LABEL_266;
-          }
-
-          goto LABEL_265;
-        }
-
-        if (CFEqual(@"MasteringDisplayColorVolume", value))
-        {
-          v55 = *(a1 + 216);
-          *(a1 + 216) = a3;
-          if (!a3)
-          {
-            goto LABEL_266;
-          }
-
-          goto LABEL_265;
-        }
-
-        if (!CFEqual(@"ContentLightLevelInfo", value))
-        {
-          if (CFEqual(@"AmbientViewingEnvironment", value))
-          {
-            v46 = *(a1 + 704);
-            *(a1 + 704) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"MultiPassStorage", value))
-          {
-            goto LABEL_19;
-          }
-
-          if (CFEqual(@"AuxiliaryTypeInfo", value))
-          {
-            v46 = *(a1 + 232);
-            *(a1 + 232) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"ChromaLocationTopField", value))
-          {
-            v46 = *(a1 + 240);
-            *(a1 + 240) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"ChromaLocationBottomField", value))
-          {
-            v46 = *(a1 + 248);
-            *(a1 + 248) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"PrepareEncodedSampleBuffersForPaddedWrites", value))
-          {
-            if (a3 && (v57 = CFGetTypeID(a3), v57 == CFBooleanGetTypeID()))
-            {
-              *(a1 + 456) = CFBooleanGetValue(a3);
-            }
-
-            else
-            {
-              fig_log_get_emitter();
-              OUTLINED_FUNCTION_1_1();
-              FigSignalErrorAtGM();
-            }
-
-            goto LABEL_250;
-          }
-
-          if (CFEqual(@"HasLeftStereoEyeView", value))
-          {
-            OUTLINED_FUNCTION_14_0();
-            *(a1 + 736) = v58;
-            goto LABEL_250;
-          }
-
-          if (CFEqual(@"HasRightStereoEyeView", value))
-          {
-            OUTLINED_FUNCTION_14_0();
-            *(a1 + 737) = v59;
-            goto LABEL_250;
-          }
-
-          if (CFEqual(@"HasEyeViewsReversed", value))
-          {
-            OUTLINED_FUNCTION_14_0();
-            *(a1 + 738) = v60;
-            goto LABEL_250;
-          }
-
-          if (CFEqual(@"HasAdditionalViews", value))
-          {
-            OUTLINED_FUNCTION_14_0();
-            *(a1 + 739) = v61;
-            goto LABEL_250;
-          }
-
-          if (CFEqual(@"HeroEye", value))
-          {
-            v46 = *(a1 + 744);
-            *(a1 + 744) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"ProjectionKind", value))
-          {
-            v46 = *(a1 + 752);
-            *(a1 + 752) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"ViewPackingKind", value))
-          {
-            v46 = *(a1 + 760);
-            *(a1 + 760) = a3;
-            if (a3)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_248;
-          }
-
-          if (CFEqual(@"TransportIdentifier", value))
-          {
-            if (!a3)
-            {
-              *(a1 + 768) = 0;
-              goto LABEL_250;
-            }
-
-            *(a1 + 768) = 1;
-            v62 = (a1 + 772);
-          }
-
-          else
-          {
-            if (CFEqual(@"WarpKind", value))
-            {
-              v46 = *(a1 + 776);
-              *(a1 + 776) = a3;
-              if (a3)
-              {
-                goto LABEL_247;
-              }
-
-              goto LABEL_248;
-            }
-
-            if (CFEqual(@"StereoCameraBaseline", value))
-            {
-              if (!a3)
-              {
-                *(a1 + 784) = 0;
-                goto LABEL_250;
-              }
-
-              *(a1 + 784) = 1;
-              v62 = (a1 + 788);
-            }
-
-            else
-            {
-              if (!CFEqual(@"HorizontalDisparityAdjustment", value))
-              {
-                if (CFEqual(@"CameraCalibrationDataLensCollection", value))
-                {
-                  v46 = *(a1 + 800);
-                  *(a1 + 800) = a3;
-                  if (a3)
-                  {
-                    goto LABEL_247;
-                  }
-                }
-
-                else if (CFEqual(@"HorizontalFieldOfView", value))
-                {
-                  v46 = *(a1 + 264);
-                  *(a1 + 264) = a3;
-                  if (a3)
-                  {
-                    goto LABEL_247;
-                  }
-                }
-
-                else
-                {
-                  if (!CFEqual(@"PowerLogSessionID", value))
-                  {
-                    goto LABEL_250;
-                  }
-
-                  v46 = *(a1 + 872);
-                  *(a1 + 872) = a3;
-                  if (a3)
-                  {
-                    goto LABEL_247;
-                  }
-                }
-
-LABEL_248:
-                if (v46)
-                {
-                  CFRelease(v46);
-                }
-
-                goto LABEL_250;
-              }
-
-              if (!a3)
-              {
-                *(a1 + 792) = 0;
-                goto LABEL_250;
-              }
-
-              *(a1 + 792) = 1;
-              v62 = (a1 + 796);
-            }
-          }
-
-          CFNumberGetValue(a3, kCFNumberSInt32Type, v62);
-          goto LABEL_250;
-        }
-
-        v55 = *(a1 + 224);
-        *(a1 + 224) = a3;
-        if (a3)
-        {
-LABEL_265:
-          CFRetain(a3);
-        }
-      }
-
-LABEL_266:
-      if (v55)
-      {
-        CFRelease(v55);
-      }
-
-      v56 = *(a1 + 416);
-      if (v56)
-      {
-        CFRelease(v56);
-        *(a1 + 416) = 0;
-      }
-
-      goto LABEL_250;
-    }
-
-    if (OUTLINED_FUNCTION_17_0())
-    {
-      if (vtCompressionSessionValidateColorPrimaries(a3))
-      {
-        goto LABEL_56;
-      }
-
-      v47 = *(a1 + 176);
-      if (v47 == a3)
-      {
-        goto LABEL_119;
-      }
-
-      *(a1 + 176) = a3;
-      if (a3)
-      {
-        goto LABEL_133;
-      }
-
-LABEL_134:
-      if (v47)
-      {
-        CFRelease(v47);
-      }
-
-      v48 = *(a1 + 416);
-      if (v48)
-      {
-        CFRelease(v48);
-        *(a1 + 416) = 0;
-      }
-
-      goto LABEL_119;
-    }
-
-    if (CFEqual(@"TransferFunction", value))
-    {
-      if (vtCompressionSessionValidateTransferFunction(a3))
-      {
-        goto LABEL_56;
-      }
-
-      v47 = *(a1 + 184);
-      if (v47 == a3)
-      {
-        goto LABEL_119;
-      }
-
-      *(a1 + 184) = a3;
-      if (!a3)
-      {
-        goto LABEL_134;
-      }
-    }
-
-    else if (CFEqual(@"GammaLevel", value))
-    {
-      if (vtCompressionSessionValidateGammaLevel(a3))
-      {
-        goto LABEL_56;
-      }
-
-      v47 = *(a1 + 192);
-      if (v47 == a3)
-      {
-        goto LABEL_119;
-      }
-
-      *(a1 + 192) = a3;
-      if (!a3)
-      {
-        goto LABEL_134;
-      }
-    }
-
-    else
-    {
-      if (!CFEqual(@"YCbCrMatrix", value))
-      {
-        if (!CFEqual(@"ICCProfile", value))
-        {
-          if (CFEqual(@"MasteringDisplayColorVolume", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateMasteringDisplayColorVolume(a3);
-          }
-
-          else if (CFEqual(@"ContentLightLevelInfo", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateContentLightLevelInfo(a3);
-          }
-
-          else if (CFEqual(@"AmbientViewingEnvironment", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateAmbientViewingEnvironment(a3);
-          }
-
-          else if (CFEqual(@"MultiPassStorage", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateMultiPassStorage(a3);
-          }
-
-          else if (CFEqual(@"AuxiliaryTypeInfo", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateAuxiliaryTypeInfo(a3);
-          }
-
-          else if (CFEqual(@"ChromaLocationTopField", value) || CFEqual(@"ChromaLocationBottomField", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateChromaLocation(a3);
-          }
-
-          else if (CFEqual(@"PrepareEncodedSampleBuffersForPaddedWrites", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidatePrepareEncodedSampleBuffersForPaddedWrites(a3);
-          }
-
-          else if (CFEqual(@"HasLeftStereoEyeView", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHasLeftStereoEyeView(a3);
-          }
-
-          else if (CFEqual(@"HasRightStereoEyeView", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHasRightStereoEyeView(a3);
-          }
-
-          else if (CFEqual(@"HasEyeViewsReversed", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHasEyeViewsReversed(a3);
-          }
-
-          else if (CFEqual(@"HasAdditionalViews", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHasAdditionalViews(a3);
-          }
-
-          else if (CFEqual(@"HeroEye", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHeroEye(a3);
-          }
-
-          else if (CFEqual(@"ProjectionKind", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateProjectionKind(a3);
-          }
-
-          else if (CFEqual(@"ViewPackingKind", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateViewPackingKind(a3);
-          }
-
-          else if (CFEqual(@"TransportIdentifier", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateTransportIdentifier(a3);
-          }
-
-          else if (CFEqual(@"WarpKind", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateWarpKind(a3);
-          }
-
-          else if (CFEqual(@"StereoCameraBaseline", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateBaselineValue(a3);
-          }
-
-          else if (CFEqual(@"HorizontalDisparityAdjustment", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateDisparityAdjustment(a3);
-          }
-
-          else if (CFEqual(@"CameraCalibrationDataLensCollection", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateCameraCalibrationDataLensCollection(a3);
-          }
-
-          else if (CFEqual(@"HorizontalFieldOfView", value))
-          {
-            HasLeftStereoEyeView = vtCompressionSessionValidateHorizontalFieldOfView(a3);
-          }
-
-          else
-          {
-            if (!CFEqual(@"PowerLogSessionID", value))
-            {
-              if (CFEqual(@"InputQueueMaxCount", value))
-              {
-                if (vtCompressionSessionValidateInputQueueMaxCount(a3))
-                {
-                  goto LABEL_56;
-                }
-
-                *(a1 + 272) = FigCFNumberGetSInt32();
-                if (*(a1 + 592))
-                {
-                  goto LABEL_245;
-                }
-              }
-
-              goto LABEL_119;
-            }
-
-            HasLeftStereoEyeView = vtCompressionSessionValidatePowerLogSessionID(a3);
-          }
-
-          goto LABEL_118;
-        }
-
-        if (vtCompressionSessionValidateICCProfile(a3))
-        {
-          goto LABEL_56;
-        }
-
-        v47 = *(a1 + 208);
-        if (v47 == a3)
-        {
-          goto LABEL_119;
-        }
-
-        *(a1 + 208) = a3;
-        if (a3)
-        {
-          goto LABEL_133;
-        }
-
-        goto LABEL_134;
-      }
-
-      if (vtCompressionSessionValidateYCbCrMatrix(a3))
-      {
-        goto LABEL_56;
-      }
-
-      v47 = *(a1 + 200);
-      if (v47 == a3)
-      {
-        goto LABEL_119;
-      }
-
-      *(a1 + 200) = a3;
-      if (!a3)
-      {
-        goto LABEL_134;
-      }
-    }
-
-LABEL_133:
-    CFRetain(a3);
-    goto LABEL_134;
-  }
-
-  if (a3)
-  {
-    v26 = CFDictionaryGetTypeID();
-    if (v26 != CFGetTypeID(a3))
-    {
-      goto LABEL_19;
-    }
-  }
-
-  FigSimpleMutexLock();
-  v27 = *(a1 + 560);
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
-  if (a3)
-  {
-    v28 = CFGetAllocator(a1);
-    Copy = CFDictionaryCreateCopy(v28, a3);
-  }
-
-  else
-  {
-    Copy = 0;
-  }
-
-  *(a1 + 560) = Copy;
-  FigCFDictionaryGetBooleanIfPresent();
-  dispatch_group_wait(*(a1 + 280), 0xFFFFFFFFFFFFFFFFLL);
-  v31 = *(a1 + 544);
-  if (v31)
-  {
-    CFRelease(v31);
-    *(a1 + 544) = 0;
-  }
-
-  v32 = *(a1 + 328);
-  if (v32)
-  {
-    dispatch_release(v32);
-    *(a1 + 328) = 0;
-  }
-
-  *(a1 + 336) = 0;
-  v33 = *(a1 + 408);
-  if (v33)
-  {
-    CFRelease(v33);
-    *(a1 + 408) = 0;
-  }
-
-  v34 = *(a1 + 368);
-  if (v34)
-  {
-    dispatch_release(v34);
-    *(a1 + 368) = 0;
-  }
-
-  *(a1 + 376) = 0;
-  FigSimpleMutexUnlock();
-LABEL_106:
-  v35 = OUTLINED_FUNCTION_5_0();
-  if (!vtCompressionSessionIsPropertyHandledByVideoEncoder(v35, v36))
-  {
-    goto LABEL_56;
-  }
-
-LABEL_107:
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_7_0();
-
-  VTVideoEncoderSetProperty(v37, v38, v39);
 }

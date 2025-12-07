@@ -60,24 +60,23 @@
 
 - (id)resourceForKey:(id)key
 {
-  resourceProvider = self->_resourceProvider;
   keyCopy = key;
-  v6 = objc_opt_respondsToSelector();
-  v7 = self->_resourceProvider;
-  if (v6)
+  v5 = objc_opt_respondsToSelector();
+  resourceProvider = self->_resourceProvider;
+  if (v5)
   {
-    v8 = [(ISCompositorResourceProvider *)v7 resourceForKey:keyCopy];
+    v7 = [(ISCompositorResourceProvider *)resourceProvider resourceForKey:keyCopy];
   }
 
   else
   {
     name = [keyCopy name];
 
-    v8 = [(ISCompositorResourceProvider *)v7 resourceNamed:name];
+    v7 = [(ISCompositorResourceProvider *)resourceProvider resourceNamed:name];
     keyCopy = name;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)resourceNamed:(id)named

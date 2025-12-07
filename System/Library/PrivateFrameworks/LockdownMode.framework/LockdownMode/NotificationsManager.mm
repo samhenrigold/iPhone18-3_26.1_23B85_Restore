@@ -6,8 +6,8 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(id)handler
 {
-  v9 = (*(*(sub_100003BC8(&unk_100042300, "6i") - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100003BC8(&unk_100042300, "6i");
+  __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();

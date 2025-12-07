@@ -15,7 +15,7 @@
 
 + (id)namedAccountableWithNSString:(id)string withLong:(int64_t)long
 {
-  v6 = JavaUtilCollections_emptyList();
+  v6 = JavaUtilCollections_emptyList(self, a2);
 
   return OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withJavaUtilCollection_withLong_(string, v6, long);
 }

@@ -1,4 +1,5 @@
 @interface VMUClassInfo
++ (VMUClassInfo)classInfoWithClassName:(id)name binaryPath:(id)path type:(unsigned int)type;
 + (VMUMutableClassInfo)swiftValueWithMetadata:(void *)metadata objectIdentifier:;
 + (id)_genericBlockByrefInfo;
 + (id)descriptionForTypeEncoding:(const char *)encoding ivarName:(const char *)name;
@@ -18,11 +19,14 @@
 - (VMUClassInfo)initWithCoder:(id)coder;
 - (VMUClassInfo)initWithSerializer:(id)serializer classMap:(id)map version:(unsigned int)version error:(id *)error;
 - (id)_copyWithInstanceSize:(unsigned int)size superclassOffset:(unsigned int)offset asVariant:(BOOL)variant mutable:(BOOL)mutable;
+- (id)_initWithClass:(unint64_t)class type:(unsigned int)type realizedOnly:(BOOL)only infoMap:(id)map objectIdentifier:(id)identifier reader:(id)reader;
 - (id)debugDescription;
 - (id)description;
 - (id)fieldAtOrBeforeOffset:(unsigned int)offset;
 - (id)firstFieldWithName:(id)name;
 - (id)initSwiftClassWithName:(id)name classInfoType:(unsigned int)type size:(unint64_t)size;
+- (id)instanceSpecificInfoForObject:(unint64_t)object ofSize:(unsigned int)size memoryReader:(id)reader;
+- (id)instanceSpecificInfoForObject:(unint64_t)object ofSize:(unsigned int)size withScanner:(id)scanner memoryReader:(id)reader;
 - (id)scanDescriptionWithSize:(unsigned int)size;
 - (unsigned)_ivarGapForClass;
 - (unsigned)_objcABIFromObjectIdentifier:(id)identifier;
@@ -35,8 +39,10 @@
 - (void)_demangleClassName;
 - (void)_determineBinaryPathUsingObjectIdentifier:(id)identifier remoteClassNameLoc:(unint64_t)loc;
 - (void)_freeLocalIvarList;
+- (void)_identifyObjCClassStructureBlocksForIsa:(unint64_t)isa isMetaclass:(BOOL)metaclass withScanner:(id)scanner addressIdentifierBlock:(id)block;
 - (void)_logDescriptionWithSuperclasses:(BOOL)superclasses indentation:(int)indentation toLogger:(id)logger;
 - (void)_parseIvarsAndLayouts;
+- (void)_processARRLayout:(const char *)layout scanType:(unsigned int)type;
 - (void)_replaceField:(id)field withFields:(id)fields;
 - (void)_replaceFieldRecursively:(id)recursively atOffset:(unsigned int)offset withField:(id)field;
 - (void)_setBinaryPath:(id)path sanitize:(BOOL)sanitize;
@@ -85,6 +91,54 @@ void __38__VMUClassInfo__genericBlockByrefInfo__block_invoke()
   v0 = [[VMUClassInfo alloc] initWithClassName:@"__NSExactBlockVariable__" binaryPath:@"/usr/lib/system/libsystem_blocks.dylib" type:0x80000000];
   v1 = +[VMUClassInfo _genericBlockByrefInfo]::s_genericBlockByrefInfo;
   +[VMUClassInfo _genericBlockByrefInfo]::s_genericBlockByrefInfo = v0;
+}
+
+- (void)_processARRLayout:(const char *)layout scanType:(unsigned int)type
+{
+  if (layout)
+  {
+    layoutCopy = layout;
+    v5 = *layout;
+    if (*layout)
+    {
+      v6 = *&type;
+      v8 = 0;
+      v9 = 0;
+      remotePointerSize = self->_remotePointerSize;
+      do
+      {
+        v11 = v5 & 0xF;
+        v12 = v8 + (v5 >> 4);
+        if (v9 < self->_ivarCount)
+        {
+          v13 = self->_superclassOffset + v12 * remotePointerSize;
+          do
+          {
+            if ([self->_localIvarList[v9] offset] >= v13 + remotePointerSize * v11)
+            {
+              break;
+            }
+
+            if ([self->_localIvarList[v9] offset] >= v13)
+            {
+              [self->_localIvarList[v9] setScanType:v6];
+            }
+
+            ++v9;
+          }
+
+          while (v9 < self->_ivarCount);
+          v9 = v9;
+        }
+
+        v8 = v12 + v11;
+        v14 = *++layoutCopy;
+        v5 = v14;
+      }
+
+      while (v14);
+    }
+  }
 }
 
 - (void)_parseIvarsAndLayouts
@@ -307,6 +361,16 @@ void __38__VMUClassInfo__genericBlockByrefInfo__block_invoke()
   return hasSpecificLayout == 1;
 }
 
++ (VMUClassInfo)classInfoWithClassName:(id)name binaryPath:(id)path type:(unsigned int)type
+{
+  v5 = *&type;
+  nameCopy = name;
+  pathCopy = path;
+  v10 = [[self alloc] initWithClassName:nameCopy binaryPath:pathCopy type:v5];
+
+  return v10;
+}
+
 - (VMUClassInfo)initWithClassName:(id)name binaryPath:(id)path type:(unsigned int)type
 {
   nameCopy = name;
@@ -501,44 +565,40 @@ LABEL_36:
 
 + (VMUMutableClassInfo)swiftValueWithMetadata:(void *)metadata objectIdentifier:
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   objc_opt_self();
   memoryReader = [(VMUObjectIdentifier *)metadataCopy memoryReader];
-  v6 = memoryReader[2](memoryReader, a2 - 8, 8);
-  if (v6)
-  {
-    v7 = *v6;
-  }
+  memoryReader[2](memoryReader, a2 - 8, 8);
 
   vmuTask = [(VMUObjectIdentifier *)metadataCopy vmuTask];
-  v9 = [VMUTask ptrauthStripDataPointer:vmuTask];
+  v7 = [VMUTask ptrauthStripDataPointer:vmuTask];
 
   memoryReader2 = [(VMUObjectIdentifier *)metadataCopy memoryReader];
-  v11 = memoryReader2[2](memoryReader2, v9 + 64, 8);
-  if (v11)
+  v9 = memoryReader2[2](memoryReader2, v7 + 64, 8);
+  if (v9)
   {
-    v12 = *v11;
+    v10 = *v9;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  if (v12)
+  if (v10)
   {
-    v13 = vmu_swift_reflection_typeRefForMetadata(*[(VMUObjectIdentifier *)metadataCopy swiftMirror]);
-    v29[0] = 0;
-    v29[1] = 0;
-    v30 = 0;
-    vmu_swift_reflection_infoForTypeRef(*[(VMUObjectIdentifier *)metadataCopy swiftMirror], v29);
-    v14 = vmu_swift_reflection_copyDemangledNameForTypeRef(*[(VMUObjectIdentifier *)metadataCopy swiftMirror]);
-    v33._opaque_1 = [(VMUObjectIdentifier *)metadataCopy symbolicator];
-    v33._opaque_2 = v15;
-    v16 = determineBinaryPathForSwiftType(v14, a2, metadataCopy, v33);
-    v17 = [(VMUClassInfo *)[VMUMutableClassInfo alloc] initWithClassName:v14 binaryPath:v16 type:8];
-    [(VMUMutableClassInfo *)v17 setInstanceSize:v12];
+    v11 = vmu_swift_reflection_typeRefForMetadata(*[(VMUObjectIdentifier *)metadataCopy swiftMirror]);
+    v26[0] = 0;
+    v26[1] = 0;
+    v27 = 0;
+    vmu_swift_reflection_infoForTypeRef(*[(VMUObjectIdentifier *)metadataCopy swiftMirror], v26);
+    v12 = vmu_swift_reflection_copyDemangledNameForTypeRef(*[(VMUObjectIdentifier *)metadataCopy swiftMirror]);
+    v30._opaque_1 = [(VMUObjectIdentifier *)metadataCopy symbolicator];
+    v30._opaque_2 = v13;
+    v14 = determineBinaryPathForSwiftType(v12, a2, metadataCopy, v30);
+    v15 = [(VMUClassInfo *)[VMUMutableClassInfo alloc] initWithClassName:v12 binaryPath:v14 type:8];
+    [(VMUMutableClassInfo *)v15 setInstanceSize:v10];
     if (debugSwiftSubfieldIsEnabled::dispatchToken != -1)
     {
       [VMUClassInfo initWithClosureContext:typeInfo:infoMap:swiftFieldMetadataContext:];
@@ -546,29 +606,29 @@ LABEL_36:
 
     if (debugSwiftSubfieldIsEnabled::isEnabled == 1)
     {
-      v18 = v14;
-      _debugSwiftAsyncPrintf(0, "Getting fields for Swift value type %s\n", [(NSString *)v14 UTF8String]);
+      v16 = v12;
+      _debugSwiftAsyncPrintf(0, "Getting fields for Swift value type %s\n", [(NSString *)v12 UTF8String]);
     }
 
-    v28 = 0;
+    v25 = 0;
     swiftMirror = [(VMUObjectIdentifier *)metadataCopy swiftMirror];
-    v20 = LODWORD(v29[0]);
+    v18 = LODWORD(v26[0]);
     realizedClasses = [(VMUObjectIdentifier *)metadataCopy realizedClasses];
-    v22 = _createFieldInfoFromChild(swiftMirror, "value", 0, v20, v13, realizedClasses, v14, &v28, 0);
+    v20 = _createFieldInfoFromChild(swiftMirror, "value", 0, v18, v11, realizedClasses, v12, &v25, 0);
 
-    if (v22)
+    if (v20)
     {
-      if (v12 == [v22 size])
+      if (v10 == [v20 size])
       {
-        v31[0] = v22;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-        [(VMUMutableClassInfo *)v17 addFields:v23];
+        v28[0] = v20;
+        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+        [(VMUMutableClassInfo *)v15 addFields:v21];
 
-        [(VMUMutableClassInfo *)v17 setDefaultScanType:0];
+        [(VMUMutableClassInfo *)v15 setDefaultScanType:0];
         scanner = [(VMUObjectIdentifier *)metadataCopy scanner];
-        [scanner applyTypeOverlayToMutableInfo:v17];
+        [scanner applyTypeOverlayToMutableInfo:v15];
 
-LABEL_26:
+LABEL_24:
         if (debugSwiftSubfieldIsEnabled::dispatchToken != -1)
         {
           [VMUClassInfo initWithClosureContext:typeInfo:infoMap:swiftFieldMetadataContext:];
@@ -579,7 +639,7 @@ LABEL_26:
           _debugSwiftAsyncPrintf(0, "\n");
         }
 
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
       if (debugSwiftSubfieldIsEnabled::dispatchToken != -1)
@@ -589,19 +649,19 @@ LABEL_26:
 
       if (debugSwiftSubfieldIsEnabled::isEnabled == 1)
       {
-        _debugSwiftAsyncPrintf(0, "Value has size %llu, but Remote Mirror reports a size of %u.  Ignoring Remote Mirror output and scanning conservatively.\n", v12, [v22 size]);
+        _debugSwiftAsyncPrintf(0, "Value has size %llu, but Remote Mirror reports a size of %u.  Ignoring Remote Mirror output and scanning conservatively.\n", v10, [v20 size]);
       }
 
-      v25 = 1;
+      v23 = 1;
     }
 
     else
     {
-      v25 = v28;
+      v23 = v25;
     }
 
-    [(VMUMutableClassInfo *)v17 setDefaultScanType:v25];
-    goto LABEL_26;
+    [(VMUMutableClassInfo *)v15 setDefaultScanType:v23];
+    goto LABEL_24;
   }
 
   if (debugSwiftSubfieldIsEnabled::dispatchToken != -1)
@@ -614,12 +674,10 @@ LABEL_26:
     _debugSwiftAsyncPrintf(0, "Not creating classinfo for zero-sized AttributeGraph value\n\n");
   }
 
-  v17 = 0;
-LABEL_31:
+  v15 = 0;
+LABEL_29:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v15;
 }
 
 - (unsigned)_objcABIFromObjectIdentifier:(id)identifier
@@ -656,6 +714,465 @@ uint64_t __45__VMUClassInfo__objcABIFromObjectIdentifier___block_invoke()
   return dlclose(v0);
 }
 
+- (id)_initWithClass:(unint64_t)class type:(unsigned int)type realizedOnly:(BOOL)only infoMap:(id)map objectIdentifier:(id)identifier reader:(id)reader
+{
+  onlyCopy = only;
+  mapCopy = map;
+  identifierCopy = identifier;
+  readerCopy = reader;
+  v101.receiver = self;
+  v101.super_class = VMUClassInfo;
+  v17 = [(VMUClassInfo *)&v101 init];
+  if (!v17)
+  {
+    goto LABEL_58;
+  }
+
+  if (!identifierCopy)
+  {
+    goto LABEL_56;
+  }
+
+  swiftMirror = [identifierCopy swiftMirror];
+  v18 = [(VMUClassInfo *)v17 _objcABIFromObjectIdentifier:identifierCopy];
+  v17->_remotePointerSize = 8;
+  if (!class)
+  {
+    goto LABEL_56;
+  }
+
+  v19 = MEMORY[0x1E69E9AC8];
+  if (*MEMORY[0x1E69E9AC8] >= class || !readerCopy)
+  {
+    goto LABEL_56;
+  }
+
+  v17->_remoteIsa = class;
+  v17->_defaultScanType = 1;
+  v17->_remoteType = type;
+  if (type == 4)
+  {
+    if (*v19 >= (*(readerCopy + 2))(readerCopy, class, 96))
+    {
+      v95 = 0;
+LABEL_20:
+      v17->_instanceSize = 16;
+LABEL_22:
+      superclassOffset = v17->_superclassOffset;
+      instanceSize = [(VMUClassInfo *)v17->_superclassLayout instanceSize];
+      if (superclassOffset <= instanceSize)
+      {
+        v31 = instanceSize;
+      }
+
+      else
+      {
+        v31 = superclassOffset;
+      }
+
+      instanceSize = v17->_instanceSize;
+      if (instanceSize <= v31)
+      {
+        instanceSize = v31;
+      }
+
+      v17->_superclassOffset = v31;
+      v17->_instanceSize = instanceSize;
+      [(VMUClassInfo *)v17 _determineBinaryPathUsingObjectIdentifier:identifierCopy remoteClassNameLoc:v95];
+      [(VMUClassInfoMap *)mapCopy addClassInfo:v17 forAddress:class];
+      goto LABEL_58;
+    }
+
+    vmuTask = [identifierCopy vmuTask];
+    v95 = [VMUTask stripExtraPointerBits:vmuTask];
+
+    vmuTask2 = [identifierCopy vmuTask];
+    [(VMUClassInfo *)v17 _setClassNameWithAddress:v95 targetTask:vmuTask2];
+
+    if (v17->_remoteClassName)
+    {
+      figBaseObjectFinalizeAddress = [identifierCopy figBaseObjectFinalizeAddress];
+      if (figBaseObjectFinalizeAddress)
+      {
+        vmuTask3 = [identifierCopy vmuTask];
+        v24 = [VMUTask ptrauthStripFunctionPointer:vmuTask3];
+
+        if (v24 == figBaseObjectFinalizeAddress)
+        {
+          v17->_isCoreMediaFigObject = 1;
+        }
+      }
+
+      goto LABEL_20;
+    }
+
+LABEL_56:
+
+    goto LABEL_57;
+  }
+
+  v25 = v18;
+  if (type != 8 && type != 1)
+  {
+    v95 = 0;
+    goto LABEL_22;
+  }
+
+  vmuTask4 = [identifierCopy vmuTask];
+  isExclaveCore = [vmuTask4 isExclaveCore];
+
+  v94 = isExclaveCore;
+  if (isExclaveCore)
+  {
+    if (type != 8)
+    {
+      goto LABEL_56;
+    }
+
+    v17->_ro_flags = -2147483520;
+    v17->_remoteType = 8;
+    if (!vmu_swift_reflection_ownsAddress(*[identifierCopy swiftMirror]))
+    {
+      goto LABEL_56;
+    }
+
+    v98 = 0;
+    v99 = 0;
+    v100 = 0;
+    vmu_swift_reflection_infoForMetadata(*[identifierCopy swiftMirror], &v98);
+    if (v98 != 17)
+    {
+      goto LABEL_56;
+    }
+
+    v93 = 0;
+    v28 = 0;
+    v95 = 0;
+    v17->_instanceSize = HIDWORD(v98);
+  }
+
+  else
+  {
+    if (!(*(readerCopy + 2))(readerCopy, class, 40))
+    {
+      goto LABEL_56;
+    }
+
+    vmuTask5 = [identifierCopy vmuTask];
+    v34 = [VMUTask ptrauthStripDataPointer:vmuTask5];
+
+    if (swiftMirror)
+    {
+      v35 = swiftMirror->var1 | 1;
+    }
+
+    else
+    {
+      v35 = 1;
+    }
+
+    if ((v35 & v34) != 0)
+    {
+      v17->_remoteType = 8;
+    }
+
+    vmuTask6 = [identifierCopy vmuTask];
+    v37 = VMUGetClassDataROofClass(vmuTask6, readerCopy, v25, class);
+
+    if (!v37)
+    {
+      goto LABEL_56;
+    }
+
+    v93 = (*(readerCopy + 2))(readerCopy, v37, 72);
+    if (!v93)
+    {
+      goto LABEL_56;
+    }
+
+    vmuTask7 = [identifierCopy vmuTask];
+    v95 = [VMUTask stripExtraPointerBits:vmuTask7];
+
+    vmuTask8 = [identifierCopy vmuTask];
+    v28 = [VMUTask stripExtraPointerBits:vmuTask8];
+
+    v17->_ro_flags = *v93;
+    v17->_superclassOffset = *(v93 + 4);
+    v17->_instanceSize = *(v93 + 8);
+    if (v17->_remoteType == 8)
+    {
+      v98 = 0;
+      v99 = 0;
+      v100 = 0;
+      vmu_swift_reflection_infoForMetadata(*[identifierCopy swiftMirror], &v98);
+      if (v98)
+      {
+        v17->_instanceSize = HIDWORD(v98);
+      }
+    }
+
+    if (v95)
+    {
+      vmuTask9 = [identifierCopy vmuTask];
+      [(VMUClassInfo *)v17 _setClassNameWithAddress:v95 targetTask:vmuTask9];
+    }
+
+    else
+    {
+      v95 = 0;
+    }
+  }
+
+  if (v17->_remoteType == 8)
+  {
+    v41 = (*(readerCopy + 2))(readerCopy, class, 72);
+    if (!v41)
+    {
+      goto LABEL_56;
+    }
+
+    if (!v17->_remoteClassName)
+    {
+      if (swiftMirror->var0)
+      {
+        if (vmu_swift_reflection_ownsAddress(swiftMirror->var0))
+        {
+          [(VMUObjectIdentifier *)identifierCopy setNeedToValidateRemoteMirrorReadAddressRange:?];
+          v74 = vmu_swift_reflection_typeRefForMetadata(swiftMirror->var0);
+          [(VMUObjectIdentifier *)identifierCopy setNeedToValidateRemoteMirrorReadAddressRange:?];
+          if (v74)
+          {
+            v75 = vmu_swift_reflection_copyDemangledNameForTypeRef(swiftMirror->var0);
+            if (v75)
+            {
+              objc_storeStrong(&v17->_remoteClassName, v75);
+            }
+          }
+        }
+      }
+    }
+
+    v17->_usesSwiftRefcounting = (*(v41 + 40) & 2) != 0;
+  }
+
+  if (!v17->_remoteClassName)
+  {
+    v42 = MEMORY[0x1E696AEC0];
+    typeName = [(VMUClassInfo *)v17 typeName];
+    v44 = [v42 stringWithFormat:@"<UNNAMED_%s_class_%#llx>", objc_msgSend(typeName, "UTF8String"), class];
+    remoteClassName = v17->_remoteClassName;
+    v17->_remoteClassName = v44;
+  }
+
+  v17->_ivarCount = 0;
+  if (v17->_remoteType == 8)
+  {
+    if (swiftMirror && swiftMirror->var0)
+    {
+      v46 = _swiftFieldsForClass(v17->_remoteIsa, v17->_remoteClassName, swiftMirror, mapCopy);
+      v47 = [v46 count];
+      v17->_ivarCount = v47;
+      if (v47)
+      {
+        v17->_localIvarList = malloc_type_calloc(v47 + 1, 8uLL, 0x80040B8603338uLL);
+        if (v17->_ivarCount)
+        {
+          v48 = 0;
+          do
+          {
+            v49 = [v46 objectAtIndexedSubscript:v48];
+            localIvarList = v17->_localIvarList;
+            v51 = localIvarList[v48];
+            localIvarList[v48] = v49;
+
+            ++v48;
+          }
+
+          while (v48 < v17->_ivarCount);
+        }
+      }
+    }
+
+    else if (([VMUClassInfo _initWithClass:type:realizedOnly:infoMap:objectIdentifier:reader:]::swiftMirrorMissing & 1) == 0)
+    {
+      scanner = [identifierCopy scanner];
+
+      if (scanner)
+      {
+        NSLog(&cfstr_SwiftReflectio_26.isa);
+        NSLog(&cfstr_WeakReferences.isa);
+        [VMUClassInfo _initWithClass:type:realizedOnly:infoMap:objectIdentifier:reader:]::swiftMirrorMissing = 1;
+      }
+    }
+  }
+
+  vmuTask10 = [identifierCopy vmuTask];
+  if (!v28 || v17->_ivarCount)
+  {
+    goto LABEL_94;
+  }
+
+  v97 = (readerCopy + 16);
+  v55 = (*(readerCopy + 2))(readerCopy, v28, 48);
+  if (!v55)
+  {
+    goto LABEL_105;
+  }
+
+  v56 = v55[1];
+  v17->_ivarCount = v56;
+  v85 = *v55;
+  v17->_localIvarList = malloc_type_calloc(v56 + 1, 8uLL, 0x80040B8603338uLL);
+  if (!v17->_ivarCount)
+  {
+    v88 = 0;
+    goto LABEL_93;
+  }
+
+  v57 = 0;
+  v92 = 0;
+  v88 = 0;
+  v86 = v28 + 8;
+  v87 = vmuTask10;
+  while (1)
+  {
+    v89 = v57;
+    v58 = v86 + v57;
+    v59 = readerCopy;
+    v60 = vmuTask10;
+    v90 = v60;
+    v61 = (*(readerCopy + 2))(v59, v58, 40);
+    if (!v61)
+    {
+      break;
+    }
+
+    memoryCache = [v60 memoryCache];
+    v63 = [memoryCache peekStringAtAddress:*(v61 + 8)];
+
+    v64 = (v97->var0)(v59, *v61, 4);
+    if (v64)
+    {
+      v65 = *v64;
+    }
+
+    else
+    {
+      v65 = 0;
+    }
+
+    v66 = *(v61 + 16);
+    if (v66)
+    {
+      v66 = (v97->var0)(v59, v66, 1);
+    }
+
+    LocalIvar = _createLocalIvar(v63, v66, v65, *(v61 + 28), 0);
+
+    if (!LocalIvar)
+    {
+      goto LABEL_92;
+    }
+
+    v68 = *(LocalIvar + 7);
+    if (v68 || v17->_remoteType != 8)
+    {
+      Name = ivar_getName(LocalIvar);
+      v91 = v68;
+      if (!*LocalIvar || (Offset = ivar_getOffset(LocalIvar), !Offset))
+      {
+        if (!Name || strcmp(Name, "isa"))
+        {
+          goto LABEL_82;
+        }
+
+        Offset = 0;
+      }
+
+      v71 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithObjcIvar:LocalIvar size:v91 offset:Offset ivarName:Name isARC:[(VMUClassInfo *)v17 isARR] is64Bit:1];
+      v72 = v17->_localIvarList;
+      v73 = v72[v88];
+      v72[v88] = v71;
+
+      ++v88;
+    }
+
+LABEL_82:
+    _destroyLocalIvar(LocalIvar);
+    v57 = v89 + v85;
+    ++v92;
+    vmuTask10 = v87;
+    if (v92 >= v17->_ivarCount)
+    {
+      goto LABEL_93;
+    }
+  }
+
+LABEL_92:
+  className = [(VMUClassInfo *)v17 className];
+  vmuTask10 = v87;
+  NSLog(&cfstr_MissingIvarAtI.isa, v92, className);
+
+LABEL_93:
+  v17->_ivarCount = v88;
+  v17->_strongLayout = copy_remote_layout_at(*(v93 + 16), readerCopy);
+  v17->_weakLayout = copy_remote_layout_at(*(v93 + 56), readerCopy);
+  [(VMUClassInfo *)v17 _parseIvarsAndLayouts];
+LABEL_94:
+  if (!v94)
+  {
+    if (![(VMUClassInfo *)v17 isRootClass])
+    {
+      v81 = [VMUTask ptrauthStripDataPointer:vmuTask10];
+      if (v81)
+      {
+        v82 = [(VMUClassInfoMap *)mapCopy classInfoForAddress:v81];
+        superclassLayout = v17->_superclassLayout;
+        v17->_superclassLayout = v82;
+
+        if (!v17->_superclassLayout)
+        {
+          v80 = [objc_alloc(objc_opt_class()) _initWithClass:v81 type:1 realizedOnly:onlyCopy infoMap:mapCopy objectIdentifier:identifierCopy reader:readerCopy];
+LABEL_103:
+          v84 = v17->_superclassLayout;
+          v17->_superclassLayout = v80;
+        }
+      }
+    }
+
+LABEL_104:
+
+    goto LABEL_22;
+  }
+
+  if ((*(readerCopy + 2))(readerCopy, class, 8))
+  {
+    v77 = [VMUTask ptrauthStripDataPointer:vmuTask10];
+    if (v77)
+    {
+      v78 = [(VMUClassInfoMap *)mapCopy classInfoForAddress:v77];
+      v79 = v17->_superclassLayout;
+      v17->_superclassLayout = v78;
+
+      if (!v17->_superclassLayout)
+      {
+        v80 = [objc_alloc(objc_opt_class()) _initWithClass:v77 type:8 realizedOnly:onlyCopy infoMap:mapCopy objectIdentifier:identifierCopy reader:readerCopy];
+        goto LABEL_103;
+      }
+    }
+
+    goto LABEL_104;
+  }
+
+LABEL_105:
+
+LABEL_57:
+  v17 = 0;
+LABEL_58:
+
+  return v17;
+}
+
 - (void)_determineBinaryPathUsingObjectIdentifier:(id)identifier remoteClassNameLoc:(unint64_t)loc
 {
   identifierCopy = identifier;
@@ -666,9 +1183,9 @@ uint64_t __45__VMUClassInfo__objcABIFromObjectIdentifier___block_invoke()
     if ([(VMUClassInfo *)self infoType]== 8)
     {
       className = [(VMUClassInfo *)self className];
-      v19._opaque_1 = symbolicator;
-      v19._opaque_2 = v8;
-      v10 = determineBinaryPathForSwiftType(className, self->_remoteIsa, identifierCopy, v19);
+      v18._opaque_1 = symbolicator;
+      v18._opaque_2 = v8;
+      v10 = determineBinaryPathForSwiftType(className, self->_remoteIsa, identifierCopy, v18);
 
       if (v10)
       {
@@ -676,7 +1193,6 @@ uint64_t __45__VMUClassInfo__objcABIFromObjectIdentifier___block_invoke()
       }
     }
 
-    remoteIsa = self->_remoteIsa;
     CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
     if (CSIsNull())
     {
@@ -709,29 +1225,29 @@ LABEL_19:
       }
     }
 
-    v12 = self->_superclassLayout;
-    if (v12)
+    v11 = self->_superclassLayout;
+    if (v11)
     {
-      v13 = v12;
+      v12 = v11;
       while (1)
       {
-        binaryPath = [v13 binaryPath];
+        binaryPath = [v12 binaryPath];
 
         if (binaryPath)
         {
           break;
         }
 
-        superclassInfo = [v13 superclassInfo];
+        superclassInfo = [v12 superclassInfo];
 
-        v13 = superclassInfo;
+        v12 = superclassInfo;
         if (!superclassInfo)
         {
           goto LABEL_19;
         }
       }
 
-      binaryPath2 = [v13 binaryPath];
+      binaryPath2 = [v12 binaryPath];
       [(VMUClassInfo *)self _setBinaryPath:binaryPath2 sanitize:0];
     }
 
@@ -788,6 +1304,168 @@ LABEL_20:
   [(VMUClassInfo *)&v5 dealloc];
 }
 
+- (void)_identifyObjCClassStructureBlocksForIsa:(unint64_t)isa isMetaclass:(BOOL)metaclass withScanner:(id)scanner addressIdentifierBlock:(id)block
+{
+  metaclassCopy = metaclass;
+  scannerCopy = scanner;
+  blockCopy = block;
+  if (isa)
+  {
+    remoteType = self->_remoteType;
+    if (remoteType == 8 || remoteType == 1)
+    {
+      vmuTask = [scannerCopy vmuTask];
+      objectIdentifier = [scannerCopy objectIdentifier];
+      memoryReader = [objectIdentifier memoryReader];
+      objcABI = [objectIdentifier objcABI];
+      v17 = memoryReader[2](memoryReader, isa, 40);
+      v18 = v17;
+      if (!v17)
+      {
+LABEL_36:
+
+        goto LABEL_37;
+      }
+
+      v43 = objectIdentifier;
+      v44 = vmuTask;
+      if (!metaclassCopy)
+      {
+        -[VMUClassInfo _identifyObjCClassStructureBlocksForIsa:isMetaclass:withScanner:addressIdentifierBlock:](self, "_identifyObjCClassStructureBlocksForIsa:isMetaclass:withScanner:addressIdentifierBlock:", [objectIdentifier translateIsaPointer:*v17], 1, scannerCopy, blockCopy);
+      }
+
+      v19 = [VMUTask ptrauthStripDataPointer:vmuTask];
+      swiftMirror = [objectIdentifier swiftMirror];
+      if (swiftMirror)
+      {
+        v21 = *(swiftMirror + 8) | 1;
+      }
+
+      else
+      {
+        v21 = 1;
+      }
+
+      blockCopy[2](blockCopy, isa, (v21 & v19) != 0, metaclassCopy);
+      blockCopy[2](blockCopy, v19 & 0x7FFFFFFFFFF8, 2, metaclassCopy);
+      [scannerCopy setClassStructureFieldScanValueAtSourceAddress:isa + 32 toCorrectedAddress:v19 & 0x7FFFFFFFFFF8];
+      v22 = v18[2];
+      blockCopy[2](blockCopy, v22 & 0xFFFFFFFFFFFFLL, 4, metaclassCopy);
+      [scannerCopy setClassStructureFieldScanValueAtSourceAddress:isa + 16 toCorrectedAddress:v22 & 0xFFFFFFFFFFFFLL];
+      v23 = VMUGetClassDataExtOfClass(vmuTask, memoryReader, objcABI, isa);
+      blockCopy[2](blockCopy, v23, 3, metaclassCopy);
+      v24 = VMUGetClassDataROofClass(vmuTask, memoryReader, objcABI, isa);
+      if (v24 && ([vmuTask addressIsInSharedCache:v24] & 1) == 0)
+      {
+        blockCopy[2](blockCopy, v24, 5, metaclassCopy);
+      }
+
+      aBlock[0] = MEMORY[0x1E69E9820];
+      aBlock[1] = 3221225472;
+      aBlock[2] = __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass_withScanner_addressIdentifierBlock___block_invoke;
+      aBlock[3] = &unk_1E8278960;
+      v25 = vmuTask;
+      v47 = v25;
+      v50 = blockCopy;
+      v52 = metaclassCopy;
+      v26 = memoryReader;
+      v51 = v26;
+      selfCopy = self;
+      v27 = scannerCopy;
+      v49 = v27;
+      v28 = _Block_copy(aBlock);
+      v29 = v25;
+      v30 = v26;
+      v31 = v27;
+      if (objcABI)
+      {
+        if (_classDataExtV1ofClass(v29, v30, isa))
+        {
+          v32 = [VMUTask ptrauthStripDataPointer:v29];
+        }
+
+        else
+        {
+          v32 = 0;
+        }
+
+        v34 = maskPointerToMethodList(isa + 8, v32, v31);
+      }
+
+      else
+      {
+        v33 = _classDataRWV0ofClass(v29, v30, isa);
+        if (v33)
+        {
+          v34 = *(v33 + 16);
+        }
+
+        else
+        {
+          v34 = 0;
+        }
+      }
+
+      v28[2](v28, v34, 6, 7);
+      v35 = v29;
+      v36 = v30;
+      if (objcABI)
+      {
+        if (_classDataExtV1ofClass(v35, v36, isa))
+        {
+          v37 = [VMUTask ptrauthStripDataPointer:v35];
+          goto LABEL_29;
+        }
+      }
+
+      else
+      {
+        v38 = _classDataRWV0ofClass(v35, v36, isa);
+        if (v38)
+        {
+          v37 = *(v38 + 24);
+          goto LABEL_29;
+        }
+      }
+
+      v37 = 0;
+LABEL_29:
+
+      v28[2](v28, v37, 8, 9);
+      v39 = v35;
+      v40 = v36;
+      if (objcABI)
+      {
+        if (_classDataExtV1ofClass(v39, v40, isa))
+        {
+          v41 = [VMUTask ptrauthStripDataPointer:v39];
+LABEL_35:
+
+          v28[2](v28, v41, 10, 11);
+          objectIdentifier = v43;
+          vmuTask = v44;
+          goto LABEL_36;
+        }
+      }
+
+      else
+      {
+        v42 = _classDataRWV0ofClass(v39, v40, isa);
+        if (v42)
+        {
+          v41 = *(v42 + 32);
+          goto LABEL_35;
+        }
+      }
+
+      v41 = 0;
+      goto LABEL_35;
+    }
+  }
+
+LABEL_37:
+}
+
 uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass_withScanner_addressIdentifierBlock___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
@@ -798,45 +1476,42 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
     {
       if (a2)
       {
-        v6 = a2 & 0xFFFFFFFFFFFFFFFELL;
-        v7 = *(v3 + 72);
+        v5 = a2 & 0xFFFFFFFFFFFFFFFELL;
         result = (*(*(v3 + 56) + 16))();
         if (result != -1)
         {
           result = (*(*(v3 + 64) + 16))();
           if (result)
           {
-            v8 = *result;
+            v6 = *result;
             if (*result)
             {
-              v9 = *(*(v3 + 40) + 16);
-              if (((v8 * v9) & 0xFFFFFFFF00000000) == 0)
+              v7 = *(*(v3 + 40) + 16);
+              if (((v6 * v7) & 0xFFFFFFFF00000000) == 0)
               {
-                v10 = v6 + v9;
+                v8 = v5 + v7;
                 result = (*(*(v3 + 64) + 16))();
                 if (result)
                 {
-                  v11 = result;
-                  v12 = 0;
+                  v9 = result;
+                  v10 = 0;
                   do
                   {
-                    if (*(v11 + 8 * v12))
+                    if (*(v9 + 8 * v10))
                     {
                       result = [*(v3 + 32) addressIsInSharedCache:?];
                       if ((result & 1) == 0)
                       {
-                        v13 = *(v11 + 8 * v12);
-                        v14 = [VMUTask ptrauthStripDataPointer:?];
-                        maskPointerToMethodList(v10 + (*(*(v3 + 40) + 16) * v12), v14, *(v3 + 48));
-                        v15 = *(v3 + 72);
+                        v11 = [VMUTask ptrauthStripDataPointer:?];
+                        maskPointerToMethodList(v8 + (*(*(v3 + 40) + 16) * v10), v11, *(v3 + 48));
                         result = (*(*(v3 + 56) + 16))();
                       }
                     }
 
-                    ++v12;
+                    ++v10;
                   }
 
-                  while (v8 != v12);
+                  while (v6 != v10);
                 }
               }
             }
@@ -846,10 +1521,9 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
 
       else
       {
-        v4 = *(v3 + 72);
-        v5 = *(*(v3 + 56) + 16);
+        v4 = *(*(v3 + 56) + 16);
 
-        return v5();
+        return v4();
       }
     }
   }
@@ -859,14 +1533,14 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
 
 - (void)serializeWithClassMap:(id)map simpleSerializer:(id)serializer version:(unsigned int)version
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   serializerCopy = serializer;
   [serializerCopy serialize64:self->_remoteIsa];
-  v11 = *&self->_remotePointerSize;
-  v12 = *&self->_ro_flags;
+  v10 = *&self->_remotePointerSize;
+  v11 = *&self->_ro_flags;
   remoteType = self->_remoteType;
-  [serializerCopy _serializeValues:&v11 count:7];
+  [serializerCopy _serializeValues:&v10 count:7];
   if (self->_ivarCount)
   {
     v9 = 0;
@@ -882,27 +1556,25 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
   [serializerCopy serializeString:self->_displayName];
   [serializerCopy serializeString:self->_remoteBinaryPath];
   [serializerCopy serialize32:{objc_msgSend(mapCopy, "indexForClassInfo:", self->_superclassLayout)}];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (VMUClassInfo)initWithSerializer:(id)serializer classMap:(id)map version:(unsigned int)version error:(id *)error
 {
-  v56[7] = *MEMORY[0x1E69E9840];
+  v55[7] = *MEMORY[0x1E69E9840];
   serializerCopy = serializer;
   mapCopy = map;
-  v55.receiver = self;
-  v55.super_class = VMUClassInfo;
-  v12 = [(VMUClassInfo *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = VMUClassInfo;
+  v12 = [(VMUClassInfo *)&v54 init];
   if (!v12)
   {
     goto LABEL_29;
   }
 
-  v54 = 0;
+  v53 = 0;
   if (!error)
   {
-    error = &v54;
+    error = &v53;
   }
 
   v12->_remoteIsa = [serializerCopy deserialize64WithError:error];
@@ -912,14 +1584,14 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
   }
 
   p_ivarCount = &v12->_ivarCount;
-  v56[0] = &v12->_remotePointerSize;
-  v56[1] = &v12->_ivarCount;
+  v55[0] = &v12->_remotePointerSize;
+  v55[1] = &v12->_ivarCount;
   p_instanceSize = &v12->_instanceSize;
-  v56[2] = &v12->_superclassOffset;
-  v56[3] = &v12->_instanceSize;
-  v56[4] = &v12->_ro_flags;
-  v56[5] = &v12->_rw_flags;
-  v56[6] = &v12->_remoteType;
+  v55[2] = &v12->_superclassOffset;
+  v55[3] = &v12->_instanceSize;
+  v55[4] = &v12->_ro_flags;
+  v55[5] = &v12->_rw_flags;
+  v55[6] = &v12->_remoteType;
   v15 = [serializerCopy _deserializeValues:7 error:error];
   v16 = *error;
   if (*error)
@@ -929,7 +1601,7 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
 
   do
   {
-    *v56[v16] = *(v15 + 4 * v16);
+    *v55[v16] = *(v15 + 4 * v16);
     v16 = v16 + 1;
   }
 
@@ -987,43 +1659,43 @@ uint64_t __103__VMUClassInfo__identifyObjCClassStructureBlocksForIsa_isMetaclass
 
       if (*p_ivarCount)
       {
-        v53 = 0;
+        v52 = 0;
         do
         {
-          v40 = [serializerCopy _deserializeValues:2 error:error];
+          v39 = [serializerCopy _deserializeValues:2 error:error];
           if (*error)
           {
             goto LABEL_8;
           }
 
-          v41 = *v40;
-          v42 = v40[1];
-          v43 = [serializerCopy copyDeserializedNullTerminatedBytesWithError:error];
+          v40 = *v39;
+          v41 = v39[1];
+          v42 = [serializerCopy copyDeserializedNullTerminatedBytesWithError:error];
           if (*error)
           {
             goto LABEL_8;
           }
 
-          v44 = v43;
-          v45 = [serializerCopy copyDeserializedNullTerminatedBytesWithError:error];
+          v43 = v42;
+          v44 = [serializerCopy copyDeserializedNullTerminatedBytesWithError:error];
           if (*error)
           {
             goto LABEL_8;
           }
 
-          LocalIvar = _createLocalIvar(v44, v45, v41, v42, 1);
-          v52 = [VMUMutableFieldInfo alloc];
-          v47 = LocalIvar[7];
+          LocalIvar = _createLocalIvar(v43, v44, v40, v41, 1);
+          v51 = [VMUMutableFieldInfo alloc];
+          v46 = LocalIvar[7];
           Offset = ivar_getOffset(LocalIvar);
-          v49 = [(VMUFieldInfo *)v52 initWithObjcIvar:LocalIvar size:v47 offset:Offset ivarName:ivar_getName(LocalIvar) isARC:[(VMUClassInfo *)v12 isARR] is64Bit:v12->_remotePointerSize == 8];
-          v50 = v12->_localIvarList;
-          v51 = v50[v53];
-          v50[v53] = v49;
+          v48 = [(VMUFieldInfo *)v51 initWithObjcIvar:LocalIvar size:v46 offset:Offset ivarName:ivar_getName(LocalIvar) isARC:[(VMUClassInfo *)v12 isARR] is64Bit:v12->_remotePointerSize == 8];
+          v49 = v12->_localIvarList;
+          v50 = v49[v52];
+          v49[v52] = v48;
 
           _destroyLocalIvar(LocalIvar);
         }
 
-        while (++v53 < v12->_ivarCount);
+        while (++v52 < v12->_ivarCount);
       }
 
       [(VMUClassInfo *)v12 _parseIvarsAndLayouts];
@@ -1096,7 +1768,6 @@ LABEL_8:
   v17 = 0;
 LABEL_30:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1407,15 +2078,8 @@ LABEL_20:
 {
   mutableCopy = mutable;
   variantCopy = variant;
-  v12 = off_1E8277208;
-  if (!mutable)
-  {
-    v12 = off_1E8277198;
-  }
-
-  v13 = *v12;
-  v14 = objc_alloc_init(objc_opt_class());
-  v15 = v14;
+  v12 = objc_alloc_init(objc_opt_class());
+  v13 = v12;
   if (variantCopy)
   {
     remoteIsa = 0;
@@ -1426,61 +2090,61 @@ LABEL_20:
     remoteIsa = self->_remoteIsa;
   }
 
-  *(v14 + 1) = remoteIsa;
-  *(v14 + 4) = self->_remotePointerSize;
+  *(v12 + 1) = remoteIsa;
+  *(v12 + 4) = self->_remotePointerSize;
   ivarCount = self->_ivarCount;
-  *(v14 + 5) = ivarCount;
+  *(v12 + 5) = ivarCount;
   if (ivarCount)
   {
-    v18 = objc_autoreleasePoolPush();
-    *(v15 + 6) = malloc_type_calloc(self->_ivarCount + 1, 8uLL, 0x80040B8603338uLL);
+    v16 = objc_autoreleasePoolPush();
+    *(v13 + 6) = malloc_type_calloc(self->_ivarCount + 1, 8uLL, 0x80040B8603338uLL);
     if (self->_ivarCount)
     {
-      v19 = 0;
-      v20 = 0;
+      v17 = 0;
+      v18 = 0;
       do
       {
         localIvarList = self->_localIvarList;
-        v22 = localIvarList[v19];
+        v20 = localIvarList[v17];
         if (mutableCopy)
         {
-          v6 = [localIvarList[v19] mutableCopy];
-          v22 = v6;
+          v6 = [localIvarList[v17] mutableCopy];
+          v20 = v6;
         }
 
-        objc_storeStrong((*(v15 + 6) + v19 * 8), v22);
+        objc_storeStrong((*(v13 + 6) + v17 * 8), v20);
         if (mutableCopy)
         {
         }
 
-        ++v20;
-        ++v19;
+        ++v18;
+        ++v17;
       }
 
-      while (v20 < self->_ivarCount);
+      while (v18 < self->_ivarCount);
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v16);
   }
 
-  *(v15 + 6) = offset;
-  *(v15 + 7) = size;
-  *(v15 + 8) = self->_ro_flags;
-  *(v15 + 36) = *&self->_rw_flags;
-  *(v15 + 11) = self->_remoteType;
-  v23 = [(NSString *)self->_remoteClassName copy];
-  v24 = *(v15 + 7);
-  *(v15 + 7) = v23;
+  *(v13 + 6) = offset;
+  *(v13 + 7) = size;
+  *(v13 + 8) = self->_ro_flags;
+  *(v13 + 36) = *&self->_rw_flags;
+  *(v13 + 11) = self->_remoteType;
+  v21 = [(NSString *)self->_remoteClassName copy];
+  v22 = *(v13 + 7);
+  *(v13 + 7) = v21;
 
-  v25 = [(NSString *)self->_displayName copy];
-  v26 = *(v15 + 8);
-  *(v15 + 8) = v25;
+  v23 = [(NSString *)self->_displayName copy];
+  v24 = *(v13 + 8);
+  *(v13 + 8) = v23;
 
-  v27 = [(NSString *)self->_remoteBinaryPath copy];
-  v28 = *(v15 + 9);
-  *(v15 + 9) = v27;
+  v25 = [(NSString *)self->_remoteBinaryPath copy];
+  v26 = *(v13 + 9);
+  *(v13 + 9) = v25;
 
-  objc_storeStrong(v15 + 10, self->_superclassLayout);
+  objc_storeStrong(v13 + 10, self->_superclassLayout);
   if (variantCopy)
   {
     selfCopy = self;
@@ -1501,9 +2165,9 @@ LABEL_20:
     genericLayout = selfCopy;
   }
 
-  objc_storeStrong(v15 + 11, genericLayout);
-  v15[146] = self->_usesSwiftRefcounting;
-  return v15;
+  objc_storeStrong(v13 + 11, genericLayout);
+  v13[146] = self->_usesSwiftRefcounting;
+  return v13;
 }
 
 - (void)_applyExtendedLayout:(const char *)layout withSize:(unsigned int)size
@@ -1619,6 +2283,456 @@ void __46__VMUClassInfo__applyExtendedLayout_withSize___block_invoke_2(uint64_t 
 
     while (v4);
   }
+}
+
+- (id)instanceSpecificInfoForObject:(unint64_t)object ofSize:(unsigned int)size memoryReader:(id)reader
+{
+  v5 = [(VMUClassInfo *)self instanceSpecificInfoForObject:object ofSize:*&size withScanner:0 memoryReader:reader];
+
+  return v5;
+}
+
+- (id)instanceSpecificInfoForObject:(unint64_t)object ofSize:(unsigned int)size withScanner:(id)scanner memoryReader:(id)reader
+{
+  if (!reader || self->_genericLayout || (v9 = *&size, ![(VMUClassInfo *)self hasSpecificLayout]))
+  {
+    selfCopy3 = self;
+    goto LABEL_7;
+  }
+
+  v11 = self->_superclassLayout;
+  hasVariantLayout = [(VMUClassInfo *)self->_superclassLayout hasVariantLayout];
+  if (hasVariantLayout)
+  {
+    v13 = [(VMUClassInfo *)self->_superclassLayout instanceSpecificInfoForObject:object ofSize:v9 withScanner:scanner memoryReader:reader];
+
+    v11 = v13;
+    goto LABEL_12;
+  }
+
+  if (!self->_variantEvaluators && !self->_complexVariantEvaluators)
+  {
+    selfCopy2 = self;
+    remoteType = selfCopy2->_remoteType;
+    if (remoteType != 0x80000000)
+    {
+      if (remoteType != 8 && remoteType != 1)
+      {
+        goto LABEL_67;
+      }
+
+      v44 = (reader + 16);
+      v45 = (*(reader + 2))(reader, object + 8, 4);
+      if (!v45)
+      {
+        goto LABEL_67;
+      }
+
+      v46 = *v45;
+      if (*v45 >> 30 != 3)
+      {
+        goto LABEL_67;
+      }
+
+      remotePointerSize = selfCopy2->_remotePointerSize;
+      readerCopy = reader;
+      v49 = readerCopy;
+      v50 = *(reader + 2);
+      if (remotePointerSize == 8)
+      {
+        v51 = v50(readerCopy, object + 24, 8);
+        if (v51)
+        {
+          v52 = *v51;
+          goto LABEL_59;
+        }
+      }
+
+      else
+      {
+        v66 = v50(readerCopy, object + 24, 4);
+        if (v66)
+        {
+          v52 = *v66;
+          goto LABEL_59;
+        }
+      }
+
+      v52 = 0;
+LABEL_59:
+
+      if (v52)
+      {
+        selfCopy3 = [scanner _cachedVariantForGenericInfo:selfCopy2 variantKey:v52];
+
+        if (selfCopy3)
+        {
+          goto LABEL_34;
+        }
+
+        if ((v46 & 0x2000000) != 0)
+        {
+          v67 = 40;
+        }
+
+        else
+        {
+          v67 = 24;
+        }
+
+        v68 = (*v44)(v49, v52 + 8, 4);
+        if (v68)
+        {
+          v69 = *v68;
+          if (v69 > v9)
+          {
+            selfCopy3 = selfCopy2;
+            goto LABEL_34;
+          }
+        }
+
+        else
+        {
+          v69 = 0;
+        }
+
+        v86 = v67;
+        selfCopy3 = [(VMUClassInfo *)selfCopy2 _copyWithInstanceSize:v69 superclassOffset:3 * selfCopy2->_remotePointerSize + 8 asVariant:1 mutable:0];
+        v76 = selfCopy2->_remotePointerSize;
+        v77 = v49;
+        v78 = v77;
+        v79 = *v44;
+        if (v76 == 8)
+        {
+          v80 = v79(v77, v86 + v52, 8);
+          if (v80)
+          {
+            v81 = *v80;
+LABEL_90:
+
+            if (v81 > 0xFFF)
+            {
+              v83 = copy_remote_layout_at(v81, v78);
+              [(VMUClassInfo *)selfCopy3 _applyExtendedLayout:v83 withSize:v69];
+              if (v83)
+              {
+                free(v83);
+              }
+            }
+
+            else
+            {
+              [(VMUClassInfo *)selfCopy3 _applyExtendedLayout:v81 withSize:v69];
+            }
+
+            [scanner _registerVariant:selfCopy3 forGenericInfo:selfCopy2 variantKey:v52];
+            goto LABEL_34;
+          }
+        }
+
+        else
+        {
+          v82 = v79(v77, v86 + v52, 4);
+          if (v82)
+          {
+            v81 = *v82;
+            goto LABEL_90;
+          }
+        }
+
+        v81 = 0;
+        goto LABEL_90;
+      }
+
+LABEL_67:
+      selfCopy3 = selfCopy2;
+      goto LABEL_34;
+    }
+
+    v53 = (*(reader + 2))(reader, object + 16, 4);
+    if (v53)
+    {
+      v54 = *v53;
+    }
+
+    else
+    {
+      v54 = 0;
+    }
+
+    v55 = (*(reader + 2))(reader, object + 20, 4);
+    if (v55)
+    {
+      v56 = *v55;
+      if (v56 > v9)
+      {
+        goto LABEL_67;
+      }
+    }
+
+    else
+    {
+      v56 = 0;
+    }
+
+    v57 = selfCopy2->_remotePointerSize;
+    v58 = 2 * v57;
+    v59 = 2 * v57 + 8;
+    if ((v54 & 0xF0000000) == 0)
+    {
+      selfCopy3 = [(VMUClassInfo *)selfCopy2 _copyWithInstanceSize:v56 superclassOffset:(v58 + 8) asVariant:1 mutable:0];
+
+      goto LABEL_34;
+    }
+
+    if ((v54 & 0xF0000000) != 0x10000000)
+    {
+      v70 = v56 | v54 & 0xF2000000;
+      selfCopy3 = [scanner _cachedVariantForGenericInfo:selfCopy2 variantKey:v70];
+
+      if (!selfCopy3)
+      {
+        if ((v54 & 0x2000000) != 0)
+        {
+          v59 = (v59 + 2 * selfCopy2->_remotePointerSize);
+        }
+
+        v71 = (v54 - 0x20000000) >> 28;
+        if (v71 == 1)
+        {
+          v73 = 1;
+          v72 = 256;
+        }
+
+        else if (v71 == 2)
+        {
+          v72 = 1;
+          v73 = 1;
+        }
+
+        else
+        {
+          v73 = 0;
+          v72 = 32;
+        }
+
+        v84 = [(VMUClassInfo *)selfCopy2 _copyWithInstanceSize:v56 superclassOffset:v59 asVariant:1 mutable:0];
+        selfCopy3 = v84;
+        if (v73)
+        {
+          [(VMUClassInfo *)v84 _applyExtendedLayout:v72 withSize:v56];
+        }
+
+        else
+        {
+          v85 = malloc_type_calloc(1uLL, 2uLL, 0x100004077774924uLL);
+          *v85 = v72;
+          [(VMUClassInfo *)selfCopy3 _applyExtendedLayout:v85 withSize:v56];
+          free(v85);
+        }
+
+        [scanner _registerVariant:selfCopy3 forGenericInfo:selfCopy2 variantKey:v70];
+      }
+
+      goto LABEL_34;
+    }
+
+    v60 = v59 + (v58 & (v54 << 6 >> 31));
+    readerCopy2 = reader;
+    v62 = readerCopy2;
+    v63 = *(reader + 2);
+    if (v57 == 8)
+    {
+      v64 = v63(readerCopy2, v60 + object, 8);
+      if (v64)
+      {
+        v65 = *v64;
+        goto LABEL_78;
+      }
+    }
+
+    else
+    {
+      v74 = v63(readerCopy2, v60 + object, 4);
+      if (v74)
+      {
+        v65 = *v74;
+        goto LABEL_78;
+      }
+    }
+
+    v65 = 0;
+LABEL_78:
+
+    selfCopy3 = [(VMUClassInfo *)selfCopy2 _copyWithInstanceSize:v56 superclassOffset:(selfCopy2->_remotePointerSize + v60) asVariant:1 mutable:0];
+    if (v65 > 0xFFF)
+    {
+      v75 = copy_remote_layout_at(v65, v62);
+      [(VMUClassInfo *)selfCopy3 _applyExtendedLayout:v75 withSize:v56];
+      if (v75)
+      {
+        free(v75);
+      }
+    }
+
+    else
+    {
+      [(VMUClassInfo *)selfCopy3 _applyExtendedLayout:v65 withSize:v56];
+    }
+
+    goto LABEL_34;
+  }
+
+LABEL_12:
+  v107[6] = reader;
+  v108 = 0;
+  variantEvaluators = self->_variantEvaluators;
+  v107[0] = MEMORY[0x1E69E9820];
+  v107[1] = 3221225472;
+  v107[2] = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke_2;
+  v107[3] = &__block_descriptor_56_e48_B16__0___B__Q__VMUTaskMemoryScanner_____v__QQ__8lu40l8u48l8;
+  v107[4] = object;
+  v107[5] = scanner;
+  v17 = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke(hasVariantLayout, variantEvaluators, &v108, v107);
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x2020000000;
+  v106 = [@"seed" hash];
+  v102 = 0;
+  complexVariantEvaluators = self->_complexVariantEvaluators;
+  v101[0] = MEMORY[0x1E69E9820];
+  v101[1] = 3221225472;
+  v101[2] = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke_3;
+  v101[3] = &unk_1E82789F8;
+  v101[5] = object;
+  v101[6] = reader;
+  v101[4] = &v103;
+  v19 = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke(v106, complexVariantEvaluators, &v102, v101);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke_4;
+  aBlock[3] = &__block_descriptor_48_e5_v8__0l;
+  aBlock[4] = v108;
+  aBlock[5] = v102;
+  v20 = _Block_copy(aBlock);
+  v21 = v20;
+  if (((v17 | v19) & 1) != 0 || v11 != self->_superclassLayout)
+  {
+    v94 = 0;
+    v95 = &v94;
+    v96 = 0x3032000000;
+    v97 = __Block_byref_object_copy__6;
+    v98 = __Block_byref_object_dispose__6;
+    v99 = 0;
+    v22 = objc_autoreleasePoolPush();
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke_125;
+    v87[3] = &unk_1E8278A90;
+    v87[4] = self;
+    v89 = &v94;
+    v90 = v108;
+    v91 = v102;
+    objectCopy = object;
+    readerCopy3 = reader;
+    v23 = v11;
+    v88 = v23;
+    v24 = _Block_copy(v87);
+    if (!v108)
+    {
+      v25 = 0;
+      goto LABEL_24;
+    }
+
+    v25 = 0;
+    v26 = v108 + 3;
+    v27 = (*v108 + 7);
+    v28 = (v27 >> 3) + 4;
+    v29 = (v27 >> 3) + 8;
+    do
+    {
+      v30 = *(v26 - 3) + 16 * v25;
+      v31 = *(v26 - 2) + 16 * ((v30 ^ ((v30 & 0xF0000000) >> 24)) & ~(v30 & 0xF0000000));
+      v32 = *(v26 - 1) + 16 * ((v31 ^ ((v31 & 0xF0000000) >> 24)) & ~(v31 & 0xF0000000));
+      v33 = *v26;
+      v26 += 4;
+      v34 = v33 + 16 * ((v32 ^ ((v32 & 0xF0000000) >> 24)) & ~(v32 & 0xF0000000));
+      v25 = (v34 ^ ((v34 & 0xF0000000) >> 24)) & ~(v34 & 0xF0000000);
+      v29 -= 4;
+    }
+
+    while (v29 > 7);
+    if (v29 != 5)
+    {
+      if (v29 != 6)
+      {
+        if (v29 != 7)
+        {
+LABEL_24:
+          v38 = v104;
+          v39 = v25 + 37 * v104[3];
+          v104[3] = v39;
+          if (v23 == self->_superclassLayout)
+          {
+            v41 = 0;
+          }
+
+          else
+          {
+            v40 = [scanner _indexForClassInfo:v23];
+            v38 = v104;
+            v39 = v104[3];
+            v41 = v40;
+          }
+
+          v38[3] = v41 + 37 * v39;
+          selfCopy3 = [scanner _cachedVariantForGenericInfo:self variantKey:?];
+          if (selfCopy3)
+          {
+            v21[2](v21);
+          }
+
+          else
+          {
+            v24[2](v24);
+            [scanner _registerVariant:v95[5] forGenericInfo:self variantKey:v104[3]];
+          }
+
+          objc_autoreleasePoolPop(v22);
+          if (!selfCopy3)
+          {
+            v21[2](v21);
+            selfCopy3 = v95[5];
+          }
+
+          _Block_object_dispose(&v94, 8);
+
+          goto LABEL_33;
+        }
+
+        v35 = *(v108 + v28 - 3) + 16 * v25;
+        v25 = (v35 ^ ((v35 & 0xF0000000) >> 24)) & ~(v35 & 0xF0000000);
+      }
+
+      v36 = *(v108 + v28 - 2) + 16 * v25;
+      v25 = (v36 ^ ((v36 & 0xF0000000) >> 24)) & ~(v36 & 0xF0000000);
+    }
+
+    v37 = *(v108 + v28 - 1) + 16 * v25;
+    v25 = (v37 ^ ((v37 & 0xF0000000) >> 24)) & ~(v37 & 0xF0000000);
+    goto LABEL_24;
+  }
+
+  v20[2](v20);
+  selfCopy3 = self;
+LABEL_33:
+
+  _Block_object_dispose(&v103, 8);
+LABEL_34:
+
+LABEL_7:
+
+  return selfCopy3;
 }
 
 uint64_t __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryReader___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1805,65 +2919,65 @@ void __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryR
 
 - (void)enumerateStoredEntriesForObject:(unint64_t)object ofSize:(unsigned int)size externalValues:(id)values block:(id)block
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   blockCopy = block;
   if (self->_remoteType == 32)
   {
-    v43 = blockCopy;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x2020000000;
-    v66 = 0;
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x2020000000;
+    v42 = blockCopy;
     v62 = 0;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__6;
-    v57 = __Block_byref_object_dispose__6;
+    v63 = &v62;
+    v64 = 0x2020000000;
+    v65 = 0;
     v58 = 0;
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __76__VMUClassInfo_enumerateStoredEntriesForObject_ofSize_externalValues_block___block_invoke;
-    v51[3] = &unk_1E8278AB8;
+    v59 = &v58;
+    v60 = 0x2020000000;
+    v61 = 0;
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__6;
+    v56 = __Block_byref_object_dispose__6;
+    v57 = 0;
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __76__VMUClassInfo_enumerateStoredEntriesForObject_ofSize_externalValues_block___block_invoke;
+    v50[3] = &unk_1E8278AB8;
     sizeCopy = size;
-    v51[4] = &v63;
-    v51[5] = &v53;
-    v51[6] = &v59;
-    v51[7] = object;
-    [(VMUClassInfo *)self enumerateAllFieldsWithBlock:v51];
+    v50[4] = &v62;
+    v50[5] = &v52;
+    v50[6] = &v58;
+    v50[7] = object;
+    [(VMUClassInfo *)self enumerateAllFieldsWithBlock:v50];
     objectCopy = object;
     sizeCopy2 = size;
     if (valuesCopy)
     {
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v11 = valuesCopy;
       value = 0;
       value2 = 0;
-      v14 = [v11 countByEnumeratingWithState:&v47 objects:v67 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v46 objects:v66 count:16];
       if (v14)
       {
         value4 = 0;
         value3 = 0;
         field7 = 0;
         field6 = 0;
-        v16 = *v48;
+        v16 = *v47;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v48 != v16)
+            if (*v47 != v16)
             {
               objc_enumerationMutation(v11);
             }
 
-            v18 = *(*(&v47 + 1) + 8 * i);
+            v18 = *(*(&v46 + 1) + 8 * i);
             field = [v18 field];
             isStorageImplPointer = [field isStorageImplPointer];
 
@@ -1930,7 +3044,7 @@ void __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryR
             }
           }
 
-          v14 = [v11 countByEnumeratingWithState:&v47 objects:v67 count:16];
+          v14 = [v11 countByEnumeratingWithState:&v46 objects:v66 count:16];
         }
 
         while (v14);
@@ -1955,31 +3069,31 @@ void __78__VMUClassInfo_instanceSpecificInfoForObject_ofSize_withScanner_memoryR
       field6 = 0;
     }
 
-    if (v54[5])
+    if (v53[5])
     {
-      v31 = *(v60 + 6);
+      v31 = *(v59 + 6);
       if (v31)
       {
-        if (v64[3])
+        if (v63[3])
         {
           v32 = 1;
           do
           {
-            if ([v54[5] size] + v31 > sizeCopy2)
+            if ([v53[5] size] + v31 > sizeCopy2)
             {
               break;
             }
 
-            v43[2](v43, v54[5], v31, [v54[5] size]);
-            v31 = [v54[5] stride] + v31;
+            v42[2](v42, v53[5], v31, [v53[5] size]);
+            v31 = [v53[5] stride] + v31;
           }
 
-          while (v64[3] > v32++);
+          while (v63[3] > v32++);
         }
       }
     }
 
-    if (value && v64[3])
+    if (value && v63[3])
     {
       v34 = 0;
       v35 = 0;
@@ -1997,7 +3111,7 @@ LABEL_47:
         v35 >>= 1;
         v37 += [field7 stride];
         v36 += [field6 stride];
-        if (++v34 >= v64[3])
+        if (++v34 >= v63[3])
         {
           goto LABEL_48;
         }
@@ -2017,12 +3131,12 @@ LABEL_47:
 LABEL_43:
       if (v37 + [field7 size] <= sizeCopy2)
       {
-        (v43)[2](v43, field7, v37, [field7 size]);
+        (v42)[2](v42, field7, v37, [field7 size]);
       }
 
       if (v36 + [field6 size] <= sizeCopy2)
       {
-        (v43)[2](v43, field6, v36, [field6 size]);
+        (v42)[2](v42, field6, v36, [field6 size]);
       }
 
       goto LABEL_47;
@@ -2030,13 +3144,11 @@ LABEL_43:
 
 LABEL_48:
 
-    _Block_object_dispose(&v53, 8);
-    _Block_object_dispose(&v59, 8);
-    _Block_object_dispose(&v63, 8);
-    blockCopy = v43;
+    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v62, 8);
+    blockCopy = v42;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __76__VMUClassInfo_enumerateStoredEntriesForObject_ofSize_externalValues_block___block_invoke(uint64_t a1, void *a2)

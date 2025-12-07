@@ -34,11 +34,11 @@
 
 - (DKDiagnosticProgress)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = DKDiagnosticProgress;
-  v5 = [(DKDiagnosticProgress *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = DKDiagnosticProgress;
+  v5 = [(DKDiagnosticProgress *)&v13 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fractionCompleted"];
@@ -56,27 +56,26 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_impl(&dword_248B9D000, v11, OS_LOG_TYPE_DEFAULT, "Doing decode of DKDiagnosticProgress: %@", buf, 0xCu);
     }
 
     [(DKDiagnosticProgress *)v5 _validateProperties];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
+    v9 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "Doing encode of DKDiagnosticProgress: %@", &v10, 0xCu);
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "Doing encode of DKDiagnosticProgress: %@", &v9, 0xCu);
   }
 
   fractionCompleted = [(DKDiagnosticProgress *)self fractionCompleted];
@@ -87,8 +86,6 @@
 
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[DKDiagnosticProgress isIndeterminate](self, "isIndeterminate")}];
   [coderCopy encodeObject:v8 forKey:@"isIndeterminate"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

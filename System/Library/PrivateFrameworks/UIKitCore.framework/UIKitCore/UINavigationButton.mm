@@ -527,7 +527,7 @@
   {
     if (state == 2)
     {
-      v9 = +[UIColor blackColor];
+      v9 = objc_msgSend_blackColor(UIColor);
       v10 = v9;
       v11 = 0.2;
       goto LABEL_12;
@@ -1068,16 +1068,16 @@ LABEL_15:
     if (objc_opt_isKindOfClass())
     {
       title = [(UINavigationButton *)self title];
-      v8 = [toCopy isEqualToString:title];
+      isEqualToString = objc_msgSend_isEqualToString_(toCopy);
     }
 
     else
     {
       title = [(UINavigationButton *)self image];
-      v8 = [toCopy isEqual:title];
+      isEqualToString = objc_msgSend_isEqual_(toCopy);
     }
 
-    v9 = v8;
+    v9 = isEqualToString;
   }
 
   else
@@ -1847,7 +1847,7 @@ LABEL_7:
       v15 = [v12 objectForKey:v13];
       if (v14 | v15)
       {
-        if (([v14 isEqual:v15] & 1) == 0)
+        if ((objc_msgSend_isEqual_(v14) & 1) == 0)
         {
           [(UIView *)self sizeToFit];
           WeakRetained = objc_loadWeakRetained(&self->__enclosingBar);
@@ -2294,7 +2294,7 @@ id __51__UINavigationButton_setPointerInteractionEnabled___block_invoke(uint64_t
   v12 = v11;
   v14 = v13;
   v16 = v15;
-  v17 = [v4 preview];
+  v17 = objc_msgSend_preview(v4);
   v18 = [v17 target];
   v19 = [v18 container];
   [v5 convertRect:v19 toView:{v10, v12, v14, v16}];

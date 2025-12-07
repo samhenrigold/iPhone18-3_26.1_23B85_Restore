@@ -215,7 +215,6 @@ LABEL_11:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -227,7 +226,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    networkFlags = self->_networkFlags;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -247,7 +245,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  securityType = self->_securityType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -262,7 +259,6 @@ LABEL_8:
   }
 
 LABEL_14:
-  blacklistedReason = self->_blacklistedReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -274,7 +270,6 @@ LABEL_9:
     }
 
 LABEL_16:
-    blacklistedDuration = self->_blacklistedDuration;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -285,7 +280,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  blacklistedSubreason = self->_blacklistedSubreason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -300,7 +294,6 @@ LABEL_10:
   }
 
 LABEL_17:
-  unblacklistingReason = self->_unblacklistingReason;
 
   PBDataWriterWriteUint32Field();
 }
@@ -495,7 +488,6 @@ LABEL_9:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 48);
     if (has)
     {
       if ((*(equal + 48) & 1) == 0 || self->_timestamp != *(equal + 1))

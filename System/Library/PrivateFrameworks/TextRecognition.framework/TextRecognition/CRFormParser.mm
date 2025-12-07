@@ -1,6 +1,7 @@
 @interface CRFormParser
 + (BOOL)_isRegion:(id)region segmentedBoxLeftOfRegion:(id)ofRegion withTolerance:(double)tolerance modalWidth:(double)width modelGap:(double)gap;
 + (_NSRange)_rangeOfFirstSegmentedFieldGroupInFields:(id)fields startIndex:(int64_t)index modalWidth:(double)width modelGap:(double)gap;
++ (char)horizontalClustersFromFields:(char *)fields;
 + (double)globalLineHeightInDocument:(id)document;
 + (id)_dominantLocaleInRegions:(id)regions;
 + (id)_groupSegmentedFieldsInAlignedFields:(id)fields;
@@ -14,7 +15,6 @@
 + (id)predictLineHeightForFields:(id)fields inDocument:(id)document shouldUpdateExternalFields:(BOOL)externalFields;
 + (uint64_t)horizontalClustersFromFields:(uint64_t)fields;
 + (void)_setPrecedingExternalFieldsForFields:(id)fields;
-+ (void)horizontalClustersFromFields:(void *)fields;
 - (BOOL)_localeIsEnabled:(id)enabled;
 - (CRFormParser)init;
 - (id)_orderAndGroupLinesInDocument:(id)document allFields:(id)fields regions:(id)regions;
@@ -594,7 +594,7 @@ LABEL_18:
   return v4;
 }
 
-+ (void)horizontalClustersFromFields:(void *)fields
++ (char)horizontalClustersFromFields:(char *)fields
 {
   v2 = *fields;
   if (*fields)
@@ -805,7 +805,7 @@ void __45__CRFormParser_horizontalClustersFromFields___block_invoke(uint64_t a1,
       *(v45 + 40) = 0;
       *(v45 + 48) = 0;
       *(v45 + 32) = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(56 * v31 + 32, __p, v62, (v62 - __p) >> 3);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((56 * v31 + 32), __p, v62, (v62 - __p) >> 3);
       v46 = v66;
       v47 = v26[6];
       v48 = v26[7];
@@ -867,7 +867,7 @@ void __45__CRFormParser_horizontalClustersFromFields___block_invoke(uint64_t a1,
       *(v28 + 40) = 0;
       *(v28 + 48) = 0;
       *(v28 + 32) = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v28 + 32, __p, v62, (v62 - __p) >> 3);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((v28 + 32), __p, v62, (v62 - __p) >> 3);
       v29 = v28 + 56;
       v26[7] = v28 + 56;
     }
@@ -1093,12 +1093,12 @@ void __46__CRFormParser__groupSegmentedFieldsInFields___block_invoke_24(uint64_t
       {
 LABEL_13:
         *buf = &v55;
-        std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v56, v17)[5] = 0;
+        std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v56, v17, buf)[5] = 0;
         v17 = v55;
       }
 
       *buf = &v55;
-      v20 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v56, v17);
+      v20 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v56, v17, buf);
       ++v20[5];
       v21 = v59[0];
       v22 = v54;
@@ -1123,12 +1123,12 @@ LABEL_13:
       {
 LABEL_21:
         *buf = &v54;
-        std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v58, v54)[5] = 0;
+        std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v58, v54, buf)[5] = 0;
         v22 = v54;
       }
 
       *buf = &v54;
-      v24 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v58, v22);
+      v24 = std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v58, v22, buf);
       ++v5;
       ++v24[5];
     }

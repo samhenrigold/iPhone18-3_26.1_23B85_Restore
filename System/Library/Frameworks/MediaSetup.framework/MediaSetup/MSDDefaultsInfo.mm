@@ -71,20 +71,7 @@ LABEL_5:
   service = self->_service;
   self->_service = v5;
 
-  if (!self->_service)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kHomeIDEncodeKey"];
-  homeID = self->_homeID;
-  self->_homeID = v7;
-
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kHomeUserIDEncodeKey"];
-  homeUserID = self->_homeUserID;
-  self->_homeUserID = v9;
-
-  if (self->_homeUserID)
+  if (self->_service && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kHomeIDEncodeKey"], v7 = objc_claimAutoreleasedReturnValue(), homeID = self->_homeID, self->_homeID = v7, homeID, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"kHomeUserIDEncodeKey"), v9 = objc_claimAutoreleasedReturnValue(), homeUserID = self->_homeUserID, self->_homeUserID = v9, homeUserID, self->_homeUserID))
   {
     v11 = [(MSDDefaultsInfo *)self initWithService:self->_service homeID:self->_homeID homeUserID:?];
     if (v11)
@@ -108,7 +95,6 @@ LABEL_5:
 
   else
   {
-LABEL_6:
     selfCopy = 0;
   }
 

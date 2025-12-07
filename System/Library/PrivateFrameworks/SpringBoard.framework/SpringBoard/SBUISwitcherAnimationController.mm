@@ -275,7 +275,7 @@
   {
     if ([_layoutState unlockedEnvironmentMode] == 3)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(3);
       if (os_signpost_enabled(v5))
       {
         *buf = 0;
@@ -292,7 +292,7 @@
         goto LABEL_36;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(2);
       if (os_signpost_enabled(v5))
       {
         *v16 = 0;
@@ -307,7 +307,7 @@
   {
     if ([_layoutState unlockedEnvironmentMode] == 3)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(3);
       if (os_signpost_enabled(v5))
       {
         *v15 = 0;
@@ -324,7 +324,7 @@
         goto LABEL_36;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(1);
       if (os_signpost_enabled(v5))
       {
         *v14 = 0;
@@ -344,7 +344,7 @@
 
     if ([_layoutState unlockedEnvironmentMode] == 1)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(1);
       if (os_signpost_enabled(v5))
       {
         *v13 = 0;
@@ -356,7 +356,7 @@
 
     else if ([_layoutState unlockedEnvironmentMode] == 3)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(3);
       if (os_signpost_enabled(v5))
       {
         *v12 = 0;
@@ -373,7 +373,7 @@
         goto LABEL_36;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(2);
       if (os_signpost_enabled(v5))
       {
         *v11 = 0;
@@ -425,7 +425,7 @@ LABEL_36:
         goto LABEL_28;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(2);
       if (!os_signpost_enabled(v5))
       {
         goto LABEL_27;
@@ -437,7 +437,7 @@ LABEL_36:
       goto LABEL_26;
     }
 
-    v5 = SBLogTelemetrySignposts();
+    v5 = SBLogTelemetrySignposts(3);
     if (os_signpost_enabled(v5))
     {
       v17 = 0;
@@ -457,7 +457,7 @@ LABEL_26:
         goto LABEL_28;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(1);
       if (!os_signpost_enabled(v5))
       {
         goto LABEL_27;
@@ -469,7 +469,7 @@ LABEL_26:
       goto LABEL_26;
     }
 
-    v5 = SBLogTelemetrySignposts();
+    v5 = SBLogTelemetrySignposts(3);
     if (os_signpost_enabled(v5))
     {
       v15 = 0;
@@ -488,7 +488,7 @@ LABEL_26:
 
     if ([_layoutState unlockedEnvironmentMode] == 1)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(1);
       if (os_signpost_enabled(v5))
       {
         *buf = 0;
@@ -500,7 +500,7 @@ LABEL_26:
 
     if ([_layoutState unlockedEnvironmentMode] == 3)
     {
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(3);
       if (os_signpost_enabled(v5))
       {
         v12 = 0;
@@ -517,7 +517,7 @@ LABEL_26:
         goto LABEL_28;
       }
 
-      v5 = SBLogTelemetrySignposts();
+      v5 = SBLogTelemetrySignposts(2);
       if (os_signpost_enabled(v5))
       {
         LOWORD(v11) = 0;

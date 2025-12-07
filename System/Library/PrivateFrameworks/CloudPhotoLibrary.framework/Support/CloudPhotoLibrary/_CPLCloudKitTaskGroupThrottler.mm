@@ -140,20 +140,18 @@ LABEL_14:
           v13 = __CPLGenericOSLogDomain();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v14 = self->_throttlingDate;
             *buf = 138412546;
-            v30 = v10;
-            v31 = 2112;
-            v32 = objc_opt_class();
-            v15 = v32;
+            v28 = v10;
+            v29 = 2112;
+            v30 = objc_opt_class();
+            v14 = v30;
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Invalid %@: %@", buf, 0x16u);
           }
         }
 
-        v16 = +[NSAssertionHandler currentHandler];
-        v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTaskGate.m"];
-        v18 = self->_throttlingDate;
-        [v16 handleFailureInMethod:a2 object:self file:v17 lineNumber:217 description:{@"Invalid %@: %@", v10, objc_opt_class()}];
+        v15 = +[NSAssertionHandler currentHandler];
+        v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTaskGate.m"];
+        [v15 handleFailureInMethod:a2 object:self file:v16 lineNumber:217 description:{@"Invalid %@: %@", v10, objc_opt_class()}];
 
         goto LABEL_28;
       }
@@ -162,47 +160,47 @@ LABEL_14:
     else
     {
       userInfo2 = [errorCopy userInfo];
-      v20 = [userInfo2 objectForKeyedSubscript:CKErrorRetryAfterKey];
+      v18 = [userInfo2 objectForKeyedSubscript:CKErrorRetryAfterKey];
 
-      if (v20)
+      if (v18)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v25 = __CPLGenericOSLogDomain();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v23 = __CPLGenericOSLogDomain();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v30 = CKErrorRetryAfterKey;
-              v31 = 2112;
-              v32 = objc_opt_class();
-              v26 = v32;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Invalid %@: %@", buf, 0x16u);
+              v28 = CKErrorRetryAfterKey;
+              v29 = 2112;
+              v30 = objc_opt_class();
+              v24 = v30;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Invalid %@: %@", buf, 0x16u);
             }
           }
 
-          v16 = +[NSAssertionHandler currentHandler];
-          v27 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTaskGate.m"];
-          [v16 handleFailureInMethod:a2 object:self file:v27 lineNumber:213 description:{@"Invalid %@: %@", CKErrorRetryAfterKey, objc_opt_class()}];
+          v15 = +[NSAssertionHandler currentHandler];
+          v25 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTaskGate.m"];
+          [v15 handleFailureInMethod:a2 object:self file:v25 lineNumber:213 description:{@"Invalid %@: %@", CKErrorRetryAfterKey, objc_opt_class()}];
 
 LABEL_28:
           abort();
         }
 
-        [v20 doubleValue];
-        v21 = [NSDate dateWithTimeIntervalSinceNow:?];
-        v22 = self->_throttlingDate;
-        self->_throttlingDate = v21;
+        [v18 doubleValue];
+        v19 = [NSDate dateWithTimeIntervalSinceNow:?];
+        v20 = self->_throttlingDate;
+        self->_throttlingDate = v19;
       }
     }
 
     if (!self->_throttlingDate)
     {
-      v23 = [nowCopy dateByAddingTimeInterval:3600.0];
-      v24 = self->_throttlingDate;
-      self->_throttlingDate = v23;
+      v21 = [nowCopy dateByAddingTimeInterval:3600.0];
+      v22 = self->_throttlingDate;
+      self->_throttlingDate = v21;
     }
 
     [(_CPLCloudKitTaskGroupThrottler *)self _adjustThrottlingDateWithNow:nowCopy andError:errorCopy];
@@ -256,34 +254,32 @@ LABEL_28:
 {
   nowCopy = now;
   [(_CPLCloudKitTaskGroupThrottler *)self _adjustThrottlingDateWithNow:nowCopy andError:0];
-  v5 = [NSMutableString alloc];
-  count = self->_count;
-  v7 = objc_msgSend(v5, "initWithFormat:", @"%@: %lu (failed: %lu"), self->_groupName, count, self->_failedCount;
-  v8 = v7;
+  v5 = objc_msgSend([NSMutableString alloc], "initWithFormat:", @"%@: %lu (failed: %lu"), self->_groupName, self->_count, self->_failedCount;
+  v6 = v5;
   if (self->_cancelledCount)
   {
-    [v7 appendFormat:@" - cancelled: %lu", self->_cancelledCount];
+    [v5 appendFormat:@" - cancelled: %lu", self->_cancelledCount];
   }
 
   throttlingDate = self->_throttlingDate;
   if (throttlingDate)
   {
     [(NSDate *)throttlingDate timeIntervalSinceDate:nowCopy];
-    v10 = [CPLDateFormatter stringForTimeInterval:?];
-    [v8 appendFormat:@" - throttled: %lu - throttled for %@"], self->_throttledCount, v10);
+    v8 = [CPLDateFormatter stringForTimeInterval:?];
+    [v6 appendFormat:@" - throttled: %lu - throttled for %@"], self->_throttledCount, v8);
   }
 
   else if (self->_throttledCount)
   {
-    [v8 appendFormat:@" - throttled: %lu - not throttled any more"], self->_throttledCount);
+    [v6 appendFormat:@" - throttled: %lu - not throttled any more"], self->_throttledCount);
   }
 
   else
   {
-    [v8 appendString:@""]);
+    [v6 appendString:@""]);
   }
 
-  return v8;
+  return v6;
 }
 
 @end

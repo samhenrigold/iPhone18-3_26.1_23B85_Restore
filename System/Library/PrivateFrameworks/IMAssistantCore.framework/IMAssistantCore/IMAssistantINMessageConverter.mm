@@ -12,6 +12,7 @@
 + (id)makeINMessage:(int64_t)message message:(id)a4 numberOfAttachments:(int64_t)attachments personProvider:(id)provider referencedINMessage:(id)nMessage content:(id)content reaction:(id)reaction inlineGlyphContent:(id)self0 translatedMessagePart:(id)self1;
 + (id)messageEffectTypeToExpressiveSendIdDictionary;
 + (id)prepareAttachments:(int64_t)attachments message:(id)message;
++ (id)spiHandleForIMHandle:(id)handle isMe:(BOOL)me;
 + (int64_t)INMessageReactionTypeForIMSPIMessageType:(int64_t)type;
 + (int64_t)messageEffectTypeFromExpressiveSendId:(id)id;
 @end
@@ -32,7 +33,7 @@
 
 + (int64_t)messageEffectTypeFromExpressiveSendId:(id)id
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (![idCopy length])
   {
@@ -48,9 +49,9 @@ LABEL_7:
     v8 = IMLogHandleForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = idCopy;
-      _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "No effect for effect identifier: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = idCopy;
+      _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "No effect for effect identifier: %@", &v10, 0xCu);
     }
 
     goto LABEL_7;
@@ -60,7 +61,6 @@ LABEL_7:
   integerValue = [v5 integerValue];
 
 LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
@@ -991,6 +991,30 @@ LABEL_30:
   return v7;
 }
 
++ (id)spiHandleForIMHandle:(id)handle isMe:(BOOL)me
+{
+  meCopy = me;
+  handleCopy = handle;
+  originalID = [handleCopy originalID];
+  v7 = originalID;
+  if (originalID)
+  {
+    v8 = originalID;
+  }
+
+  else
+  {
+    v8 = [handleCopy ID];
+  }
+
+  v9 = v8;
+
+  countryCode = [handleCopy countryCode];
+  v11 = [objc_alloc(MEMORY[0x277D18DC8]) initWithAddress:v9 countryCode:countryCode isMe:meCopy];
+
+  return v11;
+}
+
 + (id)INPersonsForSPIHandles:(id)handles personProvider:(id)provider
 {
   providerCopy = provider;
@@ -1007,9 +1031,9 @@ LABEL_30:
 
 + (id)prepareAttachments:(int64_t)attachments message:(id)message
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
   attachments = [messageCopy attachments];
   v6 = [attachments count];
 
@@ -1019,29 +1043,29 @@ LABEL_30:
     v8 = NSTemporaryDirectory();
     v9 = [v7 fileURLWithPath:v8];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
-    v32 = messageCopy;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v31 = messageCopy;
     obj = [messageCopy attachments];
-    v10 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v10 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v35 = *v38;
+      v34 = *v37;
       do
       {
         v13 = 0;
         do
         {
-          if (*v38 != v35)
+          if (*v37 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * v13);
+          v14 = *(*(&v36 + 1) + 8 * v13);
           fileUrl = [v14 fileUrl];
 
           if (fileUrl)
@@ -1055,9 +1079,9 @@ LABEL_30:
 
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
             fileUrl3 = [v14 fileUrl];
-            v36 = v12;
-            [defaultManager2 copyItemAtURL:fileUrl3 toURL:v18 error:&v36];
-            v22 = v36;
+            v35 = v12;
+            [defaultManager2 copyItemAtURL:fileUrl3 toURL:v18 error:&v35];
+            v22 = v35;
 
             if (v22 && [v22 code] != 516)
             {
@@ -1065,7 +1089,7 @@ LABEL_30:
               if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v42 = v22;
+                v41 = v22;
                 _os_log_impl(&dword_25479E000, v27, OS_LOG_TYPE_INFO, "Failed to copy attachment file to temp directory error %@", buf, 0xCu);
               }
             }
@@ -1078,18 +1102,18 @@ LABEL_30:
                 fileUrl4 = [v14 fileUrl];
                 code = [v22 code];
                 *buf = 138412802;
-                v42 = fileUrl4;
-                v43 = 2112;
-                v44 = v18;
-                v45 = 2048;
-                v46 = code;
+                v41 = fileUrl4;
+                v42 = 2112;
+                v43 = v18;
+                v44 = 2048;
+                v45 = code;
                 _os_log_impl(&dword_25479E000, v23, OS_LOG_TYPE_INFO, "File URL: %@ temp URL: %@, overwrite = %ld", buf, 0x20u);
               }
 
               v26 = MEMORY[0x277CD3C08];
               v27 = [v14 uti];
               v28 = [v26 fileWithFileURL:v18 filename:lastPathComponent typeIdentifier:v27];
-              [v33 addObject:v28];
+              [v32 addObject:v28];
             }
 
             v12 = v22;
@@ -1109,7 +1133,7 @@ LABEL_30:
         }
 
         while (v11 != v13);
-        v29 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+        v29 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
         v11 = v29;
       }
 
@@ -1121,7 +1145,7 @@ LABEL_30:
       v12 = 0;
     }
 
-    messageCopy = v32;
+    messageCopy = v31;
   }
 
   else
@@ -1134,9 +1158,7 @@ LABEL_30:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 + (int64_t)INMessageReactionTypeForIMSPIMessageType:(int64_t)type
@@ -1224,7 +1246,7 @@ LABEL_30:
 
 + (id)makeINMessage:(int64_t)message message:(id)a4 numberOfAttachments:(int64_t)attachments personProvider:(id)provider referencedINMessage:(id)nMessage content:(id)content reaction:(id)reaction inlineGlyphContent:(id)self0 translatedMessagePart:(id)self1
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v15 = a4;
   providerCopy = provider;
   nMessageCopy = nMessage;
@@ -1257,22 +1279,22 @@ LABEL_30:
     v25 = [self _stringByRemovingMessagesControlCharactersFromString:string];
 
     translationLanguage = [partCopy translationLanguage];
-    v73 = [translationLanguage stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    v72 = [translationLanguage stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 
     contentCopy = v25;
   }
 
   else
   {
-    v73 = 0;
+    v72 = 0;
   }
 
   selfCopy = self;
-  v75 = partCopy;
-  v76 = providerCopy;
-  v77 = contentCopy;
+  v74 = partCopy;
+  v75 = providerCopy;
+  v76 = contentCopy;
   selfCopy2 = self;
-  v70 = v15;
+  v69 = v15;
   if (message == 15 && ([v15 attachments], v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "count"), v28, v29 == 1))
   {
     v30 = IMLogHandleForCategory();
@@ -1294,20 +1316,20 @@ LABEL_30:
     v38 = [self INPersonsForSPIHandles:? personProvider:?];
     dateForLastReadMessageInChat = [IMAssistantINMessageConverter __INSpeakableStringForMessage:v15];
     service = [v15 service];
-    v41 = [v32 initWithIdentifier:guid conversationIdentifier:chatIdentifier content:v77 dateSent:date sender:v36 recipients:v38 groupName:dateForLastReadMessageInChat messageType:15 serviceName:service attachmentFiles:v31];
+    v41 = [v32 initWithIdentifier:guid conversationIdentifier:chatIdentifier content:v76 dateSent:date sender:v36 recipients:v38 groupName:dateForLastReadMessageInChat messageType:15 serviceName:service attachmentFiles:v31];
   }
 
   else
   {
-    v69 = objc_alloc(MEMORY[0x277CD3DE0]);
+    v68 = objc_alloc(MEMORY[0x277CD3DE0]);
     guid2 = [v15 guid];
     chatIdentifier2 = [v15 chatIdentifier];
     date2 = [v15 date];
     sender2 = [v15 sender];
     v42 = [providerCopy personFromSPIHandle:sender2];
     [v15 recipients];
-    v64 = v43 = contentCopy;
-    [selfCopy INPersonsForSPIHandles:v64 personProvider:providerCopy];
+    v63 = v43 = contentCopy;
+    [selfCopy INPersonsForSPIHandles:v63 personProvider:providerCopy];
     v45 = v44 = v15;
     v46 = [IMAssistantINMessageConverter __INSpeakableStringForMessage:v15];
     dateForLastReadMessageInChat = [v15 dateForLastReadMessageInChat];
@@ -1317,27 +1339,27 @@ LABEL_30:
     service2 = [v44 service];
     v50 = v43;
     v51 = service2;
-    v63 = v48;
+    v62 = v48;
     v31 = guid2;
     guid = chatIdentifier2;
     messageCopy = message;
     v37 = date2;
     sender = v42;
     recipients = v45;
-    v41 = [v69 initWithIdentifier:guid2 conversationIdentifier:chatIdentifier2 content:v50 dateSent:date2 sender:v42 recipients:v45 groupName:v46 dateMessageWasLastRead:dateForLastReadMessageInChat numberOfAttachments:service messageType:messageCopy messageEffectType:v63 referencedMessage:nMessageCopy serviceName:service2 attachmentFiles:0 location:0 linkMetadata:0 reaction:reactionCopy sticker:0 inlineGlyphContent:glyphContentCopy];
+    v41 = [v68 initWithIdentifier:guid2 conversationIdentifier:chatIdentifier2 content:v50 dateSent:date2 sender:v42 recipients:v45 groupName:v46 dateMessageWasLastRead:dateForLastReadMessageInChat numberOfAttachments:service messageType:messageCopy messageEffectType:v62 referencedMessage:nMessageCopy serviceName:service2 attachmentFiles:0 location:0 linkMetadata:0 reaction:reactionCopy sticker:0 inlineGlyphContent:glyphContentCopy];
 
     v38 = v46;
-    v36 = v64;
+    v36 = v63;
 
     date = sender2;
   }
 
-  if (v73 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v72 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [v41 setTranslatedToLanguage:v73];
+    [v41 setTranslatedToLanguage:v72];
   }
 
-  richLinkMetadata = [v70 richLinkMetadata];
+  richLinkMetadata = [v69 richLinkMetadata];
   if (richLinkMetadata)
   {
     v53 = [selfCopy2 __INMessageLinkMetadataForLPLinkMetadata:richLinkMetadata];
@@ -1346,12 +1368,12 @@ LABEL_30:
     if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v84 = v53;
+      v83 = v53;
       _os_log_impl(&dword_25479E000, v54, OS_LOG_TYPE_INFO, "Link Metadata: %@", buf, 0xCu);
     }
   }
 
-  peerPaymentAmount = [v70 peerPaymentAmount];
+  peerPaymentAmount = [v69 peerPaymentAmount];
   if (peerPaymentAmount)
   {
     v56 = objc_alloc(MEMORY[0x277CD3B50]);
@@ -1362,58 +1384,56 @@ LABEL_30:
     [v41 setPaymentAmount:v59];
   }
 
-  v60 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 + (id)INMessagesForSPIMessage:(id)message personProvider:(id)provider
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   providerCopy = provider;
-  v8 = _IMAssistantCoreGeneralSignpostLogHandle();
+  v8 = _IMAssistantCoreGeneralSignpostLogHandle(providerCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v11 = v10;
-  v59 = v9 - 1;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _IMAssistantCoreGeneralSignpostLogHandle(v10);
+  v12 = v11;
+  v60 = v9 - 1;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "INMessagesForSPIMessage", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "INMessagesForSPIMessage", &unk_2547CAD0B, buf, 2u);
   }
 
   guid = [messageCopy guid];
-  v13 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v77 = guid;
-    _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Converting IMSPIMessage to INMessages. Message to be converted: %@", buf, 0xCu);
+    v78 = guid;
+    _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Converting IMSPIMessage to INMessages. Message to be converted: %@", buf, 0xCu);
   }
 
   referencedMessage = [messageCopy referencedMessage];
   guid2 = [referencedMessage guid];
-  v61 = guid2;
+  v62 = guid2;
   if (referencedMessage)
   {
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Yes, a reference to: %@", guid2];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Yes, a reference to: %@", guid2];
   }
 
   else
   {
-    v16 = @"No";
+    v17 = @"No";
   }
 
-  v17 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v77 = guid;
-    v78 = 2112;
-    v79 = v16;
-    _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "Message (guid: %@) has a referenced message? %@", buf, 0x16u);
+    v78 = guid;
+    v79 = 2112;
+    v80 = v17;
+    _os_log_impl(&dword_25479E000, v18, OS_LOG_TYPE_INFO, "Message (guid: %@) has a referenced message? %@", buf, 0x16u);
   }
 
   spid = v9;
@@ -1424,198 +1444,196 @@ LABEL_30:
     goto LABEL_22;
   }
 
-  v18 = [self INMessagesForSPIMessage:referencedMessage personProvider:providerCopy];
-  if ([v18 count] < 2)
+  v19 = [self INMessagesForSPIMessage:referencedMessage personProvider:providerCopy];
+  if ([v19 count] < 2)
   {
-    v22 = [v18 count];
-    v19 = IMLogHandleForCategory();
-    v23 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
-    if (!v22)
+    v23 = [v19 count];
+    v20 = IMLogHandleForCategory();
+    v24 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+    if (!v23)
     {
-      if (v23)
+      if (v24)
       {
         *buf = 138412546;
-        v77 = guid;
-        v78 = 2112;
-        v79 = v61;
-        _os_log_impl(&dword_25479E000, v19, OS_LOG_TYPE_INFO, "Message %@ has a reference to a message %@ that could not be converted to an INMessage.", buf, 0x16u);
+        v78 = guid;
+        v79 = 2112;
+        v80 = v62;
+        _os_log_impl(&dword_25479E000, v20, OS_LOG_TYPE_INFO, "Message %@ has a reference to a message %@ that could not be converted to an INMessage.", buf, 0x16u);
       }
 
       firstObject = 0;
       goto LABEL_21;
     }
 
-    if (v23)
+    if (v24)
     {
       *buf = 138412546;
-      v77 = guid;
-      v78 = 2112;
-      v79 = v61;
-      v20 = "Message %@ has a reference to a single message %@.";
+      v78 = guid;
+      v79 = 2112;
+      v80 = v62;
+      v21 = "Message %@ has a reference to a single message %@.";
       goto LABEL_19;
     }
   }
 
   else
   {
-    v19 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v77 = guid;
-      v78 = 2112;
-      v79 = v61;
-      v20 = "Message %@ has a reference to multi-part message %@. Reference should be to a single part, e.g. a tapback on a photo in a group of photos, but we do not have the infomration to resolve which part. Naively choosing the first part.";
+      v78 = guid;
+      v79 = 2112;
+      v80 = v62;
+      v21 = "Message %@ has a reference to multi-part message %@. Reference should be to a single part, e.g. a tapback on a photo in a group of photos, but we do not have the infomration to resolve which part. Naively choosing the first part.";
 LABEL_19:
-      _os_log_impl(&dword_25479E000, v19, OS_LOG_TYPE_INFO, v20, buf, 0x16u);
+      _os_log_impl(&dword_25479E000, v20, OS_LOG_TYPE_INFO, v21, buf, 0x16u);
     }
   }
 
-  firstObject = [v18 firstObject];
+  firstObject = [v19 firstObject];
 LABEL_21:
 
 LABEL_22:
-  v55 = guid;
-  v57 = providerCopy;
-  v58 = v16;
-  v60 = referencedMessage;
+  v56 = guid;
+  v58 = providerCopy;
+  v59 = v17;
+  v61 = referencedMessage;
   attributedText = [messageCopy attributedText];
   if (!attributedText)
   {
     body = [messageCopy body];
-    v26 = body;
-    v27 = &stru_286693278;
+    v27 = body;
+    v28 = &stru_286693278;
     if (body)
     {
-      v27 = body;
+      v28 = body;
     }
 
-    v28 = v27;
+    v29 = v28;
 
-    attributedText = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v28];
+    attributedText = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v29];
   }
 
-  v54 = attributedText;
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v55 = attributedText;
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
   attachments = [messageCopy attachments];
-  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v32 = [attachments countByEnumeratingWithState:&v71 objects:v75 count:16];
-  if (v32)
+  v75 = 0u;
+  v33 = [attachments countByEnumeratingWithState:&v72 objects:v76 count:16];
+  if (v33)
   {
-    v33 = v32;
-    v34 = *v72;
+    v34 = v33;
+    v35 = *v73;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v72 != v34)
+        if (*v73 != v35)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v36 = *(*(&v71 + 1) + 8 * i);
-        guid3 = [v36 guid];
+        v37 = *(*(&v72 + 1) + 8 * i);
+        guid3 = [v37 guid];
         if ([guid3 length])
         {
-          [v30 setObject:v36 forKeyedSubscript:guid3];
+          [v31 setObject:v37 forKeyedSubscript:guid3];
         }
       }
 
-      v33 = [attachments countByEnumeratingWithState:&v71 objects:v75 count:16];
+      v34 = [attachments countByEnumeratingWithState:&v72 objects:v76 count:16];
     }
 
-    while (v33);
+    while (v34);
   }
 
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = sub_2547BED24;
-  v62[3] = &unk_279786B30;
-  v70 = selfCopy;
-  v63 = v30;
-  v64 = messageCopy;
-  v65 = firstObject;
-  v66 = v61;
-  v38 = v55;
-  v67 = v38;
-  v68 = v57;
-  v39 = v29;
-  v69 = v39;
-  v40 = v57;
-  v41 = v61;
-  v42 = firstObject;
-  v43 = messageCopy;
-  v44 = v30;
-  [v54 __im_visitMessageParts:v62];
-  v45 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = sub_2547BED24;
+  v63[3] = &unk_279786B30;
+  v71 = selfCopy;
+  v64 = v31;
+  v65 = messageCopy;
+  v66 = firstObject;
+  v67 = v62;
+  v39 = v56;
+  v68 = v39;
+  v69 = v58;
+  v40 = v30;
+  v70 = v40;
+  v41 = v58;
+  v42 = v62;
+  v43 = firstObject;
+  v44 = messageCopy;
+  v45 = v31;
+  [v55 __im_visitMessageParts:v63];
+  v46 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
   {
-    v46 = [v39 count];
+    v47 = [v40 count];
     *buf = 138412546;
-    v77 = v38;
-    v78 = 2048;
-    v79 = v46;
-    _os_log_impl(&dword_25479E000, v45, OS_LOG_TYPE_INFO, "Message %@ converted to %ld INMessages", buf, 0x16u);
+    v78 = v39;
+    v79 = 2048;
+    v80 = v47;
+    _os_log_impl(&dword_25479E000, v46, OS_LOG_TYPE_INFO, "Message %@ converted to %ld INMessages", buf, 0x16u);
   }
 
-  v47 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v48 = v47;
-  if (v59 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
+  v49 = _IMAssistantCoreGeneralSignpostLogHandle(v48);
+  v50 = v49;
+  if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v48, OS_SIGNPOST_INTERVAL_END, spid, "INMessagesForSPIMessage", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v50, OS_SIGNPOST_INTERVAL_END, spid, "INMessagesForSPIMessage", &unk_2547CAD0B, buf, 2u);
   }
 
-  v49 = v69;
-  v50 = v39;
+  v51 = v70;
+  v52 = v40;
 
-  v51 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v40;
 }
 
 + (id)inlineGlyphContentFromAttributedMessageBody:(id)body attachmentProvider:(id)provider
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   bodyCopy = body;
   providerCopy = provider;
   array = [MEMORY[0x277CBEB18] array];
   v9 = [bodyCopy length];
   v10 = *MEMORY[0x277D19100];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_2547BF92C;
-  v19[3] = &unk_279786B58;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_2547BF92C;
+  v18[3] = &unk_279786B58;
   v11 = providerCopy;
-  v21 = v11;
+  v20 = v11;
   selfCopy = self;
   v12 = array;
-  v20 = v12;
-  [bodyCopy enumerateAttribute:v10 inRange:0 options:v9 usingBlock:{0, v19}];
+  v19 = v12;
+  [bodyCopy enumerateAttribute:v10 inRange:0 options:v9 usingBlock:{0, v18}];
   v13 = IMLogHandleForCategory();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(bodyCopy, "length")}];
     *buf = 138412546;
-    v24 = v14;
-    v25 = 2112;
-    v26 = v12;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Attributed string length: %@, resulting inlineGlyphContent array: %@", buf, 0x16u);
   }
 
-  v15 = v20;
+  v15 = v19;
   v16 = v12;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)INStickerForIMSPIAttachment:(id)attachment
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   if ([attachmentCopy count] == 1)
   {
@@ -1626,9 +1644,9 @@ LABEL_22:
     v7 = IMLogHandleForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v31 = 138412290;
-      v32 = v6;
-      _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "Sticker externalURI: %@", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = v6;
+      _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "Sticker externalURI: %@", &v30, 0xCu);
     }
 
     if (v6)
@@ -1654,15 +1672,15 @@ LABEL_22:
             v14 = @"memoji";
           }
 
-          v29 = [v9 objectAtIndexedSubscript:2];
-          v16 = [v29 stringByReplacingOccurrencesOfString:v14 withString:&stru_286693278];
+          v28 = [v9 objectAtIndexedSubscript:2];
+          v16 = [v28 stringByReplacingOccurrencesOfString:v14 withString:&stru_286693278];
 
           if ([v16 hasPrefix:@"_"])
           {
-            v30 = [v16 stringByReplacingCharactersInRange:0 withString:{1, &stru_286693278}];
+            v29 = [v16 stringByReplacingCharactersInRange:0 withString:{1, &stru_286693278}];
 
             v15 = 0;
-            v16 = v30;
+            v16 = v29;
           }
 
           else
@@ -1673,10 +1691,10 @@ LABEL_22:
 
         else
         {
-          v25 = [v9 objectAtIndexedSubscript:0];
-          v26 = [v25 isEqualToString:@"emoji"];
+          v24 = [v9 objectAtIndexedSubscript:0];
+          v25 = [v24 isEqualToString:@"emoji"];
 
-          if (v26)
+          if (v25)
           {
             v15 = [v9 objectAtIndexedSubscript:2];
             v16 = 0;
@@ -1686,13 +1704,13 @@ LABEL_22:
 
           else
           {
-            v27 = [v9 objectAtIndexedSubscript:0];
-            v28 = [v27 isEqualToString:@"user"];
+            v26 = [v9 objectAtIndexedSubscript:0];
+            v27 = [v26 isEqualToString:@"user"];
 
             v15 = 0;
             v16 = 0;
             v14 = 0;
-            if (v28)
+            if (v27)
             {
               v12 = *MEMORY[0x277CD4598];
             }
@@ -1764,12 +1782,10 @@ LABEL_22:
   v22 = IMLogHandleForCategory();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    v31 = 138412290;
-    v32 = v21;
-    _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "INStickerForIMSPIAttachment sticker: %@", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = v21;
+    _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "INStickerForIMSPIAttachment sticker: %@", &v30, 0xCu);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -1784,65 +1800,65 @@ LABEL_22:
 
 + (id)INMessageForOutgoingIMMessage:(id)message toChat:(id)chat messageType:(int64_t)type personProvider:(id)provider
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
-  v10 = _IMAssistantCoreGeneralSignpostLogHandle();
+  v10 = _IMAssistantCoreGeneralSignpostLogHandle(chatCopy);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v13 = v12;
-  v49 = v11 - 1;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _IMAssistantCoreGeneralSignpostLogHandle(v12);
+  v14 = v13;
+  v50 = v11 - 1;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "INMessageForOutgoingIMMessage", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "INMessageForOutgoingIMMessage", &unk_2547CAD0B, buf, 2u);
   }
 
   spid = v11;
 
-  v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v53 = 0u;
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v52 = chatCopy;
-  v15 = [chatCopy participantsWithState:16];
-  v16 = [v15 countByEnumeratingWithState:&v53 objects:v58 count:16];
-  if (v16)
+  v57 = 0u;
+  v53 = chatCopy;
+  v16 = [chatCopy participantsWithState:16];
+  v17 = [v16 countByEnumeratingWithState:&v54 objects:v59 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v54;
+    v18 = v17;
+    v19 = *v55;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v54 != v18)
+        if (*v55 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v20 = [self spiHandleForIMHandle:*(*(&v53 + 1) + 8 * i) isMe:0];
-        v21 = [MEMORY[0x277CD3E90] __im_personFromSPIHandle:v20 contact:0];
-        [v14 addObject:v21];
+        v21 = [self spiHandleForIMHandle:*(*(&v54 + 1) + 8 * i) isMe:0];
+        v22 = [MEMORY[0x277CD3E90] __im_personFromSPIHandle:v21 contact:0];
+        [v15 addObject:v22];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
   lastAddressedHandleID = [chatCopy lastAddressedHandleID];
   account = [chatCopy account];
   countryCode = [account countryCode];
 
-  v45 = countryCode;
-  v46 = lastAddressedHandleID;
-  v44 = [objc_alloc(MEMORY[0x277D18DC8]) initWithAddress:lastAddressedHandleID countryCode:countryCode isMe:1];
-  v51 = [MEMORY[0x277CD3E90] __im_personFromSPIHandle:? contact:?];
+  v46 = countryCode;
+  v47 = lastAddressedHandleID;
+  v45 = [objc_alloc(MEMORY[0x277D18DC8]) initWithAddress:lastAddressedHandleID countryCode:countryCode isMe:1];
+  v52 = [MEMORY[0x277CD3E90] __im_personFromSPIHandle:? contact:?];
   plainBody = [messageCopy plainBody];
-  v26 = plainBody;
+  v27 = plainBody;
   if (plainBody)
   {
     string = plainBody;
@@ -1854,30 +1870,28 @@ LABEL_22:
     string = [text string];
   }
 
-  v42 = objc_alloc(MEMORY[0x277CD3DE0]);
+  v43 = objc_alloc(MEMORY[0x277CD3DE0]);
   guid = [messageCopy guid];
   chatIdentifier = [chatCopy chatIdentifier];
   time = [messageCopy time];
-  v31 = [v14 copy];
-  v32 = [IMAssistantINMessageConverter __INSpeakableStringForChat:chatCopy];
-  v50 = messageCopy;
+  v32 = [v15 copy];
+  v33 = [IMAssistantINMessageConverter __INSpeakableStringForChat:chatCopy];
+  v51 = messageCopy;
   expressiveSendStyleID = [messageCopy expressiveSendStyleID];
-  v34 = [IMAssistantINMessageConverter messageEffectTypeFromExpressiveSendId:expressiveSendStyleID];
-  account2 = [v52 account];
+  v35 = [IMAssistantINMessageConverter messageEffectTypeFromExpressiveSendId:expressiveSendStyleID];
+  account2 = [v53 account];
   serviceName = [account2 serviceName];
-  v48 = [v42 initWithIdentifier:guid conversationIdentifier:chatIdentifier content:v32 dateSent:0 sender:0 recipients:type groupName:v34 dateMessageWasLastRead:0 numberOfAttachments:serviceName messageType:? messageEffectType:? referencedMessage:? serviceName:?];
+  v49 = [v43 initWithIdentifier:guid conversationIdentifier:chatIdentifier content:v33 dateSent:0 sender:0 recipients:type groupName:v35 dateMessageWasLastRead:0 numberOfAttachments:serviceName messageType:? messageEffectType:? referencedMessage:? serviceName:?];
 
-  v37 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v38 = v37;
-  if (v49 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+  v39 = _IMAssistantCoreGeneralSignpostLogHandle(v38);
+  v40 = v39;
+  if (v50 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v38, OS_SIGNPOST_INTERVAL_END, spid, "INMessageForOutgoingIMMessage", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v40, OS_SIGNPOST_INTERVAL_END, spid, "INMessageForOutgoingIMMessage", &unk_2547CAD0B, buf, 2u);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v48;
+  return v49;
 }
 
 @end

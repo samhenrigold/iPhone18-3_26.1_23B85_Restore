@@ -59,20 +59,18 @@
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.sirikit.shortcut";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.sirikit.shortcut";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.sirikit.shortcut";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.sirikit.shortcut";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -168,13 +166,12 @@ void __72__INShortcut_INImageProxyInjecting___injectProxiesForImages_completion_
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = a2;
-    v5 = [objc_alloc(objc_opt_class()) initWithIntent:v4];
+    v3 = a2;
+    v4 = [objc_alloc(objc_opt_class()) initWithIntent:v3];
 
-    v6 = *(*(a1 + 40) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 }
 

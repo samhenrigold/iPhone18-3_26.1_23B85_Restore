@@ -109,20 +109,20 @@
     v23 = v21;
     bytes = [v21 bytes];
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(&v34, (v22 / 0xC));
-    v26 = *initPrivate->_anon_8;
+    v26 = *(initPrivate + 1);
     if (v26)
     {
-      *&initPrivate->_anon_8[8] = v26;
+      *(initPrivate + 2) = v26;
       operator delete(v26);
-      *initPrivate->_anon_8 = 0;
-      *&initPrivate->_anon_8[8] = 0;
-      *&initPrivate->_anon_8[16] = 0;
+      *(initPrivate + 1) = 0;
+      *(initPrivate + 2) = 0;
+      *(initPrivate + 3) = 0;
     }
 
     v27 = v34;
-    *initPrivate->_anon_8 = v34;
+    *(initPrivate + 1) = v34;
     v28 = v35;
-    *&initPrivate->_anon_8[8] = v35;
+    *(initPrivate + 1) = v35;
     if (v28 != v27)
     {
       v29 = 0;
@@ -133,14 +133,14 @@
         v25.i64[0] = *(v30 - 1);
         v25.i32[2] = *v30;
         *(v27 + 16 * v29) = v25;
-        v32 = *initPrivate->_anon_8;
+        v32 = *(initPrivate + 1);
         v25 = vdivq_f32(*(v32 + 16 * v29), v31);
         *(v32 + 16 * v29++) = v25;
-        v27 = *initPrivate->_anon_8;
+        v27 = *(initPrivate + 1);
         v30 += 3;
       }
 
-      while (v29 < (*&initPrivate->_anon_8[8] - v27) >> 4);
+      while (v29 < (*(initPrivate + 2) - v27) >> 4);
     }
 
     if (__p)
@@ -155,7 +155,7 @@
 
 - (ARFaceGeometry)initWithFaceTrackingDataProtocol:(id)protocol
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   protocolCopy = protocol;
   initPrivate = [(ARFaceGeometry *)self initPrivate];
   vertexCount = [protocolCopy vertexCount];
@@ -170,50 +170,50 @@
       vertices = [protocolCopy vertices];
       vertices2 = [protocolCopy vertices];
       vertexCount3 = [protocolCopy vertexCount];
-      memset(v19, 0, sizeof(v19));
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v19, vertices, vertices2 + 16 * vertexCount3, (vertices2 + 16 * vertexCount3 - vertices) >> 4);
-      v13 = *(initPrivate + 1);
-      if (v13)
+      memset(v20, 0, sizeof(v20));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v20, vertices, (vertices2 + 16 * vertexCount3), (vertices2 + 16 * vertexCount3 - vertices) >> 4);
+      v14 = *(initPrivate + 1);
+      if (v14)
       {
-        *(initPrivate + 2) = v13;
-        operator delete(v13);
+        *(initPrivate + 2) = v14;
+        operator delete(v14);
         *(initPrivate + 1) = 0;
         *(initPrivate + 2) = 0;
         *(initPrivate + 3) = 0;
       }
 
-      *(initPrivate + 8) = *v19;
-      *(initPrivate + 3) = *&v19[16];
+      *(initPrivate + 8) = *v20;
+      *(initPrivate + 3) = *&v20[16];
     }
 
-    v14 = initPrivate;
+    v15 = initPrivate;
   }
 
   else
   {
-    v15 = _ARLogGeneral();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _ARLogGeneral(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      *v19 = 138543618;
-      *&v19[4] = v17;
-      *&v19[12] = 2048;
-      *&v19[14] = initPrivate;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error: Number of vertices must be consistent with neutral geometry", v19, 0x16u);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      *v20 = 138543618;
+      *&v20[4] = v18;
+      *&v20[12] = 2048;
+      *&v20[14] = initPrivate;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error: Number of vertices must be consistent with neutral geometry", v20, 0x16u);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (ARFaceGeometry)initWithCustomVertices:(ARFaceGeometry *)self verticesCount:(SEL)count
 {
   v4 = v3;
   v5 = v2;
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   initPrivate = [(ARFaceGeometry *)self initPrivate];
   v7 = +[ARNeutralFaceGeometry sharedNeutralGeometry];
   vertexCount = [v7 vertexCount];
@@ -222,46 +222,46 @@
   {
     if (initPrivate)
     {
-      v9 = initPrivate[7];
+      v10 = initPrivate[7];
       initPrivate[7] = 0;
 
-      memset(v16, 0, sizeof(v16));
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v16, v5, v5 + 16 * v4, v4);
-      v10 = initPrivate[1];
-      if (v10)
+      memset(v17, 0, sizeof(v17));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v17, v5, &v5[v4], v4);
+      v11 = initPrivate[1];
+      if (v11)
       {
-        initPrivate[2] = v10;
-        operator delete(v10);
+        initPrivate[2] = v11;
+        operator delete(v11);
         initPrivate[1] = 0;
         initPrivate[2] = 0;
         initPrivate[3] = 0;
       }
 
-      *(initPrivate + 1) = *v16;
-      initPrivate[3] = *&v16[16];
+      *(initPrivate + 1) = *v17;
+      initPrivate[3] = *&v17[16];
     }
 
-    v11 = initPrivate;
+    v12 = initPrivate;
   }
 
   else
   {
-    v12 = _ARLogGeneral();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _ARLogGeneral(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      *v16 = 138543618;
-      *&v16[4] = v14;
-      *&v16[12] = 2048;
-      *&v16[14] = initPrivate;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error: Number of vertices must be consistent with neutral geometry", v16, 0x16u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      *v17 = 138543618;
+      *&v17[4] = v15;
+      *&v17[12] = 2048;
+      *&v17[14] = initPrivate;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error: Number of vertices must be consistent with neutral geometry", v17, 0x16u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -432,7 +432,7 @@
       bytes = [v7 bytes];
       v19 = 0uLL;
       v20 = 0;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v19, bytes, bytes + 16 * (v8 >> 4), (v8 >> 4));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v19, bytes, &bytes[(v8 >> 4)], (v8 >> 4));
       v10 = *(initPrivate + 1);
       if (v10)
       {
@@ -455,7 +455,7 @@
       bytes2 = [v12 bytes];
       v19 = 0uLL;
       v20 = 0;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v19, bytes2, bytes2 + 16 * (v13 >> 4), (v13 >> 4));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v19, bytes2, &bytes2[(v13 >> 4)], (v13 >> 4));
       v15 = *(initPrivate + 4);
       if (v15)
       {

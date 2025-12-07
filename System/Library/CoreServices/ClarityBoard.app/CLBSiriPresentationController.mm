@@ -270,7 +270,7 @@ LABEL_14:
 
 - (id)contentBackgroundColor
 {
-  sub_10002C9FC(0, &qword_10032DC28);
+  sub_10002C9FC(0, &qword_10032DC28, UIColor_ptr);
   v2 = static UIColor.clarityUIContentBackground.getter();
 
   return v2;

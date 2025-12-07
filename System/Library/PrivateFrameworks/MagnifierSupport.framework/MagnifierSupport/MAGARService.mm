@@ -39,9 +39,9 @@
 
 - (void)replayConfigurationDidFinishReplaying:(id)replaying
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F8F5D70);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = &v10 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F8F5D70, &unk_257ED9DB0);
+  MEMORY[0x28223BE20](v4 - 8, v5, v6, v7, v8);
+  v10 = &v14 - v9;
   swift_beginAccess();
   if (byte_27F8F87B0 == 1)
   {
@@ -50,14 +50,14 @@
 
   else
   {
-    v7 = sub_257ECF930();
-    (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-    v8 = swift_allocObject();
-    v8[2] = 0;
-    v8[3] = 0;
-    v8[4] = self;
+    v11 = sub_257ECF930();
+    (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+    v12 = swift_allocObject();
+    v12[2] = 0;
+    v12[3] = 0;
+    v12[4] = self;
     selfCopy = self;
-    sub_257E81524(0, 0, v6, &unk_257EE3C60, v8);
+    sub_257E81524(0, 0, v10, &unk_257EE3C60, v12);
   }
 }
 

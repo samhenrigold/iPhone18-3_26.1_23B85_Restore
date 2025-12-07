@@ -69,7 +69,7 @@
 - (void)_setUnbloomedAppearance
 {
   seed = self->_seed;
-  [(_UIRefreshControlModernContentView *)self _unbloomedSeedTransform];
+  objc_msgSend__unbloomedSeedTransform(self, a2);
   [(UIView *)seed setTransform:&v3];
 }
 
@@ -420,7 +420,7 @@ LABEL_23:
 - (void)_setBloomedAppearance
 {
   seed = self->_seed;
-  [(_UIRefreshControlModernContentView *)self _bloomedSeedTransform];
+  objc_msgSend__bloomedSeedTransform(self, a2);
   [(UIView *)seed setTransform:&v3];
 }
 
@@ -429,7 +429,7 @@ LABEL_23:
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  [(_UIRefreshControlModernContentView *)self _unbloomedSeedTransform];
+  objc_msgSend__unbloomedSeedTransform(self, a3);
   memset(&v13, 0, sizeof(v13));
   CGAffineTransformMakeScale(&v13, 1.2, 1.2);
   memset(&v12, 0, sizeof(v12));

@@ -45,16 +45,14 @@
 
 + (LAExtendedRequirement)applicationRemainsForegroundRequirement
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [LAExtendedRequirement alloc];
-  v8 = @"af";
-  v9[0] = MEMORY[0x1E695E118];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"af";
+  v8[0] = MEMORY[0x1E695E118];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   objc_claimAutoreleasedReturnValue();
   v4 = OUTLINED_FUNCTION_0();
   v5 = [(LAExtendedRequirement *)v4 initWithConstraint:v2];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

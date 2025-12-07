@@ -2,7 +2,6 @@
 - (BOOL)_longRangeEnabled;
 - (BOOL)_peerSupportsLongRange;
 - (BOOL)_shouldBypassBluetoothDiscovery;
-- (BOOL)isExtendedDistanceMeasurementEnabled;
 - (BOOL)isLegacyDiscoveryToken:(id)token;
 - (BOOL)shouldInitiate:(id)initiate peerDiscoveryToken:(id)token error:(id *)error;
 - (NIServerNearbyPeerSession)initWithResourcesManager:(id)manager configuration:(id)configuration error:(id *)error;
@@ -95,7 +94,7 @@
   analytics = [managerCopy analytics];
   if (managerCopy)
   {
-    [managerCopy protobufLogger];
+    objc_msgSend_protobufLogger(managerCopy);
   }
 
   else
@@ -135,7 +134,7 @@ LABEL_16:
   v12[224] = 0;
   if (managerCopy)
   {
-    [managerCopy powerBudgetProvider];
+    objc_msgSend_powerBudgetProvider(managerCopy);
     v29 = *buf;
   }
 
@@ -254,18 +253,8 @@ LABEL_33:
   }
 
   peerDiscoveryToken = [(NINearbyPeerConfiguration *)configuration peerDiscoveryToken];
-  if (!peerDiscoveryToken)
+  if (!peerDiscoveryToken || (-[NINearbyPeerConfiguration peerDiscoveryToken](self->_configuration, "peerDiscoveryToken"), v5 = objc_claimAutoreleasedReturnValue(), [v5 rawToken], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, v5, peerDiscoveryToken, v7 <= 0xF))
   {
-    goto LABEL_4;
-  }
-
-  peerDiscoveryToken2 = [(NINearbyPeerConfiguration *)self->_configuration peerDiscoveryToken];
-  rawToken = [peerDiscoveryToken2 rawToken];
-  v7 = [rawToken length];
-
-  if (v7 <= 0xF)
-  {
-LABEL_4:
     v29 = NSLocalizedFailureReasonErrorKey;
     v30 = @"Peer discovery token nil or invalid.";
     v8 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
@@ -275,8 +264,8 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  peerDiscoveryToken3 = [(NINearbyPeerConfiguration *)self->_configuration peerDiscoveryToken];
-  v11 = sub_1003005A0(peerDiscoveryToken3);
+  peerDiscoveryToken2 = [(NINearbyPeerConfiguration *)self->_configuration peerDiscoveryToken];
+  v11 = sub_1003005A0(peerDiscoveryToken2);
   v12 = v11;
   if (v11)
   {
@@ -445,13 +434,9 @@ LABEL_27:
 {
   discoveredCopy = discovered;
   dispatch_assert_queue_V2(self->_clientQueue);
-  if (![(NIServerNearbyPeerSession *)self _shouldBypassBluetoothDiscovery])
+  if (![(NIServerNearbyPeerSession *)self _shouldBypassBluetoothDiscovery]&& (objc_opt_respondsToSelector() & 1) != 0)
   {
-    subspecializedPeerSession = self->_subspecializedPeerSession;
-    if (objc_opt_respondsToSelector())
-    {
-      [(NIServerNearbyPeerSubspecializationProtocol *)self->_subspecializedPeerSession deviceDiscovered:discoveredCopy];
-    }
+    [(NIServerNearbyPeerSubspecializationProtocol *)self->_subspecializedPeerSession deviceDiscovered:discoveredCopy];
   }
 }
 
@@ -463,20 +448,16 @@ LABEL_27:
   v8 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138478083;
-    v11 = rediscoveredCopy;
-    v12 = 2113;
-    v13 = deviceCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#ses-nrby-peer,discoveredDevice:didUpdate: new: %{private}@, cached: %{private}@", &v10, 0x16u);
+    v9 = 138478083;
+    v10 = rediscoveredCopy;
+    v11 = 2113;
+    v12 = deviceCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#ses-nrby-peer,discoveredDevice:didUpdate: new: %{private}@, cached: %{private}@", &v9, 0x16u);
   }
 
-  if (![(NIServerNearbyPeerSession *)self _shouldBypassBluetoothDiscovery])
+  if (![(NIServerNearbyPeerSession *)self _shouldBypassBluetoothDiscovery]&& (objc_opt_respondsToSelector() & 1) != 0)
   {
-    subspecializedPeerSession = self->_subspecializedPeerSession;
-    if (objc_opt_respondsToSelector())
-    {
-      [(NIServerNearbyPeerSubspecializationProtocol *)self->_subspecializedPeerSession device:deviceCopy rediscovered:rediscoveredCopy];
-    }
+    [(NIServerNearbyPeerSubspecializationProtocol *)self->_subspecializedPeerSession device:deviceCopy rediscovered:rediscoveredCopy];
   }
 }
 
@@ -484,21 +465,13 @@ LABEL_27:
 {
   dispatch_assert_queue_V2(self->_clientQueue);
   v3 = objc_opt_new();
-  subspecializedPeerSession = self->_subspecializedPeerSession;
-  v5 = [NSString stringWithFormat:@"Subspecialized session: %@", objc_opt_class()];
-  [v3 addObject:v5];
+  v4 = [NSString stringWithFormat:@"Subspecialized session: %@", objc_opt_class()];
+  [v3 addObject:v4];
 
   printableState = [(NIServerNearbyPeerSubspecializationProtocol *)self->_subspecializedPeerSession printableState];
   [v3 addObjectsFromArray:printableState];
 
   return v3;
-}
-
-- (BOOL)isExtendedDistanceMeasurementEnabled
-{
-  subspecializedPeerSession = self->_subspecializedPeerSession;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
 }
 
 - (id)getResourcesManager
@@ -524,28 +497,10 @@ LABEL_27:
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_clientQueue);
   debugParameters = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-  if (!debugParameters)
+  if (debugParameters && (-[NINearbyPeerConfiguration debugParameters](self->_configuration, "debugParameters"), v11 = objc_claimAutoreleasedReturnValue(), [v11 objectForKey:@"role"], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, debugParameters, v12) && (-[NINearbyPeerConfiguration debugParameters](self->_configuration, "debugParameters"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "objectForKey:", @"role"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v14, v13, (isKindOfClass & 1) != 0))
   {
-    goto LABEL_6;
-  }
-
-  debugParameters2 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-  v12 = [debugParameters2 objectForKey:@"role"];
-
-  if (!v12)
-  {
-    goto LABEL_6;
-  }
-
-  debugParameters3 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-  v14 = [debugParameters3 objectForKey:@"role"];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    debugParameters4 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-    v17 = [debugParameters4 objectForKey:@"role"];
+    debugParameters2 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
+    v17 = [debugParameters2 objectForKey:@"role"];
     intValue = [v17 intValue];
 
     v19 = intValue == 0;
@@ -562,7 +517,6 @@ LABEL_27:
 
   else
   {
-LABEL_6:
     rawToken = [initiateCopy rawToken];
     rawToken2 = [tokenCopy rawToken];
     v23 = [rawToken isEqualToData:rawToken2];
@@ -697,7 +651,7 @@ LABEL_27:
     self->_cachedSolutionMacAddr = *(solution + 5);
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
     {
-      sub_1004B7994(&self->_cachedSolutionMacAddr);
+      sub_1004B7994();
     }
 
     v6 = [(NIServerNearbyPeerSession *)self discoveryTokenFromIdentifier:self->_cachedSolutionMacAddr];
@@ -712,23 +666,7 @@ LABEL_27:
       if (v9)
       {
         debugParameters = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-        if (!debugParameters)
-        {
-          goto LABEL_13;
-        }
-
-        debugParameters2 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-        v12 = [debugParameters2 objectForKey:@"enableAdditionalUWBSignalFeatures"];
-
-        if (!v12)
-        {
-          goto LABEL_13;
-        }
-
-        debugParameters3 = [(NINearbyPeerConfiguration *)self->_configuration debugParameters];
-        v14 = [debugParameters3 objectForKey:@"enableAdditionalUWBSignalFeatures"];
-
-        if (v14 && (v15 = [v14 BOOLValue], v14, (v15 & 1) != 0))
+        if (debugParameters && (-[NINearbyPeerConfiguration debugParameters](self->_configuration, "debugParameters"), v11 = objc_claimAutoreleasedReturnValue(), [v11 objectForKey:@"enableAdditionalUWBSignalFeatures"], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, debugParameters, v12) && (-[NINearbyPeerConfiguration debugParameters](self->_configuration, "debugParameters"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "objectForKey:", @"enableAdditionalUWBSignalFeatures"), v14 = objc_claimAutoreleasedReturnValue(), v13, v14) && (v15 = objc_msgSend(v14, "BOOLValue"), v14, (v15 & 1) != 0))
         {
           v19 = xmmword_1005691B8;
           v20 = 1;
@@ -737,7 +675,6 @@ LABEL_27:
 
         else
         {
-LABEL_13:
           [(NINearbyUpdatesEngine *)self->_updatesEngine acceptRoseSolution:solution];
         }
 
@@ -823,7 +760,7 @@ LABEL_13:
           v9 = sub_100003AA8(v8[144]);
           v20 = 0;
           v21 = v9;
-          if (sub_10026E5F4(data + 1, __p, &v20))
+          if (sub_10026E5F4(data + 8, __p, &v20))
           {
             v30 = *(data + 4);
             LOBYTE(v31) = 1;
@@ -850,7 +787,7 @@ LABEL_13:
 
       else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B7A78(data + 5);
+        sub_1004B7A78();
       }
     }
 
@@ -891,7 +828,7 @@ LABEL_13:
 
           else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
           {
-            sub_1004B7A78(v14);
+            sub_1004B7A78();
           }
         }
 
@@ -1178,7 +1115,7 @@ LABEL_13:
       }
 
       LOBYTE(__ns.__rep_) = 0;
-      sub_100025100(__p, 16);
+      sub_100025100(__p, 16, &__ns);
       v10 = *__p;
       **__p = 258;
       *(v10 + 2) = 0;
@@ -2072,7 +2009,7 @@ LABEL_32:
 {
   self->_powerBudgetProvider.__ptr_ = 0;
   self->_powerBudgetProvider.__cntrl_ = 0;
-  sub_1002FE758(&self->_machTimeConverter, a2);
+  sub_1002FE758(&self->_machTimeConverter);
   self->_currentFindeeData.var0.__null_state_ = 0;
   self->_currentFindeeData.__engaged_ = 0;
   self->_currentSignallingData.var0.__null_state_ = 0;

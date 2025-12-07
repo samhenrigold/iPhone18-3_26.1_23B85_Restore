@@ -380,7 +380,7 @@
   v74 = v49;
   if (snapshotView)
   {
-    [snapshotView transform];
+    objc_msgSend_transform(snapshotView);
     a = m.a;
     b = m.b;
     c = m.c;
@@ -406,7 +406,7 @@
   *&m.a = v58;
   if (snapshotView)
   {
-    [snapshotView transform];
+    objc_msgSend_transform(snapshotView);
   }
 
   else

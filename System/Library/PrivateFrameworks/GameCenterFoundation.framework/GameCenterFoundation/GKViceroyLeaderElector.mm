@@ -8,6 +8,7 @@
 - (void)chooseBestHostingPlayerWithCompletionHandler:(id)handler;
 - (void)networkStatisticsDidChange:(id)change localPlayerPeerID:(id)d;
 - (void)receivedChooseHostData:(id)data fromPlayerID:(id)d;
+- (void)sendHostScoreAsQuery:(BOOL)query;
 @end
 
 @implementation GKViceroyLeaderElector
@@ -98,12 +99,12 @@ void __71__GKViceroyLeaderElector_chooseBestHostingPlayerWithCompletionHandler__
   }
 }
 
-uint64_t __71__GKViceroyLeaderElector_chooseBestHostingPlayerWithCompletionHandler___block_invoke_2(uint64_t a1)
+void (**__71__GKViceroyLeaderElector_chooseBestHostingPlayerWithCompletionHandler___block_invoke_2(uint64_t a1))(void *, void)
 {
   result = *(*(a1 + 32) + 16);
   if (result)
   {
-    (*(result + 16))(result, 0);
+    result[2](result, 0);
     v3 = *(a1 + 32);
 
     return [v3 setChooseHostCompletion:0];
@@ -184,7 +185,7 @@ LABEL_8:
 
 - (void)addHostScore:(int)score forPlayer:(id)player
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   playerCopy = player;
   if (playerCopy)
   {
@@ -199,17 +200,15 @@ LABEL_8:
       hostScores = selfCopy->_hostScores;
     }
 
-    v14[0] = playerCopy;
+    v13[0] = playerCopy;
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:score];
-    v14[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     referenceKey = [playerCopy referenceKey];
     [(NSMutableDictionary *)hostScores setObject:v11 forKey:referenceKey];
 
     objc_sync_exit(selfCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)haveAllHostScores
@@ -226,7 +225,7 @@ LABEL_8:
 
 - (BOOL)selectHostIfRequestedAndAllScored
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->_chooseHostCompletion)
   {
     haveAllHostScores = [(GKViceroyLeaderElector *)self haveAllHostScores];
@@ -241,25 +240,25 @@ LABEL_8:
       v8 = [v7 objectAtIndex:1];
       integerValue = [v8 integerValue];
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       obj = selfCopy->_hostScores;
-      v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v10)
       {
-        v11 = *v27;
+        v11 = *v26;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v27 != v11)
+            if (*v26 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v26 + 1) + 8 * i);
+            v13 = *(*(&v25 + 1) + 8 * i);
             v14 = [p_isa[3] objectForKey:v13];
 
             v7 = v14;
@@ -277,7 +276,7 @@ LABEL_8:
             }
           }
 
-          v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v10);
@@ -291,7 +290,7 @@ LABEL_8:
       block[2] = __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_invoke;
       block[3] = &unk_2785DEBA8;
       block[4] = p_isa;
-      v25 = v4;
+      v24 = v4;
       v19 = v4;
       dispatch_async(MEMORY[0x277D85CD0], block);
 
@@ -304,21 +303,20 @@ LABEL_8:
     LOBYTE(haveAllHostScores) = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return haveAllHostScores;
 }
 
-uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_invoke(uint64_t result)
+void *__59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 16);
+  v1 = *(*(result + 4) + 16);
   if (v1)
   {
     v2 = result;
-    v3 = [*(result + 40) internal];
+    v3 = [*(result + 5) internal];
     v4 = [v3 playerID];
     (*(v1 + 16))(v1, v4);
 
-    v5 = *(v2 + 32);
+    v5 = v2[4];
 
     return [v5 setChooseHostCompletion:0];
   }
@@ -328,9 +326,9 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
 
 - (void)calculateHostScore
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v49 = +[GKLocalPlayer local];
-  referenceKey = [v49 referenceKey];
+  v72 = *MEMORY[0x277D85DE8];
+  v48 = +[GKLocalPlayer local];
+  referenceKey = [v48 referenceKey];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v4 = [(NSMutableDictionary *)selfCopy->_hostScores objectForKey:referenceKey];
@@ -339,19 +337,19 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
   if (!v4)
   {
     networkStatistics = selfCopy->_networkStatistics;
-    if (networkStatistics && selfCopy->_localPlayerPeerID && (v50 = selfCopy, -[NSDictionary objectForKey:](networkStatistics, "objectForKey:"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKey:@"GKSStatsLinks"], v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
+    if (networkStatistics && selfCopy->_localPlayerPeerID && (v49 = selfCopy, -[NSDictionary objectForKey:](networkStatistics, "objectForKey:"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKey:@"GKSStatsLinks"], v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
     {
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v57 objects:v72 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v56 objects:v71 count:16];
       if (v9)
       {
-        v10 = *v58;
+        v10 = *v57;
+        v50 = 0.0;
         v51 = 0.0;
-        v52 = 0.0;
         v11 = 0.0;
         v12 = 0.0;
         v13 = 0.0;
@@ -359,12 +357,12 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v58 != v10)
+            if (*v57 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            v15 = [v8 objectForKey:{*(*(&v57 + 1) + 8 * i), referenceKey}];
+            v15 = [v8 objectForKey:{*(*(&v56 + 1) + 8 * i), referenceKey}];
             v16 = [v15 objectForKey:@"GKSStatsSendBWE"];
             [v16 doubleValue];
             v18 = v17;
@@ -388,11 +386,11 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
             v13 = v13 + v18;
             v12 = v12 + v21;
             v11 = v11 + v24;
-            v51 = v51 + v27;
-            v52 = v52 + v30;
+            v50 = v50 + v27;
+            v51 = v51 + v30;
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v57 objects:v72 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v56 objects:v71 count:16];
         }
 
         while (v9);
@@ -400,8 +398,8 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
 
       else
       {
+        v50 = 0.0;
         v51 = 0.0;
-        v52 = 0.0;
         v11 = 0.0;
         v12 = 0.0;
         v13 = 0.0;
@@ -410,8 +408,8 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
       v31 = [v8 count];
       if (v31 < 2)
       {
-        v32 = v51;
-        v33 = v52;
+        v32 = v50;
+        v33 = v51;
       }
 
       else
@@ -419,8 +417,8 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
         v13 = v13 / v31;
         v12 = v12 / v31;
         v11 = v11 / v31;
-        v32 = v51 / v31;
-        v33 = v52 / v31;
+        v32 = v50 / v31;
+        v33 = v51 / v31;
       }
 
       v34 = os_log_GKGeneral;
@@ -433,43 +431,43 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 134219264;
-        *v63 = ((((v12 + v13) * 0.3 + 0.0) - (v32 + v11) * 0.3) + v33 * -0.4);
-        *&v63[8] = 2048;
-        *&v63[10] = v13;
-        v64 = 2048;
-        v65 = v12;
-        v66 = 2048;
-        v67 = v11;
-        v68 = 2048;
-        v69 = v32;
-        v70 = 2048;
-        v71 = v33;
+        *v62 = ((((v12 + v13) * 0.3 + 0.0) - (v32 + v11) * 0.3) + v33 * -0.4);
+        *&v62[8] = 2048;
+        *&v62[10] = v13;
+        v63 = 2048;
+        v64 = v12;
+        v65 = 2048;
+        v66 = v11;
+        v67 = 2048;
+        v68 = v32;
+        v69 = 2048;
+        v70 = v33;
         _os_log_impl(&dword_227904000, v34, OS_LOG_TYPE_INFO, "[GKViceroyLeaderElector] Host score %ld  (sendBandwidth = %f, receiveBandwidth = %f, sendLoss = %f, receiveLoss = %f, rtt = %f)", buf, 0x3Eu);
       }
 
-      [(GKViceroyLeaderElector *)v50 addHostScore:((((v12 + v13) * 0.3 + 0.0) - (v32 + v11) * 0.3) + v33 * -0.4) forPlayer:v49, referenceKey];
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
+      [(GKViceroyLeaderElector *)v49 addHostScore:((((v12 + v13) * 0.3 + 0.0) - (v32 + v11) * 0.3) + v33 * -0.4) forPlayer:v48, referenceKey];
       v54 = 0u;
-      matchDataDelegate = [(GKViceroyLeaderElector *)v50 matchDataDelegate];
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      matchDataDelegate = [(GKViceroyLeaderElector *)v49 matchDataDelegate];
       guestPlayers = [matchDataDelegate guestPlayers];
 
-      v38 = [guestPlayers countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v38 = [guestPlayers countByEnumeratingWithState:&v52 objects:v60 count:16];
       if (v38)
       {
-        v39 = *v54;
+        v39 = *v53;
         do
         {
           for (j = 0; j != v38; ++j)
           {
-            if (*v54 != v39)
+            if (*v53 != v39)
             {
               objc_enumerationMutation(guestPlayers);
             }
 
-            v41 = *(*(&v53 + 1) + 8 * j);
-            [(GKViceroyLeaderElector *)v50 addHostScore:0 forPlayer:v41];
+            v41 = *(*(&v52 + 1) + 8 * j);
+            [(GKViceroyLeaderElector *)v49 addHostScore:0 forPlayer:v41];
             v42 = os_log_GKGeneral;
             if (!os_log_GKGeneral)
             {
@@ -483,20 +481,20 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
               internal = [v41 internal];
               playerID = [internal playerID];
               *buf = 67109378;
-              *v63 = 0;
-              *&v63[4] = 2112;
-              *&v63[6] = playerID;
+              *v62 = 0;
+              *&v62[4] = 2112;
+              *&v62[6] = playerID;
               _os_log_impl(&dword_227904000, v44, OS_LOG_TYPE_INFO, "[GKViceroyLeaderElector] Added host score of %i for guest player = %@", buf, 0x12u);
             }
           }
 
-          v38 = [guestPlayers countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v38 = [guestPlayers countByEnumeratingWithState:&v52 objects:v60 count:16];
         }
 
         while (v38);
       }
 
-      [(GKViceroyLeaderElector *)v50 selectHostIfRequestedAndAllScored];
+      [(GKViceroyLeaderElector *)v49 selectHostIfRequestedAndAllScored];
     }
 
     else
@@ -504,8 +502,56 @@ uint64_t __59__GKViceroyLeaderElector_selectHostIfRequestedAndAllScored__block_i
       [(GKViceroyLeaderElector *)selfCopy setNeedHostScore:1, referenceKey];
     }
   }
+}
 
-  v47 = *MEMORY[0x277D85DE8];
+- (void)sendHostScoreAsQuery:(BOOL)query
+{
+  queryCopy = query;
+  v24[1] = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  hostScores = selfCopy->_hostScores;
+  v6 = +[GKLocalPlayer localPlayer];
+  referenceKey = [v6 referenceKey];
+  v8 = [(NSMutableDictionary *)hostScores objectForKey:referenceKey];
+
+  objc_sync_exit(selfCopy);
+  if (v8)
+  {
+    v23 = @"query";
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:queryCopy];
+    v24[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+
+    v11 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:0];
+    v12 = [v8 objectAtIndex:1];
+    integerValue = [v12 integerValue];
+
+    v20 = integerValue;
+    v14 = [MEMORY[0x277CBEB28] dataWithBytes:&v20 length:4];
+    [v14 appendData:v11];
+    matchDataDelegate = [(GKViceroyLeaderElector *)selfCopy matchDataDelegate];
+    v19 = 0;
+    [matchDataDelegate sendPacketDataToAll:v14 packetType:4 dataMode:0 error:&v19];
+    v16 = v19;
+
+    if (v16)
+    {
+      v17 = os_log_GKGeneral;
+      if (!os_log_GKGeneral)
+      {
+        v18 = GKOSLoggers();
+        v17 = os_log_GKGeneral;
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v22 = v16;
+        _os_log_impl(&dword_227904000, v17, OS_LOG_TYPE_INFO, "[GKViceroyLeaderElector] Failed to enqueue GKMatchChooseHostPacketType send to all, error %@", buf, 0xCu);
+      }
+    }
+  }
 }
 
 - (GKTransportMatchDataDelegate)matchDataDelegate

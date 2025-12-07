@@ -120,7 +120,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -132,7 +131,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      currentRTT = self->_currentRTT;
       PBDataWriterWriteUint64Field();
       if ((*&self->_has & 1) == 0)
       {
@@ -148,7 +146,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  linkType = self->_linkType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -163,7 +160,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  bandwidth = self->_bandwidth;
 
   PBDataWriterWriteUint64Field();
 }

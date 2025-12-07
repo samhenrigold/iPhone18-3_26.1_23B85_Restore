@@ -109,11 +109,11 @@
     dataTask = self->_dataTask;
     self->_dataTask = 0;
 
-    v38 = [NSJSONSerialization JSONObjectWithData:dataCopy options:0 error:0];
+    v42 = [NSJSONSerialization JSONObjectWithData:dataCopy options:0 error:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = v38;
+      v7 = v42;
     }
 
     else
@@ -121,13 +121,14 @@
       v7 = 0;
     }
 
-    v39 = v7;
-    if ([v39 count] <= 1)
+    v43 = v7;
+    v8 = [v43 count];
+    if (v8 <= 1)
     {
-      v8 = sub_100003A74();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100003A74(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_100003CDC(buf, [v39 count], v8);
+        sub_100003CDC(buf, [v43 count], v10);
       }
 
       (*(selfCopy->_completionHandler + 2))();
@@ -136,71 +137,71 @@
     }
 
     searchTerms = self->_searchTerms;
-    v10 = [v39 safari_stringAtIndex:0];
-    LOBYTE(searchTerms) = [(NSString *)searchTerms isEqualToString:v10];
+    v12 = [v43 safari_stringAtIndex:0];
+    LOBYTE(searchTerms) = [(NSString *)searchTerms isEqualToString:v12];
 
     if ((searchTerms & 1) == 0)
     {
-      v11 = sub_100003A74();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = sub_100003A74(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v12 = selfCopy->_searchTerms;
-        v13 = [v39 safari_stringAtIndex:0];
-        sub_100003C58(v12, v13, buf, v11);
+        v16 = selfCopy->_searchTerms;
+        v17 = [v43 safari_stringAtIndex:0];
+        sub_100003C58(v16, v17, buf, v15);
       }
     }
 
-    if ([v39 count] < 4)
+    if ([v43 count] < 4)
     {
-      v35 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v14 = [v39 safari_dictionaryAtIndex:3];
-      v15 = v14;
-      if (v14)
+      v18 = [v43 safari_dictionaryAtIndex:3];
+      v19 = v18;
+      if (v18)
       {
-        v35 = [v14 safari_numberForKey:@"google:navintent"];
+        v39 = [v18 safari_numberForKey:@"google:navintent"];
       }
 
       else
       {
-        v35 = 0;
+        v39 = 0;
       }
     }
 
-    v34 = [v39 safari_arrayAtIndex:1];
-    v45 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v34 count]);
-    v43 = +[NSMutableArray array];
-    v44 = +[NSMutableDictionary dictionary];
-    if ([v39 count] < 4)
+    v38 = [v43 safari_arrayAtIndex:1];
+    v49 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v38 count]);
+    v47 = +[NSMutableArray array];
+    v48 = +[NSMutableDictionary dictionary];
+    if ([v43 count] < 4)
     {
-      v47 = 0;
+      v51 = 0;
     }
 
     else
     {
-      v16 = [v39 safari_dictionaryAtIndex:3];
-      v47 = [v16 safari_arrayForKey:@"google:suggestdetail"];
+      v20 = [v43 safari_dictionaryAtIndex:3];
+      v51 = [v20 safari_arrayForKey:@"google:suggestdetail"];
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    obj = v34;
-    v17 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
-    if (!v17)
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    obj = v38;
+    v21 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+    if (!v21)
     {
 LABEL_43:
 
-      v31 = +[NSMutableArray array];
-      [v31 addObjectsFromArray:v43];
-      [v31 addObjectsFromArray:v45];
-      v32 = [v31 mutableCopy];
+      v35 = +[NSMutableArray array];
+      [v35 addObjectsFromArray:v47];
+      [v35 addObjectsFromArray:v49];
+      v36 = [v35 mutableCopy];
 
-      v33 = [[WBSSearchSuggestionsFetcherResponse alloc] initWithSuggestions:v32 postFixSuggestions:v44 prefixNavigationalIntent:v35 sizeInBytes:countOfBytesReceived statusCode:objc_msgSend(responseCopy timingData:{"statusCode"), _timingData}];
+      v37 = [[WBSSearchSuggestionsFetcherResponse alloc] initWithSuggestions:v36 postFixSuggestions:v48 prefixNavigationalIntent:v39 sizeInBytes:countOfBytesReceived statusCode:objc_msgSend(responseCopy timingData:{"statusCode"), _timingData}];
       (*(selfCopy->_completionHandler + 2))();
       [(SearchSuggestionsFetcher *)selfCopy _resetFetchRequest];
 
@@ -208,23 +209,23 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v18 = 0;
-    v19 = *v49;
+    v22 = 0;
+    v23 = *v53;
 LABEL_25:
-    v20 = 0;
+    v24 = 0;
     while (1)
     {
-      if (*v49 != v19)
+      if (*v53 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v48 + 1) + 8 * v20);
+      v25 = *(*(&v52 + 1) + 8 * v24);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v22 = v21;
-        v23 = [v47 objectAtIndexedSubscript:v18];
+        v26 = v25;
+        v27 = [v51 objectAtIndexedSubscript:v22];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
@@ -233,55 +234,55 @@ LABEL_25:
           goto LABEL_39;
         }
 
-        v25 = [v47 objectAtIndexedSubscript:v18];
-        v26 = [v25 objectForKeyedSubscript:@"t"];
-        v27 = v26 == 0;
+        v29 = [v51 objectAtIndexedSubscript:v22];
+        v30 = [v29 objectForKeyedSubscript:@"t"];
+        v31 = v30 == 0;
 
-        if (v27)
+        if (v31)
         {
           goto LABEL_38;
         }
 
-        v28 = [v25 objectForKeyedSubscript:@"t"];
-        if (![v22 hasSuffix:v28])
+        v32 = [v29 objectForKeyedSubscript:@"t"];
+        if (![v26 hasSuffix:v32])
         {
 
 LABEL_38:
 LABEL_39:
-          if (v22)
+          if (v26)
           {
-            [v45 addObject:v22];
+            [v49 addObject:v26];
           }
 
           goto LABEL_41;
         }
 
-        v29 = [v25 objectForKeyedSubscript:@"mp"];
-        v30 = [v29 stringByAppendingString:v28];
-        [v44 setObject:v30 forKeyedSubscript:v22];
+        v33 = [v29 objectForKeyedSubscript:@"mp"];
+        v34 = [v33 stringByAppendingString:v32];
+        [v48 setObject:v34 forKeyedSubscript:v26];
 
-        [v43 addObject:v22];
-        ++v18;
+        [v47 addObject:v26];
+        ++v22;
       }
 
       else
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v21 count])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v25 count])
         {
-          v22 = [v21 safari_stringAtIndex:0];
+          v26 = [v25 safari_stringAtIndex:0];
           goto LABEL_39;
         }
 
-        v22 = 0;
+        v26 = 0;
       }
 
 LABEL_41:
 
-      if (v17 == ++v20)
+      if (v21 == ++v24)
       {
-        v17 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
-        if (!v17)
+        v21 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+        if (!v21)
         {
           goto LABEL_43;
         }
@@ -297,11 +298,11 @@ LABEL_45:
 - (void)_requestDidFailWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100003A74();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = sub_100003A74(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    sub_100003D24(safari_privacyPreservingDescription, v7, v5);
+    sub_100003D24(safari_privacyPreservingDescription, v8, v6);
   }
 
   [(SearchSuggestionsFetcher *)self _stopLoading];

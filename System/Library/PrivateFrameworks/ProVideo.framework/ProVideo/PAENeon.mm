@@ -28,7 +28,7 @@
   return [PAENeon properties]::sPropertiesDict;
 }
 
-uint64_t __21__PAENeon_properties__block_invoke()
+void *__21__PAENeon_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -157,16 +157,16 @@ LABEL_18:
   }
 
   versionAtCreation = [v10 versionAtCreation];
-  *&v47 = 1.0;
-  [v9 getFloatValue:&v47 fromParm:1 atFxTime:info->var0.var1];
-  v46 = 0.0;
-  [v9 getFloatValue:&v46 fromParm:3 atFxTime:info->var0.var1];
-  *&v45 = 1.0;
-  [v9 getFloatValue:&v45 fromParm:2 atFxTime:info->var0.var1];
-  v44 = 0.0;
-  [v9 getFloatValue:&v44 fromParm:5 atFxTime:info->var0.var1];
   *&v43 = 1.0;
-  [v9 getFloatValue:&v43 fromParm:4 atFxTime:info->var0.var1];
+  [v9 getFloatValue:&v43 fromParm:1 atFxTime:info->var0.var1];
+  v42 = 0.0;
+  [v9 getFloatValue:&v42 fromParm:3 atFxTime:info->var0.var1];
+  *&v41 = 1.0;
+  [v9 getFloatValue:&v41 fromParm:2 atFxTime:info->var0.var1];
+  v40 = 0.0;
+  [v9 getFloatValue:&v40 fromParm:5 atFxTime:info->var0.var1];
+  *&v39 = 1.0;
+  [v9 getFloatValue:&v39 fromParm:4 atFxTime:info->var0.var1];
   v13 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
   imageType = [input imageType];
   if (v13)
@@ -184,110 +184,116 @@ LABEL_18:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
     {
-      v42 = 0;
+      v38 = 0;
     }
 
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
-    v16 = *&v47;
-    v38 = v42;
-    if (v42)
-    {
-      (*(*v42 + 16))(v42);
-    }
-
-    [(PAENeon *)self brightnessNodeWithValue:&v38 inputNode:v16];
+    objc_msgSend_getScaleForImage_(self);
+    v16 = *&v43;
+    v34 = v38;
     if (v38)
     {
-      (*(*v38 + 24))(v38);
+      (*(*v38 + 16))(v38);
     }
 
-    v17 = v46;
-    v18 = v40;
-    v19 = v41;
-    v36 = v42;
-    if (v42)
-    {
-      (*(*v42 + 16))(v42);
-    }
-
-    [(PAENeon *)self blurNodeWithRadius:&v36 xScale:v17 yScale:v18 inputNode:v19];
-    if (v36)
-    {
-      (*(*v36 + 24))(v36);
-    }
-
-    v20 = *&v45;
-    v34 = v37;
-    if (v37)
-    {
-      (*(*v37 + 16))(v37);
-    }
-
-    [(PAENeon *)self brightnessNodeWithValue:&v34 inputNode:v20];
+    objc_msgSend_brightnessNodeWithValue_inputNode_(self, v16);
     if (v34)
     {
       (*(*v34 + 24))(v34);
     }
 
-    v21 = v44;
-    v22 = v40;
-    v23 = v41;
-    v32 = v42;
-    if (v42)
+    v17 = v42;
+    v32 = v38;
+    if (v38)
     {
-      (*(*v42 + 16))(v42);
+      (*(*v38 + 16))(v38);
     }
 
-    [(PAENeon *)self blurNodeWithRadius:&v32 xScale:v21 yScale:v22 inputNode:v23];
+    objc_msgSend_blurNodeWithRadius_xScale_yScale_inputNode_(self, v17, v36, v37);
     if (v32)
     {
       (*(*v32 + 24))(v32);
     }
 
-    v24 = *&v43;
+    v18 = *&v41;
     v30 = v33;
     if (v33)
     {
       (*(*v33 + 16))(v33);
     }
 
-    [(PAENeon *)self brightnessNodeWithValue:&v30 inputNode:v24];
+    objc_msgSend_brightnessNodeWithValue_inputNode_(self, v18);
     if (v30)
     {
       (*(*v30 + 24))(v30);
     }
 
-    v25 = HGObject::operator new(0x280uLL);
-    HGHWMultiBlend::HGHWMultiBlend(v25);
-    (*(*v25 + 120))(v25, 0, v39);
-    v26 = *(*v25 + 120);
+    v19 = v40;
+    v28 = v38;
+    if (v38)
+    {
+      (*(*v38 + 16))(v38);
+    }
+
+    objc_msgSend_blurNodeWithRadius_xScale_yScale_inputNode_(self, v19, v36, v37);
+    if (v28)
+    {
+      (*(*v28 + 24))(v28);
+    }
+
+    v20 = *&v39;
+    v26 = v29;
+    if (v29)
+    {
+      (*(*v29 + 16))(v29);
+    }
+
+    objc_msgSend_brightnessNodeWithValue_inputNode_(self, v20);
+    if (v26)
+    {
+      (*(*v26 + 24))(v26);
+    }
+
+    v21 = HGObject::operator new(0x280uLL);
+    HGHWMultiBlend::HGHWMultiBlend(v21);
+    (*(*v21 + 120))(v21, 0, v35);
+    v22 = *(*v21 + 120);
     if (versionAtCreation < 4)
     {
-      v26(v25, 1, v35);
-      v27 = &v31;
+      v22(v21, 1, v31);
+      v23 = &v27;
     }
 
     else
     {
-      v26(v25, 1, v31);
-      v27 = &v35;
+      v22(v21, 1, v27);
+      v23 = &v31;
     }
 
-    (*(*v25 + 120))(v25, 2, *v27);
-    v29 = v25;
-    (*(*v25 + 16))(v25);
-    [output setHeliumRef:&v29];
+    (*(*v21 + 120))(v21, 2, *v23);
+    v25 = v21;
+    (*(*v21 + 16))(v21);
+    [output setHeliumRef:&v25];
+    if (v25)
+    {
+      (*(*v25 + 24))(v25);
+    }
+
+    (*(*v21 + 24))(v21);
+    if (v27)
+    {
+      (*(*v27 + 24))(v27);
+    }
+
     if (v29)
     {
       (*(*v29 + 24))(v29);
     }
 
-    (*(*v25 + 24))(v25);
     if (v31)
     {
       (*(*v31 + 24))(v31);
@@ -303,19 +309,9 @@ LABEL_18:
       (*(*v35 + 24))(v35);
     }
 
-    if (v37)
+    if (v38)
     {
-      (*(*v37 + 24))(v37);
-    }
-
-    if (v39)
-    {
-      (*(*v39 + 24))(v39);
-    }
-
-    if (v42)
-    {
-      (*(*v42 + 24))(v42);
+      (*(*v38 + 24))(v38);
     }
   }
 

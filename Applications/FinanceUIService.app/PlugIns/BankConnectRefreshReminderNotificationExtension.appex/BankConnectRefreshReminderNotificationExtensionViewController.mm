@@ -81,7 +81,7 @@
   }
 
   selfCopy = self;
-  sub_100006F18();
+  sub_100006F18(selfCopy);
 }
 
 - (_TtC47BankConnectRefreshReminderNotificationExtension61BankConnectRefreshReminderNotificationExtensionViewController)initWithNibName:(id)name bundle:(id)bundle

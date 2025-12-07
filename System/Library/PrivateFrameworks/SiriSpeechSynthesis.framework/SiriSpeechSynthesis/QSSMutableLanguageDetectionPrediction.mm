@@ -5,11 +5,18 @@
 - (float)threshold;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setConfidence:(float)confidence;
+- (void)setIs_low_confidence:(BOOL)is_low_confidence;
 - (void)setLocale:(id)locale;
 - (void)setThreshold:(float)threshold;
 @end
 
 @implementation QSSMutableLanguageDetectionPrediction
+
+- (void)setIs_low_confidence:(BOOL)is_low_confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_low_confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)is_low_confidence
 {

@@ -121,10 +121,10 @@
       {
         if (recommendationType)
         {
-          v13 = IntentHandlerDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = IntentHandlerDefaultLog(recommendationType);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            sub_100030CAC(v13);
+            sub_100030CAC(v14);
           }
 
           v10 = +[INPersonResolutionResult unsupported];
@@ -141,28 +141,29 @@
         v10 = [INPersonResolutionResult confirmationRequiredWithPersonToConfirm:v8];
       }
 
-      v11 = v10;
+      v12 = v10;
     }
 
     else
     {
       persons4 = [(CRRRecommendation *)self persons];
-      v11 = [INPersonResolutionResult disambiguationWithPeopleToDisambiguate:persons4];
+      v12 = [INPersonResolutionResult disambiguationWithPeopleToDisambiguate:persons4];
     }
   }
 
   else
   {
     v11 = +[INPersonResolutionResult unsupported];
+    v12 = v11;
   }
 
-  v14 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = IntentHandlerDefaultLog(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030CF0(v11, v14);
+    sub_100030CF0(v12, v15);
   }
 
-  return v11;
+  return v12;
 }
 
 @end

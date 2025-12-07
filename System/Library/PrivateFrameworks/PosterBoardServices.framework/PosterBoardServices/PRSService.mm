@@ -70,7 +70,9 @@
 - (void)refreshSuggestionDescriptorsForConfigurationMatchingUUID:(id)d sessionInfo:(id)info completion:(id)completion;
 - (void)removeAllFocusConfigurationsMatchingFocusUUID:(id)d completion:(id)completion;
 - (void)resetRole:(id)role completion:(id)completion;
+- (void)restoreArchivedDataStoreNamed:(id)named backupExistingDataStore:(BOOL)store completion:(id)completion;
 - (void)retrieveGallery:(id)gallery;
+- (void)runMigration:(BOOL)migration migrationDescriptor:(id)descriptor completion:(id)completion;
 - (void)setHostConfiguration:(id)configuration forRole:(id)role completion:(id)completion;
 - (void)stashCurrentDataStoreWithName:(id)name options:(id)options completion:(id)completion;
 - (void)triggerMessedUpDataProtectionWithCompletion:(id)completion;
@@ -86,50 +88,52 @@
 
 - (PRSService)init
 {
-  v19.receiver = self;
-  v19.super_class = PRSService;
-  v2 = [(PRSService *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = PRSService;
+  v2 = [(PRSService *)&v21 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = PRSServiceInterface();
-    v4 = MEMORY[0x1E698F498];
-    identifier = [v3 identifier];
-    v6 = [v4 endpointForMachName:@"com.apple.posterboardservices.services" service:identifier instance:0];
+    v4 = PRSServiceInterface(v2);
+    v5 = MEMORY[0x1E698F498];
+    identifier = [v4 identifier];
+    v7 = [v5 endpointForMachName:@"com.apple.posterboardservices.services" service:identifier instance:0];
 
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    if (v6)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = v9;
+    if (v7)
     {
-      v9 = [MEMORY[0x1E698F490] connectionWithEndpoint:v6];
-      serviceConnection = v2->_serviceConnection;
-      v2->_serviceConnection = v9;
+      v11 = [MEMORY[0x1E698F490] connectionWithEndpoint:v7];
+      serviceConnection = v3->_serviceConnection;
+      v3->_serviceConnection = v11;
 
-      objc_initWeak(&location, v2);
-      v11 = v2->_serviceConnection;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __18__PRSService_init__block_invoke;
-      v14[3] = &unk_1E818D6B8;
-      v15 = v3;
-      v16 = v8;
-      objc_copyWeak(&v17, &location);
-      [(BSServiceConnectionClient *)v11 configureConnection:v14];
-      objc_destroyWeak(&v17);
+      objc_initWeak(&location, v3);
+      v13 = v3->_serviceConnection;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __18__PRSService_init__block_invoke;
+      v16[3] = &unk_1E818D6B8;
+      v17 = v4;
+      v18 = v10;
+      objc_copyWeak(&v19, &location);
+      [(BSServiceConnectionClient *)v13 configureConnection:v16];
+      objc_destroyWeak(&v19);
 
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v12 = PRSLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = PRSLogCommon(v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PRSService init];
       }
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void __18__PRSService_init__block_invoke(uint64_t a1, void *a2)
@@ -160,25 +164,23 @@ void __18__PRSService_init__block_invoke(uint64_t a1, void *a2)
 
 void __18__PRSService_init__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PRSLogObserver();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = PRSLogObserver(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2048;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_1C26FF000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p interrupted", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2048;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_1C26FF000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p interrupted", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __18__PRSService_init__block_invoke_8(uint64_t a1)
 {
-  v2 = PRSLogObserver();
+  v2 = PRSLogObserver(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __18__PRSService_init__block_invoke_8_cold_1(a1);
@@ -196,46 +198,48 @@ void __18__PRSService_init__block_invoke_8(uint64_t a1)
 - (void)deleteDataStoreWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v6 = completionCopy;
   if (!completionCopy)
   {
     [PRSService deleteDataStoreWithCompletion:];
   }
 
-  v6 = PRSLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = PRSLogCommon(completionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [PRSService deleteDataStoreWithCompletion:];
   }
 
-  v14 = 0;
-  v7 = [(PRSService *)self _serviceInterfaceWithError:&v14];
-  v8 = v14;
-  if (v7)
+  v15 = 0;
+  v8 = [(PRSService *)self _serviceInterfaceWithError:&v15];
+  v9 = v15;
+  if (v8)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__PRSService_deleteDataStoreWithCompletion___block_invoke;
-    v9[3] = &unk_1E818D6E0;
-    v13 = a2;
-    v10 = v7;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__PRSService_deleteDataStoreWithCompletion___block_invoke;
+    v10[3] = &unk_1E818D6E0;
+    v14 = a2;
+    v11 = v8;
     selfCopy = self;
-    v12 = completionCopy;
-    [v10 invalidateDataStoreWithCompletion:v9];
+    v13 = v6;
+    [v11 invalidateDataStoreWithCompletion:v10];
   }
 
-  else if (completionCopy)
+  else if (v6)
   {
-    (*(completionCopy + 2))(completionCopy, v8);
+    (v6)[2](v6, v9);
   }
 }
 
 void __44__PRSService_deleteDataStoreWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __44__PRSService_deleteDataStoreWithCompletion___block_invoke_cold_1();
     }
@@ -243,22 +247,22 @@ void __44__PRSService_deleteDataStoreWithCompletion___block_invoke(uint64_t a1, 
     [*(a1 + 32) terminate];
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24;
-  v7[3] = &unk_1E818D6E0;
-  v10 = *(a1 + 56);
-  v6 = *(a1 + 32);
-  v5 = v6.i64[0];
-  v8 = vextq_s8(v6, v6, 8uLL);
-  v9 = *(a1 + 48);
-  [v5 deleteDataStoreWithCompletion:v7];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24;
+  v8[3] = &unk_1E818D6E0;
+  v11 = *(a1 + 56);
+  v7 = *(a1 + 32);
+  v6 = v7.i64[0];
+  v9 = vextq_s8(v7, v7, 8uLL);
+  v10 = *(a1 + 48);
+  [v6 deleteDataStoreWithCompletion:v8];
 }
 
 void __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24_cold_1();
@@ -301,7 +305,7 @@ void __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24(uint64_t a
 void __35__PRSService_resetRole_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -342,7 +346,7 @@ void __35__PRSService_resetRole_completion___block_invoke(uint64_t a1, void *a2)
 void __44__PRSService_deleteSnapshotsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -383,7 +387,7 @@ void __44__PRSService_deleteSnapshotsWithCompletion___block_invoke(uint64_t a1, 
 void __66__PRSService_notifyPosterBoardOfApplicationUpdatesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -424,7 +428,7 @@ void __66__PRSService_notifyPosterBoardOfApplicationUpdatesWithCompletion___bloc
 void __48__PRSService_deleteTransientDataWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -467,7 +471,7 @@ void __48__PRSService_deleteTransientDataWithCompletion___block_invoke(uint64_t 
 void __54__PRSService_setHostConfiguration_forRole_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -513,7 +517,7 @@ void __54__PRSService_setHostConfiguration_forRole_completion___block_invoke(uin
 void __56__PRSService_deleteHostConfigurationForRole_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -559,7 +563,7 @@ void __56__PRSService_deleteHostConfigurationForRole_completion___block_invoke(u
 void __67__PRSService_updatePosterConfigurationsFromHostForRole_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -605,7 +609,7 @@ void __54__PRSService_fetchExtensionIdentifiersWithCompletion___block_invoke(uin
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -648,7 +652,7 @@ void __60__PRSService_fetchPosterDescriptorsForExtension_completion___block_invo
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -701,7 +705,7 @@ void __66__PRSService_fetchStaticPosterDescriptorsForExtension_completion___bloc
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -755,7 +759,7 @@ void __75__PRSService__refreshPosterDescriptorsForExtension_sessionInfo_completi
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -821,7 +825,7 @@ LABEL_3:
 void __61__PRSService_deletePosterDescriptorsForExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -863,7 +867,7 @@ void __41__PRSService_fetchRuntimeAssertionState___block_invoke(uint64_t a1, voi
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -904,7 +908,7 @@ void __41__PRSService_fetchRuntimeAssertionState___block_invoke(uint64_t a1, voi
 void __58__PRSService_triggerMessedUpDataProtectionWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -946,7 +950,7 @@ void __64__PRSService_fetchChargerIdentifierRelationshipsWithCompletion___block_
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1010,7 +1014,7 @@ void __104__PRSService_createPosterConfigurationForProviderIdentifier_posterDesc
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1139,7 +1143,7 @@ void __76__PRSService_refreshPosterConfigurationMatchingUUID_sessionInfo_complet
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1223,7 +1227,7 @@ LABEL_3:
 void __82__PRSService_associateConfigurationMatchingUUID_focusModeActivityUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1281,7 +1285,7 @@ void __63__PRSService_fetchPosterConfigurationsForExtension_completion___block_i
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1394,7 +1398,7 @@ void __57__PRSService_fetchPosterSnapshotsWithRequest_completion___block_invoke_
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1460,7 +1464,7 @@ LABEL_3:
 void __64__PRSService_deletePosterConfigurationsMatchingUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1519,7 +1523,7 @@ void __94__PRSService_refreshSuggestionDescriptorsForConfigurationMatchingUUID_s
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1580,7 +1584,7 @@ void __80__PRSService_fetchSuggestionDescriptorsForConfigurationMatchingUUID_com
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1641,7 +1645,7 @@ LABEL_3:
 void __102__PRSService_commitSuggestionsForConfigurationMatchingUUID_selectSuggestionDescriptorUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1699,7 +1703,7 @@ void __63__PRSService_exportPosterConfigurationMatchingUUID_completion___block_i
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1757,7 +1761,7 @@ void __66__PRSService_importPosterConfigurationFromArchiveData_completion___bloc
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1819,7 +1823,7 @@ void __67__PRSService_importPosterConfigurationFromArchivedData_completion___blo
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1898,7 +1902,7 @@ void __71__PRSService_updatePosterConfigurationMatchingUUID_updates_completion__
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = PRSLogCommon();
+  v10 = PRSLogCommon(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -1919,7 +1923,7 @@ void __71__PRSService_updatePosterConfigurationMatchingUUID_updates_completion__
 
 - (void)updatePosterConfiguration:(id)configuration update:(id)update completion:(id)completion
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   updateCopy = update;
   completionCopy = completion;
@@ -1960,29 +1964,27 @@ void __71__PRSService_updatePosterConfigurationMatchingUUID_updates_completion__
     [PRSService updatePosterConfiguration:update:completion:];
   }
 
-  v23 = 0;
-  v16 = [(PRSService *)self _serviceInterfaceWithError:&v23];
-  v17 = v23;
+  v22 = 0;
+  v16 = [(PRSService *)self _serviceInterfaceWithError:&v22];
+  v17 = v22;
   if (v16)
   {
-    v24[0] = v12;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __58__PRSService_updatePosterConfiguration_update_completion___block_invoke;
-    v20[3] = &unk_1E818D848;
-    v22 = a2;
-    v20[4] = self;
-    v21 = completionCopy;
-    [v16 updatePosterConfiguration:v13 updates:v18 completion:v20];
+    v23[0] = v12;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __58__PRSService_updatePosterConfiguration_update_completion___block_invoke;
+    v19[3] = &unk_1E818D848;
+    v21 = a2;
+    v19[4] = self;
+    v20 = completionCopy;
+    [v16 updatePosterConfiguration:v13 updates:v18 completion:v19];
   }
 
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, v17);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __58__PRSService_updatePosterConfiguration_update_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1990,7 +1992,7 @@ void __58__PRSService_updatePosterConfiguration_update_completion___block_invoke
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = PRSLogCommon();
+  v10 = PRSLogCommon(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2017,21 +2019,19 @@ void __58__PRSService_updatePosterConfiguration_update_completion___block_invoke
 
 - (void)refreshSnapshotForPosterConfiguration:(id)configuration completion:(id)completion
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (completion)
   {
     v5 = MEMORY[0x1E696ABC0];
     completionCopy = completion;
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v12 = *MEMORY[0x1E696A588];
-    v13[0] = @"Deprecated.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A588];
+    v12[0] = @"Deprecated.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v5 errorWithDomain:v8 code:1 userInfo:v9];
     (*(completion + 2))(completionCopy, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshSnapshotForPosterConfigurationMatchingUUID:(id)d completion:(id)completion
@@ -2067,7 +2067,7 @@ void __58__PRSService_updatePosterConfiguration_update_completion___block_invoke
 void __75__PRSService_refreshSnapshotForPosterConfigurationMatchingUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2129,7 +2129,7 @@ LABEL_3:
 void __73__PRSService_ingestSnapshotCollection_forPosterConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2201,7 +2201,7 @@ void __92__PRSService_fetchContentObstructionBoundsForActivePosterWithOrientatio
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2240,7 +2240,7 @@ void __96__PRSService_fetchContentObstructionBoundsForPosterConfiguration_orient
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2283,7 +2283,7 @@ void __78__PRSService_fetchMaximalContentCutoutBoundsForOrientation_completionHa
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2326,7 +2326,7 @@ void __79__PRSService_fetchExtendedContentCutoutBoundsForOrientation_completionH
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2398,7 +2398,7 @@ void __87__PRSService_fetchContentCutoutBoundsForActivePosterWithOrientation_com
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2437,7 +2437,7 @@ void __91__PRSService_fetchContentCutoutBoundsForPosterConfiguration_orientation
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2476,7 +2476,7 @@ void __88__PRSService_fetchObscurableBoundsForPosterConfiguration_orientation_co
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2515,7 +2515,7 @@ void __94__PRSService_fetchLimitedOcclusionBoundsForPosterConfiguration_orientat
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2563,7 +2563,7 @@ void __58__PRSService_fetchPosterConfigurationsForRole_completion___block_invoke
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2614,7 +2614,7 @@ void __52__PRSService_fetchSelectedPosterForRole_completion___block_invoke(uint6
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2673,7 +2673,7 @@ void __50__PRSService_fetchActivePosterForRole_completion___block_invoke(uint64_
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = PRSLogCommon();
+  v10 = PRSLogCommon(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2780,7 +2780,7 @@ void __50__PRSService_fetchActivePosterForRole_completion___block_invoke(uint64_
 void __84__PRSService_updateSelectedForRoleIdentifier_newlySelectedConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2873,7 +2873,7 @@ LABEL_3:
 void __72__PRSService_updateToSelectedConfigurationMatchingUUID_role_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2929,7 +2929,7 @@ void __56__PRSService_fetchFocusUUIDForConfiguration_completion___block_invoke(u
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -2971,7 +2971,7 @@ void __56__PRSService_fetchFocusUUIDForConfiguration_completion___block_invoke(u
 void __71__PRSService_removeAllFocusConfigurationsMatchingFocusUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3012,7 +3012,7 @@ void __71__PRSService_removeAllFocusConfigurationsMatchingFocusUUID_completion__
 void __44__PRSService_pushToProactiveWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3069,7 +3069,7 @@ LABEL_3:
 void __49__PRSService_pushPosterGalleryUpdate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3112,7 +3112,7 @@ void __27__PRSService_fetchGallery___block_invoke(uint64_t a1, void *a2, void *a
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = PRSLogCommon();
+  v10 = PRSLogCommon(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3155,7 +3155,7 @@ void __30__PRSService_retrieveGallery___block_invoke(uint64_t a1, void *a2, void
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = PRSLogCommon();
+  v10 = PRSLogCommon(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3197,7 +3197,7 @@ void __39__PRSService_gatherDataFreshnessState___block_invoke(uint64_t a1, void 
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3240,7 +3240,7 @@ void __39__PRSService_gatherDataFreshnessState___block_invoke(uint64_t a1, void 
 void __104__PRSService_refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier_extensionIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3282,7 +3282,7 @@ void __104__PRSService_refreshSnapshotForGalleryItemsMatchingDescriptorIdentifie
 void __50__PRSService_notifyFocusModeDidChange_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3319,7 +3319,7 @@ void __50__PRSService_notifyFocusModeDidChange_completion___block_invoke(uint64_
 void __60__PRSService_notifyAvailableFocusModesDidChange_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3361,7 +3361,7 @@ void __60__PRSService_notifyAvailableFocusModesDidChange_completion___block_invo
 void __64__PRSService_notifyActiveChargerIdentifierDidUpdate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3417,7 +3417,7 @@ void __36__PRSService_prewarmWithCompletion___block_invoke(uint64_t a1, uint64_t
 void __36__PRSService_prewarmWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3473,7 +3473,7 @@ void __44__PRSService_overnightUpdateWithCompletion___block_invoke(uint64_t a1, 
 void __44__PRSService_overnightUpdateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3516,7 +3516,7 @@ void __74__PRSService_fetchAssociatedHomeScreenPosterConfigurationUUID_completio
 {
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3543,10 +3543,42 @@ void __74__PRSService_fetchAssociatedHomeScreenPosterConfigurationUUID_completio
   }
 }
 
+- (void)runMigration:(BOOL)migration migrationDescriptor:(id)descriptor completion:(id)completion
+{
+  migrationCopy = migration;
+  descriptorCopy = descriptor;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    [PRSService runMigration:migrationDescriptor:completion:];
+  }
+
+  v17 = 0;
+  v11 = [(PRSService *)self _serviceInterfaceWithError:&v17];
+  v12 = v17;
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:migrationCopy];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __58__PRSService_runMigration_migrationDescriptor_completion___block_invoke;
+    v14[3] = &unk_1E818D708;
+    v16 = a2;
+    v14[4] = self;
+    v15 = completionCopy;
+    [v11 runMigration:v13 migrationDescriptor:descriptorCopy completion:v14];
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, v12);
+  }
+}
+
 void __58__PRSService_runMigration_migrationDescriptor_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3588,7 +3620,7 @@ void __34__PRSService_clearMigrationFlags___block_invoke(uint64_t a1, void *a2, 
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3657,7 +3689,7 @@ void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithComple
 
   else
   {
-    v8 = PRSLogCommon();
+    v8 = PRSLogCommon(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_cold_1();
@@ -3670,15 +3702,15 @@ void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithComple
 void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (a3)
   {
-    v6 = PRSLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PRSLogCommon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_2_cold_1(a1, v6, v7, v8, v9, v10, v11, v12);
+      __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_2_cold_1(a1, v7, v8, v9, v10, v11, v12, v13);
     }
 
-    v13 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -3690,7 +3722,7 @@ void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithComple
     v15[3] = &unk_1E818D9B0;
     v14 = *(a1 + 40);
     v17 = *(a1 + 48);
-    v16 = v5;
+    v16 = v6;
     [v14 _selectConfigurationAndRefreshSnapshot:v16 completion:v15];
   }
 }
@@ -3714,7 +3746,7 @@ void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithComple
 
   else
   {
-    v9 = PRSLogCommon();
+    v9 = PRSLogCommon(completionCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PRSService _selectConfigurationAndRefreshSnapshot:v9 completion:?];
@@ -3727,10 +3759,11 @@ void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithComple
 void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_cold_1();
     }
@@ -3740,24 +3773,25 @@ void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_140;
-    v7[3] = &unk_1E818D020;
-    v8 = *(a1 + 48);
-    [v5 refreshSnapshotForPosterConfiguration:v6 completion:v7];
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_140;
+    v8[3] = &unk_1E818D020;
+    v9 = *(a1 + 48);
+    [v6 refreshSnapshotForPosterConfiguration:v7 completion:v8];
   }
 }
 
 void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_140(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_140_cold_1();
     }
@@ -3799,7 +3833,7 @@ void __56__PRSService_fetchArchivedDataStoreNamesWithCompletion___block_invoke(u
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3847,7 +3881,7 @@ void __56__PRSService_fetchArchivedDataStoreNamesWithCompletion___block_invoke(u
 void __63__PRSService_stashCurrentDataStoreWithName_options_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3856,10 +3890,42 @@ void __63__PRSService_stashCurrentDataStoreWithName_options_completion___block_i
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)restoreArchivedDataStoreNamed:(id)named backupExistingDataStore:(BOOL)store completion:(id)completion
+{
+  storeCopy = store;
+  namedCopy = named;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    [PRSService restoreArchivedDataStoreNamed:backupExistingDataStore:completion:];
+  }
+
+  v17 = 0;
+  v11 = [(PRSService *)self _serviceInterfaceWithError:&v17];
+  v12 = v17;
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:storeCopy];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __79__PRSService_restoreArchivedDataStoreNamed_backupExistingDataStore_completion___block_invoke;
+    v14[3] = &unk_1E818D708;
+    v16 = a2;
+    v14[4] = self;
+    v15 = completionCopy;
+    [v11 restoreArchivedDataStoreNamed:namedCopy backupExistingDataStore:v13 completion:v14];
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, v12);
+  }
+}
+
 void __79__PRSService_restoreArchivedDataStoreNamed_backupExistingDataStore_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3901,7 +3967,7 @@ void __79__PRSService_restoreArchivedDataStoreNamed_backupExistingDataStore_comp
 void __54__PRSService_deleteArchivedDataStoreNamed_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3944,7 +4010,7 @@ void __54__PRSService_exportArchivedDataStoreNamed_completion___block_invoke(uin
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogCommon();
+  v7 = PRSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -3958,17 +4024,17 @@ void __54__PRSService_exportArchivedDataStoreNamed_completion___block_invoke(uin
   lCopy = l;
   optionsCopy = options;
   tokenCopy = token;
-  v20 = 0;
-  v14 = [(PRSService *)self _serviceInterfaceWithError:&v20];
-  v15 = v20;
+  v21 = 0;
+  v14 = [(PRSService *)self _serviceInterfaceWithError:&v21];
+  v15 = v21;
   if (v14)
   {
-    v19 = 0;
-    [v14 exportCurrentDataStoreToURL:lCopy options:optionsCopy sandboxToken:tokenCopy error:&v19];
-    v16 = v19;
+    v20 = 0;
+    [v14 exportCurrentDataStoreToURL:lCopy options:optionsCopy sandboxToken:tokenCopy error:&v20];
+    v16 = v20;
 
-    v17 = PRSLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = PRSLogCommon(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [PRSService exportCurrentDataStoreToURL:a2 options:? sandboxToken:? error:?];
     }
@@ -3976,7 +4042,7 @@ void __54__PRSService_exportArchivedDataStoreNamed_completion___block_invoke(uin
     v15 = v16;
   }
 
-  v18 = v15;
+  v19 = v15;
   *error = v15;
 }
 
@@ -4028,7 +4094,7 @@ LABEL_3:
 void __41__PRSService_ignoreExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -4085,7 +4151,7 @@ LABEL_3:
 void __43__PRSService_unignoreExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __35__PRSService_resetRole_completion___block_invoke_cold_1();
@@ -4103,49 +4169,42 @@ void __43__PRSService_unignoreExtension_completion___block_invoke(uint64_t a1, v
   v7 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
   v16[0] = v7;
   v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
-  v9 = [v6 remoteTargetWithLaunchingAssertionAttributes:v8];
+  v9 = [(BSServiceConnectionClient *)v6 remoteTargetWithLaunchingAssertionAttributes:v8];
 
   if (!v9)
   {
-    v10 = PRSLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRSLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(PRSService *)self _serviceInterfaceWithError:?];
+      [PRSService _serviceInterfaceWithError:?];
     }
 
     if (error)
     {
-      v11 = MEMORY[0x1E696ABC0];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      *error = [v11 errorWithDomain:v13 code:1 userInfo:0];
+      v12 = MEMORY[0x1E696ABC0];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      *error = [v12 errorWithDomain:v14 code:1 userInfo:0];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_error_impl(&dword_1C26FF000, v1, OS_LOG_TYPE_ERROR, "%{public}@:%p failed to lookup endpoint", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_1C26FF000, v1, OS_LOG_TYPE_ERROR, "%{public}@:%p failed to lookup endpoint", v2, 0x16u);
 }
 
 void __18__PRSService_init__block_invoke_8_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDataStoreWithCompletion:.cold.1()
@@ -4158,35 +4217,21 @@ void __18__PRSService_init__block_invoke_8_cold_1(uint64_t a1)
 
 - (void)deleteDataStoreWithCompletion:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AE30] processInfo];
   v1 = [v0 processName];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __44__PRSService_deleteDataStoreWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Data store invalidation failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24_cold_1()
 {
   OUTLINED_FUNCTION_3_1();
-  v10 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(*(v1 + 56));
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v2, v3, "received reply to %{public}@ on %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v2, v3, "received reply to %{public}@ on %{public}@", v4, v5, v6, v7);
 }
 
 - (void)resetRole:completion:.cold.1()
@@ -4200,15 +4245,12 @@ void __44__PRSService_deleteDataStoreWithCompletion___block_invoke_24_cold_1()
 void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3_1();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_7_0(v2);
-  NSStringFromSelector(v3);
+  v2 = OUTLINED_FUNCTION_7_0(v1);
+  NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v4, v5, "received reply to %{public}@ on %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v3, v4, "received reply to %{public}@ on %{public}@", v5, v6, v7, v8);
 }
 
 - (void)deleteSnapshotsWithCompletion:.cold.1()
@@ -4565,7 +4607,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfigurationMatchingUUID:(char *)a1 updates:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4573,7 +4615,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4583,7 +4625,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfigurationMatchingUUID:(char *)a1 updates:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4591,7 +4633,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4609,7 +4651,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfigurationMatchingUUID:(char *)a1 updates:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4617,7 +4659,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4627,7 +4669,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfigurationMatchingUUID:(char *)a1 updates:completion:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4635,7 +4677,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4645,7 +4687,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfiguration:(char *)a1 update:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4653,7 +4695,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4663,7 +4705,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfiguration:(char *)a1 update:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4671,7 +4713,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4681,7 +4723,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfiguration:(char *)a1 update:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[configuration _path] isServerPosterPath]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4689,7 +4731,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[[configuration _path] isServerPosterPath]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4707,7 +4749,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfiguration:(char *)a1 update:completion:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4715,7 +4757,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4725,7 +4767,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)updatePosterConfiguration:(char *)a1 update:completion:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4733,7 +4775,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4855,7 +4897,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)fetchFocusUUIDForConfiguration:(char *)a1 completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4863,7 +4905,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4881,7 +4923,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
 
 - (void)fetchFocusUUIDForConfiguration:(char *)a1 completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4889,7 +4931,7 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -5017,36 +5059,11 @@ void __35__PRSService_resetRole_completion___block_invoke_cold_1()
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Failed to fetch poster configuration with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __77__PRSService_createAndSelectLegacyPosterConfigurationIfNeededWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "Failed to create poster configuration with error: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Failed to update to selected configuration with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_invoke_140_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Failed to refresh snapshot for poster configuration with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "Failed to create poster configuration with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)fetchArchivedDataStoreNamesWithCompletion:.cold.1()
@@ -5099,12 +5116,9 @@ void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_
 
 - (void)exportCurrentDataStoreToURL:(const char *)a1 options:sandboxToken:error:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v2, v3, "received reply to %{public}@ on %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1C26FF000, v2, v3, "received reply to %{public}@ on %{public}@", v4, v5, v6, v7);
 }
 
 - (void)ignoreExtension:completion:.cold.1()
@@ -5139,17 +5153,13 @@ void __64__PRSService__selectConfigurationAndRefreshSnapshot_completion___block_
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-- (void)_serviceInterfaceWithError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)_serviceInterfaceWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = *a2;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 @end

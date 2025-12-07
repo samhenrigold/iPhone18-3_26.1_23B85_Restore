@@ -1,6 +1,7 @@
 @interface MessageTranscodeController
 + (id)sharedInstance;
 - (void)generateSnapshotForMessageGUID:(id)d payloadData:(id)data balloonBundleID:(id)iD senderContext:(id)context completionBlock:(id)block;
+- (void)transcodeFileTransferContents:(id)contents utiType:(id)type isSticker:(BOOL)sticker transcoderUserInfo:(id)info sizes:(id)sizes commonCapabilities:(id)capabilities representations:(int64_t)representations isLQMEnabled:(BOOL)self0 completionBlock:(id)self1;
 - (void)transcodePayloadData:(id)data balloonBundleID:(id)d attachments:(id)attachments completionBlock:(id)block;
 - (void)transcribeAudioForAudioTransferURL:(id)l withCompletion:(id)completion;
 @end
@@ -15,6 +16,68 @@
   }
 
   return qword_124320;
+}
+
+- (void)transcodeFileTransferContents:(id)contents utiType:(id)type isSticker:(BOOL)sticker transcoderUserInfo:(id)info sizes:(id)sizes commonCapabilities:(id)capabilities representations:(int64_t)representations isLQMEnabled:(BOOL)self0 completionBlock:(id)self1
+{
+  if (block)
+  {
+    stickerCopy = sticker;
+    if (IMOSLoggingEnabled())
+    {
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412546;
+        contentsCopy2 = contents;
+        v25 = 2112;
+        infoCopy = info;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Transcoder received request to transcode: %@  transcodeInfo: %@", buf, 0x16u);
+      }
+    }
+
+    v22 = 0;
+    if (-[NSFileManager fileExistsAtPath:isDirectory:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "fileExistsAtPath:isDirectory:", [contents path], &v22))
+    {
+      if (v22 == 1)
+      {
+        if (IMOSLoggingEnabled())
+        {
+          v18 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Input URL is a directory, not transcoding", buf, 2u);
+          }
+        }
+
+        v19 = IMSingleObjectArray();
+        (*(block + 2))(block, contents, v19, 0, 0, 1, 0, 0);
+      }
+
+      else
+      {
+        LOBYTE(v21) = enabled;
+        [+[IMTranscodeController sharedInstance](IMTranscodeController transcodeFileTransferContents:"transcodeFileTransferContents:utiType:isSticker:allowUnfilteredUTIs:target:sizes:commonCapabilities:maxDimension:transcoderUserInfo:representations:isLQMEnabled:completionBlock:" utiType:contents isSticker:type allowUnfilteredUTIs:stickerCopy target:+[IMDAttachmentUtilities sizes:"messageAttachmentSendableUTIs"]commonCapabilities:0 maxDimension:sizes transcoderUserInfo:capabilities representations:-1 isLQMEnabled:info completionBlock:representations, v21, block];
+      }
+    }
+
+    else
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          contentsCopy2 = contents;
+          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "File doesn't exist at source path (%@), failing transcoding", buf, 0xCu);
+        }
+      }
+
+      (*(block + 2))(block, contents, 0, 0, 0, 0, 0, 0);
+    }
+  }
 }
 
 - (void)transcodePayloadData:(id)data balloonBundleID:(id)d attachments:(id)attachments completionBlock:(id)block

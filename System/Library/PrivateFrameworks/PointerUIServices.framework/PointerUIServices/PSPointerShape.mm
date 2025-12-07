@@ -100,7 +100,7 @@ LABEL_15:
   }
 
   systemShape = [self systemShape];
-  v9 = PSLogCommon();
+  v9 = PSLogCommon(systemShape);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [PSPointerShape customShapeWithPath:v9 usesEvenOddFillRule:?];
@@ -145,50 +145,16 @@ LABEL_10:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v15 = 1;
+    v5 = 1;
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_8;
-    }
-
-    if (equalCopy->_shapeType != self->_shapeType)
-    {
-      goto LABEL_8;
-    }
-
-    x = equalCopy->_bounds.origin.x;
-    y = equalCopy->_bounds.origin.y;
-    width = equalCopy->_bounds.size.width;
-    height = equalCopy->_bounds.size.height;
-    v9 = self->_bounds.origin.x;
-    v10 = self->_bounds.origin.y;
-    v11 = self->_bounds.size.width;
-    v12 = self->_bounds.size.height;
-    if (!BSRectEqualToRect())
-    {
-      goto LABEL_8;
-    }
-
-    cornerRadius = equalCopy->_cornerRadius;
-    v14 = self->_cornerRadius;
-    if (BSFloatEqualToFloat() && CGPathEqualToPath(equalCopy->_path, self->_path))
-    {
-      v15 = equalCopy->_usesEvenOddFillRule == self->_usesEvenOddFillRule;
-    }
-
-    else
-    {
-LABEL_8:
-      v15 = 0;
-    }
+    v5 = (objc_opt_isKindOfClass() & 1) != 0 && equalCopy->_shapeType == self->_shapeType && BSRectEqualToRect() && BSFloatEqualToFloat() && CGPathEqualToPath(equalCopy->_path, self->_path) && equalCopy->_usesEvenOddFillRule == self->_usesEvenOddFillRule;
   }
 
-  return v15;
+  return v5;
 }
 
 - (id)description
@@ -224,37 +190,27 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
   }
 
   v5 = [v2 appendObject:v4 withName:@"_shapeType"];
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(v6 + 48);
-  v9 = *(v6 + 56);
-  v10 = BSStringFromCGPoint();
-  v11 = [v7 appendObject:v10 withName:@"_pinnedPoint"];
+  v6 = *(a1 + 32);
+  v7 = BSStringFromCGPoint();
+  v8 = [v6 appendObject:v7 withName:@"_pinnedPoint"];
 
-  v13 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  v14 = v12[8];
-  v15 = v12[9];
-  v16 = v12[10];
-  v17 = v12[11];
-  v18 = BSStringFromCGRect();
-  v19 = [v13 appendObject:v18 withName:@"_bounds"];
+  v9 = *(a1 + 32);
+  v10 = BSStringFromCGRect();
+  v11 = [v9 appendObject:v10 withName:@"_bounds"];
 
-  v20 = [*(a1 + 32) appendFloat:@"_cornerRadius" withName:*(*(a1 + 40) + 32)];
-  v21 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 40) withName:@"_cornerCurve"];
-  v22 = *(a1 + 40);
-  v23 = *(v22 + 8);
-  if (v23)
+  v12 = [*(a1 + 32) appendFloat:@"_cornerRadius" withName:*(*(a1 + 40) + 32)];
+  v13 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 40) withName:@"_cornerCurve"];
+  v14 = *(*(a1 + 40) + 8);
+  if (v14)
   {
-    v24 = *(v22 + 8);
     if (CGPathGetNumberOfPoints() <= 0x100)
     {
-      BoundingBox = CGPathGetBoundingBox(v23);
+      BoundingBox = CGPathGetBoundingBox(v14);
       if (BoundingBox.size.width <= 10000.0 && BoundingBox.size.height <= 10000.0)
       {
-        v25 = objc_alloc_init(MEMORY[0x277CBEB28]);
-        CGPathApply(*(*(a1 + 40) + 8), v25, __encodePathElementIntoData);
-        v26 = [*(a1 + 32) appendObject:v25 withName:@"_path"];
+        v15 = objc_alloc_init(MEMORY[0x277CBEB28]);
+        CGPathApply(*(*(a1 + 40) + 8), v15, __encodePathElementIntoData);
+        v16 = [*(a1 + 32) appendObject:v15 withName:@"_path"];
       }
     }
   }
@@ -265,9 +221,9 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
 - (PSPointerShape)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = PSPointerShape;
-  v5 = [(PSPointerShape *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = PSPointerShape;
+  v5 = [(PSPointerShape *)&v24 init];
   if (v5)
   {
     v5->_shapeType = [coderCopy decodeIntegerForKey:@"shapeType"];
@@ -294,20 +250,21 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
     if ([v17 length])
     {
       v18 = [(PSPointerShape *)v5 _createMutablePathByDecodingData:v17];
-      if (CGPathGetNumberOfPoints() > 0x100 || (BoundingBox = CGPathGetBoundingBox(v18), BoundingBox.size.width > 10000.0) || BoundingBox.size.height > 10000.0)
+      NumberOfPoints = CGPathGetNumberOfPoints();
+      if (NumberOfPoints > 0x100 || (BoundingBox = CGPathGetBoundingBox(v18), BoundingBox.size.width > 10000.0) || BoundingBox.size.height > 10000.0)
       {
-        v19 = PSLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = PSLogCommon(NumberOfPoints);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [PSPointerShape initWithCoder:v19];
+          [PSPointerShape initWithCoder:v20];
         }
 
-        v20 = *(MEMORY[0x277CBF3A0] + 16);
+        v21 = *(MEMORY[0x277CBF3A0] + 16);
         v5->_bounds.origin = *MEMORY[0x277CBF3A0];
-        v5->_bounds.size = v20;
+        v5->_bounds.size = v21;
         v5->_shapeType = 1;
         v5->_cornerRadius = 0.0;
-        v21 = v5->_cornerCurve;
+        v22 = v5->_cornerCurve;
         v5->_cornerCurve = 0;
 
         v5->_usesEvenOddFillRule = 0;
@@ -357,7 +314,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
 
 - (CGPath)_createMutablePathByDecodingData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = [dataCopy length];
   if (v4)
@@ -366,14 +323,14 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
     Mutable = CGPathCreateMutable();
     bytes = [dataCopy bytes];
     v8 = 0;
-    v18 = *MEMORY[0x277CBF348];
+    v17 = *MEMORY[0x277CBF348];
     do
     {
       v10 = *(bytes + v8);
       v9 = *(bytes + v8 + 4);
-      v19 = v18;
-      v20 = v18;
-      v21 = v18;
+      v18 = v17;
+      v19 = v17;
+      v20 = v17;
       if (v10 > 3)
       {
         v11 = 0;
@@ -392,7 +349,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
 
       else
       {
-        v14 = &v19;
+        v14 = &v18;
         v15 = v9;
         do
         {
@@ -416,7 +373,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
               [PSPointerShape _createMutablePathByDecodingData:];
             }
 
-            CGPathAddLineToPoint(Mutable, 0, *&v19, *(&v19 + 1));
+            CGPathAddLineToPoint(Mutable, 0, *&v18, *(&v18 + 1));
           }
         }
 
@@ -427,7 +384,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
             [PSPointerShape _createMutablePathByDecodingData:];
           }
 
-          CGPathMoveToPoint(Mutable, 0, *&v19, *(&v19 + 1));
+          CGPathMoveToPoint(Mutable, 0, *&v18, *(&v18 + 1));
         }
       }
 
@@ -441,7 +398,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
               [PSPointerShape _createMutablePathByDecodingData:];
             }
 
-            CGPathAddQuadCurveToPoint(Mutable, 0, *&v19, *(&v19 + 1), *&v20, *(&v20 + 1));
+            CGPathAddQuadCurveToPoint(Mutable, 0, *&v18, *(&v18 + 1), *&v19, *(&v19 + 1));
             break;
           case 3:
             if (v9 != v11)
@@ -449,7 +406,7 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
               [PSPointerShape _createMutablePathByDecodingData:];
             }
 
-            CGPathAddCurveToPoint(Mutable, 0, *&v19, *(&v19 + 1), *&v20, *(&v20 + 1), *&v21, *(&v21 + 1));
+            CGPathAddCurveToPoint(Mutable, 0, *&v18, *(&v18 + 1), *&v19, *(&v19 + 1), *&v20, *(&v20 + 1));
             break;
           case 4:
             if (v9 != v11)
@@ -471,7 +428,6 @@ id __29__PSPointerShape_description__block_invoke(uint64_t a1)
     Mutable = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 

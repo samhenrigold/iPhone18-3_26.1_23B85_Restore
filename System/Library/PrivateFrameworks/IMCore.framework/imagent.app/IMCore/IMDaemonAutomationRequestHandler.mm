@@ -5,6 +5,7 @@
 - (void)beginRecordingMessagesToReplayDatabase:(id)database;
 - (void)debugUpdateGroupParticipantversion:(int64_t)participantversion chatIdentifier:(id)identifier;
 - (void)relayMessageGUID:(id)d completion:(id)completion;
+- (void)relayMessageGUIDSent:(id)sent onService:(id)service interworked:(BOOL)interworked;
 - (void)replayMessagesFromDatabasePath:(id)path;
 - (void)resetTranscriptBackgroundForAllChatsWithCompletion:(id)completion;
 - (void)simulateAppDeletion;
@@ -323,9 +324,10 @@
 
 - (void)simulateReceivedPendingSatelliteMessageForChatWithGUID:(id)d
 {
-  sub_100054164();
+  v4 = sub_100054164();
+  v6 = v5;
   selfCopy = self;
-  _sSo32IMDaemonAutomationRequestHandlerC7imagentE46simulateReceivedPendingSatelliteMessageForChat8withGUIDySS_tF_0();
+  _sSo32IMDaemonAutomationRequestHandlerC7imagentE46simulateReceivedPendingSatelliteMessageForChat8withGUIDySS_tF_0(v4, v6);
 }
 
 - (void)simulateDowngradeRequestFromID:(id)d fromService:(id)service toService:(id)toService expirationDate:(id)date
@@ -333,17 +335,19 @@
   selfCopy = self;
   v6 = sub_100053E44();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100054164();
-  sub_100054164();
-  sub_100054164();
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_100054164();
+  v12 = v11;
+  v13 = sub_100054164();
+  v15 = v14;
+  v16 = sub_100054164();
+  v18 = v17;
   sub_100053E34();
-  v11 = selfCopy;
-  _sSo32IMDaemonAutomationRequestHandlerC7imagentE017simulateDowngradeC06fromID0H7Service02toJ014expirationDateySS_S2S10Foundation0M0VtF_0();
+  v19 = selfCopy;
+  _sSo32IMDaemonAutomationRequestHandlerC7imagentE017simulateDowngradeC06fromID0H7Service02toJ014expirationDateySS_S2S10Foundation0M0VtF_0(v10, v12, v13, v15, v16, v18);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)relayMessageGUID:(id)d completion:(id)completion
@@ -356,6 +360,26 @@
   sub_100045C9C(v6, v8, v5);
   _Block_release(v5);
   _Block_release(v5);
+}
+
+- (void)relayMessageGUIDSent:(id)sent onService:(id)service interworked:(BOOL)interworked
+{
+  interworkedCopy = interworked;
+  v8 = objc_opt_self();
+  sentCopy = sent;
+  serviceCopy = service;
+  sharedInstance = [v8 sharedInstance];
+  if (sharedInstance)
+  {
+    v11 = sharedInstance;
+    [sharedInstance messageSent:sentCopy onService:serviceCopy compatibilityService:0 wasInterworked:interworkedCopy];
+  }
+
+  else
+  {
+
+    __break(1u);
+  }
 }
 
 - (void)simulateAppDeletion
@@ -374,11 +398,14 @@
 
 - (void)simulateMessageDeliveryControllerDidFlushCacheForRemoteURI:(id)i fromURI:(id)rI guid:(id)guid
 {
-  sub_100054164();
-  sub_100054164();
-  sub_100054164();
+  v6 = sub_100054164();
+  v8 = v7;
+  v9 = sub_100054164();
+  v11 = v10;
+  v12 = sub_100054164();
+  v14 = v13;
   selfCopy = self;
-  _sSo32IMDaemonAutomationRequestHandlerC7imagentE46simulateMessageDeliveryControllerDidFlushCache12forRemoteURI04fromO04guidySS_S2StF_0();
+  _sSo32IMDaemonAutomationRequestHandlerC7imagentE46simulateMessageDeliveryControllerDidFlushCache12forRemoteURI04fromO04guidySS_S2StF_0(v6, v8, v9, v11, v12, v14);
 }
 
 - (void)resetTranscriptBackgroundForAllChatsWithCompletion:(id)completion

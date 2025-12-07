@@ -9,9 +9,8 @@
 
 - (void)setShowsAddToLibrarySection:(BOOL)section
 {
-  sectionCopy = section;
   selfCopy = self;
-  sub_1003066E0(sectionCopy);
+  sub_1003066E0(section);
 }
 
 - (void)set_isLibrarySelected:(BOOL)selected

@@ -1,1563 +1,3 @@
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, int a2)
-{
-  v3 = v2;
-  v5 = type metadata accessor for UUID();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMd);
-  v39 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v11 = result;
-  if (*(v9 + 16))
-  {
-    v43 = v8;
-    v35 = v2;
-    v12 = 0;
-    v13 = (v9 + 64);
-    v14 = 1 << *(v9 + 32);
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    else
-    {
-      v15 = -1;
-    }
-
-    v16 = v15 & *(v9 + 64);
-    v17 = (v14 + 63) >> 6;
-    v36 = (v6 + 16);
-    v37 = v9;
-    v38 = v6;
-    v40 = (v6 + 32);
-    v18 = result + 64;
-    while (v16)
-    {
-      v20 = __clz(__rbit64(v16));
-      v16 &= v16 - 1;
-LABEL_15:
-      v23 = v20 | (v12 << 6);
-      v24 = *(v9 + 48);
-      v42 = *(v38 + 72);
-      v25 = v24 + v42 * v23;
-      if (v39)
-      {
-        (*v40)(v43, v25, v5);
-        v41 = *(*(v9 + 56) + 8 * v23);
-      }
-
-      else
-      {
-        (*v36)(v43, v25, v5);
-        v41 = *(*(v9 + 56) + 8 * v23);
-      }
-
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v26 = -1 << *(v11 + 32);
-      v27 = result & ~v26;
-      v28 = v27 >> 6;
-      if (((-1 << v27) & ~*(v18 + 8 * (v27 >> 6))) == 0)
-      {
-        v29 = 0;
-        v30 = (63 - v26) >> 6;
-        while (++v28 != v30 || (v29 & 1) == 0)
-        {
-          v31 = v28 == v30;
-          if (v28 == v30)
-          {
-            v28 = 0;
-          }
-
-          v29 |= v31;
-          v32 = *(v18 + 8 * v28);
-          if (v32 != -1)
-          {
-            v19 = __clz(__rbit64(~v32)) + (v28 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v19 = __clz(__rbit64((-1 << v27) & ~*(v18 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v18 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
-      result = (*v40)(*(v11 + 48) + v42 * v19, v43, v5);
-      *(*(v11 + 56) + 8 * v19) = v41;
-      ++*(v11 + 16);
-      v9 = v37;
-    }
-
-    v21 = v12;
-    while (1)
-    {
-      v12 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v12 >= v17)
-      {
-        break;
-      }
-
-      v22 = v13[v12];
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v16 = (v22 - 1) & v22;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v39 & 1) == 0)
-    {
-
-      v3 = v35;
-      goto LABEL_34;
-    }
-
-    v33 = 1 << *(v9 + 32);
-    v3 = v35;
-    if (v33 >= 64)
-    {
-      bzero(v13, ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v13 = -1 << v33;
-    }
-
-    *(v9 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v11;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
-  v42 = *(v5 - 8);
-  __chkstk_darwin(v5 - 8);
-  v47 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for UUID();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v46 = &v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMd);
-  v43 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v12 = result;
-  if (*(v10 + 16))
-  {
-    v38 = v2;
-    v13 = 0;
-    v14 = (v10 + 64);
-    v15 = 1 << *(v10 + 32);
-    if (v15 < 64)
-    {
-      v16 = ~(-1 << v15);
-    }
-
-    else
-    {
-      v16 = -1;
-    }
-
-    v17 = v16 & *(v10 + 64);
-    v18 = (v15 + 63) >> 6;
-    v39 = (v8 + 16);
-    v40 = v8;
-    v44 = (v8 + 32);
-    v19 = result + 64;
-    v41 = v10;
-    while (v17)
-    {
-      v21 = __clz(__rbit64(v17));
-      v17 &= v17 - 1;
-LABEL_15:
-      v24 = v21 | (v13 << 6);
-      v25 = *(v10 + 48);
-      v45 = *(v8 + 72);
-      v26 = v25 + v45 * v24;
-      if (v43)
-      {
-        (*v44)(v46, v26, v7);
-        v27 = *(v10 + 56);
-        v28 = *(v42 + 72);
-        outlined init with take of PushNotificationObserver.RegisteredHandler(v27 + v28 * v24, v47);
-      }
-
-      else
-      {
-        (*v39)(v46, v26, v7);
-        v29 = *(v10 + 56);
-        v28 = *(v42 + 72);
-        outlined init with copy of PushNotificationObserver.RegisteredHandler(v29 + v28 * v24, v47);
-      }
-
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v30 = -1 << *(v12 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v19 + 8 * (v31 >> 6))) == 0)
-      {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
-        {
-          v35 = v32 == v34;
-          if (v32 == v34)
-          {
-            v32 = 0;
-          }
-
-          v33 |= v35;
-          v36 = *(v19 + 8 * v32);
-          if (v36 != -1)
-          {
-            v20 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v20 = __clz(__rbit64((-1 << v31) & ~*(v19 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v19 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
-      (*v44)((*(v12 + 48) + v45 * v20), v46, v7);
-      result = outlined init with take of PushNotificationObserver.RegisteredHandler(v47, *(v12 + 56) + v28 * v20);
-      ++*(v12 + 16);
-      v8 = v40;
-      v10 = v41;
-    }
-
-    v22 = v13;
-    while (1)
-    {
-      v13 = v22 + 1;
-      if (__OFADD__(v22, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v13 >= v18)
-      {
-        break;
-      }
-
-      v23 = v14[v13];
-      ++v22;
-      if (v23)
-      {
-        v21 = __clz(__rbit64(v23));
-        v17 = (v23 - 1) & v23;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v43 & 1) == 0)
-    {
-
-      v3 = v38;
-      goto LABEL_34;
-    }
-
-    v37 = 1 << *(v10 + 32);
-    v3 = v38;
-    if (v37 >= 64)
-    {
-      bzero(v14, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v14 = -1 << v37;
-    }
-
-    *(v10 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v12;
-  return result;
-}
-
-{
-  v3 = v2;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
-  v5 = *(v52 - 8);
-  __chkstk_darwin(v52);
-  v51 = &v40 - v6;
-  v7 = type metadata accessor for UUID();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v53 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVScS12ContinuationVySaySfG_GGMd);
-  v47 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v12 = result;
-  if (*(v10 + 16))
-  {
-    v13 = 0;
-    v14 = v8;
-    v15 = (v10 + 64);
-    v16 = 1 << *(v10 + 32);
-    if (v16 < 64)
-    {
-      v17 = ~(-1 << v16);
-    }
-
-    else
-    {
-      v17 = -1;
-    }
-
-    v18 = v17 & *(v10 + 64);
-    v19 = (v16 + 63) >> 6;
-    v43 = (v14 + 16);
-    v44 = v14;
-    v41 = v2;
-    v42 = v5 + 16;
-    v45 = v10;
-    v46 = v5;
-    v48 = (v5 + 32);
-    v49 = (v14 + 32);
-    v20 = result + 64;
-    v21 = v14;
-    while (v18)
-    {
-      v23 = __clz(__rbit64(v18));
-      v18 &= v18 - 1;
-LABEL_15:
-      v26 = v23 | (v13 << 6);
-      v27 = *(v10 + 48);
-      v50 = *(v21 + 72);
-      v28 = v27 + v50 * v26;
-      if (v47)
-      {
-        (*v49)(v53, v28, v7);
-        v29 = *(v10 + 56);
-        v30 = *(v46 + 72);
-        (*(v46 + 32))(v51, v29 + v30 * v26, v52);
-      }
-
-      else
-      {
-        (*v43)(v53, v28, v7);
-        v31 = *(v10 + 56);
-        v30 = *(v46 + 72);
-        (*(v46 + 16))(v51, v31 + v30 * v26, v52);
-      }
-
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v32 = -1 << *(v12 + 32);
-      v33 = result & ~v32;
-      v34 = v33 >> 6;
-      if (((-1 << v33) & ~*(v20 + 8 * (v33 >> 6))) == 0)
-      {
-        v35 = 0;
-        v36 = (63 - v32) >> 6;
-        while (++v34 != v36 || (v35 & 1) == 0)
-        {
-          v37 = v34 == v36;
-          if (v34 == v36)
-          {
-            v34 = 0;
-          }
-
-          v35 |= v37;
-          v38 = *(v20 + 8 * v34);
-          if (v38 != -1)
-          {
-            v22 = __clz(__rbit64(~v38)) + (v34 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v22 = __clz(__rbit64((-1 << v33) & ~*(v20 + 8 * (v33 >> 6)))) | v33 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v20 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v22;
-      (*v49)((*(v12 + 48) + v50 * v22), v53, v7);
-      result = (*v48)(*(v12 + 56) + v30 * v22, v51, v52);
-      ++*(v12 + 16);
-      v21 = v44;
-      v10 = v45;
-    }
-
-    v24 = v13;
-    while (1)
-    {
-      v13 = v24 + 1;
-      if (__OFADD__(v24, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v13 >= v19)
-      {
-        break;
-      }
-
-      v25 = v15[v13];
-      ++v24;
-      if (v25)
-      {
-        v23 = __clz(__rbit64(v25));
-        v18 = (v25 - 1) & v25;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v47 & 1) == 0)
-    {
-
-      v3 = v41;
-      goto LABEL_34;
-    }
-
-    v39 = 1 << *(v10 + 32);
-    v3 = v41;
-    if (v39 >= 64)
-    {
-      bzero(v15, ((v39 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v15 = -1 << v39;
-    }
-
-    *(v10 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v12;
-  return result;
-}
-
-{
-  v3 = v2;
-  v45 = type metadata accessor for SocialProfile();
-  v5 = *(v45 - 8);
-  __chkstk_darwin(v45);
-  v44 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMd);
-  v42 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v9 = result;
-  if (*(v7 + 16))
-  {
-    v10 = 0;
-    v11 = (v7 + 64);
-    v12 = 1 << *(v7 + 32);
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    else
-    {
-      v13 = -1;
-    }
-
-    v14 = v13 & *(v7 + 64);
-    v15 = (v12 + 63) >> 6;
-    v38 = v2;
-    v39 = (v5 + 16);
-    v40 = v7;
-    v41 = v5;
-    v43 = (v5 + 32);
-    v16 = result + 64;
-    while (v14)
-    {
-      v19 = __clz(__rbit64(v14));
-      v14 &= v14 - 1;
-LABEL_15:
-      v22 = v19 | (v10 << 6);
-      v23 = *(v7 + 56);
-      v24 = (*(v7 + 48) + 16 * v22);
-      v26 = *v24;
-      v25 = v24[1];
-      v27 = *(v41 + 72);
-      v28 = v23 + v27 * v22;
-      if (v42)
-      {
-        (*v43)(v44, v28, v45);
-      }
-
-      else
-      {
-        (*v39)(v44, v28, v45);
-      }
-
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v29 = -1 << *(v9 + 32);
-      v30 = result & ~v29;
-      v31 = v30 >> 6;
-      if (((-1 << v30) & ~*(v16 + 8 * (v30 >> 6))) == 0)
-      {
-        v32 = 0;
-        v33 = (63 - v29) >> 6;
-        while (++v31 != v33 || (v32 & 1) == 0)
-        {
-          v34 = v31 == v33;
-          if (v31 == v33)
-          {
-            v31 = 0;
-          }
-
-          v32 |= v34;
-          v35 = *(v16 + 8 * v31);
-          if (v35 != -1)
-          {
-            v17 = __clz(__rbit64(~v35)) + (v31 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v17 = __clz(__rbit64((-1 << v30) & ~*(v16 + 8 * (v30 >> 6)))) | v30 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v16 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v17;
-      v18 = (*(v9 + 48) + 16 * v17);
-      *v18 = v26;
-      v18[1] = v25;
-      result = (*v43)(*(v9 + 56) + v27 * v17, v44, v45);
-      ++*(v9 + 16);
-      v7 = v40;
-    }
-
-    v20 = v10;
-    while (1)
-    {
-      v10 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v10 >= v15)
-      {
-        break;
-      }
-
-      v21 = v11[v10];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v14 = (v21 - 1) & v21;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v42 & 1) == 0)
-    {
-
-      v3 = v38;
-      goto LABEL_34;
-    }
-
-    v36 = 1 << *(v7 + 32);
-    v3 = v38;
-    if (v36 >= 64)
-    {
-      bzero(v11, ((v36 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v11 = -1 << v36;
-    }
-
-    *(v7 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v9;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = type metadata accessor for Lyrics.Transliteration(0);
-  v39 = *(v5 - 8);
-  __chkstk_darwin(v5 - 8);
-  v41 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS7LyricsX0C0C15TransliterationVGMd);
-  v40 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v9 = result;
-  if (*(v7 + 16))
-  {
-    v37 = v2;
-    v38 = v7;
-    v10 = 0;
-    v11 = (v7 + 64);
-    v12 = 1 << *(v7 + 32);
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    else
-    {
-      v13 = -1;
-    }
-
-    v14 = v13 & *(v7 + 64);
-    v15 = (v12 + 63) >> 6;
-    v16 = result + 64;
-    while (v14)
-    {
-      v19 = __clz(__rbit64(v14));
-      v14 &= v14 - 1;
-LABEL_15:
-      v22 = v19 | (v10 << 6);
-      v23 = *(v7 + 56);
-      v24 = (*(v7 + 48) + 16 * v22);
-      v25 = *v24;
-      v26 = v24[1];
-      v27 = *(v39 + 72);
-      v28 = v23 + v27 * v22;
-      if (v40)
-      {
-        outlined init with take of Lyrics.TextLine(v28, v41, type metadata accessor for Lyrics.Transliteration);
-      }
-
-      else
-      {
-        outlined init with copy of Lyrics.Translation(v28, v41, type metadata accessor for Lyrics.Transliteration);
-      }
-
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v29 = -1 << *(v9 + 32);
-      v30 = result & ~v29;
-      v31 = v30 >> 6;
-      if (((-1 << v30) & ~*(v16 + 8 * (v30 >> 6))) == 0)
-      {
-        v32 = 0;
-        v33 = (63 - v29) >> 6;
-        while (++v31 != v33 || (v32 & 1) == 0)
-        {
-          v34 = v31 == v33;
-          if (v31 == v33)
-          {
-            v31 = 0;
-          }
-
-          v32 |= v34;
-          v35 = *(v16 + 8 * v31);
-          if (v35 != -1)
-          {
-            v17 = __clz(__rbit64(~v35)) + (v31 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v17 = __clz(__rbit64((-1 << v30) & ~*(v16 + 8 * (v30 >> 6)))) | v30 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v16 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v17;
-      v18 = (*(v9 + 48) + 16 * v17);
-      *v18 = v25;
-      v18[1] = v26;
-      result = outlined init with take of Lyrics.TextLine(v41, *(v9 + 56) + v27 * v17, type metadata accessor for Lyrics.Transliteration);
-      ++*(v9 + 16);
-      v7 = v38;
-    }
-
-    v20 = v10;
-    while (1)
-    {
-      v10 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v10 >= v15)
-      {
-        break;
-      }
-
-      v21 = v11[v10];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v14 = (v21 - 1) & v21;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v40 & 1) == 0)
-    {
-
-      v3 = v37;
-      goto LABEL_34;
-    }
-
-    v36 = 1 << *(v7 + 32);
-    v3 = v37;
-    if (v36 >= 64)
-    {
-      bzero(v11, ((v36 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v11 = -1 << v36;
-    }
-
-    *(v7 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v9;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = type metadata accessor for Lyrics.Translation(0);
-  v39 = *(v5 - 8);
-  __chkstk_darwin(v5 - 8);
-  v41 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS7LyricsX0C0C11TranslationVGMd);
-  v40 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v9 = result;
-  if (*(v7 + 16))
-  {
-    v37 = v2;
-    v38 = v7;
-    v10 = 0;
-    v11 = (v7 + 64);
-    v12 = 1 << *(v7 + 32);
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    else
-    {
-      v13 = -1;
-    }
-
-    v14 = v13 & *(v7 + 64);
-    v15 = (v12 + 63) >> 6;
-    v16 = result + 64;
-    while (v14)
-    {
-      v19 = __clz(__rbit64(v14));
-      v14 &= v14 - 1;
-LABEL_15:
-      v22 = v19 | (v10 << 6);
-      v23 = *(v7 + 56);
-      v24 = (*(v7 + 48) + 16 * v22);
-      v25 = *v24;
-      v26 = v24[1];
-      v27 = *(v39 + 72);
-      v28 = v23 + v27 * v22;
-      if (v40)
-      {
-        outlined init with take of Lyrics.TextLine(v28, v41, type metadata accessor for Lyrics.Translation);
-      }
-
-      else
-      {
-        outlined init with copy of Lyrics.Translation(v28, v41, type metadata accessor for Lyrics.Translation);
-      }
-
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v29 = -1 << *(v9 + 32);
-      v30 = result & ~v29;
-      v31 = v30 >> 6;
-      if (((-1 << v30) & ~*(v16 + 8 * (v30 >> 6))) == 0)
-      {
-        v32 = 0;
-        v33 = (63 - v29) >> 6;
-        while (++v31 != v33 || (v32 & 1) == 0)
-        {
-          v34 = v31 == v33;
-          if (v31 == v33)
-          {
-            v31 = 0;
-          }
-
-          v32 |= v34;
-          v35 = *(v16 + 8 * v31);
-          if (v35 != -1)
-          {
-            v17 = __clz(__rbit64(~v35)) + (v31 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v17 = __clz(__rbit64((-1 << v30) & ~*(v16 + 8 * (v30 >> 6)))) | v30 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v16 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v17;
-      v18 = (*(v9 + 48) + 16 * v17);
-      *v18 = v25;
-      v18[1] = v26;
-      result = outlined init with take of Lyrics.TextLine(v41, *(v9 + 56) + v27 * v17, type metadata accessor for Lyrics.Translation);
-      ++*(v9 + 16);
-      v7 = v38;
-    }
-
-    v20 = v10;
-    while (1)
-    {
-      v10 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v10 >= v15)
-      {
-        break;
-      }
-
-      v21 = v11[v10];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v14 = (v21 - 1) & v21;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v40 & 1) == 0)
-    {
-
-      v3 = v37;
-      goto LABEL_34;
-    }
-
-    v36 = 1 << *(v7 + 32);
-    v3 = v37;
-    if (v36 >= 64)
-    {
-      bzero(v11, ((v36 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v11 = -1 << v36;
-    }
-
-    *(v7 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v9;
-  return result;
-}
-
-Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore14PlaylistCoversO10ExpressionOAE5CoverV14RepresentationVGMd);
-  v46 = a2;
-  v6 = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v8 = 0;
-    v43 = v3;
-    v44 = (v5 + 64);
-    v9 = 1 << *(v5 + 32);
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v11 = v10 & *(v5 + 64);
-    v12 = (v9 + 63) >> 6;
-    v13 = v6 + 64;
-    v45 = v5;
-    while (v11)
-    {
-      v17 = __clz(__rbit64(v11));
-      v47 = (v11 - 1) & v11;
-LABEL_15:
-      v21 = v17 | (v8 << 6);
-      v49 = *(*(v5 + 48) + v21);
-      v22 = *(v5 + 56) + 56 * v21;
-      v48 = *v22;
-      v24 = *(v22 + 8);
-      v23 = *(v22 + 16);
-      v26 = *(v22 + 24);
-      v25 = *(v22 + 32);
-      v27 = *(v22 + 40);
-      v28 = *(v22 + 48);
-      if ((v46 & 1) == 0)
-      {
-        v29 = v24;
-        v30 = v23;
-        v31 = v26;
-        v32 = v25;
-        v33 = v27;
-        v34 = v28;
-      }
-
-      Hasher.init(_seed:)();
-      Hasher._combine(_:)(v49 + 1);
-      result = Hasher._finalize()();
-      v35 = -1 << *(v7 + 32);
-      v36 = result & ~v35;
-      v37 = v36 >> 6;
-      if (((-1 << v36) & ~*(v13 + 8 * (v36 >> 6))) == 0)
-      {
-        v38 = 0;
-        v39 = (63 - v35) >> 6;
-        v15 = v28;
-        while (++v37 != v39 || (v38 & 1) == 0)
-        {
-          v40 = v37 == v39;
-          if (v37 == v39)
-          {
-            v37 = 0;
-          }
-
-          v38 |= v40;
-          v41 = *(v13 + 8 * v37);
-          if (v41 != -1)
-          {
-            v14 = __clz(__rbit64(~v41)) + (v37 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_35:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v36) & ~*(v13 + 8 * (v36 >> 6)))) | v36 & 0x7FFFFFFFFFFFFFC0;
-      v15 = v28;
-LABEL_7:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v7 + 48) + v14) = v49;
-      v16 = *(v7 + 56) + 56 * v14;
-      *v16 = v48;
-      *(v16 + 8) = v24;
-      *(v16 + 16) = v23;
-      *(v16 + 24) = v26;
-      *(v16 + 32) = v25;
-      *(v16 + 40) = v27;
-      *(v16 + 48) = v15;
-      ++*(v7 + 16);
-      v5 = v45;
-      v11 = v47;
-    }
-
-    v18 = v8;
-    result = v44;
-    while (1)
-    {
-      v8 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        __break(1u);
-        goto LABEL_35;
-      }
-
-      if (v8 >= v12)
-      {
-        break;
-      }
-
-      v20 = v44[v8];
-      ++v18;
-      if (v20)
-      {
-        v17 = __clz(__rbit64(v20));
-        v47 = (v20 - 1) & v20;
-        goto LABEL_15;
-      }
-    }
-
-    if (v46)
-    {
-      v42 = 1 << *(v5 + 32);
-      if (v42 >= 64)
-      {
-        bzero(v44, ((v42 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-      }
-
-      else
-      {
-        *v44 = -1 << v42;
-      }
-
-      *(v5 + 16) = 0;
-    }
-
-    v3 = v43;
-  }
-
-  else
-  {
-  }
-
-  *v3 = v7;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX0C0C4WordVSiGMd);
-  v53 = a2;
-  v6 = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v8 = 0;
-    v49 = (v5 + 64);
-    v9 = 1 << *(v5 + 32);
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v11 = v10 & *(v5 + 64);
-    v12 = (v9 + 63) >> 6;
-    v13 = v6 + 64;
-    v50 = v12;
-    v51 = v6;
-    v52 = v5;
-    while (v11)
-    {
-      v16 = __clz(__rbit64(v11));
-      v58 = (v11 - 1) & v11;
-LABEL_15:
-      v20 = v16 | (v8 << 6);
-      v21 = *(v5 + 56);
-      v22 = *(v5 + 48) + 56 * v20;
-      v23 = *v22;
-      v24 = *(v22 + 8);
-      v25 = *(v22 + 16);
-      v26 = *(v22 + 24);
-      v27 = *(v22 + 32);
-      v57 = *(v22 + 40);
-      v56 = *(v22 + 48);
-      v55 = *(v21 + 8 * v20);
-      if ((v53 & 1) == 0)
-      {
-      }
-
-      Hasher.init(_seed:)();
-      if (v23 == 0.0)
-      {
-        v28 = 0.0;
-      }
-
-      else
-      {
-        v28 = v23;
-      }
-
-      Hasher._combine(_:)(*&v28);
-      if (v24 == 0.0)
-      {
-        v29 = 0.0;
-      }
-
-      else
-      {
-        v29 = v24;
-      }
-
-      Hasher._combine(_:)(*&v29);
-      v54 = v25;
-      String.hash(into:)();
-      v59 = v27;
-      v30 = *(v27 + 16);
-      Hasher._combine(_:)(v30);
-      if (v30)
-      {
-        v31 = (v27 + 80);
-        do
-        {
-          v32 = *(v31 - 6);
-          v33 = *(v31 - 5);
-          v34 = *(v31 - 2);
-          v35 = *(v31 - 1);
-          v37 = *v31;
-          v31 += 7;
-          v36 = *&v37;
-          if (v32 == 0.0)
-          {
-            v32 = 0.0;
-          }
-
-          Hasher._combine(_:)(*&v32);
-          if (v33 == 0.0)
-          {
-            v38 = 0.0;
-          }
-
-          else
-          {
-            v38 = v33;
-          }
-
-          Hasher._combine(_:)(*&v38);
-
-          String.hash(into:)();
-          Hasher._combine(_:)(v34);
-          Hasher._combine(_:)(v35);
-          Hasher._combine(_:)(v36);
-
-          --v30;
-        }
-
-        while (v30);
-      }
-
-      if (v56)
-      {
-        Hasher._combine(_:)(0);
-        v7 = v51;
-        v5 = v52;
-        v39 = v57;
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1uLL);
-        v39 = v57;
-        if ((v57 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-        {
-          v40 = v57;
-        }
-
-        else
-        {
-          v40 = 0;
-        }
-
-        Hasher._combine(_:)(v40);
-        v7 = v51;
-        v5 = v52;
-      }
-
-      result = Hasher._finalize()();
-      v41 = -1 << *(v7 + 32);
-      v42 = result & ~v41;
-      v43 = v42 >> 6;
-      if (((-1 << v42) & ~*(v13 + 8 * (v42 >> 6))) == 0)
-      {
-        v44 = 0;
-        v45 = (63 - v41) >> 6;
-        v11 = v58;
-        while (++v43 != v45 || (v44 & 1) == 0)
-        {
-          v46 = v43 == v45;
-          if (v43 == v45)
-          {
-            v43 = 0;
-          }
-
-          v44 |= v46;
-          v47 = *(v13 + 8 * v43);
-          if (v47 != -1)
-          {
-            v14 = __clz(__rbit64(~v47)) + (v43 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_55:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v42) & ~*(v13 + 8 * (v42 >> 6)))) | v42 & 0x7FFFFFFFFFFFFFC0;
-      v11 = v58;
-LABEL_7:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      v15 = *(v7 + 48) + 56 * v14;
-      *v15 = v23;
-      *(v15 + 8) = v24;
-      *(v15 + 16) = v54;
-      *(v15 + 24) = v26;
-      *(v15 + 32) = v59;
-      *(v15 + 40) = v39;
-      *(v15 + 48) = v56;
-      *(*(v7 + 56) + 8 * v14) = v55;
-      ++*(v7 + 16);
-      v12 = v50;
-    }
-
-    v17 = v8;
-    result = v49;
-    while (1)
-    {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_55;
-      }
-
-      if (v8 >= v12)
-      {
-        break;
-      }
-
-      v19 = v49[v8];
-      ++v17;
-      if (v19)
-      {
-        v16 = __clz(__rbit64(v19));
-        v58 = (v19 - 1) & v19;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v53 & 1) == 0)
-    {
-
-      v3 = v2;
-      goto LABEL_53;
-    }
-
-    v48 = 1 << *(v5 + 32);
-    v3 = v2;
-    if (v48 >= 64)
-    {
-      bzero(v49, ((v48 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v49 = -1 << v48;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_53:
-  *v3 = v7;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX0C0C4WordVSayAC06SyncedC8LineViewCAFCGGMd);
-  v55 = a2;
-  v6 = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v8 = 0;
-    v50 = v2;
-    v51 = (v5 + 64);
-    v9 = 1 << *(v5 + 32);
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v11 = v10 & *(v5 + 64);
-    v12 = (v9 + 63) >> 6;
-    v13 = v6 + 64;
-    v52 = v12;
-    v53 = v6;
-    v54 = v5;
-    while (v11)
-    {
-      v16 = __clz(__rbit64(v11));
-      v59 = (v11 - 1) & v11;
-LABEL_15:
-      v20 = v16 | (v8 << 6);
-      v21 = *(v5 + 56);
-      v22 = *(v5 + 48) + 56 * v20;
-      v23 = *v22;
-      v24 = *(v22 + 8);
-      v25 = *(v22 + 16);
-      v26 = *(v22 + 24);
-      v27 = *(v22 + 32);
-      v58 = *(v22 + 40);
-      v57 = *(v22 + 48);
-      v28 = *(v21 + 8 * v20);
-      if ((v55 & 1) == 0)
-      {
-      }
-
-      Hasher.init(_seed:)();
-      if (v23 == 0.0)
-      {
-        v29 = 0.0;
-      }
-
-      else
-      {
-        v29 = v23;
-      }
-
-      Hasher._combine(_:)(*&v29);
-      if (v24 == 0.0)
-      {
-        v30 = 0.0;
-      }
-
-      else
-      {
-        v30 = v24;
-      }
-
-      Hasher._combine(_:)(*&v30);
-      v56 = v25;
-      String.hash(into:)();
-      v60 = v27;
-      v31 = *(v27 + 16);
-      Hasher._combine(_:)(v31);
-      if (v31)
-      {
-        v32 = (v27 + 80);
-        do
-        {
-          v33 = *(v32 - 6);
-          v34 = *(v32 - 5);
-          v35 = *(v32 - 2);
-          v36 = *(v32 - 1);
-          v38 = *v32;
-          v32 += 7;
-          v37 = *&v38;
-          if (v33 == 0.0)
-          {
-            v33 = 0.0;
-          }
-
-          Hasher._combine(_:)(*&v33);
-          if (v34 == 0.0)
-          {
-            v39 = 0.0;
-          }
-
-          else
-          {
-            v39 = v34;
-          }
-
-          Hasher._combine(_:)(*&v39);
-
-          String.hash(into:)();
-          Hasher._combine(_:)(v35);
-          Hasher._combine(_:)(v36);
-          Hasher._combine(_:)(v37);
-
-          --v31;
-        }
-
-        while (v31);
-      }
-
-      if (v57)
-      {
-        Hasher._combine(_:)(0);
-        v7 = v53;
-        v40 = v58;
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1uLL);
-        v40 = v58;
-        if ((v58 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-        {
-          v41 = v58;
-        }
-
-        else
-        {
-          v41 = 0;
-        }
-
-        Hasher._combine(_:)(v41);
-        v7 = v53;
-      }
-
-      result = Hasher._finalize()();
-      v42 = -1 << *(v7 + 32);
-      v43 = result & ~v42;
-      v44 = v43 >> 6;
-      v5 = v54;
-      if (((-1 << v43) & ~*(v13 + 8 * (v43 >> 6))) == 0)
-      {
-        v45 = 0;
-        v46 = (63 - v42) >> 6;
-        v11 = v59;
-        while (++v44 != v46 || (v45 & 1) == 0)
-        {
-          v47 = v44 == v46;
-          if (v44 == v46)
-          {
-            v44 = 0;
-          }
-
-          v45 |= v47;
-          v48 = *(v13 + 8 * v44);
-          if (v48 != -1)
-          {
-            v14 = __clz(__rbit64(~v48)) + (v44 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_55:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v43) & ~*(v13 + 8 * (v43 >> 6)))) | v43 & 0x7FFFFFFFFFFFFFC0;
-      v11 = v59;
-LABEL_7:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      v15 = *(v7 + 48) + 56 * v14;
-      *v15 = v23;
-      *(v15 + 8) = v24;
-      *(v15 + 16) = v56;
-      *(v15 + 24) = v26;
-      *(v15 + 32) = v60;
-      *(v15 + 40) = v40;
-      *(v15 + 48) = v57;
-      *(*(v7 + 56) + 8 * v14) = v28;
-      ++*(v7 + 16);
-      v12 = v52;
-    }
-
-    v17 = v8;
-    result = v51;
-    while (1)
-    {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_55;
-      }
-
-      if (v8 >= v12)
-      {
-        break;
-      }
-
-      v19 = v51[v8];
-      ++v17;
-      if (v19)
-      {
-        v16 = __clz(__rbit64(v19));
-        v59 = (v19 - 1) & v19;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v55 & 1) == 0)
-    {
-
-      v3 = v50;
-      goto LABEL_53;
-    }
-
-    v49 = 1 << *(v5 + 32);
-    v3 = v50;
-    if (v49 >= 64)
-    {
-      bzero(v51, ((v49 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v51 = -1 << v49;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_53:
-  *v3 = v7;
-  return result;
-}
-
 uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v6 = v5;
@@ -1624,77 +64,6 @@ LABEL_17:
   }
 
   v23[2] = v29;
-}
-
-{
-  v6 = v5;
-  v12 = *v5;
-  v13 = specialized __RawDictionaryStorage.find<A>(_:)(a3, a4);
-  v15 = *(v12 + 16);
-  v16 = (v14 & 1) == 0;
-  v17 = __OFADD__(v15, v16);
-  v18 = v15 + v16;
-  if (v17)
-  {
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  v19 = v14;
-  v20 = *(v12 + 24);
-  if (v20 < v18 || (a5 & 1) == 0)
-  {
-    if (v20 < v18 || (a5 & 1) != 0)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v18, a5 & 1);
-      v13 = specialized __RawDictionaryStorage.find<A>(_:)(a3, a4);
-      if ((v19 & 1) != (v22 & 1))
-      {
-LABEL_18:
-        result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-        return result;
-      }
-    }
-
-    else
-    {
-      v21 = v13;
-      specialized _NativeDictionary.copy()();
-      v13 = v21;
-    }
-  }
-
-  v23 = *v6;
-  if (v19)
-  {
-    v24 = (v23[7] + 16 * v13);
-    v25 = *v24;
-    v26 = v24[1];
-    *v24 = a1;
-    v24[1] = a2;
-
-    return outlined consume of Data._Representation(v25, v26);
-  }
-
-  v23[(v13 >> 6) + 8] |= 1 << v13;
-  v28 = (v23[6] + 16 * v13);
-  *v28 = a3;
-  v28[1] = a4;
-  v29 = (v23[7] + 16 * v13);
-  *v29 = a1;
-  v29[1] = a2;
-  v30 = v23[2];
-  v17 = __OFADD__(v30, 1);
-  v31 = v30 + 1;
-  if (v17)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v23[2] = v31;
 }
 
 unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3)
@@ -1948,259 +317,12 @@ LABEL_17:
   v21[2] = v25;
 }
 
-{
-  v5 = v4;
-  v10 = *v4;
-  v11 = _ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5_1(a2, a3);
-  v13 = *(v10 + 16);
-  v14 = (v12 & 1) == 0;
-  v15 = __OFADD__(v13, v14);
-  v16 = v13 + v14;
-  if (v15)
-  {
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  v17 = v12;
-  v18 = *(v10 + 24);
-  if (v18 < v16 || (a4 & 1) == 0)
-  {
-    if (v18 < v16 || (a4 & 1) != 0)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v11 = _ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5_1(a2, a3);
-      if ((v17 & 1) != (v20 & 1))
-      {
-LABEL_18:
-        result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-        return result;
-      }
-    }
-
-    else
-    {
-      v19 = v11;
-      specialized _NativeDictionary.copy()();
-      v11 = v19;
-    }
-  }
-
-  v21 = *v5;
-  if (v17)
-  {
-    *(v21[7] + 8 * v11) = a1;
-  }
-
-  v21[(v11 >> 6) + 8] |= 1 << v11;
-  v23 = (v21[6] + 16 * v11);
-  *v23 = a2;
-  v23[1] = a3;
-  *(v21[7] + 8 * v11) = a1;
-  v24 = v21[2];
-  v15 = __OFADD__(v24, 1);
-  v25 = v24 + 1;
-  if (v15)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v21[2] = v25;
-}
-
-{
-  v5 = v4;
-  v10 = *v4;
-  v12 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  v13 = v10[2];
-  v14 = (v11 & 1) == 0;
-  v15 = v13 + v14;
-  if (__OFADD__(v13, v14))
-  {
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  v16 = v11;
-  v17 = v10[3];
-  if (v17 >= v15 && (a4 & 1) != 0)
-  {
-LABEL_7:
-    v18 = *v5;
-    if (v16)
-    {
-LABEL_8:
-      v19 = v18[7];
-      v20 = type metadata accessor for Lyrics.Transliteration(0);
-      return outlined assign with take of Lyrics.Translation(a1, v19 + *(*(v20 - 8) + 72) * v12, type metadata accessor for Lyrics.Transliteration);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v17 >= v15 && (a4 & 1) == 0)
-  {
-    specialized _NativeDictionary.copy()();
-    goto LABEL_7;
-  }
-
-  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, a4 & 1);
-  v22 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  if ((v16 & 1) != (v23 & 1))
-  {
-LABEL_15:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-    __break(1u);
-    return result;
-  }
-
-  v12 = v22;
-  v18 = *v5;
-  if (v16)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  specialized _NativeDictionary._insert(at:key:value:)(v12, a2, a3, a1, v18, type metadata accessor for Lyrics.Transliteration, type metadata accessor for Lyrics.Transliteration);
-}
-
-{
-  v5 = v4;
-  v10 = *v4;
-  v12 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  v13 = v10[2];
-  v14 = (v11 & 1) == 0;
-  v15 = v13 + v14;
-  if (__OFADD__(v13, v14))
-  {
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  v16 = v11;
-  v17 = v10[3];
-  if (v17 >= v15 && (a4 & 1) != 0)
-  {
-LABEL_7:
-    v18 = *v5;
-    if (v16)
-    {
-LABEL_8:
-      v19 = v18[7];
-      v20 = type metadata accessor for Lyrics.Translation(0);
-      return outlined assign with take of Lyrics.Translation(a1, v19 + *(*(v20 - 8) + 72) * v12, type metadata accessor for Lyrics.Translation);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v17 >= v15 && (a4 & 1) == 0)
-  {
-    specialized _NativeDictionary.copy()();
-    goto LABEL_7;
-  }
-
-  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, a4 & 1);
-  v22 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  if ((v16 & 1) != (v23 & 1))
-  {
-LABEL_15:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-    __break(1u);
-    return result;
-  }
-
-  v12 = v22;
-  v18 = *v5;
-  if (v16)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  specialized _NativeDictionary._insert(at:key:value:)(v12, a2, a3, a1, v18, type metadata accessor for Lyrics.Translation, type metadata accessor for Lyrics.Translation);
-}
-
-{
-  v5 = v4;
-  v10 = *v4;
-  v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-  v13 = *(v10 + 16);
-  v14 = (v12 & 1) == 0;
-  v15 = __OFADD__(v13, v14);
-  v16 = v13 + v14;
-  if (v15)
-  {
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  v17 = v12;
-  v18 = *(v10 + 24);
-  if (v18 < v16 || (a4 & 1) == 0)
-  {
-    if (v18 < v16 || (a4 & 1) != 0)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-      if ((v17 & 1) != (v20 & 1))
-      {
-LABEL_18:
-        result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-        return result;
-      }
-    }
-
-    else
-    {
-      v19 = v11;
-      specialized _NativeDictionary.copy()();
-      v11 = v19;
-    }
-  }
-
-  v21 = *v5;
-  if (v17)
-  {
-    v22 = v21[7] + 40 * v11;
-
-    return outlined assign with take of AnyHashable(a1, v22);
-  }
-
-  v21[(v11 >> 6) + 8] |= 1 << v11;
-  v24 = (v21[6] + 16 * v11);
-  *v24 = a2;
-  v24[1] = a3;
-  v25 = v21[7] + 40 * v11;
-  v26 = *a1;
-  v27 = *(a1 + 16);
-  *(v25 + 32) = *(a1 + 32);
-  *v25 = v26;
-  *(v25 + 16) = v27;
-  v28 = v21[2];
-  v15 = __OFADD__(v28, 1);
-  v29 = v28 + 1;
-  if (v15)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v21[2] = v29;
-}
-
 void specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *v3;
   v14 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
@@ -2291,7 +413,7 @@ _OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(_OWORD *a1, v
     if ((v14 & 1) != (v17 & 1))
     {
 LABEL_16:
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIView);
+      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
       result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
       return result;
@@ -2377,7 +499,7 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
   v4 = v3;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *v3;
   v14 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
@@ -2431,7 +553,7 @@ LABEL_7:
 
 LABEL_8:
   v21 = v20[7];
-  v22 = v21 + *(*(type metadata accessor for PushNotificationObserver.RegisteredHandler() - 8) + 72) * v14;
+  v22 = v21 + *(*(type metadata accessor for PushNotificationObserver.RegisteredHandler(0) - 8) + 72) * v14;
 
   return outlined assign with take of PushNotificationObserver.RegisteredHandler(a1, v22);
 }
@@ -2440,7 +562,7 @@ LABEL_8:
   v4 = v3;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *v3;
   v14 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
@@ -2494,7 +616,7 @@ LABEL_7:
 
 LABEL_8:
   v21 = v20[7];
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
   v23 = *(v22 - 8);
   v24 = *(v23 + 40);
   v25 = v22;
@@ -2651,7 +773,7 @@ id specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, void 
       if ((v14 & 1) != (v17 & 1))
       {
 LABEL_18:
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerPath);
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerPath, MPCPlayerPath_ptr);
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         __break(1u);
         return result;
@@ -2791,7 +913,7 @@ uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint
   v9 = type metadata accessor for UUID();
   (*(*(v9 - 8) + 32))(v8 + *(*(v9 - 8) + 72) * a1, a2, v9);
   v10 = a4[7];
-  v11 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
+  v11 = type metadata accessor for PushNotificationObserver.RegisteredHandler(0);
   result = outlined init with take of PushNotificationObserver.RegisteredHandler(a3, v10 + *(*(v11 - 8) + 72) * a1);
   v13 = a4[2];
   v14 = __OFADD__(v13, 1);
@@ -2815,7 +937,7 @@ uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint
   v9 = type metadata accessor for UUID();
   (*(*(v9 - 8) + 32))(v8 + *(*(v9 - 8) + 72) * a1, a2, v9);
   v10 = a4[7];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
   result = (*(*(v11 - 8) + 32))(v10 + *(*(v11 - 8) + 72) * a1, a3, v11);
   v13 = a4[2];
   v14 = __OFADD__(v13, 1);
@@ -2859,7 +981,7 @@ _OWORD *specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint6
 void *specialized _NativeDictionary.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -2948,7 +1070,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMd, &_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3028,7 +1150,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3116,7 +1238,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMd, &_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3188,7 +1310,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySSypGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySSypGGMd, &_ss18_DictionaryStorageCySSSDySSypGGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3272,7 +1394,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd_0, &_ss18_DictionaryStorageCySSypGMR_0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3362,7 +1484,7 @@ LABEL_21:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo30MPCPlayerRequestTracklistRangeaSiADSH9MusicCoreyHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo30MPCPlayerRequestTracklistRangeaSiADSH9MusicCoreyHCg_GMd, &_ss18_DictionaryStorageCySo30MPCPlayerRequestTracklistRangeaSiADSH9MusicCoreyHCg_GMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3434,7 +1556,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMd, &_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -3515,1314 +1637,14 @@ LABEL_19:
   return result;
 }
 
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DataVGMd_0);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = 16 * (v14 | (v8 << 6));
-        v18 = (*(v2 + 48) + v17);
-        v20 = *v18;
-        v19 = v18[1];
-        v22 = *(*(v2 + 56) + v17);
-        v21 = (*(v4 + 48) + v17);
-        *v21 = v20;
-        v21[1] = v19;
-        *(*(v4 + 56) + v17) = v22;
-
-        result = outlined copy of Data._Representation(v22, *(&v22 + 1));
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore14PlaylistCoversO5CoverV14RepresentationVAE0cD2UIE12CarouselItemVGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    v49 = v1;
-    result = (v3 + 64);
-    v6 = v2 + 64;
-    v7 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v7)
-    {
-      result = memmove(result, (v2 + 64), 8 * v7);
-    }
-
-    v9 = 0;
-    v50 = v2;
-    v51 = v4;
-    *(v4 + 16) = *(v2 + 16);
-    v10 = 1 << *(v2 + 32);
-    v11 = -1;
-    if (v10 < 64)
-    {
-      v11 = ~(-1 << v10);
-    }
-
-    v12 = v11 & *(v2 + 64);
-    for (i = (v10 + 63) >> 6; v12; result = outlined init with copy of PlaylistCovers.CarouselItem(&v53, v52))
-    {
-      v14 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
-LABEL_17:
-      v17 = v14 | (v9 << 6);
-      v18 = 56 * v17;
-      v19 = *(v2 + 56);
-      v20 = *(v2 + 48) + 56 * v17;
-      v21 = *v20;
-      v22 = *(v20 + 8);
-      v23 = *(v20 + 16);
-      v25 = *(v20 + 24);
-      v24 = *(v20 + 32);
-      v27 = *(v20 + 40);
-      v26 = *(v20 + 48);
-      v17 *= 136;
-      v28 = (v19 + v17);
-      v30 = v28[1];
-      v29 = v28[2];
-      v31 = v28[4];
-      v56 = v28[3];
-      v57 = v31;
-      v33 = v28[6];
-      v32 = v28[7];
-      v34 = v28[5];
-      v61 = *(v28 + 16);
-      v59 = v33;
-      v60 = v32;
-      v58 = v34;
-      v53 = *v28;
-      v54 = v30;
-      v55 = v29;
-      v35 = *(v51 + 48) + v18;
-      *v35 = v21;
-      *(v35 + 8) = v22;
-      *(v35 + 16) = v23;
-      *(v35 + 24) = v25;
-      *(v35 + 32) = v24;
-      *(v35 + 40) = v27;
-      *(v35 + 48) = v26;
-      v36 = *(v51 + 56) + v17;
-      *v36 = v53;
-      v37 = v54;
-      v38 = v55;
-      v39 = v57;
-      *(v36 + 48) = v56;
-      *(v36 + 64) = v39;
-      *(v36 + 16) = v37;
-      *(v36 + 32) = v38;
-      v40 = v58;
-      v41 = v59;
-      v42 = v60;
-      *(v36 + 128) = v61;
-      *(v36 + 96) = v41;
-      *(v36 + 112) = v42;
-      *(v36 + 80) = v40;
-      v43 = v22;
-      v44 = v23;
-      v2 = v50;
-      v45 = v25;
-      v46 = v24;
-      v47 = v27;
-      v48 = v26;
-    }
-
-    v15 = v9;
-    while (1)
-    {
-      v9 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v9 >= i)
-      {
-
-        v1 = v49;
-        v4 = v51;
-        goto LABEL_21;
-      }
-
-      v16 = *(v6 + 8 * v9);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_21:
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2iGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = -1;
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    v11 = v10 & *(v2 + 64);
-    for (i = (v9 + 63) >> 6; v11; *(*(v4 + 56) + 8 * v14) = v17)
-    {
-      v13 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-      v14 = v13 | (v8 << 6);
-LABEL_17:
-      v17 = *(*(v2 + 56) + 8 * v14);
-      *(*(v4 + 48) + 8 * v14) = *(*(v2 + 48) + 8 * v14);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= i)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v11 = (v16 - 1) & v16;
-        v14 = __clz(__rbit64(v16)) | (v8 << 6);
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 48) + 16 * v17);
-        v20 = *v18;
-        v19 = v18[1];
-        v21 = *(*(v2 + 56) + 8 * v17);
-        v22 = (*(v4 + 48) + 16 * v17);
-        *v22 = v20;
-        v22[1] = v19;
-        *(*(v4 + 56) + 8 * v17) = v21;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo14NSUserDefaultsC14MusicUtilitiesE9_Observer33_0EE8F48931DDE162065F15584D7CE3A3LLC16SuiteAssociationVSDySSSayAH07HandlerP0VGGGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 48) + 24 * v17);
-        v19 = v18[1];
-        v20 = v18[2];
-        v21 = *(*(v2 + 56) + 8 * v17);
-        v22 = (*(v4 + 48) + 24 * v17);
-        *v22 = *v18;
-        v22[1] = v19;
-        v22[2] = v20;
-        *(*(v4 + 56) + 8 * v17) = v21;
-
-        v23 = v20;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSaySo14NSUserDefaultsC14MusicUtilitiesE9_Observer33_0EE8F48931DDE162065F15584D7CE3A3LLC18HandlerAssociationVGGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 48) + 16 * v17);
-        v19 = v18[1];
-        v20 = *(*(v2 + 56) + 8 * v17);
-        v21 = (*(v4 + 48) + 16 * v17);
-        *v21 = *v18;
-        v21[1] = v19;
-        *(*(v4 + 56) + 8 * v17) = v20;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS7LyricsX0C0C23LineTranslationMetadata023_023C7B06612B00822B4518G8EDD9DC67LLVGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = -1;
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    v11 = v10 & *(v2 + 64);
-    for (i = (v9 + 63) >> 6; v11; result = outlined init with copy of Lyrics.LineTranslationMetadata(&v33, v32))
-    {
-      v13 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v16 = v13 | (v8 << 6);
-      v17 = 16 * v16;
-      v18 = (*(v2 + 48) + 16 * v16);
-      v20 = *v18;
-      v19 = v18[1];
-      v16 *= 88;
-      v21 = *(v2 + 56) + v16;
-      v22 = *(v21 + 32);
-      v23 = *(v21 + 48);
-      v24 = *(v21 + 64);
-      v38 = *(v21 + 80);
-      v36 = v23;
-      v37 = v24;
-      v25 = *(v21 + 16);
-      v33 = *v21;
-      v34 = v25;
-      v35 = v22;
-      v26 = (*(v4 + 48) + v17);
-      *v26 = v20;
-      v26[1] = v19;
-      v27 = *(v4 + 56) + v16;
-      v28 = v34;
-      *v27 = v33;
-      *(v27 + 16) = v28;
-      v29 = v35;
-      v30 = v36;
-      v31 = v37;
-      *(v27 + 80) = v38;
-      *(v27 + 48) = v30;
-      *(v27 + 64) = v31;
-      *(v27 + 32) = v29;
-    }
-
-    v14 = v8;
-    while (1)
-    {
-      v8 = v14 + 1;
-      if (__OFADD__(v14, 1))
-      {
-        break;
-      }
-
-      if (v8 >= i)
-      {
-        goto LABEL_19;
-      }
-
-      v15 = *(v2 + 64 + 8 * v8);
-      ++v14;
-      if (v15)
-      {
-        v13 = __clz(__rbit64(v15));
-        v11 = (v15 - 1) & v15;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  v2 = type metadata accessor for Lyrics.Transliteration(0);
-  v31 = *(v2 - 8);
-  __chkstk_darwin(v2 - 8);
-  v30 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS7LyricsX0C0C15TransliterationVGMd);
-  v4 = *v0;
-  v5 = static _DictionaryStorage.copy(original:)();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    v29 = v1;
-    result = (v5 + 64);
-    v8 = v4 + 64;
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    if (v6 != v4 || result >= v8 + 8 * v9)
-    {
-      result = memmove(result, (v4 + 64), 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v32 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = *(v4 + 64);
-    v14 = -1;
-    if (v12 < 64)
-    {
-      v14 = ~(-1 << v12);
-    }
-
-    v15 = v14 & v13;
-    v16 = (v12 + 63) >> 6;
-    if ((v14 & v13) != 0)
-    {
-      do
-      {
-        v17 = __clz(__rbit64(v15));
-        v15 &= v15 - 1;
-LABEL_14:
-        v20 = v17 | (v10 << 6);
-        v21 = 16 * v20;
-        v22 = (*(v4 + 48) + 16 * v20);
-        v23 = *v22;
-        v24 = v22[1];
-        v25 = v30;
-        v26 = *(v31 + 72) * v20;
-        outlined init with copy of Lyrics.Translation(*(v4 + 56) + v26, v30, type metadata accessor for Lyrics.Transliteration);
-        v27 = v32;
-        v28 = (*(v32 + 48) + v21);
-        *v28 = v23;
-        v28[1] = v24;
-        outlined init with take of Lyrics.TextLine(v25, *(v27 + 56) + v26, type metadata accessor for Lyrics.Transliteration);
-      }
-
-      while (v15);
-    }
-
-    v18 = v10;
-    while (1)
-    {
-      v10 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v16)
-      {
-
-        v1 = v29;
-        v6 = v32;
-        goto LABEL_18;
-      }
-
-      v19 = *(v8 + 8 * v10);
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v15 = (v19 - 1) & v19;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  v2 = type metadata accessor for Lyrics.Translation(0);
-  v31 = *(v2 - 8);
-  __chkstk_darwin(v2 - 8);
-  v30 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS7LyricsX0C0C11TranslationVGMd);
-  v4 = *v0;
-  v5 = static _DictionaryStorage.copy(original:)();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    v29 = v1;
-    result = (v5 + 64);
-    v8 = v4 + 64;
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    if (v6 != v4 || result >= v8 + 8 * v9)
-    {
-      result = memmove(result, (v4 + 64), 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v32 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = *(v4 + 64);
-    v14 = -1;
-    if (v12 < 64)
-    {
-      v14 = ~(-1 << v12);
-    }
-
-    v15 = v14 & v13;
-    v16 = (v12 + 63) >> 6;
-    if ((v14 & v13) != 0)
-    {
-      do
-      {
-        v17 = __clz(__rbit64(v15));
-        v15 &= v15 - 1;
-LABEL_14:
-        v20 = v17 | (v10 << 6);
-        v21 = 16 * v20;
-        v22 = (*(v4 + 48) + 16 * v20);
-        v23 = *v22;
-        v24 = v22[1];
-        v25 = v30;
-        v26 = *(v31 + 72) * v20;
-        outlined init with copy of Lyrics.Translation(*(v4 + 56) + v26, v30, type metadata accessor for Lyrics.Translation);
-        v27 = v32;
-        v28 = (*(v32 + 48) + v21);
-        *v28 = v23;
-        v28[1] = v24;
-        outlined init with take of Lyrics.TextLine(v25, *(v27 + 56) + v26, type metadata accessor for Lyrics.Translation);
-      }
-
-      while (v15);
-    }
-
-    v18 = v10;
-    while (1)
-    {
-      v10 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v16)
-      {
-
-        v1 = v29;
-        v6 = v32;
-        goto LABEL_18;
-      }
-
-      v19 = *(v8 + 8 * v10);
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v15 = (v19 - 1) & v19;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSs11AnyHashableVGMd_0);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    v27 = v1;
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = 16 * v17;
-        v19 = (*(v2 + 48) + 16 * v17);
-        v21 = *v19;
-        v20 = v19[1];
-        v22 = 40 * v17;
-        outlined init with copy of AnyHashable(*(v2 + 56) + 40 * v17, v28);
-        v23 = (*(v4 + 48) + v18);
-        *v23 = v21;
-        v23[1] = v20;
-        v24 = *(v4 + 56) + v22;
-        v25 = v29;
-        v26 = v28[1];
-        *v24 = v28[0];
-        *(v24 + 16) = v26;
-        *(v24 + 32) = v25;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-
-        v1 = v27;
-        goto LABEL_21;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_21:
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX0C0C4WordVSiGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = v17 << 6;
-        v17 *= 8;
-        v19 = v18 - v17;
-        v20 = *(v2 + 48) + v19;
-        v22 = *(v20 + 16);
-        v21 = *(v20 + 24);
-        v24 = *(v20 + 32);
-        v23 = *(v20 + 40);
-        v25 = *(v20 + 48);
-        v26 = *(*(v2 + 56) + v17);
-        v27 = *(v4 + 48) + v19;
-        *v27 = *v20;
-        *(v27 + 16) = v22;
-        *(v27 + 24) = v21;
-        *(v27 + 32) = v24;
-        *(v27 + 40) = v23;
-        *(v27 + 48) = v25;
-        *(*(v4 + 56) + v17) = v26;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX0C0C4WordVSayAC06SyncedC8LineViewCAFCGGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = v17 << 6;
-        v17 *= 8;
-        v19 = v18 - v17;
-        v20 = *(v2 + 48) + v19;
-        v22 = *(v20 + 16);
-        v21 = *(v20 + 24);
-        v24 = *(v20 + 32);
-        v23 = *(v20 + 40);
-        v25 = *(v20 + 48);
-        v26 = *(*(v2 + 56) + v17);
-        v27 = *(v4 + 48) + v19;
-        *v27 = *v20;
-        *(v27 + 16) = v22;
-        *(v27 + 24) = v21;
-        *(v27 + 32) = v24;
-        *(v27 + 40) = v23;
-        *(v27 + 48) = v25;
-        *(*(v4 + 56) + v17) = v26;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX06SyncedC8LineViewC0E0CSo6CGRectVGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 56) + 32 * v17);
-        v19 = *v18;
-        v20 = v18[1];
-        *(*(v4 + 48) + 8 * v17) = *(*(v2 + 48) + 8 * v17);
-        v21 = (*(v4 + 56) + 32 * v17);
-        *v21 = v19;
-        v21[1] = v20;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy7LyricsX06SyncedC8LineViewC0E0CShyAE4WordCGGMd);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 56) + 8 * v17);
-        *(*(v4 + 48) + 8 * v17) = *(*(v2 + 48) + 8 * v17);
-        *(*(v4 + 56) + 8 * v17) = v18;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
 char *specialized _NativeDictionary.copy()()
 {
   v1 = v0;
   v31 = type metadata accessor for UUID();
   v33 = *(v31 - 8);
-  __chkstk_darwin(v31);
+  __chkstk_darwin();
   v30 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMR);
   v3 = *v0;
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
@@ -4919,93 +1741,92 @@ LABEL_18:
 
 {
   v1 = v0;
-  v2 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
-  v36 = *(v2 - 8);
-  __chkstk_darwin(v2 - 8);
-  v35 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = type metadata accessor for UUID();
-  v37 = *(v34 - 8);
-  __chkstk_darwin(v34);
-  v33 = &v28 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMd);
-  v5 = *v0;
-  v6 = static _DictionaryStorage.copy(original:)();
-  v7 = v6;
-  if (*(v5 + 16))
+  v35 = *(type metadata accessor for PushNotificationObserver.RegisteredHandler(0) - 8);
+  __chkstk_darwin();
+  v34 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = type metadata accessor for UUID();
+  v36 = *(v33 - 8);
+  __chkstk_darwin();
+  v32 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMR);
+  v4 = *v0;
+  v5 = static _DictionaryStorage.copy(original:)();
+  v6 = v5;
+  if (*(v4 + 16))
   {
-    result = (v6 + 64);
-    v9 = (v5 + 64);
-    v10 = ((1 << *(v7 + 32)) + 63) >> 6;
-    v29 = v1;
-    v30 = v5 + 64;
-    if (v7 != v5 || result >= &v9[8 * v10])
+    result = (v5 + 64);
+    v8 = (v4 + 64);
+    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
+    v28 = v1;
+    v29 = v4 + 64;
+    if (v6 != v4 || result >= &v8[8 * v9])
     {
-      result = memmove(result, v9, 8 * v10);
+      result = memmove(result, v8, 8 * v9);
     }
 
-    v11 = 0;
-    v12 = *(v5 + 16);
-    v38 = v7;
-    *(v7 + 16) = v12;
-    v13 = 1 << *(v5 + 32);
-    v14 = -1;
-    if (v13 < 64)
+    v10 = 0;
+    v11 = *(v4 + 16);
+    v37 = v6;
+    *(v6 + 16) = v11;
+    v12 = 1 << *(v4 + 32);
+    v13 = -1;
+    if (v12 < 64)
     {
-      v14 = ~(-1 << v13);
+      v13 = ~(-1 << v12);
     }
 
-    v15 = v14 & *(v5 + 64);
-    v16 = (v13 + 63) >> 6;
-    v31 = v37 + 32;
-    v32 = v37 + 16;
-    v17 = v33;
-    if (v15)
+    v14 = v13 & *(v4 + 64);
+    v15 = (v12 + 63) >> 6;
+    v30 = v36 + 32;
+    v31 = v36 + 16;
+    v16 = v32;
+    if (v14)
     {
       do
       {
-        v18 = __clz(__rbit64(v15));
-        v39 = (v15 - 1) & v15;
+        v17 = __clz(__rbit64(v14));
+        v38 = (v14 - 1) & v14;
 LABEL_14:
-        v21 = v18 | (v11 << 6);
-        v22 = v37;
-        v23 = *(v37 + 72) * v21;
+        v20 = v17 | (v10 << 6);
+        v21 = v36;
+        v22 = *(v36 + 72) * v20;
+        v23 = v33;
+        (*(v36 + 16))(v16, *(v4 + 48) + v22, v33);
         v24 = v34;
-        (*(v37 + 16))(v17, *(v5 + 48) + v23, v34);
-        v25 = v35;
-        v26 = *(v36 + 72) * v21;
-        outlined init with copy of PushNotificationObserver.RegisteredHandler(*(v5 + 56) + v26, v35);
-        v27 = v38;
-        (*(v22 + 32))(*(v38 + 48) + v23, v17, v24);
-        result = outlined init with take of PushNotificationObserver.RegisteredHandler(v25, *(v27 + 56) + v26);
-        v15 = v39;
+        v25 = *(v35 + 72) * v20;
+        outlined init with copy of PushNotificationObserver.RegisteredHandler(*(v4 + 56) + v25, v34);
+        v26 = v37;
+        (*(v21 + 32))(*(v37 + 48) + v22, v16, v23);
+        result = outlined init with take of PushNotificationObserver.RegisteredHandler(v24, *(v26 + 56) + v25);
+        v14 = v38;
       }
 
-      while (v39);
+      while (v38);
     }
 
-    v19 = v11;
-    v7 = v38;
+    v18 = v10;
+    v6 = v37;
     while (1)
     {
-      v11 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v10 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         break;
       }
 
-      if (v11 >= v16)
+      if (v10 >= v15)
       {
 
-        v1 = v29;
+        v1 = v28;
         goto LABEL_18;
       }
 
-      v20 = *(v30 + 8 * v11);
-      ++v19;
-      if (v20)
+      v19 = *(v29 + 8 * v10);
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v39 = (v20 - 1) & v20;
+        v17 = __clz(__rbit64(v19));
+        v38 = (v19 - 1) & v19;
         goto LABEL_14;
       }
     }
@@ -5017,7 +1838,7 @@ LABEL_14:
   {
 
 LABEL_18:
-    *v1 = v7;
+    *v1 = v6;
   }
 
   return result;
@@ -5025,15 +1846,15 @@ LABEL_18:
 
 {
   v1 = v0;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
   v44 = *(v41 - 8);
-  __chkstk_darwin(v41);
+  __chkstk_darwin();
   v40 = &v30 - v2;
   v39 = type metadata accessor for UUID();
   v43 = *(v39 - 8);
-  __chkstk_darwin(v39);
+  __chkstk_darwin();
   v38 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVScS12ContinuationVySaySfG_GGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVScS12ContinuationVySaySfG_GGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDVScS12ContinuationVySaySfG_GGMR);
   v4 = *v0;
   v5 = static _DictionaryStorage.copy(original:)();
   v6 = v5;
@@ -5142,9 +1963,9 @@ LABEL_18:
   v1 = v0;
   v35 = type metadata accessor for SocialProfile();
   v37 = *(v35 - 8);
-  __chkstk_darwin(v35);
+  __chkstk_darwin();
   v34 = &v29 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMd, &_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMR);
   v3 = *v0;
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
@@ -5247,7 +2068,7 @@ LABEL_18:
 id specialized _NativeDictionary.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo6UIViewCypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo6UIViewCypGMd, &_ss18_DictionaryStorageCySo6UIViewCypGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -5328,7 +2149,7 @@ LABEL_19:
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore14PlaylistCoversO10ExpressionOAE5CoverV14RepresentationVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore14PlaylistCoversO10ExpressionOAE5CoverV14RepresentationVGMd, &_ss18_DictionaryStorageCy9MusicCore14PlaylistCoversO10ExpressionOAE5CoverV14RepresentationVGMR);
   v29 = v0;
   v1 = *v0;
   v30 = static _DictionaryStorage.copy(original:)();
@@ -5426,89 +2247,7 @@ LABEL_19:
   return result;
 }
 
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo21NSAttributedStringKeyaypGMd_0);
-  v2 = *v0;
-  v3 = static _DictionaryStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 48) + 8 * v17);
-        outlined init with copy of Any(*(v2 + 56) + 32 * v17, v19);
-        *(*(v4 + 48) + 8 * v17) = v18;
-        outlined init with take of Any(v19, (*(v4 + 56) + 32 * v17));
-        result = v18;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t result, int64_t a2, uint64_t a3)
+uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result < 0)
   {
@@ -5516,17 +2255,16 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t result, int64_t 
     goto LABEL_14;
   }
 
-  v5 = *v3;
-  v6 = *(*v3 + 2);
-  if (v6 < a2)
+  v4 = *v3;
+  v5 = *(*v3 + 2);
+  if (v5 < a2)
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  v7 = result;
-  v8 = a2 - result;
+  v6 = a2 - result;
   if (__OFSUB__(a2, result))
   {
 LABEL_15:
@@ -5534,17 +2272,17 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v9 = __OFSUB__(1, v8);
-  v10 = 1 - v8;
-  if (v9)
+  v7 = __OFSUB__(1, v6);
+  v8 = 1 - v6;
+  if (v7)
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v11 = v6 + v10;
-  if (__OFADD__(v6, v10))
+  v9 = v5 + v8;
+  if (__OFADD__(v5, v8))
   {
 LABEL_17:
     __break(1u);
@@ -5552,29 +2290,45 @@ LABEL_17:
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v3 = v5;
-  if (!isUniquelyReferenced_nonNull_native || v11 > *(v5 + 3) >> 1)
+  *v3 = v4;
+  if (!isUniquelyReferenced_nonNull_native || v9 > *(v4 + 3) >> 1)
   {
-    if (v6 <= v11)
+    if (v5 <= v9)
     {
-      v14 = v11;
+      v11 = v9;
     }
 
     else
     {
-      v14 = v6;
+      v11 = v5;
     }
 
-    v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v14, 1, v5);
-    *v3 = v5;
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v11, 1, v4);
+    *v3 = v4;
   }
 
-  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v7, a2, 1, a3);
-  *v3 = v5;
+  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)();
+  *v3 = v4;
   return result;
 }
 
 char *specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+}
+
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
 }
@@ -5605,29 +2359,33 @@ uint64_t specialized _ArrayBuffer._consumeAndCreateNew()(unint64_t a1)
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
 }
 
-id *specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
+void *specialized _ArrayBuffer._consumeAndCreateNew()(void *a1)
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtF10Foundation12URLQueryItemV_Tg5_1(0, a1[2], 0, a1);
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
+}
+
+{
+  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1[2], 0, a1);
 }
 
 Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
@@ -5654,8 +2412,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
   }
 
   v3 = *(v2 + 2);
-  v18[0] = (v2 + 32);
-  v18[1] = v3;
+  v17[0] = (v2 + 32);
+  v17[1] = v3;
   result = _minimumMergeRunLength(_:)(v3);
   if (result >= v3)
   {
@@ -5671,13 +2429,12 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
         v13 = v10;
         do
         {
-          v14 = *v13;
-          if (v11 >= v14)
+          if ((*v13 & (v11 ^ 1) & 1) == 0)
           {
             break;
           }
 
-          v13[1] = v14;
+          v13[1] = *v13;
           *v13-- = v11;
         }
 
@@ -5703,12 +2460,12 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
 
     else
     {
-      v7 = &_swiftEmptyArrayStorage;
+      v7 = _swiftEmptyArrayStorage;
     }
 
-    v16[0] = v7 + 4;
-    v16[1] = v6;
-    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v16, v17, v18, v5);
+    v15[0] = v7 + 4;
+    v15[1] = v6;
+    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v15, v16, v17, v5);
     v7[2] = 0;
   }
 
@@ -5727,7 +2484,7 @@ Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t 
       v8 = result;
       if (v6 <= 1)
       {
-        v9 = &_swiftEmptyArrayStorage;
+        v9 = _swiftEmptyArrayStorage;
       }
 
       else
@@ -5762,7 +2519,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_10003ABF8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t *sub_10003ABF8(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a3 != a2)
   {
@@ -5781,9 +2538,9 @@ LABEL_5:
         v9 = &unk_1004F7610 + 8 * *((v7 & 0x7FFFFFFFFFFFFFFFLL) + 0x20);
       }
 
-      v10 = result + 56;
+      v10 = result + 7;
       v11 = *result;
-      if ((*result & 0x8000000000000000) != 0)
+      if (*result < 0)
       {
         v12 = &unk_1004F7610 + 8 * *((v11 & 0x7FFFFFFFFFFFFFFFLL) + 0x20);
       }
@@ -5812,20 +2569,20 @@ LABEL_4:
         break;
       }
 
-      v13 = *(result + 64);
-      v14 = *(result + 80);
-      v15 = *(result + 96);
-      v16 = *(result + 16);
+      v13 = *(result + 4);
+      v14 = *(result + 5);
+      v15 = *(result + 6);
+      v16 = *(result + 1);
       *v10 = *result;
-      *(result + 72) = v16;
-      *(result + 88) = *(result + 32);
-      v17 = *(result + 48);
+      *(result + 9) = v16;
+      *(result + 11) = *(result + 2);
+      v17 = result[6];
       *result = v7;
-      *(result + 8) = v13;
-      *(result + 24) = v14;
-      *(result + 40) = v15;
-      result -= 56;
-      *(v10 + 48) = v17;
+      *(result + 1) = v13;
+      *(result + 3) = v14;
+      *(result + 5) = v15;
+      result -= 7;
+      v10[6] = v17;
       if (__CFADD__(v8++, 1))
       {
         goto LABEL_4;
@@ -5845,7 +2602,7 @@ unint64_t sub_10003ACE0(unint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4
   v7 = a3[1];
   if (v7 < 1)
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
 LABEL_105:
     v5 = *v107;
     if (!*v107)
@@ -5906,7 +2663,7 @@ LABEL_137:
 
   v8 = a4;
   v9 = 0;
-  v10 = &_swiftEmptyArrayStorage;
+  v10 = _swiftEmptyArrayStorage;
 LABEL_4:
   v11 = v9++;
   if (v9 >= v7)
@@ -6094,12 +2851,12 @@ LABEL_42:
     v48 = *v46;
     if ((*v46 & 0x8000000000000000) != 0)
     {
-      v50 = &unk_1004F7610 + 8 * *((v48 & 0x7FFFFFFFFFFFFFFFLL) + 0x20);
+      v50 = (&unk_1004F7610 + 8 * *((v48 & 0x7FFFFFFFFFFFFFFFLL) + 0x20));
     }
 
     else
     {
-      v50 = &unk_1004F7470 + 8 * v48;
+      v50 = (&unk_1004F7470 + 8 * v48);
     }
 
     result = *v50;
@@ -6708,11 +3465,11 @@ char *specialized Sequence.compactMap<A>(_:)(uint64_t a1, char **a2, uint64_t a3
   v5 = *(a1 + 16);
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v8 = (a1 + 40);
-  v9 = &_swiftEmptyArrayStorage;
+  v9 = _swiftEmptyArrayStorage;
   while (1)
   {
     v11 = v8[5];
@@ -6838,7 +3595,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 56); ; i += 4)
@@ -6884,7 +3641,7 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
@@ -6895,13 +3652,13 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n_0(uint64_t a
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd_0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd_0, &_ss18_DictionaryStorageCySSypGMR_0);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v4, &v13, &_sSS_yptMd_0);
+      outlined init with copy of TaskPriority?(v4, &v13, &_sSS_yptMd_0, &_sSS_yptMR_0);
       v5 = v13;
       v6 = v14;
       result = specialized __RawDictionaryStorage.find<A>(_:)(v13, v14, specialized __RawDictionaryStorage.find<A>(_:hashValue:));
@@ -6939,7 +3696,7 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
@@ -6950,12 +3707,12 @@ uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t result, char **a2, uint6
   v3 = *(result + 16);
   if (!v3)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v4 = 0;
   v5 = result + 40;
-  v6 = &_swiftEmptyArrayStorage;
+  v6 = _swiftEmptyArrayStorage;
   v26 = *(result + 16);
   v24 = result + 40;
   do
@@ -7034,7 +3791,7 @@ LABEL_24:
         goto LABEL_15;
       }
 
-      result = outlined consume of ActionMenu.Element(v9);
+      result = outlined consume of ActionMenu.Element(v9, v30, v31, v32, v33, v34, v29);
       v7 += 7;
       if (v15 == v26)
       {
@@ -7075,9 +3832,9 @@ LABEL_15:
   return v6;
 }
 
-unint64_t specialized Array.replaceSubrange<A>(_:with:)(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized Array.replaceSubrange<A>(_:with:)(uint64_t result, int64_t a2, uint64_t a3, uint64_t a4)
 {
-  if ((result & 0x8000000000000000) != 0)
+  if (result < 0)
   {
     __break(1u);
     goto LABEL_14;
@@ -7092,7 +3849,6 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v8 = result;
   v9 = a2 - result;
   if (__OFSUB__(a2, result))
   {
@@ -7115,7 +3871,7 @@ LABEL_16:
   {
 LABEL_17:
     __break(1u);
-    return result;
+    return;
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -7136,9 +3892,8 @@ LABEL_17:
     *v4 = v6;
   }
 
-  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v8, a2, 1, a3, a4);
+  specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(result, a2, 1, a3, a4);
   *v4 = v6;
-  return result;
 }
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9MusicCore8MenuTypeO_AC06ActionE0CTt0g5Tf4g_n(uint64_t a1)
@@ -7146,7 +3901,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9MusicCore8MenuTypeO_AC06Acti
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMd, &_ss18_DictionaryStorageCy9MusicCore8MenuTypeOAC06ActionE0CGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 40); ; i += 2)
@@ -7194,19 +3949,19 @@ LABEL_10:
 
 uint64_t outlined destroy of (MenuType, ActionMenu)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore8MenuTypeO_AA06ActionC0CtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore8MenuTypeO_AA06ActionC0CtMd, &_s9MusicCore8MenuTypeO_AA06ActionC0CtMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t outlined consume of ActionMenu.Element(uint64_t a1)
+uint64_t outlined consume of ActionMenu.Element(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if ((a1 & 0x8000000000000000) == 0)
   {
   }
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -7445,7 +4200,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -7463,7 +4218,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_So13MPPropertySetCTt0g5Tf4
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSo13MPPropertySetCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSo13MPPropertySetCGMd, &_ss18_DictionaryStorageCySSSo13MPPropertySetCGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -7507,7 +4262,7 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
@@ -7518,13 +4273,13 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v4, v13, &_ss11AnyHashableV_yptMd);
+      outlined init with copy of TaskPriority?(v4, v13, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v13);
       if (v6)
       {
@@ -7574,7 +4329,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9MusicCore18DeviceCapabilitie
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMd, &_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOs5Int64VGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     for (i = (a1 + 40); ; i += 2)
     {
@@ -7625,9 +4380,9 @@ void *_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9MusicCore18DeviceCapabilitiesO17
     return _swiftEmptyDictionarySingleton;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOSSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOSSGMd, &_ss18_DictionaryStorageCy9MusicCore18DeviceCapabilitiesO17DiskUsageCategoryOSSGMR);
   v3 = static _DictionaryStorage.allocate(capacity:)();
-  v4 = *(a1 + 32);
+  LOBYTE(v4) = *(a1 + 32);
   v6 = *(a1 + 40);
   v5 = *(a1 + 48);
   v7 = specialized __RawDictionaryStorage.find<A>(_:)(v4);
@@ -7687,7 +4442,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SDySSypGTt0g5Tf4g_n(uint64
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySSypGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySSypGGMd, &_ss18_DictionaryStorageCySSSDySSypGGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -7741,7 +4496,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SbTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSbGMd, &_ss18_DictionaryStorageCySSSbGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 24)
@@ -7792,14 +4547,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_So22UIViewPropertyAnimatorCTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMd, &_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMR);
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
+  __chkstk_darwin();
   v5 = &v19 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDVSo22UIViewPropertyAnimatorCGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -7807,7 +4562,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_So22UIView
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v9, v5, &_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMd);
+      outlined init with copy of TaskPriority?(v9, v5, &_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMd, &_s10Foundation4UUIDV_So22UIViewPropertyAnimatorCtMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
       if (v12)
       {
@@ -7855,7 +4610,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation4DataVTt0gq5Tf
   v2 = *(a1 + 16);
   if (v2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DataVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DataVGMd, &_ss18_DictionaryStorageCySS10Foundation4DataVGMR);
     v5 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 56); ; i += 4)
@@ -7910,14 +4665,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMd, &_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMR);
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
+  __chkstk_darwin();
   v5 = &v21 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MusicCore24PushNotificationObserverC17RegisteredHandlerVGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -7925,7 +4680,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MusicCore
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v9, v5, &_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMd);
+      outlined init with copy of TaskPriority?(v9, v5, &_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMd, &_s10Foundation4UUIDV_9MusicCore24PushNotificationObserverC17RegisteredHandlerVtMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
       if (v12)
       {
@@ -7938,7 +4693,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MusicCore
       v15 = type metadata accessor for UUID();
       (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
       v16 = v7[7];
-      v17 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
+      v17 = type metadata accessor for PushNotificationObserver.RegisteredHandler(0);
       result = outlined init with take of PushNotificationObserver.RegisteredHandler(&v5[v8], v16 + *(*(v17 - 8) + 72) * v13);
       v18 = v7[2];
       v19 = __OFADD__(v18, 1);
@@ -7964,7 +4719,7 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
@@ -7975,7 +4730,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo13MPCPlayerPathC_So24OS_dis
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMd, &_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 40); ; i += 2)
@@ -8015,7 +4770,7 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
@@ -8023,14 +4778,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_16MusicKitInternal13SocialProfileVTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_16MusicKitInternal13SocialProfileVtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_16MusicKitInternal13SocialProfileVtMd, &_sSS_16MusicKitInternal13SocialProfileVtMR);
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
+  __chkstk_darwin();
   v5 = (&v22 - v4);
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMd, &_ss18_DictionaryStorageCySS16MusicKitInternal13SocialProfileVGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -8038,7 +4793,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_16MusicKitInternal13Social
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v9, v5, &_sSS_16MusicKitInternal13SocialProfileVtMd);
+      outlined init with copy of TaskPriority?(v9, v5, &_sSS_16MusicKitInternal13SocialProfileVtMd, &_sSS_16MusicKitInternal13SocialProfileVtMR);
       v11 = *v5;
       v12 = v5[1];
       result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12, specialized __RawDictionaryStorage.find<A>(_:hashValue:));
@@ -8079,48 +4834,48 @@ LABEL_10:
 
   else
   {
-    return &_swiftEmptyDictionarySingleton;
+    return _swiftEmptyDictionarySingleton;
   }
 
   return result;
 }
 
-unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo38UIApplicationOpenExternalURLOptionsKeya_ypTt0g5Tf4g_nTm(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo38UIApplicationOpenExternalURLOptionsKeya_ypTt0g5Tf4g_nTm(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
-  v4 = *(a1 + 16);
-  if (v4)
+  v5 = *(a1 + 16);
+  if (v5)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-    v7 = static _DictionaryStorage.allocate(capacity:)();
-    v8 = a1 + 32;
+    __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+    v9 = static _DictionaryStorage.allocate(capacity:)();
+    v10 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of TaskPriority?(v8, &v15, a4);
-      v9 = v15;
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v15);
-      if (v11)
+      outlined init with copy of TaskPriority?(v10, &v17, a4, a5);
+      v11 = v17;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v17);
+      if (v13)
       {
         break;
       }
 
-      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      *(v7[6] + 8 * result) = v9;
-      result = outlined init with take of Any(&v16, (v7[7] + 32 * result));
-      v12 = v7[2];
-      v13 = __OFADD__(v12, 1);
-      v14 = v12 + 1;
-      if (v13)
+      *(v9 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v9[6] + 8 * result) = v11;
+      result = outlined init with take of Any(&v18, (v9[7] + 32 * result));
+      v14 = v9[2];
+      v15 = __OFADD__(v14, 1);
+      v16 = v14 + 1;
+      if (v15)
       {
         goto LABEL_10;
       }
 
-      v7[2] = v14;
-      v8 += 40;
-      if (!--v4)
+      v9[2] = v16;
+      v10 += 40;
+      if (!--v5)
       {
 
-        return v7;
+        return v9;
       }
     }
 
@@ -8139,21 +4894,21 @@ LABEL_10:
 
 uint64_t outlined init with take of PushNotificationObserver.RegisteredHandler(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
+  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined assign with take of PushNotificationObserver.RegisteredHandler(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
+  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler(0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined init with copy of PushNotificationObserver.RegisteredHandler(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
+  v4 = type metadata accessor for PushNotificationObserver.RegisteredHandler(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -8167,10 +4922,6 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
   return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
 }
 
-{
-  return specialized Array.replaceSubrange<A>(_:with:)(a1, a2, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
-}
-
 uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t), uint64_t (*a4)(uint64_t, uint64_t, void))
 {
   if (a1 < 0)
@@ -8180,15 +4931,15 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2,
 
   else
   {
-    v7 = a3;
-    v4 = a2;
-    v6 = a1;
-    v8 = *v5;
-    v9 = *v5 >> 62;
-    v14 = a4;
-    if (!v9)
+    v8 = a3;
+    v5 = a2;
+    v7 = a1;
+    v9 = *v6;
+    v10 = *v6 >> 62;
+    v15 = a4;
+    if (!v10)
     {
-      result = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      result = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
       if (result >= a2)
       {
         goto LABEL_4;
@@ -8201,21 +4952,21 @@ LABEL_15:
   }
 
   result = _CocoaArrayWrapper.endIndex.getter();
-  if (result < v4)
+  if (result < v5)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  if (__OFSUB__(v4, v6))
+  if (__OFSUB__(v5, v7))
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v11 = v6 - v4;
-  if (__OFSUB__(0, v4 - v6))
+  v12 = v7 - v5;
+  if (__OFSUB__(0, v5 - v7))
   {
 LABEL_17:
     __break(1u);
@@ -8224,35 +4975,35 @@ LABEL_18:
     return result;
   }
 
-  if (v9)
+  if (v10)
   {
-    v12 = _CocoaArrayWrapper.endIndex.getter();
+    v13 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v12 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v13 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v13 = __OFADD__(v12, v11);
-  result = v12 + v11;
-  if (v13)
+  v14 = __OFADD__(v13, v12);
+  result = v13 + v12;
+  if (v14)
   {
     goto LABEL_18;
   }
 
-  v7(result, 1);
+  v8(result, 1);
 
-  return v14(v6, v4, 0);
+  return v15(v7, v5, 0);
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -8265,40 +5016,14 @@ uint64_t specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:
   return outlined init with copy of PlaybackIntentDescriptor.IntentType(a1, boxed_opaque_existential_1, a4);
 }
 
-uint64_t specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)(a1, type metadata accessor for Actions.SortPlaylist.Context, &protocol witness table for Actions.SortPlaylist.Context, type metadata accessor for Actions.SortPlaylist.Context, a2);
-}
-
-{
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 24);
-  v8 = *(a1 + 64);
-  a2[3] = &type metadata for Actions.Queue.Context;
-  a2[4] = &protocol witness table for Actions.Queue.Context;
-  v9 = swift_allocObject();
-  *a2 = v9;
-  *(v9 + 16) = v4;
-  *(v9 + 24) = v5;
-  *(v9 + 32) = v6;
-  *(v9 + 40) = v7;
-  v11 = *(a1 + 48);
-  *(v9 + 48) = *(a1 + 32);
-  *(v9 + 64) = v11;
-  *(v9 + 80) = v8;
-  outlined copy of Player.InsertCommand.Location(v4);
-}
-
 uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(uint64_t a1)
 {
   v1[2] = a1;
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd) - 8);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR) - 8);
   v1[3] = v2;
   v1[4] = *(v2 + 64);
   v1[5] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
   v1[6] = swift_task_alloc();
 
   return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
@@ -8306,11 +5031,11 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
 
 {
   v1[2] = a1;
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd) - 8);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR) - 8);
   v1[3] = v2;
   v1[4] = *(v2 + 64);
   v1[5] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
   v1[6] = swift_task_alloc();
 
   return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
@@ -8318,18 +5043,18 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
 
 {
   v1[2] = a1;
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd) - 8);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR) - 8);
   v1[3] = v2;
   v1[4] = *(v2 + 64);
   v1[5] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
   v1[6] = swift_task_alloc();
 
   return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
   *(v1 + 288) = swift_task_alloc();
   v3 = *(a1 + 112);
   *(v1 + 112) = *(a1 + 96);
@@ -8356,12 +5081,12 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v4 = v0[2];
   v5 = type metadata accessor for TaskPriority();
   (*(*(v5 - 8) + 56))(v1, 1, 1, v5);
-  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
   v6 = (*(v3 + 80) + 32) & ~*(v3 + 80);
   v7 = swift_allocObject();
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
-  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
+  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v7);
 
   v8 = v0[1];
@@ -8376,12 +5101,12 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v4 = v0[2];
   v5 = type metadata accessor for TaskPriority();
   (*(*(v5 - 8) + 56))(v1, 1, 1, v5);
-  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
   v6 = (*(v3 + 80) + 32) & ~*(v3 + 80);
   v7 = swift_allocObject();
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
-  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
+  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v7);
 
   v8 = v0[1];
@@ -8396,12 +5121,12 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v4 = v0[2];
   v5 = type metadata accessor for TaskPriority();
   (*(*(v5 - 8) + 56))(v1, 1, 1, v5);
-  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v4, v2, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR);
   v6 = (*(v3 + 80) + 32) & ~*(v3 + 80);
   v7 = swift_allocObject();
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
-  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd);
+  outlined init with take of URL?(v2, v7 + v6, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v7);
 
   v8 = v0[1];
@@ -8429,7 +5154,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v7 = *(v0 + 32);
   *(v3 + 32) = *(v0 + 16);
   *(v3 + 48) = v7;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 152, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 152, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v8 = *(v0 + 8);
@@ -8454,7 +5179,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8479,7 +5204,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8504,7 +5229,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8529,7 +5254,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8554,7 +5279,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8579,7 +5304,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8604,7 +5329,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8629,7 +5354,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8654,7 +5379,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8678,7 +5403,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 32);
   *(v3 + 32) = *(v0 + 16);
   *(v3 + 48) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 112, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 112, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8703,7 +5428,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8728,7 +5453,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8753,7 +5478,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8778,7 +5503,7 @@ uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:
   v6 = *(v0 + 64);
   *(v3 + 64) = *(v0 + 48);
   *(v3 + 80) = v6;
-  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMd);
+  outlined init with copy of TaskPriority?(v0 + 16, v0 + 128, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMR);
   _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v1, &async function pointer to partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:), v3);
 
   v7 = *(v0 + 8);
@@ -8793,7 +5518,7 @@ uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpre
   *v3 = v1;
   v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
 
-  return (specialized Action.execute(checkSupportedStatus:))(a1, 1);
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
 }
 
 {
@@ -8802,7 +5527,7 @@ uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpre
   *v3 = v1;
   v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
 
-  return (specialized Action.execute(checkSupportedStatus:))(a1, 1);
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
 }
 
 {
@@ -8811,105 +5536,105 @@ uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpre
   *v3 = v1;
   v3[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
 
-  return (specialized Action.execute(checkSupportedStatus:))(a1, 1);
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
 }
 
 uint64_t Actions.PlaybackContext.init(controller:intent:playActivityInformation:issuer:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X8>)
 {
-  v56 = a7;
-  v57 = a6;
-  v54 = a4;
-  v55 = a5;
-  v50 = a2;
+  v55 = a7;
+  v56 = a6;
+  v53 = a4;
+  v54 = a5;
+  v49 = a2;
   v12 = type metadata accessor for MusicPlaybackIntentDescriptor();
-  v47 = *(v12 - 8);
-  v48 = v12;
-  __chkstk_darwin(v12);
-  v46 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v46 = *(v12 - 8);
+  v47 = v12;
+  __chkstk_darwin();
+  v45 = &v45 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for PlaybackIntentDescriptor.IntentType(0);
-  v51 = v14;
-  v53 = *(v14 - 8);
-  v15 = v53;
-  __chkstk_darwin(v14);
-  v49 = (&v46 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd);
-  __chkstk_darwin(v17 - 8);
-  v52 = &v46 - v18;
-  v19 = type metadata accessor for Actions.PlaybackContext();
-  v20 = v19[5];
-  (*(v15 + 56))(&a8[v20], 1, 1, v14);
-  v21 = &a8[v19[6]];
+  v50 = v14;
+  v52 = *(v14 - 8);
+  v15 = v52;
+  __chkstk_darwin();
+  v48 = (&v45 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+  __chkstk_darwin();
+  v51 = &v45 - v17;
+  v18 = type metadata accessor for Actions.PlaybackContext(0);
+  v19 = v18[5];
+  (*(v15 + 56))(&a8[v19], 1, 1, v14);
+  v20 = &a8[v18[6]];
+  *v20 = 0u;
+  *(v20 + 1) = 0u;
+  v21 = &a8[v18[7]];
+  *(v21 + 4) = 0;
   *v21 = 0u;
   *(v21 + 1) = 0u;
-  v22 = &a8[v19[7]];
-  *(v22 + 32) = 0;
-  *v22 = 0u;
-  *(v22 + 16) = 0u;
   *a8 = a1;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a2, &a8[v20], &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd);
-  v24 = *v21;
-  v23 = *(v21 + 1);
-  v25 = *(v21 + 2);
-  v26 = *(v21 + 3);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a2, &a8[v19], &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+  v23 = *v20;
+  v22 = *(v20 + 1);
+  v24 = *(v20 + 2);
+  v25 = *(v20 + 3);
+  v26 = a3;
   v27 = a3;
-  v28 = a3;
+  v28 = v53;
   v29 = v54;
-  v30 = v55;
-  v31 = v57;
-  outlined copy of MPCPlaybackIntent.PlayActivityInformation?(v28, v54, v55, v57);
-  v32 = v25;
-  v33 = v50;
-  outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v24, v23, v32, v26);
-  v34 = v27;
-  *v21 = v27;
-  *(v21 + 1) = v29;
-  *(v21 + 2) = v30;
-  *(v21 + 3) = v31;
-  v36 = v51;
-  v35 = v52;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v56, v22, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-  outlined init with copy of TaskPriority?(v33, v35, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd);
-  if ((*(v53 + 48))(v35, 1, v36) == 1)
+  v30 = v56;
+  outlined copy of MPCPlaybackIntent.PlayActivityInformation?(v27, v53, v54, v56);
+  v31 = v24;
+  v32 = v49;
+  outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v23, v22, v31, v25);
+  v33 = v26;
+  *v20 = v26;
+  *(v20 + 1) = v28;
+  *(v20 + 2) = v29;
+  *(v20 + 3) = v30;
+  v35 = v50;
+  v34 = v51;
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v55, v21, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd, &_s9MusicCore6PlayerC13CommandIssuer_pSgMR);
+  outlined init with copy of TaskPriority?(v32, v34, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+  if ((*(v52 + 48))(v34, 1, v35) == 1)
   {
-    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v34, v29, v55, v57);
-    outlined destroy of TaskPriority?(v56, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-    outlined destroy of TaskPriority?(v33, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd);
-    v33 = v35;
+    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v33, v28, v54, v56);
+    outlined destroy of TaskPriority?(v55, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd, &_s9MusicCore6PlayerC13CommandIssuer_pSgMR);
+    outlined destroy of TaskPriority?(v32, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+    v32 = v34;
   }
 
   else
   {
-    v37 = v29;
-    v38 = v49;
-    outlined init with copy of PlaybackIntentDescriptor.IntentType(v35, v49, type metadata accessor for PlaybackIntentDescriptor.IntentType);
+    v36 = v28;
+    v37 = v48;
+    outlined init with copy of PlaybackIntentDescriptor.IntentType(v34, v48, type metadata accessor for PlaybackIntentDescriptor.IntentType);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
+      v38 = v45;
       v39 = v46;
       v40 = v47;
-      v41 = v48;
-      (*(v47 + 32))(v46, v38, v48);
-      v42 = MusicPlaybackIntentDescriptor.playbackIntent.getter();
-      (*(v40 + 8))(v39, v41);
+      (*(v46 + 32))(v45, v37, v47);
+      v41 = MusicPlaybackIntentDescriptor.playbackIntent.getter();
+      (*(v39 + 8))(v38, v40);
     }
 
     else
     {
-      v42 = *v38;
+      v41 = *v37;
     }
 
-    outlined destroy of PlaybackIntentDescriptor.IntentType(v35);
-    v43 = v55;
-    v44 = v57;
-    specialized MPCPlaybackIntent.playActivityInformation.setter(v34, v37, v55, v57);
-    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v34, v37, v43, v44);
+    outlined destroy of PlaybackIntentDescriptor.IntentType(v34);
+    v42 = v54;
+    v43 = v56;
+    specialized MPCPlaybackIntent.playActivityInformation.setter(v33, v36, v54, v56);
+    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v33, v36, v42, v43);
 
-    outlined destroy of TaskPriority?(v56, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
+    outlined destroy of TaskPriority?(v55, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd, &_s9MusicCore6PlayerC13CommandIssuer_pSgMR);
   }
 
-  return outlined destroy of TaskPriority?(v33, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd);
+  return outlined destroy of TaskPriority?(v32, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
 }
 
-uint64_t type metadata accessor for Actions.PlaybackContext()
+uint64_t type metadata accessor for Actions.PlaybackContext(uint64_t a1)
 {
   result = type metadata singleton initialization cache for Actions.PlaybackContext;
   if (!type metadata singleton initialization cache for Actions.PlaybackContext)
@@ -8929,14 +5654,14 @@ void outlined copy of MPCPlaybackIntent.PlayActivityInformation?(uint64_t a1, ui
   }
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined copy of Data._Representation(a1, a2);
+    return outlined copy of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 void outlined consume of MPCPlaybackIntent.PlayActivityInformation?(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
@@ -8948,20 +5673,20 @@ void outlined consume of MPCPlaybackIntent.PlayActivityInformation?(uint64_t a1,
   }
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined assign with copy of PlaybackIntentDescriptor.IntentType?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined assign with copy of PlaybackIntentDescriptor.IntentType?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 24))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 24))(a2, a1, v6);
   return a2;
 }
 
@@ -8974,7 +5699,7 @@ uint64_t outlined destroy of PlaybackIntentDescriptor.IntentType(uint64_t a1)
 
 uint64_t Actions.PlaybackContext.playActivityInformation.getter()
 {
-  v1 = v0 + *(type metadata accessor for Actions.PlaybackContext() + 24);
+  v1 = v0 + *(type metadata accessor for Actions.PlaybackContext(0) + 24);
   v2 = *v1;
   outlined copy of MPCPlaybackIntent.PlayActivityInformation?(*v1, *(v1 + 8), *(v1 + 16), *(v1 + 24));
   return v2;
@@ -8982,56 +5707,56 @@ uint64_t Actions.PlaybackContext.playActivityInformation.getter()
 
 void Actions.PlaybackContext.playActivityInformation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v30 = a3;
-  v31 = a4;
-  v29 = a2;
+  v29 = a3;
+  v30 = a4;
+  v28 = a2;
   v6 = type metadata accessor for MusicPlaybackIntentDescriptor();
-  v28 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = *(v6 - 8);
+  __chkstk_darwin();
+  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = type metadata accessor for PlaybackIntentDescriptor.IntentType(0);
   v10 = *(v9 - 8);
-  v11 = __chkstk_darwin(v9);
-  v13 = (&v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v11);
-  v15 = &v28 - v14;
-  v16 = type metadata accessor for Actions.PlaybackContext();
-  v17 = v4 + *(v16 + 24);
-  outlined consume of MPCPlaybackIntent.PlayActivityInformation?(*v17, *(v17 + 8), *(v17 + 16), *(v17 + 24));
+  __chkstk_darwin();
+  v12 = (&v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin();
+  v14 = &v27 - v13;
+  v15 = type metadata accessor for Actions.PlaybackContext(0);
+  v16 = v4 + *(v15 + 24);
+  outlined consume of MPCPlaybackIntent.PlayActivityInformation?(*v16, *(v16 + 8), *(v16 + 16), *(v16 + 24));
+  v17 = v28;
   v18 = v29;
+  *v16 = a1;
+  *(v16 + 8) = v17;
   v19 = v30;
-  *v17 = a1;
-  *(v17 + 8) = v18;
-  v20 = v31;
-  *(v17 + 16) = v19;
-  *(v17 + 24) = v20;
-  v21 = *(v16 + 20);
-  if (!(*(v10 + 48))(v4 + v21, 1, v9))
+  *(v16 + 16) = v18;
+  *(v16 + 24) = v19;
+  v20 = *(v15 + 20);
+  if (!(*(v10 + 48))(v4 + v20, 1, v9))
   {
-    v22 = v28;
-    outlined init with copy of PlaybackIntentDescriptor.IntentType(v4 + v21, v15, type metadata accessor for PlaybackIntentDescriptor.IntentType);
-    outlined init with copy of PlaybackIntentDescriptor.IntentType(v15, v13, type metadata accessor for PlaybackIntentDescriptor.IntentType);
+    v21 = v27;
+    outlined init with copy of PlaybackIntentDescriptor.IntentType(v4 + v20, v14, type metadata accessor for PlaybackIntentDescriptor.IntentType);
+    outlined init with copy of PlaybackIntentDescriptor.IntentType(v14, v12, type metadata accessor for PlaybackIntentDescriptor.IntentType);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      (*(v22 + 32))(v8, v13, v6);
-      v23 = MusicPlaybackIntentDescriptor.playbackIntent.getter();
-      (*(v22 + 8))(v8, v6);
-      outlined destroy of PlaybackIntentDescriptor.IntentType(v15);
+      (*(v21 + 32))(v8, v12, v6);
+      v22 = MusicPlaybackIntentDescriptor.playbackIntent.getter();
+      (*(v21 + 8))(v8, v6);
+      outlined destroy of PlaybackIntentDescriptor.IntentType(v14);
     }
 
     else
     {
-      outlined destroy of PlaybackIntentDescriptor.IntentType(v15);
-      v23 = *v13;
+      outlined destroy of PlaybackIntentDescriptor.IntentType(v14);
+      v22 = *v12;
     }
 
-    v24 = *v17;
-    v25 = *(v17 + 8);
-    v26 = *(v17 + 16);
-    v27 = *(v17 + 24);
-    outlined copy of MPCPlaybackIntent.PlayActivityInformation?(*v17, v25, v26, v27);
-    specialized MPCPlaybackIntent.playActivityInformation.setter(v24, v25, v26, v27);
-    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v24, v25, v26, v27);
+    v23 = *v16;
+    v24 = *(v16 + 8);
+    v25 = *(v16 + 16);
+    v26 = *(v16 + 24);
+    outlined copy of MPCPlaybackIntent.PlayActivityInformation?(*v16, v24, v25, v26);
+    specialized MPCPlaybackIntent.playActivityInformation.setter(v23, v24, v25, v26);
+    outlined consume of MPCPlaybackIntent.PlayActivityInformation?(v23, v24, v25, v26);
   }
 }
 
@@ -9083,7 +5808,7 @@ void (*Actions.PlaybackContext.playActivityInformation.modify(void *a1))(void **
   }
 
   v4[7] = v11;
-  v12 = type metadata accessor for Actions.PlaybackContext();
+  v12 = type metadata accessor for Actions.PlaybackContext(0);
   v4[8] = v12;
   *(v4 + 18) = *(v12 + 24);
   return Actions.PlaybackContext.playActivityInformation.modify;
@@ -9144,1051 +5869,4004 @@ void Actions.PlaybackContext.playActivityInformation.modify(void **a1, char a2)
 
 uint64_t static MusicActions.queueActions(item:playbackContext:presentationSource:metricsReportingContext:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v113 = a2;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  __chkstk_darwin(v8 - 8);
-  v10 = &v110 - v9;
-  v11 = type metadata accessor for Actions.PlaybackContext();
-  __chkstk_darwin(v11 - 8);
-  v13 = (&v110 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = a1[3];
-  v15 = a1[4];
-  v16 = __swift_project_boxed_opaque_existential_0Tm(a1, v14);
-  __chkstk_darwin(v16);
-  v18 = &v110 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v19 + 16))(v18);
-  v117 = type metadata accessor for Actions.PlaybackContext;
-  outlined init with copy of PlaybackIntentDescriptor.IntentType(a2, v13, type metadata accessor for Actions.PlaybackContext);
-  v20 = a3;
-  v115 = a3;
-  outlined init with copy of PresentationSource(a3, &v155);
-  v21 = a4;
-  v114 = a4;
-  v111 = v10;
-  outlined init with copy of TaskPriority?(a4, v10, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v18, 0, v13, &v155, v10, v14, v15, &v120);
-  specialized static Actions.Queue.action(context:)(&v120, &v122);
-  v171[0] = v120;
-  outlined destroy of Player.InsertCommand.Location(v171);
-  v170 = v121;
-  outlined destroy of TaskPriority?(&v170, &_sSSSgMd);
+  v111 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  __chkstk_darwin();
+  v9 = &v108 - v8;
+  type metadata accessor for Actions.PlaybackContext(0);
+  __chkstk_darwin();
+  v11 = (&v108 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = a1[3];
+  v13 = a1[4];
+  __swift_project_boxed_opaque_existential_0Tm(a1, v12);
+  v14 = __chkstk_darwin();
+  v16 = &v108 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v17 + 16))(v16, v14);
+  v115 = type metadata accessor for Actions.PlaybackContext;
+  outlined init with copy of PlaybackIntentDescriptor.IntentType(a2, v11, type metadata accessor for Actions.PlaybackContext);
+  v18 = a3;
+  v113 = a3;
+  outlined init with copy of PresentationSource(a3, &v153);
+  v19 = a4;
+  v112 = a4;
+  v109 = v9;
+  outlined init with copy of TaskPriority?(a4, v9, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v16, 0, v11, &v153, v9, v12, v13, &v118);
+  specialized static Actions.Queue.action(context:)(&v118, &v120);
+  v169[0] = v118;
+  outlined destroy of Player.InsertCommand.Location(v169);
+  v168 = v119;
+  outlined destroy of TaskPriority?(&v168, &_sSSSgMd, &_sSSSgMR);
 
-  v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd);
-  v22 = swift_allocObject();
-  v118 = xmmword_1004F2400;
-  *(v22 + 16) = xmmword_1004F2400;
-  LOBYTE(a4) = BYTE8(v126);
-  v23 = swift_allocObject();
-  v24 = v129;
-  *(v23 + 112) = v128;
-  *(v23 + 128) = v24;
-  *(v23 + 144) = v130;
-  v25 = v125;
-  *(v23 + 48) = v124;
-  *(v23 + 64) = v25;
-  v26 = v127;
-  *(v23 + 80) = v126;
-  *(v23 + 96) = v26;
-  v27 = v123;
-  *(v23 + 16) = v122;
-  *(v23 + 32) = v27;
-  v28 = swift_allocObject();
-  v29 = v129;
-  *(v28 + 112) = v128;
-  *(v28 + 128) = v29;
-  *(v28 + 144) = v130;
-  v30 = v125;
-  *(v28 + 48) = v124;
-  *(v28 + 64) = v30;
-  v31 = v127;
-  *(v28 + 80) = v126;
-  *(v28 + 96) = v31;
-  v32 = v123;
-  *(v28 + 16) = v122;
-  *(v28 + 32) = v32;
-  v33 = swift_allocObject();
-  v34 = v129;
-  *(v33 + 112) = v128;
-  *(v33 + 128) = v34;
-  *(v33 + 144) = v130;
-  v35 = v125;
-  *(v33 + 48) = v124;
-  *(v33 + 64) = v35;
-  v36 = v127;
-  *(v33 + 80) = v126;
-  *(v33 + 96) = v36;
-  v37 = v123;
-  *(v33 + 16) = v122;
-  *(v33 + 32) = v37;
-  v112 = v22;
-  *(v22 + 32) = a4;
-  *(v22 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v22 + 48) = v23;
-  *(v22 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v22 + 64) = v28;
-  *(v22 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v22 + 80) = v33;
-  v38 = a1[3];
-  v39 = a1[4];
-  v40 = __swift_project_boxed_opaque_existential_0Tm(a1, v38);
-  __chkstk_darwin(v40);
-  v42 = &v110 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v43 + 16))(v42);
-  v44 = v113;
-  v45 = v13;
-  outlined init with copy of PlaybackIntentDescriptor.IntentType(v113, v13, v117);
-  outlined init with copy of PresentationSource(v20, &v144);
-  v46 = v111;
-  outlined init with copy of TaskPriority?(v21, v111, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  outlined init with copy of TaskPriority?(&v122, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  outlined init with copy of TaskPriority?(&v122, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v42, 2, v45, &v144, v46, v38, v39, &v131);
-  specialized static Actions.Queue.action(context:)(&v131, &v133);
-  v169 = v131;
-  outlined destroy of Player.InsertCommand.Location(&v169);
-  v168 = v132;
-  outlined destroy of TaskPriority?(&v168, &_sSSSgMd);
-
-  v47 = swift_allocObject();
-  *(v47 + 16) = v118;
-  LOBYTE(v42) = BYTE8(v137);
-  v48 = swift_allocObject();
-  v49 = v140;
-  *(v48 + 112) = v139;
-  *(v48 + 128) = v49;
-  *(v48 + 144) = v141;
-  v50 = v136;
-  *(v48 + 48) = v135;
-  *(v48 + 64) = v50;
-  v51 = v138;
-  *(v48 + 80) = v137;
-  *(v48 + 96) = v51;
-  v52 = v134;
-  *(v48 + 16) = v133;
-  *(v48 + 32) = v52;
-  v53 = swift_allocObject();
-  v54 = v140;
-  *(v53 + 112) = v139;
-  *(v53 + 128) = v54;
-  *(v53 + 144) = v141;
-  v55 = v136;
-  *(v53 + 48) = v135;
-  *(v53 + 64) = v55;
-  v56 = v138;
-  *(v53 + 80) = v137;
-  *(v53 + 96) = v56;
-  v57 = v134;
-  *(v53 + 16) = v133;
-  *(v53 + 32) = v57;
-  v58 = swift_allocObject();
-  v59 = v140;
-  *(v58 + 112) = v139;
-  *(v58 + 128) = v59;
-  *(v58 + 144) = v141;
-  v60 = v136;
-  *(v58 + 48) = v135;
-  *(v58 + 64) = v60;
-  v61 = v138;
-  *(v58 + 80) = v137;
-  *(v58 + 96) = v61;
-  v62 = v134;
-  *(v58 + 16) = v133;
-  *(v58 + 32) = v62;
-  *(v47 + 32) = v42;
-  *(v47 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v47 + 48) = v48;
-  *(v47 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v47 + 64) = v53;
-  *(v47 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v47 + 80) = v58;
-  v63 = a1[3];
-  v64 = a1[4];
-  v65 = __swift_project_boxed_opaque_existential_0Tm(a1, v63);
-  __chkstk_darwin(v65);
-  v67 = &v110 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v68 + 16))(v67);
-  outlined init with copy of PlaybackIntentDescriptor.IntentType(v44, v45, v117);
-  outlined init with copy of PresentationSource(v115, &v144);
-  outlined init with copy of TaskPriority?(v114, v46, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  outlined init with copy of TaskPriority?(&v133, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  outlined init with copy of TaskPriority?(&v133, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v67, 1, v45, &v144, v46, v63, v64, &v142);
-  specialized static Actions.Queue.action(context:)(&v142, &v144);
-  v167 = v142;
+  v114 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd, &_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMR);
+  v20 = swift_allocObject();
+  v116 = xmmword_1004F2400;
+  *(v20 + 16) = xmmword_1004F2400;
+  LOBYTE(a4) = BYTE8(v124);
+  v21 = swift_allocObject();
+  v22 = v127;
+  *(v21 + 112) = v126;
+  *(v21 + 128) = v22;
+  *(v21 + 144) = v128;
+  v23 = v123;
+  *(v21 + 48) = v122;
+  *(v21 + 64) = v23;
+  v24 = v125;
+  *(v21 + 80) = v124;
+  *(v21 + 96) = v24;
+  v25 = v121;
+  *(v21 + 16) = v120;
+  *(v21 + 32) = v25;
+  v26 = swift_allocObject();
+  v27 = v127;
+  *(v26 + 112) = v126;
+  *(v26 + 128) = v27;
+  *(v26 + 144) = v128;
+  v28 = v123;
+  *(v26 + 48) = v122;
+  *(v26 + 64) = v28;
+  v29 = v125;
+  *(v26 + 80) = v124;
+  *(v26 + 96) = v29;
+  v30 = v121;
+  *(v26 + 16) = v120;
+  *(v26 + 32) = v30;
+  v31 = swift_allocObject();
+  v32 = v127;
+  *(v31 + 112) = v126;
+  *(v31 + 128) = v32;
+  *(v31 + 144) = v128;
+  v33 = v123;
+  *(v31 + 48) = v122;
+  *(v31 + 64) = v33;
+  v34 = v125;
+  *(v31 + 80) = v124;
+  *(v31 + 96) = v34;
+  v35 = v121;
+  *(v31 + 16) = v120;
+  *(v31 + 32) = v35;
+  v110 = v20;
+  *(v20 + 32) = a4;
+  *(v20 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v20 + 48) = v21;
+  *(v20 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v20 + 64) = v26;
+  *(v20 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v20 + 80) = v31;
+  v36 = a1[3];
+  v37 = a1[4];
+  __swift_project_boxed_opaque_existential_0Tm(a1, v36);
+  v38 = __chkstk_darwin();
+  v40 = &v108 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v41 + 16))(v40, v38);
+  v42 = v111;
+  v43 = v11;
+  outlined init with copy of PlaybackIntentDescriptor.IntentType(v111, v11, v115);
+  outlined init with copy of PresentationSource(v18, &v142);
+  v44 = v109;
+  outlined init with copy of TaskPriority?(v19, v109, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  outlined init with copy of TaskPriority?(&v120, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v120, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v40, 2, v43, &v142, v44, v36, v37, &v129);
+  specialized static Actions.Queue.action(context:)(&v129, &v131);
+  v167 = v129;
   outlined destroy of Player.InsertCommand.Location(&v167);
-  v166 = v143;
-  outlined destroy of TaskPriority?(&v166, &_sSSSgMd);
+  v166 = v130;
+  outlined destroy of TaskPriority?(&v166, &_sSSSgMd, &_sSSSgMR);
 
-  v69 = swift_allocObject();
-  *(v69 + 16) = v118;
-  LOBYTE(v21) = BYTE8(v148);
-  v70 = swift_allocObject();
-  v71 = v151;
-  *(v70 + 112) = v150;
-  *(v70 + 128) = v71;
-  *(v70 + 144) = v152;
-  v72 = v147;
-  *(v70 + 48) = v146;
-  *(v70 + 64) = v72;
-  v73 = v149;
-  *(v70 + 80) = v148;
-  *(v70 + 96) = v73;
-  v74 = v145;
-  *(v70 + 16) = v144;
-  *(v70 + 32) = v74;
-  v75 = swift_allocObject();
-  v76 = v151;
-  *(v75 + 112) = v150;
-  *(v75 + 128) = v76;
-  *(v75 + 144) = v152;
-  v77 = v147;
-  *(v75 + 48) = v146;
-  *(v75 + 64) = v77;
-  v78 = v149;
-  *(v75 + 80) = v148;
-  *(v75 + 96) = v78;
-  v79 = v145;
-  *(v75 + 16) = v144;
-  *(v75 + 32) = v79;
-  v80 = swift_allocObject();
-  v81 = v151;
-  *(v80 + 112) = v150;
-  *(v80 + 128) = v81;
-  *(v80 + 144) = v152;
-  v82 = v147;
-  *(v80 + 48) = v146;
-  *(v80 + 64) = v82;
-  v83 = v149;
-  *(v80 + 80) = v148;
-  *(v80 + 96) = v83;
-  v84 = v145;
-  *(v80 + 16) = v144;
-  *(v80 + 32) = v84;
-  *(v69 + 32) = v21;
-  *(v69 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v69 + 48) = v70;
-  *(v69 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v69 + 64) = v75;
-  *(v69 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v69 + 80) = v80;
-  v85 = a1[3];
-  v86 = a1[4];
-  v87 = __swift_project_boxed_opaque_existential_0Tm(a1, v85);
-  __chkstk_darwin(v87);
-  v89 = &v110 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v90 + 16))(v89);
-  outlined init with copy of PlaybackIntentDescriptor.IntentType(v113, v45, v117);
-  outlined init with copy of PresentationSource(v115, v119);
-  outlined init with copy of TaskPriority?(v114, v46, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  outlined init with copy of TaskPriority?(&v144, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  outlined init with copy of TaskPriority?(&v144, &v155, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v89, 3, v45, v119, v46, v85, v86, &v153);
-  specialized static Actions.Queue.action(context:)(&v153, &v155);
-  v165 = v153;
+  v45 = swift_allocObject();
+  *(v45 + 16) = v116;
+  LOBYTE(v40) = BYTE8(v135);
+  v46 = swift_allocObject();
+  v47 = v138;
+  *(v46 + 112) = v137;
+  *(v46 + 128) = v47;
+  *(v46 + 144) = v139;
+  v48 = v134;
+  *(v46 + 48) = v133;
+  *(v46 + 64) = v48;
+  v49 = v136;
+  *(v46 + 80) = v135;
+  *(v46 + 96) = v49;
+  v50 = v132;
+  *(v46 + 16) = v131;
+  *(v46 + 32) = v50;
+  v51 = swift_allocObject();
+  v52 = v138;
+  *(v51 + 112) = v137;
+  *(v51 + 128) = v52;
+  *(v51 + 144) = v139;
+  v53 = v134;
+  *(v51 + 48) = v133;
+  *(v51 + 64) = v53;
+  v54 = v136;
+  *(v51 + 80) = v135;
+  *(v51 + 96) = v54;
+  v55 = v132;
+  *(v51 + 16) = v131;
+  *(v51 + 32) = v55;
+  v56 = swift_allocObject();
+  v57 = v138;
+  *(v56 + 112) = v137;
+  *(v56 + 128) = v57;
+  *(v56 + 144) = v139;
+  v58 = v134;
+  *(v56 + 48) = v133;
+  *(v56 + 64) = v58;
+  v59 = v136;
+  *(v56 + 80) = v135;
+  *(v56 + 96) = v59;
+  v60 = v132;
+  *(v56 + 16) = v131;
+  *(v56 + 32) = v60;
+  *(v45 + 32) = v40;
+  *(v45 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v45 + 48) = v46;
+  *(v45 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v45 + 64) = v51;
+  *(v45 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v45 + 80) = v56;
+  v61 = a1[3];
+  v62 = a1[4];
+  __swift_project_boxed_opaque_existential_0Tm(a1, v61);
+  v63 = __chkstk_darwin();
+  v65 = &v108 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v66 + 16))(v65, v63);
+  outlined init with copy of PlaybackIntentDescriptor.IntentType(v42, v43, v115);
+  outlined init with copy of PresentationSource(v113, &v142);
+  outlined init with copy of TaskPriority?(v112, v44, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  outlined init with copy of TaskPriority?(&v131, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v131, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v65, 1, v43, &v142, v44, v61, v62, &v140);
+  specialized static Actions.Queue.action(context:)(&v140, &v142);
+  v165 = v140;
   outlined destroy of Player.InsertCommand.Location(&v165);
-  v164 = v154;
-  outlined destroy of TaskPriority?(&v164, &_sSSSgMd);
+  v164 = v141;
+  outlined destroy of TaskPriority?(&v164, &_sSSSgMd, &_sSSSgMR);
 
-  v91 = swift_allocObject();
-  *(v91 + 16) = v118;
-  LOBYTE(v21) = BYTE8(v159);
-  v92 = swift_allocObject();
-  v93 = v162;
-  *(v92 + 112) = v161;
-  *(v92 + 128) = v93;
-  *(v92 + 144) = v163;
-  v94 = v158;
-  *(v92 + 48) = v157;
-  *(v92 + 64) = v94;
-  v95 = v160;
-  *(v92 + 80) = v159;
-  *(v92 + 96) = v95;
-  v96 = v156;
-  *(v92 + 16) = v155;
-  *(v92 + 32) = v96;
-  v97 = swift_allocObject();
-  v98 = v162;
-  *(v97 + 112) = v161;
-  *(v97 + 128) = v98;
-  *(v97 + 144) = v163;
-  v99 = v158;
-  *(v97 + 48) = v157;
-  *(v97 + 64) = v99;
-  v100 = v160;
-  *(v97 + 80) = v159;
-  *(v97 + 96) = v100;
-  v101 = v156;
-  *(v97 + 16) = v155;
-  *(v97 + 32) = v101;
-  v102 = swift_allocObject();
-  v103 = v162;
-  *(v102 + 112) = v161;
-  *(v102 + 128) = v103;
-  *(v102 + 144) = v163;
-  v104 = v158;
-  *(v102 + 48) = v157;
-  *(v102 + 64) = v104;
-  v105 = v160;
-  *(v102 + 80) = v159;
-  *(v102 + 96) = v105;
-  v106 = v156;
-  *(v102 + 16) = v155;
-  *(v102 + 32) = v106;
-  *(v91 + 32) = v21;
-  *(v91 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v91 + 48) = v92;
-  *(v91 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v91 + 64) = v97;
-  *(v91 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
-  *(v91 + 80) = v102;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-  v107 = swift_allocObject();
-  *(v107 + 16) = xmmword_1004F2EE0;
-  *(v107 + 32) = v112;
-  *(v107 + 40) = v47;
-  *(v107 + 48) = v69;
-  *(v107 + 56) = v91;
-  outlined init with copy of TaskPriority?(&v155, v119, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  outlined init with copy of TaskPriority?(&v155, v119, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd);
-  v108 = specialized static ActionBuilder.buildBlock(_:)(v107);
+  v67 = swift_allocObject();
+  *(v67 + 16) = v116;
+  LOBYTE(v19) = BYTE8(v146);
+  v68 = swift_allocObject();
+  v69 = v149;
+  *(v68 + 112) = v148;
+  *(v68 + 128) = v69;
+  *(v68 + 144) = v150;
+  v70 = v145;
+  *(v68 + 48) = v144;
+  *(v68 + 64) = v70;
+  v71 = v147;
+  *(v68 + 80) = v146;
+  *(v68 + 96) = v71;
+  v72 = v143;
+  *(v68 + 16) = v142;
+  *(v68 + 32) = v72;
+  v73 = swift_allocObject();
+  v74 = v149;
+  *(v73 + 112) = v148;
+  *(v73 + 128) = v74;
+  *(v73 + 144) = v150;
+  v75 = v145;
+  *(v73 + 48) = v144;
+  *(v73 + 64) = v75;
+  v76 = v147;
+  *(v73 + 80) = v146;
+  *(v73 + 96) = v76;
+  v77 = v143;
+  *(v73 + 16) = v142;
+  *(v73 + 32) = v77;
+  v78 = swift_allocObject();
+  v79 = v149;
+  *(v78 + 112) = v148;
+  *(v78 + 128) = v79;
+  *(v78 + 144) = v150;
+  v80 = v145;
+  *(v78 + 48) = v144;
+  *(v78 + 64) = v80;
+  v81 = v147;
+  *(v78 + 80) = v146;
+  *(v78 + 96) = v81;
+  v82 = v143;
+  *(v78 + 16) = v142;
+  *(v78 + 32) = v82;
+  *(v67 + 32) = v19;
+  *(v67 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v67 + 48) = v68;
+  *(v67 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v67 + 64) = v73;
+  *(v67 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v67 + 80) = v78;
+  v83 = a1[3];
+  v84 = a1[4];
+  __swift_project_boxed_opaque_existential_0Tm(a1, v83);
+  v85 = __chkstk_darwin();
+  v87 = &v108 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v88 + 16))(v87, v85);
+  outlined init with copy of PlaybackIntentDescriptor.IntentType(v111, v43, v115);
+  outlined init with copy of PresentationSource(v113, v117);
+  outlined init with copy of TaskPriority?(v112, v44, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  outlined init with copy of TaskPriority?(&v142, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v142, &v153, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  Actions.Queue.Context.init<A>(item:location:playbackContext:presentationSource:metricsReportingContext:)(v87, 3, v43, v117, v44, v83, v84, &v151);
+  specialized static Actions.Queue.action(context:)(&v151, &v153);
+  v163 = v151;
+  outlined destroy of Player.InsertCommand.Location(&v163);
+  v162 = v152;
+  outlined destroy of TaskPriority?(&v162, &_sSSSgMd, &_sSSSgMR);
+
+  v89 = swift_allocObject();
+  *(v89 + 16) = v116;
+  LOBYTE(v19) = BYTE8(v157);
+  v90 = swift_allocObject();
+  v91 = v160;
+  *(v90 + 112) = v159;
+  *(v90 + 128) = v91;
+  *(v90 + 144) = v161;
+  v92 = v156;
+  *(v90 + 48) = v155;
+  *(v90 + 64) = v92;
+  v93 = v158;
+  *(v90 + 80) = v157;
+  *(v90 + 96) = v93;
+  v94 = v154;
+  *(v90 + 16) = v153;
+  *(v90 + 32) = v94;
+  v95 = swift_allocObject();
+  v96 = v160;
+  *(v95 + 112) = v159;
+  *(v95 + 128) = v96;
+  *(v95 + 144) = v161;
+  v97 = v156;
+  *(v95 + 48) = v155;
+  *(v95 + 64) = v97;
+  v98 = v158;
+  *(v95 + 80) = v157;
+  *(v95 + 96) = v98;
+  v99 = v154;
+  *(v95 + 16) = v153;
+  *(v95 + 32) = v99;
+  v100 = swift_allocObject();
+  v101 = v160;
+  *(v100 + 112) = v159;
+  *(v100 + 128) = v101;
+  *(v100 + 144) = v161;
+  v102 = v156;
+  *(v100 + 48) = v155;
+  *(v100 + 64) = v102;
+  v103 = v158;
+  *(v100 + 80) = v157;
+  *(v100 + 96) = v103;
+  v104 = v154;
+  *(v100 + 16) = v153;
+  *(v100 + 32) = v104;
+  *(v89 + 32) = v19;
+  *(v89 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v89 + 48) = v90;
+  *(v89 + 56) = closure #2 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v89 + 64) = v95;
+  *(v89 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+  *(v89 + 80) = v100;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v105 = swift_allocObject();
+  *(v105 + 16) = xmmword_1004F2EE0;
+  *(v105 + 32) = v110;
+  *(v105 + 40) = v45;
+  *(v105 + 48) = v67;
+  *(v105 + 56) = v89;
+  outlined init with copy of TaskPriority?(&v153, v117, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v153, v117, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5QueueO7ContextVytGMR);
+  v106 = specialized static ActionBuilder.buildBlock(_:)();
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
   swift_arrayDestroy();
   swift_deallocClassInstance();
-  return v108;
+  return v106;
 }
 
 uint64_t static MusicActions.pinActions(item:library:presentationSource:metricsReportingContext:onFinish:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v96 = a5;
-  v97 = a6;
-  v86 = a3;
-  v87 = a4;
-  v95 = a2;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
+  v87 = a5;
+  v88 = a6;
+  v77 = a3;
+  v78 = a4;
+  v86 = a2;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
   v10 = *(v9 - 8);
-  v88 = (v9 - 8);
-  v92 = v10;
-  v91 = *(v10 + 64);
-  v11 = __chkstk_darwin(v9 - 8);
-  v94 = &v77 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v11);
-  v93 = &v77 - v14;
-  v15 = __chkstk_darwin(v13);
-  v90 = &v77 - v16;
-  __chkstk_darwin(v15);
-  v89 = &v77 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  __chkstk_darwin(v18 - 8);
-  v20 = &v77 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v22 = (v21 - 8);
-  v79 = *(v21 - 8);
-  v23 = *(v79 + 64);
-  v24 = __chkstk_darwin(v21);
-  v82 = &v77 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = __chkstk_darwin(v24);
-  v80 = &v77 - v26;
-  v27 = __chkstk_darwin(v25);
-  v78 = &v77 - v28;
-  __chkstk_darwin(v27);
-  v30 = &v77 - v29;
-  v85 = a1;
-  v31 = a1[3];
+  v79 = (v9 - 8);
+  v83 = v10;
+  v82 = *(v10 + 64);
+  __chkstk_darwin();
+  v85 = &v68 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v84 = &v68 - v12;
+  __chkstk_darwin();
+  v81 = &v68 - v13;
+  __chkstk_darwin();
+  v80 = &v68 - v14;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  __chkstk_darwin();
+  v16 = &v68 - v15;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR) - 8;
+  v70 = *v17;
+  v18 = *(v70 + 64);
+  __chkstk_darwin();
+  v73 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v71 = &v68 - v19;
+  __chkstk_darwin();
+  v69 = &v68 - v20;
+  __chkstk_darwin();
+  v22 = &v68 - v21;
+  v76 = a1;
+  v23 = a1[3];
   inited = a1[4];
-  v32 = __swift_project_boxed_opaque_existential_0Tm(a1, v31);
-  __chkstk_darwin(v32);
-  v34 = &v77 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v35 + 16))(v34);
-  outlined init with copy of PresentationSource(a3, v99);
-  v81 = v20;
-  outlined init with copy of TaskPriority?(a4, v20, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  v36 = v95;
+  __swift_project_boxed_opaque_existential_0Tm(a1, v23);
+  v24 = __chkstk_darwin();
+  v26 = &v68 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v27 + 16))(v26, v24);
+  outlined init with copy of PresentationSource(a3, v90);
+  v72 = v16;
+  outlined init with copy of TaskPriority?(a4, v16, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v28 = v86;
 
-  v38 = v96;
-  v37 = v97;
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v96);
-  Actions.Pin.Context.init<A>(item:library:presentationSource:metricsReportingContext:onFinish:)(v34, v36, v99, v20, v38, v37, v31, inited, v30);
-  v30[v22[11]] = 7;
-  *&v30[v22[13]] = 0x4014000000000000;
-  v39 = &v30[v22[12]];
-  *v39 = closure #1 in static Actions.Pin.action(context:);
-  v39[1] = 0;
-  v40 = &v30[v22[14]];
-  *v40 = &async function pointer to closure #2 in static Actions.Pin.action(context:);
-  *(v40 + 1) = 0;
-  v41 = &v30[v22[15]];
-  *v41 = &async function pointer to closure #3 in static Actions.Pin.action(context:);
-  *(v41 + 1) = 0;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd);
+  v30 = v87;
+  v29 = v88;
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v87, v88);
+  Actions.Pin.Context.init<A>(item:library:presentationSource:metricsReportingContext:onFinish:)(v26, v28, v90, v16, v30, v29, v23, inited, v22);
+  v22[*(v17 + 44)] = 7;
+  *&v22[*(v17 + 52)] = 0x4014000000000000;
+  v31 = &v22[*(v17 + 48)];
+  *v31 = closure #1 in static Actions.Pin.action(context:);
+  v31[1] = 0;
+  v32 = &v22[*(v17 + 56)];
+  *v32 = &async function pointer to closure #2 in static Actions.Pin.action(context:);
+  *(v32 + 1) = 0;
+  v33 = &v22[*(v17 + 60)];
+  *v33 = &async function pointer to closure #3 in static Actions.Pin.action(context:);
+  *(v33 + 1) = 0;
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd, &_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMR);
   inited = swift_initStackObject();
-  v83 = xmmword_1004F2400;
+  v74 = xmmword_1004F2400;
   *(inited + 16) = xmmword_1004F2400;
-  v42 = v78;
-  outlined init with copy of TaskPriority?(v30, v78, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v43 = (*(v79 + 80) + 16) & ~*(v79 + 80);
-  v44 = swift_allocObject();
-  outlined init with take of URL?(v42, v44 + v43, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v45 = v80;
-  outlined init with copy of TaskPriority?(v30, v80, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v46 = swift_allocObject();
-  outlined init with take of URL?(v45, v46 + v43, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v47 = v82;
-  outlined init with copy of TaskPriority?(v30, v82, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v48 = swift_allocObject();
-  outlined init with take of URL?(v47, v48 + v43, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v49 = inited;
+  v34 = v69;
+  outlined init with copy of TaskPriority?(v22, v69, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v35 = (*(v70 + 80) + 16) & ~*(v70 + 80);
+  v36 = swift_allocObject();
+  outlined init with take of URL?(v34, v36 + v35, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v37 = v71;
+  outlined init with copy of TaskPriority?(v22, v71, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v38 = swift_allocObject();
+  outlined init with take of URL?(v37, v38 + v35, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v39 = v73;
+  outlined init with copy of TaskPriority?(v22, v73, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v40 = swift_allocObject();
+  outlined init with take of URL?(v39, v40 + v35, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v41 = inited;
   *(inited + 32) = 7;
-  v49[5] = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-  v49[6] = v44;
-  v49[7] = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-  v49[8] = v46;
-  v49[9] = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-  v49[10] = v48;
-  outlined destroy of TaskPriority?(v30, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd);
-  v50 = v85[3];
-  v51 = v85[4];
-  v52 = __swift_project_boxed_opaque_existential_0Tm(v85, v50);
-  __chkstk_darwin(v52);
-  v54 = &v77 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v55 + 16))(v54);
-  outlined init with copy of PresentationSource(v86, v99);
-  v56 = v81;
-  outlined init with copy of TaskPriority?(v87, v81, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  v57 = v95;
+  v41[5] = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  v41[6] = v36;
+  v41[7] = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  v41[8] = v38;
+  v41[9] = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  v41[10] = v40;
+  outlined destroy of TaskPriority?(v22, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v42 = v76[3];
+  v43 = v76[4];
+  __swift_project_boxed_opaque_existential_0Tm(v76, v42);
+  v44 = __chkstk_darwin();
+  (*(v46 + 16))(&v68 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0), v44);
+  outlined init with copy of PresentationSource(v77, v90);
+  v47 = v72;
+  outlined init with copy of TaskPriority?(v78, v72, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v48 = v86;
 
-  v59 = v96;
-  v58 = v97;
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v96);
-  v60 = v89;
-  Actions.Unpin.Context.init<A>(item:library:presentationSource:metricsReportingContext:onFinish:)(v54, v57, v99, v56, v59, v58, v50, v51, v89);
-  v61 = v88;
-  *(v60 + v88[11]) = 8;
-  *(v60 + v61[13]) = 0x4014000000000000;
-  v62 = (v60 + v61[12]);
-  v63 = v60;
-  *v62 = closure #1 in static Actions.Unpin.action(context:);
-  v62[1] = 0;
-  v64 = (v60 + v61[14]);
-  *v64 = &async function pointer to closure #2 in static Actions.Unpin.action(context:);
-  v64[1] = 0;
-  v65 = (v60 + v61[15]);
-  *v65 = &async function pointer to closure #3 in static Actions.Unpin.action(context:);
-  v65[1] = 0;
-  v66 = swift_initStackObject();
-  *(v66 + 16) = v83;
-  v67 = v90;
-  outlined init with copy of TaskPriority?(v60, v90, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  v68 = (*(v92 + 80) + 16) & ~*(v92 + 80);
-  v97 = swift_allocObject();
-  outlined init with take of URL?(v67, v97 + v68, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  v69 = v93;
-  outlined init with copy of TaskPriority?(v60, v93, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  v70 = swift_allocObject();
-  outlined init with take of URL?(v69, v70 + v68, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  v71 = v94;
-  outlined init with copy of TaskPriority?(v60, v94, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  v72 = swift_allocObject();
-  outlined init with take of URL?(v71, v72 + v68, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  *(v66 + 32) = 8;
-  v73 = v97;
-  *(v66 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v66 + 48) = v73;
-  *(v66 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v66 + 64) = v70;
-  *(v66 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v66 + 80) = v72;
-  outlined destroy of TaskPriority?(v63, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-  v74 = swift_initStackObject();
-  *(v74 + 16) = xmmword_1004F2EF0;
-  *(v74 + 32) = inited;
-  *(v74 + 40) = v66;
-  v75 = specialized static ActionBuilder.buildBlock(_:)(v74);
+  v50 = v87;
+  v49 = v88;
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v87, v88);
+  v51 = v80;
+  Actions.Unpin.Context.init<A>(item:library:presentationSource:metricsReportingContext:onFinish:)(v48, v90, v47, v50, v49, v42, v43, v80);
+  v52 = v79;
+  *(v51 + v79[11]) = 8;
+  *(v51 + v52[13]) = 0x4014000000000000;
+  v53 = (v51 + v52[12]);
+  v54 = v51;
+  *v53 = closure #1 in static Actions.Unpin.action(context:);
+  v53[1] = 0;
+  v55 = (v51 + v52[14]);
+  *v55 = &async function pointer to closure #2 in static Actions.Unpin.action(context:);
+  v55[1] = 0;
+  v56 = (v51 + v52[15]);
+  *v56 = &async function pointer to closure #3 in static Actions.Unpin.action(context:);
+  v56[1] = 0;
+  v57 = swift_initStackObject();
+  *(v57 + 16) = v74;
+  v58 = v81;
+  outlined init with copy of TaskPriority?(v51, v81, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v59 = (*(v83 + 80) + 16) & ~*(v83 + 80);
+  v88 = swift_allocObject();
+  outlined init with take of URL?(v58, v88 + v59, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v60 = v84;
+  outlined init with copy of TaskPriority?(v51, v84, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v61 = swift_allocObject();
+  outlined init with take of URL?(v60, v61 + v59, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v62 = v85;
+  outlined init with copy of TaskPriority?(v51, v85, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v63 = swift_allocObject();
+  outlined init with take of URL?(v62, v63 + v59, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  *(v57 + 32) = 8;
+  v64 = v88;
+  *(v57 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v57 + 48) = v64;
+  *(v57 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v57 + 64) = v61;
+  *(v57 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v57 + 80) = v63;
+  outlined destroy of TaskPriority?(v54, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v65 = swift_initStackObject();
+  *(v65 + 16) = xmmword_1004F2EF0;
+  *(v65 + 32) = inited;
+  *(v65 + 40) = v57;
+  v66 = specialized static ActionBuilder.buildBlock(_:)();
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
   swift_arrayDestroy();
-  return v75;
+  return v66;
 }
 
 uint64_t static MusicActions.libraryActions(item:library:presentationSource:playlistPickerPresenter:observer:metricsReportingContext:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v195 = a7;
-  *&v196 = a6;
-  v193 = a3;
-  v194 = a5;
-  v184 = a4;
+  v196 = a7;
+  *&v197 = a6;
+  v194 = a3;
+  v195 = a5;
+  v185 = a4;
   v9 = type metadata accessor for Playlist.Folder.Item();
-  v180 = *(v9 - 8);
-  v181 = v9;
-  __chkstk_darwin(v9);
-  v182 = &v176 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit8PlaylistVSgMd);
-  __chkstk_darwin(v11 - 8);
-  v189 = (&v176 - v12);
-  v13 = type metadata accessor for Playlist();
-  v186 = *(v13 - 8);
-  v187 = v13;
-  __chkstk_darwin(v13);
-  v192 = &v176 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for Album();
-  v191 = *(v15 - 8);
-  __chkstk_darwin(v15);
-  v17 = &v176 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  __chkstk_darwin(v18 - 8);
-  v20 = &v176 - v19;
-  v22 = a1[3];
-  v21 = a1[4];
-  v23 = a1[5];
-  v24 = __swift_project_boxed_opaque_existential_0Tm(a1, v22);
-  __chkstk_darwin(v24);
-  v26 = &v176 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v27 + 16))(v26);
-  outlined init with copy of PresentationSource(v193, &v217);
-  outlined init with copy of TaskPriority?(v195, v20, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-  v188 = v20;
-  Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:)(v26, a2, &v217, v194, v196, v20, v22, v21, &v224, v23);
-  LOBYTE(v227) = 0;
-  *(&v227 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
-  *&v228 = 0;
-  *(&v228 + 1) = 0x4014000000000000;
-  *&v229 = &async function pointer to closure #2 in static Actions.AddToLibrary.action(context:);
-  *(&v229 + 1) = 0;
-  *&v230 = &async function pointer to closure #3 in static Actions.AddToLibrary.action(context:);
+  v181 = *(v9 - 8);
+  v182 = v9;
+  __chkstk_darwin();
+  v183 = &v177 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit8PlaylistVSgMd, &_s8MusicKit8PlaylistVSgMR);
+  __chkstk_darwin();
+  v190 = (&v177 - v11);
+  v12 = type metadata accessor for Playlist();
+  v187 = *(v12 - 8);
+  v188 = v12;
+  __chkstk_darwin();
+  v193 = &v177 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for Album();
+  v192 = *(v14 - 8);
+  __chkstk_darwin();
+  v16 = &v177 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  __chkstk_darwin();
+  v18 = &v177 - v17;
+  v20 = a1[3];
+  v19 = a1[4];
+  v21 = a1[5];
+  __swift_project_boxed_opaque_existential_0Tm(a1, v20);
+  v22 = __chkstk_darwin();
+  v24 = &v177 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v25 + 16))(v24, v22);
+  outlined init with copy of PresentationSource(v194, &v218);
+  outlined init with copy of TaskPriority?(v196, v18, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v189 = v18;
+  Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:)(v24, a2, &v218, v195, v197, v18, v20, v19, &v225, v21);
+  LOBYTE(v228) = 0;
+  *(&v228 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+  *&v229 = 0;
+  *(&v229 + 1) = 0x4014000000000000;
+  *&v230 = &async function pointer to closure #2 in static Actions.AddToLibrary.action(context:);
   *(&v230 + 1) = 0;
-  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v217);
+  *&v231 = &async function pointer to closure #3 in static Actions.AddToLibrary.action(context:);
+  *(&v231 + 1) = 0;
+  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v218);
   swift_unknownObjectRetain();
-  v190 = a2;
+  v191 = a2;
 
-  v194 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14LibraryAddable_0aB8Internal0aC10ActionablepMd);
+  v195 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14LibraryAddable_0aB8Internal0aC10ActionablepMd, &_s8MusicKit0A14LibraryAddable_0aB8Internal0aC10ActionablepMR);
   if (swift_dynamicCast())
   {
-    v28 = (*(v191 + 8))(v17, v15);
-    v29 = (v224)(v28);
-    if (v30 == 1)
+    v26 = (*(v192 + 8))(v16, v14);
+    v27 = (v225)(v26);
+    if (v28 == 1)
     {
-      v31 = 0;
+      v29 = 0;
       goto LABEL_6;
     }
 
-    outlined consume of ActionCondition.Result(v29, v30);
+    outlined consume of ActionCondition.Result(v27, v28);
   }
 
-  v31 = 1;
+  v29 = 1;
 LABEL_6:
-  v191 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd);
+  v192 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd, &_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMR);
+  v30 = swift_allocObject();
+  v197 = xmmword_1004F2400;
+  *(v30 + 16) = xmmword_1004F2400;
+  v31 = v228;
   v32 = swift_allocObject();
-  v196 = xmmword_1004F2400;
-  *(v32 + 16) = xmmword_1004F2400;
-  v33 = v227;
-  v34 = swift_allocObject();
-  v35 = v229;
-  v34[5] = v228;
-  v34[6] = v35;
-  v34[7] = v230;
-  v36 = v225;
-  v34[1] = v224;
-  v34[2] = v36;
-  v37 = v227;
-  v34[3] = v226;
-  v34[4] = v37;
-  v38 = swift_allocObject();
-  v39 = v229;
-  v38[5] = v228;
-  v38[6] = v39;
-  v38[7] = v230;
-  v40 = v225;
-  v38[1] = v224;
-  v38[2] = v40;
-  v41 = v227;
-  v38[3] = v226;
-  v38[4] = v41;
-  v42 = swift_allocObject();
-  v43 = v229;
-  v42[5] = v228;
-  v42[6] = v43;
-  v42[7] = v230;
-  v44 = v225;
-  v42[1] = v224;
-  v42[2] = v44;
-  v45 = v227;
-  v42[3] = v226;
-  v42[4] = v45;
-  *(v32 + 32) = v33;
-  *(v32 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v32 + 48) = v34;
-  *(v32 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v32 + 64) = v38;
-  *(v32 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v32 + 80) = v42;
-  v185 = v32;
-  if (v31)
+  v33 = v230;
+  v32[5] = v229;
+  v32[6] = v33;
+  v32[7] = v231;
+  v34 = v226;
+  v32[1] = v225;
+  v32[2] = v34;
+  v35 = v228;
+  v32[3] = v227;
+  v32[4] = v35;
+  v36 = swift_allocObject();
+  v37 = v230;
+  v36[5] = v229;
+  v36[6] = v37;
+  v36[7] = v231;
+  v38 = v226;
+  v36[1] = v225;
+  v36[2] = v38;
+  v39 = v228;
+  v36[3] = v227;
+  v36[4] = v39;
+  v40 = swift_allocObject();
+  v41 = v230;
+  v40[5] = v229;
+  v40[6] = v41;
+  v40[7] = v231;
+  v42 = v226;
+  v40[1] = v225;
+  v40[2] = v42;
+  v43 = v228;
+  v40[3] = v227;
+  v40[4] = v43;
+  *(v30 + 32) = v31;
+  *(v30 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v30 + 48) = v32;
+  *(v30 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v30 + 64) = v36;
+  *(v30 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v30 + 80) = v40;
+  v186 = v30;
+  if (v29)
   {
-    v46 = a1[3];
-    v47 = a1[4];
-    v48 = a1[5];
-    v49 = __swift_project_boxed_opaque_existential_0Tm(a1, v46);
-    __chkstk_darwin(v49);
-    v51 = &v176 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v52 + 16))(v51);
-    v53 = v193;
-    outlined init with copy of PresentationSource(v193, &v217);
-    v54 = v195;
-    v55 = v188;
-    outlined init with copy of TaskPriority?(v195, v188, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-    Actions.DeleteFromLibrary.Context.init<A>(item:library:presentationSource:metricsReportingContext:)(v51, v190, &v217, v55, v46, v47, v48, &v210);
-    v203 = v210;
+    v44 = a1[3];
+    v45 = a1[4];
+    v46 = a1[5];
+    __swift_project_boxed_opaque_existential_0Tm(a1, v44);
+    v47 = __chkstk_darwin();
+    v49 = &v177 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v50 + 16))(v49, v47);
+    v51 = v194;
+    outlined init with copy of PresentationSource(v194, &v218);
+    v52 = v196;
+    v53 = v189;
+    outlined init with copy of TaskPriority?(v196, v189, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+    Actions.DeleteFromLibrary.Context.init<A>(item:library:presentationSource:metricsReportingContext:)(v49, v191, &v218, v53, v44, v45, v46, &v211);
     v204 = v211;
     v205 = v212;
-    LOBYTE(v206) = 49;
-    *(&v206 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
-    *&v207 = 0;
-    *(&v207 + 1) = 0x4014000000000000;
-    *&v208 = &async function pointer to closure #2 in static Actions.DeleteFromLibrary.action(context:);
-    *(&v208 + 1) = 0;
-    *&v209 = &async function pointer to closure #3 in static Actions.DeleteFromLibrary.action(context:);
+    v206 = v213;
+    LOBYTE(v207) = 49;
+    *(&v207 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+    *&v208 = 0;
+    *(&v208 + 1) = 0x4014000000000000;
+    *&v209 = &async function pointer to closure #2 in static Actions.DeleteFromLibrary.action(context:);
     *(&v209 + 1) = 0;
-    v56 = swift_allocObject();
-    *(v56 + 16) = v196;
-    v57 = swift_allocObject();
-    v58 = v208;
-    v57[5] = v207;
-    v57[6] = v58;
-    v57[7] = v209;
-    v59 = v204;
-    v57[1] = v203;
-    v57[2] = v59;
-    v60 = v206;
-    v57[3] = v205;
-    v57[4] = v60;
-    v61 = swift_allocObject();
-    v62 = v208;
-    v61[5] = v207;
-    v61[6] = v62;
-    v61[7] = v209;
-    v63 = v204;
-    v61[1] = v203;
-    v61[2] = v63;
-    v64 = v206;
-    v61[3] = v205;
-    v61[4] = v64;
-    v65 = swift_allocObject();
-    v66 = v208;
-    v65[5] = v207;
-    v65[6] = v66;
-    v65[7] = v209;
-    v67 = v204;
-    v65[1] = v203;
-    v65[2] = v67;
-    v68 = v206;
-    v65[3] = v205;
-    v65[4] = v68;
-    v183 = v56;
-    *(v56 + 32) = 49;
-    *(v56 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v56 + 48) = v57;
-    *(v56 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v56 + 64) = v61;
-    *(v56 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v56 + 80) = v65;
-    v69 = a1[3];
-    v70 = a1[4];
-    v71 = a1[5];
-    v72 = __swift_project_boxed_opaque_existential_0Tm(a1, v69);
-    __chkstk_darwin(v72);
-    v74 = &v176 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v75 + 16))(v74);
-    outlined init with copy of PresentationSource(v53, &v217);
-    v76 = v54;
-    v77 = v55;
-    outlined init with copy of TaskPriority?(v76, v55, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-    v78 = v190;
-    Actions.RemoveDownload.Context.init<A>(item:library:showConfirmationDialog:presentationSource:metricsReportingContext:)(v74, v190, 0, &v217, v77, v69, v70, v71, &v197);
-    v210 = v197;
+    *&v210 = &async function pointer to closure #3 in static Actions.DeleteFromLibrary.action(context:);
+    *(&v210 + 1) = 0;
+    v54 = swift_allocObject();
+    *(v54 + 16) = v197;
+    v55 = swift_allocObject();
+    v56 = v209;
+    v55[5] = v208;
+    v55[6] = v56;
+    v55[7] = v210;
+    v57 = v205;
+    v55[1] = v204;
+    v55[2] = v57;
+    v58 = v207;
+    v55[3] = v206;
+    v55[4] = v58;
+    v59 = swift_allocObject();
+    v60 = v209;
+    v59[5] = v208;
+    v59[6] = v60;
+    v59[7] = v210;
+    v61 = v205;
+    v59[1] = v204;
+    v59[2] = v61;
+    v62 = v207;
+    v59[3] = v206;
+    v59[4] = v62;
+    v63 = swift_allocObject();
+    v64 = v209;
+    v63[5] = v208;
+    v63[6] = v64;
+    v63[7] = v210;
+    v65 = v205;
+    v63[1] = v204;
+    v63[2] = v65;
+    v66 = v207;
+    v63[3] = v206;
+    v63[4] = v66;
+    v184 = v54;
+    *(v54 + 32) = 49;
+    *(v54 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v54 + 48) = v55;
+    *(v54 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v54 + 64) = v59;
+    *(v54 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v54 + 80) = v63;
+    v67 = a1[3];
+    v68 = a1[4];
+    v69 = a1[5];
+    __swift_project_boxed_opaque_existential_0Tm(a1, v67);
+    v70 = __chkstk_darwin();
+    v72 = &v177 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v73 + 16))(v72, v70);
+    outlined init with copy of PresentationSource(v51, &v218);
+    v74 = v52;
+    v75 = v53;
+    outlined init with copy of TaskPriority?(v74, v53, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+    v76 = v191;
+    Actions.RemoveDownload.Context.init<A>(item:library:showConfirmationDialog:presentationSource:metricsReportingContext:)(v72, v191, 0, &v218, v75, v67, v68, v69, &v198);
     v211 = v198;
     v212 = v199;
-    LOBYTE(v213) = 48;
-    *(&v213 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
-    *&v214 = 0;
-    *(&v214 + 1) = 0x4014000000000000;
-    *&v215 = &async function pointer to closure #2 in static Actions.RemoveDownload.action(context:);
-    *(&v215 + 1) = 0;
-    *&v216 = &async function pointer to closure #3 in static Actions.RemoveDownload.action(context:);
+    v213 = v200;
+    LOBYTE(v214) = 48;
+    *(&v214 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+    *&v215 = 0;
+    *(&v215 + 1) = 0x4014000000000000;
+    *&v216 = &async function pointer to closure #2 in static Actions.RemoveDownload.action(context:);
     *(&v216 + 1) = 0;
-    v79 = swift_allocObject();
-    *(v79 + 16) = v196;
-    v80 = swift_allocObject();
-    v81 = v215;
-    v80[5] = v214;
-    v80[6] = v81;
-    v80[7] = v216;
-    v82 = v211;
-    v80[1] = v210;
-    v80[2] = v82;
-    v83 = v213;
-    v80[3] = v212;
-    v80[4] = v83;
-    v84 = swift_allocObject();
-    v85 = v215;
-    v84[5] = v214;
-    v84[6] = v85;
-    v84[7] = v216;
-    v86 = v211;
-    v84[1] = v210;
-    v84[2] = v86;
-    v87 = v213;
-    v84[3] = v212;
-    v84[4] = v87;
-    v88 = swift_allocObject();
-    v89 = v215;
-    v88[5] = v214;
-    v88[6] = v89;
-    v88[7] = v216;
-    v90 = v211;
-    v88[1] = v210;
-    v88[2] = v90;
-    v91 = v213;
-    v88[3] = v212;
-    v88[4] = v91;
-    *(v79 + 32) = 48;
-    *(v79 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v79 + 48) = v80;
-    *(v79 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v79 + 64) = v84;
-    *(v79 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v79 + 80) = v88;
-    v92 = a1[3];
-    v178 = a1[4];
-    v179 = v79;
-    v177 = a1[5];
-    v93 = __swift_project_boxed_opaque_existential_0Tm(a1, v92);
-    v176 = &v176;
-    __chkstk_darwin(v93);
-    v95 = &v176 - ((v94 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v96 + 16))(v95);
-    outlined init with copy of PresentationSource(v53, &v197);
-    outlined init with copy of TaskPriority?(v195, v77, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
+    *&v217 = &async function pointer to closure #3 in static Actions.RemoveDownload.action(context:);
+    *(&v217 + 1) = 0;
+    v77 = swift_allocObject();
+    *(v77 + 16) = v197;
+    v78 = swift_allocObject();
+    v79 = v216;
+    v78[5] = v215;
+    v78[6] = v79;
+    v78[7] = v217;
+    v80 = v212;
+    v78[1] = v211;
+    v78[2] = v80;
+    v81 = v214;
+    v78[3] = v213;
+    v78[4] = v81;
+    v82 = swift_allocObject();
+    v83 = v216;
+    v82[5] = v215;
+    v82[6] = v83;
+    v82[7] = v217;
+    v84 = v212;
+    v82[1] = v211;
+    v82[2] = v84;
+    v85 = v214;
+    v82[3] = v213;
+    v82[4] = v85;
+    v86 = swift_allocObject();
+    v87 = v216;
+    v86[5] = v215;
+    v86[6] = v87;
+    v86[7] = v217;
+    v88 = v212;
+    v86[1] = v211;
+    v86[2] = v88;
+    v89 = v214;
+    v86[3] = v213;
+    v86[4] = v89;
+    *(v77 + 32) = 48;
+    *(v77 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v77 + 48) = v78;
+    *(v77 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v77 + 64) = v82;
+    *(v77 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v77 + 80) = v86;
+    v90 = a1[3];
+    v179 = a1[4];
+    v180 = v77;
+    v178 = a1[5];
+    __swift_project_boxed_opaque_existential_0Tm(a1, v90);
+    v177 = &v177;
+    v91 = __chkstk_darwin();
+    v93 = &v177 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v94 + 16))(v93, v91);
+    outlined init with copy of PresentationSource(v51, &v198);
+    outlined init with copy of TaskPriority?(v196, v75, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
 
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
 
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v203, &v217, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v210, &v217, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd);
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v204, &v218, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v211, &v218, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMR);
 
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v203, &v217, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v210, &v217, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd);
-    Actions.Download.Context.init<A>(item:library:presentationSource:metricsReportingContext:)(v95, v78, &v197, v188, v92, v178, v177, &v200);
-    v217 = v200;
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v204, &v218, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO17DeleteFromLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v211, &v218, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO14RemoveDownloadO7ContextVytGMR);
+    Actions.Download.Context.init<A>(item:library:presentationSource:metricsReportingContext:)(v93, v76, &v198, v189, v90, v179, v178, &v201);
     v218 = v201;
     v219 = v202;
-    LOBYTE(v220) = 1;
-    *(&v220 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
-    *&v221 = 0;
-    *(&v221 + 1) = 0x4014000000000000;
-    *&v222 = &async function pointer to closure #2 in static Actions.Download.action(context:);
-    *(&v222 + 1) = 0;
-    *&v223 = &async function pointer to closure #3 in static Actions.Download.action(context:);
+    v220 = v203;
+    LOBYTE(v221) = 1;
+    *(&v221 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+    *&v222 = 0;
+    *(&v222 + 1) = 0x4014000000000000;
+    *&v223 = &async function pointer to closure #2 in static Actions.Download.action(context:);
     *(&v223 + 1) = 0;
-    v97 = swift_allocObject();
-    *(v97 + 16) = v196;
-    v98 = swift_allocObject();
-    v99 = v222;
-    v98[5] = v221;
-    v98[6] = v99;
-    v98[7] = v223;
-    v100 = v218;
-    v98[1] = v217;
-    v98[2] = v100;
-    v101 = v220;
-    v98[3] = v219;
-    v98[4] = v101;
-    v102 = swift_allocObject();
-    v103 = v222;
-    v102[5] = v221;
-    v102[6] = v103;
-    v102[7] = v223;
-    v104 = v218;
-    v102[1] = v217;
-    v102[2] = v104;
-    v105 = v220;
-    v102[3] = v219;
-    v102[4] = v105;
-    v106 = swift_allocObject();
-    v107 = v222;
-    v106[5] = v221;
-    v106[6] = v107;
-    v106[7] = v223;
-    v108 = v218;
-    v106[1] = v217;
-    v106[2] = v108;
-    v109 = v220;
-    v106[3] = v219;
-    v106[4] = v109;
-    *(v97 + 32) = 1;
-    *(v97 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v97 + 48) = v98;
-    *(v97 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v97 + 64) = v102;
-    *(v97 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-    *(v97 + 80) = v106;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-    v110 = swift_allocObject();
-    *(v110 + 16) = xmmword_1004F2EB0;
-    *(v110 + 32) = v183;
-    *(v110 + 40) = v179;
-    *(v110 + 48) = v97;
-    outlined init with copy of TaskPriority?(&v217, &v197, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v217, &v197, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd);
-    v183 = specialized static ActionBuilder.buildBlock(_:)(v110);
+    *&v224 = &async function pointer to closure #3 in static Actions.Download.action(context:);
+    *(&v224 + 1) = 0;
+    v95 = swift_allocObject();
+    *(v95 + 16) = v197;
+    v96 = swift_allocObject();
+    v97 = v223;
+    v96[5] = v222;
+    v96[6] = v97;
+    v96[7] = v224;
+    v98 = v219;
+    v96[1] = v218;
+    v96[2] = v98;
+    v99 = v221;
+    v96[3] = v220;
+    v96[4] = v99;
+    v100 = swift_allocObject();
+    v101 = v223;
+    v100[5] = v222;
+    v100[6] = v101;
+    v100[7] = v224;
+    v102 = v219;
+    v100[1] = v218;
+    v100[2] = v102;
+    v103 = v221;
+    v100[3] = v220;
+    v100[4] = v103;
+    v104 = swift_allocObject();
+    v105 = v223;
+    v104[5] = v222;
+    v104[6] = v105;
+    v104[7] = v224;
+    v106 = v219;
+    v104[1] = v218;
+    v104[2] = v106;
+    v107 = v221;
+    v104[3] = v220;
+    v104[4] = v107;
+    *(v95 + 32) = 1;
+    *(v95 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v95 + 48) = v96;
+    *(v95 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v95 + 64) = v100;
+    *(v95 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v95 + 80) = v104;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+    v108 = swift_allocObject();
+    *(v108 + 16) = xmmword_1004F2EB0;
+    *(v108 + 32) = v184;
+    *(v108 + 40) = v180;
+    *(v108 + 48) = v95;
+    outlined init with copy of TaskPriority?(&v218, &v198, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v218, &v198, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8DownloadO7ContextVytGMR);
+    v184 = specialized static ActionBuilder.buildBlock(_:)();
     swift_setDeallocating();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
     swift_arrayDestroy();
     swift_deallocClassInstance();
   }
 
   else
   {
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
-    outlined init with copy of TaskPriority?(&v224, &v217, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
-    v183 = &_swiftEmptyArrayStorage;
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v225, &v218, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
+    v184 = _swiftEmptyArrayStorage;
   }
 
-  v111 = v186;
-  v112 = v187;
-  v113 = v192;
-  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v217);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepMd);
-  v114 = swift_dynamicCast();
-  v115 = v189;
-  if (v114)
+  v109 = v187;
+  v110 = v188;
+  v111 = v193;
+  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v218);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepMd, &_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepMR);
+  v112 = swift_dynamicCast();
+  v113 = v190;
+  if (v112)
   {
-    _s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepWOb_0(&v210, &v203);
-    outlined init with copy of TaskPriority?(v184, &v200, &_s9MusicCore24PlaylistPickerPresenting_pSgMd);
-    if (*(&v201 + 1))
+    _s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepWOb_0(&v211, &v204);
+    outlined init with copy of TaskPriority?(v185, &v201, &_s9MusicCore24PlaylistPickerPresenting_pSgMd, &_s9MusicCore24PlaylistPickerPresenting_pSgMR);
+    if (*(&v202 + 1))
     {
-      outlined init with take of ActionPerforming(&v200, &v197);
-      v116 = *(&v204 + 1);
-      v186 = *(&v205 + 1);
-      v187 = v205;
-      v117 = __swift_project_boxed_opaque_existential_0Tm(&v203, *(&v204 + 1));
-      v118 = v111;
-      v119 = *(&v198 + 1);
-      v120 = v199;
-      v121 = a1;
-      v122 = __swift_project_boxed_opaque_existential_0Tm(&v197, *(&v198 + 1));
-      outlined init with copy of PresentationSource(v193, &v210);
-      v123 = v112;
-      v124 = v188;
-      outlined init with copy of TaskPriority?(v195, v188, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd);
-      v175 = v120;
-      v111 = v118;
-      v125 = v122;
-      a1 = v121;
-      v126 = v124;
-      v112 = v123;
-      v127 = v119;
-      v113 = v192;
-      specialized Actions.AddToPlaylist.Context.init<A, B>(item:library:presentationSource:playlistPickerPresenter:metricsReportingContext:)(v117, &v210, v125, v126, v116, v127, v187, v186, &v217, v175);
-      LOBYTE(v220) = 11;
-      *(&v220 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
-      *&v221 = 0;
-      *(&v221 + 1) = 0x4014000000000000;
-      *&v222 = &async function pointer to closure #2 in static Actions.AddToPlaylist.action(context:);
-      *(&v222 + 1) = 0;
-      *&v223 = &async function pointer to closure #3 in static Actions.AddToPlaylist.action(context:);
+      outlined init with take of ActionPerforming(&v201, &v198);
+      v114 = *(&v205 + 1);
+      v187 = *(&v206 + 1);
+      v188 = v206;
+      v115 = __swift_project_boxed_opaque_existential_0Tm(&v204, *(&v205 + 1));
+      v116 = v109;
+      v117 = *(&v199 + 1);
+      v118 = v200;
+      v119 = a1;
+      v120 = __swift_project_boxed_opaque_existential_0Tm(&v198, *(&v199 + 1));
+      outlined init with copy of PresentationSource(v194, &v211);
+      v121 = v110;
+      v122 = v189;
+      outlined init with copy of TaskPriority?(v196, v189, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+      v176 = v118;
+      v109 = v116;
+      v123 = v120;
+      a1 = v119;
+      v124 = v122;
+      v110 = v121;
+      v125 = v117;
+      v111 = v193;
+      specialized Actions.AddToPlaylist.Context.init<A, B>(item:library:presentationSource:playlistPickerPresenter:metricsReportingContext:)(v115, &v211, v123, v124, v114, v125, v188, v187, &v218, v176);
+      LOBYTE(v221) = 11;
+      *(&v221 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+      *&v222 = 0;
+      *(&v222 + 1) = 0x4014000000000000;
+      *&v223 = &async function pointer to closure #2 in static Actions.AddToPlaylist.action(context:);
       *(&v223 + 1) = 0;
-      v128 = swift_allocObject();
-      *(v128 + 16) = v196;
-      v129 = swift_allocObject();
-      v130 = v222;
-      v129[5] = v221;
-      v129[6] = v130;
-      v129[7] = v223;
-      v131 = v218;
-      v129[1] = v217;
-      v129[2] = v131;
-      v132 = v220;
-      v129[3] = v219;
-      v129[4] = v132;
-      v133 = swift_allocObject();
-      v134 = v222;
-      v133[5] = v221;
-      v133[6] = v134;
-      v133[7] = v223;
-      v135 = v218;
-      v133[1] = v217;
-      v133[2] = v135;
-      v136 = v220;
-      v133[3] = v219;
-      v133[4] = v136;
-      v137 = swift_allocObject();
-      v138 = v222;
-      v137[5] = v221;
-      v137[6] = v138;
-      v137[7] = v223;
-      v139 = v218;
-      v137[1] = v217;
-      v137[2] = v139;
-      v140 = v220;
-      v137[3] = v219;
-      v137[4] = v140;
-      *(v128 + 32) = 11;
-      *(v128 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-      *(v128 + 48) = v129;
-      *(v128 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-      *(v128 + 64) = v133;
-      *(v128 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-      *(v128 + 80) = v137;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-      v141 = swift_allocObject();
-      *(v141 + 16) = v196;
-      *(v141 + 32) = v128;
-      outlined init with copy of TaskPriority?(&v217, &v210, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd);
-      outlined init with copy of TaskPriority?(&v217, &v210, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd);
-      v142 = specialized static ActionBuilder.buildBlock(_:)(v141);
+      *&v224 = &async function pointer to closure #3 in static Actions.AddToPlaylist.action(context:);
+      *(&v224 + 1) = 0;
+      v126 = swift_allocObject();
+      *(v126 + 16) = v197;
+      v127 = swift_allocObject();
+      v128 = v223;
+      v127[5] = v222;
+      v127[6] = v128;
+      v127[7] = v224;
+      v129 = v219;
+      v127[1] = v218;
+      v127[2] = v129;
+      v130 = v221;
+      v127[3] = v220;
+      v127[4] = v130;
+      v131 = swift_allocObject();
+      v132 = v223;
+      v131[5] = v222;
+      v131[6] = v132;
+      v131[7] = v224;
+      v133 = v219;
+      v131[1] = v218;
+      v131[2] = v133;
+      v134 = v221;
+      v131[3] = v220;
+      v131[4] = v134;
+      v135 = swift_allocObject();
+      v136 = v223;
+      v135[5] = v222;
+      v135[6] = v136;
+      v135[7] = v224;
+      v137 = v219;
+      v135[1] = v218;
+      v135[2] = v137;
+      v138 = v221;
+      v135[3] = v220;
+      v135[4] = v138;
+      *(v126 + 32) = 11;
+      *(v126 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+      *(v126 + 48) = v127;
+      *(v126 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+      *(v126 + 64) = v131;
+      *(v126 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+      *(v126 + 80) = v135;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+      v139 = swift_allocObject();
+      *(v139 + 16) = v197;
+      *(v139 + 32) = v126;
+      v140 = v139 + 32;
+      outlined init with copy of TaskPriority?(&v218, &v211, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMR);
+      outlined init with copy of TaskPriority?(&v218, &v211, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO13AddToPlaylistO7ContextVytGMR);
+      v141 = specialized static ActionBuilder.buildBlock(_:)();
       swift_setDeallocating();
-      outlined destroy of TaskPriority?(v141 + 32, &_sSay9MusicCore10ActionMenuC4ItemVGMd);
-      v115 = v189;
+      outlined destroy of TaskPriority?(v140, &_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
+      v113 = v190;
       swift_deallocClassInstance();
-      __swift_destroy_boxed_opaque_existential_0Tm(&v197);
-      __swift_destroy_boxed_opaque_existential_0Tm(&v203);
+      __swift_destroy_boxed_opaque_existential_0Tm(&v198);
+      __swift_destroy_boxed_opaque_existential_0Tm(&v204);
       goto LABEL_15;
     }
 
-    outlined destroy of TaskPriority?(&v200, &_s9MusicCore24PlaylistPickerPresenting_pSgMd);
-    __swift_destroy_boxed_opaque_existential_0Tm(&v203);
+    outlined destroy of TaskPriority?(&v201, &_s9MusicCore24PlaylistPickerPresenting_pSgMd, &_s9MusicCore24PlaylistPickerPresenting_pSgMR);
+    __swift_destroy_boxed_opaque_existential_0Tm(&v204);
   }
 
   else
   {
-    v211 = 0u;
     v212 = 0u;
-    v210 = 0u;
-    outlined destroy of TaskPriority?(&v210, &_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepSgMd);
+    v213 = 0u;
+    v211 = 0u;
+    outlined destroy of TaskPriority?(&v211, &_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepSgMd, &_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepSgMR);
   }
 
-  v142 = &_swiftEmptyArrayStorage;
+  v141 = _swiftEmptyArrayStorage;
 LABEL_15:
-  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v217);
-  v143 = swift_dynamicCast();
-  v144 = *(v111 + 56);
-  if ((v143 & 1) == 0)
+  outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(a1, &v218);
+  v142 = swift_dynamicCast();
+  v143 = *(v109 + 56);
+  if ((v142 & 1) == 0)
   {
-    v144(v115, 1, 1, v112);
+    v143(v113, 1, 1, v110);
     v170 = &_s8MusicKit8PlaylistVSgMd;
-    v171 = v115;
+    v171 = &_s8MusicKit8PlaylistVSgMR;
+    v172 = v113;
 LABEL_20:
-    outlined destroy of TaskPriority?(v171, v170);
-    v169 = &_swiftEmptyArrayStorage;
+    outlined destroy of TaskPriority?(v172, v170, v171);
+    v169 = _swiftEmptyArrayStorage;
     goto LABEL_21;
   }
 
-  v144(v115, 0, 1, v112);
-  (*(v111 + 32))(v113, v115, v112);
-  outlined init with copy of TaskPriority?(v184, &v197, &_s9MusicCore24PlaylistPickerPresenting_pSgMd);
-  if (!*(&v198 + 1))
+  v143(v113, 0, 1, v110);
+  (*(v109 + 32))(v111, v113, v110);
+  outlined init with copy of TaskPriority?(v185, &v198, &_s9MusicCore24PlaylistPickerPresenting_pSgMd, &_s9MusicCore24PlaylistPickerPresenting_pSgMR);
+  if (!*(&v199 + 1))
   {
-    (*(v111 + 8))(v113, v112);
+    (*(v109 + 8))(v111, v110);
     v170 = &_s9MusicCore24PlaylistPickerPresenting_pSgMd;
-    v171 = &v197;
+    v171 = &_s9MusicCore24PlaylistPickerPresenting_pSgMR;
+    v172 = &v198;
     goto LABEL_20;
   }
 
-  outlined init with take of ActionPerforming(&v197, &v203);
-  v145 = *(&v204 + 1);
-  v146 = v205;
-  v147 = __swift_project_boxed_opaque_existential_0Tm(&v203, *(&v204 + 1));
-  v148 = *(v111 + 16);
-  v149 = v111;
-  v150 = v182;
-  v148(v182, v113, v112);
-  v151 = (*(v180 + 104))(v150, enum case for Playlist.Folder.Item.playlist(_:), v181);
-  __chkstk_darwin(v151);
-  v153 = &v176 - ((v152 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v154 + 16))(v153, v147, v145);
-  Actions.MoveToFolder.Context.init<A>(item:library:folderPickerPresenter:)(v150, v190, v153, v145, v146, &v210);
-  v217 = v210;
+  outlined init with take of ActionPerforming(&v198, &v204);
+  v144 = *(&v205 + 1);
+  v145 = v206;
+  v146 = __swift_project_boxed_opaque_existential_0Tm(&v204, *(&v205 + 1));
+  v147 = *(v109 + 16);
+  v148 = v109;
+  v149 = v183;
+  v147(v183, v111, v110);
+  (*(v181 + 104))(v149, enum case for Playlist.Folder.Item.playlist(_:), v182);
+  v150 = __chkstk_darwin();
+  v152 = &v177 - ((v151 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v153 + 16))(v152, v146, v144, v150);
+  Actions.MoveToFolder.Context.init<A>(item:library:folderPickerPresenter:)(v149, v191, v152, v144, v145, &v211);
   v218 = v211;
   v219 = v212;
-  LOBYTE(v220) = 20;
-  *(&v220 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
-  *&v221 = 0;
-  *(&v221 + 1) = 0x4014000000000000;
-  *&v222 = &async function pointer to closure #2 in static Actions.MoveToFolder.action(context:);
-  *(&v222 + 1) = 0;
-  *&v223 = &async function pointer to closure #3 in static Actions.MoveToFolder.action(context:);
+  v220 = v213;
+  LOBYTE(v221) = 20;
+  *(&v221 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v222 = 0;
+  *(&v222 + 1) = 0x4014000000000000;
+  *&v223 = &async function pointer to closure #2 in static Actions.MoveToFolder.action(context:);
   *(&v223 + 1) = 0;
+  *&v224 = &async function pointer to closure #3 in static Actions.MoveToFolder.action(context:);
+  *(&v224 + 1) = 0;
+  v154 = swift_allocObject();
+  *(v154 + 16) = v197;
   v155 = swift_allocObject();
-  *(v155 + 16) = v196;
-  v156 = swift_allocObject();
-  v157 = v222;
-  v156[5] = v221;
-  v156[6] = v157;
-  v156[7] = v223;
-  v158 = v218;
-  v156[1] = v217;
-  v156[2] = v158;
-  v159 = v220;
-  v156[3] = v219;
-  v156[4] = v159;
-  v160 = swift_allocObject();
-  v161 = v222;
-  v160[5] = v221;
-  v160[6] = v161;
-  v160[7] = v223;
-  v162 = v218;
-  v160[1] = v217;
-  v160[2] = v162;
-  v163 = v220;
-  v160[3] = v219;
-  v160[4] = v163;
-  v164 = swift_allocObject();
-  v165 = v222;
-  v164[5] = v221;
-  v164[6] = v165;
-  v164[7] = v223;
-  v166 = v218;
-  v164[1] = v217;
-  v164[2] = v166;
-  v167 = v220;
-  v164[3] = v219;
-  v164[4] = v167;
-  *(v155 + 32) = 20;
-  *(v155 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v155 + 48) = v156;
-  *(v155 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v155 + 64) = v160;
-  *(v155 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
-  *(v155 + 80) = v164;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-  v168 = swift_allocObject();
-  *(v168 + 16) = v196;
-  *(v168 + 32) = v155;
-  outlined init with copy of TaskPriority?(&v217, &v210, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd);
+  v156 = v223;
+  v155[5] = v222;
+  v155[6] = v156;
+  v155[7] = v224;
+  v157 = v219;
+  v155[1] = v218;
+  v155[2] = v157;
+  v158 = v221;
+  v155[3] = v220;
+  v155[4] = v158;
+  v159 = swift_allocObject();
+  v160 = v223;
+  v159[5] = v222;
+  v159[6] = v160;
+  v159[7] = v224;
+  v161 = v219;
+  v159[1] = v218;
+  v159[2] = v161;
+  v162 = v221;
+  v159[3] = v220;
+  v159[4] = v162;
+  v163 = swift_allocObject();
+  v164 = v223;
+  v163[5] = v222;
+  v163[6] = v164;
+  v163[7] = v224;
+  v165 = v219;
+  v163[1] = v218;
+  v163[2] = v165;
+  v166 = v221;
+  v163[3] = v220;
+  v163[4] = v166;
+  *(v154 + 32) = 20;
+  *(v154 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v154 + 48) = v155;
+  *(v154 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v154 + 64) = v159;
+  *(v154 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v154 + 80) = v163;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v167 = swift_allocObject();
+  *(v167 + 16) = v197;
+  *(v167 + 32) = v154;
+  v168 = v167 + 32;
+  outlined init with copy of TaskPriority?(&v218, &v211, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMR);
 
-  outlined init with copy of TaskPriority?(&v217, &v210, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd);
-  v169 = specialized static ActionBuilder.buildBlock(_:)(v168);
+  outlined init with copy of TaskPriority?(&v218, &v211, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMR);
+  v169 = specialized static ActionBuilder.buildBlock(_:)();
   swift_setDeallocating();
-  outlined destroy of TaskPriority?(v168 + 32, &_sSay9MusicCore10ActionMenuC4ItemVGMd);
+  outlined destroy of TaskPriority?(v168, &_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
   swift_deallocClassInstance();
-  (*(v149 + 8))(v192, v112);
-  __swift_destroy_boxed_opaque_existential_0Tm(&v203);
+  (*(v148 + 8))(v193, v110);
+  __swift_destroy_boxed_opaque_existential_0Tm(&v204);
 LABEL_21:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd);
-  v172 = swift_allocObject();
-  *(v172 + 16) = xmmword_1004F2EE0;
-  *(v172 + 32) = v185;
-  *(v172 + 40) = v183;
-  *(v172 + 48) = v142;
-  *(v172 + 56) = v169;
-  v173 = specialized static ActionBuilder.buildBlock(_:)(v172);
-  outlined destroy of TaskPriority?(&v224, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v173 = swift_allocObject();
+  *(v173 + 16) = xmmword_1004F2EE0;
+  *(v173 + 32) = v186;
+  *(v173 + 40) = v184;
+  *(v173 + 48) = v141;
+  *(v173 + 56) = v169;
+  v174 = specialized static ActionBuilder.buildBlock(_:)();
+  outlined destroy of TaskPriority?(&v225, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12AddToLibraryO7ContextVytGMR);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
   swift_arrayDestroy();
   swift_deallocClassInstance();
-  return v173;
+  return v174;
+}
+
+uint64_t static MusicActions.folderActions(folder:library:presentationSource:folderPickerPresenter:onCreateFolder:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+{
+  v130 = a6;
+  v115 = a4;
+  v128 = a2;
+  v120 = a1;
+  v9 = type metadata accessor for Playlist.Folder.Item();
+  v116 = *(v9 - 8);
+  v117 = v9;
+  __chkstk_darwin();
+  v118 = &v109 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for Playlist.Folder();
+  v126 = *(v11 - 8);
+  v127 = v11;
+  __chkstk_darwin();
+  v122 = &v109 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v114 = v12;
+  __chkstk_darwin();
+  v129 = &v109 - v13;
+  v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR) - 8);
+  v15 = *(v14 + 64);
+  __chkstk_darwin();
+  v119 = &v109 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v17 = &v109 - v16;
+  outlined init with copy of TaskPriority?(a1, &v109 - v16, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR);
+  v123 = a3;
+  outlined init with copy of PresentationSource(a3, &v153);
+  v18 = (*(v14 + 80) + 16) & ~*(v14 + 80);
+  v19 = (v15 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v20 = (v19 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v21 = swift_allocObject();
+  outlined init with take of URL?(v17, v21 + v18, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR);
+  *(v21 + v19) = 0;
+  v22 = (v21 + v20);
+  v124 = a5;
+  v23 = v130;
+  *v22 = a5;
+  v22[1] = v23;
+  outlined init with take of PresentationSource(&v153, v21 + ((v20 + 23) & 0xFFFFFFFFFFFFFFF8));
+  *&v153 = partial apply for closure #1 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:);
+  *(&v153 + 1) = v128;
+  *&v154 = &async function pointer to partial apply for closure #2 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:);
+  *(&v154 + 1) = v21;
+  *&v155 = &async function pointer to closure #3 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:);
+  *(&v155 + 1) = 0;
+  LOBYTE(v156) = 10;
+  *(&v156 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v157 = 0;
+  *(&v157 + 1) = 0x4014000000000000;
+  *&v158 = &async function pointer to closure #2 in static Actions.CreateFolder.action(context:);
+  *(&v158 + 1) = 0;
+  *&v159 = &async function pointer to closure #3 in static Actions.CreateFolder.action(context:);
+  *(&v159 + 1) = 0;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd, &_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMR);
+  v25 = swift_allocObject();
+  v125 = xmmword_1004F2400;
+  *(v25 + 16) = xmmword_1004F2400;
+  v26 = swift_allocObject();
+  v27 = v158;
+  v26[5] = v157;
+  v26[6] = v27;
+  v26[7] = v159;
+  v28 = v154;
+  v26[1] = v153;
+  v26[2] = v28;
+  v29 = v156;
+  v26[3] = v155;
+  v26[4] = v29;
+  v30 = swift_allocObject();
+  v31 = v158;
+  v30[5] = v157;
+  v30[6] = v31;
+  v30[7] = v159;
+  v32 = v154;
+  v30[1] = v153;
+  v30[2] = v32;
+  v33 = v156;
+  v30[3] = v155;
+  v30[4] = v33;
+  v34 = swift_allocObject();
+  v35 = v158;
+  v34[5] = v157;
+  v34[6] = v35;
+  v34[7] = v159;
+  v36 = v154;
+  v34[1] = v153;
+  v34[2] = v36;
+  v37 = v156;
+  v34[3] = v155;
+  v34[4] = v37;
+  *(v25 + 32) = 10;
+  *(v25 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v25 + 48) = v26;
+  *(v25 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v25 + 64) = v30;
+  *(v25 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v25 + 80) = v34;
+  v38 = v119;
+  outlined init with copy of TaskPriority?(v120, v119, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR);
+  v39 = v126;
+  v40 = v127;
+  if ((*(v126 + 48))(v38, 1) == 1)
+  {
+    outlined init with copy of TaskPriority?(&v153, &v146, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMR);
+
+    outlined init with copy of TaskPriority?(&v153, &v146, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMR);
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v124, v130);
+    outlined destroy of TaskPriority?(v38, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR);
+    v41 = _swiftEmptyArrayStorage;
+  }
+
+  else
+  {
+    v42 = *(v39 + 32);
+    v43 = v129;
+    v121 = v24;
+    v42(v129, v38, v40);
+    v112 = v42;
+    v113 = v39 + 32;
+    v44 = *(v39 + 16);
+    v119 = v25;
+    v120 = v39 + 16;
+    v45 = v122;
+    v46 = v40;
+    v44(v122, v43, v40);
+    v110 = v44;
+    outlined init with copy of PresentationSource(v123, &v146);
+    v47 = (*(v39 + 80) + 16) & ~*(v39 + 80);
+    v111 = *(v39 + 80);
+    v114 += 7;
+    v48 = (v114 + v47) & 0xFFFFFFFFFFFFFFF8;
+    v49 = swift_allocObject();
+    v50 = v46;
+    v51 = v46;
+    v25 = v119;
+    v42((v49 + v47), v45, v50);
+    outlined init with take of PresentationSource(&v146, v49 + v48);
+    v52 = v128;
+    *&v132 = partial apply for closure #1 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:);
+    *(&v132 + 1) = v128;
+    *&v133 = &async function pointer to partial apply for closure #2 in Actions.RenameFolder.Context.init(folder:library:presentationSource:);
+    *(&v133 + 1) = v49;
+    *&v134 = &async function pointer to closure #3 in Actions.RenameFolder.Context.init(folder:library:presentationSource:);
+    *(&v134 + 1) = 0;
+    LOBYTE(v135) = 19;
+    *(&v135 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+    *&v136 = 0;
+    *(&v136 + 1) = 0x4014000000000000;
+    *&v137 = &async function pointer to closure #2 in static Actions.RenameFolder.action(context:);
+    *(&v137 + 1) = 0;
+    *&v138 = &async function pointer to closure #3 in static Actions.RenameFolder.action(context:);
+    *(&v138 + 1) = 0;
+    v53 = swift_allocObject();
+    *(v53 + 16) = v125;
+    v54 = swift_allocObject();
+    v55 = v137;
+    v54[5] = v136;
+    v54[6] = v55;
+    v54[7] = v138;
+    v56 = v133;
+    v54[1] = v132;
+    v54[2] = v56;
+    v57 = v135;
+    v54[3] = v134;
+    v54[4] = v57;
+    v58 = swift_allocObject();
+    v59 = v137;
+    v58[5] = v136;
+    v58[6] = v59;
+    v58[7] = v138;
+    v60 = v133;
+    v58[1] = v132;
+    v58[2] = v60;
+    v61 = v135;
+    v58[3] = v134;
+    v58[4] = v61;
+    v62 = swift_allocObject();
+    v63 = v137;
+    v62[5] = v136;
+    v62[6] = v63;
+    v62[7] = v138;
+    v64 = v133;
+    v62[1] = v132;
+    v62[2] = v64;
+    v65 = v135;
+    v62[3] = v134;
+    v62[4] = v65;
+    *(v53 + 32) = 19;
+    *(v53 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v53 + 48) = v54;
+    *(v53 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v53 + 64) = v58;
+    *(v53 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v53 + 80) = v62;
+    v66 = v115[3];
+    v67 = v115[4];
+    v68 = __swift_project_boxed_opaque_existential_0Tm(v115, v66);
+    v69 = v118;
+    v44(v118, v129, v51);
+    (*(v116 + 104))(v69, enum case for Playlist.Folder.Item.folder(_:), v117);
+    v70 = __chkstk_darwin();
+    v72 = &v109 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v73 + 16))(v72, v68, v66, v70);
+    Actions.MoveToFolder.Context.init<A>(item:library:folderPickerPresenter:)(v69, v52, v72, v66, v67, &v146);
+    v139 = v146;
+    v140 = v147;
+    v141 = v148;
+    LOBYTE(v142) = 20;
+    *(&v142 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+    *&v143 = 0;
+    *(&v143 + 1) = 0x4014000000000000;
+    *&v144 = &async function pointer to closure #2 in static Actions.MoveToFolder.action(context:);
+    *(&v144 + 1) = 0;
+    *&v145 = &async function pointer to closure #3 in static Actions.MoveToFolder.action(context:);
+    *(&v145 + 1) = 0;
+    v74 = swift_allocObject();
+    *(v74 + 16) = v125;
+    v75 = swift_allocObject();
+    v76 = v144;
+    v75[5] = v143;
+    v75[6] = v76;
+    v75[7] = v145;
+    v77 = v140;
+    v75[1] = v139;
+    v75[2] = v77;
+    v78 = v142;
+    v75[3] = v141;
+    v75[4] = v78;
+    v79 = swift_allocObject();
+    v80 = v144;
+    v79[5] = v143;
+    v79[6] = v80;
+    v79[7] = v145;
+    v81 = v140;
+    v79[1] = v139;
+    v79[2] = v81;
+    v82 = v142;
+    v79[3] = v141;
+    v79[4] = v82;
+    v83 = swift_allocObject();
+    v84 = v144;
+    v83[5] = v143;
+    v83[6] = v84;
+    v83[7] = v145;
+    v85 = v140;
+    v83[1] = v139;
+    v83[2] = v85;
+    v86 = v142;
+    v83[3] = v141;
+    v83[4] = v86;
+    *(v74 + 32) = 20;
+    *(v74 + 40) = closure #1 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+    *(v74 + 48) = v75;
+    *(v74 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v74 + 64) = v79;
+    *(v74 + 72) = &closure #3 in static ActionBuilder.buildExpression<A, B>(_:)specialized partial apply;
+    *(v74 + 80) = v83;
+    v87 = v122;
+    v88 = v127;
+    v110(v122, v129, v127);
+    outlined init with copy of PresentationSource(v123, &v146);
+    v89 = (v111 + 24) & ~v111;
+    v90 = (v114 + v89) & 0xFFFFFFFFFFFFFFF8;
+    v91 = swift_allocObject();
+    *(v91 + 16) = v52;
+
+    v112(v91 + v89, v87, v88);
+    outlined init with take of PresentationSource(&v146, v91 + v90);
+    *&v146 = partial apply for closure #1 in Actions.DeleteFolder.Context.init(folder:library:presentationSource:);
+    *(&v146 + 1) = v52;
+    *&v147 = &async function pointer to partial apply for closure #2 in Actions.DeleteFolder.Context.init(folder:library:presentationSource:);
+    *(&v147 + 1) = v91;
+    *&v148 = &async function pointer to closure #3 in Actions.DeleteFolder.Context.init(folder:library:presentationSource:);
+    *(&v148 + 1) = 0;
+    LOBYTE(v149) = 50;
+    *(&v149 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+    *&v150 = 0;
+    *(&v150 + 1) = 0x4014000000000000;
+    *&v151 = &async function pointer to closure #2 in static Actions.DeleteFolder.action(context:);
+    *(&v151 + 1) = 0;
+    *&v152 = &async function pointer to closure #3 in static Actions.DeleteFolder.action(context:);
+    *(&v152 + 1) = 0;
+    v92 = swift_allocObject();
+    *(v92 + 16) = v125;
+    v93 = swift_allocObject();
+    v94 = v151;
+    v93[5] = v150;
+    v93[6] = v94;
+    v93[7] = v152;
+    v95 = v147;
+    v93[1] = v146;
+    v93[2] = v95;
+    v96 = v149;
+    v93[3] = v148;
+    v93[4] = v96;
+    v97 = swift_allocObject();
+    v98 = v151;
+    v97[5] = v150;
+    v97[6] = v98;
+    v97[7] = v152;
+    v99 = v147;
+    v97[1] = v146;
+    v97[2] = v99;
+    v100 = v149;
+    v97[3] = v148;
+    v97[4] = v100;
+    v101 = swift_allocObject();
+    v102 = v151;
+    v101[5] = v150;
+    v101[6] = v102;
+    v101[7] = v152;
+    v103 = v147;
+    v101[1] = v146;
+    v101[2] = v103;
+    v104 = v149;
+    v101[3] = v148;
+    v101[4] = v104;
+    *(v92 + 32) = 50;
+    *(v92 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v92 + 48) = v93;
+    *(v92 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v92 + 64) = v97;
+    *(v92 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v92 + 80) = v101;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+    v105 = swift_allocObject();
+    *(v105 + 16) = xmmword_1004F2EB0;
+    *(v105 + 32) = v53;
+    *(v105 + 40) = v74;
+    *(v105 + 48) = v92;
+    swift_retain_n();
+    outlined init with copy of TaskPriority?(&v153, v131, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v132, v131, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v139, v131, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v146, v131, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMR);
+
+    outlined init with copy of TaskPriority?(&v153, v131, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12CreateFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v132, v131, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12RenameFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v139, v131, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12MoveToFolderO7ContextVytGMR);
+    outlined init with copy of TaskPriority?(&v146, v131, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12DeleteFolderO7ContextVytGMR);
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v124, v130);
+    v41 = specialized static ActionBuilder.buildBlock(_:)();
+    swift_setDeallocating();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
+    swift_arrayDestroy();
+    swift_deallocClassInstance();
+    (*(v126 + 8))(v129, v127);
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v106 = swift_allocObject();
+  *(v106 + 16) = xmmword_1004F2EF0;
+  *(v106 + 32) = v25;
+  *(v106 + 40) = v41;
+  v107 = specialized static ActionBuilder.buildBlock(_:)();
+  swift_setDeallocating();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
+  swift_arrayDestroy();
+  swift_deallocClassInstance();
+  return v107;
+}
+
+uint64_t static MusicActions.tasteActions(item:library:alertPresenter:noticePresenting:ratingViewController:presentationSource:metricsReportingContext:onFinish:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v149 = a7;
+  v139 = a5;
+  v140 = a6;
+  v143 = a4;
+  v144 = a2;
+  v146 = a3;
+  v151 = a9;
+  v152 = a10;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  __chkstk_darwin();
+  v153 = &v138 - v16;
+  v17 = a1;
+  v150 = a1;
+  v18 = a1[3];
+  *&v154 = v17[4];
+  __swift_project_boxed_opaque_existential_0Tm(v17, v18);
+  v19 = __chkstk_darwin();
+  v21 = &v138 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v22 + 16))(v21, v19);
+  outlined init with copy of ActionPerforming(a3, &v182);
+  outlined init with copy of TaskPriority?(a4, &v175, &_s9MusicCore16NoticePresenting_pSgMd, &_s9MusicCore16NoticePresenting_pSgMR);
+  outlined init with copy of PresentationSource(a7, &v189);
+  v23 = a8;
+  v24 = v153;
+  outlined init with copy of TaskPriority?(a8, v153, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  Actions.Favorite.Context.init<A>(item:library:alertPresenter:noticePresenting:presentationSource:metricsReportingContext:onFinish:)(v21, a2, &v182, &v175, &v189, v24, a9, a10, &v168, v18, v154);
+  LOBYTE(v171) = 2;
+  *(&v171 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v172 = 0;
+  *(&v172 + 1) = 0x4014000000000000;
+  *&v173 = &async function pointer to closure #2 in static Actions.Favorite.action(context:);
+  *(&v173 + 1) = 0;
+  *&v174 = &async function pointer to closure #3 in static Actions.Favorite.action(context:);
+  *(&v174 + 1) = 0;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMd, &_ss23_ContiguousArrayStorageCy9MusicCore10ActionMenuC4ItemVGMR);
+  v26 = swift_allocObject();
+  v154 = xmmword_1004F2400;
+  *(v26 + 16) = xmmword_1004F2400;
+  v27 = swift_allocObject();
+  v28 = v173;
+  v27[5] = v172;
+  v27[6] = v28;
+  v27[7] = v174;
+  v29 = v169;
+  v27[1] = v168;
+  v27[2] = v29;
+  v30 = v171;
+  v27[3] = v170;
+  v27[4] = v30;
+  v31 = swift_allocObject();
+  v32 = v173;
+  v31[5] = v172;
+  v31[6] = v32;
+  v31[7] = v174;
+  v33 = v169;
+  v31[1] = v168;
+  v31[2] = v33;
+  v34 = v171;
+  v31[3] = v170;
+  v31[4] = v34;
+  v35 = swift_allocObject();
+  v36 = v173;
+  v35[5] = v172;
+  v35[6] = v36;
+  v35[7] = v174;
+  v37 = v169;
+  v35[1] = v168;
+  v35[2] = v37;
+  v38 = v171;
+  v35[3] = v170;
+  v35[4] = v38;
+  *(v26 + 32) = 2;
+  *(v26 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v26 + 48) = v27;
+  *(v26 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v26 + 64) = v31;
+  *(v26 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v26 + 80) = v35;
+  v147 = v26;
+  v39 = v150[3];
+  v40 = v150[4];
+  v41 = v150;
+  __swift_project_boxed_opaque_existential_0Tm(v150, v39);
+  v42 = __chkstk_darwin();
+  v44 = &v138 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v45 + 16))(v44, v42);
+  outlined init with copy of ActionPerforming(v146, &v182);
+  v46 = v143;
+  outlined init with copy of TaskPriority?(v143, &v156, &_s9MusicCore16NoticePresenting_pSgMd, &_s9MusicCore16NoticePresenting_pSgMR);
+  outlined init with copy of PresentationSource(v149, &v189);
+  v142 = v23;
+  v47 = v153;
+  outlined init with copy of TaskPriority?(v23, v153, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v48 = v144;
+  Actions.UndoFavorite.Context.init<A>(item:library:alertPresenter:noticePresenting:presentationSource:metricsReportingContext:onFinish:)(v44, v144, &v182, &v156, &v189, v47, v151, v152, &v175, v39, v40);
+  LOBYTE(v178) = 3;
+  *(&v178 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v179 = 0;
+  *(&v179 + 1) = 0x4014000000000000;
+  *&v180 = &async function pointer to closure #2 in static Actions.UndoFavorite.action(context:);
+  *(&v180 + 1) = 0;
+  *&v181 = &async function pointer to closure #3 in static Actions.UndoFavorite.action(context:);
+  *(&v181 + 1) = 0;
+  v148 = v25;
+  v49 = swift_allocObject();
+  *(v49 + 16) = v154;
+  v50 = swift_allocObject();
+  v51 = v180;
+  v50[5] = v179;
+  v50[6] = v51;
+  v50[7] = v181;
+  v52 = v176;
+  v50[1] = v175;
+  v50[2] = v52;
+  v53 = v178;
+  v50[3] = v177;
+  v50[4] = v53;
+  v54 = swift_allocObject();
+  v55 = v180;
+  v54[5] = v179;
+  v54[6] = v55;
+  v54[7] = v181;
+  v56 = v176;
+  v54[1] = v175;
+  v54[2] = v56;
+  v57 = v178;
+  v54[3] = v177;
+  v54[4] = v57;
+  v58 = swift_allocObject();
+  v59 = v180;
+  v58[5] = v179;
+  v58[6] = v59;
+  v58[7] = v181;
+  v60 = v176;
+  v58[1] = v175;
+  v58[2] = v60;
+  v61 = v178;
+  v58[3] = v177;
+  v58[4] = v61;
+  *(v49 + 32) = 3;
+  *(v49 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v49 + 48) = v50;
+  *(v49 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v49 + 64) = v54;
+  *(v49 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v49 + 80) = v58;
+  v146 = v49;
+  v62 = v41[3];
+  v63 = v41[4];
+  __swift_project_boxed_opaque_existential_0Tm(v41, v62);
+  v64 = __chkstk_darwin();
+  v66 = &v138 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v67 + 16))(v66, v64);
+  outlined init with copy of TaskPriority?(v46, &v189, &_s9MusicCore16NoticePresenting_pSgMd, &_s9MusicCore16NoticePresenting_pSgMR);
+  v68 = v23;
+  v69 = v153;
+  outlined init with copy of TaskPriority?(v68, v153, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  Actions.SuggestLess.Context.init<A>(item:library:noticePresenting:metricsReportingContext:)(v66, v48, &v189, v69, v62, v63, &v182);
+  LOBYTE(v185) = 36;
+  *(&v185 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v186 = 0;
+  *(&v186 + 1) = 0x4014000000000000;
+  *&v187 = &async function pointer to closure #2 in static Actions.SuggestLess.action(context:);
+  *(&v187 + 1) = 0;
+  *&v188 = &async function pointer to closure #3 in static Actions.SuggestLess.action(context:);
+  *(&v188 + 1) = 0;
+  v70 = swift_allocObject();
+  *(v70 + 16) = v154;
+  v71 = swift_allocObject();
+  v72 = v187;
+  v71[5] = v186;
+  v71[6] = v72;
+  v71[7] = v188;
+  v73 = v183;
+  v71[1] = v182;
+  v71[2] = v73;
+  v74 = v185;
+  v71[3] = v184;
+  v71[4] = v74;
+  v75 = swift_allocObject();
+  v76 = v187;
+  v75[5] = v186;
+  v75[6] = v76;
+  v75[7] = v188;
+  v77 = v183;
+  v75[1] = v182;
+  v75[2] = v77;
+  v78 = v185;
+  v75[3] = v184;
+  v75[4] = v78;
+  v79 = swift_allocObject();
+  v80 = v187;
+  v79[5] = v186;
+  v79[6] = v80;
+  v79[7] = v188;
+  v81 = v183;
+  v79[1] = v182;
+  v79[2] = v81;
+  v82 = v185;
+  v79[3] = v184;
+  v79[4] = v82;
+  *(v70 + 32) = 36;
+  *(v70 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v70 + 48) = v71;
+  *(v70 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v70 + 64) = v75;
+  *(v70 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v70 + 80) = v79;
+  v145 = v70;
+  v83 = v41[3];
+  v141 = v41[4];
+  __swift_project_boxed_opaque_existential_0Tm(v41, v83);
+  v84 = __chkstk_darwin();
+  v86 = &v138 - ((v85 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v87 + 16))(v86, v84);
+  outlined init with copy of TaskPriority?(v46, &v156, &_s9MusicCore16NoticePresenting_pSgMd, &_s9MusicCore16NoticePresenting_pSgMR);
+  outlined init with copy of TaskPriority?(v142, v69, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v88 = v48;
+  swift_retain_n();
+  v90 = v151;
+  v89 = v152;
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v151, v152);
+  outlined init with copy of TaskPriority?(&v168, &v189, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v175, &v189, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v182, &v189, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMR);
+
+  outlined init with copy of TaskPriority?(&v168, &v189, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8FavoriteO7ContextVytGMR);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v90, v89);
+  outlined init with copy of TaskPriority?(&v175, &v189, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12UndoFavoriteO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v182, &v189, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO11SuggestLessO7ContextVytGMR);
+  Actions.UndoSuggestLess.Context.init<A>(item:library:noticePresenting:metricsReportingContext:)(v86, v48, v153, v83, v141, &v189);
+  LOBYTE(v192) = 37;
+  *(&v192 + 1) = closure #1 in static Actions.RenameFolder.action(context:);
+  *&v193 = 0;
+  *(&v193 + 1) = 0x4014000000000000;
+  *&v194 = &async function pointer to closure #2 in static Actions.UndoSuggestLess.action(context:);
+  *(&v194 + 1) = 0;
+  *&v195 = &async function pointer to closure #3 in static Actions.UndoSuggestLess.action(context:);
+  *(&v195 + 1) = 0;
+  v91 = swift_allocObject();
+  *(v91 + 16) = v154;
+  v92 = swift_allocObject();
+  v93 = v194;
+  v92[5] = v193;
+  v92[6] = v93;
+  v92[7] = v195;
+  v94 = v190;
+  v92[1] = v189;
+  v92[2] = v94;
+  v95 = v192;
+  v92[3] = v191;
+  v92[4] = v95;
+  v96 = swift_allocObject();
+  v97 = v194;
+  v96[5] = v193;
+  v96[6] = v97;
+  v96[7] = v195;
+  v98 = v190;
+  v96[1] = v189;
+  v96[2] = v98;
+  v99 = v192;
+  v96[3] = v191;
+  v96[4] = v99;
+  v100 = swift_allocObject();
+  v101 = v194;
+  v100[5] = v193;
+  v100[6] = v101;
+  v100[7] = v195;
+  v102 = v190;
+  v100[1] = v189;
+  v100[2] = v102;
+  v103 = v192;
+  v100[3] = v191;
+  v100[4] = v103;
+  *(v91 + 32) = 37;
+  *(v91 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v91 + 48) = v92;
+  *(v91 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v91 + 64) = v96;
+  *(v91 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+  *(v91 + 80) = v100;
+  outlined init with copy of ActionPerforming(v150, &v163);
+  outlined init with copy of TaskPriority?(&v189, &v156, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMR);
+  outlined init with copy of TaskPriority?(&v189, &v156, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO15UndoSuggestLessO7ContextVytGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16MusicKitInternal011FavoritableA4Item_pMd, &_s16MusicKitInternal011FavoritableA4Item_pMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16MusicKitInternal0A17LibraryActionable_AA0A11UserRatablepMd, &_s16MusicKitInternal0A17LibraryActionable_AA0A11UserRatablepMR);
+  if (swift_dynamicCast())
+  {
+    _s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepWOb_0(v162, &v164);
+    v104 = v165;
+    v105 = v166;
+    v106 = v167;
+    __swift_project_boxed_opaque_existential_0Tm(&v164, v165);
+    v107 = __chkstk_darwin();
+    v109 = &v138 - ((v108 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v110 + 16))(v109, v107);
+    outlined init with copy of PresentationSource(v149, &v156);
+    v111 = swift_allocObject();
+    v111[2] = v104;
+    v111[3] = v105;
+    v112 = v139;
+    v113 = v140;
+    v111[4] = v106;
+    v111[5] = v112;
+    v111[6] = v113;
+    *&v156 = Actions.RateSong.Context.init<A>(item:library:ratingViewController:presentationSource:)(v109, v88, partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed MusicUserRatable) -> (@owned RatingViewController), v111, &v156, v104, v105, v106);
+    *(&v156 + 1) = v114;
+    *&v157 = v115;
+    *(&v157 + 1) = v116;
+    LOBYTE(v158) = 38;
+    *(&v158 + 1) = closure #1 in static Actions.AddToLibrary.action(context:);
+    *&v159 = 0;
+    *(&v159 + 1) = 0x4014000000000000;
+    *&v160 = &async function pointer to closure #2 in static Actions.RateSong.action(context:);
+    *(&v160 + 1) = 0;
+    *&v161 = &async function pointer to closure #3 in static Actions.RateSong.action(context:);
+    *(&v161 + 1) = 0;
+    v117 = swift_allocObject();
+    *(v117 + 16) = v154;
+    v118 = swift_allocObject();
+    v119 = v159;
+    v118[3] = v158;
+    v118[4] = v119;
+    v120 = v161;
+    v118[5] = v160;
+    v118[6] = v120;
+    v121 = v157;
+    v118[1] = v156;
+    v118[2] = v121;
+    v122 = swift_allocObject();
+    v123 = v159;
+    v122[3] = v158;
+    v122[4] = v123;
+    v124 = v161;
+    v122[5] = v160;
+    v122[6] = v124;
+    v125 = v157;
+    v122[1] = v156;
+    v122[2] = v125;
+    v126 = swift_allocObject();
+    v127 = v159;
+    v126[3] = v158;
+    v126[4] = v127;
+    v128 = v161;
+    v126[5] = v160;
+    v126[6] = v128;
+    v129 = v157;
+    v126[1] = v156;
+    v126[2] = v129;
+    *(v117 + 32) = 38;
+    *(v117 + 40) = partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v117 + 48) = v118;
+    *(v117 + 56) = partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v117 + 64) = v122;
+    *(v117 + 72) = &async function pointer to partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+    *(v117 + 80) = v126;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+    v130 = swift_allocObject();
+    *(v130 + 16) = v154;
+    *(v130 + 32) = v117;
+    v131 = v130 + 32;
+    outlined init with copy of TaskPriority?(&v156, v155, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMR);
+
+    outlined init with copy of TaskPriority?(&v156, v155, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO8RateSongO7ContextVytGMR);
+
+    v132 = specialized static ActionBuilder.buildBlock(_:)();
+    swift_setDeallocating();
+    outlined destroy of TaskPriority?(v131, &_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
+    swift_deallocClassInstance();
+    __swift_destroy_boxed_opaque_existential_0Tm(&v164);
+  }
+
+  else
+  {
+    memset(v162, 0, sizeof(v162));
+    outlined destroy of TaskPriority?(v162, &_s16MusicKitInternal0A17LibraryActionable_AA0A11UserRatablepSgMd, &_s16MusicKitInternal0A17LibraryActionable_AA0A11UserRatablepSgMR);
+    v132 = _swiftEmptyArrayStorage;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMd, &_ss23_ContiguousArrayStorageCySay9MusicCore10ActionMenuC4ItemVGGMR);
+  v133 = swift_allocObject();
+  *(v133 + 16) = xmmword_1004F2F00;
+  v134 = v146;
+  *(v133 + 32) = v147;
+  v135 = v145;
+  *(v133 + 40) = v134;
+  *(v133 + 48) = v135;
+  *(v133 + 56) = v91;
+  *(v133 + 64) = v132;
+  v136 = specialized static ActionBuilder.buildBlock(_:)();
+  swift_setDeallocating();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore10ActionMenuC4ItemVGMd, &_sSay9MusicCore10ActionMenuC4ItemVGMR);
+  swift_arrayDestroy();
+  swift_deallocClassInstance();
+  return v136;
+}
+
+uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed MusicUserRatable) -> (@owned RatingViewController)(uint64_t a1, uint64_t (*a2)(uint64_t *), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v12[3] = a4;
+  v12[4] = a6;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v12);
+  (*(*(a4 - 8) + 16))(boxed_opaque_existential_1, a1, a4);
+  v10 = a2(v12);
+  __swift_destroy_boxed_opaque_existential_0Tm(v12);
+  return v10;
+}
+
+uint64_t specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = a1[2];
+  v7 = a1[3];
+  v8 = a1[8];
+  a2[3] = &type metadata for Actions.Queue.Context;
+  a2[4] = &protocol witness table for Actions.Queue.Context;
+  v9 = swift_allocObject();
+  *a2 = v9;
+  *(v9 + 16) = v4;
+  *(v9 + 24) = v5;
+  *(v9 + 32) = v6;
+  *(v9 + 40) = v7;
+  v11 = *(a1 + 3);
+  *(v9 + 48) = *(a1 + 2);
+  *(v9 + 64) = v11;
+  *(v9 + 80) = v8;
+  outlined copy of Player.InsertCommand.Location(v4);
+}
+
+{
+  v4 = *a1;
+  v5 = a1[3];
+  a2[3] = &type metadata for Actions.RateSong.Context;
+  a2[4] = &protocol witness table for Actions.RateSong.Context;
+  v6 = swift_allocObject();
+  *a2 = v6;
+  *(v6 + 16) = v4;
+  *(v6 + 24) = *(a1 + 1);
+  *(v6 + 40) = v5;
+}
+
+uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = *(a4 + 112);
+  *(v4 + 112) = *(a4 + 96);
+  *(v4 + 128) = v6;
+  *(v4 + 144) = *(a4 + 128);
+  v7 = *(a4 + 48);
+  *(v4 + 48) = *(a4 + 32);
+  *(v4 + 64) = v7;
+  v8 = *(a4 + 80);
+  *(v4 + 80) = *(a4 + 64);
+  *(v4 + 96) = v8;
+  v9 = *(a4 + 16);
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v9;
+  v10 = swift_task_alloc();
+  *(v4 + 152) = v10;
+  *v10 = v4;
+  v10[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)()
+{
+  v3 = *v0;
+
+  v1 = *(v3 + 8);
+
+  return v1();
+}
+
+{
+  v3 = *v0;
+
+  v1 = *(v3 + 8);
+
+  return v1();
+}
+
+{
+  v3 = *v0;
+
+  v1 = *(v3 + 8);
+
+  return v1();
+}
+
+uint64_t specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(_OWORD *a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 208) = swift_task_alloc();
+  v3 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v3;
+  v4 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v4;
+  v5 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v1 + 240) = swift_task_alloc();
+  v3 = a1[5];
+  *(v1 + 80) = a1[4];
+  *(v1 + 96) = v3;
+  *(v1 + 112) = a1[6];
+  v4 = a1[1];
+  *(v1 + 16) = *a1;
+  *(v1 + 32) = v4;
+  v5 = a1[3];
+  *(v1 + 48) = a1[2];
+  *(v1 + 64) = v5;
+
+  return _swift_task_switch(specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:), 0, 0);
+}
+
+uint64_t specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v6;
+  v7 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v7;
+  v8 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 112) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+{
+  v6 = a4[5];
+  *(v4 + 80) = a4[4];
+  *(v4 + 96) = v6;
+  *(v4 + 112) = a4[6];
+  v7 = a4[1];
+  *(v4 + 16) = *a4;
+  *(v4 + 32) = v7;
+  v8 = a4[3];
+  *(v4 + 48) = a4[2];
+  *(v4 + 64) = v8;
+  v9 = swift_task_alloc();
+  *(v4 + 128) = v9;
+  *v9 = v4;
+  v9[1] = specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:);
+
+  return specialized Action.execute(checkSupportedStatus:)(a1, 1);
+}
+
+uint64_t specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a5@<X8>)
+{
+  v7 = *a1;
+  v8 = a1[5];
+  a5[3] = a2;
+  a5[4] = a3;
+  v9 = swift_allocObject();
+  *a5 = v9;
+  *(v9 + 16) = v7;
+  *(v9 + 24) = *(a1 + 1);
+  *(v9 + 40) = *(a1 + 3);
+  *(v9 + 56) = v8;
+}
+
+uint64_t outlined assign with take of PlaybackIntentDescriptor.IntentType?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t partial apply for specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)@<X0>(uint64_t *a1@<X8>)
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), a1);
+}
+
+{
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR) - 8);
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)(v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80)), type metadata accessor for Actions.Pin.Context, &protocol witness table for Actions.Pin.Context, type metadata accessor for Actions.Pin.Context, a1);
+}
+
+{
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR) - 8);
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)(v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80)), type metadata accessor for Actions.Unpin.Context, &protocol witness table for Actions.Unpin.Context, type metadata accessor for Actions.Unpin.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.AddToLibrary.Context, &protocol witness table for Actions.AddToLibrary.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.MoveToFolder.Context, &protocol witness table for Actions.MoveToFolder.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.AddToPlaylist.Context, &protocol witness table for Actions.AddToPlaylist.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.DeleteFromLibrary.Context, &protocol witness table for Actions.DeleteFromLibrary.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.RemoveDownload.Context, &protocol witness table for Actions.RemoveDownload.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.Download.Context, &protocol witness table for Actions.Download.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.CreateFolder.Context, &protocol witness table for Actions.CreateFolder.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.RenameFolder.Context, &protocol witness table for Actions.RenameFolder.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.DeleteFolder.Context, &protocol witness table for Actions.DeleteFolder.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.Favorite.Context, &protocol witness table for Actions.Favorite.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.UndoFavorite.Context, &protocol witness table for Actions.UndoFavorite.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.SuggestLess.Context, &protocol witness table for Actions.SuggestLess.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), &type metadata for Actions.UndoSuggestLess.Context, &protocol witness table for Actions.UndoSuggestLess.Context, a1);
+}
+
+{
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)((v1 + 16), a1);
+}
+
+{
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR) - 8);
+  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
+
+  return specialized closure #1 in static ActionBuilder.buildExpression<A, B>(_:)(v4, a1);
+}
+
+uint64_t partial apply for specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)()
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(v0 + 16);
+}
+
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR) - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = swift_task_alloc();
+  *(v1 + 16) = v4;
+  *v4 = v1;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(v0 + v3);
+}
+
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR) - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = swift_task_alloc();
+  *(v1 + 16) = v4;
+  *v4 = v1;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(v0 + v3);
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)((v0 + 16));
+}
+
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR) - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = swift_task_alloc();
+  *(v1 + 16) = v4;
+  *v4 = v1;
+  v4[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return specialized closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(v0 + v3);
+}
+
+uint64_t partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:)()
+{
+  v1 = *(v0 + 64);
+  v7[2] = *(v0 + 48);
+  v7[3] = v1;
+  v7[4] = *(v0 + 80);
+  v2 = *(v0 + 32);
+  v7[0] = *(v0 + 16);
+  v7[1] = v2;
+  v4 = *(v0 + 96);
+  v3 = *(v0 + 104);
+  v5 = *(v0 + 128);
+  v10 = *(v0 + 112);
+  v11 = v5;
+  v12 = *(v0 + 144);
+  v8 = v4;
+  v9 = v3;
+  return v4(v7);
+}
+
+{
+  return partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:)(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+}
+
+{
+  return partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:)(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+}
+
+{
+  v1 = *(v0 + 32);
+  v7[0] = *(v0 + 16);
+  v7[1] = v1;
+  v7[2] = *(v0 + 48);
+  v13 = *(v0 + 120);
+  v2 = *(v0 + 64);
+  v3 = *(v0 + 72);
+  v11 = *(v0 + 88);
+  v4 = *(v0 + 104);
+  v5 = *(v0 + 80);
+  v12 = v4;
+  v8 = v2;
+  v9 = v3;
+  v10 = v5;
+  return v3(v7);
+}
+
+{
+  v1 = *(v0 + 32);
+  v7[0] = *(v0 + 16);
+  v7[1] = v1;
+  v13 = *(v0 + 104);
+  v2 = *(v0 + 48);
+  v3 = *(v0 + 56);
+  v11 = *(v0 + 72);
+  v4 = *(v0 + 88);
+  v5 = *(v0 + 64);
+  v12 = v4;
+  v8 = v2;
+  v9 = v3;
+  v10 = v5;
+  return v3(v7);
+}
+
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+
+  return specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:)(v2);
+}
+
+uint64_t objectdestroyTm_2()
+{
+  v1 = *(v0 + 16);
+  if (v1 >= 4)
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for specialized closure #2 in static ActionBuilder.buildExpression<A, B>(_:)(uint64_t *a1, uint64_t *a2)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  v4 = *(v3 - 8);
+  return (*(v2 + ((*(v4 + 80) + 16) & ~*(v4 + 80)) + *(v3 + 40)))(v2 + ((*(v4 + 80) + 16) & ~*(v4 + 80)));
+}
+
+uint64_t objectdestroy_48Tm(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void))
+{
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(a1, a2) - 8);
+  v6 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+  v7 = type metadata accessor for MusicPin.Item();
+  v8 = *(v7 - 8);
+  if (!(*(v8 + 48))(v3 + v6, 1, v7))
+  {
+    (*(v8 + 8))(v3 + v6, v7);
+  }
+
+  a3(0);
+
+  return swift_deallocObject();
+}
+
+uint64_t outlined init with copy of MusicLibraryAddable & MusicLibraryActionable(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 24);
+  *(a2 + 24) = v3;
+  *(a2 + 32) = *(a1 + 32);
+  (**(v3 - 8))(a2, a1);
+  return a2;
+}
+
+uint64_t sub_100047FC8()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR) - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v3 = (((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+  v4 = type metadata accessor for Playlist.Folder();
+  v5 = *(v4 - 8);
+  if (!(*(v5 + 48))(v0 + v2, 1, v4))
+  {
+    (*(v5 + 8))(v0 + v2, v4);
+  }
+
+  v6 = (v3 + 23) & 0xFFFFFFFFFFFFFFF8;
+
+  if (*(v0 + v3))
+  {
+  }
+
+  v7 = v0 + v6;
+  swift_unknownObjectWeakDestroy();
+  v8 = *(v0 + v6 + 48);
+  if (v8 != 255)
+  {
+    outlined consume of PresentationSource.Position.Source(*(v7 + 8), *(v7 + 16), *(v7 + 24), *(v7 + 32), *(v7 + 40), v8);
+  }
+
+  if (*(v7 + 64))
+  {
+  }
+
+  if (*(v7 + 80))
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+void outlined consume of PresentationSource.Position.Source(id a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
+{
+  if (a6 == 2)
+  {
+    swift_unknownObjectRelease();
+  }
+
+  else if (a6 <= 1u)
+  {
+  }
+}
+
+uint64_t partial apply for closure #2 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:)()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMd, &_s8MusicKit8PlaylistV0aB8InternalE6FolderVSgMR) - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v5 = (v4 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v6 = *(v0 + v4);
+  v7 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
+  v8 = *(v0 + v5);
+  v9 = *(v0 + v5 + 8);
+  v10 = swift_task_alloc();
+  *(v1 + 16) = v10;
+  *v10 = v1;
+  v10[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #2 in Actions.CreateFolder.Context.init(folder:children:library:presentationSource:completion:)(v0 + v3, v6, v8, v9, v0 + v7);
+}
+
+uint64_t sub_1000483F8()
+{
+  v1 = type metadata accessor for Playlist.Folder();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
+  (*(v2 + 8))(v0 + v3, v1);
+  v5 = v0 + v4;
+  swift_unknownObjectWeakDestroy();
+  v6 = *(v0 + v4 + 48);
+  if (v6 != 255)
+  {
+    outlined consume of PresentationSource.Position.Source(*(v5 + 8), *(v5 + 16), *(v5 + 24), *(v5 + 32), *(v5 + 40), v6);
+  }
+
+  if (*(v5 + 64))
+  {
+  }
+
+  if (*(v5 + 80))
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #2 in Actions.RenameFolder.Context.init(folder:library:presentationSource:)()
+{
+  v2 = *(type metadata accessor for Playlist.Folder() - 8);
+  v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #2 in Actions.RenameFolder.Context.init(folder:library:presentationSource:)(v0 + v3, v0 + v4);
+}
+
+uint64_t sub_1000486B0()
+{
+  v1 = type metadata accessor for Playlist.Folder();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 24) & ~*(v2 + 80);
+  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
+
+  (*(v2 + 8))(v0 + v3, v1);
+  v5 = v0 + v4;
+  swift_unknownObjectWeakDestroy();
+  v6 = *(v0 + v4 + 48);
+  if (v6 != 255)
+  {
+    outlined consume of PresentationSource.Position.Source(*(v5 + 8), *(v5 + 16), *(v5 + 24), *(v5 + 32), *(v5 + 40), v6);
+  }
+
+  if (*(v5 + 64))
+  {
+  }
+
+  if (*(v5 + 80))
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #2 in Actions.DeleteFolder.Context.init(folder:library:presentationSource:)()
+{
+  v2 = *(type metadata accessor for Playlist.Folder() - 8);
+  v3 = (*(v2 + 80) + 24) & ~*(v2 + 80);
+  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v5 = *(v0 + 16);
+  v6 = swift_task_alloc();
+  *(v1 + 16) = v6;
+  *v6 = v1;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #2 in Actions.DeleteFolder.Context.init(folder:library:presentationSource:)(v5, v0 + v3, v0 + v4);
+}
+
+uint64_t objectdestroy_68Tm()
+{
+
+  return swift_deallocObject();
+}
+
+_OWORD *_s8MusicKit0A15PlaylistAddable_0aB8Internal0A17LibraryActionablepWOb_0(__int128 *a1, _OWORD *a2)
+{
+  v2 = *a1;
+  v3 = a1[2];
+  a2[1] = a1[1];
+  a2[2] = v3;
+  *a2 = v2;
+  return a2;
+}
+
+uint64_t sub_100048DD4()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t objectdestroy_225Tm()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_100048FA4(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 20);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+void *sub_100049074(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMd, &_s9MusicCore24PlaybackIntentDescriptorV0D4TypeOSgMR);
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void type metadata completion function for Actions.PlaybackContext(uint64_t a1)
+{
+  type metadata accessor for PlaybackController();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for PlaybackIntentDescriptor.IntentType?(319);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for MPCPlaybackIntent.PlayActivityInformation?();
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for Player.CommandIssuer?(319);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata accessor for PlaybackIntentDescriptor.IntentType?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for PlaybackIntentDescriptor.IntentType?)
+  {
+    type metadata accessor for PlaybackIntentDescriptor.IntentType(255);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for PlaybackIntentDescriptor.IntentType?);
+    }
+  }
+}
+
+void type metadata accessor for MPCPlaybackIntent.PlayActivityInformation?()
+{
+  if (!lazy cache variable for type metadata for MPCPlaybackIntent.PlayActivityInformation?)
+  {
+    v0 = type metadata accessor for Optional();
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for MPCPlaybackIntent.PlayActivityInformation?);
+    }
+  }
+}
+
+void type metadata accessor for Player.CommandIssuer?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for Player.CommandIssuer?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9MusicCore6PlayerC13CommandIssuer_pMd, &_s9MusicCore6PlayerC13CommandIssuer_pMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for Player.CommandIssuer?);
+    }
+  }
+}
+
+uint64_t sub_1000492F4()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR) - 8);
+  v2 = (*(v1 + 80) + 32) & ~*(v1 + 80);
+  swift_unknownObjectRelease();
+  v3 = *(type metadata accessor for Actions.SortPlaylist.Context(0) + 24);
+  v4 = type metadata accessor for Playlist.Variant();
+  v5 = *(v4 - 8);
+  if (!(*(v5 + 48))(v0 + v2 + v3, 1, v4))
+  {
+    (*(v5 + 8))(v0 + v2 + v3, v4);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(uint64_t a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO12SortPlaylistO7ContextVytGMR);
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1);
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, (v1 + 32));
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO5UnpinO7ContextVytGMR);
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMd, &_s9MusicCore6ActionVyAA7ActionsO3PinO7ContextVytGMR);
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1);
+}
+
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return specialized closure #1 in closure #3 in static ActionBuilder.buildExpression<A, B>(_:)(a1, v4, v5, v1 + 32);
+}
+
+uint64_t sub_10004957C()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1000496A0()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t objectdestroy_252Tm()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t objectdestroy_258Tm()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t objectdestroy_369Tm(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void))
+{
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(a1, a2) - 8);
+  v6 = (*(v5 + 80) + 32) & ~*(v5 + 80);
+  swift_unknownObjectRelease();
+  v7 = type metadata accessor for MusicPin.Item();
+  v8 = *(v7 - 8);
+  if (!(*(v8 + 48))(v3 + v6, 1, v7))
+  {
+    (*(v8 + 8))(v3 + v6, v7);
+  }
+
+  a3(0);
+
+  return swift_deallocObject();
+}
+
+uint64_t outlined init with copy of PlaybackIntentDescriptor.IntentType(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_10004A5DC()
+{
+  swift_unknownObjectRelease();
+  v1 = *(v0 + 32);
+  if (v1 >= 4)
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_10004A720()
+{
+  v1 = *(v0 + 16);
+  if (v1 >= 4)
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+id outlined copy of Player.InsertCommand.Location(id result)
+{
+  if (result >= 4)
+  {
+    return result;
+  }
+
+  return result;
+}
+
+uint64_t Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, unint64_t (**a9)()@<X8>, uint64_t a10)
+{
+  v37 = a8;
+  v38 = a4;
+  v40 = a3;
+  v41 = a6;
+  v39 = a5;
+  v44 = a2;
+  v36[0] = a1;
+  v42 = a9;
+  v12 = *(a7 - 8);
+  v13 = *(v12 + 64);
+  __chkstk_darwin();
+  v43 = v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __chkstk_darwin();
+  v16 = v36 - v15;
+  (*(v12 + 16))(v36 - v15, v14);
+  v17 = *(v12 + 80);
+  v18 = (v17 + 40) & ~v17;
+  v36[1] = v17 | 7;
+  v19 = v13 + 7;
+  v20 = (v13 + 7 + v18) & 0xFFFFFFFFFFFFFFF8;
+  v21 = swift_allocObject();
+  *(v21 + 2) = a7;
+  *(v21 + 3) = a8;
+  *(v21 + 4) = a10;
+  v22 = *(v12 + 32);
+  v22(v21 + v18, v16, a7);
+  v23 = v43;
+  *(v21 + v20) = v44;
+  v22(v23, v36[0], a7);
+  v24 = (v17 + 56) & ~v17;
+  v25 = (v19 + v24) & 0xFFFFFFFFFFFFFFF8;
+  v36[0] = (v25 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v26 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR) - 8);
+  v27 = (((v25 + 15) & 0xFFFFFFFFFFFFFFF8) + *(v26 + 80) + 96) & ~*(v26 + 80);
+  v28 = swift_allocObject();
+  v29 = v37;
+  v30 = v38;
+  *(v28 + 2) = a7;
+  *(v28 + 3) = v29;
+  *(v28 + 4) = a10;
+  *(v28 + 5) = v30;
+  v31 = v39;
+  *(v28 + 6) = v39;
+  v22(v28 + v24, v43, a7);
+  *(v28 + v25) = v44;
+  outlined init with take of PresentationSource(v40, v28 + v36[0]);
+  outlined init with take of URL?(v41, v28 + v27, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v32 = swift_allocObject();
+  *(v32 + 16) = v30;
+  *(v32 + 24) = v31;
+  v33 = swift_allocObject();
+  *(v33 + 16) = &async function pointer to partial apply for closure #3 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:);
+  *(v33 + 24) = v32;
+  swift_unknownObjectRetain();
+
+  v35 = v42;
+  *v42 = partial apply for closure #1 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:);
+  v35[1] = v21;
+  v35[2] = &async function pointer to partial apply for closure #2 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:);
+  v35[3] = v28;
+  v35[4] = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async () -> ();
+  v35[5] = v33;
+  return result;
+}
+
+uint64_t static Actions.AddToLibrary.action(context:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v2 = a1[1];
+  *a2 = *a1;
+  *(a2 + 16) = v2;
+  *(a2 + 32) = a1[2];
+  *(a2 + 48) = 0;
+  *(a2 + 56) = closure #1 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 64) = 0;
+  *(a2 + 72) = 0x4014000000000000;
+  *(a2 + 80) = &async function pointer to closure #2 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = &async function pointer to closure #3 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 104) = 0;
+}
+
+uint64_t closure #2 in static Actions.AddToLibrary.action(context:)(uint64_t a1, uint64_t a2)
+{
+  v5 = (*(a2 + 16) + **(a2 + 16));
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return v5();
+}
+
+uint64_t closure #3 in static Actions.AddToLibrary.action(context:)(uint64_t a1)
+{
+  v4 = (*(a1 + 32) + **(a1 + 32));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return v4();
+}
+
+uint64_t protocol witness for static ActionDefinition.action(context:) in conformance Actions.AddToLibrary@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(a1 + 40);
+  *a2 = *a1;
+  *(a2 + 8) = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 40) = v2;
+  *(a2 + 48) = 0;
+  *(a2 + 56) = closure #1 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 64) = 0;
+  *(a2 + 72) = 0x4014000000000000;
+  *(a2 + 80) = &async function pointer to closure #2 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = &async function pointer to closure #3 in static Actions.AddToLibrary.action(context:);
+  *(a2 + 104) = 0;
+}
+
+unint64_t closure #1 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v35 = a5;
+  v36 = a2;
+  v32 = type metadata accessor for MusicLibrary.AddAction();
+  v34 = *(v32 - 8);
+  __chkstk_darwin();
+  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMR);
+  v30 = *(v9 - 8);
+  v31 = v9;
+  __chkstk_darwin();
+  v11 = &v29 - v10;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit5AlbumVSgMd, &_s8MusicKit5AlbumVSgMR);
+  __chkstk_darwin();
+  v13 = &v29 - v12;
+  v14 = *(a3 - 8);
+  __chkstk_darwin();
+  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for Album();
+  v18 = *(v17 - 8);
+  v19 = __chkstk_darwin();
+  v21 = &v29 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = *(v14 + 16);
+  v33 = a1;
+  v22(v16, a1, a3, v19);
+  v23 = swift_dynamicCast();
+  v24 = *(v18 + 56);
+  if ((v23 & 1) == 0)
+  {
+    v24(v13, 1, 1, v17);
+    outlined destroy of TaskPriority?(v13, &_s8MusicKit5AlbumVSgMd, &_s8MusicKit5AlbumVSgMR);
+    goto LABEL_5;
+  }
+
+  v24(v13, 0, 1, v17);
+  (*(v18 + 32))(v21, v13, v17);
+  v25 = Album.childrenAddStatus(_:)(v36);
+  (*(v18 + 8))(v21, v17);
+  if (v25 != 1)
+  {
+LABEL_5:
+    static MusicLibraryAction<>.add.getter();
+    v27 = v32;
+    MusicLibrary.supportedStatus<A, B>(for:action:)();
+    (*(v34 + 8))(v8, v27);
+    v26 = MusicLibrary.SupportedStatus<>.actionSupportedStatus.getter();
+    (*(v30 + 8))(v11, v31);
+    return v26;
+  }
+
+  return 0;
+}
+
+uint64_t sub_10004B34C()
+{
+  (*(*(*(v0 + 16) - 8) + 8))(v0 + ((*(*(*(v0 + 16) - 8) + 80) + 40) & ~*(*(*(v0 + 16) - 8) + 80)));
+
+  return swift_deallocObject();
+}
+
+uint64_t Album.childrenAddStatus(_:)(uint64_t a1)
+{
+  v39 = a1;
+  v38 = type metadata accessor for MusicLibrary.AddAction();
+  v1 = *(v38 - 8);
+  __chkstk_darwin();
+  v37 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMR);
+  v3 = *(v36 - 8);
+  __chkstk_darwin();
+  v35 = &v27 - v4;
+  v34 = type metadata accessor for Track();
+  v5 = *(v34 - 8);
+  __chkstk_darwin();
+  v33 = &v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+  __chkstk_darwin();
+  v9 = &v27 - v8;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMR);
+  __chkstk_darwin();
+  v11 = &v27 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA5TrackOGMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGMR);
+  v13 = *(v12 - 8);
+  __chkstk_darwin();
+  v15 = &v27 - v14;
+  Album.tracks.getter();
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
+  {
+    outlined destroy of TaskPriority?(v11, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMR);
+    return 0;
+  }
+
+  (*(v13 + 32))(v15, v11, v12);
+  lazy protocol witness table accessor for type MusicItemCollection<Track> and conformance MusicItemCollection<A>(&lazy protocol witness table cache variable for type MusicItemCollection<Track> and conformance MusicItemCollection<A>, &protocol conformance descriptor for MusicItemCollection<A>);
+  dispatch thunk of Collection.startIndex.getter();
+  dispatch thunk of Collection.endIndex.getter();
+  if (v40[0] == v40[4])
+  {
+    (*(v13 + 8))(v15, v12);
+    return 0;
+  }
+
+  v28 = v13;
+  (*(v13 + 16))(v9, v15, v12);
+  v17 = *(v7 + 36);
+  v27 = v15;
+  dispatch thunk of Collection.startIndex.getter();
+  dispatch thunk of Collection.endIndex.getter();
+  if (*&v9[v17] == v40[0])
+  {
+LABEL_11:
+    outlined destroy of TaskPriority?(v9, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+    (*(v28 + 8))(v27, v12);
+    return 2;
+  }
+
+  else
+  {
+    v31 = (v5 + 8);
+    v32 = (v5 + 16);
+    v29 = (v3 + 8);
+    v30 = (v1 + 8);
+    v18 = v33;
+    while (1)
+    {
+      v19 = dispatch thunk of Collection.subscript.read();
+      v20 = v34;
+      (*v32)(v18);
+      v19(v40, 0);
+      dispatch thunk of Collection.formIndex(after:)();
+      v21 = v37;
+      static MusicLibraryAction<>.add.getter();
+      v22 = v35;
+      v23 = v38;
+      MusicLibrary.supportedStatus<A, B>(for:action:)();
+      (*v31)(v18, v20);
+      (*v30)(v21, v23);
+      v24 = MusicLibrary.SupportedStatus<>.actionSupportedStatus.getter();
+      v26 = v25;
+      (*v29)(v22, v36);
+      if (v26 == 1)
+      {
+        break;
+      }
+
+      outlined consume of ActionCondition.Result(v24, v26);
+      dispatch thunk of Collection.endIndex.getter();
+      if (*&v9[v17] == v40[0])
+      {
+        goto LABEL_11;
+      }
+    }
+
+    outlined destroy of TaskPriority?(v9, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+    (*(v28 + 8))(v27, v12);
+    return 1;
+  }
+}
+
+unint64_t MusicLibrary.SupportedStatus<>.actionSupportedStatus.getter()
+{
+  v1 = v0;
+  v2 = type metadata accessor for MusicLibrary.AddStatus.UnaddableReason();
+  v28 = *(v2 - 8);
+  __chkstk_darwin();
+  v27 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v5 = &v27 - v4;
+  v6 = type metadata accessor for MusicLibrary.AddAction.UnsupportedReason();
+  v7 = *(v6 - 8);
+  __chkstk_darwin();
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v27 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMR);
+  v13 = *(v12 - 8);
+  v14 = __chkstk_darwin();
+  v16 = &v27 - v15;
+  (*(v13 + 16))(&v27 - v15, v1, v12, v14);
+  v17 = (*(v13 + 88))(v16, v12);
+  if (v17 == enum case for MusicLibrary.SupportedStatus.unsupported<A>(_:))
+  {
+    (*(v13 + 96))(v16, v12);
+    (*(v7 + 32))(v11, v16, v6);
+    (*(v7 + 16))(v9, v11, v6);
+    v18 = (*(v7 + 88))(v9, v6);
+    if (v18 == enum case for MusicLibrary.AddAction.UnsupportedReason.unaddable(_:))
+    {
+      (*(v7 + 96))(v9, v6);
+      v19 = v28;
+      (*(v28 + 32))(v5, v9, v2);
+      v20 = v27;
+      (*(v19 + 16))(v27, v5, v2);
+      v21 = (*(v19 + 88))(v20, v2);
+      if (v21 != enum case for MusicLibrary.AddStatus.UnaddableReason.allExplicitContentRestricted(_:) && v21 != enum case for MusicLibrary.AddStatus.UnaddableReason.cloudLibraryRequired(_:) && v21 != enum case for MusicLibrary.AddStatus.UnaddableReason.subscriptionRequired(_:))
+      {
+        v29 = 0;
+        v30 = 0xE000000000000000;
+        _StringGuts.grow(_:)(24);
+
+        v29 = 0xD000000000000016;
+        v30 = 0x80000001004C5A10;
+        lazy protocol witness table accessor for type MusicLibrary.AddStatus.UnaddableReason and conformance MusicLibrary.AddStatus.UnaddableReason(&lazy protocol witness table cache variable for type MusicLibrary.AddStatus.UnaddableReason and conformance MusicLibrary.AddStatus.UnaddableReason, &protocol conformance descriptor for MusicLibrary.AddStatus.UnaddableReason);
+        v22._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+        String.append(_:)(v22);
+
+        v23 = v29;
+        v24 = *(v19 + 8);
+        v24(v5, v2);
+        (*(v7 + 8))(v11, v6);
+        v24(v20, v2);
+        return v23;
+      }
+
+      (*(v19 + 8))(v5, v2);
+      (*(v7 + 8))(v11, v6);
+      return 0;
+    }
+
+    if (v18 == enum case for MusicLibrary.AddAction.UnsupportedReason.unsupportedType(_:))
+    {
+      goto LABEL_10;
+    }
+
+    if (v18 == enum case for MusicLibrary.AddAction.UnsupportedReason.alreadyAdded(_:))
+    {
+      (*(v7 + 8))(v11, v6);
+      return 0xD000000000000012;
+    }
+
+    else
+    {
+      if (v18 == enum case for MusicLibrary.AddAction.UnsupportedReason.networkRequired(_:))
+      {
+LABEL_10:
+        (*(v7 + 8))(v11, v6);
+        return 0xD000000000000010;
+      }
+
+      v26 = *(v7 + 8);
+      v26(v11, v6);
+      v26(v9, v6);
+      return 0x206E776F6E6B6E55;
+    }
+  }
+
+  else
+  {
+    if (v17 == enum case for MusicLibrary.SupportedStatus.supported<A>(_:))
+    {
+      return 0;
+    }
+
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+{
+  v1 = type metadata accessor for MusicLibrary.ShareAction.UnsupportedReason();
+  v2 = *(v1 - 8);
+  __chkstk_darwin();
+  v25 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v27 = &v24 - v4;
+  __chkstk_darwin();
+  v6 = &v24 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE11ShareActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE11ShareActionVGMR);
+  v8 = *(v7 - 8);
+  __chkstk_darwin();
+  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin();
+  v13 = &v24 - v12;
+  v14 = *(v8 + 16);
+  v26 = v0;
+  v14(&v24 - v12, v0, v7, v11);
+  v15 = (*(v8 + 88))(v13, v7);
+  if (v15 == enum case for MusicLibrary.SupportedStatus.unsupported<A>(_:))
+  {
+    (*(v8 + 96))(v13, v7);
+    (*(v2 + 32))(v6, v13, v1);
+    v16 = *(v2 + 16);
+    v17 = v27;
+    v16(v27, v6, v1);
+    v18 = (*(v2 + 88))(v17, v1);
+    if (v18 == enum case for MusicLibrary.ShareAction.UnsupportedReason.unsupportedType(_:))
+    {
+      v19 = 0xD000000000000010;
+LABEL_8:
+      (*(v2 + 8))(v6, v1);
+      return v19;
+    }
+
+    if (v18 == enum case for MusicLibrary.ShareAction.UnsupportedReason.unsupportedItem(_:))
+    {
+      v19 = 0xD000000000000010;
+      goto LABEL_8;
+    }
+
+    if (v18 != enum case for MusicLibrary.ShareAction.UnsupportedReason.canBecomeShareableOncePublic(_:))
+    {
+      if (v18 != enum case for MusicLibrary.ShareAction.UnsupportedReason.networkRequired(_:))
+      {
+        v28 = 0;
+        v29 = 0xE000000000000000;
+        _StringGuts.grow(_:)(17);
+
+        v28 = 0x206E776F6E6B6E55;
+        v29 = 0xEF206E6F73616572;
+        v16(v25, v6, v1);
+        v22._countAndFlagsBits = String.init<A>(describing:)();
+        String.append(_:)(v22);
+
+        v19 = v28;
+        v23 = *(v2 + 8);
+        v23(v6, v1);
+        v23(v27, v1);
+        return v19;
+      }
+
+      v19 = 0xD000000000000010;
+      goto LABEL_8;
+    }
+
+    (*(v2 + 8))(v6, v1);
+  }
+
+  else if (v15 != enum case for MusicLibrary.SupportedStatus.supported<A>(_:))
+  {
+    v28 = 0;
+    v29 = 0xE000000000000000;
+    _StringGuts.grow(_:)(27);
+
+    v28 = 0xD000000000000019;
+    v29 = 0x80000001004C6D20;
+    (v14)(v10, v26, v7);
+    v20._countAndFlagsBits = String.init<A>(describing:)();
+    String.append(_:)(v20);
+
+    v19 = v28;
+    (*(v8 + 8))(v13, v7);
+    return v19;
+  }
+
+  return 0;
+}
+
+{
+  v1 = type metadata accessor for MusicLibrary.UnpinAction.UnsupportedReason();
+  v2 = *(v1 - 8);
+  __chkstk_darwin();
+  v25 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v27 = &v24 - v4;
+  __chkstk_darwin();
+  v6 = &v24 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE11UnpinActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE11UnpinActionVGMR);
+  v8 = *(v7 - 8);
+  __chkstk_darwin();
+  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin();
+  v13 = &v24 - v12;
+  v14 = *(v8 + 16);
+  v26 = v0;
+  v14(&v24 - v12, v0, v7, v11);
+  v15 = (*(v8 + 88))(v13, v7);
+  if (v15 == enum case for MusicLibrary.SupportedStatus.unsupported<A>(_:))
+  {
+    (*(v8 + 96))(v13, v7);
+    (*(v2 + 32))(v6, v13, v1);
+    v16 = *(v2 + 16);
+    v17 = v27;
+    v16(v27, v6, v1);
+    v18 = (*(v2 + 88))(v17, v1);
+    if (v18 == enum case for MusicLibrary.UnpinAction.UnsupportedReason.notPinned(_:))
+    {
+      (*(v2 + 8))(v6, v1);
+      return 0x6E6E695020746F4ELL;
+    }
+
+    else if (v18 == enum case for MusicLibrary.UnpinAction.UnsupportedReason.sharedLibrary(_:))
+    {
+      (*(v2 + 8))(v6, v1);
+      return 0x6C20646572616853;
+    }
+
+    else if (v18 == enum case for MusicLibrary.UnpinAction.UnsupportedReason.unknown(_:))
+    {
+      v19 = 0x206E776F6E6B6E55;
+      (*(v2 + 8))(v6, v1);
+    }
+
+    else if (v18 == enum case for MusicLibrary.UnpinAction.UnsupportedReason.unsupportedType(_:))
+    {
+      v19 = 0xD000000000000010;
+      (*(v2 + 8))(v6, v1);
+    }
+
+    else
+    {
+      v28 = 0;
+      v29 = 0xE000000000000000;
+      _StringGuts.grow(_:)(17);
+
+      v28 = 0x206E776F6E6B6E55;
+      v29 = 0xEF206E6F73616572;
+      v16(v25, v6, v1);
+      v22._countAndFlagsBits = String.init<A>(describing:)();
+      String.append(_:)(v22);
+
+      v19 = v28;
+      v23 = *(v2 + 8);
+      v23(v6, v1);
+      v23(v27, v1);
+    }
+  }
+
+  else if (v15 == enum case for MusicLibrary.SupportedStatus.supported<A>(_:))
+  {
+    return 0;
+  }
+
+  else
+  {
+    v28 = 0;
+    v29 = 0xE000000000000000;
+    _StringGuts.grow(_:)(27);
+
+    v28 = 0xD000000000000019;
+    v29 = 0x80000001004C6D20;
+    (v14)(v10, v26, v7);
+    v20._countAndFlagsBits = String.init<A>(describing:)();
+    String.append(_:)(v20);
+
+    v19 = v28;
+    (*(v8 + 8))(v13, v7);
+  }
+
+  return v19;
+}
+
+uint64_t closure #2 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8[86] = v18;
+  v8[85] = a8;
+  v8[84] = a7;
+  v8[83] = a6;
+  v8[82] = a5;
+  v8[81] = a4;
+  v8[80] = a3;
+  v8[79] = a2;
+  v8[78] = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore12MetricsEventV4PageVSgMd, &_s9MusicCore12MetricsEventV4PageVSgMR);
+  v8[87] = swift_task_alloc();
+  v8[88] = swift_task_alloc();
+  v8[89] = swift_task_alloc();
+  v8[90] = swift_task_alloc();
+  v8[91] = swift_task_alloc();
+  v8[92] = swift_task_alloc();
+  v8[93] = swift_task_alloc();
+  v8[94] = swift_task_alloc();
+  v8[95] = type metadata accessor for MetricsEvent.Click(0);
+  v8[96] = swift_task_alloc();
+  v8[97] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v8[98] = swift_task_alloc();
+  v8[99] = swift_task_alloc();
+  v8[100] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore7ActionsO23MetricsReportingContextVSgMd, &_s9MusicCore7ActionsO23MetricsReportingContextVSgMR);
+  v8[101] = swift_task_alloc();
+  v10 = type metadata accessor for Actions.MetricsReportingContext(0);
+  v8[102] = v10;
+  v8[103] = *(v10 - 8);
+  v8[104] = swift_task_alloc();
+  v8[105] = type metadata accessor for Notice.Variant(0);
+  v8[106] = swift_task_alloc();
+  v11 = type metadata accessor for MusicLibrary.AddStatus.UnaddableReason();
+  v8[107] = v11;
+  v8[108] = *(v11 - 8);
+  v8[109] = swift_task_alloc();
+  v8[110] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO15UnaddableReasonOSg_AItMd, &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO15UnaddableReasonOSg_AItMR);
+  v8[111] = swift_task_alloc();
+  v8[112] = swift_task_alloc();
+  v12 = type metadata accessor for MusicLibrary.AddAction();
+  v8[113] = v12;
+  v8[114] = *(v12 - 8);
+  v8[115] = swift_task_alloc();
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMd, &_s8MusicKit0A7LibraryC0aB8InternalE15SupportedStatusOy_AcDE9AddActionVGMR);
+  v8[116] = v13;
+  v8[117] = *(v13 - 8);
+  v8[118] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGSgMR);
+  v8[119] = swift_task_alloc();
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA5TrackOGMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGMR);
+  v8[120] = v14;
+  v8[121] = *(v14 - 8);
+  v8[122] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit5AlbumVSgMd, &_s8MusicKit5AlbumVSgMR);
+  v8[123] = swift_task_alloc();
+  v8[124] = *(a7 - 8);
+  v8[125] = swift_task_alloc();
+  v15 = type metadata accessor for Album();
+  v8[126] = v15;
+  v8[127] = *(v15 - 8);
+  v8[128] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO15UnaddableReasonOSgMd, &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO15UnaddableReasonOSgMR);
+  v8[129] = swift_task_alloc();
+  v8[130] = swift_task_alloc();
+  v8[131] = swift_task_alloc();
+  v8[132] = swift_task_alloc();
+  v8[133] = swift_task_alloc();
+  v8[134] = swift_task_alloc();
+  v8[135] = swift_task_alloc();
+
+  return _swift_task_switch(closure #2 in Actions.AddToLibrary.Context.init<A>(item:library:presentationSource:observer:metricsReportingContext:), 0, 0);
 }

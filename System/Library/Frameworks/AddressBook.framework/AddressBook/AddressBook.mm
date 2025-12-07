@@ -55,7 +55,7 @@ uint64_t ABSIsLogEnabled(uint64_t a1)
   return v3;
 }
 
-uint64_t ABSIsAPILogEnabled()
+uint64_t ABSIsAPILogEnabled(uint64_t a1, uint64_t a2)
 {
   if (ABSIsAPILogEnabled_onceToken != -1)
   {
@@ -65,14 +65,14 @@ uint64_t ABSIsAPILogEnabled()
   return ABSIsAPILogEnabled_result;
 }
 
-uint64_t __ABSIsAPILogEnabled_block_invoke()
+void *__ABSIsAPILogEnabled_block_invoke()
 {
   result = ABSIsLogEnabled(@"API");
   ABSIsAPILogEnabled_result = result;
   return result;
 }
 
-uint64_t ABSRecordGetTypeID()
+uint64_t ABSRecordGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (gABRegisteredWithCF != -1)
   {
@@ -92,8 +92,8 @@ uint64_t __ABSRecordGetTypeID_block_invoke()
 CFTypeRef ABRecordCopyValue(ABRecordRef record, ABPropertyID property)
 {
   v2 = *&property;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, *&property))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -109,25 +109,25 @@ CFTypeRef ABRecordCopyValue(ABRecordRef record, ABPropertyID property)
       }
 
       v6 = [ABSPerson nameForProperty:v2];
-      v10 = 136315650;
-      v11 = v5;
-      v12 = 2080;
-      v13 = "CFTypeRef ABRecordCopyValue(ABRecordRef, ABPropertyID)";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v5;
+      v13 = 2080;
+      v14 = "CFTypeRef ABRecordCopyValue(ABRecordRef, ABPropertyID)";
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [record copyValueForProperty:v2];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFTypeRef ABRecordCopyValue(ABRecordRef, ABPropertyID)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFTypeRef ABRecordCopyValue(ABRecordRef, ABPropertyID)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -137,8 +137,8 @@ CFTypeRef ABRecordCopyValue(ABRecordRef record, ABPropertyID property)
 BOOL ABRecordSetValue(ABRecordRef record, ABPropertyID property, CFTypeRef value, CFErrorRef *error)
 {
   v6 = *&property;
-  v20 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v21 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, *&property))
   {
     v8 = +[ABSLog apiLog];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -150,25 +150,25 @@ BOOL ABRecordSetValue(ABRecordRef record, ABPropertyID property, CFTypeRef value
         v10 = "YES";
       }
 
-      v14 = 136315650;
-      v15 = v10;
-      v16 = 2080;
-      v17 = "_Bool ABRecordSetValue(ABRecordRef, ABPropertyID, CFTypeRef, CFErrorRef *)";
-      v18 = 2112;
-      v19 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v14, 0x20u);
+      v15 = 136315650;
+      v16 = v10;
+      v17 = 2080;
+      v18 = "_Bool ABRecordSetValue(ABRecordRef, ABPropertyID, CFTypeRef, CFErrorRef *)";
+      v19 = 2112;
+      v20 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v15, 0x20u);
     }
   }
 
   v11 = [record setValue:value forProperty:v6 withError:error];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v11, v12))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "_Bool ABRecordSetValue(ABRecordRef, ABPropertyID, CFTypeRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", &v14, 0xCu);
+      v15 = 136315138;
+      v16 = "_Bool ABRecordSetValue(ABRecordRef, ABPropertyID, CFTypeRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", &v15, 0xCu);
     }
   }
 
@@ -178,8 +178,8 @@ BOOL ABRecordSetValue(ABRecordRef record, ABPropertyID property, CFTypeRef value
 BOOL ABRecordRemoveValue(ABRecordRef record, ABPropertyID property, CFErrorRef *error)
 {
   v4 = *&property;
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, *&property))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -192,32 +192,33 @@ BOOL ABRecordRemoveValue(ABRecordRef record, ABPropertyID property, CFErrorRef *
       }
 
       *buf = 136315650;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "_Bool ABRecordRemoveValue(ABRecordRef, ABPropertyID, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v17 = v8;
+      v18 = 2080;
+      v19 = "_Bool ABRecordRemoveValue(ABRecordRef, ABPropertyID, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v14 = 0;
-  v9 = [record removeProperty:v4 withError:&v14];
-  v10 = v14;
-  v11 = v10;
+  v15 = 0;
+  v9 = [record removeProperty:v4 withError:&v15];
+  v10 = v15;
+  v12 = v10;
   if (error && (v9 & 1) == 0)
   {
+    v10 = v10;
     *error = v10;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v10, v11))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "_Bool ABRecordRemoveValue(ABRecordRef, ABPropertyID, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v17 = "_Bool ABRecordRemoveValue(ABRecordRef, ABPropertyID, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -226,213 +227,51 @@ BOOL ABRecordRemoveValue(ABRecordRef record, ABPropertyID property, CFErrorRef *
 
 CFStringRef ABRecordCopyCompositeName(ABRecordRef record)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFStringRef ABRecordCopyCompositeName(ABRecordRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFStringRef ABRecordCopyCompositeName(ABRecordRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
     }
   }
 
-  v5 = [record compositeName];
-  v6 = [v5 copy];
+  v6 = [record compositeName];
+  v7 = [v6 copy];
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v8, v9))
   {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "CFStringRef ABRecordCopyCompositeName(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
+      v12 = 136315138;
+      v13 = "CFStringRef ABRecordCopyCompositeName(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
     }
   }
 
-  return v6;
+  return v7;
 }
 
 ABRecordRef ABGroupCreate(void)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
-      {
-        v2 = "YES";
-      }
-
-      v6 = 136315650;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "ABRecordRef ABGroupCreate(void)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
-    }
-  }
-
-  ABSRecordGetTypeID();
-  v3 = objc_alloc_init(ABSGroup);
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 136315138;
-      v7 = "ABRecordRef ABGroupCreate(void)";
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
-    }
-  }
-
-  return v3;
-}
-
-ABRecordRef ABGroupCreateInSource(ABRecordRef source)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABRecordRef ABGroupCreateInSource(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [[ABSGroup alloc] initWithSource:source];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABGroupCreateInSource(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-ABRecordRef ABGroupCopySource(ABRecordRef group)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABRecordRef ABGroupCopySource(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [group source];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABGroupCopySource(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef group)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
-    }
-  }
-
-  v5 = [group addressBook];
-  v6 = [v5 peopleInGroup:group sortOrder:0xFFFFFFFFLL];
-  if (ABSIsAPILogEnabled())
-  {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 136315138;
-      v10 = "CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
-    }
-  }
-
-  return v6;
-}
-
-CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef group, ABPersonSortOrdering sortOrdering)
-{
-  v2 = *&sortOrdering;
   v17 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v2 = ABSIsAPILogEnabled(v0, v1);
+  if (v2)
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -447,23 +286,186 @@ CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef group, ABPer
       v11 = 136315650;
       v12 = v6;
       v13 = 2080;
-      v14 = "CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef, ABPersonSortOrdering)";
+      v14 = "ABRecordRef ABGroupCreate(void)";
       v15 = 2112;
       v16 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
-  v7 = [group addressBook];
-  v8 = [v7 peopleInGroup:group sortOrder:v2];
-  if (ABSIsAPILogEnabled())
+  ABSRecordGetTypeID(v2, v3);
+  v7 = objc_alloc_init(ABSGroup);
+  if (ABSIsAPILogEnabled(v7, v8))
   {
     v9 = +[ABSLog apiLog];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
-      v12 = "CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef, ABPersonSortOrdering)";
+      v12 = "ABRecordRef ABGroupCreate(void)";
       _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+ABRecordRef ABGroupCreateInSource(ABRecordRef source)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(source, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABRecordRef ABGroupCreateInSource(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [[ABSGroup alloc] initWithSource:source];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "ABRecordRef ABGroupCreateInSource(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+ABRecordRef ABGroupCopySource(ABRecordRef group)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(group, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABRecordRef ABGroupCopySource(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [group source];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "ABRecordRef ABGroupCopySource(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef group)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(group, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v11 = 136315650;
+      v12 = v5;
+      v13 = 2080;
+      v14 = "CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
+    }
+  }
+
+  v6 = [group addressBook];
+  v7 = [v6 peopleInGroup:group sortOrder:0xFFFFFFFFLL];
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315138;
+      v12 = "CFArrayRef ABGroupCopyArrayOfAllMembers(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef group, ABPersonSortOrdering sortOrdering)
+{
+  v2 = *&sortOrdering;
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(group, *&sortOrdering))
+  {
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v12 = 136315650;
+      v13 = v6;
+      v14 = 2080;
+      v15 = "CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef, ABPersonSortOrdering)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+    }
+  }
+
+  v7 = [group addressBook];
+  v8 = [v7 peopleInGroup:group sortOrder:v2];
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315138;
+      v13 = "CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef, ABPersonSortOrdering)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
     }
   }
 
@@ -472,8 +474,8 @@ CFArrayRef ABGroupCopyArrayOfAllMembersWithSortOrdering(ABRecordRef group, ABPer
 
 BOOL ABGroupAddMember(ABRecordRef group, ABRecordRef person, CFErrorRef *error)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v23 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(group, person))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -486,33 +488,34 @@ BOOL ABGroupAddMember(ABRecordRef group, ABRecordRef person, CFErrorRef *error)
       }
 
       *buf = 136315650;
-      v17 = v8;
-      v18 = 2080;
-      v19 = "_Bool ABGroupAddMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
-      v20 = 2112;
-      v21 = &stru_2849A7F60;
+      v18 = v8;
+      v19 = 2080;
+      v20 = "_Bool ABGroupAddMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
+      v21 = 2112;
+      v22 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
   v9 = [group addressBook];
-  v15 = 0;
-  v10 = [v9 addMember:person toGroup:group error:&v15];
-  v11 = v15;
-  v12 = v11;
+  v16 = 0;
+  v10 = [v9 addMember:person toGroup:group error:&v16];
+  v11 = v16;
+  v13 = v11;
   if ((v10 & 1) == 0 && error && v11)
   {
+    v11 = v11;
     *error = v11;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v11, v12))
   {
-    v13 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "_Bool ABGroupAddMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v18 = "_Bool ABGroupAddMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v14, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -521,8 +524,8 @@ BOOL ABGroupAddMember(ABRecordRef group, ABRecordRef person, CFErrorRef *error)
 
 BOOL ABGroupRemoveMember(ABRecordRef group, ABRecordRef member, CFErrorRef *error)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v23 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(group, member))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -535,33 +538,34 @@ BOOL ABGroupRemoveMember(ABRecordRef group, ABRecordRef member, CFErrorRef *erro
       }
 
       *buf = 136315650;
-      v17 = v8;
-      v18 = 2080;
-      v19 = "_Bool ABGroupRemoveMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
-      v20 = 2112;
-      v21 = &stru_2849A7F60;
+      v18 = v8;
+      v19 = 2080;
+      v20 = "_Bool ABGroupRemoveMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
+      v21 = 2112;
+      v22 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
   v9 = [group addressBook];
-  v15 = 0;
-  v10 = [v9 removeMember:member fromGroup:group error:&v15];
-  v11 = v15;
-  v12 = v11;
+  v16 = 0;
+  v10 = [v9 removeMember:member fromGroup:group error:&v16];
+  v11 = v16;
+  v13 = v11;
   if ((v10 & 1) == 0 && error && v11)
   {
+    v11 = v11;
     *error = v11;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v11, v12))
   {
-    v13 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "_Bool ABGroupRemoveMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v18 = "_Bool ABGroupRemoveMember(ABRecordRef, ABRecordRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v14, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -571,8 +575,8 @@ BOOL ABGroupRemoveMember(ABRecordRef group, ABRecordRef member, CFErrorRef *erro
 ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef addressBook, ABRecordID recordID)
 {
   v2 = *&recordID;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, *&recordID))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -584,25 +588,25 @@ ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef addressBook, ABRe
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef, ABRecordID)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef, ABRecordID)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [addressBook groupWithRecordID:v2];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef, ABRecordID)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef, ABRecordID)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -611,90 +615,90 @@ ABRecordRef ABAddressBookGetGroupWithRecordID(ABAddressBookRef addressBook, ABRe
 
 CFIndex ABAddressBookGetGroupCount(ABAddressBookRef addressBook)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFIndex ABAddressBookGetGroupCount(ABAddressBookRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [addressBook groupCount];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
       v11 = "CFIndex ABAddressBookGetGroupCount(ABAddressBookRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [addressBook groupCount];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "CFIndex ABAddressBookGetGroupCount(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef addressBook)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
-    }
-  }
-
-  v5 = [addressBook allGroups];
-  v6 = [v5 copy];
-
-  if (ABSIsAPILogEnabled())
-  {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 136315138;
-      v10 = "CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
   return v6;
 }
 
+CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef addressBook)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+    }
+  }
+
+  v6 = [addressBook allGroups];
+  v7 = [v6 copy];
+
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315138;
+      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllGroups(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
 CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef addressBook, ABRecordRef source)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, source))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -706,32 +710,32 @@ CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef addressBoo
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef, ABRecordRef)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef, ABRecordRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [addressBook groupsInSource:source];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef, ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFArrayRef ABAddressBookCopyArrayOfAllGroupsInSource(ABAddressBookRef, ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
   return v7;
 }
 
-uint64_t ABSAddressBookGetTypeID()
+uint64_t ABSAddressBookGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (gABRegisteredWithCF_0 != -1)
   {
@@ -750,8 +754,8 @@ uint64_t __ABSAddressBookGetTypeID_block_invoke()
 
 ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef options, CFErrorRef *error)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(options, error))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -764,11 +768,11 @@ ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef options, CFError
       }
 
       *buf = 136315650;
-      v16 = v6;
-      v17 = 2080;
-      v18 = "ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v17 = v6;
+      v18 = 2080;
+      v19 = "ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
@@ -778,33 +782,34 @@ ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef options, CFError
     ABAddressBookCreateWithOptions_cold_1();
   }
 
-  v14 = 0;
-  v7 = [[ABSAddressBook alloc] initWithOptions:options error:&v14];
-  v8 = v14;
-  v9 = v8;
+  v15 = 0;
+  v7 = [[ABSAddressBook alloc] initWithOptions:options error:&v15];
+  v8 = v15;
+  v10 = v8;
   if (v7)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = error == 0;
+    v11 = error == 0;
   }
 
-  if (!v10 && v8 != 0)
+  if (!v11 && v8 != 0)
   {
+    v8 = v8;
     *error = v8;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v8, v9))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v17 = "ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -813,8 +818,8 @@ ABAddressBookRef ABAddressBookCreateWithOptions(CFDictionaryRef options, CFError
 
 ABSAddressBook *ABAddressBookCreateWithOptionsAndPolicy(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(a1, a2))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -827,11 +832,11 @@ ABSAddressBook *ABAddressBookCreateWithOptionsAndPolicy(uint64_t a1, uint64_t a2
       }
 
       *buf = 136315650;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "ABAddressBookRef ABAddressBookCreateWithOptionsAndPolicy(CFDictionaryRef, ABCreatePolicy, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v17 = v8;
+      v18 = 2080;
+      v19 = "ABAddressBookRef ABAddressBookCreateWithOptionsAndPolicy(CFDictionaryRef, ABCreatePolicy, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
@@ -841,23 +846,24 @@ ABSAddressBook *ABAddressBookCreateWithOptionsAndPolicy(uint64_t a1, uint64_t a2
     ABAddressBookCreateWithOptions_cold_1();
   }
 
-  v14 = 0;
-  v9 = [[ABSAddressBook alloc] initWithOptions:a1 policy:a2 error:&v14];
-  v10 = v14;
-  v11 = v10;
+  v15 = 0;
+  v9 = [[ABSAddressBook alloc] initWithOptions:a1 policy:a2 error:&v15];
+  v10 = v15;
+  v12 = v10;
   if (a3 && !v9)
   {
+    v10 = v10;
     *a3 = v10;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v10, v11))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "ABAddressBookRef ABAddressBookCreateWithOptionsAndPolicy(CFDictionaryRef, ABCreatePolicy, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v17 = "ABAddressBookRef ABAddressBookCreateWithOptionsAndPolicy(CFDictionaryRef, ABCreatePolicy, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -866,26 +872,26 @@ ABSAddressBook *ABAddressBookCreateWithOptionsAndPolicy(uint64_t a1, uint64_t a2
 
 ABAddressBookRef ABAddressBookCreate(void)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v15 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(v0, v1))
   {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v2 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
+      v3 = [MEMORY[0x277CCACC8] isMainThread];
+      v4 = "NO";
+      if (v3)
       {
-        v2 = "YES";
+        v4 = "YES";
       }
 
-      v6 = 136315650;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "ABAddressBookRef ABAddressBookCreate(void)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
+      v9 = 136315650;
+      v10 = v4;
+      v11 = 2080;
+      v12 = "ABAddressBookRef ABAddressBookCreate(void)";
+      v13 = 2112;
+      v14 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
     }
   }
 
@@ -894,64 +900,64 @@ ABAddressBookRef ABAddressBookCreate(void)
     ABAddressBookCreateWithOptions_cold_1();
   }
 
-  v3 = objc_alloc_init(ABSAddressBook);
-  if (ABSIsAPILogEnabled())
+  v5 = objc_alloc_init(ABSAddressBook);
+  if (ABSIsAPILogEnabled(v5, v6))
   {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v7 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "ABAddressBookRef ABAddressBookCreate(void)";
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
+      v9 = 136315138;
+      v10 = "ABAddressBookRef ABAddressBookCreate(void)";
+      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
     }
   }
 
-  return v3;
+  return v5;
 }
 
 void ABAddressBookRequestAccessWithCompletion(ABAddressBookRef addressBook, ABAddressBookRequestAccessCompletionHandler completion)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = completion;
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v2, v3))
   {
-    v3 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [MEMORY[0x277CCACC8] isMainThread];
-      v5 = "NO";
-      if (v4)
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
       {
-        v5 = "YES";
+        v6 = "YES";
       }
 
-      v7 = 136315650;
-      v8 = v5;
-      v9 = 2080;
-      v10 = "void ABAddressBookRequestAccessWithCompletion(ABAddressBookRef, __strong ABAddressBookRequestAccessCompletionHandler)";
-      v11 = 2112;
-      v12 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v7, 0x20u);
+      v10 = 136315650;
+      v11 = v6;
+      v12 = 2080;
+      v13 = "void ABAddressBookRequestAccessWithCompletion(ABAddressBookRef, __strong ABAddressBookRequestAccessCompletionHandler)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  [ABSAddressBook requestAccessWithCompletion:v2];
-  if (ABSIsAPILogEnabled())
+  v7 = [ABSAddressBook requestAccessWithCompletion:v2];
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "void ABAddressBookRequestAccessWithCompletion(ABAddressBookRef, __strong ABAddressBookRequestAccessCompletionHandler)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v7, 0xCu);
+      v10 = 136315138;
+      v11 = "void ABAddressBookRequestAccessWithCompletion(ABAddressBookRef, __strong ABAddressBookRequestAccessCompletionHandler)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 }
 
 BOOL ABAddressBookSave(ABAddressBookRef addressBook, CFErrorRef *error)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v23 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, error))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -964,11 +970,11 @@ BOOL ABAddressBookSave(ABAddressBookRef addressBook, CFErrorRef *error)
       }
 
       *buf = 136315650;
-      v16 = v6;
-      v17 = 2080;
-      v18 = "_Bool ABAddressBookSave(ABAddressBookRef, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v18 = v6;
+      v19 = 2080;
+      v20 = "_Bool ABAddressBookSave(ABAddressBookRef, CFErrorRef *)";
+      v21 = 2112;
+      v22 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
@@ -979,9 +985,9 @@ BOOL ABAddressBookSave(ABAddressBookRef addressBook, CFErrorRef *error)
     ABAddressBookSave_cold_1(v7);
   }
 
-  v14 = 0;
-  v8 = [addressBook save:&v14];
-  v9 = v14;
+  v16 = 0;
+  v8 = [addressBook save:&v16];
+  v9 = v16;
   v10 = v9;
   if ((v8 & 1) == 0 && error && v9)
   {
@@ -994,14 +1000,14 @@ BOOL ABAddressBookSave(ABAddressBookRef addressBook, CFErrorRef *error)
     ABAddressBookSave_cold_2(v8, v11);
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v12, v13))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "_Bool ABAddressBookSave(ABAddressBookRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v18 = "_Bool ABAddressBookSave(ABAddressBookRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v14, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -1010,8 +1016,8 @@ BOOL ABAddressBookSave(ABAddressBookRef addressBook, CFErrorRef *error)
 
 BOOL ABAddressBookAddRecord(ABAddressBookRef addressBook, ABRecordRef record, CFErrorRef *error)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, record))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1024,32 +1030,33 @@ BOOL ABAddressBookAddRecord(ABAddressBookRef addressBook, ABRecordRef record, CF
       }
 
       *buf = 136315650;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "_Bool ABAddressBookAddRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v17 = v8;
+      v18 = 2080;
+      v19 = "_Bool ABAddressBookAddRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v14 = 0;
-  v9 = [addressBook addRecord:record error:&v14];
-  v10 = v14;
-  v11 = v10;
+  v15 = 0;
+  v9 = [addressBook addRecord:record error:&v15];
+  v10 = v15;
+  v12 = v10;
   if (error && (v9 & 1) == 0)
   {
+    v10 = v10;
     *error = v10;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v10, v11))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "_Bool ABAddressBookAddRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v17 = "_Bool ABAddressBookAddRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -1058,8 +1065,8 @@ BOOL ABAddressBookAddRecord(ABAddressBookRef addressBook, ABRecordRef record, CF
 
 BOOL ABAddressBookRemoveRecord(ABAddressBookRef addressBook, ABRecordRef record, CFErrorRef *error)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, record))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1072,32 +1079,33 @@ BOOL ABAddressBookRemoveRecord(ABAddressBookRef addressBook, ABRecordRef record,
       }
 
       *buf = 136315650;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "_Bool ABAddressBookRemoveRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
+      v17 = v8;
+      v18 = 2080;
+      v19 = "_Bool ABAddressBookRemoveRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v14 = 0;
-  v9 = [addressBook removeRecord:record error:&v14];
-  v10 = v14;
-  v11 = v10;
+  v15 = 0;
+  v9 = [addressBook removeRecord:record error:&v15];
+  v10 = v15;
+  v12 = v10;
   if (error && (v9 & 1) == 0)
   {
+    v10 = v10;
     *error = v10;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v10, v11))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "_Bool ABAddressBookRemoveRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      v17 = "_Bool ABAddressBookRemoveRecord(ABAddressBookRef, ABRecordRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
@@ -1106,48 +1114,48 @@ BOOL ABAddressBookRemoveRecord(ABAddressBookRef addressBook, ABRecordRef record,
 
 CFStringRef ABAddressBookCopyLocalizedLabel(CFStringRef label)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(label, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFStringRef ABAddressBookCopyLocalizedLabel(CFStringRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFStringRef ABAddressBookCopyLocalizedLabel(CFStringRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [ABSAddressBook localizedLabelForLabel:label];
-  if (ABSIsAPILogEnabled())
+  v6 = [ABSAddressBook localizedLabelForLabel:label];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "CFStringRef ABAddressBookCopyLocalizedLabel(CFStringRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "CFStringRef ABAddressBookCopyLocalizedLabel(CFStringRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef addressBook, ABExternalChangeCallback callback, void *context)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, callback))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1159,33 +1167,33 @@ void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef addressBook, A
         v8 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v8;
-      v12 = 2080;
-      v13 = "void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v12 = 136315650;
+      v13 = v8;
+      v14 = 2080;
+      v15 = "void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
     }
   }
 
-  [addressBook registerExternalChangeCallback:callback context:context];
-  if (ABSIsAPILogEnabled())
+  v9 = [addressBook registerExternalChangeCallback:callback context:context];
+  if (ABSIsAPILogEnabled(v9, v10))
   {
-    v9 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
-      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v12 = 136315138;
+      v13 = "void ABAddressBookRegisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
     }
   }
 }
 
 void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef addressBook, ABExternalChangeCallback callback, void *context)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, callback))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1197,63 +1205,63 @@ void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef addressBook,
         v8 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v8;
-      v12 = 2080;
-      v13 = "void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v12 = 136315650;
+      v13 = v8;
+      v14 = 2080;
+      v15 = "void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
     }
   }
 
-  [addressBook unregisterExternalChangeCallback:callback context:context];
-  if (ABSIsAPILogEnabled())
+  v9 = [addressBook unregisterExternalChangeCallback:callback context:context];
+  if (ABSIsAPILogEnabled(v9, v10))
   {
-    v9 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
-      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v12 = 136315138;
+      v13 = "void ABAddressBookUnregisterExternalChangeCallback(ABAddressBookRef, ABExternalChangeCallback, void *)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
     }
   }
 }
 
 void ABAddressBookRevert(ABAddressBookRef addressBook)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v15 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v6 = 136315650;
-      v7 = v4;
-      v8 = 2080;
-      v9 = "void ABAddressBookRevert(ABAddressBookRef)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
+      v9 = 136315650;
+      v10 = v5;
+      v11 = 2080;
+      v12 = "void ABAddressBookRevert(ABAddressBookRef)";
+      v13 = 2112;
+      v14 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
     }
   }
 
-  [addressBook revert];
-  if (ABSIsAPILogEnabled())
+  v6 = [addressBook revert];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v5 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "void ABAddressBookRevert(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v5, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
+      v9 = 136315138;
+      v10 = "void ABAddressBookRevert(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
     }
   }
 }
@@ -1395,20 +1403,21 @@ uint64_t __ABSPeoplePickerPrefs_block_invoke()
   return result;
 }
 
-void sub_236A59994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_236A59994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t ABSMultiValueGetTypeID()
+uint64_t ABSMultiValueGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (gABMultiValueRegisteredWithCF != -1)
   {
@@ -1427,90 +1436,90 @@ uint64_t __ABSMultiValueGetTypeID_block_invoke()
 
 ABPropertyType ABMultiValueGetPropertyType(ABMultiValueRef multiValue)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABPropertyType ABMultiValueGetPropertyType(ABMultiValueRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [multiValue propertyType];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
       v11 = "ABPropertyType ABMultiValueGetPropertyType(ABMultiValueRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [multiValue propertyType];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "ABPropertyType ABMultiValueGetPropertyType(ABMultiValueRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-CFIndex ABMultiValueGetCount(ABMultiValueRef multiValue)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFIndex ABMultiValueGetCount(ABMultiValueRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
-    }
-  }
-
-  v5 = [multiValue values];
-  v6 = [v5 count];
-
-  if (ABSIsAPILogEnabled())
-  {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 136315138;
-      v10 = "CFIndex ABMultiValueGetCount(ABMultiValueRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
   return v6;
 }
 
+CFIndex ABMultiValueGetCount(ABMultiValueRef multiValue)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFIndex ABMultiValueGetCount(ABMultiValueRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+    }
+  }
+
+  v6 = [multiValue values];
+  v7 = [v6 count];
+
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315138;
+      v13 = "CFIndex ABMultiValueGetCount(ABMultiValueRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
 CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef multiValue, CFIndex index)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, index))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1522,25 +1531,25 @@ CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef multiValue, CFIndex index
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef, CFIndex)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef, CFIndex)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue copyValueAtIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1549,58 +1558,60 @@ CFTypeRef ABMultiValueCopyValueAtIndex(ABMultiValueRef multiValue, CFIndex index
 
 CFArrayRef ABMultiValueCopyArrayOfAllValues(ABMultiValueRef multiValue)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFArrayRef ABMultiValueCopyArrayOfAllValues(ABMultiValueRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFArrayRef ABMultiValueCopyArrayOfAllValues(ABMultiValueRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
     }
   }
 
-  v5 = [multiValue allValues];
-  if ([v5 count])
+  v6 = [multiValue allValues];
+  v7 = [v6 count];
+  if (v7)
   {
-    v6 = [v5 copy];
+    v7 = [v6 copy];
+    v9 = v7;
   }
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "CFArrayRef ABMultiValueCopyArrayOfAllValues(ABMultiValueRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
+      v12 = 136315138;
+      v13 = "CFArrayRef ABMultiValueCopyArrayOfAllValues(ABMultiValueRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
     }
   }
 
-  return v6;
+  return v9;
 }
 
 CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef multiValue, CFIndex index)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, index))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1612,25 +1623,25 @@ CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef multiValue, CFIndex ind
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef, CFIndex)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef, CFIndex)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue labelAtIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1640,8 +1651,8 @@ CFStringRef ABMultiValueCopyLabelAtIndex(ABMultiValueRef multiValue, CFIndex ind
 CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef multiValue, ABMultiValueIdentifier identifier)
 {
   v2 = *&identifier;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, *&identifier))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1653,25 +1664,25 @@ CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef multiValue, ABMultiVal
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef, ABMultiValueIdentifier)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef, ABMultiValueIdentifier)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue indexForIdentifier:v2];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef, ABMultiValueIdentifier)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef, ABMultiValueIdentifier)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1688,8 +1699,8 @@ CFIndex ABMultiValueGetIndexForIdentifier(ABMultiValueRef multiValue, ABMultiVal
 
 ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef multiValue, CFIndex index)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, index))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1701,25 +1712,25 @@ ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef multiVal
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef, CFIndex)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef, CFIndex)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue identifierAtIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1728,8 +1739,8 @@ ABMultiValueIdentifier ABMultiValueGetIdentifierAtIndex(ABMultiValueRef multiVal
 
 CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef multiValue, CFTypeRef value)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, value))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1741,25 +1752,25 @@ CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef multiValue, CFTypeRef v
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef, CFTypeRef)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef, CFTypeRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue indexOfValue:value];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef, CFTypeRef)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "CFIndex ABMultiValueGetFirstIndexOfValue(ABMultiValueRef, CFTypeRef)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1789,26 +1800,26 @@ ABMutableMultiValueRef ABMultiValueCreateMutable(ABPropertyType type)
 
 ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef multiValue)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
@@ -1817,25 +1828,25 @@ ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef multiValue)
     ABMultiValueCreateMutableCopy_cold_1();
   }
 
-  v5 = [multiValue mutableCopy];
-  if (ABSIsAPILogEnabled())
+  v6 = [multiValue mutableCopy];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "ABMutableMultiValueRef ABMultiValueCreateMutableCopy(ABMultiValueRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 BOOL ABMultiValueAddValueAndLabel(ABMutableMultiValueRef multiValue, CFTypeRef value, CFStringRef label, ABMultiValueIdentifier *outIdentifier)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v21 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, value))
   {
     v8 = +[ABSLog apiLog];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -1847,25 +1858,25 @@ BOOL ABMultiValueAddValueAndLabel(ABMutableMultiValueRef multiValue, CFTypeRef v
         v10 = "YES";
       }
 
-      v14 = 136315650;
-      v15 = v10;
-      v16 = 2080;
-      v17 = "_Bool ABMultiValueAddValueAndLabel(ABMutableMultiValueRef, CFTypeRef, CFStringRef, ABMultiValueIdentifier *)";
-      v18 = 2112;
-      v19 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v14, 0x20u);
+      v15 = 136315650;
+      v16 = v10;
+      v17 = 2080;
+      v18 = "_Bool ABMultiValueAddValueAndLabel(ABMutableMultiValueRef, CFTypeRef, CFStringRef, ABMultiValueIdentifier *)";
+      v19 = 2112;
+      v20 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v15, 0x20u);
     }
   }
 
   v11 = [multiValue addValue:value label:label outIdentifier:outIdentifier];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v11, v12))
   {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "_Bool ABMultiValueAddValueAndLabel(ABMutableMultiValueRef, CFTypeRef, CFStringRef, ABMultiValueIdentifier *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", &v14, 0xCu);
+      v15 = 136315138;
+      v16 = "_Bool ABMultiValueAddValueAndLabel(ABMutableMultiValueRef, CFTypeRef, CFStringRef, ABMultiValueIdentifier *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", &v15, 0xCu);
     }
   }
 
@@ -1874,8 +1885,8 @@ BOOL ABMultiValueAddValueAndLabel(ABMutableMultiValueRef multiValue, CFTypeRef v
 
 BOOL ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, CFTypeRef value, CFStringRef label, CFIndex index, ABMultiValueIdentifier *outIdentifier)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v23 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, value))
   {
     v10 = +[ABSLog apiLog];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -1887,25 +1898,25 @@ BOOL ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, C
         v12 = "YES";
       }
 
-      v16 = 136315650;
-      v17 = v12;
-      v18 = 2080;
-      v19 = "_Bool ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef, CFTypeRef, CFStringRef, CFIndex, ABMultiValueIdentifier *)";
-      v20 = 2112;
-      v21 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v16, 0x20u);
+      v17 = 136315650;
+      v18 = v12;
+      v19 = 2080;
+      v20 = "_Bool ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef, CFTypeRef, CFStringRef, CFIndex, ABMultiValueIdentifier *)";
+      v21 = 2112;
+      v22 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v17, 0x20u);
     }
   }
 
   v13 = [multiValue insertValue:value label:label atIndex:index outIdentifier:outIdentifier];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v13, v14))
   {
-    v14 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315138;
-      v17 = "_Bool ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef, CFTypeRef, CFStringRef, CFIndex, ABMultiValueIdentifier *)";
-      _os_log_impl(&dword_236A49000, v14, OS_LOG_TYPE_DEFAULT, ">> %s", &v16, 0xCu);
+      v17 = 136315138;
+      v18 = "_Bool ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef, CFTypeRef, CFStringRef, CFIndex, ABMultiValueIdentifier *)";
+      _os_log_impl(&dword_236A49000, v15, OS_LOG_TYPE_DEFAULT, ">> %s", &v17, 0xCu);
     }
   }
 
@@ -1914,8 +1925,8 @@ BOOL ABMultiValueInsertValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, C
 
 BOOL ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, CFIndex index)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, index))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1927,25 +1938,25 @@ BOOL ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, C
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "_Bool ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef, CFIndex)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "_Bool ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef, CFIndex)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [multiValue removeValueAtIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "_Bool ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "_Bool ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -1954,8 +1965,8 @@ BOOL ABMultiValueRemoveValueAndLabelAtIndex(ABMutableMultiValueRef multiValue, C
 
 BOOL ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef multiValue, CFTypeRef value, CFIndex index)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v19 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, value))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1967,25 +1978,25 @@ BOOL ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef multiValue, CFTypeRe
         v8 = "YES";
       }
 
-      v12 = 136315650;
-      v13 = v8;
-      v14 = 2080;
-      v15 = "_Bool ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef, CFTypeRef, CFIndex)";
-      v16 = 2112;
-      v17 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+      v13 = 136315650;
+      v14 = v8;
+      v15 = 2080;
+      v16 = "_Bool ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef, CFTypeRef, CFIndex)";
+      v17 = 2112;
+      v18 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v13, 0x20u);
     }
   }
 
   v9 = [multiValue replaceValue:value atIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v9, v10))
   {
-    v10 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "_Bool ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef, CFTypeRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+      v13 = 136315138;
+      v14 = "_Bool ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef, CFTypeRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v13, 0xCu);
     }
   }
 
@@ -1994,8 +2005,8 @@ BOOL ABMultiValueReplaceValueAtIndex(ABMutableMultiValueRef multiValue, CFTypeRe
 
 BOOL ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef multiValue, CFStringRef label, CFIndex index)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v19 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(multiValue, label))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2007,25 +2018,25 @@ BOOL ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef multiValue, CFString
         v8 = "YES";
       }
 
-      v12 = 136315650;
-      v13 = v8;
-      v14 = 2080;
-      v15 = "_Bool ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef, CFStringRef, CFIndex)";
-      v16 = 2112;
-      v17 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+      v13 = 136315650;
+      v14 = v8;
+      v15 = 2080;
+      v16 = "_Bool ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef, CFStringRef, CFIndex)";
+      v17 = 2112;
+      v18 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v13, 0x20u);
     }
   }
 
   v9 = [multiValue replaceLabel:label atIndex:index];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v9, v10))
   {
-    v10 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "_Bool ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef, CFStringRef, CFIndex)";
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+      v13 = 136315138;
+      v14 = "_Bool ABMultiValueReplaceLabelAtIndex(ABMutableMultiValueRef, CFStringRef, CFIndex)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v13, 0xCu);
     }
   }
 
@@ -2061,7 +2072,7 @@ CGImageRef ABImageUtilsCreateImageFromData(const __CFData *a1)
   return ThumbnailAtIndex;
 }
 
-uint64_t ABImageUtilsCopyImageSourceAndGetSizeFromData(const __CFData *a1, CGImageSource **a2, int *a3, int *a4)
+BOOL ABImageUtilsCopyImageSourceAndGetSizeFromData(const __CFData *a1, CGImageSource **a2, int *a3, int *a4)
 {
   if (a3)
   {
@@ -2393,7 +2404,7 @@ CGImageRef ABImageUtilsCreateImageFromImageSourceWithSizeCropRectMaxSize(CGImage
   return ImageFromImageWithCropRect;
 }
 
-__CFData *ABImageUtilsCreateScaledImageData(CGImage *a1, unsigned int a2, const __CFString *a3, void *a4, double a5, double a6, double a7)
+CFDataRef ABImageUtilsCreateScaledImageData(CGImage *a1, unsigned int a2, const __CFString *a3, CFTypeRef *a4, double a5, double a6, double a7)
 {
   if (a2 != 5 && a2 != 8)
   {
@@ -2580,7 +2591,7 @@ BOOL ABPersonImageFormatIsLessThanOrEqualToPixelSize(int a1, int a2, int a3)
   return v3 <= a2 && v3 <= a3;
 }
 
-__CFData *ABSCreateThumbnailDataAndCropRectFromImageData(const __CFData *a1, double *a2)
+CFDataRef ABSCreateThumbnailDataAndCropRectFromImageData(const __CFData *a1, double *a2)
 {
   cf = 0;
   v26 = 0;
@@ -3062,49 +3073,49 @@ LABEL_26:
 
 ABRecordRef ABAddressBookCopyDefaultSource(ABAddressBookRef addressBook)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABRecordRef ABAddressBookCopyDefaultSource(ABAddressBookRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABRecordRef ABAddressBookCopyDefaultSource(ABAddressBookRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [addressBook defaultSource];
-  if (ABSIsAPILogEnabled())
+  v6 = [addressBook defaultSource];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABAddressBookCopyDefaultSource(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "ABRecordRef ABAddressBookCopyDefaultSource(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef addressBook, ABRecordID sourceID)
 {
   v2 = *&sourceID;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, *&sourceID))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3116,25 +3127,25 @@ ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef addressBook, ABR
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef, ABRecordID)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef, ABRecordID)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
   v7 = [addressBook sourceWithRecordID:v2];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v7, v8))
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef, ABRecordID)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef, ABRecordID)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -3143,8 +3154,50 @@ ABRecordRef ABAddressBookGetSourceWithRecordID(ABAddressBookRef addressBook, ABR
 
 CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef addressBook)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+    }
+  }
+
+  v6 = [addressBook allSources];
+  v7 = [v6 copy];
+
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315138;
+      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+ABSSource *ABSourceCreate(uint64_t a1, uint64_t a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(a1, a2))
   {
     v2 = +[ABSLog apiLog];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -3156,155 +3209,114 @@ CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef addressBook)
         v4 = "YES";
       }
 
-      v9 = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
+      v12 = 136315650;
+      v13 = v4;
+      v14 = 2080;
+      v15 = "ABRecordRef ABSourceCreate(void)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
     }
   }
 
-  v5 = [addressBook allSources];
-  v6 = [v5 copy];
+  v5 = [ABSSource alloc];
+  v6 = objc_alloc_init(MEMORY[0x277CBDB48]);
+  v7 = [(ABSSource *)v5 initWithMutableContainer:v6];
 
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v8, v9))
   {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "CFArrayRef ABAddressBookCopyArrayOfAllSources(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
+      v12 = 136315138;
+      v13 = "ABRecordRef ABSourceCreate(void)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+uint64_t ABAddressBookCopyLocalSource(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(a1, a2))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABRecordRef ABAddressBookCopyLocalSource(ABAddressBookRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [a1 localSource];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "ABRecordRef ABAddressBookCopyLocalSource(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
   return v6;
 }
 
-uint64_t ABSourceCreate()
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
-      {
-        v2 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v2;
-      v10 = 2080;
-      v11 = "ABRecordRef ABSourceCreate(void)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v3 = [ABSSource alloc];
-  v4 = objc_alloc_init(MEMORY[0x277CBDB48]);
-  v5 = [(ABSSource *)v3 initWithMutableContainer:v4];
-
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABSourceCreate(void)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-uint64_t ABAddressBookCopyLocalSource(void *a1)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABRecordRef ABAddressBookCopyLocalSource(ABAddressBookRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [a1 localSource];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABAddressBookCopyLocalSource(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
 ABRecordRef ABPersonCreate(void)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
-      {
-        v2 = "YES";
-      }
-
-      v6 = 136315650;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "ABRecordRef ABPersonCreate(void)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
-    }
-  }
-
-  ABSRecordGetTypeID();
-  v3 = objc_alloc_init(ABSPerson);
-  if (ABSIsAPILogEnabled())
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = ABSIsAPILogEnabled(v0, v1);
+  if (v2)
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "ABRecordRef ABPersonCreate(void)";
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ABRecordRef ABPersonCreate(void)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
-  return v3;
+  ABSRecordGetTypeID(v2, v3);
+  v7 = objc_alloc_init(ABSPerson);
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315138;
+      v12 = "ABRecordRef ABPersonCreate(void)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
+    }
+  }
+
+  return v7;
 }
 
 ABRecordRef ABPersonCreateInSource(ABRecordRef source)
@@ -3316,82 +3328,82 @@ ABRecordRef ABPersonCreateInSource(ABRecordRef source)
 
 ABRecordRef ABPersonCopySource(ABRecordRef person)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABRecordRef ABPersonCopySource(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABRecordRef ABPersonCopySource(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [person source];
-  if (ABSIsAPILogEnabled())
+  v6 = [person source];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "ABRecordRef ABPersonCopySource(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "ABRecordRef ABPersonCopySource(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 CFArrayRef ABPersonCopyArrayOfAllLinkedPeople(ABRecordRef person)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFArrayRef ABPersonCopyArrayOfAllLinkedPeople(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFArrayRef ABPersonCopyArrayOfAllLinkedPeople(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [person linkedPeople];
-  if (ABSIsAPILogEnabled())
+  v6 = [person linkedPeople];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "CFArrayRef ABPersonCopyArrayOfAllLinkedPeople(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "CFArrayRef ABPersonCopyArrayOfAllLinkedPeople(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t ABPersonLinkPerson(void *a1, void *a2)
@@ -3415,574 +3427,90 @@ uint64_t ABPersonUnlink(void *a1)
 
 ABPropertyType ABPersonGetTypeOfProperty(ABPropertyID property)
 {
-  v1 = *&property;
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v2 = *&property;
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(*&property, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ABPropertyType ABPersonGetTypeOfProperty(ABPropertyID)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "ABPropertyType ABPersonGetTypeOfProperty(ABPropertyID)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [ABSPerson typeForProperty:v1];
-  if (ABSIsAPILogEnabled())
+  v6 = [ABSPerson typeForProperty:v2];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "ABPropertyType ABPersonGetTypeOfProperty(ABPropertyID)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "ABPropertyType ABPersonGetTypeOfProperty(ABPropertyID)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 CFStringRef ABPersonCopyLocalizedPropertyName(ABPropertyID property)
 {
-  v1 = *&property;
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v2 = *&property;
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(*&property, v1))
   {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v4 = "YES";
+        v5 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFStringRef ABPersonCopyLocalizedPropertyName(ABPropertyID)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFStringRef ABPersonCopyLocalizedPropertyName(ABPropertyID)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
     }
   }
 
-  v5 = [ABSPerson localizedNameForProperty:v1];
-  if (ABSIsAPILogEnabled())
+  v6 = [ABSPerson localizedNameForProperty:v2];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "CFStringRef ABPersonCopyLocalizedPropertyName(ABPropertyID)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "CFStringRef ABPersonCopyLocalizedPropertyName(ABPropertyID)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 ABPersonCompositeNameFormat ABPersonGetCompositeNameFormat(void)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
-      {
-        v2 = "YES";
-      }
-
-      v6 = 136315650;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormat(void)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
-    }
-  }
-
-  v3 = +[ABSPerson compositeNameFormat];
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 136315138;
-      v7 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormat(void)";
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
-    }
-  }
-
-  return v3;
-}
-
-ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef record)
-{
   v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      *buf = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
-    }
-  }
-
-  v5 = record;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v6 = [v5 compositeNameFormat];
-  }
-
-  else
-  {
-    v6 = +[ABSPerson compositeNameFormat];
-    if (v5)
-    {
-      NSLog(&cfstr_WarningUnexpec.isa, v5);
-    }
-  }
-
-  if (ABSIsAPILogEnabled())
-  {
-    v7 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      v10 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
-    }
-  }
-
-  return v6;
-}
-
-CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef record)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      *buf = 136315650;
-      v10 = v4;
-      v11 = 2080;
-      v12 = "CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef)";
-      v13 = 2112;
-      v14 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
-    }
-  }
-
-  v5 = record;
-  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-    NSLog(&cfstr_WarningUnexpec_0.isa, v5);
-    v6 = &stru_2849A7F60;
-  }
-
-  else
-  {
-    v6 = [ABSPerson copyCompositeNameDelimiterForPerson:v5];
-    if (ABSIsAPILogEnabled())
-    {
-      v7 = +[ABSLog apiLog];
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v10 = "CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef)";
-        _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
-      }
-    }
-  }
-
-  return v6;
-}
-
-BOOL ABPersonSetImageData(ABRecordRef person, CFDataRef imageData, CFErrorRef *error)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = [MEMORY[0x277CCACC8] isMainThread];
-      v8 = "NO";
-      if (v7)
-      {
-        v8 = "YES";
-      }
-
-      *buf = 136315650;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "_Bool ABPersonSetImageData(ABRecordRef, CFDataRef, CFErrorRef *)";
-      v19 = 2112;
-      v20 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
-    }
-  }
-
-  v14 = 0;
-  v9 = [person setImageData:imageData withError:&v14];
-  v10 = v14;
-  v11 = v10;
-  if (error && (v9 & 1) == 0)
-  {
-    *error = v10;
-  }
-
-  if (ABSIsAPILogEnabled())
-  {
-    v12 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      v16 = "_Bool ABPersonSetImageData(ABRecordRef, CFDataRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v12, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
-    }
-  }
-
-  return v9;
-}
-
-CFDataRef ABPersonCopyImageData(ABRecordRef person)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFDataRef ABPersonCopyImageData(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [person copyImageData];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "CFDataRef ABPersonCopyImageData(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef person, ABPersonImageFormat format)
-{
-  v2 = *&format;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = [MEMORY[0x277CCACC8] isMainThread];
-      v6 = "NO";
-      if (v5)
-      {
-        v6 = "YES";
-      }
-
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef, ABPersonImageFormat)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
-    }
-  }
-
-  v7 = [person copyImageDataWithFormat:v2];
-  if (ABSIsAPILogEnabled())
-  {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 136315138;
-      v11 = "CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef, ABPersonImageFormat)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
-    }
-  }
-
-  return v7;
-}
-
-BOOL ABPersonHasImageData(ABRecordRef person)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "_Bool ABPersonHasImageData(ABRecordRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [person hasImageData];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "_Bool ABPersonHasImageData(ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-BOOL ABPersonRemoveImageData(ABRecordRef person, CFErrorRef *error)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = [MEMORY[0x277CCACC8] isMainThread];
-      v6 = "NO";
-      if (v5)
-      {
-        v6 = "YES";
-      }
-
-      *buf = 136315650;
-      v14 = v6;
-      v15 = 2080;
-      v16 = "_Bool ABPersonRemoveImageData(ABRecordRef, CFErrorRef *)";
-      v17 = 2112;
-      v18 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
-    }
-  }
-
-  v12 = 0;
-  v7 = [person removeImageDataWithError:&v12];
-  v8 = v12;
-  v9 = v8;
-  if (error && (v7 & 1) == 0)
-  {
-    *error = v8;
-  }
-
-  if (ABSIsAPILogEnabled())
-  {
-    v10 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      v14 = "_Bool ABPersonRemoveImageData(ABRecordRef, CFErrorRef *)";
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
-    }
-  }
-
-  return v7;
-}
-
-CFComparisonResult ABPersonComparePeopleByName(ABRecordRef person1, ABRecordRef person2, ABPersonSortOrdering ordering)
-{
-  v3 = *&ordering;
-  v18 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = [MEMORY[0x277CCACC8] isMainThread];
-      v8 = "NO";
-      if (v7)
-      {
-        v8 = "YES";
-      }
-
-      v12 = 136315650;
-      v13 = v8;
-      v14 = 2080;
-      v15 = "CFComparisonResult ABPersonComparePeopleByName(ABRecordRef, ABRecordRef, ABPersonSortOrdering)";
-      v16 = 2112;
-      v17 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
-    }
-  }
-
-  v9 = [person1 comparePersonByName:person2 sortOrdering:v3];
-  if (ABSIsAPILogEnabled())
-  {
-    v10 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 136315138;
-      v13 = "CFComparisonResult ABPersonComparePeopleByName(ABRecordRef, ABRecordRef, ABPersonSortOrdering)";
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
-    }
-  }
-
-  return v9;
-}
-
-CFIndex ABAddressBookGetPersonCount(ABAddressBookRef addressBook)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v2 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [MEMORY[0x277CCACC8] isMainThread];
-      v4 = "NO";
-      if (v3)
-      {
-        v4 = "YES";
-      }
-
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFIndex ABAddressBookGetPersonCount(ABAddressBookRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
-    }
-  }
-
-  v5 = [addressBook personCount];
-  if (ABSIsAPILogEnabled())
-  {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 136315138;
-      v9 = "CFIndex ABAddressBookGetPersonCount(ABAddressBookRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
-    }
-  }
-
-  return v5;
-}
-
-ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef addressBook, ABRecordID recordID)
-{
-  v2 = *&recordID;
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = [MEMORY[0x277CCACC8] isMainThread];
-      v6 = "NO";
-      if (v5)
-      {
-        v6 = "YES";
-      }
-
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef, ABRecordID)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
-    }
-  }
-
-  v7 = [addressBook personWithRecordID:v2];
-  if (ABSIsAPILogEnabled())
-  {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 136315138;
-      v11 = "ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef, ABRecordID)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
-    }
-  }
-
-  return v7;
-}
-
-CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef addressBook)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(v0, v1))
   {
     v2 = +[ABSLog apiLog];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -3997,75 +3525,139 @@ CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef addressBook)
       v9 = 136315650;
       v10 = v4;
       v11 = 2080;
-      v12 = "CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef)";
+      v12 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormat(void)";
       v13 = 2112;
       v14 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
     }
   }
 
-  v5 = [addressBook allPeople];
-  v6 = [v5 copy];
-
-  if (ABSIsAPILogEnabled())
+  v5 = +[ABSPerson compositeNameFormat];
+  if (ABSIsAPILogEnabled(v5, v6))
   {
     v7 = +[ABSLog apiLog];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 136315138;
-      v10 = "CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef)";
+      v10 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormat(void)";
       _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
     }
   }
 
-  return v6;
+  return v5;
 }
 
-CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef addressBook, ABRecordRef source)
+ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef record)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, v1))
   {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [MEMORY[0x277CCACC8] isMainThread];
-      v6 = "NO";
-      if (v5)
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
       {
-        v6 = "YES";
+        v5 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef, ABRecordRef)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      *buf = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v7 = [addressBook peopleInSource:source sortOrder:0xFFFFFFFFLL];
-  if (ABSIsAPILogEnabled())
+  v6 = record;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    v8 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = [v6 compositeNameFormat];
+    v9 = v7;
+  }
+
+  else
+  {
+    v7 = +[ABSPerson compositeNameFormat];
+    v9 = v7;
+    if (v6)
     {
-      v10 = 136315138;
-      v11 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef, ABRecordRef)";
-      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+      NSLog(&cfstr_WarningUnexpec.isa, v6);
+    }
+  }
+
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v13 = "ABPersonCompositeNameFormat ABPersonGetCompositeNameFormatForRecord(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+    }
+  }
+
+  return v9;
+}
+
+CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef record)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(record, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      *buf = 136315650;
+      v12 = v5;
+      v13 = 2080;
+      v14 = "CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
+    }
+  }
+
+  v6 = record;
+  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+    NSLog(&cfstr_WarningUnexpec_0.isa, v6);
+    v7 = &stru_2849A7F60;
+  }
+
+  else
+  {
+    v7 = [ABSPerson copyCompositeNameDelimiterForPerson:v6];
+    if (ABSIsAPILogEnabled(v7, v8))
+    {
+      v9 = +[ABSLog apiLog];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v12 = "CFStringRef ABPersonCopyCompositeNameDelimiterForRecord(ABRecordRef)";
+        _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+      }
     }
   }
 
   return v7;
 }
 
-CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef addressBook, ABRecordRef source, ABPersonSortOrdering sortOrdering)
+BOOL ABPersonSetImageData(ABRecordRef person, CFDataRef imageData, CFErrorRef *error)
 {
-  v3 = *&sortOrdering;
-  v18 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v22 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person, imageData))
   {
     v6 = +[ABSLog apiLog];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -4077,35 +3669,85 @@ CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBo
         v8 = "YES";
       }
 
-      v12 = 136315650;
-      v13 = v8;
-      v14 = 2080;
-      v15 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef, ABRecordRef, ABPersonSortOrdering)";
-      v16 = 2112;
-      v17 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+      *buf = 136315650;
+      v17 = v8;
+      v18 = 2080;
+      v19 = "_Bool ABPersonSetImageData(ABRecordRef, CFDataRef, CFErrorRef *)";
+      v20 = 2112;
+      v21 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v9 = [addressBook peopleInSource:source sortOrder:v3];
-  if (ABSIsAPILogEnabled())
+  v15 = 0;
+  v9 = [person setImageData:imageData withError:&v15];
+  v10 = v15;
+  v12 = v10;
+  if (error && (v9 & 1) == 0)
   {
-    v10 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = v10;
+    *error = v10;
+  }
+
+  if (ABSIsAPILogEnabled(v10, v11))
+  {
+    v13 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef, ABRecordRef, ABPersonSortOrdering)";
-      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+      *buf = 136315138;
+      v17 = "_Bool ABPersonSetImageData(ABRecordRef, CFDataRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v13, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
     }
   }
 
   return v9;
 }
 
-CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef addressBook, CFStringRef name)
+CFDataRef ABPersonCopyImageData(ABRecordRef person)
 {
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFDataRef ABPersonCopyImageData(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [person copyImageData];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "CFDataRef ABPersonCopyImageData(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef person, ABPersonImageFormat format)
+{
+  v2 = *&format;
   v17 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(person, *&format))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -4120,34 +3762,72 @@ CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef addressBook, CFStrin
       v11 = 136315650;
       v12 = v6;
       v13 = 2080;
-      v14 = "CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef, CFStringRef)";
+      v14 = "CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef, ABPersonImageFormat)";
       v15 = 2112;
       v16 = &stru_2849A7F60;
       _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
     }
   }
 
-  v7 = [addressBook peopleMatchingNameString:name];
-  v8 = [v7 copy];
-
-  if (ABSIsAPILogEnabled())
+  v7 = [person copyImageDataWithFormat:v2];
+  if (ABSIsAPILogEnabled(v7, v8))
   {
     v9 = +[ABSLog apiLog];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
-      v12 = "CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef, CFStringRef)";
+      v12 = "CFDataRef ABPersonCopyImageDataWithFormat(ABRecordRef, ABPersonImageFormat)";
       _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
-  return v8;
+  return v7;
 }
 
-CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef source, CFDataRef vCardData)
+BOOL ABPersonHasImageData(ABRecordRef person)
 {
   v16 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  if (ABSIsAPILogEnabled(person, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "_Bool ABPersonHasImageData(ABRecordRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [person hasImageData];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "_Bool ABPersonHasImageData(ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+BOOL ABPersonRemoveImageData(ABRecordRef person, CFErrorRef *error)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person, error))
   {
     v4 = +[ABSLog apiLog];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -4159,25 +3839,361 @@ CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef sourc
         v6 = "YES";
       }
 
-      v10 = 136315650;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef, CFDataRef)";
-      v14 = 2112;
-      v15 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+      *buf = 136315650;
+      v15 = v6;
+      v16 = 2080;
+      v17 = "_Bool ABPersonRemoveImageData(ABRecordRef, CFErrorRef *)";
+      v18 = 2112;
+      v19 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", buf, 0x20u);
     }
   }
 
-  v7 = [ABSPerson createPeopleInSource:source withVCardRepresentation:vCardData];
-  if (ABSIsAPILogEnabled())
+  v13 = 0;
+  v7 = [person removeImageDataWithError:&v13];
+  v8 = v13;
+  v10 = v8;
+  if (error && (v7 & 1) == 0)
+  {
+    v8 = v8;
+    *error = v8;
+  }
+
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v15 = "_Bool ABPersonRemoveImageData(ABRecordRef, CFErrorRef *)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", buf, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+CFComparisonResult ABPersonComparePeopleByName(ABRecordRef person1, ABRecordRef person2, ABPersonSortOrdering ordering)
+{
+  v3 = *&ordering;
+  v19 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(person1, person2))
+  {
+    v6 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = [MEMORY[0x277CCACC8] isMainThread];
+      v8 = "NO";
+      if (v7)
+      {
+        v8 = "YES";
+      }
+
+      v13 = 136315650;
+      v14 = v8;
+      v15 = 2080;
+      v16 = "CFComparisonResult ABPersonComparePeopleByName(ABRecordRef, ABRecordRef, ABPersonSortOrdering)";
+      v17 = 2112;
+      v18 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v13, 0x20u);
+    }
+  }
+
+  v9 = [person1 comparePersonByName:person2 sortOrdering:v3];
+  if (ABSIsAPILogEnabled(v9, v10))
+  {
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315138;
+      v14 = "CFComparisonResult ABPersonComparePeopleByName(ABRecordRef, ABRecordRef, ABPersonSortOrdering)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v13, 0xCu);
+    }
+  }
+
+  return v9;
+}
+
+CFIndex ABAddressBookGetPersonCount(ABAddressBookRef addressBook)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFIndex ABAddressBookGetPersonCount(ABAddressBookRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [addressBook personCount];
+  if (ABSIsAPILogEnabled(v6, v7))
   {
     v8 = +[ABSLog apiLog];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 136315138;
-      v11 = "CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef, CFDataRef)";
+      v11 = "CFIndex ABAddressBookGetPersonCount(ABAddressBookRef)";
       _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef addressBook, ABRecordID recordID)
+{
+  v2 = *&recordID;
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, *&recordID))
+  {
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef, ABRecordID)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
+    }
+  }
+
+  v7 = [addressBook personWithRecordID:v2];
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315138;
+      v12 = "ABRecordRef ABAddressBookGetPersonWithRecordID(ABAddressBookRef, ABRecordID)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef addressBook)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v12 = 136315650;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef)";
+      v16 = 2112;
+      v17 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v12, 0x20u);
+    }
+  }
+
+  v6 = [addressBook allPeople];
+  v7 = [v6 copy];
+
+  if (ABSIsAPILogEnabled(v8, v9))
+  {
+    v10 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315138;
+      v13 = "CFArrayRef ABAddressBookCopyArrayOfAllPeople(ABAddressBookRef)";
+      _os_log_impl(&dword_236A49000, v10, OS_LOG_TYPE_DEFAULT, ">> %s", &v12, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef addressBook, ABRecordRef source)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, source))
+  {
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef, ABRecordRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
+    }
+  }
+
+  v7 = [addressBook peopleInSource:source sortOrder:0xFFFFFFFFLL];
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315138;
+      v12 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSource(ABAddressBookRef, ABRecordRef)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
+    }
+  }
+
+  return v7;
+}
+
+CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef addressBook, ABRecordRef source, ABPersonSortOrdering sortOrdering)
+{
+  v3 = *&sortOrdering;
+  v19 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, source))
+  {
+    v6 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = [MEMORY[0x277CCACC8] isMainThread];
+      v8 = "NO";
+      if (v7)
+      {
+        v8 = "YES";
+      }
+
+      v13 = 136315650;
+      v14 = v8;
+      v15 = 2080;
+      v16 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef, ABRecordRef, ABPersonSortOrdering)";
+      v17 = 2112;
+      v18 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v13, 0x20u);
+    }
+  }
+
+  v9 = [addressBook peopleInSource:source sortOrder:v3];
+  if (ABSIsAPILogEnabled(v9, v10))
+  {
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315138;
+      v14 = "CFArrayRef ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(ABAddressBookRef, ABRecordRef, ABPersonSortOrdering)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v13, 0xCu);
+    }
+  }
+
+  return v9;
+}
+
+CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef addressBook, CFStringRef name)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(addressBook, name))
+  {
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v13 = 136315650;
+      v14 = v6;
+      v15 = 2080;
+      v16 = "CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef, CFStringRef)";
+      v17 = 2112;
+      v18 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v13, 0x20u);
+    }
+  }
+
+  v7 = [addressBook peopleMatchingNameString:name];
+  v8 = [v7 copy];
+
+  if (ABSIsAPILogEnabled(v9, v10))
+  {
+    v11 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315138;
+      v14 = "CFArrayRef ABAddressBookCopyPeopleWithName(ABAddressBookRef, CFStringRef)";
+      _os_log_impl(&dword_236A49000, v11, OS_LOG_TYPE_DEFAULT, ">> %s", &v13, 0xCu);
+    }
+  }
+
+  return v8;
+}
+
+CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef source, CFDataRef vCardData)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(source, vCardData))
+  {
+    v4 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [MEMORY[0x277CCACC8] isMainThread];
+      v6 = "NO";
+      if (v5)
+      {
+        v6 = "YES";
+      }
+
+      v11 = 136315650;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef, CFDataRef)";
+      v15 = 2112;
+      v16 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v11, 0x20u);
+    }
+  }
+
+  v7 = [ABSPerson createPeopleInSource:source withVCardRepresentation:vCardData];
+  if (ABSIsAPILogEnabled(v7, v8))
+  {
+    v9 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315138;
+      v12 = "CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef, CFDataRef)";
+      _os_log_impl(&dword_236A49000, v9, OS_LOG_TYPE_DEFAULT, ">> %s", &v11, 0xCu);
     }
   }
 
@@ -4186,8 +4202,48 @@ CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef sourc
 
 CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef people)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
+  v16 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(people, v1))
+  {
+    v3 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = [MEMORY[0x277CCACC8] isMainThread];
+      v5 = "NO";
+      if (v4)
+      {
+        v5 = "YES";
+      }
+
+      v10 = 136315650;
+      v11 = v5;
+      v12 = 2080;
+      v13 = "CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef)";
+      v14 = 2112;
+      v15 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v3, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v10, 0x20u);
+    }
+  }
+
+  v6 = [ABSPerson vCardRepresentationForPeople:people];
+  if (ABSIsAPILogEnabled(v6, v7))
+  {
+    v8 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef)";
+      _os_log_impl(&dword_236A49000, v8, OS_LOG_TYPE_DEFAULT, ">> %s", &v10, 0xCu);
+    }
+  }
+
+  return v6;
+}
+
+ABPersonSortOrdering ABPersonGetSortOrdering(void)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  if (ABSIsAPILogEnabled(v0, v1))
   {
     v2 = +[ABSLog apiLog];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -4199,69 +4255,29 @@ CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef people)
         v4 = "YES";
       }
 
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef)";
-      v12 = 2112;
-      v13 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v8, 0x20u);
+      v9 = 136315650;
+      v10 = v4;
+      v11 = 2080;
+      v12 = "ABPersonSortOrdering ABPersonGetSortOrdering(void)";
+      v13 = 2112;
+      v14 = &stru_2849A7F60;
+      _os_log_impl(&dword_236A49000, v2, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v9, 0x20u);
     }
   }
 
-  v5 = [ABSPerson vCardRepresentationForPeople:people];
-  if (ABSIsAPILogEnabled())
+  v5 = +[ABSPerson sortOrdering];
+  if (ABSIsAPILogEnabled(v5, v6))
   {
-    v6 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = +[ABSLog apiLog];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "CFDataRef ABPersonCreateVCardRepresentationWithPeople(CFArrayRef)";
-      _os_log_impl(&dword_236A49000, v6, OS_LOG_TYPE_DEFAULT, ">> %s", &v8, 0xCu);
+      v9 = 136315138;
+      v10 = "ABPersonSortOrdering ABPersonGetSortOrdering(void)";
+      _os_log_impl(&dword_236A49000, v7, OS_LOG_TYPE_DEFAULT, ">> %s", &v9, 0xCu);
     }
   }
 
   return v5;
-}
-
-ABPersonSortOrdering ABPersonGetSortOrdering(void)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  if (ABSIsAPILogEnabled())
-  {
-    v0 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = [MEMORY[0x277CCACC8] isMainThread];
-      v2 = "NO";
-      if (v1)
-      {
-        v2 = "YES";
-      }
-
-      v6 = 136315650;
-      v7 = v2;
-      v8 = 2080;
-      v9 = "ABPersonSortOrdering ABPersonGetSortOrdering(void)";
-      v10 = 2112;
-      v11 = &stru_2849A7F60;
-      _os_log_impl(&dword_236A49000, v0, OS_LOG_TYPE_DEFAULT, "<< Main thread:%s %s %@", &v6, 0x20u);
-    }
-  }
-
-  v3 = +[ABSPerson sortOrdering];
-  if (ABSIsAPILogEnabled())
-  {
-    v4 = +[ABSLog apiLog];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 136315138;
-      v7 = "ABPersonSortOrdering ABPersonGetSortOrdering(void)";
-      _os_log_impl(&dword_236A49000, v4, OS_LOG_TYPE_DEFAULT, ">> %s", &v6, 0xCu);
-    }
-  }
-
-  return v3;
 }
 
 void *ABAddressBookFindPersonMatchingURL(void *a1, uint64_t a2, uint64_t a3)

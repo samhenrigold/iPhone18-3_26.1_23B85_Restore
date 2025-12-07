@@ -430,7 +430,7 @@
 
 - (void)setElectionEnd:(unint64_t)end
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (self->_electionEnd != end)
   {
     electionPrevious = [(COMeshController *)self electionPrevious];
@@ -438,7 +438,7 @@
     {
       v6 = electionPrevious;
       electionStart = [(COMeshController *)self electionStart];
-      v28 = electionStart;
+      v27 = electionStart;
       if (self->_electionEnd)
       {
         v8 = (electionStart - v6) / 1000000000.0;
@@ -451,29 +451,29 @@
 
       label = [(COMeshController *)self label];
       nodes = [(COMeshController *)self nodes];
-      v26 = [nodes count];
+      v25 = [nodes count];
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       nodes2 = [(COMeshController *)self nodes];
       v11 = 0;
       v12 = 0;
-      v13 = [nodes2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v13 = [nodes2 countByEnumeratingWithState:&v41 objects:v45 count:16];
       if (v13)
       {
-        v14 = *v43;
+        v14 = *v42;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v43 != v14)
+            if (*v42 != v14)
             {
               objc_enumerationMutation(nodes2);
             }
 
-            v16 = *(*(&v42 + 1) + 8 * i);
+            v16 = *(*(&v41 + 1) + 8 * i);
             if ([v16 connectionType] == 2)
             {
               ++v12;
@@ -484,26 +484,26 @@
             }
           }
 
-          v13 = [nodes2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+          v13 = [nodes2 countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
         while (v13);
       }
 
       recorder = [(COMeshController *)self recorder];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __35__COMeshController_setElectionEnd___block_invoke;
-      v34[3] = &unk_278E16360;
-      v37 = (end - v28) / 1000000.0;
-      v38 = v26 + 1;
-      v39 = v12;
-      v40 = v11;
-      v41 = v8;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __35__COMeshController_setElectionEnd___block_invoke;
+      v33[3] = &unk_278E16360;
+      v36 = (end - v27) / 1000000.0;
+      v37 = v25 + 1;
+      v38 = v12;
+      v39 = v11;
+      v40 = v8;
       v18 = label;
-      v35 = v18;
+      v34 = v18;
       selfCopy = self;
-      (recorder)[2](recorder, 0x2857B5D48, v34);
+      (recorder)[2](recorder, 0x2857B5D48, v33);
 
       self->_electionEnd = end;
       electionElapsedTimer = [(COMeshController *)self electionElapsedTimer];
@@ -523,18 +523,18 @@
           handler[1] = 3221225472;
           handler[2] = __35__COMeshController_setElectionEnd___block_invoke_2;
           handler[3] = &unk_278E163B0;
-          objc_copyWeak(v32, &location);
-          v32[1] = v6;
-          v32[2] = v28;
-          v32[3] = (v26 + 1);
-          v32[4] = v12;
-          v32[5] = v11;
-          v30 = v18;
+          objc_copyWeak(v31, &location);
+          v31[1] = v6;
+          v31[2] = v27;
+          v31[3] = (v25 + 1);
+          v31[4] = v12;
+          v31[5] = v11;
+          v29 = v18;
           selfCopy2 = self;
           dispatch_source_set_event_handler(v22, handler);
           [(COMeshController *)self setElectionElapsedTimer:v22];
 
-          objc_destroyWeak(v32);
+          objc_destroyWeak(v31);
           objc_destroyWeak(&location);
         }
       }
@@ -544,36 +544,34 @@
   longestBackedOffConstituent = self->_longestBackedOffConstituent;
   self->_longestBackOff = 0;
   self->_longestBackedOffConstituent = 0;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __35__COMeshController_setElectionEnd___block_invoke(uint64_t a1)
 {
-  v17[7] = *MEMORY[0x277D85DE8];
-  v16[0] = 0x2857B5E08;
+  v16[7] = *MEMORY[0x277D85DE8];
+  v15[0] = 0x2857B5E08;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v17[0] = v2;
-  v16[1] = 0x2857B5E28;
+  v16[0] = v2;
+  v15[1] = 0x2857B5E28;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
-  v17[1] = v3;
-  v16[2] = 0x2857B5E48;
+  v16[1] = v3;
+  v15[2] = 0x2857B5E48;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
-  v17[2] = v4;
-  v16[3] = 0x2857B5E68;
+  v16[2] = v4;
+  v15[3] = 0x2857B5E68;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
-  v17[3] = v5;
-  v16[4] = 0x2857B5DE8;
+  v16[3] = v5;
+  v15[4] = 0x2857B5DE8;
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 80)];
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v17[4] = v6;
-  v17[5] = v7;
-  v16[5] = 0x2857B5DC8;
-  v16[6] = 0x2857B6048;
+  v16[4] = v6;
+  v16[5] = v7;
+  v15[5] = 0x2857B5DC8;
+  v15[6] = 0x2857B6048;
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v8 + 248)];
-  v17[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
+  v16[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
   v11 = [v10 mutableCopy];
 
   v12 = *(a1 + 40);
@@ -582,8 +580,6 @@ id __35__COMeshController_setElectionEnd___block_invoke(uint64_t a1)
     v13 = [v12 _constituentCharacteristics:?];
     [v11 setObject:v13 forKey:0x2857B6068];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -619,27 +615,27 @@ void __35__COMeshController_setElectionEnd___block_invoke_2(uint64_t a1)
 
 id __35__COMeshController_setElectionEnd___block_invoke_3(void *a1)
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v14[0] = &unk_2857C8868;
-  v13[0] = 0x2857B5E08;
-  v13[1] = 0x2857B5E28;
+  v13[7] = *MEMORY[0x277D85DE8];
+  v13[0] = &unk_2857C8868;
+  v12[0] = 0x2857B5E08;
+  v12[1] = 0x2857B5E28;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
-  v14[1] = v2;
-  v13[2] = 0x2857B5E48;
+  v13[1] = v2;
+  v12[2] = 0x2857B5E48;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[7]];
-  v14[2] = v3;
-  v13[3] = 0x2857B5E68;
+  v13[2] = v3;
+  v12[3] = 0x2857B5E68;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[8]];
-  v14[3] = v4;
-  v14[4] = &unk_2857C8928;
-  v13[4] = 0x2857B5DE8;
-  v13[5] = 0x2857B5DC8;
+  v13[3] = v4;
+  v13[4] = &unk_2857C8928;
+  v12[4] = 0x2857B5DE8;
+  v12[5] = 0x2857B5DC8;
   v5 = a1[5];
-  v14[5] = a1[4];
-  v13[6] = 0x2857B6048;
+  v13[5] = a1[4];
+  v12[6] = 0x2857B6048;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v5 + 248)];
-  v14[6] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
+  v13[6] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
   v8 = [v7 mutableCopy];
 
   v9 = a1[5];
@@ -648,8 +644,6 @@ id __35__COMeshController_setElectionEnd___block_invoke_3(void *a1)
     v10 = [v9 _constituentCharacteristics:?];
     [v8 setObject:v10 forKey:0x2857B6068];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -823,7 +817,7 @@ void __25__COMeshController_nodes__block_invoke(uint64_t a1, void *a2)
 
 void __25__COMeshController_start__block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) state];
@@ -838,22 +832,22 @@ void __25__COMeshController_start__block_invoke(uint64_t a1)
       v6 = [v5 meshName];
       v7 = [*(a1 + 32) me];
       *buf = 134218498;
-      v60 = v5;
-      v61 = 2112;
-      v62 = v6;
-      v63 = 2112;
-      v64 = v7;
+      v59 = v5;
+      v60 = 2112;
+      v61 = v6;
+      v62 = 2112;
+      v63 = v7;
       _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p starting %@ mesh (%@)", buf, 0x20u);
     }
 
     [*(a1 + 32) setElectionPrevious:0];
     v8 = [*(a1 + 32) addOns];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __25__COMeshController_start__block_invoke_57;
-    v58[3] = &unk_278E16400;
-    v58[4] = *(a1 + 32);
-    [v8 enumerateObjectsUsingBlock:v58];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __25__COMeshController_start__block_invoke_57;
+    v57[3] = &unk_278E16400;
+    v57[4] = *(a1 + 32);
+    [v8 enumerateObjectsUsingBlock:v57];
     [*(a1 + 32) willTransitionToState:1];
     v9 = [MEMORY[0x277CCAC38] processInfo];
     v10 = [v9 processName];
@@ -948,9 +942,9 @@ void __25__COMeshController_start__block_invoke(uint64_t a1)
         v41 = *(a1 + 32);
         v42 = [v41 nodeManager];
         *buf = 134218242;
-        v60 = v41;
-        v61 = 2112;
-        v62 = v42;
+        v59 = v41;
+        v60 = 2112;
+        v61 = v42;
         _os_log_impl(&dword_244378000, v40, OS_LOG_TYPE_DEFAULT, "%p starting NodeManager %@", buf, 0x16u);
       }
 
@@ -962,19 +956,19 @@ void __25__COMeshController_start__block_invoke(uint64_t a1)
       {
         v45 = *(a1 + 32);
         *buf = 134217984;
-        v60 = v45;
+        v59 = v45;
         _os_log_impl(&dword_244378000, v44, OS_LOG_TYPE_DEFAULT, "%p NodeManager started", buf, 0xCu);
       }
 
       v47 = *(a1 + 32);
       v46 = (a1 + 32);
       v48 = [v47 addOns];
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __25__COMeshController_start__block_invoke_72;
-      v57[3] = &unk_278E16400;
-      v57[4] = *v46;
-      [v48 enumerateObjectsUsingBlock:v57];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __25__COMeshController_start__block_invoke_72;
+      v56[3] = &unk_278E16400;
+      v56[4] = *v46;
+      [v48 enumerateObjectsUsingBlock:v56];
 
       [*v46 didTransitionToState:1];
     }
@@ -999,8 +993,6 @@ void __25__COMeshController_start__block_invoke(uint64_t a1)
       [*v50 didTransitionToState:1];
     }
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -1016,7 +1008,7 @@ void __25__COMeshController_start__block_invoke(uint64_t a1)
 
 void __24__COMeshController_stop__block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) state];
@@ -1039,16 +1031,16 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v59 = __Block_byref_object_copy__9;
-    v60 = __Block_byref_object_dispose__9;
-    v61 = [*(a1 + 32) addOns];
+    v58 = __Block_byref_object_copy__9;
+    v59 = __Block_byref_object_dispose__9;
+    v60 = [*(a1 + 32) addOns];
     v7 = *(*&buf[8] + 40);
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __24__COMeshController_stop__block_invoke_73;
-    v56[3] = &unk_278E16400;
-    v56[4] = *(a1 + 32);
-    [v7 enumerateObjectsUsingBlock:v56];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __24__COMeshController_stop__block_invoke_73;
+    v55[3] = &unk_278E16400;
+    v55[4] = *(a1 + 32);
+    [v7 enumerateObjectsUsingBlock:v55];
     [*(a1 + 32) willTransitionToState:4];
     [*(a1 + 32) _tearDownCoordinationPrefsObserver];
     v8 = [MEMORY[0x277CFD0B8] isGlobalMessagingEnabled];
@@ -1061,13 +1053,13 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
 
       [*(a1 + 32) didTransitionToState:4];
       v10 = [*(a1 + 32) nodeManager];
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __24__COMeshController_stop__block_invoke_2;
-      v55[3] = &unk_278E15950;
-      v55[4] = *(a1 + 32);
-      v55[5] = buf;
-      [v10 stopWithCompletionHandler:v55];
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __24__COMeshController_stop__block_invoke_2;
+      v54[3] = &unk_278E15950;
+      v54[4] = *(a1 + 32);
+      v54[5] = buf;
+      [v10 stopWithCompletionHandler:v54];
 
       [*(a1 + 32) setRapportBrowser:0];
       [*(a1 + 32) setIdsBrowser:0];
@@ -1095,29 +1087,29 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
           v19 = [*(a1 + 32) nodes];
           v20 = [v19 count];
 
-          v52 = 0u;
-          v53 = 0u;
           v51 = 0u;
+          v52 = 0u;
           v50 = 0u;
+          v49 = 0u;
           v21 = [*(a1 + 32) nodes];
-          v22 = [v21 countByEnumeratingWithState:&v50 objects:v57 count:16];
-          v39 = v20;
-          v40 = v18;
+          v22 = [v21 countByEnumeratingWithState:&v49 objects:v56 count:16];
+          v38 = v20;
+          v39 = v18;
           v23 = 0;
           v24 = 0;
           if (v22)
           {
-            v25 = *v51;
+            v25 = *v50;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v51 != v25)
+                if (*v50 != v25)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                v27 = *(*(&v50 + 1) + 8 * i);
+                v27 = *(*(&v49 + 1) + 8 * i);
                 if ([v27 connectionType] == 2)
                 {
                   ++v23;
@@ -1128,7 +1120,7 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
                 }
               }
 
-              v22 = [v21 countByEnumeratingWithState:&v50 objects:v57 count:16];
+              v22 = [v21 countByEnumeratingWithState:&v49 objects:v56 count:16];
             }
 
             while (v22);
@@ -1136,28 +1128,28 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
 
           v28 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
           v29 = [*(a1 + 32) recorder];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __24__COMeshController_stop__block_invoke_3;
-          v44[3] = &unk_278E16428;
-          v46 = v39 + 1;
-          v47 = v23;
-          v48 = v24;
-          v49 = (v28 - v17) / 1000000000.0;
-          v30 = v40;
-          v45 = v30;
-          (v29)[2](v29, 0x2857B5D48, v44);
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __24__COMeshController_stop__block_invoke_3;
+          v43[3] = &unk_278E16428;
+          v45 = v38 + 1;
+          v46 = v23;
+          v47 = v24;
+          v48 = (v28 - v17) / 1000000000.0;
+          v30 = v39;
+          v44 = v30;
+          (v29)[2](v29, 0x2857B5D48, v43);
         }
 
         v31 = objc_alloc_init(COMeshWithdrawalCommand);
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __24__COMeshController_stop__block_invoke_4;
-        v41[3] = &unk_278E16450;
-        v43 = 4;
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __24__COMeshController_stop__block_invoke_4;
+        v40[3] = &unk_278E16450;
+        v42 = 4;
         v32 = v31;
-        v42 = v32;
-        [v12 enumerateObjectsUsingBlock:v41];
+        v41 = v32;
+        [v12 enumerateObjectsUsingBlock:v40];
 
         v33 = 4;
       }
@@ -1177,12 +1169,12 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
 
         objc_sync_exit(v34);
         v37 = *(*&buf[8] + 40);
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __24__COMeshController_stop__block_invoke_2_76;
-        v54[3] = &unk_278E16400;
-        v54[4] = *(a1 + 32);
-        [v37 enumerateObjectsUsingBlock:v54];
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __24__COMeshController_stop__block_invoke_2_76;
+        v53[3] = &unk_278E16400;
+        v53[4] = *(a1 + 32);
+        [v37 enumerateObjectsUsingBlock:v53];
         v33 = 0;
       }
 
@@ -1191,22 +1183,20 @@ void __24__COMeshController_stop__block_invoke(uint64_t a1)
 
     _Block_object_dispose(buf, 8);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __24__COMeshController_stop__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [v3 nodeManager];
     *buf = 134218240;
-    v14 = v3;
-    v15 = 2048;
-    v16 = v4;
+    v13 = v3;
+    v14 = 2048;
+    v15 = v4;
     _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p Node manager %p successfully stopped", buf, 0x16u);
   }
 
@@ -1221,40 +1211,36 @@ uint64_t __24__COMeshController_stop__block_invoke_2(uint64_t a1)
 
   objc_sync_exit(v5);
   v9 = *(*(*(a1 + 40) + 8) + 40);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __24__COMeshController_stop__block_invoke_74;
-  v12[3] = &unk_278E16400;
-  v12[4] = *(a1 + 32);
-  [v9 enumerateObjectsUsingBlock:v12];
-  result = [*(a1 + 32) didTransitionToState:0];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __24__COMeshController_stop__block_invoke_74;
+  v11[3] = &unk_278E16400;
+  v11[4] = *(a1 + 32);
+  [v9 enumerateObjectsUsingBlock:v11];
+  return [*(a1 + 32) didTransitionToState:0];
 }
 
 id __24__COMeshController_stop__block_invoke_3(uint64_t a1)
 {
-  v11[6] = *MEMORY[0x277D85DE8];
-  v11[0] = &unk_2857C8868;
-  v10[0] = 0x2857B5E08;
-  v10[1] = 0x2857B5E28;
+  v10[6] = *MEMORY[0x277D85DE8];
+  v10[0] = &unk_2857C8868;
+  v9[0] = 0x2857B5E08;
+  v9[1] = 0x2857B5E28;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
-  v11[1] = v2;
-  v10[2] = 0x2857B5E48;
+  v10[1] = v2;
+  v9[2] = 0x2857B5E48;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
-  v11[2] = v3;
-  v10[3] = 0x2857B5E68;
+  v10[2] = v3;
+  v9[3] = 0x2857B5E68;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
-  v11[3] = v4;
-  v10[4] = 0x2857B5DE8;
+  v10[3] = v4;
+  v9[4] = 0x2857B5DE8;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
-  v10[5] = 0x2857B5DC8;
+  v9[5] = 0x2857B5DC8;
   v6 = *(a1 + 32);
-  v11[4] = v5;
-  v11[5] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v5;
+  v10[5] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
 
   return v7;
 }
@@ -1593,7 +1579,7 @@ void __39__COMeshController_sendCommand_toPeer___block_invoke(uint64_t a1)
   v2 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __39__COMeshController_sendCommand_toPeer___block_invoke_cold_1(a1);
+    __39__COMeshController_sendCommand_toPeer___block_invoke_cold_1(a1, v2);
   }
 
   v3 = [COMeshControllerQueuedCommand alloc];
@@ -1612,7 +1598,7 @@ void __39__COMeshController_sendCommand_toPeer___block_invoke(uint64_t a1)
 
 void __39__COMeshController_sendCommand_toPeer___block_invoke_82(void *a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = COCoreLogForCategory(0);
   v6 = v5;
@@ -1626,21 +1612,18 @@ void __39__COMeshController_sendCommand_toPeer___block_invoke_82(void *a1, uint6
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = a1[4];
-    v7 = a1[5];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = a1[6];
-    v13 = 134218498;
-    v14 = v8;
+    v7 = a1[4];
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = a1[6];
+    v11 = 134218498;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v9;
     v15 = 2112;
     v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p sent command %@ to peer %@", &v13, 0x20u);
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p sent command %@ to peer %@", &v11, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequest:(id)request toPeer:(id)peer withCompletionHandler:(id)handler
@@ -1668,7 +1651,7 @@ void __61__COMeshController_sendRequest_toPeer_withCompletionHandler___block_inv
   v2 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __61__COMeshController_sendRequest_toPeer_withCompletionHandler___block_invoke_cold_1(a1);
+    __61__COMeshController_sendRequest_toPeer_withCompletionHandler___block_invoke_cold_1(a1, v2);
   }
 
   v3 = [(COMeshControllerQueuedRequest *)[COMeshControllerQueuedPeerRequest alloc] initWithRequest:*(a1 + 40) completionHandler:*(a1 + 56)];
@@ -1724,42 +1707,40 @@ void __88__COMeshController_broadcastRequest_includingSelf_recipientsCallback_co
 
 void __37__COMeshController_sendNotification___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) nodes];
   v3 = [v2 copy];
 
   v4 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
+    v10 = *(a1 + 32);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     *buf = 134218498;
+    v20 = v10;
+    v21 = 2112;
     v22 = v12;
     v23 = 2112;
-    v24 = v14;
-    v25 = 2112;
-    v26 = v3;
+    v24 = v3;
     _os_log_debug_impl(&dword_244378000, v4, OS_LOG_TYPE_DEBUG, "%p notifying %@ with recipients list %@", buf, 0x20u);
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __37__COMeshController_sendNotification___block_invoke_86;
-  v18 = &unk_278E16568;
-  v19 = *(a1 + 40);
-  v20 = v5;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __37__COMeshController_sendNotification___block_invoke_86;
+  v16 = &unk_278E16568;
+  v17 = *(a1 + 40);
+  v18 = v5;
   v6 = v5;
-  [v3 enumerateObjectsUsingBlock:&v15];
+  [v3 enumerateObjectsUsingBlock:&v13];
   v7 = *(a1 + 32);
   v8 = [v7 queuedCommands];
   v9 = [v8 arrayByAddingObjectsFromArray:v6];
   [v7 setQueuedCommands:v9];
 
   [*(a1 + 32) _processQueuedCommands];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __37__COMeshController_sendNotification___block_invoke_86(uint64_t a1, void *a2)
@@ -1783,30 +1764,30 @@ void __37__COMeshController_sendNotification___block_invoke_86(uint64_t a1, void
 
 - (id)nodeForConstituent:(id)constituent
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   constituentCopy = constituent;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   nodes = [(COMeshController *)self nodes];
-  v7 = [nodes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [nodes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(nodes);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         remote = [v10 remote];
         v12 = [remote isEqual:constituentCopy];
 
@@ -1817,7 +1798,7 @@ void __37__COMeshController_sendNotification___block_invoke_86(uint64_t a1, void
         }
       }
 
-      v7 = [nodes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [nodes countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -1829,14 +1810,12 @@ void __37__COMeshController_sendNotification___block_invoke_86(uint64_t a1, void
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_currentBallotMergedWithBallot:(id)ballot
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   ballotCopy = ballot;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1846,26 +1825,26 @@ LABEL_11:
 
   [v7 mergeBallot:ballotCopy];
   v8 = [(COMeshController *)self me];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   candidates = [v7 candidates];
-  v10 = [candidates countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [candidates countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         if (([v14 isEqual:v8] & 1) == 0)
         {
           v15 = [(COMeshController *)self nodeForConstituent:v14];
@@ -1877,57 +1856,55 @@ LABEL_11:
         }
       }
 
-      v11 = [candidates countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [candidates countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v16 = [v7 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (void)_pingLeader
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
   selfCopy = self;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p sending ping (%g)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2048;
+  v6 = a3;
+  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p sending ping (%g)", &v3, 0x16u);
 }
 
 - (id)_inflateQueueCommands
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   nodes = [(COMeshController *)self nodes];
   v4 = [nodes copy];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   selfCopy = self;
   queuedCommands = [(COMeshController *)self queuedCommands];
-  v6 = [queuedCommands countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [queuedCommands countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(queuedCommands);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1945,14 +1922,14 @@ LABEL_11:
             queuedCommands = v14;
           }
 
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __41__COMeshController__inflateQueueCommands__block_invoke;
-          v24[3] = &unk_278E16568;
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __41__COMeshController__inflateQueueCommands__block_invoke;
+          v23[3] = &unk_278E16568;
           v17 = v11;
-          v25 = v17;
-          v26 = array;
-          [v12 enumerateObjectsUsingBlock:v24];
+          v24 = v17;
+          v25 = array;
+          [v12 enumerateObjectsUsingBlock:v23];
           recipientCallback = [v17 recipientCallback];
 
           if (recipientCallback)
@@ -1968,13 +1945,11 @@ LABEL_11:
         }
       }
 
-      v7 = [queuedCommands countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [queuedCommands countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1992,10 +1967,226 @@ void __41__COMeshController__inflateQueueCommands__block_invoke(uint64_t a1, voi
 
 - (void)_processQueuedCommands
 {
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p leader is %p, so dispatching queue to self", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
+  dispatchQueue = [(COMeshController *)self dispatchQueue];
+  dispatch_assert_queue_V2(dispatchQueue);
+
+  clusterOptions = [(COMeshController *)self clusterOptions];
+  leader = [(COMeshController *)self leader];
+  v5 = leader;
+  if (leader || (clusterOptions & 1) == 0)
+  {
+    _inflateQueueCommands = [(COMeshController *)self _inflateQueueCommands];
+    v6 = objc_alloc_init(MEMORY[0x277CBEA60]);
+    [(COMeshController *)self setQueuedCommands:v6];
+
+    if ([MEMORY[0x277CFD0B8] isGlobalMessagingEnabled])
+    {
+      sentCommands = [(COMeshController *)self sentCommands];
+      v8 = [sentCommands arrayByAddingObjectsFromArray:_inflateQueueCommands];
+      [(COMeshController *)self setSentCommands:v8];
+
+      nodeManager = [(COMeshController *)self nodeManager];
+      v10 = _inflateQueueCommands;
+      [nodeManager sendCommands:_inflateQueueCommands];
+
+LABEL_40:
+      v5 = leader;
+      goto LABEL_41;
+    }
+
+    v43 = objc_opt_class();
+    v44 = objc_opt_class();
+    v41 = objc_opt_class();
+    v42 = objc_opt_class();
+    v11 = [(COMeshController *)self me];
+    v12 = [leader isEqual:v11];
+
+    if (v12)
+    {
+      listener = [(COMeshController *)self listener];
+      objc_initWeak(location, self);
+      v14 = COCoreLogForCategory(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [COMeshController _processQueuedCommands];
+      }
+
+      v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      obj = _inflateQueueCommands;
+      v15 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+      if (v15)
+      {
+        v16 = *v50;
+        do
+        {
+          for (i = 0; i != v15; ++i)
+          {
+            if (*v50 != v16)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v18 = *(*(&v49 + 1) + 8 * i);
+            dispatchQueue2 = [(COMeshController *)self dispatchQueue];
+            block[0] = MEMORY[0x277D85DD0];
+            block[1] = 3221225472;
+            block[2] = __42__COMeshController__processQueuedCommands__block_invoke_91;
+            block[3] = &unk_278E165E0;
+            objc_copyWeak(v48, location);
+            block[4] = v18;
+            v46 = listener;
+            selfCopy = self;
+            v48[1] = v44;
+            v48[2] = v43;
+            v48[3] = v42;
+            v48[4] = v41;
+            dispatch_async(dispatchQueue2, block);
+
+            objc_destroyWeak(v48);
+          }
+
+          v15 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+        }
+
+        while (v15);
+      }
+
+      objc_destroyWeak(location);
+      goto LABEL_39;
+    }
+
+    v20 = [(COMeshController *)self nodeForConstituent:leader];
+    v21 = COCoreLogForCategory(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      *location = 134218498;
+      *&location[4] = self;
+      v62 = 2048;
+      v63 = v20;
+      v64 = 2112;
+      v65 = leader;
+      _os_log_debug_impl(&dword_244378000, v21, OS_LOG_TYPE_DEBUG, "%p leader is %p (%@)", location, 0x20u);
+    }
+
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v22 = _inflateQueueCommands;
+    v23 = [v22 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    if (!v23)
+    {
+LABEL_38:
+
+LABEL_39:
+      v10 = _inflateQueueCommands;
+      goto LABEL_40;
+    }
+
+    obja = *v56;
+LABEL_20:
+    v24 = 0;
+    while (1)
+    {
+      if (*v56 != obja)
+      {
+        objc_enumerationMutation(v22);
+      }
+
+      v25 = *(*(&v55 + 1) + 8 * v24);
+      [(COMeshController *)self _pingLeader];
+      sentCommands2 = [(COMeshController *)self sentCommands];
+      v27 = [sentCommands2 arrayByAddingObject:v25];
+      [(COMeshController *)self setSentCommands:v27];
+
+      command = [v25 command];
+      if (objc_opt_isKindOfClass())
+      {
+        destination = [v25 destination];
+        listener2 = [(COMeshController *)self listener];
+        v31 = [destination isEqual:listener2];
+
+        if (!v31)
+        {
+          goto LABEL_35;
+        }
+
+        [command _setSender:v20];
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __42__COMeshController__processQueuedCommands__block_invoke;
+        v54[3] = &unk_278E16590;
+        v54[4] = v25;
+        [(COMeshController *)self node:v20 didReceiveRequest:command responseCallBack:v54];
+      }
+
+      else if (objc_opt_isKindOfClass())
+      {
+        [v25 setDestination:v20];
+        [v20 sendMeshRequest:command];
+      }
+
+      else
+      {
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          if (objc_opt_isKindOfClass())
+          {
+            destination2 = [v25 destination];
+            [destination2 sendMeshCommand:command];
+          }
+
+          else
+          {
+            [v25 setDestination:v20];
+            [v20 sendMeshCommand:command];
+          }
+
+          goto LABEL_36;
+        }
+
+        destination3 = [v25 destination];
+        listener3 = [(COMeshController *)self listener];
+        v34 = [destination3 isEqual:listener3];
+
+        if (!v34)
+        {
+LABEL_35:
+          destination4 = [v25 destination];
+          [destination4 sendMeshRequest:command];
+
+          goto LABEL_36;
+        }
+
+        [command _setSender:v20];
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __42__COMeshController__processQueuedCommands__block_invoke_2;
+        v53[3] = &unk_278E16590;
+        v53[4] = v25;
+        [(COMeshController *)self node:v20 didReceiveRequest:command responseCallBack:v53];
+      }
+
+LABEL_36:
+
+      if (v23 == ++v24)
+      {
+        v23 = [v22 countByEnumeratingWithState:&v55 objects:v60 count:16];
+        if (!v23)
+        {
+          goto LABEL_38;
+        }
+
+        goto LABEL_20;
+      }
+    }
+  }
+
+LABEL_41:
 }
 
 void __42__COMeshController__processQueuedCommands__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2016,97 +2207,92 @@ void __42__COMeshController__processQueuedCommands__block_invoke_2(uint64_t a1, 
 
 void __42__COMeshController__processQueuedCommands__block_invoke_91(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) command];
     [v3 _setSender:*(a1 + 40)];
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 64);
     if (objc_opt_isKindOfClass())
     {
-      v6 = [*(a1 + 32) destination];
-      v7 = [WeakRetained listener];
-      v8 = [v6 isEqual:v7];
+      v4 = [*(a1 + 32) destination];
+      v5 = [WeakRetained listener];
+      v6 = [v4 isEqual:v5];
 
-      if (v8)
+      if (v6)
       {
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __42__COMeshController__processQueuedCommands__block_invoke_2_92;
-        v46[3] = &unk_278E16590;
-        v9 = *(a1 + 40);
-        v46[4] = *(a1 + 32);
-        [WeakRetained node:v9 didReceiveRequest:v3 responseCallBack:v46];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __42__COMeshController__processQueuedCommands__block_invoke_2_92;
+        v40[3] = &unk_278E16590;
+        v7 = *(a1 + 40);
+        v40[4] = *(a1 + 32);
+        [WeakRetained node:v7 didReceiveRequest:v3 responseCallBack:v40];
 LABEL_13:
 
         goto LABEL_14;
       }
 
-      v16 = *(a1 + 48);
-      v17 = [v16 sentCommands];
-      v18 = [v17 arrayByAddingObject:*(a1 + 32)];
-      [v16 setSentCommands:v18];
+      v13 = *(a1 + 48);
+      v14 = [v13 sentCommands];
+      v15 = [v14 arrayByAddingObject:*(a1 + 32)];
+      [v13 setSentCommands:v15];
 
       goto LABEL_11;
     }
 
-    v10 = *(a1 + 72);
     if (objc_opt_isKindOfClass())
     {
       [*(a1 + 32) setDestination:*(a1 + 40)];
-      v11 = COCoreLogForCategory(0);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v8 = COCoreLogForCategory(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v32 = *(a1 + 48);
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
-        v35 = *(a1 + 40);
+        v26 = *(a1 + 48);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
+        v29 = *(a1 + 40);
         *buf = 134218498;
-        v48 = v32;
-        v49 = 2112;
-        v50 = v34;
-        v51 = 2048;
-        v52 = v35;
-        _os_log_debug_impl(&dword_244378000, v11, OS_LOG_TYPE_DEBUG, "%p self requesting %@ from %p", buf, 0x20u);
+        v42 = v26;
+        v43 = 2112;
+        v44 = v28;
+        v45 = 2048;
+        v46 = v29;
+        _os_log_debug_impl(&dword_244378000, v8, OS_LOG_TYPE_DEBUG, "%p self requesting %@ from %p", buf, 0x20u);
       }
 
-      v12 = *(a1 + 40);
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __42__COMeshController__processQueuedCommands__block_invoke_93;
-      v43[3] = &unk_278E165B8;
-      v13 = v12;
-      v14 = *(a1 + 32);
-      v44 = v13;
-      v45 = v14;
-      [WeakRetained node:v13 didReceiveRequest:v3 responseCallBack:v43];
-      v15 = v44;
+      v9 = *(a1 + 40);
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __42__COMeshController__processQueuedCommands__block_invoke_93;
+      v37[3] = &unk_278E165B8;
+      v10 = v9;
+      v11 = *(a1 + 32);
+      v38 = v10;
+      v39 = v11;
+      [WeakRetained node:v10 didReceiveRequest:v3 responseCallBack:v37];
+      v12 = v38;
     }
 
     else
     {
-      v21 = *(a1 + 80);
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v28 = *(a1 + 88);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v31 = COCoreLogForCategory(0);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v25 = COCoreLogForCategory(0);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
-            v36 = *(a1 + 48);
-            v37 = objc_opt_class();
-            v38 = NSStringFromClass(v37);
-            v39 = *(a1 + 40);
+            v30 = *(a1 + 48);
+            v31 = objc_opt_class();
+            v32 = NSStringFromClass(v31);
+            v33 = *(a1 + 40);
             *buf = 134218498;
-            v48 = v36;
-            v49 = 2112;
-            v50 = v38;
-            v51 = 2048;
-            v52 = v39;
-            _os_log_debug_impl(&dword_244378000, v31, OS_LOG_TYPE_DEBUG, "%p self sending %@ to %p", buf, 0x20u);
+            v42 = v30;
+            v43 = 2112;
+            v44 = v32;
+            v45 = 2048;
+            v46 = v33;
+            _os_log_debug_impl(&dword_244378000, v25, OS_LOG_TYPE_DEBUG, "%p self sending %@ to %p", buf, 0x20u);
           }
 
           [*(a1 + 32) invokeCallbackWithError:0];
@@ -2114,48 +2300,46 @@ LABEL_13:
           goto LABEL_13;
         }
 
-        v19 = [*(a1 + 32) destination];
-        [v19 sendMeshCommand:v3];
+        v16 = [*(a1 + 32) destination];
+        [v16 sendMeshCommand:v3];
         goto LABEL_12;
       }
 
-      v22 = [*(a1 + 32) destination];
-      v23 = [WeakRetained listener];
-      v24 = [v22 isEqual:v23];
+      v17 = [*(a1 + 32) destination];
+      v18 = [WeakRetained listener];
+      v19 = [v17 isEqual:v18];
 
-      if (!v24)
+      if (!v19)
       {
-        v29 = [WeakRetained sentCommands];
-        v30 = [v29 arrayByAddingObject:*(a1 + 32)];
-        [WeakRetained setSentCommands:v30];
+        v23 = [WeakRetained sentCommands];
+        v24 = [v23 arrayByAddingObject:*(a1 + 32)];
+        [WeakRetained setSentCommands:v24];
 
 LABEL_11:
-        v19 = [*(a1 + 32) destination];
-        [v19 sendMeshRequest:v3];
+        v16 = [*(a1 + 32) destination];
+        [v16 sendMeshRequest:v3];
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      v25 = *(a1 + 40);
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __42__COMeshController__processQueuedCommands__block_invoke_2_94;
-      v40[3] = &unk_278E165B8;
-      v26 = v25;
-      v27 = *(a1 + 32);
-      v41 = v26;
-      v42 = v27;
-      [WeakRetained node:v26 didReceiveRequest:v3 responseCallBack:v40];
-      v15 = v41;
+      v20 = *(a1 + 40);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __42__COMeshController__processQueuedCommands__block_invoke_2_94;
+      v34[3] = &unk_278E165B8;
+      v21 = v20;
+      v22 = *(a1 + 32);
+      v35 = v21;
+      v36 = v22;
+      [WeakRetained node:v21 didReceiveRequest:v3 responseCallBack:v34];
+      v12 = v35;
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __42__COMeshController__processQueuedCommands__block_invoke_2_92(uint64_t a1, uint64_t a2, void *a3)
@@ -2313,7 +2497,7 @@ LABEL_15:
 - (void)_performElectionGeneration:(unint64_t)generation source:(id)source allowingPostTransition:(BOOL)transition
 {
   transitionCopy = transition;
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -2387,12 +2571,12 @@ LABEL_17:
   if (state == 1)
   {
     addOns = [(COMeshController *)selfCopy addOns];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke;
-    v57[3] = &unk_278E16400;
-    v57[4] = selfCopy;
-    [addOns enumerateObjectsUsingBlock:v57];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke;
+    v56[3] = &unk_278E16400;
+    v56[4] = selfCopy;
+    [addOns enumerateObjectsUsingBlock:v56];
   }
 
   [(COMeshController *)selfCopy setElectionStart:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW)];
@@ -2461,8 +2645,8 @@ LABEL_29:
         *&buf[12] = 2112;
         *&buf[14] = discovery;
         *&buf[22] = 2048;
-        v59 = v20;
-        v45 = discovery;
+        v58 = v20;
+        v44 = discovery;
         _os_log_impl(&dword_244378000, v34, OS_LOG_TYPE_DEFAULT, "%p updated Discovery %@ in ballot %p", buf, 0x20u);
       }
     }
@@ -2477,9 +2661,9 @@ LABEL_29:
         *&buf[12] = 2112;
         *&buf[14] = v33;
         *&buf[22] = 2112;
-        v59 = v31;
-        v60 = 2048;
-        v61 = v20;
+        v58 = v31;
+        v59 = 2048;
+        v60 = v20;
         _os_log_error_impl(&dword_244378000, v34, OS_LOG_TYPE_ERROR, "%p cannot add Discovery %@ for %@ to ballot %p", buf, 0x2Au);
       }
     }
@@ -2488,7 +2672,7 @@ LABEL_29:
   }
 
 LABEL_31:
-  [(COMeshController *)selfCopy setBallot:v20, v45];
+  [(COMeshController *)selfCopy setBallot:v20, v44];
   candidates = [(COBallot *)v20 candidates];
   firstObject = [candidates firstObject];
 
@@ -2496,31 +2680,31 @@ LABEL_31:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v59) = 0;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_99;
-  v51[3] = &unk_278E16608;
-  v55 = buf;
+  LOBYTE(v58) = 0;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_99;
+  v50[3] = &unk_278E16608;
+  v54 = buf;
   generationCopy = generation;
   v39 = firstObject;
-  v52 = v39;
+  v51 = v39;
   v40 = v38;
-  v53 = v40;
+  v52 = v40;
   v41 = v20;
-  v54 = v41;
-  [v12 enumerateObjectsUsingBlock:v51];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_2;
-  v47[3] = &unk_278E16630;
-  v47[4] = selfCopy;
+  v53 = v41;
+  [v12 enumerateObjectsUsingBlock:v50];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_2;
+  v46[3] = &unk_278E16630;
+  v46[4] = selfCopy;
   v42 = v40;
-  v48 = v42;
+  v47 = v42;
   generationCopy2 = generation;
   v43 = v41;
-  v49 = v43;
-  [v13 enumerateObjectsUsingBlock:v47];
+  v48 = v43;
+  [v13 enumerateObjectsUsingBlock:v46];
   if ((v22 & 1) == 0)
   {
     [(COMeshController *)selfCopy didTransitionToState:2];
@@ -2533,8 +2717,6 @@ LABEL_31:
 
   _Block_object_dispose(buf, 8);
 LABEL_37:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_99(void *a1, void *a2)
@@ -2544,20 +2726,8 @@ void __77__COMeshController__performElectionGeneration_source_allowingPostTransi
   if (v3 == 3)
   {
     v4 = a1[8];
-    if (v4 != [v10 lastGenerationReceived])
+    if (v4 != [v10 lastGenerationReceived] || (v5 = a1[4], objc_msgSend(v10, "lastBallotReceived"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "candidates"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), v7, LOBYTE(v5) = objc_msgSend(v5, "isEqual:", v8), v8, v6, (v5 & 1) == 0))
     {
-      goto LABEL_6;
-    }
-
-    v5 = a1[4];
-    v6 = [v10 lastBallotReceived];
-    v7 = [v6 candidates];
-    v8 = [v7 firstObject];
-
-    LOBYTE(v5) = [v5 isEqual:v8];
-    if ((v5 & 1) == 0)
-    {
-LABEL_6:
       if (([v10 hasOutstandingRequest] & 1) == 0)
       {
         *(*(a1[7] + 8) + 24) = 1;
@@ -2581,7 +2751,7 @@ LABEL_6:
 
 void __77__COMeshController__performElectionGeneration_source_allowingPostTransition___block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 hasOutstandingProbe] & 1) == 0)
   {
@@ -2590,11 +2760,11 @@ void __77__COMeshController__performElectionGeneration_source_allowingPostTransi
     {
       v5 = a1[4];
       v6 = [v3 node];
-      v9 = 134218240;
-      v10 = v5;
-      v11 = 2048;
-      v12 = v6;
-      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p sending probe to %p", &v9, 0x16u);
+      v8 = 134218240;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v6;
+      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p sending probe to %p", &v8, 0x16u);
     }
 
     v7 = [v3 node];
@@ -2605,8 +2775,6 @@ void __77__COMeshController__performElectionGeneration_source_allowingPostTransi
     [v3 setLastBallotSent:a1[6]];
     [v3 setOutstandingProbe:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isElectionComplete
@@ -2631,7 +2799,7 @@ void __77__COMeshController__performElectionGeneration_source_allowingPostTransi
   return selfCopy;
 }
 
-uint64_t __39__COMeshController__isElectionComplete__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__39__COMeshController__isElectionComplete__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 state];
   if (result == 2)
@@ -2758,29 +2926,29 @@ uint64_t __39__COMeshController__isElectionComplete__block_invoke(uint64_t a1, v
 
 - (void)_logElectionSummary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   ballot = [(COMeshController *)self ballot];
   candidates = [ballot candidates];
   v5 = [candidates mutableCopy];
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__9;
-  v40 = __Block_byref_object_dispose__9;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__9;
+  v39 = __Block_byref_object_dispose__9;
   string = [MEMORY[0x277CCAB68] string];
   trackers = [(COMeshController *)self trackers];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __39__COMeshController__logElectionSummary__block_invoke;
-  v33[3] = &unk_278E16680;
-  v35 = &v36;
-  v33[4] = self;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __39__COMeshController__logElectionSummary__block_invoke;
+  v32[3] = &unk_278E16680;
+  v34 = &v35;
+  v32[4] = self;
   v7 = v5;
-  v34 = v7;
-  [trackers enumerateNodeStateTrackersOfStatus:1 usingBlock:v33];
+  v33 = v7;
+  [trackers enumerateNodeStateTrackersOfStatus:1 usingBlock:v32];
 
-  v8 = v37[5];
+  v8 = v36[5];
   v9 = [(COMeshController *)self _nodeDetails:0];
   [v8 appendFormat:@"%@\n", v9];
 
@@ -2792,15 +2960,15 @@ uint64_t __39__COMeshController__isElectionComplete__block_invoke(uint64_t a1, v
   {
     meshName = [(COMeshController *)self meshName];
     generation = [(COMeshController *)self generation];
-    v14 = v37[5];
+    v14 = v36[5];
     *buf = 134218754;
     selfCopy4 = self;
-    v44 = 2114;
-    v45 = meshName;
-    v46 = 2048;
-    v47 = generation;
-    v48 = 2114;
-    v49 = v14;
+    v43 = 2114;
+    v44 = meshName;
+    v45 = 2048;
+    v46 = generation;
+    v47 = 2114;
+    v48 = v14;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p %{public}@ : Candidate summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
 
@@ -2813,76 +2981,75 @@ uint64_t __39__COMeshController__isElectionComplete__block_invoke(uint64_t a1, v
       generation2 = [(COMeshController *)self generation];
       *buf = 134218754;
       selfCopy4 = self;
-      v44 = 2114;
-      v45 = meshName2;
-      v46 = 2048;
-      v47 = generation2;
-      v48 = 2112;
-      v49 = v7;
+      v43 = 2114;
+      v44 = meshName2;
+      v45 = 2048;
+      v46 = generation2;
+      v47 = 2112;
+      v48 = v7;
       _os_log_error_impl(&dword_244378000, v15, OS_LOG_TYPE_ERROR, "%p %{public}@ : Ballot contituents and active trackers are mismatched for Election(%llu). Constituents not found in active trackers = %@", buf, 0x2Au);
     }
   }
 
-  v16 = v37[5];
-  v37[5] = 0;
+  v16 = v36[5];
+  v36[5] = 0;
 
   trackers2 = [(COMeshController *)self trackers];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __39__COMeshController__logElectionSummary__block_invoke_125;
-  v32[3] = &unk_278E166A8;
-  v32[4] = self;
-  v32[5] = &v36;
-  [trackers2 enumerateNodeStateTrackersOfStatus:2 usingBlock:v32];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __39__COMeshController__logElectionSummary__block_invoke_125;
+  v31[3] = &unk_278E166A8;
+  v31[4] = self;
+  v31[5] = &v35;
+  [trackers2 enumerateNodeStateTrackersOfStatus:2 usingBlock:v31];
 
   v18 = COCoreLogForCategory(8);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     meshName3 = [(COMeshController *)self meshName];
     generation3 = [(COMeshController *)self generation];
-    v21 = v37[5];
+    v21 = v36[5];
     *buf = 134218754;
     selfCopy4 = self;
-    v44 = 2114;
-    v45 = meshName3;
-    v46 = 2048;
-    v47 = generation3;
-    v48 = 2114;
-    v49 = v21;
+    v43 = 2114;
+    v44 = meshName3;
+    v45 = 2048;
+    v46 = generation3;
+    v47 = 2114;
+    v48 = v21;
     _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%p %{public}@ : Dormant trackers summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
 
-  v22 = v37[5];
-  v37[5] = 0;
+  v22 = v36[5];
+  v36[5] = 0;
 
   trackers3 = [(COMeshController *)self trackers];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __39__COMeshController__logElectionSummary__block_invoke_126;
-  v31[3] = &unk_278E166A8;
-  v31[4] = self;
-  v31[5] = &v36;
-  [trackers3 enumerateNodeStateTrackersOfStatus:0 usingBlock:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __39__COMeshController__logElectionSummary__block_invoke_126;
+  v30[3] = &unk_278E166A8;
+  v30[4] = self;
+  v30[5] = &v35;
+  [trackers3 enumerateNodeStateTrackersOfStatus:0 usingBlock:v30];
 
   v24 = COCoreLogForCategory(8);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     meshName4 = [(COMeshController *)self meshName];
     generation4 = [(COMeshController *)self generation];
-    v27 = v37[5];
+    v27 = v36[5];
     *buf = 134218754;
     selfCopy4 = self;
-    v44 = 2114;
-    v45 = meshName4;
-    v46 = 2048;
-    v47 = generation4;
-    v48 = 2114;
-    v49 = v27;
+    v43 = 2114;
+    v44 = meshName4;
+    v45 = 2048;
+    v46 = generation4;
+    v47 = 2114;
+    v48 = v27;
     _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%p %{public}@ : Discovered trackers summary for Election(%llu)\n%{public}@", buf, 0x2Au);
   }
 
-  _Block_object_dispose(&v36, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __39__COMeshController__logElectionSummary__block_invoke(void *a1, void *a2)
@@ -2980,7 +3147,7 @@ void __39__COMeshController__logElectionSummary__block_invoke_126(uint64_t a1, v
 
 void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 2 && (objc_msgSend(v3, "isEqual:", *(a1 + 32)) & 1) == 0)
   {
@@ -3001,13 +3168,13 @@ void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invok
           v9 = *(a1 + 48);
           v10 = *(a1 + 64);
           v11 = [v3 node];
-          v20 = 134218496;
-          v21 = v9;
-          v22 = 2048;
-          v23 = v10;
-          v24 = 2048;
-          v25 = v11;
-          _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p delayed BALLOT (%llu) to %p", &v20, 0x20u);
+          v19 = 134218496;
+          v20 = v9;
+          v21 = 2048;
+          v22 = v10;
+          v23 = 2048;
+          v24 = v11;
+          _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p delayed BALLOT (%llu) to %p", &v19, 0x20u);
         }
 
         v12 = [*(a1 + 48) _ballotResponseWithBallot:*(a1 + 40) generation:*(a1 + 64)];
@@ -3026,8 +3193,8 @@ void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invok
           v14 = *(a1 + 48);
           v15 = [v3 node];
           v16 = v15;
-          v20 = 134218496;
-          v21 = v14;
+          v19 = 134218496;
+          v20 = v14;
           if (v5)
           {
             v17 = 103;
@@ -3038,11 +3205,11 @@ void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invok
             v17 = 98;
           }
 
-          v22 = 2048;
-          v23 = v15;
-          v24 = 1024;
-          LODWORD(v25) = v17;
-          _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p resend election to %p because our %c has changed", &v20, 0x1Cu);
+          v21 = 2048;
+          v22 = v15;
+          v23 = 1024;
+          LODWORD(v24) = v17;
+          _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p resend election to %p because our %c has changed", &v19, 0x1Cu);
         }
 
         [v3 setElectionStage:1];
@@ -3051,21 +3218,18 @@ void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invok
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToPostElection
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%p not transitioning because not in election", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%p not transitioning because not in election", v1, 0xCu);
 }
 
 - (void)_handleElectionRequest:(id)request onNode:(id)node responseCallBack:(id)back
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   nodeCopy = node;
   backCopy = back;
@@ -3088,20 +3252,20 @@ void __59__COMeshController__processBackedOffNodesExcludingTracker___block_invok
 
     *buf = 134219778;
     selfCopy = self;
-    v46 = 2048;
-    v47 = generation;
-    v48 = 1024;
-    *v49 = variant;
-    *&v49[4] = 2048;
-    *&v49[6] = nodeCopy;
-    v50 = 2114;
-    v51 = software;
-    v52 = 2048;
-    v53 = rapportTransactionID;
-    v54 = 2048;
-    v55 = v15;
-    v56 = 2114;
-    v57 = firstObject;
+    v45 = 2048;
+    v46 = generation;
+    v47 = 1024;
+    *v48 = variant;
+    *&v48[4] = 2048;
+    *&v48[6] = nodeCopy;
+    v49 = 2114;
+    v50 = software;
+    v51 = 2048;
+    v52 = rapportTransactionID;
+    v53 = 2048;
+    v54 = v15;
+    v55 = 2114;
+    v56 = firstObject;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p received ELECTION (%llu:%d) from %p (%{public}@) XID 0x%llX - (%lu, %{public}@)", buf, 0x4Eu);
   }
 
@@ -3143,8 +3307,8 @@ LABEL_10:
     {
       *buf = 134218240;
       selfCopy = selfCopy2;
-      v46 = 2048;
-      v47 = nodeCopy;
+      v45 = 2048;
+      v46 = nodeCopy;
       _os_log_impl(&dword_244378000, ballot2, OS_LOG_TYPE_DEFAULT, "%p backed off legacy node %p", buf, 0x16u);
     }
 
@@ -3176,10 +3340,10 @@ LABEL_11:
         {
           *buf = 134218496;
           selfCopy = selfCopy2;
-          v46 = 2048;
-          v47 = generation2;
-          v48 = 2048;
-          *v49 = nodeCopy;
+          v45 = 2048;
+          v46 = generation2;
+          v47 = 2048;
+          *v48 = nodeCopy;
           _os_log_debug_impl(&dword_244378000, v35, OS_LOG_TYPE_DEBUG, "%p performing fast election (%llu) with %p", buf, 0x20u);
         }
 
@@ -3220,10 +3384,10 @@ LABEL_23:
   {
     *buf = 134218496;
     selfCopy = selfCopy2;
-    v46 = 2048;
-    v47 = generation3;
-    v48 = 2048;
-    *v49 = nodeCopy;
+    v45 = 2048;
+    v46 = generation3;
+    v47 = 2048;
+    *v48 = nodeCopy;
     _os_log_debug_impl(&dword_244378000, v27, OS_LOG_TYPE_DEBUG, "%p sending BALLOT (%llu) to %p", buf, 0x20u);
   }
 
@@ -3232,13 +3396,11 @@ LABEL_23:
 
   [(COMeshController *)selfCopy2 _processBackedOffNodesExcludingTracker:v20];
 LABEL_24:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBallotResponse:(id)response onNode:(id)node
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   nodeCopy = node;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -3260,20 +3422,20 @@ LABEL_24:
 
     *buf = 134219778;
     selfCopy = self;
-    v50 = 2048;
-    v51 = generation;
-    v52 = 1024;
-    *v53 = variant;
-    *&v53[4] = 2048;
-    *&v53[6] = nodeCopy;
-    *&v53[14] = 2114;
-    *&v53[16] = software;
-    *&v53[24] = 2048;
-    *&v53[26] = rapportTransactionID;
-    v54 = 2048;
-    v55 = v13;
-    v56 = 2114;
-    v57 = firstObject;
+    v49 = 2048;
+    v50 = generation;
+    v51 = 1024;
+    *v52 = variant;
+    *&v52[4] = 2048;
+    *&v52[6] = nodeCopy;
+    *&v52[14] = 2114;
+    *&v52[16] = software;
+    *&v52[24] = 2048;
+    *&v52[26] = rapportTransactionID;
+    v53 = 2048;
+    v54 = v13;
+    v55 = 2114;
+    v56 = firstObject;
     _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p received BALLOT (%llu:%d) from %p (%{public}@) XID 0x%llX - (%lu, %{public}@)", buf, 0x4Eu);
   }
 
@@ -3350,14 +3512,14 @@ LABEL_32:
     {
       *buf = 134219010;
       selfCopy = selfCopy2;
-      v50 = 2112;
-      v51 = v25;
-      v52 = 2112;
-      *v53 = nodeCopy;
-      *&v53[8] = 2048;
-      *&v53[10] = ballot5;
-      *&v53[18] = 2112;
-      *&v53[20] = responseCopy;
+      v49 = 2112;
+      v50 = v25;
+      v51 = 2112;
+      *v52 = nodeCopy;
+      *&v52[8] = 2048;
+      *&v52[10] = ballot5;
+      *&v52[18] = 2112;
+      *&v52[20] = responseCopy;
       _os_log_error_impl(&dword_244378000, v26, OS_LOG_TYPE_ERROR, "%p cannot add Discovery %@ for %@ to ballot %p when handling response %@", buf, 0x34u);
     }
 
@@ -3372,10 +3534,10 @@ LABEL_32:
       discovery = [ballot5 discovery];
       *buf = 134218498;
       selfCopy = selfCopy2;
-      v50 = 2112;
-      v51 = discovery;
-      v52 = 2048;
-      *v53 = ballot5;
+      v49 = 2112;
+      v50 = discovery;
+      v51 = 2048;
+      *v52 = ballot5;
       _os_log_impl(&dword_244378000, v26, OS_LOG_TYPE_DEFAULT, "%p updated Discovery %@ in ballot %p when handling response", buf, 0x20u);
     }
 
@@ -3440,18 +3602,17 @@ LABEL_30:
   {
     *buf = 134218240;
     selfCopy = selfCopy2;
-    v50 = 2048;
-    v51 = nodeCopy;
+    v49 = 2048;
+    v50 = nodeCopy;
     _os_log_impl(&dword_244378000, v41, OS_LOG_TYPE_DEFAULT, "%p backed off %p", buf, 0x16u);
   }
 
 LABEL_33:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleVoteRequest:(id)request onNode:(id)node responseCallBack:(id)back
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   nodeCopy = node;
   backCopy = back;
@@ -3474,20 +3635,20 @@ LABEL_33:
 
     *buf = 134219778;
     selfCopy = self;
-    v46 = 2048;
-    v47 = generation;
-    v48 = 1024;
-    v49 = variant;
-    v50 = 2048;
-    v51 = nodeCopy;
-    v52 = 2114;
-    v53 = software;
-    v54 = 2048;
-    v55 = rapportTransactionID;
-    v56 = 2048;
-    v57 = v15;
-    v58 = 2114;
-    v59 = firstObject;
+    v45 = 2048;
+    v46 = generation;
+    v47 = 1024;
+    v48 = variant;
+    v49 = 2048;
+    v50 = nodeCopy;
+    v51 = 2114;
+    v52 = software;
+    v53 = 2048;
+    v54 = rapportTransactionID;
+    v55 = 2048;
+    v56 = v15;
+    v57 = 2114;
+    v58 = firstObject;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p received VOTE (%llu:%d) from %p (%{public}@) XID 0x%llX - (%lu, %{public}@)", buf, 0x4Eu);
   }
 
@@ -3507,19 +3668,7 @@ LABEL_33:
 
     ballot3 = [(COMeshController *)selfCopy2 ballot];
     generation2 = [(COMeshController *)selfCopy2 generation];
-    if (generation2 != generation)
-    {
-      goto LABEL_11;
-    }
-
-    candidates3 = [ballot3 candidates];
-    firstObject2 = [candidates3 firstObject];
-
-    candidates4 = [ballot candidates];
-    firstObject3 = [candidates4 firstObject];
-
-    LODWORD(candidates4) = [firstObject2 isEqual:firstObject3];
-    if (candidates4)
+    if (generation2 == generation && ([ballot3 candidates], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "firstObject"), v25 = objc_claimAutoreleasedReturnValue(), v24, objc_msgSend(ballot, "candidates"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "firstObject"), v27 = objc_claimAutoreleasedReturnValue(), v26, LODWORD(v26) = objc_msgSend(v25, "isEqual:", v27), v27, v25, v26))
     {
       [v20 setLastBallotSent:ballot3];
       [v20 setLastGenerationSent:generation];
@@ -3535,7 +3684,6 @@ LABEL_33:
 
     else
     {
-LABEL_11:
       [v20 setLastBallotSent:ballot3];
       [v20 setLastGenerationSent:generation];
       v35 = [(COMeshController *)selfCopy2 _ballotResponseWithBallot:ballot3 generation:generation2];
@@ -3547,14 +3695,14 @@ LABEL_11:
   {
     ballot3 = [(COMeshController *)selfCopy2 ballot];
     ballot4 = [requestCopy ballot];
-    candidates5 = [ballot3 candidates];
-    firstObject4 = [candidates5 firstObject];
+    candidates3 = [ballot3 candidates];
+    firstObject2 = [candidates3 firstObject];
 
-    candidates6 = [ballot4 candidates];
-    firstObject5 = [candidates6 firstObject];
+    candidates4 = [ballot4 candidates];
+    firstObject3 = [candidates4 firstObject];
 
-    LODWORD(candidates6) = [firstObject4 isEqual:firstObject5];
-    if (candidates6)
+    LODWORD(candidates4) = [firstObject2 isEqual:firstObject3];
+    if (candidates4)
     {
       v34 = [(COMeshController *)selfCopy2 _acceptResponseWithBallot:ballot3 generation:[(COMeshController *)selfCopy2 generation]];
       backCopy[2](backCopy, v34, 0);
@@ -3574,13 +3722,11 @@ LABEL_11:
       backCopy[2](backCopy, v37, 0);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAcceptResponse:(id)response onNode:(id)node
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   nodeCopy = node;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -3602,20 +3748,20 @@ LABEL_11:
 
     *buf = 134219778;
     selfCopy = self;
-    v47 = 2048;
-    v48 = generation;
-    v49 = 1024;
-    v50 = variant;
-    v51 = 2048;
-    v52 = nodeCopy;
-    v53 = 2114;
-    v54 = software;
-    v55 = 2048;
-    v56 = rapportTransactionID;
-    v57 = 2048;
-    v58 = v13;
-    v59 = 2114;
-    v60 = firstObject;
+    v46 = 2048;
+    v47 = generation;
+    v48 = 1024;
+    v49 = variant;
+    v50 = 2048;
+    v51 = nodeCopy;
+    v52 = 2114;
+    v53 = software;
+    v54 = 2048;
+    v55 = rapportTransactionID;
+    v56 = 2048;
+    v57 = v13;
+    v58 = 2114;
+    v59 = firstObject;
     _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p received ACCEPT (%llu:%d) from %p (%{public}@) XID 0x%llX - (%lu, %{public}@)", buf, 0x4Eu);
   }
 
@@ -3674,8 +3820,8 @@ LABEL_11:
           {
             *buf = 134218240;
             selfCopy = selfCopy2;
-            v47 = 2048;
-            v48 = nodeCopy;
+            v46 = 2048;
+            v47 = nodeCopy;
             _os_log_impl(&dword_244378000, v33, OS_LOG_TYPE_DEFAULT, "%p backed off %p", buf, 0x16u);
           }
 
@@ -3742,35 +3888,34 @@ LABEL_11:
   }
 
 LABEL_25:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDiscoveryUsingBallot:(id)ballot
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   discovery = [ballot discovery];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v5 = [discovery countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v5 = [discovery countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v21;
     *&v6 = 134217984;
-    v20 = v6;
+    v19 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(discovery);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         v12 = [(COMeshController *)self me];
         v13 = [v11 isEqual:v12];
 
@@ -3779,7 +3924,7 @@ LABEL_25:
           v14 = COCoreLogForCategory(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v20;
+            *buf = v19;
             selfCopy2 = self;
             _os_log_debug_impl(&dword_244378000, v14, OS_LOG_TYPE_DEBUG, "%p ignoring discovery of myself", buf, 0xCu);
           }
@@ -3793,7 +3938,7 @@ LABEL_25:
         }
       }
 
-      v7 = [discovery countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v7 = [discovery countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v7);
@@ -3806,19 +3951,17 @@ LABEL_25:
         v18 = [discoveryManager2 count];
         *buf = 134218240;
         selfCopy2 = self;
-        v27 = 2048;
-        v28 = v18;
+        v26 = 2048;
+        v27 = v18;
         _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%p Discovery (IP) has %ld queued records", buf, 0x16u);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_handleDiscoveryUsingElectionRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if ([requestCopy conformsToProtocol:&unk_2857D4880])
   {
@@ -3841,11 +3984,11 @@ LABEL_25:
     v13 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134218242;
+      v18 = 134218242;
       selfCopy = self;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p discovered (election) %@", &v19, 0x16u);
+      v20 = 2112;
+      v21 = v12;
+      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p discovered (election) %@", &v18, 0x16u);
     }
 
     listener = [(COMeshController *)self listener];
@@ -3865,29 +4008,28 @@ LABEL_25:
   }
 
   v16 = v15;
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)_finalizeCompletionOfNode:(id)node memberOfMesh:(BOOL)mesh eventProvider:(id)provider
 {
   meshCopy = mesh;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   providerCopy = provider;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
-  v65 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   trackers = [(COMeshController *)selfCopy trackers];
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke;
-  v61[3] = &unk_278E16658;
-  v61[4] = &v62;
-  [trackers enumerateNodeStateTrackersUsingBlock:v61];
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke;
+  v60[3] = &unk_278E16658;
+  v60[4] = &v61;
+  [trackers enumerateNodeStateTrackersUsingBlock:v60];
 
   state = [(COMeshController *)selfCopy state];
   addOns = [(COMeshController *)selfCopy addOns];
@@ -3895,17 +4037,17 @@ LABEL_25:
 
   if (meshCopy)
   {
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_2;
-    v60[3] = &unk_278E16400;
-    v60[4] = selfCopy;
-    [addOns enumerateObjectsUsingBlock:v60];
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_2;
+    v59[3] = &unk_278E16400;
+    v59[4] = selfCopy;
+    [addOns enumerateObjectsUsingBlock:v59];
   }
 
   if (state == 4)
   {
-    if (!v63[3])
+    if (!v62[3])
     {
       [(COMeshController *)selfCopy willTransitionToState:0];
       v13 = selfCopy;
@@ -3915,12 +4057,12 @@ LABEL_25:
 
       [(COMeshController *)v13 setListener:0];
       [(COMeshController *)v13 didTransitionToState:0];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_181;
-      v44[3] = &unk_278E16400;
-      v44[4] = v13;
-      [addOns enumerateObjectsUsingBlock:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_181;
+      v43[3] = &unk_278E16400;
+      v43[4] = v13;
+      [addOns enumerateObjectsUsingBlock:v43];
     }
   }
 
@@ -3930,61 +4072,61 @@ LABEL_25:
     if (remote)
     {
       ballot = [(COMeshController *)selfCopy ballot];
-      v42 = [ballot mutableCopy];
+      v41 = [ballot mutableCopy];
 
-      candidates = [v42 candidates];
+      candidates = [v41 candidates];
       firstObject = [candidates firstObject];
 
-      [v42 removeCandidate:remote];
-      [(COMeshController *)selfCopy setBallot:v42];
+      [v41 removeCandidate:remote];
+      [(COMeshController *)selfCopy setBallot:v41];
       sentCommands = [(COMeshController *)selfCopy sentCommands];
       v17 = objc_opt_class();
       v18 = objc_opt_class();
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_3;
-      v56[3] = &unk_278E166F8;
-      v58 = v17;
-      v59 = v18;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_3;
+      v55[3] = &unk_278E166F8;
+      v57 = v17;
+      v58 = v18;
       v19 = nodeCopy;
-      v57 = v19;
-      v40 = [sentCommands indexesOfObjectsPassingTest:v56];
+      v56 = v19;
+      v39 = [sentCommands indexesOfObjectsPassingTest:v55];
       v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshControllerErrorDomain" code:-4100 userInfo:0];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_4;
-      v53[3] = &unk_278E16720;
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_4;
+      v52[3] = &unk_278E16720;
       v21 = sentCommands;
-      v54 = v21;
-      v36 = v20;
-      v55 = v36;
-      [v40 enumerateIndexesUsingBlock:v53];
-      v39 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(v21, "count")}];
-      [v39 removeIndexes:v40];
-      v38 = [v21 objectsAtIndexes:v39];
+      v53 = v21;
+      v35 = v20;
+      v54 = v35;
+      [v39 enumerateIndexesUsingBlock:v52];
+      v38 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(v21, "count")}];
+      [v38 removeIndexes:v39];
+      v37 = [v21 objectsAtIndexes:v38];
 
-      [(COMeshController *)selfCopy setSentCommands:v38];
+      [(COMeshController *)selfCopy setSentCommands:v37];
       if (state)
       {
         if ([firstObject isEqual:remote])
         {
           v22 = objc_alloc_init(MEMORY[0x277CCAB58]);
           v23 = objc_alloc_init(MEMORY[0x277CCAB58]);
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_5;
-          v47[3] = &unk_278E16748;
-          v51 = v17;
-          v52 = v18;
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_5;
+          v46[3] = &unk_278E16748;
+          v50 = v17;
+          v51 = v18;
           v24 = v22;
-          v48 = v24;
-          v49 = v19;
+          v47 = v24;
+          v48 = v19;
           v25 = v23;
-          v50 = v25;
-          [v38 enumerateObjectsUsingBlock:v47];
+          v49 = v25;
+          [v37 enumerateObjectsUsingBlock:v46];
           if ([v24 count])
           {
-            v26 = [v38 objectsAtIndexes:v24];
+            v26 = [v37 objectsAtIndexes:v24];
             queuedCommands = [(COMeshController *)selfCopy queuedCommands];
             v28 = [v26 arrayByAddingObjectsFromArray:queuedCommands];
             [(COMeshController *)selfCopy setQueuedCommands:v28];
@@ -3992,7 +4134,7 @@ LABEL_25:
 
           if ([v25 count])
           {
-            [v38 objectsAtIndexes:v25];
+            [v37 objectsAtIndexes:v25];
           }
 
           else
@@ -4010,13 +4152,13 @@ LABEL_25:
           if (!providerCopy)
           {
             label = [(COMeshController *)v30 label];
-            v45[0] = MEMORY[0x277D85DD0];
-            v45[1] = 3221225472;
-            v45[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_6;
-            v45[3] = &unk_278E16770;
-            v46 = label;
+            v44[0] = MEMORY[0x277D85DD0];
+            v44[1] = 3221225472;
+            v44[2] = __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_6;
+            v44[3] = &unk_278E16770;
+            v45 = label;
             v32 = label;
-            providerCopy = MEMORY[0x245D5FF10](v45);
+            providerCopy = MEMORY[0x245D5FF10](v44);
           }
 
           recorder = [(COMeshController *)v30 recorder];
@@ -4026,9 +4168,9 @@ LABEL_25:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v67 = v30;
-            v68 = 2112;
-            v69 = remote;
+            v66 = v30;
+            v67 = 2112;
+            v68 = remote;
             _os_log_impl(&dword_244378000, v34, OS_LOG_TYPE_DEFAULT, "%p lost leader %@", buf, 0x16u);
           }
 
@@ -4043,11 +4185,10 @@ LABEL_25:
     }
   }
 
-  _Block_object_dispose(&v62, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v61, 8);
 }
 
-uint64_t __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke(uint64_t a1, void *a2)
+void *__73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 state];
   if (result == 4)
@@ -4061,19 +4202,18 @@ uint64_t __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProv
 BOOL __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_3(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[5];
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v5 = a1[6], (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass())
   {
-    v6 = [v3 destination];
-    v7 = v6 == a1[4];
+    v4 = [v3 destination];
+    v5 = v4 == a1[4];
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v7;
+  return v5;
 }
 
 void __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -4084,48 +4224,45 @@ void __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider
 
 void __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_5(void *a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
-  v6 = a1[7];
-  v11 = v5;
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v7 = a1[8], (objc_opt_isKindOfClass()))
+  v8 = a2;
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass())
   {
-    v8 = [v11 destination];
-    v9 = a1[5];
+    v5 = [v8 destination];
+    v6 = a1[5];
 
-    if (v8 == v9)
+    if (v5 == v6)
     {
       goto LABEL_7;
     }
 
-    v10 = 6;
+    v7 = 6;
   }
 
   else
   {
-    v10 = 4;
+    v7 = 4;
   }
 
-  [a1[v10] addIndex:a3];
+  [a1[v7] addIndex:a3];
 LABEL_7:
 }
 
 id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider___block_invoke_6(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5F88;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5F88;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 - (void)_performStopOfNode:(id)node error:(id)error eventProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   errorCopy = error;
   providerCopy = provider;
@@ -4135,11 +4272,11 @@ id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider__
   v12 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134218240;
+    v17 = 134218240;
     selfCopy = self;
-    v20 = 2048;
-    v21 = nodeCopy;
-    _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p stopping %p", &v18, 0x16u);
+    v19 = 2048;
+    v20 = nodeCopy;
+    _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p stopping %p", &v17, 0x16u);
   }
 
   selfCopy2 = self;
@@ -4159,13 +4296,11 @@ id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider__
 
   objc_sync_exit(selfCopy2);
   [(COMeshController *)selfCopy2 _finalizeCompletionOfNode:nodeCopy memberOfMesh:1 eventProvider:providerCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performInvalidationOfNode:(id)node error:(id)error eventProvider:(id)provider
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   errorCopy = error;
   providerCopy = provider;
@@ -4189,11 +4324,11 @@ id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider__
   {
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 134218240;
+      v27 = 134218240;
       selfCopy = self;
-      v30 = 2048;
-      v31 = nodeCopy;
-      _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%p invalidating %p", &v28, 0x16u);
+      v29 = 2048;
+      v30 = nodeCopy;
+      _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%p invalidating %p", &v27, 0x16u);
     }
 
     selfCopy2 = self;
@@ -4236,8 +4371,6 @@ id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider__
       [(COMeshController *)v24 _finalizeCompletionOfNode:nodeCopy memberOfMesh:status == 1 eventProvider:providerCopy];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didAddNode:(id)node
@@ -4349,21 +4482,20 @@ id __73__COMeshController__finalizeCompletionOfNode_memberOfMesh_eventProvider__
 
 id __40__COMeshController_node_didSendCommand___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5EC8;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5EC8;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 - (void)node:(id)node didReceiveCommand:(id)command
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   commandCopy = command;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -4421,14 +4553,14 @@ id __40__COMeshController_node_didSendCommand___block_invoke(uint64_t a1)
       }
 
       label = [(COMeshController *)self label];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __43__COMeshController_node_didReceiveCommand___block_invoke;
-      v23[3] = &unk_278E16770;
-      v24 = label;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __43__COMeshController_node_didReceiveCommand___block_invoke;
+      v22[3] = &unk_278E16770;
+      v23 = label;
       v15 = label;
-      [(COMeshController *)self _performStopOfNode:nodeCopy error:0 eventProvider:v23];
-      v16 = v24;
+      [(COMeshController *)self _performStopOfNode:nodeCopy error:0 eventProvider:v22];
+      v16 = v23;
       goto LABEL_21;
     }
 
@@ -4458,40 +4590,37 @@ id __40__COMeshController_node_didSendCommand___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
 LABEL_23:
-        v22 = NSStringFromClass(v9);
+        v21 = NSStringFromClass(v9);
         *buf = 134218498;
         selfCopy = self;
-        v27 = 2112;
-        v28 = v22;
-        v29 = 2048;
-        v30 = nodeCopy;
+        v26 = 2112;
+        v27 = v21;
+        v28 = 2048;
+        v29 = nodeCopy;
         _os_log_debug_impl(&dword_244378000, v16, OS_LOG_TYPE_DEBUG, "%p found no handler for %@ from %p", buf, 0x20u);
       }
 
 LABEL_21:
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 id __43__COMeshController_node_didReceiveCommand___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5EA8;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5EA8;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 - (void)unknownNodeForCommand:(id)command result:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   resultCopy = result;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -4502,19 +4631,18 @@ id __43__COMeshController_node_didReceiveCommand___block_invoke(uint64_t a1)
   v11 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v13 = 134218754;
+    v12 = 134218754;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = commandCopy;
-    v19 = 2112;
-    v20 = _sendingConstituent;
-    _os_log_error_impl(&dword_244378000, v11, OS_LOG_TYPE_ERROR, "%p disregarding command %@ (%@) from unknown node %@", &v13, 0x2Au);
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = commandCopy;
+    v18 = 2112;
+    v19 = _sendingConstituent;
+    _os_log_error_impl(&dword_244378000, v11, OS_LOG_TYPE_ERROR, "%p disregarding command %@ (%@) from unknown node %@", &v12, 0x2Au);
   }
 
   resultCopy[2](resultCopy, 0);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)node:(id)node didReceiveRequest:(id)request responseCallBack:(id)back
@@ -4621,7 +4749,7 @@ LABEL_9:
 
 - (void)node:(id)node didReceiveError:(id)error forCommand:(id)command
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   errorCopy = error;
   commandCopy = command;
@@ -4641,7 +4769,7 @@ LABEL_9:
     selfCopy = self;
     objc_sync_enter(selfCopy);
     trackers = [(COMeshController *)selfCopy trackers];
-    v46 = [trackers nodeStateTrackerForNode:nodeCopy];
+    v45 = [trackers nodeStateTrackerForNode:nodeCopy];
 
     objc_sync_exit(selfCopy);
     code = [errorCopy code];
@@ -4658,8 +4786,8 @@ LABEL_9:
     }
 
     isKindOfClass = 0;
-    v44 = [domain isEqualToString:*MEMORY[0x277D44250]];
-    if (v44 && code == -6722)
+    v43 = [domain isEqualToString:*MEMORY[0x277D44250]];
+    if (v43 && code == -6722)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -4668,13 +4796,13 @@ LABEL_9:
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
-      v45 = 1;
+      v44 = 1;
     }
 
     else
     {
       objc_opt_class();
-      v45 = objc_opt_isKindOfClass();
+      v44 = objc_opt_isKindOfClass();
     }
 
     v20 = v17 | isKindOfClass;
@@ -4683,28 +4811,28 @@ LABEL_9:
       goto LABEL_21;
     }
 
-    v21 = v44;
+    v21 = v43;
     if (code != -6714)
     {
       v21 = 0;
     }
 
-    if ((v21 & v45) == 1)
+    if ((v21 & v44) == 1)
     {
 LABEL_21:
-      v43 = v17;
+      v42 = v17;
       if (isKindOfClass)
       {
         label = [(COMeshController *)selfCopy label];
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke;
-        v53[3] = &unk_278E16798;
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke;
+        v52[3] = &unk_278E16798;
         v23 = commandCopy;
-        v54 = v23;
-        v55 = label;
+        v53 = v23;
+        v54 = label;
         v24 = label;
-        v25 = MEMORY[0x245D5FF10](v53);
+        v25 = MEMORY[0x245D5FF10](v52);
         v26 = COCoreLogForCategory(0);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
@@ -4732,14 +4860,14 @@ LABEL_21:
           if (!v25)
           {
             label2 = [(COMeshController *)selfCopy label];
-            v50[0] = MEMORY[0x277D85DD0];
-            v50[1] = 3221225472;
-            v50[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke_186;
-            v50[3] = &unk_278E167C0;
-            v52 = v43;
-            v51 = label2;
+            v49[0] = MEMORY[0x277D85DD0];
+            v49[1] = 3221225472;
+            v49[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke_186;
+            v49[3] = &unk_278E167C0;
+            v51 = v42;
+            v50 = label2;
             v33 = label2;
-            v31 = MEMORY[0x245D5FF10](v50);
+            v31 = MEMORY[0x245D5FF10](v49);
 
             v25 = v31;
           }
@@ -4758,18 +4886,18 @@ LABEL_33:
         }
       }
 
-      if (v43)
+      if (v42)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v46 state] == 1)
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v45 state] == 1)
         {
           ballot2 = [(COMeshController *)selfCopy ballot];
           firstObject = [(COMeshController *)selfCopy _electionRequestWithBallot:ballot2 generation:[(COMeshController *)selfCopy generation]];
 
-          [v46 setOutstandingRequest:1];
-          [v46 setLastGenerationSent:{-[COMeshController generation](selfCopy, "generation")}];
+          [v45 setOutstandingRequest:1];
+          [v45 setLastGenerationSent:{-[COMeshController generation](selfCopy, "generation")}];
           ballot3 = [(COMeshController *)selfCopy ballot];
-          [v46 setLastBallotSent:ballot3];
+          [v45 setLastBallotSent:ballot3];
 
           [nodeCopy sendMeshRequest:firstObject];
           goto LABEL_33;
@@ -4778,7 +4906,7 @@ LABEL_33:
     }
 
     [(COMeshController *)selfCopy _removeSentCommand:commandCopy fromNode:nodeCopy withResponse:0 error:errorCopy];
-    state = [v46 state];
+    state = [v45 state];
     switch(state)
     {
       case 4:
@@ -4789,17 +4917,17 @@ LABEL_33:
         }
 
         label3 = [(COMeshController *)selfCopy label];
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke_187;
-        v48[3] = &unk_278E16770;
-        v49 = label3;
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __52__COMeshController_node_didReceiveError_forCommand___block_invoke_187;
+        v47[3] = &unk_278E16770;
+        v48 = label3;
         v41 = label3;
-        [(COMeshController *)selfCopy _performStopOfNode:nodeCopy error:errorCopy eventProvider:v48];
+        [(COMeshController *)selfCopy _performStopOfNode:nodeCopy error:errorCopy eventProvider:v47];
 
         goto LABEL_61;
       case 2:
-        if ((v44 & v45) != 1)
+        if ((v43 & v44) != 1)
         {
           goto LABEL_61;
         }
@@ -4808,9 +4936,9 @@ LABEL_33:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v57 = nodeCopy;
-          v58 = 2112;
-          v59 = errorCopy;
+          v56 = nodeCopy;
+          v57 = 2112;
+          v58 = errorCopy;
           _os_log_impl(&dword_244378000, v38, OS_LOG_TYPE_DEFAULT, "electing node %p failed with %@", buf, 0x16u);
         }
 
@@ -4818,7 +4946,7 @@ LABEL_33:
       case 1:
         v37 = COCoreLogForCategory(0);
         v38 = v37;
-        if ((v45 & 1) == 0)
+        if ((v44 & 1) == 0)
         {
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
@@ -4828,20 +4956,20 @@ LABEL_33:
           goto LABEL_47;
         }
 
-        if (v44)
+        if (v43)
         {
           if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v57 = nodeCopy;
-            v58 = 2112;
-            v59 = errorCopy;
+            v56 = nodeCopy;
+            v57 = 2112;
+            v58 = errorCopy;
             _os_log_impl(&dword_244378000, v38, OS_LOG_TYPE_DEFAULT, "starting node %p failed with %@", buf, 0x16u);
           }
 
 LABEL_47:
 
-          [v46 setState:0];
+          [v45 setState:0];
           goto LABEL_61;
         }
 
@@ -4869,33 +4997,29 @@ LABEL_61:
 
   [(COMeshController *)self stop];
 LABEL_62:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 id __52__COMeshController_node_didReceiveError_forCommand___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v9[0] = 0x2857B5E88;
-  v8[0] = 0x2857B5228;
-  v8[1] = 0x2857B5E88;
+  v8[3] = *MEMORY[0x277D85DE8];
+  v8[0] = 0x2857B5E88;
+  v7[0] = 0x2857B5228;
+  v7[1] = 0x2857B5E88;
   v2 = MEMORY[0x277CCABB0];
   [*(a1 + 32) responseTimeout];
   v3 = [v2 numberWithDouble:?];
-  v8[2] = 0x2857B5DC8;
+  v7[2] = 0x2857B5DC8;
   v4 = *(a1 + 40);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 id __52__COMeshController_node_didReceiveError_forCommand___block_invoke_186(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = COMeshControllerLostLeaderReasonGone;
   if (*(a1 + 40))
   {
@@ -4903,34 +5027,32 @@ id __52__COMeshController_node_didReceiveError_forCommand___block_invoke_186(uin
   }
 
   v2 = *v1;
-  v7[0] = 0x2857B5228;
-  v7[1] = 0x2857B5DC8;
+  v6[0] = 0x2857B5228;
+  v6[1] = 0x2857B5DC8;
   v3 = *(a1 + 32);
-  v8[0] = v2;
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v2;
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 id __52__COMeshController_node_didReceiveError_forCommand___block_invoke_187(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5A28;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5A28;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 - (void)unknownNodeForRequest:(id)request result:(id)result
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -4949,23 +5071,21 @@ id __52__COMeshController_node_didReceiveError_forCommand___block_invoke_187(uin
     v12 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218754;
+      v13 = 134218754;
       selfCopy = self;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = requestCopy;
-      v20 = 2112;
-      v21 = _sendingConstituent;
-      _os_log_error_impl(&dword_244378000, v12, OS_LOG_TYPE_ERROR, "%p disregarding request %@ (%@) from unknown node %@", &v14, 0x2Au);
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = requestCopy;
+      v19 = 2112;
+      v20 = _sendingConstituent;
+      _os_log_error_impl(&dword_244378000, v12, OS_LOG_TYPE_ERROR, "%p disregarding request %@ (%@) from unknown node %@", &v13, 0x2Au);
     }
 
     v9 = 0;
   }
 
   resultCopy[2](resultCopy, v9);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didInvalidateNode:(id)node
@@ -5042,28 +5162,26 @@ LABEL_8:
 
 id __38__COMeshController_didInvalidateNode___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5F28;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5F28;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 id __38__COMeshController_didInvalidateNode___block_invoke_2(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5F68;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5F68;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -5094,14 +5212,13 @@ id __38__COMeshController_didInvalidateNode___block_invoke_2(uint64_t a1)
 
 id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0x2857B5228;
-  v5[1] = 0x2857B5DC8;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0x2857B5228;
+  v4[1] = 0x2857B5DC8;
   v1 = *(a1 + 32);
-  v6[0] = 0x2857B5F48;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = 0x2857B5F48;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -5127,7 +5244,7 @@ id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
 
 - (void)nodeShouldRetryAfterBackoff:(id)backoff
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   backoffCopy = backoff;
   if ([backoffCopy electionStage] == 4 && objc_msgSend(backoffCopy, "state") == 2)
   {
@@ -5136,13 +5253,13 @@ id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
     {
       v6 = [backoffCopy backoffBucket] - 1;
       node = [backoffCopy node];
-      v17 = 134218496;
+      v16 = 134218496;
       selfCopy2 = self;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      v22 = node;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p back off (%ld) firing for %p", &v17, 0x20u);
+      v18 = 2048;
+      v19 = v6;
+      v20 = 2048;
+      v21 = node;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p back off (%ld) firing for %p", &v16, 0x20u);
     }
 
     ballot = [(COMeshController *)self ballot];
@@ -5156,13 +5273,13 @@ id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         node2 = [backoffCopy node];
-        v17 = 134218496;
+        v16 = 134218496;
         selfCopy2 = self;
-        v19 = 2048;
-        v20 = generation;
-        v21 = 2048;
-        v22 = node2;
-        _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p delayed BALLOT (%llu) to %p", &v17, 0x20u);
+        v18 = 2048;
+        v19 = generation;
+        v20 = 2048;
+        v21 = node2;
+        _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p delayed BALLOT (%llu) to %p", &v16, 0x20u);
       }
 
       v13 = [(COMeshController *)self _ballotResponseWithBallot:ballot generation:generation];
@@ -5181,8 +5298,6 @@ id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
       [node3 sendMeshRequest:v14];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backedOffNodeMovedOutOfElection:(id)election
@@ -5214,40 +5329,40 @@ id __34__COMeshController_didRemoveNode___block_invoke(uint64_t a1)
 
 void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) count];
     *buf = 134218240;
-    v20 = v3;
-    v21 = 2048;
-    v22 = v4;
+    v19 = v3;
+    v20 = 2048;
+    v21 = v4;
     _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p delayed Discovery (IP) - %lu records", buf, 0x16u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         v11 = [*(a1 + 32) listener];
         v12 = [v11 _handleDiscoveryRecord:v10];
 
@@ -5255,18 +5370,16 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStartElection
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   state = selfCopy->_state;
@@ -5283,20 +5396,18 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
     v5 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = v4;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p moved to election state", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v4;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p moved to election state", &v6, 0xCu);
     }
 
     [(COMeshController *)v4 didTransitionToState:2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didCompleteElection
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   state = selfCopy->_state;
@@ -5313,17 +5424,15 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
     v5 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = v4;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p moved to processing state", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v4;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p moved to processing state", &v6, 0xCu);
     }
 
     [(COMeshController *)v4 didTransitionToState:3];
     [(COMeshController *)v4 setElectionEnd:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW)];
     [(COMeshController *)v4 _processQueuedCommands];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNodeChanges
@@ -5343,13 +5452,13 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
 
 - (void)_setupCoordinationPrefsObserver
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p setting up observers to watch coordination prefs", &v9, 0xCu);
+    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p setting up observers to watch coordination prefs", &v8, 0xCu);
   }
 
   v4 = MEMORY[0x277CFD0B0];
@@ -5360,7 +5469,6 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
 
   [(NSUserDefaults *)self->_coordinationDefaults addObserver:self forKeyPath:*MEMORY[0x277CFCF00] options:0 context:0];
   [(NSUserDefaults *)self->_coordinationDefaults addObserver:self forKeyPath:*MEMORY[0x277CFCF08] options:0 context:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDownCoordinationPrefsObserver
@@ -5374,7 +5482,7 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -5387,25 +5495,25 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
       v14 = COCoreLogForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 134218240;
+        v23 = 134218240;
         selfCopy4 = self;
-        v26 = 1024;
+        v25 = 1024;
         bOOLValue = [v13 BOOLValue];
-        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p observed an update to fast fold enablement. new value = %d", &v24, 0x12u);
+        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p observed an update to fast fold enablement. new value = %d", &v23, 0x12u);
       }
 
       bOOLValue2 = [v13 BOOLValue];
       if (bOOLValue2 != [MEMORY[0x277CFD0B8] isFastFoldEnabled])
       {
-        v22 = COCoreLogForCategory(0);
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v21 = COCoreLogForCategory(0);
+        if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_19;
         }
 
-        v24 = 134217984;
+        v23 = 134217984;
         selfCopy4 = self;
-        v23 = "%p fast fold changed. Exiting process";
+        v22 = "%p fast fold changed. Exiting process";
         goto LABEL_18;
       }
     }
@@ -5424,11 +5532,11 @@ void __56__COMeshController_discoveryManager_didDiscoverRecords___block_invoke(u
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       bOOLValue3 = [v17 BOOLValue];
-      v24 = 134218240;
+      v23 = 134218240;
       selfCopy4 = self;
-      v26 = 1024;
+      v25 = 1024;
       bOOLValue = bOOLValue3;
-      _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%p observed an update to ip diffing enablement. new value = %d", &v24, 0x12u);
+      _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%p observed an update to ip diffing enablement. new value = %d", &v23, 0x12u);
     }
 
     bOOLValue4 = [v17 BOOLValue];
@@ -5439,299 +5547,203 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v22 = COCoreLogForCategory(0);
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = COCoreLogForCategory(0);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_19:
 
       exit(1);
     }
 
-    v24 = 134217984;
+    v23 = 134217984;
     selfCopy4 = self;
-    v23 = "%p ip diffing changed. Exiting process";
+    v22 = "%p ip diffing changed. Exiting process";
 LABEL_18:
-    _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_DEFAULT, v23, &v24, 0xCu);
+    _os_log_impl(&dword_244378000, v21, OS_LOG_TYPE_DEFAULT, v22, &v23, 0xCu);
     goto LABEL_19;
   }
 
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setListener:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p listener is now %p", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __52__COMeshController_registerHandler_forCommandClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_8_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __53__COMeshController_deregisterHandlerForCommandClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_9_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_9_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __57__COMeshController_registerHandler_forNotificationClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_8_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __58__COMeshController_deregisterHandlerForNotificationClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_9_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_9_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __52__COMeshController_registerHandler_forRequestClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_8_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __53__COMeshController_deregisterHandlerForRequestClass___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_9_0(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_9_0(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__COMeshController_sendCommand_withCompletionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_0(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__COMeshController_sendRequest_withCompletionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_0(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __39__COMeshController_sendCommand_toPeer___block_invoke_cold_1(void *a1)
+void __39__COMeshController_sendCommand_toPeer___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = a1[6];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x20u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-void __39__COMeshController_sendCommand_toPeer___block_invoke_82_cold_1(void *a1, uint64_t a2, NSObject *a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v7 = a1[4];
-  v6 = a1[5];
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v10 = a1[6];
-  v13 = 134218754;
-  v14 = v7;
-  OUTLINED_FUNCTION_5_0();
-  v15 = v11;
-  v16 = a2;
-  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "%p failed to send command %@ to peer %@. Error %@", &v13, 0x2Au);
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void __61__COMeshController_sendRequest_toPeer_withCompletionHandler___block_invoke_cold_1(void *a1)
+void __39__COMeshController_sendCommand_toPeer___block_invoke_82_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = a1[6];
+  v5 = *(a1 + 32);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v9 = 134218754;
+  v10 = v5;
+  OUTLINED_FUNCTION_5_0();
+  v11 = v8;
+  v12 = a2;
+  _os_log_error_impl(&dword_244378000, a3, OS_LOG_TYPE_ERROR, "%p failed to send command %@ to peer %@. Error %@", &v9, 0x2Au);
+}
+
+void __61__COMeshController_sendRequest_toPeer_withCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x20u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
 - (void)_processBackedOffNodesExcludingTracker:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "%p legacy nodes don't need to handle backoffs", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "%p legacy nodes don't need to handle backoffs", v1, 0xCu);
 }
 
 - (void)_handleDiscoveryUsingElectionRequest:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_10_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performInvalidationOfNode:error:eventProvider:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "Bailing on invalidation of node %p since we're not tracking it", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_performInvalidationOfNode:error:eventProvider:.cold.2()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p already invalidated or in the process of invalidating %p", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didActivateNode:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p probing %p", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didActivateNode:.cold.2()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p not probing %p", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)node:didReceiveCommand:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_0(&dword_244378000, v0, v1, "%p received exit from %p", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "Bailing on invalidation of node %p since we're not tracking it", v1, 0xCu);
 }
 
 - (void)node:(uint64_t)a1 didReceiveError:(void *)a2 forCommand:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [a2 responseTimeout];
-  v8 = 134218240;
-  v9 = a1;
-  v10 = 2048;
-  v11 = v5;
-  OUTLINED_FUNCTION_10_0(&dword_244378000, a3, v6, "%p ping (%g) failed!", &v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218240;
+  v8 = a1;
+  v9 = 2048;
+  v10 = v5;
+  OUTLINED_FUNCTION_10_0(&dword_244378000, a3, v6, "%p ping (%g) failed!", &v7);
 }
 
 - (void)node:didReceiveError:forCommand:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_10_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)node:didReceiveError:forCommand:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_10_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)node:didReceiveError:forCommand:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_10_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)node:didReceiveError:forCommand:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "listener failed with %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "listener failed with %@", v1, 0xCu);
 }
 
 - (void)didInvalidateNode:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [a1 meshName];
   v5 = [a1 me];
-  v7 = 134218498;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%p restarting %@ mesh (%@)", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218498;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_error_impl(&dword_244378000, a2, OS_LOG_TYPE_ERROR, "%p restarting %@ mesh (%@)", &v6, 0x20u);
 }
 
 @end

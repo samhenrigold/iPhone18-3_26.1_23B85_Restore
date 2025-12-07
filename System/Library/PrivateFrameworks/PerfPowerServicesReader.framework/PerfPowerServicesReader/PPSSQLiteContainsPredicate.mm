@@ -1,5 +1,6 @@
 @interface PPSSQLiteContainsPredicate
 + (id)_arrayFromValues:(id)values;
++ (id)_containsPredicateWithProperty:(id)property values:(id)values isNegative:(BOOL)negative;
 + (id)containsPredicateWithProperty:(id)property values:(id)values;
 + (id)doesNotContainPredicateWithProperty:(id)property values:(id)values;
 - (BOOL)isEqual:(id)equal;
@@ -48,9 +49,38 @@
   return v10;
 }
 
++ (id)_containsPredicateWithProperty:(id)property values:(id)values isNegative:(BOOL)negative
+{
+  negativeCopy = negative;
+  propertyCopy = property;
+  v9 = [self _arrayFromValues:values];
+  if ([v9 count] == 1)
+  {
+    firstObject = [v9 firstObject];
+    if (negativeCopy)
+    {
+      v11 = 2;
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+
+    v12 = [PPSSQLiteComparisonPredicate predicateWithProperty:propertyCopy value:firstObject comparisonType:v11];
+  }
+
+  else
+  {
+    v12 = [[PPSSQLiteContainsPredicate alloc] initWithProperty:propertyCopy values:v9 isNegative:negativeCopy];
+  }
+
+  return v12;
+}
+
 + (id)_arrayFromValues:(id)values
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -69,35 +99,34 @@ LABEL_5:
   }
 
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(valuesCopy, "count")}];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = valuesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 addObject:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v5 addObject:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -134,39 +163,37 @@ LABEL_14:
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   values = [(PPSSQLiteContainsPredicate *)self values];
-  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [values countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(values);
         }
 
-        PPSSQLiteBindFoundationValueToStatement(statement, *index, *(*(&v11 + 1) + 8 * v9));
+        PPSSQLiteBindFoundationValueToStatement(statement, *index, *(*(&v10 + 1) + 8 * v9));
         ++*index;
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [values countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sqlForEntity:(id)entity
@@ -215,34 +242,34 @@ LABEL_14:
 
 - (id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   values = [(PPSSQLiteContainsPredicate *)self values];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(values, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   values2 = [(PPSSQLiteContainsPredicate *)self values];
-  v7 = [values2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [values2 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(values2);
         }
 
-        v10 = [*(*(&v19 + 1) + 8 * i) description];
+        v10 = [*(*(&v18 + 1) + 8 * i) description];
         [v5 addObject:v10];
       }
 
-      v7 = [values2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [values2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -263,8 +290,6 @@ LABEL_14:
   }
 
   v16 = [v12 stringWithFormat:@"'%@' %sIN (%@)", property, v15, v11];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

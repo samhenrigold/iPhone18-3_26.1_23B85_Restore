@@ -1,5 +1,6 @@
 @interface BKUIPearlEnrollAnimationManager
 + (id)sharedManager;
+- (id)gaussianBlurWithRadius:(double)radius normalizeEdges:(BOOL)edges hardEdges:(BOOL)hardEdges quality:(id)quality intermediateBitDepth:(id)depth;
 - (void)animationDidStop:(id)stop finished:(BOOL)finished;
 - (void)runBasicAnimationOnLayer:(id)layer withDuration:(double)duration keyPath:(id)path fromValue:(id)value toValue:(id)toValue removedOnCompletion:(BOOL)completion timingFunction:(id)function completion:(id)self0;
 - (void)transitionTo:(id)to completion:(id)completion;
@@ -26,6 +27,30 @@ uint64_t __48__BKUIPearlEnrollAnimationManager_sharedManager__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
+- (id)gaussianBlurWithRadius:(double)radius normalizeEdges:(BOOL)edges hardEdges:(BOOL)hardEdges quality:(id)quality intermediateBitDepth:(id)depth
+{
+  hardEdgesCopy = hardEdges;
+  edgesCopy = edges;
+  v11 = MEMORY[0x277CD9EA0];
+  v12 = *MEMORY[0x277CDA328];
+  depthCopy = depth;
+  qualityCopy = quality;
+  v15 = [v11 filterWithType:v12];
+  v16 = [MEMORY[0x277CCABB0] numberWithDouble:radius];
+  [v15 setValue:v16 forKey:@"inputRadius"];
+
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:edgesCopy];
+  [v15 setValue:v17 forKey:@"inputNormalizeEdges"];
+
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:hardEdgesCopy];
+  [v15 setValue:v18 forKey:@"inputHardEdges"];
+
+  [v15 setValue:qualityCopy forKey:@"inputQuality"];
+  [v15 setValue:depthCopy forKeyPath:@"inputIntermediateBitDepth"];
+
+  return v15;
+}
+
 - (void)runBasicAnimationOnLayer:(id)layer withDuration:(double)duration keyPath:(id)path fromValue:(id)value toValue:(id)toValue removedOnCompletion:(BOOL)completion timingFunction:(id)function completion:(id)self0
 {
   layerCopy = layer;
@@ -50,34 +75,34 @@ uint64_t __48__BKUIPearlEnrollAnimationManager_sharedManager__block_invoke()
   [v25 setDelegate:self];
   if (functionCopy)
   {
-    v26 = [MEMORY[0x277CD9EF8] functionWithName:functionCopy];
-    [v25 setTimingFunction:v26];
+    v27 = [MEMORY[0x277CD9EF8] functionWithName:functionCopy];
+    [v25 setTimingFunction:v27];
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDuration_keyPath_fromValue_toValue_removedOnCompletion_timingFunction_completion___block_invoke;
   aBlock[3] = &unk_278D0A198;
-  v35 = uUIDString;
-  v36 = v18;
+  v36 = uUIDString;
+  v37 = v18;
   completionCopy = completion;
-  v34 = layerCopy;
-  v27 = uUIDString;
-  v28 = layerCopy;
-  v29 = v18;
-  v30 = _Block_copy(aBlock);
-  v31 = _Block_copy(v30);
-  [v25 setValue:v31 forKey:@"PSAnimationCompletion"];
+  v35 = layerCopy;
+  v28 = uUIDString;
+  v29 = layerCopy;
+  v30 = v18;
+  v31 = _Block_copy(aBlock);
+  v32 = _Block_copy(v31);
+  [v25 setValue:v32 forKey:@"PSAnimationCompletion"];
 
-  [v28 addAnimation:v25 forKey:v27];
+  [v29 addAnimation:v25 forKey:v28];
 }
 
-uint64_t __145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDuration_keyPath_fromValue_toValue_removedOnCompletion_timingFunction_completion___block_invoke(uint64_t a1)
+uint64_t (**__145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDuration_keyPath_fromValue_toValue_removedOnCompletion_timingFunction_completion___block_invoke(uint64_t a1))(void)
 {
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
   }
 
   if (*(a1 + 56) == 1)
@@ -104,15 +129,15 @@ uint64_t __145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDur
 
 - (void)transitionTo:(id)to completion:(id)completion
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   toCopy = to;
   completionCopy = completion;
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setCompletionBlock:completionCopy];
   animation = [MEMORY[0x277CDA000] animation];
   view = [toCopy view];
-  v29[0] = view;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = view;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
 
   v10 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7C0]];
   [animation setTimingFunction:v10];
@@ -133,27 +158,27 @@ uint64_t __145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDur
   }
 
   [animation setSubtype:v13];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v9;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     v18 = *MEMORY[0x277CDA920];
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * i);
+        v20 = *(*(&v23 + 1) + 8 * i);
         layer = [v20 layer];
         [layer removeAllAnimations];
 
@@ -161,14 +186,13 @@ uint64_t __145__BKUIPearlEnrollAnimationManager_runBasicAnimationOnLayer_withDur
         [layer2 addAnimation:animation forKey:v18];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
 
   [MEMORY[0x277CD9FF0] commit];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -144,7 +144,7 @@ void __56__PUDefaultFrameChangeTileTransitionCoordinator_prepare__block_invoke(u
     v39 = v38;
     if (tileCopy)
     {
-      [tileCopy transform];
+      objc_msgSend_transform(tileCopy);
     }
 
     else

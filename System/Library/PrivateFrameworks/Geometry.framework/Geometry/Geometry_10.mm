@@ -1,3 +1,2083 @@
+void geom_dop20_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
+{
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  geom::dop<(unsigned char)20,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
+}
+
+void geom::dop<(unsigned char)20,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v104 = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v9 = *a2;
+  v87 = a1 + 48;
+  do
+  {
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)20,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 10] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[12] - v10.f32[0];
+  }
+
+  while (v8 != 10);
+  __p = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&__p, 0x14uLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
+  do
+  {
+    v13.i32[0] = v103[v14 + 10];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
+      {
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)20,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
+        v16 = v14;
+        v15 = v17;
+      }
+    }
+
+    ++v14;
+  }
+
+  while (v14 != 10);
+  v21 = __p;
+  v22 = (v101 - __p) >> 4;
+  if (!v22)
+  {
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_20;
+  }
+
+  if (v22 == 2)
+  {
+    v92 = geom::kdop_axes<(unsigned char)20,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_20:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_21;
+  }
+
+  if (v22 > 0x13)
+  {
+    geom::half_plane_intersection_3<float>(0x14uLL, __p, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)20,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)20,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)20,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
+    {
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
+    }
+
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
+    {
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
+    }
+
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == __p)
+    {
+      v62 = 0;
+      v63 = 0;
+    }
+
+    else
+    {
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)20,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
+      do
+      {
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        v95 = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &v95);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = __p;
+      }
+
+      while (v43 < (v101 - __p) >> 4);
+      v62 = *__x;
+      v63 = *&__x[2];
+    }
+
+    v95 = 0;
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &v95);
+    v64 = v95;
+    v65 = v96;
+    v66 = v93;
+    if (v95 != v96)
+    {
+      do
+      {
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
+      }
+
+      while (v64 != v65);
+    }
+
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
+    {
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
+      do
+      {
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
+        {
+          *(v73 - 2) = v69;
+        }
+
+        if (vuzp1_s16(v75, *&v72).i8[2])
+        {
+          *(v73 - 1) = v69 + 1;
+        }
+
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
+        {
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
+        }
+
+        v69 += 4;
+        v73 += 4;
+      }
+
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
+      do
+      {
+        v77 = *v70++;
+        *v76-- = v77;
+      }
+
+      while (v70 != v71);
+    }
+
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    if (v95)
+    {
+      v96 = v95;
+      operator delete(v95);
+    }
+
+    if (*__x)
+    {
+      *&__x[2] = *__x;
+      operator delete(*__x);
+    }
+  }
+
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
+  {
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
+  }
+
+LABEL_21:
+  if (__p)
+  {
+    v101 = __p;
+    operator delete(__p);
+  }
+}
+
+void geom_dop26_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
+{
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  geom::dop<(unsigned char)26,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
+}
+
+void geom::dop<(unsigned char)26,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v104 = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v9 = *a2;
+  v87 = a1 + 64;
+  do
+  {
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)26,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 13] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[16] - v10.f32[0];
+  }
+
+  while (v8 != 13);
+  __p = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&__p, 0x1AuLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
+  do
+  {
+    v13.i32[0] = v103[v14 + 13];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
+      {
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)26,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
+        v16 = v14;
+        v15 = v17;
+      }
+    }
+
+    ++v14;
+  }
+
+  while (v14 != 13);
+  v21 = __p;
+  v22 = (v101 - __p) >> 4;
+  if (!v22)
+  {
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_20;
+  }
+
+  if (v22 == 2)
+  {
+    v92 = geom::kdop_axes<(unsigned char)26,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_20:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_21;
+  }
+
+  if (v22 > 0x19)
+  {
+    geom::half_plane_intersection_3<float>(0x1AuLL, __p, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)26,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)26,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)26,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
+    {
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
+    }
+
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
+    {
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
+    }
+
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == __p)
+    {
+      v62 = 0;
+      v63 = 0;
+    }
+
+    else
+    {
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)26,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
+      do
+      {
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        v95 = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &v95);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = __p;
+      }
+
+      while (v43 < (v101 - __p) >> 4);
+      v62 = *__x;
+      v63 = *&__x[2];
+    }
+
+    v95 = 0;
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &v95);
+    v64 = v95;
+    v65 = v96;
+    v66 = v93;
+    if (v95 != v96)
+    {
+      do
+      {
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
+      }
+
+      while (v64 != v65);
+    }
+
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
+    {
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
+      do
+      {
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
+        {
+          *(v73 - 2) = v69;
+        }
+
+        if (vuzp1_s16(v75, *&v72).i8[2])
+        {
+          *(v73 - 1) = v69 + 1;
+        }
+
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
+        {
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
+        }
+
+        v69 += 4;
+        v73 += 4;
+      }
+
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
+      do
+      {
+        v77 = *v70++;
+        *v76-- = v77;
+      }
+
+      while (v70 != v71);
+    }
+
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    if (v95)
+    {
+      v96 = v95;
+      operator delete(v95);
+    }
+
+    if (*__x)
+    {
+      *&__x[2] = *__x;
+      operator delete(*__x);
+    }
+  }
+
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
+  {
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
+  }
+
+LABEL_21:
+  if (__p)
+  {
+    v101 = __p;
+    operator delete(__p);
+  }
+}
+
+void geom_dop6_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a2[1];
+  v12[0] = *a2;
+  v12[1] = v8;
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a5);
+  geom::dop<(unsigned char)6,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+}
+
+void geom::dop<(unsigned char)6,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v138[6] = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v11 = *a2;
+  v10 = a2[1];
+  v117 = a1 + 32;
+  do
+  {
+    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)6,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)6,double>[2 * v8], v11));
+    v13 = (a1 + 8 * v8);
+    *&v138[v8 + 3] = *v13 - v12;
+    *&v138[v8++] = v13[4] - v12;
+  }
+
+  while (v8 != 3);
+  v135 = 0;
+  v136 = 0;
+  v137 = 0;
+  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v135, 6uLL);
+  v16 = 0;
+  v17 = -1;
+  v18 = -1;
+  do
+  {
+    v19 = *&v138[v16 + 3];
+    v20 = v138[v16];
+    if (v19 == *&v20)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v21 = v17;
+      v17 = v16;
+      if (vabdd_f64(v19, *&v20) > 0.000001)
+      {
+        v22 = &geom::kdop_axes<(unsigned char)6,double>[2 * v16];
+        v121 = *v22;
+        v124 = v22[1];
+        v23 = vdupq_lane_s64(v20, 0);
+        *__x = vdivq_f64(*v22, v23);
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v18 = v16;
+        v17 = v21;
+      }
+    }
+
+    ++v16;
+  }
+
+  while (v16 != 3);
+  v25 = v135;
+  v26 = (v136 - v135) >> 5;
+  if (!v26)
+  {
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_13;
+  }
+
+  if (v26 == 2)
+  {
+    v27 = &geom::kdop_axes<(unsigned char)6,double>[2 * v18];
+    v122 = *v27;
+    v125 = v27[1];
+    v28 = *(a1 + 8 * v18);
+    *__x = vmulq_n_f64(*v27, v28);
+    v134 = vmulq_n_f64(v125, v28);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_13:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_14;
+  }
+
+  if (v26 > 5)
+  {
+    geom::half_plane_intersection_3<double>(6uLL, v135, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    v130 = 0;
+    v131 = 0;
+    v132 = 0;
+    v31 = &geom::kdop_axes<(unsigned char)6,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
+    {
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
+    }
+
+    else
+    {
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
+    }
+
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
+    {
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
+    }
+
+    else
+    {
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
+    }
+
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == v135)
+    {
+      v77 = 0;
+      v78 = 0;
+    }
+
+    else
+    {
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
+      do
+      {
+        v57 = &v25[2 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
+        v25 = v135;
+      }
+
+      while (v56 < (v136 - v135) >> 5);
+      v77 = v130;
+      v78 = v131;
+    }
+
+    __p = 0;
+    v128 = 0;
+    v129 = 0;
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &__p);
+    v79 = __p;
+    v80 = v128;
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (__p != v128)
+    {
+      *&v82.f64[1] = v98;
+      *&v83.f64[1] = v99;
+      v109 = v82;
+      v111 = v83;
+      do
+      {
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
+      }
+
+      while (v79 != v80);
+    }
+
+    std::vector<float>::resize(a4, a3[1] - *a3);
+    v85 = a3[1] - *a3;
+    if (v85)
+    {
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
+      do
+      {
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
+        {
+          *(v90 - 2) = v86;
+        }
+
+        if (vuzp1_s16(v92, *&v89).i8[2])
+        {
+          *(v90 - 1) = v86 + 1;
+        }
+
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
+        {
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
+        }
+
+        v86 += 4;
+        v90 += 4;
+      }
+
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
+      do
+      {
+        v94 = *v87++;
+        *v93-- = v94;
+      }
+
+      while (v87 != v88);
+    }
+
+    __x[0] = v85 >> 5;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    if (__p)
+    {
+      v128 = __p;
+      operator delete(__p);
+    }
+
+    if (v130)
+    {
+      v131 = v130;
+      operator delete(v130);
+    }
+  }
+
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
+  {
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
+  }
+
+LABEL_14:
+  if (v135)
+  {
+    v136 = v135;
+    operator delete(v135);
+  }
+}
+
+void geom_dop8_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a2[1];
+  v12[0] = *a2;
+  v12[1] = v8;
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a5);
+  geom::dop<(unsigned char)8,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+}
+
+void geom::dop<(unsigned char)8,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v138[8] = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v11 = *a2;
+  v10 = a2[1];
+  v117 = a1 + 32;
+  do
+  {
+    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)8,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)8,double>[2 * v8], v11));
+    v13 = (a1 + 8 * v8);
+    *&v138[v8 + 4] = *v13 - v12;
+    *&v138[v8++] = v13[4] - v12;
+  }
+
+  while (v8 != 4);
+  v135 = 0;
+  v136 = 0;
+  v137 = 0;
+  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v135, 8uLL);
+  v16 = 0;
+  v17 = -1;
+  v18 = -1;
+  do
+  {
+    v19 = *&v138[v16 + 4];
+    v20 = v138[v16];
+    if (v19 == *&v20)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v21 = v17;
+      v17 = v16;
+      if (vabdd_f64(v19, *&v20) > 0.000001)
+      {
+        v22 = &geom::kdop_axes<(unsigned char)8,double>[2 * v16];
+        v121 = *v22;
+        v124 = v22[1];
+        v23 = vdupq_lane_s64(v20, 0);
+        *__x = vdivq_f64(*v22, v23);
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v18 = v16;
+        v17 = v21;
+      }
+    }
+
+    ++v16;
+  }
+
+  while (v16 != 4);
+  v25 = v135;
+  v26 = (v136 - v135) >> 5;
+  if (!v26)
+  {
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_13;
+  }
+
+  if (v26 == 2)
+  {
+    v27 = &geom::kdop_axes<(unsigned char)8,double>[2 * v18];
+    v122 = *v27;
+    v125 = v27[1];
+    v28 = *(a1 + 8 * v18);
+    *__x = vmulq_n_f64(*v27, v28);
+    v134 = vmulq_n_f64(v125, v28);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_13:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_14;
+  }
+
+  if (v26 > 7)
+  {
+    geom::half_plane_intersection_3<double>(8uLL, v135, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    v130 = 0;
+    v131 = 0;
+    v132 = 0;
+    v31 = &geom::kdop_axes<(unsigned char)8,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
+    {
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
+    }
+
+    else
+    {
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
+    }
+
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
+    {
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
+    }
+
+    else
+    {
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
+    }
+
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == v135)
+    {
+      v77 = 0;
+      v78 = 0;
+    }
+
+    else
+    {
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
+      do
+      {
+        v57 = &v25[2 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
+        v25 = v135;
+      }
+
+      while (v56 < (v136 - v135) >> 5);
+      v77 = v130;
+      v78 = v131;
+    }
+
+    __p = 0;
+    v128 = 0;
+    v129 = 0;
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &__p);
+    v79 = __p;
+    v80 = v128;
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (__p != v128)
+    {
+      *&v82.f64[1] = v98;
+      *&v83.f64[1] = v99;
+      v109 = v82;
+      v111 = v83;
+      do
+      {
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
+      }
+
+      while (v79 != v80);
+    }
+
+    std::vector<float>::resize(a4, a3[1] - *a3);
+    v85 = a3[1] - *a3;
+    if (v85)
+    {
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
+      do
+      {
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
+        {
+          *(v90 - 2) = v86;
+        }
+
+        if (vuzp1_s16(v92, *&v89).i8[2])
+        {
+          *(v90 - 1) = v86 + 1;
+        }
+
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
+        {
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
+        }
+
+        v86 += 4;
+        v90 += 4;
+      }
+
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
+      do
+      {
+        v94 = *v87++;
+        *v93-- = v94;
+      }
+
+      while (v87 != v88);
+    }
+
+    __x[0] = v85 >> 5;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    if (__p)
+    {
+      v128 = __p;
+      operator delete(__p);
+    }
+
+    if (v130)
+    {
+      v131 = v130;
+      operator delete(v130);
+    }
+  }
+
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
+  {
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
+  }
+
+LABEL_14:
+  if (v135)
+  {
+    v136 = v135;
+    operator delete(v135);
+  }
+}
+
+void geom_dop12_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a2[1];
+  v12[0] = *a2;
+  v12[1] = v8;
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a5);
+  geom::dop<(unsigned char)12,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+}
+
+void geom::dop<(unsigned char)12,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v138[12] = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v11 = *a2;
+  v10 = a2[1];
+  v117 = a1 + 48;
+  do
+  {
+    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)12,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)12,double>[2 * v8], v11));
+    v13 = (a1 + 8 * v8);
+    *&v138[v8 + 6] = *v13 - v12;
+    *&v138[v8++] = v13[6] - v12;
+  }
+
+  while (v8 != 6);
+  v135 = 0;
+  v136 = 0;
+  v137 = 0;
+  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v135, 0xCuLL);
+  v16 = 0;
+  v17 = -1;
+  v18 = -1;
+  do
+  {
+    v19 = *&v138[v16 + 6];
+    v20 = v138[v16];
+    if (v19 == *&v20)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v21 = v17;
+      v17 = v16;
+      if (vabdd_f64(v19, *&v20) > 0.000001)
+      {
+        v22 = &geom::kdop_axes<(unsigned char)12,double>[2 * v16];
+        v121 = *v22;
+        v124 = v22[1];
+        v23 = vdupq_lane_s64(v20, 0);
+        *__x = vdivq_f64(*v22, v23);
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v18 = v16;
+        v17 = v21;
+      }
+    }
+
+    ++v16;
+  }
+
+  while (v16 != 6);
+  v25 = v135;
+  v26 = (v136 - v135) >> 5;
+  if (!v26)
+  {
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_13;
+  }
+
+  if (v26 == 2)
+  {
+    v27 = &geom::kdop_axes<(unsigned char)12,double>[2 * v18];
+    v122 = *v27;
+    v125 = v27[1];
+    v28 = *(a1 + 8 * v18);
+    *__x = vmulq_n_f64(*v27, v28);
+    v134 = vmulq_n_f64(v125, v28);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_13:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_14;
+  }
+
+  if (v26 > 0xB)
+  {
+    geom::half_plane_intersection_3<double>(0xCuLL, v135, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    v130 = 0;
+    v131 = 0;
+    v132 = 0;
+    v31 = &geom::kdop_axes<(unsigned char)12,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
+    {
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
+    }
+
+    else
+    {
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
+    }
+
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
+    {
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
+    }
+
+    else
+    {
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
+    }
+
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == v135)
+    {
+      v77 = 0;
+      v78 = 0;
+    }
+
+    else
+    {
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
+      do
+      {
+        v57 = &v25[2 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
+        v25 = v135;
+      }
+
+      while (v56 < (v136 - v135) >> 5);
+      v77 = v130;
+      v78 = v131;
+    }
+
+    __p = 0;
+    v128 = 0;
+    v129 = 0;
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &__p);
+    v79 = __p;
+    v80 = v128;
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (__p != v128)
+    {
+      *&v82.f64[1] = v98;
+      *&v83.f64[1] = v99;
+      v109 = v82;
+      v111 = v83;
+      do
+      {
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
+      }
+
+      while (v79 != v80);
+    }
+
+    std::vector<float>::resize(a4, a3[1] - *a3);
+    v85 = a3[1] - *a3;
+    if (v85)
+    {
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
+      do
+      {
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
+        {
+          *(v90 - 2) = v86;
+        }
+
+        if (vuzp1_s16(v92, *&v89).i8[2])
+        {
+          *(v90 - 1) = v86 + 1;
+        }
+
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
+        {
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
+        }
+
+        v86 += 4;
+        v90 += 4;
+      }
+
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
+      do
+      {
+        v94 = *v87++;
+        *v93-- = v94;
+      }
+
+      while (v87 != v88);
+    }
+
+    __x[0] = v85 >> 5;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    if (__p)
+    {
+      v128 = __p;
+      operator delete(__p);
+    }
+
+    if (v130)
+    {
+      v131 = v130;
+      operator delete(v130);
+    }
+  }
+
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
+  {
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
+  }
+
+LABEL_14:
+  if (v135)
+  {
+    v136 = v135;
+    operator delete(v135);
+  }
+}
+
+void geom_dop14_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a2[1];
+  v12[0] = *a2;
+  v12[1] = v8;
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a5);
+  geom::dop<(unsigned char)14,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+}
+
+void geom::dop<(unsigned char)14,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v138[14] = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v11 = *a2;
+  v10 = a2[1];
+  v117 = a1 + 64;
+  do
+  {
+    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)14,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)14,double>[2 * v8], v11));
+    v13 = (a1 + 8 * v8);
+    *&v138[v8 + 7] = *v13 - v12;
+    *&v138[v8++] = v13[8] - v12;
+  }
+
+  while (v8 != 7);
+  v135 = 0;
+  v136 = 0;
+  v137 = 0;
+  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v135, 0xEuLL);
+  v16 = 0;
+  v17 = -1;
+  v18 = -1;
+  do
+  {
+    v19 = *&v138[v16 + 7];
+    v20 = v138[v16];
+    if (v19 == *&v20)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v21 = v17;
+      v17 = v16;
+      if (vabdd_f64(v19, *&v20) > 0.000001)
+      {
+        v22 = &geom::kdop_axes<(unsigned char)14,double>[2 * v16];
+        v121 = *v22;
+        v124 = v22[1];
+        v23 = vdupq_lane_s64(v20, 0);
+        *__x = vdivq_f64(*v22, v23);
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v135, __x);
+        v18 = v16;
+        v17 = v21;
+      }
+    }
+
+    ++v16;
+  }
+
+  while (v16 != 7);
+  v25 = v135;
+  v26 = (v136 - v135) >> 5;
+  if (!v26)
+  {
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_13;
+  }
+
+  if (v26 == 2)
+  {
+    v27 = &geom::kdop_axes<(unsigned char)14,double>[2 * v18];
+    v122 = *v27;
+    v125 = v27[1];
+    v28 = *(a1 + 8 * v18);
+    *__x = vmulq_n_f64(*v27, v28);
+    v134 = vmulq_n_f64(v125, v28);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_13:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_14;
+  }
+
+  if (v26 > 0xD)
+  {
+    geom::half_plane_intersection_3<double>(0xEuLL, v135, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    v130 = 0;
+    v131 = 0;
+    v132 = 0;
+    v31 = &geom::kdop_axes<(unsigned char)14,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
+    {
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
+    }
+
+    else
+    {
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
+    }
+
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
+    {
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
+    }
+
+    else
+    {
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
+    }
+
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == v135)
+    {
+      v77 = 0;
+      v78 = 0;
+    }
+
+    else
+    {
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
+      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
+      do
+      {
+        v57 = &v25[2 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
+        v25 = v135;
+      }
+
+      while (v56 < (v136 - v135) >> 5);
+      v77 = v130;
+      v78 = v131;
+    }
+
+    __p = 0;
+    v128 = 0;
+    v129 = 0;
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &__p);
+    v79 = __p;
+    v80 = v128;
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (__p != v128)
+    {
+      *&v82.f64[1] = v98;
+      *&v83.f64[1] = v99;
+      v109 = v82;
+      v111 = v83;
+      do
+      {
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
+        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
+      }
+
+      while (v79 != v80);
+    }
+
+    std::vector<float>::resize(a4, a3[1] - *a3);
+    v85 = a3[1] - *a3;
+    if (v85)
+    {
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
+      do
+      {
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
+        {
+          *(v90 - 2) = v86;
+        }
+
+        if (vuzp1_s16(v92, *&v89).i8[2])
+        {
+          *(v90 - 1) = v86 + 1;
+        }
+
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
+        {
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
+        }
+
+        v86 += 4;
+        v90 += 4;
+      }
+
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
+      do
+      {
+        v94 = *v87++;
+        *v93-- = v94;
+      }
+
+      while (v87 != v88);
+    }
+
+    __x[0] = v85 >> 5;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    if (__p)
+    {
+      v128 = __p;
+      operator delete(__p);
+    }
+
+    if (v130)
+    {
+      v131 = v130;
+      operator delete(v130);
+    }
+  }
+
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
+  {
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
+  }
+
+LABEL_14:
+  if (v135)
+  {
+    v136 = v135;
+    operator delete(v135);
+  }
+}
+
 void geom_dop18_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = a2[1];
@@ -12,33 +2092,33 @@ void geom_dop18_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_
 void geom::dop<(unsigned char)18,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[18] = *MEMORY[0x277D85DE8];
+  v138[18] = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
   v11 = *a2;
   v10 = a2[1];
-  v118 = a1 + 80;
+  v117 = a1 + 80;
   do
   {
     v12 = vmulq_f64(geom::kdop_axes<(unsigned char)18,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)18,double>[2 * v8], v11));
     v13 = (a1 + 8 * v8);
-    *&v139[v8 + 9] = *v13 - v12;
-    *&v139[v8++] = v13[10] - v12;
+    *&v138[v8 + 9] = *v13 - v12;
+    *&v138[v8++] = v13[10] - v12;
   }
 
   while (v8 != 9);
   __p = 0;
+  v136 = 0;
   v137 = 0;
-  v138 = 0;
   _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&__p, 0x12uLL);
   v16 = 0;
   v17 = -1;
   v18 = -1;
   do
   {
-    v19 = *&v139[v16 + 9];
-    v20 = v139[v16];
+    v19 = *&v138[v16 + 9];
+    v20 = v138[v16];
     if (v19 == *&v20)
     {
       v17 = v16;
@@ -51,16 +2131,16 @@ void geom::dop<(unsigned char)18,double>::compute_polyhedron(uint64_t a1, float6
       if (vabdd_f64(v19, *&v20) > 0.000001)
       {
         v22 = &geom::kdop_axes<(unsigned char)18,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
+        v121 = *v22;
+        v124 = v22[1];
         v23 = vdupq_lane_s64(v20, 0);
         *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
         v18 = v16;
         v17 = v21;
@@ -72,7 +2152,7 @@ void geom::dop<(unsigned char)18,double>::compute_polyhedron(uint64_t a1, float6
 
   while (v16 != 9);
   v25 = __p;
-  v26 = (v137 - __p) >> 5;
+  v26 = (v136 - __p) >> 5;
   if (!v26)
   {
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
@@ -84,15 +2164,15 @@ void geom::dop<(unsigned char)18,double>::compute_polyhedron(uint64_t a1, float6
   if (v26 == 2)
   {
     v27 = &geom::kdop_axes<(unsigned char)18,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
+    v122 = *v27;
+    v125 = v27[1];
     v28 = *(a1 + 8 * v18);
     *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
+    v134 = vmulq_n_f64(v125, v28);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
@@ -114,252 +2194,250 @@ LABEL_13:
 
   if (v26 > 0x11)
   {
-    geom::half_plane_intersection_3<double>(0x12uLL);
+    geom::half_plane_intersection_3<double>(0x12uLL, __p, a3, &a4->__begin_, a5);
   }
 
   else
   {
+    v130 = 0;
     v131 = 0;
     v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)18,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    v31 = &geom::kdop_axes<(unsigned char)18,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == __p)
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == __p)
     {
+      v77 = 0;
       v78 = 0;
-      v79 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
       v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
+        v57 = &v25[32 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
         v25 = __p;
       }
 
-      while (v57 < (v137 - __p) >> 5);
+      while (v56 < (v136 - __p) >> 5);
+      v77 = v130;
       v78 = v131;
-      v79 = v132;
     }
 
+    v127 = 0;
     v128 = 0;
     v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &v128);
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &v127);
+    v79 = v127;
     v80 = v128;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (v128 != v129)
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (v127 != v128)
     {
+      *&v82.f64[1] = v98;
       *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
+      v109 = v82;
+      v111 = v83;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
       }
 
-      while (v80 != v81);
+      while (v79 != v80);
     }
 
     std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    v85 = a3[1] - *a3;
+    if (v85)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v90 - 2) = v86;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v92, *&v89).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v90 - 1) = v86 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v86 += 4;
+        v90 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v94 = *v87++;
+        *v93-- = v94;
       }
 
-      while (v88 != v89);
+      while (v87 != v88);
     }
 
-    __x[0] = v86 >> 5;
+    __x[0] = v85 >> 5;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    if (v128)
+    if (v127)
     {
-      v129 = v128;
-      operator delete(v128);
+      v128 = v127;
+      operator delete(v127);
     }
 
-    if (v131)
+    if (v130)
     {
-      v132 = v131;
-      operator delete(v131);
+      v131 = v130;
+      operator delete(v130);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
   }
 
 LABEL_14:
   if (__p)
   {
-    v137 = __p;
+    v136 = __p;
     operator delete(__p);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void geom_dop20_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -376,33 +2454,33 @@ void geom_dop20_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_
 void geom::dop<(unsigned char)20,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[20] = *MEMORY[0x277D85DE8];
+  v138[20] = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
   v11 = *a2;
   v10 = a2[1];
-  v118 = a1 + 80;
+  v117 = a1 + 80;
   do
   {
     v12 = vmulq_f64(geom::kdop_axes<(unsigned char)20,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)20,double>[2 * v8], v11));
     v13 = (a1 + 8 * v8);
-    *&v139[v8 + 10] = *v13 - v12;
-    *&v139[v8++] = v13[10] - v12;
+    *&v138[v8 + 10] = *v13 - v12;
+    *&v138[v8++] = v13[10] - v12;
   }
 
   while (v8 != 10);
   __p = 0;
+  v136 = 0;
   v137 = 0;
-  v138 = 0;
   _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&__p, 0x14uLL);
   v16 = 0;
   v17 = -1;
   v18 = -1;
   do
   {
-    v19 = *&v139[v16 + 10];
-    v20 = v139[v16];
+    v19 = *&v138[v16 + 10];
+    v20 = v138[v16];
     if (v19 == *&v20)
     {
       v17 = v16;
@@ -415,16 +2493,16 @@ void geom::dop<(unsigned char)20,double>::compute_polyhedron(uint64_t a1, float6
       if (vabdd_f64(v19, *&v20) > 0.000001)
       {
         v22 = &geom::kdop_axes<(unsigned char)20,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
+        v121 = *v22;
+        v124 = v22[1];
         v23 = vdupq_lane_s64(v20, 0);
         *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
         v18 = v16;
         v17 = v21;
@@ -436,7 +2514,7 @@ void geom::dop<(unsigned char)20,double>::compute_polyhedron(uint64_t a1, float6
 
   while (v16 != 10);
   v25 = __p;
-  v26 = (v137 - __p) >> 5;
+  v26 = (v136 - __p) >> 5;
   if (!v26)
   {
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
@@ -448,15 +2526,15 @@ void geom::dop<(unsigned char)20,double>::compute_polyhedron(uint64_t a1, float6
   if (v26 == 2)
   {
     v27 = &geom::kdop_axes<(unsigned char)20,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
+    v122 = *v27;
+    v125 = v27[1];
     v28 = *(a1 + 8 * v18);
     *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
+    v134 = vmulq_n_f64(v125, v28);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
@@ -478,252 +2556,250 @@ LABEL_13:
 
   if (v26 > 0x13)
   {
-    geom::half_plane_intersection_3<double>(0x14uLL);
+    geom::half_plane_intersection_3<double>(0x14uLL, __p, a3, &a4->__begin_, a5);
   }
 
   else
   {
+    v130 = 0;
     v131 = 0;
     v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)20,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    v31 = &geom::kdop_axes<(unsigned char)20,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == __p)
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == __p)
     {
+      v77 = 0;
       v78 = 0;
-      v79 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
       v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
+        v57 = &v25[32 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
         v25 = __p;
       }
 
-      while (v57 < (v137 - __p) >> 5);
+      while (v56 < (v136 - __p) >> 5);
+      v77 = v130;
       v78 = v131;
-      v79 = v132;
     }
 
+    v127 = 0;
     v128 = 0;
     v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &v128);
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &v127);
+    v79 = v127;
     v80 = v128;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (v128 != v129)
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (v127 != v128)
     {
+      *&v82.f64[1] = v98;
       *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
+      v109 = v82;
+      v111 = v83;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
       }
 
-      while (v80 != v81);
+      while (v79 != v80);
     }
 
     std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    v85 = a3[1] - *a3;
+    if (v85)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v90 - 2) = v86;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v92, *&v89).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v90 - 1) = v86 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v86 += 4;
+        v90 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v94 = *v87++;
+        *v93-- = v94;
       }
 
-      while (v88 != v89);
+      while (v87 != v88);
     }
 
-    __x[0] = v86 >> 5;
+    __x[0] = v85 >> 5;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    if (v128)
+    if (v127)
     {
-      v129 = v128;
-      operator delete(v128);
+      v128 = v127;
+      operator delete(v127);
     }
 
-    if (v131)
+    if (v130)
     {
-      v132 = v131;
-      operator delete(v131);
+      v131 = v130;
+      operator delete(v130);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
   }
 
 LABEL_14:
   if (__p)
   {
-    v137 = __p;
+    v136 = __p;
     operator delete(__p);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void geom_dop26_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -740,33 +2816,33 @@ void geom_dop26_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_
 void geom::dop<(unsigned char)26,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[26] = *MEMORY[0x277D85DE8];
+  v138[26] = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
   v11 = *a2;
   v10 = a2[1];
-  v118 = a1 + 112;
+  v117 = a1 + 112;
   do
   {
     v12 = vmulq_f64(geom::kdop_axes<(unsigned char)26,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)26,double>[2 * v8], v11));
     v13 = (a1 + 8 * v8);
-    *&v139[v8 + 13] = *v13 - v12;
-    *&v139[v8++] = v13[14] - v12;
+    *&v138[v8 + 13] = *v13 - v12;
+    *&v138[v8++] = v13[14] - v12;
   }
 
   while (v8 != 13);
   __p = 0;
+  v136 = 0;
   v137 = 0;
-  v138 = 0;
   _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&__p, 0x1AuLL);
   v16 = 0;
   v17 = -1;
   v18 = -1;
   do
   {
-    v19 = *&v139[v16 + 13];
-    v20 = v139[v16];
+    v19 = *&v138[v16 + 13];
+    v20 = v138[v16];
     if (v19 == *&v20)
     {
       v17 = v16;
@@ -779,16 +2855,16 @@ void geom::dop<(unsigned char)26,double>::compute_polyhedron(uint64_t a1, float6
       if (vabdd_f64(v19, *&v20) > 0.000001)
       {
         v22 = &geom::kdop_axes<(unsigned char)26,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
+        v121 = *v22;
+        v124 = v22[1];
         v23 = vdupq_lane_s64(v20, 0);
         *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
+        v134 = vdivq_f64(v124, v23);
+        v119 = *&v19;
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
+        v24 = vdupq_lane_s64(v119, 0);
+        *__x = vdivq_f64(v121, v24);
+        v134 = vdivq_f64(v124, v24);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&__p, __x);
         v18 = v16;
         v17 = v21;
@@ -800,7 +2876,7 @@ void geom::dop<(unsigned char)26,double>::compute_polyhedron(uint64_t a1, float6
 
   while (v16 != 13);
   v25 = __p;
-  v26 = (v137 - __p) >> 5;
+  v26 = (v136 - __p) >> 5;
   if (!v26)
   {
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
@@ -812,15 +2888,15 @@ void geom::dop<(unsigned char)26,double>::compute_polyhedron(uint64_t a1, float6
   if (v26 == 2)
   {
     v27 = &geom::kdop_axes<(unsigned char)26,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
+    v122 = *v27;
+    v125 = v27[1];
     v28 = *(a1 + 8 * v18);
     *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
+    v134 = vmulq_n_f64(v125, v28);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
+    v29 = *(v117 + 8 * v18);
+    *__x = vmulq_n_f64(v122, v29);
+    v134 = vmulq_n_f64(v125, v29);
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
@@ -842,252 +2918,250 @@ LABEL_13:
 
   if (v26 > 0x19)
   {
-    geom::half_plane_intersection_3<double>(0x1AuLL);
+    geom::half_plane_intersection_3<double>(0x1AuLL, __p, a3, &a4->__begin_, a5);
   }
 
   else
   {
+    v130 = 0;
     v131 = 0;
     v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)26,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    v31 = &geom::kdop_axes<(unsigned char)26,double>[2 * v17];
+    v32 = *v31;
+    v33 = v31[1];
+    v34 = fabs(v33.f64[0]);
+    if (v34 <= 2.22044605e-16)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      *v15.i64 = -v32.f64[1];
+      v36 = 0uLL;
+      v35 = vzip1q_s64(v15, v32);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v35.f64[0] = 0.0;
+      v35.f64[1] = -v33.f64[0];
+      v36 = vdupq_laneq_s64(v32, 1);
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v37 = vdupq_laneq_s64(v32, 1);
+    v38 = vmulq_f64(v36, v36);
+    v38.f64[0] = 1.0 / sqrt(v38.f64[0] + vaddvq_f64(vmulq_f64(v35, v35)));
+    v39 = vmulq_f64(v36, v38);
+    v40 = vmulq_n_f64(v35, v38.f64[0]);
+    v41 = vextq_s8(v40, v40, 8uLL).u64[0];
+    if (v34 <= 2.22044605e-16)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      *v14.i64 = -v32.f64[1];
+      v43 = 0uLL;
+      v42 = vzip1q_s64(v14, v32);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v42.f64[0] = 0.0;
+      v42.f64[1] = -v33.f64[0];
+      v43 = v37;
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == __p)
+    v123 = v31[1];
+    v126 = v39;
+    v44 = vmulq_f64(v43, v43);
+    v44.f64[0] = 1.0 / sqrt(v44.f64[0] + vaddvq_f64(vmulq_f64(v42, v42)));
+    v45 = vmulq_n_f64(v42, v44.f64[0]);
+    v46 = vmulq_f64(v43, v44);
+    v47.f64[0] = v31[1].f64[0];
+    v47.f64[1] = v31->f64[0];
+    v48 = vnegq_f64(v33);
+    v49 = vmlaq_laneq_f64(vmulq_laneq_f64(v48, v45, 1), v46, v32, 1);
+    v46.f64[1] = v45.f64[0];
+    v50 = vnegq_f64(v32);
+    v51 = v47;
+    v52 = vmlaq_f64(vmulq_f64(v46, v50), v45, v47);
+    v53 = vmulq_f64(v52, v52);
+    v47.f64[0] = vmulq_f64(v49, v49).f64[0];
+    v49.f64[1] = v52.f64[0];
+    v53.f64[0] = 1.0 / sqrt(v53.f64[1] + v47.f64[0] + v53.f64[0]);
+    v54 = vmulq_n_f64(v49, v53.f64[0]);
+    v55 = vextq_s8(v54, v54, 8uLL).u64[0];
+    v120 = vmulq_laneq_f64(v53, v52, 1);
+    v108 = v54.i64[0];
+    v110 = v40.i64[0];
+    v98 = v55;
+    v99 = v41;
+    if (v136 == __p)
     {
+      v77 = 0;
       v78 = 0;
-      v79 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
+      v56 = 0;
+      v40.i64[1] = v41;
+      v54.i64[1] = v55;
+      v102 = v54;
+      v103 = v40;
+      v101 = vdupq_lane_s64(*&v123.f64[0], 0);
+      v50.i64[1] = vextq_s8(v50, v50, 8uLL).u64[0];
+      v104 = v50;
+      v105 = v48;
       v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v106 = v51;
+      v107 = v37;
+      v118 = *v31;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
+        v57 = &v25[32 * v56];
+        v112 = v57[1];
+        v113 = *v57;
+        v58.f64[0] = v57[1].f64[0];
+        v58.f64[1] = v57->f64[0];
+        v59 = vmlaq_f64(vmulq_f64(v58, v104), *v57, v106);
+        v60 = vmlaq_f64(vmulq_laneq_f64(v48, *v57, 1), v112, v37);
+        v61 = vmulq_f64(v59, v59);
+        v62 = v59.f64[0];
+        v115 = v59;
+        v63.f64[0] = v60.f64[0];
+        v61.f64[0] = 1.0 / sqrt(v61.f64[1] + vmulq_f64(v60, v60).f64[0] + v61.f64[0]);
+        v116 = v61;
+        v64 = vzip1q_s64(v118, *v57);
+        v65 = vzip2q_s64(v118, *v57);
+        v66 = vzip1q_s64(v123, v112);
+        v139.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v64, v118.f64[0]), v37, v65), v101, v66);
+        v139.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v64, v57->f64[0]), v65, *v57, 1), v66, v112.f64[0]);
+        v63.f64[1] = v62;
+        v114 = v63;
+        v67 = __invert_d2(v139);
+        v68 = vmlaq_laneq_f64(vmulq_n_f64(v118, v67.columns[1].f64[0]), v113, v67.columns[1], 1);
+        v69 = vmlaq_laneq_f64(vmulq_n_f64(v123, v67.columns[1].f64[0]), v112, v67.columns[1], 1);
+        v70 = vmulq_n_f64(v114, v116.f64[0]);
+        v71 = vmulq_laneq_f64(v116, v115, 1);
+        v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v126, v71), vmulq_f64(v120, v71)), vpaddq_f64(vmulq_f64(v103, v70), vmulq_f64(v102, v70)));
+        v73 = vmulq_f64(v72, v72);
+        v74 = vmulq_n_f64(v72, 1.0 / sqrt(vaddvq_f64(v73)));
+        v73.f64[0] = -*&v74.i64[1];
+        v75 = vzip1q_s64(v73, v74);
+        v76 = vmulq_f64(v75, vaddq_f64(vzip1q_s64(vmulq_f64(v126, v69), vmulq_f64(v120, v69)), vpaddq_f64(vmulq_f64(v103, v68), vmulq_f64(v102, v68))));
+        *__x = vdivq_f64(v75, vdupq_lane_s64(*&vaddq_f64(v76, vdupq_laneq_s64(v76, 1)), 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v130, __x);
+        v48 = v105;
+        v37 = v107;
+        ++v56;
         v25 = __p;
       }
 
-      while (v57 < (v137 - __p) >> 5);
+      while (v56 < (v136 - __p) >> 5);
+      v77 = v130;
       v78 = v131;
-      v79 = v132;
     }
 
+    v127 = 0;
     v128 = 0;
     v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &v128);
+    geom::half_plane_intersection_2<double>((v78 - v77) >> 4, v77, &v127);
+    v79 = v127;
     v80 = v128;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (v128 != v129)
+    v81 = v126;
+    *&v82.f64[0] = v108;
+    *&v83.f64[0] = v110;
+    if (v127 != v128)
     {
+      *&v82.f64[1] = v98;
       *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
+      v109 = v82;
+      v111 = v83;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
+        v84 = *v79++;
+        *__x = vmlaq_n_f64(vmulq_laneq_f64(v82, v84, 1), v83, v84.f64[0]);
+        v134 = vmlaq_f64(vmulq_laneq_f64(v120, v84, 1), v84, v81);
         _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v81 = v126;
+        v82 = v109;
+        v83 = v111;
       }
 
-      while (v80 != v81);
+      while (v79 != v80);
     }
 
     std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    v85 = a3[1] - *a3;
+    if (v85)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v86 = 0;
+      v87 = a4->__begin_;
+      v88 = a4->__begin_ + (v85 >> 3);
+      v89 = vdupq_n_s64(((v85 >> 3) - 4) >> 2);
+      v90 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v91 = vdupq_n_s64(v86);
+        v92 = vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1680)));
+        if (vuzp1_s16(v92, *v89.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v90 - 2) = v86;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v92, *&v89).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v90 - 1) = v86 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v89, vmovn_s64(vcgeq_u64(v89, vorrq_s8(v91, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v90 = v86 + 2;
+          v90[1] = v86 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v86 += 4;
+        v90 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v85 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v86);
+      v93 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v94 = *v87++;
+        *v93-- = v94;
       }
 
-      while (v88 != v89);
+      while (v87 != v88);
     }
 
-    __x[0] = v86 >> 5;
+    __x[0] = v85 >> 5;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    if (v128)
+    if (v127)
     {
-      v129 = v128;
-      operator delete(v128);
+      v128 = v127;
+      operator delete(v127);
     }
 
-    if (v131)
+    if (v130)
     {
-      v132 = v131;
-      operator delete(v131);
+      v131 = v130;
+      operator delete(v130);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v95 = *a3;
+  v96 = a3[1];
+  while (v95 != v96)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    v97 = vaddq_f64(a2[1], v95[1]);
+    *v95 = vaddq_f64(*a2, *v95);
+    v95[1] = v97;
+    v95 += 2;
   }
 
 LABEL_14:
   if (__p)
   {
-    v137 = __p;
+    v136 = __p;
     operator delete(__p);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void std::__introsort<std::_ClassicAlgPolicy,void geom::convex_hull_2<float>(unsigned long,geom::vector_type<float,(unsigned char)2,void>::value const*,std::vector<unsigned int> &)::{lambda(unsigned int,unsigned int)#1} &,unsigned int *,false>(int32x2_t *a1, int32x2_t *a2, uint64_t **a3, uint64_t a4, char a5)
@@ -3029,7 +5103,7 @@ LABEL_20:
     if (!v24)
     {
 LABEL_23:
-      std::__introsort<std::_ClassicAlgPolicy,void geom::convex_hull_2<double>(unsigned long,geom::vector_type<double,(unsigned char)2,void>::value const*,std::vector<unsigned int> &)::{lambda(unsigned int,unsigned int)#1} &,unsigned int *,false>(a1, v22, a3, -v12, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,void geom::convex_hull_2<double>(unsigned long,geom::vector_type<double,(unsigned char)2,void>::value const*,std::vector<unsigned int> &)::{lambda(unsigned int,unsigned int)#1} &,unsigned int *,false>(a1, v22, a3, -v12, a5 & 1, result);
       v10 = (v22 + 1);
 LABEL_25:
       a5 = 0;
@@ -4568,43 +6642,39 @@ LABEL_7:
   }
 }
 
-uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<float,3ul>()
+uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<float,3ul>(uint64_t a1, uint64_t a2, int a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = ssyev_NEWLAPACK();
-  MEMORY[0x28223BE20](v0, v1);
+  v3 = ssyev_NEWLAPACK();
+  MEMORY[0x28223BE20](v3, v4, v5, v6);
   ssyev_NEWLAPACK();
-  result = 0;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<double,3ul>()
+uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<double,3ul>(uint64_t a1, uint64_t a2, int a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = dsyev_NEWLAPACK();
-  MEMORY[0x28223BE20](v0, v1);
+  v3 = dsyev_NEWLAPACK();
+  MEMORY[0x28223BE20](v3, v4, v5, v6);
   dsyev_NEWLAPACK();
-  result = 0;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t geom_ddg_evaluator_create_3f(uint64_t a1, uint64_t a2)
+uint64_t geom_ddg_evaluator_create_3f(unint64_t a1, const void *a2, uint64_t a3, const void *a4)
 {
-  v4 = geom_ddg_evaluator_3f_obj_alloc();
-  geom::ddg_evaluator<float>::ddg_evaluator(v4 + 16, a2, a1);
-  return v4;
+  v7 = 3 * a3;
+  v8 = geom_ddg_evaluator_3f_obj_alloc();
+  geom::ddg_evaluator<float>::ddg_evaluator(v8 + 16, a2, a1, a4, v7);
+  return v8;
 }
 
-uint64_t geom_ddg_evaluator_create_3d(uint64_t a1, uint64_t a2)
+uint64_t geom_ddg_evaluator_create_3d(unint64_t a1, const void *a2, uint64_t a3, const void *a4)
 {
-  v4 = geom_ddg_evaluator_3d_obj_alloc();
-  geom::ddg_evaluator<double>::ddg_evaluator(v4 + 16, a2, a1);
-  return v4;
+  v7 = 3 * a3;
+  v8 = geom_ddg_evaluator_3d_obj_alloc();
+  geom::ddg_evaluator<double>::ddg_evaluator(v8 + 16, a2, a1, a4, v7);
+  return v8;
 }
 
-void geom_ddg_evaluator_compute_laplacian_stencil_3f(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5)
+void geom_ddg_evaluator_compute_laplacian_stencil_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   geom::ddg_evaluator<float>::compute_laplacian_stencil((a1 + 16), a3, a2, &v9);
   v7 = geom::collection_to_vector<float>(a4);
@@ -4632,7 +6702,7 @@ void geom_ddg_evaluator_compute_laplacian_stencil_3f(uint64_t a1, int a2, unsign
   }
 }
 
-void geom_ddg_evaluator_compute_laplacian_stencil_3d(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5)
+void geom_ddg_evaluator_compute_laplacian_stencil_3d(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   geom::ddg_evaluator<double>::compute_laplacian_stencil((a1 + 16), a3, a2, &v9);
   v7 = geom::collection_to_vector<float>(a4);
@@ -4660,51 +6730,55 @@ void geom_ddg_evaluator_compute_laplacian_stencil_3d(uint64_t a1, int a2, unsign
   }
 }
 
-void geom_ddg_evaluator_get_vertex_one_ring_3f(uint64_t a1, unsigned int a2, uint64_t a3)
+void geom_ddg_evaluator_get_vertex_one_ring_3f(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v5 = geom::collection_to_vector<float>(a3);
 
-  geom::ddg_evaluator<float>::get_vertex_one_ring(a1 + 16, a2, v5);
+  geom::ddg_evaluator<float>::get_vertex_one_ring(a1 + 16, v3, v5);
 }
 
-void geom_ddg_evaluator_get_vertex_one_ring_3d(uint64_t a1, unsigned int a2, uint64_t a3)
+void geom_ddg_evaluator_get_vertex_one_ring_3d(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v5 = geom::collection_to_vector<float>(a3);
 
-  geom::ddg_evaluator<float>::get_vertex_one_ring(a1 + 16, a2, v5);
+  geom::ddg_evaluator<float>::get_vertex_one_ring(a1 + 16, v3, v5);
 }
 
-void geom_ddg_evaluator_get_vertex_incident_faces_3f(uint64_t a1, unsigned int a2, uint64_t a3)
+void geom_ddg_evaluator_get_vertex_incident_faces_3f(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v5 = geom::collection_to_vector<float>(a3);
 
-  geom::ddg_evaluator<float>::get_vertex_incident_faces(a1 + 16, a2, v5);
+  geom::ddg_evaluator<float>::get_vertex_incident_faces(a1 + 16, v3, v5);
 }
 
-void geom_ddg_evaluator_get_vertex_incident_faces_3d(uint64_t a1, unsigned int a2, uint64_t a3)
+void geom_ddg_evaluator_get_vertex_incident_faces_3d(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v5 = geom::collection_to_vector<float>(a3);
 
-  geom::ddg_evaluator<float>::get_vertex_incident_faces(a1 + 16, a2, v5);
+  geom::ddg_evaluator<float>::get_vertex_incident_faces(a1 + 16, v3, v5);
 }
 
-double geom_ddg_evaluator_compute_vertex_normal_3d@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, int8x16_t *a3@<X8>)
+double geom_ddg_evaluator_compute_vertex_normal_3d@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>, unsigned int a3@<W1>)
 {
-  geom::ddg_evaluator<double>::compute_vertex_normal((a1 + 16), a2, v6);
+  geom::ddg_evaluator<double>::compute_vertex_normal((a1 + 16), a3, v6);
   result = *v6[0].i64;
   v5 = v6[1];
-  *a3 = v6[0];
-  a3[1] = v5;
+  *a2 = v6[0];
+  a2[1] = v5;
   return result;
 }
 
-float64_t geom_ddg_evaluator_compute_vertex_mean_curvature_vector_3d@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, float64x2_t *a3@<X8>)
+float64_t geom_ddg_evaluator_compute_vertex_mean_curvature_vector_3d@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>, uint64_t a3@<X1>)
 {
-  geom::ddg_evaluator<double>::compute_vertex_mean_curvature_vector((a1 + 16), a2, v6);
+  geom::ddg_evaluator<double>::compute_vertex_mean_curvature_vector((a1 + 16), a3, v6);
   result = v6[0].f64[0];
   v5 = v6[1];
-  *a3 = v6[0];
-  a3[1] = v5;
+  *a2 = v6[0];
+  a2[1] = v5;
   return result;
 }
 
@@ -4861,7 +6935,7 @@ LABEL_41:
   return *v3.i64;
 }
 
-float64_t geom_closest_point_to_triangle_3d@<D0>(float64x2_t *a1@<X0>, float64x2_t *a2@<X1>, uint64_t a3@<X2>, float64x2_t *a4@<X8>)
+float64_t geom_closest_point_to_triangle_3d@<D0>(float64x2_t *a1@<X0>, float64x2_t *a2@<X1>, _OWORD *a3@<X8>, uint64_t a4@<X2>)
 {
   v5 = a1[1];
   v13[0] = *a1;
@@ -4875,11 +6949,11 @@ float64_t geom_closest_point_to_triangle_3d@<D0>(float64x2_t *a1@<X0>, float64x2
   v8 = a2[1];
   v12[0] = *a2;
   v12[1] = v8;
-  geom::closest_point_to_triangle<double>(v13, v12, a3, v11);
+  geom::closest_point_to_triangle<double>(v13, v12, a4, v11);
   result = v11[0].f64[0];
   v10 = v11[1];
-  *a4 = v11[0];
-  a4[1] = v10;
+  *a3 = v11[0];
+  a3[1] = v10;
   return result;
 }
 
@@ -5256,8 +7330,8 @@ void geom::find_best_rigid_transform<float>(float32x4_t **a1, float32x4_t **a2, 
     v44 = vtrn2q_s32(vrev64q_s32(vaddq_f32(v33, v43)), vsubq_f32(v42, v43));
     *&v45 = vzip1q_s32(v23, v44).u64[0];
     *(&v45 + 1) = __PAIR64__(v41.u32[0], v40);
-    v75 = v45;
-    v76 = v44;
+    v74[0] = v45;
+    v74[1] = v44;
     DWORD1(v40) = v44.i32[2];
     v46.i32[1] = v31.i32[1];
     v46.f32[0] = v39 - v33.f32[1];
@@ -5265,13 +7339,13 @@ void geom::find_best_rigid_transform<float>(float32x4_t **a1, float32x4_t **a2, 
     v41.i32[1] = v44.i32[3];
     v41.i32[2] = HIDWORD(v40);
     *&v41.i32[3] = v39 + (v33.f32[1] + v31.f32[0]);
-    v77 = v40;
-    v78 = v41;
-    v73 = 0;
-    v74 = 0;
-    if (geom::compute_eigendecomposition_of_symmetric_matrix<float,4ul>())
+    v74[2] = v40;
+    v75 = v41;
+    v73[0] = 0;
+    v73[1] = 0;
+    if (geom::compute_eigendecomposition_of_symmetric_matrix<float,4ul>(v74, v73, 1))
     {
-      v47 = v78;
+      v47 = v75;
       v48 = vmulq_f32(v47, v47);
       v49 = vextq_s8(v48, v48, 8uLL);
       v49.f32[0] = vaddv_f32(vadd_f32(*v48.i8, *v49.f32));
@@ -5279,7 +7353,7 @@ void geom::find_best_rigid_transform<float>(float32x4_t **a1, float32x4_t **a2, 
       if (v49.f32[0] == 1.0 || (v62 = fabsf(v49.f32[0]), v63.i64[0] = 0x3F0000003FLL, v63.i64[1] = 0x3F0000003FLL, v51 = vnegq_f32(v63), v62 != INFINITY) && fabsf(v49.f32[0] + -1.0) < (((v62 + 1.0) + 1.0) * 0.00001))
       {
         v49.i64[0] = 0;
-        v51 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v49, vdupq_laneq_s32(v78, 3)), 0), vnegq_f32(v78), v78);
+        v51 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v49, vdupq_laneq_s32(v75, 3)), 0), vnegq_f32(v75), v75);
       }
     }
 
@@ -5494,35 +7568,34 @@ void geom::find_best_rigid_transform<double>(float64x2_t **a1, float64x2_t **a2,
     v59 = vzip1q_s64(v26, v56);
     v56.i64[1] = *&vsubq_f64(v52, v53).f64[1];
     v23.i64[1] = *&v50.f64[0];
-    v91 = v59;
-    v92 = v23;
-    v93 = v56;
-    v94 = v55;
+    v90[0] = v59;
+    v90[1] = v23;
+    v90[2] = v56;
+    v90[3] = v55;
     *&v59.f64[1] = v39.i64[1];
     v59.f64[0] = *v45.i64 - v42.f64[1];
-    v95 = v58;
-    v96 = vsubq_f64(v59, vzip1q_s64(v39, v42));
+    v90[4] = v58;
+    v91 = vsubq_f64(v59, vzip1q_s64(v39, v42));
     v50.f64[1] = v57.f64[1];
-    *&v42.f64[0] = vdupq_laneq_s64(v96, 1).u64[0];
+    *&v42.f64[0] = vdupq_laneq_s64(v91, 1).u64[0];
     v42.f64[1] = *v45.i64 + v42.f64[1] + *v39.i64;
-    v97 = v50;
-    v98 = v42;
-    v89 = 0uLL;
-    v90 = 0uLL;
-    v60 = geom::compute_eigendecomposition_of_symmetric_matrix<double,4ul>();
+    v92 = v50;
+    v93 = v42;
+    memset(v89, 0, sizeof(v89));
+    v60 = geom::compute_eigendecomposition_of_symmetric_matrix<double,4ul>(v90, v89, 1);
     v62 = vdupq_n_s64(0x7FF8000000000000uLL);
     v63 = v62;
     if (v60)
     {
-      v61 = v97;
-      v62 = vaddq_f64(vmulq_f64(v61, v61), vmulq_f64(v98, v98));
+      v61 = v92;
+      v62 = vaddq_f64(vmulq_f64(v61, v61), vmulq_f64(v93, v93));
       v62.f64[0] = vaddvq_f64(v62);
       if (v62.f64[0] == 1.0 || (v64 = fabs(v62.f64[0] + -1.0), v62 = vdupq_n_s64(0x7FF8000000000000uLL), v49 = v64 > 0.000001, v63 = v62, !v49))
       {
         v62.f64[0] = 0.0;
-        v65 = vdupq_lane_s64(vcgtq_f64(v62, vdupq_laneq_s64(v98, 1)).i64[0], 0);
-        v63 = vbslq_s8(v65, vnegq_f64(v98), v98);
-        v62 = vbslq_s8(v65, vnegq_f64(v97), v97);
+        v65 = vdupq_lane_s64(vcgtq_f64(v62, vdupq_laneq_s64(v93, 1)).i64[0], 0);
+        v63 = vbslq_s8(v65, vnegq_f64(v93), v93);
+        v62 = vbslq_s8(v65, vnegq_f64(v92), v92);
       }
     }
 
@@ -5648,26 +7721,20 @@ float64_t geom::find_best_rigid_transform_matrix<double>@<D0>(float64x2_t **a1@<
   return result;
 }
 
-uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<float,4ul>()
+uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<float,4ul>(uint64_t a1, uint64_t a2, int a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = ssyev_NEWLAPACK();
-  MEMORY[0x28223BE20](v0, v1);
+  v3 = ssyev_NEWLAPACK();
+  MEMORY[0x28223BE20](v3, v4, v5, v6);
   ssyev_NEWLAPACK();
-  result = 0;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<double,4ul>()
+uint64_t geom::compute_eigendecomposition_of_symmetric_matrix<double,4ul>(uint64_t a1, uint64_t a2, int a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = dsyev_NEWLAPACK();
-  MEMORY[0x28223BE20](v0, v1);
+  v3 = dsyev_NEWLAPACK();
+  MEMORY[0x28223BE20](v3, v4, v5, v6);
   dsyev_NEWLAPACK();
-  result = 0;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t geom::point_tree<float,(unsigned char)2>::point_tree(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
@@ -5957,14 +8024,6 @@ void std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](uin
   *(a1 + 8) = v6;
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::data(uint64_t a1, uint64_t a2)
-{
-  v2 = (*(a1 + 184) + 16 * a2);
-  result = *(a1 + 64) + 8 * *v2;
-  v4 = v2[1] - *v2;
-  return result;
-}
-
 uint64_t geom::point_tree<float,(unsigned char)2>::depth(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -5988,7 +8047,7 @@ uint64_t geom::point_tree<float,(unsigned char)2>::depth(uint64_t a1, uint64_t a
   }
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::split(unsigned __int8 *a1, unint64_t a2)
+void *geom::point_tree<float,(unsigned char)2>::split(unsigned __int8 *a1, unint64_t a2)
 {
   v21 = a2;
   v3 = a1 + 112;
@@ -6069,19 +8128,12 @@ uint64_t geom::point_tree<float,(unsigned char)2>::child(uint64_t a1, uint64_t a
   }
 }
 
-double geom::point_tree<float,(unsigned char)2>::bounds(uint64_t a1)
-{
-  result = *(a1 + 8);
-  v2 = *(a1 + 16);
-  return result;
-}
-
-float32x2_t geom::point_tree<float,(unsigned char)2>::bounds(uint64_t a1, unint64_t a2)
+float32x2_t geom::point_tree<float,(unsigned char)2>::bounds(float32x2_t *a1, unint64_t a2)
 {
   if (a2)
   {
     v4 = geom::point_tree<float,(unsigned char)2>::centroid(a1, a2);
-    v5 = *(*(a1 + 160) + 16 * a2);
+    v5 = *(*&a1[20] + 16 * a2);
     v6 = (63 - __clz(v5));
     if (v5)
     {
@@ -6093,17 +8145,14 @@ float32x2_t geom::point_tree<float,(unsigned char)2>::bounds(uint64_t a1, unint6
       v7 = 0;
     }
 
-    v8 = vmul_f32(*(*(a1 + 88) + 8 * v7), 0x3F0000003F000000);
+    v8 = vmul_f32(*(*&a1[11] + 8 * v7), 0x3F0000003F000000);
     return vminnm_f32(vsub_f32(*&v4, v8), vminnm_f32(vadd_f32(*&v4, v8), vneg_f32(0x7F0000007FLL)));
   }
 
   else
   {
-    result = *(a1 + 8);
-    v10 = *(a1 + 16);
+    return a1[1];
   }
-
-  return result;
 }
 
 double geom::point_tree<float,(unsigned char)2>::centroid(double *a1, unint64_t a2)
@@ -6249,7 +8298,7 @@ uint64_t geom::point_tree<float,(unsigned char)2>::depth_from_code(uint64_t a1, 
   }
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::locate(uint64_t a1, float32x2_t *a2)
+unint64_t geom::point_tree<float,(unsigned char)2>::locate(uint64_t a1, float32x2_t *a2)
 {
   v2 = vorr_s8(vcgt_f32(*a2, *(a1 + 16)), vcgt_f32(*(a1 + 8), *a2));
   if ((vpmax_u32(v2, v2).u32[0] & 0x80000000) != 0)
@@ -6404,27 +8453,27 @@ LABEL_30:
 
 uint64_t geom::point_tree<float,(unsigned char)2>::balance(unsigned __int8 *a1)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v21[0] = &unk_286292CB8;
-  v21[1] = v19;
-  v21[3] = v21;
-  geom::point_tree<float,(unsigned char)2>::traverse(a1, 0, v21);
-  std::__function::__value_func<void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::~__value_func[abi:nn200100](v21);
-  v2 = *(&v20 + 1);
-  if (*(&v20 + 1))
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v20[0] = &unk_286292CB8;
+  v20[1] = v18;
+  v20[3] = v20;
+  geom::point_tree<float,(unsigned char)2>::traverse(a1, 0, v20);
+  std::__function::__value_func<void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::~__value_func[abi:nn200100](v20);
+  v2 = *(&v19 + 1);
+  if (*(&v19 + 1))
   {
     while (1)
     {
-      v3 = *(*(*(&v19[0] + 1) + ((v20 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v20 & 0x1FF));
-      *&v20 = v20 + 1;
-      *(&v20 + 1) = v2 - 1;
-      if (v20 >= 0x400)
+      v3 = *(*(*(&v18[0] + 1) + ((v19 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v19 & 0x1FF));
+      *&v19 = v19 + 1;
+      *(&v19 + 1) = v2 - 1;
+      if (v19 >= 0x400)
       {
-        operator delete(**(&v19[0] + 1));
-        *(&v19[0] + 1) += 8;
-        *&v20 = v20 - 512;
+        operator delete(**(&v18[0] + 1));
+        *(&v18[0] + 1) += 8;
+        *&v19 = v19 - 512;
       }
 
       if (*(*(a1 + 17) + 8 * v3) == -1)
@@ -6433,10 +8482,10 @@ uint64_t geom::point_tree<float,(unsigned char)2>::balance(unsigned __int8 *a1)
       }
 
 LABEL_26:
-      v2 = *(&v20 + 1);
-      if (!*(&v20 + 1))
+      v2 = *(&v19 + 1);
+      if (!*(&v19 + 1))
       {
-        goto LABEL_27;
+        return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
       }
     }
 
@@ -6517,8 +8566,8 @@ LABEL_18:
                 v15 = i + v14;
               }
 
-              v18 = v15;
-              std::deque<unsigned long long>::push_back(v19, &v18);
+              v17 = v15;
+              std::deque<unsigned long long>::push_back(v18, &v17);
             }
           }
         }
@@ -6531,13 +8580,10 @@ LABEL_18:
     goto LABEL_18;
   }
 
-LABEL_27:
-  result = std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v19);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::traverse(uint64_t result, int a2, uint64_t a3)
+void *geom::point_tree<float,(unsigned char)2>::traverse(void *result, int a2, uint64_t a3)
 {
   v4 = result;
   if (a2 == 1)
@@ -6621,7 +8667,7 @@ uint64_t geom::point_tree<float,(unsigned char)2>::traverse(uint64_t result, int
     return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
   }
 
-  if (*(result + 120) != *(result + 112))
+  if (result[15] != result[14])
   {
     v13 = 0;
     do
@@ -6637,23 +8683,23 @@ uint64_t geom::point_tree<float,(unsigned char)2>::traverse(uint64_t result, int
 
 uint64_t std::function<void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a3;
+  v7 = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, a2, &v6);
+    return (*(*v3 + 48))(v3, a2, &v7);
   }
 
   v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return geom::point_tree<float,(unsigned char)2>::find_closest_point(v5);
+  return geom::point_tree<float,(unsigned char)2>::find_closest_point(v5, v6);
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::find_closest_point(uint64_t a1, float32x2_t a2)
+uint64_t geom::point_tree<float,(unsigned char)2>::find_closest_point(uint64_t a1, __n128 a2)
 {
   __p = 0;
   v5 = 0;
   v6 = 0;
-  geom::point_tree<float,(unsigned char)2>::find_k_nearest(a1, 1u, &__p, a2);
+  geom::point_tree<float,(unsigned char)2>::find_k_nearest(a1, 1u, &__p, a2.n128_u64[0]);
   v2 = *__p;
   v5 = __p;
   operator delete(__p);
@@ -6662,23 +8708,23 @@ uint64_t geom::point_tree<float,(unsigned char)2>::find_closest_point(uint64_t a
 
 void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsigned int a2, void *a3, float32x2_t a4)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if (a2)
   {
+    v64 = 0;
     v65 = 0;
     v66 = 0;
-    v67 = 0;
     __p = 0;
+    v62 = 0;
     v63 = 0;
-    v64 = 0;
-    *&v61 = 0;
+    *&v60 = 0;
     v8 = vsub_f32(COERCE_FLOAT32X2_T(geom::point_tree<float,(unsigned char)2>::centroid(a1, 0)), a4);
-    DWORD2(v61) = vaddv_f32(vmul_f32(v8, v8));
-    std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v61);
-    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v63, &v60, (v63 - __p) >> 4);
+    DWORD2(v60) = vaddv_f32(vmul_f32(v8, v8));
+    std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v60);
+    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v62, &v59, (v62 - __p) >> 4);
     v9 = __p;
-    v10 = v63;
-    if (__p != v63)
+    v10 = v62;
+    if (__p != v62)
     {
       v11 = INFINITY;
       do
@@ -6688,7 +8734,7 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
         if (v13 >= 2)
         {
           v14 = 0;
-          v61 = *v9;
+          v60 = *v9;
           v15 = v9;
           do
           {
@@ -6710,20 +8756,20 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
           v19 = (v10 - 16);
           if (v15 == v19)
           {
-            *v15 = v61;
+            *v15 = v60;
           }
 
           else
           {
             *v15 = *v19;
-            *v19 = v61;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v9, (v15 + 2), &v60, ((v15 + 2) - v9) >> 4);
+            *v19 = v60;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v9, (v15 + 2), &v59, ((v15 + 2) - v9) >> 4);
           }
 
-          v10 = v63;
+          v10 = v62;
         }
 
-        v63 = v10 - 16;
+        v62 = v10 - 16;
         if (*(*(a1 + 136) + 8 * v12) == -1)
         {
           v27 = geom::point_tree<float,(unsigned char)2>::bounds(a1, v12);
@@ -6743,16 +8789,16 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
                 v36 = *v35;
                 v37 = vsub_f32(*(*(a1 + 40) + 8 * *v35), a4);
                 v38 = vaddv_f32(vmul_f32(v37, v37));
-                v39 = v65;
-                v40 = v66;
-                v41 = (v66 - v65) >> 4;
-                if (v41 == a2 && v38 < *(v65 + 2))
+                v39 = v64;
+                v40 = v65;
+                v41 = (v65 - v64) >> 4;
+                if (v41 == a2 && v38 < *(v64 + 2))
                 {
                   if (a2 != 1)
                   {
                     v42 = 0;
-                    v61 = *v65;
-                    v43 = v65;
+                    v60 = *v64;
+                    v43 = v64;
                     do
                     {
                       v44 = v43;
@@ -6773,30 +8819,30 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
                     v47 = v40 - 16;
                     if (v43 == v47)
                     {
-                      *v43 = v61;
+                      *v43 = v60;
                     }
 
                     else
                     {
                       *v43 = *v47;
-                      *v47 = v61;
-                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v39, (v43 + 16), &v60, (v43 + 16 - v39) >> 4);
+                      *v47 = v60;
+                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v39, (v43 + 16), &v59, (v43 + 16 - v39) >> 4);
                     }
 
-                    v39 = v65;
-                    v40 = v66;
+                    v39 = v64;
+                    v40 = v65;
                   }
 
-                  v66 = v40 - 16;
+                  v65 = v40 - 16;
                   v41 = (v40 - 16 - v39) >> 4;
                 }
 
                 if (v41 < a2)
                 {
-                  *&v61 = v36;
-                  *(&v61 + 2) = v38;
-                  std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&v65, &v61);
-                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v65, v66, &v60, (v66 - v65) >> 4);
+                  *&v60 = v36;
+                  *(&v60 + 2) = v38;
+                  std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&v64, &v60);
+                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v64, v65, &v59, (v65 - v64) >> 4);
                 }
 
                 ++v35;
@@ -6805,9 +8851,9 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
               while (v35 != v34);
             }
 
-            if (a2 == (v66 - v65) >> 4)
+            if (a2 == (v65 - v64) >> 4)
             {
-              v11 = *(v65 + 2);
+              v11 = *(v64 + 2);
             }
           }
         }
@@ -6833,39 +8879,39 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
               v25 = vsub_f32(vmaxnm_f32(vminnm_f32(a4, v24), v23), a4);
               if (vaddv_f32(vmul_f32(v25, v25)) <= (v11 * v11))
               {
-                *&v61 = v22;
+                *&v60 = v22;
                 v26 = vsub_f32(COERCE_FLOAT32X2_T(geom::point_tree<float,(unsigned char)2>::centroid(a1, v22)), a4);
-                DWORD2(v61) = vaddv_f32(vmul_f32(v26, v26));
-                std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v61);
-                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v63, &v60, (v63 - __p) >> 4);
+                DWORD2(v60) = vaddv_f32(vmul_f32(v26, v26));
+                std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v60);
+                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v62, &v59, (v62 - __p) >> 4);
               }
             }
           }
         }
 
         v9 = __p;
-        v10 = v63;
+        v10 = v62;
       }
 
-      while (__p != v63);
+      while (__p != v62);
     }
 
-    std::vector<double>::resize(a3, (v66 - v65) >> 4);
+    std::vector<double>::resize(a3, (v65 - v64) >> 4);
     v48 = a3[1] - *a3;
     if (v48)
     {
       v49 = v48 >> 3;
-      v50 = v66;
+      v50 = v65;
       do
       {
-        v51 = v65;
+        v51 = v64;
         --v49;
-        *(*a3 + 8 * v49) = *v65;
+        *(*a3 + 8 * v49) = *v64;
         v52 = (v50 - v51) >> 4;
         if (v52 >= 2)
         {
           v53 = 0;
-          v61 = *v51;
+          v60 = *v51;
           v54 = v51;
           do
           {
@@ -6887,21 +8933,21 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
           v58 = v50 - 16;
           if (v54 == v58)
           {
-            *v54 = v61;
+            *v54 = v60;
           }
 
           else
           {
             *v54 = *v58;
-            *v58 = v61;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v51, (v54 + 16), &v60, (v54 + 16 - v51) >> 4);
+            *v58 = v60;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v51, (v54 + 16), &v59, (v54 + 16 - v51) >> 4);
           }
 
-          v50 = v66;
+          v50 = v65;
         }
 
         v50 -= 16;
-        v66 = v50;
+        v65 = v50;
       }
 
       while (v49);
@@ -6909,14 +8955,14 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
 
     if (__p)
     {
-      v63 = __p;
+      v62 = __p;
       operator delete(__p);
     }
 
-    if (v65)
+    if (v64)
     {
-      v66 = v65;
-      operator delete(v65);
+      v65 = v64;
+      operator delete(v64);
     }
   }
 
@@ -6924,8 +8970,6 @@ void geom::point_tree<float,(unsigned char)2>::find_k_nearest(uint64_t a1, unsig
   {
     a3[1] = *a3;
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void geom::point_tree<float,(unsigned char)2>::precompute_cell_data(uint64_t a1)
@@ -6945,24 +8989,24 @@ void geom::point_tree<float,(unsigned char)2>::precompute_cell_data(uint64_t a1)
   }
 }
 
-void std::vector<unsigned long long>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<unsigned long long>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long long>::__append(a1, a2 - v3, a3);
+    std::vector<unsigned long long>::__append(result, a2 - v3, a3);
   }
 }
 
-uint64_t geom::point_tree<float,(unsigned char)2>::partition(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
+void *geom::point_tree<float,(unsigned char)2>::partition(void *result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
   v9 = result;
   if (a3 != 2)
@@ -7023,8 +9067,9 @@ LABEL_13:
       v12 = v15 - v14;
       v20 = (v15 - v14) >> 3;
       v21 = 1 << v11++;
-      result = geom::point_tree<float,(unsigned char)2>::partition(v9, a2, v11, a4 & ~v21, a7);
+      result = geom::point_tree<float,(unsigned char)2>::partition(v9, a2, v11, a4 & ~v21, a5, v20, a7);
       a4 |= v21;
+      a5 = v20;
     }
 
     while (v11 != 2);
@@ -7368,14 +9413,6 @@ void std::vector<std::array<std::bitset<64ul>,3ul>>::push_back[abi:nn200100](uin
   *(a1 + 8) = v7;
 }
 
-uint64_t geom::point_tree<float,(unsigned char)3>::data(uint64_t a1, uint64_t a2)
-{
-  v2 = (*(a1 + 224) + 16 * a2);
-  result = *(a1 + 104) + 8 * *v2;
-  v4 = v2[1] - *v2;
-  return result;
-}
-
 uint64_t geom::point_tree<float,(unsigned char)3>::depth(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -7399,10 +9436,10 @@ uint64_t geom::point_tree<float,(unsigned char)3>::depth(uint64_t a1, uint64_t a
   }
 }
 
-uint64_t geom::point_tree<float,(unsigned char)3>::split(float32x4_t *a1, unint64_t a2)
+void *geom::point_tree<float,(unsigned char)3>::split(float32x4_t *a1, unint64_t a2)
 {
   v20 = a2;
-  v3 = &a1[9].u8[8];
+  v3 = &a1[9].i8[8];
   v4 = (a1[10].i64[0] - a1[9].i64[1]) >> 3;
   v5 = a1 + 11;
   *(a1[11].i64[0] + 8 * a2) = v4;
@@ -7475,21 +9512,14 @@ uint64_t geom::point_tree<float,(unsigned char)3>::child(uint64_t a1, uint64_t a
   }
 }
 
-__n128 geom::point_tree<float,(unsigned char)3>::bounds(uint64_t a1)
+float32x4_t geom::point_tree<float,(unsigned char)3>::bounds(float32x4_t *a1, unint64_t a2)
 {
-  result = *(a1 + 16);
-  v2 = *(a1 + 32);
-  return result;
-}
-
-void geom::point_tree<float,(unsigned char)3>::bounds(uint64_t a1, unint64_t a2)
-{
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     geom::point_tree<float,(unsigned char)3>::centroid(a1, a2);
     v5 = 0;
-    v6 = *(*(a1 + 200) + 24 * a2);
+    v6 = *(a1[12].i64[1] + 24 * a2);
     v7 = (63 - __clz(v6));
     if (v6)
     {
@@ -7503,18 +9533,18 @@ void geom::point_tree<float,(unsigned char)3>::bounds(uint64_t a1, unint64_t a2)
 
     v9.i64[0] = 0x3F0000003F000000;
     v9.i64[1] = 0x3F0000003F000000;
-    v10 = vmulq_f32(*(*(a1 + 128) + 16 * v8), v9);
-    v17[0] = vaddq_f32(v4, v10);
-    v17[1] = vsubq_f32(v4, v10);
+    v10 = vmulq_f32(*(a1[8].i64[0] + 16 * v8), v9);
+    v14[0] = vaddq_f32(v4, v10);
+    v14[1] = vsubq_f32(v4, v10);
     v11.i64[0] = 0x7F0000007FLL;
     v11.i64[1] = 0x7F0000007FLL;
-    v12 = vnegq_f32(v11);
+    result = vnegq_f32(v11);
     do
     {
-      v13 = v17[v5];
+      v13 = v14[v5];
       v13.i32[3] = 0;
-      v12.i32[3] = 0;
-      v12 = vminnmq_f32(v13, v12);
+      result.i32[3] = 0;
+      result = vminnmq_f32(v13, result);
       v11.i32[3] = 0;
       v11 = vmaxnmq_f32(v13, v11);
       ++v5;
@@ -7525,77 +9555,70 @@ void geom::point_tree<float,(unsigned char)3>::bounds(uint64_t a1, unint64_t a2)
 
   else
   {
-    v14 = *(a1 + 16);
-    v15 = *(a1 + 32);
+    return a1[1];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void geom::point_tree<float,(unsigned char)3>::centroid(uint64_t a1, unint64_t a2)
 {
-  v2 = *(a1 + 248);
-  if (a2 >= (*(a1 + 256) - v2) >> 4)
+  if (a2 >= (*(a1 + 256) - *(a1 + 248)) >> 4)
   {
-    v4 = 0;
-    v5 = (*(a1 + 200) + 24 * a2);
-    v6 = 63 - __clz(*v5);
-    if (*v5)
+    v2 = 0;
+    v3 = (*(a1 + 200) + 24 * a2);
+    v4 = 63 - __clz(*v3);
+    if (*v3)
     {
-      v7 = v6;
+      v5 = v4;
     }
 
     else
     {
-      v7 = 0;
+      v5 = 0;
     }
 
-    v8 = *(a1 + 64);
-    v16 = *(a1 + 48);
+    v6 = *(a1 + 64);
+    v14 = *(a1 + 48);
     do
     {
-      v17 = v8;
-      v9 = 0.0;
-      if (v7)
+      v15 = v6;
+      v7 = 0.0;
+      if (v5)
       {
-        v10 = v5[v4];
-        v11 = 2;
-        v12 = v7 - 1;
+        v8 = v3[v2];
+        v9 = 2;
+        v10 = v5 - 1;
         do
         {
-          if ((v10 >> v12))
+          if ((v8 >> v10))
           {
-            v13 = 1.0;
+            v11 = 1.0;
           }
 
           else
           {
-            v13 = 0.0;
+            v11 = 0.0;
           }
 
-          v14 = powf(-1.0, v13);
-          v9 = v9 + v14 * (1.0 / exp2(v11++));
-          --v12;
+          v12 = powf(-1.0, v11);
+          v7 = v7 + v12 * (1.0 / exp2(v9++));
+          --v10;
         }
 
-        while (v12 != -1);
+        while (v10 != -1);
       }
 
-      v18 = v16;
-      v15 = *(&v18 & 0xFFFFFFFFFFFFFFF3 | (4 * (v4 & 3)));
-      v19 = v17;
-      *(&v19 & 0xFFFFFFFFFFFFFFF3 | (4 * (v4 & 3))) = *(&v19 & 0xFFFFFFFFFFFFFFF3 | (4 * (v4 & 3))) - (v15 * v9);
-      v8 = v19;
-      HIDWORD(v8) = HIDWORD(v17);
-      ++v4;
+      v16 = v14;
+      v13 = *(&v16 & 0xFFFFFFFFFFFFFFF3 | (4 * (v2 & 3)));
+      v17 = v15;
+      *(&v17 & 0xFFFFFFFFFFFFFFF3 | (4 * (v2 & 3))) = *(&v17 & 0xFFFFFFFFFFFFFFF3 | (4 * (v2 & 3))) - (v13 * v7);
+      v6 = v17;
+      HIDWORD(v6) = HIDWORD(v15);
+      ++v2;
     }
 
-    while (v4 != 3);
-  }
-
-  else
-  {
-    v3 = *(v2 + 16 * a2);
+    while (v2 != 3);
   }
 }
 
@@ -7674,7 +9697,7 @@ uint64_t geom::point_tree<float,(unsigned char)3>::node(uint64_t a1, unint64_t *
   return result;
 }
 
-uint64_t geom::point_tree<float,(unsigned char)3>::locate(uint64_t a1, float32x4_t *a2)
+unint64_t geom::point_tree<float,(unsigned char)3>::locate(uint64_t a1, float32x4_t *a2)
 {
   v2 = vorrq_s8(vcgtq_f32(*a2, *(a1 + 32)), vcgtq_f32(*(a1 + 16), *a2));
   v2.i32[3] = v2.i32[2];
@@ -7837,1965 +9860,4 @@ LABEL_34:
   while (v16);
   *(&v20 + v4) = v19;
   return geom::point_tree<float,(unsigned char)3>::node(a1, &v20);
-}
-
-uint64_t geom::point_tree<float,(unsigned char)3>::balance(float32x4_t *a1)
-{
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v21[0] = &unk_286292D38;
-  v21[1] = v19;
-  v21[3] = v21;
-  geom::point_tree<float,(unsigned char)3>::traverse(a1, 0, v21);
-  std::__function::__value_func<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::~__value_func[abi:nn200100](v21);
-  v2 = *(&v20 + 1);
-  if (*(&v20 + 1))
-  {
-    while (1)
-    {
-      v3 = *(*(*(&v19[0] + 1) + ((v20 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v20 & 0x1FF));
-      *&v20 = v20 + 1;
-      *(&v20 + 1) = v2 - 1;
-      if (v20 >= 0x400)
-      {
-        operator delete(**(&v19[0] + 1));
-        *(&v19[0] + 1) += 8;
-        *&v20 = v20 - 512;
-      }
-
-      if (*(a1[11].i64[0] + 8 * v3) == -1)
-      {
-        break;
-      }
-
-LABEL_26:
-      v2 = *(&v20 + 1);
-      if (!*(&v20 + 1))
-      {
-        goto LABEL_27;
-      }
-    }
-
-    v4 = 0;
-    while (1)
-    {
-      v5 = geom::point_tree<float,(unsigned char)3>::neighbor(a1, v3, v4);
-      if (v5 != -1)
-      {
-        v6 = v5;
-        if (*(a1[11].i64[0] + 8 * v5) == -1)
-        {
-          break;
-        }
-      }
-
-LABEL_25:
-      if (++v4 == 6)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    if (v3)
-    {
-      v7 = *(a1[12].i64[1] + 24 * v3);
-      v8 = (63 - __clz(v7));
-      if (v7)
-      {
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      if (v5)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v9 = 0;
-      if (v5)
-      {
-LABEL_13:
-        v10 = *(a1[12].i64[1] + 24 * v5);
-        v11 = (63 - __clz(v10));
-        if (v10)
-        {
-          v12 = v11;
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-LABEL_18:
-        if (v9 - v12 >= 2)
-        {
-          geom::point_tree<float,(unsigned char)3>::split(a1, v5);
-          if (*(a1[11].i64[0] + 8 * v6) != -1)
-          {
-            for (i = 0; i != 8; ++i)
-            {
-              v14 = *(a1[11].i64[0] + 8 * v6);
-              if (v14 == -1)
-              {
-                v15 = -1;
-              }
-
-              else
-              {
-                v15 = i + v14;
-              }
-
-              v18 = v15;
-              std::deque<unsigned long long>::push_back(v19, &v18);
-            }
-          }
-        }
-
-        goto LABEL_25;
-      }
-    }
-
-    v12 = 0;
-    goto LABEL_18;
-  }
-
-LABEL_27:
-  result = std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v19);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::point_tree<float,(unsigned char)3>::traverse(uint64_t result, int a2, uint64_t a3)
-{
-  v4 = result;
-  if (a2 == 1)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    v14 = 0;
-    std::deque<unsigned long long>::push_back(&v15, &v14);
-    while (*(&v17 + 1))
-    {
-      v9 = *(*(*(&v15 + 1) + (((v17 + *(&v17 + 1) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v17 + *(&v17 + 1) - 1) & 0x1FF));
-      --*(&v17 + 1);
-      std::deque<std::pair<unsigned int,unsigned int>>::__maybe_remove_back_spare[abi:nn200100](&v15, 1);
-      std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v9);
-      if (*(v4[22] + 8 * v9) != -1)
-      {
-        for (i = 7; i != -1; --i)
-        {
-          v11 = *(v4[22] + 8 * v9);
-          if (v11 == -1)
-          {
-            v12 = -1;
-          }
-
-          else
-          {
-            v12 = i + v11;
-          }
-
-          v14 = v12;
-          std::deque<unsigned long long>::push_back(&v15, &v14);
-        }
-      }
-    }
-
-    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
-  }
-
-  if (a2 == 2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    v14 = 0;
-    std::deque<unsigned long long>::push_back(&v15, &v14);
-    while (*(&v17 + 1))
-    {
-      v5 = *(*(*(&v15 + 1) + ((v17 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v17 & 0x1FF));
-      *&v17 = v17 + 1;
-      --*(&v17 + 1);
-      if (v17 >= 0x400)
-      {
-        operator delete(**(&v15 + 1));
-        *(&v15 + 1) += 8;
-        *&v17 = v17 - 512;
-      }
-
-      std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v5);
-      if (*(v4[22] + 8 * v5) != -1)
-      {
-        for (j = 0; j != 8; ++j)
-        {
-          v7 = *(v4[22] + 8 * v5);
-          if (v7 == -1)
-          {
-            v8 = -1;
-          }
-
-          else
-          {
-            v8 = j + v7;
-          }
-
-          v14 = v8;
-          std::deque<unsigned long long>::push_back(&v15, &v14);
-        }
-      }
-    }
-
-    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
-  }
-
-  if (*(result + 160) != *(result + 152))
-  {
-    v13 = 0;
-    do
-    {
-      result = std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v13++);
-    }
-
-    while (v13 < (v4[20] - v4[19]) >> 3);
-  }
-
-  return result;
-}
-
-uint64_t std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = a3;
-  v3 = *(a1 + 24);
-  if (v3)
-  {
-    return (*(*v3 + 48))(v3, a2, &v6);
-  }
-
-  v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return geom::point_tree<float,(unsigned char)3>::find_closest_point(v5);
-}
-
-uint64_t geom::point_tree<float,(unsigned char)3>::find_closest_point(void *a1, float32x4_t a2)
-{
-  __p = 0;
-  v5 = 0;
-  v6 = 0;
-  geom::point_tree<float,(unsigned char)3>::find_k_nearest(a1, 1u, &__p, a2);
-  v2 = *__p;
-  v5 = __p;
-  operator delete(__p);
-  return v2;
-}
-
-void geom::point_tree<float,(unsigned char)3>::find_k_nearest(void *a1, unsigned int a2, void *a3, float32x4_t a4)
-{
-  v92 = *MEMORY[0x277D85DE8];
-  if (a2)
-  {
-    v89 = 0;
-    v90 = 0;
-    v91 = 0;
-    __p = 0;
-    v87 = 0;
-    v88 = 0;
-    *&v85 = 0;
-    geom::point_tree<float,(unsigned char)3>::centroid(a1, 0);
-    v8 = vsubq_f32(v7, a4);
-    v9 = vmulq_f32(v8, v8);
-    *(&v85 + 2) = v9.f32[2] + vaddv_f32(*v9.f32);
-    std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v85);
-    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v87, &v84, (v87 - __p) >> 4);
-    v10 = __p;
-    v11 = v87;
-    if (__p != v87)
-    {
-      v12 = a4;
-      v12.i32[3] = 0;
-      v80 = v12;
-      v13 = INFINITY;
-      do
-      {
-        v14 = *v10;
-        v15 = (v11 - v10) >> 4;
-        if (v15 >= 2)
-        {
-          v16 = 0;
-          v85 = *v10;
-          v17 = v10;
-          do
-          {
-            v18 = v17;
-            v17 += 2 * v16 + 2;
-            v19 = 2 * v16;
-            v16 = (2 * v16) | 1;
-            v20 = v19 + 2;
-            if (v20 < v15 && *(v17 + 2) > *(v17 + 6))
-            {
-              v17 += 2;
-              v16 = v20;
-            }
-
-            *v18 = *v17;
-          }
-
-          while (v16 <= ((v15 - 2) >> 1));
-          v21 = (v11 - 16);
-          if (v17 == v21)
-          {
-            *v17 = v85;
-          }
-
-          else
-          {
-            *v17 = *v21;
-            *v21 = v85;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v10, (v17 + 2), &v84, ((v17 + 2) - v10) >> 4);
-          }
-
-          v11 = v87;
-        }
-
-        v87 = v11 - 16;
-        if (*(a1[22] + 8 * v14) == -1)
-        {
-          geom::point_tree<float,(unsigned char)3>::bounds(a1, v14);
-          v38 = v39;
-          v37.i32[3] = v78.i32[3];
-          v38.i32[3] = v76.i32[3];
-          v40 = v38;
-          v40.i32[3] = 0;
-          v41 = vminnmq_f32(v80, v40);
-          v41.i32[3] = 0;
-          v42 = v37;
-          v42.i32[3] = 0;
-          v43 = vsubq_f32(vmaxnmq_f32(v41, v42), a4);
-          v44 = vmulq_f32(v43, v43);
-          if ((v44.f32[2] + vaddv_f32(*v44.f32)) <= (v13 * v13))
-          {
-            v77 = v37;
-            v79 = v38;
-            v45 = (a1[28] + 16 * v14);
-            v46 = *v45;
-            v47 = v45[1];
-            if (v46 != v47)
-            {
-              v48 = a1[13];
-              v49 = (v48 + 8 * v47);
-              v50 = (v48 + 8 * v46);
-              do
-              {
-                v51 = *v50;
-                v52 = vsubq_f32(*(a1[10] + 16 * *v50), a4);
-                v53 = vmulq_f32(v52, v52);
-                v54 = v53.f32[2] + vaddv_f32(*v53.f32);
-                v55 = v89;
-                v56 = v90;
-                v57 = (v90 - v89) >> 4;
-                if (v57 == a2 && v54 < v89[2])
-                {
-                  if (a2 != 1)
-                  {
-                    v58 = 0;
-                    v85 = *v89;
-                    v59 = v89;
-                    do
-                    {
-                      v60 = v59;
-                      v59 += 4 * v58 + 4;
-                      v61 = 2 * v58;
-                      v58 = (2 * v58) | 1;
-                      v62 = v61 + 2;
-                      if (v62 < a2 && v59[2] < v59[6])
-                      {
-                        v59 += 4;
-                        v58 = v62;
-                      }
-
-                      *v60 = *v59;
-                    }
-
-                    while (v58 <= ((a2 - 2) >> 1));
-                    v63 = v56 - 4;
-                    if (v59 == v63)
-                    {
-                      *v59 = v85;
-                    }
-
-                    else
-                    {
-                      *v59 = *v63;
-                      *v63 = v85;
-                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v55, (v59 + 4), &v84, ((v59 + 4) - v55) >> 4);
-                    }
-
-                    v55 = v89;
-                    v56 = v90;
-                  }
-
-                  v90 = v56 - 4;
-                  v57 = ((v56 - 4) - v55) >> 4;
-                }
-
-                if (v57 < a2)
-                {
-                  *&v85 = v51;
-                  *(&v85 + 2) = v54;
-                  std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&v89, &v85);
-                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v89, v90, &v84, (v90 - v89) >> 4);
-                }
-
-                ++v50;
-              }
-
-              while (v50 != v49);
-            }
-
-            if (a2 == (v90 - v89) >> 4)
-            {
-              v13 = v89[2];
-            }
-
-            v37 = v77;
-            v38 = v79;
-          }
-        }
-
-        else
-        {
-          for (i = 0; i != 8; ++i)
-          {
-            v23 = *(a1[22] + 8 * v14);
-            if (v23 == -1)
-            {
-              v24 = -1;
-            }
-
-            else
-            {
-              v24 = i + v23;
-            }
-
-            if (*(a1[28] + 16 * v24 + 8) != *(a1[28] + 16 * v24))
-            {
-              geom::point_tree<float,(unsigned char)3>::bounds(a1, v24);
-              v26 = v25;
-              v28 = v27;
-              v26.i32[3] = v82;
-              v28.i32[3] = v83;
-              v29 = v28;
-              v29.i32[3] = 0;
-              v30 = vminnmq_f32(v80, v29);
-              v30.i32[3] = 0;
-              v31 = v26;
-              v31.i32[3] = 0;
-              v32 = vsubq_f32(vmaxnmq_f32(v30, v31), a4);
-              v33 = vmulq_f32(v32, v32);
-              if ((v33.f32[2] + vaddv_f32(*v33.f32)) <= (v13 * v13))
-              {
-                *&v85 = v24;
-                geom::point_tree<float,(unsigned char)3>::centroid(a1, v24);
-                v35 = vsubq_f32(v34, a4);
-                v36 = vmulq_f32(v35, v35);
-                *(&v85 + 2) = v36.f32[2] + vaddv_f32(*v36.f32);
-                std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v85);
-                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v87, &v84, (v87 - __p) >> 4);
-              }
-            }
-          }
-
-          v38 = v76;
-          v37 = v78;
-        }
-
-        v10 = __p;
-        v11 = v87;
-        v76 = v38;
-        v78 = v37;
-      }
-
-      while (__p != v87);
-    }
-
-    std::vector<double>::resize(a3, (v90 - v89) >> 4);
-    v64 = a3[1] - *a3;
-    if (v64)
-    {
-      v65 = v64 >> 3;
-      v66 = v90;
-      do
-      {
-        v67 = v89;
-        --v65;
-        *(*a3 + 8 * v65) = *v89;
-        v68 = (v66 - v67) >> 4;
-        if (v68 >= 2)
-        {
-          v69 = 0;
-          v85 = *v67;
-          v70 = v67;
-          do
-          {
-            v71 = v70;
-            v70 += 4 * v69 + 4;
-            v72 = 2 * v69;
-            v69 = (2 * v69) | 1;
-            v73 = v72 + 2;
-            if (v73 < v68 && v70[2] < v70[6])
-            {
-              v70 += 4;
-              v69 = v73;
-            }
-
-            *v71 = *v70;
-          }
-
-          while (v69 <= ((v68 - 2) >> 1));
-          v74 = v66 - 4;
-          if (v70 == v74)
-          {
-            *v70 = v85;
-          }
-
-          else
-          {
-            *v70 = *v74;
-            *v74 = v85;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v67, (v70 + 4), &v84, ((v70 + 4) - v67) >> 4);
-          }
-
-          v66 = v90;
-        }
-
-        v66 -= 4;
-        v90 = v66;
-      }
-
-      while (v65);
-    }
-
-    if (__p)
-    {
-      v87 = __p;
-      operator delete(__p);
-    }
-
-    if (v89)
-    {
-      v90 = v89;
-      operator delete(v89);
-    }
-  }
-
-  else
-  {
-    a3[1] = *a3;
-  }
-
-  v75 = *MEMORY[0x277D85DE8];
-}
-
-void geom::point_tree<float,(unsigned char)3>::precompute_cell_data(void *a1)
-{
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(a1 + 31, (a1[20] - a1[19]) >> 3);
-  if (a1[20] - a1[19] >= 9uLL)
-  {
-    v2 = 1;
-    do
-    {
-      geom::point_tree<float,(unsigned char)3>::centroid(a1, v2);
-      v4 = v3;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 31), &v4);
-      ++v2;
-    }
-
-    while (v2 < (a1[20] - a1[19]) >> 3);
-  }
-}
-
-void std::vector<std::array<std::bitset<64ul>,3ul>>::resize(void *a1, unint64_t a2)
-{
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
-  v3 = a2 >= v2;
-  v4 = a2 - v2;
-  if (v4 != 0 && v3)
-  {
-    std::vector<std::array<std::bitset<64ul>,3ul>>::__append(a1, v4);
-  }
-
-  else if (!v3)
-  {
-    a1[1] = *a1 + 24 * a2;
-  }
-}
-
-uint64_t geom::point_tree<float,(unsigned char)3>::partition(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
-{
-  v9 = result;
-  if (a3 != 3)
-  {
-    v10 = a3;
-    v11 = 8 * a5;
-    v24 = a6;
-    v12 = 8 * a6;
-    do
-    {
-      v13 = v9[13];
-      v14 = (v11 + v13);
-      if (v11 != v12)
-      {
-        v15 = (v11 + v13);
-        v14 = (v12 + v13);
-        v16 = v9[10];
-        v26 = a7;
-        v17 = *(&v26 & 0xFFFFFFFFFFFFFFF3 | (4 * (v10 & 3)));
-        while (2)
-        {
-          while (1)
-          {
-            v18 = *v15;
-            if (*(v16 + 16 * *v15 + 4 * (v10 & 3)) >= v17)
-            {
-              break;
-            }
-
-            if (++v15 == v14)
-            {
-              goto LABEL_13;
-            }
-          }
-
-          do
-          {
-            if (--v14 == v15)
-            {
-              v14 = v15;
-              goto LABEL_13;
-            }
-          }
-
-          while (*(v16 + 16 * *v14 + 4 * (v10 & 3)) >= v17);
-          *v15++ = *v14;
-          *v14 = v18;
-          if (v14 != v15)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-LABEL_13:
-      v11 = v14 - v13;
-      v19 = (v14 - v13) >> 3;
-      v20 = 1 << v10++;
-      result = geom::point_tree<float,(unsigned char)3>::partition(v9, a2, v10, a4 & ~v20, a7);
-      a4 |= v20;
-    }
-
-    while (v10 != 3);
-    a5 = v19;
-    a6 = v24;
-  }
-
-  v21 = *(v9[22] + 8 * a2);
-  if (v21 == -1)
-  {
-    v22 = -1;
-  }
-
-  else
-  {
-    v22 = v21 + a4;
-  }
-
-  v23 = (v9[28] + 16 * v22);
-  *v23 = a5;
-  v23[1] = a6;
-  return result;
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::point_tree(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
-{
-  *a1 = 0;
-  *(a1 + 1) = a3;
-  *(a1 + 4) = a4;
-  v8 = vdupq_n_s64(0x7FF0000000000000uLL);
-  v9 = *a2;
-  v10 = *(a2 + 8);
-  v11 = vdupq_n_s64(0xFFF0000000000000);
-  *(a1 + 16) = v8;
-  *(a1 + 32) = v11;
-  if (v10)
-  {
-    v12 = 16 * v10;
-    do
-    {
-      v8 = vminnmq_f64(*v9, v8);
-      *(a1 + 16) = v8;
-      v13 = *v9++;
-      v11 = vmaxnmq_f64(v13, v11);
-      *(a1 + 32) = v11;
-      v12 -= 16;
-    }
-
-    while (v12);
-  }
-
-  *(a1 + 80) = 0;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 80) = *a2;
-  *(a1 + 88) = *(a2 + 8);
-  *(a1 + 96) = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *(a1 + 104) = 0u;
-  *(a1 + 152) = 0u;
-  *(a1 + 200) = 0u;
-  *(a1 + 248) = 0u;
-  *(a1 + 264) = 0;
-  *(a1 + 216) = 0u;
-  *(a1 + 232) = 0u;
-  *(a1 + 168) = 0u;
-  *(a1 + 184) = 0u;
-  *(a1 + 120) = 0u;
-  *(a1 + 136) = 0u;
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 16);
-  if (a5)
-  {
-    v58 = vsubq_f64(v14, v15);
-    v16 = (&v58 & 0xFFFFFFFFFFFFFFF7 | (8 * (*&vmovn_s64(vcgtq_f64(vdupq_laneq_s64(v58, 1), v58)) & 1)));
-    v17 = vld1q_dup_f64(v16);
-    v18 = vaddq_f64(v15, v17);
-    v15 = vminnmq_f64(v15, v18);
-    v14 = vmaxnmq_f64(v14, v18);
-    *(a1 + 16) = v15;
-    *(a1 + 32) = v14;
-  }
-
-  *(a1 + 48) = vsubq_f64(v14, v15);
-  v19 = vaddq_f64(v14, v15);
-  __asm { FMOV            V1.2D, #0.5 }
-
-  *(a1 + 64) = vmulq_f64(v19, _Q1);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 128, (a1 + 48));
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 248, (a1 + 64));
-  std::vector<double>::resize((a1 + 104), *(a1 + 88));
-  v25 = *(a1 + 104);
-  v26 = *(a1 + 112);
-  if (v25 != v26)
-  {
-    v27 = 0;
-    v28 = (v26 - v25 - 8) >> 3;
-    v29 = vdupq_n_s64(v28);
-    v30 = (v28 + 2) & 0x3FFFFFFFFFFFFFFELL;
-    v31 = xmmword_2500C1680;
-    v32 = vdupq_n_s64(2uLL);
-    do
-    {
-      v33 = vmovn_s64(vcgeq_u64(v29, v31));
-      if (v33.i8[0])
-      {
-        *(v25 + 8 * v27) = v27;
-      }
-
-      if (v33.i8[4])
-      {
-        *(v25 + 8 * v27 + 8) = v27 + 1;
-      }
-
-      v27 += 2;
-      v31 = vaddq_s64(v31, v32);
-    }
-
-    while (v30 != v27);
-  }
-
-  v34 = (v26 - v25) >> 3;
-  v36 = *(a1 + 232);
-  v35 = *(a1 + 240);
-  if (v36 >= v35)
-  {
-    v38 = *(a1 + 224);
-    v39 = v36 - v38;
-    v40 = (v36 - v38) >> 4;
-    v41 = v40 + 1;
-    if ((v40 + 1) >> 60)
-    {
-      std::__throw_bad_array_new_length[abi:nn200100]();
-    }
-
-    v42 = v35 - v38;
-    if (v42 >> 3 > v41)
-    {
-      v41 = v42 >> 3;
-    }
-
-    _CF = v42 >= 0x7FFFFFFFFFFFFFF0;
-    v43 = 0xFFFFFFFFFFFFFFFLL;
-    if (!_CF)
-    {
-      v43 = v41;
-    }
-
-    if (v43)
-    {
-      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1 + 224, v43);
-    }
-
-    v44 = v40;
-    v45 = (16 * v40);
-    *v45 = 0;
-    v45[1] = v34;
-    v37 = 16 * v40 + 16;
-    v46 = &v45[-2 * v44];
-    memcpy(v46, v38, v39);
-    v47 = *(a1 + 224);
-    *(a1 + 224) = v46;
-    *(a1 + 232) = v37;
-    *(a1 + 240) = 0;
-    if (v47)
-    {
-      operator delete(v47);
-    }
-  }
-
-  else
-  {
-    *v36 = 0;
-    *(v36 + 1) = v34;
-    v37 = (v36 + 16);
-  }
-
-  *(a1 + 232) = v37;
-  std::vector<unsigned long long>::push_back[abi:nn200100]((a1 + 152), &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
-  std::vector<unsigned long long>::push_back[abi:nn200100]((a1 + 176), &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
-  v60[0] = 0uLL;
-  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](a1 + 200, v60);
-  *(*(a1 + 208) - 16) = vdupq_n_s64(1uLL);
-  v61 = 0u;
-  memset(v60, 0, sizeof(v60));
-  v59 = 0;
-  std::deque<unsigned long long>::push_back(v60, &v59);
-  v48 = *(&v61 + 1);
-  if (*(&v61 + 1))
-  {
-    v49 = a4;
-    do
-    {
-      v50 = *(*(*(&v60[0] + 1) + ((v61 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v61 & 0x1FF));
-      *&v61 = v61 + 1;
-      *(&v61 + 1) = v48 - 1;
-      if (v61 >= 0x400)
-      {
-        operator delete(**(&v60[0] + 1));
-        *(&v60[0] + 1) += 8;
-        *&v61 = v61 - 512;
-      }
-
-      if (*(*(a1 + 224) + 16 * v50 + 8) - *(*(a1 + 224) + 16 * v50) > v49)
-      {
-        if (v50)
-        {
-          v51 = *(*(a1 + 200) + 16 * v50);
-          v52 = 63 - __clz(v51);
-          v53 = v51 ? v52 : 0;
-        }
-
-        else
-        {
-          v53 = 0;
-        }
-
-        if (a3 > v53)
-        {
-          geom::point_tree<double,(unsigned char)2>::split(a1, v50);
-        }
-      }
-
-      if (*(*(a1 + 176) + 8 * v50) != -1)
-      {
-        for (i = 0; i != 4; ++i)
-        {
-          v55 = *(*(a1 + 176) + 8 * v50);
-          if (v55 == -1)
-          {
-            v56 = -1;
-          }
-
-          else
-          {
-            v56 = i + v55;
-          }
-
-          v59 = v56;
-          std::deque<unsigned long long>::push_back(v60, &v59);
-        }
-      }
-
-      v48 = *(&v61 + 1);
-    }
-
-    while (*(&v61 + 1));
-  }
-
-  std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v60);
-  return a1;
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::depth(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = *(*(a1 + 200) + 16 * a2);
-    v3 = 63 - __clz(v2);
-    if (v2)
-    {
-      return v3;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::split(unsigned __int8 *a1, unint64_t a2)
-{
-  v20 = a2;
-  v3 = a1 + 152;
-  v4 = (*(a1 + 20) - *(a1 + 19)) >> 3;
-  v5 = a1 + 176;
-  *(*(a1 + 22) + 8 * a2) = v4;
-  std::vector<unsigned long long>::resize(a1 + 19, v4 + 4, &v20);
-  std::vector<unsigned long long>::resize(v5, v4 + 4, &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v3 + 6, v4 + 4);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v3 + 9, v4 + 4);
-  v6 = v20;
-  if (v20)
-  {
-    v7 = *(*(v3 + 6) + 16 * v20);
-    v8 = 63 - __clz(v7);
-    if (v7)
-    {
-      v6 = v8;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-  }
-
-  if (*a1 == v6)
-  {
-    v9 = v6 + 1;
-    *a1 = v9;
-    v19 = vdivq_f64(*(a1 + 3), vdupq_lane_s64(COERCE__INT64(ldexp(1.0, v9)), 0));
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 128), &v19);
-  }
-
-  v10 = 0;
-  v11 = *(v3 + 6);
-  do
-  {
-    v12 = 0;
-    v13 = v4 + v10;
-    v14 = 1;
-    do
-    {
-      v15 = v14;
-      v19.f64[0] = *(v11 + 16 * v20 + 8 * v12);
-      std::bitset<64ul>::operator<<=[abi:nn200100](&v19, 1uLL);
-      v14 = 0;
-      *(*(v3 + 6) + 16 * v13 + 8 * v12) = v19.f64[0];
-      v11 = *(v3 + 6);
-      *(v11 + 16 * v13 + 8 * v12) = *(v11 + 16 * v13 + 8 * v12) & 0xFFFFFFFFFFFFFFFELL | (v10 >> v12) & 1;
-      v12 = 1;
-    }
-
-    while ((v15 & 1) != 0);
-    ++v10;
-  }
-
-  while (v10 != 4);
-  v16 = v20;
-  v17.n128_f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, v20);
-  return geom::point_tree<double,(unsigned char)2>::partition(a1, v16, 0, 0, *(*(a1 + 28) + 16 * v20), *(*(a1 + 28) + 16 * v20 + 8), v17);
-}
-
-float64x2_t geom::point_tree<double,(unsigned char)2>::bounds(uint64_t a1, unint64_t a2)
-{
-  if (a2)
-  {
-    result.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, a2);
-    v5 = *(*(a1 + 200) + 16 * a2);
-    v6 = (63 - __clz(v5));
-    if (v5)
-    {
-      v7 = v6;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    __asm { FMOV            V2.2D, #0.5 }
-
-    v13 = vmulq_f64(*(*(a1 + 128) + 16 * v7), _Q2);
-    *&result.f64[0] = *&vminnmq_f64(vsubq_f64(result, v13), vminnmq_f64(vaddq_f64(result, v13), vdupq_n_s64(0x7FF0000000000000uLL)));
-  }
-
-  else
-  {
-    result = *(a1 + 16);
-    v14 = *(a1 + 32);
-  }
-
-  return result;
-}
-
-double geom::point_tree<double,(unsigned char)2>::centroid(uint64_t a1, unint64_t a2)
-{
-  v2 = *(a1 + 248);
-  if (a2 >= (*(a1 + 256) - v2) >> 4)
-  {
-    v4 = 0;
-    v5 = (*(a1 + 200) + 16 * a2);
-    v6 = 63 - __clz(*v5);
-    if (*v5)
-    {
-      v7 = v6;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    v3 = *(a1 + 64);
-    v18 = *(a1 + 48);
-    v8 = 1;
-    do
-    {
-      v19 = v3;
-      v9 = v8;
-      if (v7)
-      {
-        v10 = v5[v4];
-        v11 = 0.0;
-        v12 = 2;
-        v13 = v7 - 1;
-        do
-        {
-          if ((v10 >> v13))
-          {
-            v14 = 1.0;
-          }
-
-          else
-          {
-            v14 = 0.0;
-          }
-
-          v15 = powf(-1.0, v14);
-          v11 = v11 + v15 * (1.0 / exp2(v12++));
-          --v13;
-        }
-
-        while (v13 != -1);
-      }
-
-      else
-      {
-        v11 = 0.0;
-      }
-
-      v8 = 0;
-      v20 = v18;
-      v16 = *(&v20 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1)));
-      v21 = v19;
-      *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1))) = *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1))) - v16 * v11;
-      v3 = v21;
-      v4 = 1;
-    }
-
-    while ((v9 & 1) != 0);
-  }
-
-  else
-  {
-    v3 = *(v2 + 16 * a2);
-  }
-
-  return *&v3;
-}
-
-__n128 geom::point_tree<double,(unsigned char)2>::sides(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = *(*(a1 + 200) + 16 * a2);
-    v3 = (63 - __clz(v2));
-    if (v2)
-    {
-      v4 = v3;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  return *(*(a1 + 128) + 16 * v4);
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::node(uint64_t a1, unint64_t *a2)
-{
-  v13 = 1;
-  v4 = std::__equal_aligned[abi:nn200100]<std::__bitset<1ul,64ul>,true,true>(a2, 0, (a2 + 1), 0, &v13);
-  result = 0;
-  if ((v4 & 1) == 0)
-  {
-    result = 0;
-    v6 = *a2;
-    if (*a2)
-    {
-      v7 = __clz(v6);
-      if (v7 != 63)
-      {
-        result = 0;
-        v8 = 62 - v7;
-        v9 = (63 - v7) - 1;
-        do
-        {
-          v10 = *(*(a1 + 176) + 8 * result);
-          if (v10 == -1)
-          {
-            break;
-          }
-
-          v11 = ((a2[1] >> v8) & 1) != 0 ? (v6 >> v8) & 1 | 2 : (v6 >> v8) & 1;
-          result = v10 + v11;
-          --v8;
-        }
-
-        while (v9--);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::locate(uint64_t a1, float64x2_t *a2)
-{
-  v2 = vorrq_s8(vcgtq_f64(*a2, *(a1 + 32)), vcgtq_f64(*(a1 + 16), *a2));
-  if ((vorrq_s8(vdupq_laneq_s64(v2, 1), v2).u64[0] & 0x8000000000000000) != 0)
-  {
-    return -1;
-  }
-
-  if (**(a1 + 176) == -1)
-  {
-    return 0;
-  }
-
-  v5 = 0;
-  do
-  {
-    *&v6 = geom::point_tree<double,(unsigned char)2>::centroid(a1, v5);
-    v7 = 0;
-    v8 = 0;
-    v9 = *a2;
-    v10 = 1;
-    do
-    {
-      v11 = v10;
-      v20 = v9;
-      v12 = *(&v20 & 0xFFFFFFFFFFFFFFF7 | (8 * (v7 & 1)));
-      v21 = v6;
-      v13 = *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v7 & 1)));
-      v14 = 1 << v7;
-      v15 = v8 & ~v14;
-      v8 |= v14;
-      if (v12 < v13)
-      {
-        v8 = v15;
-      }
-
-      v7 = 1;
-      v10 = 0;
-    }
-
-    while ((v11 & 1) != 0);
-    v16 = *(a1 + 176);
-    v17 = *(v16 + 8 * v5);
-    v18 = v17 + v8;
-    if (v17 == -1)
-    {
-      v5 = -1;
-    }
-
-    else
-    {
-      v5 = v18;
-    }
-  }
-
-  while (*(v16 + 8 * v5) != -1);
-  return v5;
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::neighbor(void *a1, uint64_t a2, unint64_t a3)
-{
-  if (!a2)
-  {
-    return -1;
-  }
-
-  v3 = (a1[25] + 16 * a2);
-  v4 = 63 - __clz(a3);
-  if ((a3 & 3) == 0)
-  {
-    v4 = 0;
-  }
-
-  if ((a3 & 1) != (v3[v4] & 1))
-  {
-    if (v4 >= 2)
-    {
-LABEL_30:
-      abort();
-    }
-
-    v5 = *v3 & 1 | (2 * (v3[1] & 1));
-    v6 = 1 << v4;
-    if ((v5 & v6) != 0)
-    {
-      v7 = v5 & ~v6;
-    }
-
-    else
-    {
-      v7 = v5 | v6;
-    }
-
-    v8 = *(a1[22] + 8 * *(a1[19] + 8 * a2));
-    v9 = v8 + v7;
-    if (v8 == -1)
-    {
-      return -1;
-    }
-
-    else
-    {
-      return v9;
-    }
-  }
-
-  v11 = 63 - __clz(*v3);
-  v12 = *v3 && v11 >= 2u;
-  if (!v12)
-  {
-    return -1;
-  }
-
-  v13 = v11;
-  v14 = 2;
-  while (((a3 ^ (v3[v4] >> (v14 - 1))) & 1) == 0)
-  {
-    v12 = v14++ >= v13;
-    if (v12)
-    {
-      return -1;
-    }
-  }
-
-  v15 = 0;
-  v17 = *v3;
-  v16 = *(&v17 + v4);
-  do
-  {
-    if (v15 == 64)
-    {
-      goto LABEL_30;
-    }
-
-    if ((v16 & (1 << v15)) != 0)
-    {
-      v16 &= ~(1 << v15);
-    }
-
-    else
-    {
-      v16 |= 1 << v15;
-    }
-
-    ++v15;
-    --v14;
-  }
-
-  while (v14);
-  *(&v17 + v4) = v16;
-  return geom::point_tree<double,(unsigned char)2>::node(a1, &v17);
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::balance(unsigned __int8 *a1)
-{
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v21[0] = &unk_286292DB8;
-  v21[1] = v19;
-  v21[3] = v21;
-  geom::point_tree<double,(unsigned char)2>::traverse(a1, 0, v21);
-  std::__function::__value_func<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::~__value_func[abi:nn200100](v21);
-  v2 = *(&v20 + 1);
-  if (*(&v20 + 1))
-  {
-    while (1)
-    {
-      v3 = *(*(*(&v19[0] + 1) + ((v20 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v20 & 0x1FF));
-      *&v20 = v20 + 1;
-      *(&v20 + 1) = v2 - 1;
-      if (v20 >= 0x400)
-      {
-        operator delete(**(&v19[0] + 1));
-        *(&v19[0] + 1) += 8;
-        *&v20 = v20 - 512;
-      }
-
-      if (*(*(a1 + 22) + 8 * v3) == -1)
-      {
-        break;
-      }
-
-LABEL_26:
-      v2 = *(&v20 + 1);
-      if (!*(&v20 + 1))
-      {
-        goto LABEL_27;
-      }
-    }
-
-    v4 = 0;
-    while (1)
-    {
-      v5 = geom::point_tree<double,(unsigned char)2>::neighbor(a1, v3, v4);
-      if (v5 != -1)
-      {
-        v6 = v5;
-        if (*(*(a1 + 22) + 8 * v5) == -1)
-        {
-          break;
-        }
-      }
-
-LABEL_25:
-      if (++v4 == 4)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    if (v3)
-    {
-      v7 = *(*(a1 + 25) + 16 * v3);
-      v8 = (63 - __clz(v7));
-      if (v7)
-      {
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      if (v5)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v9 = 0;
-      if (v5)
-      {
-LABEL_13:
-        v10 = *(*(a1 + 25) + 16 * v5);
-        v11 = (63 - __clz(v10));
-        if (v10)
-        {
-          v12 = v11;
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-LABEL_18:
-        if (v9 - v12 >= 2)
-        {
-          geom::point_tree<double,(unsigned char)2>::split(a1, v5);
-          if (*(*(a1 + 22) + 8 * v6) != -1)
-          {
-            for (i = 0; i != 4; ++i)
-            {
-              v14 = *(*(a1 + 22) + 8 * v6);
-              if (v14 == -1)
-              {
-                v15 = -1;
-              }
-
-              else
-              {
-                v15 = i + v14;
-              }
-
-              v18 = v15;
-              std::deque<unsigned long long>::push_back(v19, &v18);
-            }
-          }
-        }
-
-        goto LABEL_25;
-      }
-    }
-
-    v12 = 0;
-    goto LABEL_18;
-  }
-
-LABEL_27:
-  result = std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v19);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::traverse(uint64_t result, int a2, uint64_t a3)
-{
-  v4 = result;
-  if (a2 == 1)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    v14 = 0;
-    std::deque<unsigned long long>::push_back(&v15, &v14);
-    while (*(&v17 + 1))
-    {
-      v9 = *(*(*(&v15 + 1) + (((v17 + *(&v17 + 1) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v17 + *(&v17 + 1) - 1) & 0x1FF));
-      --*(&v17 + 1);
-      std::deque<std::pair<unsigned int,unsigned int>>::__maybe_remove_back_spare[abi:nn200100](&v15, 1);
-      std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v9);
-      if (*(v4[22] + 8 * v9) != -1)
-      {
-        for (i = 3; i != -1; --i)
-        {
-          v11 = *(v4[22] + 8 * v9);
-          if (v11 == -1)
-          {
-            v12 = -1;
-          }
-
-          else
-          {
-            v12 = i + v11;
-          }
-
-          v14 = v12;
-          std::deque<unsigned long long>::push_back(&v15, &v14);
-        }
-      }
-    }
-
-    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
-  }
-
-  if (a2 == 2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    v14 = 0;
-    std::deque<unsigned long long>::push_back(&v15, &v14);
-    while (*(&v17 + 1))
-    {
-      v5 = *(*(*(&v15 + 1) + ((v17 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v17 & 0x1FF));
-      *&v17 = v17 + 1;
-      --*(&v17 + 1);
-      if (v17 >= 0x400)
-      {
-        operator delete(**(&v15 + 1));
-        *(&v15 + 1) += 8;
-        *&v17 = v17 - 512;
-      }
-
-      std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v5);
-      if (*(v4[22] + 8 * v5) != -1)
-      {
-        for (j = 0; j != 4; ++j)
-        {
-          v7 = *(v4[22] + 8 * v5);
-          if (v7 == -1)
-          {
-            v8 = -1;
-          }
-
-          else
-          {
-            v8 = j + v7;
-          }
-
-          v14 = v8;
-          std::deque<unsigned long long>::push_back(&v15, &v14);
-        }
-      }
-    }
-
-    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
-  }
-
-  if (*(result + 160) != *(result + 152))
-  {
-    v13 = 0;
-    do
-    {
-      result = std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v13++);
-    }
-
-    while (v13 < (v4[20] - v4[19]) >> 3);
-  }
-
-  return result;
-}
-
-uint64_t std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = a3;
-  v3 = *(a1 + 24);
-  if (v3)
-  {
-    return (*(*v3 + 48))(v3, a2, &v6);
-  }
-
-  v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return geom::point_tree<double,(unsigned char)2>::find_closest_point(v5);
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::find_closest_point(void *a1, float64x2_t a2)
-{
-  __p = 0;
-  v5 = 0;
-  v6 = 0;
-  geom::point_tree<double,(unsigned char)2>::find_k_nearest(a1, 1u, &__p, a2);
-  v2 = *__p;
-  v5 = __p;
-  operator delete(__p);
-  return v2;
-}
-
-void geom::point_tree<double,(unsigned char)2>::find_k_nearest(void *a1, unsigned int a2, void *a3, float64x2_t a4)
-{
-  v70 = *MEMORY[0x277D85DE8];
-  if (a2)
-  {
-    v67 = 0;
-    v68 = 0;
-    v69 = 0;
-    __p = 0;
-    v65 = 0;
-    v66 = 0;
-    *&v63 = 0;
-    v7.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, 0);
-    v8 = vsubq_f64(v7, a4);
-    *(&v63 + 1) = vaddvq_f64(vmulq_f64(v8, v8));
-    std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&__p, &v63);
-    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(__p, v65, &v62, (v65 - __p) >> 4);
-    v9 = __p;
-    v10 = v65;
-    if (__p != v65)
-    {
-      v11 = INFINITY;
-      do
-      {
-        v12 = *v9;
-        v13 = (v10 - v9) >> 4;
-        if (v13 >= 2)
-        {
-          v14 = 0;
-          v63 = *v9;
-          v15 = v9;
-          do
-          {
-            v16 = v15;
-            v15 += 2 * v14 + 2;
-            v17 = 2 * v14;
-            v14 = (2 * v14) | 1;
-            v18 = v17 + 2;
-            if (v18 < v13 && *(v15 + 1) > *(v15 + 3))
-            {
-              v15 += 2;
-              v14 = v18;
-            }
-
-            *v16 = *v15;
-          }
-
-          while (v14 <= ((v13 - 2) >> 1));
-          v19 = (v10 - 16);
-          if (v15 == v19)
-          {
-            *v15 = v63;
-          }
-
-          else
-          {
-            *v15 = *v19;
-            *v19 = v63;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v9, (v15 + 2), &v62, ((v15 + 2) - v9) >> 4);
-          }
-
-          v10 = v65;
-        }
-
-        v65 = v10 - 16;
-        if (*(a1[22] + 8 * v12) == -1)
-        {
-          v28 = geom::point_tree<double,(unsigned char)2>::bounds(a1, v12);
-          v30 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(a4, v29), v28), a4);
-          if (vaddvq_f64(vmulq_f64(v30, v30)) <= v11 * v11)
-          {
-            v31 = (a1[28] + 16 * v12);
-            v32 = *v31;
-            v33 = v31[1];
-            if (v32 != v33)
-            {
-              v34 = a1[13];
-              v35 = (v34 + 8 * v33);
-              v36 = (v34 + 8 * v32);
-              do
-              {
-                v37 = *v36;
-                v38 = vsubq_f64(*(a1[10] + 16 * *v36), a4);
-                v39 = vaddvq_f64(vmulq_f64(v38, v38));
-                v40 = v67;
-                v41 = v68;
-                v42 = (v68 - v67) >> 4;
-                if (v42 == a2 && v39 < *(v67 + 1))
-                {
-                  if (a2 != 1)
-                  {
-                    v43 = 0;
-                    v63 = *v67;
-                    v44 = v67;
-                    do
-                    {
-                      v45 = v44;
-                      v44 += 16 * v43 + 16;
-                      v46 = 2 * v43;
-                      v43 = (2 * v43) | 1;
-                      v47 = v46 + 2;
-                      if (v47 < a2 && *(v44 + 1) < *(v44 + 3))
-                      {
-                        v44 += 16;
-                        v43 = v47;
-                      }
-
-                      *v45 = *v44;
-                    }
-
-                    while (v43 <= ((a2 - 2) >> 1));
-                    v48 = v41 - 16;
-                    if (v44 == v48)
-                    {
-                      *v44 = v63;
-                    }
-
-                    else
-                    {
-                      *v44 = *v48;
-                      *v48 = v63;
-                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v40, (v44 + 16), &v62, (v44 + 16 - v40) >> 4);
-                    }
-
-                    v40 = v67;
-                    v41 = v68;
-                  }
-
-                  v68 = v41 - 16;
-                  v42 = (v41 - 16 - v40) >> 4;
-                }
-
-                if (v42 < a2)
-                {
-                  *&v63 = v37;
-                  *(&v63 + 1) = v39;
-                  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v67, &v63);
-                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v67, v68, &v62, (v68 - v67) >> 4);
-                }
-
-                ++v36;
-              }
-
-              while (v36 != v35);
-            }
-
-            if (a2 == (v68 - v67) >> 4)
-            {
-              v11 = *(v67 + 1);
-            }
-          }
-        }
-
-        else
-        {
-          for (i = 0; i != 4; ++i)
-          {
-            v21 = *(a1[22] + 8 * v12);
-            if (v21 == -1)
-            {
-              v22 = -1;
-            }
-
-            else
-            {
-              v22 = i + v21;
-            }
-
-            if (*(a1[28] + 16 * v22 + 8) != *(a1[28] + 16 * v22))
-            {
-              v23 = geom::point_tree<double,(unsigned char)2>::bounds(a1, v22);
-              v25 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(a4, v24), v23), a4);
-              if (vaddvq_f64(vmulq_f64(v25, v25)) <= v11 * v11)
-              {
-                *&v63 = v22;
-                v26.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, v22);
-                v27 = vsubq_f64(v26, a4);
-                *(&v63 + 1) = vaddvq_f64(vmulq_f64(v27, v27));
-                std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&__p, &v63);
-                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(__p, v65, &v62, (v65 - __p) >> 4);
-              }
-            }
-          }
-        }
-
-        v9 = __p;
-        v10 = v65;
-      }
-
-      while (__p != v65);
-    }
-
-    std::vector<double>::resize(a3, (v68 - v67) >> 4);
-    v49 = a3[1] - *a3;
-    if (v49)
-    {
-      v50 = v49 >> 3;
-      v51 = v68;
-      do
-      {
-        v52 = v67;
-        --v50;
-        *(*a3 + 8 * v50) = *v67;
-        v53 = (v51 - v52) >> 4;
-        if (v53 >= 2)
-        {
-          v54 = 0;
-          v63 = *v52;
-          v55 = v52;
-          do
-          {
-            v56 = v55;
-            v55 += 16 * v54 + 16;
-            v57 = 2 * v54;
-            v54 = (2 * v54) | 1;
-            v58 = v57 + 2;
-            if (v58 < v53 && *(v55 + 1) < *(v55 + 3))
-            {
-              v55 += 16;
-              v54 = v58;
-            }
-
-            *v56 = *v55;
-          }
-
-          while (v54 <= ((v53 - 2) >> 1));
-          v59 = v51 - 16;
-          if (v55 == v59)
-          {
-            *v55 = v63;
-          }
-
-          else
-          {
-            *v55 = *v59;
-            *v59 = v63;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v52, (v55 + 16), &v62, (v55 + 16 - v52) >> 4);
-          }
-
-          v51 = v68;
-        }
-
-        v51 -= 16;
-        v68 = v51;
-      }
-
-      while (v50);
-    }
-
-    if (__p)
-    {
-      v65 = __p;
-      operator delete(__p);
-    }
-
-    if (v67)
-    {
-      v68 = v67;
-      operator delete(v67);
-    }
-  }
-
-  else
-  {
-    a3[1] = *a3;
-  }
-
-  v60 = *MEMORY[0x277D85DE8];
-}
-
-void geom::point_tree<double,(unsigned char)2>::precompute_cell_data(void *a1)
-{
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(a1 + 31, (a1[20] - a1[19]) >> 3);
-  if (a1[20] - a1[19] >= 9uLL)
-  {
-    v2 = 1;
-    do
-    {
-      *&v3 = geom::point_tree<double,(unsigned char)2>::centroid(a1, v2);
-      v4 = v3;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 31), &v4);
-      ++v2;
-    }
-
-    while (v2 < (a1[20] - a1[19]) >> 3);
-  }
-}
-
-uint64_t geom::point_tree<double,(unsigned char)2>::partition(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
-{
-  v9 = result;
-  if (a3 != 2)
-  {
-    v10 = a3;
-    v11 = 8 * a5;
-    v24 = a6;
-    v12 = 8 * a6;
-    do
-    {
-      v13 = v9[13];
-      v14 = (v11 + v13);
-      if (v11 != v12)
-      {
-        v15 = (v11 + v13);
-        v14 = (v12 + v13);
-        v16 = v9[10];
-        v26 = a7;
-        v17 = *(&v26 & 0xFFFFFFFFFFFFFFF7 | (8 * (v10 & 1)));
-        while (2)
-        {
-          while (1)
-          {
-            v18 = *v15;
-            if (*(v16 + 16 * *v15 + 8 * (v10 & 1)) >= v17)
-            {
-              break;
-            }
-
-            if (++v15 == v14)
-            {
-              goto LABEL_13;
-            }
-          }
-
-          do
-          {
-            if (--v14 == v15)
-            {
-              v14 = v15;
-              goto LABEL_13;
-            }
-          }
-
-          while (*(v16 + 16 * *v14 + 8 * (v10 & 1)) >= v17);
-          *v15++ = *v14;
-          *v14 = v18;
-          if (v14 != v15)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-LABEL_13:
-      v11 = v14 - v13;
-      v19 = (v14 - v13) >> 3;
-      v20 = 1 << v10++;
-      result = geom::point_tree<double,(unsigned char)2>::partition(v9, a2, v10, a4 & ~v20, a7);
-      a4 |= v20;
-    }
-
-    while (v10 != 2);
-    a5 = v19;
-    a6 = v24;
-  }
-
-  v21 = *(v9[22] + 8 * a2);
-  if (v21 == -1)
-  {
-    v22 = -1;
-  }
-
-  else
-  {
-    v22 = v21 + a4;
-  }
-
-  v23 = (v9[28] + 16 * v22);
-  *v23 = a5;
-  v23[1] = a6;
-  return result;
 }

@@ -139,17 +139,18 @@ LABEL_16:
   listener = self->_listener;
   if (listener)
   {
-    v5 = [(SDNetworkOperation *)listener description];
-    NSAppendPrintF();
-    v3 = 0;
+    v6 = 0;
+    v3 = [(SDNetworkOperation *)listener description];
+    NSAppendPrintF(&v6, "%@\n", v3);
+    v4 = v6;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (SDAirDropListenerDelegate)delegate

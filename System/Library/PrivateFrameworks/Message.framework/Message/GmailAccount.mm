@@ -185,21 +185,19 @@
 
 - (id)emailAddressStrings
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   username = [(MFAccount *)self username];
   v3 = username;
   if (username)
   {
-    v7[0] = username;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = username;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -428,30 +426,30 @@ LABEL_10:
 
 - (void)_removeCredential:(id)credential
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   mEMORY[0x1E695AC50] = [MEMORY[0x1E695AC50] sharedCredentialStorage];
   allCredentials = [mEMORY[0x1E695AC50] allCredentials];
   [allCredentials allKeys];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v6 = v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v13 = 0u;
+  v6 = v14 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [allCredentials objectForKey:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [allCredentials objectForKey:{v10, v13}];
         allValues = [v11 allValues];
         if ([allValues containsObject:credentialCopy])
         {
@@ -459,13 +457,11 @@ LABEL_10:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)enableAccount

@@ -13,41 +13,40 @@
 
 - (NWStatsEntityMapperDynamicLaunchServices)init
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = NWStatsEntityMapperDynamicLaunchServices;
-  v2 = [(NWStatsEntityMapperDynamicLaunchServices *)&v14 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = NWStatsEntityMapperDynamicLaunchServices;
+  v2 = [(NWStatsEntityMapperDynamicLaunchServices *)&v12 init];
   if (v2)
   {
     v3 = objc_alloc_init(NWStatsEntityMapCache);
     entityMap = v2->_entityMap;
     v2->_entityMap = v3;
 
-    v5 = dlopen(gCoreServicesFrameworkPath, 4);
-    v2->_coreServicesDylibHandle = v5;
-    if (!v5 || (v2->_LSPlugInKitProxyClass = objc_getClass("LSPlugInKitProxy"), v2->_LSApplicationProxyClass = objc_getClass("LSApplicationProxy"), Class = objc_getClass("LSApplicationWorkspace"), v2->_LSApplicationWorkspaceClass = Class, !v2->_coreServicesDylibHandle) || !v2->_LSPlugInKitProxyClass || !v2->_LSApplicationProxyClass || !Class)
+    Class = dlopen(gCoreServicesFrameworkPath, 4);
+    v2->_coreServicesDylibHandle = Class;
+    if (!Class || (v2->_LSPlugInKitProxyClass = objc_getClass("LSPlugInKitProxy"), v2->_LSApplicationProxyClass = objc_getClass("LSApplicationProxy"), Class = objc_getClass("LSApplicationWorkspace"), v2->_LSApplicationWorkspaceClass = Class, !v2->_coreServicesDylibHandle) || !v2->_LSPlugInKitProxyClass || !v2->_LSApplicationProxyClass || !Class)
     {
-      v7 = NStatGetLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = NStatGetLog(Class);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         coreServicesDylibHandle = v2->_coreServicesDylibHandle;
         LSPlugInKitProxyClass = v2->_LSPlugInKitProxyClass;
         LSApplicationProxyClass = v2->_LSApplicationProxyClass;
         LSApplicationWorkspaceClass = v2->_LSApplicationWorkspaceClass;
         *buf = 134218752;
-        v16 = coreServicesDylibHandle;
+        v14 = coreServicesDylibHandle;
+        v15 = 2048;
+        v16 = LSPlugInKitProxyClass;
         v17 = 2048;
-        v18 = LSPlugInKitProxyClass;
+        v18 = LSApplicationProxyClass;
         v19 = 2048;
-        v20 = LSApplicationProxyClass;
-        v21 = 2048;
-        v22 = LSApplicationWorkspaceClass;
-        _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_FAULT, "LS Mapping dylib failure handle %p plugin proxy class %p app proxy class %p app workspace class %p", buf, 0x2Au);
+        v20 = LSApplicationWorkspaceClass;
+        _os_log_impl(&dword_25BA3A000, v6, OS_LOG_TYPE_FAULT, "LS Mapping dylib failure handle %p plugin proxy class %p app proxy class %p app workspace class %p", buf, 0x2Au);
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -66,12 +65,12 @@
 
 - (id)_attemptConvertingPluginNameToContainingAppName:(id)name
 {
-  v4 = [(objc_class *)self->_LSPlugInKitProxyClass pluginKitProxyForIdentifier:name];
-  v5 = v4;
-  if (v4)
+  v3 = [(objc_class *)self->_LSPlugInKitProxyClass pluginKitProxyForIdentifier:name];
+  v4 = v3;
+  if (v3)
   {
-    containingBundle = [v4 containingBundle];
-    if (containingBundle && (LSApplicationProxyClass = self->_LSApplicationProxyClass, (objc_opt_isKindOfClass() & 1) != 0))
+    containingBundle = [v3 containingBundle];
+    if (containingBundle && (objc_opt_isKindOfClass() & 1) != 0)
     {
       applicationIdentifier = [containingBundle applicationIdentifier];
     }
@@ -92,7 +91,7 @@
 
 - (id)_identifierForUUID:(id)d fromSet:(id)set
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   allObjects = [set allObjects];
   v6 = [allObjects objectAtIndex:0];
 
@@ -100,9 +99,9 @@
   v8 = v7;
   if (v7)
   {
-    v13[0] = v7;
-    v13[1] = v6;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v7;
+    v12[1] = v6;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
 
   else
@@ -111,8 +110,6 @@
   }
 
   v10 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

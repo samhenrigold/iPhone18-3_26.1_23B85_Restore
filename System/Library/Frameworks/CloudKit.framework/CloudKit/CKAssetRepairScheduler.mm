@@ -192,7 +192,7 @@
 
 - (void)addUploadRequestsWithMetadata:(id)metadata requestBlocks:(id)blocks
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   blocksCopy = blocks;
   v8 = _os_activity_create(&dword_1883EA000, "client/data-repair-add-to-scheduler", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -202,9 +202,9 @@
   v11 = objc_msgSend_count(metadataCopy, v9, v10);
   if (v11 != objc_msgSend_count(blocksCopy, v12, v13))
   {
-    v20 = [CKException alloc];
-    v22 = objc_msgSend_initWithName_format_(v20, v21, *MEMORY[0x1E695D940], @"Arrays must have the same number of elements");
-    objc_exception_throw(v22);
+    v19 = [CKException alloc];
+    v21 = objc_msgSend_initWithName_format_(v19, v20, *MEMORY[0x1E695D940], @"Arrays must have the same number of elements");
+    objc_exception_throw(v21);
   }
 
   if (objc_msgSend_count(metadataCopy, v14, v15))
@@ -218,7 +218,7 @@
     if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = metadataCopy;
+      v28 = metadataCopy;
       _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "Adding upload requests: %@", buf, 0xCu);
       if (self)
       {
@@ -232,14 +232,14 @@ LABEL_7:
       internalQueue = self->_internalQueue;
 LABEL_8:
       v18 = internalQueue;
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = sub_188627AD4;
-      v23[3] = &unk_1E70BC360;
-      v24 = metadataCopy;
-      v25 = blocksCopy;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = sub_188627AD4;
+      v22[3] = &unk_1E70BC360;
+      v23 = metadataCopy;
+      v24 = blocksCopy;
       selfCopy = self;
-      ck_call_or_dispatch_sync_if_not_key(v18, &self->_internalQueue, v23);
+      ck_call_or_dispatch_sync_if_not_key(v18, &self->_internalQueue, v22);
 
       goto LABEL_9;
     }
@@ -250,8 +250,6 @@ LABEL_8:
 
 LABEL_9:
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeUploadRequestWithRecordID:(id)d
@@ -318,7 +316,7 @@ LABEL_9:
 
 - (id)clonedAsset:(id)asset withError:(id *)error
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   if (error)
   {
@@ -339,9 +337,9 @@ LABEL_9:
     if (objc_opt_isKindOfClass())
     {
       v41 = assetCopy;
-      v118 = 0;
-      v16 = objc_msgSend_packageWithError_(CKPackage, v42, &v118);
-      v43 = v118;
+      v117 = 0;
+      v16 = objc_msgSend_packageWithError_(CKPackage, v42, &v117);
+      v43 = v117;
       if (v43)
       {
         v38 = v43;
@@ -361,46 +359,46 @@ LABEL_9:
       else
       {
         objc_msgSend_itemEnumerator(v41, v44, v45);
+        v113 = 0u;
         v114 = 0u;
         v115 = 0u;
-        v116 = 0u;
-        obj = v117 = 0u;
-        v107 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v51, &v114, v121, 16);
-        if (v107)
+        obj = v116 = 0u;
+        v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v50, &v113, v120, 16);
+        if (v106)
         {
-          v106 = *v115;
+          v105 = *v114;
           errorCopy = error;
-          v108 = v16;
+          v107 = v16;
           while (2)
           {
-            for (i = 0; i != v107; ++i)
+            for (i = 0; i != v106; ++i)
             {
-              if (*v115 != v106)
+              if (*v114 != v105)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v55 = *(*(&v114 + 1) + 8 * i);
-              v56 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v52, v53, errorCopy);
-              v59 = objc_msgSend_UUIDString(v56, v57, v58);
+              v54 = *(*(&v113 + 1) + 8 * i);
+              v55 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v51, v52, errorCopy);
+              v58 = objc_msgSend_UUIDString(v55, v56, v57);
 
-              v62 = objc_msgSend_temporaryAssetDirectory(self, v60, v61);
-              v64 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v62, v63, v59, 0);
+              v61 = objc_msgSend_temporaryAssetDirectory(self, v59, v60);
+              v63 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v61, v62, v58, 0);
 
-              v65 = objc_opt_class();
-              v68 = objc_msgSend_fileURL(v55, v66, v67);
-              v71 = objc_msgSend_temporaryAssetDirectory(self, v69, v70);
-              canCopyFromFileURL_toDirectoryURL = objc_msgSend_canCopyFromFileURL_toDirectoryURL_(v65, v72, v68, v71);
+              v64 = objc_opt_class();
+              v67 = objc_msgSend_fileURL(v54, v65, v66);
+              v70 = objc_msgSend_temporaryAssetDirectory(self, v68, v69);
+              canCopyFromFileURL_toDirectoryURL = objc_msgSend_canCopyFromFileURL_toDirectoryURL_(v64, v71, v67, v70);
 
               if (canCopyFromFileURL_toDirectoryURL)
               {
-                v76 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v74, v75);
-                v79 = objc_msgSend_fileURL(v55, v77, v78);
-                v113 = 0;
-                objc_msgSend_copyItemAtURL_toURL_error_(v76, v80, v79, v64, &v113);
-                v81 = v113;
+                v75 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v73, v74);
+                v78 = objc_msgSend_fileURL(v54, v76, v77);
+                v112 = 0;
+                objc_msgSend_copyItemAtURL_toURL_error_(v75, v79, v78, v63, &v112);
+                v80 = v112;
 
-                if (v81)
+                if (v80)
                 {
                   goto LABEL_36;
                 }
@@ -408,49 +406,49 @@ LABEL_9:
 
               else
               {
-                v81 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v74, @"CKErrorDomain", 10001, @"Not enough space left on device to attempt asset clone");
-                if (v81)
+                v80 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v73, @"CKErrorDomain", 10001, @"Not enough space left on device to attempt asset clone");
+                if (v80)
                 {
 LABEL_36:
 
 LABEL_37:
-                  v111 = 0u;
-                  v112 = 0u;
-                  v109 = 0u;
                   v110 = 0u;
-                  v16 = v108;
-                  v89 = objc_msgSend_itemEnumerator(v108, v87, v88);
-                  v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(v89, v90, &v109, v120, 16);
-                  if (v91)
+                  v111 = 0u;
+                  v108 = 0u;
+                  v109 = 0u;
+                  v16 = v107;
+                  v88 = objc_msgSend_itemEnumerator(v107, v86, v87);
+                  v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v89, &v108, v119, 16);
+                  if (v90)
                   {
-                    v94 = v91;
-                    v95 = *v110;
+                    v93 = v90;
+                    v94 = *v109;
                     do
                     {
-                      for (j = 0; j != v94; ++j)
+                      for (j = 0; j != v93; ++j)
                       {
-                        if (*v110 != v95)
+                        if (*v109 != v94)
                         {
-                          objc_enumerationMutation(v89);
+                          objc_enumerationMutation(v88);
                         }
 
-                        v97 = *(*(&v109 + 1) + 8 * j);
-                        v98 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v92, v93);
-                        v101 = objc_msgSend_fileURL(v97, v99, v100);
-                        objc_msgSend_removeItemAtURL_error_(v98, v102, v101, 0);
+                        v96 = *(*(&v108 + 1) + 8 * j);
+                        v97 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v91, v92);
+                        v100 = objc_msgSend_fileURL(v96, v98, v99);
+                        objc_msgSend_removeItemAtURL_error_(v97, v101, v100, 0);
                       }
 
-                      v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v89, v92, &v109, v120, 16);
+                      v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v91, &v108, v119, 16);
                     }
 
-                    while (v94);
+                    while (v93);
                   }
 
                   if (errorCopy)
                   {
-                    v103 = v81;
+                    v102 = v80;
                     v40 = 0;
-                    *errorCopy = v81;
+                    *errorCopy = v80;
                   }
 
                   else
@@ -458,24 +456,24 @@ LABEL_37:
                     v40 = 0;
                   }
 
-                  v86 = obj;
+                  v85 = obj;
                   goto LABEL_48;
                 }
               }
 
-              v82 = [CKPackageItem alloc];
-              v84 = objc_msgSend_initWithFileURL_(v82, v83, v64);
-              v81 = objc_msgSend_addItem_(v108, v85, v84);
+              v81 = [CKPackageItem alloc];
+              v83 = objc_msgSend_initWithFileURL_(v81, v82, v63);
+              v80 = objc_msgSend_addItem_(v107, v84, v83);
 
-              if (v81)
+              if (v80)
               {
                 goto LABEL_37;
               }
             }
 
-            v16 = v108;
-            v107 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v52, &v114, v121, 16);
-            if (v107)
+            v16 = v107;
+            v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v51, &v113, v120, 16);
+            if (v106)
             {
               continue;
             }
@@ -484,10 +482,10 @@ LABEL_37:
           }
         }
 
-        v86 = obj;
+        v85 = obj;
 
         v40 = v16;
-        v81 = 0;
+        v80 = 0;
 LABEL_48:
 
         v38 = 0;
@@ -517,9 +515,9 @@ LABEL_13:
   {
     v33 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v31, v32);
     v36 = objc_msgSend_fileURL(v10, v34, v35);
-    v119 = 0;
-    objc_msgSend_copyItemAtURL_toURL_error_(v33, v37, v36, v21, &v119);
-    v38 = v119;
+    v118 = 0;
+    objc_msgSend_copyItemAtURL_toURL_error_(v33, v37, v36, v21, &v118);
+    v38 = v118;
 
     if (v38)
     {
@@ -555,8 +553,6 @@ LABEL_17:
 
 LABEL_18:
 LABEL_19:
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v40;
 }
@@ -713,32 +709,32 @@ LABEL_19:
 
 + (int64_t)canCopyFromFileURL:(id)l toDirectoryURL:(id)rL
 {
-  v100[2] = *MEMORY[0x1E69E9840];
+  v99[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
-  v88 = 0;
-  v7 = *MEMORY[0x1E695DD70];
   v87 = 0;
-  objc_msgSend_getResourceValue_forKey_error_(lCopy, v8, &v88, v7, &v87);
-  v9 = v88;
-  v85 = 0;
+  v7 = *MEMORY[0x1E695DD70];
   v86 = 0;
-  v10 = v87;
-  objc_msgSend_getResourceValue_forKey_error_(rLCopy, v11, &v86, v7, &v85);
-  v12 = v86;
-  v13 = v85;
+  objc_msgSend_getResourceValue_forKey_error_(lCopy, v8, &v87, v7, &v86);
+  v9 = v87;
+  v84 = 0;
+  v85 = 0;
+  v10 = v86;
+  objc_msgSend_getResourceValue_forKey_error_(rLCopy, v11, &v85, v7, &v84);
+  v12 = v85;
+  v13 = v84;
 
   v15 = 0;
   if (v9 && v12)
   {
     if (objc_msgSend_isEqual_(v9, v14, v12))
     {
-      v84 = 0;
-      v17 = *MEMORY[0x1E695DE38];
       v83 = 0;
-      objc_msgSend_getResourceValue_forKey_error_(lCopy, v16, &v84, v17, &v83);
-      v18 = v84;
-      v19 = v83;
+      v17 = *MEMORY[0x1E695DE38];
+      v82 = 0;
+      objc_msgSend_getResourceValue_forKey_error_(lCopy, v16, &v83, v17, &v82);
+      v18 = v83;
+      v19 = v82;
 
       if (v18)
       {
@@ -760,7 +756,7 @@ LABEL_19:
   }
 
   objc_opt_self();
-  v76 = v9;
+  v75 = v9;
   if (v15)
   {
     v24 = v12;
@@ -769,12 +765,12 @@ LABEL_19:
 
   else
   {
-    v82 = 0;
-    v26 = *MEMORY[0x1E695DB50];
     v81 = 0;
-    objc_msgSend_getResourceValue_forKey_error_(lCopy, v22, &v82, v26, &v81);
-    v27 = v82;
-    v25 = v81;
+    v26 = *MEMORY[0x1E695DB50];
+    v80 = 0;
+    objc_msgSend_getResourceValue_forKey_error_(lCopy, v22, &v81, v26, &v80);
+    v27 = v81;
+    v25 = v80;
     v24 = v12;
     if (v27)
     {
@@ -785,12 +781,12 @@ LABEL_19:
 
   v28 = 524288000;
 LABEL_14:
-  v75 = v28;
+  v74 = v28;
   v29 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v22, v23);
   v32 = objc_msgSend_path(rLCopy, v30, v31);
-  v80 = v25;
-  v34 = objc_msgSend_attributesOfFileSystemForPath_error_(v29, v33, v32, &v80);
-  v35 = v80;
+  v79 = v25;
+  v34 = objc_msgSend_attributesOfFileSystemForPath_error_(v29, v33, v32, &v79);
+  v35 = v79;
 
   v36 = *MEMORY[0x1E696A3C0];
   v38 = objc_msgSend_objectForKey_(v34, v37, *MEMORY[0x1E696A3C0]);
@@ -808,7 +804,7 @@ LABEL_15:
     if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v90 = v35;
+      v89 = v35;
       _os_log_error_impl(&dword_1883EA000, v42, OS_LOG_TYPE_ERROR, "Error determining clonability of repair asset: %@", buf, 0xCu);
     }
 
@@ -816,63 +812,63 @@ LABEL_15:
     goto LABEL_20;
   }
 
-  v46 = v75;
-  v47 = v75 - v41;
-  if (v75 > v41)
+  v45 = v74;
+  v46 = v74 - v41;
+  if (v74 > v41)
   {
-    v73 = dispatch_semaphore_create(0);
-    v99[0] = @"CACHE_DELETE_VOLUME";
-    v50 = objc_msgSend_path(rLCopy, v48, v49);
-    v99[1] = @"CACHE_DELETE_AMOUNT";
-    v100[0] = v50;
-    v52 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v51, v47);
-    v100[1] = v52;
-    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, v100, v99, 2);
+    v72 = dispatch_semaphore_create(0);
+    v98[0] = @"CACHE_DELETE_VOLUME";
+    v49 = objc_msgSend_path(rLCopy, v47, v48);
+    v98[1] = @"CACHE_DELETE_AMOUNT";
+    v99[0] = v49;
+    v51 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v50, v46);
+    v99[1] = v51;
+    v53 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v52, v99, v98, 2);
 
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = sub_18862D7B4;
-    v78[3] = &unk_1E70BF3A0;
-    v55 = v73;
-    v79 = v55;
-    v74 = v54;
-    MEMORY[0x18CFD6160](v54, v78);
-    v56 = dispatch_time(0, 30000000000);
-    v72 = v55;
-    if (dispatch_semaphore_wait(v55, v56))
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = sub_18862D7B4;
+    v77[3] = &unk_1E70BF3A0;
+    v54 = v72;
+    v78 = v54;
+    v73 = v53;
+    MEMORY[0x18CFD6160](v53, v77);
+    v55 = dispatch_time(0, 30000000000);
+    v71 = v54;
+    if (dispatch_semaphore_wait(v54, v55))
     {
       if (ck_log_initialization_predicate != -1)
       {
         dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
       }
 
-      v59 = ck_log_facility_data_repair;
+      v58 = ck_log_facility_data_repair;
       if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1883EA000, v59, OS_LOG_TYPE_INFO, "Timed out waiting for purge", buf, 2u);
+        _os_log_impl(&dword_1883EA000, v58, OS_LOG_TYPE_INFO, "Timed out waiting for purge", buf, 2u);
       }
     }
 
-    v60 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v57, v58);
-    v63 = objc_msgSend_path(rLCopy, v61, v62);
-    v77 = 0;
-    v65 = objc_msgSend_attributesOfFileSystemForPath_error_(v60, v64, v63, &v77);
-    v35 = v77;
+    v59 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v56, v57);
+    v62 = objc_msgSend_path(rLCopy, v60, v61);
+    v76 = 0;
+    v64 = objc_msgSend_attributesOfFileSystemForPath_error_(v59, v63, v62, &v76);
+    v35 = v76;
 
-    v67 = objc_msgSend_objectForKey_(v65, v66, v36);
-    v41 = objc_msgSend_unsignedIntegerValue(v67, v68, v69);
+    v66 = objc_msgSend_objectForKey_(v64, v65, v36);
+    v41 = objc_msgSend_unsignedIntegerValue(v66, v67, v68);
 
-    v34 = v65;
+    v34 = v64;
     if (v35)
     {
       goto LABEL_15;
     }
 
-    v46 = v75;
+    v45 = v74;
   }
 
-  if (v41 >= v46)
+  if (v41 >= v45)
   {
     v35 = 0;
     v43 = 1;
@@ -885,26 +881,26 @@ LABEL_15:
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v70 = ck_log_facility_data_repair;
+    v69 = ck_log_facility_data_repair;
     if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_INFO))
     {
-      v71 = @"copy";
+      v70 = @"copy";
       *buf = 138413314;
       if (v15)
       {
-        v71 = @"clone";
+        v70 = @"clone";
       }
 
-      v90 = v71;
-      v91 = 2112;
-      v92 = lCopy;
-      v93 = 2112;
-      v94 = rLCopy;
-      v95 = 2048;
-      v96 = v41;
-      v97 = 2048;
-      v98 = v46;
-      _os_log_impl(&dword_1883EA000, v70, OS_LOG_TYPE_INFO, "Cannot %@ repair asset from %@: destination %@ has limited capacity: %ld. Needed: %ld", buf, 0x34u);
+      v89 = v70;
+      v90 = 2112;
+      v91 = lCopy;
+      v92 = 2112;
+      v93 = rLCopy;
+      v94 = 2048;
+      v95 = v41;
+      v96 = 2048;
+      v97 = v45;
+      _os_log_impl(&dword_1883EA000, v69, OS_LOG_TYPE_INFO, "Cannot %@ repair asset from %@: destination %@ has limited capacity: %ld. Needed: %ld", buf, 0x34u);
     }
 
     v43 = 0;
@@ -913,7 +909,6 @@ LABEL_15:
 
 LABEL_20:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v43;
 }
 

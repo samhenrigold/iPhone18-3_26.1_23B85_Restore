@@ -88,7 +88,7 @@ void __62__WBSIgnoredSiriSuggestedSitesController_initWithDatabaseURL___block_in
   v11 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
+    v4 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);

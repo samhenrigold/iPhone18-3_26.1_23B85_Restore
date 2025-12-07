@@ -66,7 +66,7 @@
 
 void __48__GSPermanentAdditionEnumerator__fetchNextBatch__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -85,53 +85,51 @@ void __48__GSPermanentAdditionEnumerator__fetchNextBatch__block_invoke(uint64_t 
   v16 = *(a1 + 32);
   if (v11)
   {
-    v25 = v15;
-    v26 = v14;
-    v27 = v13;
+    v24 = v15;
+    v25 = v14;
+    v26 = v13;
     objc_storeStrong((v16 + 72), a5);
     v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v18 = v11;
-    v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v29;
+      v21 = *v28;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v29 != v21)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [[GSAddition alloc] _initWithStorage:*(*(a1 + 32) + 8) andDictionary:*(*(&v28 + 1) + 8 * i)];
+          v23 = [[GSAddition alloc] _initWithStorage:*(*(a1 + 32) + 8) andDictionary:*(*(&v27 + 1) + 8 * i)];
           [v17 addObject:v23];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v20);
     }
 
-    v15 = v25;
-    [*(*(a1 + 32) + 56) handleObjResult:v17 error:v25];
+    v15 = v24;
+    [*(*(a1 + 32) + 56) handleObjResult:v17 error:v24];
 
-    v13 = v27;
-    v14 = v26;
+    v13 = v26;
+    v14 = v25;
   }
 
   else
   {
     [*(v16 + 56) handleObjResult:0 error:v15];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextObject

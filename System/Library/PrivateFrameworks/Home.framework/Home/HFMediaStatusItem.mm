@@ -6,22 +6,22 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
-  home = [(HFStatusItem *)self home];
-  hf_allUniqueMediaProfileContainers = [home hf_allUniqueMediaProfileContainers];
+  v5 = objc_msgSend_home(self, a2, options);
+  hf_allUniqueMediaProfileContainers = [v5 hf_allUniqueMediaProfileContainers];
   v7 = [v4 setWithArray:hf_allUniqueMediaProfileContainers];
 
   room = [(HFStatusItem *)self room];
 
   if (room)
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __49__HFMediaStatusItem__subclass_updateWithOptions___block_invoke;
-    v43[3] = &unk_277DF60E8;
-    v43[4] = self;
-    v9 = v43;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __49__HFMediaStatusItem__subclass_updateWithOptions___block_invoke;
+    v42[3] = &unk_277DF60E8;
+    v42[4] = self;
+    v9 = v42;
   }
 
   else
@@ -104,13 +104,13 @@
     }
 
     v35 = [MEMORY[0x277CBEB58] set];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __49__HFMediaStatusItem__subclass_updateWithOptions___block_invoke_36;
-    v41[3] = &unk_277DF6130;
-    v42 = v35;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __49__HFMediaStatusItem__subclass_updateWithOptions___block_invoke_36;
+    v40[3] = &unk_277DF6130;
+    v41 = v35;
     v36 = v35;
-    [v10 na_each:v41];
+    [v10 na_each:v40];
     [dictionary setObject:v36 forKeyedSubscript:@"dependentHomeKitObjects"];
     v37 = MEMORY[0x277D2C900];
     v38 = [HFItemUpdateOutcome outcomeWithResults:dictionary];
@@ -120,14 +120,12 @@
   else
   {
     v18 = MEMORY[0x277D2C900];
-    v44 = @"hidden";
-    v45[0] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = @"hidden";
+    v44[0] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     v12 = [HFItemUpdateOutcome outcomeWithResults:v11];
     v19 = [v18 futureWithResult:v12];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

@@ -68,8 +68,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"key";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"key";
   v3 = [(CAFTestComplexArrayItem *)self key];
   null = v3;
   if (!v3)
@@ -77,8 +77,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v10[1] = @"value";
-  v11[0] = null;
+  v9[1] = @"value";
+  v10[0] = null;
   value = [(CAFTestComplexArrayItem *)self value];
   null2 = value;
   if (!value)
@@ -86,8 +86,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (!value)
   {
   }
@@ -95,8 +95,6 @@
   if (!v3)
   {
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

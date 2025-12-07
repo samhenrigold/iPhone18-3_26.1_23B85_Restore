@@ -16,9 +16,10 @@ uint64_t __44__PXGridZeroSettingsProvider_sharedInstance__block_invoke()
     v0 = objc_alloc_init(PXGridZeroSettingsProvider);
   }
 
+  v1 = sharedInstance_sharedInstance;
   sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (PXGridZeroSettingsProvider)sharedInstance

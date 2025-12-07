@@ -1,150 +1,149 @@
 uint64_t PregnancyFromFactor.init(factorStartDate:factorEndDate:startSource:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v51 = a4;
-  v52 = a1;
-  v65 = a2;
-  v64 = a3;
-  v85 = 0;
+  v53 = a4;
+  v54 = a1;
+  v67 = a2;
+  v66 = a3;
+  v87 = 0;
   memset(__b, 0, 0x2AuLL);
+  v85 = 0;
+  v84 = 0;
   v83 = 0;
-  v82 = 0;
   v81 = 0;
   v79 = 0;
-  v77 = 0;
+  v76 = 0;
   v74 = 0;
-  v72 = 0;
-  v58 = 0;
-  v53 = type metadata accessor for Date();
-  v54 = *(v53 - 8);
-  v55 = v53 - 8;
-  v56 = (*(v54 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](0);
-  v57 = &v20 - v56;
-  v59 = type metadata accessor for Calendar();
-  v60 = *(v59 - 8);
-  v61 = v59 - 8;
-  v62 = (*(v60 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v58);
-  v63 = &v20 - v62;
-  v66 = type metadata accessor for DateComponents();
-  v67 = *(v66 - 8);
-  v68 = v66 - 8;
-  v69 = (*(v67 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v66);
-  v70 = &v20 - v69;
-  v85 = &v20 - v69;
-  v83 = a1;
-  v82 = v5;
-  v81 = v6;
-  *&v7 = Date.toJulianDay()();
-  v80 = v7;
-  v71 = v7;
-  if ((v7 & 0x100000000) != 0)
+  v60 = 0;
+  v55 = type metadata accessor for Date();
+  v56 = *(v55 - 8);
+  v57 = v55 - 8;
+  v58 = (*(v56 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v5);
+  v59 = &v22 - v58;
+  v61 = type metadata accessor for Calendar();
+  v62 = *(v61 - 8);
+  v63 = v61 - 8;
+  v64 = (*(v62 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v60, v6);
+  v65 = &v22 - v64;
+  v68 = type metadata accessor for DateComponents();
+  v69 = *(v68 - 8);
+  v70 = v68 - 8;
+  v71 = (*(v69 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v68, v67);
+  v72 = &v22 - v71;
+  v87 = &v22 - v71;
+  v85 = a1;
+  v84 = v7;
+  v83 = v8;
+  *&v9 = Date.toJulianDay()();
+  v82 = v9;
+  v73 = v9;
+  if ((v9 & 0x100000000) != 0)
   {
     goto LABEL_16;
   }
 
-  v50 = v71;
-  LODWORD(v49) = v71;
-  v79 = v71;
-  *&v8 = Date.toJulianDay()();
-  v78 = v8;
-  HIDWORD(v49) = v8;
-  if ((v8 & 0x100000000) != 0)
+  v52 = v73;
+  LODWORD(v51) = v73;
+  v81 = v73;
+  *&v10 = Date.toJulianDay()();
+  v80 = v10;
+  HIDWORD(v51) = v10;
+  if ((v10 & 0x100000000) != 0)
   {
     goto LABEL_16;
   }
 
-  v48 = HIDWORD(v49);
-  v42 = HIDWORD(v49);
-  v77 = HIDWORD(v49);
-  __b[0] = v49;
-  __b[2] = v64;
-  LODWORD(__b[3]) = v49;
+  v50 = HIDWORD(v51);
+  v44 = HIDWORD(v51);
+  v79 = HIDWORD(v51);
+  __b[0] = v51;
+  __b[2] = v66;
+  LODWORD(__b[3]) = v51;
   __b[4] = 0;
   LOWORD(__b[5]) = 0;
   static Calendar.current.getter();
-  v44 = type metadata accessor for Calendar.Component();
-  v43 = _allocateUninitializedArray<A>(_:)();
-  (*(*(v44 - 8) + 104))(v9, *MEMORY[0x277CC9988]);
-  v10 = v43;
+  v46 = type metadata accessor for Calendar.Component();
+  v45 = _allocateUninitializedArray<A>(_:)();
+  (*(*(v46 - 8) + 104))(v11, *MEMORY[0x277CC9988]);
   _finalizeUninitializedArray<A>(_:)();
-  v45 = v10;
+  v47 = v12;
   lazy protocol witness table accessor for type Calendar.Component and conformance Calendar.Component();
-  v46 = Set.init(arrayLiteral:)();
+  v48 = Set.init(arrayLiteral:)();
   Calendar.dateComponents(_:from:)();
 
-  (*(v60 + 8))(v63, v59);
-  v47 = DateComponents.year.getter();
-  if ((v11 & 1) != 0 || (v41 = v47, v74 = v41, v41 <= 3000))
+  (*(v62 + 8))(v65, v61);
+  v49 = DateComponents.year.getter();
+  if ((v13 & 1) != 0 || (v43 = v49, v76 = v43, v43 <= 3000))
   {
     LOBYTE(__b[1]) = 0;
-    HIDWORD(__b[3]) = v42;
+    HIDWORD(__b[3]) = v44;
     goto LABEL_15;
   }
 
   Date.init()();
-  *&v12 = Date.toJulianDay()();
-  v73 = v12;
-  v39 = v12;
-  v40 = BYTE4(v12);
-  (*(v54 + 8))(v57, v53);
-  if (v40)
+  *&v14 = Date.toJulianDay()();
+  v75 = v14;
+  v41 = v14;
+  v42 = BYTE4(v14);
+  (*(v56 + 8))(v59, v55);
+  if (v42)
   {
-    (*(v67 + 8))(v70, v66);
+    (*(v69 + 8))(v72, v68);
 LABEL_16:
-    v21 = *(v54 + 8);
-    v20 = v54 + 8;
-    v21(v65, v53);
-    result = (v21)(v52, v53);
-    v32 = 0;
-    v33 = 0;
+    v23 = *(v56 + 8);
+    v22 = v56 + 8;
+    v23(v67, v55);
+    result = (v23)(v54, v55);
     v34 = 0;
     v35 = 0;
     v36 = 0;
-    v37 = 2;
+    v37 = 0;
+    v38 = 0;
+    v39 = 2;
     goto LABEL_17;
   }
 
-  v38 = v39;
-  v72 = v39;
+  v40 = v41;
+  v74 = v41;
   LOBYTE(__b[1]) = 1;
-  HIDWORD(__b[3]) = v39;
+  HIDWORD(__b[3]) = v41;
 LABEL_15:
-  (*(v67 + 8))(v70, v66);
-  v22 = __dst;
-  v23 = 42;
+  (*(v69 + 8))(v72, v68);
+  v24 = __dst;
+  v25 = 42;
   memcpy(__dst, __b, 0x2AuLL);
-  memcpy(v76, __dst, 0x2AuLL);
-  v26 = v76[0];
-  v27 = v76[1];
-  v28 = v76[2];
-  v29 = v76[3];
-  v30 = v76[4];
-  v31 = LOWORD(v76[5]);
-  v25 = *(v54 + 8);
-  v24 = v54 + 8;
-  v25(v65, v53);
-  result = (v25)(v52, v53);
-  v32 = v26;
-  v33 = v27;
+  memcpy(v78, __dst, 0x2AuLL);
+  v28 = v78[0];
+  v29 = v78[1];
+  v30 = v78[2];
+  v31 = v78[3];
+  v32 = v78[4];
+  v33 = LOWORD(v78[5]);
+  v27 = *(v56 + 8);
+  v26 = v56 + 8;
+  v27(v67, v55);
+  result = (v27)(v54, v55);
   v34 = v28;
   v35 = v29;
   v36 = v30;
   v37 = v31;
+  v38 = v32;
+  v39 = v33;
 LABEL_17:
-  v14 = v51;
-  v15 = v33;
-  v16 = v34;
+  v16 = v53;
   v17 = v35;
   v18 = v36;
   v19 = v37;
-  *v51 = v32;
-  v14[1] = v15;
-  v14[2] = v16;
-  v14[3] = v17;
-  v14[4] = v18;
-  *(v14 + 20) = v19;
+  v20 = v38;
+  v21 = v39;
+  *v53 = v34;
+  v16[1] = v17;
+  v16[2] = v18;
+  v16[3] = v19;
+  v16[4] = v20;
+  *(v16 + 20) = v21;
   return result;
 }
 
@@ -226,18 +225,18 @@ uint64_t SliceDeltaAnchor.rawValue.getter(char a1)
 
 NightingaleTraining::PregnancySource_optional __swiftcall PregnancySource.init(rawValue:)(Swift::String rawValue)
 {
-  v1 = _allocateUninitializedArray<A>(_:)();
-  *v2 = "HKPregnancyFactorWithEnd";
-  *(v2 + 8) = 24;
-  *(v2 + 16) = 2;
-  *(v2 + 24) = "HKPregnancyFactorWithoutEnd";
-  *(v2 + 32) = 27;
-  *(v2 + 40) = 2;
-  *(v2 + 48) = "HKPregnancyTestPositive";
-  *(v2 + 56) = 23;
-  *(v2 + 64) = 2;
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "HKPregnancyFactorWithEnd";
+  *(v1 + 8) = 24;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "HKPregnancyFactorWithoutEnd";
+  *(v1 + 32) = 27;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "HKPregnancyTestPositive";
+  *(v1 + 56) = 23;
+  *(v1 + 64) = 2;
   _finalizeUninitializedArray<A>(_:)();
-  v7 = _findStringSwitchCase(cases:string:)(v1, rawValue);
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
 
   switch(v7)
   {
@@ -274,15 +273,15 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Pr
 
 NightingaleTraining::SliceDeltaAnchor_optional __swiftcall SliceDeltaAnchor.init(rawValue:)(Swift::String rawValue)
 {
-  v1 = _allocateUninitializedArray<A>(_:)();
-  *v2 = "LMP";
-  *(v2 + 8) = 3;
-  *(v2 + 16) = 2;
-  *(v2 + 24) = "OvuEst";
-  *(v2 + 32) = 6;
-  *(v2 + 40) = 2;
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "LMP";
+  *(v1 + 8) = 3;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "OvuEst";
+  *(v1 + 32) = 6;
+  *(v1 + 40) = 2;
   _finalizeUninitializedArray<A>(_:)();
-  v7 = _findStringSwitchCase(cases:string:)(v1, rawValue);
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
 
   if (!v7)
   {
@@ -303,15 +302,15 @@ LABEL_6:
 
 NightingaleTraining::OverlapPregnanciesStrategy_optional __swiftcall OverlapPregnanciesStrategy.init(rawValue:)(Swift::String rawValue)
 {
-  v1 = _allocateUninitializedArray<A>(_:)();
-  *v2 = "NoOp";
-  *(v2 + 8) = 4;
-  *(v2 + 16) = 2;
-  *(v2 + 24) = "Merge";
-  *(v2 + 32) = 5;
-  *(v2 + 40) = 2;
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "NoOp";
+  *(v1 + 8) = 4;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "Merge";
+  *(v1 + 32) = 5;
+  *(v1 + 40) = 2;
   _finalizeUninitializedArray<A>(_:)();
-  v7 = _findStringSwitchCase(cases:string:)(v1, rawValue);
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
 
   if (!v7)
   {
@@ -414,18 +413,18 @@ Swift::Bool __swiftcall Pregnancy.containsFlow(excludePregnanciesContainingFlow:
       v9 = (*(v15 + 16))(v14);
       if (v9 < v10 + 1)
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
         __break(1u);
       }
 
       v20 = v10 + 1;
       v21 = v9;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnys6UInt32VGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnys6UInt32VGMd, &_sSnys6UInt32VGMR);
       lazy protocol witness table accessor for type Range<UInt32> and conformance <> Range<A>();
       Collection<>.makeIterator()();
       while (1)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnys6UInt32VGGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnys6UInt32VGGMd, &_ss16IndexingIteratorVySnys6UInt32VGGMR);
         IndexingIterator.next()();
         if (v19)
         {
@@ -491,7 +490,7 @@ NightingaleTraining::PregnancyInvalidReason __swiftcall Pregnancy.checkDuration(
 uint64_t implicit closure #1 in mergePregnancies(pregnancies:strategy:)(uint64_t a1)
 {
   outlined init with copy of HealthDataQuery(a1, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd, &_s19NightingaleTraining9Pregnancy_pMR);
   return String.init<A>(describing:)();
 }
 
@@ -517,7 +516,7 @@ void *closure #1 in mergePregnancies(pregnancies:strategy:)@<X0>(uint64_t a1@<X0
   outlined init with copy of Pregnancy?((a1 + 8), v4);
   if (!v4[3])
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/Pregnancy.swift", 35, 2, 123, 0);
     __break(1u);
   }
 
@@ -546,18 +545,18 @@ uint64_t closure #3 in mergePregnancies(pregnancies:strategy:)(void *a1)
 
 uint64_t merge(pregnancies:tree:)(uint64_t a1, uint64_t a2)
 {
-  v27 = a2;
-  v28 = a1;
-  v30 = 0;
-  v51 = a1;
-  v50 = a2;
-  v44 = a1;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-  v29 = v31;
-  v33 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
+  v28 = a2;
+  v29 = a1;
+  v31 = 0;
+  v52 = a1;
+  v51 = a2;
+  v45 = a1;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+  v30 = v32;
+  v34 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
   Sequence.min(by:)();
-  v34 = v32;
-  if (v32)
+  v35 = v33;
+  if (v33)
   {
     __break(1u);
     __break(1u);
@@ -565,69 +564,69 @@ uint64_t merge(pregnancies:tree:)(uint64_t a1, uint64_t a2)
 
   else
   {
-    if (!v46)
+    if (!v47)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/Pregnancy.swift", 35, 2, 141, 0);
       __break(1u);
     }
 
-    v25 = v34;
-    outlined init with take of HealthDataQuery(v45, &__dst);
-    v38 = v28;
+    v26 = v35;
+    outlined init with take of HealthDataQuery(v46, &__dst);
+    v39 = v29;
     Sequence.max(by:)();
-    v26 = v34;
-    if (!v40)
+    v27 = v35;
+    if (!v41)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/Pregnancy.swift", 35, 2, 142, 0);
       __break(1u);
     }
 
-    v22 = v26;
-    v5[2] = &v41;
-    outlined init with take of HealthDataQuery(v39, &v41);
-    v7 = v42;
-    v6 = v43;
-    __swift_project_boxed_opaque_existential_1(&v41, v42);
-    v10 = (*(v6 + 16))(v7);
-    v8 = v48;
+    v23 = v27;
+    v6[2] = &v42;
+    outlined init with take of HealthDataQuery(v40, &v42);
+    v8 = v43;
+    v7 = v44;
+    __swift_project_boxed_opaque_existential_1(&v42, v43);
+    v11 = (*(v7 + 16))(v8);
     v9 = v49;
+    v10 = v50;
     p_dst = &__dst;
-    __swift_mutable_project_boxed_opaque_existential_1(&__dst, v48);
-    (*(v9 + 24))(v10, v8);
-    v15 = v48;
-    v13 = v49;
-    __swift_project_boxed_opaque_existential_1(&__dst, v48);
-    v11 = *(v15 - 8);
-    v14 = v11;
-    v12 = v5;
-    MEMORY[0x28223BE20](v5);
-    v16 = v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v14 + 16))(v16);
-    v17 = (*(v13 + 8))(v15);
-    (*(v14 + 8))(v16, v15);
-    v37 = v17;
-    v19 = v48;
-    v18 = v49;
-    __swift_project_boxed_opaque_existential_1(p_dst, v48);
-    v36 = (*(v18 + 16))(v19);
-    v21 = v35;
-    outlined init with copy of HealthDataQuery(p_dst, v35);
-    v3 = v22;
-    AugmentedIntervalTree.insert(start:end:context:)(&v37, &v36, v21);
-    v23 = v3;
-    v24 = v3;
-    if (!v3)
+    __swift_mutable_project_boxed_opaque_existential_1(&__dst, v49);
+    (*(v10 + 24))(v11, v9);
+    v16 = v49;
+    v14 = v50;
+    v2 = __swift_project_boxed_opaque_existential_1(&__dst, v49);
+    v12 = *(v16 - 8);
+    v15 = v12;
+    v13 = v6;
+    MEMORY[0x28223BE20](v6, v2);
+    v17 = v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v15 + 16))(v17);
+    v18 = (*(v14 + 8))(v16);
+    (*(v15 + 8))(v17, v16);
+    v38 = v18;
+    v20 = v49;
+    v19 = v50;
+    __swift_project_boxed_opaque_existential_1(p_dst, v49);
+    v37 = (*(v19 + 16))(v20);
+    v22 = &v36;
+    outlined init with copy of HealthDataQuery(p_dst, &v36);
+    v4 = v23;
+    AugmentedIntervalTree.insert(start:end:context:)(&v38, &v37, v22);
+    v24 = v4;
+    v25 = v4;
+    if (!v4)
     {
-      v5[1] = 0;
-      outlined destroy of Pregnancy?(v35);
-      __swift_destroy_boxed_opaque_existential_1(&v41);
+      v6[1] = 0;
+      outlined destroy of Pregnancy?(&v36);
+      __swift_destroy_boxed_opaque_existential_1(&v42);
       return __swift_destroy_boxed_opaque_existential_1(&__dst);
     }
   }
 
-  v5[0] = v24;
-  outlined destroy of Pregnancy?(v35);
-  __swift_destroy_boxed_opaque_existential_1(&v41);
+  v6[0] = v25;
+  outlined destroy of Pregnancy?(&v36);
+  __swift_destroy_boxed_opaque_existential_1(&v42);
   return __swift_destroy_boxed_opaque_existential_1(&__dst);
 }
 
@@ -637,7 +636,7 @@ void *closure #4 in mergePregnancies(pregnancies:strategy:)@<X0>(uint64_t a1@<X0
   outlined init with copy of Pregnancy?((a1 + 8), v4);
   if (!v4[3])
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/Pregnancy.swift", 35, 2, 136, 0);
     __break(1u);
   }
 
@@ -714,12 +713,12 @@ Swift::Void __swiftcall PregnancyFromTest.update(historicalPeriods:useSeahorseIn
   v37 = v35 - 8;
   v38 = (*(v36 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v39 = v13 - v38;
-  v60 = MEMORY[0x28223BE20](rawValue);
+  v60 = MEMORY[0x28223BE20](rawValue, v33);
   v59 = v4 & 1;
   v58 = v5 & 1;
   v57 = v3;
   v56 = v60;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd, &_sSays6UInt32V5start_AB3endtGMR);
   v6 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32)] and conformance [A]();
   v44 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v43, v40, v41, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v6, MEMORY[0x277D84AC0], v42);
   v29 = v44;
@@ -835,15 +834,15 @@ uint64_t protocol witness for Pregnancy.endDay.getter in conformance PregnancyFr
   return PregnancyFromTest.endDay.getter(*v0, *&v2[8]);
 }
 
-void (*protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest(void *a1))(void **a1, char a2)
+void (*protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest(uint64_t *a1))(void (***a1)(void *, uint64_t), char a2)
 {
-  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  v2 = __swift_coroFrameAllocStub(0x28uLL, 37496);
   *a1 = v2;
   v2[4] = PregnancyFromTest.endDay.modify();
   return protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest;
 }
 
-void protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest(void **a1, char a2)
+void protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest(void (***a1)(void *, uint64_t), char a2)
 {
   v2 = *a1;
   if (a2)
@@ -900,9 +899,9 @@ uint64_t protocol witness for Pregnancy.inferredLMP.getter in conformance Pregna
   return PregnancyFromTest.inferredLMP.getter(*v0, *&v3[8], v2, v3[24]) & 1;
 }
 
-void (*protocol witness for Pregnancy.inferredLMP.modify in conformance PregnancyFromTest(void *a1))(void **a1, char a2)
+void (*protocol witness for Pregnancy.inferredLMP.modify in conformance PregnancyFromTest(uint64_t *a1))(void (***a1)(void *, uint64_t), char a2)
 {
-  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  v2 = __swift_coroFrameAllocStub(0x28uLL, 48009);
   *a1 = v2;
   v2[4] = PregnancyFromTest.inferredLMP.modify();
   return protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest;
@@ -915,7 +914,7 @@ Swift::Void __swiftcall PregnancyFromFactor.update(historicalPeriods:useSeahorse
   v19 = useSeahorseInferredStartdate;
   v18 = useInferredLMP;
   v16 = historicalPeriods._rawValue;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd, &_sSays6UInt32V5start_AB3endtGMR);
   v3 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32)] and conformance [A]();
   v15 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in Featurizer.featurizeHRPeriodPrediction(flows:daySHR10s:nightSHR10s:calendarPeriodPredictions:historicalPeriods:cycleFactors:dummyPeriodLength:sliceSize:maxNumDaysToNextPeriod:minNumDaysToNextPeriod:minNumOfDaySHRPerSlice:), 0, v10, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v3, MEMORY[0x277D84AC0], v11);
   v12 = *(v9 + 24);
@@ -951,7 +950,7 @@ Swift::Void __swiftcall PregnancyFromFactor.update(historicalPeriods:useSeahorse
 
   if (useSeahorseInferredStartdate)
   {
-    type metadata accessor for _HKPrivatePregnancyStartDateSource();
+    type metadata accessor for _HKPrivatePregnancyStartDateSource(0);
     lazy protocol witness table accessor for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource();
     v4 = == infix<A>(_:_:)();
   }
@@ -1001,7 +1000,7 @@ NightingaleTraining::PregnancyInvalidReason __swiftcall PregnancyFromFactor.ensu
   }
 
   v32 = __src[2];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd, &_sSaySo34_HKPrivatePregnancyStartDateSourceVGMR);
   lazy protocol witness table accessor for type [_HKPrivatePregnancyStartDateSource] and conformance [A]();
   lazy protocol witness table accessor for type _HKPrivatePregnancyStartDateSource and conformance _HKPrivatePregnancyStartDateSource();
   if (Sequence<>.contains(_:)())
@@ -1027,17 +1026,17 @@ Swift::Int __swiftcall PregnancyFromFactor.lmpDelta()()
   return result;
 }
 
-void (*protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromFactor(void *a1))(void **a1, char a2)
+void (*protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromFactor(uint64_t *a1))(void (***a1)(void *, uint64_t), char a2)
 {
-  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  v2 = __swift_coroFrameAllocStub(0x28uLL, 41455);
   *a1 = v2;
   v2[4] = PregnancyFromFactor.endDay.modify();
   return protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest;
 }
 
-void (*protocol witness for Pregnancy.inferredLMP.modify in conformance PregnancyFromFactor(void *a1))(void **a1, char a2)
+void (*protocol witness for Pregnancy.inferredLMP.modify in conformance PregnancyFromFactor(uint64_t *a1))(void (***a1)(void *, uint64_t), char a2)
 {
-  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  v2 = __swift_coroFrameAllocStub(0x28uLL, 14920);
   *a1 = v2;
   v2[4] = PregnancyFromFactor.inferredLMP.modify();
   return protocol witness for Pregnancy.endDay.modify in conformance PregnancyFromTest;
@@ -1047,7 +1046,7 @@ uint64_t outlined destroy of Interval<UInt32, Pregnancy>(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    __swift_destroy_boxed_opaque_existential_1(a1 + 8);
+    __swift_destroy_boxed_opaque_existential_1((a1 + 8));
   }
 
   return a1;
@@ -1055,7 +1054,7 @@ uint64_t outlined destroy of Interval<UInt32, Pregnancy>(uint64_t a1)
 
 void *closure #1 in OSLogArguments.append(_:)(void *a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
 {
-  v4 = a4();
+  v4 = (a4)(a1, a2);
   getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v5, a3);
   v8 = *a1;
 
@@ -1120,7 +1119,7 @@ uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1,
   return v11;
 }
 
-uint64_t specialized _StringGuts._deconstructUTF8<A>(scratch:)(uint64_t result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+void *specialized _StringGuts._deconstructUTF8<A>(scratch:)(void *result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
 {
   v19 = result;
   v25 = a6;
@@ -1153,7 +1152,7 @@ uint64_t specialized _StringGuts._deconstructUTF8<A>(scratch:)(uint64_t result, 
 
         else
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/StringTesting.swift", 25, 2, 159, 0);
           __break(1u);
         }
 
@@ -1209,7 +1208,7 @@ LABEL_28:
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/StringTesting.swift", 25, 2, 173, 0);
     __break(1u);
   }
 
@@ -1266,29 +1265,29 @@ LABEL_8:
   return result;
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, uint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, uint64_t a2)
 {
-  v7 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+  v9 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   inited = swift_initStackObject();
-  v3 = _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZs5UInt8V_Tt1gq5(inited, 1);
-  *v4 = 0;
+  _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZs5UInt8V_Tt1gq5(inited, 1);
+  *v3 = 0;
   specialized _finalizeUninitializedArray<A>(_:)();
-  specialized Array.append<A>(contentsOf:)(v3);
+  specialized Array.append<A>(contentsOf:)(v4, v5);
 
-  v8 = specialized Array.count.getter(v7);
+  v10 = specialized Array.count.getter(v9, v6);
 
-  result = v8;
-  if (!__OFSUB__(v8, 1))
+  result = v10;
+  if (!__OFSUB__(v10, 1))
   {
-    return v7;
+    return v9;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
 {
   v16[15] = a2;
   if ((a2 & 0x1000000000000000) != 0)
@@ -1379,7 +1378,7 @@ LABEL_22:
   if (v2)
   {
 LABEL_29:
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Insufficient space allocated to copy string contents", 52, 2, "Swift/StringUTF8View.swift", 26, 2, 531, 0);
     __break(1u);
     goto LABEL_30;
   }
@@ -1393,7 +1392,7 @@ LABEL_26:
   v16[10] = 0xE000000000000000;
   if (v8 != v13)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "invalid Collection: less than 'count' elements in collection", 60, 2, "Swift/ContiguousArrayBuffer.swift", 33, 2, 1145, 0);
     __break(1u);
   }
 
@@ -1410,46 +1409,46 @@ uint64_t _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZ
   return a1;
 }
 
-void specialized Array.append<A>(contentsOf:)(uint64_t a1)
+void specialized Array.append<A>(contentsOf:)(uint64_t a1, __n128 a2)
 {
-  v18 = specialized Array.count.getter(a1);
-  v2 = specialized Array.count.getter(*v1);
-  v19 = v2 + v18;
-  if (__OFADD__(v2, v18))
+  v20 = specialized Array.count.getter(a1, a2);
+  v4 = specialized Array.count.getter(*v2, v3);
+  v21 = v4 + v20;
+  if (__OFADD__(v4, v20))
   {
     goto LABEL_31;
   }
 
-  v14 = *v17;
+  v16 = *v19;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v17 = v14;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v19 > *(*v17 + 24) >> 1)
+  *v19 = v16;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v21 > *(*v19 + 24) >> 1)
   {
-    if (*(*v17 + 16) < v19)
+    if (*(*v19 + 16) < v21)
     {
-      v13 = v19;
+      v15 = v21;
     }
 
     else
     {
-      v13 = *(*v17 + 16);
+      v15 = *(*v19 + 16);
     }
 
-    v12 = *v17;
+    v14 = *v19;
 
-    *v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v13, 1, v12);
+    *v19 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v15, 1, v14);
   }
 
-  v4 = *(*v17 + 16);
-  v10 = (*v17 + 32 + v4);
-  v5 = *(*v17 + 24) >> 1;
-  v11 = v5 - v4;
-  if (__OFSUB__(v5, v4))
+  v6 = *(*v19 + 16);
+  v12 = (*v19 + 32 + v6);
+  v7 = *(*v19 + 24) >> 1;
+  v13 = v7 - v6;
+  if (__OFSUB__(v7, v6))
   {
     goto LABEL_32;
   }
 
-  if (v11 < 0)
+  if (v13 < 0)
   {
 LABEL_30:
     _fatalErrorMessage(_:_:file:line:flags:)();
@@ -1465,36 +1464,36 @@ LABEL_32:
   {
 LABEL_21:
 
-    if (v18 <= 0)
+    if (v20 <= 0)
     {
       goto LABEL_28;
     }
 
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "newElements.underestimatedCount was an overestimate", 51, 2, "Swift/Array.swift", 17, 2, 1259, 0);
     __break(1u);
     goto LABEL_30;
   }
 
-  if (v11 < v18)
+  if (v13 < v20)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Insufficient space allocated to copy array contents", 51, 2, "Swift/Array.swift", 17, 2, 1778, 0);
     __break(1u);
     goto LABEL_21;
   }
 
-  specialized UnsafeMutablePointer.initialize(from:count:)((a1 + 32), v18, v10);
+  specialized UnsafeMutablePointer.initialize(from:count:)((a1 + 32), v20, v12);
 
   swift_unknownObjectRelease();
-  if (v18 <= 0)
+  if (v20 <= 0)
   {
     goto LABEL_28;
   }
 
-  v7 = *(*v17 + 16);
-  v9 = v7 + v18;
-  if (!__OFADD__(v7, v18))
+  v9 = *(*v19 + 16);
+  v11 = v9 + v20;
+  if (!__OFADD__(v9, v20))
   {
-    *(*v17 + 16) = v9;
+    *(*v19 + 16) = v11;
 LABEL_28:
     Array._endMutation()();
     return;
@@ -1518,7 +1517,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 
   if (v7)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
     v6 = swift_allocObject();
 
     if (specialized Array._hoistableIsNativeTypeChecked()())
@@ -1563,7 +1562,7 @@ void *specialized UnsafeMutablePointer.initialize(from:count:)(char *a1, size_t 
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11 = a1;
   if ((a3 & 0x1000000000000000) != 0 && (a2 & 0x800000000000000) == 0)
@@ -1596,7 +1595,7 @@ LABEL_11:
       }
     }
 
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "String index is out of bounds", 29, 2, "Swift/StringUTF8View.swift", 26, 2, 167, 0);
     __break(1u);
   }
 
@@ -1709,7 +1708,7 @@ uint64_t closure #1 in OSLogArguments.append<A>(_:)(uint64_t *a1, uint64_t a2, u
   v29 = a6;
   v20 = *(a6 - 8);
   v21 = v20;
-  MEMORY[0x28223BE20](0);
+  MEMORY[0x28223BE20](0, a2);
   v22 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8();
   v26 = dispatch thunk of static FixedWidthInteger.bitWidth.getter() >> 3;
@@ -1725,10 +1724,10 @@ uint64_t closure #1 in OSLogArguments.append<A>(_:)(uint64_t *a1, uint64_t a2, u
   {
     v18 = v27 + v26;
     v17 = &v17;
-    v9 = MEMORY[0x28223BE20](v22);
+    v9 = MEMORY[0x28223BE20](v22, &v17);
     v15 = v28;
     v16 = v10;
-    _ss27_withUnprotectedUnsafeBytes2of_q0_x_q0_SWq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v9, partial apply for closure #1 in serialize<A>(_:at:), v14, v11, MEMORY[0x277D84A98], MEMORY[0x277D84F78] + 8, v12, MEMORY[0x277D84F78]);
+    _ss27_withUnprotectedUnsafeBytes2of_q0_x_q0_SWq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v9, partial apply for closure #1 in serialize<A>(_:at:), &v14, v11, MEMORY[0x277D84A98], MEMORY[0x277D84F78] + 8, v12, MEMORY[0x277D84F78]);
     (*(v21 + 8))(v22, v23);
     result = v17;
     *v25 = v18;
@@ -1754,7 +1753,7 @@ uint64_t _ss27_withUnprotectedUnsafeBytes2of_q0_x_q0_SWq_YKXEtq_YKs5ErrorR_Ri_zR
   v21 = *(a5 - 8);
   v22 = a5 - 8;
   v23 = (*(v21 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a2);
   v24 = v11 - v23;
   v25 = *(*(v8 - 8) + 64);
   if (v25 < 0)
@@ -1849,7 +1848,7 @@ unint64_t lazy protocol witness table accessor for type [_HKPrivatePregnancyStar
   v2 = lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A];
   if (!lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd, &_sSaySo34_HKPrivatePregnancyStartDateSourceVGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A]);
     return WitnessTable;
@@ -1862,7 +1861,7 @@ unint64_t lazy protocol witness table accessor for type [_HKPrivatePregnancyStar
   v2 = lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A];
   if (!lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd, &_sSaySo34_HKPrivatePregnancyStartDateSourceVGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [_HKPrivatePregnancyStartDateSource] and conformance [A]);
     return WitnessTable;
@@ -2140,7 +2139,7 @@ uint64_t storeEnumTagSinglePayload for PregnancyFromFactor(uint64_t result, unsi
   return result;
 }
 
-void *__swift_coroFrameAllocStub(size_t a1)
+void *__swift_coroFrameAllocStub(size_t a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2155,391 +2154,389 @@ void *__swift_coroFrameAllocStub(size_t a1)
 
 id static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v11 = MEMORY[0x28223BE20](a1);
-  v482 = v10;
-  v501 = v12;
-  v500 = v13;
-  v499 = v14;
-  v498 = v15;
-  v497 = v16;
-  v496 = v17;
+  v11 = MEMORY[0x28223BE20](a1, a2);
+  v489 = v10;
+  v508 = v12;
+  v507 = v13;
+  v506 = v14;
+  v505 = v15;
+  v504 = v16;
+  v503 = v17;
   v19 = v18;
-  v483 = v18;
-  v503 = v11;
-  v502 = a10;
-  v484 = a10;
-  v505 = a9;
-  v485 = a9;
-  v486 = 0;
+  v490 = v18;
+  v510 = v11;
+  v509 = a10;
+  v491 = a10;
+  v512 = a9;
+  v492 = a9;
+  v493 = 0;
+  v607 = 0;
+  v606 = 0;
+  v605 = 0;
+  v604 = 0;
+  v603 = 0;
+  v602 = 0;
+  v601 = 0;
   v600 = 0;
   v599 = 0;
   v598 = 0;
-  v597 = 0;
-  v596 = 0;
-  v595 = 0;
-  v594 = 0;
-  v593 = 0;
-  v592 = 0;
-  v591 = 0;
+  v545 = 0;
+  v540 = 0;
+  v539 = 0;
   v538 = 0;
-  v533 = 0;
-  v532 = 0;
-  v531 = 0;
-  v530 = 0;
-  v529 = 0;
+  v537 = 0;
+  v536 = 0;
+  v527 = 0;
+  v525 = 0;
   v520 = 0;
   v518 = 0;
-  v513 = 0;
-  v511 = 0;
-  v487 = type metadata accessor for Logger();
-  v488 = *(v487 - 8);
-  v489 = v488;
-  v492 = *(v488 + 64);
-  v20 = MEMORY[0x28223BE20](0);
-  v494 = (v492 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v490 = &v190[-v494];
-  v21 = MEMORY[0x28223BE20](v20);
-  v491 = &v190[-v494];
-  v22 = MEMORY[0x28223BE20](v21);
-  v493 = &v190[-v494];
-  MEMORY[0x28223BE20](v22);
-  v495 = &v190[-v494];
-  v504 = *(*(type metadata accessor for String.Encoding() - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v503);
-  v506 = &v190[-((v504 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v600 = v23;
-  v599 = v19;
-  v598 = v24;
-  v597 = v25;
-  v596 = v26;
-  v595 = v27;
-  v594 = v28;
-  v593 = v29;
-  v591 = v505;
-  v592 = v30;
-  v590 = HyperParams.metricsProcessEngine.getter() & 1;
-  v589 = 1;
+  v494 = type metadata accessor for Logger();
+  v495 = *(v494 - 8);
+  v496 = v495;
+  v499 = *(v495 + 64);
+  v20 = MEMORY[0x28223BE20](0, v494);
+  v501 = (v499 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v497 = &v197[-v501];
+  v21 = MEMORY[0x28223BE20](v20, &v197[-v501]);
+  v498 = &v197[-v501];
+  v22 = MEMORY[0x28223BE20](v21, &v197[-v501]);
+  v500 = &v197[-v501];
+  MEMORY[0x28223BE20](v22, &v197[-v501]);
+  v502 = &v197[-v501];
+  v511 = *(*(type metadata accessor for String.Encoding() - 8) + 64);
+  v24 = MEMORY[0x28223BE20](v510, v23);
+  v513 = &v197[-((v511 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v607 = v24;
+  v606 = v19;
+  v605 = v25;
+  v604 = v26;
+  v603 = v27;
+  v602 = v28;
+  v601 = v29;
+  v600 = v30;
+  v598 = v512;
+  v599 = v31;
+  v597 = HyperParams.metricsProcessEngine.getter() & 1;
+  v596 = 1;
   lazy protocol witness table accessor for type NightingaleDProcessEngine and conformance NightingaleDProcessEngine();
   if ((== infix<A>(_:_:)() & 1) == 0)
   {
-    v475 = v482;
+    v482 = v489;
     goto LABEL_34;
   }
 
   HyperParams.morpheusMetricsProgramFileName.getter();
-  v478 = v31;
-  v32 = dispatch thunk of PFLTask.attachmentPath(name:)();
-  v481 = v33;
-  v479 = v32;
-  v480 = v33;
+  v485 = v32;
+  v33 = dispatch thunk of PFLTask.attachmentPath(name:)();
+  v488 = v34;
+  v486 = v33;
+  v487 = v34;
 
-  if (!v481)
+  if (!v488)
   {
-    v475 = v482;
+    v482 = v489;
     goto LABEL_34;
   }
 
-  v476 = v479;
-  v477 = v480;
-  v469 = v480;
-  v468 = v479;
-  v470 = v482;
-  v532 = v479;
-  v533 = v480;
+  v483 = v486;
+  v484 = v487;
+  v476 = v487;
+  v475 = v486;
+  v477 = v489;
+  v539 = v486;
+  v540 = v487;
   static String.Encoding.utf8.getter();
-  v34 = v470;
-  v35 = String.init(contentsOfFile:encoding:)();
-  v471 = v34;
-  v472 = v35;
-  v473 = v36;
-  v474 = v34;
-  if (v34)
+  v35 = v477;
+  v36 = String.init(contentsOfFile:encoding:)();
+  v478 = v35;
+  v479 = v36;
+  v480 = v37;
+  v481 = v35;
+  if (v35)
   {
-    v230 = 0;
-    v231 = 0;
+    v237 = 0;
+    v238 = 0;
 
-    v465 = v230;
-    v466 = v230;
-    v467 = v231;
+    v472 = v237;
+    v473 = v237;
+    v474 = v238;
   }
 
   else
   {
-    v465 = v472;
-    v466 = v473;
-    v467 = 0;
+    v472 = v479;
+    v473 = v480;
+    v474 = 0;
   }
 
-  v462 = v467;
-  v463 = v466;
-  v464 = v465;
-  if (!v466)
+  v469 = v474;
+  v470 = v473;
+  v471 = v472;
+  if (!v473)
   {
 
-    v475 = v462;
+    v482 = v469;
     goto LABEL_34;
   }
 
-  v460 = v464;
-  v461 = v463;
-  v452 = v463;
-  v453 = v464;
-  v530 = v464;
-  v531 = v463;
+  v467 = v471;
+  v468 = v470;
+  v459 = v470;
+  v460 = v471;
+  v537 = v471;
+  v538 = v470;
   static PFLLogging.plugin.getter();
-  v458 = Logger.logObject.getter();
-  v454 = v458;
-  v457 = static os_log_type_t.debug.getter();
-  v455 = v457;
-  v456 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd);
-  v459 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v458, v457))
+  v465 = Logger.logObject.getter();
+  v461 = v465;
+  v464 = static os_log_type_t.debug.getter();
+  v462 = v464;
+  v463 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v466 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v465, v464))
   {
-    v450 = v462;
-    v442 = static UnsafeMutablePointer.allocate(capacity:)();
-    v438 = v442;
-    v439 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
-    v440 = 0;
-    v443 = createStorage<A>(capacity:type:)(0);
-    v441 = v443;
-    v444 = createStorage<A>(capacity:type:)(v440);
-    v510[0] = v442;
-    v509 = v443;
-    v508 = v444;
-    v445 = 0;
-    v446 = v510;
-    serialize(_:at:)(0, v510);
-    serialize(_:at:)(v445, v446);
-    v507 = v459;
-    v447 = v190;
-    MEMORY[0x28223BE20](v190);
-    v448 = &v190[-48];
-    *&v190[-32] = v38;
-    *&v190[-24] = &v509;
-    *&v190[-16] = &v508;
-    v449 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd);
+    v457 = v469;
+    v449 = static UnsafeMutablePointer.allocate(capacity:)();
+    v445 = v449;
+    v446 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v447 = 0;
+    v450 = createStorage<A>(capacity:type:)(0, v446, v446);
+    v448 = v450;
+    v451 = createStorage<A>(capacity:type:)(v447, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v517[0] = v449;
+    v516 = v450;
+    v515 = v451;
+    v452 = 0;
+    v453 = v517;
+    serialize(_:at:)(0, v517);
+    serialize(_:at:)(v452, v453);
+    v514 = v466;
+    v454 = v197;
+    MEMORY[0x28223BE20](v197, v39);
+    v455 = &v197[-48];
+    *&v197[-32] = v40;
+    *&v197[-24] = &v516;
+    *&v197[-16] = &v515;
+    v456 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    v39 = v450;
+    v41 = v457;
     Sequence.forEach(_:)();
-    v451 = v39;
-    if (v39)
+    v458 = v41;
+    if (v41)
     {
       __break(1u);
     }
 
     else
     {
-      _os_log_impl(&dword_25C4D8000, v454, v455, "Using Morpheus to generate metrics.", v438, 2u);
-      v436 = 0;
-      destroyStorage<A>(_:count:)(v441, 0, v439);
-      destroyStorage<A>(_:count:)(v444, v436, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x25F8899D0](v438, MEMORY[0x277D84B78]);
+      _os_log_impl(&dword_25C4D8000, v461, v462, "Using Morpheus to generate metrics.", v445, 2u);
+      v443 = 0;
+      destroyStorage<A>(_:count:)(v448, 0, v446);
+      destroyStorage<A>(_:count:)(v451, v443, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x25F8899D0](v445, MEMORY[0x277D84B78]);
 
-      v437 = v451;
+      v444 = v458;
     }
   }
 
   else
   {
 
-    v437 = v462;
+    v444 = v469;
   }
 
-  v432 = v437;
+  v439 = v444;
 
-  v430 = *(v489 + 8);
-  v431 = (v489 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v430(v495, v487);
+  v437 = *(v496 + 8);
+  v438 = (v496 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v437(v502, v494);
   type metadata accessor for MorpheusProgram();
-  v40 = v432;
-  v41 = static MorpheusProgram.fromDSL(_:)();
-  v433 = v40;
-  v434 = v41;
-  v435 = v40;
-  if (!v40)
+  v42 = v439;
+  v43 = static MorpheusProgram.fromDSL(_:)();
+  v440 = v42;
+  v441 = v43;
+  v442 = v42;
+  if (!v42)
   {
-    v423 = v434;
-    v427 = 0;
-    v520 = v434;
-    v519 = v498;
-    v425 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd);
-    v426 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v424 = v426;
-    v42 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32)] and conformance [A]();
-    v43 = v427;
-    v45 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #1 in Featurizer.featurizeNightingaleD(task:pregnancies:swts:hrvs:respiratoryRates:spo2s:daySHR10s:nightSHR10s:calendarPeriodPredictions:historicalPeriods:cycleFactors:hyperParam:today:), 0, v425, v426, MEMORY[0x277D84A98], v42, MEMORY[0x277D84AC0], v44);
-    v428 = v43;
-    v429 = v45;
-    if (v43)
+    v430 = v441;
+    v434 = 0;
+    v527 = v441;
+    v526 = v505;
+    v432 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd, &_sSays6UInt32V5start_AB3endtGMR);
+    v433 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v431 = v433;
+    v44 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32)] and conformance [A]();
+    v45 = v434;
+    v47 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #1 in Featurizer.featurizeNightingaleD(task:pregnancies:swts:hrvs:respiratoryRates:spo2s:daySHR10s:nightSHR10s:calendarPeriodPredictions:historicalPeriods:cycleFactors:hyperParam:today:), 0, v432, v433, MEMORY[0x277D84A98], v44, MEMORY[0x277D84AC0], v46);
+    v435 = v45;
+    v436 = v47;
+    if (v45)
     {
       __break(1u);
     }
 
     else
     {
-      v415 = v429;
-      v420 = 0;
-      v518 = v429;
-      v46 = _allocateUninitializedArray<A>(_:)();
-      v416 = v47;
-      v412 = v46;
-      v413 = v47;
+      v422 = v436;
+      v427 = 0;
+      v525 = v436;
+      v48 = _allocateUninitializedArray<A>(_:)();
+      v423 = v49;
+      v419 = v48;
+      v420 = v49;
 
-      v418 = 0;
-      v48 = type metadata accessor for HyperParams();
-      v49 = v483;
-      v50 = v416;
-      v416[3] = v48;
-      *v50 = v49;
+      v425 = 0;
+      v50 = type metadata accessor for HyperParams();
+      v51 = v490;
+      v52 = v423;
+      v423[3] = v50;
+      *v52 = v51;
 
-      v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-      v52 = v496;
-      v53 = v416;
-      v414 = v51;
-      v416[7] = v51;
-      v53[4] = v52;
+      v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+      v54 = v503;
+      v55 = v423;
+      v421 = v53;
+      v423[7] = v53;
+      v55[4] = v54;
 
-      v54 = v497;
-      v55 = v416;
-      v416[11] = v414;
-      v55[8] = v54;
+      v56 = v504;
+      v57 = v423;
+      v423[11] = v421;
+      v57[8] = v56;
 
-      v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySiGGMd);
-      v57 = v415;
-      v58 = v416;
-      v59 = v499;
-      v416[15] = v56;
-      v58[12] = v57;
-      v417 = v58 + 16;
-      v516[4] = v59;
-      v419 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd);
-      v60 = lazy protocol witness table accessor for type [UInt32] and conformance [A]();
-      v61 = v420;
-      v63 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:), v418, v419, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v60, MEMORY[0x277D84AC0], v62);
-      v421 = v61;
-      v422 = v63;
-      if (!v61)
+      v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySiGGMd, &_sSaySaySiGGMR);
+      v59 = v422;
+      v60 = v423;
+      v61 = v506;
+      v423[15] = v58;
+      v60[12] = v59;
+      v424 = v60 + 16;
+      v523[4] = v61;
+      v426 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd, &_sSays6UInt32VGMR);
+      v62 = lazy protocol witness table accessor for type [UInt32] and conformance [A]();
+      v63 = v427;
+      v65 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:), v425, v426, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v62, MEMORY[0x277D84AC0], v64);
+      v428 = v63;
+      v429 = v65;
+      if (!v63)
       {
-        v64 = v417;
-        v65 = v422;
-        v406 = 0;
-        v417[3] = v424;
-        *v64 = v65;
+        v66 = v424;
+        v67 = v429;
+        v413 = 0;
+        v424[3] = v431;
+        *v66 = v67;
 
-        v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-        v67 = v500;
-        v68 = v501;
-        v69 = v413;
-        v70 = v66;
-        v71 = v412;
-        v413[23] = v70;
-        v69[20] = v67;
-        v69[27] = MEMORY[0x277D83B88];
-        v69[24] = v68;
-        v404 = MEMORY[0x277D84F70] + 8;
+        v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+        v69 = v507;
+        v70 = v508;
+        v71 = v420;
+        v420[23] = v68;
+        v71[20] = v69;
+        v71[27] = MEMORY[0x277D83B88];
+        v71[24] = v70;
+        v411 = MEMORY[0x277D84F70] + 8;
         _finalizeUninitializedArray<A>(_:)();
-        v407 = v71;
-        v402 = v71;
-        v403 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+        v414 = v72;
+        v409 = v72;
+        v410 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
         _allocateUninitializedArray<A>(_:)();
-        v408 = Dictionary.init(dictionaryLiteral:)();
-        v405 = v408;
-        v72 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("generate_metrics", 0x10uLL, 1);
-        v73 = v406;
-        object = v72._object;
+        v415 = Dictionary.init(dictionaryLiteral:)();
+        v412 = v415;
+        v73 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("generate_metrics", 0x10uLL, 1);
+        v74 = v413;
+        object = v73._object;
         dispatch thunk of MorpheusProgram.execute(args:keywords:function:)();
-        v410 = v73;
-        v411 = v73;
-        if (!v73)
+        v417 = v74;
+        v418 = v74;
+        if (!v74)
         {
 
-          v515[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-          v515[0] = swift_allocObject();
-          outlined init with copy of Any?(v517, v515[0] + 16);
-          v400 = v516;
-          v399 = v515;
+          v522[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+          v522[0] = swift_allocObject();
+          outlined init with copy of Any?(v524, v522[0] + 16);
+          v407 = v523;
+          v406 = v522;
           static MorpheusUtils.unwrapMorpheusResult(result:)();
-          __swift_destroy_boxed_opaque_existential_1(v399);
-          v401 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+          __swift_destroy_boxed_opaque_existential_1(v406);
+          v408 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, _sSDySSypGMR);
           if (swift_dynamicCast())
           {
-            v398 = v514;
+            v405 = v521;
           }
 
           else
           {
-            v398 = 0;
+            v405 = 0;
           }
 
-          v397 = v398;
-          if (v398)
+          v404 = v405;
+          if (v405)
           {
-            v396 = v397;
-            v389 = v397;
-            v393 = v410;
-            v513 = v397;
+            v403 = v404;
+            v396 = v404;
+            v400 = v417;
+            v520 = v404;
 
-            v387 = 1;
-            v388 = _allocateUninitializedArray<A>(_:)();
-            v386 = v74;
-            v75 = NightingaleDMetricsProcessor.keyMetricsEngine.unsafeMutableAddressor();
-            outlined init with copy of String(v75, v386);
-            v76 = v386;
-            v77 = v387;
-            v386[5] = MEMORY[0x277D83B88];
-            v76[2] = v77;
+            v394 = 1;
+            v395 = _allocateUninitializedArray<A>(_:)();
+            v393 = v75;
+            v76 = NightingaleDMetricsProcessor.keyMetricsEngine.unsafeMutableAddressor();
+            outlined init with copy of String(v76, v393);
+            v77 = v393;
+            v78 = v394;
+            v393[5] = MEMORY[0x277D83B88];
+            v77[2] = v78;
             _finalizeUninitializedArray<A>(_:)();
-            v391 = MEMORY[0x277D84F70] + 8;
-            v390 = MEMORY[0x277D837D0];
-            v392 = MEMORY[0x277D837E0];
+            v398 = MEMORY[0x277D84F70] + 8;
+            v397 = MEMORY[0x277D837D0];
+            v399 = MEMORY[0x277D837E0];
             Dictionary.init(dictionaryLiteral:)();
-            v78 = v393;
-            v79 = Dictionary.merging(_:uniquingKeysWith:)();
-            v394 = v78;
-            v395 = v79;
-            if (v78)
+            v79 = v400;
+            v80 = Dictionary.merging(_:uniquingKeysWith:)();
+            v401 = v79;
+            v402 = v80;
+            if (v79)
             {
               __break(1u);
             }
 
             else
             {
-              v383 = 0;
-              v512 = v395;
+              v390 = 0;
+              v519 = v402;
 
-              v379 = v190;
-              v380 = 32;
-              MEMORY[0x28223BE20](v190);
-              v80 = v484;
-              *&v190[-16] = v81;
-              *&v190[-8] = v80;
-              v381 = v190;
-              MEMORY[0x28223BE20](v190);
-              v382 = &v190[-32];
-              *&v190[-16] = partial apply for closure #5 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:);
-              *&v190[-8] = v82;
-              v83 = lazy protocol witness table accessor for type [String : Any] and conformance [A : B]();
-              v84 = v383;
-              v86 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -> (@owned String, @out Any), v382, v401, v403, MEMORY[0x277D84A98], v83, MEMORY[0x277D84AC0], v85);
-              v384 = v84;
-              v385 = v86;
-              if (!v84)
+              v386 = v197;
+              v387 = 32;
+              MEMORY[0x28223BE20](v197, v81);
+              v82 = v491;
+              *&v197[-16] = v83;
+              *&v197[-8] = v82;
+              v388 = v197;
+              MEMORY[0x28223BE20](v197, v84);
+              v389 = &v197[-32];
+              *&v197[-16] = partial apply for closure #5 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:);
+              *&v197[-8] = v85;
+              v86 = lazy protocol witness table accessor for type [String : Any] and conformance [A : B]();
+              v87 = v390;
+              v89 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -> (@owned String, @out Any), v389, v408, v410, MEMORY[0x277D84A98], v86, MEMORY[0x277D84AC0], v88);
+              v391 = v87;
+              v392 = v89;
+              if (!v87)
               {
-                v375 = v385;
+                v382 = v392;
 
                 outlined destroy of [(start: UInt32, end: UInt32)]();
-                v511 = v375;
+                v518 = v382;
 
-                v510[1] = v375;
-                v374 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySS_yptGMd);
+                v517[1] = v382;
+                v381 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySS_yptGMd, &_sSaySS_yptGMR);
                 lazy protocol witness table accessor for type [(String, Any)] and conformance [A]();
-                v376 = Dictionary.init<A>(uniqueKeysWithValues:)();
+                v383 = Dictionary.init<A>(uniqueKeysWithValues:)();
 
-                outlined destroy of Pregnancy?(v517);
+                outlined destroy of Pregnancy?(v524);
 
-                v377 = v376;
-                v378 = v384;
-                return v377;
+                v384 = v383;
+                v385 = v391;
+                return v384;
               }
             }
 
@@ -2548,15 +2545,15 @@ id static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:
           }
 
           lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-          v369 = 0;
-          v370 = swift_allocError();
-          *v87 = 72;
+          v376 = 0;
+          v377 = swift_allocError();
+          *v90 = 72;
           swift_willThrow();
-          v371 = v369;
-          outlined destroy of Pregnancy?(v517);
+          v378 = v376;
+          outlined destroy of Pregnancy?(v524);
 
-          v372 = v370;
-          v373 = v371;
+          v379 = v377;
+          v380 = v378;
           goto LABEL_44;
         }
 
@@ -2566,579 +2563,578 @@ id static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:
 
     __break(1u);
 LABEL_54:
-    v191 = v411;
-    v192 = 0;
+    v198 = v418;
+    v199 = 0;
 
-    v372 = v191;
-    v373 = v192;
+    v379 = v198;
+    v380 = v199;
     goto LABEL_44;
   }
 
-  v372 = v435;
-  v373 = 0;
+  v379 = v442;
+  v380 = 0;
 LABEL_44:
-  v172 = v490;
-  v211 = v373;
-  v343 = v372;
-  v173 = v372;
-  v529 = v343;
-  v174 = Logging.default.unsafeMutableAddressor();
-  v363 = *(v489 + 16);
-  v362 = (v489 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v363(v172, v174, v487);
-  v175 = v343;
-  v219 = 7;
-  v217 = swift_allocObject();
-  *(v217 + 16) = v343;
+  v179 = v497;
+  v218 = v380;
+  v350 = v379;
+  v180 = v379;
+  v536 = v350;
+  v181 = Logging.default.unsafeMutableAddressor();
+  v370 = *(v496 + 16);
+  v369 = (v496 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v370(v179, v181, v494);
+  v182 = v350;
+  v226 = 7;
+  v224 = swift_allocObject();
+  *(v224 + 16) = v350;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v229 = Logger.logObject.getter();
-  v212 = v229;
-  v228 = static os_log_type_t.error.getter();
-  v213 = v228;
-  v214 = 17;
-  v223 = swift_allocObject();
-  v215 = v223;
-  *(v223 + 16) = 64;
-  v224 = swift_allocObject();
-  v216 = v224;
-  *(v224 + 16) = 8;
-  v218 = 32;
-  v176 = swift_allocObject();
-  v177 = v217;
-  v220 = v176;
-  *(v176 + 16) = partial apply for implicit closure #2 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:);
-  *(v176 + 24) = v177;
-  v178 = swift_allocObject();
-  v179 = v220;
-  v221 = v178;
-  *(v178 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v178 + 24) = v179;
-  v180 = swift_allocObject();
-  v181 = v221;
-  v227 = v180;
-  v222 = v180;
-  *(v180 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v180 + 24) = v181;
-  v225 = _allocateUninitializedArray<A>(_:)();
-  v226 = v182;
+  v236 = Logger.logObject.getter();
+  v219 = v236;
+  v235 = static os_log_type_t.error.getter();
+  v220 = v235;
+  v221 = 17;
+  v230 = swift_allocObject();
+  v222 = v230;
+  *(v230 + 16) = 64;
+  v231 = swift_allocObject();
+  v223 = v231;
+  *(v231 + 16) = 8;
+  v225 = 32;
+  v183 = swift_allocObject();
+  v184 = v224;
+  v227 = v183;
+  *(v183 + 16) = partial apply for implicit closure #2 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:);
+  *(v183 + 24) = v184;
+  v185 = swift_allocObject();
+  v186 = v227;
+  v228 = v185;
+  *(v185 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v185 + 24) = v186;
+  v187 = swift_allocObject();
+  v188 = v228;
+  v234 = v187;
+  v229 = v187;
+  *(v187 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v187 + 24) = v188;
+  v232 = _allocateUninitializedArray<A>(_:)();
+  v233 = v189;
 
-  v183 = v223;
-  v184 = v226;
-  *v226 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v184[1] = v183;
+  v190 = v230;
+  v191 = v233;
+  *v233 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v191[1] = v190;
 
-  v185 = v224;
-  v186 = v226;
-  v226[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v186[3] = v185;
+  v192 = v231;
+  v193 = v233;
+  v233[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v193[3] = v192;
 
-  v187 = v226;
-  v188 = v227;
-  v226[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v187[5] = v188;
+  v194 = v233;
+  v195 = v234;
+  v233[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v194[5] = v195;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v229, v228))
+  if (os_log_type_enabled(v236, v235))
   {
-    v208 = v211;
-    v203 = static UnsafeMutablePointer.allocate(capacity:)();
-    v200 = v203;
-    v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
-    v206 = 1;
-    v204 = createStorage<A>(capacity:type:)(1);
-    v202 = v204;
-    v205 = createStorage<A>(capacity:type:)(0);
-    v525[0] = v203;
-    v524 = v204;
-    v523 = v205;
-    v207 = v525;
-    serialize(_:at:)(2, v525);
-    serialize(_:at:)(v206, v207);
-    v189 = v208;
-    v521 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v522 = v215;
-    closure #1 in osLogInternal(_:log:type:)(&v521, v207, &v524, &v523);
-    v209 = v189;
-    v210 = v189;
-    if (v189)
+    v215 = v218;
+    v210 = static UnsafeMutablePointer.allocate(capacity:)();
+    v207 = v210;
+    v208 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v213 = 1;
+    v211 = createStorage<A>(capacity:type:)(1, v208, v208);
+    v209 = v211;
+    v212 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v532[0] = v210;
+    v531 = v211;
+    v530 = v212;
+    v214 = v532;
+    serialize(_:at:)(2, v532);
+    serialize(_:at:)(v213, v214);
+    v196 = v215;
+    v528 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v529 = v222;
+    closure #1 in osLogInternal(_:log:type:)(&v528, v214, &v531, &v530);
+    v216 = v196;
+    v217 = v196;
+    if (v196)
     {
-      v198 = 0;
+      v205 = 0;
 
       __break(1u);
     }
 
     else
     {
-      v521 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v522 = v216;
-      closure #1 in osLogInternal(_:log:type:)(&v521, v525, &v524, &v523);
-      v196 = 0;
-      v197 = 0;
-      v521 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v522 = v222;
-      closure #1 in osLogInternal(_:log:type:)(&v521, v525, &v524, &v523);
-      v194 = 0;
-      v195 = 0;
-      _os_log_impl(&dword_25C4D8000, v212, v213, "Error executing Morpheus program for metrics: %@.", v200, 0xCu);
-      destroyStorage<A>(_:count:)(v202, 1, v201);
-      destroyStorage<A>(_:count:)(v205, 0, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x25F8899D0](v200, MEMORY[0x277D84B78]);
+      v528 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v529 = v223;
+      closure #1 in osLogInternal(_:log:type:)(&v528, v532, &v531, &v530);
+      v203 = 0;
+      v204 = 0;
+      v528 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v529 = v229;
+      closure #1 in osLogInternal(_:log:type:)(&v528, v532, &v531, &v530);
+      v201 = 0;
+      v202 = 0;
+      _os_log_impl(&dword_25C4D8000, v219, v220, "Error executing Morpheus program for metrics: %@.", v207, 0xCu);
+      destroyStorage<A>(_:count:)(v209, 1, v208);
+      destroyStorage<A>(_:count:)(v212, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x25F8899D0](v207, MEMORY[0x277D84B78]);
 
-      v199 = v194;
+      v206 = v201;
     }
   }
 
   else
   {
 
-    v199 = v211;
+    v206 = v218;
   }
 
-  v347 = v199;
+  v354 = v206;
 
-  v430(v490, v487);
+  v437(v497, v494);
   if ((HyperParams.metricsProcessFallbackToNative.getter() & 1) == 0)
   {
     swift_willThrow();
 
-    result = v343;
-    v193 = v343;
+    result = v350;
+    v200 = v350;
     return result;
   }
 
-  v88 = v493;
-  v89 = Logging.default.unsafeMutableAddressor();
-  v363(v88, v89, v487);
-  v367 = Logger.logObject.getter();
-  v364 = v367;
-  v366 = static os_log_type_t.info.getter();
-  v365 = v366;
-  v368 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v367, v366))
+  v91 = v500;
+  v92 = Logging.default.unsafeMutableAddressor();
+  v370(v91, v92, v494);
+  v374 = Logger.logObject.getter();
+  v371 = v374;
+  v373 = static os_log_type_t.info.getter();
+  v372 = v373;
+  v375 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v374, v373))
   {
-    v360 = v347;
-    v352 = static UnsafeMutablePointer.allocate(capacity:)();
-    v348 = v352;
-    v349 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
-    v350 = 0;
-    v353 = createStorage<A>(capacity:type:)(0);
-    v351 = v353;
-    v354 = createStorage<A>(capacity:type:)(v350);
-    v528 = v352;
-    v527 = v353;
-    v526 = v354;
-    v355 = 0;
-    v356 = &v528;
-    serialize(_:at:)(0, &v528);
-    serialize(_:at:)(v355, v356);
-    v525[1] = v368;
-    v357 = v190;
-    MEMORY[0x28223BE20](v190);
-    v358 = &v190[-48];
-    *&v190[-32] = v90;
-    *&v190[-24] = &v527;
-    *&v190[-16] = &v526;
-    v359 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd);
+    v367 = v354;
+    v359 = static UnsafeMutablePointer.allocate(capacity:)();
+    v355 = v359;
+    v356 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v357 = 0;
+    v360 = createStorage<A>(capacity:type:)(0, v356, v356);
+    v358 = v360;
+    v361 = createStorage<A>(capacity:type:)(v357, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v535 = v359;
+    v534 = v360;
+    v533 = v361;
+    v362 = 0;
+    v363 = &v535;
+    serialize(_:at:)(0, &v535);
+    serialize(_:at:)(v362, v363);
+    v532[1] = v375;
+    v364 = v197;
+    MEMORY[0x28223BE20](v197, v93);
+    v365 = &v197[-48];
+    *&v197[-32] = v94;
+    *&v197[-24] = &v534;
+    *&v197[-16] = &v533;
+    v366 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    v91 = v360;
+    v95 = v367;
     Sequence.forEach(_:)();
-    v361 = v91;
-    if (v91)
+    v368 = v95;
+    if (v95)
     {
       __break(1u);
     }
 
     else
     {
-      _os_log_impl(&dword_25C4D8000, v364, v365, "Fallback to generate metrics from native.", v348, 2u);
-      v345 = 0;
-      destroyStorage<A>(_:count:)(v351, 0, v349);
-      destroyStorage<A>(_:count:)(v354, v345, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x25F8899D0](v348, MEMORY[0x277D84B78]);
+      _os_log_impl(&dword_25C4D8000, v371, v372, "Fallback to generate metrics from native.", v355, 2u);
+      v352 = 0;
+      destroyStorage<A>(_:count:)(v358, 0, v356);
+      destroyStorage<A>(_:count:)(v361, v352, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x25F8899D0](v355, MEMORY[0x277D84B78]);
 
-      v346 = v361;
+      v353 = v368;
     }
   }
 
   else
   {
 
-    v346 = v347;
+    v353 = v354;
   }
 
-  v344 = v346;
+  v351 = v353;
 
-  v430(v493, v487);
+  v437(v500, v494);
 
-  v475 = v344;
+  v482 = v351;
 LABEL_34:
-  v337 = v475;
+  v344 = v482;
   static PFLLogging.plugin.getter();
-  v341 = Logger.logObject.getter();
-  v338 = v341;
-  v340 = static os_log_type_t.debug.getter();
-  v339 = v340;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd);
-  v342 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v341, v340))
+  v348 = Logger.logObject.getter();
+  v345 = v348;
+  v347 = static os_log_type_t.debug.getter();
+  v346 = v347;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v349 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v348, v347))
   {
-    v335 = v337;
-    v327 = static UnsafeMutablePointer.allocate(capacity:)();
-    v323 = v327;
-    v324 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
-    v325 = 0;
-    v328 = createStorage<A>(capacity:type:)(0);
-    v326 = v328;
-    v329 = createStorage<A>(capacity:type:)(v325);
-    v537[0] = v327;
-    v536 = v328;
-    v535 = v329;
-    v330 = 0;
-    v331 = v537;
-    serialize(_:at:)(0, v537);
-    serialize(_:at:)(v330, v331);
-    v534 = v342;
-    v332 = v190;
-    MEMORY[0x28223BE20](v190);
-    v333 = &v190[-48];
-    *&v190[-32] = v92;
-    *&v190[-24] = &v536;
-    *&v190[-16] = &v535;
-    v334 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd);
+    v342 = v344;
+    v334 = static UnsafeMutablePointer.allocate(capacity:)();
+    v330 = v334;
+    v331 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v332 = 0;
+    v335 = createStorage<A>(capacity:type:)(0, v331, v331);
+    v333 = v335;
+    v336 = createStorage<A>(capacity:type:)(v332, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v544[0] = v334;
+    v543 = v335;
+    v542 = v336;
+    v337 = 0;
+    v338 = v544;
+    serialize(_:at:)(0, v544);
+    serialize(_:at:)(v337, v338);
+    v541 = v349;
+    v339 = v197;
+    MEMORY[0x28223BE20](v197, v96);
+    v340 = &v197[-48];
+    *&v197[-32] = v97;
+    *&v197[-24] = &v543;
+    *&v197[-16] = &v542;
+    v341 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    v93 = v335;
+    v98 = v342;
     Sequence.forEach(_:)();
-    v336 = v93;
-    if (v93)
+    v343 = v98;
+    if (v98)
     {
       __break(1u);
     }
 
     else
     {
-      _os_log_impl(&dword_25C4D8000, v338, v339, "Using native to generate metrics.", v323, 2u);
-      v321 = 0;
-      destroyStorage<A>(_:count:)(v326, 0, v324);
-      destroyStorage<A>(_:count:)(v329, v321, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x25F8899D0](v323, MEMORY[0x277D84B78]);
+      _os_log_impl(&dword_25C4D8000, v345, v346, "Using native to generate metrics.", v330, 2u);
+      v328 = 0;
+      destroyStorage<A>(_:count:)(v333, 0, v331);
+      destroyStorage<A>(_:count:)(v336, v328, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x25F8899D0](v330, MEMORY[0x277D84B78]);
 
-      v322 = v336;
+      v329 = v343;
     }
   }
 
   else
   {
 
-    v322 = v337;
+    v329 = v344;
   }
 
-  v310 = v322;
+  v317 = v329;
 
-  (*(v489 + 8))(v491, v487);
-  v94 = v310;
-  static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(v483, v496, v497, v498, v499, v500, v501, v588);
-  v311 = v94;
-  v312 = v588[0];
-  v313 = v588[1];
-  v314 = v588[2];
-  v315 = v588[3];
-  v316 = v588[4];
-  v317 = v588[5];
-  v318 = v588[6];
-  v319 = v588[7];
-  v320 = v94;
-  if (v94)
+  (*(v496 + 8))(v498, v494);
+  v99 = v317;
+  static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(v490, v503, v504, v505, v506, v507, v508, v595);
+  v318 = v99;
+  v319 = v595[0];
+  v320 = v595[1];
+  v321 = v595[2];
+  v322 = v595[3];
+  v323 = v595[4];
+  v324 = v595[5];
+  v325 = v595[6];
+  v326 = v595[7];
+  v327 = v99;
+  if (v99)
   {
 LABEL_57:
-    result = v320;
-    v193 = v320;
+    result = v327;
+    v200 = v327;
     return result;
   }
 
-  v287 = v319;
-  v288 = v318;
-  v289 = v317;
-  v290 = v316;
-  v291 = v315;
-  v292 = v314;
-  v293 = v313;
-  v294 = v312;
-  v587[0] = v312;
-  v587[1] = v313;
-  v587[2] = v314;
-  v587[3] = v315;
-  v587[4] = v316;
-  v587[5] = v317;
-  v587[6] = v318;
-  v587[7] = v319;
-  static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:)(v483, v496, v497, &v574);
-  v295 = 0;
-  v296 = v574;
-  v297 = v575;
-  v298 = v576;
-  v299 = v577;
-  v300 = v578;
-  v301 = v579;
-  v302 = v580;
+  v294 = v326;
+  v295 = v325;
+  v296 = v324;
+  v297 = v323;
+  v298 = v322;
+  v299 = v321;
+  v300 = v320;
+  v301 = v319;
+  v594[0] = v319;
+  v594[1] = v320;
+  v594[2] = v321;
+  v594[3] = v322;
+  v594[4] = v323;
+  v594[5] = v324;
+  v594[6] = v325;
+  v594[7] = v326;
+  static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:)(v490, v503, v504, &v581);
+  v302 = 0;
   v303 = v581;
   v304 = v582;
   v305 = v583;
   v306 = v584;
   v307 = v585;
   v308 = v586;
-  v309 = 0;
-  v273 = v586;
-  v274 = v585;
-  v259 = v584;
-  v256 = v583;
-  v254 = v582;
-  v269 = v581;
-  v270 = v580;
-  v271 = v579;
-  v272 = v578;
-  v275 = v577;
-  v276 = v576;
-  v245 = v575;
-  v268 = v574;
-  v284 = 0;
-  v561 = v574;
-  v562 = v575;
-  v563 = v576;
-  v564 = v577;
-  v565 = v578;
-  v566 = v579;
-  v567 = v580;
+  v309 = v587;
+  v310 = v588;
+  v311 = v589;
+  v312 = v590;
+  v313 = v591;
+  v314 = v592;
+  v315 = v593;
+  v316 = 0;
+  v280 = v593;
+  v281 = v592;
+  v266 = v591;
+  v263 = v590;
+  v261 = v589;
+  v276 = v588;
+  v277 = v587;
+  v278 = v586;
+  v279 = v585;
+  v282 = v584;
+  v283 = v583;
+  v252 = v582;
+  v275 = v581;
+  v291 = 0;
   v568 = v581;
   v569 = v582;
   v570 = v583;
   v571 = v584;
   v572 = v585;
   v573 = v586;
-  v283 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
-  v267 = _allocateUninitializedArray<A>(_:)();
-  v266 = v95;
-  v96 = NightingaleDMetricsProcessor.keyMetricsCycleTP.unsafeMutableAddressor();
-  outlined init with copy of String(v96, v266);
-  v242 = v587;
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v587, &v560);
-  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-  v98 = v266;
-  v99 = v294;
-  v263 = v97;
-  v266[5] = v97;
-  v98[2] = v99;
-  v235 = v98 + 6;
-  v100 = NightingaleDMetricsProcessor.keyMetricsCycleTPR.unsafeMutableAddressor();
-  outlined init with copy of String(v100, v235);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v559);
-  v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v102 = v266;
-  v103 = v293;
-  v252 = v101;
-  v266[11] = v101;
-  v102[8] = v103;
-  v236 = v102 + 12;
-  v104 = NightingaleDMetricsProcessor.keyMetricsCycleFP.unsafeMutableAddressor();
-  outlined init with copy of String(v104, v236);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v558);
-  v105 = v266;
-  v106 = v292;
-  v266[17] = v263;
-  v105[14] = v106;
-  v237 = v105 + 18;
-  v107 = NightingaleDMetricsProcessor.keyMetricsCycleFPR.unsafeMutableAddressor();
-  outlined init with copy of String(v107, v237);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v557);
-  v108 = v266;
-  v109 = v291;
-  v266[23] = v252;
-  v108[20] = v109;
-  v238 = v108 + 24;
-  v110 = NightingaleDMetricsProcessor.keyMetricsNumberOfPregnantCycles.unsafeMutableAddressor();
-  outlined init with copy of String(v110, v238);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v556);
-  v111 = v266;
-  v112 = v290;
-  v266[29] = v263;
-  v111[26] = v112;
-  v239 = v111 + 30;
-  v113 = NightingaleDMetricsProcessor.keyMetricsNumberOfNonPregnantCycles.unsafeMutableAddressor();
-  outlined init with copy of String(v113, v239);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v555);
-  v114 = v266;
-  v115 = v289;
-  v266[35] = v263;
-  v114[32] = v115;
-  v240 = v114 + 36;
-  v116 = NightingaleDMetricsProcessor.keyMetricsCycleLatency.unsafeMutableAddressor();
-  outlined init with copy of String(v116, v240);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v554);
-  v117 = v266;
-  v118 = v288;
-  v266[41] = v252;
-  v117[38] = v118;
-  v241 = v117 + 42;
-  v119 = NightingaleDMetricsProcessor.keyMetricsCycleLatencyBuckets.unsafeMutableAddressor();
-  outlined init with copy of String(v119, v241);
-  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v242, &v553);
-  v120 = v266;
-  v121 = v287;
-  v266[47] = v263;
-  v120[44] = v121;
-  v243 = v120 + 48;
-  v122 = NightingaleDMetricsProcessor.keyMetricsSliceROCScore.unsafeMutableAddressor();
-  outlined init with copy of String(v122, v243);
-  v262 = &v561;
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(&v561, &v552);
-  v123 = v266;
-  v124 = v268;
-  v266[53] = v252;
-  v123[50] = v124;
-  v244 = v123 + 54;
-  v125 = NightingaleDMetricsProcessor.keyMetricsSlicePRScore.unsafeMutableAddressor();
-  outlined init with copy of String(v125, v244);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v551);
-  v126 = v245;
-  v127 = v266;
-  v258 = MEMORY[0x277D83A90];
-  v266[59] = MEMORY[0x277D83A90];
-  *(v127 + 112) = v126;
-  v246 = v127 + 60;
-  v128 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsTP.unsafeMutableAddressor();
-  outlined init with copy of String(v128, v246);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v550);
-  v129 = v266;
-  v130 = v272;
-  v266[65] = v252;
-  v129[62] = v130;
-  v247 = v129 + 66;
-  v131 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsFP.unsafeMutableAddressor();
-  outlined init with copy of String(v131, v247);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v549);
-  v132 = v266;
-  v133 = v271;
-  v266[71] = v252;
-  v132[68] = v133;
-  v248 = v132 + 72;
-  v134 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsTN.unsafeMutableAddressor();
-  outlined init with copy of String(v134, v248);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v548);
-  v135 = v266;
-  v136 = v270;
-  v266[77] = v252;
-  v135[74] = v136;
-  v249 = v135 + 78;
-  v137 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsFN.unsafeMutableAddressor();
-  outlined init with copy of String(v137, v249);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v547);
-  v138 = v266;
-  v139 = v269;
-  v266[83] = v252;
-  v138[80] = v139;
-  v250 = v138 + 84;
-  v140 = NightingaleDMetricsProcessor.keyMetricsSliceTargetTPRs.unsafeMutableAddressor();
-  outlined init with copy of String(v140, v250);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v546);
-  v141 = v266;
-  v142 = v276;
-  v266[89] = v252;
-  v141[86] = v142;
-  v251 = v141 + 90;
-  v143 = NightingaleDMetricsProcessor.keyMetricsSliceTargetPrecisions.unsafeMutableAddressor();
-  outlined init with copy of String(v143, v251);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v545);
-  v144 = v266;
-  v145 = v275;
-  v266[95] = v252;
-  v144[92] = v145;
-  v253 = v144 + 96;
-  v146 = NightingaleDMetricsProcessor.keyMetricsNumberOfPositiveSamples.unsafeMutableAddressor();
-  outlined init with copy of String(v146, v253);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v544);
-  v147 = v254;
-  v148 = v266;
-  v265 = MEMORY[0x277D83B88];
-  v266[101] = MEMORY[0x277D83B88];
-  v148[98] = v147;
-  v255 = v148 + 102;
-  v149 = NightingaleDMetricsProcessor.keyMetricsNumberOfNegativeSamples.unsafeMutableAddressor();
-  outlined init with copy of String(v149, v255);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v543);
-  v150 = v256;
-  v151 = v266;
-  v266[107] = v265;
-  v151[104] = v150;
-  v257 = v151 + 108;
-  v152 = NightingaleDMetricsProcessor.keyMetricsPositiveSamplesRatio.unsafeMutableAddressor();
-  outlined init with copy of String(v152, v257);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v542);
-  v153 = v259;
-  v154 = v266;
-  v266[113] = v258;
-  *(v154 + 220) = v153;
-  v260 = v154 + 114;
-  v155 = NightingaleDMetricsProcessor.keyMetricsSlicePositiveSamplesOutputDist.unsafeMutableAddressor();
-  outlined init with copy of String(v155, v260);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v541);
-  v156 = v266;
-  v157 = v273;
-  v266[119] = v263;
-  v156[116] = v157;
-  v261 = v156 + 120;
-  v158 = NightingaleDMetricsProcessor.keyMetricsSliceNegativeSamplesOutputDist.unsafeMutableAddressor();
-  outlined init with copy of String(v158, v261);
-  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v262, &v540);
-  v159 = v266;
-  v160 = v274;
-  v266[125] = v263;
-  v159[122] = v160;
-  v264 = v159 + 126;
-  v161 = NightingaleDMetricsProcessor.keyMetricsEngine.unsafeMutableAddressor();
-  outlined init with copy of String(v161, v264);
-  v162 = v266;
-  v163 = v267;
-  v266[131] = v265;
-  v162[128] = 0;
+  v574 = v587;
+  v575 = v588;
+  v576 = v589;
+  v577 = v590;
+  v578 = v591;
+  v579 = v592;
+  v580 = v593;
+  v290 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+  v274 = _allocateUninitializedArray<A>(_:)();
+  v273 = v100;
+  v101 = NightingaleDMetricsProcessor.keyMetricsCycleTP.unsafeMutableAddressor();
+  outlined init with copy of String(v101, v273);
+  v249 = v594;
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v594, v567);
+  v102 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+  v103 = v273;
+  v104 = v301;
+  v270 = v102;
+  v273[5] = v102;
+  v103[2] = v104;
+  v242 = v103 + 6;
+  v105 = NightingaleDMetricsProcessor.keyMetricsCycleTPR.unsafeMutableAddressor();
+  outlined init with copy of String(v105, v242);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v566);
+  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v107 = v273;
+  v108 = v300;
+  v259 = v106;
+  v273[11] = v106;
+  v107[8] = v108;
+  v243 = v107 + 12;
+  v109 = NightingaleDMetricsProcessor.keyMetricsCycleFP.unsafeMutableAddressor();
+  outlined init with copy of String(v109, v243);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v565);
+  v110 = v273;
+  v111 = v299;
+  v273[17] = v270;
+  v110[14] = v111;
+  v244 = v110 + 18;
+  v112 = NightingaleDMetricsProcessor.keyMetricsCycleFPR.unsafeMutableAddressor();
+  outlined init with copy of String(v112, v244);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v564);
+  v113 = v273;
+  v114 = v298;
+  v273[23] = v259;
+  v113[20] = v114;
+  v245 = v113 + 24;
+  v115 = NightingaleDMetricsProcessor.keyMetricsNumberOfPregnantCycles.unsafeMutableAddressor();
+  outlined init with copy of String(v115, v245);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v563);
+  v116 = v273;
+  v117 = v297;
+  v273[29] = v270;
+  v116[26] = v117;
+  v246 = v116 + 30;
+  v118 = NightingaleDMetricsProcessor.keyMetricsNumberOfNonPregnantCycles.unsafeMutableAddressor();
+  outlined init with copy of String(v118, v246);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v562);
+  v119 = v273;
+  v120 = v296;
+  v273[35] = v270;
+  v119[32] = v120;
+  v247 = v119 + 36;
+  v121 = NightingaleDMetricsProcessor.keyMetricsCycleLatency.unsafeMutableAddressor();
+  outlined init with copy of String(v121, v247);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v561);
+  v122 = v273;
+  v123 = v295;
+  v273[41] = v259;
+  v122[38] = v123;
+  v248 = v122 + 42;
+  v124 = NightingaleDMetricsProcessor.keyMetricsCycleLatencyBuckets.unsafeMutableAddressor();
+  outlined init with copy of String(v124, v248);
+  outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(v249, v560);
+  v125 = v273;
+  v126 = v294;
+  v273[47] = v270;
+  v125[44] = v126;
+  v250 = v125 + 48;
+  v127 = NightingaleDMetricsProcessor.keyMetricsSliceROCScore.unsafeMutableAddressor();
+  outlined init with copy of String(v127, v250);
+  v269 = &v568;
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(&v568, &v559);
+  v128 = v273;
+  v129 = v275;
+  v273[53] = v259;
+  v128[50] = v129;
+  v251 = v128 + 54;
+  v130 = NightingaleDMetricsProcessor.keyMetricsSlicePRScore.unsafeMutableAddressor();
+  outlined init with copy of String(v130, v251);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v558);
+  v131 = v252;
+  v132 = v273;
+  v265 = MEMORY[0x277D83A90];
+  v273[59] = MEMORY[0x277D83A90];
+  *(v132 + 112) = v131;
+  v253 = v132 + 60;
+  v133 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsTP.unsafeMutableAddressor();
+  outlined init with copy of String(v133, v253);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v557);
+  v134 = v273;
+  v135 = v279;
+  v273[65] = v259;
+  v134[62] = v135;
+  v254 = v134 + 66;
+  v136 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsFP.unsafeMutableAddressor();
+  outlined init with copy of String(v136, v254);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v556);
+  v137 = v273;
+  v138 = v278;
+  v273[71] = v259;
+  v137[68] = v138;
+  v255 = v137 + 72;
+  v139 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsTN.unsafeMutableAddressor();
+  outlined init with copy of String(v139, v255);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v555);
+  v140 = v273;
+  v141 = v277;
+  v273[77] = v259;
+  v140[74] = v141;
+  v256 = v140 + 78;
+  v142 = NightingaleDMetricsProcessor.keyMetricsSliceConfusionMatricsFN.unsafeMutableAddressor();
+  outlined init with copy of String(v142, v256);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v554);
+  v143 = v273;
+  v144 = v276;
+  v273[83] = v259;
+  v143[80] = v144;
+  v257 = v143 + 84;
+  v145 = NightingaleDMetricsProcessor.keyMetricsSliceTargetTPRs.unsafeMutableAddressor();
+  outlined init with copy of String(v145, v257);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v553);
+  v146 = v273;
+  v147 = v283;
+  v273[89] = v259;
+  v146[86] = v147;
+  v258 = v146 + 90;
+  v148 = NightingaleDMetricsProcessor.keyMetricsSliceTargetPrecisions.unsafeMutableAddressor();
+  outlined init with copy of String(v148, v258);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v552);
+  v149 = v273;
+  v150 = v282;
+  v273[95] = v259;
+  v149[92] = v150;
+  v260 = v149 + 96;
+  v151 = NightingaleDMetricsProcessor.keyMetricsNumberOfPositiveSamples.unsafeMutableAddressor();
+  outlined init with copy of String(v151, v260);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v551);
+  v152 = v261;
+  v153 = v273;
+  v272 = MEMORY[0x277D83B88];
+  v273[101] = MEMORY[0x277D83B88];
+  v153[98] = v152;
+  v262 = v153 + 102;
+  v154 = NightingaleDMetricsProcessor.keyMetricsNumberOfNegativeSamples.unsafeMutableAddressor();
+  outlined init with copy of String(v154, v262);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v550);
+  v155 = v263;
+  v156 = v273;
+  v273[107] = v272;
+  v156[104] = v155;
+  v264 = v156 + 108;
+  v157 = NightingaleDMetricsProcessor.keyMetricsPositiveSamplesRatio.unsafeMutableAddressor();
+  outlined init with copy of String(v157, v264);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v549);
+  v158 = v266;
+  v159 = v273;
+  v273[113] = v265;
+  *(v159 + 220) = v158;
+  v267 = v159 + 114;
+  v160 = NightingaleDMetricsProcessor.keyMetricsSlicePositiveSamplesOutputDist.unsafeMutableAddressor();
+  outlined init with copy of String(v160, v267);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v548);
+  v161 = v273;
+  v162 = v280;
+  v273[119] = v270;
+  v161[116] = v162;
+  v268 = v161 + 120;
+  v163 = NightingaleDMetricsProcessor.keyMetricsSliceNegativeSamplesOutputDist.unsafeMutableAddressor();
+  outlined init with copy of String(v163, v268);
+  outlined init with copy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])(v269, &v547);
+  v164 = v273;
+  v165 = v281;
+  v273[125] = v270;
+  v164[122] = v165;
+  v271 = v164 + 126;
+  v166 = NightingaleDMetricsProcessor.keyMetricsEngine.unsafeMutableAddressor();
+  outlined init with copy of String(v166, v271);
+  v167 = v273;
+  v273[131] = v272;
+  v167[128] = 0;
   _finalizeUninitializedArray<A>(_:)();
-  v277 = v163;
+  v284 = v168;
 
-  v539 = Dictionary.init(dictionaryLiteral:)();
+  v546 = Dictionary.init(dictionaryLiteral:)();
 
-  v278 = v190;
-  v279 = 32;
-  MEMORY[0x28223BE20](v190);
-  v164 = v484;
-  *&v190[-16] = v165;
-  *&v190[-8] = v164;
-  v280 = v190;
-  MEMORY[0x28223BE20](v190);
-  v281 = &v190[-32];
-  *&v190[-16] = partial apply for closure #5 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:);
-  *&v190[-8] = v166;
-  v282 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
-  v167 = lazy protocol witness table accessor for type [String : Any] and conformance [A : B]();
-  v168 = v284;
-  v170 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -> (@owned String, @out Any), v281, v282, v283, MEMORY[0x277D84A98], v167, MEMORY[0x277D84AC0], v169);
-  v285 = v168;
-  v286 = v170;
-  if (!v168)
+  v285 = v197;
+  v286 = 32;
+  MEMORY[0x28223BE20](v197, v169);
+  v170 = v491;
+  *&v197[-16] = v171;
+  *&v197[-8] = v170;
+  v287 = v197;
+  MEMORY[0x28223BE20](v197, v172);
+  v288 = &v197[-32];
+  *&v197[-16] = partial apply for closure #5 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:);
+  *&v197[-8] = v173;
+  v289 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, _sSDySSypGMR);
+  v174 = lazy protocol witness table accessor for type [String : Any] and conformance [A : B]();
+  v175 = v291;
+  v177 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -> (@owned String, @out Any), v288, v289, v290, MEMORY[0x277D84A98], v174, MEMORY[0x277D84AC0], v176);
+  v292 = v175;
+  v293 = v177;
+  if (!v175)
   {
-    v233 = v286;
+    v240 = v293;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v538 = v233;
+    v545 = v240;
 
-    v537[1] = v233;
-    v232 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySS_yptGMd);
+    v544[1] = v240;
+    v239 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySS_yptGMd, &_sSaySS_yptGMR);
     lazy protocol witness table accessor for type [(String, Any)] and conformance [A]();
-    v234 = Dictionary.init<A>(uniqueKeysWithValues:)();
+    v241 = Dictionary.init<A>(uniqueKeysWithValues:)();
 
     outlined destroy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])();
     outlined destroy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])();
-    v377 = v234;
-    v378 = v285;
-    return v377;
+    v384 = v241;
+    v385 = v292;
+    return v384;
   }
 
   __break(1u);
@@ -3147,15 +3143,15 @@ LABEL_57:
 
 NightingaleTraining::NightingaleDProcessEngine_optional __swiftcall NightingaleDProcessEngine.init(rawValue:)(Swift::String rawValue)
 {
-  v1 = _allocateUninitializedArray<A>(_:)();
-  *v2 = "native";
-  *(v2 + 8) = 6;
-  *(v2 + 16) = 2;
-  *(v2 + 24) = "morpheus";
-  *(v2 + 32) = 8;
-  *(v2 + 40) = 2;
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "native";
+  *(v1 + 8) = 6;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "morpheus";
+  *(v1 + 32) = 8;
+  *(v1 + 40) = 2;
   _finalizeUninitializedArray<A>(_:)();
-  v7 = _findStringSwitchCase(cases:string:)(v1, rawValue);
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
 
   if (!v7)
   {
@@ -3752,25 +3748,25 @@ uint64_t static NightingaleDMetricsProcessor.keyMetricsEngine.getter()
   return v1;
 }
 
-uint64_t closure #4 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #4 in static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v12 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v13 = v4;
+  v15 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v16 = v7;
   countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
   MEMORY[0x25F889DE0](countAndFlagsBits);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v6);
+  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v9);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v7);
+  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v10);
 
   outlined destroy of DefaultStringInterpolation();
-  v11 = MEMORY[0x25F889320](v12, v13);
+  v14 = MEMORY[0x25F889320](v15, v16);
   outlined init with copy of Any(a4, a1);
-  return v11;
+  return v14;
 }
 
 uint64_t thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -> (@owned String, @out Any)@<X0>(void *a1@<X0>, uint64_t (*a2)(uint64_t *, void, void, void *)@<X1>, uint64_t *a3@<X8>)
@@ -3783,117 +3779,117 @@ uint64_t thunk for @callee_guaranteed (@guaranteed String, @in_guaranteed Any) -
 
 uint64_t static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t *a8@<X8>)
 {
-  v314 = a7;
-  v322 = a6;
-  v315 = a5;
-  v316 = a4;
-  v317 = a3;
-  v318 = a2;
-  v319 = a1;
-  v320 = a8;
-  v321 = 0;
-  v446 = 0;
+  v318 = a7;
+  v326 = a6;
+  v319 = a5;
+  v320 = a4;
+  v321 = a3;
+  v322 = a2;
+  v323 = a1;
+  v324 = a8;
+  v325 = 0;
+  v450 = 0;
+  v445 = 0;
+  v444 = 0;
+  v443 = 0;
   v441 = 0;
   v440 = 0;
   v439 = 0;
-  v437 = 0;
-  v436 = 0;
-  v435 = 0;
+  v433 = 0;
+  v432 = 0;
+  v431 = 0;
+  v430 = 0;
   v429 = 0;
   v428 = 0;
   v427 = 0;
   v426 = 0;
   v425 = 0;
   v424 = 0;
-  v423 = 0;
-  v422 = 0;
-  v421 = 0;
   v420 = 0;
-  v416 = 0;
-  v415 = 0;
-  v410 = 0;
-  v409 = 0;
-  v408 = 0;
-  v400 = 0;
-  v395 = 0;
-  v390 = 0;
-  v389 = 0;
-  v387 = 0;
-  v384 = 0;
-  v377 = 0;
-  v359 = 0;
-  v358 = 0;
-  v357 = 0;
+  v419 = 0;
+  v414 = 0;
+  v413 = 0;
+  v412 = 0;
+  v404 = 0;
+  v399 = 0;
+  v394 = 0;
+  v393 = 0;
+  v391 = 0;
+  v388 = 0;
+  v381 = 0;
+  v363 = 0;
+  v362 = 0;
+  v361 = 0;
+  v342 = 0;
+  v341 = 0;
+  v340 = 0;
+  v339 = 0;
   v338 = 0;
-  v337 = 0;
   v336 = 0;
-  v335 = 0;
-  v334 = 0;
-  v332 = 0;
-  v454 = a1;
-  v453 = a2;
-  v452 = a3;
-  v451 = a4;
-  v450 = a5;
-  v449 = a6;
-  v448 = a7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd);
-  if (MEMORY[0x25F8895B0](v322, v8) < 1 || (v312 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endtMd), MEMORY[0x25F8895B0](v316) < 1) || MEMORY[0x25F8895B0](v318, MEMORY[0x277D83A90]) < 1 || (v310 = MEMORY[0x277D83A90], v311 = MEMORY[0x25F8895B0](v318), v311 != MEMORY[0x25F8895B0](v317, v310)) || (v309 = MEMORY[0x25F8895B0](v318, MEMORY[0x277D83A90]), v309 != MEMORY[0x25F8895B0](v315, MEMORY[0x277D84CC0])))
+  v458 = a1;
+  v457 = a2;
+  v456 = a3;
+  v455 = a4;
+  v454 = a5;
+  v453 = a6;
+  v452 = a7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining9Pregnancy_pMd, &_s19NightingaleTraining9Pregnancy_pMR);
+  if (MEMORY[0x25F8895B0](v326, v8) < 1 || (v316 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endtMd, &_ss6UInt32V5start_AB3endtMR), MEMORY[0x25F8895B0](v320) < 1) || MEMORY[0x25F8895B0](v322, MEMORY[0x277D83A90]) < 1 || (v314 = MEMORY[0x277D83A90], v315 = MEMORY[0x25F8895B0](v322), v315 != MEMORY[0x25F8895B0](v321, v314)) || (v313 = MEMORY[0x25F8895B0](v322, MEMORY[0x277D83A90]), v313 != MEMORY[0x25F8895B0](v319, MEMORY[0x277D84CC0])))
   {
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v94 = 0;
-    v95 = swift_allocError();
-    *v83 = 63;
+    v98 = 0;
+    v99 = swift_allocError();
+    *v88 = 63;
     swift_willThrow();
-    result = v95;
-    v96 = v95;
+    result = v99;
+    v100 = v99;
     return result;
   }
 
-  v305 = v313;
-  v447 = v322;
-  v304 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
-  v303 = v304;
-  v306 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
-  v307 = v313;
-  v308 = Sequence.sorted(by:)();
-  if (v313)
+  v309 = v317;
+  v451 = v326;
+  v308 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
+  v307 = v308;
+  v310 = lazy protocol witness table accessor for type [Pregnancy] and conformance [A]();
+  v311 = v317;
+  v312 = Sequence.sorted(by:)();
+  if (v317)
   {
     __break(1u);
     __break(1u);
     goto LABEL_119;
   }
 
-  v293 = v308;
-  v299 = 0;
-  v446 = v308;
-  v444 = v317;
-  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v294 = v295;
-  v296 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  MEMORY[0x25F889420](&v445, v295);
-  v443 = v445;
-  v298 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd);
-  v297 = v298;
-  v300 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
-  v301 = 0;
-  v302 = Sequence.filter(_:)();
-  v289 = 0;
-  v442 = v302;
+  v297 = v312;
+  v303 = 0;
+  v450 = v312;
+  v448 = v321;
+  v299 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v298 = v299;
+  v300 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  MEMORY[0x25F889420](&v449, v299);
+  v447 = v449;
+  v302 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
+  v301 = v302;
+  v304 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
+  v305 = 0;
+  v306 = Sequence.filter(_:)();
+  v293 = 0;
+  v446 = v306;
 
-  v285 = &v89;
-  MEMORY[0x28223BE20](&v89);
-  v287 = v88;
-  v88[2] = v9;
-  v288 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd);
-  v286 = v288;
-  v10 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
-  v11 = v289;
-  v290 = v10;
-  v13 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), v287, v288, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v10, MEMORY[0x277D84AC0], v12);
-  v291 = v11;
-  v292 = v13;
-  if (v11)
+  v289 = &v93;
+  MEMORY[0x28223BE20](&v93, v9);
+  v291 = v92;
+  v92[2] = v10;
+  v292 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd, &_sSaySi6offset_Sf7elementtGMR);
+  v290 = v292;
+  v11 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
+  v12 = v293;
+  v294 = v11;
+  v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), v291, v292, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v11, MEMORY[0x277D84AC0], v13);
+  v295 = v12;
+  v296 = v14;
+  if (v12)
   {
 LABEL_119:
 
@@ -3901,284 +3897,281 @@ LABEL_119:
     goto LABEL_120;
   }
 
-  v279 = v292;
-  v280 = 0;
+  v283 = v296;
+  v284 = 0;
 
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v441 = v279;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNys6UInt32VGMd);
-  v440 = Array.init()();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCys6UInt32VypGMd);
-  v14 = AugmentedIntervalTree.__allocating_init()();
-  v15 = v280;
-  v282 = v14;
-  v281 = v14;
-  v439 = v14;
-  v438 = v293;
+  v445 = v283;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNys6UInt32VGMd, &_sSNys6UInt32VGMR);
+  v444 = Array.init()();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCys6UInt32VypGMd, &_s19NightingaleTraining21AugmentedIntervalTreeCys6UInt32VypGMR);
+  v15 = AugmentedIntervalTree.__allocating_init()();
+  v16 = v284;
+  v286 = v15;
+  v285 = v15;
+  v443 = v15;
+  v442 = v297;
 
   Sequence.forEach(_:)();
-  v283 = v15;
-  v284 = v15;
-  if (v15)
+  v287 = v16;
+  v288 = v16;
+  if (v16)
   {
 LABEL_120:
-    v93 = v284;
+    v97 = v288;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    result = v93;
-    v96 = v93;
+    result = v97;
+    v100 = v97;
     return result;
   }
 
-  v278 = MEMORY[0x25F8895B0](v316, v312);
-  if (v278 < 0)
+  v282 = MEMORY[0x25F8895B0](v320, v316);
+  if (v282 < 0)
   {
-    LODWORD(v86) = 0;
-    v85 = 760;
-    v84[0] = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
     __break(1u);
   }
 
-  v433 = 0;
-  v434 = v278;
-  v276 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  v437 = 0;
+  v438 = v282;
+  v280 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   Collection<>.makeIterator()();
-  for (i = v283; ; i = v255)
+  for (i = v287; ; i = v259)
   {
-    v274 = i;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd);
+    v278 = i;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd, &_ss16IndexingIteratorVySnySiGGMR);
     IndexingIterator.next()();
-    v275 = v431;
-    if (v432)
+    v279 = v435;
+    if (v436)
     {
       break;
     }
 
-    v273 = v275;
-    v266 = v275;
-    v267 = v274;
-    v334 = v275;
+    v277 = v279;
+    v270 = v279;
+    v271 = v278;
+    v338 = v279;
     Array.subscript.getter();
-    v16 = v267;
-    v269 = v333;
-    v268 = v333;
-    v332 = v333;
-    v330 = v293;
-    v270 = v88;
-    MEMORY[0x28223BE20](v88);
-    v86 = __PAIR64__(v17, v269);
+    v17 = v271;
+    v273 = v337;
+    v272 = v337;
+    v336 = v337;
+    v334 = v297;
+    v274 = v92;
+    MEMORY[0x28223BE20](v92, v18);
+    v90 = __PAIR64__(v19, v273);
     Sequence.first(where:)();
-    v271 = v16;
-    v272 = v270;
-    if (v16)
+    v275 = v17;
+    v276 = v274;
+    if (v17)
     {
       __break(1u);
 LABEL_122:
-      v92 = v262;
-      outlined destroy of Pregnancy?(v323);
+      v96 = v266;
+      outlined destroy of Pregnancy?(v327);
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      result = v92;
-      v96 = v92;
+      result = v96;
+      v100 = v96;
       return result;
     }
 
-    v265 = v331[3] == 0;
-    v264 = v265;
-    outlined destroy of Pregnancy?(v331);
-    if (v264)
+    v269 = v335[3] == 0;
+    v268 = v269;
+    outlined destroy of Pregnancy?(v335);
+    if (v268)
     {
-      result = MEMORY[0x25F8895B0](v316, v312);
-      v19 = __OFSUB__(result, 1);
-      v263 = result - 1;
-      if (v19)
+      result = MEMORY[0x25F8895B0](v320, v316);
+      v21 = __OFSUB__(result, 1);
+      v267 = result - 1;
+      if (v21)
       {
         goto LABEL_137;
       }
 
-      if (v266 == v263)
+      if (v270 == v267)
       {
-        v20 = v271;
-        v325 = v268;
-        v324 = v314;
-        memset(v323, 0, sizeof(v323));
-        AugmentedIntervalTree.insert(start:end:context:)(&v325, &v324, v323);
-        v261 = v20;
-        v262 = v20;
-        if (v20)
+        v22 = v275;
+        v329 = v272;
+        v328 = v318;
+        memset(v327, 0, sizeof(v327));
+        AugmentedIntervalTree.insert(start:end:context:)(&v329, &v328, v327);
+        v265 = v22;
+        v266 = v22;
+        if (v22)
         {
           goto LABEL_122;
         }
 
-        outlined destroy of Pregnancy?(v323);
-        v260 = v261;
+        outlined destroy of Pregnancy?(v327);
+        v264 = v265;
       }
 
       else
       {
-        v329 = v268;
-        result = v266 + 1;
-        v21 = __OFADD__(v266, 1);
-        v259 = v266 + 1;
-        if (v21)
+        v333 = v272;
+        result = v270 + 1;
+        v23 = __OFADD__(v270, 1);
+        v263 = v270 + 1;
+        if (v23)
         {
           goto LABEL_138;
         }
 
         result = Array.subscript.getter();
-        v258 = v328 - 1;
-        if (!v328)
+        v262 = v332 - 1;
+        if (!v332)
         {
           goto LABEL_139;
         }
 
-        v22 = v271;
-        v327 = v258;
-        memset(v326, 0, sizeof(v326));
-        AugmentedIntervalTree.insert(start:end:context:)(&v329, &v327, v326);
-        v256 = v22;
-        v257 = v22;
-        if (v22)
+        v24 = v275;
+        v331 = v262;
+        memset(v330, 0, sizeof(v330));
+        AugmentedIntervalTree.insert(start:end:context:)(&v333, &v331, v330);
+        v260 = v24;
+        v261 = v24;
+        if (v24)
         {
-          v91 = v257;
-          outlined destroy of Pregnancy?(v326);
+          v95 = v261;
+          outlined destroy of Pregnancy?(v330);
 
           outlined destroy of [(start: UInt32, end: UInt32)]();
 
-          result = v91;
-          v96 = v91;
+          result = v95;
+          v100 = v95;
           return result;
         }
 
-        outlined destroy of Pregnancy?(v326);
-        v260 = v256;
+        outlined destroy of Pregnancy?(v330);
+        v264 = v260;
       }
 
-      v255 = v260;
+      v259 = v264;
     }
 
     else
     {
-      v255 = v271;
+      v259 = v275;
     }
   }
 
-  v252 = v274;
-  v430 = v315;
+  v256 = v278;
+  v434 = v319;
 
-  v249 = v88;
-  MEMORY[0x28223BE20](v88);
-  v250 = v84;
-  v86 = v23;
-  v87 = &v440;
-  v251 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd);
+  v253 = v92;
+  MEMORY[0x28223BE20](v92, v25);
+  v254 = v89;
+  v90 = v26;
+  v91 = &v444;
+  v255 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGMd, &_sSays6UInt32VGMR);
   lazy protocol witness table accessor for type [UInt32] and conformance [A]();
-  v24 = v252;
+  v27 = v256;
   Sequence.forEach(_:)();
-  v253 = v24;
-  v254 = v24;
-  if (v24)
+  v257 = v27;
+  v258 = v27;
+  if (v27)
   {
-    v90 = v254;
+    v94 = v258;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    result = v90;
-    v96 = v90;
+    result = v94;
+    v100 = v94;
     return result;
   }
 
-  v247 = MEMORY[0x277D83B88];
+  v251 = MEMORY[0x277D83B88];
+  v433 = Array.init()();
+  v250 = MEMORY[0x277D83A90];
+  v432 = Array.init()();
+  v431 = Array.init()();
+  v430 = Array.init()();
   v429 = Array.init()();
-  v246 = MEMORY[0x277D83A90];
   v428 = Array.init()();
   v427 = Array.init()();
   v426 = Array.init()();
-  v425 = Array.init()();
-  v424 = Array.init()();
-  v423 = Array.init()();
-  v422 = Array.init()();
-  v419 = HyperParams.outputPostProcThresholds.getter();
+  v423 = HyperParams.outputPostProcThresholds.getter();
   lazy protocol witness table accessor for type [Float] and conformance [A]();
   Collection<>.makeIterator()();
-  for (j = v253; ; j = v106)
+  for (j = v257; ; j = v110)
   {
-    v244 = j;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd);
+    v248 = j;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd, &_ss16IndexingIteratorVySaySfGGMR);
     IndexingIterator.next()();
-    v245 = v417;
-    if (v418)
+    v249 = v421;
+    if (v422)
     {
-      v105 = v244;
+      v109 = v248;
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      v97 = v429;
+      v101 = v433;
 
-      v98 = v428;
+      v102 = v432;
 
-      v99 = v427;
+      v103 = v431;
 
-      v100 = v426;
+      v104 = v430;
 
-      v101 = v425;
+      v105 = v429;
 
-      v102 = v424;
+      v106 = v428;
 
-      v103 = v423;
+      v107 = v427;
 
-      v104 = v422;
+      v108 = v426;
 
-      outlined destroy of [(start: UInt32, end: UInt32)]();
-      outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
+      outlined destroy of [(start: UInt32, end: UInt32)]();
+      outlined destroy of [(start: UInt32, end: UInt32)]();
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      v75 = v98;
-      v76 = v99;
-      v77 = v100;
-      v78 = v101;
-      v79 = v102;
-      v80 = v103;
-      v81 = v320;
+      v80 = v102;
+      v81 = v103;
       v82 = v104;
-      *v320 = v97;
-      v81[1] = v75;
-      v81[2] = v76;
-      v81[3] = v77;
-      v81[4] = v78;
-      v81[5] = v79;
-      v81[6] = v80;
-      v81[7] = v82;
+      v83 = v105;
+      v84 = v106;
+      v85 = v107;
+      v86 = v324;
+      v87 = v108;
+      *v324 = v101;
+      v86[1] = v80;
+      v86[2] = v81;
+      v86[3] = v82;
+      v86[4] = v83;
+      v86[5] = v84;
+      v86[6] = v85;
+      v86[7] = v87;
       return result;
     }
 
-    v243 = v245;
-    v237 = v245;
-    v238 = v244;
-    v416 = v245;
-    v236 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytMd);
-    v415 = Array.init()();
-    v413 = v318;
-    MEMORY[0x25F889420](&v414, v294, v296);
-    v25 = v238;
-    v412 = v414;
-    v239 = v88;
-    MEMORY[0x28223BE20](v88);
-    LODWORD(v86) = v26;
-    v27 = Sequence.filter(_:)();
-    v240 = v25;
-    v241 = v27;
-    v242 = v239;
-    if (v25)
+    v247 = v249;
+    v241 = v249;
+    v242 = v248;
+    v420 = v249;
+    v240 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytMd, &_ss6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytMR);
+    v419 = Array.init()();
+    v417 = v322;
+    MEMORY[0x25F889420](&v418, v298, v300);
+    v28 = v242;
+    v416 = v418;
+    v243 = v92;
+    MEMORY[0x28223BE20](v92, v29);
+    LODWORD(v90) = v30;
+    v31 = Sequence.filter(_:)();
+    v244 = v28;
+    v245 = v31;
+    v246 = v243;
+    if (v28)
     {
       __break(1u);
 
@@ -4205,338 +4198,389 @@ LABEL_134:
       return result;
     }
 
-    v411 = v241;
+    v415 = v245;
 
-    v233 = v88;
-    MEMORY[0x28223BE20](v88);
-    v86 = v28;
-    v32 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), v84, v29, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v30, MEMORY[0x277D84AC0], v31);
-    v234 = 0;
-    v235 = v32;
-    v229 = v32;
+    v237 = v92;
+    MEMORY[0x28223BE20](v92, v32);
+    v90 = v33;
+    v37 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), v89, v34, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v35, MEMORY[0x277D84AC0], v36);
+    v238 = 0;
+    v239 = v37;
+    v233 = v37;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v410 = v229;
-    v230 = v440;
+    v414 = v233;
+    v234 = v444;
 
-    v407 = v230;
-    v231 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySNys6UInt32VGGMd);
+    v411 = v234;
+    v235 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySNys6UInt32VGGMd, &_sSaySNys6UInt32VGGMR);
     lazy protocol witness table accessor for type [ClosedRange<UInt32>] and conformance [A]();
     Collection<>.makeIterator()();
-    for (k = v234; ; k = v195)
+    for (k = v238; ; k = v199)
     {
-      v227 = k;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySNys6UInt32VGGGMd);
+      v231 = k;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySNys6UInt32VGGGMd, &_ss16IndexingIteratorVySaySNys6UInt32VGGGMR);
       IndexingIterator.next()();
-      v228 = v405;
-      if (v406)
+      v232 = v409;
+      if (v410)
       {
         break;
       }
 
-      v226 = v228;
-      v223 = HIDWORD(v228);
-      v224 = v228;
-      v359 = v228;
-      v358 = 0;
+      v230 = v232;
+      v227 = HIDWORD(v232);
+      v228 = v232;
+      v363 = v232;
+      v362 = 0;
+      v361 = 0;
+      v359 = 0;
+      v360 = 1;
       v357 = 0;
+      v358 = 1;
       v355 = 0;
       v356 = 1;
-      v353 = 0;
-      v354 = 1;
-      v351 = 0;
-      v352 = 1;
-      v348 = v228;
-      static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v229, &v348, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v349);
-      v225 = v349;
-      if (v350)
+      v352 = v232;
+      static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v233, &v352, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v353);
+      v229 = v353;
+      if (v354)
       {
-        v221 = 0x100000000;
+        v225 = 0x100000000;
       }
 
       else
       {
-        v222 = v225;
-        v221 = v225;
+        v226 = v229;
+        v225 = v229;
       }
 
-      v220 = v221;
-      if ((v221 & 0x100000000) != 0)
+      v224 = v225;
+      if ((v225 & 0x100000000) != 0)
       {
-        v217 = 0;
-        v218 = 0x100000000;
+        v221 = 0;
+        v222 = 0x100000000;
       }
 
       else
       {
-        v219 = v220;
-        v216 = v219;
-        v335 = v219;
-        if (v223 >= v219)
+        v223 = v224;
+        v220 = v223;
+        v339 = v223;
+        if (v227 >= v223)
         {
-          v357 = 1;
-          v353 = v216;
-          v354 = 0;
-          v217 = 1;
-          v218 = v216;
+          v361 = 1;
+          v357 = v220;
+          v358 = 0;
+          v221 = 1;
+          v222 = v220;
         }
 
         else
         {
-          v217 = 0;
-          v218 = 0x100000000;
+          v221 = 0;
+          v222 = 0x100000000;
         }
       }
 
-      v212 = HIDWORD(v218);
-      v213 = v218;
-      v214 = v217;
-      v345 = v224;
-      static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v279, &v345, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v346);
-      v215 = v346;
-      if (v347)
+      v216 = HIDWORD(v222);
+      v217 = v222;
+      v218 = v221;
+      v349 = v228;
+      static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v283, &v349, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v350);
+      v219 = v350;
+      if (v351)
       {
-        v210 = 0x100000000;
+        v214 = 0x100000000;
       }
 
       else
       {
-        v211 = v215;
-        v210 = v215;
+        v215 = v219;
+        v214 = v219;
       }
 
-      v209 = v210;
-      if ((v210 & 0x100000000) != 0)
+      v213 = v214;
+      if ((v214 & 0x100000000) != 0)
       {
-        v206 = 0;
-        v207 = 0x100000000;
-      }
-
-      else
-      {
-        v208 = v209;
-        v205 = v208;
-        v336 = v208;
-        if (v223 >= v208)
-        {
-          v358 = 1;
-          v351 = v205;
-          v352 = 0;
-          v206 = 1;
-          v207 = v205;
-        }
-
-        else
-        {
-          v206 = 0;
-          v207 = 0x100000000;
-        }
-      }
-
-      v202 = HIDWORD(v207);
-      v203 = v207;
-      v204 = v206;
-      if (v212)
-      {
-        v199 = 0;
-        v200 = 1;
+        v210 = 0;
+        v211 = 0x100000000;
       }
 
       else
       {
-        v201 = v213;
-        v198 = v201;
-        v338 = v201;
-        if (v202)
+        v212 = v213;
+        v209 = v212;
+        v340 = v212;
+        if (v227 >= v212)
         {
-          v199 = 0;
-          v200 = 1;
-        }
-
-        else
-        {
-          v197 = v203;
-          v337 = v203;
-          v196 = v198 - v203;
-          v355 = v196;
+          v362 = 1;
+          v355 = v209;
           v356 = 0;
-          v199 = v196;
-          v200 = 0;
+          v210 = 1;
+          v211 = v209;
+        }
+
+        else
+        {
+          v210 = 0;
+          v211 = 0x100000000;
         }
       }
 
-      v195 = v227;
-      v339 = v224;
-      v340 = v223;
-      v341 = v204;
-      v342 = v214 & 1;
-      v343 = v199;
-      v344 = v200 & 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMd);
+      v206 = HIDWORD(v211);
+      v207 = v211;
+      v208 = v210;
+      if (v216)
+      {
+        v203 = 0;
+        v204 = 1;
+      }
+
+      else
+      {
+        v205 = v217;
+        v202 = v205;
+        v342 = v205;
+        if (v206)
+        {
+          v203 = 0;
+          v204 = 1;
+        }
+
+        else
+        {
+          v201 = v207;
+          v341 = v207;
+          v200 = v202 - v207;
+          v359 = v200;
+          v360 = 0;
+          v203 = v200;
+          v204 = 0;
+        }
+      }
+
+      v199 = v231;
+      v343 = v228;
+      v344 = v227;
+      v345 = v208;
+      v346 = v218 & 1;
+      v347 = v203;
+      v348 = v204 & 1;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMd, &_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMR);
       Array.append(_:)();
     }
 
-    v191 = v227;
+    v195 = v231;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v188 = v415;
-    v187 = v415;
+    v192 = v419;
+    v191 = v419;
 
-    v403 = v188;
-    v190 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMd);
-    v189 = v190;
-    v33 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32, label: Int, detect: Bool, latency: Int?)] and conformance [A]();
-    v34 = v191;
-    v192 = v33;
-    v36 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #9 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v190, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v33, MEMORY[0x277D84AC0], v35);
-    v193 = v34;
-    v194 = v36;
-    if (v34)
+    v407 = v192;
+    v194 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMd, &_sSays6UInt32V5start_AB3endSi5labelSb6detectSiSg7latencytGMR);
+    v193 = v194;
+    v38 = lazy protocol witness table accessor for type [(start: UInt32, end: UInt32, label: Int, detect: Bool, latency: Int?)] and conformance [A]();
+    v39 = v195;
+    v196 = v38;
+    v41 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #9 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v194, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v38, MEMORY[0x277D84AC0], v40);
+    v197 = v39;
+    v198 = v41;
+    if (v39)
     {
       goto LABEL_126;
     }
 
-    v180 = v194;
-    v184 = 0;
+    v184 = v198;
+    v188 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v402 = v180;
-    v182 = 0;
-    v401 = 0;
-    v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v181 = v183;
-    v37 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v38 = v184;
-    v185 = v37;
+    v406 = v184;
+    v186 = 0;
+    v405 = 0;
+    v187 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v185 = v187;
+    v42 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v43 = v188;
+    v189 = v42;
     Sequence.reduce<A>(_:_:)();
-    v186 = v38;
-    if (v38)
+    v190 = v43;
+    if (v43)
     {
       goto LABEL_127;
     }
 
-    v176 = 0;
+    v180 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v39 = v176;
-    v177 = v404;
-    v400 = v404;
+    v44 = v180;
+    v181 = v408;
+    v404 = v408;
 
-    v398 = v187;
-    v41 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #10 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v189, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v192, MEMORY[0x277D84AC0], v40);
-    v178 = v39;
-    v179 = v41;
-    if (v39)
+    v402 = v191;
+    v46 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #10 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v193, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v196, MEMORY[0x277D84AC0], v45);
+    v182 = v44;
+    v183 = v46;
+    if (v44)
     {
       goto LABEL_128;
     }
 
-    v173 = v179;
-    v174 = 0;
+    v177 = v183;
+    v178 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v42 = v174;
-    v397 = v173;
-    v396 = 0;
+    v47 = v178;
+    v401 = v177;
+    v400 = 0;
     Sequence.reduce<A>(_:_:)();
-    v175 = v42;
-    if (v42)
+    v179 = v47;
+    if (v47)
     {
       goto LABEL_129;
     }
 
-    v169 = 0;
+    v173 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v43 = v169;
-    v170 = v399;
-    v395 = v399;
+    v48 = v173;
+    v174 = v403;
+    v399 = v403;
 
-    v393 = v187;
-    v45 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #11 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v189, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v192, MEMORY[0x277D84AC0], v44);
-    v171 = v43;
-    v172 = v45;
-    if (v43)
+    v397 = v191;
+    v50 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #11 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v193, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v196, MEMORY[0x277D84AC0], v49);
+    v175 = v48;
+    v176 = v50;
+    if (v48)
     {
       goto LABEL_130;
     }
 
-    v166 = v172;
-    v167 = 0;
+    v170 = v176;
+    v171 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v46 = v167;
-    v392 = v166;
-    v391 = 0;
+    v51 = v171;
+    v396 = v170;
+    v395 = 0;
     Sequence.reduce<A>(_:_:)();
-    v168 = v46;
-    if (v46)
+    v172 = v51;
+    if (v51)
     {
       goto LABEL_131;
     }
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v164 = v394;
-    v163 = v394;
-    v390 = v394;
-    result = MEMORY[0x25F8895B0](v187, v236);
-    v47 = __OFSUB__(result, v164);
-    v165 = result - v164;
-    if (v47)
+    v168 = v398;
+    v167 = v398;
+    v394 = v398;
+    result = MEMORY[0x25F8895B0](v191, v240);
+    v52 = __OFSUB__(result, v168);
+    v169 = result - v168;
+    if (v52)
     {
       break;
     }
 
-    v160 = v168;
-    v389 = v165;
-    v388[3] = v187;
-    v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd);
-    v49 = v160;
-    v51 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #12 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v189, v48, MEMORY[0x277D84A98], v192, MEMORY[0x277D84AC0], v50);
-    v161 = v49;
-    v162 = v51;
-    if (v49)
+    v164 = v172;
+    v393 = v169;
+    v392[3] = v191;
+    v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
+    v54 = v164;
+    v56 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #12 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v193, v53, MEMORY[0x277D84A98], v196, MEMORY[0x277D84AC0], v55);
+    v165 = v54;
+    v166 = v56;
+    if (v54)
     {
       goto LABEL_132;
     }
 
-    v155 = v162;
-    v157 = 0;
+    v159 = v166;
+    v161 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v388[2] = v155;
-    v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiSgGMd);
+    v392[2] = v159;
+    v160 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiSgGMd, &_sSaySiSgGMR);
     lazy protocol witness table accessor for type [Int?] and conformance [A]();
-    v52 = v157;
-    v53 = Sequence.compactMap<A>(_:)();
-    v158 = v52;
-    v159 = v53;
-    if (v52)
+    v57 = v161;
+    v58 = Sequence.compactMap<A>(_:)();
+    v162 = v57;
+    v163 = v58;
+    if (v57)
     {
       goto LABEL_133;
     }
 
-    v151 = v159;
-    v152 = 0;
+    v155 = v163;
+    v156 = 0;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v388[1] = v151;
-    v54 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v55 = v152;
-    v57 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #14 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v181, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v54, MEMORY[0x277D84AC0], v56);
-    v153 = v55;
-    v154 = v57;
-    if (v55)
+    v392[1] = v155;
+    v59 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v60 = v156;
+    v62 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #14 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:), 0, v185, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v59, MEMORY[0x277D84AC0], v61);
+    v157 = v60;
+    v158 = v62;
+    if (v60)
     {
       goto LABEL_134;
     }
 
-    v146 = v154;
+    v150 = v158;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v388[0] = v146;
-    v147 = v388;
-    v149 = Sequence<>.sorted()();
-    v148 = v149;
+    v392[0] = v150;
+    v151 = v392;
+    v153 = Sequence<>.sorted()();
+    v152 = v153;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v387 = v149;
-    v385 = 0.0;
-    v386 = 1;
+    v391 = v153;
+    v389 = 0.0;
+    v390 = 1;
     result = MEMORY[0x25F8895B0]();
-    v150 = result;
-    v384 = result;
+    v154 = result;
+    v388 = result;
     if (result < 1)
+    {
+      v144 = 0.0;
+      v145 = 1;
+    }
+
+    else
+    {
+      v63 = v154 & 1;
+      if (v154 < 0)
+      {
+        v63 = -v63;
+      }
+
+      if (v63)
+      {
+        Array.subscript.getter();
+        v389 = v364;
+        v390 = 0;
+        v148 = v364;
+        v149 = 0;
+      }
+
+      else
+      {
+        v64 = __OFSUB__(v154, 1);
+        v147 = v154 - 1;
+        if (v64)
+        {
+          goto LABEL_136;
+        }
+
+        Array.subscript.getter();
+        v146 = v366;
+        Array.subscript.getter();
+        v389 = (v146 + v365) * 0.5;
+        v390 = 0;
+        v148 = v389;
+        v149 = 0;
+      }
+
+      v144 = v148;
+      v145 = v149;
+    }
+
+    v142 = v145;
+    v143 = v144;
+    v386 = 0.0;
+    v387 = 1;
+    v384 = 0.0;
+    v385 = 1;
+    if (v167 < 1)
     {
       v140 = 0.0;
       v141 = 1;
@@ -4544,50 +4588,15 @@ LABEL_134:
 
     else
     {
-      v58 = v150 & 1;
-      if (v150 < 0)
-      {
-        v58 = -v58;
-      }
-
-      if (v58)
-      {
-        Array.subscript.getter();
-        v385 = v360;
-        v386 = 0;
-        v144 = v360;
-        v145 = 0;
-      }
-
-      else
-      {
-        v59 = __OFSUB__(v150, 1);
-        v143 = v150 - 1;
-        if (v59)
-        {
-          goto LABEL_136;
-        }
-
-        Array.subscript.getter();
-        v142 = v362;
-        Array.subscript.getter();
-        v385 = (v142 + v361) * 0.5;
-        v386 = 0;
-        v144 = v385;
-        v145 = 0;
-      }
-
-      v140 = v144;
-      v141 = v145;
+      v386 = v181 / v167;
+      v387 = 0;
+      v140 = v386;
+      v141 = 0;
     }
 
     v138 = v141;
     v139 = v140;
-    v382 = 0.0;
-    v383 = 1;
-    v380 = 0.0;
-    v381 = 1;
-    if (v163 < 1)
+    if (v169 < 1)
     {
       v136 = 0.0;
       v137 = 1;
@@ -4595,182 +4604,154 @@ LABEL_134:
 
     else
     {
-      v382 = v177 / v163;
-      v383 = 0;
-      v136 = v382;
+      v384 = v174 / v169;
+      v385 = 0;
+      v136 = v384;
       v137 = 0;
     }
 
     v134 = v137;
     v135 = v136;
-    if (v165 < 1)
+    v382 = v143;
+    v383 = v142 & 1;
+    if (v142)
     {
-      v132 = 0.0;
-      v133 = 1;
+      v133 = -2000.0;
     }
 
     else
     {
-      v380 = v170 / v165;
-      v381 = 0;
-      v132 = v380;
-      v133 = 0;
+      v133 = v382;
     }
 
-    v130 = v133;
+    v129 = v133;
+    v130 = HyperParams.latencyBuckets.getter();
+    v132 = static MetricsUtils.bucketize(value:buckets:)(v130, v129);
     v131 = v132;
+
+    v381 = v132;
+    v380 = v181;
+    Array.append(_:)();
     v378 = v139;
     v379 = v138 & 1;
+    v128 = (v138 & 1) != 0;
     if (v138)
     {
-      v129 = -2000.0;
+      v126 = MEMORY[0x277D83A90];
+      _allocateUninitializedArray<A>(_:)();
+      *v65 = 0;
+      v65[1] = 1065353216;
+      _finalizeUninitializedArray<A>(_:)();
+      v127 = v66;
     }
 
     else
     {
-      v129 = v378;
+      v124 = _allocateUninitializedArray<A>(_:)();
+      v125 = v67;
+      if (v138)
+      {
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/NightingaleDMetricsProcessor.swift", 54, 2, 214, 0);
+        __break(1u);
+      }
+
+      else
+      {
+        v123 = v139;
+      }
+
+      v68 = v125;
+      *v125 = v123;
+      v68[1] = 0;
+      _finalizeUninitializedArray<A>(_:)();
+      v127 = v69;
     }
 
-    v125 = v129;
-    v126 = HyperParams.latencyBuckets.getter();
-    v128 = static MetricsUtils.bucketize(value:buckets:)(v126, v125);
-    v127 = v128;
-
-    v377 = v128;
-    v376 = v177;
+    v377 = v127;
+    Array.append<A>(contentsOf:)();
+    v376 = v174;
     Array.append(_:)();
     v374 = v135;
     v375 = v134 & 1;
-    v124 = (v134 & 1) != 0;
+    v122 = (v134 & 1) != 0;
     if (v134)
     {
-      v122 = MEMORY[0x277D83A90];
-      v60 = _allocateUninitializedArray<A>(_:)();
-      *v61 = 0;
-      v61[1] = 1065353216;
+      v120 = MEMORY[0x277D83A90];
+      _allocateUninitializedArray<A>(_:)();
+      *v70 = 0;
+      v70[1] = 1065353216;
       _finalizeUninitializedArray<A>(_:)();
-      v123 = v60;
+      v121 = v71;
     }
 
     else
     {
-      v120 = _allocateUninitializedArray<A>(_:)();
-      v121 = v62;
+      v118 = _allocateUninitializedArray<A>(_:)();
+      v119 = v72;
       if (v134)
       {
-        LODWORD(v86) = 0;
-        v85 = 214;
-        v84[0] = 2;
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/NightingaleDMetricsProcessor.swift", 54, 2, 216, 0);
         __break(1u);
       }
 
       else
       {
-        v119 = v135;
+        v117 = v135;
       }
 
-      v63 = v120;
-      v64 = v121;
-      *v121 = v119;
-      v64[1] = 0;
+      v73 = v119;
+      *v119 = v117;
+      v73[1] = 0;
       _finalizeUninitializedArray<A>(_:)();
-      v123 = v63;
+      v121 = v74;
     }
 
-    v373 = v123;
+    v373 = v121;
     Array.append<A>(contentsOf:)();
-    v372 = v170;
+    v372 = v167;
     Array.append(_:)();
-    v370 = v131;
-    v371 = v130 & 1;
-    v118 = (v130 & 1) != 0;
-    if (v130)
+    v371 = v169;
+    Array.append(_:)();
+    v369 = v143;
+    v370 = v142 & 1;
+    v116 = (v142 & 1) != 0;
+    if (v142)
     {
-      v116 = MEMORY[0x277D83A90];
-      v65 = _allocateUninitializedArray<A>(_:)();
-      *v66 = 0;
-      v66[1] = 1065353216;
+      v114 = MEMORY[0x277D83A90];
+      _allocateUninitializedArray<A>(_:)();
+      *v75 = 0;
+      v75[1] = 1065353216;
       _finalizeUninitializedArray<A>(_:)();
-      v117 = v65;
+      v115 = v76;
     }
 
     else
     {
-      v114 = _allocateUninitializedArray<A>(_:)();
-      v115 = v67;
-      if (v130)
+      v112 = _allocateUninitializedArray<A>(_:)();
+      v113 = v77;
+      if (v142)
       {
-        LODWORD(v86) = 0;
-        v85 = 216;
-        v84[0] = 2;
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/NightingaleDMetricsProcessor.swift", 54, 2, 219, 0);
         __break(1u);
       }
 
       else
       {
-        v113 = v131;
+        v111 = v143;
       }
 
-      v68 = v114;
-      v69 = v115;
-      *v115 = v113;
-      v69[1] = 0;
+      v78 = v113;
+      *v113 = v111;
+      v78[1] = 0;
       _finalizeUninitializedArray<A>(_:)();
-      v117 = v68;
+      v115 = v79;
     }
 
-    v369 = v117;
-    Array.append<A>(contentsOf:)();
-    v368 = v163;
-    Array.append(_:)();
-    v367 = v165;
-    Array.append(_:)();
-    v365 = v139;
-    v366 = v138 & 1;
-    v112 = (v138 & 1) != 0;
-    if (v138)
-    {
-      v110 = MEMORY[0x277D83A90];
-      v70 = _allocateUninitializedArray<A>(_:)();
-      *v71 = 0;
-      v71[1] = 1065353216;
-      _finalizeUninitializedArray<A>(_:)();
-      v111 = v70;
-    }
-
-    else
-    {
-      v108 = _allocateUninitializedArray<A>(_:)();
-      v109 = v72;
-      if (v138)
-      {
-        LODWORD(v86) = 0;
-        v85 = 219;
-        v84[0] = 2;
-        _assertionFailure(_:_:file:line:flags:)();
-        __break(1u);
-      }
-
-      else
-      {
-        v107 = v139;
-      }
-
-      v73 = v108;
-      v74 = v109;
-      *v109 = v107;
-      v74[1] = 0;
-      _finalizeUninitializedArray<A>(_:)();
-      v111 = v73;
-    }
-
-    v106 = v153;
-    v364 = v111;
+    v110 = v157;
+    v368 = v115;
     Array.append<A>(contentsOf:)();
 
-    v363 = v127;
+    v367 = v131;
     Array.append<A>(contentsOf:)();
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -4791,16 +4772,17 @@ LABEL_139:
 
 uint64_t static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v165 = a3;
-  v166 = a2;
-  v167 = a1;
-  v168 = a4;
-  v173 = 0;
+  v166 = a3;
+  v167 = a2;
+  v168 = a1;
+  v169 = a4;
+  v174 = 0;
+  v246 = 0;
   v245 = 0;
   v244 = 0;
   v243 = 0;
   v242 = 0;
-  v241 = 0;
+  v238 = 0;
   v237 = 0;
   v236 = 0;
   v235 = 0;
@@ -4808,361 +4790,345 @@ uint64_t static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:ou
   v233 = 0;
   v232 = 0;
   v231 = 0;
-  v230 = 0;
+  v227 = 0u;
   v226 = 0u;
-  v225 = 0u;
-  v221 = 0;
-  v218 = 0;
-  v213 = 0;
+  v222 = 0;
+  v219 = 0;
+  v214 = 0;
+  v209 = 0;
   v208 = 0;
   v207 = 0;
-  v206 = 0;
+  v202 = 0;
   v201 = 0;
-  v200 = 0;
-  v196 = 0.0;
+  v197 = 0.0;
+  v188 = 0;
   v187 = 0;
-  v186 = 0;
-  v182 = 0.0;
-  v181 = 0;
-  v252 = a1;
-  v251 = a2;
-  v250 = a3;
-  v171 = static AUC.rocCurve(outputs:labels:)(a2, a3);
-  v169 = v171;
-  v170 = v4;
-  v249 = v171;
-  v248 = v4;
+  v183 = 0.0;
+  v182 = 0;
+  v253 = a1;
+  v252 = a2;
+  v251 = a3;
+  v172 = static AUC.rocCurve(outputs:labels:)(a2, a3);
+  v170 = v172;
+  v171 = v4;
+  v250 = v172;
+  v249 = v4;
 
-  v247 = v171;
-  v174 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v172 = v174;
-  v176 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v177 = v175;
-  v178 = Sequence.contains(where:)();
-  if (v175)
+  v248 = v172;
+  v175 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v173 = v175;
+  v177 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v178 = v176;
+  v179 = Sequence.contains(where:)();
+  if (v176)
   {
     __break(1u);
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    result = v153;
-    v52 = v153;
+    result = v154;
+    v53 = v154;
     return result;
   }
 
-  v164 = v178;
+  v165 = v179;
 
-  if (v178)
+  if (v179)
   {
-    v162 = 1;
-    v163 = v177;
+    v163 = 1;
+    v164 = v178;
   }
 
   else
   {
-    v246 = v170;
-    v160 = v177;
-    v161 = Sequence.contains(where:)();
-    v162 = v161;
-    v163 = 0;
+    v247 = v171;
+    v161 = v178;
+    v162 = Sequence.contains(where:)();
+    v163 = v162;
+    v164 = 0;
   }
 
-  v158 = v163;
-  v159 = v162;
+  v159 = v164;
+  v160 = v163;
 
-  v245 = v162 & 1;
-  v244 = _allocateUninitializedArray<A>(_:)();
-  if (v162)
+  v246 = v163 & 1;
+  v245 = _allocateUninitializedArray<A>(_:)();
+  if (v163)
   {
-    v145 = HyperParams.maxFPRs.getter();
-    v147 = MEMORY[0x25F8895B0](v145, MEMORY[0x277D83A90]);
-    v146 = v147;
+    v146 = HyperParams.maxFPRs.getter();
+    v148 = MEMORY[0x25F8895B0](v146, MEMORY[0x277D83A90]);
+    v147 = v148;
 
-    if (v147 < 0)
+    if (v148 < 0)
     {
-      LODWORD(v49) = 0;
-      v48 = 760;
-      v47 = 2;
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
       __break(1u);
     }
 
-    v239 = 0;
-    v240 = v146;
-    v143 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+    v240 = 0;
+    v241 = v147;
+    v144 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
     lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
     Collection<>.makeIterator()();
-    for (i = v158; ; i = v142)
+    for (i = v159; ; i = v143)
     {
-      v142 = i;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd);
+      v143 = i;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd, &_ss16IndexingIteratorVySnySiGGMR);
       IndexingIterator.next()();
-      if (v238)
+      if (v239)
       {
         break;
       }
 
-      v141 = v142;
-      v189 = 0;
-      v140 = &v244;
-      Array.append(_:)();
-      v188 = 1065353216;
-      Array.append(_:)();
-    }
-
-    v148 = v142;
-  }
-
-  else
-  {
-    v185 = HyperParams.maxFPRs.getter();
-    lazy protocol witness table accessor for type [Float] and conformance [A]();
-    Collection<>.makeIterator()();
-    for (j = v158; ; j = 0)
-    {
-      v155 = j;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd);
-      IndexingIterator.next()();
-      v156 = v183;
-      if (v184)
-      {
-        break;
-      }
-
-      v154 = v156;
-      v182 = v156;
-      static AUC.rocAUCScore(tpr:fpr:maxFPR:)(v169, v170, v156);
-      v151 = v155;
-      v152 = v5;
-      v153 = v155;
-      v150 = 0;
-      v181 = v5;
-      v180 = v5;
-      v149 = &v244;
-      Array.append(_:)();
-      v179 = 0;
-      Array.append(_:)();
-    }
-
-    outlined destroy of [(start: UInt32, end: UInt32)]();
-    v148 = v155;
-  }
-
-  v131 = v148;
-  v135 = static AUC.precisionRecallCurve(outputs:labels:)(v166, v165);
-  v136 = v6;
-  v132 = v135;
-  v133 = v6;
-  v134 = v7;
-  v237 = v135;
-  v236 = v6;
-  v235 = v7;
-
-  static AUC.prAUCScore(precison:recall:)(v135, v136);
-  v137 = v8;
-  v234 = v8;
-  v139 = MEMORY[0x277D83A90];
-  v138 = 0;
-  v233 = _allocateUninitializedArray<A>(_:)();
-  v232 = _allocateUninitializedArray<A>(_:)();
-  if (v159)
-  {
-    v229 = HyperParams.targetFPRs.getter();
-    lazy protocol witness table accessor for type [Float] and conformance [A]();
-    Collection<>.makeIterator()();
-    for (k = v131; ; k = v106)
-    {
-      v106 = k;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd);
-      IndexingIterator.next()();
-      v107 = v227;
-      if (v228)
-      {
-        break;
-      }
-
-      v105 = v106;
-      v102 = 0;
-      v205 = 0;
-      v101 = &v233;
-      Array.append(_:)();
-      v104 = 1065353216;
-      v204 = 1065353216;
-      Array.append(_:)();
-      v203 = 0;
-      v103 = &v232;
-      Array.append(_:)();
-      v202 = 1065353216;
-      Array.append(_:)();
-    }
-
-    outlined destroy of [(start: UInt32, end: UInt32)]();
-    v109 = v106;
-  }
-
-  else
-  {
-    v199 = HyperParams.targetFPRs.getter();
-    lazy protocol witness table accessor for type [Float] and conformance [A]();
-    Collection<>.makeIterator()();
-    for (m = v131; ; m = 0)
-    {
-      v128 = m;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd);
-      IndexingIterator.next()();
-      v129 = v197;
-      if (v198)
-      {
-        break;
-      }
-
-      v127 = v129;
-      v123 = v129;
-      v196 = v129;
-      v124 = v128;
-      v125 = static AUC.tpr(at:tpr:fpr:)(v169, v170, v129);
-      v126 = v128;
-      v114 = 0;
-      v195 = v125;
-      v113 = &v233;
-      Array.append(_:)();
-      v194 = 0;
-      Array.append(_:)();
-
-      v193 = v132;
-      v115 = Sequence.reversed()();
-      v116 = v115;
-
-      v192 = v134;
-      v117 = Sequence.reversed()();
-      v118 = 0;
-      v119 = static AUC.tpr(at:tpr:fpr:)(v115, v117, v129);
-      v120 = v115;
-      v121 = v117;
-      v122 = 0;
-      v110 = v119;
-      v112 = 0;
-
-      v191 = v119;
-      v111 = &v232;
-      Array.append(_:)();
+      v142 = v143;
       v190 = 0;
+      v141 = &v245;
+      Array.append(_:)();
+      v189 = 1065353216;
+      Array.append(_:)();
+    }
+
+    v149 = v143;
+  }
+
+  else
+  {
+    v186 = HyperParams.maxFPRs.getter();
+    lazy protocol witness table accessor for type [Float] and conformance [A]();
+    Collection<>.makeIterator()();
+    for (j = v159; ; j = 0)
+    {
+      v156 = j;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd, &_ss16IndexingIteratorVySaySfGGMR);
+      IndexingIterator.next()();
+      v157 = v184;
+      if (v185)
+      {
+        break;
+      }
+
+      v155 = v157;
+      v183 = v157;
+      static AUC.rocAUCScore(tpr:fpr:maxFPR:)(v170, v171, v157);
+      v152 = v156;
+      v153 = v5;
+      v154 = v156;
+      v151 = 0;
+      v182 = v5;
+      v181 = v5;
+      v150 = &v245;
+      Array.append(_:)();
+      v180 = 0;
       Array.append(_:)();
     }
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v109 = v128;
+    v149 = v156;
   }
 
-  v95 = v109;
+  v132 = v149;
+  v136 = static AUC.precisionRecallCurve(outputs:labels:)(v167, v166);
+  v137 = v6;
+  v133 = v136;
+  v134 = v6;
+  v135 = v7;
+  v238 = v136;
+  v237 = v6;
+  v236 = v7;
+
+  static AUC.prAUCScore(precison:recall:)(v136, v137);
+  v138 = v8;
+  v235 = v8;
+  v140 = MEMORY[0x277D83A90];
+  v139 = 0;
+  v234 = _allocateUninitializedArray<A>(_:)();
+  v233 = _allocateUninitializedArray<A>(_:)();
+  if (v160)
+  {
+    v230 = HyperParams.targetFPRs.getter();
+    lazy protocol witness table accessor for type [Float] and conformance [A]();
+    Collection<>.makeIterator()();
+    for (k = v132; ; k = v107)
+    {
+      v107 = k;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd, &_ss16IndexingIteratorVySaySfGGMR);
+      IndexingIterator.next()();
+      v108 = v228;
+      if (v229)
+      {
+        break;
+      }
+
+      v106 = v107;
+      v103 = 0;
+      v206 = 0;
+      v102 = &v234;
+      Array.append(_:)();
+      v105 = 1065353216;
+      v205 = 1065353216;
+      Array.append(_:)();
+      v204 = 0;
+      v104 = &v233;
+      Array.append(_:)();
+      v203 = 1065353216;
+      Array.append(_:)();
+    }
+
+    outlined destroy of [(start: UInt32, end: UInt32)]();
+    v110 = v107;
+  }
+
+  else
+  {
+    v200 = HyperParams.targetFPRs.getter();
+    lazy protocol witness table accessor for type [Float] and conformance [A]();
+    Collection<>.makeIterator()();
+    for (m = v132; ; m = 0)
+    {
+      v129 = m;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd, &_ss16IndexingIteratorVySaySfGGMR);
+      IndexingIterator.next()();
+      v130 = v198;
+      if (v199)
+      {
+        break;
+      }
+
+      v128 = v130;
+      v124 = v130;
+      v197 = v130;
+      v125 = v129;
+      v126 = static AUC.tpr(at:tpr:fpr:)(v170, v171, v130);
+      v127 = v129;
+      v115 = 0;
+      v196 = v126;
+      v114 = &v234;
+      Array.append(_:)();
+      v195 = 0;
+      Array.append(_:)();
+
+      v194 = v133;
+      v116 = Sequence.reversed()();
+      v117 = v116;
+
+      v193 = v135;
+      v118 = Sequence.reversed()();
+      v119 = 0;
+      v120 = static AUC.tpr(at:tpr:fpr:)(v116, v118, v130);
+      v121 = v116;
+      v122 = v118;
+      v123 = 0;
+      v111 = v120;
+      v113 = 0;
+
+      v192 = v120;
+      v112 = &v233;
+      Array.append(_:)();
+      v191 = 0;
+      Array.append(_:)();
+    }
+
+    outlined destroy of [(start: UInt32, end: UInt32)]();
+    v110 = v129;
+  }
+
+  v96 = v110;
   v9 = HyperParams.confusionMatrixNumThresholds.getter();
-  v96 = static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)(v166, v165, v9);
-  v97 = v10;
-  v98 = v11;
-  v99 = v12;
-  *&v225 = v96;
-  *(&v225 + 1) = v10;
-  *&v226 = v11;
-  *(&v226 + 1) = v12;
-  v223 = v165;
-  v222 = 0;
+  v97 = static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)(v167, v166, v9);
+  v98 = v10;
+  v99 = v11;
+  v100 = v12;
+  *&v226 = v97;
+  *(&v226 + 1) = v10;
+  *&v227 = v11;
+  *(&v227 + 1) = v12;
+  v224 = v166;
+  v223 = 0;
   Sequence.reduce<A>(_:_:)();
-  v100 = v109;
-  v94 = v224;
-  if ((LODWORD(v224) >> 23) == 255)
+  v101 = v110;
+  v95 = v225;
+  if ((LODWORD(v225) >> 23) == 255)
   {
-    LODWORD(v49) = 0;
-    v48 = 8763;
-    v47 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Float value cannot be converted to Int because it is either infinite or NaN", 75, 2, "Swift/IntegerTypes.swift", 24, 2, 8763, 0);
     __break(1u);
   }
 
-  if (v94 <= -9.2234e18)
+  if (v95 <= -9.2234e18)
   {
-    LODWORD(v49) = 0;
-    v48 = 8766;
-    v47 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Float value cannot be converted to Int because the result would be less than Int.min", 84, 2, "Swift/IntegerTypes.swift", 24, 2, 8766, 0);
     __break(1u);
   }
 
-  if (v94 >= 9.2234e18)
+  if (v95 >= 9.2234e18)
   {
-    LODWORD(v49) = 0;
-    v48 = 8769;
-    v47 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Float value cannot be converted to Int because the result would be greater than Int.max", 87, 2, "Swift/IntegerTypes.swift", 24, 2, 8769, 0);
     __break(1u);
   }
 
-  v92 = v94;
+  v93 = v95;
+  v222 = v95;
+  v94 = HyperParams.modelOutputNumberOfBuckets.getter();
+  if (v94 < 0)
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
+    __break(1u);
+  }
+
+  v90 = v101;
+  v220 = 0;
   v221 = v94;
-  v93 = HyperParams.modelOutputNumberOfBuckets.getter();
-  if (v93 < 0)
-  {
-    LODWORD(v49) = 0;
-    v48 = 760;
-    v47 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
 
-  v89 = v100;
-  v219 = 0;
-  v220 = v93;
-
-  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   v13 = lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
-  v90 = v100;
-  v91 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), v167, v88, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v13, MEMORY[0x277D84AC0], v14);
-  v81 = v91;
-  v84 = 0;
+  v91 = v101;
+  v92 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), v168, v89, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v13, MEMORY[0x277D84AC0], v14);
+  v82 = v92;
+  v85 = 0;
 
-  v218 = v91;
-  v216 = v165;
-  MEMORY[0x25F889420](&v217, v172, v176);
-  v215 = v217;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd);
-  v82 = v83;
-  v85 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
-  v86 = 0;
-  v87 = Sequence.filter(_:)();
-  v77 = 0;
-  v214 = v87;
+  v219 = v92;
+  v217 = v166;
+  MEMORY[0x25F889420](&v218, v173, v177);
+  v216 = v218;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
+  v83 = v84;
+  v86 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
+  v87 = 0;
+  v88 = Sequence.filter(_:)();
+  v78 = 0;
+  v215 = v88;
 
-  v73 = v50;
-  MEMORY[0x28223BE20](v50);
-  v75 = &v47;
-  v49 = v15;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd);
-  v74 = v76;
-  v16 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
-  v17 = v77;
-  v78 = v16;
-  v19 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), v75, v76, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v16, MEMORY[0x277D84AC0], v18);
+  v74 = v51;
+  MEMORY[0x28223BE20](v51, v15);
+  v76 = &v49;
+  v50 = v16;
+  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd, &_sSaySi6offset_Sf7elementtGMR);
+  v75 = v77;
+  v17 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
+  v18 = v78;
   v79 = v17;
-  v80 = v19;
-  if (v17)
+  v20 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), v76, v77, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v17, MEMORY[0x277D84AC0], v19);
+  v80 = v18;
+  v81 = v20;
+  if (v18)
   {
 
     __break(1u);
     goto LABEL_48;
   }
 
-  v69 = v80;
-  v70 = 0;
+  v70 = v81;
+  v71 = 0;
 
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v213 = v69;
-  v211 = v165;
-  MEMORY[0x25F889420](&v212, v172, v176);
-  v20 = v70;
-  v210 = v212;
-  v21 = Sequence.filter(_:)();
-  v71 = v20;
+  v214 = v70;
+  v212 = v166;
+  MEMORY[0x25F889420](&v213, v173, v177);
+  v21 = v71;
+  v211 = v213;
+  v22 = Sequence.filter(_:)();
   v72 = v21;
-  if (v20)
+  v73 = v22;
+  if (v21)
   {
 LABEL_48:
     __break(1u);
@@ -5171,39 +5137,39 @@ LABEL_48:
     return result;
   }
 
-  v209 = v72;
+  v210 = v73;
 
-  v66 = &v47;
-  MEMORY[0x28223BE20](&v47);
-  *(&v47 - 2) = v22;
-  v26 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), (&v47 - 32), v23, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v24, MEMORY[0x277D84AC0], v25);
-  v67 = 0;
-  v68 = v26;
-  v63 = v26;
+  v67 = &v49;
+  MEMORY[0x28223BE20](&v49, v23);
+  *(&v49 - 2) = v24;
+  v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:), (&v49 - 32), v25, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v26, MEMORY[0x277D84AC0], v27);
+  v68 = 0;
+  v69 = v28;
+  v64 = v28;
 
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v208 = v63;
-  v62 = MEMORY[0x277D83A90];
-  v64 = MEMORY[0x25F8895B0](v69);
-  v27 = MEMORY[0x25F8895B0](v63, v62);
-  result = v64;
-  v29 = v64 + v27;
-  v30 = __OFADD__(v64, v27);
-  v65 = v29;
-  if (v30)
+  v209 = v64;
+  v63 = MEMORY[0x277D83A90];
+  v65 = MEMORY[0x25F8895B0](v70);
+  v29 = MEMORY[0x25F8895B0](v64, v63);
+  result = v65;
+  v31 = v65 + v29;
+  v32 = __OFADD__(v65, v29);
+  v66 = v31;
+  if (v32)
   {
     __break(1u);
   }
 
   else
   {
-    v31 = MEMORY[0x25F8895B0](v166, MEMORY[0x277D83A90]);
-    if (v65 != v31)
+    v33 = MEMORY[0x25F8895B0](v167, MEMORY[0x277D83A90]);
+    if (v66 != v33)
     {
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v50[5] = 0;
-      v51 = swift_allocError();
-      *v46 = 103;
+      v51[5] = 0;
+      v52 = swift_allocError();
+      *v48 = 103;
       swift_willThrow();
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -5211,62 +5177,62 @@ LABEL_48:
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      result = v51;
-      v52 = v51;
+      result = v52;
+      v53 = v52;
       return result;
     }
 
-    v56 = static MetricsUtils.bucketize(values:buckets:)(v69, v81);
-    v207 = v56;
-    v57 = static MetricsUtils.bucketize(values:buckets:)(v63, v81);
-    v206 = v57;
-    v58 = v244;
+    v57 = static MetricsUtils.bucketize(values:buckets:)(v70, v82);
+    v208 = v57;
+    v58 = static MetricsUtils.bucketize(values:buckets:)(v64, v82);
+    v207 = v58;
+    v59 = v245;
 
-    v59 = v233;
+    v60 = v234;
 
-    v60 = v232;
+    v61 = v233;
 
-    result = MEMORY[0x25F8895B0](v165, MEMORY[0x277D83A90]);
-    v32 = __OFSUB__(result, v92);
-    v61 = result - v92;
-    if (!v32)
+    result = MEMORY[0x25F8895B0](v166, MEMORY[0x277D83A90]);
+    v34 = __OFSUB__(result, v93);
+    v62 = result - v93;
+    if (!v34)
     {
-      v55 = v67;
-      v53 = v92;
-      v33 = MEMORY[0x25F8895B0](v165, MEMORY[0x277D83A90]);
-      v54 = v53 / v33;
+      v56 = v68;
+      v54 = v93;
+      v35 = MEMORY[0x25F8895B0](v166, MEMORY[0x277D83A90]);
+      v55 = v54 / v35;
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      v34 = v137;
-      result = v59;
-      v35 = v60;
-      v36 = v96;
-      v37 = v97;
-      v38 = v98;
-      v39 = v99;
-      v40 = v92;
-      v41 = v61;
-      v42 = v54;
-      v43 = v57;
-      v44 = v168;
-      v45 = v56;
-      *v168 = v58;
-      *(v44 + 2) = v34;
-      v44[2] = result;
-      v44[3] = v35;
-      v44[4] = v36;
-      v44[5] = v37;
-      v44[6] = v38;
-      v44[7] = v39;
-      v44[8] = v40;
-      v44[9] = v41;
-      *(v44 + 20) = v42;
-      v44[11] = v43;
-      v44[12] = v45;
+      v36 = v138;
+      result = v60;
+      v37 = v61;
+      v38 = v97;
+      v39 = v98;
+      v40 = v99;
+      v41 = v100;
+      v42 = v93;
+      v43 = v62;
+      v44 = v55;
+      v45 = v58;
+      v46 = v169;
+      v47 = v57;
+      *v169 = v59;
+      *(v46 + 2) = v36;
+      v46[2] = result;
+      v46[3] = v37;
+      v46[4] = v38;
+      v46[5] = v39;
+      v46[6] = v40;
+      v46[7] = v41;
+      v46[8] = v42;
+      v46[9] = v43;
+      *(v46 + 20) = v44;
+      v46[11] = v45;
+      v46[12] = v47;
       return result;
     }
   }
@@ -5275,14 +5241,14 @@ LABEL_48:
   return result;
 }
 
-BOOL closure #2 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)()
+BOOL closure #2 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(float *a1)
 {
   abs<A>(_:)();
   static Float.ulpOfOne.getter();
-  return v2 <= v0;
+  return v3 <= v1;
 }
 
-uint64_t closure #4 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(void *a1, uint64_t a2)
+void *closure #4 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(void *a1, uint64_t a2)
 {
   v12 = a1;
   v11 = a2;
@@ -5307,73 +5273,73 @@ BOOL closure #5 in static NightingaleDMetricsProcessor.generateCycleMetrics(hype
   return a2 == (*(v3 + 40))(v4);
 }
 
-uint64_t closure #6 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(int *a1, uint64_t a2, uint64_t a3)
+void *closure #6 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(int *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = a3;
+  v15 = a3;
+  v25 = 0;
   v24 = 0;
   v23 = 0;
-  v22 = 0;
-  v19 = 0;
-  v24 = *a1;
-  v23 = a2;
-  v22 = a3;
-  v21 = v24;
-  v20 = v24;
-  v15 = v3;
-  v16 = AugmentedIntervalTree.search(start:end:)(&v21, &v20);
-  v17 = v3;
+  v20 = 0;
+  v25 = *a1;
+  v24 = a2;
+  v23 = a3;
+  v22 = v25;
+  v21 = v25;
+  v16 = v3;
+  v17 = AugmentedIntervalTree.search(start:end:)(&v22, &v21);
+  v18 = v3;
   if (v3)
   {
     return 0;
   }
 
-  v8[2] = v16;
-  v12 = 0;
-  v19 = v16;
-  v18 = v16;
-  v9 = v8;
-  MEMORY[0x28223BE20](v8);
-  v10 = v7;
-  v7[2] = v4;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMd);
+  v9[2] = v17;
+  v13 = 0;
+  v20 = v17;
+  v19 = v17;
+  v10 = v9;
+  MEMORY[0x28223BE20](v9, v4);
+  v11 = v8;
+  v8[2] = v5;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMd, &_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMR);
   lazy protocol witness table accessor for type [Interval<UInt32, Any>] and conformance [A]();
-  v5 = v12;
+  v6 = v13;
   Sequence.forEach(_:)();
-  v13 = v5;
-  if (v5)
+  v14 = v6;
+  if (v6)
   {
-    result = v9;
+    result = v10;
     __break(1u);
   }
 
   else
   {
-    v8[1] = 0;
+    v9[1] = 0;
   }
 
   return result;
 }
 
-uint64_t closure #1 in closure #6 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(_DWORD *a1)
+uint64_t closure #1 in closure #6 in static NightingaleDMetricsProcessor.generateCycleMetrics(hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:)(unsigned int *a1, void *a2)
 {
 
   if (a1[1] < *a1)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/ClosedRange.swift", 23, 2, 409, 0);
     __break(1u);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySNys6UInt32VGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySNys6UInt32VGGMd, &_sSaySNys6UInt32VGGMR);
   lazy protocol witness table accessor for type [ClosedRange<UInt32>] and conformance [A]();
   lazy protocol witness table accessor for type ClosedRange<UInt32> and conformance ClosedRange<A>();
-  v2 = Sequence<>.contains(_:)();
+  v3 = Sequence<>.contains(_:)();
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  result = v2;
-  if ((v2 & 1) == 0)
+  result = v3;
+  if ((v3 & 1) == 0)
   {
     if (a1[1] < *a1)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/ClosedRange.swift", 23, 2, 409, 0);
       __break(1u);
     }
 
@@ -5479,18 +5445,18 @@ float closure #3 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyp
   return result;
 }
 
-BOOL closure #6 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:)()
+BOOL closure #6 in static NightingaleDMetricsProcessor.generateSliceMetrics(hyperParams:outputs:labels:)(float *a1)
 {
   abs<A>(_:)();
   static Float.ulpOfOne.getter();
-  return v2 <= v0;
+  return v3 <= v1;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> outlined destroy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])()
+void outlined destroy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])()
 {
 }
 
-void *outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(uint64_t *a1, void *a2)
+void *outlined init with copy of (tp: [Int], tpr: [Float], fp: [Int], fpr: [Float], numberOfPregnantCycles: [Int], numberOfNonPregnantCycles: [Int], latency: [Float], latencyBuckets: [Int])(void *a1, void *a2)
 {
   v3 = *a1;
 
@@ -5557,7 +5523,7 @@ uint64_t outlined init with copy of (rocScores: [Float], prScore: Float, targetT
   return result;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> outlined destroy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])()
+void outlined destroy of (rocScores: [Float], prScore: Float, targetTPRs: [Float], targetPrecisions: [Float], confusionMatrics: (tp: [Float], fp: [Float], tn: [Float], fn: [Float]), numPostiveSamples: Int, numNegativeSamples: Int, postiveSamplesRatio: Float, negativeSamplesOutputDistribution: [Int], positiveSamplesOutputDistribution: [Int])()
 {
 }
 
@@ -5566,7 +5532,7 @@ unint64_t lazy protocol witness table accessor for type [ClosedRange<UInt32>] an
   v2 = lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A];
   if (!lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySNys6UInt32VGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySNys6UInt32VGGMd, &_sSaySNys6UInt32VGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A]);
     return WitnessTable;
@@ -5579,7 +5545,7 @@ unint64_t lazy protocol witness table accessor for type [ClosedRange<UInt32>] an
   v2 = lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A];
   if (!lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySNys6UInt32VGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySNys6UInt32VGGMd, &_sSaySNys6UInt32VGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [ClosedRange<UInt32>] and conformance [A]);
     return WitnessTable;
@@ -5593,7 +5559,7 @@ unint64_t lazy protocol witness table accessor for type [Int?] and conformance [
   v2 = lazy protocol witness table cache variable for type [Int?] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Int?] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiSgGMd, &_sSaySiSgGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Int?] and conformance [A]);
     return WitnessTable;
@@ -5607,7 +5573,7 @@ unint64_t lazy protocol witness table accessor for type ClosedRange<UInt32> and 
   v2 = lazy protocol witness table cache variable for type ClosedRange<UInt32> and conformance ClosedRange<A>;
   if (!lazy protocol witness table cache variable for type ClosedRange<UInt32> and conformance ClosedRange<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSNys6UInt32VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSNys6UInt32VGMd, &_sSNys6UInt32VGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ClosedRange<UInt32> and conformance ClosedRange<A>);
     return WitnessTable;
@@ -5623,7 +5589,7 @@ uint64_t Interval.start.setter(uint64_t a1, uint64_t a2)
   v7 = *(v9 - 8);
   v8 = v9 - 8;
   v4 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1, a1);
   v5 = &v3 - v4;
   (*(v7 + 16))();
   (*(v7 + 40))(v6, v5, v9);
@@ -5638,7 +5604,7 @@ uint64_t Interval.end.setter(uint64_t a1, uint64_t a2)
   v8 = *(v10 - 8);
   v9 = v10 - 8;
   v5 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1, a1);
   v7 = &v4 - v5;
   (*(v8 + 16))();
   (*(v8 + 40))(v2 + *(v6 + 44), v7, v10);
@@ -5655,353 +5621,353 @@ void *Interval.context.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 
 uint64_t Interval.context.setter(uint64_t a1, uint64_t a2)
 {
-  v12 = a1;
-  v8 = a2;
-  v10 = *(a2 + 24);
-  v11 = type metadata accessor for Optional();
-  v7 = (*(*(v11 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v12);
-  v9 = &v7 - v7;
-  outlined init with copy of B?(v3, &v7 - v7, v4, v5);
-  outlined assign with take of B?(v9, (v2 + *(v8 + 48)), v10, v11);
-  return outlined destroy of B?(v12, v10);
+  v13 = a1;
+  v9 = a2;
+  v11 = *(a2 + 24);
+  v12 = type metadata accessor for Optional();
+  v8 = (*(*(v12 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x28223BE20](v13, v3);
+  v10 = &v8 - v8;
+  outlined init with copy of B?(v4, &v8 - v8, v5, v6);
+  outlined assign with take of B?(v10, (v2 + *(v9 + 48)), v11, v12);
+  return outlined destroy of B?(v13, v11);
 }
 
 uint64_t Interval.init(start:end:context:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  v25 = a7;
-  v39 = a1;
-  v40 = a2;
-  v34 = a3;
-  v41 = a4;
-  v35 = a5;
-  v42 = a6;
-  v46 = 0;
-  v45 = 0;
-  v44 = 0;
-  v43 = 0;
-  v48 = a4;
-  v47 = a5;
-  v26 = 0;
-  v27 = type metadata accessor for Optional();
-  v28 = (*(*(v27 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7 = MEMORY[0x28223BE20](0);
-  v29 = v16 - v28;
-  v30 = *(v8 - 8);
-  v31 = v8 - 8;
-  v32 = (v30[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v7);
-  v33 = v16 - v32;
-  v36 = type metadata accessor for Interval();
-  v37 = (*(*(v36 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = MEMORY[0x28223BE20](v36);
-  v38 = v16 - v37;
-  v46 = v16 - v37;
-  v45 = v10;
-  v44 = v11;
-  v43 = v12;
-  (*(*(v13 - 8) + 56))(v16 + *(v9 + 48) - v37, 1);
+  v29 = a7;
+  v43 = a1;
+  v44 = a2;
+  v38 = a3;
+  v45 = a4;
+  v39 = a5;
+  v46 = a6;
+  v50 = 0;
+  v49 = 0;
+  v48 = 0;
+  v47 = 0;
+  v52 = a4;
+  v51 = a5;
+  v30 = 0;
+  v31 = type metadata accessor for Optional();
+  v32 = (*(*(v31 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](0, v45);
+  v33 = v20 - v32;
+  v34 = *(v8 - 8);
+  v35 = v8 - 8;
+  v36 = (v34[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v37 = v20 - v36;
+  v40 = type metadata accessor for Interval(v9, v10, v11, v12);
+  v41 = (*(*(v40 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v13 = MEMORY[0x28223BE20](v40, v44);
+  v42 = v20 - v41;
+  v50 = v20 - v41;
+  v49 = v14;
+  v48 = v15;
+  v47 = v16;
+  (*(*(v17 - 8) + 56))(v20 + *(v13 + 48) - v41, 1);
   if (dispatch thunk of static Comparable.<= infix(_:_:)())
   {
-    v20 = v30[2];
-    v19 = v30 + 2;
-    v20(v33, v39, v41);
-    v22 = v30[4];
-    v21 = v30 + 4;
-    v22(v38, v33, v41);
-    v20(v33, v40, v41);
-    v22(v38 + *(v36 + 44), v33, v41);
-    outlined init with copy of B?(v34, v29, v35, v27);
-    outlined assign with take of B?(v29, (v38 + *(v36 + 48)), v35, v27);
-    outlined init with copy of Interval<A, B>(v38, v25, v41, v35, v27, v36);
-    outlined destroy of B?(v34, v35);
-    v24 = v30[1];
-    v23 = v30 + 1;
-    v24(v40, v41);
-    v24(v39, v41);
-    return outlined destroy of Interval<A, B>(v38, v41, v35, v27, v36);
+    v24 = v34[2];
+    v23 = v34 + 2;
+    v24(v37, v43, v45);
+    v26 = v34[4];
+    v25 = v34 + 4;
+    v26(v42, v37, v45);
+    v24(v37, v44, v45);
+    v26(v42 + *(v40 + 44), v37, v45);
+    outlined init with copy of B?(v38, v33, v39, v31);
+    outlined assign with take of B?(v33, (v42 + *(v40 + 48)), v39, v31);
+    outlined init with copy of Interval<A, B>(v42, v29, v45, v39, v31, v40);
+    outlined destroy of B?(v38, v39);
+    v28 = v34[1];
+    v27 = v34 + 1;
+    v28(v44, v45);
+    v28(v43, v45);
+    return outlined destroy of Interval<A, B>(v42, v45, v39, v31, v40);
   }
 
   else
   {
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v18 = swift_allocError();
-    *v15 = 48;
+    v22 = swift_allocError();
+    *v19 = 48;
     swift_willThrow();
-    outlined destroy of B?(v34, v35);
-    v17 = v30[1];
-    v16[2] = v30 + 1;
-    v17(v40, v41);
-    v17(v39, v41);
-    return outlined destroy of B?(v38 + *(v36 + 48), v35);
+    outlined destroy of B?(v38, v39);
+    v21 = v34[1];
+    v20[2] = v34 + 1;
+    v21(v44, v45);
+    v21(v43, v45);
+    return outlined destroy of B?(v42 + *(v40 + 48), v39);
   }
 }
 
 uint64_t Interval.overlaps(with:)(uint64_t a1, uint64_t a2)
 {
-  v11 = a1;
-  v14 = a2;
-  v26 = 0;
-  v24 = 0;
-  v20 = *(a2 + 16);
-  v27 = v20;
-  v16 = *(v20 - 8);
-  v17 = v20 - 8;
-  v9 = v16[8];
-  v8 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v18 = &v5 - v8;
-  v10 = v8;
-  MEMORY[0x28223BE20](&v5 - v8);
-  v19 = &v5 - v10;
-  v26 = v11;
-  v25 = *(v3 + 24);
-  v24 = v2;
-  v13 = v16[2];
-  v12 = v16 + 2;
-  v13();
-  (v13)(v18, v11, v20);
-  v15 = *(v14 + 32);
-  v23 = dispatch thunk of static Comparable.>= infix(_:_:)();
-  v22 = v16[1];
-  v21 = v16 + 1;
-  v22(v18, v20);
-  v22(v19, v20);
-  if (v23)
+  v12 = a1;
+  v15 = a2;
+  v27 = 0;
+  v25 = 0;
+  v21 = *(a2 + 16);
+  v28 = v21;
+  v17 = *(v21 - 8);
+  v18 = v21 - 8;
+  v10 = v17[8];
+  v9 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a2);
+  v19 = &v6 - v9;
+  v11 = v9;
+  MEMORY[0x28223BE20](&v6 - v9, v3);
+  v20 = &v6 - v11;
+  v27 = v12;
+  v26 = *(v4 + 24);
+  v25 = v2;
+  v14 = v17[2];
+  v13 = v17 + 2;
+  v14();
+  (v14)(v19, v12, v21);
+  v16 = *(v15 + 32);
+  v24 = dispatch thunk of static Comparable.>= infix(_:_:)();
+  v23 = v17[1];
+  v22 = v17 + 1;
+  v23(v19, v21);
+  v23(v20, v21);
+  if (v24)
   {
-    (v13)(v19, v7, v20);
-    (v13)(v18, v11 + *(v14 + 44), v20);
-    v5 = dispatch thunk of static Comparable.<= infix(_:_:)();
-    v22(v18, v20);
-    v22(v19, v20);
-    v6 = v5;
+    (v14)(v20, v8, v21);
+    (v14)(v19, v12 + *(v15 + 44), v21);
+    v6 = dispatch thunk of static Comparable.<= infix(_:_:)();
+    v23(v19, v21);
+    v23(v20, v21);
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
-uint64_t Interval.description.getter(uint64_t a1)
+uint64_t Interval.description.getter(uint64_t a1, uint64_t a2)
 {
-  v15 = a1;
-  v32 = 0;
-  v20 = *(a1 + 16);
-  v33 = v20;
-  v11 = *(v20 - 8);
-  v12 = v20 - 8;
-  v9 = (v11[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  v19 = &v8 - v9;
-  v32 = v1;
-  v31 = *(MEMORY[0x28223BE20](a1) + 24);
-  v13 = 2;
-  v2 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v26 = &v29;
-  v29 = v2;
+  v16 = a1;
+  v33 = 0;
+  v21 = *(a1 + 16);
+  v34 = v21;
+  v12 = *(v21 - 8);
+  v13 = v21 - 8;
+  v10 = (v12[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  v20 = &v9 - v10;
+  v33 = v2;
+  v32 = *(MEMORY[0x28223BE20](a1, a2) + 24);
+  v14 = 2;
+  v3 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v27 = &v30;
   v30 = v3;
-  v23 = 1;
+  v31 = v4;
   v24 = 1;
-  v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("[", 1uLL, 1);
-  object = v4._object;
-  MEMORY[0x25F889DE0](v4._countAndFlagsBits);
-
-  v18 = v11[2];
-  v17 = v11 + 2;
-  v18(v19, v16, v20);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v22 = v11[1];
-  v21 = v11 + 1;
-  v22(v19, v20);
-  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(", ", v13, v24 & 1);
-  v14 = v5._object;
+  v25 = 1;
+  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("[", 1uLL, 1);
+  object = v5._object;
   MEMORY[0x25F889DE0](v5._countAndFlagsBits);
 
-  v18(v19, v16 + *(v15 + 44), v20);
+  v19 = v12[2];
+  v18 = v12 + 2;
+  v19(v20, v17, v21);
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v22(v19, v20);
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("]", v23, v24 & 1);
-  v25 = v6._object;
+  v23 = v12[1];
+  v22 = v12 + 1;
+  v23(v20, v21);
+  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(", ", v14, v25 & 1);
+  v15 = v6._object;
   MEMORY[0x25F889DE0](v6._countAndFlagsBits);
 
-  v28 = v29;
-  v27 = v30;
+  v19(v20, v17 + *(v16 + 44), v21);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  v23(v20, v21);
+  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("]", v24, v25 & 1);
+  v26 = v7._object;
+  MEMORY[0x25F889DE0](v7._countAndFlagsBits);
+
+  v29 = v30;
+  v28 = v31;
 
   outlined destroy of DefaultStringInterpolation();
-  return MEMORY[0x25F889320](v28, v27);
+  return MEMORY[0x25F889320](v29, v28);
 }
 
 uint64_t static Interval.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = a1;
-  v15 = a2;
-  v24 = a3;
-  v11 = a4;
-  v18 = a5;
+  v11 = a1;
+  v16 = a2;
+  v25 = a3;
+  v12 = a4;
+  v19 = a5;
+  v30 = 0;
   v29 = 0;
-  v28 = 0;
-  v31 = a3;
-  v30 = a4;
-  v20 = *(a3 - 8);
-  v21 = a3 - 8;
-  v13 = v20[8];
-  v12 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v22 = &v7 - v12;
-  v14 = v12;
-  MEMORY[0x28223BE20](&v7 - v12);
-  v23 = &v7 - v14;
-  v29 = v5;
-  v28 = v15;
-  v17 = v20[2];
-  v16 = v20 + 2;
-  v17();
-  (v17)(v22, v15, v24);
-  v19 = *(v18 + 8);
-  v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v26 = v20[1];
-  v25 = v20 + 1;
-  v26(v22, v24);
-  v26(v23, v24);
-  if (v27)
+  v32 = a3;
+  v31 = a4;
+  v21 = *(a3 - 8);
+  v22 = a3 - 8;
+  v14 = v21[8];
+  v13 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a1);
+  v23 = &v8 - v13;
+  v15 = v13;
+  MEMORY[0x28223BE20](&v8 - v13, v5);
+  v24 = &v8 - v15;
+  v30 = v6;
+  v29 = v16;
+  v18 = v21[2];
+  v17 = v21 + 2;
+  v18();
+  (v18)(v23, v16, v25);
+  v20 = *(v19 + 8);
+  v28 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v27 = v21[1];
+  v26 = v21 + 1;
+  v27(v23, v25);
+  v27(v24, v25);
+  if (v28)
   {
-    v7 = type metadata accessor for Interval();
-    (v17)(v23, v10 + *(v7 + 44), v24);
-    (v17)(v22, v15 + *(v7 + 44), v24);
-    v8 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v26(v22, v24);
-    v26(v23, v24);
-    v9 = v8;
+    v8 = type metadata accessor for Interval(0, v25, v12, v19);
+    (v18)(v24, v11 + *(v8 + 44), v25);
+    (v18)(v23, v16 + *(v8 + 44), v25);
+    v9 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v27(v23, v25);
+    v27(v24, v25);
+    v10 = v9;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 BOOL static Interval.< infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = a1;
-  v16 = a2;
-  v24 = a3;
-  v12 = a4;
-  v19 = a5;
+  v12 = a1;
+  v17 = a2;
+  v25 = a3;
+  v13 = a4;
+  v20 = a5;
+  v30 = 0;
   v29 = 0;
-  v28 = 0;
-  v31 = a3;
-  v30 = a4;
-  v20 = *(a3 - 8);
-  v21 = a3 - 8;
-  v14 = v20[8];
-  v13 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v22 = &v7 - v13;
-  v15 = v13;
-  MEMORY[0x28223BE20](&v7 - v13);
-  v23 = &v7 - v15;
-  v29 = v5;
-  v28 = v16;
-  v18 = v20[2];
-  v17 = v20 + 2;
-  v18();
-  (v18)(v22, v16, v24);
-  v27 = dispatch thunk of static Comparable.< infix(_:_:)();
-  v26 = v20[1];
-  v25 = v20 + 1;
-  v26(v22, v24);
-  v26(v23, v24);
-  if (v27)
+  v32 = a3;
+  v31 = a4;
+  v21 = *(a3 - 8);
+  v22 = a3 - 8;
+  v15 = v21[8];
+  v14 = (v15 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a1);
+  v23 = &v8 - v14;
+  v16 = v14;
+  MEMORY[0x28223BE20](&v8 - v14, v5);
+  v24 = &v8 - v16;
+  v30 = v6;
+  v29 = v17;
+  v19 = v21[2];
+  v18 = v21 + 2;
+  v19();
+  (v19)(v23, v17, v25);
+  v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+  v27 = v21[1];
+  v26 = v21 + 1;
+  v27(v23, v25);
+  v27(v24, v25);
+  if (v28)
   {
     return 1;
   }
 
   else
   {
-    (v18)(v23, v11, v24);
-    (v18)(v22, v16, v24);
-    v9 = dispatch thunk of static Comparable.> infix(_:_:)();
-    v26(v22, v24);
-    v26(v23, v24);
-    if (v9)
+    (v19)(v24, v12, v25);
+    (v19)(v23, v17, v25);
+    v10 = dispatch thunk of static Comparable.> infix(_:_:)();
+    v27(v23, v25);
+    v27(v24, v25);
+    if (v10)
     {
       return 0;
     }
 
     else
     {
-      v7 = type metadata accessor for Interval();
-      (v18)(v23, v11 + *(v7 + 44), v24);
-      (v18)(v22, v16 + *(v7 + 44), v24);
-      v8 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v26(v22, v24);
-      v26(v23, v24);
-      return (v8 & 1) != 0;
+      v8 = type metadata accessor for Interval(0, v25, v13, v20);
+      (v19)(v24, v12 + *(v8 + 44), v25);
+      (v19)(v23, v17 + *(v8 + 44), v25);
+      v9 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v27(v23, v25);
+      v27(v24, v25);
+      return (v9 & 1) != 0;
     }
   }
 }
 
 BOOL static Interval.> infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = a1;
-  v16 = a2;
-  v24 = a3;
-  v12 = a4;
-  v19 = a5;
+  v12 = a1;
+  v17 = a2;
+  v25 = a3;
+  v13 = a4;
+  v20 = a5;
+  v30 = 0;
   v29 = 0;
-  v28 = 0;
-  v31 = a3;
-  v30 = a4;
-  v20 = *(a3 - 8);
-  v21 = a3 - 8;
-  v14 = v20[8];
-  v13 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v22 = &v7 - v13;
-  v15 = v13;
-  MEMORY[0x28223BE20](&v7 - v13);
-  v23 = &v7 - v15;
-  v29 = v5;
-  v28 = v16;
-  v18 = v20[2];
-  v17 = v20 + 2;
-  v18();
-  (v18)(v22, v16, v24);
-  v27 = dispatch thunk of static Comparable.> infix(_:_:)();
-  v26 = v20[1];
-  v25 = v20 + 1;
-  v26(v22, v24);
-  v26(v23, v24);
-  if (v27)
+  v32 = a3;
+  v31 = a4;
+  v21 = *(a3 - 8);
+  v22 = a3 - 8;
+  v15 = v21[8];
+  v14 = (v15 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, a1);
+  v23 = &v8 - v14;
+  v16 = v14;
+  MEMORY[0x28223BE20](&v8 - v14, v5);
+  v24 = &v8 - v16;
+  v30 = v6;
+  v29 = v17;
+  v19 = v21[2];
+  v18 = v21 + 2;
+  v19();
+  (v19)(v23, v17, v25);
+  v28 = dispatch thunk of static Comparable.> infix(_:_:)();
+  v27 = v21[1];
+  v26 = v21 + 1;
+  v27(v23, v25);
+  v27(v24, v25);
+  if (v28)
   {
     return 1;
   }
 
   else
   {
-    (v18)(v23, v11, v24);
-    (v18)(v22, v16, v24);
-    v9 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v26(v22, v24);
-    v26(v23, v24);
-    if (v9)
+    (v19)(v24, v12, v25);
+    (v19)(v23, v17, v25);
+    v10 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v27(v23, v25);
+    v27(v24, v25);
+    if (v10)
     {
       return 0;
     }
 
     else
     {
-      v7 = type metadata accessor for Interval();
-      (v18)(v23, v11 + *(v7 + 44), v24);
-      (v18)(v22, v16 + *(v7 + 44), v24);
-      v8 = dispatch thunk of static Comparable.> infix(_:_:)();
-      v26(v22, v24);
-      v26(v23, v24);
-      return (v8 & 1) != 0;
+      v8 = type metadata accessor for Interval(0, v25, v13, v20);
+      (v19)(v24, v12 + *(v8 + 44), v25);
+      (v19)(v23, v17 + *(v8 + 44), v25);
+      v9 = dispatch thunk of static Comparable.> infix(_:_:)();
+      v27(v23, v25);
+      v27(v24, v25);
+      return (v9 & 1) != 0;
     }
   }
 }
@@ -6011,33 +5977,34 @@ uint64_t AVLTreeNode.interval.getter@<X0>(uint64_t a1@<X8>)
   v4 = *v1;
   v9 = v1 + *(*v1 + 104);
   swift_beginAccess();
-  v5 = *(v4 + 80);
-  v6 = *(v4 + 88);
+  v5 = v4[10];
+  v6 = v4[11];
   v7 = type metadata accessor for Optional();
-  v2 = type metadata accessor for Interval();
+  v2 = type metadata accessor for Interval(0, v5, v6, v4[12]);
   outlined init with copy of Interval<A, B>(v9, a1, v5, v6, v7, v2);
   return swift_endAccess();
 }
 
-uint64_t AVLTreeNode.interval.setter(uint64_t a1)
+uint64_t AVLTreeNode.interval.setter(uint64_t a1, __n128 a2)
 {
-  v8 = a1;
-  v3[0] = *v1;
-  v9 = *(v3[0] + 80);
-  v10 = *(v3[0] + 88);
-  v3[1] = 0;
-  v12 = type metadata accessor for Interval();
-  v4 = (*(*(v12 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](0);
-  v5 = v3 - v4;
-  v11 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v8, v5, v9, v10, v11, v12);
-  v6 = v1 + *(*v1 + 104);
-  v7 = &v13;
+  v10 = a1;
+  v5[0] = *v2;
+  v11 = *(v5[0] + 80);
+  v12 = *(v5[0] + 88);
+  v3 = *(v5[0] + 96);
+  v5[1] = 0;
+  v14 = type metadata accessor for Interval(0, v11, v12, v3);
+  v6 = (*(*(v14 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v12);
+  v7 = v5 - v6;
+  v13 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v10, v7, v11, v12, v13, v14);
+  v8 = v2 + *(*v2 + 104);
+  v9 = &v15;
   swift_beginAccess();
-  outlined assign with take of Interval<A, B>(v5, v6, v9, v10, v11, v12);
+  outlined assign with take of Interval<A, B>(v7, v8, v11, v12, v13, v14);
   swift_endAccess();
-  return outlined destroy of Interval<A, B>(v8, v9, v10, v11, v12);
+  return outlined destroy of Interval<A, B>(v10, v11, v12, v13, v14);
 }
 
 uint64_t AVLTreeNode.maxEnd.getter@<X0>(uint64_t a1@<X8>)
@@ -6056,7 +6023,7 @@ uint64_t AVLTreeNode.maxEnd.setter(uint64_t a1)
   v8 = *(v11 - 8);
   v9 = v11 - 8;
   v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a1);
   v6 = &v3 - v4;
   (*(v8 + 16))();
   v5 = v1 + *(*v1 + 112);
@@ -6083,7 +6050,7 @@ uint64_t AVLTreeNode.minStart.setter(uint64_t a1)
   v8 = *(v11 - 8);
   v9 = v11 - 8;
   v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a1);
   v6 = &v3 - v4;
   (*(v8 + 16))();
   v5 = v1 + *(*v1 + 120);
@@ -6153,419 +6120,421 @@ uint64_t AVLTreeNode.height.setter(uint64_t a1)
 
 uint64_t AVLTreeNode.init(interval:)(uint64_t a1)
 {
-  v28 = a1;
-  v31 = 0;
-  v30 = 0;
-  v13 = *v1;
-  v24 = *(v13 + 80);
-  v33 = v24;
-  v18 = *(v24 - 8);
-  v17 = v24 - 8;
-  v12 = (v18[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v21 = &v12 - v12;
-  v25 = *(v13 + 88);
-  v32 = v25;
-  v14 = 0;
-  v27 = type metadata accessor for Interval();
-  v15 = (*(*(v27 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v14);
-  v16 = &v12 - v15;
-  v31 = v3;
-  v30 = v1;
-  *(v1 + *(*v1 + 128)) = v2;
-  *(v1 + *(*v1 + 136)) = v2;
-  v26 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v28, v16, v24, v25, v26, v27);
-  outlined init with take of Interval<A, B>(v16, v1 + *(*v1 + 104), v24, v25, v26, v27);
-  v4 = *(v27 + 44);
-  v20 = v18[2];
-  v19 = v18 + 2;
-  v20(v21, v28 + v4, v24);
-  v5 = *(*v1 + 112);
-  v23 = v18[4];
-  v22 = v18 + 4;
-  v23(v1 + v5, v21, v24);
-  v20(v21, v28, v24);
-  v23(v1 + *(*v1 + 120), v21, v24);
-  v6 = v24;
-  v7 = v25;
+  v30 = a1;
+  v33 = 0;
+  v32 = 0;
+  v15 = *v1;
+  v26 = v15[10];
+  v35 = v26;
+  v20 = *(v26 - 8);
+  v19 = v26 - 8;
+  v14 = (v20[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, v26);
+  v23 = &v14 - v14;
+  v27 = v15[11];
+  v34 = v27;
+  v2 = v15[12];
+  v16 = 0;
+  v29 = type metadata accessor for Interval(0, v3, v27, v2);
+  v17 = (*(*(v29 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x28223BE20](v16, v27);
+  v18 = &v14 - v17;
+  v33 = v5;
+  v32 = v1;
+  *(v1 + *(*v1 + 128)) = v4;
+  *(v1 + *(*v1 + 136)) = v4;
+  v28 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v30, v18, v26, v27, v28, v29);
+  outlined init with take of Interval<A, B>(v18, v1 + *(*v1 + 104), v26, v27, v28, v29);
+  v6 = *(v29 + 44);
+  v22 = v20[2];
+  v21 = v20 + 2;
+  v22(v23, v30 + v6, v26);
+  v7 = *(*v1 + 112);
+  v25 = v20[4];
+  v24 = v20 + 4;
+  v25(v1 + v7, v23, v26);
+  v22(v23, v30, v26);
+  v25(v1 + *(*v1 + 120), v23, v26);
   v8 = v26;
   v9 = v27;
   v10 = v28;
+  v11 = v29;
+  v12 = v30;
   *(v1 + *(*v1 + 144)) = 1;
-  outlined destroy of Interval<A, B>(v10, v6, v7, v8, v9);
-  return v29;
+  outlined destroy of Interval<A, B>(v12, v8, v9, v10, v11);
+  return v31;
 }
 
 Swift::Void __swiftcall AVLTreeNode.updateMaxEnd()()
 {
-  v87 = 0;
-  v86 = 0;
-  v84 = 0;
-  v44 = *v0;
-  v30 = v0;
-  v64 = v44[10];
-  v88 = v64;
-  v47 = 0;
-  v31 = type metadata accessor for Optional();
-  v33 = *(*(v31 - 8) + 64);
-  v32 = (v33 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = MEMORY[0x28223BE20](0);
-  v34 = v8 - v32;
-  v35 = v32;
-  v2 = MEMORY[0x28223BE20](v1);
-  v36 = v8 - v35;
-  v61 = *(v3 - 8);
-  v62 = v3 - 8;
-  v42 = *(v61 + 64);
-  v37 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v2);
-  v38 = v8 - v37;
-  v87 = v8 - v37;
-  v39 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v4);
-  v40 = v8 - v39;
-  v86 = v8 - v39;
-  v41 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v5);
-  v57 = v8 - v41;
-  v43 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v6);
-  v63 = v8 - v43;
-  v50 = v44[11];
-  v85 = v50;
-  v45 = v44[12];
-  v52 = type metadata accessor for Interval();
-  v46 = (*(*(v52 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v52);
-  v53 = v8 - v46;
-  v84 = v0;
-  v48 = v0 + *(*v0 + 104);
-  v49 = &v83;
-  v67 = 32;
-  v68 = 0;
+  v94 = 0;
+  v93 = 0;
+  v91 = 0;
+  v51 = *v0;
+  v37 = v0;
+  v71 = v51[10];
+  v95 = v71;
+  v54 = 0;
+  v38 = type metadata accessor for Optional();
+  v40 = *(*(v38 - 8) + 64);
+  v39 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v1 = MEMORY[0x28223BE20](0, v71);
+  v41 = v15 - v39;
+  v42 = v39;
+  v3 = MEMORY[0x28223BE20](v1, v2);
+  v43 = v15 - v42;
+  v68 = *(v4 - 8);
+  v69 = v4 - 8;
+  v49 = *(v68 + 64);
+  v44 = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v3, v4);
+  v45 = v15 - v44;
+  v94 = v15 - v44;
+  v46 = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v47 = v15 - v46;
+  v93 = v15 - v46;
+  v48 = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v64 = v15 - v48;
+  v50 = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v9, v10);
+  v70 = v15 - v50;
+  v57 = v51[11];
+  v92 = v57;
+  v52 = v51[12];
+  v59 = type metadata accessor for Interval(v11, v12, v57, v52);
+  v53 = (*(*(v59 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v59, v13);
+  v60 = v15 - v53;
+  v91 = v0;
+  v55 = v0 + *(*v0 + 104);
+  v56 = &v90;
+  v74 = 32;
+  v75 = 0;
   swift_beginAccess();
-  v51 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v48, v53, v64, v50, v51, v52);
+  v58 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v55, v60, v71, v57, v58, v59);
   swift_endAccess();
-  v7 = *(v52 + 44);
-  v55 = *(v61 + 16);
-  v54 = v61 + 16;
-  v55(v63, v53 + v7, v64);
-  outlined destroy of Interval<A, B>(v53, v64, v50, v51, v52);
-  v55(v57, v63, v64);
-  v56 = v0 + *(*v0 + 112);
-  v60 = &v82;
+  v14 = *(v59 + 44);
+  v62 = *(v68 + 16);
+  v61 = v68 + 16;
+  v62(v70, v60 + v14, v71);
+  outlined destroy of Interval<A, B>(v60, v71, v57, v58, v59);
+  v62(v64, v70, v71);
+  v63 = v0 + *(*v0 + 112);
+  v67 = &v89;
   swift_beginAccess();
-  v58 = *(v61 + 40);
-  v59 = v61 + 40;
-  v58(v56, v57, v64);
+  v65 = *(v68 + 40);
+  v66 = v68 + 40;
+  v65(v63, v64, v71);
   swift_endAccess();
-  v65 = *(v61 + 8);
-  v66 = v61 + 8;
-  v65(v63, v64);
-  v69 = (v0 + *(*v0 + 128));
-  v70 = &v80;
+  v72 = *(v68 + 8);
+  v73 = v68 + 8;
+  v72(v70, v71);
+  v76 = (v0 + *(*v0 + 128));
+  v77 = &v87;
   swift_beginAccess();
-  v71 = *v69;
+  v78 = *v76;
 
   swift_endAccess();
-  v81 = v71;
-  if (v71)
+  v88 = v78;
+  if (v78)
   {
-    v25 = &v81;
-    v28 = v81;
+    v32 = &v88;
+    v35 = v88;
 
     outlined destroy of ContiguousArray<A1>();
-    v26 = v28 + *(*v28 + 112);
-    v27 = &v72;
+    v33 = v35 + *(*v35 + 112);
+    v34 = &v79;
     swift_beginAccess();
-    v55(v36, v26, v64);
+    v62(v43, v33, v71);
     swift_endAccess();
 
-    (*(v61 + 56))(v36, 0, 1, v64);
+    (*(v68 + 56))(v43, 0, 1, v71);
   }
 
   else
   {
     outlined destroy of ContiguousArray<A1>();
-    (*(v61 + 56))(v36, 1, 1, v64);
+    (*(v68 + 56))(v43, 1, 1, v71);
   }
 
-  v23 = *(v61 + 48);
-  v24 = v61 + 48;
-  if (v23(v36, 1, v64) == 1)
+  v30 = *(v68 + 48);
+  v31 = v68 + 48;
+  if (v30(v43, 1, v71) == 1)
   {
-    outlined destroy of B?(v36, v64);
+    outlined destroy of B?(v43, v71);
   }
 
   else
   {
-    (*(v61 + 32))(v40, v36, v64);
-    v18 = v29 + *(*v29 + 112);
-    v19 = &v74;
-    v20 = 0;
+    (*(v68 + 32))(v47, v43, v71);
+    v25 = v36 + *(*v36 + 112);
+    v26 = &v81;
+    v27 = 0;
     swift_beginAccess();
-    v55(v57, v18, v64);
+    v62(v64, v25, v71);
     swift_endAccess();
     max<A>(_:_:)();
-    v65(v57, v64);
-    v55(v57, v63, v64);
-    v21 = v29 + *(*v29 + 112);
-    v22 = &v73;
+    v72(v64, v71);
+    v62(v64, v70, v71);
+    v28 = v36 + *(*v36 + 112);
+    v29 = &v80;
     swift_beginAccess();
-    v58(v21, v57, v64);
+    v65(v28, v64, v71);
     swift_endAccess();
-    v65(v63, v64);
-    v65(v40, v64);
+    v72(v70, v71);
+    v72(v47, v71);
   }
 
-  v15 = (v29 + *(*v29 + 136));
-  v16 = &v78;
+  v22 = (v36 + *(*v36 + 136));
+  v23 = &v85;
   swift_beginAccess();
-  v17 = *v15;
+  v24 = *v22;
 
   swift_endAccess();
-  v79 = v17;
-  if (v17)
+  v86 = v24;
+  if (v24)
   {
-    v11 = &v79;
-    v14 = v79;
+    v18 = &v86;
+    v21 = v86;
 
     outlined destroy of ContiguousArray<A1>();
-    v12 = v14 + *(*v14 + 112);
-    v13 = &v75;
+    v19 = v21 + *(*v21 + 112);
+    v20 = &v82;
     swift_beginAccess();
-    v55(v34, v12, v64);
+    v62(v41, v19, v71);
     swift_endAccess();
 
-    (*(v61 + 56))(v34, 0, 1, v64);
+    (*(v68 + 56))(v41, 0, 1, v71);
   }
 
   else
   {
     outlined destroy of ContiguousArray<A1>();
-    (*(v61 + 56))(v34, 1, 1, v64);
+    (*(v68 + 56))(v41, 1, 1, v71);
   }
 
-  if (v23(v34, 1, v64) == 1)
+  if (v30(v41, 1, v71) == 1)
   {
-    outlined destroy of B?(v34, v64);
+    outlined destroy of B?(v41, v71);
   }
 
   else
   {
-    (*(v61 + 32))(v38, v34, v64);
-    v8[0] = v29 + *(*v29 + 112);
-    v8[1] = &v77;
-    v8[2] = 0;
+    (*(v68 + 32))(v45, v41, v71);
+    v15[0] = v36 + *(*v36 + 112);
+    v15[1] = &v84;
+    v15[2] = 0;
     swift_beginAccess();
-    v55(v57, v8[0], v64);
+    v62(v64, v15[0], v71);
     swift_endAccess();
     max<A>(_:_:)();
-    v65(v57, v64);
-    v55(v57, v63, v64);
-    v9 = v29 + *(*v29 + 112);
-    v10 = &v76;
+    v72(v64, v71);
+    v62(v64, v70, v71);
+    v16 = v36 + *(*v36 + 112);
+    v17 = &v83;
     swift_beginAccess();
-    v58(v9, v57, v64);
+    v65(v16, v64, v71);
     swift_endAccess();
-    v65(v63, v64);
-    v65(v38, v64);
+    v72(v70, v71);
+    v72(v45, v71);
   }
 }
 
 Swift::Void __swiftcall AVLTreeNode.updateMinStart()()
 {
-  v59 = 0;
-  v57 = 0;
-  v22 = *v0;
-  v13 = v0;
-  v42 = v22[10];
-  v60 = v42;
-  v25 = 0;
-  v14 = type metadata accessor for Optional();
-  v15 = (*(*(v14 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = MEMORY[0x28223BE20](0);
-  v16 = v5 - v15;
-  v39 = *(v2 - 8);
-  v40 = v2 - 8;
-  v20 = *(v39 + 64);
-  v17 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v1);
-  v18 = v5 - v17;
-  v59 = v5 - v17;
-  v19 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v3);
-  v35 = v5 - v19;
-  v21 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v4);
-  v41 = v5 - v21;
-  v28 = v22[11];
-  v58 = v28;
-  v23 = v22[12];
-  v30 = type metadata accessor for Interval();
-  v24 = (*(*(v30 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v30);
-  v31 = v5 - v24;
-  v57 = v0;
-  v26 = v0 + *(*v0 + 104);
-  v27 = &v56;
-  v45 = 32;
-  v46 = 0;
+  v64 = 0;
+  v62 = 0;
+  v27 = *v0;
+  v18 = v0;
+  v47 = v27[10];
+  v65 = v47;
+  v30 = 0;
+  v19 = type metadata accessor for Optional();
+  v20 = (*(*(v19 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v1 = MEMORY[0x28223BE20](0, v47);
+  v21 = v10 - v20;
+  v44 = *(v2 - 8);
+  v45 = v2 - 8;
+  v25 = *(v44 + 64);
+  v22 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = MEMORY[0x28223BE20](v1, v2);
+  v23 = v10 - v22;
+  v64 = v10 - v22;
+  v24 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v3, v4);
+  v40 = v10 - v24;
+  v26 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v46 = v10 - v26;
+  v33 = v27[11];
+  v63 = v33;
+  v28 = v27[12];
+  v35 = type metadata accessor for Interval(v7, v8, v33, v28);
+  v29 = (*(*(v35 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v35, v9);
+  v36 = v10 - v29;
+  v62 = v0;
+  v31 = v0 + *(*v0 + 104);
+  v32 = &v61;
+  v50 = 32;
+  v51 = 0;
   swift_beginAccess();
-  v29 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v26, v31, v42, v28, v29, v30);
+  v34 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v31, v36, v47, v33, v34, v35);
   swift_endAccess();
-  v33 = *(v39 + 16);
-  v32 = v39 + 16;
-  v33(v41, v31, v42);
-  outlined destroy of Interval<A, B>(v31, v42, v28, v29, v30);
-  v33(v35, v41, v42);
-  v34 = v0 + *(*v0 + 120);
-  v38 = &v55;
+  v38 = *(v44 + 16);
+  v37 = v44 + 16;
+  v38(v46, v36, v47);
+  outlined destroy of Interval<A, B>(v36, v47, v33, v34, v35);
+  v38(v40, v46, v47);
+  v39 = v0 + *(*v0 + 120);
+  v43 = &v60;
   swift_beginAccess();
-  v36 = *(v39 + 40);
-  v37 = v39 + 40;
-  v36(v34, v35, v42);
+  v41 = *(v44 + 40);
+  v42 = v44 + 40;
+  v41(v39, v40, v47);
   swift_endAccess();
-  v43 = *(v39 + 8);
-  v44 = v39 + 8;
-  v43(v41, v42);
-  v47 = (v0 + *(*v0 + 128));
-  v48 = &v53;
+  v48 = *(v44 + 8);
+  v49 = v44 + 8;
+  v48(v46, v47);
+  v52 = (v0 + *(*v0 + 128));
+  v53 = &v58;
   swift_beginAccess();
-  v49 = *v47;
+  v54 = *v52;
 
   swift_endAccess();
-  v54 = v49;
-  if (v49)
+  v59 = v54;
+  if (v54)
   {
-    v8 = &v54;
-    v11 = v54;
+    v13 = &v59;
+    v16 = v59;
 
     outlined destroy of ContiguousArray<A1>();
-    v9 = v11 + *(*v11 + 120);
-    v10 = &v50;
+    v14 = v16 + *(*v16 + 120);
+    v15 = &v55;
     swift_beginAccess();
-    v33(v16, v9, v42);
+    v38(v21, v14, v47);
     swift_endAccess();
 
-    (*(v39 + 56))(v16, 0, 1, v42);
+    (*(v44 + 56))(v21, 0, 1, v47);
   }
 
   else
   {
     outlined destroy of ContiguousArray<A1>();
-    (*(v39 + 56))(v16, 1, 1, v42);
+    (*(v44 + 56))(v21, 1, 1, v47);
   }
 
-  if ((*(v39 + 48))(v16, 1, v42) == 1)
+  if ((*(v44 + 48))(v21, 1, v47) == 1)
   {
-    outlined destroy of B?(v16, v42);
+    outlined destroy of B?(v21, v47);
   }
 
   else
   {
-    (*(v39 + 32))(v18, v16, v42);
-    v5[0] = v12 + *(*v12 + 120);
-    v5[1] = &v52;
-    v5[2] = 0;
+    (*(v44 + 32))(v23, v21, v47);
+    v10[0] = v17 + *(*v17 + 120);
+    v10[1] = &v57;
+    v10[2] = 0;
     swift_beginAccess();
-    v33(v35, v5[0], v42);
+    v38(v40, v10[0], v47);
     swift_endAccess();
     min<A>(_:_:)();
-    v43(v35, v42);
-    v33(v35, v41, v42);
-    v6 = v12 + *(*v12 + 120);
-    v7 = &v51;
+    v48(v40, v47);
+    v38(v40, v46, v47);
+    v11 = v17 + *(*v17 + 120);
+    v12 = &v56;
     swift_beginAccess();
-    v36(v6, v35, v42);
+    v41(v11, v40, v47);
     swift_endAccess();
-    v43(v41, v42);
-    v43(v18, v42);
+    v48(v46, v47);
+    v48(v23, v47);
   }
 }
 
 uint64_t AVLTreeNode.description.getter(uint64_t a1)
 {
-  v50 = 0;
-  v10 = *v1;
-  v28 = *(v10 + 80);
-  v52 = v28;
-  v16 = *(v28 - 8);
-  v17 = v28 - 8;
-  v9 = (v16[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v27 = &v9 - v9;
-  v23 = *(v10 + 88);
-  v51 = v23;
-  v13 = 0;
-  v25 = type metadata accessor for Interval();
-  v11 = (*(*(v25 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v25);
-  v26 = &v9 - v11;
-  v50 = v1;
-  v2 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v41 = &v48;
-  v48 = v2;
-  v49 = v3;
-  v38 = 1;
-  v39 = 1;
-  v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("[", 1uLL, 1);
-  object = v4._object;
-  MEMORY[0x25F889DE0](v4._countAndFlagsBits);
-
-  v14 = v32 + *(*v32 + 104);
-  v15 = &v47;
-  v33 = 32;
-  v34 = 0;
-  swift_beginAccess();
-  v24 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v14, v26, v28, v23, v24, v25);
-  swift_endAccess();
-  v22 = v16[2];
-  v21 = v16 + 2;
-  v22(v27, v26, v28);
-  outlined destroy of Interval<A, B>(v26, v28, v23, v24, v25);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v30 = v16[1];
-  v29 = v16 + 1;
-  v30(v27, v28);
-  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(",", v38, v39 & 1);
-  v18 = v5._object;
-  MEMORY[0x25F889DE0](v5._countAndFlagsBits);
-
-  v19 = v32 + *(*v32 + 104);
-  v20 = &v46;
-  swift_beginAccess();
-  outlined init with copy of Interval<A, B>(v19, v26, v28, v23, v24, v25);
-  swift_endAccess();
-  v22(v27, v26 + *(v25 + 44), v28);
-  outlined destroy of Interval<A, B>(v26, v28, v23, v24, v25);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v30(v27, v28);
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("](", 2uLL, v39 & 1);
-  v31 = v6._object;
-  MEMORY[0x25F889DE0](v6._countAndFlagsBits);
-
-  v35 = (v32 + *(*v32 + 144));
-  v36 = &v45;
-  swift_beginAccess();
-  v37 = *v35;
-  swift_endAccess();
-  v44 = v37;
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(")", v38, v39 & 1);
-  v40 = v7._object;
+  v53 = 0;
+  v13 = *v1;
+  v31 = v13[10];
+  v55 = v31;
+  v19 = *(v31 - 8);
+  v20 = v31 - 8;
+  v12 = (v19[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, v31);
+  v30 = &v12 - v12;
+  v26 = v13[11];
+  v54 = v26;
+  v2 = v13[12];
+  v16 = 0;
+  v28 = type metadata accessor for Interval(0, v3, v26, v2);
+  v14 = (*(*(v28 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v28, v4);
+  v29 = &v12 - v14;
+  v53 = v1;
+  v5 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v44 = &v51;
+  v51 = v5;
+  v52 = v6;
+  v41 = 1;
+  v42 = 1;
+  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("[", 1uLL, 1);
+  object = v7._object;
   MEMORY[0x25F889DE0](v7._countAndFlagsBits);
 
-  v43 = v48;
-  v42 = v49;
+  v17 = v35 + *(*v35 + 104);
+  v18 = &v50;
+  v36 = 32;
+  v37 = 0;
+  swift_beginAccess();
+  v27 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v17, v29, v31, v26, v27, v28);
+  swift_endAccess();
+  v25 = v19[2];
+  v24 = v19 + 2;
+  v25(v30, v29, v31);
+  outlined destroy of Interval<A, B>(v29, v31, v26, v27, v28);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  v33 = v19[1];
+  v32 = v19 + 1;
+  v33(v30, v31);
+  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(",", v41, v42 & 1);
+  v21 = v8._object;
+  MEMORY[0x25F889DE0](v8._countAndFlagsBits);
+
+  v22 = v35 + *(*v35 + 104);
+  v23 = &v49;
+  swift_beginAccess();
+  outlined init with copy of Interval<A, B>(v22, v29, v31, v26, v27, v28);
+  swift_endAccess();
+  v25(v30, v29 + *(v28 + 44), v31);
+  outlined destroy of Interval<A, B>(v29, v31, v26, v27, v28);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  v33(v30, v31);
+  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("](", 2uLL, v42 & 1);
+  v34 = v9._object;
+  MEMORY[0x25F889DE0](v9._countAndFlagsBits);
+
+  v38 = (v35 + *(*v35 + 144));
+  v39 = &v48;
+  swift_beginAccess();
+  v40 = *v38;
+  swift_endAccess();
+  v47 = v40;
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(")", v41, v42 & 1);
+  v43 = v10._object;
+  MEMORY[0x25F889DE0](v10._countAndFlagsBits);
+
+  v46 = v51;
+  v45 = v52;
 
   outlined destroy of DefaultStringInterpolation();
-  return MEMORY[0x25F889320](v43, v42);
+  return MEMORY[0x25F889320](v46, v45);
 }
 
 BOOL AVLTreeNode.isLeaf.getter()
@@ -6598,18 +6567,19 @@ BOOL AVLTreeNode.isLeaf.getter()
 
 uint64_t AVLTreeNode.deinit()
 {
-  v6 = *(*v0 + 80);
-  v4 = *(*v0 + 88);
-  v3 = *(*v0 + 104);
-  v5 = type metadata accessor for Optional();
-  v1 = type metadata accessor for Interval();
-  outlined destroy of Interval<A, B>(v0 + v3, v6, v4, v5, v1);
-  v7 = *(*(v6 - 8) + 8);
-  v7(v0 + *(*v0 + 112));
-  (v7)(v0 + *(*v0 + 120), v6);
+  v3 = *v0;
+  v7 = *(*v0 + 80);
+  v5 = *(*v0 + 88);
+  v4 = *(*v0 + 104);
+  v6 = type metadata accessor for Optional();
+  v1 = type metadata accessor for Interval(0, v7, v5, *(v3 + 96));
+  outlined destroy of Interval<A, B>(&v0[v4], v7, v5, v6, v1);
+  v8 = *(*(v7 - 8) + 8);
+  v8(&v0[*(*v0 + 112)]);
+  (v8)(&v0[*(*v0 + 120)], v7);
   outlined destroy of ContiguousArray<A1>();
   outlined destroy of ContiguousArray<A1>();
-  return v8;
+  return v9;
 }
 
 uint64_t AugmentedIntervalTree.root.getter()
@@ -6820,570 +6790,559 @@ uint64_t AugmentedIntervalTree.height.getter()
 
 uint64_t AugmentedIntervalTree.insert(start:end:context:)(uint64_t a1, uint64_t a2, const void *a3)
 {
-  v30 = a1;
-  v37 = a2;
-  v41 = a3;
-  v35 = v3;
-  v59 = 0;
-  v58 = 0;
-  v57 = 0;
-  v56 = 0;
-  v55 = 0;
-  v54 = 0;
-  v28 = *v3;
-  v22 = v3;
-  v46 = v28[11];
-  v61 = v46;
-  v23 = 0;
-  v40 = type metadata accessor for Optional();
-  v24 = (*(*(v40 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](0);
-  v44 = &v15 - v24;
-  v45 = v28[10];
-  v60 = v45;
-  v36 = *(v45 - 8);
-  v29 = v45 - 8;
-  v26 = *(v36 + 64);
-  v25 = (v26 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v4);
-  v43 = &v15 - v25;
-  v27 = (v26 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v5);
-  v49 = &v15 - v27;
-  v47 = v28[12];
-  v31 = type metadata accessor for Interval();
-  v33 = *(*(v31 - 8) + 64);
-  v32 = (v33 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v49);
-  v34 = &v15 - v32;
-  v7 = MEMORY[0x28223BE20](v6);
-  v42 = &v15 - v8;
-  v59 = &v15 - v8;
-  v58 = v9;
-  v57 = v37;
-  v56 = v41;
-  v55 = v35;
-  v39 = *(v36 + 16);
-  v38 = v36 + 16;
-  v39(v7);
-  (v39)(v43, v37, v45);
-  outlined init with copy of B?(v41, v44, v46, v40);
-  v10 = v48;
-  result = Interval.init(start:end:context:)(v49, v43, v44, v45, v46, v47, v42);
-  v50 = v10;
-  v51 = v10;
-  if (!v10)
+  v36 = a1;
+  v43 = a2;
+  v47 = a3;
+  v41 = v3;
+  v65 = 0;
+  v64 = 0;
+  v63 = 0;
+  v62 = 0;
+  v61 = 0;
+  v60 = 0;
+  v34 = *v3;
+  v28 = v3;
+  v52 = v34[11];
+  v67 = v52;
+  v29 = 0;
+  v46 = type metadata accessor for Optional();
+  v30 = (*(*(v46 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](0, v4);
+  v50 = &v21 - v30;
+  v51 = v34[10];
+  v66 = v51;
+  v42 = *(v51 - 8);
+  v35 = v51 - 8;
+  v32 = *(v42 + 64);
+  v31 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v5, v51);
+  v49 = &v21 - v31;
+  v33 = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x28223BE20](v6, v7);
+  v55 = &v21 - v33;
+  v53 = v34[12];
+  v37 = type metadata accessor for Interval(v8, v9, v10, v53);
+  v39 = *(*(v37 - 8) + 64);
+  v38 = (v39 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v55, v36);
+  v40 = &v21 - v38;
+  v13 = MEMORY[0x28223BE20](v11, v12);
+  v48 = &v21 - v14;
+  v65 = &v21 - v14;
+  v64 = v15;
+  v63 = v43;
+  v62 = v47;
+  v61 = v41;
+  v45 = *(v42 + 16);
+  v44 = v42 + 16;
+  v45(v13);
+  (v45)(v49, v43, v51);
+  outlined init with copy of B?(v47, v50, v52, v46);
+  v16 = v54;
+  result = Interval.init(start:end:context:)(v55, v49, v50, v51, v52, v53, v48);
+  v56 = v16;
+  v57 = v16;
+  if (!v16)
   {
-    type metadata accessor for AVLTreeNode();
-    outlined init with copy of Interval<A, B>(v42, v34, v45, v46, v40, v31);
-    v20 = AVLTreeNode.__allocating_init(interval:)(v34);
-    v54 = v20;
+    type metadata accessor for AVLTreeNode(0, v51, v52, v53);
+    outlined init with copy of Interval<A, B>(v48, v40, v51, v52, v46, v37);
+    v26 = AVLTreeNode.__allocating_init(interval:)(v40);
+    v60 = v26;
     result = swift_beginAccess();
-    v12 = v35[3];
-    v21 = v12 + 1;
-    if (__OFADD__(v12, 1))
+    v18 = v41[3];
+    v27 = v18 + 1;
+    if (__OFADD__(v18, 1))
     {
       __break(1u);
     }
 
     else
     {
-      v14 = v35;
-      v35[3] = v21;
+      v20 = v41;
+      v41[3] = v27;
       swift_endAccess();
-      v15 = &v53;
-      v17 = 0;
+      v21 = &v59;
+      v23 = 0;
       swift_beginAccess();
-      v16 = v14[2];
+      v22 = v20[2];
 
       swift_endAccess();
-      v19 = AugmentedIntervalTree.insertNode(_:_:)(v16, v20);
+      v25 = AugmentedIntervalTree.insertNode(_:_:)(v22, v26);
 
-      v18 = &v52;
+      v24 = &v58;
       swift_beginAccess();
-      v35[2] = v19;
+      v41[2] = v25;
 
       swift_endAccess();
 
-      return outlined destroy of Interval<A, B>(v42, v45, v46, v40, v31);
+      return outlined destroy of Interval<A, B>(v48, v51, v52, v46, v37);
     }
   }
 
   return result;
 }
 
-uint64_t *AugmentedIntervalTree.delete(interval:)(uint64_t a1)
+void AugmentedIntervalTree.delete(interval:)(uint64_t a1)
 {
-  v16 = 0;
-  v13 = 0;
-  v6 = *v1;
-  v16 = a1;
-  v15 = *(v6 + 80);
-  v14 = *(v6 + 88);
-  v13 = v1;
   swift_beginAccess();
-  v9 = v1[2];
+  v7 = *(v1 + 16);
 
   swift_endAccess();
-  v10 = AugmentedIntervalTree.deleteInterval(_:_:)(v9, a1);
+  v8 = AugmentedIntervalTree.deleteInterval(_:_:)(v7, a1);
 
   swift_beginAccess();
-  *(v8 + 16) = v10;
+  *(v6 + 16) = v8;
 
   swift_endAccess();
 
   swift_beginAccess();
-  v11 = *(v8 + 16);
+  v9 = *(v6 + 16);
 
   swift_endAccess();
-  v12 = v11;
-  result = &v12;
   outlined destroy of ContiguousArray<A1>();
-  if (v11)
+  if (v9)
   {
-    result = swift_beginAccess();
-    v3 = *(v8 + 24);
-    v5 = v3 - 1;
-    if (__OFSUB__(v3, 1))
+    swift_beginAccess();
+    v2 = *(v6 + 24);
+    v4 = v2 - 1;
+    if (__OFSUB__(v2, 1))
     {
       __break(1u);
     }
 
     else
     {
-      *(v8 + 24) = v5;
-      return swift_endAccess();
+      *(v6 + 24) = v4;
+      swift_endAccess();
     }
   }
-
-  return result;
 }
 
 uint64_t AugmentedIntervalTree.overlap(start:end:)(uint64_t a1, uint64_t a2)
 {
-  v76 = a1;
-  v77 = a2;
-  v67 = v2;
-  v56 = MEMORY[0x277D83988];
-  v57 = MEMORY[0x277D83990];
-  v111 = 0;
+  v87 = a1;
+  v88 = a2;
+  v78 = v2;
+  v67 = MEMORY[0x277D83988];
+  v68 = MEMORY[0x277D83990];
+  v122 = 0;
+  v121 = 0;
+  v120 = 0;
+  v119 = 0;
+  v118 = 0;
+  v114 = 0;
   v110 = 0;
-  v109 = 0;
-  v108 = 0;
-  v107 = 0;
-  v103 = 0;
-  v99 = 0;
-  v95 = 0;
-  v91 = 0;
-  v66 = *v2;
-  v58 = v2;
-  v85 = v66[11];
-  v113 = v85;
-  v68 = 0;
-  v59 = type metadata accessor for Optional();
-  v60 = (*(*(v59 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](0);
-  v83 = &v13 - v60;
-  v84 = v66[10];
-  v112 = v84;
-  v74 = *(v84 - 8);
-  v75 = v84 - 8;
-  v64 = v74[8];
-  v61 = (v64 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v3);
-  v62 = &v13 - v61;
-  v63 = (v64 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v4);
-  v82 = &v13 - v63;
-  v65 = (v64 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v5);
-  v81 = &v13 - v65;
-  v86 = v66[12];
-  v69 = type metadata accessor for Interval();
-  v71 = *(*(v69 - 8) + 64);
-  v70 = (v71 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v68);
-  v72 = &v13 - v70;
-  MEMORY[0x28223BE20](v6);
-  v80 = &v13 - v7;
-  v111 = &v13 - v7;
-  v110 = v76;
-  v109 = v77;
-  v108 = v8;
-  v73 = type metadata accessor for AVLTreeNode();
-  v107 = Array.init()();
-  v79 = v74[2];
-  v78 = v74 + 2;
-  v79(v81, v76, v84);
-  v79(v82, v77, v84);
-  (*(*(v85 - 8) + 56))(v83, 1);
-  v9 = v87;
-  Interval.init(start:end:context:)(v81, v82, v83, v84, v85, v86, v80);
-  v88 = v9;
-  v89 = v9;
-  if (v9)
+  v106 = 0;
+  v102 = 0;
+  v77 = *v2;
+  v69 = v2;
+  v96 = v77[11];
+  v124 = v96;
+  v79 = 0;
+  v70 = type metadata accessor for Optional();
+  v71 = (*(*(v70 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x28223BE20](0, v3);
+  v94 = &v24 - v71;
+  v95 = v77[10];
+  v123 = v95;
+  v85 = *(v95 - 8);
+  v86 = v95 - 8;
+  v75 = v85[8];
+  v72 = (v75 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v4, v95);
+  v73 = &v24 - v72;
+  v74 = (v75 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v93 = &v24 - v74;
+  v76 = (v75 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v92 = &v24 - v76;
+  v97 = v77[12];
+  v80 = type metadata accessor for Interval(v9, v10, v11, v97);
+  v82 = *(*(v80 - 8) + 64);
+  v81 = (v82 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = MEMORY[0x28223BE20](v79, v95);
+  v83 = &v24 - v81;
+  v14 = MEMORY[0x28223BE20](v12, v13);
+  v91 = &v24 - v15;
+  v122 = &v24 - v15;
+  v121 = v87;
+  v120 = v88;
+  v119 = v16;
+  v84 = type metadata accessor for AVLTreeNode(v14, v17, v18, v19);
+  v118 = Array.init()();
+  v90 = v85[2];
+  v89 = v85 + 2;
+  v90(v92, v87, v95);
+  v90(v93, v88, v95);
+  (*(*(v96 - 8) + 56))(v94, 1);
+  v20 = v98;
+  Interval.init(start:end:context:)(v92, v93, v94, v95, v96, v97, v91);
+  v99 = v20;
+  v100 = v20;
+  if (v20)
   {
-    v13 = v89;
+    v24 = v100;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v12 & 1;
+    return v23 & 1;
   }
 
   else
   {
-    v54 = &v106;
+    v65 = &v117;
     swift_beginAccess();
-    v55 = v67[2];
+    v66 = v78[2];
 
     swift_endAccess();
-    if (v55)
+    if (v66)
     {
-      v53 = v55;
-      v52 = v55;
-      v91 = v55;
+      v64 = v66;
+      v63 = v66;
+      v102 = v66;
 
-      v51 = &v90;
-      v90 = v52;
+      v62 = &v101;
+      v101 = v63;
       type metadata accessor for Array();
       Array.append(_:)();
     }
 
-    for (i = v88; ; i = v46)
+    for (i = v99; ; i = v57)
     {
-      v46 = i;
-      v48 = v107;
+      v57 = i;
+      v59 = v118;
 
-      v105 = v48;
-      v47 = type metadata accessor for Array();
+      v116 = v59;
+      v58 = type metadata accessor for Array();
       swift_getWitnessTable();
-      v49 = Collection.isEmpty.getter();
+      v60 = Collection.isEmpty.getter();
 
-      if (v49)
+      if (v60)
       {
         break;
       }
 
       swift_getWitnessTable();
       RangeReplaceableCollection.removeFirst()();
-      v10 = v72;
-      v43 = v104;
-      v103 = v104;
-      v41 = v104 + *(*v104 + 104);
-      v42 = &v102;
+      v21 = v83;
+      v54 = v115;
+      v114 = v115;
+      v52 = v115 + *(*v115 + 104);
+      v53 = &v113;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v41, v10, v84, v85, v59, v69);
+      outlined init with copy of Interval<A, B>(v52, v21, v95, v96, v70, v80);
       swift_endAccess();
-      v44 = Interval.overlaps(with:)(v80, v69);
-      outlined destroy of Interval<A, B>(v72, v84, v85, v59, v69);
-      v45 = v43;
-      if (v44)
+      v55 = Interval.overlaps(with:)(v91, v80);
+      outlined destroy of Interval<A, B>(v83, v95, v96, v70, v80);
+      v56 = v54;
+      if (v55)
       {
 
-        outlined destroy of Interval<A, B>(v80, v84, v85, v59, v69);
+        outlined destroy of Interval<A, B>(v91, v95, v96, v70, v80);
         outlined destroy of [(start: UInt32, end: UInt32)]();
-        v40 = 1;
-        return v40 & 1;
+        v51 = 1;
+        return v51 & 1;
       }
 
-      v37 = (v43 + *(*v43 + 128));
-      v38 = &v101;
+      v48 = (v54 + *(*v54 + 128));
+      v49 = &v112;
       swift_beginAccess();
-      v39 = *v37;
+      v50 = *v48;
 
       swift_endAccess();
-      if (v39)
+      if (v50)
       {
-        v36 = v39;
-        v30 = v39;
-        v95 = v39;
-        v31 = v36 + *(*v36 + 112);
-        v32 = &v94;
+        v47 = v50;
+        v41 = v50;
+        v106 = v50;
+        v42 = v47 + *(*v47 + 112);
+        v43 = &v105;
         swift_beginAccess();
-        v79(v62, v31, v84);
+        v90(v73, v42, v95);
         swift_endAccess();
-        v35 = dispatch thunk of static Comparable.>= infix(_:_:)();
-        v33 = v74[1];
-        v34 = v74 + 1;
-        v33(v62, v84);
-        if (v35)
+        v46 = dispatch thunk of static Comparable.>= infix(_:_:)();
+        v44 = v85[1];
+        v45 = v85 + 1;
+        v44(v73, v95);
+        if (v46)
         {
-          v27 = v30 + *(*v30 + 120);
-          v28 = &v93;
+          v38 = v41 + *(*v41 + 120);
+          v39 = &v104;
           swift_beginAccess();
-          v79(v62, v27, v84);
+          v90(v73, v38, v95);
           swift_endAccess();
-          v29 = dispatch thunk of static Comparable.<= infix(_:_:)();
-          v33(v62, v84);
-          if (v29)
+          v40 = dispatch thunk of static Comparable.<= infix(_:_:)();
+          v44(v73, v95);
+          if (v40)
           {
 
-            v92 = v30;
+            v103 = v41;
             Array.append(_:)();
           }
         }
       }
 
-      v24 = (v43 + *(*v43 + 136));
-      v25 = &v100;
+      v35 = (v54 + *(*v54 + 136));
+      v36 = &v111;
       swift_beginAccess();
-      v26 = *v24;
+      v37 = *v35;
 
       swift_endAccess();
-      if (v26)
+      if (v37)
       {
-        v23 = v26;
-        v17 = v26;
-        v99 = v26;
-        v18 = v23 + *(*v23 + 112);
-        v19 = &v98;
+        v34 = v37;
+        v28 = v37;
+        v110 = v37;
+        v29 = v34 + *(*v34 + 112);
+        v30 = &v109;
         swift_beginAccess();
-        v79(v62, v18, v84);
+        v90(v73, v29, v95);
         swift_endAccess();
-        v22 = dispatch thunk of static Comparable.>= infix(_:_:)();
-        v20 = v74[1];
-        v21 = v74 + 1;
-        v20(v62, v84);
-        if (v22)
+        v33 = dispatch thunk of static Comparable.>= infix(_:_:)();
+        v31 = v85[1];
+        v32 = v85 + 1;
+        v31(v73, v95);
+        if (v33)
         {
-          v14 = v17 + *(*v17 + 120);
-          v15 = &v97;
+          v25 = v28 + *(*v28 + 120);
+          v26 = &v108;
           swift_beginAccess();
-          v79(v62, v14, v84);
+          v90(v73, v25, v95);
           swift_endAccess();
-          v16 = dispatch thunk of static Comparable.<= infix(_:_:)();
-          v20(v62, v84);
-          if (v16)
+          v27 = dispatch thunk of static Comparable.<= infix(_:_:)();
+          v31(v73, v95);
+          if (v27)
           {
 
-            v96 = v17;
+            v107 = v28;
             Array.append(_:)();
           }
         }
       }
     }
 
-    outlined destroy of Interval<A, B>(v80, v84, v85, v59, v69);
+    outlined destroy of Interval<A, B>(v91, v95, v96, v70, v80);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v40 = 0;
-    return v40 & 1;
+    v51 = 0;
+    return v51 & 1;
   }
 }
 
 uint64_t AugmentedIntervalTree.search(start:end:)(uint64_t a1, uint64_t a2)
 {
-  v77 = a1;
-  v78 = a2;
-  v69 = v2;
-  v58 = MEMORY[0x277D83988];
-  v59 = MEMORY[0x277D83990];
-  v113 = 0;
-  v112 = 0;
+  v84 = a1;
+  v85 = a2;
+  v76 = v2;
+  v65 = MEMORY[0x277D83988];
+  v66 = MEMORY[0x277D83990];
+  v120 = 0;
+  v119 = 0;
+  v118 = 0;
+  v117 = 0;
+  v116 = 0;
+  v115 = 0;
   v111 = 0;
-  v110 = 0;
-  v109 = 0;
-  v108 = 0;
-  v104 = 0;
-  v100 = 0;
-  v96 = 0;
-  v92 = 0;
-  v68 = *v2;
-  v60 = v2;
-  v86 = v68[11];
-  v115 = v86;
-  v70 = 0;
-  v61 = type metadata accessor for Optional();
-  v62 = (*(*(v61 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](0);
-  v84 = v12 - v62;
-  v85 = v68[10];
-  v114 = v85;
-  v75 = *(v85 - 8);
-  v76 = v85 - 8;
-  v66 = v75[8];
-  v63 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v3);
-  v64 = v12 - v63;
-  v65 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v4);
-  v83 = v12 - v65;
-  v67 = (v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v5);
-  v82 = v12 - v67;
-  v87 = v68[12];
-  v71 = type metadata accessor for Interval();
-  v73 = *(*(v71 - 8) + 64);
+  v107 = 0;
+  v103 = 0;
+  v99 = 0;
+  v75 = *v2;
+  v67 = v2;
+  v93 = v75[11];
+  v122 = v93;
+  v77 = 0;
+  v68 = type metadata accessor for Optional();
+  v69 = (*(*(v68 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x28223BE20](0, v3);
+  v91 = v19 - v69;
+  v92 = v75[10];
+  v121 = v92;
+  v82 = *(v92 - 8);
+  v83 = v92 - 8;
+  v73 = v82[8];
+  v70 = (v73 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v4, v92);
+  v71 = v19 - v70;
   v72 = (v73 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v70);
-  v74 = v12 - v72;
-  MEMORY[0x28223BE20](v6);
-  v81 = v12 - v7;
-  v113 = v12 - v7;
-  v112 = v77;
-  v111 = v78;
-  v110 = v8;
-  v109 = _allocateUninitializedArray<A>(_:)();
-  v80 = v75[2];
-  v79 = v75 + 2;
-  v80(v82, v77, v85);
-  v80(v83, v78, v85);
-  (*(*(v86 - 8) + 56))(v84, 1);
-  v9 = v88;
-  Interval.init(start:end:context:)(v82, v83, v84, v85, v86, v87, v81);
-  v89 = v9;
-  v90 = v9;
-  if (v9)
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v90 = v19 - v72;
+  v74 = (v73 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v7, v8);
+  v89 = v19 - v74;
+  v94 = v75[12];
+  v78 = type metadata accessor for Interval(v9, v10, v11, v94);
+  v80 = *(*(v78 - 8) + 64);
+  v79 = (v80 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = MEMORY[0x28223BE20](v77, v78);
+  v81 = v19 - v79;
+  MEMORY[0x28223BE20](v12, v13);
+  v88 = v19 - v14;
+  v120 = v19 - v14;
+  v119 = v84;
+  v118 = v85;
+  v117 = v15;
+  v116 = _allocateUninitializedArray<A>(_:)();
+  v87 = v82[2];
+  v86 = v82 + 2;
+  v87(v89, v84, v92);
+  v87(v90, v85, v92);
+  (*(*(v93 - 8) + 56))(v91, 1);
+  v16 = v95;
+  Interval.init(start:end:context:)(v89, v90, v91, v92, v93, v94, v88);
+  v96 = v16;
+  v97 = v16;
+  if (v16)
   {
-    v12[0] = v90;
+    v19[0] = v97;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v47;
+    return v54;
   }
 
   else
   {
-    v55 = type metadata accessor for AVLTreeNode();
-    v108 = Array.init()();
-    v56 = &v107;
+    v62 = type metadata accessor for AVLTreeNode(0, v92, v93, v94);
+    v115 = Array.init()();
+    v63 = &v114;
     swift_beginAccess();
-    v57 = v69[2];
+    v64 = v76[2];
 
     swift_endAccess();
-    if (v57)
+    if (v64)
     {
-      v54 = v57;
-      v53 = v57;
-      v92 = v57;
+      v61 = v64;
+      v60 = v64;
+      v99 = v64;
 
-      v52 = &v91;
-      v91 = v53;
+      v59 = &v98;
+      v98 = v60;
       type metadata accessor for Array();
       Array.append(_:)();
     }
 
-    for (i = v89; ; i = v46)
+    for (i = v96; ; i = v53)
     {
-      v46 = i;
-      v49 = v108;
+      v53 = i;
+      v56 = v115;
 
-      v106 = v49;
-      v48 = type metadata accessor for Array();
+      v113 = v56;
+      v55 = type metadata accessor for Array();
       swift_getWitnessTable();
-      v50 = Collection.isEmpty.getter();
+      v57 = Collection.isEmpty.getter();
 
-      if (v50)
+      if (v57)
       {
         break;
       }
 
       swift_getWitnessTable();
       RangeReplaceableCollection.removeFirst()();
-      v10 = v74;
-      v42 = v105;
-      v104 = v105;
-      v43 = v105 + *(*v105 + 104);
-      v44 = &v103;
+      v17 = v81;
+      v49 = v112;
+      v111 = v112;
+      v50 = v112 + *(*v112 + 104);
+      v51 = &v110;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v43, v10, v85, v86, v61, v71);
+      outlined init with copy of Interval<A, B>(v50, v17, v92, v93, v68, v78);
       swift_endAccess();
-      v45 = Interval.overlaps(with:)(v81, v71);
-      outlined destroy of Interval<A, B>(v74, v85, v86, v61, v71);
-      if (v45)
+      v52 = Interval.overlaps(with:)(v88, v78);
+      outlined destroy of Interval<A, B>(v81, v92, v93, v68, v78);
+      if (v52)
       {
-        v40 = v42 + *(*v42 + 104);
-        v41 = v93;
+        v47 = v49 + *(*v49 + 104);
+        v48 = v100;
         swift_beginAccess();
-        outlined init with copy of Interval<A, B>(v40, v74, v85, v86, v61, v71);
+        outlined init with copy of Interval<A, B>(v47, v81, v92, v93, v68, v78);
         swift_endAccess();
         type metadata accessor for Array();
         Array.append(_:)();
       }
 
-      v37 = (v42 + *(*v42 + 128));
-      v38 = &v102;
+      v44 = (v49 + *(*v49 + 128));
+      v45 = &v109;
       swift_beginAccess();
-      v39 = *v37;
+      v46 = *v44;
 
       swift_endAccess();
-      if (v39)
+      if (v46)
       {
-        v36 = v39;
-        v30 = v39;
-        v96 = v39;
-        v31 = v36 + *(*v36 + 112);
-        v32 = &v95;
+        v43 = v46;
+        v37 = v46;
+        v103 = v46;
+        v38 = v43 + *(*v43 + 112);
+        v39 = &v102;
         swift_beginAccess();
-        v80(v64, v31, v85);
+        v87(v71, v38, v92);
         swift_endAccess();
-        v35 = dispatch thunk of static Comparable.>= infix(_:_:)();
-        v33 = v75[1];
-        v34 = v75 + 1;
-        v33(v64, v85);
-        if (v35)
+        v42 = dispatch thunk of static Comparable.>= infix(_:_:)();
+        v40 = v82[1];
+        v41 = v82 + 1;
+        v40(v71, v92);
+        if (v42)
         {
-          v27 = v30 + *(*v30 + 120);
-          v28 = &v94;
+          v34 = v37 + *(*v37 + 120);
+          v35 = &v101;
           swift_beginAccess();
-          v80(v64, v27, v85);
+          v87(v71, v34, v92);
           swift_endAccess();
-          v29 = dispatch thunk of static Comparable.<= infix(_:_:)();
-          v33(v64, v85);
-          if (v29)
+          v36 = dispatch thunk of static Comparable.<= infix(_:_:)();
+          v40(v71, v92);
+          if (v36)
           {
 
-            v93[3] = v30;
+            v100[3] = v37;
             Array.append(_:)();
           }
         }
       }
 
-      v24 = (v42 + *(*v42 + 136));
-      v25 = &v101;
+      v31 = (v49 + *(*v49 + 136));
+      v32 = &v108;
       swift_beginAccess();
-      v26 = *v24;
+      v33 = *v31;
 
       swift_endAccess();
-      if (v26)
+      if (v33)
       {
-        v23 = v26;
-        v17 = v26;
-        v100 = v26;
-        v18 = v23 + *(*v23 + 112);
-        v19 = &v99;
+        v30 = v33;
+        v24 = v33;
+        v107 = v33;
+        v25 = v30 + *(*v30 + 112);
+        v26 = &v106;
         swift_beginAccess();
-        v80(v64, v18, v85);
+        v87(v71, v25, v92);
         swift_endAccess();
-        v22 = dispatch thunk of static Comparable.>= infix(_:_:)();
-        v20 = v75[1];
-        v21 = v75 + 1;
-        v20(v64, v85);
-        if (v22)
+        v29 = dispatch thunk of static Comparable.>= infix(_:_:)();
+        v27 = v82[1];
+        v28 = v82 + 1;
+        v27(v71, v92);
+        if (v29)
         {
-          v14 = v17 + *(*v17 + 120);
-          v15 = &v98;
+          v21 = v24 + *(*v24 + 120);
+          v22 = &v105;
           swift_beginAccess();
-          v80(v64, v14, v85);
+          v87(v71, v21, v92);
           swift_endAccess();
-          v16 = dispatch thunk of static Comparable.<= infix(_:_:)();
-          v20(v64, v85);
-          if (v16)
+          v23 = dispatch thunk of static Comparable.<= infix(_:_:)();
+          v27(v71, v92);
+          if (v23)
           {
 
-            v97 = v17;
+            v104 = v24;
             Array.append(_:)();
           }
         }
       }
     }
 
-    v12[1] = &v109;
-    v13 = v109;
+    v19[1] = &v116;
+    v20 = v116;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    outlined destroy of Interval<A, B>(v81, v85, v86, v61, v71);
+    outlined destroy of Interval<A, B>(v88, v92, v93, v68, v78);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v13;
+    return v20;
   }
 }
 
-uint64_t AugmentedIntervalTree.description.getter()
+void AugmentedIntervalTree.description.getter()
 {
   v84 = 0;
   v77 = MEMORY[0x277D83988];
@@ -7408,9 +7367,9 @@ uint64_t AugmentedIntervalTree.description.getter()
   v81 = v82[11];
   v118 = v81;
   v83 = v82[12];
-  v85 = type metadata accessor for Interval();
+  v85 = type metadata accessor for Interval(0, v80, v81, v83);
   v86 = (*(*(v85 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v85);
+  MEMORY[0x28223BE20](v85, v1);
   v87 = &v20 - v86;
   v117 = v0;
   v88 = &v116;
@@ -7421,7 +7380,7 @@ uint64_t AugmentedIntervalTree.description.getter()
   if (!v89)
   {
     v22 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Empty tree", 0xAuLL, 1);
-    return v22._countAndFlagsBits;
+    return;
   }
 
   v76 = v89;
@@ -7429,17 +7388,16 @@ uint64_t AugmentedIntervalTree.description.getter()
   v115 = v89;
   v71 = 0;
   v114 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1);
-  type metadata accessor for AVLTreeNode();
+  type metadata accessor for AVLTreeNode(255, v80, v81, v83);
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v72 = _allocateUninitializedArray<A>(_:)();
-  v74 = v1;
+  v74 = v2;
 
-  v2 = v72;
   v3 = v74;
   *v74 = v73;
   v3[1] = 0;
   _finalizeUninitializedArray<A>(_:)();
-  v113 = v2;
+  v113 = v4;
   while (1)
   {
     v69 = v113;
@@ -7458,7 +7416,7 @@ uint64_t AugmentedIntervalTree.description.getter()
       outlined destroy of DefaultStringInterpolation();
 
       v22 = v21;
-      return v22._countAndFlagsBits;
+      return;
     }
 
     v64 = &v110;
@@ -7468,21 +7426,21 @@ uint64_t AugmentedIntervalTree.description.getter()
     v66 = v111;
     v109 = v110;
     v108 = v111;
-    v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("    ", 4uLL, 1);
-    v67 = String.init(repeating:count:)(v4, v66);
+    v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("    ", 4uLL, 1);
+    v67 = String.init(repeating:count:)(v5, v66);
     v107 = v67;
     if (AVLTreeNode.isLeaf.getter())
     {
-      v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("└──", 9uLL, 0);
-      object = v7._object;
-      countAndFlagsBits = v7._countAndFlagsBits;
+      v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("└──", 9uLL, 0);
+      object = v8._object;
+      countAndFlagsBits = v8._countAndFlagsBits;
     }
 
     else
     {
-      v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("├──", 9uLL, 0);
-      object = v8._object;
-      countAndFlagsBits = v8._countAndFlagsBits;
+      v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("├──", 9uLL, 0);
+      object = v9._object;
+      countAndFlagsBits = v9._countAndFlagsBits;
     }
 
     v62 = countAndFlagsBits;
@@ -7491,32 +7449,32 @@ uint64_t AugmentedIntervalTree.description.getter()
     v35 = countAndFlagsBits;
     v105 = countAndFlagsBits;
     v106 = object;
-    v9 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+    v10 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
     v52 = &v103;
-    v103 = v9;
-    v104 = v10;
+    v103 = v10;
+    v104 = v11;
     v33 = "";
     v41 = 0;
     v50 = 1;
-    v11 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1);
-    v32 = v11._object;
-    MEMORY[0x25F889DE0](v11._countAndFlagsBits);
+    v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1);
+    v32 = v12._object;
+    MEMORY[0x25F889DE0](v12._countAndFlagsBits);
 
     v102 = v67;
     v37 = MEMORY[0x277D837D0];
     v38 = MEMORY[0x277D83838];
     v39 = MEMORY[0x277D83830];
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
-    v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(v33, v41, v50 & 1);
-    v34 = v12._object;
-    MEMORY[0x25F889DE0](v12._countAndFlagsBits);
+    v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(v33, v41, v50 & 1);
+    v34 = v13._object;
+    MEMORY[0x25F889DE0](v13._countAndFlagsBits);
 
     v100 = v35;
     v101 = v36;
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
-    v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, v50 & 1);
-    v40 = v13._object;
-    MEMORY[0x25F889DE0](v13._countAndFlagsBits);
+    v14 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, v50 & 1);
+    v40 = v14._object;
+    MEMORY[0x25F889DE0](v14._countAndFlagsBits);
 
     v42 = v65 + *(*v65 + 104);
     v43 = &v99;
@@ -7530,9 +7488,9 @@ uint64_t AugmentedIntervalTree.description.getter()
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
     outlined destroy of Interval<A, B>(v87, v80, v81, v44, v85);
     v49 = 2;
-    v14 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" (", 2uLL, v50 & 1);
-    v45 = v14._object;
-    MEMORY[0x25F889DE0](v14._countAndFlagsBits);
+    v15 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" (", 2uLL, v50 & 1);
+    v45 = v15._object;
+    MEMORY[0x25F889DE0](v15._countAndFlagsBits);
 
     v46 = (v65 + *(*v65 + 144));
     v47 = &v98;
@@ -7541,16 +7499,16 @@ uint64_t AugmentedIntervalTree.description.getter()
     swift_endAccess();
     v97[3] = v48;
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
-    v15 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(")\n", v49, v50 & 1);
-    v51 = v15._object;
-    MEMORY[0x25F889DE0](v15._countAndFlagsBits);
+    v16 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(")\n", v49, v50 & 1);
+    v51 = v16._object;
+    MEMORY[0x25F889DE0](v16._countAndFlagsBits);
 
     v54 = v103;
     v53 = v104;
 
     outlined destroy of DefaultStringInterpolation();
     v55 = MEMORY[0x25F889320](v54, v53);
-    v56 = v16;
+    v56 = v17;
     static String.+= infix(_:_:)();
 
     v59 = (v65 + *(*v65 + 128));
@@ -7568,7 +7526,7 @@ uint64_t AugmentedIntervalTree.description.getter()
       v30 = v66 + 1;
       if (__OFADD__(v66, 1))
       {
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
       v90 = v29;
@@ -7605,310 +7563,309 @@ LABEL_23:
   }
 
   __break(1u);
-LABEL_28:
+LABEL_27:
   __break(1u);
-  return result;
 }
 
 uint64_t AugmentedIntervalTree.insertNode(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v116 = a1;
-  v106 = a2;
-  v99 = "Fatal error";
-  v100 = "Unexpectedly found nil while unwrapping an Optional value";
-  v101 = "NightingaleTraining/AugmentedTree.swift";
-  v143 = 0;
+  v119 = a1;
+  v109 = a2;
+  v102 = "Fatal error";
+  v103 = "Unexpectedly found nil while unwrapping an Optional value";
+  v104 = "NightingaleTraining/AugmentedTree.swift";
+  v146 = 0;
+  v145 = 0;
+  v144 = 0;
   v142 = 0;
-  v141 = 0;
-  v139 = 0;
-  v129 = 0;
-  v104 = *v2;
-  v102 = v104[10];
-  v145 = v102;
-  v103 = v104[11];
-  v144 = v103;
-  v105 = v104[12];
-  v107 = type metadata accessor for Interval();
-  v108 = (*(*(v107 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v116);
-  v109 = v13 - v108;
-  v110 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v3);
-  v111 = v13 - v110;
-  v112 = (v6 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7 = MEMORY[0x28223BE20](v5);
-  v113 = v13 - v112;
-  v114 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = MEMORY[0x28223BE20](v7);
-  v115 = v13 - v114;
-  v143 = v9;
-  v142 = v10;
-  v141 = v2;
+  v132 = 0;
+  v107 = *v2;
+  v105 = v107[10];
+  v148 = v105;
+  v106 = v107[11];
+  v147 = v106;
+  v108 = v107[12];
+  v110 = type metadata accessor for Interval(0, v105, v106, v108);
+  v111 = (*(*(v110 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = MEMORY[0x28223BE20](v119, v109);
+  v112 = v16 - v111;
+  v113 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v3, v5);
+  v114 = v16 - v113;
+  v115 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v6, v8);
+  v116 = v16 - v115;
+  v117 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = MEMORY[0x28223BE20](v9, v11);
+  v118 = v16 - v117;
+  v146 = v12;
+  v145 = v13;
+  v144 = v2;
 
-  if (!v116)
+  if (!v119)
   {
-    v13[0] = v106 + *(*v106 + 144);
-    v13[1] = &v140;
+    v16[0] = v109 + *(*v109 + 144);
+    v16[1] = &v143;
     swift_beginAccess();
-    *v13[0] = 1;
+    *v16[0] = 1;
     swift_endAccess();
 
-    return v106;
+    return v109;
   }
 
-  v98 = v116;
-  v91 = v116;
-  v139 = v116;
-  v89 = v106 + *(*v106 + 104);
-  v90 = &v138;
-  v92 = 32;
-  v93 = 0;
+  v101 = v119;
+  v94 = v119;
+  v142 = v119;
+  v92 = v109 + *(*v109 + 104);
+  v93 = &v141;
+  v95 = 32;
+  v96 = 0;
   swift_beginAccess();
-  v96 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v89, v115, v102, v103, v96, v107);
+  v99 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v92, v118, v105, v106, v99, v110);
   swift_endAccess();
-  v94 = v91 + *(*v91 + 104);
-  v95 = &v137;
+  v97 = v94 + *(*v94 + 104);
+  v98 = &v140;
   swift_beginAccess();
-  outlined init with copy of Interval<A, B>(v94, v113, v102, v103, v96, v107);
+  outlined init with copy of Interval<A, B>(v97, v116, v105, v106, v99, v110);
   swift_endAccess();
-  v97 = static Interval.< infix(_:_:)(v115, v113, v102, v103, v105);
-  outlined destroy of Interval<A, B>(v113, v102, v103, v96, v107);
-  outlined destroy of Interval<A, B>(v115, v102, v103, v96, v107);
-  if (v97)
+  v100 = static Interval.< infix(_:_:)(v118, v116, v105, v106, v108);
+  outlined destroy of Interval<A, B>(v116, v105, v106, v99, v110);
+  outlined destroy of Interval<A, B>(v118, v105, v106, v99, v110);
+  if (v100)
   {
-    v82 = (v91 + *(*v91 + 128));
-    v83 = &v118;
-    v85 = 0;
+    v85 = (v94 + *(*v94 + 128));
+    v86 = &v121;
+    v88 = 0;
     swift_beginAccess();
-    v84 = *v82;
+    v87 = *v85;
 
     swift_endAccess();
-    v88 = AugmentedIntervalTree.insertNode(_:_:)(v84, v106);
+    v91 = AugmentedIntervalTree.insertNode(_:_:)(v87, v109);
 
-    v86 = (v91 + *(*v91 + 128));
-    v87 = &v117;
+    v89 = (v94 + *(*v94 + 128));
+    v90 = &v120;
     swift_beginAccess();
-    *v86 = v88;
+    *v89 = v91;
   }
 
   else
   {
-    v75 = (v91 + *(*v91 + 136));
-    v76 = &v136;
-    v78 = 0;
+    v78 = (v94 + *(*v94 + 136));
+    v79 = &v139;
+    v81 = 0;
     swift_beginAccess();
-    v77 = *v75;
+    v80 = *v78;
 
     swift_endAccess();
-    v81 = AugmentedIntervalTree.insertNode(_:_:)(v77, v106);
+    v84 = AugmentedIntervalTree.insertNode(_:_:)(v80, v109);
 
-    v79 = (v91 + *(*v91 + 136));
-    v80 = &v135;
+    v82 = (v94 + *(*v94 + 136));
+    v83 = &v138;
     swift_beginAccess();
-    *v79 = v81;
+    *v82 = v84;
   }
 
   swift_endAccess();
 
-  v63 = (v91 + *(*v91 + 128));
-  v64 = &v133;
-  v67 = 32;
-  v68 = 0;
+  v66 = (v94 + *(*v94 + 128));
+  v67 = &v136;
+  v70 = 32;
+  v71 = 0;
   swift_beginAccess();
-  v65 = *v63;
+  v68 = *v66;
 
   swift_endAccess();
-  v66 = AugmentedIntervalTree.height(_:)(v65);
+  v69 = AugmentedIntervalTree.height(_:)(v68);
 
-  v73 = &v132;
-  v132 = v66;
-  v69 = (v91 + *(*v91 + 136));
-  v70 = &v131;
+  v76 = &v135;
+  v135 = v69;
+  v72 = (v94 + *(*v94 + 136));
+  v73 = &v134;
   swift_beginAccess();
-  v71 = *v69;
+  v74 = *v72;
 
   swift_endAccess();
-  v72 = AugmentedIntervalTree.height(_:)(v71);
+  v75 = AugmentedIntervalTree.height(_:)(v74);
 
-  v130[3] = v72;
+  v133[3] = v75;
   result = max<A>(_:_:)();
-  v74 = v134 + 1;
-  if (!__OFADD__(v134, 1))
+  v77 = v137 + 1;
+  if (!__OFADD__(v137, 1))
   {
-    v59 = (v91 + *(*v91 + 144));
-    v60 = v130;
+    v62 = (v94 + *(*v94 + 144));
+    v63 = v133;
     swift_beginAccess();
-    *v59 = v74;
+    *v62 = v77;
     swift_endAccess();
     AVLTreeNode.updateMaxEnd()();
     AVLTreeNode.updateMinStart()();
 
-    v61 = v91;
-    v62 = AugmentedIntervalTree.balance(_:)(v91);
+    v64 = v94;
+    v65 = AugmentedIntervalTree.balance(_:)(v94);
 
-    v129 = v62;
-    if (v62 <= 1)
+    v132 = v65;
+    if (v65 <= 1)
     {
-      if (v62 < -1)
+      if (v65 < -1)
       {
-        v29 = v106 + *(*v106 + 104);
-        v30 = &v128;
-        v31 = 32;
-        v32 = 0;
+        v32 = v109 + *(*v109 + 104);
+        v33 = &v131;
+        v34 = 32;
+        v35 = 0;
         swift_beginAccess();
-        outlined init with copy of Interval<A, B>(v29, v109, v102, v103, v96, v107);
+        outlined init with copy of Interval<A, B>(v32, v112, v105, v106, v99, v110);
         swift_endAccess();
-        v33 = (v91 + *(*v91 + 136));
-        v34 = &v127;
+        v36 = (v94 + *(*v94 + 136));
+        v37 = &v130;
         swift_beginAccess();
-        v35 = *v33;
+        v38 = *v36;
 
         swift_endAccess();
-        if (v35)
+        if (v38)
         {
-          v28 = v35;
+          v31 = v38;
         }
 
         else
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v102, 11, 2, v103, 57, 2, v104, 39, 2, 282, 0);
           __break(1u);
         }
 
-        v26 = v28;
-        v24 = v28 + *(*v28 + 104);
-        v25 = &v126;
+        v29 = v31;
+        v27 = v31 + *(*v31 + 104);
+        v28 = &v129;
         swift_beginAccess();
-        outlined init with copy of Interval<A, B>(v24, v115, v102, v103, v96, v107);
+        outlined init with copy of Interval<A, B>(v27, v118, v105, v106, v99, v110);
         swift_endAccess();
 
-        v27 = static Interval.< infix(_:_:)(v109, v115, v102, v103, v105);
-        outlined destroy of Interval<A, B>(v115, v102, v103, v96, v107);
-        outlined destroy of Interval<A, B>(v109, v102, v103, v96, v107);
-        if (v27)
+        v30 = static Interval.< infix(_:_:)(v112, v118, v105, v106, v108);
+        outlined destroy of Interval<A, B>(v118, v105, v106, v99, v110);
+        outlined destroy of Interval<A, B>(v112, v105, v106, v99, v110);
+        if (v30)
         {
-          v21 = (v91 + *(*v91 + 136));
-          v22 = &v125;
+          v24 = (v94 + *(*v94 + 136));
+          v25 = &v128;
           swift_beginAccess();
-          v23 = *v21;
+          v26 = *v24;
 
           swift_endAccess();
-          if (v23)
+          if (v26)
           {
-            v20 = v23;
+            v23 = v26;
           }
 
           else
           {
-            _assertionFailure(_:_:file:line:flags:)();
+            _assertionFailure(_:_:file:line:flags:)(v102, 11, 2, v103, 57, 2, v104, 39, 2, 283, 0);
             __break(1u);
           }
 
-          v15 = v20;
-          v18 = AugmentedIntervalTree.rotateRight(_:)(v20);
+          v18 = v23;
+          v21 = AugmentedIntervalTree.rotateRight(_:)(v23);
 
-          v16 = (v91 + *(*v91 + 136));
-          v17 = &v124;
+          v19 = (v94 + *(*v94 + 136));
+          v20 = &v127;
           swift_beginAccess();
-          *v16 = v18;
+          *v19 = v21;
 
           swift_endAccess();
 
-          v19 = AugmentedIntervalTree.rotateLeft(_:)(v91);
+          v22 = AugmentedIntervalTree.rotateLeft(_:)(v94);
 
-          return v19;
+          return v22;
         }
 
         else
         {
-          v14 = AugmentedIntervalTree.rotateLeft(_:)(v91);
+          v17 = AugmentedIntervalTree.rotateLeft(_:)(v94);
 
-          return v14;
+          return v17;
         }
       }
 
       else
       {
-        return v91;
+        return v94;
       }
     }
 
     else
     {
-      v52 = v106 + *(*v106 + 104);
-      v53 = &v123;
-      v54 = 32;
-      v55 = 0;
+      v55 = v109 + *(*v109 + 104);
+      v56 = &v126;
+      v57 = 32;
+      v58 = 0;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v52, v111, v102, v103, v96, v107);
+      outlined init with copy of Interval<A, B>(v55, v114, v105, v106, v99, v110);
       swift_endAccess();
-      v56 = (v91 + *(*v91 + 128));
-      v57 = &v122;
+      v59 = (v94 + *(*v94 + 128));
+      v60 = &v125;
       swift_beginAccess();
-      v58 = *v56;
+      v61 = *v59;
 
       swift_endAccess();
-      if (v58)
+      if (v61)
       {
-        v51 = v58;
+        v54 = v61;
       }
 
       else
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)(v102, 11, 2, v103, 57, 2, v104, 39, 2, 271, 0);
         __break(1u);
       }
 
-      v49 = v51;
-      v47 = v51 + *(*v51 + 104);
-      v48 = &v121;
+      v52 = v54;
+      v50 = v54 + *(*v54 + 104);
+      v51 = &v124;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v47, v115, v102, v103, v96, v107);
+      outlined init with copy of Interval<A, B>(v50, v118, v105, v106, v99, v110);
       swift_endAccess();
 
-      v50 = static Interval.< infix(_:_:)(v111, v115, v102, v103, v105);
-      outlined destroy of Interval<A, B>(v115, v102, v103, v96, v107);
-      outlined destroy of Interval<A, B>(v111, v102, v103, v96, v107);
-      if (v50)
+      v53 = static Interval.< infix(_:_:)(v114, v118, v105, v106, v108);
+      outlined destroy of Interval<A, B>(v118, v105, v106, v99, v110);
+      outlined destroy of Interval<A, B>(v114, v105, v106, v99, v110);
+      if (v53)
       {
-        v45 = AugmentedIntervalTree.rotateRight(_:)(v91);
+        v48 = AugmentedIntervalTree.rotateRight(_:)(v94);
 
-        return v45;
+        return v48;
       }
 
       else
       {
-        v42 = (v91 + *(*v91 + 128));
-        v43 = &v120;
+        v45 = (v94 + *(*v94 + 128));
+        v46 = &v123;
         swift_beginAccess();
-        v44 = *v42;
+        v47 = *v45;
 
         swift_endAccess();
-        if (v44)
+        if (v47)
         {
-          v41 = v44;
+          v44 = v47;
         }
 
         else
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v102, 11, 2, v103, 57, 2, v104, 39, 2, 275, 0);
           __break(1u);
         }
 
-        v36 = v41;
-        v39 = AugmentedIntervalTree.rotateLeft(_:)(v41);
+        v39 = v44;
+        v42 = AugmentedIntervalTree.rotateLeft(_:)(v44);
 
-        v37 = (v91 + *(*v91 + 128));
-        v38 = &v119;
+        v40 = (v94 + *(*v94 + 128));
+        v41 = &v122;
         swift_beginAccess();
-        *v37 = v39;
+        *v40 = v42;
 
         swift_endAccess();
 
-        v40 = AugmentedIntervalTree.rotateRight(_:)(v91);
+        v43 = AugmentedIntervalTree.rotateRight(_:)(v94);
 
-        return v40;
+        return v43;
       }
     }
   }
@@ -7931,7 +7888,7 @@ uint64_t AugmentedIntervalTree.rotateLeft(_:)(uint64_t a1)
 
   else
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/AugmentedTree.swift", 39, 2, 305, 0);
     __break(1u);
   }
 
@@ -8026,7 +7983,7 @@ uint64_t AugmentedIntervalTree.rotateRight(_:)(uint64_t a1)
 
   else
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/AugmentedTree.swift", 39, 2, 334, 0);
     __break(1u);
   }
 
@@ -8189,176 +8146,176 @@ uint64_t AugmentedIntervalTree.height(_:)(uint64_t a1)
 
 uint64_t AugmentedIntervalTree.deleteInterval(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v152 = a1;
-  v146 = a2;
-  v132 = "Fatal error";
-  v133 = "Unexpectedly found nil while unwrapping an Optional value";
-  v134 = "NightingaleTraining/AugmentedTree.swift";
+  v155 = a1;
+  v149 = a2;
+  v135 = "Fatal error";
+  v136 = "Unexpectedly found nil while unwrapping an Optional value";
+  v137 = "NightingaleTraining/AugmentedTree.swift";
+  v197 = 0;
+  v196 = 0;
+  v195 = 0;
   v194 = 0;
-  v193 = 0;
-  v192 = 0;
-  v191 = 0;
-  v183 = 0;
-  v170 = 0;
-  v157 = 0;
-  v144 = *v2;
-  v135 = v144[10];
-  v196 = v135;
-  v136 = *(v135 - 8);
-  v137 = v135 - 8;
-  v139 = *(v136 + 64);
-  v138 = (v139 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
-  v140 = v9 - v138;
-  v141 = v138;
-  MEMORY[0x28223BE20](v9 - v138);
-  v142 = v9 - v141;
-  v143 = v144[11];
-  v195 = v143;
-  v145 = v144[12];
-  v147 = type metadata accessor for Interval();
-  v148 = (*(*(v147 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v152);
-  v149 = v9 - v148;
-  v150 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v3);
-  v151 = v9 - v150;
-  v194 = v5;
-  v193 = v6;
-  v192 = v2;
+  v186 = 0;
+  v173 = 0;
+  v160 = 0;
+  v147 = *v2;
+  v138 = v147[10];
+  v199 = v138;
+  v139 = *(v138 - 8);
+  v140 = v138 - 8;
+  v142 = *(v139 + 64);
+  v141 = (v142 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](a1, v138);
+  v143 = v12 - v141;
+  v144 = v141;
+  MEMORY[0x28223BE20](v12 - v141, v3);
+  v145 = v12 - v144;
+  v146 = v147[11];
+  v198 = v146;
+  v148 = v147[12];
+  v150 = type metadata accessor for Interval(0, v4, v146, v148);
+  v151 = (*(*(v150 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v155, v149);
+  v152 = v12 - v151;
+  v153 = (v6 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x28223BE20](v5, v7);
+  v154 = v12 - v153;
+  v197 = v8;
+  v196 = v9;
+  v195 = v2;
 
-  if (!v152)
+  if (!v155)
   {
     return 0;
   }
 
-  v131 = v152;
-  v126 = v152;
-  v191 = v152;
-  v127 = v131 + *(*v131 + 104);
-  v128 = &v190;
+  v134 = v155;
+  v129 = v155;
+  v194 = v155;
+  v130 = v134 + *(*v134 + 104);
+  v131 = &v193;
   swift_beginAccess();
-  v129 = type metadata accessor for Optional();
-  outlined init with copy of Interval<A, B>(v127, v151, v135, v143, v129, v147);
+  v132 = type metadata accessor for Optional();
+  outlined init with copy of Interval<A, B>(v130, v154, v138, v146, v132, v150);
   swift_endAccess();
-  v130 = static Interval.< infix(_:_:)(v146, v151, v135, v143, v145);
-  outlined destroy of Interval<A, B>(v151, v135, v143, v129, v147);
-  if (v130)
+  v133 = static Interval.< infix(_:_:)(v149, v154, v138, v146, v148);
+  outlined destroy of Interval<A, B>(v154, v138, v146, v132, v150);
+  if (v133)
   {
-    v119 = (v126 + *(*v126 + 128));
-    v120 = &v154;
-    v122 = 0;
+    v122 = (v129 + *(*v129 + 128));
+    v123 = &v157;
+    v125 = 0;
     swift_beginAccess();
-    v121 = *v119;
+    v124 = *v122;
 
     swift_endAccess();
-    v125 = AugmentedIntervalTree.deleteInterval(_:_:)(v121, v146);
+    v128 = AugmentedIntervalTree.deleteInterval(_:_:)(v124, v149);
 
-    v123 = (v126 + *(*v126 + 128));
-    v124 = &v153;
+    v126 = (v129 + *(*v129 + 128));
+    v127 = &v156;
     swift_beginAccess();
-    *v123 = v125;
+    *v126 = v128;
 
     swift_endAccess();
   }
 
   else
   {
-    v116 = v126 + *(*v126 + 104);
-    v117 = &v189;
+    v119 = v129 + *(*v129 + 104);
+    v120 = &v192;
     swift_beginAccess();
-    outlined init with copy of Interval<A, B>(v116, v151, v135, v143, v129, v147);
+    outlined init with copy of Interval<A, B>(v119, v154, v138, v146, v132, v150);
     swift_endAccess();
-    v118 = static Interval.> infix(_:_:)(v146, v151, v135, v143, v145);
-    outlined destroy of Interval<A, B>(v151, v135, v143, v129, v147);
-    if (v118)
+    v121 = static Interval.> infix(_:_:)(v149, v154, v138, v146, v148);
+    outlined destroy of Interval<A, B>(v154, v138, v146, v132, v150);
+    if (v121)
     {
-      v109 = (v126 + *(*v126 + 136));
-      v110 = v156;
-      v112 = 0;
+      v112 = (v129 + *(*v129 + 136));
+      v113 = v159;
+      v115 = 0;
       swift_beginAccess();
-      v111 = *v109;
+      v114 = *v112;
 
       swift_endAccess();
-      v115 = AugmentedIntervalTree.deleteInterval(_:_:)(v111, v146);
+      v118 = AugmentedIntervalTree.deleteInterval(_:_:)(v114, v149);
 
-      v113 = (v126 + *(*v126 + 136));
-      v114 = &v155;
+      v116 = (v129 + *(*v129 + 136));
+      v117 = &v158;
       swift_beginAccess();
-      *v113 = v115;
+      *v116 = v118;
 
       swift_endAccess();
     }
 
     else
     {
-      v106 = (v126 + *(*v126 + 128));
-      v107 = &v188;
+      v109 = (v129 + *(*v129 + 128));
+      v110 = &v191;
       swift_beginAccess();
-      v108 = *v106;
+      v111 = *v109;
 
       swift_endAccess();
-      v187 = v108;
-      v105 = v108 == 0;
-      v104 = v105;
+      v190 = v111;
+      v108 = v111 == 0;
+      v107 = v108;
       outlined destroy of ContiguousArray<A1>();
 
-      if (v104)
+      if (v107)
       {
-        v103 = 1;
+        v106 = 1;
       }
 
       else
       {
-        v100 = (v126 + *(*v126 + 136));
-        v101 = &v186;
+        v103 = (v129 + *(*v129 + 136));
+        v104 = &v189;
         swift_beginAccess();
-        v102 = *v100;
+        v105 = *v103;
 
         swift_endAccess();
-        v185 = v102;
-        v99 = v102 == 0;
-        v98 = v99;
+        v188 = v105;
+        v102 = v105 == 0;
+        v101 = v102;
         outlined destroy of ContiguousArray<A1>();
-        v103 = v98;
+        v106 = v101;
       }
 
-      v97 = v103;
+      v100 = v106;
 
-      if (v97)
+      if (v100)
       {
-        v94 = (v126 + *(*v126 + 128));
-        v95 = &v160;
+        v97 = (v129 + *(*v129 + 128));
+        v98 = &v163;
         swift_beginAccess();
-        v96 = *v94;
+        v99 = *v97;
 
         swift_endAccess();
-        v159 = v96;
+        v162 = v99;
 
-        if (v159)
+        if (v162)
         {
-          v161 = v159;
+          v164 = v162;
         }
 
         else
         {
-          v91 = (v126 + *(*v126 + 136));
-          v92 = &v158;
+          v94 = (v129 + *(*v129 + 136));
+          v95 = &v161;
           swift_beginAccess();
-          v93 = *v91;
+          v96 = *v94;
 
           swift_endAccess();
-          v161 = v93;
-          if (v159)
+          v164 = v96;
+          if (v162)
           {
             outlined destroy of ContiguousArray<A1>();
           }
         }
 
-        v90 = v161;
-        v157 = v161;
-        v156[3] = v161;
-        if (v161 == 0)
+        v93 = v164;
+        v160 = v164;
+        v159[3] = v164;
+        if (v164 == 0)
         {
 
           return 0;
@@ -8367,224 +8324,224 @@ uint64_t AugmentedIntervalTree.deleteInterval(_:_:)(uint64_t a1, uint64_t a2)
         else
         {
 
-          return v90;
+          return v93;
         }
       }
 
-      v85 = (v126 + *(*v126 + 136));
-      v86 = &v184;
+      v88 = (v129 + *(*v129 + 136));
+      v89 = &v187;
       swift_beginAccess();
-      v87 = *v85;
+      v90 = *v88;
 
       swift_endAccess();
-      if (v87)
+      if (v90)
       {
-        v84 = v87;
+        v87 = v90;
       }
 
       else
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)(v135, 11, 2, v136, 57, 2, v137, 39, 2, 385, 0);
         __break(1u);
       }
 
-      v61 = v84;
-      v83 = AugmentedIntervalTree.minValueNode(_:)(v84);
+      v64 = v87;
+      v86 = AugmentedIntervalTree.minValueNode(_:)(v87);
 
-      v183 = v83;
-      v62 = v183 + *(*v183 + 104);
-      v63 = &v182;
-      v74 = 32;
-      v79 = 0;
+      v186 = v86;
+      v65 = v186 + *(*v186 + 104);
+      v66 = &v185;
+      v77 = 32;
+      v82 = 0;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v62, v151, v135, v143, v129, v147);
+      outlined init with copy of Interval<A, B>(v65, v154, v138, v146, v132, v150);
       swift_endAccess();
-      outlined init with copy of Interval<A, B>(v151, v149, v135, v143, v129, v147);
-      v64 = v126 + *(*v126 + 104);
-      v65 = &v181;
-      v78 = 33;
+      outlined init with copy of Interval<A, B>(v154, v152, v138, v146, v132, v150);
+      v67 = v129 + *(*v129 + 104);
+      v68 = &v184;
+      v81 = 33;
       swift_beginAccess();
-      outlined assign with take of Interval<A, B>(v149, v64, v135, v143, v129, v147);
+      outlined assign with take of Interval<A, B>(v152, v67, v138, v146, v132, v150);
       swift_endAccess();
-      outlined destroy of Interval<A, B>(v151, v135, v143, v129, v147);
-      v66 = v83 + *(*v83 + 112);
-      v67 = &v180;
+      outlined destroy of Interval<A, B>(v154, v138, v146, v132, v150);
+      v69 = v86 + *(*v86 + 112);
+      v70 = &v183;
       swift_beginAccess();
-      v69 = *(v136 + 16);
-      v68 = v136 + 16;
-      v69(v142, v66, v135);
+      v72 = *(v139 + 16);
+      v71 = v139 + 16;
+      v72(v145, v69, v138);
       swift_endAccess();
-      v69(v140, v142, v135);
-      v70 = v126 + *(*v126 + 112);
-      v71 = &v179;
+      v72(v143, v145, v138);
+      v73 = v129 + *(*v129 + 112);
+      v74 = &v182;
       swift_beginAccess();
-      (*(v136 + 40))(v70, v140, v135);
+      (*(v139 + 40))(v73, v143, v138);
       swift_endAccess();
-      (*(v136 + 8))(v142, v135);
-      v72 = (v126 + *(*v126 + 136));
-      v73 = &v178;
+      (*(v139 + 8))(v145, v138);
+      v75 = (v129 + *(*v129 + 136));
+      v76 = &v181;
       swift_beginAccess();
-      v77 = *v72;
+      v80 = *v75;
 
       swift_endAccess();
-      v75 = v83 + *(*v83 + 104);
-      v76 = &v177;
+      v78 = v86 + *(*v86 + 104);
+      v79 = &v180;
       swift_beginAccess();
-      outlined init with copy of Interval<A, B>(v75, v151, v135, v143, v129, v147);
+      outlined init with copy of Interval<A, B>(v78, v154, v138, v146, v132, v150);
       swift_endAccess();
-      v82 = AugmentedIntervalTree.deleteInterval(_:_:)(v77, v151);
-      outlined destroy of Interval<A, B>(v151, v135, v143, v129, v147);
+      v85 = AugmentedIntervalTree.deleteInterval(_:_:)(v80, v154);
+      outlined destroy of Interval<A, B>(v154, v138, v146, v132, v150);
 
-      v80 = (v126 + *(*v126 + 136));
-      v81 = &v176;
+      v83 = (v129 + *(*v129 + 136));
+      v84 = &v179;
       swift_beginAccess();
-      *v80 = v82;
+      *v83 = v85;
 
       swift_endAccess();
     }
   }
 
-  v49 = (v126 + *(*v126 + 128));
-  v50 = &v174;
-  v53 = 32;
-  v54 = 0;
+  v52 = (v129 + *(*v129 + 128));
+  v53 = &v177;
+  v56 = 32;
+  v57 = 0;
   swift_beginAccess();
-  v51 = *v49;
+  v54 = *v52;
 
   swift_endAccess();
-  v52 = AugmentedIntervalTree.height(_:)(v51);
+  v55 = AugmentedIntervalTree.height(_:)(v54);
 
-  v59 = &v173;
-  v173 = v52;
-  v55 = (v126 + *(*v126 + 136));
-  v56 = &v172;
+  v62 = &v176;
+  v176 = v55;
+  v58 = (v129 + *(*v129 + 136));
+  v59 = &v175;
   swift_beginAccess();
-  v57 = *v55;
+  v60 = *v58;
 
   swift_endAccess();
-  v58 = AugmentedIntervalTree.height(_:)(v57);
+  v61 = AugmentedIntervalTree.height(_:)(v60);
 
-  v171[3] = v58;
+  v174[3] = v61;
   result = max<A>(_:_:)();
-  v60 = v175 + 1;
-  if (!__OFADD__(v175, 1))
+  v63 = v178 + 1;
+  if (!__OFADD__(v178, 1))
   {
-    v45 = (v126 + *(*v126 + 144));
-    v46 = v171;
+    v48 = (v129 + *(*v129 + 144));
+    v49 = v174;
     swift_beginAccess();
-    *v45 = v60;
+    *v48 = v63;
     swift_endAccess();
     AVLTreeNode.updateMaxEnd()();
     AVLTreeNode.updateMinStart()();
 
-    v47 = v126;
-    v48 = AugmentedIntervalTree.balance(_:)(v126);
+    v50 = v129;
+    v51 = AugmentedIntervalTree.balance(_:)(v129);
 
-    v170 = v48;
-    if (v48 <= 1 || (v41 = (v126 + *(*v126 + 128)), v42 = &v162, swift_beginAccess(), v43 = *v41, , swift_endAccess(), v44 = AugmentedIntervalTree.balance(_:)(v43), , v44 < 0))
+    v173 = v51;
+    if (v51 <= 1 || (v44 = (v129 + *(*v129 + 128)), v45 = &v165, swift_beginAccess(), v46 = *v44, , swift_endAccess(), v47 = AugmentedIntervalTree.balance(_:)(v46), , v47 < 0))
     {
-      if (v48 > 1 && (v36 = (v126 + *(*v126 + 128)), v37 = &v165, swift_beginAccess(), v38 = *v36, , swift_endAccess(), v39 = AugmentedIntervalTree.balance(_:)(v38), , v39 < 0))
+      if (v51 > 1 && (v39 = (v129 + *(*v129 + 128)), v40 = &v168, swift_beginAccess(), v41 = *v39, , swift_endAccess(), v42 = AugmentedIntervalTree.balance(_:)(v41), , v42 < 0))
       {
-        v33 = (v126 + *(*v126 + 128));
-        v34 = &v164;
+        v36 = (v129 + *(*v129 + 128));
+        v37 = &v167;
         swift_beginAccess();
-        v35 = *v33;
+        v38 = *v36;
 
         swift_endAccess();
-        if (v35)
+        if (v38)
         {
-          v32 = v35;
+          v35 = v38;
         }
 
         else
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v135, 11, 2, v136, 57, 2, v137, 39, 2, 411, 0);
           __break(1u);
         }
 
-        v27 = v32;
-        v30 = AugmentedIntervalTree.rotateLeft(_:)(v32);
+        v30 = v35;
+        v33 = AugmentedIntervalTree.rotateLeft(_:)(v35);
 
-        v28 = (v126 + *(*v126 + 128));
-        v29 = &v163;
+        v31 = (v129 + *(*v129 + 128));
+        v32 = &v166;
         swift_beginAccess();
-        *v28 = v30;
+        *v31 = v33;
 
         swift_endAccess();
 
-        v31 = AugmentedIntervalTree.rotateRight(_:)(v126);
+        v34 = AugmentedIntervalTree.rotateRight(_:)(v129);
 
-        return v31;
+        return v34;
       }
 
-      else if (v48 >= -1 || (v23 = (v126 + *(*v126 + 136)), v24 = &v166, swift_beginAccess(), v25 = *v23, , swift_endAccess(), v26 = AugmentedIntervalTree.balance(_:)(v25), , v26 > 0))
+      else if (v51 >= -1 || (v26 = (v129 + *(*v129 + 136)), v27 = &v169, swift_beginAccess(), v28 = *v26, , swift_endAccess(), v29 = AugmentedIntervalTree.balance(_:)(v28), , v29 > 0))
       {
-        if (v48 >= -1)
+        if (v51 >= -1)
         {
-          return v126;
+          return v129;
         }
 
-        v18 = (v126 + *(*v126 + 136));
-        v19 = &v169;
+        v21 = (v129 + *(*v129 + 136));
+        v22 = &v172;
         swift_beginAccess();
-        v20 = *v18;
+        v23 = *v21;
 
         swift_endAccess();
-        v21 = AugmentedIntervalTree.balance(_:)(v20);
+        v24 = AugmentedIntervalTree.balance(_:)(v23);
 
-        if (v21 <= 0)
+        if (v24 <= 0)
         {
-          return v126;
+          return v129;
         }
 
         else
         {
-          v15 = (v126 + *(*v126 + 136));
-          v16 = &v168;
+          v18 = (v129 + *(*v129 + 136));
+          v19 = &v171;
           swift_beginAccess();
-          v17 = *v15;
+          v20 = *v18;
 
           swift_endAccess();
-          if (v17)
+          if (v20)
           {
-            v14 = v17;
+            v17 = v20;
           }
 
           else
           {
-            _assertionFailure(_:_:file:line:flags:)();
+            _assertionFailure(_:_:file:line:flags:)(v135, 11, 2, v136, 57, 2, v137, 39, 2, 422, 0);
             __break(1u);
           }
 
-          v9[1] = v14;
-          v12 = AugmentedIntervalTree.rotateRight(_:)(v14);
+          v12[1] = v17;
+          v15 = AugmentedIntervalTree.rotateRight(_:)(v17);
 
-          v10 = (v126 + *(*v126 + 136));
-          v11 = &v167;
+          v13 = (v129 + *(*v129 + 136));
+          v14 = &v170;
           swift_beginAccess();
-          *v10 = v12;
+          *v13 = v15;
 
           swift_endAccess();
 
-          v13 = AugmentedIntervalTree.rotateLeft(_:)(v126);
+          v16 = AugmentedIntervalTree.rotateLeft(_:)(v129);
 
-          return v13;
+          return v16;
         }
       }
 
       else
       {
-        v22 = AugmentedIntervalTree.rotateLeft(_:)(v126);
+        v25 = AugmentedIntervalTree.rotateLeft(_:)(v129);
 
-        return v22;
+        return v25;
       }
     }
 
     else
     {
-      v40 = AugmentedIntervalTree.rotateRight(_:)(v126);
+      v43 = AugmentedIntervalTree.rotateRight(_:)(v129);
 
-      return v40;
+      return v43;
     }
   }
 
@@ -8648,7 +8605,7 @@ uint64_t AugmentedIntervalTree.minValueNode(_:)(uint64_t a1)
 
   else
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/AugmentedTree.swift", 39, 2, 434, 0);
     __break(1u);
   }
 
@@ -8669,104 +8626,105 @@ uint64_t AugmentedIntervalTree.allIntervals()()
 
 uint64_t AugmentedIntervalTree.allIntervals(root:)(uint64_t a1)
 {
-  v36 = a1;
-  v28 = MEMORY[0x277D83970];
+  v37 = a1;
+  v29 = MEMORY[0x277D83970];
+  v46 = 0;
   v45 = 0;
   v44 = 0;
   v43 = 0;
-  v42 = 0;
-  v31 = *v1;
-  v29 = *(v31 + 80);
-  v47 = v29;
-  v30 = *(v31 + 88);
-  v46 = v30;
-  v32 = 0;
-  v33 = type metadata accessor for Interval();
-  v34 = (*(*(v33 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](0);
-  v35 = v5 - v34;
-  v45 = v2;
-  v44 = v1;
-  v43 = _allocateUninitializedArray<A>(_:)();
+  v32 = *v1;
+  v30 = v32[10];
+  v48 = v30;
+  v31 = v32[11];
+  v47 = v31;
+  v2 = v32[12];
+  v33 = 0;
+  v34 = type metadata accessor for Interval(0, v30, v31, v2);
+  v35 = (*(*(v34 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v34);
+  v36 = v6 - v35;
+  v46 = v3;
+  v45 = v1;
+  v44 = _allocateUninitializedArray<A>(_:)();
 
-  if (v36)
+  if (v37)
   {
-    v27 = v36;
-    v23 = v36;
-    v42 = v36;
-    v7 = (v27 + *(*v27 + 128));
-    v8 = &v41;
-    v15 = 32;
-    v16 = 0;
+    v28 = v37;
+    v24 = v37;
+    v43 = v37;
+    v8 = (v28 + *(*v28 + 128));
+    v9 = &v42;
+    v16 = 32;
+    v17 = 0;
     swift_beginAccess();
-    v9 = *v7;
+    v10 = *v8;
 
     swift_endAccess();
-    v10 = AugmentedIntervalTree.allIntervals(root:)(v9);
+    v11 = AugmentedIntervalTree.allIntervals(root:)(v10);
 
-    v11 = &v40;
-    v40 = v10;
-    v12 = 0;
-    v21 = type metadata accessor for Array();
+    v12 = &v41;
+    v41 = v11;
+    v13 = 0;
+    v22 = type metadata accessor for Array();
     WitnessTable = swift_getWitnessTable();
-    v24 = &v43;
+    v25 = &v44;
     Array.append<A>(contentsOf:)();
-    v13 = v23 + *(*v23 + 104);
-    v14 = &v39;
+    v14 = v24 + *(*v24 + 104);
+    v15 = &v40;
     swift_beginAccess();
-    v3 = type metadata accessor for Optional();
-    outlined init with copy of Interval<A, B>(v13, v35, v29, v30, v3, v33);
+    v4 = type metadata accessor for Optional();
+    outlined init with copy of Interval<A, B>(v14, v36, v30, v31, v4, v34);
     swift_endAccess();
     Array.append(_:)();
-    v17 = (v23 + *(*v23 + 136));
-    v18 = &v38;
+    v18 = (v24 + *(*v24 + 136));
+    v19 = &v39;
     swift_beginAccess();
-    v19 = *v17;
+    v20 = *v18;
 
     swift_endAccess();
-    v20 = AugmentedIntervalTree.allIntervals(root:)(v19);
+    v21 = AugmentedIntervalTree.allIntervals(root:)(v20);
 
-    v37 = v20;
+    v38 = v21;
     Array.append<A>(contentsOf:)();
-    v25 = v43;
+    v26 = v44;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v25;
+    return v26;
   }
 
   else
   {
-    v5[1] = &v43;
-    v6 = v43;
+    v6[1] = &v44;
+    v7 = v44;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v6;
+    return v7;
   }
 }
 
-uint64_t type metadata completion function for Interval()
+uint64_t type metadata completion function for Interval(uint64_t a1)
 {
-  v3 = swift_checkMetadataState();
-  if (v0 <= 0x3F)
+  v4 = swift_checkMetadataState();
+  if (v1 <= 0x3F)
   {
-    v3 = type metadata accessor for Optional();
-    if (v1 <= 0x3F)
+    v4 = type metadata accessor for Optional();
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t type metadata completion function for AVLTreeNode()
+uint64_t type metadata completion function for AVLTreeNode(void *a1)
 {
-  inited = type metadata accessor for Interval();
-  if (v0 <= 0x3F)
+  inited = type metadata accessor for Interval(319, a1[10], a1[11], a1[12]);
+  if (v1 <= 0x3F)
   {
     inited = swift_checkMetadataState();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       inited = swift_initClassMetadata2();
       if (!inited)
@@ -8779,7 +8737,7 @@ uint64_t type metadata completion function for AVLTreeNode()
   return inited;
 }
 
-uint64_t type metadata completion function for AugmentedIntervalTree()
+uint64_t type metadata completion function for AugmentedIntervalTree(uint64_t a1)
 {
   inited = swift_initClassMetadata2();
   if (!inited)
@@ -9372,7 +9330,7 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance HI
   return result;
 }
 
-uint64_t protocol witness for Error._code.getter in conformance HIDPFLError()
+uint64_t protocol witness for Error._code.getter in conformance HIDPFLError(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
   lazy protocol witness table accessor for type Int and conformance Int();
@@ -9520,80 +9478,80 @@ _BYTE *storeEnumTagSinglePayload for HIDPFLError(_BYTE *result, unsigned int a2,
 
 uint64_t calculateAge(components:birthDateRequired:)(uint64_t a1, int a2)
 {
-  v24 = a1;
-  v23 = a2;
+  v27 = a1;
+  v26 = a2;
+  v40 = 0;
+  v39 = 0;
+  v38 = 0;
   v37 = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
-  v32 = 0.0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  v14 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v2);
-  v15 = v10 - v14;
-  v21 = 0;
-  v16 = type metadata accessor for Date();
-  v17 = *(v16 - 8);
-  v18 = v16 - 8;
-  v19 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v16);
-  v20 = v10 - v19;
-  v37 = v10 - v19;
-  v22 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v21);
-  v31 = v10 - v22;
-  v30 = type metadata accessor for DateComponents();
-  v27 = *(v30 - 8);
-  v28 = v30 - 8;
-  v25 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v24);
-  v26 = v10 - v25;
-  v36 = v10 - v25;
-  v35 = v3;
-  v29 = 1;
-  v34 = v4 & 1;
-  outlined init with copy of DateComponents?(v3, v5);
-  if ((*(v27 + 48))(v31, v29, v30) == 1)
+  v35 = 0.0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v17 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v2, v3);
+  v18 = v13 - v17;
+  v24 = 0;
+  v19 = type metadata accessor for Date();
+  v20 = *(v19 - 8);
+  v21 = v19 - 8;
+  v22 = (*(v20 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v19, v4);
+  v23 = v13 - v22;
+  v40 = v13 - v22;
+  v25 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v24, v5);
+  v34 = v13 - v25;
+  v33 = type metadata accessor for DateComponents();
+  v30 = *(v33 - 8);
+  v31 = v33 - 8;
+  v28 = (*(v30 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v27, v34);
+  v29 = v13 - v28;
+  v39 = v13 - v28;
+  v38 = v6;
+  v32 = 1;
+  v37 = v7 & 1;
+  outlined init with copy of DateComponents?(v6, v8);
+  if ((*(v30 + 48))(v34, v32, v33) == 1)
   {
-    outlined destroy of DateComponents?(v31);
+    outlined destroy of DateComponents?(v34);
   }
 
   else
   {
-    (*(v27 + 32))(v26, v31, v30);
+    (*(v30 + 32))(v29, v34, v33);
     DateComponents.date.getter();
-    if ((*(v17 + 48))(v15, 1, v16) != 1)
+    if ((*(v20 + 48))(v18, 1, v19) != 1)
     {
-      (*(v17 + 32))(v20, v15, v16);
-      v6 = Date.timeIntervalSinceNow.getter();
-      v32 = v7 / -31557600.0;
-      v11 = MEMORY[0x25F8897B0](v6);
-      (*(v17 + 8))(v20, v16);
-      (*(v27 + 8))(v26, v30);
-      v12 = v11;
-      v13 = 0;
+      (*(v20 + 32))(v23, v18, v19);
+      v9 = Date.timeIntervalSinceNow.getter();
+      v35 = v10 / -31557600.0;
+      v14 = MEMORY[0x25F8897B0](v9);
+      (*(v20 + 8))(v23, v19);
+      (*(v30 + 8))(v29, v33);
+      v15 = v14;
+      v16 = 0;
       goto LABEL_9;
     }
 
-    outlined destroy of Date?(v15);
-    (*(v27 + 8))(v26, v30);
+    outlined destroy of Date?(v18);
+    (*(v30 + 8))(v29, v33);
   }
 
-  if (v23)
+  if (v26)
   {
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v10[2] = swift_allocError();
-    *v8 = 19;
+    v13[2] = swift_allocError();
+    *v11 = 19;
     swift_willThrow();
-    return v10[1];
+    return v13[1];
   }
 
-  v12 = 0.0;
-  v13 = 1;
+  v15 = 0.0;
+  v16 = 1;
 LABEL_9:
-  *&v33 = v12;
-  BYTE4(v33) = v13 & 1;
-  return v33;
+  *&v36 = v15;
+  BYTE4(v36) = v16 & 1;
+  return v36;
 }
 
 uint64_t NightingalePFLModelType.rawValue.getter(char a1)
@@ -9894,4 +9852,44 @@ uint64_t NightingaleModelFeatureType.rawValue.getter(char a1)
   }
 
   return 6;
+}
+
+NightingaleTraining::NightingalePFLTaskType_optional __swiftcall NightingalePFLTaskType.init(rawValue:)(Swift::Int rawValue)
+{
+  switch(rawValue)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    case 3:
+      return 3;
+    case 4:
+      return 4;
+    case 5:
+      return 5;
+  }
+
+  return 6;
+}
+
+uint64_t NightingalePFLTaskType.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    case 3:
+      return 3;
+    case 4:
+      return 4;
+  }
+
+  return 5;
 }

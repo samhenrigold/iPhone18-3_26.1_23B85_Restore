@@ -17,6 +17,7 @@
 - (void)requestStageSticker:(id)sticker;
 - (void)updateCompactCardHeight:(double)height;
 - (void)updatePopoverWindowLocation:(CGRect)location completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -37,6 +38,48 @@
   self->_appPresenter = v5;
 
   [(IMAAppPresenter *)self->_appPresenter setDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = StickersAppCardViewController;
+  [(StickersAppCardViewController *)&v14 viewDidAppear:appear];
+  v4 = IMStickersExtensionIdentifier();
+  v5 = IMBalloonExtensionIDWithSuffix();
+
+  if (byte_100015DF8 == 1)
+  {
+    [(IMAAppPresenter *)self->_appPresenter presentFullScreenModalAppWithBundleIdentifier:v5 completion:0];
+    self->_isPresentingStandaloneFullscreenModal = 1;
+    byte_100015DF8 = 0;
+  }
+
+  else
+  {
+    _remoteViewControllerProxy = [(StickersAppCardViewController *)self _remoteViewControllerProxy];
+    traitCollection = [(StickersAppCardViewController *)self traitCollection];
+    horizontalSizeClass = [traitCollection horizontalSizeClass];
+
+    v9 = +[UIDevice currentDevice];
+    userInterfaceIdiom = [v9 userInterfaceIdiom];
+
+    if (userInterfaceIdiom != 1 || horizontalSizeClass == 1)
+    {
+      appPresenter = self->_appPresenter;
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_1000031CC;
+      v12[3] = &unk_1000105F0;
+      v13 = _remoteViewControllerProxy;
+      [(IMAAppPresenter *)appPresenter presentAppWithBundleIdentifier:v5 completion:v12];
+    }
+
+    else
+    {
+      [_remoteViewControllerProxy stickerPickerCardDidLoad];
+    }
+  }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -65,7 +108,7 @@
 - (void)requestStageSticker:(id)sticker
 {
   stickerCopy = sticker;
-  v5 = sub_100007044();
+  v5 = sub_100007044(stickerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     stickerIdentifier = [stickerCopy stickerIdentifier];
@@ -229,41 +272,42 @@
   representationsCopy = representations;
   handlerCopy = handler;
   stickersHostViewController = [(StickersAppCardViewController *)self stickersHostViewController];
-  if (stickersHostViewController && (objc_opt_respondsToSelector() & 1) != 0)
+  v9 = stickersHostViewController;
+  if (stickersHostViewController && (stickersHostViewController = objc_opt_respondsToSelector(), (stickersHostViewController & 1) != 0))
   {
-    objc_initWeak(&location, stickersHostViewController);
-    v9 = sub_100007044();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    inited = objc_initWeak(&location, v9);
+    v11 = sub_100007044(inited);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = [representationsCopy count];
+      v12 = [representationsCopy count];
       *buf = 134217984;
-      v18 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Adding sticker to store with %lu representations", buf, 0xCu);
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Adding sticker to store with %lu representations", buf, 0xCu);
     }
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100003E9C;
-    v13[3] = &unk_100010668;
-    objc_copyWeak(&v15, &location);
-    v13[4] = self;
-    v14 = handlerCopy;
-    [stickersHostViewController _addStickerToStoreWithRepresentations:representationsCopy completionHandler:v13];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100003E9C;
+    v15[3] = &unk_100010668;
+    objc_copyWeak(&v17, &location);
+    v15[4] = self;
+    v16 = handlerCopy;
+    [v9 _addStickerToStoreWithRepresentations:representationsCopy completionHandler:v15];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
   else if (handlerCopy)
   {
-    v11 = sub_100007044();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100007044(stickersHostViewController);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000730C();
     }
 
-    v12 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, v12, CGRectNull.origin.x, CGRectNull.origin.y, CGRectNull.size.width, CGRectNull.size.height);
+    v14 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, v14, CGRectNull.origin.x, CGRectNull.origin.y, CGRectNull.size.width, CGRectNull.size.height);
   }
 }
 
@@ -272,32 +316,33 @@
   representationsCopy = representations;
   dsCopy = ds;
   stickersHostViewController = [(StickersAppCardViewController *)self stickersHostViewController];
-  if (stickersHostViewController && (objc_opt_respondsToSelector() & 1) != 0)
+  v9 = stickersHostViewController;
+  if (stickersHostViewController && (stickersHostViewController = objc_opt_respondsToSelector(), (stickersHostViewController & 1) != 0))
   {
-    objc_initWeak(&location, stickersHostViewController);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100004228;
-    v11[3] = &unk_100010690;
-    objc_copyWeak(&v13, &location);
-    v11[4] = self;
-    v12 = dsCopy;
-    [stickersHostViewController _addStickerToStoreWithRepresentations:representationsCopy completionWithStickerIDs:v11];
+    objc_initWeak(&location, v9);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100004228;
+    v12[3] = &unk_100010690;
+    objc_copyWeak(&v14, &location);
+    v12[4] = self;
+    v13 = dsCopy;
+    [v9 _addStickerToStoreWithRepresentations:representationsCopy completionWithStickerIDs:v12];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 
   else if (dsCopy)
   {
-    v9 = sub_100007044();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100007044(stickersHostViewController);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10000730C();
     }
 
-    v10 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
-    (*(dsCopy + 2))(dsCopy, 0, v10, CGRectNull.origin.x, CGRectNull.origin.y, CGRectNull.size.width, CGRectNull.size.height);
+    v11 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
+    (*(dsCopy + 2))(dsCopy, 0, v11, CGRectNull.origin.x, CGRectNull.origin.y, CGRectNull.size.width, CGRectNull.size.height);
   }
 }
 
@@ -310,30 +355,35 @@
   representationsCopy = representations;
   completionCopy = completion;
   stickersHostViewController = [(StickersAppCardViewController *)self stickersHostViewController];
-  if (stickersHostViewController && (objc_opt_respondsToSelector() & 1) != 0)
+  v14 = stickersHostViewController;
+  if (stickersHostViewController)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000044F8;
-    v16[3] = &unk_1000106B8;
-    v17 = completionCopy;
-    [stickersHostViewController _addStickerToStoreWithRepresentations:representationsCopy sourceRect:v16 completion:{x, y, width, height}];
-    v14 = v17;
+    stickersHostViewController = objc_opt_respondsToSelector();
+    if (stickersHostViewController)
+    {
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_1000044F8;
+      v17[3] = &unk_1000106B8;
+      v18 = completionCopy;
+      [v14 _addStickerToStoreWithRepresentations:representationsCopy sourceRect:v17 completion:{x, y, width, height}];
+      v15 = v18;
 LABEL_8:
 
-    goto LABEL_9;
+      goto LABEL_9;
+    }
   }
 
   if (completionCopy)
   {
-    v15 = sub_100007044();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100007044(stickersHostViewController);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000730C();
     }
 
-    v14 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v14);
+    v15 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v15);
     goto LABEL_8;
   }
 
@@ -349,15 +399,16 @@ LABEL_9:
   stickerCopy = sticker;
   completionCopy = completion;
   stickersHostViewController = [(StickersAppCardViewController *)self stickersHostViewController];
-  if (objc_opt_respondsToSelector())
+  v14 = objc_opt_respondsToSelector();
+  if (v14)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000046F8;
-    v16[3] = &unk_1000106B8;
-    v17 = completionCopy;
-    [stickersHostViewController _addStickerToStoreWithUISticker:stickerCopy sourceRect:v16 completion:{x, y, width, height}];
-    v14 = v17;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000046F8;
+    v17[3] = &unk_1000106B8;
+    v18 = completionCopy;
+    [stickersHostViewController _addStickerToStoreWithUISticker:stickerCopy sourceRect:v17 completion:{x, y, width, height}];
+    v15 = v18;
 LABEL_7:
 
     goto LABEL_8;
@@ -365,14 +416,14 @@ LABEL_7:
 
   if (completionCopy)
   {
-    v15 = sub_100007044();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100007044(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000730C();
     }
 
-    v14 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v14);
+    v15 = [NSError errorWithDomain:IMAErrorDomain code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v15);
     goto LABEL_7;
   }
 
@@ -433,25 +484,25 @@ LABEL_8:
 - (void)appPresenterCardDidDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2050000000;
+  v5 = qword_100015E40;
   v12 = qword_100015E40;
-  v20 = qword_100015E40;
   if (!qword_100015E40)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10000527C;
-    v16[3] = &unk_100010560;
-    v16[4] = &v17;
-    sub_10000527C(v16, v4, v5, v6, v7, v8, v9, v10, v15);
-    v12 = v18[3];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10000527C;
+    v8[3] = &unk_100010560;
+    v8[4] = &v9;
+    sub_10000527C(v8);
+    v5 = v10[3];
   }
 
-  v13 = v12;
-  _Block_object_dispose(&v17, 8);
-  sharedInstance = [v12 sharedInstance];
+  v6 = v5;
+  _Block_object_dispose(&v9, 8);
+  sharedInstance = [v5 sharedInstance];
   if (([sharedInstance stickerDragActiveInCurrentProcess] & 1) == 0)
   {
     [(StickersAppCardViewController *)self dismiss];

@@ -29,7 +29,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -39,16 +39,16 @@
     {
       string = [(WFStringParameterState *)equalCopy string];
       string2 = [(WFStringParameterState *)self string];
-      v7 = [string isEqualToString:string2];
+      isEqualToString = objc_msgSend_isEqualToString_(string);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (WFStringParameterState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter

@@ -8,7 +8,7 @@
 
 - (id)description
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_platformSSOEnabled)
   {
     v3 = @"YES";
@@ -19,12 +19,12 @@
     v3 = @"NO";
   }
 
-  v15 = v3;
-  v14[0] = @"platformSSOEnabled";
-  v14[1] = @"accountName";
-  v16 = vbslq_s8(vceqzq_s64(*&self->_accountName), vdupq_n_s64(@"nil"), *&self->_accountName);
-  v14[2] = @"registeredExtensionName";
-  v14[3] = @"registeredBundleIdentifier";
+  v14 = v3;
+  v13[0] = @"platformSSOEnabled";
+  v13[1] = @"accountName";
+  v15 = vbslq_s8(vceqzq_s64(*&self->_accountName), vdupq_n_s64(@"nil"), *&self->_accountName);
+  v13[2] = @"registeredExtensionName";
+  v13[3] = @"registeredBundleIdentifier";
   registeredBundleIdentifier = self->_registeredBundleIdentifier;
   deviceRegistrationStatus = self->_deviceRegistrationStatus;
   if (!registeredBundleIdentifier)
@@ -32,8 +32,8 @@
     registeredBundleIdentifier = @"nil";
   }
 
-  v17 = registeredBundleIdentifier;
-  v14[4] = @"deviceRegistrationStatus";
+  v16 = registeredBundleIdentifier;
+  v13[4] = @"deviceRegistrationStatus";
   v6 = [POConstantUtil stringForRegistrationStatus:deviceRegistrationStatus];
   v7 = v6;
   if (self->_actionButtonEnabled)
@@ -46,16 +46,14 @@
     v8 = @"NO";
   }
 
-  v18 = v6;
-  v19 = v8;
-  v14[5] = @"actionButtonEnabled";
-  v14[6] = @"actionButtonAction";
+  v17 = v6;
+  v18 = v8;
+  v13[5] = @"actionButtonEnabled";
+  v13[6] = @"actionButtonAction";
   v9 = [POConstantUtil stringForDeviceAction:self->_actionButtonAction];
-  v20 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:v14 count:7];
+  v19 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:v13 count:7];
   v11 = [v10 description];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

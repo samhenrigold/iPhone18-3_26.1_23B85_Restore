@@ -19,11 +19,9 @@
   v7 = sub_1B83DDCBC();
   [coderCopy encodeInteger:v4 forKey:v7];
 
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
-  v9 = *(&selfCopy->type + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
-  v10 = sub_1B83DDCBC();
-  v11 = sub_1B83DDCBC();
-  [coderCopy encodeObject:v10 forKey:v11];
+  v8 = sub_1B83DDCBC();
+  v9 = sub_1B83DDCBC();
+  [coderCopy encodeObject:v8 forKey:v9];
 }
 
 + (id)local
@@ -62,35 +60,33 @@
 {
   if (*(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID_type))
   {
-    v3 = *(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
-    v4 = *(&self->type + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
 
-    v5 = sub_1B83DDCBC();
+    v3 = sub_1B83DDCBC();
   }
 
   else
   {
     sub_1B83B9E24();
-    v7 = swift_allocError();
-    *v8 = 0;
+    v5 = swift_allocError();
+    *v6 = 0;
     swift_willThrow();
     if (error)
     {
-      v9 = sub_1B83DD8BC();
+      v7 = sub_1B83DD8BC();
 
-      v10 = v9;
-      v5 = 0;
-      *error = v9;
+      v8 = v7;
+      v3 = 0;
+      *error = v7;
     }
 
     else
     {
 
-      v5 = 0;
+      v3 = 0;
     }
   }
 
-  return v5;
+  return v3;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -119,13 +115,11 @@
 {
   sub_1B83DE25C();
   MEMORY[0x1B8CBD740](*(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID_type));
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
-  v4 = *(&self->type + OBJC_IVAR____TtC14ScreenTimeCore6UserID__altDSID);
   selfCopy = self;
   sub_1B83DDD5C();
-  v6 = sub_1B83DE23C();
+  v4 = sub_1B83DE23C();
 
-  return v6;
+  return v4;
 }
 
 - (NSString)description
@@ -135,7 +129,6 @@
   {
     if (v2 != 1)
     {
-      v9 = *(&self->super.isa + OBJC_IVAR____TtC14ScreenTimeCore6UserID_type);
       selfCopy = self;
       result = sub_1B83DE19C();
       __break(1u);

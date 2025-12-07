@@ -1,10 +1,7 @@
 @interface GSConvertMXIOption
 - (GSConvertMXIOption)init;
-- (__n128)cameraExtrinsics;
-- (__n128)cameraIntrinsics;
 - (id).cxx_construct;
 - (shared_ptr<apple3dgs::MultiLayerOptions>)impl;
-- (uint64_t)cameraIntrinsicsRefine;
 - (uint64_t)setCameraExtrinsics:(__n128)extrinsics;
 - (uint64_t)setCameraIntrinsics:(__n128)intrinsics;
 - (uint64_t)setCameraIntrinsicsRefine:(__n128)refine;
@@ -31,16 +28,6 @@
   return result;
 }
 
-- (__n128)cameraExtrinsics
-{
-  v1 = *(self + 8);
-  result = *(v1 + 32);
-  v3 = *(v1 + 48);
-  v4 = *(v1 + 64);
-  v5 = *(v1 + 80);
-  return result;
-}
-
 - (uint64_t)setCameraIntrinsicsRefine:(__n128)refine
 {
   v4 = *(result + 8);
@@ -55,52 +42,12 @@
   return result;
 }
 
-- (uint64_t)cameraIntrinsicsRefine
-{
-  v1 = *(result + 8);
-  v2 = 112;
-  if (*(v1 + 192))
-  {
-    v2 = 160;
-  }
-
-  v3 = 96;
-  if (*(v1 + 192))
-  {
-    v3 = 144;
-  }
-
-  v4 = *(v1 + v3);
-  v5 = *(v1 + v2);
-  if (*(v1 + 192))
-  {
-    v6 = 176;
-  }
-
-  else
-  {
-    v6 = 128;
-  }
-
-  v7 = *(v1 + v6);
-  return result;
-}
-
 - (uint64_t)setCameraIntrinsics:(__n128)intrinsics
 {
   v4 = *(result + 8);
   v4[6] = a2;
   v4[7] = intrinsics;
   v4[8] = a4;
-  return result;
-}
-
-- (__n128)cameraIntrinsics
-{
-  v1 = *(self + 8);
-  result = *(v1 + 96);
-  v3 = *(v1 + 112);
-  v4 = *(v1 + 128);
   return result;
 }
 

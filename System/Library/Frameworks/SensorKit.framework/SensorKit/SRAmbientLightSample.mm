@@ -85,51 +85,45 @@
 
 - (SRAmbientLightSample)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (![representation length])
   {
 
-    goto LABEL_6;
+    return 0;
   }
 
-  v15.receiver = self;
-  v15.super_class = SRAmbientLightSample;
-  result = [(SRAmbientLightSample *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SRAmbientLightSample;
+  result = [(SRAmbientLightSample *)&v14 init];
   if (result)
   {
     v8 = result;
-    v14 = 0;
-    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v14];
+    v13 = 0;
+    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v13];
     if (v9)
     {
       v10 = v9;
 
-      result = v10;
-      goto LABEL_7;
+      return v10;
     }
 
     bytes = [representation bytes];
 
     result = [[SRAmbientLightSample alloc] initWithSample:bytes];
-    if (result)
+    if (!result)
     {
-      goto LABEL_7;
-    }
+      v12 = SRLogAmbientLightSample;
+      if (os_log_type_enabled(SRLogAmbientLightSample, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138477827;
+        representationCopy = representation;
+        _os_log_error_impl(&dword_1C914D000, v12, OS_LOG_TYPE_ERROR, "Failed to instantiate ALS sample from binary %{private}@", buf, 0xCu);
+      }
 
-    v13 = SRLogAmbientLightSample;
-    if (os_log_type_enabled(SRLogAmbientLightSample, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138477827;
-      representationCopy = representation;
-      _os_log_error_impl(&dword_1C914D000, v13, OS_LOG_TYPE_ERROR, "Failed to instantiate ALS sample from binary %{private}@", buf, 0xCu);
+      return 0;
     }
-
-LABEL_6:
-    result = 0;
   }
 
-LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -208,7 +202,6 @@ LABEL_7:
     v2 = @"Color";
   }
 
-  self->_comboTypePlacement;
   if (comboTypePlacement_high)
   {
     return &v2->isa;
@@ -249,25 +242,23 @@ LABEL_7:
 
 - (id)sr_dictionaryRepresentation
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"sensorType";
-  v11[0] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRAmbientLightSample chipType](self, "chipType")}];
-  v10[1] = @"placement";
-  v11[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRAmbientLightSample placement](self, "placement")}];
-  v10[2] = @"chromaticity";
-  v8[0] = @"x";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"sensorType";
+  v10[0] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRAmbientLightSample chipType](self, "chipType")}];
+  v9[1] = @"placement";
+  v10[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRAmbientLightSample placement](self, "placement")}];
+  v9[2] = @"chromaticity";
+  v7[0] = @"x";
   *&v3 = self->_chromaticity.x;
-  v8[1] = @"y";
-  v9[0] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
+  v7[1] = @"y";
+  v8[0] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
   *&v4 = self->_chromaticity.y;
-  v9[1] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v11[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-  v10[3] = @"lux";
+  v8[1] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
+  v10[2] = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v9[3] = @"lux";
   *&v5 = self->_luxValue;
-  v11[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v10[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 }
 
 - (int64_t)sr_writeUTF8RepresentationToOutputStream:(id)stream

@@ -6,6 +6,7 @@
 - (_CDSpotlightItemRecorder)initWithInteractionRecorder:(id)recorder knowledgeStore:(id)store;
 - (_CDSpotlightItemRecorder)initWithInteractionRecorder:(id)recorder knowledgeStore:(id)store rateLimitEnforcer:(id)enforcer deletionManagerOverride:(id)override;
 - (id)getUserNameOfDonator;
+- (unint64_t)getUidOfDonator;
 - (void)_addOrUpdateCoreDuetInteractions:(void *)interactions bundleID:;
 - (void)_cacheUserActivity:(uint64_t)activity;
 - (void)_deleteUserActivitiesWithPersistentIdentifiers:(void *)identifiers bundleID:;
@@ -25,7 +26,6 @@
 - (void)deleteSearchableItemsWithIdentifiers:(id)identifiers bundleID:(id)d withCompletion:(id)completion;
 - (void)deleteUserActivitiesWithPersistentIdentifiers:(id)identifiers bundleID:(id)d;
 - (void)donateRelevantShortcuts:(id)shortcuts bundleID:(id)d;
-- (void)getUidOfDonator;
 - (void)registerSpotlightRecorderWithServiceName:(id)name;
 - (void)runOperation:(uint64_t)operation;
 - (void)saveRateLimitedEvents:(int)events donatorUid:(void *)uid responseQueue:(void *)queue withCompletion:;
@@ -35,7 +35,7 @@
 
 @implementation _CDSpotlightItemRecorder
 
-- (void)getUidOfDonator
+- (unint64_t)getUidOfDonator
 {
   if (!self)
   {
@@ -96,17 +96,17 @@ LABEL_11:
 
 - (id)getUserNameOfDonator
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
     getUidOfDonator = [(_CDSpotlightItemRecorder *)self getUidOfDonator];
     v3 = +[_CDLogging spotlightReceiverChannel];
     if (OUTLINED_FUNCTION_80(v3))
     {
-      *v21 = 67109120;
-      *&v21[4] = getUidOfDonator;
+      *v20 = 67109120;
+      *&v20[4] = getUidOfDonator;
       OUTLINED_FUNCTION_22_6();
-      _os_log_debug_impl(v10, v11, v12, v13, v14, 8u);
+      _os_log_debug_impl(v9, v10, v11, v12, v13, 8u);
     }
 
     v4 = getpwuid(getUidOfDonator);
@@ -116,10 +116,10 @@ LABEL_11:
       if (OUTLINED_FUNCTION_80(v6))
       {
         pw_name = v5->pw_name;
-        *v21 = 136315138;
-        *&v21[4] = pw_name;
+        *v20 = 136315138;
+        *&v20[4] = pw_name;
         OUTLINED_FUNCTION_22_6();
-        _os_log_debug_impl(v16, v17, v18, v19, v20, 0xCu);
+        _os_log_debug_impl(v15, v16, v17, v18, v19, 0xCu);
       }
 
       self = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5->pw_name];
@@ -130,15 +130,13 @@ LABEL_11:
       v7 = +[_CDLogging spotlightReceiverChannel];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *v21 = 0;
-        _os_log_error_impl(&dword_191750000, v7, OS_LOG_TYPE_ERROR, "Error converting Spotlight Receiver donator UID to OS user name. Cannot extract OS user name of interaction.", v21, 2u);
+        *v20 = 0;
+        _os_log_error_impl(&dword_191750000, v7, OS_LOG_TYPE_ERROR, "Error converting Spotlight Receiver donator UID to OS user name. Cannot extract OS user name of interaction.", v20, 2u);
       }
 
       self = NSUserName();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -331,7 +329,7 @@ LABEL_11:
 - (void)registerSpotlightRecorderWithServiceName:(id)name
 {
   nameCopy = name;
-  if (SpotlightReceiverLibraryCore())
+  if (SpotlightReceiverLibraryCore(0))
   {
     if (!self->_coalescedDeletionManager)
     {
@@ -368,8 +366,8 @@ LABEL_8:
 
 - (void)_addOrUpdateCoreDuetInteractions:(void *)interactions bundleID:
 {
-  v78 = *MEMORY[0x1E69E9840];
-  v41 = a2;
+  v77 = *MEMORY[0x1E69E9840];
+  v40 = a2;
   interactionsCopy = interactions;
   if (!self || !*(self + 144))
   {
@@ -377,30 +375,30 @@ LABEL_8:
   }
 
   selfCopy = self;
-  if ([v41 count])
+  if ([v40 count])
   {
     if (*(self + 104) && [interactionsCopy isEqualToString:@"com.apple.mobilecal"])
     {
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
-      obj = v41;
-      v44 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
-      if (v44)
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      obj = v40;
+      v43 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
+      if (v43)
       {
         v5 = 0;
-        v43 = *v68;
+        v42 = *v67;
         while (1)
         {
-          for (i = 0; i != v44; ++i)
+          for (i = 0; i != v43; ++i)
           {
-            if (*v68 != v43)
+            if (*v67 != v42)
             {
               objc_enumerationMutation(obj);
             }
 
-            domainIdentifier = [*(*(&v67 + 1) + 8 * i) domainIdentifier];
+            domainIdentifier = [*(*(&v66 + 1) + 8 * i) domainIdentifier];
             v6 = domainIdentifier;
             if (domainIdentifier)
             {
@@ -412,27 +410,27 @@ LABEL_8:
 
               if (v9)
               {
-                v66 = 0;
+                v65 = 0;
+                v63 = 0u;
                 v64 = 0u;
-                v65 = 0u;
-                v62 = 0u;
-                theString = 0u;
-                v60 = 0u;
                 v61 = 0u;
-                v58 = 0u;
+                theString = 0u;
                 v59 = 0u;
+                v60 = 0u;
                 v57 = 0u;
-                *buffer = 0u;
+                v58 = 0u;
                 v56 = 0u;
+                *buffer = 0u;
+                v55 = 0u;
                 Length = CFStringGetLength(v8);
                 *&theString = v8;
-                *(&v64 + 1) = 0;
-                *&v65 = Length;
+                *(&v63 + 1) = 0;
+                *&v64 = Length;
                 *(&theString + 1) = CFStringGetCharactersPtr(v8);
                 v11 = *(&theString + 1) ? 0 : CFStringGetCStringPtr(v8, 0x600u);
-                *&v64 = v11;
-                *(&v65 + 1) = 0;
-                v66 = 0;
+                *&v63 = v11;
+                *(&v64 + 1) = 0;
+                v65 = 0;
                 if (Length >= 1)
                 {
                   v12 = 0;
@@ -450,8 +448,8 @@ LABEL_8:
                       v15 = v13;
                     }
 
-                    v16 = v65;
-                    if (v65 <= v13)
+                    v16 = v64;
+                    if (v64 <= v13)
                     {
 LABEL_29:
                       v5 = v7;
@@ -463,38 +461,38 @@ LABEL_29:
                       break;
                     }
 
-                    if (!v64)
+                    if (!v63)
                     {
-                      v22 = *(&v65 + 1);
-                      if (v66 <= v13 || *(&v65 + 1) > v13)
+                      v22 = *(&v64 + 1);
+                      if (v65 <= v13 || *(&v64 + 1) > v13)
                       {
                         v24 = v13 - v15;
                         v25 = v15 + v12;
                         v26 = v14 - v15;
                         v27 = v24 + 64;
-                        if (v24 + 64 >= v65)
+                        if (v24 + 64 >= v64)
                         {
-                          v27 = v65;
+                          v27 = v64;
                         }
 
-                        *(&v65 + 1) = v24;
-                        v66 = v27;
-                        if (v65 >= v26)
+                        *(&v64 + 1) = v24;
+                        v65 = v27;
+                        if (v64 >= v26)
                         {
                           v16 = v26;
                         }
 
-                        v79.location = *(&v64 + 1) + v24;
-                        v79.length = v16 + v25;
-                        CFStringGetCharacters(theString, v79, buffer);
-                        v22 = *(&v65 + 1);
+                        v78.location = *(&v63 + 1) + v24;
+                        v78.length = v16 + v25;
+                        CFStringGetCharacters(theString, v78, buffer);
+                        v22 = *(&v64 + 1);
                       }
 
                       v17 = &buffer[-v22];
                       goto LABEL_24;
                     }
 
-                    v18 = *(v64 + *(&v64 + 1) + v13);
+                    v18 = *(v63 + *(&v63 + 1) + v13);
 LABEL_27:
                     if (v18 != 46)
                     {
@@ -519,7 +517,7 @@ LABEL_30:
                     }
                   }
 
-                  v17 = (*(&theString + 1) + 2 * *(&v64 + 1));
+                  v17 = (*(&theString + 1) + 2 * *(&v63 + 1));
 LABEL_24:
                   v18 = v17[v13];
                   goto LABEL_27;
@@ -533,8 +531,8 @@ LABEL_43:
             }
           }
 
-          v44 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
-          if (!v44)
+          v43 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
+          if (!v43)
           {
             goto LABEL_48;
           }
@@ -553,48 +551,48 @@ LABEL_52:
       v31 = objc_autoreleasePoolPush();
       *buffer = 0;
       *&buffer[4] = buffer;
-      *&v56 = 0x2020000000;
-      BYTE8(v56) = 0;
+      *&v55 = 0x2020000000;
+      BYTE8(v55) = 0;
       v32 = [MEMORY[0x1E695DF00] now];
       v33 = *(selfCopy + 136);
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __70___CDSpotlightItemRecorder__addOrUpdateCoreDuetInteractions_bundleID___block_invoke;
-      v50[3] = &unk_1E736AA80;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __70___CDSpotlightItemRecorder__addOrUpdateCoreDuetInteractions_bundleID___block_invoke;
+      v49[3] = &unk_1E736AA80;
       v34 = interactionsCopy;
-      v51 = v34;
-      v35 = v41;
-      v52 = v35;
+      v50 = v34;
+      v35 = v40;
+      v51 = v35;
       v36 = v32;
-      v53 = v36;
-      v54 = buffer;
-      [v33 runWithLockAcquired:v50];
+      v52 = v36;
+      v53 = buffer;
+      [v33 runWithLockAcquired:v49];
       if (*(*&buffer[4] + 24) == 1)
       {
         v37 = [v35 count];
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __70___CDSpotlightItemRecorder__addOrUpdateCoreDuetInteractions_bundleID___block_invoke_2;
-        v48[3] = &unk_1E736AAA8;
-        v49 = v36;
-        v41 = [v35 _pas_filteredArrayWithTest:v48];
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __70___CDSpotlightItemRecorder__addOrUpdateCoreDuetInteractions_bundleID___block_invoke_2;
+        v47[3] = &unk_1E736AAA8;
+        v48 = v36;
+        v40 = [v35 _pas_filteredArrayWithTest:v47];
 
-        v38 = [v41 count];
+        v38 = [v40 count];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218498;
-          v72 = v37;
-          v73 = 2114;
-          v74 = v34;
-          v75 = 2048;
-          v76 = v37 - v38;
+          v71 = v37;
+          v72 = 2114;
+          v73 = v34;
+          v74 = 2048;
+          v75 = v37 - v38;
           _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "_addOrUpdateCoreDuetInteractions:(count %tu) bundleID:%{public}@ dropping %tu items due to throttling!", buf, 0x20u);
         }
       }
 
       else
       {
-        v41 = v35;
+        v40 = v35;
       }
 
       _Block_object_dispose(buffer, 8);
@@ -612,19 +610,17 @@ LABEL_52:
   }
 
 LABEL_58:
-  if ([v41 count])
+  if ([v40 count])
   {
-    [(_CDSpotlightItemRecorder *)v41 _addOrUpdateCoreDuetInteractions:interactionsCopy bundleID:selfCopy];
+    [(_CDSpotlightItemRecorder *)v40 _addOrUpdateCoreDuetInteractions:interactionsCopy bundleID:selfCopy];
   }
 
 LABEL_60:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donateRelevantShortcuts:(id)shortcuts bundleID:(id)d
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   shortcutsCopy = shortcuts;
   dCopy = d;
   v8 = _os_activity_create(&dword_191750000, "CoreDuet: donateRelevantShortcuts:bundleID:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -652,11 +648,11 @@ LABEL_60:
 
     v14 = [_DKQuery predicateForEventsWithStringValue:dCopy];
     v15 = MEMORY[0x1E696AB28];
-    v36 = v14;
-    v37 = v13;
-    v43[0] = v13;
-    v43[1] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v35 = v14;
+    v36 = v13;
+    v42[0] = v13;
+    v42[1] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
     v17 = [v15 andPredicateWithSubpredicates:v16];
 
     if (self)
@@ -665,29 +661,29 @@ LABEL_60:
     }
 
     selfCopy = self;
-    v35 = v17;
+    v34 = v17;
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     v19 = shortcutsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v39;
+      v22 = *v38;
       do
       {
         v23 = 0;
         do
         {
-          if (*v39 != v22)
+          if (*v38 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v38 + 1) + 8 * v23);
+          v24 = *(*(&v37 + 1) + 8 * v23);
           v25 = objc_autoreleasePoolPush();
           v26 = [_DKEvent eventWithRelevantShortcut:v24 bundleID:dCopy];
           if (v26)
@@ -700,7 +696,7 @@ LABEL_60:
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v21);
@@ -712,9 +708,9 @@ LABEL_60:
       v28 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v19, "count") - objc_msgSend(v18, "count")}];
+        v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v19, "count") - objc_msgSend(v18, "count")}];
         *state = 138412546;
-        *&state[4] = v32;
+        *&state[4] = v31;
         *&state[12] = 2112;
         *&state[14] = dCopy;
         _os_log_error_impl(&dword_191750000, v28, OS_LOG_TYPE_ERROR, "Unable to convert %@ relevant shortcuts for bundleID %@ to knowledge events", state, 0x16u);
@@ -723,23 +719,21 @@ LABEL_60:
 
     if ([v18 count])
     {
-      v30 = +[_CDLogging knowledgeChannel];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v29 = +[_CDLogging knowledgeChannel];
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        [(_CDSpotlightItemRecorder *)v18 donateRelevantShortcuts:dCopy bundleID:v30];
+        [(_CDSpotlightItemRecorder *)v18 donateRelevantShortcuts:dCopy bundleID:v29];
       }
 
-      getUidOfDonator = [(_CDSpotlightItemRecorder *)v34 getUidOfDonator];
-      [(_CDSpotlightItemRecorder *)v34 saveRateLimitedEvents:v18 donatorUid:getUidOfDonator responseQueue:0 withCompletion:&__block_literal_global_626];
+      getUidOfDonator = [(_CDSpotlightItemRecorder *)v33 getUidOfDonator];
+      [(_CDSpotlightItemRecorder *)v33 saveRateLimitedEvents:v18 donatorUid:getUidOfDonator responseQueue:0 withCompletion:&__block_literal_global_626];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addInteractions:(id)interactions bundleID:(id)d protectionClass:(id)class withCompletion:(id)completion
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   interactionsCopy = interactions;
   dCopy = d;
   classCopy = class;
@@ -763,14 +757,14 @@ LABEL_60:
 
   if (([classCopy isEqualToString:*MEMORY[0x1E696A378]] & 1) == 0 && (objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696A380]) & 1) == 0)
   {
-    v18 = interactionsCopy;
-    v19 = dCopy;
-    v20 = +[_CDConstants mobileMessagesBundleId];
-    v21 = [v19 isEqualToString:v20];
+    v17 = interactionsCopy;
+    v18 = dCopy;
+    v19 = +[_CDConstants mobileMessagesBundleId];
+    v20 = [v18 isEqualToString:v19];
 
-    if (v21)
+    if (v20)
     {
-      [_CDSpotlightItemRecorder addInteractions:v53 bundleID:v18 protectionClass:state withCompletion:?];
+      [_CDSpotlightItemRecorder addInteractions:v52 bundleID:v17 protectionClass:state withCompletion:?];
     }
 
     context = objc_autoreleasePoolPush();
@@ -778,69 +772,69 @@ LABEL_60:
     {
       if (self->_recorder)
       {
-        v22 = +[_CDConstants mobileMessagesBundleId];
-        v23 = [v19 isEqualToString:v22];
+        v21 = +[_CDConstants mobileMessagesBundleId];
+        v22 = [v18 isEqualToString:v21];
 
-        if ((v23 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
-          v38 = completionCopy;
-          v39 = dCopy;
-          v40 = interactionsCopy;
+          v37 = completionCopy;
+          v38 = dCopy;
+          v39 = interactionsCopy;
           selfCopy = self;
           getUserNameOfDonator = [(_CDSpotlightItemRecorder *)self getUserNameOfDonator];
-          v26 = [MEMORY[0x1E696AE18] predicateWithFormat:@"intent.cd_saveToPeopleStore = YES"];
-          v37 = v18;
-          v27 = [v18 filteredArrayUsingPredicate:v26];
+          v25 = [MEMORY[0x1E696AE18] predicateWithFormat:@"intent.cd_saveToPeopleStore = YES"];
+          v36 = v17;
+          v26 = [v17 filteredArrayUsingPredicate:v25];
 
-          v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v27, "count")}];
+          v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v26, "count")}];
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
-          obj = v27;
-          v29 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-          if (v29)
+          obj = v26;
+          v28 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+          if (v28)
           {
-            v30 = v29;
-            v31 = *v50;
+            v29 = v28;
+            v30 = *v49;
             do
             {
-              for (i = 0; i != v30; ++i)
+              for (i = 0; i != v29; ++i)
               {
-                if (*v50 != v31)
+                if (*v49 != v30)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v33 = *(*(&v49 + 1) + 8 * i);
-                v34 = [_CDInteraction shareSheetInteractionFromINInteraction:v33 bundleID:v19 nsUserName:getUserNameOfDonator knowledgeStore:selfCopy->_knowledgeStore];
-                if (v34)
+                v32 = *(*(&v48 + 1) + 8 * i);
+                v33 = [_CDInteraction shareSheetInteractionFromINInteraction:v32 bundleID:v18 nsUserName:getUserNameOfDonator knowledgeStore:selfCopy->_knowledgeStore];
+                if (v33)
                 {
-                  [v28 addObject:v34];
+                  [v27 addObject:v33];
                 }
 
                 else
                 {
-                  v35 = [[_CDInteraction alloc] initWithINInteraction:v33 bundleID:v19 nsUserName:getUserNameOfDonator];
-                  if (v35)
+                  v34 = [[_CDInteraction alloc] initWithINInteraction:v32 bundleID:v18 nsUserName:getUserNameOfDonator];
+                  if (v34)
                   {
-                    [v28 addObject:v35];
+                    [v27 addObject:v34];
                   }
                 }
               }
 
-              v30 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+              v29 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
             }
 
-            while (v30);
+            while (v29);
           }
 
-          [(_CDSpotlightItemRecorder *)selfCopy _addOrUpdateCoreDuetInteractions:v28 bundleID:v19];
+          [(_CDSpotlightItemRecorder *)selfCopy _addOrUpdateCoreDuetInteractions:v27 bundleID:v18];
           self = selfCopy;
-          dCopy = v39;
-          interactionsCopy = v40;
-          completionCopy = v38;
-          v18 = v37;
+          dCopy = v38;
+          interactionsCopy = v39;
+          completionCopy = v37;
+          v17 = v36;
         }
       }
     }
@@ -854,23 +848,21 @@ LABEL_60:
     block[1] = 3221225472;
     block[2] = __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke;
     block[3] = &unk_1E736AB40;
+    v43 = v17;
     v44 = v18;
-    v45 = v19;
     selfCopy2 = self;
-    v48 = state;
-    v47 = completionCopy;
+    v47 = state;
+    v46 = completionCopy;
     dispatch_sync(batchExecutionSourceQueue, block);
 
     _Block_object_dispose(state, 8);
     objc_autoreleasePoolPop(context);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addOrUpdateSearchableItems:(id)items bundleID:(id)d withCompletion:(id)completion
 {
-  v67[2] = *MEMORY[0x1E69E9840];
+  v66[2] = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dCopy = d;
   completionCopy = completion;
@@ -901,12 +893,12 @@ LABEL_60:
     {
       keyPathForMostRecentSafariSpotlightDonation = [get_CDContextQueriesClass() keyPathForMostRecentSafariSpotlightDonation];
       mostRecentSafariSearchableItem = [get_CDContextQueriesClass() mostRecentSafariSearchableItem];
-      v66[0] = mostRecentSafariSearchableItem;
-      v67[0] = firstObject;
+      v65[0] = mostRecentSafariSearchableItem;
+      v66[0] = firstObject;
       safariURLInMostRecentSearchableItem = [get_CDContextQueriesClass() safariURLInMostRecentSearchableItem];
-      v66[1] = safariURLInMostRecentSearchableItem;
-      v67[1] = contentURL;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:2];
+      v65[1] = safariURLInMostRecentSearchableItem;
+      v66[1] = contentURL;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
       userContext = [get_CDClientContextClass() userContext];
       [userContext setObject:v17 forKeyedSubscript:keyPathForMostRecentSafariSpotlightDonation];
     }
@@ -915,7 +907,7 @@ LABEL_60:
   v19 = [itemsCopy count];
   if ([dCopy isEqualToString:@"com.apple.icloud.drive.fileprovider"])
   {
-    v46 = MEMORY[0x1E695E0F0];
+    v45 = MEMORY[0x1E695E0F0];
 LABEL_12:
 
     goto LABEL_14;
@@ -924,76 +916,76 @@ LABEL_12:
   if ([dCopy isEqualToString:@"com.apple.shortcuts"])
   {
     v20 = objc_alloc(MEMORY[0x1E69C5D18]);
-    v65[0] = @"com.apple.duetexpertd.spotlightZKW";
-    v65[1] = @"spotlightZKW";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+    v64[0] = @"com.apple.duetexpertd.spotlightZKW";
+    v64[1] = @"spotlightZKW";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
     v22 = [v20 initWithDomainsFromArray:v21];
 
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke;
-    v60[3] = &unk_1E736AB68;
-    v61 = v22;
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke;
+    v59[3] = &unk_1E736AB68;
+    v60 = v22;
     v23 = v22;
-    v46 = [itemsCopy _pas_filteredArrayWithTest:v60];
+    v45 = [itemsCopy _pas_filteredArrayWithTest:v59];
 
     itemsCopy = v23;
     goto LABEL_12;
   }
 
-  v46 = itemsCopy;
+  v45 = itemsCopy;
 LABEL_14:
-  if (v19 != [v46 count])
+  if (v19 != [v45 count])
   {
     v24 = +[_CDLogging spotlightReceiverChannel];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v19 - objc_msgSend(v46, "count")}];
+      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v19 - objc_msgSend(v45, "count")}];
       v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v19];
       *state = 138412802;
       *&state[4] = v25;
       *&state[12] = 2112;
       *&state[14] = v26;
       *&state[22] = 2112;
-      v64 = dCopy;
+      v63 = dCopy;
       _os_log_impl(&dword_191750000, v24, OS_LOG_TYPE_INFO, "Ignoring %@ of %@ searchable items added for bundleID: %@", state, 0x20u);
     }
   }
 
-  if ([v46 count])
+  if ([v45 count])
   {
     selfCopy2 = self;
     if (self && self->_recorder)
     {
       context = objc_autoreleasePoolPush();
       getUserNameOfDonator = [(_CDSpotlightItemRecorder *)self getUserNameOfDonator];
-      v49 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v46, "count")}];
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
+      v48 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v45, "count")}];
       v57 = 0u;
-      obj = v46;
-      v29 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      obj = v45;
+      v29 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
       if (!v29)
       {
         goto LABEL_34;
       }
 
-      v30 = *v57;
+      v30 = *v56;
       while (1)
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v57 != v30)
+          if (*v56 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v56 + 1) + 8 * i);
+          v32 = *(*(&v55 + 1) + 8 * i);
           context = [_CDSpotlightItemUtils interactionForSearchableItem:v32 nsUserName:getUserNameOfDonator, context];
           if (context)
           {
-            [v49 addObject:context];
+            [v48 addObject:context];
             v34 = +[_CDConstants mobileMessagesBundleId];
             if ([dCopy isEqualToString:v34])
             {
@@ -1015,7 +1007,7 @@ LABEL_14:
 
               if (v34)
               {
-                [v49 addObject:v34];
+                [v48 addObject:v34];
               }
             }
           }
@@ -1023,12 +1015,12 @@ LABEL_14:
 LABEL_32:
         }
 
-        v29 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v29 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
         if (!v29)
         {
 LABEL_34:
 
-          [(_CDSpotlightItemRecorder *)self _addOrUpdateCoreDuetInteractions:v49 bundleID:dCopy];
+          [(_CDSpotlightItemRecorder *)self _addOrUpdateCoreDuetInteractions:v48 bundleID:dCopy];
           objc_autoreleasePoolPop(context);
           selfCopy2 = self;
           break;
@@ -1039,18 +1031,18 @@ LABEL_34:
     *state = 0;
     *&state[8] = state;
     *&state[16] = 0x2020000000;
-    LODWORD(v64) = [(_CDSpotlightItemRecorder *)selfCopy2 getUidOfDonator];
+    LODWORD(v63) = [(_CDSpotlightItemRecorder *)selfCopy2 getUidOfDonator];
     v40 = objc_autoreleasePoolPush();
     batchExecutionSourceQueue = self->_batchExecutionSourceQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke_645;
     block[3] = &unk_1E736AB40;
-    v51 = v46;
-    v52 = dCopy;
+    v50 = v45;
+    v51 = dCopy;
     selfCopy3 = self;
-    v55 = state;
-    v54 = completionCopy;
+    v54 = state;
+    v53 = completionCopy;
     dispatch_sync(batchExecutionSourceQueue, block);
 
     objc_autoreleasePoolPop(v40);
@@ -1061,67 +1053,62 @@ LABEL_34:
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllUserActivities:(id)activities
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = _os_activity_create(&dword_191750000, "CoreDuet: deleteAllUserActivities:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v8.opaque[0] = 0;
-  v8.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v8);
-  os_activity_scope_leave(&v8);
+  v7.opaque[0] = 0;
+  v7.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v7);
+  os_activity_scope_leave(&v7);
 
   v6 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v8.opaque[0]) = 138412290;
-    *(v8.opaque + 4) = activitiesCopy;
-    _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_DEFAULT, "Deleting user activies with bundleID: %@", &v8, 0xCu);
+    LODWORD(v7.opaque[0]) = 138412290;
+    *(v7.opaque + 4) = activitiesCopy;
+    _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_DEFAULT, "Deleting user activies with bundleID: %@", &v7, 0xCu);
   }
 
   [(_CDSpotlightItemRecorder *)self _deleteUserActivitiesWithPersistentIdentifiers:activitiesCopy bundleID:?];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteUserActivitiesWithPersistentIdentifiers:(id)identifiers bundleID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   v8 = _os_activity_create(&dword_191750000, "CoreDuet: deleteUserActivitiesWithPersistentIdentifiers:bundleID:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  *v12 = 0;
-  *&v12[8] = 0;
-  os_activity_scope_enter(v8, v12);
-  os_activity_scope_leave(v12);
+  *v11 = 0;
+  *&v11[8] = 0;
+  os_activity_scope_enter(v8, v11);
+  os_activity_scope_leave(v11);
 
   v9 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [identifiersCopy count];
-    *v12 = 138412802;
-    *&v12[4] = identifiersCopy;
-    *&v12[12] = 1024;
-    *&v12[14] = v10;
-    v13 = 2112;
-    v14 = dCopy;
-    _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_DEFAULT, "Deleting user activies with persistent identifiers: %@, count: %u, bundleID: %@", v12, 0x1Cu);
+    *v11 = 138412802;
+    *&v11[4] = identifiersCopy;
+    *&v11[12] = 1024;
+    *&v11[14] = v10;
+    v12 = 2112;
+    v13 = dCopy;
+    _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_DEFAULT, "Deleting user activies with persistent identifiers: %@, count: %u, bundleID: %@", v11, 0x1Cu);
   }
 
   if (identifiersCopy && [identifiersCopy count])
   {
     [(_CDSpotlightItemRecorder *)self _deleteUserActivitiesWithPersistentIdentifiers:identifiersCopy bundleID:dCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSearchableItemsWithDomainIdentifiers:(id)identifiers bundleID:(id)d withCompletion:(id)completion
 {
-  v49[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   completionCopy = completion;
@@ -1135,18 +1122,18 @@ LABEL_34:
   else if ([dCopy isEqualToString:@"com.apple.shortcuts"])
   {
     v12 = objc_alloc(MEMORY[0x1E69C5D18]);
-    v49[0] = @"com.apple.duetexpertd.spotlightZKW";
-    v49[1] = @"spotlightZKW";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+    v48[0] = @"com.apple.duetexpertd.spotlightZKW";
+    v48[1] = @"spotlightZKW";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
     v14 = [v12 initWithDomainsFromArray:v13];
 
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke;
-    v43[3] = &unk_1E7368CD0;
-    v44 = v14;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke;
+    v42[3] = &unk_1E7368CD0;
+    v43 = v14;
     v15 = v14;
-    v16 = [identifiersCopy _pas_filteredArrayWithTest:v43];
+    v16 = [identifiersCopy _pas_filteredArrayWithTest:v42];
 
     identifiersCopy = v16;
   }
@@ -1156,16 +1143,16 @@ LABEL_34:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v46 = __Block_byref_object_copy__27;
-    v47 = __Block_byref_object_dispose__27;
-    v48 = 0;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke_2;
-    v42[3] = &unk_1E736ABE0;
-    v42[4] = self;
-    v42[5] = buf;
-    v17 = [identifiersCopy _pas_filteredArrayWithTest:v42];
+    v45 = __Block_byref_object_copy__27;
+    v46 = __Block_byref_object_dispose__27;
+    v47 = 0;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke_2;
+    v41[3] = &unk_1E736ABE0;
+    v41[4] = self;
+    v41[5] = buf;
+    v17 = [identifiersCopy _pas_filteredArrayWithTest:v41];
 
     _Block_object_dispose(buf, 8);
     identifiersCopy = v17;
@@ -1183,7 +1170,7 @@ LABEL_34:
       *&buf[12] = 2112;
       *&buf[14] = v20;
       *&buf[22] = 2112;
-      v46 = dCopy;
+      v45 = dCopy;
       _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "Ignoring %@ of %@ domain identifiers in call to delete searchable items for bundle %@", buf, 0x20u);
     }
   }
@@ -1205,7 +1192,7 @@ LABEL_34:
       *&buf[12] = 2112;
       *&buf[14] = dCopy;
       *&buf[22] = 2112;
-      v46 = identifiersCopy;
+      v45 = identifiersCopy;
       _os_log_impl(&dword_191750000, v22, OS_LOG_TYPE_DEFAULT, "Deleting %lu searchable items for bundleID: %@ with domain identifiers: %@", buf, 0x20u);
     }
 
@@ -1229,21 +1216,21 @@ LABEL_34:
       {
         objc_initWeak(buf, self);
         batchExecutionSourceQueue = self->_batchExecutionSourceQueue;
-        v35 = MEMORY[0x1E69E9820];
-        v36 = 3221225472;
-        v37 = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke_659;
-        v38 = &unk_1E736AC08;
-        objc_copyWeak(&v41, buf);
-        v39 = dCopy;
-        v40 = identifiersCopy;
-        dispatch_sync(batchExecutionSourceQueue, &v35);
+        v34 = MEMORY[0x1E69E9820];
+        v35 = 3221225472;
+        v36 = __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke_659;
+        v37 = &unk_1E736AC08;
+        objc_copyWeak(&v40, buf);
+        v38 = dCopy;
+        v39 = identifiersCopy;
+        dispatch_sync(batchExecutionSourceQueue, &v34);
 
-        objc_destroyWeak(&v41);
+        objc_destroyWeak(&v40);
         objc_destroyWeak(buf);
       }
     }
 
-    v28 = [&unk_1F05EF6E0 containsObject:{dCopy, v35, v36, v37, v38}];
+    v28 = [&unk_1F05EF6E0 containsObject:{dCopy, v34, v35, v36, v37}];
     v29 = +[_CDLogging spotlightReceiverChannel];
     v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
     if (v28)
@@ -1278,13 +1265,11 @@ LABEL_34:
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllSearchableItemsWithBundleID:(id)d withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if ([dCopy isEqualToString:@"com.apple.icloud.drive.fileprovider"])
@@ -1295,8 +1280,8 @@ LABEL_34:
       goto LABEL_12;
     }
 
-    LODWORD(v19.opaque[0]) = 138543362;
-    *(v19.opaque + 4) = dCopy;
+    LODWORD(v18.opaque[0]) = 138543362;
+    *(v18.opaque + 4) = dCopy;
     v9 = "Ignoring call to delete all searchable items for %{public}@ (File provider bundle ID)";
     goto LABEL_11;
   }
@@ -1321,11 +1306,11 @@ LABEL_34:
       goto LABEL_12;
     }
 
-    LODWORD(v19.opaque[0]) = 138543362;
-    *(v19.opaque + 4) = dCopy;
+    LODWORD(v18.opaque[0]) = 138543362;
+    *(v18.opaque + 4) = dCopy;
     v9 = "Ignoring call to delete all searchable items for %{public}@ (Messages bundle ID)";
 LABEL_11:
-    _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, v9, &v19, 0xCu);
+    _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, v9, &v18, 0xCu);
 LABEL_12:
 
     if (completionCopy)
@@ -1336,29 +1321,27 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  v17 = _os_activity_create(&dword_191750000, "CoreDuet: deleteAllSearchableItemsWithBundleID:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v19.opaque[0] = 0;
-  v19.opaque[1] = 0;
-  os_activity_scope_enter(v17, &v19);
-  os_activity_scope_leave(&v19);
+  v16 = _os_activity_create(&dword_191750000, "CoreDuet: deleteAllSearchableItemsWithBundleID:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v18.opaque[0] = 0;
+  v18.opaque[1] = 0;
+  os_activity_scope_enter(v16, &v18);
+  os_activity_scope_leave(&v18);
 
-  v18 = +[_CDLogging spotlightReceiverChannel];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = +[_CDLogging spotlightReceiverChannel];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v19.opaque[0]) = 138543362;
-    *(v19.opaque + 4) = dCopy;
-    _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "Deleting searchable items with bundleID: %{public}@", &v19, 0xCu);
+    LODWORD(v18.opaque[0]) = 138543362;
+    *(v18.opaque + 4) = dCopy;
+    _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_DEFAULT, "Deleting searchable items with bundleID: %{public}@", &v18, 0xCu);
   }
 
   [(_CDSpotlightItemRecorder *)self deleteAllItemsWithBundleID:dCopy isCSSIDeletion:1 completion:completionCopy];
 LABEL_14:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSearchableItemsWithIdentifiers:(id)identifiers bundleID:(id)d withCompletion:(id)completion
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   completionCopy = completion;
@@ -1420,37 +1403,35 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v26 = 0x1E7366000uLL;
-    v27 = +[_CDConstants mobileMailBundleId];
-    v28 = [dCopy containsString:v27];
+    v25 = 0x1E7366000uLL;
+    v26 = +[_CDConstants mobileMailBundleId];
+    v27 = [dCopy containsString:v26];
 
-    if (!v28)
+    if (!v27)
     {
 LABEL_64:
-      v76 = objc_alloc_init(_CDSpotlightItemRecorderOperation);
-      p_super = &v76->super;
-      if (v76)
+      v75 = objc_alloc_init(_CDSpotlightItemRecorderOperation);
+      p_super = &v75->super;
+      if (v75)
       {
-        v76->_type = 1;
+        v75->_type = 1;
       }
 
-      [(_DKPredictionTimeline *)v76 setStartDate:identifiersCopy];
+      [(_DKPredictionTimeline *)v75 setStartDate:identifiersCopy];
       [(_DKSyncWindow *)p_super setStartDate:dCopy];
       [(_CDSpotlightItemRecorder *)self submitOperation:?];
-      v77 = *(v26 + 264);
-      v78 = +[_CDConstants mobilePhoneBundleId];
-      v79 = [dCopy isEqualToString:v78];
+      v76 = +[(_CDConstants *)*(v25];
+      v77 = [dCopy isEqualToString:v76];
 
-      if (v79)
+      if (v77)
       {
         [_CDSpotlightItemRecorder deleteSearchableItemsWithIdentifiers:identifiersCopy bundleID:self withCompletion:?];
       }
 
-      v80 = *(v26 + 264);
-      v81 = +[_CDConstants mobileMessagesBundleId];
-      v82 = [dCopy isEqualToString:v81];
+      v78 = +[_CDConstants mobileMessagesBundleId];
+      v79 = [dCopy isEqualToString:v78];
 
-      if (v82)
+      if (v79)
       {
         [_CDSpotlightItemRecorder deleteSearchableItemsWithIdentifiers:identifiersCopy bundleID:self withCompletion:?];
       }
@@ -1459,61 +1440,61 @@ LABEL_64:
     }
 
     selfCopy = self;
-    v87 = completionCopy;
-    v97 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+    v84 = completionCopy;
+    v94 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+    v105 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     v108 = 0u;
-    v109 = 0u;
-    v110 = 0u;
-    v111 = 0u;
     obj = identifiersCopy;
-    v29 = [obj countByEnumeratingWithState:&v108 objects:v114 count:16];
-    if (v29)
+    v28 = [obj countByEnumeratingWithState:&v105 objects:v111 count:16];
+    if (v28)
     {
-      v30 = v29;
-      v31 = *v109;
+      v29 = v28;
+      v30 = *v106;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v109 != v31)
+          if (*v106 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = *(*(&v108 + 1) + 8 * i);
-          v34 = [_CDSpotlightItemUtils interactionUUIDForSearchableItemWithUID:v33 bundleID:dCopy];
-          [v97 addObject:v34];
-          v35 = +[_CDConstants mobileMessagesBundleId];
-          v36 = [dCopy isEqualToString:v35];
+          v32 = *(*(&v105 + 1) + 8 * i);
+          v33 = [_CDSpotlightItemUtils interactionUUIDForSearchableItemWithUID:v32 bundleID:dCopy];
+          [v94 addObject:v33];
+          v34 = +[_CDConstants mobileMessagesBundleId];
+          v35 = [dCopy isEqualToString:v34];
 
-          if (v36)
+          if (v35)
           {
-            v37 = +[_CDConstants contactsAutocompleteBundleId];
-            v38 = [_CDSpotlightItemUtils interactionUUIDForSearchableItemWithUID:v33 bundleID:v37];
+            v36 = +[_CDConstants contactsAutocompleteBundleId];
+            v37 = [_CDSpotlightItemUtils interactionUUIDForSearchableItemWithUID:v32 bundleID:v36];
 
-            [v97 addObject:v38];
+            [v94 addObject:v37];
           }
         }
 
-        v30 = [obj countByEnumeratingWithState:&v108 objects:v114 count:16];
+        v29 = [obj countByEnumeratingWithState:&v105 objects:v111 count:16];
       }
 
-      while (v30);
+      while (v29);
     }
 
-    v39 = [MEMORY[0x1E696AE18] predicateWithFormat:@"((bundleId == %@) AND (uuid IN %@))", dCopy, v97];
+    v38 = [MEMORY[0x1E696AE18] predicateWithFormat:@"((bundleId == %@) AND (uuid IN %@))", dCopy, v94];
     self = selfCopy;
     recorder = selfCopy->_recorder;
-    v107 = 0;
-    v41 = recorder;
-    v85 = v39;
-    v42 = [(_CDInteractionQuerying *)v41 queryInteractionsUsingPredicate:v39 sortDescriptors:0 limit:0 error:&v107];
-    v43 = v107;
+    v104 = 0;
+    v40 = recorder;
+    v82 = v38;
+    v41 = [(_CDInteractionQuerying *)v40 queryInteractionsUsingPredicate:v38 sortDescriptors:0 limit:0 error:&v104];
+    v42 = v104;
 
-    if (v43)
+    if (v42)
     {
-      v75 = +[_CDLogging spotlightReceiverChannel];
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v74 = +[_CDLogging spotlightReceiverChannel];
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         [_CDSpotlightItemRecorder deleteSearchableItemsWithIdentifiers:bundleID:withCompletion:];
       }
@@ -1521,140 +1502,140 @@ LABEL_64:
 
     else
     {
-      if (![v42 count])
+      if (![v41 count])
       {
 LABEL_63:
-        identifiersCopy = [v97 copy];
+        identifiersCopy = [v94 copy];
 
         goto LABEL_64;
       }
 
-      v44 = MEMORY[0x1E696AE18];
-      v45 = +[_CDConstants shareSheetTargetBundleIdMail];
-      v46 = [v44 predicateWithFormat:@"((mechanism == %@) AND (targetBundleId == %@) AND (mailShareSheetDeletionCandidate == %@))", &unk_1F05EEF58, v45, &unk_1F05EEFA0];
+      v43 = MEMORY[0x1E696AE18];
+      v44 = +[_CDConstants shareSheetTargetBundleIdMail];
+      v45 = [v43 predicateWithFormat:@"((mechanism == %@) AND (targetBundleId == %@) AND (mailShareSheetDeletionCandidate == %@))", &unk_1F05EEF58, v44, &unk_1F05EEFA0];
 
-      v47 = selfCopy->_recorder;
-      v106 = 0;
-      v48 = v47;
-      v83 = v46;
-      v49 = [(_CDInteractionQuerying *)v48 queryInteractionsUsingPredicate:v46 sortDescriptors:0 limit:0 error:&v106];
-      v50 = v106;
+      v46 = selfCopy->_recorder;
+      v103 = 0;
+      v47 = v46;
+      v80 = v45;
+      v48 = [(_CDInteractionQuerying *)v47 queryInteractionsUsingPredicate:v45 sortDescriptors:0 limit:0 error:&v103];
+      v49 = v103;
 
-      v84 = v50;
-      if (v50)
+      v81 = v49;
+      if (v49)
       {
-        v51 = +[_CDLogging spotlightReceiverChannel];
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v50 = +[_CDLogging spotlightReceiverChannel];
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           [_CDSpotlightItemRecorder deleteSearchableItemsWithIdentifiers:bundleID:withCompletion:];
         }
       }
 
-      v104 = 0u;
-      v105 = 0u;
+      v101 = 0u;
       v102 = 0u;
-      v103 = 0u;
-      v88 = v49;
-      v92 = [v88 countByEnumeratingWithState:&v102 objects:v113 count:16];
-      if (v92)
+      v99 = 0u;
+      v100 = 0u;
+      v85 = v48;
+      v89 = [v85 countByEnumeratingWithState:&v99 objects:v110 count:16];
+      if (v89)
       {
-        v90 = dCopy;
-        v91 = *v103;
-        v89 = v42;
+        v87 = dCopy;
+        v88 = *v100;
+        v86 = v41;
         do
         {
-          for (j = 0; j != v92; ++j)
+          for (j = 0; j != v89; ++j)
           {
-            if (*v103 != v91)
+            if (*v100 != v88)
             {
-              objc_enumerationMutation(v88);
+              objc_enumerationMutation(v85);
             }
 
-            v53 = *(*(&v102 + 1) + 8 * j);
-            v54 = objc_autoreleasePoolPush();
-            recipients = [v53 recipients];
-            v56 = [recipients count];
+            v52 = *(*(&v99 + 1) + 8 * j);
+            v53 = objc_autoreleasePoolPush();
+            recipients = [v52 recipients];
+            v55 = [recipients count];
 
-            if (v56)
+            if (v55)
             {
-              v93 = v54;
-              v94 = j;
-              v57 = MEMORY[0x1E695DFD8];
-              v96 = v53;
-              recipients2 = [v53 recipients];
-              v59 = [recipients2 valueForKey:@"identifier"];
-              v60 = [v57 setWithArray:v59];
+              v90 = v53;
+              v91 = j;
+              v56 = MEMORY[0x1E695DFD8];
+              v93 = v52;
+              recipients2 = [v52 recipients];
+              v58 = [recipients2 valueForKey:@"identifier"];
+              v59 = [v56 setWithArray:v58];
 
-              v100 = 0u;
-              v101 = 0u;
+              v97 = 0u;
               v98 = 0u;
-              v99 = 0u;
-              v61 = v42;
-              v62 = [v61 countByEnumeratingWithState:&v98 objects:v112 count:16];
-              if (v62)
+              v95 = 0u;
+              v96 = 0u;
+              v60 = v41;
+              v61 = [v60 countByEnumeratingWithState:&v95 objects:v109 count:16];
+              if (v61)
               {
-                v63 = v62;
-                v64 = *v99;
+                v62 = v61;
+                v63 = *v96;
                 do
                 {
-                  for (k = 0; k != v63; ++k)
+                  for (k = 0; k != v62; ++k)
                   {
-                    if (*v99 != v64)
+                    if (*v96 != v63)
                     {
-                      objc_enumerationMutation(v61);
+                      objc_enumerationMutation(v60);
                     }
 
-                    v66 = *(*(&v98 + 1) + 8 * k);
-                    v67 = objc_autoreleasePoolPush();
-                    if ([v66 direction])
+                    v65 = *(*(&v95 + 1) + 8 * k);
+                    v66 = objc_autoreleasePoolPush();
+                    if ([v65 direction])
                     {
-                      recipients3 = [v66 recipients];
-                      v69 = [recipients3 count];
+                      recipients3 = [v65 recipients];
+                      v68 = [recipients3 count];
 
-                      if (v69)
+                      if (v68)
                       {
-                        v70 = MEMORY[0x1E695DFD8];
-                        recipients4 = [v66 recipients];
-                        v72 = [recipients4 valueForKey:@"identifier"];
-                        v73 = [v70 setWithArray:v72];
+                        v69 = MEMORY[0x1E695DFD8];
+                        recipients4 = [v65 recipients];
+                        v71 = [recipients4 valueForKey:@"identifier"];
+                        v72 = [v69 setWithArray:v71];
 
-                        if ([v60 isEqualToSet:v73])
+                        if ([v59 isEqualToSet:v72])
                         {
-                          uuid = [v96 uuid];
-                          [v97 addObject:uuid];
+                          uuid = [v93 uuid];
+                          [v94 addObject:uuid];
                         }
                       }
                     }
 
-                    objc_autoreleasePoolPop(v67);
+                    objc_autoreleasePoolPop(v66);
                   }
 
-                  v63 = [v61 countByEnumeratingWithState:&v98 objects:v112 count:16];
+                  v62 = [v60 countByEnumeratingWithState:&v95 objects:v109 count:16];
                 }
 
-                while (v63);
+                while (v62);
               }
 
-              v42 = v89;
-              dCopy = v90;
-              v26 = 0x1E7366000;
-              v54 = v93;
-              j = v94;
+              v41 = v86;
+              dCopy = v87;
+              v25 = 0x1E7366000;
+              v53 = v90;
+              j = v91;
             }
 
-            objc_autoreleasePoolPop(v54);
+            objc_autoreleasePoolPop(v53);
           }
 
-          v92 = [v88 countByEnumeratingWithState:&v102 objects:v113 count:16];
+          v89 = [v85 countByEnumeratingWithState:&v99 objects:v110 count:16];
         }
 
-        while (v92);
+        while (v89);
       }
 
       self = selfCopy;
-      completionCopy = v87;
-      v75 = v83;
-      v43 = v84;
+      completionCopy = v84;
+      v74 = v80;
+      v42 = v81;
     }
 
     goto LABEL_63;
@@ -1687,18 +1668,16 @@ LABEL_14:
       _os_log_impl(&dword_191750000, v20, OS_LOG_TYPE_INFO, "Deleting searchable items for bundleId: %@ using direct deletion path", buf, 0xCu);
     }
 
-    v25 = [_DKQuery predicateForSpotlightEventsWithItemIdentifiers:identifiersCopy bundleID:dCopy];
-    [(_CDSpotlightItemRecorder *)self deleteKnowledgeEventsMatchingPredicate:v25 withCompletion:completionCopy];
+    v24 = [_DKQuery predicateForSpotlightEventsWithItemIdentifiers:identifiersCopy bundleID:dCopy];
+    [(_CDSpotlightItemRecorder *)self deleteKnowledgeEventsMatchingPredicate:v24 withCompletion:completionCopy];
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSearchableItemsSinceDate:(id)date bundleID:(id)d withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   dCopy = d;
   completionCopy = completion;
@@ -1747,19 +1726,17 @@ LABEL_18:
     block[2] = __83___CDSpotlightItemRecorder_deleteSearchableItemsSinceDate_bundleID_withCompletion___block_invoke;
     block[3] = &unk_1E7367B60;
     v17 = dateCopy;
-    v22 = v17;
+    v21 = v17;
     v18 = dCopy;
-    v23 = v18;
-    objc_copyWeak(&v24, buf);
+    v22 = v18;
+    objc_copyWeak(&v23, buf);
     dispatch_sync(batchExecutionSourceQueue, block);
     v19 = [_DKQuery predicateForSpotlightEventsWithBundleID:v18 sinceDate:v17];
     [(_CDSpotlightItemRecorder *)self deleteKnowledgeEventsMatchingPredicate:v19 withCompletion:completionCopy];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startIntentDeletionForContactDeletions
@@ -1772,26 +1749,26 @@ LABEL_18:
 
 - (void)deleteInteractionsWithIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   classCopy = class;
   completionCopy = completion;
   v14 = _os_activity_create(&dword_191750000, "CoreDuet: deleteInteractionsWithIdentifiers:bundleID:protectionClass:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  *v20 = 0;
-  *&v20[8] = 0;
-  os_activity_scope_enter(v14, v20);
-  os_activity_scope_leave(v20);
+  *v19 = 0;
+  *&v19[8] = 0;
+  os_activity_scope_enter(v14, v19);
+  os_activity_scope_leave(v19);
 
   v15 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(identifiersCopy, "count")}];
-    *v20 = 138412546;
-    *&v20[4] = v16;
-    *&v20[12] = 2112;
-    *&v20[14] = dCopy;
-    _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Deleting interactions from %@ identifiers with bundleID: %@", v20, 0x16u);
+    *v19 = 138412546;
+    *&v19[4] = v16;
+    *&v19[12] = 2112;
+    *&v19[14] = dCopy;
+    _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Deleting interactions from %@ identifiers with bundleID: %@", v19, 0x16u);
   }
 
   if (([classCopy isEqualToString:*MEMORY[0x1E696A378]] & 1) != 0 || objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696A380]))
@@ -1799,39 +1776,37 @@ LABEL_18:
     v17 = +[_CDLogging spotlightReceiverChannel];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", v19, 2u);
     }
   }
 
   [(_CDSpotlightItemRecorder *)self deleteSearchableItemsWithIdentifiers:identifiersCopy bundleID:dCopy withCompletion:completionCopy];
   v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:identifiersCopy];
   [getBMLibraryStreamsPrunerClass() pruneWithDeletedIntentIdentifiers:v18 bundleId:dCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteInteractionsWithGroupIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class withCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   classCopy = class;
   completionCopy = completion;
   v14 = _os_activity_create(&dword_191750000, "CoreDuet: deleteInteractionsWithGroupIdentifiers:bundleID:protectionClass:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  *v22 = 0;
-  *&v22[8] = 0;
-  os_activity_scope_enter(v14, v22);
-  os_activity_scope_leave(v22);
+  *v21 = 0;
+  *&v21[8] = 0;
+  os_activity_scope_enter(v14, v21);
+  os_activity_scope_leave(v21);
 
   v15 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    *v22 = 138412546;
-    *&v22[4] = identifiersCopy;
-    *&v22[12] = 2112;
-    *&v22[14] = dCopy;
-    _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Deleting interactions with group identifiers %@, bundleID: %@", v22, 0x16u);
+    *v21 = 138412546;
+    *&v21[4] = identifiersCopy;
+    *&v21[12] = 2112;
+    *&v21[14] = dCopy;
+    _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Deleting interactions with group identifiers %@, bundleID: %@", v21, 0x16u);
   }
 
   if (([classCopy isEqualToString:*MEMORY[0x1E696A378]] & 1) != 0 || objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696A380]))
@@ -1839,8 +1814,8 @@ LABEL_18:
     v16 = +[_CDLogging spotlightReceiverChannel];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_191750000, v16, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", v22, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_191750000, v16, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", v21, 2u);
     }
   }
 
@@ -1856,13 +1831,11 @@ LABEL_18:
 
   v20 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:identifiersCopy];
   [getBMLibraryStreamsPrunerClass() pruneWithDeletedIntentGroupIdentifiers:v20 bundleId:dCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runOperation:(uint64_t)operation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!operation || !*(operation + 144))
@@ -1897,27 +1870,27 @@ LABEL_6:
     v10 = v3[1];
     [v10 count];
     v11 = [OUTLINED_FUNCTION_5_1() arrayWithCapacity:?];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v9 = v10;
-    v12 = [v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v12 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v40;
+      v14 = *v39;
       do
       {
         v15 = 0;
         do
         {
-          if (*v40 != v14)
+          if (*v39 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v39 + 1) + 8 * v15);
+          v16 = *(*(&v38 + 1) + 8 * v15);
           if ([v4[2] isEqualToString:@"com.apple.mobilemail"])
           {
             [v11 addObject:v16];
@@ -1933,7 +1906,7 @@ LABEL_6:
         }
 
         while (v13 != v15);
-        v13 = [v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v13 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v13);
@@ -1972,16 +1945,16 @@ LABEL_25:
     v27 = objc_alloc(*(v26 + 3952));
     v28 = MEMORY[0x1E696AE18];
     v29 = v4[2];
-    v30 = [v28 predicateWithFormat:@"mechanism != %@ && bundleId == %@", &unk_1F05EEF58, v29, v39];
+    v30 = [v28 predicateWithFormat:@"mechanism != %@ && bundleId == %@", &unk_1F05EEF58, v29, v38];
     v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"mechanism == %@ && targetBundleId == %@", &unk_1F05EEF58, v18];
 
     v32 = [v27 initWithObjects:{v30, v31, 0}];
     v33 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:v32];
     v34 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", v11];
     v35 = MEMORY[0x1E696AB28];
-    v43[0] = v33;
-    v43[1] = v34;
-    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v42[0] = v33;
+    v42[1] = v34;
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
     v37 = [v35 andPredicateWithSubpredicates:v36];
 
     [*(operation + 144) deleteInteractionsMatchingPredicate:v37 sortDescriptors:MEMORY[0x1E695E0F0] limit:0 debuggingReason:@"_CDSpotlightItemRecorderOperationTypeDelete" error:0];
@@ -1996,8 +1969,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueOperation:(uint64_t)operation
@@ -2065,8 +2036,8 @@ LABEL_27:
 
 - (void)saveRateLimitedEvents:(int)events donatorUid:(void *)uid responseQueue:(void *)queue withCompletion:
 {
-  HIDWORD(v388) = events;
-  v690 = *MEMORY[0x1E69E9840];
+  HIDWORD(v389) = events;
+  v691 = *MEMORY[0x1E69E9840];
   v8 = a2;
   uidCopy = uid;
   queueCopy = queue;
@@ -2076,7 +2047,7 @@ LABEL_27:
     if ([v8 count])
     {
       v11 = *(self + 80);
-      v391 = queueCopy;
+      v392 = queueCopy;
       if (v11)
       {
         v12 = [v11 filterObjectsByEnforcingRateLimit:v8];
@@ -2087,7 +2058,7 @@ LABEL_27:
         v12 = [v8 copy];
       }
 
-      v393 = v12;
+      v394 = v12;
       [v12 count];
       if (queueCopy != [OUTLINED_FUNCTION_16_6() count])
       {
@@ -2095,17 +2066,17 @@ LABEL_27:
         v14 = MEMORY[0x1E69E9C10];
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          [v393 count];
+          [v394 count];
           *buf = 134218240;
-          v687 = v13;
-          v688 = 2048;
-          v689 = [OUTLINED_FUNCTION_16_6() count];
+          v688 = v13;
+          v689 = 2048;
+          v690 = [OUTLINED_FUNCTION_16_6() count];
           _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "SpotlightRecorder rate limiting kicked in - saving %lu of %lu objects.", buf, 0x16u);
         }
       }
 
-      v392 = uidCopy;
-      v15 = [*(self + 88) enforcePrivacy:v393];
+      v393 = uidCopy;
+      v15 = [*(self + 88) enforcePrivacy:v394];
       v16 = [v15 count];
       if (v16 != [v8 count])
       {
@@ -2114,56 +2085,56 @@ LABEL_27:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v19 = [v15 count];
-          v20 = [v393 count];
+          v20 = [v394 count];
           *buf = 134218240;
-          v687 = v19;
-          v688 = 2048;
-          v689 = v20;
+          v688 = v19;
+          v689 = 2048;
+          v690 = v20;
           _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "SpotlightRecorder privacy policy kicked in - saving %lu of %lu objects.", buf, 0x16u);
         }
       }
 
-      v387 = v8;
+      v388 = v8;
       v21 = *(self + 72);
-      v681[0] = MEMORY[0x1E69E9820];
-      v681[1] = 3221225472;
-      v681[2] = __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_2;
-      v681[3] = &unk_1E736AAD0;
-      v683 = v391;
+      v682[0] = MEMORY[0x1E69E9820];
+      v682[1] = 3221225472;
+      v682[2] = __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_2;
+      v682[3] = &unk_1E736AAD0;
+      v684 = v392;
       v22 = v15;
-      v682 = v22;
-      [v21 saveObjects:v22 tracker:&__block_literal_global_78 responseQueue:v392 withCompletion:v681];
+      v683 = v22;
+      [v21 saveObjects:v22 tracker:&__block_literal_global_78 responseQueue:v393 withCompletion:v682];
       startDate2 = 0x1E695D000;
+      v391 = objc_opt_new();
       v390 = objc_opt_new();
-      v389 = objc_opt_new();
       v24 = objc_opt_new();
-      v677 = 0u;
       v678 = 0u;
       v679 = 0u;
       v680 = 0u;
+      v681 = 0u;
       obj = v22;
-      v656 = [obj countByEnumeratingWithState:&v677 objects:v685 count:16];
-      if (v656)
+      v657 = [obj countByEnumeratingWithState:&v678 objects:v686 count:16];
+      if (v657)
       {
         v25 = MEMORY[0x1E69E9C10];
-        v655 = *v678;
-        v632 = v24;
+        v656 = *v679;
+        v633 = v24;
         do
         {
           v26 = 0;
           do
           {
-            if (*v678 != v655)
+            if (*v679 != v656)
             {
               objc_enumerationMutation(obj);
             }
 
-            v27 = *(*(&v677 + 1) + 8 * v26);
+            v27 = *(*(&v678 + 1) + 8 * v26);
             v28 = v25;
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v687 = v27;
+              v688 = v27;
               _os_log_debug_impl(&dword_191750000, v25, OS_LOG_TYPE_DEBUG, "SpotlightRecorder trying to donate to biome with event: %@", buf, 0xCu);
             }
 
@@ -2185,7 +2156,7 @@ LABEL_27:
 
               if (v44)
               {
-                v660 = v26;
+                v661 = v26;
                 metadata = [v27 metadata];
                 v46 = v27;
                 source = [v27 source];
@@ -2194,16 +2165,16 @@ LABEL_27:
                 v48 = +[_DKIntentMetadataKey serializedInteraction];
                 v49 = [metadata objectForKeyedSubscript:v48];
                 null = [MEMORY[0x1E695DFB0] null];
-                v666 = metadata;
+                v667 = metadata;
                 if (v49 == null)
                 {
-                  v651 = 0;
+                  v652 = 0;
                 }
 
                 else
                 {
                   v51 = +[_DKIntentMetadataKey serializedInteraction];
-                  v651 = [metadata objectForKeyedSubscript:v51];
+                  v652 = [metadata objectForKeyedSubscript:v51];
                 }
 
                 v79 = +[_DKIntentMetadataKey intentClass];
@@ -2228,11 +2199,11 @@ LABEL_27:
                 {
                   v88 = MEMORY[0x1E696ACD0];
                   v89 = objc_opt_class();
-                  v676 = 0;
-                  v86 = [v88 unarchivedObjectOfClass:v89 fromData:v651 error:&v676];
+                  v677 = 0;
+                  v86 = [v88 unarchivedObjectOfClass:v89 fromData:v652 error:&v677];
                   v90 = metadata;
-                  v658 = v676;
-                  if (v658 || ([v86 intent], v91 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v91, (isKindOfClass & 1) == 0))
+                  v659 = v677;
+                  if (v659 || ([v86 intent], v91 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v91, (isKindOfClass & 1) == 0))
                   {
                     v100 = v46;
                     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
@@ -2264,19 +2235,19 @@ LABEL_27:
                       _os_log_debug_impl(&dword_191750000, v25, OS_LOG_TYPE_DEBUG, "SpotlightRecorder INStartCallIntent received with no contacts", buf, 2u);
                     }
 
-                    v90 = v666;
+                    v90 = v667;
                     v100 = v46;
                   }
                 }
 
                 else
                 {
-                  v658 = 0;
+                  v659 = 0;
                   v90 = metadata;
                   v100 = v46;
                 }
 
-                v610 = objc_alloc(MEMORY[0x1E698EA98]);
+                v611 = objc_alloc(MEMORY[0x1E698EA98]);
                 startDate = [v100 startDate];
                 source2 = [v100 source];
                 bundleID = [source2 bundleID];
@@ -2285,12 +2256,12 @@ LABEL_27:
                 +[_DKIntentMetadataKey intentVerb];
                 objc_claimAutoreleasedReturnValue();
                 v101 = OUTLINED_FUNCTION_9_10();
-                v622 = v102;
+                v623 = v102;
                 v103 = [v101 objectForKeyedSubscript:?];
                 null3 = [MEMORY[0x1E695DFB0] null];
                 if (v103 == null3)
                 {
-                  v607 = 0;
+                  v608 = 0;
                 }
 
                 else
@@ -2298,20 +2269,20 @@ LABEL_27:
                   +[_DKIntentMetadataKey intentVerb];
                   objc_claimAutoreleasedReturnValue();
                   v104 = OUTLINED_FUNCTION_9_10();
-                  v579 = v105;
-                  v575 = [v104 objectForKeyedSubscript:?];
-                  v607 = v575;
+                  v580 = v105;
+                  v576 = [v104 objectForKeyedSubscript:?];
+                  v608 = v576;
                 }
 
                 +[_DKIntentMetadataKey intentType];
                 objc_claimAutoreleasedReturnValue();
                 v106 = OUTLINED_FUNCTION_9_10();
-                v613 = v107;
+                v614 = v107;
                 [v106 objectForKeyedSubscript:?];
                 objc_claimAutoreleasedReturnValue();
                 [OUTLINED_FUNCTION_3_20() null];
-                v636 = v639 = v86;
-                if (v86 == v636)
+                v637 = v640 = v86;
+                if (v86 == v637)
                 {
                   v110 = 0;
                 }
@@ -2321,9 +2292,9 @@ LABEL_27:
                   +[_DKIntentMetadataKey intentType];
                   objc_claimAutoreleasedReturnValue();
                   v108 = OUTLINED_FUNCTION_9_10();
-                  v578 = v109;
+                  v579 = v109;
                   v110 = [v108 objectForKeyedSubscript:?];
-                  v573 = v110;
+                  v574 = v110;
                 }
 
                 integerValue = [v110 integerValue];
@@ -2333,8 +2304,8 @@ LABEL_27:
                   v112 = os_log_type_enabled(v86, OS_LOG_TYPE_ERROR);
                   if (v112)
                   {
-                    OUTLINED_FUNCTION_14_7(v112, v113, v114, v115, v116, v117, v118, v119, v358, v359, v360, v361, v362, v363, v364, v365, v366, v367, v368, v369, v370, v371, v372, v373, v374, v375, v376, v377, v378, v379, v380, v381, v382, v383, v384, v385, v386, v387, v388, v389, v390, v391, v392, v393, v120);
-                    _os_log_error_impl(&dword_191750000, v86, OS_LOG_TYPE_ERROR, "unable to convert _INIntentType enum value: %ld", v342, 0xCu);
+                    OUTLINED_FUNCTION_14_7(v112, v113, v114, v115, v116, v117, v118, v119, v120, v359, v360, v361, v362, v363, v364, v365, v366, v367, v368, v369, v370, v371, v372, v373, v374, v375, v376, v377, v378, v379, v380, v381, v382, v383, v384, v385, v386, v387, v388, v389, v390, v391, v392, v393, v394, v121);
+                    _os_log_error_impl(&dword_191750000, v86, OS_LOG_TYPE_ERROR, "unable to convert _INIntentType enum value: %ld", v344, 0xCu);
                   }
 
                   integerValue = 0;
@@ -2342,143 +2313,143 @@ LABEL_27:
 
                 +[_DKIntentMetadataKey intentHandlingStatus];
                 objc_claimAutoreleasedReturnValue();
-                v121 = OUTLINED_FUNCTION_9_10();
-                v604 = v122;
-                [v121 objectForKeyedSubscript:?];
+                v122 = OUTLINED_FUNCTION_9_10();
+                v605 = v123;
+                [v122 objectForKeyedSubscript:?];
                 objc_claimAutoreleasedReturnValue();
                 null4 = [OUTLINED_FUNCTION_3_20() null];
-                v595 = integerValue;
+                v596 = integerValue;
                 if (v86 == null4)
                 {
-                  v125 = 0;
+                  v126 = 0;
                 }
 
                 else
                 {
                   +[_DKIntentMetadataKey intentHandlingStatus];
                   objc_claimAutoreleasedReturnValue();
-                  v123 = OUTLINED_FUNCTION_9_10();
-                  v577 = v124;
-                  v125 = [v123 objectForKeyedSubscript:?];
-                  v572 = v125;
+                  v124 = OUTLINED_FUNCTION_9_10();
+                  v578 = v125;
+                  v126 = [v124 objectForKeyedSubscript:?];
+                  v573 = v126;
                 }
 
-                v601 = v86;
-                integerValue2 = [v125 integerValue];
+                v602 = v86;
+                integerValue2 = [v126 integerValue];
                 if (integerValue2 >= 7)
                 {
                   v86 = +[_CDLogging spotlightReceiverChannel];
-                  v127 = os_log_type_enabled(v86, OS_LOG_TYPE_ERROR);
-                  if (v127)
+                  v128 = os_log_type_enabled(v86, OS_LOG_TYPE_ERROR);
+                  if (v128)
                   {
-                    OUTLINED_FUNCTION_14_7(v127, v128, v129, v130, v131, v132, v133, v134, v358, v359, v360, v361, v362, v363, v364, v365, v366, v367, v368, v369, v370, v371, v372, v373, v374, v375, v376, v377, v378, v379, v380, v381, v382, v383, v384, v385, v386, v387, v388, v389, v390, v391, v392, v393, v135);
-                    _os_log_error_impl(&dword_191750000, v86, OS_LOG_TYPE_ERROR, "unable to convert INIntentHandlingStatus enum value: %ld", v343, 0xCu);
+                    OUTLINED_FUNCTION_14_7(v128, v129, v130, v131, v132, v133, v134, v135, v136, v359, v360, v361, v362, v363, v364, v365, v366, v367, v368, v369, v370, v371, v372, v373, v374, v375, v376, v377, v378, v379, v380, v381, v382, v383, v384, v385, v386, v387, v388, v389, v390, v391, v392, v393, v394, v137);
+                    _os_log_error_impl(&dword_191750000, v86, OS_LOG_TYPE_ERROR, "unable to convert INIntentHandlingStatus enum value: %ld", v345, 0xCu);
                   }
 
-                  v589 = 0;
+                  v590 = 0;
                 }
 
                 else
                 {
-                  v589 = integerValue2 + 1;
+                  v590 = integerValue2 + 1;
                 }
 
                 source4 = [v100 source];
                 itemID = [source4 itemID];
                 +[_DKIntentMetadataKey donatedBySiri];
                 objc_claimAutoreleasedReturnValue();
-                v136 = [OUTLINED_FUNCTION_16_6() objectForKeyedSubscript:v86];
+                v138 = [OUTLINED_FUNCTION_16_6() objectForKeyedSubscript:v86];
                 [MEMORY[0x1E695DFB0] null];
-                v138 = v137 = v90;
-                v619 = v103;
+                v140 = v139 = v90;
+                v620 = v103;
                 startDate2 = v83;
-                if (v136 == v138)
+                if (v138 == v140)
                 {
-                  v141 = 0;
+                  v143 = 0;
                 }
 
                 else
                 {
                   +[_DKIntentMetadataKey donatedBySiri];
                   objc_claimAutoreleasedReturnValue();
-                  v139 = OUTLINED_FUNCTION_5_1();
-                  v576 = v140;
-                  v141 = [v139 objectForKeyedSubscript:?];
-                  v571 = v141;
+                  v141 = OUTLINED_FUNCTION_5_1();
+                  v577 = v142;
+                  v143 = [v141 objectForKeyedSubscript:?];
+                  v572 = v143;
                 }
 
-                v142 = +[_DKIntentMetadataKey direction];
-                v143 = [v137 objectForKeyedSubscript:v142];
+                v144 = +[_DKIntentMetadataKey direction];
+                v145 = [v139 objectForKeyedSubscript:v144];
                 null5 = [MEMORY[0x1E695DFB0] null];
-                if (v143 == null5)
+                if (v145 == null5)
                 {
-                  v147 = 0;
+                  v149 = 0;
                 }
 
                 else
                 {
                   +[_DKIntentMetadataKey direction];
                   objc_claimAutoreleasedReturnValue();
-                  v145 = OUTLINED_FUNCTION_5_1();
-                  v574 = v146;
-                  v147 = [v145 objectForKeyedSubscript:?];
-                  v570 = v147;
+                  v147 = OUTLINED_FUNCTION_5_1();
+                  v575 = v148;
+                  v149 = [v147 objectForKeyedSubscript:?];
+                  v571 = v149;
                 }
 
-                integerValue3 = [v147 integerValue];
-                v149 = integerValue3;
+                integerValue3 = [v149 integerValue];
+                v151 = integerValue3;
                 if (integerValue3 >= 4)
                 {
-                  v151 = +[_CDLogging spotlightReceiverChannel];
-                  if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+                  v153 = +[_CDLogging spotlightReceiverChannel];
+                  if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
                   {
-                    v344 = [MEMORY[0x1E696AD98] numberWithInteger:v149];
+                    v346 = [MEMORY[0x1E696AD98] numberWithInteger:v151];
                     *buf = 138412290;
-                    v687 = v344;
-                    _os_log_error_impl(&dword_191750000, v151, OS_LOG_TYPE_ERROR, "unable to convert _CDInteractionDirection enum value: %@", buf, 0xCu);
+                    v688 = v346;
+                    _os_log_error_impl(&dword_191750000, v153, OS_LOG_TYPE_ERROR, "unable to convert _CDInteractionDirection enum value: %@", buf, 0xCu);
                   }
 
-                  v150 = 0;
+                  v152 = 0;
                 }
 
                 else
                 {
-                  v150 = dword_19190EF40[integerValue3];
+                  v152 = dword_19190EF40[integerValue3];
                 }
 
-                v363 = groupID;
-                LODWORD(v362) = v150;
-                v360 = itemID;
-                v361 = v141;
-                v359 = v651;
-                LODWORD(v358) = v589;
-                v152 = [v610 initWithAbsoluteTimestamp:startDate bundleID:bundleID sourceID:sourceID intentClass:startDate2 intentVerb:v607 intentType:v595 handlingStatus:v358 interaction:? itemID:? donatedBySiri:? interactionDirection:? groupIdentifier:?];
-                v26 = v660;
-                if (v143 != null5)
+                v364 = groupID;
+                LODWORD(v363) = v152;
+                v361 = itemID;
+                v362 = v143;
+                v360 = v652;
+                LODWORD(v359) = v590;
+                v154 = [v611 initWithAbsoluteTimestamp:startDate bundleID:bundleID sourceID:sourceID intentClass:startDate2 intentVerb:v608 intentType:v596 handlingStatus:v359 interaction:? itemID:? donatedBySiri:? interactionDirection:? groupIdentifier:?];
+                v26 = v661;
+                if (v145 != null5)
                 {
                 }
 
-                v24 = v632;
-                if (v136 != v138)
+                v24 = v633;
+                if (v138 != v140)
                 {
                 }
 
                 v25 = MEMORY[0x1E69E9C10];
-                if (v601 != null4)
+                if (v602 != null4)
                 {
                 }
 
-                metadata4 = v666;
+                metadata4 = v667;
                 value4 = groupID;
-                if (v639 != v636)
+                if (v640 != v637)
                 {
                 }
 
-                if (v619 != null3)
+                if (v620 != null3)
                 {
                 }
 
-                [*(selfCopy + 152) sendEvent:v152];
+                [*(selfCopy + 152) sendEvent:v154];
               }
 
               else
@@ -2492,7 +2463,7 @@ LABEL_27:
 
                 if (v55)
                 {
-                  v652 = v27;
+                  v653 = v27;
                   metadata2 = [v27 metadata];
                   v57 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
                   [MEMORY[0x1E695DFB0] null];
@@ -2500,464 +2471,464 @@ LABEL_27:
                   OUTLINED_FUNCTION_21_8();
                   if (v58)
                   {
-                    v665 = 0;
+                    v666 = 0;
                   }
 
                   else
                   {
-                    v665 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
+                    v666 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
                   }
 
-                  v153 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
+                  v155 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
                   [MEMORY[0x1E695DFB0] null];
                   objc_claimAutoreleasedReturnValue();
                   OUTLINED_FUNCTION_21_8();
                   if (v58)
                   {
-                    v154 = 0;
+                    v156 = 0;
                   }
 
                   else
                   {
-                    v154 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
+                    v156 = [metadata2 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
                   }
 
-                  v544 = objc_alloc(MEMORY[0x1E698EA88]);
+                  v545 = objc_alloc(MEMORY[0x1E698EA88]);
                   value2 = [v27 value];
                   stringValue = [value2 stringValue];
-                  v562 = +[_DKApplicationActivityMetadataKey activityType];
-                  v155 = [metadata2 objectForKeyedSubscript:?];
+                  v563 = +[_DKApplicationActivityMetadataKey activityType];
+                  v157 = [metadata2 objectForKeyedSubscript:?];
                   [MEMORY[0x1E695DFB0] null];
-                  v558 = v560 = v155;
-                  if (v155 == v558)
+                  v559 = v561 = v157;
+                  if (v157 == v559)
                   {
-                    v541 = 0;
+                    v542 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey activityType];
                     objc_claimAutoreleasedReturnValue();
-                    v156 = OUTLINED_FUNCTION_8_4();
-                    v500 = v157;
-                    v496 = [v156 objectForKeyedSubscript:?];
-                    v541 = v496;
+                    v158 = OUTLINED_FUNCTION_8_4();
+                    v501 = v159;
+                    v497 = [v158 objectForKeyedSubscript:?];
+                    v542 = v497;
                   }
 
                   +[_DKApplicationActivityMetadataKey beginningOfActivity];
                   objc_claimAutoreleasedReturnValue();
-                  v158 = OUTLINED_FUNCTION_8_4();
-                  v556 = v159;
-                  v160 = [v158 objectForKeyedSubscript:?];
+                  v160 = OUTLINED_FUNCTION_8_4();
+                  v557 = v161;
+                  v162 = [v160 objectForKeyedSubscript:?];
                   null6 = [MEMORY[0x1E695DFB0] null];
-                  if (v160 == null6)
+                  if (v162 == null6)
                   {
-                    v538 = 0;
+                    v539 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey beginningOfActivity];
                     objc_claimAutoreleasedReturnValue();
-                    v161 = OUTLINED_FUNCTION_8_4();
-                    v499 = v162;
-                    v494 = [v161 objectForKeyedSubscript:?];
-                    v538 = v494;
+                    v163 = OUTLINED_FUNCTION_8_4();
+                    v500 = v164;
+                    v495 = [v163 objectForKeyedSubscript:?];
+                    v539 = v495;
                   }
 
                   +[_DKApplicationActivityMetadataKey contentDescription];
                   objc_claimAutoreleasedReturnValue();
-                  v163 = OUTLINED_FUNCTION_8_4();
-                  v552 = v164;
-                  [v163 objectForKeyedSubscript:?];
+                  v165 = OUTLINED_FUNCTION_8_4();
+                  v553 = v166;
+                  [v165 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v643 = v646 = metadata2;
-                  if (metadata2 == v643)
+                  v644 = v647 = metadata2;
+                  if (metadata2 == v644)
                   {
-                    v537 = 0;
+                    v538 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey contentDescription];
                     objc_claimAutoreleasedReturnValue();
-                    v165 = OUTLINED_FUNCTION_8_4();
-                    v498 = v166;
-                    v492 = [v165 objectForKeyedSubscript:?];
-                    v537 = v492;
+                    v167 = OUTLINED_FUNCTION_8_4();
+                    v499 = v168;
+                    v493 = [v167 objectForKeyedSubscript:?];
+                    v538 = v493;
                   }
 
                   +[_DKApplicationActivityMetadataKey expirationDate];
                   objc_claimAutoreleasedReturnValue();
-                  v167 = OUTLINED_FUNCTION_8_4();
-                  v550 = v168;
-                  [v167 objectForKeyedSubscript:?];
+                  v169 = OUTLINED_FUNCTION_8_4();
+                  v551 = v170;
+                  [v169 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v637 = v640 = metadata2;
-                  if (metadata2 == v637)
+                  v638 = v641 = metadata2;
+                  if (metadata2 == v638)
                   {
-                    v534 = 0;
+                    v535 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey expirationDate];
                     objc_claimAutoreleasedReturnValue();
-                    v169 = OUTLINED_FUNCTION_8_4();
-                    v497 = v170;
-                    v490 = [v169 objectForKeyedSubscript:?];
-                    v534 = v490;
+                    v171 = OUTLINED_FUNCTION_8_4();
+                    v498 = v172;
+                    v491 = [v171 objectForKeyedSubscript:?];
+                    v535 = v491;
                   }
 
                   +[_DKApplicationActivityMetadataKey isEligibleForPrediction];
                   objc_claimAutoreleasedReturnValue();
-                  v171 = OUTLINED_FUNCTION_8_4();
-                  v548 = v172;
-                  [v171 objectForKeyedSubscript:?];
+                  v173 = OUTLINED_FUNCTION_8_4();
+                  v549 = v174;
+                  [v173 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v629 = v634 = metadata2;
-                  if (metadata2 == v629)
+                  v630 = v635 = metadata2;
+                  if (metadata2 == v630)
                   {
-                    v532 = 0;
+                    v533 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey isEligibleForPrediction];
                     objc_claimAutoreleasedReturnValue();
-                    v173 = OUTLINED_FUNCTION_8_4();
-                    v495 = v174;
-                    v488 = [v173 objectForKeyedSubscript:?];
-                    v532 = v488;
+                    v175 = OUTLINED_FUNCTION_8_4();
+                    v496 = v176;
+                    v489 = [v175 objectForKeyedSubscript:?];
+                    v533 = v489;
                   }
 
                   +[_DKApplicationActivityMetadataKey isPubliclyIndexable];
                   objc_claimAutoreleasedReturnValue();
-                  v175 = OUTLINED_FUNCTION_8_4();
-                  v547 = v176;
-                  [v175 objectForKeyedSubscript:?];
+                  v177 = OUTLINED_FUNCTION_8_4();
+                  v548 = v178;
+                  [v177 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v623 = v626 = metadata2;
-                  if (metadata2 == v623)
+                  v624 = v627 = metadata2;
+                  if (metadata2 == v624)
                   {
-                    v529 = 0;
+                    v530 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey isPubliclyIndexable];
                     objc_claimAutoreleasedReturnValue();
-                    v177 = OUTLINED_FUNCTION_8_4();
-                    v493 = v178;
-                    v486 = [v177 objectForKeyedSubscript:?];
-                    v529 = v486;
+                    v179 = OUTLINED_FUNCTION_8_4();
+                    v494 = v180;
+                    v487 = [v179 objectForKeyedSubscript:?];
+                    v530 = v487;
                   }
 
                   +[_DKApplicationActivityMetadataKey itemIdentifier];
                   objc_claimAutoreleasedReturnValue();
-                  v179 = OUTLINED_FUNCTION_8_4();
-                  v543 = v180;
-                  [v179 objectForKeyedSubscript:?];
+                  v181 = OUTLINED_FUNCTION_8_4();
+                  v544 = v182;
+                  [v181 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v617 = v620 = metadata2;
-                  if (metadata2 == v617)
+                  v618 = v621 = metadata2;
+                  if (metadata2 == v618)
                   {
-                    v526 = 0;
+                    v527 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey itemIdentifier];
                     objc_claimAutoreleasedReturnValue();
-                    v181 = OUTLINED_FUNCTION_8_4();
-                    v491 = v182;
-                    v484 = [v181 objectForKeyedSubscript:?];
-                    v526 = v484;
+                    v183 = OUTLINED_FUNCTION_8_4();
+                    v492 = v184;
+                    v485 = [v183 objectForKeyedSubscript:?];
+                    v527 = v485;
                   }
 
                   +[_DKApplicationActivityMetadataKey itemRelatedContentURL];
                   objc_claimAutoreleasedReturnValue();
-                  v183 = OUTLINED_FUNCTION_8_4();
-                  v540 = v184;
-                  [v183 objectForKeyedSubscript:?];
+                  v185 = OUTLINED_FUNCTION_8_4();
+                  v541 = v186;
+                  [v185 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v611 = v614 = metadata2;
-                  if (metadata2 == v611)
+                  v612 = v615 = metadata2;
+                  if (metadata2 == v612)
                   {
-                    v525 = 0;
+                    v526 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey itemRelatedContentURL];
                     objc_claimAutoreleasedReturnValue();
-                    v185 = OUTLINED_FUNCTION_8_4();
-                    v489 = v186;
-                    v482 = [v185 objectForKeyedSubscript:?];
-                    v525 = v482;
+                    v187 = OUTLINED_FUNCTION_8_4();
+                    v490 = v188;
+                    v483 = [v187 objectForKeyedSubscript:?];
+                    v526 = v483;
                   }
 
                   +[_DKApplicationActivityMetadataKey itemRelatedUniqueIdentifier];
                   objc_claimAutoreleasedReturnValue();
-                  v187 = OUTLINED_FUNCTION_8_4();
-                  v535 = v188;
-                  [v187 objectForKeyedSubscript:?];
+                  v189 = OUTLINED_FUNCTION_8_4();
+                  v536 = v190;
+                  [v189 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v605 = v608 = metadata2;
-                  if (metadata2 == v605)
+                  v606 = v609 = metadata2;
+                  if (metadata2 == v606)
                   {
-                    v522 = 0;
+                    v523 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey itemRelatedUniqueIdentifier];
                     objc_claimAutoreleasedReturnValue();
-                    v189 = OUTLINED_FUNCTION_8_4();
-                    v487 = v190;
-                    v480 = [v189 objectForKeyedSubscript:?];
-                    v522 = v480;
+                    v191 = OUTLINED_FUNCTION_8_4();
+                    v488 = v192;
+                    v481 = [v191 objectForKeyedSubscript:?];
+                    v523 = v481;
                   }
 
                   +[_DKApplicationActivityMetadataKey shortcutAvailability];
                   objc_claimAutoreleasedReturnValue();
-                  v191 = OUTLINED_FUNCTION_8_4();
-                  v531 = v192;
-                  [v191 objectForKeyedSubscript:?];
+                  v193 = OUTLINED_FUNCTION_8_4();
+                  v532 = v194;
+                  [v193 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v599 = v602 = metadata2;
-                  if (metadata2 == v599)
+                  v600 = v603 = metadata2;
+                  if (metadata2 == v600)
                   {
-                    v518 = 0;
+                    v519 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey shortcutAvailability];
                     objc_claimAutoreleasedReturnValue();
-                    v193 = OUTLINED_FUNCTION_8_4();
-                    v485 = v194;
-                    v478 = [v193 objectForKeyedSubscript:?];
-                    v518 = v478;
+                    v195 = OUTLINED_FUNCTION_8_4();
+                    v486 = v196;
+                    v479 = [v195 objectForKeyedSubscript:?];
+                    v519 = v479;
                   }
 
                   +[_DKApplicationActivityMetadataKey suggestedInvocationPhrase];
                   objc_claimAutoreleasedReturnValue();
-                  v195 = OUTLINED_FUNCTION_8_4();
-                  v528 = v196;
-                  [v195 objectForKeyedSubscript:?];
+                  v197 = OUTLINED_FUNCTION_8_4();
+                  v529 = v198;
+                  [v197 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v593 = v596 = metadata2;
-                  if (metadata2 == v593)
+                  v594 = v597 = metadata2;
+                  if (metadata2 == v594)
                   {
-                    v516 = 0;
+                    v517 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey suggestedInvocationPhrase];
                     objc_claimAutoreleasedReturnValue();
-                    v197 = OUTLINED_FUNCTION_8_4();
-                    v483 = v198;
-                    v476 = [v197 objectForKeyedSubscript:?];
-                    v516 = v476;
+                    v199 = OUTLINED_FUNCTION_8_4();
+                    v484 = v200;
+                    v477 = [v199 objectForKeyedSubscript:?];
+                    v517 = v477;
                   }
 
                   +[_DKApplicationActivityMetadataKey title];
                   objc_claimAutoreleasedReturnValue();
-                  v199 = OUTLINED_FUNCTION_8_4();
-                  v523 = v200;
-                  [v199 objectForKeyedSubscript:?];
+                  v201 = OUTLINED_FUNCTION_8_4();
+                  v524 = v202;
+                  [v201 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v586 = v590 = metadata2;
-                  if (metadata2 == v586)
+                  v587 = v591 = metadata2;
+                  if (metadata2 == v587)
                   {
-                    v509 = 0;
+                    v510 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey title];
                     objc_claimAutoreleasedReturnValue();
-                    v201 = OUTLINED_FUNCTION_8_4();
-                    v481 = v202;
-                    v474 = [v201 objectForKeyedSubscript:?];
-                    v509 = v474;
+                    v203 = OUTLINED_FUNCTION_8_4();
+                    v482 = v204;
+                    v475 = [v203 objectForKeyedSubscript:?];
+                    v510 = v475;
                   }
 
                   +[_DKApplicationActivityMetadataKey userActivityRequiredString];
                   objc_claimAutoreleasedReturnValue();
-                  v203 = OUTLINED_FUNCTION_8_4();
-                  v520 = v204;
-                  [v203 objectForKeyedSubscript:?];
+                  v205 = OUTLINED_FUNCTION_8_4();
+                  v521 = v206;
+                  [v205 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v582 = v584 = metadata2;
-                  if (metadata2 == v582)
+                  v583 = v585 = metadata2;
+                  if (metadata2 == v583)
                   {
-                    v503 = 0;
+                    v504 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey userActivityRequiredString];
                     objc_claimAutoreleasedReturnValue();
-                    v205 = OUTLINED_FUNCTION_8_4();
-                    v479 = v206;
-                    v473 = [v205 objectForKeyedSubscript:?];
-                    v503 = v473;
+                    v207 = OUTLINED_FUNCTION_8_4();
+                    v480 = v208;
+                    v474 = [v207 objectForKeyedSubscript:?];
+                    v504 = v474;
                   }
 
                   +[_DKApplicationActivityMetadataKey userActivityUUID];
                   objc_claimAutoreleasedReturnValue();
-                  v207 = OUTLINED_FUNCTION_8_4();
-                  v515 = v208;
-                  [v207 objectForKeyedSubscript:?];
+                  v209 = OUTLINED_FUNCTION_8_4();
+                  v516 = v210;
+                  [v209 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_6_17() null];
-                  v513 = metadata2;
-                  v661 = v26;
-                  v658 = v154;
-                  v511 = v554 = v160;
-                  if (metadata2 == v511)
+                  v514 = metadata2;
+                  v662 = v26;
+                  v659 = v156;
+                  v512 = v555 = v162;
+                  if (metadata2 == v512)
                   {
-                    v501 = 0;
+                    v502 = 0;
                   }
 
                   else
                   {
                     +[_DKApplicationActivityMetadataKey userActivityUUID];
                     objc_claimAutoreleasedReturnValue();
-                    v209 = OUTLINED_FUNCTION_8_4();
-                    v477 = v210;
-                    v472 = [v209 objectForKeyedSubscript:?];
-                    v501 = v472;
+                    v211 = OUTLINED_FUNCTION_8_4();
+                    v478 = v212;
+                    v473 = [v211 objectForKeyedSubscript:?];
+                    v502 = v473;
                   }
 
-                  v211 = metadata2;
+                  v213 = metadata2;
                   source5 = [v27 source];
                   sourceID2 = [source5 sourceID];
                   source6 = [v27 source];
                   bundleID2 = [source6 bundleID];
                   source7 = [v27 source];
                   itemID2 = [source7 itemID];
-                  source8 = [v652 source];
+                  source8 = [v653 source];
                   groupID2 = [source8 groupID];
-                  v217 = MEMORY[0x1E695DF00];
-                  [v665 doubleValue];
-                  v218 = [v217 dateWithTimeIntervalSinceReferenceDate:?];
-                  v219 = [v211 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.externalID"];
+                  v219 = MEMORY[0x1E695DF00];
+                  [v666 doubleValue];
+                  v220 = [v219 dateWithTimeIntervalSinceReferenceDate:?];
+                  v221 = [v213 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.externalID"];
                   null7 = [MEMORY[0x1E695DFB0] null];
-                  v668 = v211;
-                  if (v219 == null7)
+                  v669 = v213;
+                  if (v221 == null7)
                   {
-                    v221 = 0;
+                    v223 = 0;
                   }
 
                   else
                   {
-                    v221 = [v211 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.externalID"];
-                    v475 = v221;
+                    v223 = [v213 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.externalID"];
+                    v476 = v223;
                   }
 
-                  v222 = MEMORY[0x1E695DF00];
-                  [v658 doubleValue];
-                  [v222 dateWithTimeIntervalSinceReferenceDate:?];
-                  v373 = v372 = v221;
-                  v370 = groupID2;
-                  v371 = v218;
-                  v368 = bundleID2;
-                  v369 = itemID2;
-                  v366 = v501;
-                  v367 = sourceID2;
-                  v364 = v509;
-                  v365 = v503;
-                  v362 = v518;
-                  v363 = v516;
-                  v360 = v525;
-                  v361 = v522;
-                  v358 = v529;
-                  v359 = v526;
-                  v545 = [v544 initWithBundleID:stringValue activityType:v541 beginningOfActivity:v538 contentDescription:v537 expirationDate:v534 isEligibleForPrediction:v532 isPubliclyIndexable:? itemIdentifier:? itemRelatedContentURL:? itemRelatedUniqueIdentifier:? shortcutAvailability:? suggestedInvocationPhrase:? title:? userActivityRequiredString:? userActivityUUID:? sourceID:? sourceBundleID:? sourceItemID:? sourceGroupID:? calendarUserActivityDate:? calendarUserActivityExternalID:? calendarUserActivityEndDate:?];
+                  v224 = MEMORY[0x1E695DF00];
+                  [v659 doubleValue];
+                  [v224 dateWithTimeIntervalSinceReferenceDate:?];
+                  v374 = v373 = v223;
+                  v371 = groupID2;
+                  v372 = v220;
+                  v369 = bundleID2;
+                  v370 = itemID2;
+                  v367 = v502;
+                  v368 = sourceID2;
+                  v365 = v510;
+                  v366 = v504;
+                  v363 = v519;
+                  v364 = v517;
+                  v361 = v526;
+                  v362 = v523;
+                  v359 = v530;
+                  v360 = v527;
+                  v546 = [v545 initWithBundleID:stringValue activityType:v542 beginningOfActivity:v539 contentDescription:v538 expirationDate:v535 isEligibleForPrediction:v533 isPubliclyIndexable:? itemIdentifier:? itemRelatedContentURL:? itemRelatedUniqueIdentifier:? shortcutAvailability:? suggestedInvocationPhrase:? title:? userActivityRequiredString:? userActivityUUID:? sourceID:? sourceBundleID:? sourceItemID:? sourceGroupID:? calendarUserActivityDate:? calendarUserActivityExternalID:? calendarUserActivityEndDate:?];
 
-                  if (v219 != null7)
+                  if (v221 != null7)
                   {
                   }
 
-                  if (v513 != v511)
+                  if (v514 != v512)
                   {
                   }
 
-                  v24 = v632;
+                  v24 = v633;
                   v25 = MEMORY[0x1E69E9C10];
-                  v26 = v661;
-                  metadata4 = v668;
-                  if (v584 != v582)
+                  v26 = v662;
+                  metadata4 = v669;
+                  if (v585 != v583)
                   {
                   }
 
-                  if (v590 != v586)
+                  if (v591 != v587)
                   {
                   }
 
-                  if (v596 != v593)
+                  if (v597 != v594)
                   {
                   }
 
-                  if (v602 != v599)
+                  if (v603 != v600)
                   {
                   }
 
-                  if (v608 != v605)
+                  if (v609 != v606)
                   {
                   }
 
-                  if (v614 != v611)
+                  if (v615 != v612)
                   {
                   }
 
-                  if (v620 != v617)
+                  if (v621 != v618)
                   {
                   }
 
-                  if (v626 != v623)
+                  if (v627 != v624)
                   {
                   }
 
-                  if (v634 != v629)
+                  if (v635 != v630)
                   {
                   }
 
-                  if (v640 != v637)
+                  if (v641 != v638)
                   {
                   }
 
-                  if (v646 != v643)
+                  if (v647 != v644)
                   {
                   }
 
-                  if (v554 != null6)
+                  if (v555 != null6)
                   {
                   }
 
-                  if (v560 != v558)
+                  if (v561 != v559)
                   {
                   }
 
-                  v223 = *(selfCopy + 160);
-                  startDate2 = [v652 startDate];
+                  v225 = *(selfCopy + 160);
+                  startDate2 = [v653 startDate];
                   [startDate2 timeIntervalSinceReferenceDate];
-                  [v223 sendEvent:v545 timestamp:?];
+                  [v225 sendEvent:v546 timestamp:?];
                 }
 
                 else
@@ -2974,7 +2945,7 @@ LABEL_27:
                     goto LABEL_298;
                   }
 
-                  v653 = v27;
+                  v654 = v27;
                   metadata3 = [v27 metadata];
                   v64 = [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
                   [MEMORY[0x1E695DFB0] null];
@@ -2982,12 +2953,12 @@ LABEL_27:
                   OUTLINED_FUNCTION_21_8();
                   if (v58)
                   {
-                    v665 = 0;
+                    v666 = 0;
                   }
 
                   else
                   {
-                    v665 = [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
+                    v666 = [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.date"];
                   }
 
                   [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
@@ -2997,40 +2968,40 @@ LABEL_27:
                   OUTLINED_FUNCTION_21_8();
                   if (v58)
                   {
-                    v658 = 0;
+                    v659 = 0;
                   }
 
                   else
                   {
-                    v658 = [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
+                    v659 = [metadata3 objectForKeyedSubscript:@"com.apple.calendarUIKit.userActivity.endDate"];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey URL];
                   objc_claimAutoreleasedReturnValue();
-                  v224 = [OUTLINED_FUNCTION_16_6() objectForKeyedSubscript:v64];
+                  v226 = [OUTLINED_FUNCTION_16_6() objectForKeyedSubscript:v64];
                   null8 = [MEMORY[0x1E695DFB0] null];
-                  v669 = metadata3;
-                  if (v224 == null8)
+                  v670 = metadata3;
+                  if (v226 == null8)
                   {
-                    v227 = 0;
+                    v229 = 0;
                   }
 
                   else
                   {
-                    v226 = +[_DKLocationApplicationActivityMetadataKey URL];
-                    metadata3 = [metadata3 objectForKeyedSubscript:v226];
+                    v228 = +[_DKLocationApplicationActivityMetadataKey URL];
+                    metadata3 = [metadata3 objectForKeyedSubscript:v228];
 
-                    v227 = metadata3;
+                    v229 = metadata3;
                   }
 
-                  if (v227)
+                  if (v229)
                   {
-                    v650 = [MEMORY[0x1E695DFF8] URLWithString:v227];
+                    v651 = [MEMORY[0x1E695DFF8] URLWithString:v229];
                   }
 
                   else
                   {
-                    v650 = 0;
+                    v651 = 0;
                   }
 
                   objc_alloc(MEMORY[0x1E698EB28]);
@@ -3039,238 +3010,238 @@ LABEL_27:
                   objc_claimAutoreleasedReturnValue();
                   +[_DKApplicationActivityMetadataKey activityType];
                   objc_claimAutoreleasedReturnValue();
-                  v228 = OUTLINED_FUNCTION_12();
-                  v514 = v229;
-                  v230 = [v228 objectForKeyedSubscript:?];
+                  v230 = OUTLINED_FUNCTION_12();
+                  v515 = v231;
+                  v232 = [v230 objectForKeyedSubscript:?];
                   null9 = [MEMORY[0x1E695DFB0] null];
-                  if (v230 != null9)
+                  if (v232 != null9)
                   {
                     +[_DKApplicationActivityMetadataKey activityType];
                     objc_claimAutoreleasedReturnValue();
-                    v231 = OUTLINED_FUNCTION_12();
-                    v444 = v232;
-                    v440 = [v231 objectForKeyedSubscript:?];
+                    v233 = OUTLINED_FUNCTION_12();
+                    v445 = v234;
+                    v441 = [v233 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey beginningOfActivity];
                   objc_claimAutoreleasedReturnValue();
-                  v233 = OUTLINED_FUNCTION_12();
-                  v508 = v234;
-                  [v233 objectForKeyedSubscript:?];
+                  v235 = OUTLINED_FUNCTION_12();
+                  v509 = v236;
+                  [v235 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v647 = v506 = metadata3;
-                  if (metadata3 != v647)
+                  v648 = v507 = metadata3;
+                  if (metadata3 != v648)
                   {
                     +[_DKApplicationActivityMetadataKey beginningOfActivity];
                     objc_claimAutoreleasedReturnValue();
-                    v235 = OUTLINED_FUNCTION_12();
-                    v443 = v236;
-                    v438 = [v235 objectForKeyedSubscript:?];
+                    v237 = OUTLINED_FUNCTION_12();
+                    v444 = v238;
+                    v439 = [v237 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey contentDescription];
                   objc_claimAutoreleasedReturnValue();
-                  v237 = OUTLINED_FUNCTION_12();
-                  v504 = v238;
-                  [v237 objectForKeyedSubscript:?];
+                  v239 = OUTLINED_FUNCTION_12();
+                  v505 = v240;
+                  [v239 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v641 = v644 = metadata3;
-                  if (metadata3 != v641)
+                  v642 = v645 = metadata3;
+                  if (metadata3 != v642)
                   {
                     +[_DKApplicationActivityMetadataKey contentDescription];
                     objc_claimAutoreleasedReturnValue();
-                    v239 = OUTLINED_FUNCTION_12();
-                    v442 = v240;
-                    v436 = [v239 objectForKeyedSubscript:?];
+                    v241 = OUTLINED_FUNCTION_12();
+                    v443 = v242;
+                    v437 = [v241 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey expirationDate];
                   objc_claimAutoreleasedReturnValue();
-                  v241 = OUTLINED_FUNCTION_12();
-                  v502 = v242;
-                  [v241 objectForKeyedSubscript:?];
+                  v243 = OUTLINED_FUNCTION_12();
+                  v503 = v244;
+                  [v243 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v635 = v638 = metadata3;
-                  if (metadata3 != v635)
+                  v636 = v639 = metadata3;
+                  if (metadata3 != v636)
                   {
                     +[_DKApplicationActivityMetadataKey expirationDate];
                     objc_claimAutoreleasedReturnValue();
-                    v243 = OUTLINED_FUNCTION_12();
-                    v441 = v244;
-                    v434 = [v243 objectForKeyedSubscript:?];
+                    v245 = OUTLINED_FUNCTION_12();
+                    v442 = v246;
+                    v435 = [v245 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey isEligibleForPrediction];
                   objc_claimAutoreleasedReturnValue();
-                  v245 = OUTLINED_FUNCTION_12();
-                  v471 = v246;
-                  [v245 objectForKeyedSubscript:?];
+                  v247 = OUTLINED_FUNCTION_12();
+                  v472 = v248;
+                  [v247 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v627 = v630 = metadata3;
-                  if (metadata3 != v627)
+                  v628 = v631 = metadata3;
+                  if (metadata3 != v628)
                   {
                     +[_DKApplicationActivityMetadataKey isEligibleForPrediction];
                     objc_claimAutoreleasedReturnValue();
-                    v247 = OUTLINED_FUNCTION_12();
-                    v439 = v248;
-                    v432 = [v247 objectForKeyedSubscript:?];
+                    v249 = OUTLINED_FUNCTION_12();
+                    v440 = v250;
+                    v433 = [v249 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey isPubliclyIndexable];
                   objc_claimAutoreleasedReturnValue();
-                  v249 = OUTLINED_FUNCTION_12();
-                  v470 = v250;
-                  [v249 objectForKeyedSubscript:?];
+                  v251 = OUTLINED_FUNCTION_12();
+                  v471 = v252;
+                  [v251 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v621 = v624 = metadata3;
-                  if (metadata3 != v621)
+                  v622 = v625 = metadata3;
+                  if (metadata3 != v622)
                   {
                     +[_DKApplicationActivityMetadataKey isPubliclyIndexable];
                     objc_claimAutoreleasedReturnValue();
-                    v251 = OUTLINED_FUNCTION_12();
-                    v437 = v252;
-                    v430 = [v251 objectForKeyedSubscript:?];
+                    v253 = OUTLINED_FUNCTION_12();
+                    v438 = v254;
+                    v431 = [v253 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey itemIdentifier];
                   objc_claimAutoreleasedReturnValue();
-                  v253 = OUTLINED_FUNCTION_12();
-                  v469 = v254;
-                  [v253 objectForKeyedSubscript:?];
+                  v255 = OUTLINED_FUNCTION_12();
+                  v470 = v256;
+                  [v255 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v615 = v618 = metadata3;
-                  if (metadata3 != v615)
+                  v616 = v619 = metadata3;
+                  if (metadata3 != v616)
                   {
                     +[_DKApplicationActivityMetadataKey itemIdentifier];
                     objc_claimAutoreleasedReturnValue();
-                    v255 = OUTLINED_FUNCTION_12();
-                    v435 = v256;
-                    v428 = [v255 objectForKeyedSubscript:?];
+                    v257 = OUTLINED_FUNCTION_12();
+                    v436 = v258;
+                    v429 = [v257 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey itemRelatedContentURL];
                   objc_claimAutoreleasedReturnValue();
-                  v257 = OUTLINED_FUNCTION_12();
-                  v468 = v258;
-                  [v257 objectForKeyedSubscript:?];
+                  v259 = OUTLINED_FUNCTION_12();
+                  v469 = v260;
+                  [v259 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v609 = v612 = metadata3;
-                  if (metadata3 != v609)
+                  v610 = v613 = metadata3;
+                  if (metadata3 != v610)
                   {
                     +[_DKApplicationActivityMetadataKey itemRelatedContentURL];
                     objc_claimAutoreleasedReturnValue();
-                    v259 = OUTLINED_FUNCTION_12();
-                    v433 = v260;
-                    v426 = [v259 objectForKeyedSubscript:?];
+                    v261 = OUTLINED_FUNCTION_12();
+                    v434 = v262;
+                    v427 = [v261 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey itemRelatedUniqueIdentifier];
                   objc_claimAutoreleasedReturnValue();
-                  v261 = OUTLINED_FUNCTION_12();
-                  v467 = v262;
-                  [v261 objectForKeyedSubscript:?];
+                  v263 = OUTLINED_FUNCTION_12();
+                  v468 = v264;
+                  [v263 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v603 = v606 = metadata3;
-                  if (metadata3 != v603)
+                  v604 = v607 = metadata3;
+                  if (metadata3 != v604)
                   {
                     +[_DKApplicationActivityMetadataKey itemRelatedUniqueIdentifier];
                     objc_claimAutoreleasedReturnValue();
-                    v263 = OUTLINED_FUNCTION_12();
-                    v431 = v264;
-                    v424 = [v263 objectForKeyedSubscript:?];
+                    v265 = OUTLINED_FUNCTION_12();
+                    v432 = v266;
+                    v425 = [v265 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey shortcutAvailability];
                   objc_claimAutoreleasedReturnValue();
-                  v265 = OUTLINED_FUNCTION_12();
-                  v466 = v266;
-                  [v265 objectForKeyedSubscript:?];
+                  v267 = OUTLINED_FUNCTION_12();
+                  v467 = v268;
+                  [v267 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v597 = v600 = metadata3;
-                  if (metadata3 != v597)
+                  v598 = v601 = metadata3;
+                  if (metadata3 != v598)
                   {
                     +[_DKApplicationActivityMetadataKey shortcutAvailability];
                     objc_claimAutoreleasedReturnValue();
-                    v267 = OUTLINED_FUNCTION_12();
-                    v429 = v268;
-                    v422 = [v267 objectForKeyedSubscript:?];
+                    v269 = OUTLINED_FUNCTION_12();
+                    v430 = v270;
+                    v423 = [v269 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey suggestedInvocationPhrase];
                   objc_claimAutoreleasedReturnValue();
-                  v269 = OUTLINED_FUNCTION_12();
-                  v465 = v270;
-                  [v269 objectForKeyedSubscript:?];
+                  v271 = OUTLINED_FUNCTION_12();
+                  v466 = v272;
+                  [v271 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v591 = v594 = metadata3;
-                  if (metadata3 != v591)
+                  v592 = v595 = metadata3;
+                  if (metadata3 != v592)
                   {
                     +[_DKApplicationActivityMetadataKey suggestedInvocationPhrase];
                     objc_claimAutoreleasedReturnValue();
-                    v271 = OUTLINED_FUNCTION_12();
-                    v427 = v272;
-                    v420 = [v271 objectForKeyedSubscript:?];
+                    v273 = OUTLINED_FUNCTION_12();
+                    v428 = v274;
+                    v421 = [v273 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey title];
                   objc_claimAutoreleasedReturnValue();
-                  v273 = OUTLINED_FUNCTION_12();
-                  v463 = v274;
-                  [v273 objectForKeyedSubscript:?];
+                  v275 = OUTLINED_FUNCTION_12();
+                  v464 = v276;
+                  [v275 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v585 = v587 = metadata3;
-                  if (metadata3 != v585)
+                  v586 = v588 = metadata3;
+                  if (metadata3 != v586)
                   {
                     +[_DKApplicationActivityMetadataKey title];
                     objc_claimAutoreleasedReturnValue();
-                    v275 = OUTLINED_FUNCTION_12();
-                    v425 = v276;
-                    v417 = [v275 objectForKeyedSubscript:?];
+                    v277 = OUTLINED_FUNCTION_12();
+                    v426 = v278;
+                    v418 = [v277 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey userActivityRequiredString];
                   objc_claimAutoreleasedReturnValue();
-                  v277 = OUTLINED_FUNCTION_12();
-                  v462 = v278;
-                  [v277 objectForKeyedSubscript:?];
+                  v279 = OUTLINED_FUNCTION_12();
+                  v463 = v280;
+                  [v279 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v581 = v583 = metadata3;
-                  if (metadata3 != v581)
+                  v582 = v584 = metadata3;
+                  if (metadata3 != v582)
                   {
                     +[_DKApplicationActivityMetadataKey userActivityRequiredString];
                     objc_claimAutoreleasedReturnValue();
-                    v279 = OUTLINED_FUNCTION_12();
-                    v423 = v280;
-                    v415 = [v279 objectForKeyedSubscript:?];
+                    v281 = OUTLINED_FUNCTION_12();
+                    v424 = v282;
+                    v416 = [v281 objectForKeyedSubscript:?];
                   }
 
                   +[_DKApplicationActivityMetadataKey userActivityUUID];
                   objc_claimAutoreleasedReturnValue();
-                  v281 = OUTLINED_FUNCTION_12();
-                  v461 = v282;
-                  [v281 objectForKeyedSubscript:?];
+                  v283 = OUTLINED_FUNCTION_12();
+                  v462 = v284;
+                  [v283 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_5_14() null];
-                  v565 = v567 = metadata3;
-                  if (metadata3 != v565)
+                  v566 = v568 = metadata3;
+                  if (metadata3 != v566)
                   {
                     +[_DKApplicationActivityMetadataKey userActivityUUID];
                     objc_claimAutoreleasedReturnValue();
-                    v283 = OUTLINED_FUNCTION_12();
-                    v421 = v284;
-                    v413 = [v283 objectForKeyedSubscript:?];
+                    v285 = OUTLINED_FUNCTION_12();
+                    v422 = v286;
+                    v414 = [v285 objectForKeyedSubscript:?];
                   }
 
                   source9 = [v27 source];
@@ -3281,339 +3252,339 @@ LABEL_27:
                   itemID3 = [source11 itemID];
                   source12 = [v27 source];
                   groupID3 = [source12 groupID];
-                  v285 = MEMORY[0x1E695DF00];
-                  [v665 doubleValue];
-                  v555 = [v285 dateWithTimeIntervalSinceReferenceDate:?];
+                  v287 = MEMORY[0x1E695DF00];
+                  [v666 doubleValue];
+                  v556 = [v287 dateWithTimeIntervalSinceReferenceDate:?];
                   [OUTLINED_FUNCTION_11_0() objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_3_20() null];
-                  v551 = v553 = v285;
-                  if (v285 != v551)
+                  v552 = v554 = v287;
+                  if (v287 != v552)
                   {
-                    v419 = [OUTLINED_FUNCTION_11_0() objectForKeyedSubscript:?];
+                    v420 = [OUTLINED_FUNCTION_11_0() objectForKeyedSubscript:?];
                   }
 
-                  v286 = MEMORY[0x1E695DF00];
-                  [v658 doubleValue];
-                  v549 = [v286 dateWithTimeIntervalSinceReferenceDate:?];
+                  v288 = MEMORY[0x1E695DF00];
+                  [v659 doubleValue];
+                  v550 = [v288 dateWithTimeIntervalSinceReferenceDate:?];
                   +[_DKLocationApplicationActivityMetadataKey locationName];
                   objc_claimAutoreleasedReturnValue();
-                  v287 = OUTLINED_FUNCTION_12();
-                  v456 = v288;
-                  [v287 objectForKeyedSubscript:?];
+                  v289 = OUTLINED_FUNCTION_12();
+                  v457 = v290;
+                  [v289 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null10 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null10)
+                  if (v288 != null10)
                   {
                     +[_DKLocationApplicationActivityMetadataKey locationName];
                     objc_claimAutoreleasedReturnValue();
-                    v289 = OUTLINED_FUNCTION_12();
-                    v418 = v290;
-                    v411 = [v289 objectForKeyedSubscript:?];
+                    v291 = OUTLINED_FUNCTION_12();
+                    v419 = v292;
+                    v412 = [v291 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey latitude];
                   objc_claimAutoreleasedReturnValue();
-                  v291 = OUTLINED_FUNCTION_12();
-                  v455 = v292;
-                  [v291 objectForKeyedSubscript:?];
+                  v293 = OUTLINED_FUNCTION_12();
+                  v456 = v294;
+                  [v293 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null11 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null11)
+                  if (v288 != null11)
                   {
                     +[_DKLocationApplicationActivityMetadataKey latitude];
                     objc_claimAutoreleasedReturnValue();
-                    v293 = OUTLINED_FUNCTION_12();
-                    v416 = v294;
-                    v409 = [v293 objectForKeyedSubscript:?];
+                    v295 = OUTLINED_FUNCTION_12();
+                    v417 = v296;
+                    v410 = [v295 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey longitude];
                   objc_claimAutoreleasedReturnValue();
-                  v295 = OUTLINED_FUNCTION_12();
-                  v454 = v296;
-                  [v295 objectForKeyedSubscript:?];
+                  v297 = OUTLINED_FUNCTION_12();
+                  v455 = v298;
+                  [v297 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null12 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null12)
+                  if (v288 != null12)
                   {
                     +[_DKLocationApplicationActivityMetadataKey longitude];
                     objc_claimAutoreleasedReturnValue();
-                    v297 = OUTLINED_FUNCTION_12();
-                    v414 = v298;
-                    v407 = [v297 objectForKeyedSubscript:?];
+                    v299 = OUTLINED_FUNCTION_12();
+                    v415 = v300;
+                    v408 = [v299 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey city];
                   objc_claimAutoreleasedReturnValue();
-                  v299 = OUTLINED_FUNCTION_12();
-                  v453 = v300;
-                  [v299 objectForKeyedSubscript:?];
+                  v301 = OUTLINED_FUNCTION_12();
+                  v454 = v302;
+                  [v301 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null13 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null13)
+                  if (v288 != null13)
                   {
                     +[_DKLocationApplicationActivityMetadataKey city];
                     objc_claimAutoreleasedReturnValue();
-                    v301 = OUTLINED_FUNCTION_12();
-                    v412 = v302;
-                    v405 = [v301 objectForKeyedSubscript:?];
+                    v303 = OUTLINED_FUNCTION_12();
+                    v413 = v304;
+                    v406 = [v303 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey stateOrProvince];
                   objc_claimAutoreleasedReturnValue();
-                  v303 = OUTLINED_FUNCTION_12();
-                  v452 = v304;
-                  [v303 objectForKeyedSubscript:?];
+                  v305 = OUTLINED_FUNCTION_12();
+                  v453 = v306;
+                  [v305 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null14 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null14)
+                  if (v288 != null14)
                   {
                     +[_DKLocationApplicationActivityMetadataKey stateOrProvince];
                     objc_claimAutoreleasedReturnValue();
-                    v305 = OUTLINED_FUNCTION_12();
-                    v410 = v306;
-                    v403 = [v305 objectForKeyedSubscript:?];
+                    v307 = OUTLINED_FUNCTION_12();
+                    v411 = v308;
+                    v404 = [v307 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey country];
                   objc_claimAutoreleasedReturnValue();
-                  v307 = OUTLINED_FUNCTION_12();
-                  v451 = v308;
-                  [v307 objectForKeyedSubscript:?];
+                  v309 = OUTLINED_FUNCTION_12();
+                  v452 = v310;
+                  [v309 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null15 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null15)
+                  if (v288 != null15)
                   {
                     +[_DKLocationApplicationActivityMetadataKey country];
                     objc_claimAutoreleasedReturnValue();
-                    v309 = OUTLINED_FUNCTION_12();
-                    v408 = v310;
-                    v401 = [v309 objectForKeyedSubscript:?];
+                    v311 = OUTLINED_FUNCTION_12();
+                    v409 = v312;
+                    v402 = [v311 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey thoroughfare];
                   objc_claimAutoreleasedReturnValue();
-                  v311 = OUTLINED_FUNCTION_12();
-                  v450 = v312;
-                  [v311 objectForKeyedSubscript:?];
+                  v313 = OUTLINED_FUNCTION_12();
+                  v451 = v314;
+                  [v313 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null16 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null16)
+                  if (v288 != null16)
                   {
                     +[_DKLocationApplicationActivityMetadataKey thoroughfare];
                     objc_claimAutoreleasedReturnValue();
-                    v313 = OUTLINED_FUNCTION_12();
-                    v406 = v314;
-                    v399 = [v313 objectForKeyedSubscript:?];
+                    v315 = OUTLINED_FUNCTION_12();
+                    v407 = v316;
+                    v400 = [v315 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey fullyFormattedAddress];
                   objc_claimAutoreleasedReturnValue();
-                  v315 = OUTLINED_FUNCTION_12();
-                  v449 = v316;
-                  [v315 objectForKeyedSubscript:?];
+                  v317 = OUTLINED_FUNCTION_12();
+                  v450 = v318;
+                  [v317 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null17 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null17)
+                  if (v288 != null17)
                   {
                     +[_DKLocationApplicationActivityMetadataKey fullyFormattedAddress];
                     objc_claimAutoreleasedReturnValue();
-                    v317 = OUTLINED_FUNCTION_12();
-                    v404 = v318;
-                    v397 = [v317 objectForKeyedSubscript:?];
+                    v319 = OUTLINED_FUNCTION_12();
+                    v405 = v320;
+                    v398 = [v319 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey subThoroughfare];
                   objc_claimAutoreleasedReturnValue();
-                  v319 = OUTLINED_FUNCTION_12();
-                  v448 = v320;
-                  [v319 objectForKeyedSubscript:?];
+                  v321 = OUTLINED_FUNCTION_12();
+                  v449 = v322;
+                  [v321 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null18 = [OUTLINED_FUNCTION_3_20() null];
-                  if (v286 != null18)
+                  if (v288 != null18)
                   {
                     +[_DKLocationApplicationActivityMetadataKey subThoroughfare];
                     objc_claimAutoreleasedReturnValue();
-                    v321 = OUTLINED_FUNCTION_12();
-                    v402 = v322;
-                    v396 = [v321 objectForKeyedSubscript:?];
+                    v323 = OUTLINED_FUNCTION_12();
+                    v403 = v324;
+                    v397 = [v323 objectForKeyedSubscript:?];
                   }
 
                   +[_DKLocationApplicationActivityMetadataKey postalCode];
                   objc_claimAutoreleasedReturnValue();
-                  v323 = OUTLINED_FUNCTION_12();
-                  v447 = v324;
-                  [v323 objectForKeyedSubscript:?];
+                  v325 = OUTLINED_FUNCTION_12();
+                  v448 = v326;
+                  [v325 objectForKeyedSubscript:?];
                   objc_claimAutoreleasedReturnValue();
                   null19 = [OUTLINED_FUNCTION_3_20() null];
-                  v512 = v230;
-                  if (v286 != null19)
+                  v513 = v232;
+                  if (v288 != null19)
                   {
                     +[_DKLocationApplicationActivityMetadataKey postalCode];
                     objc_claimAutoreleasedReturnValue();
-                    v325 = OUTLINED_FUNCTION_12();
-                    v400 = v326;
-                    v395 = [v325 objectForKeyedSubscript:?];
+                    v327 = OUTLINED_FUNCTION_12();
+                    v401 = v328;
+                    v396 = [v327 objectForKeyedSubscript:?];
                   }
 
-                  v519 = v227;
+                  v520 = v229;
                   +[_DKLocationApplicationActivityMetadataKey phoneNumbers];
                   objc_claimAutoreleasedReturnValue();
-                  v327 = OUTLINED_FUNCTION_8_4();
-                  v445 = v328;
-                  v329 = [v327 objectForKeyedSubscript:?];
+                  v329 = OUTLINED_FUNCTION_8_4();
+                  v446 = v330;
+                  v331 = [v329 objectForKeyedSubscript:?];
                   null20 = [MEMORY[0x1E695DFB0] null];
-                  v662 = v26;
-                  if (v329 != null20)
+                  v663 = v26;
+                  if (v331 != null20)
                   {
                     +[_DKLocationApplicationActivityMetadataKey phoneNumbers];
                     objc_claimAutoreleasedReturnValue();
-                    v331 = OUTLINED_FUNCTION_8_4();
-                    v398 = v332;
-                    v394 = [v331 objectForKeyedSubscript:?];
+                    v333 = OUTLINED_FUNCTION_8_4();
+                    v399 = v334;
+                    v395 = [v333 objectForKeyedSubscript:?];
                   }
 
-                  v333 = +[_DKLocationApplicationActivityMetadataKey displayName];
-                  v334 = [v669 objectForKeyedSubscript:v333];
+                  v335 = +[_DKLocationApplicationActivityMetadataKey displayName];
+                  v336 = [v670 objectForKeyedSubscript:v335];
                   null21 = [MEMORY[0x1E695DFB0] null];
-                  if (v334 == null21)
+                  if (v336 == null21)
                   {
                     OUTLINED_FUNCTION_1_28();
-                    v385 = 0;
-                    v386 = v340;
-                    v464 = OUTLINED_FUNCTION_4_18();
+                    v386 = 0;
+                    v387 = v342;
+                    v465 = OUTLINED_FUNCTION_4_18();
                   }
 
                   else
                   {
-                    v336 = +[_DKLocationApplicationActivityMetadataKey displayName];
-                    v337 = [v669 objectForKeyedSubscript:v336];
+                    v338 = +[_DKLocationApplicationActivityMetadataKey displayName];
+                    v339 = [v670 objectForKeyedSubscript:v338];
                     OUTLINED_FUNCTION_1_28();
-                    v385 = v338;
-                    v386 = v339;
-                    v464 = OUTLINED_FUNCTION_4_18();
+                    v386 = v340;
+                    v387 = v341;
+                    v465 = OUTLINED_FUNCTION_4_18();
 
-                    v24 = v632;
+                    v24 = v633;
                   }
 
-                  if (v329 != null20)
+                  if (v331 != null20)
                   {
                   }
 
                   v25 = MEMORY[0x1E69E9C10];
-                  v26 = v662;
-                  metadata4 = v669;
-                  if (v286 != null19)
+                  v26 = v663;
+                  metadata4 = v670;
+                  if (v288 != null19)
                   {
                   }
 
-                  if (v286 != null18)
+                  if (v288 != null18)
                   {
                   }
 
-                  if (v286 != null17)
+                  if (v288 != null17)
                   {
                   }
 
-                  if (v286 != null16)
+                  if (v288 != null16)
                   {
                   }
 
-                  if (v286 != null15)
+                  if (v288 != null15)
                   {
                   }
 
-                  if (v286 != null14)
+                  if (v288 != null14)
                   {
                   }
 
-                  if (v286 != null13)
+                  if (v288 != null13)
                   {
                   }
 
-                  if (v286 != null12)
+                  if (v288 != null12)
                   {
                   }
 
-                  if (v286 != null11)
+                  if (v288 != null11)
                   {
                   }
 
-                  if (v286 != null10)
+                  if (v288 != null10)
                   {
                   }
 
-                  if (v553 != v551)
+                  if (v554 != v552)
                   {
                   }
 
-                  if (v567 != v565)
+                  if (v568 != v566)
                   {
                   }
 
-                  if (v583 != v581)
+                  if (v584 != v582)
                   {
                   }
 
-                  if (v587 != v585)
+                  if (v588 != v586)
                   {
                   }
 
-                  if (v594 != v591)
+                  if (v595 != v592)
                   {
                   }
 
-                  if (v600 != v597)
+                  if (v601 != v598)
                   {
                   }
 
-                  if (v606 != v603)
+                  if (v607 != v604)
                   {
                   }
 
-                  if (v612 != v609)
+                  if (v613 != v610)
                   {
                   }
 
-                  if (v618 != v615)
+                  if (v619 != v616)
                   {
                   }
 
-                  if (v624 != v621)
+                  if (v625 != v622)
                   {
                   }
 
-                  if (v630 != v627)
+                  if (v631 != v628)
                   {
                   }
 
-                  if (v638 != v635)
+                  if (v639 != v636)
                   {
                   }
 
-                  if (v644 != v641)
+                  if (v645 != v642)
                   {
                   }
 
-                  if (v506 != v647)
+                  if (v507 != v648)
                   {
                   }
 
-                  if (v512 != null9)
+                  if (v513 != null9)
                   {
                   }
 
-                  v341 = *(selfCopy + 168);
-                  startDate2 = [v653 startDate];
+                  v343 = *(selfCopy + 168);
+                  startDate2 = [v654 startDate];
                   [startDate2 timeIntervalSinceReferenceDate];
-                  [v341 sendEvent:v464 timestamp:?];
+                  [v343 sendEvent:v465 timestamp:?];
                 }
 
-                value4 = v665;
+                value4 = v666;
               }
 
-              v84 = v658;
+              v84 = v659;
               goto LABEL_296;
             }
 
@@ -3622,9 +3593,9 @@ LABEL_27:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v659 = v26;
+              v660 = v26;
               v35 = objc_alloc(MEMORY[0x1E698EB30]);
-              v663 = value4;
+              v664 = value4;
               stringValue2 = [value4 stringValue];
               startDate2 = +[_DKRelevantShortcutMetadataKey keyImageProxyIdentifier];
               v36 = [metadata4 objectForKeyedSubscript:startDate2];
@@ -3639,15 +3610,15 @@ LABEL_27:
                 +[_DKRelevantShortcutMetadataKey keyImageProxyIdentifier];
                 objc_claimAutoreleasedReturnValue();
                 v38 = OUTLINED_FUNCTION_9_10();
-                v568 = v39;
+                v569 = v39;
                 v40 = [v38 objectForKeyedSubscript:?];
-                v569 = v40;
+                v570 = v40;
               }
 
               v65 = +[_DKRelevantShortcutMetadataKey serializedRelevantShortcut];
               v66 = [metadata4 objectForKeyedSubscript:v65];
               null23 = [MEMORY[0x1E695DFB0] null];
-              v667 = metadata4;
+              v668 = metadata4;
               if (v66 == null23)
               {
                 v78 = [v35 initWithBundleID:stringValue2 keyImageProxyIdentifier:v40 serializedRelevantShortcut:0];
@@ -3656,7 +3627,7 @@ LABEL_27:
               else
               {
                 +[_DKRelevantShortcutMetadataKey serializedRelevantShortcut];
-                v654 = v66;
+                v655 = v66;
                 v68 = v65;
                 v69 = v40;
                 v70 = null22;
@@ -3670,22 +3641,22 @@ LABEL_27:
                 null22 = v70;
                 v77 = v69;
                 v65 = v68;
-                v66 = v654;
+                v66 = v655;
                 v78 = [v76 initWithBundleID:stringValue2 keyImageProxyIdentifier:v77 serializedRelevantShortcut:v75];
               }
 
-              value4 = v663;
+              value4 = v664;
 
-              v26 = v659;
+              v26 = v660;
               if (v36 != null22)
               {
               }
 
-              v24 = v632;
-              [v632 addObject:v78];
+              v24 = v633;
+              [v633 addObject:v78];
               v25 = MEMORY[0x1E69E9C10];
               v84 = v78;
-              metadata4 = v667;
+              metadata4 = v668;
 LABEL_296:
             }
 
@@ -3693,69 +3664,69 @@ LABEL_298:
             ++v26;
           }
 
-          while (v656 != v26);
-          v345 = [obj countByEnumeratingWithState:&v677 objects:v685 count:16];
-          v656 = v345;
+          while (v657 != v26);
+          v347 = [obj countByEnumeratingWithState:&v678 objects:v686 count:16];
+          v657 = v347;
         }
 
-        while (v345);
+        while (v347);
       }
 
-      v346 = v390;
-      if ([v390 count])
+      v348 = v391;
+      if ([v391 count])
       {
-        [*(selfCopy + 184) publishXPCEventForAppIntents:v390 appActivities:v389 uid:HIDWORD(v388)];
+        [*(selfCopy + 184) publishXPCEventForAppIntents:v391 appActivities:v390 uid:HIDWORD(v389)];
       }
 
       if ([v24 count])
       {
-        v347 = [v24 objectAtIndexedSubscript:0];
-        bundleID4 = [v347 bundleID];
+        v349 = [v24 objectAtIndexedSubscript:0];
+        bundleID4 = [v349 bundleID];
 
         pruner = [*(selfCopy + 176) pruner];
-        v674[0] = MEMORY[0x1E69E9820];
-        v674[1] = 3221225472;
-        v674[2] = __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_619;
-        v674[3] = &unk_1E7369840;
-        v350 = bundleID4;
-        v675 = v350;
-        [pruner deleteEventsPassingTest:v674];
+        v675[0] = MEMORY[0x1E69E9820];
+        v675[1] = 3221225472;
+        v675[2] = __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_619;
+        v675[3] = &unk_1E7369840;
+        v352 = bundleID4;
+        v676 = v352;
+        [pruner deleteEventsPassingTest:v675];
 
         source13 = [*(selfCopy + 176) source];
-        v670 = 0u;
         v671 = 0u;
         v672 = 0u;
         v673 = 0u;
-        v352 = v24;
-        v353 = [v352 countByEnumeratingWithState:&v670 objects:v684 count:16];
-        if (v353)
+        v674 = 0u;
+        v354 = v24;
+        v355 = [v354 countByEnumeratingWithState:&v671 objects:v685 count:16];
+        if (v355)
         {
-          v354 = v353;
-          v355 = *v671;
+          v356 = v355;
+          v357 = *v672;
           do
           {
-            for (i = 0; i != v354; ++i)
+            for (i = 0; i != v356; ++i)
             {
-              if (*v671 != v355)
+              if (*v672 != v357)
               {
-                objc_enumerationMutation(v352);
+                objc_enumerationMutation(v354);
               }
 
-              [source13 sendEvent:*(*(&v670 + 1) + 8 * i)];
+              [source13 sendEvent:*(*(&v671 + 1) + 8 * i)];
             }
 
-            v354 = [v352 countByEnumeratingWithState:&v670 objects:v684 count:16];
+            v356 = [v354 countByEnumeratingWithState:&v671 objects:v685 count:16];
           }
 
-          while (v354);
+          while (v356);
         }
 
-        v346 = v390;
+        v348 = v391;
       }
 
-      queueCopy = v391;
-      uidCopy = v392;
-      v8 = v387;
+      queueCopy = v392;
+      uidCopy = v393;
+      v8 = v388;
     }
 
     else if (queueCopy)
@@ -3763,8 +3734,6 @@ LABEL_298:
       (*(queueCopy + 2))(queueCopy, MEMORY[0x1E695E0F0], 0);
     }
   }
-
-  v357 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cacheUserActivity:(uint64_t)activity
@@ -3791,7 +3760,7 @@ LABEL_298:
 
 - (void)addUserAction:(id)action withItem:(id)item withCompletion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   itemCopy = item;
   completionCopy = completion;
@@ -3814,30 +3783,30 @@ LABEL_298:
   objc_claimAutoreleasedReturnValue();
   v12 = OUTLINED_FUNCTION_16_6();
   getUidOfDonator = [(_CDSpotlightItemRecorder *)v12 getUidOfDonator];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = v9;
-  v13 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v13 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v13)
   {
-    v14 = *v42;
+    v14 = *v41;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v42 != v14)
+        if (*v41 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v41 + 1) + 8 * i);
+        v16 = *(*(&v40 + 1) + 8 * i);
         [(_CDSpotlightItemRecorder *)self _cacheUserActivity:v16];
         state.opaque[0] = 0;
         state.opaque[1] = &state;
-        v47 = 0x2020000000;
-        v48 = 1;
+        v46 = 0x2020000000;
+        v47 = 1;
         v17 = MEMORY[0x1E696AEC0];
         bundleID2 = [itemCopy bundleID];
         stream = [v16 stream];
@@ -3851,10 +3820,10 @@ LABEL_298:
         block[3] = &unk_1E7369DF0;
         block[4] = self;
         v23 = v21;
-        v37 = v23;
-        v38 = v16;
+        v36 = v23;
+        v37 = v16;
         v24 = itemCopy;
-        v39 = v24;
+        v38 = v24;
         p_state = &state;
         dispatch_sync(activityRateLimiterQueue, block);
         v25 = *(state.opaque[1] + 24);
@@ -3865,16 +3834,16 @@ LABEL_298:
           goto LABEL_14;
         }
 
-        v45 = v16;
-        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___block_invoke_655;
-        v32[3] = &unk_1E736AB90;
-        v33 = v24;
-        v34 = actionCopy;
-        v35 = completionCopy;
-        [(_CDSpotlightItemRecorder *)self saveRateLimitedEvents:v26 donatorUid:getUidOfDonator responseQueue:0 withCompletion:v32];
+        v44 = v16;
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___block_invoke_655;
+        v31[3] = &unk_1E736AB90;
+        v32 = v24;
+        v33 = actionCopy;
+        v34 = completionCopy;
+        [(_CDSpotlightItemRecorder *)self saveRateLimitedEvents:v26 donatorUid:getUidOfDonator responseQueue:0 withCompletion:v31];
 
         _Block_object_dispose(&state, 8);
         if (!v25)
@@ -3883,7 +3852,7 @@ LABEL_298:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v13 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
       if (v13)
       {
         continue;
@@ -3894,13 +3863,11 @@ LABEL_298:
   }
 
 LABEL_14:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteUserActivitiesWithPersistentIdentifiers:(void *)identifiers bundleID:
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   identifiersCopy = identifiers;
   v7 = identifiersCopy;
@@ -3926,9 +3893,9 @@ LABEL_14:
     name2 = [v11 name];
     v13 = [_DKQuery predicateForEventsWithStreamName:name2];
 
-    v35[0] = v10;
-    v35[1] = v13;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v34[0] = v10;
+    v34[1] = v13;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
     objc_claimAutoreleasedReturnValue();
     v14 = [OUTLINED_FUNCTION_19_7() orPredicateWithSubpredicates:name2];
 
@@ -3936,13 +3903,13 @@ LABEL_14:
     v16 = v15 == 0;
     if (v15)
     {
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __84___CDSpotlightItemRecorder__deleteUserActivitiesWithPersistentIdentifiers_bundleID___block_invoke;
-      v31[3] = &unk_1E736ABB8;
-      v31[4] = self;
-      v32 = v7;
-      v17 = [v5 _pas_filteredArrayWithTest:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __84___CDSpotlightItemRecorder__deleteUserActivitiesWithPersistentIdentifiers_bundleID___block_invoke;
+      v30[3] = &unk_1E736ABB8;
+      v30[4] = self;
+      v31 = v7;
+      v17 = [v5 _pas_filteredArrayWithTest:v30];
     }
 
     else
@@ -3993,7 +3960,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v30 = v16;
+      v29 = v16;
       +[_DKSource spotlightSourceID];
       objc_claimAutoreleasedReturnValue();
       v23 = [OUTLINED_FUNCTION_17_9() predicateForEventsWithSourceID:? bundleID:? itemIDs:?];
@@ -4001,7 +3968,7 @@ LABEL_25:
 
     else
     {
-      v30 = v16;
+      v29 = v16;
       +[_DKSource spotlightSourceID];
       objc_claimAutoreleasedReturnValue();
       v23 = [OUTLINED_FUNCTION_17_9() predicateForEventsWithSourceID:? bundleID:?];
@@ -4010,13 +3977,13 @@ LABEL_25:
     v22 = v23;
 
     v24 = MEMORY[0x1E696AB28];
-    v34[0] = v21;
-    v34[1] = v22;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v33[0] = v21;
+    v33[1] = v22;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
     v26 = [v24 andPredicateWithSubpredicates:v25];
 
     [(_CDSpotlightItemRecorder *)self deleteKnowledgeEventsMatchingPredicate:v26 withCompletion:0];
-    if (v30)
+    if (v29)
     {
       v27 = [[_CDUserActivityCache alloc] initWithKnowledgeStore:*(self + 72)];
       [(_CDUserActivityCache *)v27 populateCache];
@@ -4028,13 +3995,11 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteKnowledgeEventsMatchingPredicate:(void *)predicate withCompletion:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   predicateCopy = predicate;
   if (self)
@@ -4051,9 +4016,9 @@ LABEL_26:
     }
 
     v11 = *(self + 72);
-    v24 = 0;
-    v12 = [v11 deleteAllEventsMatchingPredicate:v5 error:&v24];
-    v13 = v24;
+    v22 = 0;
+    v12 = [v11 deleteAllEventsMatchingPredicate:v5 error:&v22];
+    v13 = v22;
     v14 = +[_CDLogging spotlightReceiverChannel];
     v15 = v14;
     if (v13)
@@ -4062,9 +4027,9 @@ LABEL_26:
       {
         cd_sanitizeForLogging = [v5 cd_sanitizeForLogging];
         *buf = 138478083;
-        v26 = cd_sanitizeForLogging;
-        v27 = 2114;
-        v28 = v13;
+        v24 = cd_sanitizeForLogging;
+        v25 = 2114;
+        v26 = v13;
         _os_log_error_impl(&dword_191750000, v15, OS_LOG_TYPE_ERROR, "Failed to delete knowledge events with predicate %{private}@. Error = %{public}@.", buf, 0x16u);
       }
     }
@@ -4073,9 +4038,9 @@ LABEL_26:
     {
       cd_sanitizeForLogging2 = [v5 cd_sanitizeForLogging];
       *buf = 134218243;
-      v26 = v12;
-      v27 = 2113;
-      v28 = cd_sanitizeForLogging2;
+      v24 = v12;
+      v25 = 2113;
+      v26 = cd_sanitizeForLogging2;
       _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Successfully deleted %lu knowledge events with predicate %{private}@.", buf, 0x16u);
     }
 
@@ -4089,18 +4054,15 @@ LABEL_26:
 
     if (predicateCopy)
     {
-      v20 = predicateCopy[2];
-      v21 = OUTLINED_FUNCTION_11_0();
-      v22(v21);
+      v20 = OUTLINED_FUNCTION_11_0();
+      v21(v20);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllItemsWithBundleID:(int)d isCSSIDeletion:(void *)deletion completion:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   deletionCopy = deletion;
   if (self)
@@ -4113,7 +4075,7 @@ LABEL_26:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v19 = v7;
+          v18 = v7;
           _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_DEFAULT, "Interaction store ignoring call to delete all searchable items for %{public}@ (disallowed bundle ID)", buf, 0xCu);
         }
       }
@@ -4122,15 +4084,15 @@ LABEL_26:
       {
         objc_initWeak(buf, self);
         v12 = self[2];
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __81___CDSpotlightItemRecorder_deleteAllItemsWithBundleID_isCSSIDeletion_completion___block_invoke;
-        v15[3] = &unk_1E73675D0;
-        objc_copyWeak(&v17, buf);
-        v16 = v7;
-        dispatch_sync(v12, v15);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __81___CDSpotlightItemRecorder_deleteAllItemsWithBundleID_isCSSIDeletion_completion___block_invoke;
+        v14[3] = &unk_1E73675D0;
+        objc_copyWeak(&v16, buf);
+        v15 = v7;
+        dispatch_sync(v12, v14);
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(buf);
       }
     }
@@ -4138,28 +4100,26 @@ LABEL_26:
     v13 = [_DKQuery predicateForSpotlightEventsWithBundleID:v7];
     [(_CDSpotlightItemRecorder *)self deleteKnowledgeEventsMatchingPredicate:v13 withCompletion:deletionCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllInteractionsWithBundleID:(id)d protectionClass:(id)class withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   classCopy = class;
   completionCopy = completion;
   v11 = _os_activity_create(&dword_191750000, "CoreDuet: deleteAllInteractionsWithBundleID:protectionClass:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v15.opaque[0] = 0;
-  v15.opaque[1] = 0;
-  os_activity_scope_enter(v11, &v15);
-  os_activity_scope_leave(&v15);
+  v14.opaque[0] = 0;
+  v14.opaque[1] = 0;
+  os_activity_scope_enter(v11, &v14);
+  os_activity_scope_leave(&v14);
 
   v12 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v15.opaque[0]) = 138412290;
-    *(v15.opaque + 4) = dCopy;
-    _os_log_impl(&dword_191750000, v12, OS_LOG_TYPE_DEFAULT, "Deleting interactions with bundleID: %@", &v15, 0xCu);
+    LODWORD(v14.opaque[0]) = 138412290;
+    *(v14.opaque + 4) = dCopy;
+    _os_log_impl(&dword_191750000, v12, OS_LOG_TYPE_DEFAULT, "Deleting interactions with bundleID: %@", &v14, 0xCu);
   }
 
   if (([classCopy isEqualToString:*MEMORY[0x1E696A378]] & 1) != 0 || objc_msgSend(classCopy, "isEqualToString:", *MEMORY[0x1E696A380]))
@@ -4167,14 +4127,12 @@ LABEL_26:
     v13 = +[_CDLogging spotlightReceiverChannel];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15.opaque[0]) = 0;
-      _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", &v15, 2u);
+      LOWORD(v14.opaque[0]) = 0;
+      _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_INFO, "Request to delete items with identifiers with protectionClass A or B when in class C, D.", &v14, 2u);
     }
   }
 
   [(_CDSpotlightItemRecorder *)self deleteAllItemsWithBundleID:dCopy isCSSIDeletion:0 completion:completionCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addOrUpdateCoreDuetInteractions:(void *)a3 bundleID:.cold.1(void *a1, uint64_t a2, void *a3)
@@ -4194,15 +4152,13 @@ LABEL_26:
 
 - (void)donateRelevantShortcuts:(NSObject *)a3 bundleID:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [a1 count];
   v5 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_191750000, a3, OS_LOG_TYPE_DEBUG, "Saving %@ relevant shortcuts with bundleID %@ to knowledge store", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_191750000, a3, OS_LOG_TYPE_DEBUG, "Saving %@ relevant shortcuts with bundleID %@ to knowledge store", v6, 0x16u);
 }
 
 - (void)addInteractions:(uint64_t)a3 bundleID:protectionClass:withCompletion:.cold.1(uint64_t a1, void *a2, uint64_t a3)
@@ -4281,22 +4237,6 @@ LABEL_26:
     v27 = [get_CDClientContextClass() userContext];
     [v27 setObject:v26 forKeyedSubscript:v25];
   }
-}
-
-- (void)deleteSearchableItemsWithIdentifiers:bundleID:withCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error retrieving mail interactions to delete by identifiers: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)deleteSearchableItemsWithIdentifiers:bundleID:withCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error retrieving share sheet interactions marked as mail special deletion candidates: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSearchableItemsWithIdentifiers:(uint64_t)a1 bundleID:(void *)a2 withCompletion:.cold.3(uint64_t a1, void *a2)

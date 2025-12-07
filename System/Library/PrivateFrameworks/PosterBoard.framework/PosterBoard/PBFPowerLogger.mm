@@ -32,8 +32,7 @@
     identifierCopy = bundleIdentifier;
   }
 
-  [v10 setObject:identifierCopy forKeyedSubscript:@"BundleID"];
-  v15 = PBFLogPower();
+  v15 = PBFLogPower([v10 setObject:identifierCopy forKeyedSubscript:@"BundleID"]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     if ((update - 1) > 3)

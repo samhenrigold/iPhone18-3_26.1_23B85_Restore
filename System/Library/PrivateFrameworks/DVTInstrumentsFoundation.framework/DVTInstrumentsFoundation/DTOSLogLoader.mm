@@ -226,7 +226,7 @@ LABEL_12:
 
 - (id)_stackReferenceForRepeatedUUID:(id)d
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -240,11 +240,11 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  v10[0] = 0;
-  v10[1] = 0;
-  [dCopy getUUIDBytes:v10];
+  v9[0] = 0;
+  v9[1] = 0;
+  [dCopy getUUIDBytes:v9];
   v5 = objc_opt_new();
-  v6 = sub_247F8CCF0(self->_tableLoader.__ptr_, v10);
+  v6 = sub_247F8CCF0(self->_tableLoader.__ptr_, v9);
   v5[2] = v6;
   if (v6 >= 0x10000)
   {
@@ -259,17 +259,16 @@ LABEL_7:
 LABEL_8:
 
 LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)_handleRecord:(id)record
 {
-  v258 = *MEMORY[0x277D85DE8];
+  v257 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   selfCopy = self;
-  v204 = recordCopy;
+  v203 = recordCopy;
   pthread_mutex_lock(&self->_stateLock);
   self->_didHandleRecord = 1;
   subsystem = [recordCopy subsystem];
@@ -286,7 +285,7 @@ LABEL_9:
   {
 LABEL_10:
     type = [recordCopy type];
-    v201 = type == 1536;
+    v200 = type == 1536;
     if (type == 1536 || [(DTOSLogLoaderConfiguration *)selfCopy->_configuration signpostConfig]!= 1)
     {
       v14 = selfCopy;
@@ -321,91 +320,91 @@ LABEL_217:
         sub_247F8F118(ptr, 1);
         threadIdentifier = [recordCopy threadIdentifier];
         processIdentifier = [recordCopy processIdentifier];
-        v252 = threadIdentifier;
-        v253 = processIdentifier;
-        v22 = sub_247F95358(&selfCopy->_pushedThreadsAndProcesses.__table_.__bucket_list_.__ptr_, &v252);
+        v251 = threadIdentifier;
+        v252 = processIdentifier;
+        v22 = sub_247F95358(&selfCopy->_pushedThreadsAndProcesses.__table_.__bucket_list_.__ptr_, &v251);
         v23 = v22;
         if (v22)
         {
           v24 = v22[4];
           v25 = v23[5];
-          v203 = v24;
-          v199 = v25;
+          v202 = v24;
+          v198 = v25;
         }
 
         else
         {
           v26 = processIdentifier;
-          v200 = [(XRIntKeyedDictionary *)selfCopy->_pushedProcessesByPid objectAtIndexedSubscript:processIdentifier];
-          if (!v200)
+          v199 = [(XRIntKeyedDictionary *)selfCopy->_pushedProcessesByPid objectAtIndexedSubscript:processIdentifier];
+          if (!v199)
           {
             v27 = objc_opt_new();
-            LODWORD(v255) = selfCopy->_encoder._topOfStackRef;
+            LODWORD(v254) = selfCopy->_encoder._topOfStackRef;
             v28 = selfCopy->_tableLoader.__ptr_;
-            LODWORD(v250) = processIdentifier;
+            LODWORD(v249) = processIdentifier;
             v29 = *(v28 + 16);
-            *(v29 + 32) = &v250;
-            *(v29 + 40) = &v250 + 4;
+            *(v29 + 32) = &v249;
+            *(v29 + 40) = &v249 + 4;
             sub_247F93B74(v28);
             sub_247F8CFB0(selfCopy->_tableLoader.__ptr_, &selfCopy->_deviceSessionRef._generation);
-            sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v255);
+            sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v254);
             *(v27 + 8) = *(*(selfCopy->_tableLoader.__ptr_ + 2) + 64);
             [(XRIntKeyedDictionary *)selfCopy->_pushedProcessesByPid setObject:v27 atIndexedSubscript:processIdentifier];
             if ([(DTOSLogLoaderConfiguration *)selfCopy->_configuration trackPidToExecNameMapping])
             {
-              process = [v204 process];
+              process = [v203 process];
               [(XRIntKeyedDictionary *)selfCopy->_pidToExecNameMapping setObject:process atIndexedSubscript:v26];
             }
 
-            v200 = v27;
+            v199 = v27;
           }
 
           v31 = objc_opt_new();
-          LODWORD(v255) = selfCopy->_encoder._topOfStackRef;
+          LODWORD(v254) = selfCopy->_encoder._topOfStackRef;
           v32 = selfCopy->_tableLoader.__ptr_;
-          v250 = threadIdentifier;
+          v249 = threadIdentifier;
           v33 = *(v32 + 16);
-          *(v33 + 32) = &v250;
-          *(v33 + 40) = v251;
+          *(v33 + 32) = &v249;
+          *(v33 + 40) = v250;
           sub_247F93B74(v32);
-          sub_247F8CFB0(selfCopy->_tableLoader.__ptr_, v200 + 4);
-          sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v255);
+          sub_247F8CFB0(selfCopy->_tableLoader.__ptr_, v199 + 4);
+          sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v254);
           v31[2] = *(*(selfCopy->_tableLoader.__ptr_ + 2) + 64);
           v34 = v31;
-          v35 = v200;
-          v250 = &v252;
-          v36 = sub_247F9541C(&selfCopy->_pushedThreadsAndProcesses.__table_.__bucket_list_.__ptr_, &v252);
+          v35 = v199;
+          v249 = &v251;
+          v36 = sub_247F9541C(&selfCopy->_pushedThreadsAndProcesses, &v251, &unk_24803D752, &v249);
           v37 = v36[4];
-          v203 = v34;
+          v202 = v34;
           v36[4] = v34;
 
           v38 = v36[5];
           v36[5] = v35;
 
-          v199 = v35;
+          v198 = v35;
         }
 
         sub_247F8F118(selfCopy->_tableLoader.__ptr_, 2);
-        signpostName = [v204 signpostName];
-        signpostType = [v204 signpostType];
-        formatString = [v204 formatString];
+        signpostName = [v203 signpostName];
+        signpostType = [v203 signpostType];
+        formatString = [v203 formatString];
         if ([formatString length])
         {
-          v182 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:formatString];
+          v181 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:formatString];
         }
 
         else
         {
-          v182 = 0;
+          v181 = 0;
         }
 
-        subsystem2 = [v204 subsystem];
-        v179 = signpostType;
+        subsystem2 = [v203 subsystem];
+        v178 = signpostType;
         v41 = subsystem2 == 0;
 
         if (v41)
         {
-          sender = [v204 sender];
+          sender = [v203 sender];
           v44 = sender;
           if (sender)
           {
@@ -419,17 +418,17 @@ LABEL_217:
 
           subsystem3 = v45;
 
-          v42 = v204;
+          v42 = v203;
           [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:subsystem3];
         }
 
         else
         {
-          v42 = v204;
-          subsystem3 = [v204 subsystem];
+          v42 = v203;
+          subsystem3 = [v203 subsystem];
           [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:subsystem3];
         }
-        v180 = ;
+        v179 = ;
         category2 = [v42 category];
         v47 = category2;
         if (category2)
@@ -442,48 +441,48 @@ LABEL_217:
           v48 = @"Default";
         }
 
-        v197 = v48;
+        v196 = v48;
 
-        v177 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:v197];
-        v49 = v204;
-        senderImagePath = [v204 senderImagePath];
-        v178 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
-        processImagePath = [v204 processImagePath];
-        v181 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
+        v176 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:v196];
+        v49 = v203;
+        senderImagePath = [v203 senderImagePath];
+        v177 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
+        processImagePath = [v203 processImagePath];
+        v180 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
         if (([(DTOSLogLoaderConfiguration *)selfCopy->_configuration columnInclusions]& 1) != 0 || ([(DTOSLogLoaderConfiguration *)selfCopy->_configuration columnInclusions]& 2) != 0)
         {
-          senderImageUUID = [v204 senderImageUUID];
-          v183 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedUUID:senderImageUUID];
-          sender2 = [v204 sender];
-          v184 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:sender2];
+          senderImageUUID = [v203 senderImageUUID];
+          v182 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedUUID:senderImageUUID];
+          sender2 = [v203 sender];
+          v183 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:sender2];
 
-          v49 = v204;
+          v49 = v203;
         }
 
         else
         {
+          v182 = 0;
           v183 = 0;
-          v184 = 0;
         }
 
         if (([(DTOSLogLoaderConfiguration *)selfCopy->_configuration columnInclusions]& 2) != 0)
         {
           timeZone = [v49 timeZone];
           name = [timeZone name];
-          v185 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:name];
+          v184 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:name];
 
-          v49 = v204;
+          v49 = v203;
         }
 
         else
         {
-          v185 = 0;
+          v184 = 0;
         }
 
         machContinuousTimestamp = [v49 machContinuousTimestamp];
         machTimeAdjustment = selfCopy->_machTimeAdjustment;
         decomposedMessage = [v49 decomposedMessage];
-        v209 = decomposedMessage;
+        v208 = decomposedMessage;
         if (decomposedMessage)
         {
           placeholderCount = [decomposedMessage placeholderCount];
@@ -494,68 +493,68 @@ LABEL_217:
           placeholderCount = 0;
         }
 
-        v250 = 0;
-        v251[0] = &v250;
-        v251[1] = 0x2020000000;
-        v251[2] = placeholderCount;
-        v58 = [v209 literalPrefixAtIndex:placeholderCount];
-        v189 = v58;
+        v249 = 0;
+        v250[0] = &v249;
+        v250[1] = 0x2020000000;
+        v250[2] = placeholderCount;
+        v58 = [v208 literalPrefixAtIndex:placeholderCount];
+        v188 = v58;
         if (v58 && [v58 length])
         {
-          v186 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:v189];
+          v185 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:v188];
         }
 
         else
         {
-          v186 = 0;
+          v185 = 0;
         }
 
-        v192 = machTimeAdjustment + machContinuousTimestamp;
-        v212 = placeholderCount;
+        v191 = machTimeAdjustment + machContinuousTimestamp;
+        v211 = placeholderCount;
         while (placeholderCount > [(NSMutableArray *)selfCopy->_argReferenceConstants count])
         {
           argReferenceConstants = selfCopy->_argReferenceConstants;
           v60 = objc_opt_new();
           [(NSMutableArray *)argReferenceConstants addObject:v60];
 
-          placeholderCount = v212;
+          placeholderCount = v211;
         }
 
         if (placeholderCount)
         {
-          v190 = 0;
-          v193 = 0uLL;
-          v188 = 0;
+          v189 = 0;
+          v192 = 0uLL;
+          v187 = 0;
           v61 = 0;
-          v62 = v209;
+          v62 = v208;
           while (1)
           {
-            v205 = [(NSMutableArray *)selfCopy->_argReferenceConstants objectAtIndexedSubscript:v61];
+            v204 = [(NSMutableArray *)selfCopy->_argReferenceConstants objectAtIndexedSubscript:v61];
             v63 = [v62 placeholderAtIndex:v61];
-            v248 = 0u;
-            v249 = 0u;
-            v246 = 0u;
             v247 = 0u;
-            v207 = v63;
+            v248 = 0u;
+            v245 = 0u;
+            v246 = 0u;
+            v206 = v63;
             tokens = [v63 tokens];
-            v65 = [tokens countByEnumeratingWithState:&v246 objects:v257 count:16];
-            v210 = v61;
+            v65 = [tokens countByEnumeratingWithState:&v245 objects:v256 count:16];
+            v209 = v61;
             if (v65)
             {
-              v214 = 0;
+              v213 = 0;
               placeholderObjectValue = 0;
               placeholderObjectValue2 = 0;
-              v68 = *v247;
+              v68 = *v246;
               do
               {
                 for (i = 0; i != v65; ++i)
                 {
-                  if (*v247 != v68)
+                  if (*v246 != v68)
                   {
                     objc_enumerationMutation(tokens);
                   }
 
-                  v70 = *(*(&v246 + 1) + 8 * i);
+                  v70 = *(*(&v245 + 1) + 8 * i);
                   v71 = [(NSMutableDictionary *)selfCopy->_repeatedPlaceholders objectForKeyedSubscript:v70];
                   if (v71 || (v71 = [[DTOSLogArgumentPlaceholderDescription alloc] initWithPlaceholderToken:v70], [(NSMutableDictionary *)selfCopy->_repeatedPlaceholders setObject:v71 forKeyedSubscript:v70], v71))
                   {
@@ -568,7 +567,7 @@ LABEL_217:
                         if ((placeholderKind - 3) < 2 || [(DTOSLogArgumentPlaceholderDescription *)v71 placeholderKind]== 5)
                         {
                           selfCopy->_encounteredBackdatedEvent = 1;
-                          v214 = v73;
+                          v213 = v73;
                         }
                       }
 
@@ -585,7 +584,7 @@ LABEL_217:
                   }
                 }
 
-                v65 = [tokens countByEnumeratingWithState:&v246 objects:v257 count:16];
+                v65 = [tokens countByEnumeratingWithState:&v245 objects:v256 count:16];
               }
 
               while (v65);
@@ -593,7 +592,7 @@ LABEL_217:
 
             else
             {
-              v214 = 0;
+              v213 = 0;
               placeholderObjectValue = 0;
               placeholderObjectValue2 = 0;
             }
@@ -602,17 +601,17 @@ LABEL_217:
             aBlock[1] = 3221225472;
             aBlock[2] = sub_247F8F1EC;
             aBlock[3] = &unk_278EF2030;
-            v74 = v205;
-            v244 = v74;
-            v245 = &v250;
+            v74 = v204;
+            v243 = v74;
+            v244 = &v249;
             v75 = _Block_copy(aBlock);
-            v76 = [v209 argumentAtIndex:v210];
-            if (!v207)
+            v76 = [v208 argumentAtIndex:v209];
+            if (!v206)
             {
               goto LABEL_139;
             }
 
-            v77 = [v209 literalPrefixAtIndex:v210];
+            v77 = [v208 literalPrefixAtIndex:v209];
             v78 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:v77];
             v79 = *(v74 + 3);
             *(v74 + 3) = v78;
@@ -634,14 +633,14 @@ LABEL_217:
               goto LABEL_88;
             }
 
-            if (v210 <= 0x12)
+            if (v209 <= 0x12)
             {
               break;
             }
 
-            v210 = [MEMORY[0x277CCACA8] stringWithFormat:@"arg%d", v210];
+            v209 = [MEMORY[0x277CCACA8] stringWithFormat:@"arg%d", v209];
 LABEL_89:
-            v85 = v210;
+            v85 = v209;
             v86 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
             v87 = *(v74 + 4);
             *(v74 + 4) = v86;
@@ -669,13 +668,13 @@ LABEL_89:
                     goto LABEL_134;
                   }
 
-                  rawString = [v207 rawString];
+                  rawString = [v206 rawString];
                   v111 = [rawString isEqualToString:@"%p"];
 
                   v88 = @"address";
                   if ((v111 & 1) == 0)
                   {
-                    rawString2 = [v207 rawString];
+                    rawString2 = [v206 rawString];
                     if ([rawString2 containsString:@"x"])
                     {
 
@@ -684,7 +683,7 @@ LABEL_89:
 
                     else
                     {
-                      rawString3 = [v207 rawString];
+                      rawString3 = [v206 rawString];
                       v114 = [rawString3 containsString:@"X"];
 
                       if (v114)
@@ -753,19 +752,19 @@ LABEL_94:
               category4 = [v76 category];
               if (category4 == 1)
               {
-                switch(v214)
+                switch(v213)
                 {
                   case 5:
                     v75[2](v75);
-                    v188 = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
+                    v187 = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
                     break;
                   case 4:
                     v75[2](v75);
-                    *&v193 = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
+                    *&v192 = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
                     break;
                   case 3:
                     v75[2](v75);
-                    *(&v193 + 1) = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
+                    *(&v192 + 1) = selfCopy->_machTimeAdjustment + [v76 unsignedInt64Value];
                     break;
                 }
               }
@@ -778,9 +777,9 @@ LABEL_94:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v173 = objectRepresentation2;
+                    v172 = objectRepresentation2;
                     enableBacktraceReplacement = [(DTOSLogLoaderConfiguration *)selfCopy->_configuration enableBacktraceReplacement];
-                    if (v190)
+                    if (v189)
                     {
                       v100 = 0;
                     }
@@ -792,13 +791,13 @@ LABEL_94:
 
                     if (v100)
                     {
-                      v190 = v173;
+                      v189 = v172;
                       v75[2](v75);
                     }
 
-                    v101 = [v173 length];
-                    v102 = v173;
-                    bytes = [v173 bytes];
+                    v101 = [v172 length];
+                    v102 = v172;
+                    bytes = [v172 bytes];
                     if (v101 >= 0x14)
                     {
                       v104 = bytes;
@@ -806,9 +805,9 @@ LABEL_94:
                       do
                       {
                         v106 = *v104;
-                        v256 = *(v104 + 16);
-                        v255 = v106;
-                        v107 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v255];
+                        v255 = *(v104 + 16);
+                        v254 = v106;
+                        v107 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v254];
                         v108 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedUUID:v107];
 
                         v104 += 20;
@@ -834,42 +833,42 @@ LABEL_94:
             }
 
 LABEL_139:
-            v61 = v210 + 1;
-            v62 = v209;
-            if (v210 + 1 == v212)
+            v61 = v209 + 1;
+            v62 = v208;
+            if (v209 + 1 == v211)
             {
               goto LABEL_145;
             }
           }
 
-          v83 = off_278EF2050[v210];
+          v83 = off_278EF2050[v209];
 LABEL_88:
-          v210 = v83;
+          v209 = v83;
           goto LABEL_89;
         }
 
-        v188 = 0;
-        v193 = 0uLL;
-        v190 = 0;
+        v187 = 0;
+        v192 = 0uLL;
+        v189 = 0;
 LABEL_145:
         v115 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:@"narrative-text"];
-        v208 = v115[2];
+        v207 = v115[2];
 
         if (signpostName)
         {
-          v117 = v203;
-          v116 = v204;
-          v211 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
+          v117 = v202;
+          v116 = v203;
+          v210 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedString:?];
         }
 
         else
         {
-          v211 = 0;
-          v117 = v203;
-          v116 = v204;
+          v210 = 0;
+          v117 = v202;
+          v116 = v203;
         }
 
-        v118 = v212;
+        v118 = v211;
         backtrace = [v116 backtrace];
         v120 = backtrace;
         if (!backtrace)
@@ -888,104 +887,104 @@ LABEL_145:
 
         else
         {
-          v117 = v203;
-          v116 = v204;
-          v118 = v212;
-          if (v190)
+          v117 = v202;
+          v116 = v203;
+          v118 = v211;
+          if (v189)
           {
             goto LABEL_153;
           }
 
-          v241 = 0u;
-          v242 = 0u;
-          v239 = 0u;
           v240 = 0u;
+          v241 = 0u;
+          v238 = 0u;
+          v239 = 0u;
           frames2 = [v120 frames];
-          v167 = [frames2 countByEnumeratingWithState:&v239 objects:v254 count:16];
-          if (v167)
+          v166 = [frames2 countByEnumeratingWithState:&v238 objects:v253 count:16];
+          if (v166)
           {
-            v168 = *v240;
+            v167 = *v239;
             do
             {
-              for (j = 0; j != v167; ++j)
+              for (j = 0; j != v166; ++j)
               {
-                if (*v240 != v168)
+                if (*v239 != v167)
                 {
                   objc_enumerationMutation(frames2);
                 }
 
-                imageUUID = [*(*(&v239 + 1) + 8 * j) imageUUID];
-                v171 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedUUID:imageUUID];
+                imageUUID = [*(*(&v238 + 1) + 8 * j) imageUUID];
+                v170 = [(DTOSLogLoader *)selfCopy _stackReferenceForRepeatedUUID:imageUUID];
               }
 
-              v167 = [frames2 countByEnumeratingWithState:&v239 objects:v254 count:16];
+              v166 = [frames2 countByEnumeratingWithState:&v238 objects:v253 count:16];
             }
 
-            while (v167);
+            while (v166);
           }
         }
 
-        v117 = v203;
-        v116 = v204;
-        v118 = v212;
+        v117 = v202;
+        v116 = v203;
+        v118 = v211;
 LABEL_153:
         sub_247F8F118(selfCopy->_tableLoader.__ptr_, 100);
         if (!v118)
         {
 LABEL_194:
-          v217[0] = MEMORY[0x277D85DD0];
-          v217[1] = 3221225472;
-          v217[2] = sub_247F8F3AC;
-          v217[3] = &unk_278EF20F0;
-          v217[4] = selfCopy;
-          v174 = v199;
-          v218 = v174;
-          v172 = v117;
-          v219 = v172;
-          v237 = v201;
-          v220 = v116;
-          v187 = v182;
-          v221 = v187;
-          v151 = v190;
-          v222 = v151;
+          v216[0] = MEMORY[0x277D85DD0];
+          v216[1] = 3221225472;
+          v216[2] = sub_247F8F3AC;
+          v216[3] = &unk_278EF20F0;
+          v216[4] = selfCopy;
+          v173 = v198;
+          v217 = v173;
+          v171 = v117;
+          v218 = v171;
+          v236 = v200;
+          v219 = v116;
+          v186 = v181;
+          v220 = v186;
+          v151 = v189;
+          v221 = v151;
           v152 = v120;
-          v223 = v152;
-          v195 = v180;
-          v224 = v195;
-          v202 = v177;
-          v225 = v202;
-          v206 = v178;
-          v226 = v206;
-          v213 = v181;
-          v227 = v213;
-          v235 = v212;
-          v236 = v208;
-          v153 = v186;
-          v228 = v153;
-          v234 = &v250;
-          v154 = v211;
-          v229 = v154;
-          v155 = v183;
-          v230 = v155;
-          v156 = v184;
-          v231 = v156;
-          v157 = v185;
-          v232 = v157;
-          v158 = v209;
-          v233 = v158;
-          v159 = _Block_copy(v217);
+          v222 = v152;
+          v194 = v179;
+          v223 = v194;
+          v201 = v176;
+          v224 = v201;
+          v205 = v177;
+          v225 = v205;
+          v212 = v180;
+          v226 = v212;
+          v234 = v211;
+          v235 = v207;
+          v153 = v185;
+          v227 = v153;
+          v233 = &v249;
+          v154 = v210;
+          v228 = v154;
+          v155 = v182;
+          v229 = v155;
+          v156 = v183;
+          v230 = v156;
+          v157 = v184;
+          v231 = v157;
+          v158 = v208;
+          v232 = v158;
+          v159 = _Block_copy(v216);
           v160 = v159;
-          if (v179 || v193 == 0)
+          if (v178 || v192 == 0)
           {
-            v163 = v193;
-            if (*(&v193 + 1) > v193)
+            v163 = v192;
+            if (*(&v192 + 1) > v192)
             {
-              v163 = *(&v193 + 1);
+              v163 = *(&v192 + 1);
             }
 
-            if (v163 <= v188)
+            if (v163 <= v187)
             {
-              v163 = v188;
+              v163 = v187;
             }
 
             if (v163)
@@ -995,7 +994,7 @@ LABEL_194:
 
             else
             {
-              v164 = v192;
+              v164 = v191;
             }
 
             (*(v159 + 2))(v159, v164);
@@ -1003,31 +1002,31 @@ LABEL_194:
 
           else
           {
-            if (*(&v193 + 1))
+            if (*(&v192 + 1))
             {
-              v161 = *(&v193 + 1);
+              v161 = *(&v192 + 1);
             }
 
             else
             {
-              v161 = v192;
+              v161 = v191;
             }
 
             (*(v159 + 2))(v159, v161, 1);
-            if (v193)
+            if (v192)
             {
-              v162 = v193;
+              v162 = v192;
             }
 
             else
             {
-              v162 = v192;
+              v162 = v191;
             }
 
             v160[2](v160, v162, 2);
           }
 
-          sub_247F93D94(*(selfCopy->_tableLoader.__ptr_ + 2), (*(v251[0] + 24) << 8) | 0x6A, *(v251[0] + 24), 0);
+          sub_247F93D94(*(selfCopy->_tableLoader.__ptr_ + 2), (*(v250[0] + 24) << 8) | 0x6A, *(v250[0] + 24), 0);
           v165 = selfCopy->_tableLoader.__ptr_;
           if (**(v165 + 16) == 5)
           {
@@ -1035,13 +1034,13 @@ LABEL_194:
           }
 
           sub_247F8F118(v165, 200);
-          if (!selfCopy->_slackInMachTimeUnits && selfCopy->_lastMachTime < v192)
+          if (!selfCopy->_slackInMachTimeUnits && selfCopy->_lastMachTime < v191)
           {
-            selfCopy->_lastMachTime = v192;
+            selfCopy->_lastMachTime = v191;
           }
 
-          _Block_object_dispose(&v250, 8);
-          recordCopy = v204;
+          _Block_object_dispose(&v249, 8);
+          recordCopy = v203;
           v14 = selfCopy;
           goto LABEL_217;
         }
@@ -1049,11 +1048,11 @@ LABEL_194:
         v124 = 0;
         while (1)
         {
-          v125 = [v209 placeholderAtIndex:v124];
-          v126 = [v209 argumentAtIndex:v124];
+          v125 = [v208 placeholderAtIndex:v124];
+          v126 = [v208 argumentAtIndex:v124];
           v127 = [(NSMutableArray *)selfCopy->_argReferenceConstants objectAtIndexedSubscript:v124];
           v128 = selfCopy->_tableLoader.__ptr_;
-          v238 = *(*(v128 + 16) + 64);
+          v237 = *(*(v128 + 16) + 64);
           if ((*(v127 + 50) & 1) == 0)
           {
             break;
@@ -1062,9 +1061,9 @@ LABEL_194:
 LABEL_166:
 
           ++v124;
-          v117 = v203;
-          v116 = v204;
-          if (v212 == v124)
+          v117 = v202;
+          v116 = v203;
+          if (v211 == v124)
           {
             goto LABEL_194;
           }
@@ -1097,13 +1096,13 @@ LABEL_165:
         if (*(v127 + 48) == 248)
         {
           v131 = selfCopy->_tableLoader.__ptr_;
-          LODWORD(v255) = 0;
+          LODWORD(v254) = 0;
           v132 = *(v131 + 16);
-          *(v132 + 32) = &v255;
-          *(v132 + 40) = &v255 + 4;
+          *(v132 + 32) = &v254;
+          *(v132 + 40) = &v254 + 4;
           sub_247F93B74(v131);
 LABEL_164:
-          sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v238);
+          sub_247F8D190(selfCopy->_tableLoader.__ptr_, &v237);
           goto LABEL_165;
         }
 
@@ -1118,18 +1117,18 @@ LABEL_164:
               v137 = selfCopy->_tableLoader.__ptr_;
               if (v136 > 1)
               {
-                *&v255 = [v126 unsignedInt64Value];
+                *&v254 = [v126 unsignedInt64Value];
               }
 
               else
               {
                 [v126 doubleValue];
-                *&v255 = v138;
+                *&v254 = v138;
               }
 
               v139 = *(v137 + 16);
-              *(v139 + 32) = &v255;
-              *(v139 + 40) = &v255 + 8;
+              *(v139 + 32) = &v254;
+              *(v139 + 40) = &v254 + 8;
               sub_247F93B74(v137);
             }
           }
@@ -1162,9 +1161,9 @@ LABEL_164:
 
           else if (v129 == 135 && [v142 length] == 16)
           {
-            v255 = 0uLL;
-            [v143 getBytes:&v255 length:16];
-            sub_247F8CCF0(selfCopy->_tableLoader.__ptr_, &v255);
+            v254 = 0uLL;
+            [v143 getBytes:&v254 length:16];
+            sub_247F8CCF0(selfCopy->_tableLoader.__ptr_, &v254);
           }
 
           else
@@ -1192,9 +1191,9 @@ LABEL_193:
             if (v129 == 193)
             {
               v145 = [v144 dataUsingEncoding:4];
-              v194 = selfCopy->_tableLoader.__ptr_;
+              v193 = selfCopy->_tableLoader.__ptr_;
               v146 = v145;
-              sub_247F8F210(v194, [v145 bytes], objc_msgSend(v145, "length"));
+              sub_247F8F210(v193, [v145 bytes], objc_msgSend(v145, "length"));
             }
 
             else
@@ -1242,13 +1241,11 @@ LABEL_193:
 
   pthread_mutex_unlock(&v8->_stateLock);
 LABEL_218:
-
-  v166 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performResetOnOutputStream
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   sub_247F90900(self->_tableLoader.__ptr_);
   v3 = MEMORY[0x277D86220];
   v4 = MEMORY[0x277D86220];
@@ -1257,71 +1254,71 @@ LABEL_218:
     sub_24802D098();
   }
 
-  v50 = xmmword_278EF2130;
-  v51 = *&off_278EF2140;
-  v52 = xmmword_278EF2150;
-  *&v53[0] = "message";
-  v48 = xmmword_278EF2110;
-  v49 = *&off_278EF2120;
-  v46 = 0;
-  v47 = 0;
+  v49 = xmmword_278EF2130;
+  v50 = *&off_278EF2140;
+  v51 = xmmword_278EF2150;
+  *&v52[0] = "message";
+  v47 = xmmword_278EF2110;
+  v48 = *&off_278EF2120;
   v45 = 0;
-  sub_247F949B8(&v45, &v48, v53 + 8, 0xBuLL);
-  v52 = xmmword_278EF21A8;
-  v53[0] = *&off_278EF21B8;
-  v53[1] = xmmword_278EF21C8;
-  v48 = xmmword_278EF2168;
-  v49 = *&off_278EF2178;
-  v50 = xmmword_278EF2188;
-  v51 = *&off_278EF2198;
-  v43 = 0;
+  v46 = 0;
   v44 = 0;
+  sub_247F949B8(&v44, &v47, v52 + 1, 0xBuLL);
+  v51 = xmmword_278EF21A8;
+  v52[0] = *&off_278EF21B8;
+  v52[1] = xmmword_278EF21C8;
+  v47 = xmmword_278EF2168;
+  v48 = *&off_278EF2178;
+  v49 = xmmword_278EF2188;
+  v50 = *&off_278EF2198;
+  v42 = 0;
+  v43 = 0;
   __p = 0;
-  sub_247F949B8(&__p, &v48, v54, 0xEuLL);
+  sub_247F949B8(&__p, &v47, v53, 0xEuLL);
   if (([(DTOSLogLoaderConfiguration *)self->_configuration columnInclusions]& 1) != 0)
   {
-    *&v48 = "sender-image-uuid";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "sender-image-offset";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "sender-image-name";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "sender-image-uuid";
-    sub_247F909AC(&__p, &v48);
-    *&v48 = "sender-image-offset";
-    sub_247F909AC(&__p, &v48);
-    *&v48 = "sender-image-name";
-    sub_247F909AC(&__p, &v48);
+    *&v47 = "sender-image-uuid";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "sender-image-offset";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "sender-image-name";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "sender-image-uuid";
+    sub_247F909AC(&__p, &v47);
+    *&v47 = "sender-image-offset";
+    sub_247F909AC(&__p, &v47);
+    *&v47 = "sender-image-name";
+    sub_247F909AC(&__p, &v47);
   }
 
   if (([(DTOSLogLoaderConfiguration *)self->_configuration columnInclusions]& 2) != 0)
   {
-    *&v48 = "timezone-name";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "unix-time-interval";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "timezone-name";
-    sub_247F909AC(&__p, &v48);
-    *&v48 = "unix-time-interval";
-    sub_247F909AC(&__p, &v48);
+    *&v47 = "timezone-name";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "unix-time-interval";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "timezone-name";
+    sub_247F909AC(&__p, &v47);
+    *&v47 = "unix-time-interval";
+    sub_247F909AC(&__p, &v47);
   }
 
   if (([(DTOSLogLoaderConfiguration *)self->_configuration columnInclusions]& 2) != 0)
   {
-    *&v48 = "emit-location";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "sender-image-name";
-    sub_247F909AC(&v45, &v48);
-    *&v48 = "emit-location";
-    sub_247F909AC(&__p, &v48);
-    *&v48 = "sender-image-name";
-    sub_247F909AC(&__p, &v48);
+    *&v47 = "emit-location";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "sender-image-name";
+    sub_247F909AC(&v44, &v47);
+    *&v47 = "emit-location";
+    sub_247F909AC(&__p, &v47);
+    *&v47 = "sender-image-name";
+    sub_247F909AC(&__p, &v47);
   }
 
-  sub_247F90A80(self->_tableLoader.__ptr_, 0, "os-log", 6, 0, 0, v45, ((v46 - v45) >> 3));
-  sub_247F90A80(self->_tableLoader.__ptr_, 1u, "os-log-arg", 10, 0, 0, off_278EF21D8, 8u);
-  sub_247F90A80(self->_tableLoader.__ptr_, 2u, "os-signpost", 11, 0, 0, __p, ((v43 - __p) >> 3));
-  sub_247F90A80(self->_tableLoader.__ptr_, 3u, "os-signpost-arg", 15, 0, 0, off_278EF2218, 0xAu);
+  sub_247F90A80(self->_tableLoader.__ptr_, 0, "os-log", 6, 0, 0, v44, ((v45 - v44) >> 3));
+  sub_247F90A80(self->_tableLoader.__ptr_, 1u, "os-log-arg", 10, 0, 0, off_278EF21D8, 8);
+  sub_247F90A80(self->_tableLoader.__ptr_, 2u, "os-signpost", 11, 0, 0, __p, ((v42 - __p) >> 3));
+  sub_247F90A80(self->_tableLoader.__ptr_, 3u, "os-signpost-arg", 15, 0, 0, off_278EF2218, 10);
   ptr = self->_tableLoader.__ptr_;
   if (*(ptr + 8) == 1)
   {
@@ -1557,22 +1554,20 @@ LABEL_218:
   sub_247F95934(&self->_pushedThreadsAndProcesses);
   if (__p)
   {
-    v43 = __p;
+    v42 = __p;
     operator delete(__p);
   }
 
-  if (v45)
+  if (v44)
   {
-    v46 = v45;
-    operator delete(v45);
+    v45 = v44;
+    operator delete(v44);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupCommonStreamParameters:(id)parameters
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   signpostConfig = [(DTOSLogLoaderConfiguration *)self->_configuration signpostConfig];
   if (signpostConfig)
@@ -1636,9 +1631,9 @@ LABEL_218:
     {
       v17 = +[DTOSLogLoader heartbeatPredicate];
       v18 = MEMORY[0x277CCA920];
-      v23[0] = filterPredicate2;
-      v23[1] = v17;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+      v22[0] = filterPredicate2;
+      v22[1] = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
       v16 = [v18 orPredicateWithSubpredicates:v19];
     }
 
@@ -1656,20 +1651,18 @@ LABEL_218:
   [(OSLogEventLiveStream *)parametersCopy setFilterPredicate:v16];
   [(OSLogEventLiveStream *)parametersCopy setFlags:v13];
   [(OSLogEventLiveStream *)parametersCopy setTarget:MEMORY[0x277D85CD0]];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_247F90F68;
-  v22[3] = &unk_278EF2270;
-  v22[4] = self;
-  [(OSLogEventLiveStream *)parametersCopy setEventHandler:v22];
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
-  v21[2] = sub_247F911D8;
-  v21[3] = &unk_278EF22C0;
+  v21[2] = sub_247F90F68;
+  v21[3] = &unk_278EF2270;
   v21[4] = self;
-  [(OSLogEventLiveStream *)parametersCopy setInvalidationHandler:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(OSLogEventLiveStream *)parametersCopy setEventHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_247F911D8;
+  v20[3] = &unk_278EF22C0;
+  v20[4] = self;
+  [(OSLogEventLiveStream *)parametersCopy setInvalidationHandler:v20];
 }
 
 - (id)_setupLoggedStreamForNextChunk:(id)chunk

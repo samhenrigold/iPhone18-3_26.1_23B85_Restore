@@ -87,7 +87,7 @@
     }
 
     v18 = *(v5 + 8);
-    result = OUTLINED_FUNCTION_1_3(v6, v7, v8, v9, v10, v11, v12, v13, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, 0);
+    result = OUTLINED_FUNCTION_1_3(v6, v7, v8, v9, v10, v11, v12, v13, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67);
     if (result)
     {
       v19 = result;
@@ -118,7 +118,7 @@
         }
 
         while (v19 != v22);
-        result = OUTLINED_FUNCTION_1_3(result, v25, v26, v27, v28, v29, v30, v31, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v69);
+        result = OUTLINED_FUNCTION_1_3(result, v25, v26, v27, v28, v29, v30, v31, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
         v19 = result;
         if (result)
         {

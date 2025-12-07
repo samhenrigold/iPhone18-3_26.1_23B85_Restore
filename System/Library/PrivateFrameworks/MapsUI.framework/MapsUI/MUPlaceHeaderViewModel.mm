@@ -8,6 +8,7 @@
 - (MULabeledTokenViewModel)enclosingPlaceViewModel;
 - (MUPlaceHeaderViewModel)initWithMapItem:(id)item;
 - (MUPlaceHeaderViewModel)initWithMapItem:(id)item imageManager:(id)manager isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token;
+- (MUPlaceHeaderViewModel)initWithMapItem:(id)item isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token;
 - (NSArray)transitLabelItems;
 - (UIColor)coverPhotoBackgroundColor;
 - (id)_categoryAndAppleRatingsAttributedStringWithFont:(id)font labelColor:(id)color;
@@ -299,53 +300,53 @@ uint64_t __77__MUPlaceHeaderViewModel_loadHeroImageWithFrameSize_displayScale_co
 
 - (id)enclosingPlaceAttributedStringWithFont:(id)font labelColor:(id)color tokenColor:(id)tokenColor showContainmentPercent:(double)percent
 {
-  v60[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   fontCopy = font;
   colorCopy = color;
   tokenColorCopy = tokenColor;
   if (!self->_isDeveloperPlaceCard)
   {
-    v47 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-    v46 = [MEMORY[0x1E69DCAD8] configurationWithFont:fontCopy scale:1];
+    v46 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+    v45 = [MEMORY[0x1E69DCAD8] configurationWithFont:fontCopy scale:1];
     v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"chevron.forward"];
-    v15 = [v14 imageWithConfiguration:v46];
+    v15 = [v14 imageWithConfiguration:v45];
     v16 = [v15 imageWithTintColor:tokenColorCopy renderingMode:2];
 
-    [v47 setImage:v16];
-    v45 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v47];
+    [v46 setImage:v16];
+    v44 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v46];
     [fontCopy capHeight];
     v18 = v17;
     [v16 size];
     v20 = (v18 - v19) * 0.5 + -1.0;
     [v16 size];
-    [v47 setBounds:{0.0, v20, v21, v22}];
+    [v46 setBounds:{0.0, v20, v21, v22}];
     v23 = objc_alloc_init(MEMORY[0x1E696AD40]);
     if (self->_composedString)
     {
       v24 = objc_alloc_init(MEMORY[0x1E69A1CB0]);
-      v53 = 0;
-      v54 = &v53;
-      v55 = 0x2020000000;
-      v56 = 0;
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __110__MUPlaceHeaderViewModel_enclosingPlaceAttributedStringWithFont_labelColor_tokenColor_showContainmentPercent___block_invoke;
-      v48[3] = &unk_1E8218A18;
-      v52 = &v53;
-      v49 = tokenColorCopy;
-      v50 = fontCopy;
-      v51 = colorCopy;
-      [v24 setFormatStyleHandler:v48];
+      v52 = 0;
+      v53 = &v52;
+      v54 = 0x2020000000;
+      v55 = 0;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __110__MUPlaceHeaderViewModel_enclosingPlaceAttributedStringWithFont_labelColor_tokenColor_showContainmentPercent___block_invoke;
+      v47[3] = &unk_1E8218A18;
+      v51 = &v52;
+      v48 = tokenColorCopy;
+      v49 = fontCopy;
+      v50 = colorCopy;
+      [v24 setFormatStyleHandler:v47];
       v25 = [(GEOComposedString *)self->_composedString stringResultWithOptions:v24];
       attributedString = [v25 attributedString];
       v27 = [attributedString mutableCopy];
 
-      if (*(v54 + 24) == 1)
+      if (*(v53 + 24) == 1)
       {
-        [v27 appendAttributedString:v45];
+        [v27 appendAttributedString:v44];
       }
 
-      _Block_object_dispose(&v53, 8);
+      _Block_object_dispose(&v52, 8);
     }
 
     else
@@ -355,11 +356,11 @@ uint64_t __77__MUPlaceHeaderViewModel_loadHeroImageWithFrameSize_displayScale_co
         v28 = objc_alloc(MEMORY[0x1E696AAB0]);
         labelString = self->_labelString;
         v30 = *MEMORY[0x1E69DB648];
-        v59[0] = *MEMORY[0x1E69DB650];
-        v59[1] = v30;
-        v60[0] = colorCopy;
-        v60[1] = fontCopy;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+        v58[0] = *MEMORY[0x1E69DB650];
+        v58[1] = v30;
+        v59[0] = colorCopy;
+        v59[1] = fontCopy;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
         v32 = [v28 initWithString:labelString attributes:v31];
 
         [v23 appendAttributedString:v32];
@@ -374,17 +375,17 @@ uint64_t __77__MUPlaceHeaderViewModel_loadHeroImageWithFrameSize_displayScale_co
       v33 = objc_alloc(MEMORY[0x1E696AAB0]);
       enclosingPlaceString = self->_enclosingPlaceString;
       v35 = *MEMORY[0x1E69DB648];
-      v57[0] = *MEMORY[0x1E69DB650];
-      v57[1] = v35;
-      v58[0] = tokenColorCopy;
-      v58[1] = fontCopy;
-      v57[2] = *MEMORY[0x1E69DB670];
-      v58[2] = &stru_1F44CA030;
-      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
+      v56[0] = *MEMORY[0x1E69DB650];
+      v56[1] = v35;
+      v57[0] = tokenColorCopy;
+      v57[1] = fontCopy;
+      v56[2] = *MEMORY[0x1E69DB670];
+      v57[2] = &stru_1F44CA030;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
       v24 = [v33 initWithString:enclosingPlaceString attributes:v36];
 
       [v23 appendAttributedString:v24];
-      [v23 appendAttributedString:v45];
+      [v23 appendAttributedString:v44];
       v27 = v23;
     }
 
@@ -412,25 +413,23 @@ LABEL_12:
   v13 = [(MUPlaceHeaderViewModel *)self _categoryAndAppleRatingsAttributedStringWithFont:fontCopy labelColor:colorCopy];
 LABEL_16:
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 id __110__MUPlaceHeaderViewModel_enclosingPlaceAttributedStringWithFont_labelColor_tokenColor_showContainmentPercent___block_invoke(void *a1, unsigned int a2, id a3)
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   if (a2 < 3 || a2 == 4)
   {
     v9 = *MEMORY[0x1E69DB648];
-    v13[0] = *MEMORY[0x1E69DB650];
-    v13[1] = v9;
+    v12[0] = *MEMORY[0x1E69DB650];
+    v12[1] = v9;
     v10 = a1[5];
-    v14[0] = a1[6];
-    v14[1] = v10;
+    v13[0] = a1[6];
+    v13[1] = v10;
     v5 = MEMORY[0x1E695DF20];
-    v6 = v14;
-    v7 = v13;
+    v6 = v13;
+    v7 = v12;
     v8 = 2;
   }
 
@@ -443,22 +442,21 @@ id __110__MUPlaceHeaderViewModel_enclosingPlaceAttributedStringWithFont_labelCol
 
     *(*(a1[7] + 8) + 24) = 1;
     v3 = *MEMORY[0x1E69DB648];
-    v15[0] = *MEMORY[0x1E69DB650];
-    v15[1] = v3;
+    v14[0] = *MEMORY[0x1E69DB650];
+    v14[1] = v3;
     v4 = a1[5];
-    v16[0] = a1[4];
-    v16[1] = v4;
-    v15[2] = *MEMORY[0x1E69DB670];
-    v16[2] = &stru_1F44CA030;
+    v15[0] = a1[4];
+    v15[1] = v4;
+    v14[2] = *MEMORY[0x1E69DB670];
+    v15[2] = &stru_1F44CA030;
     v5 = MEMORY[0x1E695DF20];
-    v6 = v16;
-    v7 = v15;
+    v6 = v15;
+    v7 = v14;
     v8 = 3;
   }
 
   a3 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:v8];
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 
   return a3;
 }
@@ -485,27 +483,27 @@ LABEL_7:
 
 - (id)_categoryAndAppleRatingsAttributedStringWithFont:(id)font labelColor:(id)color
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   fontCopy = font;
   colorCopy = color;
   v8 = objc_alloc_init(MEMORY[0x1E696AD40]);
   v9 = *MEMORY[0x1E69DB648];
-  v33[0] = *MEMORY[0x1E69DB650];
-  v33[1] = v9;
-  v34[0] = colorCopy;
-  v34[1] = fontCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __86__MUPlaceHeaderViewModel__categoryAndAppleRatingsAttributedStringWithFont_labelColor___block_invoke;
-  v29 = &unk_1E8218E68;
+  v32[0] = *MEMORY[0x1E69DB650];
+  v32[1] = v9;
+  v33[0] = colorCopy;
+  v33[1] = fontCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = __86__MUPlaceHeaderViewModel__categoryAndAppleRatingsAttributedStringWithFont_labelColor___block_invoke;
+  v28 = &unk_1E8218E68;
   selfCopy = self;
   v11 = v8;
-  v31 = v11;
+  v30 = v11;
   v12 = v10;
-  v32 = v12;
-  v13 = _Block_copy(&v26);
-  v14 = [(MUPlaceHeaderViewModel *)self getReplacementResultFromEnclosingPlace:v26];
+  v31 = v12;
+  v13 = _Block_copy(&v25);
+  v14 = [(MUPlaceHeaderViewModel *)self getReplacementResultFromEnclosingPlace:v25];
   v15 = v14;
   if (v14)
   {
@@ -543,8 +541,6 @@ LABEL_8:
 LABEL_9:
   v13[2](v13);
   v23 = [v11 copy];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -663,7 +659,7 @@ LABEL_6:
 
 - (void)refineEnclosingMapItemWithCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   enclosingMapItemIdentifier = [(MUPlaceHeaderViewModel *)self enclosingMapItemIdentifier];
   if (enclosingMapItemIdentifier)
@@ -678,19 +674,19 @@ LABEL_6:
     {
       objc_initWeak(&location, self);
       mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
-      v15[0] = enclosingMapItemIdentifier;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = enclosingMapItemIdentifier;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       v9 = [mEMORY[0x1E696F298] ticketForIdentifiers:v8 traits:0];
 
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_invoke;
-      v11[3] = &unk_1E8218CD0;
-      objc_copyWeak(&v13, &location);
-      v12 = completionCopy;
-      [v9 submitWithHandler:v11 networkActivity:0];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_invoke;
+      v10[3] = &unk_1E8218CD0;
+      objc_copyWeak(&v12, &location);
+      v11 = completionCopy;
+      [v9 submitWithHandler:v10 networkActivity:0];
 
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(&location);
     }
   }
@@ -699,18 +695,16 @@ LABEL_6:
   {
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = a2;
+  v13 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v7 = [v14 firstObject];
+    v7 = [v13 firstObject];
     v8 = *(WeakRetained + 2);
     *(WeakRetained + 2) = v7;
 
@@ -722,7 +716,6 @@ void __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_i
     v12 = *(WeakRetained + 3);
     *(WeakRetained + 3) = v11;
 
-    v13 = *(WeakRetained + 2);
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -757,6 +750,18 @@ void __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_i
   }
 }
 
+- (MUPlaceHeaderViewModel)initWithMapItem:(id)item isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token
+{
+  cardCopy = card;
+  v8 = MEMORY[0x1E696F190];
+  tokenCopy = token;
+  itemCopy = item;
+  v11 = [v8 sharedImageManagerWithAuditToken:tokenCopy];
+  v12 = [(MUPlaceHeaderViewModel *)self initWithMapItem:itemCopy imageManager:v11 isDeveloperPlaceCard:cardCopy developerPlaceCardAuditToken:tokenCopy];
+
+  return v12;
+}
+
 - (MUPlaceHeaderViewModel)initWithMapItem:(id)item
 {
   v4 = MEMORY[0x1E696F190];
@@ -772,9 +777,9 @@ void __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_i
   itemCopy = item;
   managerCopy = manager;
   tokenCopy = token;
-  v19.receiver = self;
-  v19.super_class = MUPlaceHeaderViewModel;
-  v14 = [(MUPlaceHeaderViewModel *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = MUPlaceHeaderViewModel;
+  v14 = [(MUPlaceHeaderViewModel *)&v17 init];
   v15 = v14;
   if (v14)
   {
@@ -782,8 +787,6 @@ void __63__MUPlaceHeaderViewModel_refineEnclosingMapItemWithCompletion___block_i
     objc_storeStrong(&v15->_imageManager, manager);
     v15->_isDeveloperPlaceCard = card;
     objc_storeStrong(&v15->_developerPlaceCardAuditToken, token);
-    v16 = *MEMORY[0x1E69A1990];
-    v17 = *(MEMORY[0x1E69A1990] + 8);
     v15->_supportsDecoupledCoverPhotoLogo = GEOConfigGetBOOL();
     [(MUPlaceHeaderViewModel *)v15 _buildEnclosingPlace];
   }

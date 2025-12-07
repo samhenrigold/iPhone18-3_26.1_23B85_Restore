@@ -6,14 +6,22 @@
 
 - (id)describeProperties
 {
-  v6.receiver = self;
-  v6.super_class = AAProximityPairingStatusPayloadB515c;
-  describeProperties = [(AAProximityPairingStatusPayloadB515 *)&v6 describeProperties];
-  [(AAProximityPairingStatusPayloadB515c *)self usbAudioConnected];
-  NSAppendPrintF_safe();
-  v4 = describeProperties;
+  v10.receiver = self;
+  v10.super_class = AAProximityPairingStatusPayloadB515c;
+  describeProperties = [(AAProximityPairingStatusPayloadB515 *)&v10 describeProperties];
+  v9 = describeProperties;
+  usbAudioConnected = [(AAProximityPairingStatusPayloadB515c *)self usbAudioConnected];
+  v5 = "no";
+  if (usbAudioConnected)
+  {
+    v5 = "yes";
+  }
 
-  return describeProperties;
+  NSAppendPrintF_safe(&v9, ", usb aud conn: %s", v5);
+  v6 = v9;
+  v7 = v9;
+
+  return v6;
 }
 
 @end

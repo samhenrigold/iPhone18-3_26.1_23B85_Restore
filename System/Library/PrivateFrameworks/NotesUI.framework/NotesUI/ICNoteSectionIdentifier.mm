@@ -93,7 +93,7 @@ void __33__ICNoteSectionIdentifier_titles__block_invoke()
 {
   titles = [objc_opt_class() titles];
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:{-[ICNoteSectionIdentifier sectionType](self, "sectionType")}];
-  v5 = [titles objectForKeyedSubscript:v4];
+  v5 = objc_msgSend_objectForKeyedSubscript_(titles);
 
   return v5;
 }

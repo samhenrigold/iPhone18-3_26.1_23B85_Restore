@@ -573,18 +573,19 @@ uint64_t __36__MSDTestPreferences_sharedInstance__block_invoke()
   keyCopy = key;
   v4 = *MEMORY[0x277CBF020];
   v5 = *MEMORY[0x277CBF030];
-  if (!CFPreferencesSynchronize(@"com.apple.MobileStoreDemo.test", *MEMORY[0x277CBF020], *MEMORY[0x277CBF030]))
+  v6 = CFPreferencesSynchronize(@"com.apple.MobileStoreDemo.test", *MEMORY[0x277CBF020], *MEMORY[0x277CBF030]);
+  if (!v6)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [MSDTestPreferences getValueFromTestPreferencesForKey:v6];
+      [MSDTestPreferences getValueFromTestPreferencesForKey:v7];
     }
   }
 
-  v7 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileStoreDemo.test", v4, v5);
+  v8 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileStoreDemo.test", v4, v5);
 
-  return v7;
+  return v8;
 }
 
 @end

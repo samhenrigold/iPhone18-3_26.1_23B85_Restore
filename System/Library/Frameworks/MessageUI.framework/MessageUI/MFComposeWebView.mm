@@ -1577,7 +1577,7 @@ void __75__MFComposeWebView_showRichLinkAccessoryButtonForExistingRichLink_messa
 
 - (BOOL)_useComposeToolbar
 {
-  if (!MFSolariumFeatureEnabled() || ([MEMORY[0x1E69DC938] mf_isPadIdiom] & 1) != 0)
+  if (!MFSolariumFeatureEnabled(self, a2) || ([MEMORY[0x1E69DC938] mf_isPadIdiom] & 1) != 0)
   {
     return 0;
   }
@@ -4864,26 +4864,26 @@ void __69__MFComposeWebView__webView_webContentProcessDidTerminateWithReason___b
   }
 }
 
-void __69__MFComposeWebView__webView_webContentProcessDidTerminateWithReason___block_invoke_2(uint64_t a1)
+void __69__MFComposeWebView__webView_webContentProcessDidTerminateWithReason___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = EMLogCompose();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = EMLogCompose();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 32);
-    v11 = NSStringFromSelector(*(a1 + 56));
-    v12 = *(a1 + 40);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = *(a1 + 32);
+    v12 = NSStringFromSelector(*(a1 + 56));
+    v13 = *(a1 + 40);
     *buf = 138544130;
-    v14 = v9;
-    v15 = 2048;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_error_impl(&dword_1BE819000, v2, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ We are unable to restore the web content, setting error message to web view %@", buf, 0x2Au);
+    v15 = v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v13;
+    _os_log_error_impl(&dword_1BE819000, v3, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ We are unable to restore the web content, setting error message to web view %@", buf, 0x2Au);
   }
 
   if (bundle_onceToken != -1)
@@ -4891,12 +4891,12 @@ void __69__MFComposeWebView__webView_webContentProcessDidTerminateWithReason___b
     [MFComposeWebView _addContextMenusToBuilder:];
   }
 
-  v3 = [bundle_bundle localizedStringForKey:@"MESSAGE_CAUSED_PROBLEM_REPEATEDLY" value:&stru_1F3CF3758 table:@"Main"];
-  v4 = *(a1 + 32);
-  v5 = MEMORY[0x1E696AEC0];
-  v6 = [v3 mf_stringByEscapingHTMLCodes];
-  v7 = [v5 localizedStringWithFormat:@"<html dir=auto><body><i><font color=#888>%@</font></i></body></html>", v6];
-  [v4 _loadAlternateHTMLString:v7 baseURL:0 forUnreachableURL:*(a1 + 48)];
+  v4 = [bundle_bundle localizedStringForKey:@"MESSAGE_CAUSED_PROBLEM_REPEATEDLY" value:&stru_1F3CF3758 table:@"Main"];
+  v5 = *(a1 + 32);
+  v6 = MEMORY[0x1E696AEC0];
+  v7 = [v4 mf_stringByEscapingHTMLCodes];
+  v8 = [v6 localizedStringWithFormat:@"<html dir=auto><body><i><font color=#888>%@</font></i></body></html>", v7];
+  [v5 _loadAlternateHTMLString:v8 baseURL:0 forUnreachableURL:*(a1 + 48)];
 }
 
 - (void)_webView:(id)view didInvalidateDataForAttachment:(id)attachment
@@ -5603,6 +5603,13 @@ uint64_t __38__MFComposeWebView__removeAttachment___block_invoke(uint64_t a1, vo
   *buf = 138543362;
   *(buf + 4) = a1;
   _os_log_error_impl(&dword_1BE819000, log, OS_LOG_TYPE_ERROR, "Failed to attach rich link preview [%{public}@]", buf, 0xCu);
+}
+
+- (void)_webView:(uint64_t)a3 webContentProcessDidTerminateWithReason:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_1BE819000, a2, a3, "Unable to restore the webview after several crashes %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_addAttachment:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

@@ -10,19 +10,19 @@
 {
   v3 = sub_269D97D30();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 104))(v6, *MEMORY[0x277D62620], v3);
+  v6 = MEMORY[0x28223BE20](v3, v5);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 104))(v8, *MEMORY[0x277D62620], v3, v6);
   selfCopy = self;
 
   sub_269D97D50();
 
-  (*(v4 + 8))(v6, v3);
+  (*(v4 + 8))(v8, v3);
 
-  v8 = type metadata accessor for SleepSettingsModel();
-  v9.receiver = selfCopy;
-  v9.super_class = v8;
-  [(SleepSettingsModel *)&v9 dealloc];
+  v10 = type metadata accessor for SleepSettingsModel();
+  v11.receiver = selfCopy;
+  v11.super_class = v10;
+  [(SleepSettingsModel *)&v11 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -70,7 +70,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_269CB5CB8(&qword_28034DBB0, 255, type metadata accessor for NSKeyValueChangeKey);
+  sub_269CB5CB8(&qword_28034DBB0, 255, type metadata accessor for NSKeyValueChangeKey, &unk_269D9FBA8);
   v15 = sub_269D9A490();
 
 LABEL_8:

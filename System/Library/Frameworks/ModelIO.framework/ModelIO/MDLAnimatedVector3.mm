@@ -10,7 +10,6 @@
 - (void)resetWithFloat3Array:(const vector_float3 *)valuesArray atTimes:(const NSTimeInterval *)timesArray count:(NSUInteger)count;
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale;
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale time:(double)time;
-- (void)setDouble3:(__int128 *)double3 atTime:;
 @end
 
 @implementation MDLAnimatedVector3
@@ -24,42 +23,39 @@
 
 - (unint64_t)precision
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   if (self->super._timeSampledData.__end_ == begin)
   {
-    goto LABEL_7;
+    return 0;
   }
 
-  v6[0] = 0;
-  v6[1] = 0;
-  sub_239E5F7D4(v6, begin + 1);
-  if ((sub_239E6A188(v6) & 1) == 0 && (sub_239F2B858(v6) & 1) == 0)
+  v5[0] = 0;
+  v5[1] = 0;
+  sub_239E5F7D4(v5, begin + 1);
+  if (sub_239E6A188(v5) & 1) != 0 || (sub_239F2B858(v5))
   {
-    v4 = sub_239F26A84(v6);
-    sub_239E5B240(v6);
-    if (v4)
-    {
-      result = 2;
-      goto LABEL_8;
-    }
-
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    sub_239E5B240(v5);
+    return 1;
   }
 
-  sub_239E5B240(v6);
-  result = 1;
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = sub_239F26A84(v5);
+  sub_239E5B240(v5);
+  if ((v4 & 1) == 0)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 2;
+  }
 }
 
 - (VtValue)defaultVtValue
 {
   v3 = v2;
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   if (self->super._timeSampledData.__end_ == begin)
   {
@@ -68,33 +64,32 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v6[0] = 0;
-  v6[1] = 0;
-  sub_239E5F7D4(v6, begin + 1);
-  if (!sub_239F2B858(v6))
+  v5[0] = 0;
+  v5[1] = 0;
+  sub_239E5F7D4(v5, begin + 1);
+  if (!sub_239F2B858(v5))
   {
-    if (sub_239E6A188(v6))
+    if (sub_239E6A188(v5))
     {
       *(v3 + 8) = &off_284D165E0 + 2;
       operator new();
     }
 
-    if (sub_239F26A84(v6))
+    if (sub_239F26A84(v5))
     {
       *(v3 + 8) = &off_284D16698 + 2;
       operator new();
     }
 
-    self = sub_239E5B240(v6);
+    self = sub_239E5B240(v5);
     goto LABEL_9;
   }
 
   *(v3 + 4) = 0;
   *v3 = 0;
   *(v3 + 8) = &off_284D16528 + 3;
-  self = sub_239E5B240(v6);
+  self = sub_239E5B240(v5);
 LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
   result._info._ptrAndBits = a2;
   result._storage = self;
   return result;
@@ -102,7 +97,7 @@ LABEL_10:
 
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   pxrInternal__aapl__pxrReserved__::UsdAttribute::GetTimeSamples();
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
@@ -119,78 +114,62 @@ LABEL_10:
   }
 
   self->super._timeSampledData.__end_ = begin;
-  sub_239F236EC(&self->super._timeSampledData.__begin_, 0);
-  v11[0] = 0;
-  v11[1] = 0;
+  sub_239F236EC(&self->super._timeSampledData, 0);
+  v10[0] = 0;
+  v10[1] = 0;
   pxrInternal__aapl__pxrReserved__::UsdAttribute::Get();
-  if ((sub_239F2B858(v11) & 1) != 0 || (sub_239E6A188(v11) & 1) != 0 || sub_239F26A84(v11))
+  if ((sub_239F2B858(v10) & 1) != 0 || (sub_239E6A188(v10) & 1) != 0 || sub_239F26A84(v10))
   {
-    v9 = 0;
-    sub_239E5F7D4(v10, v11);
-    sub_239F237C8(&self->super._timeSampledData, &v9);
-    sub_239E5B240(v10);
+    v8 = 0;
+    sub_239E5F7D4(v9, v10);
+    sub_239F237C8(&self->super._timeSampledData, &v8);
+    sub_239E5B240(v9);
   }
 
-  sub_239E5B240(v11);
-  v8 = *MEMORY[0x277D85DE8];
+  sub_239E5B240(v10);
 }
 
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale time:(double)time
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = 0;
-  v11[1] = 0;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = 0;
+  v10[1] = 0;
   pxrInternal__aapl__pxrReserved__::UsdAttribute::Get();
-  if ((sub_239F2B858(v11) & 1) != 0 || (sub_239E6A188(v11) & 1) != 0 || sub_239F26A84(v11))
+  if ((sub_239F2B858(v10) & 1) != 0 || (sub_239E6A188(v10) & 1) != 0 || sub_239F26A84(v10))
   {
-    v9 = time * scale;
-    sub_239E5F7D4(v10, v11);
-    sub_239F237C8(&self->super._timeSampledData, &v9);
-    sub_239E5B240(v10);
+    v8 = time * scale;
+    sub_239E5F7D4(v9, v10);
+    sub_239F237C8(&self->super._timeSampledData, &v8);
+    sub_239E5B240(v9);
   }
 
-  sub_239E5B240(v11);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDouble3:(__int128 *)double3 atTime:
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = *double3;
-  v3 = *(double3 + 2);
-  v5 = 0;
-  v6 = &off_284D16698 + 2;
-  operator new();
+  sub_239E5B240(v10);
 }
 
 - (vector_float3)float3AtTime:(NSTimeInterval)time
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18 = 0.0;
-  v19 = 0;
-  v20 = 0;
-  v15 = 0.0;
-  v16 = 0;
-  v17 = 0;
-  sub_239F24610(&self->super._timeSampledData, &v18, &v15, time);
-  if (v20)
+  v12 = *MEMORY[0x277D85DE8];
+  v10 = 0.0;
+  v11.__vftable = 0;
+  v11.__type_name = 0;
+  v8 = 0.0;
+  v9.__vftable = 0;
+  v9.__type_name = 0;
+  sub_239F24610(&self->super._timeSampledData, &v10, &v8, time);
+  if (v11.__type_name)
   {
-    if ((sub_239E6A188(&v19) & 1) != 0 || (v4 = sub_239F2C218(&v19), sub_239EF2160(&v19, v4), v20))
+    if ((sub_239E6A188(&v11) & 1) != 0 || (v4 = sub_239F2C218(&v11), sub_239EF2160(&v11, v4), v11.__type_name))
     {
-      v5 = sub_239EEDF80(&v19);
+      sub_239EEDF80(&v11);
       if (self->super._interpolation)
       {
-        v7 = *(v5 + 8);
-        v6 = *v5;
-        if (v17)
+        if (v9.__type_name)
         {
-          if (v18 != v15)
+          if (v10 != v8)
           {
-            if ((sub_239E6A188(&v16) & 1) != 0 || (v8 = sub_239F2C218(&v16), sub_239EF2160(&v16, v8), v17))
+            if ((sub_239E6A188(&v9) & 1) != 0 || (v5 = sub_239F2C218(&v9), sub_239EF2160(&v9, v5), v9.__type_name))
             {
-              v9 = sub_239EEDF80(&v16);
-              v10 = *v9;
-              v11 = *(v9 + 8);
+              sub_239EEDF80(&v9);
             }
           }
         }
@@ -198,69 +177,68 @@ LABEL_10:
     }
   }
 
-  sub_239E5B240(&v16);
-  v12 = sub_239E5B240(&v19);
-  v14 = *MEMORY[0x277D85DE8];
-  result.i64[1] = v13;
-  result.i64[0] = v12;
+  sub_239E5B240(&v9);
+  v6 = sub_239E5B240(&v11);
+  result.i64[1] = v7;
+  result.i64[0] = v6;
   return result;
 }
 
 - (uint64_t)double3AtTime:(double)time@<D0>
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21 = 0.0;
-  v22 = 0;
-  v23 = 0;
-  v18 = 0.0;
-  v19 = 0;
-  v20 = 0;
-  sub_239F24610((self + 8), &v21, &v18, time);
-  if (!v23)
+  v21 = *MEMORY[0x277D85DE8];
+  v19 = 0.0;
+  v20.__vftable = 0;
+  v20.__type_name = 0;
+  v17 = 0.0;
+  v18.__vftable = 0;
+  v18.__type_name = 0;
+  sub_239F24610((self + 8), &v19, &v17, time);
+  if (!v20.__type_name)
   {
     goto LABEL_11;
   }
 
-  if ((sub_239F26A84(&v22) & 1) == 0)
+  if ((sub_239F26A84(&v20) & 1) == 0)
   {
-    v6 = sub_239F2C46C(&v22);
-    sub_239EF2160(&v22, v6);
-    if (!v23)
+    v6 = sub_239F2C46C(&v20);
+    sub_239EF2160(&v20, v6);
+    if (!v20.__type_name)
     {
       goto LABEL_11;
     }
   }
 
-  v7 = sub_239F2C4F8(&v22);
+  v7 = sub_239F2C4F8(&v20);
   v8 = *v7;
   v9.f64[0] = *(v7 + 16);
   if (!*(self + 32))
   {
 LABEL_10:
-    v16 = v9;
-    v17 = v8;
+    v15 = v9;
+    v16 = v8;
     goto LABEL_12;
   }
 
-  if (!v20)
+  if (!v18.__type_name)
   {
 LABEL_11:
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     goto LABEL_12;
   }
 
-  v16 = v9;
-  v17 = *v7;
-  if (v21 != v18)
+  v15 = v9;
+  v16 = *v7;
+  if (v19 != v17)
   {
-    if ((sub_239F26A84(&v19) & 1) != 0 || (v10 = sub_239F2C46C(&v19), sub_239EF2160(&v19, v10), v20))
+    if ((sub_239F26A84(&v18) & 1) != 0 || (v10 = sub_239F2C46C(&v18), sub_239EF2160(&v18, v10), v18.__type_name))
     {
-      v11 = sub_239F2C4F8(&v19);
+      v11 = sub_239F2C4F8(&v18);
       v12.f64[0] = v11[1].f64[0];
-      v13 = fmax(fmin((time - v21) / (v18 - v21), 1.0), 0.0);
-      v9 = vmlaq_n_f64(vmulq_n_f64(v12, v13), v16, 1.0 - v13);
-      v8 = vmlaq_n_f64(vmulq_n_f64(*v11, v13), v17, 1.0 - v13);
+      v13 = fmax(fmin((time - v19) / (v17 - v19), 1.0), 0.0);
+      v9 = vmlaq_n_f64(vmulq_n_f64(v12, v13), v15, 1.0 - v13);
+      v8 = vmlaq_n_f64(vmulq_n_f64(*v11, v13), v16, 1.0 - v13);
       goto LABEL_10;
     }
 
@@ -268,76 +246,62 @@ LABEL_11:
   }
 
 LABEL_12:
-  sub_239E5B240(&v19);
-  result = sub_239E5B240(&v22);
-  *a2 = v17;
-  a2[1] = v16;
-  v15 = *MEMORY[0x277D85DE8];
+  sub_239E5B240(&v18);
+  result = sub_239E5B240(&v20);
+  *a2 = v16;
+  a2[1] = v15;
   return result;
 }
 
 - (void)resetWithFloat3Array:(const vector_float3 *)valuesArray atTimes:(const NSTimeInterval *)timesArray count:(NSUInteger)count
 {
-  v16 = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
   if (end != begin)
   {
     do
     {
-      v11 = (end - 24);
+      v9 = (end - 24);
       sub_239E5B240(end - 16);
-      end = v11;
+      end = v9;
     }
 
-    while (v11 != begin);
+    while (v9 != begin);
   }
 
   self->super._timeSampledData.__end_ = begin;
   if (count)
   {
-    v14 = *timesArray;
-    v13 = *valuesArray;
-    v15 = &off_284D165E0 + 2;
     operator new();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetWithDouble3Array:(const vector_double3 *)valuesArray atTimes:(const NSTimeInterval *)timesArray count:(NSUInteger)count
 {
-  v17 = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
   if (end != begin)
   {
     do
     {
-      v11 = (end - 24);
+      v9 = (end - 24);
       sub_239E5B240(end - 16);
-      end = v11;
+      end = v9;
     }
 
-    while (v11 != begin);
+    while (v9 != begin);
   }
 
   self->super._timeSampledData.__end_ = begin;
   if (count)
   {
-    v15 = *timesArray;
-    v13 = *&valuesArray->f64[2];
-    v14 = *valuesArray->f64;
-    v16 = &off_284D16698 + 2;
     operator new();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUInteger)getFloat3Array:(vector_float3 *)valuesArray maxCount:(NSUInteger)maxCount
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (0xAAAAAAAAAAAAAAABLL * ((self->super._timeSampledData.__end_ - self->super._timeSampledData.__begin_) >> 3) >= maxCount)
   {
     v4 = maxCount;
@@ -354,23 +318,21 @@ LABEL_12:
     v8 = v4;
     do
     {
-      v17[0] = 0;
-      v17[1] = 0;
-      begin = self->super._timeSampledData.__begin_;
-      v16 = *(begin + v7);
-      sub_239E5F7D4(v17, (begin + v7 + 8));
-      v10 = sub_239E6A188(v17);
-      v11 = v17;
-      if ((v10 & 1) == 0)
+      v14.__vftable = 0;
+      v14.__type_name = 0;
+      sub_239E5F7D4(&v14, (self->super._timeSampledData.__begin_ + v7 + 8));
+      v9 = sub_239E6A188(&v14);
+      v10 = &v14;
+      if ((v9 & 1) == 0)
       {
-        v11 = sub_239F2C218(v17);
+        v10 = sub_239F2C218(&v14);
       }
 
-      v12 = sub_239EEDF80(v11);
-      v13.i64[0] = *v12;
-      v13.i32[2] = *(v12 + 8);
-      *valuesArray++ = v13;
-      sub_239E5B240(v17);
+      v11 = sub_239EEDF80(v10);
+      v12.i64[0] = *v11;
+      v12.i32[2] = *(v11 + 8);
+      *valuesArray++ = v12;
+      sub_239E5B240(&v14);
       v7 += 24;
       --v8;
     }
@@ -378,13 +340,12 @@ LABEL_12:
     while (v8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (NSUInteger)getDouble3Array:(vector_double3 *)valuesArray maxCount:(NSUInteger)maxCount
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (0xAAAAAAAAAAAAAAABLL * ((self->super._timeSampledData.__end_ - self->super._timeSampledData.__begin_) >> 3) >= maxCount)
   {
     v4 = maxCount;
@@ -401,24 +362,22 @@ LABEL_12:
     v8 = v4;
     do
     {
-      v17[0] = 0;
-      v17[1] = 0;
-      begin = self->super._timeSampledData.__begin_;
-      v16 = *(begin + v7);
-      sub_239E5F7D4(v17, (begin + v7 + 8));
-      v10 = sub_239F26A84(v17);
-      v11 = v17;
-      if ((v10 & 1) == 0)
+      v14.__vftable = 0;
+      v14.__type_name = 0;
+      sub_239E5F7D4(&v14, (self->super._timeSampledData.__begin_ + v7 + 8));
+      v9 = sub_239F26A84(&v14);
+      v10 = &v14;
+      if ((v9 & 1) == 0)
       {
-        v11 = sub_239F2C46C(v17);
+        v10 = sub_239F2C46C(&v14);
       }
 
-      v12 = sub_239F2C4F8(v11);
-      *&v13 = *(v12 + 16);
-      *valuesArray->f64 = *v12;
-      *&valuesArray->f64[2] = v13;
+      v11 = sub_239F2C4F8(v10);
+      *&v12 = *(v11 + 16);
+      *valuesArray->f64 = *v11;
+      *&valuesArray->f64[2] = v12;
       ++valuesArray;
-      sub_239E5B240(v17);
+      sub_239E5B240(&v14);
       v7 += 24;
       --v8;
     }
@@ -426,7 +385,6 @@ LABEL_12:
     while (v8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

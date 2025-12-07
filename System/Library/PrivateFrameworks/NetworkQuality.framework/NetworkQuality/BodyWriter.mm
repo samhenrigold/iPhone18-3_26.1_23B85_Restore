@@ -62,30 +62,32 @@ void __38__BodyWriter_sendBodyDataWithContext___block_invoke(uint64_t a1, dispat
 void __38__BodyWriter_sendBodyDataWithContext___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    netqual_log_init();
-    v4 = os_log_netqual;
+    netqual_log_init(v3, v4);
+    v6 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
-      __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_1(v4, v3);
+      __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_1(v6, v5);
     }
 
     goto LABEL_4;
   }
 
-  if ([*(a1 + 32) bytesLeftToPost] >= *(a1 + 56))
+  v7 = [*(a1 + 32) bytesLeftToPost];
+  if (v7 >= *(a1 + 56))
   {
     [*(a1 + 32) setBytesLeftToPost:{objc_msgSend(*(a1 + 32), "bytesLeftToPost") - *(a1 + 56)}];
   }
 
   else if ((*(a1 + 64) & 1) == 0)
   {
-    netqual_log_init();
-    v5 = os_log_netqual;
+    netqual_log_init(v7, v8);
+    v9 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
-      __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_2(v5);
+      __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_2(v9);
     }
 
     goto LABEL_4;
@@ -101,30 +103,27 @@ LABEL_4:
 
 void __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 136315906;
-  v6 = "[BodyWriter sendBodyDataWithContext:]_block_invoke_2";
-  v7 = 1024;
-  v8 = 26;
-  v9 = 1024;
+  v4 = 136315906;
+  v5 = "[BodyWriter sendBodyDataWithContext:]_block_invoke_2";
+  v6 = 1024;
+  v7 = 26;
+  v8 = 1024;
   error_domain = nw_error_get_error_domain(a2);
-  v11 = 1024;
+  v10 = 1024;
   error_code = nw_error_get_error_code(a2);
-  _os_log_error_impl(&dword_25B962000, v3, OS_LOG_TYPE_ERROR, "%s:%u - Write encountered error: %u:%u\n", &v5, 0x1Eu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25B962000, v3, OS_LOG_TYPE_ERROR, "%s:%u - Write encountered error: %u:%u\n", &v4, 0x1Eu);
 }
 
 void __38__BodyWriter_sendBodyDataWithContext___block_invoke_2_cold_2(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[BodyWriter sendBodyDataWithContext:]_block_invoke";
-  v4 = 1024;
-  v5 = 34;
-  _os_log_error_impl(&dword_25B962000, log, OS_LOG_TYPE_ERROR, "%s:%u - Write not complete, but didn't have a full amount to write", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[BodyWriter sendBodyDataWithContext:]_block_invoke";
+  v3 = 1024;
+  v4 = 34;
+  _os_log_error_impl(&dword_25B962000, log, OS_LOG_TYPE_ERROR, "%s:%u - Write not complete, but didn't have a full amount to write", &v1, 0x12u);
 }
 
 @end

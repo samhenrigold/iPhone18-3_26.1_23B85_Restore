@@ -4,38 +4,41 @@
 - (CCDatabaseSetStateVectorBuilder)initWithDeviceMapping:(id)mapping missingAtomsImplied:(BOOL)implied;
 - (id)_indexSetForAtomState:(unsigned __int8)state deviceRowId:(id)id maxIndex:(unint64_t)index;
 - (id)build;
+- (void)addClockValue:(unint64_t)value withAtomState:(unsigned __int8)state forDeviceRowId:(id)id;
+- (void)addClockValueRange:(_NSRange)range withAtomState:(unsigned __int8)state forDeviceRowId:(id)id;
+- (void)addClockValueSet:(id)set withAtomState:(unsigned __int8)state forDeviceRowId:(id)id;
 @end
 
 @implementation CCDatabaseSetStateVectorBuilder
 
 - (id)build
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   getCKDistributedTimestampStateVectorClass_1();
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_allDeviceClockValues;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v21;
+    v8 = *v20;
     *&v6 = 138412802;
-    v19 = v6;
+    v18 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_allDeviceClockValues objectForKey:v10, v19, v20];
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_allDeviceClockValues objectForKey:v10, v18, v19];
         v12 = [(CCDatabaseDeviceMapping *)self->_deviceMapping siteIdentifierForDeviceRowId:v10];
         if (v12)
         {
@@ -64,24 +67,22 @@
           if (os_log_type_enabled(tombstoned, OS_LOG_TYPE_ERROR))
           {
             deviceMapping = self->_deviceMapping;
-            *buf = v19;
-            v25 = v10;
-            v26 = 2112;
-            v27 = deviceMapping;
-            v28 = 2112;
-            v29 = v11;
+            *buf = v18;
+            v24 = v10;
+            v25 = 2112;
+            v26 = deviceMapping;
+            v27 = 2112;
+            v28 = v11;
             _os_log_error_impl(&dword_1B6DB2000, tombstoned, OS_LOG_TYPE_ERROR, "Ignoring provenance row(s) for deviceRowId: %@ without a siteIdentifier mapping: %@ clockValues: %@", buf, 0x20u);
           }
         }
       }
 
-      v7 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v7 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -154,38 +155,62 @@ LABEL_12:
   return v15;
 }
 
+- (void)addClockValue:(unint64_t)value withAtomState:(unsigned __int8)state forDeviceRowId:(id)id
+{
+  v6 = [(CCDatabaseSetStateVectorBuilder *)self _indexSetForAtomState:state deviceRowId:id maxIndex:value];
+  [v6 addIndex:value];
+}
+
+- (void)addClockValueRange:(_NSRange)range withAtomState:(unsigned __int8)state forDeviceRowId:(id)id
+{
+  length = range.length;
+  location = range.location;
+  v7 = [(CCDatabaseSetStateVectorBuilder *)self _indexSetForAtomState:state deviceRowId:id maxIndex:range.length + range.location - 1];
+  [v7 addIndexesInRange:{location, length}];
+}
+
+- (void)addClockValueSet:(id)set withAtomState:(unsigned __int8)state forDeviceRowId:(id)id
+{
+  stateCopy = state;
+  idCopy = id;
+  setCopy = set;
+  v10 = -[CCDatabaseSetStateVectorBuilder _indexSetForAtomState:deviceRowId:maxIndex:](self, "_indexSetForAtomState:deviceRowId:maxIndex:", stateCopy, idCopy, [setCopy lastIndex]);
+
+  [v10 addIndexes:setCopy];
+}
+
 + (void)removeSiteIdentifiers:(id)identifiers fromStateVector:(id)vector
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   vectorCopy = vector;
   getCKDistributedTimestampStateVectorClass_1();
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = identifiersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = [vectorCopy clockValuesForSiteIdentifier:{v13, v17}];
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = [vectorCopy clockValuesForSiteIdentifier:{v13, v16}];
         [v7 addClockValuesInIndexSet:v14 forSiteIdentifier:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -193,8 +218,6 @@ LABEL_12:
 
   clockVector = [v7 clockVector];
   [vectorCopy minusVector:clockVector];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

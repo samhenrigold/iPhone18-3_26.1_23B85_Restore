@@ -78,50 +78,53 @@
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    LODWORD(v37) = 138412290;
-    *(&v37 + 4) = objc_opt_class();
-    v8 = *(&v37 + 4);
-    LODWORD(v36) = 12;
-    v35 = &v37;
-    v9 = _os_log_send_and_compose_impl();
+    v37 = 138412290;
+    v38 = objc_opt_class();
+    v8 = v38;
+    v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@]: Migrating iTunes data.", &v37, 12);
 
     if (!v9)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v37, v36, v37];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     v35 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   updateType = self->_updateType;
   if ((updateType & 2) == 0)
   {
     if ((updateType & 4) == 0)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
   v11 = +[SSLogConfig sharedDaemonConfig];
@@ -133,16 +136,21 @@ LABEL_12:
   shouldLog2 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog2 | 2;
+    LODWORD(v13) = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = shouldLog2;
+    LODWORD(v13) = shouldLog2;
   }
 
   oSLogObject2 = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
@@ -150,25 +158,24 @@ LABEL_12:
   if (v13)
   {
     v15 = objc_opt_class();
-    LODWORD(v37) = 138412290;
-    *(&v37 + 4) = v15;
+    v37 = 138412290;
+    v38 = v15;
     v16 = v15;
     LODWORD(v36) = 12;
-    v35 = &v37;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "[%@]: Upgrade Migration", &v37, v36);
 
     if (!v17)
     {
-      goto LABEL_27;
+      goto LABEL_29;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v37, v36];
+    oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v35 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_27:
+LABEL_29:
   v18 = [[UpdateMigratorPromotionOperation alloc] initWithBundleIdentifiers:&__NSArray0__struct options:&__NSDictionary0__struct];
   [(UpdateMigrator *)self _queueMigration:v18];
   v19 = objc_alloc_init(UpdateMigratorAutoUpdateOperation);
@@ -177,13 +184,13 @@ LABEL_27:
   updateType = self->_updateType;
   if ((updateType & 4) == 0)
   {
-LABEL_14:
+LABEL_15:
     if ((updateType & 8) == 0)
     {
       return 1;
     }
 
-LABEL_40:
+LABEL_43:
     v27 = +[SSLogConfig sharedDaemonConfig];
     if (!v27)
     {
@@ -193,16 +200,21 @@ LABEL_40:
     shouldLog3 = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      v29 = shouldLog3 | 2;
+      LODWORD(v29) = shouldLog3 | 2;
     }
 
     else
     {
-      v29 = shouldLog3;
+      LODWORD(v29) = shouldLog3;
     }
 
     oSLogObject3 = [v27 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+    {
+      v29 = v29;
+    }
+
+    else
     {
       v29 &= 2u;
     }
@@ -210,28 +222,28 @@ LABEL_40:
     if (v29)
     {
       v31 = objc_opt_class();
-      LODWORD(v37) = 138412290;
-      *(&v37 + 4) = v31;
+      v37 = 138412290;
+      v38 = v31;
       v32 = v31;
       LODWORD(v36) = 12;
-      v33 = _os_log_send_and_compose_impl();
+      v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "[%@]: Migrate from Different Device Migration", &v37, v36);
 
       if (!v33)
       {
-LABEL_51:
+LABEL_55:
 
         return 1;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v33 encoding:4, &v37, v36];
+      oSLogObject3 = [NSString stringWithCString:v33 encoding:4];
       free(v33);
       SSFileLog();
     }
 
-    goto LABEL_51;
+    goto LABEL_55;
   }
 
-LABEL_28:
+LABEL_30:
   v20 = +[SSLogConfig sharedDaemonConfig];
   if (!v20)
   {
@@ -241,16 +253,21 @@ LABEL_28:
   shouldLog4 = [v20 shouldLog];
   if ([v20 shouldLogToDisk])
   {
-    v22 = shouldLog4 | 2;
+    LODWORD(v22) = shouldLog4 | 2;
   }
 
   else
   {
-    v22 = shouldLog4;
+    LODWORD(v22) = shouldLog4;
   }
 
   oSLogObject4 = [v20 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
+  {
+    v22 = v22;
+  }
+
+  else
   {
     v22 &= 2u;
   }
@@ -258,28 +275,27 @@ LABEL_28:
   if (v22)
   {
     v24 = objc_opt_class();
-    LODWORD(v37) = 138412290;
-    *(&v37 + 4) = v24;
+    v37 = 138412290;
+    v38 = v24;
     v25 = v24;
     LODWORD(v36) = 12;
-    v35 = &v37;
-    v26 = _os_log_send_and_compose_impl();
+    v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "[%@]: Restore From Backup Migration", &v37, v36);
 
     if (!v26)
     {
-      goto LABEL_39;
+      goto LABEL_42;
     }
 
-    oSLogObject4 = [NSString stringWithCString:v26 encoding:4, &v37, v36];
+    oSLogObject4 = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     v35 = oSLogObject4;
     SSFileLog();
   }
 
-LABEL_39:
+LABEL_42:
   if ((self->_updateType & 8) != 0)
   {
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
   return 1;
@@ -298,44 +314,49 @@ LABEL_39:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v12 = objc_opt_class();
   v13 = v12;
-  [identifiersCopy componentsJoinedByString:{@", "}];
+  v14 = [identifiersCopy componentsJoinedByString:{@", "}];
   v17 = 138412546;
   v18 = v12;
-  v20 = v19 = 2112;
-  LODWORD(v16) = 22;
-  v14 = _os_log_send_and_compose_impl();
+  v19 = 2112;
+  v20 = v14;
+  v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: Queued demoted app restore for bundleIDs: %@", &v17, 22);
 
-  if (v14)
+  if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v14 encoding:4, &v17, v16];
-    free(v14);
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
+    free(v15);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
-  v15 = [[UpdateMigratorPromotionOperation alloc] initWithBundleIdentifiers:identifiersCopy options:optionsCopy];
-  [(UpdateMigrator *)self _queueMigration:v15];
+  v16 = [[UpdateMigratorPromotionOperation alloc] initWithBundleIdentifiers:identifiersCopy options:optionsCopy];
+  [(UpdateMigrator *)self _queueMigration:v16];
 }
 
 - (void)_networkTypeChangedNotification:(id)notification
@@ -349,39 +370,43 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    LODWORD(v16) = 138412290;
-    *(&v16 + 4) = objc_opt_class();
-    v8 = *(&v16 + 4);
-    LODWORD(v15) = 12;
-    v9 = _os_log_send_and_compose_impl();
+    v15 = 138412290;
+    v16 = objc_opt_class();
+    v8 = v16;
+    v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: Network Changed", &v15, 12);
 
     if (!v9)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v16, v15, v16];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v10 = +[ISNetworkObserver sharedInstance];
   networkType = [v10 networkType];
 
@@ -407,39 +432,43 @@ LABEL_12:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v17 = 138412290;
-    v18 = objc_opt_class();
-    v7 = v18;
-    LODWORD(v15) = 12;
-    v8 = _os_log_send_and_compose_impl();
+    v16 = 138412290;
+    v17 = objc_opt_class();
+    v7 = v17;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: Loading Bag Prior to migration", &v16, 12);
 
     if (!v8)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v8 encoding:4, &v17, v15];
+    oSLogObject = [NSString stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v9 = [SSURLBagContext contextWithBagType:0];
   v10 = +[ISURLBagCache sharedCache];
   v11 = [v10 URLBagForContext:v9];
@@ -452,12 +481,12 @@ LABEL_12:
   else
   {
     v12 = [[ISLoadURLBagOperation alloc] initWithBagContext:v9];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10012F588;
-    v16[3] = &unk_100327110;
-    v16[4] = self;
-    [v12 setCompletionBlock:v16];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10012F588;
+    v15[3] = &unk_100327110;
+    v15[4] = self;
+    [v12 setCompletionBlock:v15];
     loadURLBagOperation = self->_loadURLBagOperation;
     self->_loadURLBagOperation = v12;
     v14 = v12;

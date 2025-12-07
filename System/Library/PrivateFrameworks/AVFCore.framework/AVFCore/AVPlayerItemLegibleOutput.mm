@@ -41,22 +41,22 @@
 - (AVPlayerItemLegibleOutput)initWithDependencyFactory:(id)factory mediaSubtypesForNativeRepresentation:(id)representation
 {
   selfCopy = self;
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (!representation)
   {
     selfCopy2 = self;
-    v23 = MEMORY[0x1E695DF30];
-    v24 = *MEMORY[0x1E695D940];
-    v25 = "subtypes != nil";
+    v24 = MEMORY[0x1E695DF30];
+    v25 = *MEMORY[0x1E695D940];
+    v26 = "subtypes != nil";
 LABEL_19:
-    v27 = AVMethodExceptionReasonWithObjectAndSelector(selfCopy, a2, @"invalid parameter not satisfying: %s", v18, v19, v20, v21, v22, v25);
+    v28 = AVMethodExceptionReasonWithObjectAndSelector(selfCopy, a2, @"invalid parameter not satisfying: %s", v19, v20, v21, v22, v23, v26);
 LABEL_21:
-    objc_exception_throw([v23 exceptionWithName:v24 reason:v27 userInfo:0]);
+    objc_exception_throw([v24 exceptionWithName:v25 reason:v28 userInfo:0]);
   }
 
-  v40.receiver = self;
-  v40.super_class = AVPlayerItemLegibleOutput;
-  selfCopy = [(AVPlayerItemOutput *)&v40 init];
+  v41.receiver = self;
+  v41.super_class = AVPlayerItemLegibleOutput;
+  selfCopy = [(AVPlayerItemOutput *)&v41 init];
   if (selfCopy)
   {
     v8 = objc_alloc_init(AVPlayerItemLegibleOutputInternal);
@@ -67,62 +67,62 @@ LABEL_21:
       *(*(selfCopy + 2) + 24) = objc_alloc_init(AVWeakReferencingDelegateStorage);
       *(*(selfCopy + 2) + 8) = factory;
       *(*(selfCopy + 2) + 16) = [representation copy];
-      *(*(selfCopy + 2) + 32) = av_readwrite_dispatch_queue_create("com.apple.avplayeritemlegibleoutput.ivars");
+      *(*(selfCopy + 2) + 32) = av_readwrite_dispatch_queue_create("com.apple.avplayeritemlegibleoutput.ivars", v9);
       *(*(selfCopy + 2) + 64) = [@"AVPlayerItemLegibleOutputTextStylingResolutionDefault" copy];
-      v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v9 = *(*(selfCopy + 2) + 16);
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
-      if (v10)
+      v38 = 0u;
+      v10 = *(*(selfCopy + 2) + 16);
+      v11 = [v10 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v37;
+        v12 = v11;
+        v13 = *v38;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v37 != v12)
+            if (*v38 != v13)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v36 + 1) + 8 * i);
+            v15 = *(*(&v37 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v17 = selfCopy;
-              v23 = MEMORY[0x1E695DF30];
-              v24 = *MEMORY[0x1E695D940];
-              v25 = "[mediaSubtypeObject isKindOfClass:[NSNumber class]]";
+              v18 = selfCopy;
+              v24 = MEMORY[0x1E695DF30];
+              v25 = *MEMORY[0x1E695D940];
+              v26 = "[mediaSubtypeObject isKindOfClass:[NSNumber class]]";
               goto LABEL_19;
             }
 
-            unsignedLongLongValue = [v14 unsignedLongLongValue];
+            unsignedLongLongValue = [v15 unsignedLongLongValue];
             if (HIDWORD(unsignedLongLongValue))
             {
-              v26 = selfCopy;
-              v23 = MEMORY[0x1E695DF30];
-              v24 = *MEMORY[0x1E695D940];
-              v25 = "integerValueAppearsToBeAFourCC";
+              v27 = selfCopy;
+              v24 = MEMORY[0x1E695DF30];
+              v25 = *MEMORY[0x1E695D940];
+              v26 = "integerValueAppearsToBeAFourCC";
               goto LABEL_19;
             }
 
             if (unsignedLongLongValue == 1664495672)
             {
-              v28 = selfCopy;
-              v23 = MEMORY[0x1E695DF30];
-              v24 = *MEMORY[0x1E695D940];
-              v27 = AVMethodExceptionReasonWithObjectAndSelector(selfCopy, a2, @"Native representation is not available for media subtype 'c608'", v29, v30, v31, v32, v33, v35);
+              v29 = selfCopy;
+              v24 = MEMORY[0x1E695DF30];
+              v25 = *MEMORY[0x1E695D940];
+              v28 = AVMethodExceptionReasonWithObjectAndSelector(selfCopy, a2, @"Native representation is not available for media subtype 'c608'", v30, v31, v32, v33, v34, v36);
               goto LABEL_21;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
     }
 
@@ -420,7 +420,7 @@ double __69__AVPlayerItemLegibleOutput_setAdvanceIntervalForDelegateInvocation__
   return v4;
 }
 
-uint64_t __50__AVPlayerItemLegibleOutput_textStylingResolution__block_invoke(uint64_t a1)
+void *__50__AVPlayerItemLegibleOutput_textStylingResolution__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 16) + 64) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

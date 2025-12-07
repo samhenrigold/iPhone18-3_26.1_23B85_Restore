@@ -19,8 +19,8 @@
     backgroundColor = [colorScheme backgroundColor];
     [(SUUIGiftTheme *)v5 setBackgroundColor:backgroundColor];
 
-    primaryTextColor = [colorScheme primaryTextColor];
-    [(SUUIGiftTheme *)v5 setBodyTextColor:primaryTextColor];
+    v9 = objc_msgSend_primaryTextColor(colorScheme);
+    [(SUUIGiftTheme *)v5 setBodyTextColor:v9];
 
     secondaryTextColor = [colorScheme secondaryTextColor];
     [(SUUIGiftTheme *)v5 setPrimaryTextColor:secondaryTextColor];

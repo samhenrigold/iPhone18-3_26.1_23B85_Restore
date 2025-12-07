@@ -50,10 +50,11 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && page)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && page)
   {
-    v6 = ISUIMobileStoreUIFramework();
-    if ([objc_msgSend(page objectForKey:{ISUIVWeakLinkedStringConstantForString("SUUIProtocolKeyPageType", v6)), "isEqualToString:", @"software"}])
+    v8 = ISUIMobileStoreUIFramework(isKindOfClass, v7);
+    if ([objc_msgSend(page objectForKey:{ISUIVWeakLinkedStringConstantForString("SUUIProtocolKeyPageType", v8)), "isEqualToString:", @"software"}])
     {
 
       [(SUSKUIStorePageViewController *)self _showProductPageWithPageDictionary:page];
@@ -157,63 +158,68 @@ id __49__SUSKUIStorePageViewController_dismissAnimated___block_invoke(uint64_t a
 
 - (void)_loadClientContextWithCompletionBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v4 = ISUIMobileStoreUIFramework();
+  v22 = *MEMORY[0x1E69E9840];
+  v4 = ISUIMobileStoreUIFramework(self, a2);
   v5 = ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v4);
   defaultContext = [v5 defaultContext];
   if (defaultContext)
   {
-    v7 = *(block + 2);
+    v8 = *(block + 2);
 
-    v7(block, defaultContext);
+    v8(block, defaultContext);
   }
 
   else
   {
-    v8 = ISUIMobileStoreUIFramework();
-    v9 = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuireloadconf.isa, v8));
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __71__SUSKUIStorePageViewController__loadClientContextWithCompletionBlock___block_invoke;
-    v18[3] = &unk_1E8167428;
-    v18[4] = v5;
-    v18[5] = block;
-    [v9 setOutputBlock:v18];
+    v9 = ISUIMobileStoreUIFramework(0, v7);
+    v10 = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuireloadconf.isa, v9));
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __71__SUSKUIStorePageViewController__loadClientContextWithCompletionBlock___block_invoke;
+    v19[3] = &unk_1E8167428;
+    v19[4] = v5;
+    v19[5] = block;
+    [v10 setOutputBlock:v19];
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 &= 2u;
+      v13 = v13;
     }
 
-    if (v12)
+    else
     {
-      v13 = objc_opt_class();
-      v19 = 138412290;
-      v20 = v13;
-      LODWORD(v17) = 12;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v13 &= 2u;
+    }
+
+    if (v13)
+    {
+      v15 = objc_opt_class();
+      v20 = 138412290;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Loading missing client context", &v20, 12);
+      if (v16)
       {
-        v15 = v14;
-        [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v19, v17}];
-        free(v15);
+        v17 = v16;
+        [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+        free(v17);
         SSFileLog();
       }
     }
 
-    v16 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-    [v16 addOperation:v9];
+    v18 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+    [v18 addOperation:v10];
   }
 }
 
@@ -274,10 +280,10 @@ void __71__SUSKUIStorePageViewController__loadClientContextWithCompletionBlock__
   [(SUUIIPhoneProductPageViewController *)self->_iphoneProductPageViewController removeFromParentViewController];
 
   self->_iphoneProductPageViewController = 0;
-  v7 = ISUIMobileStoreUIFramework();
-  v8 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuiiphoneprod.isa v7))];
-  self->_iphoneProductPageViewController = v8;
-  [(SUUIIPhoneProductPageViewController *)v8 setDelegate:self];
+  v9 = ISUIMobileStoreUIFramework(v7, v8);
+  v10 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuiiphoneprod.isa v9))];
+  self->_iphoneProductPageViewController = v10;
+  [(SUUIIPhoneProductPageViewController *)v10 setDelegate:self];
   [(SUUIIPhoneProductPageViewController *)self->_iphoneProductPageViewController _setExistingNavigationItem:[(SUViewController *)self navigationItem]];
   [(SUUIIPhoneProductPageViewController *)self->_iphoneProductPageViewController setClientContext:context];
   iphoneProductPageViewController = self->_iphoneProductPageViewController;
@@ -287,7 +293,8 @@ void __71__SUSKUIStorePageViewController__loadClientContextWithCompletionBlock__
 
 - (void)_showProductPageWithPageDictionary:(id)dictionary
 {
-  if (_UIApplicationUsesLegacyUI())
+  v5 = _UIApplicationUsesLegacyUI();
+  if (v5)
   {
 
     [(SUSKUIStorePageViewController *)self _showRemoteViewControllerWithPageDictionary:dictionary];
@@ -295,26 +302,26 @@ void __71__SUSKUIStorePageViewController__loadClientContextWithCompletionBlock__
 
   else
   {
-    v5 = ISUIMobileStoreUIFramework();
-    v6 = [objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiproductpag.isa v5)];
-    if (v6)
+    v7 = ISUIMobileStoreUIFramework(v5, v6);
+    v8 = [objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiproductpag.isa v7)];
+    if (v8)
     {
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __68__SUSKUIStorePageViewController__showProductPageWithPageDictionary___block_invoke;
-      v7[3] = &unk_1E8167450;
-      v7[4] = self;
-      v7[5] = v6;
-      [(SUSKUIStorePageViewController *)self _loadClientContextWithCompletionBlock:v7];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __68__SUSKUIStorePageViewController__showProductPageWithPageDictionary___block_invoke;
+      v9[3] = &unk_1E8167450;
+      v9[4] = self;
+      v9[5] = v8;
+      [(SUSKUIStorePageViewController *)self _loadClientContextWithCompletionBlock:v9];
     }
   }
 }
 
-uint64_t __68__SUSKUIStorePageViewController__showProductPageWithPageDictionary___block_invoke(uint64_t result, uint64_t a2)
+id *__68__SUSKUIStorePageViewController__showProductPageWithPageDictionary___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _showIPhoneProductPageWithPage:*(result + 40) clientContext:a2];
+    return [result[4] _showIPhoneProductPageWithPage:result[5] clientContext:a2];
   }
 
   return result;
@@ -359,7 +366,7 @@ void *__77__SUSKUIStorePageViewController__showRemoteViewControllerWithPageDicti
 
 - (void)_showStorePageWithPageDictionary:(id)dictionary
 {
-  v5 = ISUIMobileStoreUIFramework();
+  v5 = ISUIMobileStoreUIFramework(self, a2);
   v6 = [objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuistorepaged.isa v5)];
   if (v6)
   {
@@ -373,22 +380,22 @@ void *__77__SUSKUIStorePageViewController__showRemoteViewControllerWithPageDicti
   }
 }
 
-uint64_t __66__SUSKUIStorePageViewController__showStorePageWithPageDictionary___block_invoke(uint64_t result, uint64_t a2)
+void *__66__SUSKUIStorePageViewController__showStorePageWithPageDictionary___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = *(*(result + 32) + 1160);
+    v3 = *(result[4] + 1160);
     if (!v3)
     {
-      v5 = ISUIMobileStoreUIFramework();
-      *(*(v2 + 32) + 1160) = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuistorepagev.isa, v5));
-      [*(*(v2 + 32) + 1160) setClientContext:a2];
-      v3 = *(*(v2 + 32) + 1160);
+      v5 = ISUIMobileStoreUIFramework(0, a2);
+      *(v2[4] + 1160) = objc_alloc_init(ISUIWeakLinkedClassForString(&cfstr_Suuistorepagev.isa, v5));
+      [*(v2[4] + 1160) setClientContext:a2];
+      v3 = *(v2[4] + 1160);
     }
 
-    [v3 setStorePage:*(v2 + 40)];
-    v6 = *(v2 + 32);
+    [v3 setStorePage:v2[5]];
+    v6 = v2[4];
     v7 = v6[145];
 
     return [v6 _setActiveChildViewController:v7];

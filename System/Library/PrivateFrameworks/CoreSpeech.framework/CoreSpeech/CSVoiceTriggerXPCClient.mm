@@ -49,7 +49,7 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
@@ -57,7 +57,7 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[CSVoiceTriggerXPCClient dealloc]";
+      v8 = "[CSVoiceTriggerXPCClient dealloc]";
       _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s disconnect VoiceTriggerXPCClient", buf, 0xCu);
       xpcConnection = self->_xpcConnection;
     }
@@ -67,10 +67,9 @@
     self->_xpcConnection = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = CSVoiceTriggerXPCClient;
-  [(CSVoiceTriggerXPCClient *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = CSVoiceTriggerXPCClient;
+  [(CSVoiceTriggerXPCClient *)&v6 dealloc];
 }
 
 void __34__CSVoiceTriggerXPCClient_connect__block_invoke(uint64_t a1, void *a2)
@@ -136,11 +135,11 @@ void __62__CSVoiceTriggerXPCClient__sendMessage_connection_completion___block_in
   keys[0] = "type";
   values = xpc_int64_create(5);
   v3 = xpc_dictionary_create(keys, &values, 1uLL);
-  *v19 = xmmword_2784C6A30;
-  v18[0] = xpc_int64_create(2);
+  *v18 = xmmword_2784C6A30;
+  v17[0] = xpc_int64_create(2);
   v4 = v3;
-  v18[1] = v4;
-  v5 = xpc_dictionary_create(v19, v18, 2uLL);
+  v17[1] = v4;
+  v5 = xpc_dictionary_create(v18, v17, 2uLL);
   v6 = xpc_connection_send_message_with_reply_sync(self->_xpcConnection, v5);
   v7 = v6;
   if (v6)
@@ -165,9 +164,9 @@ void __62__CSVoiceTriggerXPCClient__sendMessage_connection_completion___block_in
     v11 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315138;
-      v17 = "[CSVoiceTriggerXPCClient fetchVoiceTriggerStats]";
-      _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s ERR: failed to get response !", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CSVoiceTriggerXPCClient fetchVoiceTriggerStats]";
+      _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s ERR: failed to get response !", &v15, 0xCu);
     }
   }
 
@@ -179,26 +178,24 @@ LABEL_10:
   {
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)setRaiseToSpeakBypassing:(BOOL)bypassing timeout:(double)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *keys = xmmword_2784C6A18;
-  v17 = "bypassTimeout";
+  v16 = "bypassTimeout";
   values[0] = xpc_int64_create(4);
   values[1] = xpc_BOOL_create(bypassing);
   values[2] = xpc_double_create(timeout);
   v7 = xpc_dictionary_create(keys, values, 3uLL);
-  *v14 = xmmword_2784C6A30;
-  v13[0] = xpc_int64_create(2);
+  *v13 = xmmword_2784C6A30;
+  v12[0] = xpc_int64_create(2);
   v8 = v7;
-  v13[1] = v8;
-  v9 = xpc_dictionary_create(v14, v13, 2uLL);
-  [(CSVoiceTriggerXPCClient *)self _sendMessage:v9 connection:self->_xpcConnection completion:0, v13[0]];
+  v12[1] = v8;
+  v9 = xpc_dictionary_create(v13, v12, 2uLL);
+  [(CSVoiceTriggerXPCClient *)self _sendMessage:v9 connection:self->_xpcConnection completion:0, v12[0]];
 
   for (i = 1; i != -1; --i)
   {
@@ -207,8 +204,6 @@ LABEL_10:
   for (j = 2; j != -1; --j)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyVoiceTriggeredSiriSessionCancelled
@@ -217,35 +212,33 @@ LABEL_10:
   keys[0] = "type";
   values = xpc_int64_create(2);
   v3 = xpc_dictionary_create(keys, &values, 1uLL);
-  *v9 = xmmword_2784C6A30;
-  v8[0] = xpc_int64_create(2);
+  *v8 = xmmword_2784C6A30;
+  v7[0] = xpc_int64_create(2);
   v4 = v3;
-  v8[1] = v4;
-  v5 = xpc_dictionary_create(v9, v8, 2uLL);
-  [(CSVoiceTriggerXPCClient *)self _sendMessage:v5 connection:self->_xpcConnection completion:0, v8[0]];
+  v7[1] = v4;
+  v5 = xpc_dictionary_create(v8, v7, 2uLL);
+  [(CSVoiceTriggerXPCClient *)self _sendMessage:v5 connection:self->_xpcConnection completion:0, v7[0]];
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPhraseSpotterBypassing:(BOOL)bypassing timeout:(double)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *keys = xmmword_2784C6A00;
-  v17 = "bypassTimeout";
+  v16 = "bypassTimeout";
   values[0] = xpc_int64_create(1);
   values[1] = xpc_BOOL_create(bypassing);
   values[2] = xpc_double_create(timeout);
   v7 = xpc_dictionary_create(keys, values, 3uLL);
-  *v14 = xmmword_2784C6A30;
-  v13[0] = xpc_int64_create(2);
+  *v13 = xmmword_2784C6A30;
+  v12[0] = xpc_int64_create(2);
   v8 = v7;
-  v13[1] = v8;
-  v9 = xpc_dictionary_create(v14, v13, 2uLL);
-  [(CSVoiceTriggerXPCClient *)self _sendMessage:v9 connection:self->_xpcConnection completion:0, v13[0]];
+  v12[1] = v8;
+  v9 = xpc_dictionary_create(v13, v12, 2uLL);
+  [(CSVoiceTriggerXPCClient *)self _sendMessage:v9 connection:self->_xpcConnection completion:0, v12[0]];
 
   for (i = 1; i != -1; --i)
   {
@@ -254,27 +247,25 @@ LABEL_10:
   for (j = 2; j != -1; --j)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableVoiceTrigger:(BOOL)trigger withAssertion:(id)assertion timestamp:(double)timestamp
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   *keys = xmmword_2784C69E0;
-  v19 = *&off_2784C69F0;
+  v18 = *&off_2784C69F0;
   values[0] = xpc_int64_create(3);
   values[1] = xpc_BOOL_create(trigger);
   values[2] = xpc_string_create([assertionCopy UTF8String]);
   values[3] = xpc_double_create(timestamp);
   v9 = xpc_dictionary_create(keys, values, 4uLL);
-  *v16 = xmmword_2784C6A30;
-  v15[0] = xpc_int64_create(2);
+  *v15 = xmmword_2784C6A30;
+  v14[0] = xpc_int64_create(2);
   v10 = v9;
-  v15[1] = v10;
-  v11 = xpc_dictionary_create(v16, v15, 2uLL);
-  [(CSVoiceTriggerXPCClient *)self _sendMessage:v11 connection:self->_xpcConnection completion:0, v15[0]];
+  v14[1] = v10;
+  v11 = xpc_dictionary_create(v15, v14, 2uLL);
+  [(CSVoiceTriggerXPCClient *)self _sendMessage:v11 connection:self->_xpcConnection completion:0, v14[0]];
 
   for (i = 1; i != -1; --i)
   {
@@ -283,8 +274,6 @@ LABEL_10:
   for (j = 3; j != -1; --j)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleListenerDisconnectedError:(id)error
@@ -301,7 +290,7 @@ LABEL_10:
 
 - (void)_handleListenerError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
@@ -312,10 +301,10 @@ LABEL_10:
       goto LABEL_13;
     }
 
-    v13 = 136315394;
-    v14 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
-    v15 = 2050;
-    v16 = 0;
+    v12 = 136315394;
+    v13 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
+    v14 = 2050;
+    v15 = 0;
     v8 = "%s cannot handle error : error = %{public}p";
     goto LABEL_15;
   }
@@ -329,33 +318,31 @@ LABEL_10:
       goto LABEL_13;
     }
 
-    v13 = 136315394;
-    v14 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
-    v15 = 2082;
-    v16 = string;
+    v12 = 136315394;
+    v13 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
+    v14 = 2082;
+    v15 = string;
     v8 = "%s connection error: %{public}s";
 LABEL_15:
-    _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, v8, &v13, 0x16u);
+    _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, v8, &v12, 0x16u);
     goto LABEL_13;
   }
 
   v7 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CSVoiceTriggerXPCClient _handleListenerError:]";
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v12, 0xCu);
   }
 
   [(CSVoiceTriggerXPCClient *)self _handleListenerDisconnectedError:v5];
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleListenerEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = eventCopy;
   if (eventCopy)
@@ -369,13 +356,13 @@ LABEL_13:
     v6 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSVoiceTriggerXPCClient _handleListenerEvent:]";
+      v11 = 136315138;
+      v12 = "[CSVoiceTriggerXPCClient _handleListenerEvent:]";
       v7 = "%s ignore unknown types of message ";
       v8 = v6;
       v9 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v12, v9);
+      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v11, v9);
     }
   }
 
@@ -384,10 +371,10 @@ LABEL_7:
     v10 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[CSVoiceTriggerXPCClient _handleListenerEvent:]";
-      v14 = 2050;
-      v15 = 0;
+      v11 = 136315394;
+      v12 = "[CSVoiceTriggerXPCClient _handleListenerEvent:]";
+      v13 = 2050;
+      v14 = 0;
       v7 = "%s cannot handle event : event = %{public}p";
       v8 = v10;
       v9 = 22;
@@ -396,8 +383,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

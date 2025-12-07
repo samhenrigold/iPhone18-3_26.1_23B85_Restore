@@ -45,47 +45,45 @@
 
 - (uint64_t)isSeedingComplete
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    bzero(v4, 0xD0uLL);
-    _LSDatabaseGetHeader(v1, v4);
-    if ((v5 & 2) != 0)
+    bzero(v3, 0xD0uLL);
+    _LSDatabaseGetHeader(v3, v1);
+    if ((v4 & 2) != 0)
     {
       v2 = _LSDatabaseGetLog();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        *v4 = 0;
-        _os_log_error_impl(&dword_18162D000, v2, OS_LOG_TYPE_ERROR, "Database seeding is incomplete, need to rebuild", v4, 2u);
+        LOWORD(v3[0]) = 0;
+        _os_log_error_impl(&dword_18162D000, v2, OS_LOG_TYPE_ERROR, "Database seeding is incomplete, need to rebuild", v3, 2u);
       }
 
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)isSeeded
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v14 = 0;
-    goto LABEL_40;
+    return 0;
   }
 
+  memset(v21, 0, sizeof(v21));
   memset(v20, 0, sizeof(v20));
-  memset(v19, 0, sizeof(v19));
-  _LSDatabaseGetHeader(self, v19);
-  LSDBHeader::GetCurrentBuildVersion(&__p);
+  _LSDatabaseGetHeader(v20, self);
+  LSDBHeader::GetCurrentBuildVersion(&__p, v1, v2);
   size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -97,7 +95,7 @@
     _LSDatabaseGetLog();
     objc_claimAutoreleasedReturnValue();
     [_LSDatabase isSeeded];
-    v11 = v22;
+    v13 = v23;
 LABEL_36:
 
     goto LABEL_37;
@@ -105,39 +103,39 @@ LABEL_36:
 
   *__dst = 0;
   *&__dst[8] = 0;
-  strlcpy(__dst, v20, 0x10uLL);
-  std::string::basic_string[abi:nn200100]<0>(&v22, __dst);
-  v2 = BYTE7(v23);
-  if ((SBYTE7(v23) & 0x80u) == 0)
+  strlcpy(__dst, v21, 0x10uLL);
+  std::string::basic_string[abi:nn200100]<0>(&v23, __dst);
+  v4 = BYTE7(v24);
+  if ((SBYTE7(v24) & 0x80u) == 0)
   {
-    v3 = BYTE7(v23);
+    v5 = BYTE7(v24);
   }
 
   else
   {
-    v3 = *(&v22 + 1);
+    v5 = *(&v23 + 1);
   }
 
-  v4 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v6 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v4 = __p.__r_.__value_.__l.__size_;
+    v6 = __p.__r_.__value_.__l.__size_;
   }
 
-  if (v3 == v4)
+  if (v5 == v6)
   {
-    v5 = (SBYTE7(v23) & 0x80u) == 0 ? &v22 : v22;
-    v6 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-    if (!memcmp(v5, v6, v3))
+    v7 = (SBYTE7(v24) & 0x80u) == 0 ? &v23 : v23;
+    v8 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+    if (!memcmp(v7, v8, v5))
     {
-      v10 = 0;
-      if (v2 < 0)
+      v12 = 0;
+      if (v4 < 0)
       {
         goto LABEL_32;
       }
 
 LABEL_29:
-      if (v10)
+      if (v12)
       {
         goto LABEL_37;
       }
@@ -146,10 +144,10 @@ LABEL_29:
     }
   }
 
-  if (!v3)
+  if (!v5)
   {
-    v10 = 1;
-    if (v2 < 0)
+    v12 = 1;
+    if (v4 < 0)
     {
       goto LABEL_32;
     }
@@ -157,13 +155,13 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v7 = _LSDatabaseGetLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = _LSDatabaseGetLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = &v22;
-    if (SBYTE7(v23) < 0)
+    v10 = &v23;
+    if (SBYTE7(v24) < 0)
     {
-      v8 = v22;
+      v10 = v23;
     }
 
     p_p = &__p;
@@ -173,63 +171,61 @@ LABEL_29:
     }
 
     *__dst = 136446466;
-    *&__dst[4] = v8;
+    *&__dst[4] = v10;
     *&__dst[12] = 2082;
     *&__dst[14] = p_p;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Local database thinks system build version is %{public}s, but the OS really is %{public}s.", __dst, 0x16u);
+    _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Local database thinks system build version is %{public}s, but the OS really is %{public}s.", __dst, 0x16u);
   }
 
-  v10 = 1;
-  if ((BYTE7(v23) & 0x80) == 0)
+  v12 = 1;
+  if ((BYTE7(v24) & 0x80) == 0)
   {
     goto LABEL_29;
   }
 
 LABEL_32:
-  operator delete(v22);
-  if (v10)
+  operator delete(v23);
+  if (v12)
   {
 LABEL_37:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_38;
   }
 
 LABEL_33:
-  _LSGetCurrentSystemVersion(v18);
-  v22 = *(v19 + 8);
-  v23 = *(&v19[1] + 8);
-  *__dst = v18[0];
-  *&__dst[16] = v18[1];
-  if (_LSVersionNumberCompare(&v22, __dst))
+  _LSGetCurrentSystemVersion(v19);
+  v23 = *(v20 + 8);
+  v24 = *(&v20[1] + 8);
+  *__dst = v19[0];
+  *&__dst[16] = v19[1];
+  if (_LSVersionNumberCompare(&v23, __dst))
   {
-    v11 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(v19 + 8);
-      v23 = *(&v19[1] + 8);
-      v12 = _LSVersionNumberGetStringRepresentation(&v22);
-      _LSGetCurrentSystemVersion(&v22);
-      v13 = _LSVersionNumberGetStringRepresentation(&v22);
+      v23 = *(v20 + 8);
+      v24 = *(&v20[1] + 8);
+      v14 = _LSVersionNumberGetStringRepresentation(&v23);
+      _LSGetCurrentSystemVersion(&v23);
+      v15 = _LSVersionNumberGetStringRepresentation(&v23);
       *__dst = 138543618;
-      *&__dst[4] = v12;
+      *&__dst[4] = v14;
       *&__dst[12] = 2114;
-      *&__dst[14] = v13;
-      _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "Local database thinks system version is %{public}@, but the OS really is %{public}@.", __dst, 0x16u);
+      *&__dst[14] = v15;
+      _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "Local database thinks system version is %{public}@, but the OS really is %{public}@.", __dst, 0x16u);
     }
 
     goto LABEL_36;
   }
 
-  v14 = 1;
+  v16 = 1;
 LABEL_38:
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-LABEL_40:
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v16;
 }
 
 - (id)_init
@@ -309,68 +305,25 @@ LABEL_9:
 
 - (void)setSeeded:(_LSDatabase *)seeded
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (seeded)
   {
-    v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    memset(v23, 0, sizeof(v23));
-    _LSDatabaseGetHeader(seeded, v23);
+    v26 = 0u;
+    memset(v24, 0, sizeof(v24));
+    _LSDatabaseGetHeader(v24, seeded);
     if (a2)
     {
-      _LSGetCurrentSystemVersion((v23 + 8));
-      LSDBHeader::GetCurrentBuildVersion(__p);
-      v25 = 0uLL;
-      if ((SBYTE7(v11) & 0x80u) == 0)
-      {
-        v4 = __p;
-      }
-
-      else
-      {
-        v4 = __p[0];
-      }
-
-      strlcpy(&v25, v4, 0x10uLL);
-      if (SBYTE7(v11) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      LSDBHeader::GetCurrentModelCode(__p);
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      if ((SBYTE7(v11) & 0x80u) == 0)
-      {
-        v5 = __p;
-      }
-
-      else
-      {
-        v5 = __p[0];
-      }
-
-      strlcpy(&v26, v5, 0x40uLL);
-      if (SBYTE7(v11) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      _LSGetCurrentCryptexVersion(__p);
-      *(&v23[2] + 8) = *__p;
-      *(&v23[3] + 8) = v11;
-      LSDBHeader::GetCurrentCryptexVersion(__p);
-      *(&v23[4] + 1) = 0;
-      *&v24 = 0;
-      if ((SBYTE7(v11) & 0x80u) == 0)
+      _LSGetCurrentSystemVersion((v24 + 8));
+      LSDBHeader::GetCurrentBuildVersion(__p, v4, v5);
+      v26 = 0uLL;
+      if ((SBYTE7(v12) & 0x80u) == 0)
       {
         v6 = __p;
       }
@@ -379,14 +332,19 @@ LABEL_9:
       {
         v6 = __p[0];
       }
-    }
 
-    else
-    {
-      memset(v23 + 8, 0, 32);
-      std::string::basic_string[abi:nn200100]<0>(__p, "");
-      v25 = 0uLL;
-      if ((SBYTE7(v11) & 0x80u) == 0)
+      strlcpy(&v26, v6, 0x10uLL);
+      if (SBYTE7(v12) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      LSDBHeader::GetCurrentModelCode(__p);
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      if ((SBYTE7(v12) & 0x80u) == 0)
       {
         v7 = __p;
       }
@@ -396,18 +354,19 @@ LABEL_9:
         v7 = __p[0];
       }
 
-      strlcpy(&v25, v7, 0x10uLL);
-      if (SBYTE7(v11) < 0)
+      strlcpy(&v27, v7, 0x40uLL);
+      if (SBYTE7(v12) < 0)
       {
         operator delete(__p[0]);
       }
 
-      std::string::basic_string[abi:nn200100]<0>(__p, "");
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      if ((SBYTE7(v11) & 0x80u) == 0)
+      _LSGetCurrentCryptexVersion(__p);
+      *(&v24[2] + 8) = *__p;
+      *(&v24[3] + 8) = v12;
+      LSDBHeader::GetCurrentCryptexVersion(__p);
+      *(&v24[4] + 1) = 0;
+      *&v25 = 0;
+      if ((SBYTE7(v12) & 0x80u) == 0)
       {
         v8 = __p;
       }
@@ -416,51 +375,86 @@ LABEL_9:
       {
         v8 = __p[0];
       }
+    }
 
-      strlcpy(&v26, v8, 0x40uLL);
-      if (SBYTE7(v11) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      memset(&v23[2] + 8, 0, 32);
+    else
+    {
+      memset(v24 + 8, 0, 32);
       std::string::basic_string[abi:nn200100]<0>(__p, "");
-      *(&v23[4] + 1) = 0;
-      *&v24 = 0;
-      if ((SBYTE7(v11) & 0x80u) == 0)
+      v26 = 0uLL;
+      if ((SBYTE7(v12) & 0x80u) == 0)
       {
-        v6 = __p;
+        v9 = __p;
       }
 
       else
       {
-        v6 = __p[0];
+        v9 = __p[0];
+      }
+
+      strlcpy(&v26, v9, 0x10uLL);
+      if (SBYTE7(v12) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      std::string::basic_string[abi:nn200100]<0>(__p, "");
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      if ((SBYTE7(v12) & 0x80u) == 0)
+      {
+        v10 = __p;
+      }
+
+      else
+      {
+        v10 = __p[0];
+      }
+
+      strlcpy(&v27, v10, 0x40uLL);
+      if (SBYTE7(v12) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      memset(&v24[2] + 8, 0, 32);
+      std::string::basic_string[abi:nn200100]<0>(__p, "");
+      *(&v24[4] + 1) = 0;
+      *&v25 = 0;
+      if ((SBYTE7(v12) & 0x80u) == 0)
+      {
+        v8 = __p;
+      }
+
+      else
+      {
+        v8 = __p[0];
       }
     }
 
-    strlcpy(&v23[4] + 8, v6, 0x10uLL);
-    if (SBYTE7(v11) < 0)
+    strlcpy(&v24[4] + 8, v8, 0x10uLL);
+    if (SBYTE7(v12) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v20 = v29;
     v21 = v30;
     v22 = v31;
-    v16 = v25;
+    v23 = v32;
     v17 = v26;
     v18 = v27;
     v19 = v28;
-    v12 = v23[2];
-    v13 = v23[3];
-    v14 = v23[4];
-    v15 = v24;
-    *__p = v23[0];
-    v11 = v23[1];
-    _LSDatabaseSetHeader(seeded);
+    v20 = v29;
+    v13 = v24[2];
+    v14 = v24[3];
+    v15 = v24[4];
+    v16 = v25;
+    *__p = v24[0];
+    v12 = v24[1];
+    _LSDatabaseSetHeader(seeded, __p);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)accessContext
@@ -503,23 +497,22 @@ LABEL_9:
 - (BOOL)cryptexContentChanged
 {
   selfCopy = self;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    bzero(v7, 0xD0uLL);
-    _LSDatabaseGetHeader(selfCopy, v7);
-    _LSGetCurrentCryptexVersion(v6);
-    v5[0] = v8[0];
-    v5[1] = v8[1];
-    v2 = _LSVersionNumberCompare(v6, v5);
+    bzero(v6, 0xD0uLL);
+    _LSDatabaseGetHeader(v6, selfCopy);
+    _LSGetCurrentCryptexVersion(v5);
+    v4[0] = v7[0];
+    v4[1] = v7[1];
+    v2 = _LSVersionNumberCompare(v5, v4);
     selfCopy = v2 != 0;
     if (v2)
     {
-      _LSGetCurrentCryptexVersion(v8);
+      _LSGetCurrentCryptexVersion(v7);
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -568,7 +561,8 @@ LABEL_9:
   OUTLINED_FUNCTION_14();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_10_0(&dword_18162D000, v3, v4, "Could not get OS build version.", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_10_0(&dword_18162D000, v3, v4, "Could not get OS build version.", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;

@@ -87,37 +87,39 @@ LABEL_12:
 
 - (id)atx_dataDetectors
 {
-  if (![(NSString *)self length])
+  v3 = [(NSString *)self length];
+  if (!v3)
   {
 LABEL_11:
-    v8 = &__NSArray0__struct;
+    v10 = &__NSArray0__struct;
     goto LABEL_18;
   }
 
-  v3 = sub_100001940();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = sub_100001940(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100018248();
   }
 
-  v12 = 0;
-  v4 = DDScannerCreate();
-  if (!v4)
+  v14 = 0;
+  v5 = DDScannerCreate();
+  if (!v5)
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100001940(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10001833C(&v12, v9);
+      sub_10001833C(&v14, v11);
     }
 
     goto LABEL_11;
   }
 
-  v5 = v4;
-  if (!DDScannerScanString())
+  v6 = v5;
+  v7 = DDScannerScanString();
+  if (!v7)
   {
-    v10 = sub_100001940();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100001940(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_1000182FC();
     }
@@ -125,29 +127,29 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  v6 = DDScannerCopyResultsWithOptions();
-  if (!v6)
+  v8 = DDScannerCopyResultsWithOptions();
+  if (!v8)
   {
-    v10 = sub_100001940();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100001940(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_1000182BC();
     }
 
 LABEL_16:
 
-    v8 = 0;
+    v10 = 0;
     goto LABEL_17;
   }
 
-  v7 = v6;
-  v8 = sub_10001781C(v6, self, 0);
-  CFRelease(v7);
+  v9 = v8;
+  v10 = sub_10001781C(v8, self, 0);
+  CFRelease(v9);
 LABEL_17:
-  CFRelease(v5);
+  CFRelease(v6);
 LABEL_18:
 
-  return v8;
+  return v10;
 }
 
 - (id)atx_phoneNumberFromTelURLString
@@ -250,22 +252,22 @@ LABEL_6:
 
     if (v5)
     {
-      v6 = [ATXApplicationRecord localizedNameForBundle:self];
-      v7 = v6;
-      if (v6)
+      v7 = [ATXApplicationRecord localizedNameForBundle:self];
+      v8 = v7;
+      if (v7)
       {
-        v7 = v6;
-        v3 = v7;
+        v8 = v7;
+        v3 = v8;
       }
 
       else
       {
-        v8 = sub_100001940();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v9 = sub_100001940(0);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v10 = 138412290;
+          v11 = 138412290;
           selfCopy2 = self;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "LSApplicationRecord cannot find localizedName for bundleID even though it is installed: %@", &v10, 0xCu);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "LSApplicationRecord cannot find localizedName for bundleID even though it is installed: %@", &v11, 0xCu);
         }
 
         v3 = 0;
@@ -274,12 +276,12 @@ LABEL_6:
 
     else
     {
-      v7 = sub_100001940();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = sub_100001940(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
+        v11 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "bundleID has no installed application: %@", &v10, 0xCu);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "bundleID has no installed application: %@", &v11, 0xCu);
       }
 
       v3 = 0;

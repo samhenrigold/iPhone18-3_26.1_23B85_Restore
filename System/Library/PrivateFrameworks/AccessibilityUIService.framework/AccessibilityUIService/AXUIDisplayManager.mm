@@ -11,11 +11,14 @@
 - (BOOL)sceneRequestedForSceneClientIdentifier:(id)identifier;
 - (NSString)debugDescription;
 - (double)_originalDurationForRotationFromInterfaceOrientation:(int64_t)orientation toInterfaceOrientation:(int64_t)interfaceOrientation withAdjustedDuration:(double)result;
+- (double)desiredWindowLevelForService:(id)service forContentViewController:(id)controller userInteractionEnabled:(BOOL)enabled;
 - (id)_contentViewControllersWithUserInteractionEnabled:(BOOL)enabled forService:(id)service createIfNeeded:(BOOL)needed;
 - (id)_gravityBehaviorForNubbit:(id)nubbit velocity:(CGPoint)velocity boundingView:(id)view;
 - (id)_nubbitContextForGestureRecognizer:(id)recognizer;
 - (id)_transactionIdentifierForDisplayingContentViewController:(id)controller service:(id)service;
+- (id)_windowWithUserInteractionEnabled:(BOOL)enabled windowLevel:(double)level createIfNeeded:(BOOL)needed purposeIdentifier:(id)identifier;
 - (id)_windowWithUserInteractionEnabled:(BOOL)enabled windowLevel:(double)level createIfNeeded:(BOOL)needed purposeIdentifier:(id)identifier userInterfaceStyle:(int64_t)style windowScene:(id)scene savedWindowScene:(id)windowScene;
+- (id)contentViewControllersWithUserInteractionEnabled:(BOOL)enabled forService:(id)service;
 - (id)showAlertWithText:(id)text subtitleText:(id)subtitleText iconImage:(id)image type:(unint64_t)type forService:(id)service;
 - (id)showAlertWithText:(id)text subtitleText:(id)subtitleText iconImage:(id)image type:(unint64_t)type priority:(unint64_t)priority duration:(double)duration userInfo:(id)info forService:(id)self0;
 - (id)windowSceneForSceneClientIdentifier:(id)identifier external:(BOOL)external;
@@ -54,6 +57,8 @@
 - (void)pinNubbitToEdge:(id)edge;
 - (void)registerNubbit:(id)nubbit delegate:(id)delegate;
 - (void)removeAddContentViewControllerBlockForObjectKey:(id)key;
+- (void)removeAllContentViewControllersForService:(id)service withUserInteractionEnabled:(BOOL)enabled completion:(id)completion;
+- (void)removeContentViewController:(id)controller withUserInteractionEnabled:(BOOL)enabled forService:(id)service context:(void *)context completion:(id)completion;
 - (void)removeWindowSceneForSceneClientIdentifier:(id)identifier external:(BOOL)external;
 - (void)saveAddContentViewControllerBlock:(id)block forObjectKey:(id)key forSceneClientIdentifier:(id)identifier;
 - (void)saveWindowScene:(id)scene forSceneClientIdentifier:(id)identifier external:(BOOL)external;
@@ -237,6 +242,14 @@ double __45__AXUIDisplayManager_initWithServiceManager___block_invoke_5(uint64_t
   [(AXUIDisplayManager *)&v6 dealloc];
 }
 
+- (id)contentViewControllersWithUserInteractionEnabled:(BOOL)enabled forService:(id)service
+{
+  v4 = [(AXUIDisplayManager *)self _contentViewControllersWithUserInteractionEnabled:enabled forService:service createIfNeeded:0];
+  v5 = [MEMORY[0x277CBEA60] arrayWithArray:v4];
+
+  return v5;
+}
+
 - (BOOL)_platformShouldUseScenes
 {
   if (_platformShouldUseScenes_onceToken != -1)
@@ -247,40 +260,35 @@ double __45__AXUIDisplayManager_initWithServiceManager___block_invoke_5(uint64_t
   return _platformShouldUseScenes__UseScenes;
 }
 
-void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
+void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277D76620];
-  v1 = *MEMORY[0x277D76620];
+  v7 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = *v0;
-    v3 = [objc_opt_class() usesScenes];
+    v2 = [objc_opt_class() usesScenes];
   }
 
   else
   {
-    v3 = 1;
+    v2 = 1;
   }
 
-  _platformShouldUseScenes__UseScenes = v3;
-  v4 = AXLogUI();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _platformShouldUseScenes__UseScenes = v2;
+  v3 = AXLogUI();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:_platformShouldUseScenes__UseScenes];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_23DBD1000, v4, OS_LOG_TYPE_DEFAULT, "AXUIServer will request scenes for its UI: %@", &v7, 0xCu);
+    v4 = [MEMORY[0x277CCABB0] numberWithBool:_platformShouldUseScenes__UseScenes];
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_23DBD1000, v3, OS_LOG_TYPE_DEFAULT, "AXUIServer will request scenes for its UI: %@", &v5, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addContentViewController:(id)controller withUserInteractionEnabled:(BOOL)enabled forService:(id)service forSceneClientIdentifier:(id)identifier context:(void *)context userInterfaceStyle:(int64_t)style forWindowScene:(id)scene spatialConfiguration:(id)self0 completion:(id)self1
 {
   enabledCopy = enabled;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   serviceCopy = service;
   identifierCopy = identifier;
@@ -302,17 +310,17 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 134219266;
-    v38 = controllerCopy;
-    v39 = 2112;
-    v40 = objc_opt_class();
-    v41 = 2112;
-    v42 = serviceCopy;
-    v43 = 2112;
-    v44 = identifierCopy;
-    v45 = 2048;
-    v46 = sceneCopy;
-    v47 = 2048;
-    v48 = v22;
+    v37 = controllerCopy;
+    v38 = 2112;
+    v39 = objc_opt_class();
+    v40 = 2112;
+    v41 = serviceCopy;
+    v42 = 2112;
+    v43 = identifierCopy;
+    v44 = 2048;
+    v45 = sceneCopy;
+    v46 = 2048;
+    v47 = v22;
     _os_log_impl(&dword_23DBD1000, v23, OS_LOG_TYPE_INFO, "Adding contentVC=%p %@ service=%@ sceneClientIdentifier:%@ windowScene=%p, savedWindowScene=%p", buf, 0x3Eu);
   }
 
@@ -333,27 +341,27 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
     v26 = v25;
     if (controllerCopy && ([v25 containsObject:controllerCopy] & 1) == 0)
     {
-      v32 = configurationCopy;
+      v31 = configurationCopy;
       [v26 addObject:controllerCopy];
       [(AXUIDisplayManager *)self desiredWindowLevelForService:serviceCopy forContentViewController:controllerCopy userInteractionEnabled:enabledCopy];
       v28 = v27;
       v29 = objc_opt_class();
       v30 = NSStringFromClass(v29);
-      v34 = [(AXUIDisplayManager *)self _windowWithUserInteractionEnabled:enabledCopy windowLevel:1 createIfNeeded:v30 purposeIdentifier:style userInterfaceStyle:sceneCopy windowScene:v22 savedWindowScene:v28];
+      v33 = [(AXUIDisplayManager *)self _windowWithUserInteractionEnabled:enabledCopy windowLevel:1 createIfNeeded:v30 purposeIdentifier:style userInterfaceStyle:sceneCopy windowScene:v22 savedWindowScene:v28];
 
       if (enabledCopy)
       {
-        [v34 makeKeyAndVisible];
+        [v33 makeKeyAndVisible];
       }
 
       else
       {
-        [v34 setHidden:0];
+        [v33 setHidden:0];
       }
 
-      [(AXUIDisplayManager *)self _addContentViewController:controllerCopy toWindow:v34 forService:serviceCopy context:context completion:completionCopy];
+      [(AXUIDisplayManager *)self _addContentViewController:controllerCopy toWindow:v33 forService:serviceCopy context:context completion:completionCopy];
 
-      configurationCopy = v32;
+      configurationCopy = v31;
     }
 
     else if (completionCopy)
@@ -366,14 +374,12 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
   {
     [(AXUIDisplayManager *)self waitForSceneAddContentViewController:controllerCopy withUserInteractionEnabled:enabledCopy forService:serviceCopy forSceneClientIdentifier:identifierCopy context:context userInterfaceStyle:style forWindowScene:0 spatialConfiguration:configurationCopy completion:completionCopy];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForSceneAddContentViewController:(id)controller withUserInteractionEnabled:(BOOL)enabled forService:(id)service forSceneClientIdentifier:(id)identifier context:(void *)context userInterfaceStyle:(int64_t)style forWindowScene:(id)scene spatialConfiguration:(id)self0 completion:(id)self1
 {
   enabledCopy = enabled;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   serviceCopy = service;
   identifierCopy = identifier;
@@ -385,22 +391,22 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
   aBlock[1] = 3221225472;
   aBlock[2] = __196__AXUIDisplayManager_waitForSceneAddContentViewController_withUserInteractionEnabled_forService_forSceneClientIdentifier_context_userInterfaceStyle_forWindowScene_spatialConfiguration_completion___block_invoke;
   aBlock[3] = &unk_278BF33A8;
-  objc_copyWeak(v47, &location);
+  objc_copyWeak(v46, &location);
   v22 = controllerCopy;
-  v41 = v22;
-  v48 = enabledCopy;
-  v38 = serviceCopy;
-  v42 = v38;
+  v40 = v22;
+  v47 = enabledCopy;
+  v37 = serviceCopy;
+  v41 = v37;
   v23 = identifierCopy;
-  v43 = v23;
-  v47[1] = context;
-  v47[2] = style;
+  v42 = v23;
+  v46[1] = context;
+  v46[2] = style;
   v24 = sceneCopy;
-  v44 = v24;
+  v43 = v24;
   v25 = configurationCopy;
-  v45 = v25;
+  v44 = v25;
   v26 = completionCopy;
-  v46 = v26;
+  v45 = v26;
   v27 = _Block_copy(aBlock);
   v28 = [(AXUIDisplayManager *)self sceneRequestedForSceneClientIdentifier:v23];
   [(AXUIDisplayManager *)self saveAddContentViewControllerBlock:v27 forObjectKey:v22 forSceneClientIdentifier:v23];
@@ -408,7 +414,7 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
   if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v51 = v22;
+    v50 = v22;
     _os_log_impl(&dword_23DBD1000, v29, OS_LOG_TYPE_INFO, "Tried to add %@ before a scene was connected, queuing for later.", buf, 0xCu);
   }
 
@@ -420,7 +426,7 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
 
     if (v32)
     {
-      [(AXUIDisplayManager *)self desiredWindowLevelForService:v38 forContentViewController:v22 userInteractionEnabled:enabledCopy];
+      [(AXUIDisplayManager *)self desiredWindowLevelForService:v37 forContentViewController:v22 userInteractionEnabled:enabledCopy];
       v34 = v33;
       v35 = +[AXUIServiceManager sharedServiceManager];
       delegate2 = [v35 delegate];
@@ -428,16 +434,56 @@ void __46__AXUIDisplayManager__platformShouldUseScenes__block_invoke()
     }
   }
 
-  objc_destroyWeak(v47);
+  objc_destroyWeak(v46);
   objc_destroyWeak(&location);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __196__AXUIDisplayManager_waitForSceneAddContentViewController_withUserInteractionEnabled_forService_forSceneClientIdentifier_context_userInterfaceStyle_forWindowScene_spatialConfiguration_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   [WeakRetained addContentViewController:*(a1 + 32) withUserInteractionEnabled:*(a1 + 104) forService:*(a1 + 40) forSceneClientIdentifier:*(a1 + 48) context:*(a1 + 88) userInterfaceStyle:*(a1 + 96) forWindowScene:*(a1 + 56) spatialConfiguration:*(a1 + 64) completion:*(a1 + 72)];
+}
+
+- (void)removeContentViewController:(id)controller withUserInteractionEnabled:(BOOL)enabled forService:(id)service context:(void *)context completion:(id)completion
+{
+  enabledCopy = enabled;
+  controllerCopy = controller;
+  serviceCopy = service;
+  completionCopy = completion;
+  [(AXUIDisplayManager *)self removeAddContentViewControllerBlockForObjectKey:controllerCopy];
+  v15 = [(AXUIDisplayManager *)self _contentViewControllersWithUserInteractionEnabled:enabledCopy forService:serviceCopy createIfNeeded:0];
+  v16 = v15;
+  if (!v15 || controllerCopy && [v15 containsObject:controllerCopy])
+  {
+    [v16 removeObject:controllerCopy];
+    if (![v16 count])
+    {
+      [(AXUIDisplayManager *)self _disposeOfContentViewControllersWithUserInteractionEnabled:enabledCopy forService:serviceCopy];
+    }
+
+    if ([controllerCopy conformsToProtocol:&unk_285014120] && (objc_opt_respondsToSelector() & 1) != 0)
+    {
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __107__AXUIDisplayManager_removeContentViewController_withUserInteractionEnabled_forService_context_completion___block_invoke;
+      v17[3] = &unk_278BF33D0;
+      v17[4] = self;
+      v18 = controllerCopy;
+      v19 = serviceCopy;
+      v20 = completionCopy;
+      [v18 transitionOutWithContext:context completion:v17];
+    }
+
+    else
+    {
+      [(AXUIDisplayManager *)self _removeContentViewController:controllerCopy forService:serviceCopy completion:completionCopy];
+    }
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 1);
+  }
 }
 
 - (id)showAlertWithText:(id)text subtitleText:(id)subtitleText iconImage:(id)image type:(unint64_t)type forService:(id)service
@@ -453,7 +499,7 @@ void __196__AXUIDisplayManager_waitForSceneAddContentViewController_withUserInte
 
 - (id)showAlertWithText:(id)text subtitleText:(id)subtitleText iconImage:(id)image type:(unint64_t)type priority:(unint64_t)priority duration:(double)duration userInfo:(id)info forService:(id)self0
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   textCopy = text;
   subtitleTextCopy = subtitleText;
   imageCopy = image;
@@ -484,7 +530,7 @@ LABEL_13:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = serviceCopy;
+      v37 = serviceCopy;
       v30 = "Cannot show alert service does not conform to AXUIService: %@";
       v31 = v29;
       v32 = 12;
@@ -539,7 +585,6 @@ LABEL_13:
   }
 
 LABEL_16:
-  v35 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }
@@ -693,7 +738,7 @@ uint64_t __57__AXUIDisplayManager_hideAlertWithIdentifier_forService___block_inv
   return v2;
 }
 
-uint64_t __38__AXUIDisplayManager_allWindowsHidden__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__38__AXUIDisplayManager_allWindowsHidden__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isHidden];
   *(*(*(a1 + 32) + 8) + 24) &= result;
@@ -707,7 +752,7 @@ uint64_t __38__AXUIDisplayManager_allWindowsHidden__block_invoke(uint64_t a1, ui
 
 - (void)_enumerateWindowsUsingBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   array = [MEMORY[0x277CBEB18] array];
   activeWindows = [(AXUIDisplayManager *)self activeWindows];
@@ -718,37 +763,37 @@ uint64_t __38__AXUIDisplayManager_allWindowsHidden__block_invoke(uint64_t a1, ui
   allValues2 = [passiveWindows allValues];
   [array addObjectsFromArray:allValues2];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = array;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v11)
   {
-    v12 = *v20;
+    v12 = *v19;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v20 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v14 = *(*(&v19 + 1) + 8 * v13);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke;
-      v16[3] = &unk_278BF3448;
-      v17 = blockCopy;
-      v18 = &v23;
-      [v14 enumerateKeysAndObjectsUsingBlock:v16];
-      LOBYTE(v14) = *(v24 + 24);
+      v14 = *(*(&v18 + 1) + 8 * v13);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke;
+      v15[3] = &unk_278BF3448;
+      v16 = blockCopy;
+      v17 = &v22;
+      [v14 enumerateKeysAndObjectsUsingBlock:v15];
+      LOBYTE(v14) = *(v23 + 24);
 
       if (v14)
       {
@@ -757,7 +802,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -768,8 +813,7 @@ LABEL_3:
     }
   }
 
-  _Block_object_dispose(&v23, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -783,11 +827,22 @@ uint64_t __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke(uin
   return result;
 }
 
+- (id)_windowWithUserInteractionEnabled:(BOOL)enabled windowLevel:(double)level createIfNeeded:(BOOL)needed purposeIdentifier:(id)identifier
+{
+  neededCopy = needed;
+  enabledCopy = enabled;
+  identifierCopy = identifier;
+  v11 = [(AXUIDisplayManager *)self windowSceneForSceneClientIdentifier:0 external:0];
+  v12 = [(AXUIDisplayManager *)self _windowWithUserInteractionEnabled:enabledCopy windowLevel:neededCopy createIfNeeded:identifierCopy purposeIdentifier:0 userInterfaceStyle:0 windowScene:v11 savedWindowScene:level];
+
+  return v12;
+}
+
 - (id)_windowWithUserInteractionEnabled:(BOOL)enabled windowLevel:(double)level createIfNeeded:(BOOL)needed purposeIdentifier:(id)identifier userInterfaceStyle:(int64_t)style windowScene:(id)scene savedWindowScene:(id)windowScene
 {
   neededCopy = needed;
   enabledCopy = enabled;
-  v66 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   sceneCopy = scene;
   windowSceneCopy = windowScene;
@@ -800,7 +855,7 @@ uint64_t __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke(uin
 
   v20 = NSStringFromSelector(*v18);
   style = [MEMORY[0x277CCACA8] stringWithFormat:@"%f-%ld", *&v19, style];
-  v60 = v20;
+  v53 = v20;
   v22 = [(AXUIDisplayManager *)self valueForKey:v20];
   _sceneIdentifier = [sceneCopy _sceneIdentifier];
   if (!_sceneIdentifier)
@@ -817,7 +872,7 @@ uint64_t __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke(uin
     }
   }
 
-  v61 = windowSceneCopy;
+  v54 = windowSceneCopy;
   v25 = [v22 objectForKey:_sceneIdentifier];
   v26 = [v25 objectForKey:style];
 
@@ -834,94 +889,75 @@ uint64_t __50__AXUIDisplayManager__enumerateWindowsUsingBlock___block_invoke(uin
   if (v27)
   {
     v28 = identifierCopy;
-    goto LABEL_40;
+    goto LABEL_35;
   }
 
   objc_opt_class();
   objc_opt_class();
-  _platformShouldUseScenes = [(AXUIDisplayManager *)self _platformShouldUseScenes];
-  v30 = off_278BF29C0;
-  v31 = !_platformShouldUseScenes;
-  if (!_platformShouldUseScenes)
-  {
-    v30 = off_278BF2A30;
-  }
-
-  v32 = *v30;
-  if (v31)
-  {
-    v33 = &off_278BF2A38;
-  }
-
-  else
-  {
-    v33 = off_278BF2A08;
-  }
-
-  v34 = objc_opt_class();
-  v35 = *v33;
-  v36 = objc_opt_class();
+  [(AXUIDisplayManager *)self _platformShouldUseScenes];
+  v29 = objc_opt_class();
+  v30 = objc_opt_class();
   if (enabledCopy)
   {
-    v36 = v34;
+    v30 = v29;
   }
 
   if (sceneCopy)
   {
-    v26 = [[v36 alloc] initWithWindowScene:sceneCopy];
-    v37 = AXLogUI();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v26 = [[v30 alloc] initWithWindowScene:sceneCopy];
+    v31 = AXLogUI();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v63 = sceneCopy;
-      v64 = 2112;
-      v65 = v26;
-      v38 = "Made window with external scene: %@ %@";
-LABEL_26:
-      v41 = v37;
-      v42 = 22;
-LABEL_27:
-      _os_log_impl(&dword_23DBD1000, v41, OS_LOG_TYPE_INFO, v38, buf, v42);
+      v56 = sceneCopy;
+      v57 = 2112;
+      v58 = v26;
+      v32 = "Made window with external scene: %@ %@";
+LABEL_21:
+      v35 = v31;
+      v36 = 22;
+LABEL_22:
+      _os_log_impl(&dword_23DBD1000, v35, OS_LOG_TYPE_INFO, v32, buf, v36);
     }
   }
 
   else
   {
-    v39 = [v36 alloc];
-    v40 = v39;
-    if (!v61)
+    v33 = [v30 alloc];
+    v34 = v33;
+    if (!v54)
     {
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
-      v26 = [v40 initWithScreen:mainScreen];
+      v26 = [v34 initWithScreen:mainScreen];
 
-      v37 = AXLogUI();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v31 = AXLogUI();
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_28;
+        goto LABEL_23;
       }
 
       *buf = 138412290;
-      v63 = v26;
-      v38 = "Made window for main screen %@";
-      v41 = v37;
-      v42 = 12;
-      goto LABEL_27;
+      v56 = v26;
+      v32 = "Made window for main screen %@";
+      v35 = v31;
+      v36 = 12;
+      goto LABEL_22;
     }
 
-    v26 = [v39 initWithWindowScene:v61];
-    v37 = AXLogUI();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v26 = [v33 initWithWindowScene:v54];
+    v31 = AXLogUI();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v63 = v61;
-      v64 = 2112;
-      v65 = v26;
-      v38 = "Made window with main scene: %@ %@";
-      goto LABEL_26;
+      v56 = v54;
+      v57 = 2112;
+      v58 = v26;
+      v32 = "Made window with main scene: %@ %@";
+      goto LABEL_21;
     }
   }
 
-LABEL_28:
+LABEL_23:
 
   [v26 setWindowLevel:v19];
   clearColor = [MEMORY[0x277D75348] clearColor];
@@ -954,14 +990,14 @@ LABEL_28:
 
   v28 = identifierCopy;
   [v26 _setWindowControlsStatusBarOrientation:0];
-  v46 = objc_opt_new();
-  [v26 setRootViewController:v46];
+  v40 = objc_opt_new();
+  [v26 setRootViewController:v40];
   [v26 setHidden:0];
   [v26 setHidden:1];
   if (!v22)
   {
     v22 = objc_opt_new();
-    [(AXUIDisplayManager *)self setValue:v22 forKey:v60];
+    [(AXUIDisplayManager *)self setValue:v22 forKey:v53];
   }
 
   dictionary = [v22 objectForKey:_sceneIdentifier];
@@ -973,20 +1009,20 @@ LABEL_28:
   [dictionary setObject:v26 forKey:style];
   [v22 setObject:dictionary forKey:_sceneIdentifier];
 
-LABEL_40:
+LABEL_35:
   accessibilityIdentifier = [v26 accessibilityIdentifier];
-  v49 = accessibilityIdentifier;
+  v43 = accessibilityIdentifier;
   if (!accessibilityIdentifier || [accessibilityIdentifier rangeOfString:v28] == 0x7FFFFFFFFFFFFFFFLL)
   {
     accessibilityIdentifier2 = [v26 accessibilityIdentifier];
-    v51 = [accessibilityIdentifier2 length];
+    v45 = [accessibilityIdentifier2 length];
 
-    if (v51)
+    if (v45)
     {
-      v52 = MEMORY[0x277CCACA8];
+      v46 = MEMORY[0x277CCACA8];
       accessibilityIdentifier3 = [v26 accessibilityIdentifier];
-      v54 = [v52 stringWithFormat:@"%@|%@", accessibilityIdentifier3, v28];
-      [v26 setAccessibilityIdentifier:v54];
+      v48 = [v46 stringWithFormat:@"%@|%@", accessibilityIdentifier3, v28];
+      [v26 setAccessibilityIdentifier:v48];
     }
 
     else
@@ -997,8 +1033,6 @@ LABEL_40:
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"AXUIServerModifiedWindowInterfaceStyle" object:self];
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1015,55 +1049,55 @@ LABEL_40:
 
 - (void)enumerateContentViewControllersUsingBlock:(id)block
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v50 = 0;
+  v49 = 0;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   activeContentViewControllers = [(AXUIDisplayManager *)self activeContentViewControllers];
-  v6 = [activeContentViewControllers countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v6 = [activeContentViewControllers countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v47;
-    v32 = *v47;
+    v8 = *v46;
+    v31 = *v46;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v47 != v8)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(activeContentViewControllers);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * i);
+        v10 = *(*(&v45 + 1) + 8 * i);
         selfCopy = self;
         activeContentViewControllers2 = [(AXUIDisplayManager *)self activeContentViewControllers];
         v13 = [activeContentViewControllers2 objectForKeyedSubscript:v10];
 
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v42 objects:v53 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v41 objects:v52 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v43;
+          v17 = *v42;
           while (2)
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v43 != v17)
+              if (*v42 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              blockCopy[2](blockCopy, *(*(&v42 + 1) + 8 * j), &v50);
-              if (v50)
+              blockCopy[2](blockCopy, *(*(&v41 + 1) + 8 * j), &v49);
+              if (v49)
               {
 LABEL_32:
 
@@ -1071,7 +1105,7 @@ LABEL_32:
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v42 objects:v53 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v41 objects:v52 count:16];
             if (v16)
             {
               continue;
@@ -1081,69 +1115,69 @@ LABEL_32:
           }
         }
 
-        v8 = v32;
+        v8 = v31;
         self = selfCopy;
       }
 
-      v7 = [activeContentViewControllers countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v7 = [activeContentViewControllers countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v7);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   activeContentViewControllers = [(AXUIDisplayManager *)self passiveContentViewControllers];
-  v19 = [activeContentViewControllers countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v19 = [activeContentViewControllers countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v39;
-    v33 = *v39;
+    v21 = *v38;
+    v32 = *v38;
     while (2)
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v39 != v21)
+        if (*v38 != v21)
         {
           objc_enumerationMutation(activeContentViewControllers);
         }
 
-        v23 = *(*(&v38 + 1) + 8 * k);
+        v23 = *(*(&v37 + 1) + 8 * k);
         selfCopy2 = self;
         passiveContentViewControllers = [(AXUIDisplayManager *)self passiveContentViewControllers];
         v26 = [passiveContentViewControllers objectForKeyedSubscript:v23];
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v14 = v26;
-        v27 = [v14 countByEnumeratingWithState:&v34 objects:v51 count:16];
+        v27 = [v14 countByEnumeratingWithState:&v33 objects:v50 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v35;
+          v29 = *v34;
 LABEL_23:
           v30 = 0;
           while (1)
           {
-            if (*v35 != v29)
+            if (*v34 != v29)
             {
               objc_enumerationMutation(v14);
             }
 
-            blockCopy[2](blockCopy, *(*(&v34 + 1) + 8 * v30), &v50);
-            if (v50)
+            blockCopy[2](blockCopy, *(*(&v33 + 1) + 8 * v30), &v49);
+            if (v49)
             {
               goto LABEL_32;
             }
 
             if (v28 == ++v30)
             {
-              v28 = [v14 countByEnumeratingWithState:&v34 objects:v51 count:16];
+              v28 = [v14 countByEnumeratingWithState:&v33 objects:v50 count:16];
               if (v28)
               {
                 goto LABEL_23;
@@ -1155,10 +1189,10 @@ LABEL_23:
         }
 
         self = selfCopy2;
-        v21 = v33;
+        v21 = v32;
       }
 
-      v20 = [activeContentViewControllers countByEnumeratingWithState:&v38 objects:v52 count:16];
+      v20 = [activeContentViewControllers countByEnumeratingWithState:&v37 objects:v51 count:16];
       if (v20)
       {
         continue;
@@ -1169,23 +1203,21 @@ LABEL_23:
   }
 
 LABEL_33:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_windowSceneConnected:(id)connected forSceneClientIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   identifierCopy = identifier;
   v8 = AXLogUI();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v16 = 134218242;
-    v17 = connectedCopy;
-    v18 = 2112;
-    v19 = identifierCopy;
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "New window scene connected: %p for scene client: %@. Adding queued content view controllers", &v16, 0x16u);
+    v15 = 134218242;
+    v16 = connectedCopy;
+    v17 = 2112;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "New window scene connected: %p for scene client: %@. Adding queued content view controllers", &v15, 0x16u);
   }
 
   [(AXUIDisplayManager *)self saveWindowScene:connectedCopy forSceneClientIdentifier:identifierCopy external:0];
@@ -1209,44 +1241,40 @@ LABEL_33:
     v14 = AXLogUI();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = connectedCopy;
-      _os_log_impl(&dword_23DBD1000, v14, OS_LOG_TYPE_INFO, "Main display scene connected for Service: %@. windowScene: %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = connectedCopy;
+      _os_log_impl(&dword_23DBD1000, v14, OS_LOG_TYPE_INFO, "Main display scene connected for Service: %@. windowScene: %@", &v15, 0x16u);
     }
 
     [(__CFString *)v13 mainDisplaySceneConnected:connectedCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_windowSceneDisconnected:(id)disconnected forSceneClientIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   identifierCopy = identifier;
   v8 = AXLogUI();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 134218242;
-    v12 = disconnectedCopy;
-    v13 = 2112;
-    v14 = identifierCopy;
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "Window scene disconnected: %p, for scene client:%@", &v11, 0x16u);
+    v10 = 134218242;
+    v11 = disconnectedCopy;
+    v12 = 2112;
+    v13 = identifierCopy;
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "Window scene disconnected: %p, for scene client:%@", &v10, 0x16u);
   }
 
   [(AXUIDisplayManager *)self removeWindowSceneForSceneClientIdentifier:identifierCopy external:0];
   _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
   [(AXUIDisplayManager *)self _cleanupWindowsFromSceneDisconnection:_sceneIdentifier];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_externalDisplaySceneConnected:(id)connected forSceneClientIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   identifierCopy = identifier;
   if ([MEMORY[0x277CE7830] usesScenes])
@@ -1255,24 +1283,22 @@ LABEL_33:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v13 = connectedCopy;
-      v14 = 2112;
-      v15 = identifierCopy;
+      v12 = connectedCopy;
+      v13 = 2112;
+      v14 = identifierCopy;
       _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "New external window scene connected: %p for scene client: %@. Notifying services.", buf, 0x16u);
     }
 
     [(AXUIDisplayManager *)self saveWindowScene:connectedCopy forSceneClientIdentifier:identifierCopy external:1];
-    v10 = identifierCopy;
-    v11 = connectedCopy;
+    v9 = identifierCopy;
+    v10 = connectedCopy;
     AXPerformBlockOnMainThread();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdentifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) sceneClients];
@@ -1285,9 +1311,9 @@ void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdent
       {
         v5 = *(a1 + 32);
         *buf = 138412546;
-        v20 = v3;
-        v21 = 2112;
-        v22 = v5;
+        v19 = v3;
+        v20 = 2112;
+        v21 = v5;
         _os_log_impl(&dword_23DBD1000, v4, OS_LOG_TYPE_INFO, "External display scene connected for Service: %@, sceneClientIdentifier: %@", buf, 0x16u);
       }
 
@@ -1297,35 +1323,35 @@ void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdent
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = [*(a1 + 40) serviceManager];
     v3 = [v6 _services];
 
-    v7 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v3);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             v12 = AXLogUI();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v20 = v11;
+              v19 = v11;
               _os_log_impl(&dword_23DBD1000, v12, OS_LOG_TYPE_INFO, "External display scene connected for Service: %@", buf, 0xCu);
             }
 
@@ -1333,19 +1359,17 @@ void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdent
           }
         }
 
-        v8 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_externalDisplaySceneDisconnected:(id)disconnected forSceneClientIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   disconnectedCopy = disconnected;
   identifierCopy = identifier;
   if ([MEMORY[0x277CE7830] usesScenes])
@@ -1354,7 +1378,7 @@ void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdent
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = disconnectedCopy;
+      v13 = disconnectedCopy;
       _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_INFO, "Disconnecting external scene: %@", buf, 0xCu);
     }
 
@@ -1362,17 +1386,15 @@ void __78__AXUIDisplayManager__externalDisplaySceneConnected_forSceneClientIdent
     _sceneIdentifier = [disconnectedCopy _sceneIdentifier];
     [(AXUIDisplayManager *)self _cleanupWindowsFromSceneDisconnection:_sceneIdentifier];
 
-    v11 = identifierCopy;
-    v12 = disconnectedCopy;
+    v10 = identifierCopy;
+    v11 = disconnectedCopy;
     AXPerformBlockOnMainThread();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientIdentifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) sceneClients];
@@ -1385,9 +1407,9 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
       {
         v5 = *(a1 + 32);
         *buf = 138412546;
-        v20 = v3;
-        v21 = 2112;
-        v22 = v5;
+        v19 = v3;
+        v20 = 2112;
+        v21 = v5;
         _os_log_impl(&dword_23DBD1000, v4, OS_LOG_TYPE_INFO, "External display scene disconnected for Service: %@, sceneClientIdentifier: %@", buf, 0x16u);
       }
 
@@ -1397,35 +1419,35 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = [*(a1 + 40) serviceManager];
     v3 = [v6 _services];
 
-    v7 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v3);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             v12 = AXLogUI();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v20 = v11;
+              v19 = v11;
               _os_log_impl(&dword_23DBD1000, v12, OS_LOG_TYPE_INFO, "External display scene disconnected for Service: %@", buf, 0xCu);
             }
 
@@ -1433,14 +1455,12 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
           }
         }
 
-        v8 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupWindowsFromSceneDisconnection:(id)disconnection
@@ -1474,7 +1494,7 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
 
 - (BOOL)destroyWindowSceneIfNeeded:(id)needed discardableWindow:(id)window
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   windowCopy = window;
   if (!neededCopy)
@@ -1487,33 +1507,33 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
   {
     windows = [neededCopy windows];
     *buf = 134218242;
-    v30 = neededCopy;
-    v31 = 2112;
-    v32 = windows;
+    v29 = neededCopy;
+    v30 = 2112;
+    v31 = windows;
     _os_log_impl(&dword_23DBD1000, v7, OS_LOG_TYPE_INFO, "checking scene: %p, windows: %@", buf, 0x16u);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   windows2 = [neededCopy windows];
-  v10 = [windows2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [windows2 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(windows2);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         if (([v15 isHidden] & 1) == 0 && v15 != windowCopy)
         {
           NSClassFromString(&cfstr_Uitexteffectsw.isa);
@@ -1521,7 +1541,7 @@ void __81__AXUIDisplayManager__externalDisplaySceneDisconnected_forSceneClientId
         }
       }
 
-      v11 = [windows2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [windows2 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
@@ -1552,7 +1572,6 @@ LABEL_19:
   v21 = [delegate2 destroyScene:neededCopy];
 
 LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1600,7 +1619,7 @@ LABEL_20:
 
 - (void)saveAddContentViewControllerBlock:(id)block forObjectKey:(id)key forSceneClientIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   keyCopy = key;
   identifierCopy = identifier;
@@ -1629,7 +1648,7 @@ LABEL_20:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = keyCopy;
+      v19 = keyCopy;
       _os_log_impl(&dword_23DBD1000, v17, OS_LOG_TYPE_DEFAULT, "Save block for objectKey: %@", buf, 0xCu);
     }
 
@@ -1640,33 +1659,31 @@ LABEL_20:
   {
     v13 = identifierCopy;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAddContentViewControllerBlockForObjectKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
     keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", keyCopy];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__0;
-    v18 = __Block_byref_object_dispose__0;
-    v19 = 0;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__0;
+    v17 = __Block_byref_object_dispose__0;
+    v18 = 0;
     addContentViewControllerBlocks = self->_addContentViewControllerBlocks;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __70__AXUIDisplayManager_removeAddContentViewControllerBlockForObjectKey___block_invoke;
-    v11[3] = &unk_278BF3490;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __70__AXUIDisplayManager_removeAddContentViewControllerBlockForObjectKey___block_invoke;
+    v10[3] = &unk_278BF3490;
     v7 = keyCopy;
-    v12 = v7;
-    v13 = &v14;
-    [(NSMutableDictionary *)addContentViewControllerBlocks enumerateKeysAndObjectsUsingBlock:v11];
-    if (v15[5])
+    v11 = v7;
+    v12 = &v13;
+    [(NSMutableDictionary *)addContentViewControllerBlocks enumerateKeysAndObjectsUsingBlock:v10];
+    if (v14[5])
     {
       v8 = [(NSMutableDictionary *)self->_addContentViewControllerBlocks objectForKeyedSubscript:?];
       [v8 removeObjectForKey:v7];
@@ -1674,17 +1691,15 @@ LABEL_20:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = keyCopy;
+        v20 = keyCopy;
         _os_log_impl(&dword_23DBD1000, v9, OS_LOG_TYPE_DEFAULT, "Remove block for objectKey: %@", buf, 0xCu);
       }
 
-      [(NSMutableDictionary *)self->_addContentViewControllerBlocks setObject:v8 forKeyedSubscript:v15[5]];
+      [(NSMutableDictionary *)self->_addContentViewControllerBlocks setObject:v8 forKeyedSubscript:v14[5]];
     }
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v13, 8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__AXUIDisplayManager_removeAddContentViewControllerBlockForObjectKey___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -1714,6 +1729,34 @@ void __70__AXUIDisplayManager_removeAddContentViewControllerBlockForObjectKey___
   return v5;
 }
 
+- (double)desiredWindowLevelForService:(id)service forContentViewController:(id)controller userInteractionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  serviceCopy = service;
+  controllerCopy = controller;
+  if ([serviceCopy conformsToProtocol:&unk_285014180])
+  {
+    v9 = serviceCopy;
+    if (objc_opt_respondsToSelector())
+    {
+      [v9 desiredWindowLevelForContentViewController:controllerCopy userInteractionEnabled:enabledCopy];
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 10000002.0;
+    }
+  }
+
+  else
+  {
+    v11 = 10000002.0;
+  }
+
+  return v11;
+}
+
 - (void)serviceDidConnect:(id)connect clientWithIdentifier:(id)identifier
 {
   connectCopy = connect;
@@ -1726,27 +1769,21 @@ void __70__AXUIDisplayManager_removeAddContentViewControllerBlockForObjectKey___
 
 void __61__AXUIDisplayManager_serviceDidConnect_clientWithIdentifier___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) windowSceneForSceneClientIdentifier:0 external:1];
-  if (v2)
+  if (v2 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v3 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
+    v3 = AXLogUI();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = AXLogUI();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        v5 = *(a1 + 40);
-        v7 = 138412290;
-        v8 = v5;
-        _os_log_impl(&dword_23DBD1000, v4, OS_LOG_TYPE_INFO, "External display scene connected for Service: %@", &v7, 0xCu);
-      }
-
-      [*(a1 + 40) externalDisplaySceneConnected:v2];
+      v4 = *(a1 + 40);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_23DBD1000, v3, OS_LOG_TYPE_INFO, "External display scene connected for Service: %@", &v5, 0xCu);
     }
-  }
 
-  v6 = *MEMORY[0x277D85DE8];
+    [*(a1 + 40) externalDisplaySceneConnected:v2];
+  }
 }
 
 - (id)_contentViewControllersWithUserInteractionEnabled:(BOOL)enabled forService:(id)service createIfNeeded:(BOOL)needed
@@ -1923,7 +1960,7 @@ uint64_t __87__AXUIDisplayManager__addContentViewController_toWindow_forService_
 
 - (void)_removeContentViewController:(id)controller forService:(id)service completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   serviceCopy = service;
   completionCopy = completion;
@@ -1936,23 +1973,21 @@ uint64_t __87__AXUIDisplayManager__addContentViewController_toWindow_forService_
       window = [view window];
       windowScene = [window windowScene];
       *buf = 138412802;
-      v21 = controllerCopy;
-      v22 = 2112;
-      v23 = serviceCopy;
-      v24 = 2048;
-      v25 = windowScene;
+      v20 = controllerCopy;
+      v21 = 2112;
+      v22 = serviceCopy;
+      v23 = 2048;
+      v24 = windowScene;
       _os_log_impl(&dword_23DBD1000, v11, OS_LOG_TYPE_DEFAULT, "remove contentViewController: %@, service: %@ scene: %p", buf, 0x20u);
     }
 
-    v18 = controllerCopy;
-    v19 = completionCopy;
+    v17 = controllerCopy;
+    v18 = completionCopy;
     AXPerformBlockAsynchronouslyOnMainThread();
-    v15 = [(AXUIDisplayManager *)self _transactionIdentifierForDisplayingContentViewController:v18 service:serviceCopy];
+    v15 = [(AXUIDisplayManager *)self _transactionIdentifierForDisplayingContentViewController:v17 service:serviceCopy];
     serviceManager = [(AXUIDisplayManager *)self serviceManager];
     [serviceManager endTransactionWithIdentifier:v15 forService:serviceCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__AXUIDisplayManager__removeContentViewController_forService_completion___block_invoke(uint64_t a1)
@@ -2073,6 +2108,24 @@ uint64_t __73__AXUIDisplayManager__removeContentViewController_forService_comple
   return result;
 }
 
+- (void)removeAllContentViewControllersForService:(id)service withUserInteractionEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  serviceCopy = service;
+  completionCopy = completion;
+  v10 = [(AXUIDisplayManager *)self _contentViewControllersWithUserInteractionEnabled:enabledCopy forService:serviceCopy createIfNeeded:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __102__AXUIDisplayManager_removeAllContentViewControllersForService_withUserInteractionEnabled_completion___block_invoke;
+  v12[3] = &unk_278BF3508;
+  v14 = enabledCopy;
+  v12[4] = self;
+  v13 = serviceCopy;
+  v11 = serviceCopy;
+  [v10 enumerateObjectsUsingBlock:v12];
+  completionCopy[2](completionCopy, 1);
+}
+
 - (id)_transactionIdentifierForDisplayingContentViewController:(id)controller service:(id)service
 {
   v4 = MEMORY[0x277CCACA8];
@@ -2104,7 +2157,7 @@ uint64_t __73__AXUIDisplayManager__removeContentViewController_forService_comple
   return type;
 }
 
-uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 type];
   if (result == *(a1 + 40))
@@ -2118,7 +2171,7 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
 
 - (void)_showAlertWithContext:(id)context
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   _platformShouldUseScenes = [(AXUIDisplayManager *)self _platformShouldUseScenes];
   v6 = [(AXUIDisplayManager *)self windowSceneForSceneClientIdentifier:0 external:0];
@@ -2126,9 +2179,9 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
-    v73 = v6;
-    v74 = 2112;
-    v75 = contextCopy;
+    v72 = v6;
+    v73 = 2112;
+    v74 = contextCopy;
     _os_log_impl(&dword_23DBD1000, v7, OS_LOG_TYPE_INFO, "showAlert savedWindowScene:%p, context:%@", buf, 0x16u);
   }
 
@@ -2149,17 +2202,17 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
     aBlock[1] = 3221225472;
     aBlock[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke;
     aBlock[3] = &unk_278BF3558;
-    objc_copyWeak(&v69, buf);
+    objc_copyWeak(&v68, buf);
     v9 = contextCopy;
-    v68 = v9;
+    v67 = v9;
     v10 = _Block_copy(aBlock);
     v11 = [(AXUIDisplayManager *)self sceneRequestedForSceneClientIdentifier:0];
     [(AXUIDisplayManager *)self saveAddContentViewControllerBlock:v10 forObjectKey:v9 forSceneClientIdentifier:0];
     v12 = AXLogUI();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v66 = 0;
-      _os_log_impl(&dword_23DBD1000, v12, OS_LOG_TYPE_DEFAULT, "Need to request scene, queue alert request", v66, 2u);
+      *v65 = 0;
+      _os_log_impl(&dword_23DBD1000, v12, OS_LOG_TYPE_DEFAULT, "Need to request scene, queue alert request", v65, 2u);
     }
 
     if (!v11)
@@ -2176,7 +2229,7 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
       }
     }
 
-    objc_destroyWeak(&v69);
+    objc_destroyWeak(&v68);
     objc_destroyWeak(buf);
   }
 
@@ -2218,9 +2271,9 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
         v27 = 10000002.0;
       }
 
-      v54 = [(AXUIDisplayManager *)self _windowWithUserInteractionEnabled:type == 3 windowLevel:1 createIfNeeded:@"AXUIAlert" purposeIdentifier:0 userInterfaceStyle:0 windowScene:v6 savedWindowScene:v27];
-      [v54 setHidden:0];
-      rootViewController = [v54 rootViewController];
+      v53 = [(AXUIDisplayManager *)self _windowWithUserInteractionEnabled:type == 3 windowLevel:1 createIfNeeded:@"AXUIAlert" purposeIdentifier:0 userInterfaceStyle:0 windowScene:v6 savedWindowScene:v27];
+      [v53 setHidden:0];
+      rootViewController = [v53 rootViewController];
       view = [rootViewController view];
 
       [v26 addToContainerView:view];
@@ -2250,14 +2303,14 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
 
         v40 = objc_alloc(MEMORY[0x277CE6950]);
         v41 = [v40 initWithTargetSerialQueue:MEMORY[0x277D85CD0]];
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_490;
-        v64[3] = &unk_278BF2ED0;
-        v64[4] = self;
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_490;
+        v63[3] = &unk_278BF2ED0;
+        v63[4] = self;
         v42 = contextCopy;
-        v65 = v42;
-        [v41 afterDelay:v64 processBlock:v36 + v38];
+        v64 = v42;
+        [v41 afterDelay:v63 processBlock:v36 + v38];
         [v42 setShowOrHideTimer:v41];
       }
 
@@ -2276,31 +2329,29 @@ uint64_t __47__AXUIDisplayManager__hasVisibleAlertWithType___block_invoke(uint64
         text2 = [contextCopy text];
         subtitleText2 = [contextCopy subtitleText];
         v49 = __AXStringForVariables();
-        v70 = *MEMORY[0x277CE6BC8];
-        v71 = &unk_284FF9A28;
-        v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:{1, subtitleText2, @"__AXStringForVariablesSentinel"}];
+        v69 = *MEMORY[0x277CE6BC8];
+        v70 = &unk_284FF9A28;
+        v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:{1, subtitleText2, @"__AXStringForVariablesSentinel"}];
         v51 = [v46 initWithString:v49 attributes:v50];
 
         UIAccessibilityPostNotification(*MEMORY[0x277D76438], v51);
       }
 
       v52 = MEMORY[0x277D75D18];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_498;
-      v62[3] = &unk_278BF3050;
-      v63 = v26;
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_2;
-      v59[3] = &unk_278BF3580;
-      v60 = v20;
-      v61 = identifier;
-      [v52 animateWithDuration:v62 animations:v59 completion:v36];
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_498;
+      v61[3] = &unk_278BF3050;
+      v62 = v26;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __44__AXUIDisplayManager__showAlertWithContext___block_invoke_2;
+      v58[3] = &unk_278BF3580;
+      v59 = v20;
+      v60 = identifier;
+      [v52 animateWithDuration:v61 animations:v58 completion:v36];
     }
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __44__AXUIDisplayManager__showAlertWithContext___block_invoke(uint64_t a1)
@@ -2322,14 +2373,13 @@ uint64_t __44__AXUIDisplayManager__showAlertWithContext___block_invoke_2(uint64_
   if (a2)
   {
     v2 = result;
-    v3 = *(result + 32);
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v4 = *(v2 + 32);
-      v5 = *(v2 + 40);
+      v3 = *(v2 + 32);
+      v4 = *(v2 + 40);
 
-      return [v4 alertWithIdentifierDidAppear:v5];
+      return [v3 alertWithIdentifierDidAppear:v4];
     }
   }
 
@@ -2778,7 +2828,7 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
 
 - (void)_addDynamicAnimationsForNubbitContext:(id)context
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   nubbit = [contextCopy nubbit];
   v6 = objc_alloc(MEMORY[0x277D754B0]);
@@ -2790,8 +2840,8 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
   if ((AXDeviceSupportsAccessibilityReader() & 1) == 0)
   {
     v9 = objc_alloc(MEMORY[0x277D75338]);
-    v17[0] = nubbit;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = nubbit;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v11 = [v9 initWithItems:v10];
 
     [v11 setCollisionDelegate:self];
@@ -2799,8 +2849,8 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
     [v8 addBehavior:v11];
     [contextCopy setCollisionBehavior:v11];
     v12 = objc_alloc(MEMORY[0x277D754B8]);
-    v16 = nubbit;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = nubbit;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v14 = [v12 initWithItems:v13];
 
     [v14 setAllowsRotation:0];
@@ -2808,8 +2858,6 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
     [v8 addBehavior:v14];
     [contextCopy setDynamicItemBehavior:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDynamicAnimationsForNubbitContext:(id)context
@@ -2968,15 +3016,15 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
 {
   y = velocity.y;
   x = velocity.x;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if (nubbit)
   {
     v9 = MEMORY[0x277D75578];
     nubbitCopy = nubbit;
     v11 = [v9 alloc];
-    v25[0] = nubbitCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = nubbitCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     nubbit = [v11 initWithItems:v12];
 
     [nubbitCopy center];
@@ -2985,45 +3033,20 @@ void __52__AXUIDisplayManager__scheduleFadeForNubbitContext___block_invoke_2(uin
     v16 = v15;
 
     [viewCopy frame];
-    if (v14 <= CGRectGetMinX(v27) + 50.0)
-    {
-      goto LABEL_14;
-    }
-
-    [viewCopy frame];
-    if (v14 >= CGRectGetMaxX(v28) + -50.0)
-    {
-      goto LABEL_14;
-    }
-
-    v17 = v16 + y * 0.22;
-    [viewCopy frame];
-    MinY = CGRectGetMinY(v29);
-    v19 = -1.0;
-    v20 = 0.0;
-    if (v17 >= MinY + 80.0)
+    if (v14 <= CGRectGetMinX(v26) + 50.0 || ([viewCopy frame], v14 >= CGRectGetMaxX(v27) + -50.0) || (v17 = v16 + y * 0.22, objc_msgSend(viewCopy, "frame"), MinY = CGRectGetMinY(v28), v19 = -1.0, v20 = 0.0, v17 >= MinY + 80.0) && (objc_msgSend(viewCopy, "frame"), MaxY = CGRectGetMaxY(v29), v19 = 1.0, v17 <= MaxY + -80.0))
     {
       [viewCopy frame];
-      MaxY = CGRectGetMaxY(v30);
-      v19 = 1.0;
-      if (v17 <= MaxY + -80.0)
+      MidX = CGRectGetMidX(v30);
+      v19 = 0.0;
+      v20 = 1.0;
+      if (v14 <= MidX)
       {
-LABEL_14:
-        [viewCopy frame];
-        MidX = CGRectGetMidX(v31);
-        v19 = 0.0;
-        v20 = 1.0;
-        if (v14 <= MidX)
-        {
-          v20 = -1.0;
-        }
+        v20 = -1.0;
       }
     }
 
     [nubbit setGravityDirection:{v20 * 5.0, v19 * 5.0}];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return nubbit;
 }
@@ -3086,14 +3109,7 @@ LABEL_8:
   [server activeInterfaceOrientation:v5];
 }
 
-uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation__block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AXPerformBlockOnMainThreadAfterDelay();
-}
-
-uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation__block_invoke_2(uint64_t a1)
+void *__68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setActiveInterfaceOrientation:*(a1 + 40)];
   v2 = *(a1 + 32);
@@ -3146,30 +3162,30 @@ uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation
 
 - (void)dynamicAnimatorDidPause:(id)pause
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pauseCopy = pause;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   nubbitContexts = [(AXUIDisplayManager *)self nubbitContexts];
   allValues = [nubbitContexts allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         dynamicAnimator = [v11 dynamicAnimator];
 
         if (dynamicAnimator == pauseCopy)
@@ -3186,13 +3202,11 @@ uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation
         }
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collisionBehavior:(id)behavior beganContactForItem:(id)item withBoundaryIdentifier:(id)identifier atPoint:(CGPoint)point
@@ -3217,10 +3231,10 @@ uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation
 
 - (void)_reapHiddenWindows
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = NSStringFromSelector(sel_activeWindows);
-  v11[0] = NSStringFromSelector(sel_passiveWindows);
-  v3 = &v10;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = NSStringFromSelector(sel_activeWindows);
+  v10[0] = NSStringFromSelector(sel_passiveWindows);
+  v3 = &v9;
   v4 = 1;
   do
   {
@@ -3234,15 +3248,13 @@ uint64_t __68__AXUIDisplayManager__attemptToInitializeActiveInterfaceOrientation
     }
 
     v4 = 0;
-    v3 = v11;
+    v3 = v10;
   }
 
   while ((v5 & 1) != 0);
   for (i = 1; i != -1; --i)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__AXUIDisplayManager__reapHiddenWindows__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3292,155 +3304,153 @@ void __40__AXUIDisplayManager__reapHiddenWindows__block_invoke_2(uint64_t a1, vo
 - (NSString)debugDescription
 {
   selfCopy = self;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"AXUIDisplayManager<%p>", self];
   activeWindows = [(AXUIDisplayManager *)selfCopy activeWindows];
   if ([activeWindows count])
   {
-    v28 = selfCopy;
+    v27 = selfCopy;
     [v3 appendFormat:@"\nActive Windows:\n"];
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     obj = [activeWindows allKeys];
-    v34 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+    if (v33)
     {
-      v31 = *v51;
+      v30 = *v50;
       do
       {
         v4 = 0;
         do
         {
-          if (*v51 != v31)
+          if (*v50 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = v4;
-          v5 = *(*(&v50 + 1) + 8 * v4);
+          v35 = v4;
+          v5 = *(*(&v49 + 1) + 8 * v4);
           [v3 appendFormat:@"  ID: %@\n", v5];
           v6 = [activeWindows objectForKeyedSubscript:v5];
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           allKeys = [v6 allKeys];
-          v8 = [allKeys countByEnumeratingWithState:&v46 objects:v56 count:16];
+          v8 = [allKeys countByEnumeratingWithState:&v45 objects:v55 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v47;
+            v10 = *v46;
             do
             {
               for (i = 0; i != v9; ++i)
               {
-                if (*v47 != v10)
+                if (*v46 != v10)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v12 = *(*(&v46 + 1) + 8 * i);
+                v12 = *(*(&v45 + 1) + 8 * i);
                 v13 = [v6 objectForKeyedSubscript:v12];
                 [v3 appendFormat:@"    %@: %@\n", v12, v13];
                 rootViewController = [v13 rootViewController];
                 [v3 appendFormat:@"      Content: %@\n", rootViewController];
               }
 
-              v9 = [allKeys countByEnumeratingWithState:&v46 objects:v56 count:16];
+              v9 = [allKeys countByEnumeratingWithState:&v45 objects:v55 count:16];
             }
 
             while (v9);
           }
 
-          v4 = v36 + 1;
+          v4 = v35 + 1;
         }
 
-        while (v36 + 1 != v34);
-        v34 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+        while (v35 + 1 != v33);
+        v33 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
-    selfCopy = v28;
+    selfCopy = v27;
   }
 
   passiveWindows = [(AXUIDisplayManager *)selfCopy passiveWindows];
   if ([passiveWindows count])
   {
     [v3 appendFormat:@"\nPassive Windows:\n"];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obja = [passiveWindows allKeys];
-    v37 = [obja countByEnumeratingWithState:&v42 objects:v55 count:16];
-    if (v37)
+    v36 = [obja countByEnumeratingWithState:&v41 objects:v54 count:16];
+    if (v36)
     {
-      v32 = *v43;
-      v35 = passiveWindows;
+      v31 = *v42;
+      v34 = passiveWindows;
       do
       {
-        for (j = 0; j != v37; ++j)
+        for (j = 0; j != v36; ++j)
         {
-          if (*v43 != v32)
+          if (*v42 != v31)
           {
             objc_enumerationMutation(obja);
           }
 
-          v17 = *(*(&v42 + 1) + 8 * j);
+          v17 = *(*(&v41 + 1) + 8 * j);
           [v3 appendFormat:@"  ID: %@\n", v17];
           v18 = [passiveWindows objectForKeyedSubscript:v17];
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
           allKeys2 = [v18 allKeys];
-          v20 = [allKeys2 countByEnumeratingWithState:&v38 objects:v54 count:16];
+          v20 = [allKeys2 countByEnumeratingWithState:&v37 objects:v53 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v39;
+            v22 = *v38;
             do
             {
               for (k = 0; k != v21; ++k)
               {
-                if (*v39 != v22)
+                if (*v38 != v22)
                 {
                   objc_enumerationMutation(allKeys2);
                 }
 
-                v24 = *(*(&v38 + 1) + 8 * k);
+                v24 = *(*(&v37 + 1) + 8 * k);
                 v25 = [v18 objectForKeyedSubscript:v24];
                 [v3 appendFormat:@"    %@: %@\n", v24, v25];
               }
 
-              v21 = [allKeys2 countByEnumeratingWithState:&v38 objects:v54 count:16];
+              v21 = [allKeys2 countByEnumeratingWithState:&v37 objects:v53 count:16];
             }
 
             while (v21);
           }
 
-          passiveWindows = v35;
+          passiveWindows = v34;
         }
 
-        v37 = [obja countByEnumeratingWithState:&v42 objects:v55 count:16];
+        v36 = [obja countByEnumeratingWithState:&v41 objects:v54 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)systemApertureLayoutDidChange:(id)change
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if ([changeCopy count] == 1)
   {
@@ -3467,40 +3477,40 @@ void __40__AXUIDisplayManager__reapHiddenWindows__block_invoke_2(uint64_t a1, vo
     v17 = v16;
     v18 = [changeCopy objectAtIndexedSubscript:1];
     [v18 CGRectValue];
-    v49.origin.x = v19;
-    v49.origin.y = v20;
-    v49.size.width = v21;
-    v49.size.height = v22;
-    v48.origin.x = v11;
-    v48.origin.y = v13;
-    v48.size.width = v15;
-    v48.size.height = v17;
-    self->_foreheadRect = CGRectUnion(v48, v49);
+    v48.origin.x = v19;
+    v48.origin.y = v20;
+    v48.size.width = v21;
+    v48.size.height = v22;
+    v47.origin.x = v11;
+    v47.origin.y = v13;
+    v47.size.width = v15;
+    v47.size.height = v17;
+    self->_foreheadRect = CGRectUnion(v47, v48);
   }
 
 LABEL_6:
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   nubbitContexts = [(AXUIDisplayManager *)self nubbitContexts];
   allValues = [nubbitContexts allValues];
 
-  v25 = [allValues countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v25 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v43;
+    v27 = *v42;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v43 != v27)
+        if (*v42 != v27)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v29 = *(*(&v42 + 1) + 8 * i);
+        v29 = *(*(&v41 + 1) + 8 * i);
         nubbit = [v29 nubbit];
         [nubbit frame];
         v32 = v31;
@@ -3516,13 +3526,11 @@ LABEL_6:
         }
       }
 
-      v26 = [allValues countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v26 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v26);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_axIsPointInForeheadRect:(CGPoint)rect
@@ -3538,37 +3546,37 @@ LABEL_6:
 
 - (void)_remoteSceneDidHandleHomeGesture:(id)gesture
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   serviceManager = [(AXUIDisplayManager *)self serviceManager];
   _services = [serviceManager _services];
 
-  v7 = [_services countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [_services countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(_services);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v12 = AXLogUI();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v19 = v11;
+            v18 = v11;
             _os_log_impl(&dword_23DBD1000, v12, OS_LOG_TYPE_INFO, "Scene did handle home gesture, informing service: %@", buf, 0xCu);
           }
 
@@ -3576,13 +3584,11 @@ LABEL_6:
         }
       }
 
-      v8 = [_services countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v8 = [_services countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (AXUIServiceManager)serviceManager

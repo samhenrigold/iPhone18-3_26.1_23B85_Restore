@@ -86,12 +86,12 @@
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WiFiViewController _didTapContinueButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling wifiViewControllerDelegateDidChooseNetwork on delegate.", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WiFiViewController _didTapContinueButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling wifiViewControllerDelegateDidChooseNetwork on delegate.", &v8, 0xCu);
     }
 
     delegate2 = [(WiFiViewController *)self delegate];
@@ -105,12 +105,12 @@
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WiFiViewController _didTapCancelButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for cancel from wifi.", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WiFiViewController _didTapCancelButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for cancel from wifi.", &v8, 0xCu);
     }
 
     delegate2 = [(WiFiViewController *)self delegate];
@@ -120,7 +120,7 @@
 
 - (void)_wifiNetworkJoinStarted:(id)started
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -138,7 +138,7 @@
 
 - (void)_wifiNetworkJoinFinished:(id)finished
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;

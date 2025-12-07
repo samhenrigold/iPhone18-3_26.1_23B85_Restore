@@ -7,6 +7,7 @@
 - (void)emitNavigationEvent;
 - (void)returnPressedAtEnd;
 - (void)setCustomReply:(id)reply specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PhoneSettingsReplyWithMessageController
@@ -24,6 +25,22 @@
   }
 
   return replyWithMessageStore;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = PhoneSettingsReplyWithMessageController;
+  [(PhoneSettingsReplyWithMessageController *)&v7 viewDidAppear:appear];
+  specifier = [(PhoneSettingsReplyWithMessageController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(PhoneSettingsReplyWithMessageController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent

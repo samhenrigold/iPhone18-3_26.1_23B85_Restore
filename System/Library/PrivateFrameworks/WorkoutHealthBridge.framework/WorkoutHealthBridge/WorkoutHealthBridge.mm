@@ -42,7 +42,6 @@ id WOWorkoutServerInterface()
   v11 = MEMORY[0x277D82BE0](v13);
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
-  *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -233,14 +232,7 @@ uint64_t WOHealthBridgeKeyedDataReadFrom(uint64_t a1, void *a2)
       v40 = 1;
       v2 = [v34 position];
       v13 = v2 + v40;
-      if (v13 < [v42 position])
-      {
-        goto LABEL_10;
-      }
-
-      v3 = [v42 position];
-      v12 = v3 + v40;
-      if (v12 <= [v42 length])
+      if (v13 >= [v42 position] && (v3 = objc_msgSend(v42, "position"), v12 = v3 + v40, v12 <= objc_msgSend(v42, "length")))
       {
         v10 = [v42 data];
         v9 = v41;
@@ -260,7 +252,6 @@ uint64_t WOHealthBridgeKeyedDataReadFrom(uint64_t a1, void *a2)
 
       else
       {
-LABEL_10:
         [v42 _setError];
         v43 = 0;
       }
@@ -360,14 +351,7 @@ uint64_t WOHealthBridgeKeyedNumberReadFrom(uint64_t a1, void *a2)
       v47 = 1;
       v2 = [v41 position];
       v20 = v2 + v47;
-      if (v20 < [v49 position])
-      {
-        goto LABEL_10;
-      }
-
-      v3 = [v49 position];
-      v19 = v3 + v47;
-      if (v19 <= [v49 length])
+      if (v20 >= [v49 position] && (v3 = objc_msgSend(v49, "position"), v19 = v3 + v47, v19 <= objc_msgSend(v49, "length")))
       {
         v17 = [v49 data];
         v16 = v48;
@@ -387,7 +371,6 @@ uint64_t WOHealthBridgeKeyedNumberReadFrom(uint64_t a1, void *a2)
 
       else
       {
-LABEL_10:
         [v49 _setError];
         v50 = 0;
       }
@@ -515,14 +498,7 @@ uint64_t WOHealthBridgeKeyedDateReadFrom(uint64_t a1, void *a2)
       v47 = 1;
       v2 = [v41 position];
       v20 = v2 + v47;
-      if (v20 < [v49 position])
-      {
-        goto LABEL_10;
-      }
-
-      v3 = [v49 position];
-      v19 = v3 + v47;
-      if (v19 <= [v49 length])
+      if (v20 >= [v49 position] && (v3 = objc_msgSend(v49, "position"), v19 = v3 + v47, v19 <= objc_msgSend(v49, "length")))
       {
         v17 = [v49 data];
         v16 = v48;
@@ -542,7 +518,6 @@ uint64_t WOHealthBridgeKeyedDateReadFrom(uint64_t a1, void *a2)
 
       else
       {
-LABEL_10:
         [v49 _setError];
         v50 = 0;
       }
@@ -1232,14 +1207,7 @@ uint64_t WOHealthBridgeKeyedStringReadFrom(uint64_t a1, void *a2)
       v40 = 1;
       v2 = [v34 position];
       v13 = v2 + v40;
-      if (v13 < [v42 position])
-      {
-        goto LABEL_10;
-      }
-
-      v3 = [v42 position];
-      v12 = v3 + v40;
-      if (v12 <= [v42 length])
+      if (v13 >= [v42 position] && (v3 = objc_msgSend(v42, "position"), v12 = v3 + v40, v12 <= objc_msgSend(v42, "length")))
       {
         v10 = [v42 data];
         v9 = v41;
@@ -1259,7 +1227,6 @@ uint64_t WOHealthBridgeKeyedStringReadFrom(uint64_t a1, void *a2)
 
       else
       {
-LABEL_10:
         [v42 _setError];
         v43 = 0;
       }
@@ -1359,14 +1326,7 @@ uint64_t WOHealthBridgeSyncIdentityReadFrom(id *a1, void *a2)
       v41 = 1;
       v2 = [v35 position];
       v13 = v2 + v41;
-      if (v13 < [v43 position])
-      {
-        goto LABEL_10;
-      }
-
-      v3 = [v43 position];
-      v12 = v3 + v41;
-      if (v12 <= [v43 length])
+      if (v13 >= [v43 position] && (v3 = objc_msgSend(v43, "position"), v12 = v3 + v41, v12 <= objc_msgSend(v43, "length")))
       {
         v10 = [v43 data];
         v9 = v42;
@@ -1386,7 +1346,6 @@ uint64_t WOHealthBridgeSyncIdentityReadFrom(id *a1, void *a2)
 
       else
       {
-LABEL_10:
         [v43 _setError];
         v44 = 0;
       }

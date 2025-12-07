@@ -117,9 +117,11 @@
 
 uint64_t __42__ML3DatabasePrivacyContext_sharedContext__block_invoke()
 {
-  sharedContext___sharedContext = objc_alloc_init(ML3DatabasePrivacyContext);
+  v0 = objc_alloc_init(ML3DatabasePrivacyContext);
+  v1 = sharedContext___sharedContext;
+  sharedContext___sharedContext = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)logDatabasePrivacyAccessWithAuditToken:(id *)token

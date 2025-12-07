@@ -151,7 +151,7 @@ LABEL_19:
 
 - (id)stringsForKey:(id)key value:(id)value table:(id)table
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
   tableCopy = table;
@@ -193,13 +193,11 @@ LABEL_19:
 
   v19 = v18;
 
-  v23[0] = @"NSLocalizedDescription";
-  v23[1] = @"NSDescription";
-  v24[0] = v15;
-  v24[1] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v22[0] = @"NSLocalizedDescription";
+  v22[1] = @"NSDescription";
+  v23[0] = v15;
+  v23[1] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   return v20;
 }
@@ -219,16 +217,14 @@ LABEL_19:
 
 - (void)stringByKeyForTableName:(void *)a3 .cold.3(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 verboseDescription];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "There was an error reading %@: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "There was an error reading %@: %@", &v7, 0x16u);
 }
 
 - (void)stringsForKey:(uint64_t)a1 value:(uint64_t)a2 table:.cold.1(uint64_t a1, uint64_t a2)

@@ -88,18 +88,16 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   settings = [(HMAccessorySettingsFetchResponseMessagePayload *)self settings];
   v5 = [v3 initWithName:@"settings" value:settings];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   failureInformation = [(HMAccessorySettingsFetchResponseMessagePayload *)self failureInformation];
   v8 = [v6 initWithName:@"failureInformation" value:failureInformation];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -113,52 +111,50 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
 
 - (id)payloadCopy
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   settings = [(HMAccessorySettingsFetchResponseMessagePayload *)self settings];
   v4 = [settings na_map:&__block_literal_global_11];
 
-  v10[0] = @"HMImmutableSettingsPayloadKey";
-  v10[1] = HMAccessorySettingsPartialFetchFailureInformationPayloadKey;
-  v11[0] = v4;
+  v9[0] = @"HMImmutableSettingsPayloadKey";
+  v9[1] = HMAccessorySettingsPartialFetchFailureInformationPayloadKey;
+  v10[0] = v4;
   failureInformation = [(HMAccessorySettingsFetchResponseMessagePayload *)self failureInformation];
   payloadCopy = [failureInformation payloadCopy];
-  v11[1] = payloadCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[1] = payloadCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
 
 - (HMAccessorySettingsFetchResponseMessagePayload)initWithPayload:(id)payload
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_arrayForKey:@"HMImmutableSettingsPayloadKey"];
   if (v5)
   {
-    v33 = payloadCopy;
+    v32 = payloadCopy;
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v35;
+      v10 = *v34;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v34 + 1) + 8 * i);
+          v12 = *(*(&v33 + 1) + 8 * i);
           v13 = [[HMImmutableSetting alloc] initWithPayload:v12];
           if (!v13)
           {
@@ -169,15 +165,15 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
             {
               v21 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v40 = v21;
-              v41 = 2112;
-              v42 = v12;
+              v39 = v21;
+              v40 = 2112;
+              v41 = v12;
               _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch response message due to setting payload: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v19);
             v18 = 0;
-            payloadCopy = v33;
+            payloadCopy = v32;
             goto LABEL_26;
           }
 
@@ -185,7 +181,7 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
           [v6 addObject:v13];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v9)
         {
           continue;
@@ -195,8 +191,8 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
       }
     }
 
-    payloadCopy = v33;
-    v7 = [v33 hmf_dictionaryForKey:HMAccessorySettingsPartialFetchFailureInformationPayloadKey];
+    payloadCopy = v32;
+    v7 = [v32 hmf_dictionaryForKey:HMAccessorySettingsPartialFetchFailureInformationPayloadKey];
     if (v7)
     {
       v15 = [[HMAccessorySettingsPartialFetchFailureInformation alloc] initWithPayload:v7];
@@ -217,9 +213,9 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
         {
           v30 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v30;
-          v41 = 2112;
-          v42 = v7;
+          v39 = v30;
+          v40 = 2112;
+          v41 = v7;
           _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch response message due to invalid failure information payload: %@", buf, 0x16u);
         }
 
@@ -237,9 +233,9 @@ uint64_t __58__HMAccessorySettingsFetchResponseMessagePayload_isEqual___block_in
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v40 = v27;
-        v41 = 2112;
-        v42 = v33;
+        v39 = v27;
+        v40 = 2112;
+        v41 = v32;
         _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch response message due to no failure information in payload: %@", buf, 0x16u);
       }
 
@@ -259,9 +255,9 @@ LABEL_26:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v24;
-      v41 = 2112;
-      v42 = payloadCopy;
+      v39 = v24;
+      v40 = 2112;
+      v41 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings fetch response message due to no settings in payload: %@", buf, 0x16u);
     }
 
@@ -269,7 +265,6 @@ LABEL_26:
     v18 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -357,10 +352,11 @@ LABEL_7:
 
 uint64_t __61__HMAccessorySettingsFetchResponseMessagePayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v5_1570 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_1570;
+  logCategory__hmf_once_v5_1570 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

@@ -245,10 +245,9 @@
     }
 
     v26 = PULocalizedString(v25);
-    v35 = v13;
-    progressController5 = PUStringWithValidatedFormat();
+    progressController5 = PUStringWithValidatedFormat(v26, @"%ld %ld", v27, v28, v29, v30, v31, v32, v15);
 
-    progress3 = [(PUPickerCoordinator *)self progressController:v15];
+    progress3 = [(PUPickerCoordinator *)self progressController];
     [progress3 setMessage:progressController5];
   }
 }

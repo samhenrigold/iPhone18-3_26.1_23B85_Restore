@@ -1044,7 +1044,6 @@ LABEL_41:
   has = self->_has;
   if ((*&has & 0x1000000000) != 0)
   {
-    tcpiState = self->_tcpiState;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x80000) == 0)
@@ -1064,7 +1063,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  tcpiOptions = self->_tcpiOptions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1079,7 +1077,6 @@ LABEL_4:
   }
 
 LABEL_44:
-  tcpiSndWscale = self->_tcpiSndWscale;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1094,7 +1091,6 @@ LABEL_5:
   }
 
 LABEL_45:
-  tcpiRcvWscale = self->_tcpiRcvWscale;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1109,7 +1105,6 @@ LABEL_6:
   }
 
 LABEL_46:
-  tcpiFlags = self->_tcpiFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1124,7 +1119,6 @@ LABEL_7:
   }
 
 LABEL_47:
-  tcpiRto = self->_tcpiRto;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1139,7 +1133,6 @@ LABEL_8:
   }
 
 LABEL_48:
-  tcpiSndMss = self->_tcpiSndMss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1154,7 +1147,6 @@ LABEL_9:
   }
 
 LABEL_49:
-  tcpiRcvMss = self->_tcpiRcvMss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1169,7 +1161,6 @@ LABEL_10:
   }
 
 LABEL_50:
-  tcpiRttcur = self->_tcpiRttcur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1184,7 +1175,6 @@ LABEL_11:
   }
 
 LABEL_51:
-  tcpiSrtt = self->_tcpiSrtt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1199,7 +1189,6 @@ LABEL_12:
   }
 
 LABEL_52:
-  tcpiRttvar = self->_tcpiRttvar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1214,7 +1203,6 @@ LABEL_13:
   }
 
 LABEL_53:
-  tcpiRttbest = self->_tcpiRttbest;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1229,7 +1217,6 @@ LABEL_14:
   }
 
 LABEL_54:
-  tcpiSndSsthresh = self->_tcpiSndSsthresh;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1244,7 +1231,6 @@ LABEL_15:
   }
 
 LABEL_55:
-  tcpiSndCwnd = self->_tcpiSndCwnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1259,7 +1245,6 @@ LABEL_16:
   }
 
 LABEL_56:
-  tcpiRcvSpace = self->_tcpiRcvSpace;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1274,7 +1259,6 @@ LABEL_17:
   }
 
 LABEL_57:
-  tcpiSndWnd = self->_tcpiSndWnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1289,7 +1273,6 @@ LABEL_18:
   }
 
 LABEL_58:
-  tcpiSndNxt = self->_tcpiSndNxt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1304,7 +1287,6 @@ LABEL_19:
   }
 
 LABEL_59:
-  tcpiRcvNxt = self->_tcpiRcvNxt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1319,7 +1301,6 @@ LABEL_20:
   }
 
 LABEL_60:
-  tcpiLastOutif = self->_tcpiLastOutif;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1334,7 +1315,6 @@ LABEL_21:
   }
 
 LABEL_61:
-  tcpiSndSbbytes = self->_tcpiSndSbbytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1349,7 +1329,6 @@ LABEL_22:
   }
 
 LABEL_62:
-  tcpiTxpackets = self->_tcpiTxpackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1364,7 +1343,6 @@ LABEL_23:
   }
 
 LABEL_63:
-  tcpiTxbytes = self->_tcpiTxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1379,7 +1357,6 @@ LABEL_24:
   }
 
 LABEL_64:
-  tcpiTxretransmitbytes = self->_tcpiTxretransmitbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1394,7 +1371,6 @@ LABEL_25:
   }
 
 LABEL_65:
-  tcpiTxunacked = self->_tcpiTxunacked;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1409,7 +1385,6 @@ LABEL_26:
   }
 
 LABEL_66:
-  tcpiRxpackets = self->_tcpiRxpackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1424,7 +1399,6 @@ LABEL_27:
   }
 
 LABEL_67:
-  tcpiRxbytes = self->_tcpiRxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1439,7 +1413,6 @@ LABEL_28:
   }
 
 LABEL_68:
-  tcpiRxduplicatebytes = self->_tcpiRxduplicatebytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1454,7 +1427,6 @@ LABEL_29:
   }
 
 LABEL_69:
-  tcpiRxoutoforderbytes = self->_tcpiRxoutoforderbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1469,7 +1441,6 @@ LABEL_30:
   }
 
 LABEL_70:
-  tcpiSndBw = self->_tcpiSndBw;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1484,7 +1455,6 @@ LABEL_31:
   }
 
 LABEL_71:
-  tcpiSynrexmits = self->_tcpiSynrexmits;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1499,7 +1469,6 @@ LABEL_32:
   }
 
 LABEL_72:
-  tcpiUnused1 = self->_tcpiUnused1;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -1514,7 +1483,6 @@ LABEL_33:
   }
 
 LABEL_73:
-  tcpiUnused2 = self->_tcpiUnused2;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1529,7 +1497,6 @@ LABEL_34:
   }
 
 LABEL_74:
-  tcpiCellRxpackets = self->_tcpiCellRxpackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1544,7 +1511,6 @@ LABEL_35:
   }
 
 LABEL_75:
-  tcpiCellRxbytes = self->_tcpiCellRxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1559,7 +1525,6 @@ LABEL_36:
   }
 
 LABEL_76:
-  tcpiCellTxpackets = self->_tcpiCellTxpackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1574,7 +1539,6 @@ LABEL_37:
   }
 
 LABEL_77:
-  tcpiCellTxbytes = self->_tcpiCellTxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1589,7 +1553,6 @@ LABEL_38:
   }
 
 LABEL_78:
-  tcpiWifiRxpackets = self->_tcpiWifiRxpackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1601,7 +1564,6 @@ LABEL_39:
     }
 
 LABEL_80:
-    tcpiWifiTxpackets = self->_tcpiWifiTxpackets;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x8000) == 0)
     {
@@ -1612,7 +1574,6 @@ LABEL_80:
   }
 
 LABEL_79:
-  tcpiWifiRxbytes = self->_tcpiWifiRxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) != 0)
@@ -1627,7 +1588,6 @@ LABEL_40:
   }
 
 LABEL_81:
-  tcpiWifiTxbytes = self->_tcpiWifiTxbytes;
 
   PBDataWriterWriteUint64Field();
 }

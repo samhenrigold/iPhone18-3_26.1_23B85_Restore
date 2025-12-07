@@ -37,27 +37,25 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDAction *)self uuid];
   v5 = [v3 initWithName:@"UUID" value:uuid];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   accessory = [(HMDMatterCommandAction *)self accessory];
   uuid2 = [accessory uuid];
   v9 = [v6 initWithName:@"accessory UUID" value:uuid2];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   commands = [(HMDMatterCommandAction *)self commands];
   v12 = [v10 initWithName:@"commands" value:commands];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDMatterCommandAction enforceExecutionOrder](self, "enforceExecutionOrder")}];
   v15 = [v13 initWithName:@"enforce execution order" value:v14];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }
@@ -84,7 +82,7 @@
 
 - (void)_processCommandActionModelUpdated:(id)updated message:(id)message
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   messageCopy = message;
   transactionResult = [messageCopy transactionResult];
@@ -114,21 +112,21 @@ LABEL_4:
   v17 = home2;
   if (actionSet && home2)
   {
-    v35 = transactionResult;
-    v36 = updatedCopy;
-    v37[0] = *MEMORY[0x277CD2060];
+    v34 = transactionResult;
+    v35 = updatedCopy;
+    v36[0] = *MEMORY[0x277CD2060];
     uuid = [(HMDAction *)self uuid];
     uUIDString = [uuid UUIDString];
-    v38[0] = uUIDString;
-    v37[1] = *MEMORY[0x277CD2028];
+    v37[0] = uUIDString;
+    v36[1] = *MEMORY[0x277CD2028];
     dictionaryRepresentation = [(HMDMatterCommandAction *)self dictionaryRepresentation];
-    v38[1] = dictionaryRepresentation;
-    v37[2] = *MEMORY[0x277CD0640];
+    v37[1] = dictionaryRepresentation;
+    v36[2] = *MEMORY[0x277CD0640];
     [v17 uuid];
     v22 = v21 = messageCopy;
     uUIDString2 = [v22 UUIDString];
-    v38[2] = uUIDString2;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+    v37[2] = uUIDString2;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
 
     messageCopy = v21;
     [v21 respondWithPayload:v24];
@@ -139,19 +137,19 @@ LABEL_4:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v28;
-      v41 = 2112;
-      v42 = v24;
+      v39 = v28;
+      v40 = 2112;
+      v41 = v24;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Responding to client after updating action with response %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v25);
-    transactionResult = v35;
-    [v35 markChanged];
-    updatedCopy = v36;
+    transactionResult = v34;
+    [v34 markChanged];
+    updatedCopy = v35;
     if ([(HMDMatterCommandAction *)selfCopy isSecureAction])
     {
-      [v35 markSaveToAssistant];
+      [v34 markSaveToAssistant];
     }
   }
 
@@ -164,13 +162,13 @@ LABEL_4:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v40 = v32;
-      v41 = 2112;
-      v42 = updatedCopy;
-      v43 = 2112;
-      v44 = actionSet;
-      v45 = 2112;
-      v46 = v17;
+      v39 = v32;
+      v40 = 2112;
+      v41 = updatedCopy;
+      v42 = 2112;
+      v43 = actionSet;
+      v44 = 2112;
+      v45 = v17;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@command action Model object (%@) missing actionset %@ or home %@ ", buf, 0x2Au);
     }
 
@@ -180,8 +178,6 @@ LABEL_4:
 
     v24 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)matterPathUUIDs
@@ -214,7 +210,7 @@ id __41__HMDMatterCommandAction_matterPathUUIDs__block_invoke(uint64_t a1, void 
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -245,22 +241,20 @@ id __41__HMDMatterCommandAction_matterPathUUIDs__block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v18 = v26;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v18 = v25;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serializedCommands
@@ -302,21 +296,19 @@ id __41__HMDMatterCommandAction_matterPathUUIDs__block_invoke(uint64_t a1, void 
 
 - (id)associatedAccessories
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDMatterCommandAction *)self accessory];
   v3 = accessory;
   if (accessory)
   {
-    v7[0] = accessory;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = accessory;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -333,7 +325,7 @@ id __41__HMDMatterCommandAction_matterPathUUIDs__block_invoke(uint64_t a1, void 
 
 - (HMDMatterAccessoryProtocol)accessory
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   commands = [(HMDMatterCommandAction *)self commands];
   firstObject = [commands firstObject];
   accessory = [firstObject accessory];
@@ -346,15 +338,13 @@ id __41__HMDMatterCommandAction_matterPathUUIDs__block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Accessory was set to nil", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Accessory was set to nil", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return accessory;
 }
@@ -470,7 +460,7 @@ uint64_t __64__HMDMatterCommandAction_matterPathRemoved_message_transaction___bl
 
 - (void)executeWithSource:(unint64_t)source clientName:(id)name completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
   accessory = [(HMDMatterCommandAction *)self accessory];
@@ -488,18 +478,18 @@ uint64_t __64__HMDMatterCommandAction_matterPathRemoved_message_transaction___bl
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v38 = __Block_byref_object_copy__123763;
-      v39 = __Block_byref_object_dispose__123764;
-      v40 = 0;
+      v37 = __Block_byref_object_copy__123763;
+      v38 = __Block_byref_object_dispose__123764;
+      v39 = 0;
       if (matterAdapter)
       {
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler___block_invoke_28;
-        v34[3] = &unk_278679540;
-        v34[4] = self;
-        v34[5] = buf;
-        [matterAdapter invokeCommands:v13 completion:v34];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler___block_invoke_28;
+        v33[3] = &unk_278679540;
+        v33[4] = self;
+        v33[5] = buf;
+        [matterAdapter invokeCommands:v13 completion:v33];
         v16 = _Block_copy(handlerCopy);
         v17 = v16;
         if (v16)
@@ -516,9 +506,9 @@ uint64_t __64__HMDMatterCommandAction_matterPathRemoved_message_transaction___bl
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = HMFGetLogIdentifier();
-          *v35 = 138543362;
-          v36 = v29;
-          _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matter adapter to execute bulk commands", v35, 0xCu);
+          *v34 = 138543362;
+          v35 = v29;
+          _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matter adapter to execute bulk commands", v34, 0xCu);
         }
 
         objc_autoreleasePoolPop(v26);
@@ -585,13 +575,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler___block_invoke_28(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -600,26 +588,24 @@ void __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bulk command invocation completed with error: %@ values: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bulk command invocation completed with error: %@ values: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v6;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CD52F0];
   v3 = a2;
   v4 = [v3 matterPath];
@@ -634,20 +620,18 @@ id __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler__
   v12 = [v3 commandFields];
 
   v13 = [v11 initWithPath:v10 commandFields:v12 requiredResponse:0];
-  v17[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
   return v14;
 }
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = HMDMatterCommandAction;
-  dictionaryRepresentation = [(HMDAction *)&v25 dictionaryRepresentation];
+  v26 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = HMDMatterCommandAction;
+  dictionaryRepresentation = [(HMDAction *)&v24 dictionaryRepresentation];
   v4 = [dictionaryRepresentation mutableCopy];
 
   accessory = [(HMDMatterCommandAction *)self accessory];
@@ -657,43 +641,42 @@ id __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler__
   [v4 setObject:uUIDString forKeyedSubscript:*MEMORY[0x277CCF0B0]];
 
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   commands = [(HMDMatterCommandAction *)self commands];
-  v10 = [commands countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v10 = [commands countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(commands);
         }
 
-        v14 = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentationWithEncodedValues:1];
+        v14 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentationWithEncodedValues:1];
         [array addObject:v14];
       }
 
-      v11 = [commands countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [commands countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v15 = [array copy];
+  v15 = objc_msgSend_copy(array);
   [v4 setObject:v15 forKeyedSubscript:*MEMORY[0x277CCFC10]];
 
   v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDMatterCommandAction enforceExecutionOrder](self, "enforceExecutionOrder")}];
   [v4 setObject:v16 forKeyedSubscript:*MEMORY[0x277CCFD20]];
 
-  v17 = [v4 copy];
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = objc_msgSend_copy(v4);
 
   return v17;
 }
@@ -767,15 +750,14 @@ id __73__HMDMatterCommandAction_executeWithSource_clientName_completionHandler__
 
 void __37__HMDMatterCommandAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24_123787;
-  logCategory__hmf_once_v24_123787 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24_123787;
+  logCategory__hmf_once_v24_123787 = v0;
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation home:(id)home
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   homeCopy = home;
   v8 = +[HMDCoreData featuresDataSource];
@@ -790,7 +772,7 @@ void __37__HMDMatterCommandAction_logCategory__block_invoke()
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v79 = v38;
+      v78 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@RVC feature is not enabled", buf, 0xCu);
     }
 
@@ -810,7 +792,7 @@ void __37__HMDMatterCommandAction_logCategory__block_invoke()
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v79 = v42;
+      v78 = v42;
       v43 = "%{public}@Action type cannot be nil";
       v44 = v41;
       v45 = 12;
@@ -834,9 +816,9 @@ LABEL_30:
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v79 = v42;
-      v80 = 2112;
-      v81 = v11;
+      v78 = v42;
+      v79 = 2112;
+      v80 = v11;
       v43 = "%{public}@Invalid action type: %@";
       v44 = v41;
       v45 = 22;
@@ -846,35 +828,35 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v68 = v11;
+  v67 = v11;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v69 = representationCopy;
+  v68 = representationCopy;
   [representationCopy hmf_arrayForKey:*MEMORY[0x277CCFC10]];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
-  v13 = v76 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v73 objects:v77 count:16];
+  v13 = v75 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v72 objects:v76 count:16];
   if (!v14)
   {
     goto LABEL_17;
   }
 
   v15 = v14;
-  v16 = *v74;
+  v16 = *v73;
   obj = v13;
   while (2)
   {
     v17 = homeCopy;
     for (i = 0; i != v15; ++i)
     {
-      if (*v74 != v16)
+      if (*v73 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v73 + 1) + 8 * i);
+      v19 = *(*(&v72 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -897,15 +879,15 @@ LABEL_30:
         {
           v49 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v79 = v49;
-          v80 = 2112;
-          v81 = v19;
+          v78 = v49;
+          v79 = 2112;
+          v80 = v19;
           _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@Unable to serialize encoded command %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v46);
-        v11 = v68;
-        representationCopy = v69;
+        v11 = v67;
+        representationCopy = v68;
         homeCopy = v17;
         goto LABEL_41;
       }
@@ -916,18 +898,18 @@ LABEL_30:
         v50 = objc_autoreleasePoolPush();
         selfCopy5 = self;
         v52 = HMFGetOSLogHandle();
-        v11 = v68;
+        v11 = v67;
         if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           v53 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v79 = v53;
-          v80 = 2112;
-          v81 = v21;
+          v78 = v53;
+          v79 = 2112;
+          v80 = v21;
           _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_ERROR, "%{public}@Unable to initialize command from dictionary %@", buf, 0x16u);
         }
 
-        representationCopy = v69;
+        representationCopy = v68;
         homeCopy = v17;
         goto LABEL_40;
       }
@@ -938,7 +920,7 @@ LABEL_30:
 
       if (v25)
       {
-        v67 = v23;
+        v66 = v23;
         v50 = objc_autoreleasePoolPush();
         selfCopy6 = self;
         v52 = HMFGetOSLogHandle();
@@ -948,18 +930,18 @@ LABEL_30:
           v56 = v55 = v50;
           matterPath = [(HMDMatterCommand *)v22 matterPath];
           *buf = 138543618;
-          v79 = v56;
-          v80 = 2112;
-          v81 = matterPath;
+          v78 = v56;
+          v79 = 2112;
+          v80 = matterPath;
           _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_ERROR, "%{public}@Conflicting commands detected for matterPath %@", buf, 0x16u);
 
           v50 = v55;
         }
 
-        v11 = v68;
-        representationCopy = v69;
+        v11 = v67;
+        representationCopy = v68;
         homeCopy = v17;
-        array2 = v67;
+        array2 = v66;
 LABEL_40:
 
         objc_autoreleasePoolPop(v50);
@@ -976,7 +958,7 @@ LABEL_41:
       array2 = v23;
     }
 
-    v15 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+    v15 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
     homeCopy = v17;
     v13 = obj;
     if (v15)
@@ -992,11 +974,11 @@ LABEL_17:
   if ([array count])
   {
     v27 = *MEMORY[0x277CCFD20];
-    v72 = 0;
-    representationCopy = v69;
-    v28 = [v69 hmf_BOOLForKey:v27 error:&v72];
-    v29 = v72;
-    v11 = v68;
+    v71 = 0;
+    representationCopy = v68;
+    v28 = [v68 hmf_BOOLForKey:v27 error:&v71];
+    v29 = v71;
+    v11 = v67;
     if (v29)
     {
       v30 = objc_autoreleasePoolPush();
@@ -1006,13 +988,13 @@ LABEL_17:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v79 = v33;
+        v78 = v33;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Command action dictionary must have enforce execution order key", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v30);
       v34 = 0;
-      representationCopy = v69;
+      representationCopy = v68;
     }
 
     else
@@ -1031,13 +1013,13 @@ LABEL_17:
     v58 = objc_autoreleasePoolPush();
     selfCopy8 = self;
     v60 = HMFGetOSLogHandle();
-    v11 = v68;
-    representationCopy = v69;
+    v11 = v67;
+    representationCopy = v68;
     if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
       v61 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v79 = v61;
+      v78 = v61;
       _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Command Action must have commands", buf, 0xCu);
     }
 
@@ -1048,8 +1030,6 @@ LABEL_42:
 
 LABEL_49:
 LABEL_50:
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

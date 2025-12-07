@@ -16,13 +16,13 @@
   presentationContext = self->_presentationContext;
   self->_presentationContext = v9;
 
-  v11 = sub_10000143C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000143C(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = self->_presentationContext;
-    v13 = 138412290;
-    v14 = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received presentation context: %@", &v13, 0xCu);
+    v13 = self->_presentationContext;
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received presentation context: %@", &v14, 0xCu);
   }
 
   completionCopy[2](completionCopy);

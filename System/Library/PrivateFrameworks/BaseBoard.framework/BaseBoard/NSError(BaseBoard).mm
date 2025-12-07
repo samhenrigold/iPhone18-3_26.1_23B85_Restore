@@ -89,7 +89,7 @@
 
   if (v6)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld (\"%@\", objc_msgSend(self, "code""), v6];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld (%@, objc_msgSend(self, "code""), v6];
     v8 = [v2 appendObject:v7 withName:@"code"];
   }
 

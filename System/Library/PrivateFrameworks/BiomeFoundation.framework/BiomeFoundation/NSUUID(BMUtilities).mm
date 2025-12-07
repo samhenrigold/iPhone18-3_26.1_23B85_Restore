@@ -11,9 +11,9 @@
     +[NSUUID(BMUtilities) bm_bootSessionUUID];
   }
 
-  v1 = bm_bootSessionUUID__bootSessionUUID;
+  v2 = bm_bootSessionUUID__bootSessionUUID;
 
-  return v1;
+  return v2;
 }
 
 @end

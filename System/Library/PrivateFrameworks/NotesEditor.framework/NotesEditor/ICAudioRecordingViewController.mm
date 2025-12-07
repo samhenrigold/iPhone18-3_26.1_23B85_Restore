@@ -9,7 +9,7 @@
 
 + (id)getHostingViewForAttachmentModel:(id)model delegate:(id)delegate
 {
-  v6 = type metadata accessor for RecordingView();
+  v6 = type metadata accessor for RecordingView(0);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
@@ -19,7 +19,7 @@
   swift_unknownObjectRetain();
   sub_21539B46C(modelCopy, delegate, v11);
   sub_21539B7B8(v11, v8);
-  v13 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5B700));
+  v13 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5B700, &qword_2154C06D0));
   v14 = sub_2154A02AC();
 
   swift_unknownObjectRelease();

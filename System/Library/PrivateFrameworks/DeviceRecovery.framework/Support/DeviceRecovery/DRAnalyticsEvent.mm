@@ -79,20 +79,20 @@
   valueCopy = value;
   dispatch_assert_queue_not_V2(self->_stateQueue);
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       userInfo = [valueCopy userInfo];
-      v9 = [userInfo objectForKey:@"StaticString"];
+      v10 = [userInfo objectForKey:@"StaticString"];
 
-      if (!v9)
+      if (!v10)
       {
-        v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [valueCopy code]);
+        v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [valueCopy code]);
       }
 
-      valueCopy = v9;
+      valueCopy = v10;
     }
 
     stateQueue = self->_stateQueue;
@@ -101,18 +101,18 @@
     block[2] = sub_10000F508;
     block[3] = &unk_100034FF0;
     block[4] = self;
-    v13 = entryCopy;
+    v14 = entryCopy;
     valueCopy = valueCopy;
-    v14 = valueCopy;
+    v15 = valueCopy;
     dispatch_sync(stateQueue, block);
   }
 
   else
   {
-    v11 = sub_1000118BC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000118BC(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10001F5D4(entryCopy, valueCopy, v11);
+      sub_10001F5D4(entryCopy, valueCopy, v12);
     }
   }
 }
@@ -159,10 +159,10 @@
 
   else
   {
-    v8 = sub_1000118BC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_1000118BC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10001F69C(v8);
+      sub_10001F69C(v9);
     }
   }
 }
@@ -174,16 +174,16 @@
   if (nullCopy)
   {
     mutableEventPayload = self->_mutableEventPayload;
-    v6 = +[NSNull null];
-    [(NSMutableDictionary *)mutableEventPayload setObject:v6 forKey:nullCopy];
+    v7 = +[NSNull null];
+    [(NSMutableDictionary *)mutableEventPayload setObject:v7 forKey:nullCopy];
   }
 
   else
   {
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10001F720(v7);
+      sub_10001F720(v8);
     }
   }
 }

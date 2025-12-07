@@ -122,35 +122,35 @@ void __17__EFLRUCache_log__block_invoke(uint64_t a1)
 
 - (void)removeAllObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   nodesByKey = [(EFLRUCache *)self nodesByKey];
   allValues = [nodesByKey allValues];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = allValues;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        [v9 setNext:{0, v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        [v9 setNext:{0, v13}];
         [v9 setPrevious:0];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -167,7 +167,6 @@ void __17__EFLRUCache_log__block_invoke(uint64_t a1)
 
   [(EFLRUCache *)self setSize:0];
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pushToTop:(id)top
@@ -205,7 +204,7 @@ void __17__EFLRUCache_log__block_invoke(uint64_t a1)
 
 - (unint64_t)test_size
 {
-  if ((EFIsRunningUnitTests() & 1) == 0)
+  if ((EFIsRunningUnitTests(self, a2) & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"EFLRUCache.m" lineNumber:150 description:{@"%s can only be called from unit tests", "-[EFLRUCache test_size]"}];
@@ -216,7 +215,7 @@ void __17__EFLRUCache_log__block_invoke(uint64_t a1)
 
 - (id)test_firstNode
 {
-  if ((EFIsRunningUnitTests() & 1) == 0)
+  if ((EFIsRunningUnitTests(self, a2) & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"EFLRUCache.m" lineNumber:155 description:{@"%s can only be called from unit tests", "-[EFLRUCache test_firstNode]"}];
@@ -227,7 +226,7 @@ void __17__EFLRUCache_log__block_invoke(uint64_t a1)
 
 - (id)test_lastNode
 {
-  if ((EFIsRunningUnitTests() & 1) == 0)
+  if ((EFIsRunningUnitTests(self, a2) & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"EFLRUCache.m" lineNumber:160 description:{@"%s can only be called from unit tests", "-[EFLRUCache test_lastNode]"}];

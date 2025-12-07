@@ -11,7 +11,9 @@
 - (void)_updateContentSize;
 - (void)dealloc;
 - (void)didEngageCardSection:(id)section;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SUICKPMapCardSectionViewController
@@ -82,12 +84,29 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
   [(SUICKPMapCardSectionViewController *)&v4 dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SUICKPMapCardSectionViewController;
+  [(CRKCardSectionViewController *)&v4 viewDidAppear:appear];
+  [(SUICKPMapCardSectionViewController *)self _loadCardSectionViewIfNeeded];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
   v3.super_class = SUICKPMapCardSectionViewController;
   [(CRKCardSectionViewController *)&v3 viewDidLayoutSubviews];
   [(SUICKPMapCardSectionViewController *)self _updateContentSize];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(SUICKPMapCardSectionViewController *)self _snapshotCardSectionView];
+  v5.receiver = self;
+  v5.super_class = SUICKPMapCardSectionViewController;
+  [(SUICKPMapCardSectionViewController *)&v5 viewWillDisappear:disappearCopy];
 }
 
 - (void)_snapshotCardSectionView
@@ -141,7 +160,7 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
 
 - (void)_loadMapCardSectionView
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (!self->_mapSectionView)
   {
     viewConfiguration = [(CRKCardSectionViewController *)self viewConfiguration];
@@ -158,8 +177,8 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
     {
       v7 = MEMORY[0x277D4C818];
       _mapCardSection = [(SUICKPMapCardSectionViewController *)self _mapCardSection];
-      v18[0] = _mapCardSection;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = _mapCardSection;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       v10 = [v7 viewsForCardSections:v9 feedbackListener:self];
       firstObject = [v10 firstObject];
       v12 = self->_mapSectionView;
@@ -176,8 +195,6 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
     view2 = [(SUICKPMapCardSectionViewController *)self view];
     [view2 setContentView:self->_mapSectionView];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadCardSectionViewIfNeeded
@@ -258,11 +275,11 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
 
 - (void)didEngageCardSection:(id)section
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
-  v32.receiver = self;
-  v32.super_class = SUICKPMapCardSectionViewController;
-  [(SUICKPInteractiveCardSectionViewController *)&v32 didEngageCardSection:sectionCopy];
+  v31.receiver = self;
+  v31.super_class = SUICKPMapCardSectionViewController;
+  [(SUICKPInteractiveCardSectionViewController *)&v31 didEngageCardSection:sectionCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -285,8 +302,8 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
 
           _extraCommands = [(CRKCardSectionViewController *)self _extraCommands];
 
-          v26 = actionCommands;
-          v27 = sectionCopy;
+          v25 = actionCommands;
+          v26 = sectionCopy;
           if (_extraCommands)
           {
             _extraCommands2 = [(CRKCardSectionViewController *)self _extraCommands];
@@ -298,54 +315,52 @@ void __59__SUICKPMapCardSectionViewController__initWithCardSection___block_invok
             v15 = actionCommands;
           }
 
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           v16 = v15;
-          v17 = [v16 countByEnumeratingWithState:&v28 objects:v35 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v27 objects:v34 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v29;
+            v19 = *v28;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v29 != v19)
+                if (*v28 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v28 + 1) + 8 * i);
+                v21 = *(*(&v27 + 1) + 8 * i);
                 if (triggerEvent == 14)
                 {
-                  v33 = @"CRKMapCardSectionPlacemarkData";
+                  v32 = @"CRKMapCardSectionPlacemarkData";
                   [v5 modifiedPlacemarkData];
                   v23 = v22 = v5;
-                  v34 = v23;
-                  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+                  v33 = v23;
+                  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
                   [v21 setUserInfo:v24];
 
                   v5 = v22;
                 }
 
-                [(CRKCardSectionViewController *)self _performCommand:v21, v26];
+                [(CRKCardSectionViewController *)self _performCommand:v21, v25];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v28 objects:v35 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v27 objects:v34 count:16];
             }
 
             while (v18);
           }
 
-          sectionCopy = v27;
+          sectionCopy = v26;
         }
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -68,7 +68,7 @@
 
 - (BOOL)_revokeMusicKitUserTokensWithError:(id *)error
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v7 = objc_msgSend_sharedAccountsNotificationPluginConfig(MEMORY[0x29EDBF9F0], a2, error);
   if (!v7)
   {
@@ -80,11 +80,11 @@
   {
     v9 = objc_opt_class();
     v10 = AMSLogKey();
-    v42 = 138543618;
-    v43 = v9;
-    v44 = 2114;
-    v45 = v10;
-    _os_log_impl(&dword_29C87A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Revoking Music User Tokens", &v42, 0x16u);
+    v41 = 138543618;
+    v42 = v9;
+    v43 = 2114;
+    v44 = v10;
+    _os_log_impl(&dword_29C87A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Revoking Music User Tokens", &v41, 0x16u);
   }
 
   v13 = objc_msgSend_account(self, v11, v12);
@@ -117,11 +117,11 @@
     {
       v38 = objc_opt_class();
       v39 = AMSLogKey();
-      v42 = 138543618;
-      v43 = v38;
-      v44 = 2114;
-      v45 = v39;
-      _os_log_impl(&dword_29C87A000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Unable to revoke Music User Tokens missing necessary method in ICCloudServiceStatusMonitor", &v42, 0x16u);
+      v41 = 138543618;
+      v42 = v38;
+      v43 = 2114;
+      v44 = v39;
+      _os_log_impl(&dword_29C87A000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Unable to revoke Music User Tokens missing necessary method in ICCloudServiceStatusMonitor", &v41, 0x16u);
     }
 
     if (error)
@@ -136,13 +136,12 @@
     }
   }
 
-  v40 = *MEMORY[0x29EDCA608];
   return v33;
 }
 
 - (BOOL)_disableAutomaticDownloadKindsWithError:(id *)error
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v7 = objc_msgSend_sharedAccountsNotificationPluginConfig(MEMORY[0x29EDBF9F0], a2, error);
   if (!v7)
   {
@@ -154,11 +153,11 @@
   {
     v9 = objc_opt_class();
     v10 = AMSLogKey();
-    v30 = 138543618;
-    v31 = v9;
-    v32 = 2114;
-    v33 = v10;
-    _os_log_impl(&dword_29C87A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Disabling automatic download kinds.", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = v9;
+    v31 = 2114;
+    v32 = v10;
+    _os_log_impl(&dword_29C87A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Disabling automatic download kinds.", &v29, 0x16u);
   }
 
   v13 = objc_msgSend_createBagForSubProfile(MEMORY[0x29EDBF9A8], v11, v12);
@@ -170,13 +169,12 @@
   v25 = objc_msgSend_binaryPromiseAdapter(v22, v23, v24);
   v27 = objc_msgSend_resultWithError_(v25, v26, error);
 
-  v28 = *MEMORY[0x29EDCA608];
   return v27;
 }
 
 - (BOOL)_disableBookkeeperWithBag:(id)bag error:(id *)error
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v5 = MEMORY[0x29EDBF9F0];
   bagCopy = bag;
   v11 = objc_msgSend_sharedAccountsNotificationPluginConfig(v5, v7, v8);
@@ -191,9 +189,9 @@
     v13 = objc_opt_class();
     v14 = AMSLogKey();
     *buf = 138543618;
-    v43 = v13;
-    v44 = 2114;
-    v45 = v14;
+    v42 = v13;
+    v43 = 2114;
+    v44 = v14;
     _os_log_impl(&dword_29C87A000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Disabling Bookkeeper.", buf, 0x16u);
   }
 
@@ -203,12 +201,12 @@
 
   objc_msgSend_setRequestEncoding_(v19, v20, 2);
   v23 = objc_msgSend_deviceGUID(MEMORY[0x29EDBF9D0], v21, v22, @"guid");
-  v41[0] = v23;
-  v41[1] = &unk_2A23D0B48;
-  v40[1] = @"put-parameters";
-  v40[2] = @"notification-type";
-  v41[2] = @"mzbookkeeper";
-  v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v24, v41, v40, 3);
+  v40[0] = v23;
+  v40[1] = &unk_2A23D0B48;
+  v39[1] = @"put-parameters";
+  v39[2] = @"notification-type";
+  v40[2] = @"mzbookkeeper";
+  v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v24, v40, v39, 3);
   v27 = objc_msgSend_requestWithMethod_bagURL_parameters_(v19, v26, 4, v16, v25);
 
   v30 = objc_msgSend_defaultSession(MEMORY[0x29EDBFA40], v28, v29);
@@ -216,13 +214,12 @@
   v35 = objc_msgSend_binaryPromiseAdapter(v32, v33, v34);
   v37 = objc_msgSend_resultWithError_(v35, v36, error);
 
-  v38 = *MEMORY[0x29EDCA608];
   return v37;
 }
 
 - (BOOL)_sendLogoutRequestWithBag:(id)bag error:(id *)error
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   v6 = MEMORY[0x29EDBF9F0];
   bagCopy = bag;
   v12 = objc_msgSend_sharedAccountsNotificationPluginConfig(v6, v8, v9);
@@ -237,9 +234,9 @@
     v14 = objc_opt_class();
     v15 = AMSLogKey();
     *buf = 138543618;
-    v56 = v14;
-    v57 = 2114;
-    v58 = v15;
+    v55 = v14;
+    v56 = 2114;
+    v57 = v15;
     _os_log_impl(&dword_29C87A000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Sending logout request.", buf, 0x16u);
   }
 
@@ -249,8 +246,8 @@
 
   objc_msgSend_setRequestEncoding_(v20, v21, 2);
   v24 = objc_msgSend_deviceGUID(MEMORY[0x29EDBF9D0], v22, v23, @"guid");
-  v54 = v24;
-  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v25, &v54, &v53, 1);
+  v53 = v24;
+  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v25, &v53, &v52, 1);
   v29 = objc_msgSend_mutableCopy(v26, v27, v28);
 
   v32 = objc_msgSend_sharedInstance(MEMORY[0x29EDBFA30], v30, v31);
@@ -264,13 +261,12 @@
   v48 = objc_msgSend_binaryPromiseAdapter(v45, v46, v47);
   v50 = objc_msgSend_resultWithError_(v48, v49, error);
 
-  v51 = *MEMORY[0x29EDCA608];
   return v50;
 }
 
 + (void)_resetServerDataCacheForAccountWithDSID:(id)d
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   dCopy = d;
   v6 = objc_msgSend_sharedAccountsNotificationPluginConfig(MEMORY[0x29EDBF9F0], v4, v5);
   v9 = v6;
@@ -286,11 +282,11 @@
     {
       v11 = objc_opt_class();
       v12 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v12;
-      _os_log_impl(&dword_29C87A000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Requesting server data cache teardown", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v12;
+      _os_log_impl(&dword_29C87A000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Requesting server data cache teardown", &v19, 0x16u);
     }
 
     v9 = objc_alloc_init(MEMORY[0x29EDBFA28]);
@@ -309,16 +305,15 @@
     {
       v16 = objc_opt_class();
       v17 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v16;
-      v22 = 2114;
-      v23 = v17;
-      _os_log_impl(&dword_29C87A000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Failed to request server data cache teardown - no dsid on account", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v17;
+      _os_log_impl(&dword_29C87A000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Failed to request server data cache teardown - no dsid on account", &v19, 0x16u);
     }
   }
 
   objc_msgSend_setDidSetUpServerDataCache_(MEMORY[0x29EDBF9C8], v18, 0);
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 @end

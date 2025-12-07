@@ -87,7 +87,7 @@
 
   if (error && userCancelledError)
   {
-    *error = [userCancelledError MCCopyAsPrimaryError];
+    *error = objc_msgSend_MCCopyAsPrimaryError(userCancelledError);
   }
 
   return userCancelledError == 0;

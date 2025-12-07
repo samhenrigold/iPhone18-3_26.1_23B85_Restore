@@ -290,7 +290,7 @@ LABEL_11:
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
   changeCopy = change;
-  if ([path isEqualToString:@"outstandingItemsCount"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     v9 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
     unsignedIntegerValue = [v9 unsignedIntegerValue];
@@ -401,7 +401,7 @@ LABEL_11:
 - (void)takePotentialDrop:(id)drop
 {
   dropCopy = drop;
-  if (![(_DUIPotentialDrop *)self->_lastPotentialDrop isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_lastPotentialDrop) & 1) == 0)
   {
     druidConnection = [(_UIInternalDraggingSessionDestination *)self druidConnection];
     [druidConnection takePotentialDrop:dropCopy];
@@ -562,7 +562,7 @@ LABEL_11:
           [v14 _setVisibleDropItemCenter:?];
           if (v9)
           {
-            [v9 appliedTransform];
+            objc_msgSend_appliedTransform(v9);
           }
 
           else

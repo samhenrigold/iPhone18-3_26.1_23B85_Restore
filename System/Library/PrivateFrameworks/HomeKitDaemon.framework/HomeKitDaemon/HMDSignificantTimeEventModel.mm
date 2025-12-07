@@ -75,26 +75,24 @@ LABEL_9:
 
 void __42__HMDSignificantTimeEventModel_properties__block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v10.receiver = *(a1 + 32);
-  v10.super_class = &OBJC_METACLASS___HMDSignificantTimeEventModel;
-  v2 = objc_msgSendSuper2(&v10, sel_properties);
+  v9.receiver = *(a1 + 32);
+  v9.super_class = &OBJC_METACLASS___HMDSignificantTimeEventModel;
+  v2 = objc_msgSendSuper2(&v9, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_102939;
   properties__properties_102939 = v3;
 
   v5 = properties__properties_102939;
-  v11[0] = @"significantEvent";
+  v10[0] = @"significantEvent";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[1] = @"offset";
-  v12[0] = v6;
+  v10[1] = @"offset";
+  v11[0] = v6;
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [v5 addEntriesFromDictionary:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context

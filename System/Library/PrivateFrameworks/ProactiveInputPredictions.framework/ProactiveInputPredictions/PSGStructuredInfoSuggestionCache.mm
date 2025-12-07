@@ -9,7 +9,6 @@
 - (id)searchWithTrigger:(id)trigger localeIdentifier:(id)identifier maxSuggestions:(unint64_t)suggestions;
 - (void)addEmptyPlaceholderForTrigger:(id)trigger localeIdentifier:(id)identifier;
 - (void)addStructuredInfoSuggestions:(id)suggestions localeIdentifier:(id)identifier;
-- (void)invalidate;
 @end
 
 @implementation PSGStructuredInfoSuggestionCache
@@ -69,16 +68,9 @@
   return v9;
 }
 
-- (void)invalidate
-{
-  cachedSuggestions = self->_cachedSuggestions;
-  self->_cachedSuggestions = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (id)searchWithContext:(id)context localeIdentifier:(id)identifier maxSuggestions:(unint64_t)suggestions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   identifierCopy = identifier;
   if (-[PSGStructuredInfoSuggestionCache _isCacheEmpty](self, "_isCacheEmpty") || ![identifierCopy isEqualToString:self->_localeIdentifier])
@@ -93,29 +85,29 @@
 
     if ([lastObject length] && !-[PSGStructuredInfoSuggestionCache _maybeClearCache](self, "_maybeClearCache"))
     {
-      v22 = identifierCopy;
-      v23 = contextCopy;
+      v21 = identifierCopy;
+      v22 = contextCopy;
       v11 = objc_opt_new();
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       second = [(_PASTuple2 *)self->_cachedSuggestions second];
-      v13 = [second countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [second countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v25;
 LABEL_9:
         v16 = 0;
         while (1)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(second);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * v16);
+          v17 = *(*(&v24 + 1) + 8 * v16);
           v18 = objc_opt_class();
           predictedValue = [v17 predictedValue];
           LODWORD(v18) = [v18 _matchesPredictedValue:predictedValue prefixValue:lastObject];
@@ -131,7 +123,7 @@ LABEL_9:
 
           if (v14 == ++v16)
           {
-            v14 = [second countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v14 = [second countByEnumeratingWithState:&v24 objects:v28 count:16];
             if (v14)
             {
               goto LABEL_9;
@@ -147,8 +139,8 @@ LABEL_9:
         [(PSGStructuredInfoSuggestionCache *)self invalidate];
       }
 
-      identifierCopy = v22;
-      contextCopy = v23;
+      identifierCopy = v21;
+      contextCopy = v22;
     }
 
     else
@@ -157,14 +149,12 @@ LABEL_9:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)searchWithTrigger:(id)trigger localeIdentifier:(id)identifier maxSuggestions:(unint64_t)suggestions
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   identifierCopy = identifier;
   if (-[PSGStructuredInfoSuggestionCache _isCacheEmpty](self, "_isCacheEmpty") || ![identifierCopy isEqualToString:self->_localeIdentifier] || -[PSGStructuredInfoSuggestionCache _maybeClearCache](self, "_maybeClearCache"))
@@ -177,15 +167,15 @@ LABEL_9:
   triggerAttributes = [first triggerAttributes];
 
   triggerAttributes2 = [triggerCopy triggerAttributes];
-  v16 = [triggerAttributes isEqualToDictionary:triggerAttributes2];
+  v15 = [triggerAttributes isEqualToDictionary:triggerAttributes2];
 
-  if (v16)
+  if (v15)
   {
-    v17 = psg_default_log_handle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v16 = psg_default_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_260D18000, v17, OS_LOG_TYPE_DEBUG, "[StructuredInfoCache] Exact trigger match", buf, 2u);
+      _os_log_debug_impl(&dword_260D18000, v16, OS_LOG_TYPE_DEBUG, "[StructuredInfoCache] Exact trigger match", buf, 2u);
     }
 
     second = [(_PASTuple2 *)self->_cachedSuggestions second];
@@ -210,10 +200,10 @@ LABEL_15:
   }
 
   triggerAttributes3 = [triggerCopy triggerAttributes];
-  v24 = [PSGProactiveTrigger getSearchTerm:triggerAttributes3];
+  v23 = [PSGProactiveTrigger getSearchTerm:triggerAttributes3];
 
-  v25 = [PSGProactiveTrigger getSearchTerm:triggerAttributes];
-  if (![v24 length] || !objc_msgSend(v25, "length") || !objc_msgSend(v24, "hasPrefix:", v25))
+  v24 = [PSGProactiveTrigger getSearchTerm:triggerAttributes];
+  if (![v23 length] || !objc_msgSend(v24, "length") || !objc_msgSend(v23, "hasPrefix:", v24))
   {
     second = 0;
 LABEL_41:
@@ -223,16 +213,16 @@ LABEL_16:
     {
       if ([second count] <= suggestions)
       {
-        v22 = second;
-        second = v22;
+        v21 = second;
+        second = v21;
       }
 
       else
       {
-        v22 = [second subarrayWithRange:{0, suggestions}];
+        v21 = [second subarrayWithRange:{0, suggestions}];
       }
 
-      second3 = v22;
+      second3 = v21;
     }
 
     else
@@ -243,11 +233,11 @@ LABEL_16:
     goto LABEL_22;
   }
 
-  v26 = psg_default_log_handle();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v25 = psg_default_log_handle();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_debug_impl(&dword_260D18000, v26, OS_LOG_TYPE_DEBUG, "[StructuredInfoCache] Partial trigger match for Contacts Autocomplete", buf, 2u);
+    _os_log_debug_impl(&dword_260D18000, v25, OS_LOG_TYPE_DEBUG, "[StructuredInfoCache] Partial trigger match for Contacts Autocomplete", buf, 2u);
   }
 
   second2 = [(_PASTuple2 *)self->_cachedSuggestions second];
@@ -255,46 +245,46 @@ LABEL_16:
 
   if (second2 != emptySuggestionsPlaceholder)
   {
-    v39 = v25;
+    v38 = v24;
     second = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     obj = [(_PASTuple2 *)self->_cachedSuggestions second];
-    v43 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-    if (v43)
+    v42 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+    if (v42)
     {
-      v42 = *v45;
-      v40 = v24;
+      v41 = *v44;
+      v39 = v23;
       while (2)
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v42; ++i)
         {
-          if (*v45 != v42)
+          if (*v44 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v44 + 1) + 8 * i);
-          portraitItem = [v30 portraitItem];
+          v29 = *(*(&v43 + 1) + 8 * i);
+          portraitItem = [v29 portraitItem];
           name = [portraitItem name];
 
           if ([name length])
           {
             if (_PASInsensitiveStringContainsString())
             {
-              v33 = [PSGStructuredInfoSuggestion alloc];
-              portraitItem2 = [v30 portraitItem];
-              operationalItem = [v30 operationalItem];
-              v36 = [(PSGStructuredInfoSuggestion *)v33 initWithProactiveTrigger:triggerCopy portraitItem:portraitItem2 operationalItem:operationalItem];
+              v32 = [PSGStructuredInfoSuggestion alloc];
+              portraitItem2 = [v29 portraitItem];
+              operationalItem = [v29 operationalItem];
+              v35 = [(PSGStructuredInfoSuggestion *)v32 initWithProactiveTrigger:triggerCopy portraitItem:portraitItem2 operationalItem:operationalItem];
 
-              [second addObject:v36];
-              v37 = [second count];
+              [second addObject:v35];
+              v36 = [second count];
 
-              v38 = v37 == suggestions;
-              v24 = v40;
-              if (v38)
+              v37 = v36 == suggestions;
+              v23 = v39;
+              if (v37)
               {
 
                 goto LABEL_44;
@@ -303,8 +293,8 @@ LABEL_16:
           }
         }
 
-        v43 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-        if (v43)
+        v42 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+        if (v42)
         {
           continue;
         }
@@ -315,7 +305,7 @@ LABEL_16:
 
 LABEL_44:
 
-    v25 = v39;
+    v24 = v38;
     goto LABEL_41;
   }
 
@@ -325,7 +315,6 @@ LABEL_44:
 LABEL_22:
 
 LABEL_5:
-  v11 = *MEMORY[0x277D85DE8];
 
   return second3;
 }
@@ -443,7 +432,7 @@ LABEL_11:
 
 + (BOOL)_matchesPredictedValue:(id)value prefixValue:(id)prefixValue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   prefixValueCopy = prefixValue;
   if (([valueCopy hasPrefix:prefixValueCopy] & 1) == 0)
@@ -451,24 +440,24 @@ LABEL_11:
     decimalDigitCharacterSet = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
     v9 = [decimalDigitCharacterSet characterIsMember:{objc_msgSend(prefixValueCopy, "characterAtIndex:", 0)}];
 
-    if (!v9 || (v20 = 0u, v21 = 0u, v18 = 0u, v19 = 0u, (v10 = [&unk_287345570 countByEnumeratingWithState:&v18 objects:v22 count:16]) == 0))
+    if (!v9 || (v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, (v10 = [&unk_287345570 countByEnumeratingWithState:&v17 objects:v21 count:16]) == 0))
     {
       v7 = 0;
       goto LABEL_14;
     }
 
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
 LABEL_6:
     v13 = 0;
     while (1)
     {
-      if (*v19 != v12)
+      if (*v18 != v12)
       {
         objc_enumerationMutation(&unk_287345570);
       }
 
-      v14 = [MEMORY[0x277CCACA8] stringWithString:*(*(&v18 + 1) + 8 * v13)];
+      v14 = [MEMORY[0x277CCACA8] stringWithString:*(*(&v17 + 1) + 8 * v13)];
       v15 = [v14 stringByAppendingString:prefixValueCopy];
 
       LOBYTE(v14) = [valueCopy hasPrefix:v15];
@@ -479,7 +468,7 @@ LABEL_6:
 
       if (v11 == ++v13)
       {
-        v11 = [&unk_287345570 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [&unk_287345570 countByEnumeratingWithState:&v17 objects:v21 count:16];
         v7 = 0;
         if (v11)
         {
@@ -494,7 +483,6 @@ LABEL_6:
   v7 = 1;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

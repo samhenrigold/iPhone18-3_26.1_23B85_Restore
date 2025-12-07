@@ -26,37 +26,37 @@
 
 - (void)visitEventsWithBatchSize:(unint64_t)size batchCallback:(id)callback
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
-  v19 = 0;
+  v18 = 0;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_changeEnumerator;
-  v8 = [(NSEnumerator *)v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v8 = [(NSEnumerator *)v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
-        [v12 acceptEventVisitor:{self, v15}];
+        [v12 acceptEventVisitor:{self, v14}];
         if (self->_count >= size)
         {
-          callbackCopy[2](callbackCopy, self, &v19);
+          callbackCopy[2](callbackCopy, self, &v18);
           [(_CDContactChangeHistoryEventVisitor *)self reset];
-          if (v19)
+          if (v18)
           {
             objc_autoreleasePoolPop(v13);
 
@@ -69,7 +69,7 @@
       }
 
       while (v9 != v11);
-      v9 = [(NSEnumerator *)v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [(NSEnumerator *)v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -81,13 +81,11 @@
 
   if (self->_count)
   {
-    callbackCopy[2](callbackCopy, self, &v19);
+    callbackCopy[2](callbackCopy, self, &v18);
     [(_CDContactChangeHistoryEventVisitor *)self reset];
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)deletedContactIdentifiers

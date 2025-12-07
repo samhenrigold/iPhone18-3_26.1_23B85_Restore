@@ -22,36 +22,34 @@
 
 + (id)entryEventIntervalDefinitions
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v21 = @"LogFile";
-  v19[0] = *MEMORY[0x277D3F4E8];
+  v21[1] = *MEMORY[0x277D85DE8];
+  v20 = @"LogFile";
+  v18[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v17[0] = *MEMORY[0x277D3F568];
-  v17[1] = v2;
-  v18[0] = &unk_282C1C4A8;
-  v18[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v20[0] = v3;
-  v19[1] = *MEMORY[0x277D3F540];
-  v15[0] = @"timestampEnd";
+  v16[0] = *MEMORY[0x277D3F568];
+  v16[1] = v2;
+  v17[0] = &unk_282C1C4A8;
+  v17[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v19[0] = v3;
+  v18[1] = *MEMORY[0x277D3F540];
+  v14[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v16[0] = commonTypeDict_DateFormat;
-  v15[1] = @"FileType";
+  v15[0] = commonTypeDict_DateFormat;
+  v14[1] = @"FileType";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v16[1] = commonTypeDict_StringFormat;
-  v15[2] = @"FilePath";
+  v15[1] = commonTypeDict_StringFormat;
+  v14[2] = @"FilePath";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v16[2] = commonTypeDict_StringFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v22[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = commonTypeDict_StringFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v21[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
   return v12;
 }
@@ -90,7 +88,7 @@
 
 - (void)stopMonitoring
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   FSEventStreamStop(self->_stream);
   stream = self->_stream;
   Current = CFRunLoopGetCurrent();
@@ -98,12 +96,10 @@
   v5 = PLLogFSEvent();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = &unk_282C14BB0;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Stopped monitoring paths %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = &unk_282C14BB0;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Stopped monitoring paths %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoring
@@ -118,13 +114,13 @@
 
 void __33__PLFSEventAgent_startMonitoring__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = PLLogFSEvent();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = &unk_282C14BC8;
-    _os_log_debug_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEBUG, "StartMonitoring paths: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = &unk_282C14BC8;
+    _os_log_debug_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEBUG, "StartMonitoring paths: %@", &v6, 0xCu);
   }
 
   if ([*(a1 + 32) stream])
@@ -137,13 +133,11 @@ void __33__PLFSEventAgent_startMonitoring__block_invoke(uint64_t a1)
       v5 = PLLogFSEvent();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v7) = 0;
-        _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Failed to start monitoring fsevents.", &v7, 2u);
+        LOWORD(v6) = 0;
+        _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Failed to start monitoring fsevents.", &v6, 2u);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerforFSEventNotification
@@ -179,7 +173,7 @@ void __33__PLFSEventAgent_startMonitoring__block_invoke(uint64_t a1)
 
 id __42__PLFSEventAgent_initOperatorDependancies__block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCACA8];
   v8 = a5;
   v9 = [v7 stringWithFormat:@"Received log files request from %d, %@", a2, a3];
@@ -193,14 +187,12 @@ id __42__PLFSEventAgent_initOperatorDependancies__block_invoke(uint64_t a1, int 
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v9;
+    v19 = v9;
     _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   v15 = [MEMORY[0x277D3F238] sharedInstance];
   v16 = [v15 generateMSSSubmissionWithPayload:v8];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -236,7 +228,7 @@ id __42__PLFSEventAgent_initOperatorDependancies__block_invoke(uint64_t a1, int 
 
 - (void)logLogFileName:(id)name withName:(id)withName
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   withNameCopy = withName;
   v8 = withNameCopy;
@@ -246,9 +238,9 @@ id __42__PLFSEventAgent_initOperatorDependancies__block_invoke(uint64_t a1, int 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v44 = nameCopy;
-      v45 = 2112;
-      v46 = v8;
+      v43 = nameCopy;
+      v44 = 2112;
+      v45 = v8;
       _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "logLogFileName(%@, %@)\n", buf, 0x16u);
     }
 
@@ -266,10 +258,10 @@ id __42__PLFSEventAgent_initOperatorDependancies__block_invoke(uint64_t a1, int 
 
     v13 = [(PLOperator *)PLFSEventAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"LogFile"];
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@", @"FileType", nameCopy];
-    storage = [(PLOperator *)self storage];
-    v42 = nameCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
-    v17 = [storage lastEntryForKey:v13 withFilters:v16];
+    v15 = objc_msgSend_storage(self);
+    v41 = nameCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+    v17 = [v15 lastEntryForKey:v13 withFilters:v16];
 
     if (!v17)
     {
@@ -283,7 +275,7 @@ LABEL_22:
     v18 = [v17 objectForKeyedSubscript:@"FilePath"];
     v19 = [v18 componentsSeparatedByString:@"."];
 
-    v34 = v13;
+    v33 = v13;
     if ([v19 count] == 4)
     {
       v20 = [v19 objectAtIndexedSubscript:2];
@@ -305,21 +297,21 @@ LABEL_22:
 
         if (v24)
         {
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __42__PLFSEventAgent_logLogFileName_withName___block_invoke;
-          v39[3] = &unk_278259658;
-          v25 = &v40;
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __42__PLFSEventAgent_logLogFileName_withName___block_invoke;
+          v38[3] = &unk_278259658;
+          v25 = &v39;
           v26 = v17;
-          v27 = &v41;
-          v40 = v26;
-          v41 = monotonicDate;
+          v27 = &v40;
+          v39 = v26;
+          v40 = monotonicDate;
           v28 = monotonicDate;
-          [(PLOperator *)self updateEntry:v26 withBlock:v39];
+          [(PLOperator *)self updateEntry:v26 withBlock:v38];
 LABEL_19:
 
 LABEL_21:
-          v13 = v34;
+          v13 = v33;
           goto LABEL_22;
         }
       }
@@ -331,18 +323,18 @@ LABEL_21:
 
         if (v30 == 1)
         {
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __42__PLFSEventAgent_logLogFileName_withName___block_invoke_2;
-          v35[3] = &unk_27825D6E8;
-          v25 = &v36;
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __42__PLFSEventAgent_logLogFileName_withName___block_invoke_2;
+          v34[3] = &unk_27825D6E8;
+          v25 = &v35;
           v31 = v17;
-          v27 = &v37;
-          v36 = v31;
-          v37 = monotonicDate;
-          v38 = v8;
+          v27 = &v36;
+          v35 = v31;
+          v36 = monotonicDate;
+          v37 = v8;
           v32 = monotonicDate;
-          [(PLOperator *)self updateEntry:v31 withBlock:v35];
+          [(PLOperator *)self updateEntry:v31 withBlock:v34];
 
           goto LABEL_19;
         }
@@ -354,8 +346,6 @@ LABEL_21:
   }
 
 LABEL_23:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__PLFSEventAgent_logLogFileName_withName___block_invoke_2(uint64_t a1)

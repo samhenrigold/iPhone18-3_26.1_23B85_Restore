@@ -495,7 +495,7 @@ LABEL_12:
     [+[VCVideoCaptureServer VCVideoCaptureServerSingleton](VCVideoCaptureServer "VCVideoCaptureServerSingleton")];
   }
 
-  VideoTransmitter_SetAspectRatios(v18, v20, v21, v22);
+  VideoTransmitter_SetAspectRatios(self->_videoTransmitterHandle, v18, v20, v21, v22);
 }
 
 - (void)dealloc
@@ -692,11 +692,13 @@ LABEL_23:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Start Video Failed", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v1, v2, " [%s] %s:%d Start Video Failed", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -705,11 +707,13 @@ LABEL_23:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Stop Video Failed", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v1, v2, " [%s] %s:%d Stop Video Failed", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -859,8 +863,8 @@ LABEL_12:
   v10 = 0.0;
   v11[0] = 0.0;
   v9 = 0;
-  VideoTransmitter_GetBitrate(interval, self->_videoTransmitterHandle, v11);
-  VideoTransmitter_GetFramerate(interval, self->_videoTransmitterHandle, &v10);
+  VideoTransmitter_GetBitrate(self->_videoTransmitterHandle, v11, interval);
+  VideoTransmitter_GetFramerate(self->_videoTransmitterHandle, &v10, interval);
   VideoTransmitter_GetLastVideoSampleTime(self->_videoTransmitterHandle, &v9);
   metrics->var0 = (v11[0] / 1000.0);
   metrics->var3 = v10;
@@ -889,7 +893,7 @@ LABEL_12:
   {
     videoTransmitterHandle = self->_videoTransmitterHandle;
 
-    VideoTransmitter_SetVisualRectangle(x, y, width, height, videoTransmitterHandle, localCopy);
+    VideoTransmitter_SetVisualRectangle(videoTransmitterHandle, localCopy, x, y, width, height);
   }
 }
 

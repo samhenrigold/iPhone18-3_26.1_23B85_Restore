@@ -1,4 +1,5 @@
 @interface UNSCNContactResolverResult
++ (id)resultWithCNContactIdentifier:(id)identifier cnContactFullname:(id)fullname suggestedContact:(BOOL)contact matchType:(unint64_t)type matchTypeSuggested:(BOOL)suggested identifierOfMatchLabel:(id)label;
 - (BOOL)isStrongerMatchThanOtherMatch:(id)match;
 - (BOOL)isStrongestMatch;
 - (id)_initWithCNContactIdentifier:(id)identifier cnContactFullname:(id)fullname suggestedContact:(BOOL)contact matchType:(unint64_t)type matchTypeSuggested:(BOOL)suggested identifierOfMatchLabel:(id)label;
@@ -51,6 +52,18 @@
   {
     return ![(UNSCNContactResolverResult *)self isMatchTypeSuggested];
   }
+}
+
++ (id)resultWithCNContactIdentifier:(id)identifier cnContactFullname:(id)fullname suggestedContact:(BOOL)contact matchType:(unint64_t)type matchTypeSuggested:(BOOL)suggested identifierOfMatchLabel:(id)label
+{
+  suggestedCopy = suggested;
+  contactCopy = contact;
+  labelCopy = label;
+  fullnameCopy = fullname;
+  identifierCopy = identifier;
+  v16 = [[UNSCNContactResolverResult alloc] _initWithCNContactIdentifier:identifierCopy cnContactFullname:fullnameCopy suggestedContact:contactCopy matchType:type matchTypeSuggested:suggestedCopy identifierOfMatchLabel:labelCopy];
+
+  return v16;
 }
 
 - (id)_initWithCNContactIdentifier:(id)identifier cnContactFullname:(id)fullname suggestedContact:(BOOL)contact matchType:(unint64_t)type matchTypeSuggested:(BOOL)suggested identifierOfMatchLabel:(id)label

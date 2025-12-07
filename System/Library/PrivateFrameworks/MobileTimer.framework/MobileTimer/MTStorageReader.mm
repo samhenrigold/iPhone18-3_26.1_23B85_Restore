@@ -127,7 +127,7 @@
 
 - (id)_decodeObject:(id)object
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -141,30 +141,30 @@
     }
 
     array = [MEMORY[0x1E695DF70] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [(MTStorageReader *)self _decodeObject:*(*(&v24 + 1) + 8 * i), v24];
+          v14 = [(MTStorageReader *)self _decodeObject:*(*(&v23 + 1) + 8 * i), v23];
           [array addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v11);
@@ -177,32 +177,32 @@
   if (![objc_opt_class() _dictionaryIsForSerializableObject:v5])
   {
     array = [MEMORY[0x1E695DF90] dictionary];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v9 = v5;
-    v15 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v15 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v9);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * j);
+          v19 = *(*(&v27 + 1) + 8 * j);
           v20 = [v9 objectForKeyedSubscript:v19];
           v21 = [(MTStorageReader *)self _decodeObject:v20];
           [array setObject:v21 forKeyedSubscript:v19];
         }
 
-        v16 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v16 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v16);
@@ -218,7 +218,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

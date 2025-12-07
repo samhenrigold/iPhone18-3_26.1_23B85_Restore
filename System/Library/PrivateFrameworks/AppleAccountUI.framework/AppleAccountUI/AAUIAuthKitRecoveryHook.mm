@@ -36,47 +36,48 @@
 
 void __57__AAUIAuthKitRecoveryHook_processObjectModel_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E698DD98] shouldSendServerResponseForRecoveredInfo:v5 withRecoveryError:v6];
-  v8 = _AAUILogSystem();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  v8 = v7;
+  v9 = _AAUILogSystem(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Recovered info, proceeding with rest of the flow...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Recovered info, proceeding with rest of the flow...", buf, 2u);
     }
 
-    v10 = objc_alloc_init(MEMORY[0x1E69C7038]);
-    [*(a1 + 32) setServerHookResponse:v10];
+    v11 = objc_alloc_init(MEMORY[0x1E69C7038]);
+    [*(a1 + 32) setServerHookResponse:v11];
 
-    v11 = [MEMORY[0x1E698DD98] requestForRecoveryCompletionWithContext:*(a1 + 40) recoveredInfo:v5 recoveryError:v6];
-    v12 = [*(a1 + 32) serverHookResponse];
-    [v12 setContinuationRequest:v11];
+    v12 = [MEMORY[0x1E698DD98] requestForRecoveryCompletionWithContext:*(a1 + 40) recoveredInfo:v5 recoveryError:v6];
+    v13 = [*(a1 + 32) serverHookResponse];
+    [v13 setContinuationRequest:v12];
 
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
       *buf = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Recovery flow ended with client error... %@", buf, 0xCu);
+      v19 = v6;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Recovery flow ended with client error... %@", buf, 0xCu);
     }
 
-    v13 = [*(a1 + 32) delegate];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__AAUIAuthKitRecoveryHook_processObjectModel_completion___block_invoke_24;
-    v14[3] = &unk_1E820B7A8;
-    v16 = *(a1 + 48);
-    v15 = v6;
-    [v13 dismissObjectModelsAnimated:1 completion:v14];
+    v14 = [*(a1 + 32) delegate];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __57__AAUIAuthKitRecoveryHook_processObjectModel_completion___block_invoke_24;
+    v15[3] = &unk_1E820B7A8;
+    v17 = *(a1 + 48);
+    v16 = v6;
+    [v14 dismissObjectModelsAnimated:1 completion:v15];
   }
 }
 

@@ -73,7 +73,7 @@
 + (id)generatePassphraseVerifierForKey:(id)key verifierVersion:(unsigned __int16)version
 {
   versionCopy = version;
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ([key keyType])
   {
     v7 = +[TSUAssertionHandler currentHandler];
@@ -85,12 +85,12 @@
   else
   {
     data = [MEMORY[0x277CBEB28] data];
-    v28 = 0;
+    v29 = 0;
     v10 = [[SFUMemoryOutputStream alloc] initWithData:data];
-    v27 = versionCopy;
-    v26 = 1;
+    v28 = versionCopy;
+    v27 = 1;
+    [(SFUMemoryOutputStream *)v10 writeBuffer:&v28 size:2];
     [(SFUMemoryOutputStream *)v10 writeBuffer:&v27 size:2];
-    [(SFUMemoryOutputStream *)v10 writeBuffer:&v26 size:2];
     iterationCount = [key iterationCount];
     [(SFUMemoryOutputStream *)v10 writeBuffer:&iterationCount size:4];
     if (versionCopy >= 2)
@@ -99,42 +99,43 @@
     }
 
     v11 = [self ivLengthForKey:key];
-    MEMORY[0x28223BE20]();
-    v13 = &c - v12;
-    [self generateRandomDataInBuffer:&c - v12 length:v11];
-    [(SFUMemoryOutputStream *)v10 writeBuffer:v13 size:v11];
-    v14 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v13 ivLength:v11 usePKCS7Padding:versionCopy == 1];
+    v12 = v11;
+    MEMORY[0x28223BE20](v11);
+    v14 = &c - v13;
+    [self generateRandomDataInBuffer:&c - v13 length:v12];
+    [(SFUMemoryOutputStream *)v10 writeBuffer:v14 size:v12];
+    v15 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v14 ivLength:v12 usePKCS7Padding:versionCopy == 1];
     [self generateRandomDataInBuffer:data length:32];
-    if (![(SFUCryptor *)v14 cryptDataFromBuffer:data length:32 toStream:v10 finished:0 error:&v28])
+    if (![(SFUCryptor *)v15 cryptDataFromBuffer:data length:32 toStream:v10 finished:0 error:&v29])
     {
 
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE648];
-      localizedDescription = [v28 localizedDescription];
-      [v15 raise:v16 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v28, "localizedFailureReason")}];
+      v16 = MEMORY[0x277CBEAD8];
+      v17 = *MEMORY[0x277CBE648];
+      localizedDescription = [v29 localizedDescription];
+      [v16 raise:v17 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v29, "localizedFailureReason")}];
       v10 = 0;
-      v14 = 0;
+      v15 = 0;
     }
 
     if (CC_SHA256_Init(&c) && CC_SHA256_Update(&c, data, 0x20u) && CC_SHA256_Final(md, &c))
     {
-      if (![(SFUCryptor *)v14 cryptDataFromBuffer:md length:32 toStream:v10 finished:1 error:&v28])
+      if (![(SFUCryptor *)v15 cryptDataFromBuffer:md length:32 toStream:v10 finished:1 error:&v29])
       {
 
-        v18 = MEMORY[0x277CBEAD8];
-        v19 = *MEMORY[0x277CBE648];
-        localizedDescription2 = [v28 localizedDescription];
-        [v18 raise:v19 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v28, "localizedFailureReason")}];
-        v14 = 0;
+        v19 = MEMORY[0x277CBEAD8];
+        v20 = *MEMORY[0x277CBE648];
+        localizedDescription2 = [v29 localizedDescription];
+        [v19 raise:v20 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v29, "localizedFailureReason")}];
+        v15 = 0;
         v10 = 0;
       }
     }
 
     else
     {
-      v21 = +[TSUAssertionHandler currentHandler];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[SFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
-      [v21 handleFailureInFunction:v22 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/sf/SFUCryptoUtils.mm"), 167, @"CC_SHA256 failed"}];
+      v22 = +[TSUAssertionHandler currentHandler];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[SFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
+      [v22 handleFailureInFunction:v23 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/sf/SFUCryptoUtils.mm"), 167, @"CC_SHA256 failed"}];
       data = 0;
     }
   }

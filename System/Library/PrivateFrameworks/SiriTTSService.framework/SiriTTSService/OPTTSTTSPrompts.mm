@@ -42,84 +42,83 @@ apple::aiml::flatbuffers2::DetachedBuffer *__31__OPTTSTTSPrompts_flatbuffData__b
 
 - (Offset<siri::speech::schema_fb::TTSPrompts>)addObjectToBuffer:(void *)buffer
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
+  v32 = 0;
   v33 = 0;
   v34 = 0;
-  v35 = 0;
   prompts = [(OPTTSTTSPrompts *)self prompts];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v33, [prompts count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v32, [prompts count]);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   prompts2 = [(OPTTSTTSPrompts *)self prompts];
-  v7 = [prompts2 countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v7 = [prompts2 countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v7)
   {
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(prompts2);
         }
 
-        uTF8String = [*(*(&v29 + 1) + 8 * i) UTF8String];
+        uTF8String = [*(*(&v28 + 1) + 8 * i) UTF8String];
         v11 = strlen(uTF8String);
-        LODWORD(v22) = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
-        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v33, &v22);
+        LODWORD(v21) = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
+        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v32, &v21);
       }
 
-      v7 = [prompts2 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v7 = [prompts2 countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  v12 = v33;
-  if (v34 == v33)
+  v12 = v32;
+  if (v33 == v32)
   {
     v13 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>(std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>> const&)::t;
   }
 
   else
   {
-    v13 = v33;
+    v13 = v32;
   }
 
-  v14 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v13, (v34 - v33) >> 2);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3812000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = "";
-  v28 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __37__OPTTSTTSPrompts_addObjectToBuffer___block_invoke;
-  v21[3] = &unk_1E7AF38B0;
-  v21[4] = &v22;
-  v21[5] = buffer;
-  [(OPTTSTTSPrompts *)self prompts_v2:v21];
+  v14 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v13, (v33 - v32) >> 2);
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3812000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = "";
+  v27 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __37__OPTTSTTSPrompts_addObjectToBuffer___block_invoke;
+  v20[3] = &unk_1E7AF38B0;
+  v20[4] = &v21;
+  v20[5] = buffer;
+  [(OPTTSTTSPrompts *)self prompts_v2:v20];
   apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v15 = *(buffer + 8);
   v16 = *(buffer + 12);
   v17 = *(buffer + 10);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>(buffer, v14);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(buffer, 6, *(v23 + 12));
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(buffer, 6, *(v22 + 12));
   v18.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v15 - v16 + v17);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (v12)
   {
     operator delete(v12);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -132,11 +131,7 @@ uint64_t __37__OPTTSTTSPrompts_addObjectToBuffer___block_invoke(uint64_t a1, con
 
 - (void)prompts_v2:(id)prompts_v2
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   prompts_v2Copy = prompts_v2;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = prompts_v2Copy;
   (*(prompts_v2 + 2))();
 }
 

@@ -501,7 +501,7 @@ void __60__JFXReaderWriterExportController_videoCompressionSettings___block_invo
   v8 = composition;
   if (composition)
   {
-    [composition duration];
+    objc_msgSend_duration(composition);
   }
 
   else
@@ -764,21 +764,21 @@ LABEL_39:
   _os_log_error_impl(&dword_242A3B000, log, OS_LOG_TYPE_ERROR, "An error occurred during export: %{public}@", buf, 0xCu);
 }
 
-void __59__JFXReaderWriterExportController_continueExportAfterDelay__block_invoke(uint64_t a1)
+void __59__JFXReaderWriterExportController_continueExportAfterDelay__block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) markAsFinished];
   [*(a1 + 40) updateStatusAndErrorFromReader:*(a1 + 48) andWriter:*(a1 + 56)];
   if ([*(a1 + 40) status] == 4)
   {
-    v2 = JFXLog_export();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = JFXLog_export();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __59__JFXReaderWriterExportController_continueExportAfterDelay__block_invoke_cold_1(a1);
     }
   }
 
-  v3 = JFXLog_DebugExport();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = JFXLog_DebugExport();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __59__JFXReaderWriterExportController_continueExportAfterDelay__block_invoke_cold_2(a1);
   }

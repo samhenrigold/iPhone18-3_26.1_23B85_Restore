@@ -211,7 +211,7 @@
     [(JournalTextView *)&v6 deleteBackward];
   }
 
-  sub_100004F84(v7, &qword_100AD13D0);
+  sub_100004F84(v7, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -232,13 +232,13 @@
 
   v8 = sub_1007BF4D4(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
 - (id)editMenuForTextRange:(id)range suggestedActions:(id)actions
 {
-  sub_1000065A8(0, &unk_100ADC630);
+  sub_1000065A8(0, &unk_100ADC630, UIMenuElement_ptr);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   rangeCopy = range;
   selfCopy = self;
@@ -260,13 +260,13 @@
   v4 = type metadata accessor for UITextFormattingViewController.ChangeValue();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UITextFormattingViewController.ChangeValue._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v9 = sub_1007C2818(v7);
+  v10 = sub_1007C2818(v7, v9);
 
   (*(v5 + 8))(v7, v4);
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (id)_configurationForTextFormattingOptions

@@ -60,7 +60,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
@@ -68,18 +68,16 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && equalCopy->_groupType == self->_groupType)
     {
-      groupIdentifier = equalCopy->_groupIdentifier;
-      v6 = self->_groupIdentifier;
-      v7 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v7 = 0;
+      v5 = 0;
     }
   }
 
-  return v7;
+  return v5;
 }
 
 - (CHSWidgetRelevanceGroupAttribute)initWithCoder:(id)coder

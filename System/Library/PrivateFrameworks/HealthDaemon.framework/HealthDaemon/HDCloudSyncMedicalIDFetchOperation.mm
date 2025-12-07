@@ -33,7 +33,7 @@
 
 - (void)main
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   container = self->_container;
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
@@ -44,9 +44,9 @@
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration2 cachedCloudState];
   containerIdentifier = [(CKContainer *)v7 containerIdentifier];
-  v60 = 0;
-  v12 = [cachedCloudState unifiedSyncZoneForContainerID:containerIdentifier error:&v60];
-  v13 = v60;
+  v59 = 0;
+  v12 = [cachedCloudState unifiedSyncZoneForContainerID:containerIdentifier error:&v59];
+  v13 = v59;
 
   _HKInitializeLogging();
   if (v12)
@@ -66,8 +66,8 @@
     {
       *buf = 138543618;
       selfCopy10 = self;
-      v63 = 2114;
-      v64 = v13;
+      v62 = 2114;
+      v63 = v13;
       _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached unified zone, %{public}@", buf, 0x16u);
     }
 
@@ -92,10 +92,10 @@ LABEL_20:
       containerIdentifier2 = [(CKContainer *)v7 containerIdentifier];
       *buf = 138543874;
       selfCopy10 = self;
-      v63 = 2114;
-      v64 = v34;
-      v65 = 2114;
-      v66 = containerIdentifier2;
+      v62 = 2114;
+      v63 = v34;
+      v64 = 2114;
+      v65 = containerIdentifier2;
       _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ No unified zone exists in cache for database %{public}@ in %{public}@", buf, 0x20u);
     }
 
@@ -113,18 +113,18 @@ LABEL_20:
     containerIdentifier3 = [(CKContainer *)v7 containerIdentifier];
     *buf = 138543874;
     selfCopy10 = self;
-    v63 = 2114;
-    v64 = v19;
-    v65 = 2114;
-    v66 = containerIdentifier3;
+    v62 = 2114;
+    v63 = v19;
+    v64 = 2114;
+    v65 = containerIdentifier3;
     _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Beginning Medical ID fetch from cache for %{public}@ in %{public}@", buf, 0x20u);
 
     v15 = MEMORY[0x277CCC2E0];
   }
 
-  v59 = 0;
-  v21 = [v12 recordsForClass:objc_opt_class() error:&v59];
-  v22 = v59;
+  v58 = 0;
+  v21 = [v12 recordsForClass:objc_opt_class() error:&v58];
+  v22 = v58;
   v23 = v22;
   if (v21 || !v22)
   {
@@ -136,13 +136,13 @@ LABEL_20:
         v36 = *MEMORY[0x277CCC2E0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_FAULT))
         {
-          v48 = v36;
+          v47 = v36;
           objb = [v21 componentsJoinedByString:{@", "}];
           *buf = 138543618;
           selfCopy10 = self;
-          v63 = 2114;
-          v64 = objb;
-          _os_log_fault_impl(&dword_228986000, v48, OS_LOG_TYPE_FAULT, "%{public}@ Fetched multiple MedicalID records from the cloud. CKRecordIDs: %{public}@ ", buf, 0x16u);
+          v62 = 2114;
+          v63 = objb;
+          _os_log_fault_impl(&dword_228986000, v47, OS_LOG_TYPE_FAULT, "%{public}@ Fetched multiple MedicalID records from the cloud. CKRecordIDs: %{public}@ ", buf, 0x16u);
         }
       }
 
@@ -157,14 +157,14 @@ LABEL_20:
         v40 = self->_medicalIDRecord;
         *buf = 138543618;
         selfCopy10 = self;
-        v63 = 2114;
-        v64 = v40;
+        v62 = 2114;
+        v63 = v40;
         _os_log_impl(&dword_228986000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@ Fetched MedicalID record from cache %{public}@", buf, 0x16u);
       }
 
       medicalIDData = [(HDCloudSyncMedicalIDRecord *)self->_medicalIDRecord medicalIDData];
-      v51 = medicalIDData;
-      v53 = v23;
+      v50 = medicalIDData;
+      v52 = v23;
       if (medicalIDData)
       {
         medicalIDData = [MEMORY[0x277CCDDF0] createWithCodable:medicalIDData];
@@ -177,10 +177,10 @@ LABEL_20:
         if (cloudMedicalIDData)
         {
           dateSaved = [(_HKMedicalIDData *)self->_cloudMedicalIDData dateSaved];
-          v49 = [dateSaved hk_isBeforeDate:cloudMedicalIDData];
+          v48 = [dateSaved hk_isBeforeDate:cloudMedicalIDData];
 
-          v23 = v53;
-          if (v49)
+          v23 = v52;
+          if (v48)
           {
             objc_storeStrong(&self->_cloudMedicalIDData, obj);
           }
@@ -189,9 +189,9 @@ LABEL_20:
 
       else
       {
-        v46 = medicalIDData;
+        v45 = medicalIDData;
         cloudMedicalIDData = self->_cloudMedicalIDData;
-        self->_cloudMedicalIDData = v46;
+        self->_cloudMedicalIDData = v45;
       }
 
       [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
@@ -204,14 +204,14 @@ LABEL_20:
     {
       objc = v44;
       [v8 databaseScope];
-      v52 = CKDatabaseScopeString();
+      v51 = CKDatabaseScopeString();
       containerIdentifier4 = [(CKContainer *)v7 containerIdentifier];
       *buf = 138543874;
       selfCopy10 = self;
-      v63 = 2114;
-      v64 = v52;
-      v65 = 2114;
-      v66 = containerIdentifier4;
+      v62 = 2114;
+      v63 = v51;
+      v64 = 2114;
+      v65 = containerIdentifier4;
       _os_log_impl(&dword_228986000, objc, OS_LOG_TYPE_DEFAULT, "%{public}@ No MedicalID record exists in the cache for %{public}@ in %{public}@", buf, 0x20u);
     }
 
@@ -226,15 +226,15 @@ LABEL_20:
     v24 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v47 = v24;
+      v46 = v24;
       obja = [v12 zoneIdentifier];
       *buf = 138543874;
       selfCopy10 = self;
-      v63 = 2114;
-      v64 = obja;
-      v65 = 2114;
-      v66 = v23;
-      _os_log_error_impl(&dword_228986000, v47, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get medicalID record for %{public}@, %{public}@", buf, 0x20u);
+      v62 = 2114;
+      v63 = obja;
+      v64 = 2114;
+      v65 = v23;
+      _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get medicalID record for %{public}@, %{public}@", buf, 0x20u);
     }
 
     selfCopy11 = self;
@@ -246,7 +246,6 @@ LABEL_20:
 LABEL_38:
 
 LABEL_39:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 @end

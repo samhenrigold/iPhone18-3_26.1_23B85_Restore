@@ -28,6 +28,8 @@
   viewCopy = view;
   presentingCopy = presenting;
   _s9PassKitUI30TileImagePreviewViewControllerC7present05imageG05title10presentingySo07UIImageG0C_SSSo06UIViewH0CtFZ_0(viewCopy, v7, v9, presentingCopy);
+
+  v9, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)loadView

@@ -8,15 +8,15 @@
 + (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = _PSLoggingFacility();
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = _PSLoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[PSLowPowerModeSettingsDetail setEnabled:]";
-    v10 = 1024;
-    v11 = enabledCopy;
-    _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "######## %s - enabled: %d", &v8, 0x12u);
+    v9 = 136315394;
+    v10 = "+[PSLowPowerModeSettingsDetail setEnabled:]";
+    v11 = 1024;
+    v12 = enabledCopy;
+    _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "######## %s - enabled: %d", &v9, 0x12u);
   }
 
   mEMORY[0x1E69AD408] = [MEMORY[0x1E69AD408] sharedInstance];
@@ -24,10 +24,10 @@
 
   if ((v6 & 1) == 0)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PSLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(PSLowPowerModeSettingsDetail *)enabledCopy setEnabled:v7];
+      [(PSLowPowerModeSettingsDetail *)enabledCopy setEnabled:v8];
     }
   }
 }

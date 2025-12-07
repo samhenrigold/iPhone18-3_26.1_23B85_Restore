@@ -44,14 +44,14 @@
   v4 = [(AVCaptureReactionEffectState *)&v13 init];
   if (v4)
   {
-    v5 = [dictionary objectForKeyedSubscript:@"ReactionType"];
+    v5 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     *(v4 + 1) = v5;
     if (!v5)
     {
       goto LABEL_6;
     }
 
-    [objc_msgSend(dictionary objectForKeyedSubscript:{@"StartTime", "doubleValue"}];
+    [objc_msgSend_objectForKeyedSubscript_(dictionary) doubleValue];
     CMTimeMakeWithSeconds(&v12, v6, 1000000000);
     epoch = v12.epoch;
     *(v4 + 1) = *&v12.value;
@@ -61,7 +61,7 @@
       goto LABEL_6;
     }
 
-    v8 = [dictionary objectForKeyedSubscript:@"EndTime"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     if (!v8)
     {
       v10 = MEMORY[0x1E6960C70];

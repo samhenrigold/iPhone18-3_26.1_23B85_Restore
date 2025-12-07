@@ -3,11 +3,11 @@
 - (_GCSteeringWheelElementParameters)init;
 - (double)maximumDegreesOfRotation;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)sources;
 - (uint64_t)eventRotationValueField;
 - (uint64_t)setEventRotationValueField:(uint64_t)result;
 - (uint64_t)setMaximumDegreesOfRotation:(uint64_t)result;
 - (void)setSources:(void *)sources;
+- (void)sources;
 @end
 
 @implementation _GCSteeringWheelElementParameters
@@ -42,7 +42,7 @@
   return v6;
 }
 
-- (id)sources
+- (void)sources
 {
   selfCopy = self;
   if (self)

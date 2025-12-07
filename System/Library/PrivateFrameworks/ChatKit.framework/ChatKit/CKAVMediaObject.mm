@@ -21,7 +21,7 @@
 
 - (double)duration
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (duration__pred_CMTimeGetSecondsCoreMedia != -1)
   {
     [CKAVMediaObject duration];
@@ -74,9 +74,7 @@
 
         if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
         {
-          selfCopy2 = self;
-          v42 = *&v9;
-          _CKLog();
+          _CKLog(0x2Eu, @"For media object (%@), getting duration (%@) from transcoderUserInfo", v11, v12, v13, v14, v15, v16, self);
         }
 
         [v9 doubleValue];
@@ -89,14 +87,14 @@
       goto LABEL_61;
     }
 
-    v11 = [v7 objectForKey:*MEMORY[0x1E69A6F90]];
-    v12 = [v7 objectForKey:*MEMORY[0x1E69A6F68]];
-    v13 = v12;
-    if (v11)
+    v17 = [v7 objectForKey:*MEMORY[0x1E69A6F90]];
+    v18 = [v7 objectForKey:*MEMORY[0x1E69A6F68]];
+    v19 = v18;
+    if (v17)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      if (!v13)
+      if (!v19)
       {
         goto LABEL_32;
       }
@@ -105,7 +103,7 @@
     else
     {
       isKindOfClass = 0;
-      if (!v12)
+      if (!v18)
       {
 LABEL_32:
 
@@ -116,50 +114,50 @@ LABEL_33:
           if (IMOSLoggingEnabled())
           {
             CKLogCStringForType(46);
-            v20 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            v32 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               fileURL = [(CKMediaObject *)self fileURL];
               *buf = 138412546;
               *&buf[4] = self;
               *&buf[12] = 2112;
               *&buf[14] = fileURL;
-              _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_DEBUG, "For media object (%@), calculating duration from file: %@", buf, 0x16u);
+              _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_DEBUG, "For media object (%@), calculating duration from file: %@", buf, 0x16u);
             }
           }
 
           if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
           {
             fileURL2 = [(CKMediaObject *)self fileURL];
-            _CKLog();
+            _CKLog(0x2Eu, @"For media object (%@), calculating duration from file: %@", v34, v35, v36, v37, v38, v39, self);
           }
 
-          v22 = objc_alloc_init(MEMORY[0x1E696AC08]);
-          v46 = 0;
+          v40 = objc_alloc_init(MEMORY[0x1E696AC08]);
+          v66 = 0;
           fileURL3 = [(CKMediaObject *)self fileURL];
           path = [fileURL3 path];
-          v25 = [v22 fileExistsAtPath:path isDirectory:&v46];
-          v26 = v46;
+          v43 = [v40 fileExistsAtPath:path isDirectory:&v66];
+          v44 = v66;
 
-          if (v26 & 1 | ((v25 & 1) == 0))
+          if (v44 & 1 | ((v43 & 1) == 0))
           {
             if (IMOSLoggingEnabled())
             {
               CKLogCStringForType(46);
-              v27 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+              v45 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
               {
                 fileURL4 = [(CKMediaObject *)self fileURL];
                 *buf = 138412290;
                 *&buf[4] = fileURL4;
-                _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_DEBUG, "  => No file at URL (%@), aborting duration calculation", buf, 0xCu);
+                _os_log_impl(&dword_19020E000, v45, OS_LOG_TYPE_DEBUG, "  => No file at URL (%@), aborting duration calculation", buf, 0xCu);
               }
             }
 
             if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
             {
               fileURL5 = [(CKMediaObject *)self fileURL];
-              _CKLog();
+              _CKLog(0x2Eu, @"  => No file at URL (%@), aborting duration calculation", v48, v49, v50, v51, v52, v53, fileURL5);
             }
 
             self->_durationLoaded = 1;
@@ -168,29 +166,29 @@ LABEL_33:
           else
           {
             transcoderUserInfo2 = [(CKMediaObject *)self transcoderUserInfo];
-            v30 = [transcoderUserInfo2 objectForKey:*MEMORY[0x1E69A6F58]];
+            v55 = [transcoderUserInfo2 objectForKey:*MEMORY[0x1E69A6F58]];
 
-            if (v30)
+            if (v55)
             {
-              [MEMORY[0x1E695DFF8] URLWithString:v30];
+              [MEMORY[0x1E695DFF8] URLWithString:v55];
             }
 
             else
             {
               [(CKMediaObject *)self fileURL];
             }
-            v31 = ;
-            v32 = MEMORY[0x193AF5EC0](@"PLAssetSharingUtilities", @"PhotoLibraryServices");
+            v56 = ;
+            v57 = MEMORY[0x193AF5EC0](@"PLAssetSharingUtilities", @"PhotoLibraryServices");
             fileURL6 = [(CKMediaObject *)self fileURL];
             path2 = [fileURL6 path];
-            v35 = [v32 playerItemForVideoURL:v31 fallbackFilePath:path2 library:0];
+            v60 = [v57 playerItemForVideoURL:v56 fallbackFilePath:path2 library:0];
 
-            asset = [v35 asset];
-            v37 = asset;
-            v38 = duration__CMTimeGetSeconds;
+            asset = [v60 asset];
+            v62 = asset;
+            v63 = duration__CMTimeGetSeconds;
             if (asset)
             {
-              [asset duration];
+              objc_msgSend_duration(asset);
             }
 
             else
@@ -198,7 +196,7 @@ LABEL_33:
               memset(buf, 0, sizeof(buf));
             }
 
-            if (v38(buf) >= 0.0)
+            if (v63(buf) >= 0.0)
             {
               [(CKAVMediaObject *)self setDuration:?];
             }
@@ -219,38 +217,34 @@ LABEL_61:
     objc_opt_class();
     if (isKindOfClass & objc_opt_isKindOfClass())
     {
-      [v13 doubleValue];
-      v16 = v15;
-      [v11 doubleValue];
-      v18 = v16 - v17;
+      [v19 doubleValue];
+      v22 = v21;
+      [v17 doubleValue];
+      v24 = v22 - v23;
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(46);
-        v19 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v25 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138413058;
           *&buf[4] = self;
           *&buf[12] = 2048;
-          *&buf[14] = v18;
+          *&buf[14] = v24;
           *&buf[22] = 2112;
-          v48 = v11;
-          v49 = 2112;
-          v50 = v13;
-          _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_DEBUG, "For media object (%@), getting duration (%f) from start and end: (%@|%@)", buf, 0x2Au);
+          v68 = v17;
+          v69 = 2112;
+          v70 = v19;
+          _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_DEBUG, "For media object (%@), getting duration (%f) from start and end: (%@|%@)", buf, 0x2Au);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v44 = v11;
-        v45 = v13;
-        v42 = v18;
-        selfCopy2 = self;
-        _CKLog();
+        _CKLog(0x2Eu, @"For media object (%@), getting duration (%f) from start and end: (%@|%@)", v26, v27, v28, v29, v30, v31, self);
       }
 
-      [(CKAVMediaObject *)self setDuration:v18, selfCopy2, *&v42, v44, v45];
+      [(CKAVMediaObject *)self setDuration:v24];
     }
 
     goto LABEL_32;

@@ -12,6 +12,7 @@
 - (void)_timeoutTimerFired;
 - (void)activateWithCompletion:(id)completion;
 - (void)dealloc;
+- (void)deviceDiscoveryDeviceChanged:(id)changed changes:(unsigned int)changes;
 - (void)deviceDiscoveryFoundDevice:(id)device;
 - (void)deviceDiscoveryLostDevice:(id)device;
 - (void)deviceDiscoveryScanStateChanged:(int64_t)changed;
@@ -41,7 +42,8 @@
 
 - (void)_startTimeoutIfNeeded
 {
-  if (self->_timeout > 0.0)
+  timeout = self->_timeout;
+  if (timeout > 0.0)
   {
     handler[7] = v2;
     handler[8] = v3;
@@ -59,21 +61,21 @@
           timeout = self->_timeout;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _startTimeoutIfNeeded]", 20, "Start timeout timer for %f seconds\n", timeout);
       }
 
 LABEL_9:
-      v5 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+      v6 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
       timeoutTimer = self->_timeoutTimer;
-      self->_timeoutTimer = v5;
+      self->_timeoutTimer = v6;
 
-      v7 = self->_timeoutTimer;
+      v8 = self->_timeoutTimer;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __42__SFDeviceDiscovery__startTimeoutIfNeeded__block_invoke;
       handler[3] = &unk_1E788B198;
       handler[4] = self;
-      dispatch_source_set_event_handler(v7, handler);
+      dispatch_source_set_event_handler(v8, handler);
       SFDispatchTimerSet(self->_timeoutTimer, self->_timeout, 1.0, -4.0);
       dispatch_resume(self->_timeoutTimer);
     }
@@ -82,77 +84,75 @@ LABEL_9:
 
 - (id)description
 {
-  v35 = 0;
-  NSAppendPrintF();
-  v3 = 0;
+  v49 = 0;
+  NSAppendPrintF(&v49, "SFDeviceDiscovery");
+  v3 = v49;
   v4 = v3;
   purpose = self->_purpose;
   if (purpose)
   {
-    v34 = v3;
-    v28 = purpose;
-    NSAppendPrintF();
-    v6 = v34;
-
-    v4 = v6;
-  }
-
-  if (self->_invalidateCalled)
-  {
-    v33[4] = v4;
-    NSAppendPrintF();
-    v7 = v4;
+    v48 = v3;
+    v6 = purpose;
+    NSAppendPrintF(&v48, " (%@)", v6);
+    v7 = v48;
 
     v4 = v7;
   }
 
-  if (self->_legacy)
+  if (self->_invalidateCalled)
   {
-    v33[3] = v4;
-    NSAppendPrintF();
-    v8 = v4;
+    v47 = v4;
+    NSAppendPrintF(&v47, ", invalidated");
+    v8 = v47;
 
     v4 = v8;
   }
 
-  if ([(NSSet *)self->_deviceFilter count])
+  if (self->_legacy)
   {
-    v33[2] = v4;
-    [(NSSet *)self->_deviceFilter count];
-    NSAppendPrintF();
-    v9 = v4;
+    v46 = v4;
+    NSAppendPrintF(&v46, ", legacy");
+    v9 = v46;
 
     v4 = v9;
   }
 
-  v33[1] = v4;
-  discoveryFlags = self->_discoveryFlags;
-  v31 = &unk_1A998F660;
-  NSAppendPrintF();
-  v10 = v4;
+  if ([(NSSet *)self->_deviceFilter count])
+  {
+    v45 = v4;
+    NSAppendPrintF(&v45, ", %ld dfilters(s)", [(NSSet *)self->_deviceFilter count]);
+    v10 = v45;
+
+    v4 = v10;
+  }
+
+  v44 = v4;
+  NSAppendPrintF(&v44, ", %#{flags}", self->_discoveryFlags, &unk_1A998F660);
+  v11 = v44;
 
   changeFlags = self->_changeFlags;
   if (changeFlags)
   {
     if (changeFlags == -1)
     {
-      v33[0] = v10;
-      v12 = v33;
+      v43 = v11;
+      v13 = &v43;
+      NSAppendPrintF(&v43, ", cflags < All >", v31, v32);
     }
 
     else
     {
-      v32 = v10;
-      v31 = &unk_1A998F77C;
-      v12 = &v32;
+      v42 = v11;
+      v13 = &v42;
+      NSAppendPrintF(&v42, ", cflags %#{flags}", changeFlags, &unk_1A998F77C);
     }
 
-    NSAppendPrintF();
-    v13 = *v12;
+    v14 = *v13;
 
-    v10 = v13;
+    v11 = v14;
   }
 
+  v41 = v11;
   scanRate = self->_scanRate;
   if (scanRate > 9)
   {
@@ -160,13 +160,13 @@ LABEL_9:
     {
       if (scanRate == 10)
       {
-        v15 = "Background";
+        v16 = "Background";
         goto LABEL_38;
       }
 
       if (scanRate == 20)
       {
-        v15 = "Normal";
+        v16 = "Normal";
         goto LABEL_38;
       }
     }
@@ -176,13 +176,13 @@ LABEL_9:
       switch(scanRate)
       {
         case 30:
-          v15 = "HighNormal";
+          v16 = "HighNormal";
           goto LABEL_38;
         case 40:
-          v15 = "High";
+          v16 = "High";
           goto LABEL_38;
         case 50:
-          v15 = "Aggressive";
+          v16 = "Aggressive";
           goto LABEL_38;
       }
     }
@@ -192,13 +192,13 @@ LABEL_9:
   {
     if (!scanRate)
     {
-      v15 = "Invalid";
+      v16 = "Invalid";
       goto LABEL_38;
     }
 
     if (scanRate == 1)
     {
-      v15 = "BackgroundOld";
+      v16 = "BackgroundOld";
       goto LABEL_38;
     }
   }
@@ -208,110 +208,114 @@ LABEL_9:
     switch(scanRate)
     {
       case 2:
-        v15 = "NormalOld";
+        v16 = "NormalOld";
         goto LABEL_38;
       case 3:
-        v15 = "HighOld";
+        v16 = "HighOld";
         goto LABEL_38;
       case 4:
-        v15 = "AggressiveOld";
+        v16 = "AggressiveOld";
         goto LABEL_38;
     }
   }
 
-  v15 = "?";
+  v16 = "?";
 LABEL_38:
-  overrideScreenOffRescanInterval = v15;
-  NSAppendPrintF();
-  v16 = v10;
+  NSAppendPrintF(&v41, ", ScanRate %s", v16);
+  v17 = v41;
 
   fastScanMode = self->_fastScanMode;
   if (fastScanMode)
   {
-    v18 = "?";
+    v40 = v17;
+    v19 = "?";
     if (fastScanMode == 1)
     {
-      v18 = "Start";
+      v19 = "Start";
     }
 
     if (fastScanMode == 2)
     {
-      v19 = "Match";
+      v20 = "Match";
     }
 
     else
     {
-      v19 = v18;
+      v20 = v19;
     }
 
-    overrideScreenOffRescanInterval = v19;
-    NSAppendPrintF();
-    v20 = v16;
+    NSAppendPrintF(&v40, ", FastScan %s", v20);
+    v21 = v40;
 
-    v16 = v20;
+    v17 = v21;
   }
 
   if (self->_overrideScreenOff)
   {
-    NSAppendPrintF();
-    v21 = v16;
+    v39 = v17;
+    NSAppendPrintF(&v39, ", ScreenOff");
+    v22 = v39;
 
-    if (self->_overrideScreenOff && self->_overrideScreenOffRescanInterval)
+    if (self->_overrideScreenOff && (overrideScreenOffRescanInterval = self->_overrideScreenOffRescanInterval) != 0)
     {
-      overrideScreenOffRescanInterval = self->_overrideScreenOffRescanInterval;
-      NSAppendPrintF();
-      v16 = v21;
+      v38 = v22;
+      NSAppendPrintF(&v38, ", ScreenOffRescanInterval %ld", overrideScreenOffRescanInterval);
+      v17 = v38;
     }
 
     else
     {
-      v16 = v21;
+      v17 = v22;
     }
   }
 
   if (self->_rssiChangeDetection)
   {
-    NSAppendPrintF();
-    v22 = v16;
+    v37 = v17;
+    NSAppendPrintF(&v37, ", RSSI Change Detection");
+    v24 = v37;
 
-    v16 = v22;
+    v17 = v24;
   }
 
-  if (self->_rssiThreshold)
+  rssiThreshold = self->_rssiThreshold;
+  if (rssiThreshold)
   {
-    overrideScreenOffRescanInterval = self->_rssiThreshold;
-    NSAppendPrintF();
-    v23 = v16;
+    v36 = v17;
+    NSAppendPrintF(&v36, ", RSSI >= %ld", rssiThreshold);
+    v26 = v36;
 
-    v16 = v23;
+    v17 = v26;
   }
 
   if (self->_scanCache)
   {
-    NSAppendPrintF();
-    v24 = v16;
+    v35 = v17;
+    NSAppendPrintF(&v35, ", ScanCache");
+    v27 = v35;
 
-    v16 = v24;
+    v17 = v27;
   }
 
   if (self->_trackPeers)
   {
-    NSAppendPrintF();
-    v25 = v16;
+    v34 = v17;
+    NSAppendPrintF(&v34, ", TrackPeers");
+    v28 = v34;
 
-    v16 = v25;
+    v17 = v28;
   }
 
   if (self->_xpcCnx)
   {
-    [(NSMutableDictionary *)self->_devices count:overrideScreenOffRescanInterval];
-    NSAppendPrintF();
-    v26 = v16;
+    v33 = v17;
+    NSAppendPrintF(&v33, ", %ld device(s)", [(NSMutableDictionary *)self->_devices count]);
+    v29 = v33;
 
-    v16 = v26;
+    v17 = v29;
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)dealloc
@@ -343,7 +347,7 @@ LABEL_38:
 
   else
   {
-    v9 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFService *)v9 advertiseRate];
   }
 }
@@ -419,51 +423,55 @@ LABEL_38:
   dispatch_async(dispatchQueue, block);
 }
 
-void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1)
+void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 32);
-  if ((*(v1 + 40) & 1) == 0)
+  v3 = *(a1 + 32);
+  if ((*(v3 + 40) & 1) == 0)
   {
-    *(v1 + 40) = 1;
-    if ((*(*(a1 + 32) + 41) & 1) == 0 && gLogCategory_SFDeviceDiscovery <= 30 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    v4 = a1;
+    *(v3 + 40) = 1;
+    if ((*(*(a1 + 32) + 41) & 1) == 0 && gLogCategory_SFDeviceDiscovery <= 30)
     {
-      __31__SFDeviceDiscovery_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceDiscovery != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        __31__SFDeviceDiscovery_invalidate__block_invoke_cold_1(a1, a2, a3);
+      }
     }
 
-    v3 = *(*(a1 + 32) + 24);
-    if (v3)
+    v5 = *(*(v4 + 32) + 24);
+    if (v5)
     {
-      v4 = v3;
-      dispatch_source_cancel(v4);
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 24);
-      *(v5 + 24) = 0;
+      v6 = v5;
+      dispatch_source_cancel(v6);
+      v7 = *(v4 + 32);
+      v8 = *(v7 + 24);
+      *(v7 + 24) = 0;
     }
 
-    v7 = *(*(a1 + 32) + 48);
-    if (v7)
+    v9 = *(*(v4 + 32) + 48);
+    if (v9)
     {
-      v8 = v7;
-      dispatch_source_cancel(v8);
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 48);
-      *(v9 + 48) = 0;
+      v10 = v9;
+      dispatch_source_cancel(v10);
+      v11 = *(v4 + 32);
+      v12 = *(v11 + 48);
+      *(v11 + 48) = 0;
     }
 
-    v11 = *(*(a1 + 32) + 56);
-    if (v11)
+    v13 = *(*(v4 + 32) + 56);
+    if (v13)
     {
-      [v11 invalidate];
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 56);
-      *(v12 + 56) = 0;
+      [v13 invalidate];
+      v14 = *(v4 + 32);
+      v15 = *(v14 + 56);
+      *(v14 + 56) = 0;
     }
 
     else
     {
-      v14 = *(a1 + 32);
+      v16 = *(v4 + 32);
 
-      [v14 _invalidated];
+      [v16 _invalidated];
     }
   }
 }
@@ -473,9 +481,12 @@ void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFDeviceDiscovery <= 50)
     {
-      [SFDeviceDiscovery _invalidated];
+      if (gLogCategory_SFDeviceDiscovery != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFDeviceDiscovery *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -487,18 +498,18 @@ void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1)
     consoleUserTimer = self->_consoleUserTimer;
     if (consoleUserTimer)
     {
-      v5 = consoleUserTimer;
-      dispatch_source_cancel(v5);
-      v6 = self->_consoleUserTimer;
+      v8 = consoleUserTimer;
+      dispatch_source_cancel(v8);
+      v9 = self->_consoleUserTimer;
       self->_consoleUserTimer = 0;
     }
 
     timeoutTimer = self->_timeoutTimer;
     if (timeoutTimer)
     {
-      v8 = timeoutTimer;
-      dispatch_source_cancel(v8);
-      v9 = self->_timeoutTimer;
+      v11 = timeoutTimer;
+      dispatch_source_cancel(v11);
+      v12 = self->_timeoutTimer;
       self->_timeoutTimer = 0;
     }
 
@@ -518,7 +529,7 @@ void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1)
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v15 = self->_invalidationHandler;
+    v18 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     scanStateChangedHandler = self->_scanStateChangedHandler;
@@ -531,9 +542,12 @@ void __31__SFDeviceDiscovery_invalidate__block_invoke(uint64_t a1)
     self->_xpcCnx = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_SFDeviceDiscovery <= 30 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceDiscovery <= 30)
     {
-      [SFDeviceDiscovery _invalidated];
+      if (gLogCategory_SFDeviceDiscovery != -1 || (v22 = _LogCategory_Initialize(), v22))
+      {
+        [(SFDeviceDiscovery *)v22 _invalidated];
+      }
     }
   }
 }
@@ -693,31 +707,31 @@ uint64_t __36__SFDeviceDiscovery_setChangeFlags___block_invoke(uint64_t result)
 
 void __37__SFDeviceDiscovery_setDeviceFilter___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 80), *(a1 + 40));
   if ([*(a1 + 40) count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = [*(*(a1 + 32) + 32) allKeys];
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         v6 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * v6);
+          v7 = *(*(&v11 + 1) + 8 * v6);
           if (([*(a1 + 40) containsObject:v7] & 1) == 0)
           {
             v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:v7];
@@ -725,7 +739,7 @@ void __37__SFDeviceDiscovery_setDeviceFilter___block_invoke(uint64_t a1)
             {
               if (gLogCategory_SFDeviceDiscovery <= 30 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
               {
-                __37__SFDeviceDiscovery_setDeviceFilter___block_invoke_cold_1();
+                __37__SFDeviceDiscovery_setDeviceFilter___block_invoke_cold_1(v8);
               }
 
               [*(*(a1 + 32) + 32) removeObjectForKey:v7];
@@ -741,15 +755,13 @@ void __37__SFDeviceDiscovery_setDeviceFilter___block_invoke(uint64_t a1)
         }
 
         while (v4 != v6);
-        v10 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v10 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
         v4 = v10;
       }
 
       while (v10);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDiscoveryFlags:(unint64_t)flags
@@ -786,7 +798,7 @@ void __37__SFDeviceDiscovery_setDeviceFilter___block_invoke(uint64_t a1)
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
@@ -949,7 +961,7 @@ double __32__SFDeviceDiscovery_setTimeout___block_invoke(uint64_t a1)
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFDeviceDiscovery <= 30 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
@@ -959,7 +971,7 @@ double __32__SFDeviceDiscovery_setTimeout___block_invoke(uint64_t a1)
 
   if (self->_invalidateCalled)
   {
-    [(SFDeviceDiscovery *)completionCopy _activateWithCompletion:v19];
+    [(SFDeviceDiscovery *)completionCopy _activateWithCompletion:v19, v20];
   }
 
   else
@@ -976,11 +988,16 @@ double __32__SFDeviceDiscovery_setTimeout___block_invoke(uint64_t a1)
     }
 
     self->_activateTicks = mach_absolute_time();
-    if ([(SFDeviceDiscovery *)self _ensureXPCStarted])
+    _ensureXPCStarted = [(SFDeviceDiscovery *)self _ensureXPCStarted];
+    if (_ensureXPCStarted)
     {
-      if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceDiscovery <= 50)
       {
-        [SFDeviceDiscovery _activateWithCompletion:];
+        v9 = _ensureXPCStarted;
+        if (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize())
+        {
+          [SFDeviceDiscovery _activateWithCompletion:v9];
+        }
       }
 
       if (completionCopy)
@@ -991,30 +1008,28 @@ double __32__SFDeviceDiscovery_setTimeout___block_invoke(uint64_t a1)
 
     else
     {
-      v8 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      v10 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
       state.opaque[0] = 0;
       state.opaque[1] = 0;
-      os_activity_scope_enter(v8, &state);
+      os_activity_scope_enter(v10, &state);
       xpcCnx = self->_xpcCnx;
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __45__SFDeviceDiscovery__activateWithCompletion___block_invoke;
-      v15[3] = &unk_1E788B6D8;
-      v10 = completionCopy;
-      v16 = v10;
-      v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v15];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __45__SFDeviceDiscovery__activateWithCompletion___block_invoke_2;
-      v13[3] = &unk_1E788B6D8;
-      v14 = v10;
-      [v11 deviceDiscoveryActivate:self completion:v13];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __45__SFDeviceDiscovery__activateWithCompletion___block_invoke;
+      v16[3] = &unk_1E788B6D8;
+      v12 = completionCopy;
+      v17 = v12;
+      v13 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v16];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __45__SFDeviceDiscovery__activateWithCompletion___block_invoke_2;
+      v14[3] = &unk_1E788B6D8;
+      v15 = v12;
+      [v13 deviceDiscoveryActivate:self completion:v14];
 
       os_activity_scope_leave(&state);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__SFDeviceDiscovery__activateWithCompletion___block_invoke(uint64_t a1)
@@ -1179,16 +1194,15 @@ void __65__SFDeviceDiscovery_triggerEnhancedDiscovery_useCase_completion___block
 void __65__SFDeviceDiscovery_triggerEnhancedDiscovery_useCase_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v6 = v3;
   if (v3)
   {
     if (gLogCategory_SFDeviceDiscovery <= 60)
     {
-      if (gLogCategory_SFDeviceDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_SFDeviceDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        v6 = *(a1 + 32);
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery triggerEnhancedDiscovery:useCase:completion:]_block_invoke_2", 60, "### Trigger enhanced discovery '%@' error: %{error}\n", *(a1 + 32), v3);
+        v3 = v6;
       }
     }
   }
@@ -1196,17 +1210,20 @@ void __65__SFDeviceDiscovery_triggerEnhancedDiscovery_useCase_completion___block
   v5 = *(a1 + 40);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceDiscovery <= 50)
   {
-    [SFDeviceDiscovery _interrupted];
+    if (gLogCategory_SFDeviceDiscovery != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFDeviceDiscovery *)v3 _interrupted];
+    }
   }
 
   interruptionHandler = self->_interruptionHandler;
@@ -1221,29 +1238,34 @@ void __65__SFDeviceDiscovery_triggerEnhancedDiscovery_useCase_completion___block
 
   if (self->_activateCalled)
   {
-    if ([(SFDeviceDiscovery *)self _ensureXPCStarted])
+    _ensureXPCStarted = [(SFDeviceDiscovery *)self _ensureXPCStarted];
+    if (_ensureXPCStarted)
     {
-      if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceDiscovery <= 50)
       {
-        [SFDeviceDiscovery _interrupted];
+        v9 = _ensureXPCStarted;
+        if (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize())
+        {
+          [(SFDeviceDiscovery *)v9 _interrupted];
+        }
       }
     }
 
     else
     {
-      v5 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-      v7.opaque[0] = 0;
-      v7.opaque[1] = 0;
-      os_activity_scope_enter(v5, &v7);
+      v10 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      v12.opaque[0] = 0;
+      v12.opaque[1] = 0;
+      os_activity_scope_enter(v10, &v12);
       if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _interrupted]", 50, "Restarting after interruption\n");
       }
 
       remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
       [remoteObjectProxy deviceDiscoveryActivate:self completion:&__block_literal_global_41];
 
-      os_activity_scope_leave(&v7);
+      os_activity_scope_leave(&v12);
     }
   }
 }
@@ -1257,7 +1279,7 @@ void __33__SFDeviceDiscovery__interrupted__block_invoke(uint64_t a1, void *a2)
     v5 = v2;
     if (gLogCategory_SFDeviceDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __33__SFDeviceDiscovery__interrupted__block_invoke_cold_1();
+      __33__SFDeviceDiscovery__interrupted__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1316,29 +1338,34 @@ uint64_t __46__SFDeviceDiscovery__invokeBlockActivateSafe___block_invoke(uint64_
     self->_consoleUserTimer = 0;
   }
 
-  if ([(SFDeviceDiscovery *)self _ensureXPCStarted])
+  _ensureXPCStarted = [(SFDeviceDiscovery *)self _ensureXPCStarted];
+  if (_ensureXPCStarted)
   {
-    if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceDiscovery <= 50)
     {
-      [SFDeviceDiscovery _retryConsole];
+      v7 = _ensureXPCStarted;
+      if (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize())
+      {
+        [(SFDeviceDiscovery *)v7 _retryConsole];
+      }
     }
   }
 
   else
   {
-    v6 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v8.opaque[0] = 0;
-    v8.opaque[1] = 0;
-    os_activity_scope_enter(v6, &v8);
+    v8 = _os_activity_create(&dword_1A9662000, "Sharing/SFDeviceDiscovery/deviceDiscoveryActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v10.opaque[0] = 0;
+    v10.opaque[1] = 0;
+    os_activity_scope_enter(v8, &v10);
     if (gLogCategory_SFDeviceDiscovery <= 50 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _retryConsole]", 50, "Starting after console retry\n");
     }
 
     remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
     [remoteObjectProxy deviceDiscoveryActivate:self completion:&__block_literal_global_311];
 
-    os_activity_scope_leave(&v8);
+    os_activity_scope_leave(&v10);
   }
 }
 
@@ -1351,7 +1378,7 @@ void __34__SFDeviceDiscovery__retryConsole__block_invoke(uint64_t a1, void *a2)
     v5 = v2;
     if (gLogCategory_SFDeviceDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __34__SFDeviceDiscovery__retryConsole__block_invoke_cold_1();
+      __34__SFDeviceDiscovery__retryConsole__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -1401,124 +1428,123 @@ void __34__SFDeviceDiscovery__retryConsole__block_invoke(uint64_t a1, void *a2)
 - (SFDeviceDiscovery)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = SFDeviceDiscovery;
-  v5 = [(SFDeviceDiscovery *)&v32 init];
-  v6 = v5;
+  v31.receiver = self;
+  v31.super_class = SFDeviceDiscovery;
+  v5 = [(SFDeviceDiscovery *)&v31 init];
   if (v5)
   {
-    v7 = SFMainQueue(v5);
-    dispatchQueue = v6->_dispatchQueue;
-    v6->_dispatchQueue = v7;
+    v6 = SFMainQueue();
+    v7 = *(v5 + 15);
+    *(v5 + 15) = v6;
 
-    *&v6->_rssiThreshold = xmmword_1A998F650;
+    *(v5 + 168) = xmmword_1A998F650;
     if ([coderCopy containsValueForKey:@"changeFlags"])
     {
-      v6->_changeFlags = [coderCopy decodeIntegerForKey:@"changeFlags"];
+      *(v5 + 18) = [coderCopy decodeIntegerForKey:@"changeFlags"];
     }
 
-    v9 = [coderCopy containsValueForKey:@"deviceFilter"];
-    v10 = MEMORY[0x1E695D940];
-    if (v9)
+    v8 = [coderCopy containsValueForKey:@"deviceFilter"];
+    v9 = MEMORY[0x1E695D940];
+    if (v8)
     {
-      v11 = MEMORY[0x1E695DFD8];
-      v12 = objc_opt_class();
-      v13 = [v11 setWithObjects:{v12, objc_opt_class(), 0}];
-      v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"deviceFilter"];
+      v10 = MEMORY[0x1E695DFD8];
+      v11 = objc_opt_class();
+      v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
+      v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"deviceFilter"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v15 = MEMORY[0x1E695DF30];
-        v16 = *v10;
-        v17 = _NSMethodExceptionProem();
-        [v15 raise:v16 format:{@"%@: non-set value for key %@ : %@", v17, @"deviceFilter", v14}];
+        v14 = MEMORY[0x1E695DF30];
+        v15 = *v9;
+        v16 = _NSMethodExceptionProem();
+        [v14 raise:v15 format:{@"%@: non-set value for key %@ : %@", v16, @"deviceFilter", v13}];
 
-        v10 = MEMORY[0x1E695D940];
+        v9 = MEMORY[0x1E695D940];
       }
 
-      deviceFilter = v6->_deviceFilter;
-      v6->_deviceFilter = v14;
+      v17 = *(v5 + 10);
+      *(v5 + 10) = v13;
     }
 
     if ([coderCopy containsValueForKey:@"discoveryFlags"])
     {
-      v6->_discoveryFlags = [coderCopy decodeIntegerForKey:@"discoveryFlags"];
+      *(v5 + 14) = [coderCopy decodeIntegerForKey:@"discoveryFlags"];
     }
 
-    v19 = coderCopy;
-    if ([v19 containsValueForKey:@"fastScanMode"])
+    v18 = coderCopy;
+    if ([v18 containsValueForKey:@"fastScanMode"])
     {
-      v6->_fastScanMode = [v19 decodeIntegerForKey:@"fastScanMode"];
+      *(v5 + 16) = [v18 decodeIntegerForKey:@"fastScanMode"];
     }
 
-    if ([v19 containsValueForKey:@"legacy"])
+    if ([v18 containsValueForKey:@"legacy"])
     {
-      v6->_legacy = [v19 decodeBoolForKey:@"legacy"];
+      v5[42] = [v18 decodeBoolForKey:@"legacy"];
     }
 
-    if ([v19 containsValueForKey:@"overrideScreenOff"])
+    if ([v18 containsValueForKey:@"overrideScreenOff"])
     {
-      v6->_overrideScreenOff = [v19 decodeBoolForKey:@"overrideScreenOff"];
+      v5[64] = [v18 decodeBoolForKey:@"overrideScreenOff"];
     }
 
-    if ([v19 containsValueForKey:@"osoitvl"])
+    if ([v18 containsValueForKey:@"osoitvl"])
     {
-      v6->_overrideScreenOffRescanInterval = [v19 decodeIntegerForKey:@"osoitvl"];
+      *(v5 + 19) = [v18 decodeIntegerForKey:@"osoitvl"];
     }
 
-    v20 = v19;
+    v19 = v18;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    if ([v20 containsValueForKey:@"rssiChangeDetection"])
+    if ([v19 containsValueForKey:@"rssiChangeDetection"])
     {
-      v6->_rssiChangeDetection = [v20 decodeBoolForKey:@"rssiChangeDetection"];
+      v5[65] = [v19 decodeBoolForKey:@"rssiChangeDetection"];
     }
 
-    if ([v20 containsValueForKey:@"rssiThreshold"])
+    if ([v19 containsValueForKey:@"rssiThreshold"])
     {
-      v6->_rssiThreshold = [v20 decodeIntegerForKey:@"rssiThreshold"];
+      *(v5 + 21) = [v19 decodeIntegerForKey:@"rssiThreshold"];
     }
 
-    if ([v20 containsValueForKey:@"scanCache"])
+    if ([v19 containsValueForKey:@"scanCache"])
     {
-      v6->_scanCache = [v20 decodeBoolForKey:@"scanCache"];
+      v5[66] = [v19 decodeBoolForKey:@"scanCache"];
     }
 
-    if ([v20 containsValueForKey:@"scanRate"])
+    if ([v19 containsValueForKey:@"scanRate"])
     {
-      v6->_scanRate = [v20 decodeIntegerForKey:@"scanRate"];
+      *(v5 + 22) = [v19 decodeIntegerForKey:@"scanRate"];
     }
 
-    v21 = v20;
-    if ([v21 containsValueForKey:@"trackPeers"])
+    v20 = v19;
+    if ([v20 containsValueForKey:@"trackPeers"])
     {
-      v6->_trackPeers = [v21 decodeBoolForKey:@"trackPeers"];
+      v5[68] = [v20 decodeBoolForKey:@"trackPeers"];
     }
 
-    if ([v21 containsValueForKey:@"useCases"])
+    if ([v20 containsValueForKey:@"useCases"])
     {
-      v22 = MEMORY[0x1E695DFD8];
-      v23 = objc_opt_class();
-      v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
-      v25 = [v21 decodeObjectOfClasses:v24 forKey:@"useCases"];
+      v21 = MEMORY[0x1E695DFD8];
+      v22 = objc_opt_class();
+      v23 = [v21 setWithObjects:{v22, objc_opt_class(), 0}];
+      v24 = [v20 decodeObjectOfClasses:v23 forKey:@"useCases"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v26 = MEMORY[0x1E695DF30];
-        v27 = *v10;
-        v28 = _NSMethodExceptionProem();
-        [v26 raise:v27 format:{@"%@: non-set value for key %@ : %@", v28, @"deviceFilter", v25}];
+        v25 = MEMORY[0x1E695DF30];
+        v26 = *v9;
+        v27 = _NSMethodExceptionProem();
+        [v25 raise:v26 format:{@"%@: non-set value for key %@ : %@", v27, @"deviceFilter", v24}];
       }
 
-      useCases = v6->_useCases;
-      v6->_useCases = v25;
+      v28 = *(v5 + 26);
+      *(v5 + 26) = v24;
     }
 
-    v30 = v6;
+    v29 = v5;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)deviceDiscoveryFoundDevice:(id)device
@@ -1527,8 +1553,7 @@ void __34__SFDeviceDiscovery__retryConsole__block_invoke(uint64_t a1, void *a2)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFDeviceDiscovery <= 9 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    v13 = deviceCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery deviceDiscoveryFoundDevice:]", 9, "Found device %@\n", deviceCopy);
   }
 
   identifier = [deviceCopy identifier];
@@ -1584,8 +1609,7 @@ LABEL_14:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFDeviceDiscovery <= 9 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    v7 = deviceCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery deviceDiscoveryLostDevice:]", 9, "Lost device %@\n", deviceCopy);
   }
 
   identifier = [deviceCopy identifier];
@@ -1610,12 +1634,57 @@ LABEL_14:
   }
 }
 
+- (void)deviceDiscoveryDeviceChanged:(id)changed changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  changedCopy = changed;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_SFDeviceDiscovery <= 9 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery deviceDiscoveryDeviceChanged:changes:]", 9, "Device changed %@, Changes %#{flags}\n", changedCopy, v4, &unk_1A998F77C);
+  }
+
+  identifier = [changedCopy identifier];
+  if (identifier)
+  {
+    [(NSMutableDictionary *)self->_devices setObject:changedCopy forKeyedSubscript:identifier];
+    if (self->_legacy)
+    {
+      deviceFoundHandler = self->_deviceFoundHandler;
+      if (deviceFoundHandler)
+      {
+        deviceFoundHandler[2](deviceFoundHandler, changedCopy);
+      }
+    }
+
+    deviceChangedHandler = self->_deviceChangedHandler;
+    if (deviceChangedHandler)
+    {
+      deviceChangedHandler[2](deviceChangedHandler, changedCopy, v4);
+    }
+  }
+}
+
+- (uint64_t)_activateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
+{
+  if (*(a1 + 67))
+  {
+    v1 = "(TargetUserSession)";
+  }
+
+  else
+  {
+    v1 = "";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _activateWithCompletion:]", 30, "Activate %s\n", v1);
+}
+
 - (void)_activateWithCompletion:(__CFString *)a3 .cold.3(uint64_t a1, void *a2, __CFString **a3)
 {
   if (gLogCategory_SFDeviceDiscovery <= 60 && (gLogCategory_SFDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    v13 = 4294960572;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _activateWithCompletion:]", 60, "### Activate failed: %#m\n", 4294960572);
   }
 
   if (a1)
@@ -1632,7 +1701,7 @@ LABEL_14:
     }
 
     *a3 = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:a3 forKeys:a2 count:{1, v13}];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:a3 forKeys:a2 count:1];
     v12 = [v6 errorWithDomain:v7 code:-6724 userInfo:v11];
     (*(a1 + 16))(a1, v12);
   }
@@ -1640,50 +1709,200 @@ LABEL_14:
 
 uint64_t __65__SFDeviceDiscovery_triggerEnhancedDiscovery_useCase_completion___block_invoke_cold_1(uint64_t a1)
 {
-  if (!(!v2 & v1))
+  v5 = *(a1 + 56);
+  if (!v2 & v1)
   {
-    switch(*(a1 + 56))
+    switch(v5)
     {
-      case 0x10000:
-      case 0x10001:
-      case 0x10002:
-      case 0x10003:
-      case 0x10004:
-      case 0x10005:
-      case 0x10006:
-      case 0x10007:
-      case 0x10008:
-      case 0x10009:
-      case 0x1000A:
-      case 0x1000B:
-      case 0x1000C:
-      case 0x1000D:
-      case 0x1000E:
-      case 0x1000F:
-      case 0x10010:
-      case 0x10011:
-      case 0x10012:
-      case 0x10013:
-      case 0x10014:
-      case 0x10015:
-      case 0x10016:
-      case 0x10017:
-      case 0x10018:
-      case 0x10019:
-      case 0x1001A:
-      case 0x1001B:
-      case 0x1001C:
-      case 0x1001D:
-      case 0x1001E:
-      case 0x1001F:
+      case 196608:
+        v6 = "DigitalIDTSA";
+        break;
+      case 262144:
+        v6 = "DigitalCarKeyThirdParty";
+        break;
+      case 327680:
+        v6 = "RapportThirdParty";
+        break;
+      case 458752:
+        v6 = "PrecisionFindingFinder";
+        break;
+      case 458753:
+        v6 = "PrecisionFindingFindee";
+        break;
+      case 458754:
+        v6 = "SpatialHandoffHome";
+        break;
+      case 589824:
+        v6 = "FindNearbyRemote";
+        break;
+      case 589825:
+        v6 = "FindNearbyPencil";
+        break;
+      case 655360:
+        v6 = "AccessDigitalHomeKey";
+        break;
+      case 720896:
+        v6 = "SoftwareUpdateBTWake";
+        break;
+      case 720897:
+        v6 = "SofrwareUpdateOutboxControllerAuth";
+        break;
+      case 786432:
+        v6 = "ProxControlDeviceClose";
+        break;
+      case 851968:
+        v6 = "DCTProtocolTelephony";
+        break;
+      case 851969:
+        v6 = "DCTProtocolDataAndTelephony";
+        break;
+      case 917504:
+        v6 = "NearbyFaceTime";
+        break;
+      case 917505:
+        v6 = "NearbyFaceTimeData";
+        break;
+      case 1048576:
+        v6 = "DOS";
+        break;
+      case 1048577:
+        v6 = "DOD";
+        break;
+      case 1114112:
+        v6 = "ProximityServiceDeviceSetup";
+        break;
+      default:
+        v6 = "?";
+        break;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 65536:
+        v6 = "FindMyAction";
+        break;
+      case 65537:
+        v6 = "FindMyBackground";
+        break;
+      case 65538:
+        v6 = "FindMyActionHELE";
+        break;
+      case 65539:
+        v6 = "FindMyBackgroundHELE";
+        break;
+      case 65540:
+        v6 = "FindMyActionTransient";
+        break;
+      case 65541:
+        v6 = "FindMyBackgroundTransient";
+        break;
+      case 65542:
+        v6 = "FindMyActionHELETransient";
+        break;
+      case 65543:
+        v6 = "FindMyBackgroundHELETransient";
+        break;
+      case 65544:
+        v6 = "FindMyNotOptedIn";
+        break;
+      case 65545:
+        v6 = "FindMyOptedIn";
+        break;
+      case 65546:
+        v6 = "FindMySepAlertsEnabled";
+        break;
+      case 65547:
+        v6 = "FindMyTemporaryAggressiveLegacy";
+        break;
+      case 65548:
+        v6 = "FindMyTemporaryLongAggressive";
+        break;
+      case 65549:
+        v6 = "FindMyBTFindingUserInitiated";
+        break;
+      case 65550:
+        v6 = "FindMyHELE";
+        break;
+      case 65551:
+        v6 = "FindMyBeaconOnDemand";
+        break;
+      case 65552:
+        v6 = "FindMyWildTimedScan";
+        break;
+      case 65553:
+        v6 = "FindMyBackgroundLeechScan";
+        break;
+      case 65554:
+        v6 = "FindMySnifferMode";
+        break;
+      case 65555:
+        v6 = "FindMyUnpair";
+        break;
+      case 65556:
+        v6 = "FindMyUnpairHELE";
+        break;
+      case 65557:
+        v6 = "FindMyPlaySound";
+        break;
+      case 65558:
+        v6 = "FindMyPlaySoundHELE";
+        break;
+      case 65559:
+        v6 = "FindMyNotOptedInBeepOnMoveWaking";
+        break;
+      case 65560:
+        v6 = "FindMyUTTransient";
+        break;
+      case 65561:
+        v6 = "FindMyUTHELETransient";
+        break;
+      case 65562:
+        v6 = "FindMyActionExtendedRange";
+        break;
+      case 65563:
+        v6 = "FindMyActionExtendedRangeLE2M";
+        break;
+      case 65564:
+        v6 = "FindMyActionExtendedRangeTransient";
+        break;
+      case 65565:
+        v6 = "FindMyPlaySoundExtendedRange";
+        break;
+      case 65566:
+        v6 = "FindMyPair";
+        break;
+      case 65567:
+        v6 = "FindMyTemporaryAggressiveLegacyExtendedRange";
         break;
       default:
         JUMPOUT(0);
     }
   }
+}
 
-  v4 = *(a1 + 32);
-  return LogPrintF();
+uint64_t __33__SFDeviceDiscovery__interrupted__block_invoke_cold_1(__CFString *a1)
+{
+  v1 = @"no error";
+  if (a1)
+  {
+    v1 = a1;
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _interrupted]_block_invoke", 30, "Restart completed: %@\n", v1);
+}
+
+uint64_t __34__SFDeviceDiscovery__retryConsole__block_invoke_cold_1(__CFString *a1)
+{
+  v1 = @"no error";
+  if (a1)
+  {
+    v1 = a1;
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceDiscovery, "[SFDeviceDiscovery _retryConsole]_block_invoke", 30, "Start after console retry completed: %@\n", v1);
 }
 
 @end

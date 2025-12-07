@@ -27,7 +27,7 @@
     goto LABEL_5;
   }
 
-  [v9 timingInfo];
+  objc_msgSend_timingInfo(v9);
   if ((v28 & 1) == 0)
   {
     if (error)
@@ -89,7 +89,7 @@ LABEL_12:
   [v5 setObject:v9 forKeyedSubscript:@"VNTrajectoryProcessorOption_ObjectMaximumNormalizedRadius"];
 
   memset(v12, 0, sizeof(v12));
-  [(VNDetectTrajectoriesRequest *)self targetFrameTime];
+  objc_msgSend_targetFrameTime(self);
   v10 = [objc_alloc(MEMORY[0x1E696B098]) initWithBytes:v12 objCType:"{?=qiIq}"];
   [v5 setObject:v10 forKeyedSubscript:@"VNTrajectoryProcessorOption_ProcessingTargetFrameTime"];
 
@@ -139,7 +139,7 @@ LABEL_12:
 - (id)newDuplicateInstance
 {
   v3 = objc_alloc(objc_opt_class());
-  [(VNStatefulRequest *)self frameAnalysisSpacing];
+  objc_msgSend_frameAnalysisSpacing(self);
   trajectoryLength = [(VNDetectTrajectoriesRequest *)self trajectoryLength];
   completionHandler = [(VNRequest *)self completionHandler];
   v6 = [v3 initWithFrameAnalysisSpacing:v8 trajectoryLength:trajectoryLength completionHandler:completionHandler];
@@ -171,7 +171,7 @@ LABEL_12:
   if (configuration)
   {
     v6 = configuration;
-    [configuration targetFrameTime];
+    objc_msgSend_targetFrameTime(configuration);
     configuration = v6;
   }
 

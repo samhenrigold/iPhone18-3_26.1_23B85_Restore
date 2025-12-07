@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for PXFlexMusicViewController();
+  v4.super_class = type metadata accessor for PXFlexMusicViewController(self, a2);
   v2 = v4.receiver;
   [(PXFlexMusicViewController *)&v4 viewDidLoad];
   v3 = sub_1A524C634();
@@ -35,19 +35,19 @@
   else
   {
     *(&self->super.super.super.isa + OBJC_IVAR___PXFlexMusicViewController_player) = 0;
-    v9 = self + OBJC_IVAR___PXFlexMusicViewController_pickerView;
-    *v9 = 0u;
-    *(v9 + 1) = 0u;
-    v9[32] = 0;
+    v11 = self + OBJC_IVAR___PXFlexMusicViewController_pickerView;
+    *v11 = 0u;
+    *(v11 + 1) = 0u;
+    v11[32] = 0;
     bundleCopy2 = bundle;
     v8 = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for PXFlexMusicViewController();
-  v11 = [(PXFlexMusicViewController *)&v13 initWithNibName:v8 bundle:bundle];
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for PXFlexMusicViewController(bundleCopy2, v10);
+  v12 = [(PXFlexMusicViewController *)&v14 initWithNibName:v8 bundle:bundle];
 
-  return v11;
+  return v12;
 }
 
 - (PXFlexMusicViewController)initWithCoder:(id)coder
@@ -58,7 +58,7 @@
   *(v4 + 1) = 0u;
   v4[32] = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for PXFlexMusicViewController();
+  v8.super_class = type metadata accessor for PXFlexMusicViewController(self, a2);
   coderCopy = coder;
   v6 = [(PXFlexMusicViewController *)&v8 initWithCoder:coderCopy];
 

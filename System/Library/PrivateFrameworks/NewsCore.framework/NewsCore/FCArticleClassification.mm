@@ -8,25 +8,25 @@
 
 - (FCArticleClassification)initWithArticleID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
     *buf = 136315906;
-    v14 = "[FCArticleClassification initWithArticleID:]";
-    v15 = 2080;
-    v16 = "FCArticleClassification.m";
-    v17 = 1024;
-    v18 = 22;
-    v19 = 2114;
-    v20 = v11;
+    v13 = "[FCArticleClassification initWithArticleID:]";
+    v14 = 2080;
+    v15 = "FCArticleClassification.m";
+    v16 = 1024;
+    v17 = 22;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v12.receiver = self;
-  v12.super_class = FCArticleClassification;
-  v5 = [(FCArticleClassification *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = FCArticleClassification;
+  v5 = [(FCArticleClassification *)&v11 init];
   v6 = v5;
   if (v5)
   {
@@ -44,7 +44,6 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

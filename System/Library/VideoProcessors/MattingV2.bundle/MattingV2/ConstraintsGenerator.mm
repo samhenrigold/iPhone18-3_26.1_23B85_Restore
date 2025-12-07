@@ -117,7 +117,7 @@ LABEL_5:
   {
     sub_2957E0EF0();
 LABEL_37:
-    v60 = -12786;
+    v61 = -12786;
     goto LABEL_30;
   }
 
@@ -184,29 +184,29 @@ LABEL_37:
   }
 
   erosionFilter = self->_erosionFilter;
-  if (!erosionFilter || objc_msgSend_kernelWidth(erosionFilter, v35, v36) != configuration->var4 || objc_msgSend_kernelHeight(self->_erosionFilter, v45, v46) != configuration->var4)
+  if (!erosionFilter || objc_msgSend_kernelWidth(erosionFilter, v35, v36) != configuration->var4 || (v47 = objc_msgSend_kernelHeight(self->_erosionFilter, v45, v46), v47 != configuration->var4))
   {
-    v49 = objc_alloc(MEMORY[0x29EDBB7D8]);
-    v51 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v49, v50, self->_device, configuration->var4, configuration->var4);
-    v52 = self->_erosionFilter;
-    self->_erosionFilter = v51;
+    v50 = objc_alloc(MEMORY[0x29EDBB7D8]);
+    v52 = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(v50, v51, self->_device, configuration->var4, configuration->var4);
+    v53 = self->_erosionFilter;
+    self->_erosionFilter = v52;
 
-    objc_msgSend_setEdgeMode_(self->_erosionFilter, v53, 0);
+    v47 = objc_msgSend_setEdgeMode_(self->_erosionFilter, v54, 0);
   }
 
   if (!self->_erosionFilter)
   {
-    sub_2957E0D10();
+    sub_2957E0D10(v47);
     goto LABEL_37;
   }
 
-  v54 = objc_msgSend_allocatedSize(self->_fgErodedSegmentation, v47, v48);
-  v57 = objc_msgSend_allocatedSize(self->_bgErodedSegmentation, v55, v56) + v54;
-  v60 = 0;
-  self->_preallocatedSize = v57 + objc_msgSend_allocatedSize(self->_tmpSegmentation, v58, v59);
+  v55 = objc_msgSend_allocatedSize(self->_fgErodedSegmentation, v48, v49);
+  v58 = objc_msgSend_allocatedSize(self->_bgErodedSegmentation, v56, v57) + v55;
+  v61 = 0;
+  self->_preallocatedSize = v58 + objc_msgSend_allocatedSize(self->_tmpSegmentation, v59, v60);
 LABEL_30:
 
-  return v60;
+  return v61;
 }
 
 @end

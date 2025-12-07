@@ -77,23 +77,23 @@
     passwordRulesDescriptor2 = [v5 passwordRulesDescriptor];
     if (passwordRulesDescriptor == passwordRulesDescriptor2)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
       passwordRulesDescriptor3 = [(UITextInputPasswordRules *)self passwordRulesDescriptor];
       passwordRulesDescriptor4 = [v5 passwordRulesDescriptor];
-      v10 = [passwordRulesDescriptor3 isEqual:passwordRulesDescriptor4];
+      isEqual = objc_msgSend_isEqual_(passwordRulesDescriptor3);
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (id)description

@@ -35,24 +35,27 @@
 
 - (WBSPasswordWarningTopFraudTargets)initWithSnapshotData:(id)data error:(id *)error
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v63[1] = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E695DF20] safari_dictionaryWithJSONOrPropertyListData:data];
-  v7 = v6;
+  v8 = v6;
   if (v6)
   {
-    v8 = [v6 objectForKeyedSubscript:@"highPriorityFraudTargets"];
+    v9 = [v6 objectForKeyedSubscript:@"highPriorityFraudTargets"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v9 = [v7 objectForKeyedSubscript:@"fraudTargets"];
+      v12 = [v8 objectForKeyedSubscript:@"fraudTargets"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v13 = objc_opt_isKindOfClass();
+      if (v13)
       {
-        v10 = [v7 objectForKeyedSubscript:@"financialFraudTargets"];
+        v15 = [v8 objectForKeyedSubscript:@"financialFraudTargets"];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v16 = objc_opt_isKindOfClass();
+        if (v16)
         {
-          self = [(WBSPasswordWarningTopFraudTargets *)self initWithHighPriorityTargets:v8 targets:v9 financialTargets:v10];
+          self = [(WBSPasswordWarningTopFraudTargets *)self initWithHighPriorityTargets:v9 targets:v12 financialTargets:v15];
           selfCopy = self;
 LABEL_19:
 
@@ -60,10 +63,10 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v36 = WBS_LOG_CHANNEL_PREFIXPasswords();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v43 = WBS_LOG_CHANNEL_PREFIXPasswords(v16, v17);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          [(WBSPasswordWarningTopFraudTargets *)v36 initWithSnapshotData:v37 error:v38, v39, v40, v41, v42, v43];
+          [(WBSPasswordWarningTopFraudTargets *)v43 initWithSnapshotData:v44 error:v45, v46, v47, v48, v49, v50];
           if (!error)
           {
             goto LABEL_18;
@@ -75,12 +78,12 @@ LABEL_20:
         if (error)
         {
 LABEL_17:
-          v44 = MEMORY[0x1E696ABC0];
-          v45 = *MEMORY[0x1E696A250];
-          v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"financialFraudTargets", *MEMORY[0x1E696A578]];
-          v51 = v46;
-          v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-          *error = [v44 errorWithDomain:v45 code:259 userInfo:v47];
+          v51 = MEMORY[0x1E696ABC0];
+          v52 = *MEMORY[0x1E696A250];
+          v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"financialFraudTargets", *MEMORY[0x1E696A578]];
+          v57 = v53;
+          v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          *error = [v51 errorWithDomain:v52 code:259 userInfo:v54];
         }
 
 LABEL_18:
@@ -88,10 +91,10 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v25 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v32 = WBS_LOG_CHANNEL_PREFIXPasswords(v13, v14);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [(WBSPasswordWarningTopFraudTargets *)v25 initWithSnapshotData:v26 error:v27, v28, v29, v30, v31, v32];
+        [(WBSPasswordWarningTopFraudTargets *)v32 initWithSnapshotData:v33 error:v34, v35, v36, v37, v38, v39];
         if (error)
         {
           goto LABEL_14;
@@ -101,13 +104,13 @@ LABEL_18:
       else if (error)
       {
 LABEL_14:
-        v33 = MEMORY[0x1E696ABC0];
-        v34 = *MEMORY[0x1E696A250];
-        v52 = *MEMORY[0x1E696A578];
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"fraudTargets"];
-        v53 = v10;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-        *error = [v33 errorWithDomain:v34 code:259 userInfo:v35];
+        v40 = MEMORY[0x1E696ABC0];
+        v41 = *MEMORY[0x1E696A250];
+        v58 = *MEMORY[0x1E696A578];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"fraudTargets"];
+        v59 = v15;
+        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        *error = [v40 errorWithDomain:v41 code:259 userInfo:v42];
 
         goto LABEL_18;
       }
@@ -116,10 +119,10 @@ LABEL_14:
       goto LABEL_20;
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXPasswords(isKindOfClass, v11);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordWarningTopFraudTargets *)v15 initWithSnapshotData:v16 error:v17, v18, v19, v20, v21, v22];
+      [(WBSPasswordWarningTopFraudTargets *)v22 initWithSnapshotData:v23 error:v24, v25, v26, v27, v28, v29];
       if (error)
       {
         goto LABEL_11;
@@ -129,13 +132,13 @@ LABEL_14:
     else if (error)
     {
 LABEL_11:
-      v23 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A250];
-      v54 = *MEMORY[0x1E696A578];
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"highPriorityFraudTargets"];
-      v55 = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-      [v23 errorWithDomain:v24 code:259 userInfo:v10];
+      v30 = MEMORY[0x1E696ABC0];
+      v31 = *MEMORY[0x1E696A250];
+      v60 = *MEMORY[0x1E696A578];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TopFraudTargets plist missing %@ key", @"highPriorityFraudTargets"];
+      v61 = v12;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      [v30 errorWithDomain:v31 code:259 userInfo:v15];
       *error = selfCopy = 0;
       goto LABEL_19;
     }
@@ -144,10 +147,10 @@ LABEL_11:
     goto LABEL_21;
   }
 
-  v12 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v19 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v7);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    [WBSPasswordWarningTopFraudTargets initWithSnapshotData:v12 error:?];
+    [WBSPasswordWarningTopFraudTargets initWithSnapshotData:v19 error:?];
     if (error)
     {
       goto LABEL_8;
@@ -164,39 +167,38 @@ LABEL_24:
   }
 
 LABEL_8:
-  v13 = MEMORY[0x1E696ABC0];
-  v14 = *MEMORY[0x1E696A250];
-  v56 = *MEMORY[0x1E696A578];
-  v57[0] = @"Failed to decode topFraudTargets plist data.";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
-  [v13 errorWithDomain:v14 code:259 userInfo:v8];
+  v20 = MEMORY[0x1E696ABC0];
+  v21 = *MEMORY[0x1E696A250];
+  v62 = *MEMORY[0x1E696A578];
+  v63[0] = @"Failed to decode topFraudTargets plist data.";
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+  [v20 errorWithDomain:v21 code:259 userInfo:v9];
   *error = selfCopy = 0;
 LABEL_21:
 
 LABEL_22:
-  v48 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)initWithSnapshotData:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"highPriorityFraudTargets";
+  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithSnapshotData:(uint64_t)a3 error:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"fraudTargets";
+  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithSnapshotData:(uint64_t)a3 error:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"financialFraudTargets";
+  OUTLINED_FUNCTION_0_6(&dword_1B8447000, a1, a3, "TopFraudTargets plist missing %@ key", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

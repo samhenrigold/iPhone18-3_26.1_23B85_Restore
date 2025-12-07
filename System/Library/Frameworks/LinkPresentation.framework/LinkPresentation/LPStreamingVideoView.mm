@@ -100,7 +100,7 @@ id __86__LPStreamingVideoView_createPlayerItemAdjustedForLoopingWithAsset_comple
       memset(&v19, 0, sizeof(v19));
       if (v5)
       {
-        [v5 timeRange];
+        objc_msgSend_timeRange(v5);
       }
 
       else
@@ -112,7 +112,7 @@ id __86__LPStreamingVideoView_createPlayerItemAdjustedForLoopingWithAsset_comple
       memset(&v18, 0, sizeof(v18));
       if (v6)
       {
-        [v6 timeRange];
+        objc_msgSend_timeRange(v6);
       }
 
       else
@@ -195,7 +195,7 @@ id __86__LPStreamingVideoView_createPlayerItemAdjustedForLoopingWithAsset_comple
   v24 = *MEMORY[0x1E69E9840];
   if (!self->_player && self->_hasCreatedVideoPlayerView)
   {
-    v3 = LPLogChannelUI();
+    v3 = LPLogChannelUI(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(LPStreamingVideoView *)v23 createPlayerIfNeeded];
@@ -291,7 +291,7 @@ void __44__LPStreamingVideoView_createPlayerIfNeeded__block_invoke(uint64_t a1, 
   v7[1] = *MEMORY[0x1E69E9840];
   if (self->_player)
   {
-    v3 = LPLogChannelUI();
+    v3 = LPLogChannelUI(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(LPStreamingVideoView *)v7 destroyPlayer];
@@ -428,22 +428,22 @@ void __71__LPStreamingVideoView_observeValueForKeyPath_ofObject_change_context__
   _os_log_debug_impl(&dword_1AE886000, log, OS_LOG_TYPE_DEBUG, "LPStreamingVideoView<%d>: failed to play, will try again later (%@)", buf, 0x12u);
 }
 
-uint64_t __37__LPStreamingVideoView_didFailToPlay__block_invoke(uint64_t a1)
+void *__37__LPStreamingVideoView_didFailToPlay__block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = (a1 + 32);
+  v2 = (a1 + 32);
   *(*(a1 + 32) + 641) = 0;
-  v2 = *(*(a1 + 32) + 616);
-  if (!v2 || (result = [v2 status], result == 2))
+  result = *(*(a1 + 32) + 616);
+  if (!result || (result = [result status], result == 2))
   {
-    v4 = LPLogChannelUI();
+    v4 = LPLogChannelUI(result, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __37__LPStreamingVideoView_didFailToPlay__block_invoke_cold_1(v1, v6, [*v1 loggingID], v4);
+      __37__LPStreamingVideoView_didFailToPlay__block_invoke_cold_1(v2, v6, [*v2 loggingID], v4);
     }
 
-    v5 = *v1;
-    if (*(*v1 + 648))
+    v5 = *v2;
+    if (*(*v2 + 648))
     {
       return [v5 createPlayerIfNeeded];
     }
@@ -482,17 +482,17 @@ uint64_t __37__LPStreamingVideoView_didFailToPlay__block_invoke(uint64_t a1)
 
 - (BOOL)releaseDecodingResourcesIfInactive
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   player = self->_player;
   if (player)
   {
-    [(AVQueuePlayer *)player rate];
-    if (v4 == 0.0 && !self->_desiredPlayingState)
+    rate = [(AVQueuePlayer *)player rate];
+    if (v6 == 0.0 && !self->_desiredPlayingState)
     {
-      v5 = LPLogChannelUI();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = LPLogChannelUI(rate, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        [(LPStreamingVideoView *)v7 releaseDecodingResourcesIfInactive];
+        [(LPStreamingVideoView *)v9 releaseDecodingResourcesIfInactive];
       }
 
       [(LPStreamingVideoView *)self destroyPlayer];

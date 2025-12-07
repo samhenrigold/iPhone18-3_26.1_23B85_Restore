@@ -322,9 +322,9 @@ LABEL_18:
   coordinatorCopy = coordinator;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
-  v38.receiver = self;
-  v38.super_class = PBUIFakeBlurView;
-  v19 = [(PBUIFakeBlurView *)&v38 initWithFrame:?];
+  v40.receiver = self;
+  v40.super_class = PBUIFakeBlurView;
+  v19 = [(PBUIFakeBlurView *)&v40 initWithFrame:?];
 
   if (v19)
   {
@@ -354,33 +354,33 @@ LABEL_18:
     v19->_requestedStyle = -1;
     v19->_shouldMatchWallpaperPosition = 1;
     objc_storeStrong(&v19->_reachabilityCoordinator, coordinator);
-    [(PBUIWallpaperReachabilityCoordinating *)v19->_reachabilityCoordinator addReachabilityObserver:v19];
-    if (PBUIReplicaDebugModeIsEnabled())
+    v27 = [(PBUIWallpaperReachabilityCoordinating *)v19->_reachabilityCoordinator addReachabilityObserver:v19];
+    if (PBUIReplicaDebugModeIsEnabled(v27, v28))
     {
-      v27 = [PBUIReplicaDebugView alloc];
+      v29 = [PBUIReplicaDebugView alloc];
       [(PBUIFakeBlurView *)v19 bounds];
-      v28 = [(PBUIReplicaDebugView *)v27 initWithFrame:?];
+      v30 = [(PBUIReplicaDebugView *)v29 initWithFrame:?];
       debugView = v19->_debugView;
-      v19->_debugView = v28;
+      v19->_debugView = v30;
 
       [(PBUIReplicaDebugView *)v19->_debugView setAutoresizingMask:18];
-      v30 = MEMORY[0x277CCACA8];
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = [v30 stringWithFormat:@"%@ (%p)", v32, v19];
+      v32 = MEMORY[0x277CCACA8];
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
+      v35 = [v32 stringWithFormat:@"%@ (%p)", v34, v19];
 
-      [(PBUIReplicaDebugView *)v19->_debugView setTitle:v33];
-      v34 = v19->_debugView;
+      [(PBUIReplicaDebugView *)v19->_debugView setTitle:v35];
+      v36 = v19->_debugView;
       orangeColor = [MEMORY[0x277D75348] orangeColor];
-      v36 = [orangeColor colorWithAlphaComponent:0.4];
-      [(PBUIReplicaDebugView *)v34 setColor:v36];
+      v38 = [orangeColor colorWithAlphaComponent:0.4];
+      [(PBUIReplicaDebugView *)v36 setColor:v38];
 
       [(PBUIFakeBlurView *)v19 addSubview:v19->_debugView];
     }
 
     else
     {
-      v33 = v19->_debugView;
+      v35 = v19->_debugView;
       v19->_debugView = 0;
     }
   }

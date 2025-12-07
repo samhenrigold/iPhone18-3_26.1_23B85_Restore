@@ -2,34 +2,55 @@
 - (BOOL)checkValidityAndCollectErrors:(id)errors;
 - (NETransparentProxyNetworkSettings)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (uint64_t)validateNetworkRule:(int)rule isInclude:(void *)include collectErrors:;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NETransparentProxyNetworkSettings
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v13.receiver = self;
+  v13.super_class = NETransparentProxyNetworkSettings;
+  v8 = [(NETunnelNetworkSettings *)&v13 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  includedNetworkRules = [(NETransparentProxyNetworkSettings *)self includedNetworkRules];
+  [v9 appendPrettyObject:includedNetworkRules withName:@"includedNetworkRules" andIndent:v5 options:options | 1];
+
+  excludedNetworkRules = [(NETransparentProxyNetworkSettings *)self excludedNetworkRules];
+  [v9 appendPrettyObject:excludedNetworkRules withName:@"excludedNetworkRules" andIndent:v5 options:options | 1];
+
+  [v9 appendPrettyBOOL:-[NETransparentProxyNetworkSettings isFullyTransparent](self withName:"isFullyTransparent") andIndent:@"isFullyTransparent" options:{v5, options | 8}];
+
+  return v9;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
-  v26.receiver = self;
-  v26.super_class = NETransparentProxyNetworkSettings;
-  v5 = [(NETunnelNetworkSettings *)&v26 checkValidityAndCollectErrors:errorsCopy];
+  v25.receiver = self;
+  v25.super_class = NETransparentProxyNetworkSettings;
+  v5 = [(NETunnelNetworkSettings *)&v25 checkValidityAndCollectErrors:errorsCopy];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   includedNetworkRules = [(NETransparentProxyNetworkSettings *)self includedNetworkRules];
-  v7 = [includedNetworkRules countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [includedNetworkRules countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(includedNetworkRules);
         }
@@ -37,27 +58,27 @@
         v5 &= [(NETransparentProxyNetworkSettings *)self validateNetworkRule:1 isInclude:errorsCopy collectErrors:?];
       }
 
-      v8 = [includedNetworkRules countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [includedNetworkRules countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v8);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   excludedNetworkRules = [(NETransparentProxyNetworkSettings *)self excludedNetworkRules];
-  v12 = [excludedNetworkRules countByEnumeratingWithState:&v18 objects:v27 count:16];
+  v12 = [excludedNetworkRules countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(excludedNetworkRules);
         }
@@ -65,13 +86,12 @@
         v5 &= [(NETransparentProxyNetworkSettings *)self validateNetworkRule:0 isInclude:errorsCopy collectErrors:?];
       }
 
-      v13 = [excludedNetworkRules countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v13 = [excludedNetworkRules countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v13);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

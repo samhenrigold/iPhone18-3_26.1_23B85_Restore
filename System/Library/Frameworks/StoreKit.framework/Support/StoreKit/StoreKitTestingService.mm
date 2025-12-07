@@ -320,7 +320,7 @@
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Sending storefront changed notification for Xcode test", v3, 2u);
   }
 
-  notify_post(unk_1003F6918(off_1003CB238, "UTF8String"));
+  notify_post(unk_1003F7098(off_1003CB238, "UTF8String"));
 }
 
 - (void)performAction:(int64_t)action transactionID:(unint64_t)d bundleID:(id)iD completion:(id)completion

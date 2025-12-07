@@ -94,7 +94,7 @@
     v18 = _log_0();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [QLThumbnailVersion initWithFileURL:generatorID:generatorVersion:];
+      [QLThumbnailVersion initWithFileURL:v15 generatorID:? generatorVersion:?];
     }
   }
 
@@ -141,16 +141,14 @@
 
 void __67__QLThumbnailVersion_initWithFileURL_generatorID_generatorVersion___block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E695DB50];
-  v4[0] = *MEMORY[0x1E695DA98];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x1E695DB58];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x1E695DA98];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x1E695DB58];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
   v2 = initWithFileURL_generatorID_generatorVersion__propKeys;
   initWithFileURL_generatorID_generatorVersion__propKeys = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (QLThumbnailVersion)initWithFileURL:(id)l automaticallyGenerated:(BOOL)generated
@@ -662,32 +660,29 @@ LABEL_38:
   return v3 ^ v4 ^ [(NSData *)self->_versionIdentifier hash];
 }
 
-- (void)initWithFileURL:generatorID:generatorVersion:.cold.2()
+- (void)initWithFileURL:(uint64_t)a1 generatorID:generatorVersion:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = __error();
-  strerror(*v0);
-  OUTLINED_FUNCTION_1_1(&dword_1CA1E7000, v1, v2, "stat on %@ failed: %s", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  v2 = __error();
+  *v9 = 138412546;
+  *&v9[4] = a1;
+  *&v9[12] = 2080;
+  *&v9[14] = strerror(*v2);
+  OUTLINED_FUNCTION_1_1(&dword_1CA1E7000, v3, v4, "stat on %@ failed: %s", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)initWithFileURL:generatorID:generatorVersion:.cold.3()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
-  v4 = v0;
-  _os_log_error_impl(&dword_1CA1E7000, v1, OS_LOG_TYPE_ERROR, "No resource properties for %@ (error %@) -> returning nil version", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1CA1E7000, v1, OS_LOG_TYPE_ERROR, "No resource properties for %@ (error %@) -> returning nil version", v2, 0x16u);
 }
 
 - (void)initWithDictionaryRepresentation:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:@"vI"];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1CA1E7000, v2, v3, "could not unarchive version identifier %@: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1CA1E7000, v2, v3, "could not unarchive version identifier %@: %@", v4, v5, v6, v7);
 }
 
 @end

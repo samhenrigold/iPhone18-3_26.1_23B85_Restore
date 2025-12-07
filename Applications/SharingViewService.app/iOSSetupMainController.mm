@@ -31,7 +31,7 @@
 {
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController showWiFi]", 30, "Show WiFi\n");
   }
 
   v3 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:@"WiFi"];
@@ -43,7 +43,7 @@
 {
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController showFinishUI]", 30, "Show finish UI\n");
   }
 
   vcFinish = self->_vcFinish;
@@ -67,8 +67,7 @@
   iCopy = i;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    v8 = iCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController showDoneUI:]", 30, "Show done UI: %{error}\n", iCopy);
   }
 
   vcDone = self->_vcDone;
@@ -82,7 +81,7 @@
     vcDone = self->_vcDone;
   }
 
-  [(iOSSetupDoneViewController *)vcDone setError:iCopy, v8];
+  [(iOSSetupDoneViewController *)vcDone setError:iCopy];
   [(SFDeviceSetupSessioniOS *)self->_setupSession invalidate];
   setupSession = self->_setupSession;
   self->_setupSession = 0;
@@ -97,7 +96,7 @@
   infoCopy = info;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController showBackupSyncUI:info:]", 30, "Show BackupSync UI\n");
   }
 
   vcBackupSync = self->_vcBackupSync;
@@ -136,11 +135,10 @@
       v5 = nCopy;
     }
 
-    v6 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _tryPIN:]", 30, "Try PIN '%@'\n", v5);
   }
 
-  [(SFDeviceSetupSessioniOS *)self->_setupSession tryPIN:nCopy, v6];
+  [(SFDeviceSetupSessioniOS *)self->_setupSession tryPIN:nCopy];
 }
 
 - (void)_handleVisualAuthScannedCode:(id)code
@@ -148,7 +146,7 @@
   codeCopy = code;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthScannedCode:]", 30, "Visual Auth scanned code: '%@'\n", codeCopy);
   }
 
   if (mach_absolute_time() >= self->_visualAuthNextTicks)
@@ -157,7 +155,7 @@
     {
       if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_12;
+        LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthScannedCode:]", 30, "Visual Auth ignore scanned code while trying previous code\n");
       }
     }
 
@@ -171,8 +169,7 @@
   else if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
     UpTicksToSecondsF();
-LABEL_12:
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthScannedCode:]", 30, "Visual Auth wait for next allowed time (%.2f seconds)\n");
   }
 }
 
@@ -182,7 +179,7 @@ LABEL_12:
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthEvent:]", 30, "Visual Auth Event: pair manually\n");
     }
 
     [(VPScannerViewController *)self->_vcVisualAuth dismissViewControllerAnimated:1 completion:0];
@@ -204,21 +201,21 @@ LABEL_12:
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthEvent:]", 30, "Visual Auth Event: cancel\n");
     }
 
-    v4 = self->_vcVisualAuth;
-    v5 = v4 == 0;
-    [(VPScannerViewController *)v4 dismissViewControllerAnimated:1 completion:0];
-    v6 = self->_vcVisualAuth;
+    v5 = self->_vcVisualAuth;
+    v6 = v5 == 0;
+    [(VPScannerViewController *)v5 dismissViewControllerAnimated:1 completion:0];
+    v7 = self->_vcVisualAuth;
     self->_vcVisualAuth = 0;
 
-    [(iOSSetupMainController *)self dismiss:5 animated:v5];
+    [(iOSSetupMainController *)self dismiss:5 animated:v6];
   }
 
   else if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleVisualAuthEvent:]", 30, "Visual Auth Event: %ld\n", event);
   }
 }
 
@@ -328,9 +325,7 @@ LABEL_12:
       v8 = infoCopy;
     }
 
-    v22 = v7;
-    v23 = v8;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _sessionHandleProgress:info:]", 30, "Progress: %s %##@\n", v7, v8);
   }
 
   setupSession = self->_setupSession;
@@ -359,12 +354,12 @@ LABEL_12:
           v10 = objc_alloc_init(UINotificationFeedbackGenerator);
           [v10 notificationOccurred:0];
           vcVisualAuth = self->_vcVisualAuth;
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_1000F1494;
-          v24[3] = &unk_100195AC0;
-          v24[4] = self;
-          [(VPScannerViewController *)vcVisualAuth dismissViewControllerAnimated:1 completion:v24];
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 3221225472;
+          v22[2] = sub_1000F1494;
+          v22[3] = &unk_100195AC0;
+          v22[4] = self;
+          [(VPScannerViewController *)vcVisualAuth dismissViewControllerAnimated:1 completion:v22];
           v12 = self->_vcVisualAuth;
           self->_vcVisualAuth = 0;
 
@@ -406,7 +401,7 @@ LABEL_12:
         v18 = 99;
       }
 
-      [(iOSSetupFinishViewController *)vcFinish handleProgressEvent:v18, v22, v23];
+      [(iOSSetupFinishViewController *)vcFinish handleProgressEvent:v18];
       goto LABEL_43;
     }
 
@@ -414,7 +409,7 @@ LABEL_12:
     {
       if (v4 == 300 || v4 == 310)
       {
-        [(iOSSetupMainController *)self showBackupSyncUI:v4 info:infoCopy, v22, v23];
+        [(iOSSetupMainController *)self showBackupSyncUI:v4 info:infoCopy];
       }
     }
 
@@ -425,12 +420,12 @@ LABEL_12:
         case 0x190:
           if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _sessionHandleProgress:info:]", 30, "Stop setup from target\n");
           }
 
           v19 = self->_vcVisualAuth;
           v20 = v19 == 0;
-          [(VPScannerViewController *)v19 dismissViewControllerAnimated:1 completion:0, v22, v23];
+          [(VPScannerViewController *)v19 dismissViewControllerAnimated:1 completion:0];
           v21 = self->_vcVisualAuth;
           self->_vcVisualAuth = 0;
 
@@ -439,10 +434,10 @@ LABEL_12:
         case 0x191:
           if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _sessionHandleProgress:info:]", 30, "PIN pair from target\n");
           }
 
-          [(iOSSetupMainController *)self _handleVisualAuthEvent:2, v22, v23];
+          [(iOSSetupMainController *)self _handleVisualAuthEvent:2];
           break;
         case 0x19A:
           [(iOSSetupMainController *)self _handleMigrateStart];
@@ -459,8 +454,7 @@ LABEL_43:
   startCopy = start;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    v8 = startCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _sessionStart:]", 30, "Start setup with %@\n", startCopy);
   }
 
   [(SFDeviceSetupSessioniOS *)self->_setupSession invalidate];
@@ -469,18 +463,18 @@ LABEL_43:
   self->_setupSession = v5;
 
   [(SFDeviceSetupSessioniOS *)self->_setupSession setPeerDevice:startCopy];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000F1688;
-  v10[3] = &unk_1001959F8;
-  v10[4] = self;
-  [(SFDeviceSetupSessioniOS *)self->_setupSession setProgressHandler:v10];
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
-  v9[2] = sub_1000F1698;
-  v9[3] = &unk_100195A48;
+  v9[2] = sub_1000F1688;
+  v9[3] = &unk_1001959F8;
   v9[4] = self;
-  [(SFDeviceSetupSessioniOS *)self->_setupSession setPromptForPINHandler:v9];
+  [(SFDeviceSetupSessioniOS *)self->_setupSession setProgressHandler:v9];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000F1698;
+  v8[3] = &unk_100195A48;
+  v8[4] = self;
+  [(SFDeviceSetupSessioniOS *)self->_setupSession setPromptForPINHandler:v8];
   [(SFDeviceSetupSessioniOS *)self->_setupSession activate];
   [(iOSSetupMainController *)self logUsageStart:9];
   _remoteViewControllerProxy = [(iOSSetupMainController *)self _remoteViewControllerProxy];
@@ -508,26 +502,27 @@ LABEL_43:
     Int64Ranged = CFDictionaryGetInt64Ranged();
     mach_absolute_time();
     v8 = UpTicksToMilliseconds();
-    v15[0] = v6;
-    v14[0] = @"sid";
-    v14[1] = @"smoothedRSSI";
+    v16[0] = v6;
+    v15[0] = @"sid";
+    v15[1] = @"smoothedRSSI";
+    v14 = Int64Ranged;
     v9 = [NSNumber numberWithInt:Int64Ranged];
-    v15[1] = v9;
-    v14[2] = @"errorCode";
+    v16[1] = v9;
+    v15[2] = @"errorCode";
     v10 = [NSNumber numberWithInt:v3];
-    v15[2] = v10;
-    v14[3] = @"durationMs";
+    v16[2] = v10;
+    v15[3] = @"durationMs";
     v11 = [NSNumber numberWithUnsignedLongLong:v8];
-    v15[3] = v11;
-    v14[4] = @"badPINCount";
+    v16[3] = v11;
+    v15[4] = @"badPINCount";
     v12 = [NSNumber numberWithUnsignedInt:self->_badPINCount];
-    v15[4] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:5];
+    v16[4] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:5];
     SFMetricsLog();
 
     if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController logUsageDone:]", 50, "iOSSetup: Done, ID %@, RSSI %ld, error %d, totalMs %llu, badPIN %u", v6, v14, v3, v8, self->_badPINCount);
     }
   }
 }
@@ -539,37 +534,37 @@ LABEL_43:
     v3 = *&start;
     self->_loggedUsageStart = 1;
     CFStringGetTypeID();
-    v4 = CFDictionaryGetTypedValue();
-    if (v4)
+    v5 = CFDictionaryGetTypedValue();
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
     }
 
     else
     {
-      v5 = &stru_100195CA8;
+      v6 = &stru_100195CA8;
     }
 
     Int64Ranged = CFDictionaryGetInt64Ranged();
     mach_absolute_time();
-    v7 = UpTicksToMilliseconds();
-    v13[0] = v5;
-    v12[0] = @"sid";
-    v12[1] = @"smoothedRSSI";
-    v8 = [NSNumber numberWithInt:Int64Ranged];
-    v13[1] = v8;
-    v12[2] = @"action";
-    v9 = [NSNumber numberWithInt:v3];
-    v13[2] = v9;
-    v12[3] = @"userMs";
-    v10 = [NSNumber numberWithUnsignedLongLong:v7];
-    v13[3] = v10;
-    v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:4];
+    v8 = UpTicksToMilliseconds();
+    v14[0] = v6;
+    v13[0] = @"sid";
+    v13[1] = @"smoothedRSSI";
+    v9 = [NSNumber numberWithInt:Int64Ranged];
+    v14[1] = v9;
+    v13[2] = @"action";
+    v10 = [NSNumber numberWithInt:v3];
+    v14[2] = v10;
+    v13[3] = @"userMs";
+    v11 = [NSNumber numberWithUnsignedLongLong:v8];
+    v14[3] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:4];
     SFMetricsLog();
 
     if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController logUsageStart:]", 50, "iOSSetup: Start, ID %@, RSSI %ld, action %d, userMs %llu, badPIN %u", v6, Int64Ranged, v3, v8, self->_badPINCount);
     }
   }
 }
@@ -587,31 +582,22 @@ LABEL_43:
     {
       if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [(BYMigrationSourceController *)self->_migrationController launchSetupForMigration:fileTransferSessionTemplate, fileTransferSessionTemplate];
+        LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartUI]", 30, "Migration start UI: %@\n", fileTransferSessionTemplate);
       }
 
-      else
-      {
-        [(BYMigrationSourceController *)self->_migrationController launchSetupForMigration:fileTransferSessionTemplate, v5];
-      }
-
-      goto LABEL_14;
+      [(BYMigrationSourceController *)self->_migrationController launchSetupForMigration:fileTransferSessionTemplate];
     }
 
-    if (dword_1001BE6C8 <= 90 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001BE6C8 <= 90 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_11;
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartUI]", 90, "### Migration start UI failed: create controller failed\n");
     }
   }
 
   else if (dword_1001BE6C8 <= 90 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-LABEL_11:
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartUI]", 90, "### Migration start UI failed: no file transfer session\n");
   }
-
-LABEL_14:
 }
 
 - (void)_handleMigrateStartDemo
@@ -620,7 +606,7 @@ LABEL_14:
   {
     if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartDemo]", 50, "FileTransfer start\n");
     }
 
     fileTransferSessionTemplate = [(SFDeviceSetupSessioniOS *)self->_setupSession fileTransferSessionTemplate];
@@ -688,7 +674,7 @@ LABEL_14:
 {
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleHomeButtonPressed]", 30, "Home button\n");
   }
 
   if (self->_homePressed || MKBGetDeviceLockState() - 1 > 1)
@@ -701,7 +687,7 @@ LABEL_14:
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleHomeButtonPressed]", 30, "Ignoring first home button press to unlock\n");
     }
 
     self->_homePressed = 1;
@@ -723,40 +709,38 @@ LABEL_14:
       v5 = "no";
     }
 
-    v12 = actionsCopy;
-    v13 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController handleButtonActions:]", 30, "Button actions: %##@, blocked %s\n", actionsCopy, v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = actionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if (!self->_blockHardwareButtons && ([*(*(&v14 + 1) + 8 * i) events] & 0x10) != 0)
+        v11 = *(*(&v12 + 1) + 8 * i);
+        if (!self->_blockHardwareButtons && ([*(*(&v12 + 1) + 8 * i) events] & 0x10) != 0)
         {
           [(iOSSetupMainController *)self _handleHomeButtonPressed];
         }
 
-        [v11 sendResponseWithUnHandledEvents:{0, v12, v13, v14}];
+        [v11 sendResponseWithUnHandledEvents:0];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -785,7 +769,7 @@ LABEL_14:
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(iOSSetupMainController *)self _remoteViewControllerProxy];
@@ -795,7 +779,7 @@ LABEL_14:
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(iOSSetupMainController *)self dismiss:21];
@@ -841,7 +825,7 @@ LABEL_14:
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v14.receiver = self;
@@ -909,7 +893,7 @@ LABEL_14:
 
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -947,7 +931,7 @@ LABEL_10:
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

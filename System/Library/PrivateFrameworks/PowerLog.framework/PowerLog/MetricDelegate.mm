@@ -43,24 +43,20 @@
 
 - (void)metricMonitor:(void *)a1 didEndWithError:.cold.1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [a1 localizedDescription];
-  v3 = 136315138;
-  v4 = [v1 UTF8String];
-  _os_log_fault_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "\nError: %s\n", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = [v1 UTF8String];
+  _os_log_fault_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "\nError: %s\n", &v2, 0xCu);
 }
 
 - (void)metricMonitor:(void *)a1 didUpdateWithMetrics:.cold.1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
-  v3 = 136315138;
-  v4 = [v1 UTF8String];
-  _os_log_fault_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "metric collect \n %s \n", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = [v1 UTF8String];
+  _os_log_fault_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "metric collect \n %s \n", &v2, 0xCu);
 }
 
 @end

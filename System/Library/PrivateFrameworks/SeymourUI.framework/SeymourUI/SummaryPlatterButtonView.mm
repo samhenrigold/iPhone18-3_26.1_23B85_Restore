@@ -17,11 +17,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI24SummaryPlatterButtonView_onTapped);
   if (v2)
   {
+    v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI24SummaryPlatterButtonView_onTapped);
     selfCopy = self;
-    v4 = sub_20B584050(v2);
-    v2(v4);
+    v5 = sub_20B584050(v2, v3);
+    v2(v5);
 
-    sub_20B583ECC(v2);
+    sub_20B583ECC(v2, v3);
   }
 }
 

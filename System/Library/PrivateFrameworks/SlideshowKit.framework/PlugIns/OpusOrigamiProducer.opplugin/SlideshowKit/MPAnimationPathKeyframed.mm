@@ -255,17 +255,17 @@
                 }
 
                 v42 = *(*(&v66 + 1) + 8 * m);
-                vector = [v42 vector];
+                v43 = objc_msgSend_vector(v42);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  vector = +[MPVector vectorFromString:](MPVector, "vectorFromString:", [animatedParent convertMPAttributeToMCAttribute:objc_msgSend(vector withKey:{"string"), -[MPAnimationPath key](self, "key")}]);
+                  v43 = +[MPVector vectorFromString:](MPVector, "vectorFromString:", [animatedParent convertMPAttributeToMCAttribute:objc_msgSend(v43 withKey:{"string"), -[MPAnimationPath key](self, "key")}]);
                 }
 
                 v44 = self->super._animationPath;
-                if (vector)
+                if (v43)
                 {
-                  [vector vector];
+                  objc_msgSend_vector(v43);
                 }
 
                 else
@@ -316,7 +316,7 @@
                   [v50 time];
                   v54 = v53;
                   offsetType2 = [v50 offsetType];
-                  [v50 duration];
+                  objc_msgSend_duration(v50);
                   v57 = [(MCAnimationPath *)v51 createKeyframeWithFunction:function atTime:offsetType2 offsetKind:v54 forDuration:v56];
                   [v57 setFunctionParameters:{objc_msgSend(v50, "functionParameters")}];
                   [v50 innerEaseInControl];
@@ -705,7 +705,7 @@ LABEL_7:
   if (objc_opt_isKindOfClass())
   {
 
-    [animatedParent duration];
+    objc_msgSend_duration(animatedParent);
   }
 
   else
@@ -713,7 +713,7 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), result = 0.0, (isKindOfClass))
     {
-      [animatedParent duration];
+      objc_msgSend_duration(animatedParent, result);
       v7 = v6;
       [animatedParent phaseOutDuration];
       v9 = v7 - v8;
@@ -938,17 +938,17 @@ LABEL_7:
                   }
 
                   v46 = *(*(&v75 + 1) + 8 * k);
-                  vector = [v46 vector];
+                  v47 = objc_msgSend_vector(v46);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    vector = +[MPVector vectorFromString:](MPVector, "vectorFromString:", [animatedParent convertMPAttributeToMCAttribute:objc_msgSend(vector withKey:{"string"), -[MPAnimationPath key](self, "key")}]);
+                    v47 = +[MPVector vectorFromString:](MPVector, "vectorFromString:", [animatedParent convertMPAttributeToMCAttribute:objc_msgSend(v47 withKey:{"string"), -[MPAnimationPath key](self, "key")}]);
                   }
 
                   v48 = self->super._animationPath;
-                  if (vector)
+                  if (v47)
                   {
-                    [vector vector];
+                    objc_msgSend_vector(v47);
                   }
 
                   else
@@ -1000,7 +1000,7 @@ LABEL_7:
                     [v55 time];
                     v59 = v58;
                     offsetType2 = [v55 offsetType];
-                    [v55 duration];
+                    objc_msgSend_duration(v55);
                     v62 = [(MCAnimationPath *)v56 createKeyframeWithFunction:function atTime:offsetType2 offsetKind:v59 forDuration:v61];
                     [v62 setFunctionParameters:{objc_msgSend(v55, "functionParameters")}];
                     [v55 innerEaseInControl];

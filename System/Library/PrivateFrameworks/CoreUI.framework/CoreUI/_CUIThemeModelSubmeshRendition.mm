@@ -22,9 +22,9 @@
 
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version
 {
-  v39.receiver = self;
-  v39.super_class = _CUIThemeModelSubmeshRendition;
-  v6 = [(CUIThemeRendition *)&v39 _initWithCSIHeader:header version:*&version];
+  v43.receiver = self;
+  v43.super_class = _CUIThemeModelSubmeshRendition;
+  v6 = [(CUIThemeRendition *)&v43 _initWithCSIHeader:header version:*&version];
   if (v6)
   {
     v7 = &header->var0 + 4 * header->var11.var0 + header->var10;
@@ -35,12 +35,12 @@
       [_CUIThemeModelSubmeshRendition _initWithCSIHeader:a2 version:v6];
     }
 
-    v37 = v8[2];
-    v38 = v6;
-    v36 = v8[4];
-    v35 = v8[6];
-    v34 = [[NSString alloc] initWithBytes:v8 + 45 length:v8[8] encoding:4];
-    v33 = [[CUIMeshBuffer alloc] initWithBytes:v8 + v8[8] + 45 andLength:v8[9] ofType:2];
+    v41 = v8[2];
+    v42 = v6;
+    v40 = v8[4];
+    v39 = v8[6];
+    v38 = [[NSString alloc] initWithBytes:v8 + 45 length:v8[8] encoding:4];
+    v37 = [[CUIMeshBuffer alloc] initWithBytes:v8 + v8[8] + 45 andLength:v8[9] ofType:2];
     v10 = v8 + v8[8] + *(v8 + 9) + 45;
     v11 = [[NSString alloc] initWithBytes:v10 + 20 length:*(v10 + 8) encoding:4];
     v12 = (v10 + 20 + *(v10 + 8));
@@ -48,7 +48,7 @@
     NSClassFromString(v13);
     v14 = objc_opt_new();
 
-    v15 = [objc_alloc(getMDLMaterialClass[0]()) initWithName:v11 scatteringFunction:v14];
+    v15 = [objc_alloc(getMDLMaterialClass()) initWithName:v11 scatteringFunction:v14];
     if (*(v10 + 12))
     {
       v16 = 0;
@@ -57,7 +57,8 @@
       {
         v18 = v17[1];
         v19 = [[NSString alloc] initWithBytes:v17 + 4 length:*(v17 + 4) encoding:4];
-        v20 = (v17 + v17[2] + 32);
+        v20 = v19;
+        v21 = (v17 + v17[2] + 32);
         if (v18 > 5)
         {
           break;
@@ -66,43 +67,43 @@
         switch(v18)
         {
           case 1:
-            v25 = [[NSString alloc] initWithBytes:v20 length:*(v17 + 6) encoding:4];
-            v26 = [getMDLTextureClass[0]() textureNamed:v25];
+            v26 = [[NSString alloc] initWithBytes:v21 length:*(v17 + 6) encoding:4];
+            v27 = [(objc_class *)getMDLTextureClass() textureNamed:v26];
 
-            if (!v26)
+            if (!v27)
             {
-              v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 string:v25];
+              v23 = [objc_alloc(getMDLMaterialPropertyClass(v28)) initWithName:v20 semantic:*v17 string:v26];
               goto LABEL_24;
             }
 
-            v27 = objc_alloc_init(getMDLTextureSamplerClass[0]());
-            [v27 setTexture:v26];
-            v28 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 textureSampler:v27];
+            v29 = objc_alloc_init(getMDLTextureSamplerClass());
+            v30 = [v29 setTexture:v27];
+            v31 = [objc_alloc(getMDLMaterialPropertyClass(v30)) initWithName:v20 semantic:*v17 textureSampler:v29];
 
             break;
           case 4:
-            v29 = malloc_type_malloc(8 * *(v20 + 3), 0x100004000313F17uLL);
-            SRGB = _CUIColorSpaceGetSRGB();
-            v31 = CGColorCreate(SRGB, v29);
-            v28 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 color:v31];
-            CGColorRelease(v31);
-            free(v29);
+            v32 = malloc_type_malloc(8 * *(v21 + 3), 0x100004000313F17uLL);
+            SRGB = _CUIColorSpaceGetSRGB(v32, v33);
+            v35 = CGColorCreate(SRGB, v32);
+            v31 = [objc_alloc(getMDLMaterialPropertyClass(v35)) initWithName:v20 semantic:*v17 color:v35];
+            CGColorRelease(v35);
+            free(v32);
             break;
           case 5:
-            v23 = objc_alloc(getMDLMaterialPropertyClass[0]());
-            LODWORD(v24) = *v20;
-            v22 = [v23 initWithName:v19 semantic:*v17 float:v24];
+            v24 = objc_alloc(getMDLMaterialPropertyClass(v19));
+            LODWORD(v25) = *v21;
+            v23 = [v24 initWithName:v20 semantic:*v17 float:v25];
 LABEL_24:
-            v28 = v22;
+            v31 = v23;
             break;
           default:
 LABEL_19:
-            v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17];
+            v23 = [objc_alloc(getMDLMaterialPropertyClass(v19)) initWithName:v19 semantic:*v17];
             goto LABEL_24;
         }
 
-        [v15 setProperty:v28];
-        v17 = (v20 + v17[3]);
+        [v15 setProperty:v31];
+        v17 = (v21 + v17[3]);
         if (++v16 >= *(v10 + 12))
         {
           goto LABEL_26;
@@ -113,13 +114,13 @@ LABEL_19:
       {
         if (v18 == 6)
         {
-          v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 float2:*v20];
+          v23 = [objc_alloc(getMDLMaterialPropertyClass(v19)) initWithName:v19 semantic:*v17 float2:*v21];
         }
 
         else
         {
-          v21 = *v20;
-          v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 float3:v21];
+          v22 = *v21;
+          v23 = [objc_alloc(getMDLMaterialPropertyClass(v19)) initWithName:v19 semantic:*v17 float3:v22];
         }
 
         goto LABEL_24;
@@ -127,13 +128,13 @@ LABEL_19:
 
       if (v18 == 8)
       {
-        v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 float4:*v20];
+        v23 = [objc_alloc(getMDLMaterialPropertyClass(v19)) initWithName:v19 semantic:*v17 float4:*v21];
         goto LABEL_24;
       }
 
       if (v18 == 9)
       {
-        v22 = [objc_alloc(getMDLMaterialPropertyClass[0]()) initWithName:v19 semantic:*v17 matrix4x4:{*(v20 + 4), *(v20 + 20), *(v20 + 36), *(v20 + 52)}];
+        v23 = [objc_alloc(getMDLMaterialPropertyClass(v19)) initWithName:v19 semantic:*v17 matrix4x4:{*(v21 + 4), *(v21 + 20), *(v21 + 36), *(v21 + 52)}];
         goto LABEL_24;
       }
 
@@ -141,8 +142,8 @@ LABEL_19:
     }
 
 LABEL_26:
-    v6 = v38;
-    v38[27] = [objc_alloc(getMDLSubmeshClass[0]()) initWithName:v34 indexBuffer:v33 indexCount:v37 indexType:v36 geometryType:v35 material:v15 topology:0];
+    v6 = v42;
+    v42[27] = [objc_alloc(getMDLSubmeshClass()) initWithName:v38 indexBuffer:v37 indexCount:v41 indexType:v40 geometryType:v39 material:v15 topology:0];
   }
 
   return v6;

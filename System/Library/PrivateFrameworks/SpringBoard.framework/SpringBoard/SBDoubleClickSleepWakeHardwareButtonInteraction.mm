@@ -38,39 +38,41 @@
 - (BOOL)consumeInitialPressUp
 {
   inhibitNextSinglePressUp = [(SBSleepWakeHardwareButtonInteraction *)self inhibitNextSinglePressUp];
+  v4 = inhibitNextSinglePressUp;
   if (inhibitNextSinglePressUp)
   {
-    v4 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogButtonsInteraction(inhibitNextSinglePressUp);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 0;
-      v5 = "wake/sleep x2 inital press up inhibited";
-      v6 = &v9;
+      v11 = 0;
+      v6 = "wake/sleep x2 inital press up inhibited";
+      v7 = &v11;
 LABEL_7:
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
     }
   }
 
   else
   {
-    if (![(SBProximitySensorManager *)self->_proximitySensorManager isObjectInProximity])
+    isObjectInProximity = [(SBProximitySensorManager *)self->_proximitySensorManager isObjectInProximity];
+    if ((isObjectInProximity & 1) == 0)
     {
       [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _suspendProx];
       [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _resumeProxAfterMultiplePressIntervalForReason:@"Multiple press timeout"];
-      return inhibitNextSinglePressUp;
+      return v4;
     }
 
-    v4 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogButtonsInteraction(isObjectInProximity);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
-      v5 = "wake/sleep x2 not suspending prox because objectInProximity";
-      v6 = &v8;
+      v10 = 0;
+      v6 = "wake/sleep x2 not suspending prox because objectInProximity";
+      v7 = &v10;
       goto LABEL_7;
     }
   }
 
-  return inhibitNextSinglePressUp;
+  return v4;
 }
 
 - (void)observeFinalPressUp
@@ -98,36 +100,36 @@ LABEL_7:
 
 - (void)_suspendProx
 {
-  [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _cancelPreviousResumeProxRequests];
+  _cancelPreviousResumeProxRequests = [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _cancelPreviousResumeProxRequests];
   if (!self->_proxLockAssertion)
   {
-    v3 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogButtonsInteraction(_cancelPreviousResumeProxRequests);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "wake/sleep x2 suspend prox", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "wake/sleep x2 suspend prox", v8, 2u);
     }
 
     sensorModeController = [(SBSleepWakeHardwareButtonInteraction *)self sensorModeController];
-    v5 = [sensorModeController suspendProximityDetectionForSource:0 reason:@"double-click interval"];
+    v6 = [sensorModeController suspendProximityDetectionForSource:0 reason:@"double-click interval"];
     proxLockAssertion = self->_proxLockAssertion;
-    self->_proxLockAssertion = v5;
+    self->_proxLockAssertion = v6;
   }
 }
 
 - (void)_resumeProxForReason:(id)reason
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _cancelPreviousResumeProxRequests];
+  _cancelPreviousResumeProxRequests = [(SBDoubleClickSleepWakeHardwareButtonInteraction *)self _cancelPreviousResumeProxRequests];
   if (self->_proxLockAssertion)
   {
-    v5 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsInteraction(_cancelPreviousResumeProxRequests);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "wake/sleep x2 resume prox: %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = reasonCopy;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "wake/sleep x2 resume prox: %{public}@", &v8, 0xCu);
     }
 
     [(BSInvalidatable *)self->_proxLockAssertion invalidate];

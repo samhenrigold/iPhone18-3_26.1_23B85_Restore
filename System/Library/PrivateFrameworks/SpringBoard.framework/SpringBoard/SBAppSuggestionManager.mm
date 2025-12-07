@@ -269,7 +269,7 @@ void __40__SBAppSuggestionManager_sharedInstance__block_invoke()
     listeningReasons = self->_listeningReasons;
   }
 
-  if (([(NSCountedSet *)listeningReasons containsObject:reasonCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(listeningReasons, reasonCopy, reasonCopy) & 1) == 0)
   {
     [(NSCountedSet *)self->_listeningReasons addObject:v8];
     [(SBAppSuggestionManager *)self _evaluateSuggestionUpdates:0];
@@ -279,7 +279,7 @@ void __40__SBAppSuggestionManager_sharedInstance__block_invoke()
 - (void)disableListeningForUpdatesForReason:(id)reason
 {
   reasonCopy = reason;
-  if ([(NSCountedSet *)self->_listeningReasons containsObject:?])
+  if (objc_msgSend_containsObject_(self->_listeningReasons))
   {
     [(NSCountedSet *)self->_listeningReasons removeObject:reasonCopy];
     [(SBAppSuggestionManager *)self _evaluateSuggestionUpdates:0];

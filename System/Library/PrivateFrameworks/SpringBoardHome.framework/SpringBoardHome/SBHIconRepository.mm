@@ -50,8 +50,8 @@
 
   sub_1BEB2A6A4(v3, &qword_1EBDBFFE0, off_1E80877A0, &qword_1EBDBFF70, sub_1BEB2B000);
 
-  sub_1BEB20D28(0, &qword_1EBDBFFE0);
-  sub_1BEB2A7E0(&qword_1EBDBFF70, &qword_1EBDBFFE0);
+  sub_1BEB20D28(0, &qword_1EBDBFFE0, off_1E80877A0);
+  sub_1BEB2A7E0(&qword_1EBDBFF70, &qword_1EBDBFFE0, off_1E80877A0);
   v4 = sub_1BEE4724C();
 
   return v4;
@@ -66,21 +66,21 @@
 
 + (Class)applicationIconClass
 {
-  sub_1BEB20D28(0, &unk_1EBDBFFD0);
+  sub_1BEB20D28(0, &unk_1EBDBFFD0, off_1E8086BF0);
 
   return swift_getObjCClassFromMetadata();
 }
 
 + (Class)bookmarkClass
 {
-  sub_1BEB20D28(0, &qword_1EBDC73C8);
+  sub_1BEB20D28(0, &qword_1EBDC73C8, off_1E8086C00);
 
   return swift_getObjCClassFromMetadata();
 }
 
 + (Class)bookmarkIconClass
 {
-  sub_1BEB20D28(0, &qword_1EBDC73D0);
+  sub_1BEB20D28(0, &qword_1EBDC73D0, off_1E8086C08);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -94,7 +94,7 @@
 
 - (void)addIcons:(id)icons
 {
-  sub_1BEB20D28(0, &qword_1EBDBFFE0);
+  sub_1BEB20D28(0, &qword_1EBDBFFE0, off_1E80877A0);
   v4 = sub_1BEE471AC();
   v5 = v4;
   if (v4 >> 62)
@@ -250,7 +250,7 @@ LABEL_10:
   selfCopy = self;
   [ObjCClassFromObject bookmarkClass];
   swift_getObjCClassMetadata();
-  sub_1BEB20D28(0, &qword_1EBDC73C8);
+  sub_1BEB20D28(0, &qword_1EBDC73C8, off_1E8086C00);
   swift_dynamicCastMetatype();
   initWithWebClip_ = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithWebClip_];
   [iconCopy setBookmark_];
@@ -293,7 +293,7 @@ LABEL_10:
   iconCopy = icon;
   selfCopy = self;
   SBHIconRepository.uninstallIcon(_:completionHandler:)(iconCopy, v6, v7);
-  sub_1BEB326F8(v6);
+  sub_1BEB326F8(v6, v7);
 }
 
 - (void)setVisibilityOfIconsWithVisibleTags:(id)tags hiddenTags:(id)hiddenTags

@@ -20,10 +20,10 @@
   v4 = v3;
   if (v3)
   {
-    v3[7] = NAN;
-    v3[1] = 0.0;
-    v3[2] = NAN;
-    *(v3 + 4) = [a2 copy];
+    v3[7] = 0x7FF8000000000000;
+    v3[1] = 0;
+    v3[2] = 0x7FF8000000000000;
+    v3[4] = [a2 copy];
     v5 = mach_continuous_time();
     v4[3] = SRAbsoluteTimeFromContinuousTime(v5);
   }
@@ -43,13 +43,12 @@
   if (self)
   {
     v4 = result;
-    v6 = *(self + 16);
-    v7 = mach_continuous_time();
-    v8 = SRAbsoluteTimeFromContinuousTime(v7);
+    v6 = mach_continuous_time();
+    v7 = SRAbsoluteTimeFromContinuousTime(v6);
     *(self + 56) = v4;
     *(self + 64) = a2;
     ++*(self + 8);
-    result = v8 - v4 + *(self + 16);
+    result = v7 - v4 + *(self + 16);
     *(self + 16) = result;
   }
 

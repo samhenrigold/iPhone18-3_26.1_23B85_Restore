@@ -28,7 +28,7 @@
 
 - (id)tvp_MD5Digest
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if (v2 < 1)
   {
@@ -41,14 +41,12 @@
     v3 = [MEMORY[0x277CBEA90] dataWithBytes:md length:16];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)tvp_SHA1Digest
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if (v2 < 1)
   {
@@ -57,19 +55,17 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
-    CC_SHA1([self bytes], v2, v6);
-    v3 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:20];
+    memset(v5, 0, sizeof(v5));
+    CC_SHA1([self bytes], v2, v5);
+    v3 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:20];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)tvp_SHA256Digest
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if (v2 < 1)
   {
@@ -81,8 +77,6 @@
     CC_SHA256([self bytes], v2, md);
     v3 = [MEMORY[0x277CBEA90] dataWithBytes:md length:32];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

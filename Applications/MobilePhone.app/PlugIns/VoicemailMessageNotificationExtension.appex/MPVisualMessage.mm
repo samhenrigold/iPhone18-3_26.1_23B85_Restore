@@ -110,17 +110,17 @@
 {
   v3 = sub_10006030C();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
+  __chkstk_darwin(v3, v5);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
   selfCopy = self;
-  date = [v7 date];
+  date = [v8 date];
   sub_1000602FC();
 
-  v10.super.isa = sub_1000602DC().super.isa;
-  (*(v4 + 8))(v6, v3);
+  v11.super.isa = sub_1000602DC().super.isa;
+  (*(v4 + 8))(v7, v3);
 
-  return v10.super.isa;
+  return v11.super.isa;
 }
 
 - (MPTranscriptMessage)transcript
@@ -145,23 +145,23 @@
 {
   v3 = sub_10006029C();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
+  __chkstk_darwin(v3, v5);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
   selfCopy = self;
-  dataURL = [v7 dataURL];
+  dataURL = [v8 dataURL];
   sub_10006027C();
 
-  sub_10006024C(v10);
-  v12 = v11;
-  (*(v4 + 8))(v6, v3);
+  sub_10006024C(v11);
+  v13 = v12;
+  (*(v4 + 8))(v7, v3);
 
-  return v12;
+  return v13;
 }
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_100017538(&unk_100099930);
+  sub_100017538(&unk_100099930, &qword_1000791F8);
   v6 = sub_1000608CC();
   v7 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
   storeCopy = store;

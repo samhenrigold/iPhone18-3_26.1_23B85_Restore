@@ -46,31 +46,29 @@
 
 - (id)jsonDictionary
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   webpageViewIdentifier = [(BMSafariBrowsingAssistantWebpageViewStarted *)self webpageViewIdentifier];
   v3 = [webpageViewIdentifier base64EncodedStringWithOptions:0];
 
-  v8 = @"webpageViewIdentifier";
+  v7 = @"webpageViewIdentifier";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v9[0] = null;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = null;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   if (!v3)
   {
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (BMSafariBrowsingAssistantWebpageViewStarted)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v6 = [dictionary objectForKeyedSubscript:@"webpageViewIdentifier"];
   if (v6)
   {
@@ -95,17 +93,17 @@
 
         if (p_isa)
         {
-          v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v11 = *MEMORY[0x1E698F240];
-          v19 = *MEMORY[0x1E696A578];
-          v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"webpageViewIdentifier"];
-          v20[0] = v12;
-          v13 = MEMORY[0x1E695DF20];
-          v14 = v20;
-          v15 = &v19;
+          v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v10 = *MEMORY[0x1E698F240];
+          v18 = *MEMORY[0x1E696A578];
+          v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"webpageViewIdentifier"];
+          v19[0] = v11;
+          v12 = MEMORY[0x1E695DF20];
+          v13 = v19;
+          v14 = &v18;
 LABEL_14:
-          v16 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
-          *p_isa = [v10 initWithDomain:v11 code:2 userInfo:v16];
+          v15 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
+          *p_isa = [v9 initWithDomain:v10 code:2 userInfo:v15];
 
           v7 = 0;
           p_isa = 0;
@@ -115,14 +113,14 @@ LABEL_14:
 
       else if (p_isa)
       {
-        v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v11 = *MEMORY[0x1E698F240];
-        v17 = *MEMORY[0x1E696A578];
-        v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"webpageViewIdentifier"];
-        v18 = v12;
-        v13 = MEMORY[0x1E695DF20];
-        v14 = &v18;
-        v15 = &v17;
+        v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v10 = *MEMORY[0x1E698F240];
+        v16 = *MEMORY[0x1E696A578];
+        v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"webpageViewIdentifier"];
+        v17 = v11;
+        v12 = MEMORY[0x1E695DF20];
+        v13 = &v17;
+        v14 = &v16;
         goto LABEL_14;
       }
 
@@ -137,7 +135,6 @@ LABEL_4:
   p_isa = &self->super.super.isa;
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -279,24 +276,20 @@ LABEL_24:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"webpageViewIdentifier" number:1 type:14 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 + (id)columns
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"webpageViewIdentifier" dataType:4 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

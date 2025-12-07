@@ -62,44 +62,42 @@
 
 - (void)scene:(id)scene didReceiveActions:(id)actions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   actionsCopy = actions;
   actionHandlers = [(BLSHGenericSceneDelegateWithActionHandlers *)self actionHandlers];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v9 = [actionHandlers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [actionHandlers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       v13 = actionsCopy;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(actionHandlers);
         }
 
-        actionsCopy = [*(*(&v15 + 1) + 8 * v12) respondToActions:v13 forFBScene:sceneCopy];
+        actionsCopy = [*(*(&v14 + 1) + 8 * v12) respondToActions:v13 forFBScene:sceneCopy];
 
         ++v12;
         v13 = actionsCopy;
       }
 
       while (v10 != v12);
-      v10 = [actionHandlers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [actionHandlers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

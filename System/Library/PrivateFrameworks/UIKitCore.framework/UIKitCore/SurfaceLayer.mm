@@ -6,7 +6,7 @@
 
 - (id)actionForKey:(id)key
 {
-  if ([key isEqualToString:@"contents"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"contents"))
   {
     return 0;
   }

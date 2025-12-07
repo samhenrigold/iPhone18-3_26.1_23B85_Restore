@@ -277,9 +277,12 @@ uint64_t __34__SBLocalDefaults_ambientDefaults__block_invoke(uint64_t a1)
 
 uint64_t __38__SBLocalDefaults_appSwitcherDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 32) = objc_alloc_init(SBAppSwitcherDefaults);
+  v2 = objc_alloc_init(SBAppSwitcherDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 32);
+  *(v3 + 32) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBApplicationDefaults)applicationDefaults
@@ -459,9 +462,12 @@ uint64_t __40__SBLocalDefaults_cornerGestureDefaults__block_invoke(uint64_t a1)
 
 uint64_t __31__SBLocalDefaults_demoDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 96) = objc_alloc_init(SBDemoDefaults);
+  v2 = objc_alloc_init(SBDemoDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 96);
+  *(v3 + 96) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBExternalDisplayDefaults)externalDisplayDefaults
@@ -541,16 +547,22 @@ uint64_t __34__SBLocalDefaults_gestureDefaults__block_invoke(uint64_t a1)
 
 uint64_t __35__SBLocalDefaults_hardwareDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 128) = objc_alloc_init(SBHardwareDefaults);
+  v2 = objc_alloc_init(SBHardwareDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 128);
+  *(v3 + 128) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __37__SBLocalDefaults_homeScreenDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 136) = objc_alloc_init(SBHomeScreenDefaults);
+  v2 = objc_alloc_init(SBHomeScreenDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 136);
+  *(v3 + 136) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBIconDefaults)iconDefaults
@@ -630,16 +642,22 @@ uint64_t __45__SBLocalDefaults_inCallPresentationDefaults__block_invoke(uint64_t
 
 uint64_t __37__SBLocalDefaults_lockScreenDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 168) = objc_alloc_init(SBLockScreenDefaults);
+  v2 = objc_alloc_init(SBLockScreenDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 168);
+  *(v3 + 168) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __40__SBLocalDefaults_miscellaneousDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 176) = objc_alloc_init(SBMiscellaneousDefaults);
+  v2 = objc_alloc_init(SBMiscellaneousDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 176);
+  *(v3 + 176) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBMultiUserDefaults)multiUserDefaults
@@ -744,16 +762,22 @@ uint64_t __33__SBLocalDefaults_pencilDefaults__block_invoke(uint64_t a1)
 
 uint64_t __30__SBLocalDefaults_pipDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 216) = objc_alloc_init(SBPIPDefaults);
+  v2 = objc_alloc_init(SBPIPDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 216);
+  *(v3 + 216) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __32__SBLocalDefaults_powerDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 224) = objc_alloc_init(SBPowerDefaults);
+  v2 = objc_alloc_init(SBPowerDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 224);
+  *(v3 + 224) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBRecentDisplayItemsDefaults)recentDisplayItemsDefaults
@@ -1033,9 +1057,12 @@ uint64_t __39__SBLocalDefaults_systemActionDefaults__block_invoke(uint64_t a1)
 
 uint64_t __41__SBLocalDefaults_systemApertureDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 320) = objc_alloc_init(SBSystemApertureDefaults);
+  v2 = objc_alloc_init(SBSystemApertureDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 320);
+  *(v3 + 320) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBTestingDefaults)testingDefaults
@@ -1140,9 +1167,12 @@ uint64_t __32__SBLocalDefaults_usageDefaults__block_invoke(uint64_t a1)
 
 uint64_t __36__SBLocalDefaults_workspaceDefaults__block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 360) = objc_alloc_init(SBWorkspaceDefaults);
+  v2 = objc_alloc_init(SBWorkspaceDefaults);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 360);
+  *(v3 + 360) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (SBCaptureApplicationDefaults)captureApplicationDefaults

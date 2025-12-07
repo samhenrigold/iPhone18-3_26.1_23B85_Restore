@@ -100,30 +100,30 @@
 
 - (void)_validate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 16));
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v2 = *(self + 48);
-    v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v17;
+      v5 = *v16;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v17 != v5)
+          if (*v16 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v16 + 1) + 8 * i);
+          v7 = *(*(&v15 + 1) + 8 * i);
           v8 = +[RBSProcessBKSLegacyPredicate legacyPredicate];
 
           if (v7 == v8)
@@ -139,7 +139,7 @@
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v4)
         {
           continue;
@@ -163,8 +163,6 @@ LABEL_14:
 
     os_unfair_lock_unlock((self + 16));
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)debugDescription
@@ -249,7 +247,7 @@ LABEL_14:
 
 - (BOOL)matchesProcess:(id)process
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   processCopy = process;
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_lastMatch);
@@ -262,25 +260,25 @@ LABEL_14:
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = self->_predicates;
-    v7 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSArray *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v9 = *v14;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v13 + 1) + 8 * i) matchesProcess:{processCopy, v13}])
+          if ([*(*(&v12 + 1) + 8 * i) matchesProcess:{processCopy, v12}])
           {
             objc_storeWeak(&self->_lastMatch, processCopy);
             LOBYTE(v7) = 1;
@@ -288,7 +286,7 @@ LABEL_14:
           }
         }
 
-        v7 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSArray *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -303,7 +301,6 @@ LABEL_13:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -345,36 +342,38 @@ LABEL_13:
 - (RBSProcessMonitorConfiguration)initWithRBSXPCCoder:(id)coder
 {
   coderCopy = coder;
-  if ([coderCopy containsValueForKey:@"_identifier"])
+  v5 = [coderCopy containsValueForKey:@"_identifier"];
+  if (v5)
   {
-    if ([coderCopy containsValueForKey:@"_clientPid"])
+    v6 = [coderCopy containsValueForKey:@"_clientPid"];
+    if (v6)
     {
-      [(RBSProcessMonitorConfiguration *)coderCopy initWithRBSXPCCoder:&v8];
-      self = v8;
-      v6 = v8;
+      [(RBSProcessMonitorConfiguration *)coderCopy initWithRBSXPCCoder:&v10];
+      self = v10;
+      v8 = v10;
       goto LABEL_8;
     }
 
-    v5 = rbs_monitor_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = rbs_monitor_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [RBSProcessMonitorConfiguration initWithRBSXPCCoder:v5];
+      [RBSProcessMonitorConfiguration initWithRBSXPCCoder:v7];
     }
   }
 
   else
   {
-    v5 = rbs_monitor_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = rbs_monitor_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [RBSProcessMonitorConfiguration initWithRBSXPCCoder:v5];
+      [RBSProcessMonitorConfiguration initWithRBSXPCCoder:v7];
     }
   }
 
-  v6 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v6;
+  return v8;
 }
 
 - (_DWORD)_initWithIdentifier:(int)identifier andPid:

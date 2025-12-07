@@ -40,7 +40,7 @@
   v19.super_class = SBHLibraryCategoryIconViewController;
   [(SBHLibraryCategoryIconViewController *)&v19 viewDidLoad];
   view = [(SBHLibraryCategoryIconViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -102,8 +102,8 @@
   v12 = [(SBIconListView *)v9 initWithModel:modelCopy layoutProvider:listLayoutProvider iconLocation:v8 orientation:1 iconViewProvider:iconViewProvider];
 
   [(SBIconListView *)v12 setUsesGlassGroup:0];
-  iconImageCache = [(SBHLibraryCategoryIconViewController *)self iconImageCache];
-  [(SBIconListView *)v12 setIconImageCache:iconImageCache];
+  v13 = objc_msgSend_iconImageCache(self);
+  [(SBIconListView *)v12 setIconImageCache:v13];
 
   folderIconImageCache = [(SBHLibraryCategoryIconViewController *)self folderIconImageCache];
   [(SBIconListView *)v12 setFolderIconImageCache:folderIconImageCache];
@@ -237,10 +237,10 @@
   v4 = [(SBHLibraryCategoryIconViewController *)self _createIconListViewWithModel:_createLockedModel];
   [v4 setAutoresizingMask:18];
   view = [(SBHLibraryCategoryIconViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   [v4 setFrame:?];
 
-  [(SBHLibraryCategoryIconViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   [v4 _setContinuousCornerRadius:v6];
   [v4 setUserInteractionEnabled:1];
   v7 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:self action:sel__handleTapOnLockedView_];
@@ -387,7 +387,7 @@ void __63__SBHLibraryCategoryIconViewController__handleTapOnLockedView___block_i
 
   else
   {
-    v3 = SBLogProtectedApps();
+    v3 = SBLogProtectedApps(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
@@ -697,7 +697,7 @@ void __86__SBHLibraryCategoryIconViewController_enumerateDisplayedIconViewsForIc
 
 - (CGRect)visibleBounds
 {
-  [(SBHLibraryCategoryIconViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v3 = v2;
   v5 = v4;
   v6 = 0.0;

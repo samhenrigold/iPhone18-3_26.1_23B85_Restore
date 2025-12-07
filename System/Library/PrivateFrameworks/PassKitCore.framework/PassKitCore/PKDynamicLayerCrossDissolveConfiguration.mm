@@ -21,7 +21,7 @@
   {
     v5 = [dictionaryCopy PKStringForKey:@"intensity"];
     v6 = v5;
-    if (v5 == @"default" || v5 && (v7 = [(__CFString *)v5 isEqualToString:@"default"], v6, v7))
+    if (v5 == @"default" || v5 && (isEqualToString = objc_msgSend_isEqualToString_(v5), v6, isEqualToString))
     {
       self->_intensity = 0;
 

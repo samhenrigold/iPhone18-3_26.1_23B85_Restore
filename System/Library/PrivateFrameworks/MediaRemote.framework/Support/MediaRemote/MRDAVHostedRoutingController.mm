@@ -113,22 +113,8 @@
   deviceInfo2 = [(MRDHostedRoutingController *)self deviceInfo];
   deviceUID = [deviceInfo2 deviceUID];
 
-  if (!deviceUID)
+  if (!deviceUID || (v66[0] = _NSConcreteStackBlock, v66[1] = 3221225472, v66[2] = sub_1000A9C58, v66[3] = &unk_1004B9F38, v66[4] = self, [v53 msv_firstWhere:v66], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "concreteEndpoint"), v29 = objc_claimAutoreleasedReturnValue(), v28, !v29))
   {
-    goto LABEL_34;
-  }
-
-  v66[0] = _NSConcreteStackBlock;
-  v66[1] = 3221225472;
-  v66[2] = sub_1000A9C58;
-  v66[3] = &unk_1004B9F38;
-  v66[4] = self;
-  v28 = [v53 msv_firstWhere:v66];
-  concreteEndpoint = [v28 concreteEndpoint];
-
-  if (!concreteEndpoint)
-  {
-LABEL_34:
     if ([(MRDAVHostedRoutingController *)self _systemSupportLocalEndpoint])
     {
       v30 = [MRAVDistantEndpoint alloc];
@@ -137,48 +123,48 @@ LABEL_34:
 
       v33 = [v25 arrayByAddingObject:v32];
 
-      concreteEndpoint = self->super._localEndpoint;
+      v29 = self->super._localEndpoint;
       v25 = v33;
     }
 
     else
     {
-      concreteEndpoint = 0;
+      v29 = 0;
     }
   }
 
   v34 = self->super._endpointContainingLocal;
-  if (concreteEndpoint == v34)
+  if (v29 == v34)
   {
     LOBYTE(v47) = 0;
   }
 
   else
   {
-    v47 = [(MRAVEndpoint *)concreteEndpoint isEqual:v34]^ 1;
+    v47 = [(MRAVEndpoint *)v29 isEqual:v34]^ 1;
   }
 
-  objc_storeStrong(&self->super._endpointContainingLocal, concreteEndpoint);
+  objc_storeStrong(&self->super._endpointContainingLocal, v29);
   [(MRDAVHostedRoutingController *)self _logEndpointsChanged:v25 oldEndpoints:self->super._distantEndpoints];
   v49 = [v54 msv_map:&stru_1004B9F58];
   objc_storeStrong(&self->super._availableEndpoints, v49);
   v50 = v25;
   objc_storeStrong(&self->super._distantEndpoints, v25);
   v35 = [v53 msv_firstWhere:&stru_1004B9F98];
-  concreteEndpoint2 = [v35 concreteEndpoint];
+  concreteEndpoint = [v35 concreteEndpoint];
 
   v37 = self->super._nativeEndpoint;
-  if (concreteEndpoint2 == v37)
+  if (concreteEndpoint == v37)
   {
     v38 = 0;
   }
 
   else
   {
-    v38 = [(MRAVEndpoint *)concreteEndpoint2 isEqual:v37]^ 1;
+    v38 = [(MRAVEndpoint *)concreteEndpoint isEqual:v37]^ 1;
   }
 
-  objc_storeStrong(&self->super._nativeEndpoint, concreteEndpoint2);
+  objc_storeStrong(&self->super._nativeEndpoint, concreteEndpoint);
   allObjects = [(NSHashTable *)self->super._weakObservers allObjects];
   queue = self->super._observerCalloutQueue;
   block[0] = _NSConcreteStackBlock;
@@ -187,18 +173,18 @@ LABEL_34:
   block[3] = &unk_1004B9FC0;
   v64 = v47;
   v56 = v34;
-  v57 = concreteEndpoint;
+  v57 = v29;
   v65 = v38;
   v58 = v37;
-  v59 = concreteEndpoint2;
+  v59 = concreteEndpoint;
   v60 = allObjects;
   selfCopy = self;
   v62 = v49;
   v63 = v50;
   v48 = v34;
-  v46 = concreteEndpoint;
+  v46 = v29;
   v40 = v37;
-  v41 = concreteEndpoint2;
+  v41 = concreteEndpoint;
   v42 = allObjects;
   v43 = v49;
   v44 = v50;

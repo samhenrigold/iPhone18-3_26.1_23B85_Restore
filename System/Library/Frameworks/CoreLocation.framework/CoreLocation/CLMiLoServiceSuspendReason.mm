@@ -21,17 +21,18 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   suspendReasonEnum = self->_suspendReasonEnum;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithSuspendReasonEnum_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithSuspendReasonEnum_, suspendReasonEnum, v9);
 }
 
 - (CLMiLoServiceSuspendReason)initWithCoder:(id)coder
 {
-  [coder decodeIntegerForKey:@"kCLMiLoConnectionCodingKeyServiceSuspendReason"];
+  v5 = objc_msgSend_decodeIntegerForKey_(coder, a2, @"kCLMiLoConnectionCodingKeyServiceSuspendReason", v3);
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithSuspendReasonEnum_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithSuspendReasonEnum_, v5, v6);
 }
 
 @end

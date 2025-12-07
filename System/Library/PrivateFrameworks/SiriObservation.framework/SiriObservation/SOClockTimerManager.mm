@@ -18,14 +18,14 @@
 
 - (id)dismissTimerWithIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SOClockTimerManager dismissTimerWithIdentifier:]";
-    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SOClockTimerManager dismissTimerWithIdentifier:]";
+    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
   }
 
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) != 0 || (mtTimerManager = self->_mtTimerManager) == 0)
@@ -38,21 +38,19 @@
     v7 = [(MTTimerManager *)mtTimerManager dismissTimerWithIdentifier:identifierCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)removeTimer:(id)timer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SOClockTimerManager removeTimer:]";
-    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SOClockTimerManager removeTimer:]";
+    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
   }
 
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) != 0 || (mtTimerManager = self->_mtTimerManager) == 0)
@@ -65,21 +63,19 @@
     v7 = [(MTTimerManager *)mtTimerManager removeTimer:timerCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)updateTimer:(id)timer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SOClockTimerManager updateTimer:]";
-    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SOClockTimerManager updateTimer:]";
+    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
   }
 
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) != 0 || (mtTimerManager = self->_mtTimerManager) == 0)
@@ -92,21 +88,19 @@
     v7 = [(MTTimerManager *)mtTimerManager updateTimer:timerCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)addTimer:(id)timer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[SOClockTimerManager addTimer:]";
-    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SOClockTimerManager addTimer:]";
+    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
   }
 
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) != 0 || (mtTimerManager = self->_mtTimerManager) == 0)
@@ -119,20 +113,18 @@
     v7 = [(MTTimerManager *)mtTimerManager addTimer:timerCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)timers
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SOClockTimerManager timers]";
-    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SOClockTimerManager timers]";
+    _os_log_impl(&dword_26858F000, v3, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
   }
 
   if ([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled])
@@ -149,23 +141,21 @@
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return mtTimerManager;
 }
 
 - (void)removeHandlerForEvent:(int64_t)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = AFClockTimerManagerEventGetName();
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[SOClockTimerManager removeHandlerForEvent:]";
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s event = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SOClockTimerManager removeHandlerForEvent:]";
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_26858F000, v5, OS_LOG_TYPE_INFO, "%s event = %@", &v11, 0x16u);
   }
 
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) == 0)
@@ -182,32 +172,30 @@
       [_registeredObservations2 removeObjectForKey:v4];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHandler:(id)handler forEvent:(int64_t)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = AFClockTimerManagerEventGetName();
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v23 = "[SOClockTimerManager addHandler:forEvent:]";
-    v24 = 2112;
-    v25 = v7;
+    v22 = "[SOClockTimerManager addHandler:forEvent:]";
+    v23 = 2112;
+    v24 = v7;
     _os_log_impl(&dword_26858F000, v8, OS_LOG_TYPE_INFO, "%s event = %@", buf, 0x16u);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __43__SOClockTimerManager_addHandler_forEvent___block_invoke;
-  v20[3] = &unk_279C3D690;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __43__SOClockTimerManager_addHandler_forEvent___block_invoke;
+  v19[3] = &unk_279C3D690;
   v9 = handlerCopy;
-  v21 = v9;
-  v10 = MEMORY[0x26D61D070](v20);
+  v20 = v9;
+  v10 = MEMORY[0x26D61D070](v19);
   if (([MEMORY[0x277CEF2A8] isTimerAlarmCoordinationEnabled] & 1) == 0)
   {
     _registeredObservations = [(SOClockTimerManager *)self _registeredObservations];
@@ -232,22 +220,20 @@
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    *v13 = 136315394;
-    *&v13[4] = "[SOClockTimerManager addHandler:forEvent:]_block_invoke";
-    *&v13[12] = 2112;
-    *&v13[14] = v3;
-    _os_log_impl(&dword_26858F000, v4, OS_LOG_TYPE_INFO, "%s notification = %@", v13, 0x16u);
+    *v12 = 136315394;
+    *&v12[4] = "[SOClockTimerManager addHandler:forEvent:]_block_invoke";
+    *&v12[12] = 2112;
+    *&v12[14] = v3;
+    _os_log_impl(&dword_26858F000, v4, OS_LOG_TYPE_INFO, "%s notification = %@", v12, 0x16u);
   }
 
   v5 = [v3 userInfo];
@@ -258,12 +244,12 @@ void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, v
   if (objc_opt_isKindOfClass())
   {
     MTTimerClass = getMTTimerClass();
-    *v13 = MEMORY[0x277D85DD0];
-    *&v13[8] = 3221225472;
-    *&v13[16] = ___SOClockTimerManagerGetMTTimersFromNotification_block_invoke;
-    v14 = &__block_descriptor_40_e24_B32__0__MTTimer_8Q16_B24lu32l8;
-    v15 = MTTimerClass;
-    v9 = [v7 indexesOfObjectsPassingTest:v13];
+    *v12 = MEMORY[0x277D85DD0];
+    *&v12[8] = 3221225472;
+    *&v12[16] = ___SOClockTimerManagerGetMTTimersFromNotification_block_invoke;
+    v13 = &__block_descriptor_40_e24_B32__0__MTTimer_8Q16_B24lu32l8;
+    v14 = MTTimerClass;
+    v9 = [v7 indexesOfObjectsPassingTest:v12];
     v10 = [v7 objectsAtIndexes:v9];
   }
 
@@ -274,8 +260,6 @@ void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, v
 
   v11 = SOClockTimerCreateFromMTTimers(v10);
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkIn
@@ -320,11 +304,11 @@ void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, v
 
 - (SOClockTimerManager)initWithInstanceContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v18.receiver = self;
-  v18.super_class = SOClockTimerManager;
-  v5 = [(SOClockTimerManager *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = SOClockTimerManager;
+  v5 = [(SOClockTimerManager *)&v17 init];
   if (!v5)
   {
     goto LABEL_11;
@@ -348,9 +332,9 @@ void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, v
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[SOClockTimerManager initWithInstanceContext:]";
-    v21 = 2112;
-    v22 = contextCopy;
+    v19 = "[SOClockTimerManager initWithInstanceContext:]";
+    v20 = 2112;
+    v21 = contextCopy;
     _os_log_impl(&dword_26858F000, v9, OS_LOG_TYPE_INFO, "%s instanceContext = %@", buf, 0x16u);
   }
 
@@ -371,9 +355,9 @@ void __43__SOClockTimerManager_addHandler_forEvent___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v20 = "[SOClockTimerManager initWithInstanceContext:]";
-      v21 = 2112;
-      v22 = v12;
+      v19 = "[SOClockTimerManager initWithInstanceContext:]";
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_26858F000, v13, OS_LOG_TYPE_INFO, "%s Initialized for MobileTimer (%@)", buf, 0x16u);
     }
 
@@ -385,14 +369,13 @@ LABEL_11:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v20 = "[SOClockTimerManager initWithInstanceContext:]";
+    v19 = "[SOClockTimerManager initWithInstanceContext:]";
     _os_log_error_impl(&dword_26858F000, v13, OS_LOG_TYPE_ERROR, "%s Unable to get an instance of MTTimerManager", buf, 0xCu);
   }
 
   v15 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

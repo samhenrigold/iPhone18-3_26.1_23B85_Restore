@@ -39,7 +39,7 @@
   v11 = __UIAccessibilityCastAsClass();
 
   v12 = [(PosterRackCollectionViewControllerAccessibility *)self safeSwiftValueForKey:@"layoutMode"];
-  v13 = AXConvertToLayoutMode();
+  v13 = AXConvertToLayoutMode(v12);
 
   if (v13 == 1)
   {
@@ -97,7 +97,7 @@ LABEL_14:
   v7.super_class = PosterRackCollectionViewControllerAccessibility;
   [(PosterRackCollectionViewControllerAccessibility *)&v7 viewDidLayoutSubviews];
   v3 = [(PosterRackCollectionViewControllerAccessibility *)self safeSwiftValueForKey:@"layoutMode"];
-  v4 = AXConvertToLayoutMode();
+  v4 = AXConvertToLayoutMode(v3);
 
   v5 = v4 == 4;
   _axCollectionView = [(PosterRackCollectionViewControllerAccessibility *)self _axCollectionView];
@@ -145,27 +145,27 @@ LABEL_14:
 
 void __76__PosterRackCollectionViewControllerAccessibility__axScrollDown_scrollView___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = [*(a1 + 32) accessibilityElements];
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v10 != v4)
+      if (*v9 != v4)
       {
         objc_enumerationMutation(v1);
       }
 
-      v6 = *(*(&v9 + 1) + 8 * v5);
+      v6 = *(*(&v8 + 1) + 8 * v5);
       MEMORY[0x29C2E7EC0](@"PosterBoard.PosterSectionRemovalView");
       if (objc_opt_isKindOfClass())
       {
@@ -174,7 +174,7 @@ LABEL_3:
 
       if (v3 == ++v5)
       {
-        v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           goto LABEL_3;
@@ -188,7 +188,7 @@ LABEL_3:
 
     if (!v7)
     {
-      goto LABEL_13;
+      return;
     }
 
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v7);
@@ -196,9 +196,6 @@ LABEL_3:
   }
 
 LABEL_12:
-
-LABEL_13:
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)_axScrollLeft:(BOOL)left pageControl:(id)control collectionView:(id)view

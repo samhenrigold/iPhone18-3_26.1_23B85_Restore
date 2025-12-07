@@ -114,7 +114,7 @@
 - (id)scenesByScoreForPOIHash:(id)hash
 {
   hashCopy = hash;
-  [(PFSceneGeography *)self findPOIHash:hashCopy];
+  objc_msgSend_findPOIHash_(self);
   v5 = 0;
   if (v68 != 1 && v68 != -&v68)
   {
@@ -411,7 +411,7 @@
 {
   popularityCopy = popularity;
   iCopy = i;
-  [(PFSceneGeography *)self findPOIHash:iCopy];
+  objc_msgSend_findPOIHash_(self);
   v8 = &v12 + v12;
   if (v12 == 1 || v8 == 0)
   {
@@ -444,7 +444,7 @@ LABEL_12:
   iCopy = i;
   scenesCopy = scenes;
   v78 = iCopy;
-  [(PFSceneGeography *)self findPOIHash:iCopy];
+  objc_msgSend_findPOIHash_(self);
   v11 = v86 == 1 || v86 == -&v86;
   if (v11)
   {

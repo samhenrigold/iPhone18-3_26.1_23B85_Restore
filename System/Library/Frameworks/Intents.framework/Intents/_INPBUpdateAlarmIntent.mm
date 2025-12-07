@@ -3,6 +3,7 @@
 - (_INPBUpdateAlarmIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)operationAsString:(int)string;
 - (int)StringAsOperation:(id)operation;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -320,7 +321,6 @@ LABEL_32:
 
   if ([(_INPBUpdateAlarmIntent *)self hasOperation])
   {
-    operation = self->_operation;
     PBDataWriterWriteInt32Field();
   }
 
@@ -334,13 +334,13 @@ LABEL_32:
 
   proposedTime = [(_INPBUpdateAlarmIntent *)self proposedTime];
 
-  v14 = toCopy;
+  v13 = toCopy;
   if (proposedTime)
   {
     proposedTime2 = [(_INPBUpdateAlarmIntent *)self proposedTime];
     PBDataWriterWriteSubmessage();
 
-    v14 = toCopy;
+    v13 = toCopy;
   }
 }
 
@@ -359,6 +359,26 @@ LABEL_32:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)operationAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"UPDATE_LABEL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"UPDATE_TIME";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

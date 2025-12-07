@@ -136,16 +136,17 @@ LABEL_31:
   _Block_object_dispose(&v31, 8);
 }
 
-void sub_1000029BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000029BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000301C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000301C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -420,11 +421,12 @@ void sub_100003C00()
   dispatch_async(v0, &stru_100241AF0);
 }
 
-void sub_1000041D8(void *a1, int a2)
+void sub_1000041D8(void *a1, uint64_t a2)
 {
   v3 = a1[6];
   if (v3)
   {
+    v4 = a2;
     v5 = a1[4];
     v6 = std::__shared_weak_count::lock(v3);
     if (v6)
@@ -434,7 +436,7 @@ void sub_1000041D8(void *a1, int a2)
       if (v7)
       {
 
-        sub_100006CF8(v5, (v5 + 136), a2);
+        sub_100006CF8(v5, (v5 + 136), v4);
       }
     }
   }
@@ -692,9 +694,9 @@ id sub_1000070F0(uint64_t a1)
   return result;
 }
 
-void sub_1000085E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000085E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -705,17 +707,17 @@ void sub_100008AA8(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-void sub_100009204(uint64_t a1)
+void sub_100009204(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 512))
   {
-    v2 = WiFiDeviceClientCopyCurrentNetwork();
-    if (v2)
+    v3 = WiFiDeviceClientCopyCurrentNetwork();
+    if (v3)
     {
-      v3 = v2;
+      v4 = v3;
       *(*(*(a1 + 40) + 8) + 24) = WiFiNetworkIsCaptive() != 0;
 
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 }
@@ -991,9 +993,9 @@ void sub_10000E26C(int a1, CFDictionaryRef theDict)
   }
 }
 
-void sub_10000E5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000E5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1005,9 +1007,9 @@ id sub_10000E5D4(uint64_t a1)
   return result;
 }
 
-void sub_10000EA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000EA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1043,9 +1045,9 @@ id sub_10000EAB4(uint64_t a1)
   return result;
 }
 
-void sub_10000EC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000EC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1081,9 +1083,9 @@ id sub_10000EC7C(uint64_t a1)
   return result;
 }
 
-void sub_10000FB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000FB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1095,9 +1097,9 @@ id sub_10000FB7C(uint64_t a1)
   return result;
 }
 
-void sub_10000FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1273,9 +1275,9 @@ NSMutableData *sub_100011168(void *a1, uint64_t a2)
   return v14;
 }
 
-void sub_100012F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100012F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1310,9 +1312,9 @@ id sub_100012F58(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s RSRP %f", "[WRM_EnhancedCTService getServingCellRSRP]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_1000130F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000130F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1347,9 +1349,9 @@ id sub_100013108(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s SNR %f", "[WRM_EnhancedCTService getServingCellSNR]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_1000132EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000132EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1501,7 +1503,7 @@ _BYTE **sub_1000145EC(uint64_t a1, uint64_t *a2)
   v5 = *a2 + 3;
   *a2 = v5;
   result = sub_100014648(a2, (a1 + 9));
-  v7 = (*a2 - v5);
+  v7 = *a2 - v5;
   *v4 = v3;
   *(v4 + 1) = v7;
   return result;
@@ -1524,9 +1526,9 @@ void sub_10001467C(uint64_t a1, uint64_t a2)
   qmi::MessageBase::~MessageBase(v3);
 }
 
-void sub_1000146CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000146CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   qmi::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -1536,17 +1538,16 @@ void sub_1000146E0(uint64_t a1@<X0>, qmi::ResponseBase *a2@<X8>)
   if (*(a1 + 40) != 1 || *(a1 + 44) == 3)
   {
     QMIServiceMsg::serialize(&__p, a1);
-    sub_100014794(a2, __p, v6 - __p);
+    sub_100014794(a2, __p, v5 - __p);
     if (__p)
     {
-      v6 = __p;
+      v5 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(a1 + 12);
     QMIServiceMsg::getNewError(a1);
 
     sub_1000B7BC0(a2);
@@ -1570,7 +1571,7 @@ qmi::ResponseBase *sub_100014794(qmi::ResponseBase *a1, const void *a2, unint64_
   return a1;
 }
 
-char *sub_1000147D8(uint64_t a1, int a2)
+uint64_t sub_1000147D8(uint64_t a1, int a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -1589,16 +1590,15 @@ char *sub_1000147D8(uint64_t a1, int a2)
   {
 LABEL_8:
 
-    sub_100014514();
+    sub_100014514(a1, a2);
   }
 
-  v4 = ***v2;
-  if (!v5)
+  if (!v4)
   {
     __cxa_bad_cast();
   }
 
-  return v5 + 9;
+  return v4 + 9;
 }
 
 void sub_100014948(uint64_t a1)
@@ -1680,9 +1680,9 @@ void sub_100014C20(uint64_t a1, uint64_t a2)
   qmi::MessageBase::~MessageBase(v3);
 }
 
-void sub_100014C70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100014C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   qmi::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -1692,17 +1692,16 @@ void sub_100014C84(uint64_t a1@<X0>, qmi::MessageBase *a2@<X8>)
   if (*(a1 + 40) != 1 || *(a1 + 44) == 3)
   {
     QMIServiceMsg::serialize(&__p, a1);
-    sub_100014D38(a2, __p, v6 - __p);
+    sub_100014D38(a2, __p, v5 - __p);
     if (__p)
     {
-      v6 = __p;
+      v5 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(a1 + 12);
     QMIServiceMsg::getNewError(a1);
 
     sub_1000B6278(a2);
@@ -2152,9 +2151,9 @@ id sub_1000162E0(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s Erasure %f", "[WRM_EnhancedCTService getCurrentAudioErasure]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100016490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2183,9 +2182,9 @@ uint64_t sub_10001650C()
   return v0;
 }
 
-void sub_1000165E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000165E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2214,9 +2213,9 @@ uint64_t sub_1000165F8()
   return v0;
 }
 
-void sub_1000166CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000166CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2245,9 +2244,9 @@ uint64_t sub_1000166E4()
   return v0;
 }
 
-void sub_1000167B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000167B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2283,23 +2282,23 @@ uint64_t sub_10001681C()
   return v0;
 }
 
-void sub_1000168F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000168F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100016A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100016AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2311,9 +2310,9 @@ double sub_100016AF8(uint64_t a1)
   return result;
 }
 
-void sub_100016BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2349,9 +2348,9 @@ uint64_t sub_100016BFC()
   return v0;
 }
 
-void sub_100016CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100016CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2374,7 +2373,7 @@ void sub_1000181CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000182E8()
+uint64_t sub_1000182E8(uint64_t a1)
 {
   objc_opt_self();
 
@@ -2432,7 +2431,7 @@ LABEL_16:
 
     if ((v12 >> 3) == 1)
     {
-      if ((sub_10015D44C(a1, &v14, a2, &v15) & 1) == 0)
+      if ((sub_10015D44C(a1, v14, a2, &v15) & 1) == 0)
       {
         return v15;
       }
@@ -2451,10 +2450,11 @@ LABEL_16:
   return [a2 hasError] ^ 1;
 }
 
-id sub_100018934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+id sub_100018934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 void sub_100019A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18)
@@ -2501,11 +2501,11 @@ void sub_10001AE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10001B274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10001B274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   AriSdk::ARI_UtaIdcConfigEventReq_SDK::~ARI_UtaIdcConfigEventReq_SDK(va);
-  AriSdk::ARI_UtaIdcConfigEventReq_SDK::~ARI_UtaIdcConfigEventReq_SDK((v16 - 120));
+  AriSdk::ARI_UtaIdcConfigEventReq_SDK::~ARI_UtaIdcConfigEventReq_SDK((v23 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -2548,9 +2548,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcConfigEventRspCb_SDK::~ARI_UtaIdcConfigEventRspCb_SDK(v10);
 }
 
-void sub_10001B48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001B48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcConfigEventRspCb_SDK::~ARI_UtaIdcConfigEventRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2594,16 +2594,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcConfigEventRspCb_SDK::~ARI_UtaIdcConfigEventRspCb_SDK(v10);
 }
 
-void sub_10001B5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001B5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcConfigEventRspCb_SDK::~ARI_UtaIdcConfigEventRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001BA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001BA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   AriSdk::ARI_UtaIdcSetTunerVoterConfigReq_SDK::~ARI_UtaIdcSetTunerVoterConfigReq_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2649,9 +2649,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTunerVoterConfigRspCb_SDK::~ARI_UtaIdcSetTunerVoterConfigRspCb_SDK(v11);
 }
 
-void sub_10001BBA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001BBA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTunerVoterConfigRspCb_SDK::~ARI_UtaIdcSetTunerVoterConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2697,9 +2697,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(v11);
 }
 
-void sub_10001C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2745,9 +2745,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(v11);
 }
 
-void sub_10001C760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001C760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2793,9 +2793,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(v11);
 }
 
-void sub_10001C890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001C890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2841,9 +2841,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(v11);
 }
 
-void sub_10001C9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001C9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2889,16 +2889,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(v11);
 }
 
-void sub_10001CAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001CAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCameraStatusRspCbV2_SDK::~ARI_UtaIdcSetCameraStatusRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10001CC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   AriSdk::ARI_UtaIdcGetLaaMeasInfoReq_SDK::~ARI_UtaIdcGetLaaMeasInfoReq_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -2943,16 +2943,16 @@ LABEL_8:
   AriSdk::ARI_UtaIdcGetLaaMeasInfoRspCb_SDK::~ARI_UtaIdcGetLaaMeasInfoRspCb_SDK(v9);
 }
 
-void sub_10001CD80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10001CD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AriSdk::ARI_UtaIdcGetLaaMeasInfoRspCb_SDK::~ARI_UtaIdcGetLaaMeasInfoRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001CF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10001CF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   AriSdk::ARI_UtaIdcConfigTxActParamReq_SDK::~ARI_UtaIdcConfigTxActParamReq_SDK(va);
 
   _Unwind_Resume(a1);
@@ -2999,16 +2999,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcConfigTxActParamRspCb_SDK::~ARI_UtaIdcConfigTxActParamRspCb_SDK(v11);
 }
 
-void sub_10001D10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001D10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcConfigTxActParamRspCb_SDK::~ARI_UtaIdcConfigTxActParamRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001D2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001D2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   AriSdk::ARI_UtaIdcConfigMiscParamReqV2_SDK::~ARI_UtaIdcConfigMiscParamReqV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3054,16 +3054,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcConfigMiscParamRspCbV2_SDK::~ARI_UtaIdcConfigMiscParamRspCbV2_SDK(v11);
 }
 
-void sub_10001D420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001D420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcConfigMiscParamRspCbV2_SDK::~ARI_UtaIdcConfigMiscParamRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001D68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10001D68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   AriSdk::ARI_UtaIdcSetTxAntMappingTableReq_SDK::~ARI_UtaIdcSetTxAntMappingTableReq_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3110,17 +3110,18 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTxAntMappingTableRspCb_SDK::~ARI_UtaIdcSetTxAntMappingTableRspCb_SDK(v11);
 }
 
-void sub_10001D7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001D7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTxAntMappingTableRspCb_SDK::~ARI_UtaIdcSetTxAntMappingTableRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001E1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_10001E1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   AriSdk::ARI_UtaIdcSetRTFeatureSpmiRxReqV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiRxReqV3_SDK(&a32);
-  AriSdk::ARI_UtaIdcSetRTFeatureSpmiTxReqV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiTxReqV3_SDK(&a42);
+  AriSdk::ARI_UtaIdcSetRTFeatureSpmiTxReqV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiTxReqV3_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -3166,9 +3167,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetRTFeatureSpmiTxRspCbV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiTxRspCbV3_SDK(v11);
 }
 
-void sub_10001E400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001E400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetRTFeatureSpmiTxRspCbV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiTxRspCbV3_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3214,16 +3215,17 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetRTFeatureSpmiRxRspCbV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiRxRspCbV3_SDK(v11);
 }
 
-void sub_10001E528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001E528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetRTFeatureSpmiRxRspCbV3_SDK::~ARI_UtaIdcSetRTFeatureSpmiRxRspCbV3_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001E99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10001E99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  AriSdk::ARI_UtaIdcSetCnvAntBlockPwrLmtConfigReq_SDK::~ARI_UtaIdcSetCnvAntBlockPwrLmtConfigReq_SDK(&a32);
+  va_start(va, a31);
+  AriSdk::ARI_UtaIdcSetCnvAntBlockPwrLmtConfigReq_SDK::~ARI_UtaIdcSetCnvAntBlockPwrLmtConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -3269,16 +3271,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCnvAntBlockPwrLmtConfigRspCb_SDK::~ARI_UtaIdcSetCnvAntBlockPwrLmtConfigRspCb_SDK(v11);
 }
 
-void sub_10001EBA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001EBA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCnvAntBlockPwrLmtConfigRspCb_SDK::~ARI_UtaIdcSetCnvAntBlockPwrLmtConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10001F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   AriSdk::ARI_UtaIdcSetCamAntBlockPwrLmtConfigReqV3_SDK::~ARI_UtaIdcSetCamAntBlockPwrLmtConfigReqV3_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3325,16 +3327,17 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCamAntBlockPwrLmtConfigRspCbV3_SDK::~ARI_UtaIdcSetCamAntBlockPwrLmtConfigRspCbV3_SDK(v11);
 }
 
-void sub_10001F90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001F90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCamAntBlockPwrLmtConfigRspCbV3_SDK::~ARI_UtaIdcSetCamAntBlockPwrLmtConfigRspCbV3_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10001FF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10001FF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  AriSdk::ARI_UtaIdcSetUwbAntBlockPwrLmtConfigReqV2_SDK::~ARI_UtaIdcSetUwbAntBlockPwrLmtConfigReqV2_SDK(&a33);
+  va_start(va, a32);
+  AriSdk::ARI_UtaIdcSetUwbAntBlockPwrLmtConfigReqV2_SDK::~ARI_UtaIdcSetUwbAntBlockPwrLmtConfigReqV2_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -3380,16 +3383,17 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetUwbAntBlockPwrLmtConfigRspCbV2_SDK::~ARI_UtaIdcSetUwbAntBlockPwrLmtConfigRspCbV2_SDK(v11);
 }
 
-void sub_10002014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10002014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetUwbAntBlockPwrLmtConfigRspCbV2_SDK::~ARI_UtaIdcSetUwbAntBlockPwrLmtConfigRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100020548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_100020548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  AriSdk::ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigReq_SDK::~ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigReq_SDK(&a28);
+  va_start(va, a27);
+  AriSdk::ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigReq_SDK::~ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -3435,16 +3439,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigRspCb_SDK::~ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigRspCb_SDK(v11);
 }
 
-void sub_100020754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100020754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigRspCb_SDK::~ARI_UtaIdcSetUsbEnhAntBlockPwrLmtPolicyConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10002090C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002090C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   AriSdk::ARI_UtaIdcSetTimeSharingConfigReq_SDK::~ARI_UtaIdcSetTimeSharingConfigReq_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3490,16 +3494,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTimeSharingConfigRspCb_SDK::~ARI_UtaIdcSetTimeSharingConfigRspCb_SDK(v11);
 }
 
-void sub_100020AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100020AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTimeSharingConfigRspCb_SDK::~ARI_UtaIdcSetTimeSharingConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100020DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100020DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   AriSdk::ARI_UtaIdcSetTimeSharingConfigReq_SDK::~ARI_UtaIdcSetTimeSharingConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3546,16 +3550,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTimeSharingConfigRspCb_SDK::~ARI_UtaIdcSetTimeSharingConfigRspCb_SDK(v11);
 }
 
-void sub_100020F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100020F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTimeSharingConfigRspCb_SDK::~ARI_UtaIdcSetTimeSharingConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10002183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10002183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   AriSdk::ARI_UtaIdcSetCriticalCarrierConfigReqV2_SDK::~ARI_UtaIdcSetCriticalCarrierConfigReqV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3601,17 +3605,18 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCriticalCarrierConfigRspCbV2_SDK::~ARI_UtaIdcSetCriticalCarrierConfigRspCbV2_SDK(v11);
 }
 
-void sub_1000219E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1000219E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCriticalCarrierConfigRspCbV2_SDK::~ARI_UtaIdcSetCriticalCarrierConfigRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100021E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100021E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  AriSdk::ARI_UtaIdcSetTxBlankingConfigReq_SDK::~ARI_UtaIdcSetTxBlankingConfigReq_SDK(&a37);
-  AriSdk::ARI_UtaIdcSetTxPowerLimitingConfigReq_SDK::~ARI_UtaIdcSetTxPowerLimitingConfigReq_SDK((v38 - 224));
+  va_start(va, a36);
+  AriSdk::ARI_UtaIdcSetTxBlankingConfigReq_SDK::~ARI_UtaIdcSetTxBlankingConfigReq_SDK(va);
+  AriSdk::ARI_UtaIdcSetTxPowerLimitingConfigReq_SDK::~ARI_UtaIdcSetTxPowerLimitingConfigReq_SDK((v37 - 224));
 
   _Unwind_Resume(a1);
 }
@@ -3657,9 +3662,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTxPowerLimitingConfigRspCb_SDK::~ARI_UtaIdcSetTxPowerLimitingConfigRspCb_SDK(v11);
 }
 
-void sub_10002209C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10002209C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTxPowerLimitingConfigRspCb_SDK::~ARI_UtaIdcSetTxPowerLimitingConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3705,16 +3710,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTxBlankingConfigRspCb_SDK::~ARI_UtaIdcSetTxBlankingConfigRspCb_SDK(v11);
 }
 
-void sub_1000221CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1000221CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTxBlankingConfigRspCb_SDK::~ARI_UtaIdcSetTxBlankingConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000223D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000223D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   AriSdk::ARI_UtaIdcRTSetScanFreqReqV2_SDK::~ARI_UtaIdcRTSetScanFreqReqV2_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3761,16 +3766,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcRTSetScanFreqRspCbV2_SDK::~ARI_UtaIdcRTSetScanFreqRspCbV2_SDK(v11);
 }
 
-void sub_1000225C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1000225C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcRTSetScanFreqRspCbV2_SDK::~ARI_UtaIdcRTSetScanFreqRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100022934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100022934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   AriSdk::ARI_UtaIdcSetLaaConfigReq_SDK::~ARI_UtaIdcSetLaaConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3817,16 +3822,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetLaaConfigRspCb_SDK::~ARI_UtaIdcSetLaaConfigRspCb_SDK(v11);
 }
 
-void sub_100022AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100022AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetLaaConfigRspCb_SDK::~ARI_UtaIdcSetLaaConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100022E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100022E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   AriSdk::ARI_UtaIdcSetLaaConfigReq_SDK::~ARI_UtaIdcSetLaaConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
@@ -3873,16 +3878,16 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetLaaConfigRspCb_SDK::~ARI_UtaIdcSetLaaConfigRspCb_SDK(v11);
 }
 
-void sub_100022F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100022F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetLaaConfigRspCb_SDK::~ARI_UtaIdcSetLaaConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10002387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10002387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   AriSdk::ARI_UtaIdcGetCellConfigReq_SDK::~ARI_UtaIdcGetCellConfigReq_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -3926,17 +3931,17 @@ LABEL_8:
   AriSdk::ARI_UtaIdcGetCellConfigRspCb_SDK::~ARI_UtaIdcGetCellConfigRspCb_SDK(v9);
 }
 
-void sub_1000239A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000239A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   AriSdk::ARI_UtaIdcGetCellConfigRspCb_SDK::~ARI_UtaIdcGetCellConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100023AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100023AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   AriSdk::ARI_UtaIdcCellConfigEventIndCb_SDK::~ARI_UtaIdcCellConfigEventIndCb_SDK(va);
   _Unwind_Resume(a1);
@@ -3981,9 +3986,9 @@ LABEL_6:
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v10);
 }
 
-void sub_100023E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100023E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -4027,30 +4032,29 @@ LABEL_6:
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v10);
 }
 
-void sub_100023F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100023F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
 void sub_100023F50(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v11, a2, a3);
-  isARIResponseValid = ice::isARIResponseValid(v11, 0x25100000, v4);
-  GMID = AriSdk::MsgBase::getGMID(v11);
+  AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v10, a2, a3);
+  isARIResponseValid = ice::isARIResponseValid(v10, 0x25100000, v4);
+  GMID = AriSdk::MsgBase::getGMID(v10);
   [*(a1 + 32) checkErrorMsgGmid:(GMID >> 17) & 0xFFFF8000 | (GMID << 26) expectedGMID:621805568 API_Str:*(a1 + 40)];
   if (isARIResponseValid)
   {
-    if (AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::unpack(v11))
+    if (AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::unpack(v10))
     {
       [WCM_Logging logLevel:3 message:@"Coex ARI driver: Failed to set %s (unpack error)", *(a1 + 40)];
     }
 
     else
     {
-      v7 = *v13;
-      v8 = *(a1 + 40);
+      v7 = *v12;
       if (v7)
       {
         [WCM_Logging logLevel:3 message:@"Coex ARI driver: Failed to set %s (error = %d)", *(a1 + 40), v7];
@@ -4059,9 +4063,9 @@ void sub_100023F50(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
       else
       {
         [WCM_Logging logLevel:3 message:@"Coex ARI driver: Set %s (SUCCESS)", *(a1 + 40)];
-        v9 = *v12;
-        v10 = [*(a1 + 32) assembleDesenseCellularConfigXpcMsgwithDownlinkFreq:v14 DownlinkFreqExt:v20 UlFreq:v15 UplinkFreqExt:v21 SearchFreq:v16 HoppingFreq:v17 NeighborFreq:v18 RPLMNFreq:v19];
-        [*(a1 + 32) sendMessage:399 withArgs:v10 withSubId:v9];
+        v8 = *v11;
+        v9 = [*(a1 + 32) assembleDesenseCellularConfigXpcMsgwithDownlinkFreq:v13 DownlinkFreqExt:v19 UlFreq:v14 UplinkFreqExt:v20 SearchFreq:v15 HoppingFreq:v16 NeighborFreq:v17 RPLMNFreq:v18];
+        [*(a1 + 32) sendMessage:399 withArgs:v9 withSubId:v8];
       }
     }
   }
@@ -4071,26 +4075,26 @@ void sub_100023F50(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
     [WCM_Logging logLevel:3 message:@"Coex ARI driver: Failed to set %s, invalid response (NACK or wrong GMID)", *(a1 + 40)];
   }
 
-  AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v11);
+  AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v10);
 }
 
-void sub_1000240A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000240A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::~ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10002472C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10002472C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   AriSdk::ARI_IBIMsAccCurrentFreqInfoIndCb_SDK::~ARI_IBIMsAccCurrentFreqInfoIndCb_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100025708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_100025708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
 {
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigReqV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigReqV2_SDK(&a25);
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigReqV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigReqV2_SDK(&a41);
@@ -4139,9 +4143,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK::~ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK(v10);
 }
 
-void sub_100025B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100025B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK::~ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -4185,9 +4189,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK::~ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK(v10);
 }
 
-void sub_100025C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100025C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK::~ARI_UtaIdcSetCellImdGnssMitigationConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -4231,9 +4235,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK(v10);
 }
 
-void sub_100025D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100025D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -4277,16 +4281,17 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK(v10);
 }
 
-void sub_100025EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100025EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK::~ARI_UtaIdcSetTunerArbitrationConfigRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000263C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1000263C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  AriSdk::ARI_UtaIdcSetUwbRtActivityMitigationConfigReqV2_SDK::~ARI_UtaIdcSetUwbRtActivityMitigationConfigReqV2_SDK(&a32);
+  va_start(va, a31);
+  AriSdk::ARI_UtaIdcSetUwbRtActivityMitigationConfigReqV2_SDK::~ARI_UtaIdcSetUwbRtActivityMitigationConfigReqV2_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -4332,16 +4337,17 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetUwbRtActivityMitigationConfigRspCbV2_SDK::~ARI_UtaIdcSetUwbRtActivityMitigationConfigRspCbV2_SDK(v11);
 }
 
-void sub_100026590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100026590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetUwbRtActivityMitigationConfigRspCbV2_SDK::~ARI_UtaIdcSetUwbRtActivityMitigationConfigRspCbV2_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000269B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1000269B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  AriSdk::ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigReq_SDK::~ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigReq_SDK(&a29);
+  va_start(va, a28);
+  AriSdk::ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigReq_SDK::~ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigReq_SDK(va);
 
   _Unwind_Resume(a1);
 }
@@ -4387,9 +4393,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigRspCb_SDK::~ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigRspCb_SDK(v11);
 }
 
-void sub_100026BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100026BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigRspCb_SDK::~ARI_UtaIdcSetSfbmAntBlockPwrLmtPolicyConfigRspCb_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -4399,7 +4405,7 @@ void *sub_100026CDC(void *a1, id *a2, OS_dispatch_object *a3)
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_10023DA80;
-  sub_100026DC0((a1 + 3), a2, a3);
+  sub_100026DC0(a1 + 3, a2, a3);
   return a1;
 }
 
@@ -4420,7 +4426,7 @@ void sub_100026DAC(uint64_t a1)
   }
 }
 
-uint64_t sub_100026DC0(uint64_t a1, id *a2, OS_dispatch_object *a3)
+void *sub_100026DC0(void *a1, id *a2, OS_dispatch_object *a3)
 {
   v8 = *a2;
   v5.fObj.fObj = a3;
@@ -4488,7 +4494,7 @@ void sub_100026E40()
   objc_autoreleasePoolPop(v0);
 }
 
-uint64_t sub_10002704C()
+uint64_t sub_10002704C(uint64_t a1)
 {
   objc_opt_self();
 
@@ -4573,17 +4579,18 @@ LABEL_16:
   return [a2 hasError] ^ 1;
 }
 
-id sub_10002798C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+id sub_10002798C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a8);
+  va_start(va, a16);
 
-  return [v8 countByEnumeratingWithState:va objects:v9 - 200 count:16];
+  return [v16 countByEnumeratingWithState:va objects:v17 - 200 count:{16, a6, a7, a8}];
 }
 
-id sub_1000279AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+id sub_1000279AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
 
-  return [v26 countByEnumeratingWithState:&a9 objects:&a26 count:16];
+  return [v25 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t sub_100027CAC(uint64_t a1, void *a2)
@@ -5123,20 +5130,6 @@ LABEL_147:
   }
 
   return [a2 hasError] ^ 1;
-}
-
-uint64_t sub_100028D30@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(result + v3) = *(a2 + v3);
-  v4 = *(result + *(a3 + 2472));
-  return result;
-}
-
-uint64_t sub_100028D44@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(a2 + v3) = *(result + v3);
-  v4 = *(a2 + *(a3 + 2472));
-  return result;
 }
 
 uint64_t sub_1000290D8(uint64_t a1, void *a2)
@@ -5856,11 +5849,11 @@ id sub_10002AB08(uint64_t a1)
   return result;
 }
 
-void sub_10002AC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10002AC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 72), 8);
+  _Block_object_dispose((v15 - 72), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6271,6 +6264,13 @@ LABEL_45:
   }
 }
 
+void sub_10002C984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class sub_10002CA88(uint64_t a1)
 {
   v3[0] = 0;
@@ -6309,7 +6309,6 @@ Class sub_10002CA88(uint64_t a1)
 
 uint64_t sub_10002CBB4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1002B7D28 = result;
   return result;
@@ -6336,9 +6335,9 @@ id sub_10002E70C(uint64_t a1)
   return [v2 setSCService:v3];
 }
 
-void sub_10002F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6371,30 +6370,30 @@ id sub_10002F558(uint64_t a1)
   return result;
 }
 
-void sub_10002F818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002F818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002F938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002F938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002FA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10002FB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6461,9 +6460,9 @@ id sub_10002FF9C(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s Erasure %f", "[WRM_EnhancedCTService updateVoLTESpeechErasure:]_block_invoke", v2, *(a1 + 40)];
 }
 
-void sub_1000301E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000301E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6518,9 +6517,9 @@ id sub_10003085C(uint64_t a1)
   return [v4 replaceObjectAtIndex:1 withObject:v6];
 }
 
-void sub_100030A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100030A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6666,9 +6665,9 @@ id sub_1000311BC(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: slot %s RSRQ %f", "[WRM_EnhancedCTService setServingCellRSRQ:forSim:]_block_invoke", v2, *(a1 + 48)];
 }
 
-void sub_10003133C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003133C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6703,9 +6702,9 @@ id sub_100031354(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s RSSI %f", "[WRM_EnhancedCTService getServingCellRSSI]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_1000314FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000314FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6734,9 +6733,9 @@ id sub_100031514(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s RSRP %f", "[WRM_EnhancedCTService getServingCellRSRP:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100031694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100031694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6765,9 +6764,9 @@ id sub_1000316AC(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s SNR %f", "[WRM_EnhancedCTService getServingCellSNR:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100031818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100031818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6802,9 +6801,9 @@ id sub_100031830(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s SNR %f", "[WRM_EnhancedCTService getServingCellSINR]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_1000319D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000319D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6833,9 +6832,9 @@ id sub_1000319F0(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s RSRQ %f", "[WRM_EnhancedCTService getServingCellRSRQ:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100031B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100031B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6870,9 +6869,9 @@ id sub_100031B74(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s RSCP %f", "[WRM_EnhancedCTService getServingCellRSCP]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100031D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100031D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6901,9 +6900,9 @@ id sub_100031D34(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s RSCP %f", "[WRM_EnhancedCTService getServingCellRSCP:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100031EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100031EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6938,9 +6937,9 @@ id sub_100031EB8(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s ECIO %f", "[WRM_EnhancedCTService getServingCellECIO]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_100032060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100032060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6969,9 +6968,9 @@ id sub_100032078(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s ECIO %f", "[WRM_EnhancedCTService getServingCellECIO:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_1000321EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000321EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7007,43 +7006,42 @@ id sub_100032204(uint64_t a1)
   return result;
 }
 
-void sub_1000324FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000324FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id sub_100032514(uint64_t a1)
 {
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) subscriptions];
-  result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if ([v7 slotID])
         {
           if (*(a1 + 40))
           {
             if ([v7 uuid])
             {
-              v8 = *(a1 + 40);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -7062,7 +7060,7 @@ id sub_100032514(uint64_t a1)
       }
 
       while (v4 != v6);
-      result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       v4 = result;
     }
 
@@ -7072,9 +7070,9 @@ id sub_100032514(uint64_t a1)
   return result;
 }
 
-void sub_100032D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100032D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7855,33 +7853,87 @@ id sub_1000369DC(uint64_t a1)
   [objc_msgSend(*(a1 + 40) "dataIndicator")];
   v3 = [*(a1 + 32) attached];
   [objc_msgSend(*(a1 + 40) "isDataAttached")];
-  v4 = *(a1 + 32);
-  v5 = 4;
+  v4 = 4;
   if (objc_opt_respondsToSelector())
   {
     if ([*(a1 + 32) newRadioCoverage])
     {
-      v5 = 1;
+      v4 = 1;
     }
 
     else
     {
-      v5 = 4;
+      v4 = 4;
     }
   }
 
-  v6 = *(a1 + 32);
   if (objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) newRadioSaCoverage])
   {
-    v5 = 2;
+    v4 = 2;
   }
 
-  else
+  else if (objc_opt_respondsToSelector())
   {
-    v7 = *(a1 + 32);
+    if ([*(a1 + 32) newRadioNsaCoverage])
+    {
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = v4;
+    }
+  }
+
+  [objc_msgSend(*(a1 + 40) "radioCoverage")];
+  v5 = [*(a1 + 32) dataBearerTechnology] == 4;
+  if ([*(a1 + 32) dataBearerTechnology] == 6)
+  {
     if (objc_opt_respondsToSelector())
     {
-      if ([*(a1 + 32) newRadioNsaCoverage])
+      if ([*(a1 + 32) newRadioMmWaveDataBearer])
+      {
+        v5 = 4;
+      }
+
+      else
+      {
+        v5 = v5;
+      }
+    }
+
+    if (objc_opt_respondsToSelector())
+    {
+      if ([*(a1 + 32) newRadioSub6DataBearer])
+      {
+        v5 = 5;
+      }
+
+      else
+      {
+        v5 = v5;
+      }
+    }
+  }
+
+  if ([*(a1 + 32) dataBearerTechnology] == 5)
+  {
+    if (objc_opt_respondsToSelector())
+    {
+      if ([*(a1 + 32) newRadioMmWaveDataBearer])
+      {
+        v5 = 2;
+      }
+
+      else
+      {
+        v5 = v5;
+      }
+    }
+
+    if (objc_opt_respondsToSelector())
+    {
+      if ([*(a1 + 32) newRadioSub6DataBearer])
       {
         v5 = 3;
       }
@@ -7893,109 +7945,44 @@ id sub_1000369DC(uint64_t a1)
     }
   }
 
-  [objc_msgSend(*(a1 + 40) "radioCoverage")];
-  v8 = [*(a1 + 32) dataBearerTechnology] == 4;
-  if ([*(a1 + 32) dataBearerTechnology] == 6)
-  {
-    v9 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      if ([*(a1 + 32) newRadioMmWaveDataBearer])
-      {
-        v8 = 4;
-      }
-
-      else
-      {
-        v8 = v8;
-      }
-    }
-
-    v10 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      if ([*(a1 + 32) newRadioSub6DataBearer])
-      {
-        v8 = 5;
-      }
-
-      else
-      {
-        v8 = v8;
-      }
-    }
-  }
-
-  if ([*(a1 + 32) dataBearerTechnology] == 5)
-  {
-    v11 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      if ([*(a1 + 32) newRadioMmWaveDataBearer])
-      {
-        v8 = 2;
-      }
-
-      else
-      {
-        v8 = v8;
-      }
-    }
-
-    v12 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      if ([*(a1 + 32) newRadioSub6DataBearer])
-      {
-        v8 = 3;
-      }
-
-      else
-      {
-        v8 = v8;
-      }
-    }
-  }
-
   [objc_msgSend(*(a1 + 40) "radioFrequency")];
-  v13 = *(a1 + 32);
-  v14 = (objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) newRadioMmWaveDataBearer] & 1) != 0;
+  v6 = (objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) newRadioMmWaveDataBearer] & 1) != 0;
   [objc_msgSend(*(a1 + 40) "isFR2Radio")];
-  v15 = [*(a1 + 32) cellularDataPossible];
+  v7 = [*(a1 + 32) cellularDataPossible];
   [objc_msgSend(*(a1 + 40) "isDataEnabled")];
-  if ((v3 & v15) == 1)
+  if ((v3 & v7) == 1)
   {
-    v16 = *(a1 + 48);
-    if (v16 == [*(a1 + 40) dataPreferredSlot])
+    v8 = *(a1 + 48);
+    if (v8 == [*(a1 + 40) dataPreferredSlot])
     {
-      v17 = [objc_msgSend(objc_msgSend(*(a1 + 40) "isPrivateNetworkSim")];
-      v18 = [objc_msgSend(objc_msgSend(*(a1 + 40) "isPrivateNetworkPreferredOverWifi")];
-      [*(a1 + 40) setDataPreferredSlotOnCBRS:v17 & v18];
-      v19 = *(a1 + 48);
-      if (v19)
+      v9 = [objc_msgSend(objc_msgSend(*(a1 + 40) "isPrivateNetworkSim")];
+      v10 = [objc_msgSend(objc_msgSend(*(a1 + 40) "isPrivateNetworkPreferredOverWifi")];
+      [*(a1 + 40) setDataPreferredSlotOnCBRS:v9 & v10];
+      v11 = *(a1 + 48);
+      if (v11)
       {
-        if (v19 == 1)
+        if (v11 == 1)
         {
-          v20 = "CTSubscriptionSlotOne";
+          v12 = "CTSubscriptionSlotOne";
         }
 
-        else if (v19 == 2)
+        else if (v11 == 2)
         {
-          v20 = "CTSubscriptionSlotTwo";
+          v12 = "CTSubscriptionSlotTwo";
         }
 
         else
         {
-          v20 = "Unknown CTSubscriptionSlot!!!";
+          v12 = "Unknown CTSubscriptionSlot!!!";
         }
       }
 
       else
       {
-        v20 = "CTSubscriptionSlotUnknown";
+        v12 = "CTSubscriptionSlotUnknown";
       }
 
-      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"%s: isPrivateNwSim %d, isPrivateNwPreferredOverWifi: %d, dataPreferredSlotOnPrivateNetwork %d", v20, v17, v18 & 1, [*(a1 + 40) dataPreferredSlotOnCBRS]);
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"%s: isPrivateNwSim %d, isPrivateNwPreferredOverWifi: %d, dataPreferredSlotOnPrivateNetwork %d", v12, v9, v10 & 1, [*(a1 + 40) dataPreferredSlotOnCBRS]);
     }
   }
 
@@ -8003,132 +7990,132 @@ id sub_1000369DC(uint64_t a1)
   {
     if ([*(a1 + 32) radioTechnology] == 2)
     {
-      v21 = 2;
+      v13 = 2;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 3)
     {
-      v21 = 3;
+      v13 = 3;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 4)
     {
-      v21 = 4;
+      v13 = 4;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 5)
     {
-      v21 = 5;
+      v13 = 5;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 7 || objc_msgSend(*(a1 + 32), "radioTechnology") == 8)
     {
-      v21 = 1;
+      v13 = 1;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 9)
     {
-      v21 = 7;
+      v13 = 7;
     }
 
     else if ([*(a1 + 32) radioTechnology] == 10)
     {
-      v21 = 9;
+      v13 = 9;
     }
 
     else
     {
       [WCM_Logging logLevel:22 message:@"Unknown registered technology"];
-      v21 = 10;
+      v13 = 10;
     }
   }
 
   else
   {
-    v21 = 8;
+    v13 = 8;
   }
 
   [objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")];
-  v22 = *(a1 + 48);
+  v14 = *(a1 + 48);
   if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 10)
   {
-    v23 = "UNKNOWN_RADIO ";
+    v15 = "UNKNOWN_RADIO ";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 1)
   {
-    v23 = "LTE Radio";
+    v15 = "LTE Radio";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 2)
   {
-    v23 = "UMTS_RADIO";
+    v15 = "UMTS_RADIO";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 3)
   {
-    v23 = "CDMA1X_RADIO";
+    v15 = "CDMA1X_RADIO";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 4)
   {
-    v23 = "CDMAEVDO";
+    v15 = "CDMAEVDO";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 5)
   {
-    v23 = "CDMAHybrid";
+    v15 = "CDMAHybrid";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 6)
   {
-    v23 = "eHRPD_RADIO";
+    v15 = "eHRPD_RADIO";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 7)
   {
-    v23 = "TDSCDMA_RADIO";
+    v15 = "TDSCDMA_RADIO";
   }
 
   else if ([objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")] == 8)
   {
-    v23 = "GSM_RADIO";
+    v15 = "GSM_RADIO";
   }
 
   else
   {
-    v24 = [objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")];
-    v23 = "UNKNOWN_RADIO!!!";
-    if (v24 == 9)
+    v16 = [objc_msgSend(objc_msgSend(*(a1 + 40) "servCellRadioTechnologyType")];
+    v15 = "UNKNOWN_RADIO!!!";
+    if (v16 == 9)
     {
-      v23 = "N_RADIO";
+      v15 = "N_RADIO";
     }
   }
 
-  v25 = v2 - 12;
+  v17 = v2 - 12;
   if (v2 < 0xC && ((0xFF7u >> v2) & 1) != 0)
   {
-    v26 = (&off_10023E368)[v2];
+    v18 = (&off_10023E368)[v2];
   }
 
-  else if (v25 >= 7)
+  else if (v17 >= 7)
   {
-    v26 = "Unknown kCTDataIndicatorStatusUnknown!!!";
+    v18 = "Unknown kCTDataIndicatorStatusUnknown!!!";
     if (v2 == 19)
     {
-      v26 = "5G_CA";
+      v18 = "5G_CA";
     }
   }
 
   else
   {
-    v26 = (&off_10023E3C8)[v25];
+    v18 = (&off_10023E3C8)[v17];
   }
 
-  [WCM_Logging logLevel:22 message:@"%s: SIM %d servCellRadioTechnologyType %s Data Attached %d Data enabled %d, data indicator: %s", "[WRM_EnhancedCTService processDataStatus::]_block_invoke", v22, v23, v3, v15 & 1, v26];
-  v27 = *(a1 + 40);
+  [WCM_Logging logLevel:22 message:@"%s: SIM %d servCellRadioTechnologyType %s Data Attached %d Data enabled %d, data indicator: %s", "[WRM_EnhancedCTService processDataStatus::]_block_invoke", v14, v15, v3, v7 & 1, v18];
+  v19 = *(a1 + 40);
 
-  return [v27 evaluateCbrsInDualSimMode:0];
+  return [v19 evaluateCbrsInDualSimMode:0];
 }
 
 id sub_1000371A4(uint64_t a1)
@@ -8424,9 +8411,9 @@ id sub_100037CE8(uint64_t a1, void *a2, void *a3)
   return [v6 processSubscriptionInfo:a2 :a3];
 }
 
-void sub_100037E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100037E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8499,16 +8486,16 @@ uint64_t sub_100038520(uint64_t a1)
   return v2(a1);
 }
 
-void sub_10003860C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003860C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100038F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100038F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8537,9 +8524,9 @@ uint64_t sub_100038FB4()
   return v0;
 }
 
-void sub_100039088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100039088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8862,9 +8849,9 @@ _DWORD *sub_10003B374(uint64_t a1)
   return result;
 }
 
-void sub_10003B98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003B98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8899,9 +8886,9 @@ id sub_10003B9A4(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active data slot %s RSRP %f", "[WRM_EnhancedCTService getNrRSRP]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_10003BB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003BB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8930,9 +8917,9 @@ id sub_10003BB64(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s NrRSRP %f", "[WRM_EnhancedCTService getNrRSRP:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_10003BCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003BCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8967,9 +8954,9 @@ id sub_10003BCE8(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s SNR %f", "[WRM_EnhancedCTService getNrSNR]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_10003BE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003BE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8998,9 +8985,9 @@ id sub_10003BEA8(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: sim slot %s SNR %f", "[WRM_EnhancedCTService getNrSNR:]_block_invoke", v4, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_10003C014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003C014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9035,9 +9022,9 @@ id sub_10003C02C(uint64_t a1)
   return [WCM_Logging logLevel:22 message:@"%s: active slot %s RSRQ %f", "[WRM_EnhancedCTService getNrRSRQ]_block_invoke", v3, *(*(*(a1 + 40) + 8) + 24)];
 }
 
-void sub_10003C1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003C1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9330,9 +9317,9 @@ id sub_10003D36C(uint64_t a1)
   return [v6 replaceObjectAtIndex:v7 withObject:v8];
 }
 
-void sub_10003D5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003D5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9534,9 +9521,9 @@ uint64_t sub_10003F928()
   return v0;
 }
 
-void sub_10003F9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003F9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

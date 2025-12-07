@@ -12,9 +12,9 @@
   endComponentsCopy = endComponents;
   identifierCopy = identifier;
   v15 = a7;
-  v28.receiver = self;
-  v28.super_class = DNDSLegacyBehaviorOverrideEffectiveInterval;
-  v16 = [(DNDSLegacyBehaviorOverrideEffectiveInterval *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = DNDSLegacyBehaviorOverrideEffectiveInterval;
+  v16 = [(DNDSLegacyBehaviorOverrideEffectiveInterval *)&v27 init];
   if (v16)
   {
     v17 = [componentsCopy copy];
@@ -27,23 +27,22 @@
 
     v21 = [identifierCopy copy];
     v22 = v21;
-    v23 = *MEMORY[0x277CBE5C0];
     if (v21)
     {
-      v24 = v21;
+      v23 = v21;
     }
 
     else
     {
-      v24 = *MEMORY[0x277CBE5C0];
+      v23 = *MEMORY[0x277CBE5C0];
     }
 
-    objc_storeStrong(&v16->_calendarIdentifier, v24);
+    objc_storeStrong(&v16->_calendarIdentifier, v23);
 
     v16->_repeatInterval = interval;
-    v25 = [v15 copy];
+    v24 = [v15 copy];
     identifier = v16->_identifier;
-    v16->_identifier = v25;
+    v16->_identifier = v24;
   }
 
   return v16;

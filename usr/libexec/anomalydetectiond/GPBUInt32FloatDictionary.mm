@@ -1,4 +1,5 @@
 @interface GPBUInt32FloatDictionary
+- (BOOL)getFloat:(float *)float forKey:(unsigned int)key;
 - (BOOL)isEqual:(id)equal;
 - (GPBUInt32FloatDictionary)initWithDictionary:(id)dictionary;
 - (GPBUInt32FloatDictionary)initWithFloats:(const float *)floats forKeys:(const unsigned int *)keys count:(unint64_t)count;
@@ -8,6 +9,8 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndFloatsUsingBlock:(id)block;
+- (void)removeFloatForKey:(unsigned int)key;
+- (void)setFloat:(float)float forKey:(unsigned int)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -207,6 +210,19 @@
   [(GPBUInt32FloatDictionary *)self enumerateKeysAndFloatsUsingBlock:v3];
 }
 
+- (BOOL)getFloat:(float *)float forKey:(unsigned int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithUnsignedInt:*&key]];
+  v6 = v5;
+  if (float && v5)
+  {
+    [v5 floatValue];
+    *float = v7;
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -219,6 +235,25 @@
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
   }
+}
+
+- (void)setFloat:(float)float forKey:(unsigned int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber numberWithFloat:?], [NSNumber numberWithUnsignedInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
+- (void)removeFloatForKey:(unsigned int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithUnsignedInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

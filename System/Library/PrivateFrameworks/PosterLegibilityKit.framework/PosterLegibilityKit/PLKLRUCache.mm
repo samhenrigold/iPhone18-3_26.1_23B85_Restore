@@ -14,15 +14,15 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [[PLKLRUCache allocWithZone:?], "initWithCapacity:", self->_capacity];
+  v4 = [+[PLKLRUCache allocWithZone:](PLKLRUCache initWithCapacity:"initWithCapacity:"];
   storage = self->_storage;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __28__PLKLRUCache_copyWithZone___block_invoke;
-  v8[3] = &unk_27835B250;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __28__PLKLRUCache_copyWithZone___block_invoke;
+  v11 = &unk_27835B250;
   v6 = v4;
-  v9 = v6;
-  [(BSMutableOrderedDictionary *)storage enumerateKeysAndObjectsUsingBlock:v8];
+  v12 = v6;
+  [(BSMutableOrderedDictionary *)storage enumerateKeysAndObjectsUsingBlock:?];
 
   return v6;
 }
@@ -38,7 +38,7 @@
     v4->_capacity = capacity;
     v6 = objc_alloc(MEMORY[0x277CF0C78]);
     sortByInsertionOrder = [MEMORY[0x277CF0C98] sortByInsertionOrder];
-    v8 = [v6 initWithCapacity:capacity keyOrderingStrategy:sortByInsertionOrder];
+    v8 = [v6 initWithCapacity:? keyOrderingStrategy:?];
     storage = v5->_storage;
     v5->_storage = v8;
   }
@@ -48,7 +48,7 @@
 
 - (PLKLRUCache)init
 {
-  [(PLKLRUCache *)self doesNotRecognizeSelector:a2];
+  [(PLKLRUCache *)self doesNotRecognizeSelector:?];
 
   return 0;
 }
@@ -69,7 +69,7 @@
   if (keyCopy)
   {
     v8 = objc_autoreleasePoolPush();
-    v9 = [(PLKLRUCache *)self objectForKey:keyCopy];
+    v9 = [(PLKLRUCache *)self objectForKey:?];
     v10 = v9;
     if (nilCopy)
     {
@@ -101,7 +101,7 @@
   if (keyCopy)
   {
     v5 = objc_autoreleasePoolPush();
-    v6 = [(BSMutableOrderedDictionary *)self->_storage objectForKey:keyCopy];
+    v6 = [(BSMutableOrderedDictionary *)self->_storage objectForKey:?];
     if (v6)
     {
       [(PLKLRUCache *)self _promoteObject:v6 forKey:keyCopy];
@@ -154,7 +154,7 @@
           }
 
           v3 = objc_autoreleasePoolPush();
-          [v1[1] removeObjectAtIndex:0];
+          [v1[1] removeObjectAtIndex:?];
           objc_autoreleasePoolPop(v3);
         }
       }
@@ -178,15 +178,15 @@
     v5 = *(self + 8);
     objectCopy = object;
     v7 = a2;
-    [v5 removeObjectForKey:objectCopy];
-    [*(self + 8) setObject:v7 forKey:objectCopy];
+    [v5 removeObjectForKey:?];
+    [*(self + 8) setObject:? forKey:?];
   }
 }
 
 - (void)setObject:(void *)a3 forKey:.cold.1(id *a1, void *a2, void *a3)
 {
   v6 = objc_autoreleasePoolPush();
-  v7 = [a1[1] objectForKey:a2];
+  v7 = [a1[1] objectForKey:?];
 
   if (v7)
   {
@@ -195,7 +195,7 @@
 
   else
   {
-    [a1[1] setObject:a3 forKey:a2];
+    [a1[1] setObject:? forKey:?];
   }
 
   [(PLKLRUCache *)a1 _cleanup];

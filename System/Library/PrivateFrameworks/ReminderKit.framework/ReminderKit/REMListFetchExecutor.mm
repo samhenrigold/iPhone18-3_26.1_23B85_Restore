@@ -78,68 +78,68 @@
 
 - (id)resultsFromFetchResult:(id)result inStore:(id)store error:(id *)error
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   storeCopy = store;
   v8 = objc_alloc(MEMORY[0x1E695DF90]);
   fetchedAccountStorages = [resultCopy fetchedAccountStorages];
   v10 = [v8 initWithCapacity:{objc_msgSend(fetchedAccountStorages, "count")}];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v43 = resultCopy;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v42 = resultCopy;
   fetchedAccountStorages2 = [resultCopy fetchedAccountStorages];
-  v12 = [fetchedAccountStorages2 countByEnumeratingWithState:&v54 objects:v60 count:16];
+  v12 = [fetchedAccountStorages2 countByEnumeratingWithState:&v53 objects:v59 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v55;
+    v14 = *v54;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v55 != v14)
+        if (*v54 != v14)
         {
           objc_enumerationMutation(fetchedAccountStorages2);
         }
 
-        v16 = [[REMAccount alloc] initWithStore:storeCopy storage:*(*(&v54 + 1) + 8 * i)];
+        v16 = [[REMAccount alloc] initWithStore:storeCopy storage:*(*(&v53 + 1) + 8 * i)];
         objectID = [(REMAccount *)v16 objectID];
         [v10 setObject:v16 forKeyedSubscript:objectID];
       }
 
-      v13 = [fetchedAccountStorages2 countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v13 = [fetchedAccountStorages2 countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
     while (v13);
   }
 
   v18 = objc_alloc(MEMORY[0x1E695DF90]);
-  fetchedListStorages = [v43 fetchedListStorages];
+  fetchedListStorages = [v42 fetchedListStorages];
   v20 = [v18 initWithCapacity:{objc_msgSend(fetchedListStorages, "count")}];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
-  obj = [v43 fetchedListStorages];
-  v21 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  obj = [v42 fetchedListStorages];
+  v21 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v51;
+    v23 = *v50;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v51 != v23)
+        if (*v50 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v50 + 1) + 8 * j);
+        v25 = *(*(&v49 + 1) + 8 * j);
         accountID = [v25 accountID];
         v27 = [v10 objectForKeyedSubscript:accountID];
 
@@ -148,36 +148,36 @@
         [v20 setObject:v28 forKeyedSubscript:objectID2];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
+      v22 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
     }
 
     while (v22);
   }
 
   v30 = objc_alloc(MEMORY[0x1E695DF70]);
-  requestedObjectIDs = [v43 requestedObjectIDs];
+  requestedObjectIDs = [v42 requestedObjectIDs];
   v32 = [v30 initWithCapacity:{objc_msgSend(requestedObjectIDs, "count")}];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  obja = [v43 requestedObjectIDs];
-  v33 = [obja countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obja = [v42 requestedObjectIDs];
+  v33 = [obja countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v47;
+    v35 = *v46;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v47 != v35)
+        if (*v46 != v35)
         {
           objc_enumerationMutation(obja);
         }
 
-        v37 = [v20 objectForKeyedSubscript:*(*(&v46 + 1) + 8 * k)];
+        v37 = [v20 objectForKeyedSubscript:*(*(&v45 + 1) + 8 * k)];
         storage = [v37 storage];
         parentListID = [storage parentListID];
 
@@ -190,47 +190,45 @@
         [v32 addObject:v37];
       }
 
-      v34 = [obja countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v34 = [obja countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v34);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (id)resultsFromFetchResult:(id)result inAccount:(id)account error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   accountCopy = account;
   v8 = objc_alloc(MEMORY[0x1E695DF70]);
   fetchedListStorages = [resultCopy fetchedListStorages];
   v10 = [v8 initWithCapacity:{objc_msgSend(fetchedListStorages, "count")}];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v22 = resultCopy;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v21 = resultCopy;
   fetchedListStorages2 = [resultCopy fetchedListStorages];
-  v12 = [fetchedListStorages2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [fetchedListStorages2 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(fetchedListStorages2);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * i);
+        v16 = *(*(&v22 + 1) + 8 * i);
         v17 = [REMList alloc];
         store = [accountCopy store];
         v19 = [(REMList *)v17 initWithStore:store account:accountCopy storage:v16];
@@ -238,46 +236,44 @@
         [v10 addObject:v19];
       }
 
-      v13 = [fetchedListStorages2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [fetchedListStorages2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)resultsFromFetchResult:(id)result inParentList:(id)list error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   listCopy = list;
   v8 = objc_alloc(MEMORY[0x1E695DF70]);
   fetchedListStorages = [resultCopy fetchedListStorages];
   v10 = [v8 initWithCapacity:{objc_msgSend(fetchedListStorages, "count")}];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = [resultCopy fetchedListStorages];
-  v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         v16 = [REMList alloc];
         store = [listCopy store];
         account = [listCopy account];
@@ -287,13 +283,11 @@
         [v10 addObject:v19];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

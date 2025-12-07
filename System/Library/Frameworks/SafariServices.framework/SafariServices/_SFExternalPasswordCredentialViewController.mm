@@ -18,7 +18,8 @@
   iDCopy = iD;
   externalCredential = [credential externalCredential];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [(_SFExternalPasswordCredentialViewController *)self _setUpServiceProxyIfNeeded];
     serviceProxy = self->_serviceProxy;
@@ -35,10 +36,10 @@
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(isKindOfClass, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [_SFExternalPasswordCredentialViewController _autoFillWithExternalCredential:v12 pageID:? frameID:?];
+      [_SFExternalPasswordCredentialViewController _autoFillWithExternalCredential:v14 pageID:? frameID:?];
     }
   }
 }
@@ -50,7 +51,8 @@
   {
     externalCredential = [credential externalCredential];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [(_SFExternalPasswordCredentialViewController *)self _setUpServiceProxyIfNeeded];
       [(SFExternalPasswordCredentialServiceViewControllerProtocol *)self->_serviceProxy getCredentialForCredentialIdentity:externalCredential completion:completionCopy];
@@ -58,14 +60,14 @@
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(isKindOfClass, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [_SFExternalPasswordCredentialViewController getCredentialForExternalCredential:v8 completion:?];
+        [_SFExternalPasswordCredentialViewController getCredentialForExternalCredential:v10 completion:?];
       }
 
-      v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695A8F0] code:0 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, 0, v9);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695A8F0] code:0 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, 0, v11);
     }
   }
 }

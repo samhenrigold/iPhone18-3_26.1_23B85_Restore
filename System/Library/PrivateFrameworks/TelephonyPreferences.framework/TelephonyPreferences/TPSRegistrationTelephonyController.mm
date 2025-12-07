@@ -146,15 +146,15 @@ void __58__TPSRegistrationTelephonyController_networkSelectionInfo__block_invoke
   [(TPSTelephonyController *)self performAtomicAccessorBlock:v6];
 }
 
-uint64_t __62__TPSRegistrationTelephonyController_setNetworkSelectionInfo___block_invoke(uint64_t result)
+void *__62__TPSRegistrationTelephonyController_setNetworkSelectionInfo___block_invoke(void *result)
 {
-  v3 = *(result + 32);
-  v2 = *(result + 40);
+  v3 = result[4];
+  v2 = result[5];
   if (*(v3 + 80) != v2)
   {
     v4 = result;
     objc_storeStrong((v3 + 80), v2);
-    v5 = *(v4 + 32);
+    v5 = v4[4];
 
     return [v5 performDelegateSelector:sel_networkSelectionInfoChangedForRegistrationController_];
   }
@@ -165,12 +165,13 @@ uint64_t __62__TPSRegistrationTelephonyController_setNetworkSelectionInfo___bloc
 void __64__TPSRegistrationTelephonyController_automaticallySelectNetwork__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = TPSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = TPSLog(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __64__TPSRegistrationTelephonyController_automaticallySelectNetwork__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __64__TPSRegistrationTelephonyController_automaticallySelectNetwork__block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 }
@@ -198,12 +199,13 @@ void __64__TPSRegistrationTelephonyController_automaticallySelectNetwork__block_
 void __52__TPSRegistrationTelephonyController_selectNetwork___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = TPSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = TPSLog(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __52__TPSRegistrationTelephonyController_selectNetwork___block_invoke_cold_1(a1, v3, v4);
+      __52__TPSRegistrationTelephonyController_selectNetwork___block_invoke_cold_1(a1, v5, v6);
     }
   }
 }
@@ -221,16 +223,16 @@ void __52__TPSRegistrationTelephonyController_selectNetwork___block_invoke(uint6
 {
   telephonyClient = [(TPSTelephonyController *)self telephonyClient];
   subscriptionContext = [(TPSRegistrationTelephonyController *)self subscriptionContext];
-  v15 = 0;
-  v5 = [telephonyClient copyNetworkSelectionInfo:subscriptionContext error:&v15];
-  v6 = v15;
+  v17 = 0;
+  v5 = [telephonyClient copyNetworkSelectionInfo:subscriptionContext error:&v17];
+  v6 = v17;
 
   if (v6)
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TPSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(TPSRegistrationTelephonyController *)v6 copyNetworkSelectionInfo:v7];
+      [(TPSRegistrationTelephonyController *)v6 copyNetworkSelectionInfo:v9];
     }
   }
 
@@ -247,10 +249,10 @@ void __54__TPSRegistrationTelephonyController_fetchNetworkList__block_invoke(uin
 
     if (v4)
     {
-      v5 = TPSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = TPSLog(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __54__TPSRegistrationTelephonyController_fetchNetworkList__block_invoke_cold_1(v3, v5, v6, v7, v8, v9, v10, v11);
+        __54__TPSRegistrationTelephonyController_fetchNetworkList__block_invoke_cold_1(v3, v7, v8, v9, v10, v11, v12, v13);
       }
     }
   }
@@ -277,59 +279,56 @@ void __54__TPSRegistrationTelephonyController_fetchNetworkList__block_invoke(uin
 
 void __62__TPSRegistrationTelephonyController_performDelegateSelector___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          v9 = [*(a1 + 32) delegateToQueue];
-          v10 = [v9 objectForKey:v7];
+          v8 = [*(a1 + 32) delegateToQueue];
+          v9 = [v8 objectForKey:v7];
 
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __62__TPSRegistrationTelephonyController_performDelegateSelector___block_invoke_2;
           block[3] = &unk_2782E3AE8;
           block[4] = v7;
-          v13 = *(a1 + 32);
-          dispatch_async(v10, block);
+          v11 = *(a1 + 32);
+          dispatch_async(v9, block);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkListAvailable:(id)available list:(id)list
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   listCopy = list;
   availableCopy = available;
   subscriptionContext = [(TPSRegistrationTelephonyController *)self subscriptionContext];
@@ -337,85 +336,80 @@ void __62__TPSRegistrationTelephonyController_performDelegateSelector___block_in
 
   if (v9)
   {
-    v10 = TPSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = TPSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = listCopy;
-      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Network list is available %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = listCopy;
+      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Network list is available %@", &v14, 0xCu);
     }
 
     networks = [listCopy networks];
     [(TPSRegistrationTelephonyController *)self setNetworks:networks];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkSelected:(id)selected success:(BOOL)success mode:(id)mode
 {
   successCopy = success;
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selectedCopy = selected;
   subscriptionContext = [(TPSRegistrationTelephonyController *)self subscriptionContext];
   v9 = [subscriptionContext isEqual:selectedCopy];
 
   if (v9)
   {
-    v10 = TPSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = TPSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = @"failed";
+      v13 = @"failed";
       if (successCopy)
       {
-        v11 = @"succeeded";
+        v13 = @"succeeded";
       }
 
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = selectedCopy;
-      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Manual network selection %@ for subscription %@.", &v14, 0x16u);
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = selectedCopy;
+      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Manual network selection %@ for subscription %@.", &v15, 0x16u);
     }
 
     copyNetworkSelectionInfo = [(TPSRegistrationTelephonyController *)self copyNetworkSelectionInfo];
     [(TPSRegistrationTelephonyController *)self setNetworkSelectionInfo:copyNetworkSelectionInfo];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TPSRegistrationTelephonyController_automaticallySelectNetwork__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Automatic network selection failed with error %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Automatic network selection failed with error %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __52__TPSRegistrationTelephonyController_selectNetwork___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Manual selection of network %@ failed with error %@.", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Manual selection of network %@ failed with error %@.", &v4, 0x16u);
 }
 
 - (void)copyNetworkSelectionInfo
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Retrieving network selection information failed with error %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Retrieving network selection information failed with error %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__TPSRegistrationTelephonyController_fetchNetworkList__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Fetch network list failed with error %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_21B8E9000, a2, a3, "Fetch network list failed with error %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

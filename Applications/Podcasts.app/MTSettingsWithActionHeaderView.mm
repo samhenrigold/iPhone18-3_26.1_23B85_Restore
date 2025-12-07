@@ -61,34 +61,34 @@
 {
   [(MTSettingsWithActionHeaderView *)self _updateButtonFontAndTextAlignment];
   [(MTSettingsWithActionHeaderView *)self _contentViewLayoutRect];
-  x = v27.origin.x;
-  y = v27.origin.y;
-  width = v27.size.width;
-  height = v27.size.height;
-  v7 = CGRectGetWidth(v27);
+  x = v28.origin.x;
+  y = v28.origin.y;
+  width = v28.size.width;
+  height = v28.size.height;
+  v7 = CGRectGetWidth(v28);
   actionButton = [(MTSettingsWithActionHeaderView *)self actionButton];
   [actionButton frame];
-  [(MTSettingsWithActionHeaderView *)self setMaxTitleWidth:v7 - CGRectGetWidth(v28) + -12.0];
+  [(MTSettingsWithActionHeaderView *)self setMaxTitleWidth:v7 - CGRectGetWidth(v29) + -12.0];
 
-  v26.receiver = self;
-  v26.super_class = MTSettingsWithActionHeaderView;
-  [(MTSettingsWithActionHeaderView *)&v26 layoutSubviews];
-  LODWORD(actionButton) = [(MTSettingsWithActionHeaderView *)self mt_isRTL];
+  v27.receiver = self;
+  v27.super_class = MTSettingsWithActionHeaderView;
+  [(MTSettingsWithActionHeaderView *)&v27 layoutSubviews];
+  mt_isRTL = [(MTSettingsWithActionHeaderView *)self mt_isRTL];
   actionButton2 = [(MTSettingsWithActionHeaderView *)self actionButton];
   [actionButton2 frame];
-  v14 = sub_100146EDC(actionButton, 3, 3, v10, v11, v12, v13, x, y, width, height);
-  v16 = v15;
-  v18 = v17;
+  v15 = sub_100146EDC(mt_isRTL, 3, 3, v11, v12, v13, v14, x, y, width, height);
+  v17 = v16;
+  v19 = v18;
 
   textLabel = [(MTSettingsWithActionHeaderView *)self textLabel];
   [textLabel mt_baselineOriginY];
-  v21 = v20;
+  v22 = v21;
   actionButton3 = [(MTSettingsWithActionHeaderView *)self actionButton];
   [actionButton3 mt_firstBaselineOffsetFromTop];
-  v24 = v21 - v23;
+  v25 = v22 - v24;
 
   actionButton4 = [(MTSettingsWithActionHeaderView *)self actionButton];
-  [actionButton4 setFrame:{v14, v24, v16, v18}];
+  [actionButton4 setFrame:{v15, v25, v17, v19}];
 }
 
 - (void)_reloadActionButtonContent

@@ -14,7 +14,7 @@
 
 - (EAEmergencyAlertCenter)init
 {
-  EARegisterUserNotificationsLogging();
+  EARegisterUserNotificationsLogging(self, a2);
   v3 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.cmas"];
   v4 = [(EAEmergencyAlertCenter *)self initWithUserNotificationCenter:v3];
 
@@ -54,7 +54,7 @@
 
 void __101__EAEmergencyAlertCenter_replaceContentForRequestWithRequestID_replacementContent_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = EALogDefault;
   v5 = os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT);
@@ -66,10 +66,10 @@ void __101__EAEmergencyAlertCenter_replaceContentForRequestWithRequestID_replace
     }
 
     v6 = *(a1 + 32);
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v3;
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v3;
     v7 = "Failed to replace Notification Content For Request Identifier (%@). Error = %@";
     v8 = v4;
     v9 = 22;
@@ -83,22 +83,20 @@ void __101__EAEmergencyAlertCenter_replaceContentForRequestWithRequestID_replace
     }
 
     v10 = *(a1 + 32);
-    v13 = 138412290;
-    v14 = v10;
+    v12 = 138412290;
+    v13 = v10;
     v7 = "Replaced Content for: %@";
     v8 = v4;
     v9 = 12;
   }
 
-  _os_log_impl(&dword_249FC1000, v8, OS_LOG_TYPE_DEFAULT, v7, &v13, v9);
+  _os_log_impl(&dword_249FC1000, v8, OS_LOG_TYPE_DEFAULT, v7, &v12, v9);
 LABEL_7:
   v11 = *(a1 + 40);
   if (v11)
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getUpdatedNotificationForAppleSafetyAlert:(id)alert withMessageDictionary:(id)dictionary
@@ -161,30 +159,30 @@ LABEL_7:
 
 void __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v41;
+    v7 = *v40;
     *&v5 = 138412290;
-    v34 = v5;
-    v35 = *v41;
+    v33 = v5;
+    v34 = *v40;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v41 != v7)
+      if (*v40 != v7)
       {
         objc_enumerationMutation(v3);
       }
 
-      v9 = *(*(&v40 + 1) + 8 * v8);
+      v9 = *(*(&v39 + 1) + 8 * v8);
       v10 = [v9 request];
       v11 = [v10 identifier];
       if ([v11 rangeOfString:*(a1 + 32)] != 0x7FFFFFFFFFFFFFFFLL)
@@ -200,7 +198,7 @@ LABEL_3:
 
       v6 = v14;
       v3 = v12;
-      v7 = v35;
+      v7 = v34;
 
       if (v16 != 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -210,13 +208,13 @@ LABEL_3:
       v17 = EALogDefault;
       if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEBUG))
       {
-        __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_cold_3(v44, v17, v9, &v45);
+        __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_cold_3(v43, v17, v9, &v44);
       }
 
 LABEL_16:
       if (v6 == ++v8)
       {
-        v6 = [v3 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v6 = [v3 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -233,8 +231,8 @@ LABEL_11:
       v19 = v18;
       v20 = [v9 request];
       v21 = [v20 identifier];
-      *buf = v34;
-      v47 = v21;
+      *buf = v33;
+      v46 = v21;
       _os_log_impl(&dword_249FC1000, v19, OS_LOG_TYPE_DEFAULT, "Apple safety alert matches previous alert: %@", buf, 0xCu);
     }
 
@@ -253,8 +251,8 @@ LABEL_11:
         {
           v29 = v27;
           v30 = [v28 userInfo];
-          *buf = v34;
-          v47 = v30;
+          *buf = v33;
+          v46 = v30;
           _os_log_impl(&dword_249FC1000, v29, OS_LOG_TYPE_DEFAULT, "UserInfo dict: %@", buf, 0xCu);
         }
 
@@ -265,7 +263,7 @@ LABEL_11:
         block[3] = &unk_278FC11F8;
         block[4] = *(a1 + 48);
         block[5] = v9;
-        v37 = v28;
+        v36 = v28;
         v32 = v28;
         dispatch_after(v31, MEMORY[0x277D85CD0], block);
       }
@@ -281,7 +279,7 @@ LABEL_11:
     v25 = EALogDefault;
     if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_ERROR))
     {
-      __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_cold_2(&v38, v39, v25);
+      __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_cold_2(&v37, v38, v25);
     }
 
     goto LABEL_16;
@@ -295,8 +293,6 @@ LABEL_18:
   }
 
 LABEL_27:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_2(uint64_t a1)
@@ -360,7 +356,7 @@ void __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_2
 
 - (void)handleRawCellBroadcastMessage:(id)message withCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   v8 = EALogDefault;
@@ -424,21 +420,19 @@ LABEL_13:
       v23 = v22;
       identifier = [v21 identifier];
       *buf = 138543362;
-      v30 = identifier;
+      v29 = identifier;
       _os_log_impl(&dword_249FC1000, v23, OS_LOG_TYPE_DEFAULT, "Adding notification request for emergency alert %{public}@", buf, 0xCu);
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __78__EAEmergencyAlertCenter_handleRawCellBroadcastMessage_withCompletionHandler___block_invoke;
-    v27[3] = &unk_278FC1248;
-    v28 = handlerCopy;
-    [(EAEmergencyAlertCenter *)self addNotificationRequest:v21 withCompletionHandler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __78__EAEmergencyAlertCenter_handleRawCellBroadcastMessage_withCompletionHandler___block_invoke;
+    v26[3] = &unk_278FC1248;
+    v27 = handlerCopy;
+    [(EAEmergencyAlertCenter *)self addNotificationRequest:v21 withCompletionHandler:v26];
   }
 
 LABEL_14:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__EAEmergencyAlertCenter_handleRawCellBroadcastMessage_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -531,11 +525,10 @@ void __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_c
 
 void __56__EAEmergencyAlertCenter_handleAppleSafetyAlertMessage___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_249FC1000, a2, OS_LOG_TYPE_ERROR, "Error while updating the notification content: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_249FC1000, a2, OS_LOG_TYPE_ERROR, "Error while updating the notification content: %@", &v2, 0xCu);
 }
 
 @end

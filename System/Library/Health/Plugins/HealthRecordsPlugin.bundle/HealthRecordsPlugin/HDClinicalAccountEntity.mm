@@ -2894,7 +2894,7 @@ LABEL_58:
     v30 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      sub_A2190(v30);
+      sub_A2190(v30, v26);
     }
   }
 
@@ -2916,7 +2916,7 @@ LABEL_17:
     v8 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      sub_A2224(v8);
+      sub_A2224(v8, eventCopy);
     }
   }
 }

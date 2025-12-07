@@ -1,8 +1,8 @@
 @interface NSPersistentStoreCache
 - (NSPersistentStoreCache)initWithValueCallbacks:(void *)callbacks preserveToManyRelationships:(BOOL)relationships;
+- (char)ancillaryOrderKeysForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:;
+- (char)toManyForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:;
 - (double)rowForObjectID:(double)d afterTimestamp:;
-- (id)ancillaryOrderKeysForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:;
-- (id)toManyForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:;
 - (uint64_t)_createExternalDataDictWithValueCallbacks:(uint64_t)result;
 - (uint64_t)toManyInformationForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:;
 - (void)_registerRow:(void *)key forObjectID:(char)d options:;
@@ -228,9 +228,9 @@
 
   os_unfair_lock_lock_with_options();
   Value = CFDictionaryGetValue(*(self + 8), a2);
-  if (Value && (v9 = Value, -[NSPersistentCacheRow timestampForProperty:](Value, d) > property) && v9[3] && (v10 = *(v9[3] + 24 * -[NSPersistentCacheRow toManyOffsetForProperty:](v9, d) + 8), v11 = *([objc_msgSend(d "entity")] + 144), v12 = objc_msgSend(d, "_entitysReferenceID"), v10))
+  if (Value && (v9 = Value, -[NSPersistentCacheRow timestampForProperty:](Value, d) > property) && *(v9 + 3) && (v10 = *(*(v9 + 3) + 24 * -[NSPersistentCacheRow toManyOffsetForProperty:](v9, d) + 8), v11 = *([objc_msgSend(d "entity")] + 144), v12 = objc_msgSend(d, "_entitysReferenceID"), v10))
   {
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v10, *(v9[3] + 24 * (v12 - v11) + 16), 0}];
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v10, *(*(v9 + 3) + 24 * (v12 - v11) + 16), 0}];
   }
 
   else
@@ -242,7 +242,7 @@
   return v13;
 }
 
-- (id)toManyForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:
+- (char)toManyForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:
 {
   if (result)
   {
@@ -251,10 +251,10 @@
     Value = CFDictionaryGetValue(*(v7 + 1), a2);
     if (Value && (v9 = Value, [(NSPersistentCacheRow *)Value timestampForProperty:d]> property))
     {
-      v10 = v9[3];
+      v10 = *(v9 + 3);
       if (v10)
       {
-        v10 = *(v9[3] + 24 * [(NSPersistentCacheRow *)v9 toManyOffsetForProperty:d]+ 8);
+        v10 = *(*(v9 + 3) + 24 * [(NSPersistentCacheRow *)v9 toManyOffsetForProperty:d]+ 8);
       }
 
       v11 = v10;
@@ -273,7 +273,7 @@
   return result;
 }
 
-- (id)ancillaryOrderKeysForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:
+- (char)ancillaryOrderKeysForSourceObjectID:(void *)d forProperty:(double)property afterTimestamp:
 {
   if (result)
   {

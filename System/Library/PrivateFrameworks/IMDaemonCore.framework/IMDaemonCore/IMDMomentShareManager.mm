@@ -1,5 +1,6 @@
 @interface IMDMomentShareManager
 + (id)_copiedFileURLFromAssetExportFileURLs:(id)ls transferGUID:(id)d error:(id *)error;
++ (id)_copyItemAtURL:(id)l toTemporaryDirectoryWithName:(id)name isDirectory:(BOOL)directory error:(id *)error;
 + (id)_fetchResultForCuratedOrFirstForMomentShare:(id)share outFetchType:(int64_t *)type;
 + (id)_fileTransferForAssetUUID:(id)d forMessage:(id)message momentShare:(id)share atIndex:(unint64_t)index ofTotal:(unint64_t)total;
 + (id)_generateTransfersForAssetUUIDs:(id)ds forMessage:(id)message inChat:(id)chat momentShare:(id)share;
@@ -80,7 +81,7 @@
 
 - (void)_updateContext:(id)context withChange:(id)change
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   changeCopy = change;
   momentShare = [contextCopy momentShare];
@@ -97,9 +98,9 @@
         message = [contextCopy message];
         guid = [message guid];
         *buf = 138412546;
-        v25 = uuid;
-        v26 = 2112;
-        v27 = guid;
+        v24 = uuid;
+        v25 = 2112;
+        v26 = guid;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating moment share %@ in response to photo library change for message %@", buf, 0x16u);
       }
     }
@@ -122,11 +123,11 @@
         guid2 = [message2 guid];
         v20 = [fetchResultAfterChanges count];
         *buf = 138412802;
-        v25 = guid2;
-        v26 = 2112;
-        v27 = v16;
-        v28 = 2048;
-        v29 = v20;
+        v24 = guid2;
+        v25 = 2112;
+        v26 = v16;
+        v27 = 2048;
+        v28 = v20;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Updating moment share fetch for message %@ with change %@. Count is now %lu", buf, 0x20u);
       }
     }
@@ -141,8 +142,6 @@
 LABEL_14:
     [(IMDMomentShareManager *)self _transitionToGenerateTransfersStateForContextIfNecessary:contextCopy];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToFetchingMomentShareForContext:(id)context
@@ -204,14 +203,14 @@ LABEL_14:
 
 - (void)_transitionToWaitingForAssetsForContext:(id)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([contextCopy state] == 2)
   {
     momentShare = [contextCopy momentShare];
-    v12 = 0;
-    v6 = [objc_opt_class() _fetchResultForCuratedOrFirstForMomentShare:momentShare outFetchType:&v12];
-    [contextCopy setFetchType:v12];
+    v11 = 0;
+    v6 = [objc_opt_class() _fetchResultForCuratedOrFirstForMomentShare:momentShare outFetchType:&v11];
+    [contextCopy setFetchType:v11];
     [contextCopy setAssetsFetch:v6];
     [contextCopy setState:3];
     if (IMOSLoggingEnabled())
@@ -223,11 +222,11 @@ LABEL_14:
         guid = [message guid];
         momentShare2 = [contextCopy momentShare];
         *buf = 138412802;
-        v14 = v6;
-        v15 = 2112;
-        v16 = guid;
-        v17 = 2112;
-        v18 = momentShare2;
+        v13 = v6;
+        v14 = 2112;
+        v15 = guid;
+        v16 = 2112;
+        v17 = momentShare2;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Starting to monitor fetch result: %@ for message: %@ moment share: %@", buf, 0x20u);
       }
     }
@@ -243,13 +242,11 @@ LABEL_14:
       sub_22B7D11BC(contextCopy, momentShare);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToGenerateTransfersStateForContextIfNecessary:(id)necessary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   if ([necessaryCopy state] == 3)
   {
@@ -266,11 +263,11 @@ LABEL_14:
         {
           momentShare = [necessaryCopy momentShare];
           uuid = [momentShare uuid];
-          v12 = 138412546;
-          v13 = uuid;
-          v14 = 2048;
-          v15 = v5;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Moment share %@ is done fetching %lu assets. Generating transfers", &v12, 0x16u);
+          v11 = 138412546;
+          v12 = uuid;
+          v13 = 2048;
+          v14 = v5;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Moment share %@ is done fetching %lu assets. Generating transfers", &v11, 0x16u);
         }
       }
 
@@ -278,13 +275,11 @@ LABEL_14:
       [(IMDMomentShareManager *)self _generateTransfersForContext:necessaryCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToCompletedStateForContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([contextCopy state] == 4)
   {
@@ -297,11 +292,11 @@ LABEL_14:
         guid = [message guid];
         momentShare = [contextCopy momentShare];
         uuid = [momentShare uuid];
-        v12 = 138412546;
-        v13 = guid;
-        v14 = 2112;
-        v15 = uuid;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Moment share ingestion complete for message %@. moment share UUID %@", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = guid;
+        v13 = 2112;
+        v14 = uuid;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Moment share ingestion complete for message %@. moment share UUID %@", &v11, 0x16u);
       }
     }
 
@@ -317,44 +312,42 @@ LABEL_14:
       sub_22B7D127C(contextCopy);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateTransfersForContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   assetsFetch = [contextCopy assetsFetch];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetsFetch, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = assetsFetch;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        uuid = [*(*(&v20 + 1) + 8 * v11) uuid];
+        uuid = [*(*(&v19 + 1) + 8 * v11) uuid];
         [v6 addObject:uuid];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -369,13 +362,11 @@ LABEL_14:
   v18 = [(IMDMomentShareManager *)self _assetUUIDToUnfinishedTransferMapFromTransfers:v17];
   [contextCopy addTransfers:v18];
   [(IMDMomentShareManager *)self _startAssetExportForContext:contextCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchMomentShareFromShareURL:(id)l forMessage:(id)message completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   messageCopy = message;
   handlerCopy = handler;
@@ -402,9 +393,9 @@ LABEL_14:
       *&buf[12] = 2112;
       *&buf[14] = guid;
       *&buf[22] = 2112;
-      v35 = v14;
-      v36 = 2048;
-      v37 = getCMMState;
+      v34 = v14;
+      v35 = 2048;
+      v36 = getCMMState;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Fetching moment share from %@ for message %@ CMM state %@ (%lu)", buf, 0x2Au);
     }
   }
@@ -412,18 +403,18 @@ LABEL_14:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v35) = 0;
+  LOBYTE(v34) = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_22B540728;
   aBlock[3] = &unk_278703F80;
-  v33 = buf;
+  v32 = buf;
   v15 = messageCopy;
-  v30 = v15;
+  v29 = v15;
   v16 = lCopy;
-  v31 = v16;
+  v30 = v16;
   v17 = handlerCopy;
-  v32 = v17;
+  v31 = v17;
   v18 = _Block_copy(aBlock);
   mEMORY[0x277CD9948] = [MEMORY[0x277CD9948] sharedMomentSharePhotoLibrary];
   librarySpecificFetchOptions = [mEMORY[0x277CD9948] librarySpecificFetchOptions];
@@ -434,15 +425,14 @@ LABEL_14:
   block[1] = 3221225472;
   block[2] = sub_22B54096C;
   block[3] = &unk_278702FC8;
-  v27 = v15;
-  v28 = buf;
-  v26 = v16;
+  v26 = v15;
+  v27 = buf;
+  v25 = v16;
   v22 = v15;
   v23 = v16;
   dispatch_after(v21, MEMORY[0x277D85CD0], block);
 
   _Block_object_dispose(buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_acceptMomentShare:(id)share completionHandler:(id)handler
@@ -460,33 +450,33 @@ LABEL_14:
 - (id)_contextForMomentShareURL:(id)l forMessage:(id)message inChat:(id)chat createIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   lCopy = l;
   messageCopy = message;
   chatCopy = chat;
   shareURLsToContexts = [(IMDMomentShareManager *)self shareURLsToContexts];
   v11 = [shareURLsToContexts objectForKey:lCopy];
   guid = [messageCopy guid];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
 LABEL_3:
     v17 = 0;
     while (1)
     {
-      if (*v31 != v16)
+      if (*v30 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v30 + 1) + 8 * v17);
+      v18 = *(*(&v29 + 1) + 8 * v17);
       message = [v18 message];
       guid2 = [message guid];
 
@@ -497,7 +487,7 @@ LABEL_3:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v15)
         {
           goto LABEL_3;
@@ -551,8 +541,6 @@ LABEL_9:
 
 LABEL_17:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
@@ -591,7 +579,7 @@ LABEL_17:
 - (void)registerAndAcceptMomentShareForMessage:(id)message inChat:(id)chat resetAssetTransfers:(BOOL)transfers
 {
   transfersCopy = transfers;
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   if (IMOSLoggingEnabled())
@@ -604,7 +592,7 @@ LABEL_17:
       payloadData = [messageCopy payloadData];
       v14 = @"YES";
       *buf = 138413058;
-      v61 = guid;
+      v60 = guid;
       if (payloadData)
       {
         v15 = @"YES";
@@ -620,12 +608,12 @@ LABEL_17:
         v14 = @"NO";
       }
 
-      v62 = 2112;
-      v63 = balloonBundleID;
-      v64 = 2112;
-      v65 = v15;
-      v66 = 2112;
-      v67 = v14;
+      v61 = 2112;
+      v62 = balloonBundleID;
+      v63 = 2112;
+      v64 = v15;
+      v65 = 2112;
+      v66 = v14;
       _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Register and accept ShareURL for message: %@ with bundleID: %@ hasPayload: %@ reset asset transfers: %@", buf, 0x2Au);
     }
   }
@@ -657,13 +645,13 @@ LABEL_17:
         }
 
         *buf = 138413058;
-        v61 = v20;
-        v62 = 2112;
-        v63 = guid2;
-        v64 = 2112;
-        v65 = v25;
-        v66 = 2048;
-        v67 = getCMMState;
+        v60 = v20;
+        v61 = 2112;
+        v62 = guid2;
+        v63 = 2112;
+        v64 = v25;
+        v65 = 2048;
+        v66 = getCMMState;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Processing CMM shareURL %@ for message %@ with state %@ (%lu)", buf, 0x2Au);
       }
     }
@@ -680,9 +668,9 @@ LABEL_17:
       {
         guid3 = [messageCopy guid];
         *buf = 138412546;
-        v61 = v20;
-        v62 = 2112;
-        v63 = guid3;
+        v60 = v20;
+        v61 = 2112;
+        v62 = guid3;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Moment shareURL %@ for message %@ is already done", buf, 0x16u);
       }
 
@@ -713,9 +701,9 @@ LABEL_17:
             {
               guid4 = [messageCopy guid];
               *buf = 138412546;
-              v61 = guid4;
-              v62 = 2112;
-              v63 = v20;
+              v60 = guid4;
+              v61 = 2112;
+              v62 = v20;
               _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "Clearing and restarting transfers for in-progress message %@, moment share %@", buf, 0x16u);
             }
           }
@@ -727,8 +715,8 @@ LABEL_17:
 
           [messageCopy setCMMAssetOffset:v45];
           v46 = +[IMDMessageStore sharedInstance];
-          LOWORD(v59) = 1;
-          v47 = [v46 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v59 reindexMessage:?];
+          LOWORD(v58) = 1;
+          v47 = [v46 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v58 reindexMessage:?];
 
           [(IMDMomentShareManager *)self _generateTransfersForContext:v30];
         }
@@ -742,9 +730,9 @@ LABEL_17:
             {
               guid5 = [messageCopy guid];
               *buf = 138412546;
-              v61 = guid5;
-              v62 = 2112;
-              v63 = v20;
+              v60 = guid5;
+              v61 = 2112;
+              v62 = v20;
               _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Message %@. No need to reset transfers for in-progress ingestion of moment share %@", buf, 0x16u);
             }
           }
@@ -754,8 +742,8 @@ LABEL_17:
 
           [messageCopy setCMMAssetOffset:v34];
           v35 = +[IMDMessageStore sharedInstance];
-          LOWORD(v59) = 1;
-          v36 = [v35 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v59 reindexMessage:?];
+          LOWORD(v58) = 1;
+          v36 = [v35 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v58 reindexMessage:?];
         }
 
 LABEL_63:
@@ -781,9 +769,9 @@ LABEL_63:
           }
 
           *buf = 138412546;
-          v61 = guid6;
-          v62 = 2112;
-          v63 = v40;
+          v60 = guid6;
+          v61 = 2112;
+          v62 = v40;
           _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Resetting transfers on message %@ in state %@ and restarting ingestion", buf, 0x16u);
         }
       }
@@ -803,9 +791,9 @@ LABEL_63:
         {
           guid7 = [messageCopy guid];
           *buf = 138412546;
-          v61 = v20;
-          v62 = 2112;
-          v63 = guid7;
+          v60 = v20;
+          v61 = 2112;
+          v62 = guid7;
           _os_log_impl(&dword_22B4CC000, v52, OS_LOG_TYPE_INFO, "Registering moment shareURL %@ for message %@ and beginning ingestion", buf, 0x16u);
         }
       }
@@ -815,8 +803,8 @@ LABEL_63:
 
       [messageCopy setCMMStateToRegisteredAndAssetOffsetTo:v55];
       v56 = +[IMDMessageStore sharedInstance];
-      LOWORD(v59) = 1;
-      v57 = [v56 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v59 reindexMessage:?];
+      LOWORD(v58) = 1;
+      v57 = [v56 storeMessage:messageCopy forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v58 reindexMessage:?];
 
       [(IMDMomentShareManager *)self _transitionToFetchingMomentShareForContext:v30];
     }
@@ -828,9 +816,9 @@ LABEL_63:
       {
         guid8 = [messageCopy guid];
         *buf = 138412546;
-        v61 = v20;
-        v62 = 2112;
-        v63 = guid8;
+        v60 = v20;
+        v61 = 2112;
+        v62 = guid8;
         _os_log_impl(&dword_22B4CC000, v50, OS_LOG_TYPE_INFO, "Ingestion of moment shareURL %@ for message %@ is already underway", buf, 0x16u);
       }
     }
@@ -845,7 +833,7 @@ LABEL_63:
     {
       guid9 = [messageCopy guid];
       *buf = 138412290;
-      v61 = guid9;
+      v60 = guid9;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "No share URL found for %@", buf, 0xCu);
     }
 
@@ -853,13 +841,11 @@ LABEL_18:
   }
 
 LABEL_64:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_acceptMomentShareIfNecessaryForContext:(id)context isRetry:(BOOL)retry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   momentShare = [contextCopy momentShare];
   message = [contextCopy message];
@@ -872,24 +858,24 @@ LABEL_64:
       {
         guid = [message guid];
         *buf = 138412546;
-        v21 = momentShare;
-        v22 = 2112;
-        v23 = guid;
+        v20 = momentShare;
+        v21 = 2112;
+        v22 = guid;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Accepting share %@ for message %@", buf, 0x16u);
       }
     }
 
     v11 = objc_opt_class();
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B541C28;
-    v14[3] = &unk_278703FD0;
-    v15 = momentShare;
-    v16 = message;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B541C28;
+    v13[3] = &unk_278703FD0;
+    v14 = momentShare;
+    v15 = message;
     selfCopy = self;
-    v18 = contextCopy;
+    v17 = contextCopy;
     retryCopy = retry;
-    [v11 _acceptMomentShare:v15 completionHandler:v14];
+    [v11 _acceptMomentShare:v14 completionHandler:v13];
   }
 
   else if ([momentShare status] == 1 || objc_msgSend(momentShare, "status") == 3)
@@ -907,13 +893,11 @@ LABEL_64:
 
     [(IMDMomentShareManager *)self _handleIngestionFailureForContext:contextCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAssetsForAcceptedMomentShareWithContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   momentShare = [contextCopy momentShare];
   message = [contextCopy message];
@@ -925,56 +909,55 @@ LABEL_64:
       uuid = [momentShare uuid];
       guid = [message guid];
       *buf = 138412546;
-      v15 = uuid;
-      v16 = 2112;
-      v17 = guid;
+      v14 = uuid;
+      v15 = 2112;
+      v16 = guid;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Transitioning to accepted state for moment share %@ message %@", buf, 0x16u);
     }
   }
 
   [message setCMMState:2];
   v10 = +[IMDMessageStore sharedInstance];
-  LOWORD(v13) = 1;
-  v11 = [v10 storeMessage:message forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v13 reindexMessage:?];
+  LOWORD(v12) = 1;
+  v11 = [v10 storeMessage:message forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v12 reindexMessage:?];
 
   [(IMDMomentShareManager *)self _transitionToWaitingForAssetsForContext:contextCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_loadCMMTransfersForMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   getCMMAssetOffset = [messageCopy getCMMAssetOffset];
   fileTransferGUIDs = [messageCopy fileTransferGUIDs];
   v6 = [fileTransferGUIDs subarrayWithRange:{getCMMAssetOffset, objc_msgSend(fileTransferGUIDs, "count") - getCMMAssetOffset}];
 
   v7 = +[IMDAttachmentStore sharedInstance];
-  v21 = v6;
+  v20 = v6;
   v8 = [v7 attachmentsWithGUIDs:v6];
 
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     v14 = *MEMORY[0x277D19E20];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         attributionInfo = [v16 attributionInfo];
         v18 = [attributionInfo objectForKey:v14];
 
@@ -984,13 +967,11 @@ LABEL_64:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1006,31 +987,31 @@ LABEL_64:
 
 - (id)_assetUUIDToUnfinishedTransferMapFromTransfers:(id)transfers
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   transfersCopy = transfers;
   v4 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = transfersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v6)
   {
-    v8 = *v20;
+    v8 = *v19;
     v9 = *MEMORY[0x277D19E20];
     *&v7 = 138412546;
-    v18 = v7;
+    v17 = v7;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         if ([v11 transferState] <= 4)
         {
           attributionInfo = [v11 attributionInfo];
@@ -1047,10 +1028,10 @@ LABEL_64:
                 v15 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
                 {
-                  *buf = v18;
-                  v24 = v14;
-                  v25 = 2112;
-                  v26 = v11;
+                  *buf = v17;
+                  v23 = v14;
+                  v24 = 2112;
+                  v25 = v11;
                   _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "TransferMap entry %@ to %@", buf, 0x16u);
                 }
               }
@@ -1061,13 +1042,11 @@ LABEL_64:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1094,32 +1073,32 @@ LABEL_64:
 
 - (void)_startAssetExportForContext:(id)context
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   assetsFetch = [contextCopy assetsFetch];
   message = [contextCopy message];
   assetUUIDsToFileTransfers = [contextCopy assetUUIDsToFileTransfers];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = assetsFetch;
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v6)
   {
-    v8 = *v30;
+    v8 = *v29;
     *&v7 = 138412802;
-    v21 = v7;
+    v20 = v7;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         uuid = [v10 uuid];
         v12 = [assetUUIDsToFileTransfers objectForKeyedSubscript:uuid];
         v13 = IMOSLoggingEnabled();
@@ -1132,23 +1111,23 @@ LABEL_64:
             {
               guid = [message guid];
               *buf = 138412546;
-              v34 = guid;
-              v35 = 2112;
-              v36 = uuid;
+              v33 = guid;
+              v34 = 2112;
+              v35 = uuid;
               _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Message %@: Begin request for resource file URLs for asset %@", buf, 0x16u);
             }
           }
 
           v16 = objc_opt_class();
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = sub_22B5429B4;
-          v25[3] = &unk_278704020;
-          v25[4] = self;
-          v26 = contextCopy;
-          v27 = v10;
-          v28 = v12;
-          [v16 _requestResourceFileURLsForAsset:v10 fileTransfer:v28 completionHandler:v25];
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = sub_22B5429B4;
+          v24[3] = &unk_278704020;
+          v24[4] = self;
+          v25 = contextCopy;
+          v26 = v10;
+          v27 = v12;
+          [v16 _requestResourceFileURLsForAsset:v10 fileTransfer:v27 completionHandler:v24];
         }
 
         else
@@ -1160,12 +1139,12 @@ LABEL_64:
             {
               guid2 = [message guid];
               v19 = [assetUUIDsToFileTransfers count];
-              *buf = v21;
-              v34 = guid2;
-              v35 = 2112;
-              v36 = uuid;
-              v37 = 2048;
-              v38 = v19;
+              *buf = v20;
+              v33 = guid2;
+              v34 = 2112;
+              v35 = uuid;
+              v36 = 2048;
+              v37 = v19;
               _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Message %@: Not requesting asset for %@, not in transfer map. %lu left for processing", buf, 0x20u);
             }
           }
@@ -1174,18 +1153,16 @@ LABEL_64:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResourceRequestForContext:(id)context asset:(id)asset transfer:(id)transfer didCompleteWithFileURL:(id)l error:(id)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   assetCopy = asset;
   transferCopy = transfer;
@@ -1206,9 +1183,9 @@ LABEL_64:
         {
           guid = [message guid];
           *buf = 138412546;
-          v41 = guid;
-          v42 = 2112;
-          v43 = uuid;
+          v40 = guid;
+          v41 = 2112;
+          v42 = uuid;
           _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Message %@: Completed request for resource file URLs for asset: %@", buf, 0x16u);
         }
       }
@@ -1224,27 +1201,27 @@ LABEL_64:
           {
             guid3 = [v18 guid];
             *buf = 138412546;
-            v41 = guid3;
-            v42 = 2112;
-            v43 = uuid;
+            v40 = guid3;
+            v41 = 2112;
+            v42 = uuid;
             _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Setting syndication identifier to %@ on asset with UUID %@", buf, 0x16u);
           }
         }
 
         mEMORY[0x277CD9948] = [MEMORY[0x277CD9948] sharedMomentSharePhotoLibrary];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = sub_22B542F10;
-        v37[3] = &unk_278702FA0;
-        v38 = assetCopy;
-        v39 = v18;
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = sub_22B542F84;
-        v34[3] = &unk_2787038A8;
-        v35 = v39;
-        v36 = uuid;
-        [mEMORY[0x277CD9948] performChanges:v37 completionHandler:v34];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = sub_22B542F10;
+        v36[3] = &unk_278702FA0;
+        v37 = assetCopy;
+        v38 = v18;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = sub_22B542F84;
+        v33[3] = &unk_2787038A8;
+        v34 = v38;
+        v35 = uuid;
+        [mEMORY[0x277CD9948] performChanges:v36 completionHandler:v33];
       }
 
       else if (v23)
@@ -1253,7 +1230,7 @@ LABEL_64:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v41 = uuid;
+          v40 = uuid;
           _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "IMDMomentShareManager - Not setting syndication identifier on asset with UUID %@ due to missing syndication identifier", buf, 0xCu);
         }
       }
@@ -1269,11 +1246,11 @@ LABEL_64:
       {
         guid4 = [message guid];
         *buf = 138412802;
-        v41 = guid4;
-        v42 = 2112;
-        v43 = uuid;
-        v44 = 2112;
-        v45 = errorCopy;
+        v40 = guid4;
+        v41 = 2112;
+        v42 = uuid;
+        v43 = 2112;
+        v44 = errorCopy;
         _os_log_error_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_ERROR, "Message %@: Failed request for resource file URLs for asset: %@, error: %@", buf, 0x20u);
       }
 
@@ -1288,21 +1265,108 @@ LABEL_64:
     {
       guid5 = [message guid];
       *buf = 138412802;
-      v41 = guid5;
-      v42 = 2112;
-      v43 = v18;
-      v44 = 2112;
-      v45 = uuid;
+      v40 = guid5;
+      v41 = 2112;
+      v42 = v18;
+      v43 = 2112;
+      v44 = uuid;
       _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Message %@: Original transfer %@ not found for asset %@", buf, 0x20u);
     }
   }
+}
 
-  v29 = *MEMORY[0x277D85DE8];
++ (id)_copyItemAtURL:(id)l toTemporaryDirectoryWithName:(id)name isDirectory:(BOOL)directory error:(id *)error
+{
+  directoryCopy = directory;
+  lCopy = l;
+  nameCopy = name;
+  v11 = IMSafeTemporaryDirectory();
+  v12 = [v11 URLByAppendingPathComponent:nameCopy];
+
+  path = [v12 path];
+
+  lastPathComponent = [lCopy lastPathComponent];
+  v15 = [path stringByAppendingPathComponent:lastPathComponent];
+
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v32 = 0;
+  v17 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v32];
+  v18 = v32;
+  v19 = v18;
+  if ((v17 & 1) == 0)
+  {
+    if (error)
+    {
+      v25 = v18;
+      *error = v19;
+    }
+
+    v22 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      sub_22B7D18FC();
+    }
+
+    goto LABEL_15;
+  }
+
+  v31 = v18;
+  v20 = [defaultManager removeItemAtPath:v15 error:&v31];
+  v21 = v31;
+
+  if ((v20 & 1) != 0 || [v21 code] == 4)
+  {
+    v22 = [MEMORY[0x277CBEBC0] fileURLWithPath:v15 isDirectory:directoryCopy];
+    v30 = v21;
+    v23 = [defaultManager copyItemAtURL:lCopy toURL:v22 error:&v30];
+    v19 = v30;
+
+    if (v23)
+    {
+      v22 = v22;
+      v24 = v22;
+      goto LABEL_16;
+    }
+
+    if (error)
+    {
+      v26 = v19;
+      *error = v19;
+    }
+
+    v27 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_22B7D19CC();
+    }
+
+LABEL_15:
+    v24 = 0;
+    goto LABEL_16;
+  }
+
+  if (error)
+  {
+    v29 = v21;
+    *error = v21;
+  }
+
+  v22 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    sub_22B7D1964();
+  }
+
+  v24 = 0;
+  v19 = v21;
+LABEL_16:
+
+  return v24;
 }
 
 + (id)_copiedFileURLFromAssetExportFileURLs:(id)ls transferGUID:(id)d error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   dCopy = d;
   v10 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A50]];
@@ -1324,9 +1388,9 @@ LABEL_64:
     errorCopy3 = error;
     dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No photo or video file URL in file URLs: %@, for transfer: %@", lsCopy, dCopy];
     v21 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA068];
-    v36[0] = dCopy;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA068];
+    v35[0] = dCopy;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v19 = [v21 errorWithDomain:@"IMDMomentShareManagerErrorDomain" code:-1 userInfo:v22];
 
     v23 = IMLogHandleForCategory();
@@ -1339,9 +1403,9 @@ LABEL_64:
     goto LABEL_24;
   }
 
-  v34 = 0;
-  v15 = [self _copyItemAtURL:v14 toTemporaryDirectoryWithName:dCopy isDirectory:0 error:&v34];
-  v16 = v34;
+  v33 = 0;
+  v15 = [self _copyItemAtURL:v14 toTemporaryDirectoryWithName:dCopy isDirectory:0 error:&v33];
+  v16 = v33;
   v17 = v16;
   if (v15)
   {
@@ -1374,9 +1438,9 @@ LABEL_64:
 
   if (!v25 && v15 != 0)
   {
-    v33 = 0;
-    v23 = [self _copyItemAtURL:v12 toTemporaryDirectoryWithName:dCopy isDirectory:0 error:&v33];
-    dCopy = v33;
+    v32 = 0;
+    v23 = [self _copyItemAtURL:v12 toTemporaryDirectoryWithName:dCopy isDirectory:0 error:&v32];
+    dCopy = v32;
     if (v23)
     {
 LABEL_25:
@@ -1407,61 +1471,59 @@ LABEL_26:
     *error = v19;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (void)_requestResourceFileURLsForAsset:(id)asset fileTransfer:(id)transfer completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   transferCopy = transfer;
   handlerCopy = handler;
-  v43 = 0;
-  v11 = [MEMORY[0x277CD97D8] exportRequestForAsset:assetCopy error:&v43];
-  v12 = v43;
+  v42 = 0;
+  v11 = [MEMORY[0x277CD97D8] exportRequestForAsset:assetCopy error:&v42];
+  v12 = v42;
   if (v11)
   {
     v13 = objc_alloc_init(MEMORY[0x277CD9988]);
     [v13 setDontAllowRAW:1];
-    v42 = 0;
-    v14 = [MEMORY[0x277CD9980] fetchResourcesToShareForAsset:assetCopy requestOptions:v13 error:&v42];
-    v29 = v42;
-    v30 = v14;
+    v41 = 0;
+    v14 = [MEMORY[0x277CD9980] fetchResourcesToShareForAsset:assetCopy requestOptions:v13 error:&v41];
+    v28 = v41;
+    v29 = v14;
     if (v14)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v16)
       {
         v17 = v16;
         selfCopy = self;
-        v28 = v12;
+        v27 = v12;
         v18 = 0;
-        v19 = *v39;
+        v19 = *v38;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v39 != v19)
+            if (*v38 != v19)
             {
               objc_enumerationMutation(v15);
             }
 
-            v18 += [*(*(&v38 + 1) + 8 * i) fileSize];
+            v18 += [*(*(&v37 + 1) + 8 * i) fileSize];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v37 objects:v43 count:16];
         }
 
         while (v17);
         self = selfCopy;
-        v12 = v28;
+        v12 = v27;
         goto LABEL_17;
       }
     }
@@ -1487,18 +1549,18 @@ LABEL_17:
     [v24 setDontAllowRAW:1];
     [v24 setDisableMetadataCorrections:1];
     [v24 setResultHandlerQueue:MEMORY[0x277D85CD0]];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_22B5438FC;
-    v31[3] = &unk_278704048;
-    v32 = guid;
-    v36 = v18;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_22B5438FC;
+    v30[3] = &unk_278704048;
+    v31 = guid;
+    v35 = v18;
     selfCopy2 = self;
-    v33 = transferCopy;
-    v35 = handlerCopy;
-    v34 = assetCopy;
+    v32 = transferCopy;
+    v34 = handlerCopy;
+    v33 = assetCopy;
     v25 = guid;
-    [v11 exportWithOptions:v24 completionHandler:v31];
+    [v11 exportWithOptions:v24 completionHandler:v30];
 
     goto LABEL_18;
   }
@@ -1511,13 +1573,11 @@ LABEL_17:
 
   (*(handlerCopy + 2))(handlerCopy, 0, v12);
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_persistAttachmentAtFileURL:(id)l forFileTransfer:(id)transfer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lCopy = l;
   transferCopy = transfer;
   guid = [transferCopy guid];
@@ -1526,11 +1586,11 @@ LABEL_18:
     v8 = OSLogHandleForIMEventCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v18 = 138412546;
-      v19 = lCopy;
-      v20 = 2112;
-      v21 = guid;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Persisting attachment at fileURL: %@ for transfer: %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = lCopy;
+      v19 = 2112;
+      v20 = guid;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Persisting attachment at fileURL: %@ for transfer: %@", &v17, 0x16u);
     }
   }
 
@@ -1553,13 +1613,11 @@ LABEL_18:
 
   v16 = +[IMDFileTransferCenter sharedInstance];
   [v16 endTransfer:guid];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePendingTransferMapForContext:(id)context completedTransfer:(id)transfer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   transferCopy = transfer;
   message = [contextCopy message];
@@ -1581,7 +1639,7 @@ LABEL_18:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v23 = [assetUUIDsToFileTransfers count];
+          v22 = [assetUUIDsToFileTransfers count];
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "%lu assets still pending export", buf, 0xCu);
         }
       }
@@ -1595,7 +1653,7 @@ LABEL_18:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = guid;
+          v22 = guid;
           _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Last outstanding asset requested for message %@, setting IMCMMStateCompleted", buf, 0xCu);
         }
       }
@@ -1604,8 +1662,8 @@ LABEL_18:
       {
         [message setCMMState:4];
         v18 = +[IMDMessageStore sharedInstance];
-        LOWORD(v21) = 257;
-        v19 = [v18 storeMessage:message forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v21 reindexMessage:?];
+        LOWORD(v20) = 257;
+        v19 = [v18 storeMessage:message forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v20 reindexMessage:?];
 
         [(IMDMomentShareManager *)self _transitionToCompletedStateForContext:contextCopy];
       }
@@ -1631,13 +1689,11 @@ LABEL_18:
       sub_22B7D1E14();
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_clearCMMTransfersForCMMMessage:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [self _loadCMMTransfersForMessage:messageCopy];
   v6 = v5;
@@ -1650,30 +1706,30 @@ LABEL_18:
     fileTransferGUIDs = [messageCopy fileTransferGUIDs];
     v10 = [fileTransferGUIDs mutableCopy];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v12)
     {
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [v10 removeObject:{*(*(&v19 + 1) + 8 * v14++), v19}];
+          [v10 removeObject:{*(*(&v18 + 1) + 8 * v14++), v18}];
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v12);
@@ -1687,24 +1743,22 @@ LABEL_18:
         v16 = [v11 count];
         guid = [messageCopy guid];
         *buf = 134218498;
-        v24 = v16;
-        v25 = 2112;
-        v26 = guid;
-        v27 = 2112;
-        v28 = v10;
+        v23 = v16;
+        v24 = 2112;
+        v25 = guid;
+        v26 = 2112;
+        v27 = v10;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Deleting %lu transferGUIDS from CMM message %@, rl transfers left %@", buf, 0x20u);
       }
     }
 
-    [messageCopy setFileTransferGUIDs:{v10, v19}];
+    [messageCopy setFileTransferGUIDs:{v10, v18}];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_generateTransfersForAssetUUIDs:(id)ds forMessage:(id)message inChat:(id)chat momentShare:(id)share
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   messageCopy = message;
   chatCopy = chat;
@@ -1716,7 +1770,7 @@ LABEL_18:
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v14];
     v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v14 + getCMMAssetOffset];
     fileTransferGUIDs = [messageCopy fileTransferGUIDs];
-    v46 = [fileTransferGUIDs subarrayWithRange:{0, getCMMAssetOffset}];
+    v45 = [fileTransferGUIDs subarrayWithRange:{0, getCMMAssetOffset}];
 
     if (IMOSLoggingEnabled())
     {
@@ -1724,27 +1778,27 @@ LABEL_18:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v58 = v46;
+        v57 = v45;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Starting with RL transfer GUIDs %@", buf, 0xCu);
       }
     }
 
-    [v16 addObjectsFromArray:v46];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = sub_22B544818;
-    v48[3] = &unk_278704070;
+    [v16 addObjectsFromArray:v45];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = sub_22B544818;
+    v47[3] = &unk_278704070;
     selfCopy = self;
     v19 = messageCopy;
-    v49 = v19;
-    v50 = shareCopy;
-    v54 = getCMMAssetOffset;
-    v55 = v14;
-    v44 = v15;
-    v51 = v44;
+    v48 = v19;
+    v49 = shareCopy;
+    v53 = getCMMAssetOffset;
+    v54 = v14;
+    v43 = v15;
+    v50 = v43;
     v20 = v16;
-    v52 = v20;
-    [dsCopy enumerateObjectsUsingBlock:v48];
+    v51 = v20;
+    [dsCopy enumerateObjectsUsingBlock:v47];
     if (IMOSLoggingEnabled())
     {
       v21 = OSLogHandleForIMFoundationCategory();
@@ -1752,7 +1806,7 @@ LABEL_18:
       {
         guid = [v19 guid];
         *buf = 138412290;
-        v58 = guid;
+        v57 = guid;
         _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Setting Message %@ to CMM state Generated", buf, 0xCu);
       }
     }
@@ -1764,8 +1818,8 @@ LABEL_18:
     if ([v19 isFromMe])
     {
       v24 = +[IMDMessageStore sharedInstance];
-      LOWORD(v43) = 1;
-      v25 = [v24 storeMessage:v19 forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v43 reindexMessage:v44];
+      LOWORD(v42) = 1;
+      v25 = [v24 storeMessage:v19 forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0 updateMessageCache:1 calculateUnreadCount:v42 reindexMessage:v43];
     }
 
     else
@@ -1776,12 +1830,12 @@ LABEL_18:
       [v19 setFlags:{objc_msgSend(v19, "flags") | 0x2000}];
       flags = [v19 flags];
       v24 = +[IMDMessageStore sharedInstance];
-      LOWORD(v43) = 1;
-      v32 = [v24 storeMessage:v19 forceReplace:1 modifyError:0 modifyFlags:1 flagMask:flags | 0x2000 updateMessageCache:1 calculateUnreadCount:v43 reindexMessage:v44];
+      LOWORD(v42) = 1;
+      v32 = [v24 storeMessage:v19 forceReplace:1 modifyError:0 modifyFlags:1 flagMask:flags | 0x2000 updateMessageCache:1 calculateUnreadCount:v42 reindexMessage:v43];
     }
 
-    v56 = v19;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+    v55 = v19;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
     v34 = IMCreateSerializedItemsFromArray();
 
     v35 = +[IMDBroadcastController sharedProvider];
@@ -1797,12 +1851,12 @@ LABEL_18:
       {
         guid2 = [v19 guid];
         *buf = 138412290;
-        v58 = guid2;
+        v57 = guid2;
         _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Persisted attachments to message %@", buf, 0xCu);
       }
     }
 
-    v29 = v45;
+    v29 = v44;
   }
 
   else
@@ -1815,11 +1869,11 @@ LABEL_18:
         guid3 = [messageCopy guid];
         v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(shareCopy, "assetCount")}];
         *buf = 138412802;
-        v58 = guid3;
-        v59 = 2112;
-        v60 = v28;
-        v61 = 2112;
-        v62 = shareCopy;
+        v57 = guid3;
+        v58 = 2112;
+        v59 = v28;
+        v60 = 2112;
+        v61 = shareCopy;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Not generating transfers for message %@ because there are no asset UUIDs moment share with count %@: %@", buf, 0x20u);
       }
     }
@@ -1827,14 +1881,12 @@ LABEL_18:
     v29 = MEMORY[0x277CBEBF8];
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 + (id)_fileTransferForAssetUUID:(id)d forMessage:(id)message momentShare:(id)share atIndex:(unint64_t)index ofTotal:(unint64_t)total
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   messageCopy = message;
   shareCopy = share;
@@ -1860,9 +1912,9 @@ LABEL_18:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v29 = v13;
-        v30 = 2112;
-        v31 = v16;
+        v28 = v13;
+        v29 = 2112;
+        v30 = v16;
         _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Existing transfer found for %@, setting attribution %@", buf, 0x16u);
       }
     }
@@ -1873,8 +1925,8 @@ LABEL_18:
   else
   {
     v21 = +[IMDFileTransferCenter sharedInstance];
-    LOWORD(v26) = 0;
-    [v21 makeNewIncomingTransferWithGUID:v13 filename:0 isDirectory:0 totalBytes:0 hfsType:0 hfsCreator:0 hfsFlags:v26];
+    LOWORD(v25) = 0;
+    [v21 makeNewIncomingTransferWithGUID:v13 filename:0 isDirectory:0 totalBytes:0 hfsType:0 hfsCreator:0 hfsFlags:v25];
 
     v22 = +[IMDFileTransferCenter sharedInstance];
     v15 = [v22 transferForGUID:v13];
@@ -1884,8 +1936,6 @@ LABEL_18:
 
     [v15 setAttributionInfo:v16];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

@@ -1,2343 +1,3 @@
-uint64_t closure #1 in DropPlaceholderListModifier.DropPlaceholderList.firstOffset<A>(forID:style:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v7 = *result;
-  if (*result <= a2)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = -1;
-  }
-
-  if (v7 <= a3 || (v10 = a4[8], v11 = a4[9], __swift_project_boxed_opaque_existential_1(a4 + 5, v10), v13 = a5, result = (*(v11 + 16))(&v13, v10, v11), v12 = __OFADD__(v8, result), v8 += result, !v12))
-  {
-    if (!__OFADD__(v7, v8))
-    {
-      *a6 = v7 + v8;
-      *(a6 + 8) = 0;
-      return result;
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #3 in DropPlaceholderListModifier.DropPlaceholderList.firstOffset<A>(forID:style:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v6 = *a1;
-  if (*a1 >= a2)
-  {
-    result = 0;
-  }
-
-  else
-  {
-    v8 = a3[8];
-    v9 = a3[9];
-    __swift_project_boxed_opaque_existential_1(a3 + 5, v8);
-    v11 = a4;
-    result = (*(v9 + 16))(&v11, v8, v9);
-  }
-
-  if (__OFADD__(v6, result))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *a5 = v6 + result;
-    *(a5 + 8) = 0;
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in DropPlaceholderListModifier.DropPlaceholderList.applyToBase(start:end:style:list:transform:body:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, uint64_t *a10)
-{
-  result = _ViewList_Node.applyNodes(from:style:transform:to:)();
-  *a5 = result & 1;
-  if (result & 1) == 0 || (a9)
-  {
-    return result & 1;
-  }
-
-  v13 = *a10 + 1;
-  if (!__OFADD__(*a10, 1))
-  {
-    *a10 = v13;
-    LOBYTE(result) = v13 < a8;
-    return result & 1;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance DropPlaceholderListModifier<A>.DropPlaceholderList(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEDE5508](a1, WitnessTable);
-}
-
-uint64_t DropPlaceholderListModifier.PlaceholderViews.subscript.getter(uint64_t result)
-{
-  v2 = *(v1 + 64);
-  if (v2 > result)
-  {
-    return dispatch thunk of _ViewList_ID_Views.subscript.getter();
-  }
-
-  v3 = *(v1 + 40);
-  v4 = __OFADD__(v2, v3);
-  v5 = v2 + v3;
-  if (v4)
-  {
-    __break(1u);
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  if (v5 < result)
-  {
-    v4 = __OFSUB__(result, v3);
-    result -= v3;
-    if (!v4)
-    {
-      return dispatch thunk of _ViewList_ID_Views.subscript.getter();
-    }
-
-    goto LABEL_10;
-  }
-
-  v4 = __OFSUB__(result, v3);
-  v6 = result - v3;
-  if (v4)
-  {
-LABEL_11:
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  result = v6 - 1;
-  if (!__OFSUB__(v6, 1))
-  {
-    return dispatch thunk of _ViewList_ID_Views.subscript.getter();
-  }
-
-LABEL_12:
-  __break(1u);
-  return result;
-}
-
-uint64_t DropPlaceholderListModifier.PlaceholderViews.isEqual(to:)()
-{
-  v1 = swift_dynamicCastClass();
-  if (!v1 || *(v0 + 72) != *(v1 + 72))
-  {
-    goto LABEL_12;
-  }
-
-  v2 = *(v1 + 56);
-  if (*(v0 + 56))
-  {
-    if (!*(v1 + 56))
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    if (*(v0 + 48) != *(v1 + 48))
-    {
-      v2 = 1;
-    }
-
-    if (v2)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  if (*(v0 + 64) != *(v1 + 64))
-  {
-LABEL_12:
-    v4 = 0;
-    return v4 & 1;
-  }
-
-  v3 = dispatch thunk of _ViewList_ID_Views.isEqual(to:)();
-
-  if (v3)
-  {
-
-    v4 = dispatch thunk of _ViewList_ID_Views.isEqual(to:)();
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  return v4 & 1;
-}
-
-uint64_t DropPlaceholderListModifier.PlaceholderViews.__ivar_destroyer()
-{
-}
-
-uint64_t DropPlaceholderListModifier.PlaceholderViews.__deallocating_deinit()
-{
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t one-time initialization function for coordinateSpace()
-{
-  lazy protocol witness table accessor for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace();
-  result = AnyHashable.init<A>(_:)();
-  byte_1EAA25790 = 0;
-  return result;
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.dragBegan(at:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 112);
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 128);
-  v7 = *(a1 + 136);
-  v8 = *(a1 + 144);
-  v19 = *(a1 + 104);
-  v20 = v4;
-  v21 = v5;
-  LOBYTE(v22) = v6;
-  v23 = v7;
-  v24 = v8;
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  v10 = v9;
-
-  MEMORY[0x18D00ACC0](&v25, v10);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-
-  v11 = *(a1 + 112);
-  v12 = *(a1 + 120);
-  v13 = *(a1 + 128);
-  v14 = *(a1 + 136);
-  v15 = *(a1 + 144);
-  v19 = *(a1 + 104);
-  v20 = v11;
-  v21 = v12;
-  LOBYTE(v22) = v13;
-  v23 = v14;
-  v24 = v15;
-
-  MEMORY[0x18D00ACC0](&v25, v10);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-
-  swift_beginAccess();
-  outlined init with copy of _Benchmark(a1 + 48, &v19);
-  v16 = v22;
-  v17 = v23;
-  __swift_project_boxed_opaque_existential_1(&v19, v22);
-  (*(v17 + 56))(a2, v16, v17);
-  return __swift_destroy_boxed_opaque_existential_1(&v19);
-}
-
-uint64_t DragReorderableLayoutCoordinator.validateDrop(info:)(void *a1)
-{
-  DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(a1);
-  if (v3)
-  {
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      swift_getObjectType();
-
-      v5 = UIDropSession.itemProviders(for:)(v4);
-      swift_unknownObjectRelease();
-    }
-
-    else
-    {
-      v5 = MEMORY[0x1E69E7CC0];
-    }
-
-    swift_beginAccess();
-    outlined init with copy of _Benchmark(v1 + 48, v10);
-    v7 = v11;
-    v8 = v12;
-    __swift_project_boxed_opaque_existential_1(v10, v11);
-    v6 = (*(v8 + 8))(v5, v7, v8);
-
-    __swift_destroy_boxed_opaque_existential_1(v10);
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  return v6 & 1;
-}
-
-uint64_t DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(void *a1)
-{
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v2 = DropInfoAdaptor.localDragContexts.getter();
-  if (*(v2 + 16))
-  {
-    outlined init with copy of Any(v2 + 32, &v9);
-
-    if ((swift_dynamicCast() & 1) != 0 && v8[0] == *(v1 + 16))
-    {
-      return v8[1];
-    }
-  }
-
-  else
-  {
-  }
-
-  v4 = *(v1 + 120);
-  v5 = *(v1 + 128);
-  v6 = *(v1 + 136);
-  v7 = *(v1 + 144);
-  v9 = *(v1 + 104);
-  v10 = v4;
-  v11 = v5;
-  v12 = v6;
-  v13 = v7;
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  MEMORY[0x18D00ACC0](v8);
-  return v8[0];
-}
-
-uint64_t DragReorderableLayoutCoordinator.dropEntered(info:)(void *a1)
-{
-  v3 = DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(a1);
-  v5 = v4;
-  DragReorderableLayoutCoordinator.destination(at:sourceIndex:)(a1, v3, v4 & 1);
-  v6 = *(v1 + 120);
-  v7 = *(v1 + 128);
-  v8 = *(v1 + 136);
-  v9 = *(v1 + 144);
-  v16 = *(v1 + 104);
-  v17 = v6;
-  v18 = v7;
-  v19 = v8;
-  v20 = v9;
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  v10 = MEMORY[0x18D00ACC0](&v14);
-  v11 = v15;
-  if (v5)
-  {
-    if (v15)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_7;
-  }
-
-  if (v3 != v14)
-  {
-    v11 = 1;
-  }
-
-  if (v11)
-  {
-LABEL_7:
-    *(v1 + 200) = 0u;
-    *(v1 + 184) = 0u;
-    *(v1 + 168) = 0u;
-    *(v1 + 216) = 1;
-  }
-
-LABEL_8:
-  MEMORY[0x1EEE9AC00](v10);
-  *&v16 = 0;
-  swift_allocObject();
-  swift_weakInit();
-
-  Transaction.addAnimationListener(allFinished:)();
-
-  static Animation.default.getter();
-  v12 = Transaction.animation.setter();
-  ++*(v1 + 232);
-  MEMORY[0x1EEE9AC00](v12);
-  withTransaction<A>(_:_:)();
-}
-
-uint64_t DragReorderableLayoutCoordinator.destination(at:sourceIndex:)(void *a1, uint64_t a2, char a3)
-{
-  v4 = v3;
-  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_7SwiftUI32DragReorderableLayoutCoordinator33_1B0CD5E46D60A3CA175732DDA089171CLLC10ChildFrameVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-  if (*(v3 + 232))
-  {
-    swift_beginAccess();
-    v8 = *(v3 + 224);
-    v9 = *(v3 + 120);
-    v10 = *(v3 + 128);
-    v11 = *(v3 + 136);
-    v12 = *(v3 + 144);
-    v64 = *(v3 + 104);
-    *&v65 = v9;
-    BYTE8(v65) = v10;
-    v66[0] = v11;
-    LOBYTE(v66[1]) = v12;
-    type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-    v14 = v13;
-
-    MEMORY[0x18D00ACC0](v71, v14);
-    if (BYTE8(v71[0]))
-    {
-      v15 = 0.0;
-      v54 = *(v3 + 176);
-      v55 = *(v3 + 168);
-      v52 = *(v3 + 200);
-      v53 = *(v3 + 184);
-      v51 = *(v3 + 216);
-      v68 = v51;
-    }
-
-    else
-    {
-      if (*(v8 + 16) && (v17 = specialized __RawDictionaryStorage.find<A>(_:)(*&v71[0]), (v18 & 1) != 0))
-      {
-        v19 = 0;
-        v20 = *(v8 + 56) + 48 * v17;
-        v54 = *(v20 + 8);
-        v55 = *v20;
-        v52 = *(v20 + 32);
-        v53 = *(v20 + 16);
-      }
-
-      else
-      {
-        v54 = 0;
-        v55 = 0;
-        v52 = 0u;
-        v53 = 0u;
-        v19 = 1;
-      }
-
-      v15 = 0.0;
-      v51 = v19;
-      v68 = v19;
-    }
-
-    v16 = 1;
-  }
-
-  else
-  {
-    DragReorderableLayoutCoordinator.childFrames()(&v64);
-    v15 = *(&v64 + 1);
-    v8 = v64;
-    v16 = v65;
-    v54 = v66[0];
-    v55 = *(&v65 + 1);
-    v52 = *&v66[3];
-    v53 = *&v66[1];
-    v51 = v67;
-    v68 = v67;
-    swift_beginAccess();
-    *(v3 + 224) = v8;
-  }
-
-  static Update.ensure<A>(_:)();
-  v21 = v64;
-  v57 = v65;
-  v60 = *v66;
-  v63 = *(__swift_project_boxed_opaque_existential_1(a1, a1[3]) + 11);
-  if (one-time initialization token for coordinateSpace != -1)
-  {
-    swift_once();
-  }
-
-  v64 = v21;
-  v65 = v57;
-  *v66 = v60;
-  type metadata accessor for CGPoint(0);
-  ApplyViewTransform.convert(to:transform:)();
-  if (*(v3 + 40))
-  {
-    static Spacing.defaultValue.getter();
-    v23 = v22;
-  }
-
-  else
-  {
-    v23 = *(v3 + 32);
-  }
-
-  v24 = *(v3 + 152);
-  if (*(v3 + 160))
-  {
-    v24 = v15;
-  }
-
-  v61 = *(v3 + 160) & v16;
-  if (v61)
-  {
-    v25 = 0.0;
-  }
-
-  else
-  {
-    v15 = v24;
-    v25 = v24;
-  }
-
-  v26 = *(v8 + 16);
-  if (v26)
-  {
-    v27 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi3key_7SwiftUI32DragReorderableLayoutCoordinator33_1B0CD5E46D60A3CA175732DDA089171CLLC10ChildFrameV5valuet_Tt1g5(v26, 0);
-    v58 = specialized Sequence._copySequenceContents(initializing:)(&v64, (v27 + 4), v26, v8);
-
-    outlined consume of Set<UIPress>.Iterator._Variant();
-    if (v58 != v26)
-    {
-      __break(1u);
-LABEL_46:
-      __break(1u);
-
-      __break(1u);
-      return result;
-    }
-  }
-
-  else
-  {
-    v27 = MEMORY[0x1E69E7CC0];
-  }
-
-  *&v64 = v27;
-  specialized MutableCollection<>.sort(by:)(&v64);
-
-  v28 = *(v64 + 16);
-  v29 = v64 - 24;
-  v30 = v28 + 1;
-  while (1)
-  {
-    v26 = --v30 == 0;
-    if (!v30)
-    {
-      break;
-    }
-
-    v31 = (v29 + 56);
-    v25 = v25 + v23 + *(v29 + 104);
-    v29 += 56;
-    if (*(&v63 + 1) < v25)
-    {
-      v32 = *v31;
-LABEL_33:
-
-      goto LABEL_34;
-    }
-  }
-
-  if (!v28)
-  {
-    v32 = 0;
-    goto LABEL_33;
-  }
-
-  v33 = v15;
-  v34 = *(v64 + 56 * v28 - 24);
-
-  v32 = v34 + 1;
-  if (__OFADD__(v34, 1))
-  {
-    goto LABEL_46;
-  }
-
-  LODWORD(v26) = 0;
-  v15 = v33;
-LABEL_34:
-  *(v4 + 152) = v15;
-  *(v4 + 160) = v61;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  DropInfoAdaptor.originContentPath.getter(v69);
-  if (v70 == 255)
-  {
-    v40 = v54;
-    v39 = v55;
-    v42 = v52;
-    v41 = v53;
-  }
-
-  else
-  {
-    v71[0] = v69[0];
-    v71[1] = v69[1];
-    v72 = v70;
-    Path.boundingRect.getter();
-    v50 = v35;
-    v59 = v37;
-    v62 = v36;
-    v56 = v38;
-    outlined destroy of Path?(v69, &lazy cache variable for type metadata for Path?, MEMORY[0x1E6980F80]);
-    v40 = v54;
-    v39 = v55;
-    v42 = v52;
-    v41 = v53;
-    if ((v51 & 1) == 0)
-    {
-      *&v41 = v62;
-      *(&v41 + 1) = v50;
-      *&v42 = v59;
-      *(&v42 + 1) = v56;
-    }
-  }
-
-  v43 = v68;
-  *(v4 + 168) = v39;
-  *(v4 + 176) = v40;
-  *(v4 + 184) = v41;
-  *(v4 + 200) = v42;
-  *(v4 + 216) = v43;
-  if (a3)
-  {
-    v44 = 0;
-  }
-
-  else
-  {
-    v44 = a2;
-  }
-
-  if (v26)
-  {
-    v45 = v44;
-  }
-
-  else
-  {
-    v45 = v32;
-  }
-
-  swift_beginAccess();
-  outlined init with copy of _Benchmark(v4 + 48, &v64);
-  v46 = *(&v65 + 1);
-  v47 = v66[0];
-  __swift_project_boxed_opaque_existential_1(&v64, *(&v65 + 1));
-  v48 = (*(v47 + 64))(a2, a3 & 1, v45, v46, v47);
-
-  __swift_destroy_boxed_opaque_existential_1(&v64);
-  return v48;
-}
-
-uint64_t DragReorderableLayoutCoordinator.withStateAnimation(_:)()
-{
-  swift_allocObject();
-  swift_weakInit();
-
-  Transaction.addAnimationListener(allFinished:)();
-
-  static Animation.default.getter();
-  Transaction.animation.setter();
-  ++*(v0 + 232);
-  withTransaction<A>(_:_:)();
-}
-
-uint64_t DragReorderableLayoutCoordinator.dropUpdated(info:)@<X0>(void *a1@<X0>, __int16 *a2@<X8>)
-{
-  v6 = DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(a1);
-  v7 = v5 & 1;
-  if (v5)
-  {
-    v8 = 1538;
-  }
-
-  else
-  {
-    v8 = 1539;
-  }
-
-  v13 = DragReorderableLayoutCoordinator.destination(at:sourceIndex:)(a1, v6, v5 & 1);
-  v14[0] = 0;
-  swift_allocObject();
-  swift_weakInit();
-
-  Transaction.addAnimationListener(allFinished:)();
-
-  static Animation.default.getter();
-  Transaction.animation.setter();
-  ++*(v2 + 232);
-  withTransaction<A>(_:_:)();
-
-  swift_beginAccess();
-  outlined init with copy of _Benchmark(v2 + 48, v14);
-  v9 = v15;
-  v10 = v16;
-  __swift_project_boxed_opaque_existential_1(v14, v15);
-  v11 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  (*(v10 + 72))(v6, v7, v13, v9, v10, v11[11], v11[12]);
-  result = __swift_destroy_boxed_opaque_existential_1(v14);
-  *a2 = v8;
-  return result;
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.dropEntered(info:)()
-{
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  v1 = v0;
-
-  MEMORY[0x18D00ACC0](&v3, v1);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-
-  MEMORY[0x18D00ACC0](&v3, v1);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.dropExited(info:)()
-{
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  v1 = v0;
-
-  MEMORY[0x18D00ACC0](&v3, v1);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-}
-
-uint64_t DragReorderableLayoutCoordinator.performDrop(info:)(void *a1)
-{
-  v2 = v1;
-  v4 = *(v1 + 232);
-  *(v1 + 232) = 0;
-  v5 = DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(a1);
-  v7 = DragReorderableLayoutCoordinator.destination(at:sourceIndex:)(a1, v5, v6 & 1);
-  *(v1 + 232) = v4;
-  if (v4)
-  {
-    v8 = *(v1 + 120);
-    v9 = *(v1 + 128);
-    v10 = *(v1 + 136);
-    v11 = *(v1 + 144);
-    v53 = *(v1 + 104);
-    v54 = v8;
-    LOBYTE(v55) = v9;
-    v56 = v10;
-    v57 = v11;
-    type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-    v13 = v12;
-    MEMORY[0x18D00ACC0](&v58);
-    if ((v60 & 1) != 0 || v7 != v59)
-    {
-      v14 = *(v1 + 120);
-      v15 = *(v1 + 128);
-      v16 = *(v1 + 136);
-      v17 = *(v1 + 144);
-      v53 = *(v1 + 104);
-      v54 = v14;
-      LOBYTE(v55) = v15;
-      v56 = v16;
-      v57 = v17;
-      MEMORY[0x18D00ACC0](&v58, v13);
-      if ((v60 & 1) == 0)
-      {
-        v18 = v59;
-        swift_beginAccess();
-        v19 = *(v1 + 224);
-        if (*(v19 + 16) && (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v18), (v21 & 1) != 0))
-        {
-          v22 = 0;
-          v23 = *(v19 + 56) + 48 * v20;
-          v51 = *(v23 + 16);
-          v52 = *v23;
-          v24 = *(v23 + 32);
-          v25 = *(v23 + 40);
-        }
-
-        else
-        {
-          v24 = 0;
-          v25 = 0;
-          v51 = 0u;
-          v52 = 0u;
-          v22 = 1;
-        }
-
-        swift_endAccess();
-        *(v2 + 184) = v51;
-        *(v2 + 168) = v52;
-        *(v2 + 200) = v24;
-        *(v2 + 208) = v25;
-        *(v2 + 216) = v22;
-      }
-    }
-  }
-
-  v26 = DragReorderableLayoutCoordinator.sourceIndexForDrop(_:)(a1);
-  if (v27)
-  {
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      swift_getObjectType();
-
-      v29 = UIDropSession.itemProviders(for:)(v28);
-      swift_unknownObjectRelease();
-    }
-
-    else
-    {
-      v29 = MEMORY[0x1E69E7CC0];
-    }
-
-    swift_beginAccess();
-    outlined init with copy of _Benchmark(v2 + 48, &v53);
-    v41 = v55;
-    v42 = v56;
-    __swift_project_boxed_opaque_existential_1(&v53, v55);
-    v37 = (*(v42 + 16))(v7, v29, v41, v42);
-
-    goto LABEL_18;
-  }
-
-  if (v26 != v7)
-  {
-    v38 = v26;
-    swift_beginAccess();
-    outlined init with copy of _Benchmark(v2 + 48, &v53);
-    v39 = v55;
-    v40 = v56;
-    __swift_project_boxed_opaque_existential_1(&v53, v55);
-    v37 = (*(v40 + 80))(v38, v7, v39, v40);
-LABEL_18:
-    __swift_destroy_boxed_opaque_existential_1(&v53);
-    v43 = *(v2 + 112);
-    v44 = *(v2 + 120);
-    v45 = *(v2 + 128);
-    v46 = *(v2 + 136);
-    v47 = *(v2 + 144);
-    *&v53 = *(v2 + 104);
-    *(&v53 + 1) = v43;
-    v54 = v44;
-    LOBYTE(v55) = v45;
-    v56 = v46;
-    v57 = v47;
-    type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-    v49 = v48;
-
-    MEMORY[0x18D00ACC0](&v58, v49);
-    dispatch thunk of AnyLocation.set(_:transaction:)();
-
-    return v37 & 1;
-  }
-
-  v30 = *(v2 + 112);
-  v31 = *(v2 + 120);
-  v32 = *(v2 + 128);
-  v33 = *(v2 + 136);
-  v34 = *(v2 + 144);
-  *&v53 = *(v2 + 104);
-  *(&v53 + 1) = v30;
-  v54 = v31;
-  LOBYTE(v55) = v32;
-  v56 = v33;
-  v57 = v34;
-  type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]);
-  v36 = v35;
-
-  MEMORY[0x18D00ACC0](&v58, v36);
-  dispatch thunk of AnyLocation.set(_:transaction:)();
-
-  v37 = 0;
-  return v37 & 1;
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.withStateAnimation(_:)()
-{
-
-  static Update.enqueueAction(reason:_:)();
-}
-
-uint64_t closure #1 in closure #1 in DragReorderableLayoutCoordinator.withStateAnimation(_:)()
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    --*(result + 232);
-  }
-
-  return result;
-}
-
-uint64_t DragReorderableLayoutCoordinator.childFrames()@<X0>(uint64_t a1@<X8>)
-{
-  v7 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_7SwiftUI32DragReorderableLayoutCoordinator33_1B0CD5E46D60A3CA175732DDA089171CLLC10ChildFrameVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  _sSay7SwiftUI13ViewResponderCGMaTm_1(0, &lazy cache variable for type metadata for [ViewResponder], MEMORY[0x1E697E210], MEMORY[0x1E69E62F8]);
-  result = static Update.ensure<A>(_:)();
-  if (!(v6 >> 62))
-  {
-    v2 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v2)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_10:
-
-    *a1 = v7;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 1;
-    *(a1 + 24) = 0u;
-    *(a1 + 40) = 0u;
-    *(a1 + 56) = 0u;
-    *(a1 + 72) = 1;
-    return result;
-  }
-
-  result = __CocoaSet.count.getter();
-  v2 = result;
-  if (!result)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_3:
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    do
-    {
-      if ((v6 & 0xC000000000000001) != 0)
-      {
-        v4 = MEMORY[0x18D00E9C0](v3);
-      }
-
-      else
-      {
-      }
-
-      ++v3;
-      MEMORY[0x1EEE9AC00](v4);
-      dispatch thunk of ResponderNode.visit(applying:)();
-    }
-
-    while (v2 != v3);
-    goto LABEL_10;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.childFrames()@<X0>(uint64_t *a1@<X8>)
-{
-  _sSay7SwiftUI13ViewResponderCGMaTm_1(0, &lazy cache variable for type metadata for [ViewResponder], MEMORY[0x1E697E210], MEMORY[0x1E69E62F8]);
-  if (AGGraphGetWeakValue())
-  {
-  }
-
-  else
-  {
-    result = MEMORY[0x1E69E7CC0];
-  }
-
-  *a1 = result;
-  return result;
-}
-
-uint64_t closure #2 in DragReorderableLayoutCoordinator.childFrames()@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X4>, _BYTE *a5@<X8>)
-{
-  type metadata accessor for DragReorderableChildResponder();
-  result = swift_dynamicCastClass();
-  if (result)
-  {
-    v11 = result;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 6;
-    *&v27 = 1;
-    lazy protocol witness table accessor for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace();
-
-    AnyHashable.init<A>(_:)();
-    LOBYTE(v39) = 0;
-    MultiViewResponder.addContentPath(to:kind:in:observer:)();
-    outlined destroy of CoordinateSpace(&v35);
-    v12 = *(v11 + 232);
-    v13 = *(v11 + 240);
-    memset(v40, 0, sizeof(v40));
-    v41 = 6;
-    Path.boundingRect.getter();
-    *&v35 = v12;
-    *(&v35 + 1) = v13;
-    v36 = v14;
-    v37 = v15;
-    v38 = v16;
-    v39 = v17;
-    v18 = v13 + v15;
-    if (!(*(a1 + 8) & 1 | (v13 + v15 < *a1)))
-    {
-      v18 = *a1;
-    }
-
-    *a1 = v18;
-    *(a1 + 8) = 0;
-    if (*(v11 + 248) == 1 && (*a2 = v12, *(a2 + 8) = v13, *(a2 + 16) = v14, *(a2 + 24) = v15, *(a2 + 32) = v16, *(a2 + 40) = v17, *(a2 + 48) = 0, v19 = *(a3 + 120), v20 = *(a3 + 128), v21 = *(a3 + 136), v22 = *(a3 + 144), v27 = *(a3 + 104), v28 = v19, v29 = v20, v30 = v21, v31 = v22, type metadata accessor for Binding<_DragReorderableView_DragState>(0, &lazy cache variable for type metadata for Binding<_DragReorderableView_DragState>, &type metadata for _DragReorderableView_DragState, MEMORY[0x1E6981948]), MEMORY[0x18D00ACC0](&v25), (v26 & 1) == 0))
-    {
-      v23 = v25;
-    }
-
-    else
-    {
-      if (*(v11 + 224) == 1)
-      {
-        outlined destroy of Path(v40);
-
-        goto LABEL_11;
-      }
-
-      v23 = *(v11 + 216);
-    }
-
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *&v27 = *a4;
-    *a4 = 0x8000000000000000;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(&v35, v23, isUniquelyReferenced_nonNull_native);
-
-    *a4 = v27;
-
-    result = outlined destroy of Path(v40);
-  }
-
-LABEL_11:
-  *a5 = 0;
-  return result;
-}
-
-uint64_t closure #1 in DragReorderableLayoutCoordinator.destination(at:sourceIndex:)@<X0>(uint64_t a1@<X8>)
-{
-  result = AGGraphGetWeakValue();
-  if (result)
-  {
-    v3 = *(result + 8);
-    *a1 = *result;
-    *(a1 + 8) = v3;
-    v4 = *(result + 32);
-    *(a1 + 16) = *(result + 16);
-    *(a1 + 32) = v4;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t DragReorderableLayoutCoordinator.__deallocating_deinit()
-{
-
-  __swift_destroy_boxed_opaque_existential_1(v0 + 48);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t type metadata completion function for DragReorderableLayoutAdaptor()
-{
-  result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
-  {
-    result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
-    {
-      swift_initStructMetadata();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t *initializeBufferWithCopyOfBuffer for DragReorderableLayoutAdaptor(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v3 = a1;
-  v4 = *(*(a3 + 16) - 8);
-  v5 = *(v4 + 64);
-  v6 = *(a3 + 24);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 80);
-  v9 = v5 + v8;
-  v10 = *(v7 + 64) + 7;
-  v11 = ((((((((((v10 + ((v5 + v8) & ~v8)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
-  v12 = v8 | *(v4 + 80) & 0xF8;
-  if (v12 > 7 || ((*(v4 + 80) | *(v7 + 80)) & 0x100000) != 0 || v11 > 0x18)
-  {
-    v15 = *a2;
-    *v3 = *a2;
-    v3 = (v15 + (((v12 | 7) + 16) & ~(v12 | 7)));
-  }
-
-  else
-  {
-    v16 = ~v8;
-    (*(v4 + 16))(a1);
-    v18 = (a2 + v9) & v16;
-    (*(v7 + 16))((v3 + v9) & v16, v18, v6);
-    v19 = ((v10 + ((v3 + v9) & v16)) & 0xFFFFFFFFFFFFFFF8);
-    v20 = ((v10 + v18) & 0xFFFFFFFFFFFFFFF8);
-    v21 = v20[1];
-    *v19 = *v20;
-    v19[1] = v21;
-    v22 = ((v19 + 39) & 0xFFFFFFFFFFFFFFF8);
-    v23 = ((v20 + 39) & 0xFFFFFFFFFFFFFFF8);
-    *v22 = *v23;
-    v24 = (v22 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v25 = (v23 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v26 = *v25;
-    *(v24 + 8) = *(v25 + 8);
-    *v24 = v26;
-    v27 = (v22 + 31) & 0xFFFFFFFFFFFFFFF8;
-    v28 = (v23 + 31) & 0xFFFFFFFFFFFFFFF8;
-    v29 = *(v28 + 24);
-    *(v27 + 24) = v29;
-    *(v27 + 32) = *(v28 + 32);
-    v30 = **(v29 - 8);
-
-    v30(v27, v28, v29);
-    v31 = ((v27 + 47) & 0xFFFFFFFFFFFFFFF8);
-    v32 = ((v28 + 47) & 0xFFFFFFFFFFFFFFF8);
-    *v31 = *v32;
-    *((v31 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v32 + 15) & 0xFFFFFFFFFFFFFFF8);
-  }
-
-  return v3;
-}
-
-uint64_t destroy for DragReorderableLayoutAdaptor(uint64_t a1, uint64_t a2)
-{
-  v4 = *(*(a2 + 16) - 8) + 8;
-  (*v4)();
-  v5 = *(v4 + 56) + a1;
-  v6 = *(*(a2 + 24) - 8);
-  v7 = v6 + 8;
-  v8 = (v5 + *(v6 + 80)) & ~*(v6 + 80);
-  (*(v6 + 8))(v8);
-  v9 = ((((*(v7 + 56) + v8 + 7) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31;
-
-  return __swift_destroy_boxed_opaque_existential_1(v9 & 0xFFFFFFFFFFFFFFF8);
-}
-
-uint64_t initializeWithCopy for DragReorderableLayoutAdaptor(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(*(a3 + 16) - 8) + 16;
-  (*v6)();
-  v7 = *(v6 + 48);
-  v8 = *(*(a3 + 24) - 8);
-  v9 = v8 + 16;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  v12 = (v11 + a1) & ~v10;
-  v13 = (v11 + a2) & ~v10;
-  (*(v8 + 16))(v12, v13);
-  v14 = *(v9 + 48) + 7;
-  v15 = ((v14 + v12) & 0xFFFFFFFFFFFFFFF8);
-  v16 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
-  v17 = v16[1];
-  *v15 = *v16;
-  v15[1] = v17;
-  v18 = ((v15 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v19 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
-  *v18 = *v19;
-  v20 = (v18 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v21 = (v19 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = *(v21 + 8);
-  *v20 = *v21;
-  *(v20 + 8) = v22;
-  v23 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v24 = (v19 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *(v24 + 24);
-  *(v23 + 24) = v25;
-  *(v23 + 32) = *(v24 + 32);
-  v26 = **(v25 - 8);
-
-  v26(v23, v24, v25);
-  v27 = ((v23 + 47) & 0xFFFFFFFFFFFFFFF8);
-  v28 = ((v24 + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v27 = *v28;
-  *((v27 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v28 + 15) & 0xFFFFFFFFFFFFFFF8);
-  return a1;
-}
-
-uint64_t assignWithCopy for DragReorderableLayoutAdaptor(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(*(a3 + 16) - 8) + 24;
-  (*v6)();
-  v7 = *(v6 + 40);
-  v8 = *(*(a3 + 24) - 8);
-  v9 = v8 + 24;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  v12 = (v11 + a1) & ~v10;
-  v13 = (v11 + a2) & ~v10;
-  (*(v8 + 24))(v12, v13);
-  v14 = *(v9 + 40) + 7;
-  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
-  v16 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
-  *v15 = *v16;
-  *(v15 + 8) = v16[1];
-  *(v15 + 16) = v16[2];
-  *(v15 + 24) = v16[3];
-  v15 += 39;
-  v17 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v18 = (v15 & 0xFFFFFFFFFFFFFFF8) + 15;
-  *(v15 & 0xFFFFFFFFFFFFFFF8) = *v17;
-  v19 = (v15 & 0xFFFFFFFFFFFFFFF8) + 31;
-
-  v20 = v18 & 0xFFFFFFFFFFFFFFF8;
-  v21 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = *v21;
-  *(v20 + 8) = *(v21 + 8);
-  *v20 = v22;
-  __swift_assign_boxed_opaque_existential_1((v19 & 0xFFFFFFFFFFFFFFF8), ((v17 + 31) & 0xFFFFFFFFFFFFFFF8));
-  v23 = (((v19 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  v24 = ((((v17 + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v23 = *v24;
-  *((v23 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v24 + 15) & 0xFFFFFFFFFFFFFFF8);
-  return a1;
-}
-
-uint64_t initializeWithTake for DragReorderableLayoutAdaptor(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(*(a3 + 16) - 8) + 32;
-  (*v6)();
-  v7 = *(v6 + 32);
-  v8 = *(*(a3 + 24) - 8);
-  v9 = v8 + 32;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  v12 = (v11 + a1) & ~v10;
-  v13 = (v11 + a2) & ~v10;
-  (*(v8 + 32))(v12, v13);
-  v14 = *(v9 + 32) + 7;
-  v15 = ((v14 + v12) & 0xFFFFFFFFFFFFFFF8);
-  v16 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
-  v17 = v16[1];
-  *v15 = *v16;
-  v15[1] = v17;
-  v18 = ((v15 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v19 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
-  *v18 = *v19;
-  v20 = (v18 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v21 = (v19 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = *(v21 + 8);
-  *v20 = *v21;
-  *(v20 + 8) = v22;
-  v23 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v24 = (v19 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v26 = *v24;
-  v25 = *(v24 + 16);
-  *(v23 + 32) = *(v24 + 32);
-  *v23 = v26;
-  *(v23 + 16) = v25;
-  v27 = ((v23 + 47) & 0xFFFFFFFFFFFFFFF8);
-  v28 = ((v24 + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v27 = *v28;
-  *((v27 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v28 + 15) & 0xFFFFFFFFFFFFFFF8);
-  return a1;
-}
-
-uint64_t assignWithTake for DragReorderableLayoutAdaptor(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(*(a3 + 16) - 8) + 40;
-  (*v6)();
-  v7 = *(v6 + 24);
-  v8 = *(*(a3 + 24) - 8);
-  v9 = v8 + 40;
-  v10 = *(v8 + 80);
-  v11 = v7 + v10;
-  v12 = (v11 + a1) & ~v10;
-  v13 = (v11 + a2) & ~v10;
-  (*(v8 + 40))(v12, v13);
-  v14 = *(v9 + 24) + 7;
-  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
-  v16 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
-  *v15 = *v16;
-  *(v15 + 8) = v16[1];
-  *(v15 + 16) = v16[2];
-  *(v15 + 24) = v16[3];
-  v15 += 39;
-  v17 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v18 = v17;
-  v19 = (v15 & 0xFFFFFFFFFFFFFFF8) + 15;
-  *(v15 & 0xFFFFFFFFFFFFFFF8) = *v17;
-  v20 = (v15 & 0xFFFFFFFFFFFFFFF8) + 31;
-
-  v21 = v19 & 0xFFFFFFFFFFFFFFF8;
-  v22 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v23 = *v22;
-  *(v21 + 8) = *(v22 + 8);
-  *v21 = v23;
-  v24 = v20 & 0xFFFFFFFFFFFFFFF8;
-  v25 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
-  __swift_destroy_boxed_opaque_existential_1(v20 & 0xFFFFFFFFFFFFFFF8);
-  v26 = *v25;
-  v27 = *(v25 + 16);
-  *(v24 + 32) = *(v25 + 32);
-  *v24 = v26;
-  *(v24 + 16) = v27;
-  v28 = (((v20 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  v29 = ((v25 + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v28 = *v29;
-  *((v28 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v29 + 15) & 0xFFFFFFFFFFFFFFF8);
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for DragReorderableLayoutAdaptor(int *a1, unsigned int a2, uint64_t a3)
-{
-  v4 = *(*(a3 + 16) - 8);
-  v5 = *(v4 + 84);
-  v6 = *(a3 + 24);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 84);
-  v9 = *(v7 + 80);
-  if (v8 <= v5)
-  {
-    v10 = *(v4 + 84);
-  }
-
-  else
-  {
-    v10 = *(v7 + 84);
-  }
-
-  if (v10 <= 0x7FFFFFFF)
-  {
-    v10 = 0x7FFFFFFF;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v11 = *(*(*(a3 + 16) - 8) + 64) + v9;
-  v12 = *(*(v6 - 8) + 64) + 7;
-  if (v10 >= a2)
-  {
-    goto LABEL_29;
-  }
-
-  v13 = ((((((((((v12 + (v11 & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
-  v14 = a2 - v10;
-  v15 = v13 & 0xFFFFFFF8;
-  if ((v13 & 0xFFFFFFF8) != 0)
-  {
-    v16 = 2;
-  }
-
-  else
-  {
-    v16 = v14 + 1;
-  }
-
-  if (v16 >= 0x10000)
-  {
-    v17 = 4;
-  }
-
-  else
-  {
-    v17 = 2;
-  }
-
-  if (v16 < 0x100)
-  {
-    v17 = 1;
-  }
-
-  if (v16 >= 2)
-  {
-    v18 = v17;
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  if (v18 > 1)
-  {
-    if (v18 == 2)
-    {
-      v19 = *(a1 + v13);
-      if (!v19)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    else
-    {
-      v19 = *(a1 + v13);
-      if (!v19)
-      {
-        goto LABEL_29;
-      }
-    }
-  }
-
-  else if (!v18 || (v19 = *(a1 + v13)) == 0)
-  {
-LABEL_29:
-    if (v5 == v10)
-    {
-      return (*(v4 + 48))();
-    }
-
-    v23 = (a1 + v11) & ~v9;
-    if (v8 == v10)
-    {
-      return (*(v7 + 48))(v23, v8, v6);
-    }
-
-    v24 = *((((v12 + v23) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8);
-    if (v24 >= 0xFFFFFFFF)
-    {
-      LODWORD(v24) = -1;
-    }
-
-    return (v24 + 1);
-  }
-
-  v21 = v19 - 1;
-  if (v15)
-  {
-    v21 = 0;
-    v22 = *a1;
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  return v10 + (v22 | v21) + 1;
-}
-
-_BYTE *storeEnumTagSinglePayload for DragReorderableLayoutAdaptor(_BYTE *result, unsigned int a2, unsigned int a3, uint64_t a4)
-{
-  v5 = *(*(a4 + 16) - 8);
-  v6 = *(v5 + 84);
-  v7 = *(*(a4 + 24) - 8);
-  v8 = *(v7 + 84);
-  v9 = *(v5 + 64);
-  v10 = *(v7 + 80);
-  v11 = *(v7 + 64);
-  if (v8 <= v6)
-  {
-    v12 = *(v5 + 84);
-  }
-
-  else
-  {
-    v12 = *(v7 + 84);
-  }
-
-  if (v12 <= 0x7FFFFFFF)
-  {
-    v12 = 0x7FFFFFFF;
-  }
-
-  v13 = v9 + v10;
-  v14 = (v9 + v10) & ~v10;
-  v15 = v11 + 7;
-  v16 = ((((((((((v11 + 7 + v14) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
-  if (v12 >= a3)
-  {
-    v20 = 0;
-    v21 = a2 - v12;
-    if (a2 <= v12)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    v17 = a3 - v12;
-    if (((((((((((v11 + 7 + v14) & 0xFFFFFFF8) + 39) & 0xFFFFFFF8) + 31) & 0xFFFFFFF8) + 47) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) == 0xFFFFFFF8)
-    {
-      v18 = v17 + 1;
-    }
-
-    else
-    {
-      v18 = 2;
-    }
-
-    if (v18 >= 0x10000)
-    {
-      v19 = 4;
-    }
-
-    else
-    {
-      v19 = 2;
-    }
-
-    if (v18 < 0x100)
-    {
-      v19 = 1;
-    }
-
-    if (v18 >= 2)
-    {
-      v20 = v19;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    v21 = a2 - v12;
-    if (a2 <= v12)
-    {
-LABEL_19:
-      if (v20 > 1)
-      {
-        if (v20 != 2)
-        {
-          *&result[v16] = 0;
-          if (!a2)
-          {
-            return result;
-          }
-
-          goto LABEL_35;
-        }
-
-        *&result[v16] = 0;
-      }
-
-      else if (v20)
-      {
-        result[v16] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_35;
-      }
-
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_35:
-      if (v6 == v12)
-      {
-        v25 = *(v5 + 56);
-
-        return v25();
-      }
-
-      else
-      {
-        result = (&result[v13] & ~v10);
-        if (v8 == v12)
-        {
-          v26 = *(v7 + 56);
-
-          return v26(result);
-        }
-
-        else
-        {
-          if ((a2 & 0x80000000) != 0)
-          {
-            v27 = a2 & 0x7FFFFFFF;
-          }
-
-          else
-          {
-            v27 = a2 - 1;
-          }
-
-          *(((&result[v15] & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) = v27;
-        }
-      }
-
-      return result;
-    }
-  }
-
-  if (v16)
-  {
-    v22 = 1;
-  }
-
-  else
-  {
-    v22 = v21;
-  }
-
-  if (v16)
-  {
-    v23 = ~v12 + a2;
-    v24 = result;
-    bzero(result, v16);
-    result = v24;
-    *v24 = v23;
-  }
-
-  if (v20 > 1)
-  {
-    if (v20 == 2)
-    {
-      *&result[v16] = v22;
-    }
-
-    else
-    {
-      *&result[v16] = v22;
-    }
-  }
-
-  else if (v20)
-  {
-    result[v16] = v22;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for DropDelegate.dropExited(info:) in conformance DragReorderableLayoutCoordinator()
-{
-  v1 = *v0;
-  DragReorderableLayoutCoordinator.withStateAnimation(_:)();
-  *(v1 + 152) = 0;
-  *(v1 + 160) = 1;
-  swift_beginAccess();
-  outlined init with copy of _Benchmark(v1 + 48, v5);
-  v2 = v6;
-  v3 = v7;
-  __swift_project_boxed_opaque_existential_1(v5, v6);
-  (*(v3 + 24))(v2, v3);
-  return __swift_destroy_boxed_opaque_existential_1(v5);
-}
-
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, _OWORD *a2, uint64_t a3, uint64_t a4)
-{
-  v4 = a4 + 56;
-  v5 = -1;
-  v6 = -1 << *(a4 + 32);
-  if (-v6 < 64)
-  {
-    v5 = ~(-1 << -v6);
-  }
-
-  v7 = v5 & *(a4 + 56);
-  if (!a2)
-  {
-LABEL_17:
-    v9 = 0;
-    a3 = 0;
-LABEL_23:
-    *result = a4;
-    result[1] = v4;
-    result[2] = ~v6;
-    result[3] = v9;
-    result[4] = v7;
-    return a3;
-  }
-
-  if (!a3)
-  {
-    v9 = 0;
-    goto LABEL_23;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v8 = 0;
-    v9 = 0;
-    v10 = (63 - v6) >> 6;
-    v11 = 1;
-    while (v7)
-    {
-LABEL_13:
-      v14 = __clz(__rbit64(v7));
-      v7 &= v7 - 1;
-      *a2 = *(*(a4 + 48) + ((v9 << 10) | (16 * v14)));
-      if (v11 == a3)
-      {
-        goto LABEL_23;
-      }
-
-      ++a2;
-      v8 = v11;
-      if (__OFADD__(v11++, 1))
-      {
-        __break(1u);
-        goto LABEL_17;
-      }
-    }
-
-    v12 = v9;
-    while (1)
-    {
-      v13 = v12 + 1;
-      if (__OFADD__(v12, 1))
-      {
-        __break(1u);
-        goto LABEL_25;
-      }
-
-      if (v13 >= v10)
-      {
-        break;
-      }
-
-      v7 = *(v4 + 8 * v13);
-      ++v12;
-      if (v7)
-      {
-        v9 = v13;
-        goto LABEL_13;
-      }
-    }
-
-    v7 = 0;
-    if (v10 <= (v9 + 1))
-    {
-      v16 = v9 + 1;
-    }
-
-    else
-    {
-      v16 = (63 - v6) >> 6;
-    }
-
-    v9 = v16 - 1;
-    a3 = v8;
-    goto LABEL_23;
-  }
-
-LABEL_25:
-  __break(1u);
-  return result;
-}
-
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t a2, uint64_t a3)
-{
-  v4 = result;
-  if (!a2)
-  {
-    v5 = 0;
-    v18 = *(v3 + 112);
-    *(result + 6) = *(v3 + 96);
-    *(result + 7) = v18;
-    v19 = *(v3 + 144);
-    *(result + 8) = *(v3 + 128);
-    *(result + 9) = v19;
-    v20 = *(v3 + 48);
-    *(result + 2) = *(v3 + 32);
-    *(result + 3) = v20;
-    v21 = *(v3 + 80);
-    *(result + 4) = *(v3 + 64);
-    *(result + 5) = v21;
-    v22 = *(v3 + 16);
-    *result = *v3;
-    *(result + 1) = v22;
-    result[20] = 0;
-    return v5;
-  }
-
-  v5 = a3;
-  if (!a3)
-  {
-LABEL_11:
-    v13 = *(v3 + 112);
-    *(v4 + 6) = *(v3 + 96);
-    *(v4 + 7) = v13;
-    v14 = *(v3 + 144);
-    *(v4 + 8) = *(v3 + 128);
-    *(v4 + 9) = v14;
-    v15 = *(v3 + 48);
-    *(v4 + 2) = *(v3 + 32);
-    *(v4 + 3) = v15;
-    v16 = *(v3 + 80);
-    *(v4 + 4) = *(v3 + 64);
-    *(v4 + 5) = v16;
-    v17 = *(v3 + 16);
-    *v4 = *v3;
-    *(v4 + 1) = v17;
-    v4[20] = v5;
-    return v5;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v6 = a2;
-    v7 = 0;
-    v8 = *(v3 + 64);
-    v9 = *(v3 + 72);
-    v10 = a3 - 1;
-    while (1)
-    {
-      if (v8 == v7)
-      {
-        v23 = *(v3 + 112);
-        *(v4 + 6) = *(v3 + 96);
-        *(v4 + 7) = v23;
-        v24 = *(v3 + 144);
-        *(v4 + 8) = *(v3 + 128);
-        *(v4 + 9) = v24;
-        v25 = *(v3 + 48);
-        *(v4 + 2) = *(v3 + 32);
-        *(v4 + 3) = v25;
-        v26 = *(v3 + 80);
-        *(v4 + 4) = *(v3 + 64);
-        *(v4 + 5) = v26;
-        v27 = *(v3 + 16);
-        *v4 = *v3;
-        *(v4 + 1) = v27;
-        v5 = v8;
-        v4[20] = v8;
-        return v5;
-      }
-
-      result = v9(&v28, v7);
-      if (v7 >= v8)
-      {
-        break;
-      }
-
-      v11 = v29;
-      v31 = v28;
-      v32 = v29;
-      v12 = v30;
-      v33 = v30;
-      *v6 = v28;
-      *(v6 + 16) = v11;
-      *(v6 + 32) = v12;
-      if (v10 == v7)
-      {
-        goto LABEL_11;
-      }
-
-      v6 += 40;
-      if (__OFADD__(++v7, 1))
-      {
-        __break(1u);
-        goto LABEL_11;
-      }
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, char *__dst, uint64_t a3, uint64_t a4)
-{
-  v5 = result;
-  v6 = a4 + 64;
-  v7 = -1 << *(a4 + 32);
-  if (-v7 < 64)
-  {
-    v8 = ~(-1 << -v7);
-  }
-
-  else
-  {
-    v8 = -1;
-  }
-
-  v9 = v8 & *(a4 + 64);
-  if (!__dst)
-  {
-LABEL_18:
-    v12 = 0;
-    v10 = 0;
-LABEL_24:
-    *v5 = a4;
-    v5[1] = v6;
-    v5[2] = ~v7;
-    v5[3] = v12;
-    v5[4] = v9;
-    return v10;
-  }
-
-  v10 = a3;
-  if (!a3)
-  {
-    v12 = 0;
-    goto LABEL_24;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v11 = __dst;
-    result = 0;
-    v12 = 0;
-    v13 = (63 - v7) >> 6;
-    v14 = 1;
-    while (v9)
-    {
-LABEL_14:
-      v17 = __clz(__rbit64(v9));
-      v9 &= v9 - 1;
-      memmove(v11, (*(a4 + 56) + 80 * (v17 | (v12 << 6))), 0x49uLL);
-      if (v14 == v10)
-      {
-        goto LABEL_24;
-      }
-
-      v11 += 80;
-      result = v14;
-      if (__OFADD__(v14++, 1))
-      {
-        __break(1u);
-        goto LABEL_18;
-      }
-    }
-
-    v15 = v12;
-    while (1)
-    {
-      v16 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        __break(1u);
-        goto LABEL_26;
-      }
-
-      if (v16 >= v13)
-      {
-        break;
-      }
-
-      v9 = *(v6 + 8 * v16);
-      ++v15;
-      if (v9)
-      {
-        v12 = v16;
-        goto LABEL_14;
-      }
-    }
-
-    v9 = 0;
-    if (v13 <= (v12 + 1))
-    {
-      v19 = v12 + 1;
-    }
-
-    else
-    {
-      v19 = (63 - v7) >> 6;
-    }
-
-    v12 = v19 - 1;
-    v10 = result;
-    goto LABEL_24;
-  }
-
-LABEL_26:
-  __break(1u);
-  return result;
-}
-
-void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, char a5)
-{
-  _sSay7SwiftUI13ViewResponderCGMaTm_1(0, &lazy cache variable for type metadata for PlatformItemList.Item?, type metadata accessor for PlatformItemList.Item, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v12 = &v23 - v11;
-  v26 = type metadata accessor for PlatformItemList.Item();
-  v13 = *(v26 - 8);
-  MEMORY[0x1EEE9AC00](v26);
-  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if ((a5 & 1) == 0)
-  {
-    AGGraphGetWeakValue();
-  }
-
-  if (!a2)
-  {
-    a3 = 0;
-    goto LABEL_26;
-  }
-
-  if (!a3)
-  {
-LABEL_26:
-    *a1 = a4;
-    *(a1 + 8) = a5 & 1;
-    *(a1 + 16) = a3;
-    return;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v16 = a3;
-    a3 = 0;
-    v17 = (v13 + 56);
-    v23 = v16;
-    v24 = a1;
-    v25 = v16 - 1;
-    if ((a5 & 1) == 0)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_7:
-    if (a3 != *(a4 + 16))
-    {
-
-      v18 = a4;
-      while (a3 < *(v18 + 16))
-      {
-        v22 = *(v13 + 72);
-        outlined init with copy of DefaultIndices<CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>>(v18 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + v22 * a3, v12, type metadata accessor for PlatformItemList.Item);
-
-        if ((a5 & 1) == 0)
-        {
-          AGGraphGetWeakValue();
-        }
-
-        (*v17)(v12, 0, 1, v26);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v12, v15, type metadata accessor for PlatformItemList.Item);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v15, a2, type metadata accessor for PlatformItemList.Item);
-        if (v25 == a3)
-        {
-          a3 = v23;
-          goto LABEL_25;
-        }
-
-        a2 += v22;
-        ++a3;
-        if (a5)
-        {
-          goto LABEL_7;
-        }
-
-LABEL_9:
-        WeakValue = AGGraphGetWeakValue();
-        if (WeakValue)
-        {
-          if (a3 == *(*WeakValue + 16))
-          {
-            goto LABEL_23;
-          }
-        }
-
-        else
-        {
-          v20 = *(MEMORY[0x1E69E7CC0] + 16);
-
-          if (a3 == v20)
-          {
-            goto LABEL_23;
-          }
-        }
-
-        v21 = AGGraphGetWeakValue();
-        if (v21)
-        {
-          v18 = *v21;
-        }
-
-        else
-        {
-          v18 = MEMORY[0x1E69E7CC0];
-        }
-      }
-
-      __break(1u);
-      goto LABEL_28;
-    }
-
-LABEL_23:
-    (*v17)(v12, 1, 1, v26);
-    outlined destroy of TableColumnCollection.Entry?(v12, &lazy cache variable for type metadata for PlatformItemList.Item?, type metadata accessor for PlatformItemList.Item);
-LABEL_25:
-    a1 = v24;
-    goto LABEL_26;
-  }
-
-LABEL_28:
-  __break(1u);
-}
-
-void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v42 = type metadata accessor for TableColumnCollection.Visitor(0);
-  MEMORY[0x1EEE9AC00](v42);
-  v8 = (&v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  _sSay7SwiftUI13ViewResponderCGMaTm_1(0, &lazy cache variable for type metadata for TableColumnCollection.Entry?, type metadata accessor for TableColumnCollection.Entry, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v41 = &v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v38 - v12;
-  v46 = type metadata accessor for TableColumnCollection.Entry(0);
-  v14 = *(v46 - 8);
-  MEMORY[0x1EEE9AC00](v46);
-  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = v3[1];
-  v52 = *v3;
-  *v53 = v17;
-  *&v53[9] = *(v3 + 25);
-  v54 = 0;
-  if (a2 && a3)
-  {
-    if ((a3 & 0x8000000000000000) == 0)
-    {
-      v38 = a1;
-      v45 = (v14 + 56);
-      v40 = (v14 + 48);
-      v18 = 1;
-      v44 = a3;
-      v39 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-      while (1)
-      {
-        outlined init with copy of TableColumnCollection.Backing(&v52, v50);
-        if (v51)
-        {
-          v19 = *(*&v50[0] + 16);
-        }
-
-        else
-        {
-          outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v50, v47);
-          v20 = v48;
-          v21 = v49;
-          __swift_project_boxed_opaque_existential_1(v47, v48);
-          v19 = (*(v21 + 8))(v20, v21);
-          __swift_destroy_boxed_opaque_existential_1(v47);
-        }
-
-        a1 = v18 - 1;
-        if (v18 - 1 == v19)
-        {
-          (*v45)(v13, 1, 1, v46);
-          outlined destroy of TableColumnCollection.Entry?(v13, &lazy cache variable for type metadata for TableColumnCollection.Entry?, type metadata accessor for TableColumnCollection.Entry);
-LABEL_24:
-          a1 = v38;
-          goto LABEL_25;
-        }
-
-        outlined init with copy of TableColumnCollection.Backing(&v52, v50);
-        if (v51)
-        {
-          if (a1 >= *(*&v50[0] + 16))
-          {
-            goto LABEL_27;
-          }
-
-          outlined init with copy of DefaultIndices<CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>>(*&v50[0] + ((*(v14 + 80) + 32) & ~*(v14 + 80)) + *(v14 + 72) * a1, v13, type metadata accessor for TableColumnCollection.Entry);
-        }
-
-        else
-        {
-          v43 = a2;
-          v22 = v14;
-          v23 = v13;
-          outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v50, v47);
-          v24 = v42;
-          v25 = *(v42 + 20);
-          v26 = v46;
-          (*v45)(v8 + v25, 1, 1, v46);
-          *v8 = a1;
-          v27 = v48;
-          v28 = v49;
-          __swift_project_boxed_opaque_existential_1(v47, v48);
-          TableColumnList.visitColumns<A>(applying:from:)(v8, v18 - 1, v27, v24, v28, &protocol witness table for TableColumnCollection.Visitor);
-          v29 = v41;
-          _s7SwiftUI17_DraggingModifierVSgWOcTm_0(v8 + v25, v41, &lazy cache variable for type metadata for TableColumnCollection.Entry?, type metadata accessor for TableColumnCollection.Entry, MEMORY[0x1E69E6720], _sSay7SwiftUI13ViewResponderCGMaTm_1);
-          if ((*v40)(v29, 1, v26) == 1)
-          {
-            goto LABEL_29;
-          }
-
-          outlined destroy of DefaultIndices<CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>>(v8, type metadata accessor for TableColumnCollection.Visitor);
-          v30 = v29;
-          v13 = v23;
-          _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v30, v23, type metadata accessor for TableColumnCollection.Entry);
-          __swift_destroy_boxed_opaque_existential_1(v47);
-          a3 = v44;
-          v14 = v22;
-          a2 = v43;
-          v16 = v39;
-        }
-
-        outlined init with copy of TableColumnCollection.Backing(&v52, v50);
-        if (v51)
-        {
-          v31 = *(*&v50[0] + 16);
-        }
-
-        else
-        {
-          outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v50, v47);
-          v32 = v48;
-          v33 = v49;
-          __swift_project_boxed_opaque_existential_1(v47, v48);
-          v34 = *(v33 + 8);
-          v35 = v33;
-          a3 = v44;
-          v31 = v34(v32, v35);
-          __swift_destroy_boxed_opaque_existential_1(v47);
-        }
-
-        if (a1 >= v31)
-        {
-          break;
-        }
-
-        v54 = v18;
-        (*v45)(v13, 0, 1, v46);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v13, v16, type metadata accessor for TableColumnCollection.Entry);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v16, a2, type metadata accessor for TableColumnCollection.Entry);
-        if (a3 == v18)
-        {
-          goto LABEL_24;
-        }
-
-        a2 += *(v14 + 72);
-        if (__OFADD__(v18++, 1))
-        {
-          __break(1u);
-          goto LABEL_25;
-        }
-      }
-
-      __break(1u);
-LABEL_27:
-      __break(1u);
-    }
-
-    __break(1u);
-LABEL_29:
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_25:
-    v37 = *v53;
-    *a1 = v52;
-    *(a1 + 16) = v37;
-    *(a1 + 32) = *&v53[16];
-    *(a1 + 48) = v54;
-  }
-}
-
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v28 = a1;
-  _sSay7SwiftUI13ViewResponderCGMaTm_1(0, &lazy cache variable for type metadata for _ArchivedView?, type metadata accessor for _ArchivedView, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v26 - v8;
-  v10 = type metadata accessor for _ArchivedView(0);
-  v38 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v30 = &v26 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v37 = &v26 - v16;
-  type metadata accessor for IndexingIterator<_ArchivedViewStates>();
-  v18 = v17 - 8;
-  MEMORY[0x1EEE9AC00](v17);
-  v20 = &v26 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v4, v20, type metadata accessor for _ArchivedViewStates);
-  v36 = *(v18 + 44);
-  *&v20[v36] = 0;
-  if (!a2)
-  {
-    a3 = 0;
-    goto LABEL_12;
-  }
-
-  if (!a3)
-  {
-LABEL_12:
-    _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v20, v28, type metadata accessor for IndexingIterator<_ArchivedViewStates>);
-    return a3;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v35 = *&v20[*(type metadata accessor for _ArchivedViewStates(0) + 20) + 8];
-    v22 = *(v35 + 16);
-    if (v22)
-    {
-      v23 = 0;
-      v33 = (v38 + 56);
-      v29 = v38 + 48;
-      v27 = a3;
-      v32 = a3 - 1;
-      v39 = xmmword_18CD77CA0;
-      v24 = v30;
-      v34 = v20;
-      v31 = v22;
-      while (1)
-      {
-        _ArchivedViewStates.state(at:)(v23, v9);
-        (*v33)(v9, 0, 1, v10);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v9, v12, type metadata accessor for _ArchivedView);
-        v20 = v34;
-        result = _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v12, v24, type metadata accessor for _ArchivedView);
-        if (v23 >= *(v35 + 16))
-        {
-          break;
-        }
-
-        v25 = v37;
-        *&v20[v36] = v23 + 1;
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v24, v25, type metadata accessor for _ArchivedView);
-        _s7SwiftUI16PlatformItemListV0D0VWObTm_1(v25, a2, type metadata accessor for _ArchivedView);
-        if (v32 == v23)
-        {
-          a3 = v27;
-          goto LABEL_12;
-        }
-
-        a2 += *(v38 + 72);
-        ++v23;
-        v22 = v31;
-        if (v31 == v23)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      __break(1u);
-      goto LABEL_14;
-    }
-
-LABEL_9:
-    a3 = v22;
-    goto LABEL_12;
-  }
-
-LABEL_14:
-  __break(1u);
-  return result;
-}
-
 uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t result, _OWORD *a2, uint64_t a3, void *a4, char a5, uint64_t a6, uint64_t a7)
 {
   if (a2)
@@ -2356,7 +16,7 @@ LABEL_24:
         v11 = a2;
         v19 = result;
         v12 = 0;
-        v13 = (a4 + 4);
+        v13 = a4 + 4;
         v18 = a3;
         v14 = a3 - 1;
         while (1)
@@ -2412,7 +72,7 @@ LABEL_24:
 
           v11 += 3;
           ++v12;
-          v13 += 48;
+          v13 += 6;
           if (__OFADD__(v12, 1))
           {
             __break(1u);
@@ -2520,7 +180,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+void specialized Sequence._copySequenceContents(initializing:)(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   if (!a2)
   {
@@ -2535,7 +195,7 @@ LABEL_17:
 LABEL_19:
     *a1 = a4;
     a1[1] = v9;
-    return v9;
+    return;
   }
 
   if ((a3 & 0x8000000000000000) != 0)
@@ -2592,16 +252,16 @@ LABEL_22:
       v12 = *(a4 + 8 * v10 + 32);
     }
 
-    (*(*v12 + 120))(&v15, v13);
+    (*(*v12 + 120))(&v14, v13);
 
-    if (!v16)
+    if (!v15)
     {
       break;
     }
 
-    outlined init with take of Decodable & Encodable & Hashable(&v15, v17);
-    outlined init with take of Decodable & Encodable & Hashable(v17, v18);
-    outlined init with take of Decodable & Encodable & Hashable(v18, v4);
+    outlined init with take of Decodable & Encodable & Hashable(&v14, v16);
+    outlined init with take of Decodable & Encodable & Hashable(v16, v17);
+    outlined init with take of Decodable & Encodable & Hashable(v17, v4);
     if (v11 == a3)
     {
       goto LABEL_17;
@@ -2616,9 +276,9 @@ LABEL_22:
   }
 
   __break(1u);
-  return result;
 }
 
+uint64_t specialized Sequence._copySequenceContents(initializing:)(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   if (a2)
   {
@@ -2731,7 +391,7 @@ LABEL_15:
   if ((a3 & 0x8000000000000000) == 0)
   {
     v18 = a1;
-    v11 = type metadata accessor for AnimationTimelineSchedule.Entries();
+    v11 = type metadata accessor for AnimationTimelineSchedule.Entries(0);
     v12 = (v22 + 16);
     v19 = *(v23 + *(v11 + 20) + 8);
     v20 = (v22 + 56);
@@ -2887,137 +547,137 @@ LABEL_25:
   return result;
 }
 
-void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
+void specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v40 = type metadata accessor for DateComponents();
-  v42 = *(v40 - 8);
-  MEMORY[0x1EEE9AC00](v40);
-  v41 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10.n128_f64[0] = MEMORY[0x1EEE9AC00](v9);
-  v39 = &v33 - v11;
-  v12 = a4 + 56;
-  v13 = -1 << *(a4 + 32);
-  if (-v13 < 64)
+  v41 = type metadata accessor for DateComponents();
+  v43 = *(v41 - 8);
+  MEMORY[0x1EEE9AC00](v41);
+  v42 = &v34 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11.n128_f64[0] = MEMORY[0x1EEE9AC00](v10);
+  v40 = &v34 - v12;
+  v13 = a4 + 56;
+  v14 = -1 << *(a4 + 32);
+  if (-v14 < 64)
   {
-    v14 = ~(-1 << -v13);
+    v15 = ~(-1 << -v14);
   }
 
   else
   {
-    v14 = -1;
+    v15 = -1;
   }
 
-  v15 = v14 & *(a4 + 56);
+  v16 = v15 & *(a4 + 56);
   if (!a2)
   {
 LABEL_19:
-    v31 = 0;
+    v32 = 0;
 LABEL_25:
     *a1 = a4;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = ~v13;
-    *(a1 + 24) = v31;
-    *(a1 + 32) = v15;
+    *(a1 + 8) = v13;
+    *(a1 + 16) = ~v14;
+    *(a1 + 24) = v32;
+    *(a1 + 32) = v16;
     return;
   }
 
   if (!a3)
   {
-    v31 = 0;
+    v32 = 0;
     goto LABEL_25;
   }
 
   if ((a3 & 0x8000000000000000) == 0)
   {
-    v33 = -1 << *(a4 + 32);
-    v34 = a1;
-    v16 = 0;
-    v17 = (63 - v13) >> 6;
-    v35 = v42 + 32;
-    v36 = v42 + 16;
+    v34 = -1 << *(a4 + 32);
+    v35 = a1;
+    v17 = 0;
+    v18 = (63 - v14) >> 6;
+    v36 = v43 + 32;
+    v37 = v43 + 16;
     a1 = 1;
-    v37 = a4 + 56;
-    v38 = a3;
-    v18 = v39;
-    while (v15)
+    v38 = a4 + 56;
+    v39 = a3;
+    v19 = v40;
+    while (v16)
     {
-      v44 = a2;
+      v45 = a2;
 LABEL_15:
-      v21 = __clz(__rbit64(v15));
-      v15 &= v15 - 1;
-      v43 = v16;
-      v22 = a4;
-      v23 = *(a4 + 48);
-      v24 = v41;
+      v22 = __clz(__rbit64(v16));
+      v16 &= v16 - 1;
+      v44 = v17;
+      v23 = a4;
+      v24 = *(a4 + 48);
       v25 = v42;
-      v26 = *(v42 + 72);
-      v27 = v40;
-      (*(v42 + 16))(v41, v23 + v26 * (v21 | (v16 << 6)), v40, v10);
-      v28 = *(v25 + 32);
-      v28(v18, v24, v27);
-      v29 = v44;
-      v28(v44, v18, v27);
-      if (a1 == v38)
+      v26 = v43;
+      v27 = *(v43 + 72);
+      v28 = v41;
+      (*(v43 + 16))(v42, v24 + v27 * (v22 | (v17 << 6)), v41, v11);
+      v29 = *(v26 + 32);
+      v29(v19, v25, v28);
+      v30 = v45;
+      v29(v45, v19, v28);
+      if (a1 == v39)
       {
-        v13 = v33;
-        a1 = v34;
-        a4 = v22;
-        v31 = v43;
-        v12 = v37;
+        v14 = v34;
+        a1 = v35;
+        a4 = v23;
+        v32 = v44;
+        v13 = v38;
         goto LABEL_25;
       }
 
-      a2 = &v29[v26];
-      v30 = __OFADD__(a1++, 1);
-      a4 = v22;
-      v16 = v43;
-      v12 = v37;
-      if (v30)
+      a2 = &v30[v27];
+      v31 = __OFADD__(a1++, 1);
+      a4 = v23;
+      v17 = v44;
+      v13 = v38;
+      if (v31)
       {
         __break(1u);
         goto LABEL_19;
       }
     }
 
-    v19 = v16;
+    v20 = v17;
     while (1)
     {
-      v20 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v21 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         __break(1u);
         goto LABEL_28;
       }
 
-      if (v20 >= v17)
+      if (v21 >= v18)
       {
         break;
       }
 
-      v15 = *(v12 + 8 * v20);
-      ++v19;
-      if (v15)
+      v16 = *(v13 + 8 * v21);
+      ++v20;
+      if (v16)
       {
-        v44 = a2;
-        v16 = v20;
+        v45 = a2;
+        v17 = v21;
         goto LABEL_15;
       }
     }
 
-    v15 = 0;
-    if (v17 <= v16 + 1)
+    v16 = 0;
+    if (v18 <= v17 + 1)
     {
-      v32 = v16 + 1;
+      v33 = v17 + 1;
     }
 
     else
     {
-      v32 = v17;
+      v33 = v18;
     }
 
-    v31 = v32 - 1;
-    v13 = v33;
-    a1 = v34;
+    v32 = v33 - 1;
+    v14 = v34;
+    a1 = v35;
     goto LABEL_25;
   }
 
@@ -3579,7 +1239,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayoutCoordin
   result = lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace;
   if (!lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayoutCoordinateSpace, &unk_1EFFBF1E0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace);
   }
 
@@ -3590,7 +1250,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayoutCoordin
   result = lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace;
   if (!lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayoutCoordinateSpace, &unk_1EFFBF1E0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayoutCoordinateSpace and conformance ReorderableLayoutCoordinateSpace);
   }
 
@@ -3602,7 +1262,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableChildCoordina
   result = lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace;
   if (!lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableChildCoordinateSpace, &type metadata for ReorderableChildCoordinateSpace, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace);
   }
 
@@ -3613,20 +1273,20 @@ unint64_t lazy protocol witness table accessor for type ReorderableChildCoordina
   result = lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace;
   if (!lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableChildCoordinateSpace, &type metadata for ReorderableChildCoordinateSpace, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableChildCoordinateSpace and conformance ReorderableChildCoordinateSpace);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type _ArchivedViewStates and conformance _ArchivedViewStates(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type _ArchivedViewStates and conformance _ArchivedViewStates(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -3638,7 +1298,7 @@ unint64_t lazy protocol witness table accessor for type DragSourceProxyInput and
   result = lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput;
   if (!lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragSourceProxyInput, &unk_1EFFBF018, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput);
   }
 
@@ -3649,7 +1309,7 @@ unint64_t lazy protocol witness table accessor for type DragSourceProxyInput and
   result = lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput;
   if (!lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragSourceProxyInput, &unk_1EFFBF018, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragSourceProxyInput and conformance DragSourceProxyInput);
   }
 
@@ -3661,42 +1321,42 @@ unint64_t lazy protocol witness table accessor for type ConditionalDraggingModif
   result = lazy protocol witness table cache variable for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier;
   if (!lazy protocol witness table cache variable for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ConditionalDraggingModifier, &type metadata for ConditionalDraggingModifier, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier);
   }
 
   return result;
 }
 
-double specialized ReorderableLayout.sizeThatFits(in:context:child:)()
+double specialized ReorderableLayout.sizeThatFits(in:context:child:)(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   LayoutProxy.size(in:)();
-  v1 = v0;
-  v3 = COERCE_DOUBLE(_ProposedSize.width.getter());
-  if (v1 >= v3)
+  v4 = v3;
+  v6 = COERCE_DOUBLE(_ProposedSize.width.getter());
+  if (v4 >= v6)
   {
-    v3 = v1;
+    v6 = v4;
   }
 
-  if ((v2 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    v1 = v3;
+    v4 = v6;
   }
 
   _ProposedSize.height.getter();
-  return v1;
+  return v4;
 }
 
-void type metadata accessor for IndexingIterator<_ArchivedViewStates>()
+void type metadata accessor for IndexingIterator<_ArchivedViewStates>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for IndexingIterator<_ArchivedViewStates>)
   {
     type metadata accessor for _ArchivedViewStates(255);
-    lazy protocol witness table accessor for type _ArchivedViewStates and conformance _ArchivedViewStates(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates);
-    v0 = type metadata accessor for IndexingIterator();
-    if (!v1)
+    lazy protocol witness table accessor for type _ArchivedViewStates and conformance _ArchivedViewStates(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates, protocol conformance descriptor for _ArchivedViewStates);
+    v1 = type metadata accessor for IndexingIterator();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for IndexingIterator<_ArchivedViewStates>);
+      atomic_store(v1, &lazy cache variable for type metadata for IndexingIterator<_ArchivedViewStates>);
     }
   }
 }
@@ -3708,33 +1368,32 @@ uint64_t outlined destroy of TableColumnCollection.Entry?(uint64_t a1, unint64_t
   return a1;
 }
 
-uint64_t destroy for ConditionalDraggingModifier(uint64_t result)
+double destroy for ConditionalDraggingModifier(void *a1)
 {
-  if (*(result + 136))
+  if (a1[17])
   {
-    v1 = result;
-    if (*(result + 8))
+    if (a1[1])
     {
     }
 
-    if (v1[3])
+    if (a1[3])
     {
     }
 
-    if (v1[5])
+    if (a1[5])
     {
     }
 
-    if (v1[7])
+    if (a1[7])
     {
     }
 
-    if (v1[12])
+    if (a1[12])
     {
-      __swift_destroy_boxed_opaque_existential_1((v1 + 9));
+      __swift_destroy_boxed_opaque_existential_1(a1 + 9);
     }
 
-    if (v1[15] >= 2uLL)
+    if (a1[15] >= 2uLL)
     {
     }
   }
@@ -3901,12 +1560,12 @@ uint64_t assignWithCopy for ConditionalDraggingModifier(uint64_t a1, uint64_t a2
       *(a1 + 8) = *(a2 + 8);
     }
 
-    v45 = *(a2 + 24);
-    if (v45)
+    v47 = *(a2 + 24);
+    if (v47)
     {
-      v46 = *(a2 + 32);
-      *(a1 + 24) = v45;
-      *(a1 + 32) = v46;
+      v48 = *(a2 + 32);
+      *(a1 + 24) = v47;
+      *(a1 + 32) = v48;
     }
 
     else
@@ -3914,12 +1573,12 @@ uint64_t assignWithCopy for ConditionalDraggingModifier(uint64_t a1, uint64_t a2
       *(a1 + 24) = *(a2 + 24);
     }
 
-    v47 = *(a2 + 40);
-    if (v47)
+    v49 = *(a2 + 40);
+    if (v49)
     {
-      v48 = *(a2 + 48);
-      *(a1 + 40) = v47;
-      *(a1 + 48) = v48;
+      v50 = *(a2 + 48);
+      *(a1 + 40) = v49;
+      *(a1 + 48) = v50;
     }
 
     else
@@ -3927,43 +1586,43 @@ uint64_t assignWithCopy for ConditionalDraggingModifier(uint64_t a1, uint64_t a2
       *(a1 + 40) = *(a2 + 40);
     }
 
-    v49 = *(a2 + 56);
-    if (v49)
+    v51 = *(a2 + 56);
+    if (v51)
     {
-      v50 = *(a2 + 64);
-      *(a1 + 56) = v49;
-      *(a1 + 64) = v50;
+      v52 = *(a2 + 64);
+      *(a1 + 56) = v51;
+      *(a1 + 64) = v52;
 
-      v51 = *(a2 + 96);
-      if (v51)
+      v53 = *(a2 + 96);
+      if (v53)
       {
 LABEL_62:
-        *(a1 + 96) = v51;
-        (**(v51 - 8))(a1 + 72, a2 + 72);
+        *(a1 + 96) = v53;
+        (**(v53 - 8))(a1 + 72, a2 + 72);
 LABEL_65:
         *(a1 + 104) = *(a2 + 104);
-        v53 = (a2 + 120);
-        v54 = (a2 + 112);
+        v55 = (a2 + 120);
+        v56 = (a2 + 112);
         if (*(a2 + 120) == 1)
         {
-          v55 = *v54;
+          v57 = *v56;
           *(a1 + 128) = *(a2 + 128);
-          *(a1 + 112) = v55;
+          *(a1 + 112) = v57;
         }
 
         else
         {
-          *(a1 + 112) = *v54;
-          if (*v53)
+          *(a1 + 112) = *v56;
+          if (*v55)
           {
-            v56 = *(a2 + 128);
-            *(a1 + 120) = *v53;
-            *(a1 + 128) = v56;
+            v58 = *(a2 + 128);
+            *(a1 + 120) = *v55;
+            *(a1 + 128) = v58;
           }
 
           else
           {
-            *(a1 + 120) = *v53;
+            *(a1 + 120) = *v55;
           }
         }
 
@@ -3976,16 +1635,16 @@ LABEL_65:
     else
     {
       *(a1 + 56) = *(a2 + 56);
-      v51 = *(a2 + 96);
-      if (v51)
+      v53 = *(a2 + 96);
+      if (v53)
       {
         goto LABEL_62;
       }
     }
 
-    v52 = *(a2 + 72);
+    v54 = *(a2 + 72);
     *(a1 + 88) = *(a2 + 88);
-    *(a1 + 72) = v52;
+    *(a1 + 72) = v54;
     goto LABEL_65;
   }
 
@@ -4065,14 +1724,15 @@ LABEL_22:
 
     *(a1 + 40) = *(a2 + 40);
 LABEL_29:
+    v30 = (a2 + 56);
     v29 = *(a2 + 56);
     if (*(a1 + 56))
     {
       if (v29)
       {
-        v30 = *(a2 + 64);
+        v31 = *(a2 + 64);
         *(a1 + 56) = v29;
-        *(a1 + 64) = v30;
+        *(a1 + 64) = v31;
 
         goto LABEL_36;
       }
@@ -4080,65 +1740,66 @@ LABEL_29:
 
     else if (v29)
     {
-      v31 = *(a2 + 64);
+      v33 = *(a2 + 64);
       *(a1 + 56) = v29;
-      *(a1 + 64) = v31;
+      *(a1 + 64) = v33;
 
       goto LABEL_36;
     }
 
-    *(a1 + 56) = *(a2 + 56);
+    v32 = *v30;
+    *(a1 + 56) = *v30;
 LABEL_36:
-    v32 = *(a2 + 96);
+    v34 = *(a2 + 96);
     if (*(a1 + 96))
     {
-      v33 = (a1 + 72);
-      if (v32)
+      v35 = (a1 + 72);
+      if (v34)
       {
-        __swift_assign_boxed_opaque_existential_0(v33, (a2 + 72));
+        __swift_assign_boxed_opaque_existential_0(v35, (a2 + 72), v32);
         goto LABEL_43;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v33);
+      __swift_destroy_boxed_opaque_existential_1(v35);
     }
 
-    else if (v32)
+    else if (v34)
     {
-      *(a1 + 96) = v32;
-      (**(v32 - 8))(a1 + 72, a2 + 72);
+      *(a1 + 96) = v34;
+      (**(v34 - 8))(a1 + 72, a2 + 72);
       goto LABEL_43;
     }
 
-    v34 = *(a2 + 72);
+    v36 = *(a2 + 72);
     *(a1 + 88) = *(a2 + 88);
-    *(a1 + 72) = v34;
+    *(a1 + 72) = v36;
 LABEL_43:
-    v35 = *(a1 + 120);
+    v37 = *(a1 + 120);
     *(a1 + 104) = *(a2 + 104);
-    v36 = (a1 + 112);
-    v38 = (a2 + 120);
-    v37 = *(a2 + 120);
-    v39 = (a2 + 112);
-    if (v35 == 1)
+    v38 = (a1 + 112);
+    v40 = (a2 + 120);
+    v39 = *(a2 + 120);
+    v41 = (a2 + 112);
+    if (v37 == 1)
     {
-      if (v37 == 1)
+      if (v39 == 1)
       {
-        v40 = *v39;
+        v42 = *v41;
         *(a1 + 128) = *(a2 + 128);
-        *v36 = v40;
+        *v38 = v42;
 LABEL_76:
         *(a1 + 136) = *(a2 + 136);
 
         return a1;
       }
 
-      *v36 = *v39;
-      if (*v38)
+      *v38 = *v41;
+      if (*v40)
       {
-        v42 = *(a2 + 128);
-        *(a1 + 120) = *v38;
+        v44 = *(a2 + 128);
+        *(a1 + 120) = *v40;
 LABEL_73:
-        *(a1 + 128) = v42;
+        *(a1 + 128) = v44;
 
         goto LABEL_76;
       }
@@ -4146,38 +1807,38 @@ LABEL_73:
 
     else
     {
-      if (v37 == 1)
+      if (v39 == 1)
       {
         outlined destroy of Drag.SupplementaryConfiguration(a1 + 112);
-        v41 = *(a2 + 128);
-        *v36 = *v39;
-        *(a1 + 128) = v41;
+        v43 = *(a2 + 128);
+        *v38 = *v41;
+        *(a1 + 128) = v43;
         goto LABEL_76;
       }
 
-      *v36 = *v39;
-      v43 = *v38;
-      if (v35)
+      *v38 = *v41;
+      v45 = *v40;
+      if (v37)
       {
-        if (v43)
+        if (v45)
         {
-          v44 = *(a2 + 128);
-          *(a1 + 120) = v43;
-          *(a1 + 128) = v44;
+          v46 = *(a2 + 128);
+          *(a1 + 120) = v45;
+          *(a1 + 128) = v46;
 
           goto LABEL_76;
         }
       }
 
-      else if (v43)
+      else if (v45)
       {
-        v42 = *(a2 + 128);
-        *(a1 + 120) = v43;
+        v44 = *(a2 + 128);
+        *(a1 + 120) = v45;
         goto LABEL_73;
       }
     }
 
-    *(a1 + 120) = *v38;
+    *(a1 + 120) = *v40;
     goto LABEL_76;
   }
 
@@ -4303,7 +1964,7 @@ LABEL_26:
 LABEL_33:
       if (*(a1 + 96))
       {
-        __swift_destroy_boxed_opaque_existential_1(a1 + 72);
+        __swift_destroy_boxed_opaque_existential_1((a1 + 72));
       }
 
       *(a1 + 72) = *(a2 + 72);
@@ -4434,20 +2095,24 @@ uint64_t storeEnumTagSinglePayload for ConditionalDraggingModifier(uint64_t resu
   return result;
 }
 
-uint64_t type metadata completion function for DragReorderableLayoutCore()
+uint64_t type metadata completion function for DragReorderableLayoutCore(uint64_t a1)
 {
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  result = type metadata accessor for DragReorderableLayoutAdaptor();
-  if (v1 <= 0x3F)
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v5 = swift_getAssociatedTypeWitness();
+  v6 = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v8 = swift_getAssociatedConformanceWitness();
+  v9 = swift_getAssociatedConformanceWitness();
+  result = type metadata accessor for DragReorderableLayoutAdaptor(319, &AssociatedTypeWitness);
+  if (v2 <= 0x3F)
   {
+    AssociatedTypeWitness = *(result - 8) + 64;
+    v5 = MEMORY[0x1E69E5D20] + 64;
+    v6 = ")";
     result = type metadata accessor for Optional();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
+      AssociatedConformanceWitness = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -4456,151 +2121,339 @@ uint64_t type metadata completion function for DragReorderableLayoutCore()
   return result;
 }
 
-uint64_t *initializeBufferWithCopyOfBuffer for DragReorderableLayoutCore(uint64_t *a1, uint64_t *a2)
+uint64_t *initializeBufferWithCopyOfBuffer for DragReorderableLayoutCore(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v2 = *(AssociatedTypeWitness - 8);
-  v45 = *(v2 + 64);
-  v3 = swift_getAssociatedTypeWitness();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 80);
-  v6 = *(v4 + 64);
-  v44 = swift_getAssociatedTypeWitness();
-  v7 = *(v44 - 8);
-  v8 = *(v7 + 80);
-  if (*(v7 + 84))
+  v3 = *(AssociatedTypeWitness - 8);
+  v46 = *(v3 + 64);
+  v4 = swift_getAssociatedTypeWitness();
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 80);
+  v7 = *(v5 + 64);
+  v45 = swift_getAssociatedTypeWitness();
+  v8 = *(v45 - 8);
+  v9 = *(v8 + 80);
+  if (*(v8 + 84))
   {
-    v9 = *(v7 + 64);
+    v10 = *(v8 + 64);
   }
 
   else
   {
-    v9 = *(v7 + 64) + 1;
+    v10 = *(v8 + 64) + 1;
   }
 
-  v10 = v8 | *(v2 + 80) & 0xF8 | v5;
-  v11 = v10 <= 7 && ((*(v7 + 80) | v5 | *(v2 + 80)) & 0x100000) == 0;
-  if (v11 && (v12 = v45 + v5, v13 = v6 + 7, ((-42 - (((((((((((((((v6 + 7 + (v12 & ~v5)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + v8)) | v8) - v9 >= 0xFFFFFFFFFFFFFFE7))
+  v11 = v9 | *(v3 + 80) & 0xF8 | v6;
+  v12 = v11 <= 7 && ((*(v8 + 80) | v6 | *(v3 + 80)) & 0x100000) == 0;
+  if (v12 && (v13 = v46 + v6, v14 = v7 + 7, ((-42 - (((((((((((((((v7 + 7 + (v13 & ~v6)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + v9)) | v9) - v10 >= 0xFFFFFFFFFFFFFFE7))
   {
-    __n = v9;
-    v14 = ~v5;
-    v46 = ((((((((((v6 + 7 + ((v45 + v5) & v14)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
-    (*(v2 + 16))(a1, a2, AssociatedTypeWitness);
-    v15 = a1;
-    v16 = (a1 + v12) & v14;
-    v17 = (a2 + v12) & v14;
-    (*(v4 + 16))(v16, v17, v3);
-    v18 = ((v13 + v16) & 0xFFFFFFFFFFFFFFF8);
-    v19 = ((v13 + v17) & 0xFFFFFFFFFFFFFFF8);
-    v20 = v19[1];
-    *v18 = *v19;
-    v18[1] = v20;
-    v21 = ((v18 + 39) & 0xFFFFFFFFFFFFFFF8);
+    __n = v10;
+    v15 = ~v6;
+    v47 = ((((((((((v7 + 7 + ((v46 + v6) & v15)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
+    (*(v3 + 16))(a1, a2, AssociatedTypeWitness);
+    v16 = a1;
+    v17 = (a1 + v13) & v15;
+    v18 = (a2 + v13) & v15;
+    (*(v5 + 16))(v17, v18, v4);
+    v19 = ((v14 + v17) & 0xFFFFFFFFFFFFFFF8);
+    v20 = ((v14 + v18) & 0xFFFFFFFFFFFFFFF8);
+    v21 = v20[1];
+    *v19 = *v20;
+    v19[1] = v21;
     v22 = ((v19 + 39) & 0xFFFFFFFFFFFFFFF8);
-    *v21 = *v22;
-    v23 = (v21 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v23 = ((v20 + 39) & 0xFFFFFFFFFFFFFFF8);
+    *v22 = *v23;
     v24 = (v22 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v25 = *v24;
-    *(v23 + 8) = *(v24 + 8);
-    *v23 = v25;
-    v26 = (v21 + 31) & 0xFFFFFFFFFFFFFFF8;
+    v25 = (v23 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v26 = *v25;
+    *(v24 + 8) = *(v25 + 8);
+    *v24 = v26;
     v27 = (v22 + 31) & 0xFFFFFFFFFFFFFFF8;
-    v28 = *(v27 + 24);
-    *(v26 + 24) = v28;
-    *(v26 + 32) = *(v27 + 32);
-    v29 = **(v28 - 8);
+    v28 = (v23 + 31) & 0xFFFFFFFFFFFFFFF8;
+    v29 = *(v28 + 24);
+    *(v27 + 24) = v29;
+    *(v27 + 32) = *(v28 + 32);
+    v30 = **(v29 - 8);
 
-    v29(v26, v27, v28);
-    v30 = ((v26 + 47) & 0xFFFFFFFFFFFFFFF8);
+    v30(v27, v28, v29);
     v31 = ((v27 + 47) & 0xFFFFFFFFFFFFFFF8);
-    *v30 = *v31;
-    *((v30 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v31 + 15) & 0xFFFFFFFFFFFFFFF8);
-    v32 = ((a1 + v46) & 0xFFFFFFFFFFFFFFF8);
-    v33 = ((a2 + v46) & 0xFFFFFFFFFFFFFFF8);
-    *v32 = *v33;
-    v34 = (v32 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v32 = ((v28 + 47) & 0xFFFFFFFFFFFFFFF8);
+    *v31 = *v32;
+    *((v31 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v32 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v33 = ((a1 + v47) & 0xFFFFFFFFFFFFFFF8);
+    v34 = ((a2 + v47) & 0xFFFFFFFFFFFFFFF8);
+    *v33 = *v34;
     v35 = (v33 + 15) & 0xFFFFFFFFFFFFFFF8;
-    *v34 = *v35;
-    *(v34 + 8) = *(v35 + 8);
-    v36 = *(v35 + 16);
-    *(v34 + 25) = *(v35 + 25);
-    *(v34 + 16) = v36;
-    v37 = v8 + 41 + v34;
-    v38 = v8 + 41 + v35;
-    v39 = *(v7 + 48);
+    v36 = (v34 + 15) & 0xFFFFFFFFFFFFFFF8;
+    *v35 = *v36;
+    *(v35 + 8) = *(v36 + 8);
+    v37 = *(v36 + 16);
+    *(v35 + 25) = *(v36 + 25);
+    *(v35 + 16) = v37;
+    v38 = v9 + 41 + v35;
+    v39 = v9 + 41 + v36;
+    v40 = *(v8 + 48);
 
-    if (v39(v38 & ~v8, 1, v44))
+    if (v40(v39 & ~v9, 1, v45))
     {
-      memcpy((v37 & ~v8), (v38 & ~v8), __n);
+      memcpy((v38 & ~v9), (v39 & ~v9), __n);
     }
 
     else
     {
-      (*(v7 + 16))(v37 & ~v8, v38 & ~v8, v44);
-      (*(v7 + 56))(v37 & ~v8, 0, 1, v44);
+      (*(v8 + 16))(v38 & ~v9, v39 & ~v9, v45);
+      (*(v8 + 56))(v38 & ~v9, 0, 1, v45);
     }
   }
 
   else
   {
-    v40 = *a2;
+    v41 = *a2;
     *a1 = *a2;
-    v15 = (v40 + (((v10 | 7) + 16) & ~(v10 | 7)));
+    v16 = (v41 + (((v11 | 7) + 16) & ~(v11 | 7)));
   }
 
-  return v15;
+  return v16;
 }
 
-uint64_t destroy for DragReorderableLayoutCore(uint64_t a1)
+uint64_t destroy for DragReorderableLayoutCore(uint64_t a1, uint64_t a2)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8) + 8;
-  (*v3)(a1, AssociatedTypeWitness);
-  v4 = *(v3 + 56);
-  v5 = swift_getAssociatedTypeWitness();
-  v6 = *(v5 - 8);
-  v7 = v6 + 8;
-  v8 = *(v6 + 80);
-  v9 = v4 + v8;
-  v10 = (v4 + v8 + a1) & ~v8;
-  (*(v6 + 8))(v10, v5);
-  v11 = *(v7 + 56) + 7;
+  v4 = *(AssociatedTypeWitness - 8) + 8;
+  (*v4)(a1, AssociatedTypeWitness);
+  v5 = *(v4 + 56);
+  v6 = swift_getAssociatedTypeWitness();
+  v7 = *(v6 - 8);
+  v8 = v7 + 8;
+  v9 = *(v7 + 80);
+  v10 = v5 + v9;
+  v11 = (v5 + v9 + a1) & ~v9;
+  (*(v7 + 8))(v11, v6);
+  v12 = *(v8 + 56) + 7;
 
-  __swift_destroy_boxed_opaque_existential_1((((((v11 + v10) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8);
+  __swift_destroy_boxed_opaque_existential_1(((((((v12 + v11) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8));
 
-  v12 = swift_getAssociatedTypeWitness();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 80);
-  v15 = ((((a1 + ((((((((((v11 + (v9 & ~v8)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + v14 + 41;
-  v18 = v13;
-  result = (*(v13 + 48))(v15 & ~v14, 1, v12);
+  v13 = swift_getAssociatedTypeWitness();
+  v14 = *(v13 - 8);
+  v15 = *(v14 + 80);
+  v16 = ((((a1 + ((((((((((v12 + (v10 & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + v15 + 41;
+  v19 = v14;
+  result = (*(v14 + 48))(v16 & ~v15, 1, v13);
   if (!result)
   {
-    v17 = *(v18 + 8);
+    v18 = *(v19 + 8);
 
-    return v17(v15 & ~v14, v12);
+    return v18(v16 & ~v15, v13);
   }
 
   return result;
 }
 
-uint64_t initializeWithCopy for DragReorderableLayoutCore(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for DragReorderableLayoutCore(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8) + 16;
-  (*v5)(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 48);
-  v7 = swift_getAssociatedTypeWitness();
-  v8 = *(v7 - 8);
-  v9 = v8 + 16;
-  v10 = *(v8 + 80);
-  v11 = v6 + v10;
-  v12 = (v6 + v10 + a1) & ~v10;
-  v13 = (v6 + v10 + a2) & ~v10;
-  (*(v8 + 16))(v12, v13, v7);
-  v14 = *(v9 + 48) + 7;
-  v15 = ((v14 + v12) & 0xFFFFFFFFFFFFFFF8);
-  v16 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
+  v6 = *(AssociatedTypeWitness - 8) + 16;
+  (*v6)(a1, a2, AssociatedTypeWitness);
+  v7 = *(v6 + 48);
+  v8 = swift_getAssociatedTypeWitness();
+  v9 = *(v8 - 8);
+  v10 = v9 + 16;
+  v11 = *(v9 + 80);
+  v12 = v7 + v11;
+  v13 = (v7 + v11 + a1) & ~v11;
+  v14 = (v7 + v11 + a2) & ~v11;
+  (*(v9 + 16))(v13, v14, v8);
+  v15 = *(v10 + 48) + 7;
+  v16 = ((v15 + v13) & 0xFFFFFFFFFFFFFFF8);
+  v17 = ((v15 + v14) & 0xFFFFFFFFFFFFFFF8);
+  v18 = v17[1];
+  *v16 = *v17;
+  v16[1] = v18;
+  v19 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
+  v20 = ((v17 + 39) & 0xFFFFFFFFFFFFFFF8);
+  *v19 = *v20;
+  v21 = (v19 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v22 = (v20 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v23 = *(v22 + 8);
+  *v21 = *v22;
+  *(v21 + 8) = v23;
+  v24 = (v19 + 31) & 0xFFFFFFFFFFFFFFF8;
+  v25 = (v20 + 31) & 0xFFFFFFFFFFFFFFF8;
+  v26 = *(v25 + 24);
+  *(v24 + 24) = v26;
+  *(v24 + 32) = *(v25 + 32);
+  v27 = **(v26 - 8);
+
+  v27(v24, v25, v26);
+  v28 = ((v24 + 47) & 0xFFFFFFFFFFFFFFF8);
+  v29 = ((v25 + 47) & 0xFFFFFFFFFFFFFFF8);
+  *v28 = *v29;
+  *((v28 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v29 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v30 = ((((((((((v15 + (v12 & ~v11)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
+  v44 = a1;
+  v31 = ((v30 + a1) & 0xFFFFFFFFFFFFFFF8);
+  v32 = ((v30 + a2) & 0xFFFFFFFFFFFFFFF8);
+  *v31 = *v32;
+  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v34 = (v32 + 15) & 0xFFFFFFFFFFFFFFF8;
+  *v33 = *v34;
+  *(v33 + 8) = *(v34 + 8);
+  v35 = *(v34 + 16);
+  *(v33 + 25) = *(v34 + 25);
+  *(v33 + 16) = v35;
+  v36 = swift_getAssociatedTypeWitness();
+  v37 = *(v36 - 8);
+  v38 = *(v37 + 80);
+  v39 = v38 + 41 + v33;
+  v40 = v38 + 41 + v34;
+  v41 = *(v37 + 48);
+
+  if (v41(v40 & ~v38, 1, v36))
+  {
+    if (*(v37 + 84))
+    {
+      v42 = *(v37 + 64);
+    }
+
+    else
+    {
+      v42 = *(v37 + 64) + 1;
+    }
+
+    memcpy((v39 & ~v38), (v40 & ~v38), v42);
+  }
+
+  else
+  {
+    (*(v37 + 16))(v39 & ~v38, v40 & ~v38, v36);
+    (*(v37 + 56))(v39 & ~v38, 0, 1, v36);
+  }
+
+  return v44;
+}
+
+uint64_t assignWithCopy for DragReorderableLayoutCore(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8) + 24;
+  (*v6)(a1, a2, AssociatedTypeWitness);
+  v7 = *(v6 + 40);
+  v8 = swift_getAssociatedTypeWitness();
+  v9 = *(v8 - 8);
+  v10 = v9 + 24;
+  v11 = *(v9 + 80);
+  v12 = v7 + v11;
+  v13 = (v7 + v11 + a1) & ~v11;
+  (*(v9 + 24))(v13, (v12 + a2) & ~v11, v8);
+  v14 = *(v10 + 40) + 7;
+  v15 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  v16 = ((v14 + ((v12 + a2) & ~v11)) & 0xFFFFFFFFFFFFFFF8);
+  *v15 = *v16;
+  *(v15 + 8) = v16[1];
+  *(v15 + 16) = v16[2];
+  *(v15 + 24) = v16[3];
+  v15 += 39;
+  v17 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
+  v18 = (v15 & 0xFFFFFFFFFFFFFFF8) + 15;
+  *(v15 & 0xFFFFFFFFFFFFFFF8) = *v17;
+  v19 = (v15 & 0xFFFFFFFFFFFFFFF8) + 31;
+
+  v20 = v18 & 0xFFFFFFFFFFFFFFF8;
+  v21 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v22 = *v21;
+  *(v20 + 8) = *(v21 + 8);
+  *v20 = v22;
+  __swift_assign_boxed_opaque_existential_1((v19 & 0xFFFFFFFFFFFFFFF8), ((v17 + 31) & 0xFFFFFFFFFFFFFFF8));
+  v23 = (((v19 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
+  v24 = ((((v17 + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
+  *v23 = *v24;
+  *((v23 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v24 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v25 = v12 & ~v11;
+  v26 = a1;
+  v27 = ((((((((((v14 + v25) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
+  v28 = ((v27 + a1) & 0xFFFFFFFFFFFFFFF8);
+  v29 = v27 + a2;
+  v30 = (v29 & 0xFFFFFFFFFFFFFFF8) + 15;
+  *v28 = *(v29 & 0xFFFFFFFFFFFFFFF8);
+
+  v31 = (v28 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v32 = v30 & 0xFFFFFFFFFFFFFFF8;
+  *v31 = *(v30 & 0xFFFFFFFFFFFFFFF8);
+
+  *(v31 + 8) = *((v30 & 0xFFFFFFFFFFFFFFF8) + 8);
+
+  v33 = *((v30 & 0xFFFFFFFFFFFFFFF8) + 16);
+  *(v31 + 24) = *((v30 & 0xFFFFFFFFFFFFFFF8) + 24);
+  *(v31 + 16) = v33;
+  v34 = *((v30 & 0xFFFFFFFFFFFFFFF8) + 32);
+  *(v31 + 40) = *((v30 & 0xFFFFFFFFFFFFFFF8) + 40);
+  *(v31 + 32) = v34;
+  v35 = swift_getAssociatedTypeWitness();
+  v36 = *(v35 - 8);
+  v37 = *(v36 + 80);
+  v38 = v37 + 41 + v31;
+  v39 = v37 + 41 + v32;
+  v40 = *(v36 + 48);
+  LODWORD(a1) = v40(v38 & ~v37, 1, v35);
+  v41 = v40(v39 & ~v37, 1, v35);
+  if (a1)
+  {
+    if (!v41)
+    {
+      (*(v36 + 16))(v38 & ~v37, v39 & ~v37, v35);
+      (*(v36 + 56))(v38 & ~v37, 0, 1, v35);
+      return v26;
+    }
+
+    v42 = *(v36 + 84);
+    v43 = *(v36 + 64);
+  }
+
+  else
+  {
+    if (!v41)
+    {
+      (*(v36 + 24))(v38 & ~v37, v39 & ~v37, v35);
+      return v26;
+    }
+
+    v45 = *(v36 + 8);
+    v44 = v36 + 8;
+    v45(v38 & ~v37, v35);
+    v42 = *(v44 + 76);
+    v43 = *(v44 + 56);
+  }
+
+  if (v42)
+  {
+    v46 = v43;
+  }
+
+  else
+  {
+    v46 = v43 + 1;
+  }
+
+  memcpy((v38 & ~v37), (v39 & ~v37), v46);
+  return v26;
+}
+
+uint64_t initializeWithTake for DragReorderableLayoutCore(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8) + 32;
+  (*v6)(a1, a2, AssociatedTypeWitness);
+  v7 = *(v6 + 32);
+  v8 = swift_getAssociatedTypeWitness();
+  v9 = *(v8 - 8);
+  v10 = v9 + 32;
+  v11 = *(v9 + 80);
+  v12 = v7 + v11;
+  v13 = (v7 + v11 + a1) & ~v11;
+  (*(v9 + 32))(v13, (v12 + a2) & ~v11, v8);
+  v14 = *(v10 + 32) + 7;
+  v15 = ((v14 + v13) & 0xFFFFFFFFFFFFFFF8);
+  v16 = ((v14 + ((v12 + a2) & ~v11)) & 0xFFFFFFFFFFFFFFF8);
   v17 = v16[1];
   *v15 = *v16;
   v15[1] = v17;
@@ -4614,579 +2467,176 @@ uint64_t initializeWithCopy for DragReorderableLayoutCore(uint64_t a1, uint64_t 
   *(v20 + 8) = v22;
   v23 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
   v24 = (v19 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *(v24 + 24);
-  *(v23 + 24) = v25;
+  v26 = *v24;
+  v25 = *(v24 + 16);
   *(v23 + 32) = *(v24 + 32);
-  v26 = **(v25 - 8);
-
-  v26(v23, v24, v25);
+  *v23 = v26;
+  *(v23 + 16) = v25;
   v27 = ((v23 + 47) & 0xFFFFFFFFFFFFFFF8);
   v28 = ((v24 + 47) & 0xFFFFFFFFFFFFFFF8);
   *v27 = *v28;
   *((v27 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v28 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v29 = ((((((((((v14 + (v11 & ~v10)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
-  v43 = a1;
+  v29 = ((((((((((v14 + (v12 & ~v11)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
   v30 = ((v29 + a1) & 0xFFFFFFFFFFFFFFF8);
   v31 = ((v29 + a2) & 0xFFFFFFFFFFFFFFF8);
   *v30 = *v31;
-  v32 = (v30 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v33 = (v31 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v32 = *v33;
-  *(v32 + 8) = *(v33 + 8);
-  v34 = *(v33 + 16);
-  *(v32 + 25) = *(v33 + 25);
-  *(v32 + 16) = v34;
-  v35 = swift_getAssociatedTypeWitness();
-  v36 = *(v35 - 8);
-  v37 = *(v36 + 80);
-  v38 = v37 + 41 + v32;
-  v39 = v37 + 41 + v33;
-  v40 = *(v36 + 48);
-
-  if (v40(v39 & ~v37, 1, v35))
-  {
-    if (*(v36 + 84))
-    {
-      v41 = *(v36 + 64);
-    }
-
-    else
-    {
-      v41 = *(v36 + 64) + 1;
-    }
-
-    memcpy((v38 & ~v37), (v39 & ~v37), v41);
-  }
-
-  else
-  {
-    (*(v36 + 16))(v38 & ~v37, v39 & ~v37, v35);
-    (*(v36 + 56))(v38 & ~v37, 0, 1, v35);
-  }
-
-  return v43;
-}
-
-uint64_t assignWithCopy for DragReorderableLayoutCore(uint64_t a1, uint64_t a2)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8) + 24;
-  (*v5)(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 40);
-  v7 = swift_getAssociatedTypeWitness();
-  v8 = *(v7 - 8);
-  v9 = v8 + 24;
-  v10 = *(v8 + 80);
-  v11 = v6 + v10;
-  v12 = (v6 + v10 + a1) & ~v10;
-  (*(v8 + 24))(v12, (v11 + a2) & ~v10, v7);
-  v13 = *(v9 + 40) + 7;
-  v14 = (v13 + v12) & 0xFFFFFFFFFFFFFFF8;
-  v15 = ((v13 + ((v11 + a2) & ~v10)) & 0xFFFFFFFFFFFFFFF8);
-  *v14 = *v15;
-  *(v14 + 8) = v15[1];
-  *(v14 + 16) = v15[2];
-  *(v14 + 24) = v15[3];
-  v14 += 39;
-  v16 = ((v15 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v17 = (v14 & 0xFFFFFFFFFFFFFFF8) + 15;
-  *(v14 & 0xFFFFFFFFFFFFFFF8) = *v16;
-  v18 = (v14 & 0xFFFFFFFFFFFFFFF8) + 31;
-
-  v19 = v17 & 0xFFFFFFFFFFFFFFF8;
-  v20 = (v16 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v21 = *v20;
-  *(v19 + 8) = *(v20 + 8);
-  *v19 = v21;
-  __swift_assign_boxed_opaque_existential_1((v18 & 0xFFFFFFFFFFFFFFF8), ((v16 + 31) & 0xFFFFFFFFFFFFFFF8));
-  v22 = (((v18 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  v23 = ((((v16 + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v22 = *v23;
-  *((v22 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v23 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v24 = v11 & ~v10;
-  v25 = a1;
-  v26 = ((((((((((v13 + v24) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
-  v27 = ((v26 + a1) & 0xFFFFFFFFFFFFFFF8);
-  v28 = v26 + a2;
-  v29 = (v28 & 0xFFFFFFFFFFFFFFF8) + 15;
-  *v27 = *(v28 & 0xFFFFFFFFFFFFFFF8);
-
-  v30 = (v27 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v31 = v29 & 0xFFFFFFFFFFFFFFF8;
-  *v30 = *(v29 & 0xFFFFFFFFFFFFFFF8);
-
-  *(v30 + 8) = *((v29 & 0xFFFFFFFFFFFFFFF8) + 8);
-
-  v32 = *((v29 & 0xFFFFFFFFFFFFFFF8) + 16);
-  *(v30 + 24) = *((v29 & 0xFFFFFFFFFFFFFFF8) + 24);
-  *(v30 + 16) = v32;
-  v33 = *((v29 & 0xFFFFFFFFFFFFFFF8) + 32);
-  *(v30 + 40) = *((v29 & 0xFFFFFFFFFFFFFFF8) + 40);
-  *(v30 + 32) = v33;
-  v34 = swift_getAssociatedTypeWitness();
-  v35 = *(v34 - 8);
-  v36 = *(v35 + 80);
-  v37 = v36 + 41 + v30;
-  v38 = v36 + 41 + v31;
-  v39 = *(v35 + 48);
-  LODWORD(a1) = v39(v37 & ~v36, 1, v34);
-  v40 = v39(v38 & ~v36, 1, v34);
-  if (a1)
-  {
-    if (!v40)
-    {
-      (*(v35 + 16))(v37 & ~v36, v38 & ~v36, v34);
-      (*(v35 + 56))(v37 & ~v36, 0, 1, v34);
-      return v25;
-    }
-
-    v41 = *(v35 + 84);
-    v42 = *(v35 + 64);
-  }
-
-  else
-  {
-    if (!v40)
-    {
-      (*(v35 + 24))(v37 & ~v36, v38 & ~v36, v34);
-      return v25;
-    }
-
-    v44 = *(v35 + 8);
-    v43 = v35 + 8;
-    v44(v37 & ~v36, v34);
-    v41 = *(v43 + 76);
-    v42 = *(v43 + 56);
-  }
-
-  if (v41)
-  {
-    v45 = v42;
-  }
-
-  else
-  {
-    v45 = v42 + 1;
-  }
-
-  memcpy((v37 & ~v36), (v38 & ~v36), v45);
-  return v25;
-}
-
-uint64_t initializeWithTake for DragReorderableLayoutCore(uint64_t a1, uint64_t a2)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8) + 32;
-  (*v5)(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 32);
-  v7 = swift_getAssociatedTypeWitness();
-  v8 = *(v7 - 8);
-  v9 = v8 + 32;
-  v10 = *(v8 + 80);
-  v11 = v6 + v10;
-  v12 = (v6 + v10 + a1) & ~v10;
-  (*(v8 + 32))(v12, (v11 + a2) & ~v10, v7);
-  v13 = *(v9 + 32) + 7;
-  v14 = ((v13 + v12) & 0xFFFFFFFFFFFFFFF8);
-  v15 = ((v13 + ((v11 + a2) & ~v10)) & 0xFFFFFFFFFFFFFFF8);
-  v16 = v15[1];
-  *v14 = *v15;
-  v14[1] = v16;
-  v17 = ((v14 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v18 = ((v15 + 39) & 0xFFFFFFFFFFFFFFF8);
-  *v17 = *v18;
-  v19 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v20 = (v18 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v21 = *(v20 + 8);
-  *v19 = *v20;
-  *(v19 + 8) = v21;
-  v22 = (v17 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v23 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *v23;
-  v24 = *(v23 + 16);
-  *(v22 + 32) = *(v23 + 32);
-  *v22 = v25;
-  *(v22 + 16) = v24;
-  v26 = ((v22 + 47) & 0xFFFFFFFFFFFFFFF8);
-  v27 = ((v23 + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v26 = *v27;
-  *((v26 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v27 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v28 = ((((((((((v13 + (v11 & ~v10)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
-  v29 = ((v28 + a1) & 0xFFFFFFFFFFFFFFF8);
-  v30 = ((v28 + a2) & 0xFFFFFFFFFFFFFFF8);
-  *v29 = *v30;
-  v31 = ((v29 + 15) & 0xFFFFFFFFFFFFFFF8);
   v32 = ((v30 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v34 = *v32;
-  v33 = v32[1];
-  *(v31 + 25) = *(v32 + 25);
-  *v31 = v34;
-  v31[1] = v33;
-  v35 = swift_getAssociatedTypeWitness();
-  v36 = *(v35 - 8);
-  v37 = *(v36 + 80);
-  v38 = v31 + v37 + 41;
-  v39 = v32 + v37 + 41;
-  if ((*(v36 + 48))(v39 & ~v37, 1, v35))
+  v33 = ((v31 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v35 = *v33;
+  v34 = v33[1];
+  *(v32 + 25) = *(v33 + 25);
+  *v32 = v35;
+  v32[1] = v34;
+  v36 = swift_getAssociatedTypeWitness();
+  v37 = *(v36 - 8);
+  v38 = *(v37 + 80);
+  v39 = v32 + v38 + 41;
+  v40 = v33 + v38 + 41;
+  if ((*(v37 + 48))(v40 & ~v38, 1, v36))
   {
-    if (*(v36 + 84))
+    if (*(v37 + 84))
     {
-      v40 = *(v36 + 64);
+      v41 = *(v37 + 64);
     }
 
     else
     {
-      v40 = *(v36 + 64) + 1;
+      v41 = *(v37 + 64) + 1;
     }
 
-    memcpy((v38 & ~v37), (v39 & ~v37), v40);
+    memcpy((v39 & ~v38), (v40 & ~v38), v41);
   }
 
   else
   {
-    (*(v36 + 32))(v38 & ~v37, v39 & ~v37, v35);
-    (*(v36 + 56))(v38 & ~v37, 0, 1, v35);
+    (*(v37 + 32))(v39 & ~v38, v40 & ~v38, v36);
+    (*(v37 + 56))(v39 & ~v38, 0, 1, v36);
   }
 
   return a1;
 }
 
-uint64_t assignWithTake for DragReorderableLayoutCore(uint64_t a1, uint64_t a2)
+uint64_t assignWithTake for DragReorderableLayoutCore(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8) + 40;
-  (*v5)(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 24);
-  v7 = swift_getAssociatedTypeWitness();
-  v8 = *(v7 - 8);
-  v9 = v8 + 40;
-  v10 = *(v8 + 80);
-  v11 = v6 + v10;
-  v12 = (v6 + v10 + a1) & ~v10;
-  (*(v8 + 40))(v12, (v11 + a2) & ~v10, v7);
-  v13 = *(v9 + 24) + 7;
-  v14 = (v13 + v12) & 0xFFFFFFFFFFFFFFF8;
-  v15 = ((v13 + ((v11 + a2) & ~v10)) & 0xFFFFFFFFFFFFFFF8);
-  *v14 = *v15;
-  *(v14 + 8) = v15[1];
-  *(v14 + 16) = v15[2];
-  *(v14 + 24) = v15[3];
-  v14 += 39;
-  v16 = ((v15 + 39) & 0xFFFFFFFFFFFFFFF8);
-  v17 = v16;
-  v18 = (v14 & 0xFFFFFFFFFFFFFFF8) + 15;
-  *(v14 & 0xFFFFFFFFFFFFFFF8) = *v16;
-  v19 = (v14 & 0xFFFFFFFFFFFFFFF8) + 31;
+  v6 = *(AssociatedTypeWitness - 8) + 40;
+  (*v6)(a1, a2, AssociatedTypeWitness);
+  v7 = *(v6 + 24);
+  v8 = swift_getAssociatedTypeWitness();
+  v9 = *(v8 - 8);
+  v10 = v9 + 40;
+  v11 = *(v9 + 80);
+  v12 = v7 + v11;
+  v13 = (v7 + v11 + a1) & ~v11;
+  (*(v9 + 40))(v13, (v12 + a2) & ~v11, v8);
+  v14 = *(v10 + 24) + 7;
+  v15 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  v16 = ((v14 + ((v12 + a2) & ~v11)) & 0xFFFFFFFFFFFFFFF8);
+  *v15 = *v16;
+  *(v15 + 8) = v16[1];
+  *(v15 + 16) = v16[2];
+  *(v15 + 24) = v16[3];
+  v15 += 39;
+  v17 = ((v16 + 39) & 0xFFFFFFFFFFFFFFF8);
+  v18 = v17;
+  v19 = (v15 & 0xFFFFFFFFFFFFFFF8) + 15;
+  *(v15 & 0xFFFFFFFFFFFFFFF8) = *v17;
+  v20 = (v15 & 0xFFFFFFFFFFFFFFF8) + 31;
 
-  v20 = v18 & 0xFFFFFFFFFFFFFFF8;
-  v21 = (v16 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = *v21;
-  *(v20 + 8) = *(v21 + 8);
-  *v20 = v22;
-  v23 = v19 & 0xFFFFFFFFFFFFFFF8;
-  v24 = (v17 + 31) & 0xFFFFFFFFFFFFFFF8;
-  __swift_destroy_boxed_opaque_existential_1(v19 & 0xFFFFFFFFFFFFFFF8);
-  v25 = *v24;
-  v26 = *(v24 + 16);
-  *(v23 + 32) = *(v24 + 32);
-  *v23 = v25;
-  *(v23 + 16) = v26;
-  v27 = (((v19 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
-  v28 = ((v24 + 47) & 0xFFFFFFFFFFFFFFF8);
-  *v27 = *v28;
-  *((v27 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v28 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v29 = v11 & ~v10;
-  v30 = a1;
-  v31 = ((((((((((v13 + v29) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
-  v32 = ((v31 + a1) & 0xFFFFFFFFFFFFFFF8);
-  v33 = ((v31 + a2) & 0xFFFFFFFFFFFFFFF8);
-  *v32 = *v33;
+  v21 = v19 & 0xFFFFFFFFFFFFFFF8;
+  v22 = (v17 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v23 = *v22;
+  *(v21 + 8) = *(v22 + 8);
+  *v21 = v23;
+  v24 = v20 & 0xFFFFFFFFFFFFFFF8;
+  v25 = (v18 + 31) & 0xFFFFFFFFFFFFFFF8;
+  __swift_destroy_boxed_opaque_existential_1((v20 & 0xFFFFFFFFFFFFFFF8));
+  v26 = *v25;
+  v27 = *(v25 + 16);
+  *(v24 + 32) = *(v25 + 32);
+  *v24 = v26;
+  *(v24 + 16) = v27;
+  v28 = (((v20 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8);
+  v29 = ((v25 + 47) & 0xFFFFFFFFFFFFFFF8);
+  *v28 = *v29;
+  *((v28 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v29 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v30 = v12 & ~v11;
+  v31 = a1;
+  v32 = ((((((((((v14 + v30) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15;
+  v33 = ((v32 + a1) & 0xFFFFFFFFFFFFFFF8);
+  v34 = ((v32 + a2) & 0xFFFFFFFFFFFFFFF8);
+  *v33 = *v34;
 
-  v34 = (v32 + 15) & 0xFFFFFFFFFFFFFFF8;
   v35 = (v33 + 15) & 0xFFFFFFFFFFFFFFF8;
-  *v34 = *v35;
+  v36 = (v34 + 15) & 0xFFFFFFFFFFFFFFF8;
+  *v35 = *v36;
 
-  *(v34 + 8) = *(v35 + 8);
+  *(v35 + 8) = *(v36 + 8);
 
-  v36 = *(v35 + 16);
-  *(v34 + 24) = *(v35 + 24);
-  *(v34 + 16) = v36;
-  v37 = *(v35 + 32);
-  *(v34 + 40) = *(v35 + 40);
-  *(v34 + 32) = v37;
-  v38 = swift_getAssociatedTypeWitness();
-  v39 = *(v38 - 8);
-  v40 = *(v39 + 80);
-  v41 = v40 + 41 + v34;
-  v42 = v40 + 41 + v35;
-  v43 = *(v39 + 48);
-  v44 = v43(v41 & ~v40, 1, v38);
-  v45 = v43(v42 & ~v40, 1, v38);
-  if (v44)
+  v37 = *(v36 + 16);
+  *(v35 + 24) = *(v36 + 24);
+  *(v35 + 16) = v37;
+  v38 = *(v36 + 32);
+  *(v35 + 40) = *(v36 + 40);
+  *(v35 + 32) = v38;
+  v39 = swift_getAssociatedTypeWitness();
+  v40 = *(v39 - 8);
+  v41 = *(v40 + 80);
+  v42 = v41 + 41 + v35;
+  v43 = v41 + 41 + v36;
+  v44 = *(v40 + 48);
+  v45 = v44(v42 & ~v41, 1, v39);
+  v46 = v44(v43 & ~v41, 1, v39);
+  if (v45)
   {
-    if (!v45)
+    if (!v46)
     {
-      (*(v39 + 32))(v41 & ~v40, v42 & ~v40, v38);
-      (*(v39 + 56))(v41 & ~v40, 0, 1, v38);
-      return v30;
+      (*(v40 + 32))(v42 & ~v41, v43 & ~v41, v39);
+      (*(v40 + 56))(v42 & ~v41, 0, 1, v39);
+      return v31;
     }
 
-    v46 = *(v39 + 84);
-    v47 = *(v39 + 64);
+    v47 = *(v40 + 84);
+    v48 = *(v40 + 64);
   }
 
   else
   {
-    if (!v45)
+    if (!v46)
     {
-      (*(v39 + 40))(v41 & ~v40, v42 & ~v40, v38);
-      return v30;
+      (*(v40 + 40))(v42 & ~v41, v43 & ~v41, v39);
+      return v31;
     }
 
-    v49 = *(v39 + 8);
-    v48 = v39 + 8;
-    v49(v41 & ~v40, v38);
-    v46 = *(v48 + 76);
-    v47 = *(v48 + 56);
+    v50 = *(v40 + 8);
+    v49 = v40 + 8;
+    v50(v42 & ~v41, v39);
+    v47 = *(v49 + 76);
+    v48 = *(v49 + 56);
   }
 
-  if (v46)
+  if (v47)
   {
-    v50 = v47;
+    v51 = v48;
   }
 
   else
   {
-    v50 = v47 + 1;
+    v51 = v48 + 1;
   }
 
-  memcpy((v41 & ~v40), (v42 & ~v40), v50);
-  return v30;
+  memcpy((v42 & ~v41), (v43 & ~v41), v51);
+  return v31;
 }
 
-uint64_t getEnumTagSinglePayload for DragReorderableLayoutCore(unsigned __int16 *a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for DragReorderableLayoutCore(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
-  v3 = *(swift_getAssociatedTypeWitness() - 8);
-  v4 = *(v3 + 84);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 84);
-  v37 = v4;
-  if (v6 <= v4)
-  {
-    v7 = v4;
-  }
-
-  else
-  {
-    v7 = *(v5 + 84);
-  }
-
-  if (v7 <= 0x7FFFFFFF)
-  {
-    v8 = 0x7FFFFFFF;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  v9 = *(swift_getAssociatedTypeWitness() - 8);
-  v10 = v9;
-  v11 = *(v9 + 84);
-  if (v11)
-  {
-    v12 = v11 - 1;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (v12 <= v8)
-  {
-    v13 = v8;
-  }
-
-  else
-  {
-    v13 = v12;
-  }
-
-  v14 = *(v5 + 80);
-  v15 = *(v5 + 64);
-  v16 = *(v9 + 80);
-  v17 = *(v9 + 64);
-  if (v11)
-  {
-    v18 = v17;
-  }
-
-  else
-  {
-    v18 = v17 + 1;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v19 = *(v3 + 64) + v14;
-  v20 = v15 + 7;
-  v21 = (((((((((v15 + 7 + (v19 & ~v14)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = v16 + 41;
-  if (a2 <= v13)
-  {
-    goto LABEL_40;
-  }
-
-  v23 = v18 + ((v22 + ((((v21 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v16);
-  v24 = 8 * v23;
-  if (v23 <= 3)
-  {
-    v27 = ((a2 - v13 + ~(-1 << v24)) >> v24) + 1;
-    if (HIWORD(v27))
-    {
-      v25 = *(a1 + v23);
-      if (!v25)
-      {
-        goto LABEL_40;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (v27 > 0xFF)
-    {
-      v25 = *(a1 + v23);
-      if (!*(a1 + v23))
-      {
-        goto LABEL_40;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (v27 < 2)
-    {
-LABEL_40:
-      if (v8 >= v12)
-      {
-        if (v37 == v8)
-        {
-          v32 = *(v3 + 48);
-
-          return v32(a1);
-        }
-
-        else
-        {
-          v33 = (a1 + v19) & ~v14;
-          if (v6 == v8)
-          {
-            v34 = *(v5 + 48);
-
-            return v34(v33, v6, AssociatedTypeWitness);
-          }
-
-          else
-          {
-            v35 = *((((v20 + v33) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8);
-            if (v35 >= 0xFFFFFFFF)
-            {
-              LODWORD(v35) = -1;
-            }
-
-            return (v35 + 1);
-          }
-        }
-      }
-
-      else
-      {
-        v31 = (*(v10 + 48))((v22 + ((((a1 + v21 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v16);
-        if (v31 >= 2)
-        {
-          return v31 - 1;
-        }
-
-        else
-        {
-          return 0;
-        }
-      }
-    }
-  }
-
-  v25 = *(a1 + v23);
-  if (!*(a1 + v23))
-  {
-    goto LABEL_40;
-  }
-
-LABEL_27:
-  v28 = (v25 - 1) << v24;
-  if (v23 > 3)
-  {
-    v28 = 0;
-  }
-
-  if (v23)
-  {
-    if (v23 <= 3)
-    {
-      v29 = v23;
-    }
-
-    else
-    {
-      v29 = 4;
-    }
-
-    if (v29 > 2)
-    {
-      if (v29 == 3)
-      {
-        v30 = *a1 | (*(a1 + 2) << 16);
-      }
-
-      else
-      {
-        v30 = *a1;
-      }
-    }
-
-    else if (v29 == 1)
-    {
-      v30 = *a1;
-    }
-
-    else
-    {
-      v30 = *a1;
-    }
-  }
-
-  else
-  {
-    v30 = 0;
-  }
-
-  return v13 + (v30 | v28) + 1;
-}
-
-void storeEnumTagSinglePayload for DragReorderableLayoutCore(_BYTE *a1, unsigned int a2, unsigned int a3)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4 = *(AssociatedTypeWitness - 8);
-  v45 = AssociatedTypeWitness;
+  v4 = *(swift_getAssociatedTypeWitness() - 8);
   v5 = *(v4 + 84);
-  v44 = swift_getAssociatedTypeWitness();
-  v6 = *(v44 - 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8);
   v7 = *(v6 + 84);
+  v38 = v5;
   if (v7 <= v5)
   {
     v8 = v5;
@@ -5207,112 +2657,327 @@ void storeEnumTagSinglePayload for DragReorderableLayoutCore(_BYTE *a1, unsigned
     v9 = v8;
   }
 
-  v10 = 0;
-  v11 = *(swift_getAssociatedTypeWitness() - 8);
-  v12 = v11;
-  v13 = *(v11 + 84);
-  v14 = *(v4 + 64);
-  v15 = v13 - 1;
-  if (!v13)
+  v10 = *(swift_getAssociatedTypeWitness() - 8);
+  v11 = v10;
+  v12 = *(v10 + 84);
+  if (v12)
   {
-    v15 = 0;
-  }
-
-  if (v15 <= v9)
-  {
-    v16 = v9;
+    v13 = v12 - 1;
   }
 
   else
   {
-    v16 = v15;
+    v13 = 0;
   }
 
-  v17 = *(v6 + 80);
-  v18 = v14 + v17;
-  v19 = (v14 + v17) & ~v17;
-  v20 = *(v6 + 64) + 7;
-  v21 = (((((((((v20 + v19) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
-  v22 = *(v11 + 80);
-  v23 = (v22 + 41 + ((((v21 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v22;
-  v24 = *(v11 + 64);
-  if (v13)
+  if (v13 <= v9)
   {
-    v25 = v24;
+    v14 = v9;
   }
 
   else
   {
-    v25 = v24 + 1;
+    v14 = v13;
   }
 
-  v26 = v23 + v25;
-  if (a3 > v16)
+  v15 = *(v6 + 80);
+  v16 = *(v6 + 64);
+  v17 = *(v10 + 80);
+  v18 = *(v10 + 64);
+  if (v12)
   {
-    if (v26 <= 3)
+    v19 = v18;
+  }
+
+  else
+  {
+    v19 = v18 + 1;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v20 = *(v4 + 64) + v15;
+  v21 = v16 + 7;
+  v22 = (((((((((v16 + 7 + (v20 & ~v15)) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+  v23 = v17 + 41;
+  if (a2 <= v14)
+  {
+    goto LABEL_40;
+  }
+
+  v24 = v19 + ((v23 + ((((v22 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v17);
+  v25 = 8 * v24;
+  if (v24 <= 3)
+  {
+    v28 = ((a2 - v14 + ~(-1 << v25)) >> v25) + 1;
+    if (HIWORD(v28))
     {
-      v27 = ((a3 - v16 + ~(-1 << (8 * v26))) >> (8 * v26)) + 1;
-      if (HIWORD(v27))
+      v26 = *(a1 + v24);
+      if (!v26)
       {
-        v10 = 4;
+        goto LABEL_40;
+      }
+
+      goto LABEL_27;
+    }
+
+    if (v28 > 0xFF)
+    {
+      v26 = *(a1 + v24);
+      if (!*(a1 + v24))
+      {
+        goto LABEL_40;
+      }
+
+      goto LABEL_27;
+    }
+
+    if (v28 < 2)
+    {
+LABEL_40:
+      if (v9 >= v13)
+      {
+        if (v38 == v9)
+        {
+          v33 = *(v4 + 48);
+
+          return v33(a1);
+        }
+
+        else
+        {
+          v34 = (a1 + v20) & ~v15;
+          if (v7 == v9)
+          {
+            v35 = *(v6 + 48);
+
+            return v35(v34, v7, AssociatedTypeWitness);
+          }
+
+          else
+          {
+            v36 = *((((v21 + v34) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8);
+            if (v36 >= 0xFFFFFFFF)
+            {
+              LODWORD(v36) = -1;
+            }
+
+            return (v36 + 1);
+          }
+        }
       }
 
       else
       {
-        if (v27 < 0x100)
+        v32 = (*(v11 + 48))((v23 + ((((a1 + v22 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v17);
+        if (v32 >= 2)
         {
-          v28 = 1;
+          return v32 - 1;
         }
 
         else
         {
-          v28 = 2;
+          return 0;
         }
+      }
+    }
+  }
 
-        if (v27 >= 2)
+  v26 = *(a1 + v24);
+  if (!*(a1 + v24))
+  {
+    goto LABEL_40;
+  }
+
+LABEL_27:
+  v29 = (v26 - 1) << v25;
+  if (v24 > 3)
+  {
+    v29 = 0;
+  }
+
+  if (v24)
+  {
+    if (v24 <= 3)
+    {
+      v30 = v24;
+    }
+
+    else
+    {
+      v30 = 4;
+    }
+
+    if (v30 > 2)
+    {
+      if (v30 == 3)
+      {
+        v31 = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        v31 = *a1;
+      }
+    }
+
+    else if (v30 == 1)
+    {
+      v31 = *a1;
+    }
+
+    else
+    {
+      v31 = *a1;
+    }
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  return v14 + (v31 | v29) + 1;
+}
+
+void storeEnumTagSinglePayload for DragReorderableLayoutCore(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v5 = *(AssociatedTypeWitness - 8);
+  v46 = AssociatedTypeWitness;
+  v6 = *(v5 + 84);
+  v45 = swift_getAssociatedTypeWitness();
+  v7 = *(v45 - 8);
+  v8 = *(v7 + 84);
+  if (v8 <= v6)
+  {
+    v9 = v6;
+  }
+
+  else
+  {
+    v9 = *(v7 + 84);
+  }
+
+  if (v9 <= 0x7FFFFFFF)
+  {
+    v10 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  v11 = 0;
+  v12 = *(swift_getAssociatedTypeWitness() - 8);
+  v13 = v12;
+  v14 = *(v12 + 84);
+  v15 = *(v5 + 64);
+  v16 = v14 - 1;
+  if (!v14)
+  {
+    v16 = 0;
+  }
+
+  if (v16 <= v10)
+  {
+    v17 = v10;
+  }
+
+  else
+  {
+    v17 = v16;
+  }
+
+  v18 = *(v7 + 80);
+  v19 = v15 + v18;
+  v20 = (v15 + v18) & ~v18;
+  v21 = *(v7 + 64) + 7;
+  v22 = (((((((((v21 + v20) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+  v23 = *(v12 + 80);
+  v24 = (v23 + 41 + ((((v22 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)) & ~v23;
+  v25 = *(v12 + 64);
+  if (v14)
+  {
+    v26 = v25;
+  }
+
+  else
+  {
+    v26 = v25 + 1;
+  }
+
+  v27 = v24 + v26;
+  if (a3 > v17)
+  {
+    if (v27 <= 3)
+    {
+      v28 = ((a3 - v17 + ~(-1 << (8 * v27))) >> (8 * v27)) + 1;
+      if (HIWORD(v28))
+      {
+        v11 = 4;
+      }
+
+      else
+      {
+        if (v28 < 0x100)
         {
-          v10 = v28;
+          v29 = 1;
         }
 
         else
         {
-          v10 = 0;
+          v29 = 2;
+        }
+
+        if (v28 >= 2)
+        {
+          v11 = v29;
+        }
+
+        else
+        {
+          v11 = 0;
         }
       }
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
   }
 
-  if (v16 < a2)
+  if (v17 < a2)
   {
-    v29 = ~v16 + a2;
-    if (v26 < 4)
+    v30 = ~v17 + a2;
+    if (v27 < 4)
     {
-      v30 = (v29 >> (8 * v26)) + 1;
-      if (v26)
+      v31 = (v30 >> (8 * v27)) + 1;
+      if (v27)
       {
-        v31 = v29 & ~(-1 << (8 * v26));
-        bzero(a1, v23 + v25);
-        if (v26 != 3)
+        v32 = v30 & ~(-1 << (8 * v27));
+        bzero(a1, v24 + v26);
+        if (v27 != 3)
         {
-          if (v26 == 2)
+          if (v27 == 2)
           {
-            *a1 = v31;
-            if (v10 > 1)
+            *a1 = v32;
+            if (v11 > 1)
             {
 LABEL_71:
-              if (v10 == 2)
+              if (v11 == 2)
               {
-                *&a1[v26] = v30;
+                *&a1[v27] = v31;
               }
 
               else
               {
-                *&a1[v26] = v30;
+                *&a1[v27] = v31;
               }
 
               return;
@@ -5321,8 +2986,8 @@ LABEL_71:
 
           else
           {
-            *a1 = v29;
-            if (v10 > 1)
+            *a1 = v30;
+            if (v11 > 1)
             {
               goto LABEL_71;
             }
@@ -5331,11 +2996,11 @@ LABEL_71:
           goto LABEL_68;
         }
 
-        *a1 = v31;
-        a1[2] = BYTE2(v31);
+        *a1 = v32;
+        a1[2] = BYTE2(v32);
       }
 
-      if (v10 > 1)
+      if (v11 > 1)
       {
         goto LABEL_71;
       }
@@ -5343,29 +3008,29 @@ LABEL_71:
 
     else
     {
-      bzero(a1, v23 + v25);
-      *a1 = v29;
-      v30 = 1;
-      if (v10 > 1)
+      bzero(a1, v24 + v26);
+      *a1 = v30;
+      v31 = 1;
+      if (v11 > 1)
       {
         goto LABEL_71;
       }
     }
 
 LABEL_68:
-    if (v10)
+    if (v11)
     {
-      a1[v26] = v30;
+      a1[v27] = v31;
     }
 
     return;
   }
 
-  if (v10 > 1)
+  if (v11 > 1)
   {
-    if (v10 != 2)
+    if (v11 != 2)
     {
-      *&a1[v26] = 0;
+      *&a1[v27] = 0;
       if (!a2)
       {
         return;
@@ -5374,12 +3039,12 @@ LABEL_68:
       goto LABEL_42;
     }
 
-    *&a1[v26] = 0;
+    *&a1[v27] = 0;
   }
 
-  else if (v10)
+  else if (v11)
   {
-    a1[v26] = 0;
+    a1[v27] = 0;
     if (!a2)
     {
       return;
@@ -5394,114 +3059,114 @@ LABEL_68:
   }
 
 LABEL_42:
-  if (v9 >= v15)
+  if (v10 >= v16)
   {
-    if (v9 >= a2)
+    if (v10 >= a2)
     {
-      if (v5 == v9)
+      if (v6 == v10)
       {
-        v38 = v45;
-        v39 = *(v4 + 56);
-        v40 = a1;
-        v41 = a2;
-        v42 = v5;
+        v39 = v46;
+        v40 = *(v5 + 56);
+        v41 = a1;
+        v42 = a2;
+        v43 = v6;
       }
 
       else
       {
-        v40 = (&a1[v18] & ~v17);
-        if (v7 != v9)
+        v41 = (&a1[v19] & ~v18);
+        if (v8 != v10)
         {
           if ((a2 & 0x80000000) != 0)
           {
-            v43 = a2 & 0x7FFFFFFF;
+            v44 = a2 & 0x7FFFFFFF;
           }
 
           else
           {
-            v43 = a2 - 1;
+            v44 = a2 - 1;
           }
 
-          *(((&v40[v20] & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) = v43;
+          *(((&v41[v21] & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) = v44;
           return;
         }
 
-        v39 = *(v6 + 56);
-        v41 = a2;
-        v42 = v7;
-        v38 = v44;
+        v40 = *(v7 + 56);
+        v42 = a2;
+        v43 = v8;
+        v39 = v45;
       }
 
-      v39(v40, v41, v42, v38);
+      v40(v41, v42, v43, v39);
       return;
     }
 
-    if (v21 != -8)
+    if (v22 != -8)
     {
-      bzero(a1, v21 + 8);
-      *a1 = ~v9 + a2;
+      bzero(a1, v22 + 8);
+      *a1 = ~v10 + a2;
     }
   }
 
   else
   {
-    v32 = v22 + 41 + (((&a1[v21 + 15] & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
-    v33 = (v32 & ~v22);
-    if (v15 >= a2)
+    v33 = v23 + 41 + (((&a1[v22 + 15] & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
+    v34 = (v33 & ~v23);
+    if (v16 >= a2)
     {
-      v37 = *(v12 + 56);
+      v38 = *(v13 + 56);
 
-      v37(v32 & ~v22, a2 + 1);
+      v38(v33 & ~v23, a2 + 1);
     }
 
     else
     {
-      if (v25 <= 3)
+      if (v26 <= 3)
       {
-        v34 = ~(-1 << (8 * v25));
+        v35 = ~(-1 << (8 * v26));
       }
 
       else
       {
-        v34 = -1;
+        v35 = -1;
       }
 
-      if (v25)
+      if (v26)
       {
-        v35 = v34 & (~v15 + a2);
-        if (v25 <= 3)
+        v36 = v35 & (~v16 + a2);
+        if (v26 <= 3)
         {
-          v36 = v25;
+          v37 = v26;
         }
 
         else
         {
-          v36 = 4;
+          v37 = 4;
         }
 
-        bzero(v33, v25);
-        if (v36 > 2)
+        bzero(v34, v26);
+        if (v37 > 2)
         {
-          if (v36 == 3)
+          if (v37 == 3)
           {
-            *v33 = v35;
-            v33[2] = BYTE2(v35);
+            *v34 = v36;
+            v34[2] = BYTE2(v36);
           }
 
           else
           {
-            *v33 = v35;
+            *v34 = v36;
           }
         }
 
-        else if (v36 == 1)
+        else if (v37 == 1)
         {
-          *v33 = v35;
+          *v34 = v36;
         }
 
         else
         {
-          *v33 = v35;
+          *v34 = v36;
         }
       }
     }
@@ -5522,29 +3187,29 @@ uint64_t outlined destroy of DefaultIndices<CountingIndexCollection<ShadowRowCol
   return a1;
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>()
+void type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>(uint64_t a1, uint64_t a2)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>)
   {
-    type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>(255, a2);
+    v2 = type metadata accessor for ModifiedContent();
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>);
+      atomic_store(v2, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>()
+void type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>(uint64_t a1, uint64_t a2)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>)
   {
-    type metadata accessor for <<opaque return type of MappedViewElement.view>>.0();
+    type metadata accessor for <<opaque return type of MappedViewElement.view>>.0(255, a2);
     type metadata accessor for Binding<_DragReorderableView_DragState>(255, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6980A08]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v2 = type metadata accessor for ModifiedContent();
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>);
+      atomic_store(v2, &lazy cache variable for type metadata for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>);
     }
   }
 }
@@ -5554,98 +3219,114 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0> and conformance <> _ConditionalContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0>(255, &lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0>, MEMORY[0x1E697F960]);
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>);
-    swift_getOpaqueTypeConformance2();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>, &protocol witness table for DragReorderableChildModifier);
+    v5[1] = swift_getOpaqueTypeConformance2();
+    result = swift_getWitnessTable(MEMORY[0x1E697F968], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0> and conformance <> _ConditionalContent<A, B>);
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>()
+unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>(uint64_t a1, uint64_t a2)
 {
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>();
-    swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>();
-    result = swift_getWitnessTable();
+    v7[4] = v2;
+    v7[5] = v3;
+    type metadata accessor for ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>(255, a2);
+    v6 = v5;
+    v7[0] = swift_getOpaqueTypeConformance2();
+    v7[1] = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v6, v7);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-uint64_t partial apply for closure #1 in DragReorderableLayoutCore.children.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t partial apply for closure #1 in DragReorderableLayoutCore.children.getter@<X0>(double *a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
 {
-  type metadata accessor for DragReorderableLayoutCore();
+  v6 = *(v3 + 16);
+  v7 = *(v3 + 24);
+  v8 = *(type metadata accessor for DragReorderableLayoutCore(0, v6, v7, a2) - 8);
+  v9 = v3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
 
-  return closure #1 in DragReorderableLayoutCore.children.getter(a1, a2);
+  return closure #1 in DragReorderableLayoutCore.children.getter(a1, v6, v7, a3, v9);
 }
 
 void type metadata accessor for _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>, <<opaque return type of MappedViewElement.view>>.0>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>();
+    type metadata accessor for ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier>(255, a2);
     v7 = v6;
-    type metadata accessor for <<opaque return type of MappedViewElement.view>>.0();
-    v9 = a3(a1, v7, v8);
-    if (!v10)
+    type metadata accessor for <<opaque return type of MappedViewElement.view>>.0(255, v8);
+    v10 = a3(a1, v7, v9);
+    if (!v11)
     {
-      atomic_store(v9, a2);
+      atomic_store(v10, a2);
     }
   }
 }
 
-uint64_t objectdestroy_44Tm()
+uint64_t objectdestroy_44Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = (type metadata accessor for DragReorderableLayoutCore() - 8);
-  v2 = v0 + ((*(*v1 + 80) + 48) & ~*(*v1 + 80));
+  v5 = (type metadata accessor for DragReorderableLayoutCore(0, *(v4 + 16), *(v4 + 32), a4) - 8);
+  v6 = v4 + ((*(*v5 + 80) + 48) & ~*(*v5 + 80));
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 8))(v2, AssociatedTypeWitness);
-  v4 = swift_getAssociatedTypeWitness();
-  v5 = swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  v6 = type metadata accessor for DragReorderableLayoutAdaptor();
-  (*(*(v4 - 8) + 8))(v2 + *(v6 + 68), v4);
+  (*(*(AssociatedTypeWitness - 8) + 8))(v6, AssociatedTypeWitness);
+  v8 = swift_getAssociatedTypeWitness();
+  v9 = swift_getAssociatedTypeWitness();
+  v14[0] = AssociatedTypeWitness;
+  v14[1] = v8;
+  v14[2] = v9;
+  v14[3] = swift_getAssociatedConformanceWitness();
+  v14[4] = swift_getAssociatedConformanceWitness();
+  v14[5] = swift_getAssociatedConformanceWitness();
+  v10 = type metadata accessor for DragReorderableLayoutAdaptor(0, v14);
+  (*(*(v8 - 8) + 8))(v6 + *(v10 + 68), v8);
 
-  __swift_destroy_boxed_opaque_existential_1(v2 + *(v6 + 84));
+  __swift_destroy_boxed_opaque_existential_1((v6 + *(v10 + 84)));
 
-  v7 = v1[13];
-  v8 = *(v5 - 8);
-  if (!(*(v8 + 48))(v2 + v7, 1, v5))
+  v11 = v5[13];
+  v12 = *(v9 - 8);
+  if (!(*(v12 + 48))(v6 + v11, 1, v9))
   {
-    (*(v8 + 8))(v2 + v7, v5);
+    (*(v12 + 8))(v6 + v11, v9);
   }
 
   return swift_deallocObject();
 }
 
-uint64_t partial apply for closure #3 in DragReorderableLayoutCore.draggableView<A>(_:offset:)()
+uint64_t partial apply for closure #3 in DragReorderableLayoutCore.draggableView<A>(_:offset:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(type metadata accessor for DragReorderableLayoutCore() - 8);
-  v2 = (*(v1 + 80) + 48) & ~*(v1 + 80);
-  v3 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v5 = v4[2];
+  v6 = v4[3];
+  v7 = v4[4];
+  v8 = *(type metadata accessor for DragReorderableLayoutCore(0, v5, v7, a4) - 8);
+  v9 = (*(v8 + 80) + 48) & ~*(v8 + 80);
+  v10 = *(v4 + ((*(v8 + 64) + v9 + 7) & 0xFFFFFFFFFFFFFFF8));
 
-  return closure #3 in DragReorderableLayoutCore.draggableView<A>(_:offset:)(v0 + v2, v3);
+  return closure #3 in DragReorderableLayoutCore.draggableView<A>(_:offset:)(v4 + v9, v10, v5, v6, v7);
 }
 
-void type metadata accessor for DragPayloadBox<Drag.Payload<ObjectIdentifier>>()
+void type metadata accessor for DragPayloadBox<Drag.Payload<ObjectIdentifier>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for DragPayloadBox<Drag.Payload<ObjectIdentifier>>)
   {
     type metadata accessor for Drag.Payload<ObjectIdentifier>(255, &lazy cache variable for type metadata for Drag.Payload<ObjectIdentifier>, type metadata accessor for Drag.Payload);
-    lazy protocol witness table accessor for type Drag.Payload<ObjectIdentifier> and conformance Drag.Payload<A>();
-    v0 = type metadata accessor for DragPayloadBox();
-    if (!v1)
+    v3 = v2;
+    v4 = lazy protocol witness table accessor for type Drag.Payload<ObjectIdentifier> and conformance Drag.Payload<A>();
+    v6 = type metadata accessor for DragPayloadBox(a1, v3, v4, v5);
+    if (!v7)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for DragPayloadBox<Drag.Payload<ObjectIdentifier>>);
+      atomic_store(v6, &lazy cache variable for type metadata for DragPayloadBox<Drag.Payload<ObjectIdentifier>>);
     }
   }
 }
@@ -5656,22 +3337,22 @@ unint64_t lazy protocol witness table accessor for type Drag.Payload<ObjectIdent
   if (!lazy protocol witness table cache variable for type Drag.Payload<ObjectIdentifier> and conformance Drag.Payload<A>)
   {
     type metadata accessor for Drag.Payload<ObjectIdentifier>(255, &lazy cache variable for type metadata for Drag.Payload<ObjectIdentifier>, type metadata accessor for Drag.Payload);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Drag.Payload<A>, v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Drag.Payload<ObjectIdentifier> and conformance Drag.Payload<A>);
   }
 
   return result;
 }
 
-void type metadata accessor for _ContiguousArrayStorage<DraggingItem<ObjectIdentifier>>()
+void type metadata accessor for _ContiguousArrayStorage<DraggingItem<ObjectIdentifier>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ContiguousArrayStorage<DraggingItem<ObjectIdentifier>>)
   {
     type metadata accessor for Drag.Payload<ObjectIdentifier>(255, &lazy cache variable for type metadata for DraggingItem<ObjectIdentifier>, type metadata accessor for DraggingItem);
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
+    v1 = type metadata accessor for _ContiguousArrayStorage();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<DraggingItem<ObjectIdentifier>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ContiguousArrayStorage<DraggingItem<ObjectIdentifier>>);
     }
   }
 }
@@ -5695,10 +3376,10 @@ uint64_t outlined destroy of Path?(uint64_t a1, unint64_t *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t type metadata completion function for DropPlaceholderListModifier()
+uint64_t type metadata completion function for DropPlaceholderListModifier(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -5802,7 +3483,7 @@ uint64_t getEnumTagSinglePayload for DropPlaceholderListModifier(unsigned __int8
 
   if (v5 >= a2)
   {
-    return (*(v4 + 48))();
+    return (*(v4 + 48))(a1);
   }
 
   v6 = ((*(*(*(a3 + 16) - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 25;
@@ -5868,7 +3549,7 @@ uint64_t getEnumTagSinglePayload for DropPlaceholderListModifier(unsigned __int8
 LABEL_24:
     if (v5)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     return 0;
@@ -6031,33 +3712,32 @@ LABEL_24:
   }
 }
 
-uint64_t destroy for DragReorderableChildModifier(uint64_t result)
+double destroy for DragReorderableChildModifier(void *a1)
 {
-  if (*(result + 144))
+  if (a1[18])
   {
-    v1 = result;
-    if (*(result + 16))
+    if (a1[2])
     {
     }
 
-    if (v1[4])
+    if (a1[4])
     {
     }
 
-    if (v1[6])
+    if (a1[6])
     {
     }
 
-    if (v1[8])
+    if (a1[8])
     {
     }
 
-    if (v1[13])
+    if (a1[13])
     {
-      __swift_destroy_boxed_opaque_existential_1((v1 + 10));
+      __swift_destroy_boxed_opaque_existential_1(a1 + 10);
     }
 
-    if (v1[16] >= 2uLL)
+    if (a1[16] >= 2uLL)
     {
     }
   }
@@ -6230,12 +3910,12 @@ uint64_t assignWithCopy for DragReorderableChildModifier(uint64_t a1, uint64_t a
       *(a1 + 16) = *(a2 + 16);
     }
 
-    v46 = *(a2 + 32);
-    if (v46)
+    v48 = *(a2 + 32);
+    if (v48)
     {
-      v47 = *(a2 + 40);
-      *(a1 + 32) = v46;
-      *(a1 + 40) = v47;
+      v49 = *(a2 + 40);
+      *(a1 + 32) = v48;
+      *(a1 + 40) = v49;
     }
 
     else
@@ -6243,12 +3923,12 @@ uint64_t assignWithCopy for DragReorderableChildModifier(uint64_t a1, uint64_t a
       *(a1 + 32) = *(a2 + 32);
     }
 
-    v48 = *(a2 + 48);
-    if (v48)
+    v50 = *(a2 + 48);
+    if (v50)
     {
-      v49 = *(a2 + 56);
-      *(a1 + 48) = v48;
-      *(a1 + 56) = v49;
+      v51 = *(a2 + 56);
+      *(a1 + 48) = v50;
+      *(a1 + 56) = v51;
     }
 
     else
@@ -6256,43 +3936,43 @@ uint64_t assignWithCopy for DragReorderableChildModifier(uint64_t a1, uint64_t a
       *(a1 + 48) = *(a2 + 48);
     }
 
-    v50 = *(a2 + 64);
-    if (v50)
+    v52 = *(a2 + 64);
+    if (v52)
     {
-      v51 = *(a2 + 72);
-      *(a1 + 64) = v50;
-      *(a1 + 72) = v51;
+      v53 = *(a2 + 72);
+      *(a1 + 64) = v52;
+      *(a1 + 72) = v53;
 
-      v52 = *(a2 + 104);
-      if (v52)
+      v54 = *(a2 + 104);
+      if (v54)
       {
 LABEL_62:
-        *(a1 + 104) = v52;
-        (**(v52 - 8))(a1 + 80, a2 + 80);
+        *(a1 + 104) = v54;
+        (**(v54 - 8))(a1 + 80, a2 + 80);
 LABEL_65:
         *(a1 + 112) = *(a2 + 112);
-        v54 = (a2 + 128);
-        v55 = (a2 + 120);
+        v56 = (a2 + 128);
+        v57 = (a2 + 120);
         if (*(a2 + 128) == 1)
         {
-          v56 = *v55;
+          v58 = *v57;
           *(a1 + 136) = *(a2 + 136);
-          *(a1 + 120) = v56;
+          *(a1 + 120) = v58;
         }
 
         else
         {
-          *(a1 + 120) = *v55;
-          if (*v54)
+          *(a1 + 120) = *v57;
+          if (*v56)
           {
-            v57 = *(a2 + 136);
-            *(a1 + 128) = *v54;
-            *(a1 + 136) = v57;
+            v59 = *(a2 + 136);
+            *(a1 + 128) = *v56;
+            *(a1 + 136) = v59;
           }
 
           else
           {
-            *(a1 + 128) = *v54;
+            *(a1 + 128) = *v56;
           }
         }
 
@@ -6305,16 +3985,16 @@ LABEL_65:
     else
     {
       *(a1 + 64) = *(a2 + 64);
-      v52 = *(a2 + 104);
-      if (v52)
+      v54 = *(a2 + 104);
+      if (v54)
       {
         goto LABEL_62;
       }
     }
 
-    v53 = *(a2 + 96);
+    v55 = *(a2 + 96);
     *(a1 + 80) = *(a2 + 80);
-    *(a1 + 96) = v53;
+    *(a1 + 96) = v55;
     goto LABEL_65;
   }
 
@@ -6395,14 +4075,15 @@ LABEL_22:
 
     *(a1 + 48) = *(a2 + 48);
 LABEL_29:
+    v31 = (a2 + 64);
     v30 = *(a2 + 64);
     if (*(a1 + 64))
     {
       if (v30)
       {
-        v31 = *(a2 + 72);
+        v32 = *(a2 + 72);
         *(a1 + 64) = v30;
-        *(a1 + 72) = v31;
+        *(a1 + 72) = v32;
 
         goto LABEL_36;
       }
@@ -6410,65 +4091,66 @@ LABEL_29:
 
     else if (v30)
     {
-      v32 = *(a2 + 72);
+      v34 = *(a2 + 72);
       *(a1 + 64) = v30;
-      *(a1 + 72) = v32;
+      *(a1 + 72) = v34;
 
       goto LABEL_36;
     }
 
-    *(a1 + 64) = *(a2 + 64);
+    v33 = *v31;
+    *(a1 + 64) = *v31;
 LABEL_36:
-    v33 = *(a2 + 104);
+    v35 = *(a2 + 104);
     if (*(a1 + 104))
     {
-      v34 = (a1 + 80);
-      if (v33)
+      v36 = (a1 + 80);
+      if (v35)
       {
-        __swift_assign_boxed_opaque_existential_0(v34, (a2 + 80));
+        __swift_assign_boxed_opaque_existential_0(v36, (a2 + 80), v33);
         goto LABEL_43;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v34);
+      __swift_destroy_boxed_opaque_existential_1(v36);
     }
 
-    else if (v33)
+    else if (v35)
     {
-      *(a1 + 104) = v33;
-      (**(v33 - 8))(a1 + 80, a2 + 80);
+      *(a1 + 104) = v35;
+      (**(v35 - 8))(a1 + 80, a2 + 80);
       goto LABEL_43;
     }
 
-    v35 = *(a2 + 96);
+    v37 = *(a2 + 96);
     *(a1 + 80) = *(a2 + 80);
-    *(a1 + 96) = v35;
+    *(a1 + 96) = v37;
 LABEL_43:
-    v36 = *(a1 + 128);
+    v38 = *(a1 + 128);
     *(a1 + 112) = *(a2 + 112);
-    v37 = (a1 + 120);
-    v39 = (a2 + 128);
-    v38 = *(a2 + 128);
-    v40 = (a2 + 120);
-    if (v36 == 1)
+    v39 = (a1 + 120);
+    v41 = (a2 + 128);
+    v40 = *(a2 + 128);
+    v42 = (a2 + 120);
+    if (v38 == 1)
     {
-      if (v38 == 1)
+      if (v40 == 1)
       {
-        v41 = *v40;
+        v43 = *v42;
         *(a1 + 136) = *(a2 + 136);
-        *v37 = v41;
+        *v39 = v43;
 LABEL_76:
         *(a1 + 144) = *(a2 + 144);
 
         goto LABEL_77;
       }
 
-      *v37 = *v40;
-      if (*v39)
+      *v39 = *v42;
+      if (*v41)
       {
-        v43 = *(a2 + 136);
-        *(a1 + 128) = *v39;
+        v45 = *(a2 + 136);
+        *(a1 + 128) = *v41;
 LABEL_73:
-        *(a1 + 136) = v43;
+        *(a1 + 136) = v45;
 
         goto LABEL_76;
       }
@@ -6476,38 +4158,38 @@ LABEL_73:
 
     else
     {
-      if (v38 == 1)
+      if (v40 == 1)
       {
         outlined destroy of Drag.SupplementaryConfiguration(a1 + 120);
-        v42 = *(a2 + 136);
-        *v37 = *v40;
-        *(a1 + 136) = v42;
+        v44 = *(a2 + 136);
+        *v39 = *v42;
+        *(a1 + 136) = v44;
         goto LABEL_76;
       }
 
-      *v37 = *v40;
-      v44 = *v39;
-      if (v36)
+      *v39 = *v42;
+      v46 = *v41;
+      if (v38)
       {
-        if (v44)
+        if (v46)
         {
-          v45 = *(a2 + 136);
-          *(a1 + 128) = v44;
-          *(a1 + 136) = v45;
+          v47 = *(a2 + 136);
+          *(a1 + 128) = v46;
+          *(a1 + 136) = v47;
 
           goto LABEL_76;
         }
       }
 
-      else if (v44)
+      else if (v46)
       {
-        v43 = *(a2 + 136);
-        *(a1 + 128) = v44;
+        v45 = *(a2 + 136);
+        *(a1 + 128) = v46;
         goto LABEL_73;
       }
     }
 
-    *(a1 + 128) = *v39;
+    *(a1 + 128) = *v41;
     goto LABEL_76;
   }
 
@@ -6528,9 +4210,9 @@ LABEL_73:
   *(a1 + 120) = v15;
   *(a1 + 104) = v14;
 LABEL_77:
-  v58 = *(a2 + 152);
+  v60 = *(a2 + 152);
   *(a1 + 160) = *(a2 + 160);
-  *(a1 + 152) = v58;
+  *(a1 + 152) = v60;
   *(a1 + 161) = *(a2 + 161);
   return a1;
 }
@@ -6664,7 +4346,7 @@ LABEL_26:
 LABEL_33:
       if (*(a1 + 104))
       {
-        __swift_destroy_boxed_opaque_existential_1(a1 + 80);
+        __swift_destroy_boxed_opaque_existential_1((a1 + 80));
       }
 
       v19 = *(a2 + 96);
@@ -6803,51 +4485,55 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>> and conformance <> _ConditionalContent<A, B>)
   {
-    type metadata accessor for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, lazy protocol witness table accessor for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>);
-    lazy protocol witness table accessor for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, lazy protocol witness table accessor for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>, &protocol witness table for _DraggingModifier);
+    v5[1] = lazy protocol witness table accessor for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697F968], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>> and conformance <> _ConditionalContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>()
+void type metadata accessor for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>)
   {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>();
+    type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>(255);
     _s7SwiftUI19ShadowRowCollectionVyAA22TableDataSourceAdaptorVGMaTm_0(255, &lazy cache variable for type metadata for _ViewModifier_Content<ConditionalDraggingModifier>, lazy protocol witness table accessor for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier, &type metadata for ConditionalDraggingModifier, MEMORY[0x1E697FDE8]);
-    v0 = type metadata accessor for _ConditionalContent();
-    if (!v1)
+    v1 = type metadata accessor for _ConditionalContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>, _ViewModifier_Content<ConditionalDraggingModifier>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>()
+void type metadata accessor for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>)
   {
     _s7SwiftUI19ShadowRowCollectionVyAA22TableDataSourceAdaptorVGMaTm_0(255, &lazy cache variable for type metadata for _ViewModifier_Content<ConditionalDraggingModifier>, lazy protocol witness table accessor for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier, &type metadata for ConditionalDraggingModifier, MEMORY[0x1E697FDE8]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ConditionalDraggingModifier>, _DraggingModifier>);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of MappedViewElement.view>>.0, _EnvironmentKeyWritingModifier<Bool>>, DragReorderableChildModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    a3();
-    result = swift_getWitnessTable();
+    v8 = a2(255);
+    v9[0] = a3();
+    v9[1] = a4;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v8, v9);
     atomic_store(result, a1);
   }
 
@@ -6860,7 +4546,7 @@ unint64_t lazy protocol witness table accessor for type _ViewModifier_Content<Co
   if (!lazy protocol witness table cache variable for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>)
   {
     _s7SwiftUI19ShadowRowCollectionVyAA22TableDataSourceAdaptorVGMaTm_0(255, &lazy cache variable for type metadata for _ViewModifier_Content<ConditionalDraggingModifier>, lazy protocol witness table accessor for type ConditionalDraggingModifier and conformance ConditionalDraggingModifier, &type metadata for ConditionalDraggingModifier, MEMORY[0x1E697FDE8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FDF8], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ViewModifier_Content<ConditionalDraggingModifier> and conformance _ViewModifier_Content<A>);
   }
 
@@ -6872,7 +4558,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayout and co
   result = lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout;
   if (!lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayout, &unk_1EFFBF2F0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout);
   }
 
@@ -6883,7 +4569,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayout and co
   result = lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout;
   if (!lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayout, &unk_1EFFBF2F0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout);
   }
 
@@ -6894,7 +4580,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayout and co
   result = lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout;
   if (!lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayout, &unk_1EFFBF2F0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout);
   }
 
@@ -6905,7 +4591,7 @@ unint64_t lazy protocol witness table accessor for type ReorderableLayout and co
   result = lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout;
   if (!lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ReorderableLayout, &unk_1EFFBF2F0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ReorderableLayout and conformance ReorderableLayout);
   }
 
@@ -6917,7 +4603,7 @@ unint64_t lazy protocol witness table accessor for type DragReorderableChildModi
   result = lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSourceProxy and conformance DragReorderableChildModifier.MakeDragSourceProxy;
   if (!lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSourceProxy and conformance DragReorderableChildModifier.MakeDragSourceProxy)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragReorderableChildModifier.MakeDragSourceProxy, &unk_1EFFBF578, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSourceProxy and conformance DragReorderableChildModifier.MakeDragSourceProxy);
   }
 
@@ -6929,7 +4615,7 @@ unint64_t lazy protocol witness table accessor for type DragReorderableChildModi
   result = lazy protocol witness table cache variable for type DragReorderableChildModifier.ChildCoordinateSpace and conformance DragReorderableChildModifier.ChildCoordinateSpace;
   if (!lazy protocol witness table cache variable for type DragReorderableChildModifier.ChildCoordinateSpace and conformance DragReorderableChildModifier.ChildCoordinateSpace)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragReorderableChildModifier.ChildCoordinateSpace, &unk_1EFFBF550, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragReorderableChildModifier.ChildCoordinateSpace and conformance DragReorderableChildModifier.ChildCoordinateSpace);
   }
 
@@ -6941,7 +4627,7 @@ unint64_t lazy protocol witness table accessor for type DragReorderableChildModi
   result = lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSource and conformance DragReorderableChildModifier.MakeDragSource;
   if (!lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSource and conformance DragReorderableChildModifier.MakeDragSource)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragReorderableChildModifier.MakeDragSource, &unk_1EFFBF4D0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragReorderableChildModifier.MakeDragSource and conformance DragReorderableChildModifier.MakeDragSource);
   }
 
@@ -6953,7 +4639,7 @@ unint64_t lazy protocol witness table accessor for type DragReorderableChildModi
   result = lazy protocol witness table cache variable for type DragReorderableChildModifier.ResponderFilter and conformance DragReorderableChildModifier.ResponderFilter;
   if (!lazy protocol witness table cache variable for type DragReorderableChildModifier.ResponderFilter and conformance DragReorderableChildModifier.ResponderFilter)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DragReorderableChildModifier.ResponderFilter, &unk_1EFFBF4A0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DragReorderableChildModifier.ResponderFilter and conformance DragReorderableChildModifier.ResponderFilter);
   }
 
@@ -7021,7 +4707,7 @@ uint64_t assignWithTake for DropPlaceholderListModifier.DropPlaceholderList(uint
   *a1 = *a2;
   *(a1 + 16) = v4;
   *(a1 + 32) = *(a2 + 32);
-  __swift_destroy_boxed_opaque_existential_1(a1 + 40);
+  __swift_destroy_boxed_opaque_existential_1((a1 + 40));
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 56) = *(a2 + 56);
   v5 = *(a2 + 80);
@@ -7103,17 +4789,17 @@ uint64_t outlined init with copy of DefaultIndices<CountingIndexCollection<Shado
   return a2;
 }
 
-void type metadata accessor for _ViewList_ID._Views<EmptyCollection<_ViewList_ID>>()
+void type metadata accessor for _ViewList_ID._Views<EmptyCollection<_ViewList_ID>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ViewList_ID._Views<EmptyCollection<_ViewList_ID>>)
   {
     type metadata accessor for Binding<_DragReorderableView_DragState>(255, &lazy cache variable for type metadata for EmptyCollection<_ViewList_ID>, MEMORY[0x1E697E098], MEMORY[0x1E69E6C30]);
-    lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(&lazy protocol witness table cache variable for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>);
-    lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(&lazy protocol witness table cache variable for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>);
-    v0 = type metadata accessor for _ViewList_ID._Views();
-    if (!v1)
+    lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(&lazy protocol witness table cache variable for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>, MEMORY[0x1E69E6C40]);
+    lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(&lazy protocol witness table cache variable for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>, MEMORY[0x1E69E6C50]);
+    v1 = type metadata accessor for _ViewList_ID._Views();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ViewList_ID._Views<EmptyCollection<_ViewList_ID>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ViewList_ID._Views<EmptyCollection<_ViewList_ID>>);
     }
   }
 }
@@ -7130,13 +4816,13 @@ void type metadata accessor for Binding<_DragReorderableView_DragState>(uint64_t
   }
 }
 
-uint64_t lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type EmptyCollection<_ViewList_ID> and conformance EmptyCollection<A>(unint64_t *a1, const char *a2)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Binding<_DragReorderableView_DragState>(255, &lazy cache variable for type metadata for EmptyCollection<_ViewList_ID>, MEMORY[0x1E697E098], MEMORY[0x1E69E6C30]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a2, v5);
     atomic_store(result, a1);
   }
 
@@ -7234,15 +4920,17 @@ uint64_t EnvironmentValues.disableGroupBoxPadding.getter()
   return v2;
 }
 
-uint64_t View.disableGroupBoxPadding(_:)()
+double View.disableGroupBoxPadding(_:)(char a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   View.environment<A>(_:_:)();
+
+  return result;
 }
 
-uint64_t key path getter for EnvironmentValues.disableGroupBoxPadding : EnvironmentValues@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void key path getter for EnvironmentValues.disableGroupBoxPadding : EnvironmentValues(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<DisableGroupBoxPaddingKey>, &unk_1EFFBF710, &protocol witness table for DisableGroupBoxPaddingKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<DisableGroupBoxPaddingKey> and conformance EnvironmentPropertyKey<A>();
@@ -7254,23 +4942,24 @@ uint64_t key path getter for EnvironmentValues.disableGroupBoxPadding : Environm
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<DisableGroupBoxPaddingKey>, &unk_1EFFBF710, &protocol witness table for DisableGroupBoxPaddingKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<DisableGroupBoxPaddingKey> and conformance EnvironmentPropertyKey<A>();
-    result = PropertyList.subscript.getter();
+    PropertyList.subscript.getter();
   }
 
-  *a2 = v4;
-  return result;
+  *a2 = v3;
 }
 
-uint64_t key path setter for EnvironmentValues.disableGroupBoxPadding : EnvironmentValues(uint64_t a1, uint64_t a2)
+double key path setter for EnvironmentValues.disableGroupBoxPadding : EnvironmentValues(char *a1, void *a2)
 {
   type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<DisableGroupBoxPaddingKey>, &unk_1EFFBF710, &protocol witness table for DisableGroupBoxPaddingKey, MEMORY[0x1E697FE38]);
   lazy protocol witness table accessor for type EnvironmentPropertyKey<DisableGroupBoxPaddingKey> and conformance EnvironmentPropertyKey<A>();
 
   PropertyList.subscript.setter();
-  if (*(a2 + 8))
+  if (a2[1])
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>> and conformance <> ModifiedContent<A, B>()
@@ -7278,52 +4967,59 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<GroupBox
   result = lazy protocol witness table cache variable for type ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>();
-    lazy protocol witness table accessor for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>(&lazy protocol witness table cache variable for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>, type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>);
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>(&lazy protocol witness table cache variable for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>, type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, protocol conformance descriptor for GroupBox<A, B>);
+    v5[1] = &protocol witness table for GroupBoxStyleModifier<A>;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>()
+void type metadata accessor for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>)
   {
-    type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>();
-    type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(255, &lazy cache variable for type metadata for GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>, lazy protocol witness table accessor for type PhoneIdiomGroupBoxStyle and conformance PhoneIdiomGroupBoxStyle);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>(255);
+    type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(255, &lazy cache variable for type metadata for GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>, lazy protocol witness table accessor for type PhoneIdiomGroupBoxStyle and conformance PhoneIdiomGroupBoxStyle, &type metadata for PhoneIdiomGroupBoxStyle);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>, GroupBoxStyleModifier<PhoneIdiomGroupBoxStyle>>);
     }
   }
 }
 
-void type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>()
+void type metadata accessor for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>)
   {
-    type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>();
-    lazy protocol witness table accessor for type ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>> and conformance <> ModifiedContent<A, B>();
-    v0 = type metadata accessor for GroupBox();
-    if (!v1)
+    type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>(255);
+    v5[0] = &type metadata for GroupBoxStyleConfiguration.Label;
+    v5[1] = v2;
+    v5[2] = &protocol witness table for GroupBoxStyleConfiguration.Label;
+    v5[3] = lazy protocol witness table accessor for type ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>> and conformance <> ModifiedContent<A, B>();
+    v3 = type metadata accessor for GroupBox(a1, v5);
+    if (!v4)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>);
+      atomic_store(v3, &lazy cache variable for type metadata for GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>()
+void type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>)
   {
-    type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(255, &lazy cache variable for type metadata for GroupBoxStyleModifier<DefaultGroupBoxStyle>, lazy protocol witness table accessor for type DefaultGroupBoxStyle and conformance DefaultGroupBoxStyle);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(255, &lazy cache variable for type metadata for GroupBoxStyleModifier<DefaultGroupBoxStyle>, lazy protocol witness table accessor for type DefaultGroupBoxStyle and conformance DefaultGroupBoxStyle, &type metadata for DefaultGroupBoxStyle);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>);
     }
   }
 }
@@ -7333,7 +5029,7 @@ unint64_t lazy protocol witness table accessor for type DefaultGroupBoxStyle and
   result = lazy protocol witness table cache variable for type DefaultGroupBoxStyle and conformance DefaultGroupBoxStyle;
   if (!lazy protocol witness table cache variable for type DefaultGroupBoxStyle and conformance DefaultGroupBoxStyle)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DefaultGroupBoxStyle, &type metadata for DefaultGroupBoxStyle, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DefaultGroupBoxStyle and conformance DefaultGroupBoxStyle);
   }
 
@@ -7345,23 +5041,27 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<GroupBox
   result = lazy protocol witness table cache variable for type ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>();
-    result = swift_getWitnessTable();
+    v4[2] = v0;
+    v4[3] = v1;
+    type metadata accessor for ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>(255);
+    v4[0] = &protocol witness table for GroupBoxStyleConfiguration.Content;
+    v4[1] = &protocol witness table for GroupBoxStyleModifier<A>;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v3, v4);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(uint64_t a1, unint64_t *a2, void (*a3)(void))
+void type metadata accessor for GroupBoxStyleModifier<DefaultGroupBoxStyle>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4)
 {
   if (!*a2)
   {
-    a3();
-    v4 = type metadata accessor for GroupBoxStyleModifier();
-    if (!v5)
+    v7 = a3();
+    v9 = type metadata accessor for GroupBoxStyleModifier(a1, a4, v7, v8);
+    if (!v10)
     {
-      atomic_store(v4, a2);
+      atomic_store(v9, a2);
     }
   }
 }
@@ -7371,20 +5071,20 @@ unint64_t lazy protocol witness table accessor for type PhoneIdiomGroupBoxStyle 
   result = lazy protocol witness table cache variable for type PhoneIdiomGroupBoxStyle and conformance PhoneIdiomGroupBoxStyle;
   if (!lazy protocol witness table cache variable for type PhoneIdiomGroupBoxStyle and conformance PhoneIdiomGroupBoxStyle)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for PhoneIdiomGroupBoxStyle, &type metadata for PhoneIdiomGroupBoxStyle, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PhoneIdiomGroupBoxStyle and conformance PhoneIdiomGroupBoxStyle);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type GroupBox<GroupBoxStyleConfiguration.Label, ModifiedContent<GroupBoxStyleConfiguration.Content, GroupBoxStyleModifier<DefaultGroupBoxStyle>>> and conformance GroupBox<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -7397,7 +5097,7 @@ unint64_t lazy protocol witness table accessor for type _TraitWritingModifier<Fo
   if (!lazy protocol witness table cache variable for type _TraitWritingModifier<FormBorderlessSectionTraitKey> and conformance _TraitWritingModifier<A>)
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(255, &lazy cache variable for type metadata for _TraitWritingModifier<FormBorderlessSectionTraitKey>, &type metadata for FormBorderlessSectionTraitKey, &protocol witness table for FormBorderlessSectionTraitKey, MEMORY[0x1E697FDB8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FDC0], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _TraitWritingModifier<FormBorderlessSectionTraitKey> and conformance _TraitWritingModifier<A>);
   }
 
@@ -7410,7 +5110,7 @@ unint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<D
   if (!lazy protocol witness table cache variable for type EnvironmentPropertyKey<DisableGroupBoxPaddingKey> and conformance EnvironmentPropertyKey<A>)
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<DisableGroupBoxPaddingKey>, &unk_1EFFBF710, &protocol witness table for DisableGroupBoxPaddingKey, MEMORY[0x1E697FE38]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FE40], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentPropertyKey<DisableGroupBoxPaddingKey> and conformance EnvironmentPropertyKey<A>);
   }
 
@@ -7466,17 +5166,17 @@ uint64_t registerAppRootModifier<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return swift_endAccess();
 }
 
-uint64_t closure #1 in registerAppRootModifier<A>(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t closure #1 in registerAppRootModifier<A>(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v10 = MEMORY[0x1E6981910];
   v11 = type metadata accessor for ModifiedContent();
   v12 = MEMORY[0x1EEE9AC00](v11);
-  v17 = *a1;
+  v15[2] = *a1;
   v13 = MEMORY[0x1E6981900];
   MEMORY[0x18D00A570](a2, v10, a3, MEMORY[0x1E6981900], v12);
-  v15 = v13;
-  v16 = a4;
-  swift_getWitnessTable();
+  v15[0] = v13;
+  v15[1] = a4;
+  swift_getWitnessTable(MEMORY[0x1E697E858], v11, v15);
   result = AnyView.init<A>(_:)();
   *a5 = result;
   return result;
@@ -7494,7 +5194,7 @@ unint64_t lazy protocol witness table accessor for type FrameResizePosition and 
   result = lazy protocol witness table cache variable for type FrameResizePosition and conformance FrameResizePosition;
   if (!lazy protocol witness table cache variable for type FrameResizePosition and conformance FrameResizePosition)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizePosition, &type metadata for FrameResizePosition, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizePosition and conformance FrameResizePosition);
   }
 
@@ -7506,7 +5206,7 @@ unint64_t lazy protocol witness table accessor for type FrameResizeDirection.Set
   result = lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set;
   if (!lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizeDirection.Set, &type metadata for FrameResizeDirection.Set, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set);
   }
 
@@ -7517,7 +5217,7 @@ unint64_t lazy protocol witness table accessor for type FrameResizeDirection.Set
   result = lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set;
   if (!lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizeDirection.Set, &type metadata for FrameResizeDirection.Set, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set);
   }
 
@@ -7528,7 +5228,7 @@ unint64_t lazy protocol witness table accessor for type FrameResizeDirection.Set
   result = lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set;
   if (!lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizeDirection.Set, &type metadata for FrameResizeDirection.Set, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set);
   }
 
@@ -7539,7 +5239,7 @@ unint64_t lazy protocol witness table accessor for type FrameResizeDirection.Set
   result = lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set;
   if (!lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizeDirection.Set, &type metadata for FrameResizeDirection.Set, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizeDirection.Set and conformance FrameResizeDirection.Set);
   }
 
@@ -7551,34 +5251,34 @@ unint64_t lazy protocol witness table accessor for type FrameResizeDirection and
   result = lazy protocol witness table cache variable for type FrameResizeDirection and conformance FrameResizeDirection;
   if (!lazy protocol witness table cache variable for type FrameResizeDirection and conformance FrameResizeDirection)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for FrameResizeDirection, &type metadata for FrameResizeDirection, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type FrameResizeDirection and conformance FrameResizeDirection);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [FrameResizePosition] and conformance [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [FrameResizePosition] and conformance [A](unint64_t *a1, unint64_t *a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for [FrameResizePosition](255, a2);
-    result = swift_getWitnessTable();
+    type metadata accessor for [FrameResizePosition](255, a2, a3);
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v5);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-void type metadata accessor for [FrameResizePosition](uint64_t a1, unint64_t *a2)
+void type metadata accessor for [FrameResizePosition](uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Array();
-    if (!v4)
+    v4 = type metadata accessor for Array();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
@@ -7745,49 +5445,49 @@ LABEL_20:
   return result;
 }
 
-uint64_t static ViewGraphBridgePropertiesModifier._makeInputs(modifier:inputs:)(int *a1, uint64_t a2)
+uint64_t static ViewGraphBridgePropertiesModifier._makeInputs(modifier:inputs:)(int *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  v3 = *a1;
+  v26[3] = *MEMORY[0x1E69E9840];
+  v7 = *a1;
   lazy protocol witness table accessor for type ViewGraphBridgePropertiesAreInput and conformance ViewGraphBridgePropertiesAreInput();
-  v19[0] = v3;
+  v25[0] = v7;
   if (static UserDefaultKeyedFeature.isEnabled.getter())
   {
     type metadata accessor for _GraphValue();
-    v4 = _GraphValue.value.getter();
+    v8 = _GraphValue.value.getter();
     lazy protocol witness table accessor for type _GraphInputs.ViewGraphBridgePropertiesKey and conformance _GraphInputs.ViewGraphBridgePropertiesKey();
-    v5 = PropertyList.subscript.getter();
-    v6 = v20[0];
-    LODWORD(v20[0]) = v4;
-    *(v20 + 4) = v6;
-    MEMORY[0x1EEE9AC00](v5);
-    updated = type metadata accessor for UpdateProperties();
-    WitnessTable = swift_getWitnessTable();
-    type metadata accessor for Attribute<PlatformItemList>(0, &lazy cache variable for type metadata for Attribute<ViewGraphBridgeProperties>);
-    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v20, closure #1 in Attribute.init<A>(_:)partial apply, v16, updated, MEMORY[0x1E69E73E0], v7, MEMORY[0x1E69E7410], v8);
-    v20[0] = AGCreateWeakAttribute();
+    v9 = PropertyList.subscript.getter();
+    v10 = v26[0];
+    LODWORD(v26[0]) = v8;
+    *(v26 + 4) = v10;
+    MEMORY[0x1EEE9AC00](v9);
+    updated = type metadata accessor for UpdateProperties(0, a3, a4, v11);
+    WitnessTable = swift_getWitnessTable(protocol conformance descriptor for UpdateProperties<A>, updated);
+    type metadata accessor for Attribute<PlatformItemList>(0, &lazy cache variable for type metadata for Attribute<ViewGraphBridgeProperties>, &type metadata for ViewGraphBridgeProperties);
+    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v26, closure #1 in Attribute.init<A>(_:)partial apply, v22, updated, MEMORY[0x1E69E73E0], v12, MEMORY[0x1E69E7410], v13);
+    v26[0] = AGCreateWeakAttribute();
     return PropertyList.subscript.setter();
   }
 
   else
   {
     type metadata accessor for _GraphValue();
-    v10 = _GraphValue.value.getter();
-    v11 = *(a2 + 16);
-    v12 = swift_beginAccess();
-    v13 = *(v11 + 16);
-    v19[0] = v10;
-    v19[1] = v13;
-    MEMORY[0x1EEE9AC00](v12);
-    updated = type metadata accessor for UpdateEnvironment();
-    WitnessTable = swift_getWitnessTable();
-    type metadata accessor for Attribute<PlatformItemList>(0, &lazy cache variable for type metadata for Attribute<EnvironmentValues>);
-    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v19, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_0, v16, updated, MEMORY[0x1E69E73E0], v14, MEMORY[0x1E69E7410], v15);
+    v15 = _GraphValue.value.getter();
+    v16 = a2[2];
+    v17 = swift_beginAccess();
+    v18 = *(v16 + 16);
+    v25[0] = v15;
+    v25[1] = v18;
+    MEMORY[0x1EEE9AC00](v17);
+    updated = type metadata accessor for UpdateEnvironment(0, a3, a4, v19);
+    WitnessTable = swift_getWitnessTable(protocol conformance descriptor for UpdateEnvironment<A>, updated);
+    type metadata accessor for Attribute<PlatformItemList>(0, &lazy cache variable for type metadata for Attribute<EnvironmentValues>, MEMORY[0x1E697F230]);
+    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v25, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_0, v22, updated, MEMORY[0x1E69E73E0], v20, MEMORY[0x1E69E7410], v21);
     return _GraphInputs.environment.setter();
   }
 }
 
-uint64_t UpdateProperties.properties.getter()
+uint64_t UpdateProperties.properties.getter(uint64_t a1, uint64_t a2)
 {
   WeakValue = AGGraphGetWeakValue();
   if (!WeakValue)
@@ -7795,14 +5495,14 @@ uint64_t UpdateProperties.properties.getter()
     return 0;
   }
 
-  v1 = *WeakValue;
+  v3 = *WeakValue;
 
-  return v1;
+  return v3;
 }
 
 uint64_t UpdateProperties.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  updated = UpdateProperties.properties.getter();
+  updated = UpdateProperties.properties.getter(a1, a2);
   if (v9)
   {
     *&v12 = updated;
@@ -7839,12 +5539,12 @@ uint64_t protocol witness for Rule.value.getter in conformance UpdateProperties<
 
 uint64_t protocol witness for static _AttributeBody.flags.getter in conformance UpdateProperties<A>(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for UpdateProperties<A>, a1);
 
   return MEMORY[0x1EEDDE9B8](a1, WitnessTable);
 }
 
-uint64_t UpdateEnvironment.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+double UpdateEnvironment.value.getter@<D0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   _DiscreteSymbolEffectModifier.EffectEnvironment.environment.getter(a4);
   v8 = a4[1];
@@ -7870,11 +5570,13 @@ uint64_t UpdateEnvironment.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
+
+  return result;
 }
 
 uint64_t protocol witness for static _AttributeBody.flags.getter in conformance UpdateEnvironment<A>(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for UpdateEnvironment<A>, a1);
 
   return MEMORY[0x1EEDDE9B8](a1, WitnessTable);
 }
@@ -7891,17 +5593,25 @@ void type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.BridgeP
   }
 }
 
-uint64_t PlatformItemListReader.init(flags:content:source:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+double PlatformItemListReader.init(flags:content:source:)@<D0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X7>, void *a6@<X8>, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  *a3 = a1;
-  a3[1] = a2;
+  *a6 = a1;
+  a6[1] = a2;
 
   static Alignment.center.getter();
-  type metadata accessor for PlatformItemListReader();
+  v13[0] = a3;
+  v13[1] = a4;
+  v13[2] = a5;
+  v13[3] = a7;
+  v13[4] = a8;
+  v13[5] = a9;
+  type metadata accessor for PlatformItemListReader(0, v13);
   ZStack.init(alignment:content:)();
+
+  return result;
 }
 
-uint64_t PlatformItemList.modify(_:)(uint64_t result)
+uint64_t (*PlatformItemList.modify(_:)(uint64_t (*result)(char *)))(char *)
 {
   v2 = *v1;
   v3 = *(*v1 + 2);
@@ -7922,7 +5632,7 @@ LABEL_9:
         goto LABEL_9;
       }
 
-      v6 = *(type metadata accessor for PlatformItemList.Item() - 8);
+      v6 = *(type metadata accessor for PlatformItemList.Item(0) - 8);
       result = v4(&v2[((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * i]);
     }
 
@@ -7932,7 +5642,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t View.platformItemSystemType(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+double View.platformItemSystemType(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a1 + 80);
   v16[4] = *(a1 + 64);
@@ -7956,15 +5666,17 @@ uint64_t View.platformItemSystemType(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   *(v9 + 48) = *(a1 + 32);
   *(v9 + 64) = v12;
   v13 = outlined init with copy of PlatformItemList.Item.SystemItem?(v16, v15, &lazy cache variable for type metadata for PlatformItemList.Item.SystemItem?, &type metadata for PlatformItemList.Item.SystemItem);
-  View.transformPlatformItemList<A>(_:_:)(v13, partial apply for closure #1 in View.platformItemSystemType(_:), v9, a2, &type metadata for LayoutPlatformItemListFlags, a3);
+  View.transformPlatformItemList<A>(_:_:)(v13, partial apply for closure #1 in View.platformItemSystemType(_:), v9, a2, &type metadata for LayoutPlatformItemListFlags, a3, &protocol witness table for LayoutPlatformItemListFlags);
+
+  return result;
 }
 
-uint64_t specialized closure #1 in PlatformItemList.containerSelectionBehavior.getter(uint64_t result)
+void specialized closure #1 in PlatformItemList.containerSelectionBehavior.getter(uint64_t a1)
 {
-  v1 = *(result + 16);
+  v1 = *(a1 + 16);
   if (v1)
   {
-    v2 = result + 40;
+    v2 = a1 + 40;
     do
     {
       v3 = *(v2 - 8);
@@ -7977,8 +5689,6 @@ uint64_t specialized closure #1 in PlatformItemList.containerSelectionBehavior.g
 
     while (v1);
   }
-
-  return result;
 }
 
 uint64_t specialized closure #3 in PlatformItemList.containerSelectionBehavior.getter(char a1, uint64_t a2)
@@ -8021,29 +5731,31 @@ void *UIItemHostingView.__allocating_init(rootView:)(uint64_t a1)
 {
   v2 = v1;
   v4 = objc_allocWithZone(v1);
-  v5 = specialized _UIHostingView.init(rootView:)(a1);
+  v6 = specialized _UIHostingView.init(rootView:)(a1, v5);
   (*(*(*(v2 + 224) - 8) + 8))(a1);
-  return v5;
+  return v6;
 }
 
-id UIItemHostingView.init(coder:)(void *a1)
+id UIItemHostingView.init(coder:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5.receiver = v1;
-  v5.super_class = type metadata accessor for UIItemHostingView();
-  v3 = objc_msgSendSuper2(&v5, sel_initWithCoder_, a1);
+  v6 = type metadata accessor for UIItemHostingView(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x700), *((*MEMORY[0x1E69E7D40] & *v4) + 0x708), a4);
+  v9.receiver = v4;
+  v9.super_class = v6;
+  v7 = objc_msgSendSuper2(&v9, sel_initWithCoder_, a1);
 
-  if (v3)
+  if (v7)
   {
   }
 
-  return v3;
+  return v7;
 }
 
-id UIItemHostingView.__deallocating_deinit()
+id UIItemHostingView.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for UIItemHostingView();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = type metadata accessor for UIItemHostingView(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x700), *((*MEMORY[0x1E69E7D40] & *v4) + 0x708), a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t View.onPlatformContainerSecondaryNavigation(value:action:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8053,14 +5765,14 @@ uint64_t View.onPlatformContainerSecondaryNavigation(value:action:)(uint64_t a1,
   v12 = a3;
   KeyPath = swift_getKeyPath();
   v14 = 0;
-  outlined copy of AppIntentExecutor?(a2);
+  outlined copy of AppIntentExecutor?(a2, a3);
   MEMORY[0x18D00A570](v10, a4, &type metadata for OnPlatformContainerSecondaryNavigationModifier, a5);
   return outlined destroy of OnPlatformContainerSecondaryNavigationModifier(v10);
 }
 
 void closure #1 in View.forcePlatformItem()(uint64_t a1)
 {
-  v2 = type metadata accessor for PlatformItemList.Item();
+  v2 = type metadata accessor for PlatformItemList.Item(0);
   MEMORY[0x1EEE9AC00](v2);
   v4 = &v33 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
@@ -8144,7 +5856,7 @@ void closure #1 in View.forcePlatformItem()(uint64_t a1)
     *(v8 + 476) = 1283;
     v8[954] = 3;
     v15 = v2[28];
-    v16 = type metadata accessor for CommandOperation();
+    v16 = type metadata accessor for CommandOperation(0);
     (*(*(v16 - 8) + 56))(&v8[v15], 1, 1, v16);
     v8[v2[29]] = 0;
     v8[v2[30]] = 0;
@@ -8215,7 +5927,7 @@ void closure #1 in View.forcePlatformItem()(uint64_t a1)
     v32 = v34;
     if (v31 >= v30 >> 1)
     {
-      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v30 > 1, v31 + 1, 1, v9);
+      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, v9);
     }
 
     v9[2] = v31 + 1;
@@ -8225,7 +5937,7 @@ void closure #1 in View.forcePlatformItem()(uint64_t a1)
   }
 }
 
-void *closure #1 in View.platformItemSelector(_:)(void *result, uint64_t a2)
+uint64_t *closure #1 in View.platformItemSelector(_:)(uint64_t *result, uint64_t a2)
 {
   if (a2)
   {
@@ -8248,7 +5960,7 @@ LABEL_12:
           goto LABEL_12;
         }
 
-        v7 = type metadata accessor for PlatformItemList.Item();
+        v7 = type metadata accessor for PlatformItemList.Item(0);
         v8 = *(v7 - 8);
         result = (v7 - 8);
         v9 = v3 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * i;
@@ -8265,39 +5977,45 @@ LABEL_12:
   return result;
 }
 
-uint64_t View.platformItemLabel<A, B>(_:flags:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+uint64_t View.platformItemLabel<A, B>(_:flags:)@<X0>(uint64_t a1@<X0>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t x8_0@<X8>)
 {
-  v27[1] = a5;
-  v27[2] = a7;
-  v27[3] = a6;
-  v13 = *(a2 - 8);
+  v29 = a6;
+  v30 = a8;
+  v31 = a7;
+  v14 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v15 = v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = v27 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v21);
-  v24 = v27 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, v22);
-  (*(v17 + 16))(v20, a1, a3);
-  (*(v13 + 16))(v15, v27[0], a2);
-  return PlatformItemLabelView.init(flags:label:content:)(v24, v20, v15, a4, a3, a2, a8);
+  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v28 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v28 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v26 + 16))(v25, v23);
+  (*(v18 + 16))(v21, a1, a4);
+  (*(v14 + 16))(v16, v28, a3);
+  return PlatformItemLabelView.init(flags:label:content:)(v25, v21, v16, a5, a4, a3, v30, v31, x8_0, v29);
 }
 
-uint64_t PlatformItemLabelView.init(flags:label:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t PlatformItemLabelView.init(flags:label:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
 {
-  (*(*(a4 - 8) + 32))(a7, a1, a4);
-  v12 = type metadata accessor for PlatformItemLabelView();
-  (*(*(a5 - 8) + 32))(a7 + *(v12 + 68), a2, a5);
-  return (*(*(a6 - 8) + 32))(a7 + *(v12 + 72), a3, a6);
+  (*(*(a4 - 8) + 32))(a9, a1, a4);
+  v20[0] = a4;
+  v20[1] = a5;
+  v20[2] = a6;
+  v20[3] = a7;
+  v20[4] = a8;
+  v20[5] = a10;
+  v18 = type metadata accessor for PlatformItemLabelView(0, v20);
+  (*(*(a5 - 8) + 32))(a9 + *(v18 + 68), a2, a5);
+  return (*(*(a6 - 8) + 32))(a9 + *(v18 + 72), a3, a6);
 }
 
-uint64_t closure #1 in View.platformItemSystemType(_:)(uint64_t result, uint64_t a2)
+void *closure #1 in View.platformItemSystemType(_:)(void *result, __int128 *a2)
 {
-  v2 = *(a2 + 32);
+  v2 = *(a2 + 4);
   if (v2 >> 2 != 0xFFFFFFFF)
   {
-    v4 = *(a2 + 16);
+    v4 = a2[1];
     v35 = *a2;
     v36 = v4;
     v5 = *(a2 + 56);
@@ -8311,15 +6029,15 @@ uint64_t closure #1 in View.platformItemSystemType(_:)(uint64_t result, uint64_t
     if (v8)
     {
       v25 = result;
-      v9 = *(a2 + 80);
-      v29[4] = *(a2 + 64);
+      v9 = a2[5];
+      v29[4] = a2[4];
       v29[5] = v9;
-      v30 = *(a2 + 96);
-      v10 = *(a2 + 16);
+      v30 = *(a2 + 12);
+      v10 = a2[1];
       v29[0] = *a2;
       v29[1] = v10;
-      v11 = *(a2 + 48);
-      v29[2] = *(a2 + 32);
+      v11 = a2[3];
+      v29[2] = a2[2];
       v29[3] = v11;
       outlined init with copy of PlatformItemList.Item.SystemItem(v29, v27);
       if (swift_isUniquelyReferenced_nonNull_native())
@@ -8337,7 +6055,7 @@ uint64_t closure #1 in View.platformItemSystemType(_:)(uint64_t result, uint64_t
         {
 LABEL_5:
           v12 = 0;
-          v13 = *(type metadata accessor for PlatformItemList.Item() - 8);
+          v13 = *(type metadata accessor for PlatformItemList.Item(0) - 8);
           v14 = *(v13 + 72);
           v15 = v7 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + 304;
           do
@@ -8390,31 +6108,31 @@ LABEL_9:
   return result;
 }
 
-double protocol witness for ViewModifier.body(content:) in conformance PlatformItemListContentModifier@<D0>(uint64_t a1@<X8>)
+double protocol witness for ViewModifier.body(content:) in conformance PlatformItemListContentModifier@<D0>(uint64_t a2@<X8>)
 {
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  *a1 = v3;
-  *(a1 + 8) = v4 & 1;
-  *(a1 + 16) = v5;
-  *(a1 + 24) = v6 & 1;
-  result = *&v7;
-  *(a1 + 32) = v7;
+  *a2 = v4;
+  *(a2 + 8) = v5 & 1;
+  *(a2 + 16) = v6;
+  *(a2 + 24) = v7 & 1;
+  result = *&v8;
+  *(a2 + 32) = v8;
   return result;
 }
 
-uint64_t closure #1 in static MergePlatformItemsView._makeView(view:inputs:)(uint64_t a1, uint64_t a2)
+uint64_t closure #1 in static MergePlatformItemsView._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7[2] = type metadata accessor for MergePlatformItemsView();
-  v7[3] = a2;
-  v4 = type metadata accessor for PointerOffset();
-  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, closure #1 in static PointerOffset.of(_:)partial apply, v7, a2, MEMORY[0x1E69E73E0], v4, MEMORY[0x1E69E7410], v5);
-  return v7[5];
+  v9[2] = type metadata accessor for MergePlatformItemsView(0, a2, a3, a4);
+  v9[3] = a2;
+  v6 = type metadata accessor for PointerOffset();
+  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, closure #1 in static PointerOffset.of(_:)partial apply, v9, a2, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
+  return v9[5];
 }
 
 uint64_t closure #1 in OnPlatformContainerSecondaryNavigationModifier.body(content:)(uint64_t *a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PlatformItemList.Item();
+  v4 = type metadata accessor for PlatformItemList.Item(0);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8429,7 +6147,7 @@ uint64_t closure #1 in OnPlatformContainerSecondaryNavigationModifier.body(conte
   {
     v11 = *(a2 + 40);
     v12 = *(a2 + 48);
-    outlined copy of AppIntentExecutor?(v11);
+    outlined copy of AppIntentExecutor?(v11, v12);
   }
 
   v19[0] = v17[0];
@@ -8464,195 +6182,195 @@ __n128 protocol witness for ViewModifier.body(content:) in conformance OnPlatfor
   return result;
 }
 
-uint64_t closure #1 in PlatformItemListReader.init(flags:content:source:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t closure #1 in PlatformItemListReader.init(flags:content:source:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *(a5 - 8);
+  v6 = *(a5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = &v20 - v15;
-  v17(v14);
-  static ViewBuilder.buildExpression<A>(_:)(v12, a5, a8);
-  v18 = *(v10 + 8);
-  v18(v12, a5);
-  static ViewBuilder.buildExpression<A>(_:)(v16, a5, a8);
-  return (v18)(v16, a5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v12 = &v16 - v11;
+  v13(v10);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v14 = *(v6 + 8);
+  v14(v8, a5);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v14)(v12, a5);
 }
 
 uint64_t static PlatformItemListReader._makeView(view:inputs:)@<X0>(int *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
-  v40 = a9;
-  v82 = *MEMORY[0x1E69E9840];
+  v42 = a9;
+  v84 = *MEMORY[0x1E69E9840];
   v14 = *a1;
   v15 = a2[1];
-  v79 = *a2;
-  v80 = v15;
-  v81 = a2[2];
+  v81 = *a2;
+  v82 = v15;
+  v83 = a2[2];
   v16 = *(a2 + 6);
   v17 = *(a2 + 14);
-  v46 = *(a2 + 60);
-  v47 = *(a2 + 76);
-  v48 = a3;
-  v49 = a4;
-  v50 = a5;
-  v51 = a6;
-  v52 = a7;
-  v53 = a8;
-  LODWORD(v35) = v14;
-  *&v73 = a3;
-  *(&v73 + 1) = a4;
-  *&v74 = a5;
-  *(&v74 + 1) = a6;
-  v37 = a7;
-  *&v75 = a7;
-  *(&v75 + 1) = a8;
-  v36 = type metadata accessor for PlatformItemListReader();
+  v48 = *(a2 + 60);
+  v49 = *(a2 + 76);
+  v50 = a3;
+  v51 = a4;
+  v52 = a5;
+  v53 = a6;
+  v54 = a7;
+  v55 = a8;
+  LODWORD(v37) = v14;
+  *&v75 = a3;
+  *(&v75 + 1) = a4;
+  *&v76 = a5;
+  *(&v76 + 1) = a6;
+  v39 = a7;
+  *&v77 = a7;
+  *(&v77 + 1) = a8;
+  v38 = type metadata accessor for PlatformItemListReader(255, &v75);
   v18 = type metadata accessor for _GraphValue();
-  v42 = a5;
-  v38 = a8;
-  type metadata accessor for ZStack();
-  v34 = v18;
+  v44 = a5;
+  v40 = a8;
+  v19 = type metadata accessor for ZStack();
+  v36 = v18;
   _GraphValue.subscript.getter();
   type metadata accessor for _GraphValue();
-  LODWORD(v33) = _GraphValue.value.getter();
-  v69 = v79;
-  v70 = v80;
+  LODWORD(v35) = _GraphValue.value.getter();
   v71 = v81;
-  *v72 = v16;
-  v41 = v17;
-  *&v72[8] = v17;
-  *&v72[12] = v46;
-  *&v72[28] = v47;
+  v72 = v82;
+  v73 = v83;
+  *v74 = v16;
+  v43 = v17;
+  *&v74[8] = v17;
+  *&v74[12] = v48;
+  *&v74[28] = v49;
   _ViewInputs.withoutGeometryDependencies.getter();
   PreferenceKeys.init()();
-  *&v67[0] = v79;
-  v32[1] = type metadata accessor for GraphHost();
+  *&v69[0] = v71;
+  v34[1] = type metadata accessor for GraphHost();
   MEMORY[0x18D00B7D0]();
-  LOBYTE(v61) = 0;
+  LOBYTE(v63) = 0;
   GraphHost.intern<A>(_:for:id:)();
 
   PreferencesInputs.init(hostKeys:)();
 
-  *&v76 = v79;
-  DWORD2(v76) = DWORD2(v79);
+  *&v78 = v71;
+  DWORD2(v78) = DWORD2(v71);
   if (((*(a6 + 8))(a3, a6) & 0x10) != 0)
   {
-    *&v69 = v16;
-    DWORD2(v69) = v41;
+    *&v71 = v16;
+    DWORD2(v71) = v43;
     if (PreferencesInputs.contains<A>(_:includeHostPreferences:)())
     {
       PreferenceKeys.add(_:)();
     }
   }
 
-  v39 = v16;
+  v41 = v16;
   _ViewInputs.addPlatformItemListKey<A>(flags:editOperation:)(a3, 0, a3, a6);
-  LOBYTE(v69) = 1;
+  LOBYTE(v71) = 1;
   lazy protocol witness table accessor for type IsPlatformItemListSourceInput and conformance IsPlatformItemListSourceInput();
   PropertyList.subscript.setter();
   _GraphValue.init(_:)();
-  v67[2] = v75;
-  v67[3] = v76;
-  v67[4] = v77;
-  v68 = v78;
-  v67[0] = v73;
-  v67[1] = v74;
-  v63 = v75;
-  v64 = v76;
+  v69[2] = v77;
+  v69[3] = v78;
+  v69[4] = v79;
+  v70 = v80;
+  v69[0] = v75;
+  v69[1] = v76;
   v65 = v77;
   v66 = v78;
-  v61 = v73;
-  v62 = v74;
-  outlined init with copy of _ViewInputs(v67, &v69);
-  swift_getWitnessTable();
+  v67 = v79;
+  v68 = v80;
+  v63 = v75;
+  v64 = v76;
+  outlined init with copy of _ViewInputs(v69, &v71);
+  swift_getWitnessTable(MEMORY[0x1E6981880], v19);
   static View.makeDebuggableView(view:inputs:)();
+  v73 = v65;
+  *v74 = v66;
+  *&v74[16] = v67;
+  *&v74[32] = v68;
   v71 = v63;
-  *v72 = v64;
-  *&v72[16] = v65;
-  *&v72[32] = v66;
-  v69 = v61;
-  v70 = v62;
-  outlined destroy of _ViewInputs(&v69);
-  v44 = v54;
-  v45 = DWORD2(v54);
-  v19 = PreferencesOutputs.subscript.getter();
+  v72 = v64;
+  outlined destroy of _ViewInputs(&v71);
+  v46 = v56;
+  v47 = DWORD2(v56);
+  v20 = PreferencesOutputs.subscript.getter();
 
-  if ((v19 & 0x100000000) != 0)
+  if ((v20 & 0x100000000) != 0)
   {
-    *&v61 = MEMORY[0x1E69E7CC0];
-    MEMORY[0x18D00B7D0](v20);
-    LOBYTE(v54) = 0;
-    v19 = GraphHost.intern<A>(_:for:id:)();
+    *&v63 = MEMORY[0x1E69E7CC0];
+    MEMORY[0x18D00B7D0](v21);
+    LOBYTE(v56) = 0;
+    v20 = GraphHost.intern<A>(_:for:id:)();
   }
 
-  v33 = v19;
-  LODWORD(v54) = v35;
-  v21 = _GraphValue.value.getter();
-  v22 = v21;
-  MEMORY[0x1EEE9AC00](v21);
-  v28[0] = a3;
-  v28[1] = a4;
-  v35 = a3;
-  v24 = v37;
-  v23 = v38;
-  v31 = v38;
-  v34 = v32;
-  LODWORD(v61) = v22;
-  *(&v61 + 1) = partial apply for closure #1 in Attribute.subscript.getter;
-  *&v62 = swift_getKeyPath();
-  MEMORY[0x1EEE9AC00](v62);
-  v28[2] = swift_getFunctionTypeMetadata1();
-  v29 = type metadata accessor for Map();
-  WitnessTable = swift_getWitnessTable();
-  v25 = type metadata accessor for Attribute();
+  v35 = v20;
+  LODWORD(v56) = v37;
+  v22 = _GraphValue.value.getter();
+  v23 = v22;
+  MEMORY[0x1EEE9AC00](v22);
+  v30[0] = a3;
+  v30[1] = a4;
+  v37 = a3;
+  v25 = v39;
+  v24 = v40;
+  v33 = v40;
+  v36 = v34;
+  LODWORD(v63) = v23;
+  *(&v63 + 1) = partial apply for closure #1 in Attribute.subscript.getter;
+  *&v64 = swift_getKeyPath();
+  MEMORY[0x1EEE9AC00](v64);
+  v30[2] = swift_getFunctionTypeMetadata1();
+  v31 = type metadata accessor for Map();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E698D3A8], v31);
+  v26 = type metadata accessor for Attribute();
 
-  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v61, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_3, v28, v29, MEMORY[0x1E69E73E0], v25, MEMORY[0x1E69E7410], v26);
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v63, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_3, v30, v31, MEMORY[0x1E69E73E0], v26, MEMORY[0x1E69E7410], v27);
 
-  *&v54 = __PAIR64__(v43, v33);
-  *&v61 = v35;
-  *(&v61 + 1) = a4;
-  *&v62 = v42;
-  *(&v62 + 1) = a6;
-  *&v63 = v24;
-  *(&v63 + 1) = v23;
-  type metadata accessor for PlatformItemListReader.Child();
-  swift_getWitnessTable();
+  *&v56 = __PAIR64__(v45, v35);
+  *&v63 = v37;
+  *(&v63 + 1) = a4;
+  *&v64 = v44;
+  *(&v64 + 1) = a6;
+  *&v65 = v25;
+  *(&v65 + 1) = v24;
+  v28 = type metadata accessor for PlatformItemListReader.Child(0, &v63);
+  swift_getWitnessTable(protocol conformance descriptor for PlatformItemListReader<A, B, C>.Child, v28);
   _GraphValue.init<A>(_:)();
-  v54 = v79;
-  v55 = v80;
   v56 = v81;
-  v57 = v39;
-  v58 = v41;
-  v59 = v46;
-  v60 = v47;
+  v57 = v82;
+  v58 = v83;
+  v59 = v41;
+  v60 = v43;
+  v61 = v48;
+  v62 = v49;
   static View.makeDebuggableView(view:inputs:)();
-  v63 = v75;
-  v64 = v76;
   v65 = v77;
   v66 = v78;
-  v61 = v73;
-  v62 = v74;
-  return outlined destroy of _ViewInputs(&v61);
+  v67 = v79;
+  v68 = v80;
+  v63 = v75;
+  v64 = v76;
+  return outlined destroy of _ViewInputs(&v63);
 }
 
 uint64_t closure #1 in static PlatformItemListReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  v20 = a7;
-  v8 = type metadata accessor for PlatformItemListReader();
+  v15[0] = a2;
+  v15[1] = a3;
+  v15[2] = a4;
+  v15[3] = a5;
+  v15[4] = a6;
+  v15[5] = a7;
+  v8 = type metadata accessor for PlatformItemListReader(0, v15);
   v9 = *(v8 + 68);
   v13[2] = v8;
   v14 = type metadata accessor for ZStack();
   v10 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v9, partial apply for closure #1 in static PointerOffset.of(_:), v13, v14, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
-  return v15;
+  return v15[0];
 }
 
-uint64_t key path getter for PlatformItemListReader.content : <A, B, C>PlatformItemListReader<A, B, C>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+double key path getter for PlatformItemListReader.content : <A, B, C>PlatformItemListReader<A, B, C>@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v5 = a2 + a3;
   v7 = *a1;
@@ -8666,9 +6384,11 @@ uint64_t key path getter for PlatformItemListReader.content : <A, B, C>PlatformI
   *(v8 + 72) = v6;
   *a4 = partial apply for thunk for @escaping @callee_guaranteed (@guaranteed PlatformItemList) -> (@out B);
   a4[1] = v8;
+
+  return result;
 }
 
-uint64_t key path setter for PlatformItemListReader.content : <A, B, C>PlatformItemListReader<A, B, C>(uint64_t *a1, uint64_t (**a2)(uint64_t a1), uint64_t a3, uint64_t a4)
+void key path setter for PlatformItemListReader.content : <A, B, C>PlatformItemListReader<A, B, C>(uint64_t *a1, uint64_t (**a2)(uint64_t a1), uint64_t a3, uint64_t a4)
 {
   v5 = a3 + a4;
   v7 = *a1;
@@ -8683,10 +6403,9 @@ uint64_t key path setter for PlatformItemListReader.content : <A, B, C>PlatformI
 
   *a2 = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed PlatformItemList) -> (@out B);
   a2[1] = v8;
-  return result;
 }
 
-uint64_t (*PlatformItemListReader.Child.makeContent.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7))()
+uint64_t (*PlatformItemListReader.Child.makeContent.getter(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7))(uint64_t a1)
 {
   swift_getFunctionTypeMetadata1();
   Value = AGGraphGetValue();
@@ -8705,34 +6424,43 @@ uint64_t (*PlatformItemListReader.Child.makeContent.getter(uint64_t a1, uint64_t
   return thunk for @escaping @callee_guaranteed (@in_guaranteed PlatformItemList) -> (@out B)partial apply;
 }
 
-uint64_t PlatformItemListReader.Child.value.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+double PlatformItemListReader.Child.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v4 = type metadata accessor for PlatformItemListReader.Child();
-  WitnessTable = swift_getWitnessTable();
-  MEMORY[0x18D000B90](v4, a3, WitnessTable);
+  v11[6] = a1;
+  v11[0] = a2;
+  v11[1] = a3;
+  v11[2] = a4;
+  v11[3] = a5;
+  v11[4] = a6;
+  v11[5] = a7;
+  v8 = type metadata accessor for PlatformItemListReader.Child(0, v11);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for PlatformItemListReader<A, B, C>.Child, v8);
+  MEMORY[0x18D000B90](v8, a3, WitnessTable);
   Rule.withObservation<A>(observationCenter:do:)();
+
+  return result;
 }
 
-uint64_t closure #1 in PlatformItemListReader.Child.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t closure #1 in PlatformItemListReader.Child.value.getter(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v7 = PlatformItemListReader.Child.makeContent.getter(a1, a2, a3, a4, a5, a6, a7);
   AGGraphGetValue();
 
-  (v7)(v8);
+  v7(v8);
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance PlatformItemListReader<A, B, C>()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance PlatformItemListReader<A, B, C>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for PlatformItemListReader<A, B, C>, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
 
-uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance IsPlatformItemListSourcePredicate()
+uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance IsPlatformItemListSourcePredicate(uint64_t *a1)
 {
   lazy protocol witness table accessor for type IsPlatformItemListSourceInput and conformance IsPlatformItemListSourceInput();
   PropertyList.subscript.getter();
-  return v1;
+  return v2;
 }
 
 uint64_t assignWithCopy for PlatformItemList.Item.SystemItem(uint64_t a1, uint64_t a2)
@@ -8844,15 +6572,14 @@ uint64_t destructiveInjectEnumTag for PlatformItemList.Item.SystemItem(uint64_t 
   return result;
 }
 
-uint64_t destroy for PlatformItemList.Item.SecondaryNavigationBehavior(uint64_t result)
+double destroy for PlatformItemList.Item.SecondaryNavigationBehavior(void *a1)
 {
-  v1 = result;
-  if (*(result + 24))
+  if (a1[3])
   {
-    result = __swift_destroy_boxed_opaque_existential_1(result);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  if (*(v1 + 40))
+  if (a1[5])
   {
   }
 
@@ -9282,7 +7009,7 @@ char *initializeBufferWithCopyOfBuffer for PlatformItemList.Item(char *a1, char 
       v26 = a2[22];
       v27 = a2[23];
       v28 = a2[25];
-      outlined copy of AccessibilityImageLabel(v26, v27, v11);
+      outlined copy of AccessibilityImageLabel(v26, v27, v11, v28);
       *(a1 + 22) = v26;
       *(a1 + 23) = v27;
       *(a1 + 24) = v11;
@@ -9525,7 +7252,7 @@ LABEL_39:
   {
     *(a1 + 78) = v57;
     *(a1 + 79) = a2[79];
-    (**(v57 - 1))((a1 + 600), (a2 + 75), v57);
+    (**(v57 - 1))(a1 + 600, a2 + 75, v57);
     goto LABEL_39;
   }
 
@@ -9644,7 +7371,7 @@ LABEL_51:
   __dst = &a1[v77];
   v78 = a2 + v77;
   *(a1 + 118) = v76;
-  v79 = type metadata accessor for CommandOperation();
+  v79 = type metadata accessor for CommandOperation(0);
   v104 = *(v79 - 8);
   v106 = *(v104 + 48);
   v80 = v75;
@@ -9804,7 +7531,7 @@ uint64_t assignWithCopy for PlatformItemList.Item(uint64_t a1, uint64_t a2, int 
         v44 = *(a2 + 176);
         v45 = *(a2 + 184);
         v46 = *(a2 + 200);
-        outlined copy of AccessibilityImageLabel(v44, v45, *(a2 + 192));
+        outlined copy of AccessibilityImageLabel(v44, v45, *(a2 + 192), v46);
         *(a1 + 176) = v44;
         *(a1 + 184) = v45;
         *(a1 + 192) = v42;
@@ -9925,7 +7652,7 @@ uint64_t assignWithCopy for PlatformItemList.Item(uint64_t a1, uint64_t a2, int 
         v60 = *(a2 + 176);
         v61 = *(a2 + 184);
         v62 = *(a2 + 200);
-        outlined copy of AccessibilityImageLabel(v60, v61, *(a2 + 192));
+        outlined copy of AccessibilityImageLabel(v60, v61, *(a2 + 192), v62);
         *(a1 + 176) = v60;
         *(a1 + 184) = v61;
         *(a1 + 192) = v56;
@@ -9946,15 +7673,16 @@ uint64_t assignWithCopy for PlatformItemList.Item(uint64_t a1, uint64_t a2, int 
       v63 = *(a2 + 176);
       v64 = *(a2 + 184);
       v65 = *(a2 + 200);
-      outlined copy of AccessibilityImageLabel(v63, v64, *(a2 + 192));
+      outlined copy of AccessibilityImageLabel(v63, v64, *(a2 + 192), v65);
       v66 = *(a1 + 176);
       v67 = *(a1 + 184);
       v68 = *(a1 + 192);
+      v69 = *(a1 + 200);
       *(a1 + 176) = v63;
       *(a1 + 184) = v64;
       *(a1 + 192) = v56;
       *(a1 + 200) = v65;
-      outlined consume of AccessibilityImageLabel(v66, v67, v68);
+      outlined consume of AccessibilityImageLabel(v66, v67, v68, v69);
     }
 
     *(a1 + 208) = *(a2 + 208);
@@ -9964,58 +7692,58 @@ uint64_t assignWithCopy for PlatformItemList.Item(uint64_t a1, uint64_t a2, int 
 
     *(a1 + 224) = *(a2 + 224);
     *(a1 + 225) = *(a2 + 225);
-    v69 = *(a2 + 228);
+    v70 = *(a2 + 228);
     *(a1 + 232) = *(a2 + 232);
-    *(a1 + 228) = v69;
-    v70 = *(a1 + 240);
-    v71 = *(a2 + 240);
-    *(a1 + 240) = v71;
-    v72 = v71;
+    *(a1 + 228) = v70;
+    v71 = *(a1 + 240);
+    v72 = *(a2 + 240);
+    *(a1 + 240) = v72;
+    v73 = v72;
 
     *(a1 + 248) = *(a2 + 248);
     *(a1 + 250) = *(a2 + 250);
   }
 
-  v73 = *(a2 + 264);
+  v74 = *(a2 + 264);
   if (*(a1 + 264))
   {
-    if (!v73)
+    if (!v74)
     {
       outlined destroy of Image.NamedResolved(a1 + 256);
-      v81 = *(a2 + 272);
-      v80 = *(a2 + 288);
+      v82 = *(a2 + 272);
+      v81 = *(a2 + 288);
       *(a1 + 256) = *(a2 + 256);
-      *(a1 + 272) = v81;
-      *(a1 + 288) = v80;
+      *(a1 + 272) = v82;
+      *(a1 + 288) = v81;
       goto LABEL_44;
     }
 
     *(a1 + 256) = *(a2 + 256);
     *(a1 + 264) = *(a2 + 264);
 
-    v74 = *(a1 + 272);
-    v75 = *(a2 + 272);
-    if (v74 >= 2)
+    v75 = *(a1 + 272);
+    v76 = *(a2 + 272);
+    if (v75 >= 2)
     {
-      if (v75 >= 2)
+      if (v76 >= 2)
       {
-        *(a1 + 272) = v75;
-        v84 = v75;
+        *(a1 + 272) = v76;
+        v85 = v76;
 
         goto LABEL_43;
       }
 
-      v75 = *(a2 + 272);
+      v76 = *(a2 + 272);
     }
 
-    else if (v75 >= 2)
+    else if (v76 >= 2)
     {
-      *(a1 + 272) = v75;
-      v76 = v75;
+      *(a1 + 272) = v76;
+      v77 = v76;
 LABEL_43:
-      v85 = *(a2 + 280);
+      v86 = *(a2 + 280);
       *(a1 + 284) = *(a2 + 284);
-      *(a1 + 280) = v85;
+      *(a1 + 280) = v86;
       *(a1 + 285) = *(a2 + 285);
       *(a1 + 286) = *v6;
       *(a1 + 288) = *(a2 + 288);
@@ -10025,25 +7753,25 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    *(a1 + 272) = v75;
+    *(a1 + 272) = v76;
     goto LABEL_43;
   }
 
-  if (v73)
+  if (v74)
   {
     *(a1 + 256) = *(a2 + 256);
     *(a1 + 264) = *(a2 + 264);
-    v77 = *(a2 + 272);
+    v78 = *(a2 + 272);
 
-    if (v77 >= 2)
+    if (v78 >= 2)
     {
-      v78 = v77;
+      v79 = v78;
     }
 
-    *(a1 + 272) = v77;
-    v79 = *(a2 + 280);
+    *(a1 + 272) = v78;
+    v80 = *(a2 + 280);
     *(a1 + 284) = *(a2 + 284);
-    *(a1 + 280) = v79;
+    *(a1 + 280) = v80;
     *(a1 + 285) = *(a2 + 285);
     *(a1 + 286) = *(a2 + 286);
     *(a1 + 288) = *(a2 + 288);
@@ -10052,147 +7780,147 @@ LABEL_43:
 
   else
   {
-    v82 = *(a2 + 256);
-    v83 = *(a2 + 288);
+    v83 = *(a2 + 256);
+    v84 = *(a2 + 288);
     *(a1 + 272) = *(a2 + 272);
-    *(a1 + 288) = v83;
-    *(a1 + 256) = v82;
+    *(a1 + 288) = v84;
+    *(a1 + 256) = v83;
   }
 
 LABEL_44:
-  v86 = *(a2 + 336);
-  v87 = v86 & 0xFFFFFFFFFFFFFFFCLL;
+  v87 = *(a2 + 336);
+  v88 = v87 & 0xFFFFFFFFFFFFFFFCLL;
   if (*(a1 + 336) >> 2 == 0xFFFFFFFFLL)
   {
-    if (v87 == 0x3FFFFFFFCLL)
+    if (v88 == 0x3FFFFFFFCLL)
     {
-      v88 = *(a2 + 304);
-      v89 = *(a2 + 336);
+      v89 = *(a2 + 304);
+      v90 = *(a2 + 336);
       *(a1 + 320) = *(a2 + 320);
-      *(a1 + 336) = v89;
-      *(a1 + 304) = v88;
-      v90 = *(a2 + 352);
-      v91 = *(a2 + 368);
-      v92 = *(a2 + 384);
+      *(a1 + 336) = v90;
+      *(a1 + 304) = v89;
+      v91 = *(a2 + 352);
+      v92 = *(a2 + 368);
+      v93 = *(a2 + 384);
       *(a1 + 400) = *(a2 + 400);
-      *(a1 + 368) = v91;
-      *(a1 + 384) = v92;
-      *(a1 + 352) = v90;
+      *(a1 + 368) = v92;
+      *(a1 + 384) = v93;
+      *(a1 + 352) = v91;
     }
 
     else
     {
-      v98 = *(a2 + 304);
-      v99 = *(a2 + 312);
-      v100 = *(a2 + 320);
-      v101 = *(a2 + 328);
-      v280 = v6;
-      v283 = a3;
-      v102 = *(a2 + 344);
-      v103 = *(a2 + 352);
-      v104 = *(a2 + 360);
-      v269 = *(a2 + 368);
-      v271 = *(a2 + 376);
-      v273 = *(a2 + 384);
-      v275 = *(a2 + 392);
-      v277 = *(a2 + 400);
-      outlined copy of PlatformItemList.Item.SystemItem(v98, v99, v100, v101, v86, v102, v103, v104, v269, v271, v273, v275, v277);
-      *(a1 + 304) = v98;
-      *(a1 + 312) = v99;
-      *(a1 + 320) = v100;
-      *(a1 + 328) = v101;
-      *(a1 + 336) = v86;
-      *(a1 + 344) = v102;
-      *(a1 + 352) = v103;
-      *(a1 + 360) = v104;
-      v6 = v280;
-      a3 = v283;
-      *(a1 + 368) = v269;
-      *(a1 + 376) = v271;
-      *(a1 + 384) = v273;
-      *(a1 + 392) = v275;
-      *(a1 + 400) = v277;
+      v99 = *(a2 + 304);
+      v100 = *(a2 + 312);
+      v101 = *(a2 + 320);
+      v102 = *(a2 + 328);
+      v281 = v6;
+      v284 = a3;
+      v103 = *(a2 + 344);
+      v104 = *(a2 + 352);
+      v105 = *(a2 + 360);
+      v270 = *(a2 + 368);
+      v272 = *(a2 + 376);
+      v274 = *(a2 + 384);
+      v276 = *(a2 + 392);
+      v278 = *(a2 + 400);
+      outlined copy of PlatformItemList.Item.SystemItem(v99, v100, v101, v102, v87, v103, v104, v105, v270, v272, v274, v276, v278);
+      *(a1 + 304) = v99;
+      *(a1 + 312) = v100;
+      *(a1 + 320) = v101;
+      *(a1 + 328) = v102;
+      *(a1 + 336) = v87;
+      *(a1 + 344) = v103;
+      *(a1 + 352) = v104;
+      *(a1 + 360) = v105;
+      v6 = v281;
+      a3 = v284;
+      *(a1 + 368) = v270;
+      *(a1 + 376) = v272;
+      *(a1 + 384) = v274;
+      *(a1 + 392) = v276;
+      *(a1 + 400) = v278;
     }
   }
 
-  else if (v87 == 0x3FFFFFFFCLL)
+  else if (v88 == 0x3FFFFFFFCLL)
   {
     outlined destroy of PlatformItemList.Item.SystemItem(a1 + 304);
-    v94 = *(a2 + 320);
-    v93 = *(a2 + 336);
+    v95 = *(a2 + 320);
+    v94 = *(a2 + 336);
     *(a1 + 304) = *(a2 + 304);
-    *(a1 + 320) = v94;
-    *(a1 + 336) = v93;
-    v96 = *(a2 + 368);
-    v95 = *(a2 + 384);
-    v97 = *(a2 + 352);
+    *(a1 + 320) = v95;
+    *(a1 + 336) = v94;
+    v97 = *(a2 + 368);
+    v96 = *(a2 + 384);
+    v98 = *(a2 + 352);
     *(a1 + 400) = *(a2 + 400);
-    *(a1 + 368) = v96;
-    *(a1 + 384) = v95;
-    *(a1 + 352) = v97;
+    *(a1 + 368) = v97;
+    *(a1 + 384) = v96;
+    *(a1 + 352) = v98;
   }
 
   else
   {
-    v105 = *(a2 + 304);
-    v106 = *(a2 + 312);
-    v281 = v6;
-    v284 = a3;
-    v107 = *(a2 + 320);
-    v108 = *(a2 + 328);
-    v109 = *(a2 + 344);
-    v110 = *(a2 + 352);
-    v111 = *(a2 + 360);
-    v270 = *(a2 + 368);
-    v272 = *(a2 + 376);
-    v274 = *(a2 + 384);
-    v276 = *(a2 + 392);
-    v278 = *(a2 + 400);
-    outlined copy of PlatformItemList.Item.SystemItem(v105, v106, v107, v108, v86, v109, v110, v111, v270, v272, v274, v276, v278);
-    v112 = *(a1 + 304);
-    v113 = *(a1 + 312);
-    v114 = *(a1 + 320);
-    v115 = *(a1 + 328);
-    v116 = *(a1 + 336);
-    v117 = *(a1 + 344);
-    v118 = *(a1 + 352);
-    v119 = *(a1 + 360);
-    v120 = *(a1 + 368);
-    v121 = *(a1 + 384);
-    v122 = *(a1 + 400);
-    *(a1 + 304) = v105;
-    *(a1 + 312) = v106;
-    *(a1 + 320) = v107;
-    *(a1 + 328) = v108;
-    *(a1 + 336) = v86;
-    *(a1 + 344) = v109;
-    *(a1 + 352) = v110;
-    *(a1 + 360) = v111;
-    v6 = v281;
-    a3 = v284;
-    *(a1 + 368) = v270;
-    *(a1 + 376) = v272;
-    *(a1 + 384) = v274;
-    *(a1 + 392) = v276;
-    *(a1 + 400) = v278;
-    outlined consume of PlatformItemList.Item.SystemItem(v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, SBYTE8(v121), v122);
+    v106 = *(a2 + 304);
+    v107 = *(a2 + 312);
+    v282 = v6;
+    v285 = a3;
+    v108 = *(a2 + 320);
+    v109 = *(a2 + 328);
+    v110 = *(a2 + 344);
+    v111 = *(a2 + 352);
+    v112 = *(a2 + 360);
+    v271 = *(a2 + 368);
+    v273 = *(a2 + 376);
+    v275 = *(a2 + 384);
+    v277 = *(a2 + 392);
+    v279 = *(a2 + 400);
+    outlined copy of PlatformItemList.Item.SystemItem(v106, v107, v108, v109, v87, v110, v111, v112, v271, v273, v275, v277, v279);
+    v113 = *(a1 + 304);
+    v114 = *(a1 + 312);
+    v115 = *(a1 + 320);
+    v116 = *(a1 + 328);
+    v117 = *(a1 + 336);
+    v118 = *(a1 + 344);
+    v119 = *(a1 + 352);
+    v120 = *(a1 + 360);
+    v121 = *(a1 + 368);
+    v122 = *(a1 + 384);
+    v123 = *(a1 + 400);
+    *(a1 + 304) = v106;
+    *(a1 + 312) = v107;
+    *(a1 + 320) = v108;
+    *(a1 + 328) = v109;
+    *(a1 + 336) = v87;
+    *(a1 + 344) = v110;
+    *(a1 + 352) = v111;
+    *(a1 + 360) = v112;
+    v6 = v282;
+    a3 = v285;
+    *(a1 + 368) = v271;
+    *(a1 + 376) = v273;
+    *(a1 + 384) = v275;
+    *(a1 + 392) = v277;
+    *(a1 + 400) = v279;
+    outlined consume of PlatformItemList.Item.SystemItem(v113, v114, v115, v116, v117, v118, v119, v120, v121, *(&v121 + 1), v122, SBYTE8(v122), v123);
   }
 
-  v123 = (a1 + 408);
-  v124 = *(a1 + 416);
-  v125 = *(a2 + 416);
-  if (v124 == 1)
+  v124 = (a1 + 408);
+  v125 = *(a1 + 416);
+  v126 = *(a2 + 416);
+  if (v125 == 1)
   {
-    if (v125 == 1)
+    if (v126 == 1)
     {
-      *v123 = *(v6 + 122);
-      v126 = *(v6 + 138);
-      v127 = *(v6 + 154);
-      v128 = *(v6 + 170);
+      *v124 = *(v6 + 122);
+      v127 = *(v6 + 138);
+      v128 = *(v6 + 154);
+      v129 = *(v6 + 170);
       *(a1 + 472) = *(v6 + 186);
-      *(a1 + 440) = v127;
-      *(a1 + 456) = v128;
-      *(a1 + 424) = v126;
+      *(a1 + 440) = v128;
+      *(a1 + 456) = v129;
+      *(a1 + 424) = v127;
       goto LABEL_85;
     }
 
@@ -10201,20 +7929,20 @@ LABEL_44:
     *(a1 + 410) = *(a2 + 410);
     *(a1 + 411) = *(a2 + 411);
     *(a1 + 412) = *(a2 + 412);
-    v132 = *(a2 + 416);
-    if (v132)
+    v133 = *(a2 + 416);
+    if (v133)
     {
-      v133 = *(a2 + 424);
-      *(a1 + 416) = v132;
-      *(a1 + 424) = v133;
+      v134 = *(a2 + 424);
+      *(a1 + 416) = v133;
+      *(a1 + 424) = v134;
 
-      v134 = *(a2 + 432);
-      if (v134)
+      v135 = *(a2 + 432);
+      if (v135)
       {
 LABEL_58:
-        v135 = *(a2 + 440);
-        *(a1 + 432) = v134;
-        *(a1 + 440) = v135;
+        v136 = *(a2 + 440);
+        *(a1 + 432) = v135;
+        *(a1 + 440) = v136;
 
         goto LABEL_64;
       }
@@ -10223,8 +7951,8 @@ LABEL_58:
     else
     {
       *(a1 + 416) = *(a2 + 416);
-      v134 = *(a2 + 432);
-      if (v134)
+      v135 = *(a2 + 432);
+      if (v135)
       {
         goto LABEL_58;
       }
@@ -10232,8 +7960,8 @@ LABEL_58:
 
     *(a1 + 432) = *(a2 + 432);
 LABEL_64:
-    v138 = *(a2 + 448);
-    if (!v138)
+    v139 = *(a2 + 448);
+    if (!v139)
     {
       goto LABEL_83;
     }
@@ -10241,17 +7969,17 @@ LABEL_64:
     goto LABEL_81;
   }
 
-  if (v125 == 1)
+  if (v126 == 1)
   {
     outlined destroy of PlatformItemList.Item.SelectionBehavior(a1 + 408);
-    *v123 = *(v6 + 122);
-    v129 = *(v6 + 154);
-    v130 = *(v6 + 170);
-    v131 = *(v6 + 138);
+    *v124 = *(v6 + 122);
+    v130 = *(v6 + 154);
+    v131 = *(v6 + 170);
+    v132 = *(v6 + 138);
     *(a1 + 472) = *(v6 + 186);
-    *(a1 + 440) = v129;
-    *(a1 + 456) = v130;
-    *(a1 + 424) = v131;
+    *(a1 + 440) = v130;
+    *(a1 + 456) = v131;
+    *(a1 + 424) = v132;
     goto LABEL_85;
   }
 
@@ -10260,63 +7988,63 @@ LABEL_64:
   *(a1 + 410) = *(v6 + 124);
   *(a1 + 411) = *(v6 + 125);
   *(a1 + 412) = *(a2 + 412);
-  v136 = *(a2 + 416);
-  if (v124)
+  v137 = *(a2 + 416);
+  if (v125)
   {
-    if (v136)
+    if (v137)
     {
-      v137 = *(a2 + 424);
-      *(a1 + 416) = v136;
-      *(a1 + 424) = v137;
+      v138 = *(a2 + 424);
+      *(a1 + 416) = v137;
+      *(a1 + 424) = v138;
 
       goto LABEL_70;
     }
   }
 
-  else if (v136)
+  else if (v137)
   {
-    v139 = *(a2 + 424);
-    *(a1 + 416) = v136;
-    *(a1 + 424) = v139;
+    v140 = *(a2 + 424);
+    *(a1 + 416) = v137;
+    *(a1 + 424) = v140;
 
     goto LABEL_70;
   }
 
   *(a1 + 416) = *(a2 + 416);
 LABEL_70:
-  v140 = *(a2 + 432);
+  v141 = *(a2 + 432);
   if (*(a1 + 432))
   {
-    if (v140)
+    if (v141)
     {
-      v141 = *(a2 + 440);
-      *(a1 + 432) = v140;
-      *(a1 + 440) = v141;
+      v142 = *(a2 + 440);
+      *(a1 + 432) = v141;
+      *(a1 + 440) = v142;
 
       goto LABEL_77;
     }
   }
 
-  else if (v140)
+  else if (v141)
   {
-    v142 = *(a2 + 440);
-    *(a1 + 432) = v140;
-    *(a1 + 440) = v142;
+    v143 = *(a2 + 440);
+    *(a1 + 432) = v141;
+    *(a1 + 440) = v143;
 
     goto LABEL_77;
   }
 
   *(a1 + 432) = *(a2 + 432);
 LABEL_77:
-  v138 = *(a2 + 448);
+  v139 = *(a2 + 448);
   if (!*(a1 + 448))
   {
-    if (v138)
+    if (v139)
     {
 LABEL_81:
-      v144 = *(a2 + 456);
-      *(a1 + 448) = v138;
-      *(a1 + 456) = v144;
+      v145 = *(a2 + 456);
+      *(a1 + 448) = v139;
+      *(a1 + 456) = v145;
 
       goto LABEL_84;
     }
@@ -10326,15 +8054,15 @@ LABEL_83:
     goto LABEL_84;
   }
 
-  if (!v138)
+  if (!v139)
   {
 
     goto LABEL_83;
   }
 
-  v143 = *(a2 + 456);
-  *(a1 + 448) = v138;
-  *(a1 + 456) = v143;
+  v144 = *(a2 + 456);
+  *(a1 + 448) = v139;
+  *(a1 + 456) = v144;
 
 LABEL_84:
   *(a1 + 464) = *(a2 + 464);
@@ -10345,24 +8073,24 @@ LABEL_85:
 
   *(a1 + 496) = *(a2 + 496);
   *(a1 + 504) = *(a2 + 504);
-  v145 = *(a2 + 512);
+  v146 = *(a2 + 512);
   if (*(a1 + 512))
   {
-    if (v145)
+    if (v146)
     {
-      v146 = *(a2 + 520);
-      *(a1 + 512) = v145;
-      *(a1 + 520) = v146;
+      v147 = *(a2 + 520);
+      *(a1 + 512) = v146;
+      *(a1 + 520) = v147;
 
       goto LABEL_92;
     }
   }
 
-  else if (v145)
+  else if (v146)
   {
-    v147 = *(a2 + 520);
-    *(a1 + 512) = v145;
-    *(a1 + 520) = v147;
+    v148 = *(a2 + 520);
+    *(a1 + 512) = v146;
+    *(a1 + 520) = v148;
 
     goto LABEL_92;
   }
@@ -10370,10 +8098,10 @@ LABEL_85:
   *(a1 + 512) = *(a2 + 512);
 LABEL_92:
   *(a1 + 528) = *(a2 + 528);
-  v148 = *(a2 + 816);
+  v149 = *(a2 + 816);
   if (*(a1 + 816))
   {
-    if (v148)
+    if (v149)
     {
       *(a1 + 536) = *(a2 + 536);
       *(a1 + 544) = *(a2 + 544);
@@ -10382,30 +8110,30 @@ LABEL_92:
       *(a1 + 560) = *(a2 + 560);
 
       *(a1 + 568) = *(a2 + 568);
-      v149 = *(a2 + 576);
+      v150 = *(a2 + 576);
       *(a1 + 592) = *(a2 + 592);
-      *(a1 + 576) = v149;
-      v150 = (a1 + 600);
-      v151 = (a2 + 600);
-      v152 = *(a1 + 624);
-      v153 = *(a2 + 624);
-      if (v152 != 1)
+      *(a1 + 576) = v150;
+      v151 = (a1 + 600);
+      v152 = (a2 + 600);
+      v153 = *(a1 + 624);
+      v154 = *(a2 + 624);
+      if (v153 != 1)
       {
-        if (v153 == 1)
+        if (v154 == 1)
         {
           outlined destroy of AccessibilityValueStorage(a1 + 600);
-          v163 = *(a2 + 616);
-          v162 = *(a2 + 632);
-          *v150 = *v151;
-          *(a1 + 616) = v163;
-          *(a1 + 632) = v162;
+          v164 = *(a2 + 616);
+          v163 = *(a2 + 632);
+          *v151 = *v152;
+          *(a1 + 616) = v164;
+          *(a1 + 632) = v163;
         }
 
         else
         {
-          if (v152)
+          if (v153)
           {
-            if (v153)
+            if (v154)
             {
               __swift_assign_boxed_opaque_existential_1((a1 + 600), (a2 + 600));
             }
@@ -10413,28 +8141,28 @@ LABEL_92:
             else
             {
               outlined destroy of AnyAccessibilityValue(a1 + 600);
-              v181 = *(a2 + 632);
-              v182 = *(a2 + 616);
-              *v150 = *v151;
-              *(a1 + 616) = v182;
-              *(a1 + 632) = v181;
+              v182 = *(a2 + 632);
+              v183 = *(a2 + 616);
+              *v151 = *v152;
+              *(a1 + 616) = v183;
+              *(a1 + 632) = v182;
             }
           }
 
-          else if (v153)
+          else if (v154)
           {
-            *(a1 + 624) = v153;
+            *(a1 + 624) = v154;
             *(a1 + 632) = *(a2 + 632);
-            (**(v153 - 8))(a1 + 600, a2 + 600);
+            (**(v154 - 8))(a1 + 600, a2 + 600);
           }
 
           else
           {
-            v183 = *v151;
-            v184 = *(a2 + 616);
+            v184 = *v152;
+            v185 = *(a2 + 616);
             *(a1 + 632) = *(a2 + 632);
-            *v150 = v183;
-            *(a1 + 616) = v184;
+            *v151 = v184;
+            *(a1 + 616) = v185;
           }
 
           *(a1 + 640) = *(a2 + 640);
@@ -10443,53 +8171,53 @@ LABEL_92:
         goto LABEL_124;
       }
 
-      if (v153)
+      if (v154)
       {
-        if (v153 == 1)
+        if (v154 == 1)
         {
-          v154 = *v151;
-          v155 = *(a2 + 632);
+          v155 = *v152;
+          v156 = *(a2 + 632);
           *(a1 + 616) = *(a2 + 616);
-          *(a1 + 632) = v155;
-          *v150 = v154;
+          *(a1 + 632) = v156;
+          *v151 = v155;
 LABEL_124:
-          v185 = *(a2 + 648);
+          v186 = *(a2 + 648);
           *(a1 + 656) = *(a2 + 656);
-          *(a1 + 648) = v185;
-          v186 = (a1 + 664);
-          v187 = (a2 + 664);
-          v188 = *(a2 + 776);
+          *(a1 + 648) = v186;
+          v187 = (a1 + 664);
+          v188 = (a2 + 664);
+          v189 = *(a2 + 776);
           if (*(a1 + 776) == 1)
           {
-            if (v188 == 1)
+            if (v189 == 1)
             {
-              v189 = *(a2 + 680);
-              *v186 = *v187;
-              *(a1 + 680) = v189;
-              v190 = *(a2 + 696);
-              v191 = *(a2 + 712);
-              v192 = *(a2 + 744);
+              v190 = *(a2 + 680);
+              *v187 = *v188;
+              *(a1 + 680) = v190;
+              v191 = *(a2 + 696);
+              v192 = *(a2 + 712);
+              v193 = *(a2 + 744);
               *(a1 + 728) = *(a2 + 728);
-              *(a1 + 744) = v192;
-              *(a1 + 696) = v190;
-              *(a1 + 712) = v191;
-              v193 = *(a2 + 760);
-              v194 = *(a2 + 776);
-              v195 = *(a2 + 792);
+              *(a1 + 744) = v193;
+              *(a1 + 696) = v191;
+              *(a1 + 712) = v192;
+              v194 = *(a2 + 760);
+              v195 = *(a2 + 776);
+              v196 = *(a2 + 792);
               *(a1 + 808) = *(a2 + 808);
-              *(a1 + 776) = v194;
-              *(a1 + 792) = v195;
-              *(a1 + 760) = v193;
+              *(a1 + 776) = v195;
+              *(a1 + 792) = v196;
+              *(a1 + 760) = v194;
             }
 
             else
             {
-              v203 = *v187;
+              v204 = *v188;
               *(a1 + 672) = *(a2 + 672);
-              *v186 = v203;
-              v204 = *(a2 + 680);
+              *v187 = v204;
+              v205 = *(a2 + 680);
               *(a1 + 688) = *(a2 + 688);
-              *(a1 + 680) = v204;
+              *(a1 + 680) = v205;
               *(a1 + 689) = *(a2 + 689);
               *(a1 + 690) = *(a2 + 690);
               *(a1 + 691) = *(v6 + 405);
@@ -10506,43 +8234,43 @@ LABEL_124:
               *(a1 + 760) = *(a2 + 760);
               *(a1 + 768) = *(a2 + 768);
               *(a1 + 776) = *(a2 + 776);
-              v205 = *(a2 + 784);
+              v206 = *(a2 + 784);
               *(a1 + 800) = *(a2 + 800);
-              *(a1 + 784) = v205;
+              *(a1 + 784) = v206;
               *(a1 + 808) = *(a2 + 808);
             }
           }
 
-          else if (v188 == 1)
+          else if (v189 == 1)
           {
             outlined destroy of AccessibilityTextLayoutProperties(a1 + 664);
-            v196 = *(a2 + 680);
-            *v186 = *v187;
-            *(a1 + 680) = v196;
-            v197 = *(a2 + 744);
-            v199 = *(a2 + 696);
-            v198 = *(a2 + 712);
+            v197 = *(a2 + 680);
+            *v187 = *v188;
+            *(a1 + 680) = v197;
+            v198 = *(a2 + 744);
+            v200 = *(a2 + 696);
+            v199 = *(a2 + 712);
             *(a1 + 728) = *(a2 + 728);
-            *(a1 + 744) = v197;
-            *(a1 + 696) = v199;
-            *(a1 + 712) = v198;
-            v201 = *(a2 + 776);
-            v200 = *(a2 + 792);
-            v202 = *(a2 + 760);
+            *(a1 + 744) = v198;
+            *(a1 + 696) = v200;
+            *(a1 + 712) = v199;
+            v202 = *(a2 + 776);
+            v201 = *(a2 + 792);
+            v203 = *(a2 + 760);
             *(a1 + 808) = *(a2 + 808);
-            *(a1 + 776) = v201;
-            *(a1 + 792) = v200;
-            *(a1 + 760) = v202;
+            *(a1 + 776) = v202;
+            *(a1 + 792) = v201;
+            *(a1 + 760) = v203;
           }
 
           else
           {
-            v206 = *v187;
+            v207 = *v188;
             *(a1 + 672) = *(a2 + 672);
-            *v186 = v206;
-            v207 = *(a2 + 680);
+            *v187 = v207;
+            v208 = *(a2 + 680);
             *(a1 + 688) = *(a2 + 688);
-            *(a1 + 680) = v207;
+            *(a1 + 680) = v208;
             *(a1 + 689) = *(a2 + 689);
             *(a1 + 690) = *(a2 + 690);
             *(a1 + 691) = *(v6 + 405);
@@ -10560,9 +8288,9 @@ LABEL_124:
             *(a1 + 768) = *(a2 + 768);
             *(a1 + 776) = *(a2 + 776);
 
-            v208 = *(a2 + 784);
+            v209 = *(a2 + 784);
             *(a1 + 800) = *(a2 + 800);
-            *(a1 + 784) = v208;
+            *(a1 + 784) = v209;
             *(a1 + 808) = *(a2 + 808);
           }
 
@@ -10575,18 +8303,18 @@ LABEL_124:
           goto LABEL_132;
         }
 
-        *(a1 + 624) = v153;
+        *(a1 + 624) = v154;
         *(a1 + 632) = *(a2 + 632);
-        (**(v153 - 8))(a1 + 600, a2 + 600);
+        (**(v154 - 8))(a1 + 600, a2 + 600);
       }
 
       else
       {
-        v179 = *v151;
-        v180 = *(a2 + 616);
+        v180 = *v152;
+        v181 = *(a2 + 616);
         *(a1 + 632) = *(a2 + 632);
-        *v150 = v179;
-        *(a1 + 616) = v180;
+        *v151 = v180;
+        *(a1 + 616) = v181;
       }
 
       *(a1 + 640) = *(a2 + 640);
@@ -10600,7 +8328,7 @@ LABEL_103:
     goto LABEL_132;
   }
 
-  if (!v148)
+  if (!v149)
   {
     goto LABEL_103;
   }
@@ -10610,74 +8338,74 @@ LABEL_103:
   *(a1 + 552) = *(a2 + 552);
   *(a1 + 560) = *(a2 + 560);
   *(a1 + 568) = *(a2 + 568);
-  v156 = *(a2 + 576);
+  v157 = *(a2 + 576);
   *(a1 + 592) = *(a2 + 592);
-  *(a1 + 576) = v156;
-  v157 = (a1 + 600);
-  v158 = (a2 + 600);
-  v159 = *(a2 + 624);
+  *(a1 + 576) = v157;
+  v158 = (a1 + 600);
+  v159 = (a2 + 600);
+  v160 = *(a2 + 624);
 
-  if (!v159)
+  if (!v160)
   {
-    v164 = *v158;
-    v165 = *(a2 + 616);
+    v165 = *v159;
+    v166 = *(a2 + 616);
     *(a1 + 632) = *(a2 + 632);
-    *v157 = v164;
-    *(a1 + 616) = v165;
+    *v158 = v165;
+    *(a1 + 616) = v166;
 LABEL_111:
     *(a1 + 640) = *(a2 + 640);
 
     goto LABEL_112;
   }
 
-  if (v159 != 1)
+  if (v160 != 1)
   {
-    *(a1 + 624) = v159;
+    *(a1 + 624) = v160;
     *(a1 + 632) = *(a2 + 632);
-    (**(v159 - 8))(a1 + 600, a2 + 600, v159);
+    (**(v160 - 8))(a1 + 600, a2 + 600, v160);
     goto LABEL_111;
   }
 
-  v160 = *v158;
-  v161 = *(a2 + 632);
+  v161 = *v159;
+  v162 = *(a2 + 632);
   *(a1 + 616) = *(a2 + 616);
-  *(a1 + 632) = v161;
-  *v157 = v160;
+  *(a1 + 632) = v162;
+  *v158 = v161;
 LABEL_112:
-  v166 = *(a2 + 648);
+  v167 = *(a2 + 648);
   *(a1 + 656) = *(a2 + 656);
-  *(a1 + 648) = v166;
-  v167 = (a1 + 664);
-  v168 = (a2 + 664);
+  *(a1 + 648) = v167;
+  v168 = (a1 + 664);
+  v169 = (a2 + 664);
   if (*(a2 + 776) == 1)
   {
-    v169 = *(a2 + 680);
-    *v167 = *v168;
-    *(a1 + 680) = v169;
-    v170 = *(a2 + 696);
-    v171 = *(a2 + 712);
-    v172 = *(a2 + 744);
+    v170 = *(a2 + 680);
+    *v168 = *v169;
+    *(a1 + 680) = v170;
+    v171 = *(a2 + 696);
+    v172 = *(a2 + 712);
+    v173 = *(a2 + 744);
     *(a1 + 728) = *(a2 + 728);
-    *(a1 + 744) = v172;
-    *(a1 + 696) = v170;
-    *(a1 + 712) = v171;
-    v173 = *(a2 + 760);
-    v174 = *(a2 + 776);
-    v175 = *(a2 + 792);
+    *(a1 + 744) = v173;
+    *(a1 + 696) = v171;
+    *(a1 + 712) = v172;
+    v174 = *(a2 + 760);
+    v175 = *(a2 + 776);
+    v176 = *(a2 + 792);
     *(a1 + 808) = *(a2 + 808);
-    *(a1 + 776) = v174;
-    *(a1 + 792) = v175;
-    *(a1 + 760) = v173;
+    *(a1 + 776) = v175;
+    *(a1 + 792) = v176;
+    *(a1 + 760) = v174;
   }
 
   else
   {
-    v176 = *v168;
+    v177 = *v169;
     *(a1 + 672) = *(a2 + 672);
-    *v167 = v176;
-    v177 = *(a2 + 680);
+    *v168 = v177;
+    v178 = *(a2 + 680);
     *(a1 + 688) = *(a2 + 688);
-    *(a1 + 680) = v177;
+    *(a1 + 680) = v178;
     *(a1 + 689) = *(a2 + 689);
     *(a1 + 690) = *(a2 + 690);
     *(a1 + 691) = *(v6 + 405);
@@ -10694,9 +8422,9 @@ LABEL_112:
     *(a1 + 760) = *(a2 + 760);
     *(a1 + 768) = *(a2 + 768);
     *(a1 + 776) = *(a2 + 776);
-    v178 = *(a2 + 784);
+    v179 = *(a2 + 784);
     *(a1 + 800) = *(a2 + 800);
-    *(a1 + 784) = v178;
+    *(a1 + 784) = v179;
     *(a1 + 808) = *(a2 + 808);
   }
 
@@ -10705,70 +8433,70 @@ LABEL_112:
   *(a1 + 832) = *(a2 + 832);
 
 LABEL_132:
-  v209 = (a1 + 840);
-  v210 = (a2 + 840);
-  v211 = *(a1 + 864);
-  v212 = *(a2 + 864);
-  if (v211 == 1)
+  v210 = (a1 + 840);
+  v211 = (a2 + 840);
+  v212 = *(a1 + 864);
+  v213 = *(a2 + 864);
+  if (v212 == 1)
   {
-    if (v212)
+    if (v213)
     {
-      if (v212 == 1)
+      if (v213 == 1)
       {
-        v213 = *v210;
-        v214 = *(a2 + 856);
-        v215 = *(a2 + 872);
+        v214 = *v211;
+        v215 = *(a2 + 856);
+        v216 = *(a2 + 872);
         *(a1 + 888) = *(a2 + 888);
-        *(a1 + 856) = v214;
-        *(a1 + 872) = v215;
-        *v209 = v213;
+        *(a1 + 856) = v215;
+        *(a1 + 872) = v216;
+        *v210 = v214;
         goto LABEL_156;
       }
 
-      *(a1 + 864) = v212;
+      *(a1 + 864) = v213;
       *(a1 + 872) = *(a2 + 872);
-      (**(v212 - 8))(a1 + 840, a2 + 840);
+      (**(v213 - 8))(a1 + 840, a2 + 840);
     }
 
     else
     {
-      v219 = *v210;
-      v220 = *(a2 + 856);
+      v220 = *v211;
+      v221 = *(a2 + 856);
       *(a1 + 872) = *(a2 + 872);
-      *v209 = v219;
-      *(a1 + 856) = v220;
+      *v210 = v220;
+      *(a1 + 856) = v221;
     }
 
-    v221 = *(a2 + 880);
-    if (!v221)
+    v222 = *(a2 + 880);
+    if (!v222)
     {
       goto LABEL_155;
     }
 
 LABEL_153:
-    v227 = *(a2 + 888);
-    *(a1 + 880) = v221;
-    *(a1 + 888) = v227;
+    v228 = *(a2 + 888);
+    *(a1 + 880) = v222;
+    *(a1 + 888) = v228;
 
     goto LABEL_156;
   }
 
-  if (v212 == 1)
+  if (v213 == 1)
   {
     outlined destroy of PlatformItemList.Item.SecondaryNavigationBehavior(a1 + 840);
-    v217 = *(a2 + 856);
-    v216 = *(a2 + 872);
-    v218 = *v210;
+    v218 = *(a2 + 856);
+    v217 = *(a2 + 872);
+    v219 = *v211;
     *(a1 + 888) = *(a2 + 888);
-    *(a1 + 856) = v217;
-    *(a1 + 872) = v216;
-    *v209 = v218;
+    *(a1 + 856) = v218;
+    *(a1 + 872) = v217;
+    *v210 = v219;
     goto LABEL_156;
   }
 
-  if (v211)
+  if (v212)
   {
-    if (v212)
+    if (v213)
     {
       __swift_assign_boxed_opaque_existential_1((a1 + 840), (a2 + 840));
     }
@@ -10776,38 +8504,38 @@ LABEL_153:
     else
     {
       outlined destroy of AnyNavigationLinkPresentedValue(a1 + 840);
-      v222 = *(a2 + 872);
-      v223 = *(a2 + 856);
-      *v209 = *v210;
-      *(a1 + 856) = v223;
-      *(a1 + 872) = v222;
+      v223 = *(a2 + 872);
+      v224 = *(a2 + 856);
+      *v210 = *v211;
+      *(a1 + 856) = v224;
+      *(a1 + 872) = v223;
     }
   }
 
-  else if (v212)
+  else if (v213)
   {
-    *(a1 + 864) = v212;
+    *(a1 + 864) = v213;
     *(a1 + 872) = *(a2 + 872);
-    (**(v212 - 8))(a1 + 840, a2 + 840);
+    (**(v213 - 8))(a1 + 840, a2 + 840);
   }
 
   else
   {
-    v224 = *v210;
-    v225 = *(a2 + 856);
+    v225 = *v211;
+    v226 = *(a2 + 856);
     *(a1 + 872) = *(a2 + 872);
-    *v209 = v224;
-    *(a1 + 856) = v225;
+    *v210 = v225;
+    *(a1 + 856) = v226;
   }
 
-  v221 = *(a2 + 880);
+  v222 = *(a2 + 880);
   if (*(a1 + 880))
   {
-    if (v221)
+    if (v222)
     {
-      v226 = *(a2 + 888);
-      *(a1 + 880) = v221;
-      *(a1 + 888) = v226;
+      v227 = *(a2 + 888);
+      *(a1 + 880) = v222;
+      *(a1 + 888) = v227;
 
       goto LABEL_156;
     }
@@ -10815,7 +8543,7 @@ LABEL_153:
     goto LABEL_155;
   }
 
-  if (v221)
+  if (v222)
   {
     goto LABEL_153;
   }
@@ -10823,10 +8551,10 @@ LABEL_153:
 LABEL_155:
   *(a1 + 880) = *(a2 + 880);
 LABEL_156:
-  v228 = *(a1 + 896);
-  v229 = *(a2 + 896);
-  *(a1 + 896) = v229;
-  v230 = v229;
+  v229 = *(a1 + 896);
+  v230 = *(a2 + 896);
+  *(a1 + 896) = v230;
+  v231 = v230;
 
   *(a1 + 904) = *(a2 + 904);
   *(a1 + 912) = *(a2 + 912);
@@ -10841,51 +8569,51 @@ LABEL_156:
   *(a1 + 952) = *(a2 + 952);
   *(a1 + 953) = *(a2 + 953);
   *(a1 + 954) = *(a2 + 954);
-  v231 = a3[28];
-  v232 = (a1 + v231);
-  v233 = (a2 + v231);
-  v234 = type metadata accessor for CommandOperation();
-  v235 = *(v234 - 8);
-  v236 = *(v235 + 48);
-  LODWORD(v228) = v236(v232, 1, v234);
-  v237 = v236(v233, 1, v234);
-  if (!v228)
+  v232 = a3[28];
+  v233 = (a1 + v232);
+  v234 = (a2 + v232);
+  v235 = type metadata accessor for CommandOperation(0);
+  v236 = *(v235 - 8);
+  v237 = *(v236 + 48);
+  LODWORD(v229) = v237(v233, 1, v235);
+  v238 = v237(v234, 1, v235);
+  if (!v229)
   {
-    if (!v237)
+    if (!v238)
     {
-      v286 = a3;
-      *v232 = *v233;
-      v251 = *(v234 + 20);
-      v252 = &v232[v251];
-      v253 = &v233[v251];
-      v254 = *&v233[v251];
-      v255 = *&v233[v251 + 8];
-      v256 = v233[v251 + 16];
-      outlined copy of Text.Storage(v254, v255, v256);
-      v257 = *v252;
-      v258 = *(v252 + 1);
-      v259 = v252[16];
-      *v252 = v254;
-      *(v252 + 1) = v255;
-      v252[16] = v256;
-      outlined consume of Text.Storage(v257, v258, v259);
-      *(v252 + 3) = *(v253 + 3);
+      v287 = a3;
+      *v233 = *v234;
+      v252 = *(v235 + 20);
+      v253 = &v233[v252];
+      v254 = &v234[v252];
+      v255 = *&v234[v252];
+      v256 = *&v234[v252 + 8];
+      v257 = v234[v252 + 16];
+      outlined copy of Text.Storage(v255, v256, v257);
+      v258 = *v253;
+      v259 = *(v253 + 1);
+      v260 = v253[16];
+      *v253 = v255;
+      *(v253 + 1) = v256;
+      v253[16] = v257;
+      outlined consume of Text.Storage(v258, v259, v260);
+      *(v253 + 3) = *(v254 + 3);
 
-      v260 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-      v261 = type metadata accessor for UUID();
-      (*(*(v261 - 8) + 24))(&v252[v260], &v253[v260], v261);
-      v262 = *(v234 + 24);
-      v263 = &v232[v262];
-      v264 = &v233[v262];
-      v265 = *&v233[v262];
-      if (*v263)
+      v261 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+      v262 = type metadata accessor for UUID();
+      (*(*(v262 - 8) + 24))(&v253[v261], &v254[v261], v262);
+      v263 = *(v235 + 24);
+      v264 = &v233[v263];
+      v265 = &v234[v263];
+      v266 = *&v234[v263];
+      if (*v264)
       {
-        a3 = v286;
-        if (v265)
+        a3 = v287;
+        if (v266)
         {
-          v266 = *(v264 + 1);
-          *v263 = v265;
-          v263[1] = v266;
+          v267 = *(v265 + 1);
+          *v264 = v266;
+          v264[1] = v267;
 
           goto LABEL_168;
         }
@@ -10893,69 +8621,69 @@ LABEL_156:
 
       else
       {
-        a3 = v286;
-        if (v265)
+        a3 = v287;
+        if (v266)
         {
-          v268 = *(v264 + 1);
-          *v263 = v265;
-          v263[1] = v268;
+          v269 = *(v265 + 1);
+          *v264 = v266;
+          v264[1] = v269;
 
           goto LABEL_168;
         }
       }
 
-      *v263 = *v264;
+      *v264 = *v265;
       goto LABEL_168;
     }
 
-    _s7SwiftUI16CommandOperationVWOhTm_0(v232, type metadata accessor for CommandOperation);
+    _s7SwiftUI16CommandOperationVWOhTm_0(v233, type metadata accessor for CommandOperation);
     goto LABEL_162;
   }
 
-  if (v237)
+  if (v238)
   {
 LABEL_162:
     _s7SwiftUI16CommandOperationVSgMaTm_0(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
-    memcpy(v232, v233, *(*(v250 - 8) + 64));
+    memcpy(v233, v234, *(*(v251 - 8) + 64));
     goto LABEL_168;
   }
 
-  v282 = v233;
-  v285 = a3;
-  *v232 = *v233;
-  v238 = *(v234 + 20);
-  v239 = &v232[v238];
-  v240 = &v233[v238];
-  v241 = *v240;
-  v242 = *(v240 + 1);
-  v243 = v240[16];
-  outlined copy of Text.Storage(*v240, v242, v243);
-  *v239 = v241;
-  *(v239 + 1) = v242;
-  v239[16] = v243;
-  *(v239 + 3) = *(v240 + 3);
-  v244 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
-  v245 = type metadata accessor for UUID();
-  v279 = *(*(v245 - 8) + 16);
+  v283 = v234;
+  v286 = a3;
+  *v233 = *v234;
+  v239 = *(v235 + 20);
+  v240 = &v233[v239];
+  v241 = &v234[v239];
+  v242 = *v241;
+  v243 = *(v241 + 1);
+  v244 = v241[16];
+  outlined copy of Text.Storage(*v241, v243, v244);
+  *v240 = v242;
+  *(v240 + 1) = v243;
+  v240[16] = v244;
+  *(v240 + 3) = *(v241 + 3);
+  v245 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+  v246 = type metadata accessor for UUID();
+  v280 = *(*(v246 - 8) + 16);
 
-  v279(&v239[v244], &v240[v244], v245);
-  v246 = *(v234 + 24);
-  v247 = &v232[v246];
-  v248 = &v282[v246];
-  if (*v248)
+  v280(&v240[v245], &v241[v245], v246);
+  v247 = *(v235 + 24);
+  v248 = &v233[v247];
+  v249 = &v283[v247];
+  if (*v249)
   {
-    v249 = v248[1];
-    *v247 = *v248;
-    v247[1] = v249;
+    v250 = v249[1];
+    *v248 = *v249;
+    v248[1] = v250;
   }
 
   else
   {
-    *v247 = *v248;
+    *v248 = *v249;
   }
 
-  a3 = v285;
-  (*(v235 + 56))(v232, 0, 1, v234);
+  a3 = v286;
+  (*(v236 + 56))(v233, 0, 1, v235);
 LABEL_168:
   *(a1 + a3[29]) = *(a2 + a3[29]);
   *(a1 + a3[30]) = *(a2 + a3[30]);
@@ -10964,5 +8692,1142 @@ LABEL_168:
   *(a1 + a3[33]) = *(a2 + a3[33]);
   *(a1 + a3[34]) = *(a2 + a3[34]);
 
+  return a1;
+}
+
+uint64_t initializeWithTake for PlatformItemList.Item(uint64_t a1, uint64_t a2, int *a3)
+{
+  v6 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v6;
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  v7 = *(a2 + 208);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 208) = v7;
+  *(a1 + 224) = *(a2 + 224);
+  *(a1 + 235) = *(a2 + 235);
+  v8 = *(a2 + 144);
+  *(a1 + 128) = *(a2 + 128);
+  *(a1 + 144) = v8;
+  v9 = *(a2 + 176);
+  *(a1 + 160) = *(a2 + 160);
+  *(a1 + 176) = v9;
+  v10 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v10;
+  v11 = *(a2 + 112);
+  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 112) = v11;
+  v12 = *(a2 + 272);
+  *(a1 + 256) = *(a2 + 256);
+  *(a1 + 272) = v12;
+  v13 = *(a2 + 368);
+  *(a1 + 352) = *(a2 + 352);
+  *(a1 + 368) = v13;
+  *(a1 + 384) = *(a2 + 384);
+  *(a1 + 400) = *(a2 + 400);
+  v14 = *(a2 + 304);
+  *(a1 + 288) = *(a2 + 288);
+  *(a1 + 304) = v14;
+  v15 = *(a2 + 336);
+  *(a1 + 320) = *(a2 + 320);
+  *(a1 + 336) = v15;
+  v16 = *(a2 + 456);
+  *(a1 + 440) = *(a2 + 440);
+  *(a1 + 456) = v16;
+  *(a1 + 472) = *(a2 + 472);
+  v17 = *(a2 + 424);
+  *(a1 + 408) = *(a2 + 408);
+  *(a1 + 424) = v17;
+  *(a1 + 480) = *(a2 + 480);
+  *(a1 + 489) = *(a2 + 489);
+  *(a1 + 512) = *(a2 + 512);
+  *(a1 + 528) = *(a2 + 528);
+  memcpy((a1 + 536), (a2 + 536), 0x130uLL);
+  v18 = *(a2 + 856);
+  *(a1 + 840) = *(a2 + 840);
+  *(a1 + 856) = v18;
+  *(a1 + 872) = *(a2 + 872);
+  *(a1 + 888) = *(a2 + 888);
+  *(a1 + 896) = *(a2 + 896);
+  *(a1 + 904) = *(a2 + 904);
+  *(a1 + 920) = *(a2 + 920);
+  *(a1 + 936) = *(a2 + 936);
+  *(a1 + 944) = *(a2 + 944);
+  *(a1 + 952) = *(a2 + 952);
+  *(a1 + 953) = *(a2 + 953);
+  v19 = a3[28];
+  v20 = (a1 + v19);
+  v21 = (a2 + v19);
+  v22 = type metadata accessor for CommandOperation(0);
+  v23 = *(v22 - 8);
+  if ((*(v23 + 48))(v21, 1, v22))
+  {
+    _s7SwiftUI16CommandOperationVSgMaTm_0(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation, MEMORY[0x1E69E6720]);
+    memcpy(v20, v21, *(*(v24 - 8) + 64));
+  }
+
+  else
+  {
+    *v20 = *v21;
+    v25 = *(v22 + 20);
+    v26 = &v20[v25];
+    v27 = &v21[v25];
+    v28 = *&v21[v25 + 16];
+    *v26 = *&v21[v25];
+    *(v26 + 1) = v28;
+    v29 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+    v30 = type metadata accessor for UUID();
+    (*(*(v30 - 8) + 32))(&v26[v29], &v27[v29], v30);
+    *&v20[*(v22 + 24)] = *&v21[*(v22 + 24)];
+    (*(v23 + 56))(v20, 0, 1, v22);
+  }
+
+  v31 = a3[30];
+  *(a1 + a3[29]) = *(a2 + a3[29]);
+  *(a1 + v31) = *(a2 + v31);
+  v32 = a3[32];
+  *(a1 + a3[31]) = *(a2 + a3[31]);
+  *(a1 + v32) = *(a2 + v32);
+  v33 = a3[34];
+  *(a1 + a3[33]) = *(a2 + a3[33]);
+  *(a1 + v33) = *(a2 + v33);
+  return a1;
+}
+
+uint64_t type metadata completion function for PlatformItemListReader(uint64_t a1)
+{
+  result = type metadata accessor for _VariadicView.Tree();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+void *initializeBufferWithCopyOfBuffer for PlatformItemListReader(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v4 = *(a3 + 32);
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 80);
+  v7 = (*(v5 + 80) & 0xF8 ^ 0x1F8u) & (v6 + 16);
+  v8 = *a2;
+  if (v6 <= 7 && (*(v5 + 80) & 0x100000) == 0 && ((-17 - v6) | v6) - *(v5 + 64) - v7 >= 0xFFFFFFFFFFFFFFE7)
+  {
+    v11 = a2[1];
+    *a1 = v8;
+    a1[1] = v11;
+    v12 = ((a1 + 23) & 0xFFFFFFFFFFFFFFF8);
+    v13 = ((a2 + 23) & 0xFFFFFFFFFFFFFFF8);
+    *v12 = *v13;
+    v14 = *(v5 + 16);
+
+    v14(v12 + 1, v13 + 1, v4);
+  }
+
+  else
+  {
+    *a1 = v8;
+    a1 = (v8 + v7);
+  }
+
+  return a1;
+}
+
+uint64_t destroy for PlatformItemListReader(uint64_t a1, uint64_t a2)
+{
+
+  v4 = *(*(a2 + 32) - 8);
+  v5 = *(v4 + 8);
+  v6 = (*(v4 + 80) + ((a1 + (*(v4 + 80) | 7) + 16) & ~(*(v4 + 80) | 7)) + 16) & ~*(v4 + 80);
+
+  return v5(v6);
+}
+
+void *initializeWithCopy for PlatformItemListReader(void *a1, void *a2, uint64_t a3)
+{
+  v4 = a2[1];
+  *a1 = *a2;
+  a1[1] = v4;
+  v5 = *(a3 + 32);
+  v6 = *(*(v5 - 8) + 16);
+  v7 = *(*(v5 - 8) + 80);
+  v8 = (v7 | 7) + 16;
+  v9 = ((a1 + v8) & ~(v7 | 7));
+  v10 = ((a2 + v8) & ~(v7 | 7));
+  *v9 = *v10;
+  v11 = v9 + v7 + 16;
+  v12 = v10 + v7 + 16;
+
+  v6(v11 & ~v7, v12 & ~v7, v5);
+  return a1;
+}
+
+void *assignWithCopy for PlatformItemListReader(void *a1, void *a2, uint64_t a3)
+{
+  v6 = a2[1];
+  *a1 = *a2;
+  a1[1] = v6;
+
+  v7 = *(*(a3 + 32) - 8);
+  v8 = *(v7 + 24);
+  v9 = *(v7 + 80);
+  v10 = (v9 | 7) + 16;
+  v11 = ((a1 + v10) & ~(v9 | 7));
+  v12 = ((a2 + v10) & ~(v9 | 7));
+  *v11 = *v12;
+  v11[1] = v12[1];
+  v8((v11 + v9 + 16) & ~v9, (v12 + v9 + 16) & ~v9);
+  return a1;
+}
+
+_OWORD *initializeWithTake for PlatformItemListReader(_OWORD *a1, _OWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v4 = *(*(a3 + 32) - 8);
+  v5 = *(v4 + 32);
+  v6 = *(v4 + 80);
+  v7 = (v6 | 7) + 16;
+  v8 = ((a1 + v7) & ~(v6 | 7));
+  v9 = ((a2 + v7) & ~(v6 | 7));
+  *v8 = *v9;
+  v5((v8 + v6 + 16) & ~v6, (v9 + v6 + 16) & ~v6);
+  return a1;
+}
+
+_OWORD *assignWithTake for PlatformItemListReader(_OWORD *a1, _OWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+
+  v6 = *(*(a3 + 32) - 8);
+  v7 = *(v6 + 40);
+  v8 = *(v6 + 80);
+  v9 = (v8 | 7) + 16;
+  v10 = ((a1 + v9) & ~(v8 | 7));
+  v11 = ((a2 + v9) & ~(v8 | 7));
+  *v10 = *v11;
+  v10[1] = v11[1];
+  v7((v10 + v8 + 16) & ~v8, (v11 + v8 + 16) & ~v8);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for PlatformItemListReader(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 32) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(v4 + 80);
+  if (v5 <= 0x7FFFFFFF)
+  {
+    v7 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v7 = *(v4 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v8 = v6 | 7;
+  v9 = a2 - v7;
+  if (a2 <= v7)
+  {
+    goto LABEL_26;
+  }
+
+  v10 = *(*(*(a3 + 32) - 8) + 64) - (((-17 - v6) | v6) + ((-17 - v6) | v8)) - 2;
+  v11 = 8 * v10;
+  if (v10 <= 3)
+  {
+    v14 = ((v9 + ~(-1 << v11)) >> v11) + 1;
+    if (HIWORD(v14))
+    {
+      v12 = *(a1 + v10);
+      if (!v12)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_15;
+    }
+
+    if (v14 > 0xFF)
+    {
+      v12 = *(a1 + v10);
+      if (!*(a1 + v10))
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_15;
+    }
+
+    if (v14 < 2)
+    {
+LABEL_26:
+      if ((v5 & 0x80000000) != 0)
+      {
+        return (*(v4 + 48))((v6 + ((a1 + v8 + 16) & ~v8) + 16) & ~v6);
+      }
+
+      v16 = *a1;
+      if (*a1 >= 0xFFFFFFFFuLL)
+      {
+        LODWORD(v16) = -1;
+      }
+
+      return (v16 + 1);
+    }
+  }
+
+  v12 = *(a1 + v10);
+  if (!*(a1 + v10))
+  {
+    goto LABEL_26;
+  }
+
+LABEL_15:
+  v15 = (v12 - 1) << v11;
+  if (v10 > 3)
+  {
+    v15 = 0;
+  }
+
+  if (v10)
+  {
+    if (v10 > 3)
+    {
+      LODWORD(v10) = 4;
+    }
+
+    if (v10 > 2)
+    {
+      if (v10 == 3)
+      {
+        LODWORD(v10) = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        LODWORD(v10) = *a1;
+      }
+    }
+
+    else if (v10 == 1)
+    {
+      LODWORD(v10) = *a1;
+    }
+
+    else
+    {
+      LODWORD(v10) = *a1;
+    }
+  }
+
+  return v7 + (v10 | v15) + 1;
+}
+
+void storeEnumTagSinglePayload for PlatformItemListReader(char *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v6 = *(*(a4 + 32) - 8);
+  v7 = *(v6 + 84);
+  if (v7 <= 0x7FFFFFFF)
+  {
+    v8 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v8 = *(v6 + 84);
+  }
+
+  v9 = *(v6 + 80);
+  v10 = ((v9 + 16) & ~v9) + *(*(*(a4 + 32) - 8) + 64);
+  v11 = v10 + ((v9 + 16) & ~(v9 | 7));
+  v12 = a3 >= v8;
+  v13 = a3 - v8;
+  if (v13 != 0 && v12)
+  {
+    if (v11 <= 3)
+    {
+      v17 = ((v13 + ~(-1 << (8 * v11))) >> (8 * v11)) + 1;
+      if (HIWORD(v17))
+      {
+        v14 = 4;
+      }
+
+      else
+      {
+        if (v17 < 0x100)
+        {
+          v18 = 1;
+        }
+
+        else
+        {
+          v18 = 2;
+        }
+
+        if (v17 >= 2)
+        {
+          v14 = v18;
+        }
+
+        else
+        {
+          v14 = 0;
+        }
+      }
+    }
+
+    else
+    {
+      v14 = 1;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (v8 < a2)
+  {
+    v15 = ~v8 + a2;
+    if (v11 < 4)
+    {
+      v16 = (v15 >> (8 * v11)) + 1;
+      if (v11)
+      {
+        v19 = v15 & ~(-1 << (8 * v11));
+        bzero(a1, v11);
+        if (v11 != 3)
+        {
+          if (v11 == 2)
+          {
+            *a1 = v19;
+            if (v14 > 1)
+            {
+LABEL_57:
+              if (v14 == 2)
+              {
+                *&a1[v11] = v16;
+              }
+
+              else
+              {
+                *&a1[v11] = v16;
+              }
+
+              return;
+            }
+          }
+
+          else
+          {
+            *a1 = v15;
+            if (v14 > 1)
+            {
+              goto LABEL_57;
+            }
+          }
+
+          goto LABEL_54;
+        }
+
+        *a1 = v19;
+        a1[2] = BYTE2(v19);
+      }
+
+      if (v14 > 1)
+      {
+        goto LABEL_57;
+      }
+    }
+
+    else
+    {
+      bzero(a1, v11);
+      *a1 = v15;
+      v16 = 1;
+      if (v14 > 1)
+      {
+        goto LABEL_57;
+      }
+    }
+
+LABEL_54:
+    if (v14)
+    {
+      a1[v11] = v16;
+    }
+
+    return;
+  }
+
+  if (v14 > 1)
+  {
+    if (v14 != 2)
+    {
+      *&a1[v11] = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+      goto LABEL_31;
+    }
+
+    *&a1[v11] = 0;
+LABEL_30:
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (!v14)
+  {
+    goto LABEL_30;
+  }
+
+  a1[v11] = 0;
+  if (!a2)
+  {
+    return;
+  }
+
+LABEL_31:
+  if ((v7 & 0x80000000) != 0)
+  {
+    v20 = (&a1[(v9 | 7) + 16] & ~(v9 | 7));
+    if (v7 >= a2)
+    {
+      v24 = *(v6 + 56);
+
+      v24(&v20[v9 + 16] & ~v9);
+    }
+
+    else
+    {
+      if (v10 <= 3)
+      {
+        v21 = ~(-1 << (8 * v10));
+      }
+
+      else
+      {
+        v21 = -1;
+      }
+
+      if (v10)
+      {
+        v22 = v21 & (~v7 + a2);
+        if (v10 <= 3)
+        {
+          v23 = v10;
+        }
+
+        else
+        {
+          v23 = 4;
+        }
+
+        bzero(v20, v10);
+        if (v23 > 2)
+        {
+          if (v23 == 3)
+          {
+            *v20 = v22;
+            v20[2] = BYTE2(v22);
+          }
+
+          else
+          {
+            *v20 = v22;
+          }
+        }
+
+        else if (v23 == 1)
+        {
+          *v20 = v22;
+        }
+
+        else
+        {
+          *v20 = v22;
+        }
+      }
+    }
+  }
+
+  else if ((a2 & 0x80000000) != 0)
+  {
+    *a1 = a2 & 0x7FFFFFFF;
+    *(a1 + 1) = 0;
+  }
+
+  else
+  {
+    *a1 = a2 - 1;
+  }
+}
+
+uint64_t protocol witness for Rule.value.getter in conformance PlatformItemListTextRepresentable.PlatformRepresentation@<X0>(uint64_t *a1@<X8>)
+{
+  result = PlatformItemListTextRepresentable.PlatformRepresentation.value.getter(*v1);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for Rule.value.getter in conformance PlatformItemListImageRepresentable.PlatformRepresentation@<X0>(uint64_t *a1@<X8>)
+{
+  result = PlatformItemListImageRepresentable.PlatformRepresentation.value.getter(*v1);
+  *a1 = result;
+  return result;
+}
+
+uint64_t implicit closure #1 in static PlatformItemListViewThatFitsRepresentable.makeRepresentation(inputs:state:outputs:)(uint64_t a1)
+{
+  protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
+  type metadata accessor for (_:)();
+  lazy protocol witness table accessor for type PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList and conformance PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList();
+
+  v1 = Attribute.init<A>(body:value:flags:update:)();
+
+  return v1;
+}
+
+uint64_t closure #1 in PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList.value.getter(uint64_t *a1)
+{
+  v2 = type metadata accessor for PlatformItemList.Item(0);
+  v3 = (v2 - 8);
+  v33 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v32 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v32 - v7;
+
+  v36 = MEMORY[0x1E69E7CC0];
+  v34[2] = &v36;
+  SizeFittingState.applyChildren(selectLast:to:)(0, partial apply for closure #1 in closure #1 in PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList.value.getter, v34);
+  _s7SwiftUI5ImageVAAE8ResolvedVSgWOi0_(&v37);
+  memset(v35, 0, 304);
+  v8[32] = 0;
+  *(v8 + 3) = 0;
+  *(v8 + 8) = 0u;
+  *(v8 + 5) = -1;
+  v8[56] = 1;
+  v9 = v46;
+  *(v8 + 12) = v45;
+  *(v8 + 13) = v9;
+  *(v8 + 14) = v47[0];
+  *(v8 + 235) = *(v47 + 11);
+  v10 = v42;
+  *(v8 + 8) = v41;
+  *(v8 + 9) = v10;
+  v11 = v44;
+  *(v8 + 10) = v43;
+  *(v8 + 11) = v11;
+  v12 = v38;
+  *(v8 + 4) = v37;
+  *(v8 + 5) = v12;
+  v13 = v40;
+  *(v8 + 6) = v39;
+  *(v8 + 7) = v13;
+  *(v8 + 19) = 0u;
+  *(v8 + 20) = 0u;
+  *(v8 + 17) = 0u;
+  *(v8 + 18) = 0u;
+  *(v8 + 16) = 0u;
+  *(v8 + 42) = 0x3FFFFFFFCLL;
+  *(v8 + 344) = 0u;
+  *(v8 + 360) = 0u;
+  *(v8 + 376) = 0u;
+  *(v8 + 392) = 0u;
+  *(v8 + 51) = 0;
+  *(v8 + 52) = 1;
+  *(v8 + 424) = 0u;
+  *(v8 + 440) = 0u;
+  *(v8 + 456) = 0u;
+  v8[472] = 0;
+  *(v8 + 60) = 0;
+  *(v8 + 488) = 0u;
+  v8[504] = 0;
+  *(v8 + 32) = 0u;
+  v8[528] = 4;
+  *(v8 + 536) = 0u;
+  *(v8 + 552) = 0u;
+  *(v8 + 568) = 0u;
+  *(v8 + 584) = 0u;
+  *(v8 + 600) = 0u;
+  *(v8 + 616) = 0u;
+  *(v8 + 632) = 0u;
+  *(v8 + 648) = 0u;
+  *(v8 + 664) = 0u;
+  *(v8 + 680) = 0u;
+  *(v8 + 696) = 0u;
+  *(v8 + 712) = 0u;
+  *(v8 + 728) = 0u;
+  *(v8 + 744) = 0u;
+  *(v8 + 760) = 0u;
+  *(v8 + 776) = 0u;
+  *(v8 + 792) = 0u;
+  *(v8 + 808) = 0u;
+  *(v8 + 824) = 0u;
+  *(v8 + 840) = 0u;
+  *(v8 + 107) = 0;
+  *(v8 + 108) = 1;
+  *(v8 + 118) = 0;
+  *(v8 + 872) = 0u;
+  *(v8 + 888) = 0u;
+  *(v8 + 904) = 0u;
+  *(v8 + 920) = 0u;
+  *(v8 + 476) = 1283;
+  v8[954] = 3;
+  v14 = v3[30];
+  v15 = type metadata accessor for CommandOperation(0);
+  (*(*(v15 - 8) + 56))(&v8[v14], 1, 1, v15);
+  v8[v3[31]] = 0;
+  v8[v3[32]] = 0;
+  v8[v3[33]] = 2;
+  v8[v3[34]] = 0;
+  v8[v3[35]] = 0;
+  v16 = v3[36];
+  *v8 = 0;
+  v17 = *(v8 + 13);
+  v48[8] = *(v8 + 12);
+  v48[9] = v17;
+  v49[0] = *(v8 + 14);
+  *(v49 + 11) = *(v8 + 235);
+  v18 = *(v8 + 9);
+  v48[4] = *(v8 + 8);
+  v48[5] = v18;
+  v19 = *(v8 + 11);
+  v48[6] = *(v8 + 10);
+  v48[7] = v19;
+  v20 = *(v8 + 5);
+  v48[0] = *(v8 + 4);
+  v48[1] = v20;
+  v21 = *(v8 + 7);
+  v48[2] = *(v8 + 6);
+  v48[3] = v21;
+  _s7SwiftUI16PlatformItemListV0D0V13AccessibilityVSgWOhTm_0(v48, &lazy cache variable for type metadata for Image.Resolved?, MEMORY[0x1E6981730]);
+  v22 = v46;
+  *(v8 + 12) = v45;
+  *(v8 + 13) = v22;
+  *(v8 + 14) = v47[0];
+  *(v8 + 235) = *(v47 + 11);
+  v23 = v42;
+  *(v8 + 8) = v41;
+  *(v8 + 9) = v23;
+  v24 = v44;
+  *(v8 + 10) = v43;
+  *(v8 + 11) = v24;
+  v25 = v38;
+  *(v8 + 4) = v37;
+  *(v8 + 5) = v25;
+  v26 = v40;
+  *(v8 + 6) = v39;
+  *(v8 + 7) = v26;
+  v27 = *(v8 + 456);
+  v50[2] = *(v8 + 440);
+  v50[3] = v27;
+  v51 = v8[472];
+  v28 = *(v8 + 424);
+  v50[0] = *(v8 + 408);
+  v50[1] = v28;
+  _s7SwiftUI16PlatformItemListV0D0V13AccessibilityVSgWOhTm_0(v50, &lazy cache variable for type metadata for PlatformItemList.Item.SelectionBehavior?, &type metadata for PlatformItemList.Item.SelectionBehavior);
+  *(v8 + 408) = xmmword_18CD633F0;
+  *(v8 + 424) = 0u;
+  *(v8 + 440) = 0u;
+  *(v8 + 456) = 0u;
+  v8[472] = 0;
+  outlined assign with take of PlatformItemList.Item.Accessibility?(v35, (v8 + 536), &lazy cache variable for type metadata for PlatformItemList.Item.Accessibility?, &type metadata for PlatformItemList.Item.Accessibility);
+  *&v8[v16] = 0;
+  *(v8 + 6) = 0;
+  *(v8 + 117) = v36;
+  outlined init with copy of PlatformItemList.Item(v8, v5);
+  _s7SwiftUI16CommandOperationVSgMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItemList.Item>, type metadata accessor for PlatformItemList.Item, MEMORY[0x1E69E6F90]);
+  v29 = (*(v33 + 80) + 32) & ~*(v33 + 80);
+  v30 = swift_allocObject();
+  *(v30 + 16) = xmmword_18CD63400;
+  outlined init with take of PlatformItemList.Item(v5, v30 + v29);
+  *a1 = v30;
+  return _s7SwiftUI16CommandOperationVWOhTm_0(v8, type metadata accessor for PlatformItemList.Item);
+}
+
+uint64_t closure #1 in closure #1 in PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList.value.getter(uint64_t *a1, uint64_t a2, void *a3)
+{
+  v5 = type metadata accessor for PlatformItemList.Item(0);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a1 + 2);
+  v16 = *a1;
+  v17 = v9;
+  if ((PreferencesOutputs.subscript.getter() & 0x100000000) == 0)
+  {
+    AGGraphGetValue();
+
+    PlatformItemList.mergedContentItem.getter(v10, v8);
+
+    v11 = *a3;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *a3 = v11;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11[2] + 1, 1, v11);
+      *a3 = v11;
+    }
+
+    v14 = v11[2];
+    v13 = v11[3];
+    if (v14 >= v13 >> 1)
+    {
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1, v11);
+      *a3 = v11;
+    }
+
+    v11[2] = v14 + 1;
+    outlined init with take of PlatformItemList.Item(v8, v11 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v14);
+  }
+
+  return 0;
+}
+
+double protocol witness for Rule.value.getter in conformance PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList@<D0>(void *a1@<X8>)
+{
+  v3 = *v1;
+  v4 = swift_allocObject();
+  *(v4 + 16) = partial apply for closure #1 in PlatformItemListViewThatFitsRepresentable.FittingChildrenPlatformItemList.value.getter;
+  *(v4 + 24) = v3;
+  *a1 = thunk for @escaping @callee_guaranteed (@inout PlatformItemList) -> ()partial apply;
+  a1[1] = v4;
+
+  return result;
+}
+
+uint64_t protocol witness for static PlatformViewThatFitsRepresentable.shouldMakeRepresentation(inputs:) in conformance PlatformItemListViewThatFitsRepresentable(uint64_t *a1)
+{
+  v3 = a1[6];
+  v1 = PreferencesInputs.contains<A>(_:includeHostPreferences:)();
+  result = 0;
+  if (v1)
+  {
+    lazy protocol witness table accessor for type PlatformItemListFlagsInput and conformance PlatformItemListFlagsInput();
+    PropertyList.subscript.getter();
+    return (v3 >> 6) & 1;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static PlatformViewThatFitsRepresentable.makeRepresentation(inputs:state:outputs:) in conformance PlatformItemListViewThatFitsRepresentable(uint64_t a1)
+{
+
+  PreferencesOutputs.makePreferenceTransformer<A>(inputs:key:transform:)();
+}
+
+_BYTE *closure #1 in PlatformItemListDynamicHiddenRepresentable.PlatformItemListTransform.value.getter(void *a1, uint64_t a2)
+{
+  result = AGGraphGetValue();
+  if (*result == 1)
+  {
+    result = AGGraphGetValue();
+    if ((result[8] & 2) == 0)
+    {
+
+      *a1 = MEMORY[0x1E69E7CC0];
+    }
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for Rule.value.getter in conformance PlatformItemListNamedImageRepresentable.NamedResolvedRule@<X0>(uint64_t a3@<X4>, uint64_t a4@<X5>, void *a5@<X8>)
+{
+  v9 = *v5;
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  result = swift_allocObject();
+  *(result + 16) = a3;
+  *(result + 24) = v10;
+  *a5 = a4;
+  a5[1] = result;
+  return result;
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed PlatformItemList) -> (@out B)(uint64_t a1)
+{
+  v2 = *(v1 + 64);
+  v4 = a1;
+  return v2(&v4);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned ()?) -> (@unowned Bool)@<X0>(unsigned __int8 *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = (*(v2 + 16))(*a1);
+  *a2 = result & 1;
+  return result;
+}
+
+uint64_t assignWithTake for OnPlatformContainerSelectionModifier(uint64_t a1, uint64_t *a2)
+{
+  v4 = *a2;
+  if (!*a1)
+  {
+    if (v4)
+    {
+      v6 = a2[1];
+      *a1 = v4;
+      *(a1 + 8) = v6;
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    *a1 = *a2;
+    goto LABEL_8;
+  }
+
+  if (!v4)
+  {
+
+    goto LABEL_7;
+  }
+
+  v5 = a2[1];
+  *a1 = v4;
+  *(a1 + 8) = v5;
+
+LABEL_8:
+  *(a1 + 16) = *(a2 + 16);
+  v7 = *(a2 + 32);
+  v8 = *(a1 + 24);
+  v9 = *(a1 + 32);
+  *(a1 + 24) = a2[3];
+  *(a1 + 32) = v7;
+  outlined consume of Environment<Selector?>.Content(v8, v9);
+  v10 = a2[7];
+  v11 = *(a2 + 64);
+  v12 = *(a2 + 65);
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 56);
+  v16 = *(a1 + 65);
+  *(a1 + 40) = *(a2 + 5);
+  *(a1 + 56) = v10;
+  v17 = *(a1 + 64);
+  *(a1 + 64) = v11;
+  *(a1 + 65) = v12;
+  outlined consume of Environment<KeyboardShortcut?>.Content(v13, v14, v15, v17, v16);
+  v18 = *(a2 + 80);
+  v19 = *(a1 + 72);
+  v20 = *(a1 + 80);
+  *(a1 + 72) = a2[9];
+  *(a1 + 80) = v18;
+  outlined consume of Environment<Selector?>.Content(v19, v20);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for OnPlatformContainerSelectionModifier(uint64_t *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 81))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for OnPlatformContainerSelectionModifier(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 72) = 0;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 80) = 0;
+    *result = a2 - 0x7FFFFFFF;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 81) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 81) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destroy for OnPlatformContainerSecondaryNavigationModifier(uint64_t a1)
+{
+  if (*(a1 + 24))
+  {
+    __swift_destroy_boxed_opaque_existential_1(a1);
+  }
+
+  if (*(a1 + 40))
+  {
+  }
+
+  v2 = *(a1 + 56);
+  v3 = *(a1 + 64);
+
+  return outlined consume of Environment<Selector?>.Content(v2, v3);
+}
+
+uint64_t initializeWithCopy for OnPlatformContainerSecondaryNavigationModifier(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    v5 = *(a2 + 32);
+    *(a1 + 24) = v4;
+    *(a1 + 32) = v5;
+    (**(v4 - 8))(a1, a2);
+  }
+
+  else
+  {
+    v6 = *(a2 + 16);
+    *a1 = *a2;
+    *(a1 + 16) = v6;
+    *(a1 + 32) = *(a2 + 32);
+  }
+
+  v7 = *(a2 + 40);
+  if (v7)
+  {
+    v8 = *(a2 + 48);
+    *(a1 + 40) = v7;
+    *(a1 + 48) = v8;
+  }
+
+  else
+  {
+    *(a1 + 40) = *(a2 + 40);
+  }
+
+  v9 = *(a2 + 56);
+  v10 = *(a2 + 64);
+  outlined copy of Environment<Selector?>.Content(v9, v10);
+  *(a1 + 56) = v9;
+  *(a1 + 64) = v10;
+  return a1;
+}
+
+uint64_t assignWithCopy for OnPlatformContainerSecondaryNavigationModifier(uint64_t a1, __int128 *a2)
+{
+  v4 = *(a2 + 3);
+  if (*(a1 + 24))
+  {
+    if (v4)
+    {
+      __swift_assign_boxed_opaque_existential_1(a1, a2);
+    }
+
+    else
+    {
+      outlined destroy of AnyNavigationLinkPresentedValue(a1);
+      v5 = *(a2 + 4);
+      v6 = a2[1];
+      *a1 = *a2;
+      *(a1 + 16) = v6;
+      *(a1 + 32) = v5;
+    }
+  }
+
+  else if (v4)
+  {
+    *(a1 + 24) = v4;
+    *(a1 + 32) = *(a2 + 4);
+    (**(v4 - 8))(a1, a2);
+  }
+
+  else
+  {
+    v7 = *a2;
+    v8 = a2[1];
+    *(a1 + 32) = *(a2 + 4);
+    *a1 = v7;
+    *(a1 + 16) = v8;
+  }
+
+  v9 = *(a2 + 5);
+  if (!*(a1 + 40))
+  {
+    if (v9)
+    {
+      v11 = *(a2 + 6);
+      *(a1 + 40) = v9;
+      *(a1 + 48) = v11;
+
+      goto LABEL_15;
+    }
+
+LABEL_14:
+    *(a1 + 40) = *(a2 + 40);
+    goto LABEL_15;
+  }
+
+  if (!v9)
+  {
+
+    goto LABEL_14;
+  }
+
+  v10 = *(a2 + 6);
+  *(a1 + 40) = v9;
+  *(a1 + 48) = v10;
+
+LABEL_15:
+  v12 = *(a2 + 7);
+  v13 = *(a2 + 64);
+  outlined copy of Environment<Selector?>.Content(v12, v13);
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 64);
+  *(a1 + 56) = v12;
+  *(a1 + 64) = v13;
+  outlined consume of Environment<Selector?>.Content(v14, v15);
   return a1;
 }

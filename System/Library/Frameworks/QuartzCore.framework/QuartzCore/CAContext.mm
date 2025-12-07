@@ -206,10 +206,10 @@ LABEL_27:
   v24 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   name = 0;
-  v16 = 0;
+  *v16 = 0;
   if (*(impl + 13))
   {
-    if (CA::Render::Fence::create_fence_port(&name, &v16, v2))
+    if (CA::Render::Fence::create_fence_port(&name, v16, v2))
     {
       v5 = name;
       goto LABEL_13;
@@ -223,7 +223,7 @@ LABEL_27:
     return 0;
   }
 
-  v6 = _CASCreateFencePort(*(impl + 40), &name, &v16);
+  v6 = _CASCreateFencePort(*(impl + 40), &name, v16);
   if (v6)
   {
     v7 = v6;
@@ -265,7 +265,7 @@ LABEL_27:
   }
 
 LABEL_13:
-  v9 = [CAFenceHandle _newFenceWithPort:v5 name:v16];
+  v9 = [CAFenceHandle _newFenceWithPort:v5 name:*v16];
   v10 = v9;
   if (!v9)
   {

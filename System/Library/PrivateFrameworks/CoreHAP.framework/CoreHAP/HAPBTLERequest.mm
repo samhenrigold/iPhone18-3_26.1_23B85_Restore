@@ -1,5 +1,6 @@
 @interface HAPBTLERequest
 - (HAPBTLERequest)init;
+- (HAPBTLERequest)initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval;
 - (HMFBlockOperation)operation;
 - (id)_initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval;
 - (id)_serializeHeader;
@@ -176,10 +177,42 @@ LABEL_6:
   return NSStringFromClass(v2);
 }
 
+- (HAPBTLERequest)initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval
+{
+  encryptCopy = encrypt;
+  typeCopy = type;
+  v21 = *MEMORY[0x277D85DE8];
+  characteristicCopy = characteristic;
+  dataCopy = data;
+  if (characteristicCopy)
+  {
+    self = [(HAPBTLERequest *)self _initWithCharacteristic:characteristicCopy requestType:typeCopy bodyData:dataCopy shouldEncrypt:encryptCopy timeoutInterval:interval];
+    selfCopy = self;
+  }
+
+  else
+  {
+    v15 = objc_autoreleasePoolPush();
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = HMFGetLogIdentifier();
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@[HAPBTLERequest] A characteristic is required", &v19, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (id)_initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval
 {
   typeCopy = type;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   dataCopy = data;
   v15 = dataCopy;
@@ -193,7 +226,7 @@ LABEL_6:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v18;
+        v32 = v18;
         v19 = "%{public}@[HAPBTLERequest] A timeout > 0 is required";
         goto LABEL_10;
       }
@@ -209,7 +242,7 @@ LABEL_6:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v18;
+        v32 = v18;
         v19 = "%{public}@[HAPBTLERequest] The body length must not exceed 64KB";
 LABEL_10:
         _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
@@ -220,29 +253,29 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v31.receiver = self;
-    v31.super_class = HAPBTLERequest;
-    v23 = [(HAPBTLERequest *)&v31 init];
-    if (v23)
+    v30.receiver = self;
+    v30.super_class = HAPBTLERequest;
+    v22 = [(HAPBTLERequest *)&v30 init];
+    if (v22)
     {
       service = [characteristicCopy service];
-      service = v23->_service;
-      v23->_service = service;
+      service = v22->_service;
+      v22->_service = service;
 
-      objc_storeStrong(&v23->_characteristic, characteristic);
-      v23->_type = typeCopy;
-      v26 = [v15 copy];
-      body = v23->_body;
-      v23->_body = v26;
+      objc_storeStrong(&v22->_characteristic, characteristic);
+      v22->_type = typeCopy;
+      v25 = [v15 copy];
+      body = v22->_body;
+      v22->_body = v25;
 
-      v23->_encrypted = encrypt;
-      v23->_timeoutInterval = interval;
+      v22->_encrypted = encrypt;
+      v22->_timeoutInterval = interval;
       if (typeCopy != 255)
       {
-        v28 = +[HAPBTLETransactionIdentifier randomTransactionIdentifier];
+        v27 = +[HAPBTLETransactionIdentifier randomTransactionIdentifier];
 LABEL_18:
-        identifier = v23->_identifier;
-        v23->_identifier = v28;
+        identifier = v22->_identifier;
+        v22->_identifier = v27;
 
         goto LABEL_19;
       }
@@ -251,14 +284,14 @@ LABEL_18:
       {
         buf[0] = 0;
         [v15 getBytes:buf range:{1, 1}];
-        v29 = [HAPBTLETransactionIdentifier alloc];
-        v28 = [(HAPBTLETransactionIdentifier *)v29 initWithUnsignedCharValue:buf[0]];
+        v28 = [HAPBTLETransactionIdentifier alloc];
+        v27 = [(HAPBTLETransactionIdentifier *)v28 initWithUnsignedCharValue:buf[0]];
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    self = v23;
+    self = v22;
     selfCopy = self;
     goto LABEL_12;
   }
@@ -269,7 +302,7 @@ LABEL_19:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v18;
+    v32 = v18;
     v19 = "%{public}@[HAPBTLERequest] A request type is required";
     goto LABEL_10;
   }
@@ -280,7 +313,6 @@ LABEL_11:
   selfCopy = 0;
 LABEL_12:
 
-  v21 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

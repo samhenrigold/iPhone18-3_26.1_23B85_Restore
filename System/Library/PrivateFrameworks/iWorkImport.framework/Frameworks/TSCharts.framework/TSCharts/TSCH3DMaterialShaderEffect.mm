@@ -114,7 +114,7 @@
   material = self->_material;
   if (material)
   {
-    objc_msgSend_color(material, v7, v9, v10, v11);
+    objc_msgSend_color(material, v9, v10, v11);
     v13 = *v41;
     v14 = self->_material;
   }

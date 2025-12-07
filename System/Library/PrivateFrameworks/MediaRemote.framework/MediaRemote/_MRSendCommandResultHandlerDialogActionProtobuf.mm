@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -12,20 +13,35 @@
 
 @implementation _MRSendCommandResultHandlerDialogActionProtobuf
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769E198[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Cancel"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Destructive"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
@@ -85,8 +101,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_title)
   {

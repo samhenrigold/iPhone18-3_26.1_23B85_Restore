@@ -58,10 +58,12 @@
 {
   v6 = _Block_copy(completion);
   v7 = swift_allocObject();
-  *(v7 + 16) = v6;
+  v7[2] = v6;
   modelCopy = model;
   selfCopy = self;
   sub_1BD3F11EC(modelCopy, sub_1BD166E88, v7);
+
+  v7, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)reset

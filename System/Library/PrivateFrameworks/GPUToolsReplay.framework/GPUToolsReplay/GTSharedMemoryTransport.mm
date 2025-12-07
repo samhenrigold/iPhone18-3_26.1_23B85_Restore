@@ -69,7 +69,7 @@ LABEL_3:
   return [v6 setResult:v5];
 }
 
-unint64_t __34__GTSharedMemoryTransport_connect__block_invoke_2(uint64_t a1)
+void *__34__GTSharedMemoryTransport_connect__block_invoke_2(uint64_t a1)
 {
   if (([*(a1 + 32) _clientConnect:0] & 1) == 0)
   {
@@ -109,33 +109,33 @@ unint64_t __34__GTSharedMemoryTransport_connect__block_invoke_2(uint64_t a1)
   return result;
 }
 
-uint64_t __48__GTSharedMemoryTransport__createAndRunSources___block_invoke(uint64_t result)
+void *__48__GTSharedMemoryTransport__createAndRunSources___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 52) == 1)
   {
-    *(*(*(*(result + 40) + 8) + 40) + 24) = 1;
+    *(*(*(*(result + 5) + 8) + 40) + 24) = 1;
   }
 
   else
   {
     v2 = atomic_load((v1 + 48));
-    atomic_store(v2, *(*(result + 32) + 232));
-    return [*(result + 32) _dequeueIncomingMessages];
+    atomic_store(v2, *(*(result + 4) + 232));
+    return [*(result + 4) _dequeueIncomingMessages];
   }
 
   return result;
 }
 
-uint64_t __45__GTSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t result)
+void *__45__GTSharedMemoryTransport_setRelayTransport___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 272);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 272);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    *(*(v2 + 32) + 272) = *(v2 + 40);
-    v3 = *(v2 + 32);
+    *(v2[4] + 272) = v2[5];
+    v3 = v2[4];
     v4 = *(v3 + 272);
     v5 = (v3 + 288);
     if (v4)
@@ -149,7 +149,7 @@ uint64_t __45__GTSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t
     }
 
     *v5 = v6;
-    v7 = *(v2 + 32);
+    v7 = v2[4];
     if (v7[36])
     {
       v8 = v7[36];
@@ -161,8 +161,8 @@ uint64_t __45__GTSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t
     }
 
     result = [v7 methodForSelector:v8];
-    *(*(v2 + 32) + 280) = result;
-    if (!*(*(v2 + 32) + 280))
+    *(v2[4] + 280) = result;
+    if (!*(v2[4] + 280))
     {
       __assert_rtn("[GTSharedMemoryTransport setRelayTransport:]_block_invoke", ", 0, "_consumeBytesIMP"");
     }
@@ -171,16 +171,16 @@ uint64_t __45__GTSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __34__GTSharedMemoryTransport_setUrl___block_invoke(uint64_t result)
+void *__34__GTSharedMemoryTransport_setUrl___block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 8);
-  if (*(result + 32) != v1)
+  v1 = *(result[5] + 8);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    *(*(v2 + 40) + 8) = *(v2 + 32);
-    result = [objc_msgSend(*(*(v2 + 40) + 8) "scheme")];
-    v3 = *(v2 + 40);
+    *(v2[5] + 8) = v2[4];
+    result = [objc_msgSend(*(v2[5] + 8) "scheme")];
+    v3 = v2[5];
     if (result)
     {
       v4 = *(v3 + 300) != 2;

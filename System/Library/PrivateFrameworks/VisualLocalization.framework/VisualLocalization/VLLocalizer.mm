@@ -653,8 +653,8 @@ LABEL_24:
 LABEL_5:
         v22 = 0;
         memset(buf, 0, sizeof(buf));
-        location = [(_VLLocalizerAltitudeQuery *)v3 location];
-        VLLocationFromCLLocation(location, buf);
+        v11 = objc_msgSend_location(v3);
+        VLLocationFromCLLocation(v11, buf);
 
         LODWORD(v22) = 1;
         _vlHandle = [(VLLocalizer *)self _vlHandle];
@@ -688,11 +688,11 @@ LABEL_5:
     }
 
     v5 = v4;
-    location2 = [(_VLLocalizerAltitudeQuery *)v3 location];
-    [location2 coordinate];
+    v6 = objc_msgSend_location(v3);
+    [v6 coordinate];
     v8 = v7;
-    location3 = [(_VLLocalizerAltitudeQuery *)v3 location];
-    [location3 coordinate];
+    v9 = objc_msgSend_location(v3);
+    [v9 coordinate];
     *buf = 134218240;
     *&buf[4] = v8;
     *&buf[12] = 2048;
@@ -785,9 +785,9 @@ void __43__VLLocalizer__resolveCurrentAltitudeQuery__block_invoke(uint64_t a1)
   {
     v20 = *(*(v19 + 16) + 144);
     v21 = *(a1 + 40);
-    v22 = [v21 location];
+    v22 = objc_msgSend_location(v21);
     [v22 coordinate];
-    v23 = [v21 location];
+    v23 = objc_msgSend_location(v21);
 
     [v23 coordinate];
     GEOMapPointForCoordinate();
@@ -806,9 +806,9 @@ void __43__VLLocalizer__resolveCurrentAltitudeQuery__block_invoke(uint64_t a1)
     while (1)
     {
       v32 = [*(*(a1 + 32) + 80) objectAtIndexedSubscript:v28];
-      v33 = [v32 location];
+      v33 = objc_msgSend_location(v32);
       [v33 coordinate];
-      v34 = [v32 location];
+      v34 = objc_msgSend_location(v32);
 
       [v34 coordinate];
       GEOMapPointForCoordinate();
@@ -1443,7 +1443,7 @@ double __122__VLLocalizer_locateWithPixelBuffer_timestamp_location_heading_gravi
   v46 = 0u;
   if (v25)
   {
-    [v25 clientLocation];
+    objc_msgSend_clientLocation(v25);
   }
 
   LODWORD(v52) = 1;
@@ -1472,7 +1472,7 @@ double __122__VLLocalizer_locateWithPixelBuffer_timestamp_location_heading_gravi
   v14 = heading[1];
   v17[0] = *heading;
   v17[1] = v14;
-  v15 = [self locateWithPixelBuffer:buffer deviceLocation:location heading:v17 gravity:distortion transform:intensity cameraIntrinsics:timestamp radialDistortion:error exposureTargetOffset:a13 timestamp:a14 error:?];
+  v15 = [self locateWithPixelBuffer:buffer deviceLocation:location heading:v17 gravity:gravity transform:transform cameraIntrinsics:intrinsics radialDistortion:distortion exposureTargetOffset:intensity timestamp:timestamp error:{error, a13, a14}];
 
   return v15;
 }
@@ -1482,17 +1482,17 @@ double __122__VLLocalizer_locateWithPixelBuffer_timestamp_location_heading_gravi
   v14 = heading[1];
   v17[0] = *heading;
   v17[1] = v14;
-  v15 = [self _locateWithPixelBuffer:buffer deviceLocation:location heading:v17 gravity:&__block_literal_global_34 transform:gravity cameraIntrinsics:distortion radialDistortion:offset exposureTargetOffset:timestamp timestamp:error calculationBlock:a13 error:a14];
+  v15 = [self _locateWithPixelBuffer:buffer deviceLocation:location heading:v17 gravity:&__block_literal_global_34 transform:gravity cameraIntrinsics:intrinsics radialDistortion:distortion exposureTargetOffset:offset timestamp:timestamp calculationBlock:error error:{a13, a14}];
 
   return v15;
 }
 
 - (VLLocalizationResult)_locateWithPixelBuffer:(float64_t)buffer deviceLocation:(int32x4_t)location heading:(int32x4_t)heading gravity:(int32x4_t)gravity transform:(int8x16_t)transform cameraIntrinsics:(uint64_t)intrinsics radialDistortion:(void *)distortion exposureTargetOffset:(void *)self0 timestamp:(float64x2_t *)self1 calculationBlock:(void *)self2 error:(unint64_t)self3
 {
-  v23 = a22;
-  v275[2] = *MEMORY[0x277D85DE8];
-  v151 = timestamp[1];
-  v152 = *timestamp;
+  v25 = a22;
+  v278[2] = *MEMORY[0x277D85DE8];
+  v154 = timestamp[1];
+  v155 = *timestamp;
   offsetCopy = offset;
   blockCopy = block;
   if (qword_281181CD8 != -1)
@@ -1500,27 +1500,27 @@ double __122__VLLocalizer_locateWithPixelBuffer_timestamp_location_heading_gravi
     dispatch_once(&qword_281181CD8, &__block_literal_global_225);
   }
 
-  v25 = qword_281181CD0;
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+  v27 = qword_281181CD0;
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
 
-  if (v26)
+  if (v28)
   {
     [offsetCopy coordinate];
-    v28 = v27;
-    [offsetCopy coordinate];
     v30 = v29;
-    [offsetCopy altitude];
+    [offsetCopy coordinate];
     v32 = v31;
-    v33 = __sincos_stret(v28 * 0.0174532925);
-    v34 = __sincos_stret(v30 * 0.0174532925);
+    [offsetCopy altitude];
+    v34 = v33;
+    v35 = __sincos_stret(v30 * 0.0174532925);
+    v36 = __sincos_stret(v32 * 0.0174532925);
     if (qword_281181CD8 == -1)
     {
-      v35 = qword_281181CD0;
-      if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v37 = qword_281181CD0;
+      if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
 LABEL_7:
 
-        v23 = a22;
+        v25 = a22;
         goto LABEL_8;
       }
     }
@@ -1528,92 +1528,92 @@ LABEL_7:
     else
     {
       dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-      v35 = qword_281181CD0;
-      if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v37 = qword_281181CD0;
+      if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_7;
       }
     }
 
-    v36 = 6378137.0 / sqrt(v33.__sinval * -0.00669437999 * v33.__sinval + 1.0);
-    v37 = v33.__cosval * (v32 + v36);
+    v38 = 6378137.0 / sqrt(v35.__sinval * -0.00669437999 * v35.__sinval + 1.0);
+    v39 = v35.__cosval * (v34 + v38);
     *buf = 134285057;
-    *&buf[4] = v28;
+    *&buf[4] = v30;
     *&buf[12] = 2049;
-    *&buf[14] = v30;
+    *&buf[14] = v32;
     *&buf[22] = 2049;
-    *&buf[24] = v32;
+    *&buf[24] = v34;
     *&buf[32] = 2049;
-    *&buf[34] = v34.__cosval * v37;
+    *&buf[34] = v36.__cosval * v39;
     *&buf[42] = 2049;
-    *&buf[44] = v34.__sinval * v37;
+    *&buf[44] = v36.__sinval * v39;
     *&buf[52] = 2049;
-    *&buf[54] = v33.__sinval * (v32 + v36 * 0.99330562);
+    *&buf[54] = v35.__sinval * (v34 + v38 * 0.99330562);
     *&buf[62] = 2050;
-    *&v242 = a22;
-    _os_log_impl(&dword_27103D000, v35, OS_LOG_TYPE_DEBUG, "locate: (%{private}f, %{private}f, %{private}.2f) / ECEF: (%{private}f, %{private}f, %{private}f) @ %{public}.2f", buf, 0x48u);
+    *&v245 = a22;
+    _os_log_impl(&dword_27103D000, v37, OS_LOG_TYPE_DEBUG, "locate: (%{private}f, %{private}f, %{private}.2f) / ECEF: (%{private}f, %{private}f, %{private}f) @ %{public}.2f", buf, 0x48u);
     goto LABEL_7;
   }
 
 LABEL_8:
   GEOGetMonotonicTime();
-  v39 = v38;
-  v216 = 0;
-  v215 = 0u;
-  v214 = 0u;
-  VLLocationFromCLLocation(offsetCopy, &v214);
-  v164 = [qword_281181CA0 copy];
+  v41 = v40;
+  v219 = 0;
+  v218 = 0u;
+  v217 = 0u;
+  VLLocationFromCLLocation(offsetCopy, &v217);
+  v167 = [qword_281181CA0 copy];
   if ([objc_opt_class() isVisualLocalizationSupported])
   {
     if (*(self + 64))
     {
-      v40 = 1;
+      v42 = 1;
     }
 
     else
     {
       BOOL = GEOConfigGetBOOL();
-      if (v164)
+      if (v167)
       {
-        v40 = 1;
+        v42 = 1;
       }
 
       else
       {
-        v40 = BOOL;
+        v42 = BOOL;
       }
     }
 
-    v147 = v40;
+    v150 = v42;
     if (qword_281181CD8 != -1)
     {
       dispatch_once(&qword_281181CD8, &__block_literal_global_225);
     }
 
-    v53 = qword_281181CD0;
-    spid = os_signpost_id_make_with_pointer(v53, distortion);
+    v55 = qword_281181CD0;
+    spid = os_signpost_id_make_with_pointer(v55, distortion);
 
     if (qword_281181CD8 != -1)
     {
       dispatch_once(&qword_281181CD8, &__block_literal_global_225);
     }
 
-    v54 = qword_281181CD0;
-    v55 = v54;
-    v148 = spid - 1;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+    v56 = qword_281181CD0;
+    v57 = v56;
+    v151 = spid - 1;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
     {
-      v56 = *(self + 40);
+      v58 = *(self + 40);
       *buf = 134217984;
-      *&buf[4] = v56;
-      _os_signpost_emit_with_name_impl(&dword_27103D000, v55, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Locate", "parent_signpost=%llu", buf, 0xCu);
+      *&buf[4] = v58;
+      _os_signpost_emit_with_name_impl(&dword_27103D000, v57, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Locate", "parent_signpost=%llu", buf, 0xCu);
     }
 
-    v209 = 0;
+    v212 = 0;
     BaseAddress = 0;
-    v210 = 0;
+    v213 = 0;
     PixelFormatType = CVPixelBufferGetPixelFormatType(distortion);
-    v58 = PixelFormatType;
+    v60 = PixelFormatType;
     if (PixelFormatType <= 1278226487)
     {
       if (PixelFormatType != 875704422 && PixelFormatType != 875704438)
@@ -1621,8 +1621,8 @@ LABEL_8:
 LABEL_44:
         if (qword_281181CD8 == -1)
         {
-          v65 = qword_281181CD0;
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+          v67 = qword_281181CD0;
+          if (!os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
           {
             goto LABEL_47;
           }
@@ -1631,15 +1631,15 @@ LABEL_44:
         else
         {
           dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-          v65 = qword_281181CD0;
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+          v67 = qword_281181CD0;
+          if (!os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
           {
 LABEL_47:
 
             if (qword_281181CD8 == -1)
             {
-              v66 = qword_281181CD0;
-              if (v148 > 0xFFFFFFFFFFFFFFFDLL)
+              v68 = qword_281181CD0;
+              if (v151 > 0xFFFFFFFFFFFFFFFDLL)
               {
                 goto LABEL_51;
               }
@@ -1648,894 +1648,902 @@ LABEL_47:
             else
             {
               dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-              v66 = qword_281181CD0;
-              if (v148 > 0xFFFFFFFFFFFFFFFDLL)
+              v68 = qword_281181CD0;
+              if (v151 > 0xFFFFFFFFFFFFFFFDLL)
               {
                 goto LABEL_51;
               }
             }
 
-            if (os_signpost_enabled(v66))
+            if (os_signpost_enabled(v68))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_27103D000, v66, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ConvertImage", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_27103D000, v68, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ConvertImage", "", buf, 2u);
             }
 
 LABEL_51:
 
-            v187.f64[0] = 0.0;
-            *&v187.f64[1] = &v187;
-            v188.i64[0] = 0x2050000000;
-            v67 = qword_281181D00;
-            v188.i64[1] = qword_281181D00;
+            v190.f64[0] = 0.0;
+            *&v190.f64[1] = &v190;
+            v191.i64[0] = 0x2050000000;
+            v69 = qword_281181D00;
+            v191.i64[1] = qword_281181D00;
             if (!qword_281181D00)
             {
-              *&v171.f64[0] = MEMORY[0x277D85DD0];
-              *&v171.f64[1] = 3221225472;
-              *&v172.f64[0] = __getCIImageClass_block_invoke_0;
-              *&v172.f64[1] = &unk_279E2D710;
-              *&v173 = &v187;
-              v239[0] = 0;
+              *&v174.f64[0] = MEMORY[0x277D85DD0];
+              *&v174.f64[1] = 3221225472;
+              *&v175.f64[0] = __getCIImageClass_block_invoke_0;
+              *&v175.f64[1] = &unk_279E2D710;
+              *&v176 = &v190;
+              v242[0] = 0;
               if (!qword_281181D08)
               {
                 *buf = MEMORY[0x277D85DD0];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __CoreImageLibraryCore_block_invoke_0;
                 *&buf[24] = &__block_descriptor_40_e5_v8__0l;
-                *&buf[32] = v239;
-                *v226 = xmmword_279E2DC08;
-                *&v226[16] = 0;
+                *&buf[32] = v242;
+                *v229 = xmmword_279E2DC08;
+                *&v229[16] = 0;
                 qword_281181D08 = _sl_dlopen();
+                v70 = v242[0];
                 if (!qword_281181D08)
                 {
-                  goto LABEL_254;
+                  goto LABEL_247;
                 }
 
-                if (v239[0])
+                if (v242[0])
                 {
-                  free(v239[0]);
+                  free(v242[0]);
                 }
               }
 
-              *(*(v173 + 8) + 24) = objc_getClass("CIImage");
-              if (!*(*(v173 + 8) + 24))
+              *(*(v176 + 8) + 24) = objc_getClass("CIImage");
+              if (!*(*(v176 + 8) + 24))
               {
-LABEL_254:
-                abort_report_np();
-                __break(1u);
+                abort_report_np("Unable to find class %s", "CIImage");
+                goto LABEL_257;
               }
 
-              qword_281181D00 = *(*(v173 + 8) + 24);
-              v67 = *(*&v187.f64[1] + 24);
+              qword_281181D00 = *(*(v176 + 8) + 24);
+              v69 = *(*&v190.f64[1] + 24);
             }
 
-            v68 = v67;
-            _Block_object_dispose(&v187, 8);
-            v69 = [[v67 alloc] initWithCVPixelBuffer:distortion];
-            [v69 extent];
-            v71 = v70;
-            [v69 extent];
-            v73 = v72;
-            v74 = v71;
+            v71 = v69;
+            _Block_object_dispose(&v190, 8);
+            v72 = [[v69 alloc] initWithCVPixelBuffer:distortion];
+            [v72 extent];
+            v74 = v73;
+            [v72 extent];
+            v76 = v75;
+            v77 = v74;
             pixelBufferOut = 0;
-            v272 = *MEMORY[0x277CC4D98];
-            v75 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v71];
-            v273 = v75;
-            pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v273 forKeys:&v272 count:1];
+            v275 = *MEMORY[0x277CC4D98];
+            v78 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v74];
+            v276 = v78;
+            pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v276 forKeys:&v275 count:1];
 
-            if (!CVPixelBufferCreate(*MEMORY[0x277CBECE8], v71, v73, 0x4C303038u, pixelBufferAttributes, &pixelBufferOut) && CVPixelBufferGetBytesPerRow(pixelBufferOut) == v74)
+            if (!CVPixelBufferCreate(*MEMORY[0x277CBECE8], v74, v76, 0x4C303038u, pixelBufferAttributes, &pixelBufferOut) && CVPixelBufferGetBytesPerRow(pixelBufferOut) == v77)
             {
-              v187.f64[0] = 0.0;
-              *&v187.f64[1] = &v187;
-              v188.i64[0] = 0x2050000000;
-              v76 = qword_281181D10;
-              v188.i64[1] = qword_281181D10;
+              v190.f64[0] = 0.0;
+              *&v190.f64[1] = &v190;
+              v191.i64[0] = 0x2050000000;
+              v79 = qword_281181D10;
+              v191.i64[1] = qword_281181D10;
               if (qword_281181D10)
               {
                 goto LABEL_79;
               }
 
-              *&v171.f64[0] = MEMORY[0x277D85DD0];
-              *&v171.f64[1] = 3221225472;
-              *&v172.f64[0] = __getCIContextClass_block_invoke_0;
-              *&v172.f64[1] = &unk_279E2D710;
-              *&v173 = &v187;
-              v239[0] = 0;
-              if (!qword_281181D08)
+              *&v174.f64[0] = MEMORY[0x277D85DD0];
+              *&v174.f64[1] = 3221225472;
+              *&v175.f64[0] = __getCIContextClass_block_invoke_0;
+              *&v175.f64[1] = &unk_279E2D710;
+              *&v176 = &v190;
+              v242[0] = 0;
+              if (qword_281181D08)
               {
-                *buf = MEMORY[0x277D85DD0];
-                *&buf[8] = 3221225472;
-                *&buf[16] = __CoreImageLibraryCore_block_invoke_0;
-                *&buf[24] = &__block_descriptor_40_e5_v8__0l;
-                *&buf[32] = v239;
-                *v226 = xmmword_279E2DC08;
-                *&v226[16] = 0;
-                qword_281181D08 = _sl_dlopen();
-                if (!qword_281181D08)
+LABEL_77:
+                *(*(v176 + 8) + 24) = objc_getClass("CIContext");
+                if (*(*(v176 + 8) + 24))
                 {
-                  goto LABEL_254;
-                }
-
-                if (v239[0])
-                {
-                  free(v239[0]);
-                }
-              }
-
-              *(*(v173 + 8) + 24) = objc_getClass("CIContext");
-              if (*(*(v173 + 8) + 24))
-              {
-                qword_281181D10 = *(*(v173 + 8) + 24);
-                v76 = *(*&v187.f64[1] + 24);
+                  qword_281181D10 = *(*(v176 + 8) + 24);
+                  v79 = *(*&v190.f64[1] + 24);
 LABEL_79:
-                v91 = v76;
-                _Block_object_dispose(&v187, 8);
-                context = [v76 context];
-                [context render:v69 toCVPixelBuffer:pixelBufferOut];
+                  v94 = v79;
+                  _Block_object_dispose(&v190, 8);
+                  context = [v79 context];
+                  [context render:v72 toCVPixelBuffer:pixelBufferOut];
 
-                CVPixelBufferLockBaseAddress(pixelBufferOut, 1uLL);
-                BaseAddress = CVPixelBufferGetBaseAddress(pixelBufferOut);
-                v209 = __PAIR64__(v73, v74);
-                LODWORD(v210) = 0;
-                v201[0] = MEMORY[0x277D85DD0];
-                v201[1] = 3221225472;
-                v201[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_2_47;
-                v201[3] = &__block_descriptor_40_e5_v8__0l;
-                v201[4] = pixelBufferOut;
-                v62 = _Block_copy(v201);
-                if (qword_281181CD8 == -1)
-                {
-                  v93 = qword_281181CD0;
-                  if (!os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+                  CVPixelBufferLockBaseAddress(pixelBufferOut, 1uLL);
+                  BaseAddress = CVPixelBufferGetBaseAddress(pixelBufferOut);
+                  v212 = __PAIR64__(v76, v77);
+                  LODWORD(v213) = 0;
+                  v204[0] = MEMORY[0x277D85DD0];
+                  v204[1] = 3221225472;
+                  v204[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_2_47;
+                  v204[3] = &__block_descriptor_40_e5_v8__0l;
+                  v204[4] = pixelBufferOut;
+                  v64 = _Block_copy(v204);
+                  if (qword_281181CD8 == -1)
                   {
-                    goto LABEL_82;
+                    v96 = qword_281181CD0;
+                    if (!os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
+                    {
+                      goto LABEL_82;
+                    }
                   }
-                }
 
-                else
-                {
-                  dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                  v93 = qword_281181CD0;
-                  if (!os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+                  else
                   {
+                    dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                    v96 = qword_281181CD0;
+                    if (!os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
+                    {
 LABEL_82:
 
-                    if (qword_281181CD8 == -1)
-                    {
-                      v94 = qword_281181CD0;
-                      if (v148 <= 0xFFFFFFFFFFFFFFFDLL)
+                      if (qword_281181CD8 == -1)
                       {
-                        goto LABEL_84;
-                      }
-                    }
-
-                    else
-                    {
-                      dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                      v94 = qword_281181CD0;
-                      if (v148 <= 0xFFFFFFFFFFFFFFFDLL)
-                      {
-LABEL_84:
-                        if (os_signpost_enabled(v94))
+                        v97 = qword_281181CD0;
+                        if (v151 <= 0xFFFFFFFFFFFFFFFDLL)
                         {
-                          *buf = 0;
-                          _os_signpost_emit_with_name_impl(&dword_27103D000, v94, OS_SIGNPOST_INTERVAL_END, spid, "ConvertImage", "", buf, 2u);
+                          goto LABEL_84;
                         }
                       }
-                    }
+
+                      else
+                      {
+                        dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                        v97 = qword_281181CD0;
+                        if (v151 <= 0xFFFFFFFFFFFFFFFDLL)
+                        {
+LABEL_84:
+                          if (os_signpost_enabled(v97))
+                          {
+                            *buf = 0;
+                            _os_signpost_emit_with_name_impl(&dword_27103D000, v97, OS_SIGNPOST_INTERVAL_END, spid, "ConvertImage", "", buf, 2u);
+                          }
+                        }
+                      }
 
 LABEL_87:
-                    *&v95.f64[0] = vtrn1q_s32(a17, a18).u64[0];
-                    *&v95.f64[1] = __PAIR64__(a17.u32[1], a19.u32[0]);
-                    v96 = vuzp1q_s32(vuzp2q_s32(a18, a19), a18);
-                    v96.i32[2] = a17.i32[2];
-                    v187 = v95;
-                    v188 = v96;
-                    v189 = vzip1_s32(*&vextq_s8(a19, a19, 8uLL), a20);
-                    v190 = a20.u32[1];
-                    v191 = v214;
-                    v192 = v215;
-                    v193 = v216;
-                    v95.f64[0] = a2;
-                    v95.f64[1] = buffer;
-                    v195 = vcvt_hight_f32_f64(vcvt_f32_f64(v95), v152);
-                    *v95.f64 = v151.f64[0];
-                    v196 = LODWORD(v95.f64[0]);
-                    *&v95.f64[0] = vtrn1q_s32(location, heading).u64[0];
-                    *&v95.f64[1] = __PAIR64__(location.u32[1], gravity.u32[0]);
-                    v194 = v23;
-                    v197 = v95;
-                    v97 = vuzp1q_s32(vuzp2q_s32(heading, gravity), heading);
-                    v97.i32[2] = location.i32[2];
-                    v198 = v97;
-                    v199 = vextq_s8(vuzp1q_s32(gravity, gravity), transform, 0xCuLL);
-                    v200 = -1;
-                    _vlHandle = [self _vlHandle];
-                    v186 = 0;
-                    v184 = 0u;
-                    v185 = 0u;
-                    v182 = 0u;
-                    v183 = 0u;
-                    v180 = 0u;
-                    v181 = 0u;
-                    v178 = 0u;
-                    v179 = 0u;
-                    v176 = 0u;
-                    v177 = 0u;
-                    v174 = 0u;
-                    v175 = 0u;
-                    v172 = 0u;
-                    v173 = 0u;
-                    v171 = 0u;
-                    v99 = blockCopy[2](blockCopy, _vlHandle, &BaseAddress, &v187, &v171);
-                    v62[2](v62);
-                    v269 = 0;
-                    v268 = 0u;
-                    v267 = 0u;
-                    v266 = 0u;
-                    v265 = 0u;
-                    v264 = 0u;
-                    v263 = 0u;
-                    v262 = 0u;
-                    v261 = 0u;
-                    v260 = 0u;
-                    v259 = 0u;
-                    v258 = 0u;
-                    v257 = 0u;
-                    v256 = 0u;
-                    v255 = 0u;
-                    v254 = 0u;
-                    v253 = 0u;
-                    v252 = 0u;
-                    v251 = 0u;
-                    v250 = 0u;
-                    v249 = 0u;
-                    v248 = 0u;
-                    v247 = 0u;
-                    v246 = 0u;
-                    v245 = 0u;
-                    v244 = 0u;
-                    v243 = 0u;
-                    v242 = 0u;
-                    memset(buf, 0, sizeof(buf));
-                    vl_stats_get(_vlHandle, buf);
-                    if (v99 == 1)
-                    {
-                      v100 = [VLLocalizationDebugInfo alloc];
-                      GEOGetMonotonicTime();
-                      *v226 = v214;
-                      *&v226[16] = v215;
-                      *v227 = v216;
-                      v240 = v151;
-                      *v239 = v152;
-                      LOBYTE(v146) = v147;
-                      v146 = [(VLLocalizationDebugInfo *)v100 initWithPixelBuffer:distortion monotonicTimestamp:v226 timestamp:offsetCopy duration:v239 location:buf clLocation:1 heading:v39 gravity:v23 transform:v101 - v39 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, &v171, v146];
-                      v51 = [[VLLocalizationResult alloc] initWithTimestamp:&v171 pose:v146 debugInfo:v23];
-                      if (qword_281181CD8 == -1)
+                      *&v98.f64[0] = vtrn1q_s32(a17, a18).u64[0];
+                      *&v98.f64[1] = __PAIR64__(a17.u32[1], a19.u32[0]);
+                      v99 = vuzp1q_s32(vuzp2q_s32(a18, a19), a18);
+                      v99.i32[2] = a17.i32[2];
+                      v190 = v98;
+                      v191 = v99;
+                      v192 = vzip1_s32(*&vextq_s8(a19, a19, 8uLL), a20);
+                      v193 = a20.u32[1];
+                      v194 = v217;
+                      v195 = v218;
+                      v196 = v219;
+                      v98.f64[0] = a2;
+                      v98.f64[1] = buffer;
+                      v198 = vcvt_hight_f32_f64(vcvt_f32_f64(v98), v155);
+                      *v98.f64 = v154.f64[0];
+                      v199 = LODWORD(v98.f64[0]);
+                      *&v98.f64[0] = vtrn1q_s32(location, heading).u64[0];
+                      *&v98.f64[1] = __PAIR64__(location.u32[1], gravity.u32[0]);
+                      v197 = v25;
+                      v200 = v98;
+                      v100 = vuzp1q_s32(vuzp2q_s32(heading, gravity), heading);
+                      v100.i32[2] = location.i32[2];
+                      v201 = v100;
+                      v202 = vextq_s8(vuzp1q_s32(gravity, gravity), transform, 0xCuLL);
+                      v203 = -1;
+                      _vlHandle = [self _vlHandle];
+                      v189 = 0;
+                      v187 = 0u;
+                      v188 = 0u;
+                      v185 = 0u;
+                      v186 = 0u;
+                      v183 = 0u;
+                      v184 = 0u;
+                      v181 = 0u;
+                      v182 = 0u;
+                      v179 = 0u;
+                      v180 = 0u;
+                      v177 = 0u;
+                      v178 = 0u;
+                      v175 = 0u;
+                      v176 = 0u;
+                      v174 = 0u;
+                      v102 = blockCopy[2](blockCopy, _vlHandle, &BaseAddress, &v190, &v174);
+                      v64[2](v64);
+                      v272 = 0;
+                      v271 = 0u;
+                      v270 = 0u;
+                      v269 = 0u;
+                      v268 = 0u;
+                      v267 = 0u;
+                      v266 = 0u;
+                      v265 = 0u;
+                      v264 = 0u;
+                      v263 = 0u;
+                      v262 = 0u;
+                      v261 = 0u;
+                      v260 = 0u;
+                      v259 = 0u;
+                      v258 = 0u;
+                      v257 = 0u;
+                      v256 = 0u;
+                      v255 = 0u;
+                      v254 = 0u;
+                      v253 = 0u;
+                      v252 = 0u;
+                      v251 = 0u;
+                      v250 = 0u;
+                      v249 = 0u;
+                      v248 = 0u;
+                      v247 = 0u;
+                      v246 = 0u;
+                      v245 = 0u;
+                      memset(buf, 0, sizeof(buf));
+                      vl_stats_get(_vlHandle, buf);
+                      if (v102 == 1)
                       {
-                        if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
-                        {
-                          goto LABEL_142;
-                        }
-                      }
-
-                      else
-                      {
-                        dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                        if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
-                        {
-                          goto LABEL_142;
-                        }
-                      }
-
-                      [offsetCopy coordinate];
-                      [offsetCopy coordinate];
-                      if (v51)
-                      {
-                        [(VLLocalizationResult *)v51 location];
-                        __ya = *&v237;
-                        v103 = v236;
-                      }
-
-                      else
-                      {
-                        v103 = 0uLL;
-                        v238 = 0u;
-                        v237 = 0u;
-                        v236 = 0u;
-                        __ya = 0.0;
-                      }
-
-                      v113 = v103.f64[1];
-                      v114 = sqrt(vmuld_lane_f64(v103.f64[1], v103, 1) + v103.f64[0] * v103.f64[0]);
-                      v115 = v114 * 0.99330562;
-                      v116 = 0.0;
-                      v117 = 1.57079633;
-                      if (v114 * 0.99330562 != 0.0)
-                      {
-                        v154 = v103.f64[1];
-                        v156 = v103.f64[0];
-                        v118 = 0;
-                        v117 = 0.0;
-                        v119 = 0.0;
-                        do
-                        {
-                          v121 = v117;
-                          v117 = atan2(__ya, v115);
-                          v122 = __sincos_stret(v117);
-                          v123 = 6378137.0 / sqrt(v122.__sinval * -0.00669437999 * v122.__sinval + 1.0);
-                          v116 = v114 / v122.__cosval - v123;
-                          if (vabdd_f64(v121, v117) < 0.000001)
-                          {
-                            if (vabdd_f64(v119, v116) < 0.001 || v118 >= 9)
-                            {
-LABEL_120:
-                              v103.f64[0] = v156;
-                              v113 = v154;
-                              goto LABEL_135;
-                            }
-                          }
-
-                          else if (v118 > 8)
-                          {
-                            goto LABEL_120;
-                          }
-
-                          ++v118;
-                          v115 = v114 * (v123 / (v123 + v116) * -0.00669437999 + 1.0);
-                          v119 = v114 / v122.__cosval - v123;
-                        }
-
-                        while (v115 != 0.0);
-                        v103.f64[0] = v156;
-                        v113 = v154;
-                        v117 = 1.57079633;
-                      }
-
-LABEL_135:
-                      v124 = atan2(v113, v103.f64[0]) / 0.0174532925;
-                      v125 = v117 / 0.0174532925;
-                      GEOCalculateDistance();
-                      v127 = v126;
-                      if (qword_281181CD8 == -1)
-                      {
-                        v128 = qword_281181CD0;
-                        if (!os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
-                        {
-                          goto LABEL_141;
-                        }
-                      }
-
-                      else
-                      {
-                        dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                        v128 = qword_281181CD0;
-                        if (!os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
-                        {
-                          goto LABEL_141;
-                        }
-                      }
-
-                      if (v51)
-                      {
-                        [(VLLocalizationResult *)v51 location];
-                        v129 = v223;
-                        [(VLLocalizationResult *)v51 location];
-                        v130 = *(&v220 + 1);
-                        [(VLLocalizationResult *)v51 location];
-                        v131 = v218;
-                      }
-
-                      else
-                      {
-                        v130 = 0;
-                        v129 = 0;
-                        v225 = 0u;
-                        v224 = 0u;
-                        v223 = 0u;
-                        v220 = 0u;
-                        v221 = 0u;
-                        v222 = 0u;
-                        v217 = 0u;
-                        v218 = 0u;
-                        v131 = 0;
-                        v219 = 0u;
-                      }
-
-                      *v226 = 134285313;
-                      *&v226[4] = v125;
-                      *&v226[12] = 2049;
-                      *&v226[14] = v124;
-                      *&v226[22] = 2049;
-                      *&v226[24] = v116;
-                      *v227 = 2049;
-                      *&v227[2] = v129;
-                      v228 = 2049;
-                      v229 = v130;
-                      v230 = 2049;
-                      v231 = v131;
-                      v232 = 2050;
-                      v233 = v127;
-                      v234 = 2048;
-                      v235 = v23;
-                      _os_log_impl(&dword_27103D000, v128, OS_LOG_TYPE_INFO, "locate result: (%{private}f, %{private}f, %{private}.2f) / ECEF: (%{private}f, %{private}f, %{private}f) -- Correction: %{public}.1f meters @ %.2f", v226, 0x52u);
-LABEL_141:
-
-                      if (qword_281181CD8 != -1)
-                      {
-                        dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                        v132 = qword_281181CD0;
-                        if (v148 <= 0xFFFFFFFFFFFFFFFDLL)
-                        {
-LABEL_143:
-                          if (os_signpost_enabled(v132))
-                          {
-                            v133 = *(self + 40);
-                            *v226 = 134217984;
-                            *&v226[4] = v133;
-                            _os_signpost_emit_with_name_impl(&dword_27103D000, v132, OS_SIGNPOST_INTERVAL_END, spid, "Locate", "parent_signpost=%llu", v226, 0xCu);
-                          }
-                        }
-
-LABEL_145:
-
-                        if (!v164)
-                        {
-LABEL_222:
-
-                          goto LABEL_223;
-                        }
-
-                        v134 = *(self + 56);
-                        v168[0] = MEMORY[0x277D85DD0];
-                        v168[1] = 3221225472;
-                        v168[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_49;
-                        v168[3] = &unk_279E2DAE8;
-                        v135 = &v170;
-                        v170 = v164;
-                        v136 = &v169;
-                        v146 = v146;
-                        v169 = v146;
-                        dispatch_async(v134, v168);
-LABEL_221:
-
-                        goto LABEL_222;
-                      }
-
-LABEL_142:
-                      v132 = qword_281181CD0;
-                      if (v148 <= 0xFFFFFFFFFFFFFFFDLL)
-                      {
-                        goto LABEL_143;
-                      }
-
-                      goto LABEL_145;
-                    }
-
-                    if (qword_281181CD8 == -1)
-                    {
-                      v104 = qword_281181CD0;
-                      if (!os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
-                      {
-                        goto LABEL_95;
-                      }
-                    }
-
-                    else
-                    {
-                      dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                      v104 = qword_281181CD0;
-                      if (!os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
-                      {
-LABEL_95:
-
+                        v103 = [VLLocalizationDebugInfo alloc];
+                        GEOGetMonotonicTime();
+                        *v229 = v217;
+                        *&v229[16] = v218;
+                        *v230 = v219;
+                        v243 = v154;
+                        *v242 = v155;
+                        LOBYTE(v149) = v150;
+                        v149 = [(VLLocalizationDebugInfo *)v103 initWithPixelBuffer:distortion monotonicTimestamp:v229 timestamp:offsetCopy duration:v242 location:buf clLocation:1 heading:v41 gravity:v25 transform:v104 - v41 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, &v174, v149];
+                        v53 = [[VLLocalizationResult alloc] initWithTimestamp:&v174 pose:v149 debugInfo:v25];
                         if (qword_281181CD8 == -1)
                         {
-                          v105 = qword_281181CD0;
-                          if (v148 > 0xFFFFFFFFFFFFFFFDLL)
+                          if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
                           {
-                            goto LABEL_99;
+                            goto LABEL_142;
                           }
                         }
 
                         else
                         {
                           dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                          v105 = qword_281181CD0;
-                          if (v148 > 0xFFFFFFFFFFFFFFFDLL)
+                          if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
                           {
-                            goto LABEL_99;
+                            goto LABEL_142;
                           }
                         }
 
-                        if (os_signpost_enabled(v105))
+                        [offsetCopy coordinate];
+                        [offsetCopy coordinate];
+                        if (v53)
                         {
-                          v106 = *(self + 40);
-                          *v226 = 134217984;
-                          *&v226[4] = v106;
-                          _os_signpost_emit_with_name_impl(&dword_27103D000, v105, OS_SIGNPOST_INTERVAL_END, spid, "Locate", "parent_signpost=%llu", v226, 0xCu);
+                          objc_msgSend_location(v53);
+                          __ya = *&v240;
+                          v106 = v239;
                         }
 
-LABEL_99:
-
-                        if (!(error | v164))
+                        else
                         {
-                          v51 = 0;
-LABEL_223:
-
-                          goto LABEL_224;
+                          v106 = 0uLL;
+                          v241 = 0u;
+                          v240 = 0u;
+                          v239 = 0u;
+                          __ya = 0.0;
                         }
 
-                        v107 = [VLLocalizationDebugInfo alloc];
-                        GEOGetMonotonicTime();
-                        v109 = v99;
-                        *v226 = v214;
-                        *&v226[16] = v215;
-                        *v227 = v216;
-                        v240 = v151;
-                        *v239 = v152;
-                        LOBYTE(v146) = v147;
-                        v1462 = [(VLLocalizationDebugInfo *)v107 initWithPixelBuffer:distortion monotonicTimestamp:v226 timestamp:offsetCopy duration:v239 location:buf clLocation:v99 heading:v39 gravity:v23 transform:v108 - v39 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v146];
-                        v146 = v1462;
-                        if (!error)
+                        v116 = v106.f64[1];
+                        v117 = sqrt(vmuld_lane_f64(v106.f64[1], v106, 1) + v106.f64[0] * v106.f64[0]);
+                        v118 = v117 * 0.99330562;
+                        v119 = 0.0;
+                        v120 = 1.57079633;
+                        if (v117 * 0.99330562 != 0.0)
                         {
-                          goto LABEL_219;
+                          v157 = v106.f64[1];
+                          v159 = v106.f64[0];
+                          v121 = 0;
+                          v120 = 0.0;
+                          v122 = 0.0;
+                          do
+                          {
+                            v124 = v120;
+                            v120 = atan2(__ya, v118);
+                            v125 = __sincos_stret(v120);
+                            v126 = 6378137.0 / sqrt(v125.__sinval * -0.00669437999 * v125.__sinval + 1.0);
+                            v119 = v117 / v125.__cosval - v126;
+                            if (vabdd_f64(v124, v120) < 0.000001)
+                            {
+                              if (vabdd_f64(v122, v119) < 0.001 || v121 >= 9)
+                              {
+LABEL_120:
+                                v106.f64[0] = v159;
+                                v116 = v157;
+                                goto LABEL_135;
+                              }
+                            }
+
+                            else if (v121 > 8)
+                            {
+                              goto LABEL_120;
+                            }
+
+                            ++v121;
+                            v118 = v117 * (v126 / (v126 + v119) * -0.00669437999 + 1.0);
+                            v122 = v117 / v125.__cosval - v126;
+                          }
+
+                          while (v118 != 0.0);
+                          v106.f64[0] = v159;
+                          v116 = v157;
+                          v120 = 1.57079633;
                         }
 
-                        v111 = MEMORY[0x277CCA9B8];
-                        if (v1462)
+LABEL_135:
+                        v127 = atan2(v116, v106.f64[0]) / 0.0174532925;
+                        v128 = v120 / 0.0174532925;
+                        GEOCalculateDistance();
+                        v130 = v129;
+                        if (qword_281181CD8 == -1)
                         {
-                          if (v99 <= 1023)
+                          v131 = qword_281181CD0;
+                          if (!os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
                           {
-                            if (v99 <= 31)
-                            {
-                              if (v99 > 7)
-                              {
-                                if (v99 != 8)
-                                {
-                                  if (v99 == 16)
-                                  {
-                                    errorCopy18 = error;
-                                    v109 = 101;
-                                    goto LABEL_206;
-                                  }
-
-                                  goto LABEL_205;
-                                }
-                              }
-
-                              else
-                              {
-                                if (v99 == 2)
-                                {
-                                  errorCopy18 = error;
-                                  goto LABEL_206;
-                                }
-
-                                if (v99 != 4)
-                                {
-                                  goto LABEL_205;
-                                }
-                              }
-
-                              errorCopy18 = error;
-                              v109 = 100;
-                              goto LABEL_206;
-                            }
-
-                            if (v99 <= 127)
-                            {
-                              if (v99 == 32)
-                              {
-                                errorCopy18 = error;
-                                v109 = 200;
-                                goto LABEL_206;
-                              }
-
-                              if (v99 == 64)
-                              {
-                                errorCopy18 = error;
-                                v109 = 201;
-                                goto LABEL_206;
-                              }
-                            }
-
-                            else
-                            {
-                              switch(v99)
-                              {
-                                case 0x80:
-                                  errorCopy18 = error;
-                                  v109 = 202;
-                                  goto LABEL_206;
-                                case 0x100:
-                                  errorCopy18 = error;
-                                  v109 = 203;
-                                  goto LABEL_206;
-                                case 0x200:
-                                  errorCopy18 = error;
-                                  v109 = 204;
-                                  goto LABEL_206;
-                              }
-                            }
-                          }
-
-                          else if (v99 > 0x4000)
-                          {
-                            if (v99 <= 16386)
-                            {
-                              errorCopy18 = error;
-                              if (v99 == 16385)
-                              {
-                                v109 = 401;
-                              }
-
-                              else
-                              {
-                                v109 = 402;
-                              }
-
-                              goto LABEL_206;
-                            }
-
-                            switch(v99)
-                            {
-                              case 0x4003:
-                                errorCopy18 = error;
-                                v109 = 403;
-                                goto LABEL_206;
-                              case 0x4004:
-                                errorCopy18 = error;
-                                v109 = 404;
-                                goto LABEL_206;
-                              case 0x8000:
-                                errorCopy18 = error;
-                                v109 = 405;
-                                goto LABEL_206;
-                            }
-                          }
-
-                          else if (v99 <= 4095)
-                          {
-                            if (v99 == 1024)
-                            {
-                              errorCopy18 = error;
-                              v109 = 205;
-                              goto LABEL_206;
-                            }
-
-                            if (v99 == 2048)
-                            {
-                              errorCopy18 = error;
-                              v109 = 300;
-                              goto LABEL_206;
-                            }
-                          }
-
-                          else
-                          {
-                            switch(v99)
-                            {
-                              case 0x1000:
-                                errorCopy18 = error;
-                                v109 = 206;
-                                goto LABEL_206;
-                              case 0x2000:
-                                errorCopy18 = error;
-                                v109 = 207;
-                                goto LABEL_206;
-                              case 0x4000:
-                                errorCopy18 = error;
-                                v109 = 400;
-LABEL_206:
-                                v239[0] = @"UnderlyingVLStatus";
-                                v137 = MEMORY[0x277CCABB0];
-                                v138 = v1462;
-                                v139 = [v137 numberWithUnsignedInt:v99];
-                                error = errorCopy18;
-                                v239[1] = @"VLLocalizerDebugInfo";
-                                *v226 = v139;
-                                *&v226[8] = v138;
-                                v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v226 forKeys:v239 count:2];
-                                v141 = [v111 errorWithDomain:@"VLLocalizerError" code:v109 userInfo:v140];
-LABEL_218:
-                                v142 = v141;
-
-                                v143 = v142;
-                                *error = v142;
-LABEL_219:
-                                if (!v164)
-                                {
-                                  v51 = 0;
-                                  goto LABEL_222;
-                                }
-
-                                v144 = *(self + 56);
-                                v165[0] = MEMORY[0x277D85DD0];
-                                v165[1] = 3221225472;
-                                v165[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_50;
-                                v165[3] = &unk_279E2DAE8;
-                                v135 = &v167;
-                                v167 = v164;
-                                v136 = &v166;
-                                v146 = v146;
-                                v166 = v146;
-                                dispatch_async(v144, v165);
-                                v51 = 0;
-                                goto LABEL_221;
-                            }
-                          }
-
-LABEL_205:
-                          errorCopy18 = error;
-                          v109 = 1000;
-                          goto LABEL_206;
-                        }
-
-                        if (v99 <= 1023)
-                        {
-                          if (v99 <= 31)
-                          {
-                            if (v99 > 7)
-                            {
-                              if (v99 != 8)
-                              {
-                                if (v99 == 16)
-                                {
-                                  v109 = 101;
-                                  goto LABEL_217;
-                                }
-
-                                goto LABEL_216;
-                              }
-                            }
-
-                            else
-                            {
-                              if (v99 == 2)
-                              {
-                                goto LABEL_217;
-                              }
-
-                              if (v99 != 4)
-                              {
-                                goto LABEL_216;
-                              }
-                            }
-
-                            v109 = 100;
-                            goto LABEL_217;
-                          }
-
-                          if (v99 <= 127)
-                          {
-                            if (v99 == 32)
-                            {
-                              v109 = 200;
-                              goto LABEL_217;
-                            }
-
-                            if (v99 == 64)
-                            {
-                              v109 = 201;
-                              goto LABEL_217;
-                            }
-                          }
-
-                          else
-                          {
-                            switch(v99)
-                            {
-                              case 0x80:
-                                v109 = 202;
-                                goto LABEL_217;
-                              case 0x100:
-                                v109 = 203;
-                                goto LABEL_217;
-                              case 0x200:
-                                v109 = 204;
-                                goto LABEL_217;
-                            }
-                          }
-                        }
-
-                        else if (v99 > 0x4000)
-                        {
-                          if (v99 <= 16386)
-                          {
-                            if (v99 == 16385)
-                            {
-                              v109 = 401;
-                            }
-
-                            else
-                            {
-                              v109 = 402;
-                            }
-
-                            goto LABEL_217;
-                          }
-
-                          switch(v99)
-                          {
-                            case 0x4003:
-                              v109 = 403;
-                              goto LABEL_217;
-                            case 0x4004:
-                              v109 = 404;
-                              goto LABEL_217;
-                            case 0x8000:
-                              v109 = 405;
-                              goto LABEL_217;
-                          }
-                        }
-
-                        else if (v99 <= 4095)
-                        {
-                          if (v99 == 1024)
-                          {
-                            v109 = 205;
-                            goto LABEL_217;
-                          }
-
-                          if (v99 == 2048)
-                          {
-                            v109 = 300;
-                            goto LABEL_217;
+                            goto LABEL_141;
                           }
                         }
 
                         else
                         {
-                          switch(v99)
+                          dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                          v131 = qword_281181CD0;
+                          if (!os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
                           {
-                            case 0x1000:
-                              v109 = 206;
-                              goto LABEL_217;
-                            case 0x2000:
-                              v109 = 207;
-                              goto LABEL_217;
-                            case 0x4000:
-                              v109 = 400;
-LABEL_217:
-                              v239[0] = @"UnderlyingVLStatus";
-                              v139 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v99];
-                              *v226 = v139;
-                              v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v226 forKeys:v239 count:1];
-                              v141 = [v111 errorWithDomain:@"VLLocalizerError" code:v109 userInfo:v140];
-                              goto LABEL_218;
+                            goto LABEL_141;
                           }
                         }
 
-LABEL_216:
-                        v109 = 1000;
-                        goto LABEL_217;
-                      }
-                    }
+                        if (v53)
+                        {
+                          objc_msgSend_location(v53);
+                          v132 = v226;
+                          objc_msgSend_location(v53);
+                          v133 = *(&v223 + 1);
+                          objc_msgSend_location(v53);
+                          v134 = v221;
+                        }
 
-                    *v226 = 134349312;
-                    *&v226[4] = v99;
-                    *&v226[12] = 2048;
-                    *&v226[14] = v23;
-                    _os_log_impl(&dword_27103D000, v104, OS_LOG_TYPE_INFO, "locate failed: %{public}llu @ %.2f", v226, 0x16u);
-                    goto LABEL_95;
+                        else
+                        {
+                          v133 = 0;
+                          v132 = 0;
+                          v228 = 0u;
+                          v227 = 0u;
+                          v226 = 0u;
+                          v223 = 0u;
+                          v224 = 0u;
+                          v225 = 0u;
+                          v220 = 0u;
+                          v221 = 0u;
+                          v134 = 0;
+                          v222 = 0u;
+                        }
+
+                        *v229 = 134285313;
+                        *&v229[4] = v128;
+                        *&v229[12] = 2049;
+                        *&v229[14] = v127;
+                        *&v229[22] = 2049;
+                        *&v229[24] = v119;
+                        *v230 = 2049;
+                        *&v230[2] = v132;
+                        v231 = 2049;
+                        v232 = v133;
+                        v233 = 2049;
+                        v234 = v134;
+                        v235 = 2050;
+                        v236 = v130;
+                        v237 = 2048;
+                        v238 = v25;
+                        _os_log_impl(&dword_27103D000, v131, OS_LOG_TYPE_INFO, "locate result: (%{private}f, %{private}f, %{private}.2f) / ECEF: (%{private}f, %{private}f, %{private}f) -- Correction: %{public}.1f meters @ %.2f", v229, 0x52u);
+LABEL_141:
+
+                        if (qword_281181CD8 != -1)
+                        {
+                          dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                          v135 = qword_281181CD0;
+                          if (v151 <= 0xFFFFFFFFFFFFFFFDLL)
+                          {
+LABEL_143:
+                            if (os_signpost_enabled(v135))
+                            {
+                              v136 = *(self + 40);
+                              *v229 = 134217984;
+                              *&v229[4] = v136;
+                              _os_signpost_emit_with_name_impl(&dword_27103D000, v135, OS_SIGNPOST_INTERVAL_END, spid, "Locate", "parent_signpost=%llu", v229, 0xCu);
+                            }
+                          }
+
+LABEL_145:
+
+                          if (!v167)
+                          {
+LABEL_222:
+
+                            goto LABEL_223;
+                          }
+
+                          v137 = *(self + 56);
+                          v171[0] = MEMORY[0x277D85DD0];
+                          v171[1] = 3221225472;
+                          v171[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_49;
+                          v171[3] = &unk_279E2DAE8;
+                          v138 = &v173;
+                          v173 = v167;
+                          v139 = &v172;
+                          v149 = v149;
+                          v172 = v149;
+                          dispatch_async(v137, v171);
+LABEL_221:
+
+                          goto LABEL_222;
+                        }
+
+LABEL_142:
+                        v135 = qword_281181CD0;
+                        if (v151 <= 0xFFFFFFFFFFFFFFFDLL)
+                        {
+                          goto LABEL_143;
+                        }
+
+                        goto LABEL_145;
+                      }
+
+                      if (qword_281181CD8 == -1)
+                      {
+                        v107 = qword_281181CD0;
+                        if (!os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
+                        {
+                          goto LABEL_95;
+                        }
+                      }
+
+                      else
+                      {
+                        dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                        v107 = qword_281181CD0;
+                        if (!os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
+                        {
+LABEL_95:
+
+                          if (qword_281181CD8 == -1)
+                          {
+                            v108 = qword_281181CD0;
+                            if (v151 > 0xFFFFFFFFFFFFFFFDLL)
+                            {
+                              goto LABEL_99;
+                            }
+                          }
+
+                          else
+                          {
+                            dispatch_once(&qword_281181CD8, &__block_literal_global_225);
+                            v108 = qword_281181CD0;
+                            if (v151 > 0xFFFFFFFFFFFFFFFDLL)
+                            {
+                              goto LABEL_99;
+                            }
+                          }
+
+                          if (os_signpost_enabled(v108))
+                          {
+                            v109 = *(self + 40);
+                            *v229 = 134217984;
+                            *&v229[4] = v109;
+                            _os_signpost_emit_with_name_impl(&dword_27103D000, v108, OS_SIGNPOST_INTERVAL_END, spid, "Locate", "parent_signpost=%llu", v229, 0xCu);
+                          }
+
+LABEL_99:
+
+                          if (!(error | v167))
+                          {
+                            v53 = 0;
+LABEL_223:
+
+                            goto LABEL_224;
+                          }
+
+                          v110 = [VLLocalizationDebugInfo alloc];
+                          GEOGetMonotonicTime();
+                          v112 = v102;
+                          *v229 = v217;
+                          *&v229[16] = v218;
+                          *v230 = v219;
+                          v243 = v154;
+                          *v242 = v155;
+                          LOBYTE(v149) = v150;
+                          v1492 = [(VLLocalizationDebugInfo *)v110 initWithPixelBuffer:distortion monotonicTimestamp:v229 timestamp:offsetCopy duration:v242 location:buf clLocation:v102 heading:v41 gravity:v25 transform:v111 - v41 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v149];
+                          v149 = v1492;
+                          if (!error)
+                          {
+                            goto LABEL_219;
+                          }
+
+                          v114 = MEMORY[0x277CCA9B8];
+                          if (v1492)
+                          {
+                            if (v102 <= 1023)
+                            {
+                              if (v102 <= 31)
+                              {
+                                if (v102 > 7)
+                                {
+                                  if (v102 != 8)
+                                  {
+                                    if (v102 == 16)
+                                    {
+                                      errorCopy18 = error;
+                                      v112 = 101;
+                                      goto LABEL_206;
+                                    }
+
+                                    goto LABEL_205;
+                                  }
+                                }
+
+                                else
+                                {
+                                  if (v102 == 2)
+                                  {
+                                    errorCopy18 = error;
+                                    goto LABEL_206;
+                                  }
+
+                                  if (v102 != 4)
+                                  {
+                                    goto LABEL_205;
+                                  }
+                                }
+
+                                errorCopy18 = error;
+                                v112 = 100;
+                                goto LABEL_206;
+                              }
+
+                              if (v102 <= 127)
+                              {
+                                if (v102 == 32)
+                                {
+                                  errorCopy18 = error;
+                                  v112 = 200;
+                                  goto LABEL_206;
+                                }
+
+                                if (v102 == 64)
+                                {
+                                  errorCopy18 = error;
+                                  v112 = 201;
+                                  goto LABEL_206;
+                                }
+                              }
+
+                              else
+                              {
+                                switch(v102)
+                                {
+                                  case 0x80:
+                                    errorCopy18 = error;
+                                    v112 = 202;
+                                    goto LABEL_206;
+                                  case 0x100:
+                                    errorCopy18 = error;
+                                    v112 = 203;
+                                    goto LABEL_206;
+                                  case 0x200:
+                                    errorCopy18 = error;
+                                    v112 = 204;
+                                    goto LABEL_206;
+                                }
+                              }
+                            }
+
+                            else if (v102 > 0x4000)
+                            {
+                              if (v102 <= 16386)
+                              {
+                                errorCopy18 = error;
+                                if (v102 == 16385)
+                                {
+                                  v112 = 401;
+                                }
+
+                                else
+                                {
+                                  v112 = 402;
+                                }
+
+                                goto LABEL_206;
+                              }
+
+                              switch(v102)
+                              {
+                                case 0x4003:
+                                  errorCopy18 = error;
+                                  v112 = 403;
+                                  goto LABEL_206;
+                                case 0x4004:
+                                  errorCopy18 = error;
+                                  v112 = 404;
+                                  goto LABEL_206;
+                                case 0x8000:
+                                  errorCopy18 = error;
+                                  v112 = 405;
+                                  goto LABEL_206;
+                              }
+                            }
+
+                            else if (v102 <= 4095)
+                            {
+                              if (v102 == 1024)
+                              {
+                                errorCopy18 = error;
+                                v112 = 205;
+                                goto LABEL_206;
+                              }
+
+                              if (v102 == 2048)
+                              {
+                                errorCopy18 = error;
+                                v112 = 300;
+                                goto LABEL_206;
+                              }
+                            }
+
+                            else
+                            {
+                              switch(v102)
+                              {
+                                case 0x1000:
+                                  errorCopy18 = error;
+                                  v112 = 206;
+                                  goto LABEL_206;
+                                case 0x2000:
+                                  errorCopy18 = error;
+                                  v112 = 207;
+                                  goto LABEL_206;
+                                case 0x4000:
+                                  errorCopy18 = error;
+                                  v112 = 400;
+LABEL_206:
+                                  v242[0] = @"UnderlyingVLStatus";
+                                  v140 = MEMORY[0x277CCABB0];
+                                  v141 = v1492;
+                                  v142 = [v140 numberWithUnsignedInt:v102];
+                                  error = errorCopy18;
+                                  v242[1] = @"VLLocalizerDebugInfo";
+                                  *v229 = v142;
+                                  *&v229[8] = v141;
+                                  v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v242 count:2];
+                                  v144 = [v114 errorWithDomain:@"VLLocalizerError" code:v112 userInfo:v143];
+LABEL_218:
+                                  v145 = v144;
+
+                                  v146 = v145;
+                                  *error = v145;
+LABEL_219:
+                                  if (!v167)
+                                  {
+                                    v53 = 0;
+                                    goto LABEL_222;
+                                  }
+
+                                  v147 = *(self + 56);
+                                  v168[0] = MEMORY[0x277D85DD0];
+                                  v168[1] = 3221225472;
+                                  v168[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_50;
+                                  v168[3] = &unk_279E2DAE8;
+                                  v138 = &v170;
+                                  v170 = v167;
+                                  v139 = &v169;
+                                  v149 = v149;
+                                  v169 = v149;
+                                  dispatch_async(v147, v168);
+                                  v53 = 0;
+                                  goto LABEL_221;
+                              }
+                            }
+
+LABEL_205:
+                            errorCopy18 = error;
+                            v112 = 1000;
+                            goto LABEL_206;
+                          }
+
+                          if (v102 <= 1023)
+                          {
+                            if (v102 <= 31)
+                            {
+                              if (v102 > 7)
+                              {
+                                if (v102 != 8)
+                                {
+                                  if (v102 == 16)
+                                  {
+                                    v112 = 101;
+                                    goto LABEL_217;
+                                  }
+
+                                  goto LABEL_216;
+                                }
+                              }
+
+                              else
+                              {
+                                if (v102 == 2)
+                                {
+                                  goto LABEL_217;
+                                }
+
+                                if (v102 != 4)
+                                {
+                                  goto LABEL_216;
+                                }
+                              }
+
+                              v112 = 100;
+                              goto LABEL_217;
+                            }
+
+                            if (v102 <= 127)
+                            {
+                              if (v102 == 32)
+                              {
+                                v112 = 200;
+                                goto LABEL_217;
+                              }
+
+                              if (v102 == 64)
+                              {
+                                v112 = 201;
+                                goto LABEL_217;
+                              }
+                            }
+
+                            else
+                            {
+                              switch(v102)
+                              {
+                                case 0x80:
+                                  v112 = 202;
+                                  goto LABEL_217;
+                                case 0x100:
+                                  v112 = 203;
+                                  goto LABEL_217;
+                                case 0x200:
+                                  v112 = 204;
+                                  goto LABEL_217;
+                              }
+                            }
+                          }
+
+                          else if (v102 > 0x4000)
+                          {
+                            if (v102 <= 16386)
+                            {
+                              if (v102 == 16385)
+                              {
+                                v112 = 401;
+                              }
+
+                              else
+                              {
+                                v112 = 402;
+                              }
+
+                              goto LABEL_217;
+                            }
+
+                            switch(v102)
+                            {
+                              case 0x4003:
+                                v112 = 403;
+                                goto LABEL_217;
+                              case 0x4004:
+                                v112 = 404;
+                                goto LABEL_217;
+                              case 0x8000:
+                                v112 = 405;
+                                goto LABEL_217;
+                            }
+                          }
+
+                          else if (v102 <= 4095)
+                          {
+                            if (v102 == 1024)
+                            {
+                              v112 = 205;
+                              goto LABEL_217;
+                            }
+
+                            if (v102 == 2048)
+                            {
+                              v112 = 300;
+                              goto LABEL_217;
+                            }
+                          }
+
+                          else
+                          {
+                            switch(v102)
+                            {
+                              case 0x1000:
+                                v112 = 206;
+                                goto LABEL_217;
+                              case 0x2000:
+                                v112 = 207;
+                                goto LABEL_217;
+                              case 0x4000:
+                                v112 = 400;
+LABEL_217:
+                                v242[0] = @"UnderlyingVLStatus";
+                                v142 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v102];
+                                *v229 = v142;
+                                v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v242 count:1];
+                                v144 = [v114 errorWithDomain:@"VLLocalizerError" code:v112 userInfo:v143];
+                                goto LABEL_218;
+                            }
+                          }
+
+LABEL_216:
+                          v112 = 1000;
+                          goto LABEL_217;
+                        }
+                      }
+
+                      *v229 = 134349312;
+                      *&v229[4] = v102;
+                      *&v229[12] = 2048;
+                      *&v229[14] = v25;
+                      _os_log_impl(&dword_27103D000, v107, OS_LOG_TYPE_INFO, "locate failed: %{public}llu @ %.2f", v229, 0x16u);
+                      goto LABEL_95;
+                    }
                   }
+
+                  *buf = 0;
+                  _os_log_impl(&dword_27103D000, v96, OS_LOG_TYPE_DEBUG, "Successfully converted image to grayscale", buf, 2u);
+                  goto LABEL_82;
                 }
 
-                *buf = 0;
-                _os_log_impl(&dword_27103D000, v93, OS_LOG_TYPE_DEBUG, "Successfully converted image to grayscale", buf, 2u);
-                goto LABEL_82;
+                abort_report_np("Unable to find class %s", "CIContext");
+LABEL_257:
+                __break(1u);
               }
 
-              goto LABEL_254;
+              *buf = MEMORY[0x277D85DD0];
+              *&buf[8] = 3221225472;
+              *&buf[16] = __CoreImageLibraryCore_block_invoke_0;
+              *&buf[24] = &__block_descriptor_40_e5_v8__0l;
+              *&buf[32] = v242;
+              *v229 = xmmword_279E2DC08;
+              *&v229[16] = 0;
+              qword_281181D08 = _sl_dlopen();
+              v70 = v242[0];
+              if (qword_281181D08)
+              {
+                if (v242[0])
+                {
+                  free(v242[0]);
+                }
+
+                goto LABEL_77;
+              }
+
+LABEL_247:
+              abort_report_np("%s", v70);
+              goto LABEL_257;
             }
 
-            if (CVPixelBufferGetBytesPerRow(pixelBufferOut) != v74)
+            if (CVPixelBufferGetBytesPerRow(pixelBufferOut) != v77)
             {
               if (qword_281181CD8 != -1)
               {
                 dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-                v77 = qword_281181CD0;
+                v80 = qword_281181CD0;
                 if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_FAULT))
                 {
                   goto LABEL_67;
@@ -2544,78 +2552,78 @@ LABEL_216:
                 goto LABEL_66;
               }
 
-              v77 = qword_281181CD0;
+              v80 = qword_281181CD0;
               if (os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_FAULT))
               {
 LABEL_66:
                 errorCopy19 = error;
-                v79 = pixelBufferOut;
-                v80 = v77;
-                v81 = v79;
+                v82 = pixelBufferOut;
+                v83 = v80;
+                v84 = v82;
                 error = errorCopy19;
-                BytesPerRow = CVPixelBufferGetBytesPerRow(v81);
+                BytesPerRow = CVPixelBufferGetBytesPerRow(v84);
                 *buf = 134349312;
                 *&buf[4] = BytesPerRow;
                 *&buf[12] = 2050;
-                *&buf[14] = v71;
-                _os_log_impl(&dword_27103D000, v80, OS_LOG_TYPE_FAULT, "Image conversion failed to produce desired stride: %{public}zu vs %{public}zu", buf, 0x16u);
+                *&buf[14] = v74;
+                _os_log_impl(&dword_27103D000, v83, OS_LOG_TYPE_FAULT, "Image conversion failed to produce desired stride: %{public}zu vs %{public}zu", buf, 0x16u);
               }
             }
 
 LABEL_67:
-            if (error | v164)
+            if (error | v167)
             {
-              v83 = [VLLocalizationDebugInfo alloc];
+              v86 = [VLLocalizationDebugInfo alloc];
               GEOGetMonotonicTime();
-              *buf = v214;
-              *&buf[16] = v215;
-              *&buf[32] = v216;
-              v171 = v152;
-              v172 = v151;
-              LOBYTE(v146) = v147;
-              v1463 = [(VLLocalizationDebugInfo *)v83 initWithPixelBuffer:distortion monotonicTimestamp:buf timestamp:offsetCopy duration:&v171 location:0 clLocation:0 heading:v39 gravity:v23 transform:v84 - v39 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v146];
-              v86 = MEMORY[0x277CCA9B8];
-              v270[0] = *MEMORY[0x277CBEE28];
-              v270[1] = @"VLLocalizerDebugInfo";
-              v271[0] = @"Failed to convert image format";
-              v271[1] = v1463;
-              v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v271 forKeys:v270 count:2];
-              v88 = [v86 errorWithDomain:@"VLLocalizerError" code:2 userInfo:v87];
+              *buf = v217;
+              *&buf[16] = v218;
+              *&buf[32] = v219;
+              v174 = v155;
+              v175 = v154;
+              LOBYTE(v149) = v150;
+              v1493 = [(VLLocalizationDebugInfo *)v86 initWithPixelBuffer:distortion monotonicTimestamp:buf timestamp:offsetCopy duration:&v174 location:0 clLocation:0 heading:v41 gravity:v25 transform:v87 - v41 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v149];
+              v89 = MEMORY[0x277CCA9B8];
+              v273[0] = *MEMORY[0x277CBEE28];
+              v273[1] = @"VLLocalizerDebugInfo";
+              v274[0] = @"Failed to convert image format";
+              v274[1] = v1493;
+              v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v274 forKeys:v273 count:2];
+              v91 = [v89 errorWithDomain:@"VLLocalizerError" code:2 userInfo:v90];
 
               if (error)
               {
-                v89 = v88;
-                *error = v88;
+                v92 = v91;
+                *error = v91;
               }
 
-              if (v164)
+              if (v167)
               {
-                v90 = *(self + 56);
-                v202[0] = MEMORY[0x277D85DD0];
-                v202[1] = 3221225472;
-                v202[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_46;
-                v202[3] = &unk_279E2DAE8;
-                v204 = v164;
-                v203 = v1463;
-                dispatch_async(v90, v202);
+                v93 = *(self + 56);
+                v205[0] = MEMORY[0x277D85DD0];
+                v205[1] = 3221225472;
+                v205[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_46;
+                v205[3] = &unk_279E2DAE8;
+                v207 = v167;
+                v206 = v1493;
+                dispatch_async(v93, v205);
               }
             }
 
-            v51 = 0;
-            v62 = &__block_literal_global_42;
+            v53 = 0;
+            v64 = &__block_literal_global_42;
             goto LABEL_223;
           }
         }
 
         *buf = 67109888;
-        *&buf[4] = HIBYTE(v58);
+        *&buf[4] = HIBYTE(v60);
         *&buf[8] = 1024;
-        *&buf[10] = BYTE2(v58);
+        *&buf[10] = BYTE2(v60);
         *&buf[14] = 1024;
-        *&buf[16] = BYTE1(v58);
+        *&buf[16] = BYTE1(v60);
         *&buf[20] = 1024;
-        *&buf[22] = v58;
-        _os_log_impl(&dword_27103D000, v65, OS_LOG_TYPE_INFO, "Input pixel format (%c%c%c%c) requires conversion", buf, 0x1Au);
+        *&buf[22] = v60;
+        _os_log_impl(&dword_27103D000, v67, OS_LOG_TYPE_INFO, "Input pixel format (%c%c%c%c) requires conversion", buf, 0x1Au);
         goto LABEL_47;
       }
     }
@@ -2630,14 +2638,14 @@ LABEL_67:
         if (CVPixelBufferGetBytesPerRow(distortion) == Width)
         {
           BaseAddress = CVPixelBufferGetBaseAddress(distortion);
-          v209 = __PAIR64__(Height, Width);
-          LODWORD(v210) = 0;
-          v206[0] = MEMORY[0x277D85DD0];
-          v206[1] = 3221225472;
-          v206[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_3;
-          v206[3] = &__block_descriptor_40_e5_v8__0l;
-          v206[4] = distortion;
-          v61 = _Block_copy(v206);
+          v212 = __PAIR64__(Height, Width);
+          LODWORD(v213) = 0;
+          v209[0] = MEMORY[0x277D85DD0];
+          v209[1] = 3221225472;
+          v209[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_3;
+          v209[3] = &__block_descriptor_40_e5_v8__0l;
+          v209[4] = distortion;
+          v63 = _Block_copy(v209);
           goto LABEL_40;
         }
 
@@ -2658,16 +2666,16 @@ LABEL_43:
     if (CVPixelBufferGetBytesPerRowOfPlane(distortion, 0) == WidthOfPlane)
     {
       BaseAddress = CVPixelBufferGetBaseAddressOfPlane(distortion, 0);
-      v209 = __PAIR64__(HeightOfPlane, WidthOfPlane);
-      LODWORD(v210) = 0;
+      v212 = __PAIR64__(HeightOfPlane, WidthOfPlane);
+      LODWORD(v213) = 0;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_2;
       aBlock[3] = &__block_descriptor_40_e5_v8__0l;
       aBlock[4] = distortion;
-      v61 = _Block_copy(aBlock);
+      v63 = _Block_copy(aBlock);
 LABEL_40:
-      v62 = v61;
+      v64 = v63;
       goto LABEL_87;
     }
 
@@ -2677,8 +2685,8 @@ LABEL_40:
   if (qword_281181CD8 != -1)
   {
     dispatch_once(&qword_281181CD8, &__block_literal_global_225);
-    v41 = v164;
-    v42 = qword_281181CD0;
+    v43 = v167;
+    v44 = qword_281181CD0;
     if (!os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
     {
       goto LABEL_14;
@@ -2687,63 +2695,63 @@ LABEL_40:
     goto LABEL_13;
   }
 
-  v41 = v164;
-  v42 = qword_281181CD0;
+  v43 = v167;
+  v44 = qword_281181CD0;
   if (os_log_type_enabled(qword_281181CD0, OS_LOG_TYPE_INFO))
   {
 LABEL_13:
     *buf = 0;
-    _os_log_impl(&dword_27103D000, v42, OS_LOG_TYPE_INFO, "locateWithPixelBuffer: Visual localization is not supported on this device", buf, 2u);
+    _os_log_impl(&dword_27103D000, v44, OS_LOG_TYPE_INFO, "locateWithPixelBuffer: Visual localization is not supported on this device", buf, 2u);
   }
 
 LABEL_14:
-  if (!(error | v41))
+  if (!(error | v43))
   {
-    v51 = 0;
+    v53 = 0;
     goto LABEL_225;
   }
 
-  v43 = [VLLocalizationDebugInfo alloc];
+  v45 = [VLLocalizationDebugInfo alloc];
   GEOGetMonotonicTime();
-  *buf = v214;
-  *&buf[16] = v215;
-  *&buf[32] = v216;
-  v171 = v152;
-  v172 = v151;
-  LOBYTE(v146) = 0;
-  v1464 = [(VLLocalizationDebugInfo *)v43 initWithPixelBuffer:0 monotonicTimestamp:buf timestamp:offsetCopy duration:&v171 location:0 clLocation:0 heading:v39 gravity:v23 transform:v44 - v39 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v146];
-  v46 = MEMORY[0x277CCA9B8];
-  v274[0] = *MEMORY[0x277CBEE28];
-  v274[1] = @"VLLocalizerDebugInfo";
-  v275[0] = @"Not supported";
-  v275[1] = v1464;
-  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v275 forKeys:v274 count:2];
-  v48 = [v46 errorWithDomain:@"VLLocalizerError" code:1 userInfo:v47];
+  *buf = v217;
+  *&buf[16] = v218;
+  *&buf[32] = v219;
+  v174 = v155;
+  v175 = v154;
+  LOBYTE(v149) = 0;
+  v1494 = [(VLLocalizationDebugInfo *)v45 initWithPixelBuffer:0 monotonicTimestamp:buf timestamp:offsetCopy duration:&v174 location:0 clLocation:0 heading:v41 gravity:v25 transform:v46 - v41 cameraIntrinsics:a2 radialDistortion:buffer exposureTargetOffset:*&location statistics:*&heading resultStatus:*&gravity resultPose:*&transform preserveImageData:*&a17, *&a18, *&a19, *&a20, a21, 0, v149];
+  v48 = MEMORY[0x277CCA9B8];
+  v277[0] = *MEMORY[0x277CBEE28];
+  v277[1] = @"VLLocalizerDebugInfo";
+  v278[0] = @"Not supported";
+  v278[1] = v1494;
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v278 forKeys:v277 count:2];
+  v50 = [v48 errorWithDomain:@"VLLocalizerError" code:1 userInfo:v49];
 
   if (error)
   {
-    v49 = v48;
-    *error = v48;
+    v51 = v50;
+    *error = v50;
   }
 
-  if (v164)
+  if (v167)
   {
-    v50 = *(self + 56);
+    v52 = *(self + 56);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke;
     block[3] = &unk_279E2DAE8;
-    v213 = v164;
-    v212 = v1464;
-    dispatch_async(v50, block);
+    v216 = v167;
+    v215 = v1494;
+    dispatch_async(v52, block);
   }
 
-  v51 = 0;
+  v53 = 0;
 LABEL_224:
-  v41 = v164;
+  v43 = v167;
 LABEL_225:
 
-  return v51;
+  return v53;
 }
 
 void __167__VLLocalizer__locateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_calculationBlock_error___block_invoke_2_47(uint64_t a1)
@@ -2809,7 +2817,7 @@ void __175__VLLocalizer__deterministicLocateWithPixelBuffer_deviceLocation_headi
   (*(*(a1 + 192) + 16))();
 }
 
-uint64_t __175__VLLocalizer__deterministicLocateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t __175__VLLocalizer__deterministicLocateWithPixelBuffer_deviceLocation_heading_gravity_transform_cameraIntrinsics_radialDistortion_exposureTargetOffset_timestamp_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, float *a5)
 {
   v9 = *(a4 + 64);
   v11[0] = *(a4 + 48);

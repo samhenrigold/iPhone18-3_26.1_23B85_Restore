@@ -188,10 +188,10 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   __INCodableDescriptionPlaceholderKey = [(INCodableAttributeMetadata *)self __INCodableDescriptionPlaceholderKey];
-  v15[0] = __INCodableDescriptionPlaceholderKey;
+  v14[0] = __INCodableDescriptionPlaceholderKey;
   v6 = [(INCodableAttributeMetadata *)self localizedPlaceholderWithLocalizer:localizerCopy];
 
   null = v6;
@@ -200,9 +200,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
+  v15[0] = null;
   __INCodableDescriptionPlaceholderIDKey = [(INCodableAttributeMetadata *)self __INCodableDescriptionPlaceholderIDKey];
-  v15[1] = __INCodableDescriptionPlaceholderIDKey;
+  v14[1] = __INCodableDescriptionPlaceholderIDKey;
   placeholderID = [(INCodableAttributeMetadata *)self placeholderID];
   null2 = placeholderID;
   if (!placeholderID)
@@ -210,8 +210,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = null2;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   if (!placeholderID)
   {
   }
@@ -221,8 +221,6 @@
   }
 
   if_dictionaryWithNonEmptyValues = [v11 if_dictionaryWithNonEmptyValues];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

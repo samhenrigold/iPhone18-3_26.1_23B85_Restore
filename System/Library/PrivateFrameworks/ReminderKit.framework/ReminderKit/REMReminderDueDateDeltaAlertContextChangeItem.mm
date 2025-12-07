@@ -78,7 +78,7 @@ LABEL_3:
 
 - (void)removeDueDateDeltaAlertsWithIdentifiers:(id)identifiers
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
@@ -87,9 +87,9 @@ LABEL_3:
     {
       reminderChangeItem = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
       *buf = 138412546;
-      v28 = reminderChangeItem;
-      v29 = 2112;
-      v30 = identifiersCopy;
+      v27 = reminderChangeItem;
+      v28 = 2112;
+      v29 = identifiersCopy;
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing dueDateDeltaAlerts {reminderChangeItem: %@, identifiers: %@}", buf, 0x16u);
     }
 
@@ -114,12 +114,12 @@ LABEL_3:
     storage3 = [reminderChangeItem4 storage];
     fetchedDueDateDeltaAlerts = [storage3 fetchedDueDateDeltaAlerts];
     v17 = MEMORY[0x1E696AE18];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaAlertsWithIdentifiers___block_invoke;
-    v25[3] = &unk_1E7507A78;
-    v26 = identifiersCopy;
-    v18 = [v17 predicateWithBlock:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaAlertsWithIdentifiers___block_invoke;
+    v24[3] = &unk_1E7507A78;
+    v25 = identifiersCopy;
+    v18 = [v17 predicateWithBlock:v24];
     v19 = [fetchedDueDateDeltaAlerts filteredArrayUsingPredicate:v18];
 
     reminderChangeItem5 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
@@ -130,8 +130,6 @@ LABEL_3:
     changedKeysObserver = [reminderChangeItem6 changedKeysObserver];
     [changedKeysObserver keyDidChange:@"dueDateDeltaAlertsData"];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaAlertsWithIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -149,17 +147,17 @@ uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaA
 
 - (void)_addOrUpdateDueDateDeltaAlert:(id)alert
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reminderChangeItem = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
-    v18 = 138412546;
-    v19 = reminderChangeItem;
-    v20 = 2112;
-    v21 = alertCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding dueDateDeltaAlert {reminderChangeItem: %@, dueDateDeltaAlert: %@}", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = reminderChangeItem;
+    v19 = 2112;
+    v20 = alertCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding dueDateDeltaAlert {reminderChangeItem: %@, dueDateDeltaAlert: %@}", &v17, 0x16u);
   }
 
   reminderChangeItem2 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
@@ -184,13 +182,11 @@ uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaA
   reminderChangeItem5 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
   changedKeysObserver = [reminderChangeItem5 changedKeysObserver];
   [changedKeysObserver keyDidChange:@"dueDateDeltaAlertsData"];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearPendingDueDateDeltaAlertUpserts
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = +[REMLogStore write];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -198,11 +194,11 @@ uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaA
     reminderChangeItem2 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
     storage = [reminderChangeItem2 storage];
     dueDateDeltaAlertsToUpsert = [storage dueDateDeltaAlertsToUpsert];
-    v13 = 138412546;
-    v14 = reminderChangeItem;
-    v15 = 2048;
-    v16 = [dueDateDeltaAlertsToUpsert count];
-    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Clearing dueDateDeltaAlertsToUpsert {reminderChangeItem: %@, dueDateDeltaAlertsToUpsertCount: %lu}", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = reminderChangeItem;
+    v14 = 2048;
+    v15 = [dueDateDeltaAlertsToUpsert count];
+    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Clearing dueDateDeltaAlertsToUpsert {reminderChangeItem: %@, dueDateDeltaAlertsToUpsertCount: %lu}", &v12, 0x16u);
   }
 
   reminderChangeItem3 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
@@ -212,8 +208,6 @@ uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaA
   reminderChangeItem4 = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
   changedKeysObserver = [reminderChangeItem4 changedKeysObserver];
   [changedKeysObserver keyDidChange:@"dueDateDeltaAlertsData"];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addDueDateDeltaAlertWithDueDateDeltaAlert:(id)alert
@@ -238,46 +232,45 @@ uint64_t __89__REMReminderDueDateDeltaAlertContextChangeItem_removeDueDateDeltaA
 
 - (void)removeAllFetchedDueDateDeltaAlerts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   reminderChangeItem = [(REMReminderDueDateDeltaAlertContextChangeItem *)self reminderChangeItem];
   storage = [reminderChangeItem storage];
   fetchedDueDateDeltaAlerts = [storage fetchedDueDateDeltaAlerts];
 
-  v7 = [fetchedDueDateDeltaAlerts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [fetchedDueDateDeltaAlerts countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(fetchedDueDateDeltaAlerts);
         }
 
-        identifier = [*(*(&v13 + 1) + 8 * v10) identifier];
+        identifier = [*(*(&v12 + 1) + 8 * v10) identifier];
         [v3 addObject:identifier];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [fetchedDueDateDeltaAlerts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [fetchedDueDateDeltaAlerts countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(REMReminderDueDateDeltaAlertContextChangeItem *)self removeDueDateDeltaAlertsWithIdentifiers:v3];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

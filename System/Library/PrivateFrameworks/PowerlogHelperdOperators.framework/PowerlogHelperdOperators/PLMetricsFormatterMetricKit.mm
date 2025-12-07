@@ -5,6 +5,7 @@
 - (PLMetricsFormatterMetricKit)init;
 - (id)constructCellularData:(id)data;
 - (id)constructCellularHistogram:(id)histogram;
+- (id)constructHistogramBucketsWithDuration:(int)duration andData:(id)data;
 - (id)constructPayloadWithMetrics:(id)metrics andSignpostData:(id)data forDate:(id)date;
 - (id)constructSignpostIntervalDataWithDurations:(id)durations withMetrics:(id)metrics;
 - (void)addBucketWithDuration:(int)duration WithEnd:(int)end andCount:(unint64_t)count toList:(id)list;
@@ -37,35 +38,35 @@
 
 - (void)addTelemetryForMetricInconsistencies:(id)inconsistencies
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   inconsistenciesCopy = inconsistencies;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v54 = [inconsistenciesCopy countByEnumeratingWithState:&v60 objects:v65 count:16];
-  if (v54)
+  v53 = [inconsistenciesCopy countByEnumeratingWithState:&v59 objects:v64 count:16];
+  if (v53)
   {
     v4 = 0;
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
-    v53 = *v61;
-    v49 = inconsistenciesCopy;
+    v52 = *v60;
+    v48 = inconsistenciesCopy;
     do
     {
-      for (i = 0; i != v54; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v61 != v53)
+        if (*v60 != v52)
         {
           objc_enumerationMutation(inconsistenciesCopy);
         }
 
-        v6 = [inconsistenciesCopy objectForKeyedSubscript:*(*(&v60 + 1) + 8 * i)];
+        v6 = [inconsistenciesCopy objectForKeyedSubscript:*(*(&v59 + 1) + 8 * i)];
         signpostMetrics = [v6 signpostMetrics];
         if (signpostMetrics)
         {
           v8 = signpostMetrics;
-          v55 = i;
+          v54 = i;
           cpuMetrics = [v6 cpuMetrics];
           if (cpuMetrics)
           {
@@ -74,7 +75,7 @@
 
             if (diskIOMetrics)
             {
-              v50 = v4;
+              v49 = v4;
               cpuMetrics2 = [v6 cpuMetrics];
               cumulativeCPUTime = [cpuMetrics2 cumulativeCPUTime];
               milliseconds = [MEMORY[0x277CCADD0] milliseconds];
@@ -89,28 +90,28 @@
               [v21 doubleValue];
               v23 = v22;
 
-              v58 = 0u;
-              v59 = 0u;
-              v56 = 0u;
               v57 = 0u;
+              v58 = 0u;
+              v55 = 0u;
+              v56 = 0u;
               signpostMetrics2 = [v6 signpostMetrics];
-              v25 = [signpostMetrics2 countByEnumeratingWithState:&v56 objects:v64 count:16];
+              v25 = [signpostMetrics2 countByEnumeratingWithState:&v55 objects:v63 count:16];
               if (v25)
               {
                 v26 = v25;
-                v27 = *v57;
+                v27 = *v56;
                 v28 = 0.0;
                 v29 = 0.0;
                 do
                 {
                   for (j = 0; j != v26; ++j)
                   {
-                    if (*v57 != v27)
+                    if (*v56 != v27)
                     {
                       objc_enumerationMutation(signpostMetrics2);
                     }
 
-                    v31 = *(*(&v56 + 1) + 8 * j);
+                    v31 = *(*(&v55 + 1) + 8 * j);
                     signpostIntervalData = [v31 signpostIntervalData];
 
                     if (signpostIntervalData)
@@ -143,7 +144,7 @@
                     }
                   }
 
-                  v26 = [signpostMetrics2 countByEnumeratingWithState:&v56 objects:v64 count:16];
+                  v26 = [signpostMetrics2 countByEnumeratingWithState:&v55 objects:v63 count:16];
                 }
 
                 while (v26);
@@ -155,30 +156,30 @@
                 v29 = 0.0;
               }
 
-              ++v52;
+              ++v51;
 
               if (v17 >= v28)
               {
-                v47 = v51;
+                v47 = v50;
               }
 
               else
               {
-                v47 = v51 + 1;
+                v47 = v50 + 1;
               }
 
-              v51 = v47;
+              v50 = v47;
               if (v23 >= v29)
               {
-                v4 = v50;
+                v4 = v49;
               }
 
               else
               {
-                v4 = v50 + 1;
+                v4 = v49 + 1;
               }
 
-              inconsistenciesCopy = v49;
+              inconsistenciesCopy = v48;
             }
           }
 
@@ -186,61 +187,59 @@
           {
           }
 
-          i = v55;
+          i = v54;
         }
       }
 
-      v54 = [inconsistenciesCopy countByEnumeratingWithState:&v60 objects:v65 count:16];
+      v53 = [inconsistenciesCopy countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
-    while (v54);
-    if (v52 >= 1)
+    while (v53);
+    if (v51 >= 1)
     {
       ADClientSetValueForScalarKey();
       ADClientSetValueForScalarKey();
       ADClientSetValueForScalarKey();
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (id)constructPayloadWithMetrics:(id)metrics andSignpostData:(id)data forDate:(id)date
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dataCopy = data;
   dateCopy = date;
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   selfCopy = self;
   self->_processHangs = [(PLMetricsFormatterMetricKit *)self hangtracerEnabled:dataCopy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v11 = metricsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
+    v14 = *v38;
     v15 = 0x277D28000uLL;
-    v33 = v11;
-    v34 = v10;
-    v32 = *v39;
+    v32 = v11;
+    v33 = v10;
+    v31 = *v38;
     do
     {
       v16 = 0;
-      v36 = v13;
+      v35 = v13;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * v16);
-        if ([*(v15 + 1856) isMetricKitClient:{v17, v32}])
+        v17 = *(*(&v37 + 1) + 8 * v16);
+        if ([*(v15 + 1856) isMetricKitClient:{v17, v31}])
         {
           v18 = dataCopy;
           v19 = [v11 objectForKeyedSubscript:v17];
@@ -279,31 +278,30 @@
             [(PLMetricsFormatterMetricKit *)selfCopy addPerfMetrics:v24 toAppData:v29];
           }
 
-          v11 = v33;
-          v10 = v34;
+          v11 = v32;
+          v10 = v33;
           if (dataCopy)
           {
             [(PLMetricsFormatterMetricKit *)selfCopy addSignpostData:dataCopy forApp:v17 toAppData:v29];
           }
 
-          [v34 setObject:v29 forKey:v17];
+          [v33 setObject:v29 forKey:v17];
 
-          v14 = v32;
-          v13 = v36;
+          v14 = v31;
+          v13 = v35;
         }
 
         ++v16;
       }
 
       while (v13 != v16);
-      v13 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v13);
   }
 
   [(PLMetricsFormatterMetricKit *)selfCopy addTelemetryForMetricInconsistencies:v10];
-  v30 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -499,13 +497,13 @@
 
 - (void)addSignpostData:(id)data forApp:(id)app toAppData:(id)appData
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v189 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   appCopy = app;
   appDataCopy = appData;
   v10 = [dataCopy objectForKeyedSubscript:@"resumeDurations"];
-  v171 = dataCopy;
-  v172 = appDataCopy;
+  v166 = dataCopy;
+  v167 = appDataCopy;
   if (v10)
   {
     array = v10;
@@ -534,7 +532,7 @@ LABEL_24:
         v21 = [v20 objectForKeyedSubscript:&unk_287146198];
         array = [v21 objectForKeyedSubscript:&unk_2871461B0];
 
-        dataCopy = v171;
+        dataCopy = v166;
         v22 = 0x277CBE000;
       }
 
@@ -557,7 +555,7 @@ LABEL_24:
         array2 = [*(v22 + 2656) array];
       }
 
-      v181 = array2;
+      v176 = array2;
 
       v28 = [dataCopy objectForKeyedSubscript:@"activationDurations"];
       v29 = [v28 objectForKeyedSubscript:appCopy];
@@ -570,7 +568,7 @@ LABEL_24:
         v34 = [v33 objectForKeyedSubscript:&unk_287146198];
         array3 = [v34 objectForKeyedSubscript:&unk_2871461C8];
 
-        dataCopy = v171;
+        dataCopy = v166;
       }
 
       else
@@ -593,31 +591,31 @@ LABEL_24:
         array4 = [*(v22 + 2656) array];
       }
 
-      v41 = v181;
+      v41 = v176;
       v42 = array3;
 
       v23 = 0;
       if (array)
       {
-        appDataCopy = v172;
-        if (v181 && array3 && array4)
+        appDataCopy = v167;
+        if (v176 && array3 && array4)
         {
           v43 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:array];
-          v44 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:v181];
+          v44 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:v176];
           v45 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:array3];
           v46 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:array4];
           v23 = [objc_alloc(MEMORY[0x277CD78D0]) initWithLaunchTimeData:v43 withResumeTimeData:v44 withActivationTimeData:v45 withExtendedLaunchTimeData:v46];
 
-          appDataCopy = v172;
+          appDataCopy = v167;
           v42 = array3;
 
-          v41 = v181;
+          v41 = v176;
         }
       }
 
       else
       {
-        appDataCopy = v172;
+        appDataCopy = v167;
       }
 
       goto LABEL_24;
@@ -626,41 +624,24 @@ LABEL_24:
 
   v23 = 0;
 LABEL_25:
-  v170 = v23;
+  v165 = v23;
   [appDataCopy setApplicationLaunchMetrics:v23];
   v47 = [dataCopy objectForKeyedSubscript:@"hangDurations"];
-  if (!v47)
-  {
-    goto LABEL_29;
-  }
-
-  v48 = v47;
-  processHangs = [(PLMetricsFormatterMetricKit *)self processHangs];
-
-  if (!processHangs)
-  {
-    goto LABEL_29;
-  }
-
-  v50 = [dataCopy objectForKeyedSubscript:@"hangDurations"];
-  v51 = [v50 objectForKeyedSubscript:appCopy];
-
-  if (v51)
+  if (v47 && (v48 = v47, v49 = -[PLMetricsFormatterMetricKit processHangs](self, "processHangs"), v48, v49) && ([dataCopy objectForKeyedSubscript:@"hangDurations"], v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v50, "objectForKeyedSubscript:", appCopy), v51 = objc_claimAutoreleasedReturnValue(), v50, v51))
   {
     v52 = [(PLMetricsFormatterMetricKit *)self constructHistogramBucketsWithDuration:10 andData:v51];
 
-    v169 = v52;
+    v164 = v52;
     v53 = [objc_alloc(MEMORY[0x277CD78E0]) initWithAppResponsivenessData:v52];
   }
 
   else
   {
-LABEL_29:
     v53 = 0;
-    v169 = MEMORY[0x277CBEBF8];
+    v164 = MEMORY[0x277CBEBF8];
   }
 
-  v168 = v53;
+  v163 = v53;
   [appDataCopy setApplicationResponsivenessMetrics:v53];
   v54 = [dataCopy objectForKeyedSubscript:@"scrollGlitches"];
 
@@ -701,7 +682,7 @@ LABEL_29:
         v58 = [v71 initWithDoubleValue:v72 unit:v64 / v67];
 
         v73 = objc_alloc(MEMORY[0x277CCAB10]);
-        appDataCopy = v172;
+        appDataCopy = v167;
         v74 = [objc_alloc(MEMORY[0x277CCAD98]) initWithSymbol:@"ms per s"];
         v75 = [v73 initWithDoubleValue:v74 unit:v70];
 
@@ -720,64 +701,55 @@ LABEL_39:
 
   v61 = 0;
 LABEL_41:
-  v167 = v61;
+  v162 = v61;
   [appDataCopy setAnimationMetrics:v61];
   v76 = [dataCopy objectForKeyedSubscript:@"processExits"];
-  if (!v76)
-  {
-    goto LABEL_44;
-  }
-
-  v77 = v76;
-  v78 = [dataCopy objectForKeyedSubscript:@"processExits"];
-  v79 = [v78 objectForKeyedSubscript:appCopy];
-
-  if (v79)
+  if (v76 && (v77 = v76, [dataCopy objectForKeyedSubscript:@"processExits"], v78 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v78, "objectForKeyedSubscript:", appCopy), v79 = objc_claimAutoreleasedReturnValue(), v79, v78, v77, v79))
   {
     v80 = [dataCopy objectForKeyedSubscript:@"processExits"];
     v81 = [v80 objectForKeyedSubscript:appCopy];
-    v182 = [v81 objectForKeyedSubscript:&unk_287146198];
+    v177 = [v81 objectForKeyedSubscript:&unk_287146198];
 
     v82 = [dataCopy objectForKeyedSubscript:@"processExits"];
     v83 = [v82 objectForKeyedSubscript:appCopy];
-    v164 = [v83 objectForKeyedSubscript:&unk_2871461E0];
+    v159 = [v83 objectForKeyedSubscript:&unk_2871461E0];
 
-    v84 = [PLMetricsFormatterMetricKit categorizeAppExits:v182];
-    v173 = objc_alloc(MEMORY[0x277CD79A0]);
-    v161 = [v84 objectForKeyedSubscript:@"cumulativeNormalAppExitCount"];
-    unsignedIntegerValue = [v161 unsignedIntegerValue];
-    v159 = [v84 objectForKeyedSubscript:@"cumulativeMemoryResourceLimitExitCount"];
-    unsignedIntegerValue2 = [v159 unsignedIntegerValue];
+    v84 = [PLMetricsFormatterMetricKit categorizeAppExits:v177];
+    v168 = objc_alloc(MEMORY[0x277CD79A0]);
+    v156 = [v84 objectForKeyedSubscript:@"cumulativeNormalAppExitCount"];
+    unsignedIntegerValue = [v156 unsignedIntegerValue];
+    v154 = [v84 objectForKeyedSubscript:@"cumulativeMemoryResourceLimitExitCount"];
+    unsignedIntegerValue2 = [v154 unsignedIntegerValue];
     v85 = [v84 objectForKeyedSubscript:@"cumulativeCPUResourceLimitExitCount"];
     unsignedIntegerValue3 = [v85 unsignedIntegerValue];
     v86 = [v84 objectForKeyedSubscript:@"cumulativeBadAccessExitCount"];
     unsignedIntegerValue4 = [v86 unsignedIntegerValue];
     v88 = [v84 objectForKeyedSubscript:@"cumulativeAbnormalExitCount"];
     unsignedIntegerValue5 = [v88 unsignedIntegerValue];
-    v177 = v84;
+    v172 = v84;
     v90 = [v84 objectForKeyedSubscript:@"cumulativeIllegalInstructionExitCount"];
     unsignedIntegerValue6 = [v90 unsignedIntegerValue];
     v92 = [v84 objectForKeyedSubscript:@"cumulativeAppWatchdogExitCount"];
-    v174 = [v173 initWithNormalAppExitCount:unsignedIntegerValue withMemoryResourceLimitExitCount:unsignedIntegerValue2 withCPUResourceLimitExitCount:unsignedIntegerValue3 withBadAccessExitCount:unsignedIntegerValue4 withAbnormalExitCount:unsignedIntegerValue5 withIllegalInstructionExitCount:unsignedIntegerValue6 withAppWatchDogExitCount:{objc_msgSend(v92, "unsignedIntegerValue")}];
+    v169 = [v168 initWithNormalAppExitCount:unsignedIntegerValue withMemoryResourceLimitExitCount:unsignedIntegerValue2 withCPUResourceLimitExitCount:unsignedIntegerValue3 withBadAccessExitCount:unsignedIntegerValue4 withAbnormalExitCount:unsignedIntegerValue5 withIllegalInstructionExitCount:unsignedIntegerValue6 withAppWatchDogExitCount:{objc_msgSend(v92, "unsignedIntegerValue")}];
 
-    v93 = [PLMetricsFormatterMetricKit categorizeAppExits:v164];
+    v93 = [PLMetricsFormatterMetricKit categorizeAppExits:v159];
     v94 = objc_alloc(MEMORY[0x277CD7908]);
-    v162 = [v93 objectForKeyedSubscript:@"cumulativeNormalAppExitCount"];
-    unsignedIntegerValue7 = [v162 unsignedIntegerValue];
-    v160 = [v93 objectForKeyedSubscript:@"cumulativeMemoryResourceLimitExitCount"];
-    unsignedIntegerValue8 = [v160 unsignedIntegerValue];
-    v158 = [v93 objectForKeyedSubscript:@"cumulativeCPUResourceLimitExitCount"];
-    unsignedIntegerValue9 = [v158 unsignedIntegerValue];
-    v156 = [v93 objectForKeyedSubscript:@"cumulativeMemoryPressureExitCount"];
-    unsignedIntegerValue10 = [v156 unsignedIntegerValue];
-    v152 = [v93 objectForKeyedSubscript:@"cumulativeBadAccessExitCount"];
-    unsignedIntegerValue11 = [v152 unsignedIntegerValue];
-    v150 = [v93 objectForKeyedSubscript:@"cumulativeAbnormalExitCount"];
-    unsignedIntegerValue12 = [v150 unsignedIntegerValue];
-    v147 = [v93 objectForKeyedSubscript:@"cumulativeIllegalInstructionExitCount"];
-    unsignedIntegerValue13 = [v147 unsignedIntegerValue];
-    v145 = [v93 objectForKeyedSubscript:@"cumulativeAppWatchdogExitCount"];
-    unsignedIntegerValue14 = [v145 unsignedIntegerValue];
+    v157 = [v93 objectForKeyedSubscript:@"cumulativeNormalAppExitCount"];
+    unsignedIntegerValue7 = [v157 unsignedIntegerValue];
+    v155 = [v93 objectForKeyedSubscript:@"cumulativeMemoryResourceLimitExitCount"];
+    unsignedIntegerValue8 = [v155 unsignedIntegerValue];
+    v153 = [v93 objectForKeyedSubscript:@"cumulativeCPUResourceLimitExitCount"];
+    unsignedIntegerValue9 = [v153 unsignedIntegerValue];
+    v151 = [v93 objectForKeyedSubscript:@"cumulativeMemoryPressureExitCount"];
+    unsignedIntegerValue10 = [v151 unsignedIntegerValue];
+    v147 = [v93 objectForKeyedSubscript:@"cumulativeBadAccessExitCount"];
+    unsignedIntegerValue11 = [v147 unsignedIntegerValue];
+    v145 = [v93 objectForKeyedSubscript:@"cumulativeAbnormalExitCount"];
+    unsignedIntegerValue12 = [v145 unsignedIntegerValue];
+    v142 = [v93 objectForKeyedSubscript:@"cumulativeIllegalInstructionExitCount"];
+    unsignedIntegerValue13 = [v142 unsignedIntegerValue];
+    v140 = [v93 objectForKeyedSubscript:@"cumulativeAppWatchdogExitCount"];
+    unsignedIntegerValue14 = [v140 unsignedIntegerValue];
     v95 = [v93 objectForKeyedSubscript:@"cumulativeSuspendedWithLockedFileExitCount"];
     unsignedIntegerValue15 = [v95 unsignedIntegerValue];
     v97 = [v93 objectForKeyedSubscript:@"cumulativeBackgroundTaskAssertionTimeoutExitCount"];
@@ -787,20 +759,19 @@ LABEL_41:
     v101 = [v93 objectForKeyedSubscript:@"cumulativeBackgroundFetchCompletionTimeoutExitCount"];
     v102 = [v94 initWithNormalAppExitCount:unsignedIntegerValue7 memoryResourceLimitExitCount:unsignedIntegerValue8 cpuResourceLimitExitCount:unsignedIntegerValue9 memoryPressureExitCount:unsignedIntegerValue10 badAccessExitCount:unsignedIntegerValue11 abnormalExitCount:unsignedIntegerValue12 illegalInstructionExitCount:unsignedIntegerValue13 appWatchDogExitCount:unsignedIntegerValue14 cumulativeSuspendedWithLockedFileExitCount:unsignedIntegerValue15 cumulativeBackgroundTaskAssertionTimeoutExitCount:unsignedIntegerValue16 cumulativeBackgroundURLSessionCompletionTimeoutExitCount:unsignedIntegerValue17 cumulativeBackgroundFetchCompletionTimeoutExitCount:{objc_msgSend(v101, "unsignedIntegerValue")}];
 
-    appDataCopy = v172;
-    v103 = [objc_alloc(MEMORY[0x277CD78B0]) initWithForegroundExitData:v174 backgroundExitData:v102];
+    appDataCopy = v167;
+    v103 = [objc_alloc(MEMORY[0x277CD78B0]) initWithForegroundExitData:v169 backgroundExitData:v102];
 
-    dataCopy = v171;
+    dataCopy = v166;
   }
 
   else
   {
-LABEL_44:
     v103 = 0;
   }
 
   [appDataCopy setApplicationExitMetrics:v103];
-  v183 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v178 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v104 = [dataCopy objectForKeyedSubscript:@"signpostIntervals"];
 
   if (v104)
@@ -810,9 +781,9 @@ LABEL_44:
 
     if (v106)
     {
-      v165 = v103;
+      v160 = v103;
       v107 = [v106 objectForKeyedSubscript:@"appSignpostDurations"];
-      v163 = v106;
+      v158 = v106;
       v108 = [v106 objectForKeyedSubscript:@"appSignpostMetrics"];
       v109 = MEMORY[0x277CBEC10];
       if (v108)
@@ -820,130 +791,120 @@ LABEL_44:
         v109 = v108;
       }
 
-      v178 = v109;
-      v188 = 0u;
-      v189 = 0u;
-      v190 = 0u;
-      v191 = 0u;
+      v173 = v109;
+      v183 = 0u;
+      v184 = 0u;
+      v185 = 0u;
+      v186 = 0u;
       v110 = v107;
-      v111 = [v110 countByEnumeratingWithState:&v188 objects:v193 count:16];
-      v112 = 0x277CBE000uLL;
+      v111 = [v110 countByEnumeratingWithState:&v183 objects:v188 count:16];
       if (v111)
       {
-        v113 = v111;
-        v114 = *v189;
-        v175 = *v189;
+        v112 = v111;
+        v113 = *v184;
+        v170 = *v184;
         do
         {
-          for (i = 0; i != v113; ++i)
+          for (i = 0; i != v112; ++i)
           {
-            if (*v189 != v114)
+            if (*v184 != v113)
             {
               objc_enumerationMutation(v110);
             }
 
-            v116 = *(*(&v188 + 1) + 8 * i);
-            v117 = *(v112 + 2656);
+            v115 = *(*(&v183 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v116 count] == 2)
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v115 count] == 2)
             {
-              v118 = [v116 objectAtIndexedSubscript:0];
-              v119 = [v116 objectAtIndexedSubscript:1];
-              v120 = [v110 objectForKeyedSubscript:v116];
-              v121 = [v178 objectForKeyedSubscript:v116];
-              [(PLMetricsFormatterMetricKit *)self analyticsLogSignpostsWithBundleId:appCopy withName:v119 withCategory:v118 withMetrics:v121];
-              v122 = [(PLMetricsFormatterMetricKit *)self constructSignpostIntervalDataWithDurations:v120 withMetrics:v121];
-              v123 = appCopy;
-              v124 = [objc_alloc(MEMORY[0x277CD7A28]) initWithSignpostName:v119 withSignpostCategory:v118 withTotalCount:objc_msgSend(v120 withSignpostIntervalData:{"count"), v122}];
-              [v183 addObject:v124];
+              v116 = [v115 objectAtIndexedSubscript:0];
+              v117 = [v115 objectAtIndexedSubscript:1];
+              v118 = [v110 objectForKeyedSubscript:v115];
+              v119 = [v173 objectForKeyedSubscript:v115];
+              [(PLMetricsFormatterMetricKit *)self analyticsLogSignpostsWithBundleId:appCopy withName:v117 withCategory:v116 withMetrics:v119];
+              v120 = [(PLMetricsFormatterMetricKit *)self constructSignpostIntervalDataWithDurations:v118 withMetrics:v119];
+              v121 = appCopy;
+              v122 = [objc_alloc(MEMORY[0x277CD7A28]) initWithSignpostName:v117 withSignpostCategory:v116 withTotalCount:objc_msgSend(v118 withSignpostIntervalData:{"count"), v120}];
+              [v178 addObject:v122];
 
-              appCopy = v123;
-              v112 = 0x277CBE000;
-
-              v114 = v175;
+              appCopy = v121;
+              v113 = v170;
             }
           }
 
-          v113 = [v110 countByEnumeratingWithState:&v188 objects:v193 count:16];
+          v112 = [v110 countByEnumeratingWithState:&v183 objects:v188 count:16];
         }
 
-        while (v113);
+        while (v112);
       }
 
-      dataCopy = v171;
-      appDataCopy = v172;
-      v106 = v163;
-      v103 = v165;
+      dataCopy = v166;
+      appDataCopy = v167;
+      v106 = v158;
+      v103 = v160;
     }
   }
 
-  v125 = [dataCopy objectForKeyedSubscript:@"signpostEvents"];
+  v123 = [dataCopy objectForKeyedSubscript:@"signpostEvents"];
 
-  if (v125)
+  if (v123)
   {
-    v126 = [dataCopy objectForKeyedSubscript:@"signpostEvents"];
-    v180 = appCopy;
-    v127 = [v126 objectForKeyedSubscript:appCopy];
+    v124 = [dataCopy objectForKeyedSubscript:@"signpostEvents"];
+    v175 = appCopy;
+    v125 = [v124 objectForKeyedSubscript:appCopy];
 
-    if (v127)
+    if (v125)
     {
-      v166 = v103;
-      v186 = 0u;
-      v187 = 0u;
-      v184 = 0u;
-      v185 = 0u;
-      v128 = v127;
-      v129 = [v128 countByEnumeratingWithState:&v184 objects:v192 count:16];
-      v130 = 0x277CBE000uLL;
-      if (v129)
+      v161 = v103;
+      v181 = 0u;
+      v182 = 0u;
+      v179 = 0u;
+      v180 = 0u;
+      v126 = v125;
+      v127 = [v126 countByEnumeratingWithState:&v179 objects:v187 count:16];
+      if (v127)
       {
-        v131 = v129;
-        v132 = *v185;
+        v128 = v127;
+        v129 = *v180;
         do
         {
-          for (j = 0; j != v131; ++j)
+          for (j = 0; j != v128; ++j)
           {
-            if (*v185 != v132)
+            if (*v180 != v129)
             {
-              objc_enumerationMutation(v128);
+              objc_enumerationMutation(v126);
             }
 
-            v134 = *(*(&v184 + 1) + 8 * j);
-            v135 = *(v130 + 2656);
+            v131 = *(*(&v179 + 1) + 8 * j);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v134 count] == 2)
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v131 count] == 2)
             {
-              v136 = [v134 objectAtIndexedSubscript:0];
-              v137 = [v134 objectAtIndexedSubscript:1];
-              v138 = [v128 objectForKeyedSubscript:v134];
-              if ([v138 integerValue] >= 1)
+              v132 = [v131 objectAtIndexedSubscript:0];
+              v133 = [v131 objectAtIndexedSubscript:1];
+              v134 = [v126 objectForKeyedSubscript:v131];
+              if ([v134 integerValue] >= 1)
               {
-                v139 = [objc_alloc(MEMORY[0x277CD7A28]) initWithSignpostName:v137 withSignpostCategory:v136 withTotalCount:objc_msgSend(v138 withSignpostIntervalData:{"unsignedIntegerValue"), 0}];
-                [v183 addObject:v139];
-
-                v130 = 0x277CBE000;
+                v135 = [objc_alloc(MEMORY[0x277CD7A28]) initWithSignpostName:v133 withSignpostCategory:v132 withTotalCount:objc_msgSend(v134 withSignpostIntervalData:{"unsignedIntegerValue"), 0}];
+                [v178 addObject:v135];
               }
             }
           }
 
-          v131 = [v128 countByEnumeratingWithState:&v184 objects:v192 count:16];
+          v128 = [v126 countByEnumeratingWithState:&v179 objects:v187 count:16];
         }
 
-        while (v131);
+        while (v128);
       }
 
-      dataCopy = v171;
-      appDataCopy = v172;
-      v103 = v166;
+      dataCopy = v166;
+      appDataCopy = v167;
+      v103 = v161;
     }
 
-    appCopy = v180;
+    appCopy = v175;
   }
 
-  v140 = [MEMORY[0x277CBEA60] arrayWithArray:v183];
-  [appDataCopy setSignpostMetrics:v140];
-
-  v141 = *MEMORY[0x277D85DE8];
+  v136 = [MEMORY[0x277CBEA60] arrayWithArray:v178];
+  [appDataCopy setSignpostMetrics:v136];
 }
 
 - (id)constructSignpostIntervalDataWithDurations:(id)durations withMetrics:(id)metrics
@@ -1031,15 +992,15 @@ LABEL_44:
 
 id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_withCategory_withMetrics___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v29 = *(a1 + 32);
-  v28[0] = @"BundleID";
-  v28[1] = @"Name";
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = *(a1 + 32);
+  v27[0] = @"BundleID";
+  v27[1] = @"Name";
   v3 = *(a1 + 48);
   v2 = *(a1 + 56);
-  v30 = v3;
-  v28[2] = @"Category";
-  v28[3] = @"cpuTime";
+  v29 = v3;
+  v27[2] = @"Category";
+  v27[3] = @"cpuTime";
   v4 = [v2 objectForKeyedSubscript:?];
   v5 = v4;
   if (v4)
@@ -1052,8 +1013,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v6 = &unk_2871461E0;
   }
 
-  v31 = v6;
-  v28[4] = @"diskIO";
+  v30 = v6;
+  v27[4] = @"diskIO";
   v7 = [*(a1 + 56) objectForKeyedSubscript:?];
   v8 = v7;
   if (v7)
@@ -1066,8 +1027,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v9 = &unk_2871461E0;
   }
 
-  v32 = v9;
-  v28[5] = @"peakMemory";
+  v31 = v9;
+  v27[5] = @"peakMemory";
   v10 = [*(a1 + 56) objectForKeyedSubscript:?];
   v11 = v10;
   if (v10)
@@ -1080,8 +1041,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v12 = &unk_2871461E0;
   }
 
-  v33 = v12;
-  v28[6] = @"averageMemory";
+  v32 = v12;
+  v27[6] = @"averageMemory";
   v13 = [*(a1 + 56) objectForKeyedSubscript:?];
   v14 = v13;
   if (v13)
@@ -1094,8 +1055,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v15 = &unk_2871461E0;
   }
 
-  v34 = v15;
-  v28[7] = @"countInstances";
+  v33 = v15;
+  v27[7] = @"countInstances";
   v16 = [*(a1 + 56) objectForKeyedSubscript:?];
   v17 = v16;
   if (v16)
@@ -1108,8 +1069,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v18 = &unk_2871461E0;
   }
 
-  v35 = v18;
-  v28[8] = @"hitchDuration";
+  v34 = v18;
+  v27[8] = @"hitchDuration";
   v19 = [*(a1 + 56) objectForKeyedSubscript:?];
   v20 = v19;
   if (v19)
@@ -1122,8 +1083,8 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v21 = &unk_2871461E0;
   }
 
-  v36 = v21;
-  v28[9] = @"animationDuration";
+  v35 = v21;
+  v27[9] = @"animationDuration";
   v22 = [*(a1 + 56) objectForKeyedSubscript:?];
   v23 = v22;
   if (v22)
@@ -1136,12 +1097,76 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
     v24 = &unk_2871461E0;
   }
 
-  v37 = v24;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:v28 count:10];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v36 = v24;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:v27 count:10];
 
   return v25;
+}
+
+- (id)constructHistogramBucketsWithDuration:(int)duration andData:(id)data
+{
+  v4 = *&duration;
+  v25 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v7 = [dataCopy sortedArrayUsingComparator:&__block_literal_global_22];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v18 = dataCopy;
+    v10 = 0;
+    v11 = *v21;
+    v12 = v4;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v21 != v11)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v14 = *(*(&v20 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v15 = -[PLMetricsFormatterMetricKit computeBucketEndWithDuration:andValue:](self, "computeBucketEndWithDuration:andValue:", v4, [v14 intValue]);
+          if (v12 == v15)
+          {
+            ++v10;
+          }
+
+          else
+          {
+            v16 = v15;
+            if (v10)
+            {
+              [(PLMetricsFormatterMetricKit *)self addBucketWithDuration:v4 WithEnd:v12 andCount:v10 toList:v19];
+            }
+
+            v10 = 1;
+            v12 = v16;
+          }
+        }
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v9);
+    dataCopy = v18;
+    if (v10)
+    {
+      [(PLMetricsFormatterMetricKit *)self addBucketWithDuration:v4 WithEnd:v12 andCount:v10 toList:v19];
+    }
+  }
+
+  return v19;
 }
 
 - (void)addBucketWithDuration:(int)duration WithEnd:(int)end andCount:(unint64_t)count toList:(id)list
@@ -1207,90 +1232,90 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
 
 - (void)normalizeCellularData:(id)data
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v4 = [dataCopy countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v4 = [dataCopy countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v38;
+    v7 = *v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(dataCopy);
         }
 
-        v9 = [dataCopy objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
+        v9 = [dataCopy objectForKeyedSubscript:*(*(&v36 + 1) + 8 * i)];
         v6 += [v9 unsignedIntegerValue];
       }
 
-      v5 = [dataCopy countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v5 = [dataCopy countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v5);
     if (v6)
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v10 = [dataCopy copy];
-      v11 = [v10 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v32 objects:v41 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v34;
+        v13 = *v33;
         do
         {
           for (j = 0; j != v12; ++j)
           {
-            if (*v34 != v13)
+            if (*v33 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v33 + 1) + 8 * j);
+            v15 = *(*(&v32 + 1) + 8 * j);
             v16 = MEMORY[0x277CCABB0];
             v17 = [dataCopy objectForKeyedSubscript:v15];
             v18 = [v16 numberWithUnsignedLongLong:{100 * objc_msgSend(v17, "unsignedIntegerValue") / v6}];
             [dataCopy setObject:v18 forKeyedSubscript:v15];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v33 objects:v42 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v32 objects:v41 count:16];
         }
 
         while (v12);
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v19 = dataCopy;
-      v20 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
       if (v20)
       {
         v21 = v20;
         v22 = 0;
-        v23 = *v30;
+        v23 = *v29;
         do
         {
           for (k = 0; k != v21; ++k)
           {
-            if (*v30 != v23)
+            if (*v29 != v23)
             {
               objc_enumerationMutation(v19);
             }
 
-            v25 = *(*(&v29 + 1) + 8 * k);
+            v25 = *(*(&v28 + 1) + 8 * k);
             if ([v25 shortValue])
             {
               v26 = [v19 objectForKeyedSubscript:v25];
@@ -1298,7 +1323,7 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
         }
 
         while (v21);
@@ -1316,14 +1341,12 @@ id __99__PLMetricsFormatterMetricKit_analyticsLogSignpostsWithBundleId_withName_
         v22 = 0;
       }
 
-      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{100 - v22, v29}];
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{100 - v22, v28}];
       [v19 setObject:v27 forKeyedSubscript:&unk_287146150];
     }
   }
 
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)constructCellularData:(id)data
@@ -1381,20 +1404,9 @@ LABEL_29:
     v4 = 1;
   }
 
-  else
+  else if (!enabledCopy || ([enabledCopy objectForKeyedSubscript:@"hangtracer_enabled"], v5 = objc_claimAutoreleasedReturnValue(), v5, !v5) || (objc_msgSend(enabledCopy, "objectForKeyedSubscript:", @"hangtracer_enabled"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "longValue"), v6, v4 = 1, (v7 - 100) >= 2) && v7 != 1000)
   {
-    if (!enabledCopy)
-    {
-      goto LABEL_7;
-    }
-
-    v5 = [enabledCopy objectForKeyedSubscript:@"hangtracer_enabled"];
-
-    if (!v5 || ([enabledCopy objectForKeyedSubscript:@"hangtracer_enabled"], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "longValue"), v6, v4 = 1, (v7 - 100) >= 2) && v7 != 1000)
-    {
-LABEL_7:
-      v4 = 0;
-    }
+    v4 = 0;
   }
 
   return v4;

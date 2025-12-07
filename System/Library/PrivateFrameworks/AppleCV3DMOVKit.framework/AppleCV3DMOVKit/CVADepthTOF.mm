@@ -167,25 +167,23 @@
 
 - (id)dictionary
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"t";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"t";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v12[0] = v3;
-  v11[1] = @"pc";
+  v11[0] = v3;
+  v10[1] = @"pc";
   dictionaryRepresentation = [(ADJasperPointCloud *)self->_pointCloud dictionaryRepresentation];
-  v12[1] = dictionaryRepresentation;
-  v11[2] = @"p";
+  v11[1] = dictionaryRepresentation;
+  v10[2] = @"p";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_projectorMode];
-  v12[2] = v5;
-  v11[3] = @"st";
+  v11[2] = v5;
+  v10[3] = @"st";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncTimestamp];
-  v12[3] = v6;
-  v11[4] = @"fi";
+  v11[3] = v6;
+  v10[4] = @"fi";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_frameId];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

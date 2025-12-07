@@ -35,8 +35,8 @@
   swift_unknownObjectRelease();
   v14 = sub_27077D410(v17, v11, v13);
 
-  __swift_destroy_boxed_opaque_existential_1(&v16);
-  sub_27077E8F8(v17, &qword_280829D68);
+  __swift_destroy_boxed_opaque_existential_1(v16);
+  sub_27077E8F8(v17, &qword_280829D68, &qword_2707B1530);
   return v14 & 1;
 }
 
@@ -47,28 +47,28 @@
   selfCopy = self;
   sub_2707A8A20();
   swift_unknownObjectRelease();
-  sub_27077D5B8(&v14);
+  sub_27077D5B8(&v15);
 
-  __swift_destroy_boxed_opaque_existential_1(v13);
-  v6 = v15;
-  if (v15)
+  __swift_destroy_boxed_opaque_existential_1(v14);
+  v6 = v16;
+  if (v16)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(&v14, v15);
+    v7 = __swift_project_boxed_opaque_existential_1(&v15, v16);
     v8 = *(v6 - 8);
-    MEMORY[0x28223BE20](v7, v7);
-    v10 = &v13[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    (*(v8 + 16))(v10);
-    v11 = sub_2707A8E90();
-    (*(v8 + 8))(v10, v6);
-    __swift_destroy_boxed_opaque_existential_1(&v14);
+    v9 = MEMORY[0x28223BE20](v7, v7);
+    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v11, v9);
+    v12 = sub_2707A8E90();
+    (*(v8 + 8))(v11, v6);
+    __swift_destroy_boxed_opaque_existential_1(&v15);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)copyEventMatching:(id)matching forService:(id)service
@@ -84,7 +84,7 @@
   swift_unknownObjectRelease();
   v6 = OUTLINED_FUNCTION_3_0();
 
-  __swift_destroy_boxed_opaque_existential_1(&v8);
+  __swift_destroy_boxed_opaque_existential_1(v8);
   return v6;
 }
 
@@ -97,7 +97,7 @@
   swift_unknownObjectRelease();
   v7 = OUTLINED_FUNCTION_1_0();
 
-  __swift_destroy_boxed_opaque_existential_1(&v9);
+  __swift_destroy_boxed_opaque_existential_1(v9);
   return v7 & 1;
 }
 
@@ -105,21 +105,16 @@
 {
   if (property)
   {
-    v7 = sub_2707A8500();
-  }
-
-  else
-  {
-    v7 = 0;
+    sub_2707A8500();
   }
 
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_2707A8A20();
   swift_unknownObjectRelease();
-  nullsub_1(notification, v7, v9);
+  nullsub_1();
 
-  __swift_destroy_boxed_opaque_existential_1(v9);
+  __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
 @end

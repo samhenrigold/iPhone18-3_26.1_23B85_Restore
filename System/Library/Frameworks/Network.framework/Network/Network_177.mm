@@ -1,79 +1,1014 @@
-uint64_t ZSTD_compressBlock_fast_extDict(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned __int8 *a4, uint64_t a5)
+uint64_t FSE_compress_usingCTable(unint64_t *a1, unint64_t a2, unint64_t a3, unint64_t a4, unsigned __int16 *a5)
+{
+  if (a4 < 3 || a2 < 9)
+  {
+    return 0;
+  }
+
+  v5 = a4 + (a4 >> 7) + 12;
+  v6 = a3 + a4;
+  v7 = (a1 + a2 - 8);
+  v10 = *a5;
+  v8 = a5 + 2;
+  v9 = v10;
+  v11 = 1 << (v10 - 1);
+  if (!v10)
+  {
+    v11 = 1;
+  }
+
+  v12 = &v8[2 * v11];
+  v13 = &v12[4 * *(a3 + a4 - 1)];
+  v14 = v8[((((*(v13 + 1) + 0x8000) & 0xFFFF0000) - *(v13 + 1)) >> ((*(v13 + 1) + 0x8000) >> 16)) + *v13];
+  if (a4)
+  {
+    v23 = *(v6 - 3);
+    v17 = (v6 - 3);
+    v24 = &v12[4 * v17[1]];
+    LODWORD(v22) = v8[((((*(v24 + 1) + 0x8000) & 0xFFFF0000) - *(v24 + 1)) >> ((*(v24 + 1) + 0x8000) >> 16)) + *v24];
+    v25 = &v12[4 * v23];
+    v26 = *v25;
+    v27 = *(v25 + 1) + v14;
+    v28 = v27 >> 16;
+    v29 = BIT_mask_36272[v27 >> 16] & v14;
+    v20 = v8[(v14 >> SBYTE2(v27)) + v26];
+    v30 = v27 >> 19;
+    *a1 = v29;
+    v21 = (a1 + (v27 >> 19));
+    if (v5 > a2 && v21 > v7)
+    {
+      v21 = (a1 + a2 - 8);
+    }
+
+    v15 = v28 & 7;
+    v16 = v29 >> (8 * v30);
+  }
+
+  else
+  {
+    v15 = 0;
+    v16 = 0;
+    v18 = *(v6 - 2);
+    v17 = (v6 - 2);
+    v19 = &v12[4 * v18];
+    v20 = v8[((((*(v19 + 1) + 0x8000) & 0xFFFF0000) - *(v19 + 1)) >> ((*(v19 + 1) + 0x8000) >> 16)) + *v19];
+    v21 = a1;
+    LODWORD(v22) = v8[((((*(v13 + 1) + 0x8000) & 0xFFFF0000) - *(v13 + 1)) >> ((*(v13 + 1) + 0x8000) >> 16)) + *v13];
+  }
+
+  v22 = v22;
+  v31 = v20;
+  if ((a4 & 2) != 0)
+  {
+    v43 = v15;
+    if (v17 <= a3)
+    {
+LABEL_26:
+      v61 = v21;
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v32 = *(v17 - 2);
+    v17 -= 2;
+    v33 = &v12[4 * v17[1]];
+    v34 = *v33;
+    v35 = (*(v33 + 1) + v22) >> 16;
+    v36 = (BIT_mask_36272[v35] & v22) << v15;
+    v37 = v15 + v35;
+    v22 = v8[(v22 >> v35) + v34];
+    v38 = &v12[4 * v32];
+    LODWORD(v35) = *v38;
+    v39 = (*(v38 + 1) + v31) >> 16;
+    v40 = v36 | ((BIT_mask_36272[v39] & v31) << v37) | v16;
+    v41 = v37 + ((*(v38 + 1) + v31) >> 16);
+    v31 = v8[(v31 >> v39) + v35];
+    v42 = (v37 + v39) >> 3;
+    *v21 = v40;
+    v21 = (v21 + v42);
+    if (v5 > a2 && v21 > v7)
+    {
+      v21 = (a1 + a2 - 8);
+    }
+
+    v43 = v41 & 7;
+    v16 = v40 >> (8 * v42);
+    if (v17 <= a3)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  do
+  {
+    v44 = *(v17 - 4);
+    v17 -= 4;
+    v45 = &v12[4 * v17[3]];
+    v46 = (v22 + *(v45 + 1)) >> 16;
+    v47 = v43 + ((v22 + *(v45 + 1)) >> 16);
+    v48 = v8[(v22 >> ((v22 + *(v45 + 1)) >> 16)) + *v45];
+    v49 = &v12[4 * v17[2]];
+    v50 = (v31 + *(v49 + 1)) >> 16;
+    v51 = v43 + v46 + v50;
+    v52 = v8[(v31 >> ((v31 + *(v49 + 1)) >> 16)) + *v49];
+    v53 = (*&v12[4 * v17[1] + 2] + v48) >> 16;
+    v54 = *&v12[4 * v44];
+    v55 = (*&v12[4 * v44 + 2] + v52) >> 16;
+    v56 = v51 + v53 + v55;
+    v57 = v56 >> 3;
+    v58 = (v21 + v57) > v7 && v5 > a2;
+    v59 = (v22 & BIT_mask_36272[v46]) << v43;
+    v22 = v8[(v48 >> ((*&v12[4 * v17[1] + 2] + v48) >> 16)) + *&v12[4 * v17[1]]];
+    v60 = v59 | v16 | ((v31 & BIT_mask_36272[v50]) << v47) | ((BIT_mask_36272[v53] & v48) << v51) | ((BIT_mask_36272[v55] & v52) << (v51 + ((*&v12[4 * v17[1] + 2] + v48) >> 16)));
+    v31 = v8[(v52 >> v55) + v54];
+    if (v58)
+    {
+      v61 = (a1 + a2 - 8);
+    }
+
+    else
+    {
+      v61 = (v21 + v57);
+    }
+
+    *v21 = v60;
+    v16 = v60 >> (8 * v57);
+    v43 = v56 & 7;
+    v21 = v61;
+  }
+
+  while (v17 > a3);
+LABEL_27:
+  v62 = BIT_mask_36272[v9];
+  v63 = ((v22 & v62) << v43) | v16;
+  v64 = (v43 + v9) >> 3;
+  *v61 = v63;
+  v65 = (v61 + v64);
+  if ((v61 + v64) > v7)
+  {
+    v65 = (a1 + a2 - 8);
+  }
+
+  v66 = (v43 + v9) & 7;
+  v67 = ((v31 & v62) << v66) | (v63 >> (8 * v64));
+  v68 = v66 + v9;
+  v69 = v68 >> 3;
+  *v65 = v67;
+  v70 = (v65 + v69);
+  if ((v65 + v69) > v7)
+  {
+    v70 = (a1 + a2 - 8);
+  }
+
+  v71 = v68 & 7;
+  v72 = (v67 >> (8 * v69)) | (1 << v71);
+  v73 = v71 + 1;
+  *v70 = v72;
+  v74 = v70 + (v73 >> 3);
+  if (v74 > v7)
+  {
+    v74 = a1 + a2 - 8;
+  }
+
+  if (v74 >= v7)
+  {
+    return 0;
+  }
+
+  if ((v73 & 7) != 0)
+  {
+    return v74 - a1 + 1;
+  }
+
+  else
+  {
+    return v74 - a1;
+  }
+}
+
+unint64_t ZSTD_fillHashTable(unint64_t result, uint64_t a2, int a3, int a4)
+{
+  v4 = *(result + 112);
+  v5 = *(result + 272);
+  v6 = *(result + 8);
+  v7 = *(result + 44);
+  v8 = (v6 + v7);
+  v9 = a2 - 6;
+  v10 = v6 + v7 + 3;
+  if (a4 != 1)
+  {
+    if (v10 >= v9)
+    {
+      return result;
+    }
+
+    v18 = *(result + 264);
+    v19 = 64 - v18;
+    v20 = 32 - v18;
+    if (!a3)
+    {
+      if (v5 > 6)
+      {
+        if (v5 == 7)
+        {
+          v96 = v6 + v7 + 6;
+          if (v96 <= v9)
+          {
+            v96 = a2 - 6;
+          }
+
+          v97 = v96 - v6 - 6;
+          if (v97 == v7)
+          {
+            v98 = *(result + 44);
+          }
+
+          else
+          {
+            v98 = v7 + 1;
+          }
+
+          v99 = (v97 - v98) / 3uLL;
+          if (v97 != v7)
+          {
+            ++v99;
+          }
+
+          if (v99)
+          {
+            v100 = v99 + 1;
+            result = v100 & 0x7FFFFFFFFFFFFFFELL;
+            v101 = 3 * (v100 & 0x7FFFFFFFFFFFFFFELL);
+            v10 += v101;
+            v102 = (v6 + v7);
+            v103 = v100 & 0x7FFFFFFFFFFFFFFELL;
+            do
+            {
+              v104 = 0xCF1BBCDCBFA56300 * *(v102 + 3);
+              *(v4 + 4 * ((0xCF1BBCDCBFA56300 * *v102) >> v19)) = v7;
+              *(v4 + 4 * (v104 >> v19)) = v7 + 3;
+              v102 = (v102 + 6);
+              LODWORD(v7) = v7 + 6;
+              v103 -= 2;
+            }
+
+            while (v103);
+            if (v100 == result)
+            {
+              return result;
+            }
+
+            v8 = (v8 + v101);
+          }
+
+          do
+          {
+            *(v4 + 4 * ((0xCF1BBCDCBFA56300 * *v8) >> v19)) = v8 - v6;
+            v8 = v10;
+            v10 += 3;
+          }
+
+          while (v10 < v9);
+          return result;
+        }
+
+        if (v5 == 8)
+        {
+          v57 = v6 + v7 + 6;
+          if (v57 <= v9)
+          {
+            v57 = a2 - 6;
+          }
+
+          v58 = v57 - v6 - 6;
+          if (v58 == v7)
+          {
+            v59 = *(result + 44);
+          }
+
+          else
+          {
+            v59 = v7 + 1;
+          }
+
+          v60 = (v58 - v59) / 3uLL;
+          if (v58 != v7)
+          {
+            ++v60;
+          }
+
+          if (v60)
+          {
+            v61 = v60 + 1;
+            result = v61 & 0x7FFFFFFFFFFFFFFELL;
+            v62 = 3 * (v61 & 0x7FFFFFFFFFFFFFFELL);
+            v10 += v62;
+            v63 = (v6 + v7);
+            v64 = v61 & 0x7FFFFFFFFFFFFFFELL;
+            do
+            {
+              v65 = 0xCF1BBCDCB7A56463 * *(v63 + 3);
+              *(v4 + 4 * ((0xCF1BBCDCB7A56463 * *v63) >> v19)) = v7;
+              *(v4 + 4 * (v65 >> v19)) = v7 + 3;
+              v63 = (v63 + 6);
+              LODWORD(v7) = v7 + 6;
+              v64 -= 2;
+            }
+
+            while (v64);
+            if (v61 == result)
+            {
+              return result;
+            }
+
+            v8 = (v8 + v62);
+          }
+
+          do
+          {
+            *(v4 + 4 * ((0xCF1BBCDCB7A56463 * *v8) >> v19)) = v8 - v6;
+            v8 = v10;
+            v10 += 3;
+          }
+
+          while (v10 < v9);
+          return result;
+        }
+      }
+
+      else
+      {
+        if (v5 == 5)
+        {
+          v77 = v6 + v7 + 6;
+          if (v77 <= v9)
+          {
+            v77 = a2 - 6;
+          }
+
+          v78 = v77 - v6 - 6;
+          if (v78 == v7)
+          {
+            v79 = *(result + 44);
+          }
+
+          else
+          {
+            v79 = v7 + 1;
+          }
+
+          v80 = (v78 - v79) / 3uLL;
+          if (v78 != v7)
+          {
+            ++v80;
+          }
+
+          if (v80)
+          {
+            v81 = v80 + 1;
+            result = v81 & 0x7FFFFFFFFFFFFFFELL;
+            v82 = 3 * (v81 & 0x7FFFFFFFFFFFFFFELL);
+            v10 += v82;
+            v83 = (v6 + v7);
+            v84 = v81 & 0x7FFFFFFFFFFFFFFELL;
+            do
+            {
+              v85 = 0xCF1BBCDCBB000000 * *(v83 + 3);
+              *(v4 + 4 * ((0xCF1BBCDCBB000000 * *v83) >> v19)) = v7;
+              *(v4 + 4 * (v85 >> v19)) = v7 + 3;
+              v83 = (v83 + 6);
+              LODWORD(v7) = v7 + 6;
+              v84 -= 2;
+            }
+
+            while (v84);
+            if (v81 == result)
+            {
+              return result;
+            }
+
+            v8 = (v8 + v82);
+          }
+
+          do
+          {
+            *(v4 + 4 * ((0xCF1BBCDCBB000000 * *v8) >> v19)) = v8 - v6;
+            v8 = v10;
+            v10 += 3;
+          }
+
+          while (v10 < v9);
+          return result;
+        }
+
+        if (v5 == 6)
+        {
+          v38 = v6 + v7 + 6;
+          if (v38 <= v9)
+          {
+            v38 = a2 - 6;
+          }
+
+          v39 = v38 - v6 - 6;
+          if (v39 == v7)
+          {
+            v40 = *(result + 44);
+          }
+
+          else
+          {
+            v40 = v7 + 1;
+          }
+
+          v41 = (v39 - v40) / 3uLL;
+          if (v39 != v7)
+          {
+            ++v41;
+          }
+
+          if (v41)
+          {
+            v42 = v41 + 1;
+            result = v42 & 0x7FFFFFFFFFFFFFFELL;
+            v43 = 3 * (v42 & 0x7FFFFFFFFFFFFFFELL);
+            v10 += v43;
+            v44 = (v6 + v7);
+            v45 = v42 & 0x7FFFFFFFFFFFFFFELL;
+            do
+            {
+              v46 = 0xCF1BBCDCBF9B0000 * *(v44 + 3);
+              *(v4 + 4 * ((0xCF1BBCDCBF9B0000 * *v44) >> v19)) = v7;
+              *(v4 + 4 * (v46 >> v19)) = v7 + 3;
+              v44 = (v44 + 6);
+              LODWORD(v7) = v7 + 6;
+              v45 -= 2;
+            }
+
+            while (v45);
+            if (v42 == result)
+            {
+              return result;
+            }
+
+            v8 = (v8 + v43);
+          }
+
+          do
+          {
+            *(v4 + 4 * ((0xCF1BBCDCBF9B0000 * *v8) >> v19)) = v8 - v6;
+            v8 = v10;
+            v10 += 3;
+          }
+
+          while (v10 < v9);
+          return result;
+        }
+      }
+
+      do
+      {
+        *(v4 + 4 * ((-1640531535 * *(v10 - 3)) >> v20)) = v7;
+        v10 += 3;
+        LODWORD(v7) = v7 + 3;
+      }
+
+      while (v10 < v9);
+      return result;
+    }
+
+    result = 0xCF1BBCDCB7A56463;
+    while (1)
+    {
+      if (v5 > 6)
+      {
+        if (v5 == 7)
+        {
+          *(v4 + 4 * ((0xCF1BBCDCBFA56300 * *(v10 - 3)) >> v19)) = v7;
+          v27 = (0xCF1BBCDCBFA56300 * *(v10 - 2)) >> v19;
+          if (!*(v4 + 4 * v27))
+          {
+            *(v4 + 4 * v27) = v7 + 1;
+          }
+
+          v22 = 0xCF1BBCDCBFA56300 * *(v10 - 1);
+LABEL_57:
+          v25 = (v4 + 4 * (v22 >> v19));
+          if (*v25)
+          {
+            goto LABEL_35;
+          }
+
+          goto LABEL_34;
+        }
+
+        if (v5 == 8)
+        {
+          *(v4 + 4 * ((0xCF1BBCDCB7A56463 * *(v10 - 3)) >> v19)) = v7;
+          v23 = (0xCF1BBCDCB7A56463 * *(v10 - 2)) >> v19;
+          if (!*(v4 + 4 * v23))
+          {
+            *(v4 + 4 * v23) = v7 + 1;
+          }
+
+          v22 = 0xCF1BBCDCB7A56463 * *(v10 - 1);
+          goto LABEL_57;
+        }
+      }
+
+      else
+      {
+        if (v5 == 5)
+        {
+          *(v4 + 4 * ((0xCF1BBCDCBB000000 * *(v10 - 3)) >> v19)) = v7;
+          v26 = (0xCF1BBCDCBB000000 * *(v10 - 2)) >> v19;
+          if (!*(v4 + 4 * v26))
+          {
+            *(v4 + 4 * v26) = v7 + 1;
+          }
+
+          v22 = 0xCF1BBCDCBB000000 * *(v10 - 1);
+          goto LABEL_57;
+        }
+
+        if (v5 == 6)
+        {
+          *(v4 + 4 * ((0xCF1BBCDCBF9B0000 * *(v10 - 3)) >> v19)) = v7;
+          v21 = (0xCF1BBCDCBF9B0000 * *(v10 - 2)) >> v19;
+          if (!*(v4 + 4 * v21))
+          {
+            *(v4 + 4 * v21) = v7 + 1;
+          }
+
+          v22 = 0xCF1BBCDCBF9B0000 * *(v10 - 1);
+          goto LABEL_57;
+        }
+      }
+
+      *(v4 + 4 * ((-1640531535 * *(v10 - 3)) >> v20)) = v7;
+      v24 = (-1640531535 * *(v10 - 2)) >> v20;
+      if (!*(v4 + 4 * v24))
+      {
+        *(v4 + 4 * v24) = v7 + 1;
+      }
+
+      v25 = (v4 + 4 * ((-1640531535 * *(v10 - 1)) >> v20));
+      if (*v25)
+      {
+        goto LABEL_35;
+      }
+
+LABEL_34:
+      *v25 = v7 + 2;
+LABEL_35:
+      v10 += 3;
+      LODWORD(v7) = v7 + 3;
+      if (v10 >= v9)
+      {
+        return result;
+      }
+    }
+  }
+
+  if (v10 >= v9)
+  {
+    return result;
+  }
+
+  v11 = *(result + 264);
+  v12 = 56 - v11;
+  v13 = 24 - v11;
+  if (a3)
+  {
+    result = 0xCF1BBCDCB7A56463;
+    for (i = (v7 << 8) + 512; ; i += 768)
+    {
+      if (v5 > 6)
+      {
+        if (v5 == 7)
+        {
+          *(v4 + (((0xCF1BBCDCBFA56300 * *(v10 - 3)) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = i + ((0xCF1BBCDCBFA56300 * *(v10 - 3)) >> v12) - 512;
+          v16 = 0xCF1BBCDCBFA56300 * *(v10 - 2);
+        }
+
+        else
+        {
+          if (v5 != 8)
+          {
+LABEL_16:
+            *(v4 + 4 * ((-1640531535 * *(v10 - 3)) >> v13 >> 8)) = i + ((-1640531535 * *(v10 - 3)) >> v13) - 512;
+            v17 = (-1640531535 * *(v10 - 2)) >> v13;
+            goto LABEL_20;
+          }
+
+          *(v4 + (((0xCF1BBCDCB7A56463 * *(v10 - 3)) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = i + ((0xCF1BBCDCB7A56463 * *(v10 - 3)) >> v12) - 512;
+          v16 = 0xCF1BBCDCB7A56463 * *(v10 - 2);
+        }
+      }
+
+      else if (v5 == 5)
+      {
+        *(v4 + (((0xCF1BBCDCBB000000 * *(v10 - 3)) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = i + ((0xCF1BBCDCBB000000 * *(v10 - 3)) >> v12) - 512;
+        v16 = 0xCF1BBCDCBB000000 * *(v10 - 2);
+      }
+
+      else
+      {
+        if (v5 != 6)
+        {
+          goto LABEL_16;
+        }
+
+        *(v4 + (((0xCF1BBCDCBF9B0000 * *(v10 - 3)) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = i + ((0xCF1BBCDCBF9B0000 * *(v10 - 3)) >> v12) - 512;
+        v16 = 0xCF1BBCDCBF9B0000 * *(v10 - 2);
+      }
+
+      v17 = v16 >> v12;
+LABEL_20:
+      if (*(v4 + 4 * (v17 >> 8)))
+      {
+        if (v5 > 6)
+        {
+          goto LABEL_26;
+        }
+      }
+
+      else
+      {
+        *(v4 + 4 * (v17 >> 8)) = i + v17 - 256;
+        if (v5 > 6)
+        {
+LABEL_26:
+          if (v5 == 8)
+          {
+            v15 = (0xCF1BBCDCB7A56463 * *(v10 - 1)) >> v12;
+            goto LABEL_6;
+          }
+
+          if (v5 == 7)
+          {
+            v15 = (0xCF1BBCDCBFA56300 * *(v10 - 1)) >> v12;
+            goto LABEL_6;
+          }
+
+          goto LABEL_5;
+        }
+      }
+
+      if (v5 == 5)
+      {
+        v15 = (0xCF1BBCDCBB000000 * *(v10 - 1)) >> v12;
+        goto LABEL_6;
+      }
+
+      if (v5 == 6)
+      {
+        v15 = (0xCF1BBCDCBF9B0000 * *(v10 - 1)) >> v12;
+        goto LABEL_6;
+      }
+
+LABEL_5:
+      v15 = (-1640531535 * *(v10 - 1)) >> v13;
+LABEL_6:
+      if (!*(v4 + 4 * (v15 >> 8)))
+      {
+        *(v4 + 4 * (v15 >> 8)) = i + v15;
+      }
+
+      v10 += 3;
+      if (v10 >= v9)
+      {
+        return result;
+      }
+    }
+  }
+
+  if (v5 > 6)
+  {
+    if (v5 == 7)
+    {
+      v86 = v6 + v7 + 6;
+      if (v86 <= v9)
+      {
+        v86 = a2 - 6;
+      }
+
+      v87 = v86 - v6 - 6;
+      if (v87 == v7)
+      {
+        v88 = *(result + 44);
+      }
+
+      else
+      {
+        v88 = v7 + 1;
+      }
+
+      v89 = (v87 - v88) / 3uLL;
+      if (v87 != v7)
+      {
+        ++v89;
+      }
+
+      if (v89)
+      {
+        v90 = v89 + 1;
+        result = v90 & 0x7FFFFFFFFFFFFFFELL;
+        v91 = 3 * (v90 & 0x7FFFFFFFFFFFFFFELL);
+        v10 += v91;
+        v92 = v7 << 8;
+        v93 = v8;
+        v94 = v90 & 0x7FFFFFFFFFFFFFFELL;
+        do
+        {
+          v95 = (0xCF1BBCDCBFA56300 * *(v93 + 3)) >> v12;
+          *(v4 + (((0xCF1BBCDCBFA56300 * *v93) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v92 + ((0xCF1BBCDCBFA56300 * *v93) >> v12);
+          *(v4 + ((v95 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v92 + v95 + 768;
+          v93 = (v93 + 6);
+          v92 += 1536;
+          v94 -= 2;
+        }
+
+        while (v94);
+        if (v90 == result)
+        {
+          return result;
+        }
+
+        v8 = (v8 + v91);
+      }
+
+      do
+      {
+        *(v4 + (((0xCF1BBCDCBFA56300 * *v8) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = ((0xCF1BBCDCBFA56300 * *v8) >> v12) | ((v8 - v6) << 8);
+        v8 = v10;
+        v10 += 3;
+      }
+
+      while (v10 < v9);
+      return result;
+    }
+
+    if (v5 == 8)
+    {
+      v47 = v6 + v7 + 6;
+      if (v47 <= v9)
+      {
+        v47 = a2 - 6;
+      }
+
+      v48 = v47 - v6 - 6;
+      if (v48 == v7)
+      {
+        v49 = *(result + 44);
+      }
+
+      else
+      {
+        v49 = v7 + 1;
+      }
+
+      v50 = (v48 - v49) / 3uLL;
+      if (v48 != v7)
+      {
+        ++v50;
+      }
+
+      if (v50)
+      {
+        v51 = v50 + 1;
+        result = v51 & 0x7FFFFFFFFFFFFFFELL;
+        v52 = 3 * (v51 & 0x7FFFFFFFFFFFFFFELL);
+        v10 += v52;
+        v53 = v7 << 8;
+        v54 = v8;
+        v55 = v51 & 0x7FFFFFFFFFFFFFFELL;
+        do
+        {
+          v56 = (0xCF1BBCDCB7A56463 * *(v54 + 3)) >> v12;
+          *(v4 + (((0xCF1BBCDCB7A56463 * *v54) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v53 + ((0xCF1BBCDCB7A56463 * *v54) >> v12);
+          *(v4 + ((v56 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v53 + v56 + 768;
+          v54 = (v54 + 6);
+          v53 += 1536;
+          v55 -= 2;
+        }
+
+        while (v55);
+        if (v51 == result)
+        {
+          return result;
+        }
+
+        v8 = (v8 + v52);
+      }
+
+      do
+      {
+        *(v4 + (((0xCF1BBCDCB7A56463 * *v8) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = ((0xCF1BBCDCB7A56463 * *v8) >> v12) | ((v8 - v6) << 8);
+        v8 = v10;
+        v10 += 3;
+      }
+
+      while (v10 < v9);
+      return result;
+    }
+
+LABEL_125:
+    v66 = v7 << 8;
+    do
+    {
+      *(v4 + 4 * ((-1640531535 * *(v10 - 3)) >> v13 >> 8)) = v66 + ((-1640531535 * *(v10 - 3)) >> v13);
+      v10 += 3;
+      v66 += 768;
+    }
+
+    while (v10 < v9);
+    return result;
+  }
+
+  if (v5 == 5)
+  {
+    v67 = v6 + v7 + 6;
+    if (v67 <= v9)
+    {
+      v67 = a2 - 6;
+    }
+
+    v68 = v67 - v6 - 6;
+    if (v68 == v7)
+    {
+      v69 = *(result + 44);
+    }
+
+    else
+    {
+      v69 = v7 + 1;
+    }
+
+    v70 = (v68 - v69) / 3uLL;
+    if (v68 != v7)
+    {
+      ++v70;
+    }
+
+    if (v70)
+    {
+      v71 = v70 + 1;
+      result = v71 & 0x7FFFFFFFFFFFFFFELL;
+      v72 = 3 * (v71 & 0x7FFFFFFFFFFFFFFELL);
+      v10 += v72;
+      v73 = v7 << 8;
+      v74 = v8;
+      v75 = v71 & 0x7FFFFFFFFFFFFFFELL;
+      do
+      {
+        v76 = (0xCF1BBCDCBB000000 * *(v74 + 3)) >> v12;
+        *(v4 + (((0xCF1BBCDCBB000000 * *v74) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v73 + ((0xCF1BBCDCBB000000 * *v74) >> v12);
+        *(v4 + ((v76 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v73 + v76 + 768;
+        v74 = (v74 + 6);
+        v73 += 1536;
+        v75 -= 2;
+      }
+
+      while (v75);
+      if (v71 == result)
+      {
+        return result;
+      }
+
+      v8 = (v8 + v72);
+    }
+
+    do
+    {
+      *(v4 + (((0xCF1BBCDCBB000000 * *v8) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = ((0xCF1BBCDCBB000000 * *v8) >> v12) | ((v8 - v6) << 8);
+      v8 = v10;
+      v10 += 3;
+    }
+
+    while (v10 < v9);
+    return result;
+  }
+
+  if (v5 != 6)
+  {
+    goto LABEL_125;
+  }
+
+  v28 = v6 + v7 + 6;
+  if (v28 <= v9)
+  {
+    v28 = a2 - 6;
+  }
+
+  v29 = v28 - v6 - 6;
+  if (v29 == v7)
+  {
+    v30 = *(result + 44);
+  }
+
+  else
+  {
+    v30 = v7 + 1;
+  }
+
+  v31 = (v29 - v30) / 3uLL;
+  if (v29 != v7)
+  {
+    ++v31;
+  }
+
+  if (!v31)
+  {
+    goto LABEL_74;
+  }
+
+  v32 = v31 + 1;
+  result = v32 & 0x7FFFFFFFFFFFFFFELL;
+  v33 = 3 * (v32 & 0x7FFFFFFFFFFFFFFELL);
+  v10 += v33;
+  v34 = v7 << 8;
+  v35 = v8;
+  v36 = v32 & 0x7FFFFFFFFFFFFFFELL;
+  do
+  {
+    v37 = (0xCF1BBCDCBF9B0000 * *(v35 + 3)) >> v12;
+    *(v4 + (((0xCF1BBCDCBF9B0000 * *v35) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v34 + ((0xCF1BBCDCBF9B0000 * *v35) >> v12);
+    *(v4 + ((v37 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = v34 + v37 + 768;
+    v35 = (v35 + 6);
+    v34 += 1536;
+    v36 -= 2;
+  }
+
+  while (v36);
+  if (v32 != result)
+  {
+    v8 = (v8 + v33);
+    do
+    {
+LABEL_74:
+      *(v4 + (((0xCF1BBCDCBF9B0000 * *v8) >> v12 >> 6) & 0x3FFFFFFFFFFFFFCLL)) = ((0xCF1BBCDCBF9B0000 * *v8) >> v12) | ((v8 - v6) << 8);
+      v8 = v10;
+      v10 += 3;
+    }
+
+    while (v10 < v9);
+  }
+
+  return result;
+}
+
+uint64_t ZSTD_compressBlock_fast(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned __int8 *a4, uint64_t a5)
 {
   v6 = *(a1 + 272);
-  if ((v6 - 5) >= 3)
+  v7 = *(a1 + 276);
+  v8 = *(a1 + 112);
+  if (v7 >= 2)
   {
-    v6 = 4;
-  }
+    v9 = v7 + 1;
+    v10 = *(a1 + 8);
+    v11 = &a4[a5];
+    v12 = a4 + a5 - v10;
+    v13 = *(a1 + 24);
+    v14 = 1 << *(a1 + 256);
+    v15 = v12 - v13 > v14;
+    v16 = v12 - v14;
+    v17 = *(a1 + 40) == 0;
+    if (v17 && v15)
+    {
+      v18 = v16;
+    }
 
-  if (*(a1 + 276) <= 1u)
-  {
-    v7 = 1;
-  }
+    else
+    {
+      v18 = v13;
+    }
 
-  else
-  {
-    v7 = *(a1 + 276);
-  }
-
-  v8 = *(a1 + 8);
-  v9 = a4 - v8 + a5;
-  v10 = 1 << *(a1 + 256);
-  v12 = *(a1 + 24);
-  v11 = *(a1 + 28);
-  v13 = v9 - v11 > v10;
-  v14 = v9 - v10;
-  if (v13 && *(a1 + 40) == 0)
-  {
-    v16 = v14;
-  }
-
-  else
-  {
-    v16 = v11;
-  }
-
-  if (v12 <= v16)
-  {
-    v17 = v16;
-  }
-
-  else
-  {
-    v17 = v12;
-  }
-
-  if (v16 < v12)
-  {
-    v18 = (v7 + 1);
-    v19 = &a4[a5];
-    v20 = &a4[a5 - 8];
-    v22 = *a3;
+    v19 = (v11 - 8);
+    v20 = *a3;
     v21 = a3[1];
-    v23 = a4 - v8 - v16;
-    if (v21 >= v23)
+    if ((v10 + v18) == a4)
     {
-      v24 = a3[1];
+      v22 = a4 + 1;
     }
 
     else
     {
-      v24 = 0;
+      v22 = a4;
     }
 
-    if (v21 >= v23)
+    v23 = v22 - v10 - v13 > v14;
+    v24 = v22 - v10 - v14;
+    if (!v17 || !v23)
     {
-      v25 = 0;
+      v24 = *(a1 + 24);
     }
 
-    else
+    v25 = v22 - v10 - v24;
+    if (v21 <= v25)
     {
-      v25 = v21;
-    }
-
-    if (v22 >= v23)
-    {
-      v26 = v22;
+      v26 = v21;
     }
 
     else
@@ -81,10593 +1016,9814 @@ uint64_t ZSTD_compressBlock_fast_extDict(uint64_t a1, uint64_t a2, unsigned int 
       v26 = 0;
     }
 
-    v164 = v26;
-    v165 = v24;
-    if (v22 >= v23)
+    if (v20 <= v25)
+    {
+      v27 = v20;
+    }
+
+    else
     {
       v27 = 0;
     }
 
-    else
+    v730 = v9;
+    v28 = &v22[v9];
+    v29 = v28 + 1;
+    if (v6 != 5)
     {
-      v27 = v22;
-    }
-
-    v28 = &a4[v18];
-    v29 = &a4[v18 + 1];
-    if (v29 >= v20)
-    {
-LABEL_278:
-      LODWORD(v121) = v25;
-      goto LABEL_279;
-    }
-
-    v159 = *(a1 + 24);
-    v30 = *(a1 + 16);
-    v168 = (v8 + v17);
-    v31 = *(a1 + 112);
-    v160 = v8 + 2;
-    v161 = v18;
-    v32 = *(a1 + 264);
-    v33 = 64 - v32;
-    v169 = 32 - v32;
-    v34 = (v19 - 7);
-    v163 = (v19 - 3);
-    v162 = (v19 - 1);
-    v167 = (v19 - 32);
-    v170 = v17 + v8 + 8;
-LABEL_30:
-    if (v6 > 6)
-    {
-      if (v6 == 7)
-      {
-        v35 = *a4;
-        v36 = -1079680256;
-        goto LABEL_40;
-      }
-
-      if (v6 == 8)
-      {
-        v35 = *a4;
-        v36 = -1213897629;
-        goto LABEL_40;
-      }
-    }
-
-    else
-    {
-      if (v6 == 5)
-      {
-        v35 = *a4;
-        v36 = -1157627904;
-        goto LABEL_40;
-      }
-
-      if (v6 == 6)
-      {
-        v35 = *a4;
-        v36 = -1080360960;
-LABEL_40:
-        v39 = v36 | 0xCF1BBCDC00000000;
-        v37 = (v35 * v39) >> v33;
-        v38 = (*(a4 + 1) * v39) >> v33;
-        goto LABEL_41;
-      }
-    }
-
-    v37 = (-1640531535 * *a4) >> v169;
-    v38 = (-1640531535 * *(a4 + 1)) >> v169;
-LABEL_41:
-    v40 = a4 + 1;
-    v41 = a4 + 128;
-    v42 = *(v31 + 4 * v37);
-    if (v42 >= v17)
-    {
-      v43 = v8;
-    }
-
-    else
-    {
-      v43 = v30;
-    }
-
-    v44 = a4;
-    while (1)
-    {
-      v51 = v28;
-      _X16 = v29;
-      v53 = v28 - v8 - v27;
-      if (v17 <= v53)
-      {
-        v54 = v8;
-      }
-
-      else
-      {
-        v54 = v30;
-      }
-
-      if (v27 && v17 - v53 >= 4)
-      {
-        v55 = *(v54 + v53);
-      }
-
-      else
-      {
-        v55 = *v28 ^ 1;
-      }
-
-      v56 = v44 - v8;
-      *(v31 + 4 * v37) = v44 - v8;
-      if (*v51 == v55)
-      {
-        v62 = v54 + v53;
-        if (v17 <= v53)
-        {
-          v63 = v19;
-        }
-
-        else
-        {
-          v63 = (v30 + v17);
-        }
-
-        v64 = *(v51 - 1) == *(v62 - 1);
-        if (*(v51 - 1) == *(v62 - 1))
-        {
-          v65 = 5;
-        }
-
-        else
-        {
-          v65 = 4;
-        }
-
-        v66 = &v51[-v64];
-        v67 = (v62 - v64);
-        v68 = 1;
-        v51 = v40;
-        v40 = v66;
-        v69 = v27;
-        goto LABEL_111;
-      }
-
-      if (v42 >= v16)
-      {
-        v57 = v42;
-        if (*v44 == *(v43 + v42))
-        {
-          v51 = v40;
-          v40 = v44;
-          goto LABEL_98;
-        }
-      }
-
-      v57 = *(v31 + 4 * v38);
-      if (v57 >= v17)
-      {
-        v43 = v8;
-      }
-
-      else
-      {
-        v43 = v30;
-      }
-
-      if (v6 > 6)
+      if (v6 != 6)
       {
         if (v6 == 7)
         {
-          v58 = *v51;
-          v59 = -1079680256;
-          goto LABEL_70;
-        }
-
-        if (v6 == 8)
-        {
-          v58 = *v51;
-          v59 = -1213897629;
-          goto LABEL_70;
-        }
-      }
-
-      else
-      {
-        if (v6 == 5)
-        {
-          v58 = *v51;
-          v59 = -1157627904;
-          goto LABEL_70;
-        }
-
-        if (v6 == 6)
-        {
-          v58 = *v51;
-          v59 = -1080360960;
-LABEL_70:
-          v37 = (v58 * (v59 | 0xCF1BBCDC00000000)) >> v33;
-          goto LABEL_71;
-        }
-      }
-
-      v37 = (-1640531535 * *v51) >> v169;
-LABEL_71:
-      v56 = v40 - v8;
-      *(v31 + 4 * v38) = v40 - v8;
-      if (v57 >= v16 && *v40 == *(v43 + v57))
-      {
-        v42 = v57;
-        v38 = v37;
-LABEL_98:
-        v69 = v56 - v42;
-        v70 = v8 + v17;
-        if (v159 <= v42)
-        {
-          v63 = v19;
-        }
-
-        else
-        {
-          v70 = v30 + v16;
-          v63 = (v30 + v17);
-        }
-
-        v67 = (v43 + v57);
-        v68 = v69 + 3;
-        if (v43 + v57 <= v70 || v40 <= a4)
-        {
-          v65 = 4;
-        }
-
-        else
-        {
-          v71 = v40 - 1;
-          v72 = (v43 + v57 - 1);
-          v65 = 4;
-          while (*v71 == *v72)
+          if (v29 >= v19)
           {
-            ++v65;
-            v73 = v71 - 1;
-            v74 = v72 - 1;
-            if (v72 > v70)
+            goto LABEL_1055;
+          }
+
+          v30 = 64 - *(a1 + 264);
+          v31 = (v11 - 7);
+          v32 = v11 - 1;
+          v33 = v11 - 32;
+          v712 = v11 - 3;
+          while (1)
+          {
+            v34 = v11;
+            v35 = v22 + 1;
+            v36 = *(v22 + 1);
+            v37 = v22 + 128;
+            v38 = v27;
+            v39 = (0xCF1BBCDCBFA56300 * *v22) >> v30;
+            v40 = *(v8 + 4 * v39);
+            v41 = -v27;
+            if (v27)
             {
-              --v72;
-              v13 = v71-- > a4;
-              if (v13)
+              v42 = v730;
+              while (1)
               {
-                continue;
-              }
-            }
+                v50 = v28;
+                v51 = *&v28[v41];
+                v52 = (0xCF1BBCDCBFA56300 * v36) >> v30;
+                v53 = v22 - v10;
+                *(v8 + 4 * v39) = v22 - v10;
+                if (*v50 == v51)
+                {
+                  break;
+                }
 
-            v40 = v73 + 1;
-            v67 = v74 + 1;
-            goto LABEL_110;
-          }
+                _X10 = v29;
+                if (v40 >= v18 && *v22 == *(v10 + v40))
+                {
+                  v55 = v10 + v18;
+                  goto LABEL_46;
+                }
 
-          v40 = v71 + 1;
-          v67 = v72 + 1;
-        }
+                v40 = *(v8 + 4 * v52);
+                v39 = (0xCF1BBCDCBFA56300 * *v50) >> v30;
+                v53 = v35 - v10;
+                *(v8 + 4 * v52) = v35 - v10;
+                if (v40 >= v18 && *v35 == *(v10 + v40))
+                {
+                  v55 = v10 + v18;
+                  goto LABEL_48;
+                }
 
-LABEL_110:
-        v25 = v27;
-LABEL_111:
-        v75 = &v40[v65];
-        v76 = &v67[v65];
-        if (&v40[v63 - v67] >= v19)
-        {
-          v77 = v19;
-        }
+                v40 = *(v8 + 4 * v39);
+                v36 = *v29;
+                v28 = &v50[v42];
+                if (&v50[v42] >= v37)
+                {
+                  v43 = v42 + 1;
+                  __asm
+                  {
+                    PRFM            #0, [X10,#0x40]
+                    PRFM            #0, [X10,#0x80]
+                  }
 
-        else
-        {
-          v77 = &v40[v63 - v67];
-        }
+                  v37 += 128;
+                }
 
-        if (v77 - 7 <= v75)
-        {
-          v78 = &v67[v65];
-          v80 = &v40[v65];
-LABEL_122:
-          if (v80 < v77 - 3 && *v78 == *v80)
-          {
-            v78 += 4;
-            v80 += 4;
-          }
+                else
+                {
+                  v43 = v42;
+                }
 
-          if (v80 < v77 - 1 && *v78 == *v80)
-          {
-            v78 += 2;
-            v80 += 2;
-          }
-
-          if (v80 < v77 && *v78 == *v80)
-          {
-            ++v80;
-          }
-
-          v83 = v80 - v75;
-        }
-
-        else if (*v76 == *v75)
-        {
-          v78 = &v67[v65 + 8];
-          v79 = &v40[v65 + 8];
-          do
-          {
-            v80 = v79;
-            if (v79 >= (v77 - 7))
-            {
-              goto LABEL_122;
-            }
-
-            v82 = *v78;
-            v78 += 8;
-            v81 = v82;
-            v79 += 8;
-          }
-
-          while (v82 == *v80);
-          v83 = &v80[__clz(__rbit64(*v80 ^ v81)) >> 3] - v75;
-        }
-
-        else
-        {
-          v83 = __clz(__rbit64(*v75 ^ *v76)) >> 3;
-        }
-
-        if (&v76[v83] == v63)
-        {
-          v84 = &v75[v83];
-          if (v34 <= v84)
-          {
-            v90 = (v8 + v17);
-            v86 = v84;
-            goto LABEL_142;
-          }
-
-          if (*v168 == *v84)
-          {
-            v85 = 0;
-            while (1)
-            {
-              v86 = &v84[v85 + 8];
-              if (v86 >= v34)
-              {
-                break;
+                v29 += v42;
+                v42 = v43;
+                v35 = _X10;
+                v22 = v50;
+                if (v29 >= v19)
+                {
+                  goto LABEL_1050;
+                }
               }
 
-              v87 = *(v170 + v85);
-              v88 = *v86;
-              v85 += 8;
-              if (v87 != v88)
-              {
-                v89 = v85 + (__clz(__rbit64(v88 ^ v87)) >> 3);
-                goto LABEL_152;
-              }
-            }
-
-            v90 = (v170 + v85);
-LABEL_142:
-            if (v86 < v163 && *v90 == *v86)
-            {
-              ++v90;
-              v86 += 2;
-            }
-
-            if (v86 < v162 && *v90 == *v86)
-            {
-              v90 = (v90 + 2);
-              ++v86;
-            }
-
-            if (v86 < v19 && *v90 == *v86)
-            {
-              v86 = (v86 + 1);
-            }
-
-            v89 = v86 - v84;
-          }
-
-          else
-          {
-            v89 = __clz(__rbit64(*v84 ^ *v168)) >> 3;
-          }
-
-LABEL_152:
-          v83 += v89;
-        }
-
-        v91 = v40 - a4;
-        v92 = *(a2 + 24);
-        if (v40 > v167)
-        {
-          if (a4 <= v167)
-          {
-            v93 = (v92 + v167 - a4);
-            *v92 = *a4;
-            if ((v167 - a4) >= 17)
-            {
-              v100 = v92 + 1;
-              v101 = (a4 + 32);
-              do
-              {
-                *v100 = *(v101 - 1);
-                v102 = *v101;
-                v101 += 2;
-                v100[1] = v102;
-                v100 += 2;
-              }
-
-              while (v100 < v93);
-              a4 = v19 - 32;
+              v60 = *(v50 - 1) == v50[v41 - 1];
+              v61 = *(v50 - 1) == v50[v41 - 1] ? 5 : 4;
+              v22 = &v50[-v60];
+              v62 = &v50[v41 - v60];
+              *(v8 + 4 * v52) = v35 - v10;
+              v63 = 1;
+              v27 = v38;
+              v38 = v26;
+              v64 = v712;
             }
 
             else
             {
-              a4 = v19 - 32;
-            }
-
-            v92 = v93;
-          }
-
-          if (a4 >= v40)
-          {
-            goto LABEL_184;
-          }
-
-          v103 = v40 - a4;
-          if ((v40 - a4) < 8)
-          {
-            v105 = v92;
-          }
-
-          else if ((v92 - a4) < 0x20)
-          {
-            v105 = v92;
-          }
-
-          else
-          {
-            if (v103 < 0x20)
-            {
-              v104 = 0;
-LABEL_178:
-              v110 = v103 & 0xFFFFFFFFFFFFFFF8;
-              v105 = v92 + (v103 & 0xFFFFFFFFFFFFFFF8);
-              v111 = v104 - (v103 & 0xFFFFFFFFFFFFFFF8);
-              v112 = &a4[v104];
-              v113 = (v92 + v104);
-              do
+              v42 = v730;
+              v55 = v10 + v18;
+              while (1)
               {
-                v114 = *v112;
-                v112 += 8;
-                *v113++ = v114;
-                v111 += 8;
-              }
-
-              while (v111);
-              if (v103 != v110)
-              {
-                a4 += v110;
-                goto LABEL_183;
-              }
-
-LABEL_184:
-              *(a2 + 24) += v91;
-              v99 = *(a2 + 8);
-              if (v91 >= 0x10000)
-              {
-                v116 = (v99 - *a2) >> 3;
-                *(a2 + 72) = 1;
-                *(a2 + 76) = v116;
-              }
-
-              goto LABEL_186;
-            }
-
-            v104 = v103 & 0xFFFFFFFFFFFFFFE0;
-            v106 = (a4 + 16);
-            v107 = v92 + 1;
-            v108 = v103 & 0xFFFFFFFFFFFFFFE0;
-            do
-            {
-              v109 = *v106;
-              *(v107 - 1) = *(v106 - 1);
-              *v107 = v109;
-              v106 += 2;
-              v107 += 2;
-              v108 -= 32;
-            }
-
-            while (v108);
-            if (v103 == v104)
-            {
-              goto LABEL_184;
-            }
-
-            if ((v103 & 0x18) != 0)
-            {
-              goto LABEL_178;
-            }
-
-            a4 += v104;
-            v105 = v92 + v104;
-          }
-
-          do
-          {
-LABEL_183:
-            v115 = *a4++;
-            *v105++ = v115;
-          }
-
-          while (a4 != v40);
-          goto LABEL_184;
-        }
-
-        *v92 = *a4;
-        v94 = *(a2 + 24);
-        if (v91 > 0x10)
-        {
-          *(v94 + 16) = *(a4 + 1);
-          if (v91 >= 33)
-          {
-            v95 = v94 + v91;
-            v96 = (v94 + 32);
-            v97 = (a4 + 48);
-            do
-            {
-              *v96 = *(v97 - 1);
-              v98 = *v97;
-              v97 += 2;
-              v96[1] = v98;
-              v96 += 2;
-            }
-
-            while (v96 < v95);
-          }
-
-          goto LABEL_184;
-        }
-
-        *(a2 + 24) = v94 + v91;
-        v99 = *(a2 + 8);
-LABEL_186:
-        v117 = v83 + v65;
-        *(v99 + 4) = v91;
-        *v99 = v68;
-        v118 = v83 + v65 - 3;
-        if (v118 >= 0x10000)
-        {
-          v119 = (v99 - *a2) >> 3;
-          *(a2 + 72) = 2;
-          *(a2 + 76) = v119;
-        }
-
-        *(v99 + 6) = v118;
-        v120 = v99 + 8;
-        *(a2 + 8) = v99 + 8;
-        a4 = &v40[v117];
-        v18 = v161;
-        if (v51 < &v40[v117])
-        {
-          *(v31 + 4 * v38) = v51 - v8;
-        }
-
-        if (a4 > v20)
-        {
-          v121 = v25;
-          v27 = v69;
-          goto LABEL_273;
-        }
-
-        v122 = v56 + 2;
-        if (v6 > 6)
-        {
-          if (v6 == 7)
-          {
-            v123 = *(v160 + v56);
-            v124 = -1079680256;
-          }
-
-          else
-          {
-            if (v6 != 8)
-            {
-              goto LABEL_199;
-            }
-
-            v123 = *(v160 + v56);
-            v124 = -1213897629;
-          }
-        }
-
-        else
-        {
-          if (v6 != 5)
-          {
-            if (v6 == 6)
-            {
-              v123 = *(v160 + v56);
-              v124 = -1080360960;
-              goto LABEL_202;
-            }
-
-LABEL_199:
-            *(v31 + 4 * ((-1640531535 * *(v160 + v56)) >> v169)) = v122;
-            v125 = a4 - 2;
-            v126 = (-1640531535 * *(a4 - 2)) >> v169;
-LABEL_203:
-            *(v31 + 4 * v126) = v125 - v8;
-            while (2)
-            {
-              v27 = v25;
-              v25 = v69;
-              v131 = (a4 - v8 - v27);
-              if (v131 >= v17)
-              {
-                v132 = v8;
-              }
-
-              else
-              {
-                v132 = v30;
-              }
-
-              if (!v27 || (v131 - v17) > 0xFFFFFFFC || (v133 = v132 + v131, *(v132 + v131) != *a4))
-              {
-                v121 = v27;
-                v27 = v69;
-LABEL_273:
-                v28 = &a4[v161];
-                v29 = &a4[v161 + 1];
-                v25 = v121;
-                if (v29 >= v20)
+                v50 = v28;
+                _X10 = v29;
+                v52 = (0xCF1BBCDCBFA56300 * v36) >> v30;
+                v53 = v22 - v10;
+                *(v8 + 4 * v39) = v22 - v10;
+                if (v40 >= v18 && *v22 == *(v10 + v40))
                 {
-LABEL_279:
-                  v156 = v165;
-                  if (v27)
-                  {
-                    v157 = v27;
-                  }
-
-                  else
-                  {
-                    v157 = v164;
-                  }
-
-                  if (v27)
-                  {
-                    v158 = v164 == 0;
-                  }
-
-                  else
-                  {
-                    v158 = 1;
-                  }
-
-                  if (!v158)
-                  {
-                    v156 = v164;
-                  }
-
-                  if (v121)
-                  {
-                    v156 = v121;
-                  }
-
-                  *a3 = v157;
-                  a3[1] = v156;
-                  return v19 - a4;
+LABEL_46:
+                  v64 = v712;
+                  goto LABEL_49;
                 }
 
-                goto LABEL_30;
-              }
-
-              if (v131 >= v17)
-              {
-                v134 = v19;
-              }
-
-              else
-              {
-                v134 = (v30 + v17);
-              }
-
-              v135 = (a4 + 4);
-              v136 = (v133 + 4);
-              v137 = &v134[a4 - v133];
-              if (v137 >= v19)
-              {
-                v138 = v19;
-              }
-
-              else
-              {
-                v138 = v137;
-              }
-
-              if (v138 - 7 <= v135)
-              {
-                v139 = v136;
-                v141 = a4 + 4;
-                goto LABEL_226;
-              }
-
-              if (*v136 == *v135)
-              {
-                v139 = (v132 + v131 + 12);
-                v140 = (a4 + 12);
-                while (1)
+                v40 = *(v8 + 4 * v52);
+                v39 = (0xCF1BBCDCBFA56300 * *v50) >> v30;
+                v53 = v35 - v10;
+                *(v8 + 4 * v52) = v35 - v10;
+                if (v40 >= v18 && *v35 == *(v10 + v40))
                 {
-                  v141 = v140;
-                  if (v140 >= v138 - 7)
-                  {
-                    break;
-                  }
-
-                  v143 = *v139;
-                  v139 += 4;
-                  v142 = v143;
-                  v140 += 8;
-                  if (v143 != *v141)
-                  {
-                    v144 = v141 + (__clz(__rbit64(*v141 ^ v142)) >> 3) - v135;
-                    goto LABEL_237;
-                  }
-                }
-
-LABEL_226:
-                if (v141 < v138 - 3 && *v139 == *v141)
-                {
-                  v139 += 2;
-                  v141 = (v141 + 4);
-                }
-
-                if (v141 < v138 - 1 && *v139 == *v141)
-                {
-                  ++v139;
-                  v141 = (v141 + 2);
-                }
-
-                if (v141 < v138 && *v139 == *v141)
-                {
-                  v141 = (v141 + 1);
-                }
-
-                v144 = v141 - v135;
-              }
-
-              else
-              {
-                v144 = __clz(__rbit64(*v135 ^ *v136)) >> 3;
-              }
-
-LABEL_237:
-              if ((v136 + v144) != v134)
-              {
-                if (a4 <= v167)
-                {
-                  goto LABEL_239;
-                }
-
-                goto LABEL_240;
-              }
-
-              v146 = &v135[v144];
-              if (v34 <= v146)
-              {
-                v153 = (v8 + v17);
-                v154 = v146;
-                goto LABEL_260;
-              }
-
-              if (*v168 == *v146)
-              {
-                v147 = 0;
-                v148 = &a4[v144];
-                while (1)
-                {
-                  v149 = &v148[v147 + 12];
-                  if (v149 >= v34)
-                  {
-                    break;
-                  }
-
-                  v150 = *(v170 + v147);
-                  v151 = *v149;
-                  v147 += 8;
-                  if (v150 != v151)
-                  {
-                    v152 = &v148[v147 + 4 + (__clz(__rbit64(v151 ^ v150)) >> 3)] - v146;
-                    goto LABEL_270;
-                  }
-                }
-
-                v153 = (v170 + v147);
-                v154 = &a4[v144 + 12 + v147];
-LABEL_260:
-                if (v154 < v163 && *v153 == *v154)
-                {
-                  ++v153;
-                  v154 += 4;
-                }
-
-                if (v154 < v162 && *v153 == *v154)
-                {
-                  v153 = (v153 + 2);
-                  v154 += 2;
-                }
-
-                if (v154 < v19 && *v153 == *v154)
-                {
-                  ++v154;
-                }
-
-                v152 = v154 - v146;
-              }
-
-              else
-              {
-                v152 = __clz(__rbit64(*v146 ^ *v168)) >> 3;
-              }
-
-LABEL_270:
-              v144 += v152;
-              if (a4 <= v167)
-              {
-LABEL_239:
-                **(a2 + 24) = *a4;
-                v120 = *(a2 + 8);
-              }
-
-LABEL_240:
-              *(v120 + 4) = 0;
-              *v120 = 1;
-              if (v144 + 1 >= 0x10000)
-              {
-                v145 = (v120 - *a2) >> 3;
-                *(a2 + 72) = 2;
-                *(a2 + 76) = v145;
-              }
-
-              *(v120 + 6) = v144 + 1;
-              v120 += 8;
-              *(a2 + 8) = v120;
-              if (v6 > 6)
-              {
-                if (v6 == 7)
-                {
-                  v128 = *a4;
-                  v129 = -1079680256;
                   break;
                 }
 
-                if (v6 != 8)
+                v40 = *(v8 + 4 * v39);
+                v36 = *v29;
+                v28 = &v50[v42];
+                if (&v50[v42] >= v37)
                 {
-                  goto LABEL_255;
+                  v56 = v42 + 1;
+                  __asm
+                  {
+                    PRFM            #0, [X10,#0x40]
+                    PRFM            #0, [X10,#0x80]
+                  }
+
+                  v37 += 128;
                 }
 
-                v128 = *a4;
-                v129 = -1213897629;
+                else
+                {
+                  v56 = v42;
+                }
+
+                v29 += v42;
+                v42 = v56;
+                v35 = _X10;
+                v22 = v50;
+                if (v29 >= v19)
+                {
+                  goto LABEL_1052;
+                }
+              }
+
+LABEL_48:
+              v22 = v35;
+              LODWORD(v35) = v50;
+              v52 = v39;
+              v64 = v712;
+              if (v42 < 5)
+              {
+LABEL_49:
+                *(v8 + 4 * v52) = v35 - v10;
+              }
+
+              v62 = (v10 + v40);
+              v27 = (v22 - v62);
+              v63 = v27 + 3;
+              if (v40 <= v18 || v22 <= a4)
+              {
+                v61 = 4;
               }
 
               else
               {
-                if (v6 != 5)
+                v65 = v22 - 1;
+                v66 = (v10 - 1 + v40);
+                v61 = 4;
+                while (*v65 == *v66)
                 {
-                  if (v6 == 6)
+                  ++v61;
+                  v67 = v65 - 1;
+                  v68 = v66 - 1;
+                  if (v65 > a4)
                   {
-                    v128 = *a4;
-                    v129 = -1080360960;
+                    --v65;
+                    v706 = v66-- > v55;
+                    if (v706)
+                    {
+                      continue;
+                    }
+                  }
+
+                  v22 = v67 + 1;
+                  v62 = v68 + 1;
+                  goto LABEL_59;
+                }
+
+                v22 = v65 + 1;
+                v62 = v66 + 1;
+              }
+            }
+
+LABEL_59:
+            v69 = &v22[v61];
+            v70 = &v62[v61];
+            if (v31 <= &v22[v61])
+            {
+              break;
+            }
+
+            if (*v70 == *v69)
+            {
+              v70 = &v62[v61 + 8];
+              v71 = &v22[v61 + 8];
+              do
+              {
+                v72 = v71;
+                if (v71 >= v31)
+                {
+                  goto LABEL_66;
+                }
+
+                v74 = *v70;
+                v70 += 8;
+                v73 = v74;
+                v71 += 8;
+              }
+
+              while (v74 == *v72);
+              v75 = &v72[__clz(__rbit64(*v72 ^ v73)) >> 3] - v69;
+            }
+
+            else
+            {
+              v75 = __clz(__rbit64(*v69 ^ *v70)) >> 3;
+            }
+
+LABEL_80:
+            v76 = v22 - a4;
+            v77 = *(a2 + 24);
+            if (v22 > v33)
+            {
+              if (a4 <= v33)
+              {
+                v78 = (v77 + v33 - a4);
+                *v77 = *a4;
+                if (v33 - a4 >= 17)
+                {
+                  v79 = v77 + 1;
+                  v80 = a4 + 32;
+                  do
+                  {
+                    *v79 = *(v80 - 1);
+                    v81 = *v80;
+                    v80 += 32;
+                    v79[1] = v81;
+                    v79 += 2;
+                  }
+
+                  while (v79 < v78);
+                }
+
+                a4 = v33;
+                v77 = v78;
+              }
+
+              if (a4 >= v22)
+              {
+                goto LABEL_109;
+              }
+
+              v82 = v22 - a4;
+              if ((v22 - a4) < 8)
+              {
+                v90 = v77;
+              }
+
+              else if ((v77 - a4) < 0x20)
+              {
+                v90 = v77;
+              }
+
+              else
+              {
+                if (v82 < 0x20)
+                {
+                  v83 = 0;
+LABEL_103:
+                  v95 = v82 & 0xFFFFFFFFFFFFFFF8;
+                  v90 = v77 + (v82 & 0xFFFFFFFFFFFFFFF8);
+                  v96 = v83 - (v82 & 0xFFFFFFFFFFFFFFF8);
+                  v97 = &a4[v83];
+                  v98 = (v77 + v83);
+                  do
+                  {
+                    v99 = *v97;
+                    v97 += 8;
+                    *v98++ = v99;
+                    v96 += 8;
+                  }
+
+                  while (v96);
+                  v64 = v712;
+                  if (v82 != v95)
+                  {
+                    a4 += v95;
+                    goto LABEL_108;
+                  }
+
+LABEL_109:
+                  *(a2 + 24) += v76;
+                  v89 = *(a2 + 8);
+                  if (v76 >= 0x10000)
+                  {
+                    v101 = (v89 - *a2) >> 3;
+                    *(a2 + 72) = 1;
+                    *(a2 + 76) = v101;
+                  }
+
+                  goto LABEL_111;
+                }
+
+                v83 = v82 & 0xFFFFFFFFFFFFFFE0;
+                v91 = a4 + 16;
+                v92 = v77 + 1;
+                v93 = v82 & 0xFFFFFFFFFFFFFFE0;
+                do
+                {
+                  v94 = *v91;
+                  *(v92 - 1) = *(v91 - 1);
+                  *v92 = v94;
+                  v91 += 32;
+                  v92 += 2;
+                  v93 -= 32;
+                }
+
+                while (v93);
+                if (v82 == v83)
+                {
+                  goto LABEL_109;
+                }
+
+                if ((v82 & 0x18) != 0)
+                {
+                  goto LABEL_103;
+                }
+
+                a4 += v83;
+                v90 = v77 + v83;
+              }
+
+              do
+              {
+LABEL_108:
+                v100 = *a4++;
+                *v90++ = v100;
+              }
+
+              while (a4 != v22);
+              goto LABEL_109;
+            }
+
+            *v77 = *a4;
+            v84 = *(a2 + 24);
+            if (v76 > 0x10)
+            {
+              *(v84 + 16) = *(a4 + 1);
+              if (v76 >= 33)
+              {
+                v85 = v84 + v76;
+                v86 = (v84 + 32);
+                v87 = a4 + 48;
+                do
+                {
+                  *v86 = *(v87 - 1);
+                  v88 = *v87;
+                  v87 += 32;
+                  v86[1] = v88;
+                  v86 += 2;
+                }
+
+                while (v86 < v85);
+              }
+
+              goto LABEL_109;
+            }
+
+            *(a2 + 24) = v84 + v76;
+            v89 = *(a2 + 8);
+LABEL_111:
+            v102 = v75 + v61;
+            *(v89 + 4) = v76;
+            *v89 = v63;
+            v103 = v75 + v61 - 3;
+            if (v103 >= 0x10000)
+            {
+              v104 = (v89 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v104;
+            }
+
+            *(v89 + 6) = v103;
+            v105 = v89 + 8;
+            *(a2 + 8) = v89 + 8;
+            a4 = &v22[v102];
+            if (&v22[v102] > v19)
+            {
+              v26 = v38;
+              v11 = v34;
+              goto LABEL_146;
+            }
+
+            *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *(v10 + 2 + v53)) >> v30)) = v53 + 2;
+            *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *(a4 - 2)) >> v30)) = a4 - 2 - v10;
+            if (!v38)
+            {
+              v26 = 0;
+              v11 = v34;
+              goto LABEL_146;
+            }
+
+            v106 = v27;
+            v11 = v34;
+            while (1)
+            {
+              v26 = v106;
+              v106 = v38;
+              if (*a4 != *&a4[-v38])
+              {
+                break;
+              }
+
+              v107 = a4 + 4;
+              v108 = &a4[-v38 + 4];
+              if (v31 <= (a4 + 4))
+              {
+                v111 = a4 + 4;
+              }
+
+              else
+              {
+                v109 = *v108;
+                if (v109 != *v107)
+                {
+                  v114 = __clz(__rbit64(*v107 ^ v109)) >> 3;
+                  goto LABEL_140;
+                }
+
+                v110 = a4 + 12;
+                v108 = &a4[-v38 + 12];
+                while (1)
+                {
+                  v111 = v110;
+                  if (v110 >= v31)
+                  {
                     break;
                   }
 
-LABEL_255:
-                  v130 = (-1640531535 * *a4) >> v169;
-LABEL_206:
-                  *(v31 + 4 * v130) = a4 - v8;
-                  a4 += v144 + 4;
-                  v69 = v27;
-                  v121 = v25;
-                  if (a4 > v20)
+                  v113 = *v108;
+                  v108 += 8;
+                  v112 = v113;
+                  v110 += 8;
+                  if (v113 != *v111)
                   {
-                    goto LABEL_273;
+                    v114 = &v111[__clz(__rbit64(*v111 ^ v112)) >> 3] - v107;
+                    goto LABEL_140;
                   }
+                }
+              }
 
-                  continue;
+              if (v111 >= v64)
+              {
+                if (v111 < v32)
+                {
+                  goto LABEL_135;
+                }
+              }
+
+              else
+              {
+                if (*v108 == *v111)
+                {
+                  v108 += 4;
+                  v111 += 4;
                 }
 
-                v128 = *a4;
-                v129 = -1157627904;
+                if (v111 < v32)
+                {
+LABEL_135:
+                  if (*v108 == *v111)
+                  {
+                    v108 += 2;
+                    v111 += 2;
+                  }
+
+                  if (v111 >= v34)
+                  {
+                    goto LABEL_133;
+                  }
+
+LABEL_131:
+                  if (*v108 == *v111)
+                  {
+                    ++v111;
+                  }
+
+                  goto LABEL_133;
+                }
+              }
+
+              if (v111 < v34)
+              {
+                goto LABEL_131;
+              }
+
+LABEL_133:
+              v114 = v111 - v107;
+LABEL_140:
+              *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *a4) >> v30)) = a4 - v10;
+              if (a4 <= v33)
+              {
+                **(a2 + 24) = *a4;
+                v105 = *(a2 + 8);
+              }
+
+              *(v105 + 4) = 0;
+              *v105 = 1;
+              if (v114 + 1 >= 0x10000)
+              {
+                v115 = (v105 - *a2) >> 3;
+                *(a2 + 72) = 2;
+                *(a2 + 76) = v115;
+              }
+
+              a4 += v114 + 4;
+              *(v105 + 6) = v114 + 1;
+              v105 += 8;
+              *(a2 + 8) = v105;
+              v38 = v26;
+              v27 = v106;
+              if (a4 > v19)
+              {
+                goto LABEL_146;
+              }
+            }
+
+            v27 = v26;
+            v26 = v38;
+LABEL_146:
+            v28 = &a4[v730];
+            v29 = &a4[v730 + 1];
+            v22 = a4;
+            if (v29 >= v19)
+            {
+LABEL_1055:
+              if (v20 <= v25)
+              {
+                v704 = 0;
+              }
+
+              else
+              {
+                v704 = v20;
+              }
+
+              v705 = v21;
+              if (v21 <= v25)
+              {
+                v705 = 0;
+              }
+
+              if (v27)
+              {
+                v704 = v27;
+                v706 = v20 > v25;
+              }
+
+              else
+              {
+                v706 = 0;
+              }
+
+              if (v706)
+              {
+                v705 = v20;
+              }
+
+              if (v26)
+              {
+                v705 = v26;
+              }
+
+              *a3 = v704;
+              a3[1] = v705;
+              return v11 - a4;
+            }
+          }
+
+          v72 = &v22[v61];
+LABEL_66:
+          if (v72 >= v64)
+          {
+            if (v72 >= v32)
+            {
+              goto LABEL_70;
+            }
+          }
+
+          else
+          {
+            if (*v70 == *v72)
+            {
+              v70 += 4;
+              v72 += 4;
+            }
+
+            if (v72 >= v32)
+            {
+LABEL_70:
+              if (v72 >= v34)
+              {
+LABEL_73:
+                v75 = v72 - v69;
+                goto LABEL_80;
+              }
+
+LABEL_71:
+              if (*v70 == *v72)
+              {
+                ++v72;
+              }
+
+              goto LABEL_73;
+            }
+          }
+
+          if (*v70 == *v72)
+          {
+            v70 += 2;
+            v72 += 2;
+          }
+
+          if (v72 >= v34)
+          {
+            goto LABEL_73;
+          }
+
+          goto LABEL_71;
+        }
+
+        if (v29 >= v19)
+        {
+          goto LABEL_1055;
+        }
+
+        v543 = 0;
+        v544 = 32 - *(a1 + 264);
+        v545 = (v11 - 7);
+        v546 = v11 - 32;
+        v717 = v11 - 1;
+        v720 = v11 - 3;
+        while (1)
+        {
+          v383 = v11;
+          v548 = v22 + 1;
+          v547 = *(v22 + 1);
+          v549 = v22 + 128;
+          v387 = v27;
+          v550 = (-1640531535 * *v22) >> v544;
+          v551 = *(v8 + 4 * v550);
+          v552 = v543;
+          v553 = v543 - v27;
+          if (v27)
+          {
+            v554 = v730;
+            while (1)
+            {
+              v558 = v28;
+              _X4 = v29;
+              v560 = *&v28[v553];
+              v561 = (-1640531535 * v547) >> v544;
+              v562 = v22 - v10;
+              *(v8 + 4 * v550) = v22 - v10;
+              if (*v558 == v560)
+              {
+                break;
+              }
+
+              if (v551 >= v18 && *v22 == *(v10 + v551))
+              {
+                v571 = v10 + v18;
+                v543 = v552;
+                goto LABEL_827;
+              }
+
+              v551 = *(v8 + 4 * v561);
+              v550 = (-1640531535 * *v558) >> v544;
+              v562 = v548 - v10;
+              *(v8 + 4 * v561) = v548 - v10;
+              if (v551 >= v18 && *v548 == *(v10 + v551))
+              {
+                v571 = v10 + v18;
+                v543 = v552;
+                goto LABEL_826;
+              }
+
+              v551 = *(v8 + 4 * v550);
+              v547 = *_X4;
+              v28 = &v558[v554];
+              if (&v558[v554] >= v549)
+              {
+                v555 = v554 + 1;
+                __asm
+                {
+                  PRFM            #0, [X4,#0x40]
+                  PRFM            #0, [X4,#0x80]
+                }
+
+                v549 += 128;
+              }
+
+              else
+              {
+                v555 = v554;
+              }
+
+              v29 = &_X4[v554];
+              v554 = v555;
+              v548 = _X4;
+              v22 = v558;
+              if (v29 >= v19)
+              {
+                goto LABEL_1051;
+              }
+            }
+
+            v567 = *(v558 - 1) == v558[v553 - 1];
+            if (*(v558 - 1) == v558[v553 - 1])
+            {
+              v568 = 5;
+            }
+
+            else
+            {
+              v568 = 4;
+            }
+
+            v22 = &v558[-v567];
+            v569 = &v558[v553 - v567];
+            *(v8 + 4 * v561) = v548 - v10;
+            v570 = 1;
+            v27 = v387;
+            v387 = v26;
+            v11 = v383;
+            v543 = v552;
+          }
+
+          else
+          {
+            v554 = v730;
+            v543 = v552;
+            while (1)
+            {
+              v558 = v28;
+              _X10 = v29;
+              v561 = (-1640531535 * v547) >> v544;
+              v562 = v22 - v10;
+              *(v8 + 4 * v550) = v22 - v10;
+              if (v551 >= v18)
+              {
+                v543 = v552;
+                if (*v22 == *(v10 + v551))
+                {
+                  v571 = v10 + v18;
+                  goto LABEL_827;
+                }
+              }
+
+              v551 = *(v8 + 4 * v561);
+              v550 = (-1640531535 * *v558) >> v544;
+              v562 = v548 - v10;
+              *(v8 + 4 * v561) = v548 - v10;
+              if (v551 >= v18 && *v548 == *(v10 + v551))
+              {
+                break;
+              }
+
+              v551 = *(v8 + 4 * v550);
+              v547 = *v29;
+              v28 = &v558[v554];
+              if (&v558[v554] >= v549)
+              {
+                v563 = v554 + 1;
+                __asm
+                {
+                  PRFM            #0, [X10,#0x40]
+                  PRFM            #0, [X10,#0x80]
+                }
+
+                v549 += 128;
+              }
+
+              else
+              {
+                v563 = v554;
+              }
+
+              v29 += v554;
+              v554 = v563;
+              v548 = _X10;
+              v22 = v558;
+              if (v29 >= v19)
+              {
+                goto LABEL_1053;
+              }
+            }
+
+            v571 = v10 + v18;
+LABEL_826:
+            v22 = v548;
+            LODWORD(v548) = v558;
+            v561 = v550;
+            if (v554 < 5)
+            {
+LABEL_827:
+              *(v8 + 4 * v561) = v548 - v10;
+            }
+
+            v569 = (v10 + v551);
+            v27 = (v22 - v569);
+            v570 = v27 + 3;
+            v11 = v383;
+            if (v551 <= v18 || v22 <= a4)
+            {
+              v568 = 4;
+            }
+
+            else
+            {
+              v572 = v22 - 1;
+              v573 = (v10 - 1 + v551);
+              v568 = 4;
+              while (*v572 == *v573)
+              {
+                ++v568;
+                v574 = v572 - 1;
+                v575 = v573 - 1;
+                if (v572 > a4)
+                {
+                  --v572;
+                  v706 = v573-- > v571;
+                  if (v706)
+                  {
+                    continue;
+                  }
+                }
+
+                v22 = v574 + 1;
+                v569 = v575 + 1;
+                goto LABEL_837;
+              }
+
+              v22 = v572 + 1;
+              v569 = v573 + 1;
+            }
+          }
+
+LABEL_837:
+          v576 = &v22[v568];
+          v577 = &v569[v568];
+          if (v545 <= &v22[v568])
+          {
+            v579 = &v22[v568];
+LABEL_844:
+            if (v579 < v720 && *v577 == *v579)
+            {
+              v577 += 4;
+              v579 += 4;
+            }
+
+            if (v579 < v717 && *v577 == *v579)
+            {
+              v577 += 2;
+              v579 += 2;
+            }
+
+            if (v579 < v11 && *v577 == *v579)
+            {
+              ++v579;
+            }
+
+            v582 = v579 - v576;
+          }
+
+          else if (*v577 == *v576)
+          {
+            v577 = &v569[v568 + 8];
+            v578 = &v22[v568 + 8];
+            do
+            {
+              v579 = v578;
+              if (v578 >= v545)
+              {
+                goto LABEL_844;
+              }
+
+              v581 = *v577;
+              v577 += 8;
+              v580 = v581;
+              v578 += 8;
+            }
+
+            while (v581 == *v579);
+            v582 = &v579[__clz(__rbit64(*v579 ^ v580)) >> 3] - v576;
+          }
+
+          else
+          {
+            v582 = __clz(__rbit64(*v576 ^ *v577)) >> 3;
+          }
+
+          v583 = v22 - a4;
+          v584 = *(a2 + 24);
+          if (v22 <= v546)
+          {
+            *v584 = *a4;
+            v591 = *(a2 + 24);
+            if (v583 <= 0x10)
+            {
+              *(a2 + 24) = v591 + v583;
+              v596 = *(a2 + 8);
+              goto LABEL_886;
+            }
+
+            *(v591 + 16) = *(a4 + 1);
+            if (v583 >= 33)
+            {
+              v592 = v591 + v583;
+              v593 = (v591 + 32);
+              v594 = a4 + 48;
+              do
+              {
+                *v593 = *(v594 - 1);
+                v595 = *v594;
+                v594 += 32;
+                v593[1] = v595;
+                v593 += 2;
+              }
+
+              while (v593 < v592);
+            }
+          }
+
+          else
+          {
+            if (a4 <= v546)
+            {
+              v585 = (v584 + v546 - a4);
+              *v584 = *a4;
+              if (v546 - a4 >= 17)
+              {
+                v586 = v584 + 1;
+                v587 = a4 + 32;
+                do
+                {
+                  *v586 = *(v587 - 1);
+                  v588 = *v587;
+                  v587 += 32;
+                  v586[1] = v588;
+                  v586 += 2;
+                }
+
+                while (v586 < v585);
+              }
+
+              a4 = v546;
+              v584 = v585;
+            }
+
+            if (a4 >= v22)
+            {
+              goto LABEL_884;
+            }
+
+            v589 = v22 - a4;
+            if ((v22 - a4) < 8)
+            {
+              v597 = v584;
+              goto LABEL_883;
+            }
+
+            if ((v584 - a4) < 0x20)
+            {
+              v597 = v584;
+              goto LABEL_883;
+            }
+
+            if (v589 >= 0x20)
+            {
+              v590 = v589 & 0xFFFFFFFFFFFFFFE0;
+              v598 = a4 + 16;
+              v599 = v584 + 1;
+              v600 = v589 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v601 = *v598;
+                *(v599 - 1) = *(v598 - 1);
+                *v599 = v601;
+                v598 += 32;
+                v599 += 2;
+                v600 -= 32;
+              }
+
+              while (v600);
+              v543 = v552;
+              if (v589 == v590)
+              {
+                goto LABEL_884;
+              }
+
+              if ((v589 & 0x18) == 0)
+              {
+                a4 += v590;
+                v597 = v584 + v590;
+                v543 = v552;
+                do
+                {
+LABEL_883:
+                  v607 = *a4++;
+                  *v597++ = v607;
+                }
+
+                while (a4 != v22);
+                goto LABEL_884;
+              }
+            }
+
+            else
+            {
+              v590 = 0;
+            }
+
+            v602 = v589 & 0xFFFFFFFFFFFFFFF8;
+            v597 = v584 + (v589 & 0xFFFFFFFFFFFFFFF8);
+            v603 = v590 - (v589 & 0xFFFFFFFFFFFFFFF8);
+            v604 = &a4[v590];
+            v605 = (v584 + v590);
+            do
+            {
+              v606 = *v604;
+              v604 += 8;
+              *v605++ = v606;
+              v603 += 8;
+            }
+
+            while (v603);
+            v11 = v383;
+            v543 = v552;
+            if (v589 != v602)
+            {
+              a4 += v602;
+              goto LABEL_883;
+            }
+          }
+
+LABEL_884:
+          *(a2 + 24) += v583;
+          v596 = *(a2 + 8);
+          if (v583 >= 0x10000)
+          {
+            v608 = (v596 - *a2) >> 3;
+            *(a2 + 72) = 1;
+            *(a2 + 76) = v608;
+          }
+
+LABEL_886:
+          v609 = v582 + v568;
+          *(v596 + 4) = v583;
+          *v596 = v570;
+          v610 = v582 + v568 - 3;
+          if (v610 >= 0x10000)
+          {
+            v611 = (v596 - *a2) >> 3;
+            *(a2 + 72) = 2;
+            *(a2 + 76) = v611;
+          }
+
+          *(v596 + 6) = v610;
+          v612 = v596 + 8;
+          *(a2 + 8) = v596 + 8;
+          a4 = &v22[v609];
+          if (&v22[v609] <= v19)
+          {
+            *(v8 + 4 * ((-1640531535 * *(v10 + 2 + v562)) >> v544)) = v562 + 2;
+            *(v8 + 4 * ((-1640531535 * *(a4 - 2)) >> v544)) = a4 - 2 - v10;
+            if (!v387)
+            {
+              v26 = 0;
+              goto LABEL_921;
+            }
+
+            v613 = v27;
+            while (2)
+            {
+              v26 = v613;
+              v613 = v387;
+              if (*a4 != *&a4[-v387])
+              {
+                v27 = v26;
+                v26 = v387;
+                goto LABEL_921;
+              }
+
+              v614 = a4 + 4;
+              v615 = &a4[-v387 + 4];
+              if (v545 > (a4 + 4))
+              {
+                v616 = *v615;
+                if (v616 == *v614)
+                {
+                  v617 = a4 + 12;
+                  v615 = &a4[-v387 + 12];
+                  do
+                  {
+                    v618 = v617;
+                    if (v617 >= v545)
+                    {
+                      goto LABEL_901;
+                    }
+
+                    v620 = *v615;
+                    v615 += 8;
+                    v619 = v620;
+                    v617 += 8;
+                  }
+
+                  while (v620 == *v618);
+                  v621 = &v618[__clz(__rbit64(*v618 ^ v619)) >> 3] - v614;
+                }
+
+                else
+                {
+                  v621 = __clz(__rbit64(*v614 ^ v616)) >> 3;
+                }
+
+LABEL_915:
+                *(v8 + 4 * ((-1640531535 * *a4) >> v544)) = a4 - v10;
+                if (a4 <= v546)
+                {
+                  **(a2 + 24) = *a4;
+                  v612 = *(a2 + 8);
+                }
+
+                *(v612 + 4) = 0;
+                *v612 = 1;
+                if (v621 + 1 >= 0x10000)
+                {
+                  v622 = (v612 - *a2) >> 3;
+                  *(a2 + 72) = 2;
+                  *(a2 + 76) = v622;
+                }
+
+                a4 += v621 + 4;
+                *(v612 + 6) = v621 + 1;
+                v612 += 8;
+                *(a2 + 8) = v612;
+                v387 = v26;
+                v27 = v613;
+                if (a4 > v19)
+                {
+                  goto LABEL_921;
+                }
+
+                continue;
               }
 
               break;
             }
 
-            v130 = (v128 * (v129 | 0xCF1BBCDC00000000)) >> v33;
-            goto LABEL_206;
-          }
-
-          v123 = *(v160 + v56);
-          v124 = -1157627904;
-        }
-
-LABEL_202:
-        v127 = v124 | 0xCF1BBCDC00000000;
-        *(v31 + 4 * ((v123 * v127) >> v33)) = v122;
-        v125 = a4 - 2;
-        v126 = (*(a4 - 2) * v127) >> v33;
-        goto LABEL_203;
-      }
-
-      v42 = *(v31 + 4 * v37);
-      if (v42 >= v17)
-      {
-        v43 = v8;
-      }
-
-      else
-      {
-        v43 = v30;
-      }
-
-      if (v6 > 6)
-      {
-        if (v6 == 7)
-        {
-          v60 = *_X16;
-          v61 = -1079680256;
-          goto LABEL_86;
-        }
-
-        if (v6 == 8)
-        {
-          v60 = *_X16;
-          v61 = -1213897629;
-          goto LABEL_86;
-        }
-      }
-
-      else
-      {
-        if (v6 == 5)
-        {
-          v60 = *_X16;
-          v61 = -1157627904;
-          goto LABEL_86;
-        }
-
-        if (v6 == 6)
-        {
-          v60 = *_X16;
-          v61 = -1080360960;
-LABEL_86:
-          v38 = (v60 * (v61 | 0xCF1BBCDC00000000)) >> v33;
-          goto LABEL_87;
-        }
-      }
-
-      v38 = (-1640531535 * *_X16) >> v169;
-LABEL_87:
-      v28 = &v51[v18];
-      if (&v51[v18] >= v41)
-      {
-        v45 = v18 + 1;
-        __asm
-        {
-          PRFM            #0, [X16,#0x40]
-          PRFM            #0, [X16,#0x80]
-        }
-
-        v41 += 128;
-      }
-
-      else
-      {
-        v45 = v18;
-      }
-
-      v29 = &_X16[v18];
-      v18 = v45;
-      v40 = _X16;
-      v44 = v51;
-      if (v29 >= v20)
-      {
-        goto LABEL_278;
-      }
-    }
-  }
-
-  return ZSTD_compressBlock_fast(a1, a2, a3, a4, a5);
-}
-
-void nw_webtransport_connection_state_set_max_sessions(uint64_t a1, uint64_t a2)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    *(a1 + 24) = a2;
-    return;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v11 = "nw_webtransport_connection_state_set_max_sessions";
-  v2 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v8 = 0;
-  if (__nwlog_fault(v2, &type, &v8))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (!os_log_type_enabled(v3, type))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 136446210;
-      v11 = "nw_webtransport_connection_state_set_max_sessions";
-      v5 = "%{public}s called with null connection_state";
-      goto LABEL_17;
-    }
-
-    if (v8 != 1)
-    {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (!os_log_type_enabled(v3, type))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 136446210;
-      v11 = "nw_webtransport_connection_state_set_max_sessions";
-      v5 = "%{public}s called with null connection_state, backtrace limit exceeded";
-      goto LABEL_17;
-    }
-
-    backtrace_string = __nw_create_backtrace_string();
-    v3 = __nwlog_obj();
-    v4 = type;
-    v7 = os_log_type_enabled(v3, type);
-    if (backtrace_string)
-    {
-      if (v7)
-      {
-        *buf = 136446466;
-        v11 = "nw_webtransport_connection_state_set_max_sessions";
-        v12 = 2082;
-        v13 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v3, v4, "%{public}s called with null connection_state, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      free(backtrace_string);
-      goto LABEL_18;
-    }
-
-    if (v7)
-    {
-      *buf = 136446210;
-      v11 = "nw_webtransport_connection_state_set_max_sessions";
-      v5 = "%{public}s called with null connection_state, no backtrace";
-LABEL_17:
-      _os_log_impl(&dword_181A37000, v3, v4, v5, buf, 0xCu);
-    }
-  }
-
-LABEL_18:
-  if (v2)
-  {
-    free(v2);
-  }
-}
-
-uint64_t nw_webtransport_connection_state_get_max_sessions(uint64_t a1)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    return *(a1 + 24);
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v11 = "nw_webtransport_connection_state_get_max_sessions";
-  v2 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v8 = 0;
-  if (__nwlog_fault(v2, &type, &v8))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
-      {
-        *buf = 136446210;
-        v11 = "nw_webtransport_connection_state_get_max_sessions";
-        v5 = "%{public}s called with null connection_state";
-LABEL_17:
-        _os_log_impl(&dword_181A37000, v3, v4, v5, buf, 0xCu);
-      }
-    }
-
-    else if (v8 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v3 = __nwlog_obj();
-      v4 = type;
-      v7 = os_log_type_enabled(v3, type);
-      if (backtrace_string)
-      {
-        if (v7)
-        {
-          *buf = 136446466;
-          v11 = "nw_webtransport_connection_state_get_max_sessions";
-          v12 = 2082;
-          v13 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v3, v4, "%{public}s called with null connection_state, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_18;
-      }
-
-      if (v7)
-      {
-        *buf = 136446210;
-        v11 = "nw_webtransport_connection_state_get_max_sessions";
-        v5 = "%{public}s called with null connection_state, no backtrace";
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
-      {
-        *buf = 136446210;
-        v11 = "nw_webtransport_connection_state_get_max_sessions";
-        v5 = "%{public}s called with null connection_state, backtrace limit exceeded";
-        goto LABEL_17;
-      }
-    }
-  }
-
-LABEL_18:
-  if (v2)
-  {
-    free(v2);
-  }
-
-  return 0;
-}
-
-double __nw_protocol_webtransport_identifier_block_invoke()
-{
-  dword_1EA841FDC = 0;
-  unk_1EA841FCD = 0u;
-  strcpy(nw_protocol_webtransport_identifier::protocol_identifier, "webtransport");
-  *&result = 0x200000004;
-  qword_1EA841FE0 = 0x200000004;
-  return result;
-}
-
-uint64_t nw_protocol_webtransport_create(uint64_t a1, uint64_t a2, void *a3, char *a4)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  v7 = malloc_type_calloc(1uLL, 0x248uLL, 0xBB551947uLL);
-  v8 = v7;
-  if (v7)
-  {
-    bzero(v7, 0x248uLL);
-  }
-
-  else
-  {
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR);
-    *buf = 136446722;
-    *&buf[4] = "nw_protocol_webtransport_create";
-    *&buf[12] = 2048;
-    *&buf[14] = 1;
-    *&buf[22] = 2048;
-    v20 = 584;
-    v9 = _os_log_send_and_compose_impl();
-    result = __nwlog_should_abort(v9);
-    if (result || (free(v9), bzero(0, 0x248uLL), MEMORY[0x170] = 0, MEMORY[0x178] &= ~1u, MEMORY[0x180] = 0, MEMORY[0x188] &= ~1u, MEMORY[0x190] = 0, MEMORY[0x198] &= ~1u, pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once), networkd_settings_init(), os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR), *buf = 136446210, *&buf[4] = "nw_protocol_webtransport_create", v11 = _os_log_send_and_compose_impl(), result = __nwlog_should_abort(v11), result))
-    {
-      __break(1u);
-      return result;
-    }
-
-    free(v11);
-  }
-
-  v8[2] = a1;
-  if (nw_protocol_webtransport_session_callbacks(void)::onceToken != -1)
-  {
-    dispatch_once(&nw_protocol_webtransport_session_callbacks(void)::onceToken, &__block_literal_global_18_36412);
-  }
-
-  v8[3] = &nw_protocol_webtransport_session_callbacks(void)::protocol_callbacks;
-  v8[5] = v8;
-  if (nw_protocol_webtransport_session_get_listen_callbacks(void)::onceToken != -1)
-  {
-    dispatch_once(&nw_protocol_webtransport_session_get_listen_callbacks(void)::onceToken, &__block_literal_global_67_36413);
-  }
-
-  v8[8] = &nw_protocol_webtransport_session_get_listen_callbacks(void)::listen_protocol_callbacks;
-  v8[15] = 0;
-  v8[16] = v8 + 15;
-  v8[17] = 0;
-  v8[18] = v8 + 17;
-  v8[19] = 0;
-  *(v8 + 160) = 0;
-  v8[11] = v8;
-  v8[12] = -1;
-  v8[13] = -1;
-  v8[14] = -1;
-  if (a3)
-  {
-    a3 = os_retain(a3);
-  }
-
-  v12 = *(v8 + 392);
-  if (v12)
-  {
-    v13 = v8[48];
-    if (v13)
-    {
-      os_release(v13);
-      v12 = *(v8 + 392);
-    }
-  }
-
-  v8[48] = a3;
-  *(v8 + 392) = v12 | 1;
-  v8[59] = 0;
-  *(v8 + 120) = 2;
-  v8[21] = -1;
-  v8[22] = -1;
-  v8[23] = -1;
-  *(v8 + 580) = *(v8 + 580) & 0xFE | nw_parameters_get_server_mode(a4);
-  v8[24] = 0;
-  v8[25] = 0;
-  v8[42] = 0;
-  v8[43] = v8 + 42;
-  *(v8 + 122) = 0;
-  if (nw_parameters_get_logging_disabled(a4))
-  {
-    v14 = 2;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  *(v8 + 580) = *(v8 + 580) & 0xFD | v14;
-  v8[52] = nw_parameters_copy_context(a4);
-  *buf = 0;
-  *&buf[8] = buf;
-  *&buf[16] = 0x2000000000;
-  v20 = v8;
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 0x40000000;
-  aBlock[2] = __nw_protocol_webtransport_create_block_invoke;
-  aBlock[3] = &unk_1E6A31848;
-  aBlock[4] = buf;
-  v8[58] = _Block_copy(aBlock);
-  _Block_object_dispose(buf, 8);
-  if ((*(v8 + 580) & 2) == 0 && gLogDatapath == 1)
-  {
-    v15 = __nwlog_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-    {
-      v16 = *(v8 + 123);
-      v17 = *(v8 + 580) & 1;
-      *buf = 136447234;
-      *&buf[4] = "nw_protocol_webtransport_create";
-      *&buf[12] = 2082;
-      *&buf[14] = v8 + 62;
-      *&buf[22] = 2080;
-      v20 = " ";
-      v21 = 1024;
-      v22 = v16;
-      v23 = 1024;
-      v24 = v17;
-      _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Created webtransport, server mode: %d", buf, 0x2Cu);
-    }
-  }
-
-  return v8;
-}
-
-uint64_t __nw_protocol_webtransport_create_block_invoke(uint64_t a1, char a2)
-{
-  if ((a2 & 1) == 0)
-  {
-    *(*(*(a1 + 32) + 8) + 24) = 0;
-  }
-
-  return *(*(*(a1 + 32) + 8) + 24);
-}
-
-void nw_protocol_webtransport_session_listen_protocol_disconnected(nw_listen_protocol *a1, nw_protocol *a2, int a3)
-{
-  v213 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-    v5 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (!__nwlog_fault(v5, type, v199))
-    {
-      goto LABEL_29;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null listener";
-    }
-
-    else if (LOBYTE(v199[0]) == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      v97 = os_log_type_enabled(v6, type[0]);
-      if (backtrace_string)
-      {
-        if (v97)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-          *&buf[12] = 2082;
-          *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null listener, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_29;
-      }
-
-      if (!v97)
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null listener, no backtrace";
-    }
-
-    else
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null listener, backtrace limit exceeded";
-    }
-
-    goto LABEL_27;
-  }
-
-  handle = a1->handle;
-  if (!handle)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-    v5 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (!__nwlog_fault(v5, type, v199))
-    {
-      goto LABEL_29;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null webtransport_session";
-      goto LABEL_27;
-    }
-
-    if (LOBYTE(v199[0]) != 1)
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null webtransport_session, backtrace limit exceeded";
-      goto LABEL_27;
-    }
-
-    v98 = __nw_create_backtrace_string();
-    v6 = __nwlog_obj();
-    v7 = type[0];
-    v99 = os_log_type_enabled(v6, type[0]);
-    if (!v98)
-    {
-      if (!v99)
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s called with null webtransport_session, no backtrace";
-      goto LABEL_27;
-    }
-
-    if (v99)
-    {
-      *buf = 136446466;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      *&buf[12] = 2082;
-      *&buf[14] = v98;
-      v100 = "%{public}s called with null webtransport_session, dumping backtrace:%{public}s";
-LABEL_173:
-      _os_log_impl(&dword_181A37000, v6, v7, v100, buf, 0x16u);
-    }
-
-LABEL_174:
-    free(v98);
-    if (!v5)
-    {
-      return;
-    }
-
-    goto LABEL_30;
-  }
-
-  if ((handle[580] & 2) == 0 && gLogDatapath == 1)
-  {
-    v92 = a2;
-    v93 = __nwlog_obj();
-    v94 = os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG);
-    a2 = v92;
-    if (v94)
-    {
-      v95 = *(handle + 123);
-      *buf = 136446978;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 496;
-      *&buf[22] = 2080;
-      v207 = " ";
-      *v208 = 1024;
-      *&v208[2] = v95;
-      _os_log_impl(&dword_181A37000, v93, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> listen protocol is disconnected", buf, 0x26u);
-      a2 = v92;
-    }
-  }
-
-  if (*(handle + 54) != a2)
-  {
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-    v5 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (!__nwlog_fault(v5, type, v199))
-    {
-      goto LABEL_29;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v6 = gLogObj;
-      v7 = type[0];
-      if (!os_log_type_enabled(gLogObj, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s Ignoring webtransport listen protocol disconnected, not sent by connected output handler";
-      goto LABEL_27;
-    }
-
-    if (LOBYTE(v199[0]) != 1)
-    {
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v6 = gLogObj;
-      v7 = type[0];
-      if (!os_log_type_enabled(gLogObj, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s Ignoring webtransport listen protocol disconnected, not sent by connected output handler, backtrace limit exceeded";
-      goto LABEL_27;
-    }
-
-    v14 = __nw_create_backtrace_string();
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v15 = gLogObj;
-    v16 = type[0];
-    v17 = os_log_type_enabled(gLogObj, type[0]);
-    if (v14)
-    {
-      if (v17)
-      {
-        *buf = 136446466;
-        *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-        *&buf[12] = 2082;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_181A37000, v15, v16, "%{public}s Ignoring webtransport listen protocol disconnected, not sent by connected output handler, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      free(v14);
-      if (!v5)
-      {
-        return;
-      }
-
-LABEL_30:
-      free(v5);
-      return;
-    }
-
-    if (v17)
-    {
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_session_listen_protocol_disconnected";
-      v8 = "%{public}s Ignoring webtransport listen protocol disconnected, not sent by connected output handler, no backtrace";
-      v23 = v15;
-      v24 = v16;
-      goto LABEL_28;
-    }
-
-LABEL_29:
-    if (!v5)
-    {
-      return;
-    }
-
-    goto LABEL_30;
-  }
-
-  if (*(handle + 119) == 5)
-  {
-    if ((handle[580] & 2) != 0)
-    {
-      return;
-    }
-
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v9 = gLogObj;
-    if (!os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-    {
-      return;
-    }
-
-    v10 = *(handle + 123);
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_session_terminate";
-    *&buf[12] = 2082;
-    *&buf[14] = handle + 496;
-    *&buf[22] = 2080;
-    v207 = " ";
-    *v208 = 1024;
-    *&v208[2] = v10;
-    v11 = "%{public}s %{public}s%s<i%u> Session already terminated, ignoring";
-    v12 = v9;
-    v13 = OS_LOG_TYPE_INFO;
-    goto LABEL_14;
-  }
-
-  if (a3)
-  {
-    if ((handle[580] & 2) == 0)
-    {
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v18 = gLogObj;
-      if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-      {
-        v19 = *(handle + 123);
-        *buf = 136447234;
-        *&buf[4] = "nw_webtransport_session_terminate";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 496;
-        *&buf[22] = 2080;
-        v207 = " ";
-        *v208 = 1024;
-        *&v208[2] = v19;
-        *&v208[6] = 1024;
-        *&v208[8] = a3;
-        v20 = "%{public}s %{public}s%s<i%u> Closing webtransport session with error %{darwin.errno}d";
-        v21 = v18;
-        v22 = 44;
-LABEL_35:
-        _os_log_impl(&dword_181A37000, v21, OS_LOG_TYPE_INFO, v20, buf, v22);
-      }
-    }
-  }
-
-  else if ((handle[580] & 2) == 0)
-  {
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v25 = gLogObj;
-    if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-    {
-      v26 = *(handle + 123);
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_session_terminate";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 496;
-      *&buf[22] = 2080;
-      v207 = " ";
-      *v208 = 1024;
-      *&v208[2] = v26;
-      v20 = "%{public}s %{public}s%s<i%u> Closing webtransport session without error";
-      v21 = v25;
-      v22 = 38;
-      goto LABEL_35;
-    }
-  }
-
-  v27 = *(handle + 119);
-  *(handle + 119) = 5;
-  v28 = *(handle + 24);
-  if (v28)
-  {
-    v184[0] = MEMORY[0x1E69E9820];
-    v184[1] = 0x40000000;
-    v184[2] = ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke;
-    v184[3] = &__block_descriptor_tmp_24_36439;
-    v185 = a3;
-    nw_hash_table_apply(v28, v184);
-  }
-
-  v29 = *(handle + 56);
-  if (v29)
-  {
-    v30 = *(v29 + 88);
-    if (a3)
-    {
-      nw_protocol_error(*(v29 + 48), *(handle + 56));
-    }
-
-    nw_protocol_disconnect(v29, v30);
-  }
-
-  v31 = *(handle + 42);
-  if (v31)
-  {
-    if (a3)
-    {
-      do
-      {
-        v32 = *(v31 + 112);
-        v33 = *(v31 + 88);
-        nw_protocol_error(*(v31 + 48), v31);
-        nw_protocol_disconnect(v31, v33);
-        v31 = v32;
-      }
-
-      while (v32);
-    }
-
-    else
-    {
-      do
-      {
-        v34 = *(v31 + 112);
-        nw_protocol_disconnect(v31, *(v31 + 88));
-        v31 = v34;
-      }
-
-      while (v34);
-    }
-  }
-
-  v35 = *(handle + 55);
-  if (v35)
-  {
-    v36 = *(v35 + 88);
-    if (a3)
-    {
-      nw_protocol_error(*(v35 + 48), *(handle + 55));
-    }
-
-    nw_protocol_disconnect(v35, v36);
-  }
-
-  if (*(handle + 4))
-  {
-    nw_protocol_remove_instance(handle);
-    nw_protocol_disconnect(*(handle + 4), handle);
-  }
-
-  v37 = *(handle + 50);
-  if (!v37)
-  {
-    return;
-  }
-
-  webtransport_state = nw_http_connection_metadata_get_webtransport_state(v37);
-  if (!webtransport_state)
-  {
-    return;
-  }
-
-  v39 = webtransport_state;
-  if (v27 != 4 && v27 != 1)
-  {
-    return;
-  }
-
-  v40 = *(webtransport_state + 16);
-  *(webtransport_state + 16) = v40 - 1;
-  if (!v40)
-  {
-    __nwlog_obj();
-    v41 = v39[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_session_terminate";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v207 = 1;
-    *v208 = 2048;
-    *&v208[2] = v41;
-    v42 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (__nwlog_fault(v42, type, v199))
-    {
-      if (type[0] == OS_LOG_TYPE_FAULT)
-      {
-        v43 = __nwlog_obj();
-        v44 = type[0];
-        if (os_log_type_enabled(v43, type[0]))
-        {
-          v45 = v39[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v207 = 1;
-          *v208 = 2048;
-          *&v208[2] = v45;
-          v46 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-LABEL_73:
-          _os_log_impl(&dword_181A37000, v43, v44, v46, buf, 0x2Au);
-        }
-      }
-
-      else if (LOBYTE(v199[0]) == 1)
-      {
-        v47 = __nw_create_backtrace_string();
-        v43 = __nwlog_obj();
-        v44 = type[0];
-        v48 = os_log_type_enabled(v43, type[0]);
-        if (v47)
-        {
-          if (v48)
-          {
-            v49 = v39[2];
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v207 = 1;
-            *v208 = 2048;
-            *&v208[2] = v49;
-            *&v208[10] = 2082;
-            *&v208[12] = v47;
-            _os_log_impl(&dword_181A37000, v43, v44, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-          }
-
-          free(v47);
-          goto LABEL_74;
-        }
-
-        if (v48)
-        {
-          v51 = v39[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v207 = 1;
-          *v208 = 2048;
-          *&v208[2] = v51;
-          v46 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
-          goto LABEL_73;
-        }
-      }
-
-      else
-      {
-        v43 = __nwlog_obj();
-        v44 = type[0];
-        if (os_log_type_enabled(v43, type[0]))
-        {
-          v50 = v39[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v207 = 1;
-          *v208 = 2048;
-          *&v208[2] = v50;
-          v46 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
-          goto LABEL_73;
-        }
-      }
-    }
-
-LABEL_74:
-    if (v42)
-    {
-      free(v42);
-    }
-
-    v39[2] = 0;
-  }
-
-  if (handle[580])
-  {
-    return;
-  }
-
-  v52 = *v39;
-  if (!*v39)
-  {
-    return;
-  }
-
-  v53 = *(v52 + 352);
-  v54 = *(v52 + 360);
-  v55 = (v53 + 360);
-  if (!v53)
-  {
-    v55 = v39 + 1;
-  }
-
-  *v55 = v54;
-  *v54 = v53;
-  *(v52 + 352) = 0;
-  *(v52 + 360) = 0;
-  v56 = *(v52 + 32);
-  if (v56 && *(v52 + 480) == 2)
-  {
-    v57 = v56[2];
-    if (nw_protocol_http2_identifier::onceToken != -1)
-    {
-      v154 = v56[2];
-      dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
-      v57 = v154;
-    }
-
-    if (nw_protocols_are_equal(v57, &nw_protocol_http2_identifier::http2_protocol_identifier))
-    {
-      goto LABEL_92;
-    }
-
-    v58 = v56[2];
-    if (nw_protocol_http3_identifier::onceToken != -1)
-    {
-      v156 = v56[2];
-      dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-      v58 = v156;
-    }
-
-    if (nw_protocols_are_equal(v58, &nw_protocol_http3_identifier::http3_protocol_identifier))
-    {
-      goto LABEL_92;
-    }
-
-    v59 = v56[2];
-    if (nw_protocol_http_messaging_identifier::onceToken != -1)
-    {
-      v157 = v56[2];
-      dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-      v59 = v157;
-    }
-
-    if (nw_protocols_are_equal(v59, &nw_protocol_http_messaging_identifier::protocol_identifier))
-    {
-LABEL_92:
-      v60 = nw_protocol_copy_info(v56);
-      v61 = v60;
-      aBlock[0] = MEMORY[0x1E69E9820];
-      aBlock[1] = 0x40000000;
-      aBlock[2] = ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke;
-      aBlock[3] = &__block_descriptor_tmp_27_36446;
-      aBlock[4] = v52;
-      if (v60)
-      {
-        _nw_array_apply(v60, aBlock);
-        v62 = *(v52 + 400);
-        if (!v62)
-        {
-          os_release(v61);
-          return;
-        }
-      }
-
-      else
-      {
-        v62 = *(v52 + 400);
-        if (!v62)
-        {
-          return;
-        }
-      }
-
-      version = nw_http_connection_metadata_get_version(v62);
-      v64 = version;
-      if (version == 4)
-      {
-        v65 = 0;
-      }
-
-      else
-      {
-        if (version != 5)
-        {
-LABEL_101:
-          v66 = v56[2];
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v155 = v56[2];
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v66 = v155;
-          }
-
-          v67 = nw_protocols_are_equal(v66, &nw_protocol_http_messaging_identifier::protocol_identifier);
-          v68 = *(v52 + 580);
-          if (v67)
-          {
-            v68 |= 0x40u;
-            *(v52 + 580) = v68;
-          }
-
-          if ((v68 & 2) == 0)
-          {
-            v69 = __nwlog_obj();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+            v618 = a4 + 4;
+LABEL_901:
+            if (v618 >= v720)
             {
-              v70 = *(v52 + 492);
-              if (v64 == 4)
+              if (v618 >= v717)
               {
-                v71 = 2;
+                goto LABEL_905;
+              }
+            }
+
+            else
+            {
+              if (*v615 == *v618)
+              {
+                v615 += 4;
+                v618 += 4;
+              }
+
+              if (v618 >= v717)
+              {
+LABEL_905:
+                if (v618 < v11)
+                {
+                  goto LABEL_906;
+                }
+
+                goto LABEL_908;
+              }
+            }
+
+            if (*v615 == *v618)
+            {
+              v615 += 2;
+              v618 += 2;
+            }
+
+            if (v618 < v11)
+            {
+LABEL_906:
+              if (*v615 == *v618)
+              {
+                ++v618;
+              }
+            }
+
+LABEL_908:
+            v621 = v618 - v614;
+            goto LABEL_915;
+          }
+
+          v26 = v387;
+LABEL_921:
+          v28 = &a4[v730];
+          v29 = &a4[v730 + 1];
+          v22 = a4;
+          if (v29 >= v19)
+          {
+            goto LABEL_1055;
+          }
+        }
+      }
+
+      if (v29 >= v19)
+      {
+        goto LABEL_1055;
+      }
+
+      v218 = 0;
+      v219 = 64 - *(a1 + 264);
+      v220 = (v11 - 7);
+      v221 = v11 - 32;
+      v714 = v11 - 3;
+      v718 = v11 - 1;
+      while (1)
+      {
+        v34 = v11;
+        v222 = v22 + 1;
+        v223 = *(v22 + 1);
+        v224 = v22 + 128;
+        v38 = v27;
+        v225 = (0xCF1BBCDCBF9B0000 * *v22) >> v219;
+        v226 = *(v8 + 4 * v225);
+        v227 = v218;
+        v228 = v218 - v27;
+        if (!v27)
+        {
+          v229 = v730;
+          v218 = v227;
+          while (1)
+          {
+            v233 = v28;
+            _X10 = v29;
+            v235 = (0xCF1BBCDCBF9B0000 * v223) >> v219;
+            v236 = v22 - v10;
+            *(v8 + 4 * v225) = v22 - v10;
+            if (v226 >= v18 && *v22 == *(v10 + v226))
+            {
+              break;
+            }
+
+            v226 = *(v8 + 4 * v235);
+            v225 = (0xCF1BBCDCBF9B0000 * *v233) >> v219;
+            v236 = v222 - v10;
+            *(v8 + 4 * v235) = v222 - v10;
+            if (v226 >= v18 && *v222 == *(v10 + v226))
+            {
+LABEL_318:
+              v22 = v222;
+              LODWORD(v222) = v233;
+              v235 = v225;
+              v247 = v10 + v18;
+              v246 = v714;
+              if (v229 >= 5)
+              {
+LABEL_323:
+                v244 = (v10 + v226);
+                v27 = (v22 - v244);
+                v245 = v27 + 3;
+                if (v226 <= v18 || v22 <= a4)
+                {
+                  v243 = 4;
+                }
+
+                else
+                {
+                  v248 = v22 - 1;
+                  v249 = (v10 - 1 + v226);
+                  v243 = 4;
+                  while (*v248 == *v249)
+                  {
+                    ++v243;
+                    v250 = v248 - 1;
+                    v251 = v249 - 1;
+                    if (v248 > a4)
+                    {
+                      --v248;
+                      v706 = v249-- > v247;
+                      if (v706)
+                      {
+                        continue;
+                      }
+                    }
+
+                    v22 = v250 + 1;
+                    v244 = v251 + 1;
+                    goto LABEL_332;
+                  }
+
+                  v22 = v248 + 1;
+                  v244 = v249 + 1;
+                }
+
+                goto LABEL_332;
+              }
+
+LABEL_322:
+              *(v8 + 4 * v235) = v222 - v10;
+              goto LABEL_323;
+            }
+
+            v226 = *(v8 + 4 * v225);
+            v223 = *v29;
+            v28 = &v233[v229];
+            if (&v233[v229] >= v224)
+            {
+              v238 = v229 + 1;
+              __asm
+              {
+                PRFM            #0, [X10,#0x40]
+                PRFM            #0, [X10,#0x80]
+              }
+
+              v224 += 128;
+            }
+
+            else
+            {
+              v238 = v229;
+            }
+
+            v29 += v229;
+            v229 = v238;
+            v222 = _X10;
+            v22 = v233;
+            if (v29 >= v19)
+            {
+LABEL_1052:
+              LODWORD(v27) = 0;
+              v11 = v34;
+              goto LABEL_1055;
+            }
+          }
+
+          v247 = v10 + v18;
+LABEL_321:
+          v246 = v714;
+          goto LABEL_322;
+        }
+
+        v229 = v730;
+        while (1)
+        {
+          v233 = v28;
+          v234 = *&v28[v228];
+          v235 = (0xCF1BBCDCBF9B0000 * v223) >> v219;
+          v236 = v22 - v10;
+          *(v8 + 4 * v225) = v22 - v10;
+          if (*v233 == v234)
+          {
+            break;
+          }
+
+          _X10 = v29;
+          if (v226 >= v18 && *v22 == *(v10 + v226))
+          {
+            v247 = v10 + v18;
+            v218 = v227;
+            goto LABEL_321;
+          }
+
+          v226 = *(v8 + 4 * v235);
+          v225 = (0xCF1BBCDCBF9B0000 * *v233) >> v219;
+          v236 = v222 - v10;
+          *(v8 + 4 * v235) = v222 - v10;
+          if (v226 >= v18 && *v222 == *(v10 + v226))
+          {
+            v218 = v227;
+            goto LABEL_318;
+          }
+
+          v226 = *(v8 + 4 * v225);
+          v223 = *v29;
+          v28 = &v233[v229];
+          if (&v233[v229] >= v224)
+          {
+            v230 = v229 + 1;
+            __asm
+            {
+              PRFM            #0, [X10,#0x40]
+              PRFM            #0, [X10,#0x80]
+            }
+
+            v224 += 128;
+          }
+
+          else
+          {
+            v230 = v229;
+          }
+
+          v29 += v229;
+          v229 = v230;
+          v222 = _X10;
+          v22 = v233;
+          if (v29 >= v19)
+          {
+LABEL_1050:
+            LODWORD(v27) = v38;
+            v11 = v34;
+            goto LABEL_1055;
+          }
+        }
+
+        v242 = *(v233 - 1) == v233[v228 - 1];
+        if (*(v233 - 1) == v233[v228 - 1])
+        {
+          v243 = 5;
+        }
+
+        else
+        {
+          v243 = 4;
+        }
+
+        v22 = &v233[-v242];
+        v244 = &v233[v228 - v242];
+        *(v8 + 4 * v235) = v222 - v10;
+        v245 = 1;
+        v27 = v38;
+        v38 = v26;
+        v218 = v227;
+        v246 = v714;
+LABEL_332:
+        v252 = &v22[v243];
+        v253 = &v244[v243];
+        if (v220 <= &v22[v243])
+        {
+          v255 = &v22[v243];
+LABEL_339:
+          if (v255 < v246 && *v253 == *v255)
+          {
+            v253 += 4;
+            v255 += 4;
+          }
+
+          if (v255 < v718 && *v253 == *v255)
+          {
+            v253 += 2;
+            v255 += 2;
+          }
+
+          if (v255 < v34 && *v253 == *v255)
+          {
+            ++v255;
+          }
+
+          v258 = v255 - v252;
+        }
+
+        else if (*v253 == *v252)
+        {
+          v253 = &v244[v243 + 8];
+          v254 = &v22[v243 + 8];
+          do
+          {
+            v255 = v254;
+            if (v254 >= v220)
+            {
+              goto LABEL_339;
+            }
+
+            v257 = *v253;
+            v253 += 8;
+            v256 = v257;
+            v254 += 8;
+          }
+
+          while (v257 == *v255);
+          v258 = &v255[__clz(__rbit64(*v255 ^ v256)) >> 3] - v252;
+        }
+
+        else
+        {
+          v258 = __clz(__rbit64(*v252 ^ *v253)) >> 3;
+        }
+
+        v259 = v22 - a4;
+        v260 = *(a2 + 24);
+        if (v22 <= v221)
+        {
+          *v260 = *a4;
+          v267 = *(a2 + 24);
+          if (v259 <= 0x10)
+          {
+            *(a2 + 24) = v267 + v259;
+            v272 = *(a2 + 8);
+            goto LABEL_381;
+          }
+
+          *(v267 + 16) = *(a4 + 1);
+          if (v259 >= 33)
+          {
+            v268 = v267 + v259;
+            v269 = (v267 + 32);
+            v270 = a4 + 48;
+            do
+            {
+              *v269 = *(v270 - 1);
+              v271 = *v270;
+              v270 += 32;
+              v269[1] = v271;
+              v269 += 2;
+            }
+
+            while (v269 < v268);
+          }
+        }
+
+        else
+        {
+          if (a4 <= v221)
+          {
+            v261 = (v260 + v221 - a4);
+            *v260 = *a4;
+            if (v221 - a4 >= 17)
+            {
+              v262 = v260 + 1;
+              v263 = a4 + 32;
+              do
+              {
+                *v262 = *(v263 - 1);
+                v264 = *v263;
+                v263 += 32;
+                v262[1] = v264;
+                v262 += 2;
+              }
+
+              while (v262 < v261);
+            }
+
+            a4 = v221;
+            v260 = v261;
+          }
+
+          if (a4 >= v22)
+          {
+            goto LABEL_379;
+          }
+
+          v265 = v22 - a4;
+          if ((v22 - a4) < 8)
+          {
+            v273 = v260;
+            goto LABEL_378;
+          }
+
+          if ((v260 - a4) < 0x20)
+          {
+            v273 = v260;
+            goto LABEL_378;
+          }
+
+          if (v265 >= 0x20)
+          {
+            v266 = v265 & 0xFFFFFFFFFFFFFFE0;
+            v274 = a4 + 16;
+            v275 = v260 + 1;
+            v276 = v265 & 0xFFFFFFFFFFFFFFE0;
+            do
+            {
+              v277 = *v274;
+              *(v275 - 1) = *(v274 - 1);
+              *v275 = v277;
+              v274 += 32;
+              v275 += 2;
+              v276 -= 32;
+            }
+
+            while (v276);
+            v246 = v714;
+            if (v265 == v266)
+            {
+              goto LABEL_379;
+            }
+
+            if ((v265 & 0x18) == 0)
+            {
+              a4 += v266;
+              v273 = v260 + v266;
+              v246 = v714;
+              do
+              {
+LABEL_378:
+                v283 = *a4++;
+                *v273++ = v283;
+              }
+
+              while (a4 != v22);
+              goto LABEL_379;
+            }
+          }
+
+          else
+          {
+            v266 = 0;
+          }
+
+          v278 = v265 & 0xFFFFFFFFFFFFFFF8;
+          v273 = v260 + (v265 & 0xFFFFFFFFFFFFFFF8);
+          v279 = v266 - (v265 & 0xFFFFFFFFFFFFFFF8);
+          v280 = &a4[v266];
+          v281 = (v260 + v266);
+          do
+          {
+            v282 = *v280;
+            v280 += 8;
+            *v281++ = v282;
+            v279 += 8;
+          }
+
+          while (v279);
+          v218 = v227;
+          v246 = v714;
+          if (v265 != v278)
+          {
+            a4 += v278;
+            goto LABEL_378;
+          }
+        }
+
+LABEL_379:
+        *(a2 + 24) += v259;
+        v272 = *(a2 + 8);
+        if (v259 >= 0x10000)
+        {
+          v284 = (v272 - *a2) >> 3;
+          *(a2 + 72) = 1;
+          *(a2 + 76) = v284;
+        }
+
+LABEL_381:
+        v285 = v258 + v243;
+        *(v272 + 4) = v259;
+        *v272 = v245;
+        v286 = v258 + v243 - 3;
+        if (v286 >= 0x10000)
+        {
+          v287 = (v272 - *a2) >> 3;
+          *(a2 + 72) = 2;
+          *(a2 + 76) = v287;
+        }
+
+        *(v272 + 6) = v286;
+        v288 = v272 + 8;
+        *(a2 + 8) = v272 + 8;
+        a4 = &v22[v285];
+        if (&v22[v285] <= v19)
+        {
+          *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *(v10 + 2 + v236)) >> v219)) = v236 + 2;
+          *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *(a4 - 2)) >> v219)) = a4 - 2 - v10;
+          if (!v38)
+          {
+            v26 = 0;
+            v11 = v34;
+            goto LABEL_416;
+          }
+
+          v289 = v27;
+          v11 = v34;
+          while (2)
+          {
+            v26 = v289;
+            v289 = v38;
+            if (*a4 != *&a4[-v38])
+            {
+              v27 = v26;
+              v26 = v38;
+              goto LABEL_416;
+            }
+
+            v290 = a4 + 4;
+            v291 = &a4[-v38 + 4];
+            if (v220 > (a4 + 4))
+            {
+              v292 = *v291;
+              if (v292 == *v290)
+              {
+                v293 = a4 + 12;
+                v291 = &a4[-v38 + 12];
+                do
+                {
+                  v294 = v293;
+                  if (v293 >= v220)
+                  {
+                    goto LABEL_396;
+                  }
+
+                  v296 = *v291;
+                  v291 += 8;
+                  v295 = v296;
+                  v293 += 8;
+                }
+
+                while (v296 == *v294);
+                v297 = &v294[__clz(__rbit64(*v294 ^ v295)) >> 3] - v290;
               }
 
               else
               {
-                v71 = 3;
+                v297 = __clz(__rbit64(*v290 ^ v292)) >> 3;
               }
 
-              *buf = 136447234;
-              *&buf[4] = "nw_webtransport_session_establish";
-              *&buf[12] = 2082;
-              *&buf[14] = v52 + 496;
-              *&buf[22] = 2080;
-              v207 = " ";
-              *v208 = 1024;
-              *&v208[2] = v70;
-              *&v208[6] = 1024;
-              *&v208[8] = v71;
-              _os_log_impl(&dword_181A37000, v69, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Establishing webtransport session for HTTP/%d", buf, 0x2Cu);
+LABEL_410:
+              *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *a4) >> v219)) = a4 - v10;
+              if (a4 <= v221)
+              {
+                **(a2 + 24) = *a4;
+                v288 = *(a2 + 8);
+              }
+
+              *(v288 + 4) = 0;
+              *v288 = 1;
+              if (v297 + 1 >= 0x10000)
+              {
+                v298 = (v288 - *a2) >> 3;
+                *(a2 + 72) = 2;
+                *(a2 + 76) = v298;
+              }
+
+              a4 += v297 + 4;
+              *(v288 + 6) = v297 + 1;
+              v288 += 8;
+              *(a2 + 8) = v288;
+              v38 = v26;
+              v27 = v289;
+              if (a4 > v19)
+              {
+                goto LABEL_416;
+              }
+
+              continue;
             }
+
+            break;
           }
 
-          if (v61)
+          v294 = a4 + 4;
+LABEL_396:
+          if (v294 >= v246)
           {
-            os_release(v61);
-          }
-
-          goto LABEL_113;
-        }
-
-        v65 = 1;
-      }
-
-      *(v52 + 480) = v65;
-      goto LABEL_101;
-    }
-  }
-
-LABEL_113:
-  v72 = *(v52 + 480);
-  if (v72 > 1)
-  {
-    if ((*(v52 + 580) & 2) != 0)
-    {
-      return;
-    }
-
-    v73 = __nwlog_obj();
-    if (!os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
-    {
-      return;
-    }
-
-    v74 = *(v52 + 492);
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_session_establish";
-    *&buf[12] = 2082;
-    *&buf[14] = v52 + 496;
-    *&buf[22] = 2080;
-    v207 = " ";
-    *v208 = 1024;
-    *&v208[2] = v74;
-    v11 = "%{public}s %{public}s%s<i%u> Unknown webtransport session transport mode for establishment, failing";
-    v12 = v73;
-    v13 = OS_LOG_TYPE_ERROR;
-LABEL_14:
-    _os_log_impl(&dword_181A37000, v12, v13, v11, buf, 0x26u);
-    return;
-  }
-
-  if ((*(v52 + 580) & 1) == 0)
-  {
-    if (!*(v52 + 476))
-    {
-      nw_webtransport_http_send_connect(v52);
-    }
-
-    return;
-  }
-
-  v75 = *(v52 + 476);
-  if (v72 != 1)
-  {
-    if (v75)
-    {
-      return;
-    }
-
-    *(v52 + 476) = 3;
-    v84 = *(v52 + 48);
-    if (v84)
-    {
-      v85 = *(v84 + 40);
-      if (v85)
-      {
-        *(v52 + 440) = v85;
-        return;
-      }
-
-      __nwlog_obj();
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-      v5 = _os_log_send_and_compose_impl();
-      type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v199[0]) = 0;
-      if (!__nwlog_fault(v5, type, v199))
-      {
-        goto LABEL_29;
-      }
-
-      if (type[0] == OS_LOG_TYPE_FAULT)
-      {
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        if (!os_log_type_enabled(v6, type[0]))
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null webtransport_stream";
-      }
-
-      else if (LOBYTE(v199[0]) == 1)
-      {
-        v98 = __nw_create_backtrace_string();
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        v166 = os_log_type_enabled(v6, type[0]);
-        if (v98)
-        {
-          if (v166)
-          {
-            *buf = 136446466;
-            *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-            *&buf[12] = 2082;
-            *&buf[14] = v98;
-            v100 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-            goto LABEL_173;
-          }
-
-          goto LABEL_174;
-        }
-
-        if (!v166)
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null webtransport_stream, no backtrace";
-      }
-
-      else
-      {
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        if (!os_log_type_enabled(v6, type[0]))
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-      }
-    }
-
-    else
-    {
-      __nwlog_obj();
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-      v5 = _os_log_send_and_compose_impl();
-      type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v199[0]) = 0;
-      if (!__nwlog_fault(v5, type, v199))
-      {
-        goto LABEL_29;
-      }
-
-      if (type[0] == OS_LOG_TYPE_FAULT)
-      {
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        if (!os_log_type_enabled(v6, type[0]))
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null input_protocol";
-      }
-
-      else if (LOBYTE(v199[0]) == 1)
-      {
-        v98 = __nw_create_backtrace_string();
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        v165 = os_log_type_enabled(v6, type[0]);
-        if (v98)
-        {
-          if (v165)
-          {
-            *buf = 136446466;
-            *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-            *&buf[12] = 2082;
-            *&buf[14] = v98;
-            v100 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
-            goto LABEL_173;
-          }
-
-          goto LABEL_174;
-        }
-
-        if (!v165)
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null input_protocol, no backtrace";
-      }
-
-      else
-      {
-        v6 = __nwlog_obj();
-        v7 = type[0];
-        if (!os_log_type_enabled(v6, type[0]))
-        {
-          goto LABEL_29;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-        v8 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-      }
-    }
-
-    goto LABEL_27;
-  }
-
-  if (v75 != 3)
-  {
-    if (v75)
-    {
-      return;
-    }
-
-    v76 = *(v52 + 48);
-    if (v76)
-    {
-      v77 = *(v76 + 40);
-      if (v77)
-      {
-        nw_protocol_replace_input_handler(*(v52 + 32), v52, *(v76 + 40));
-        *(v52 + 440) = v77;
-        nw_protocol_set_output_handler(v52, 0);
-        nw_protocol_set_input_handler(v52, 0);
-        if (*(v52 + 580))
-        {
-          v78 = *(*(v52 + 440) + 32);
-          v79 = *(v78 + 16);
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v170 = *(v78 + 16);
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v79 = v170;
-          }
-
-          if (nw_protocols_are_equal(v79, &nw_protocol_http_messaging_identifier::protocol_identifier))
-          {
-            goto LABEL_132;
-          }
-
-          v80 = *(v78 + 16);
-          if (nw_protocol_http3_identifier::onceToken != -1)
-          {
-            v173 = *(v78 + 16);
-            dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-            v80 = v173;
-          }
-
-          if (nw_protocols_are_equal(v80, &nw_protocol_http3_identifier::http3_protocol_identifier))
-          {
-LABEL_132:
-            v81 = *(v52 + 368);
-            if (v81)
+            if (v294 >= v718)
             {
-              v82 = nw_parameters_copy_protocol_options_legacy(v81, v78);
-              if (v82)
-              {
-                if ((*(v77 + 276) & 0x10) == 0 && gLogDatapath == 1)
-                {
-                  v174 = v82;
-                  v175 = __nwlog_obj();
-                  v176 = os_log_type_enabled(v175, OS_LOG_TYPE_DEBUG);
-                  v82 = v174;
-                  if (v176)
-                  {
-                    v177 = *(v77 + 88);
-                    if (v177)
-                    {
-                      v178 = *(v177 + 492);
-                    }
-
-                    else
-                    {
-                      v178 = -1;
-                    }
-
-                    v183 = *(v77 + 64);
-                    *buf = 136447490;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v77 + 192;
-                    *&buf[22] = 2080;
-                    v207 = " ";
-                    *v208 = 1024;
-                    *&v208[2] = v178;
-                    *&v208[6] = 2048;
-                    *&v208[8] = v183;
-                    *&v208[16] = 2048;
-                    *&v208[18] = v174;
-                    _os_log_impl(&dword_181A37000, v175, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> Reverting stream mode to default on options %p", buf, 0x3Au);
-                    v82 = v174;
-                  }
-                }
-
-                v83 = v82;
-                nw_http3_set_stream_mode(v82, 0);
-                os_release(v83);
-              }
-
-              else
-              {
-                if ((*(v52 + 580) & 2) == 0 && gLogDatapath == 1)
-                {
-                  v181 = __nwlog_obj();
-                  if (os_log_type_enabled(v181, OS_LOG_TYPE_DEBUG))
-                  {
-                    v182 = *(v52 + 492);
-                    *buf = 136446978;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v52 + 496;
-                    *&buf[22] = 2080;
-                    v207 = " ";
-                    *v208 = 1024;
-                    *&v208[2] = v182;
-                    _os_log_impl(&dword_181A37000, v181, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Received HTTP options are NULL", buf, 0x26u);
-                  }
-                }
-
-                v104 = *(v77 + 88);
-                nw_protocol_error(*(v77 + 48), v77);
-                nw_protocol_disconnect(v77, v104);
-              }
+              goto LABEL_400;
             }
           }
-        }
 
-        goto LABEL_192;
-      }
-
-      __nwlog_obj();
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-      v160 = _os_log_send_and_compose_impl();
-      type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v199[0]) = 0;
-      if (__nwlog_fault(v160, type, v199))
-      {
-        if (type[0] == OS_LOG_TYPE_FAULT)
-        {
-          v161 = __nwlog_obj();
-          v162 = type[0];
-          if (!os_log_type_enabled(v161, type[0]))
+          else
           {
-            goto LABEL_387;
+            if (*v291 == *v294)
+            {
+              v291 += 4;
+              v294 += 4;
+            }
+
+            if (v294 >= v718)
+            {
+LABEL_400:
+              if (v294 < v34)
+              {
+                goto LABEL_401;
+              }
+
+              goto LABEL_403;
+            }
           }
 
-          *buf = 136446210;
-          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-          v163 = "%{public}s called with null webtransport_stream";
-          goto LABEL_386;
-        }
-
-        if (LOBYTE(v199[0]) != 1)
-        {
-          v161 = __nwlog_obj();
-          v162 = type[0];
-          if (!os_log_type_enabled(v161, type[0]))
+          if (*v291 == *v294)
           {
-            goto LABEL_387;
+            v291 += 2;
+            v294 += 2;
           }
 
-          *buf = 136446210;
-          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-          v163 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-          goto LABEL_386;
-        }
-
-        v171 = __nw_create_backtrace_string();
-        v161 = __nwlog_obj();
-        v162 = type[0];
-        v172 = os_log_type_enabled(v161, type[0]);
-        if (v171)
-        {
-          if (v172)
+          if (v294 < v34)
           {
-            *buf = 136446466;
-            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-            *&buf[12] = 2082;
-            *&buf[14] = v171;
-            _os_log_impl(&dword_181A37000, v161, v162, "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s", buf, 0x16u);
+LABEL_401:
+            if (*v291 == *v294)
+            {
+              ++v294;
+            }
           }
 
-          free(v171);
-          if (!v160)
-          {
-            goto LABEL_192;
-          }
-
-          goto LABEL_388;
+LABEL_403:
+          v297 = v294 - v290;
+          goto LABEL_410;
         }
 
-        if (v172)
+        v26 = v38;
+        v11 = v34;
+LABEL_416:
+        v28 = &a4[v730];
+        v29 = &a4[v730 + 1];
+        v22 = a4;
+        if (v29 >= v19)
         {
-          *buf = 136446210;
-          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-          v163 = "%{public}s called with null webtransport_stream, no backtrace";
-LABEL_386:
-          _os_log_impl(&dword_181A37000, v161, v162, v163, buf, 0xCu);
+          goto LABEL_1055;
         }
       }
     }
 
-    else
+    if (v29 >= v19)
     {
-      __nwlog_obj();
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-      v160 = _os_log_send_and_compose_impl();
-      type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v199[0]) = 0;
-      if (!__nwlog_fault(v160, type, v199))
-      {
-        goto LABEL_387;
-      }
-
-      if (type[0] == OS_LOG_TYPE_FAULT)
-      {
-        v161 = __nwlog_obj();
-        v162 = type[0];
-        if (!os_log_type_enabled(v161, type[0]))
-        {
-          goto LABEL_387;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-        v163 = "%{public}s called with null input_protocol";
-        goto LABEL_386;
-      }
-
-      if (LOBYTE(v199[0]) != 1)
-      {
-        v161 = __nwlog_obj();
-        v162 = type[0];
-        if (!os_log_type_enabled(v161, type[0]))
-        {
-          goto LABEL_387;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-        v163 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-        goto LABEL_386;
-      }
-
-      v167 = __nw_create_backtrace_string();
-      v161 = __nwlog_obj();
-      v162 = type[0];
-      v168 = os_log_type_enabled(v161, type[0]);
-      if (!v167)
-      {
-        if (!v168)
-        {
-          goto LABEL_387;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-        v163 = "%{public}s called with null input_protocol, no backtrace";
-        goto LABEL_386;
-      }
-
-      if (v168)
-      {
-        *buf = 136446466;
-        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-        *&buf[12] = 2082;
-        *&buf[14] = v167;
-        _os_log_impl(&dword_181A37000, v161, v162, "%{public}s called with null input_protocol, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      free(v167);
+      goto LABEL_1055;
     }
 
-LABEL_387:
-    if (!v160)
+    v379 = 0;
+    v380 = 64 - *(a1 + 264);
+    v381 = (v11 - 7);
+    v382 = v11 - 32;
+    v716 = v11 - 1;
+    v719 = v11 - 3;
+    while (1)
     {
-LABEL_192:
-      *(v52 + 476) = 2;
-      return;
-    }
+      v383 = v11;
+      v384 = v22 + 1;
+      v385 = *(v22 + 1);
+      v386 = v22 + 128;
+      v387 = v27;
+      v388 = (0xCF1BBCDCBB000000 * *v22) >> v380;
+      v389 = *(v8 + 4 * v388);
+      v390 = v379;
+      v391 = v379 - v27;
+      if (v27)
+      {
+        v392 = v730;
+        while (1)
+        {
+          v396 = v28;
+          _X10 = v29;
+          v398 = *&v28[v391];
+          v399 = (0xCF1BBCDCBB000000 * v385) >> v380;
+          v400 = v22 - v10;
+          *(v8 + 4 * v388) = v22 - v10;
+          if (*v396 == v398)
+          {
+            break;
+          }
 
-LABEL_388:
-    free(v160);
-    goto LABEL_192;
+          if (v389 >= v18 && *v22 == *(v10 + v389))
+          {
+            v410 = v10 + v18;
+            v379 = v390;
+            goto LABEL_574;
+          }
+
+          v389 = *(v8 + 4 * v399);
+          v388 = (0xCF1BBCDCBB000000 * *v396) >> v380;
+          v400 = v384 - v10;
+          *(v8 + 4 * v399) = v384 - v10;
+          if (v389 >= v18 && *v384 == *(v10 + v389))
+          {
+            v410 = v10 + v18;
+            v379 = v390;
+            goto LABEL_573;
+          }
+
+          v389 = *(v8 + 4 * v388);
+          v385 = *v29;
+          v28 = &v396[v392];
+          if (&v396[v392] >= v386)
+          {
+            v393 = v392 + 1;
+            __asm
+            {
+              PRFM            #0, [X10,#0x40]
+              PRFM            #0, [X10,#0x80]
+            }
+
+            v386 += 128;
+          }
+
+          else
+          {
+            v393 = v392;
+          }
+
+          v29 += v392;
+          v392 = v393;
+          v384 = _X10;
+          v22 = v396;
+          if (v29 >= v19)
+          {
+LABEL_1051:
+            LODWORD(v27) = v387;
+LABEL_1054:
+            v11 = v383;
+            goto LABEL_1055;
+          }
+        }
+
+        v405 = *(v396 - 1) == v396[v391 - 1];
+        if (*(v396 - 1) == v396[v391 - 1])
+        {
+          v406 = 5;
+        }
+
+        else
+        {
+          v406 = 4;
+        }
+
+        v22 = &v396[-v405];
+        v407 = &v396[v391 - v405];
+        *(v8 + 4 * v399) = v384 - v10;
+        v408 = 1;
+        v27 = v387;
+        v387 = v26;
+        v379 = v390;
+        v409 = v719;
+      }
+
+      else
+      {
+        v392 = v730;
+        v379 = v390;
+        while (1)
+        {
+          v396 = v28;
+          _X10 = v29;
+          v399 = (0xCF1BBCDCBB000000 * v385) >> v380;
+          v400 = v22 - v10;
+          *(v8 + 4 * v388) = v22 - v10;
+          if (v389 >= v18)
+          {
+            v379 = v390;
+            if (*v22 == *(v10 + v389))
+            {
+              v410 = v10 + v18;
+              goto LABEL_574;
+            }
+          }
+
+          v389 = *(v8 + 4 * v399);
+          v388 = (0xCF1BBCDCBB000000 * *v396) >> v380;
+          v400 = v384 - v10;
+          *(v8 + 4 * v399) = v384 - v10;
+          if (v389 >= v18 && *v384 == *(v10 + v389))
+          {
+            break;
+          }
+
+          v389 = *(v8 + 4 * v388);
+          v385 = *v29;
+          v28 = &v396[v392];
+          if (&v396[v392] >= v386)
+          {
+            v401 = v392 + 1;
+            __asm
+            {
+              PRFM            #0, [X10,#0x40]
+              PRFM            #0, [X10,#0x80]
+            }
+
+            v386 += 128;
+          }
+
+          else
+          {
+            v401 = v392;
+          }
+
+          v29 += v392;
+          v392 = v401;
+          v384 = _X10;
+          v22 = v396;
+          if (v29 >= v19)
+          {
+LABEL_1053:
+            LODWORD(v27) = 0;
+            goto LABEL_1054;
+          }
+        }
+
+        v410 = v10 + v18;
+LABEL_573:
+        v22 = v384;
+        LODWORD(v384) = v396;
+        v399 = v388;
+        if (v392 < 5)
+        {
+LABEL_574:
+          *(v8 + 4 * v399) = v384 - v10;
+        }
+
+        v407 = (v10 + v389);
+        v27 = (v22 - v407);
+        v408 = v27 + 3;
+        v409 = v719;
+        if (v389 <= v18 || v22 <= a4)
+        {
+          v406 = 4;
+        }
+
+        else
+        {
+          v411 = v22 - 1;
+          v412 = (v10 - 1 + v389);
+          v406 = 4;
+          while (*v411 == *v412)
+          {
+            ++v406;
+            v413 = v411 - 1;
+            v414 = v412 - 1;
+            if (v411 > a4)
+            {
+              --v411;
+              v706 = v412-- > v410;
+              if (v706)
+              {
+                continue;
+              }
+            }
+
+            v22 = v413 + 1;
+            v407 = v414 + 1;
+            goto LABEL_584;
+          }
+
+          v22 = v411 + 1;
+          v407 = v412 + 1;
+        }
+      }
+
+LABEL_584:
+      v415 = &v22[v406];
+      v416 = &v407[v406];
+      if (v381 <= &v22[v406])
+      {
+        v418 = &v22[v406];
+LABEL_591:
+        if (v418 < v409 && *v416 == *v418)
+        {
+          v416 += 4;
+          v418 += 4;
+        }
+
+        if (v418 < v716 && *v416 == *v418)
+        {
+          v416 += 2;
+          v418 += 2;
+        }
+
+        if (v418 < v383 && *v416 == *v418)
+        {
+          ++v418;
+        }
+
+        v421 = v418 - v415;
+      }
+
+      else if (*v416 == *v415)
+      {
+        v416 = &v407[v406 + 8];
+        v417 = &v22[v406 + 8];
+        do
+        {
+          v418 = v417;
+          if (v417 >= v381)
+          {
+            goto LABEL_591;
+          }
+
+          v420 = *v416;
+          v416 += 8;
+          v419 = v420;
+          v417 += 8;
+        }
+
+        while (v420 == *v418);
+        v421 = &v418[__clz(__rbit64(*v418 ^ v419)) >> 3] - v415;
+      }
+
+      else
+      {
+        v421 = __clz(__rbit64(*v415 ^ *v416)) >> 3;
+      }
+
+      v422 = v22 - a4;
+      v423 = *(a2 + 24);
+      if (v22 <= v382)
+      {
+        *v423 = *a4;
+        v430 = *(a2 + 24);
+        if (v422 <= 0x10)
+        {
+          *(a2 + 24) = v430 + v422;
+          v435 = *(a2 + 8);
+          goto LABEL_633;
+        }
+
+        *(v430 + 16) = *(a4 + 1);
+        if (v422 >= 33)
+        {
+          v431 = v430 + v422;
+          v432 = (v430 + 32);
+          v433 = a4 + 48;
+          do
+          {
+            *v432 = *(v433 - 1);
+            v434 = *v433;
+            v433 += 32;
+            v432[1] = v434;
+            v432 += 2;
+          }
+
+          while (v432 < v431);
+        }
+      }
+
+      else
+      {
+        if (a4 <= v382)
+        {
+          v424 = (v423 + v382 - a4);
+          *v423 = *a4;
+          if (v382 - a4 >= 17)
+          {
+            v425 = v423 + 1;
+            v426 = a4 + 32;
+            do
+            {
+              *v425 = *(v426 - 1);
+              v427 = *v426;
+              v426 += 32;
+              v425[1] = v427;
+              v425 += 2;
+            }
+
+            while (v425 < v424);
+          }
+
+          a4 = v382;
+          v423 = v424;
+        }
+
+        if (a4 >= v22)
+        {
+          goto LABEL_631;
+        }
+
+        v428 = v22 - a4;
+        if ((v22 - a4) < 8)
+        {
+          v436 = v423;
+          goto LABEL_630;
+        }
+
+        if ((v423 - a4) < 0x20)
+        {
+          v436 = v423;
+          goto LABEL_630;
+        }
+
+        if (v428 >= 0x20)
+        {
+          v429 = v428 & 0xFFFFFFFFFFFFFFE0;
+          v437 = a4 + 16;
+          v438 = v423 + 1;
+          v439 = v428 & 0xFFFFFFFFFFFFFFE0;
+          do
+          {
+            v440 = *v437;
+            *(v438 - 1) = *(v437 - 1);
+            *v438 = v440;
+            v437 += 32;
+            v438 += 2;
+            v439 -= 32;
+          }
+
+          while (v439);
+          v379 = v390;
+          if (v428 == v429)
+          {
+            goto LABEL_631;
+          }
+
+          if ((v428 & 0x18) == 0)
+          {
+            a4 += v429;
+            v436 = v423 + v429;
+            v379 = v390;
+            do
+            {
+LABEL_630:
+              v446 = *a4++;
+              *v436++ = v446;
+            }
+
+            while (a4 != v22);
+            goto LABEL_631;
+          }
+        }
+
+        else
+        {
+          v429 = 0;
+        }
+
+        v441 = v428 & 0xFFFFFFFFFFFFFFF8;
+        v436 = v423 + (v428 & 0xFFFFFFFFFFFFFFF8);
+        v442 = v429 - (v428 & 0xFFFFFFFFFFFFFFF8);
+        v443 = &a4[v429];
+        v444 = (v423 + v429);
+        do
+        {
+          v445 = *v443;
+          v443 += 8;
+          *v444++ = v445;
+          v442 += 8;
+        }
+
+        while (v442);
+        v379 = v390;
+        v409 = v719;
+        if (v428 != v441)
+        {
+          a4 += v441;
+          goto LABEL_630;
+        }
+      }
+
+LABEL_631:
+      *(a2 + 24) += v422;
+      v435 = *(a2 + 8);
+      if (v422 >= 0x10000)
+      {
+        v447 = (v435 - *a2) >> 3;
+        *(a2 + 72) = 1;
+        *(a2 + 76) = v447;
+      }
+
+LABEL_633:
+      v448 = v421 + v406;
+      *(v435 + 4) = v422;
+      *v435 = v408;
+      v449 = v421 + v406 - 3;
+      if (v449 >= 0x10000)
+      {
+        v450 = (v435 - *a2) >> 3;
+        *(a2 + 72) = 2;
+        *(a2 + 76) = v450;
+      }
+
+      *(v435 + 6) = v449;
+      v451 = v435 + 8;
+      *(a2 + 8) = v435 + 8;
+      a4 = &v22[v448];
+      if (&v22[v448] <= v19)
+      {
+        *(v8 + 4 * ((0xCF1BBCDCBB000000 * *(v10 + 2 + v400)) >> v380)) = v400 + 2;
+        *(v8 + 4 * ((0xCF1BBCDCBB000000 * *(a4 - 2)) >> v380)) = a4 - 2 - v10;
+        if (!v387)
+        {
+          v26 = 0;
+          v11 = v383;
+          goto LABEL_668;
+        }
+
+        v452 = v27;
+        v11 = v383;
+        while (2)
+        {
+          v26 = v452;
+          v452 = v387;
+          if (*a4 != *&a4[-v387])
+          {
+            v27 = v26;
+            v26 = v387;
+            goto LABEL_668;
+          }
+
+          v453 = a4 + 4;
+          v454 = &a4[-v387 + 4];
+          if (v381 > (a4 + 4))
+          {
+            v455 = *v454;
+            if (v455 == *v453)
+            {
+              v456 = a4 + 12;
+              v454 = &a4[-v387 + 12];
+              do
+              {
+                v457 = v456;
+                if (v456 >= v381)
+                {
+                  goto LABEL_648;
+                }
+
+                v459 = *v454;
+                v454 += 8;
+                v458 = v459;
+                v456 += 8;
+              }
+
+              while (v459 == *v457);
+              v460 = &v457[__clz(__rbit64(*v457 ^ v458)) >> 3] - v453;
+            }
+
+            else
+            {
+              v460 = __clz(__rbit64(*v453 ^ v455)) >> 3;
+            }
+
+LABEL_662:
+            *(v8 + 4 * ((0xCF1BBCDCBB000000 * *a4) >> v380)) = a4 - v10;
+            if (a4 <= v382)
+            {
+              **(a2 + 24) = *a4;
+              v451 = *(a2 + 8);
+            }
+
+            *(v451 + 4) = 0;
+            *v451 = 1;
+            if (v460 + 1 >= 0x10000)
+            {
+              v461 = (v451 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v461;
+            }
+
+            a4 += v460 + 4;
+            *(v451 + 6) = v460 + 1;
+            v451 += 8;
+            *(a2 + 8) = v451;
+            v387 = v26;
+            v27 = v452;
+            if (a4 > v19)
+            {
+              goto LABEL_668;
+            }
+
+            continue;
+          }
+
+          break;
+        }
+
+        v457 = a4 + 4;
+LABEL_648:
+        if (v457 >= v409)
+        {
+          if (v457 >= v716)
+          {
+            goto LABEL_652;
+          }
+        }
+
+        else
+        {
+          if (*v454 == *v457)
+          {
+            v454 += 4;
+            v457 += 4;
+          }
+
+          if (v457 >= v716)
+          {
+LABEL_652:
+            if (v457 < v383)
+            {
+              goto LABEL_653;
+            }
+
+            goto LABEL_655;
+          }
+        }
+
+        if (*v454 == *v457)
+        {
+          v454 += 2;
+          v457 += 2;
+        }
+
+        if (v457 < v383)
+        {
+LABEL_653:
+          if (*v454 == *v457)
+          {
+            ++v457;
+          }
+        }
+
+LABEL_655:
+        v460 = v457 - v453;
+        goto LABEL_662;
+      }
+
+      v26 = v387;
+      v11 = v383;
+LABEL_668:
+      v28 = &a4[v730];
+      v29 = &a4[v730 + 1];
+      v22 = a4;
+      if (v29 >= v19)
+      {
+        goto LABEL_1055;
+      }
+    }
   }
 
-  v86 = *(v52 + 32);
-  if (!v86)
+  v116 = *(a1 + 8);
+  v11 = &a4[a5];
+  v117 = a4 + a5 - v116;
+  v118 = *(a1 + 24);
+  v119 = 1 << *(a1 + 256);
+  v120 = v117 - v118 > v119;
+  v121 = v117 - v119;
+  v122 = *(a1 + 40) == 0;
+  if (v122 && v120)
   {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_webtransport_session_http_get_input";
-    v5 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (!__nwlog_fault(v5, type, v199))
-    {
-      goto LABEL_29;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s called with null output_handler";
-    }
-
-    else if (LOBYTE(v199[0]) == 1)
-    {
-      v98 = __nw_create_backtrace_string();
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      v169 = os_log_type_enabled(v6, type[0]);
-      if (v98)
-      {
-        if (v169)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_webtransport_session_http_get_input";
-          *&buf[12] = 2082;
-          *&buf[14] = v98;
-          v100 = "%{public}s called with null output_handler, dumping backtrace:%{public}s";
-          goto LABEL_173;
-        }
-
-        goto LABEL_174;
-      }
-
-      if (!v169)
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s called with null output_handler, no backtrace";
-    }
-
-    else
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s called with null output_handler, backtrace limit exceeded";
-    }
-
-    goto LABEL_27;
+    v123 = v121;
   }
 
-  v87 = v86[3];
-  if (!v87 || !*(v87 + 80))
+  else
   {
-    if ((*(v52 + 580) & 2) == 0)
-    {
-      v158 = __nwlog_obj();
-      if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
-      {
-        v159 = *(v52 + 492);
-        *buf = 136446978;
-        *&buf[4] = "nw_webtransport_session_http_get_input";
-        *&buf[12] = 2082;
-        *&buf[14] = v52 + 496;
-        *&buf[22] = 2080;
-        v207 = " ";
-        *v208 = 1024;
-        *&v208[2] = v159;
-        _os_log_impl(&dword_181A37000, v158, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> output handler has no get_input_frames callback", buf, 0x26u);
-      }
-    }
-
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_webtransport_session_http_get_input";
-    v5 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v199[0]) = 0;
-    if (!__nwlog_fault(v5, type, v199))
-    {
-      goto LABEL_29;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s output handler has no get_input_frames callback";
-      goto LABEL_27;
-    }
-
-    if (LOBYTE(v199[0]) == 1)
-    {
-      v98 = __nw_create_backtrace_string();
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      v164 = os_log_type_enabled(v6, type[0]);
-      if (v98)
-      {
-        if (v164)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_webtransport_session_http_get_input";
-          *&buf[12] = 2082;
-          *&buf[14] = v98;
-          v100 = "%{public}s output handler has no get_input_frames callback, dumping backtrace:%{public}s";
-          goto LABEL_173;
-        }
-
-        goto LABEL_174;
-      }
-
-      if (!v164)
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s output handler has no get_input_frames callback, no backtrace";
-    }
-
-    else
-    {
-      v6 = __nwlog_obj();
-      v7 = type[0];
-      if (!os_log_type_enabled(v6, type[0]))
-      {
-        goto LABEL_29;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_webtransport_session_http_get_input";
-      v8 = "%{public}s output handler has no get_input_frames callback, backtrace limit exceeded";
-    }
-
-LABEL_27:
-    v23 = v6;
-    v24 = v7;
-LABEL_28:
-    _os_log_impl(&dword_181A37000, v23, v24, v8, buf, 0xCu);
-    goto LABEL_29;
+    v123 = v118;
   }
 
-  for (i = 3; (i | 2) == 3; i = *(v52 + 476))
+  v124 = v116 + v123;
+  v125 = (v11 - 8);
+  v126 = *a3;
+  v127 = a3[1];
+  if ((v116 + v123) == a4)
   {
-    if (!nw_protocol_get_input_frames(v86, v52, 0, 0, 0xFFFFFFFFLL, v52 + 120))
+    v128 = a4 + 1;
+  }
+
+  else
+  {
+    v128 = a4;
+  }
+
+  v129 = v128 - v116;
+  v130 = v128 - v116 - v118 > v119;
+  v131 = v128 - v116 - v119;
+  if (!v122 || !v130)
+  {
+    v131 = *(a1 + 24);
+  }
+
+  v132 = v129 - v131;
+  if (v127 <= v129 - v131)
+  {
+    v133 = v127;
+  }
+
+  else
+  {
+    v133 = 0;
+  }
+
+  if (v126 <= v132)
+  {
+    v134 = v126;
+  }
+
+  else
+  {
+    v134 = 0;
+  }
+
+  v135 = v128 + 3;
+  if (v6 == 5)
+  {
+    if (v135 >= v125)
     {
-      return;
+      goto LABEL_1047;
     }
 
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x3802000000;
-    v207 = __Block_byref_object_copy__36471;
-    *v208 = __Block_byref_object_dispose__36472;
-    *&v208[8] = nw_protocol_copy_http_definition();
-    v208[16] |= 1u;
-    *type = MEMORY[0x1E69E9820];
-    v188 = 0x40000000;
-    v189 = ___ZL38nw_webtransport_session_http_get_inputP23nw_webtransport_session_block_invoke;
-    v190 = &unk_1E6A31940;
-    v191 = buf;
-    v192 = v52;
-    v193 = v52 + 120;
-    v89 = *(v52 + 120);
-    do
+    v462 = 64 - *(a1 + 264);
+    v463 = (v11 - 7);
+    v464 = v11 - 32;
+    v724 = v11 - 3;
+    v727 = v11 - 1;
+    v711 = a3[1];
+    while (1)
     {
-      if (!v89)
+      v139 = v11;
+      v465 = v128 + 2;
+      v467 = v128 + 1;
+      v466 = *(v128 + 1);
+      v468 = v128 + 128;
+      v469 = (0xCF1BBCDCBB000000 * *v128) >> v462;
+      v470 = *(v8 + 4 * v469);
+      if (v134)
+      {
+        v471 = 2;
+        while (1)
+        {
+          v475 = v465;
+          _X11 = v135;
+          v477 = *&v465[-v134];
+          v478 = (0xCF1BBCDCBB000000 * v466) >> v462;
+          v479 = v128 - v116;
+          *(v8 + 4 * v469) = v128 - v116;
+          if (*v475 == v477)
+          {
+            break;
+          }
+
+          if (v470 >= v123 && *v128 == *(v116 + v470))
+          {
+            goto LABEL_696;
+          }
+
+          v470 = *(v8 + 4 * v478);
+          v469 = (0xCF1BBCDCBB000000 * *v475) >> v462;
+          v479 = v467 - v116;
+          *(v8 + 4 * v478) = v467 - v116;
+          if (v470 >= v123 && *v467 == *(v116 + v470))
+          {
+            goto LABEL_697;
+          }
+
+          v470 = *(v8 + 4 * v469);
+          v466 = *_X11;
+          v465 = &v475[v471];
+          if (&v475[v471] >= v468)
+          {
+            v472 = v471 + 1;
+            __asm
+            {
+              PRFM            #0, [X11,#0x40]
+              PRFM            #0, [X11,#0x80]
+            }
+
+            v468 += 128;
+          }
+
+          else
+          {
+            v472 = v471;
+          }
+
+          v135 = &_X11[v471];
+          v471 = v472;
+          v467 = _X11;
+          v128 = v475;
+          if (v135 >= v125)
+          {
+LABEL_1048:
+            LODWORD(v163) = v134;
+            v11 = v139;
+            goto LABEL_1071;
+          }
+        }
+
+        v484 = *(v475 - 1) == v475[-v134 - 1];
+        v485 = *(v475 - 1) == v475[-v134 - 1] ? 5 : 4;
+        v128 = &v475[-v484];
+        v486 = &v475[-v134 - v484];
+        *(v8 + 4 * v478) = v467 - v116;
+        v487 = 1;
+        v163 = v134;
+        v134 = v133;
+        v11 = v139;
+        v488 = v724;
+      }
+
+      else
+      {
+        v471 = 2;
+        while (1)
+        {
+          v475 = v465;
+          _X11 = v135;
+          v478 = (0xCF1BBCDCBB000000 * v466) >> v462;
+          v479 = v128 - v116;
+          *(v8 + 4 * v469) = v128 - v116;
+          if (v470 >= v123 && *v128 == *(v116 + v470))
+          {
+LABEL_696:
+            v11 = v139;
+            goto LABEL_698;
+          }
+
+          v470 = *(v8 + 4 * v478);
+          v469 = (0xCF1BBCDCBB000000 * *v465) >> v462;
+          v479 = v467 - v116;
+          *(v8 + 4 * v478) = v467 - v116;
+          if (v470 >= v123 && *v467 == *(v116 + v470))
+          {
+            break;
+          }
+
+          v470 = *(v8 + 4 * v469);
+          v466 = *_X11;
+          v465 += v471;
+          if (&v475[v471] >= v468)
+          {
+            v480 = v471 + 1;
+            __asm
+            {
+              PRFM            #0, [X11,#0x40]
+              PRFM            #0, [X11,#0x80]
+            }
+
+            v468 += 128;
+          }
+
+          else
+          {
+            v480 = v471;
+          }
+
+          v135 = &_X11[v471];
+          v471 = v480;
+          v467 = _X11;
+          v128 = v475;
+          if (v135 >= v125)
+          {
+LABEL_1049:
+            LODWORD(v163) = 0;
+            v11 = v139;
+            goto LABEL_1071;
+          }
+        }
+
+LABEL_697:
+        v128 = v467;
+        LODWORD(v467) = v475;
+        v478 = v469;
+        v11 = v139;
+        if (v471 < 5)
+        {
+LABEL_698:
+          *(v8 + 4 * v478) = v467 - v116;
+        }
+
+        v486 = (v116 + v470);
+        v163 = (v128 - v486);
+        v487 = v163 + 3;
+        v488 = v724;
+        if (v470 <= v123 || v128 <= a4)
+        {
+          v485 = 4;
+        }
+
+        else
+        {
+          v489 = v128 - 1;
+          v490 = (v116 - 1 + v470);
+          v485 = 4;
+          while (*v489 == *v490)
+          {
+            ++v485;
+            v491 = v489 - 1;
+            v492 = v490 - 1;
+            if (v489 > a4)
+            {
+              --v489;
+              v706 = v490-- > v124;
+              if (v706)
+              {
+                continue;
+              }
+            }
+
+            v128 = v491 + 1;
+            v486 = v492 + 1;
+            goto LABEL_708;
+          }
+
+          v128 = v489 + 1;
+          v486 = v490 + 1;
+        }
+      }
+
+LABEL_708:
+      v493 = &v128[v485];
+      v494 = &v486[v485];
+      if (v463 <= &v128[v485])
+      {
+        v496 = &v128[v485];
+LABEL_715:
+        if (v496 < v488 && *v494 == *v496)
+        {
+          v494 += 4;
+          v496 += 4;
+        }
+
+        if (v496 < v727 && *v494 == *v496)
+        {
+          v494 += 2;
+          v496 += 2;
+        }
+
+        if (v496 < v11 && *v494 == *v496)
+        {
+          ++v496;
+        }
+
+        v499 = v496 - v493;
+      }
+
+      else if (*v494 == *v493)
+      {
+        v494 = &v486[v485 + 8];
+        v495 = &v128[v485 + 8];
+        do
+        {
+          v496 = v495;
+          if (v495 >= v463)
+          {
+            goto LABEL_715;
+          }
+
+          v498 = *v494;
+          v494 += 8;
+          v497 = v498;
+          v495 += 8;
+        }
+
+        while (v498 == *v496);
+        v499 = &v496[__clz(__rbit64(*v496 ^ v497)) >> 3] - v493;
+      }
+
+      else
+      {
+        v499 = __clz(__rbit64(*v493 ^ *v494)) >> 3;
+      }
+
+      v500 = v128 - a4;
+      v501 = *(a2 + 24);
+      if (v128 > v464)
       {
         break;
       }
 
-      v90 = *(v89 + 32);
-      v91 = (v189)(type);
-      v89 = v90;
-    }
-
-    while ((v91 & 1) != 0);
-    _Block_object_dispose(buf, 8);
-    if ((v208[16] & 1) != 0 && *&v208[8])
-    {
-      os_release(*&v208[8]);
-    }
-  }
-
-  v101 = *(v52 + 480);
-  if (v101 == 1)
-  {
-    nw_webtransport_http3_handle_input(v52);
-    v103 = *(v52 + 448);
-    if (v103 && *(v103 + 72))
-    {
-      nw_protocol_input_available(*(v103 + 48), v103);
-    }
-  }
-
-  else if (!v101)
-  {
-    if ((*(v52 + 580) & 2) == 0 && gLogDatapath == 1)
-    {
-      v179 = __nwlog_obj();
-      if (os_log_type_enabled(v179, OS_LOG_TYPE_DEBUG))
-      {
-        v180 = *(v52 + 492);
-        *buf = 136446978;
-        *&buf[4] = "nw_webtransport_http2_handle_capsules";
-        *&buf[12] = 2082;
-        *&buf[14] = v52 + 496;
-        *&buf[22] = 2080;
-        v207 = " ";
-        *v208 = 1024;
-        *&v208[2] = v180;
-        _os_log_impl(&dword_181A37000, v179, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-      }
-    }
-
-    if (*(v52 + 476) == 4)
-    {
-      v102 = (v52 + 96);
-      while (1)
-      {
-        capsule = nw_http_capsule_framer_read_capsule((v52 + 96), v52);
-        if (!capsule && !*(v52 + 136))
-        {
-          return;
-        }
-
-        if (*(v52 + 456))
-        {
-          goto LABEL_204;
-        }
-
-        v110 = *v102;
-        if (*v102 == -1)
-        {
-LABEL_261:
-          v124 = __nwlog_obj();
-          if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136446466;
-            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-            *&buf[12] = 2048;
-            *&buf[14] = v110;
-            _os_log_impl(&dword_181A37000, v124, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-          }
-
-          goto LABEL_204;
-        }
-
-        v111 = *(v52 + 104) != -1 && *(v52 + 112) == 0;
-        if (v110 <= 16770303)
-        {
-          if ((v110 - 16770048) < 6 || (v110 + 1) <= 4 && v110)
-          {
-            goto LABEL_261;
-          }
-        }
-
-        else if ((v110 - 420171065) <= 9 && ((1 << (v110 - 57)) & 0x2EF) != 0)
-        {
-          v205 = -1;
-          if (nw_http_capsule_framer_parse_vle_value((v52 + 96), v52, &v205))
-          {
-            stream = nw_webtransport_session_get_stream(v52, v205);
-            if (stream)
-            {
-              goto LABEL_255;
-            }
-
-            if ((v110 - 420171067) > 1)
-            {
-              goto LABEL_286;
-            }
-
-            v131 = v205;
-            v132 = *(v52 + 580);
-            if (v205 >> 60 || ((v205 ^ v132) & 1) == 0)
-            {
-              if ((v132 & 2) == 0)
-              {
-                v141 = __nwlog_obj();
-                if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
-                {
-                  v142 = *(v52 + 492);
-                  *buf = 136446978;
-                  *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v52 + 496;
-                  *&buf[22] = 2080;
-                  v207 = " ";
-                  *v208 = 1024;
-                  *&v208[2] = v142;
-                  v143 = v141;
-                  v144 = "%{public}s %{public}s%s<i%u> Invalid incoming stream ID";
-                  goto LABEL_285;
-                }
-              }
-
-LABEL_286:
-              if ((*(v52 + 580) & 2) == 0)
-              {
-                v145 = __nwlog_obj();
-                if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
-                {
-                  v146 = *(v52 + 492);
-                  *buf = 136447490;
-                  *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v52 + 496;
-                  *&buf[22] = 2080;
-                  v207 = " ";
-                  *v208 = 1024;
-                  *&v208[2] = v146;
-                  *&v208[6] = 2048;
-                  *&v208[8] = v205;
-                  *&v208[16] = 2048;
-                  *&v208[18] = v110;
-                  _os_log_impl(&dword_181A37000, v145, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Did not find stream %llu for capsule 0x%llx.", buf, 0x3Au);
-                }
-              }
-
-              goto LABEL_204;
-            }
-
-            v133 = *(v52 + 424);
-            if (!v133 || (v134 = *v133) == 0 || !*v134)
-            {
-              if ((v132 & 2) == 0)
-              {
-                v147 = __nwlog_obj();
-                if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
-                {
-                  v148 = *(v52 + 492);
-                  *buf = 136446978;
-                  *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v52 + 496;
-                  *&buf[22] = 2080;
-                  v207 = " ";
-                  *v208 = 1024;
-                  *&v208[2] = v148;
-                  v143 = v147;
-                  v144 = "%{public}s %{public}s%s<i%u> Listen handler not setup to accept inbound stream";
-LABEL_285:
-                  _os_log_impl(&dword_181A37000, v143, OS_LOG_TYPE_ERROR, v144, buf, 0x26u);
-                }
-              }
-
-              goto LABEL_286;
-            }
-
-            v135 = _nw_parameters_copy(*(v52 + 368));
-            *(v52 + 580) |= 0x20u;
-            *(v52 + 176) = v131;
-            v136 = (***(v52 + 424))(*(v52 + 424), *(v52 + 384), v135);
-            *(v52 + 176) = -1;
-            *(v52 + 580) &= ~0x20u;
-            if (v136)
-            {
-              v137 = nw_webtransport_session_get_stream(v52, v131);
-            }
-
-            else
-            {
-              v137 = 0;
-            }
-
-            if (v135)
-            {
-              os_release(v135);
-            }
-
-            if (!v137)
-            {
-              goto LABEL_286;
-            }
-
-            stream = v137;
-            if (*(v137 + 184) != 3)
-            {
-LABEL_255:
-              *(v52 + 456) = stream;
-              goto LABEL_204;
-            }
-
-            if ((*(v52 + 580) & 2) != 0)
-            {
-              goto LABEL_204;
-            }
-
-            v149 = __nwlog_obj();
-            if (!os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_204;
-            }
-
-            v150 = *(v52 + 492);
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-            *&buf[12] = 2082;
-            *&buf[14] = v52 + 496;
-            *&buf[22] = 2080;
-            v207 = " ";
-            *v208 = 1024;
-            *&v208[2] = v150;
-            *&v208[6] = 2048;
-            *&v208[8] = v205;
-            v127 = v149;
-            v128 = "%{public}s %{public}s%s<i%u> Stream %llu is not reading.";
-          }
-
-          else
-          {
-            if (!v111)
-            {
-              goto LABEL_204;
-            }
-
-            if ((*(v52 + 580) & 2) != 0)
-            {
-              goto LABEL_204;
-            }
-
-            v125 = __nwlog_obj();
-            if (!os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_204;
-            }
-
-            v126 = *(v52 + 492);
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-            *&buf[12] = 2082;
-            *&buf[14] = v52 + 496;
-            *&buf[22] = 2080;
-            v207 = " ";
-            *v208 = 1024;
-            *&v208[2] = v126;
-            *&v208[6] = 2048;
-            *&v208[8] = v110;
-            v127 = v125;
-            v128 = "%{public}s %{public}s%s<i%u> Failed to parse stream ID from capsule 0x%llx correctly.";
-          }
-
-          _os_log_impl(&dword_181A37000, v127, OS_LOG_TYPE_ERROR, v128, buf, 0x30u);
-        }
-
-        else if ((v110 - 16770304) < 4)
-        {
-          goto LABEL_261;
-        }
-
-LABEL_204:
-        v109 = *(v52 + 96);
-        if ((*(v52 + 580) & 2) == 0 && gLogDatapath == 1)
-        {
-          v151 = __nwlog_obj();
-          if (os_log_type_enabled(v151, OS_LOG_TYPE_DEBUG))
-          {
-            v152 = *(v52 + 492);
-            v153 = *(v52 + 104);
-            *buf = 136447490;
-            *&buf[4] = "nw_webtransport_http2_handle_capsules";
-            *&buf[12] = 2082;
-            *&buf[14] = v52 + 496;
-            *&buf[22] = 2080;
-            v207 = " ";
-            *v208 = 1024;
-            *&v208[2] = v152;
-            *&v208[6] = 2048;
-            *&v208[8] = v109;
-            *&v208[16] = 2048;
-            *&v208[18] = v153;
-            _os_log_impl(&dword_181A37000, v151, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Webtransport session received capsule type 0x%llx length %llu", buf, 0x3Au);
-          }
-        }
-
-        if (v109 > 16770303)
-        {
-          if (v109 <= 420171064)
-          {
-            if ((v109 - 16770304) < 4)
-            {
-              goto LABEL_223;
-            }
-
-            if (v109 == 420171064)
-            {
-              goto LABEL_222;
-            }
-
-            goto LABEL_225;
-          }
-
-          if ((v109 - 420171065) >= 2)
-          {
-            if ((v109 - 420171067) < 2)
-            {
-              v112 = *(v52 + 456);
-              v114 = v109 == 420171068 && capsule;
-              v199[0] = MEMORY[0x1E69E9820];
-              v199[1] = 0x40000000;
-              v200 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke;
-              v201 = &__block_descriptor_tmp_34_36485;
-              v204 = v114;
-              v202 = v52 + 96;
-              v203 = v112;
-              v115 = *(v52 + 136);
-              do
-              {
-                if (!v115)
-                {
-                  break;
-                }
-
-                v116 = *(v115 + 32);
-                v117 = (v200)(v199);
-                v115 = v116;
-              }
-
-              while ((v117 & 1) != 0);
-              if (!v114)
-              {
-                goto LABEL_281;
-              }
-
-              nw_protocol_input_finished(v112, v52);
-            }
-
-            goto LABEL_225;
-          }
-
-          if (capsule)
-          {
-            v118 = *(v52 + 456);
-            v205 = -1;
-            if (nw_http_capsule_framer_parse_vle_value((v52 + 96), v52, &v205))
-            {
-              if (!v118 || (*(v118 + 276) & 0x10) == 0)
-              {
-                v119 = __nwlog_obj();
-                if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
-                {
-                  if (v118)
-                  {
-                    v120 = (v118 + 192);
-                  }
-
-                  else
-                  {
-                    v120 = "";
-                  }
-
-                  v121 = " ";
-                  if (!v118)
-                  {
-                    v121 = "";
-                  }
-
-                  v122 = *(v118 + 88);
-                  if (v122)
-                  {
-                    v105 = *(v122 + 492);
-                  }
-
-                  else
-                  {
-                    v105 = -1;
-                  }
-
-                  v106 = *(v118 + 64);
-                  *buf = 136448002;
-                  *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v120;
-                  *&buf[22] = 2080;
-                  v207 = v121;
-                  *v208 = 1024;
-                  *&v208[2] = v105;
-                  *&v208[6] = 2048;
-                  *&v208[8] = v106;
-                  *&v208[16] = 2048;
-                  *&v208[18] = v109;
-                  v209 = 2048;
-                  v210 = v106;
-                  v211 = 2048;
-                  v212 = v205;
-                  _os_log_impl(&dword_181A37000, v119, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u:s%llu> Received 0x%llx capsule for stream ID %llu with error code %llu", buf, 0x4Eu);
-                }
-              }
-
-              nw_protocol_webtransport_stream_error(v118, v52);
-              nw_protocol_webtransport_stream_disconnect(v118, v107);
-            }
-
-            else if ((*(v52 + 580) & 2) == 0)
-            {
-              v129 = __nwlog_obj();
-              if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
-              {
-                v130 = *(v52 + 492);
-                *buf = 136447234;
-                *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                *&buf[12] = 2082;
-                *&buf[14] = v52 + 496;
-                *&buf[22] = 2080;
-                v207 = " ";
-                *v208 = 1024;
-                *&v208[2] = v130;
-                *&v208[6] = 2048;
-                *&v208[8] = v109;
-                _os_log_impl(&dword_181A37000, v129, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Failed to parse error code from capsule 0x%llx correctly", buf, 0x30u);
-              }
-            }
-
-LABEL_200:
-            *(v52 + 456) = 0;
-            nw_http_capsule_complete_capsule(v52 + 96);
-          }
-        }
-
-        else
-        {
-          if (v109 <= 16770047)
-          {
-            if ((v109 - 1) < 3 || v109 == -1)
-            {
-LABEL_223:
-              v113 = __nwlog_obj();
-              if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
-              {
-                *buf = 136446466;
-                *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                *&buf[12] = 2048;
-                *&buf[14] = v109;
-                _os_log_impl(&dword_181A37000, v113, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-              }
-
-              goto LABEL_225;
-            }
-
-            if (!v109)
-            {
-              v112 = *(v52 + 448);
-              if (v112 && *(v112 + 184) != 3)
-              {
-                v194[0] = MEMORY[0x1E69E9820];
-                v194[1] = 0x40000000;
-                v195 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke_2;
-                v196 = &__block_descriptor_tmp_35_36486;
-                v197 = v52 + 96;
-                v198 = v112;
-                v138 = *(v52 + 136);
-                do
-                {
-                  if (!v138)
-                  {
-                    break;
-                  }
-
-                  v139 = *(v138 + 32);
-                  v140 = (v195)(v194);
-                  v138 = v139;
-                }
-
-                while ((v140 & 1) != 0);
-LABEL_281:
-                nw_protocol_input_available(v112, v52);
-                goto LABEL_225;
-              }
-
-LABEL_222:
-              nw_frame_array_finalize(v52 + 136, 1, 1);
-            }
-          }
-
-          else if ((v109 - 16770048) < 6)
-          {
-            goto LABEL_223;
-          }
-
-LABEL_225:
-          if (capsule)
-          {
-            goto LABEL_200;
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke(uint64_t a1, uint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  object = nw_hash_node_get_object(a2);
-  if (object)
-  {
-    v4 = object;
-    v5 = *(a1 + 32);
-    v6 = *(object + 88);
-    if (v5)
-    {
-      nw_protocol_error(*(object + 48), object);
-    }
-
-    nw_protocol_disconnect(v4, v6);
-    return 1;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v17 = "nw_webtransport_stream_terminate";
-  v8 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (__nwlog_fault(v8, &type, &v14))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v9 = __nwlog_obj();
-      v10 = type;
-      if (!os_log_type_enabled(v9, type))
-      {
-        goto LABEL_20;
-      }
-
-      *buf = 136446210;
-      v17 = "nw_webtransport_stream_terminate";
-      v11 = "%{public}s called with null webtransport_stream";
-      goto LABEL_19;
-    }
-
-    if (v14 != 1)
-    {
-      v9 = __nwlog_obj();
-      v10 = type;
-      if (!os_log_type_enabled(v9, type))
-      {
-        goto LABEL_20;
-      }
-
-      *buf = 136446210;
-      v17 = "nw_webtransport_stream_terminate";
-      v11 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-      goto LABEL_19;
-    }
-
-    backtrace_string = __nw_create_backtrace_string();
-    v9 = __nwlog_obj();
-    v10 = type;
-    v13 = os_log_type_enabled(v9, type);
-    if (backtrace_string)
-    {
-      if (v13)
-      {
-        *buf = 136446466;
-        v17 = "nw_webtransport_stream_terminate";
-        v18 = 2082;
-        v19 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v9, v10, "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      free(backtrace_string);
-      goto LABEL_20;
-    }
-
-    if (v13)
-    {
-      *buf = 136446210;
-      v17 = "nw_webtransport_stream_terminate";
-      v11 = "%{public}s called with null webtransport_stream, no backtrace";
-LABEL_19:
-      _os_log_impl(&dword_181A37000, v9, v10, v11, buf, 0xCu);
-    }
-  }
-
-LABEL_20:
-  if (v8)
-  {
-    free(v8);
-  }
-
-  return 1;
-}
-
-uint64_t ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v3 = a3;
-  if (nw_protocol_metadata_is_http_connection(a3))
-  {
-    if (v3)
-    {
-      v3 = os_retain(v3);
-    }
-
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 408);
-    if (v6)
-    {
-      v7 = *(v5 + 400);
-      if (v7)
-      {
-        os_release(v7);
-        v6 = *(v5 + 408);
-      }
-    }
-
-    *(v5 + 400) = v3;
-    *(v5 + 408) = v6 | 1;
-  }
-
-  return 1;
-}
-
-void nw_webtransport_http_send_connect(uint64_t a1)
-{
-  v529 = *MEMORY[0x1E69E9840];
-  if ((*(a1 + 580) & 2) == 0 && gLogDatapath == 1)
-  {
-    v161 = __nwlog_obj();
-    if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
-    {
-      v162 = *(a1 + 492);
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_http_send_connect";
-      *&buf[12] = 2082;
-      *&buf[14] = a1 + 496;
-      *&buf[22] = 2080;
-      v525 = " ";
-      *v526 = 1024;
-      *&v526[2] = v162;
-      _os_log_impl(&dword_181A37000, v161, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-    }
-  }
-
-  if (*(a1 + 580))
-  {
-    return;
-  }
-
-  webtransport_state = nw_http_connection_metadata_get_webtransport_state(*(a1 + 400));
-  if (nw_http_connection_metadata_get_settings_received(*(a1 + 400)))
-  {
-    if ((nw_http_connection_metadata_get_connect_enabled(*(a1 + 400)) & 1) == 0)
-    {
-      v3 = webtransport_state[3];
-      goto LABEL_36;
-    }
-
-    if (webtransport_state)
-    {
-      v3 = webtransport_state[3];
-      if (webtransport_state[2] < v3)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_36:
-      if (v3)
-      {
-        if ((*(a1 + 580) & 2) == 0 && gLogDatapath == 1)
-        {
-          v267 = __nwlog_obj();
-          if (os_log_type_enabled(v267, OS_LOG_TYPE_DEBUG))
-          {
-            v268 = *(a1 + 492);
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_http_send_connect";
-            *&buf[12] = 2082;
-            *&buf[14] = a1 + 496;
-            *&buf[22] = 2080;
-            v525 = " ";
-            *v526 = 1024;
-            *&v526[2] = v268;
-            *&v526[6] = 2048;
-            *&v526[8] = a1;
-            _os_log_impl(&dword_181A37000, v267, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Queueing webtransport session %p as pending", buf, 0x30u);
-          }
-        }
-
-        *(a1 + 352) = 0;
-        v32 = webtransport_state[1];
-        *(a1 + 360) = v32;
-        *v32 = a1;
-        webtransport_state[1] = a1 + 352;
-        return;
-      }
-
-      v59 = *(a1 + 580);
-      if (*(a1 + 476) != 5)
-      {
-        if ((*(a1 + 580) & 2) == 0)
-        {
-          pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-          networkd_settings_init();
-          v60 = gLogObj;
-          if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-          {
-            v61 = *(a1 + 492);
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = a1 + 496;
-            *&buf[22] = 2080;
-            v525 = " ";
-            *v526 = 1024;
-            *&v526[2] = v61;
-            *&v526[6] = 1024;
-            *&v526[8] = 100;
-            _os_log_impl(&dword_181A37000, v60, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Closing webtransport session with error %{darwin.errno}d", buf, 0x2Cu);
-          }
-        }
-
-        v62 = *(a1 + 476);
-        *(a1 + 476) = 5;
-        v63 = *(a1 + 192);
-        if (v63)
-        {
-          v495 = MEMORY[0x1E69E9820];
-          v496 = 0x40000000;
-          v497 = ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke;
-          v498 = &__block_descriptor_tmp_24_36439;
-          v499 = 100;
-          nw_hash_table_apply(v63, &v495);
-        }
-
-        v64 = *(a1 + 448);
-        if (v64)
-        {
-          v65 = *(v64 + 88);
-          nw_protocol_error(*(v64 + 48), *(a1 + 448));
-          nw_protocol_disconnect(v64, v65);
-        }
-
-        v66 = *(a1 + 336);
-        if (v66)
-        {
-          do
-          {
-            v67 = *(v66 + 112);
-            v68 = *(v66 + 88);
-            nw_protocol_error(*(v66 + 48), v66);
-            nw_protocol_disconnect(v66, v68);
-            v66 = v67;
-          }
-
-          while (v67);
-        }
-
-        v69 = *(a1 + 440);
-        if (v69)
-        {
-          v70 = *(v69 + 88);
-          nw_protocol_error(*(v69 + 48), *(a1 + 440));
-          nw_protocol_disconnect(v69, v70);
-        }
-
-        if (*(a1 + 32))
-        {
-          nw_protocol_remove_instance(a1);
-          nw_protocol_disconnect(*(a1 + 32), a1);
-        }
-
-        v71 = *(a1 + 400);
-        if (!v71)
-        {
-          return;
-        }
-
-        v72 = nw_http_connection_metadata_get_webtransport_state(v71);
-        if (!v72)
-        {
-          return;
-        }
-
-        v73 = v72;
-        if (v62 != 4 && v62 != 1)
-        {
-          return;
-        }
-
-        v74 = *(v72 + 16);
-        *(v72 + 16) = v74 - 1;
-        if (v74)
-        {
-LABEL_251:
-          if (*(a1 + 580))
-          {
-            return;
-          }
-
-          v170 = *v73;
-          if (!*v73)
-          {
-            return;
-          }
-
-          v171 = *(v170 + 352);
-          v172 = *(v170 + 360);
-          v173 = (v171 + 360);
-          if (!v171)
-          {
-            v173 = v73 + 1;
-          }
-
-          *v173 = v172;
-          *v172 = v171;
-          *(v170 + 352) = 0;
-          *(v170 + 360) = 0;
-          v174 = *(v170 + 32);
-          if (!v174 || *(v170 + 480) != 2)
-          {
-            goto LABEL_311;
-          }
-
-          v175 = v174[2];
-          if (nw_protocol_http2_identifier::onceToken != -1)
-          {
-            v426 = v174[2];
-            dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
-            v175 = v426;
-          }
-
-          if (!nw_protocols_are_equal(v175, &nw_protocol_http2_identifier::http2_protocol_identifier))
-          {
-            v176 = v174[2];
-            if (nw_protocol_http3_identifier::onceToken != -1)
-            {
-              v436 = v174[2];
-              dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-              v176 = v436;
-            }
-
-            if (!nw_protocols_are_equal(v176, &nw_protocol_http3_identifier::http3_protocol_identifier))
-            {
-              v177 = v174[2];
-              if (nw_protocol_http_messaging_identifier::onceToken != -1)
-              {
-                v448 = v174[2];
-                dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                v177 = v448;
-              }
-
-              if (!nw_protocols_are_equal(v177, &nw_protocol_http_messaging_identifier::protocol_identifier))
-              {
-LABEL_311:
-                v201 = *(v170 + 480);
-                v202 = *(v170 + 580);
-                if (v201 <= 1)
-                {
-                  if (*(v170 + 580))
-                  {
-                    v203 = *(v170 + 476);
-                    if (v201 == 1)
-                    {
-                      if (v203 != 3)
-                      {
-                        if (v203)
-                        {
-                          return;
-                        }
-
-                        v204 = *(v170 + 48);
-                        if (v204)
-                        {
-                          v205 = *(v204 + 40);
-                          if (v205)
-                          {
-                            nw_protocol_replace_input_handler(*(v170 + 32), v170, *(v204 + 40));
-                            *(v170 + 440) = v205;
-                            nw_protocol_set_output_handler(v170, 0);
-                            nw_protocol_set_input_handler(v170, 0);
-                            if ((*(v170 + 580) & 1) == 0)
-                            {
-                              goto LABEL_480;
-                            }
-
-                            v206 = *(*(v170 + 440) + 32);
-                            v207 = *(v206 + 16);
-                            if (nw_protocol_http_messaging_identifier::onceToken != -1)
-                            {
-                              dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                            }
-
-                            if (nw_protocols_are_equal(v207, &nw_protocol_http_messaging_identifier::protocol_identifier))
-                            {
-                              goto LABEL_364;
-                            }
-
-                            v208 = *(v206 + 16);
-                            if (nw_protocol_http3_identifier::onceToken == -1)
-                            {
-LABEL_363:
-                              if (nw_protocols_are_equal(v208, &nw_protocol_http3_identifier::http3_protocol_identifier))
-                              {
-LABEL_364:
-                                v226 = *(v170 + 368);
-                                if (v226)
-                                {
-                                  v227 = nw_parameters_copy_protocol_options_legacy(v226, v206);
-                                  if (v227)
-                                  {
-                                    v228 = v227;
-                                    if ((*(v205 + 276) & 0x10) == 0 && gLogDatapath == 1)
-                                    {
-                                      v481 = __nwlog_obj();
-                                      if (os_log_type_enabled(v481, OS_LOG_TYPE_DEBUG))
-                                      {
-                                        v482 = *(v205 + 88);
-                                        if (v482)
-                                        {
-                                          v483 = *(v482 + 492);
-                                        }
-
-                                        else
-                                        {
-                                          v483 = -1;
-                                        }
-
-                                        v491 = *(v205 + 64);
-                                        *buf = 136447490;
-                                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v205 + 192;
-                                        *&buf[22] = 2080;
-                                        v525 = " ";
-                                        *v526 = 1024;
-                                        *&v526[2] = v483;
-                                        *&v526[6] = 2048;
-                                        *&v526[8] = v491;
-                                        *&v526[16] = 2048;
-                                        *&v526[18] = v228;
-                                        _os_log_impl(&dword_181A37000, v481, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> Reverting stream mode to default on options %p", buf, 0x3Au);
-                                      }
-                                    }
-
-                                    nw_http3_set_stream_mode(v228, 0);
-                                    os_release(v228);
-                                  }
-
-                                  else
-                                  {
-                                    if ((*(v170 + 580) & 2) == 0 && gLogDatapath == 1)
-                                    {
-                                      v484 = __nwlog_obj();
-                                      if (os_log_type_enabled(v484, OS_LOG_TYPE_DEBUG))
-                                      {
-                                        v485 = *(v170 + 492);
-                                        *buf = 136446978;
-                                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v170 + 496;
-                                        *&buf[22] = 2080;
-                                        v525 = " ";
-                                        *v526 = 1024;
-                                        *&v526[2] = v485;
-                                        _os_log_impl(&dword_181A37000, v484, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Received HTTP options are NULL", buf, 0x26u);
-                                      }
-                                    }
-
-                                    v278 = *(v205 + 88);
-                                    nw_protocol_error(*(v205 + 48), v205);
-                                    nw_protocol_disconnect(v205, v278);
-                                  }
-                                }
-                              }
-
-LABEL_480:
-                              *(v170 + 476) = 2;
-                              return;
-                            }
-
-LABEL_947:
-                            dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-                            goto LABEL_363;
-                          }
-
-LABEL_861:
-                          __nwlog_obj();
-                          *buf = 136446210;
-                          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                          v451 = _os_log_send_and_compose_impl();
-                          type[0] = 16;
-                          LOBYTE(v511) = 0;
-                          if (!__nwlog_fault(v451, type, &v511))
-                          {
-                            goto LABEL_1005;
-                          }
-
-                          if (type[0] == 17)
-                          {
-                            v452 = __nwlog_obj();
-                            v453 = type[0];
-                            if (!os_log_type_enabled(v452, type[0]))
-                            {
-                              goto LABEL_1005;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                            v454 = "%{public}s called with null webtransport_stream";
-LABEL_1004:
-                            _os_log_impl(&dword_181A37000, v452, v453, v454, buf, 0xCu);
-                            goto LABEL_1005;
-                          }
-
-                          if (v511 != 1)
-                          {
-                            v452 = __nwlog_obj();
-                            v453 = type[0];
-                            if (!os_log_type_enabled(v452, type[0]))
-                            {
-                              goto LABEL_1005;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                            v454 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                            goto LABEL_1004;
-                          }
-
-                          backtrace_string = __nw_create_backtrace_string();
-                          v452 = __nwlog_obj();
-                          v453 = type[0];
-                          v471 = os_log_type_enabled(v452, type[0]);
-                          if (!backtrace_string)
-                          {
-                            if (!v471)
-                            {
-                              goto LABEL_1005;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                            v454 = "%{public}s called with null webtransport_stream, no backtrace";
-                            goto LABEL_1004;
-                          }
-
-                          if (!v471)
-                          {
-LABEL_920:
-                            free(backtrace_string);
-                            if (!v451)
-                            {
-                              goto LABEL_480;
-                            }
-
-                            goto LABEL_1006;
-                          }
-
-                          *buf = 136446466;
-                          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                          *&buf[12] = 2082;
-                          *&buf[14] = backtrace_string;
-                          v467 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-LABEL_919:
-                          _os_log_impl(&dword_181A37000, v452, v453, v467, buf, 0x16u);
-                          goto LABEL_920;
-                        }
-
-                        __nwlog_obj();
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                        v451 = _os_log_send_and_compose_impl();
-                        type[0] = 16;
-                        LOBYTE(v511) = 0;
-                        if (!__nwlog_fault(v451, type, &v511))
-                        {
-                          goto LABEL_1005;
-                        }
-
-                        if (type[0] != 17)
-                        {
-                          if (v511 == 1)
-                          {
-                            backtrace_string = __nw_create_backtrace_string();
-                            v452 = __nwlog_obj();
-                            v453 = type[0];
-                            v466 = os_log_type_enabled(v452, type[0]);
-                            if (backtrace_string)
-                            {
-                              if (!v466)
-                              {
-                                goto LABEL_920;
-                              }
-
-                              *buf = 136446466;
-                              *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                              *&buf[12] = 2082;
-                              *&buf[14] = backtrace_string;
-                              v467 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
-                              goto LABEL_919;
-                            }
-
-LABEL_995:
-                            if (!v466)
-                            {
-                              goto LABEL_1005;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                            v454 = "%{public}s called with null input_protocol, no backtrace";
-                            goto LABEL_1004;
-                          }
-
-                          goto LABEL_955;
-                        }
-
-                        goto LABEL_932;
-                      }
-
-                      v249 = *(v170 + 32);
-                      if (v249)
-                      {
-                        v250 = v249[3];
-                        if (v250 && *(v250 + 80))
-                        {
-                          for (i = 3; (i | 2) == 3; i = *(v170 + 476))
-                          {
-                            if (!nw_protocol_get_input_frames(v249, v170, 0, 0, 0xFFFFFFFFLL, v170 + 120))
-                            {
-                              return;
-                            }
-
-                            *buf = 0;
-                            *&buf[8] = buf;
-                            *&buf[16] = 0x3802000000;
-                            v525 = __Block_byref_object_copy__36471;
-                            *v526 = __Block_byref_object_dispose__36472;
-                            *&v526[8] = nw_protocol_copy_http_definition();
-                            v526[16] |= 1u;
-                            *type = MEMORY[0x1E69E9820];
-                            *&type[8] = 0x40000000;
-                            *&type[16] = ___ZL38nw_webtransport_session_http_get_inputP23nw_webtransport_session_block_invoke;
-                            v520 = &unk_1E6A31940;
-                            v521 = buf;
-                            v522 = v170;
-                            v523 = v170 + 120;
-                            v252 = *(v170 + 120);
-                            do
-                            {
-                              if (!v252)
-                              {
-                                break;
-                              }
-
-                              v253 = *(v252 + 32);
-                              v254 = (*&type[16])(type);
-                              v252 = v253;
-                            }
-
-                            while ((v254 & 1) != 0);
-                            _Block_object_dispose(buf, 8);
-                            if ((v526[16] & 1) != 0 && *&v526[8])
-                            {
-                              os_release(*&v526[8]);
-                            }
-                          }
-
-                          v272 = *(v170 + 480);
-                          if (v272 != 1)
-                          {
-                            if (v272)
-                            {
-                              return;
-                            }
-
-                            if ((*(v170 + 580) & 2) == 0 && gLogDatapath == 1)
-                            {
-                              v486 = __nwlog_obj();
-                              if (os_log_type_enabled(v486, OS_LOG_TYPE_DEBUG))
-                              {
-                                v487 = *(v170 + 492);
-                                *buf = 136446978;
-                                *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                *&buf[12] = 2082;
-                                *&buf[14] = v170 + 496;
-                                *&buf[22] = 2080;
-                                v525 = " ";
-                                *v526 = 1024;
-                                *&v526[2] = v487;
-                                _os_log_impl(&dword_181A37000, v486, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-                              }
-                            }
-
-                            if (*(v170 + 476) != 4)
-                            {
-                              return;
-                            }
-
-                            v273 = (v170 + 96);
-                            while (1)
-                            {
-                              capsule = nw_http_capsule_framer_read_capsule((v170 + 96), v170);
-                              if (!capsule && !*(v170 + 136))
-                              {
-                                return;
-                              }
-
-                              if (*(v170 + 456))
-                              {
-                                goto LABEL_606;
-                              }
-
-                              v332 = *v273;
-                              if (*v273 == -1)
-                              {
-LABEL_663:
-                                v346 = __nwlog_obj();
-                                if (os_log_type_enabled(v346, OS_LOG_TYPE_ERROR))
-                                {
-                                  *buf = 136446466;
-                                  *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                  *&buf[12] = 2048;
-                                  *&buf[14] = v332;
-                                  _os_log_impl(&dword_181A37000, v346, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                                }
-
-                                goto LABEL_606;
-                              }
-
-                              v333 = *(v170 + 104) != -1 && *(v170 + 112) == 0;
-                              if (v332 <= 16770303)
-                              {
-                                if ((v332 - 16770048) < 6 || (v332 + 1) <= 4 && v332)
-                                {
-                                  goto LABEL_663;
-                                }
-                              }
-
-                              else if ((v332 - 420171065) <= 9 && ((1 << (v332 - 57)) & 0x2EF) != 0)
-                              {
-                                v518 = -1;
-                                if (nw_http_capsule_framer_parse_vle_value((v170 + 96), v170, &v518))
-                                {
-                                  stream = nw_webtransport_session_get_stream(v170, v518);
-                                  if (stream)
-                                  {
-                                    goto LABEL_657;
-                                  }
-
-                                  if ((v332 - 420171067) > 1)
-                                  {
-                                    goto LABEL_688;
-                                  }
-
-                                  v353 = v518;
-                                  v354 = *(v170 + 580);
-                                  if (v518 >> 60 || ((v518 ^ v354) & 1) == 0)
-                                  {
-                                    if ((v354 & 2) == 0)
-                                    {
-                                      v362 = __nwlog_obj();
-                                      if (os_log_type_enabled(v362, OS_LOG_TYPE_ERROR))
-                                      {
-                                        v363 = *(v170 + 492);
-                                        *buf = 136446978;
-                                        *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v170 + 496;
-                                        *&buf[22] = 2080;
-                                        v525 = " ";
-                                        *v526 = 1024;
-                                        *&v526[2] = v363;
-                                        v364 = v362;
-                                        v365 = "%{public}s %{public}s%s<i%u> Invalid incoming stream ID";
-                                        goto LABEL_687;
-                                      }
-                                    }
-
-LABEL_688:
-                                    if ((*(v170 + 580) & 2) == 0)
-                                    {
-                                      v366 = __nwlog_obj();
-                                      if (os_log_type_enabled(v366, OS_LOG_TYPE_ERROR))
-                                      {
-                                        v367 = *(v170 + 492);
-                                        *buf = 136447490;
-                                        *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v170 + 496;
-                                        *&buf[22] = 2080;
-                                        v525 = " ";
-                                        *v526 = 1024;
-                                        *&v526[2] = v367;
-                                        *&v526[6] = 2048;
-                                        *&v526[8] = v518;
-                                        *&v526[16] = 2048;
-                                        *&v526[18] = v332;
-                                        _os_log_impl(&dword_181A37000, v366, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Did not find stream %llu for capsule 0x%llx.", buf, 0x3Au);
-                                      }
-                                    }
-
-                                    goto LABEL_606;
-                                  }
-
-                                  v355 = *(v170 + 424);
-                                  if (!v355 || (v356 = *v355) == 0 || !*v356)
-                                  {
-                                    if ((v354 & 2) == 0)
-                                    {
-                                      v368 = __nwlog_obj();
-                                      if (os_log_type_enabled(v368, OS_LOG_TYPE_ERROR))
-                                      {
-                                        v369 = *(v170 + 492);
-                                        *buf = 136446978;
-                                        *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v170 + 496;
-                                        *&buf[22] = 2080;
-                                        v525 = " ";
-                                        *v526 = 1024;
-                                        *&v526[2] = v369;
-                                        v364 = v368;
-                                        v365 = "%{public}s %{public}s%s<i%u> Listen handler not setup to accept inbound stream";
-LABEL_687:
-                                        _os_log_impl(&dword_181A37000, v364, OS_LOG_TYPE_ERROR, v365, buf, 0x26u);
-                                      }
-                                    }
-
-                                    goto LABEL_688;
-                                  }
-
-                                  v357 = _nw_parameters_copy(*(v170 + 368));
-                                  *(v170 + 580) |= 0x20u;
-                                  *(v170 + 176) = v353;
-                                  v358 = (***(v170 + 424))(*(v170 + 424), *(v170 + 384), v357);
-                                  *(v170 + 176) = -1;
-                                  *(v170 + 580) &= ~0x20u;
-                                  if (v358)
-                                  {
-                                    stream = nw_webtransport_session_get_stream(v170, v353);
-                                  }
-
-                                  else
-                                  {
-                                    stream = 0;
-                                  }
-
-                                  if (v357)
-                                  {
-                                    os_release(v357);
-                                  }
-
-                                  if (!stream)
-                                  {
-                                    goto LABEL_688;
-                                  }
-
-                                  if (*(stream + 184) != 3)
-                                  {
-LABEL_657:
-                                    *(v170 + 456) = stream;
-                                    goto LABEL_606;
-                                  }
-
-                                  if ((*(v170 + 580) & 2) != 0)
-                                  {
-                                    goto LABEL_606;
-                                  }
-
-                                  v370 = __nwlog_obj();
-                                  if (!os_log_type_enabled(v370, OS_LOG_TYPE_ERROR))
-                                  {
-                                    goto LABEL_606;
-                                  }
-
-                                  v371 = *(v170 + 492);
-                                  *buf = 136447234;
-                                  *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                  *&buf[12] = 2082;
-                                  *&buf[14] = v170 + 496;
-                                  *&buf[22] = 2080;
-                                  v525 = " ";
-                                  *v526 = 1024;
-                                  *&v526[2] = v371;
-                                  *&v526[6] = 2048;
-                                  *&v526[8] = v518;
-                                  v349 = v370;
-                                  v350 = "%{public}s %{public}s%s<i%u> Stream %llu is not reading.";
-                                }
-
-                                else
-                                {
-                                  if (!v333)
-                                  {
-                                    goto LABEL_606;
-                                  }
-
-                                  if ((*(v170 + 580) & 2) != 0)
-                                  {
-                                    goto LABEL_606;
-                                  }
-
-                                  v347 = __nwlog_obj();
-                                  if (!os_log_type_enabled(v347, OS_LOG_TYPE_ERROR))
-                                  {
-                                    goto LABEL_606;
-                                  }
-
-                                  v348 = *(v170 + 492);
-                                  *buf = 136447234;
-                                  *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                  *&buf[12] = 2082;
-                                  *&buf[14] = v170 + 496;
-                                  *&buf[22] = 2080;
-                                  v525 = " ";
-                                  *v526 = 1024;
-                                  *&v526[2] = v348;
-                                  *&v526[6] = 2048;
-                                  *&v526[8] = v332;
-                                  v349 = v347;
-                                  v350 = "%{public}s %{public}s%s<i%u> Failed to parse stream ID from capsule 0x%llx correctly.";
-                                }
-
-                                _os_log_impl(&dword_181A37000, v349, OS_LOG_TYPE_ERROR, v350, buf, 0x30u);
-                              }
-
-                              else if ((v332 - 16770304) < 4)
-                              {
-                                goto LABEL_663;
-                              }
-
-LABEL_606:
-                              v331 = *(v170 + 96);
-                              if ((*(v170 + 580) & 2) == 0 && gLogDatapath == 1)
-                              {
-                                v372 = __nwlog_obj();
-                                if (os_log_type_enabled(v372, OS_LOG_TYPE_DEBUG))
-                                {
-                                  v373 = *(v170 + 492);
-                                  v374 = *(v170 + 104);
-                                  *buf = 136447490;
-                                  *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                  *&buf[12] = 2082;
-                                  *&buf[14] = v170 + 496;
-                                  *&buf[22] = 2080;
-                                  v525 = " ";
-                                  *v526 = 1024;
-                                  *&v526[2] = v373;
-                                  *&v526[6] = 2048;
-                                  *&v526[8] = v331;
-                                  *&v526[16] = 2048;
-                                  *&v526[18] = v374;
-                                  _os_log_impl(&dword_181A37000, v372, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Webtransport session received capsule type 0x%llx length %llu", buf, 0x3Au);
-                                }
-                              }
-
-                              if (v331 > 16770303)
-                              {
-                                if (v331 <= 420171064)
-                                {
-                                  if ((v331 - 16770304) < 4)
-                                  {
-                                    goto LABEL_625;
-                                  }
-
-                                  if (v331 == 420171064)
-                                  {
-                                    goto LABEL_624;
-                                  }
-
-                                  goto LABEL_627;
-                                }
-
-                                if ((v331 - 420171065) >= 2)
-                                {
-                                  if ((v331 - 420171067) < 2)
-                                  {
-                                    v334 = *(v170 + 456);
-                                    v336 = v331 == 420171068 && capsule;
-                                    v511 = MEMORY[0x1E69E9820];
-                                    v512 = 0x40000000;
-                                    v513 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke;
-                                    v514 = &__block_descriptor_tmp_34_36485;
-                                    v517 = v336;
-                                    v515 = v170 + 96;
-                                    v516 = v334;
-                                    v337 = *(v170 + 136);
-                                    do
-                                    {
-                                      if (!v337)
-                                      {
-                                        break;
-                                      }
-
-                                      v338 = *(v337 + 32);
-                                      v339 = (v513)(&v511);
-                                      v337 = v338;
-                                    }
-
-                                    while ((v339 & 1) != 0);
-                                    if (!v336)
-                                    {
-                                      goto LABEL_683;
-                                    }
-
-                                    nw_protocol_input_finished(v334, v170);
-                                  }
-
-                                  goto LABEL_627;
-                                }
-
-                                if (capsule)
-                                {
-                                  v340 = *(v170 + 456);
-                                  v518 = -1;
-                                  if (nw_http_capsule_framer_parse_vle_value((v170 + 96), v170, &v518))
-                                  {
-                                    if (!v340 || (*(v340 + 276) & 0x10) == 0)
-                                    {
-                                      v341 = __nwlog_obj();
-                                      if (os_log_type_enabled(v341, OS_LOG_TYPE_ERROR))
-                                      {
-                                        if (v340)
-                                        {
-                                          v342 = (v340 + 192);
-                                        }
-
-                                        else
-                                        {
-                                          v342 = "";
-                                        }
-
-                                        v343 = " ";
-                                        if (!v340)
-                                        {
-                                          v343 = "";
-                                        }
-
-                                        v344 = *(v340 + 88);
-                                        if (v344)
-                                        {
-                                          v327 = *(v344 + 492);
-                                        }
-
-                                        else
-                                        {
-                                          v327 = -1;
-                                        }
-
-                                        v328 = *(v340 + 64);
-                                        *buf = 136448002;
-                                        *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                        *&buf[12] = 2082;
-                                        *&buf[14] = v342;
-                                        *&buf[22] = 2080;
-                                        v525 = v343;
-                                        *v526 = 1024;
-                                        *&v526[2] = v327;
-                                        *&v526[6] = 2048;
-                                        *&v526[8] = v328;
-                                        *&v526[16] = 2048;
-                                        *&v526[18] = v331;
-                                        *&v526[26] = 2048;
-                                        *&v526[28] = v328;
-                                        v527 = 2048;
-                                        v528 = v518;
-                                        _os_log_impl(&dword_181A37000, v341, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u:s%llu> Received 0x%llx capsule for stream ID %llu with error code %llu", buf, 0x4Eu);
-                                      }
-                                    }
-
-                                    nw_protocol_webtransport_stream_error(v340, v170);
-                                    nw_protocol_webtransport_stream_disconnect(v340, v329);
-                                  }
-
-                                  else if ((*(v170 + 580) & 2) == 0)
-                                  {
-                                    v351 = __nwlog_obj();
-                                    if (os_log_type_enabled(v351, OS_LOG_TYPE_ERROR))
-                                    {
-                                      v352 = *(v170 + 492);
-                                      *buf = 136447234;
-                                      *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                      *&buf[12] = 2082;
-                                      *&buf[14] = v170 + 496;
-                                      *&buf[22] = 2080;
-                                      v525 = " ";
-                                      *v526 = 1024;
-                                      *&v526[2] = v352;
-                                      *&v526[6] = 2048;
-                                      *&v526[8] = v331;
-                                      _os_log_impl(&dword_181A37000, v351, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Failed to parse error code from capsule 0x%llx correctly", buf, 0x30u);
-                                    }
-                                  }
-
-LABEL_602:
-                                  *(v170 + 456) = 0;
-                                  nw_http_capsule_complete_capsule(v170 + 96);
-                                }
-                              }
-
-                              else
-                              {
-                                if (v331 <= 16770047)
-                                {
-                                  if ((v331 - 1) < 3 || v331 == -1)
-                                  {
-LABEL_625:
-                                    v335 = __nwlog_obj();
-                                    if (os_log_type_enabled(v335, OS_LOG_TYPE_ERROR))
-                                    {
-                                      *buf = 136446466;
-                                      *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                      *&buf[12] = 2048;
-                                      *&buf[14] = v331;
-                                      _os_log_impl(&dword_181A37000, v335, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                                    }
-
-                                    goto LABEL_627;
-                                  }
-
-                                  if (!v331)
-                                  {
-                                    v334 = *(v170 + 448);
-                                    if (v334 && *(v334 + 184) != 3)
-                                    {
-                                      v505 = MEMORY[0x1E69E9820];
-                                      v506 = 0x40000000;
-                                      v507 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke_2;
-                                      v508 = &__block_descriptor_tmp_35_36486;
-                                      v509 = v170 + 96;
-                                      v510 = v334;
-                                      v359 = *(v170 + 136);
-                                      do
-                                      {
-                                        if (!v359)
-                                        {
-                                          break;
-                                        }
-
-                                        v360 = *(v359 + 32);
-                                        v361 = (v507)(&v505);
-                                        v359 = v360;
-                                      }
-
-                                      while ((v361 & 1) != 0);
-LABEL_683:
-                                      nw_protocol_input_available(v334, v170);
-                                      goto LABEL_627;
-                                    }
-
-LABEL_624:
-                                    nw_frame_array_finalize(v170 + 136, 1, 1);
-                                  }
-                                }
-
-                                else if ((v331 - 16770048) < 6)
-                                {
-                                  goto LABEL_625;
-                                }
-
-LABEL_627:
-                                if (capsule)
-                                {
-                                  goto LABEL_602;
-                                }
-                              }
-                            }
-                          }
-
-LABEL_474:
-                          nw_webtransport_http3_handle_input(v170);
-                          v277 = *(v170 + 448);
-                          if (v277 && *(v277 + 72))
-                          {
-                            nw_protocol_input_available(*(v277 + 48), v277);
-                          }
-
-                          return;
-                        }
-
-LABEL_826:
-                        if ((v202 & 2) == 0)
-                        {
-                          v437 = __nwlog_obj();
-                          if (os_log_type_enabled(v437, OS_LOG_TYPE_ERROR))
-                          {
-                            v438 = *(v170 + 492);
-                            *buf = 136446978;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v170 + 496;
-                            *&buf[22] = 2080;
-                            v525 = " ";
-                            *v526 = 1024;
-                            *&v526[2] = v438;
-                            _os_log_impl(&dword_181A37000, v437, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> output handler has no get_input_frames callback", buf, 0x26u);
-                          }
-                        }
-
-                        __nwlog_obj();
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_session_http_get_input";
-                        v230 = _os_log_send_and_compose_impl();
-                        type[0] = 16;
-                        LOBYTE(v511) = 0;
-                        if (__nwlog_fault(v230, type, &v511))
-                        {
-                          if (type[0] == 17)
-                          {
-                            v231 = __nwlog_obj();
-                            v232 = type[0];
-                            if (!os_log_type_enabled(v231, type[0]))
-                            {
-                              goto LABEL_1000;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            v233 = "%{public}s output handler has no get_input_frames callback";
-                            goto LABEL_999;
-                          }
-
-                          if (v511 != 1)
-                          {
-                            v231 = __nwlog_obj();
-                            v232 = type[0];
-                            if (!os_log_type_enabled(v231, type[0]))
-                            {
-                              goto LABEL_1000;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            v233 = "%{public}s output handler has no get_input_frames callback, backtrace limit exceeded";
-                            goto LABEL_999;
-                          }
-
-                          v455 = __nw_create_backtrace_string();
-                          v231 = __nwlog_obj();
-                          v232 = type[0];
-                          v456 = os_log_type_enabled(v231, type[0]);
-                          if (!v455)
-                          {
-                            if (!v456)
-                            {
-                              goto LABEL_1000;
-                            }
-
-                            *buf = 136446210;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            v233 = "%{public}s output handler has no get_input_frames callback, no backtrace";
-                            goto LABEL_999;
-                          }
-
-                          if (v456)
-                          {
-                            *buf = 136446466;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v455;
-                            v457 = "%{public}s output handler has no get_input_frames callback, dumping backtrace:%{public}s";
-LABEL_908:
-                            _os_log_impl(&dword_181A37000, v231, v232, v457, buf, 0x16u);
-                            goto LABEL_909;
-                          }
-
-                          goto LABEL_909;
-                        }
-
-LABEL_1000:
-                        if (!v230)
-                        {
-                          return;
-                        }
-
-                        goto LABEL_1001;
-                      }
-
-                      __nwlog_obj();
-                      *buf = 136446210;
-                      *&buf[4] = "nw_webtransport_session_http_get_input";
-                      v230 = _os_log_send_and_compose_impl();
-                      type[0] = 16;
-                      LOBYTE(v511) = 0;
-                      if (!__nwlog_fault(v230, type, &v511))
-                      {
-                        goto LABEL_1000;
-                      }
-
-                      if (type[0] != 17)
-                      {
-                        if (v511 == 1)
-                        {
-                          v455 = __nw_create_backtrace_string();
-                          v231 = __nwlog_obj();
-                          v232 = type[0];
-                          v468 = os_log_type_enabled(v231, type[0]);
-                          if (v455)
-                          {
-                            if (!v468)
-                            {
-                              goto LABEL_909;
-                            }
-
-                            *buf = 136446466;
-                            *&buf[4] = "nw_webtransport_session_http_get_input";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v455;
-                            v457 = "%{public}s called with null output_handler, dumping backtrace:%{public}s";
-                            goto LABEL_908;
-                          }
-
-                          goto LABEL_997;
-                        }
-
-                        goto LABEL_962;
-                      }
-
-                      goto LABEL_936;
-                    }
-
-                    if (v203)
-                    {
-                      return;
-                    }
-
-                    *(v170 + 476) = 3;
-                    v209 = *(v170 + 48);
-                    if (v209)
-                    {
-                      v210 = *(v209 + 40);
-                      if (v210)
-                      {
-LABEL_327:
-                        *(v170 + 440) = v210;
-                        return;
-                      }
-
-LABEL_372:
-                      __nwlog_obj();
-                      *buf = 136446210;
-                      *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                      v230 = _os_log_send_and_compose_impl();
-                      type[0] = 16;
-                      LOBYTE(v511) = 0;
-                      if (!__nwlog_fault(v230, type, &v511))
-                      {
-                        goto LABEL_1000;
-                      }
-
-                      if (type[0] == 17)
-                      {
-                        v231 = __nwlog_obj();
-                        v232 = type[0];
-                        if (!os_log_type_enabled(v231, type[0]))
-                        {
-                          goto LABEL_1000;
-                        }
-
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                        v233 = "%{public}s called with null webtransport_stream";
-LABEL_999:
-                        _os_log_impl(&dword_181A37000, v231, v232, v233, buf, 0xCu);
-                        goto LABEL_1000;
-                      }
-
-                      if (v511 != 1)
-                      {
-                        v231 = __nwlog_obj();
-                        v232 = type[0];
-                        if (!os_log_type_enabled(v231, type[0]))
-                        {
-                          goto LABEL_1000;
-                        }
-
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                        v233 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                        goto LABEL_999;
-                      }
-
-                      v455 = __nw_create_backtrace_string();
-                      v231 = __nwlog_obj();
-                      v232 = type[0];
-                      v470 = os_log_type_enabled(v231, type[0]);
-                      if (!v455)
-                      {
-                        if (!v470)
-                        {
-                          goto LABEL_1000;
-                        }
-
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                        v233 = "%{public}s called with null webtransport_stream, no backtrace";
-                        goto LABEL_999;
-                      }
-
-                      if (v470)
-                      {
-                        *buf = 136446466;
-                        *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                        *&buf[12] = 2082;
-                        *&buf[14] = v455;
-                        v457 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-                        goto LABEL_908;
-                      }
-
-                      goto LABEL_909;
-                    }
-
-                    goto LABEL_849;
-                  }
-
-LABEL_348:
-                  if (!*(v170 + 476))
-                  {
-                    nw_webtransport_http_send_connect(v170);
-                  }
-
-                  return;
-                }
-
-                goto LABEL_350;
-              }
-            }
-          }
-
-          v178 = nw_protocol_copy_info(v174);
-          v179 = v178;
-          aBlock = MEMORY[0x1E69E9820];
-          v501 = 0x40000000;
-          v502 = ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke;
-          v503 = &__block_descriptor_tmp_27_36446;
-          v504 = v170;
-          if (v178)
-          {
-            _nw_array_apply(v178, &aBlock);
-            v180 = *(v170 + 400);
-            if (!v180)
-            {
-              goto LABEL_295;
-            }
-          }
-
-          else
-          {
-            v180 = *(v170 + 400);
-            if (!v180)
-            {
-              return;
-            }
-          }
-
-          version = nw_http_connection_metadata_get_version(v180);
-          v182 = version;
-          if (version == 4)
-          {
-            v183 = 0;
-          }
-
-          else
-          {
-            if (version != 5)
-            {
-LABEL_299:
-              v195 = v174[2];
-              if (nw_protocol_http_messaging_identifier::onceToken != -1)
-              {
-                v435 = v174[2];
-                dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                v195 = v435;
-              }
-
-              v196 = nw_protocols_are_equal(v195, &nw_protocol_http_messaging_identifier::protocol_identifier);
-              v197 = *(v170 + 580);
-              if (v196)
-              {
-                v197 |= 0x40u;
-                *(v170 + 580) = v197;
-              }
-
-              if ((v197 & 2) == 0)
-              {
-                v198 = __nwlog_obj();
-                if (os_log_type_enabled(v198, OS_LOG_TYPE_INFO))
-                {
-                  v199 = *(v170 + 492);
-                  if (v182 == 4)
-                  {
-                    v200 = 2;
-                  }
-
-                  else
-                  {
-                    v200 = 3;
-                  }
-
-                  *buf = 136447234;
-                  *&buf[4] = "nw_webtransport_session_establish";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v170 + 496;
-                  *&buf[22] = 2080;
-                  v525 = " ";
-                  *v526 = 1024;
-                  *&v526[2] = v199;
-                  *&v526[6] = 1024;
-                  *&v526[8] = v200;
-                  _os_log_impl(&dword_181A37000, v198, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Establishing webtransport session for HTTP/%d", buf, 0x2Cu);
-                }
-              }
-
-              if (v179)
-              {
-                os_release(v179);
-              }
-
-              goto LABEL_311;
-            }
-
-            v183 = 1;
-          }
-
-          *(v170 + 480) = v183;
-          goto LABEL_299;
-        }
-
-        __nwlog_obj();
-        v75 = v73[2];
-        *buf = 136446978;
-        *&buf[4] = "nw_webtransport_session_terminate";
-        *&buf[12] = 2082;
-        *&buf[14] = "connection_state->local_sessions";
-        *&buf[22] = 2048;
-        v525 = 1;
-        *v526 = 2048;
-        *&v526[2] = v75;
-        v76 = _os_log_send_and_compose_impl();
-        type[0] = 16;
-        LOBYTE(v511) = 0;
-        if (__nwlog_fault(v76, type, &v511))
-        {
-          if (type[0] == 17)
-          {
-            v77 = __nwlog_obj();
-            v78 = type[0];
-            if (os_log_type_enabled(v77, type[0]))
-            {
-              v79 = v73[2];
-              *buf = 136446978;
-              *&buf[4] = "nw_webtransport_session_terminate";
-              *&buf[12] = 2082;
-              *&buf[14] = "connection_state->local_sessions";
-              *&buf[22] = 2048;
-              v525 = 1;
-              *v526 = 2048;
-              *&v526[2] = v79;
-              v80 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-LABEL_247:
-              _os_log_impl(&dword_181A37000, v77, v78, v80, buf, 0x2Au);
-            }
-          }
-
-          else if (v511 == 1)
-          {
-            v129 = __nw_create_backtrace_string();
-            v77 = __nwlog_obj();
-            v78 = type[0];
-            v130 = os_log_type_enabled(v77, type[0]);
-            if (v129)
-            {
-              if (v130)
-              {
-                v131 = v73[2];
-                *buf = 136447234;
-                *&buf[4] = "nw_webtransport_session_terminate";
-                *&buf[12] = 2082;
-                *&buf[14] = "connection_state->local_sessions";
-                *&buf[22] = 2048;
-                v525 = 1;
-                *v526 = 2048;
-                *&v526[2] = v131;
-                *&v526[10] = 2082;
-                *&v526[12] = v129;
-                _os_log_impl(&dword_181A37000, v77, v78, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-              }
-
-              free(v129);
-              goto LABEL_248;
-            }
-
-            if (v130)
-            {
-              v169 = v73[2];
-              *buf = 136446978;
-              *&buf[4] = "nw_webtransport_session_terminate";
-              *&buf[12] = 2082;
-              *&buf[14] = "connection_state->local_sessions";
-              *&buf[22] = 2048;
-              v525 = 1;
-              *v526 = 2048;
-              *&v526[2] = v169;
-              v80 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
-              goto LABEL_247;
-            }
-          }
-
-          else
-          {
-            v77 = __nwlog_obj();
-            v78 = type[0];
-            if (os_log_type_enabled(v77, type[0]))
-            {
-              v139 = v73[2];
-              *buf = 136446978;
-              *&buf[4] = "nw_webtransport_session_terminate";
-              *&buf[12] = 2082;
-              *&buf[14] = "connection_state->local_sessions";
-              *&buf[22] = 2048;
-              v525 = 1;
-              *v526 = 2048;
-              *&v526[2] = v139;
-              v80 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
-              goto LABEL_247;
-            }
-          }
-        }
-
-LABEL_248:
-        if (v76)
-        {
-          free(v76);
-        }
-
-        v73[2] = 0;
-        goto LABEL_251;
-      }
-
-LABEL_95:
-      if ((v59 & 2) != 0)
-      {
-        return;
-      }
-
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v81 = gLogObj;
-      if (!os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-      {
-        return;
-      }
-
-      v82 = *(a1 + 492);
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_session_terminate";
-      *&buf[12] = 2082;
-      *&buf[14] = a1 + 496;
-      *&buf[22] = 2080;
-      v525 = " ";
-      *v526 = 1024;
-      *&v526[2] = v82;
-      v83 = "%{public}s %{public}s%s<i%u> Session already terminated, ignoring";
-      v84 = v81;
-      v85 = OS_LOG_TYPE_INFO;
-LABEL_98:
-      _os_log_impl(&dword_181A37000, v84, v85, v83, buf, 0x26u);
-      return;
-    }
-
-    v59 = *(a1 + 580);
-    if (*(a1 + 476) == 5)
-    {
-      goto LABEL_95;
-    }
-
-    if ((*(a1 + 580) & 2) == 0)
-    {
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v86 = gLogObj;
-      if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-      {
-        v87 = *(a1 + 492);
-        *buf = 136447234;
-        *&buf[4] = "nw_webtransport_session_terminate";
-        *&buf[12] = 2082;
-        *&buf[14] = a1 + 496;
-        *&buf[22] = 2080;
-        v525 = " ";
-        *v526 = 1024;
-        *&v526[2] = v87;
-        *&v526[6] = 1024;
-        *&v526[8] = 12;
-        _os_log_impl(&dword_181A37000, v86, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Closing webtransport session with error %{darwin.errno}d", buf, 0x2Cu);
-      }
-    }
-
-    v88 = *(a1 + 476);
-    *(a1 + 476) = 5;
-    v89 = *(a1 + 192);
-    if (v89)
-    {
-      v495 = MEMORY[0x1E69E9820];
-      v496 = 0x40000000;
-      v497 = ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke;
-      v498 = &__block_descriptor_tmp_24_36439;
-      v499 = 12;
-      nw_hash_table_apply(v89, &v495);
-    }
-
-    v90 = *(a1 + 448);
-    if (v90)
-    {
-      v91 = *(v90 + 88);
-      nw_protocol_error(*(v90 + 48), *(a1 + 448));
-      nw_protocol_disconnect(v90, v91);
-    }
-
-    v92 = *(a1 + 336);
-    if (v92)
-    {
-      do
-      {
-        v93 = *(v92 + 112);
-        v94 = *(v92 + 88);
-        nw_protocol_error(*(v92 + 48), v92);
-        nw_protocol_disconnect(v92, v94);
-        v92 = v93;
-      }
-
-      while (v93);
-    }
-
-    v95 = *(a1 + 440);
-    if (v95)
-    {
-      v96 = *(v95 + 88);
-      nw_protocol_error(*(v95 + 48), *(a1 + 440));
-      nw_protocol_disconnect(v95, v96);
-    }
-
-    if (*(a1 + 32))
-    {
-      nw_protocol_remove_instance(a1);
-      nw_protocol_disconnect(*(a1 + 32), a1);
-    }
-
-    v97 = *(a1 + 400);
-    if (!v97)
-    {
-      return;
-    }
-
-    v98 = nw_http_connection_metadata_get_webtransport_state(v97);
-    if (!v98)
-    {
-      return;
-    }
-
-    v99 = v98;
-    if (v88 != 4 && v88 != 1)
-    {
-      return;
-    }
-
-    v100 = *(v98 + 16);
-    *(v98 + 16) = v100 - 1;
-    if (v100)
-    {
-LABEL_278:
-      if (*(a1 + 580))
-      {
-        return;
-      }
-
-      v170 = *v99;
-      if (!*v99)
-      {
-        return;
-      }
-
-      v185 = *(v170 + 352);
-      v186 = *(v170 + 360);
-      v187 = (v185 + 360);
-      if (!v185)
-      {
-        v187 = v99 + 1;
-      }
-
-      *v187 = v186;
-      *v186 = v185;
-      *(v170 + 352) = 0;
-      *(v170 + 360) = 0;
-      v188 = *(v170 + 32);
-      if (!v188 || *(v170 + 480) != 2)
-      {
-        goto LABEL_346;
-      }
-
-      v189 = v188[2];
-      if (nw_protocol_http2_identifier::onceToken != -1)
-      {
-        v434 = v188[2];
-        dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
-        v189 = v434;
-      }
-
-      if (!nw_protocols_are_equal(v189, &nw_protocol_http2_identifier::http2_protocol_identifier))
-      {
-        v190 = v188[2];
-        if (nw_protocol_http3_identifier::onceToken != -1)
-        {
-          v447 = v188[2];
-          dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-          v190 = v447;
-        }
-
-        if (!nw_protocols_are_equal(v190, &nw_protocol_http3_identifier::http3_protocol_identifier))
-        {
-          v191 = v188[2];
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v464 = v188[2];
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v191 = v464;
-          }
-
-          if (!nw_protocols_are_equal(v191, &nw_protocol_http_messaging_identifier::protocol_identifier))
-          {
-            goto LABEL_346;
-          }
-        }
-      }
-
-      v192 = nw_protocol_copy_info(v188);
-      v179 = v192;
-      aBlock = MEMORY[0x1E69E9820];
-      v501 = 0x40000000;
-      v502 = ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke;
-      v503 = &__block_descriptor_tmp_27_36446;
-      v504 = v170;
-      if (v192)
-      {
-        _nw_array_apply(v192, &aBlock);
-        v193 = *(v170 + 400);
-        if (!v193)
-        {
-LABEL_295:
-          v194 = v179;
-LABEL_466:
-          os_release(v194);
-          return;
-        }
-      }
-
-      else
-      {
-        v193 = *(v170 + 400);
-        if (!v193)
-        {
-          return;
-        }
-      }
-
-      v211 = nw_http_connection_metadata_get_version(v193);
-      v212 = v211;
-      if (v211 == 4)
-      {
-        v213 = 0;
-      }
-
-      else
-      {
-        if (v211 != 5)
-        {
-LABEL_334:
-          v214 = v188[2];
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v439 = v188[2];
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v214 = v439;
-          }
-
-          v215 = nw_protocols_are_equal(v214, &nw_protocol_http_messaging_identifier::protocol_identifier);
-          v216 = *(v170 + 580);
-          if (v215)
-          {
-            v216 |= 0x40u;
-            *(v170 + 580) = v216;
-          }
-
-          if ((v216 & 2) == 0)
-          {
-            v217 = __nwlog_obj();
-            if (os_log_type_enabled(v217, OS_LOG_TYPE_INFO))
-            {
-              v218 = *(v170 + 492);
-              if (v212 == 4)
-              {
-                v219 = 2;
-              }
-
-              else
-              {
-                v219 = 3;
-              }
-
-              *buf = 136447234;
-              *&buf[4] = "nw_webtransport_session_establish";
-              *&buf[12] = 2082;
-              *&buf[14] = v170 + 496;
-              *&buf[22] = 2080;
-              v525 = " ";
-              *v526 = 1024;
-              *&v526[2] = v218;
-              *&v526[6] = 1024;
-              *&v526[8] = v219;
-              _os_log_impl(&dword_181A37000, v217, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Establishing webtransport session for HTTP/%d", buf, 0x2Cu);
-            }
-          }
-
-          if (v179)
-          {
-            os_release(v179);
-          }
-
-LABEL_346:
-          v220 = *(v170 + 480);
-          v202 = *(v170 + 580);
-          if (v220 > 1)
-          {
-LABEL_350:
-            if ((v202 & 2) != 0)
-            {
-              return;
-            }
-
-            v221 = __nwlog_obj();
-            if (!os_log_type_enabled(v221, OS_LOG_TYPE_ERROR))
-            {
-              return;
-            }
-
-            v222 = *(v170 + 492);
-            *buf = 136446978;
-            *&buf[4] = "nw_webtransport_session_establish";
-            *&buf[12] = 2082;
-            *&buf[14] = v170 + 496;
-            *&buf[22] = 2080;
-            v525 = " ";
-            *v526 = 1024;
-            *&v526[2] = v222;
-            v83 = "%{public}s %{public}s%s<i%u> Unknown webtransport session transport mode for establishment, failing";
-            v84 = v221;
-            v85 = OS_LOG_TYPE_ERROR;
-            goto LABEL_98;
-          }
-
-          if ((*(v170 + 580) & 1) == 0)
-          {
-            goto LABEL_348;
-          }
-
-          v223 = *(v170 + 476);
-          if (v220 != 1)
-          {
-            if (v223)
-            {
-              return;
-            }
-
-            *(v170 + 476) = 3;
-            v229 = *(v170 + 48);
-            if (v229)
-            {
-              v210 = *(v229 + 40);
-              if (v210)
-              {
-                goto LABEL_327;
-              }
-
-              goto LABEL_372;
-            }
-
-LABEL_849:
-            __nwlog_obj();
-            *buf = 136446210;
-            *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-            v230 = _os_log_send_and_compose_impl();
-            type[0] = 16;
-            LOBYTE(v511) = 0;
-            if (!__nwlog_fault(v230, type, &v511))
-            {
-              goto LABEL_1000;
-            }
-
-            if (type[0] == 17)
-            {
-              v231 = __nwlog_obj();
-              v232 = type[0];
-              if (!os_log_type_enabled(v231, type[0]))
-              {
-                goto LABEL_1000;
-              }
-
-              *buf = 136446210;
-              *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-              v233 = "%{public}s called with null input_protocol";
-              goto LABEL_999;
-            }
-
-            if (v511 != 1)
-            {
-              v231 = __nwlog_obj();
-              v232 = type[0];
-              if (!os_log_type_enabled(v231, type[0]))
-              {
-                goto LABEL_1000;
-              }
-
-              *buf = 136446210;
-              *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-              v233 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-              goto LABEL_999;
-            }
-
-            v455 = __nw_create_backtrace_string();
-            v231 = __nwlog_obj();
-            v232 = type[0];
-            v469 = os_log_type_enabled(v231, type[0]);
-            if (!v455)
-            {
-              if (!v469)
-              {
-                goto LABEL_1000;
-              }
-
-              *buf = 136446210;
-              *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-              v233 = "%{public}s called with null input_protocol, no backtrace";
-              goto LABEL_999;
-            }
-
-            if (v469)
-            {
-              *buf = 136446466;
-              *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-              *&buf[12] = 2082;
-              *&buf[14] = v455;
-              v457 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
-              goto LABEL_908;
-            }
-
-LABEL_909:
-            free(v455);
-            if (!v230)
-            {
-              return;
-            }
-
-LABEL_1001:
-            free(v230);
-            return;
-          }
-
-          if (v223 != 3)
-          {
-            if (v223)
-            {
-              return;
-            }
-
-            v224 = *(v170 + 48);
-            if (v224)
-            {
-              v205 = *(v224 + 40);
-              if (v205)
-              {
-                nw_protocol_replace_input_handler(*(v170 + 32), v170, *(v224 + 40));
-                *(v170 + 440) = v205;
-                nw_protocol_set_output_handler(v170, 0);
-                nw_protocol_set_input_handler(v170, 0);
-                if ((*(v170 + 580) & 1) == 0)
-                {
-                  goto LABEL_480;
-                }
-
-                v206 = *(*(v170 + 440) + 32);
-                v225 = *(v206 + 16);
-                if (nw_protocol_http_messaging_identifier::onceToken != -1)
-                {
-                  dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                }
-
-                if (nw_protocols_are_equal(v225, &nw_protocol_http_messaging_identifier::protocol_identifier))
-                {
-                  goto LABEL_364;
-                }
-
-                v208 = *(v206 + 16);
-                if (nw_protocol_http3_identifier::onceToken == -1)
-                {
-                  goto LABEL_363;
-                }
-
-                goto LABEL_947;
-              }
-
-              goto LABEL_861;
-            }
-
-            __nwlog_obj();
-            *buf = 136446210;
-            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-            v451 = _os_log_send_and_compose_impl();
-            type[0] = 16;
-            LOBYTE(v511) = 0;
-            if (!__nwlog_fault(v451, type, &v511))
-            {
-              goto LABEL_1005;
-            }
-
-            if (type[0] != 17)
-            {
-              if (v511 == 1)
-              {
-                v475 = __nw_create_backtrace_string();
-                v452 = __nwlog_obj();
-                v453 = type[0];
-                v466 = os_log_type_enabled(v452, type[0]);
-                if (v475)
-                {
-                  if (v466)
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v475;
-                    _os_log_impl(&dword_181A37000, v452, v453, "%{public}s called with null input_protocol, dumping backtrace:%{public}s", buf, 0x16u);
-                  }
-
-                  free(v475);
-LABEL_1005:
-                  if (!v451)
-                  {
-                    goto LABEL_480;
-                  }
-
-LABEL_1006:
-                  free(v451);
-                  goto LABEL_480;
-                }
-
-                goto LABEL_995;
-              }
-
-LABEL_955:
-              v452 = __nwlog_obj();
-              v453 = type[0];
-              if (!os_log_type_enabled(v452, type[0]))
-              {
-                goto LABEL_1005;
-              }
-
-              *buf = 136446210;
-              *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-              v454 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-              goto LABEL_1004;
-            }
-
-LABEL_932:
-            v452 = __nwlog_obj();
-            v453 = type[0];
-            if (!os_log_type_enabled(v452, type[0]))
-            {
-              goto LABEL_1005;
-            }
-
-            *buf = 136446210;
-            *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-            v454 = "%{public}s called with null input_protocol";
-            goto LABEL_1004;
-          }
-
-          v261 = *(v170 + 32);
-          if (!v261)
-          {
-            __nwlog_obj();
-            *buf = 136446210;
-            *&buf[4] = "nw_webtransport_session_http_get_input";
-            v230 = _os_log_send_and_compose_impl();
-            type[0] = 16;
-            LOBYTE(v511) = 0;
-            if (!__nwlog_fault(v230, type, &v511))
-            {
-              goto LABEL_1000;
-            }
-
-            if (type[0] != 17)
-            {
-              if (v511 == 1)
-              {
-                v476 = __nw_create_backtrace_string();
-                v231 = __nwlog_obj();
-                v232 = type[0];
-                v468 = os_log_type_enabled(v231, type[0]);
-                if (v476)
-                {
-                  if (v468)
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v476;
-                    _os_log_impl(&dword_181A37000, v231, v232, "%{public}s called with null output_handler, dumping backtrace:%{public}s", buf, 0x16u);
-                  }
-
-                  free(v476);
-                  goto LABEL_1000;
-                }
-
-LABEL_997:
-                if (!v468)
-                {
-                  goto LABEL_1000;
-                }
-
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_session_http_get_input";
-                v233 = "%{public}s called with null output_handler, no backtrace";
-                goto LABEL_999;
-              }
-
-LABEL_962:
-              v231 = __nwlog_obj();
-              v232 = type[0];
-              if (!os_log_type_enabled(v231, type[0]))
-              {
-                goto LABEL_1000;
-              }
-
-              *buf = 136446210;
-              *&buf[4] = "nw_webtransport_session_http_get_input";
-              v233 = "%{public}s called with null output_handler, backtrace limit exceeded";
-              goto LABEL_999;
-            }
-
-LABEL_936:
-            v231 = __nwlog_obj();
-            v232 = type[0];
-            if (!os_log_type_enabled(v231, type[0]))
-            {
-              goto LABEL_1000;
-            }
-
-            *buf = 136446210;
-            *&buf[4] = "nw_webtransport_session_http_get_input";
-            v233 = "%{public}s called with null output_handler";
-            goto LABEL_999;
-          }
-
-          v262 = v261[3];
-          if (!v262 || !*(v262 + 80))
-          {
-            goto LABEL_826;
-          }
-
-          for (j = 3; (j | 2) == 3; j = *(v170 + 476))
-          {
-            if (!nw_protocol_get_input_frames(v261, v170, 0, 0, 0xFFFFFFFFLL, v170 + 120))
-            {
-              return;
-            }
-
-            *buf = 0;
-            *&buf[8] = buf;
-            *&buf[16] = 0x3802000000;
-            v525 = __Block_byref_object_copy__36471;
-            *v526 = __Block_byref_object_dispose__36472;
-            *&v526[8] = nw_protocol_copy_http_definition();
-            v526[16] |= 1u;
-            *type = MEMORY[0x1E69E9820];
-            *&type[8] = 0x40000000;
-            *&type[16] = ___ZL38nw_webtransport_session_http_get_inputP23nw_webtransport_session_block_invoke;
-            v520 = &unk_1E6A31940;
-            v521 = buf;
-            v522 = v170;
-            v523 = v170 + 120;
-            v264 = *(v170 + 120);
-            do
-            {
-              if (!v264)
-              {
-                break;
-              }
-
-              v265 = *(v264 + 32);
-              v266 = (*&type[16])(type);
-              v264 = v265;
-            }
-
-            while ((v266 & 1) != 0);
-            _Block_object_dispose(buf, 8);
-            if ((v526[16] & 1) != 0 && *&v526[8])
-            {
-              os_release(*&v526[8]);
-            }
-          }
-
-          v275 = *(v170 + 480);
-          if (v275 == 1)
-          {
-            goto LABEL_474;
-          }
-
-          if (v275)
-          {
-            return;
-          }
-
-          if ((*(v170 + 580) & 2) == 0 && gLogDatapath == 1)
-          {
-            v489 = __nwlog_obj();
-            if (os_log_type_enabled(v489, OS_LOG_TYPE_DEBUG))
-            {
-              v490 = *(v170 + 492);
-              *buf = 136446978;
-              *&buf[4] = "nw_webtransport_http2_handle_capsules";
-              *&buf[12] = 2082;
-              *&buf[14] = v170 + 496;
-              *&buf[22] = 2080;
-              v525 = " ";
-              *v526 = 1024;
-              *&v526[2] = v490;
-              _os_log_impl(&dword_181A37000, v489, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-            }
-          }
-
-          if (*(v170 + 476) != 4)
-          {
-            return;
-          }
-
-          v276 = (v170 + 96);
-          while (1)
-          {
-            v378 = nw_http_capsule_framer_read_capsule((v170 + 96), v170);
-            if (!v378 && !*(v170 + 136))
-            {
-              return;
-            }
-
-            if (*(v170 + 456))
-            {
-              goto LABEL_712;
-            }
-
-            v380 = *v276;
-            if (*v276 == -1)
-            {
-LABEL_769:
-              v394 = __nwlog_obj();
-              if (os_log_type_enabled(v394, OS_LOG_TYPE_ERROR))
-              {
-                *buf = 136446466;
-                *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                *&buf[12] = 2048;
-                *&buf[14] = v380;
-                _os_log_impl(&dword_181A37000, v394, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-              }
-
-              goto LABEL_712;
-            }
-
-            v381 = *(v170 + 104) != -1 && *(v170 + 112) == 0;
-            if (v380 <= 16770303)
-            {
-              if ((v380 - 16770048) < 6 || (v380 + 1) <= 4 && v380)
-              {
-                goto LABEL_769;
-              }
-            }
-
-            else if ((v380 - 420171065) <= 9 && ((1 << (v380 - 57)) & 0x2EF) != 0)
-            {
-              v518 = -1;
-              if (nw_http_capsule_framer_parse_vle_value((v170 + 96), v170, &v518))
-              {
-                v393 = nw_webtransport_session_get_stream(v170, v518);
-                if (v393)
-                {
-                  goto LABEL_763;
-                }
-
-                if ((v380 - 420171067) > 1)
-                {
-                  goto LABEL_794;
-                }
-
-                v401 = v518;
-                v402 = *(v170 + 580);
-                if (v518 >> 60 || ((v518 ^ v402) & 1) == 0)
-                {
-                  if ((v402 & 2) == 0)
-                  {
-                    v410 = __nwlog_obj();
-                    if (os_log_type_enabled(v410, OS_LOG_TYPE_ERROR))
-                    {
-                      v411 = *(v170 + 492);
-                      *buf = 136446978;
-                      *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v170 + 496;
-                      *&buf[22] = 2080;
-                      v525 = " ";
-                      *v526 = 1024;
-                      *&v526[2] = v411;
-                      v412 = v410;
-                      v413 = "%{public}s %{public}s%s<i%u> Invalid incoming stream ID";
-                      goto LABEL_793;
-                    }
-                  }
-
-LABEL_794:
-                  if ((*(v170 + 580) & 2) == 0)
-                  {
-                    v414 = __nwlog_obj();
-                    if (os_log_type_enabled(v414, OS_LOG_TYPE_ERROR))
-                    {
-                      v415 = *(v170 + 492);
-                      *buf = 136447490;
-                      *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v170 + 496;
-                      *&buf[22] = 2080;
-                      v525 = " ";
-                      *v526 = 1024;
-                      *&v526[2] = v415;
-                      *&v526[6] = 2048;
-                      *&v526[8] = v518;
-                      *&v526[16] = 2048;
-                      *&v526[18] = v380;
-                      _os_log_impl(&dword_181A37000, v414, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Did not find stream %llu for capsule 0x%llx.", buf, 0x3Au);
-                    }
-                  }
-
-                  goto LABEL_712;
-                }
-
-                v403 = *(v170 + 424);
-                if (!v403 || (v404 = *v403) == 0 || !*v404)
-                {
-                  if ((v402 & 2) == 0)
-                  {
-                    v416 = __nwlog_obj();
-                    if (os_log_type_enabled(v416, OS_LOG_TYPE_ERROR))
-                    {
-                      v417 = *(v170 + 492);
-                      *buf = 136446978;
-                      *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v170 + 496;
-                      *&buf[22] = 2080;
-                      v525 = " ";
-                      *v526 = 1024;
-                      *&v526[2] = v417;
-                      v412 = v416;
-                      v413 = "%{public}s %{public}s%s<i%u> Listen handler not setup to accept inbound stream";
-LABEL_793:
-                      _os_log_impl(&dword_181A37000, v412, OS_LOG_TYPE_ERROR, v413, buf, 0x26u);
-                    }
-                  }
-
-                  goto LABEL_794;
-                }
-
-                v405 = _nw_parameters_copy(*(v170 + 368));
-                *(v170 + 580) |= 0x20u;
-                *(v170 + 176) = v401;
-                v406 = (***(v170 + 424))(*(v170 + 424), *(v170 + 384), v405);
-                *(v170 + 176) = -1;
-                *(v170 + 580) &= ~0x20u;
-                if (v406)
-                {
-                  v393 = nw_webtransport_session_get_stream(v170, v401);
-                }
-
-                else
-                {
-                  v393 = 0;
-                }
-
-                if (v405)
-                {
-                  os_release(v405);
-                }
-
-                if (!v393)
-                {
-                  goto LABEL_794;
-                }
-
-                if (*(v393 + 184) != 3)
-                {
-LABEL_763:
-                  *(v170 + 456) = v393;
-                  goto LABEL_712;
-                }
-
-                if ((*(v170 + 580) & 2) != 0)
-                {
-                  goto LABEL_712;
-                }
-
-                v418 = __nwlog_obj();
-                if (!os_log_type_enabled(v418, OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_712;
-                }
-
-                v419 = *(v170 + 492);
-                *buf = 136447234;
-                *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                *&buf[12] = 2082;
-                *&buf[14] = v170 + 496;
-                *&buf[22] = 2080;
-                v525 = " ";
-                *v526 = 1024;
-                *&v526[2] = v419;
-                *&v526[6] = 2048;
-                *&v526[8] = v518;
-                v397 = v418;
-                v398 = "%{public}s %{public}s%s<i%u> Stream %llu is not reading.";
-              }
-
-              else
-              {
-                if (!v381)
-                {
-                  goto LABEL_712;
-                }
-
-                if ((*(v170 + 580) & 2) != 0)
-                {
-                  goto LABEL_712;
-                }
-
-                v395 = __nwlog_obj();
-                if (!os_log_type_enabled(v395, OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_712;
-                }
-
-                v396 = *(v170 + 492);
-                *buf = 136447234;
-                *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                *&buf[12] = 2082;
-                *&buf[14] = v170 + 496;
-                *&buf[22] = 2080;
-                v525 = " ";
-                *v526 = 1024;
-                *&v526[2] = v396;
-                *&v526[6] = 2048;
-                *&v526[8] = v380;
-                v397 = v395;
-                v398 = "%{public}s %{public}s%s<i%u> Failed to parse stream ID from capsule 0x%llx correctly.";
-              }
-
-              _os_log_impl(&dword_181A37000, v397, OS_LOG_TYPE_ERROR, v398, buf, 0x30u);
-            }
-
-            else if ((v380 - 16770304) < 4)
-            {
-              goto LABEL_769;
-            }
-
-LABEL_712:
-            v379 = *(v170 + 96);
-            if ((*(v170 + 580) & 2) == 0 && gLogDatapath == 1)
-            {
-              v420 = __nwlog_obj();
-              if (os_log_type_enabled(v420, OS_LOG_TYPE_DEBUG))
-              {
-                v421 = *(v170 + 492);
-                v422 = *(v170 + 104);
-                *buf = 136447490;
-                *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                *&buf[12] = 2082;
-                *&buf[14] = v170 + 496;
-                *&buf[22] = 2080;
-                v525 = " ";
-                *v526 = 1024;
-                *&v526[2] = v421;
-                *&v526[6] = 2048;
-                *&v526[8] = v379;
-                *&v526[16] = 2048;
-                *&v526[18] = v422;
-                _os_log_impl(&dword_181A37000, v420, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Webtransport session received capsule type 0x%llx length %llu", buf, 0x3Au);
-              }
-            }
-
-            if (v379 > 16770303)
-            {
-              if (v379 <= 420171064)
-              {
-                if ((v379 - 16770304) < 4)
-                {
-                  goto LABEL_731;
-                }
-
-                if (v379 == 420171064)
-                {
-                  goto LABEL_730;
-                }
-
-                goto LABEL_733;
-              }
-
-              if ((v379 - 420171065) >= 2)
-              {
-                if ((v379 - 420171067) < 2)
-                {
-                  v382 = *(v170 + 456);
-                  v384 = v379 == 420171068 && v378;
-                  v511 = MEMORY[0x1E69E9820];
-                  v512 = 0x40000000;
-                  v513 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke;
-                  v514 = &__block_descriptor_tmp_34_36485;
-                  v517 = v384;
-                  v515 = v170 + 96;
-                  v516 = v382;
-                  v385 = *(v170 + 136);
-                  do
-                  {
-                    if (!v385)
-                    {
-                      break;
-                    }
-
-                    v386 = *(v385 + 32);
-                    v387 = (v513)(&v511);
-                    v385 = v386;
-                  }
-
-                  while ((v387 & 1) != 0);
-                  if (!v384)
-                  {
-                    goto LABEL_789;
-                  }
-
-                  nw_protocol_input_finished(v382, v170);
-                }
-
-                goto LABEL_733;
-              }
-
-              if (v378)
-              {
-                v388 = *(v170 + 456);
-                v518 = -1;
-                if (nw_http_capsule_framer_parse_vle_value((v170 + 96), v170, &v518))
-                {
-                  if (!v388 || (*(v388 + 276) & 0x10) == 0)
-                  {
-                    v389 = __nwlog_obj();
-                    if (os_log_type_enabled(v389, OS_LOG_TYPE_ERROR))
-                    {
-                      if (v388)
-                      {
-                        v390 = (v388 + 192);
-                      }
-
-                      else
-                      {
-                        v390 = "";
-                      }
-
-                      v391 = " ";
-                      if (!v388)
-                      {
-                        v391 = "";
-                      }
-
-                      v392 = *(v388 + 88);
-                      if (v392)
-                      {
-                        v375 = *(v392 + 492);
-                      }
-
-                      else
-                      {
-                        v375 = -1;
-                      }
-
-                      v376 = *(v388 + 64);
-                      *buf = 136448002;
-                      *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v390;
-                      *&buf[22] = 2080;
-                      v525 = v391;
-                      *v526 = 1024;
-                      *&v526[2] = v375;
-                      *&v526[6] = 2048;
-                      *&v526[8] = v376;
-                      *&v526[16] = 2048;
-                      *&v526[18] = v379;
-                      *&v526[26] = 2048;
-                      *&v526[28] = v376;
-                      v527 = 2048;
-                      v528 = v518;
-                      _os_log_impl(&dword_181A37000, v389, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u:s%llu> Received 0x%llx capsule for stream ID %llu with error code %llu", buf, 0x4Eu);
-                    }
-                  }
-
-                  nw_protocol_webtransport_stream_error(v388, v170);
-                  nw_protocol_webtransport_stream_disconnect(v388, v377);
-                }
-
-                else if ((*(v170 + 580) & 2) == 0)
-                {
-                  v399 = __nwlog_obj();
-                  if (os_log_type_enabled(v399, OS_LOG_TYPE_ERROR))
-                  {
-                    v400 = *(v170 + 492);
-                    *buf = 136447234;
-                    *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v170 + 496;
-                    *&buf[22] = 2080;
-                    v525 = " ";
-                    *v526 = 1024;
-                    *&v526[2] = v400;
-                    *&v526[6] = 2048;
-                    *&v526[8] = v379;
-                    _os_log_impl(&dword_181A37000, v399, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Failed to parse error code from capsule 0x%llx correctly", buf, 0x30u);
-                  }
-                }
-
-LABEL_708:
-                *(v170 + 456) = 0;
-                nw_http_capsule_complete_capsule(v170 + 96);
-              }
-            }
-
-            else
-            {
-              if (v379 <= 16770047)
-              {
-                if ((v379 - 1) < 3 || v379 == -1)
-                {
-LABEL_731:
-                  v383 = __nwlog_obj();
-                  if (os_log_type_enabled(v383, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                    *&buf[12] = 2048;
-                    *&buf[14] = v379;
-                    _os_log_impl(&dword_181A37000, v383, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                  }
-
-                  goto LABEL_733;
-                }
-
-                if (!v379)
-                {
-                  v382 = *(v170 + 448);
-                  if (v382 && *(v382 + 184) != 3)
-                  {
-                    v505 = MEMORY[0x1E69E9820];
-                    v506 = 0x40000000;
-                    v507 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke_2;
-                    v508 = &__block_descriptor_tmp_35_36486;
-                    v509 = v170 + 96;
-                    v510 = v382;
-                    v407 = *(v170 + 136);
-                    do
-                    {
-                      if (!v407)
-                      {
-                        break;
-                      }
-
-                      v408 = *(v407 + 32);
-                      v409 = (v507)(&v505);
-                      v407 = v408;
-                    }
-
-                    while ((v409 & 1) != 0);
-LABEL_789:
-                    nw_protocol_input_available(v382, v170);
-                    goto LABEL_733;
-                  }
-
-LABEL_730:
-                  nw_frame_array_finalize(v170 + 136, 1, 1);
-                }
-              }
-
-              else if ((v379 - 16770048) < 6)
-              {
-                goto LABEL_731;
-              }
-
-LABEL_733:
-              if (v378)
-              {
-                goto LABEL_708;
-              }
-            }
-          }
-        }
-
-        v213 = 1;
-      }
-
-      *(v170 + 480) = v213;
-      goto LABEL_334;
-    }
-
-    __nwlog_obj();
-    v101 = v99[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_session_terminate";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v101;
-    v102 = _os_log_send_and_compose_impl();
-    type[0] = 16;
-    LOBYTE(v511) = 0;
-    if (__nwlog_fault(v102, type, &v511))
-    {
-      if (type[0] == 17)
-      {
-        v103 = __nwlog_obj();
-        v104 = type[0];
-        if (os_log_type_enabled(v103, type[0]))
-        {
-          v105 = v99[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v105;
-          v106 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-LABEL_274:
-          _os_log_impl(&dword_181A37000, v103, v104, v106, buf, 0x2Au);
-        }
-      }
-
-      else if (v511 == 1)
-      {
-        v132 = __nw_create_backtrace_string();
-        v103 = __nwlog_obj();
-        v104 = type[0];
-        v133 = os_log_type_enabled(v103, type[0]);
-        if (v132)
-        {
-          if (v133)
-          {
-            v134 = v99[2];
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v525 = 1;
-            *v526 = 2048;
-            *&v526[2] = v134;
-            *&v526[10] = 2082;
-            *&v526[12] = v132;
-            _os_log_impl(&dword_181A37000, v103, v104, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-          }
-
-          free(v132);
-          goto LABEL_275;
-        }
-
-        if (v133)
-        {
-          v184 = v99[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v184;
-          v106 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
-          goto LABEL_274;
-        }
-      }
-
-      else
-      {
-        v103 = __nwlog_obj();
-        v104 = type[0];
-        if (os_log_type_enabled(v103, type[0]))
-        {
-          v160 = v99[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v160;
-          v106 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
-          goto LABEL_274;
-        }
-      }
-    }
-
-LABEL_275:
-    if (v102)
-    {
-      free(v102);
-    }
-
-    v99[2] = 0;
-    goto LABEL_278;
-  }
-
-LABEL_8:
-  v4 = nw_parameters_copy_protocol_options_legacy(*(a1 + 368), a1);
-  v5 = v4;
-  if (!v4)
-  {
-    v234 = __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_webtransport_options_copy_request_fields";
-    v235 = _os_log_send_and_compose_impl();
-
-    type[0] = 16;
-    LOBYTE(v511) = 0;
-    if (!__nwlog_fault(v235, type, &v511))
-    {
-      goto LABEL_487;
-    }
-
-    if (type[0] == 17)
-    {
-      v236 = __nwlog_obj();
-      v237 = type[0];
-      if (os_log_type_enabled(v236, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v237, "%{public}s called with null options", buf, 0xCu);
-      }
-    }
-
-    else if (v511 == 1)
-    {
-      v255 = __nw_create_backtrace_string();
-      v236 = __nwlog_obj();
-      v256 = type[0];
-      v257 = os_log_type_enabled(v236, type[0]);
-      if (v255)
-      {
-        if (v257)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_webtransport_options_copy_request_fields";
-          *&buf[12] = 2082;
-          *&buf[14] = v255;
-          _os_log_impl(&dword_181A37000, v236, v256, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(v255);
-        if (!v235)
-        {
-          goto LABEL_489;
-        }
-
-        goto LABEL_488;
-      }
-
-      if (v257)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v256, "%{public}s called with null options, no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v236 = __nwlog_obj();
-      v269 = type[0];
-      if (os_log_type_enabled(v236, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v269, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-
-    goto LABEL_486;
-  }
-
-  v6 = v4;
-  if (nw_protocol_copy_webtransport_definition::onceToken != -1)
-  {
-    dispatch_once(&nw_protocol_copy_webtransport_definition::onceToken, &__block_literal_global_62942);
-  }
-
-  v7 = nw_protocol_options_matches_definition(v6, nw_protocol_copy_webtransport_definition::definition);
-
-  if (v7)
-  {
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x3032000000;
-    v525 = __Block_byref_object_copy__63087;
-    *v526 = __Block_byref_object_dispose__63088;
-    *&v526[8] = 0;
-    *type = MEMORY[0x1E69E9820];
-    *&type[8] = 3221225472;
-    *&type[16] = __nw_webtransport_options_copy_request_fields_block_invoke;
-    v520 = &unk_1E6A3A858;
-    v521 = buf;
-    nw_protocol_options_access_handle(v6, type);
-    v8 = *(*&buf[8] + 40);
-    _Block_object_dispose(buf, 8);
-
-    goto LABEL_13;
-  }
-
-  v238 = __nwlog_obj();
-  *buf = 136446210;
-  *&buf[4] = "nw_webtransport_options_copy_request_fields";
-  v235 = _os_log_send_and_compose_impl();
-
-  type[0] = 16;
-  LOBYTE(v511) = 0;
-  if (__nwlog_fault(v235, type, &v511))
-  {
-    if (type[0] == 17)
-    {
-      v236 = __nwlog_obj();
-      v239 = type[0];
-      if (os_log_type_enabled(v236, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v239, "%{public}s protocol options are not webtransport", buf, 0xCu);
-      }
-
-LABEL_486:
-
-      goto LABEL_487;
-    }
-
-    if (v511 != 1)
-    {
-      v236 = __nwlog_obj();
-      v270 = type[0];
-      if (os_log_type_enabled(v236, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v270, "%{public}s protocol options are not webtransport, backtrace limit exceeded", buf, 0xCu);
-      }
-
-      goto LABEL_486;
-    }
-
-    v258 = __nw_create_backtrace_string();
-    v236 = __nwlog_obj();
-    v259 = type[0];
-    v260 = os_log_type_enabled(v236, type[0]);
-    if (!v258)
-    {
-      if (v260)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_webtransport_options_copy_request_fields";
-        _os_log_impl(&dword_181A37000, v236, v259, "%{public}s protocol options are not webtransport, no backtrace", buf, 0xCu);
-      }
-
-      goto LABEL_486;
-    }
-
-    if (v260)
-    {
-      *buf = 136446466;
-      *&buf[4] = "nw_webtransport_options_copy_request_fields";
-      *&buf[12] = 2082;
-      *&buf[14] = v258;
-      _os_log_impl(&dword_181A37000, v236, v259, "%{public}s protocol options are not webtransport, dumping backtrace:%{public}s", buf, 0x16u);
-    }
-
-    free(v258);
-  }
-
-LABEL_487:
-  if (v235)
-  {
-LABEL_488:
-    free(v235);
-  }
-
-LABEL_489:
-  v8 = 0;
-LABEL_13:
-
-  v494 = nw_parameters_copy_url_endpoint(*(a1 + 368));
-  url = nw_endpoint_get_url(v494);
-  v10 = nw_http_request_create_from_url("CONNECT", url);
-  nw_http_request_set_extended_connect_protocol(v10, "webtransport");
-  if (v8)
-  {
-    nw_http_request_set_header_fields(v10, v8);
-  }
-
-  v493 = v8;
-  metadata_for_request = nw_http_create_metadata_for_request(v10);
-  v12 = *(a1 + 32);
-  if ((*(a1 + 580) & 2) == 0 && gLogDatapath == 1)
-  {
-    v240 = __nwlog_obj();
-    if (os_log_type_enabled(v240, OS_LOG_TYPE_DEBUG))
-    {
-      v241 = *(a1 + 492);
-      *type = 136446978;
-      *&type[4] = "nw_webtransport_session_send_metadata";
-      *&type[12] = 2082;
-      *&type[14] = a1 + 496;
-      *&type[22] = 2080;
-      v520 = " ";
-      LOWORD(v521) = 1024;
-      *(&v521 + 2) = v241;
-      _os_log_impl(&dword_181A37000, v240, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", type, 0x26u);
-    }
-  }
-
-  v511 = 0;
-  v512 = &v511;
-  output_frames = nw_protocol_get_output_frames(v12, a1, 0, 0, 1, &v511);
-  if ((*(a1 + 580) & 2) == 0 && gLogDatapath == 1)
-  {
-    v242 = output_frames;
-    v243 = __nwlog_obj();
-    v244 = os_log_type_enabled(v243, OS_LOG_TYPE_DEBUG);
-    output_frames = v242;
-    if (v244)
-    {
-      v245 = *(a1 + 492);
-      *type = 136447234;
-      *&type[4] = "nw_webtransport_session_send_metadata";
-      *&type[12] = 2082;
-      *&type[14] = a1 + 496;
-      *&type[22] = 2080;
-      v520 = " ";
-      LOWORD(v521) = 1024;
-      *(&v521 + 2) = v245;
-      HIWORD(v521) = 1024;
-      LODWORD(v522) = v242;
-      _os_log_impl(&dword_181A37000, v243, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Got %u output frames", type, 0x2Cu);
-      output_frames = v242;
-    }
-  }
-
-  if (!output_frames)
-  {
-    v19 = *(a1 + 580);
-    goto LABEL_42;
-  }
-
-  *type = 0;
-  *&type[8] = type;
-  *&type[16] = 0x2000000000;
-  LOBYTE(v520) = 0;
-  *buf = MEMORY[0x1E69E9820];
-  *&buf[8] = 0x40000000;
-  *&buf[16] = ___ZL37nw_webtransport_session_send_metadataP23nw_webtransport_sessionP20nw_protocol_metadataP11nw_protocol_block_invoke;
-  v525 = &unk_1E6A31918;
-  *v526 = type;
-  *&v526[8] = &v511;
-  *&v526[16] = a1;
-  *&v526[24] = metadata_for_request;
-  v14 = metadata_for_request;
-  v15 = v511;
-  do
-  {
-    if (!v15)
-    {
-      break;
-    }
-
-    v16 = *(v15 + 32);
-    v17 = (*&buf[16])(buf);
-    v15 = v16;
-  }
-
-  while ((v17 & 1) != 0);
-  v18 = nw_protocol_finalize_output_frames(v12, &v511);
-  _Block_object_dispose(type, 8);
-  v19 = *(a1 + 580);
-  if ((v18 & 1) == 0)
-  {
-    metadata_for_request = v14;
-LABEL_42:
-    v33 = *(a1 + 476);
-    if (v33 == 5)
-    {
-      if ((v19 & 2) != 0)
-      {
-        goto LABEL_456;
-      }
-
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v34 = gLogObj;
-      if (!os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-      {
-        goto LABEL_456;
-      }
-
-      v35 = *(a1 + 492);
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_session_terminate";
-      *&buf[12] = 2082;
-      *&buf[14] = a1 + 496;
-      *&buf[22] = 2080;
-      v525 = " ";
-      *v526 = 1024;
-      *&v526[2] = v35;
-      v36 = "%{public}s %{public}s%s<i%u> Session already terminated, ignoring";
-      v37 = v34;
-      v38 = OS_LOG_TYPE_INFO;
-LABEL_46:
-      _os_log_impl(&dword_181A37000, v37, v38, v36, buf, 0x26u);
-      if (!metadata_for_request)
-      {
-        goto LABEL_458;
-      }
-
-      goto LABEL_457;
-    }
-
-    if ((v19 & 2) == 0)
-    {
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v39 = gLogObj;
-      if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-      {
-        v40 = *(a1 + 492);
-        *buf = 136447234;
-        *&buf[4] = "nw_webtransport_session_terminate";
-        *&buf[12] = 2082;
-        *&buf[14] = a1 + 496;
-        *&buf[22] = 2080;
-        v525 = " ";
-        *v526 = 1024;
-        *&v526[2] = v40;
-        *&v526[6] = 1024;
-        *&v526[8] = 12;
-        _os_log_impl(&dword_181A37000, v39, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Closing webtransport session with error %{darwin.errno}d", buf, 0x2Cu);
-      }
-
-      v33 = *(a1 + 476);
-    }
-
-    v492 = metadata_for_request;
-    *(a1 + 476) = 5;
-    v41 = *(a1 + 192);
-    if (v41)
-    {
-      v495 = MEMORY[0x1E69E9820];
-      v496 = 0x40000000;
-      v497 = ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke;
-      v498 = &__block_descriptor_tmp_24_36439;
-      v499 = 12;
-      nw_hash_table_apply(v41, &v495);
-    }
-
-    v42 = *(a1 + 448);
-    if (v42)
-    {
-      v43 = *(v42 + 88);
-      nw_protocol_error(*(v42 + 48), *(a1 + 448));
-      nw_protocol_disconnect(v42, v43);
-    }
-
-    v44 = *(a1 + 336);
-    if (v44)
-    {
-      do
-      {
-        v45 = *(v44 + 112);
-        v46 = *(v44 + 88);
-        nw_protocol_error(*(v44 + 48), v44);
-        nw_protocol_disconnect(v44, v46);
-        v44 = v45;
-      }
-
-      while (v45);
-    }
-
-    v47 = *(a1 + 440);
-    if (v47)
-    {
-      v48 = *(v47 + 88);
-      nw_protocol_error(*(v47 + 48), *(a1 + 440));
-      nw_protocol_disconnect(v47, v48);
-    }
-
-    metadata_for_request = v492;
-    if (*(a1 + 32))
-    {
-      nw_protocol_remove_instance(a1);
-      nw_protocol_disconnect(*(a1 + 32), a1);
-    }
-
-    v49 = *(a1 + 400);
-    if (!v49 || (v50 = nw_http_connection_metadata_get_webtransport_state(v49)) == 0 || (v51 = v50, v33 != 4) && v33 != 1)
-    {
-LABEL_456:
-      if (!metadata_for_request)
-      {
-        goto LABEL_458;
-      }
-
-      goto LABEL_457;
-    }
-
-    v52 = *(v50 + 16);
-    *(v50 + 16) = v52 - 1;
-    if (v52)
-    {
-LABEL_147:
-      if (*(a1 + 580))
-      {
-        goto LABEL_456;
-      }
-
-      v118 = *v51;
-      if (!*v51)
-      {
-        goto LABEL_456;
-      }
-
-      v119 = *(v118 + 352);
-      v120 = *(v118 + 360);
-      v121 = (v119 + 360);
-      if (!v119)
-      {
-        v121 = v51 + 1;
-      }
-
-      *v121 = v120;
-      *v120 = v119;
-      *(v118 + 352) = 0;
-      *(v118 + 360) = 0;
-      v122 = *(v118 + 32);
-      if (!v122 || *(v118 + 480) != 2)
-      {
-        goto LABEL_198;
-      }
-
-      v123 = v122[2];
-      if (nw_protocol_http2_identifier::onceToken != -1)
-      {
-        v423 = v122[2];
-        dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
-        v123 = v423;
-      }
-
-      if (!nw_protocols_are_equal(v123, &nw_protocol_http2_identifier::http2_protocol_identifier))
-      {
-        v124 = v122[2];
-        if (nw_protocol_http3_identifier::onceToken != -1)
-        {
-          v425 = v122[2];
-          dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-          v124 = v425;
-        }
-
-        if (!nw_protocols_are_equal(v124, &nw_protocol_http3_identifier::http3_protocol_identifier))
-        {
-          v125 = v122[2];
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v427 = v122[2];
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v125 = v427;
-          }
-
-          if (!nw_protocols_are_equal(v125, &nw_protocol_http_messaging_identifier::protocol_identifier))
-          {
-LABEL_198:
-            v146 = *(v118 + 480);
-            if (v146 > 1)
-            {
-              if ((*(v118 + 580) & 2) != 0)
-              {
-                goto LABEL_456;
-              }
-
-              v147 = __nwlog_obj();
-              if (!os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_456;
-              }
-
-              v148 = *(v118 + 492);
-              *buf = 136446978;
-              *&buf[4] = "nw_webtransport_session_establish";
-              *&buf[12] = 2082;
-              *&buf[14] = v118 + 496;
-              *&buf[22] = 2080;
-              v525 = " ";
-              *v526 = 1024;
-              *&v526[2] = v148;
-              v36 = "%{public}s %{public}s%s<i%u> Unknown webtransport session transport mode for establishment, failing";
-              v37 = v147;
-              v38 = OS_LOG_TYPE_ERROR;
-              goto LABEL_46;
-            }
-
-            if ((*(v118 + 580) & 1) == 0)
-            {
-              if (*(v118 + 476))
-              {
-                goto LABEL_456;
-              }
-
-              nw_webtransport_http_send_connect(v118);
-              if (!metadata_for_request)
-              {
-                goto LABEL_458;
-              }
-
-              goto LABEL_457;
-            }
-
-            v149 = *(v118 + 476);
-            if (v146 == 1)
-            {
-              if (v149 != 3)
-              {
-                if (v149)
-                {
-                  goto LABEL_456;
-                }
-
-                v150 = *(v118 + 48);
-                if (v150)
-                {
-                  v151 = *(v150 + 40);
-                  if (v151)
-                  {
-                    nw_protocol_replace_input_handler(*(v118 + 32), v118, *(v150 + 40));
-                    *(v118 + 440) = v151;
-                    nw_protocol_set_output_handler(v118, 0);
-                    nw_protocol_set_input_handler(v118, 0);
-                    if ((*(v118 + 580) & 1) == 0)
-                    {
-                      goto LABEL_455;
-                    }
-
-                    v152 = *(*(v118 + 440) + 32);
-                    v153 = *(v152 + 16);
-                    if (nw_protocol_http_messaging_identifier::onceToken != -1)
-                    {
-                      v461 = *(v152 + 16);
-                      dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                      v153 = v461;
-                    }
-
-                    if (!nw_protocols_are_equal(v153, &nw_protocol_http_messaging_identifier::protocol_identifier))
-                    {
-                      v154 = *(v152 + 16);
-                      if (nw_protocol_http3_identifier::onceToken != -1)
-                      {
-                        dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-                      }
-
-                      metadata_for_request = v492;
-                      if (!nw_protocols_are_equal(v154, &nw_protocol_http3_identifier::http3_protocol_identifier))
-                      {
-                        goto LABEL_455;
-                      }
-                    }
-
-                    v155 = *(v118 + 368);
-                    if (!v155)
-                    {
-                      goto LABEL_455;
-                    }
-
-                    v156 = nw_parameters_copy_protocol_options_legacy(v155, v152);
-                    if (v156)
-                    {
-                      v157 = v156;
-                      if ((*(v151 + 276) & 0x10) == 0 && gLogDatapath == 1)
-                      {
-                        v472 = __nwlog_obj();
-                        if (os_log_type_enabled(v472, OS_LOG_TYPE_DEBUG))
-                        {
-                          v473 = *(v151 + 88);
-                          if (v473)
-                          {
-                            v474 = *(v473 + 492);
-                          }
-
-                          else
-                          {
-                            v474 = -1;
-                          }
-
-                          v488 = *(v151 + 64);
-                          *buf = 136447490;
-                          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                          *&buf[12] = 2082;
-                          *&buf[14] = v151 + 192;
-                          *&buf[22] = 2080;
-                          v525 = " ";
-                          *v526 = 1024;
-                          *&v526[2] = v474;
-                          *&v526[6] = 2048;
-                          *&v526[8] = v488;
-                          *&v526[16] = 2048;
-                          *&v526[18] = v157;
-                          _os_log_impl(&dword_181A37000, v472, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> Reverting stream mode to default on options %p", buf, 0x3Au);
-                        }
-                      }
-
-                      nw_http3_set_stream_mode(v157, 0);
-                      os_release(v157);
-                    }
-
-                    else
-                    {
-                      if ((*(v118 + 580) & 2) == 0 && gLogDatapath == 1)
-                      {
-                        v479 = __nwlog_obj();
-                        if (os_log_type_enabled(v479, OS_LOG_TYPE_DEBUG))
-                        {
-                          v480 = *(v118 + 492);
-                          *buf = 136446978;
-                          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                          *&buf[12] = 2082;
-                          *&buf[14] = v118 + 496;
-                          *&buf[22] = 2080;
-                          v525 = " ";
-                          *v526 = 1024;
-                          *&v526[2] = v480;
-                          _os_log_impl(&dword_181A37000, v479, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Received HTTP options are NULL", buf, 0x26u);
-                        }
-                      }
-
-                      v274 = *(v151 + 88);
-                      nw_protocol_error(*(v151 + 48), v151);
-                      nw_protocol_disconnect(v151, v274);
-                    }
-
-LABEL_454:
-                    metadata_for_request = v492;
-LABEL_455:
-                    *(v118 + 476) = 2;
-                    goto LABEL_456;
-                  }
-
-                  __nwlog_obj();
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                  v440 = _os_log_send_and_compose_impl();
-                  type[0] = 16;
-                  LOBYTE(v511) = 0;
-                  if (!__nwlog_fault(v440, type, &v511))
-                  {
-                    goto LABEL_984;
-                  }
-
-                  if (type[0] == 17)
-                  {
-                    v441 = __nwlog_obj();
-                    v442 = type[0];
-                    if (!os_log_type_enabled(v441, type[0]))
-                    {
-                      goto LABEL_984;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null webtransport_stream";
-                    goto LABEL_983;
-                  }
-
-                  if (v511 != 1)
-                  {
-                    v441 = __nwlog_obj();
-                    v442 = type[0];
-                    if (!os_log_type_enabled(v441, type[0]))
-                    {
-                      goto LABEL_984;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                    goto LABEL_983;
-                  }
-
-                  v462 = __nw_create_backtrace_string();
-                  v441 = __nwlog_obj();
-                  v442 = type[0];
-                  v463 = os_log_type_enabled(v441, type[0]);
-                  if (v462)
-                  {
-                    if (v463)
-                    {
-                      *buf = 136446466;
-                      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v462;
-                      _os_log_impl(&dword_181A37000, v441, v442, "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s", buf, 0x16u);
-                    }
-
-                    free(v462);
-                    if (!v440)
-                    {
-                      goto LABEL_454;
-                    }
-
-                    goto LABEL_985;
-                  }
-
-                  if (v463)
-                  {
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null webtransport_stream, no backtrace";
-LABEL_983:
-                    _os_log_impl(&dword_181A37000, v441, v442, v443, buf, 0xCu);
-                  }
-                }
-
-                else
-                {
-                  __nwlog_obj();
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                  v440 = _os_log_send_and_compose_impl();
-                  type[0] = 16;
-                  LOBYTE(v511) = 0;
-                  if (!__nwlog_fault(v440, type, &v511))
-                  {
-                    goto LABEL_984;
-                  }
-
-                  if (type[0] == 17)
-                  {
-                    v441 = __nwlog_obj();
-                    v442 = type[0];
-                    if (!os_log_type_enabled(v441, type[0]))
-                    {
-                      goto LABEL_984;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null input_protocol";
-                    goto LABEL_983;
-                  }
-
-                  if (v511 != 1)
-                  {
-                    v441 = __nwlog_obj();
-                    v442 = type[0];
-                    if (!os_log_type_enabled(v441, type[0]))
-                    {
-                      goto LABEL_984;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-                    goto LABEL_983;
-                  }
-
-                  v458 = __nw_create_backtrace_string();
-                  v441 = __nwlog_obj();
-                  v442 = type[0];
-                  v459 = os_log_type_enabled(v441, type[0]);
-                  if (!v458)
-                  {
-                    if (!v459)
-                    {
-                      goto LABEL_984;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v443 = "%{public}s called with null input_protocol, no backtrace";
-                    goto LABEL_983;
-                  }
-
-                  if (v459)
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v458;
-                    _os_log_impl(&dword_181A37000, v441, v442, "%{public}s called with null input_protocol, dumping backtrace:%{public}s", buf, 0x16u);
-                  }
-
-                  free(v458);
-                }
-
-LABEL_984:
-                if (!v440)
-                {
-                  goto LABEL_454;
-                }
-
-LABEL_985:
-                free(v440);
-                goto LABEL_454;
-              }
-
-              v163 = *(v118 + 32);
-              if (v163)
-              {
-                v164 = v163[3];
-                if (v164 && *(v164 + 80))
-                {
-                  for (k = 3; ; k = *(v118 + 476))
-                  {
-                    metadata_for_request = v492;
-                    if ((k | 2) != 3)
-                    {
-                      break;
-                    }
-
-                    if (!nw_protocol_get_input_frames(v163, v118, 0, 0, 0xFFFFFFFFLL, v118 + 120))
-                    {
-                      goto LABEL_456;
-                    }
-
-                    *buf = 0;
-                    *&buf[8] = buf;
-                    *&buf[16] = 0x3802000000;
-                    v525 = __Block_byref_object_copy__36471;
-                    *v526 = __Block_byref_object_dispose__36472;
-                    *&v526[8] = nw_protocol_copy_http_definition();
-                    v526[16] |= 1u;
-                    *type = MEMORY[0x1E69E9820];
-                    *&type[8] = 0x40000000;
-                    *&type[16] = ___ZL38nw_webtransport_session_http_get_inputP23nw_webtransport_session_block_invoke;
-                    v520 = &unk_1E6A31940;
-                    v521 = buf;
-                    v522 = v118;
-                    v523 = v118 + 120;
-                    v166 = *(v118 + 120);
-                    do
-                    {
-                      if (!v166)
-                      {
-                        break;
-                      }
-
-                      v167 = *(v166 + 32);
-                      v168 = (*&type[16])(type);
-                      v166 = v167;
-                    }
-
-                    while ((v168 & 1) != 0);
-                    _Block_object_dispose(buf, 8);
-                    if ((v526[16] & 1) != 0 && *&v526[8])
-                    {
-                      os_release(*&v526[8]);
-                    }
-                  }
-
-                  v246 = *(v118 + 480);
-                  if (v246 == 1)
-                  {
-                    nw_webtransport_http3_handle_input(v118);
-                    v271 = *(v118 + 448);
-                    if (!v271 || !*(v271 + 72))
-                    {
-                      goto LABEL_456;
-                    }
-
-                    nw_protocol_input_available(*(v271 + 48), v271);
-                    if (!v492)
-                    {
-                      goto LABEL_458;
-                    }
-
-LABEL_457:
-                    os_release(metadata_for_request);
-                    goto LABEL_458;
-                  }
-
-                  if (v246)
-                  {
-                    goto LABEL_456;
-                  }
-
-                  if ((*(v118 + 580) & 2) == 0 && gLogDatapath == 1)
-                  {
-                    v477 = __nwlog_obj();
-                    if (os_log_type_enabled(v477, OS_LOG_TYPE_DEBUG))
-                    {
-                      v478 = *(v118 + 492);
-                      *buf = 136446978;
-                      *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v118 + 496;
-                      *&buf[22] = 2080;
-                      v525 = " ";
-                      *v526 = 1024;
-                      *&v526[2] = v478;
-                      _os_log_impl(&dword_181A37000, v477, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-                    }
-                  }
-
-                  if (*(v118 + 476) == 4)
-                  {
-                    v247 = (v118 + 96);
-                    v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                    while (1)
-                    {
-                      v282 = nw_http_capsule_framer_read_capsule((v118 + 96), v118);
-                      if (!v282 && !*(v118 + 136))
-                      {
-                        break;
-                      }
-
-                      if (!*(v118 + 456))
-                      {
-                        v284 = *v247;
-                        if (*v247 == -1)
-                        {
-                          goto LABEL_553;
-                        }
-
-                        v285 = *(v118 + 104) != -1 && *(v118 + 112) == 0;
-                        if (v284 <= 16770303)
-                        {
-                          v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                          if ((v284 - 16770048) >= 6 && ((v284 + 1) > 4 || !v284))
-                          {
-                            goto LABEL_498;
-                          }
-
-LABEL_553:
-                          v298 = __nwlog_obj();
-                          if (os_log_type_enabled(v298, OS_LOG_TYPE_ERROR))
-                          {
-                            *buf = 136446466;
-                            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                            *&buf[12] = 2048;
-                            *&buf[14] = v284;
-                            _os_log_impl(&dword_181A37000, v298, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                          }
-
-                          goto LABEL_498;
-                        }
-
-                        if ((v284 - 420171065) <= 9 && ((1 << (v284 - 57)) & 0x2EF) != 0)
-                        {
-                          v518 = -1;
-                          if ((nw_http_capsule_framer_parse_vle_value((v118 + 96), v118, &v518) & 1) == 0)
-                          {
-                            if (v285 && (*(v118 + 580) & 2) == 0)
-                            {
-                              v325 = __nwlog_obj();
-                              if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
-                              {
-                                v326 = *(v118 + 492);
-                                *buf = 136447234;
-                                *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                *&buf[12] = 2082;
-                                *&buf[14] = v118 + 496;
-                                *&buf[22] = 2080;
-                                v525 = " ";
-                                *v526 = 1024;
-                                *&v526[2] = v326;
-                                *&v526[6] = 2048;
-                                *&v526[8] = v284;
-                                v320 = v325;
-                                v321 = "%{public}s %{public}s%s<i%u> Failed to parse stream ID from capsule 0x%llx correctly.";
-LABEL_593:
-                                _os_log_impl(&dword_181A37000, v320, OS_LOG_TYPE_ERROR, v321, buf, 0x30u);
-                              }
-                            }
-
-LABEL_556:
-                            v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                            goto LABEL_498;
-                          }
-
-                          v297 = nw_webtransport_session_get_stream(v118, v518);
-                          if (v297)
-                          {
-                            goto LABEL_547;
-                          }
-
-                          if ((v284 - 420171067) <= 1)
-                          {
-                            v301 = v518;
-                            v302 = *(v118 + 580);
-                            if (v518 >> 60 || ((v518 ^ v302) & 1) == 0)
-                            {
-                              if ((v302 & 2) != 0)
-                              {
-                                goto LABEL_579;
-                              }
-
-                              v310 = __nwlog_obj();
-                              if (!os_log_type_enabled(v310, OS_LOG_TYPE_ERROR))
-                              {
-                                goto LABEL_579;
-                              }
-
-                              v311 = *(v118 + 492);
-                              *buf = 136446978;
-                              *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v118 + 496;
-                              *&buf[22] = 2080;
-                              v525 = " ";
-                              *v526 = 1024;
-                              *&v526[2] = v311;
-                              v312 = v310;
-                              v313 = "%{public}s %{public}s%s<i%u> Invalid incoming stream ID";
-                            }
-
-                            else
-                            {
-                              v303 = *(v118 + 424);
-                              if (v303)
-                              {
-                                v304 = *v303;
-                                if (v304)
-                                {
-                                  if (*v304)
-                                  {
-                                    v305 = _nw_parameters_copy(*(v118 + 368));
-                                    *(v118 + 580) |= 0x20u;
-                                    *(v118 + 176) = v301;
-                                    v306 = (***(v118 + 424))(*(v118 + 424), *(v118 + 384), v305);
-                                    *(v118 + 176) = -1;
-                                    *(v118 + 580) &= ~0x20u;
-                                    if (v306)
-                                    {
-                                      v297 = nw_webtransport_session_get_stream(v118, v301);
-                                    }
-
-                                    else
-                                    {
-                                      v297 = 0;
-                                    }
-
-                                    if (v305)
-                                    {
-                                      os_release(v305);
-                                    }
-
-                                    if (v297)
-                                    {
-                                      if (*(v297 + 184) == 3)
-                                      {
-                                        if ((*(v118 + 580) & 2) == 0)
-                                        {
-                                          v318 = __nwlog_obj();
-                                          if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
-                                          {
-                                            v319 = *(v118 + 492);
-                                            *buf = 136447234;
-                                            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                            *&buf[12] = 2082;
-                                            *&buf[14] = v118 + 496;
-                                            *&buf[22] = 2080;
-                                            v525 = " ";
-                                            *v526 = 1024;
-                                            *&v526[2] = v319;
-                                            *&v526[6] = 2048;
-                                            *&v526[8] = v518;
-                                            v320 = v318;
-                                            v321 = "%{public}s %{public}s%s<i%u> Stream %llu is not reading.";
-                                            goto LABEL_593;
-                                          }
-                                        }
-                                      }
-
-                                      else
-                                      {
-LABEL_547:
-                                        *(v118 + 456) = v297;
-                                      }
-
-                                      goto LABEL_556;
-                                    }
-
-                                    goto LABEL_579;
-                                  }
-                                }
-                              }
-
-                              if ((v302 & 2) != 0)
-                              {
-                                goto LABEL_579;
-                              }
-
-                              v316 = __nwlog_obj();
-                              if (!os_log_type_enabled(v316, OS_LOG_TYPE_ERROR))
-                              {
-                                goto LABEL_579;
-                              }
-
-                              v317 = *(v118 + 492);
-                              *buf = 136446978;
-                              *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v118 + 496;
-                              *&buf[22] = 2080;
-                              v525 = " ";
-                              *v526 = 1024;
-                              *&v526[2] = v317;
-                              v312 = v316;
-                              v313 = "%{public}s %{public}s%s<i%u> Listen handler not setup to accept inbound stream";
-                            }
-
-                            _os_log_impl(&dword_181A37000, v312, OS_LOG_TYPE_ERROR, v313, buf, 0x26u);
-                          }
-
-LABEL_579:
-                          if ((*(v118 + 580) & 2) == 0)
-                          {
-                            v314 = __nwlog_obj();
-                            if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
-                            {
-                              v315 = *(v118 + 492);
-                              *buf = 136447490;
-                              *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v118 + 496;
-                              *&buf[22] = 2080;
-                              v525 = " ";
-                              *v526 = 1024;
-                              *&v526[2] = v315;
-                              *&v526[6] = 2048;
-                              *&v526[8] = v518;
-                              *&v526[16] = 2048;
-                              *&v526[18] = v284;
-                              _os_log_impl(&dword_181A37000, v314, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Did not find stream %llu for capsule 0x%llx.", buf, 0x3Au);
-                            }
-                          }
-
-                          goto LABEL_556;
-                        }
-
-                        v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                        if ((v284 - 16770304) < 4)
-                        {
-                          goto LABEL_553;
-                        }
-                      }
-
-LABEL_498:
-                      v283 = *(v118 + 96);
-                      if ((*(v118 + 580) & 2) == 0 && BYTE1(v248[82].isa) == 1)
-                      {
-                        v322 = __nwlog_obj();
-                        if (os_log_type_enabled(v322, OS_LOG_TYPE_DEBUG))
-                        {
-                          v323 = *(v118 + 492);
-                          v324 = *(v118 + 104);
-                          *buf = 136447490;
-                          *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                          *&buf[12] = 2082;
-                          *&buf[14] = v118 + 496;
-                          *&buf[22] = 2080;
-                          v525 = " ";
-                          *v526 = 1024;
-                          *&v526[2] = v323;
-                          *&v526[6] = 2048;
-                          *&v526[8] = v283;
-                          *&v526[16] = 2048;
-                          *&v526[18] = v324;
-                          _os_log_impl(&dword_181A37000, v322, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Webtransport session received capsule type 0x%llx length %llu", buf, 0x3Au);
-                        }
-                      }
-
-                      if (v283 <= 16770303)
-                      {
-                        if (v283 <= 16770047)
-                        {
-                          if ((v283 - 1) < 3 || v283 == -1)
-                          {
-                            goto LABEL_517;
-                          }
-
-                          if (!v283)
-                          {
-                            v286 = *(v118 + 448);
-                            if (!v286 || *(v286 + 184) == 3)
-                            {
-                              nw_frame_array_finalize(v118 + 136, 1, 1);
-LABEL_572:
-                              v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                              goto LABEL_573;
-                            }
-
-                            v505 = MEMORY[0x1E69E9820];
-                            v506 = 0x40000000;
-                            v507 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke_2;
-                            v508 = &__block_descriptor_tmp_35_36486;
-                            v509 = v118 + 96;
-                            v510 = v286;
-                            v307 = *(v118 + 136);
-                            do
-                            {
-                              if (!v307)
-                              {
-                                break;
-                              }
-
-                              v308 = *(v307 + 32);
-                              v309 = (v507)(&v505);
-                              v307 = v308;
-                            }
-
-                            while ((v309 & 1) != 0);
-                            goto LABEL_571;
-                          }
-                        }
-
-                        else if ((v283 - 16770048) < 6)
-                        {
-                          goto LABEL_517;
-                        }
-
-                        goto LABEL_573;
-                      }
-
-                      if (v283 <= 420171064)
-                      {
-                        if ((v283 - 16770304) >= 4)
-                        {
-                          if (v283 == 420171064)
-                          {
-                            nw_frame_array_finalize(v118 + 136, 1, 1);
-                          }
-
-                          goto LABEL_573;
-                        }
-
-LABEL_517:
-                        v287 = __nwlog_obj();
-                        if (os_log_type_enabled(v287, OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 136446466;
-                          *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                          *&buf[12] = 2048;
-                          *&buf[14] = v283;
-                          _os_log_impl(&dword_181A37000, v287, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                        }
-
-                        goto LABEL_573;
-                      }
-
-                      if ((v283 - 420171065) < 2)
-                      {
-                        if (v282)
-                        {
-                          v292 = *(v118 + 456);
-                          v518 = -1;
-                          if (nw_http_capsule_framer_parse_vle_value((v118 + 96), v118, &v518))
-                          {
-                            if (!v292 || (*(v292 + 276) & 0x10) == 0)
-                            {
-                              v293 = __nwlog_obj();
-                              if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
-                              {
-                                if (v292)
-                                {
-                                  v294 = (v292 + 192);
-                                }
-
-                                else
-                                {
-                                  v294 = "";
-                                }
-
-                                v295 = " ";
-                                if (!v292)
-                                {
-                                  v295 = "";
-                                }
-
-                                v296 = *(v292 + 88);
-                                if (v296)
-                                {
-                                  v279 = *(v296 + 492);
-                                }
-
-                                else
-                                {
-                                  v279 = -1;
-                                }
-
-                                v280 = *(v292 + 64);
-                                *buf = 136448002;
-                                *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                                *&buf[12] = 2082;
-                                *&buf[14] = v294;
-                                *&buf[22] = 2080;
-                                v525 = v295;
-                                *v526 = 1024;
-                                *&v526[2] = v279;
-                                *&v526[6] = 2048;
-                                *&v526[8] = v280;
-                                *&v526[16] = 2048;
-                                *&v526[18] = v283;
-                                *&v526[26] = 2048;
-                                *&v526[28] = v280;
-                                v527 = 2048;
-                                v528 = v518;
-                                _os_log_impl(&dword_181A37000, v293, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u:s%llu> Received 0x%llx capsule for stream ID %llu with error code %llu", buf, 0x4Eu);
-                              }
-                            }
-
-                            nw_protocol_webtransport_stream_error(v292, v118);
-                            nw_protocol_webtransport_stream_disconnect(v292, v281);
-                          }
-
-                          else if ((*(v118 + 580) & 2) == 0)
-                          {
-                            v299 = __nwlog_obj();
-                            if (os_log_type_enabled(v299, OS_LOG_TYPE_ERROR))
-                            {
-                              v300 = *(v118 + 492);
-                              *buf = 136447234;
-                              *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v118 + 496;
-                              *&buf[22] = 2080;
-                              v525 = " ";
-                              *v526 = 1024;
-                              *&v526[2] = v300;
-                              *&v526[6] = 2048;
-                              *&v526[8] = v283;
-                              _os_log_impl(&dword_181A37000, v299, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Failed to parse error code from capsule 0x%llx correctly", buf, 0x30u);
-                            }
-                          }
-
-                          v248 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-LABEL_494:
-                          *(v118 + 456) = 0;
-                          nw_http_capsule_complete_capsule(v118 + 96);
-                        }
-                      }
-
-                      else
-                      {
-                        if ((v283 - 420171067) < 2)
-                        {
-                          v286 = *(v118 + 456);
-                          v288 = v283 == 420171068 && v282;
-                          v511 = MEMORY[0x1E69E9820];
-                          v512 = 0x40000000;
-                          v513 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke;
-                          v514 = &__block_descriptor_tmp_34_36485;
-                          v517 = v288;
-                          v515 = v118 + 96;
-                          v516 = v286;
-                          v289 = *(v118 + 136);
-                          do
-                          {
-                            if (!v289)
-                            {
-                              break;
-                            }
-
-                            v290 = *(v289 + 32);
-                            v291 = (v513)(&v511);
-                            v289 = v290;
-                          }
-
-                          while ((v291 & 1) != 0);
-                          if (v288)
-                          {
-                            nw_protocol_input_finished(v286, v118);
-                            goto LABEL_572;
-                          }
-
-LABEL_571:
-                          nw_protocol_input_available(v286, v118);
-                          goto LABEL_572;
-                        }
-
-LABEL_573:
-                        if (v282)
-                        {
-                          goto LABEL_494;
-                        }
-                      }
-                    }
-                  }
-
-LABEL_979:
-                  metadata_for_request = v492;
-                  if (!v492)
-                  {
-                    goto LABEL_458;
-                  }
-
-                  goto LABEL_457;
-                }
-
-                if ((*(v118 + 580) & 2) == 0)
-                {
-                  v428 = __nwlog_obj();
-                  if (os_log_type_enabled(v428, OS_LOG_TYPE_ERROR))
-                  {
-                    v429 = *(v118 + 492);
-                    *buf = 136446978;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v118 + 496;
-                    *&buf[22] = 2080;
-                    v525 = " ";
-                    *v526 = 1024;
-                    *&v526[2] = v429;
-                    _os_log_impl(&dword_181A37000, v428, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> output handler has no get_input_frames callback", buf, 0x26u);
-                  }
-                }
-
-                __nwlog_obj();
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_session_http_get_input";
-                v430 = _os_log_send_and_compose_impl();
-                type[0] = 16;
-                LOBYTE(v511) = 0;
-                if (!__nwlog_fault(v430, type, &v511))
-                {
-LABEL_977:
-                  if (v430)
-                  {
-                    free(v430);
-                  }
-
-                  goto LABEL_979;
-                }
-
-                if (type[0] == 17)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s output handler has no get_input_frames callback";
-LABEL_976:
-                  _os_log_impl(&dword_181A37000, v431, v432, v433, buf, 0xCu);
-                  goto LABEL_977;
-                }
-
-                if (v511 != 1)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s output handler has no get_input_frames callback, backtrace limit exceeded";
-                  goto LABEL_976;
-                }
-
-                v444 = __nw_create_backtrace_string();
-                v431 = __nwlog_obj();
-                v432 = type[0];
-                v445 = os_log_type_enabled(v431, type[0]);
-                if (!v444)
-                {
-                  if (!v445)
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s output handler has no get_input_frames callback, no backtrace";
-                  goto LABEL_976;
-                }
-
-                if (v445)
-                {
-                  *buf = 136446466;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v444;
-                  v446 = "%{public}s output handler has no get_input_frames callback, dumping backtrace:%{public}s";
-LABEL_878:
-                  _os_log_impl(&dword_181A37000, v431, v432, v446, buf, 0x16u);
-                }
-              }
-
-              else
-              {
-                __nwlog_obj();
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_session_http_get_input";
-                v430 = _os_log_send_and_compose_impl();
-                type[0] = 16;
-                LOBYTE(v511) = 0;
-                if (!__nwlog_fault(v430, type, &v511))
-                {
-                  goto LABEL_977;
-                }
-
-                if (type[0] == 17)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s called with null output_handler";
-                  goto LABEL_976;
-                }
-
-                if (v511 != 1)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s called with null output_handler, backtrace limit exceeded";
-                  goto LABEL_976;
-                }
-
-                v444 = __nw_create_backtrace_string();
-                v431 = __nwlog_obj();
-                v432 = type[0];
-                v460 = os_log_type_enabled(v431, type[0]);
-                if (!v444)
-                {
-                  if (!v460)
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v433 = "%{public}s called with null output_handler, no backtrace";
-                  goto LABEL_976;
-                }
-
-                if (v460)
-                {
-                  *buf = 136446466;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v444;
-                  v446 = "%{public}s called with null output_handler, dumping backtrace:%{public}s";
-                  goto LABEL_878;
-                }
-              }
-            }
-
-            else
-            {
-              if (v149)
-              {
-                goto LABEL_456;
-              }
-
-              *(v118 + 476) = 3;
-              v158 = *(v118 + 48);
-              if (v158)
-              {
-                v159 = *(v158 + 40);
-                if (v159)
-                {
-                  *(v118 + 440) = v159;
-                  if (!metadata_for_request)
-                  {
-                    goto LABEL_458;
-                  }
-
-                  goto LABEL_457;
-                }
-
-                __nwlog_obj();
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                v430 = _os_log_send_and_compose_impl();
-                type[0] = 16;
-                LOBYTE(v511) = 0;
-                if (!__nwlog_fault(v430, type, &v511))
-                {
-                  goto LABEL_977;
-                }
-
-                if (type[0] == 17)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null webtransport_stream";
-                  goto LABEL_976;
-                }
-
-                if (v511 != 1)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                  goto LABEL_976;
-                }
-
-                v444 = __nw_create_backtrace_string();
-                v431 = __nwlog_obj();
-                v432 = type[0];
-                v450 = os_log_type_enabled(v431, type[0]);
-                if (!v444)
-                {
-                  if (!v450)
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null webtransport_stream, no backtrace";
-                  goto LABEL_976;
-                }
-
-                if (v450)
-                {
-                  *buf = 136446466;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v444;
-                  v446 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-                  goto LABEL_878;
-                }
-              }
-
-              else
-              {
-                __nwlog_obj();
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                v430 = _os_log_send_and_compose_impl();
-                type[0] = 16;
-                LOBYTE(v511) = 0;
-                if (!__nwlog_fault(v430, type, &v511))
-                {
-                  goto LABEL_977;
-                }
-
-                if (type[0] == 17)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null input_protocol";
-                  goto LABEL_976;
-                }
-
-                if (v511 != 1)
-                {
-                  v431 = __nwlog_obj();
-                  v432 = type[0];
-                  if (!os_log_type_enabled(v431, type[0]))
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-                  goto LABEL_976;
-                }
-
-                v444 = __nw_create_backtrace_string();
-                v431 = __nwlog_obj();
-                v432 = type[0];
-                v449 = os_log_type_enabled(v431, type[0]);
-                if (!v444)
-                {
-                  if (!v449)
-                  {
-                    goto LABEL_977;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v433 = "%{public}s called with null input_protocol, no backtrace";
-                  goto LABEL_976;
-                }
-
-                if (v449)
-                {
-                  *buf = 136446466;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v444;
-                  v446 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
-                  goto LABEL_878;
-                }
-              }
-            }
-
-            free(v444);
-            goto LABEL_977;
-          }
-        }
-      }
-
-      v126 = nw_protocol_copy_info(v122);
-      v127 = v126;
-      aBlock = MEMORY[0x1E69E9820];
-      v501 = 0x40000000;
-      v502 = ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke;
-      v503 = &__block_descriptor_tmp_27_36446;
-      v504 = v118;
-      if (v126)
-      {
-        _nw_array_apply(v126, &aBlock);
-        v128 = *(v118 + 400);
-        if (!v128)
-        {
-          os_release(v127);
-          if (!metadata_for_request)
-          {
-            goto LABEL_458;
-          }
-
-          goto LABEL_457;
-        }
-      }
-
-      else
-      {
-        v128 = *(v118 + 400);
-        if (!v128)
-        {
-          goto LABEL_456;
-        }
-      }
-
-      v136 = nw_http_connection_metadata_get_version(v128);
-      v137 = v136;
-      if (v136 == 4)
-      {
-        v138 = 0;
-      }
-
-      else
-      {
-        if (v136 != 5)
-        {
-LABEL_186:
-          v140 = v122[2];
-          if (nw_protocol_http_messaging_identifier::onceToken != -1)
-          {
-            v424 = v122[2];
-            dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-            v140 = v424;
-          }
-
-          v141 = nw_protocols_are_equal(v140, &nw_protocol_http_messaging_identifier::protocol_identifier);
-          v142 = *(v118 + 580);
-          if (v141)
-          {
-            v142 |= 0x40u;
-            *(v118 + 580) = v142;
-          }
-
-          if ((v142 & 2) == 0)
-          {
-            v143 = __nwlog_obj();
-            if (os_log_type_enabled(v143, OS_LOG_TYPE_INFO))
-            {
-              v144 = *(v118 + 492);
-              if (v137 == 4)
-              {
-                v145 = 2;
-              }
-
-              else
-              {
-                v145 = 3;
-              }
-
-              *buf = 136447234;
-              *&buf[4] = "nw_webtransport_session_establish";
-              *&buf[12] = 2082;
-              *&buf[14] = v118 + 496;
-              *&buf[22] = 2080;
-              v525 = " ";
-              *v526 = 1024;
-              *&v526[2] = v144;
-              *&v526[6] = 1024;
-              *&v526[8] = v145;
-              _os_log_impl(&dword_181A37000, v143, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Establishing webtransport session for HTTP/%d", buf, 0x2Cu);
-            }
-          }
-
-          if (v127)
-          {
-            os_release(v127);
-          }
-
-          goto LABEL_198;
-        }
-
-        v138 = 1;
-      }
-
-      *(v118 + 480) = v138;
-      goto LABEL_186;
-    }
-
-    __nwlog_obj();
-    v53 = v51[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_session_terminate";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v53;
-    v54 = _os_log_send_and_compose_impl();
-    type[0] = 16;
-    LOBYTE(v511) = 0;
-    if (__nwlog_fault(v54, type, &v511))
-    {
-      if (type[0] == 17)
-      {
-        v55 = __nwlog_obj();
-        v56 = type[0];
-        if (os_log_type_enabled(v55, type[0]))
-        {
-          v57 = v51[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v57;
-          v58 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-LABEL_142:
-          v117 = v55;
-LABEL_143:
-          _os_log_impl(&dword_181A37000, v117, v56, v58, buf, 0x2Au);
-        }
-      }
-
-      else if (v511 == 1)
-      {
-        v111 = __nw_create_backtrace_string();
-        v112 = __nwlog_obj();
-        v56 = type[0];
-        v113 = os_log_type_enabled(v112, type[0]);
-        if (v111)
-        {
-          if (v113)
-          {
-            v114 = v51[2];
-            *buf = 136447234;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v525 = 1;
-            *v526 = 2048;
-            *&v526[2] = v114;
-            *&v526[10] = 2082;
-            *&v526[12] = v111;
-            _os_log_impl(&dword_181A37000, v112, v56, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-          }
-
-          free(v111);
-          goto LABEL_144;
-        }
-
-        if (v113)
-        {
-          v135 = v51[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v135;
-          v58 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
-          v117 = v112;
-          goto LABEL_143;
-        }
-      }
-
-      else
-      {
-        v55 = __nwlog_obj();
-        v56 = type[0];
-        if (os_log_type_enabled(v55, type[0]))
-        {
-          v116 = v51[2];
-          *buf = 136446978;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = "connection_state->local_sessions";
-          *&buf[22] = 2048;
-          v525 = 1;
-          *v526 = 2048;
-          *&v526[2] = v116;
-          v58 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
-          goto LABEL_142;
-        }
-      }
-    }
-
-LABEL_144:
-    if (v54)
-    {
-      free(v54);
-    }
-
-    v51[2] = 0;
-    metadata_for_request = v492;
-    goto LABEL_147;
-  }
-
-  if ((*(a1 + 580) & 2) == 0)
-  {
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v20 = gLogObj;
-    if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_DEBUG))
-    {
-      v21 = *(a1 + 492);
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_http_send_connect";
-      *&buf[12] = 2082;
-      *&buf[14] = a1 + 496;
-      *&buf[22] = 2080;
-      v525 = " ";
-      *v526 = 1024;
-      *&v526[2] = v21;
-      _os_log_impl(&dword_181A37000, v20, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Sent CONNECT request to WebTransport server", buf, 0x26u);
-    }
-  }
-
-  *(a1 + 476) = 1;
-  v22 = webtransport_state[2];
-  v23 = __CFADD__(v22, 1);
-  v24 = v22 + 1;
-  v25 = v23;
-  webtransport_state[2] = v24;
-  metadata_for_request = v14;
-  if (v25 << 63 >> 63 == v25)
-  {
-    goto LABEL_456;
-  }
-
-  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-  networkd_settings_init();
-  v26 = webtransport_state[2];
-  *buf = 136446978;
-  *&buf[4] = "nw_webtransport_http_send_connect";
-  *&buf[12] = 2082;
-  *&buf[14] = "connection_state->local_sessions";
-  *&buf[22] = 2048;
-  v525 = 1;
-  *v526 = 2048;
-  *&v526[2] = v26;
-  v27 = _os_log_send_and_compose_impl();
-  type[0] = 16;
-  LOBYTE(v511) = 0;
-  if (!__nwlog_fault(v27, type, &v511))
-  {
-    goto LABEL_136;
-  }
-
-  if (type[0] == 17)
-  {
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v28 = gLogObj;
-    v29 = type[0];
-    if (!os_log_type_enabled(gLogObj, type[0]))
-    {
-      goto LABEL_136;
-    }
-
-    v30 = webtransport_state[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_http_send_connect";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v30;
-    v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu";
-LABEL_135:
-    _os_log_impl(&dword_181A37000, v28, v29, v31, buf, 0x2Au);
-    goto LABEL_136;
-  }
-
-  if (v511 != 1)
-  {
-    v28 = __nwlog_obj();
-    v29 = type[0];
-    if (!os_log_type_enabled(v28, type[0]))
-    {
-      goto LABEL_136;
-    }
-
-    v110 = webtransport_state[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_http_send_connect";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v110;
-    v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, backtrace limit exceeded";
-    goto LABEL_135;
-  }
-
-  v107 = __nw_create_backtrace_string();
-  v28 = __nwlog_obj();
-  v29 = type[0];
-  v108 = os_log_type_enabled(v28, type[0]);
-  if (!v107)
-  {
-    if (!v108)
-    {
-      goto LABEL_136;
-    }
-
-    v115 = webtransport_state[2];
-    *buf = 136446978;
-    *&buf[4] = "nw_webtransport_http_send_connect";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v115;
-    v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace";
-    goto LABEL_135;
-  }
-
-  if (v108)
-  {
-    v109 = webtransport_state[2];
-    *buf = 136447234;
-    *&buf[4] = "nw_webtransport_http_send_connect";
-    *&buf[12] = 2082;
-    *&buf[14] = "connection_state->local_sessions";
-    *&buf[22] = 2048;
-    v525 = 1;
-    *v526 = 2048;
-    *&v526[2] = v109;
-    *&v526[10] = 2082;
-    *&v526[12] = v107;
-    _os_log_impl(&dword_181A37000, v28, v29, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-  }
-
-  free(v107);
-LABEL_136:
-  if (v27)
-  {
-    free(v27);
-  }
-
-  webtransport_state[2] = 0xFFFFFFFFLL;
-  metadata_for_request = v14;
-  if (v14)
-  {
-    goto LABEL_457;
-  }
-
-LABEL_458:
-  if (v10)
-  {
-    os_release(v10);
-  }
-
-  if (v494)
-  {
-    os_release(v494);
-  }
-
-  if (v493)
-  {
-    os_release(v493);
-  }
-
-  if (v5)
-  {
-    v194 = v5;
-    goto LABEL_466;
-  }
-}
-
-void sub_18262CC08(_Unwind_Exception *a1)
-{
-  _Block_object_dispose((v2 - 208), 8);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__36471(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(result + 48) = *(result + 48) & 0xFE | *(a2 + 48) & 1;
-  *(a2 + 40) = 0;
-  *(a2 + 48) &= ~1u;
-  return result;
-}
-
-uint64_t __Block_byref_object_dispose__36472(uint64_t result)
-{
-  if ((*(result + 48) & 1) != 0 && *(result + 40))
-  {
-    v1 = result;
-    os_release(*(result + 40));
-    result = v1;
-  }
-
-  *(result + 40) = 0;
-  return result;
-}
-
-uint64_t nw_webtransport_session_get_stream(uint64_t a1, unint64_t a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = a2;
-  if (!(a2 >> 60))
-  {
-    result = *(a1 + 192);
-    if (result)
-    {
-      result = nw_hash_table_get_node(result, &v11, 8);
-      if (result)
-      {
-        return *(result + 16);
-      }
-    }
-
-    return result;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v13 = "nw_webtransport_session_get_stream";
-  v3 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v9 = 0;
-  if (__nwlog_fault(v3, &type, &v9))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v13 = "nw_webtransport_session_get_stream";
-        v6 = "%{public}s called with null (stream_id < WEBTRANSPORT_MAX_STREAMS_LIMIT)";
-LABEL_19:
-        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
-      }
-    }
-
-    else if (v9 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v4 = __nwlog_obj();
-      v5 = type;
-      v8 = os_log_type_enabled(v4, type);
-      if (backtrace_string)
-      {
-        if (v8)
-        {
-          *buf = 136446466;
-          v13 = "nw_webtransport_session_get_stream";
-          v14 = 2082;
-          v15 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null (stream_id < WEBTRANSPORT_MAX_STREAMS_LIMIT), dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_20;
-      }
-
-      if (v8)
-      {
-        *buf = 136446210;
-        v13 = "nw_webtransport_session_get_stream";
-        v6 = "%{public}s called with null (stream_id < WEBTRANSPORT_MAX_STREAMS_LIMIT), no backtrace";
-        goto LABEL_19;
-      }
-    }
-
-    else
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v13 = "nw_webtransport_session_get_stream";
-        v6 = "%{public}s called with null (stream_id < WEBTRANSPORT_MAX_STREAMS_LIMIT), backtrace limit exceeded";
-        goto LABEL_19;
-      }
-    }
-  }
-
-LABEL_20:
-  if (v3)
-  {
-    free(v3);
-  }
-
-  return 0;
-}
-
-void nw_protocol_webtransport_stream_error(nw_protocol *a1, nw_protocol *a2)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    v24 = "nw_protocol_webtransport_stream_error";
-    v3 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v21 = 0;
-    if (!__nwlog_fault(v3, &type, &v21))
-    {
-      goto LABEL_54;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (!os_log_type_enabled(v4, type))
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null protocol";
-    }
-
-    else if (v21 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v4 = __nwlog_obj();
-      v5 = type;
-      v15 = os_log_type_enabled(v4, type);
-      if (backtrace_string)
-      {
-        if (v15)
-        {
-          *buf = 136446466;
-          v24 = "nw_protocol_webtransport_stream_error";
-          v25 = 2082;
-          v26 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-LABEL_54:
-        if (!v3)
-        {
-          return;
-        }
-
-        goto LABEL_55;
-      }
-
-      if (!v15)
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null protocol, no backtrace";
-    }
-
-    else
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (!os_log_type_enabled(v4, type))
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null protocol, backtrace limit exceeded";
-    }
-
-    goto LABEL_53;
-  }
-
-  handle = a1->handle;
-  if (!handle)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    v24 = "nw_protocol_webtransport_stream_error";
-    v3 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v21 = 0;
-    if (!__nwlog_fault(v3, &type, &v21))
-    {
-      goto LABEL_54;
-    }
-
-    if (type != OS_LOG_TYPE_FAULT)
-    {
-      if (v21 != 1)
-      {
-        v4 = __nwlog_obj();
-        v5 = type;
-        if (!os_log_type_enabled(v4, type))
-        {
-          goto LABEL_54;
-        }
-
-        *buf = 136446210;
-        v24 = "nw_protocol_webtransport_stream_error";
-        v6 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-        goto LABEL_53;
-      }
-
-      v16 = __nw_create_backtrace_string();
-      v4 = __nwlog_obj();
-      v5 = type;
-      v17 = os_log_type_enabled(v4, type);
-      if (!v16)
-      {
-        if (!v17)
-        {
-          goto LABEL_54;
-        }
-
-        *buf = 136446210;
-        v24 = "nw_protocol_webtransport_stream_error";
-        v6 = "%{public}s called with null webtransport_stream, no backtrace";
-        goto LABEL_53;
-      }
-
-      if (v17)
-      {
-        *buf = 136446466;
-        v24 = "nw_protocol_webtransport_stream_error";
-        v25 = 2082;
-        v26 = v16;
-        v18 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-LABEL_36:
-        _os_log_impl(&dword_181A37000, v4, v5, v18, buf, 0x16u);
-      }
-
-LABEL_37:
-      free(v16);
-      if (!v3)
-      {
-        return;
-      }
-
-LABEL_55:
-      free(v3);
-      return;
-    }
-
-    v4 = __nwlog_obj();
-    v5 = type;
-    if (!os_log_type_enabled(v4, type))
-    {
-      goto LABEL_54;
-    }
-
-    *buf = 136446210;
-    v24 = "nw_protocol_webtransport_stream_error";
-    v6 = "%{public}s called with null webtransport_stream";
-LABEL_53:
-    _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
-    goto LABEL_54;
-  }
-
-  if (!a2)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    v24 = "nw_protocol_webtransport_stream_error";
-    v3 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v21 = 0;
-    if (!__nwlog_fault(v3, &type, &v21))
-    {
-      goto LABEL_54;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (!os_log_type_enabled(v4, type))
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null other_protocol";
-      goto LABEL_53;
-    }
-
-    if (v21 != 1)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (!os_log_type_enabled(v4, type))
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null other_protocol, backtrace limit exceeded";
-      goto LABEL_53;
-    }
-
-    v16 = __nw_create_backtrace_string();
-    v4 = __nwlog_obj();
-    v5 = type;
-    v19 = os_log_type_enabled(v4, type);
-    if (!v16)
-    {
-      if (!v19)
-      {
-        goto LABEL_54;
-      }
-
-      *buf = 136446210;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v6 = "%{public}s called with null other_protocol, no backtrace";
-      goto LABEL_53;
-    }
-
-    if (v19)
-    {
-      *buf = 136446466;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v25 = 2082;
-      v26 = v16;
-      v18 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
-      goto LABEL_36;
-    }
-
-    goto LABEL_37;
-  }
-
-  if ((*(handle + 276) & 0x10) == 0 && gLogDatapath == 1)
-  {
-    v7 = a2;
-    v8 = a1;
-    v9 = __nwlog_obj();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
-    a2 = v7;
-    v11 = v10;
-    a1 = v8;
-    if (v11)
-    {
-      v12 = handle[11];
-      if (v12)
-      {
-        v13 = *(v12 + 492);
-      }
-
-      else
-      {
-        v13 = -1;
-      }
-
-      v20 = handle[8];
-      *buf = 136447234;
-      v24 = "nw_protocol_webtransport_stream_error";
-      v25 = 2082;
-      v26 = (handle + 24);
-      v27 = 2080;
-      v28 = " ";
-      v29 = 1024;
-      v30 = v13;
-      v31 = 2048;
-      v32 = v20;
-      _os_log_impl(&dword_181A37000, v9, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> called", buf, 0x30u);
-      a2 = v7;
-      a1 = v8;
-    }
-  }
-
-  nw_protocol_error(a1->default_input_handler->flow_id, a2);
-}
-
-void nw_protocol_webtransport_stream_disconnect(nw_protocol *a1, nw_protocol *a2)
-{
-  v206 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    handle = a1->handle;
-    if (handle)
-    {
-      if ((*(handle + 276) & 0x10) == 0 && gLogDatapath == 1)
-      {
-        v57 = __nwlog_obj();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
-        {
-          v58 = handle[11];
-          if (v58)
-          {
-            v59 = *(v58 + 492);
-          }
-
-          else
-          {
-            v59 = -1;
-          }
-
-          v90 = handle[8];
-          *buf = 136447234;
-          *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-          *&buf[12] = 2082;
-          *&buf[14] = handle + 24;
-          *&buf[22] = 2080;
-          v200 = " ";
-          *v201 = 1024;
-          *&v201[2] = v59;
-          *&v201[6] = 2048;
-          *&v201[8] = v90;
-          _os_log_impl(&dword_181A37000, v57, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> called", buf, 0x30u);
-        }
-      }
-
-      if (*(handle + 46) != 3 || *(handle + 47) != 3)
-      {
-        handle[23] = 0x300000003;
-      }
-
-      v4 = handle[11];
-      v5 = *(v4 + 480);
-      if (v5 != 1)
-      {
-        if (v5)
-        {
-          return;
-        }
-
-        goto LABEL_10;
-      }
-
-      if (handle != *(v4 + 440))
-      {
-        output_handler = a1->output_handler;
-        if (output_handler)
-        {
-          callbacks = output_handler->callbacks;
-          if (callbacks)
-          {
-            if (callbacks->disconnect)
-            {
-              nw_protocol_disconnect(output_handler, a1);
-              return;
-            }
-          }
-        }
-
-        goto LABEL_10;
-      }
-
-      if (*(v4 + 476) == 5)
-      {
-        if ((*(v4 + 580) & 2) != 0)
-        {
-          goto LABEL_10;
-        }
-
-        pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-        networkd_settings_init();
-        v8 = gLogObj;
-        if (!os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-        {
-          goto LABEL_10;
-        }
-
-        v9 = *(v4 + 492);
-        *buf = 136446978;
-        *&buf[4] = "nw_webtransport_session_terminate";
-        *&buf[12] = 2082;
-        *&buf[14] = v4 + 496;
-        *&buf[22] = 2080;
-        v200 = " ";
-        *v201 = 1024;
-        *&v201[2] = v9;
-        v10 = "%{public}s %{public}s%s<i%u> Session already terminated, ignoring";
-        v11 = v8;
-        v12 = OS_LOG_TYPE_INFO;
-        goto LABEL_21;
-      }
-
-      if ((*(v4 + 580) & 2) == 0)
-      {
-        pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-        networkd_settings_init();
-        v13 = gLogObj;
-        if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
-        {
-          v14 = *(v4 + 492);
-          *buf = 136447234;
-          *&buf[4] = "nw_webtransport_session_terminate";
-          *&buf[12] = 2082;
-          *&buf[14] = v4 + 496;
-          *&buf[22] = 2080;
-          v200 = " ";
-          *v201 = 1024;
-          *&v201[2] = v14;
-          *&v201[6] = 1024;
-          *&v201[8] = 57;
-          _os_log_impl(&dword_181A37000, v13, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Closing webtransport session with error %{darwin.errno}d", buf, 0x2Cu);
-        }
-      }
-
-      v15 = *(v4 + 476);
-      *(v4 + 476) = 5;
-      v16 = *(v4 + 192);
-      if (v16)
-      {
-        v177[0] = MEMORY[0x1E69E9820];
-        v177[1] = 0x40000000;
-        v177[2] = ___ZL33nw_webtransport_session_terminateP23nw_webtransport_sessioni_block_invoke;
-        v177[3] = &__block_descriptor_tmp_24_36439;
-        v178 = 57;
-        nw_hash_table_apply(v16, v177);
-      }
-
-      v17 = *(v4 + 448);
-      if (v17)
-      {
-        v18 = *(v17 + 88);
-        nw_protocol_error(*(v17 + 48), *(v4 + 448));
-        nw_protocol_disconnect(v17, v18);
-      }
-
-      v19 = *(v4 + 336);
-      if (v19)
-      {
+      *v501 = *a4;
+      v503 = *(a2 + 24);
+      if (v500 <= 0x10)
+      {
+        *(a2 + 24) = v503 + v500;
+        v514 = *(a2 + 8);
+        v515 = v727;
+        goto LABEL_759;
+      }
+
+      v502 = v487;
+      *(v503 + 16) = *(a4 + 1);
+      if (v500 >= 33)
+      {
+        v504 = v503 + v500;
+        v505 = (v503 + 32);
+        v506 = a4 + 48;
         do
         {
-          v20 = *(v19 + 112);
-          v21 = *(v19 + 88);
-          nw_protocol_error(*(v19 + 48), v19);
-          nw_protocol_disconnect(v19, v21);
-          v19 = v20;
+          *v505 = *(v506 - 1);
+          v507 = *v506;
+          v506 += 32;
+          v505[1] = v507;
+          v505 += 2;
         }
 
-        while (v20);
+        while (v505 < v504);
       }
 
-      v22 = *(v4 + 440);
-      if (v22)
+LABEL_756:
+      *(a2 + 24) += v500;
+      v514 = *(a2 + 8);
+      if (v500 >= 0x10000)
       {
-        v23 = *(v22 + 88);
-        nw_protocol_error(*(v22 + 48), *(v4 + 440));
-        nw_protocol_disconnect(v22, v23);
+        v527 = (v514 - *a2) >> 3;
+        *(a2 + 72) = 1;
+        *(a2 + 76) = v527;
       }
 
-      if (*(v4 + 32))
+      v515 = v727;
+      v487 = v502;
+      v127 = v711;
+LABEL_759:
+      v528 = v499 + v485;
+      *(v514 + 4) = v500;
+      *v514 = v487;
+      v529 = v499 + v485 - 3;
+      if (v529 >= 0x10000)
       {
-        nw_protocol_remove_instance(v4);
-        nw_protocol_disconnect(*(v4 + 32), v4);
+        v530 = (v514 - *a2) >> 3;
+        *(a2 + 72) = 2;
+        *(a2 + 76) = v530;
       }
 
-      v24 = *(v4 + 400);
-      if (!v24)
+      *(v514 + 6) = v529;
+      v531 = v514 + 8;
+      *(a2 + 8) = v514 + 8;
+      a4 = &v128[v528];
+      if (&v128[v528] <= v125)
       {
-        goto LABEL_10;
-      }
-
-      webtransport_state = nw_http_connection_metadata_get_webtransport_state(v24);
-      if (!webtransport_state)
-      {
-        goto LABEL_10;
-      }
-
-      v26 = webtransport_state;
-      if (v15 != 4 && v15 != 1)
-      {
-        goto LABEL_10;
-      }
-
-      v27 = *(webtransport_state + 16);
-      *(webtransport_state + 16) = v27 - 1;
-      if (v27)
-      {
-LABEL_57:
-        if (*(v4 + 580))
+        *(v8 + 4 * ((0xCF1BBCDCBB000000 * *(v116 + 2 + v479)) >> v462)) = v479 + 2;
+        *(v8 + 4 * ((0xCF1BBCDCBB000000 * *(a4 - 2)) >> v462)) = a4 - 2 - v116;
+        if (!v134)
         {
-          goto LABEL_10;
+          v133 = 0;
+          goto LABEL_794;
         }
 
-        v39 = *v26;
-        if (!*v26)
+        v532 = v163;
+        while (2)
         {
-          goto LABEL_10;
-        }
-
-        v40 = *(v39 + 352);
-        v41 = *(v39 + 360);
-        v42 = (v40 + 360);
-        if (!v40)
-        {
-          v42 = v26 + 1;
-        }
-
-        *v42 = v41;
-        *v41 = v40;
-        *(v39 + 352) = 0;
-        *(v39 + 360) = 0;
-        v43 = *(v39 + 32);
-        if (!v43 || *(v39 + 480) != 2)
-        {
-          goto LABEL_104;
-        }
-
-        v44 = v43[2];
-        if (nw_protocol_http2_identifier::onceToken != -1)
-        {
-          v144 = v43[2];
-          dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
-          v44 = v144;
-        }
-
-        if (!nw_protocols_are_equal(v44, &nw_protocol_http2_identifier::http2_protocol_identifier))
-        {
-          v45 = v43[2];
-          if (nw_protocol_http3_identifier::onceToken != -1)
+          v133 = v532;
+          v532 = v134;
+          if (*a4 != *&a4[-v134])
           {
-            v146 = v43[2];
-            dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-            v45 = v146;
+            v163 = v133;
+            v133 = v134;
+            goto LABEL_794;
           }
 
-          if (!nw_protocols_are_equal(v45, &nw_protocol_http3_identifier::http3_protocol_identifier))
+          v533 = -v134;
+          v534 = a4 + 4;
+          v535 = &a4[-v134 + 4];
+          if (v463 > (a4 + 4))
           {
-            v46 = v43[2];
-            if (nw_protocol_http_messaging_identifier::onceToken != -1)
+            v536 = *v535;
+            if (v536 == *v534)
             {
-              v147 = v43[2];
-              dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-              v46 = v147;
+              v537 = a4 + 12;
+              v535 = &a4[v533 + 12];
+              do
+              {
+                v538 = v537;
+                if (v537 >= v463)
+                {
+                  goto LABEL_774;
+                }
+
+                v540 = *v535;
+                v535 += 8;
+                v539 = v540;
+                v537 += 8;
+              }
+
+              while (v540 == *v538);
+              v541 = &v538[__clz(__rbit64(*v538 ^ v539)) >> 3] - v534;
             }
 
-            if (!nw_protocols_are_equal(v46, &nw_protocol_http_messaging_identifier::protocol_identifier))
+            else
             {
-LABEL_104:
-              v66 = *(v39 + 480);
-              if (v66 > 1)
-              {
-                if ((*(v39 + 580) & 2) != 0)
-                {
-                  goto LABEL_10;
-                }
-
-                v67 = __nwlog_obj();
-                if (!os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
-                {
-                  goto LABEL_10;
-                }
-
-                v68 = *(v39 + 492);
-                *buf = 136446978;
-                *&buf[4] = "nw_webtransport_session_establish";
-                *&buf[12] = 2082;
-                *&buf[14] = v39 + 496;
-                *&buf[22] = 2080;
-                v200 = " ";
-                *v201 = 1024;
-                *&v201[2] = v68;
-                v10 = "%{public}s %{public}s%s<i%u> Unknown webtransport session transport mode for establishment, failing";
-                v11 = v67;
-                v12 = OS_LOG_TYPE_ERROR;
-LABEL_21:
-                _os_log_impl(&dword_181A37000, v11, v12, v10, buf, 0x26u);
-                goto LABEL_10;
-              }
-
-              if ((*(v39 + 580) & 1) == 0)
-              {
-                if (!*(v39 + 476))
-                {
-                  nw_webtransport_http_send_connect(v39);
-                }
-
-                goto LABEL_10;
-              }
-
-              v69 = *(v39 + 476);
-              if (v66 == 1)
-              {
-                if (v69 != 3)
-                {
-                  if (v69)
-                  {
-                    goto LABEL_10;
-                  }
-
-                  v70 = *(v39 + 48);
-                  if (v70)
-                  {
-                    v71 = *(v70 + 40);
-                    if (v71)
-                    {
-                      nw_protocol_replace_input_handler(*(v39 + 32), v39, *(v70 + 40));
-                      *(v39 + 440) = v71;
-                      nw_protocol_set_output_handler(v39, 0);
-                      nw_protocol_set_input_handler(v39, 0);
-                      if (*(v39 + 580))
-                      {
-                        v72 = *(*(v39 + 440) + 32);
-                        v73 = *(v72 + 16);
-                        if (nw_protocol_http_messaging_identifier::onceToken != -1)
-                        {
-                          dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-                        }
-
-                        if (nw_protocols_are_equal(v73, &nw_protocol_http_messaging_identifier::protocol_identifier))
-                        {
-                          goto LABEL_123;
-                        }
-
-                        v74 = *(v72 + 16);
-                        if (nw_protocol_http3_identifier::onceToken != -1)
-                        {
-                          dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
-                        }
-
-                        if (nw_protocols_are_equal(v74, &nw_protocol_http3_identifier::http3_protocol_identifier))
-                        {
-LABEL_123:
-                          v75 = *(v39 + 368);
-                          if (v75)
-                          {
-                            v76 = nw_parameters_copy_protocol_options_legacy(v75, v72);
-                            if (v76)
-                            {
-                              v77 = v76;
-                              if ((*(v71 + 276) & 0x10) == 0 && gLogDatapath == 1)
-                              {
-                                v169 = __nwlog_obj();
-                                if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
-                                {
-                                  v170 = *(v71 + 88);
-                                  if (v170)
-                                  {
-                                    v171 = *(v170 + 492);
-                                  }
-
-                                  else
-                                  {
-                                    v171 = -1;
-                                  }
-
-                                  v176 = *(v71 + 64);
-                                  *buf = 136447490;
-                                  *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                                  *&buf[12] = 2082;
-                                  *&buf[14] = v71 + 192;
-                                  *&buf[22] = 2080;
-                                  v200 = " ";
-                                  *v201 = 1024;
-                                  *&v201[2] = v171;
-                                  *&v201[6] = 2048;
-                                  *&v201[8] = v176;
-                                  *&v201[16] = 2048;
-                                  *&v201[18] = v77;
-                                  _os_log_impl(&dword_181A37000, v169, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u:s%llu> Reverting stream mode to default on options %p", buf, 0x3Au);
-                                }
-                              }
-
-                              nw_http3_set_stream_mode(v77, 0);
-                              os_release(v77);
-                            }
-
-                            else
-                            {
-                              if ((*(v39 + 580) & 2) == 0 && gLogDatapath == 1)
-                              {
-                                v174 = __nwlog_obj();
-                                if (os_log_type_enabled(v174, OS_LOG_TYPE_DEBUG))
-                                {
-                                  v175 = *(v39 + 492);
-                                  *buf = 136446978;
-                                  *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                                  *&buf[12] = 2082;
-                                  *&buf[14] = v39 + 496;
-                                  *&buf[22] = 2080;
-                                  v200 = " ";
-                                  *v201 = 1024;
-                                  *&v201[2] = v175;
-                                  _os_log_impl(&dword_181A37000, v174, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Received HTTP options are NULL", buf, 0x26u);
-                                }
-                              }
-
-                              v95 = *(v71 + 88);
-                              nw_protocol_error(*(v71 + 48), v71);
-                              nw_protocol_disconnect(v71, v95);
-                            }
-                          }
-                        }
-                      }
-
-                      goto LABEL_181;
-                    }
-
-                    __nwlog_obj();
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v154 = _os_log_send_and_compose_impl();
-                    type[0] = OS_LOG_TYPE_ERROR;
-                    LOBYTE(v192[0]) = 0;
-                    if (__nwlog_fault(v154, type, v192))
-                    {
-                      if (type[0] == OS_LOG_TYPE_FAULT)
-                      {
-                        v155 = __nwlog_obj();
-                        v156 = type[0];
-                        if (!os_log_type_enabled(v155, type[0]))
-                        {
-                          goto LABEL_382;
-                        }
-
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                        v157 = "%{public}s called with null webtransport_stream";
-                        goto LABEL_381;
-                      }
-
-                      if (LOBYTE(v192[0]) != 1)
-                      {
-                        v155 = __nwlog_obj();
-                        v156 = type[0];
-                        if (!os_log_type_enabled(v155, type[0]))
-                        {
-                          goto LABEL_382;
-                        }
-
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                        v157 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                        goto LABEL_381;
-                      }
-
-                      backtrace_string = __nw_create_backtrace_string();
-                      v155 = __nwlog_obj();
-                      v156 = type[0];
-                      v168 = os_log_type_enabled(v155, type[0]);
-                      if (backtrace_string)
-                      {
-                        if (v168)
-                        {
-                          *buf = 136446466;
-                          *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                          *&buf[12] = 2082;
-                          *&buf[14] = backtrace_string;
-                          _os_log_impl(&dword_181A37000, v155, v156, "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s", buf, 0x16u);
-                        }
-
-                        free(backtrace_string);
-                        if (!v154)
-                        {
-                          goto LABEL_181;
-                        }
-
-                        goto LABEL_383;
-                      }
-
-                      if (v168)
-                      {
-                        *buf = 136446210;
-                        *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                        v157 = "%{public}s called with null webtransport_stream, no backtrace";
-LABEL_381:
-                        _os_log_impl(&dword_181A37000, v155, v156, v157, buf, 0xCu);
-                      }
-                    }
-                  }
-
-                  else
-                  {
-                    __nwlog_obj();
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                    v154 = _os_log_send_and_compose_impl();
-                    type[0] = OS_LOG_TYPE_ERROR;
-                    LOBYTE(v192[0]) = 0;
-                    if (!__nwlog_fault(v154, type, v192))
-                    {
-                      goto LABEL_382;
-                    }
-
-                    if (type[0] == OS_LOG_TYPE_FAULT)
-                    {
-                      v155 = __nwlog_obj();
-                      v156 = type[0];
-                      if (!os_log_type_enabled(v155, type[0]))
-                      {
-                        goto LABEL_382;
-                      }
-
-                      *buf = 136446210;
-                      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                      v157 = "%{public}s called with null input_protocol";
-                      goto LABEL_381;
-                    }
-
-                    if (LOBYTE(v192[0]) != 1)
-                    {
-                      v155 = __nwlog_obj();
-                      v156 = type[0];
-                      if (!os_log_type_enabled(v155, type[0]))
-                      {
-                        goto LABEL_382;
-                      }
-
-                      *buf = 136446210;
-                      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                      v157 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-                      goto LABEL_381;
-                    }
-
-                    v163 = __nw_create_backtrace_string();
-                    v155 = __nwlog_obj();
-                    v156 = type[0];
-                    v164 = os_log_type_enabled(v155, type[0]);
-                    if (!v163)
-                    {
-                      if (!v164)
-                      {
-                        goto LABEL_382;
-                      }
-
-                      *buf = 136446210;
-                      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                      v157 = "%{public}s called with null input_protocol, no backtrace";
-                      goto LABEL_381;
-                    }
-
-                    if (v164)
-                    {
-                      *buf = 136446466;
-                      *&buf[4] = "nw_webtransport_http3_setup_placeholder_stream";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v163;
-                      _os_log_impl(&dword_181A37000, v155, v156, "%{public}s called with null input_protocol, dumping backtrace:%{public}s", buf, 0x16u);
-                    }
-
-                    free(v163);
-                  }
-
-LABEL_382:
-                  if (!v154)
-                  {
-LABEL_181:
-                    *(v39 + 476) = 2;
-                    goto LABEL_10;
-                  }
-
-LABEL_383:
-                  free(v154);
-                  goto LABEL_181;
-                }
-
-                v84 = *(v39 + 32);
-                if (!v84)
-                {
-                  __nwlog_obj();
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v150 = _os_log_send_and_compose_impl();
-                  type[0] = OS_LOG_TYPE_ERROR;
-                  LOBYTE(v192[0]) = 0;
-                  if (!__nwlog_fault(v150, type, v192))
-                  {
-                    goto LABEL_377;
-                  }
-
-                  if (type[0] == OS_LOG_TYPE_FAULT)
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    v153 = "%{public}s called with null output_handler";
-                  }
-
-                  else if (LOBYTE(v192[0]) == 1)
-                  {
-                    v165 = __nw_create_backtrace_string();
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    v166 = os_log_type_enabled(v151, type[0]);
-                    if (v165)
-                    {
-                      if (v166)
-                      {
-                        *buf = 136446466;
-                        *&buf[4] = "nw_webtransport_session_http_get_input";
-                        *&buf[12] = 2082;
-                        *&buf[14] = v165;
-                        _os_log_impl(&dword_181A37000, v151, v152, "%{public}s called with null output_handler, dumping backtrace:%{public}s", buf, 0x16u);
-                      }
-
-                      free(v165);
-LABEL_377:
-                      if (!v150)
-                      {
-                        goto LABEL_10;
-                      }
-
-LABEL_378:
-                      free(v150);
-                      goto LABEL_10;
-                    }
-
-                    if (!v166)
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    v153 = "%{public}s called with null output_handler, no backtrace";
-                  }
-
-                  else
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    v153 = "%{public}s called with null output_handler, backtrace limit exceeded";
-                  }
-
-LABEL_376:
-                  _os_log_impl(&dword_181A37000, v151, v152, v153, buf, 0xCu);
-                  goto LABEL_377;
-                }
-
-                v85 = v84[3];
-                if (v85 && *(v85 + 80))
-                {
-                  for (i = 3; (i | 2) == 3; i = *(v39 + 476))
-                  {
-                    if (!nw_protocol_get_input_frames(v84, v39, 0, 0, 0xFFFFFFFFLL, v39 + 120))
-                    {
-                      goto LABEL_10;
-                    }
-
-                    *buf = 0;
-                    *&buf[8] = buf;
-                    *&buf[16] = 0x3802000000;
-                    v200 = __Block_byref_object_copy__36471;
-                    *v201 = __Block_byref_object_dispose__36472;
-                    *&v201[8] = nw_protocol_copy_http_definition();
-                    v201[16] |= 1u;
-                    *type = MEMORY[0x1E69E9820];
-                    v181 = 0x40000000;
-                    v182 = ___ZL38nw_webtransport_session_http_get_inputP23nw_webtransport_session_block_invoke;
-                    v183 = &unk_1E6A31940;
-                    v184 = buf;
-                    v185 = v39;
-                    v186 = v39 + 120;
-                    v87 = *(v39 + 120);
-                    do
-                    {
-                      if (!v87)
-                      {
-                        break;
-                      }
-
-                      v88 = *(v87 + 32);
-                      v89 = (v182)(type);
-                      v87 = v88;
-                    }
-
-                    while ((v89 & 1) != 0);
-                    _Block_object_dispose(buf, 8);
-                    if ((v201[16] & 1) != 0 && *&v201[8])
-                    {
-                      os_release(*&v201[8]);
-                    }
-                  }
-
-                  v91 = *(v39 + 480);
-                  if (v91 == 1)
-                  {
-                    nw_webtransport_http3_handle_input(v39);
-                    v94 = *(v39 + 448);
-                    if (v94 && *(v94 + 72))
-                    {
-                      nw_protocol_input_available(*(v94 + 48), v94);
-                    }
-
-                    goto LABEL_10;
-                  }
-
-                  if (v91)
-                  {
-                    goto LABEL_10;
-                  }
-
-                  if ((*(v39 + 580) & 2) == 0 && gLogDatapath == 1)
-                  {
-                    v172 = __nwlog_obj();
-                    if (os_log_type_enabled(v172, OS_LOG_TYPE_DEBUG))
-                    {
-                      v173 = *(v39 + 492);
-                      *buf = 136446978;
-                      *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                      *&buf[12] = 2082;
-                      *&buf[14] = v39 + 496;
-                      *&buf[22] = 2080;
-                      v200 = " ";
-                      *v201 = 1024;
-                      *&v201[2] = v173;
-                      _os_log_impl(&dword_181A37000, v172, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-                    }
-                  }
-
-                  if (*(v39 + 476) != 4)
-                  {
-LABEL_10:
-                    nw_protocol_disconnected(a1->default_input_handler->flow_id, a1);
-                    return;
-                  }
-
-                  v92 = (v39 + 96);
-                  v93 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                  while (1)
-                  {
-                    capsule = nw_http_capsule_framer_read_capsule((v39 + 96), v39);
-                    if (!capsule && !*(v39 + 136))
-                    {
-                      goto LABEL_10;
-                    }
-
-                    if (!*(v39 + 456))
-                    {
-                      v101 = *v92;
-                      if (*v92 == -1)
-                      {
-                        goto LABEL_245;
-                      }
-
-                      v102 = *(v39 + 104) != -1 && *(v39 + 112) == 0;
-                      if (v101 <= 16770303)
-                      {
-                        if ((v101 - 16770048) >= 6 && ((v101 + 1) > 4 || !v101))
-                        {
-                          goto LABEL_190;
-                        }
-
-LABEL_245:
-                        v115 = __nwlog_obj();
-                        if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 136446466;
-                          *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                          *&buf[12] = 2048;
-                          *&buf[14] = v101;
-                          _os_log_impl(&dword_181A37000, v115, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                        }
-
-                        goto LABEL_190;
-                      }
-
-                      if ((v101 - 420171065) <= 9 && ((1 << (v101 - 57)) & 0x2EF) != 0)
-                      {
-                        v198 = -1;
-                        if ((nw_http_capsule_framer_parse_vle_value((v39 + 96), v39, &v198) & 1) == 0)
-                        {
-                          if (v102 && (*(v39 + 580) & 2) == 0)
-                          {
-                            v142 = __nwlog_obj();
-                            if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
-                            {
-                              v143 = *(v39 + 492);
-                              *buf = 136447234;
-                              *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v39 + 496;
-                              *&buf[22] = 2080;
-                              v200 = " ";
-                              *v201 = 1024;
-                              *&v201[2] = v143;
-                              *&v201[6] = 2048;
-                              *&v201[8] = v101;
-                              v137 = v142;
-                              v138 = "%{public}s %{public}s%s<i%u> Failed to parse stream ID from capsule 0x%llx correctly.";
-LABEL_285:
-                              _os_log_impl(&dword_181A37000, v137, OS_LOG_TYPE_ERROR, v138, buf, 0x30u);
-                            }
-                          }
-
-LABEL_248:
-                          v93 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                          goto LABEL_190;
-                        }
-
-                        stream = nw_webtransport_session_get_stream(v39, v198);
-                        if (stream)
-                        {
-                          goto LABEL_239;
-                        }
-
-                        if ((v101 - 420171067) <= 1)
-                        {
-                          v118 = v198;
-                          v119 = *(v39 + 580);
-                          if (v198 >> 60 || ((v198 ^ v119) & 1) == 0)
-                          {
-                            if ((v119 & 2) != 0)
-                            {
-                              goto LABEL_271;
-                            }
-
-                            v127 = __nwlog_obj();
-                            if (!os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
-                            {
-                              goto LABEL_271;
-                            }
-
-                            v128 = *(v39 + 492);
-                            *buf = 136446978;
-                            *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v39 + 496;
-                            *&buf[22] = 2080;
-                            v200 = " ";
-                            *v201 = 1024;
-                            *&v201[2] = v128;
-                            v129 = v127;
-                            v130 = "%{public}s %{public}s%s<i%u> Invalid incoming stream ID";
-                          }
-
-                          else
-                          {
-                            v120 = *(v39 + 424);
-                            if (v120)
-                            {
-                              v121 = *v120;
-                              if (v121)
-                              {
-                                if (*v121)
-                                {
-                                  v122 = _nw_parameters_copy(*(v39 + 368));
-                                  *(v39 + 580) |= 0x20u;
-                                  *(v39 + 176) = v118;
-                                  v123 = (***(v39 + 424))(*(v39 + 424), *(v39 + 384), v122);
-                                  *(v39 + 176) = -1;
-                                  *(v39 + 580) &= ~0x20u;
-                                  if (v123)
-                                  {
-                                    stream = nw_webtransport_session_get_stream(v39, v118);
-                                  }
-
-                                  else
-                                  {
-                                    stream = 0;
-                                  }
-
-                                  if (v122)
-                                  {
-                                    os_release(v122);
-                                  }
-
-                                  if (stream)
-                                  {
-                                    if (*(stream + 184) == 3)
-                                    {
-                                      if ((*(v39 + 580) & 2) == 0)
-                                      {
-                                        v135 = __nwlog_obj();
-                                        if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
-                                        {
-                                          v136 = *(v39 + 492);
-                                          *buf = 136447234;
-                                          *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                                          *&buf[12] = 2082;
-                                          *&buf[14] = v39 + 496;
-                                          *&buf[22] = 2080;
-                                          v200 = " ";
-                                          *v201 = 1024;
-                                          *&v201[2] = v136;
-                                          *&v201[6] = 2048;
-                                          *&v201[8] = v198;
-                                          v137 = v135;
-                                          v138 = "%{public}s %{public}s%s<i%u> Stream %llu is not reading.";
-                                          goto LABEL_285;
-                                        }
-                                      }
-                                    }
-
-                                    else
-                                    {
-LABEL_239:
-                                      *(v39 + 456) = stream;
-                                    }
-
-                                    goto LABEL_248;
-                                  }
-
-                                  goto LABEL_271;
-                                }
-                              }
-                            }
-
-                            if ((v119 & 2) != 0)
-                            {
-                              goto LABEL_271;
-                            }
-
-                            v133 = __nwlog_obj();
-                            if (!os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
-                            {
-                              goto LABEL_271;
-                            }
-
-                            v134 = *(v39 + 492);
-                            *buf = 136446978;
-                            *&buf[4] = "nw_webtransport_session_create_incoming_stream";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v39 + 496;
-                            *&buf[22] = 2080;
-                            v200 = " ";
-                            *v201 = 1024;
-                            *&v201[2] = v134;
-                            v129 = v133;
-                            v130 = "%{public}s %{public}s%s<i%u> Listen handler not setup to accept inbound stream";
-                          }
-
-                          _os_log_impl(&dword_181A37000, v129, OS_LOG_TYPE_ERROR, v130, buf, 0x26u);
-                        }
-
-LABEL_271:
-                        if ((*(v39 + 580) & 2) == 0)
-                        {
-                          v131 = __nwlog_obj();
-                          if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
-                          {
-                            v132 = *(v39 + 492);
-                            *buf = 136447490;
-                            *&buf[4] = "nw_webtransport_http2_setup_stream_for_incoming_capsule";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v39 + 496;
-                            *&buf[22] = 2080;
-                            v200 = " ";
-                            *v201 = 1024;
-                            *&v201[2] = v132;
-                            *&v201[6] = 2048;
-                            *&v201[8] = v198;
-                            *&v201[16] = 2048;
-                            *&v201[18] = v101;
-                            _os_log_impl(&dword_181A37000, v131, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Did not find stream %llu for capsule 0x%llx.", buf, 0x3Au);
-                          }
-                        }
-
-                        goto LABEL_248;
-                      }
-
-                      v93 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                      if ((v101 - 16770304) < 4)
-                      {
-                        goto LABEL_245;
-                      }
-                    }
-
-LABEL_190:
-                    v100 = *(v39 + 96);
-                    if ((*(v39 + 580) & 2) == 0 && BYTE1(v93[82].isa) == 1)
-                    {
-                      v139 = __nwlog_obj();
-                      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
-                      {
-                        v140 = *(v39 + 492);
-                        v141 = *(v39 + 104);
-                        *buf = 136447490;
-                        *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                        *&buf[12] = 2082;
-                        *&buf[14] = v39 + 496;
-                        *&buf[22] = 2080;
-                        v200 = " ";
-                        *v201 = 1024;
-                        *&v201[2] = v140;
-                        *&v201[6] = 2048;
-                        *&v201[8] = v100;
-                        *&v201[16] = 2048;
-                        *&v201[18] = v141;
-                        _os_log_impl(&dword_181A37000, v139, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> Webtransport session received capsule type 0x%llx length %llu", buf, 0x3Au);
-                      }
-                    }
-
-                    if (v100 <= 16770303)
-                    {
-                      if (v100 <= 16770047)
-                      {
-                        if ((v100 - 1) < 3 || v100 == -1)
-                        {
-                          goto LABEL_209;
-                        }
-
-                        if (!v100)
-                        {
-                          v103 = *(v39 + 448);
-                          if (!v103 || *(v103 + 184) == 3)
-                          {
-                            nw_frame_array_finalize(v39 + 136, 1, 1);
-LABEL_264:
-                            v93 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-                            goto LABEL_265;
-                          }
-
-                          v187[0] = MEMORY[0x1E69E9820];
-                          v187[1] = 0x40000000;
-                          v188 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke_2;
-                          v189 = &__block_descriptor_tmp_35_36486;
-                          v190 = v39 + 96;
-                          v191 = v103;
-                          v124 = *(v39 + 136);
-                          do
-                          {
-                            if (!v124)
-                            {
-                              break;
-                            }
-
-                            v125 = *(v124 + 32);
-                            v126 = (v188)(v187);
-                            v124 = v125;
-                          }
-
-                          while ((v126 & 1) != 0);
-                          goto LABEL_263;
-                        }
-                      }
-
-                      else if ((v100 - 16770048) < 6)
-                      {
-                        goto LABEL_209;
-                      }
-
-                      goto LABEL_265;
-                    }
-
-                    if (v100 <= 420171064)
-                    {
-                      if ((v100 - 16770304) >= 4)
-                      {
-                        if (v100 == 420171064)
-                        {
-                          nw_frame_array_finalize(v39 + 136, 1, 1);
-                        }
-
-                        goto LABEL_265;
-                      }
-
-LABEL_209:
-                      v104 = __nwlog_obj();
-                      if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
-                      {
-                        *buf = 136446466;
-                        *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                        *&buf[12] = 2048;
-                        *&buf[14] = v100;
-                        _os_log_impl(&dword_181A37000, v104, OS_LOG_TYPE_ERROR, "%{public}s Unexpected capsule type %llu received", buf, 0x16u);
-                      }
-
-                      goto LABEL_265;
-                    }
-
-                    if ((v100 - 420171065) < 2)
-                    {
-                      if (capsule)
-                      {
-                        v109 = *(v39 + 456);
-                        v198 = -1;
-                        if (nw_http_capsule_framer_parse_vle_value((v39 + 96), v39, &v198))
-                        {
-                          if (!v109 || (*(v109 + 276) & 0x10) == 0)
-                          {
-                            v110 = __nwlog_obj();
-                            if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
-                            {
-                              if (v109)
-                              {
-                                v111 = (v109 + 192);
-                              }
-
-                              else
-                              {
-                                v111 = "";
-                              }
-
-                              v112 = " ";
-                              if (!v109)
-                              {
-                                v112 = "";
-                              }
-
-                              v113 = *(v109 + 88);
-                              if (v113)
-                              {
-                                v96 = *(v113 + 492);
-                              }
-
-                              else
-                              {
-                                v96 = -1;
-                              }
-
-                              v97 = *(v109 + 64);
-                              *buf = 136448002;
-                              *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                              *&buf[12] = 2082;
-                              *&buf[14] = v111;
-                              *&buf[22] = 2080;
-                              v200 = v112;
-                              *v201 = 1024;
-                              *&v201[2] = v96;
-                              *&v201[6] = 2048;
-                              *&v201[8] = v97;
-                              *&v201[16] = 2048;
-                              *&v201[18] = v100;
-                              v202 = 2048;
-                              v203 = v97;
-                              v204 = 2048;
-                              v205 = v198;
-                              _os_log_impl(&dword_181A37000, v110, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u:s%llu> Received 0x%llx capsule for stream ID %llu with error code %llu", buf, 0x4Eu);
-                            }
-                          }
-
-                          nw_protocol_webtransport_stream_error(v109, v39);
-                          nw_protocol_webtransport_stream_disconnect(v109, v98);
-                        }
-
-                        else if ((*(v39 + 580) & 2) == 0)
-                        {
-                          v116 = __nwlog_obj();
-                          if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
-                          {
-                            v117 = *(v39 + 492);
-                            *buf = 136447234;
-                            *&buf[4] = "nw_webtransport_http2_handle_capsules";
-                            *&buf[12] = 2082;
-                            *&buf[14] = v39 + 496;
-                            *&buf[22] = 2080;
-                            v200 = " ";
-                            *v201 = 1024;
-                            *&v201[2] = v117;
-                            *&v201[6] = 2048;
-                            *&v201[8] = v100;
-                            _os_log_impl(&dword_181A37000, v116, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> Failed to parse error code from capsule 0x%llx correctly", buf, 0x30u);
-                          }
-                        }
-
-                        v93 = &OBJC_METACLASS____TtCV7Network18QUICStreamProtocol17QUICStreamOptions;
-LABEL_186:
-                        *(v39 + 456) = 0;
-                        nw_http_capsule_complete_capsule(v39 + 96);
-                      }
-                    }
-
-                    else
-                    {
-                      if ((v100 - 420171067) < 2)
-                      {
-                        v103 = *(v39 + 456);
-                        v105 = v100 == 420171068 && capsule;
-                        v192[0] = MEMORY[0x1E69E9820];
-                        v192[1] = 0x40000000;
-                        v193 = ___ZL37nw_webtransport_http2_handle_capsulesP23nw_webtransport_session_block_invoke;
-                        v194 = &__block_descriptor_tmp_34_36485;
-                        v197 = v105;
-                        v195 = v39 + 96;
-                        v196 = v103;
-                        v106 = *(v39 + 136);
-                        do
-                        {
-                          if (!v106)
-                          {
-                            break;
-                          }
-
-                          v107 = *(v106 + 32);
-                          v108 = (v193)(v192);
-                          v106 = v107;
-                        }
-
-                        while ((v108 & 1) != 0);
-                        if (v105)
-                        {
-                          nw_protocol_input_finished(v103, v39);
-                          goto LABEL_264;
-                        }
-
-LABEL_263:
-                        nw_protocol_input_available(v103, v39);
-                        goto LABEL_264;
-                      }
-
-LABEL_265:
-                      if (capsule)
-                      {
-                        goto LABEL_186;
-                      }
-                    }
-                  }
-                }
-
-                if ((*(v39 + 580) & 2) == 0)
-                {
-                  v148 = __nwlog_obj();
-                  if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
-                  {
-                    v149 = *(v39 + 492);
-                    *buf = 136446978;
-                    *&buf[4] = "nw_webtransport_session_http_get_input";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v39 + 496;
-                    *&buf[22] = 2080;
-                    v200 = " ";
-                    *v201 = 1024;
-                    *&v201[2] = v149;
-                    _os_log_impl(&dword_181A37000, v148, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%s<i%u> output handler has no get_input_frames callback", buf, 0x26u);
-                  }
-                }
-
-                __nwlog_obj();
-                *buf = 136446210;
-                *&buf[4] = "nw_webtransport_session_http_get_input";
-                v150 = _os_log_send_and_compose_impl();
-                type[0] = OS_LOG_TYPE_ERROR;
-                LOBYTE(v192[0]) = 0;
-                if (!__nwlog_fault(v150, type, v192))
-                {
-                  goto LABEL_377;
-                }
-
-                if (type[0] == OS_LOG_TYPE_FAULT)
-                {
-                  v151 = __nwlog_obj();
-                  v152 = type[0];
-                  if (!os_log_type_enabled(v151, type[0]))
-                  {
-                    goto LABEL_377;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v153 = "%{public}s output handler has no get_input_frames callback";
-                  goto LABEL_376;
-                }
-
-                if (LOBYTE(v192[0]) != 1)
-                {
-                  v151 = __nwlog_obj();
-                  v152 = type[0];
-                  if (!os_log_type_enabled(v151, type[0]))
-                  {
-                    goto LABEL_377;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v153 = "%{public}s output handler has no get_input_frames callback, backtrace limit exceeded";
-                  goto LABEL_376;
-                }
-
-                v158 = __nw_create_backtrace_string();
-                v151 = __nwlog_obj();
-                v152 = type[0];
-                v159 = os_log_type_enabled(v151, type[0]);
-                if (!v158)
-                {
-                  if (!v159)
-                  {
-                    goto LABEL_377;
-                  }
-
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  v153 = "%{public}s output handler has no get_input_frames callback, no backtrace";
-                  goto LABEL_376;
-                }
-
-                if (v159)
-                {
-                  *buf = 136446466;
-                  *&buf[4] = "nw_webtransport_session_http_get_input";
-                  *&buf[12] = 2082;
-                  *&buf[14] = v158;
-                  v160 = "%{public}s output handler has no get_input_frames callback, dumping backtrace:%{public}s";
-LABEL_330:
-                  _os_log_impl(&dword_181A37000, v151, v152, v160, buf, 0x16u);
-                }
-              }
-
-              else
-              {
-                if (v69)
-                {
-                  goto LABEL_10;
-                }
-
-                *(v39 + 476) = 3;
-                v78 = *(v39 + 48);
-                if (v78)
-                {
-                  v79 = *(v78 + 40);
-                  if (v79)
-                  {
-                    *(v39 + 440) = v79;
-                    goto LABEL_10;
-                  }
-
-                  __nwlog_obj();
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v150 = _os_log_send_and_compose_impl();
-                  type[0] = OS_LOG_TYPE_ERROR;
-                  LOBYTE(v192[0]) = 0;
-                  if (!__nwlog_fault(v150, type, v192))
-                  {
-                    goto LABEL_377;
-                  }
-
-                  if (type[0] == OS_LOG_TYPE_FAULT)
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null webtransport_stream";
-                    goto LABEL_376;
-                  }
-
-                  if (LOBYTE(v192[0]) != 1)
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-                    goto LABEL_376;
-                  }
-
-                  v158 = __nw_create_backtrace_string();
-                  v151 = __nwlog_obj();
-                  v152 = type[0];
-                  v162 = os_log_type_enabled(v151, type[0]);
-                  if (!v158)
-                  {
-                    if (!v162)
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null webtransport_stream, no backtrace";
-                    goto LABEL_376;
-                  }
-
-                  if (v162)
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v158;
-                    v160 = "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s";
-                    goto LABEL_330;
-                  }
-                }
-
-                else
-                {
-                  __nwlog_obj();
-                  *buf = 136446210;
-                  *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                  v150 = _os_log_send_and_compose_impl();
-                  type[0] = OS_LOG_TYPE_ERROR;
-                  LOBYTE(v192[0]) = 0;
-                  if (!__nwlog_fault(v150, type, v192))
-                  {
-                    goto LABEL_377;
-                  }
-
-                  if (type[0] == OS_LOG_TYPE_FAULT)
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null input_protocol";
-                    goto LABEL_376;
-                  }
-
-                  if (LOBYTE(v192[0]) != 1)
-                  {
-                    v151 = __nwlog_obj();
-                    v152 = type[0];
-                    if (!os_log_type_enabled(v151, type[0]))
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null input_protocol, backtrace limit exceeded";
-                    goto LABEL_376;
-                  }
-
-                  v158 = __nw_create_backtrace_string();
-                  v151 = __nwlog_obj();
-                  v152 = type[0];
-                  v161 = os_log_type_enabled(v151, type[0]);
-                  if (!v158)
-                  {
-                    if (!v161)
-                    {
-                      goto LABEL_377;
-                    }
-
-                    *buf = 136446210;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    v153 = "%{public}s called with null input_protocol, no backtrace";
-                    goto LABEL_376;
-                  }
-
-                  if (v161)
-                  {
-                    *buf = 136446466;
-                    *&buf[4] = "nw_webtransport_http2_setup_placeholder_stream";
-                    *&buf[12] = 2082;
-                    *&buf[14] = v158;
-                    v160 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
-                    goto LABEL_330;
-                  }
-                }
-              }
-
-              free(v158);
-              if (!v150)
-              {
-                goto LABEL_10;
-              }
-
-              goto LABEL_378;
+              v541 = __clz(__rbit64(*v534 ^ v536)) >> 3;
             }
+
+LABEL_788:
+            *(v8 + 4 * ((0xCF1BBCDCBB000000 * *a4) >> v462)) = a4 - v116;
+            if (a4 <= v464)
+            {
+              **(a2 + 24) = *a4;
+              v531 = *(a2 + 8);
+            }
+
+            *(v531 + 4) = 0;
+            *v531 = 1;
+            if (v541 + 1 >= 0x10000)
+            {
+              v542 = (v531 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v542;
+            }
+
+            a4 += v541 + 4;
+            *(v531 + 6) = v541 + 1;
+            v531 += 8;
+            *(a2 + 8) = v531;
+            v134 = v133;
+            v163 = v532;
+            if (a4 > v125)
+            {
+              goto LABEL_794;
+            }
+
+            continue;
           }
+
+          break;
         }
 
-        v47 = nw_protocol_copy_info(v43);
-        v48 = v47;
-        aBlock[0] = MEMORY[0x1E69E9820];
-        aBlock[1] = 0x40000000;
-        aBlock[2] = ___ZL33nw_webtransport_session_establishP23nw_webtransport_session_block_invoke;
-        aBlock[3] = &__block_descriptor_tmp_27_36446;
-        aBlock[4] = v39;
-        if (v47)
+        v538 = a4 + 4;
+LABEL_774:
+        if (v538 >= v488)
         {
-          _nw_array_apply(v47, aBlock);
-          v49 = *(v39 + 400);
-          if (!v49)
+          if (v538 >= v515)
           {
-            os_release(v48);
-            goto LABEL_10;
+            goto LABEL_778;
           }
         }
 
         else
         {
-          v49 = *(v39 + 400);
-          if (!v49)
+          if (*v535 == *v538)
           {
-            goto LABEL_10;
+            v535 += 4;
+            v538 += 4;
+          }
+
+          if (v538 >= v515)
+          {
+LABEL_778:
+            if (v538 < v11)
+            {
+              goto LABEL_779;
+            }
+
+            goto LABEL_781;
           }
         }
 
-        version = nw_http_connection_metadata_get_version(v49);
-        v51 = version;
-        if (version == 4)
+        if (*v535 == *v538)
         {
-          v52 = 0;
+          v535 += 2;
+          v538 += 2;
         }
 
-        else
+        if (v538 < v11)
         {
-          if (version != 5)
+LABEL_779:
+          if (*v535 == *v538)
           {
-LABEL_92:
-            v60 = v43[2];
-            if (nw_protocol_http_messaging_identifier::onceToken != -1)
-            {
-              v145 = v43[2];
-              dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
-              v60 = v145;
-            }
-
-            v61 = nw_protocols_are_equal(v60, &nw_protocol_http_messaging_identifier::protocol_identifier);
-            v62 = *(v39 + 580);
-            if (v61)
-            {
-              v62 |= 0x40u;
-              *(v39 + 580) = v62;
-            }
-
-            if ((v62 & 2) == 0)
-            {
-              v63 = __nwlog_obj();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
-              {
-                v64 = *(v39 + 492);
-                if (v51 == 4)
-                {
-                  v65 = 2;
-                }
-
-                else
-                {
-                  v65 = 3;
-                }
-
-                *buf = 136447234;
-                *&buf[4] = "nw_webtransport_session_establish";
-                *&buf[12] = 2082;
-                *&buf[14] = v39 + 496;
-                *&buf[22] = 2080;
-                v200 = " ";
-                *v201 = 1024;
-                *&v201[2] = v64;
-                *&v201[6] = 1024;
-                *&v201[8] = v65;
-                _os_log_impl(&dword_181A37000, v63, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> Establishing webtransport session for HTTP/%d", buf, 0x2Cu);
-              }
-            }
-
-            if (v48)
-            {
-              os_release(v48);
-            }
-
-            goto LABEL_104;
+            ++v538;
           }
-
-          v52 = 1;
         }
 
-        *(v39 + 480) = v52;
-        goto LABEL_92;
+LABEL_781:
+        v541 = v538 - v534;
+        goto LABEL_788;
       }
 
-      __nwlog_obj();
-      v28 = v26[2];
-      *buf = 136446978;
-      *&buf[4] = "nw_webtransport_session_terminate";
-      *&buf[12] = 2082;
-      *&buf[14] = "connection_state->local_sessions";
-      *&buf[22] = 2048;
-      v200 = 1;
-      *v201 = 2048;
-      *&v201[2] = v28;
-      v29 = _os_log_send_and_compose_impl();
-      type[0] = OS_LOG_TYPE_ERROR;
-      LOBYTE(v192[0]) = 0;
-      if (__nwlog_fault(v29, type, v192))
+      v133 = v134;
+LABEL_794:
+      v135 = a4 + 3;
+      v128 = a4;
+      v134 = v163;
+      if ((a4 + 3) >= v125)
       {
-        if (type[0] == OS_LOG_TYPE_FAULT)
-        {
-          v30 = __nwlog_obj();
-          v31 = type[0];
-          if (os_log_type_enabled(v30, type[0]))
-          {
-            v32 = v26[2];
-            *buf = 136446978;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v200 = 1;
-            *v201 = 2048;
-            *&v201[2] = v32;
-            v33 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-LABEL_53:
-            _os_log_impl(&dword_181A37000, v30, v31, v33, buf, 0x2Au);
-          }
-        }
-
-        else if (LOBYTE(v192[0]) == 1)
-        {
-          v34 = __nw_create_backtrace_string();
-          v30 = __nwlog_obj();
-          v31 = type[0];
-          v35 = os_log_type_enabled(v30, type[0]);
-          if (v34)
-          {
-            if (v35)
-            {
-              v36 = v26[2];
-              *buf = 136447234;
-              *&buf[4] = "nw_webtransport_session_terminate";
-              *&buf[12] = 2082;
-              *&buf[14] = "connection_state->local_sessions";
-              *&buf[22] = 2048;
-              v200 = 1;
-              *v201 = 2048;
-              *&v201[2] = v36;
-              *&v201[10] = 2082;
-              *&v201[12] = v34;
-              _os_log_impl(&dword_181A37000, v30, v31, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
-            }
-
-            free(v34);
-            goto LABEL_54;
-          }
-
-          if (v35)
-          {
-            v38 = v26[2];
-            *buf = 136446978;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v200 = 1;
-            *v201 = 2048;
-            *&v201[2] = v38;
-            v33 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
-            goto LABEL_53;
-          }
-        }
-
-        else
-        {
-          v30 = __nwlog_obj();
-          v31 = type[0];
-          if (os_log_type_enabled(v30, type[0]))
-          {
-            v37 = v26[2];
-            *buf = 136446978;
-            *&buf[4] = "nw_webtransport_session_terminate";
-            *&buf[12] = 2082;
-            *&buf[14] = "connection_state->local_sessions";
-            *&buf[22] = 2048;
-            v200 = 1;
-            *v201 = 2048;
-            *&v201[2] = v37;
-            v33 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
-            goto LABEL_53;
-          }
-        }
+        goto LABEL_1071;
       }
-
-LABEL_54:
-      if (v29)
-      {
-        free(v29);
-      }
-
-      v26[2] = 0;
-      goto LABEL_57;
     }
 
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-    v53 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v192[0]) = 0;
-    if (__nwlog_fault(v53, type, v192))
+    if (a4 <= v464)
     {
-      if (type[0] == OS_LOG_TYPE_FAULT)
+      v508 = (v501 + v464 - a4);
+      *v501 = *a4;
+      v502 = v487;
+      if (v464 - a4 >= 17)
       {
-        v54 = __nwlog_obj();
-        v55 = type[0];
-        if (!os_log_type_enabled(v54, type[0]))
+        v509 = v501 + 1;
+        v510 = a4 + 32;
+        do
         {
-          goto LABEL_173;
+          *v509 = *(v510 - 1);
+          v511 = *v510;
+          v510 += 32;
+          v509[1] = v511;
+          v509 += 2;
         }
 
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-        v56 = "%{public}s called with null webtransport_stream";
-        goto LABEL_172;
+        while (v509 < v508);
       }
 
-      if (LOBYTE(v192[0]) != 1)
+      a4 = v464;
+      v501 = v508;
+    }
+
+    else
+    {
+      v502 = v487;
+    }
+
+    if (a4 >= v128)
+    {
+      goto LABEL_756;
+    }
+
+    v512 = v128 - a4;
+    if ((v128 - a4) < 8)
+    {
+      v516 = v501;
+    }
+
+    else if ((v501 - a4) < 0x20)
+    {
+      v516 = v501;
+    }
+
+    else
+    {
+      if (v512 < 0x20)
       {
-        v54 = __nwlog_obj();
-        v55 = type[0];
-        if (!os_log_type_enabled(v54, type[0]))
+        v513 = 0;
+LABEL_750:
+        v521 = v512 & 0xFFFFFFFFFFFFFFF8;
+        v516 = v501 + (v512 & 0xFFFFFFFFFFFFFFF8);
+        v522 = v513 - (v512 & 0xFFFFFFFFFFFFFFF8);
+        v523 = &a4[v513];
+        v524 = (v501 + v513);
+        do
         {
-          goto LABEL_173;
+          v525 = *v523;
+          v523 += 8;
+          *v524++ = v525;
+          v522 += 8;
         }
 
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-        v56 = "%{public}s called with null webtransport_stream, backtrace limit exceeded";
-        goto LABEL_172;
+        while (v522);
+        v11 = v139;
+        v488 = v724;
+        if (v512 == v521)
+        {
+          goto LABEL_756;
+        }
+
+        a4 += v521;
+        goto LABEL_755;
       }
 
-      v82 = __nw_create_backtrace_string();
-      v54 = __nwlog_obj();
-      v55 = type[0];
-      v83 = os_log_type_enabled(v54, type[0]);
-      if (v82)
+      v513 = v512 & 0xFFFFFFFFFFFFFFE0;
+      v517 = a4 + 16;
+      v518 = v501 + 1;
+      v519 = v512 & 0xFFFFFFFFFFFFFFE0;
+      do
       {
-        if (v83)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-          *&buf[12] = 2082;
-          *&buf[14] = v82;
-          _os_log_impl(&dword_181A37000, v54, v55, "%{public}s called with null webtransport_stream, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(v82);
-        if (v53)
-        {
-          goto LABEL_174;
-        }
-
-        return;
+        v520 = *v517;
+        *(v518 - 1) = *(v517 - 1);
+        *v518 = v520;
+        v517 += 32;
+        v518 += 2;
+        v519 -= 32;
       }
 
-      if (v83)
+      while (v519);
+      v488 = v724;
+      if (v512 == v513)
       {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-        v56 = "%{public}s called with null webtransport_stream, no backtrace";
-LABEL_172:
-        _os_log_impl(&dword_181A37000, v54, v55, v56, buf, 0xCu);
+        goto LABEL_756;
+      }
+
+      if ((v512 & 0x18) != 0)
+      {
+        goto LABEL_750;
+      }
+
+      a4 += v513;
+      v516 = v501 + v513;
+      v488 = v724;
+    }
+
+    do
+    {
+LABEL_755:
+      v526 = *a4++;
+      *v516++ = v526;
+    }
+
+    while (a4 != v128);
+    goto LABEL_756;
+  }
+
+  if (v6 == 6)
+  {
+    if (v135 >= v125)
+    {
+      goto LABEL_1047;
+    }
+
+    v299 = 64 - *(a1 + 264);
+    v300 = (v11 - 7);
+    v301 = v11 - 32;
+    v723 = v11 - 3;
+    v726 = v11 - 1;
+    while (1)
+    {
+      v139 = v11;
+      v302 = v128 + 2;
+      v304 = v128 + 1;
+      v303 = *(v128 + 1);
+      v305 = v128 + 128;
+      v306 = (0xCF1BBCDCBF9B0000 * *v128) >> v299;
+      v307 = *(v8 + 4 * v306);
+      if (v134)
+      {
+        v308 = 2;
+        while (1)
+        {
+          v312 = v302;
+          _X11 = v135;
+          v314 = *&v302[-v134];
+          v315 = (0xCF1BBCDCBF9B0000 * v303) >> v299;
+          v316 = v128 - v116;
+          *(v8 + 4 * v306) = v128 - v116;
+          if (*v312 == v314)
+          {
+            break;
+          }
+
+          if (v307 >= v123 && *v128 == *(v116 + v307))
+          {
+            goto LABEL_444;
+          }
+
+          v307 = *(v8 + 4 * v315);
+          v306 = (0xCF1BBCDCBF9B0000 * *v312) >> v299;
+          v316 = v304 - v116;
+          *(v8 + 4 * v315) = v304 - v116;
+          if (v307 >= v123 && *v304 == *(v116 + v307))
+          {
+            goto LABEL_445;
+          }
+
+          v307 = *(v8 + 4 * v306);
+          v303 = *_X11;
+          v302 = &v312[v308];
+          if (&v312[v308] >= v305)
+          {
+            v309 = v308 + 1;
+            __asm
+            {
+              PRFM            #0, [X11,#0x40]
+              PRFM            #0, [X11,#0x80]
+            }
+
+            v305 += 128;
+          }
+
+          else
+          {
+            v309 = v308;
+          }
+
+          v135 = &_X11[v308];
+          v308 = v309;
+          v304 = _X11;
+          v128 = v312;
+          if (v135 >= v125)
+          {
+            goto LABEL_1048;
+          }
+        }
+
+        v321 = *(v312 - 1) == v312[-v134 - 1];
+        v322 = *(v312 - 1) == v312[-v134 - 1] ? 5 : 4;
+        v128 = &v312[-v321];
+        v323 = &v312[-v134 - v321];
+        *(v8 + 4 * v315) = v304 - v116;
+        v324 = 1;
+        v163 = v134;
+        v134 = v133;
+        v11 = v139;
+        v325 = v723;
+      }
+
+      else
+      {
+        v308 = 2;
+        while (1)
+        {
+          v312 = v302;
+          _X11 = v135;
+          v315 = (0xCF1BBCDCBF9B0000 * v303) >> v299;
+          v316 = v128 - v116;
+          *(v8 + 4 * v306) = v128 - v116;
+          if (v307 >= v123 && *v128 == *(v116 + v307))
+          {
+LABEL_444:
+            v11 = v139;
+            goto LABEL_446;
+          }
+
+          v307 = *(v8 + 4 * v315);
+          v306 = (0xCF1BBCDCBF9B0000 * *v302) >> v299;
+          v316 = v304 - v116;
+          *(v8 + 4 * v315) = v304 - v116;
+          if (v307 >= v123 && *v304 == *(v116 + v307))
+          {
+            break;
+          }
+
+          v307 = *(v8 + 4 * v306);
+          v303 = *_X11;
+          v302 += v308;
+          if (&v312[v308] >= v305)
+          {
+            v317 = v308 + 1;
+            __asm
+            {
+              PRFM            #0, [X11,#0x40]
+              PRFM            #0, [X11,#0x80]
+            }
+
+            v305 += 128;
+          }
+
+          else
+          {
+            v317 = v308;
+          }
+
+          v135 = &_X11[v308];
+          v308 = v317;
+          v304 = _X11;
+          v128 = v312;
+          if (v135 >= v125)
+          {
+            goto LABEL_1049;
+          }
+        }
+
+LABEL_445:
+        v128 = v304;
+        LODWORD(v304) = v312;
+        v315 = v306;
+        v11 = v139;
+        if (v308 < 5)
+        {
+LABEL_446:
+          *(v8 + 4 * v315) = v304 - v116;
+        }
+
+        v323 = (v116 + v307);
+        v163 = (v128 - v323);
+        v324 = v163 + 3;
+        v325 = v723;
+        if (v307 <= v123 || v128 <= a4)
+        {
+          v322 = 4;
+        }
+
+        else
+        {
+          v326 = v128 - 1;
+          v327 = (v116 - 1 + v307);
+          v322 = 4;
+          while (*v326 == *v327)
+          {
+            ++v322;
+            v328 = v326 - 1;
+            v329 = v327 - 1;
+            if (v326 > a4)
+            {
+              --v326;
+              v706 = v327-- > v124;
+              if (v706)
+              {
+                continue;
+              }
+            }
+
+            v128 = v328 + 1;
+            v323 = v329 + 1;
+            goto LABEL_456;
+          }
+
+          v128 = v326 + 1;
+          v323 = v327 + 1;
+        }
+      }
+
+LABEL_456:
+      v330 = &v128[v322];
+      v331 = &v323[v322];
+      if (v300 <= &v128[v322])
+      {
+        v333 = &v128[v322];
+LABEL_463:
+        if (v333 < v325 && *v331 == *v333)
+        {
+          v331 += 4;
+          v333 += 4;
+        }
+
+        if (v333 < v726 && *v331 == *v333)
+        {
+          v331 += 2;
+          v333 += 2;
+        }
+
+        if (v333 < v11 && *v331 == *v333)
+        {
+          ++v333;
+        }
+
+        v336 = v333 - v330;
+      }
+
+      else if (*v331 == *v330)
+      {
+        v331 = &v323[v322 + 8];
+        v332 = &v128[v322 + 8];
+        do
+        {
+          v333 = v332;
+          if (v332 >= v300)
+          {
+            goto LABEL_463;
+          }
+
+          v335 = *v331;
+          v331 += 8;
+          v334 = v335;
+          v332 += 8;
+        }
+
+        while (v335 == *v333);
+        v336 = &v333[__clz(__rbit64(*v333 ^ v334)) >> 3] - v330;
+      }
+
+      else
+      {
+        v336 = __clz(__rbit64(*v330 ^ *v331)) >> 3;
+      }
+
+      v337 = v128 - a4;
+      v338 = *(a2 + 24);
+      if (v128 > v301)
+      {
+        break;
+      }
+
+      *v338 = *a4;
+      v345 = *(a2 + 24);
+      if (v337 <= 0x10)
+      {
+        *(a2 + 24) = v345 + v337;
+        v350 = *(a2 + 8);
+        v351 = v726;
+        goto LABEL_506;
+      }
+
+      v715 = v324;
+      *(v345 + 16) = *(a4 + 1);
+      if (v337 >= 33)
+      {
+        v346 = v345 + v337;
+        v347 = (v345 + 32);
+        v348 = a4 + 48;
+        do
+        {
+          *v347 = *(v348 - 1);
+          v349 = *v348;
+          v348 += 32;
+          v347[1] = v349;
+          v347 += 2;
+        }
+
+        while (v347 < v346);
+      }
+
+LABEL_503:
+      *(a2 + 24) += v337;
+      v350 = *(a2 + 8);
+      if (v337 >= 0x10000)
+      {
+        v363 = (v350 - *a2) >> 3;
+        *(a2 + 72) = 1;
+        *(a2 + 76) = v363;
+      }
+
+      v351 = v726;
+      v324 = v715;
+LABEL_506:
+      v364 = v336 + v322;
+      *(v350 + 4) = v337;
+      *v350 = v324;
+      v365 = v336 + v322 - 3;
+      if (v365 >= 0x10000)
+      {
+        v366 = (v350 - *a2) >> 3;
+        *(a2 + 72) = 2;
+        *(a2 + 76) = v366;
+      }
+
+      *(v350 + 6) = v365;
+      v367 = v350 + 8;
+      *(a2 + 8) = v350 + 8;
+      a4 = &v128[v364];
+      if (&v128[v364] <= v125)
+      {
+        *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *(v116 + 2 + v316)) >> v299)) = v316 + 2;
+        *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *(a4 - 2)) >> v299)) = a4 - 2 - v116;
+        if (!v134)
+        {
+          v133 = 0;
+          goto LABEL_541;
+        }
+
+        v368 = v163;
+        while (2)
+        {
+          v133 = v368;
+          v368 = v134;
+          if (*a4 != *&a4[-v134])
+          {
+            v163 = v133;
+            v133 = v134;
+            goto LABEL_541;
+          }
+
+          v369 = -v134;
+          v370 = a4 + 4;
+          v371 = &a4[-v134 + 4];
+          if (v300 > (a4 + 4))
+          {
+            v372 = *v371;
+            if (v372 == *v370)
+            {
+              v373 = a4 + 12;
+              v371 = &a4[v369 + 12];
+              do
+              {
+                v374 = v373;
+                if (v373 >= v300)
+                {
+                  goto LABEL_521;
+                }
+
+                v376 = *v371;
+                v371 += 8;
+                v375 = v376;
+                v373 += 8;
+              }
+
+              while (v376 == *v374);
+              v377 = &v374[__clz(__rbit64(*v374 ^ v375)) >> 3] - v370;
+            }
+
+            else
+            {
+              v377 = __clz(__rbit64(*v370 ^ v372)) >> 3;
+            }
+
+LABEL_535:
+            *(v8 + 4 * ((0xCF1BBCDCBF9B0000 * *a4) >> v299)) = a4 - v116;
+            if (a4 <= v301)
+            {
+              **(a2 + 24) = *a4;
+              v367 = *(a2 + 8);
+            }
+
+            *(v367 + 4) = 0;
+            *v367 = 1;
+            if (v377 + 1 >= 0x10000)
+            {
+              v378 = (v367 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v378;
+            }
+
+            a4 += v377 + 4;
+            *(v367 + 6) = v377 + 1;
+            v367 += 8;
+            *(a2 + 8) = v367;
+            v134 = v133;
+            v163 = v368;
+            if (a4 > v125)
+            {
+              goto LABEL_541;
+            }
+
+            continue;
+          }
+
+          break;
+        }
+
+        v374 = a4 + 4;
+LABEL_521:
+        if (v374 >= v325)
+        {
+          if (v374 >= v351)
+          {
+            goto LABEL_525;
+          }
+        }
+
+        else
+        {
+          if (*v371 == *v374)
+          {
+            v371 += 4;
+            v374 += 4;
+          }
+
+          if (v374 >= v351)
+          {
+LABEL_525:
+            if (v374 < v11)
+            {
+              goto LABEL_526;
+            }
+
+            goto LABEL_528;
+          }
+        }
+
+        if (*v371 == *v374)
+        {
+          v371 += 2;
+          v374 += 2;
+        }
+
+        if (v374 < v11)
+        {
+LABEL_526:
+          if (*v371 == *v374)
+          {
+            ++v374;
+          }
+        }
+
+LABEL_528:
+        v377 = v374 - v370;
+        goto LABEL_535;
+      }
+
+      v133 = v134;
+LABEL_541:
+      v135 = a4 + 3;
+      v128 = a4;
+      v134 = v163;
+      if ((a4 + 3) >= v125)
+      {
+        goto LABEL_1071;
       }
     }
+
+    v715 = v324;
+    if (a4 <= v301)
+    {
+      v339 = (v338 + v301 - a4);
+      *v338 = *a4;
+      if (v301 - a4 >= 17)
+      {
+        v340 = v338 + 1;
+        v341 = a4 + 32;
+        do
+        {
+          *v340 = *(v341 - 1);
+          v342 = *v341;
+          v341 += 32;
+          v340[1] = v342;
+          v340 += 2;
+        }
+
+        while (v340 < v339);
+      }
+
+      a4 = v301;
+      v338 = v339;
+    }
+
+    if (a4 >= v128)
+    {
+      goto LABEL_503;
+    }
+
+    v343 = v128 - a4;
+    if ((v128 - a4) < 8)
+    {
+      v352 = v338;
+    }
+
+    else if ((v338 - a4) < 0x20)
+    {
+      v352 = v338;
+    }
+
+    else
+    {
+      if (v343 < 0x20)
+      {
+        v344 = 0;
+LABEL_497:
+        v357 = v343 & 0xFFFFFFFFFFFFFFF8;
+        v352 = v338 + (v343 & 0xFFFFFFFFFFFFFFF8);
+        v358 = v344 - (v343 & 0xFFFFFFFFFFFFFFF8);
+        v359 = &a4[v344];
+        v360 = (v338 + v344);
+        do
+        {
+          v361 = *v359;
+          v359 += 8;
+          *v360++ = v361;
+          v358 += 8;
+        }
+
+        while (v358);
+        v11 = v139;
+        v325 = v723;
+        if (v343 == v357)
+        {
+          goto LABEL_503;
+        }
+
+        a4 += v357;
+        goto LABEL_502;
+      }
+
+      v344 = v343 & 0xFFFFFFFFFFFFFFE0;
+      v353 = a4 + 16;
+      v354 = v338 + 1;
+      v355 = v343 & 0xFFFFFFFFFFFFFFE0;
+      do
+      {
+        v356 = *v353;
+        *(v354 - 1) = *(v353 - 1);
+        *v354 = v356;
+        v353 += 32;
+        v354 += 2;
+        v355 -= 32;
+      }
+
+      while (v355);
+      v325 = v723;
+      if (v343 == v344)
+      {
+        goto LABEL_503;
+      }
+
+      if ((v343 & 0x18) != 0)
+      {
+        goto LABEL_497;
+      }
+
+      a4 += v344;
+      v352 = v338 + v344;
+      v325 = v723;
+    }
+
+    do
+    {
+LABEL_502:
+      v362 = *a4++;
+      *v352++ = v362;
+    }
+
+    while (a4 != v128);
+    goto LABEL_503;
+  }
+
+  if (v6 != 7)
+  {
+    if (v135 >= v125)
+    {
+      goto LABEL_1047;
+    }
+
+    v729 = v11;
+    v623 = 32 - *(a1 + 264);
+    v624 = (v11 - 7);
+    v721 = v11 - 1;
+    v625 = v11 - 32;
+    v728 = v11 - 3;
+    while (1)
+    {
+      v626 = v128 + 2;
+      v628 = v128 + 1;
+      v627 = *(v128 + 1);
+      v629 = v128 + 128;
+      v630 = (-1640531535 * *v128) >> v623;
+      v631 = *(v8 + 4 * v630);
+      if (v134)
+      {
+        v632 = 2;
+        while (1)
+        {
+          v636 = v626;
+          _X7 = v135;
+          v638 = *&v626[-v134];
+          v639 = (-1640531535 * v627) >> v623;
+          v640 = v128 - v116;
+          *(v8 + 4 * v630) = v128 - v116;
+          v641 = *v626;
+          if (v641 == v638)
+          {
+            break;
+          }
+
+          if (v631 >= v123 && *v128 == *(v116 + v631))
+          {
+            goto LABEL_949;
+          }
+
+          v631 = *(v8 + 4 * v639);
+          v630 = (-1640531535 * v641) >> v623;
+          v640 = v628 - v116;
+          *(v8 + 4 * v639) = v628 - v116;
+          if (v631 >= v123 && *v628 == *(v116 + v631))
+          {
+            goto LABEL_950;
+          }
+
+          v631 = *(v8 + 4 * v630);
+          v627 = *_X7;
+          v626 = &v636[v632];
+          if (&v636[v632] >= v629)
+          {
+            v633 = v632 + 1;
+            __asm
+            {
+              PRFM            #0, [X7,#0x40]
+              PRFM            #0, [X7,#0x80]
+            }
+
+            v629 += 128;
+          }
+
+          else
+          {
+            v633 = v632;
+          }
+
+          v135 = &_X7[v632];
+          v632 = v633;
+          v628 = _X7;
+          v128 = v636;
+          if (v135 >= v125)
+          {
+            LODWORD(v163) = v134;
+LABEL_1070:
+            v11 = v729;
+            goto LABEL_1071;
+          }
+        }
+
+        v646 = *(v636 - 1) == v636[-v134 - 1];
+        if (*(v636 - 1) == v636[-v134 - 1])
+        {
+          v647 = 5;
+        }
+
+        else
+        {
+          v647 = 4;
+        }
+
+        v128 = &v636[-v646];
+        v648 = &v636[-v134 - v646];
+        *(v8 + 4 * v639) = v628 - v116;
+        v649 = 1;
+        v163 = v134;
+        v134 = v133;
+        v650 = v728;
+        v11 = v729;
+      }
+
+      else
+      {
+        v632 = 2;
+        while (1)
+        {
+          v636 = v626;
+          _X7 = v135;
+          v639 = (-1640531535 * v627) >> v623;
+          v640 = v128 - v116;
+          *(v8 + 4 * v630) = v128 - v116;
+          if (v631 >= v123 && *v128 == *(v116 + v631))
+          {
+LABEL_949:
+            v11 = v729;
+            goto LABEL_951;
+          }
+
+          v631 = *(v8 + 4 * v639);
+          v630 = (-1640531535 * *v626) >> v623;
+          v640 = v628 - v116;
+          *(v8 + 4 * v639) = v628 - v116;
+          if (v631 >= v123 && *v628 == *(v116 + v631))
+          {
+            break;
+          }
+
+          v631 = *(v8 + 4 * v630);
+          v627 = *_X7;
+          v626 += v632;
+          if (&v636[v632] >= v629)
+          {
+            v642 = v632 + 1;
+            __asm
+            {
+              PRFM            #0, [X7,#0x40]
+              PRFM            #0, [X7,#0x80]
+            }
+
+            v629 += 128;
+          }
+
+          else
+          {
+            v642 = v632;
+          }
+
+          v135 = &_X7[v632];
+          v632 = v642;
+          v628 = _X7;
+          v128 = v636;
+          if (v135 >= v125)
+          {
+            LODWORD(v163) = 0;
+            goto LABEL_1070;
+          }
+        }
+
+LABEL_950:
+        v128 = v628;
+        LODWORD(v628) = v636;
+        v639 = v630;
+        v11 = v729;
+        if (v632 < 5)
+        {
+LABEL_951:
+          *(v8 + 4 * v639) = v628 - v116;
+        }
+
+        v648 = (v116 + v631);
+        v163 = (v128 - v648);
+        v649 = v163 + 3;
+        v650 = v728;
+        if (v631 <= v123 || v128 <= a4)
+        {
+          v647 = 4;
+        }
+
+        else
+        {
+          v651 = v128 - 1;
+          v652 = (v116 - 1 + v631);
+          v647 = 4;
+          while (*v651 == *v652)
+          {
+            ++v647;
+            v653 = v651 - 1;
+            v654 = v652 - 1;
+            if (v651 > a4)
+            {
+              --v651;
+              v706 = v652-- > v124;
+              if (v706)
+              {
+                continue;
+              }
+            }
+
+            v128 = v653 + 1;
+            v648 = v654 + 1;
+            goto LABEL_961;
+          }
+
+          v128 = v651 + 1;
+          v648 = v652 + 1;
+        }
+      }
+
+LABEL_961:
+      v655 = &v128[v647];
+      v656 = &v648[v647];
+      if (v624 <= &v128[v647])
+      {
+        v658 = &v128[v647];
+LABEL_968:
+        if (v658 < v650 && *v656 == *v658)
+        {
+          v656 += 4;
+          v658 += 4;
+        }
+
+        if (v658 < v721 && *v656 == *v658)
+        {
+          v656 += 2;
+          v658 += 2;
+        }
+
+        if (v658 < v11 && *v656 == *v658)
+        {
+          ++v658;
+        }
+
+        v661 = v658 - v655;
+      }
+
+      else if (*v656 == *v655)
+      {
+        v656 = &v648[v647 + 8];
+        v657 = &v128[v647 + 8];
+        do
+        {
+          v658 = v657;
+          if (v657 >= v624)
+          {
+            goto LABEL_968;
+          }
+
+          v660 = *v656;
+          v656 += 8;
+          v659 = v660;
+          v657 += 8;
+        }
+
+        while (v660 == *v658);
+        v661 = &v658[__clz(__rbit64(*v658 ^ v659)) >> 3] - v655;
+      }
+
+      else
+      {
+        v661 = __clz(__rbit64(*v655 ^ *v656)) >> 3;
+      }
+
+      v662 = v128 - a4;
+      v663 = *(a2 + 24);
+      if (v128 <= v625)
+      {
+        *v663 = *a4;
+        v670 = *(a2 + 24);
+        if (v662 <= 0x10)
+        {
+          *(a2 + 24) = v670 + v662;
+          v675 = *(a2 + 8);
+          goto LABEL_1010;
+        }
+
+        *(v670 + 16) = *(a4 + 1);
+        if (v662 >= 33)
+        {
+          v671 = v670 + v662;
+          v672 = (v670 + 32);
+          v673 = a4 + 48;
+          do
+          {
+            *v672 = *(v673 - 1);
+            v674 = *v673;
+            v673 += 32;
+            v672[1] = v674;
+            v672 += 2;
+          }
+
+          while (v672 < v671);
+        }
+      }
+
+      else
+      {
+        if (a4 <= v625)
+        {
+          v664 = (v663 + v625 - a4);
+          *v663 = *a4;
+          if (v625 - a4 >= 17)
+          {
+            v665 = v663 + 1;
+            v666 = a4 + 32;
+            do
+            {
+              *v665 = *(v666 - 1);
+              v667 = *v666;
+              v666 += 32;
+              v665[1] = v667;
+              v665 += 2;
+            }
+
+            while (v665 < v664);
+          }
+
+          a4 = v625;
+          v663 = v664;
+        }
+
+        if (a4 >= v128)
+        {
+          goto LABEL_1008;
+        }
+
+        v668 = v128 - a4;
+        if ((v128 - a4) < 8)
+        {
+          v676 = v663;
+          goto LABEL_1007;
+        }
+
+        if ((v663 - a4) < 0x20)
+        {
+          v676 = v663;
+          goto LABEL_1007;
+        }
+
+        if (v668 >= 0x20)
+        {
+          v669 = v668 & 0xFFFFFFFFFFFFFFE0;
+          v677 = a4 + 16;
+          v678 = v663 + 1;
+          v679 = v668 & 0xFFFFFFFFFFFFFFE0;
+          do
+          {
+            v680 = *v677;
+            *(v678 - 1) = *(v677 - 1);
+            *v678 = v680;
+            v677 += 32;
+            v678 += 2;
+            v679 -= 32;
+          }
+
+          while (v679);
+          v650 = v728;
+          if (v668 == v669)
+          {
+            goto LABEL_1008;
+          }
+
+          if ((v668 & 0x18) == 0)
+          {
+            a4 += v669;
+            v676 = v663 + v669;
+            v650 = v728;
+            do
+            {
+LABEL_1007:
+              v686 = *a4++;
+              *v676++ = v686;
+            }
+
+            while (a4 != v128);
+            goto LABEL_1008;
+          }
+        }
+
+        else
+        {
+          v669 = 0;
+        }
+
+        v681 = v668 & 0xFFFFFFFFFFFFFFF8;
+        v676 = v663 + (v668 & 0xFFFFFFFFFFFFFFF8);
+        v682 = v669 - (v668 & 0xFFFFFFFFFFFFFFF8);
+        v683 = &a4[v669];
+        v684 = (v663 + v669);
+        do
+        {
+          v685 = *v683;
+          v683 += 8;
+          *v684++ = v685;
+          v682 += 8;
+        }
+
+        while (v682);
+        v650 = v728;
+        v11 = v729;
+        if (v668 != v681)
+        {
+          a4 += v681;
+          goto LABEL_1007;
+        }
+      }
+
+LABEL_1008:
+      *(a2 + 24) += v662;
+      v675 = *(a2 + 8);
+      if (v662 >= 0x10000)
+      {
+        v687 = (v675 - *a2) >> 3;
+        *(a2 + 72) = 1;
+        *(a2 + 76) = v687;
+      }
+
+LABEL_1010:
+      v688 = v661 + v647;
+      *(v675 + 4) = v662;
+      *v675 = v649;
+      v689 = v661 + v647 - 3;
+      if (v689 >= 0x10000)
+      {
+        v690 = (v675 - *a2) >> 3;
+        *(a2 + 72) = 2;
+        *(a2 + 76) = v690;
+      }
+
+      *(v675 + 6) = v689;
+      v691 = v675 + 8;
+      *(a2 + 8) = v675 + 8;
+      a4 = &v128[v688];
+      if (&v128[v688] <= v125)
+      {
+        *(v8 + 4 * ((-1640531535 * *(v116 + 2 + v640)) >> v623)) = v640 + 2;
+        *(v8 + 4 * ((-1640531535 * *(a4 - 2)) >> v623)) = a4 - 2 - v116;
+        if (!v134)
+        {
+          v133 = 0;
+          goto LABEL_1045;
+        }
+
+        v692 = v163;
+        while (2)
+        {
+          v133 = v692;
+          v692 = v134;
+          v693 = v134;
+          if (*a4 != *&a4[-v134])
+          {
+            v163 = v133;
+            v133 = v134;
+            goto LABEL_1045;
+          }
+
+          v694 = -v134;
+          v695 = a4 + 4;
+          v696 = &a4[-v693 + 4];
+          if (v624 > (a4 + 4))
+          {
+            v697 = *v696;
+            if (v697 == *v695)
+            {
+              v698 = a4 + 12;
+              v696 = &a4[v694 + 12];
+              do
+              {
+                v699 = v698;
+                if (v698 >= v624)
+                {
+                  goto LABEL_1025;
+                }
+
+                v701 = *v696;
+                v696 += 8;
+                v700 = v701;
+                v698 += 8;
+              }
+
+              while (v701 == *v699);
+              v702 = &v699[__clz(__rbit64(*v699 ^ v700)) >> 3] - v695;
+            }
+
+            else
+            {
+              v702 = __clz(__rbit64(*v695 ^ v697)) >> 3;
+            }
+
+LABEL_1039:
+            *(v8 + 4 * ((-1640531535 * *a4) >> v623)) = a4 - v116;
+            if (a4 <= v625)
+            {
+              **(a2 + 24) = *a4;
+              v691 = *(a2 + 8);
+            }
+
+            *(v691 + 4) = 0;
+            *v691 = 1;
+            if (v702 + 1 >= 0x10000)
+            {
+              v703 = (v691 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v703;
+            }
+
+            a4 += v702 + 4;
+            *(v691 + 6) = v702 + 1;
+            v691 += 8;
+            *(a2 + 8) = v691;
+            v134 = v133;
+            v163 = v692;
+            if (a4 > v125)
+            {
+              goto LABEL_1045;
+            }
+
+            continue;
+          }
+
+          break;
+        }
+
+        v699 = a4 + 4;
+LABEL_1025:
+        if (v699 >= v650)
+        {
+          if (v699 >= v721)
+          {
+            goto LABEL_1029;
+          }
+        }
+
+        else
+        {
+          if (*v696 == *v699)
+          {
+            v696 += 4;
+            v699 += 4;
+          }
+
+          if (v699 >= v721)
+          {
+LABEL_1029:
+            if (v699 < v11)
+            {
+              goto LABEL_1030;
+            }
+
+            goto LABEL_1032;
+          }
+        }
+
+        if (*v696 == *v699)
+        {
+          v696 += 2;
+          v699 += 2;
+        }
+
+        if (v699 < v11)
+        {
+LABEL_1030:
+          if (*v696 == *v699)
+          {
+            ++v699;
+          }
+        }
+
+LABEL_1032:
+        v702 = v699 - v695;
+        goto LABEL_1039;
+      }
+
+      v133 = v134;
+LABEL_1045:
+      v135 = a4 + 3;
+      v128 = a4;
+      v134 = v163;
+      if ((a4 + 3) >= v125)
+      {
+        goto LABEL_1071;
+      }
+    }
+  }
+
+  if (v135 >= v125)
+  {
+LABEL_1047:
+    LODWORD(v163) = v134;
+    goto LABEL_1071;
+  }
+
+  v136 = 64 - *(a1 + 264);
+  v137 = (v11 - 7);
+  v138 = v11 - 32;
+  v722 = v11 - 3;
+  v725 = v11 - 1;
+  do
+  {
+    v139 = v11;
+    v140 = v128 + 2;
+    v142 = v128 + 1;
+    v141 = *(v128 + 1);
+    v143 = v128 + 128;
+    v144 = (0xCF1BBCDCBFA56300 * *v128) >> v136;
+    v145 = *(v8 + 4 * v144);
+    if (v134)
+    {
+      v146 = 2;
+      while (1)
+      {
+        v150 = v140;
+        _X11 = v135;
+        v152 = *&v140[-v134];
+        v153 = (0xCF1BBCDCBFA56300 * v141) >> v136;
+        v154 = v128 - v116;
+        *(v8 + 4 * v144) = v128 - v116;
+        if (*v150 == v152)
+        {
+          break;
+        }
+
+        if (v145 >= v123 && *v128 == *(v116 + v145))
+        {
+          goto LABEL_191;
+        }
+
+        v145 = *(v8 + 4 * v153);
+        v144 = (0xCF1BBCDCBFA56300 * *v150) >> v136;
+        v154 = v142 - v116;
+        *(v8 + 4 * v153) = v142 - v116;
+        if (v145 >= v123 && *v142 == *(v116 + v145))
+        {
+          goto LABEL_192;
+        }
+
+        v145 = *(v8 + 4 * v144);
+        v141 = *_X11;
+        v140 = &v150[v146];
+        if (&v150[v146] >= v143)
+        {
+          v147 = v146 + 1;
+          __asm
+          {
+            PRFM            #0, [X11,#0x40]
+            PRFM            #0, [X11,#0x80]
+          }
+
+          v143 += 128;
+        }
+
+        else
+        {
+          v147 = v146;
+        }
+
+        v135 = &_X11[v146];
+        v146 = v147;
+        v142 = _X11;
+        v128 = v150;
+        if (v135 >= v125)
+        {
+          goto LABEL_1048;
+        }
+      }
+
+      v159 = *(v150 - 1) == v150[-v134 - 1];
+      if (*(v150 - 1) == v150[-v134 - 1])
+      {
+        v160 = 5;
+      }
+
+      else
+      {
+        v160 = 4;
+      }
+
+      v128 = &v150[-v159];
+      v161 = &v150[-v134 - v159];
+      *(v8 + 4 * v153) = v142 - v116;
+      v162 = 1;
+      v163 = v134;
+      v134 = v133;
+      v11 = v139;
+      v164 = v722;
+    }
+
+    else
+    {
+      v146 = 2;
+      while (1)
+      {
+        v150 = v140;
+        _X11 = v135;
+        v153 = (0xCF1BBCDCBFA56300 * v141) >> v136;
+        v154 = v128 - v116;
+        *(v8 + 4 * v144) = v128 - v116;
+        if (v145 >= v123 && *v128 == *(v116 + v145))
+        {
+LABEL_191:
+          v11 = v139;
+          goto LABEL_193;
+        }
+
+        v145 = *(v8 + 4 * v153);
+        v144 = (0xCF1BBCDCBFA56300 * *v140) >> v136;
+        v154 = v142 - v116;
+        *(v8 + 4 * v153) = v142 - v116;
+        if (v145 >= v123 && *v142 == *(v116 + v145))
+        {
+          break;
+        }
+
+        v145 = *(v8 + 4 * v144);
+        v141 = *_X11;
+        v140 += v146;
+        if (&v150[v146] >= v143)
+        {
+          v155 = v146 + 1;
+          __asm
+          {
+            PRFM            #0, [X11,#0x40]
+            PRFM            #0, [X11,#0x80]
+          }
+
+          v143 += 128;
+        }
+
+        else
+        {
+          v155 = v146;
+        }
+
+        v135 = &_X11[v146];
+        v146 = v155;
+        v142 = _X11;
+        v128 = v150;
+        if (v135 >= v125)
+        {
+          goto LABEL_1049;
+        }
+      }
+
+LABEL_192:
+      v128 = v142;
+      LODWORD(v142) = v150;
+      v153 = v144;
+      v11 = v139;
+      if (v146 >= 5)
+      {
+        goto LABEL_194;
+      }
+
+LABEL_193:
+      *(v8 + 4 * v153) = v142 - v116;
+LABEL_194:
+      v161 = (v116 + v145);
+      v163 = (v128 - v161);
+      v162 = v163 + 3;
+      v164 = v722;
+      if (v145 <= v123 || v128 <= a4)
+      {
+        v160 = 4;
+      }
+
+      else
+      {
+        v165 = v128 - 1;
+        v166 = (v116 - 1 + v145);
+        v160 = 4;
+        while (*v165 == *v166)
+        {
+          ++v160;
+          v167 = v165 - 1;
+          v168 = v166 - 1;
+          if (v165 > a4)
+          {
+            --v165;
+            v706 = v166-- > v124;
+            if (v706)
+            {
+              continue;
+            }
+          }
+
+          v128 = v167 + 1;
+          v161 = v168 + 1;
+          goto LABEL_203;
+        }
+
+        v128 = v165 + 1;
+        v161 = v166 + 1;
+      }
+    }
+
+LABEL_203:
+    v169 = &v128[v160];
+    v170 = &v161[v160];
+    if (v137 <= &v128[v160])
+    {
+      v172 = &v128[v160];
+    }
+
+    else
+    {
+      if (*v170 != *v169)
+      {
+        v175 = __clz(__rbit64(*v169 ^ *v170)) >> 3;
+        goto LABEL_221;
+      }
+
+      v170 = &v161[v160 + 8];
+      v171 = &v128[v160 + 8];
+      while (1)
+      {
+        v172 = v171;
+        if (v171 >= v137)
+        {
+          break;
+        }
+
+        v174 = *v170;
+        v170 += 8;
+        v173 = v174;
+        v171 += 8;
+        if (v174 != *v172)
+        {
+          v175 = &v172[__clz(__rbit64(*v172 ^ v173)) >> 3] - v169;
+          goto LABEL_221;
+        }
+      }
+    }
+
+    if (v172 < v164 && *v170 == *v172)
+    {
+      v170 += 4;
+      v172 += 4;
+    }
+
+    if (v172 < v725 && *v170 == *v172)
+    {
+      v170 += 2;
+      v172 += 2;
+    }
+
+    if (v172 < v11 && *v170 == *v172)
+    {
+      ++v172;
+    }
+
+    v175 = v172 - v169;
+LABEL_221:
+    v176 = v128 - a4;
+    v177 = *(a2 + 24);
+    if (v128 > v138)
+    {
+      v713 = v162;
+      if (a4 <= v138)
+      {
+        v178 = (v177 + v138 - a4);
+        *v177 = *a4;
+        if (v138 - a4 >= 17)
+        {
+          v179 = v177 + 1;
+          v180 = a4 + 32;
+          do
+          {
+            *v179 = *(v180 - 1);
+            v181 = *v180;
+            v180 += 32;
+            v179[1] = v181;
+            v179 += 2;
+          }
+
+          while (v179 < v178);
+        }
+
+        a4 = v138;
+        v177 = v178;
+      }
+
+      if (a4 >= v128)
+      {
+        goto LABEL_250;
+      }
+
+      v182 = v128 - a4;
+      if ((v128 - a4) < 8)
+      {
+        v191 = v177;
+        goto LABEL_249;
+      }
+
+      if ((v177 - a4) < 0x20)
+      {
+        v191 = v177;
+        goto LABEL_249;
+      }
+
+      if (v182 >= 0x20)
+      {
+        v183 = v182 & 0xFFFFFFFFFFFFFFE0;
+        v192 = a4 + 16;
+        v193 = v177 + 1;
+        v194 = v182 & 0xFFFFFFFFFFFFFFE0;
+        do
+        {
+          v195 = *v192;
+          *(v193 - 1) = *(v192 - 1);
+          *v193 = v195;
+          v192 += 32;
+          v193 += 2;
+          v194 -= 32;
+        }
+
+        while (v194);
+        v164 = v722;
+        if (v182 == v183)
+        {
+          goto LABEL_250;
+        }
+
+        if ((v182 & 0x18) == 0)
+        {
+          a4 += v183;
+          v191 = v177 + v183;
+          v164 = v722;
+          goto LABEL_249;
+        }
+      }
+
+      else
+      {
+        v183 = 0;
+      }
+
+      v196 = v182 & 0xFFFFFFFFFFFFFFF8;
+      v191 = v177 + (v182 & 0xFFFFFFFFFFFFFFF8);
+      v197 = v183 - (v182 & 0xFFFFFFFFFFFFFFF8);
+      v198 = &a4[v183];
+      v199 = (v177 + v183);
+      do
+      {
+        v200 = *v198;
+        v198 += 8;
+        *v199++ = v200;
+        v197 += 8;
+      }
+
+      while (v197);
+      v11 = v139;
+      v164 = v722;
+      if (v182 == v196)
+      {
+        goto LABEL_250;
+      }
+
+      a4 += v196;
+      do
+      {
+LABEL_249:
+        v201 = *a4++;
+        *v191++ = v201;
+      }
+
+      while (a4 != v128);
+LABEL_250:
+      *(a2 + 24) += v176;
+      v189 = *(a2 + 8);
+      if (v176 >= 0x10000)
+      {
+        v202 = (v189 - *a2) >> 3;
+        *(a2 + 72) = 1;
+        *(a2 + 76) = v202;
+      }
+
+      v190 = v725;
+      v162 = v713;
+      goto LABEL_253;
+    }
+
+    *v177 = *a4;
+    v184 = *(a2 + 24);
+    if (v176 > 0x10)
+    {
+      v713 = v162;
+      *(v184 + 16) = *(a4 + 1);
+      if (v176 >= 33)
+      {
+        v185 = v184 + v176;
+        v186 = (v184 + 32);
+        v187 = a4 + 48;
+        do
+        {
+          *v186 = *(v187 - 1);
+          v188 = *v187;
+          v187 += 32;
+          v186[1] = v188;
+          v186 += 2;
+        }
+
+        while (v186 < v185);
+      }
+
+      goto LABEL_250;
+    }
+
+    *(a2 + 24) = v184 + v176;
+    v189 = *(a2 + 8);
+    v190 = v725;
+LABEL_253:
+    v203 = v175 + v160;
+    *(v189 + 4) = v176;
+    *v189 = v162;
+    v204 = v175 + v160 - 3;
+    if (v204 >= 0x10000)
+    {
+      v205 = (v189 - *a2) >> 3;
+      *(a2 + 72) = 2;
+      *(a2 + 76) = v205;
+    }
+
+    *(v189 + 6) = v204;
+    v206 = v189 + 8;
+    *(a2 + 8) = v189 + 8;
+    a4 = &v128[v203];
+    if (&v128[v203] > v125)
+    {
+      v133 = v134;
+      goto LABEL_288;
+    }
+
+    *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *(v116 + 2 + v154)) >> v136)) = v154 + 2;
+    *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *(a4 - 2)) >> v136)) = a4 - 2 - v116;
+    if (!v134)
+    {
+      v133 = 0;
+      goto LABEL_288;
+    }
+
+    v207 = v163;
+    while (1)
+    {
+      v133 = v207;
+      v207 = v134;
+      if (*a4 != *&a4[-v134])
+      {
+        break;
+      }
+
+      v208 = -v134;
+      v209 = a4 + 4;
+      v210 = &a4[-v134 + 4];
+      if (v137 <= (a4 + 4))
+      {
+        v213 = a4 + 4;
+      }
+
+      else
+      {
+        v211 = *v210;
+        if (v211 != *v209)
+        {
+          v216 = __clz(__rbit64(*v209 ^ v211)) >> 3;
+          goto LABEL_282;
+        }
+
+        v212 = a4 + 12;
+        v210 = &a4[v208 + 12];
+        while (1)
+        {
+          v213 = v212;
+          if (v212 >= v137)
+          {
+            break;
+          }
+
+          v215 = *v210;
+          v210 += 8;
+          v214 = v215;
+          v212 += 8;
+          if (v215 != *v213)
+          {
+            v216 = &v213[__clz(__rbit64(*v213 ^ v214)) >> 3] - v209;
+            goto LABEL_282;
+          }
+        }
+      }
+
+      if (v213 >= v164)
+      {
+        if (v213 < v190)
+        {
+          goto LABEL_277;
+        }
+      }
+
+      else
+      {
+        if (*v210 == *v213)
+        {
+          v210 += 4;
+          v213 += 4;
+        }
+
+        if (v213 < v190)
+        {
+LABEL_277:
+          if (*v210 == *v213)
+          {
+            v210 += 2;
+            v213 += 2;
+          }
+
+          if (v213 >= v11)
+          {
+            goto LABEL_275;
+          }
+
+LABEL_273:
+          if (*v210 == *v213)
+          {
+            ++v213;
+          }
+
+          goto LABEL_275;
+        }
+      }
+
+      if (v213 < v11)
+      {
+        goto LABEL_273;
+      }
+
+LABEL_275:
+      v216 = v213 - v209;
+LABEL_282:
+      *(v8 + 4 * ((0xCF1BBCDCBFA56300 * *a4) >> v136)) = a4 - v116;
+      if (a4 <= v138)
+      {
+        **(a2 + 24) = *a4;
+        v206 = *(a2 + 8);
+      }
+
+      *(v206 + 4) = 0;
+      *v206 = 1;
+      if (v216 + 1 >= 0x10000)
+      {
+        v217 = (v206 - *a2) >> 3;
+        *(a2 + 72) = 2;
+        *(a2 + 76) = v217;
+      }
+
+      a4 += v216 + 4;
+      *(v206 + 6) = v216 + 1;
+      v206 += 8;
+      *(a2 + 8) = v206;
+      v134 = v133;
+      v163 = v207;
+      if (a4 > v125)
+      {
+        goto LABEL_288;
+      }
+    }
+
+    v163 = v133;
+    v133 = v134;
+LABEL_288:
+    v135 = a4 + 3;
+    v128 = a4;
+    v134 = v163;
+  }
+
+  while ((a4 + 3) < v125);
+LABEL_1071:
+  if (v126 <= v132)
+  {
+    v707 = 0;
   }
 
   else
   {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-    v53 = _os_log_send_and_compose_impl();
-    type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v192[0]) = 0;
-    if (!__nwlog_fault(v53, type, v192))
-    {
-      goto LABEL_173;
-    }
-
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v54 = __nwlog_obj();
-      v55 = type[0];
-      if (!os_log_type_enabled(v54, type[0]))
-      {
-        goto LABEL_173;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-      v56 = "%{public}s called with null protocol";
-      goto LABEL_172;
-    }
-
-    if (LOBYTE(v192[0]) != 1)
-    {
-      v54 = __nwlog_obj();
-      v55 = type[0];
-      if (!os_log_type_enabled(v54, type[0]))
-      {
-        goto LABEL_173;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-      v56 = "%{public}s called with null protocol, backtrace limit exceeded";
-      goto LABEL_172;
-    }
-
-    v80 = __nw_create_backtrace_string();
-    v54 = __nwlog_obj();
-    v55 = type[0];
-    v81 = os_log_type_enabled(v54, type[0]);
-    if (!v80)
-    {
-      if (!v81)
-      {
-        goto LABEL_173;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-      v56 = "%{public}s called with null protocol, no backtrace";
-      goto LABEL_172;
-    }
-
-    if (v81)
-    {
-      *buf = 136446466;
-      *&buf[4] = "nw_protocol_webtransport_stream_disconnect";
-      *&buf[12] = 2082;
-      *&buf[14] = v80;
-      _os_log_impl(&dword_181A37000, v54, v55, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
-    }
-
-    free(v80);
+    v707 = v126;
   }
 
-LABEL_173:
-  if (v53)
+  if (v127 <= v132)
   {
-LABEL_174:
-    free(v53);
+    v708 = 0;
   }
+
+  else
+  {
+    v708 = v127;
+  }
+
+  if (v163)
+  {
+    v707 = v163;
+    v709 = v126 > v132;
+  }
+
+  else
+  {
+    v709 = 0;
+  }
+
+  if (v709)
+  {
+    v708 = v126;
+  }
+
+  if (v133)
+  {
+    v708 = v133;
+  }
+
+  *a3 = v707;
+  a3[1] = v708;
+  return v11 - a4;
+}
+
+uint64_t ZSTD_compressBlock_fast_dictMatchState(uint64_t a1, uint64_t a2, unsigned int *a3, char *a4, uint64_t a5)
+{
+  v5 = *(a1 + 272);
+  v6 = *(a1 + 112);
+  v7 = *(a1 + 264);
+  v8 = *(a1 + 276);
+  if (v8 <= 1)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  v10 = *(a1 + 8);
+  v11 = *(a1 + 24);
+  v12 = &a4[a5];
+  v13 = &a4[a5 - 8];
+  v14 = *a3;
+  v15 = a3[1];
+  v16 = *(a1 + 248);
+  v17 = *(v16 + 112);
+  v18 = *(v16 + 24);
+  v19 = *(v16 + 8);
+  v762 = *v16;
+  v763 = *(v16 + 24);
+  v20 = v11 + v19 - *v16;
+  v761 = (v10 + v11);
+  v21 = &a4[-v10 - v11 + *v16 - v19 - v18];
+  v22 = *(v16 + 264);
+  v23 = *(a1 + 296);
+  if (v5 == 5)
+  {
+    if (v23 && v22 <= 0x3D)
+    {
+      v383 = 0;
+      do
+      {
+        _X16 = v17 + v383;
+        __asm { PRFM            #2, [X16] }
+
+        v383 += 64;
+      }
+
+      while (v383 < 4 << v22);
+    }
+
+    v386 = &a4[v9];
+    if (&a4[v9] > v13)
+    {
+      goto LABEL_963;
+    }
+
+    v746 = v19 + v18;
+    v387 = v9;
+    if (v21)
+    {
+      v33 = a4;
+    }
+
+    else
+    {
+      v33 = (a4 + 1);
+    }
+
+    v388 = 64 - v7;
+    v389 = 56 - v22;
+    v390 = v11 - 1;
+    v750 = (v12 - 7);
+    v742 = v12 - 3;
+    v738 = v12 - 1;
+    v754 = (v12 - 32);
+    v758 = v11 + v10 + 8;
+LABEL_650:
+    v391 = 0xCF1BBCDCBB000000 * *v33;
+    v392 = (v391 >> v389) ^ *(v17 + ((v391 >> v389 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    v393 = v33 + 256;
+    v394 = *(v17 + ((v391 >> v389 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    while (1)
+    {
+      v395 = v386;
+      v396 = v391 >> v388;
+      v397 = *(v6 + 4 * (v391 >> v388));
+      v398 = v33 - v10;
+      v399 = v33 - v10 - v14 + 1;
+      v400 = *v395;
+      *(v6 + 4 * v396) = v33 - v10;
+      if (v390 - v399 >= 3)
+      {
+        v401 = (v19 + v399 - v20);
+        if (v399 >= v11)
+        {
+          v401 = (v10 + v399);
+        }
+
+        if (*v401 == *(v33 + 1))
+        {
+          break;
+        }
+      }
+
+      if (!v392)
+      {
+        v402 = v394 >> 8;
+        if (v402 > v763 && *(v19 + v402) == *v33 && v397 <= v11)
+        {
+          v424 = (v33 + 4);
+          v425 = (v19 + v402 + 4);
+          v426 = &v762[-v19 - v402 + v33];
+          if (v426 >= v12)
+          {
+            v426 = v12;
+          }
+
+          if (v426 - 7 <= v424)
+          {
+            v427 = (v19 + v402 + 4);
+            v429 = v33 + 4;
+LABEL_746:
+            v417 = v12 - 7;
+            if (v429 < v426 - 3 && *v427 == *v429)
+            {
+              ++v427;
+              v429 += 4;
+            }
+
+            if (v429 < v426 - 1 && *v427 == *v429)
+            {
+              v427 = (v427 + 2);
+              v429 += 2;
+            }
+
+            if (v429 < v426 && *v427 == *v429)
+            {
+              ++v429;
+            }
+
+            v454 = v746;
+            v432 = v429 - v424;
+          }
+
+          else
+          {
+            if (*v425 == *v424)
+            {
+              v427 = (v19 + 12 + v402);
+              v428 = (v33 + 12);
+              do
+              {
+                v429 = v428;
+                if (v428 >= (v426 - 7))
+                {
+                  goto LABEL_746;
+                }
+
+                v431 = *v427;
+                v427 += 2;
+                v430 = v431;
+                v428 += 8;
+              }
+
+              while (v431 == *v429);
+              v432 = &v429[__clz(__rbit64(*v429 ^ v430)) >> 3] - v424;
+            }
+
+            else
+            {
+              v432 = __clz(__rbit64(*v424 ^ *v425)) >> 3;
+            }
+
+            v454 = v746;
+            v417 = v12 - 7;
+          }
+
+          if ((v425 + v432) == v762)
+          {
+            v461 = &v424[v432];
+            if (v417 <= v461)
+            {
+              v467 = (v10 + v11);
+              v466 = v461;
+              goto LABEL_829;
+            }
+
+            if (*v761 == *v461)
+            {
+              v462 = 0;
+              v463 = &v33[v432];
+              while (1)
+              {
+                v464 = &v463[v462 + 12];
+                if (v464 >= v417)
+                {
+                  break;
+                }
+
+                v465 = *(v758 + v462);
+                v462 += 8;
+                if (v465 != *v464)
+                {
+                  v466 = &v463[v462 + 4 + (__clz(__rbit64(*v464 ^ v465)) >> 3)];
+                  goto LABEL_838;
+                }
+              }
+
+              v467 = (v758 + v462);
+              v466 = &v33[v432 + 12 + v462];
+LABEL_829:
+              if (v466 < v742 && *v467 == *v466)
+              {
+                ++v467;
+                v466 += 4;
+              }
+
+              if (v466 < v738 && *v467 == *v466)
+              {
+                v467 = (v467 + 2);
+                v466 += 2;
+              }
+
+              if (v466 < v12 && *v467 == *v466)
+              {
+                ++v466;
+              }
+
+LABEL_838:
+              v501 = v466 - v461;
+            }
+
+            else
+            {
+              v501 = __clz(__rbit64(*v461 ^ *v761)) >> 3;
+            }
+
+            v432 += v501;
+          }
+
+          v439 = v432 + 4;
+          if (v33 <= a4)
+          {
+            goto LABEL_847;
+          }
+
+          v502 = v33 - 1;
+          v503 = (v19 - 1 + v402);
+          while (*v502 == *v503)
+          {
+            ++v439;
+            v504 = v502 - 1;
+            if (v502 > a4)
+            {
+              --v502;
+              v49 = v503-- > v454;
+              if (v49)
+              {
+                continue;
+              }
+            }
+
+            v33 = v504 + 1;
+            goto LABEL_847;
+          }
+
+          v33 = v502 + 1;
+LABEL_847:
+          v443 = v33;
+          v444 = v33 - a4;
+          v505 = *(a2 + 24);
+          if (v33 > v754)
+          {
+            if (a4 <= v754)
+            {
+              v506 = (v505 + v754 - a4);
+              *v505 = *a4;
+              if ((v754 - a4) >= 17)
+              {
+                v512 = v505 + 1;
+                v513 = (a4 + 32);
+                do
+                {
+                  *v512 = *(v513 - 1);
+                  v514 = *v513;
+                  v513 += 32;
+                  v512[1] = v514;
+                  v512 += 2;
+                }
+
+                while (v512 < v506);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v505 = v506;
+            }
+
+            if (a4 >= v33)
+            {
+              goto LABEL_892;
+            }
+
+            v515 = v33 - a4;
+            if ((v33 - a4) < 8)
+            {
+              v517 = v505;
+            }
+
+            else if ((v505 - a4) < 0x20)
+            {
+              v517 = v505;
+            }
+
+            else
+            {
+              if (v515 < 0x20)
+              {
+                v516 = 0;
+LABEL_872:
+                v522 = v515 & 0xFFFFFFFFFFFFFFF8;
+                v517 = v505 + (v515 & 0xFFFFFFFFFFFFFFF8);
+                v523 = v516 - (v515 & 0xFFFFFFFFFFFFFFF8);
+                v524 = &a4[v516];
+                v525 = (v505 + v516);
+                do
+                {
+                  v526 = *v524;
+                  v524 += 8;
+                  *v525++ = v526;
+                  v523 += 8;
+                }
+
+                while (v523);
+                if (v515 != v522)
+                {
+                  a4 += v522;
+                  goto LABEL_891;
+                }
+
+LABEL_892:
+                *(a2 + 24) += v444;
+                v452 = *(a2 + 8);
+                if (v444 >= 0x10000)
+                {
+                  v534 = (v452 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v534;
+                }
+
+                v417 = v12 - 7;
+                goto LABEL_895;
+              }
+
+              v516 = v515 & 0xFFFFFFFFFFFFFFE0;
+              v518 = (a4 + 16);
+              v519 = v505 + 1;
+              v520 = v515 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v521 = *v518;
+                *(v519 - 1) = *(v518 - 1);
+                *v519 = v521;
+                v518 += 32;
+                v519 += 2;
+                v520 -= 32;
+              }
+
+              while (v520);
+              if (v515 == v516)
+              {
+                goto LABEL_892;
+              }
+
+              if ((v515 & 0x18) != 0)
+              {
+                goto LABEL_872;
+              }
+
+              a4 += v516;
+              v517 = v505 + v516;
+            }
+
+            do
+            {
+LABEL_891:
+              v533 = *a4++;
+              *v517++ = v533;
+            }
+
+            while (a4 != v33);
+            goto LABEL_892;
+          }
+
+          *v505 = *a4;
+          v507 = *(a2 + 24);
+          if (v444 > 0x10)
+          {
+            *(v507 + 16) = *(a4 + 1);
+            if (v444 >= 33)
+            {
+              v508 = v507 + v444;
+              v509 = (v507 + 32);
+              v510 = (a4 + 48);
+              do
+              {
+                *v509 = *(v510 - 1);
+                v511 = *v510;
+                v510 += 32;
+                v509[1] = v511;
+                v509 += 2;
+              }
+
+              while (v509 < v508);
+            }
+
+            goto LABEL_892;
+          }
+
+          *(a2 + 24) = v507 + v444;
+          v452 = *(a2 + 8);
+LABEL_895:
+          v530 = v398 - v20 - v402;
+LABEL_896:
+          *(v452 + 4) = v444;
+          *v452 = v530 + 3;
+          LOWORD(v529) = v439 - 3;
+          v15 = v14;
+          v14 = v530;
+          if ((v439 - 3) >> 16)
+          {
+LABEL_897:
+            v535 = (v452 - *a2) >> 3;
+            *(a2 + 72) = 2;
+            *(a2 + 76) = v535;
+            v14 = v530;
+          }
+
+LABEL_898:
+          *(v452 + 6) = v529;
+          v536 = v452 + 8;
+          *(a2 + 8) = v452 + 8;
+          v33 = &v443[v439];
+          if (&v443[v439] > v13)
+          {
+            v183 = v15;
+            v184 = v14;
+LABEL_956:
+            v387 = v9;
+            v386 = &v33[v9];
+            a4 = v33;
+            v14 = v184;
+            v15 = v183;
+            if (&v33[v9] > v13)
+            {
+              goto LABEL_964;
+            }
+
+            goto LABEL_650;
+          }
+
+          *(v6 + 4 * ((0xCF1BBCDCBB000000 * *(v10 + 2 + v398)) >> v388)) = v398 + 2;
+          *(v6 + 4 * ((0xCF1BBCDCBB000000 * *(v33 - 2)) >> v388)) = v33 - 2 - v10;
+          while (2)
+          {
+            v184 = v15;
+            v15 = v14;
+            v537 = (v33 - v10 - v184);
+            if (v537 >= v11)
+            {
+              v538 = v10;
+            }
+
+            else
+            {
+              v538 = v19 - v20;
+            }
+
+            if ((v390 - v537) < 3 || (v539 = v538 + v537, *(v538 + v537) != *v33))
+            {
+              v183 = v184;
+              v184 = v14;
+              goto LABEL_956;
+            }
+
+            if (v537 >= v11)
+            {
+              v540 = v12;
+            }
+
+            else
+            {
+              v540 = v762;
+            }
+
+            v541 = (v33 + 4);
+            v542 = (v539 + 4);
+            v543 = &v540[v33 - v539];
+            if (v543 >= v12)
+            {
+              v543 = v12;
+            }
+
+            if (v543 - 7 <= v541)
+            {
+              v544 = v542;
+              v546 = v33 + 4;
+LABEL_919:
+              if (v546 < v543 - 3 && *v544 == *v546)
+              {
+                ++v544;
+                v546 += 4;
+              }
+
+              if (v546 < v543 - 1 && *v544 == *v546)
+              {
+                v544 = (v544 + 2);
+                v546 += 2;
+              }
+
+              if (v546 < v543 && *v544 == *v546)
+              {
+                ++v546;
+              }
+
+              v417 = v12 - 7;
+              v549 = v546 - v541;
+            }
+
+            else if (*v542 == *v541)
+            {
+              v544 = (v538 + v537 + 12);
+              v545 = (v33 + 12);
+              do
+              {
+                v546 = v545;
+                if (v545 >= (v543 - 7))
+                {
+                  goto LABEL_919;
+                }
+
+                v548 = *v544;
+                v544 += 2;
+                v547 = v548;
+                v545 += 8;
+              }
+
+              while (v548 == *v546);
+              v549 = &v546[__clz(__rbit64(*v546 ^ v547)) >> 3] - v541;
+              v417 = v12 - 7;
+            }
+
+            else
+            {
+              v549 = __clz(__rbit64(*v541 ^ *v542)) >> 3;
+            }
+
+            if ((v542 + v549) == v540)
+            {
+              v550 = &v541[v549];
+              if (v417 <= v550)
+              {
+                v556 = (v10 + v11);
+                v555 = v550;
+                goto LABEL_940;
+              }
+
+              if (*v761 == *v550)
+              {
+                v551 = 0;
+                v552 = &v33[v549];
+                while (1)
+                {
+                  v553 = &v552[v551 + 12];
+                  if (v553 >= v417)
+                  {
+                    break;
+                  }
+
+                  v554 = *(v758 + v551);
+                  v551 += 8;
+                  if (v554 != *v553)
+                  {
+                    v555 = &v552[v551 + 4 + (__clz(__rbit64(*v553 ^ v554)) >> 3)];
+                    goto LABEL_949;
+                  }
+                }
+
+                v556 = (v758 + v551);
+                v555 = &v33[v549 + 12 + v551];
+LABEL_940:
+                if (v555 < v742 && *v556 == *v555)
+                {
+                  ++v556;
+                  v555 += 4;
+                }
+
+                if (v555 < v738 && *v556 == *v555)
+                {
+                  v556 = (v556 + 2);
+                  v555 += 2;
+                }
+
+                if (v555 < v12 && *v556 == *v555)
+                {
+                  ++v555;
+                }
+
+LABEL_949:
+                v557 = v555 - v550;
+              }
+
+              else
+              {
+                v557 = __clz(__rbit64(*v550 ^ *v761)) >> 3;
+              }
+
+              v549 += v557;
+            }
+
+            if (v33 <= v754)
+            {
+              **(a2 + 24) = *v33;
+              v536 = *(a2 + 8);
+            }
+
+            *(v536 + 4) = 0;
+            *v536 = 1;
+            if (v549 + 1 >= 0x10000)
+            {
+              v558 = (v536 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v558;
+            }
+
+            *(v536 + 6) = v549 + 1;
+            v536 += 8;
+            *(a2 + 8) = v536;
+            *(v6 + 4 * ((0xCF1BBCDCBB000000 * *v33) >> v388)) = v33 - v10;
+            v33 += v549 + 4;
+            v14 = v184;
+            v183 = v15;
+            if (v33 > v13)
+            {
+              goto LABEL_956;
+            }
+
+            continue;
+          }
+        }
+      }
+
+      if (v397 > v11)
+      {
+        v404 = v10 + v397;
+        if (*(v10 + v397) == *v33)
+        {
+          v415 = (v33 + 4);
+          v416 = (v404 + 4);
+          v417 = v12 - 7;
+          if (v750 <= (v33 + 4))
+          {
+            v419 = v33 + 4;
+LABEL_697:
+            if (v419 < v742 && *v416 == *v419)
+            {
+              ++v416;
+              v419 += 4;
+            }
+
+            if (v419 < v738 && *v416 == *v419)
+            {
+              v416 = (v416 + 2);
+              v419 += 2;
+            }
+
+            if (v419 < v12 && *v416 == *v419)
+            {
+              ++v419;
+            }
+
+            v423 = v10 + v11;
+            v422 = v419 - v415;
+          }
+
+          else
+          {
+            if (*v416 == *v415)
+            {
+              v416 = (v10 + 12 + v397);
+              v418 = v33 + 12;
+              do
+              {
+                v419 = v418;
+                if (v418 >= v750)
+                {
+                  goto LABEL_697;
+                }
+
+                v421 = *v416;
+                v416 += 2;
+                v420 = v421;
+                v418 += 8;
+              }
+
+              while (v421 == *v419);
+              v422 = &v419[__clz(__rbit64(*v419 ^ v420)) >> 3] - v415;
+            }
+
+            else
+            {
+              v422 = __clz(__rbit64(*v415 ^ *v416)) >> 3;
+            }
+
+            v423 = v10 + v11;
+          }
+
+          v439 = v422 + 4;
+          if (v33 <= a4)
+          {
+            v443 = v33;
+          }
+
+          else
+          {
+            v440 = v33 - 1;
+            v441 = (v10 - 1 + v397);
+            while (*v440 == *v441)
+            {
+              ++v439;
+              v442 = v440 - 1;
+              if (v440 > a4)
+              {
+                --v440;
+                v49 = v441-- > v423;
+                if (v49)
+                {
+                  continue;
+                }
+              }
+
+              v443 = v442 + 1;
+              goto LABEL_734;
+            }
+
+            v443 = v440 + 1;
+          }
+
+LABEL_734:
+          v444 = v443 - a4;
+          v445 = *(a2 + 24);
+          if (v443 > v754)
+          {
+            if (a4 <= v754)
+            {
+              v446 = (v445 + v754 - a4);
+              *v445 = *a4;
+              if ((v754 - a4) >= 17)
+              {
+                v455 = v445 + 1;
+                v456 = (a4 + 32);
+                do
+                {
+                  *v455 = *(v456 - 1);
+                  v457 = *v456;
+                  v456 += 32;
+                  v455[1] = v457;
+                  v455 += 2;
+                }
+
+                while (v455 < v446);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v445 = v446;
+            }
+
+            if (a4 >= v443)
+            {
+              goto LABEL_886;
+            }
+
+            v458 = v443 - a4;
+            if ((v443 - a4) < 8)
+            {
+              v468 = v445;
+            }
+
+            else if ((v445 - a4) < 0x20)
+            {
+              v468 = v445;
+            }
+
+            else
+            {
+              if (v458 < 0x20)
+              {
+                v459 = 0;
+LABEL_782:
+                v473 = v458 & 0xFFFFFFFFFFFFFFF8;
+                v468 = v445 + (v458 & 0xFFFFFFFFFFFFFFF8);
+                v474 = v459 - (v458 & 0xFFFFFFFFFFFFFFF8);
+                v475 = &a4[v459];
+                v476 = (v445 + v459);
+                do
+                {
+                  v477 = *v475;
+                  v475 += 8;
+                  *v476++ = v477;
+                  v474 += 8;
+                }
+
+                while (v474);
+                if (v458 != v473)
+                {
+                  a4 += v473;
+                  goto LABEL_885;
+                }
+
+LABEL_886:
+                *(a2 + 24) += v444;
+                v452 = *(a2 + 8);
+                if (v444 >= 0x10000)
+                {
+                  v532 = (v452 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v532;
+                }
+
+                v417 = v12 - 7;
+                goto LABEL_889;
+              }
+
+              v459 = v458 & 0xFFFFFFFFFFFFFFE0;
+              v469 = (a4 + 16);
+              v470 = v445 + 1;
+              v471 = v458 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v472 = *v469;
+                *(v470 - 1) = *(v469 - 1);
+                *v470 = v472;
+                v469 += 32;
+                v470 += 2;
+                v471 -= 32;
+              }
+
+              while (v471);
+              if (v458 == v459)
+              {
+                goto LABEL_886;
+              }
+
+              if ((v458 & 0x18) != 0)
+              {
+                goto LABEL_782;
+              }
+
+              a4 += v459;
+              v468 = v445 + v459;
+            }
+
+            do
+            {
+LABEL_885:
+              v531 = *a4++;
+              *v468++ = v531;
+            }
+
+            while (a4 != v443);
+            goto LABEL_886;
+          }
+
+          *v445 = *a4;
+          v447 = *(a2 + 24);
+          if (v444 > 0x10)
+          {
+            *(v447 + 16) = *(a4 + 1);
+            if (v444 >= 33)
+            {
+              v448 = v447 + v444;
+              v449 = (v447 + 32);
+              v450 = (a4 + 48);
+              do
+              {
+                *v449 = *(v450 - 1);
+                v451 = *v450;
+                v450 += 32;
+                v449[1] = v451;
+                v449 += 2;
+              }
+
+              while (v449 < v448);
+            }
+
+            goto LABEL_886;
+          }
+
+          *(a2 + 24) = v447 + v444;
+          v452 = *(a2 + 8);
+LABEL_889:
+          v530 = (v33 - v404);
+          goto LABEL_896;
+        }
+      }
+
+      if (v395 >= v393)
+      {
+        ++v387;
+      }
+
+      v386 = &v395[v387];
+      if (&v395[v387] > v13)
+      {
+        goto LABEL_963;
+      }
+
+      v391 = 0xCF1BBCDCBB000000 * v400;
+      v393 += 256 * (v395 >= v393);
+      v394 = *(v17 + ((v391 >> v389 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+      LOBYTE(v392) = (v391 >> v389) ^ v394;
+      v33 = v395;
+    }
+
+    if (v399 >= v11)
+    {
+      v405 = v12;
+    }
+
+    else
+    {
+      v405 = v762;
+    }
+
+    v406 = (v33 + 5);
+    v407 = v401 + 1;
+    v408 = &v33[v405 - (v401 + 1) + 5];
+    if (v408 >= v12)
+    {
+      v408 = v12;
+    }
+
+    if (v408 - 7 <= v406)
+    {
+      v409 = v401 + 1;
+      v411 = v33 + 5;
+LABEL_686:
+      if (v411 < v408 - 3 && *v409 == *v411)
+      {
+        ++v409;
+        ++v411;
+      }
+
+      if (v411 < v408 - 1 && *v409 == *v411)
+      {
+        v409 = (v409 + 2);
+        v411 = (v411 + 2);
+      }
+
+      if (v411 < v408 && *v409 == *v411)
+      {
+        v411 = (v411 + 1);
+      }
+
+      v417 = v12 - 7;
+      v414 = v411 - v406;
+    }
+
+    else
+    {
+      if (*v407 == *v406)
+      {
+        v409 = v401 + 3;
+        v410 = (v33 + 13);
+        do
+        {
+          v411 = v410;
+          if (v410 >= v408 - 7)
+          {
+            goto LABEL_686;
+          }
+
+          v413 = *v409;
+          v409 += 2;
+          v412 = v413;
+          v410 += 8;
+        }
+
+        while (v413 == *v411);
+        v414 = v411 + (__clz(__rbit64(*v411 ^ v412)) >> 3) - v406;
+      }
+
+      else
+      {
+        v414 = __clz(__rbit64(*v406 ^ *v407)) >> 3;
+      }
+
+      v417 = v12 - 7;
+    }
+
+    if ((v407 + v414) != v405)
+    {
+LABEL_798:
+      v443 = v33 + 1;
+      v478 = v33 + 1 - a4;
+      v479 = *(a2 + 24);
+      if (v443 <= v754)
+      {
+        *v479 = *a4;
+        v481 = *(a2 + 24);
+        if (v478 <= 0x10)
+        {
+          *(a2 + 24) = v481 + v478;
+          v452 = *(a2 + 8);
+          goto LABEL_882;
+        }
+
+        *(v481 + 16) = *(a4 + 1);
+        if (v478 >= 33)
+        {
+          v482 = v481 + v478;
+          v483 = (v481 + 32);
+          v484 = (a4 + 48);
+          do
+          {
+            *v483 = *(v484 - 1);
+            v485 = *v484;
+            v484 += 32;
+            v483[1] = v485;
+            v483 += 2;
+          }
+
+          while (v483 < v482);
+        }
+
+LABEL_878:
+        *(a2 + 24) += v478;
+        v452 = *(a2 + 8);
+        if (v478 >= 0x10000)
+        {
+          v528 = (v452 - *a2) >> 3;
+          *(a2 + 72) = 1;
+          *(a2 + 76) = v528;
+        }
+
+        v417 = v12 - 7;
+LABEL_882:
+        v439 = v414 + 4;
+        *(v452 + 4) = v478;
+        *v452 = 1;
+        v529 = v414 + 1;
+        v530 = v14;
+        if (v529 >> 16)
+        {
+          goto LABEL_897;
+        }
+
+        goto LABEL_898;
+      }
+
+      if (a4 <= v754)
+      {
+        v480 = (v479 + v754 - a4);
+        *v479 = *a4;
+        if ((v754 - a4) >= 17)
+        {
+          v486 = v479 + 1;
+          v487 = (a4 + 32);
+          do
+          {
+            *v486 = *(v487 - 1);
+            v488 = *v487;
+            v487 += 32;
+            v486[1] = v488;
+            v486 += 2;
+          }
+
+          while (v486 < v480);
+          a4 = (v12 - 32);
+        }
+
+        else
+        {
+          a4 = (v12 - 32);
+        }
+
+        v479 = v480;
+      }
+
+      if (a4 >= v443)
+      {
+        goto LABEL_878;
+      }
+
+      v489 = v443 - a4;
+      if ((v443 - a4) < 8)
+      {
+        v491 = v479;
+      }
+
+      else if ((v479 - a4) < 0x20)
+      {
+        v491 = v479;
+      }
+
+      else
+      {
+        if (v489 < 0x20)
+        {
+          v490 = 0;
+LABEL_823:
+          v496 = v489 & 0xFFFFFFFFFFFFFFF8;
+          v491 = v479 + (v489 & 0xFFFFFFFFFFFFFFF8);
+          v497 = v490 - (v489 & 0xFFFFFFFFFFFFFFF8);
+          v498 = &a4[v490];
+          v499 = (v479 + v490);
+          do
+          {
+            v500 = *v498;
+            v498 += 8;
+            *v499++ = v500;
+            v497 += 8;
+          }
+
+          while (v497);
+          if (v489 == v496)
+          {
+            goto LABEL_878;
+          }
+
+          a4 += v496;
+          goto LABEL_877;
+        }
+
+        v490 = v489 & 0xFFFFFFFFFFFFFFE0;
+        v492 = (a4 + 16);
+        v493 = v479 + 1;
+        v494 = v489 & 0xFFFFFFFFFFFFFFE0;
+        do
+        {
+          v495 = *v492;
+          *(v493 - 1) = *(v492 - 1);
+          *v493 = v495;
+          v492 += 32;
+          v493 += 2;
+          v494 -= 32;
+        }
+
+        while (v494);
+        if (v489 == v490)
+        {
+          goto LABEL_878;
+        }
+
+        if ((v489 & 0x18) != 0)
+        {
+          goto LABEL_823;
+        }
+
+        a4 += v490;
+        v491 = v479 + v490;
+      }
+
+      do
+      {
+LABEL_877:
+        v527 = *a4++;
+        *v491++ = v527;
+      }
+
+      while (a4 != v443);
+      goto LABEL_878;
+    }
+
+    v433 = &v406[v414];
+    if (v417 <= v433)
+    {
+      v453 = (v10 + v11);
+      v438 = v433;
+    }
+
+    else
+    {
+      if (*v761 != *v433)
+      {
+        v460 = __clz(__rbit64(*v433 ^ *v761)) >> 3;
+LABEL_797:
+        v414 += v460;
+        goto LABEL_798;
+      }
+
+      v434 = 0;
+      v435 = &v33[v414];
+      while (1)
+      {
+        v436 = &v435[v434 + 13];
+        if (v436 >= v417)
+        {
+          break;
+        }
+
+        v437 = *(v758 + v434);
+        v434 += 8;
+        if (v437 != *v436)
+        {
+          v438 = &v435[v434 + 5 + (__clz(__rbit64(*v436 ^ v437)) >> 3)];
+          goto LABEL_796;
+        }
+      }
+
+      v453 = (v758 + v434);
+      v438 = &v33[v414 + 13 + v434];
+    }
+
+    if (v438 < v742 && *v453 == *v438)
+    {
+      ++v453;
+      v438 += 4;
+    }
+
+    if (v438 < v738 && *v453 == *v438)
+    {
+      v453 = (v453 + 2);
+      v438 += 2;
+    }
+
+    if (v438 < v12 && *v453 == *v438)
+    {
+      ++v438;
+    }
+
+LABEL_796:
+    v460 = v438 - v433;
+    goto LABEL_797;
+  }
+
+  if (v5 == 6)
+  {
+    v745 = v19 + v18;
+    if (v23 && v22 <= 0x3D)
+    {
+      v207 = 0;
+      do
+      {
+        _X16 = v17 + v207;
+        __asm { PRFM            #2, [X16] }
+
+        v207 += 64;
+      }
+
+      while (v207 < 4 << v22);
+    }
+
+    v210 = &a4[v9];
+    if (&a4[v9] > v13)
+    {
+      goto LABEL_963;
+    }
+
+    v211 = v9;
+    if (v21)
+    {
+      v33 = a4;
+    }
+
+    else
+    {
+      v33 = (a4 + 1);
+    }
+
+    v212 = 64 - v7;
+    v213 = 56 - v22;
+    v214 = v11 - 1;
+    v749 = (v12 - 7);
+    v741 = v12 - 3;
+    v737 = v12 - 1;
+    v753 = (v12 - 32);
+    v757 = v11 + v10 + 8;
+LABEL_333:
+    v215 = 0xCF1BBCDCBF9B0000 * *v33;
+    v216 = (v215 >> v213) ^ *(v17 + ((v215 >> v213 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    v217 = v33 + 256;
+    v218 = *(v17 + ((v215 >> v213 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    while (1)
+    {
+      v219 = v210;
+      v220 = v215 >> v212;
+      v221 = *(v6 + 4 * (v215 >> v212));
+      v222 = v33 - v10;
+      v223 = v33 - v10 - v14 + 1;
+      v224 = *v219;
+      *(v6 + 4 * v220) = v33 - v10;
+      if (v214 - v223 >= 3)
+      {
+        v225 = (v10 + v223);
+        if (v223 < v11)
+        {
+          v225 = (v19 + v223 - v20);
+        }
+
+        if (*v225 == *(v33 + 1))
+        {
+          break;
+        }
+      }
+
+      if (!v216)
+      {
+        v226 = v218 >> 8;
+        if (v226 > v763 && *(v19 + v226) == *v33 && v221 <= v11)
+        {
+          v248 = (v33 + 4);
+          v249 = (v19 + v226 + 4);
+          v250 = &v762[-v19 - v226 + v33];
+          if (v250 >= v12)
+          {
+            v250 = v12;
+          }
+
+          if (v250 - 7 <= v248)
+          {
+            v251 = (v19 + v226 + 4);
+            v253 = v33 + 4;
+LABEL_429:
+            v241 = v12 - 7;
+            if (v253 < v250 - 3 && *v251 == *v253)
+            {
+              ++v251;
+              v253 += 4;
+            }
+
+            if (v253 < v250 - 1 && *v251 == *v253)
+            {
+              v251 = (v251 + 2);
+              v253 += 2;
+            }
+
+            if (v253 < v250 && *v251 == *v253)
+            {
+              ++v253;
+            }
+
+            v278 = v745;
+            v256 = v253 - v248;
+          }
+
+          else
+          {
+            if (*v249 == *v248)
+            {
+              v251 = (v19 + 12 + v226);
+              v252 = (v33 + 12);
+              do
+              {
+                v253 = v252;
+                if (v252 >= (v250 - 7))
+                {
+                  goto LABEL_429;
+                }
+
+                v255 = *v251;
+                v251 += 2;
+                v254 = v255;
+                v252 += 8;
+              }
+
+              while (v255 == *v253);
+              v256 = &v253[__clz(__rbit64(*v253 ^ v254)) >> 3] - v248;
+            }
+
+            else
+            {
+              v256 = __clz(__rbit64(*v248 ^ *v249)) >> 3;
+            }
+
+            v278 = v745;
+            v241 = v12 - 7;
+          }
+
+          if ((v249 + v256) == v762)
+          {
+            v285 = &v248[v256];
+            if (v241 <= v285)
+            {
+              v291 = (v10 + v11);
+              v290 = v285;
+              goto LABEL_512;
+            }
+
+            if (*v761 == *v285)
+            {
+              v286 = 0;
+              v287 = &v33[v256];
+              while (1)
+              {
+                v288 = &v287[v286 + 12];
+                if (v288 >= v241)
+                {
+                  break;
+                }
+
+                v289 = *(v757 + v286);
+                v286 += 8;
+                if (v289 != *v288)
+                {
+                  v290 = &v287[v286 + 4 + (__clz(__rbit64(*v288 ^ v289)) >> 3)];
+                  goto LABEL_521;
+                }
+              }
+
+              v291 = (v757 + v286);
+              v290 = &v33[v256 + 12 + v286];
+LABEL_512:
+              if (v290 < v741 && *v291 == *v290)
+              {
+                ++v291;
+                v290 += 4;
+              }
+
+              if (v290 < v737 && *v291 == *v290)
+              {
+                v291 = (v291 + 2);
+                v290 += 2;
+              }
+
+              if (v290 < v12 && *v291 == *v290)
+              {
+                ++v290;
+              }
+
+LABEL_521:
+              v325 = v290 - v285;
+            }
+
+            else
+            {
+              v325 = __clz(__rbit64(*v285 ^ *v761)) >> 3;
+            }
+
+            v256 += v325;
+          }
+
+          v263 = v256 + 4;
+          if (v33 <= a4)
+          {
+            goto LABEL_530;
+          }
+
+          v326 = v33 - 1;
+          v327 = (v19 - 1 + v226);
+          while (*v326 == *v327)
+          {
+            ++v263;
+            v328 = v326 - 1;
+            if (v326 > a4)
+            {
+              --v326;
+              v49 = v327-- > v278;
+              if (v49)
+              {
+                continue;
+              }
+            }
+
+            v33 = v328 + 1;
+            goto LABEL_530;
+          }
+
+          v33 = v326 + 1;
+LABEL_530:
+          v267 = v33;
+          v268 = v33 - a4;
+          v329 = *(a2 + 24);
+          if (v33 > v753)
+          {
+            if (a4 <= v753)
+            {
+              v330 = (v329 + v753 - a4);
+              *v329 = *a4;
+              if ((v753 - a4) >= 17)
+              {
+                v336 = v329 + 1;
+                v337 = (a4 + 32);
+                do
+                {
+                  *v336 = *(v337 - 1);
+                  v338 = *v337;
+                  v337 += 32;
+                  v336[1] = v338;
+                  v336 += 2;
+                }
+
+                while (v336 < v330);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v329 = v330;
+            }
+
+            if (a4 >= v33)
+            {
+              goto LABEL_575;
+            }
+
+            v339 = v33 - a4;
+            if ((v33 - a4) < 8)
+            {
+              v341 = v329;
+            }
+
+            else if ((v329 - a4) < 0x20)
+            {
+              v341 = v329;
+            }
+
+            else
+            {
+              if (v339 < 0x20)
+              {
+                v340 = 0;
+LABEL_555:
+                v346 = v339 & 0xFFFFFFFFFFFFFFF8;
+                v341 = v329 + (v339 & 0xFFFFFFFFFFFFFFF8);
+                v347 = v340 - (v339 & 0xFFFFFFFFFFFFFFF8);
+                v348 = &a4[v340];
+                v349 = (v329 + v340);
+                do
+                {
+                  v350 = *v348;
+                  v348 += 8;
+                  *v349++ = v350;
+                  v347 += 8;
+                }
+
+                while (v347);
+                if (v339 != v346)
+                {
+                  a4 += v346;
+                  goto LABEL_574;
+                }
+
+LABEL_575:
+                *(a2 + 24) += v268;
+                v276 = *(a2 + 8);
+                if (v268 >= 0x10000)
+                {
+                  v358 = (v276 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v358;
+                }
+
+                v241 = v12 - 7;
+                goto LABEL_578;
+              }
+
+              v340 = v339 & 0xFFFFFFFFFFFFFFE0;
+              v342 = (a4 + 16);
+              v343 = v329 + 1;
+              v344 = v339 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v345 = *v342;
+                *(v343 - 1) = *(v342 - 1);
+                *v343 = v345;
+                v342 += 32;
+                v343 += 2;
+                v344 -= 32;
+              }
+
+              while (v344);
+              if (v339 == v340)
+              {
+                goto LABEL_575;
+              }
+
+              if ((v339 & 0x18) != 0)
+              {
+                goto LABEL_555;
+              }
+
+              a4 += v340;
+              v341 = v329 + v340;
+            }
+
+            do
+            {
+LABEL_574:
+              v357 = *a4++;
+              *v341++ = v357;
+            }
+
+            while (a4 != v33);
+            goto LABEL_575;
+          }
+
+          *v329 = *a4;
+          v331 = *(a2 + 24);
+          if (v268 > 0x10)
+          {
+            *(v331 + 16) = *(a4 + 1);
+            if (v268 >= 33)
+            {
+              v332 = v331 + v268;
+              v333 = (v331 + 32);
+              v334 = (a4 + 48);
+              do
+              {
+                *v333 = *(v334 - 1);
+                v335 = *v334;
+                v334 += 32;
+                v333[1] = v335;
+                v333 += 2;
+              }
+
+              while (v333 < v332);
+            }
+
+            goto LABEL_575;
+          }
+
+          *(a2 + 24) = v331 + v268;
+          v276 = *(a2 + 8);
+LABEL_578:
+          v354 = v222 - v20 - v226;
+LABEL_579:
+          *(v276 + 4) = v268;
+          *v276 = v354 + 3;
+          LOWORD(v353) = v263 - 3;
+          v15 = v14;
+          v14 = v354;
+          if ((v263 - 3) >> 16)
+          {
+LABEL_580:
+            v359 = (v276 - *a2) >> 3;
+            *(a2 + 72) = 2;
+            *(a2 + 76) = v359;
+            v14 = v354;
+          }
+
+LABEL_581:
+          *(v276 + 6) = v353;
+          v360 = v276 + 8;
+          *(a2 + 8) = v276 + 8;
+          v33 = &v267[v263];
+          if (&v267[v263] > v13)
+          {
+            v183 = v15;
+            v184 = v14;
+LABEL_639:
+            v211 = v9;
+            v210 = &v33[v9];
+            a4 = v33;
+            v14 = v184;
+            v15 = v183;
+            if (&v33[v9] > v13)
+            {
+              goto LABEL_964;
+            }
+
+            goto LABEL_333;
+          }
+
+          *(v6 + 4 * ((0xCF1BBCDCBF9B0000 * *(v10 + 2 + v222)) >> v212)) = v222 + 2;
+          *(v6 + 4 * ((0xCF1BBCDCBF9B0000 * *(v33 - 2)) >> v212)) = v33 - 2 - v10;
+          while (2)
+          {
+            v184 = v15;
+            v15 = v14;
+            v361 = (v33 - v10 - v184);
+            if (v361 >= v11)
+            {
+              v362 = v10;
+            }
+
+            else
+            {
+              v362 = v19 - v20;
+            }
+
+            if ((v214 - v361) < 3 || (v363 = v362 + v361, *(v362 + v361) != *v33))
+            {
+              v183 = v184;
+              v184 = v14;
+              goto LABEL_639;
+            }
+
+            if (v361 >= v11)
+            {
+              v364 = v12;
+            }
+
+            else
+            {
+              v364 = v762;
+            }
+
+            v365 = (v33 + 4);
+            v366 = (v363 + 4);
+            v367 = &v364[v33 - v363];
+            if (v367 >= v12)
+            {
+              v367 = v12;
+            }
+
+            if (v367 - 7 <= v365)
+            {
+              v368 = v366;
+              v370 = v33 + 4;
+LABEL_602:
+              if (v370 < v367 - 3 && *v368 == *v370)
+              {
+                ++v368;
+                v370 += 4;
+              }
+
+              if (v370 < v367 - 1 && *v368 == *v370)
+              {
+                v368 = (v368 + 2);
+                v370 += 2;
+              }
+
+              if (v370 < v367 && *v368 == *v370)
+              {
+                ++v370;
+              }
+
+              v241 = v12 - 7;
+              v373 = v370 - v365;
+            }
+
+            else if (*v366 == *v365)
+            {
+              v368 = (v362 + v361 + 12);
+              v369 = (v33 + 12);
+              do
+              {
+                v370 = v369;
+                if (v369 >= (v367 - 7))
+                {
+                  goto LABEL_602;
+                }
+
+                v372 = *v368;
+                v368 += 2;
+                v371 = v372;
+                v369 += 8;
+              }
+
+              while (v372 == *v370);
+              v373 = &v370[__clz(__rbit64(*v370 ^ v371)) >> 3] - v365;
+              v241 = v12 - 7;
+            }
+
+            else
+            {
+              v373 = __clz(__rbit64(*v365 ^ *v366)) >> 3;
+            }
+
+            if ((v366 + v373) == v364)
+            {
+              v374 = &v365[v373];
+              if (v241 <= v374)
+              {
+                v380 = (v10 + v11);
+                v379 = v374;
+                goto LABEL_623;
+              }
+
+              if (*v761 == *v374)
+              {
+                v375 = 0;
+                v376 = &v33[v373];
+                while (1)
+                {
+                  v377 = &v376[v375 + 12];
+                  if (v377 >= v241)
+                  {
+                    break;
+                  }
+
+                  v378 = *(v757 + v375);
+                  v375 += 8;
+                  if (v378 != *v377)
+                  {
+                    v379 = &v376[v375 + 4 + (__clz(__rbit64(*v377 ^ v378)) >> 3)];
+                    goto LABEL_632;
+                  }
+                }
+
+                v380 = (v757 + v375);
+                v379 = &v33[v373 + 12 + v375];
+LABEL_623:
+                if (v379 < v741 && *v380 == *v379)
+                {
+                  ++v380;
+                  v379 += 4;
+                }
+
+                if (v379 < v737 && *v380 == *v379)
+                {
+                  v380 = (v380 + 2);
+                  v379 += 2;
+                }
+
+                if (v379 < v12 && *v380 == *v379)
+                {
+                  ++v379;
+                }
+
+LABEL_632:
+                v381 = v379 - v374;
+              }
+
+              else
+              {
+                v381 = __clz(__rbit64(*v374 ^ *v761)) >> 3;
+              }
+
+              v373 += v381;
+            }
+
+            if (v33 <= v753)
+            {
+              **(a2 + 24) = *v33;
+              v360 = *(a2 + 8);
+            }
+
+            *(v360 + 4) = 0;
+            *v360 = 1;
+            if (v373 + 1 >= 0x10000)
+            {
+              v382 = (v360 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v382;
+            }
+
+            *(v360 + 6) = v373 + 1;
+            v360 += 8;
+            *(a2 + 8) = v360;
+            *(v6 + 4 * ((0xCF1BBCDCBF9B0000 * *v33) >> v212)) = v33 - v10;
+            v33 += v373 + 4;
+            v14 = v184;
+            v183 = v15;
+            if (v33 > v13)
+            {
+              goto LABEL_639;
+            }
+
+            continue;
+          }
+        }
+      }
+
+      if (v221 > v11)
+      {
+        v228 = v10 + v221;
+        if (*(v10 + v221) == *v33)
+        {
+          v239 = (v33 + 4);
+          v240 = (v228 + 4);
+          v241 = v12 - 7;
+          if (v749 <= (v33 + 4))
+          {
+            v243 = v33 + 4;
+LABEL_380:
+            if (v243 < v741 && *v240 == *v243)
+            {
+              ++v240;
+              v243 += 4;
+            }
+
+            if (v243 < v737 && *v240 == *v243)
+            {
+              v240 = (v240 + 2);
+              v243 += 2;
+            }
+
+            if (v243 < v12 && *v240 == *v243)
+            {
+              ++v243;
+            }
+
+            v247 = v10 + v11;
+            v246 = v243 - v239;
+          }
+
+          else
+          {
+            if (*v240 == *v239)
+            {
+              v240 = (v10 + 12 + v221);
+              v242 = v33 + 12;
+              do
+              {
+                v243 = v242;
+                if (v242 >= v749)
+                {
+                  goto LABEL_380;
+                }
+
+                v245 = *v240;
+                v240 += 2;
+                v244 = v245;
+                v242 += 8;
+              }
+
+              while (v245 == *v243);
+              v246 = &v243[__clz(__rbit64(*v243 ^ v244)) >> 3] - v239;
+            }
+
+            else
+            {
+              v246 = __clz(__rbit64(*v239 ^ *v240)) >> 3;
+            }
+
+            v247 = v10 + v11;
+          }
+
+          v263 = v246 + 4;
+          if (v33 <= a4)
+          {
+            v267 = v33;
+          }
+
+          else
+          {
+            v264 = v33 - 1;
+            v265 = (v10 - 1 + v221);
+            while (*v264 == *v265)
+            {
+              ++v263;
+              v266 = v264 - 1;
+              if (v264 > a4)
+              {
+                --v264;
+                v49 = v265-- > v247;
+                if (v49)
+                {
+                  continue;
+                }
+              }
+
+              v267 = v266 + 1;
+              goto LABEL_417;
+            }
+
+            v267 = v264 + 1;
+          }
+
+LABEL_417:
+          v268 = v267 - a4;
+          v269 = *(a2 + 24);
+          if (v267 > v753)
+          {
+            if (a4 <= v753)
+            {
+              v270 = (v269 + v753 - a4);
+              *v269 = *a4;
+              if ((v753 - a4) >= 17)
+              {
+                v279 = v269 + 1;
+                v280 = (a4 + 32);
+                do
+                {
+                  *v279 = *(v280 - 1);
+                  v281 = *v280;
+                  v280 += 32;
+                  v279[1] = v281;
+                  v279 += 2;
+                }
+
+                while (v279 < v270);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v269 = v270;
+            }
+
+            if (a4 >= v267)
+            {
+              goto LABEL_569;
+            }
+
+            v282 = v267 - a4;
+            if ((v267 - a4) < 8)
+            {
+              v292 = v269;
+            }
+
+            else if ((v269 - a4) < 0x20)
+            {
+              v292 = v269;
+            }
+
+            else
+            {
+              if (v282 < 0x20)
+              {
+                v283 = 0;
+LABEL_465:
+                v297 = v282 & 0xFFFFFFFFFFFFFFF8;
+                v292 = v269 + (v282 & 0xFFFFFFFFFFFFFFF8);
+                v298 = v283 - (v282 & 0xFFFFFFFFFFFFFFF8);
+                v299 = &a4[v283];
+                v300 = (v269 + v283);
+                do
+                {
+                  v301 = *v299;
+                  v299 += 8;
+                  *v300++ = v301;
+                  v298 += 8;
+                }
+
+                while (v298);
+                if (v282 != v297)
+                {
+                  a4 += v297;
+                  goto LABEL_568;
+                }
+
+LABEL_569:
+                *(a2 + 24) += v268;
+                v276 = *(a2 + 8);
+                if (v268 >= 0x10000)
+                {
+                  v356 = (v276 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v356;
+                }
+
+                v241 = v12 - 7;
+                goto LABEL_572;
+              }
+
+              v283 = v282 & 0xFFFFFFFFFFFFFFE0;
+              v293 = (a4 + 16);
+              v294 = v269 + 1;
+              v295 = v282 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v296 = *v293;
+                *(v294 - 1) = *(v293 - 1);
+                *v294 = v296;
+                v293 += 32;
+                v294 += 2;
+                v295 -= 32;
+              }
+
+              while (v295);
+              if (v282 == v283)
+              {
+                goto LABEL_569;
+              }
+
+              if ((v282 & 0x18) != 0)
+              {
+                goto LABEL_465;
+              }
+
+              a4 += v283;
+              v292 = v269 + v283;
+            }
+
+            do
+            {
+LABEL_568:
+              v355 = *a4++;
+              *v292++ = v355;
+            }
+
+            while (a4 != v267);
+            goto LABEL_569;
+          }
+
+          *v269 = *a4;
+          v271 = *(a2 + 24);
+          if (v268 > 0x10)
+          {
+            *(v271 + 16) = *(a4 + 1);
+            if (v268 >= 33)
+            {
+              v272 = v271 + v268;
+              v273 = (v271 + 32);
+              v274 = (a4 + 48);
+              do
+              {
+                *v273 = *(v274 - 1);
+                v275 = *v274;
+                v274 += 32;
+                v273[1] = v275;
+                v273 += 2;
+              }
+
+              while (v273 < v272);
+            }
+
+            goto LABEL_569;
+          }
+
+          *(a2 + 24) = v271 + v268;
+          v276 = *(a2 + 8);
+LABEL_572:
+          v354 = (v33 - v228);
+          goto LABEL_579;
+        }
+      }
+
+      if (v219 >= v217)
+      {
+        ++v211;
+      }
+
+      v210 = &v219[v211];
+      if (&v219[v211] > v13)
+      {
+        goto LABEL_963;
+      }
+
+      v215 = 0xCF1BBCDCBF9B0000 * v224;
+      v217 += 256 * (v219 >= v217);
+      v218 = *(v17 + ((v215 >> v213 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+      LOBYTE(v216) = (v215 >> v213) ^ v218;
+      v33 = v219;
+    }
+
+    if (v223 >= v11)
+    {
+      v229 = v12;
+    }
+
+    else
+    {
+      v229 = v762;
+    }
+
+    v230 = (v33 + 5);
+    v231 = v225 + 1;
+    v232 = &v33[v229 - (v225 + 1) + 5];
+    if (v232 >= v12)
+    {
+      v232 = v12;
+    }
+
+    if (v232 - 7 <= v230)
+    {
+      v233 = v225 + 1;
+      v235 = v33 + 5;
+LABEL_369:
+      if (v235 < v232 - 3 && *v233 == *v235)
+      {
+        ++v233;
+        ++v235;
+      }
+
+      if (v235 < v232 - 1 && *v233 == *v235)
+      {
+        v233 = (v233 + 2);
+        v235 = (v235 + 2);
+      }
+
+      if (v235 < v232 && *v233 == *v235)
+      {
+        v235 = (v235 + 1);
+      }
+
+      v241 = v12 - 7;
+      v238 = v235 - v230;
+    }
+
+    else
+    {
+      if (*v231 == *v230)
+      {
+        v233 = v225 + 3;
+        v234 = (v33 + 13);
+        do
+        {
+          v235 = v234;
+          if (v234 >= v232 - 7)
+          {
+            goto LABEL_369;
+          }
+
+          v237 = *v233;
+          v233 += 2;
+          v236 = v237;
+          v234 += 8;
+        }
+
+        while (v237 == *v235);
+        v238 = v235 + (__clz(__rbit64(*v235 ^ v236)) >> 3) - v230;
+      }
+
+      else
+      {
+        v238 = __clz(__rbit64(*v230 ^ *v231)) >> 3;
+      }
+
+      v241 = v12 - 7;
+    }
+
+    if ((v231 + v238) != v229)
+    {
+LABEL_481:
+      v267 = v33 + 1;
+      v302 = v33 + 1 - a4;
+      v303 = *(a2 + 24);
+      if (v267 <= v753)
+      {
+        *v303 = *a4;
+        v305 = *(a2 + 24);
+        if (v302 <= 0x10)
+        {
+          *(a2 + 24) = v305 + v302;
+          v276 = *(a2 + 8);
+          goto LABEL_565;
+        }
+
+        *(v305 + 16) = *(a4 + 1);
+        if (v302 >= 33)
+        {
+          v306 = v305 + v302;
+          v307 = (v305 + 32);
+          v308 = (a4 + 48);
+          do
+          {
+            *v307 = *(v308 - 1);
+            v309 = *v308;
+            v308 += 32;
+            v307[1] = v309;
+            v307 += 2;
+          }
+
+          while (v307 < v306);
+        }
+
+LABEL_561:
+        *(a2 + 24) += v302;
+        v276 = *(a2 + 8);
+        if (v302 >= 0x10000)
+        {
+          v352 = (v276 - *a2) >> 3;
+          *(a2 + 72) = 1;
+          *(a2 + 76) = v352;
+        }
+
+        v241 = v12 - 7;
+LABEL_565:
+        v263 = v238 + 4;
+        *(v276 + 4) = v302;
+        *v276 = 1;
+        v353 = v238 + 1;
+        v354 = v14;
+        if (v353 >> 16)
+        {
+          goto LABEL_580;
+        }
+
+        goto LABEL_581;
+      }
+
+      if (a4 <= v753)
+      {
+        v304 = (v303 + v753 - a4);
+        *v303 = *a4;
+        if ((v753 - a4) >= 17)
+        {
+          v310 = v303 + 1;
+          v311 = (a4 + 32);
+          do
+          {
+            *v310 = *(v311 - 1);
+            v312 = *v311;
+            v311 += 32;
+            v310[1] = v312;
+            v310 += 2;
+          }
+
+          while (v310 < v304);
+          a4 = (v12 - 32);
+        }
+
+        else
+        {
+          a4 = (v12 - 32);
+        }
+
+        v303 = v304;
+      }
+
+      if (a4 >= v267)
+      {
+        goto LABEL_561;
+      }
+
+      v313 = v267 - a4;
+      if ((v267 - a4) < 8)
+      {
+        v315 = v303;
+      }
+
+      else if ((v303 - a4) < 0x20)
+      {
+        v315 = v303;
+      }
+
+      else
+      {
+        if (v313 < 0x20)
+        {
+          v314 = 0;
+LABEL_506:
+          v320 = v313 & 0xFFFFFFFFFFFFFFF8;
+          v315 = v303 + (v313 & 0xFFFFFFFFFFFFFFF8);
+          v321 = v314 - (v313 & 0xFFFFFFFFFFFFFFF8);
+          v322 = &a4[v314];
+          v323 = (v303 + v314);
+          do
+          {
+            v324 = *v322;
+            v322 += 8;
+            *v323++ = v324;
+            v321 += 8;
+          }
+
+          while (v321);
+          if (v313 == v320)
+          {
+            goto LABEL_561;
+          }
+
+          a4 += v320;
+          goto LABEL_560;
+        }
+
+        v314 = v313 & 0xFFFFFFFFFFFFFFE0;
+        v316 = (a4 + 16);
+        v317 = v303 + 1;
+        v318 = v313 & 0xFFFFFFFFFFFFFFE0;
+        do
+        {
+          v319 = *v316;
+          *(v317 - 1) = *(v316 - 1);
+          *v317 = v319;
+          v316 += 32;
+          v317 += 2;
+          v318 -= 32;
+        }
+
+        while (v318);
+        if (v313 == v314)
+        {
+          goto LABEL_561;
+        }
+
+        if ((v313 & 0x18) != 0)
+        {
+          goto LABEL_506;
+        }
+
+        a4 += v314;
+        v315 = v303 + v314;
+      }
+
+      do
+      {
+LABEL_560:
+        v351 = *a4++;
+        *v315++ = v351;
+      }
+
+      while (a4 != v267);
+      goto LABEL_561;
+    }
+
+    v257 = &v230[v238];
+    if (v241 <= v257)
+    {
+      v277 = (v10 + v11);
+      v262 = v257;
+    }
+
+    else
+    {
+      if (*v761 != *v257)
+      {
+        v284 = __clz(__rbit64(*v257 ^ *v761)) >> 3;
+LABEL_480:
+        v238 += v284;
+        goto LABEL_481;
+      }
+
+      v258 = 0;
+      v259 = &v33[v238];
+      while (1)
+      {
+        v260 = &v259[v258 + 13];
+        if (v260 >= v241)
+        {
+          break;
+        }
+
+        v261 = *(v757 + v258);
+        v258 += 8;
+        if (v261 != *v260)
+        {
+          v262 = &v259[v258 + 5 + (__clz(__rbit64(*v260 ^ v261)) >> 3)];
+          goto LABEL_479;
+        }
+      }
+
+      v277 = (v757 + v258);
+      v262 = &v33[v238 + 13 + v258];
+    }
+
+    if (v262 < v741 && *v277 == *v262)
+    {
+      ++v277;
+      v262 += 4;
+    }
+
+    if (v262 < v737 && *v277 == *v262)
+    {
+      v277 = (v277 + 2);
+      v262 += 2;
+    }
+
+    if (v262 < v12 && *v277 == *v262)
+    {
+      ++v262;
+    }
+
+LABEL_479:
+    v284 = v262 - v257;
+    goto LABEL_480;
+  }
+
+  if (v5 != 7)
+  {
+    if (v23 && v22 <= 0x3D)
+    {
+      v559 = 0;
+      do
+      {
+        _X16 = v17 + v559;
+        __asm { PRFM            #2, [X16] }
+
+        v559 += 64;
+      }
+
+      while (v559 < 4 << v22);
+    }
+
+    v562 = &a4[v9];
+    if (&a4[v9] > v13)
+    {
+      goto LABEL_963;
+    }
+
+    v747 = v19 + v18;
+    v564 = v9;
+    if (v21)
+    {
+      v33 = a4;
+    }
+
+    else
+    {
+      v33 = (a4 + 1);
+    }
+
+    v565 = 32 - v7;
+    v566 = 24 - v22;
+    v567 = v11 - 1;
+    v751 = (v12 - 7);
+    v743 = v12 - 3;
+    v739 = v12 - 1;
+    v755 = (v12 - 32);
+    v759 = v11 + v10 + 8;
+LABEL_969:
+    v568 = -1640531535 * *v33;
+    v569 = *(v17 + 4 * (v568 >> v566 >> 8));
+    v570 = (v568 >> v566) ^ v569;
+    v571 = v33 + 256;
+    while (1)
+    {
+      v572 = v562;
+      v573 = v568 >> v565;
+      v574 = *(v6 + 4 * (v568 >> v565));
+      v575 = v33 - v10;
+      v576 = v33 - v10 - v14 + 1;
+      v577 = *v572;
+      *(v6 + 4 * v573) = v33 - v10;
+      if (v567 - v576 >= 3)
+      {
+        v578 = (v10 + v576);
+        if (v576 < v11)
+        {
+          v578 = (v19 + v576 - v20);
+        }
+
+        if (*v578 == *(v33 + 1))
+        {
+          break;
+        }
+      }
+
+      if (!v570)
+      {
+        v579 = v569 >> 8;
+        if (v579 > v763 && *(v19 + v579) == *v33 && v574 <= v11)
+        {
+          v601 = (v33 + 4);
+          v602 = (v19 + v579 + 4);
+          v603 = &v762[-v19 - v579 + v33];
+          if (v603 >= v12)
+          {
+            v603 = v12;
+          }
+
+          if (v603 - 7 <= v601)
+          {
+            v604 = (v19 + v579 + 4);
+            v606 = v33 + 4;
+LABEL_1065:
+            v594 = v12 - 7;
+            if (v606 < v603 - 3 && *v604 == *v606)
+            {
+              ++v604;
+              v606 += 4;
+            }
+
+            if (v606 < v603 - 1 && *v604 == *v606)
+            {
+              v604 = (v604 + 2);
+              v606 += 2;
+            }
+
+            if (v606 < v603 && *v604 == *v606)
+            {
+              ++v606;
+            }
+
+            v631 = v747;
+            v609 = v606 - v601;
+          }
+
+          else
+          {
+            if (*v602 == *v601)
+            {
+              v604 = (v19 + 12 + v579);
+              v605 = (v33 + 12);
+              do
+              {
+                v606 = v605;
+                if (v605 >= (v603 - 7))
+                {
+                  goto LABEL_1065;
+                }
+
+                v608 = *v604;
+                v604 += 2;
+                v607 = v608;
+                v605 += 8;
+              }
+
+              while (v608 == *v606);
+              v609 = &v606[__clz(__rbit64(*v606 ^ v607)) >> 3] - v601;
+            }
+
+            else
+            {
+              v609 = __clz(__rbit64(*v601 ^ *v602)) >> 3;
+            }
+
+            v631 = v747;
+            v594 = v12 - 7;
+          }
+
+          if ((v602 + v609) == v762)
+          {
+            v638 = &v601[v609];
+            if (v594 <= v638)
+            {
+              v644 = (v10 + v11);
+              v643 = v638;
+              goto LABEL_1148;
+            }
+
+            if (*v761 == *v638)
+            {
+              v639 = 0;
+              v640 = &v33[v609];
+              while (1)
+              {
+                v641 = &v640[v639 + 12];
+                if (v641 >= v594)
+                {
+                  break;
+                }
+
+                v642 = *(v759 + v639);
+                v639 += 8;
+                if (v642 != *v641)
+                {
+                  v643 = &v640[v639 + 4 + (__clz(__rbit64(*v641 ^ v642)) >> 3)];
+                  goto LABEL_1157;
+                }
+              }
+
+              v644 = (v759 + v639);
+              v643 = &v33[v609 + 12 + v639];
+LABEL_1148:
+              if (v643 < v743 && *v644 == *v643)
+              {
+                ++v644;
+                v643 += 4;
+              }
+
+              if (v643 < v739 && *v644 == *v643)
+              {
+                v644 = (v644 + 2);
+                v643 += 2;
+              }
+
+              if (v643 < v12 && *v644 == *v643)
+              {
+                ++v643;
+              }
+
+LABEL_1157:
+              v678 = v643 - v638;
+            }
+
+            else
+            {
+              v678 = __clz(__rbit64(*v638 ^ *v761)) >> 3;
+            }
+
+            v609 += v678;
+          }
+
+          v616 = v609 + 4;
+          if (v33 <= a4)
+          {
+            goto LABEL_1166;
+          }
+
+          v679 = v33 - 1;
+          v680 = (v19 - 1 + v579);
+          while (*v679 == *v680)
+          {
+            ++v616;
+            v681 = v679 - 1;
+            if (v679 > a4)
+            {
+              --v679;
+              v49 = v680-- > v631;
+              if (v49)
+              {
+                continue;
+              }
+            }
+
+            v33 = v681 + 1;
+            goto LABEL_1166;
+          }
+
+          v33 = v679 + 1;
+LABEL_1166:
+          v620 = v33;
+          v621 = v33 - a4;
+          v682 = *(a2 + 24);
+          if (v33 > v755)
+          {
+            if (a4 <= v755)
+            {
+              v683 = (v682 + v755 - a4);
+              *v682 = *a4;
+              if ((v755 - a4) >= 17)
+              {
+                v689 = v682 + 1;
+                v690 = (a4 + 32);
+                do
+                {
+                  *v689 = *(v690 - 1);
+                  v691 = *v690;
+                  v690 += 32;
+                  v689[1] = v691;
+                  v689 += 2;
+                }
+
+                while (v689 < v683);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v682 = v683;
+            }
+
+            if (a4 >= v33)
+            {
+              goto LABEL_1211;
+            }
+
+            v692 = v33 - a4;
+            if ((v33 - a4) < 8)
+            {
+              v694 = v682;
+            }
+
+            else if ((v682 - a4) < 0x20)
+            {
+              v694 = v682;
+            }
+
+            else
+            {
+              if (v692 < 0x20)
+              {
+                v693 = 0;
+LABEL_1191:
+                v699 = v692 & 0xFFFFFFFFFFFFFFF8;
+                v694 = v682 + (v692 & 0xFFFFFFFFFFFFFFF8);
+                v700 = v693 - (v692 & 0xFFFFFFFFFFFFFFF8);
+                v701 = &a4[v693];
+                v702 = (v682 + v693);
+                do
+                {
+                  v703 = *v701;
+                  v701 += 8;
+                  *v702++ = v703;
+                  v700 += 8;
+                }
+
+                while (v700);
+                if (v692 != v699)
+                {
+                  a4 += v699;
+                  goto LABEL_1210;
+                }
+
+LABEL_1211:
+                *(a2 + 24) += v621;
+                v629 = *(a2 + 8);
+                if (v621 >= 0x10000)
+                {
+                  v711 = (v629 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v711;
+                }
+
+                v594 = v12 - 7;
+                goto LABEL_1214;
+              }
+
+              v693 = v692 & 0xFFFFFFFFFFFFFFE0;
+              v695 = (a4 + 16);
+              v696 = v682 + 1;
+              v697 = v692 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v698 = *v695;
+                *(v696 - 1) = *(v695 - 1);
+                *v696 = v698;
+                v695 += 32;
+                v696 += 2;
+                v697 -= 32;
+              }
+
+              while (v697);
+              if (v692 == v693)
+              {
+                goto LABEL_1211;
+              }
+
+              if ((v692 & 0x18) != 0)
+              {
+                goto LABEL_1191;
+              }
+
+              a4 += v693;
+              v694 = v682 + v693;
+            }
+
+            do
+            {
+LABEL_1210:
+              v710 = *a4++;
+              *v694++ = v710;
+            }
+
+            while (a4 != v33);
+            goto LABEL_1211;
+          }
+
+          *v682 = *a4;
+          v684 = *(a2 + 24);
+          if (v621 > 0x10)
+          {
+            *(v684 + 16) = *(a4 + 1);
+            if (v621 >= 33)
+            {
+              v685 = v684 + v621;
+              v686 = (v684 + 32);
+              v687 = (a4 + 48);
+              do
+              {
+                *v686 = *(v687 - 1);
+                v688 = *v687;
+                v687 += 32;
+                v686[1] = v688;
+                v686 += 2;
+              }
+
+              while (v686 < v685);
+            }
+
+            goto LABEL_1211;
+          }
+
+          *(a2 + 24) = v684 + v621;
+          v629 = *(a2 + 8);
+LABEL_1214:
+          v707 = v575 - v20 - v579;
+LABEL_1215:
+          *(v629 + 4) = v621;
+          *v629 = v707 + 3;
+          LOWORD(v706) = v616 - 3;
+          v15 = v14;
+          v14 = v707;
+          if ((v616 - 3) >> 16)
+          {
+LABEL_1216:
+            v712 = (v629 - *a2) >> 3;
+            *(a2 + 72) = 2;
+            *(a2 + 76) = v712;
+            v14 = v707;
+          }
+
+LABEL_1217:
+          *(v629 + 6) = v706;
+          v713 = v629 + 8;
+          *(a2 + 8) = v629 + 8;
+          v33 = &v620[v616];
+          if (&v620[v616] > v13)
+          {
+            v183 = v15;
+            v184 = v14;
+LABEL_1275:
+            v564 = v9;
+            v562 = &v33[v9];
+            a4 = v33;
+            v14 = v184;
+            v15 = v183;
+            if (&v33[v9] > v13)
+            {
+              goto LABEL_964;
+            }
+
+            goto LABEL_969;
+          }
+
+          *(v6 + 4 * ((-1640531535 * *(v10 + 2 + v575)) >> v565)) = v575 + 2;
+          *(v6 + 4 * ((-1640531535 * *(v33 - 2)) >> v565)) = v33 - 2 - v10;
+          while (2)
+          {
+            v184 = v15;
+            v15 = v14;
+            v714 = (v33 - v10 - v184);
+            if (v714 >= v11)
+            {
+              v715 = v10;
+            }
+
+            else
+            {
+              v715 = v19 - v20;
+            }
+
+            if ((v567 - v714) < 3 || (v716 = v715 + v714, *(v715 + v714) != *v33))
+            {
+              v183 = v184;
+              v184 = v14;
+              goto LABEL_1275;
+            }
+
+            if (v714 >= v11)
+            {
+              v717 = v12;
+            }
+
+            else
+            {
+              v717 = v762;
+            }
+
+            v718 = (v33 + 4);
+            v719 = (v716 + 4);
+            v720 = &v717[v33 - v716];
+            if (v720 >= v12)
+            {
+              v720 = v12;
+            }
+
+            if (v720 - 7 <= v718)
+            {
+              v721 = v719;
+              v723 = v33 + 4;
+LABEL_1238:
+              if (v723 < v720 - 3 && *v721 == *v723)
+              {
+                ++v721;
+                v723 += 4;
+              }
+
+              if (v723 < v720 - 1 && *v721 == *v723)
+              {
+                v721 = (v721 + 2);
+                v723 += 2;
+              }
+
+              if (v723 < v720 && *v721 == *v723)
+              {
+                ++v723;
+              }
+
+              v594 = v12 - 7;
+              v726 = v723 - v718;
+            }
+
+            else if (*v719 == *v718)
+            {
+              v721 = (v715 + v714 + 12);
+              v722 = (v33 + 12);
+              do
+              {
+                v723 = v722;
+                if (v722 >= (v720 - 7))
+                {
+                  goto LABEL_1238;
+                }
+
+                v725 = *v721;
+                v721 += 2;
+                v724 = v725;
+                v722 += 8;
+              }
+
+              while (v725 == *v723);
+              v726 = &v723[__clz(__rbit64(*v723 ^ v724)) >> 3] - v718;
+              v594 = v12 - 7;
+            }
+
+            else
+            {
+              v726 = __clz(__rbit64(*v718 ^ *v719)) >> 3;
+            }
+
+            if ((v719 + v726) == v717)
+            {
+              v727 = &v718[v726];
+              if (v594 <= v727)
+              {
+                v733 = (v10 + v11);
+                v732 = v727;
+                goto LABEL_1259;
+              }
+
+              if (*v761 == *v727)
+              {
+                v728 = 0;
+                v729 = &v33[v726];
+                while (1)
+                {
+                  v730 = &v729[v728 + 12];
+                  if (v730 >= v594)
+                  {
+                    break;
+                  }
+
+                  v731 = *(v759 + v728);
+                  v728 += 8;
+                  if (v731 != *v730)
+                  {
+                    v732 = &v729[v728 + 4 + (__clz(__rbit64(*v730 ^ v731)) >> 3)];
+                    goto LABEL_1268;
+                  }
+                }
+
+                v733 = (v759 + v728);
+                v732 = &v33[v726 + 12 + v728];
+LABEL_1259:
+                if (v732 < v743 && *v733 == *v732)
+                {
+                  ++v733;
+                  v732 += 4;
+                }
+
+                if (v732 < v739 && *v733 == *v732)
+                {
+                  v733 = (v733 + 2);
+                  v732 += 2;
+                }
+
+                if (v732 < v12 && *v733 == *v732)
+                {
+                  ++v732;
+                }
+
+LABEL_1268:
+                v734 = v732 - v727;
+              }
+
+              else
+              {
+                v734 = __clz(__rbit64(*v727 ^ *v761)) >> 3;
+              }
+
+              v726 += v734;
+            }
+
+            if (v33 <= v755)
+            {
+              **(a2 + 24) = *v33;
+              v713 = *(a2 + 8);
+            }
+
+            *(v713 + 4) = 0;
+            *v713 = 1;
+            if (v726 + 1 >= 0x10000)
+            {
+              v735 = (v713 - *a2) >> 3;
+              *(a2 + 72) = 2;
+              *(a2 + 76) = v735;
+            }
+
+            *(v713 + 6) = v726 + 1;
+            v713 += 8;
+            *(a2 + 8) = v713;
+            *(v6 + 4 * ((-1640531535 * *v33) >> v565)) = v33 - v10;
+            v33 += v726 + 4;
+            v14 = v184;
+            v183 = v15;
+            if (v33 > v13)
+            {
+              goto LABEL_1275;
+            }
+
+            continue;
+          }
+        }
+      }
+
+      if (v574 > v11)
+      {
+        v581 = v10 + v574;
+        if (*(v10 + v574) == *v33)
+        {
+          v592 = (v33 + 4);
+          v593 = (v581 + 4);
+          v594 = v12 - 7;
+          if (v751 <= (v33 + 4))
+          {
+            v596 = v33 + 4;
+LABEL_1016:
+            if (v596 < v743 && *v593 == *v596)
+            {
+              ++v593;
+              v596 += 4;
+            }
+
+            if (v596 < v739 && *v593 == *v596)
+            {
+              v593 = (v593 + 2);
+              v596 += 2;
+            }
+
+            if (v596 < v12 && *v593 == *v596)
+            {
+              ++v596;
+            }
+
+            v600 = v10 + v11;
+            v599 = v596 - v592;
+          }
+
+          else
+          {
+            if (*v593 == *v592)
+            {
+              v593 = (v10 + 12 + v574);
+              v595 = v33 + 12;
+              do
+              {
+                v596 = v595;
+                if (v595 >= v751)
+                {
+                  goto LABEL_1016;
+                }
+
+                v598 = *v593;
+                v593 += 2;
+                v597 = v598;
+                v595 += 8;
+              }
+
+              while (v598 == *v596);
+              v599 = &v596[__clz(__rbit64(*v596 ^ v597)) >> 3] - v592;
+            }
+
+            else
+            {
+              v599 = __clz(__rbit64(*v592 ^ *v593)) >> 3;
+            }
+
+            v600 = v10 + v11;
+          }
+
+          v616 = v599 + 4;
+          if (v33 <= a4)
+          {
+            v620 = v33;
+          }
+
+          else
+          {
+            v617 = v33 - 1;
+            v618 = (v10 - 1 + v574);
+            while (*v617 == *v618)
+            {
+              ++v616;
+              v619 = v617 - 1;
+              if (v617 > a4)
+              {
+                --v617;
+                v49 = v618-- > v600;
+                if (v49)
+                {
+                  continue;
+                }
+              }
+
+              v620 = v619 + 1;
+              goto LABEL_1053;
+            }
+
+            v620 = v617 + 1;
+          }
+
+LABEL_1053:
+          v621 = v620 - a4;
+          v622 = *(a2 + 24);
+          if (v620 > v755)
+          {
+            if (a4 <= v755)
+            {
+              v623 = (v622 + v755 - a4);
+              *v622 = *a4;
+              if ((v755 - a4) >= 17)
+              {
+                v632 = v622 + 1;
+                v633 = (a4 + 32);
+                do
+                {
+                  *v632 = *(v633 - 1);
+                  v634 = *v633;
+                  v633 += 32;
+                  v632[1] = v634;
+                  v632 += 2;
+                }
+
+                while (v632 < v623);
+                a4 = (v12 - 32);
+              }
+
+              else
+              {
+                a4 = (v12 - 32);
+              }
+
+              v622 = v623;
+            }
+
+            if (a4 >= v620)
+            {
+              goto LABEL_1205;
+            }
+
+            v635 = v620 - a4;
+            if ((v620 - a4) < 8)
+            {
+              v645 = v622;
+            }
+
+            else if ((v622 - a4) < 0x20)
+            {
+              v645 = v622;
+            }
+
+            else
+            {
+              if (v635 < 0x20)
+              {
+                v636 = 0;
+LABEL_1101:
+                v650 = v635 & 0xFFFFFFFFFFFFFFF8;
+                v645 = v622 + (v635 & 0xFFFFFFFFFFFFFFF8);
+                v651 = v636 - (v635 & 0xFFFFFFFFFFFFFFF8);
+                v652 = &a4[v636];
+                v653 = (v622 + v636);
+                do
+                {
+                  v654 = *v652;
+                  v652 += 8;
+                  *v653++ = v654;
+                  v651 += 8;
+                }
+
+                while (v651);
+                if (v635 != v650)
+                {
+                  a4 += v650;
+                  goto LABEL_1204;
+                }
+
+LABEL_1205:
+                *(a2 + 24) += v621;
+                v629 = *(a2 + 8);
+                if (v621 >= 0x10000)
+                {
+                  v709 = (v629 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v709;
+                }
+
+                v594 = v12 - 7;
+                goto LABEL_1208;
+              }
+
+              v636 = v635 & 0xFFFFFFFFFFFFFFE0;
+              v646 = (a4 + 16);
+              v647 = v622 + 1;
+              v648 = v635 & 0xFFFFFFFFFFFFFFE0;
+              do
+              {
+                v649 = *v646;
+                *(v647 - 1) = *(v646 - 1);
+                *v647 = v649;
+                v646 += 32;
+                v647 += 2;
+                v648 -= 32;
+              }
+
+              while (v648);
+              if (v635 == v636)
+              {
+                goto LABEL_1205;
+              }
+
+              if ((v635 & 0x18) != 0)
+              {
+                goto LABEL_1101;
+              }
+
+              a4 += v636;
+              v645 = v622 + v636;
+            }
+
+            do
+            {
+LABEL_1204:
+              v708 = *a4++;
+              *v645++ = v708;
+            }
+
+            while (a4 != v620);
+            goto LABEL_1205;
+          }
+
+          *v622 = *a4;
+          v624 = *(a2 + 24);
+          if (v621 > 0x10)
+          {
+            *(v624 + 16) = *(a4 + 1);
+            if (v621 >= 33)
+            {
+              v625 = v624 + v621;
+              v626 = (v624 + 32);
+              v627 = (a4 + 48);
+              do
+              {
+                *v626 = *(v627 - 1);
+                v628 = *v627;
+                v627 += 32;
+                v626[1] = v628;
+                v626 += 2;
+              }
+
+              while (v626 < v625);
+            }
+
+            goto LABEL_1205;
+          }
+
+          *(a2 + 24) = v624 + v621;
+          v629 = *(a2 + 8);
+LABEL_1208:
+          v707 = (v33 - v581);
+          goto LABEL_1215;
+        }
+      }
+
+      if (v572 >= v571)
+      {
+        ++v564;
+      }
+
+      v562 = &v572[v564];
+      if (&v572[v564] > v13)
+      {
+        goto LABEL_963;
+      }
+
+      v568 = -1640531535 * v577;
+      v571 += 256 * (v572 >= v571);
+      v569 = *(v17 + 4 * (v568 >> v566 >> 8));
+      v570 = v569 ^ (v568 >> v566);
+      v33 = v572;
+    }
+
+    if (v576 >= v11)
+    {
+      v582 = v12;
+    }
+
+    else
+    {
+      v582 = v762;
+    }
+
+    v583 = (v33 + 5);
+    v584 = v578 + 1;
+    v585 = &v33[v582 - (v578 + 1) + 5];
+    if (v585 >= v12)
+    {
+      v585 = v12;
+    }
+
+    if (v585 - 7 <= v583)
+    {
+      v586 = v578 + 1;
+      v588 = v33 + 5;
+LABEL_1005:
+      if (v588 < v585 - 3 && *v586 == *v588)
+      {
+        ++v586;
+        ++v588;
+      }
+
+      if (v588 < v585 - 1 && *v586 == *v588)
+      {
+        v586 = (v586 + 2);
+        v588 = (v588 + 2);
+      }
+
+      if (v588 < v585 && *v586 == *v588)
+      {
+        v588 = (v588 + 1);
+      }
+
+      v594 = v12 - 7;
+      v591 = v588 - v583;
+    }
+
+    else
+    {
+      if (*v584 == *v583)
+      {
+        v586 = v578 + 3;
+        v587 = (v33 + 13);
+        do
+        {
+          v588 = v587;
+          if (v587 >= v585 - 7)
+          {
+            goto LABEL_1005;
+          }
+
+          v590 = *v586;
+          v586 += 2;
+          v589 = v590;
+          v587 += 8;
+        }
+
+        while (v590 == *v588);
+        v591 = v588 + (__clz(__rbit64(*v588 ^ v589)) >> 3) - v583;
+      }
+
+      else
+      {
+        v591 = __clz(__rbit64(*v583 ^ *v584)) >> 3;
+      }
+
+      v594 = v12 - 7;
+    }
+
+    if ((v584 + v591) != v582)
+    {
+LABEL_1117:
+      v620 = v33 + 1;
+      v655 = v33 + 1 - a4;
+      v656 = *(a2 + 24);
+      if (v620 <= v755)
+      {
+        *v656 = *a4;
+        v658 = *(a2 + 24);
+        if (v655 <= 0x10)
+        {
+          *(a2 + 24) = v658 + v655;
+          v629 = *(a2 + 8);
+          goto LABEL_1201;
+        }
+
+        *(v658 + 16) = *(a4 + 1);
+        if (v655 >= 33)
+        {
+          v659 = v658 + v655;
+          v660 = (v658 + 32);
+          v661 = (a4 + 48);
+          do
+          {
+            *v660 = *(v661 - 1);
+            v662 = *v661;
+            v661 += 32;
+            v660[1] = v662;
+            v660 += 2;
+          }
+
+          while (v660 < v659);
+        }
+
+LABEL_1197:
+        *(a2 + 24) += v655;
+        v629 = *(a2 + 8);
+        if (v655 >= 0x10000)
+        {
+          v705 = (v629 - *a2) >> 3;
+          *(a2 + 72) = 1;
+          *(a2 + 76) = v705;
+        }
+
+        v594 = v12 - 7;
+LABEL_1201:
+        v616 = v591 + 4;
+        *(v629 + 4) = v655;
+        *v629 = 1;
+        v706 = v591 + 1;
+        v707 = v14;
+        if (v706 >> 16)
+        {
+          goto LABEL_1216;
+        }
+
+        goto LABEL_1217;
+      }
+
+      if (a4 <= v755)
+      {
+        v657 = (v656 + v755 - a4);
+        *v656 = *a4;
+        if ((v755 - a4) >= 17)
+        {
+          v663 = v656 + 1;
+          v664 = (a4 + 32);
+          do
+          {
+            *v663 = *(v664 - 1);
+            v665 = *v664;
+            v664 += 32;
+            v663[1] = v665;
+            v663 += 2;
+          }
+
+          while (v663 < v657);
+          a4 = (v12 - 32);
+        }
+
+        else
+        {
+          a4 = (v12 - 32);
+        }
+
+        v656 = v657;
+      }
+
+      if (a4 >= v620)
+      {
+        goto LABEL_1197;
+      }
+
+      v666 = v620 - a4;
+      if ((v620 - a4) < 8)
+      {
+        v668 = v656;
+      }
+
+      else if ((v656 - a4) < 0x20)
+      {
+        v668 = v656;
+      }
+
+      else
+      {
+        if (v666 < 0x20)
+        {
+          v667 = 0;
+LABEL_1142:
+          v673 = v666 & 0xFFFFFFFFFFFFFFF8;
+          v668 = v656 + (v666 & 0xFFFFFFFFFFFFFFF8);
+          v674 = v667 - (v666 & 0xFFFFFFFFFFFFFFF8);
+          v675 = &a4[v667];
+          v676 = (v656 + v667);
+          do
+          {
+            v677 = *v675;
+            v675 += 8;
+            *v676++ = v677;
+            v674 += 8;
+          }
+
+          while (v674);
+          if (v666 == v673)
+          {
+            goto LABEL_1197;
+          }
+
+          a4 += v673;
+          goto LABEL_1196;
+        }
+
+        v667 = v666 & 0xFFFFFFFFFFFFFFE0;
+        v669 = (a4 + 16);
+        v670 = v656 + 1;
+        v671 = v666 & 0xFFFFFFFFFFFFFFE0;
+        do
+        {
+          v672 = *v669;
+          *(v670 - 1) = *(v669 - 1);
+          *v670 = v672;
+          v669 += 32;
+          v670 += 2;
+          v671 -= 32;
+        }
+
+        while (v671);
+        if (v666 == v667)
+        {
+          goto LABEL_1197;
+        }
+
+        if ((v666 & 0x18) != 0)
+        {
+          goto LABEL_1142;
+        }
+
+        a4 += v667;
+        v668 = v656 + v667;
+      }
+
+      do
+      {
+LABEL_1196:
+        v704 = *a4++;
+        *v668++ = v704;
+      }
+
+      while (a4 != v620);
+      goto LABEL_1197;
+    }
+
+    v610 = &v583[v591];
+    if (v594 <= v610)
+    {
+      v630 = (v10 + v11);
+      v615 = v610;
+    }
+
+    else
+    {
+      if (*v761 != *v610)
+      {
+        v637 = __clz(__rbit64(*v610 ^ *v761)) >> 3;
+LABEL_1116:
+        v591 += v637;
+        goto LABEL_1117;
+      }
+
+      v611 = 0;
+      v612 = &v33[v591];
+      while (1)
+      {
+        v613 = &v612[v611 + 13];
+        if (v613 >= v594)
+        {
+          break;
+        }
+
+        v614 = *(v759 + v611);
+        v611 += 8;
+        if (v614 != *v613)
+        {
+          v615 = &v612[v611 + 5 + (__clz(__rbit64(*v613 ^ v614)) >> 3)];
+          goto LABEL_1115;
+        }
+      }
+
+      v630 = (v759 + v611);
+      v615 = &v33[v591 + 13 + v611];
+    }
+
+    if (v615 < v743 && *v630 == *v615)
+    {
+      ++v630;
+      v615 += 4;
+    }
+
+    if (v615 < v739 && *v630 == *v615)
+    {
+      v630 = (v630 + 2);
+      v615 += 2;
+    }
+
+    if (v615 < v12 && *v630 == *v615)
+    {
+      ++v615;
+    }
+
+LABEL_1115:
+    v637 = v615 - v610;
+    goto LABEL_1116;
+  }
+
+  v744 = v19 + v18;
+  if (v23 && v22 <= 0x3D)
+  {
+    v24 = 0;
+    do
+    {
+      _X16 = v17 + v24;
+      __asm { PRFM            #2, [X16] }
+
+      v24 += 64;
+    }
+
+    while (v24 < 4 << v22);
+  }
+
+  v31 = &a4[v9];
+  if (&a4[v9] > v13)
+  {
+LABEL_963:
+    LODWORD(v184) = v14;
+    LODWORD(v183) = v15;
+    v33 = a4;
+    goto LABEL_964;
+  }
+
+  v32 = v9;
+  if (v21)
+  {
+    v33 = a4;
+  }
+
+  else
+  {
+    v33 = (a4 + 1);
+  }
+
+  v34 = 64 - v7;
+  v35 = 56 - v22;
+  v36 = v11 - 1;
+  v748 = (v12 - 7);
+  v740 = v12 - 3;
+  v736 = v12 - 1;
+  v752 = (v12 - 32);
+  v756 = v11 + v10 + 8;
+  do
+  {
+    v37 = 0xCF1BBCDCBFA56300 * *v33;
+    v38 = (v37 >> v35) ^ *(v17 + ((v37 >> v35 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    v39 = v33 + 256;
+    v40 = *(v17 + ((v37 >> v35 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+    while (1)
+    {
+      v41 = v31;
+      v42 = v37 >> v34;
+      v43 = *(v6 + 4 * (v37 >> v34));
+      v44 = v33 - v10;
+      v45 = v33 - v10 - v14 + 1;
+      v46 = *v41;
+      *(v6 + 4 * v42) = v33 - v10;
+      if (v36 - v45 >= 3)
+      {
+        v47 = (v10 + v45);
+        if (v45 < v11)
+        {
+          v47 = (v19 + v45 - v20);
+        }
+
+        if (*v47 == *(v33 + 1))
+        {
+          if (v45 >= v11)
+          {
+            v51 = v12;
+          }
+
+          else
+          {
+            v51 = v762;
+          }
+
+          v52 = (v33 + 5);
+          v53 = v47 + 1;
+          v54 = &v33[v51 - (v47 + 1) + 5];
+          if (v54 >= v12)
+          {
+            v54 = v12;
+          }
+
+          if (v54 - 7 <= v52)
+          {
+            v55 = (v47 + 1);
+            v57 = v33 + 5;
+          }
+
+          else
+          {
+            if (*v53 != *v52)
+            {
+              v60 = __clz(__rbit64(*v52 ^ *v53)) >> 3;
+LABEL_82:
+              v63 = v12 - 7;
+LABEL_83:
+              if ((v53 + v60) != v51)
+              {
+                goto LABEL_164;
+              }
+
+              v79 = &v52[v60];
+              if (v63 <= v79)
+              {
+                v99 = (v10 + v11);
+                v84 = v79;
+              }
+
+              else
+              {
+                if (*v761 != *v79)
+                {
+                  v106 = __clz(__rbit64(*v79 ^ *v761)) >> 3;
+LABEL_163:
+                  v60 += v106;
+LABEL_164:
+                  v89 = v33 + 1;
+                  v124 = v33 + 1 - a4;
+                  v125 = *(a2 + 24);
+                  if (v89 <= v752)
+                  {
+                    *v125 = *a4;
+                    v127 = *(a2 + 24);
+                    if (v124 <= 0x10)
+                    {
+                      *(a2 + 24) = v127 + v124;
+                      v98 = *(a2 + 8);
+                      goto LABEL_248;
+                    }
+
+                    *(v127 + 16) = *(a4 + 1);
+                    if (v124 >= 33)
+                    {
+                      v128 = v127 + v124;
+                      v129 = (v127 + 32);
+                      v130 = (a4 + 48);
+                      do
+                      {
+                        *v129 = *(v130 - 1);
+                        v131 = *v130;
+                        v130 += 32;
+                        v129[1] = v131;
+                        v129 += 2;
+                      }
+
+                      while (v129 < v128);
+                    }
+
+LABEL_244:
+                    *(a2 + 24) += v124;
+                    v98 = *(a2 + 8);
+                    if (v124 >= 0x10000)
+                    {
+                      v174 = (v98 - *a2) >> 3;
+                      *(a2 + 72) = 1;
+                      *(a2 + 76) = v174;
+                    }
+
+                    v63 = v12 - 7;
+LABEL_248:
+                    v85 = v60 + 4;
+                    *(v98 + 4) = v124;
+                    *v98 = 1;
+                    v175 = v60 + 1;
+                    v176 = v14;
+                    if (!(v175 >> 16))
+                    {
+                      goto LABEL_264;
+                    }
+
+                    goto LABEL_263;
+                  }
+
+                  if (a4 <= v752)
+                  {
+                    v126 = (v125 + v752 - a4);
+                    *v125 = *a4;
+                    if ((v752 - a4) >= 17)
+                    {
+                      v132 = v125 + 1;
+                      v133 = (a4 + 32);
+                      do
+                      {
+                        *v132 = *(v133 - 1);
+                        v134 = *v133;
+                        v133 += 32;
+                        v132[1] = v134;
+                        v132 += 2;
+                      }
+
+                      while (v132 < v126);
+                      a4 = (v12 - 32);
+                    }
+
+                    else
+                    {
+                      a4 = (v12 - 32);
+                    }
+
+                    v125 = v126;
+                  }
+
+                  if (a4 >= v89)
+                  {
+                    goto LABEL_244;
+                  }
+
+                  v135 = v89 - a4;
+                  if ((v89 - a4) < 8)
+                  {
+                    v137 = v125;
+                  }
+
+                  else if ((v125 - a4) < 0x20)
+                  {
+                    v137 = v125;
+                  }
+
+                  else
+                  {
+                    if (v135 < 0x20)
+                    {
+                      v136 = 0;
+LABEL_189:
+                      v142 = v135 & 0xFFFFFFFFFFFFFFF8;
+                      v137 = v125 + (v135 & 0xFFFFFFFFFFFFFFF8);
+                      v143 = v136 - (v135 & 0xFFFFFFFFFFFFFFF8);
+                      v144 = &a4[v136];
+                      v145 = (v125 + v136);
+                      do
+                      {
+                        v146 = *v144;
+                        v144 += 8;
+                        *v145++ = v146;
+                        v143 += 8;
+                      }
+
+                      while (v143);
+                      if (v135 == v142)
+                      {
+                        goto LABEL_244;
+                      }
+
+                      a4 += v142;
+                      goto LABEL_243;
+                    }
+
+                    v136 = v135 & 0xFFFFFFFFFFFFFFE0;
+                    v138 = (a4 + 16);
+                    v139 = v125 + 1;
+                    v140 = v135 & 0xFFFFFFFFFFFFFFE0;
+                    do
+                    {
+                      v141 = *v138;
+                      *(v139 - 1) = *(v138 - 1);
+                      *v139 = v141;
+                      v138 += 32;
+                      v139 += 2;
+                      v140 -= 32;
+                    }
+
+                    while (v140);
+                    if (v135 == v136)
+                    {
+                      goto LABEL_244;
+                    }
+
+                    if ((v135 & 0x18) != 0)
+                    {
+                      goto LABEL_189;
+                    }
+
+                    a4 += v136;
+                    v137 = v125 + v136;
+                  }
+
+                  do
+                  {
+LABEL_243:
+                    v173 = *a4++;
+                    *v137++ = v173;
+                  }
+
+                  while (a4 != v89);
+                  goto LABEL_244;
+                }
+
+                v80 = 0;
+                v81 = &v33[v60];
+                while (1)
+                {
+                  v82 = &v81[v80 + 13];
+                  if (v82 >= v63)
+                  {
+                    break;
+                  }
+
+                  v83 = *(v756 + v80);
+                  v80 += 8;
+                  if (v83 != *v82)
+                  {
+                    v84 = &v81[v80 + 5 + (__clz(__rbit64(*v82 ^ v83)) >> 3)];
+                    goto LABEL_162;
+                  }
+                }
+
+                v99 = (v756 + v80);
+                v84 = &v33[v60 + 13 + v80];
+              }
+
+              if (v84 < v740 && *v99 == *v84)
+              {
+                ++v99;
+                v84 += 4;
+              }
+
+              if (v84 < v736 && *v99 == *v84)
+              {
+                v99 = (v99 + 2);
+                v84 += 2;
+              }
+
+              if (v84 < v12 && *v99 == *v84)
+              {
+                ++v84;
+              }
+
+LABEL_162:
+              v106 = v84 - v79;
+              goto LABEL_163;
+            }
+
+            v55 = (v47 + 3);
+            v56 = (v33 + 13);
+            while (1)
+            {
+              v57 = v56;
+              if (v56 >= v54 - 7)
+              {
+                break;
+              }
+
+              v59 = *v55;
+              v55 += 4;
+              v58 = v59;
+              v56 += 8;
+              if (v59 != *v57)
+              {
+                v60 = v57 + (__clz(__rbit64(*v57 ^ v58)) >> 3) - v52;
+                goto LABEL_82;
+              }
+            }
+          }
+
+          if (v57 < v54 - 3 && *v55 == *v57)
+          {
+            v55 += 2;
+            v57 = (v57 + 4);
+          }
+
+          if (v57 < v54 - 1 && *v55 == *v57)
+          {
+            ++v55;
+            v57 = (v57 + 2);
+          }
+
+          if (v57 < v54 && *v55 == *v57)
+          {
+            v57 = (v57 + 1);
+          }
+
+          v63 = v12 - 7;
+          v60 = v57 - v52;
+          goto LABEL_83;
+        }
+      }
+
+      if (!v38)
+      {
+        v48 = v40 >> 8;
+        if (v48 > v763)
+        {
+          v49 = *(v19 + v48) != *v33 || v43 > v11;
+          if (!v49)
+          {
+            break;
+          }
+        }
+      }
+
+      if (v43 > v11)
+      {
+        v50 = v10 + v43;
+        if (*(v10 + v43) == *v33)
+        {
+          v61 = (v33 + 4);
+          v62 = (v50 + 4);
+          v63 = v12 - 7;
+          if (v748 <= (v33 + 4))
+          {
+            v65 = v33 + 4;
+          }
+
+          else
+          {
+            if (*v62 != *v61)
+            {
+              v68 = __clz(__rbit64(*v61 ^ *v62)) >> 3;
+LABEL_91:
+              v69 = v10 + v11;
+LABEL_92:
+              v85 = v68 + 4;
+              if (v33 <= a4)
+              {
+                v89 = v33;
+              }
+
+              else
+              {
+                v86 = v33 - 1;
+                v87 = (v10 - 1 + v43);
+                while (*v86 == *v87)
+                {
+                  ++v85;
+                  v88 = v86 - 1;
+                  if (v86 > a4)
+                  {
+                    --v86;
+                    v49 = v87-- > v69;
+                    if (v49)
+                    {
+                      continue;
+                    }
+                  }
+
+                  v89 = v88 + 1;
+                  goto LABEL_100;
+                }
+
+                v89 = v86 + 1;
+              }
+
+LABEL_100:
+              v90 = v89 - a4;
+              v91 = *(a2 + 24);
+              if (v89 <= v752)
+              {
+                *v91 = *a4;
+                v93 = *(a2 + 24);
+                if (v90 <= 0x10)
+                {
+                  *(a2 + 24) = v93 + v90;
+                  v98 = *(a2 + 8);
+LABEL_255:
+                  v176 = (v33 - v50);
+                  goto LABEL_262;
+                }
+
+                *(v93 + 16) = *(a4 + 1);
+                if (v90 >= 33)
+                {
+                  v94 = v93 + v90;
+                  v95 = (v93 + 32);
+                  v96 = (a4 + 48);
+                  do
+                  {
+                    *v95 = *(v96 - 1);
+                    v97 = *v96;
+                    v96 += 32;
+                    v95[1] = v97;
+                    v95 += 2;
+                  }
+
+                  while (v95 < v94);
+                }
+
+LABEL_252:
+                *(a2 + 24) += v90;
+                v98 = *(a2 + 8);
+                if (v90 >= 0x10000)
+                {
+                  v178 = (v98 - *a2) >> 3;
+                  *(a2 + 72) = 1;
+                  *(a2 + 76) = v178;
+                }
+
+                v63 = v12 - 7;
+                goto LABEL_255;
+              }
+
+              if (a4 <= v752)
+              {
+                v92 = (v91 + v752 - a4);
+                *v91 = *a4;
+                if ((v752 - a4) >= 17)
+                {
+                  v101 = v91 + 1;
+                  v102 = (a4 + 32);
+                  do
+                  {
+                    *v101 = *(v102 - 1);
+                    v103 = *v102;
+                    v102 += 32;
+                    v101[1] = v103;
+                    v101 += 2;
+                  }
+
+                  while (v101 < v92);
+                  a4 = (v12 - 32);
+                }
+
+                else
+                {
+                  a4 = (v12 - 32);
+                }
+
+                v91 = v92;
+              }
+
+              if (a4 >= v89)
+              {
+                goto LABEL_252;
+              }
+
+              v104 = v89 - a4;
+              if ((v89 - a4) < 8)
+              {
+                v114 = v91;
+              }
+
+              else if ((v91 - a4) < 0x20)
+              {
+                v114 = v91;
+              }
+
+              else
+              {
+                if (v104 < 0x20)
+                {
+                  v105 = 0;
+LABEL_148:
+                  v119 = v104 & 0xFFFFFFFFFFFFFFF8;
+                  v114 = v91 + (v104 & 0xFFFFFFFFFFFFFFF8);
+                  v120 = v105 - (v104 & 0xFFFFFFFFFFFFFFF8);
+                  v121 = &a4[v105];
+                  v122 = (v91 + v105);
+                  do
+                  {
+                    v123 = *v121;
+                    v121 += 8;
+                    *v122++ = v123;
+                    v120 += 8;
+                  }
+
+                  while (v120);
+                  if (v104 == v119)
+                  {
+                    goto LABEL_252;
+                  }
+
+                  a4 += v119;
+                  goto LABEL_251;
+                }
+
+                v105 = v104 & 0xFFFFFFFFFFFFFFE0;
+                v115 = (a4 + 16);
+                v116 = v91 + 1;
+                v117 = v104 & 0xFFFFFFFFFFFFFFE0;
+                do
+                {
+                  v118 = *v115;
+                  *(v116 - 1) = *(v115 - 1);
+                  *v116 = v118;
+                  v115 += 32;
+                  v116 += 2;
+                  v117 -= 32;
+                }
+
+                while (v117);
+                if (v104 == v105)
+                {
+                  goto LABEL_252;
+                }
+
+                if ((v104 & 0x18) != 0)
+                {
+                  goto LABEL_148;
+                }
+
+                a4 += v105;
+                v114 = v91 + v105;
+              }
+
+              do
+              {
+LABEL_251:
+                v177 = *a4++;
+                *v114++ = v177;
+              }
+
+              while (a4 != v89);
+              goto LABEL_252;
+            }
+
+            v62 = (v10 + 12 + v43);
+            v64 = v33 + 12;
+            while (1)
+            {
+              v65 = v64;
+              if (v64 >= v748)
+              {
+                break;
+              }
+
+              v67 = *v62++;
+              v66 = v67;
+              v64 += 8;
+              if (v67 != *v65)
+              {
+                v68 = &v65[__clz(__rbit64(*v65 ^ v66)) >> 3] - v61;
+                goto LABEL_91;
+              }
+            }
+          }
+
+          if (v65 < v740 && *v62 == *v65)
+          {
+            v62 = (v62 + 4);
+            v65 += 4;
+          }
+
+          if (v65 < v736 && *v62 == *v65)
+          {
+            v62 = (v62 + 2);
+            v65 += 2;
+          }
+
+          if (v65 < v12 && *v62 == *v65)
+          {
+            ++v65;
+          }
+
+          v69 = v10 + v11;
+          v68 = v65 - v61;
+          goto LABEL_92;
+        }
+      }
+
+      if (v41 >= v39)
+      {
+        ++v32;
+      }
+
+      v31 = &v41[v32];
+      if (&v41[v32] > v13)
+      {
+        goto LABEL_963;
+      }
+
+      v37 = 0xCF1BBCDCBFA56300 * v46;
+      v39 += 256 * (v41 >= v39);
+      v40 = *(v17 + ((v37 >> v35 >> 6) & 0x3FFFFFFFFFFFFFCLL));
+      LOBYTE(v38) = (v37 >> v35) ^ v40;
+      v33 = v41;
+    }
+
+    v70 = (v33 + 4);
+    v71 = (v19 + v48 + 4);
+    v72 = &v762[-v19 - v48 + v33];
+    if (v72 >= v12)
+    {
+      v72 = v12;
+    }
+
+    if (v72 - 7 <= v70)
+    {
+      v73 = (v19 + v48 + 4);
+      v75 = v33 + 4;
+      goto LABEL_112;
+    }
+
+    if (*v71 == *v70)
+    {
+      v73 = (v19 + 12 + v48);
+      v74 = (v33 + 12);
+      while (1)
+      {
+        v75 = v74;
+        if (v74 >= (v72 - 7))
+        {
+          break;
+        }
+
+        v77 = *v73;
+        v73 += 4;
+        v76 = v77;
+        v74 += 8;
+        if (v77 != *v75)
+        {
+          v78 = &v75[__clz(__rbit64(*v75 ^ v76)) >> 3] - v70;
+          goto LABEL_133;
+        }
+      }
+
+LABEL_112:
+      v63 = v12 - 7;
+      if (v75 < v72 - 3 && *v73 == *v75)
+      {
+        v73 += 2;
+        v75 += 4;
+      }
+
+      if (v75 < v72 - 1 && *v73 == *v75)
+      {
+        ++v73;
+        v75 += 2;
+      }
+
+      if (v75 < v72 && *v73 == *v75)
+      {
+        ++v75;
+      }
+
+      v100 = v744;
+      v78 = v75 - v70;
+    }
+
+    else
+    {
+      v78 = __clz(__rbit64(*v70 ^ *v71)) >> 3;
+LABEL_133:
+      v100 = v744;
+      v63 = v12 - 7;
+    }
+
+    if ((v71 + v78) == v762)
+    {
+      v107 = &v70[v78];
+      if (v63 <= v107)
+      {
+        v113 = (v10 + v11);
+        v112 = v107;
+        goto LABEL_195;
+      }
+
+      if (*v761 == *v107)
+      {
+        v108 = 0;
+        v109 = &v33[v78];
+        while (1)
+        {
+          v110 = &v109[v108 + 12];
+          if (v110 >= v63)
+          {
+            break;
+          }
+
+          v111 = *(v756 + v108);
+          v108 += 8;
+          if (v111 != *v110)
+          {
+            v112 = &v109[v108 + 4 + (__clz(__rbit64(*v110 ^ v111)) >> 3)];
+            goto LABEL_204;
+          }
+        }
+
+        v113 = (v756 + v108);
+        v112 = &v33[v78 + 12 + v108];
+LABEL_195:
+        if (v112 < v740 && *v113 == *v112)
+        {
+          ++v113;
+          v112 += 4;
+        }
+
+        if (v112 < v736 && *v113 == *v112)
+        {
+          v113 = (v113 + 2);
+          v112 += 2;
+        }
+
+        if (v112 < v12 && *v113 == *v112)
+        {
+          ++v112;
+        }
+
+LABEL_204:
+        v147 = v112 - v107;
+      }
+
+      else
+      {
+        v147 = __clz(__rbit64(*v107 ^ *v761)) >> 3;
+      }
+
+      v78 += v147;
+    }
+
+    v85 = v78 + 4;
+    if (v33 > a4)
+    {
+      v148 = v33 - 1;
+      v149 = (v19 - 1 + v48);
+      while (*v148 == *v149)
+      {
+        ++v85;
+        v150 = v148 - 1;
+        if (v148 > a4)
+        {
+          --v148;
+          v49 = v149-- > v100;
+          if (v49)
+          {
+            continue;
+          }
+        }
+
+        v33 = v150 + 1;
+        goto LABEL_213;
+      }
+
+      v33 = v148 + 1;
+    }
+
+LABEL_213:
+    v89 = v33;
+    v90 = v33 - a4;
+    v151 = *(a2 + 24);
+    if (v33 > v752)
+    {
+      if (a4 <= v752)
+      {
+        v152 = (v151 + v752 - a4);
+        *v151 = *a4;
+        if ((v752 - a4) >= 17)
+        {
+          v158 = v151 + 1;
+          v159 = (a4 + 32);
+          do
+          {
+            *v158 = *(v159 - 1);
+            v160 = *v159;
+            v159 += 32;
+            v158[1] = v160;
+            v158 += 2;
+          }
+
+          while (v158 < v152);
+          a4 = (v12 - 32);
+        }
+
+        else
+        {
+          a4 = (v12 - 32);
+        }
+
+        v151 = v152;
+      }
+
+      if (a4 >= v33)
+      {
+        goto LABEL_258;
+      }
+
+      v161 = v33 - a4;
+      if ((v33 - a4) < 8)
+      {
+        v163 = v151;
+      }
+
+      else if ((v151 - a4) < 0x20)
+      {
+        v163 = v151;
+      }
+
+      else
+      {
+        if (v161 < 0x20)
+        {
+          v162 = 0;
+LABEL_238:
+          v168 = v161 & 0xFFFFFFFFFFFFFFF8;
+          v163 = v151 + (v161 & 0xFFFFFFFFFFFFFFF8);
+          v169 = v162 - (v161 & 0xFFFFFFFFFFFFFFF8);
+          v170 = &a4[v162];
+          v171 = (v151 + v162);
+          do
+          {
+            v172 = *v170;
+            v170 += 8;
+            *v171++ = v172;
+            v169 += 8;
+          }
+
+          while (v169);
+          if (v161 != v168)
+          {
+            a4 += v168;
+            goto LABEL_257;
+          }
+
+LABEL_258:
+          *(a2 + 24) += v90;
+          v98 = *(a2 + 8);
+          if (v90 >= 0x10000)
+          {
+            v180 = (v98 - *a2) >> 3;
+            *(a2 + 72) = 1;
+            *(a2 + 76) = v180;
+          }
+
+          v63 = v12 - 7;
+          goto LABEL_261;
+        }
+
+        v162 = v161 & 0xFFFFFFFFFFFFFFE0;
+        v164 = (a4 + 16);
+        v165 = v151 + 1;
+        v166 = v161 & 0xFFFFFFFFFFFFFFE0;
+        do
+        {
+          v167 = *v164;
+          *(v165 - 1) = *(v164 - 1);
+          *v165 = v167;
+          v164 += 32;
+          v165 += 2;
+          v166 -= 32;
+        }
+
+        while (v166);
+        if (v161 == v162)
+        {
+          goto LABEL_258;
+        }
+
+        if ((v161 & 0x18) != 0)
+        {
+          goto LABEL_238;
+        }
+
+        a4 += v162;
+        v163 = v151 + v162;
+      }
+
+      do
+      {
+LABEL_257:
+        v179 = *a4++;
+        *v163++ = v179;
+      }
+
+      while (a4 != v33);
+      goto LABEL_258;
+    }
+
+    *v151 = *a4;
+    v153 = *(a2 + 24);
+    if (v90 > 0x10)
+    {
+      *(v153 + 16) = *(a4 + 1);
+      if (v90 >= 33)
+      {
+        v154 = v153 + v90;
+        v155 = (v153 + 32);
+        v156 = (a4 + 48);
+        do
+        {
+          *v155 = *(v156 - 1);
+          v157 = *v156;
+          v156 += 32;
+          v155[1] = v157;
+          v155 += 2;
+        }
+
+        while (v155 < v154);
+      }
+
+      goto LABEL_258;
+    }
+
+    *(a2 + 24) = v153 + v90;
+    v98 = *(a2 + 8);
+LABEL_261:
+    v176 = v44 - v20 - v48;
+LABEL_262:
+    *(v98 + 4) = v90;
+    *v98 = v176 + 3;
+    LOWORD(v175) = v85 - 3;
+    v15 = v14;
+    v14 = v176;
+    if (!((v85 - 3) >> 16))
+    {
+      goto LABEL_264;
+    }
+
+LABEL_263:
+    v181 = (v98 - *a2) >> 3;
+    *(a2 + 72) = 2;
+    *(a2 + 76) = v181;
+    v14 = v176;
+LABEL_264:
+    *(v98 + 6) = v175;
+    v182 = v98 + 8;
+    *(a2 + 8) = v98 + 8;
+    v33 = &v89[v85];
+    if (&v89[v85] > v13)
+    {
+      v183 = v15;
+      v184 = v14;
+      goto LABEL_322;
+    }
+
+    *(v6 + 4 * ((0xCF1BBCDCBFA56300 * *(v10 + 2 + v44)) >> v34)) = v44 + 2;
+    *(v6 + 4 * ((0xCF1BBCDCBFA56300 * *(v33 - 2)) >> v34)) = v33 - 2 - v10;
+    while (2)
+    {
+      v184 = v15;
+      v15 = v14;
+      v185 = (v33 - v10 - v184);
+      if (v185 >= v11)
+      {
+        v186 = v10;
+      }
+
+      else
+      {
+        v186 = v19 - v20;
+      }
+
+      if ((v36 - v185) >= 3)
+      {
+        v187 = v186 + v185;
+        if (*(v186 + v185) == *v33)
+        {
+          if (v185 >= v11)
+          {
+            v188 = v12;
+          }
+
+          else
+          {
+            v188 = v762;
+          }
+
+          v189 = (v33 + 4);
+          v190 = (v187 + 4);
+          v191 = &v188[v33 - v187];
+          if (v191 >= v12)
+          {
+            v191 = v12;
+          }
+
+          if (v191 - 7 <= v189)
+          {
+            v192 = v190;
+            v194 = v33 + 4;
+            goto LABEL_285;
+          }
+
+          if (*v190 == *v189)
+          {
+            v192 = (v186 + v185 + 12);
+            v193 = (v33 + 12);
+            while (1)
+            {
+              v194 = v193;
+              if (v193 >= (v191 - 7))
+              {
+                break;
+              }
+
+              v196 = *v192;
+              v192 += 4;
+              v195 = v196;
+              v193 += 8;
+              if (v196 != *v194)
+              {
+                v197 = &v194[__clz(__rbit64(*v194 ^ v195)) >> 3] - v189;
+                v63 = v12 - 7;
+                goto LABEL_296;
+              }
+            }
+
+LABEL_285:
+            if (v194 < v191 - 3 && *v192 == *v194)
+            {
+              v192 += 2;
+              v194 += 4;
+            }
+
+            if (v194 < v191 - 1 && *v192 == *v194)
+            {
+              ++v192;
+              v194 += 2;
+            }
+
+            if (v194 < v191 && *v192 == *v194)
+            {
+              ++v194;
+            }
+
+            v63 = v12 - 7;
+            v197 = v194 - v189;
+          }
+
+          else
+          {
+            v197 = __clz(__rbit64(*v189 ^ *v190)) >> 3;
+          }
+
+LABEL_296:
+          if ((v190 + v197) == v188)
+          {
+            v198 = &v189[v197];
+            if (v63 <= v198)
+            {
+              v204 = (v10 + v11);
+              v203 = v198;
+              goto LABEL_306;
+            }
+
+            if (*v761 == *v198)
+            {
+              v199 = 0;
+              v200 = &v33[v197];
+              while (1)
+              {
+                v201 = &v200[v199 + 12];
+                if (v201 >= v63)
+                {
+                  break;
+                }
+
+                v202 = *(v756 + v199);
+                v199 += 8;
+                if (v202 != *v201)
+                {
+                  v203 = &v200[v199 + 4 + (__clz(__rbit64(*v201 ^ v202)) >> 3)];
+                  goto LABEL_315;
+                }
+              }
+
+              v204 = (v756 + v199);
+              v203 = &v33[v197 + 12 + v199];
+LABEL_306:
+              if (v203 < v740 && *v204 == *v203)
+              {
+                ++v204;
+                v203 += 4;
+              }
+
+              if (v203 < v736 && *v204 == *v203)
+              {
+                v204 = (v204 + 2);
+                v203 += 2;
+              }
+
+              if (v203 < v12 && *v204 == *v203)
+              {
+                ++v203;
+              }
+
+LABEL_315:
+              v205 = v203 - v198;
+            }
+
+            else
+            {
+              v205 = __clz(__rbit64(*v198 ^ *v761)) >> 3;
+            }
+
+            v197 += v205;
+          }
+
+          if (v33 <= v752)
+          {
+            **(a2 + 24) = *v33;
+            v182 = *(a2 + 8);
+          }
+
+          *(v182 + 4) = 0;
+          *v182 = 1;
+          if (v197 + 1 >= 0x10000)
+          {
+            v206 = (v182 - *a2) >> 3;
+            *(a2 + 72) = 2;
+            *(a2 + 76) = v206;
+          }
+
+          *(v182 + 6) = v197 + 1;
+          v182 += 8;
+          *(a2 + 8) = v182;
+          *(v6 + 4 * ((0xCF1BBCDCBFA56300 * *v33) >> v34)) = v33 - v10;
+          v33 += v197 + 4;
+          v14 = v184;
+          v183 = v15;
+          if (v33 > v13)
+          {
+            goto LABEL_322;
+          }
+
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    v183 = v184;
+    v184 = v14;
+LABEL_322:
+    v32 = v9;
+    v31 = &v33[v9];
+    a4 = v33;
+    v14 = v184;
+    v15 = v183;
+  }
+
+  while (&v33[v9] <= v13);
+LABEL_964:
+  *a3 = v184;
+  a3[1] = v183;
+  return v12 - v33;
 }

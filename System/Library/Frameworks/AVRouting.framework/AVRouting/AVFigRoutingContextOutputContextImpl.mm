@@ -62,6 +62,7 @@
 - (void)increaseVolumeByCount:(int64_t)count;
 - (void)removeOutputDevice:(id)device options:(id)options completionHandler:(id)handler;
 - (void)resetPredictedOutputDevice;
+- (void)setMuted:(BOOL)muted;
 - (void)setOutputDevice:(id)device options:(id)options completionHandler:(id)handler;
 - (void)setOutputDevices:(id)devices options:(id)options completionHandler:(id)handler;
 - (void)setVolume:(float)volume;
@@ -138,14 +139,12 @@ uint64_t __64__AVFigRoutingContextOutputContextImpl_sharedSystemAudioContext__bl
     CFRelease(v6);
   }
 
-  result = v5;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5;
 }
 
 - (BOOL)providesControlForAllVolumeFeatures
 {
-  v9 = 0;
+  v6 = 0;
   volumeController = self->_volumeController;
   if (!volumeController)
   {
@@ -153,22 +152,19 @@ uint64_t __64__AVFigRoutingContextOutputContextImpl_sharedSystemAudioContext__bl
   }
 
   routingContext = self->_routingContext;
-  v4 = self->_volumeController;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 8);
-  if (!v6)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v4)
   {
     return 0;
   }
 
-  v7 = *(VTable + 16) + 8;
-  v6(volumeController, routingContext, &v9);
-  return v9 != 0;
+  v4(volumeController, routingContext, &v6);
+  return v6 != 0;
 }
 
 - (BOOL)canSetVolume
 {
-  v9 = 0;
+  v6 = 0;
   volumeController = self->_volumeController;
   if (!volumeController)
   {
@@ -176,25 +172,22 @@ uint64_t __64__AVFigRoutingContextOutputContextImpl_sharedSystemAudioContext__bl
   }
 
   routingContext = self->_routingContext;
-  v4 = self->_volumeController;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 40);
-  if (!v6)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+  if (!v4)
   {
     return 0;
   }
 
-  v7 = *(VTable + 16) + 40;
-  v6(volumeController, routingContext, &v9);
-  return v9 != 0;
+  v4(volumeController, routingContext, &v6);
+  return v6 != 0;
 }
 
 - (int64_t)volumeControlType
 {
   volumeController = self->_volumeController;
-  if (volumeController && (v8 = 0, routingContext = self->_routingContext, VTable = CMBaseObjectGetVTable(), (v5 = *(*(VTable + 16) + 48)) != 0) && (v6 = *(VTable + 16) + 48, v5(volumeController, routingContext, &v8), (v8 - 1) <= 2))
+  if (volumeController && (v6 = 0, routingContext = self->_routingContext, (v4 = *(*(CMBaseObjectGetVTable() + 16) + 48)) != 0) && (v4(volumeController, routingContext, &v6), (v6 - 1) <= 2))
   {
-    return qword_1AB5E0748[v8 - 1];
+    return qword_1AB5E0748[v6 - 1];
   }
 
   else
@@ -212,41 +205,40 @@ uint64_t __64__AVFigRoutingContextOutputContextImpl_sharedSystemAudioContext__bl
 
 - (NSString)outputContextType
 {
-  v3 = OUTLINED_FUNCTION_4(self);
-  v4 = *(*(v3 + 8) + 48);
-  if (v4 && (v5 = *(v3 + 8) + 48, !v4(v2, *MEMORY[0x1E69AF4E0], *MEMORY[0x1E695E480], &number) && (valuePtr = 0, CFNumberGetValue(number, kCFNumberIntType, &valuePtr))))
+  v3 = *(*(OUTLINED_FUNCTION_4(self, a2) + 8) + 48);
+  if (v3 && !v3(v2, *MEMORY[0x1E69AF4E0], *MEMORY[0x1E695E480], &number) && (valuePtr = 0, CFNumberGetValue(number, kCFNumberIntType, &valuePtr)))
   {
-    v6 = 0;
+    v4 = 0;
     switch(valuePtr)
     {
       case 1:
-        v7 = AVOutputContextTypeSharedSystemAudio;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeSharedSystemAudio;
+        goto LABEL_15;
       case 2:
-        v7 = AVOutputContextTypeSharedSystemScreen;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeSharedSystemScreen;
+        goto LABEL_15;
       case 3:
-        v7 = AVOutputContextTypeSharedAudioPresentation;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeSharedAudioPresentation;
+        goto LABEL_15;
       case 4:
-        v7 = AVOutputContextTypeAudio;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeAudio;
+        goto LABEL_15;
       case 5:
-        v7 = AVOutputContextTypeVideo;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeVideo;
+        goto LABEL_15;
       case 6:
-        v7 = AVOutputContextTypeScreen;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeScreen;
+        goto LABEL_15;
       case 8:
-        v7 = AVOutputContextTypeGroupControl;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeGroupControl;
+        goto LABEL_15;
       case 9:
-        v7 = AVOutputContextTypeSharedSystemRemotePool;
-        goto LABEL_16;
+        v5 = AVOutputContextTypeSharedSystemRemotePool;
+        goto LABEL_15;
       case 14:
-        v7 = AVOutputContextTypeSystemRemoteDisplay;
-LABEL_16:
-        v6 = *v7;
+        v5 = AVOutputContextTypeSystemRemoteDisplay;
+LABEL_15:
+        v4 = *v5;
         break;
       default:
         break;
@@ -255,7 +247,7 @@ LABEL_16:
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
   if (number)
@@ -263,7 +255,7 @@ LABEL_16:
     CFRelease(number);
   }
 
-  return v6;
+  return v4;
 }
 
 - (AVOutputDevice)predictedOutputDevice
@@ -339,7 +331,7 @@ LABEL_16:
 
 - (BOOL)supportsMultipleOutputDevices
 {
-  v3 = *(*(OUTLINED_FUNCTION_4(self) + 8) + 48);
+  v3 = *(*(OUTLINED_FUNCTION_4(self, a2) + 8) + 48);
   if (!v3)
   {
     return 0;
@@ -400,7 +392,7 @@ uint64_t __72__AVFigRoutingContextOutputContextImpl_sharedSystemRemoteDisplayCon
 
 - (BOOL)supportsMultipleBluetoothOutputDevices
 {
-  v3 = *(*(OUTLINED_FUNCTION_4(self) + 8) + 48);
+  v3 = *(*(OUTLINED_FUNCTION_4(self, a2) + 8) + 48);
   if (!v3)
   {
     return 0;
@@ -609,14 +601,13 @@ uint64_t __71__AVFigRoutingContextOutputContextImpl_addSharedAudioOutputContextI
 
 uint64_t __70__AVFigRoutingContextOutputContextImpl_defaultSharedOutputContextImpl__block_invoke(uint64_t a1)
 {
-  v5 = 0;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
+  v4 = 0;
+  v2 = objc_opt_respondsToSelector();
   result = 0;
-  if (v3)
+  if (v2)
   {
-    [*(a1 + 32) copyDefaultContextWithAllocator:*MEMORY[0x1E695E480] options:0 context:&v5];
-    return v5;
+    [*(a1 + 32) copyDefaultContextWithAllocator:*MEMORY[0x1E695E480] options:0 context:&v4];
+    return v4;
   }
 
   return result;
@@ -790,7 +781,7 @@ LABEL_13:
   return [routingContextUUID hash];
 }
 
-uint64_t __66__AVFigRoutingContextOutputContextImpl__routeChangeStartedWithID___block_invoke(void *a1)
+void *__66__AVFigRoutingContextOutputContextImpl__routeChangeStartedWithID___block_invoke(void *a1)
 {
   v2 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:*(a1[4] + 88)];
   [v2 setObject:a1[5] forKey:a1[6]];
@@ -832,7 +823,7 @@ uint64_t __66__AVFigRoutingContextOutputContextImpl__routeChangeStartedWithID___
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reason___block_invoke(void *a1)
+void *__71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reason___block_invoke(void *a1)
 {
   v2 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:*(a1[4] + 88)];
   *(*(a1[6] + 8) + 40) = [v2 objectForKey:a1[5]];
@@ -859,18 +850,16 @@ uint64_t __71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reas
 
 - (void)_routeConfigUpdatedWithID:(__CFString *)d reason:(__CFString *)reason initiator:(__CFString *)initiator endedError:(__CFString *)error deviceID:(__CFString *)iD previousDeviceIDs:(__CFArray *)ds
 {
-  v14 = *MEMORY[0x1E69AF3D8];
   if (FigCFEqual())
   {
-    v15 = @"AVOutputContextDestinationChangeReasonIdleDisconnect";
+    v14 = @"AVOutputContextDestinationChangeReasonIdleDisconnect";
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v16 = *MEMORY[0x1E69AF430];
   if (FigCFEqual())
   {
     [(AVFigRoutingContextOutputContextImpl *)self _routeConfigUpdateStartedWithID:d];
@@ -878,7 +867,6 @@ uint64_t __71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reas
 
   else
   {
-    v17 = *MEMORY[0x1E69AF428];
     if (FigCFEqual())
     {
       parentOutputContext = [(AVFigRoutingContextOutputContextImpl *)self parentOutputContext];
@@ -886,7 +874,6 @@ uint64_t __71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reas
 
     else
     {
-      v25 = *MEMORY[0x1E69AF408];
       if (!FigCFEqual())
       {
         [(AVFigRoutingContextOutputContextImpl *)self _routeConfigUpdateEndedWithID:d reason:reason];
@@ -902,18 +889,17 @@ uint64_t __71__AVFigRoutingContextOutputContextImpl__routeChangeEndedWithID_reas
       }
     }
 
-    [(AVOutputContext *)parentOutputContext outputContextImpl:self didChangeOutputDevicesWithInitiator:initiator reason:v15 deviceID:iD previousDeviceIDs:ds];
+    [(AVOutputContext *)parentOutputContext outputContextImpl:self didChangeOutputDevicesWithInitiator:initiator reason:v14 deviceID:iD previousDeviceIDs:ds];
   }
 
 LABEL_9:
-  v19 = *MEMORY[0x1E69AF3E8];
-  if (FigCFEqual() || (v20 = *MEMORY[0x1E69AF3C8], FigCFEqual()) || (v21 = *MEMORY[0x1E69AF3C0], FigCFEqual()) || (v22 = *MEMORY[0x1E69AF3D0], FigCFEqual()))
+  if (FigCFEqual() || FigCFEqual() || FigCFEqual() || FigCFEqual())
   {
     supportsMultipleOutputDevices2 = [(AVFigRoutingContextOutputContextImpl *)self supportsMultipleOutputDevices];
     parentOutputContext2 = [(AVFigRoutingContextOutputContextImpl *)self parentOutputContext];
     if (supportsMultipleOutputDevices2)
     {
-      [(AVOutputContext *)parentOutputContext2 outputContextImpl:self didChangeOutputDevicesWithInitiator:initiator reason:v15 deviceID:iD previousDeviceIDs:ds];
+      [(AVOutputContext *)parentOutputContext2 outputContextImpl:self didChangeOutputDevicesWithInitiator:initiator reason:v14 deviceID:iD previousDeviceIDs:ds];
       if (![(NSString *)[(AVFigRoutingContextOutputContextImpl *)self outputContextType] isEqualToString:@"AVOutputContextTypeAudio"])
       {
         return;
@@ -926,7 +912,7 @@ LABEL_9:
   }
 }
 
-uint64_t __72__AVFigRoutingContextOutputContextImpl__routeConfigUpdateStartedWithID___block_invoke(void *a1)
+void *__72__AVFigRoutingContextOutputContextImpl__routeConfigUpdateStartedWithID___block_invoke(void *a1)
 {
   v2 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:*(a1[4] + 88)];
   [v2 setObject:a1[5] forKey:a1[6]];
@@ -968,7 +954,7 @@ uint64_t __72__AVFigRoutingContextOutputContextImpl__routeConfigUpdateStartedWit
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithID_reason___block_invoke(void *a1)
+void *__77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithID_reason___block_invoke(void *a1)
 {
   v2 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:*(a1[4] + 88)];
   *(*(a1[5] + 8) + 40) = [v2 objectForKey:a1[6]];
@@ -988,23 +974,21 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 
 - (NSString)associatedAudioDeviceID
 {
-  v8 = 0;
+  v6 = 0;
   routingContext = self->_routingContext;
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 8) + 48);
-  if (v4)
+  v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v3)
   {
-    v5 = *(VTable + 8) + 48;
-    v4(routingContext, *MEMORY[0x1E69AF4D8], *MEMORY[0x1E695E480], &v8);
-    v6 = v8;
+    v3(routingContext, *MEMORY[0x1E69AF4D8], *MEMORY[0x1E695E480], &v6);
+    v4 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (__CFDictionary)_createSelectRouteOptionsForSetOutputDeviceOptions:(id)options
@@ -1342,7 +1326,7 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 
 - (void)resetPredictedOutputDevice
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1356,8 +1340,6 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   {
     v5(routingContext, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_canUseForRoutingContextDidChangeForRoutingContextWIthID:(__CFString *)d
@@ -1372,20 +1354,17 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 
 - (float)volume
 {
-  v10 = 0.0;
+  v7 = 0.0;
   volumeController = self->_volumeController;
   v3 = 0.0;
   if (volumeController)
   {
     routingContext = self->_routingContext;
-    v5 = self->_volumeController;
-    VTable = CMBaseObjectGetVTable();
-    v7 = *(*(VTable + 16) + 32);
-    if (v7)
+    v5 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+    if (v5)
     {
-      v8 = *(VTable + 16) + 32;
-      v7(volumeController, routingContext, &v10);
-      return v10;
+      v5(volumeController, routingContext, &v7);
+      return v7;
     }
   }
 
@@ -1444,7 +1423,7 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 
 - (void)setVolume:(float)volume
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   volumeController = self->_volumeController;
   if (volumeController)
   {
@@ -1463,8 +1442,6 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
       v8(volumeController, routingContext, volume);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)increaseVolumeByCount:(int64_t)count
@@ -1473,15 +1450,12 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   if (volumeController)
   {
     routingContext = self->_routingContext;
-    v6 = self->_volumeController;
-    VTable = CMBaseObjectGetVTable();
-    v9 = *(*(VTable + 16) + 16);
-    if (v9)
+    v6 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v6)
     {
-      v10 = *(VTable + 16) + 16;
 
-      v8.n128_f32[0] = count;
-      v9(volumeController, routingContext, v8);
+      v7.n128_f32[0] = count;
+      v6(volumeController, routingContext, v7);
     }
   }
 }
@@ -1492,22 +1466,19 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   if (volumeController)
   {
     routingContext = self->_routingContext;
-    v6 = self->_volumeController;
-    VTable = CMBaseObjectGetVTable();
-    v9 = *(*(VTable + 16) + 16);
-    if (v9)
+    v6 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v6)
     {
-      v10 = *(VTable + 16) + 16;
 
-      v8.n128_f32[0] = -count;
-      v9(volumeController, routingContext, v8);
+      v7.n128_f32[0] = -count;
+      v6(volumeController, routingContext, v7);
     }
   }
 }
 
 - (BOOL)canMute
 {
-  v9 = 0;
+  v6 = 0;
   volumeController = self->_volumeController;
   if (!volumeController)
   {
@@ -1515,22 +1486,19 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   }
 
   routingContext = self->_routingContext;
-  v4 = self->_volumeController;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 184);
-  if (!v6)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 184);
+  if (!v4)
   {
     return 0;
   }
 
-  v7 = *(VTable + 16) + 184;
-  v6(volumeController, routingContext, &v9);
-  return v9 != 0;
+  v4(volumeController, routingContext, &v6);
+  return v6 != 0;
 }
 
 - (BOOL)isMuted
 {
-  v9 = 0;
+  v6 = 0;
   volumeController = self->_volumeController;
   if (!volumeController)
   {
@@ -1538,17 +1506,30 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   }
 
   routingContext = self->_routingContext;
-  v4 = self->_volumeController;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 144);
-  if (!v6)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 144);
+  if (!v4)
   {
     return 0;
   }
 
-  v7 = *(VTable + 16) + 144;
-  v6(volumeController, routingContext, &v9);
-  return v9 != 0;
+  v4(volumeController, routingContext, &v6);
+  return v6 != 0;
+}
+
+- (void)setMuted:(BOOL)muted
+{
+  volumeController = self->_volumeController;
+  if (volumeController)
+  {
+    mutedCopy = muted;
+    routingContext = self->_routingContext;
+    v6 = *(*(CMBaseObjectGetVTable() + 16) + 136);
+    if (v6)
+    {
+
+      v6(volumeController, routingContext, mutedCopy);
+    }
+  }
 }
 
 - (void)_sendCommand:(__CFString *)command completionHandler:(id)handler
@@ -1592,28 +1573,27 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 {
   routingContextFactory = [self routingContextFactory];
   PlatformDependentScreenOrVideoRoutingContext = AVOutputContextCreatePlatformDependentScreenOrVideoRoutingContext(routingContextFactory, 0);
-  v18 = 0;
+  v16 = 0;
   if (PlatformDependentScreenOrVideoRoutingContext)
   {
     v4 = PlatformDependentScreenOrVideoRoutingContext;
-    VTable = CMBaseObjectGetVTable();
-    v6 = *(*(VTable + 8) + 48);
-    if (!v6 || (v7 = *(VTable + 8) + 48, v6(v4, *MEMORY[0x1E69AF4E8], *MEMORY[0x1E695E480], &v18)))
+    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (!v5 || v5(v4, *MEMORY[0x1E69AF4E8], *MEMORY[0x1E695E480], &v16))
     {
-      v11 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = v18;
-      v9 = [AVFigRoutingContextOutputContextImpl alloc];
+      v6 = v16;
+      v7 = [AVFigRoutingContextOutputContextImpl alloc];
       OUTLINED_FUNCTION_0_1();
       OUTLINED_FUNCTION_3();
-      v14 = __77__AVFigRoutingContextOutputContextImpl_platformDependentScreenOrVideoContext__block_invoke;
-      v15 = &unk_1E794E9D0;
-      v16 = v18;
-      v17 = routingContextFactory;
-      v11 = [v10 initWithFigRoutingContext:v4 routingContextReplacementBlock:v13];
+      v12 = __77__AVFigRoutingContextOutputContextImpl_platformDependentScreenOrVideoContext__block_invoke;
+      v13 = &unk_1E794E9D0;
+      v14 = v16;
+      v15 = routingContextFactory;
+      v9 = [v8 initWithFigRoutingContext:v4 routingContextReplacementBlock:v11];
     }
 
     CFRelease(v4);
@@ -1621,20 +1601,20 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 - (AVFigRoutingContextOutputContextImpl)initWithRoutingContextUUID:(id)d type:(id)type
 {
   OUTLINED_FUNCTION_5();
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   routingContextFactory = [objc_opt_class() routingContextFactory];
-  v23 = *MEMORY[0x1E69AF350];
-  v24[0] = v5;
-  v8 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v24, &v23, 1)}];
+  v22 = *MEMORY[0x1E69AF350];
+  v23[0] = v5;
+  v8 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v23, &v22, 1)}];
   number = 0;
   cf = 0;
   valuePtr = 0;
@@ -1693,14 +1673,14 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   v12 = *MEMORY[0x1E695E480];
   if (![routingContextFactory copyContextForUUIDWithAllocator:*MEMORY[0x1E695E480] options:v8 context:&cf] && (v13 = cf) != 0 && (v14 = *(*(CMBaseObjectGetVTable() + 8) + 48)) != 0 && !v14(v13, *MEMORY[0x1E69AF4E0], v12, &number) && CFNumberGetValue(number, kCFNumberIntType, &valuePtr))
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __72__AVFigRoutingContextOutputContextImpl_initWithRoutingContextUUID_type___block_invoke;
-    v18[3] = &unk_1E794E890;
-    v19 = valuePtr;
-    v18[4] = v8;
-    v18[5] = routingContextFactory;
-    v4 = [v4 initWithFigRoutingContext:cf routingContextReplacementBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __72__AVFigRoutingContextOutputContextImpl_initWithRoutingContextUUID_type___block_invoke;
+    v17[3] = &unk_1E794E890;
+    v18 = valuePtr;
+    v17[4] = v8;
+    v17[5] = routingContextFactory;
+    v4 = [v4 initWithFigRoutingContext:cf routingContextReplacementBlock:v17];
     v15 = v4;
   }
 
@@ -1719,7 +1699,6 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
     CFRelease(cf);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1729,9 +1708,9 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
   v13 = [AVRoutingCMNotificationDispatcher notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
   number = 0;
   valuePtr = 0;
-  v67.receiver = v7;
-  v67.super_class = AVFigRoutingContextOutputContextImpl;
-  v14 = [(AVFigRoutingContextOutputContextImpl *)&v67 init];
+  v66.receiver = v7;
+  v66.super_class = AVFigRoutingContextOutputContextImpl;
+  v14 = [(AVFigRoutingContextOutputContextImpl *)&v66 init];
   if (!v14)
   {
     goto LABEL_17;
@@ -1774,46 +1753,46 @@ uint64_t __77__AVFigRoutingContextOutputContextImpl__routeConfigUpdateEndedWithI
         {
           if (CFNumberGetValue(number, kCFNumberIntType, &valuePtr))
           {
-            if (valuePtr == 9 || (v20 = *(v14 + 5), v21 = (*(*(v14 + 4) + 16))(), (*(v14 + 6) = v21) != 0))
+            if (valuePtr == 9 || (v20 = (*(*(v14 + 4) + 16))(), (*(v14 + 6) = v20) != 0))
             {
               *(v14 + 72) = AVOutputContextUsesRouteConfigUpdatedNotification();
               *(v14 + 7) = [[AVRoutingWeakReference alloc] initWithReferencedObject:v14];
               *(v14 + 10) = av_readwrite_dispatch_queue_create("com.apple.avfoundation.outputcontext.figroutingcontext");
-              v22 = objc_alloc_init(MEMORY[0x1E695DF20]);
-              *(v14 + 11) = v22;
-              v25 = OUTLINED_FUNCTION_0(v22, v23, *(v14 + 7), v24, *MEMORY[0x1E69AF4C0], *(v14 + 5));
-              v28 = *(v14 + 7);
-              v29 = *(v14 + 5);
+              v21 = objc_alloc_init(MEMORY[0x1E695DF20]);
+              *(v14 + 11) = v21;
+              v24 = OUTLINED_FUNCTION_0(v21, v22, *(v14 + 7), v23, *MEMORY[0x1E69AF4C0], *(v14 + 5));
+              v27 = *(v14 + 7);
+              v28 = *(v14 + 5);
               if (*(v14 + 72) == 1)
               {
-                v30 = *MEMORY[0x1E69AF4A8];
-                v31 = AVFigRoutingContextRouteConfigUpdated;
+                v29 = *MEMORY[0x1E69AF4A8];
+                v30 = AVFigRoutingContextRouteConfigUpdated;
               }
 
               else
               {
-                v32 = OUTLINED_FUNCTION_0(v25, v26, v28, v27, *MEMORY[0x1E69AF478], v29);
-                v35 = OUTLINED_FUNCTION_0(v32, v33, *(v14 + 7), v34, *MEMORY[0x1E69AF4A0], *(v14 + 5));
-                OUTLINED_FUNCTION_0(v35, v36, *(v14 + 7), v37, *MEMORY[0x1E69AF498], *(v14 + 5));
-                v28 = *(v14 + 7);
-                v30 = *MEMORY[0x1E69AF470];
-                v29 = *(v14 + 5);
-                v31 = AVFigRoutingContextGroupConfigurationChanged;
+                v31 = OUTLINED_FUNCTION_0(v24, v25, v27, v26, *MEMORY[0x1E69AF478], v28);
+                v34 = OUTLINED_FUNCTION_0(v31, v32, *(v14 + 7), v33, *MEMORY[0x1E69AF4A0], *(v14 + 5));
+                OUTLINED_FUNCTION_0(v34, v35, *(v14 + 7), v36, *MEMORY[0x1E69AF498], *(v14 + 5));
+                v27 = *(v14 + 7);
+                v29 = *MEMORY[0x1E69AF470];
+                v28 = *(v14 + 5);
+                v30 = AVFigRoutingContextGroupConfigurationChanged;
               }
 
-              v38 = [v13 addListenerWithWeakReference:v28 callback:v31 name:v30 object:v29 flags:0];
-              v41 = OUTLINED_FUNCTION_0(v38, v39, *(v14 + 7), v40, *MEMORY[0x1E69AF4B8], *(v14 + 5));
-              v44 = OUTLINED_FUNCTION_0(v41, v42, *(v14 + 7), v43, *MEMORY[0x1E69AF490], *(v14 + 5));
-              v47 = OUTLINED_FUNCTION_0(v44, v45, *(v14 + 7), v46, *MEMORY[0x1E69AF488], *(v14 + 5));
-              v50 = *(v14 + 3);
-              if (v50)
+              v37 = [v13 addListenerWithWeakReference:v27 callback:v30 name:v29 object:v28 flags:0];
+              v40 = OUTLINED_FUNCTION_0(v37, v38, *(v14 + 7), v39, *MEMORY[0x1E69AF4B8], *(v14 + 5));
+              v43 = OUTLINED_FUNCTION_0(v40, v41, *(v14 + 7), v42, *MEMORY[0x1E69AF490], *(v14 + 5));
+              v46 = OUTLINED_FUNCTION_0(v43, v44, *(v14 + 7), v45, *MEMORY[0x1E69AF488], *(v14 + 5));
+              v49 = *(v14 + 3);
+              if (v49)
               {
-                v51 = OUTLINED_FUNCTION_0(v47, v48, *(v14 + 7), v49, *MEMORY[0x1E69AF5D0], v50);
-                v54 = OUTLINED_FUNCTION_0(v51, v52, *(v14 + 7), v53, *MEMORY[0x1E69AF5C8], *(v14 + 3));
-                v57 = OUTLINED_FUNCTION_0(v54, v55, *(v14 + 7), v56, *MEMORY[0x1E69AF5F8], *(v14 + 3));
-                v60 = OUTLINED_FUNCTION_0(v57, v58, *(v14 + 7), v59, *MEMORY[0x1E69AF5F0], *(v14 + 3));
-                v63 = OUTLINED_FUNCTION_0(v60, v61, *(v14 + 7), v62, *MEMORY[0x1E69AF608], *(v14 + 3));
-                OUTLINED_FUNCTION_0(v63, v64, *(v14 + 7), v65, *MEMORY[0x1E69AF610], *(v14 + 3));
+                v50 = OUTLINED_FUNCTION_0(v46, v47, *(v14 + 7), v48, *MEMORY[0x1E69AF5D0], v49);
+                v53 = OUTLINED_FUNCTION_0(v50, v51, *(v14 + 7), v52, *MEMORY[0x1E69AF5C8], *(v14 + 3));
+                v56 = OUTLINED_FUNCTION_0(v53, v54, *(v14 + 7), v55, *MEMORY[0x1E69AF5F8], *(v14 + 3));
+                v59 = OUTLINED_FUNCTION_0(v56, v57, *(v14 + 7), v58, *MEMORY[0x1E69AF5F0], *(v14 + 3));
+                v62 = OUTLINED_FUNCTION_0(v59, v60, *(v14 + 7), v61, *MEMORY[0x1E69AF608], *(v14 + 3));
+                OUTLINED_FUNCTION_0(v62, v63, *(v14 + 7), v64, *MEMORY[0x1E69AF610], *(v14 + 3));
               }
 
               [*(v14 + 6) setParentOutputContextImpl:v14];
@@ -1845,15 +1824,14 @@ LABEL_23:
   [(AVOutputContext *)[(AVFigRoutingContextOutputContextImpl *)self parentOutputContext] outputContextImpl:self didInitiateDestinationChange:v5];
   if (d)
   {
-    ivarAccessQueue = self->_ivarAccessQueue;
     OUTLINED_FUNCTION_0_1();
     OUTLINED_FUNCTION_3();
-    v9 = __66__AVFigRoutingContextOutputContextImpl__routeChangeStartedWithID___block_invoke;
-    v10 = &unk_1E794E8B8;
+    v8 = __66__AVFigRoutingContextOutputContextImpl__routeChangeStartedWithID___block_invoke;
+    v9 = &unk_1E794E8B8;
     selfCopy = self;
-    v12 = v5;
+    v11 = v5;
     dCopy = d;
-    av_readwrite_dispatch_queue_write(v7, block);
+    av_readwrite_dispatch_queue_write(v6, block);
   }
 }
 
@@ -1864,21 +1842,20 @@ LABEL_23:
   [(AVOutputContext *)[(AVFigRoutingContextOutputContextImpl *)self parentOutputContext] outputContextImpl:self didInitiateDestinationChange:v5];
   if (d)
   {
-    ivarAccessQueue = self->_ivarAccessQueue;
     OUTLINED_FUNCTION_0_1();
     OUTLINED_FUNCTION_3();
-    v9 = __72__AVFigRoutingContextOutputContextImpl__routeConfigUpdateStartedWithID___block_invoke;
-    v10 = &unk_1E794E908;
+    v8 = __72__AVFigRoutingContextOutputContextImpl__routeConfigUpdateStartedWithID___block_invoke;
+    v9 = &unk_1E794E908;
     selfCopy = self;
-    v12 = v5;
+    v11 = v5;
     dCopy = d;
-    av_readwrite_dispatch_queue_write(v7, block);
+    av_readwrite_dispatch_queue_write(v6, block);
   }
 }
 
 + (void)resetOutputDeviceForAllOutputContexts
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   copySystemVideoRoutingContext = [self copySystemVideoRoutingContext];
   if (copySystemVideoRoutingContext)
   {
@@ -1898,8 +1875,6 @@ LABEL_23:
 
     CFRelease(v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)outputContextExistsWithRemoteOutputDevice
@@ -1946,22 +1921,17 @@ LABEL_23:
 {
   BOOLean = 0;
   routingContext = self->_routingContext;
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 8) + 48);
-  if (v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v4 && !v4(routingContext, *MEMORY[0x1E69AF4F0], *MEMORY[0x1E695E480], &BOOLean))
   {
-    v6 = *(VTable + 8) + 48;
-    if (!v5(routingContext, *MEMORY[0x1E69AF4F0], *MEMORY[0x1E695E480], &BOOLean))
+    if (!BOOLean)
     {
-      if (!BOOLean)
-      {
-        return;
-      }
+      return;
+    }
 
-      if (CFBooleanGetValue(BOOLean))
-      {
-        [(AVOutputContext *)[(AVFigRoutingContextOutputContextImpl *)self parentOutputContext] outputContextImplOutgoingCommunicationChannelDidBecomeAvailable:self];
-      }
+    if (CFBooleanGetValue(BOOLean))
+    {
+      [(AVOutputContext *)[(AVFigRoutingContextOutputContextImpl *)self parentOutputContext] outputContextImplOutgoingCommunicationChannelDidBecomeAvailable:self];
     }
   }
 

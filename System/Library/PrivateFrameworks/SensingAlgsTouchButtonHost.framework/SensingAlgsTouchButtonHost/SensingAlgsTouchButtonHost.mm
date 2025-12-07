@@ -70,18 +70,18 @@ double __os_log_helper_16_0_3_8_2_8_0_4_0(uint64_t a1, uint64_t a2, uint64_t a3,
   return result;
 }
 
-void sub_2655CC2B8()
+void sub_2655CC2B8(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_13();
-  PacketCollection::~PacketCollection(v1);
-  _Unwind_Resume(v0);
+  PacketCollection::~PacketCollection(v3);
+  _Unwind_Resume(v2);
 }
 
-void sub_2655CC4CC()
+void sub_2655CC4CC(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_13();
-  PacketCollection::~PacketCollection(v1);
-  _Unwind_Resume(v0);
+  PacketCollection::~PacketCollection(v3);
+  _Unwind_Resume(v2);
 }
 
 double __os_log_helper_16_0_7_8_2_8_0_8_0_4_0_4_0_4_0_4_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
@@ -104,9 +104,9 @@ double __os_log_helper_16_0_7_8_2_8_0_8_0_4_0_4_0_4_0_4_0(uint64_t a1, uint64_t 
   return result;
 }
 
-void sub_2655CCCE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2655CCCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   PacketCollection::~PacketCollection(va);
   _Unwind_Resume(a1);
@@ -122,27 +122,27 @@ double __os_log_helper_16_2_2_8_64_8_64(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_2655CD19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2655CD19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   PacketCollection::~PacketCollection(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2655CD874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, ...)
+void sub_2655CD874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
   v20 = va_arg(va1, void);
   v21 = va_arg(va1, void);
-  AlgDataPacket::~AlgDataPacket((v10 - 176));
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  AlgDataPacket::~AlgDataPacket((v16 - 176));
 
   PacketCollection::~PacketCollection(va);
   PacketCollection::~PacketCollection(va1);
@@ -186,20 +186,20 @@ double __os_log_helper_16_2_6_8_64_4_0_8_0_8_0_8_64_8_32(uint64_t a1, uint64_t a
   return result;
 }
 
-void sub_2655CDE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2655CDE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
-  AlgDataPacket::~AlgDataPacket((v7 - 160));
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  AlgDataPacket::~AlgDataPacket((v11 - 160));
   PacketCollection::~PacketCollection(va);
   PacketCollection::~PacketCollection(va1);
 
@@ -275,19 +275,21 @@ void *AlgDataInjector::AlgDataInjector(uint64_t a1, int a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
-uint64_t OUTLINED_FUNCTION_7()
+uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
 
   return mach_get_times();
@@ -299,23 +301,24 @@ void OUTLINED_FUNCTION_15(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v4, OS_LOG_TYPE_ERROR, a4, (v5 - 176), 0x12u);
 }
 
-void OUTLINED_FUNCTION_16(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_16(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t OUTLINED_FUNCTION_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+uint64_t OUTLINED_FUNCTION_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a4);
+  va_start(va, a8);
 
   return PacketCollection::at(va, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_18(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t OUTLINED_FUNCTION_18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
 
-  return AlgDataExtractor::callbackFor(a1, a2, a3, a4);
+  return AlgDataExtractor::callbackFor(a1, a2, a3, a4, 0);
 }
 
 uint64_t NovaHost::DoubleHalfPressRecognizer::update(NovaHost::DoubleHalfPressRecognizer *this, TouchSensitiveButtonEventPacket *a2, ForceStageEventPacket *a3, BOOL *a4)
@@ -401,13 +404,16 @@ uint64_t NovaHost::DoubleHalfPressRecognizer::reset(NovaHost::DoubleHalfPressRec
   return 1;
 }
 
-uint64_t NovaHost::NovaHostAlgsDevice::NovaHostAlgsDevice(uint64_t a1, uint64_t a2, int a3, char a4)
+uint64_t NovaHost::NovaHostAlgsDevice::NovaHostAlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
   v8 = SANovaHostVersionDescriptor();
-  v9 = AlgsDevice::AlgsDevice(a1, a2, "NovaHostDefaultPersonality", a3, a4, *v8, 1);
+  v9 = AlgsDevice::AlgsDevice(a1, v6, "NovaHostDefaultPersonality", v5, v4, *v8, 1);
   *a1 = &unk_2876F7AF8;
   *(a1 + 112) = 0;
-  *(a1 + 120) = a2;
+  *(a1 + 120) = v6;
   NovaHost::NovaHostAlgsDevice::newPlanNode(v9, 0);
   return a1;
 }
@@ -422,7 +428,7 @@ BOOL NovaHost::NovaHostAlgsDevice::newPlanNode(NovaHost::NovaHostAlgsDevice *thi
       (*(*v4 + 8))(v4);
     }
 
-    v5 = operator new(4944, *(this + 120));
+    v5 = operator new();
     *(this + 14) = NovaHost::NovaHostActivePlan::NovaHostActivePlan(v5, 0x396F6AFB61E1367ELL);
   }
 
@@ -449,7 +455,7 @@ void NovaHost::NovaHostAlgsDevice::~NovaHostAlgsDevice(NovaHost::NovaHostAlgsDev
 
 NovaHost::NovaHostActivePlan *NovaHost::NovaHostActivePlan::NovaHostActivePlan(NovaHost::NovaHostActivePlan *this, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   AlgTaskNode::AlgTaskNode(this, a2);
   *v3 = &unk_2876F7B58;
   v3[12] = 0;
@@ -474,7 +480,7 @@ NovaHost::NovaHostActivePlan *NovaHost::NovaHostActivePlan::NovaHostActivePlan(N
   *(this + 58) = 20480;
   *(this + 60) = 1;
   AlgDataNode::AlgDataNode((this + 248), 0xA543E2939D3C31C2, 0);
-  v10 = v6;
+  v9 = v6;
   *(this + 31) = &unk_2876F7C88;
   *(this + 276) = 0;
   *(this + 66) = 20480;
@@ -501,7 +507,7 @@ NovaHost::NovaHostActivePlan *NovaHost::NovaHostActivePlan::NovaHostActivePlan(N
   *(this + 158) = 32;
   *(this + 74) = 39426;
   *(this + 76) = 264;
-  v11 = v7;
+  v10 = v7;
   *(this + 35) = &unk_2876F7CC0;
   *(this + 72) = &unk_2876F7D08;
   *(this + 292) = 0;
@@ -552,42 +558,41 @@ NovaHost::NovaHostActivePlan *NovaHost::NovaHostActivePlan::NovaHostActivePlan(N
   *(this + 389) = &unk_2876F7FE8;
   *(this + 410) = &unk_2876F8030;
   *(this + 1644) = 0;
-  NovaHost::InterpolationStep::InterpolationStep(this + 3296, 0xAD07F5970BDB4DA9, v5, v11);
-  NovaHost::NovaButtonStateMachineStep::NovaButtonStateMachineStep(this + 3808, 0x9E0D7441786CB2A9, v4, v11, this + 184, this + 216, this + 592, this + 1672);
-  NovaHost::LiftoffVelocityStep::LiftoffVelocityStep((this + 4264), 0xB54CAD6BAF9995ALL, this + 74, this + 1672, v10, this + 184);
+  NovaHost::InterpolationStep::InterpolationStep(this + 3296, 0xAD07F5970BDB4DA9, v5, v10);
+  NovaHost::NovaButtonStateMachineStep::NovaButtonStateMachineStep(this + 3808, 0x9E0D7441786CB2A9, v4, v10, this + 184, this + 216, this + 592, this + 1672);
+  NovaHost::LiftoffVelocityStep::LiftoffVelocityStep((this + 4264), 0xB54CAD6BAF9995ALL, this + 74, this + 1672, v9, this + 184);
   NovaHost::CoreAnalyticsStep::CoreAnalyticsStep(this + 4616, 0xDA4E27EE52440112, v5, this + 216, this + 184, this + 3048, this + 3008);
   NovaHost::DoubleHalfPressStep::DoubleHalfPressStep(this + 4744, 0x18DC11EB4356D4E4, this + 592, this + 1672, this + 3112);
-  v12 = v5;
-  v13 = this + 184;
-  v14 = this + 216;
-  v15 = this + 3048;
-  v17 = &v12;
-  v18 = 4;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 8, &v17);
-  v17 = v11;
-  v18 = v10;
-  v12 = &v17;
-  v13 = 2;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 24, &v12);
-  v12 = (this + 592);
-  v13 = this + 1672;
-  v14 = this + 3008;
-  v15 = this + 3048;
-  v16 = this + 3112;
-  v17 = &v12;
-  v18 = 5;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 40, &v17);
-  v12 = (this + 3296);
-  v13 = this + 3808;
-  v14 = this + 4264;
-  v15 = this + 4616;
-  v16 = this + 4744;
-  v17 = &v12;
-  v18 = 5;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 80, &v17);
+  v11 = v5;
+  v12 = this + 184;
+  v13 = this + 216;
+  v14 = this + 3048;
+  v16 = &v11;
+  v17 = 4;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 8, &v16);
+  v16 = v10;
+  v17 = v9;
+  v11 = &v16;
+  v12 = 2;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 24, &v11);
+  v11 = (this + 592);
+  v12 = this + 1672;
+  v13 = this + 3008;
+  v14 = this + 3048;
+  v15 = this + 3112;
+  v16 = &v11;
+  v17 = 5;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 40, &v16);
+  v11 = (this + 3296);
+  v12 = this + 3808;
+  v13 = this + 4264;
+  v14 = this + 4616;
+  v15 = this + 4744;
+  v16 = &v11;
+  v17 = 5;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(this + 80, &v16);
   *(this + 3036) = 1;
   *(this + 276) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -968,7 +973,7 @@ void SADynamicArray<unsigned int,(unsigned short)32>::injectBuffer(uint64_t a1, 
 
 uint64_t NovaHost::InterpolationStep::InterpolationStep(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   AlgWorkNode::AlgWorkNode(a1, a2);
   *v7 = &unk_2876F80B0;
   v7[10] = a3;
@@ -1017,23 +1022,22 @@ uint64_t NovaHost::InterpolationStep::InterpolationStep(uint64_t a1, uint64_t a2
   *(a1 + 464) = 0;
   *(a1 + 472) = 8;
   v9 = *(a1 + 80);
-  v14 = 1;
-  v15[0] = v9;
-  v13 = v15;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 8, &v13);
-  v15[0] = a1 + 120;
-  v15[1] = v8;
-  v13 = v15;
-  v14 = 2;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 24, &v13);
+  v13 = 1;
+  v14[0] = v9;
+  v12 = v14;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 8, &v12);
+  v14[0] = a1 + 120;
+  v14[1] = v8;
+  v12 = v14;
+  v13 = 2;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 24, &v12);
   v10 = *(a1 + 264);
-  v13 = v15;
-  v14 = 1;
-  v15[0] = v10;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v13);
+  v12 = v14;
+  v13 = 1;
+  v14[0] = v10;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v12);
   *(a1 + 152) = 0x406E000000000000;
   *(a1 + 116) = 1;
-  v11 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1237,7 +1241,7 @@ __n128 NovaHost::InterpolationStep::runPassthrough(__n128 *a1, __n128 *a2)
   NovaHost::Interpolator<float>::reset_state(&a1[17], a2->n128_u64[1], a2->n128_f32[1]);
   NovaHost::Interpolator<float>::reset_state(&a1[22], a2->n128_u64[1], a2[1].n128_f32[0]);
   NovaHost::Interpolator<float>::reset_state(&a1[27], a2->n128_u64[1], a2[1].n128_f32[1]);
-  v4 = a1[16].n128_i64[1];
+  v4 = a1[16].n128_u64[1];
   v5 = *(v4 + 38);
   v6 = v4 + 32 * v5;
   *(v4 + 38) = v5 + 1;
@@ -1254,7 +1258,7 @@ __n128 NovaHost::InterpolationStep::runPassthrough(__n128 *a1, __n128 *a2)
 
 uint64_t NovaHost::NovaButtonStateMachineStep::NovaButtonStateMachineStep(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   AlgWorkNode::AlgWorkNode(a1, a2);
   *v15 = &unk_2876F81A0;
   v15[10] = a3;
@@ -1303,27 +1307,26 @@ uint64_t NovaHost::NovaButtonStateMachineStep::NovaButtonStateMachineStep(uint64
   *(a1 + 426) = 0u;
   *(a1 + 452) = 0;
   *(a1 + 444) = 0;
-  v19 = *(a1 + 88);
-  v20 = *(a1 + 104);
-  *&v22 = &v19;
-  *(&v22 + 1) = 3;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 8, &v22);
-  *&v19 = v16;
-  *(&v19 + 1) = a1 + 144;
-  v20 = a1 + 176;
-  v21 = a1 + 272;
-  *&v22 = &v19;
-  *(&v22 + 1) = 4;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 24, &v22);
-  v22 = *(a1 + 304);
-  *&v19 = &v22;
-  *(&v19 + 1) = 2;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v19);
+  v18 = *(a1 + 88);
+  v19 = *(a1 + 104);
+  v21[0] = &v18;
+  v21[1] = 3;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 8, v21);
+  *&v18 = v16;
+  *(&v18 + 1) = a1 + 144;
+  v19 = a1 + 176;
+  v20 = a1 + 272;
+  v21[0] = &v18;
+  v21[1] = 4;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 24, v21);
+  *v21 = *(a1 + 304);
+  *&v18 = v21;
+  *(&v18 + 1) = 2;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v18);
   *(a1 + 140) = 1;
   *(a1 + 300) = 0;
   *(a1 + 172) = 1040187392;
   *(a1 + 204) = 1037503038;
-  v17 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1458,7 +1461,7 @@ LABEL_9:
             v14 = *(this + 11);
           }
 
-          NovaHost::NovaButtonStateMachine::update(this + 320, v14 + v13, *v15);
+          NovaHost::NovaButtonStateMachine::update(this + 320, (v14 + v13), *v15);
           v16 = *(this + 11);
           v17 = *(v16 + v13 + 16);
           *(this + 15) = *(v16 + v13);
@@ -1552,9 +1555,9 @@ void NovaHost::NovaButtonStateMachine::~NovaButtonStateMachine(NovaHost::NovaBut
   }
 }
 
-AlgWorkNode *NovaHost::LiftoffVelocityStep::LiftoffVelocityStep(AlgWorkNode *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+AlgWorkNode *NovaHost::LiftoffVelocityStep::LiftoffVelocityStep(AlgWorkNode *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   AlgWorkNode::AlgWorkNode(a1, a2);
   *v11 = &unk_2876F8240;
   *(v11 + 80) = a5;
@@ -1579,18 +1582,17 @@ AlgWorkNode *NovaHost::LiftoffVelocityStep::LiftoffVelocityStep(AlgWorkNode *a1,
   *(v11 + 324) = 0;
   *(v11 + 336) = 0;
   *(v11 + 344) = 0;
-  v14 = a3;
-  v15 = a4;
-  v16 = a5;
-  v17 = a6;
-  v18[0] = &v14;
-  v18[1] = 4;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v11 + 8, v18);
-  v18[0] = *(a1 + 12);
-  v14 = v18;
-  v15 = 1;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v14);
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = a3;
+  v14 = a4;
+  v15 = a5;
+  v16 = a6;
+  v17[0] = &v13;
+  v17[1] = 4;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v11 + 8, v17);
+  v17[0] = *(a1 + 12);
+  v13 = v17;
+  v14 = 1;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v13);
   return a1;
 }
 
@@ -1661,7 +1663,7 @@ uint64_t NovaHost::LiftoffVelocityStep::run(NovaHost::LiftoffVelocityStep *this)
 
 uint64_t NovaHost::CoreAnalyticsStep::CoreAnalyticsStep(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   AlgWorkNode::AlgWorkNode(a1, a2);
   *v13 = &unk_2876F8290;
   *(v13 + 80) = a3;
@@ -1670,18 +1672,17 @@ uint64_t NovaHost::CoreAnalyticsStep::CoreAnalyticsStep(uint64_t a1, uint64_t a2
   *(v13 + 104) = a6;
   *(v13 + 112) = a7;
   *(v13 + 120) = 0;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  *&v20 = &v16;
-  *(&v20 + 1) = 4;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v13 + 8, &v20);
-  v20 = *(a1 + 104);
-  v16 = &v20;
-  v17 = 2;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v16);
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = a3;
+  v16 = a4;
+  v17 = a5;
+  v18 = a6;
+  v19[0] = &v15;
+  v19[1] = 4;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v13 + 8, v19);
+  *v19 = *(a1 + 104);
+  v15 = v19;
+  v16 = 2;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v15);
   return a1;
 }
 
@@ -1720,7 +1721,7 @@ uint64_t NovaHost::CoreAnalyticsStep::run(NovaHost::CoreAnalyticsStep *this)
 
 uint64_t NovaHost::DoubleHalfPressStep::DoubleHalfPressStep(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   AlgWorkNode::AlgWorkNode(a1, a2);
   *v9 = &unk_2876F82E0;
   *(v9 + 80) = a3;
@@ -1734,23 +1735,22 @@ uint64_t NovaHost::DoubleHalfPressStep::DoubleHalfPressStep(uint64_t a1, uint64_
   *(v9 + 144) = 0x4000000000000000;
   *(v9 + 176) = xmmword_2655D9F80;
   *(v9 + 192) = 0x4000000000000000;
-  v17[0] = a3;
-  v17[1] = a4;
-  v15 = v17;
-  v16 = 2;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v9 + 8, &v15);
+  v16[0] = a3;
+  v16[1] = a4;
+  v14 = v16;
+  v15 = 2;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(v9 + 8, &v14);
   v11 = *(a1 + 96);
-  v15 = v17;
-  v16 = 1;
-  v17[0] = v11;
-  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v15);
+  v14 = v16;
+  v15 = 1;
+  v16[0] = v11;
+  SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(a1 + 40, &v14);
   v12 = *(a1 + 192);
   *v10 = 0;
   *(v10 + 8) = 0;
   *(v10 + 16) = 0;
   *(a1 + 128) = vcvtq_f64_u64(vcvtq_u64_f64(*(a1 + 176)));
   *(a1 + 144) = v12;
-  v13 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1858,10 +1858,10 @@ LABEL_17:
   return 0;
 }
 
-uint64_t SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(uint64_t a1, uint64_t a2)
+uint64_t SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(uint64_t a1, uint64_t *a2)
 {
-  result = SAList<std::reference_wrapper<AlgDataNode>>::resize(a1, *(a1 + 12) + *(a2 + 8));
-  v5 = *(a2 + 8);
+  result = SAList<std::reference_wrapper<AlgDataNode>>::resize(a1, *(a1 + 12) + *(a2 + 2));
+  v5 = a2[1];
   if (v5)
   {
     v6 = *a2;
@@ -1878,7 +1878,7 @@ uint64_t SAList<std::reference_wrapper<AlgDataNode>>::appendAndResize(uint64_t a
   return result;
 }
 
-uint64_t SAList<std::reference_wrapper<AlgDataNode>>::resize(uint64_t result, unsigned int a2)
+uint64_t SAList<std::reference_wrapper<AlgDataNode>>::resize(uint64_t result, int a2)
 {
   v2 = *(result + 8);
   *(result + 8) = a2;
@@ -1890,7 +1890,7 @@ uint64_t SAList<std::reference_wrapper<AlgDataNode>>::resize(uint64_t result, un
       v4 = *result;
       if (*result)
       {
-        v5 = operator new(8 * a2, 0);
+        v5 = operator new();
         *v3 = v5;
         memcpy(v5, v4, 8 * *(v3 + 12));
 
@@ -1907,7 +1907,7 @@ uint64_t SAList<std::reference_wrapper<AlgDataNode>>::push_back(uint64_t a1, voi
   result = *a1;
   if (!result)
   {
-    result = operator new(8 * *(a1 + 8), 0);
+    result = operator new();
     *a1 = result;
   }
 
@@ -1917,17 +1917,16 @@ uint64_t SAList<std::reference_wrapper<AlgDataNode>>::push_back(uint64_t a1, voi
 
 void NovaHost::InterpolationStep::run(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 134218496;
-  v7 = 20000;
-  v8 = 2048;
-  v9 = v3;
-  v10 = 2048;
-  v11 = v4;
-  _os_log_error_impl(&dword_2655CA000, log, OS_LOG_TYPE_ERROR, "Timeout of %lluus exceeded, likely dropped frames? %llu -> %llu", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218496;
+  v6 = 20000;
+  v7 = 2048;
+  v8 = v3;
+  v9 = 2048;
+  v10 = v4;
+  _os_log_error_impl(&dword_2655CA000, log, OS_LOG_TYPE_ERROR, "Timeout of %lluus exceeded, likely dropped frames? %llu -> %llu", &v5, 0x20u);
 }
 
 uint64_t NovaHost::DiscreteCalculator::update(NovaHost::DiscreteCalculator *this, TouchSensitiveButtonEventPacket *a2, ForceStageEventPacket *a3, int a4, char a5)
@@ -1939,7 +1938,6 @@ uint64_t NovaHost::DiscreteCalculator::update(NovaHost::DiscreteCalculator *this
 
   v5 = *(this + 24) | a5;
   *(this + 24) = v5;
-  var6 = a2->var6;
   if (*this != 1)
   {
     if (!a2->var6)
@@ -1977,23 +1975,23 @@ LABEL_10:
       goto LABEL_20;
     }
 
-    v8 = *(this + 1);
-    if (v8 <= 0.015 || *(this + 2) <= 0.0)
+    v7 = *(this + 1);
+    if (v7 <= 0.015 || *(this + 2) <= 0.0)
     {
-      if (v8 >= -0.015 || *(this + 2) >= 0.0)
+      if (v7 >= -0.015 || *(this + 2) >= 0.0)
       {
         goto LABEL_20;
       }
 
-      v9 = 128;
+      v8 = 128;
     }
 
     else
     {
-      v9 = 64;
+      v8 = 64;
     }
 
-    a2->var4 |= v9;
+    a2->var4 |= v8;
 LABEL_20:
     *this = 0;
     *(this + 1) = 0;
@@ -2004,7 +2002,7 @@ LABEL_20:
   return 1;
 }
 
-uint64_t NovaHost::NovaButtonStateMachine::update(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t NovaHost::NovaButtonStateMachine::update(uint64_t a1, float32x2_t *a2, uint64_t a3)
 {
   *(a1 + 112) = a3;
   v5 = *(a1 + 44);
@@ -2062,8 +2060,8 @@ uint64_t NovaHost::NovaButtonStateMachine::update(uint64_t a1, uint64_t a2, uint
     NovaHost::NovaButtonStateMachine::_changeInSameStage(a1, a2);
   }
 
-  v9 = *(a2 + 16);
-  *(a1 + 80) = *a2;
+  v9 = *a2[2].f32;
+  *(a1 + 80) = *a2->f32;
   *(a1 + 96) = v9;
   return 1;
 }
@@ -2094,41 +2092,41 @@ LABEL_3:
   return *&v4;
 }
 
-double NovaHost::NovaButtonStateMachine::_processEngaged(uint64_t a1, float32x2_t *a2)
+double NovaHost::NovaButtonStateMachine::_processEngaged(uint64_t result, float32x2_t *a2)
 {
-  if (*(a1 + 120) == 1)
+  if (*(result + 120) == 1)
   {
     v3 = 4;
-    return NovaHost::NovaButtonStateMachine::_enterStage(a1, v3, a2);
+    return NovaHost::NovaButtonStateMachine::_enterStage(result, v3, a2);
   }
 
   v4 = a2->u8[1];
   if (v4 != 3)
   {
-    if (a2->i8[1] || (a2->i8[2] & 1) != 0 || (LODWORD(result) = a2[2].i32[1], *&result >= 50.0))
+    if (a2->i8[1] || (a2->i8[2] & 1) != 0 || (LODWORD(v5) = a2[2].i32[1], *&v5 >= 50.0))
     {
-      if (*(a1 + 88) && v4 > *(a1 + 81))
+      if (*(result + 88) && v4 > *(result + 81))
       {
         v3 = 2;
-        return NovaHost::NovaButtonStateMachine::_enterStage(a1, v3, a2);
+        return NovaHost::NovaButtonStateMachine::_enterStage(result, v3, a2);
       }
     }
 
     else
     {
-      return NovaHost::NovaButtonStateMachine::_exitStage(a1, a2);
+      return NovaHost::NovaButtonStateMachine::_exitStage(result, a2);
     }
   }
 
-  return result;
+  return v5;
 }
 
-double NovaHost::NovaButtonStateMachine::_processMaybeIntermediate(uint64_t a1, float32x2_t *a2)
+double NovaHost::NovaButtonStateMachine::_processMaybeIntermediate(uint64_t result, float32x2_t *a2)
 {
-  if (*(a1 + 120) == 1)
+  if (*(result + 120) == 1)
   {
     v3 = 4;
-    return NovaHost::NovaButtonStateMachine::_enterStage(a1, v3, a2);
+    return NovaHost::NovaButtonStateMachine::_enterStage(result, v3, a2);
   }
 
   v4 = a2->u8[1];
@@ -2136,35 +2134,35 @@ double NovaHost::NovaButtonStateMachine::_processMaybeIntermediate(uint64_t a1, 
   {
     if (a2->i8[1])
     {
-      if (*(a1 + 88) && v4 >= 2 && v4 > *(a1 + 81))
+      if (*(result + 88) && v4 >= 2 && v4 > *(result + 81))
       {
         v3 = 3;
-        return NovaHost::NovaButtonStateMachine::_enterStage(a1, v3, a2);
+        return NovaHost::NovaButtonStateMachine::_enterStage(result, v3, a2);
       }
     }
 
     else
     {
-      return NovaHost::NovaButtonStateMachine::_exitStage(a1, a2);
+      return NovaHost::NovaButtonStateMachine::_exitStage(result, a2);
     }
   }
 
-  return result;
+  return v5;
 }
 
-double NovaHost::NovaButtonStateMachine::_processIntermediate(uint64_t a1, float32x2_t *a2)
+double NovaHost::NovaButtonStateMachine::_processIntermediate(uint64_t result, float32x2_t *a2)
 {
-  if (*(a1 + 120) == 1)
+  if (*(result + 120) == 1)
   {
-    return NovaHost::NovaButtonStateMachine::_enterStage(a1, 4, a2);
+    return NovaHost::NovaButtonStateMachine::_enterStage(result, 4, a2);
   }
 
   if (a2->u8[1] <= 1u)
   {
-    return NovaHost::NovaButtonStateMachine::_exitStage(a1, a2);
+    return NovaHost::NovaButtonStateMachine::_exitStage(result, a2);
   }
 
-  return result;
+  return v2;
 }
 
 BOOL NovaHost::NovaButtonStateMachine::_shouldGenerateEvent(uint64_t a1, uint64_t a2)
@@ -2255,7 +2253,7 @@ double NovaHost::NovaButtonStateMachine::_exitStage(uint64_t a1, float32x2_t *a2
   v6 = SALoggingGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    NovaHost::NovaButtonStateMachine::_exitStage(a1);
+    NovaHost::NovaButtonStateMachine::_exitStage();
   }
 
   if (v5 != 2 || **a1 == 1)
@@ -2266,13 +2264,13 @@ double NovaHost::NovaButtonStateMachine::_exitStage(uint64_t a1, float32x2_t *a2
   return result;
 }
 
-double NovaHost::NovaButtonStateMachine::_enterStage(_BYTE **a1, int a2, float32x2_t *a3)
+double NovaHost::NovaButtonStateMachine::_enterStage(_BYTE **a1, uint64_t a2, float32x2_t *a3)
 {
   v7 = a2;
   v5 = SALoggingGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    NovaHost::NovaButtonStateMachine::_enterStage(a1);
+    NovaHost::NovaButtonStateMachine::_enterStage();
   }
 
   SAList<NovaForceStage>::push_back((a1 + 4), &v7);
@@ -2289,7 +2287,7 @@ uint64_t SAList<NovaForceStage>::push_back(uint64_t a1, _DWORD *a2)
   result = *a1;
   if (!result)
   {
-    result = operator new(4 * *(a1 + 8), 0);
+    result = operator new();
     *a1 = result;
   }
 
@@ -2360,7 +2358,7 @@ LABEL_10:
   v14.f32[1] = v16;
   v28 = vmul_f32(v14, vdup_n_s32(0x3D7AFAFBu));
   v29 = a2[3].i32[0];
-  v30 = *&v15;
+  v30 = v15;
   LOWORD(v31) = v9;
   HIWORD(v31) = a2->u8[2];
   v32 = 0;
@@ -2423,7 +2421,7 @@ LABEL_10:
   v27 = *(a1 + 112);
   v28 = __PAIR64__(LODWORD(v18), LODWORD(v23));
   v29 = v19;
-  v30 = v25;
+  v30 = LODWORD(v25);
   v31 = a3;
   v32 = a4;
   v33 = v9;
@@ -2440,7 +2438,7 @@ __n128 SAList<TouchSensitiveButtonEventPacket>::push_back(uint64_t a1, uint64_t 
   v4 = *a1;
   if (!v4)
   {
-    v4 = operator new(32 * *(a1 + 8), 0);
+    v4 = operator new();
     *a1 = v4;
   }
 
@@ -2458,7 +2456,7 @@ __n128 SAList<ForceStageEventPacket>::push_back(uint64_t a1, uint64_t a2)
   v4 = *a1;
   if (!v4)
   {
-    v4 = operator new(40 * *(a1 + 8), 0);
+    v4 = operator new();
     *a1 = v4;
   }
 
@@ -2481,30 +2479,11 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 void NovaHost::NovaButtonStateMachine::_changeInSameStage(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 112);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2655CA000, a2, OS_LOG_TYPE_DEBUG, "[NovaButtonStateMachine] %llu: change in same stage event", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void NovaHost::NovaButtonStateMachine::_exitStage(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 112);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_2655CA000, v2, v3, "[NovaButtonStateMachine] %llu: exit stage %u", v5, v6);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void NovaHost::NovaButtonStateMachine::_enterStage(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 112);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_2655CA000, v2, v3, "[NovaButtonStateMachine] %llu: enter stage %u", v5, v6);
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2655CA000, a2, OS_LOG_TYPE_DEBUG, "[NovaButtonStateMachine] %llu: change in same stage event", &v3, 0xCu);
 }
 
 uint64_t NovaHost::LiftoffVelocityCalculator::update(NovaHost::LiftoffVelocityCalculator *this, TouchSensitiveButtonEventPacket *a2, ForceStageEventPacket *a3)
@@ -2931,17 +2910,14 @@ void NovaHost::LiftoffVelocityCalculator::update(uint64_t a1)
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_0_2(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
   OUTLINED_FUNCTION_2_0();
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_2655CA000, v4, OS_LOG_TYPE_DEBUG, "[LiftoffVelocity] Set new deadzone at pos:%f, TS:%llu", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 2048;
+  v5 = v1;
+  _os_log_debug_impl(&dword_2655CA000, v2, OS_LOG_TYPE_DEBUG, "[LiftoffVelocity] Set new deadzone at pos:%f, TS:%llu", v3, 0x16u);
 }
 
 {
@@ -2949,7 +2925,6 @@ void NovaHost::LiftoffVelocityCalculator::update(uint64_t a1)
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void NovaHost::LiftoffVelocityCalculator::update()
@@ -2959,11 +2934,9 @@ void NovaHost::LiftoffVelocityCalculator::update()
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -3085,14 +3058,13 @@ LABEL_21:
 
 void NovaHost::Interpolator<float>::run(double *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_error_impl(&dword_2655CA000, log, OS_LOG_TYPE_ERROR, "Timestamps going backwards! %llu -> %llu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_error_impl(&dword_2655CA000, log, OS_LOG_TYPE_ERROR, "Timestamps going backwards! %llu -> %llu", &v4, 0x16u);
 }
 
 uint64_t SALoggingGeneral()
@@ -3137,7 +3109,12 @@ BOOL AlgsDevice::injExtWith(AlgsDevice *this, AlgDataInjector *a2, AlgDataExtrac
     v10 = *a5;
   }
 
-  AlgsDevice::StreamingClient::setBuffer(v7, v8);
+  else
+  {
+    v10 = 0;
+  }
+
+  AlgsDevice::StreamingClient::setBuffer(v7, v8, v10);
   v11 = AlgsDevice::injExtWith();
   v12 = AlgsDevice::StreamingClient::resetBuffer(*(v5 + 64));
   if (a5)
@@ -3151,35 +3128,33 @@ BOOL AlgsDevice::injExtWith(AlgsDevice *this, AlgDataInjector *a2, AlgDataExtrac
 BOOL AlgsDevice::injExtWith()
 {
   OUTLINED_FUNCTION_23();
-  v4 = v3 + 32;
+  v2 = v1 + 32;
   for (i = 32; i != 48; i += 8)
   {
-    v6 = *(v2 + i);
-    if (v6)
+    if (*(v0 + i))
     {
-      v7 = OUTLINED_FUNCTION_11_0(v6);
-      (*(v8 + 24))(v7, 0, v1, v0);
+      OUTLINED_FUNCTION_11_0();
+      (*(v4 + 24))();
     }
   }
 
   OUTLINED_FUNCTION_17_0();
-  v10 = (*(v9 + 48))(v2);
-  v11 = OUTLINED_FUNCTION_11_0(v10);
-  v13 = (*(v12 + 40))(v11, v1, v0, 0, 0, 1);
+  (*(v5 + 48))(v0);
+  OUTLINED_FUNCTION_11_0();
+  v7 = (*(v6 + 40))();
   for (j = 0; j != 16; j += 8)
   {
-    v15 = *(v4 + j);
-    if (v15)
+    if (*(v2 + j))
     {
-      v16 = OUTLINED_FUNCTION_11_0(v15);
-      (*(v17 + 32))(v16);
+      OUTLINED_FUNCTION_11_0();
+      (*(v9 + 32))();
     }
   }
 
-  return v13 == 0;
+  return v7 == 0;
 }
 
-BOOL AlgsDevice::runPlan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+BOOL AlgsDevice::runPlan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5)
 {
   v7 = OUTLINED_FUNCTION_25(a1);
   if (v9)
@@ -3187,7 +3162,12 @@ BOOL AlgsDevice::runPlan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     v10 = *a5;
   }
 
-  AlgsDevice::StreamingClient::setBuffer(v7, v8);
+  else
+  {
+    v10 = 0;
+  }
+
+  AlgsDevice::StreamingClient::setBuffer(v7, v8, v10);
   v11 = AlgsDevice::run();
   v12 = AlgsDevice::StreamingClient::resetBuffer(*(v5 + 64));
   if (a5)
@@ -3205,60 +3185,55 @@ BOOL AlgsDevice::run()
   v2 = v0 + 32;
   for (i = 32; i != 48; i += 8)
   {
-    v4 = *(v1 + i);
-    if (v4)
+    if (*(v1 + i))
     {
-      OUTLINED_FUNCTION_11_0(v4);
-      v6 = *(v5 + 24);
+      OUTLINED_FUNCTION_11_0();
       OUTLINED_FUNCTION_19();
-      v7();
+      v4();
     }
   }
 
-  v8 = *(v1 + 56);
-  SAList<unsigned int>::clear(v8 + 40);
-  for (j = 0; *(v8 + 20) > j; ++j)
+  v5 = *(v1 + 56);
+  SAList<unsigned int>::clear(v5 + 40);
+  for (j = 0; *(v5 + 20) > j; ++j)
   {
-    SAList<unsigned int>::push_back(v8 + 40);
+    SAList<unsigned int>::push_back(v5 + 40);
   }
 
+  OUTLINED_FUNCTION_12_0();
+  (*(v7 + 48))(v1);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_19();
+  v9 = v8();
   OUTLINED_FUNCTION_12_0();
   v11 = (*(v10 + 48))(v1);
-  v12 = *(v1 + 56);
-  OUTLINED_FUNCTION_11_0(v11);
-  v14 = *(v13 + 56);
-  OUTLINED_FUNCTION_19();
-  v16 = v15();
-  OUTLINED_FUNCTION_12_0();
-  v18 = (*(v17 + 48))(v1);
-  AlgWorkNode::resetInjectionState(v18);
+  AlgWorkNode::resetInjectionState(v11);
   for (k = 0; k != 16; k += 8)
   {
-    v20 = *(v2 + k);
-    if (v20)
+    if (*(v2 + k))
     {
-      v21 = OUTLINED_FUNCTION_11_0(v20);
-      (*(v22 + 32))(v21);
+      OUTLINED_FUNCTION_11_0();
+      (*(v13 + 32))();
     }
   }
 
-  return v16 == 0;
+  return v9 == 0;
 }
 
 BOOL AlgsDevice::runPlan(AlgsDevice *this, AlgDataInjector *a2, AlgDataExtractor *a3)
 {
   OUTLINED_FUNCTION_23();
-  v7 = OUTLINED_FUNCTION_11_0(v6);
-  v9 = (*(v8 + 48))(v7);
-  v10 = OUTLINED_FUNCTION_11_0(v9);
-  v12 = (*(v11 + 48))(v10, v4, v3) == 0;
+  OUTLINED_FUNCTION_11_0();
+  (*(v4 + 48))();
+  OUTLINED_FUNCTION_11_0();
+  v6 = (*(v5 + 48))() == 0;
   OUTLINED_FUNCTION_17_0();
-  v14 = (*(v13 + 48))(v5);
-  AlgWorkNode::resetInjectionState(v14);
-  return v12;
+  v8 = (*(v7 + 48))(v3);
+  AlgWorkNode::resetInjectionState(v8);
+  return v6;
 }
 
-uint64_t AlgsDevice::AlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, const char *a6, char a7)
+uint64_t AlgsDevice::AlgsDevice(uint64_t a1, char a2, uint64_t a3, int a4, char a5, const char *a6, char a7)
 {
   OUTLINED_FUNCTION_8_0();
   *v13 = v14;
@@ -3268,9 +3243,9 @@ uint64_t AlgsDevice::AlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, int a4, c
   v13[5] = 0;
   v13[6] = 0;
   v13[4] = 0;
-  v16 = operator new(72, 1);
+  v16 = operator new();
   *(v7 + 56) = AlgDataExtractor::AlgDataExtractor(v16, 0);
-  v17 = operator new(152, a2);
+  v17 = operator new();
   *v17 = &unk_2876F8510;
   *(v17 + 8) = 0;
   *(v17 + 16) = 256;
@@ -3338,7 +3313,7 @@ void SAList<char const*>::push_back(uint64_t a1)
   v3 = OUTLINED_FUNCTION_5_0(a1);
   if (!v3)
   {
-    v3 = operator new(8 * *(v1 + 8), 0);
+    v3 = operator new();
     *v1 = v3;
   }
 
@@ -3350,18 +3325,16 @@ void AlgsDevice::~AlgsDevice(AlgsDevice *this)
 {
   OUTLINED_FUNCTION_8_0();
   *v2 = v3;
-  v4 = v2[7];
-  if (v4)
+  if (v2[7])
   {
-    v5 = OUTLINED_FUNCTION_11_0(v4);
-    (*(v6 + 8))(v5);
+    OUTLINED_FUNCTION_11_0();
+    (*(v4 + 8))();
   }
 
-  v7 = *(v1 + 64);
-  if (v7)
+  if (*(v1 + 64))
   {
-    v8 = OUTLINED_FUNCTION_11_0(v7);
-    (*(v9 + 8))(v8);
+    OUTLINED_FUNCTION_11_0();
+    (*(v5 + 8))();
   }
 
   SAList<char const*>::~SAList(v1 + 80);
@@ -3375,7 +3348,12 @@ uint64_t AlgsDevice::handleInputStream(AlgsDevice *this, const void *a2, unint64
     v18 = *a5;
   }
 
-  AlgsDevice::StreamingClient::setBuffer(v15, v16);
+  else
+  {
+    v18 = 0;
+  }
+
+  AlgsDevice::StreamingClient::setBuffer(v15, v16, v18);
   v23 = *(v8 + 64);
   if (a6)
   {
@@ -3385,58 +3363,58 @@ uint64_t AlgsDevice::handleInputStream(AlgsDevice *this, const void *a2, unint64
   v25 = (v23 + 128);
   v24 = *(v23 + 128);
   v26 = *(v23 + 136);
-  v138 = v23 + 128;
-  v139 = v9;
-  v141 = 0;
-  v142 = 0;
-  v140 = a3;
-  LOBYTE(v143) = v24;
-  v144 = v26;
+  v123 = v23 + 128;
+  v124 = v9;
+  v126 = 0;
+  v127 = 0;
+  v125 = a3;
+  LOBYTE(v128) = v24;
+  v129 = v26;
   if (a3 < 2 || *v9 != 1)
   {
-LABEL_105:
-    result = 0;
 LABEL_106:
-    v114 = 0;
+    result = 0;
+LABEL_107:
+    v100 = 0;
     if (!a5)
     {
       return result;
     }
 
-LABEL_107:
-    *a5 = v114;
+LABEL_108:
+    *a5 = v100;
     return result;
   }
 
   switch(*(v9 + 1))
   {
     case 1:
-      v159 = &v156;
-      v160 = 0u;
-      v161 = 0u;
-      v162 = 0u;
-      v141 = 2;
-      v142 = &v159;
+      v142 = &v139;
+      v143 = 0u;
+      v144 = 0u;
+      v145 = 0u;
+      v126 = 2;
+      v127 = &v142;
       if (a3 == 2)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
       v27 = *(v9 + 2);
-      LOBYTE(v156) = v27;
+      LOBYTE(v139) = v27;
       if (a3 == 3)
       {
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      SABinaryParser::parseInfoData(&v139, StreamingParser::parseReset(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_0::__invoke, 0, 0, 0);
+      SABinaryParser::parseInfoData(&v124, StreamingParser::parseReset(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_0::__invoke, 0, 0, 0);
       if (!v28)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      v27 = v156;
-LABEL_12:
+      v27 = v139;
+LABEL_13:
       v29 = *(v23 + 32);
       OUTLINED_FUNCTION_17_0();
       (*(v30 + 40))(v29, v27);
@@ -3445,124 +3423,121 @@ LABEL_12:
       v32 = v29 + 32;
       while (v31 != 16)
       {
-        v33 = *(v32 + v31);
-        if (v33)
+        if (*(v32 + v31))
         {
-          v34 = OUTLINED_FUNCTION_11_0(v33);
-          (*(v35 + 16))(v34, v27);
+          OUTLINED_FUNCTION_11_0();
+          (*(v33 + 16))();
         }
 
         v31 += 8;
       }
 
-      goto LABEL_122;
+      goto LABEL_123;
     case 2:
-      v150 = 0;
-      *v151 = 0;
-      StreamingParser::numberOfPackets(&v138, v151, &v150, 0, v19, v20, v21, v22);
-      if ((v68 & 1) == 0)
+      v133 = 0;
+      *v134 = 0;
+      StreamingParser::numberOfPackets(&v123, v134, &v133, 0, v19, v20, v21, v22);
+      if ((v63 & 1) == 0)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      v69 = *(v23 + 104);
-      v70 = *v151;
-      if (v69)
+      v64 = *(v23 + 104);
+      v65 = *v134;
+      if (v64)
       {
-        v70 = *v151 + *(v69 + 20);
-        *v151 += *(v69 + 20);
+        v65 = *v134 + *(v64 + 20);
+        *v134 += *(v64 + 20);
       }
 
-      v71 = AlgDataInjector::AlgDataInjector(&v156, v70);
-      OUTLINED_FUNCTION_39(v71, v150);
-      StreamingParser::parseRun(&v138, &v145, &v156, &v159);
-      if (v72)
+      v66 = AlgDataInjector::AlgDataInjector(&v139, v65);
+      OUTLINED_FUNCTION_39(v66, v133);
+      StreamingParser::parseRun(&v123, v130, &v139, &v142);
+      if (v67)
       {
-        AlgsDevice::StreamingClient::translate(v23, &v156, &v159);
+        AlgsDevice::StreamingClient::translate(v23, &v139, &v142);
         *(v23 + 97) = 1;
-        v73 = *(v23 + 32);
         AlgsDevice::run();
-        PacketCollection::~PacketCollection(&v159);
-        v74 = &v156;
-        goto LABEL_121;
-      }
-
-      PacketCollection::~PacketCollection(&v159);
-      v95 = &v156;
-      goto LABEL_104;
-    case 3:
-      v149 = 0;
-      v150 = 0;
-      v148 = 0;
-      StreamingParser::numberOfPackets(&v138, &v150, &v149, &v148, v19, v20, v21, v22);
-      if ((v48 & 1) == 0)
-      {
-        goto LABEL_105;
-      }
-
-      v49 = *(v23 + 104);
-      v50 = v150;
-      if (v49)
-      {
-        v50 = v150 + *(v49 + 20);
-        v150 += *(v49 + 20);
-      }
-
-      v51 = AlgDataInjector::AlgDataInjector(&v145, v50);
-      OUTLINED_FUNCTION_39(v51, v149);
-      AlgDataExtractor::AlgDataExtractor(&v156, v148);
-      *v151 = v23 + 88;
-      v152 = &v145;
-      v153 = &v159;
-      v154 = &v156;
-      v142 = v151;
-      SABinaryParser::parseInjExtFrame(&v139, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_2::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_3::__invoke);
-      v53 = v52;
-      if ((v52 & 1) == 0)
-      {
-        PacketCollection::~PacketCollection(&v156);
-        PacketCollection::~PacketCollection(&v159);
-        v95 = &v145;
-        goto LABEL_104;
-      }
-
-      v54 = HIDWORD(v158);
-      v55 = (v157 + 72);
-      if (HIDWORD(v158))
-      {
-        do
-        {
-          *(v55 - 1) = AlgsDevice::StreamingClient::extraction;
-          *v55 = v23;
-          --v54;
-          v55 += 10;
-        }
-
-        while (v54);
-      }
-
-      AlgsDevice::StreamingClient::translate(v23, &v145, &v159);
-      *(v23 + 97) = 1;
-      v56 = *(v23 + 32);
-      AlgsDevice::injExtWith();
-      *(v23 + 88) = 0;
-      PacketCollection::~PacketCollection(&v156);
-      PacketCollection::~PacketCollection(&v159);
-      PacketCollection::~PacketCollection(&v145);
-      if (v53)
-      {
+        PacketCollection::~PacketCollection(&v142);
+        v68 = &v139;
         goto LABEL_122;
       }
 
+      PacketCollection::~PacketCollection(&v142);
+      v90 = &v139;
       goto LABEL_105;
+    case 3:
+      v132 = 0;
+      v133 = 0;
+      v131 = 0;
+      StreamingParser::numberOfPackets(&v123, &v133, &v132, &v131, v19, v20, v21, v22);
+      if ((v46 & 1) == 0)
+      {
+        goto LABEL_106;
+      }
+
+      v47 = *(v23 + 104);
+      v48 = v133;
+      if (v47)
+      {
+        v48 = v133 + *(v47 + 20);
+        v133 += *(v47 + 20);
+      }
+
+      v49 = AlgDataInjector::AlgDataInjector(v130, v48);
+      OUTLINED_FUNCTION_39(v49, v132);
+      AlgDataExtractor::AlgDataExtractor(&v139, v131);
+      *v134 = v23 + 88;
+      v135 = v130;
+      v136 = &v142;
+      v137 = &v139;
+      v127 = v134;
+      SABinaryParser::parseInjExtFrame(&v124, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_2::__invoke, StreamingParser::parseInjExt(unsigned long long *,AlgDataInjector *,AlgDataExtractor *,AlgDataExtractor *)::$_3::__invoke);
+      v51 = v50;
+      if ((v50 & 1) == 0)
+      {
+        PacketCollection::~PacketCollection(&v139);
+        PacketCollection::~PacketCollection(&v142);
+        v90 = v130;
+        goto LABEL_105;
+      }
+
+      v52 = HIDWORD(v141);
+      v53 = (v140 + 72);
+      if (HIDWORD(v141))
+      {
+        do
+        {
+          *(v53 - 1) = AlgsDevice::StreamingClient::extraction;
+          *v53 = v23;
+          --v52;
+          v53 += 10;
+        }
+
+        while (v52);
+      }
+
+      AlgsDevice::StreamingClient::translate(v23, v130, &v142);
+      *(v23 + 97) = 1;
+      AlgsDevice::injExtWith();
+      *(v23 + 88) = 0;
+      PacketCollection::~PacketCollection(&v139);
+      PacketCollection::~PacketCollection(&v142);
+      PacketCollection::~PacketCollection(v130);
+      if (v51)
+      {
+        goto LABEL_123;
+      }
+
+      goto LABEL_106;
     case 4:
       if (a3 - 5 >= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v57 = 1;
+        v54 = 1;
         if (a6)
         {
           *a6 = 1;
-          v57 = 0;
+          v54 = 0;
         }
 
         if (a7)
@@ -3573,11 +3548,11 @@ LABEL_12:
 
       else
       {
-        v57 = *(v9 + 2);
+        v54 = *(v9 + 2);
         if (a6)
         {
-          *a6 = v57;
-          v57 = 0;
+          *a6 = v54;
+          v54 = 0;
         }
 
         if (a7)
@@ -3593,47 +3568,47 @@ LABEL_12:
 
       if (a6)
       {
-        v57 = *a6;
+        v54 = *a6;
       }
 
-      if (a7 && v57 == 1 && *a7 && **a8 == 255)
+      if (a7 && v54 == 1 && *a7 && **a8 == 255)
       {
         **a8 = *(*(v23 + 32) + 77);
       }
 
-      goto LABEL_122;
+      goto LABEL_123;
     case 5:
-      v151[0] = 0;
-      LOBYTE(v150) = 0;
-      v145 = 0;
+      v134[0] = 0;
+      LOBYTE(v133) = 0;
+      *v130 = 0;
       OUTLINED_FUNCTION_21();
-      StreamingParser::numberOfPackets(v36, v37, v38, v39, v40, v41, v42, v43);
+      StreamingParser::numberOfPackets(v34, v35, v36, v37, v38, v39, v40, v41);
+      if ((v42 & 1) == 0)
+      {
+        goto LABEL_106;
+      }
+
+      OUTLINED_FUNCTION_39(v42, *v130);
+      v139 = &v133;
+      v140 = v134;
+      v141 = &v142;
+      v127 = &v139;
+      SABinaryParser::parseConfigure(&v124, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_2::__invoke);
       if ((v44 & 1) == 0)
       {
-        goto LABEL_105;
+        goto LABEL_104;
       }
 
-      OUTLINED_FUNCTION_39(v44, v145);
-      v156 = &v150;
-      v157 = v151;
-      v158 = &v159;
-      v142 = &v156;
-      SABinaryParser::parseConfigure(&v139, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseConfigure(unsigned char *,BOOL *,AlgDataExtractor *)::$_2::__invoke);
-      if ((v46 & 1) == 0)
+      v45 = v133;
+      if (v133 <= 2u)
       {
-        goto LABEL_103;
+        AlgsDevice::StreamingClient::configure(v23, v134[0], &v142);
+        v45 = v133;
       }
 
-      v47 = v150;
-      if (v150 <= 2u)
+      if (v45 == 3 && HIDWORD(v143))
       {
-        AlgsDevice::StreamingClient::configure(v23, v151[0], &v159);
-        v47 = v150;
-      }
-
-      if (v47 == 3 && HIDWORD(v160))
-      {
-        StreamingWriter::writeConfigure((v23 + 40), v151[0], &v159, v45);
+        StreamingWriter::writeConfigure((v23 + 40), v134[0], &v142, v43);
       }
 
       else
@@ -3641,248 +3616,244 @@ LABEL_12:
         AlgsDevice::StreamingClient::configureStatus(v23);
       }
 
-      goto LABEL_120;
+      goto LABEL_121;
     case 6:
-      LODWORD(v150) = 0;
-      LOBYTE(v149) = 0;
-      LOBYTE(v148) = 0;
-      v155 = 0;
-      v145 = 0;
-      v146 = 16;
-      *v151 = 0;
+      LODWORD(v133) = 0;
+      LOBYTE(v132) = 0;
+      LOBYTE(v131) = 0;
+      v138 = 0;
+      *v130 = 0;
+      *&v130[8] = 16;
+      *v134 = 0;
       OUTLINED_FUNCTION_21();
-      StreamingParser::numberOfPackets(v75, v76, v77, v78, v79, v80, v81, v82);
-      if ((v83 & 1) == 0)
+      StreamingParser::numberOfPackets(v69, v70, v71, v72, v73, v74, v75, v76);
+      if ((v77 & 1) == 0)
       {
-        SAList<char const*>::~SAList(&v145);
-        goto LABEL_105;
+        SAList<char const*>::~SAList(v130);
+        goto LABEL_106;
       }
 
-      AlgDataExtractor::AlgDataExtractor(&v156, *v151);
-      v159 = &v149;
-      *&v160 = &v150;
-      *(&v160 + 1) = &v148;
-      *&v161 = &v155 + 1;
-      *(&v161 + 1) = &v145;
-      *&v162 = &v155;
-      *(&v162 + 1) = &v156;
-      v142 = &v159;
-      SABinaryParser::parseInfo(&v139, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_2::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_3::__invoke);
-      if (v84)
+      AlgDataExtractor::AlgDataExtractor(&v139, *v134);
+      v142 = &v132;
+      *&v143 = &v133;
+      *(&v143 + 1) = &v131;
+      *&v144 = &v138 + 1;
+      *(&v144 + 1) = v130;
+      *&v145 = &v138;
+      *(&v145 + 1) = &v139;
+      v127 = &v142;
+      SABinaryParser::parseInfo(&v124, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_0::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_1::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_2::__invoke, StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char *,unsigned char *,SAList<char const*> *,BOOL *,AlgDataExtractor *)::$_3::__invoke);
+      if (v78)
       {
-        v85 = *(v23 + 32);
-        if (v150 && v150 != *(v85 + 72))
+        v79 = *(v23 + 32);
+        if (v133 && v133 != *(v79 + 72))
         {
-          StreamingWriter::writeInfo(v23 + 40, v149, v150, v148, HIBYTE(v155), &v145, v155, &v156);
-          v88 = 1;
+          StreamingWriter::writeInfo(v23 + 40, v132, v133, v131, HIBYTE(v138), v130, v138, &v139);
+          v81 = 1;
         }
 
         else
         {
           Info = AlgsDevice::getInfo(*(v23 + 32));
-          OUTLINED_FUNCTION_39(Info, *(v85 + 48));
-          v87 = *(v23 + 32);
-          AlgsDevice::getClientExtractor();
-          v88 = StreamingWriter::writeInfo(v23 + 40, BYTE5(Info), Info, BYTE4(Info), BYTE6(Info), *(v23 + 32) + 80, *(v23 + 96), &v159);
-          PacketCollection::~PacketCollection(&v159);
+          OUTLINED_FUNCTION_39(Info, *(v79 + 48));
+          AlgsDevice::getClientExtractor(*(v23 + 32), &v142);
+          v81 = StreamingWriter::writeInfo(v23 + 40, BYTE5(Info), Info, BYTE4(Info), BYTE6(Info), *(v23 + 32) + 80, *(v23 + 96), &v142);
+          PacketCollection::~PacketCollection(&v142);
         }
       }
 
       else
       {
-        v88 = 0;
+        v81 = 0;
       }
 
-      PacketCollection::~PacketCollection(&v156);
-      SAList<char const*>::~SAList(&v145);
-      if (v88)
+      PacketCollection::~PacketCollection(&v139);
+      SAList<char const*>::~SAList(v130);
+      if (v81)
       {
-        goto LABEL_122;
-      }
-
-      goto LABEL_105;
-    case 7:
-      *v151 = 0;
-      AlgDataExtractor::AlgDataExtractor(&v159);
-      AlgDataExtractor::AlgDataExtractor(&v156);
-      v145 = v151;
-      v146 = &v159;
-      v147 = &v156;
-      v142 = &v145;
-      if (a3 - 6 > 0xFFFFFFFFFFFFFFFBLL)
-      {
-        goto LABEL_102;
-      }
-
-      v141 = 6;
-      if (!StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_0::__invoke(&v145, *(v9 + 2)))
-      {
-        goto LABEL_102;
-      }
-
-      v89 = v141;
-      v90 = v140 - v141;
-      break;
-    case 8:
-      v58 = OUTLINED_FUNCTION_11_0(*(v23 + 32));
-      v60 = (*(v59 + 48))(v58);
-      TreeSize = AlgWorkNode::getTreeSize(v60);
-      v62 = AlgsDevice::getInfo(*(v23 + 32));
-      *(&v159 + 1) = 0;
-      LOBYTE(v159) = BYTE5(v62);
-      if (!SABinaryWriter::writeHeader(v23 + 48, 8))
-      {
-        *(v23 + 64) += 4 * TreeSize;
-        goto LABEL_105;
-      }
-
-      v63 = SABinaryWriter::write((v23 + 48), &v159, 5uLL);
-      *(v23 + 64) += 4 * TreeSize;
-      if ((v63 & 1) == 0)
-      {
-        goto LABEL_105;
-      }
-
-      v64 = OUTLINED_FUNCTION_11_0(*(v23 + 32));
-      v66 = (*(v65 + 48))(v64);
-      result = AlgWorkNode::getTreeInfo(v66, v23, 1);
-      if (result)
-      {
-        goto LABEL_122;
+        goto LABEL_123;
       }
 
       goto LABEL_106;
+    case 7:
+      *v134 = 0;
+      AlgDataExtractor::AlgDataExtractor(&v142);
+      AlgDataExtractor::AlgDataExtractor(&v139);
+      *v130 = v134;
+      *&v130[8] = &v142;
+      *&v130[16] = &v139;
+      v127 = v130;
+      if (a3 - 6 > 0xFFFFFFFFFFFFFFFBLL)
+      {
+        goto LABEL_103;
+      }
+
+      v126 = 6;
+      if (!StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_0::__invoke(v130, *(v9 + 2)))
+      {
+        goto LABEL_103;
+      }
+
+      v84 = v126;
+      v85 = v125 - v126;
+      break;
+    case 8:
+      OUTLINED_FUNCTION_11_0();
+      v56 = (*(v55 + 48))();
+      TreeSize = AlgWorkNode::getTreeSize(v56);
+      v58 = AlgsDevice::getInfo(*(v23 + 32));
+      *(&v142 + 1) = 0;
+      LOBYTE(v142) = BYTE5(v58);
+      if (!SABinaryWriter::writeHeader(v23 + 48, 8))
+      {
+        *(v23 + 64) += 4 * TreeSize;
+        goto LABEL_106;
+      }
+
+      v59 = SABinaryWriter::write((v23 + 48), &v142, 5uLL);
+      *(v23 + 64) += 4 * TreeSize;
+      if ((v59 & 1) == 0)
+      {
+        goto LABEL_106;
+      }
+
+      OUTLINED_FUNCTION_11_0();
+      v61 = (*(v60 + 48))();
+      result = AlgWorkNode::getTreeInfo(v61, v23, 1);
+      if (result)
+      {
+        goto LABEL_123;
+      }
+
+      goto LABEL_107;
     case 9:
-      LOBYTE(v156) = 0;
-      v159 = &v156;
-      *&v160 = v23 + 128;
+      LOBYTE(v139) = 0;
+      v142 = &v139;
+      *&v143 = v23 + 128;
       if (a3 - 2 <= 2)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      if (!StreamingParser::parsePacketCache(unsigned char &,StreamingPacketCache &)::$_0::__invoke(&v159, *(v9 + 2), *(v9 + 3), (v9 + 4)))
+      if (!StreamingParser::parsePacketCache(unsigned char &,StreamingPacketCache &)::$_0::__invoke(&v142, *(v9 + 2), *(v9 + 3), (v9 + 4)))
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      v93 = *v25;
+      v88 = *v25;
       if (!*v25)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      v94 = *(v23 + 136);
-      LOBYTE(v159) = 1;
-      BYTE1(v159) = v93;
-      SABinaryWriter::updateCacheSizes(v93, v94);
-      if (!SABinaryWriter::writeHeader(v23 + 48, 9) || (SABinaryWriter::write((v23 + 48), &v159, 2uLL) & 1) == 0 || (SABinaryWriter::write((v23 + 48), v94, 24 * v93) & 1) == 0)
+      v89 = *(v23 + 136);
+      LOBYTE(v142) = 1;
+      BYTE1(v142) = v88;
+      SABinaryWriter::updateCacheSizes(v88, v89);
+      if (!SABinaryWriter::writeHeader(v23 + 48, 9) || (SABinaryWriter::write((v23 + 48), &v142, 2uLL) & 1) == 0 || (SABinaryWriter::write((v23 + 48), v89, 24 * v88) & 1) == 0)
       {
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
-      goto LABEL_122;
+      goto LABEL_123;
     default:
-      goto LABEL_105;
+      goto LABEL_106;
   }
 
   while (1)
   {
-    v91 = v89;
-    if (v140 <= v89)
+    v86 = v84;
+    if (v125 <= v84)
     {
       break;
     }
 
-    if (v90 < 0x12 || *(v139 + v89) != 3 || v90 - 18 < 0x12)
+    if (v85 < 0x12 || *(v124 + v84) != 3 || v85 - 18 < 0x12)
     {
-      goto LABEL_101;
+      goto LABEL_102;
     }
 
-    v92 = v139 + v89;
-    v89 += 36;
-    if (*(v139 + v91 + 18) != 3)
+    v87 = v124 + v84;
+    v84 += 36;
+    if (*(v124 + v86 + 18) != 3)
     {
-      v91 += 36;
-      goto LABEL_101;
+      v86 += 36;
+      goto LABEL_102;
     }
 
-    v90 -= 36;
-    if ((StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke(v142, v139 + v91, v92 + 18) & 1) == 0)
+    v85 -= 36;
+    if ((StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke(v127, v124 + v86, v87 + 18, v82, v83) & 1) == 0)
     {
-      v91 += 36;
-LABEL_101:
-      v141 = v91;
+      v86 += 36;
 LABEL_102:
-      PacketCollection::~PacketCollection(&v156);
+      v126 = v86;
 LABEL_103:
-      v95 = &v159;
+      PacketCollection::~PacketCollection(&v139);
 LABEL_104:
-      PacketCollection::~PacketCollection(v95);
-      goto LABEL_105;
+      v90 = &v142;
+LABEL_105:
+      PacketCollection::~PacketCollection(v90);
+      goto LABEL_106;
     }
   }
 
-  v141 = v89;
-  v96 = *v151;
-  if (*v151 == *(*(v23 + 32) + 72))
+  v126 = v84;
+  v91 = *v134;
+  if (*v134 == *(*(v23 + 32) + 72))
   {
-    v98 = (v23 + 104);
-    v97 = *(v23 + 104);
-    if (v97)
+    if (*(v23 + 104))
     {
-      v99 = OUTLINED_FUNCTION_11_0(v97);
-      (*(v100 + 8))(v99);
+      OUTLINED_FUNCTION_11_0();
+      (*(v92 + 8))();
     }
 
-    v101 = *(v23 + 112);
-    if (v101)
+    if (*(v23 + 112))
     {
-      v102 = OUTLINED_FUNCTION_11_0(v101);
-      (*(v103 + 8))(v102);
+      OUTLINED_FUNCTION_11_0();
+      (*(v93 + 8))();
     }
 
-    if (HIDWORD(v160) && HIDWORD(v160) == HIDWORD(v158))
+    if (HIDWORD(v143) && HIDWORD(v143) == HIDWORD(v141))
     {
-      v104 = operator new(56, *(v23 + 120));
-      *(v23 + 104) = PacketCollection::PacketCollection(v104, SHIDWORD(v160));
-      v105 = operator new(56, *(v23 + 120));
-      v106 = 0;
-      v107 = 0;
-      *(v23 + 112) = PacketCollection::PacketCollection(v105, SHIDWORD(v158));
-      while (v107 < HIDWORD(v160))
+      v94 = operator new();
+      *(v23 + 104) = PacketCollection::PacketCollection(v94, SHIDWORD(v143));
+      v95 = operator new();
+      v96 = 0;
+      v97 = 0;
+      *(v23 + 112) = PacketCollection::PacketCollection(v95, SHIDWORD(v141));
+      while (v97 < HIDWORD(v143))
       {
-        v108 = OUTLINED_FUNCTION_11_0(*v98);
-        (*(v109 + 16))(v108, v110 + v106);
-        v111 = OUTLINED_FUNCTION_11_0(*(v23 + 112));
-        (*(v112 + 16))(v111, v113 + v106);
-        ++v107;
-        v106 += 80;
+        OUTLINED_FUNCTION_11_0();
+        (*(v98 + 16))();
+        OUTLINED_FUNCTION_11_0();
+        (*(v99 + 16))();
+        ++v97;
+        v96 += 80;
       }
     }
 
     else
     {
-      *v98 = 0;
+      *(v23 + 104) = 0;
       *(v23 + 112) = 0;
     }
 
-    v96 = *v151;
+    v91 = *v134;
   }
 
-  LODWORD(v145) = v96;
+  *v130 = v91;
   if (SABinaryWriter::writeHeader(v23 + 48, 7))
   {
-    v115 = SABinaryWriter::write((v23 + 48), &v145, 4uLL);
-    if (v115)
+    v101 = SABinaryWriter::write((v23 + 48), v130, 4uLL);
+    if (v101)
     {
-      if (HIDWORD(v160) == HIDWORD(v158))
+      if (HIDWORD(v143) == HIDWORD(v141))
       {
-        v123 = 0;
-        v124 = -1;
+        v109 = 0;
+        v110 = -1;
         do
         {
-          if (++v124 >= HIDWORD(v160))
+          if (++v110 >= HIDWORD(v143))
           {
             break;
           }
@@ -3892,43 +3863,46 @@ LABEL_104:
             break;
           }
 
-          v125 = v157[v123 + 33];
-          v126 = *(v160 + v123 + 33);
-          v127 = OUTLINED_FUNCTION_32(v115, v116, v117, v118, v119, v120, v121, v122, *&v157[v123], *&v157[v123 + 8], v136, v138, v139, v140, v141, v142, v143, v144, 3, *(v160 + v123) >> 56, HIBYTE(*(v160 + v123)), SBYTE1(v147));
-          if ((v127 & 1) == 0)
+          v119 = *&v140[v109];
+          v130[0] = 3;
+          *&v130[1] = *(v143 + v109);
+          v111 = OUTLINED_FUNCTION_32(v101, v102, v103, v104, v105, v106, v107, v108, v119, *(&v119 + 1), v121, v123, v124, v125, v126, v127, v128, v129, *v130, *&v130[8], v130[16], v130[17]);
+          if ((v111 & 1) == 0)
           {
             break;
           }
 
-          v123 += 80;
-          v115 = OUTLINED_FUNCTION_32(v127, v128, v129, v130, v131, v132, v133, v134, v135, *(&v135 + 1), v137, v138, v139, v140, v141, v142, v143, v144, v145, v135 >> 56, SHIBYTE(v135), SBYTE1(v147));
+          v109 += 80;
+          *&v130[1] = v120;
+          v101 = OUTLINED_FUNCTION_32(v111, v112, v113, v114, v115, v116, v117, v118, v120, *(&v120 + 1), v122, v123, v124, v125, v126, v127, v128, v129, *v130, v120 >> 56, SHIBYTE(v120), v130[17]);
         }
 
-        while ((v115 & 1) != 0);
+        while ((v101 & 1) != 0);
       }
     }
   }
 
-  PacketCollection::~PacketCollection(&v156);
-LABEL_120:
-  v74 = &v159;
+  PacketCollection::~PacketCollection(&v139);
 LABEL_121:
-  PacketCollection::~PacketCollection(v74);
+  v68 = &v142;
 LABEL_122:
-  v114 = AlgsDevice::StreamingClient::resetBuffer(*(v8 + 64));
+  PacketCollection::~PacketCollection(v68);
+LABEL_123:
+  v100 = AlgsDevice::StreamingClient::resetBuffer(*(v8 + 64));
   result = 1;
   if (a5)
   {
-    goto LABEL_107;
+    goto LABEL_108;
   }
 
   return result;
 }
 
-void sub_2655D4F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_2655D4F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  PacketCollection::~PacketCollection(&a34);
-  PacketCollection::~PacketCollection((v34 - 160));
+  va_start(va, a33);
+  PacketCollection::~PacketCollection(va);
+  PacketCollection::~PacketCollection((v33 - 160));
   _Unwind_Resume(a1);
 }
 
@@ -3940,7 +3914,7 @@ void AlgsDevice::addClient(uint64_t a1, unsigned int a2, uint64_t a3, const Pack
   {
     v8 = a2;
     v9 = *(a1 + 56);
-    v10 = operator new(72, 1);
+    v10 = operator new();
     v11 = AlgDataExtractor::AlgDataExtractor(v10, *(a4 + 5) - *(v4 + 4 * v8) + *(v9 + 5));
     v12 = 0;
     v13 = 0;
@@ -3972,7 +3946,6 @@ void AlgsDevice::addClient(uint64_t a1, unsigned int a2, uint64_t a3, const Pack
     if (v9)
     {
       OUTLINED_FUNCTION_17_0();
-      v19 = *(v18 + 8);
       OUTLINED_FUNCTION_40();
 
       __asm { BRAA            X1, X16 }
@@ -3992,7 +3965,12 @@ void AlgsDevice::configureStreaming(AlgsDevice::StreamingClient **this, char a2,
       v8 = *a5;
     }
 
-    AlgsDevice::StreamingClient::setBuffer(this[8], a4);
+    else
+    {
+      v8 = 0;
+    }
+
+    AlgsDevice::StreamingClient::setBuffer(this[8], a4, v8);
     if (AlgsDevice::StreamingClient::configureStatus(this[8]))
     {
       v9 = AlgsDevice::StreamingClient::resetBuffer(this[8]);
@@ -4015,28 +3993,26 @@ void AlgsDevice::configureStreaming(AlgsDevice::StreamingClient **this, char a2,
   }
 }
 
-void AlgsDevice::getClientExtractor()
+void AlgsDevice::getClientExtractor(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_34();
-  v1 = v0;
   v3 = v2;
   v4 = 0;
   v5 = 0;
   v6 = 0;
-  v7 = (v2 + 48);
+  v8 = (v7 + 48);
 LABEL_4:
-  v8 = v4 + 80 * v6;
-  for (i = v5; i < *v7; ++i)
+  v9 = v4 + 80 * v6;
+  for (i = v5; i < *v8; ++i)
   {
-    v10 = *(*(v3 + 56) + 8);
     OUTLINED_FUNCTION_12_0();
-    (*(v11 + 16))(v1, v12 + v8);
-    v8 += 80;
+    (*(v11 + 16))(v3, v12 + v9);
+    v9 += 80;
   }
 
   do
   {
-    v6 += v7[v5++];
+    v6 += v8[v5++];
     v4 += 80;
     if (!v5)
     {
@@ -4048,33 +4024,31 @@ LABEL_4:
   OUTLINED_FUNCTION_33();
 }
 
-unint64_t AlgDataNode::sendCallback(uint64_t a1, uint64_t (*a2)(void *), uint64_t a3)
+unint64_t AlgDataNode::sendCallback(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   result = *(a3 + 48) + *(a3 + 32);
   if (result)
   {
     if (result < 0x81)
     {
-      v10 = *(a3 + 48);
       MEMORY[0x28223BE20]();
-      v12 = v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
       OUTLINED_FUNCTION_17_0();
-      (*(v13 + 16))(a1, v12);
-      v14 = OUTLINED_FUNCTION_28();
-      result = a2(v14);
+      (*(v11 + 16))(a1, v10);
+      v12 = OUTLINED_FUNCTION_28();
+      return a2(v12);
     }
 
     else
     {
-      v6 = operator new(result, 1);
+      v6 = operator new();
       OUTLINED_FUNCTION_17_0();
       (*(v7 + 16))(a1, v6);
       v8 = OUTLINED_FUNCTION_28();
       result = a2(v8);
       if (v6)
       {
-        v9 = *MEMORY[0x277D85DE8];
         OUTLINED_FUNCTION_0_3();
 
         JUMPOUT(0x266758DD0);
@@ -4082,7 +4056,6 @@ unint64_t AlgDataNode::sendCallback(uint64_t a1, uint64_t (*a2)(void *), uint64_
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4147,7 +4120,7 @@ void AlgDataNode::AlgDataNode(AlgDataNode *this, uint64_t a2, char a3)
   *(this + 11) = 0;
 }
 
-uint64_t AlgTaskNode::runPlan(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t AlgTaskNode::runPlan(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a3 + 8);
   if (a2 && *a2 == 0x2000)
@@ -4165,19 +4138,15 @@ uint64_t AlgTaskNode::runPlan(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   *(v3 + 40) = v5;
   *(v3 + 48) = v6;
-  v7 = OUTLINED_FUNCTION_11_0(a1);
-  return (*(v8 + 48))(v7, v9, v10);
+  OUTLINED_FUNCTION_11_0();
+  return (*(v7 + 48))();
 }
 
 uint64_t AlgTaskNode::runPlan(AlgTaskNode *this, AlgDataInjector *a2, AlgDataExtractor *a3)
 {
   v5 = *(a2 + 1);
-  v6 = *(v5 + 40);
-  v7 = *(v5 + 48);
-  AlgWorkNode::runPrologue(this, a3);
-  v8 = *(v5 + 40);
-  v9 = *(v5 + 48);
-  AlgWorkNode::runEpilogue(this, a3);
+  AlgWorkNode::runPrologue(this, a3, *(v5 + 40));
+  AlgWorkNode::runEpilogue(this, a3, *(v5 + 40));
   return 1;
 }
 
@@ -4185,7 +4154,7 @@ void AlgTaskNode::runTask(AlgTaskNode *this, AlgDataInjector *a2, AlgDataExtract
 {
   OUTLINED_FUNCTION_26();
   v9 = v8;
-  AlgWorkNode::runPrologue(v8, v10, v11);
+  AlgWorkNode::runPrologue(v8, v10, v11, v12, v13);
   if ((a6 & 1) == 0)
   {
     (*(*v9 + 64))(v9);
@@ -4193,14 +4162,12 @@ void AlgTaskNode::runTask(AlgTaskNode *this, AlgDataInjector *a2, AlgDataExtract
 
   for (i = 0; i < *(v9 + 23); ++i)
   {
-    v13 = *(*(v9 + 10) + 8 * i);
-    v14 = *(v6 + 56);
-    if (v14)
+    v15 = *(v6 + 56);
+    if (v15)
     {
-      v14(*(v6 + 64), v13[9]);
+      v15(*(v6 + 64), *(*(*(v9 + 10) + 8 * i) + 72));
     }
 
-    v15 = *(*v13 + 16);
     OUTLINED_FUNCTION_15_0();
     v16();
   }
@@ -4248,43 +4215,43 @@ uint64_t AlgWorkNode::runStep(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExt
 {
   OUTLINED_FUNCTION_26();
   v8 = v7;
-  AlgWorkNode::runPrologue(v7, v9, v10);
+  AlgWorkNode::runPrologue(v7, v9, v10, v11, v12);
   if (a6)
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = (*(*v8 + 32))(v8);
+    v13 = (*(*v8 + 32))(v8);
   }
 
   OUTLINED_FUNCTION_15_0();
-  AlgWorkNode::runEpilogue(v12, v13, v14);
-  return v11;
+  AlgWorkNode::runEpilogue(v14, v15, v16);
+  return v13;
 }
 
-void AlgWorkNode::runPrologue(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExtractor *a3)
+void AlgWorkNode::runPrologue(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExtractor *a3, unint64_t a4, unsigned int a5)
 {
-  v5 = 0;
-  v6 = 0;
-  v7 = *(a2 + 13);
-  while (v7 != v5)
+  v7 = 0;
+  v8 = 0;
+  v9 = *(a2 + 13);
+  while (v9 != v7)
   {
-    v8 = *(a2 + 1) + 80 * *(*(a2 + 5) - 4 * v6 + 4 * v5);
-    v9 = *v8 == *(this + 9) && *(v8 + 33) == 1;
-    if (v9 && (AlgWorkNode::injectDataIfOnList(*(this + 7), *(this + 17), (*(a2 + 1) + 80 * *(*(a2 + 5) - 4 * v6 + 4 * v5))) || AlgWorkNode::injectDataIfOnList(*(this + 1), *(this + 5), v8) || AlgWorkNode::injectDataIfOnList(*(this + 3), *(this + 9), v8)))
+    v10 = *(a2 + 1) + 80 * *(*(a2 + 5) - 4 * v8 + 4 * v7);
+    v11 = *v10 == *(this + 9) && *(v10 + 33) == 1;
+    if (v11 && (AlgWorkNode::injectDataIfOnList(*(this + 7), *(this + 17), (*(a2 + 1) + 80 * *(*(a2 + 5) - 4 * v8 + 4 * v7))) || AlgWorkNode::injectDataIfOnList(*(this + 1), *(this + 5), v10) || AlgWorkNode::injectDataIfOnList(*(this + 3), *(this + 9), v10)))
     {
-      *(*(a2 + 3) + 2 * *(*(a2 + 5) - 4 * v6 + 4 * v5)) = 1;
-      PacketCollection::popIterableAt(a2, v5 - v6++);
+      *(*(a2 + 3) + 2 * *(*(a2 + 5) - 4 * v8 + 4 * v7)) = 1;
+      PacketCollection::popIterableAt(a2, v7 - v8++);
     }
 
-    ++v5;
+    ++v7;
   }
 
   OUTLINED_FUNCTION_19();
 
-  AlgWorkNode::runPrologue(v10, v11);
+  AlgWorkNode::runPrologue(v12, v13, v14);
 }
 
 void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExtractor *a3)
@@ -4292,11 +4259,11 @@ void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExt
   OUTLINED_FUNCTION_34();
   OUTLINED_FUNCTION_26();
   v10 = v9;
-  OUTLINED_FUNCTION_1_2(v11, v9);
+  OUTLINED_FUNCTION_1_2();
   while (v6 != v4)
   {
-    v12 = *(v10 + 8) + *(*(v10 + 40) - 4 * v5 + 4 * v4) * v7;
-    if (*v12 == *(v3 + 72) && *(v12 + 33) == 2 && AlgWorkNode::injectDataIfOnList(*(v3 + 40), *(v3 + 52), v12))
+    v11 = *(v10 + 8) + *(*(v10 + 40) - 4 * v5 + 4 * v4) * v7;
+    if (*v11 == *(v3 + 72) && *(v11 + 33) == 2 && AlgWorkNode::injectDataIfOnList(*(v3 + 40), *(v3 + 52), v11))
     {
       *(*(v10 + 24) + 2 * *(*(v10 + 40) - 4 * v5 + 4 * v4)) = v8;
       PacketCollection::popIterableAt(v10, v4 - v5++);
@@ -4308,29 +4275,27 @@ void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataInjector *a2, AlgDataExt
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_33();
 
-  AlgWorkNode::runEpilogue(v14, v15);
+  AlgWorkNode::runEpilogue(v13, v14, v15);
 }
 
-void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataExtractor *a2)
+void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataExtractor *a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_34();
   OUTLINED_FUNCTION_37();
-  OUTLINED_FUNCTION_1_2(v8, v9);
+  OUTLINED_FUNCTION_1_2();
   while (v6 != v4)
   {
     OUTLINED_FUNCTION_16_0();
-    OUTLINED_FUNCTION_22(v10);
-    v12 = v12 && v11 == 2;
-    if (v12)
+    OUTLINED_FUNCTION_22();
+    v9 = v9 && v8 == 2;
+    if (v9)
     {
-      v13 = *(v3 + 40);
-      v14 = *(v3 + 52);
       OUTLINED_FUNCTION_18_0();
-      if (AlgWorkNode::extractDataIfOnList(v15, v16, v17, v18, v19) || (v20 = *(v3 + 24), v21 = *(v3 + 36), OUTLINED_FUNCTION_18_0(), AlgWorkNode::extractDataIfOnList(v22, v23, v24, v25, v26)))
+      if (AlgWorkNode::extractDataIfOnList(v10, v11, v12, v13, v14) || (OUTLINED_FUNCTION_18_0(), AlgWorkNode::extractDataIfOnList(v15, v16, v17, v18, v19)))
       {
         OUTLINED_FUNCTION_16_0();
-        *(*(v2 + 24) + 2 * v27) = v7;
-        PacketCollection::popIterableAt(v2, v28);
+        *(*(v3 + 24) + 2 * v20) = v7;
+        PacketCollection::popIterableAt(v3, v21);
         ++v5;
       }
     }
@@ -4341,7 +4306,7 @@ void AlgWorkNode::runEpilogue(AlgWorkNode *this, AlgDataExtractor *a2)
   OUTLINED_FUNCTION_33();
 }
 
-BOOL AlgWorkNode::extractDataIfOnList(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t a4, int a5)
+BOOL AlgWorkNode::extractDataIfOnList(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, int a5)
 {
   v5 = 0;
   v6 = a2;
@@ -4357,37 +4322,32 @@ BOOL AlgWorkNode::extractDataIfOnList(uint64_t a1, unsigned int a2, uint64_t *a3
     v8 = *(a1 + 8 * v5++);
   }
 
-  while (*(v8 + 8) != a3[1]);
-  *(a3 + 4) = *(v8 + 16);
-  v9 = (*(v8 + 24) + 3) & 0xFFFFFFFC;
-  a3[3] = v9;
-  a3[5] = a4;
-  *(a3 + 12) = a5;
-  if (a3[8])
+  while (*(v8 + 8) != *(a3 + 8));
+  *(a3 + 16) = *(v8 + 16);
+  *(a3 + 24) = (*(v8 + 24) + 3) & 0xFFFFFFFC;
+  *(a3 + 40) = a4;
+  *(a3 + 48) = a5;
+  if (*(a3 + 64))
   {
-    v13 = a3[9];
-    v14 = *a3;
-    v15 = *(a3 + 33);
-    v16 = v9 - *(v8 + 22);
     OUTLINED_FUNCTION_12_0();
-    (*(v10 + 24))(v8);
+    (*(v9 + 24))(v8);
   }
 
   else
   {
-    if (!a3[7])
+    if (!*(a3 + 56))
     {
-      a3[7] = operator new(v9, 1);
+      *(a3 + 56) = operator new();
     }
 
     OUTLINED_FUNCTION_12_0();
-    (*(v11 + 16))(v8);
+    (*(v10 + 16))(v8);
   }
 
   return v7 < v6;
 }
 
-BOOL AlgWorkNode::injectDataIfOnList(uint64_t a1, unsigned int a2, void *a3)
+BOOL AlgWorkNode::injectDataIfOnList(void *a1, unsigned int a2, void *a3)
 {
   v4 = 0;
   v5 = a2;
@@ -4400,7 +4360,7 @@ BOOL AlgWorkNode::injectDataIfOnList(uint64_t a1, unsigned int a2, void *a3)
     }
 
     v6 = v4;
-    v7 = *(a1 + 8 * v4++);
+    v7 = a1[v4++];
   }
 
   while (*(v7 + 8) != a3[1]);
@@ -4408,13 +4368,12 @@ BOOL AlgWorkNode::injectDataIfOnList(uint64_t a1, unsigned int a2, void *a3)
   v9 = v8 & 3;
   if ((v8 & 3) != 0)
   {
-    v8 = operator new(a3[3], 1);
+    v8 = operator new();
     memcpy(v8, a3[7], a3[3]);
   }
 
-  v10 = a3[3];
   OUTLINED_FUNCTION_20();
-  (*(v11 + 32))(v7, v8);
+  (*(v10 + 32))(v7, v8);
   *(v7 + 21) = 1;
   if (v9 && v8)
   {
@@ -4425,26 +4384,24 @@ BOOL AlgWorkNode::injectDataIfOnList(uint64_t a1, unsigned int a2, void *a3)
   return v6 < v5;
 }
 
-void AlgWorkNode::runPrologue(AlgWorkNode *this, AlgDataExtractor *a2)
+void AlgWorkNode::runPrologue(AlgWorkNode *this, AlgDataExtractor *a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_34();
   OUTLINED_FUNCTION_37();
-  OUTLINED_FUNCTION_1_2(v8, v9);
+  OUTLINED_FUNCTION_1_2();
   while (v6 != v4)
   {
     OUTLINED_FUNCTION_16_0();
-    OUTLINED_FUNCTION_22(v10);
-    v12 = v12 && v11 == 1;
-    if (v12)
+    OUTLINED_FUNCTION_22();
+    v9 = v9 && v8 == 1;
+    if (v9)
     {
-      v13 = *(v3 + 56);
-      v14 = *(v3 + 68);
       OUTLINED_FUNCTION_18_0();
-      if (AlgWorkNode::extractDataIfOnList(v15, v16, v17, v18, v19) || (v20 = *(v3 + 8), v21 = *(v3 + 20), OUTLINED_FUNCTION_18_0(), AlgWorkNode::extractDataIfOnList(v22, v23, v24, v25, v26)))
+      if (AlgWorkNode::extractDataIfOnList(v10, v11, v12, v13, v14) || (OUTLINED_FUNCTION_18_0(), AlgWorkNode::extractDataIfOnList(v15, v16, v17, v18, v19)))
       {
         OUTLINED_FUNCTION_16_0();
-        *(*(v2 + 24) + 2 * v27) = v7;
-        PacketCollection::popIterableAt(v2, v28);
+        *(*(v3 + 24) + 2 * v20) = v7;
+        PacketCollection::popIterableAt(v3, v21);
         ++v5;
       }
     }
@@ -4480,29 +4437,14 @@ uint64_t AlgWorkNode::getDataNodeInfo(uint64_t a1, char a2, uint64_t a3)
   return AlgsDevice::StreamingClient::writeTreeInfo(void)::$_0::__invoke(a3, &v5);
 }
 
-uint64_t AlgWorkNode::getTreeInfo(uint64_t a1, uint64_t a2, int a3)
+uint64_t AlgWorkNode::getTreeInfo(uint64_t result, uint64_t a2, int a3)
 {
-  if (!a3)
+  if (!a3 || (v5 = *(result + 36) + *(result + 20) + *(result + 52) + *(result + 68), OUTLINED_FUNCTION_20(), v7 = v5 + *((*(v6 + 24))(result) + 12), v8 = *(result + 72), v30 = 0, v29 = v8, v31 = 0, BYTE1(v31) = v7, v9 = AlgsDevice::StreamingClient::writeTreeInfo(void)::$_0::__invoke(a2, &v29), v9))
   {
-    goto LABEL_3;
-  }
-
-  v5 = *(a1 + 36) + *(a1 + 20) + *(a1 + 52) + *(a1 + 68);
-  OUTLINED_FUNCTION_20();
-  v7 = v5 + *((*(v6 + 24))(a1) + 12);
-  v8 = *(a1 + 72);
-  v30 = 0;
-  v29 = v8;
-  v31 = 0;
-  BYTE1(v31) = v7;
-  result = AlgsDevice::StreamingClient::writeTreeInfo(void)::$_0::__invoke(a2, &v29);
-  if (result)
-  {
-LABEL_3:
     v10 = 0;
-    while (v10 < *(a1 + 20))
+    while (v10 < *(result + 20))
     {
-      DataNodeInfo = AlgWorkNode::getDataNodeInfo(*(*(a1 + 8) + 8 * v10++), 2, a2);
+      DataNodeInfo = AlgWorkNode::getDataNodeInfo(*(*(result + 8) + 8 * v10++), 2, a2);
       if ((DataNodeInfo & 1) == 0)
       {
         return 0;
@@ -4510,9 +4452,9 @@ LABEL_3:
     }
 
     v12 = 0;
-    while (v12 < *(a1 + 36))
+    while (v12 < *(result + 36))
     {
-      v13 = AlgWorkNode::getDataNodeInfo(*(*(a1 + 24) + 8 * v12++), 4, a2);
+      v13 = AlgWorkNode::getDataNodeInfo(*(*(result + 24) + 8 * v12++), 4, a2);
       if ((v13 & 1) == 0)
       {
         return 0;
@@ -4520,9 +4462,9 @@ LABEL_3:
     }
 
     v14 = 0;
-    while (v14 < *(a1 + 52))
+    while (v14 < *(result + 52))
     {
-      v15 = AlgWorkNode::getDataNodeInfo(*(*(a1 + 40) + 8 * v14++), 3, a2);
+      v15 = AlgWorkNode::getDataNodeInfo(*(*(result + 40) + 8 * v14++), 3, a2);
       if ((v15 & 1) == 0)
       {
         return 0;
@@ -4530,9 +4472,9 @@ LABEL_3:
     }
 
     v16 = 0;
-    while (v16 < *(a1 + 68))
+    while (v16 < *(result + 68))
     {
-      v17 = AlgWorkNode::getDataNodeInfo(*(*(a1 + 56) + 8 * v16++), 5, a2);
+      v17 = AlgWorkNode::getDataNodeInfo(*(*(result + 56) + 8 * v16++), 5, a2);
       if ((v17 & 1) == 0)
       {
         return 0;
@@ -4543,39 +4485,39 @@ LABEL_3:
     do
     {
       OUTLINED_FUNCTION_20();
-      v20 = *((*(v19 + 24))(a1) + 12);
-      result = v18 >= v20;
+      v20 = *((*(v19 + 24))(result) + 12);
+      v9 = v18 >= v20;
       if (v18 >= v20)
       {
         break;
       }
 
       OUTLINED_FUNCTION_20();
-      v22 = *(*(*(v21 + 24))(a1) + 8 * v18);
+      v22 = *(*(*(v21 + 24))(result) + 8 * v18);
       v23 = v22[36] + v22[20] + v22[52] + v22[68];
       OUTLINED_FUNCTION_17_0();
       v25 = v23 + *((*(v24 + 24))(v22) + 12);
       OUTLINED_FUNCTION_20();
-      v27 = *(*(*(v26 + 24))(a1) + 8 * v18);
+      v27 = *(*(*(v26 + 24))(result) + 8 * v18);
       v30 = 0;
       v31 = 1;
       v29 = *(v27 + 72);
       BYTE1(v31) = v25;
-      result = AlgsDevice::StreamingClient::writeTreeInfo(void)::$_0::__invoke(a2, &v29);
-      if (!result)
+      v9 = AlgsDevice::StreamingClient::writeTreeInfo(void)::$_0::__invoke(a2, &v29);
+      if (!v9)
       {
         break;
       }
 
       TreeInfo = AlgWorkNode::getTreeInfo(v22, a2, 0);
-      result = 0;
+      v9 = 0;
       ++v18;
     }
 
     while ((TreeInfo & 1) != 0);
   }
 
-  return result;
+  return v9;
 }
 
 uint64_t AlgWorkNode::getTreeSize(AlgWorkNode *this)
@@ -4669,7 +4611,7 @@ uint64_t StreamingParser::StreamingParser(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-void SABinaryParser::parseInfoData(uint64_t *a1, unsigned int (*a2)(uint64_t, void, void, void, void), uint64_t (*a3)(uint64_t, const char *), unsigned int (*a4)(uint64_t, BOOL), uint64_t (*a5)(void))
+void SABinaryParser::parseInfoData(uint64_t *a1, uint64_t (*a2)(uint64_t, void, void, void, void), uint64_t (*a3)(uint64_t, const char *), uint64_t (*a4)(uint64_t, BOOL), uint64_t (*a5)(void))
 {
   v5 = a1[2];
   if ((a1[1] - v5) >= 7)
@@ -4928,25 +4870,25 @@ uint64_t StreamingParser::parseReset(unsigned char *,unsigned int *,unsigned cha
   return 1;
 }
 
-uint64_t StreamingParser::addPoint(uint64_t a1, uint64_t a2)
+uint64_t StreamingParser::addPoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a2 + 17);
-  if (!v2)
+  v5 = *(a2 + 17);
+  if (!v5)
   {
     return 0;
   }
 
-  v7 = *(a2 + 1);
-  v8 = 0;
-  v9 = 0;
-  v10 = 2;
-  v11 = v2;
-  OUTLINED_FUNCTION_24();
+  v12 = *(a2 + 1);
   v13 = 0;
   v14 = 0;
-  v12 = 0;
-  v4 = OUTLINED_FUNCTION_11_0(v3);
-  return (*(v5 + 16))(v4, &v7);
+  v15 = 2;
+  v16 = v5;
+  OUTLINED_FUNCTION_24();
+  v18 = 0;
+  v19 = 0;
+  v17 = 0;
+  OUTLINED_FUNCTION_11_0();
+  return (*(v6 + 16))(v7, &v12, v8, v9, v10);
 }
 
 void StreamingParser::parseRun(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5014,32 +4956,33 @@ void SABinaryParser::parseRunFrame(void *a1, unsigned int (*a2)(void), uint64_t 
   }
 }
 
-uint64_t StreamingParser::addPacket(uint64_t a1, uint64_t a2, int a3)
+uint64_t StreamingParser::addPacket(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a2 + 18);
-  v6 = *(a2 + 17);
+  v5 = a3;
+  v7 = *(a2 + 18);
+  v8 = *(a2 + 17);
   if ((*a2 & 0x40) != 0)
   {
-    v7 = *(a2 + 20);
+    v9 = *(a2 + 20);
   }
 
   else
   {
-    v7 = *(a2 + 20);
+    v9 = *(a2 + 20);
   }
 
-  v13 = *(a2 + 1);
-  v14 = v5;
-  v15 = v7;
-  v16 = a3;
-  v17 = v6;
+  v17 = *(a2 + 1);
+  v18 = v7;
+  v19 = v9;
+  v20 = a3;
+  v21 = v8;
   OUTLINED_FUNCTION_24();
-  v19 = 0;
-  v20 = 0;
-  v18 = v8;
-  v10 = OUTLINED_FUNCTION_11_0(v9);
-  result = (*(v11 + 16))(v10, &v13);
-  if (a3 == 2)
+  v23 = 0;
+  v24 = 0;
+  v22 = v10;
+  OUTLINED_FUNCTION_11_0();
+  result = (*(v11 + 16))(v12, &v17, v13, v14, v15);
+  if (v5 == 2)
   {
     if (result)
     {
@@ -5070,7 +5013,7 @@ void SABinaryParser::parseInjExtFrame(uint64_t *a1, unsigned int (*a2)(uint64_t,
     {
       v8 = *a1;
       a1[2] = v5 + 10;
-      if (!a2 || a2(a1[3], *(v8 + v5 + 2)))
+      if (!a2 || (a2)(a1[3], *(v8 + v5 + 2), a3, a4))
       {
         OUTLINED_FUNCTION_19();
 
@@ -5184,7 +5127,7 @@ LABEL_12:
   }
 }
 
-void SABinaryParser::parseInfo(uint64_t *a1, unsigned int (*a2)(uint64_t, void, void, void, void), uint64_t (*a3)(uint64_t, const char *), unsigned int (*a4)(uint64_t, BOOL), uint64_t (*a5)(void))
+void SABinaryParser::parseInfo(uint64_t *a1, uint64_t (*a2)(uint64_t, void, void, void, void), uint64_t (*a3)(uint64_t, const char *), uint64_t (*a4)(uint64_t, BOOL), uint64_t (*a5)(void))
 {
   v5 = a1[1];
   v6 = a1[2];
@@ -5259,29 +5202,29 @@ uint64_t StreamingParser::parseInfo(unsigned char *,unsigned int *,unsigned char
   return 1;
 }
 
-uint64_t StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t StreamingParser::parseConfigureTranslation(unsigned int *,AlgDataExtractor *,AlgDataExtractor *)::$_1::__invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + 8);
-  if (v5)
+  v7 = *(a1 + 8);
+  if (v7)
   {
-    v6 = StreamingParser::addPoint(v5, a2);
+    v8 = StreamingParser::addPoint(v7, a2, a3, a4, a5);
   }
 
   else
   {
-    v6 = 1;
+    v8 = 1;
   }
 
-  v7 = *(a1 + 16);
-  if (v7)
+  v9 = *(a1 + 16);
+  if (v9)
   {
-    return v6 & StreamingParser::addPoint(v7, a3);
+    return v8 & StreamingParser::addPoint(v9, a3, a3, a4, a5);
   }
 
-  return v6;
+  return v8;
 }
 
-uint64_t StreamingParser::parsePacketCache(unsigned char &,StreamingPacketCache &)::$_0::__invoke(uint64_t a1, char a2, unsigned int a3, const void *a4)
+uint64_t StreamingParser::parsePacketCache(unsigned char &,StreamingPacketCache &)::$_0::__invoke(uint64_t a1, char a2, unsigned __int8 a3, const void *a4)
 {
   **a1 = a2;
   v6 = *(a1 + 8);
@@ -5291,7 +5234,7 @@ uint64_t StreamingParser::parsePacketCache(unsigned char &,StreamingPacketCache 
   }
 
   *v6 = a3;
-  v7 = operator new(24 * a3, v6[16]);
+  v7 = operator new();
   *(v6 + 1) = v7;
   memcpy(v7, a4, 24 * *v6);
   return 1;
@@ -5376,7 +5319,7 @@ uint64_t SABinaryWriter::write(SABinaryWriter *this, const void *a2, size_t __n)
   return 1;
 }
 
-uint64_t StreamingWriter::writeResetOrInfo(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, uint64_t a9)
+uint64_t StreamingWriter::writeResetOrInfo(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, AlgDataExtractor *a9)
 {
   *(a1 + 33) = 0;
   if (a2)
@@ -5815,7 +5758,6 @@ uint64_t PacketCollection::add(PacketCollection *this, const AlgDataPacket *a2)
 
   SAList<AlgDataPacket>::push_back(this + 8);
   SAList<PacketBookkeeper>::push_back(this + 24);
-  v8 = *(this + 5) - 1;
   SAList<unsigned int>::push_back(this + 40);
   return 1;
 }
@@ -5825,7 +5767,7 @@ void SAList<AlgDataPacket>::push_back(uint64_t a1)
   v3 = OUTLINED_FUNCTION_5_0(a1);
   if (!v3)
   {
-    v3 = operator new(80 * *(v1 + 8), 0);
+    v3 = operator new();
     *v1 = v3;
   }
 
@@ -5838,7 +5780,7 @@ void SAList<PacketBookkeeper>::push_back(uint64_t a1)
   v3 = OUTLINED_FUNCTION_5_0(a1);
   if (!v3)
   {
-    v3 = operator new(2 * *(v1 + 8), 0);
+    v3 = operator new();
     *v1 = v3;
   }
 
@@ -5851,7 +5793,7 @@ void SAList<unsigned int>::push_back(uint64_t a1)
   v3 = OUTLINED_FUNCTION_5_0(a1);
   if (!v3)
   {
-    v3 = operator new(4 * *(v1 + 8), 0);
+    v3 = operator new();
     *v1 = v3;
   }
 
@@ -5938,23 +5880,21 @@ uint64_t PacketCollection::PacketCollection(uint64_t result, int a2)
 void PacketCollection::append(PacketCollection *this, const PacketCollection *a2, uint64_t a3, unint64_t a4)
 {
   v4 = a4;
-  v7 = *(a2 + 5);
+  v6 = *(a2 + 5);
   if (a3 != -1)
   {
-    v7 = a3;
+    v6 = a3;
   }
 
-  v8 = v7 + a4;
-  v9 = 80 * a4;
-  while (v4 < v8)
+  v7 = v6 + a4;
+  v8 = 80 * a4;
+  while (v4 < v7)
   {
-    v10 = *(a2 + 1);
     SAList<AlgDataPacket>::push_back(this + 8);
     SAList<PacketBookkeeper>::push_back(this + 24);
-    v11 = *(this + 5) - 1;
     SAList<unsigned int>::push_back(this + 40);
     ++v4;
-    v9 += 80;
+    v8 += 80;
   }
 }
 
@@ -6020,34 +5960,34 @@ uint64_t PacketCollection::getFor(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return v11;
 }
 
-uint64_t AlgDataExtractor::callbackFor(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t AlgDataExtractor::callbackFor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a4)
   {
     return 0;
   }
 
-  v10[0] = a2;
-  v10[1] = a3;
-  v11 = 0;
-  v12 = 0;
-  v13 = 2;
-  v14 = a4;
-  OUTLINED_FUNCTION_24();
+  v13[0] = a2;
+  v13[1] = a3;
+  v14 = 0;
   v15 = 0;
-  v16 = v4;
-  v17 = v5;
-  v7 = OUTLINED_FUNCTION_11_0(v6);
-  return (*(v8 + 16))(v7, v10);
+  v16 = 2;
+  v17 = a4;
+  OUTLINED_FUNCTION_24();
+  v18 = 0;
+  v19 = v5;
+  v20 = v6;
+  OUTLINED_FUNCTION_11_0();
+  return (*(v7 + 16))(v8, v13, v9, v10, v11);
 }
 
-void AlgsDevice::StreamingClient::finish(AlgsDevice::StreamingClient *this)
+void AlgsDevice::StreamingClient::finish(uint64_t this)
 {
-  if (*(this + 10) && *(*(this + 4) + 96))
+  if (*(this + 20) && *(*(this + 32) + 96))
   {
     AlgsDevice::StreamingClient::saveTimestamp(this, 0x652B2D24D46);
-    *(*(this + 1) + 5) = *(this + 20);
-    v2 = SABinaryWriter::addExtractionData((this + 48), 0x3779B8717A8905ELL, 0xC0246BF06F597652, 0, 39424, *(this + 8), *(this + 1));
+    *(*(this + 8) + 5) = *(this + 20);
+    v2 = SABinaryWriter::addExtractionData((this + 48), 0x3779B8717A8905ELL, 0xC0246BF06F597652, 0, 39424, *(this + 16), *(this + 8));
     if (v2)
     {
       *(this + 97) = 1;
@@ -6060,7 +6000,7 @@ void AlgsDevice::StreamingClient::finish(AlgsDevice::StreamingClient *this)
     }
   }
 
-  if ((*(this + 97) & 1) == 0 && !*(this + 11))
+  if ((*(this + 97) & 1) == 0 && !*(this + 88))
   {
     OUTLINED_FUNCTION_35();
     OUTLINED_FUNCTION_2_1();
@@ -6098,20 +6038,19 @@ uint64_t AlgsDevice::StreamingClient::saveTimestamp(uint64_t this, uint64_t a2)
   return this;
 }
 
-uint64_t AlgsDevice::StreamingClient::profileAlloc(AlgsDevice::StreamingClient *this, unsigned int a2)
+uint64_t AlgsDevice::StreamingClient::profileAlloc(AlgsDevice::StreamingClient *this, int a2)
 {
-  v3 = *(this + 8);
   *(this + 8) = a2;
   *(this + 9) = (a2 + 1048568) >> 4;
-  v4 = *(this + 1);
-  result = operator new(a2, *(this + 120));
+  v3 = *(this + 1);
+  result = operator new();
   *(this + 1) = result;
-  if (v4)
+  if (v3)
   {
     OUTLINED_FUNCTION_19();
-    memcpy(v6, v7, v8);
+    memcpy(v5, v6, v7);
     OUTLINED_FUNCTION_13_0();
-    result = MEMORY[0x266758DE0](v4);
+    result = MEMORY[0x266758DE0](v3);
   }
 
   else
@@ -6174,17 +6113,16 @@ void AlgsDevice::StreamingClient::reset(AlgsDevice::StreamingClient *this)
   {
     v2 = *(this + 4);
     Info = AlgsDevice::getInfo(v2);
-    AlgDataExtractor::AlgDataExtractor(v5, v2[12]);
-    v4 = *(this + 4);
-    AlgsDevice::getClientExtractor();
-    StreamingWriter::writeResetOrInfo(this + 40, 1, BYTE5(Info), Info, BYTE4(Info), BYTE6(Info), *(this + 4) + 80, *(this + 96), v5);
-    PacketCollection::~PacketCollection(v5);
+    AlgDataExtractor::AlgDataExtractor(v4, v2[12]);
+    AlgsDevice::getClientExtractor(*(this + 4), v4);
+    StreamingWriter::writeResetOrInfo(this + 40, 1, BYTE5(Info), Info, BYTE4(Info), BYTE6(Info), *(this + 4) + 80, *(this + 96), v4);
+    PacketCollection::~PacketCollection(v4);
   }
 }
 
-void sub_2655D80D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2655D80D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PacketCollection::~PacketCollection(va);
   _Unwind_Resume(a1);
 }
@@ -6199,21 +6137,18 @@ void AlgsDevice::StreamingClient::~StreamingClient(AlgsDevice::StreamingClient *
 
 {
   *this = &unk_2876F8510;
-  v2 = *(this + 13);
-  if (v2)
+  if (*(this + 13))
   {
-    v3 = OUTLINED_FUNCTION_11_0(v2);
-    (*(v4 + 8))(v3);
+    OUTLINED_FUNCTION_11_0();
+    (*(v2 + 8))();
   }
 
-  v5 = *(this + 14);
-  if (v5)
+  if (*(this + 14))
   {
-    v6 = OUTLINED_FUNCTION_11_0(v5);
-    (*(v7 + 8))(v6);
+    OUTLINED_FUNCTION_11_0();
+    (*(v3 + 8))();
   }
 
-  v8 = *(this + 1);
   OUTLINED_FUNCTION_13_0();
   MEMORY[0x266758DE0]();
   StreamingPacketCache::~StreamingPacketCache((this + 128));
@@ -6222,36 +6157,34 @@ void AlgsDevice::StreamingClient::~StreamingClient(AlgsDevice::StreamingClient *
 void AlgsDevice::StreamingClient::configure(AlgsDevice::StreamingClient *this, char a2, AlgDataExtractor *a3)
 {
   *(this + 96) = a2;
-  v5 = *(this + 1);
   OUTLINED_FUNCTION_13_0();
   MEMORY[0x266758DE0]();
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
   *(this + 1) = 0;
   *(this + 3) = 0;
-  while (v7 < *(a3 + 5))
+  while (v6 < *(a3 + 5))
   {
-    v8 = (*(a3 + 1) + v6);
-    if (*v8 == 0x3779B8717A8905ELL && v8[1] == 0xC0246BF06F597652)
+    v7 = (*(a3 + 1) + v5);
+    if (*v7 == 0x3779B8717A8905ELL && v7[1] == 0xC0246BF06F597652)
     {
       *(a3 + 7) = AlgsDevice::StreamingClient::configure(BOOL,AlgDataExtractor &)::$_0::__invoke;
       *(a3 + 8) = this;
       AlgsDevice::StreamingClient::profileAlloc(this, *(this + 8));
     }
 
-    v8[8] = AlgsDevice::StreamingClient::extraction;
-    v8[9] = this;
-    ++v7;
-    v6 += 80;
+    v7[8] = AlgsDevice::StreamingClient::extraction;
+    v7[9] = this;
+    ++v6;
+    v5 += 80;
   }
 
-  v10 = *(this + 4);
   OUTLINED_FUNCTION_40();
 
-  AlgsDevice::addClient(v11, v12, v13, v14);
+  AlgsDevice::addClient(v9, v10, v11, v12);
 }
 
-double AlgsDevice::StreamingClient::extraction(__int16 *a1)
+double AlgsDevice::StreamingClient::extraction(unsigned __int16 *a1)
 {
   v1 = *a1;
   v2 = (*a1 + 48);
@@ -6353,24 +6286,23 @@ void AlgDataExtractor::AlgDataExtractor(AlgDataExtractor *this)
 
 uint64_t AlgsDevice::StreamingClient::configureStatus(AlgsDevice::StreamingClient *this)
 {
-  AlgDataExtractor::AlgDataExtractor(v6, *(*(this + 4) + 48));
-  v2 = *(this + 4);
-  AlgsDevice::getClientExtractor();
-  v4 = StreamingWriter::writeConfigure((this + 40), *(this + 96), v6, v3);
-  PacketCollection::~PacketCollection(v6);
-  return v4;
+  AlgDataExtractor::AlgDataExtractor(v5, *(*(this + 4) + 48));
+  AlgsDevice::getClientExtractor(*(this + 4), v5);
+  v3 = StreamingWriter::writeConfigure((this + 40), *(this + 96), v5, v2);
+  PacketCollection::~PacketCollection(v5);
+  return v3;
 }
 
-void sub_2655D8510(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2655D8510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PacketCollection::~PacketCollection(va);
   _Unwind_Resume(a1);
 }
 
-void AlgsDevice::StreamingClient::translate(AlgsDevice::StreamingClient *this, PacketCollection *a2, PacketCollection *a3)
+void AlgsDevice::StreamingClient::translate(uint64_t this, PacketCollection *a2, PacketCollection *a3)
 {
-  if (*(this + 13))
+  if (*(this + 104))
   {
     OUTLINED_FUNCTION_34();
     v7 = v6;
@@ -6411,17 +6343,17 @@ void AlgsDevice::StreamingClient::translate(AlgsDevice::StreamingClient *this, P
   }
 }
 
-uint64_t AlgsDevice::StreamingClient::setBuffer(AlgsDevice::StreamingClient *this, void *a2)
+uint64_t AlgsDevice::StreamingClient::setBuffer(AlgsDevice::StreamingClient *this, void *a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_23();
   result = OUTLINED_FUNCTION_35();
-  *(v4 + 40) = 0;
-  *(v4 + 48) = v3;
-  *(v4 + 56) = v2;
-  *(v4 + 64) = 0;
-  *(v4 + 72) = 0;
-  *(v4 + 74) = 0;
-  *(v4 + 80) = 0;
+  *(v5 + 40) = 0;
+  *(v5 + 48) = v4;
+  *(v5 + 56) = v3;
+  *(v5 + 64) = 0;
+  *(v5 + 72) = 0;
+  *(v5 + 74) = 0;
+  *(v5 + 80) = 0;
   return result;
 }
 
@@ -6444,14 +6376,6 @@ double OUTLINED_FUNCTION_2_1()
   return result;
 }
 
-void OUTLINED_FUNCTION_22(unsigned int a1@<W8>)
-{
-  v4 = *(v1 + 8) + a1 * v3;
-  v5 = *v4;
-  v6 = *(v2 + 72);
-  v7 = *(v4 + 33);
-}
-
 void *OUTLINED_FUNCTION_28()
 {
   v0[5] = v1;
@@ -6459,7 +6383,7 @@ void *OUTLINED_FUNCTION_28()
   return v0;
 }
 
-uint64_t OUTLINED_FUNCTION_32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, char a22)
+uint64_t OUTLINED_FUNCTION_32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, char a22)
 {
   if (v22)
   {

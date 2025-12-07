@@ -1,6 +1,8 @@
 @interface OTFollowup
 - (BOOL)clearAllRepairFollowUps:(id)ups error:(id *)error;
+- (BOOL)clearFollowUp:(unsigned __int8)up activeAccount:(id)account error:(id *)error;
 - (BOOL)hasPosted:(unsigned __int8)posted;
+- (BOOL)postFollowUp:(unsigned __int8)up activeAccount:(id)account error:(id *)error;
 - (OTFollowup)initWithFollowupController:(id)controller;
 - (id)createCDPFollowupContext:(unsigned __int8)context;
 - (id)sfaStatus;
@@ -174,6 +176,173 @@
   LOBYTE(error) = [(OTFollowup *)self clearFollowUp:4 activeAccount:upsCopy error:error];
 
   return v8 & error;
+}
+
+- (BOOL)clearFollowUp:(unsigned __int8)up activeAccount:(id)account error:(id *)error
+{
+  upCopy = up;
+  accountCopy = account;
+  v9 = [(OTFollowup *)self createCDPFollowupContext:upCopy];
+  if (qword_10039E108 != -1)
+  {
+    dispatch_once(&qword_10039E108, &stru_1003420B8);
+  }
+
+  if (byte_10039E100 == 1)
+  {
+    v10 = sub_100006274("followup");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      altDSID = [accountCopy altDSID];
+      personaUniqueString = [accountCopy personaUniqueString];
+      v23 = 138412546;
+      v24 = altDSID;
+      v25 = 2112;
+      v26 = personaUniqueString;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting altdsid (%@) on context for persona (%@)", &v23, 0x16u);
+    }
+
+    altDSID2 = [accountCopy altDSID];
+    [v9 setAltDSID:altDSID2];
+  }
+
+  if (!v9)
+  {
+    goto LABEL_16;
+  }
+
+  v14 = sub_100006274("followup");
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    if ((upCopy - 1) > 4)
+    {
+      v15 = @"none";
+    }
+
+    else
+    {
+      v15 = *(&off_100343A40 + (upCopy - 1));
+    }
+
+    v23 = 138412290;
+    v24 = v15;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Clearing follow ups (for Octagon) of type %@", &v23, 0xCu);
+  }
+
+  cdpd = [(OTFollowup *)self cdpd];
+  v17 = [cdpd clearFollowUpWithContext:v9 error:error];
+
+  if (v17)
+  {
+    postedCFUTypes = [(OTFollowup *)self postedCFUTypes];
+    v19 = postedCFUTypes;
+    if ((upCopy - 1) > 4)
+    {
+      v20 = @"none";
+    }
+
+    else
+    {
+      v20 = *(&off_100343A40 + (upCopy - 1));
+    }
+
+    [postedCFUTypes removeObject:v20];
+
+    v21 = 1;
+  }
+
+  else
+  {
+LABEL_16:
+    v21 = 0;
+  }
+
+  return v21;
+}
+
+- (BOOL)postFollowUp:(unsigned __int8)up activeAccount:(id)account error:(id *)error
+{
+  upCopy = up;
+  accountCopy = account;
+  v9 = [(OTFollowup *)self createCDPFollowupContext:upCopy];
+  if (qword_10039E108 != -1)
+  {
+    dispatch_once(&qword_10039E108, &stru_1003420B8);
+  }
+
+  if (byte_10039E100 == 1)
+  {
+    v10 = sub_100006274("followup");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      altDSID = [accountCopy altDSID];
+      personaUniqueString = [accountCopy personaUniqueString];
+      *buf = 138412546;
+      v26 = altDSID;
+      v27 = 2112;
+      v28 = personaUniqueString;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting altdsid (%@) on context for persona (%@)", buf, 0x16u);
+    }
+
+    altDSID2 = [accountCopy altDSID];
+    [v9 setAltDSID:altDSID2];
+  }
+
+  if (v9)
+  {
+    v14 = sub_100006274("followup");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      if ((upCopy - 1) > 4)
+      {
+        v15 = @"none";
+      }
+
+      else
+      {
+        v15 = *(&off_100343A40 + (upCopy - 1));
+      }
+
+      *buf = 138412290;
+      v26 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Posting a follow up (for Octagon) of type %@", buf, 0xCu);
+    }
+
+    cdpd = [(OTFollowup *)self cdpd];
+    v24 = 0;
+    v16 = [cdpd postFollowUpWithContext:v9 error:&v24];
+    v18 = v24;
+
+    if (v16)
+    {
+      postedCFUTypes = [(OTFollowup *)self postedCFUTypes];
+      v20 = postedCFUTypes;
+      if ((upCopy - 1) > 4)
+      {
+        v21 = @"none";
+      }
+
+      else
+      {
+        v21 = *(&off_100343A40 + (upCopy - 1));
+      }
+
+      [postedCFUTypes addObject:v21];
+    }
+
+    else if (error)
+    {
+      v22 = v18;
+      *error = v18;
+    }
+  }
+
+  else
+  {
+    LOBYTE(v16) = 0;
+  }
+
+  return v16;
 }
 
 - (id)createCDPFollowupContext:(unsigned __int8)context

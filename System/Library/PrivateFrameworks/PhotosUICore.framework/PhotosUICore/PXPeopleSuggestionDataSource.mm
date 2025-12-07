@@ -782,7 +782,7 @@ void __107__PXPeopleSuggestionDataSource_commitSuggestionsForPerson_withConfirme
   }
 }
 
-void __107__PXPeopleSuggestionDataSource_commitSuggestionsForPerson_withConfirmedSuggestions_andRejectedSuggestions___block_invoke_5(uint64_t a1, void *a2, void *a3)
+void __107__PXPeopleSuggestionDataSource_commitSuggestionsForPerson_withConfirmedSuggestions_andRejectedSuggestions___block_invoke_5(void *a1, void *a2, void *a3)
 {
   v32 = *MEMORY[0x1E69E9840];
   v21 = a2;
@@ -812,8 +812,8 @@ void __107__PXPeopleSuggestionDataSource_commitSuggestionsForPerson_withConfirme
           v23 = MEMORY[0x1E6991F28];
           v29[0] = @"action";
           v29[1] = @"type";
-          v10 = *(a1 + 32);
-          v11 = *(a1 + 40);
+          v10 = a1[4];
+          v11 = a1[5];
           v30[0] = v21;
           v30[1] = v10;
           v30[2] = v11;

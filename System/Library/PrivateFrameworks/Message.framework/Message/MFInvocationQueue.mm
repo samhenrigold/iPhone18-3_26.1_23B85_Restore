@@ -379,7 +379,7 @@ void __33__MFInvocationQueue__drainQueue___block_invoke()
 
 - (id)copyDiagnosticInformation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = +[MFInvocationQueue sharedInvocationQueue];
 
@@ -397,30 +397,30 @@ void __33__MFInvocationQueue__drainQueue___block_invoke()
   [(NSConditionLock *)self->_lock lock];
   if ([(NSMutableArray *)self->_items count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_items;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v3 appendFormat:@"  %@\n", *(*(&v13 + 1) + 8 * v10++)];
+          [v3 appendFormat:@"  %@\n", *(*(&v12 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -433,7 +433,6 @@ void __33__MFInvocationQueue__drainQueue___block_invoke()
   }
 
   [(NSConditionLock *)self->_lock unlock];
-  v11 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

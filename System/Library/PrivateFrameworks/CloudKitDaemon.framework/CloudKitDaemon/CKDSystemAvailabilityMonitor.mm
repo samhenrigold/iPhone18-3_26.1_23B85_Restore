@@ -191,7 +191,7 @@ LABEL_6:
 
 - (void)_logAvailabilityDescription
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -200,14 +200,12 @@ LABEL_6:
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v5 = v3;
-    v8 = objc_msgSend_availabilityDescription(self, v6, v7);
-    v9 = 138543362;
-    v10 = v8;
-    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "System is %{public}@", &v9, 0xCu);
+    v4 = v3;
+    v7 = objc_msgSend_availabilityDescription(self, v5, v6);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_debug_impl(&dword_22506F000, v4, OS_LOG_TYPE_DEBUG, "System is %{public}@", &v8, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearVanishedWatchers
@@ -242,7 +240,7 @@ LABEL_6:
 
 - (void)_systemMayNowBeReady
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_currentAvailabilityState(self, a2, v2);
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -264,9 +262,9 @@ LABEL_6:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         watcherWrappersInRegistrationOrder = selfCopy->_watcherWrappersInRegistrationOrder;
-        v33 = 138412290;
-        v34 = watcherWrappersInRegistrationOrder;
-        _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Notifying watchers of availability change. Watchers are %@", &v33, 0xCu);
+        v32 = 138412290;
+        v33 = watcherWrappersInRegistrationOrder;
+        _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Notifying watchers of availability change. Watchers are %@", &v32, 0xCu);
       }
 
       for (i = 0; i != v19; ++i)
@@ -294,13 +292,11 @@ LABEL_6:
   }
 
   objc_sync_exit(selfCopy);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerWatcher:(id)watcher
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   watcherCopy = watcher;
   if (watcherCopy)
   {
@@ -339,9 +335,9 @@ LABEL_18:
     v14 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v24 = 138412290;
-      v25 = watcherCopy;
-      _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Registering watcher %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = watcherCopy;
+      _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Registering watcher %@", &v23, 0xCu);
     }
 
     if (!selfCopy->_watcherWrappersInRegistrationOrder)
@@ -365,7 +361,6 @@ LABEL_18:
   v11 = 0;
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

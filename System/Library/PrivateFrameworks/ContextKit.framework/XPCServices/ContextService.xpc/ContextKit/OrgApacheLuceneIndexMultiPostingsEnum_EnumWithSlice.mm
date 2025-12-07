@@ -13,9 +13,8 @@
     JreThrowNullPointerException();
   }
 
-  v4 = [(OrgApacheLuceneIndexReaderSlice *)slice description];
-  postingsEnum = self->postingsEnum_;
-  return JreStrcat("$C@", v5, v6, v7, v8, v9, v10, v11, v4);
+  v3 = [(OrgApacheLuceneIndexReaderSlice *)slice description];
+  return JreStrcat("$C@", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

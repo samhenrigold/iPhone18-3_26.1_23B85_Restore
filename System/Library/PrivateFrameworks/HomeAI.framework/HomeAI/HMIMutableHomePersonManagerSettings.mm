@@ -6,8 +6,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [[HMIHomePersonManagerSettings allocWithZone:?]];
-  [(HMIHomePersonManagerSettings *)v4 setFaceClassificationEnabled:[(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled]];
+  v4 = [+[HMIHomePersonManagerSettings allocWithZone:](HMIHomePersonManagerSettings init];
+  [(HMIHomePersonManagerSettings *)self isFaceClassificationEnabled];
+  [(HMIHomePersonManagerSettings *)v4 setFaceClassificationEnabled:?];
   return v4;
 }
 

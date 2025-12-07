@@ -1,4 +1,6 @@
 @interface USBDFUUpdater
++ (id)matchingDictionaryForVendorID:(unsigned __int16)d productId:(unsigned __int16)id serialNumber:(id)number;
++ (id)matchingDictionaryHIDForVendorID:(unsigned __int16)d productId:(unsigned __int16)id serialNumber:(id)number;
 - (USBDFUUpdater)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD serialNumber:(id)number dfuModeActive:(BOOL)active simulator:(BOOL)simulator;
 - (int)closeDfuDevice;
 - (int)dfuDetachToAppCmd;
@@ -11,11 +13,61 @@
 - (int)hvciAppDetachToDfuCmd;
 - (int)initCurrentState;
 - (int)openDfuDevice;
+- (int)sendDfuBlockData:(char *)data length:(unsigned __int16)length;
 - (int)sendHIDReport:(unsigned int)report reportID:(int)d report:(char *)a5 length:(int)length;
 - (int)setDfuMode;
 @end
 
 @implementation USBDFUUpdater
+
++ (id)matchingDictionaryForVendorID:(unsigned __int16)d productId:(unsigned __int16)id serialNumber:(id)number
+{
+  idCopy = id;
+  dCopy = d;
+  numberCopy = number;
+  v8 = IOServiceMatching("IOUSBDevice");
+  v9 = objc_alloc_init(NSMutableDictionary);
+  v10 = [NSNumber numberWithUnsignedShort:dCopy];
+  [v9 setObject:v10 forKeyedSubscript:@"idVendor"];
+
+  v11 = [NSNumber numberWithUnsignedShort:idCopy];
+  [v9 setObject:v11 forKeyedSubscript:@"idProduct"];
+
+  if (numberCopy)
+  {
+    [v9 setObject:numberCopy forKeyedSubscript:@"kUSBSerialNumberString"];
+  }
+
+  [(__CFDictionary *)v8 setObject:v9 forKeyedSubscript:@"IOPropertyMatch"];
+
+  return v8;
+}
+
++ (id)matchingDictionaryHIDForVendorID:(unsigned __int16)d productId:(unsigned __int16)id serialNumber:(id)number
+{
+  idCopy = id;
+  dCopy = d;
+  numberCopy = number;
+  v8 = objc_alloc_init(NSMutableDictionary);
+  [v8 setObject:&off_100024D28 forKeyedSubscript:@"DeviceUsagePage"];
+  [v8 setObject:&off_100024D40 forKeyedSubscript:@"DeviceUsage"];
+  v14 = v8;
+  v9 = [NSArray arrayWithObjects:&v14 count:1];
+  v10 = IOServiceMatching("IOHIDDevice");
+  [(__CFDictionary *)v10 setObject:v9 forKeyedSubscript:@"DeviceUsagePairs"];
+  v11 = [NSNumber numberWithUnsignedShort:dCopy];
+  [(__CFDictionary *)v10 setObject:v11 forKeyedSubscript:@"VendorID"];
+
+  v12 = [NSNumber numberWithUnsignedShort:idCopy];
+  [(__CFDictionary *)v10 setObject:v12 forKeyedSubscript:@"ProductID"];
+
+  if (numberCopy)
+  {
+    [(__CFDictionary *)v10 setObject:numberCopy forKeyedSubscript:@"kUSBSerialNumberString"];
+  }
+
+  return v10;
+}
 
 - (USBDFUUpdater)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD serialNumber:(id)number dfuModeActive:(BOOL)active simulator:(BOOL)simulator
 {
@@ -503,6 +555,55 @@ LABEL_27:
   }
 
   return hvciAppDetachToDfuCmd;
+}
+
+- (int)sendDfuBlockData:(char *)data length:(unsigned __int16)length
+{
+  lengthCopy = length;
+  openDfuDevice = [(USBDFUUpdater *)self openDfuDevice];
+  if (!openDfuDevice)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      currentDataBlock = self->_currentDataBlock;
+      v12 = 136315650;
+      v13 = "[USBDFUUpdater sendDfuBlockData:length:]";
+      v14 = 1024;
+      v15 = currentDataBlock;
+      v16 = 1024;
+      v17 = lengthCopy;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: Downloading data block %u [%hu byte(s)]", &v12, 0x18u);
+    }
+
+    v10 = [(USBDFUUpdater *)self dfuDnLoadCmd:self->_currentDataBlock data:data length:lengthCopy];
+    if (v10)
+    {
+      goto LABEL_5;
+    }
+
+    if (lengthCopy)
+    {
+      v10 = [(USBDFUUpdater *)self dfuGetStatusCmd:&self->_currentStatus];
+      if (v10)
+      {
+LABEL_5:
+        openDfuDevice = v10;
+        [(USBDFUUpdater *)self closeDfuDevice];
+        return openDfuDevice;
+      }
+
+      if (self->_currentStatus.bStatus)
+      {
+        return -536870212;
+      }
+    }
+
+    openDfuDevice = 0;
+    ++self->_currentDataBlock;
+  }
+
+  return openDfuDevice;
 }
 
 @end

@@ -11,20 +11,20 @@
   networkCopy = network;
   profileCopy = profile;
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = WFDiagnosticsContext;
-  v12 = [(WFDiagnosticsContext *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = WFDiagnosticsContext;
+  v12 = [(WFDiagnosticsContext *)&v30 init];
   v13 = v12;
   if (!v12)
   {
-    v30 = 0;
+    v29 = 0;
     goto LABEL_46;
   }
 
   if (!networkCopy)
   {
     [WFDiagnosticsContext initWithNetwork:profile:detailsContext:];
-    v30 = v13;
+    v29 = v13;
     v13 = 0;
     goto LABEL_46;
   }
@@ -178,23 +178,22 @@ LABEL_39:
 
   [profileCopy networkQualityResponsiveness];
   *(v13 + 224) = v24;
-  v25 = *MEMORY[0x277CBECE8];
-  v26 = WiFiManagerClientCreate();
-  *(v13 + 256) = v26;
-  if (v26)
+  v25 = WiFiManagerClientCreate();
+  *(v13 + 256) = v25;
+  if (v25)
   {
-    v27 = WiFiManagerClientCopyDevices();
-    if ([v27 count])
+    v26 = WiFiManagerClientCopyDevices();
+    if ([v26 count])
     {
-      *(v13 + 264) = [v27 objectAtIndex:0];
+      *(v13 + 264) = [v26 objectAtIndex:0];
     }
   }
 
-  v28 = *(v13 + 264);
-  if (v28)
+  v27 = *(v13 + 264);
+  if (v27)
   {
-    [(WFDiagnosticsContext *)v28 initWithNetwork:v13 profile:(v13 + 256) detailsContext:&v32];
-    v30 = v32;
+    [(WFDiagnosticsContext *)v27 initWithNetwork:v13 profile:(v13 + 256) detailsContext:&v31];
+    v29 = v31;
 LABEL_46:
   }
 
@@ -204,315 +203,314 @@ LABEL_46:
 - (void)updateInfo:(id)info
 {
   infoCopy = info;
-  device = self->_device;
-  v5 = WiFiDeviceClientCopyCurrentNetwork();
-  if (!infoCopy || !v5)
+  v4 = WiFiDeviceClientCopyCurrentNetwork();
+  if (!infoCopy || !v4)
   {
     goto LABEL_55;
   }
 
-  v6 = WiFiNetworkGetProperty();
+  v5 = WiFiNetworkGetProperty();
   BSSID = self->_BSSID;
-  self->_BSSID = v6;
+  self->_BSSID = v5;
 
-  v8 = WiFiNetworkGetProperty();
+  v7 = WiFiNetworkGetProperty();
   channel = self->_channel;
-  self->_channel = v8;
+  self->_channel = v7;
 
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%dMHz)", self->_channel, WiFiNetworkGetChannelWidthInMHz()];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%dMHz)", self->_channel, WiFiNetworkGetChannelWidthInMHz()];
   channelString = self->_channelString;
-  self->_channelString = v10;
+  self->_channelString = v9;
 
-  v12 = WiFiNetworkGetAPEnv();
-  intValue = [v12 intValue];
-  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v15 = v14;
+  v11 = WiFiNetworkGetAPEnv();
+  intValue = [v11 intValue];
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = v13;
   if ((intValue - 1) > 3)
   {
-    v16 = @"kWFLocDiagnosticsUnspecifiedEnv";
+    v15 = @"kWFLocDiagnosticsUnspecifiedEnv";
   }
 
   else
   {
-    v16 = off_279EBCE08[intValue - 1];
+    v15 = off_279EBCE08[intValue - 1];
   }
 
-  v17 = [v14 localizedStringForKey:v16 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v16 = [v13 localizedStringForKey:v15 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
   deployment = self->_deployment;
-  self->_deployment = v17;
+  self->_deployment = v16;
 
-  v19 = [infoCopy objectForKey:*MEMORY[0x277D297B8]];
-  if (![v19 isEqualToString:@"Stationary"])
+  v18 = [infoCopy objectForKey:*MEMORY[0x277D297B8]];
+  if (![v18 isEqualToString:@"Stationary"])
   {
-    if ([v19 isEqualToString:@"Walking"])
+    if ([v18 isEqualToString:@"Walking"])
     {
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = v20;
-      v22 = @"kWFLocDiagnosticsWalking";
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = v19;
+      v21 = @"kWFLocDiagnosticsWalking";
       goto LABEL_14;
     }
 
-    if ([v19 isEqualToString:@"Running"])
+    if ([v18 isEqualToString:@"Running"])
     {
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = v20;
-      v22 = @"kWFLocDiagnosticsRunning";
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = v19;
+      v21 = @"kWFLocDiagnosticsRunning";
       goto LABEL_14;
     }
 
-    if ([v19 isEqualToString:@"Driving"])
+    if ([v18 isEqualToString:@"Driving"])
     {
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = v20;
-      v22 = @"kWFLocDiagnosticsDriving";
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = v19;
+      v21 = @"kWFLocDiagnosticsDriving";
       goto LABEL_14;
     }
 
-    if (![v19 isEqualToString:@"Moving"])
+    if (![v18 isEqualToString:@"Moving"])
     {
-      v95 = [v19 isEqualToString:@"Driving Stopped"];
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = v20;
-      if (v95)
+      v94 = [v18 isEqualToString:@"Driving Stopped"];
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = v19;
+      if (v94)
       {
-        v22 = @"kWFLocDiagnosticsDrivingStopped";
+        v21 = @"kWFLocDiagnosticsDrivingStopped";
       }
 
       else
       {
-        v22 = @"kWFLocDiagnosticsMotionUnknown";
+        v21 = @"kWFLocDiagnosticsMotionUnknown";
       }
 
       goto LABEL_14;
     }
   }
 
-  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v21 = v20;
-  v22 = @"kWFLocDiagnosticsMoving";
+  v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v20 = v19;
+  v21 = @"kWFLocDiagnosticsMoving";
 LABEL_14:
-  v23 = [v20 localizedStringForKey:v22 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v22 = [v19 localizedStringForKey:v21 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
   motion = self->_motion;
-  self->_motion = v23;
+  self->_motion = v22;
 
-  v102 = [infoCopy objectForKey:*MEMORY[0x277D297B0]];
-  if (v102)
+  v101 = [infoCopy objectForKey:*MEMORY[0x277D297B0]];
+  if (v101)
   {
-    v25 = v19;
-    v26 = v12;
-    v27 = v5;
-    v28 = [v102 objectForKey:@"RSSI"];
-    v29 = [v102 objectForKey:@"CCA"];
-    if ([v28 intValue] < -59)
+    v24 = v18;
+    v25 = v11;
+    v26 = v4;
+    v27 = [v101 objectForKey:@"RSSI"];
+    v28 = [v101 objectForKey:@"CCA"];
+    if ([v27 intValue] < -59)
     {
-      intValue2 = [v28 intValue];
-      v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v31 = v30;
+      intValue2 = [v27 intValue];
+      v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v30 = v29;
       if (intValue2 < -74)
       {
-        v32 = @"kWFLocDiagnosticsRSSIWeak";
+        v31 = @"kWFLocDiagnosticsRSSIWeak";
       }
 
       else
       {
-        v32 = @"kWFLocDiagnosticsRSSIModerate";
+        v31 = @"kWFLocDiagnosticsRSSIModerate";
       }
     }
 
     else
     {
-      v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v31 = v30;
-      v32 = @"kWFLocDiagnosticsRSSIStrong";
+      v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v30 = v29;
+      v31 = @"kWFLocDiagnosticsRSSIStrong";
     }
 
-    v34 = [v30 localizedStringForKey:v32 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v33 = [v29 localizedStringForKey:v31 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
     rssiPerformance = self->_rssiPerformance;
-    self->_rssiPerformance = v34;
+    self->_rssiPerformance = v33;
 
-    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v28, self->_rssiPerformance];
+    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v27, self->_rssiPerformance];
     rssi = self->_rssi;
-    self->_rssi = v36;
+    self->_rssi = v35;
 
-    if ([v29 intValue] > 49)
+    if ([v28 intValue] > 49)
     {
-      intValue3 = [v29 intValue];
-      v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v39 = v38;
+      intValue3 = [v28 intValue];
+      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v38 = v37;
       if (intValue3 > 69)
       {
-        v40 = @"kWFLocDiagnosticsCCAWeak";
+        v39 = @"kWFLocDiagnosticsCCAWeak";
       }
 
       else
       {
-        v40 = @"kWFLocDiagnosticsCCAModerate";
+        v39 = @"kWFLocDiagnosticsCCAModerate";
       }
     }
 
     else
     {
-      v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v39 = v38;
-      v40 = @"kWFLocDiagnosticsCCAStrong";
+      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v38 = v37;
+      v39 = @"kWFLocDiagnosticsCCAStrong";
     }
 
-    v42 = [v38 localizedStringForKey:v40 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v41 = [v37 localizedStringForKey:v39 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
     cca = self->_cca;
-    self->_cca = v42;
+    self->_cca = v41;
 
-    v5 = v27;
-    v12 = v26;
-    v19 = v25;
+    v4 = v26;
+    v11 = v25;
+    v18 = v24;
   }
 
-  v44 = [infoCopy objectForKey:*MEMORY[0x277D297C0]];
-  v45 = [v44 objectAtIndexedSubscript:0];
+  v43 = [infoCopy objectForKey:*MEMORY[0x277D297C0]];
+  v44 = [v43 objectAtIndexedSubscript:0];
 
-  if (v45)
+  if (v44)
   {
-    v46 = [v45 objectForKey:@"kWiFiLqaMgrNumProbesFail"];
-    v47 = [v45 objectForKey:@"kWiFiLqaMgrAverageRTT"];
-    if ([v46 intValue] < 1)
+    v45 = [v44 objectForKey:@"kWiFiLqaMgrNumProbesFail"];
+    v46 = [v44 objectForKey:@"kWiFiLqaMgrAverageRTT"];
+    if ([v45 intValue] < 1)
     {
-      v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ms", v47];
+      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ms", v46];
       gateway = self->_gateway;
-      self->_gateway = v51;
+      self->_gateway = v50;
     }
 
     else
     {
       gateway = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v49 = [gateway localizedStringForKey:@"kWFLocDiagnosticsProbeNoConnection" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      v50 = self->_gateway;
-      self->_gateway = v49;
+      v48 = [gateway localizedStringForKey:@"kWFLocDiagnosticsProbeNoConnection" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      v49 = self->_gateway;
+      self->_gateway = v48;
     }
   }
 
-  v52 = [infoCopy objectForKey:*MEMORY[0x277D297C8]];
-  v53 = [v52 objectAtIndexedSubscript:0];
+  v51 = [infoCopy objectForKey:*MEMORY[0x277D297C8]];
+  v52 = [v51 objectAtIndexedSubscript:0];
 
-  if (v53)
+  if (v52)
   {
-    v54 = [v53 objectForKey:@"kWiFiLqaMgrNumProbesFail"];
-    v55 = v53;
-    v56 = [v53 objectForKey:@"kWiFiLqaMgrAverageRTT"];
-    if ([v54 intValue] < 1)
+    v53 = [v52 objectForKey:@"kWiFiLqaMgrNumProbesFail"];
+    v54 = v52;
+    v55 = [v52 objectForKey:@"kWiFiLqaMgrAverageRTT"];
+    if ([v53 intValue] < 1)
     {
-      v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ms", v56];
+      v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ms", v55];
       internet = self->_internet;
-      self->_internet = v60;
+      self->_internet = v59;
     }
 
     else
     {
       internet = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v58 = [internet localizedStringForKey:@"kWFLocDiagnosticsProbeNoConnection" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      v59 = self->_internet;
-      self->_internet = v58;
+      v57 = [internet localizedStringForKey:@"kWFLocDiagnosticsProbeNoConnection" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      v58 = self->_internet;
+      self->_internet = v57;
     }
 
-    v53 = v55;
+    v52 = v54;
   }
 
-  v101 = v45;
-  v61 = [infoCopy objectForKey:*MEMORY[0x277D297A0]];
-  v62 = v61;
-  if (v61)
+  v100 = v44;
+  v60 = [infoCopy objectForKey:*MEMORY[0x277D297A0]];
+  v61 = v60;
+  if (v60)
   {
-    v63 = [v61 objectForKey:@"LINK_CHANGED_IS_LINKDOWN"];
-    bOOLValue = [v63 BOOLValue];
+    v62 = [v60 objectForKey:@"LINK_CHANGED_IS_LINKDOWN"];
+    bOOLValue = [v62 BOOLValue];
 
-    v65 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v66 = v65;
+    v64 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v65 = v64;
     if (bOOLValue)
     {
-      v67 = @"kWFLocDiagnosticsAWDLInactive";
+      v66 = @"kWFLocDiagnosticsAWDLInactive";
     }
 
     else
     {
-      v67 = @"kWFLocDiagnosticsAWDLActive";
+      v66 = @"kWFLocDiagnosticsAWDLActive";
     }
 
-    v68 = [v65 localizedStringForKey:v67 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v67 = [v64 localizedStringForKey:v66 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
     awdl = self->_awdl;
-    self->_awdl = v68;
+    self->_awdl = v67;
   }
 
-  v100 = v62;
-  v70 = [infoCopy objectForKey:*MEMORY[0x277D297A8]];
-  v71 = v70;
-  if (v70)
+  v99 = v61;
+  v69 = [infoCopy objectForKey:*MEMORY[0x277D297A8]];
+  v70 = v69;
+  if (v69)
   {
-    intValue4 = [v70 intValue];
-    v73 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v74 = v73;
+    intValue4 = [v69 intValue];
+    v72 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v73 = v72;
     if (intValue4 > 8)
     {
-      v75 = @"kWFLocDiagnosticsBTUnnkown";
+      v74 = @"kWFLocDiagnosticsBTUnnkown";
     }
 
     else
     {
-      v75 = off_279EBCE28[intValue4];
+      v74 = off_279EBCE28[intValue4];
     }
 
-    v76 = [v73 localizedStringForKey:v75 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+    v75 = [v72 localizedStringForKey:v74 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
     bluetooth = self->_bluetooth;
-    self->_bluetooth = v76;
+    self->_bluetooth = v75;
   }
 
-  v78 = [infoCopy objectForKey:*MEMORY[0x277D297D8]];
-  if ([v78 intValue])
+  v77 = [infoCopy objectForKey:*MEMORY[0x277D297D8]];
+  if ([v77 intValue])
   {
-    v79 = @"kWFLocDiagnosticsScanInactive";
+    v78 = @"kWFLocDiagnosticsScanInactive";
   }
 
   else
   {
-    v79 = @"kWFLocDiagnosticsScanActive";
+    v78 = @"kWFLocDiagnosticsScanActive";
   }
 
-  v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v81 = [v80 localizedStringForKey:v79 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+  v79 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v80 = [v79 localizedStringForKey:v78 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
   scan = self->_scan;
-  self->_scan = v81;
+  self->_scan = v80;
 
-  v83 = [infoCopy objectForKey:*MEMORY[0x277D297D0]];
-  v84 = v83;
-  if (v83)
+  v82 = [infoCopy objectForKey:*MEMORY[0x277D297D0]];
+  v83 = v82;
+  if (v82)
   {
-    v99 = v53;
-    v85 = [v83 objectForKey:*MEMORY[0x277D29788]];
-    v86 = [v84 objectForKey:*MEMORY[0x277D29790]];
-    v87 = v86;
-    if (v85 && v86)
+    v98 = v52;
+    v84 = [v82 objectForKey:*MEMORY[0x277D29788]];
+    v85 = [v83 objectForKey:*MEMORY[0x277D29790]];
+    v86 = v85;
+    if (v84 && v85)
     {
-      v96 = MEMORY[0x277CCACA8];
-      v98 = v5;
-      v97 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v88 = [v97 localizedStringForKey:@"kWFLocDiagnosticsLastScan" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      [MEMORY[0x277CCA968] localizedStringFromDate:v87 dateStyle:1 timeStyle:1];
-      v89 = v19;
-      v91 = v90 = v12;
-      v92 = [v96 stringWithFormat:@"%@ %@ at %@", v88, v85, v91];
+      v95 = MEMORY[0x277CCACA8];
+      v97 = v4;
+      v96 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v87 = [v96 localizedStringForKey:@"kWFLocDiagnosticsLastScan" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      [MEMORY[0x277CCA968] localizedStringFromDate:v86 dateStyle:1 timeStyle:1];
+      v88 = v18;
+      v90 = v89 = v11;
+      v91 = [v95 stringWithFormat:@"%@ %@ at %@", v87, v84, v90];
       coexFooter = self->_coexFooter;
-      self->_coexFooter = v92;
+      self->_coexFooter = v91;
 
-      v12 = v90;
-      v19 = v89;
+      v11 = v89;
+      v18 = v88;
 
-      v5 = v98;
+      v4 = v97;
     }
 
-    v53 = v99;
+    v52 = v98;
   }
 
   refreshHandler = [(WFDiagnosticsContext *)self refreshHandler];
   refreshHandler[2]();
 
-  CFRelease(v5);
+  CFRelease(v4);
 LABEL_55:
 }
 
@@ -527,34 +525,30 @@ LABEL_55:
   {
     mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
     [mainRunLoop getCFRunLoop];
-    v3 = *MEMORY[0x277CBF058];
     WiFiManagerClientUnscheduleFromRunLoop();
   }
 }
 
 - (void)initWithNetwork:profile:detailsContext:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    v3 = 136315138;
-    v4 = "[WFDiagnosticsContext initWithNetwork:profile:detailsContext:]";
-    _os_log_impl(&dword_273ECD000, v0, v1, "%s: nil network", &v3, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFDiagnosticsContext initWithNetwork:profile:detailsContext:]";
+    _os_log_impl(&dword_273ECD000, v0, v2, "%s: nil network", &v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)initWithNetwork:(uint64_t *)a3 profile:(void *)a4 detailsContext:.cold.2(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   WiFiDeviceClientRegisterDiagnosticsCallback();
-  v6 = *a3;
-  v7 = [MEMORY[0x277CBEB88] mainRunLoop];
-  *a4 = v7;
-  [v7 getCFRunLoop];
-  v8 = *MEMORY[0x277CBF058];
+  v5 = [MEMORY[0x277CBEB88] mainRunLoop];
+  *a4 = v5;
+  [v5 getCFRunLoop];
   return WiFiManagerClientScheduleWithRunLoop();
 }
 

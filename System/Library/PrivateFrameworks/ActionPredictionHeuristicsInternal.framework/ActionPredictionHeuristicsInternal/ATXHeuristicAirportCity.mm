@@ -37,27 +37,7 @@
       }
 
       v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v13 options:1 error:0];
-      if (!v14)
-      {
-        goto LABEL_25;
-      }
-
-      __little = 0;
-      uTF8String = [uppercaseString UTF8String];
-      v16 = *(uTF8String + 2);
-      v35 = *uTF8String;
-      v36 = v16;
-      v17 = memmem([v14 bytes], objc_msgSend(v14, "length"), &__little, 4uLL);
-      if (!v17)
-      {
-        goto LABEL_25;
-      }
-
-      v18 = v17;
-      bytes = [v14 bytes];
-      v20 = bytes + [v14 length];
-      v21 = v18 + 9;
-      if ((v18 + 9) < v20)
+      if (v14 && (__little = 0, v15 = [uppercaseString UTF8String], v16 = *(v15 + 2), v35 = *v15, v36 = v16, (v17 = memmem(objc_msgSend(v14, "bytes"), objc_msgSend(v14, "length"), &__little, 4uLL)) != 0) && (v18 = v17, v19 = objc_msgSend(v14, "bytes"), v20 = v19 + objc_msgSend(v14, "length"), v21 = v18 + 9, (v18 + 9) < v20))
       {
         v32 = v18[8];
         v33 = *(v18 + 1);
@@ -65,7 +45,7 @@
         v23 = v18 + 12;
         if ((v18 + 12) < v20)
         {
-          v24 = (v18 + 11);
+          v24 = v18 + 11;
           do
           {
             if (!*v21)
@@ -80,8 +60,8 @@
               break;
             }
 
-            uTF8String2 = [v22 UTF8String];
-            if (v37 == *uTF8String2)
+            uTF8String = [v22 UTF8String];
+            if (v37 == *uTF8String)
             {
               v30 = v22;
               v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v23 length:v25 encoding:4];

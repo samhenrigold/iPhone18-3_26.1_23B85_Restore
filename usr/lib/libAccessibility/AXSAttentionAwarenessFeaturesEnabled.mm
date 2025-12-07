@@ -10,7 +10,7 @@ uint64_t ___AXSAttentionAwarenessFeaturesEnabled_block_invoke()
   return result;
 }
 
-uint64_t ___AXSAttentionAwarenessFeaturesEnabled_block_invoke_2008()
+void *___AXSAttentionAwarenessFeaturesEnabled_block_invoke_2008()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

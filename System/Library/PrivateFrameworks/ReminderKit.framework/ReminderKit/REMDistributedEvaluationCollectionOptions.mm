@@ -385,7 +385,7 @@ LABEL_6:
 
 + (id)_attachmentURLFromFilenameWithKey:(id)key inJSONRepresentation:(id)representation attachmentURLs:(id)ls error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   representationCopy = representation;
   lsCopy = ls;
@@ -411,29 +411,29 @@ LABEL_6:
   }
 
   errorCopy = error;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = lsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v27 = lsCopy;
-    v28 = representationCopy;
+    v26 = lsCopy;
+    v27 = representationCopy;
     v16 = 0;
-    v17 = *v31;
+    v17 = *v30;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v17)
+        if (*v30 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * i);
+        v19 = *(*(&v29 + 1) + 8 * i);
         lastPathComponent = [v19 lastPathComponent];
         v21 = [lastPathComponent isEqualToString:v12];
 
@@ -445,13 +445,13 @@ LABEL_6:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
 
-    lsCopy = v27;
-    representationCopy = v28;
+    lsCopy = v26;
+    representationCopy = v27;
     if (!v16)
     {
       goto LABEL_19;
@@ -475,8 +475,6 @@ LABEL_19:
 LABEL_21:
   error = 0;
 LABEL_22:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return error;
 }

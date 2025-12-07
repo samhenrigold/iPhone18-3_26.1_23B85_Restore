@@ -8,7 +8,7 @@
 - (uint64_t)computeQuaternionTarget;
 - (uint64_t)computeScaleTarget;
 - (uint64_t)computeTopPlaneTranslationTarget;
-- (unint64_t)computeBottomPlaneTranslationTarget;
+- (void)computeBottomPlaneTranslationTarget;
 - (void)setBottomPlaneTranslationTarget:(ARCoachingGlyphState *)self;
 - (void)setQuaternionTarget:(_OWORD *)target;
 - (void)setScaleTarget:(ARCoachingGlyphState *)self;
@@ -41,19 +41,19 @@
     delegate2 = [(ARCoachingGlyphState *)self delegate];
     [delegate2 snapStateChanged];
 
-    [(ARCoachingGlyphState *)self computeQuaternionTarget];
+    objc_msgSend_computeQuaternionTarget(self);
     v12 = v14;
     v13 = v15;
     [(ARCoachingGlyphState *)self setQuaternionTarget:&v12];
-    [(ARCoachingGlyphState *)self computeScaleTarget];
+    objc_msgSend_computeScaleTarget(self);
     v12 = v10;
     v13 = v11;
     [(ARCoachingGlyphState *)self setScaleTarget:&v12];
-    [(ARCoachingGlyphState *)self computeTopPlaneTranslationTarget];
+    objc_msgSend_computeTopPlaneTranslationTarget(self);
     v12 = v8;
     v13 = v9;
     [(ARCoachingGlyphState *)self setTopPlaneTranslationTarget:&v12];
-    [(ARCoachingGlyphState *)self computeBottomPlaneTranslationTarget];
+    objc_msgSend_computeBottomPlaneTranslationTarget(self);
     v12 = v6;
     v13 = v7;
     [(ARCoachingGlyphState *)self setBottomPlaneTranslationTarget:&v12];
@@ -142,7 +142,7 @@
     if (result == 3)
     {
       [ARCoachingTransformations lookAt:-0.0000305175781 center:0.0 up:0.0078125];
-      result = [ARCoachingTransformations fromMatrix:?];
+      result = objc_msgSend_fromMatrix_(ARCoachingTransformations);
       v5 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_23D3DC370, 0, 1), xmmword_23D3DC3A0, 0.0), vmlaq_n_f64(vmulq_laneq_f64(xmmword_23D3DC3B0, 0, 1), xmmword_23D3DC3C0, 0.0));
       a2[1] = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_23D3DC380, 0, 1), xmmword_23D3DC390, 0.0), vmlaq_n_f64(vmulq_laneq_f64(xmmword_23D3DC370, 0, 1), xmmword_23D3DC3A0, 0.0));
       goto LABEL_12;
@@ -198,7 +198,7 @@ LABEL_18:
     }
   }
 
-  return [self quaternionTarget];
+  return objc_msgSend_quaternionTarget(self);
 }
 
 - (uint64_t)computeScaleTarget
@@ -216,7 +216,7 @@ LABEL_18:
     if (result != 3)
     {
 LABEL_10:
-      result = [self scaleTarget];
+      result = objc_msgSend_scaleTarget(self);
       _Q1 = v12;
       v5 = v13;
       goto LABEL_11;
@@ -265,7 +265,7 @@ LABEL_11:
     }
 
 LABEL_8:
-    result = [self topPlaneTranslationTarget];
+    result = objc_msgSend_topPlaneTranslationTarget(self, 0.0, 0.0);
     v5 = v7;
     v6 = v8;
     goto LABEL_10;
@@ -288,7 +288,7 @@ LABEL_10:
   return result;
 }
 
-- (unint64_t)computeBottomPlaneTranslationTarget
+- (void)computeBottomPlaneTranslationTarget
 {
   result = [self snapState];
   v5 = 0uLL;
@@ -302,7 +302,7 @@ LABEL_10:
 
     else
     {
-      result = [self bottomPlaneTranslationTarget];
+      result = objc_msgSend_bottomPlaneTranslationTarget(self, 0.0, 0.0);
       v5 = v7;
       v6 = v8;
     }

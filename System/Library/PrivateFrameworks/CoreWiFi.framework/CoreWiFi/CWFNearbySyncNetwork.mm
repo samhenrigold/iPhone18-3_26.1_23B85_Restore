@@ -389,11 +389,11 @@ LABEL_44:
 
 - (CWFNearbySyncNetwork)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = CWFNearbySyncNetwork;
-  v5 = [(CWFNearbySyncNetwork *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CWFNearbySyncNetwork;
+  v5 = [(CWFNearbySyncNetwork *)&v14 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_knownNetworkProfile"];
@@ -406,15 +406,14 @@ LABEL_44:
     [(CWFNearbySyncNetwork *)v5 setPassword:v8];
 
     v9 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"_captivePortalCredentials"];
     [(CWFNearbySyncNetwork *)v5 setCaptivePortalCredentials:v12];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

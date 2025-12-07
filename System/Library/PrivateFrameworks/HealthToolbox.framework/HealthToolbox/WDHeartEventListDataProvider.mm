@@ -10,12 +10,10 @@
 
 - (id)sampleTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   _heartEventType = [(WDHeartEventListDataProvider *)self _heartEventType];
-  v6[0] = _heartEventType;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = _heartEventType;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -90,59 +88,59 @@
 
 void __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limit_sortDescriptors_resultsHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v8)
   {
-    v27 = v9;
+    v26 = v9;
     v11 = dispatch_group_create();
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v28 = v8;
+    v27 = v8;
     obj = v8;
-    v12 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v12 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v12)
     {
       v13 = v12;
-      v31 = *v40;
-      v30 = *MEMORY[0x277CCCB90];
+      v30 = *v39;
+      v29 = *MEMORY[0x277CCCB90];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v40 != v31)
+          if (*v39 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v39 + 1) + 8 * i);
+          v15 = *(*(&v38 + 1) + 8 * i);
           dispatch_group_enter(v11);
           v16 = MEMORY[0x277CCD838];
           v17 = [v15 startDate];
           v18 = [v15 endDate];
           v19 = [v16 predicateForSamplesWithStartDate:v17 endDate:v18 inclusiveEndDates:1 options:3];
 
-          v20 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v30];
+          v20 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v29];
           v21 = objc_alloc(MEMORY[0x277CCD8D0]);
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limit_sortDescriptors_resultsHandler___block_invoke_2;
-          v37[3] = &unk_2796E72D8;
-          v37[4] = *(a1 + 32);
-          v37[5] = v15;
-          v38 = v11;
-          v22 = [v21 initWithSampleType:v20 predicate:v19 limit:0 sortDescriptors:0 resultsHandler:v37];
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limit_sortDescriptors_resultsHandler___block_invoke_2;
+          v36[3] = &unk_2796E72D8;
+          v36[4] = *(a1 + 32);
+          v36[5] = v15;
+          v37 = v11;
+          v22 = [v21 initWithSampleType:v20 predicate:v19 limit:0 sortDescriptors:0 resultsHandler:v36];
           v23 = [*(a1 + 32) profile];
           v24 = [v23 healthStore];
           [v24 executeQuery:v22];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v13 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v13);
@@ -153,22 +151,20 @@ void __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limi
     block[1] = 3221225472;
     block[2] = __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limit_sortDescriptors_resultsHandler___block_invoke_3;
     block[3] = &unk_2796E7978;
-    v36 = *(a1 + 40);
-    v33 = v7;
-    v34 = obj;
-    v10 = v27;
-    v35 = v27;
+    v35 = *(a1 + 40);
+    v32 = v7;
+    v33 = obj;
+    v10 = v26;
+    v34 = v26;
     dispatch_group_notify(v11, v25, block);
 
-    v8 = v28;
+    v8 = v27;
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __104__WDHeartEventListDataProvider_createQueryForSampleType_predicate_limit_sortDescriptors_resultsHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)

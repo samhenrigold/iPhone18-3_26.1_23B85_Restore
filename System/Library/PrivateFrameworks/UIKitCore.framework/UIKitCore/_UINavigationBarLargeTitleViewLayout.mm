@@ -339,9 +339,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = [v8 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(UILabel *)self->_titleLabel setAttributedText:v8];
@@ -384,9 +384,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)v10 isEqual:subtitleCopy2];
+  isEqual = objc_msgSend_isEqual_(v10);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSAttributedString *)v10 copy];

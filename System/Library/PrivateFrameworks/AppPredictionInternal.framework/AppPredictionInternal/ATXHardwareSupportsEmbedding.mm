@@ -12,7 +12,7 @@
     +[ATXHardwareSupportsEmbedding hardwareSupportsEmbedding];
   }
 
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[(ATXHardwareSupportsEmbedding *)v2];
@@ -23,7 +23,7 @@
 
 + (void)hardwareSupportsEmbedding
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (getDeviceSupported_gDeviceSupported)
   {
     v1 = @"supported";
@@ -34,10 +34,9 @@
     v1 = @"unsupported";
   }
 
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "Embedding generation %@ on this device", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "Embedding generation %@ on this device", &v2, 0xCu);
 }
 
 @end

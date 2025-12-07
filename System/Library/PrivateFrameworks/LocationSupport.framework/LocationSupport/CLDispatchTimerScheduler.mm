@@ -32,40 +32,42 @@
 - (CLDispatchTimerScheduler)initWithDispatchSilo:(id)silo
 {
   siloCopy = silo;
-  [siloCopy inPermissiveMode];
-  v20.receiver = self;
-  v20.super_class = CLDispatchTimerScheduler;
-  v5 = [(CLDispatchTimerScheduler *)&v20 init];
-  if (v5)
+  objc_msgSend_inPermissiveMode(siloCopy, v5, v6);
+  v30.receiver = self;
+  v30.super_class = CLDispatchTimerScheduler;
+  v7 = [(CLDispatchTimerScheduler *)&v30 init];
+  if (v7)
   {
-    objc_initWeak(&location, v5);
+    objc_initWeak(&location, v7);
     objc_initWeak(&from, siloCopy);
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = sub_1DF81A33C;
-    v15 = &unk_1E86C84D0;
-    objc_copyWeak(&v16, &from);
-    objc_copyWeak(&v17, &location);
-    v6 = _Block_copy(&v12);
-    queue = [siloCopy queue];
-    v8 = dispatch_source_create(MEMORY[0x1E69E9710], 2uLL, 0, queue);
-    v9 = *(v5 + 2);
-    *(v5 + 2) = v8;
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_1DF81A33C;
+    v25 = &unk_1E86C84D0;
+    objc_copyWeak(&v26, &from);
+    objc_copyWeak(&v27, &location);
+    v8 = _Block_copy(&v22);
+    v11 = objc_msgSend_queue(siloCopy, v9, v10, v22, v23, v24, v25);
+    v12 = dispatch_source_create(MEMORY[0x1E69E9710], 2uLL, 0, v11);
+    v13 = *(v7 + 2);
+    *(v7 + 2) = v12;
 
-    dispatch_set_context(*(v5 + 2), [v6 copy]);
-    dispatch_set_finalizer_f(*(v5 + 2), j__objc_release);
-    dispatch_source_set_event_handler_f(*(v5 + 2), sub_1DF7FFDAC);
-    [v5 reflectNextFireDelay:1.79769313e308 fireInterval:1.79769313e308];
-    dispatch_resume(*(v5 + 2));
-    v10 = v5;
+    v14 = *(v7 + 2);
+    v17 = objc_msgSend_copy(v8, v15, v16);
+    dispatch_set_context(v14, v17);
+    dispatch_set_finalizer_f(*(v7 + 2), j__objc_release);
+    dispatch_source_set_event_handler_f(*(v7 + 2), sub_1DF7FFDAC);
+    objc_msgSend_reflectNextFireDelay_fireInterval_(v7, v18, v19, 1.79769313e308, 1.79769313e308);
+    dispatch_resume(*(v7 + 2));
+    v20 = v7;
 
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)reflectNextFireDelay:(double)delay fireInterval:(double)interval

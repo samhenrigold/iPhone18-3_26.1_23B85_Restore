@@ -51,7 +51,7 @@
 
 - (BOOL)copyBytes:(void *)bytes to:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = &a2[*(self + 8)];
   v7 = [objc_getProperty(self a2];
   if (v6 > v7)
@@ -59,12 +59,12 @@
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(self + 8);
-      v12 = 134218240;
-      v13 = a2;
-      v14 = 2048;
-      v15 = v11;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Failed to advance by %lu bytes from offset %lu", &v12, 0x16u);
+      v10 = *(self + 8);
+      v11 = 134218240;
+      v12 = a2;
+      v13 = 2048;
+      v14 = v10;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Failed to advance by %lu bytes from offset %lu", &v11, 0x16u);
     }
   }
 
@@ -73,22 +73,20 @@
     memcpy(bytes, *(self + 32), a2);
   }
 
-  result = v6 <= v7;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6 <= v7;
 }
 
 - (void)parseDomainName
 {
   selfCopy = self;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = objc_getProperty(self, a2, 16, 1);
-    bzero(v12, 0x3F1uLL);
+    bzero(v11, 0x3F1uLL);
     v4 = selfCopy[3];
-    v11 = selfCopy[4];
-    if (_NE_DNSMessageExtractDomainNameString(v4, [v3 length], selfCopy[4], v12, &v11) || (v6 = selfCopy[4], v7 = v11 - v6, v11 <= v6) || (v8 = selfCopy[1] + v7, v8 > objc_msgSend(objc_getProperty(selfCopy, v5, 16, 1), "length")))
+    v10 = selfCopy[4];
+    if (_NE_DNSMessageExtractDomainNameString(v4, [v3 length], selfCopy[4], v11, &v10) || (v6 = selfCopy[4], v7 = v10 - v6, v10 <= v6) || (v8 = selfCopy[1] + v7, v8 > objc_msgSend(objc_getProperty(selfCopy, v5, 16, 1), "length")))
     {
       selfCopy = 0;
     }
@@ -96,12 +94,10 @@
     else
     {
       selfCopy[1] += v7;
-      selfCopy[4] = v11;
-      selfCopy = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+      selfCopy[4] = v10;
+      selfCopy = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

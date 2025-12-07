@@ -9,10 +9,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (uint64_t)ic_sortUsingSelector:()IC

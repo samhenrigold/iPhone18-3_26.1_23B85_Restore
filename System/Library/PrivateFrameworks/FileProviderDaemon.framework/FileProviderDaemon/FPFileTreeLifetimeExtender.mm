@@ -9,10 +9,12 @@
 {
   selfCopy = self;
   sub_1CF0406C8();
+  v4 = v3;
 
-  v3 = sub_1CF9E6888();
+  v5 = sub_1CF9E6888();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC18FileProviderDaemonP33_CD7CE1CB66854C72A9E33E2FB2B98DFB26FPFileTreeLifetimeExtender)init

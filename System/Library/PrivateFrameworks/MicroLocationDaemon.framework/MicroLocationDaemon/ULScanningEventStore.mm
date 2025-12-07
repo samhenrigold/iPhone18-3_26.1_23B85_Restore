@@ -12,6 +12,7 @@
 - (unsigned)countScanningEventsForLoiGroupId:(const uuid *)id;
 - (unsigned)countScanningEventsFromTime:(double)time toTime:(double)toTime atLoiGroupId:(const uuid *)id;
 - (vector<ULScanningEventDO,)fetchScanningEventsForUUIDs:(ULScanningEventStore *)self;
+- (vector<ULScanningEventDO,)fetchScanningEventsWithLOIGroupUUID:(ULScanningEventStore *)self scanType:(SEL)type startDate:(const uuid *)date endDate:(optional<ULScanningEventDO:(id)endDate :(id)a7 ScanType>)a5 fetchLimit:(unint64_t)limit ascending:(BOOL)ascending;
 - (vector<ULScanningEventDO,)oneByOneFetchScanningEventsWithLOIGroupUUID:(ULScanningEventStore *)self scanType:(SEL)type motionState:(const uuid *)state scansWithPhotoFeatures:(optional<ULScanningEventDO:(optional<ULScanningEventDO:(optional<BOOL>)features :(id)a8 MotionState>)a6 :(id)a9 ScanType>)a5 startDate:(BOOL)self0 endDate:(unint64_t)self1 onlyScansWithLabels:(BOOL)self2 fetchLimit:(BOOL)self3 newest:ascending:;
 - (vector<boost::uuids::uuid,)fetchDistinctScanningEventsUUIDsFromTime:(ULScanningEventStore *)self toTime:(SEL)time atLoiGroupId:(double)id withLimit:(double)limit;
 - (vector<boost::uuids::uuid,)fetchDistinctScanningEventsUUIDsFromTime:(ULScanningEventStore *)self toTime:(SEL)time withScanType:(double)type Limit:(double)limit;
@@ -47,7 +48,7 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects == *(objects + 1))
   {
@@ -60,16 +61,16 @@
     dbStore = [(ULStore *)self dbStore];
     v8 = (*(dbStore->var0 + 8))(dbStore);
     managedObjectContext = [(ULStore *)selfCopy2 managedObjectContext];
-    v22 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+    v21 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
 
-    if (v22)
+    if (v21)
     {
-      v24[0] = &unk_286A56B30;
-      v24[1] = &v22;
-      v24[2] = &selfCopy;
-      v24[3] = v24;
-      LODWORD(selfCopy2) = ULDBUtils::insertDataObjects<ULScanningEventDO,ULScanningEventMO>(selfCopy2, objects, v24);
-      std::__function::__value_func<ULScanningEventMO * ()(ULScanningEventDO const&)>::~__value_func[abi:ne200100](v24);
+      v23[0] = &unk_286A56B30;
+      v23[1] = &v21;
+      v23[2] = &selfCopy;
+      v23[3] = v23;
+      LODWORD(selfCopy2) = ULDBUtils::insertDataObjects<ULScanningEventDO,ULScanningEventMO>(selfCopy2, objects, v23);
+      std::__function::__value_func<ULScanningEventMO * ()(ULScanningEventDO const&)>::~__value_func[abi:ne200100](v23);
       if (selfCopy2)
       {
         dbStore2 = [(ULStore *)selfCopy dbStore];
@@ -121,7 +122,6 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 
@@ -166,27 +166,25 @@
 
 void __89__ULScanningEventStore_fetchScanningEventManagedObjectWithUUID_withManagedObjectContext___block_invoke(void *a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = a1[5];
-  v12[0] = a1[6];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = a1[6];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v2 fetchManagedObjectsWithEntityName:v4 byAndPredicates:v5 sortDescriptors:v6 andLimit:1 returnObjectsAsFaults:1 withManagedObjectContext:a1[7]];
 
   v8 = [v7 firstObject];
   v9 = *(a1[8] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (vector<boost::uuids::uuid,)getScanningEventUUIDsAtLoiGroupId:(ULScanningEventStore *)self withScanType:(SEL)type startDate:(const void *)date endDate:(optional<ULScanningEventDO:(id)endDate :(id)a7 ScanType>)a5 onlyScansWithLabels:(BOOL)labels Limit:(unsigned int)limit
 {
   labelsCopy = labels;
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   endDateCopy = endDate;
   v14 = a7;
   context = objc_autoreleasePoolPush();
@@ -243,20 +241,19 @@ void __89__ULScanningEventStore_fetchScanningEventManagedObjectWithUUID_withMana
   v32 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
   v33 = objc_opt_class();
   v34 = NSStringFromClass(v33);
-  v43[0] = v32;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+  v42[0] = v32;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
   v36 = [(ULStore *)self fetchPropertyForEntityName:v34 propertyToFetch:@"scanEventUUID" distinctResults:1 byAndPredicates:array sortDescriptors:v35 andLimit:limit];
 
   objc_autoreleasePoolPop(context);
   ULDBUtils::boostUUIDsFromNSStringArray(v36, retstr);
 
-  v38 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (vector<ULScanningEventDO,)fetchScanningEventsForUUIDs:(ULScanningEventStore *)self
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (*a4 == *(a4 + 1))
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -264,12 +261,12 @@ void __89__ULScanningEventStore_fetchScanningEventManagedObjectWithUUID_withMana
       [ULScanningEventStore insertDataObjects:atLoiUUID:];
     }
 
-    v15 = logObject_MicroLocation_Default;
+    v14 = logObject_MicroLocation_Default;
     result = os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
       *buf = 0;
-      _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "#Warning passed empty UUIDs so we can't fetch scanning events", buf, 2u);
+      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "#Warning passed empty UUIDs so we can't fetch scanning events", buf, 2u);
     }
 
     retstr->var0 = 0;
@@ -283,28 +280,88 @@ void __89__ULScanningEventStore_fetchScanningEventManagedObjectWithUUID_withMana
     retstr->var1 = 0;
     retstr->var2 = 0;
     v7 = objc_autoreleasePoolPush();
-    v8 = ULSettings::get<ULSettings::DatabaseSelectionLimit>();
-    v9 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
+    ULSettings::get<ULSettings::DatabaseSelectionLimit>();
+    v8 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
     array = [MEMORY[0x277CBEB18] array];
-    v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"scanEventUUID", v9];
-    [array addObject:v11];
+    v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"scanEventUUID", v8];
+    [array addObject:v10];
 
-    v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-    v20[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-    [(ULScanningEventStore *)self _fetchScanningEventsByAndPredicates:array sortDescriptors:v13 andLimit:v8];
+    v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
+    v18[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    objc_msgSend__fetchScanningEventsByAndPredicates_sortDescriptors_andLimit_(self);
     std::vector<ULScanningEventDO>::__vdeallocate(retstr);
     *&retstr->var0 = *buf;
-    retstr->var2 = v18;
-    v18 = 0;
+    retstr->var2 = v16;
+    v16 = 0;
     memset(buf, 0, sizeof(buf));
-    v19 = buf;
-    std::vector<ULScanningEventDO>::__destroy_vector::operator()[abi:ne200100](&v19);
+    v17 = buf;
+    std::vector<ULScanningEventDO>::__destroy_vector::operator()[abi:ne200100](&v17);
 
     objc_autoreleasePoolPop(v7);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  return result;
+}
+
+- (vector<ULScanningEventDO,)fetchScanningEventsWithLOIGroupUUID:(ULScanningEventStore *)self scanType:(SEL)type startDate:(const uuid *)date endDate:(optional<ULScanningEventDO:(id)endDate :(id)a7 ScanType>)a5 fetchLimit:(unint64_t)limit ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  v39[1] = *MEMORY[0x277D85DE8];
+  endDateCopy = endDate;
+  v34 = a7;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  retstr->var0 = 0;
+  context = objc_autoreleasePoolPush();
+  array = [MEMORY[0x277CBEB18] array];
+  v16 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:date];
+  uUIDString = [v16 UUIDString];
+
+  v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"loi", @"loiGroupId", uUIDString];
+  [array addObject:v18];
+
+  if ((*&a5 & 0x10000) != 0)
+  {
+    v19 = MEMORY[0x277CCAC30];
+    v20 = [MEMORY[0x277CCABB0] numberWithShort:a5.var0.var1];
+    v21 = [v19 predicateWithFormat:@"%K = %@", @"scanType", v20];
+    [array addObject:v21];
+  }
+
+  if (endDateCopy)
+  {
+    v22 = MEMORY[0x277CCAC30];
+    v23 = MEMORY[0x277CCABB0];
+    [endDateCopy timeIntervalSinceReferenceDate];
+    v24 = [v23 numberWithDouble:?];
+    v25 = [v22 predicateWithFormat:@"%K >= %@", @"timestamp", v24];
+    [array addObject:v25];
+  }
+
+  if (v34)
+  {
+    v26 = MEMORY[0x277CCAC30];
+    v27 = MEMORY[0x277CCABB0];
+    [v34 timeIntervalSinceReferenceDate];
+    v28 = [v27 numberWithDouble:?];
+    v29 = [v26 predicateWithFormat:@"%K <= %@", @"timestamp", v28];
+    [array addObject:v29];
+  }
+
+  v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:ascendingCopy];
+  v39[0] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  objc_msgSend__fetchScanningEventsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULScanningEventDO>::__vdeallocate(retstr);
+  *&retstr->var0 = v36;
+  retstr->var2 = v37;
+  v37 = 0;
+  v36 = 0uLL;
+  v38 = &v36;
+  std::vector<ULScanningEventDO>::__destroy_vector::operator()[abi:ne200100](&v38);
+
+  objc_autoreleasePoolPop(context);
   return result;
 }
 
@@ -377,78 +434,78 @@ void __89__ULScanningEventStore_fetchScanningEventManagedObjectWithUUID_withMana
 
 void __70__ULScanningEventStore_fetchScanningEventsWithLabelObjectIDsForUUIDs___block_invoke(uint64_t a1)
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   v4 = *(a1 + 40);
-  v73[0] = *(a1 + 48);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
-  v28 = [v1 fetchManagedObjectsWithEntityName:v3 byAndPredicates:v4 sortDescriptors:v5 andLimit:*(a1 + 64)];
+  v72[0] = *(a1 + 48);
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
+  v27 = [v1 fetchManagedObjectsWithEntityName:v3 byAndPredicates:v4 sortDescriptors:v5 andLimit:*(a1 + 64)];
 
-  std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::reserve((*(*(a1 + 56) + 8) + 48), [v28 count]);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::reserve((*(*(a1 + 56) + 8) + 48), [v27 count]);
   v40 = 0u;
-  obj = v28;
-  v31 = [obj countByEnumeratingWithState:&v39 objects:v72 count:16];
-  if (v31)
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  obj = v27;
+  v30 = [obj countByEnumeratingWithState:&v38 objects:v71 count:16];
+  if (v30)
   {
-    v30 = *v40;
+    v29 = *v39;
     do
     {
       v6 = 0;
       do
       {
-        if (*v40 != v30)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v39 + 1) + 8 * v6);
+        v7 = *(*(&v38 + 1) + 8 * v6);
         if (v7)
         {
-          [*(*(&v39 + 1) + 8 * v6) convertToDO];
-          if (v71)
+          objc_msgSend_convertToDO(*(*(&v38 + 1) + 8 * v6));
+          if (v70)
           {
-            v37 = 0uLL;
-            v38 = 0;
+            v36 = 0uLL;
+            v37 = 0;
+            v32 = 0u;
             v33 = 0u;
             v34 = 0u;
             v35 = 0u;
-            v36 = 0u;
             v8 = [v7 labels];
-            v9 = [v8 countByEnumeratingWithState:&v33 objects:v57 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v32 objects:v56 count:16];
             if (v9)
             {
-              v10 = *v34;
+              v10 = *v33;
               do
               {
                 for (i = 0; i != v9; ++i)
                 {
-                  if (*v34 != v10)
+                  if (*v33 != v10)
                   {
                     objc_enumerationMutation(v8);
                   }
 
-                  v12 = [*(*(&v33 + 1) + 8 * i) objectID];
-                  v13 = *(&v37 + 1);
-                  if (*(&v37 + 1) >= v38)
+                  v12 = [*(*(&v32 + 1) + 8 * i) objectID];
+                  v13 = *(&v36 + 1);
+                  if (*(&v36 + 1) >= v37)
                   {
-                    v15 = (*(&v37 + 1) - v37) >> 3;
+                    v15 = (*(&v36 + 1) - v36) >> 3;
                     if ((v15 + 1) >> 61)
                     {
                       std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
                     }
 
-                    v16 = (v38 - v37) >> 2;
+                    v16 = (v37 - v36) >> 2;
                     if (v16 <= v15 + 1)
                     {
                       v16 = v15 + 1;
                     }
 
-                    if (v38 - v37 >= 0x7FFFFFFFFFFFFFF8)
+                    if (v37 - v36 >= 0x7FFFFFFFFFFFFFF8)
                     {
                       v17 = 0x1FFFFFFFFFFFFFFFLL;
                     }
@@ -458,79 +515,79 @@ void __70__ULScanningEventStore_fetchScanningEventsWithLabelObjectIDsForUUIDs___
                       v17 = v16;
                     }
 
-                    v46 = &v37;
+                    v45 = &v36;
                     if (v17)
                     {
-                      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(&v37, v17);
+                      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(&v36, v17);
                     }
 
                     *buf = 0;
-                    *v45 = 8 * v15;
-                    *&v45[16] = 0;
-                    **v45 = v12;
-                    *&v45[8] = 8 * v15 + 8;
-                    std::vector<NSManagedObjectID * {__strong}>::__swap_out_circular_buffer(&v37, buf);
-                    v14 = *(&v37 + 1);
+                    *v44 = 8 * v15;
+                    *&v44[16] = 0;
+                    **v44 = v12;
+                    *&v44[8] = 8 * v15 + 8;
+                    std::vector<NSManagedObjectID * {__strong}>::__swap_out_circular_buffer(&v36, buf);
+                    v14 = *(&v36 + 1);
                     std::__split_buffer<NSManagedObjectID * {__strong}>::~__split_buffer(buf);
                   }
 
                   else
                   {
-                    **(&v37 + 1) = v12;
+                    **(&v36 + 1) = v12;
                     v14 = v13 + 8;
                   }
 
-                  *(&v37 + 1) = v14;
+                  *(&v36 + 1) = v14;
                 }
 
-                v9 = [v8 countByEnumeratingWithState:&v33 objects:v57 count:16];
+                v9 = [v8 countByEnumeratingWithState:&v32 objects:v56 count:16];
               }
 
               while (v9);
             }
 
-            if ((v71 & 1) == 0)
+            if ((v70 & 1) == 0)
             {
               std::__throw_bad_optional_access[abi:ne200100]();
             }
 
             v18 = *(*(a1 + 56) + 8);
-            ULScanningEventDO::ULScanningEventDO(buf);
+            ULScanningEventDO::ULScanningEventDO(buf, &v57);
+            v54 = v36;
             v55 = v37;
-            v56 = v38;
-            v38 = 0;
-            v37 = 0uLL;
-            std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::push_back[abi:ne200100]((v18 + 48), buf);
-            v43 = &v55;
-            std::vector<NSManagedObjectID * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v43);
-            v43 = &v54;
-            std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v43);
+            v37 = 0;
+            v36 = 0uLL;
+            std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::push_back[abi:ne200100](v18 + 48, buf);
+            v42 = &v54;
+            std::vector<NSManagedObjectID * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v42);
+            v42 = &v53;
+            std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v42);
             if (__p)
             {
-              v53 = __p;
+              v52 = __p;
               operator delete(__p);
             }
 
-            if (v50)
+            if (v49)
             {
-              v51 = v50;
-              operator delete(v50);
+              v50 = v49;
+              operator delete(v49);
             }
 
-            if (v48)
+            if (v47)
             {
-              v49 = v48;
-              operator delete(v48);
+              v48 = v47;
+              operator delete(v47);
             }
 
-            v43 = &v47;
-            std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](&v43);
-            if (SHIBYTE(v46) < 0)
+            v42 = &v46;
+            std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](&v42);
+            if (SHIBYTE(v45) < 0)
             {
-              operator delete(*&v45[8]);
+              operator delete(*&v44[8]);
             }
 
-            *buf = &v37;
+            *buf = &v36;
             std::vector<NSManagedObjectID * {__strong}>::__destroy_vector::operator()[abi:ne200100](buf);
             v19 = 1;
             goto LABEL_46;
@@ -539,20 +596,20 @@ void __70__ULScanningEventStore_fetchScanningEventsWithLabelObjectIDsForUUIDs___
 
         else
         {
-          v71 = 0;
-          v69 = 0u;
-          memset(v70, 0, sizeof(v70));
-          v67 = 0u;
+          v70 = 0;
           v68 = 0u;
+          memset(v69, 0, sizeof(v69));
+          v66 = 0u;
+          v67 = 0u;
+          *v64 = 0u;
           *v65 = 0u;
-          *v66 = 0u;
-          *v63 = 0u;
-          v64 = 0u;
-          v61 = 0u;
-          v62 = 0u;
-          *v59 = 0u;
+          *v62 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v58 = 0u;
+          v61 = 0u;
+          *v58 = 0u;
+          v59 = 0u;
+          v57 = 0u;
         }
 
         if (onceToken_MicroLocation_Default != -1)
@@ -567,10 +624,10 @@ void __70__ULScanningEventStore_fetchScanningEventsWithLabelObjectIDsForUUIDs___
           v22 = [v21 name];
           *buf = 68289283;
           *&buf[4] = 0;
-          *v45 = 2082;
-          *&v45[2] = "";
-          *&v45[10] = 2113;
-          *&v45[12] = v22;
+          *v44 = 2082;
+          *&v44[2] = "";
+          *&v44[10] = 2113;
+          *&v44[12] = v22;
           _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to convert MO to DO, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
         }
 
@@ -586,43 +643,43 @@ void __70__ULScanningEventStore_fetchScanningEventsWithLabelObjectIDsForUUIDs___
           v25 = [v24 name];
           *buf = 68289283;
           *&buf[4] = 0;
-          *v45 = 2082;
-          *&v45[2] = "";
-          *&v45[10] = 2113;
-          *&v45[12] = v25;
+          *v44 = 2082;
+          *&v44[2] = "";
+          *&v44[10] = 2113;
+          *&v44[12] = v25;
           _os_signpost_emit_with_name_impl(&dword_258FE9000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to convert MO to DO", "{msg%{public}.0s:Failed to convert MO to DO, MO:%{private, location:escape_only}@}", buf, 0x1Cu);
         }
 
         std::vector<std::pair<ULScanningEventDO,std::vector<NSManagedObjectID * {__strong}>>>::__base_destruct_at_end[abi:ne200100](*(*(a1 + 56) + 8) + 48, *(*(*(a1 + 56) + 8) + 48));
         v19 = 0;
 LABEL_46:
-        if (v71 == 1)
+        if (v70 == 1)
         {
-          *buf = v70 + 8;
+          *buf = v69 + 8;
           std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](buf);
-          if (v66[1])
+          if (v65[1])
           {
-            *&v67 = v66[1];
-            operator delete(v66[1]);
+            *&v66 = v65[1];
+            operator delete(v65[1]);
           }
 
-          if (v65[0])
+          if (v64[0])
           {
-            v65[1] = v65[0];
-            operator delete(v65[0]);
+            v64[1] = v64[0];
+            operator delete(v64[0]);
           }
 
-          if (v63[1])
+          if (v62[1])
           {
-            *&v64 = v63[1];
-            operator delete(v63[1]);
+            *&v63 = v62[1];
+            operator delete(v62[1]);
           }
 
-          *buf = &v62;
+          *buf = &v61;
           std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](buf);
-          if (SBYTE7(v60) < 0)
+          if (SBYTE7(v59) < 0)
           {
-            operator delete(v59[0]);
+            operator delete(v58[0]);
           }
         }
 
@@ -634,19 +691,17 @@ LABEL_46:
         ++v6;
       }
 
-      while (v6 != v31);
-      v31 = [obj countByEnumeratingWithState:&v39 objects:v72 count:16];
+      while (v6 != v30);
+      v30 = [obj countByEnumeratingWithState:&v38 objects:v71 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
 LABEL_58:
 
   v26 = [*(a1 + 32) managedObjectContext];
   [v26 reset];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)countScanningEventsForLoiGroupId:(const uuid *)id
@@ -711,7 +766,7 @@ LABEL_58:
 
 - (vector<boost::uuids::uuid,)fetchDistinctScanningEventsUUIDsFromTime:(ULScanningEventStore *)self toTime:(SEL)time atLoiGroupId:(double)id withLimit:(double)limit
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v14 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a6];
   uUIDString = [v14 UUIDString];
@@ -728,18 +783,17 @@ LABEL_58:
   v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
   v22 = objc_opt_class();
   v23 = NSStringFromClass(v22);
-  v28[0] = v21;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v21;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v25 = [(ULStore *)self fetchPropertyForEntityName:v23 propertyToFetch:@"scanEventUUID" distinctResults:1 byAndPredicates:array sortDescriptors:v24 andLimit:a7];
 
   ULDBUtils::boostUUIDsFromNSStringArray(v25, retstr);
-  v27 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (vector<boost::uuids::uuid,)fetchDistinctScanningEventsUUIDsFromTime:(ULScanningEventStore *)self toTime:(SEL)time withScanType:(double)type Limit:(double)limit
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"scanResult", &unk_286A71B20];
   [array addObject:v14];
@@ -761,19 +815,18 @@ LABEL_58:
   v22 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
   v23 = objc_opt_class();
   v24 = NSStringFromClass(v23);
-  v29[0] = v22;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v22;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v26 = [(ULStore *)self fetchPropertyForEntityName:v24 propertyToFetch:@"scanEventUUID" distinctResults:1 byAndPredicates:array sortDescriptors:v25 andLimit:a7];
 
   ULDBUtils::boostUUIDsFromNSStringArray(v26, retstr);
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (optional<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,)getMostRecentScanTimeForLoiGroupId:(ULScanningEventStore *)self
 {
   v2 = v1;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v2];
   uUIDString = [v5 UUIDString];
@@ -784,8 +837,8 @@ LABEL_58:
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v19[0] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v12 = [(ULStore *)self fetchPropertyForEntityName:v10 propertyToFetch:@"timestamp" distinctResults:1 byAndPredicates:array sortDescriptors:v11 andLimit:1];
 
   if ([v12 count])
@@ -802,18 +855,17 @@ LABEL_58:
     v16.var0.var0 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (optional<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,)getOldestScanTimestamp
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13[0] = v2;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v2;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v6 = [(ULStore *)self fetchPropertyForEntityName:v4 propertyToFetch:@"timestamp" distinctResults:1 byAndPredicates:0 sortDescriptors:v5 andLimit:1];
 
   if ([v6 count])
@@ -830,13 +882,12 @@ LABEL_58:
     v10.var0.var0 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (vector<std::string,)selectAllScanningLOITypesFromTime:(ULScanningEventStore *)self withLimit:(SEL)limit
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v10 = MEMORY[0x277CCAC30];
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
@@ -851,29 +902,29 @@ LABEL_58:
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v18)
   {
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * i);
+        v21 = *(*(&v29 + 1) + 8 * i);
         if (v21)
         {
-          [v21 stdString];
-          if (v29)
+          objc_msgSend_stdString(v21);
+          if (v28)
           {
             var1 = retstr->var1;
             if (var1 >= retstr->var2)
@@ -883,7 +934,7 @@ LABEL_58:
 
             else
             {
-              if (SHIBYTE(v28) < 0)
+              if (SHIBYTE(v27) < 0)
               {
                 std::string::__init_copy_ctor_external(retstr->var1, __p[0], __p[1]);
               }
@@ -891,7 +942,7 @@ LABEL_58:
               else
               {
                 v23 = *__p;
-                var1->__r_.__value_.__r.__words[2] = v28;
+                var1->__r_.__value_.__r.__words[2] = v27;
                 *&var1->__r_.__value_.__l.__data_ = v23;
               }
 
@@ -899,7 +950,7 @@ LABEL_58:
             }
 
             retstr->var1 = v24;
-            if ((v29 & 1) != 0 && SHIBYTE(v28) < 0)
+            if ((v28 & 1) != 0 && SHIBYTE(v27) < 0)
             {
               operator delete(__p[0]);
             }
@@ -907,13 +958,12 @@ LABEL_58:
         }
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v18);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -932,9 +982,9 @@ LABEL_58:
 
 - (vector<boost::uuids::uuid,)fetchScanningEventUUIDsWithLOIGroupUUID:(ULScanningEventStore *)self scanType:(SEL)type motionState:(const uuid *)state scansWithPhotoFeatures:(optional<ULScanningEventDO:(optional<ULScanningEventDO:(optional<BOOL>)features :(id)a8 MotionState>)a6 :(id)a9 ScanType>)a5 startDate:(BOOL)self0 endDate:(unint64_t)self1 onlyScansWithLabels:(BOOL)self2 fetchLimit:(BOOL)self3 newest:ascending:
 {
-  v54[1] = *MEMORY[0x277D85DE8];
-  v52 = a8;
-  v53 = a9;
+  v53[1] = *MEMORY[0x277D85DE8];
+  v51 = a8;
+  v52 = a9;
   v20 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v22 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:state];
@@ -975,21 +1025,21 @@ LABEL_58:
     [array addObject:v31];
   }
 
-  if (v52)
+  if (v51)
   {
     v32 = MEMORY[0x277CCAC30];
     v33 = MEMORY[0x277CCABB0];
-    [v52 timeIntervalSinceReferenceDate];
+    [v51 timeIntervalSinceReferenceDate];
     v34 = [v33 numberWithDouble:?];
     v35 = [v32 predicateWithFormat:@"%K >= %@", @"timestamp", v34];
     [array addObject:v35];
   }
 
-  if (v53)
+  if (v52)
   {
     v36 = MEMORY[0x277CCAC30];
     v37 = MEMORY[0x277CCABB0];
-    [v53 timeIntervalSinceReferenceDate];
+    [v52 timeIntervalSinceReferenceDate];
     v38 = [v37 numberWithDouble:?];
     v39 = [v36 predicateWithFormat:@"%K <= %@", @"timestamp", v38];
     [array addObject:v39];
@@ -1014,8 +1064,8 @@ LABEL_58:
   v42 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:limitCopy];
   v43 = objc_opt_class();
   v44 = NSStringFromClass(v43);
-  v54[0] = v42;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+  v53[0] = v42;
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
   v46 = [(ULStore *)self fetchPropertyForEntityName:v44 propertyToFetch:@"scanEventUUID" distinctResults:1 byAndPredicates:array sortDescriptors:v45 andLimit:endDate];
 
   objc_autoreleasePoolPop(context);
@@ -1029,118 +1079,115 @@ LABEL_58:
 
   ULDBUtils::boostUUIDsFromNSStringArray(v46, retstr);
 
-  v50 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (vector<ULScanningEventDO,)oneByOneFetchScanningEventsWithLOIGroupUUID:(ULScanningEventStore *)self scanType:(SEL)type motionState:(const uuid *)state scansWithPhotoFeatures:(optional<ULScanningEventDO:(optional<ULScanningEventDO:(optional<BOOL>)features :(id)a8 MotionState>)a6 :(id)a9 ScanType>)a5 startDate:(BOOL)self0 endDate:(unint64_t)self1 onlyScansWithLabels:(BOOL)self2 fetchLimit:(BOOL)self3 newest:ascending:
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v18 = a8;
-  v19 = a9;
-  LOWORD(v27) = __PAIR16__(limit, labels);
-  LOBYTE(v26) = date;
-  [(ULScanningEventStore *)self fetchScanningEventUUIDsWithLOIGroupUUID:state scanType:*&a5 motionState:*&a6 scansWithPhotoFeatures:*&features startDate:v18 endDate:v19 onlyScansWithLabels:v26 fetchLimit:endDate newest:v27 ascending:?];
+  *&v32 = *MEMORY[0x277D85DE8];
+  v16 = a8;
+  v17 = a9;
+  HIBYTE(v24) = limit;
+  LOBYTE(v24) = labels;
+  objc_msgSend_fetchScanningEventUUIDsWithLOIGroupUUID_scanType_motionState_scansWithPhotoFeatures_startDate_endDate_onlyScansWithLabels_fetchLimit_newest_ascending_(self, date, endDate, v24);
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v20 = v34;
-  v21 = v35;
-  if (v34 != v35)
+  v18 = v29;
+  v19 = v30;
+  if (v29 != v30)
   {
     do
     {
-      v36 = *v20;
-      v31 = 0;
-      v32 = 0;
+      v31 = *v18;
+      v26 = 0;
+      v27 = 0;
       __p = 0;
-      std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid const*,boost::uuids::uuid const*>(&__p, &v36, &v37, 1uLL);
-      [(ULScanningEventStore *)self fetchScanningEventsForUUIDs:&__p];
+      std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid const*,boost::uuids::uuid const*>(&__p, &v31, &v32, 1uLL);
+      objc_msgSend_fetchScanningEventsForUUIDs_(self);
       if (__p)
       {
-        v31 = __p;
+        v26 = __p;
         operator delete(__p);
       }
 
-      if (v33[0] != v33[1])
+      if (v28[0] != v28[1])
       {
         var1 = retstr->var1;
         if (var1 >= retstr->var2)
         {
-          v23 = std::vector<ULScanningEventDO>::__emplace_back_slow_path<ULScanningEventDO>(retstr);
+          v21 = std::vector<ULScanningEventDO>::__emplace_back_slow_path<ULScanningEventDO>(retstr, v28[0]);
         }
 
         else
         {
-          ULScanningEventDO::ULScanningEventDO(retstr->var1);
-          v23 = (var1 + 272);
+          ULScanningEventDO::ULScanningEventDO(retstr->var1, v28[0]);
+          v21 = (var1 + 272);
         }
 
-        retstr->var1 = v23;
+        retstr->var1 = v21;
       }
 
-      __p = v33;
+      __p = v28;
       std::vector<ULScanningEventDO>::__destroy_vector::operator()[abi:ne200100](&__p);
-      ++v20;
+      ++v18;
     }
 
-    while (v20 != v21);
-    v20 = v34;
+    while (v18 != v19);
+    v18 = v29;
   }
 
-  if (v20)
+  if (v18)
   {
-    v35 = v20;
-    operator delete(v20);
+    v30 = v18;
+    operator delete(v18);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)addPhotoFeatures:(ULPhotoFeaturesDO *)features forScanningEvent:
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v28 = v3;
-  v29 = v4;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v27 = v3;
+  v28 = v4;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
-  v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v28];
+  v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v27];
   uUIDString = [v9 UUIDString];
 
   v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K=%@", @"scanEventUUID", uUIDString];
   [array addObject:v11];
 
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3321888768;
-  v17[2] = __58__ULScanningEventStore_addPhotoFeatures_forScanningEvent___block_invoke;
-  v17[3] = &unk_286A56A98;
-  v17[4] = self;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3321888768;
+  v16[2] = __58__ULScanningEventStore_addPhotoFeatures_forScanningEvent___block_invoke;
+  v16[3] = &unk_286A56A98;
+  v16[4] = self;
   v13 = array;
-  v18 = v13;
+  v17 = v13;
   __p = 0;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, features->var0.var0, features->var0.var1, features->var0.var1 - features->var0.var0);
   var0 = features[1].var0.var0;
-  v19 = &v24;
-  [managedObjectContext performBlockAndWait:v17];
+  v18 = &v23;
+  [managedObjectContext performBlockAndWait:v16];
 
   if (__p)
   {
-    v21 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
   objc_autoreleasePoolPop(v7);
-  v14 = *(v25 + 24);
-  _Block_object_dispose(&v24, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *(v24 + 24);
+  _Block_object_dispose(&v23, 8);
   return v14;
 }
 

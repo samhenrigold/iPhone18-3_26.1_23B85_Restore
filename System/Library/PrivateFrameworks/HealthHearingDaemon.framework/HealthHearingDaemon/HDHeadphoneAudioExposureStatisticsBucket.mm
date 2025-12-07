@@ -12,6 +12,7 @@
 - (BOOL)isExpiredForNowDate:(id)date;
 - (NSDateInterval)dateInterval;
 - (id)_initWithProfile:(id)profile primaryCalculator:(id)calculator journaledCalculator:(id)journaledCalculator startDate:(id)date earliestStartDate:(id)startDate boundedInterval:(BOOL)interval anchor:(id)anchor previousStatistics:(id)self0 includesPrunableData:(BOOL)self1;
+- (id)_initWithProfile:(id)profile startDate:(id)date earliestStartDate:(id)startDate boundedInterval:(BOOL)interval;
 - (id)_lock_addQuantitySamples:(id)samples anchor:(id)anchor error:(id *)error;
 - (id)_lock_archivedRepresentationWithError:(id *)error;
 - (id)_lock_copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error;
@@ -21,9 +22,11 @@
 - (id)_lock_journalQuantitySamples:(id)samples error:(id *)error;
 - (id)_lock_queryForInitialStatisticsWithError:(id *)error;
 - (id)archivedRepresentationWithError:(id *)error;
+- (id)copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error;
 - (id)queryForInitialStatisticsWithError:(id *)error;
 - (id)snapshotStatisticsWithError:(id *)error;
 - (id)updateWithSampleBatch:(id)batch error:(id *)error;
+- (void)_enableOverlappingProcessingInPrimaryCalculator:(BOOL)calculator;
 - (void)unitTesting_setIncludesPrunableData:(BOOL)data;
 - (void)unitTesting_setPreviousStatistics:(id)statistics;
 @end
@@ -169,6 +172,57 @@
   return v7;
 }
 
+- (id)_initWithProfile:(id)profile startDate:(id)date earliestStartDate:(id)startDate boundedInterval:(BOOL)interval
+{
+  intervalCopy = interval;
+  profileCopy = profile;
+  dateCopy = date;
+  startDateCopy = startDate;
+  v29.receiver = self;
+  v29.super_class = HDHeadphoneAudioExposureStatisticsBucket;
+  v13 = [(HDHeadphoneAudioExposureStatisticsBucket *)&v29 init];
+  if (v13)
+  {
+    _makePrimaryCalculator = [objc_opt_class() _makePrimaryCalculator];
+    v15 = [objc_opt_class() _makeDataSourceWithProfile:profileCopy];
+    v16 = [objc_opt_class() _makeSourceOrderProviderWithProfile:profileCopy];
+    [_makePrimaryCalculator setDataSource:v15];
+    [_makePrimaryCalculator setSourceOrderProvider:v16];
+    [MEMORY[0x277CCA970] hd_hearingSevenDayLimitIntervalWithStartDate:dateCopy earliestStartDate:startDateCopy boundedInterval:intervalCopy];
+    v17 = v28 = dateCopy;
+    [_makePrimaryCalculator setDateInterval:v17];
+
+    v13->_lock._os_unfair_lock_opaque = 0;
+    primaryCalculator = v13->_primaryCalculator;
+    v13->_primaryCalculator = _makePrimaryCalculator;
+    v19 = _makePrimaryCalculator;
+
+    journaledCalculator = v13->_journaledCalculator;
+    v13->_journaledCalculator = 0;
+
+    objc_storeStrong(&v13->_startDate, date);
+    objc_storeStrong(&v13->_earliestStartDate, startDate);
+    v13->_boundedInterval = intervalCopy;
+    anchor = v13->_anchor;
+    v13->_anchor = 0;
+
+    previousStatistics = v13->_previousStatistics;
+    v13->_previousStatistics = 0;
+
+    dataSource = v13->_dataSource;
+    v13->_dataSource = v15;
+    v24 = v15;
+
+    sourceOrderProvider = v13->_sourceOrderProvider;
+    v13->_sourceOrderProvider = v16;
+
+    dateCopy = v28;
+    v26 = v13;
+  }
+
+  return v13;
+}
+
 - (id)_initWithProfile:(id)profile primaryCalculator:(id)calculator journaledCalculator:(id)journaledCalculator startDate:(id)date earliestStartDate:(id)startDate boundedInterval:(BOOL)interval anchor:(id)anchor previousStatistics:(id)self0 includesPrunableData:(BOOL)self1
 {
   profileCopy = profile;
@@ -289,6 +343,17 @@ LABEL_19:
   }
 
   return v31;
+}
+
+- (id)copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error
+{
+  zeroCopy = zero;
+  dateCopy = date;
+  os_unfair_lock_lock(&self->_lock);
+  v9 = [(HDHeadphoneAudioExposureStatisticsBucket *)self _lock_copyWithEarliestStartDate:dateCopy resetDoseToZero:zeroCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+  return v9;
 }
 
 - (id)_lock_copyWithEarliestStartDate:(id)date resetDoseToZero:(BOOL)zero error:(id *)error
@@ -837,7 +902,7 @@ LABEL_7:
 
 - (id)_lock_addQuantitySamples:(id)samples anchor:(id)anchor error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   anchorCopy = anchor;
   os_unfair_lock_assert_owner(&self->_lock);
@@ -855,16 +920,16 @@ LABEL_7:
         v14 = *v12;
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
         {
-          v28 = v14;
-          v29 = [samplesCopy count];
-          v30 = *p_anchor;
-          v31 = 134218498;
-          v32 = v29;
-          v33 = 2114;
-          v34 = anchorCopy;
-          v35 = 2114;
-          v36 = v30;
-          _os_log_error_impl(&dword_251764000, v28, OS_LOG_TYPE_ERROR, "[Warning] Adding %lu samples with anchor (%{public}@) below currentAnchor (%{public}@).", &v31, 0x20u);
+          v27 = v14;
+          v28 = [samplesCopy count];
+          v29 = *p_anchor;
+          v30 = 134218498;
+          v31 = v28;
+          v32 = 2114;
+          v33 = anchorCopy;
+          v34 = 2114;
+          v35 = v29;
+          _os_log_error_impl(&dword_251764000, v27, OS_LOG_TYPE_ERROR, "[Warning] Adding %lu samples with anchor (%{public}@) below currentAnchor (%{public}@).", &v30, 0x20u);
         }
       }
     }
@@ -876,13 +941,13 @@ LABEL_7:
       v16 = v15;
       v17 = [samplesCopy count];
       v18 = *p_anchor;
-      v31 = 134218498;
-      v32 = v17;
-      v33 = 2114;
-      v34 = v18;
-      v35 = 2114;
-      v36 = anchorCopy;
-      _os_log_impl(&dword_251764000, v16, OS_LOG_TYPE_DEFAULT, "Added %lu sample(s) to primary calculator (anchor: %{public}@ -> %{public}@)", &v31, 0x20u);
+      v30 = 134218498;
+      v31 = v17;
+      v32 = 2114;
+      v33 = v18;
+      v34 = 2114;
+      v35 = anchorCopy;
+      _os_log_impl(&dword_251764000, v16, OS_LOG_TYPE_DEFAULT, "Added %lu sample(s) to primary calculator (anchor: %{public}@ -> %{public}@)", &v30, 0x20u);
     }
 
     v19 = [(HDStatisticsCollectionCalculatorDefaultDataSource *)self->_dataSource hearing_addQuantitySamples:samplesCopy calculator:self->_primaryCalculator error:error];
@@ -897,13 +962,13 @@ LABEL_7:
           v21 = v20;
           v22 = [samplesCopy count];
           v23 = *p_anchor;
-          v31 = 134218498;
-          v32 = v22;
-          v33 = 2114;
-          v34 = v23;
-          v35 = 2114;
-          v36 = anchorCopy;
-          _os_log_impl(&dword_251764000, v21, OS_LOG_TYPE_DEFAULT, "Invalidated journaled calculator on %lu samples added (anchor: %{public}@ -> %{public}@)", &v31, 0x20u);
+          v30 = 134218498;
+          v31 = v22;
+          v32 = 2114;
+          v33 = v23;
+          v34 = 2114;
+          v35 = anchorCopy;
+          _os_log_impl(&dword_251764000, v21, OS_LOG_TYPE_DEFAULT, "Invalidated journaled calculator on %lu samples added (anchor: %{public}@ -> %{public}@)", &v30, 0x20u);
         }
 
         journaledCalculator = self->_journaledCalculator;
@@ -921,14 +986,41 @@ LABEL_7:
     v19 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v19;
+}
+
+- (void)_enableOverlappingProcessingInPrimaryCalculator:(BOOL)calculator
+{
+  calculatorCopy = calculator;
+  v16 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2C8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2C8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (calculatorCopy)
+    {
+      v8 = @"YES";
+    }
+
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v9 = v7;
+    _os_log_impl(&dword_251764000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Enable Overlap Processing In Primary Calculator: %@", &v12, 0x16u);
+  }
+
+  primaryCalculator = self->_primaryCalculator;
+  v11 = [objc_alloc(MEMORY[0x277D108B8]) initWithOverlapProcessingEnabled:calculatorCopy];
+  [(HDStatisticsCollectionCalculator *)primaryCalculator setStatisticsConfiguration:v11];
 }
 
 - (id)_lock_queryForInitialStatisticsWithError:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   if (!self->_dataSource || !self->_sourceOrderProvider)
   {
@@ -965,17 +1057,17 @@ LABEL_7:
     endDate = [_lock_dateInterval2 endDate];
     [endDate timeIntervalSince1970];
     *buf = 134218240;
-    v47 = v15;
-    v48 = 2048;
-    v49 = v18;
+    v46 = v15;
+    v47 = 2048;
+    v48 = v18;
     _os_log_impl(&dword_251764000, v11, OS_LOG_TYPE_DEFAULT, "Querying initial HAE statistics for bucket interval: %{time_t}ld to %{time_t}ld", buf, 0x16u);
   }
 
   [(HDHeadphoneAudioExposureStatisticsBucket *)self _enableOverlappingProcessingInPrimaryCalculator:1];
   primaryCalculator = self->_primaryCalculator;
-  v45 = 0;
-  v20 = [(HDStatisticsCollectionCalculator *)primaryCalculator queryForInitialStatisticsWithError:&v45];
-  v21 = v45;
+  v44 = 0;
+  v20 = [(HDStatisticsCollectionCalculator *)primaryCalculator queryForInitialStatisticsWithError:&v44];
+  v21 = v44;
   [(HDHeadphoneAudioExposureStatisticsBucket *)self _enableOverlappingProcessingInPrimaryCalculator:0];
   if ((v20 & 1) == 0)
   {
@@ -1050,61 +1142,58 @@ LABEL_26:
     endDate2 = [_lock_dateInterval4 endDate];
     [endDate2 timeIntervalSince1970];
     *buf = 138543874;
-    v47 = v29;
-    v48 = 2048;
-    v49 = v34;
-    v50 = 2048;
-    v51 = v37;
+    v46 = v29;
+    v47 = 2048;
+    v48 = v34;
+    v49 = 2048;
+    v50 = v37;
     _os_log_impl(&dword_251764000, v30, OS_LOG_TYPE_DEFAULT, "Queried initial anchor %{public}@ for HAE statistics in bucket interval: %{time_t}ld to %{time_t}ld", buf, 0x20u);
   }
 
   v38 = self->_anchor;
 LABEL_27:
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 - (id)_lock_fetchIncludesPrunableDataWithError:(id *)error
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   profile = [(HDStatisticsCollectionCalculatorDefaultDataSource *)self->_dataSource profile];
   v5 = HKHeadphoneAudioExposureType();
   v6 = MEMORY[0x277D10B20];
   v7 = HDSampleEntityPredicateForDataType();
-  v27[0] = v7;
+  v26[0] = v7;
   dateInterval = [(HDStatisticsCollectionCalculator *)self->_primaryCalculator dateInterval];
   v9 = HDSampleEntityPredicateForDateInterval();
-  v27[1] = v9;
+  v26[1] = v9;
   metadataManager = [profile metadataManager];
   v11 = [MEMORY[0x277CBEB98] setWithObject:MEMORY[0x277CBEC38]];
   v12 = [metadataManager predicateWithMetadataKey:*MEMORY[0x277CCDFF8] allowedValues:v11];
-  v27[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  v26[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
   v14 = [v6 predicateMatchingAllPredicates:v13];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__0;
-  v25 = __Block_byref_object_dispose__0;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
   v15 = [MEMORY[0x277D10810] entityEnumeratorWithType:v5 profile:profile];
   [v15 setIgnoreEntityClassAdditionalPredicateForEnumeration:1];
   [v15 setPredicate:v14];
   [v15 setLimitCount:1];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __85__HDHeadphoneAudioExposureStatisticsBucket__lock_fetchIncludesPrunableDataWithError___block_invoke;
-  v20[3] = &unk_2796C6510;
-  v20[4] = &v21;
-  [v15 enumerateWithError:error handler:v20];
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:v22[5] != 0];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __85__HDHeadphoneAudioExposureStatisticsBucket__lock_fetchIncludesPrunableDataWithError___block_invoke;
+  v19[3] = &unk_2796C6510;
+  v19[4] = &v20;
+  [v15 enumerateWithError:error handler:v19];
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:v21[5] != 0];
 
-  _Block_object_dispose(&v21, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v16;
 }
@@ -1183,28 +1272,24 @@ LABEL_27:
 
 - (void)updateWithSampleBatch:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 samples];
-  v6 = 134217984;
-  v7 = [v4 count];
-  _os_log_fault_impl(&dword_251764000, v3, OS_LOG_TYPE_FAULT, "Added %lu HAE quantity samples without an anchor!", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  v6 = [v4 count];
+  _os_log_fault_impl(&dword_251764000, v3, OS_LOG_TYPE_FAULT, "Added %lu HAE quantity samples without an anchor!", &v5, 0xCu);
 }
 
 void __72__HDHeadphoneAudioExposureStatisticsBucket_updateWithSampleBatch_error___block_invoke_cold_1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 UUID];
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a3;
-  _os_log_fault_impl(&dword_251764000, v5, OS_LOG_TYPE_FAULT, "Incoming HAE sample %@ has invalid metadata: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  _os_log_fault_impl(&dword_251764000, v5, OS_LOG_TYPE_FAULT, "Incoming HAE sample %@ has invalid metadata: %{public}@", &v7, 0x16u);
 }
 
 - (void)_lock_queryForInitialStatisticsWithError:.cold.1()

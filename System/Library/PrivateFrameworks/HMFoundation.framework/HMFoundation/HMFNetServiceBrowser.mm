@@ -89,20 +89,19 @@ LABEL_4:
 
   v23 = objc_autoreleasePoolPush();
   v24 = v9;
-  v25 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v26 = HMFGetOSLogHandle(v24, v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v26 = HMFGetLogIdentifier(v24);
+    v27 = HMFGetLogIdentifier(v24);
     *buf = 138543362;
-    v31 = v26;
-    _os_log_impl(&dword_22ADEC000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to create internal net service browser", buf, 0xCu);
+    v31 = v27;
+    _os_log_impl(&dword_22ADEC000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to create internal net service browser", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
   v22 = 0;
 LABEL_8:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -160,7 +159,7 @@ LABEL_8:
 - (void)setShouldCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (cacheCopy)
   {
@@ -168,32 +167,32 @@ LABEL_8:
     cachedNetServices = self->_cachedNetServices;
     self->_cachedNetServices = orderedSet;
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = self->_netServices;
-    v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if ([v11 isPublishing])
           {
             [(NSMutableOrderedSet *)self->_cachedNetServices addObject:v11];
           }
         }
 
-        v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -207,7 +206,6 @@ LABEL_8:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)cachedNetServices
@@ -271,52 +269,50 @@ void __59__HMFNetServiceBrowser_startBrowsingWithCompletionHandler___block_invok
   v2 = [*(a1 + 32) isBrowsing];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
-  v5 = HMFGetOSLogHandle();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  v6 = HMFGetOSLogHandle(v4, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (v2)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = HMFGetLogIdentifier(v4);
+      v8 = HMFGetLogIdentifier(v4);
       v16 = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@The browser is already browsing", &v16, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@The browser is already browsing", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    v8 = *(a1 + 40);
-    if (v8)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v8 + 16))(v8, 0);
+      (*(v9 + 16))(v9, 0);
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v9 = HMFGetLogIdentifier(v4);
-      v10 = [*(a1 + 32) serviceType];
-      v11 = [*(a1 + 32) domain];
+      v10 = HMFGetLogIdentifier(v4);
+      v11 = [*(a1 + 32) serviceType];
+      v12 = [*(a1 + 32) domain];
       v16 = 138543874;
-      v17 = v9;
+      v17 = v10;
       v18 = 2112;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Start browsing for %@%@", &v16, 0x20u);
+      v21 = v12;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Start browsing for %@%@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setBrowsing:1];
     [*(a1 + 32) setBrowseBlock:*(a1 + 40)];
-    v12 = [*(a1 + 32) internal];
-    v13 = [*(a1 + 32) serviceType];
-    v14 = [*(a1 + 32) domain];
-    [v12 searchForServicesOfType:v13 inDomain:v14];
+    v13 = [*(a1 + 32) internal];
+    v14 = [*(a1 + 32) serviceType];
+    v15 = [*(a1 + 32) domain];
+    [v13 searchForServicesOfType:v14 inDomain:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopBrowsing
@@ -338,32 +334,30 @@ void __59__HMFNetServiceBrowser_startBrowsingWithCompletionHandler___block_invok
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Stopping the browse", &v14, 0xCu);
+      v15 = v9;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Stopping the browse", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     internal = [(HMFNetServiceBrowser *)selfCopy internal];
     [internal stop];
 
-    v10 = selfCopy;
-    v11 = errorCopy;
-    if (v10)
+    v11 = selfCopy;
+    v12 = errorCopy;
+    if (v11)
     {
-      delegate = [(HMFNetServiceBrowser *)v10 delegate];
+      delegate = [(HMFNetServiceBrowser *)v11 delegate];
       if (objc_opt_respondsToSelector())
       {
-        [delegate netServiceBrowser:v10 didStopBrowsingWithError:v11];
+        [delegate netServiceBrowser:v11 didStopBrowsingWithError:v12];
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -380,9 +374,11 @@ void __59__HMFNetServiceBrowser_startBrowsingWithCompletionHandler___block_invok
 
 uint64_t __35__HMFNetServiceBrowser_logCategory__block_invoke()
 {
-  qword_280AFC330 = HMFCreateOSLogHandle(@"Networking.Service.Browser", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Networking.Service.Browser", @"com.apple.HMFoundation");
+  v1 = qword_280AFC330;
+  qword_280AFC330 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)logIdentifier
@@ -411,24 +407,22 @@ void __52__HMFNetServiceBrowser_netServiceBrowserWillSearch___block_invoke(uint6
   v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Browser started browsing", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Browser started browsing", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = [*(a1 + 32) browseBlock];
-  if (v6)
+  v7 = [*(a1 + 32) browseBlock];
+  if (v7)
   {
     [*(a1 + 32) setBrowseBlock:0];
-    v6[2](v6, 0);
+    v7[2](v7, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceBrowserDidStopSearch:(id)search
@@ -437,19 +431,17 @@ void __52__HMFNetServiceBrowser_netServiceBrowserWillSearch___block_invoke(uint6
   searchCopy = search;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
+    v9 = HMFGetLogIdentifier(selfCopy);
     v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Browse did stop", &v10, 0xCu);
+    v11 = v9;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Browse did stop", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMFNetServiceBrowser *)selfCopy setBrowsing:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceBrowser:(id)browser didNotSearch:(id)search
@@ -468,46 +460,44 @@ void __52__HMFNetServiceBrowser_netServiceBrowserWillSearch___block_invoke(uint6
 
 void __55__HMFNetServiceBrowser_netServiceBrowser_didNotSearch___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
-    v16 = 138543362;
-    v17 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Failed to browse", &v16, 0xCu);
+    v6 = HMFGetLogIdentifier(v3);
+    v17 = 138543362;
+    v18 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Failed to browse", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = objc_autoreleasePoolPush();
-  v7 = *(a1 + 32);
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v7 = objc_autoreleasePoolPush();
+  v8 = *(a1 + 32);
+  v10 = HMFGetOSLogHandle(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v9 = HMFGetLogIdentifier(v7);
-    v10 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Failed to browse with error: %@", &v16, 0x16u);
+    v11 = HMFGetLogIdentifier(v8);
+    v12 = *(a1 + 40);
+    v17 = 138543618;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Failed to browse with error: %@", &v17, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v6);
-  v11 = [*(a1 + 32) browseBlock];
-  if (v11)
+  objc_autoreleasePoolPop(v7);
+  v13 = [*(a1 + 32) browseBlock];
+  if (v13)
   {
     [*(a1 + 32) setBrowseBlock:0];
-    v12 = MEMORY[0x277CCA9B8];
-    v13 = [HMFNetService errorFromNetServiceErrorDict:*(a1 + 40)];
-    v14 = [v12 hmfErrorWithCode:12 reason:@"Failed to search for services." suggestion:0 underlyingError:v13];
+    v14 = MEMORY[0x277CCA9B8];
+    v15 = [HMFNetService errorFromNetServiceErrorDict:*(a1 + 40)];
+    v16 = [v14 hmfErrorWithCode:12 reason:@"Failed to search for services." suggestion:0 underlyingError:v15];
 
-    (v11)[2](v11, v14);
+    (v13)[2](v13, v16);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceBrowser:(id)browser didFindService:(id)service moreComing:(BOOL)coming
@@ -529,52 +519,52 @@ void __68__HMFNetServiceBrowser_netServiceBrowser_didFindService_moreComing___bl
   v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
-    v6 = *(a1 + 40);
+    v6 = HMFGetLogIdentifier(v3);
+    v7 = *(a1 + 40);
     *buf = 138543618;
-    v25 = v5;
+    v25 = v6;
     v26 = 2112;
-    v27 = v6;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Added service: %@", buf, 0x16u);
+    v27 = v7;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Added service: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v7 = *(a1 + 32);
+  v8 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
   v21 = 0u;
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v8 = *(*(a1 + 32) + 16);
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v9)
+  v9 = *(*(a1 + 32) + 16);
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v10)
   {
-    v10 = *v20;
+    v11 = *v20;
     while (2)
     {
-      for (i = 0; i != v9; i = (i + 1))
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v20 != v10)
+        if (*v20 != v11)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [v12 internal];
-        v14 = [v13 isEqual:*(a1 + 40)];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [v13 internal];
+        v15 = [v14 isEqual:*(a1 + 40)];
 
-        if (v14)
+        if (v15)
         {
-          v9 = v12;
+          v10 = v13;
           goto LABEL_13;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v9)
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v10)
       {
         continue;
       }
@@ -585,26 +575,24 @@ void __68__HMFNetServiceBrowser_netServiceBrowser_didFindService_moreComing___bl
 
 LABEL_13:
 
-  os_unfair_lock_unlock(v7 + 2);
-  if (!v9)
+  os_unfair_lock_unlock(v8 + 2);
+  if (!v10)
   {
-    v9 = [[HMFNetService alloc] initWithNetService:*(a1 + 40)];
+    v10 = [[HMFNetService alloc] initWithNetService:*(a1 + 40)];
   }
 
-  [(HMFNetService *)v9 setPublishing:1, v19];
-  [*(a1 + 32) addNetServiceToCache:v9];
-  v15 = *(a1 + 32);
-  v16 = v9;
-  if (v16 && v15)
+  [(HMFNetService *)v10 setPublishing:1, v19];
+  [*(a1 + 32) addNetServiceToCache:v10];
+  v16 = *(a1 + 32);
+  v17 = v10;
+  if (v17 && v16)
   {
-    v17 = [v15 delegate];
+    v18 = [v16 delegate];
     if (objc_opt_respondsToSelector())
     {
-      [v17 netServiceBrowser:v15 didAddService:v16];
+      [v18 netServiceBrowser:v16 didAddService:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceBrowser:(id)browser didRemoveDomain:(id)domain moreComing:(BOOL)coming
@@ -632,24 +620,22 @@ void __69__HMFNetServiceBrowser_netServiceBrowser_didRemoveDomain_moreComing___b
   {
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 40);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = HMFGetOSLogHandle(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = HMFGetLogIdentifier(v5);
-      v8 = *(a1 + 32);
+      v8 = HMFGetLogIdentifier(v5);
+      v9 = *(a1 + 32);
       v11 = 138543618;
-      v12 = v7;
+      v12 = v8;
       v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@The browse domain, %@, was removed", &v11, 0x16u);
+      v14 = v9;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@The browse domain, %@, was removed", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v9 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"The search domain was removed."];
-    [*(a1 + 40) _stopBrowsingWithError:v9];
+    v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"The search domain was removed."];
+    [*(a1 + 40) _stopBrowsingWithError:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceBrowser:(id)browser didRemoveService:(id)service moreComing:(BOOL)coming
@@ -671,54 +657,54 @@ void __70__HMFNetServiceBrowser_netServiceBrowser_didRemoveService_moreComing___
   v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
-    v6 = *(a1 + 40);
+    v6 = HMFGetLogIdentifier(v3);
+    v7 = *(a1 + 40);
     *buf = 138543618;
-    v25 = v5;
+    v25 = v6;
     v26 = 2112;
-    v27 = v6;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Removed service: %@", buf, 0x16u);
+    v27 = v7;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Removed service: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v7 = *(a1 + 32);
+  v8 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
   v21 = 0u;
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v8 = *(*(a1 + 32) + 16);
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v9)
+  v9 = *(*(a1 + 32) + 16);
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v10)
   {
-    v10 = *v20;
+    v11 = *v20;
     while (2)
     {
-      for (i = 0; i != v9; i = (i + 1))
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v20 != v10)
+        if (*v20 != v11)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [v12 internal];
-        v14 = [v13 isEqual:*(a1 + 40)];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [v13 internal];
+        v15 = [v14 isEqual:*(a1 + 40)];
 
-        if (v14)
+        if (v15)
         {
-          v9 = v12;
-          [(HMFNetService *)v9 setPublishing:0];
-          [*(*(a1 + 32) + 24) removeObject:v9];
+          v10 = v13;
+          [(HMFNetService *)v10 setPublishing:0];
+          [*(*(a1 + 32) + 24) removeObject:v10];
           goto LABEL_13;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v9)
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v10)
       {
         continue;
       }
@@ -729,24 +715,22 @@ void __70__HMFNetServiceBrowser_netServiceBrowser_didRemoveService_moreComing___
 
 LABEL_13:
 
-  os_unfair_lock_unlock(v7 + 2);
-  if (!v9)
+  os_unfair_lock_unlock(v8 + 2);
+  if (!v10)
   {
-    v9 = [[HMFNetService alloc] initWithNetService:*(a1 + 40)];
+    v10 = [[HMFNetService alloc] initWithNetService:*(a1 + 40)];
   }
 
-  v15 = *(a1 + 32);
-  v16 = v9;
-  if (v16 && v15)
+  v16 = *(a1 + 32);
+  v17 = v10;
+  if (v17 && v16)
   {
-    v17 = [v15 delegate];
+    v18 = [v16 delegate];
     if (objc_opt_respondsToSelector())
     {
-      [v17 netServiceBrowser:v15 didRemoveService:v16];
+      [v18 netServiceBrowser:v16 didRemoveService:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFNetServiceBrowserDelegate)delegate

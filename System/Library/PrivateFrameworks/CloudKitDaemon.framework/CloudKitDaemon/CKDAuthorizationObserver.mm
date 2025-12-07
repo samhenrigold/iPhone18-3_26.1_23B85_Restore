@@ -127,7 +127,7 @@
 
 - (void)registerWithBlock:(id)block
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -137,31 +137,31 @@
   if (v11)
   {
     empty = xpc_array_create_empty();
-    v69 = 0u;
-    v70 = 0u;
     v68 = 0u;
+    v69 = 0u;
     v67 = 0u;
+    v66 = 0u;
     v15 = objc_msgSend_bundleIdentifiers(selfCopy, v13, v14);
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v67, v76, 16);
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v66, v75, 16);
     if (v17)
     {
-      v18 = *v68;
+      v18 = *v67;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v68 != v18)
+          if (*v67 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v67 + 1) + 8 * i);
+          v20 = *(*(&v66 + 1) + 8 * i);
           v23 = objc_msgSend_UTF8String(v20, v21, v22);
           v24 = xpc_string_create(v23);
           xpc_array_append_value(empty, v24);
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v25, &v67, v76, 16);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v25, &v66, v75, 16);
       }
 
       while (v17);
@@ -186,15 +186,15 @@
   }
   v34 = ;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v35 = v34;
-  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v63, v75, 16);
+  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v62, v74, 16);
   if (v37)
   {
-    v38 = *v64;
+    v38 = *v63;
     if (empty)
     {
       v39 = empty;
@@ -209,17 +209,17 @@
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v64 != v38)
+        if (*v63 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v41 = *(*(&v63 + 1) + 8 * j);
+        v41 = *(*(&v62 + 1) + 8 * j);
         v44 = objc_msgSend_UTF8String(v41, v42, v43);
         xpc_dictionary_set_value(v26, v44, v39);
       }
 
-      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v45, &v63, v75, 16);
+      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v45, &v62, v74, 16);
     }
 
     while (v37);
@@ -237,11 +237,11 @@
     v49 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v59 = objc_msgSend_bundleIdentifiers(selfCopy, v50, v51);
+      v58 = objc_msgSend_bundleIdentifiers(selfCopy, v50, v51);
       *buf = 138412546;
-      v72 = v59;
-      v73 = 2112;
-      v74 = v35;
+      v71 = v58;
+      v72 = 2112;
+      v73 = v35;
       _os_log_error_impl(&dword_22506F000, v49, OS_LOG_TYPE_ERROR, "Failed to create event filter for bundle identifier %@ and services %@", buf, 0x16u);
     }
   }
@@ -260,15 +260,14 @@
   }
 
   v57 = queue;
-  objc_copyWeak(&v61, &location);
-  v60 = blockCopy;
+  objc_copyWeak(&v60, &location);
+  v59 = blockCopy;
   tcc_events_subscribe();
 
-  objc_destroyWeak(&v61);
+  objc_destroyWeak(&v60);
   objc_destroyWeak(&location);
 
   objc_sync_exit(selfCopy);
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -281,7 +280,7 @@
 
 - (void)_handleTCCAuthorizationEventWithType:(unint64_t)type record:(id)record block:(id)block
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   blockCopy = block;
   v10 = type - 1;
@@ -323,7 +322,7 @@
             v22 = 0;
           }
 
-          v40 = v22;
+          v39 = v22;
           if (*MEMORY[0x277CBC880] != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -332,39 +331,39 @@
           v25 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
-            v38 = off_27854DE30[v10];
+            v37 = off_27854DE30[v10];
             *buf = 138413058;
-            typeCopy = v38;
-            v46 = 2112;
-            v47 = v20;
-            v48 = 2112;
-            v49 = v12;
-            v50 = 2112;
-            v51 = v24;
+            typeCopy = v37;
+            v45 = 2112;
+            v46 = v20;
+            v47 = 2112;
+            v48 = v12;
+            v49 = 2112;
+            v50 = v24;
             _os_log_debug_impl(&dword_22506F000, v25, OS_LOG_TYPE_DEBUG, "Posting %@ event for %@(%@) with authorization: %@", buf, 0x2Au);
           }
 
           objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v26, v27);
-          v28 = v41 = v12;
-          v42[0] = @"CKDAuthorizationServiceKey";
-          v42[1] = @"CKDAuthorizationBundleIdentifierKey";
-          v43[0] = v41;
-          v43[1] = v20;
-          v42[2] = @"CKDAuthorizationEventTypeKey";
+          v28 = v40 = v12;
+          v41[0] = @"CKDAuthorizationServiceKey";
+          v41[1] = @"CKDAuthorizationBundleIdentifierKey";
+          v42[0] = v40;
+          v42[1] = v20;
+          v41[2] = @"CKDAuthorizationEventTypeKey";
           objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v29, v10);
-          v30 = v39 = v20;
-          v43[2] = v30;
-          v42[3] = @"CKDAuthorizationKey";
-          v32 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v31, v40);
-          v43[3] = v32;
-          v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v43, v42, 4);
+          v30 = v38 = v20;
+          v42[2] = v30;
+          v41[3] = @"CKDAuthorizationKey";
+          v32 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v31, v39);
+          v42[3] = v32;
+          v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v42, v41, 4);
           objc_msgSend_postNotificationName_object_userInfo_(v28, v35, @"CKDAuthorizationChangedNotification", self, v34);
 
-          v20 = v39;
-          v12 = v41;
+          v20 = v38;
+          v12 = v40;
           if (blockCopy)
           {
-            blockCopy[2](blockCopy, v41, v39, v10, v40);
+            blockCopy[2](blockCopy, v40, v38, v10, v39);
           }
         }
 
@@ -441,8 +440,6 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 @end

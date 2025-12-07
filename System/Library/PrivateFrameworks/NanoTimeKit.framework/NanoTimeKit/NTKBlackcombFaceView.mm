@@ -284,8 +284,8 @@
 
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode
 {
-  v20.receiver = self;
-  v20.super_class = NTKBlackcombFaceView;
+  v21.receiver = self;
+  v21.super_class = NTKBlackcombFaceView;
   [NTKAnalogFaceView _configureForTransitionFraction:sel__configureForTransitionFraction_fromEditMode_toEditMode_ fromEditMode:? toEditMode:?];
   backgroundContainerView = self->_backgroundContainerView;
   CLKInterpolateBetweenFloatsClipped();
@@ -298,21 +298,21 @@
   CLKInterpolateBetweenFloatsClipped();
   [timeView setAlpha:?];
 
-  v11 = [(NTKFaceView *)self normalComplicationDisplayWrapperForSlot:@"subdial-top"];
-  display = [v11 display];
+  v12 = [(NTKFaceView *)self normalComplicationDisplayWrapperForSlot:@"subdial-top"];
+  display = [v12 display];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     blackcombPalette = self->_blackcombPalette;
-    v14 = display;
+    v15 = display;
     platterText = [(NTKBlackcombColorPalette *)blackcombPalette platterText];
-    v16 = [(NTKBlackcombFaceView *)self _platterTextColorForEditMode:mode color:platterText];
+    v17 = [(NTKBlackcombFaceView *)self _platterTextColorForEditMode:mode color:platterText];
     platterText2 = [(NTKBlackcombColorPalette *)self->_blackcombPalette platterText];
-    v18 = [(NTKBlackcombFaceView *)self _platterTextColorForEditMode:editMode color:platterText2];
-    v19 = NTKInterpolateBetweenColors();
+    v19 = [(NTKBlackcombFaceView *)self _platterTextColorForEditMode:editMode color:platterText2];
+    v20 = NTKInterpolateBetweenColors(fraction);
 
-    [v14 setForegroundColor:v19];
+    [v15 setForegroundColor:v20];
   }
 }
 
@@ -402,7 +402,7 @@ LABEL_6:
   colorPaletteCopy = colorPalette;
   complication = [paletteCopy complication];
   complication2 = [colorPaletteCopy complication];
-  v14 = NTKInterpolateBetweenColors();
+  v14 = NTKInterpolateBetweenColors(fraction);
   [(NTKFaceView *)self setInterpolatedComplicationColor:v14];
   if (force)
   {
@@ -456,7 +456,7 @@ LABEL_6:
 
   _secondHandColor = [(NTKBlackcombFaceView *)self _secondHandColor];
   _secondHandColor2 = [(NTKBlackcombFaceView *)self _secondHandColor];
-  v22 = NTKInterpolateBetweenColors();
+  v22 = NTKInterpolateBetweenColors(fraction);
   timeView = [(NTKFaceView *)self timeView];
   [timeView applySecondHandColor:v22];
 
@@ -519,7 +519,7 @@ void __87__NTKBlackcombFaceView__applyTransitionFraction_fromColorPalette_toColo
     platterText2 = [v11 platterText];
     v20 = [(NTKBlackcombFaceView *)self _platterTextColorForEditMode:_editMode2 color:platterText2];
 
-    v21 = NTKInterpolateBetweenColors();
+    v21 = NTKInterpolateBetweenColors(fraction);
     display2 = [v12 display];
     [display2 setForegroundColor:v21];
   }

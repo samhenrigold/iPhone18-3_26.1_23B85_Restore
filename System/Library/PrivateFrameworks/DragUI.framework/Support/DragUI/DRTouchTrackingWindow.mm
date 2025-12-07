@@ -183,7 +183,7 @@
           [v13 addSample:?];
           v14 = objc_opt_new();
           [v14 setTouch:v12];
-          [v13 velocity3D];
+          objc_msgSend_velocity3D(v13);
           v16[0] = v16[2];
           v16[1] = v16[3];
           [v14 setVelocity:v16];

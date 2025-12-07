@@ -31,21 +31,22 @@
 
 - (void)dealloc
 {
-  if (![(SBFolderViewAssertion *)self isInvalidated])
+  isInvalidated = [(SBFolderViewAssertion *)self isInvalidated];
+  if ((isInvalidated & 1) == 0)
   {
-    v3 = SBLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = SBLogCommon(isInvalidated);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_INFO, "SBFolderViewAssertion deallocated but not invalidated!", buf, 2u);
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_INFO, "SBFolderViewAssertion deallocated but not invalidated!", buf, 2u);
     }
 
     [(SBFolderViewAssertion *)self invalidate];
   }
 
-  v4.receiver = self;
-  v4.super_class = SBFolderViewAssertion;
-  [(SBFolderViewAssertion *)&v4 dealloc];
+  v5.receiver = self;
+  v5.super_class = SBFolderViewAssertion;
+  [(SBFolderViewAssertion *)&v5 dealloc];
 }
 
 - (void)invalidate

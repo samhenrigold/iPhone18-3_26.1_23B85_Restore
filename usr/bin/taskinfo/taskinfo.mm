@@ -4,69 +4,69 @@ uint64_t start()
   v2 = v1;
   v3 = v0;
   v4 = 0;
-  v406 = 0;
-  v405 = 0;
+  v393 = 0;
+  v392 = 0;
   default_set = 0;
   set = 0;
-  v481 = 0;
-  v480 = 0;
+  v468 = 0;
+  v467 = 0;
   *&size[1] = 0;
-  v538.name = "threads";
-  v538.flag = &v480 + 1;
-  v538.has_arg = 0;
-  v538.val = 1;
-  v539 = "dq";
-  v541 = &v480;
+  v525.name = "threads";
+  v525.flag = &v467 + 1;
+  v525.has_arg = 0;
+  v525.val = 1;
+  v526 = "dq";
+  v528 = &v467;
+  v527 = 0;
+  v529 = 1;
+  v530 = "boosts";
+  v532 = &size[2];
+  v531 = 0;
+  v533 = 1;
+  v534 = "coalitions-only";
+  v536 = &size[1];
+  v535 = 0;
+  v537 = 1;
+  v538 = "xpcinfo";
   v540 = 0;
-  v542 = 1;
-  v543 = "boosts";
-  v545 = &size[2];
+  v539 = 2;
+  v541 = 6;
+  v542 = "responsibility";
   v544 = 0;
-  v546 = 1;
-  v547 = "coalitions-only";
-  v549 = &size[1];
+  v543 = 2;
+  v545 = 7;
+  v546 = "precise";
   v548 = 0;
-  v550 = 1;
-  v551 = "xpcinfo";
-  v553 = 0;
-  v552 = 2;
-  v554 = 6;
-  v555 = "responsibility";
-  v557 = 0;
-  v556 = 2;
-  v558 = 7;
-  v559 = "precise";
-  v561 = 0;
-  v560 = 2;
-  v562 = 5;
-  v563 = "threadcounts";
-  v565 = 0;
-  v564 = 2;
-  v566 = 1;
-  v567 = "vouchers";
-  v568 = 2;
-  v569 = 0;
-  v570 = 2;
-  v571 = "coalitions";
-  v403 = 1;
-  v572 = 1;
-  v573 = 0;
-  v574 = 4;
-  v575 = "verbose";
-  v576 = 0;
-  v577 = 0;
-  v578 = 3;
-  v579 = "all";
-  v580 = 0;
-  v581 = 0;
-  v582 = 8;
-  v583 = "help";
-  v584 = 0;
-  v585 = 0;
-  v586 = 104;
-  v588 = 0u;
-  v587 = 0u;
-  qword_1000100D0 = &v538;
+  v547 = 2;
+  v549 = 5;
+  v550 = "threadcounts";
+  v552 = 0;
+  v551 = 2;
+  v553 = 1;
+  v554 = "vouchers";
+  v555 = 2;
+  v556 = 0;
+  v557 = 2;
+  v558 = "coalitions";
+  v390 = 1;
+  v559 = 1;
+  v560 = 0;
+  v561 = 4;
+  v562 = "verbose";
+  v563 = 0;
+  v564 = 0;
+  v565 = 3;
+  v566 = "all";
+  v567 = 0;
+  v568 = 0;
+  v569 = 8;
+  v570 = "help";
+  v571 = 0;
+  v572 = 0;
+  v573 = 104;
+  v575 = 0u;
+  v574 = 0u;
+  qword_1000100D0 = &v525;
   while (1)
   {
     while (1)
@@ -75,7 +75,7 @@ uint64_t start()
       {
         while (1)
         {
-          v5 = getopt_long(v3, v2, "h", &v538, &dword_1000100C8);
+          v5 = getopt_long(v3, v2, "h", &v525, &dword_1000100C8);
           if (v5 > 3)
           {
             break;
@@ -85,18 +85,18 @@ uint64_t start()
           {
             if (v5 == 2)
             {
-              v403 = 1;
+              v390 = 1;
               if (optarg)
               {
-                v403 = sub_100005274() != 0;
+                v390 = sub_100005274() != 0;
               }
             }
 
             else
             {
-              v480 = 0x100000001;
+              v467 = 0x100000001;
               size[2] = 1;
-              v406 = 1;
+              v393 = 1;
               byte_100010000 = 1;
             }
           }
@@ -130,11 +130,11 @@ uint64_t start()
                 v9 = 2;
               }
 
-              v382 = v9;
+              v369 = v9;
               if (optind >= v3)
               {
-                v385 = 0;
-                v386 = 0;
+                v372 = 0;
+                v373 = 0;
                 __s1 = 0;
               }
 
@@ -144,8 +144,8 @@ uint64_t start()
                 __endptr[0] = 0;
                 v11 = strtoul(v10, __endptr, 10);
                 __s1 = v10;
-                v386 = v11 >> 31 == 0 && v10 != __endptr[0];
-                if (v386)
+                v373 = v11 >> 31 == 0 && v10 != __endptr[0];
+                if (v373)
                 {
                   v12 = v11;
                 }
@@ -155,7 +155,7 @@ uint64_t start()
                   v12 = 0;
                 }
 
-                v385 = v12;
+                v372 = v12;
               }
 
               if (geteuid())
@@ -201,26 +201,26 @@ uint64_t start()
                 sub_1000061CC();
               }
 
-              v390 = dword_100010020;
+              v377 = dword_100010020;
               size[0] = 0;
-              *v589 = 0x800000001;
-              v481 = 4;
-              if (sysctl(v589, 2u, size, &v481, 0, 0))
+              *v576 = 0x800000001;
+              v468 = 4;
+              if (sysctl(v576, 2u, size, &v468, 0, 0))
               {
                 sub_1000061F4();
               }
 
-              v383 = malloc_type_malloc(size[0], 0x9CFE35B2uLL);
-              if (!v383)
+              v370 = malloc_type_malloc(size[0], 0x9CFE35B2uLL);
+              if (!v370)
               {
                 sub_100006420();
               }
 
-              v16 = mach_timebase_info(&dword_100010004);
+              v16 = mach_timebase_info(&stru_100010004);
               if (v16)
               {
-                v375 = v16;
-                v376 = "mach_timebase_info";
+                v362 = v16;
+                v363 = "mach_timebase_info";
               }
 
               else
@@ -229,8 +229,8 @@ uint64_t start()
                 v18 = processor_set_default(v17, &default_set);
                 if (v18)
                 {
-                  v375 = v18;
-                  v376 = "processor_set_default";
+                  v362 = v18;
+                  v363 = "processor_set_default";
                 }
 
                 else
@@ -239,15 +239,15 @@ uint64_t start()
                   v20 = host_processor_set_priv(v19, default_set, &set);
                   if (v20)
                   {
-                    v375 = v20;
-                    v376 = "host_processor_set_priv";
+                    v362 = v20;
+                    v363 = "host_processor_set_priv";
                   }
 
                   else
                   {
                     task_list = 0;
                     task_listCnt = 0;
-                    if (v403 || v480 != 0)
+                    if (v390 || v467 != 0)
                     {
                       v21 = processor_set_tasks_with_flavor(set, 1u, &task_list, &task_listCnt);
                       if (v21)
@@ -303,13 +303,13 @@ LABEL_80:
                               }
 
                               stackshot_buffer = stackshot_config_get_stackshot_buffer();
-                              v350 = stackshot_buffer + stackshot_config_get_stackshot_size();
-                              v351 = stackshot_buffer + 16;
-                              if (stackshot_buffer + 16 > v350)
+                              v337 = stackshot_buffer + stackshot_config_get_stackshot_size();
+                              v338 = stackshot_buffer + 16;
+                              if (stackshot_buffer + 16 > v337)
                               {
 LABEL_82:
                                 v29 = malloc_type_calloc(4uLL, task_listCnt, 0xDCA693A2uLL);
-                                v387 = v29;
+                                v374 = v29;
                                 if (task_listCnt)
                                 {
                                   v30 = 0;
@@ -331,72 +331,59 @@ LABEL_82:
                                   v34 = task_listCnt;
                                   if (task_listCnt)
                                   {
-                                    v35 = v387;
+                                    v35 = v374;
                                     if (!size[1])
                                     {
                                       v36 = 0;
-                                      v380 = dispatch_queue_offsets[1];
+                                      v367 = dispatch_queue_offsets[1];
                                       do
                                       {
                                         v37 = v35[v36];
                                         task_info_outCnt = 0;
                                         memset(&basic_info, 0, sizeof(basic_info));
-                                        v473 = 0u;
-                                        v474 = 0u;
-                                        v472 = 0;
-                                        task_info_out = 0u;
-                                        v471 = 0u;
-                                        v468 = 0;
-                                        v469 = 0;
-                                        v467 = 0;
-                                        v465 = 0u;
-                                        v466 = 0u;
-                                        v463 = 0u;
-                                        v464 = 0u;
-                                        v461 = 0u;
-                                        v462 = 0u;
-                                        v459 = 0u;
                                         v460 = 0u;
-                                        v536 = 0u;
-                                        v537 = 0u;
-                                        v534 = 0u;
-                                        v535 = 0u;
-                                        v457 = 0;
-                                        v458 = 0;
-                                        v455 = 0u;
-                                        v456 = 0u;
-                                        policy_info = 0u;
-                                        v454 = 0u;
-                                        v533 = 0;
-                                        v532 = 0u;
-                                        memset(v531, 0, sizeof(v531));
-                                        v529 = 0u;
-                                        v530 = 0u;
-                                        buffer = 0u;
-                                        v528 = 0u;
-                                        v451 = 0;
-                                        v452 = 0;
-                                        memset(v450, 0, sizeof(v450));
-                                        v526 = 0;
+                                        v461 = 0u;
+                                        v459 = 0;
+                                        task_info_out = 0u;
+                                        v458 = 0u;
+                                        v455 = 0;
+                                        v456 = 0;
+                                        v454 = 0;
+                                        v452 = 0u;
+                                        v453 = 0u;
+                                        v450 = 0u;
+                                        v451 = 0u;
+                                        v448 = 0u;
+                                        v449 = 0u;
+                                        v446 = 0u;
+                                        v447 = 0u;
+                                        v523 = 0u;
                                         v524 = 0u;
-                                        v525 = 0u;
-                                        uu = 0u;
-                                        v448 = 0;
-                                        v449 = 0;
-                                        v447 = 0;
                                         v521 = 0u;
                                         v522 = 0u;
+                                        v444 = 0;
+                                        v445 = 0;
+                                        v442 = 0u;
+                                        v443 = 0u;
+                                        policy_info = 0u;
+                                        v441 = 0u;
+                                        v520 = 0;
                                         v519 = 0u;
-                                        v520 = 0u;
-                                        v517 = 0u;
-                                        v518 = 0u;
-                                        v515 = 0u;
+                                        memset(v518, 0, sizeof(v518));
                                         v516 = 0u;
-                                        v513 = 0u;
-                                        v514 = 0u;
+                                        v517 = 0u;
+                                        buffer = 0u;
+                                        v515 = 0u;
+                                        v438 = 0;
+                                        v439 = 0;
+                                        memset(v437, 0, sizeof(v437));
+                                        v513 = 0;
                                         v511 = 0u;
                                         v512 = 0u;
-                                        memset(v510, 0, sizeof(v510));
+                                        uu = 0u;
+                                        v435 = 0;
+                                        v436 = 0;
+                                        v434 = 0;
                                         v508 = 0u;
                                         v509 = 0u;
                                         v506 = 0u;
@@ -409,9 +396,22 @@ LABEL_82:
                                         v501 = 0u;
                                         v498 = 0u;
                                         v499 = 0u;
-                                        v496 = 0u;
-                                        v497 = 0u;
+                                        memset(v497, 0, sizeof(v497));
                                         v495 = 0u;
+                                        v496 = 0u;
+                                        v493 = 0u;
+                                        v494 = 0u;
+                                        v491 = 0u;
+                                        v492 = 0u;
+                                        v489 = 0u;
+                                        v490 = 0u;
+                                        v487 = 0u;
+                                        v488 = 0u;
+                                        v485 = 0u;
+                                        v486 = 0u;
+                                        v483 = 0u;
+                                        v484 = 0u;
+                                        v482 = 0u;
                                         flags = 0;
                                         act_list = 0;
                                         *x = 0;
@@ -431,22 +431,22 @@ LABEL_82:
                                           perror("proc_pidinfo(... PROC_PIDTBSDINFO ...)");
                                         }
 
-                                        if (proc_pidinfo(v37, 19, 0, &v452, 8) <= 7)
+                                        if (proc_pidinfo(v37, 19, 0, &v439, 8) <= 7)
                                         {
                                           perror("proc_pidinfo(... PROC_PIDARCHINFO ...)");
                                         }
 
-                                        if (proc_pidinfo(v37, 30, 0, &v447, 4) <= 3)
+                                        if (proc_pidinfo(v37, 30, 0, &v434, 4) <= 3)
                                         {
                                           perror("proc_pidinfo(... PROC_PIDPLATFORMINFO ...)");
                                         }
 
                                         *__error() = 0;
-                                        if (proc_pidinfo(v37, 12, 0, &v448, 16) <= 15)
+                                        if (proc_pidinfo(v37, 12, 0, &v435, 16) <= 15)
                                         {
                                           if (*__error() == 3)
                                           {
-                                            v409 = 0;
+                                            v396 = 0;
                                             if (!v37)
                                             {
                                               goto LABEL_103;
@@ -458,14 +458,14 @@ LABEL_82:
                                           if (!v37 && *__error() == 22)
                                           {
                                             v38 = 0;
-                                            v409 = 0;
+                                            v396 = 0;
                                             goto LABEL_107;
                                           }
 
                                           perror("proc_pidinfo(, ... PROC_PIDWORKQUEUEINFO ...)");
                                         }
 
-                                        v409 = 1;
+                                        v396 = 1;
                                         if (!v37)
                                         {
 LABEL_103:
@@ -476,26 +476,26 @@ LABEL_107:
                                         }
 
 LABEL_110:
-                                        *v589 = 0x3100000001;
-                                        v589[2] = v37;
-                                        v481 = size[0];
-                                        if (sysctl(v589, 3u, v383, &v481, 0, 0))
+                                        *v576 = 0x3100000001;
+                                        v576[2] = v37;
+                                        v468 = size[0];
+                                        if (sysctl(v576, 3u, v370, &v468, 0, 0))
                                         {
                                           perror("sysctl(... KERN_PROCARGS2 ...)");
-                                          if (v531[0])
+                                          if (v518[0])
                                           {
-                                            v39 = v531;
+                                            v39 = v518;
                                           }
 
                                           else
                                           {
-                                            v39 = &v530;
+                                            v39 = &v517;
                                           }
                                         }
 
                                         else
                                         {
-                                          v39 = basename(v383 + 4);
+                                          v39 = basename(v370 + 4);
                                         }
 
                                         v38 = 1;
@@ -504,13 +504,13 @@ LABEL_113:
                                         {
                                           if (v39)
                                           {
-                                            if (strncmp(__s1, v39, 0x20uLL) && (!v386 || v385 != v37))
+                                            if (strncmp(__s1, v39, 0x20uLL) && (!v373 || v372 != v37))
                                             {
                                               goto LABEL_891;
                                             }
                                           }
 
-                                          else if (!v386 || v385 != v37)
+                                          else if (!v373 || v372 != v37)
                                           {
                                             goto LABEL_891;
                                           }
@@ -524,42 +524,42 @@ LABEL_113:
                                         }
 
                                         task_info_outCnt = 4;
-                                        v41 = task_info(task_list[v36], 3u, &v468, &task_info_outCnt);
+                                        v41 = task_info(task_list[v36], 3u, &v455, &task_info_outCnt);
                                         if (v41)
                                         {
                                           mach_error("task_info(... TASK_THREAD_TIMES_INFO ...)", v41);
                                         }
 
                                         task_info_outCnt = 26;
-                                        v42 = task_info(task_list[v36], 0x1Au, &v461, &task_info_outCnt);
+                                        v42 = task_info(task_list[v36], 0x1Au, &v448, &task_info_outCnt);
                                         if (v42)
                                         {
                                           mach_error("task_info(... TASK_POWER_INFO_V2 ...)", v42);
                                         }
 
                                         task_info_outCnt = 8;
-                                        v43 = task_info(task_list[v36], 2u, &v459, &task_info_outCnt);
+                                        v43 = task_info(task_list[v36], 2u, &v446, &task_info_outCnt);
                                         if (v43)
                                         {
                                           mach_error("task_info(... TASK_EVENTS_INFO ...)", v43);
                                         }
 
                                         task_info_outCnt = 16;
-                                        v44 = task_info(task_list[v36], 0x13u, &v534, &task_info_outCnt);
+                                        v44 = task_info(task_list[v36], 0x13u, &v521, &task_info_outCnt);
                                         if (v44)
                                         {
                                           mach_error("task_info(... TASK_EXTMOD_INFO ...)", v44);
                                         }
 
                                         task_info_outCnt = 4;
-                                        v45 = task_info(task_list[v36], 0x10u, &v457, &task_info_outCnt);
+                                        v45 = task_info(task_list[v36], 0x10u, &v444, &task_info_outCnt);
                                         if (v45)
                                         {
                                           mach_error("task_info(... TASK_AFFINITY_TAG_INFO ...)", v45);
                                         }
 
                                         task_info_outCnt = 8;
-                                        v46 = task_info(task_list[v36], 0xFu, &v473, &task_info_outCnt);
+                                        v46 = task_info(task_list[v36], 0xFu, &v460, &task_info_outCnt);
                                         if (v46)
                                         {
                                           mach_error("task_info(... TASK_AUDIT_TOKEN ...)", v46);
@@ -582,7 +582,7 @@ LABEL_113:
                                           }
                                         }
 
-                                        if (proc_pidinfo(v37, 20, 0, v450, 40) <= 39)
+                                        if (proc_pidinfo(v37, 20, 0, v437, 40) <= 39)
                                         {
                                           perror("proc_pidinfo(... PROC_PIDCOALITIONINFO ...)");
                                         }
@@ -592,7 +592,7 @@ LABEL_113:
                                           perror("proc_pidinfo(... PROC_PIDUNIQIDENTIFIERINFO ...)");
                                         }
 
-                                        if (proc_pid_rusage(v37, 6, &v495))
+                                        if (proc_pid_rusage(v37, 6, &v482))
                                         {
                                           perror("proc_pid_rusage");
                                         }
@@ -602,14 +602,14 @@ LABEL_113:
                                           perror("proc_get_dirty");
                                         }
 
-                                        v443 = 0;
+                                        v430 = 0;
                                         if (csops())
                                         {
                                           perror("csops_audittoken");
                                         }
 
                                         __nel = v38;
-                                        if (HIDWORD(v480))
+                                        if (HIDWORD(v467))
                                         {
                                           v49 = task_threads(task_list[v36], &act_list, &x[1]);
                                           if (v49)
@@ -618,10 +618,10 @@ LABEL_113:
                                           }
                                         }
 
-                                        v442 = 0;
-                                        v441 = 0u;
-                                        v440 = 0u;
-                                        v439 = 0u;
+                                        v429 = 0;
+                                        v428 = 0u;
+                                        v427 = 0u;
+                                        v426 = 0u;
                                         v50 = proc_pidinfo(v37, 1, 0, 0, 0);
                                         v51 = v50;
                                         if (v50 <= 0)
@@ -652,7 +652,7 @@ LABEL_897:
                                         }
 
                                         v54 = v53 >> 3;
-                                        LODWORD(v439) = v53 >> 3;
+                                        LODWORD(v426) = v53 >> 3;
                                         if (v53 >= 8)
                                         {
                                           v55 = 4;
@@ -664,7 +664,7 @@ LABEL_897:
                                               v56 = 12;
                                             }
 
-                                            ++*(&v439 + v56 + 1);
+                                            ++*(&v426 + v56 + 1);
                                             v55 += 8;
                                             --v54;
                                           }
@@ -675,12 +675,12 @@ LABEL_897:
 LABEL_162:
                                         free(v52);
                                         printf("process: %s [%d]\n", v39, v37);
-                                        printf("unique ID/version: %llu / %d, parent: %u / %llu / %d\n", v524, v525, v528, *(&v524 + 1), DWORD1(v525));
-                                        printf("audit: { auid %d uid %u gid %u ruid %u rgid %u pid %u asid %u version %u}\n", v473, DWORD1(v473), DWORD2(v473), HIDWORD(v473), v474, DWORD1(v474), DWORD2(v474), HIDWORD(v474));
+                                        printf("unique ID/version: %llu / %d, parent: %u / %llu / %d\n", v511, v512, v515, *(&v511 + 1), DWORD1(v512));
+                                        printf("audit: { auid %d uid %u gid %u ruid %u rgid %u pid %u asid %u version %u}\n", v460, DWORD1(v460), DWORD2(v460), HIDWORD(v460), v461, DWORD1(v461), DWORD2(v461), HIDWORD(v461));
                                         memset(out, 0, 37);
                                         uuid_unparse(&uu, out);
                                         printf("executable uuid: %s\n", out);
-                                        switch(v452)
+                                        switch(v439)
                                         {
                                           case 7:
                                             v58 = "i386";
@@ -690,7 +690,7 @@ LABEL_162:
                                             break;
                                           case 0x100000C:
                                             v58 = "arm64";
-                                            if ((HIDWORD(v452) & 0xFFFFFF) == 2)
+                                            if ((HIDWORD(v439) & 0xFFFFFF) == 2)
                                             {
                                               v58 = "arm64e";
                                             }
@@ -698,7 +698,7 @@ LABEL_162:
                                             break;
                                           default:
                                             v58 = "arm";
-                                            if (v452 != 12)
+                                            if (v439 != 12)
                                             {
                                               v58 = "???";
                                             }
@@ -706,33 +706,33 @@ LABEL_162:
                                             break;
                                         }
 
-                                        v398 = v36;
-                                        v401 = v37;
+                                        v385 = v36;
+                                        v388 = v37;
                                         key = v37;
                                         printf("architecture: %s\n", v58);
                                         v59 = "unknown";
-                                        if (v447 <= 0xC)
+                                        if (v434 <= 0xC)
                                         {
-                                          v59 = (&off_10000C3F0)[v447];
+                                          v59 = (&off_10000C3F0)[v434];
                                         }
 
-                                        printf("platform: %s (%u)\n", v59, v447);
+                                        printf("platform: %s (%u)\n", v59, v434);
                                         v60 = " valid";
                                         v61 = &unk_100007155;
-                                        if ((v443 & 1) == 0)
+                                        if ((v430 & 1) == 0)
                                         {
                                           v60 = &unk_100007155;
                                         }
 
-                                        v395 = v60;
+                                        v382 = v60;
                                         v62 = " adhoc";
-                                        if ((v443 & 2) == 0)
+                                        if ((v430 & 2) == 0)
                                         {
                                           v62 = &unk_100007155;
                                         }
 
-                                        v392 = v62;
-                                        if ((v443 & 4) != 0)
+                                        v379 = v62;
+                                        if ((v430 & 4) != 0)
                                         {
                                           v63 = " get_task_allow";
                                         }
@@ -742,7 +742,7 @@ LABEL_162:
                                           v63 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 8) != 0)
+                                        if ((v430 & 8) != 0)
                                         {
                                           v64 = " installer";
                                         }
@@ -752,7 +752,7 @@ LABEL_162:
                                           v64 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x10) != 0)
+                                        if ((v430 & 0x10) != 0)
                                         {
                                           v65 = " forced_lv";
                                         }
@@ -762,7 +762,7 @@ LABEL_162:
                                           v65 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x20) != 0)
+                                        if ((v430 & 0x20) != 0)
                                         {
                                           v66 = " invalid_allowed";
                                         }
@@ -772,7 +772,7 @@ LABEL_162:
                                           v66 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x100) != 0)
+                                        if ((v430 & 0x100) != 0)
                                         {
                                           v67 = " hard";
                                         }
@@ -782,7 +782,7 @@ LABEL_162:
                                           v67 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x200) != 0)
+                                        if ((v430 & 0x200) != 0)
                                         {
                                           v68 = " kill";
                                         }
@@ -792,7 +792,7 @@ LABEL_162:
                                           v68 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x400) != 0)
+                                        if ((v430 & 0x400) != 0)
                                         {
                                           v69 = " check_expiration";
                                         }
@@ -802,7 +802,7 @@ LABEL_162:
                                           v69 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x800) != 0)
+                                        if ((v430 & 0x800) != 0)
                                         {
                                           v70 = " restrict";
                                         }
@@ -812,7 +812,7 @@ LABEL_162:
                                           v70 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x1000) != 0)
+                                        if ((v430 & 0x1000) != 0)
                                         {
                                           v71 = " enforcement";
                                         }
@@ -822,7 +822,7 @@ LABEL_162:
                                           v71 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x2000) != 0)
+                                        if ((v430 & 0x2000) != 0)
                                         {
                                           v72 = " require_lv";
                                         }
@@ -832,7 +832,7 @@ LABEL_162:
                                           v72 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x4000) != 0)
+                                        if ((v430 & 0x4000) != 0)
                                         {
                                           v73 = " entitlements_validated";
                                         }
@@ -842,7 +842,7 @@ LABEL_162:
                                           v73 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x8000) != 0)
+                                        if ((v430 & 0x8000) != 0)
                                         {
                                           v74 = " nvram_unrestricted";
                                         }
@@ -852,7 +852,7 @@ LABEL_162:
                                           v74 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x10000) != 0)
+                                        if ((v430 & 0x10000) != 0)
                                         {
                                           v75 = " runtime";
                                         }
@@ -862,7 +862,7 @@ LABEL_162:
                                           v75 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x20000) != 0)
+                                        if ((v430 & 0x20000) != 0)
                                         {
                                           v76 = " linker_signed";
                                         }
@@ -872,7 +872,7 @@ LABEL_162:
                                           v76 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x100000) != 0)
+                                        if ((v430 & 0x100000) != 0)
                                         {
                                           v77 = " exec_set_hard";
                                         }
@@ -882,7 +882,7 @@ LABEL_162:
                                           v77 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x200000) != 0)
+                                        if ((v430 & 0x200000) != 0)
                                         {
                                           v78 = " exec_set_kill";
                                         }
@@ -892,7 +892,7 @@ LABEL_162:
                                           v78 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x400000) != 0)
+                                        if ((v430 & 0x400000) != 0)
                                         {
                                           v79 = " exec_set_enforcement";
                                         }
@@ -902,7 +902,7 @@ LABEL_162:
                                           v79 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x800000) != 0)
+                                        if ((v430 & 0x800000) != 0)
                                         {
                                           v80 = " exec_inherit_sip";
                                         }
@@ -912,7 +912,7 @@ LABEL_162:
                                           v80 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x1000000) != 0)
+                                        if ((v430 & 0x1000000) != 0)
                                         {
                                           v81 = " killed";
                                         }
@@ -922,7 +922,7 @@ LABEL_162:
                                           v81 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x2000000) != 0)
+                                        if ((v430 & 0x2000000) != 0)
                                         {
                                           v82 = " dyld_platform";
                                         }
@@ -932,7 +932,7 @@ LABEL_162:
                                           v82 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x4000000) != 0)
+                                        if ((v430 & 0x4000000) != 0)
                                         {
                                           v83 = " platform_binary";
                                         }
@@ -942,7 +942,7 @@ LABEL_162:
                                           v83 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x8000000) != 0)
+                                        if ((v430 & 0x8000000) != 0)
                                         {
                                           v84 = " platform_path";
                                         }
@@ -952,7 +952,7 @@ LABEL_162:
                                           v84 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x10000000) != 0)
+                                        if ((v430 & 0x10000000) != 0)
                                         {
                                           v85 = " debugged";
                                         }
@@ -962,7 +962,7 @@ LABEL_162:
                                           v85 = &unk_100007155;
                                         }
 
-                                        if ((v443 & 0x20000000) != 0)
+                                        if ((v430 & 0x20000000) != 0)
                                         {
                                           v86 = " signed";
                                         }
@@ -973,33 +973,32 @@ LABEL_162:
                                         }
 
                                         v87 = " dev_code";
-                                        if ((v443 & 0x40000000) == 0)
+                                        if ((v430 & 0x40000000) == 0)
                                         {
                                           v87 = &unk_100007155;
                                         }
 
-                                        if (v443 < 0)
+                                        if (v430 < 0)
                                         {
                                           v61 = " datavault_controller";
                                         }
 
-                                        printf("cs_flags (0x%x):%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n", v443, v395, v392, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v61);
+                                        printf("cs_flags (0x%x):%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n", v430, v382, v379, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v61);
                                         v88 = 0;
-                                        v89 = v450;
+                                        v89 = v437;
                                         v90 = 1;
                                         do
                                         {
                                           v91 = v90;
-                                          v92 = *v89;
-                                          v93 = sub_1000053D4();
-                                          v95 = v94;
-                                          v96 = *v89;
+                                          v92 = sub_1000053D4();
+                                          v94 = v93;
+                                          v95 = *v89;
                                           if (v88)
                                           {
-                                            printf("coalition (type %d JETSAM) ID: %llu", 1, v96);
+                                            printf("coalition (type %d JETSAM) ID: %llu", 1, v95);
                                             if (byte_100010001 == 1 && byte_100010002 == 1 && (byte_100010024 & 1) == 0)
                                             {
-                                              v591 = 0u;
+                                              v578 = 0u;
                                               *__endptr = 0u;
                                               if (coalition_info_debug_info() == -1)
                                               {
@@ -1008,72 +1007,72 @@ LABEL_162:
 
                                               else
                                               {
-                                                v97 = "A";
+                                                v96 = "A";
                                                 if ((BYTE4(__endptr[1]) & 2) == 0)
+                                                {
+                                                  v96 = "-";
+                                                }
+
+                                                v97 = "U";
+                                                if ((WORD2(__endptr[1]) & 0x100) == 0)
                                                 {
                                                   v97 = "-";
                                                 }
 
-                                                v98 = "U";
-                                                if ((WORD2(__endptr[1]) & 0x100) == 0)
+                                                v98 = "E";
+                                                if ((BYTE4(__endptr[1]) & 1) == 0)
                                                 {
                                                   v98 = "-";
                                                 }
 
-                                                v99 = "E";
-                                                if ((BYTE4(__endptr[1]) & 1) == 0)
+                                                v99 = "C";
+                                                if ((BYTE4(__endptr[1]) & 4) == 0)
                                                 {
                                                   v99 = "-";
                                                 }
 
-                                                v100 = "C";
-                                                if ((BYTE4(__endptr[1]) & 4) == 0)
+                                                v100 = "B";
+                                                if ((BYTE4(__endptr[1]) & 8) == 0)
                                                 {
                                                   v100 = "-";
                                                 }
 
-                                                v101 = "B";
-                                                if ((BYTE4(__endptr[1]) & 8) == 0)
+                                                v101 = "X";
+                                                if ((WORD2(__endptr[1]) & 0x200) == 0)
                                                 {
                                                   v101 = "-";
                                                 }
 
-                                                v102 = "X";
-                                                if ((WORD2(__endptr[1]) & 0x200) == 0)
+                                                v102 = "T";
+                                                if ((WORD2(__endptr[1]) & 0x400) == 0)
                                                 {
                                                   v102 = "-";
                                                 }
 
-                                                v103 = "T";
-                                                if ((WORD2(__endptr[1]) & 0x400) == 0)
+                                                v103 = "G";
+                                                if ((WORD2(__endptr[1]) & 0x800) == 0)
                                                 {
                                                   v103 = "-";
                                                 }
 
-                                                v104 = "G";
-                                                if ((WORD2(__endptr[1]) & 0x800) == 0)
+                                                v104 = "P";
+                                                if ((WORD2(__endptr[1]) & 0x1000) == 0)
                                                 {
                                                   v104 = "-";
                                                 }
 
-                                                v105 = "P";
-                                                if ((WORD2(__endptr[1]) & 0x1000) == 0)
-                                                {
-                                                  v105 = "-";
-                                                }
-
-                                                printf(" group 0x%llx (%s%s%s%s%s%s%s%s%s, 0x%u)", __endptr[0], v97, v98, v99, v100, v101, v102, v103, v104, v105, LODWORD(__endptr[1]));
+                                                printf(" group 0x%llx (%s%s%s%s%s%s%s%s%s, 0x%u)", __endptr[0], v96, v97, v98, v99, v100, v101, v102, v103, v104, LODWORD(__endptr[1]));
                                               }
                                             }
 
-                                            sub_10000547C(v93, v95);
-                                            v106 = coalition_policy_get();
-                                            if (v106 == 1)
+                                            sub_10000547C(v92, v94);
+                                            v105 = coalition_policy_get();
+                                            if (v105 == 1)
                                             {
                                               printf(" suppressed (BG)");
                                             }
 
-                                            else if (v106 == -1 && (byte_10001000C & 1) == 0)
+                                            else if (v105 == -1 && (byte_10001000C & 1) == 0)
                                             {
                                               sub_100006240();
                                             }
@@ -1081,22 +1080,22 @@ LABEL_162:
 
                                           else
                                           {
-                                            printf("coalition (type %d RESOURCE) ID: %llu", 0, v96);
-                                            sub_10000547C(v93, v95);
+                                            printf("coalition (type %d RESOURCE) ID: %llu", 0, v95);
+                                            sub_10000547C(v92, v94);
                                           }
 
                                           putchar(10);
-                                          free(v93);
-                                          free(v95);
+                                          free(v92);
+                                          free(v94);
                                           v90 = 0;
                                           v88 = 1;
-                                          v89 = &v450[8];
+                                          v89 = &v437[8];
                                         }
 
                                         while ((v91 & 1) != 0);
-                                        v107 = v456;
+                                        v106 = v443;
                                         printf("suspend count: %d\n", task_info_out);
-                                        v108 = *(&task_info_out + 4);
+                                        v107 = *(&task_info_out + 4);
                                         if (*(&task_info_out + 4) <= 0x8000000000000uLL)
                                         {
                                           if (*(&task_info_out + 4) <= 0x20000000000uLL)
@@ -1107,552 +1106,552 @@ LABEL_162:
                                               {
                                                 if (*(&task_info_out + 4) > 0x800uLL)
                                                 {
-                                                  v108 = v108 * 0.0009765625;
+                                                  v107 = v107 * 0.0009765625;
                                                 }
 
-                                                v109 = &unk_100007155;
+                                                v108 = &unk_100007155;
                                                 if (*(&task_info_out + 4) > 0x800uLL)
                                                 {
-                                                  v109 = "Ki";
+                                                  v108 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v108 = v108 * 0.000000953674316;
-                                                v109 = "Mi";
+                                                v107 = v107 * 0.000000953674316;
+                                                v108 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v108 = v108 * 9.31322575e-10;
-                                              v109 = "Gi";
+                                              v107 = v107 * 9.31322575e-10;
+                                              v108 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v108 = v108 * 9.09494702e-13;
-                                            v109 = "Ti";
+                                            v107 = v107 * 9.09494702e-13;
+                                            v108 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v108 = v108 * 8.8817842e-16;
-                                          v109 = "Pi";
+                                          v107 = v107 * 8.8817842e-16;
+                                          v108 = "Pi";
                                         }
 
-                                        v110 = *(&v499 + 1);
-                                        if (*(&v499 + 1) <= 0x8000000000000uLL)
+                                        v109 = *(&v486 + 1);
+                                        if (*(&v486 + 1) <= 0x8000000000000uLL)
                                         {
-                                          if (*(&v499 + 1) <= 0x20000000000uLL)
+                                          if (*(&v486 + 1) <= 0x20000000000uLL)
                                           {
-                                            if (*(&v499 + 1) <= 0x80000000uLL)
+                                            if (*(&v486 + 1) <= 0x80000000uLL)
                                             {
-                                              if (*(&v499 + 1) <= 0x200000uLL)
+                                              if (*(&v486 + 1) <= 0x200000uLL)
                                               {
-                                                if (*(&v499 + 1) > 0x800uLL)
+                                                if (*(&v486 + 1) > 0x800uLL)
                                                 {
-                                                  v110 = v110 * 0.0009765625;
+                                                  v109 = v109 * 0.0009765625;
                                                 }
 
-                                                v111 = &unk_100007155;
-                                                if (*(&v499 + 1) > 0x800uLL)
+                                                v110 = &unk_100007155;
+                                                if (*(&v486 + 1) > 0x800uLL)
                                                 {
-                                                  v111 = "Ki";
+                                                  v110 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v110 = v110 * 0.000000953674316;
-                                                v111 = "Mi";
+                                                v109 = v109 * 0.000000953674316;
+                                                v110 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v110 = v110 * 9.31322575e-10;
-                                              v111 = "Gi";
+                                              v109 = v109 * 9.31322575e-10;
+                                              v110 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v110 = v110 * 9.09494702e-13;
-                                            v111 = "Ti";
+                                            v109 = v109 * 9.09494702e-13;
+                                            v110 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v110 = v110 * 8.8817842e-16;
-                                          v111 = "Pi";
+                                          v109 = v109 * 8.8817842e-16;
+                                          v110 = "Pi";
                                         }
 
-                                        v112 = v510[0];
-                                        if (v510[0] <= 0x8000000000000uLL)
+                                        v111 = v497[0];
+                                        if (v497[0] <= 0x8000000000000uLL)
                                         {
-                                          if (v510[0] <= 0x20000000000uLL)
+                                          if (v497[0] <= 0x20000000000uLL)
                                           {
-                                            if (v510[0] <= 0x80000000uLL)
+                                            if (v497[0] <= 0x80000000uLL)
                                             {
-                                              if (v510[0] <= 0x200000uLL)
+                                              if (v497[0] <= 0x200000uLL)
                                               {
-                                                if (v510[0] > 0x800uLL)
+                                                if (v497[0] > 0x800uLL)
                                                 {
-                                                  v112 = v112 * 0.0009765625;
+                                                  v111 = v111 * 0.0009765625;
                                                 }
 
-                                                v113 = &unk_100007155;
-                                                if (v510[0] > 0x800uLL)
+                                                v112 = &unk_100007155;
+                                                if (v497[0] > 0x800uLL)
                                                 {
-                                                  v113 = "Ki";
+                                                  v112 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v112 = v112 * 0.000000953674316;
-                                                v113 = "Mi";
+                                                v111 = v111 * 0.000000953674316;
+                                                v112 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v112 = v112 * 9.31322575e-10;
-                                              v113 = "Gi";
+                                              v111 = v111 * 9.31322575e-10;
+                                              v112 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v112 = v112 * 9.09494702e-13;
-                                            v113 = "Ti";
+                                            v111 = v111 * 9.09494702e-13;
+                                            v112 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v112 = v112 * 8.8817842e-16;
-                                          v113 = "Pi";
+                                          v111 = v111 * 8.8817842e-16;
+                                          v112 = "Pi";
                                         }
 
-                                        printf("virtual bytes: %.2f %s%s; phys_footprint bytes: %.2f %s%s; phys_footprint lifetime maximum bytes: %.2f %s%s\n", v108, v109, "B", v110, v111, "B", v112, v113, "B");
-                                        if (*(&v517 + 1))
+                                        printf("virtual bytes: %.2f %s%s; phys_footprint bytes: %.2f %s%s; phys_footprint lifetime maximum bytes: %.2f %s%s\n", v107, v108, "B", v109, v110, "B", v111, v112, "B");
+                                        if (*(&v504 + 1))
                                         {
-                                          v114 = v517;
-                                          if (v517 <= 0x8000000000000)
+                                          v113 = v504;
+                                          if (v504 <= 0x8000000000000)
                                           {
-                                            if (v517 <= 0x20000000000)
+                                            if (v504 <= 0x20000000000)
                                             {
-                                              if (v517 <= 0x80000000)
+                                              if (v504 <= 0x80000000)
                                               {
-                                                if (v517 <= 0x200000)
+                                                if (v504 <= 0x200000)
                                                 {
-                                                  if (v517 > 0x800)
+                                                  if (v504 > 0x800)
                                                   {
-                                                    v114 = v114 * 0.0009765625;
+                                                    v113 = v113 * 0.0009765625;
                                                   }
 
-                                                  v115 = &unk_100007155;
-                                                  if (v517 > 0x800)
+                                                  v114 = &unk_100007155;
+                                                  if (v504 > 0x800)
                                                   {
-                                                    v115 = "Ki";
+                                                    v114 = "Ki";
                                                   }
                                                 }
 
                                                 else
                                                 {
-                                                  v114 = v114 * 0.000000953674316;
-                                                  v115 = "Mi";
+                                                  v113 = v113 * 0.000000953674316;
+                                                  v114 = "Mi";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v114 = v114 * 9.31322575e-10;
-                                                v115 = "Gi";
+                                                v113 = v113 * 9.31322575e-10;
+                                                v114 = "Gi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v114 = v114 * 9.09494702e-13;
-                                              v115 = "Ti";
+                                              v113 = v113 * 9.09494702e-13;
+                                              v114 = "Ti";
                                             }
                                           }
 
                                           else
                                           {
-                                            v114 = v114 * 8.8817842e-16;
-                                            v115 = "Pi";
+                                            v113 = v113 * 8.8817842e-16;
+                                            v114 = "Pi";
                                           }
 
-                                          v116 = *(&v517 + 1);
-                                          if (*(&v517 + 1) <= 0x8000000000000uLL)
+                                          v115 = *(&v504 + 1);
+                                          if (*(&v504 + 1) <= 0x8000000000000uLL)
                                           {
-                                            if (*(&v517 + 1) <= 0x20000000000uLL)
+                                            if (*(&v504 + 1) <= 0x20000000000uLL)
                                             {
-                                              if (*(&v517 + 1) <= 0x80000000uLL)
+                                              if (*(&v504 + 1) <= 0x80000000uLL)
                                               {
-                                                if (*(&v517 + 1) <= 0x200000uLL)
+                                                if (*(&v504 + 1) <= 0x200000uLL)
                                                 {
-                                                  if (*(&v517 + 1) > 0x800uLL)
+                                                  if (*(&v504 + 1) > 0x800uLL)
                                                   {
-                                                    v116 = v116 * 0.0009765625;
+                                                    v115 = v115 * 0.0009765625;
                                                   }
 
-                                                  v117 = &unk_100007155;
-                                                  if (*(&v517 + 1) > 0x800uLL)
+                                                  v116 = &unk_100007155;
+                                                  if (*(&v504 + 1) > 0x800uLL)
                                                   {
-                                                    v117 = "Ki";
+                                                    v116 = "Ki";
                                                   }
                                                 }
 
                                                 else
                                                 {
-                                                  v116 = v116 * 0.000000953674316;
-                                                  v117 = "Mi";
+                                                  v115 = v115 * 0.000000953674316;
+                                                  v116 = "Mi";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v116 = v116 * 9.31322575e-10;
-                                                v117 = "Gi";
+                                                v115 = v115 * 9.31322575e-10;
+                                                v116 = "Gi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v116 = v116 * 9.09494702e-13;
-                                              v117 = "Ti";
+                                              v115 = v115 * 9.09494702e-13;
+                                              v116 = "Ti";
                                             }
                                           }
 
                                           else
                                           {
-                                            v116 = v116 * 8.8817842e-16;
-                                            v117 = "Pi";
+                                            v115 = v115 * 8.8817842e-16;
+                                            v116 = "Pi";
                                           }
 
-                                          printf("neural footprint: %.2f %s%s neural footprint lifetime maximum bytes: %.2f %s%s\n", v114, v115, "B", v116, v117, "B");
+                                          printf("neural footprint: %.2f %s%s neural footprint lifetime maximum bytes: %.2f %s%s\n", v113, v114, "B", v115, v116, "B");
                                         }
 
-                                        v118 = time(0);
-                                        printf("run time: %llu s\n", v118 - *(&v532 + 1));
-                                        printf("user/system time    (current threads): %lf s / %lf s\n", SHIDWORD(v468) / 1000000.0 + v468, SHIDWORD(v469) / 1000000.0 + v469);
-                                        printf("user/system time (terminated threads): %lf s / %lf s\n", SDWORD2(v471) / 1000000.0 + SDWORD1(v471), v472 / 1000000.0 + SHIDWORD(v471));
-                                        *__endptr = *&v510[1];
-                                        v591 = v496;
-                                        *&v592 = v515;
-                                        v391 = v496;
-                                        v393 = *&v510[1];
-                                        v485 = *&v510[1];
-                                        v486 = v496;
-                                        v389 = v515;
-                                        *&v487 = v515;
-                                        sub_100005518("CPU time:", __endptr, &v485, 0, &unk_100007155);
-                                        if (v390 >= 2)
+                                        v117 = time(0);
+                                        printf("run time: %llu s\n", v117 - *(&v519 + 1));
+                                        printf("user/system time    (current threads): %lf s / %lf s\n", SHIDWORD(v455) / 1000000.0 + v455, SHIDWORD(v456) / 1000000.0 + v456);
+                                        printf("user/system time (terminated threads): %lf s / %lf s\n", SDWORD2(v458) / 1000000.0 + SDWORD1(v458), v459 / 1000000.0 + SHIDWORD(v458));
+                                        *__endptr = *&v497[1];
+                                        v578 = v483;
+                                        *&v579 = v502;
+                                        v378 = v483;
+                                        v380 = *&v497[1];
+                                        v472 = *&v497[1];
+                                        v473 = v483;
+                                        v376 = v502;
+                                        *&v474 = v502;
+                                        sub_100005518("CPU time:", __endptr, &v472, 0, &unk_100007155);
+                                        if (v377 >= 2)
                                         {
-                                          v119 = v515 - *(&v515 + 1);
-                                          *&v592 = *(&v515 + 1);
-                                          v485 = v393;
-                                          v486 = v391;
-                                          *&v487 = v389;
-                                          v378 = vsubq_s64(v496, v513);
-                                          v379 = vsubq_s64(*&v510[1], v514);
-                                          *__endptr = v514;
-                                          v591 = v513;
-                                          sub_100005518("P-time:  ", __endptr, &v485, 1, &unk_100007155);
-                                          v591 = v378;
-                                          *__endptr = v379;
-                                          *&v592 = v119;
-                                          v485 = v393;
-                                          v486 = v391;
-                                          *&v487 = v389;
-                                          sub_100005518("E-time:  ", __endptr, &v485, 1, &unk_100007155);
-                                          if (HIDWORD(v460))
+                                          v118 = v502 - *(&v502 + 1);
+                                          *&v579 = *(&v502 + 1);
+                                          v472 = v380;
+                                          v473 = v378;
+                                          *&v474 = v376;
+                                          v365 = vsubq_s64(v483, v500);
+                                          v366 = vsubq_s64(*&v497[1], v501);
+                                          *__endptr = v501;
+                                          v578 = v500;
+                                          sub_100005518("P-time:  ", __endptr, &v472, 1, &unk_100007155);
+                                          v578 = v365;
+                                          *__endptr = v366;
+                                          *&v579 = v118;
+                                          v472 = v380;
+                                          v473 = v378;
+                                          *&v474 = v376;
+                                          sub_100005518("E-time:  ", __endptr, &v472, 1, &unk_100007155);
+                                          if (HIDWORD(v447))
                                           {
-                                            v120 = v467 * 100.0 / SHIDWORD(v460);
+                                            v119 = v454 * 100.0 / SHIDWORD(v447);
                                           }
 
                                           else
                                           {
-                                            v120 = 0.0;
+                                            v119 = 0.0;
                                           }
 
-                                          printf("P/E switches: %llu (%.0f%%)\n", v467, v120);
+                                          printf("P/E switches: %llu (%.0f%%)\n", v454, v119);
                                         }
 
-                                        printf("CPU time billed to me by others: %llu.%06llu s ", *(&v508 + 1) * dword_100010004 / unk_100010008 / 0x3B9ACA00, *(&v508 + 1) * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8);
+                                        printf("CPU time billed to me by others: %llu.%06llu s ", *(&v495 + 1) * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, *(&v495 + 1) * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8);
                                         sub_100005A3C();
                                         putchar(10);
+                                        v120 = 0.0;
                                         v121 = 0.0;
-                                        v122 = 0.0;
-                                        if (v496.i64[1] + v496.i64[0])
+                                        if (v483.i64[1] + v483.i64[0])
                                         {
-                                          v122 = v509 * 100.0 / (v496.i64[1] + v496.i64[0]);
+                                          v121 = v496 * 100.0 / (v483.i64[1] + v483.i64[0]);
                                         }
 
-                                        printf("CPU time I billed to others: %llu.%06llu s (%.0f%%) ", v509 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v509 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8, v122);
+                                        printf("CPU time I billed to others: %llu.%06llu s (%.0f%%) ", v496 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v496 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8, v121);
                                         sub_100005A3C();
-                                        if (v515)
+                                        if (v502)
                                         {
-                                          v121 = v511 * 100.0 / v515;
+                                          v120 = v498 * 100.0 / v502;
                                         }
 
-                                        printf(" (%.0f%%)\n", v121);
-                                        v123 = v508 * dword_100010004 / unk_100010008;
-                                        v124 = *(&v507 + 1) * dword_100010004 / unk_100010008;
-                                        v125 = v507 * dword_100010004 / unk_100010008;
-                                        v126 = *(&v506 + 1) * dword_100010004 / unk_100010008;
-                                        printf("QoS time (s): UI: %llu.%06llu IN: %llu.%06llu DF: %llu.%06llu UT: %llu.%06llu BG: %llu.%06llu MT: %llu.%06llu UN: %llu.%06llu\n", v123 / 0x3B9ACA00, v123 % 0x3B9ACA00 / 0x3E8, v124 / 0x3B9ACA00, v124 % 0x3B9ACA00 / 0x3E8, v125 / 0x3B9ACA00, v125 % 0x3B9ACA00 / 0x3E8, v126 / 0x3B9ACA00, v126 % 0x3B9ACA00 / 0x3E8, v506 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v506 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8, *(&v505 + 1) * dword_100010004 / unk_100010008 / 0x3B9ACA00, *(&v505 + 1) * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8, v505 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v505 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8);
-                                        if (v462)
+                                        printf(" (%.0f%%)\n", v120);
+                                        v122 = v495 * stru_100010004.numer / stru_100010004.denom;
+                                        v123 = *(&v494 + 1) * stru_100010004.numer / stru_100010004.denom;
+                                        v124 = v494 * stru_100010004.numer / stru_100010004.denom;
+                                        v125 = *(&v493 + 1) * stru_100010004.numer / stru_100010004.denom;
+                                        printf("QoS time (s): UI: %llu.%06llu IN: %llu.%06llu DF: %llu.%06llu UT: %llu.%06llu BG: %llu.%06llu MT: %llu.%06llu UN: %llu.%06llu\n", v122 / 0x3B9ACA00, v122 % 0x3B9ACA00 / 0x3E8, v123 / 0x3B9ACA00, v123 % 0x3B9ACA00 / 0x3E8, v124 / 0x3B9ACA00, v124 % 0x3B9ACA00 / 0x3E8, v125 / 0x3B9ACA00, v125 % 0x3B9ACA00 / 0x3E8, v493 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v493 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8, *(&v492 + 1) * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, *(&v492 + 1) * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8, v492 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v492 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8);
+                                        if (v449)
                                         {
-                                          v127 = *(&v462 + 1) * 100.0 / v462;
+                                          v126 = *(&v449 + 1) * 100.0 / v449;
                                         }
 
                                         else
                                         {
-                                          v127 = 0.0;
+                                          v126 = 0.0;
                                         }
 
-                                        printf("interrupt wakeups: %llu (%llu / %.2f%% from platform idle)\n", v462, *(&v462 + 1), v127);
-                                        if (HIDWORD(v472) >= 3)
+                                        printf("interrupt wakeups: %llu (%llu / %.2f%% from platform idle)\n", v449, *(&v449 + 1), v126);
+                                        if (HIDWORD(v459) >= 3)
                                         {
-                                          v128 = "POLICY_FIFO";
-                                          if (HIDWORD(v472) != 4)
+                                          v127 = "POLICY_FIFO";
+                                          if (HIDWORD(v459) != 4)
                                           {
-                                            v128 = "???";
+                                            v127 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v128 = (&off_10000C4C0)[HIDWORD(v472)];
+                                          v127 = (&off_10000C4C0)[HIDWORD(v459)];
                                         }
 
-                                        printf("default sched policy: %s\n", v128);
-                                        v129 = v504;
-                                        if (v504 <= 0x8000000000000)
+                                        printf("default sched policy: %s\n", v127);
+                                        v128 = v491;
+                                        if (v491 <= 0x8000000000000)
                                         {
-                                          if (v504 <= 0x20000000000)
+                                          if (v491 <= 0x20000000000)
                                           {
-                                            if (v504 <= 0x80000000)
+                                            if (v491 <= 0x80000000)
                                             {
-                                              if (v504 <= 0x200000)
+                                              if (v491 <= 0x200000)
                                               {
-                                                if (v504 > 0x800)
+                                                if (v491 > 0x800)
                                                 {
-                                                  v129 = v129 * 0.0009765625;
+                                                  v128 = v128 * 0.0009765625;
                                                 }
 
-                                                v130 = &unk_100007155;
-                                                if (v504 > 0x800)
+                                                v129 = &unk_100007155;
+                                                if (v491 > 0x800)
                                                 {
-                                                  v130 = "Ki";
+                                                  v129 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v129 = v129 * 0.000000953674316;
-                                                v130 = "Mi";
+                                                v128 = v128 * 0.000000953674316;
+                                                v129 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v129 = v129 * 9.31322575e-10;
-                                              v130 = "Gi";
+                                              v128 = v128 * 9.31322575e-10;
+                                              v129 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v129 = v129 * 9.09494702e-13;
-                                            v130 = "Ti";
+                                            v128 = v128 * 9.09494702e-13;
+                                            v129 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v129 = v129 * 8.8817842e-16;
-                                          v130 = "Pi";
+                                          v128 = v128 * 8.8817842e-16;
+                                          v129 = "Pi";
                                         }
 
-                                        v131 = *(&v504 + 1);
-                                        if (*(&v504 + 1) <= 0x8000000000000uLL)
+                                        v130 = *(&v491 + 1);
+                                        if (*(&v491 + 1) <= 0x8000000000000uLL)
                                         {
-                                          if (*(&v504 + 1) <= 0x20000000000uLL)
+                                          if (*(&v491 + 1) <= 0x20000000000uLL)
                                           {
-                                            if (*(&v504 + 1) <= 0x80000000uLL)
+                                            if (*(&v491 + 1) <= 0x80000000uLL)
                                             {
-                                              if (*(&v504 + 1) <= 0x200000uLL)
+                                              if (*(&v491 + 1) <= 0x200000uLL)
                                               {
-                                                if (*(&v504 + 1) > 0x800uLL)
+                                                if (*(&v491 + 1) > 0x800uLL)
                                                 {
-                                                  v131 = v131 * 0.0009765625;
+                                                  v130 = v130 * 0.0009765625;
                                                 }
 
-                                                v132 = &unk_100007155;
-                                                if (*(&v504 + 1) > 0x800uLL)
+                                                v131 = &unk_100007155;
+                                                if (*(&v491 + 1) > 0x800uLL)
                                                 {
-                                                  v132 = "Ki";
+                                                  v131 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v131 = v131 * 0.000000953674316;
-                                                v132 = "Mi";
+                                                v130 = v130 * 0.000000953674316;
+                                                v131 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v131 = v131 * 9.31322575e-10;
-                                              v132 = "Gi";
+                                              v130 = v130 * 9.31322575e-10;
+                                              v131 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v131 = v131 * 9.09494702e-13;
-                                            v132 = "Ti";
+                                            v130 = v130 * 9.09494702e-13;
+                                            v131 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v131 = v131 * 8.8817842e-16;
-                                          v132 = "Pi";
+                                          v130 = v130 * 8.8817842e-16;
+                                          v131 = "Pi";
                                         }
 
-                                        v133 = *(&v509 + 1);
-                                        if (*(&v509 + 1) <= 0x8000000000000uLL)
+                                        v132 = *(&v496 + 1);
+                                        if (*(&v496 + 1) <= 0x8000000000000uLL)
                                         {
-                                          if (*(&v509 + 1) <= 0x20000000000uLL)
+                                          if (*(&v496 + 1) <= 0x20000000000uLL)
                                           {
-                                            if (*(&v509 + 1) <= 0x80000000uLL)
+                                            if (*(&v496 + 1) <= 0x80000000uLL)
                                             {
-                                              if (*(&v509 + 1) <= 0x200000uLL)
+                                              if (*(&v496 + 1) <= 0x200000uLL)
                                               {
-                                                if (*(&v509 + 1) > 0x800uLL)
+                                                if (*(&v496 + 1) > 0x800uLL)
                                                 {
-                                                  v133 = v133 * 0.0009765625;
+                                                  v132 = v132 * 0.0009765625;
                                                 }
 
-                                                v134 = &unk_100007155;
-                                                if (*(&v509 + 1) > 0x800uLL)
+                                                v133 = &unk_100007155;
+                                                if (*(&v496 + 1) > 0x800uLL)
                                                 {
-                                                  v134 = "Ki";
+                                                  v133 = "Ki";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v133 = v133 * 0.000000953674316;
-                                                v134 = "Mi";
+                                                v132 = v132 * 0.000000953674316;
+                                                v133 = "Mi";
                                               }
                                             }
 
                                             else
                                             {
-                                              v133 = v133 * 9.31322575e-10;
-                                              v134 = "Gi";
+                                              v132 = v132 * 9.31322575e-10;
+                                              v133 = "Gi";
                                             }
                                           }
 
                                           else
                                           {
-                                            v133 = v133 * 9.09494702e-13;
-                                            v134 = "Ti";
+                                            v132 = v132 * 9.09494702e-13;
+                                            v133 = "Ti";
                                           }
                                         }
 
                                         else
                                         {
-                                          v133 = v133 * 8.8817842e-16;
-                                          v134 = "Pi";
+                                          v132 = v132 * 8.8817842e-16;
+                                          v133 = "Pi";
                                         }
 
-                                        printf("bytes read: %.2f %s%s written: %.2f %s%s logical writes: %.2f %s%s\n", v129, v130, "B", v131, v132, "B", v133, v134, "B");
+                                        printf("bytes read: %.2f %s%s written: %.2f %s%s logical writes: %.2f %s%s\n", v128, v129, "B", v130, v131, "B", v132, v133, "B");
                                         if (basic_info.iisb_table_size)
                                         {
-                                          v135 = basic_info.iisb_table_inuse * 100.0 / basic_info.iisb_table_size;
+                                          v134 = basic_info.iisb_table_inuse * 100.0 / basic_info.iisb_table_size;
                                         }
 
                                         else
                                         {
-                                          v135 = 0.0;
+                                          v134 = 0.0;
                                         }
 
-                                        printf("mach ports: %u (%.0f%% occupied)\n", basic_info.iisb_table_inuse, v135);
-                                        *__endptr = v439;
-                                        v591 = v440;
-                                        v592 = v441;
-                                        *&v593 = v442;
-                                        printf("file descriptors: %u (", v439);
-                                        v136 = 1;
-                                        v137 = off_10000C338;
+                                        printf("mach ports: %u (%.0f%% occupied)\n", basic_info.iisb_table_inuse, v134);
+                                        *__endptr = v426;
+                                        v578 = v427;
+                                        v579 = v428;
+                                        *&v580 = v429;
+                                        printf("file descriptors: %u (", v426);
+                                        v135 = 1;
+                                        v136 = off_10000C338;
                                         for (i = 4; i != 56; i += 4)
                                         {
-                                          v139 = *(__endptr + i);
-                                          if (v139)
+                                          v138 = *(__endptr + i);
+                                          if (v138)
                                           {
-                                            v8 = (v136 & 1) == 0;
-                                            v140 = &unk_100007155;
+                                            v8 = (v135 & 1) == 0;
+                                            v139 = &unk_100007155;
                                             if (v8)
                                             {
-                                              v140 = ", ";
+                                              v139 = ", ";
                                             }
 
-                                            printf("%s%s: %u", v140, *v137, v139);
-                                            v136 = 0;
+                                            printf("%s%s: %u", v139, *v136, v138);
+                                            v135 = 0;
                                           }
 
-                                          ++v137;
+                                          ++v136;
                                         }
 
                                         puts(")");
-                                        printf("faults: %d, pageins: %d, cow_faults: %d, msgsent: %d, msgrecv: %d, syscalls (mach/unix): %d / %d, csw: %d\n", v459, DWORD1(v459), DWORD2(v459), HIDWORD(v459), v460, DWORD1(v460), DWORD2(v460), HIDWORD(v460));
-                                        if (HIDWORD(v458))
+                                        printf("faults: %d, pageins: %d, cow_faults: %d, msgsent: %d, msgrecv: %d, syscalls (mach/unix): %d / %d, csw: %d\n", v446, DWORD1(v446), DWORD2(v446), HIDWORD(v446), v447, DWORD1(v447), DWORD2(v447), HIDWORD(v447));
+                                        if (HIDWORD(v445))
                                         {
-                                          printf("affinity sets: %d tasks: %d (min: %d max: %d)", v457, HIDWORD(v458), HIDWORD(v457), v458);
+                                          printf("affinity sets: %d tasks: %d (min: %d max: %d)", v444, HIDWORD(v445), HIDWORD(v444), v445);
                                         }
 
-                                        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_s64(v535), vceqzq_s64(v536))))) & 1) != 0 || v537 != 0)
+                                        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_s64(v522), vceqzq_s64(v523))))) & 1) != 0 || v524 != 0)
                                         {
-                                          printf("extmod: task for pid: %lld (%lld) thread injection: %lld (%lld) set state: %lld (%lld)\n", v535.i64[0], v535.i64[1], v536.i64[0], v536.i64[1], v537, *(&v537 + 1));
+                                          printf("extmod: task for pid: %lld (%lld) thread injection: %lld (%lld) set state: %lld (%lld)\n", v522.i64[0], v522.i64[1], v523.i64[0], v523.i64[1], v524, *(&v524 + 1));
                                         }
 
-                                        if (v409)
+                                        if (v396)
                                         {
-                                          printf("workqueue threads: %u running: %u blocked: %u", v448, HIDWORD(v448), v449);
-                                          v141 = BYTE4(v449);
-                                          if ((v449 & 0x100000000) != 0)
+                                          printf("workqueue threads: %u running: %u blocked: %u", v435, HIDWORD(v435), v436);
+                                          v140 = BYTE4(v436);
+                                          if ((v436 & 0x100000000) != 0)
                                           {
                                             printf(" constrained-limit");
-                                            v141 = BYTE4(v449);
-                                            if ((v449 & 0x200000000) != 0)
+                                            v140 = BYTE4(v436);
+                                            if ((v436 & 0x200000000) != 0)
                                             {
                                               goto LABEL_454;
                                             }
 
 LABEL_423:
-                                            if ((v141 & 8) == 0)
+                                            if ((v140 & 8) == 0)
                                             {
                                               goto LABEL_424;
                                             }
 
 LABEL_455:
                                             printf(" cooperative-limit");
-                                            if ((v449 & 0x1000000000) != 0)
+                                            if ((v436 & 0x1000000000) != 0)
                                             {
 LABEL_425:
                                               printf(" active-constrained-limit");
@@ -1661,21 +1660,21 @@ LABEL_425:
 
                                           else
                                           {
-                                            if ((v449 & 0x200000000) == 0)
+                                            if ((v436 & 0x200000000) == 0)
                                             {
                                               goto LABEL_423;
                                             }
 
 LABEL_454:
                                             printf(" total-limit");
-                                            v141 = BYTE4(v449);
-                                            if ((v449 & 0x800000000) != 0)
+                                            v140 = BYTE4(v436);
+                                            if ((v436 & 0x800000000) != 0)
                                             {
                                               goto LABEL_455;
                                             }
 
 LABEL_424:
-                                            if ((v141 & 0x10) != 0)
+                                            if ((v140 & 0x10) != 0)
                                             {
                                               goto LABEL_425;
                                             }
@@ -1685,18 +1684,18 @@ LABEL_424:
                                         }
 
                                         LODWORD(__endptr[0]) = 0;
-                                        LODWORD(v485) = 0;
-                                        v492[0] = 0;
-                                        v423[0] = 0;
+                                        LODWORD(v472) = 0;
+                                        v479[0] = 0;
+                                        v410[0] = 0;
                                         printf("CPU usage monitor: ");
                                         if (proc_get_cpumon_params())
                                         {
                                           sub_10000626C();
                                         }
 
-                                        else if (SLODWORD(__endptr[0]) > 0 || v485 >= 1)
+                                        else if (SLODWORD(__endptr[0]) > 0 || v472 >= 1)
                                         {
-                                          printf("%d%% CPU over %d seconds\n", LODWORD(__endptr[0]), v485);
+                                          printf("%d%% CPU over %d seconds\n", LODWORD(__endptr[0]), v472);
                                         }
 
                                         else
@@ -1710,69 +1709,69 @@ LABEL_424:
                                           sub_100006298();
                                         }
 
-                                        else if (v492[0] < 1)
+                                        else if (v479[0] < 1)
                                         {
                                           puts("none");
                                         }
 
                                         else
                                         {
-                                          printf("%d wakes per second (over system-default time period)\n", v492[0]);
+                                          printf("%d wakes per second (over system-default time period)\n", v479[0]);
                                         }
 
-                                        v142 = "tracked";
+                                        v141 = "tracked";
                                         if ((flags & 1) == 0)
                                         {
-                                          v142 = "untracked";
+                                          v141 = "untracked";
                                         }
 
-                                        v143 = &unk_100007155;
+                                        v142 = &unk_100007155;
                                         if ((~flags & 3) == 0)
                                         {
-                                          v143 = "idle-exit";
+                                          v142 = "idle-exit";
                                         }
 
-                                        v144 = "dirty";
+                                        v143 = "dirty";
                                         if ((flags & 5) == 1)
                                         {
-                                          v144 = "clean";
+                                          v143 = "clean";
                                         }
 
-                                        printf("dirty tracking: %s %s %s\n", v142, v143, v144);
+                                        printf("dirty tracking: %s %s %s\n", v141, v142, v143);
                                         if (!__nel)
                                         {
                                           goto LABEL_588;
                                         }
 
-                                        printf("boosts: %u (%u externalized)\n", DWORD2(v454), HIDWORD(v454));
-                                        if (cf && DWORD2(v454))
+                                        printf("boosts: %u (%u externalized)\n", DWORD2(v441), HIDWORD(v441));
+                                        if (cf && DWORD2(v441))
                                         {
                                           Value = CFDictionaryGetValue(cf, key);
                                           if (Value)
                                           {
-                                            v146 = Value;
+                                            v145 = Value;
                                             if (CFArrayGetCount(Value) >= 1)
                                             {
-                                              v147 = 0;
+                                              v146 = 0;
                                               do
                                               {
-                                                ValueAtIndex = CFArrayGetValueAtIndex(v146, v147);
+                                                ValueAtIndex = CFArrayGetValueAtIndex(v145, v146);
                                                 CStringPtr = CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
                                                 if (CStringPtr)
                                                 {
-                                                  v150 = CStringPtr;
+                                                  v149 = CStringPtr;
                                                 }
 
                                                 else
                                                 {
-                                                  v150 = "NULL";
+                                                  v149 = "NULL";
                                                 }
 
-                                                printf("\tboosted by: %s\n", v150);
-                                                ++v147;
+                                                printf("\tboosted by: %s\n", v149);
+                                                ++v146;
                                               }
 
-                                              while (v147 < CFArrayGetCount(v146));
+                                              while (v146 < CFArrayGetCount(v145));
                                             }
                                           }
 
@@ -1783,149 +1782,148 @@ LABEL_424:
                                         }
 
                                         puts("requested policy");
-                                        v151 = sub_100005C84((v107 >> 17) & 7, 0);
-                                        printf("\treq apptype: %s\n", v151);
-                                        v152 = sub_100005D70((v107 >> 21) & 0x1F, 0);
-                                        printf("\treq role: %s\n", v152);
-                                        v153 = (v107 >> 33) & 7;
-                                        if (v153 == 7 || ((0x7Du >> v153) & 1) == 0)
+                                        v150 = sub_100005C84((v106 >> 17) & 7, 0);
+                                        printf("\treq apptype: %s\n", v150);
+                                        v151 = sub_100005D70((v106 >> 21) & 0x1F, 0);
+                                        printf("\treq role: %s\n", v151);
+                                        v152 = (v106 >> 33) & 7;
+                                        if (v152 == 7 || ((0x7Du >> v152) & 1) == 0)
                                         {
-                                          if (v153 == 1)
+                                          if (v152 == 1)
                                           {
-                                            v154 = "THREAD_QOS_MAINTENANCE";
+                                            v153 = "THREAD_QOS_MAINTENANCE";
                                           }
 
                                           else
                                           {
-                                            v154 = "???";
+                                            v153 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v154 = (&off_10000C580)[v153];
+                                          v153 = (&off_10000C580)[v152];
                                         }
 
-                                        printf("\treq qos clamp: %s\n", v154);
-                                        v155 = (v107 >> 11) & 7;
-                                        v156 = v155 == 6;
-                                        if (v155 >= 6)
+                                        printf("\treq qos clamp: %s\n", v153);
+                                        v154 = (v106 >> 11) & 7;
+                                        v155 = v154 == 6;
+                                        if (v154 >= 6)
                                         {
-                                          v157 = "LATENCY_QOS_TIER_5";
-                                          if (!v156)
+                                          v156 = "LATENCY_QOS_TIER_5";
+                                          if (!v155)
                                           {
-                                            v157 = "???";
+                                            v156 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v157 = (&off_10000C4D8)[v155];
+                                          v156 = (&off_10000C4D8)[v154];
                                         }
 
-                                        v158 = (v107 >> 26) & 7;
-                                        v159 = v158 == 6;
-                                        if (v158 >= 6)
+                                        v157 = (v106 >> 26) & 7;
+                                        v158 = v157 == 6;
+                                        if (v157 >= 6)
                                         {
-                                          v160 = "LATENCY_QOS_TIER_5";
-                                          if (!v159)
+                                          v159 = "LATENCY_QOS_TIER_5";
+                                          if (!v158)
                                           {
-                                            v160 = "???";
+                                            v159 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v160 = (&off_10000C4D8)[v158];
+                                          v159 = (&off_10000C4D8)[v157];
                                         }
 
-                                        printf("\treq base/override latency qos: %s / %s\n", v157, v160);
-                                        v161 = (v107 >> 14) & 7;
-                                        v162 = v161 == 6;
-                                        if (v161 >= 6)
+                                        printf("\treq base/override latency qos: %s / %s\n", v156, v159);
+                                        v160 = (v106 >> 14) & 7;
+                                        v161 = v160 == 6;
+                                        if (v160 >= 6)
                                         {
-                                          v163 = "THROUGHPUT_QOS_TIER_5";
-                                          if (!v162)
+                                          v162 = "THROUGHPUT_QOS_TIER_5";
+                                          if (!v161)
                                           {
-                                            v163 = "???";
+                                            v162 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v163 = (&off_10000C508)[v161];
+                                          v162 = (&off_10000C508)[v160];
                                         }
 
-                                        v164 = v107 >> 29;
-                                        v165 = "THROUGHPUT_QOS_TIER_UNSPECIFIED";
-                                        if (v107 >> 29)
+                                        v163 = v106 >> 29;
+                                        v164 = "THROUGHPUT_QOS_TIER_UNSPECIFIED";
+                                        if (v106 >> 29)
                                         {
-                                          if (v164 - 1 >= 5)
+                                          if (v163 - 1 >= 5)
                                           {
-                                            v165 = "THROUGHPUT_QOS_TIER_5";
-                                            if (v164 != 6)
+                                            v164 = "THROUGHPUT_QOS_TIER_5";
+                                            if (v163 != 6)
                                             {
-                                              v165 = "???";
+                                              v164 = "???";
                                             }
                                           }
 
                                           else
                                           {
-                                            v165 = (&off_10000C458)[v164 - 1];
+                                            v164 = (&off_10000C458)[v163 - 1];
                                           }
                                         }
 
-                                        printf("\treq base/override thruput qos: %s / %s\n", v163, v165);
-                                        if ((v107 & 3) != 0)
+                                        printf("\treq base/override thruput qos: %s / %s\n", v162, v164);
+                                        if ((v106 & 3) != 0)
                                         {
-                                          v166 = "YES";
+                                          v165 = "YES";
                                         }
 
                                         else
                                         {
-                                          v166 = "NO";
+                                          v165 = "NO";
                                         }
 
-                                        v167 = &unk_100007155;
-                                        v168 = "(internal)";
-                                        if ((v107 & 1) == 0)
+                                        v166 = &unk_100007155;
+                                        v167 = "(internal)";
+                                        if ((v106 & 1) == 0)
                                         {
-                                          v168 = &unk_100007155;
+                                          v167 = &unk_100007155;
                                         }
 
-                                        if ((v107 & 2) != 0)
+                                        if ((v106 & 2) != 0)
                                         {
-                                          v167 = "(external)";
+                                          v166 = "(external)";
                                         }
 
-                                        printf("\treq darwin BG: %s %s %s\n", v166, v168, v167);
-                                        v169 = (&off_10000C5B8)[(v107 >> 2) & 3];
-                                        printf("\treq internal/external iotier: %s / %s\n", v169, (&off_10000C5B8)[(v107 >> 4) & 3]);
-                                        printf("\treq darwin BG iotier: %s\n", (&off_10000C5B8)[(v107 >> 8) & 3]);
-                                        if ((v107 & &_mh_execute_header) != 0)
+                                        printf("\treq darwin BG: %s %s %s\n", v165, v167, v166);
+                                        printf("\treq internal/external iotier: %s / %s\n", (&off_10000C5B8)[(v106 >> 2) & 3], (&off_10000C5B8)[(v106 >> 4) & 3]);
+                                        printf("\treq darwin BG iotier: %s\n", (&off_10000C5B8)[(v106 >> 8) & 3]);
+                                        if ((v106 & &_mh_execute_header) != 0)
                                         {
-                                          v170 = "YES";
+                                          v168 = "YES";
                                         }
 
                                         else
                                         {
-                                          v170 = "NO";
+                                          v168 = "NO";
                                         }
 
-                                        printf("\treq managed: %s\n", v170);
+                                        printf("\treq managed: %s\n", v168);
                                         printf("\treq other: ");
-                                        if ((v107 & 0x40) != 0)
+                                        if ((v106 & 0x40) != 0)
                                         {
                                           printf("passive-int ");
                                         }
 
-                                        if ((v107 & 0x80) != 0)
+                                        if ((v106 & 0x80) != 0)
                                         {
                                           printf("passive-ext ");
-                                          if ((v107 & 0x400) == 0)
+                                          if ((v106 & 0x400) == 0)
                                           {
 LABEL_495:
-                                            if ((v107 & 0x100000) == 0)
+                                            if ((v106 & 0x100000) == 0)
                                             {
                                               goto LABEL_496;
                                             }
@@ -1934,16 +1932,16 @@ LABEL_495:
                                           }
                                         }
 
-                                        else if ((v107 & 0x400) == 0)
+                                        else if ((v106 & 0x400) == 0)
                                         {
                                           goto LABEL_495;
                                         }
 
                                         printf("terminated ");
-                                        if ((v107 & 0x100000) == 0)
+                                        if ((v106 & 0x100000) == 0)
                                         {
 LABEL_496:
-                                          if ((v107 & 0x800000000000) == 0)
+                                          if ((v106 & 0x800000000000) == 0)
                                           {
                                             goto LABEL_498;
                                           }
@@ -1955,7 +1953,7 @@ LABEL_497:
 
 LABEL_509:
                                         printf("boosted ");
-                                        if ((v107 & 0x800000000000) != 0)
+                                        if ((v106 & 0x800000000000) != 0)
                                         {
                                           goto LABEL_497;
                                         }
@@ -1963,13 +1961,13 @@ LABEL_509:
 LABEL_498:
                                         putchar(10);
                                         printf("\treq suppression (App Nap) behaviors: ");
-                                        if ((v107 & 0x1000000000) != 0)
+                                        if ((v106 & 0x1000000000) != 0)
                                         {
                                           printf("active ");
-                                          if ((v107 & 0x2000000000) == 0)
+                                          if ((v106 & 0x2000000000) == 0)
                                           {
 LABEL_500:
-                                            if ((v107 & 0x200000000000) == 0)
+                                            if ((v106 & 0x200000000000) == 0)
                                             {
                                               goto LABEL_502;
                                             }
@@ -1980,36 +1978,82 @@ LABEL_501:
                                           }
                                         }
 
-                                        else if ((v107 & 0x2000000000) == 0)
+                                        else if ((v106 & 0x2000000000) == 0)
                                         {
                                           goto LABEL_500;
                                         }
 
                                         printf("low-priority-cpu (4) ");
-                                        if ((v107 & 0x200000000000) != 0)
+                                        if ((v106 & 0x200000000000) != 0)
                                         {
                                           goto LABEL_501;
                                         }
 
 LABEL_502:
-                                        v171 = (v107 >> 38) & 7;
-                                        if (((v107 >> 38) & 7) > 2)
+                                        v169 = (v106 >> 38) & 7;
+                                        if (((v106 >> 38) & 7) > 2)
+                                        {
+                                          switch(v169)
+                                          {
+                                            case 3:
+                                              v170 = "LATENCY_QOS_TIER_2";
+                                              break;
+                                            case 4:
+                                              v170 = "LATENCY_QOS_TIER_3";
+                                              break;
+                                            case 5:
+                                              v170 = "LATENCY_QOS_TIER_4";
+                                              break;
+                                            default:
+LABEL_519:
+                                              v8 = v169 == 6;
+                                              v170 = "LATENCY_QOS_TIER_5";
+                                              if (!v8)
+                                              {
+                                                v170 = "???";
+                                              }
+
+                                              break;
+                                          }
+                                        }
+
+                                        else
+                                        {
+                                          switch(v169)
+                                          {
+                                            case 0:
+                                              goto LABEL_525;
+                                            case 1:
+                                              v170 = "LATENCY_QOS_TIER_0";
+                                              break;
+                                            case 2:
+                                              v170 = "LATENCY_QOS_TIER_1";
+                                              break;
+                                            default:
+                                              goto LABEL_519;
+                                          }
+                                        }
+
+                                        printf("timer-throttling (%s) ", v170);
+LABEL_525:
+                                        v171 = (v106 >> 42) & 7;
+                                        if (((v106 >> 42) & 7) > 2)
                                         {
                                           switch(v171)
                                           {
                                             case 3:
-                                              v172 = "LATENCY_QOS_TIER_2";
+                                              v172 = "THROUGHPUT_QOS_TIER_2";
                                               break;
                                             case 4:
-                                              v172 = "LATENCY_QOS_TIER_3";
+                                              v172 = "THROUGHPUT_QOS_TIER_3";
                                               break;
                                             case 5:
-                                              v172 = "LATENCY_QOS_TIER_4";
+                                              v172 = "THROUGHPUT_QOS_TIER_4";
                                               break;
                                             default:
-LABEL_519:
+LABEL_535:
                                               v8 = v171 == 6;
-                                              v172 = "LATENCY_QOS_TIER_5";
+                                              v172 = "THROUGHPUT_QOS_TIER_5";
                                               if (!v8)
                                               {
                                                 v172 = "???";
@@ -2024,138 +2068,112 @@ LABEL_519:
                                           switch(v171)
                                           {
                                             case 0:
-                                              goto LABEL_525;
-                                            case 1:
-                                              v172 = "LATENCY_QOS_TIER_0";
-                                              break;
-                                            case 2:
-                                              v172 = "LATENCY_QOS_TIER_1";
-                                              break;
-                                            default:
-                                              goto LABEL_519;
-                                          }
-                                        }
-
-                                        printf("timer-throttling (%s) ", v172);
-LABEL_525:
-                                        v173 = (v107 >> 42) & 7;
-                                        if (((v107 >> 42) & 7) > 2)
-                                        {
-                                          switch(v173)
-                                          {
-                                            case 3:
-                                              v174 = "THROUGHPUT_QOS_TIER_2";
-                                              break;
-                                            case 4:
-                                              v174 = "THROUGHPUT_QOS_TIER_3";
-                                              break;
-                                            case 5:
-                                              v174 = "THROUGHPUT_QOS_TIER_4";
-                                              break;
-                                            default:
-LABEL_535:
-                                              v8 = v173 == 6;
-                                              v174 = "THROUGHPUT_QOS_TIER_5";
-                                              if (!v8)
-                                              {
-                                                v174 = "???";
-                                              }
-
-                                              break;
-                                          }
-                                        }
-
-                                        else
-                                        {
-                                          switch(v173)
-                                          {
-                                            case 0:
                                               goto LABEL_541;
                                             case 1:
-                                              v174 = "THROUGHPUT_QOS_TIER_0";
+                                              v172 = "THROUGHPUT_QOS_TIER_0";
                                               break;
                                             case 2:
-                                              v174 = "THROUGHPUT_QOS_TIER_1";
+                                              v172 = "THROUGHPUT_QOS_TIER_1";
                                               break;
                                             default:
                                               goto LABEL_535;
                                           }
                                         }
 
-                                        printf("throughput-qos (%s) ", v174);
+                                        printf("throughput-qos (%s) ", v172);
 LABEL_541:
-                                        if ((v107 & 0x20000000000) != 0)
+                                        if ((v106 & 0x20000000000) != 0)
                                         {
                                           printf("disk-throttling ");
                                         }
 
-                                        if ((v107 & 0x400000000000) != 0)
+                                        if ((v106 & 0x400000000000) != 0)
                                         {
                                           printf("bg-sockets ");
                                         }
 
                                         putchar(10);
                                         puts("effective policy");
-                                        v175 = sub_100005D70((DWORD2(v107) >> 20) & 0xF, 0);
-                                        printf("\teff role: %s\n", v175);
-                                        v176 = (DWORD2(v107) >> 11) & 7;
-                                        v177 = v176 == 6;
-                                        if (v176 >= 6)
+                                        v173 = sub_100005D70((DWORD2(v106) >> 20) & 0xF, 0);
+                                        printf("\teff role: %s\n", v173);
+                                        v174 = (DWORD2(v106) >> 11) & 7;
+                                        v175 = v174 == 6;
+                                        if (v174 >= 6)
                                         {
-                                          v178 = "LATENCY_QOS_TIER_5";
-                                          if (!v177)
+                                          v176 = "LATENCY_QOS_TIER_5";
+                                          if (!v175)
                                           {
-                                            v178 = "???";
+                                            v176 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v178 = (&off_10000C4D8)[v176];
+                                          v176 = (&off_10000C4D8)[v174];
                                         }
 
-                                        printf("\teff latency qos: %s\n", v178);
-                                        v179 = (DWORD2(v107) >> 14) & 7;
-                                        v180 = v179 == 6;
-                                        if (v179 >= 6)
+                                        printf("\teff latency qos: %s\n", v176);
+                                        v177 = (DWORD2(v106) >> 14) & 7;
+                                        v178 = v177 == 6;
+                                        if (v177 >= 6)
                                         {
-                                          v181 = "THROUGHPUT_QOS_TIER_5";
-                                          if (!v180)
+                                          v179 = "THROUGHPUT_QOS_TIER_5";
+                                          if (!v178)
                                           {
-                                            v181 = "???";
+                                            v179 = "???";
                                           }
                                         }
 
                                         else
                                         {
-                                          v181 = (&off_10000C508)[v179];
+                                          v179 = (&off_10000C508)[v177];
                                         }
 
-                                        printf("\teff thruput qos: %s\n", v181);
-                                        if (BYTE8(v107))
+                                        printf("\teff thruput qos: %s\n", v179);
+                                        if (BYTE8(v106))
                                         {
-                                          v182 = "YES";
+                                          v180 = "YES";
                                         }
 
                                         else
                                         {
-                                          v182 = "NO";
+                                          v180 = "NO";
                                         }
 
-                                        printf("\teff darwin BG: %s\n", v182);
-                                        printf("\teff iotier: %s\n", (&off_10000C5B8)[(*(&v107 + 1) >> 2) & 3]);
-                                        if ((DWORD2(v107) & 0x2000000) != 0)
+                                        printf("\teff darwin BG: %s\n", v180);
+                                        printf("\teff iotier: %s\n", (&off_10000C5B8)[(*(&v106 + 1) >> 2) & 3]);
+                                        if ((DWORD2(v106) & 0x2000000) != 0)
                                         {
-                                          v183 = "YES";
+                                          v181 = "YES";
                                         }
 
                                         else
                                         {
-                                          v183 = "NO";
+                                          v181 = "NO";
                                         }
 
-                                        printf("\teff managed: %s\n", v183);
-                                        v184 = (*(&v107 + 1) >> 30) & 7;
+                                        printf("\teff managed: %s\n", v181);
+                                        v182 = (*(&v106 + 1) >> 30) & 7;
+                                        if (v182 == 7 || ((0x7Du >> v182) & 1) == 0)
+                                        {
+                                          if (v182 == 1)
+                                          {
+                                            v183 = "THREAD_QOS_MAINTENANCE";
+                                          }
+
+                                          else
+                                          {
+                                            v183 = "???";
+                                          }
+                                        }
+
+                                        else
+                                        {
+                                          v183 = (&off_10000C580)[v182];
+                                        }
+
+                                        printf("\teff qos ceiling: %s\n", v183);
+                                        v184 = (DWORD2(v106) >> 27) & 7;
                                         if (v184 == 7 || ((0x7Du >> v184) & 1) == 0)
                                         {
                                           if (v184 == 1)
@@ -2174,41 +2192,21 @@ LABEL_541:
                                           v185 = (&off_10000C580)[v184];
                                         }
 
-                                        printf("\teff qos ceiling: %s\n", v185);
-                                        v186 = (DWORD2(v107) >> 27) & 7;
-                                        if (v186 == 7 || ((0x7Du >> v186) & 1) == 0)
-                                        {
-                                          if (v186 == 1)
-                                          {
-                                            v187 = "THREAD_QOS_MAINTENANCE";
-                                          }
-
-                                          else
-                                          {
-                                            v187 = "???";
-                                          }
-                                        }
-
-                                        else
-                                        {
-                                          v187 = (&off_10000C580)[v186];
-                                        }
-
-                                        printf("\teff qos clamp: %s\n", v187);
+                                        printf("\teff qos clamp: %s\n", v185);
                                         printf("\teff other: ");
-                                        if ((BYTE8(v107) & 0x10) != 0)
+                                        if ((BYTE8(v106) & 0x10) != 0)
                                         {
                                           printf("passive ");
                                         }
 
-                                        v188 = "low-priority-cpu (4) ";
-                                        if ((BYTE8(v107) & 2) != 0 || (v188 = "low-priority-cpu (28) ", (DWORD2(v107) & 0x1000000) != 0))
+                                        v186 = "low-priority-cpu (4) ";
+                                        if ((BYTE8(v106) & 2) != 0 || (v186 = "low-priority-cpu (28) ", (DWORD2(v106) & 0x1000000) != 0))
                                         {
-                                          printf(v188);
-                                          if ((BYTE8(v107) & 0x20) == 0)
+                                          printf(v186);
+                                          if ((BYTE8(v106) & 0x20) == 0)
                                           {
 LABEL_576:
-                                            if ((BYTE8(v107) & 0x40) == 0)
+                                            if ((BYTE8(v106) & 0x40) == 0)
                                             {
                                               goto LABEL_577;
                                             }
@@ -2217,16 +2215,16 @@ LABEL_576:
                                           }
                                         }
 
-                                        else if ((BYTE8(v107) & 0x20) == 0)
+                                        else if ((BYTE8(v106) & 0x20) == 0)
                                         {
                                           goto LABEL_576;
                                         }
 
                                         printf("bg-allsockets ");
-                                        if ((BYTE8(v107) & 0x40) == 0)
+                                        if ((BYTE8(v106) & 0x40) == 0)
                                         {
 LABEL_577:
-                                          if ((WORD4(v107) & 0x200) == 0)
+                                          if ((WORD4(v106) & 0x200) == 0)
                                           {
                                             goto LABEL_578;
                                           }
@@ -2236,10 +2234,10 @@ LABEL_577:
 
 LABEL_604:
                                         printf("bg-newsockets ");
-                                        if ((WORD4(v107) & 0x200) == 0)
+                                        if ((WORD4(v106) & 0x200) == 0)
                                         {
 LABEL_578:
-                                          if ((DWORD2(v107) & 0x20000) == 0)
+                                          if ((DWORD2(v106) & 0x20000) == 0)
                                           {
                                             goto LABEL_579;
                                           }
@@ -2249,10 +2247,10 @@ LABEL_578:
 
 LABEL_605:
                                         printf("terminated ");
-                                        if ((DWORD2(v107) & 0x20000) == 0)
+                                        if ((DWORD2(v106) & 0x20000) == 0)
                                         {
 LABEL_579:
-                                          if ((DWORD2(v107) & 0x40000) == 0)
+                                          if ((DWORD2(v106) & 0x40000) == 0)
                                           {
                                             goto LABEL_580;
                                           }
@@ -2262,10 +2260,10 @@ LABEL_579:
 
 LABEL_606:
                                         printf("tal-engaged ");
-                                        if ((DWORD2(v107) & 0x40000) == 0)
+                                        if ((DWORD2(v106) & 0x40000) == 0)
                                         {
 LABEL_580:
-                                          if ((DWORD2(v107) & 0x80000) == 0)
+                                          if ((DWORD2(v106) & 0x80000) == 0)
                                           {
                                             goto LABEL_581;
                                           }
@@ -2275,10 +2273,10 @@ LABEL_580:
 
 LABEL_607:
                                         printf("bg-watchers ");
-                                        if ((DWORD2(v107) & 0x80000) == 0)
+                                        if ((DWORD2(v106) & 0x80000) == 0)
                                         {
 LABEL_581:
-                                          if ((DWORD2(v107) & 0x4000000) == 0)
+                                          if ((DWORD2(v106) & 0x4000000) == 0)
                                           {
                                             goto LABEL_582;
                                           }
@@ -2288,10 +2286,10 @@ LABEL_581:
 
 LABEL_608:
                                         printf("suppression-active (App Nap) ");
-                                        if ((DWORD2(v107) & 0x4000000) == 0)
+                                        if ((DWORD2(v106) & 0x4000000) == 0)
                                         {
 LABEL_582:
-                                          if ((WORD4(v107) & 0x400) == 0)
+                                          if ((WORD4(v106) & 0x400) == 0)
                                           {
                                             goto LABEL_583;
                                           }
@@ -2301,10 +2299,10 @@ LABEL_582:
 
 LABEL_609:
                                         printf("live-donor ");
-                                        if ((WORD4(v107) & 0x400) == 0)
+                                        if ((WORD4(v106) & 0x400) == 0)
                                         {
 LABEL_583:
-                                          if ((*(&v107 + 1) & 0x400000000) == 0)
+                                          if ((*(&v106 + 1) & 0x400000000) == 0)
                                           {
                                             goto LABEL_584;
                                           }
@@ -2314,10 +2312,10 @@ LABEL_583:
 
 LABEL_610:
                                         printf("ui-is-urgent ");
-                                        if ((*(&v107 + 1) & 0x400000000) == 0)
+                                        if ((*(&v106 + 1) & 0x400000000) == 0)
                                         {
 LABEL_584:
-                                          if ((*(&v107 + 1) & 0x800000000) != 0)
+                                          if ((*(&v106 + 1) & 0x800000000) != 0)
                                           {
                                             goto LABEL_612;
                                           }
@@ -2327,11 +2325,11 @@ LABEL_584:
 
 LABEL_611:
                                         printf("coalition-suppressed (BG) ");
-                                        if ((*(&v107 + 1) & 0x800000000) != 0)
+                                        if ((*(&v106 + 1) & 0x800000000) != 0)
                                         {
 LABEL_612:
                                           printf("runaway-mitigation ");
-                                          if ((*(&v107 + 1) & 0x200000000) == 0)
+                                          if ((*(&v106 + 1) & 0x200000000) == 0)
                                           {
                                             goto LABEL_587;
                                           }
@@ -2342,7 +2340,7 @@ LABEL_586:
                                         }
 
 LABEL_585:
-                                        if ((*(&v107 + 1) & 0x200000000) != 0)
+                                        if ((*(&v106 + 1) & 0x200000000) != 0)
                                         {
                                           goto LABEL_586;
                                         }
@@ -2352,6 +2350,28 @@ LABEL_587:
 LABEL_588:
                                         if ((buffer & 0x20000) != 0)
                                         {
+                                          v187 = "YES";
+                                        }
+
+                                        else
+                                        {
+                                          v187 = "NO";
+                                        }
+
+                                        printf("ios-appledaemon: %s\n", v187);
+                                        if ((buffer & 0x80000) != 0)
+                                        {
+                                          v188 = "YES";
+                                        }
+
+                                        else
+                                        {
+                                          v188 = "NO";
+                                        }
+
+                                        printf("ios-imppromotion: %s\n", v188);
+                                        if ((buffer & 0x1000000) != 0)
+                                        {
                                           v189 = "YES";
                                         }
 
@@ -2360,58 +2380,36 @@ LABEL_588:
                                           v189 = "NO";
                                         }
 
-                                        printf("ios-appledaemon: %s\n", v189);
-                                        if ((buffer & 0x80000) != 0)
-                                        {
-                                          v190 = "YES";
-                                        }
-
-                                        else
-                                        {
-                                          v190 = "NO";
-                                        }
-
-                                        printf("ios-imppromotion: %s\n", v190);
-                                        if ((buffer & 0x1000000) != 0)
-                                        {
-                                          v191 = "YES";
-                                        }
-
-                                        else
-                                        {
-                                          v191 = "NO";
-                                        }
-
-                                        printf("ios-application: %s\n", v191);
-                                        v36 = v398;
+                                        printf("ios-application: %s\n", v189);
+                                        v36 = v385;
                                         if (__nel)
                                         {
-                                          v192 = getpriority(7, v401);
-                                          if (v192 == 1)
+                                          v190 = getpriority(7, v388);
+                                          if (v190 == 1)
                                           {
                                             puts("game mode: ON");
                                           }
 
-                                          else if (v192 == -1 && (byte_10001000D & 1) == 0)
+                                          else if (v190 == -1 && (byte_10001000D & 1) == 0)
                                           {
                                             sub_1000062C4();
                                           }
 
-                                          v193 = getpriority(8, v401);
-                                          if (v193 == 1)
+                                          v191 = getpriority(8, v388);
+                                          if (v191 == 1)
                                           {
                                             puts("carplay mode: ON");
                                           }
 
-                                          else if (v193 == -1 && (byte_10001000E & 1) == 0)
+                                          else if (v191 == -1 && (byte_10001000E & 1) == 0)
                                           {
                                             sub_1000062F0();
                                           }
 
-                                          v194 = getpriority(5, v401);
-                                          if (v194)
+                                          v192 = getpriority(5, v388);
+                                          if (v192)
                                           {
-                                            if (v194 == -1)
+                                            if (v192 == -1)
                                             {
                                               if ((byte_10001000F & 1) == 0)
                                               {
@@ -2421,20 +2419,20 @@ LABEL_588:
 
                                             else
                                             {
-                                              v195 = "???";
-                                              if ((v194 & 0xF8) == 0)
+                                              v193 = "???";
+                                              if ((v192 & 0xF8) == 0)
                                               {
-                                                v195 = (&off_10000C480)[v194 & 7];
+                                                v193 = (&off_10000C480)[v192 & 7];
                                               }
 
-                                              printf("GPU role: %s\n", v195);
+                                              printf("GPU role: %s\n", v193);
                                             }
                                           }
 
-                                          v196 = getpriority(9, v401);
-                                          if (v196)
+                                          v194 = getpriority(9, v388);
+                                          if (v194)
                                           {
-                                            if (v196 == -1)
+                                            if (v194 == -1)
                                             {
                                               if ((byte_100010010 & 1) == 0)
                                               {
@@ -2449,73 +2447,73 @@ LABEL_588:
                                           }
 
                                           *__error() = 0;
-                                          v197 = getpriority(0, v401);
-                                          if (v197)
+                                          v195 = getpriority(0, v388);
+                                          if (v195)
                                           {
-                                            v198 = v197;
-                                            if (v197 == -1 && *__error())
+                                            v196 = v195;
+                                            if (v195 == -1 && *__error())
                                             {
                                               perror("getpriority(PRIO_PROCESS, pid)");
                                             }
 
                                             else
                                             {
-                                              printf("nice: %d\n", v198);
+                                              printf("nice: %d\n", v196);
                                             }
                                           }
 
-                                          if (v455)
+                                          if (v442)
                                           {
-                                            v199 = "YES";
-                                            if ((v455 & 2) == 0)
+                                            v197 = "YES";
+                                            if ((v442 & 2) == 0)
                                             {
-                                              v199 = "YES (boosted receiver)";
-                                              if (!DWORD2(v454))
+                                              v197 = "YES (boosted receiver)";
+                                              if (!DWORD2(v441))
                                               {
-                                                v199 = "NO";
+                                                v197 = "NO";
                                               }
                                             }
                                           }
 
-                                          else if ((v455 & 4) != 0)
+                                          else if ((v442 & 4) != 0)
                                           {
-                                            v199 = "CURRENTLY";
-                                            if ((v455 & 2) == 0)
+                                            v197 = "CURRENTLY";
+                                            if ((v442 & 2) == 0)
                                             {
-                                              v199 = "NOT CURRENTLY";
+                                              v197 = "NOT CURRENTLY";
                                             }
                                           }
 
-                                          else if ((v455 & 2) != 0)
+                                          else if ((v442 & 2) != 0)
+                                          {
+                                            v197 = "YES";
+                                          }
+
+                                          else
+                                          {
+                                            v197 = "NO";
+                                          }
+
+                                          printf("imp_donor: %s\n", v197);
+                                          v198 = "DE-NAP";
+                                          if ((v442 & 8) == 0)
+                                          {
+                                            v198 = "NO";
+                                          }
+
+                                          if (v442)
                                           {
                                             v199 = "YES";
                                           }
 
                                           else
                                           {
-                                            v199 = "NO";
+                                            v199 = v198;
                                           }
 
-                                          printf("imp_donor: %s\n", v199);
-                                          v200 = "DE-NAP";
-                                          if ((v455 & 8) == 0)
-                                          {
-                                            v200 = "NO";
-                                          }
-
-                                          if (v455)
-                                          {
-                                            v201 = "YES";
-                                          }
-
-                                          else
-                                          {
-                                            v201 = v200;
-                                          }
-
-                                          printf("imp_receiver: %s\n", v201);
-                                          v202 = memorystatus_control();
-                                          if (v202 == -1)
+                                          printf("imp_receiver: %s\n", v199);
+                                          v200 = memorystatus_control();
+                                          if (v200 == -1)
                                           {
                                             if ((byte_100010011 & 1) == 0)
                                             {
@@ -2525,21 +2523,42 @@ LABEL_588:
 
                                           else
                                           {
-                                            if (v202)
+                                            if (v200)
                                             {
-                                              v203 = "YES";
+                                              v201 = "YES";
                                             }
 
                                             else
                                             {
-                                              v203 = "NO";
+                                              v201 = "NO";
                                             }
 
-                                            printf("runningboard managed: %s\n", v203);
+                                            printf("runningboard managed: %s\n", v201);
                                           }
                                         }
 
-                                        if ((v455 & 0x10) != 0)
+                                        if ((v442 & 0x10) != 0)
+                                        {
+                                          v202 = "YES";
+                                        }
+
+                                        else
+                                        {
+                                          v202 = "NO";
+                                        }
+
+                                        printf("pid suspended: %s\n", v202);
+                                        if ((buffer & 0x100000) != 0)
+                                        {
+                                          v203 = "YES";
+                                        }
+
+                                        else
+                                        {
+                                          v203 = "NO";
+                                        }
+
+                                        if ((buffer & 0x200000) != 0)
                                         {
                                           v204 = "YES";
                                         }
@@ -2549,8 +2568,8 @@ LABEL_588:
                                           v204 = "NO";
                                         }
 
-                                        printf("pid suspended: %s\n", v204);
-                                        if ((buffer & 0x100000) != 0)
+                                        printf("adaptive daemon: %s (boosted: %s)\n", v203, v204);
+                                        if ((buffer & 0x4000000) != 0)
                                         {
                                           v205 = "YES";
                                         }
@@ -2560,273 +2579,252 @@ LABEL_588:
                                           v205 = "NO";
                                         }
 
-                                        if ((buffer & 0x200000) != 0)
-                                        {
-                                          v206 = "YES";
-                                        }
-
-                                        else
-                                        {
-                                          v206 = "NO";
-                                        }
-
-                                        printf("adaptive daemon: %s (boosted: %s)\n", v205, v206);
-                                        if ((buffer & 0x4000000) != 0)
-                                        {
-                                          v207 = "YES";
-                                        }
-
-                                        else
-                                        {
-                                          v207 = "NO";
-                                        }
-
-                                        printf("checked allocations: %s\n", v207);
-                                        if (HIDWORD(v480))
+                                        printf("checked allocations: %s\n", v205);
+                                        if (HIDWORD(v467))
                                         {
                                           puts("threads:");
                                           if (x[1])
                                           {
-                                            v208 = 0;
-                                            v396 = __nel & v403;
+                                            v206 = 0;
+                                            v383 = __nel & v390;
                                             do
                                             {
-                                              v438 = 0;
-                                              v437 = 0u;
-                                              thread_info_out = 0u;
-                                              v434[0] = 0;
-                                              v434[1] = 0;
-                                              v435 = 0;
-                                              v431 = 0;
-                                              v432 = 0;
-                                              v433 = 0;
-                                              *v430 = 0;
-                                              v428 = 0;
-                                              v429 = 0;
-                                              *v427 = 0;
-                                              v425 = 0u;
-                                              v426 = 0u;
-                                              *v423 = 0u;
+                                              v425 = 0;
                                               v424 = 0u;
-                                              v490 = 0u;
-                                              v491 = 0u;
-                                              v488 = 0u;
-                                              v489 = 0u;
-                                              v486 = 0u;
-                                              v487 = 0u;
-                                              v485 = 0u;
+                                              thread_info_out = 0u;
+                                              v421[0] = 0;
+                                              v421[1] = 0;
+                                              v422 = 0;
+                                              v418 = 0;
+                                              v419 = 0;
+                                              v420 = 0;
+                                              *v417 = 0;
+                                              v415 = 0;
+                                              v416 = 0;
+                                              *v414 = 0;
+                                              v412 = 0u;
+                                              v413 = 0u;
+                                              *v410 = 0u;
+                                              v411 = 0u;
+                                              v477 = 0u;
+                                              v478 = 0u;
+                                              v475 = 0u;
+                                              v476 = 0u;
+                                              v473 = 0u;
+                                              v474 = 0u;
+                                              v472 = 0u;
                                               task_info_outCnt = 10;
-                                              v209 = thread_info(act_list[v208], 3u, &thread_info_out, &task_info_outCnt);
-                                              if (v209)
+                                              v207 = thread_info(act_list[v206], 3u, &thread_info_out, &task_info_outCnt);
+                                              if (v207)
                                               {
-                                                mach_error("thread_info(... THREAD_BASIC_INFO ...)", v209);
+                                                mach_error("thread_info(... THREAD_BASIC_INFO ...)", v207);
                                               }
 
                                               task_info_outCnt = 6;
-                                              v210 = thread_info(act_list[v208], 4u, v434, &task_info_outCnt);
-                                              if (v210)
+                                              v208 = thread_info(act_list[v206], 4u, v421, &task_info_outCnt);
+                                              if (v208)
                                               {
-                                                mach_error("thread_info(... THREAD_IDENTIFIER_INFO ...)", v210);
+                                                mach_error("thread_info(... THREAD_IDENTIFIER_INFO ...)", v208);
                                               }
 
-                                              v211 = 1;
-                                              if (v480 && v435)
+                                              v209 = 1;
+                                              if (v467 && v422)
                                               {
                                                 __endptr[0] = 0;
                                                 *&object_type = 0;
                                                 outsize = 0;
-                                                v493 = 0;
-                                                v212 = vm_read_overwrite(task_list[v36], v435, 8uLL, __endptr, &outsize);
-                                                if (v212)
+                                                v480 = 0;
+                                                v210 = vm_read_overwrite(task_list[v36], v422, 8uLL, __endptr, &outsize);
+                                                if (v210)
                                                 {
-                                                  v213 = v212;
-                                                  v214 = "vm_read_overwrite(... &qaddr ...)";
+                                                  v211 = v210;
+                                                  v212 = "vm_read_overwrite(... &qaddr ...)";
 LABEL_682:
-                                                  mach_error(v214, v213);
+                                                  mach_error(v212, v211);
                                                   goto LABEL_683;
                                                 }
 
                                                 if (outsize == 8 && __endptr[0])
                                                 {
-                                                  v234 = vm_read_overwrite(task_list[v36], &__endptr[0][v380], 8uLL, &object_type, &outsize);
-                                                  if (v234)
+                                                  v232 = vm_read_overwrite(task_list[v36], &__endptr[0][v367], 8uLL, &object_type, &outsize);
+                                                  if (v232)
                                                   {
-                                                    v213 = v234;
-                                                    v214 = "vm_read_overwrite(... &label_addr ...)";
+                                                    v211 = v232;
+                                                    v212 = "vm_read_overwrite(... &label_addr ...)";
                                                     goto LABEL_682;
                                                   }
 
                                                   if (outsize == 8 && object_type)
                                                   {
-                                                    v285 = vm_read_overwrite(task_list[v36], object_type, 0x40uLL, v492, &outsize);
-                                                    if (v285)
+                                                    v282 = vm_read_overwrite(task_list[v36], object_type, 0x40uLL, v479, &outsize);
+                                                    if (v282)
                                                     {
-                                                      v213 = v285;
-                                                      v214 = "vm_read_overwrite(... dqlabel ...)";
+                                                      v211 = v282;
+                                                      v212 = "vm_read_overwrite(... dqlabel ...)";
                                                       goto LABEL_682;
                                                     }
 
-                                                    v211 = 0;
+                                                    v209 = 0;
                                                   }
                                                 }
                                               }
 
 LABEL_683:
-                                              if (DWORD1(v437) == 2)
+                                              if (DWORD1(v424) == 2)
                                               {
                                                 task_info_outCnt = 5;
-                                                v218 = thread_info(act_list[v208], 0xBu, &v431, &task_info_outCnt);
-                                                if (!v218)
+                                                v216 = thread_info(act_list[v206], 0xBu, &v418, &task_info_outCnt);
+                                                if (!v216)
                                                 {
                                                   goto LABEL_690;
                                                 }
 
-                                                v216 = v218;
-                                                v217 = "thread_info(... THREAD_SCHED_RR_INFO ...)";
+                                                v214 = v216;
+                                                v215 = "thread_info(... THREAD_SCHED_RR_INFO ...)";
                                                 goto LABEL_689;
                                               }
 
-                                              if (DWORD1(v437) == 1)
+                                              if (DWORD1(v424) == 1)
                                               {
                                                 task_info_outCnt = 5;
-                                                v215 = thread_info(act_list[v208], 0xAu, &v431, &task_info_outCnt);
-                                                if (v215)
+                                                v213 = thread_info(act_list[v206], 0xAu, &v418, &task_info_outCnt);
+                                                if (v213)
                                                 {
-                                                  v216 = v215;
-                                                  v217 = "thread_info(... THREAD_SCHED_TIMESHARE_INFO ...)";
+                                                  v214 = v213;
+                                                  v215 = "thread_info(... THREAD_SCHED_TIMESHARE_INFO ...)";
 LABEL_689:
-                                                  mach_error(v217, v216);
+                                                  mach_error(v215, v214);
                                                 }
                                               }
 
 LABEL_690:
                                               get_default = 0;
                                               task_info_outCnt = 1;
-                                              v219 = thread_policy_get(act_list[v208], 1u, &v430[1], &task_info_outCnt, &get_default);
+                                              v217 = thread_policy_get(act_list[v206], 1u, &v417[1], &task_info_outCnt, &get_default);
+                                              if (v217)
+                                              {
+                                                mach_error("thread_policy_get(... THREAD_EXTENDED_POLICY ...)", v217);
+                                              }
+
+                                              v407 = 0;
+                                              task_info_outCnt = 5;
+                                              v218 = thread_policy_get(act_list[v206], 0xAu, &v415, &task_info_outCnt, &v407);
+                                              if (v218)
+                                              {
+                                                mach_error("thread_policy_get(... THREAD_TIME_CONSTRAINT_WITH_PRIORITY_POLICY ...)", v218);
+                                              }
+
+                                              v407 = 0;
+                                              task_info_outCnt = 1;
+                                              v219 = thread_policy_get(act_list[v206], 3u, &v414[1], &task_info_outCnt, &v407);
                                               if (v219)
                                               {
-                                                mach_error("thread_policy_get(... THREAD_EXTENDED_POLICY ...)", v219);
+                                                mach_error("thread_policy_get(... THREAD_PRECEDENCE_POLICY ...)", v219);
                                               }
 
-                                              v420 = 0;
-                                              task_info_outCnt = 5;
-                                              v220 = thread_policy_get(act_list[v208], 0xAu, &v428, &task_info_outCnt, &v420);
+                                              v407 = 0;
+                                              task_info_outCnt = 1;
+                                              v220 = thread_policy_get(act_list[v206], 4u, v414, &task_info_outCnt, &v407);
                                               if (v220)
                                               {
-                                                mach_error("thread_policy_get(... THREAD_TIME_CONSTRAINT_WITH_PRIORITY_POLICY ...)", v220);
-                                              }
-
-                                              v420 = 0;
-                                              task_info_outCnt = 1;
-                                              v221 = thread_policy_get(act_list[v208], 3u, &v427[1], &task_info_outCnt, &v420);
-                                              if (v221)
-                                              {
-                                                mach_error("thread_policy_get(... THREAD_PRECEDENCE_POLICY ...)", v221);
-                                              }
-
-                                              v420 = 0;
-                                              task_info_outCnt = 1;
-                                              v222 = thread_policy_get(act_list[v208], 4u, v427, &task_info_outCnt, &v420);
-                                              if (v222)
-                                              {
-                                                if (v222 == 46)
+                                                if (v220 == 46)
                                                 {
-                                                  v223 = 1;
+                                                  v221 = 1;
                                                   goto LABEL_701;
                                                 }
 
-                                                mach_error("thread_policy_get(... THREAD_AFFINITY_POLICY ...)", v222);
+                                                mach_error("thread_policy_get(... THREAD_AFFINITY_POLICY ...)", v220);
                                               }
 
-                                              v223 = 0;
+                                              v221 = 0;
 LABEL_701:
-                                              v420 = 0;
+                                              v407 = 0;
                                               task_info_outCnt = 16;
-                                              v224 = thread_policy_get(act_list[v208], 6u, v423, &task_info_outCnt, &v420);
-                                              if (v224)
+                                              v222 = thread_policy_get(act_list[v206], 6u, v410, &task_info_outCnt, &v407);
+                                              if (v222)
                                               {
-                                                mach_error("thread_policy_get(... THREAD_POLICY_STATE ...)", v224);
+                                                mach_error("thread_policy_get(... THREAD_POLICY_STATE ...)", v222);
                                               }
 
-                                              v225 = *(&v424 + 1);
-                                              v226 = v424;
-                                              v227 = proc_pidinfo(v401, 15, v434[0], &v485, 112);
-                                              if (v227 <= 111)
+                                              v223 = *(&v411 + 1);
+                                              v224 = v411;
+                                              v225 = proc_pidinfo(v388, 15, v421[0], &v472, 112);
+                                              if (v225 <= 111)
                                               {
                                                 perror("proc_pidinfo(... PROC_PIDTHREADID64INFO ...)");
                                               }
 
-                                              printf("\tthread ID: 0x%llx / %llu\n", v434[0], v434[0]);
-                                              if (v488)
+                                              printf("\tthread ID: 0x%llx / %llu\n", v421[0], v421[0]);
+                                              if (v475)
                                               {
                                                 printf("\tthread name: %s\n");
                                               }
 
-                                              else if ((v211 & 1) == 0)
+                                              else if ((v209 & 1) == 0)
                                               {
                                                 printf("\tdispatch queue name: %s\n");
                                               }
 
                                               printf("\tuser/system time: %lf s / %lf s\n", SDWORD1(thread_info_out) / 1000000.0 + thread_info_out, SHIDWORD(thread_info_out) / 1000000.0 + SDWORD2(thread_info_out));
-                                              if (v227 >= 112 && (byte_100010003 & v405 & 1) != 0)
+                                              if (v225 >= 112 && (byte_100010003 & v392 & 1) != 0)
                                               {
-                                                if (v390 >= 3)
+                                                if (v377 >= 3)
                                                 {
                                                   sub_1000063F4();
                                                 }
 
                                                 *__error() = 0;
-                                                if (proc_pidinfo(v401, 34, v434[0], &word_100010028, 88) < 40 * v390 + 8)
+                                                if (proc_pidinfo(v388, 34, v421[0], &word_100010028, 88) < 40 * v377 + 8)
                                                 {
                                                   perror("proc_pidinfo(... PROC_PIDTHREADCOUNTS ...)");
                                                 }
 
-                                                if (v390 != word_100010028)
+                                                if (v377 != word_100010028)
                                                 {
-                                                  fprintf(__stderrp, "threadcounts.ptc_len %d mismatch with level_count %u\n", word_100010028, v390);
+                                                  fprintf(__stderrp, "threadcounts.ptc_len %d mismatch with level_count %u\n", word_100010028, v377);
                                                 }
 
-                                                v228 = 0;
-                                                v229 = 0uLL;
-                                                if (v390)
+                                                v226 = 0;
+                                                v227 = 0uLL;
+                                                if (v377)
                                                 {
-                                                  v230 = v390;
-                                                  v231 = &qword_100010050;
-                                                  v232 = 0uLL;
+                                                  v228 = v377;
+                                                  v229 = &qword_100010050;
+                                                  v230 = 0uLL;
                                                   do
                                                   {
-                                                    v232 = vaddq_s64(*(v231 - 1), v232);
-                                                    v229 = vaddq_s64(*(v231 - 2), v229);
-                                                    v233 = *v231;
-                                                    v231 += 5;
-                                                    v228 += v233;
-                                                    --v230;
+                                                    v230 = vaddq_s64(*(v229 - 1), v230);
+                                                    v227 = vaddq_s64(*(v229 - 2), v227);
+                                                    v231 = *v229;
+                                                    v229 += 5;
+                                                    v226 += v231;
+                                                    --v228;
                                                   }
 
-                                                  while (v230);
+                                                  while (v228);
                                                 }
 
                                                 else
                                                 {
-                                                  v232 = 0uLL;
+                                                  v230 = 0uLL;
                                                 }
 
-                                                *v410 = v232;
-                                                *__nela = v229;
-                                                *__endptr = v229;
-                                                v591 = v232;
-                                                *&v592 = v228;
-                                                v418 = v391;
-                                                object_type = v393;
-                                                v419 = v389;
+                                                *v397 = v230;
+                                                *__nela = v227;
+                                                *__endptr = v227;
+                                                v578 = v230;
+                                                *&v579 = v226;
+                                                v405 = v378;
+                                                object_type = v380;
+                                                v406 = v376;
                                                 sub_100005518("\tCPU time:", __endptr, &object_type, 1, " of task");
-                                                if (v390 >= 2)
+                                                if (v377 >= 2)
                                                 {
-                                                  v235 = 0;
-                                                  v236 = &xmmword_100010030;
+                                                  v233 = 0;
+                                                  v234 = &xmmword_100010030;
                                                   do
                                                   {
-                                                    if (v235 == 24)
+                                                    if (v233 == 24)
                                                     {
                                                       sub_1000063C8();
                                                     }
@@ -2836,40 +2834,40 @@ LABEL_701:
                                                       sub_1000063A0();
                                                     }
 
-                                                    printf("\t%s:", *(&off_10000C3E0 + v235));
-                                                    v237 = v236[1];
-                                                    *__endptr = *v236;
-                                                    v591 = v237;
-                                                    *&v592 = *(v236 + 4);
-                                                    v418 = *v410;
+                                                    printf("\t%s:", *(&off_10000C3E0 + v233));
+                                                    v235 = v234[1];
+                                                    *__endptr = *v234;
+                                                    v578 = v235;
+                                                    *&v579 = *(v234 + 4);
+                                                    v405 = *v397;
                                                     object_type = *__nela;
-                                                    v419 = v228;
+                                                    v406 = v226;
                                                     sub_100005518(&unk_100007155, __endptr, &object_type, 1, &unk_100007155);
-                                                    v235 += 8;
-                                                    v236 = (v236 + 40);
+                                                    v233 += 8;
+                                                    v234 = (v234 + 40);
                                                   }
 
-                                                  while (8 * v390 != v235);
+                                                  while (8 * v377 != v233);
                                                 }
                                               }
 
-                                              printf("\tCPU usage (over last tick): %d%%\n", v437 / 10);
-                                              v238 = "timeshare";
-                                              if (!v430[1])
+                                              printf("\tCPU usage (over last tick): %d%%\n", v424 / 10);
+                                              v236 = "timeshare";
+                                              if (!v417[1])
                                               {
-                                                v238 = "fixed-priority";
+                                                v236 = "fixed-priority";
                                               }
 
-                                              v239 = "real-time";
+                                              v237 = "real-time";
                                               if (!get_default)
                                               {
-                                                v239 = v238;
+                                                v237 = v236;
                                               }
 
-                                              printf("\tsched mode: %s", v239);
-                                              if (DWORD1(v437) == 1 && (get_default || !v430[1]))
+                                              printf("\tsched mode: %s", v237);
+                                              if (DWORD1(v424) == 1 && (get_default || !v417[1]))
                                               {
-                                                printf(" demoted to policy %s: base priority: %d cur priority %d", "POLICY_TIMESHARE", HIDWORD(v431), v432);
+                                                printf(" demoted to policy %s: base priority: %d cur priority %d", "POLICY_TIMESHARE", HIDWORD(v418), v419);
                                               }
 
                                               putchar(10);
@@ -2878,10 +2876,63 @@ LABEL_701:
                                                 goto LABEL_745;
                                               }
 
-                                              if (DWORD1(v437) >= 3)
+                                              if (DWORD1(v424) >= 3)
                                               {
-                                                v240 = "POLICY_FIFO";
-                                                if (DWORD1(v437) != 4)
+                                                v238 = "POLICY_FIFO";
+                                                if (DWORD1(v424) != 4)
+                                                {
+                                                  v238 = "???";
+                                                }
+                                              }
+
+                                              else
+                                              {
+                                                v238 = (&off_10000C4C0)[DWORD1(v424)];
+                                              }
+
+                                              printf("\tpolicy: %s\n", v238);
+                                              if (get_default)
+                                              {
+LABEL_745:
+                                                printf("\t\treal-time priority: %u\n", v417[0]);
+                                                printf("\t\treal-time period: %u\n", v415);
+                                                printf("\t\treal-time computation: %u\n", HIDWORD(v415));
+                                                printf("\t\treal-time constraint: %u\n", v416);
+                                                printf("\t\treal-time preemptible: %s\n");
+                                              }
+
+                                              else if (DWORD1(v424) == 2)
+                                              {
+                                                printf("\t\tround-robin max  priority: %d\n", v418);
+                                                printf("\t\tround-robin base priority: %d\n", HIDWORD(v418));
+                                                printf("\t\tround-robin quantum: %d\n", v419);
+                                                printf("\t\tround-robin depressed: %s, prio %d\n");
+                                              }
+
+                                              else if (DWORD1(v424) == 1)
+                                              {
+                                                printf("\t\ttimeshare max  priority: %d\n", v418);
+                                                printf("\t\ttimeshare base priority: %d\n", HIDWORD(v418));
+                                                printf("\t\ttimeshare cur  priority: %d\n", v419);
+                                                v280 = "YES";
+                                                if (!HIDWORD(v419))
+                                                {
+                                                  v280 = "NO";
+                                                }
+
+                                                printf("\t\ttimeshare depressed: %s, prio %d\n", v280, v420);
+                                              }
+
+                                              puts("\trequested policy:");
+                                              v239 = (v224 >> 15) & 7;
+                                              if (v239 == 7 || ((0x7Du >> v239) & 1) == 0)
+                                              {
+                                                if (v239 == 1)
+                                                {
+                                                  v240 = "THREAD_QOS_MAINTENANCE";
+                                                }
+
+                                                else
                                                 {
                                                   v240 = "???";
                                                 }
@@ -2889,44 +2940,12 @@ LABEL_701:
 
                                               else
                                               {
-                                                v240 = (&off_10000C4C0)[DWORD1(v437)];
+                                                v240 = (&off_10000C580)[v239];
                                               }
 
-                                              printf("\tpolicy: %s\n", v240);
-                                              if (get_default)
-                                              {
-LABEL_745:
-                                                printf("\t\treal-time priority: %u\n", v430[0]);
-                                                printf("\t\treal-time period: %u\n", v428);
-                                                printf("\t\treal-time computation: %u\n", HIDWORD(v428));
-                                                printf("\t\treal-time constraint: %u\n", v429);
-                                                printf("\t\treal-time preemptible: %s\n");
-                                              }
-
-                                              else if (DWORD1(v437) == 2)
-                                              {
-                                                printf("\t\tround-robin max  priority: %d\n", v431);
-                                                printf("\t\tround-robin base priority: %d\n", HIDWORD(v431));
-                                                printf("\t\tround-robin quantum: %d\n", v432);
-                                                printf("\t\tround-robin depressed: %s, prio %d\n");
-                                              }
-
-                                              else if (DWORD1(v437) == 1)
-                                              {
-                                                printf("\t\ttimeshare max  priority: %d\n", v431);
-                                                printf("\t\ttimeshare base priority: %d\n", HIDWORD(v431));
-                                                printf("\t\ttimeshare cur  priority: %d\n", v432);
-                                                v283 = "YES";
-                                                if (!HIDWORD(v432))
-                                                {
-                                                  v283 = "NO";
-                                                }
-
-                                                printf("\t\ttimeshare depressed: %s, prio %d\n", v283, v433);
-                                              }
-
-                                              puts("\trequested policy:");
-                                              v241 = (v226 >> 15) & 7;
+                                              printf("\t\treq thread qos: %s, relprio: %d\n", v240, -((v224 >> 18) & 0xF));
+                                              puts("\t\treq workqueue/pthread overrides:");
+                                              v241 = (v224 >> 22) & 7;
                                               if (v241 == 7 || ((0x7Du >> v241) & 1) == 0)
                                               {
                                                 if (v241 == 1)
@@ -2945,10 +2964,9 @@ LABEL_745:
                                                 v242 = (&off_10000C580)[v241];
                                               }
 
-                                              printf("\t\treq thread qos: %s, relprio: %d\n", v242, -((v226 >> 18) & 0xF));
-                                              puts("\t\treq workqueue/pthread overrides:");
-                                              v243 = (v226 >> 22) & 7;
-                                              if (v243 == 7 || ((0x7Du >> v243) & 1) == 0)
+                                              printf("\t\t\treq legacy qos override: %s\n", v242);
+                                              v243 = HIDWORD(v224) & 7;
+                                              if (v243 == 7 || ((0x7Du >> (BYTE4(v224) & 7)) & 1) == 0)
                                               {
                                                 if (v243 == 1)
                                                 {
@@ -2966,9 +2984,10 @@ LABEL_745:
                                                 v244 = (&off_10000C580)[v243];
                                               }
 
-                                              printf("\t\t\treq legacy qos override: %s\n", v244);
-                                              v245 = HIDWORD(v226) & 7;
-                                              if (v245 == 7 || ((0x7Du >> (BYTE4(v226) & 7)) & 1) == 0)
+                                              printf("\t\t\treq workqueue qos override: %s\n", v244);
+                                              puts("\t\treq kernel overrides:");
+                                              v245 = (v224 >> 28) & 7;
+                                              if (v245 == 7 || ((0x7Du >> v245) & 1) == 0)
                                               {
                                                 if (v245 == 1)
                                                 {
@@ -2986,9 +3005,8 @@ LABEL_745:
                                                 v246 = (&off_10000C580)[v245];
                                               }
 
-                                              printf("\t\t\treq workqueue qos override: %s\n", v246);
-                                              puts("\t\treq kernel overrides:");
-                                              v247 = (v226 >> 28) & 7;
+                                              printf("\t\t\treq kevent overrides: %s\n", v246);
+                                              v247 = (v224 >> 35) & 7;
                                               if (v247 == 7 || ((0x7Du >> v247) & 1) == 0)
                                               {
                                                 if (v247 == 1)
@@ -3007,8 +3025,8 @@ LABEL_745:
                                                 v248 = (&off_10000C580)[v247];
                                               }
 
-                                              printf("\t\t\treq kevent overrides: %s\n", v248);
-                                              v249 = (v226 >> 35) & 7;
+                                              printf("\t\t\treq workloop servicer override: %s\n", v248);
+                                              v249 = (v224 >> 25) & 7;
                                               if (v249 == 7 || ((0x7Du >> v249) & 1) == 0)
                                               {
                                                 if (v249 == 1)
@@ -3027,90 +3045,69 @@ LABEL_745:
                                                 v250 = (&off_10000C580)[v249];
                                               }
 
-                                              printf("\t\t\treq workloop servicer override: %s\n", v250);
-                                              v251 = (v226 >> 25) & 7;
-                                              if (v251 == 7 || ((0x7Du >> v251) & 1) == 0)
+                                              printf("\t\treq turnstiles sync promotion qos: %s, user promotion base pri: %u\n", v250, DWORD1(v412));
+                                              v251 = (v224 >> 8) & 7;
+                                              v252 = v251 == 6;
+                                              if (v251 >= 6)
                                               {
-                                                if (v251 == 1)
+                                                v253 = "LATENCY_QOS_TIER_5";
+                                                if (!v252)
                                                 {
-                                                  v252 = "THREAD_QOS_MAINTENANCE";
-                                                }
-
-                                                else
-                                                {
-                                                  v252 = "???";
+                                                  v253 = "???";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v252 = (&off_10000C580)[v251];
+                                                v253 = (&off_10000C4D8)[v251];
                                               }
 
-                                              printf("\t\treq turnstiles sync promotion qos: %s, user promotion base pri: %u\n", v252, DWORD1(v425));
-                                              v253 = (v226 >> 8) & 7;
-                                              v254 = v253 == 6;
-                                              if (v253 >= 6)
+                                              printf("\t\treq latency qos: %s\n", v253);
+                                              v254 = (v224 >> 11) & 7;
+                                              v255 = v254 == 6;
+                                              if (v254 >= 6)
                                               {
-                                                v255 = "LATENCY_QOS_TIER_5";
-                                                if (!v254)
+                                                v256 = "THROUGHPUT_QOS_TIER_5";
+                                                if (!v255)
                                                 {
-                                                  v255 = "???";
+                                                  v256 = "???";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v255 = (&off_10000C4D8)[v253];
+                                                v256 = (&off_10000C508)[v254];
                                               }
 
-                                              printf("\t\treq latency qos: %s\n", v255);
-                                              v256 = (v226 >> 11) & 7;
-                                              v257 = v256 == 6;
-                                              if (v256 >= 6)
+                                              printf("\t\treq thruput qos: %s\n", v256);
+                                              v257 = "YES";
+                                              if ((v224 & 3) == 0)
                                               {
-                                                v258 = "THROUGHPUT_QOS_TIER_5";
-                                                if (!v257)
-                                                {
-                                                  v258 = "???";
-                                                }
+                                                v257 = "NO";
                                               }
 
-                                              else
+                                              v258 = &unk_100007155;
+                                              v259 = "(internal)";
+                                              if ((v224 & 1) == 0)
                                               {
-                                                v258 = (&off_10000C508)[v256];
+                                                v259 = &unk_100007155;
                                               }
 
-                                              printf("\t\treq thruput qos: %s\n", v258);
-                                              v259 = "YES";
-                                              if ((v226 & 3) == 0)
+                                              if ((v224 & 2) != 0)
                                               {
-                                                v259 = "NO";
+                                                v258 = "(external)";
                                               }
 
-                                              v260 = &unk_100007155;
-                                              v261 = "(internal)";
-                                              if ((v226 & 1) == 0)
-                                              {
-                                                v261 = &unk_100007155;
-                                              }
-
-                                              if ((v226 & 2) != 0)
-                                              {
-                                                v260 = "(external)";
-                                              }
-
-                                              printf("\t\treq darwin BG: %s %s %s\n", v259, v261, v260);
-                                              v262 = (&off_10000C5B8)[(v226 >> 2) & 3];
-                                              printf("\t\treq internal/external iotier: %s / %s\n", v262, (&off_10000C5B8)[(v226 >> 4) & 3]);
+                                              printf("\t\treq darwin BG: %s %s %s\n", v257, v259, v258);
+                                              printf("\t\treq internal/external iotier: %s / %s\n", (&off_10000C5B8)[(v224 >> 2) & 3], (&off_10000C5B8)[(v224 >> 4) & 3]);
                                               printf("\t\treq other: ");
-                                              if ((v226 & 0x40) != 0)
+                                              if ((v224 & 0x40) != 0)
                                               {
                                                 printf("passive-int ");
-                                                if ((v226 & 0x80) == 0)
+                                                if ((v224 & 0x80) == 0)
                                                 {
 LABEL_798:
-                                                  if ((v226 & 0x4000) == 0)
+                                                  if ((v224 & 0x4000) == 0)
                                                   {
                                                     goto LABEL_799;
                                                   }
@@ -3119,16 +3116,16 @@ LABEL_798:
                                                 }
                                               }
 
-                                              else if ((v226 & 0x80) == 0)
+                                              else if ((v224 & 0x80) == 0)
                                               {
                                                 goto LABEL_798;
                                               }
 
                                               printf("passive-ext ");
-                                              if ((v226 & 0x4000) == 0)
+                                              if ((v224 & 0x4000) == 0)
                                               {
 LABEL_799:
-                                                if ((v226 & 0x10000000000) == 0)
+                                                if ((v224 & 0x10000000000) == 0)
                                                 {
                                                   goto LABEL_801;
                                                 }
@@ -3140,49 +3137,66 @@ LABEL_800:
 
 LABEL_819:
                                               printf("bg-pidbind ");
-                                              if ((v226 & 0x10000000000) != 0)
+                                              if ((v224 & 0x10000000000) != 0)
                                               {
                                                 goto LABEL_800;
                                               }
 
 LABEL_801:
-                                              if (v423[3])
+                                              if (v410[3])
                                               {
                                                 printf("static-param ");
                                               }
 
                                               putchar(10);
                                               puts("\teffective policy:");
-                                              v263 = (v225 >> 14) & 7;
-                                              if (v263 == 7 || ((0x7Du >> v263) & 1) == 0)
+                                              v260 = (v223 >> 14) & 7;
+                                              if (v260 == 7 || ((0x7Du >> v260) & 1) == 0)
                                               {
-                                                if (v263 == 1)
+                                                if (v260 == 1)
                                                 {
-                                                  v264 = "THREAD_QOS_MAINTENANCE";
+                                                  v261 = "THREAD_QOS_MAINTENANCE";
                                                 }
 
                                                 else
                                                 {
-                                                  v264 = "???";
+                                                  v261 = "???";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v264 = (&off_10000C580)[v263];
+                                                v261 = (&off_10000C580)[v260];
                                               }
 
-                                              printf("\t\teff thread qos: %s\n", v264);
-                                              printf("\t\teff thread qos relprio: %d\n", -((v225 >> 17) & 0xF));
-                                              v265 = (v225 >> 21) & 7;
-                                              if (v265 == 7 || ((0x7Du >> v265) & 1) == 0)
+                                              printf("\t\teff thread qos: %s\n", v261);
+                                              printf("\t\teff thread qos relprio: %d\n", -((v223 >> 17) & 0xF));
+                                              v262 = (v223 >> 21) & 7;
+                                              if (v262 == 7 || ((0x7Du >> v262) & 1) == 0)
                                               {
-                                                if (v265 == 1)
+                                                if (v262 == 1)
                                                 {
-                                                  v266 = "THREAD_QOS_MAINTENANCE";
+                                                  v263 = "THREAD_QOS_MAINTENANCE";
                                                 }
 
                                                 else
+                                                {
+                                                  v263 = "???";
+                                                }
+                                              }
+
+                                              else
+                                              {
+                                                v263 = (&off_10000C580)[v262];
+                                              }
+
+                                              printf("\t\teff promotion qos: %s\n", v263);
+                                              v264 = (v223 >> 8) & 7;
+                                              v265 = v264 == 6;
+                                              if (v264 >= 6)
+                                              {
+                                                v266 = "LATENCY_QOS_TIER_5";
+                                                if (!v265)
                                                 {
                                                   v266 = "???";
                                                 }
@@ -3190,15 +3204,15 @@ LABEL_801:
 
                                               else
                                               {
-                                                v266 = (&off_10000C580)[v265];
+                                                v266 = (&off_10000C4D8)[v264];
                                               }
 
-                                              printf("\t\teff promotion qos: %s\n", v266);
-                                              v267 = (v225 >> 8) & 7;
+                                              printf("\t\teff latency qos: %s\n", v266);
+                                              v267 = (v223 >> 11) & 7;
                                               v268 = v267 == 6;
                                               if (v267 >= 6)
                                               {
-                                                v269 = "LATENCY_QOS_TIER_5";
+                                                v269 = "THROUGHPUT_QOS_TIER_5";
                                                 if (!v268)
                                                 {
                                                   v269 = "???";
@@ -3207,43 +3221,26 @@ LABEL_801:
 
                                               else
                                               {
-                                                v269 = (&off_10000C4D8)[v267];
+                                                v269 = (&off_10000C508)[v267];
                                               }
 
-                                              printf("\t\teff latency qos: %s\n", v269);
-                                              v270 = (v225 >> 11) & 7;
-                                              v271 = v270 == 6;
-                                              if (v270 >= 6)
+                                              printf("\t\teff thruput qos: %s\n", v269);
+                                              v270 = "YES";
+                                              if ((v223 & 1) == 0)
                                               {
-                                                v272 = "THROUGHPUT_QOS_TIER_5";
-                                                if (!v271)
-                                                {
-                                                  v272 = "???";
-                                                }
+                                                v270 = "NO";
                                               }
 
-                                              else
-                                              {
-                                                v272 = (&off_10000C508)[v270];
-                                              }
-
-                                              printf("\t\teff thruput qos: %s\n", v272);
-                                              v273 = "YES";
-                                              if ((v225 & 1) == 0)
-                                              {
-                                                v273 = "NO";
-                                              }
-
-                                              printf("\t\teff darwin BG: %s\n", v273);
-                                              printf("\t\teff iotier: %s\n", (&off_10000C5B8)[(v225 >> 1) & 3]);
+                                              printf("\t\teff darwin BG: %s\n", v270);
+                                              printf("\t\teff iotier: %s\n", (&off_10000C5B8)[(v223 >> 1) & 3]);
                                               printf("\t\teff other: ");
-                                              if ((v225 & 8) != 0)
+                                              if ((v223 & 8) != 0)
                                               {
                                                 printf("passive ");
-                                                if ((v225 & 0x80) == 0)
+                                                if ((v223 & 0x80) == 0)
                                                 {
 LABEL_831:
-                                                  if ((v225 & 0x10) == 0)
+                                                  if ((v223 & 0x10) == 0)
                                                   {
                                                     goto LABEL_832;
                                                   }
@@ -3252,16 +3249,16 @@ LABEL_831:
                                                 }
                                               }
 
-                                              else if ((v225 & 0x80) == 0)
+                                              else if ((v223 & 0x80) == 0)
                                               {
                                                 goto LABEL_831;
                                               }
 
                                               printf("ui-is-urgent (47) ");
-                                              if ((v225 & 0x10) == 0)
+                                              if ((v223 & 0x10) == 0)
                                               {
 LABEL_832:
-                                                if ((v225 & 0x20) == 0)
+                                                if ((v223 & 0x20) == 0)
                                                 {
                                                   goto LABEL_833;
                                                 }
@@ -3271,10 +3268,10 @@ LABEL_832:
 
 LABEL_841:
                                               printf("bg-allsockets ");
-                                              if ((v225 & 0x20) == 0)
+                                              if ((v223 & 0x20) == 0)
                                               {
 LABEL_833:
-                                                if ((v225 & 0x40) == 0)
+                                                if ((v223 & 0x40) == 0)
                                                 {
                                                   goto LABEL_834;
                                                 }
@@ -3284,10 +3281,10 @@ LABEL_833:
 
 LABEL_842:
                                               printf("bg-newsockets ");
-                                              if ((v225 & 0x40) == 0)
+                                              if ((v223 & 0x40) == 0)
                                               {
 LABEL_834:
-                                                if ((v225 & 0x2000000) == 0)
+                                                if ((v223 & 0x2000000) == 0)
                                                 {
                                                   goto LABEL_835;
                                                 }
@@ -3297,10 +3294,10 @@ LABEL_834:
 
 LABEL_843:
                                               printf("terminated ");
-                                              if ((v225 & 0x2000000) == 0)
+                                              if ((v223 & 0x2000000) == 0)
                                               {
 LABEL_835:
-                                                if ((v225 & 0x1000000) == 0)
+                                                if ((v223 & 0x1000000) == 0)
                                                 {
                                                   goto LABEL_837;
                                                 }
@@ -3312,73 +3309,73 @@ LABEL_836:
 
 LABEL_844:
                                               printf("workload-property-controlled ");
-                                              if ((v225 & 0x1000000) != 0)
+                                              if ((v223 & 0x1000000) != 0)
                                               {
                                                 goto LABEL_836;
                                               }
 
 LABEL_837:
                                               putchar(10);
-                                              if ((DWORD2(v437) - 1) >= 4)
+                                              if ((DWORD2(v424) - 1) >= 4)
                                               {
-                                                v274 = "TH_STATE_HALTED";
-                                                if (DWORD2(v437) != 5)
+                                                v271 = "TH_STATE_HALTED";
+                                                if (DWORD2(v424) != 5)
                                                 {
-                                                  v274 = "???";
+                                                  v271 = "???";
                                                 }
                                               }
 
                                               else
                                               {
-                                                v274 = (&off_10000C538)[DWORD2(v437) - 1];
+                                                v271 = (&off_10000C538)[DWORD2(v424) - 1];
                                               }
 
-                                              printf("\trun state: %s\n", v274);
-                                              if (HIDWORD(v437))
+                                              printf("\trun state: %s\n", v271);
+                                              if (HIDWORD(v424))
                                               {
-                                                v275 = "TH_FLAGS_SWAPPED ";
-                                                if ((BYTE12(v437) & 1) == 0)
+                                                v272 = "TH_FLAGS_SWAPPED ";
+                                                if ((BYTE12(v424) & 1) == 0)
                                                 {
-                                                  v275 = &unk_100007155;
+                                                  v272 = &unk_100007155;
                                                 }
 
-                                                v276 = "TH_FLAGS_IDLE ";
-                                                if ((BYTE12(v437) & 2) == 0)
+                                                v273 = "TH_FLAGS_IDLE ";
+                                                if ((BYTE12(v424) & 2) == 0)
                                                 {
-                                                  v276 = &unk_100007155;
+                                                  v273 = &unk_100007155;
                                                 }
 
-                                                v277 = "TH_FLAGS_GLOBAL_FORCED_IDLE ";
-                                                if ((BYTE12(v437) & 4) == 0)
+                                                v274 = "TH_FLAGS_GLOBAL_FORCED_IDLE ";
+                                                if ((BYTE12(v424) & 4) == 0)
                                                 {
-                                                  v277 = &unk_100007155;
+                                                  v274 = &unk_100007155;
                                                 }
 
-                                                printf("\tflags: %s%s%s\n", v275, v276, v277);
+                                                printf("\tflags: %s%s%s\n", v272, v273, v274);
                                               }
 
-                                              printf("\tsuspend count: %d\n", v438);
-                                              printf("\tsleep time: %d s\n", HIDWORD(v438));
-                                              printf("\timportance in task: %d\n", v427[1]);
-                                              if ((v223 & 1) == 0)
+                                              printf("\tsuspend count: %d\n", v425);
+                                              printf("\tsleep time: %d s\n", HIDWORD(v425));
+                                              printf("\timportance in task: %d\n", v414[1]);
+                                              if ((v221 & 1) == 0)
                                               {
-                                                printf("\taffinity tag: %d\n", v427[0]);
+                                                printf("\taffinity tag: %d\n", v414[0]);
                                               }
 
-                                              v36 = v398;
-                                              if (!v396)
+                                              v36 = v385;
+                                              if (!v383)
                                               {
                                                 goto LABEL_887;
                                               }
 
                                               voucher = 0;
-                                              mach_voucher = thread_get_mach_voucher(act_list[v208], 0, &voucher);
+                                              mach_voucher = thread_get_mach_voucher(act_list[v206], 0, &voucher);
                                               if (mach_voucher)
                                               {
                                                 mach_error("thread_get_mach_voucher(...)", mach_voucher);
                                               }
 
-                                              v279 = voucher;
+                                              v276 = voucher;
                                               if (!voucher)
                                               {
                                                 goto LABEL_887;
@@ -3386,11 +3383,11 @@ LABEL_837:
 
                                               LODWORD(object_type) = 0;
                                               LODWORD(outsize) = 0;
-                                              v280 = mach_port_kernel_object(mach_task_self_, voucher, &object_type, &outsize);
-                                              if (v280)
+                                              v277 = mach_port_kernel_object(mach_task_self_, voucher, &object_type, &outsize);
+                                              if (v277)
                                               {
-                                                LODWORD(v281) = v280;
-                                                v282 = "mach_port_kernel_object(...)";
+                                                LODWORD(v278) = v277;
+                                                v279 = "mach_port_kernel_object(...)";
                                               }
 
                                               else
@@ -3402,50 +3399,50 @@ LABEL_837:
 
                                                 printf("\tvoucher: 0x%x\n", outsize);
                                                 recipesCnt = 0x2000;
-                                                v284 = mach_voucher_debug_info(mach_task_self_, v279, __endptr, &recipesCnt);
-                                                if (v284 == 46 || !recipesCnt)
+                                                v281 = mach_voucher_debug_info(mach_task_self_, v276, __endptr, &recipesCnt);
+                                                if (v281 == 46 || !recipesCnt)
                                                 {
                                                   goto LABEL_886;
                                                 }
 
-                                                v281 = v284;
-                                                if (!v284)
+                                                v278 = v281;
+                                                if (!v281)
                                                 {
                                                   for (j = 0; j < recipesCnt; j += *(&__endptr[1] + j + 4) + 16)
                                                   {
-                                                    v287 = *(__endptr + j);
-                                                    if (v287 == 3 || v287 == 2)
+                                                    v284 = *(__endptr + j);
+                                                    if (v284 == 3 || v284 == 2)
                                                     {
-                                                      printf("\t\t%s\n", v281);
+                                                      printf("\t\t%s\n", v278);
                                                     }
 
                                                     else
                                                     {
-                                                      printf("\t\tUnknown (%u): %s\n", v281);
+                                                      printf("\t\tUnknown (%u): %s\n", v278);
                                                     }
                                                   }
 
                                                   goto LABEL_886;
                                                 }
 
-                                                v282 = "mach_voucher_debug_info(...)";
+                                                v279 = "mach_voucher_debug_info(...)";
                                               }
 
-                                              mach_error(v282, v281);
+                                              mach_error(v279, v278);
 LABEL_886:
                                               mach_port_deallocate(mach_task_self_, voucher);
 LABEL_887:
-                                              mach_port_deallocate(mach_task_self_, act_list[v208]);
+                                              mach_port_deallocate(mach_task_self_, act_list[v206]);
                                               putchar(10);
-                                              ++v208;
+                                              ++v206;
                                             }
 
-                                            while (v208 < x[1]);
+                                            while (v206 < x[1]);
                                           }
                                         }
 
                                         putchar(10);
-                                        v35 = v387;
+                                        v35 = v374;
 LABEL_891:
                                         ++v36;
                                         v34 = task_listCnt;
@@ -3463,7 +3460,7 @@ LABEL_891:
                                   v33 = size[1] == 0;
                                 }
 
-                                if (!v382)
+                                if (!v369)
                                 {
                                   goto LABEL_989;
                                 }
@@ -3474,157 +3471,154 @@ LABEL_891:
                                   v34 = task_listCnt;
                                 }
 
-                                v407 = task_list;
-                                v288 = proc_listpids(1u, 0, 0, 0);
-                                if (v288 <= 0)
+                                v394 = task_list;
+                                v285 = proc_listpids(1u, 0, 0, 0);
+                                if (v285 <= 0)
                                 {
-                                  v296 = __stderrp;
-                                  v297 = *__error();
-                                  fprintf(v296, "proc_listpids(PROC_ALL_PIDS): %d\n");
+                                  v293 = __stderrp;
+                                  __error();
+                                  fprintf(v293, "proc_listpids(PROC_ALL_PIDS): %d\n");
                                 }
 
                                 else
                                 {
-                                  if ((2 * v288) <= 0x1E)
+                                  if ((2 * v285) <= 0x1E)
                                   {
-                                    v289 = 30;
+                                    v286 = 30;
                                   }
 
                                   else
                                   {
-                                    v289 = (2 * v288);
+                                    v286 = (2 * v285);
                                   }
 
-                                  v290 = malloc_type_malloc(v289, 0x5A072193uLL);
-                                  v291 = proc_listpids(1u, 0, v290, v289);
-                                  if (v291 > 0)
+                                  v287 = malloc_type_malloc(v286, 0x5A072193uLL);
+                                  v288 = proc_listpids(1u, 0, v287, v286);
+                                  if (v288 > 0)
                                   {
-                                    v292 = v291;
-                                    v293 = v291 >> 2;
-                                    v294 = malloc_type_calloc(v293, 0xA0uLL, 0x1000040B8406A4EuLL);
-                                    v411 = v290;
-                                    if (v292 < 4)
+                                    v289 = v288;
+                                    v290 = v288 >> 2;
+                                    v291 = malloc_type_calloc(v290, 0xA0uLL, 0x1000040B8406A4EuLL);
+                                    v398 = v287;
+                                    if (v289 < 4)
                                     {
                                       __nelb = 0;
 LABEL_910:
-                                      free(v411);
-                                      v295 = v294;
+                                      free(v398);
+                                      v292 = v291;
                                       goto LABEL_914;
                                     }
 
                                     __nelb = 0;
                                     while (1)
                                     {
-                                      v337 = &v294[160 * __nelb];
-                                      if (proc_name(*v290, v337 + 24, 0x40u) < 0)
+                                      v329 = &v291[160 * __nelb];
+                                      if (proc_name(*v287, v329 + 24, 0x40u) < 0)
                                       {
-                                        v342 = *v290;
                                         fprintf(__stderrp, "skipping pid %d (proc_name)\n");
                                       }
 
                                       else
                                       {
-                                        LODWORD(v485) = *v290;
-                                        v338 = v485;
+                                        LODWORD(v472) = *v287;
+                                        v330 = v472;
                                         *__error() = 0;
-                                        *&v592 = 0;
-                                        v591 = 0u;
+                                        *&v579 = 0;
+                                        v578 = 0u;
                                         *__endptr = 0u;
-                                        if (proc_pidinfo(v338, 20, 1uLL, __endptr, 40) == 40)
+                                        if (proc_pidinfo(v330, 20, 1uLL, __endptr, 40) == 40)
                                         {
                                           *__error() = 0;
-                                          *&v495 = 0;
+                                          *&v482 = 0;
                                           *&buffer = 8;
-                                          if ((sysctlbyname("kern.coalition_roles", &v495, &buffer, &v485, 4uLL) & 0x80000000) == 0 && buffer == 8 || (byte_100010001 & 1) == 0 && *__error() == 2)
+                                          if ((sysctlbyname("kern.coalition_roles", &v482, &buffer, &v472, 4uLL) & 0x80000000) == 0 && buffer == 8 || (byte_100010001 & 1) == 0 && *__error() == 2)
                                           {
-                                            *v337 = *__endptr;
-                                            *(v337 + 2) = v495;
-                                            v339 = *v290;
-                                            v340.i64[0] = -1;
-                                            v340.i64[1] = -1;
-                                            v591 = v340;
-                                            *__endptr = v340;
-                                            LODWORD(v495) = 0;
-                                            if (!task_name_for_pid(mach_task_self_, v339, &v495))
+                                            *v329 = *__endptr;
+                                            *(v329 + 2) = v482;
+                                            v331 = *v287;
+                                            v332.i64[0] = -1;
+                                            v332.i64[1] = -1;
+                                            v578 = v332;
+                                            *__endptr = v332;
+                                            LODWORD(v482) = 0;
+                                            if (!task_name_for_pid(mach_task_self_, v331, &v482))
                                             {
                                               LODWORD(buffer) = 8;
-                                              task_info(v495, 0xFu, __endptr, &buffer);
-                                              mach_port_deallocate(mach_task_self_, v495);
+                                              task_info(v482, 0xFu, __endptr, &buffer);
+                                              mach_port_deallocate(mach_task_self_, v482);
                                             }
 
-                                            if (v591.i32[1] == -1)
+                                            if (v578.i32[1] == -1)
                                             {
-                                              v348 = *v290;
                                               fprintf(__stderrp, "skipping pid %d (get_audit_token)\n");
                                             }
 
                                             else
                                             {
-                                              v341 = *__endptr;
-                                              *(v337 + 104) = v591;
-                                              *(v337 + 88) = v341;
-                                              *(v337 + 120) = 0u;
-                                              *(v337 + 136) = 0u;
-                                              *(v337 + 38) = *v290;
+                                              v333 = *__endptr;
+                                              *(v329 + 104) = v578;
+                                              *(v329 + 88) = v333;
+                                              *(v329 + 120) = 0u;
+                                              *(v329 + 136) = 0u;
+                                              *(v329 + 38) = *v287;
                                               ++__nelb;
                                             }
 
                                             goto LABEL_1011;
                                           }
 
-                                          v345 = __stderrp;
-                                          v346 = *__error();
-                                          fprintf(v345, "kern.coalition_roles(%d): %d\n");
+                                          v335 = __stderrp;
+                                          __error();
+                                          fprintf(v335, "kern.coalition_roles(%d): %d\n");
                                         }
 
                                         else
                                         {
-                                          v343 = __stderrp;
-                                          v344 = *__error();
-                                          fprintf(v343, "PROC_PIDCOALITIONINFO(%d): %d\n");
+                                          v334 = __stderrp;
+                                          __error();
+                                          fprintf(v334, "PROC_PIDCOALITIONINFO(%d): %d\n");
                                         }
 
-                                        v347 = *v290;
                                         fprintf(__stderrp, "skipping pid %d (fill_coalitions)\n");
                                       }
 
 LABEL_1011:
-                                      ++v290;
-                                      if (!--v293)
+                                      ++v287;
+                                      if (!--v290)
                                       {
                                         goto LABEL_910;
                                       }
                                     }
                                   }
 
-                                  v298 = __stderrp;
-                                  v299 = *__error();
-                                  fprintf(v298, "proc_listpids(PROC_ALL_PIDS, pids): %d\n");
+                                  v294 = __stderrp;
+                                  __error();
+                                  fprintf(v294, "proc_listpids(PROC_ALL_PIDS, pids): %d\n");
                                 }
 
                                 __nelb = 0;
-                                v295 = 0;
+                                v292 = 0;
 LABEL_914:
-                                if (v382 == 3)
+                                if (v369 == 3)
                                 {
-                                  v300 = 0;
-                                  v404 = 0;
-                                  v301 = sub_1000060C8;
+                                  v295 = 0;
+                                  v391 = 0;
+                                  v296 = sub_1000060C8;
                                 }
 
                                 else
                                 {
-                                  v301 = sub_100006070;
-                                  v300 = 1;
-                                  v404 = 1;
+                                  v296 = sub_100006070;
+                                  v295 = 1;
+                                  v391 = 1;
                                 }
 
-                                qsort(v295, __nelb, 0xA0uLL, v301);
+                                qsort(v292, __nelb, 0xA0uLL, v296);
                                 printf("PID   Command                           ");
                                 printf("Resource  Jetsam ");
                                 printf(" Role   ");
                                 printf("  Apptype  Background App Nap");
-                                if (v406)
+                                if (v393)
                                 {
                                   printf(" (coalition names, bundle ids)");
                                 }
@@ -3632,29 +3626,29 @@ LABEL_914:
                                 putchar(10);
                                 if (__nelb)
                                 {
-                                  v302 = 0;
-                                  v303 = 0;
+                                  v297 = 0;
+                                  v298 = 0;
                                   if (!__s1)
                                   {
-                                    v300 = 0;
+                                    v295 = 0;
                                   }
 
-                                  v399 = v300;
+                                  v386 = v295;
                                   do
                                   {
-                                    v304 = &v295[160 * v303];
-                                    v305 = *(v304 + 5) + 1;
-                                    v306 = "unknown";
-                                    if (v305 <= 4)
+                                    v299 = &v292[160 * v298];
+                                    v300 = *(v299 + 5) + 1;
+                                    v301 = "unknown";
+                                    if (v300 <= 4)
                                     {
-                                      v306 = (&off_10000C558)[v305];
+                                      v301 = (&off_10000C558)[v300];
                                     }
 
-                                    v307 = *&v304[4 * v404 + 16] == 1;
-                                    if (!v300)
+                                    v302 = *&v299[4 * v391 + 16] == 1;
+                                    if (!v295)
                                     {
 LABEL_940:
-                                      if (*(v304 + 38) < 2u || v307)
+                                      if (*(v299 + 38) < 2u || v302)
                                       {
                                         printf("%-5d %-34s");
                                       }
@@ -3664,11 +3658,11 @@ LABEL_940:
                                         printf("  %-5d %-32s");
                                       }
 
-                                      printf(" %7llu %7llu ", *v304, *(v304 + 1));
-                                      printf(" %s ", v306);
-                                      v311 = v387;
-                                      v312 = v34;
-                                      v313 = v407;
+                                      printf(" %7llu %7llu ", *v299, *(v299 + 1));
+                                      printf(" %s ", v301);
+                                      v306 = v374;
+                                      v307 = v34;
+                                      v308 = v394;
                                       if (!v34)
                                       {
                                         goto LABEL_951;
@@ -3676,56 +3670,55 @@ LABEL_940:
 
                                       while (1)
                                       {
-                                        v314 = *v311++;
-                                        if (v314 == *(v304 + 38))
+                                        v309 = *v306++;
+                                        if (v309 == *(v299 + 38))
                                         {
                                           break;
                                         }
 
-                                        ++v313;
-                                        if (!--v312)
+                                        ++v308;
+                                        if (!--v307)
                                         {
                                           goto LABEL_951;
                                         }
                                       }
 
-                                      v315 = *v313;
-                                      if (!*v313)
+                                      v310 = *v308;
+                                      if (!*v308)
                                       {
 LABEL_951:
-                                        fprintf(__stderrp, "could not find task for pid %d", *(v304 + 38));
-                                        v315 = 0;
+                                        fprintf(__stderrp, "could not find task for pid %d", *(v299 + 38));
+                                        v310 = 0;
                                       }
 
-                                      v593 = 0u;
-                                      v592 = 0u;
-                                      v591 = 0u;
+                                      v580 = 0u;
+                                      v579 = 0u;
+                                      v578 = 0u;
                                       *__endptr = 0u;
-                                      if (*(v304 + 38))
+                                      if (*(v299 + 38))
                                       {
-                                        LODWORD(v495) = 16;
+                                        LODWORD(v482) = 16;
                                         LODWORD(buffer) = 0;
-                                        v316 = task_policy_get(v315, 4u, __endptr, &v495, &buffer);
-                                        if (v316)
+                                        v311 = task_policy_get(v310, 4u, __endptr, &v482, &buffer);
+                                        if (v311)
                                         {
-                                          mach_error("task_policy_get(TASK_POLICY_STATE)", v316);
+                                          mach_error("task_policy_get(TASK_POLICY_STATE)", v311);
                                         }
 
-                                        v317 = DWORD2(v593);
-                                        v318 = (v593 >> 17) & 7;
-                                        if (v318 == 5)
+                                        v312 = DWORD2(v580);
+                                        v313 = (v580 >> 17) & 7;
+                                        if (v313 == 5)
                                         {
-                                          v319 = sub_100005D70((DWORD2(v593) >> 20) & 0xF, 1);
+                                          v314 = sub_100005D70((DWORD2(v580) >> 20) & 0xF, 1);
 LABEL_959:
-                                          printf("  %s ", v319);
-                                          v320 = *(v304 + 1);
-                                          v321 = coalition_policy_get();
-                                          if (v321 == 1)
+                                          printf("  %s ", v314);
+                                          v315 = coalition_policy_get();
+                                          if (v315 == 1)
                                           {
                                             printf(" CBG ");
                                           }
 
-                                          else if (v321 == -1)
+                                          else if (v315 == -1)
                                           {
                                             perror("coalition_policy_get(COALITION_POLICY_SUPPRESS) failed");
                                           }
@@ -3745,52 +3738,50 @@ LABEL_959:
                                             printf("     ");
                                           }
 
-                                          v322 = " Nap     ";
-                                          if ((*&v317 & 0x80000) == 0)
+                                          v316 = " Nap     ";
+                                          if ((*&v312 & 0x80000) == 0)
                                           {
-                                            v322 = "         ";
+                                            v316 = "         ";
                                           }
 
-                                          if ((v592 & 0x10) != 0)
+                                          if ((v579 & 0x10) != 0)
                                           {
                                             printf(" Suspend ");
                                           }
 
                                           else
                                           {
-                                            printf(v322);
+                                            printf(v316);
                                           }
 
-                                          if (v406 && *(v304 + 38))
+                                          if (v393 && *(v299 + 38))
                                           {
-                                            v323 = v295;
-                                            v324 = *v304;
-                                            v325 = sub_1000053D4();
-                                            v327 = v326;
-                                            v328 = *(v304 + 1);
-                                            v329 = sub_1000053D4();
-                                            v330 = v329;
-                                            v332 = v331;
-                                            if ((!(v329 | v325) || v325 && v329 && !strcmp(v325, v329)) && (!(v332 | v327) || v327 && v332 && !strcmp(v327, v332)))
+                                            v317 = v292;
+                                            v318 = sub_1000053D4();
+                                            v320 = v319;
+                                            v321 = sub_1000053D4();
+                                            v322 = v321;
+                                            v324 = v323;
+                                            if ((!(v321 | v318) || v318 && v321 && !strcmp(v318, v321)) && (!(v324 | v320) || v320 && v324 && !strcmp(v320, v324)))
                                             {
-                                              v333 = v325;
-                                              v334 = v327;
+                                              v325 = v318;
+                                              v326 = v320;
                                             }
 
                                             else
                                             {
-                                              sub_10000547C(v325, v327);
-                                              v333 = v330;
-                                              v334 = v332;
+                                              sub_10000547C(v318, v320);
+                                              v325 = v322;
+                                              v326 = v324;
                                             }
 
-                                            sub_10000547C(v333, v334);
-                                            free(v325);
-                                            free(v327);
-                                            free(v330);
-                                            free(v332);
-                                            v295 = v323;
-                                            v300 = v399;
+                                            sub_10000547C(v325, v326);
+                                            free(v318);
+                                            free(v320);
+                                            free(v322);
+                                            free(v324);
+                                            v292 = v317;
+                                            v295 = v386;
                                           }
 
                                           putchar(10);
@@ -3800,62 +3791,62 @@ LABEL_959:
 
                                       else
                                       {
-                                        v318 = 0;
-                                        v317 = 0;
+                                        v313 = 0;
+                                        v312 = 0;
                                       }
 
-                                      v319 = sub_100005C84(v318, 1);
+                                      v314 = sub_100005C84(v313, 1);
                                       goto LABEL_959;
                                     }
 
-                                    if (!strncmp(__s1, v304 + 24, 0x20uLL))
+                                    if (!strncmp(__s1, v299 + 24, 0x20uLL))
                                     {
-                                      if (v302)
+                                      if (v297)
                                       {
-                                        v309 = 0;
+                                        v304 = 0;
                                       }
 
                                       else
                                       {
-                                        v309 = v307;
+                                        v304 = v302;
                                       }
 
-                                      if (v309)
+                                      if (v304)
                                       {
 LABEL_937:
-                                        v302 = *(v304 + 1);
+                                        v297 = *(v299 + 1);
                                       }
                                     }
 
-                                    else if (v386 && *(v304 + 38) == v385 && v307 && v302 == 0)
+                                    else if (v373 && *(v299 + 38) == v372 && v302 && v297 == 0)
                                     {
                                       goto LABEL_937;
                                     }
 
-                                    if (v302 && v302 == *(v304 + 1))
+                                    if (v297 && v297 == *(v299 + 1))
                                     {
                                       goto LABEL_940;
                                     }
 
 LABEL_985:
-                                    ++v303;
+                                    ++v298;
                                   }
 
-                                  while (v303 != __nelb);
+                                  while (v298 != __nelb);
                                 }
 
-                                free(v295);
+                                free(v292);
                                 v34 = task_listCnt;
 LABEL_989:
                                 if (v34)
                                 {
-                                  v335 = 0;
+                                  v327 = 0;
                                   do
                                   {
-                                    mach_port_deallocate(mach_task_self_, task_list[v335++]);
+                                    mach_port_deallocate(mach_task_self_, task_list[v327++]);
                                   }
 
-                                  while (v335 < task_listCnt);
+                                  while (v327 < task_listCnt);
                                 }
 
                                 if (cf)
@@ -3864,46 +3855,46 @@ LABEL_989:
                                   stackshot_config_dealloc();
                                 }
 
-                                free(v387);
-                                free(v383);
+                                free(v374);
+                                free(v370);
                                 return 0;
                               }
 
-                              v352 = 0;
-                              v353 = 0;
-                              v354 = 0;
-                              v355 = 0;
-                              v356 = 0;
-                              v357 = 1;
+                              v339 = 0;
+                              v340 = 0;
+                              v341 = 0;
+                              v342 = 0;
+                              v343 = 0;
+                              v344 = 1;
                               while (1)
                               {
-                                v358 = *(stackshot_buffer + 4);
-                                v359 = v351 + v358;
-                                if (v351 + v358 > v350)
+                                v345 = *(stackshot_buffer + 4);
+                                v346 = v338 + v345;
+                                if (v338 + v345 > v337)
                                 {
                                   goto LABEL_82;
                                 }
 
-                                v360 = *stackshot_buffer;
+                                v347 = *stackshot_buffer;
                                 if (*stackshot_buffer == -242132755)
                                 {
                                   goto LABEL_82;
                                 }
 
-                                v361 = (v360 & 0xFFFFFFF0) == 0x20 ? 17 : *stackshot_buffer;
-                                if (v361 <= 19)
+                                v348 = (v347 & 0xFFFFFFF0) == 0x20 ? 17 : *stackshot_buffer;
+                                if (v348 <= 19)
                                 {
                                   break;
                                 }
 
-                                if (v361 != 20)
+                                if (v348 != 20)
                                 {
-                                  if (v361 == 2309)
+                                  if (v348 == 2309)
                                   {
-                                    if ((v357 & 1) == 0)
+                                    if ((v344 & 1) == 0)
                                     {
-                                      v357 = 0;
-                                      v356 = stackshot_buffer + 16;
+                                      v344 = 0;
+                                      v343 = stackshot_buffer + 16;
                                       goto LABEL_1094;
                                     }
 
@@ -3914,15 +3905,15 @@ LABEL_989:
 
                                   else
                                   {
-                                    if (v361 != 2352)
+                                    if (v348 != 2352)
                                     {
                                       goto LABEL_1094;
                                     }
 
-                                    if ((v357 & 1) == 0)
+                                    if ((v344 & 1) == 0)
                                     {
-                                      v357 = 0;
-                                      v355 = stackshot_buffer + 16;
+                                      v344 = 0;
+                                      v342 = stackshot_buffer + 16;
                                       goto LABEL_1094;
                                     }
 
@@ -3934,88 +3925,88 @@ LABEL_989:
                                   goto LABEL_79;
                                 }
 
-                                if (v357)
+                                if (v344)
                                 {
                                   goto LABEL_1037;
                                 }
 
-                                if (*(stackshot_buffer + 8) == v354)
+                                if (*(stackshot_buffer + 8) == v341)
                                 {
-                                  if (v356 | v355)
+                                  if (v343 | v342)
                                   {
-                                    if (!v352 || v353)
+                                    if (!v339 || v340)
                                     {
-                                      if (!v352)
+                                      if (!v339)
                                       {
 LABEL_1037:
-                                        v357 = 1;
+                                        v344 = 1;
                                         goto LABEL_1094;
                                       }
 
-                                      v394 = v350;
-                                      v377 = v24;
-                                      v365 = 0;
-                                      v366 = v356 + 88;
-                                      *v402 = v355;
-                                      if (!v356)
+                                      v381 = v337;
+                                      v364 = v24;
+                                      v352 = 0;
+                                      v353 = v343 + 88;
+                                      *v389 = v342;
+                                      if (!v343)
                                       {
-                                        v366 = v355 + 28;
+                                        v353 = v342 + 28;
                                       }
 
-                                      v412 = v366;
-                                      v397 = v354;
-                                      v400 = (v355 + 24);
-                                      if (v356)
+                                      v399 = v353;
+                                      v384 = v341;
+                                      v387 = (v342 + 24);
+                                      if (v343)
                                       {
-                                        v367 = (v356 + 84);
+                                        v354 = (v343 + 84);
                                       }
 
                                       else
                                       {
-                                        v367 = (v355 + 24);
+                                        v354 = (v342 + 24);
                                       }
 
-                                      v408 = v367;
+                                      v395 = v354;
                                       while (2)
                                       {
-                                        v368 = *(v353 + 4 * v365);
-                                        if (v356)
+                                        v355 = *(v340 + 4 * v352);
+                                        if (v343)
                                         {
-                                          v369 = (v356 + 84);
+                                          v356 = (v343 + 84);
                                           goto LABEL_1065;
                                         }
 
-                                        if (!*v402)
+                                        if (!*v389)
                                         {
                                           goto LABEL_1066;
                                         }
 
-                                        v369 = v400;
+                                        v356 = v387;
 LABEL_1065:
-                                        if (v368 != *v369)
+                                        if (v355 != *v356)
                                         {
 LABEL_1066:
-                                          v370 = CFDictionaryGetValue(cf, v368);
-                                          if (!v370)
+                                          v357 = CFDictionaryGetValue(cf, v355);
+                                          if (!v357)
                                           {
-                                            v370 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-                                            CFDictionarySetValue(cf, *(v353 + 4 * v365), v370);
-                                            CFRelease(v370);
+                                            v357 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+                                            CFDictionarySetValue(cf, *(v340 + 4 * v352), v357);
+                                            CFRelease(v357);
                                           }
 
-                                          v371 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]", v412, *v408);
-                                          CFArrayAppendValue(v370, v371);
-                                          CFRelease(v371);
+                                          v358 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s [%d]", v399, *v395);
+                                          CFArrayAppendValue(v357, v358);
+                                          CFRelease(v358);
                                         }
 
-                                        if (v352 == ++v365)
+                                        if (v339 == ++v352)
                                         {
-                                          v359 = v351 + *(stackshot_buffer + 4);
-                                          v357 = 1;
-                                          v24 = v377;
-                                          v354 = v397;
-                                          v355 = *v402;
-                                          v350 = v394;
+                                          v346 = v338 + *(stackshot_buffer + 4);
+                                          v344 = 1;
+                                          v24 = v364;
+                                          v341 = v384;
+                                          v342 = *v389;
+                                          v337 = v381;
                                           goto LABEL_1094;
                                         }
 
@@ -4038,128 +4029,128 @@ LABEL_1066:
                                   goto LABEL_79;
                                 }
 
-                                v357 = 0;
+                                v344 = 0;
 LABEL_1094:
-                                v351 = v359 + 16;
-                                stackshot_buffer = v359;
-                                if (v359 + 16 > v350)
+                                v338 = v346 + 16;
+                                stackshot_buffer = v346;
+                                if (v346 + 16 > v337)
                                 {
                                   goto LABEL_82;
                                 }
                               }
 
-                              if (v361 != 17)
+                              if (v348 != 17)
                               {
-                                if (v361 != 19)
+                                if (v348 != 19)
                                 {
                                   goto LABEL_1094;
                                 }
 
-                                if (v358 < 4 || v360 != 19)
+                                if (v345 < 4 || v347 != 19)
                                 {
                                   fprintf(__stderrp, "Encountered invalid container while generating boost map (id 0x%llx)\n", *(stackshot_buffer + 8));
                                   goto LABEL_80;
                                 }
 
-                                v362 = *(stackshot_buffer + 16);
-                                if (v362 == 2307 || v362 == 2353)
+                                v349 = *(stackshot_buffer + 16);
+                                if (v349 == 2307 || v349 == 2353)
                                 {
-                                  v356 = 0;
-                                  v355 = 0;
-                                  v357 = 0;
-                                  v353 = 0;
-                                  v352 = 0;
-                                  v354 = *(stackshot_buffer + 8);
+                                  v343 = 0;
+                                  v342 = 0;
+                                  v344 = 0;
+                                  v340 = 0;
+                                  v339 = 0;
+                                  v341 = *(stackshot_buffer + 8);
                                 }
 
                                 goto LABEL_1094;
                               }
 
-                              if (v360 != 17 && (v360 & 0xFFFFFFF0) != 0x20)
+                              if (v347 != 17 && (v347 & 0xFFFFFFF0) != 0x20)
                               {
 LABEL_1097:
                                 fwrite("Encountered invalid array iterator while generating boost map\n", 0x3EuLL, 1uLL, __stderrp);
                                 goto LABEL_80;
                               }
 
-                              v363 = *(stackshot_buffer + 8);
-                              if (v363)
+                              v350 = *(stackshot_buffer + 8);
+                              if (v350)
                               {
-                                if (v360 == 17)
+                                if (v347 == 17)
                                 {
-                                  if (SHIDWORD(v363) > 2313)
+                                  if (SHIDWORD(v350) > 2313)
                                   {
-                                    if (SHIDWORD(v363) <= 2315)
+                                    if (SHIDWORD(v350) <= 2315)
                                     {
-                                      if (HIDWORD(v363) != 2314)
+                                      if (HIDWORD(v350) != 2314)
                                       {
                                         goto LABEL_1086;
                                       }
                                     }
 
-                                    else if (HIDWORD(v363) != 2316)
+                                    else if (HIDWORD(v350) != 2316)
                                     {
-                                      if (HIDWORD(v363) != 2317)
+                                      if (HIDWORD(v350) != 2317)
                                       {
-                                        if (HIDWORD(v363) != 2369)
+                                        if (HIDWORD(v350) != 2369)
                                         {
                                           goto LABEL_1097;
                                         }
 
-                                        v364 = 48;
+                                        v351 = 48;
                                         goto LABEL_1089;
                                       }
 
 LABEL_1086:
-                                      v364 = 16;
+                                      v351 = 16;
                                       goto LABEL_1089;
                                     }
 
 LABEL_1087:
-                                    v364 = 8;
+                                    v351 = 8;
                                     goto LABEL_1089;
                                   }
 
-                                  if (SHIDWORD(v363) > 2073)
+                                  if (SHIDWORD(v350) > 2073)
                                   {
-                                    if (HIDWORD(v363) == 2074)
+                                    if (HIDWORD(v350) == 2074)
                                     {
                                       goto LABEL_1087;
                                     }
 
-                                    if (HIDWORD(v363) != 2311)
+                                    if (HIDWORD(v350) != 2311)
                                     {
                                       goto LABEL_1097;
                                     }
 
-                                    v364 = 4;
+                                    v351 = 4;
                                   }
 
-                                  else if (HIDWORD(v363) == 48)
+                                  else if (HIDWORD(v350) == 48)
                                   {
-                                    v364 = 20;
+                                    v351 = 20;
                                   }
 
                                   else
                                   {
-                                    if (HIDWORD(v363) != 49)
+                                    if (HIDWORD(v350) != 49)
                                     {
                                       goto LABEL_1097;
                                     }
 
-                                    v364 = 24;
+                                    v351 = 24;
                                   }
 
 LABEL_1089:
-                                  if (v358 / v364 < v363 || v358 % v363 >= 0x10)
+                                  if (v345 / v351 < v350 || v345 % v350 >= 0x10)
                                   {
                                     goto LABEL_1097;
                                   }
 
 LABEL_1091:
-                                  if (HIDWORD(v363) == 2311)
+                                  if (HIDWORD(v350) == 2311)
                                   {
-                                    if (v357)
+                                    if (v344)
                                     {
                                       v26 = __stderrp;
                                       v27 = "Encountered donating pids array outside of a container while generating boost map\n";
@@ -4167,26 +4158,26 @@ LABEL_1091:
                                       goto LABEL_79;
                                     }
 
-                                    v357 = 0;
-                                    v353 = stackshot_buffer + 16;
-                                    v352 = v363;
+                                    v344 = 0;
+                                    v340 = stackshot_buffer + 16;
+                                    v339 = v350;
                                   }
 
                                   goto LABEL_1094;
                                 }
 
-                                v372 = *stackshot_buffer & 0xF;
-                                v373 = v358 >= v372;
-                                v374 = v358 - v372;
-                                if (!v373 || v374 < v363)
+                                v359 = *stackshot_buffer & 0xF;
+                                v360 = v345 >= v359;
+                                v361 = v345 - v359;
+                                if (!v360 || v361 < v350)
                                 {
                                   goto LABEL_1097;
                                 }
 
-                                LODWORD(v358) = v374 % v363;
+                                LODWORD(v345) = v361 % v350;
                               }
 
-                              if (v358)
+                              if (v345)
                               {
                                 goto LABEL_1097;
                               }
@@ -4210,12 +4201,12 @@ LABEL_81:
                       }
 
                       fwrite("processor_set_tasks_with_flavor(TASK_FLAVOR_READ) returned 0 tasks", 0x42uLL, 1uLL, __stderrp);
-                      LODWORD(v480) = 0;
+                      LODWORD(v467) = 0;
                       v22 = task_listCnt;
                       if (task_listCnt)
                       {
 LABEL_63:
-                        v403 = 0;
+                        v390 = 0;
                         goto LABEL_64;
                       }
                     }
@@ -4234,20 +4225,20 @@ LABEL_1113:
                       exit(1);
                     }
 
-                    v375 = v23;
-                    v376 = "processor_set_tasks_with_flavor(TASK_FLAVOR_INSPECT)";
+                    v362 = v23;
+                    v363 = "processor_set_tasks_with_flavor(TASK_FLAVOR_INSPECT)";
                   }
                 }
               }
 
-              mach_error(v376, v375);
+              mach_error(v363, v362);
               goto LABEL_1113;
             }
 
-            v405 = 1;
+            v392 = 1;
             if (optarg)
             {
-              v405 = sub_100005274() != 0;
+              v392 = sub_100005274() != 0;
             }
           }
         }
@@ -4292,10 +4283,10 @@ LABEL_1113:
         break;
       }
 
-      v406 = 1;
+      v393 = 1;
       if (optarg)
       {
-        v406 = sub_100005274() != 0;
+        v393 = sub_100005274() != 0;
       }
     }
 
@@ -4304,8 +4295,8 @@ LABEL_1113:
       break;
     }
 
-    v480 = 0x100000001;
-    v406 = 1;
+    v467 = 0x100000001;
+    v393 = 1;
     size[2] = 1;
     v4 = 2;
   }
@@ -4424,7 +4415,7 @@ uint64_t sub_100005518(const char *a1, unint64_t *a2, void *a3, int a4, const ch
   v9 = a2[3] + a2[2];
   v10 = a3[2];
   v11 = a3[3];
-  printf("%s %llu.%06llu s ", a1, v9 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v9 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8);
+  printf("%s %llu.%06llu s ", a1, v9 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v9 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8);
   if (a4)
   {
     if (v11 + v10)
@@ -4440,36 +4431,30 @@ uint64_t sub_100005518(const char *a1, unint64_t *a2, void *a3, int a4, const ch
     printf("(%.2f%%%s) ", v12, a5);
   }
 
-  v13 = a2[1];
   if (byte_100010000 == 1)
   {
-    v27 = a2[1];
-    v28 = *a2;
     printf("(%llu cycles, %llu instructions");
   }
 
   else
   {
-    v14 = *a2;
     printf("(%.2f%s cycles, %.2f%s instructions");
   }
 
-  v15 = a2[1];
-  if (v15)
+  v13 = a2[1];
+  if (v13)
   {
-    v16 = *a2 / v15;
+    v14 = *a2 / v13;
   }
 
   else
   {
-    v16 = 0.0;
+    v14 = 0.0;
   }
 
-  printf(", IPC %.3f, ", v16);
-  v17 = (v9 * dword_100010004 / unk_100010008) / 1000000000.0;
-  if (v17 != 0.0)
+  printf(", IPC %.3f, ", v14);
+  if ((v9 * stru_100010004.numer / stru_100010004.denom) / 1000000000.0 != 0.0)
   {
-    v18 = a2[1] / v17;
     if ((byte_100010000 & 1) == 0)
     {
       goto LABEL_17;
@@ -4488,40 +4473,39 @@ LABEL_16:
 LABEL_17:
   printf("%.2f%s%s, ");
 LABEL_18:
-  v19 = a2[4];
   sub_100005A3C();
   if (a4)
   {
-    v20 = a3[4];
-    if (v20)
+    v15 = a3[4];
+    if (v15)
     {
-      v21 = a2[4] * 100.0 / v20;
+      v16 = a2[4] * 100.0 / v15;
     }
 
     else
     {
-      v21 = 0.0;
+      v16 = 0.0;
     }
 
-    printf(" (%.2f%%%s)", v21, a5);
+    printf(" (%.2f%%%s)", v16, a5);
   }
 
   printf(") ");
-  v22 = a2[2];
-  v23 = a2[3];
+  v17 = a2[2];
+  v18 = a2[3];
   if (v9)
   {
-    v24 = v22 * 100.0 / v9;
-    v25 = v23 * 100.0 / v9;
+    v19 = v17 * 100.0 / v9;
+    v20 = v18 * 100.0 / v9;
   }
 
   else
   {
-    v24 = 0.0;
-    v25 = 0.0;
+    v19 = 0.0;
+    v20 = 0.0;
   }
 
-  return printf("user/system: %llu.%06llu / %llu.%06llu (%.0f%% / %.0f%%)\n", v22 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v22 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8, v23 * dword_100010004 / unk_100010008 / 0x3B9ACA00, v23 * dword_100010004 / unk_100010008 % 0x3B9ACA00 / 0x3E8, v24, v25);
+  return printf("user/system: %llu.%06llu / %llu.%06llu (%.0f%% / %.0f%%)\n", v17 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v17 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8, v18 * stru_100010004.numer / stru_100010004.denom / 0x3B9ACA00, v18 * stru_100010004.numer / stru_100010004.denom % 0x3B9ACA00 / 0x3E8, v19, v20);
 }
 
 uint64_t sub_100005A3C()

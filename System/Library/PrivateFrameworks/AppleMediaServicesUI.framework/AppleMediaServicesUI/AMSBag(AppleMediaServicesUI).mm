@@ -11,9 +11,9 @@
     +[AMSBag(AppleMediaServicesUI) amsui_internalBag];
   }
 
-  v1 = MEMORY[0x1E698C7D8];
+  v2 = MEMORY[0x1E698C7D8];
 
-  return [v1 bagForProfile:@"appstored" profileVersion:@"1"];
+  return [v2 bagForProfile:@"appstored" profileVersion:@"1"];
 }
 
 @end

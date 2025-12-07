@@ -15,51 +15,53 @@
   displayIdentity = [screen displayIdentity];
   displayID = [displayIdentity displayID];
 
-  if ((!soft_AXDeviceHasHomeButton() || soft_AXDeviceIsPad()) && (translatedUpwards & 1) != 0 || ([getZoomServicesClass() sharedInstance], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "activeZoomModeOnDisplay:", displayID), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", *MEMORY[0x29EDBD628]), v14, v13, v15))
+  HasHomeButton = soft_AXDeviceHasHomeButton(v13, v14);
+  if ((!HasHomeButton || soft_AXDeviceIsPad(HasHomeButton, v16)) && (translatedUpwards & 1) != 0 || ([getZoomServicesClass() sharedInstance], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "activeZoomModeOnDisplay:", displayID), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", *MEMORY[0x29EDBD628]), v18, v17, v19))
   {
     sharedInstance = [getZoomServicesClass() sharedInstance];
     [sharedInstance notifyZoomFluidSwitcherGestureWillBegin];
   }
 
-  v17.receiver = self;
-  v17.super_class = ZoomUI_SBFluidSwitcherViewController;
-  [(ZoomUI_SBFluidSwitcherViewController *)&v17 handleFluidSwitcherGestureManager:managerCopy didBeginGesture:gestureCopy];
+  v21.receiver = self;
+  v21.super_class = ZoomUI_SBFluidSwitcherViewController;
+  [(ZoomUI_SBFluidSwitcherViewController *)&v21 handleFluidSwitcherGestureManager:managerCopy didBeginGesture:gestureCopy];
 }
 
 - (void)handleFluidSwitcherGestureManager:(id)manager didEndGesture:(id)gesture
 {
   managerCopy = manager;
   gestureCopy = gesture;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
   v18 = 0;
-  if (!soft_AXDeviceHasHomeButton() || soft_AXDeviceIsPad())
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  HasHomeButton = soft_AXDeviceHasHomeButton(gestureCopy, v8);
+  if (!HasHomeButton || (HasHomeButton = soft_AXDeviceIsPad(HasHomeButton, v10), HasHomeButton))
   {
-    if (soft_AXDeviceIsPad())
+    if (soft_AXDeviceIsPad(HasHomeButton, v10))
     {
-      v8 = [(ZoomUI_SBFluidSwitcherViewController *)self safeValueForKey:@"rootModifier"];
-      v12[0] = MEMORY[0x29EDCA5F8];
-      v12[1] = 3221225472;
-      v12[2] = __88__ZoomUI_SBFluidSwitcherViewController_handleFluidSwitcherGestureManager_didEndGesture___block_invoke;
-      v12[3] = &unk_29F29A5D0;
-      v9 = v8;
-      v13 = v9;
-      v14 = &v15;
-      soft_AXPerformSafeBlock(v12);
+      v11 = [(ZoomUI_SBFluidSwitcherViewController *)self safeValueForKey:@"rootModifier"];
+      v15[0] = MEMORY[0x29EDCA5F8];
+      v15[1] = 3221225472;
+      v15[2] = __88__ZoomUI_SBFluidSwitcherViewController_handleFluidSwitcherGestureManager_didEndGesture___block_invoke;
+      v15[3] = &unk_29F29A5D0;
+      v12 = v11;
+      v16 = v12;
+      v17 = &v18;
+      soft_AXPerformSafeBlock(v15);
     }
 
-    if ((v16[3] & 1) == 0)
+    if ((v19[3] & 1) == 0)
     {
       sharedInstance = [getZoomServicesClass() sharedInstance];
       [sharedInstance performSelector:sel_notifyZoomFluidSwitcherGestureDidFinish withObject:0 afterDelay:0.5];
     }
   }
 
-  v11.receiver = self;
-  v11.super_class = ZoomUI_SBFluidSwitcherViewController;
-  [(ZoomUI_SBFluidSwitcherViewController *)&v11 handleFluidSwitcherGestureManager:managerCopy didEndGesture:gestureCopy];
-  _Block_object_dispose(&v15, 8);
+  v14.receiver = self;
+  v14.super_class = ZoomUI_SBFluidSwitcherViewController;
+  [(ZoomUI_SBFluidSwitcherViewController *)&v14 handleFluidSwitcherGestureManager:managerCopy didEndGesture:gestureCopy];
+  _Block_object_dispose(&v18, 8);
 }
 
 @end

@@ -1,90 +1,3 @@
-void MRMediaRemoteSetSystemAppPlaybackQueueWithContext(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
-{
-  v9 = a4;
-  v10 = a5;
-  if (MRSystemAppPlaybackQueueGetType(a1) == 3 || !MRShouldUseLegacyMusicApplicationAsSystemMediaApp())
-  {
-    v11 = @"(System Media Application)";
-  }
-
-  else
-  {
-    v11 = @"com.apple.LegacyMusic";
-  }
-
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __MRMediaRemoteSetSystemAppPlaybackQueueWithContext_block_invoke;
-  v13[3] = &unk_1E769F1D0;
-  v14 = v10;
-  v12 = v10;
-  MRMediaRemoteSetAppPlaybackQueueWithContext(v11, a1, a2, a3, v9, v13);
-}
-
-void MRMediaRemoteSetAppPlaybackQueueWithContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
-{
-  v11 = a6;
-  v12 = a5;
-  v14 = [[MRClient alloc] initWithProcessIdentifier:0 bundleIdentifier:a1];
-  v13 = [[MRPlayerPath alloc] initWithOrigin:a3 client:v14 player:0];
-  MRMediaRemoteSetAppPlaybackQueueForPlayer(a2, 0, v13, a4, v12, v11);
-}
-
-uint64_t __MRMediaRemoteSetSystemAppPlaybackQueueWithContext_block_invoke(uint64_t a1, int a2, CFIndex a3)
-{
-  result = *(a1 + 32);
-  if (result)
-  {
-    if (!a2)
-    {
-      _MRSendCommandReplyContainsSuccessfulStatus(a3);
-      result = *(a1 + 32);
-    }
-
-    v5 = *(result + 16);
-
-    return v5();
-  }
-
-  return result;
-}
-
-CFIndex _MRSendCommandReplyContainsSuccessfulStatus(CFIndex result)
-{
-  if (result)
-  {
-    v1 = result;
-    result = CFArrayGetCount(result);
-    valuePtr = 0;
-    if (result)
-    {
-      v2 = result;
-      v3 = 0;
-      v4 = 1;
-      do
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v1, v3);
-        CFNumberGetValue(ValueAtIndex, kCFNumberIntType, &valuePtr);
-        result = valuePtr == 0;
-        v3 = v4++;
-        if (valuePtr)
-        {
-          v6 = v2 > v3;
-        }
-
-        else
-        {
-          v6 = 0;
-        }
-      }
-
-      while (v6);
-    }
-  }
-
-  return result;
-}
-
 void MRMediaRemoteSetAppPlaybackQueue(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
   v9 = a5;
@@ -97,7 +10,7 @@ void MRMediaRemoteSetAppPlaybackQueue(uint64_t a1, uint64_t a2, uint64_t a3, voi
   MRMediaRemoteSetAppPlaybackQueueWithContext(a1, a2, a3, 0, a4, v11);
 }
 
-uint64_t __MRMediaRemoteSetAppPlaybackQueue_block_invoke(uint64_t a1, int a2, CFIndex a3)
+uint64_t __MRMediaRemoteSetAppPlaybackQueue_block_invoke(uint64_t a1, int a2, unint64_t a3)
 {
   result = *(a1 + 32);
   if (result)
@@ -180,9 +93,9 @@ void MRMediaRemoteSetAppPlaybackQueueForPlayer(uint64_t a1, void *a2, void *a3, 
   _Block_object_dispose(&v19, 8);
 }
 
-void sub_1A2AFB1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AFB1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -207,19 +120,19 @@ uint64_t __MRMediaRemoteSetAppPlaybackQueueForPlayer_block_invoke_2(uint64_t a1)
 
 void MRMediaRemoteInsertSystemAppPlaybackQueue(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v11 = a4;
+  v12 = a4;
   v9 = a5;
-  if (MRSystemAppPlaybackQueueGetType(a1) == 3 || !MRShouldUseLegacyMusicApplicationAsSystemMediaApp())
+  if (MRSystemAppPlaybackQueueGetType(a1, v10) == 3 || !MRShouldUseLegacyMusicApplicationAsSystemMediaApp())
   {
-    v10 = @"(System Media Application)";
+    v11 = @"(System Media Application)";
   }
 
   else
   {
-    v10 = @"com.apple.LegacyMusic";
+    v11 = @"com.apple.LegacyMusic";
   }
 
-  MRMediaRemoteInsertSystemAppPlaybackQueueForApp(v10, a1, a2, a3, v11, v9);
+  MRMediaRemoteInsertSystemAppPlaybackQueueForApp(v11, a1, a2, a3, v12, v9);
 }
 
 void MRMediaRemoteInsertSystemAppPlaybackQueueForApp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
@@ -663,32 +576,32 @@ LABEL_84:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t MRTextEditingAttributesCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+MRMutableTextEditingAttributes *MRTextEditingAttributesCreate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [MRMutableTextEditingAttributes alloc];
 
   return [(MRTextEditingAttributes *)v5 initWithTitle:a2 prompt:a3];
 }
 
-double MRTextEditingAttributesGetInputTraits@<D0>(void *a1@<X0>, uint64_t x8_0@<X8>)
+double MRTextEditingAttributesGetInputTraits@<D0>(void *a1@<X0>, const char *a2@<X1>, _OWORD *a3@<X8>)
 {
   if (a1)
   {
-    [a1 inputTraits];
+    objc_msgSend_inputTraits(a1, a2);
   }
 
   else
   {
-    *(x8_0 + 128) = 0;
+    *(a3 + 16) = 0;
     result = 0.0;
-    *(x8_0 + 96) = 0u;
-    *(x8_0 + 112) = 0u;
-    *(x8_0 + 64) = 0u;
-    *(x8_0 + 80) = 0u;
-    *(x8_0 + 32) = 0u;
-    *(x8_0 + 48) = 0u;
-    *x8_0 = 0u;
-    *(x8_0 + 16) = 0u;
+    a3[6] = 0u;
+    a3[7] = 0u;
+    a3[4] = 0u;
+    a3[5] = 0u;
+    a3[2] = 0u;
+    a3[3] = 0u;
+    *a3 = 0u;
+    a3[1] = 0u;
   }
 
   return result;
@@ -717,17 +630,18 @@ void MRTextEditingAttributesSetInputTraits(void *a1, uint64_t a2)
   }
 }
 
-uint64_t MRTextEditingSessionCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+MRTextEditingSession *MRTextEditingSessionCreate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [MRTextEditingSession alloc];
 
   return [(MRTextEditingSession *)v5 initWithText:a2 attributes:a3];
 }
 
-void sub_1A2B073E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1A2B073E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1329,6 +1243,13 @@ void sub_1A2B0D46C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_1A2B0E1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id *MRAVReconnaissanceSessionCreate(void *a1)
 {
   v2 = [MRAVReconnaissanceSession alloc];
@@ -1505,7 +1426,7 @@ LABEL_3:
   [v8 fetchPickableRoutesWithCategory:a1 completion:v11];
 }
 
-void MRMediaRemoteFindAndPickRoute(uint64_t a1, void *a2, unsigned int a3, void *a4, void *a5)
+void MRMediaRemoteFindAndPickRoute(void *a1, void *a2, unsigned int a3, void *a4, void *a5)
 {
   v13 = a4;
   v9 = a5;
@@ -1707,7 +1628,7 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_3(uint64_t a1, 
 
 void MRMediaRemoteSetMediaPlaybackVolume(unsigned int a1, void *a2, void *a3, float a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = MEMORY[0x1E696AD98];
   v9 = a2;
@@ -1729,36 +1650,34 @@ void MRMediaRemoteSetMediaPlaybackVolume(unsigned int a1, void *a2, void *a3, fl
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v29 = v17;
+    v28 = v17;
     _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v19 = MRGetSharedService();
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __MRMediaRemoteSetMediaPlaybackVolume_block_invoke;
-  v24[3] = &unk_1E76A4B68;
-  v25 = v15;
-  v26 = v13;
-  v27 = v7;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __MRMediaRemoteSetMediaPlaybackVolume_block_invoke;
+  v23[3] = &unk_1E76A4B68;
+  v24 = v15;
+  v25 = v13;
+  v26 = v7;
   v20 = v7;
   v21 = v13;
   v22 = v15;
-  MRMediaRemoteServiceSetMediaPlaybackVolume(v19, a1, v9, v24, a4);
-
-  v23 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceSetMediaPlaybackVolume(v19, a1, v9, v23, a4);
 }
 
 uint64_t __MRMediaRemoteSetMediaPlaybackVolume_block_invoke(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = _MRLogForCategory(0xAuLL);
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __MRMediaRemoteSetMediaPlaybackVolume_block_invoke_cold_1(a1, a2, v5);
+      __MRMediaRemoteSetMediaPlaybackVolume_block_invoke_cold_1();
     }
   }
 
@@ -1767,22 +1686,21 @@ uint64_t __MRMediaRemoteSetMediaPlaybackVolume_block_invoke(void *a1, uint64_t a
     v6 = a1[4];
     v7 = [MEMORY[0x1E695DF00] date];
     [v7 timeIntervalSinceDate:a1[5]];
-    v11 = 138543874;
-    v12 = @"setMediaPlaybackVolume";
-    v13 = 2114;
-    v14 = v6;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = @"setMediaPlaybackVolume";
+    v12 = 2114;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v10, 0x20u);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1797,7 +1715,7 @@ void MRMediaRemoteAdjustMediaPlaybackVolumeWithAdjustment(uint64_t a1, uint64_t 
 
 void MRMediaRemoteAdjustMediaPlaybackVolume(unsigned int a1, void *a2, void *a3, float a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = MEMORY[0x1E696AD98];
   v9 = a2;
@@ -1819,36 +1737,34 @@ void MRMediaRemoteAdjustMediaPlaybackVolume(unsigned int a1, void *a2, void *a3,
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v29 = v17;
+    v28 = v17;
     _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v19 = MRGetSharedService();
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke;
-  v24[3] = &unk_1E76A4B68;
-  v25 = v15;
-  v26 = v13;
-  v27 = v7;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke;
+  v23[3] = &unk_1E76A4B68;
+  v24 = v15;
+  v25 = v13;
+  v26 = v7;
   v20 = v7;
   v21 = v13;
   v22 = v15;
-  MRMediaRemoteServiceAdjustMediaPlaybackVolume(v19, a1, v9, v24, a4);
-
-  v23 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceAdjustMediaPlaybackVolume(v19, a1, v9, v23, a4);
 }
 
 uint64_t __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = _MRLogForCategory(0xAuLL);
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke_cold_1(a1, a2, v5);
+      __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke_cold_1();
     }
   }
 
@@ -1857,28 +1773,27 @@ uint64_t __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke(void *a1, uint64_
     v6 = a1[4];
     v7 = [MEMORY[0x1E695DF00] date];
     [v7 timeIntervalSinceDate:a1[5]];
-    v11 = 138543874;
-    v12 = @"adjustMediaPlaybackVolume";
-    v13 = 2114;
-    v14 = v6;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = @"adjustMediaPlaybackVolume";
+    v12 = 2114;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v10, 0x20u);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void MRMediaRemoteMuteSystemVolume(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = MEMORY[0x1E696AD98];
   v7 = a2;
@@ -1898,30 +1813,28 @@ void MRMediaRemoteMuteSystemVolume(uint64_t a1, void *a2, void *a3)
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v26 = v13;
+    v25 = v13;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v15 = +[MRMediaRemoteServiceClient sharedServiceClient];
   v16 = [v15 service];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __MRMediaRemoteMuteSystemVolume_block_invoke;
-  v21[3] = &unk_1E769AE80;
-  v22 = v11;
-  v23 = v9;
-  v24 = v5;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __MRMediaRemoteMuteSystemVolume_block_invoke;
+  v20[3] = &unk_1E769AE80;
+  v21 = v11;
+  v22 = v9;
+  v23 = v5;
   v17 = v5;
   v18 = v9;
   v19 = v11;
-  MRMediaRemoteServiceSetSystemIsMuted(v16, a1, v7, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceSetSystemIsMuted(v16, a1, v7, v20);
 }
 
 void __MRMediaRemoteMuteSystemVolume_block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xAuLL);
   v5 = v4;
@@ -1929,7 +1842,7 @@ void __MRMediaRemoteMuteSystemVolume_block_invoke(void *a1, void *a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __MRMediaRemoteMuteSystemVolume_block_invoke_cold_1(a1, v3, v5);
+      __MRMediaRemoteMuteSystemVolume_block_invoke_cold_1();
     }
   }
 
@@ -1938,13 +1851,13 @@ void __MRMediaRemoteMuteSystemVolume_block_invoke(void *a1, void *a2)
     v6 = a1[4];
     v7 = [MEMORY[0x1E695DF00] date];
     [v7 timeIntervalSinceDate:a1[5]];
-    v11 = 138543874;
-    v12 = @"muteSystemVolume";
-    v13 = 2114;
-    v14 = v6;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = @"muteSystemVolume";
+    v12 = 2114;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v10, 0x20u);
   }
 
   v9 = a1[6];
@@ -1952,8 +1865,6 @@ void __MRMediaRemoteMuteSystemVolume_block_invoke(void *a1, void *a2)
   {
     (*(v9 + 16))(v9, v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 CFStringRef MRMediaRemoteCopySetPickedRouteOptionsDescription(char a1)
@@ -2002,9 +1913,9 @@ void sub_1A2B117E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2B127CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2B127CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2250,7 +2161,7 @@ __CFString *MRApplicationActivityStatusCopyDescription(int a1)
   }
 }
 
-uint64_t MRApplicationActivityCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+MRMutableApplicationActivity *MRApplicationActivityCreate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [MRMutableApplicationActivity alloc];
 
@@ -2838,7 +2749,7 @@ void MRMediaRemoteGetAvailableOrigins(void *a1, void *a2)
 
 void MRMediaRemoteSetActiveOrigin(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -2851,7 +2762,7 @@ void MRMediaRemoteSetActiveOrigin(void *a1, void *a2, void *a3)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = a1;
+    v14 = a1;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Setting active origin: %@", buf, 0xCu);
   }
 
@@ -2861,11 +2772,9 @@ void MRMediaRemoteSetActiveOrigin(void *a1, void *a2, void *a3)
   block[1] = 3221225472;
   block[2] = __MRMediaRemoteSetActiveOrigin_block_invoke;
   block[3] = &unk_1E769AD58;
-  v13 = v6;
+  v12 = v6;
   v10 = v6;
   dispatch_async(v5, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MRMediaRemoteSetActiveOrigin_block_invoke(uint64_t a1)
@@ -3690,7 +3599,7 @@ LABEL_54:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t MRVirtualVoiceInputDeviceDescriptorCreateFromExternalRepresentation(uint64_t a1, uint64_t a2)
+MRVirtualVoiceInputDeviceDescriptor *MRVirtualVoiceInputDeviceDescriptorCreateFromExternalRepresentation(uint64_t a1, uint64_t a2)
 {
   v3 = [MRVirtualVoiceInputDeviceDescriptor alloc];
 
@@ -4802,16 +4711,16 @@ void MRMediaRemoteGetClientProperties_cold_1()
 void __MRMediaRemoteGetClientProperties_block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *(v1 + 40);
   v3 = *(v1 + 48);
   v4 = [MEMORY[0x1E695DF00] date];
   [v4 timeIntervalSinceDate:*(v0 + 56)];
+  LODWORD(v11) = 138544130;
+  *(&v11 + 4) = v2;
   OUTLINED_FUNCTION_4_1();
+  *v12 = v3;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v11, DWORD2(v11), *&v12[2]);
 }
 
 void MRMediaRemoteSetClientProperties_cold_1()
@@ -4824,15 +4733,15 @@ void MRMediaRemoteSetClientProperties_cold_1()
 void __MRMediaRemoteSetClientProperties_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(v1 + 40);
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(v0 + 48)];
+  LODWORD(v10) = 138544130;
+  *(&v10 + 4) = @"setClientProperties";
   OUTLINED_FUNCTION_4_1();
+  *v11 = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, v10, DWORD2(v10), *&v11[2]);
 }
 
 void MRMediaRemoteUpdateClientProperties_cold_1()
@@ -4845,15 +4754,15 @@ void MRMediaRemoteUpdateClientProperties_cold_1()
 void __MRMediaRemoteUpdateClientProperties_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(v1 + 40);
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(v0 + 48)];
+  LODWORD(v10) = 138544130;
+  *(&v10 + 4) = @"updateClientProperties";
   OUTLINED_FUNCTION_4_1();
+  *v11 = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, v10, DWORD2(v10), *&v11[2]);
 }
 
 void MRMediaRemoteSetPlayerProperties_cold_1()
@@ -4866,29 +4775,29 @@ void MRMediaRemoteSetPlayerProperties_cold_1()
 void __MRMediaRemoteGetPlaybackStateForPlayer_block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(v1 + 40);
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(v0 + 48)];
+  LODWORD(v10) = 138544130;
+  *(&v10 + 4) = @"playbackState";
   OUTLINED_FUNCTION_4_1();
+  *v11 = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, v10, DWORD2(v10), *&v11[2]);
 }
 
 void MRMediaRemoteSetPlaybackStateForPlayerWithTimestamp_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[MRNowPlaying] Ignoring setPlaybackState because application does not contain entitlement %@ for platform", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"com.apple.mediaremote.set-playback-state";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[MRNowPlaying] Ignoring setPlaybackState because application does not contain entitlement %@ for platform", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void MRMediaRemoteGetMediaAppIsInstalled_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[MRNowPlaying] Disallowed bundle ID requested for installation status: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[MRNowPlaying] Disallowed bundle ID requested for installation status: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __getAVSystemControllerClass_block_invoke_cold_1()
@@ -4974,26 +4883,20 @@ void __getINPlayMediaIntentResponseClass_block_invoke_cold_1()
 
 void __MRMediaRemoteGetSupportedCommandsForPlayer_block_invoke_2_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [MEMORY[0x1E695DF00] date];
-  [v3 timeIntervalSinceDate:*(a1 + 48)];
+  v2 = [MEMORY[0x1E695DF00] date];
+  [v2 timeIntervalSinceDate:*(a1 + 48)];
+  v9 = 138544130;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8, v9);
 }
 
 void __MRMediaRemoteRequestPendingCommands_block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [MEMORY[0x1E695DF00] date];
-  [v3 timeIntervalSinceDate:*(a1 + 48)];
+  v2 = [MEMORY[0x1E695DF00] date];
+  [v2 timeIntervalSinceDate:*(a1 + 48)];
+  v9 = 138544130;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8, v9);
 }
 
 void _MRProtoUtilsProtoDictionaryFromNSDictionary_cold_1()
@@ -5005,11 +4908,10 @@ void _MRProtoUtilsProtoDictionaryFromNSDictionary_cold_1()
 
 void _MRProtoUtilsProtoValueFromPlistType_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[_MRValueProtobuf] _MRProtoUtilsProtoValueFromPlistType: plistType=%@ is not a plist type", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[_MRValueProtobuf] _MRProtoUtilsProtoValueFromPlistType: plistType=%@ is not a plist type", &v2, 0xCu);
 }
 
 void __getTUConversationManagerClass_block_invoke_cold_1()
@@ -5216,14 +5118,14 @@ void __getINSchemaClass_block_invoke_cold_1()
   __break(1u);
 }
 
-void sub_1A2B2D83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1A2B2D83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5243,6 +5145,17 @@ void MRMediaRemoteSendErrorFromError_cold_2()
   [v1 handleFailureInFunction:v0 file:@"MRRemoteControlTypes.m" lineNumber:672 description:{@"Invalid parameter not satisfying: %@", @"[error.domain isEqualToString:(__bridge NSString *)kMRMediaRemoteFrameworkErrorDomain]"}];
 }
 
+void __MRMediaRemotePlaybackSessionMigrateForDevice_block_invoke_6_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
+
+  OUTLINED_FUNCTION_10();
+}
+
 void _MRPSMDetermineRecipe_cold_1()
 {
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -5250,23 +5163,86 @@ void _MRPSMDetermineRecipe_cold_1()
   [v1 handleFailureInFunction:v0 file:@"MRPlaybackSessionMigrateRequestResponse.m" lineNumber:715 description:{@"Invalid parameter not satisfying: %@", @"queue"}];
 }
 
+void __MRMediaRemoteSendPlaybackSession_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_4_4(v3, v4);
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteSendPlaybackSessionMigrateBegin_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestIdentifier];
+  v3 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_4_4(v3, v4);
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteSendPlaybackSessionMigrateEnd_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestIdentifier];
+  v3 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_4_4(v3, v4);
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteSendPlaybackSessionMigrateFinalize_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [OUTLINED_FUNCTION_3_6(v1) requestIdentifier];
+  v3 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_4_4(v3, v4);
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemotePlaybackSessionMigrateForOriginWithRequest_block_invoke_2_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v2 = [*(v1 + 56) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  [v3 timeIntervalSinceDate:*(v0 + 64)];
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_10();
+}
+
 void __MRMediaRemoteSendPlaybackSessionMigratePost_block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = [*(a1 + 40) requestID];
   v7 = [MEMORY[0x1E695DF00] date];
   [v7 timeIntervalSinceDate:*(a1 + 48)];
-  v10 = 138544130;
-  v11 = @"sendPlaybackSessionMigratePost";
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2114;
-  v15 = a2;
-  v16 = 2048;
-  v17 = v8;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138544130;
+  v10 = @"sendPlaybackSessionMigratePost";
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2114;
+  v14 = a2;
+  v15 = 2048;
+  v16 = v8;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v9, 0x2Au);
 }
 
 void __getCURunLoopThreadClass_block_invoke_cold_1()
@@ -5751,94 +5727,67 @@ void MRTelevisionProcessVirtualVoiceInputAudioData_cold_2()
 
 void MRMediaRemoteValidateIncomingCommandOptions_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRRemoteControl] Command %{public}@ missing source position option(s): %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRRemoteControl] Command %{public}@ missing source position option(s): %{public}@", &v3, 0x16u);
 }
 
 void MRAddPropertyListToXPCMessage_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_14();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1A2860000, v1, OS_LOG_TYPE_ERROR, "Error encoding to XPC message: %@ object: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A2860000, v1, OS_LOG_TYPE_ERROR, "Error encoding to XPC message: %@ object: %@", v2, 0x16u);
 }
 
-void MRAddPlayerPathToXPCMessage_cold_1()
+void MRAddPlayerPathToXPCMessage_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRAddPlayerPathToXPCMessage(__strong xpc_object_t, MRNowPlayingPlayerPathRef)"}];
-  v1 = objc_opt_class();
-  [v2 handleFailureInFunction:v0 file:@"MRSerializationUtility.m" lineNumber:213 description:{@"Type mismatch, expecting %@ found %@", v1, objc_opt_class()}];
+  v3 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRAddPlayerPathToXPCMessage(__strong xpc_object_t, MRNowPlayingPlayerPathRef)"}];
+  v2 = objc_opt_class();
+  [v3 handleFailureInFunction:v1 file:@"MRSerializationUtility.m" lineNumber:213 description:{@"Type mismatch, expecting %@ found %@", v2, objc_opt_class()}];
 }
 
-void MRCreatePropertyListFromXPCMessage_cold_1()
+void MRAddPlayerPathToUserInfo_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "Error decoding XPC message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void MRAddPlayerPathToUserInfo_cold_1()
-{
-  v2 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRAddPlayerPathToUserInfo(NSMutableDictionary *__strong, MRPlayerPath *__strong)"}];
-  v1 = objc_opt_class();
-  [v2 handleFailureInFunction:v0 file:@"MRSerializationUtility.m" lineNumber:724 description:{@"Type mismatch, expecting %@ found %@", v1, objc_opt_class()}];
-}
-
-void _MRDecodeObjectForKey_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "Decode Error: could not decode %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _MREncodeObjectForKey_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "Encode Error: could not encode %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRAddPlayerPathToUserInfo(NSMutableDictionary *__strong, MRPlayerPath *__strong)"}];
+  v2 = objc_opt_class();
+  [v3 handleFailureInFunction:v1 file:@"MRSerializationUtility.m" lineNumber:724 description:{@"Type mismatch, expecting %@ found %@", v2, objc_opt_class()}];
 }
 
 void MRCreateDecodedUserInfo_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"kMRMediaRemotePlaybackErrorUserInfoKey";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void MRCreateDecodedUserInfo_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"kMRApplicationActivityUserInfoKey";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void MRCreateDecodedUserInfo_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"kMRMediaRemoteUpdatedContentItemsUserInfoKey";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "Decode Error: could not decode %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __MRCreateEncodedUserInfo_block_invoke_11_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_14();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1A2860000, v1, OS_LOG_TYPE_DEBUG, "Removing %{public}@ for key %{public}@ for notification user info", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1A2860000, v1, OS_LOG_TYPE_DEBUG, "Removing %{public}@ for key %{public}@ for notification user info", v2, 0x16u);
 }
 
 void MediaExperienceLibrary_cold_1_0(void *a1)
@@ -5873,21 +5822,19 @@ void _MRCUPSPromptForSetupCodeCallback_cold_1()
 
 void __MRMediaRemotePlaybackSessionRequestWithResponse_block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 40);
   v7 = [MEMORY[0x1E695DF00] date];
   [v7 timeIntervalSinceDate:*(a1 + 48)];
-  v10 = 138544130;
-  v11 = @"playbackSession";
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2114;
-  v15 = a2;
-  v16 = 2048;
-  v17 = v8;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138544130;
+  v10 = @"playbackSession";
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2114;
+  v14 = a2;
+  v15 = 2048;
+  v16 = v8;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v9, 0x2Au);
 }
 
 void __MRNowPlayingSessionManagerStartSession_block_invoke_cold_1()
@@ -5906,7 +5853,7 @@ void MRNowPlayingSessionManagerStopSession_cold_1()
 
 void MRMediaRemoteSetNowPlayingInfoForPlayer_cold_1(char a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v4 = @"Replace";
@@ -5918,13 +5865,11 @@ void MRMediaRemoteSetNowPlayingInfoForPlayer_cold_1(char a1, void *a2, NSObject 
   }
 
   v5 = MRMediaRemoteCopyReadableDictionaryDescription(a2);
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1A2860000, a3, OS_LOG_TYPE_DEBUG, "[NowPlayingInfo] Attempting to set nowPlayingInfo with mergePolicy %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1A2860000, a3, OS_LOG_TYPE_DEBUG, "[NowPlayingInfo] Attempting to set nowPlayingInfo with mergePolicy %@: %@", &v6, 0x16u);
 }
 
 void __getFBSDisplayLayoutMonitorConfigurationClass_block_invoke_cold_1()
@@ -5991,97 +5936,86 @@ void _MRResolveAndRequestPlaybackQueue_cold_2()
 
 void __MRMediaRemoteRequestNowPlayingPlaybackQueueCapabilitiesForPlayer_block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1[5];
   v3 = a1[6];
   v4 = [MEMORY[0x1E695DF00] date];
   [v4 timeIntervalSinceDate:a1[7]];
+  *v11 = 138544130;
+  *&v11[4] = v2;
+  *&v11[12] = 2114;
+  *&v11[14] = v3;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 void __MRMediaRemoteSetPlaybackQueue_block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = [a1 playerPath];
-  v5 = 138412546;
-  v6 = @"kMRPlayerPlaybackQueueChangedNotification";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "Sending short-circuited notification %@ for %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = @"kMRPlayerPlaybackQueueChangedNotification";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "Sending short-circuited notification %@ for %@", &v4, 0x16u);
 }
 
-void __MRAVEndpointModifyOutputDevicesInGroup_block_invoke_cold_1(void *a1)
+void __MRAVEndpointModifyOutputDevicesInGroup_block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = [MEMORY[0x1E695DF00] date];
-  [v4 timeIntervalSinceDate:a1[6]];
+  v2 = [MEMORY[0x1E695DF00] date];
+  [v2 timeIntervalSinceDate:*(a1 + 48)];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
 }
 
 void __MRAVEndpointModifyOutputDevicesInGroup_block_invoke_143_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[AVEndpoint] Error occurred while discovering group leader: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[AVEndpoint] Error occurred while discovering group leader: %{public}@", &v2, 0xCu);
 }
 
-void MRPairedDeviceMerge_cold_1()
+void MRPairedDeviceMerge_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRPairedDeviceMerge(MRPairedDeviceRef, MRPairedDeviceRef)"}];
-  v1 = objc_opt_class();
-  [v2 handleFailureInFunction:v0 file:@"MRPairedDevice.m" lineNumber:437 description:{@"Type mismatch, expecting %@ found %@", v1, objc_opt_class()}];
+  v3 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRPairedDeviceMerge(MRPairedDeviceRef, MRPairedDeviceRef)"}];
+  v2 = objc_opt_class();
+  [v3 handleFailureInFunction:v1 file:@"MRPairedDevice.m" lineNumber:437 description:{@"Type mismatch, expecting %@ found %@", v2, objc_opt_class()}];
 }
 
-void MRPairedDeviceMerge_cold_2()
+void MRPairedDeviceMerge_cold_2(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRPairedDeviceMerge(MRPairedDeviceRef, MRPairedDeviceRef)"}];
-  v1 = objc_opt_class();
-  [v2 handleFailureInFunction:v0 file:@"MRPairedDevice.m" lineNumber:438 description:{@"Type mismatch, expecting %@ found %@", v1, objc_opt_class()}];
+  v3 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRPairedDeviceMerge(MRPairedDeviceRef, MRPairedDeviceRef)"}];
+  v2 = objc_opt_class();
+  [v3 handleFailureInFunction:v1 file:@"MRPairedDevice.m" lineNumber:438 description:{@"Type mismatch, expecting %@ found %@", v2, objc_opt_class()}];
 }
 
 void _MRMediaRemoteLogUnsubscribedContentItems_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = MRContentItemsCopyMinimalReadableDescription(a2, 0);
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1A2860000, a3, OS_LOG_TYPE_DEBUG, "Not sending contentItemChange for path %{public}@ %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1A2860000, a3, OS_LOG_TYPE_DEBUG, "Not sending contentItemChange for path %{public}@ %@", &v6, 0x16u);
 }
 
 void _MRReadNowPlayingInfoString_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 void _MRReadNowPlayingInfoString_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A2860000, a2, OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A2860000, a2, OS_LOG_TYPE_FAULT, "%@", &v2, 0xCu);
 }
 
 void MRMediaRemoteRequestDeviceUID_cold_1()
@@ -6100,11 +6034,10 @@ void MRMediaRemoteRequestDeviceUID_cold_2()
 
 void _MRMediaRemoteGetDeviceUIDWithRetryIntervals_cold_2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[GetDeviceUIDWithRetry] Unable to fetch required deviceUID after %lu retries", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[GetDeviceUIDWithRetry] Unable to fetch required deviceUID after %lu retries", &v3, 0xCu);
 }
 
 void MRMediaRemoteRequestIsGroupLeader_cold_1()
@@ -6703,15 +6636,10 @@ void MRMediaRemoteApplicationSupportsBrowsableContent_cold_1()
 void __MRMediaRemoteGetContentItemsForIdentifiers_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 40);
-  v3 = *(v1 + 48);
-  v4 = [MEMORY[0x1E695DF00] date];
-  [v4 timeIntervalSinceDate:*(v0 + 56)];
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 56)];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
 }
 
 void MRExternalDeviceCopyUniqueIdentifier_cold_1()
@@ -7284,11 +7212,10 @@ void MRContentItemMerge_cold_1(uint64_t a1, uint64_t a2)
 
 void MRContentItemMerge_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "Attempting to Merge a ContentItem with itself %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "Attempting to Merge a ContentItem with itself %@", &v2, 0xCu);
 }
 
 void MRPlaybackQueueRequestCopy_cold_1()
@@ -7656,15 +7583,6 @@ void MRGroupSessionJoinSessionWithToken_cold_1()
   [OUTLINED_FUNCTION_3(v0 v1];
 }
 
-void __MRGroupSessionJoinSessionWithToken_block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_24();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void MRGroupSessionLeaveSessionWithIdentifier_cold_1()
 {
   v7 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -7751,13 +7669,10 @@ void _onQueue_MRInvokeClientCallbacks_cold_5()
 
 void _onQueue_MRInvokeClientCallbacks_cold_6(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v2 = MRContentItemCopyMinimalReadableDescription(a2);
   OUTLINED_FUNCTION_3_14();
   OUTLINED_FUNCTION_4_11();
   _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void _onQueue_MRInvokeClientAssetCallbacks_cold_2()
@@ -8015,6 +7930,18 @@ uint64_t MRAVReconnaissanceSessionSetExpectedLogicalDevices(uint64_t result, uin
   return result;
 }
 
+void __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 48)];
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
+
+  OUTLINED_FUNCTION_10();
+}
+
 void MRMediaRemoteGetSavedAVRoutePassword_cold_1()
 {
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -8027,6 +7954,70 @@ void MRMediaRemoteGetSavedAVRoutePassword_cold_2()
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void MRMediaRemoteGetSavedAVRoutePassword(CFStringRef, __strong dispatch_queue_t, void (^__strong)(CFStringRef))"}];
   [v1 handleFailureInFunction:v0 file:@"MRAVRouting.m" lineNumber:274 description:{@"Invalid parameter not satisfying: %@", @"completion"}];
+}
+
+void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v1 timeIntervalSinceDate:*(v0 + 56)];
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v2, v3, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v4, v5, v6, v7);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteSetMediaPlaybackVolume_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_4_13();
+  v1 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_5_11(v1, v2);
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteAdjustMediaPlaybackVolume_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_4_13();
+  v1 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_5_11(v1, v2);
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteMuteSystemVolume_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_4_13();
+  v1 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_5_11(v1, v2);
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
+
+  OUTLINED_FUNCTION_10();
+}
+
+void __MRMediaRemoteGetSystemVolumeMuted_block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_11_2();
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_4_13();
+  v1 = [MEMORY[0x1E695DF00] date];
+  OUTLINED_FUNCTION_5_11(v1, v2);
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v3, v4, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v5, v6, v7, v8);
+
+  OUTLINED_FUNCTION_10();
 }
 
 void MROriginCopy_cold_1()
@@ -8128,5 +8119,13 @@ lldiv_t lldiv(uint64_t a1, uint64_t a2)
   v2 = MEMORY[0x1EEE70FF0](a1, a2);
   result.rem = v3;
   result.quot = v2;
+  return result;
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x1EEE66EC8](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
   return result;
 }

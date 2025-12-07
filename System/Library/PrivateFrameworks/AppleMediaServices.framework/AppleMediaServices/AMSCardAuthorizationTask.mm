@@ -54,9 +54,9 @@ id __52__AMSCardAuthorizationTask_performCardAuthorization__block_invoke(uint64_
   v80[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = AMSSetLogKeyIfNeeded();
-  v6 = objc_alloc_init(_MergedGlobals_3[0]());
+  v6 = objc_alloc_init(_MergedGlobals_3());
   [v6 setAPIType:0];
-  v7 = objc_alloc(off_1ED6DF150[0]());
+  v7 = objc_alloc((off_1ED6DF150)());
   v8 = [*(a1 + 32) paymentSession];
   v9 = [v7 initWithDictionary:v8];
 
@@ -130,11 +130,11 @@ id __52__AMSCardAuthorizationTask_performCardAuthorization__block_invoke(uint64_
     v22 = 6;
   }
 
-  [v6 setConfirmationStyle:v22];
+  v21 = [v6 setConfirmationStyle:v22];
 LABEL_18:
-  v23 = off_1ED6DF158();
+  v23 = off_1ED6DF158(v21);
   v24 = [MEMORY[0x1E696AB90] zero];
-  v25 = [(objc_class *)v23 summaryItemWithLabel:&stru_1F071BA78 amount:v24];
+  v25 = [v23 summaryItemWithLabel:&stru_1F071BA78 amount:v24];
 
   v80[0] = v25;
   v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
@@ -418,7 +418,7 @@ void __51__AMSCardAuthorizationTask__presentPaymentRequest___block_invoke(uint64
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = [objc_alloc(getPKPaymentAuthorizationControllerClass[0]()) initWithPaymentRequest:*(a1 + 32)];
+  v5 = [objc_alloc(getPKPaymentAuthorizationControllerClass()) initWithPaymentRequest:*(a1 + 32)];
   [v5 setDelegate:WeakRetained];
   [v5 setPrivateDelegate:WeakRetained];
   v7[0] = MEMORY[0x1E69E9820];
@@ -537,7 +537,7 @@ void __68__AMSCardAuthorizationTask_paymentAuthorizationControllerDidFinish___bl
 
 - (void)paymentAuthorizationController:(id)controller didAuthorizePayment:(id)payment handler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   paymentCopy = payment;
   handlerCopy = handler;
   v9 = +[AMSLogConfig sharedConfig];
@@ -555,35 +555,35 @@ void __68__AMSCardAuthorizationTask_paymentAuthorizationControllerDidFinish___bl
     v14 = v13;
     v15 = @"YES";
     *buf = 138543874;
-    v22 = v11;
-    v23 = 2114;
+    v23 = v11;
+    v24 = 2114;
     if (!paymentCopy)
     {
       v15 = @"NO";
     }
 
-    v24 = v13;
-    v25 = 2114;
-    v26 = v15;
+    v25 = v13;
+    v26 = 2114;
+    v27 = v15;
     _os_log_impl(&dword_192869000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] paymentAuthorizationControllerDidFinish: Did finish with payment? %{public}@", buf, 0x20u);
   }
 
-  [(AMSCardAuthorizationTask *)self setPayment:paymentCopy];
+  v16 = [(AMSCardAuthorizationTask *)self setPayment:paymentCopy];
   if (paymentCopy)
   {
-    v16 = [objc_alloc(getPKPaymentAuthorizationResultClass_0[0]()) initWithStatus:0 errors:0];
+    v17 = [objc_alloc(getPKPaymentAuthorizationResultClass_0(v16)) initWithStatus:0 errors:0];
   }
 
   else
   {
-    v17 = AMSError(0, @"Card Authorization Error", @"No payment generated", 0);
-    v18 = objc_alloc(getPKPaymentAuthorizationResultClass_0[0]());
-    v20 = v17;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-    v16 = [v18 initWithStatus:1 errors:v19];
+    v18 = AMSError(0, @"Card Authorization Error", @"No payment generated", 0);
+    v19 = objc_alloc(getPKPaymentAuthorizationResultClass_0(v18));
+    v21 = v18;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v17 = [v19 initWithStatus:1 errors:v20];
   }
 
-  handlerCopy[2](handlerCopy, v16);
+  handlerCopy[2](handlerCopy, v17);
 }
 
 - (void)paymentAuthorizationController:(id)controller didEncounterAuthorizationEvent:(unint64_t)event

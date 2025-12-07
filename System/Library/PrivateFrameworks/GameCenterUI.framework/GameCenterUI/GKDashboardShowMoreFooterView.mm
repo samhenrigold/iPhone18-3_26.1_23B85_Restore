@@ -13,7 +13,7 @@
 
 - (id)actionHandler
 {
-  v2 = GKDashboardShowMoreFooterView.actionHandler.getter();
+  v2 = GKDashboardShowMoreFooterView.actionHandler.getter(self);
   if (v2)
   {
     v6[4] = v2;
@@ -54,7 +54,7 @@
 
 - (NSString)showMoreText
 {
-  GKDashboardShowMoreFooterView.showMoreText.getter();
+  GKDashboardShowMoreFooterView.showMoreText.getter(self);
   if (v2)
   {
     v3 = sub_24E347CB8();
@@ -109,7 +109,7 @@
 
 - (void)pressesEnded:(id)ended withEvent:(id)event
 {
-  sub_24DF88A8C(0, &qword_27F1E2858);
+  sub_24DF88A8C(0, &qword_27F1E2858, 0x277D758B8);
   sub_24E08A394();
   v6 = sub_24E348138();
   eventCopy = event;

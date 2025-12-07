@@ -17,24 +17,24 @@
   return v3;
 }
 
-void __38__WLKURLSessionManager_sharedInstance__block_invoke()
+void __38__WLKURLSessionManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = WLKStartupSignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SessionManager.Init", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SessionManager.Init", &unk_272A8884E, buf, 2u);
   }
 
-  v1 = objc_alloc_init(WLKURLSessionManager);
-  v2 = sharedInstance_sharedInstance_1;
-  sharedInstance_sharedInstance_1 = v1;
+  v2 = objc_alloc_init(WLKURLSessionManager);
+  v3 = sharedInstance_sharedInstance_1;
+  sharedInstance_sharedInstance_1 = v2;
 
-  v3 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = WLKStartupSignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SessionManager.Init", &unk_272A8884E, v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SessionManager.Init", &unk_272A8884E, v6, 2u);
   }
 }
 

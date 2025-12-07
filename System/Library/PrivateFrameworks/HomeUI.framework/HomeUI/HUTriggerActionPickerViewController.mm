@@ -48,7 +48,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20CF35A74();
+  sub_20CF35A74(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -76,11 +76,11 @@
   v6 = sub_20D5638C8();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20D563878();
   itemCopy = item;
   selfCopy = self;
-  sub_20CF35CE8(itemCopy);
+  sub_20CF35CE8(itemCopy, v12);
 
   (*(v7 + 8))(v9, v6);
   return swift_getObjCClassFromMetadata();
@@ -121,7 +121,7 @@
   sub_20D568628();
   swift_unknownObjectRelease();
   [*(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR___HUTriggerActionPickerViewController_delegate) triggerEditor:selfCopy didFinishWithTriggerBuilder:0];
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)nextWithSender:(id)sender
@@ -132,7 +132,7 @@
   swift_unknownObjectRelease();
   sub_20CF36A50();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)itemManagerDidUpdate:(id)update

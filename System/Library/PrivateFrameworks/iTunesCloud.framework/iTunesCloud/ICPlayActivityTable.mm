@@ -327,7 +327,7 @@ LABEL_13:
   eventsCopy = events;
   dispatch_assert_queue_V2(self->_serialAccessQueue);
   _eventsDatabaseTableName = [objc_opt_class() _eventsDatabaseTableName];
-  v8 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithFormat:", @"DELETE FROM %@ WHERE %@ IN ("), _eventsDatabaseTableName, CFSTR("pid");
+  v8 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithFormat:", @"DELETE FROM %@ WHERE %@ IN ("), _eventsDatabaseTableName, @"pid";
   if ([eventsCopy count])
   {
     v9 = 0;

@@ -260,9 +260,7 @@ uint64_t __52__TKContainerViewController_setChildViewController___block_invoke(u
   MEMORY[0x277D82BD8](v13);
   MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
-  result = MEMORY[0x277D82BD8](v16);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v16);
 }
 
 uint64_t __52__TKContainerViewController_setChildViewController___block_invoke_2(uint64_t a1)

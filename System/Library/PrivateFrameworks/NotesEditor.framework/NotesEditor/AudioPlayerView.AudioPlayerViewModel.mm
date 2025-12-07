@@ -46,9 +46,9 @@
   MEMORY[0x28223BE20](v4);
   v7 = v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21549E16C();
-  swift_getKeyPath();
+  swift_getKeyPath(asc_2154C0180);
   v8[1] = self;
-  sub_21538E200(&qword_27CA5B518, type metadata accessor for AudioPlayerView.AudioPlayerViewModel);
+  sub_21538E200(&qword_27CA5B518, type metadata accessor for AudioPlayerView.AudioPlayerViewModel, &protocol conformance descriptor for AudioPlayerView.AudioPlayerViewModel);
 
   sub_21549ED9C();
 

@@ -29,7 +29,7 @@ void __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMa
   [v8 isEventCandidateForURL:v10 andTitle:v4 containsSchemaOrg:v5 withCompletion:v9];
 }
 
-void __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke_2(uint64_t a1, char a2)
+void __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -37,28 +37,29 @@ void __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMa
     block[1] = 3221225472;
     block[2] = __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke_1;
     block[3] = &unk_1E848F570;
-    v9 = *(a1 + 48);
-    v3 = *(&v9 + 1);
+    v11 = *(a1 + 48);
+    v3 = *(&v11 + 1);
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     *&v6 = v4;
     *(&v6 + 1) = v5;
-    v11 = v9;
-    v12 = v6;
+    v13 = v11;
+    v14 = v6;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(a1, a2);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+    if (v8)
     {
       *buf = 0;
       _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_INFO, "Page was not a candidate for event extraction", buf, 2u);
     }
 
-    v8 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __77___SFCalendarEventDetector__containsCalendarEventForPageWithSchemaOrgMarkup___block_invoke_2_cold_1();
     }
@@ -69,32 +70,34 @@ void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTit
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
-    if (v7)
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
+    if (v10)
     {
-      v9 = a1[4];
-      v8 = a1[5];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_4;
-      v15[3] = &unk_1E8492BB8;
-      v10 = a1[6];
-      v15[4] = a1[7];
-      [v8 suggestionsFromURL:v9 title:v10 HTMLPayload:v7 withCompletion:v15];
+      v12 = a1[4];
+      v11 = a1[5];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_4;
+      v22[3] = &unk_1E8492BB8;
+      v13 = a1[6];
+      v22[4] = a1[7];
+      [v11 suggestionsFromURL:v12 title:v13 HTMLPayload:v10 withCompletion:v22];
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v18 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(0, v9);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+      if (v19)
       {
-        __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_1(v13);
+        __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_1(v18);
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v21 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_2();
       }
@@ -103,14 +106,15 @@ void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTit
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v6, v7);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    if (v15)
     {
-      __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_3(v11, v6);
+      __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_3(v14, v8);
     }
 
-    v12 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v17 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_cold_2();
     }
@@ -121,12 +125,13 @@ void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTit
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCalendarEventDetection(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_4_cold_1(v7, v6);
+      __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_4_cold_1(v9, v8);
     }
   }
 
@@ -141,7 +146,7 @@ void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTit
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to get the source code for the page with error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to get the source code for the page with error: %{public}@", v7, v8, v9, v10);
 }
 
 void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTitle___block_invoke_4_cold_1(void *a1, void *a2)
@@ -149,7 +154,7 @@ void __75___SFCalendarEventDetector__service_didFindEventCandidateForURL_pageTit
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to detect calendar events: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to detect calendar events: %{public}@", v7, v8, v9, v10);
 }
 
 @end

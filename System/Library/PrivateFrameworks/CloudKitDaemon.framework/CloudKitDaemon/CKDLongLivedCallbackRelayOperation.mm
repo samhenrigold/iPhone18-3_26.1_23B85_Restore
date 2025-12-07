@@ -61,10 +61,10 @@
 
 - (void)cancel
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = CKDLongLivedCallbackRelayOperation;
-  [(CKDOperation *)&v18 cancel];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = CKDLongLivedCallbackRelayOperation;
+  [(CKDOperation *)&v17 cancel];
   if (objc_msgSend_isExecuting(self, v3, v4))
   {
     v7 = MEMORY[0x277CBC560];
@@ -75,7 +75,7 @@
     objc_msgSend_finishWithError_(self, v12, v11);
 LABEL_3:
 
-    goto LABEL_7;
+    return;
   }
 
   if (*MEMORY[0x277CBC880] != -1)
@@ -87,16 +87,13 @@ LABEL_3:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     v11 = v13;
-    v17 = objc_msgSend_operationID(self, v15, v16);
+    v16 = objc_msgSend_operationID(self, v14, v15);
     *buf = 138543362;
-    v20 = v17;
+    v19 = v16;
     _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "CallbackRelayOperation %{public}@ was cancelled before starting", buf, 0xCu);
 
     goto LABEL_3;
   }
-
-LABEL_7:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

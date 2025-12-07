@@ -131,13 +131,12 @@ LABEL_17:
   serialize = [(BMStoreData *)shadowEvent serialize];
   [coderCopy encodeObject:serialize forKey:@"shadowEvent"];
 
-  v6 = self->_shadowEvent;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  [coderCopy encodeObject:v8 forKey:@"shadowEventClassName"];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [coderCopy encodeObject:v7 forKey:@"shadowEventClassName"];
 
-  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[BMStoreData dataVersion](self->_shadowEvent, "dataVersion")}];
-  [coderCopy encodeObject:v9 forKey:@"shadowEventDataVersion"];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[BMStoreData dataVersion](self->_shadowEvent, "dataVersion")}];
+  [coderCopy encodeObject:v8 forKey:@"shadowEventDataVersion"];
 
   [coderCopy encodeObject:self->_shadowEventDate forKey:@"shadowEventDate"];
   [coderCopy encodeObject:self->_clientModelCacheUpdate forKey:@"clientCache"];
@@ -149,21 +148,21 @@ LABEL_17:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"shadowEvent" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_blending_ecosystem();
+    v11 = __atxlog_handle_blending_ecosystem(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"shadowEventClassName" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v11];
 
     if (v12)
     {
       v13 = MEMORY[0x277D42620];
       v14 = objc_opt_class();
-      v15 = __atxlog_handle_blending_ecosystem();
+      v15 = __atxlog_handle_blending_ecosystem(v14);
       v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"shadowEventDataVersion" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v15];
 
       if (v16 && (v17 = NSClassFromString(v12)) != 0)
@@ -173,7 +172,7 @@ LABEL_17:
         {
           v19 = MEMORY[0x277D42620];
           v20 = objc_opt_class();
-          v21 = __atxlog_handle_blending_ecosystem();
+          v21 = __atxlog_handle_blending_ecosystem(v20);
           v22 = [v19 robustDecodeObjectOfClass:v20 forKey:@"shadowEventDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v21];
 
           if (v22)
@@ -181,14 +180,14 @@ LABEL_17:
             v33 = v22;
             v23 = MEMORY[0x277D42620];
             v24 = objc_opt_class();
-            v25 = __atxlog_handle_blending_ecosystem();
+            v25 = __atxlog_handle_blending_ecosystem(v24);
             v26 = [v23 robustDecodeObjectOfClass:v24 forKey:@"clientCache" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v25];
 
             if (v26)
             {
               v27 = MEMORY[0x277D42620];
               v28 = objc_opt_class();
-              v29 = __atxlog_handle_blending_ecosystem();
+              v29 = __atxlog_handle_blending_ecosystem(v28);
               v30 = [v27 robustDecodeObjectOfClass:v28 forKey:@"context" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingResult" errorCode:-1 logHandle:v29];
 
               if (v30)

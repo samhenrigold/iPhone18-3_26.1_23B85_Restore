@@ -9,37 +9,37 @@
 
 - (void)addMoviesToAssets:(id)assets fromFeeder:(id)feeder maximumNumberOfAssets:(unint64_t)ofAssets debugInfo:(id)info
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   feederCopy = feeder;
   infoCopy = info;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v13 = [assetsCopy countByEnumeratingWithState:&v57 objects:v68 count:16];
+  v13 = [assetsCopy countByEnumeratingWithState:&v56 objects:v67 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = feederCopy;
     v16 = 0;
-    v17 = *v58;
+    v17 = *v57;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v58 != v17)
+        if (*v57 != v17)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        if ([*(*(&v57 + 1) + 8 * i) mediaType] == 2)
+        if ([*(*(&v56 + 1) + 8 * i) mediaType] == 2)
         {
           ++v16;
         }
       }
 
-      v14 = [assetsCopy countByEnumeratingWithState:&v57 objects:v68 count:16];
+      v14 = [assetsCopy countByEnumeratingWithState:&v56 objects:v67 count:16];
     }
 
     while (v14);
@@ -81,7 +81,7 @@
     {
       [infoCopy setAgent:@"PGManager"];
       [infoCopy setStage:@"Last Pass to Add Movies"];
-      v50 = mEMORY[0x277D267F0];
+      v49 = mEMORY[0x277D267F0];
       if ([v30 count] > v24)
       {
         v31 = [v30 subarrayWithRange:{0, v24}];
@@ -90,30 +90,30 @@
       }
 
       v32 = MEMORY[0x277CBEB98];
-      v51 = feederCopy;
+      v50 = feederCopy;
       allItems = [feederCopy allItems];
       v34 = [v32 setWithArray:allItems];
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v30 = v30;
-      v35 = [v30 countByEnumeratingWithState:&v53 objects:v67 count:16];
+      v35 = [v30 countByEnumeratingWithState:&v52 objects:v66 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v54;
+        v37 = *v53;
         do
         {
           for (j = 0; j != v36; ++j)
           {
-            if (*v54 != v37)
+            if (*v53 != v37)
             {
               objc_enumerationMutation(v30);
             }
 
-            v39 = [v34 member:*(*(&v53 + 1) + 8 * j)];
+            v39 = [v34 member:*(*(&v52 + 1) + 8 * j)];
             v40 = v39;
             if (v39)
             {
@@ -125,7 +125,7 @@
             }
           }
 
-          v36 = [v30 countByEnumeratingWithState:&v53 objects:v67 count:16];
+          v36 = [v30 countByEnumeratingWithState:&v52 objects:v66 count:16];
         }
 
         while (v36);
@@ -136,11 +136,11 @@
       {
         v43 = [v30 count];
         *buf = 134218496;
-        v62 = v21;
-        v63 = 2048;
-        v64 = v23;
-        v65 = 2048;
-        v66 = v43;
+        v61 = v21;
+        v62 = 2048;
+        v63 = v23;
+        v64 = 2048;
+        v65 = v43;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Curated Assets: %lu slots left, minimum number of videos to add %lu, got %lu extra movie assets from MediaAnalysis", buf, 0x20u);
       }
 
@@ -155,12 +155,10 @@
         [infoCopy setState:3 ofItems:v48 withReason:v47];
       }
 
-      mEMORY[0x277D267F0] = v50;
-      feederCopy = v51;
+      mEMORY[0x277D267F0] = v49;
+      feederCopy = v50;
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lastPassToCompleteItems:(id)items fromFeeder:(id)feeder options:(id)options maximumNumberOfItems:(unint64_t)ofItems debugInfo:(id)info

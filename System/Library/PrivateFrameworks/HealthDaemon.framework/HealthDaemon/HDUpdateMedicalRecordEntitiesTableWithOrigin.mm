@@ -27,7 +27,7 @@ uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke(uint64_t a
 
 uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x22AAC6C80](a2, 0);
   if (v3)
   {
@@ -40,20 +40,19 @@ uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_3(uint64_t
     v4 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_fault_impl(&dword_228986000, v4, OS_LOG_TYPE_FAULT, "UpdateMedicalRecordEntities: private source ROWID is nil for account %{public}@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_fault_impl(&dword_228986000, v4, OS_LOG_TYPE_FAULT, "UpdateMedicalRecordEntities: private source ROWID is nil for account %{public}@", &v7, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_978(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x22AAC6C80](a2, 0);
   v7 = MEMORY[0x22AAC6C90](a2, 1);
   v8 = MEMORY[0x22AAC6C80](a2, 2);
@@ -84,7 +83,7 @@ LABEL_10:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v30 = v7;
+        v29 = v7;
         _os_log_fault_impl(&dword_228986000, v19, OS_LOG_TYPE_FAULT, "UpdateMedicalRecordEntities: HKFHIRIdentifer malformed in migration attempt: %{public}@", buf, 0xCu);
       }
     }
@@ -96,7 +95,7 @@ LABEL_10:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v30 = v7;
+        v29 = v7;
         _os_log_fault_impl(&dword_228986000, v14, OS_LOG_TYPE_FAULT, "UpdateMedicalRecordEntities: HKFHIRIdentifer malformed in migration attempt: %{public}@", buf, 0xCu);
       }
     }
@@ -112,20 +111,20 @@ LABEL_11:
   if (v15)
   {
     v16 = [*(a1 + 40) protectedDatabase];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_982;
-    v25[3] = &unk_278613528;
-    v26 = v15;
-    v27 = v10;
-    v28 = v11;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_2_983;
-    v22[3] = &unk_2786140C0;
-    v23 = *(a1 + 40);
-    v24 = v6;
-    v17 = [v16 executeSQL:@"SELECT ROWID FROM original_fhir_resources WHERE                   account_id = ? AND type = ? AND id = ?" error:a3 bindingHandler:v25 enumerationHandler:v22];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_982;
+    v24[3] = &unk_278613528;
+    v25 = v15;
+    v26 = v10;
+    v27 = v11;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_2_983;
+    v21[3] = &unk_2786140C0;
+    v22 = *(a1 + 40);
+    v23 = v6;
+    v17 = [v16 executeSQL:@"SELECT ROWID FROM original_fhir_resources WHERE                   account_id = ? AND type = ? AND id = ?" error:a3 bindingHandler:v24 enumerationHandler:v21];
   }
 
   else
@@ -135,7 +134,7 @@ LABEL_11:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v30 = v8;
+      v29 = v8;
       _os_log_fault_impl(&dword_228986000, v18, OS_LOG_TYPE_FAULT, "UpdateMedicalRecordEntities: nil account ROWID associated with private source ROWID %{public}@", buf, 0xCu);
     }
 
@@ -143,17 +142,13 @@ LABEL_11:
   }
 
 LABEL_21:
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_982(void *a1)
+uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_982(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v3 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v4 = a1[6];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -174,11 +169,9 @@ uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_2_983(uint
   return v8;
 }
 
-uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_3_987(uint64_t a1)
+uint64_t ___HDUpdateMedicalRecordEntitiesTableWithOrigin_block_invoke_3_987(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

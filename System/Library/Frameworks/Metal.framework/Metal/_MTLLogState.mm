@@ -16,44 +16,44 @@
 
 - (_MTLLogState)initWithDevice:(id)device descriptor:(id)descriptor error:(id *)error
 {
-  v44[1] = *MEMORY[0x1E69E9840];
-  v32.receiver = self;
-  v32.super_class = _MTLLogState;
-  v8 = [(_MTLLogState *)&v32 init];
+  v43[1] = *MEMORY[0x1E69E9840];
+  v31.receiver = self;
+  v31.super_class = _MTLLogState;
+  v8 = [(_MTLLogState *)&v31 init];
   v9 = v8;
   if (!v8)
   {
-    goto LABEL_16;
+    return v9;
   }
 
-  v31 = 0;
+  v30 = 0;
   v8->defaultLoggerCache = 0;
   v8->droppedMessages = 0;
   if (!descriptor)
   {
     v14 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
-    v34 = @"MTLLogStateDescriptor is nil, MTLLogState is not created";
+    v32 = *MEMORY[0x1E696A578];
+    v33 = @"MTLLogStateDescriptor is nil, MTLLogState is not created";
     v15 = MEMORY[0x1E695DF20];
-    v16 = &v34;
-    v17 = &v33;
+    v16 = &v33;
+    v17 = &v32;
 LABEL_6:
     v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
     v19 = v14;
     v20 = 2;
 LABEL_11:
-    v31 = [v19 errorWithDomain:@"MTLLogStateErrorDomain" code:v20 userInfo:v18];
+    v30 = [v19 errorWithDomain:@"MTLLogStateErrorDomain" code:v20 userInfo:v18];
     goto LABEL_12;
   }
 
   if ([descriptor bufferSize] <= 1023)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A578];
-    v44[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"MTLLogState is not created: minimum size is %d bytes.", 1024];
+    v42 = *MEMORY[0x1E696A578];
+    v43[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"MTLLogState is not created: minimum size is %d bytes.", 1024];
     v11 = MEMORY[0x1E695DF20];
-    v12 = v44;
-    v13 = &v43;
+    v12 = v43;
+    v13 = &v42;
 LABEL_10:
     v18 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
     v19 = v10;
@@ -64,56 +64,56 @@ LABEL_10:
   if ([descriptor bufferSize] > 0x40000000 || objc_msgSend(descriptor, "bufferSize") == 0x7FFFFFFFFFFFFFFFLL)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A578];
+    v40 = *MEMORY[0x1E696A578];
     0x40000000 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MTLLogState is not created: Maximum size is %ld bytes.", 0x40000000];
     v11 = MEMORY[0x1E695DF20];
     v12 = &0x40000000;
-    v13 = &v41;
+    v13 = &v40;
     goto LABEL_10;
   }
 
   v9->_logBufferSize = [descriptor bufferSize];
   v9->_logLevel = [descriptor level];
   *&v9->_logHandlerLock._os_unfair_lock_opaque = 0;
-  v24 = [device newBufferWithLength:v9->_logBufferSize options:0];
-  v9->_logBuffer = v24;
-  if (!v24)
+  v23 = [device newBufferWithLength:v9->_logBufferSize options:0];
+  v9->_logBuffer = v23;
+  if (!v23)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A578];
-    v40 = @"Cannot create MTLLogState";
+    v38 = *MEMORY[0x1E696A578];
+    v39 = @"Cannot create MTLLogState";
     v11 = MEMORY[0x1E695DF20];
-    v12 = &v40;
-    v13 = &v39;
+    v12 = &v39;
+    v13 = &v38;
     goto LABEL_10;
   }
 
-  [(MTLBuffer *)v24 setLabel:@"MTLLogBuffer"];
+  [(MTLBuffer *)v23 setLabel:@"MTLLogBuffer"];
   contents = [(MTLBuffer *)v9->_logBuffer contents];
   logLevel = v9->_logLevel;
   *contents = v9->_logBufferSize;
   if ((logLevel - 1) > 4)
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v27 = dword_185DC4DB8[logLevel - 1];
+    v26 = dword_185DC4DB8[logLevel - 1];
   }
 
-  contents[1] = v27;
-  v28 = objc_opt_new();
-  [v28 setInitialCapacity:1];
-  [v28 setLabel:@"MTLLogBufferResidencySet"];
-  logBufferResidencySet = [device newResidencySetWithDescriptor:v28 error:&v31];
+  contents[1] = v26;
+  v27 = objc_opt_new();
+  [v27 setInitialCapacity:1];
+  [v27 setLabel:@"MTLLogBufferResidencySet"];
+  logBufferResidencySet = [device newResidencySetWithDescriptor:v27 error:&v30];
   v9->_logBufferResidencySet = logBufferResidencySet;
   if (!logBufferResidencySet)
   {
-    v30 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A578];
-    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create residency set for MTLLogState: %@", objc_msgSend(v31, "localizedDescription")];
-    v31 = [v30 errorWithDomain:@"MTLLogStateErrorDomain" code:2 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v38, &v37, 1)}];
+    v29 = MEMORY[0x1E696ABC0];
+    v36 = *MEMORY[0x1E696A578];
+    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create residency set for MTLLogState: %@", objc_msgSend(v30, "localizedDescription")];
+    v30 = [v29 errorWithDomain:@"MTLLogStateErrorDomain" code:2 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v37, &v36, 1)}];
     logBufferResidencySet = v9->_logBufferResidencySet;
   }
 
@@ -126,11 +126,11 @@ LABEL_10:
   if (![device internalLogBufferResidencySet])
   {
     v14 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
-    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create residency set for MTLLogState: %@", objc_msgSend(v31, "localizedDescription")];
+    v34 = *MEMORY[0x1E696A578];
+    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create residency set for MTLLogState: %@", objc_msgSend(v30, "localizedDescription")];
     v15 = MEMORY[0x1E695DF20];
-    v16 = &v36;
-    v17 = &v35;
+    v16 = &v35;
+    v17 = &v34;
     goto LABEL_6;
   }
 
@@ -141,18 +141,16 @@ LABEL_12:
   v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"com.apple.Metal", @"Shader Logging"];
   v9->metalLoggingKey = v21;
   [(_MTLLogState *)v9 populateDefaultLoggerCache:v21 subsystem:v9->metalSubsystem category:v9->shaderLoggingCategory];
-  if (v31)
+  if (v30)
   {
     if (error)
     {
-      *error = v31;
+      *error = v30;
     }
 
-    v9 = 0;
+    return 0;
   }
 
-LABEL_16:
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -320,7 +318,7 @@ LABEL_16:
 
 - (void)defaultOSLogger:(id)logger level:(int64_t)level message:(id)message
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (level >= 6)
   {
     v7 = OS_LOG_TYPE_DEFAULT;
@@ -333,17 +331,15 @@ LABEL_16:
 
   if (os_log_type_enabled(logger, v7))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     messageCopy = message;
-    _os_log_impl(&dword_185B8E000, logger, v7, "%@", &v9, 0xCu);
+    _os_log_impl(&dword_185B8E000, logger, v7, "%@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)defaultLogHandler:(id)handler category:(id)category level:(int64_t)level message:(id)message
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (handler && category)
   {
     category = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", handler, category];
@@ -392,18 +388,15 @@ LABEL_13:
       goto LABEL_13;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)decodeLog
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = a2 - *self;
-  v5[0] = 67109120;
-  v5[1] = v3;
-  _os_log_error_impl(&dword_185B8E000, log, OS_LOG_TYPE_ERROR, "Dropped %d messages due to insufficient log buffer size", v5, 8u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109120;
+  v4[1] = v3;
+  _os_log_error_impl(&dword_185B8E000, log, OS_LOG_TYPE_ERROR, "Dropped %d messages due to insufficient log buffer size", v4, 8u);
 }
 
 - (void)dealloc

@@ -806,7 +806,7 @@ LABEL_5:
   currentComplicationView = self->_currentComplicationView;
   if (currentComplicationView)
   {
-    [(CDComplicationDisplay *)currentComplicationView transform];
+    objc_msgSend_transform(currentComplicationView);
     currentComplicationView = self->_currentComplicationView;
   }
 
@@ -825,7 +825,7 @@ LABEL_5:
   nextComplicationView = self->_nextComplicationView;
   if (nextComplicationView)
   {
-    [(CDComplicationDisplay *)nextComplicationView transform];
+    objc_msgSend_transform(nextComplicationView);
     v26 = v23;
     v27 = v24;
     v28 = v25;

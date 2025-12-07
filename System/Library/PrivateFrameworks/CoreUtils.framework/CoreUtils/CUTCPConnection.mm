@@ -184,7 +184,7 @@ LABEL_11:
         v16 = NSPrintF("%##a", v5, netLinkEndpoint, v7, v8, v9, v10, v11, &self->_peerAddr);
         v24 = NSPrintF("%##a", v17, v18, v19, v20, v21, v22, v23, &self->_selfAddr);
         v47 = NSPrintF("%{error}", v25, v26, v27, v28, v29, v30, v31, errorCopy);
-        LogPrintF(ucat, "[CUTCPConnection _abortWritesWithError:]", 0x1Eu, "Abort writes: peer=%@, self=%@, error=%@", v32, v33, v34, v35, v16);
+        LogPrintF(ucat, "[CUTCPConnection _abortWritesWithError:]", 30, "Abort writes: peer=%@, self=%@, error=%@", v32, v33, v34, v35, v16);
 
         goto LABEL_13;
       }
@@ -500,7 +500,7 @@ LABEL_14:
       if (_LogCategory_Initialize(v23, self->_rawIOLogLevel))
       {
         v23 = self->_ucat;
-        LODWORD(v22) = self->_rawIOLogLevel;
+        v22 = self->_rawIOLogLevel;
 LABEL_22:
         LogPrintF(v23, "[CUTCPConnection _processWrites:]", v22, "Write socket %d, pre-ion %d, post-ion %d, %#m\n", v17, v18, v19, v20, self->_socketFD);
       }
@@ -697,7 +697,7 @@ void __36__CUTCPConnection_writeWithRequest___block_invoke(uint64_t a1, uint64_t
 
   else
   {
-    [*(v9 + 72) addObject:*(a1 + 40)];
+    [*(v9 + 72) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[76] & 0x80000000) == 0)
     {
@@ -788,7 +788,7 @@ LABEL_11:
         v16 = NSPrintF("%##a", v5, netLinkEndpoint, v7, v8, v9, v10, v11, &self->_peerAddr);
         v24 = NSPrintF("%##a", v17, v18, v19, v20, v21, v22, v23, &self->_selfAddr);
         v47 = NSPrintF("%{error}", v25, v26, v27, v28, v29, v30, v31, errorCopy);
-        LogPrintF(ucat, "[CUTCPConnection _abortReadsWithError:]", 0x1Eu, "Abort reads: peer=%@, self=%@, error=%@", v32, v33, v34, v35, v16);
+        LogPrintF(ucat, "[CUTCPConnection _abortReadsWithError:]", 30, "Abort reads: peer=%@, self=%@, error=%@", v32, v33, v34, v35, v16);
 
         goto LABEL_13;
       }
@@ -1107,7 +1107,7 @@ void __35__CUTCPConnection_readWithRequest___block_invoke(uint64_t a1, uint64_t 
 
   else
   {
-    [*(v9 + 40) addObject:*(a1 + 40)];
+    [*(v9 + 40) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[76] & 0x80000000) == 0)
     {
@@ -1142,7 +1142,7 @@ void __35__CUTCPConnection_readWithRequest___block_invoke(uint64_t a1, uint64_t 
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUTCPConnection _updateTrafficRegistration]", 0x1Eu, "Update traffic: %##a, %#{flags}\n", v4, v5, v6, v7, &self->_peerAddr);
+    LogPrintF(ucat, "[CUTCPConnection _updateTrafficRegistration]", 30, "Update traffic: %##a, %#{flags}\n", v4, v5, v6, v7, &self->_peerAddr);
   }
 
 LABEL_8:
@@ -1253,10 +1253,10 @@ LABEL_8:
     }
 
     v25 = NSPrintF("%##@", v17, v18, v19, v20, v21, v22, v23, v16);
-    LogPrintF(ucat, "[CUTCPConnection _logMetrics]", 0x1Eu, "Metrics: %@", v26, v27, v28, v29, v25);
+    LogPrintF(ucat, "[CUTCPConnection _logMetrics]", 30, "Metrics: %@", v26, v27, v28, v29, v25);
 
 LABEL_19:
-    (softLinkAnalyticsSendEvent_8682[0])(@"com.apple.cutcp", v16);
+    softLinkAnalyticsSendEvent_8682(@"com.apple.cutcp", v16);
   }
 }
 
@@ -1277,7 +1277,7 @@ LABEL_19:
     {
 LABEL_4:
       v19 = NSPrintF("%#{flags}", v4, v5, v6, v7, v8, v9, v10, v12);
-      LogPrintF_safe(ucat, "[CUTCPConnection _processSocketEvents]", 0x1Eu, "Socket events: raw 0x%llX, flags %@", v14, v15, v16, v17, data);
+      LogPrintF_safe(ucat, "[CUTCPConnection _processSocketEvents]", 30, "Socket events: raw 0x%llX, flags %@", v14, v15, v16, v17, data);
 
       goto LABEL_6;
     }
@@ -1329,7 +1329,7 @@ void __39__CUTCPConnection__netLinkStateChanged__block_invoke(uint64_t a1)
     if (*v11 != -1)
     {
 LABEL_4:
-      LogPrintF(v11, "[CUTCPConnection _netLinkStateChanged]_block_invoke", 0x14u, "NetLink state changed: %##a, %s\n", v5, v6, v7, v8, v10 + 424);
+      LogPrintF(v11, "[CUTCPConnection _netLinkStateChanged]_block_invoke", 20, "NetLink state changed: %##a, %s\n", v5, v6, v7, v8, v10 + 424);
       goto LABEL_7;
     }
 
@@ -1536,7 +1536,7 @@ LABEL_36:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUTCPConnection _setupIOAndReturnError:]", 0x3Cu, "### Set TCP_KEEPALIVE_OFFLOAD failed: %#m\n", v21, v22, v23, v24, v25);
+    LogPrintF(ucat, "[CUTCPConnection _setupIOAndReturnError:]", 60, "### Set TCP_KEEPALIVE_OFFLOAD failed: %#m\n", v21, v22, v23, v24, v25);
     goto LABEL_40;
   }
 
@@ -1618,7 +1618,7 @@ LABEL_46:
   {
     v29 = self->_ucat;
 LABEL_53:
-    LogPrintF(v29, "[CUTCPConnection _setupIOAndReturnError:]", 0x1Eu, "Connected to %##a from %##a, %s\n", v8, v9, v10, v11, &self->_peerAddr);
+    LogPrintF(v29, "[CUTCPConnection _setupIOAndReturnError:]", 30, "Connected to %##a from %##a, %s\n", v8, v9, v10, v11, &self->_peerAddr);
   }
 
 LABEL_63:
@@ -1787,7 +1787,7 @@ uint64_t __42__CUTCPConnection__setupIOAndReturnError___block_invoke_7(uint64_t 
   {
     ucat = self->_ucat;
 LABEL_3:
-    LogPrintF(ucat, "[CUTCPConnection _startConnectingToDestination:error:]", 0x1Eu, "Connecting to '%@'\n", v6, v7, v8, v9, destinationCopy);
+    LogPrintF(ucat, "[CUTCPConnection _startConnectingToDestination:error:]", 30, "Connecting to '%@'\n", v6, v7, v8, v9, destinationCopy);
   }
 
 LABEL_5:
@@ -1864,7 +1864,7 @@ LABEL_5:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUTCPConnection _startConnectingToBonjourDevice:error:]", 0x1Eu, "Connecting to '%@'\n", v6, v7, v8, v9, deviceCopy);
+      LogPrintF(ucat, "[CUTCPConnection _startConnectingToBonjourDevice:error:]", 30, "Connecting to '%@'\n", v6, v7, v8, v9, deviceCopy);
       goto LABEL_5;
     }
 
@@ -2003,7 +2003,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUTCPConnection _invalidated]", 0x1Eu, "Invalidated\n", v12, v13, v14, v15, v18);
+      LogPrintF(ucat, "[CUTCPConnection _invalidated]", 30, "Invalidated\n", v12, v13, v14, v15, v18);
     }
   }
 }
@@ -2024,7 +2024,7 @@ LABEL_5:
 LABEL_4:
       v11 = NSPrintF("%##a", a2, v2, v3, v4, v5, v6, v7, &self->_peerAddr);
       v38 = NSPrintF("%##a", v12, v13, v14, v15, v16, v17, v18, &self->_selfAddr);
-      LogPrintF(ucat, "[CUTCPConnection _invalidate]", 0x1Eu, "Invalidating: peer=%@, self=%@", v19, v20, v21, v22, v11);
+      LogPrintF(ucat, "[CUTCPConnection _invalidate]", 30, "Invalidating: peer=%@, self=%@", v19, v20, v21, v22, v11);
 
       goto LABEL_6;
     }
@@ -2159,7 +2159,7 @@ LABEL_18:
       socketFD = self->_socketFD;
     }
 
-    LogPrintF(ucat, "[CUTCPConnection _activateDirectAndReturnError:]", 0x1Eu, "Activate with socket %d\n", v6, v7, v8, v9, socketFD);
+    LogPrintF(ucat, "[CUTCPConnection _activateDirectAndReturnError:]", 30, "Activate with socket %d\n", v6, v7, v8, v9, socketFD);
     goto LABEL_15;
   }
 
@@ -2244,7 +2244,7 @@ LABEL_26:
   {
     v32 = self->_ucat;
 LABEL_28:
-    LogPrintF(v32, "[CUTCPConnection _activateDirectAndReturnError:]", 0x3Cu, "### Activate direct failed: %{error}\n", v18, v19, v20, v21, v16);
+    LogPrintF(v32, "[CUTCPConnection _activateDirectAndReturnError:]", 60, "### Activate direct failed: %{error}\n", v18, v19, v20, v21, v16);
   }
 
 LABEL_30:

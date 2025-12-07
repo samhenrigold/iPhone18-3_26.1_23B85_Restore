@@ -1,73 +1,3 @@
-os_log_t __printStoredChunk_block_invoke()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_2()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_109()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_2_116()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_120()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_2_127()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_131()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_2_138()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_142()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
-os_log_t __printStoredChunk_block_invoke_2_149()
-{
-  result = os_log_create("com.apple.chunkinglibrary", "default");
-  CK_DEFAULT_LOG_INTERNAL_8 = result;
-  return result;
-}
-
 os_log_t __printStoredChunk_block_invoke_153()
 {
   result = os_log_create("com.apple.chunkinglibrary", "default");
@@ -138,9 +68,9 @@ os_log_t __printStoredChunk_block_invoke_2_204()
   return result;
 }
 
-void printSourceChunk(unsigned int *a1)
+void printSourceChunk(char *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   printSignature(a1 + 84);
   if (*(a1 + 1))
   {
@@ -164,7 +94,7 @@ void printSourceChunk(unsigned int *a1)
       }
 
       *buf = 138543362;
-      v11 = v2;
+      v10 = v2;
 LABEL_16:
       _os_log_impl(&dword_243431000, v3, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
 LABEL_17:
@@ -189,7 +119,7 @@ LABEL_17:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
-      v2 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"fd:%d, slot_sz:%u\n", *a1, a1[1]);
+      v2 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"fd:%d, slot_sz:%u\n", *a1, *(a1 + 1));
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
         printSourceChunk_cold_4();
@@ -202,14 +132,14 @@ LABEL_17:
       }
 
       *buf = 138543362;
-      v11 = v2;
+      v10 = v2;
       goto LABEL_16;
     }
   }
 
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
   {
-    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"offset:0x%llx, size:0x%x(%u), sequence:%llu, stored:%u, retain:%u\n", *(a1 + 9), a1[20], a1[20], *(a1 + 2), *(a1 + 24), *(a1 + 25));
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"offset:0x%llx, size:0x%x(%u), sequence:%llu, stored:%u, retain:%u\n", *(a1 + 9), *(a1 + 20), *(a1 + 20), *(a1 + 2), a1[24], a1[25]);
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       printSourceChunk_cold_6();
@@ -219,7 +149,7 @@ LABEL_17:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_243431000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -232,7 +162,7 @@ LABEL_17:
   v6 = *(a1 + 1);
   if (v6)
   {
-    v7 = a1[20];
+    v7 = *(a1 + 20);
     if (v7 >= 0x14)
     {
       v8 = 20;
@@ -245,8 +175,6 @@ LABEL_17:
 
     printNbytes(v6, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 os_log_t __printSourceChunk_block_invoke()
@@ -293,7 +221,7 @@ os_log_t __printSourceChunk_block_invoke_2_235()
 
 void printRegisteredChunk(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (CK_DEFAULT_LOG_BLOCK_8 != -1)
   {
     printRegisteredChunk_cold_1();
@@ -311,7 +239,7 @@ void printRegisteredChunk(uint64_t a1)
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v6 = v2;
+      v5 = v2;
       _os_log_impl(&dword_243431000, v3, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -322,7 +250,6 @@ void printRegisteredChunk(uint64_t a1)
   }
 
   printSignature((a1 + 35));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 os_log_t __printRegisteredChunk_block_invoke()
@@ -364,7 +291,7 @@ uint64_t CKRegisteredChunkSize(uint64_t result)
   {
     v1 = result;
     v2 = (result + 35);
-    v3 = CKSignatureAndKeySize(result + 35);
+    v3 = CKSignatureAndKeySize((result + 35));
     if (v3)
     {
       v4 = v3 + 36;
@@ -402,7 +329,7 @@ uint64_t CKRegisteredChunkSize(uint64_t result)
 
 CFNumberRef ck_copy_cfnumber_from_cftype_using_description(uint64_t a1, const __CFString *a2, CFTypeRef cf)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     goto LABEL_31;
@@ -412,16 +339,14 @@ CFNumberRef ck_copy_cfnumber_from_cftype_using_description(uint64_t a1, const __
   if (TypeID == CFGetTypeID(a2))
   {
     CFRetain(a2);
-    NumberFromString = a2;
-    goto LABEL_34;
+    return a2;
   }
 
   v8 = CFBooleanGetTypeID();
   if (v8 == CFGetTypeID(a2))
   {
     *valuePtr = CFBooleanGetValue(a2);
-    NumberFromString = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberCFIndexType, valuePtr);
-    goto LABEL_34;
+    return CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberCFIndexType, valuePtr);
   }
 
   v9 = CFStringGetTypeID();
@@ -465,18 +390,13 @@ CFNumberRef ck_copy_cfnumber_from_cftype_using_description(uint64_t a1, const __
 LABEL_30:
     CFRelease(v16);
 LABEL_31:
-    if (cf)
+    if (!cf)
     {
-      CFRetain(cf);
-      NumberFromString = cf;
+      return 0;
     }
 
-    else
-    {
-      NumberFromString = 0;
-    }
-
-    goto LABEL_34;
+    CFRetain(cf);
+    return cf;
   }
 
   v10 = CFLocaleCreate(0, @"en_US");
@@ -515,8 +435,6 @@ LABEL_31:
     goto LABEL_30;
   }
 
-LABEL_34:
-  v21 = *MEMORY[0x277D85DE8];
   return NumberFromString;
 }
 
@@ -662,7 +580,7 @@ BOOL CKDecryptData(uint64_t a1, uint64_t a2, const void *a3)
 
 uint64_t getFileSignatureCacheBlob(void *a1, const __CFData **a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   theData = 0;
   v3 = a1[13];
@@ -672,7 +590,7 @@ uint64_t getFileSignatureCacheBlob(void *a1, const __CFData **a2)
   {
     if (!theData)
     {
-      goto LABEL_18;
+      return CacheBlob;
     }
 
     goto LABEL_17;
@@ -705,7 +623,7 @@ uint64_t getFileSignatureCacheBlob(void *a1, const __CFData **a2)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v14 = v8;
+        v13 = v8;
         _os_log_impl(&dword_243431000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -723,14 +641,12 @@ LABEL_17:
     }
   }
 
-LABEL_18:
-  v10 = *MEMORY[0x277D85DE8];
   return CacheBlob;
 }
 
 uint64_t getCacheBlob(void *a1, uint64_t a2, CFDataRef *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   theData = 0;
   v3 = *(a1[2] + 80);
@@ -745,17 +661,17 @@ uint64_t getCacheBlob(void *a1, uint64_t a2, CFDataRef *a3)
   if ((Length - 0x100000000) > 0xFFFFFFFF00000014)
   {
     *md = 0;
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
     memset(&c, 0, sizeof(c));
     CC_SHA1_Init(&c);
     CC_SHA1_Update(&c, BytePtr + 20, Length - 20);
     CC_SHA1_Final(md, &c);
-    if (*md == *BytePtr && v19 == *(BytePtr + 1) && v20 == *(BytePtr + 4))
+    if (*md == *BytePtr && v18 == *(BytePtr + 1) && v19 == *(BytePtr + 4))
     {
       v11 = 0;
       *a3 = theData;
-      goto LABEL_32;
+      return v11;
     }
 
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -781,7 +697,7 @@ uint64_t getCacheBlob(void *a1, uint64_t a2, CFDataRef *a3)
     }
 
     *buf = 138543362;
-    v22 = v9;
+    v21 = v9;
     goto LABEL_26;
   }
 
@@ -805,7 +721,7 @@ uint64_t getCacheBlob(void *a1, uint64_t a2, CFDataRef *a3)
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v22 = v9;
+    v21 = v9;
 LABEL_26:
     _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
@@ -824,8 +740,6 @@ LABEL_30:
     CFRelease(theData);
   }
 
-LABEL_32:
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -845,7 +759,7 @@ os_log_t __getFileSignatureCacheBlob_block_invoke_2()
 
 uint64_t get2FileSignatureCache(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   cf = 0;
   theData = 0;
   v6 = *(a1 + 104);
@@ -862,15 +776,15 @@ LABEL_5:
   }
 
   FileSignatureCacheBlob = getFileSignatureCacheBlob(a1, &theData);
-  v16 = theData;
+  v15 = theData;
   if (FileSignatureCacheBlob)
   {
     goto LABEL_39;
   }
 
   BytePtr = CFDataGetBytePtr(theData);
-  Length = CFDataGetLength(v16);
-  if (v7 != *(BytePtr + 21) || v10 != *(BytePtr + 25) || v8 != *(BytePtr + 33) || v9 != *(BytePtr + 41) || (v25 = BytePtr[49], v24 = Length, v25 != CKFileDigestArgumentsFileSchemeByte(a2)))
+  Length = CFDataGetLength(v15);
+  if (v7 != *(BytePtr + 21) || v10 != *(BytePtr + 25) || v8 != *(BytePtr + 33) || v9 != *(BytePtr + 41) || (v24 = BytePtr[49], v23 = Length, v24 != CKFileDigestArgumentsFileSchemeByte(a2)))
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
@@ -882,24 +796,24 @@ LABEL_5:
       goto LABEL_39;
     }
 
-    v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, ino:%llu, sz:%llu, type:%u, scheme:0x%x, generation:%u\n", v6, v8, v9, BytePtr[20], BytePtr[49], v7);
+    v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, ino:%llu, sz:%llu, type:%u, scheme:0x%x, generation:%u\n", v6, v8, v9, BytePtr[20], BytePtr[49], v7);
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       get2FileSignatureCache_cold_2();
     }
 
-    v23 = CK_DEFAULT_LOG_INTERNAL_8;
+    v22 = CK_DEFAULT_LOG_INTERNAL_8;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_37;
     }
 
     *buf = 138543362;
-    v29 = v22;
+    v28 = v21;
     goto LABEL_36;
   }
 
-  if (CKFileSchemeAndSignatureSize(BytePtr + 49) != 21 || v24 != 70)
+  if (CKFileSchemeAndSignatureSize(BytePtr + 49) != 21 || v23 != 70)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
@@ -911,27 +825,27 @@ LABEL_5:
       goto LABEL_39;
     }
 
-    v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, ino:%llu, sz:%llu, type:%u, scheme:0x%x, generation:%u\n", v6, v8, v9, BytePtr[20], BytePtr[49], v7);
+    v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, ino:%llu, sz:%llu, type:%u, scheme:0x%x, generation:%u\n", v6, v8, v9, BytePtr[20], BytePtr[49], v7);
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       get2FileSignatureCache_cold_4();
     }
 
-    v23 = CK_DEFAULT_LOG_INTERNAL_8;
+    v22 = CK_DEFAULT_LOG_INTERNAL_8;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
 LABEL_37:
-      if (!v22)
+      if (!v21)
       {
         goto LABEL_40;
       }
 
-      CFRelease(v22);
+      CFRelease(v21);
 LABEL_39:
-      LODWORD(v22) = 0;
+      LODWORD(v21) = 0;
 LABEL_40:
       v11 = 0xFFFFFFFFLL;
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_54;
       }
@@ -940,9 +854,9 @@ LABEL_40:
     }
 
     *buf = 138543362;
-    v29 = v22;
+    v28 = v21;
 LABEL_36:
-    _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_243431000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     goto LABEL_37;
   }
 
@@ -954,23 +868,23 @@ LABEL_36:
 
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
   {
-    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Found cached file signature for %s, blobSize:%u, sz:%llu, ino:%llu, time:%llu, generation:%u\n", v6, v24, *(a1 + 80), v8, *(BytePtr + 25), *(BytePtr + 21));
+    v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Found cached file signature for %s, blobSize:%u, sz:%llu, ino:%llu, time:%llu, generation:%u\n", v6, v23, *(a1 + 80), v8, *(BytePtr + 25), *(BytePtr + 21));
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       get2FileSignatureCache_cold_6();
     }
 
-    v20 = CK_DEFAULT_LOG_INTERNAL_8;
+    v19 = CK_DEFAULT_LOG_INTERNAL_8;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v29 = v19;
-      _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v28 = v18;
+      _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v19)
+    if (v18)
     {
-      CFRelease(v19);
+      CFRelease(v18);
     }
   }
 
@@ -979,16 +893,16 @@ LABEL_36:
     if (cf)
     {
       CFRetain(cf);
-      v21 = cf;
+      v20 = cf;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
     v11 = 0;
-    *a3 = v21;
+    *a3 = v20;
   }
 
   else
@@ -996,12 +910,12 @@ LABEL_36:
     v11 = 0;
   }
 
-  LODWORD(v22) = 1;
-  if (!v16)
+  LODWORD(v21) = 1;
+  if (!v15)
   {
 LABEL_54:
     v12 = cf;
-    if (v22)
+    if (v21)
     {
       goto LABEL_55;
     }
@@ -1010,9 +924,9 @@ LABEL_54:
   }
 
 LABEL_41:
-  CFRelease(v16);
+  CFRelease(v15);
   v12 = cf;
-  if (v22)
+  if (v21)
   {
 LABEL_55:
     if (!CKFileDigestResultsFileSignature(v12))
@@ -1029,7 +943,6 @@ LABEL_6:
     CFRelease(v12);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1145,7 +1058,7 @@ uint64_t setCacheBlob(uint64_t a1, uint64_t a2, CFDataRef theData)
 
 uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!a2 || a3 != 21)
   {
     setFileSignatureCache_cold_9();
@@ -1153,7 +1066,7 @@ uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
 
   if (*(a1 + 178))
   {
-    goto LABEL_6;
+    return 0xFFFFFFFFLL;
   }
 
   v5 = *(a1 + 8);
@@ -1165,29 +1078,29 @@ uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
   v10 = *(a1 + 88);
   if (getenv("CS_DISABLE_FS_CACHE") || (*a2 & 0x7F) == 4)
   {
-    goto LABEL_6;
+    return 0xFFFFFFFFLL;
   }
 
-  v29 = 0;
+  v28 = 0;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  if ((*(v6 + 64))(v5, &v27, 0))
+  if ((*(v6 + 64))(v5, &v26, 0))
   {
-    if (v27 > 0x8000)
+    if (v26 > 0x8000)
     {
-      if (BYTE8(v28) != 1)
+      if (BYTE8(v27) != 1)
       {
-        goto LABEL_6;
+        return 0xFFFFFFFFLL;
       }
 
-      if (v11 == v27 && v10 == v28 && v8 == HIDWORD(v28))
+      if (v11 == v26 && v10 == v27 && v8 == HIDWORD(v27))
       {
         Mutable = CFDataCreateMutable(0, 70);
         if (Mutable)
         {
-          v16 = Mutable;
+          v15 = Mutable;
           CFDataSetLength(Mutable, 70);
-          MutableBytePtr = CFDataGetMutableBytePtr(v16);
+          MutableBytePtr = CFDataGetMutableBytePtr(v15);
           *(MutableBytePtr + 1) = 0u;
           *(MutableBytePtr + 2) = 0u;
           *(MutableBytePtr + 24) = 0;
@@ -1196,10 +1109,10 @@ uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
           *(MutableBytePtr + 25) = v10;
           *(MutableBytePtr + 33) = v9;
           *(MutableBytePtr + 41) = v11;
-          v23 = *a2;
+          v22 = *a2;
           *(MutableBytePtr + 62) = *(a2 + 13);
-          *(MutableBytePtr + 49) = v23;
-          if (setFileSignatureCacheBlob(a1, v16))
+          *(MutableBytePtr + 49) = v22;
+          if (setFileSignatureCacheBlob(a1, v15))
           {
             v12 = 0xFFFFFFFFLL;
           }
@@ -1219,12 +1132,12 @@ uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
                 setFileSignatureCache_cold_6();
               }
 
-              v26 = CK_DEFAULT_LOG_INTERNAL_8;
+              v25 = CK_DEFAULT_LOG_INTERNAL_8;
               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v31 = v12;
-                _os_log_impl(&dword_243431000, v26, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v30 = v12;
+                _os_log_impl(&dword_243431000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
               if (!v12)
@@ -1239,11 +1152,11 @@ uint64_t setFileSignatureCache(uint64_t a1, __int128 *a2, uint64_t a3)
           }
 
 LABEL_29:
-          CFRelease(v16);
-          goto LABEL_7;
+          CFRelease(v15);
+          return v12;
         }
 
-        goto LABEL_6;
+        return 0xFFFFFFFFLL;
       }
 
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -1253,29 +1166,29 @@ LABEL_29:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
       {
-        v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%schanged, ino:%llu, mtime:%llu/%llu, sz:%llu/%llu, generation:%u/%u\n", v7, v9, v10, v28, v11, v27, v8, HIDWORD(v28));
+        v23 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%schanged, ino:%llu, mtime:%llu/%llu, sz:%llu/%llu, generation:%u/%u\n", v7, v9, v10, v27, v11, v26, v8, HIDWORD(v27));
         if (CK_DEFAULT_LOG_BLOCK_8 != -1)
         {
           setFileSignatureCache_cold_4();
         }
 
-        v25 = CK_DEFAULT_LOG_INTERNAL_8;
+        v24 = CK_DEFAULT_LOG_INTERNAL_8;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v31 = v24;
-          _os_log_impl(&dword_243431000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v30 = v23;
+          _os_log_impl(&dword_243431000, v24, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v24)
+        if (v23)
         {
-          CFRelease(v24);
+          CFRelease(v23);
         }
       }
     }
 
-    v15 = *(*(a1 + 16) + 88);
-    if (v15 && (*(a1 + 176) & 1) == 0 && v15(*(a1 + 8), "com.apple.cscachefs", 0, 0))
+    v14 = *(*(a1 + 16) + 88);
+    if (v14 && (*(a1 + 176) & 1) == 0 && v14(*(a1 + 8), "com.apple.cscachefs", 0, 0))
     {
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
@@ -1284,21 +1197,21 @@ LABEL_29:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
       {
-        v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Removed file signature cache for %s, blobSize:%u, sz:%llu, ino:%llu, mtime:%llu, generation:%u\n", v7, 70, *(a1 + 80), v9, v10, v8);
+        v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Removed file signature cache for %s, blobSize:%u, sz:%llu, ino:%llu, mtime:%llu, generation:%u\n", v7, 70, *(a1 + 80), v9, v10, v8);
         if (CK_DEFAULT_LOG_BLOCK_8 != -1)
         {
           setFileSignatureCache_cold_8();
         }
 
-        v17 = CK_DEFAULT_LOG_INTERNAL_8;
+        v16 = CK_DEFAULT_LOG_INTERNAL_8;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v31 = v16;
-          v18 = v17;
-          v19 = OS_LOG_TYPE_DEBUG;
+          v30 = v15;
+          v17 = v16;
+          v18 = OS_LOG_TYPE_DEBUG;
 LABEL_27:
-          _os_log_impl(&dword_243431000, v18, v19, "%{public}@", buf, 0xCu);
+          _os_log_impl(&dword_243431000, v17, v18, "%{public}@", buf, 0xCu);
           goto LABEL_28;
         }
 
@@ -1316,38 +1229,34 @@ LABEL_27:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"stat failed for %s, ino:%llu\n", v7, v9);
+      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"stat failed for %s, ino:%llu\n", v7, v9);
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
         setFileSignatureCache_cold_2();
       }
 
-      v20 = CK_DEFAULT_LOG_INTERNAL_8;
+      v19 = CK_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v31 = v16;
-        v18 = v20;
-        v19 = OS_LOG_TYPE_ERROR;
+        v30 = v15;
+        v17 = v19;
+        v18 = OS_LOG_TYPE_ERROR;
         goto LABEL_27;
       }
 
 LABEL_28:
       v12 = 0xFFFFFFFFLL;
-      if (!v16)
+      if (!v15)
       {
-        goto LABEL_7;
+        return v12;
       }
 
       goto LABEL_29;
     }
   }
 
-LABEL_6:
-  v12 = 0xFFFFFFFFLL;
-LABEL_7:
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0xFFFFFFFFLL;
 }
 
 os_log_t __setFileSignatureCache_block_invoke()
@@ -1408,25 +1317,22 @@ os_log_t __setFileSignatureCache_block_invoke_2_352()
 
 BOOL wgcChanged(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
   v4 = *(a1 + 104);
   v5 = *(a1 + 40);
-  v12 = 0;
+  v11 = 0;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  if ((*(v3 + 64))(v2, &v10, 0))
+  if ((*(v3 + 64))(v2, &v9, 0))
   {
-    if (BYTE8(v11) == 1)
+    if (BYTE8(v10) == 1)
     {
-      result = HIDWORD(v11) != *(a1 + 24);
-      goto LABEL_14;
+      return HIDWORD(v10) != *(a1 + 24);
     }
 
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -1447,7 +1353,7 @@ LABEL_13:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_243431000, v8, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -1456,11 +1362,9 @@ LABEL_13:
       CFRelease(v7);
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
-LABEL_14:
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1480,18 +1384,18 @@ os_log_t __wgcChanged_block_invoke_2()
 
 uint64_t CK2CalculateItemSignatureWithFlags(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, void *a5, CFErrorRef *a6)
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v65 = 0;
-  v66 = 0;
-  v63 = 0;
+  v68 = *MEMORY[0x277D85DE8];
   v64 = 0;
+  v65 = 0;
+  v62 = 0;
+  v63 = 0;
   if (a6)
   {
     *a6 = 0;
   }
 
-  v11 = &old_ringing[83];
-  v12 = &old_ringing[83];
+  v11 = &unk_280C64000;
+  v12 = &unk_280C64000;
   if (!a1)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -1511,7 +1415,7 @@ uint64_t CK2CalculateItemSignatureWithFlags(uint64_t a1, const void *a2, uint64_
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = OpCtx;
+        v67 = OpCtx;
         _os_log_impl(&dword_243431000, v30, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -1529,26 +1433,26 @@ LABEL_59:
     OpCtx = 0;
 LABEL_60:
     v21 = 0;
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     v22 = 0;
     v29 = 0;
     v23 = 0;
     goto LABEL_61;
   }
 
-  v57 = *(a1 + 24);
-  if (((*(a1 + 48))(*(a1 + 8), &v66, &v64) & 1) == 0)
+  v56 = *(a1 + 24);
+  if (((*(a1 + 48))(*(a1 + 8), &v65, &v63) & 1) == 0)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       CK2CalculateItemSignatureWithFlags_cold_1();
     }
 
-    v31 = v57;
+    v31 = v56;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      OpCtx = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"open failed on path:%@, error:%@\n", v57, v64);
+      OpCtx = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"open failed on path:%@, error:%@\n", v56, v63);
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
         CK2CalculateItemSignatureWithFlags_cold_2();
@@ -1558,7 +1462,7 @@ LABEL_60:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = OpCtx;
+        v67 = OpCtx;
         _os_log_impl(&dword_243431000, v32, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -1576,7 +1480,7 @@ LABEL_60:
   v13 = *(a1 + 48);
   v14 = v13 == openFd || v13 == openFdUncached;
   v15 = !v14;
-  v56 = v15;
+  v55 = v15;
   if (!v14)
   {
     OpCtx = createOpCtx();
@@ -1587,26 +1491,26 @@ LABEL_60:
 
 LABEL_90:
     v21 = 0;
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     goto LABEL_91;
   }
 
-  OpCtx = v66;
-  if (!v66)
+  OpCtx = v65;
+  if (!v65)
   {
     goto LABEL_90;
   }
 
 LABEL_13:
-  v17 = v66;
+  v17 = v65;
   LOBYTE(OpCtx[5].isa) = 5;
   OpCtx->info = v17;
   OpCtx->data = a1;
   info = OpCtx[1].info;
-  v61 = 0u;
-  memset(v62, 0, 24);
-  v58 = info;
+  v60 = 0u;
+  memset(v61, 0, 24);
+  v57 = info;
   if (((*(a1 + 64))() & 1) == 0)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -1614,22 +1518,22 @@ LABEL_13:
       CK2CalculateItemSignatureWithFlags_cold_3();
     }
 
-    v23 = v56;
-    v31 = v57;
+    v23 = v55;
+    v31 = v56;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"stat failed on path:%@, ino:%llu, error:%@\n", v57, info, v64);
+      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"stat failed on path:%@, ino:%llu, error:%@\n", v56, info, v63);
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
         CK2CalculateItemSignatureWithFlags_cold_4();
       }
 
-      v37 = CK_DEFAULT_LOG_INTERNAL_8;
+      v36 = CK_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = v21;
-        _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v67 = v21;
+        _os_log_impl(&dword_243431000, v36, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       if (!v21)
@@ -1643,41 +1547,41 @@ LABEL_13:
     v21 = 0;
 LABEL_102:
     v22 = 0;
-    v59 = 0;
+    v58 = 0;
 LABEL_103:
     v29 = 1;
     goto LABEL_61;
   }
 
-  v19 = v61;
-  OpCtx[1].info = *(&v61 + 1);
-  v20 = *&v62[0];
-  v59 = v19;
+  v19 = v60;
+  OpCtx[1].info = *(&v60 + 1);
+  v20 = *&v61[0];
+  v58 = v19;
   OpCtx[2].data = v19;
   OpCtx[2].length = v20;
-  BYTE2(OpCtx[1].isa) = BYTE8(v62[0]);
-  OpCtx->length = *(v62 + 12);
-  v55 = a4;
+  BYTE2(OpCtx[1].isa) = BYTE8(v61[0]);
+  OpCtx->length = *(v61 + 12);
+  v54 = a4;
   if ((a4 & 2) != 0)
   {
     v21 = 0;
     if (BYTE2(OpCtx[5].data))
     {
 LABEL_21:
-      v22 = v59;
+      v22 = v58;
 LABEL_22:
       if (!a5)
       {
 LABEL_24:
-        v23 = v56;
+        v23 = v55;
         if (v11[452] != -1)
         {
           CK2CalculateItemSignatureWithFlags_cold_10();
         }
 
-        if (os_log_type_enabled(v12[440], OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(*(v12 + 440), OS_LOG_TYPE_DEBUG))
         {
-          v24 = CKFileDigestResultsFileSignature(v63);
+          v24 = CKFileDigestResultsFileSignature(v62);
           v25 = CKFileSchemeAndSignatureCopyCString(v24);
           if (gVerbose == 2)
           {
@@ -1686,19 +1590,19 @@ LABEL_24:
               CK2CalculateItemSignatureWithFlags_cold_11();
             }
 
-            if (os_log_type_enabled(v12[440], OS_LOG_TYPE_DEBUG) && os_log_type_enabled(v12[440], OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(*(v12 + 440), OS_LOG_TYPE_DEBUG) && os_log_type_enabled(*(v12 + 440), OS_LOG_TYPE_DEBUG))
             {
-              v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"path:%@, flags:0x%llx, ino:%llu, sz:%llu, o:%llu, ck:%s", v57, v55, v58, v59, v22, v25);
+              v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"path:%@, flags:0x%llx, ino:%llu, sz:%llu, o:%llu, ck:%s", v56, v54, v57, v58, v22, v25);
               if (v11[452] != -1)
               {
                 CK2CalculateItemSignatureWithFlags_cold_12();
               }
 
-              v27 = v12[440];
+              v27 = *(v12 + 440);
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v68 = v26;
+                v67 = v26;
                 _os_log_impl(&dword_243431000, v27, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
@@ -1718,8 +1622,8 @@ LABEL_24:
       }
 
 LABEL_23:
-      CKBaseRetain(v63);
-      *a5 = v63;
+      CKBaseRetain(v62);
+      *a5 = v62;
       goto LABEL_24;
     }
 
@@ -1730,91 +1634,91 @@ LABEL_23:
     }
   }
 
-  if (!get2FileSignatureCache(OpCtx, a2, &v63) && v63 && CKFileDigestResultsFileSignature(v63))
+  if (!get2FileSignatureCache(OpCtx, a2, &v62) && v62 && CKFileDigestResultsFileSignature(v62))
   {
     v21 = 0;
     goto LABEL_21;
   }
 
-  if (!v59)
+  if (!v58)
   {
     v21 = 0;
-    v38 = 0;
+    v37 = 0;
     goto LABEL_109;
   }
 
-  v38 = 0x8000;
+  v37 = 0x8000;
   v21 = malloc_type_malloc(0x8000uLL, 0x100004077774924uLL);
   if (!v21)
   {
 LABEL_91:
     v22 = 0;
     v29 = 1;
-    v23 = v56;
-    v31 = v57;
+    v23 = v55;
+    v31 = v56;
     goto LABEL_61;
   }
 
 LABEL_109:
-  if (!CKFileSignatureGeneratorCreate(&v65, a2))
+  if (!CKFileSignatureGeneratorCreate(&v64, a2))
   {
     goto LABEL_91;
   }
 
-  if (v55)
+  if (v54)
   {
-    v54 = BYTE2(OpCtx[5].data) ^ 1;
+    v53 = BYTE2(OpCtx[5].data) ^ 1;
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
   }
 
-  if (v59)
+  if (v58)
   {
-    v39 = v38;
+    v38 = v37;
     v22 = 0;
-    v40 = 0;
-    v53 = v39;
-    v41 = v39;
+    v39 = 0;
+    v52 = v38;
+    v40 = v38;
     while (1)
     {
-      v60 = 0;
-      if (((*(a1 + 72))(v66, v22, v21, v41, &v60, &v64) & 1) == 0)
+      v59 = 0;
+      if (((*(a1 + 72))(v65, v22, v21, v40, &v59, &v63) & 1) == 0)
       {
         break;
       }
 
-      if (v60)
+      if (v59)
       {
-        if (!CKFileSignatureGeneratorUpdate(v65))
+        if (!CKFileSignatureGeneratorUpdate(v64))
         {
           if (v11[452] != -1)
           {
             CK2CalculateItemSignatureWithFlags_cold_7();
           }
 
-          v12 = &old_ringing[83];
-          v23 = v56;
-          v31 = v57;
+          v12 = &unk_280C64000;
+          v23 = v55;
+          v31 = v56;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
           {
-            v51 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"CKFileSignatureGeneratorUpdate failed\n");
-            v52 = v11;
-            v49 = v51;
-            if (v52[452] != -1)
+            v50 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"CKFileSignatureGeneratorUpdate failed\n");
+            v51 = v11;
+            v48 = v50;
+            if (v51[452] != -1)
             {
               CK2CalculateItemSignatureWithFlags_cold_8();
             }
 
-            v50 = CK_DEFAULT_LOG_INTERNAL_8;
+            v49 = CK_DEFAULT_LOG_INTERNAL_8;
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v68 = v49;
+              v67 = v48;
 LABEL_151:
-              _os_log_impl(&dword_243431000, v50, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              _os_log_impl(&dword_243431000, v49, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
             goto LABEL_152;
@@ -1823,37 +1727,37 @@ LABEL_151:
           goto LABEL_103;
         }
 
-        v42 = v60;
-        v22 += v60;
-        v40 += v60;
-        if (((v60 != 0) & v54) == 1)
+        v41 = v59;
+        v22 += v59;
+        v39 += v59;
+        if (((v59 != 0) & v53) == 1)
         {
-          if (v40 >= 0x18000)
+          if (v39 >= 0x18000)
           {
             if (wgcChanged(OpCtx))
             {
-              v64 = CKPOSIXErrorCreateWithFormat(16, @"ino:%llu changed", v58);
-              v12 = old_ringing + 664;
-              v11 = old_ringing + 664;
-              v23 = v56;
-              v31 = v57;
+              v63 = CKPOSIXErrorCreateWithFormat(16, @"ino:%llu changed", v57);
+              v12 = &unk_280C64000;
+              v11 = &unk_280C64000;
+              v23 = v55;
+              v31 = v56;
               goto LABEL_103;
             }
 
-            v42 = v60;
-            v40 -= 98304;
+            v41 = v59;
+            v39 -= 98304;
           }
 
-          v11 = old_ringing + 664;
+          v11 = &unk_280C64000;
         }
       }
 
       else
       {
-        v42 = 0;
+        v41 = 0;
       }
 
-      if (v42 < v41 || v22 >= v59)
+      if (v41 < v40 || v22 >= v58)
       {
         goto LABEL_128;
       }
@@ -1864,34 +1768,34 @@ LABEL_151:
       CK2CalculateItemSignatureWithFlags_cold_5();
     }
 
-    v12 = &old_ringing[83];
-    v23 = v56;
-    v31 = v57;
+    v12 = &unk_280C64000;
+    v23 = v55;
+    v31 = v56;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      v47 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"read failed on path:%@, ino:%llu, offset:0x%llx, size:%u, error:%@\n", v57, v58, v22, v53, v64);
-      v48 = v11;
-      v49 = v47;
-      if (v48[452] != -1)
+      v46 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"read failed on path:%@, ino:%llu, offset:0x%llx, size:%u, error:%@\n", v56, v57, v22, v52, v63);
+      v47 = v11;
+      v48 = v46;
+      if (v47[452] != -1)
       {
         CK2CalculateItemSignatureWithFlags_cold_6();
       }
 
-      v50 = CK_DEFAULT_LOG_INTERNAL_8;
+      v49 = CK_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v68 = v49;
+        v67 = v48;
         goto LABEL_151;
       }
 
 LABEL_152:
-      if (v49)
+      if (v48)
       {
-        CFRelease(v49);
+        CFRelease(v48);
       }
 
-      v11 = old_ringing + 664;
+      v11 = &unk_280C64000;
       goto LABEL_103;
     }
 
@@ -1900,36 +1804,36 @@ LABEL_152:
 
   v22 = 0;
 LABEL_128:
-  v31 = v57;
-  if (v63)
+  v31 = v56;
+  if (v62)
   {
     CK2CalculateItemSignatureWithFlags_cold_9();
   }
 
-  v43 = CKFileSignatureGeneratorFinish(v65);
-  v12 = old_ringing + 664;
-  if (v65)
+  v42 = CKFileSignatureGeneratorFinish(v64);
+  v12 = &unk_280C64000;
+  if (v64)
   {
-    CFRelease(v65);
+    CFRelease(v64);
   }
 
-  v65 = 0;
-  if (v43)
+  v64 = 0;
+  if (v42)
   {
-    if (!v63)
+    if (!v62)
     {
       CK2CalculateItemSignatureWithFlags_cold_14();
     }
 
-    v44 = CKFileDigestResultsFileSignature(v63);
-    if (!v44)
+    v43 = CKFileDigestResultsFileSignature(v62);
+    if (!v43)
     {
       CK2CalculateItemSignatureWithFlags_cold_13();
     }
 
-    v45 = v44;
-    v46 = CKFileSchemeAndSignatureSize(v44);
-    setFileSignatureCache(OpCtx, v45, v46);
+    v44 = v43;
+    v45 = CKFileSchemeAndSignatureSize(v43);
+    setFileSignatureCache(OpCtx, v44, v45);
     if (!a5)
     {
       goto LABEL_24;
@@ -1939,29 +1843,29 @@ LABEL_128:
   }
 
   v29 = 1;
-  v23 = v56;
+  v23 = v55;
 LABEL_61:
   if (v11[452] != -1)
   {
     CK2CalculateItemSignatureWithFlags_cold_17();
   }
 
-  if (!os_log_type_enabled(v12[440], OS_LOG_TYPE_DEBUG))
+  if (!os_log_type_enabled(*(v12 + 440), OS_LOG_TYPE_DEBUG))
   {
     goto LABEL_70;
   }
 
-  v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"error:%@, path:%@, ino:%llu, sz:%llu, o:%llu\n", v64, v31, v58, v59, v22);
+  v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"error:%@, path:%@, ino:%llu, sz:%llu, o:%llu\n", v63, v31, v57, v58, v22);
   if (v11[452] != -1)
   {
     CK2CalculateItemSignatureWithFlags_cold_18();
   }
 
-  v33 = v12[440];
+  v33 = *(v12 + 440);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v68 = v28;
+    v67 = v28;
     _os_log_impl(&dword_243431000, v33, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
   }
 
@@ -1973,10 +1877,10 @@ LABEL_70:
   }
 
 LABEL_71:
-  if (v65)
+  if (v64)
   {
-    CFRelease(v65);
-    v65 = 0;
+    CFRelease(v64);
+    v64 = 0;
   }
 
   if (v21)
@@ -1991,7 +1895,7 @@ LABEL_71:
 
   if (v29)
   {
-    (*(a1 + 56))(*(a1 + 8), v66, 0);
+    (*(a1 + 56))(*(a1 + 8), v65, 0);
   }
 
   if (a6)
@@ -2006,24 +1910,23 @@ LABEL_71:
 
   if (v34)
   {
-    if (v64)
+    if (v63)
     {
-      CFRelease(v64);
+      CFRelease(v63);
     }
   }
 
   else
   {
-    *a6 = v64;
-    v64 = 0;
+    *a6 = v63;
+    v63 = 0;
   }
 
-  if (v63)
+  if (v62)
   {
-    CKBaseRelease(v63);
+    CKBaseRelease(v62);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -2173,10 +2076,10 @@ os_log_t __CK2CalculateItemSignatureWithFlags_block_invoke_4()
 
 void freeOpCtx(char *a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_48;
+    return;
   }
 
   if (a1[183] == 1)
@@ -2189,8 +2092,7 @@ void freeOpCtx(char *a1)
     v6 = *(a1 + 67) / 1000000000.0;
     v7 = v2 + v3 + v4 + v5 + v6;
     v8 = *(a1 + 53);
-    v9 = *(a1 + 7);
-    printf("\n Summary for item %lld (%s):", v9, *(a1 + 13));
+    printf("\n Summary for item %lld (%s):", *(a1 + 7), *(a1 + 13));
     printf("\n\tprofiler created %d sections", *(a1 + 62));
     printf("\n\t%32s\tThroughput\n", "Elapsed Time");
     printf("\t%10s %13.7f %7s", "chunking", v2, "seconds");
@@ -2205,7 +2107,7 @@ void freeOpCtx(char *a1)
       printf("\t%12.4f MB/sec\n", *(a1 + 54) / v5 * 0.000000953674316);
     }
 
-    v10 = v8 / v7;
+    v9 = v8 / v7;
     if ((a1[180] & 1) == 0)
     {
       printf("\t%10s %13.7f %-10s", "DB access", v6, "seconds");
@@ -2214,20 +2116,20 @@ void freeOpCtx(char *a1)
 
     if ((CKFileDigestArgumentsFileSchemeByte(*(a1 + 18)) & 0x80u) != 0)
     {
-      v11 = ", hashed, encrypted and hashed again";
+      v10 = ", hashed, encrypted and hashed again";
     }
 
     else
     {
-      v11 = " and hashed";
+      v10 = " and hashed";
     }
 
-    snprintf(__str, 0x400uLL, "Chunked%s", v11);
-    printf("\n\t%s %llu bytes into %lld chunks, stored %lld chunks (%lld bytes) in %6.4f seconds (%8.4f MB/sec)\n\n", __str, *(a1 + 53), *(a1 + 55), *(a1 + 57), *(a1 + 54), v7, v10 * 0.000000953674316);
-    v12 = *(a1 + 55);
-    if (v12)
+    snprintf(__str, 0x400uLL, "Chunked%s", v10);
+    printf("\n\t%s %llu bytes into %lld chunks, stored %lld chunks (%lld bytes) in %6.4f seconds (%8.4f MB/sec)\n\n", __str, *(a1 + 53), *(a1 + 55), *(a1 + 57), *(a1 + 54), v7, v9 * 0.000000953674316);
+    v11 = *(a1 + 55);
+    if (v11)
     {
-      printf("\tAverage chunk size: %llu.%llu\n", *(a1 + 53) / v12, *(a1 + 53) % v12);
+      printf("\tAverage chunk size: %llu.%llu\n", *(a1 + 53) / v11, *(a1 + 53) % v11);
     }
 
     else
@@ -2238,10 +2140,10 @@ void freeOpCtx(char *a1)
     putchar(10);
   }
 
-  v13 = *(a1 + 68);
-  if (v13)
+  v12 = *(a1 + 68);
+  if (v12)
   {
-    free(v13);
+    free(v12);
   }
 
   if (a1[182] == 1)
@@ -2249,64 +2151,64 @@ void freeOpCtx(char *a1)
     pthread_mutex_destroy((a1 + 360));
   }
 
-  v14 = *(a1 + 17);
-  if (v14)
+  v13 = *(a1 + 17);
+  if (v13)
   {
-    if (v14[8])
+    if (v13[8])
     {
-      CKBaseRelease(v14[8]);
-      v14 = *(a1 + 17);
+      CKBaseRelease(v13[8]);
+      v13 = *(a1 + 17);
     }
 
-    free(v14);
+    free(v13);
   }
 
-  v15 = *(a1 + 24);
-  if (v15)
+  v14 = *(a1 + 24);
+  if (v14)
   {
-    CKBaseRelease(v15);
+    CKBaseRelease(v14);
     *(a1 + 24) = 0;
   }
 
-  v16 = *(a1 + 25);
+  v15 = *(a1 + 25);
+  if (v15)
+  {
+    CKBaseRelease(v15);
+  }
+
+  *(a1 + 25) = 0;
+  v16 = *(a1 + 26);
   if (v16)
   {
     CKBaseRelease(v16);
   }
 
-  *(a1 + 25) = 0;
-  v17 = *(a1 + 26);
+  *(a1 + 26) = 0;
+  v17 = *(a1 + 18);
   if (v17)
   {
     CKBaseRelease(v17);
   }
 
-  *(a1 + 26) = 0;
-  v18 = *(a1 + 18);
+  *(a1 + 18) = 0;
+  v18 = *(a1 + 30);
   if (v18)
   {
     CKBaseRelease(v18);
   }
 
-  *(a1 + 18) = 0;
-  v19 = *(a1 + 30);
+  *(a1 + 30) = 0;
+  v19 = *(a1 + 40);
   if (v19)
   {
-    CKBaseRelease(v19);
-  }
-
-  *(a1 + 30) = 0;
-  v20 = *(a1 + 40);
-  if (v20)
-  {
-    free(v20);
+    free(v19);
     *(a1 + 40) = 0;
   }
 
-  v21 = *(a1 + 42);
-  if (v21)
+  v20 = *(a1 + 42);
+  if (v20)
   {
-    CFRelease(v21);
+    CFRelease(v20);
   }
 
   if (*a1)
@@ -2314,49 +2216,49 @@ void freeOpCtx(char *a1)
     CFRelease(*a1);
   }
 
-  v22 = *(a1 + 32);
+  v21 = *(a1 + 32);
+  if (v21)
+  {
+    free(v21);
+  }
+
+  v22 = *(a1 + 37);
   if (v22)
   {
     free(v22);
   }
 
-  v23 = *(a1 + 37);
-  if (v23)
-  {
-    free(v23);
-  }
-
   if (a1[179] != 1)
   {
-    v27 = *(a1 + 77);
-    v28 = *(a1 + 68);
-    if (!v27 && v28)
+    v25 = *(a1 + 77);
+    v26 = *(a1 + 68);
+    if (!v25 && v26)
     {
       freeOpCtx_cold_1();
     }
 
-    v24 = *(a1 + 33);
-    if (v28)
+    v23 = *(a1 + 33);
+    if (v26)
     {
-      v29 = 0;
-      v30 = v24 + 8;
+      v27 = 0;
+      v28 = v23 + 8;
       do
       {
-        v31 = *&v30[v29];
-        if (v31)
+        v29 = *&v28[v27];
+        if (v29)
         {
-          free(v31);
+          free(v29);
         }
 
-        v29 += v27;
-        --v28;
+        v27 += v25;
+        --v26;
       }
 
-      while (v28);
-      v24 = *(a1 + 33);
+      while (v26);
+      v23 = *(a1 + 33);
     }
 
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_45;
     }
@@ -2364,30 +2266,28 @@ void freeOpCtx(char *a1)
     goto LABEL_44;
   }
 
-  v24 = *(a1 + 33);
-  if (v24)
+  v23 = *(a1 + 33);
+  if (v23)
   {
 LABEL_44:
-    free(v24);
+    free(v23);
     *(a1 + 33) = 0;
   }
 
 LABEL_45:
   *(a1 + 34) = 0;
-  v25 = *(a1 + 19);
-  if (v25)
+  v24 = *(a1 + 19);
+  if (v24)
   {
-    CKBaseRelease(v25);
+    CKBaseRelease(v24);
   }
 
   free(a1);
-LABEL_48:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CK2CalculateFileSignatureWithFlags(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, void *a5, CFTypeRef *a6)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   cf = 0;
   if (a5)
   {
@@ -2447,22 +2347,22 @@ uint64_t CK2CalculateFileSignatureWithFlags(uint64_t a1, const void *a2, uint64_
   }
 
 LABEL_18:
-  v23[2] = 0;
-  v23[3] = 0;
-  v23[0] = v18;
-  v23[1] = a1;
+  v22[2] = 0;
+  v22[3] = 0;
+  v22[0] = v18;
+  v22[1] = a1;
   *&buf[4] = 0;
-  v26 = 0;
-  v28 = 0u;
+  v25 = 0;
+  v27 = 0u;
   *buf = 2;
-  *&buf[8] = v23;
-  v29 = openFdUncached;
-  v30 = closeFd;
-  v31 = statFd;
-  v32 = readFd;
-  v33 = getCacheBlobFd;
-  v34 = setCacheBlobFd;
-  v27 = v16;
+  *&buf[8] = v22;
+  v28 = openFdUncached;
+  v29 = closeFd;
+  v30 = statFd;
+  v31 = readFd;
+  v32 = getCacheBlobFd;
+  v33 = setCacheBlobFd;
+  v26 = v16;
   v19 = CK2CalculateItemSignatureWithFlags(buf, a2, a3, a4, a5, &cf);
   v20 = cf;
   if (a6 && !v19 && cf)
@@ -2482,7 +2382,6 @@ LABEL_18:
     CFRelease(v16);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2500,7 +2399,7 @@ os_log_t __CK2CalculateFileSignatureWithFlags_block_invoke_2()
   return result;
 }
 
-BOOL CKCalculateFileSignature(uint64_t a1, int a2, void *a3, uint64_t *a4)
+BOOL CKCalculateFileSignature(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   if (a2 != 1)
   {
@@ -2554,7 +2453,7 @@ BOOL CKCalculateFileSignature(uint64_t a1, int a2, void *a3, uint64_t *a4)
 
 unint64_t CKValidateSignature(_BYTE *a1, const void *a2, uint64_t a3, int a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v8 = CKChunkSchemeAndSignatureSize(a1);
   if (v8)
   {
@@ -2568,11 +2467,11 @@ unint64_t CKValidateSignature(_BYTE *a1, const void *a2, uint64_t a3, int a4)
         *buf = 0;
         if (CKChunkDigestArgumentsV1Create(buf, 1, 0))
         {
-          v18 = 0;
+          v17 = 0;
           memcpy(v11, a2, a3);
-          if (CKEncryptData(*buf, v11, a3, &v18))
+          if (CKEncryptData(*buf, v11, a3, &v17))
           {
-            v12 = CKChunkDigestResultsChunkSignature(v18);
+            v12 = CKChunkDigestResultsChunkSignature(v17);
             v13 = memcmp(a1, v12, v9) == 0;
             if (*buf)
             {
@@ -2580,37 +2479,35 @@ unint64_t CKValidateSignature(_BYTE *a1, const void *a2, uint64_t a3, int a4)
             }
 
             *buf = 0;
-            if (v18)
+            if (v17)
             {
-              CKBaseRelease(v18);
+              CKBaseRelease(v17);
             }
 
             free(v11);
-            goto LABEL_29;
+            return v13;
           }
 
           free(v11);
         }
       }
 
-LABEL_28:
-      v13 = 0;
-      goto LABEL_29;
+      return 0;
     }
 
     *buf = 0;
     if (!CKChunkDigestArgumentsV1Create(buf, 1, 0))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v18 = 0;
-    if (!CKCalculateChunkSignatureAndEncryptionKey(a2, a3, *buf, &v18))
+    v17 = 0;
+    if (!CKCalculateChunkSignatureAndEncryptionKey(a2, a3, *buf, &v17))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v15 = CKChunkDigestResultsChunkSignature(v18);
+    v15 = CKChunkDigestResultsChunkSignature(v17);
     v13 = memcmp(a1, v15, v9) == 0;
     if (*buf)
     {
@@ -2618,9 +2515,9 @@ LABEL_28:
     }
 
     *buf = 0;
-    if (v18)
+    if (v17)
     {
-      CKBaseRelease(v18);
+      CKBaseRelease(v17);
     }
   }
 
@@ -2633,7 +2530,7 @@ LABEL_28:
 
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
     v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"signature size is 0\n");
@@ -2653,12 +2550,10 @@ LABEL_28:
     if (v13)
     {
       CFRelease(v13);
-      goto LABEL_28;
+      return 0;
     }
   }
 
-LABEL_29:
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2732,7 +2627,7 @@ uint64_t CKStoredChunkAtIndex(uint64_t result, unsigned int a2)
   if (result)
   {
     v3 = result;
-    v4 = CKSignatureSize(result + 56);
+    v4 = CKSignatureSize((result + 56));
     v5 = v4 + 57;
     if (!v4)
     {
@@ -2810,7 +2705,7 @@ uint64_t CKRegisteredChunkKeyCopyCString(uint64_t a1)
   return result;
 }
 
-void *CSCreateSourceChunk(char a1, unsigned __int8 a2)
+void *CSCreateSourceChunk(char a1, char a2)
 {
   v7 = a1;
   v6 = a2;
@@ -2958,7 +2853,7 @@ void clearOpCtxError(uint64_t a1)
 
 uint64_t readOpCtx(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v10 = a1[1];
   v11 = a1[2];
   cf = 0;
@@ -2987,31 +2882,29 @@ uint64_t readOpCtx(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      v14 = a1[7];
-      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"read failed on itemID:%lld, path:%s, ino:%llu, offset:0x%llx, size:%u, error:%@\n", v14, a1[13], a1[5], a2, a4, cf);
+      v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"read failed on itemID:%lld, path:%s, ino:%llu, offset:0x%llx, size:%u, error:%@\n", a1[7], a1[13], a1[5], a2, a4, cf);
       if (CK_DEFAULT_LOG_BLOCK_8 != -1)
       {
         readOpCtx_cold_2();
       }
 
-      v16 = CK_DEFAULT_LOG_INTERNAL_8;
+      v15 = CK_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v21 = v15;
-        _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v19 = v14;
+        _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v15)
+      if (v14)
       {
-        CFRelease(v15);
+        CFRelease(v14);
       }
     }
 
     a1[42] = cf;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3051,7 +2944,7 @@ void setOpCtxFileDigestResults(uint64_t a1, CFTypeRef cf)
 
 uint64_t getOpCtxSectionLengthAtIndex(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 248) <= a2)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -3061,7 +2954,7 @@ uint64_t getOpCtxSectionLengthAtIndex(uint64_t a1, uint64_t a2)
 
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      return 0;
     }
 
     v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"sectionIndex %u out of range (numSections = %u)\n", a2, *(a1 + 248));
@@ -3073,27 +2966,34 @@ uint64_t getOpCtxSectionLengthAtIndex(uint64_t a1, uint64_t a2)
     v10 = CK_DEFAULT_LOG_INTERNAL_8;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+LABEL_19:
+      if (v9)
+      {
+        CFRelease(v9);
+      }
+
+      return 0;
     }
 
     *buf = 138543362;
-    v13 = v9;
-    goto LABEL_18;
+    v12 = v9;
+LABEL_18:
+    _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+    goto LABEL_19;
   }
 
   v4 = *(a1 + 256);
-  if (!a2)
+  if (a2)
   {
-    result = *v4;
-    goto LABEL_23;
-  }
+    v5 = *(v4 + 56 * a2);
+    v6 = a2 - 1;
+    v7 = *(v4 + 56 * (a2 - 1));
+    result = v5 - v7;
+    if (v5 >= v7)
+    {
+      return result;
+    }
 
-  v5 = v4[7 * a2];
-  v6 = a2 - 1;
-  v7 = v4[7 * (a2 - 1)];
-  result = v5 - v7;
-  if (v5 < v7)
-  {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
       getOpCtxSectionLengthAtIndex_cold_3();
@@ -3101,7 +3001,7 @@ uint64_t getOpCtxSectionLengthAtIndex(uint64_t a1, uint64_t a2)
 
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      return 0;
     }
 
     v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"section %u/0x%llx is before section %u/0x%llx\n", a2, *(*(a1 + 256) + 56 * a2), (a2 - 1), *(*(a1 + 256) + 56 * v6));
@@ -3113,27 +3013,15 @@ uint64_t getOpCtxSectionLengthAtIndex(uint64_t a1, uint64_t a2)
     v10 = CK_DEFAULT_LOG_INTERNAL_8;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
     {
-LABEL_19:
-      if (v9)
-      {
-        CFRelease(v9);
-      }
-
-LABEL_21:
-      result = 0;
-      goto LABEL_23;
+      goto LABEL_19;
     }
 
     *buf = 138543362;
-    v13 = v9;
-LABEL_18:
-    _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-    goto LABEL_19;
+    v12 = v9;
+    goto LABEL_18;
   }
 
-LABEL_23:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return *v4;
 }
 
 os_log_t __getOpCtxSectionLengthAtIndex_block_invoke()
@@ -3197,59 +3085,57 @@ uint64_t waitForOperation(pthread_mutex_t *a1, pthread_cond_t *a2, const __CFSet
   return pthread_mutex_unlock(a1);
 }
 
-uint64_t changeFileFlags(int a1, int a2, int a3)
+uint64_t changeFileFlags(int a1, unsigned int a2, int a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  memset(&v37, 0, sizeof(v37));
+  v37 = *MEMORY[0x277D85DE8];
+  memset(&v36, 0, sizeof(v36));
   *__error() = 0;
-  v6 = fstat(a1, &v37);
+  v6 = fstat(a1, &v36);
   if (!v6)
   {
-    st_flags = v37.st_flags;
-    v17 = ~a3;
-    v18 = -1;
+    st_flags = v36.st_flags;
+    v16 = ~a3;
+    v17 = -1;
     while (1)
     {
       *buf = st_flags;
-      v30 = ((st_flags | a2) & v17);
+      v29 = ((st_flags | a2) & v16);
       *__error() = 0;
       if (ffsctl(a1, 0xC00C4114uLL, buf, 0) == -1)
       {
         if (*__error() == 25 || *__error() == 45)
         {
           *__error() = 0;
-          result = fchflags(a1, (st_flags | a2) & v17);
+          result = fchflags(a1, (st_flags | a2) & v16);
           if (result)
           {
-            v21 = result;
+            v20 = result;
             if (CK_DEFAULT_LOG_BLOCK_8 != -1)
             {
               changeFileFlags_cold_5();
             }
 
-            v22 = CK_DEFAULT_LOG_INTERNAL_8;
+            v21 = CK_DEFAULT_LOG_INTERNAL_8;
             result = os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR);
             if (result)
             {
-              v23 = __error();
-              v24 = strerror(*v23);
-              v25 = *__error();
-              v37.st_dev = 136315906;
-              *&v37.st_mode = "changeFileFlags";
-              WORD2(v37.st_ino) = 1024;
-              *(&v37.st_ino + 6) = v21;
-              HIWORD(v37.st_uid) = 2080;
-              *&v37.st_gid = v24;
-              *(&v37.st_rdev + 2) = 1024;
-              *(&v37.st_rdev + 6) = v25;
-              _os_log_impl(&dword_243431000, v22, OS_LOG_TYPE_ERROR, "fchflags in %s failed with rc %d: %s (%d)", &v37, 0x22u);
-LABEL_31:
-              result = 0;
-              goto LABEL_8;
+              v22 = __error();
+              v23 = strerror(*v22);
+              v24 = *__error();
+              v36.st_dev = 136315906;
+              *&v36.st_mode = "changeFileFlags";
+              WORD2(v36.st_ino) = 1024;
+              *(&v36.st_ino + 6) = v20;
+              HIWORD(v36.st_uid) = 2080;
+              *&v36.st_gid = v23;
+              *(&v36.st_rdev + 2) = 1024;
+              *(&v36.st_rdev + 6) = v24;
+              _os_log_impl(&dword_243431000, v21, OS_LOG_TYPE_ERROR, "fchflags in %s failed with rc %d: %s (%d)", &v36, 0x22u);
+              return 0;
             }
           }
 
-          goto LABEL_8;
+          return result;
         }
 
         if (*__error() != 35)
@@ -3262,23 +3148,23 @@ LABEL_31:
           v8 = CK_DEFAULT_LOG_INTERNAL_8;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
           {
-            v26 = __error();
-            v27 = strerror(*v26);
-            v28 = *__error();
-            v37.st_dev = 136315906;
-            *&v37.st_mode = "changeFileFlags";
-            WORD2(v37.st_ino) = 1024;
-            *(&v37.st_ino + 6) = -1;
-            HIWORD(v37.st_uid) = 2080;
-            *&v37.st_gid = v27;
-            *(&v37.st_rdev + 2) = 1024;
-            *(&v37.st_rdev + 6) = v28;
+            v25 = __error();
+            v26 = strerror(*v25);
+            v27 = *__error();
+            v36.st_dev = 136315906;
+            *&v36.st_mode = "changeFileFlags";
+            WORD2(v36.st_ino) = 1024;
+            *(&v36.st_ino + 6) = -1;
+            HIWORD(v36.st_uid) = 2080;
+            *&v36.st_gid = v26;
+            *(&v36.st_rdev + 2) = 1024;
+            *(&v36.st_rdev + 6) = v27;
             v12 = "ffsctl in %s failed with rc %d: %s (%d)";
-            v13 = &v37;
+            v13 = &v36;
             goto LABEL_6;
           }
 
-          goto LABEL_7;
+          return 0xFFFFFFFFLL;
         }
 
         if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -3286,22 +3172,22 @@ LABEL_31:
           changeFileFlags_cold_4();
         }
 
-        v20 = CK_DEFAULT_LOG_INTERNAL_8;
+        v19 = CK_DEFAULT_LOG_INTERNAL_8;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
         {
-          v37.st_dev = 136315394;
-          *&v37.st_mode = "changeFileFlags";
-          WORD2(v37.st_ino) = 1024;
-          *(&v37.st_ino + 6) = v18 + 1;
-          _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_ERROR, "ffsctl in %s failed with EAGAIN (attempt %d)", &v37, 0x12u);
+          v36.st_dev = 136315394;
+          *&v36.st_mode = "changeFileFlags";
+          WORD2(v36.st_ino) = 1024;
+          *(&v36.st_ino + 6) = v17 + 1;
+          _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "ffsctl in %s failed with EAGAIN (attempt %d)", &v36, 0x12u);
         }
       }
 
       else
       {
-        if (*buf == HIDWORD(v30))
+        if (*buf == HIDWORD(v29))
         {
-          goto LABEL_31;
+          return 0;
         }
 
         if (CK_DEFAULT_LOG_BLOCK_8 != -1)
@@ -3309,22 +3195,22 @@ LABEL_31:
           changeFileFlags_cold_2();
         }
 
-        v19 = CK_DEFAULT_LOG_INTERNAL_8;
+        v18 = CK_DEFAULT_LOG_INTERNAL_8;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
         {
-          v37.st_dev = 136315394;
-          *&v37.st_mode = "changeFileFlags";
-          WORD2(v37.st_ino) = 1024;
-          *(&v37.st_ino + 6) = v18 + 1;
-          _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "ffsctl in %s failed with lost race (attempt %d)", &v37, 0x12u);
+          v36.st_dev = 136315394;
+          *&v36.st_mode = "changeFileFlags";
+          WORD2(v36.st_ino) = 1024;
+          *(&v36.st_ino + 6) = v17 + 1;
+          _os_log_impl(&dword_243431000, v18, OS_LOG_TYPE_ERROR, "ffsctl in %s failed with lost race (attempt %d)", &v36, 0x12u);
         }
 
-        st_flags = HIDWORD(v30);
+        st_flags = HIDWORD(v29);
       }
 
-      if (++v18 > 8)
+      if (++v17 > 8)
       {
-        goto LABEL_7;
+        return 0xFFFFFFFFLL;
       }
     }
   }
@@ -3342,24 +3228,20 @@ LABEL_31:
     v10 = strerror(*v9);
     v11 = *__error();
     *buf = 136315906;
-    v30 = "changeFileFlags";
-    v31 = 1024;
-    v32 = v7;
-    v33 = 2080;
-    v34 = v10;
-    v35 = 1024;
-    v36 = v11;
+    v29 = "changeFileFlags";
+    v30 = 1024;
+    v31 = v7;
+    v32 = 2080;
+    v33 = v10;
+    v34 = 1024;
+    v35 = v11;
     v12 = "fstat in %s failed with rc %d: %s (%d)";
     v13 = buf;
 LABEL_6:
     _os_log_impl(&dword_243431000, v8, OS_LOG_TYPE_ERROR, v12, v13, 0x22u);
   }
 
-LABEL_7:
-  result = 0xFFFFFFFFLL;
-LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 os_log_t __changeFileFlags_block_invoke()
@@ -3399,7 +3281,7 @@ os_log_t __changeFileFlags_block_invoke_520()
 
 uint64_t getMaxXattrSize(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = fpathconf(a2, 26);
   if (v3 < 0)
   {
@@ -3423,7 +3305,7 @@ uint64_t getMaxXattrSize(uint64_t a1, int a2)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v8;
+        v11 = v8;
         _os_log_impl(&dword_243431000, v9, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -3433,21 +3315,18 @@ uint64_t getMaxXattrSize(uint64_t a1, int a2)
       }
     }
 
-    result = 0;
+    return 0;
   }
 
   else if ((v3 - 64) >= 0xFFFFFFFFFFFFFFC1)
   {
-    result = 1 << (v3 - 1);
+    return 1 << (v3 - 1);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 os_log_t __getMaxXattrSize_block_invoke()
@@ -3466,11 +3345,11 @@ os_log_t __getMaxXattrSize_block_invoke_2()
 
 uint64_t getFileWriteGeneration(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v15 = xmmword_24347EFD8;
-  v16 = 0;
-  v14 = 0;
-  if (fgetattrlist(a2, &v15, &v14, 8uLL, 0x20u) < 0)
+  v18 = *MEMORY[0x277D85DE8];
+  v14 = xmmword_24347EFD8;
+  v15 = 0;
+  v13 = 0;
+  if (fgetattrlist(a2, &v14, &v13, 8uLL, 0x20u) < 0)
   {
     if (CK_DEFAULT_LOG_BLOCK_8 != -1)
     {
@@ -3493,7 +3372,7 @@ uint64_t getFileWriteGeneration(uint64_t a1, uint64_t a2, _DWORD *a3)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_243431000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -3502,23 +3381,21 @@ uint64_t getFileWriteGeneration(uint64_t a1, uint64_t a2, _DWORD *a3)
         CFRelease(v11);
       }
     }
-
-    goto LABEL_14;
   }
 
-  if (!HIDWORD(v14))
+  else
   {
+    if (HIDWORD(v13))
+    {
+      result = 0;
+      *a3 = HIDWORD(v13);
+      return result;
+    }
+
     *__error() = 16;
-LABEL_14:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_15;
   }
 
-  result = 0;
-  *a3 = HIDWORD(v14);
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 os_log_t __getFileWriteGeneration_block_invoke()
@@ -3563,16 +3440,9 @@ os_log_t __getCacheBlob_block_invoke_2_558()
   return result;
 }
 
-BOOL canSetXattrOnFile()
-{
-  getpid();
-  v0 = *MEMORY[0x277D861D8];
-  return sandbox_check() == 0;
-}
-
 uint64_t CKGetCacheBlobFd(uint64_t a1, uint64_t fd, char *name, __CFData **a4, CFErrorRef *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     *a4 = 0;
@@ -3619,7 +3489,7 @@ uint64_t CKGetCacheBlobFd(uint64_t a1, uint64_t fd, char *name, __CFData **a4, C
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v29 = v15;
+          v28 = v15;
           _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -3635,12 +3505,10 @@ uint64_t CKGetCacheBlobFd(uint64_t a1, uint64_t fd, char *name, __CFData **a4, C
       v17 = CKPOSIXErrorCreateWithFormat(v12, @"fgetxattr failed on %s, fd:%d, xattrName:%s", a1, fd, name);
       result = 0;
       *a5 = v17;
-      goto LABEL_43;
+      return result;
     }
 
-LABEL_42:
-    result = 0;
-    goto LABEL_43;
+    return 0;
   }
 
   Mutable = CFDataCreateMutable(0, v10);
@@ -3651,10 +3519,10 @@ LABEL_26:
     {
       result = 0;
       *a5 = 0;
-      goto LABEL_43;
+      return result;
     }
 
-    goto LABEL_42;
+    return 0;
   }
 
   v20 = Mutable;
@@ -3684,7 +3552,7 @@ LABEL_26:
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v29 = v25;
+          v28 = v25;
           _os_log_impl(&dword_243431000, v26, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -3701,7 +3569,7 @@ LABEL_26:
     }
 
     CFRelease(v20);
-    goto LABEL_42;
+    return 0;
   }
 
   if (a4)
@@ -3709,10 +3577,7 @@ LABEL_26:
     *a4 = v20;
   }
 
-  result = 1;
-LABEL_43:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 os_log_t __CKGetCacheBlobFd_block_invoke()
@@ -3745,163 +3610,158 @@ os_log_t __CKGetCacheBlobFd_block_invoke_2_580()
 
 uint64_t CKSetCacheBlobFd(uint64_t a1, uint64_t fd, char *name, CFDataRef theData, CFErrorRef *a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     *a5 = 0;
   }
 
-  if (fd == -1 || a1 && (getpid(), v10 = *MEMORY[0x277D861D8], sandbox_check()))
+  if (fd != -1)
   {
-    if (a5)
+    if (!a1 || (getpid(), !sandbox_check()))
     {
-      v11 = 0;
-LABEL_45:
-      result = 0;
-      *a5 = v11;
-      goto LABEL_46;
-    }
-
-    goto LABEL_31;
-  }
-
-  if (!theData)
-  {
-    if (fremovexattr(fd, name, 0))
-    {
-      v14 = *__error();
-      if (v14 != 2 && v14 != 93)
+      if (theData)
       {
-        if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+        BytePtr = CFDataGetBytePtr(theData);
+        Length = CFDataGetLength(theData);
+        if (fsetxattr(fd, name, BytePtr, Length, 0, 0))
         {
-          CKSetCacheBlobFd_cold_5();
-        }
-
-        if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
-        {
-          v21 = *MEMORY[0x277CBECE8];
-          v22 = strerror(v14);
-          v23 = CFStringCreateWithFormat(v21, 0, @"fremovexattr failed on %s, xattrName:%s: %d (%s)\n", a1, name, v14, v22);
-          if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+          v13 = *__error();
+          if (v13 == 13)
           {
-            CKSetCacheBlobFd_cold_6();
+            if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+            {
+              CKSetCacheBlobFd_cold_3();
+            }
+
+            if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
+            {
+              v14 = *MEMORY[0x277CBECE8];
+              v15 = strerror(13);
+              v16 = CFStringCreateWithFormat(v14, 0, @"fsetxattr failed for %s, fd:%d, xattrName:%s: %d (%s)\n", a1, fd, name, 13, v15);
+              if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+              {
+                CKSetCacheBlobFd_cold_4();
+              }
+
+              v17 = CK_DEFAULT_LOG_INTERNAL_8;
+              if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
+              {
+                goto LABEL_41;
+              }
+
+              *buf = 138543362;
+              v29 = v16;
+              v18 = v17;
+              v19 = OS_LOG_TYPE_DEBUG;
+LABEL_40:
+              _os_log_impl(&dword_243431000, v18, v19, "%{public}@", buf, 0xCu);
+LABEL_41:
+              if (v16)
+              {
+                CFRelease(v16);
+              }
+            }
           }
 
-          v24 = CK_DEFAULT_LOG_INTERNAL_8;
-          if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
+          else
           {
-            *buf = 138543362;
-            v31 = v23;
-            _os_log_impl(&dword_243431000, v24, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+            {
+              CKSetCacheBlobFd_cold_1();
+            }
+
+            if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
+            {
+              v25 = *MEMORY[0x277CBECE8];
+              v26 = strerror(v13);
+              v16 = CFStringCreateWithFormat(v25, 0, @"fsetxattr failed for %s, fd:%d, xattrName:%s: %d (%s)\n", a1, fd, name, v13, v26);
+              if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+              {
+                CKSetCacheBlobFd_cold_2();
+              }
+
+              v27 = CK_DEFAULT_LOG_INTERNAL_8;
+              if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
+              {
+                goto LABEL_41;
+              }
+
+              *buf = 138543362;
+              v29 = v16;
+              v18 = v27;
+              v19 = OS_LOG_TYPE_ERROR;
+              goto LABEL_40;
+            }
           }
 
-          if (v23)
+          if (!a5)
           {
-            CFRelease(v23);
+            return 0;
           }
+
+LABEL_44:
+          v10 = CKPOSIXErrorCreateWithFormat(v13, @"fgetxattr failled on %s, fd:%d, xattrName:%s", a1, fd, name);
+          goto LABEL_45;
         }
       }
 
-      if (a5)
+      else if (fremovexattr(fd, name, 0))
       {
+        v13 = *__error();
+        if (v13 != 2 && v13 != 93)
+        {
+          if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+          {
+            CKSetCacheBlobFd_cold_5();
+          }
+
+          if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
+          {
+            v20 = *MEMORY[0x277CBECE8];
+            v21 = strerror(v13);
+            v22 = CFStringCreateWithFormat(v20, 0, @"fremovexattr failed on %s, xattrName:%s: %d (%s)\n", a1, name, v13, v21);
+            if (CK_DEFAULT_LOG_BLOCK_8 != -1)
+            {
+              CKSetCacheBlobFd_cold_6();
+            }
+
+            v23 = CK_DEFAULT_LOG_INTERNAL_8;
+            if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138543362;
+              v29 = v22;
+              _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            }
+
+            if (v22)
+            {
+              CFRelease(v22);
+            }
+          }
+        }
+
+        if (!a5)
+        {
+          return 0;
+        }
+
         goto LABEL_44;
       }
 
-      goto LABEL_31;
+      return 1;
     }
-
-LABEL_32:
-    result = 1;
-    goto LABEL_46;
   }
 
-  BytePtr = CFDataGetBytePtr(theData);
-  Length = CFDataGetLength(theData);
-  if (!fsetxattr(fd, name, BytePtr, Length, 0, 0))
+  if (!a5)
   {
-    goto LABEL_32;
+    return 0;
   }
 
-  v14 = *__error();
-  if (v14 == 13)
-  {
-    if (CK_DEFAULT_LOG_BLOCK_8 != -1)
-    {
-      CKSetCacheBlobFd_cold_3();
-    }
-
-    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
-    {
-      v15 = *MEMORY[0x277CBECE8];
-      v16 = strerror(13);
-      v17 = CFStringCreateWithFormat(v15, 0, @"fsetxattr failed for %s, fd:%d, xattrName:%s: %d (%s)\n", a1, fd, name, 13, v16);
-      if (CK_DEFAULT_LOG_BLOCK_8 != -1)
-      {
-        CKSetCacheBlobFd_cold_4();
-      }
-
-      v18 = CK_DEFAULT_LOG_INTERNAL_8;
-      if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_41;
-      }
-
-      *buf = 138543362;
-      v31 = v17;
-      v19 = v18;
-      v20 = OS_LOG_TYPE_DEBUG;
-LABEL_40:
-      _os_log_impl(&dword_243431000, v19, v20, "%{public}@", buf, 0xCu);
-LABEL_41:
-      if (v17)
-      {
-        CFRelease(v17);
-      }
-    }
-  }
-
-  else
-  {
-    if (CK_DEFAULT_LOG_BLOCK_8 != -1)
-    {
-      CKSetCacheBlobFd_cold_1();
-    }
-
-    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
-    {
-      v26 = *MEMORY[0x277CBECE8];
-      v27 = strerror(v14);
-      v17 = CFStringCreateWithFormat(v26, 0, @"fsetxattr failed for %s, fd:%d, xattrName:%s: %d (%s)\n", a1, fd, name, v14, v27);
-      if (CK_DEFAULT_LOG_BLOCK_8 != -1)
-      {
-        CKSetCacheBlobFd_cold_2();
-      }
-
-      v28 = CK_DEFAULT_LOG_INTERNAL_8;
-      if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_41;
-      }
-
-      *buf = 138543362;
-      v31 = v17;
-      v19 = v28;
-      v20 = OS_LOG_TYPE_ERROR;
-      goto LABEL_40;
-    }
-  }
-
-  if (a5)
-  {
-LABEL_44:
-    v11 = CKPOSIXErrorCreateWithFormat(v14, @"fgetxattr failled on %s, fd:%d, xattrName:%s", a1, fd, name);
-    goto LABEL_45;
-  }
-
-LABEL_31:
+  v10 = 0;
+LABEL_45:
   result = 0;
-LABEL_46:
-  v29 = *MEMORY[0x277D85DE8];
+  *a5 = v10;
   return result;
 }
 
@@ -3947,7 +3807,7 @@ os_log_t __CKSetCacheBlobFd_block_invoke_2_611()
   return result;
 }
 
-uint64_t openFdWithReadContext(char *a1, unsigned int a2, char **a3, uint64_t a4, uint64_t *a5)
+uint64_t openFdWithReadContext(char *a1, unsigned int a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   *a3 = 0;
   v17[2] = 0;
@@ -3974,10 +3834,10 @@ uint64_t openFdWithReadContext(char *a1, unsigned int a2, char **a3, uint64_t a4
   if (v9)
   {
     v10 = v16;
-    *(v16 + 1) = v16;
-    *(v10 + 2) = a4;
-    v10[160] = 3;
-    *(v10 + 13) = a1;
+    *(v16 + 8) = v16;
+    *(v10 + 16) = a4;
+    *(v10 + 160) = 3;
+    *(v10 + 104) = a1;
     if (a1)
     {
       v11 = strrchr(a1, 47);
@@ -3998,7 +3858,7 @@ uint64_t openFdWithReadContext(char *a1, unsigned int a2, char **a3, uint64_t a4
       v12 = 0;
     }
 
-    *(v10 + 14) = v12;
+    *(v10 + 112) = v12;
     if (!a5)
     {
       goto LABEL_11;
@@ -4007,19 +3867,19 @@ uint64_t openFdWithReadContext(char *a1, unsigned int a2, char **a3, uint64_t a4
     if ((*(a4 + 64))(v10, a5, 0))
     {
       v13 = *a5;
-      *(v10 + 5) = a5[1];
+      *(v10 + 40) = a5[1];
       v14 = a5[2];
-      *(v10 + 10) = v13;
-      *(v10 + 11) = v14;
-      v10[34] = *(a5 + 24);
-      *(v10 + 3) = *(a5 + 28);
+      *(v10 + 80) = v13;
+      *(v10 + 88) = v14;
+      *(v10 + 34) = *(a5 + 24);
+      *(v10 + 24) = *(a5 + 28);
 LABEL_11:
       result = 0;
       *a3 = v10;
       return result;
     }
 
-    (*(a4 + 56))(*(a4 + 8), *(v10 + 1), 0);
+    (*(a4 + 56))(*(a4 + 8), *(v10 + 8), 0);
   }
 
   return 0xFFFFFFFFLL;
@@ -4076,7 +3936,6 @@ uint64_t _CSFileDigester_InitializeEmpty(uint64_t a1, CFErrorRef *a2)
     v6 = ccsha256_di();
     v5[3] = v6;
     v5[4] = malloc_type_malloc(*(v6 + 8) + *(v6 + 16) + 12, 0x100004052888210uLL);
-    v7 = v5[3];
     ccdigest_init();
     *(a1 + 40) = v5;
     return 1;
@@ -4084,9 +3943,9 @@ uint64_t _CSFileDigester_InitializeEmpty(uint64_t a1, CFErrorRef *a2)
 
   else
   {
-    v9 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 1, 0);
+    v8 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 1, 0);
     result = 0;
-    *a2 = v9;
+    *a2 = v8;
   }
 
   return result;
@@ -4140,7 +3999,7 @@ void CSFileDigester_SetKey(uint64_t a1, CFDataRef theData)
   }
 }
 
-uint64_t CSFileDigester_Update(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
+uint64_t CSFileDigester_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErrorRef *a4)
 {
   v5 = *(a1 + 40);
   if (!v5)
@@ -4163,8 +4022,6 @@ LABEL_5:
     return result;
   }
 
-  v11 = *(v5 + 24);
-  v12 = *(v5 + 32);
   ccdigest_update();
   return 1;
 }
@@ -4204,66 +4061,63 @@ uint64_t CSFileDigester_Finalize(uint64_t a1, void *a2, unsigned int a3, CFError
 
 uint64_t _CSFileDigester_FinalizeDigest(uint64_t a1, CFErrorRef *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
-  if (!*(v4 + 8) && !*(a1 + 16))
+  if (*(v4 + 8) || *(a1 + 16))
   {
-    v12 = *MEMORY[0x277CBECE8];
-    v11 = *MEMORY[0x277CBEE48];
-    v13 = 6;
-    goto LABEL_9;
-  }
+    v14 = 0u;
+    v15 = 0u;
+    (*(*(v4 + 24) + 56))();
+    cc_clear();
+    if (*(v4 + 8))
+    {
+      v5 = *MEMORY[0x277CBECE8];
+LABEL_5:
+      *bytes = 0u;
+      v13 = 0u;
+      ccsha256_di();
+      CFDataGetLength(*(v4 + 8));
+      CFDataGetBytePtr(*(v4 + 8));
+      cchmac();
+      *(v4 + 16) = CFDataCreate(v5, bytes, 32);
+      result = 1;
+      *v4 = 1;
+      return result;
+    }
 
-  v18 = 0u;
-  v19 = 0u;
-  v5 = *(v4 + 32);
-  (*(*(v4 + 24) + 56))();
-  v6 = *(v4 + 32);
-  v7 = *(*(v4 + 24) + 8) + *(*(v4 + 24) + 16);
-  cc_clear();
-  if (!*(v4 + 8))
-  {
     *bytes = 0u;
-    v17 = 0u;
+    v13 = 0u;
     ccsha256_di();
     CFDataGetLength(*(a1 + 16));
     CFDataGetBytePtr(*(a1 + 16));
-    v10 = cchkdf();
-    v8 = *MEMORY[0x277CBECE8];
-    if (!v10)
+    v7 = cchkdf();
+    v5 = *MEMORY[0x277CBECE8];
+    if (!v7)
     {
       *(v4 + 8) = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 32);
       cc_clear();
       goto LABEL_5;
     }
 
-    v11 = *MEMORY[0x277CBEE48];
-    v12 = *MEMORY[0x277CBECE8];
-    v13 = 2;
-LABEL_9:
-    v14 = CFErrorCreate(v12, v11, v13, 0);
-    result = 0;
-    *a2 = v14;
-    goto LABEL_10;
+    v8 = *MEMORY[0x277CBEE48];
+    v9 = *MEMORY[0x277CBECE8];
+    v10 = 2;
   }
 
-  v8 = *MEMORY[0x277CBECE8];
-LABEL_5:
-  *bytes = 0u;
-  v17 = 0u;
-  ccsha256_di();
-  CFDataGetLength(*(v4 + 8));
-  CFDataGetBytePtr(*(v4 + 8));
-  cchmac();
-  *(v4 + 16) = CFDataCreate(v8, bytes, 32);
-  result = 1;
-  *v4 = 1;
-LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v9 = *MEMORY[0x277CBECE8];
+    v8 = *MEMORY[0x277CBEE48];
+    v10 = 6;
+  }
+
+  v11 = CFErrorCreate(v9, v8, v10, 0);
+  result = 0;
+  *a2 = v11;
   return result;
 }
 
-uint64_t CSFileDigester_Verify(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
+uint64_t CSFileDigester_Verify(uint64_t a1, uint64_t a2, unsigned int a3, CFErrorRef *a4)
 {
   v5 = *(a1 + 40);
   if (v5)
@@ -4336,7 +4190,7 @@ uint64_t CSSetSQLiteCorruptionTestingEnabled(uint64_t result)
 
 uint64_t CS_corruption_causing_sqlite3_open_v2(const char *a1, sqlite3 **a2, int a3, const char *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (CSSQLiteCorruptionTestingShouldCorrupt())
   {
     if (CK_DEFAULT_LOG_BLOCK_9 != -1)
@@ -4355,9 +4209,9 @@ uint64_t CS_corruption_causing_sqlite3_open_v2(const char *a1, sqlite3 **a2, int
       v9 = CK_DEFAULT_LOG_INTERNAL_9;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138543362;
-        v14 = v8;
-        _os_log_impl(&dword_243431000, v9, OS_LOG_TYPE_ERROR, "%{public}@", &v13, 0xCu);
+        v11 = 138543362;
+        v12 = v8;
+        _os_log_impl(&dword_243431000, v9, OS_LOG_TYPE_ERROR, "%{public}@", &v11, 0xCu);
       }
 
       if (v8)
@@ -4366,13 +4220,11 @@ uint64_t CS_corruption_causing_sqlite3_open_v2(const char *a1, sqlite3 **a2, int
       }
     }
 
-    v10 = *MEMORY[0x277D85DE8];
     return 11;
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     return sqlite3_open_v2(a1, a2, a3, a4);
   }
@@ -4380,7 +4232,7 @@ uint64_t CS_corruption_causing_sqlite3_open_v2(const char *a1, sqlite3 **a2, int
 
 uint64_t CS_corruption_causing_sqlite3_step(sqlite3_stmt *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (CSSQLiteCorruptionTestingShouldCorrupt())
   {
     if (CK_DEFAULT_LOG_BLOCK_9 != -1)
@@ -4399,9 +4251,9 @@ uint64_t CS_corruption_causing_sqlite3_step(sqlite3_stmt *a1)
       v3 = CK_DEFAULT_LOG_INTERNAL_9;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
       {
-        v7 = 138543362;
-        v8 = v2;
-        _os_log_impl(&dword_243431000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v7, 0xCu);
+        v5 = 138543362;
+        v6 = v2;
+        _os_log_impl(&dword_243431000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
       }
 
       if (v2)
@@ -4410,13 +4262,11 @@ uint64_t CS_corruption_causing_sqlite3_step(sqlite3_stmt *a1)
       }
     }
 
-    v4 = *MEMORY[0x277D85DE8];
     return 11;
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     return sqlite3_step(a1);
   }
@@ -4424,7 +4274,7 @@ uint64_t CS_corruption_causing_sqlite3_step(sqlite3_stmt *a1)
 
 uint64_t CS_corruption_causing_sqlite3_prepare_v2(sqlite3 *a1, const char *a2, int a3, sqlite3_stmt **a4, const char **a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (CSSQLiteCorruptionTestingShouldCorrupt())
   {
     if (CK_DEFAULT_LOG_BLOCK_9 != -1)
@@ -4443,9 +4293,9 @@ uint64_t CS_corruption_causing_sqlite3_prepare_v2(sqlite3 *a1, const char *a2, i
       v11 = CK_DEFAULT_LOG_INTERNAL_9;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543362;
-        v16 = v10;
-        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v15, 0xCu);
+        v13 = 138543362;
+        v14 = v10;
+        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v13, 0xCu);
       }
 
       if (v10)
@@ -4454,13 +4304,11 @@ uint64_t CS_corruption_causing_sqlite3_prepare_v2(sqlite3 *a1, const char *a2, i
       }
     }
 
-    v12 = *MEMORY[0x277D85DE8];
     return 11;
   }
 
   else
   {
-    v14 = *MEMORY[0x277D85DE8];
 
     return sqlite3_prepare_v2(a1, a2, a3, a4, a5);
   }
@@ -4468,7 +4316,7 @@ uint64_t CS_corruption_causing_sqlite3_prepare_v2(sqlite3 *a1, const char *a2, i
 
 uint64_t CS_corruption_causing_sqlite3_exec(sqlite3 *a1, const char *a2, int (__cdecl *a3)(void *, int, char **, char **), void *a4, char **a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (CSSQLiteCorruptionTestingShouldCorrupt())
   {
     if (CK_DEFAULT_LOG_BLOCK_9 != -1)
@@ -4487,9 +4335,9 @@ uint64_t CS_corruption_causing_sqlite3_exec(sqlite3 *a1, const char *a2, int (__
       v11 = CK_DEFAULT_LOG_INTERNAL_9;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543362;
-        v16 = v10;
-        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v15, 0xCu);
+        v13 = 138543362;
+        v14 = v10;
+        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v13, 0xCu);
       }
 
       if (v10)
@@ -4498,13 +4346,11 @@ uint64_t CS_corruption_causing_sqlite3_exec(sqlite3 *a1, const char *a2, int (__
       }
     }
 
-    v12 = *MEMORY[0x277D85DE8];
     return 11;
   }
 
   else
   {
-    v14 = *MEMORY[0x277D85DE8];
 
     return sqlite3_exec(a1, a2, a3, a4, a5);
   }
@@ -4512,12 +4358,10 @@ uint64_t CS_corruption_causing_sqlite3_exec(sqlite3 *a1, const char *a2, int (__
 
 uint64_t CSSQLiteCorruptionTestingShouldCorrupt()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (enabled != 1)
   {
-LABEL_19:
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   if ((CSSQLiteCorruptionTestingShouldCorrupt_initLogged & 1) == 0)
@@ -4539,7 +4383,7 @@ LABEL_19:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v8 = v0;
+        v7 = v0;
         _os_log_impl(&dword_243431000, v1, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -4552,39 +4396,39 @@ LABEL_19:
     CSSQLiteCorruptionTestingShouldCorrupt_initLogged = 1;
   }
 
-  if ((corruptionHappened & 1) == 0)
+  if (corruptionHappened)
   {
-    if ((CSSQLiteCorruptionTestingShouldCorrupt_randSeeded & 1) == 0)
-    {
-      v3 = time(0);
-      srand(v3);
-      CSSQLiteCorruptionTestingShouldCorrupt_randSeeded = 1;
-    }
+    return 1;
+  }
 
-    if (callNumber < 0)
-    {
-      result = 0;
-      ++callNumber;
-      goto LABEL_20;
-    }
+  if ((CSSQLiteCorruptionTestingShouldCorrupt_randSeeded & 1) == 0)
+  {
+    v3 = time(0);
+    srand(v3);
+    CSSQLiteCorruptionTestingShouldCorrupt_randSeeded = 1;
+  }
 
+  if (callNumber < 0)
+  {
+    result = 0;
+    ++callNumber;
+  }
+
+  else
+  {
     v4 = rand();
     ++callNumber;
     HIDWORD(v5) = -286331153 * v4 + 143165576;
     LODWORD(v5) = HIDWORD(v5);
-    if ((v5 >> 2) <= 0x4444444)
+    if ((v5 >> 2) > 0x4444444)
     {
-      result = 1;
-      corruptionHappened = 1;
-      goto LABEL_20;
+      return 0;
     }
 
-    goto LABEL_19;
+    result = 1;
+    corruptionHappened = 1;
   }
 
-  result = 1;
-LABEL_20:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4642,7 +4486,7 @@ uint64_t CKChunkSignatureGeneratorV2Init(uint64_t a1, uint64_t a2, CFErrorRef *a
   return v8;
 }
 
-uint64_t CKChunkSignatureGeneratorV2Update(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CKChunkSignatureGeneratorV2Update(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   *(a1 + 40) += a3;
   CSChunkDigester_Update(**(a1 + 48), a2, a3, 0);
@@ -4852,7 +4696,6 @@ uint64_t _CSChunkDigester_InitializeEmpty(uint64_t a1, CFErrorRef *a2)
     v6 = ccsha256_di();
     v5[2] = v6;
     v5[3] = malloc_type_malloc(*(v6 + 8) + *(v6 + 16) + 12, 0x100004052888210uLL);
-    v7 = v5[2];
     ccdigest_init();
     *(v5 + 8) = 0;
     *v5 = 0;
@@ -4863,9 +4706,9 @@ uint64_t _CSChunkDigester_InitializeEmpty(uint64_t a1, CFErrorRef *a2)
 
   else
   {
-    v9 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 1, 0);
+    v8 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 1, 0);
     result = 0;
-    *a2 = v9;
+    *a2 = v8;
   }
 
   return result;
@@ -4898,22 +4741,19 @@ uint64_t CSChunkDigester_InitializeFromKey(uint64_t a1, const __CFData *a2, CFEr
   return result;
 }
 
-uint64_t CSChunkDigester_Update(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
+uint64_t CSChunkDigester_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErrorRef *a4)
 {
-  v4 = *(a1 + 48);
-  if (v4)
+  if (*(a1 + 48))
   {
-    v5 = *(v4 + 16);
-    v6 = *(v4 + 24);
     ccdigest_update();
     return 1;
   }
 
   else
   {
-    v9 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 7, 0);
+    v6 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 7, 0);
     result = 0;
-    *a4 = v9;
+    *a4 = v6;
   }
 
   return result;
@@ -4954,81 +4794,76 @@ uint64_t CSChunkDigester_Finalize(uint64_t a1, void *a2, unsigned int a3, CFErro
 
 uint64_t _CSChunkDigester_FinalizeDigest(uint64_t a1, CFErrorRef *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 48);
   if (!*(v4 + 32) && !*(a1 + 24))
   {
-    v11 = *MEMORY[0x277CBECE8];
-    v12 = *MEMORY[0x277CBEE48];
-    v13 = 6;
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = *MEMORY[0x277CBEE48];
+    v10 = 6;
     goto LABEL_10;
   }
 
   ccsha256_di();
-  v24 = 0u;
-  v25 = 0u;
-  v5 = *(v4 + 24);
+  v20 = 0u;
+  v21 = 0u;
   (*(*(v4 + 16) + 56))();
-  v6 = *(v4 + 24);
-  v7 = *(*(v4 + 16) + 8) + *(*(v4 + 16) + 16);
   cc_clear();
-  v8 = *(v4 + 32);
-  if (v8)
+  v5 = *(v4 + 32);
+  if (v5)
   {
     goto LABEL_4;
   }
 
-  *v18 = 0u;
-  v19 = 0u;
+  *v14 = 0u;
+  v15 = 0u;
   CFDataGetLength(*(a1 + 24));
   CFDataGetBytePtr(*(a1 + 24));
-  v10 = cchkdf();
-  v11 = *MEMORY[0x277CBECE8];
-  if (v10)
+  v7 = cchkdf();
+  v8 = *MEMORY[0x277CBECE8];
+  if (v7)
   {
-    v12 = *MEMORY[0x277CBEE48];
-    v13 = 2;
+    v9 = *MEMORY[0x277CBEE48];
+    v10 = 2;
 LABEL_10:
-    v9 = 0;
-    *a2 = CFErrorCreate(v11, v12, v13, 0);
-    goto LABEL_11;
+    v6 = 0;
+    *a2 = CFErrorCreate(v8, v9, v10, 0);
+    return v6;
   }
 
-  *(v4 + 32) = CFDataCreate(v11, v18, 32);
+  *(v4 + 32) = CFDataCreate(v8, v14, 32);
   cc_clear();
-  v8 = *(v4 + 32);
+  v5 = *(v4 + 32);
 LABEL_4:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  *v18 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  CFDataGetLength(v8);
+  v16 = 0u;
+  v17 = 0u;
+  *v14 = 0u;
+  v15 = 0u;
+  CFDataGetLength(v5);
   CFDataGetBytePtr(*(v4 + 32));
   if (cchkdf())
   {
     *a2 = CFErrorCreate(*MEMORY[0x277CBECE8], *MEMORY[0x277CBEE48], 2, 0);
     cc_clear();
-    v9 = 0;
+    return 0;
   }
 
   else
   {
     *bytes = 0u;
-    v17 = 0u;
+    v13 = 0u;
     ccsha256_di();
     cchmac();
     *v4 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 32);
-    v9 = 1;
+    v6 = 1;
     *(v4 + 8) = 1;
     cc_clear();
     cc_clear();
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v6;
 }
 
 void CSChunkDigester_SetKey(uint64_t a1, CFDataRef theData)
@@ -5052,7 +4887,7 @@ void CSChunkDigester_SetKey(uint64_t a1, CFDataRef theData)
   }
 }
 
-uint64_t CSChunkDigester_Verify(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
+uint64_t CSChunkDigester_Verify(uint64_t a1, uint64_t a2, unsigned int a3, CFErrorRef *a4)
 {
   v5 = *(a1 + 48);
   if (v5)
@@ -5141,7 +4976,7 @@ uint64_t CKFileSignatureGeneratorV2Init(uint64_t a1, uint64_t a2, CFErrorRef *a3
 
   if (CKFileDigestArgumentsBoundaryKey(a2))
   {
-    result = CSFileDigester_Initialize(**(a1 + 48), a3);
+    result = CSFileDigester_Initialize();
     if (!result)
     {
       return result;
@@ -5149,7 +4984,7 @@ uint64_t CKFileSignatureGeneratorV2Init(uint64_t a1, uint64_t a2, CFErrorRef *a3
 
 LABEL_13:
     *(a1 + 40) = 0;
-    CSFileDigester_Update(**(a1 + 48), "com.apple.DataObjectSaltV2", 26, 0);
+    CSFileDigester_Update(**(a1 + 48), "com.apple.DataObjectSaltV2", 0x1Au, 0);
     return 1;
   }
 
@@ -5529,7 +5364,7 @@ CFStringRef CKFileDigestArgumentsV1CopyDescription(uint64_t a1)
 uint64_t CKChunkDigestResultsAllocate(uint64_t *a1, int a2, uint64_t a3)
 {
   *a1 = 0;
-  v6 = CKTypeRegister(&CKChunkDigestResultsGetTypeID_typeID);
+  v6 = CKTypeRegister(&CKChunkDigestResultsGetTypeID_typeID, &kCKChunkDigestResultsContextClass);
   result = CKTypeCreateInstance_(0, v6, a3 + 56);
   if (result)
   {
@@ -5542,7 +5377,7 @@ uint64_t CKChunkDigestResultsAllocate(uint64_t *a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t _CKChunkDigestResultsInit(uint64_t a1, _BYTE *a2, unsigned __int8 *a3, int a4, void *a5)
+uint64_t _CKChunkDigestResultsInit(uint64_t a1, _BYTE *a2, char *a3, int a4, void *a5)
 {
   if (a5)
   {
@@ -5585,7 +5420,7 @@ uint64_t CKChunkDigestResultsSignatureAndKeyEqual(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t CKChunkDigestResultsCreate(void *a1, _BYTE *a2, unsigned __int8 *a3, int a4)
+uint64_t CKChunkDigestResultsCreate(void *a1, _BYTE *a2, char *a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -5607,7 +5442,7 @@ uint64_t CKChunkDigestResultsCreate(void *a1, _BYTE *a2, unsigned __int8 *a3, in
   return CKChunkDigestResultsV2Create(a1, a2, a3, a4);
 }
 
-uint64_t CKChunkDigestResultsEqual(uint64_t a1, uint64_t a2)
+BOOL CKChunkDigestResultsEqual(uint64_t a1, uint64_t a2)
 {
   if (a1 == a2)
   {
@@ -5660,7 +5495,7 @@ CFStringRef _CKChunkDigestResultsCFCopyFormatDescription(uint64_t a1)
   return v4;
 }
 
-uint64_t CKTypeRegister(uint64_t *a1)
+uint64_t CKTypeRegister(uint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -5744,7 +5579,7 @@ uint64_t CKChunkDigestResultsV2Alloc(void *a1)
   return result;
 }
 
-uint64_t CKChunkDigestResultsV2Create(void *a1, _BYTE *a2, unsigned __int8 *a3, int a4)
+uint64_t CKChunkDigestResultsV2Create(void *a1, _BYTE *a2, char *a3, int a4)
 {
   cf = 0;
   v12 = 0;
@@ -5922,16 +5757,17 @@ CFErrorRef CKErrorCreate(const __CFString *a1, CFIndex a2, const __CFDictionary 
   return v17;
 }
 
-CFErrorRef CKInternalErrorCreateWithFormat(unsigned int a1, const __CFDictionary *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+CFErrorRef CKInternalErrorCreateWithFormat(unsigned int a1, const __CFDictionary *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = CFStringCreateWithFormatAndArguments(0, 0, a3, &a9);
-  v12 = CKErrorCreate(@"com.apple.chunkinglibrary.internal", a1, a2, v11);
-  if (v11)
+  va_start(va, a8);
+  v10 = CFStringCreateWithFormatAndArguments(0, 0, a3, va);
+  v11 = CKErrorCreate(@"com.apple.chunkinglibrary.internal", a1, a2, v10);
+  if (v10)
   {
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
-  return v12;
+  return v11;
 }
 
 CFErrorRef CKErrorCreateWithFormat(CFIndex a1, CFStringRef format, ...)
@@ -5947,10 +5783,11 @@ CFErrorRef CKErrorCreateWithFormat(CFIndex a1, CFStringRef format, ...)
   return v4;
 }
 
-CFErrorRef CKInternalWrappingErrorCreateWithFormat(unsigned int a1, const void *a2, const __CFDictionary *a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+CFErrorRef CKInternalWrappingErrorCreateWithFormat(unsigned int a1, const void *a2, const __CFDictionary *a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v14 = Mutable;
+  v13 = Mutable;
   if (a2)
   {
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CBEE78], a2);
@@ -5959,42 +5796,42 @@ CFErrorRef CKInternalWrappingErrorCreateWithFormat(unsigned int a1, const void *
   if (a3)
   {
     Count = CFDictionaryGetCount(a3);
+    v15 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
     v16 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
-    v17 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
-    CFDictionaryGetKeysAndValues(a3, v16, v17);
+    CFDictionaryGetKeysAndValues(a3, v15, v16);
     if (Count >= 1)
     {
+      v17 = v15;
       v18 = v16;
-      v19 = v17;
       do
       {
+        v20 = *v17++;
+        v19 = v20;
         v21 = *v18++;
-        v20 = v21;
-        v22 = *v19++;
-        CFDictionarySetValue(v14, v20, v22);
+        CFDictionarySetValue(v13, v19, v21);
         --Count;
       }
 
       while (Count);
     }
 
+    free(v15);
     free(v16);
-    free(v17);
   }
 
-  v23 = CFStringCreateWithFormatAndArguments(0, 0, a4, &a9);
-  v24 = CKErrorCreate(@"com.apple.chunkinglibrary.internal", a1, v14, v23);
-  if (v14)
+  v22 = CFStringCreateWithFormatAndArguments(0, 0, a4, va);
+  v23 = CKErrorCreate(@"com.apple.chunkinglibrary.internal", a1, v13, v22);
+  if (v13)
   {
-    CFRelease(v14);
+    CFRelease(v13);
   }
 
-  if (v23)
+  if (v22)
   {
-    CFRelease(v23);
+    CFRelease(v22);
   }
 
-  return v24;
+  return v23;
 }
 
 CFErrorRef CKSQLiteErrorCreateWithFormat(int a1, CFStringRef format, ...)
@@ -6021,6 +5858,17 @@ CFErrorRef CKPOSIXErrorCreateWithFormat(int a1, CFStringRef format, ...)
   }
 
   return v4;
+}
+
+CFErrorRef CKCreateInternalWrongStoreError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = "not registry";
+  if (a2)
+  {
+    v8 = "registry";
+  }
+
+  return CKInternalErrorCreateWithFormat(2u, 0, @"Attempted to call %s, but chunk store is %s", a4, a5, a6, a7, a8, a1, v8);
 }
 
 void _CKInitOnceForLibrary()
@@ -6133,7 +5981,7 @@ uint64_t CKChunkDigestArgumentsV1Create(void *a1, char a2, CFTypeRef *a3)
   return v7;
 }
 
-void adaptive_chunk_size(unsigned int a1, unint64_t a2, unsigned int a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, int *a7)
+void adaptive_chunk_size(unsigned int a1, unint64_t a2, unsigned int a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unsigned int *a7)
 {
   v13 = a2;
   v14 = a3;
@@ -6166,7 +6014,7 @@ void adaptive_chunk_size(unsigned int a1, unint64_t a2, unsigned int a3, unsigne
 
 size_t create_sqlite3_db_s_profile(void *a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 9;
@@ -6182,11 +6030,11 @@ size_t create_sqlite3_db_s_profile(void *a1, uint64_t **a2, _DWORD *a3, _BYTE *a
   if (v7 > 0x1000)
   {
     *buf = 0;
-    v24 = 0;
     v23 = 0;
-    adaptive_chunk_size(0x270Fu, v7 - 4096, 0x1000u, buf, &v24 + 1, &v24, &v23);
-    v8 = v24;
-    if (v24)
+    v22 = 0;
+    adaptive_chunk_size(0x270Fu, v7 - 4096, 0x1000u, buf, &v23 + 1, &v23, &v22);
+    v8 = v23;
+    if (v23)
     {
       v9 = 3;
     }
@@ -6215,8 +6063,8 @@ size_t create_sqlite3_db_s_profile(void *a1, uint64_t **a2, _DWORD *a3, _BYTE *a
       v10[1] = 4096;
       *(v10 + 8) = 4;
       v10[3] = 0;
-      v13 = HIDWORD(v24);
-      v14 = v12 + HIDWORD(v24) * *buf;
+      v13 = HIDWORD(v23);
+      v14 = v12 + HIDWORD(v23) * *buf;
       if (v14 >= a1[10])
       {
         v14 = a1[10];
@@ -6229,8 +6077,8 @@ size_t create_sqlite3_db_s_profile(void *a1, uint64_t **a2, _DWORD *a3, _BYTE *a
       v10[10] = 0;
       if (v8)
       {
-        v15 = v23;
-        v16 = v14 + v23 * v8;
+        v15 = v22;
+        v16 = v14 + v22 * v8;
         if (v16 >= a1[10])
         {
           v16 = a1[10];
@@ -6246,16 +6094,14 @@ size_t create_sqlite3_db_s_profile(void *a1, uint64_t **a2, _DWORD *a3, _BYTE *a
       goto LABEL_21;
     }
 
-LABEL_33:
-    v9 = 0;
-    goto LABEL_34;
+    return 0;
   }
 
   v9 = 1;
   v17 = malloc_type_calloc(1uLL, 0x38uLL, 0x1000040C4DFEAEFuLL);
   if (!v17)
   {
-    goto LABEL_33;
+    return 0;
   }
 
   v11 = v17;
@@ -6286,7 +6132,7 @@ LABEL_21:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v26 = v19;
+        v25 = v19;
         _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -6299,8 +6145,6 @@ LABEL_21:
     print_sections(v11, v9);
   }
 
-LABEL_34:
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -6320,7 +6164,7 @@ os_log_t __create_sqlite3_db_s_profile_block_invoke_3()
 
 void print_sections(uint64_t *a1, unsigned int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 0;
@@ -6355,7 +6199,7 @@ void print_sections(uint64_t *a1, unsigned int a2)
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v14 = v9;
+            v13 = v9;
             _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
@@ -6374,20 +6218,18 @@ void print_sections(uint64_t *a1, unsigned int a2)
 
     while (v5 != v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t createChunkProfile(uint64_t a1, uint64_t **a2, uint64_t *a3)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   v5 = *(a1 + 104);
   __s = *(a1 + 96);
   v6 = copy_lowercase_suffix_for_type_hint(__s);
   v7 = *(a1 + 216);
   v8 = *(a1 + 16);
-  v72 = v5;
+  v71 = v5;
   if (*v8 < 3)
   {
     goto LABEL_13;
@@ -6445,8 +6287,8 @@ LABEL_13:
 
     else
     {
-      v47 = CFGetTypeID(v13);
-      v17 = v47 == CFStringGetTypeID() && CKDefaultProfilePolicyTypeFromString(v13);
+      v46 = CFGetTypeID(v13);
+      v17 = v46 == CFStringGetTypeID() && CKDefaultProfilePolicyTypeFromString(v13);
     }
 
     CFRelease(v13);
@@ -6457,27 +6299,27 @@ LABEL_13:
     v17 = 0;
   }
 
-  v58 = (*(*(a1 + 16) + 96))(*(a1 + 8), @"kCKItemChunkProfileConfigurationFileExtensionToProfileMap");
-  if (v58)
+  v57 = (*(*(a1 + 16) + 96))(*(a1 + 8), @"kCKItemChunkProfileConfigurationFileExtensionToProfileMap");
+  if (v57)
   {
-    v59 = v58;
-    v60 = CFGetTypeID(v58);
-    if (v60 == CFDictionaryGetTypeID())
+    v58 = v57;
+    v59 = CFGetTypeID(v57);
+    if (v59 == CFDictionaryGetTypeID())
     {
-      CFRetain(v59);
-      v61 = v59;
+      CFRetain(v58);
+      v60 = v58;
     }
 
     else
     {
-      v61 = 0;
+      v60 = 0;
     }
 
-    CFRelease(v59);
-    if (v6 && v61)
+    CFRelease(v58);
+    if (v6 && v60)
     {
-      v62 = CFDictionaryGetValue(v61, v6);
-      if (!v62)
+      v61 = CFDictionaryGetValue(v60, v6);
+      if (!v61)
       {
         v18 = 0;
         v19 = @"Unknown";
@@ -6489,25 +6331,25 @@ LABEL_189:
         goto LABEL_190;
       }
 
-      v63 = v62;
+      v62 = v61;
       CFRetain(v6);
-      v64 = CFGetTypeID(v63);
-      if (v64 == CFNumberGetTypeID())
+      v63 = CFGetTypeID(v62);
+      if (v63 == CFNumberGetTypeID())
       {
         LODWORD(valuePtr[0]) = 0;
-        v65 = CFNumberGetValue(v63, kCFNumberSInt32Type, valuePtr);
+        v64 = CFNumberGetValue(v62, kCFNumberSInt32Type, valuePtr);
         if (LODWORD(valuePtr[0]) >= 0xA)
         {
-          v66 = 0;
+          v65 = 0;
         }
 
         else
         {
-          v66 = valuePtr[0];
+          v65 = valuePtr[0];
         }
 
-        v5 = v72;
-        if (!v65)
+        v5 = v71;
+        if (!v64)
         {
           goto LABEL_173;
         }
@@ -6515,22 +6357,22 @@ LABEL_189:
 
       else
       {
-        v67 = CFGetTypeID(v63);
-        if (v67 != CFStringGetTypeID())
+        v66 = CFGetTypeID(v62);
+        if (v66 != CFStringGetTypeID())
         {
           v18 = 0;
           v19 = v6;
-          v5 = v72;
+          v5 = v71;
           goto LABEL_189;
         }
 
-        v66 = CKProfileTypeFromString(v63);
-        v5 = v72;
+        v65 = CKProfileTypeFromString(v62);
+        v5 = v71;
       }
 
-      if (v66 <= 5 && ((0x2Fu >> v66) & 1) != 0)
+      if (v65 <= 5 && ((0x2Fu >> v65) & 1) != 0)
       {
-        v18 = dword_2434800E0[v66];
+        v18 = dword_2434800E0[v65];
 LABEL_174:
         v19 = v6;
         goto LABEL_189;
@@ -6544,17 +6386,17 @@ LABEL_173:
 
   else
   {
-    v61 = 0;
+    v60 = 0;
   }
 
   CFRetain(v10);
   CFRelease(v10);
   v19 = 0;
   v18 = 0;
-  if (v61)
+  if (v60)
   {
 LABEL_190:
-    CFRelease(v61);
+    CFRelease(v60);
   }
 
 LABEL_14:
@@ -6733,56 +6575,56 @@ LABEL_59:
     goto LABEL_61;
   }
 
-  v44 = *(a1 + 160);
-  if (v44 == 3)
+  v43 = *(a1 + 160);
+  if (v43 == 3)
   {
-    v45 = "dflt";
-    v46 = 80;
+    v44 = "dflt";
+    v45 = 80;
   }
 
   else
   {
-    if (v44 != 5)
+    if (v43 != 5)
     {
       createChunkProfile_cold_18();
     }
 
-    v45 = "dflt";
-    v46 = 99;
+    v44 = "dflt";
+    v45 = 99;
   }
 
-  v48 = copy_lowercase_suffix_for_type_hint(__s);
-  if (v48)
+  v47 = copy_lowercase_suffix_for_type_hint(__s);
+  if (v47)
   {
-    v49 = v48;
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
+    v48 = v47;
     v88 = 0u;
-    v85 = 0u;
+    v89 = 0u;
     v86 = 0u;
-    v83 = 0u;
+    v87 = 0u;
     v84 = 0u;
-    v81 = 0u;
+    v85 = 0u;
     v82 = 0u;
-    v79 = 0u;
+    v83 = 0u;
     v80 = 0u;
-    memset(v78, 0, sizeof(v78));
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    memset(v77, 0, sizeof(v77));
     memset(valuePtr, 0, sizeof(valuePtr));
-    if (CFStringGetCString(v48, valuePtr, 256, 0x8000100u))
+    if (CFStringGetCString(v47, valuePtr, 256, 0x8000100u))
     {
-      v50 = strlen(valuePtr);
-      while (v50 != strlen(v45) || strncasecmp(valuePtr, v45, v50))
+      v49 = strlen(valuePtr);
+      while (v49 != strlen(v44) || strncasecmp(valuePtr, v44, v49))
       {
-        v45 += 24;
-        if (!--v46)
+        v44 += 24;
+        if (!--v45)
         {
           goto LABEL_128;
         }
       }
 
-      CFRelease(v49);
-      v68 = *(v45 + 5);
+      CFRelease(v48);
+      v67 = *(v44 + 5);
       if (gVerbose == 2)
       {
         if (CK_DEFAULT_LOG_BLOCK_10 != -1)
@@ -6792,30 +6634,30 @@ LABEL_59:
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
-          v69 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"suffix_index_for_type_hint(typeHint:%s, %s) returned type:%d\n", __s, v72, v68);
+          v68 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"suffix_index_for_type_hint(typeHint:%s, %s) returned type:%d\n", __s, v71, v67);
           if (CK_DEFAULT_LOG_BLOCK_10 != -1)
           {
             createChunkProfile_cold_10();
           }
 
-          v70 = CK_DEFAULT_LOG_INTERNAL_10;
+          v69 = CK_DEFAULT_LOG_INTERNAL_10;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
             LODWORD(valuePtr[0]) = 138543362;
-            *(valuePtr + 4) = v69;
-            _os_log_impl(&dword_243431000, v70, OS_LOG_TYPE_DEBUG, "%{public}@", valuePtr, 0xCu);
+            *(valuePtr + 4) = v68;
+            _os_log_impl(&dword_243431000, v69, OS_LOG_TYPE_DEBUG, "%{public}@", valuePtr, 0xCu);
           }
 
-          if (v69)
+          if (v68)
           {
-            CFRelease(v69);
+            CFRelease(v68);
           }
         }
       }
 
-      if (v68)
+      if (v67)
       {
-        v21 = v68;
+        v21 = v67;
         goto LABEL_61;
       }
     }
@@ -6823,50 +6665,50 @@ LABEL_59:
     else
     {
 LABEL_128:
-      CFRelease(v49);
+      CFRelease(v48);
     }
   }
 
-  v71 = v6;
-  v51 = *(a1 + 16);
-  if (!v51)
+  v70 = v6;
+  v50 = *(a1 + 16);
+  if (!v50)
   {
     createChunkProfile_cold_17();
   }
 
-  v52 = *(a1 + 8);
-  v53 = *(a1 + 232);
-  v54 = *(a1 + 80);
+  v51 = *(a1 + 8);
+  v52 = *(a1 + 232);
+  v53 = *(a1 + 80);
   bzero(&valuePtr[1] + 8, 0x208uLL);
-  *&valuePtr[0] = v51;
-  *(&valuePtr[0] + 1) = v54;
-  *&valuePtr[1] = v53;
-  if (v54 >= 0x200)
+  *&valuePtr[0] = v50;
+  *(&valuePtr[0] + 1) = v53;
+  *&valuePtr[1] = v52;
+  if (v53 >= 0x200)
   {
-    v55 = 512;
+    v54 = 512;
   }
 
   else
   {
-    v55 = v54;
+    v54 = v53;
   }
 
-  v76 = 0;
-  if ((*(v51 + 72))(v52, v53, v78, v55, &v76, 0))
+  v75 = 0;
+  if ((*(v50 + 72))(v51, v52, v77, v54, &v75, 0))
   {
-    *(&valuePtr[1] + 1) = v76;
-    v75 = 0;
-    if (detect_magics(valuePtr, &v75))
+    *(&valuePtr[1] + 1) = v75;
+    v74 = 0;
+    if (detect_magics(valuePtr, &v74))
     {
       v21 = 0;
     }
 
     else
     {
-      v21 = v75;
+      v21 = v74;
     }
 
-    v6 = v71;
+    v6 = v70;
     if (gVerbose == 2)
     {
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
@@ -6876,23 +6718,23 @@ LABEL_128:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        v56 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"profile_type_for_content(%s) returned type:%d\n", v72, v21);
+        v55 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"profile_type_for_content(%s) returned type:%d\n", v71, v21);
         if (CK_DEFAULT_LOG_BLOCK_10 != -1)
         {
           createChunkProfile_cold_12();
         }
 
-        v57 = CK_DEFAULT_LOG_INTERNAL_10;
+        v56 = CK_DEFAULT_LOG_INTERNAL_10;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(valuePtr[0]) = 138543362;
-          *(valuePtr + 4) = v56;
-          _os_log_impl(&dword_243431000, v57, OS_LOG_TYPE_DEBUG, "%{public}@", valuePtr, 0xCu);
+          *(valuePtr + 4) = v55;
+          _os_log_impl(&dword_243431000, v56, OS_LOG_TYPE_DEBUG, "%{public}@", valuePtr, 0xCu);
         }
 
-        if (v56)
+        if (v55)
         {
-          CFRelease(v56);
+          CFRelease(v55);
         }
       }
     }
@@ -6901,7 +6743,7 @@ LABEL_128:
   else
   {
     v21 = 0;
-    v6 = v71;
+    v6 = v70;
   }
 
 LABEL_61:
@@ -7009,10 +6851,10 @@ LABEL_91:
 
   v33 = 1;
 LABEL_92:
-  LODWORD(v76) = 0;
-  LOBYTE(v75) = 0;
-  v36 = v34(a1, a2, &v76, &v75);
-  if (v75)
+  LODWORD(v75) = 0;
+  LOBYTE(v74) = 0;
+  v36 = v34(a1, a2, &v75, &v74);
+  if (v74)
   {
     v33 = 1;
   }
@@ -7026,7 +6868,7 @@ LABEL_92:
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEFAULT))
   {
     v38 = CKProfileTypeDescription(v21);
-    v39 = CKProfileTypeDescription(v76);
+    v39 = CKProfileTypeDescription(v75);
     LODWORD(valuePtr[0]) = 136447746;
     *(valuePtr + 4) = __s;
     v40 = "F";
@@ -7039,14 +6881,14 @@ LABEL_92:
 
     WORD3(valuePtr[1]) = 2082;
     *(&valuePtr[1] + 1) = v39;
-    LOWORD(v78[0]) = 2048;
-    *(v78 + 2) = v36;
-    WORD5(v78[0]) = 2082;
-    *(v78 + 12) = v40;
-    WORD2(v78[1]) = 2114;
-    *(&v78[1] + 6) = v19;
-    HIWORD(v78[1]) = 2114;
-    *&v79 = v10;
+    LOWORD(v77[0]) = 2048;
+    *(v77 + 2) = v36;
+    WORD5(v77[0]) = 2082;
+    *(v77 + 12) = v40;
+    WORD2(v77[1]) = 2114;
+    *(&v77[1] + 6) = v19;
+    HIWORD(v77[1]) = 2114;
+    *&v78 = v10;
     _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_DEFAULT, "typeHint:%{public}s typeRequested:%{public}s typeUsed:%{public}s sectionCount:%llu default:%{public}s resolvedType:%{public}@ serverConfig:%{public}@", valuePtr, 0x48u);
   }
 
@@ -7058,7 +6900,7 @@ LABEL_92:
       v41 = MEMORY[0x277CBED10];
     }
 
-    CKProfileResultsCreate(a3, v76, v10, v19, *v41, 0);
+    CKProfileResultsCreate(a3, v75, v10, v19, *v41, 0);
   }
 
   if (v10)
@@ -7076,42 +6918,39 @@ LABEL_92:
     CFRelease(v6);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 char *copy_lowercase_suffix_for_type_hint(char *__s)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (!__s)
   {
-    goto LABEL_52;
+    return __s;
   }
 
   v1 = __s;
   if (!*__s)
   {
-LABEL_51:
-    __s = 0;
-    goto LABEL_52;
+    return 0;
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  *buffer = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  *buffer = 0u;
+  v20 = 0u;
   v2 = strchr(__s, 46);
   v3 = CFStringCreateWithCString(0, v1, 0x8000100u);
   v4 = v3;
@@ -7147,7 +6986,7 @@ LABEL_25:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"class:%@, tag:%@", v11, v12, *buffer, *&buffer[8], v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35);
+        v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"class:%@, tag:%@", v11, v12, *buffer, *&buffer[8], v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
         if (CK_DEFAULT_LOG_BLOCK_10 != -1)
         {
           copy_lowercase_suffix_for_type_hint_cold_4();
@@ -7157,7 +6996,7 @@ LABEL_25:
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v37 = v14;
+          v36 = v14;
           _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
@@ -7216,7 +7055,7 @@ LABEL_41:
 
   if (!v3)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   v5 = UTTypeCopyPreferredTagWithClass(v3, *MEMORY[0x277CC1F58]);
@@ -7227,7 +7066,7 @@ LABEL_41:
 
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
   {
-    v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"uti:%@, tag:%@", v4, v5, *buffer, *&buffer[8], v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35);
+    v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"uti:%@, tag:%@", v4, v5, *buffer, *&buffer[8], v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
     if (CK_DEFAULT_LOG_BLOCK_10 != -1)
     {
       copy_lowercase_suffix_for_type_hint_cold_2();
@@ -7237,7 +7076,7 @@ LABEL_41:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v37 = v6;
+      v36 = v6;
       _os_log_impl(&dword_243431000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -7272,7 +7111,7 @@ LABEL_43:
 LABEL_44:
   if (!v8)
   {
-    goto LABEL_51;
+    return 0;
   }
 
   v16 = strlen(v8);
@@ -7294,10 +7133,7 @@ LABEL_44:
     while (v16);
   }
 
-  __s = CFStringCreateWithCString(*MEMORY[0x277CBECE8], v8, 0x8000100u);
-LABEL_52:
-  v19 = *MEMORY[0x277D85DE8];
-  return __s;
+  return CFStringCreateWithCString(*MEMORY[0x277CBECE8], v8, 0x8000100u);
 }
 
 os_log_t __createChunkProfile_block_invoke()
@@ -7330,7 +7166,7 @@ os_log_t __createChunkProfile_block_invoke_2_46()
 
 uint64_t create_default_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 1;
@@ -7362,23 +7198,23 @@ uint64_t create_default_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _B
 
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
             {
-              v25 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"fixedChunkSize set to %llu bytes", v8);
+              v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"fixedChunkSize set to %llu bytes", v8);
               if (CK_DEFAULT_LOG_BLOCK_10 != -1)
               {
                 create_default_fixed_profile_cold_2();
               }
 
-              v26 = CK_DEFAULT_LOG_INTERNAL_10;
+              v25 = CK_DEFAULT_LOG_INTERNAL_10;
               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v28 = v25;
-                _os_log_impl(&dword_243431000, v26, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v27 = v24;
+                _os_log_impl(&dword_243431000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v25)
+              if (v24)
               {
-                CFRelease(v25);
+                CFRelease(v24);
               }
             }
           }
@@ -7406,7 +7242,7 @@ uint64_t create_default_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _B
           }
 
           *buf = 138543362;
-          v28 = v9;
+          v27 = v9;
           goto LABEL_30;
         }
       }
@@ -7433,7 +7269,7 @@ uint64_t create_default_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _B
           }
 
           *buf = 138543362;
-          v28 = v9;
+          v27 = v9;
           goto LABEL_30;
         }
       }
@@ -7461,7 +7297,7 @@ uint64_t create_default_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _B
         }
 
         *buf = 138543362;
-        v28 = v9;
+        v27 = v9;
 LABEL_30:
         _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
 LABEL_31:
@@ -7491,7 +7327,7 @@ LABEL_31:
 LABEL_41:
     if (v8 > 0x1400000)
     {
-      goto LABEL_77;
+      return 0;
     }
   }
 
@@ -7530,7 +7366,7 @@ LABEL_42:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v28 = v15;
+      v27 = v15;
       _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -7557,7 +7393,7 @@ LABEL_42:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v28 = v15;
+        v27 = v15;
         _os_log_impl(&dword_243431000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -7574,9 +7410,7 @@ LABEL_64:
   v19 = malloc_type_calloc(1uLL, 0x38uLL, 0x1000040C4DFEAEFuLL);
   if (!v19)
   {
-LABEL_77:
-    v18 = 0;
-    goto LABEL_78;
+    return 0;
   }
 
   v20 = v19;
@@ -7605,7 +7439,7 @@ LABEL_77:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v28 = v21;
+        v27 = v21;
         _os_log_impl(&dword_243431000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -7619,14 +7453,12 @@ LABEL_77:
     print_sections(v20, 1u);
   }
 
-LABEL_78:
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 80);
   v9 = *(a1 + 104);
   if (v8 <= 13312 * *(a1 + 164))
@@ -7650,7 +7482,7 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v24 = v13;
+          v23 = v13;
           _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
@@ -7673,7 +7505,7 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
 
     v15 = *(a1 + 232);
     v16 = *(a1 + 80);
-    default_fixed_profile = 1;
+    v12 = 1;
     v17 = malloc_type_calloc(1uLL, 0x38uLL, 0x1000040C4DFEAEFuLL);
     if (v17)
     {
@@ -7703,7 +7535,7 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v24 = v19;
+            v23 = v19;
             _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
@@ -7713,14 +7545,14 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
           }
         }
 
-        default_fixed_profile = 1;
+        v12 = 1;
         print_sections(v18, 1u);
       }
     }
 
     else
     {
-      default_fixed_profile = 0;
+      return 0;
     }
   }
 
@@ -7745,7 +7577,7 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v24 = v10;
+          v23 = v10;
           _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
@@ -7756,11 +7588,10 @@ uint64_t create_safe_rabin_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
       }
     }
 
-    default_fixed_profile = create_default_fixed_profile(a1, a2, a3, a4);
+    return create_default_fixed_profile(a1, a2, a3, a4);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return default_fixed_profile;
+  return v12;
 }
 
 os_log_t __createChunkProfile_block_invoke_52()
@@ -7821,7 +7652,7 @@ os_log_t __createChunkProfile_block_invoke_3_108()
 
 uint64_t create_custom_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 6;
@@ -7843,55 +7674,51 @@ uint64_t create_custom_fixed_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BY
   v9 = *(a1 + 224);
   v10 = 1;
   v11 = malloc_type_calloc(1uLL, 0x38uLL, 0x1000040C4DFEAEFuLL);
-  if (v11)
+  if (!v11)
   {
-    v12 = v11;
-    *(v11 + 52) = 1;
-    *v11 = v8 + v7;
-    v11[1] = v6;
-    *(v11 + 8) = 2;
-    v11[3] = v9;
-    *a2 = v11;
-    if (gVerbose == 2)
+    return 0;
+  }
+
+  v12 = v11;
+  *(v11 + 52) = 1;
+  *v11 = v8 + v7;
+  v11[1] = v6;
+  *(v11 + 8) = 2;
+  v11[3] = v9;
+  *a2 = v11;
+  if (gVerbose == 2)
+  {
+    if (CK_DEFAULT_LOG_BLOCK_10 != -1)
     {
+      create_custom_fixed_profile_cold_1();
+    }
+
+    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", 1, *(a1 + 104));
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
-        create_custom_fixed_profile_cold_1();
+        create_custom_fixed_profile_cold_2();
       }
 
-      if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
+      v14 = CK_DEFAULT_LOG_INTERNAL_10;
+      if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", 1, *(a1 + 104));
-        if (CK_DEFAULT_LOG_BLOCK_10 != -1)
-        {
-          create_custom_fixed_profile_cold_2();
-        }
-
-        v14 = CK_DEFAULT_LOG_INTERNAL_10;
-        if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          v18 = v13;
-          _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-        }
-
-        if (v13)
-        {
-          CFRelease(v13);
-        }
+        *buf = 138543362;
+        v17 = v13;
+        _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      v10 = 1;
-      print_sections(v12, 1u);
+      if (v13)
+      {
+        CFRelease(v13);
+      }
     }
+
+    v10 = 1;
+    print_sections(v12, 1u);
   }
 
-  else
-  {
-    v10 = 0;
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -7900,7 +7727,7 @@ uint64_t create_zip_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
   v4 = a3;
   v5 = a2;
   v6 = a1;
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 3;
@@ -7918,165 +7745,165 @@ uint64_t create_zip_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
     goto LABEL_6;
   }
 
-  v12 = 0;
-  v13 = *(a1 + 16);
-  v131 = *(a1 + 8);
+  v11 = 0;
+  v12 = *(a1 + 16);
+  v130 = *(a1 + 8);
   __nel = *(a1 + 104);
-  *v134 = 0;
-  *&v134[8] = 0;
-  *&v134[14] = 0;
-  v140 = 0uLL;
-  v141 = 0;
+  *v133 = 0;
+  *&v133[8] = 0;
+  *&v133[14] = 0;
+  v139 = 0uLL;
+  v140 = 0;
+  *v136 = 0u;
   *v137 = 0u;
-  *v138 = 0u;
   if (v8 >= 0x10029)
   {
-    v14 = 65577;
+    v13 = 65577;
   }
 
   else
   {
-    v14 = v8;
+    v13 = v8;
   }
 
-  *&v138[16] = 0uLL;
-  v15 = v7 - 22;
-  v16 = 1;
-  v139 = 0;
-  v17 = &old_ringing[83];
-  v18 = &old_ringing[83];
-  v19 = *MEMORY[0x277CBECE8];
-  v129 = v13;
+  *&v137[16] = 0uLL;
+  v14 = v7 - 22;
+  v15 = 1;
+  v138 = 0;
+  v16 = &unk_280C64000;
+  v17 = &unk_280C64000;
+  v18 = *MEMORY[0x277CBECE8];
+  v128 = v12;
   while (1)
   {
-    if ((v16 & 1) == 0 && (v12 & 1) == 0)
+    if ((v15 & 1) == 0 && (v11 & 1) == 0)
     {
       create_zip_profile_cold_1();
     }
 
-    if ((v16 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
       break;
     }
 
-    v133 = 0;
-    if (((*(v13 + 72))(v131, v15, v134, 22, &v133, 0) & 1) == 0)
+    v132 = 0;
+    if (((*(v12 + 72))(v130, v14, v133, 22, &v132, 0) & 1) == 0)
     {
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_14();
       }
 
       v6 = a1;
       v5 = a2;
-      if (!os_log_type_enabled(v18[442], OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v17[442], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_125;
       }
 
-      v66 = CFStringCreateWithFormat(v19, 0, @"failed to read zip-end-of-central-dir at 0x%llx\n", v15);
-      if (v17[454] != -1)
+      v65 = CFStringCreateWithFormat(v18, 0, @"failed to read zip-end-of-central-dir at 0x%llx\n", v14);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_15();
       }
 
-      v67 = v18[442];
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v66 = v17[442];
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v66;
+        *&buf[4] = v65;
         goto LABEL_122;
       }
 
 LABEL_123:
-      if (v66)
+      if (v65)
       {
-        CFRelease(v66);
+        CFRelease(v65);
       }
 
       goto LABEL_125;
     }
 
-    if (v133 != 22)
+    if (v132 != 22)
     {
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_16();
       }
 
       v6 = a1;
       v5 = a2;
-      if (!os_log_type_enabled(v18[442], OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v17[442], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_125;
       }
 
-      v66 = CFStringCreateWithFormat(v19, 0, @"failed to read zip-end-of-central-dir at 0x%llx\n", v15);
-      if (v17[454] != -1)
+      v65 = CFStringCreateWithFormat(v18, 0, @"failed to read zip-end-of-central-dir at 0x%llx\n", v14);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_17();
       }
 
-      v67 = v18[442];
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v66 = v17[442];
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v66;
+        *&buf[4] = v65;
 LABEL_122:
-        _os_log_impl(&dword_243431000, v67, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243431000, v66, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       goto LABEL_123;
     }
 
-    if (*v134 == 101010256)
+    if (*v133 == 101010256)
     {
       if (gVerbose == 2)
       {
-        if (v17[454] != -1)
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_18();
         }
 
-        if (os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG) && os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG) && os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG))
         {
-          v20 = v19;
-          v21 = CFStringCreateWithFormat(v19, 0, @"zip-end-of-central-dir, offset:0x%x, size:0x%x, recs:%u/%u\n", *&v134[16], *&v134[12], *&v134[8], *&v134[10]);
-          v22 = v17;
-          if (v17[454] != -1)
+          v19 = v18;
+          v20 = CFStringCreateWithFormat(v18, 0, @"zip-end-of-central-dir, offset:0x%x, size:0x%x, recs:%u/%u\n", *&v133[16], *&v133[12], *&v133[8], *&v133[10]);
+          v21 = v16;
+          if (v16[454] != -1)
           {
             create_zip_profile_cold_19();
           }
 
-          v23 = v18;
-          v24 = v18[442];
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v22 = v17;
+          v23 = v17[442];
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            *&buf[4] = v21;
-            _os_log_impl(&dword_243431000, v24, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            *&buf[4] = v20;
+            _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          v18 = v23;
           v17 = v22;
-          v19 = v20;
-          if (v21)
+          v16 = v21;
+          v18 = v19;
+          if (v20)
           {
-            CFRelease(v21);
+            CFRelease(v20);
           }
         }
       }
 
-      v25 = *&v134[16];
-      if (*&v134[16] != -1)
+      v24 = *&v133[16];
+      if (*&v133[16] != -1)
       {
         v4 = a3;
         v6 = a1;
         v5 = a2;
-        if ((v12 & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          alloc = v19;
-          v26 = *&v134[8];
+          alloc = v18;
+          v25 = *&v133[8];
           goto LABEL_153;
         }
 
@@ -8086,38 +7913,38 @@ LABEL_273:
           goto LABEL_6;
         }
 
-        if (v17[454] != -1)
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_52();
         }
 
-        if (!os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG) || !os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG))
+        if (!os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG) || !os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_6;
         }
 
-        v68 = CFStringCreateWithFormat(v19, 0, @"didn't find the zip64-central-dir-end for %s\n", __nel);
-        if (v17[454] != -1)
+        v67 = CFStringCreateWithFormat(v18, 0, @"didn't find the zip64-central-dir-end for %s\n", __nel);
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_53();
         }
 
-        v69 = v18[442];
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v68 = v17[442];
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          *&buf[4] = v68;
+          *&buf[4] = v67;
 LABEL_282:
-          v72 = buf;
+          v71 = buf;
 LABEL_283:
-          _os_log_impl(&dword_243431000, v69, OS_LOG_TYPE_DEBUG, "%{public}@", v72, 0xCu);
+          _os_log_impl(&dword_243431000, v68, OS_LOG_TYPE_DEBUG, "%{public}@", v71, 0xCu);
         }
 
         goto LABEL_284;
       }
 
-      v13 = v129;
-      if (v15 <= 0x13)
+      v12 = v128;
+      if (v14 <= 0x13)
       {
         v4 = a3;
         v6 = a1;
@@ -8125,38 +7952,38 @@ LABEL_283:
         goto LABEL_273;
       }
 
-      v16 = 0;
-      v15 -= 20;
-      v12 = 1;
+      v15 = 0;
+      v14 -= 20;
+      v11 = 1;
       goto LABEL_42;
     }
 
 LABEL_40:
-    if (!v15)
+    if (!v14)
     {
       goto LABEL_43;
     }
 
-    --v15;
+    --v14;
 LABEL_42:
-    if (v7 - v15 > v14)
+    if (v7 - v14 > v13)
     {
 LABEL_43:
       v6 = a1;
       v5 = a2;
-      if ((v16 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         v4 = a3;
-        if (v12)
+        if (v11)
         {
           goto LABEL_273;
         }
 
-        LODWORD(v26) = 0;
+        LODWORD(v25) = 0;
 LABEL_46:
-        qsort(0, v26 & 0x1FFFF, 0x18uLL, cmp_dir_rec_data);
+        qsort(0, v25 & 0x1FFFF, 0x18uLL, cmp_dir_rec_data);
+        v26 = 0;
         v27 = 0;
-        v28 = 0;
         goto LABEL_47;
       }
 
@@ -8167,27 +7994,27 @@ LABEL_125:
         goto LABEL_6;
       }
 
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_50();
       }
 
-      if (!os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG) || !os_log_type_enabled(v18[442], OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG) || !os_log_type_enabled(v17[442], OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_6;
       }
 
-      v68 = CFStringCreateWithFormat(v19, 0, @"didn't find the zip-central-dir-end for %s\n", __nel);
-      if (v17[454] != -1)
+      v67 = CFStringCreateWithFormat(v18, 0, @"didn't find the zip-central-dir-end for %s\n", __nel);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_51();
       }
 
-      v69 = v18[442];
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+      v68 = v17[442];
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v68;
+        *&buf[4] = v67;
         goto LABEL_282;
       }
 
@@ -8195,129 +8022,129 @@ LABEL_125:
     }
   }
 
-  if ((v12 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_40;
   }
 
-  v133 = 0;
-  if (((*(v13 + 72))(v131, v15, &v140, 20, &v133, 0) & 1) == 0)
+  v132 = 0;
+  if (((*(v12 + 72))(v130, v14, &v139, 20, &v132, 0) & 1) == 0)
   {
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_2();
     }
 
     v6 = a1;
     v5 = a2;
-    if (os_log_type_enabled(v18[442], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17[442], OS_LOG_TYPE_ERROR))
     {
-      v70 = CFStringCreateWithFormat(v19, 0, @"failed to read zip64-end-of-central-dir-locator at 0x%llx\n", v15);
-      if (v17[454] != -1)
+      v69 = CFStringCreateWithFormat(v18, 0, @"failed to read zip64-end-of-central-dir-locator at 0x%llx\n", v14);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_3();
       }
 
-      v71 = CK_DEFAULT_LOG_INTERNAL_10;
+      v70 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v70;
+        *&buf[4] = v69;
         goto LABEL_148;
       }
 
 LABEL_149:
-      if (v70)
+      if (v69)
       {
-        CFRelease(v70);
+        CFRelease(v69);
       }
     }
 
 LABEL_272:
     v4 = a3;
-    v18 = &old_ringing[83];
+    v17 = &unk_280C64000;
     goto LABEL_273;
   }
 
-  if (v133 != 20)
+  if (v132 != 20)
   {
     v6 = a1;
     v5 = a2;
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_4();
     }
 
-    if (!os_log_type_enabled(v18[442], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v17[442], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_272;
     }
 
-    v70 = CFStringCreateWithFormat(v19, 0, @"failed to read zip64-end-of-central-dir-locator at 0x%llx\n", v15);
-    if (v17[454] != -1)
+    v69 = CFStringCreateWithFormat(v18, 0, @"failed to read zip64-end-of-central-dir-locator at 0x%llx\n", v14);
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_5();
     }
 
-    v71 = CK_DEFAULT_LOG_INTERNAL_10;
+    v70 = CK_DEFAULT_LOG_INTERNAL_10;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_149;
     }
 
     *buf = 138543362;
-    *&buf[4] = v70;
+    *&buf[4] = v69;
     goto LABEL_148;
   }
 
-  if (v140 != 117853008)
+  if (v139 != 117853008)
   {
-    v12 = 1;
+    v11 = 1;
     goto LABEL_40;
   }
 
-  v73 = *(&v140 + 1);
+  v72 = *(&v139 + 1);
   v6 = a1;
   v5 = a2;
   if (gVerbose == 2)
   {
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_6();
     }
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      v74 = CFStringCreateWithFormat(v19, 0, @"zip64-end-of-central-dir-locator, zip64-end-of-central-dir-offset:0x%llx\n", v73);
-      if (v17[454] != -1)
+      v73 = CFStringCreateWithFormat(v18, 0, @"zip64-end-of-central-dir-locator, zip64-end-of-central-dir-offset:0x%llx\n", v72);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_7();
       }
 
-      v75 = CK_DEFAULT_LOG_INTERNAL_10;
+      v74 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v74;
-        _os_log_impl(&dword_243431000, v75, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v73;
+        _os_log_impl(&dword_243431000, v74, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v74)
+      if (v73)
       {
-        CFRelease(v74);
+        CFRelease(v73);
       }
     }
   }
 
-  if (v15 <= v73 || v15 - v73 < 0x38)
+  if (v14 <= v72 || v14 - v72 < 0x38)
   {
     goto LABEL_272;
   }
 
-  if (((*(v129 + 72))(v131, v73, v137, 56, &v133, 0) & 1) == 0)
+  if (((*(v128 + 72))(v130, v72, v136, 56, &v132, 0) & 1) == 0)
   {
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_8();
     }
@@ -8327,26 +8154,26 @@ LABEL_272:
       goto LABEL_272;
     }
 
-    v70 = CFStringCreateWithFormat(v19, 0, @"failed to read zip64-end-of-central-dir at 0x%llx\n", v73);
-    if (v17[454] != -1)
+    v69 = CFStringCreateWithFormat(v18, 0, @"failed to read zip64-end-of-central-dir at 0x%llx\n", v72);
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_9();
     }
 
-    v71 = CK_DEFAULT_LOG_INTERNAL_10;
+    v70 = CK_DEFAULT_LOG_INTERNAL_10;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_149;
     }
 
     *buf = 138543362;
-    *&buf[4] = v70;
+    *&buf[4] = v69;
     goto LABEL_148;
   }
 
-  if (v133 != 56)
+  if (v132 != 56)
   {
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_10();
     }
@@ -8356,55 +8183,55 @@ LABEL_272:
       goto LABEL_272;
     }
 
-    v70 = CFStringCreateWithFormat(v19, 0, @"failed to read zip64-end-of-central-dir at 0x%llx\n", v73);
-    if (v17[454] != -1)
+    v69 = CFStringCreateWithFormat(v18, 0, @"failed to read zip64-end-of-central-dir at 0x%llx\n", v72);
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_11();
     }
 
-    v71 = CK_DEFAULT_LOG_INTERNAL_10;
+    v70 = CK_DEFAULT_LOG_INTERNAL_10;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_149;
     }
 
     *buf = 138543362;
-    *&buf[4] = v70;
+    *&buf[4] = v69;
 LABEL_148:
-    _os_log_impl(&dword_243431000, v71, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_243431000, v70, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     goto LABEL_149;
   }
 
-  if (*v137 != 101075792)
+  if (*v136 != 101075792)
   {
     goto LABEL_272;
   }
 
-  alloc = v19;
-  v76 = *&v138[24];
-  v25 = v139;
-  v26 = *&v138[8];
+  alloc = v18;
+  v75 = *&v137[24];
+  v24 = v138;
+  v25 = *&v137[8];
   if (gVerbose == 2)
   {
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_12();
     }
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      cf = CFStringCreateWithFormat(alloc, 0, @"zip64-end-of-central-dir, central-dir-offset:0x%llx, central-dir-size:0x%llx, num-central-dir-recs:%llu/%llu\n", v25, v76, v26, *&v138[16]);
-      if (v17[454] != -1)
+      cf = CFStringCreateWithFormat(alloc, 0, @"zip64-end-of-central-dir, central-dir-offset:0x%llx, central-dir-size:0x%llx, num-central-dir-recs:%llu/%llu\n", v24, v75, v25, *&v137[16]);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_13();
       }
 
-      v77 = CK_DEFAULT_LOG_INTERNAL_10;
+      v76 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         *&buf[4] = cf;
-        _os_log_impl(&dword_243431000, v77, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243431000, v76, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (cf)
@@ -8414,24 +8241,24 @@ LABEL_148:
     }
   }
 
-  v78 = v76 + v25;
-  v79 = v76 + v25 >= v25;
-  v19 = alloc;
-  if (!v79 || v73 <= v25 || v73 < v78 || v73 - v25 < 46 * v26)
+  v77 = v75 + v24;
+  v78 = v75 + v24 >= v24;
+  v18 = alloc;
+  if (!v78 || v72 <= v24 || v72 < v77 || v72 - v24 < 46 * v25)
   {
     goto LABEL_272;
   }
 
   v4 = a3;
 LABEL_153:
-  if (v26 > 0x15555)
+  if (v25 > 0x15555)
   {
     if (gVerbose != 2)
     {
       goto LABEL_6;
     }
 
-    if (v17[454] != -1)
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_36();
     }
@@ -8441,60 +8268,60 @@ LABEL_153:
       goto LABEL_6;
     }
 
-    v68 = CFStringCreateWithFormat(alloc, 0, @"too many records, num_recs:0x%x, max_recs:0x%x\n", v26, 87381);
-    if (v17[454] != -1)
+    v67 = CFStringCreateWithFormat(alloc, 0, @"too many records, num_recs:0x%x, max_recs:0x%x\n", v25, 87381);
+    if (v16[454] != -1)
     {
       create_zip_profile_cold_37();
     }
 
-    v69 = CK_DEFAULT_LOG_INTERNAL_10;
+    v68 = CK_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      *v137 = 138543362;
-      *&v137[4] = v68;
-      v72 = v137;
+      *v136 = 138543362;
+      *&v136[4] = v67;
+      v71 = v136;
       goto LABEL_283;
     }
 
 LABEL_284:
     v4 = a3;
-    if (v68)
+    if (v67)
     {
-      CFRelease(v68);
+      CFRelease(v67);
     }
 
     goto LABEL_6;
   }
 
-  if (!v26)
+  if (!v25)
   {
-    v19 = alloc;
+    v18 = alloc;
     goto LABEL_46;
   }
 
-  __nelb = v26 & 0x1FFFF;
-  v83 = malloc_type_calloc(v26 & 0x1FFFF, 0x18uLL, 0x100004020B92A0BuLL);
-  if (!v83)
+  __nelb = v25 & 0x1FFFF;
+  v82 = malloc_type_calloc(v25 & 0x1FFFF, 0x18uLL, 0x100004020B92A0BuLL);
+  if (!v82)
   {
     goto LABEL_6;
   }
 
-  v84 = 0;
-  v85 = v83;
-  cfa = v83;
+  v83 = 0;
+  v84 = v82;
+  cfa = v82;
   while (2)
   {
-    *v137 = 0u;
-    memset(v138, 0, 30);
+    *v136 = 0u;
+    memset(v137, 0, 30);
     *buf = 0;
-    if (((*(v129 + 72))(v131, v25, v137, 46, buf, 0) & 1) == 0)
+    if (((*(v128 + 72))(v130, v24, v136, 46, buf, 0) & 1) == 0)
     {
       if (gVerbose != 2)
       {
         goto LABEL_414;
       }
 
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_20();
       }
@@ -8504,20 +8331,20 @@ LABEL_284:
         goto LABEL_414;
       }
 
-      v107 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip-dir-rec at %u/%u\n", v84, v26);
-      if (v17[454] != -1)
+      v106 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip-dir-rec at %u/%u\n", v83, v25);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_21();
       }
 
-      v108 = CK_DEFAULT_LOG_INTERNAL_10;
+      v107 = CK_DEFAULT_LOG_INTERNAL_10;
       if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_379;
       }
 
-      *v134 = 138543362;
-      *&v134[4] = v107;
+      *v133 = 138543362;
+      *&v133[4] = v106;
       goto LABEL_378;
     }
 
@@ -8528,7 +8355,7 @@ LABEL_284:
         goto LABEL_414;
       }
 
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_22();
       }
@@ -8538,31 +8365,31 @@ LABEL_284:
         goto LABEL_414;
       }
 
-      v107 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip-dir-rec at %u/%u\n", v84, v26);
-      if (v17[454] != -1)
+      v106 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip-dir-rec at %u/%u\n", v83, v25);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_23();
       }
 
-      v108 = CK_DEFAULT_LOG_INTERNAL_10;
+      v107 = CK_DEFAULT_LOG_INTERNAL_10;
       if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_379;
       }
 
-      *v134 = 138543362;
-      *&v134[4] = v107;
+      *v133 = 138543362;
+      *&v133[4] = v106;
       goto LABEL_378;
     }
 
-    if (*v137 != 33639248)
+    if (*v136 != 33639248)
     {
       if (gVerbose != 2)
       {
         goto LABEL_414;
       }
 
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_24();
       }
@@ -8572,97 +8399,97 @@ LABEL_284:
         goto LABEL_414;
       }
 
-      v107 = CFStringCreateWithFormat(alloc, 0, @"bogus looking zip-dir-rec at %u (0x%08x != 0x%08x)", v84, *v137, 33639248);
-      if (v17[454] != -1)
+      v106 = CFStringCreateWithFormat(alloc, 0, @"bogus looking zip-dir-rec at %u (0x%08x != 0x%08x)", v83, *v136, 33639248);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_25();
       }
 
-      v108 = CK_DEFAULT_LOG_INTERNAL_10;
+      v107 = CK_DEFAULT_LOG_INTERNAL_10;
       if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_379;
       }
 
-      *v134 = 138543362;
-      *&v134[4] = v107;
+      *v133 = 138543362;
+      *&v133[4] = v106;
 LABEL_378:
-      _os_log_impl(&dword_243431000, v108, OS_LOG_TYPE_DEBUG, "%{public}@", v134, 0xCu);
+      _os_log_impl(&dword_243431000, v107, OS_LOG_TYPE_DEBUG, "%{public}@", v133, 0xCu);
       goto LABEL_379;
     }
 
-    v86 = *&v138[14];
-    v87 = *&v138[16];
-    v88 = v25 + *&v138[12] + 46;
-    v89 = v88 + *&v138[14] + *&v138[16];
-    if (v89 < v25)
+    v85 = *&v137[14];
+    v86 = *&v137[16];
+    v87 = v24 + *&v137[12] + 46;
+    v88 = v87 + *&v137[14] + *&v137[16];
+    if (v88 < v24)
     {
       goto LABEL_414;
     }
 
-    *(v85 + 8) = *&v138[12];
-    *(v85 + 9) = v86;
-    *(v85 + 10) = v87;
-    v90 = *&v138[4];
-    v85[1] = *&v138[4];
-    v91 = *&v138[26];
-    *v85 = *&v138[26];
-    if ((v16 & 1) == 0 && (v90 == -1 || *&v138[8] == -1 || *&v138[26] == -1))
+    *(v84 + 8) = *&v137[12];
+    *(v84 + 9) = v85;
+    *(v84 + 10) = v86;
+    v89 = *&v137[4];
+    v84[1] = *&v137[4];
+    v90 = *&v137[26];
+    *v84 = *&v137[26];
+    if ((v15 & 1) == 0 && (v89 == -1 || *&v137[8] == -1 || *&v137[26] == -1))
     {
-      if (v88 >= v7)
+      if (v87 >= v7)
       {
         goto LABEL_414;
       }
 
-      v133 = 0;
       v132 = 0;
-      if (locate_zip64_extra_field(a1, v88, v86, &v133, &v132))
+      v131 = 0;
+      if (locate_zip64_extra_field(a1, v87, v85, &v132, &v131))
       {
         goto LABEL_413;
       }
 
-      if (*&v138[8] == -1 || *&v138[4] == -1)
+      if (*&v137[8] == -1 || *&v137[4] == -1)
       {
-        v93 = 20;
+        v92 = 20;
       }
 
       else
       {
-        v93 = 4;
+        v92 = 4;
       }
 
-      v94 = v93 | (8 * (*&v138[26] == -1));
-      v95 = v132;
-      if (v132 < v94)
+      v93 = v92 | (8 * (*&v137[26] == -1));
+      v94 = v131;
+      if (v131 < v93)
       {
         if (gVerbose == 2)
         {
-          if (v17[454] != -1)
+          if (v16[454] != -1)
           {
             create_zip_profile_cold_30();
           }
 
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
-            v109 = CFStringCreateWithFormat(alloc, 0, @"bogus field_len 0x%x at 0x%llx, expected_len: 0x%x\n", v95, v133, v94);
-            if (v17[454] != -1)
+            v108 = CFStringCreateWithFormat(alloc, 0, @"bogus field_len 0x%x at 0x%llx, expected_len: 0x%x\n", v94, v132, v93);
+            if (v16[454] != -1)
             {
               create_zip_profile_cold_31();
             }
 
-            v110 = CK_DEFAULT_LOG_INTERNAL_10;
+            v109 = CK_DEFAULT_LOG_INTERNAL_10;
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
             {
-              *v134 = 138543362;
-              *&v134[4] = v109;
-              v111 = v134;
+              *v133 = 138543362;
+              *&v133[4] = v108;
+              v110 = v133;
               goto LABEL_410;
             }
 
 LABEL_411:
-            if (v109)
+            if (v108)
             {
-              CFRelease(v109);
+              CFRelease(v108);
             }
           }
         }
@@ -8672,21 +8499,21 @@ LABEL_413:
 LABEL_414:
         v6 = a1;
         v5 = a2;
-        v28 = cfa;
+        v27 = cfa;
         goto LABEL_339;
       }
 
-      memset(v134, 0, sizeof(v134));
-      v135 = 0;
-      v96 = v133;
-      if (((*(v129 + 72))(v131, v133, v134, v94, buf, 0) & 1) == 0)
+      memset(v133, 0, sizeof(v133));
+      v134 = 0;
+      v95 = v132;
+      if (((*(v128 + 72))(v130, v132, v133, v93, buf, 0) & 1) == 0)
       {
         if (gVerbose != 2)
         {
           goto LABEL_413;
         }
 
-        if (v17[454] != -1)
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_26();
         }
@@ -8696,35 +8523,35 @@ LABEL_414:
           goto LABEL_413;
         }
 
-        v109 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip64-extra-field at 0x%llx\n", v96);
-        if (v17[454] != -1)
+        v108 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip64-extra-field at 0x%llx\n", v95);
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_27();
         }
 
-        v110 = CK_DEFAULT_LOG_INTERNAL_10;
+        v109 = CK_DEFAULT_LOG_INTERNAL_10;
         if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_411;
         }
 
-        LODWORD(v140) = 138543362;
-        *(&v140 + 4) = v109;
+        LODWORD(v139) = 138543362;
+        *(&v139 + 4) = v108;
 LABEL_409:
-        v111 = &v140;
+        v110 = &v139;
 LABEL_410:
-        _os_log_impl(&dword_243431000, v110, OS_LOG_TYPE_DEBUG, "%{public}@", v111, 0xCu);
+        _os_log_impl(&dword_243431000, v109, OS_LOG_TYPE_DEBUG, "%{public}@", v110, 0xCu);
         goto LABEL_411;
       }
 
-      if (*buf != v94)
+      if (*buf != v93)
       {
         if (gVerbose != 2)
         {
           goto LABEL_413;
         }
 
-        if (v17[454] != -1)
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_28();
         }
@@ -8734,42 +8561,42 @@ LABEL_410:
           goto LABEL_413;
         }
 
-        v109 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip64-extra-field at 0x%llx\n", v96);
-        if (v17[454] != -1)
+        v108 = CFStringCreateWithFormat(alloc, 0, @"failed to read zip64-extra-field at 0x%llx\n", v95);
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_29();
         }
 
-        v110 = CK_DEFAULT_LOG_INTERNAL_10;
+        v109 = CK_DEFAULT_LOG_INTERNAL_10;
         if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_411;
         }
 
-        LODWORD(v140) = 138543362;
-        *(&v140 + 4) = v109;
+        LODWORD(v139) = 138543362;
+        *(&v139 + 4) = v108;
         goto LABEL_409;
       }
 
-      if (*&v138[4] == -1 || (v97 = &v134[4], *&v138[8] == -1))
+      if (*&v137[4] == -1 || (v96 = &v133[4], *&v137[8] == -1))
       {
-        v85[1] = *&v134[12];
-        v97 = &v134[20];
+        v84[1] = *&v133[12];
+        v96 = &v133[20];
       }
 
-      v91 = *v97;
-      *v85 = v91;
+      v90 = *v96;
+      *v84 = v90;
       v4 = a3;
     }
 
-    if (v91 >= v7 || (v98 = v85[1] + v91, v98 < v91) || v98 >= v7)
+    if (v90 >= v7 || (v97 = v84[1] + v90, v97 < v90) || v97 >= v7)
     {
       if (gVerbose != 2)
       {
         goto LABEL_414;
       }
 
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_32();
       }
@@ -8779,35 +8606,35 @@ LABEL_410:
         goto LABEL_414;
       }
 
-      v107 = CFStringCreateWithFormat(alloc, 0, @"bogus looking zip_foffset/zip_size on zip-dir-rec at %u (foffset:0x%llx size:0x%llx dataSize:0x%llx)\n", v84, *v85, v85[1], v7);
-      if (v17[454] != -1)
+      v106 = CFStringCreateWithFormat(alloc, 0, @"bogus looking zip_foffset/zip_size on zip-dir-rec at %u (foffset:0x%llx size:0x%llx dataSize:0x%llx)\n", v83, *v84, v84[1], v7);
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_33();
       }
 
-      v108 = CK_DEFAULT_LOG_INTERNAL_10;
+      v107 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        *v134 = 138543362;
-        *&v134[4] = v107;
+        *v133 = 138543362;
+        *&v133[4] = v106;
         goto LABEL_378;
       }
 
 LABEL_379:
       v4 = a3;
-      if (v107)
+      if (v106)
       {
-        CFRelease(v107);
+        CFRelease(v106);
       }
 
       goto LABEL_414;
     }
 
-    ++v84;
-    v85 += 3;
-    v25 = v89;
-    v28 = cfa;
-    if (__nelb != v84)
+    ++v83;
+    v84 += 3;
+    v24 = v88;
+    v27 = cfa;
+    if (__nelb != v83)
     {
       continue;
     }
@@ -8819,151 +8646,151 @@ LABEL_379:
   if (*cfa)
   {
     v6 = a1;
-    v27 = v26;
+    v26 = v25;
     if (gVerbose == 2)
     {
-      if (v17[454] != -1)
+      if (v16[454] != -1)
       {
         create_zip_profile_cold_34();
       }
 
       v4 = a3;
       v6 = a1;
-      v27 = v26;
+      v26 = v25;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        v99 = CFStringCreateWithFormat(alloc, 0, @"first entry must begin at location zero!\n");
-        if (v17[454] != -1)
+        v98 = CFStringCreateWithFormat(alloc, 0, @"first entry must begin at location zero!\n");
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_35();
         }
 
-        v100 = CK_DEFAULT_LOG_INTERNAL_10;
+        v99 = CK_DEFAULT_LOG_INTERNAL_10;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
-          *v137 = 138543362;
-          *&v137[4] = v99;
-          _os_log_impl(&dword_243431000, v100, OS_LOG_TYPE_DEBUG, "%{public}@", v137, 0xCu);
+          *v136 = 138543362;
+          *&v136[4] = v98;
+          _os_log_impl(&dword_243431000, v99, OS_LOG_TYPE_DEBUG, "%{public}@", v136, 0xCu);
         }
 
         v4 = a3;
         v6 = a1;
-        v27 = v26;
-        if (v99)
+        v26 = v25;
+        if (v98)
         {
-          CFRelease(v99);
+          CFRelease(v98);
         }
       }
     }
 
-    v28 = cfa;
+    v27 = cfa;
     *cfa = 0;
     v5 = a2;
-    v19 = alloc;
+    v18 = alloc;
   }
 
   else
   {
     v6 = a1;
     v5 = a2;
-    v19 = alloc;
-    v27 = v26;
+    v18 = alloc;
+    v26 = v25;
   }
 
 LABEL_47:
-  v29 = add_sections(0, 0, (2 * (v26 & 0x1FFFF)) | 1);
-  if (!v29)
+  v28 = add_sections(0, 0, (2 * (v25 & 0x1FFFF)) | 1);
+  if (!v28)
   {
     goto LABEL_338;
   }
 
-  v30 = v29;
-  if (v27 < 1)
+  v29 = v28;
+  if (v26 < 1)
   {
-    v65 = 0;
-    LODWORD(v33) = 0;
+    v64 = 0;
+    LODWORD(v32) = 0;
     ptr = 0;
-    v104 = 0;
+    v103 = 0;
     v9 = 1;
 LABEL_198:
-    v80 = &v30[7 * v65];
-    *(v80 + 52) = 1;
-    *v80 = v7;
-    v80[1] = 5242880;
-    *(v80 + 8) = 2;
-    v80[3] = 0;
-    if (v104 + (v7 - v33 + 5242879) / 5242880 <= *(v6 + 164))
+    v79 = &v29[7 * v64];
+    *(v79 + 52) = 1;
+    *v79 = v7;
+    v79[1] = 5242880;
+    *(v79 + 8) = 2;
+    v79[3] = 0;
+    if (v103 + (v7 - v32 + 5242879) / 5242880 <= *(v6 + 164))
     {
       if (ptr)
       {
         free(ptr);
       }
 
-      if (v28)
+      if (v27)
       {
-        free(v28);
+        free(v27);
       }
 
-      *v5 = v30;
+      *v5 = v29;
       if (gVerbose == 2)
       {
-        if (v17[454] != -1)
+        if (v16[454] != -1)
         {
           create_zip_profile_cold_48();
         }
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
-          v81 = CFStringCreateWithFormat(v19, 0, @"returning %u sections for %s\n", v9, *(v6 + 104));
-          if (v17[454] != -1)
+          v80 = CFStringCreateWithFormat(v18, 0, @"returning %u sections for %s\n", v9, *(v6 + 104));
+          if (v16[454] != -1)
           {
             create_zip_profile_cold_49();
           }
 
-          v82 = CK_DEFAULT_LOG_INTERNAL_10;
+          v81 = CK_DEFAULT_LOG_INTERNAL_10;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
-            *v137 = 138543362;
-            *&v137[4] = v81;
-            _os_log_impl(&dword_243431000, v82, OS_LOG_TYPE_DEBUG, "%{public}@", v137, 0xCu);
+            *v136 = 138543362;
+            *&v136[4] = v80;
+            _os_log_impl(&dword_243431000, v81, OS_LOG_TYPE_DEBUG, "%{public}@", v136, 0xCu);
           }
 
-          if (v81)
+          if (v80)
           {
-            CFRelease(v81);
+            CFRelease(v80);
           }
         }
 
-        print_sections(v30, v9);
+        print_sections(v29, v9);
       }
 
-      goto LABEL_9;
+      return v9;
     }
 
     goto LABEL_332;
   }
 
-  v31 = 0;
+  v30 = 0;
+  v117 = 0;
   v118 = 0;
-  v119 = 0;
   ptr = 0;
-  v115 = 0;
-  v32 = v27;
-  v33 = 0;
-  v113 = v32;
-  v120 = 0xFFFFFFFFLL;
-  __nela = v29;
-  v116 = v29;
-  v114 = 2 * v32;
+  v114 = 0;
+  v31 = v26;
+  v32 = 0;
+  v112 = v31;
+  v119 = 0xFFFFFFFFLL;
+  __nela = v28;
+  v115 = v28;
+  v113 = 2 * v31;
   while (1)
   {
-    v34 = &v28[24 * v31];
-    v35 = *v34;
-    memset(v137, 0, sizeof(v137));
-    *&v138[7] = 0;
-    *v138 = 0;
-    *&v140 = 0;
-    if (((*(v129 + 72))(v131, v35, v137, 30, &v140, 0) & 1) == 0)
+    v33 = &v27[24 * v30];
+    v34 = *v33;
+    memset(v136, 0, sizeof(v136));
+    *&v137[7] = 0;
+    *v137 = 0;
+    *&v139 = 0;
+    if (((*(v128 + 72))(v130, v34, v136, 30, &v139, 0) & 1) == 0)
     {
       if (gVerbose != 2)
       {
@@ -8973,7 +8800,7 @@ LABEL_198:
       v4 = a3;
       v6 = a1;
       v5 = a2;
-      v106 = ptr;
+      v105 = ptr;
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_zip_profile_cold_38();
@@ -8984,27 +8811,27 @@ LABEL_198:
         goto LABEL_334;
       }
 
-      v101 = CFStringCreateWithFormat(v19, 0, @"failed to read the zip-local-header at %u/0x%llx\n", v31, v35);
+      v100 = CFStringCreateWithFormat(v18, 0, @"failed to read the zip-local-header at %u/0x%llx\n", v30, v34);
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_zip_profile_cold_39();
       }
 
-      v102 = CK_DEFAULT_LOG_INTERNAL_10;
-      v30 = v116;
+      v101 = CK_DEFAULT_LOG_INTERNAL_10;
+      v29 = v115;
       if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_315;
       }
 
-      *v134 = 138543362;
-      *&v134[4] = v101;
+      *v133 = 138543362;
+      *&v133[4] = v100;
 LABEL_313:
-      v103 = v102;
+      v102 = v101;
       goto LABEL_314;
     }
 
-    if (v140 != 30)
+    if (v139 != 30)
     {
       if (gVerbose != 2)
       {
@@ -9014,7 +8841,7 @@ LABEL_313:
       v4 = a3;
       v6 = a1;
       v5 = a2;
-      v106 = ptr;
+      v105 = ptr;
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_zip_profile_cold_40();
@@ -9025,32 +8852,32 @@ LABEL_313:
         goto LABEL_334;
       }
 
-      v101 = CFStringCreateWithFormat(v19, 0, @"failed to read the zip-local-header at %u/0x%llx\n", v31, v35);
+      v100 = CFStringCreateWithFormat(v18, 0, @"failed to read the zip-local-header at %u/0x%llx\n", v30, v34);
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_zip_profile_cold_41();
       }
 
-      v102 = CK_DEFAULT_LOG_INTERNAL_10;
-      v30 = v116;
+      v101 = CK_DEFAULT_LOG_INTERNAL_10;
+      v29 = v115;
       if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_315;
       }
 
-      *v134 = 138543362;
-      *&v134[4] = v101;
+      *v133 = 138543362;
+      *&v133[4] = v100;
       goto LABEL_313;
     }
 
-    if (*v137 != 67324752)
+    if (*v136 != 67324752)
     {
       if (gVerbose == 2)
       {
         v4 = a3;
         v6 = a1;
         v5 = a2;
-        v106 = ptr;
+        v105 = ptr;
         if (CK_DEFAULT_LOG_BLOCK_10 != -1)
         {
           create_zip_profile_cold_42();
@@ -9058,26 +8885,26 @@ LABEL_313:
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
-          v101 = CFStringCreateWithFormat(v19, 0, @"zip-local-header %u @ 0x%llx looks corrupt (0x%08x != 0x%08x)", v31, v35, *v137, 67324752);
+          v100 = CFStringCreateWithFormat(v18, 0, @"zip-local-header %u @ 0x%llx looks corrupt (0x%08x != 0x%08x)", v30, v34, *v136, 67324752);
           if (CK_DEFAULT_LOG_BLOCK_10 != -1)
           {
             create_zip_profile_cold_43();
           }
 
-          v102 = CK_DEFAULT_LOG_INTERNAL_10;
-          v30 = v116;
+          v101 = CK_DEFAULT_LOG_INTERNAL_10;
+          v29 = v115;
           if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_315;
           }
 
-          *v134 = 138543362;
-          *&v134[4] = v101;
+          *v133 = 138543362;
+          *&v133[4] = v100;
           goto LABEL_313;
         }
 
 LABEL_334:
-        v30 = v116;
+        v29 = v115;
         goto LABEL_335;
       }
 
@@ -9085,163 +8912,163 @@ LABEL_331:
       v4 = a3;
       v6 = a1;
       v5 = a2;
-      v30 = v116;
+      v29 = v115;
       goto LABEL_332;
     }
 
-    if (*&v138[12])
+    if (*&v137[12])
     {
-      *(v34 + 9) = *&v138[12];
+      *(v33 + 9) = *&v137[12];
     }
 
-    v36 = 0;
-    if (!*&v137[8] && *&v138[10] == 21)
+    v35 = 0;
+    if (!*&v136[8] && *&v137[10] == 21)
     {
-      if (v115 > 0x15)
+      if (v114 > 0x15)
       {
-        v37 = ptr;
+        v36 = ptr;
       }
 
       else
       {
-        v37 = malloc_type_realloc(ptr, 0x16uLL, 0x100004077774924uLL);
-        if (!v37)
+        v36 = malloc_type_realloc(ptr, 0x16uLL, 0x100004077774924uLL);
+        if (!v36)
         {
           v4 = a3;
           v6 = a1;
           v5 = a2;
-          v30 = v116;
-          v106 = ptr;
+          v29 = v115;
+          v105 = ptr;
           if (!ptr)
           {
             goto LABEL_337;
           }
 
 LABEL_336:
-          free(v106);
+          free(v105);
           goto LABEL_337;
         }
       }
 
-      if ((*(v129 + 72))(v131, v35 + 30, v37, 21, &v140, 0))
+      if ((*(v128 + 72))(v130, v34 + 30, v36, 21, &v139, 0))
       {
-        v38 = v140 == 21;
+        v37 = v139 == 21;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
-      if (!v38)
+      if (!v37)
       {
-        v106 = v37;
+        v105 = v36;
         v4 = a3;
         v6 = a1;
         v5 = a2;
         goto LABEL_334;
       }
 
-      *(v37 + 21) = 0;
-      v36 = strcmp(v37, "QuickLook/Preview.pdf") == 0;
-      v115 = 22;
-      ptr = v37;
+      *(v36 + 21) = 0;
+      v35 = strcmp(v36, "QuickLook/Preview.pdf") == 0;
+      v114 = 22;
+      ptr = v36;
     }
 
-    if (!v31)
+    if (!v30)
     {
-      v40 = *v34;
+      v39 = *v33;
 LABEL_72:
-      v42 = 30;
+      v41 = 30;
       goto LABEL_73;
     }
 
-    v39 = *&v28[24 * v31 - 24] + *&v28[24 * v31 - 16] + *&v28[24 * v31 - 8] + *&v28[24 * v31 - 6] + 30;
-    if (v35 < v39)
+    v38 = *&v27[24 * v30 - 24] + *&v27[24 * v30 - 16] + *&v27[24 * v30 - 8] + *&v27[24 * v30 - 6] + 30;
+    if (v34 < v38)
     {
       break;
     }
 
-    v40 = *v34;
-    v41 = v35 - v39;
-    if (!v41)
+    v39 = *v33;
+    v40 = v34 - v38;
+    if (!v40)
     {
       goto LABEL_72;
     }
 
-    v40 -= v41;
-    *v34 = v40;
-    v42 = v41 + 30;
+    v39 -= v40;
+    *v33 = v39;
+    v41 = v40 + 30;
 LABEL_73:
-    v30 = v116;
-    v43 = v42 + v40 + *(v34 + 8) + *(v34 + 9);
-    v44 = &v116[14 * v31];
-    *(v44 + 52) = 1;
-    *v44 = v43;
-    v44[1] = 5242880;
-    *(v44 + 8) = 8;
-    v44[3] = 0;
-    v45 = *(v34 + 1) + v43;
-    v46 = &v116[7 * ((2 * v31) | 1)];
-    *v46 = v45;
-    if (v36)
+    v29 = v115;
+    v42 = v41 + v39 + *(v33 + 8) + *(v33 + 9);
+    v43 = &v115[14 * v30];
+    *(v43 + 52) = 1;
+    *v43 = v42;
+    v43[1] = 5242880;
+    *(v43 + 8) = 8;
+    v43[3] = 0;
+    v44 = *(v33 + 1) + v42;
+    v45 = &v115[7 * ((2 * v30) | 1)];
+    *v45 = v44;
+    if (v35)
     {
-      v46[1] = 0x340000000030;
-      *(v46 + 4) = 0x8000;
-      *(v46 + 8) = 1;
-      v118 = v43;
-      v120 = (2 * v31) | 1;
+      v45[1] = 0x340000000030;
+      *(v45 + 4) = 0x8000;
+      *(v45 + 8) = 1;
+      v117 = v42;
+      v119 = (2 * v30) | 1;
     }
 
     else
     {
-      *(v46 + 52) = 1;
-      v46[1] = 5242880;
-      *(v46 + 8) = 2;
+      *(v45 + 52) = 1;
+      v45[1] = 5242880;
+      *(v45 + 8) = 2;
     }
 
-    v46[3] = 0;
-    v47 = 0;
-    v48 = __nela;
-    v49 = 2;
+    v45[3] = 0;
+    v46 = 0;
+    v47 = __nela;
+    v48 = 2;
     do
     {
-      v50 = *(v48 + 52);
-      v52 = *v48;
-      v48 += 56;
-      v51 = v52;
-      v53 = v52 - v33;
-      v54 = v50 == 0;
-      if (v50)
+      v49 = *(v47 + 52);
+      v51 = *v47;
+      v47 += 56;
+      v50 = v51;
+      v52 = v51 - v32;
+      v53 = v49 == 0;
+      if (v49)
       {
-        v55 = 5242879;
+        v54 = 5242879;
       }
 
       else
       {
-        v55 = 13311;
+        v54 = 13311;
       }
 
-      if (v54)
+      if (v53)
       {
-        v56 = 13312;
+        v55 = 13312;
       }
 
       else
       {
-        v56 = 5242880;
+        v55 = 5242880;
       }
 
-      v47 += (v53 + v55) / v56;
-      v33 = v51;
-      --v49;
+      v46 += (v52 + v54) / v55;
+      v32 = v50;
+      --v48;
     }
 
-    while (v49);
-    v57 = v47 + v119;
-    if (v57 >= *(a1 + 164))
+    while (v48);
+    v56 = v46 + v118;
+    if (v56 >= *(a1 + 164))
     {
-      if (v120 == -1)
+      if (v119 == -1)
       {
         goto LABEL_318;
       }
@@ -9255,38 +9082,38 @@ LABEL_73:
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
-          v58 = CFStringCreateWithFormat(v19, 0, @"%u >= %u, last_rabin:%d, last_rabin_base:0x%llx\n", v57, *(a1 + 164), v120, v118);
+          v57 = CFStringCreateWithFormat(v18, 0, @"%u >= %u, last_rabin:%d, last_rabin_base:0x%llx\n", v56, *(a1 + 164), v119, v117);
           if (CK_DEFAULT_LOG_BLOCK_10 != -1)
           {
             create_zip_profile_cold_47();
           }
 
-          v59 = CK_DEFAULT_LOG_INTERNAL_10;
+          v58 = CK_DEFAULT_LOG_INTERNAL_10;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
-            *v134 = 138543362;
-            *&v134[4] = v58;
-            _os_log_impl(&dword_243431000, v59, OS_LOG_TYPE_DEBUG, "%{public}@", v134, 0xCu);
+            *v133 = 138543362;
+            *&v133[4] = v57;
+            _os_log_impl(&dword_243431000, v58, OS_LOG_TYPE_DEBUG, "%{public}@", v133, 0xCu);
           }
 
-          v30 = v116;
-          if (v58)
+          v29 = v115;
+          if (v57)
           {
-            CFRelease(v58);
+            CFRelease(v57);
           }
         }
       }
 
-      v60 = &v30[7 * v120];
-      v61 = *v60 - v118;
-      v62 = *(v60 + 52) ? 5242879 : 13311;
-      v63 = *(v60 + 52) ? 5242880 : 13312;
-      *(v60 + 52) = 1;
-      v60[1] = 5242880;
-      *(v60 + 8) = 2;
-      v60[3] = 0;
-      v64 = v57 - (v61 + v62) / v63 + (v61 + 5242879) / 5242880;
-      if (v64 >= *(a1 + 164))
+      v59 = &v29[7 * v119];
+      v60 = *v59 - v117;
+      v61 = *(v59 + 52) ? 5242879 : 13311;
+      v62 = *(v59 + 52) ? 5242880 : 13312;
+      *(v59 + 52) = 1;
+      v59[1] = 5242880;
+      *(v59 + 8) = 2;
+      v59[3] = 0;
+      v63 = v56 - (v60 + v61) / v62 + (v60 + 5242879) / 5242880;
+      if (v63 >= *(a1 + 164))
       {
 LABEL_318:
         v4 = a3;
@@ -9295,28 +9122,28 @@ LABEL_318:
         goto LABEL_332;
       }
 
-      v118 = 0;
-      v119 = v64;
-      v120 = 0xFFFFFFFFLL;
+      v117 = 0;
+      v118 = v63;
+      v119 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v119 += v47;
+      v118 += v46;
     }
 
-    v33 = *v46;
-    ++v31;
+    v32 = *v45;
+    ++v30;
     __nela += 112;
-    v65 = v114;
-    if (v31 == v113)
+    v64 = v113;
+    if (v30 == v112)
     {
-      v9 = v114 | 1u;
+      v9 = v113 | 1u;
       v4 = a3;
       v6 = a1;
       v5 = a2;
-      v17 = old_ringing + 664;
-      v104 = v119;
+      v16 = &unk_280C64000;
+      v103 = v118;
       goto LABEL_198;
     }
   }
@@ -9329,7 +9156,7 @@ LABEL_318:
   v4 = a3;
   v6 = a1;
   v5 = a2;
-  v30 = v116;
+  v29 = v115;
   if (CK_DEFAULT_LOG_BLOCK_10 != -1)
   {
     create_zip_profile_cold_44();
@@ -9338,7 +9165,7 @@ LABEL_318:
   if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) || !os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
   {
 LABEL_332:
-    v106 = ptr;
+    v105 = ptr;
     if (!ptr)
     {
       goto LABEL_337;
@@ -9347,28 +9174,28 @@ LABEL_332:
     goto LABEL_336;
   }
 
-  v101 = CFStringCreateWithFormat(v19, 0, @"entries %u and %u overlap\n", v31, v31 - 1);
+  v100 = CFStringCreateWithFormat(v18, 0, @"entries %u and %u overlap\n", v30, v30 - 1);
   if (CK_DEFAULT_LOG_BLOCK_10 != -1)
   {
     create_zip_profile_cold_45();
   }
 
-  v105 = CK_DEFAULT_LOG_INTERNAL_10;
-  v106 = ptr;
+  v104 = CK_DEFAULT_LOG_INTERNAL_10;
+  v105 = ptr;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
   {
-    *v134 = 138543362;
-    *&v134[4] = v101;
-    v103 = v105;
+    *v133 = 138543362;
+    *&v133[4] = v100;
+    v102 = v104;
 LABEL_314:
-    _os_log_impl(&dword_243431000, v103, OS_LOG_TYPE_DEBUG, "%{public}@", v134, 0xCu);
+    _os_log_impl(&dword_243431000, v102, OS_LOG_TYPE_DEBUG, "%{public}@", v133, 0xCu);
   }
 
 LABEL_315:
-  if (!v101)
+  if (!v100)
   {
 LABEL_335:
-    if (!v106)
+    if (!v105)
     {
       goto LABEL_337;
     }
@@ -9376,19 +9203,19 @@ LABEL_335:
     goto LABEL_336;
   }
 
-  CFRelease(v101);
-  if (v106)
+  CFRelease(v100);
+  if (v105)
   {
     goto LABEL_336;
   }
 
 LABEL_337:
-  free(v30);
+  free(v29);
 LABEL_338:
-  if (v28)
+  if (v27)
   {
 LABEL_339:
-    free(v28);
+    free(v27);
   }
 
 LABEL_6:
@@ -9397,15 +9224,12 @@ LABEL_6:
     *a4 = 1;
   }
 
-  v9 = (*(v6 + 168))(v6, v5, v4, 0);
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return (*(v6 + 168))(v6, v5, v4, 0);
 }
 
 uint64_t create_mp3_profile(uint64_t a1, void *a2, _DWORD *a3, _BYTE *a4)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 4;
@@ -9420,11 +9244,11 @@ uint64_t create_mp3_profile(uint64_t a1, void *a2, _DWORD *a3, _BYTE *a4)
   v7 = *(a1 + 16);
   v9 = *(a1 + 232);
   v10 = *(a1 + 80);
-  v56 = 0;
-  memset(v57, 0, 10);
-  if ((*(v7 + 72))(v8, v9, v57, 10, &v56, 0))
+  v55 = 0;
+  memset(v56, 0, 10);
+  if ((*(v7 + 72))(v8, v9, v56, 10, &v55, 0))
   {
-    v11 = v56 == 10;
+    v11 = v55 == 10;
   }
 
   else
@@ -9437,14 +9261,14 @@ uint64_t create_mp3_profile(uint64_t a1, void *a2, _DWORD *a3, _BYTE *a4)
     goto LABEL_9;
   }
 
-  v12 = is_ID3v2_tag(v57, 0xAuLL);
+  v12 = is_ID3v2_tag(v56, 0xAuLL);
   if (!v12)
   {
     if (v10 >= 0x81)
     {
-      v20 = 0;
+      v19 = 0;
       cfa = 0;
-      v24 = 0;
+      v23 = 0;
       goto LABEL_45;
     }
 
@@ -9454,38 +9278,37 @@ LABEL_9:
       *a4 = 1;
     }
 
-    v12 = (*(a1 + 168))(a1, a2, a3, 0);
-    goto LABEL_12;
+    return (*(a1 + 168))(a1, a2, a3, 0);
   }
 
-  v15 = 0;
-  v16 = bswap32(*(v57 + 6));
-  v17 = 2130706432;
-  v18 = 4;
+  v14 = 0;
+  v15 = bswap32(*(v56 + 6));
+  v16 = 2130706432;
+  v17 = 4;
   do
   {
-    v15 = v17 & v16 | (v15 >> 1);
-    v17 >>= 8;
-    --v18;
+    v14 = v16 & v15 | (v14 >> 1);
+    v16 >>= 8;
+    --v17;
   }
 
-  while (v18);
-  if (v15 >> 28)
+  while (v17);
+  if (v14 >> 28)
   {
     create_mp3_profile_cold_10();
   }
 
-  if ((v57[0] & 0x100000000000) != 0)
+  if ((v56[0] & 0x100000000000) != 0)
   {
-    v19 = 20;
+    v18 = 20;
   }
 
   else
   {
-    v19 = 10;
+    v18 = 10;
   }
 
-  v20 = v19 + v15;
+  v19 = v18 + v14;
   if (gVerbose == 2)
   {
     if (CK_DEFAULT_LOG_BLOCK_10 != -1)
@@ -9495,18 +9318,18 @@ LABEL_9:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      cf = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v2 tag present at 0x%llx, v2_tag_size:0x%x\n", v9, v20);
+      cf = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v2 tag present at 0x%llx, v2_tag_size:0x%x\n", v9, v19);
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_mp3_profile_cold_2();
       }
 
-      v21 = CK_DEFAULT_LOG_INTERNAL_10;
+      v20 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         *&buf[4] = cf;
-        _os_log_impl(&dword_243431000, v21, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (cf)
@@ -9516,7 +9339,7 @@ LABEL_9:
     }
   }
 
-  if (v10 < v20)
+  if (v10 < v19)
   {
     if (CK_DEFAULT_LOG_BLOCK_10 != -1)
     {
@@ -9525,49 +9348,49 @@ LABEL_9:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
-      v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v2 tag larger than the file, v2_tag_size:0x%x, dataSize:0x%llx\n", v20, v10);
+      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v2 tag larger than the file, v2_tag_size:0x%x, dataSize:0x%llx\n", v19, v10);
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_mp3_profile_cold_9();
       }
 
-      v23 = CK_DEFAULT_LOG_INTERNAL_10;
+      v22 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v22;
-        _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v21;
+        _os_log_impl(&dword_243431000, v22, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v21)
       {
-        CFRelease(v22);
+        CFRelease(v21);
       }
     }
 
     goto LABEL_9;
   }
 
-  v25 = malloc_type_realloc(0, 0x38uLL, 0x1000040C4DFEAEFuLL);
-  if (!v25)
+  v24 = malloc_type_realloc(0, 0x38uLL, 0x1000040C4DFEAEFuLL);
+  if (!v24)
   {
     goto LABEL_9;
   }
 
-  v24 = v25;
-  v25[6] = 0;
-  *(v25 + 1) = 0u;
-  *(v25 + 2) = 0u;
+  v23 = v24;
+  v24[6] = 0;
+  *(v24 + 1) = 0u;
+  *(v24 + 2) = 0u;
   cfa = 1;
-  *(v25 + 52) = 1;
-  *v25 = v9 + v20;
-  v25[1] = 5242880;
-  *(v25 + 8) = 9;
-  if (v10 - v20 <= 0x80)
+  *(v24 + 52) = 1;
+  *v24 = v9 + v19;
+  v24[1] = 5242880;
+  *(v24 + 8) = 9;
+  if (v10 - v19 <= 0x80)
   {
-    LODWORD(v31) = 1;
+    LODWORD(v30) = 1;
     v12 = 1;
-    if (v10 > v20)
+    if (v10 > v19)
     {
       goto LABEL_75;
     }
@@ -9576,21 +9399,21 @@ LABEL_9:
   }
 
 LABEL_45:
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  *buf = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v52 = v10 + v9 - 128;
-  if (!(*(v7 + 72))(v8) || v56 != 128)
+  v62 = 0u;
+  *buf = 0u;
+  v60 = 0u;
+  v51 = v10 + v9 - 128;
+  if (!(*(v7 + 72))(v8) || v55 != 128)
   {
     goto LABEL_81;
   }
 
-  v27 = *buf != 16724 || buf[2] != 71;
+  v26 = *buf != 16724 || buf[2] != 71;
   if (gVerbose == 2)
   {
     if (CK_DEFAULT_LOG_BLOCK_10 != -1)
@@ -9600,43 +9423,43 @@ LABEL_45:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      v28 = "missing";
-      if (!v27)
+      v27 = "missing";
+      if (!v26)
       {
-        v28 = "present";
+        v27 = "present";
       }
 
-      v51 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v1 tag %s at 0x%llx\n", v28, v52);
+      v50 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ID3v1 tag %s at 0x%llx\n", v27, v51);
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_mp3_profile_cold_4();
       }
 
-      v29 = CK_DEFAULT_LOG_INTERNAL_10;
+      v28 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
-        *v58 = 138543362;
-        v59 = v51;
-        _os_log_impl(&dword_243431000, v29, OS_LOG_TYPE_DEBUG, "%{public}@", v58, 0xCu);
+        *v57 = 138543362;
+        v58 = v50;
+        _os_log_impl(&dword_243431000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", v57, 0xCu);
       }
 
-      if (v51)
+      if (v50)
       {
-        CFRelease(v51);
+        CFRelease(v50);
       }
     }
   }
 
-  v30 = v27 ? v12 : 1;
-  if (v30 != 1)
+  v29 = v26 ? v12 : 1;
+  if (v29 != 1)
   {
     goto LABEL_81;
   }
 
-  if (v27)
+  if (v26)
   {
-    LODWORD(v31) = cfa;
-    if (v10 > v20)
+    LODWORD(v30) = cfa;
+    if (v10 > v19)
     {
       if ((v12 & 1) == 0)
       {
@@ -9644,27 +9467,27 @@ LABEL_45:
       }
 
 LABEL_75:
-      v32 = malloc_type_realloc(v24, 56 * v31 + 56, 0x1000040C4DFEAEFuLL);
-      if (v32)
+      v31 = malloc_type_realloc(v23, 56 * v30 + 56, 0x1000040C4DFEAEFuLL);
+      if (v31)
       {
-        v33 = &v32[56 * v31];
-        *(v33 + 6) = 0;
-        *(v33 + 1) = 0u;
-        *(v33 + 2) = 0u;
-        *v33 = 0u;
-        v32[108] = 1;
-        *(v32 + 7) = v10 + v9;
-        *(v32 + 8) = 5242880;
-        *(v32 + 22) = 9;
-        *(v32 + 10) = 0;
-        v31 = (v31 + 1);
-        v12 = v31;
-        v24 = v32;
+        v32 = &v31[56 * v30];
+        *(v32 + 6) = 0;
+        *(v32 + 1) = 0u;
+        *(v32 + 2) = 0u;
+        *v32 = 0u;
+        v31[108] = 1;
+        *(v31 + 7) = v10 + v9;
+        *(v31 + 8) = 5242880;
+        *(v31 + 22) = 9;
+        *(v31 + 10) = 0;
+        v30 = (v30 + 1);
+        v12 = v30;
+        v23 = v31;
         goto LABEL_85;
       }
 
 LABEL_81:
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_9;
       }
@@ -9682,85 +9505,85 @@ LABEL_81:
 
   else
   {
-    v34 = malloc_type_realloc(v24, 56 * cfa + 112, 0x1000040C4DFEAEFuLL);
-    if (!v34)
+    v33 = malloc_type_realloc(v23, 56 * cfa + 112, 0x1000040C4DFEAEFuLL);
+    if (!v33)
     {
       goto LABEL_81;
     }
 
-    v35 = &v34[56 * cfa];
-    *(v35 + 5) = 0u;
-    *(v35 + 6) = 0u;
-    *(v35 + 3) = 0u;
-    *(v35 + 4) = 0u;
-    *(v35 + 1) = 0u;
-    *(v35 + 2) = 0u;
-    *v35 = 0u;
-    v36 = &v34[56 * v12];
-    v36[52] = 1;
-    *v36 = v52;
-    *(v36 + 1) = 5242880;
-    *(v36 + 8) = 9;
-    *(v36 + 3) = 0;
-    v37 = 112;
+    v34 = &v33[56 * cfa];
+    *(v34 + 5) = 0u;
+    *(v34 + 6) = 0u;
+    *(v34 + 3) = 0u;
+    *(v34 + 4) = 0u;
+    *(v34 + 1) = 0u;
+    *(v34 + 2) = 0u;
+    *v34 = 0u;
+    v35 = &v33[56 * v12];
+    v35[52] = 1;
+    *v35 = v51;
+    *(v35 + 1) = 5242880;
+    *(v35 + 8) = 9;
+    *(v35 + 3) = 0;
+    v36 = 112;
     if (!v12)
     {
-      v37 = 56;
+      v36 = 56;
     }
 
-    v38 = &v34[v37];
-    v38[52] = 1;
-    *v38 = v10 + v9;
-    *(v38 + 1) = 5242880;
-    *(v38 + 8) = 9;
-    LODWORD(v31) = cfa | 2;
+    v37 = &v33[v36];
+    v37[52] = 1;
+    *v37 = v10 + v9;
+    *(v37 + 1) = 5242880;
+    *(v37 + 8) = 9;
+    LODWORD(v30) = cfa | 2;
     v12 = cfa | 2;
-    v24 = v34;
-    *(v38 + 3) = 0;
+    v23 = v33;
+    *(v37 + 3) = 0;
   }
 
 LABEL_85:
-  v39 = 0;
-  v40 = v24;
-  v41 = v31;
+  v38 = 0;
+  v39 = v23;
+  v40 = v30;
   do
   {
-    v42 = *(v40 + 52);
-    v44 = *v40;
-    v40 += 7;
-    v43 = v44;
-    v45 = v44 - v9;
-    v46 = v42 == 0;
-    if (v42)
+    v41 = *(v39 + 52);
+    v43 = *v39;
+    v39 += 7;
+    v42 = v43;
+    v44 = v43 - v9;
+    v45 = v41 == 0;
+    if (v41)
     {
-      v47 = 5242879;
+      v46 = 5242879;
     }
 
     else
     {
-      v47 = 13311;
+      v46 = 13311;
     }
 
-    if (v46)
+    if (v45)
     {
-      v48 = 13312;
+      v47 = 13312;
     }
 
     else
     {
-      v48 = 5242880;
+      v47 = 5242880;
     }
 
-    v39 += (v45 + v47) / v48;
-    v9 = v43;
-    --v41;
+    v38 += (v44 + v46) / v47;
+    v9 = v42;
+    --v40;
   }
 
-  while (v41);
-  if (*(a1 + 164) < v39)
+  while (v40);
+  if (*(a1 + 164) < v38)
   {
 LABEL_94:
-    free(v24);
+    free(v23);
     goto LABEL_9;
   }
 
@@ -9774,39 +9597,37 @@ LABEL_95:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      v49 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", v12, *(a1 + 104));
+      v48 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", v12, *(a1 + 104));
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_mp3_profile_cold_7();
       }
 
-      v50 = CK_DEFAULT_LOG_INTERNAL_10;
+      v49 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v49;
-        _os_log_impl(&dword_243431000, v50, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v48;
+        _os_log_impl(&dword_243431000, v49, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v49)
+      if (v48)
       {
-        CFRelease(v49);
+        CFRelease(v48);
       }
     }
 
-    print_sections(v24, v12);
+    print_sections(v23, v12);
   }
 
-  *a2 = v24;
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
+  *a2 = v23;
   return v12;
 }
 
 uint64_t create_sqlite3_db_wal_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
   v5 = a3;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 7;
@@ -9819,12 +9640,12 @@ uint64_t create_sqlite3_db_wal_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _
 
   v8 = *(a1 + 232);
   v9 = *(a1 + 80);
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v10 = *(a1 + 8);
   v11 = *(a1 + 16);
   *buf = 0;
-  if ((*(v11 + 72))(v10, 0, &v43, 32, buf, 0))
+  if ((*(v11 + 72))(v10, 0, &v42, 32, buf, 0))
   {
     v12 = *buf > 0x1FuLL;
   }
@@ -9834,7 +9655,7 @@ uint64_t create_sqlite3_db_wal_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _
     v12 = 0;
   }
 
-  if (!v12 || (v43 = vrev32q_s8(v43), v44 = vrev32q_s8(v44), (v13 = malloc_type_realloc(0, 0x38uLL, 0x1000040C4DFEAEFuLL)) == 0))
+  if (!v12 || (v42 = vrev32q_s8(v42), v43 = vrev32q_s8(v43), (v13 = malloc_type_realloc(0, 0x38uLL, 0x1000040C4DFEAEFuLL)) == 0))
   {
 LABEL_33:
     if (a4)
@@ -9842,12 +9663,11 @@ LABEL_33:
       *a4 = 1;
     }
 
-    v17 = (*(a1 + 168))(a1, a2, v5, 0);
-    goto LABEL_36;
+    return (*(a1 + 168))(a1, a2, v5, 0);
   }
 
   v14 = v13;
-  v42 = v5;
+  v41 = v5;
   v13[6] = 0;
   *(v13 + 1) = 0u;
   *(v13 + 2) = 0u;
@@ -9905,7 +9725,7 @@ LABEL_23:
 
 LABEL_32:
     free(v14);
-    v5 = v42;
+    v5 = v41;
     goto LABEL_33;
   }
 
@@ -9923,20 +9743,20 @@ LABEL_32:
         goto LABEL_32;
       }
 
-      v37 = &v19[56 * v17];
-      v38 = 1;
-      v39 = 6;
+      v36 = &v19[56 * v17];
+      v37 = 1;
+      v38 = 6;
 LABEL_41:
-      *(v37 + 6) = 0;
-      *(v37 + 1) = 0u;
-      *(v37 + 2) = 0u;
-      *v37 = 0u;
-      v37[52] = 1;
-      *v37 = v9;
-      *(v37 + 1) = 5242880;
-      *(v37 + 8) = v39;
-      v17 = (v18 + v38);
-      *(v37 + 3) = 0;
+      *(v36 + 6) = 0;
+      *(v36 + 1) = 0u;
+      *(v36 + 2) = 0u;
+      *v36 = 0u;
+      v36[52] = 1;
+      *v36 = v9;
+      *(v36 + 1) = 5242880;
+      *(v36 + 8) = v38;
+      v17 = (v18 + v37);
+      *(v36 + 3) = 0;
       if (v17)
       {
         goto LABEL_21;
@@ -9966,7 +9786,7 @@ LABEL_41:
       goto LABEL_19;
     }
 
-    v22 = v15 + v43.u32[2];
+    v22 = v15 + v42.u32[2];
     v19 = malloc_type_realloc(v19, 56 * v17 + 56, 0x1000040C4DFEAEFuLL);
     if (v22 > v9)
     {
@@ -9976,9 +9796,9 @@ LABEL_41:
         goto LABEL_32;
       }
 
-      v37 = &v19[56 * v17];
-      v38 = 2;
-      v39 = 7;
+      v36 = &v19[56 * v17];
+      v37 = 2;
+      v38 = 7;
       goto LABEL_41;
     }
 
@@ -9993,13 +9813,13 @@ LABEL_41:
     *(v23 + 1) = 0u;
     *(v23 + 6) = 0;
     *(v23 + 2) = 0u;
-    v24 = v15 + v43.u32[2];
+    v24 = v15 + v42.u32[2];
     v23[52] = 1;
     *v23 = v24;
     *(v23 + 1) = 5242880;
     *(v23 + 8) = 7;
     *(v23 + 3) = 0;
-    v15 += v43.u32[2];
+    v15 += v42.u32[2];
     v17 = (v18 + 2);
 LABEL_19:
     v14 = v19;
@@ -10027,30 +9847,28 @@ LABEL_43:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      v40 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", v17, *(a1 + 104));
+      v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", v17, *(a1 + 104));
       if (CK_DEFAULT_LOG_BLOCK_10 != -1)
       {
         create_sqlite3_db_wal_profile_cold_2();
       }
 
-      v41 = CK_DEFAULT_LOG_INTERNAL_10;
+      v40 = CK_DEFAULT_LOG_INTERNAL_10;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v40;
-        _os_log_impl(&dword_243431000, v41, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v39;
+        _os_log_impl(&dword_243431000, v40, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v40)
+      if (v39)
       {
-        CFRelease(v40);
+        CFRelease(v39);
       }
     }
 
     print_sections(v14, v17);
   }
 
-LABEL_36:
-  v35 = *MEMORY[0x277D85DE8];
   return v17;
 }

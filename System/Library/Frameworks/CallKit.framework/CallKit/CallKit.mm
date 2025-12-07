@@ -1,13 +1,13 @@
-id CXDefaultLog()
+id CXDefaultLog(uint64_t a1)
 {
   if (CXDefaultLog_onceToken != -1)
   {
     CXDefaultLog_cold_1();
   }
 
-  v1 = CXDefaultLog_log;
+  v2 = CXDefaultLog_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B47F4924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -17,9 +17,9 @@ void sub_1B47F4924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B47F4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B47F4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -39,28 +39,28 @@ void sub_1B47F5010(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id CXOversizedLogQueue()
+id CXOversizedLogQueue(uint64_t a1)
 {
   if (CXOversizedLogQueue_onceToken != -1)
   {
     CXOversizedLogQueue_cold_1();
   }
 
-  v1 = CXOversizedLogQueue_queue;
+  v2 = CXOversizedLogQueue_queue;
 
-  return v1;
+  return v2;
 }
 
-id CXOversizedLog()
+id CXOversizedLog(uint64_t a1)
 {
   if (CXOversizedLog_onceToken != -1)
   {
     CXOversizedLog_cold_1();
   }
 
-  v1 = CXOversizedLog_log;
+  v2 = CXOversizedLog_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B47F86F4(_Unwind_Exception *a1)
@@ -90,7 +90,7 @@ BOOL auditTokenForTask(task_name_t a1, _OWORD *a2)
     if (v4)
     {
       v6 = v4;
-      v7 = CXDefaultLog();
+      v7 = CXDefaultLog(v4);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         auditTokenForTask_cold_1(v6, v7);
@@ -108,10 +108,11 @@ BOOL auditTokenForTask(task_name_t a1, _OWORD *a2)
   return v5;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -119,13 +120,6 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   va_start(va, a4);
 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
 }
 
 uint64_t __CXOversizedLog_block_invoke()
@@ -143,9 +137,9 @@ void __CXOversizedLogQueue_block_invoke()
   CXOversizedLogQueue_queue = v0;
 }
 
-void sub_1B4805FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B4805FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -175,9 +169,9 @@ void sub_1B4808FDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B480AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B480AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -189,17 +183,18 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B480B17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B480B17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 BOOL OUTLINED_FUNCTION_3_0(NSObject *a1)
@@ -215,16 +210,16 @@ void sub_1B480E168(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B480F780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B480F780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B480FC04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B480FC04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -236,31 +231,32 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B481334C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B481334C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B4813570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B4813570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B4813A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B4813A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t _cx_LSAppRecordHasBackgroundMode(void *a1, void *a2)
@@ -293,9 +289,9 @@ void sub_1B481A9F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B481AE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B481AE6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -335,9 +331,9 @@ unint64_t CXHash(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   return result;
 }
 
-void sub_1B48286AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B48286AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -345,34 +341,37 @@ void sub_1B48286AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 CXSandboxExtendedURL *CXGetSandboxExtendedFileURL(void *a1)
 {
   v1 = a1;
-  if ([v1 isFileURL])
+  v2 = [v1 isFileURL];
+  if (v2)
   {
-    v14 = 0;
-    v2 = [v1 checkResourceIsReachableAndReturnError:&v14];
-    v3 = v14;
-    if (v2)
+    v18 = 0;
+    v3 = [v1 checkResourceIsReachableAndReturnError:&v18];
+    v4 = v18;
+    v5 = v4;
+    if (v3)
     {
       if ([v1 fileSystemRepresentation])
       {
-        v13 = 0;
-        v4 = *MEMORY[0x1E695DBB8];
-        v12 = 0;
-        v5 = [v1 getResourceValue:&v13 forKey:v4 error:&v12];
-        v6 = v13;
-        v7 = v12;
+        v17 = 0;
+        v6 = *MEMORY[0x1E695DBB8];
+        v16 = 0;
+        v7 = [v1 getResourceValue:&v17 forKey:v6 error:&v16];
+        v8 = v17;
+        v9 = v16;
 
-        if (v5)
+        if (v7)
         {
-          if ([v6 BOOLValue])
+          v11 = [v8 BOOLValue];
+          if (v11)
           {
-            v8 = [[CXSandboxExtendedURL alloc] initWithURL:v1];
+            v12 = [[CXSandboxExtendedURL alloc] initWithURL:v1];
 LABEL_20:
 
             goto LABEL_21;
           }
 
-          v10 = CXDefaultLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = CXDefaultLog(v11);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             CXGetSandboxExtendedFileURL_cold_4();
           }
@@ -380,19 +379,19 @@ LABEL_20:
 
         else
         {
-          v10 = CXDefaultLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = CXDefaultLog(v10);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             CXGetSandboxExtendedFileURL_cold_3();
           }
         }
 
-        v8 = 0;
+        v12 = 0;
         goto LABEL_20;
       }
 
-      v9 = CXDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         CXGetSandboxExtendedFileURL_cold_5();
       }
@@ -400,28 +399,28 @@ LABEL_20:
 
     else
     {
-      v9 = CXDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = CXDefaultLog(v4);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         CXGetSandboxExtendedFileURL_cold_2();
       }
     }
 
-    v8 = 0;
-    v7 = v3;
+    v12 = 0;
+    v9 = v5;
     goto LABEL_21;
   }
 
-  v7 = CXDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v9 = CXDefaultLog(v2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     CXGetSandboxExtendedFileURL_cold_1();
   }
 
-  v8 = 0;
+  v12 = 0;
 LABEL_21:
 
-  return v8;
+  return v12;
 }
 
 void sub_1B483647C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -432,9 +431,9 @@ void sub_1B483647C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B4837F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B4837F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -492,9 +491,9 @@ void sub_1B4841654(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B4842500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B4842500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -506,16 +505,16 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B4842CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B4842CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B4843190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B4843190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -558,9 +557,9 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B4856558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B4856558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -582,53 +581,12 @@ void sub_1B4858B6C(_Unwind_Exception *a1)
 
 void auditTokenForTask_cold_1(mach_error_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = 136315650;
-  v6 = "auditTokenForTask";
-  v7 = 2082;
-  v8 = mach_error_string(a1);
-  v9 = 1024;
-  v10 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "%s failed: %{public}s (0x%x)", &v5, 0x1Cu);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void CXGetSandboxExtendedFileURL_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "URL is not a file system URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void CXGetSandboxExtendedFileURL_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "URL resource is not reachable: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void CXGetSandboxExtendedFileURL_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Error while querying file attributes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void CXGetSandboxExtendedFileURL_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Regular file not found for resource at %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void CXGetSandboxExtendedFileURL_cold_5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Could not get file system representation for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "auditTokenForTask";
+  v6 = 2082;
+  v7 = mach_error_string(a1);
+  v8 = 1024;
+  v9 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "%s failed: %{public}s (0x%x)", &v4, 0x1Cu);
 }

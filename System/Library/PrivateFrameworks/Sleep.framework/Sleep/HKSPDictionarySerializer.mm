@@ -5,9 +5,12 @@
 - (id)_dictionaryForProtocolObject:(id)object;
 - (void)_encodeObject:(id)object forKey:(id)key;
 - (void)_encodeProtocolObject:(id)object forKey:(id)key;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeInteger:(int64_t)integer forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 - (void)encodeRootObject:(id)object;
@@ -63,14 +66,14 @@
 
 - (void)encodeRootObject:(id)object
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (![objectCopy conformsToProtocol:&unk_287A87508])
   {
     v5 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Root object not serializable";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Root object not serializable";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v7 = [v5 errorWithDomain:@"com.apple.sleep.serialization" code:3 userInfo:v6];
     internalError = self->_internalError;
     self->_internalError = v7;
@@ -82,8 +85,15 @@
     serializedDictionary = self->_serializedDictionary;
     self->_serializedDictionary = v9;
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(HKSPDictionarySerializer *)self _encodeObject:v8 forKey:keyCopy];
 }
 
 - (void)encodeInteger:(int64_t)integer forKey:(id)key
@@ -91,6 +101,24 @@
   v6 = MEMORY[0x277CCABB0];
   keyCopy = key;
   v8 = [v6 numberWithInteger:integer];
+  [(HKSPDictionarySerializer *)self _encodeObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(HKSPDictionarySerializer *)self _encodeObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
   [(HKSPDictionarySerializer *)self _encodeObject:v8 forKey:keyCopy];
 }
 
@@ -121,7 +149,7 @@
 
 - (void)encodeObject:(id)object forKey:(id)key
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   objc_opt_class();
@@ -129,26 +157,26 @@
   {
     v8 = objectCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
+          v15 = *(*(&v33 + 1) + 8 * i);
           if ([v15 conformsToProtocol:&unk_287A87508])
           {
             v16 = [(HKSPDictionarySerializer *)self _dictionaryForProtocolObject:v15];
@@ -161,7 +189,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v12);
@@ -175,31 +203,31 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = keyCopy;
-      v29 = objectCopy;
+      v27 = keyCopy;
+      v28 = objectCopy;
       v17 = objectCopy;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v19 = v17;
-      v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v31;
+        v22 = *v30;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v31 != v22)
+            if (*v30 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v30 + 1) + 8 * j);
-            v25 = [v19 objectForKeyedSubscript:{v24, v28}];
+            v24 = *(*(&v29 + 1) + 8 * j);
+            v25 = [v19 objectForKeyedSubscript:{v24, v27}];
             if ([v25 conformsToProtocol:&unk_287A87508])
             {
               v26 = [(HKSPDictionarySerializer *)self _dictionaryForProtocolObject:v25];
@@ -212,16 +240,16 @@
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
         }
 
         while (v21);
       }
 
-      keyCopy = v28;
-      [(HKSPDictionarySerializer *)self _encodeObject:dictionary forKey:v28];
+      keyCopy = v27;
+      [(HKSPDictionarySerializer *)self _encodeObject:dictionary forKey:v27];
 
-      objectCopy = v29;
+      objectCopy = v28;
     }
 
     else if ([objectCopy conformsToProtocol:&unk_287A87508])
@@ -234,8 +262,6 @@
       [(HKSPDictionarySerializer *)self _encodeObject:objectCopy forKey:keyCopy];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_encodeProtocolObject:(id)object forKey:(id)key

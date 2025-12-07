@@ -45,7 +45,7 @@
   {
     if (backwardFlow)
     {
-      loadVEFrameworkOnce();
+      loadVEFrameworkOnce(0, a2);
       v11.receiver = self;
       v11.super_class = VTFrameProcessorOpticalFlow;
       result = [(VTFrameProcessorOpticalFlow *)&v11 init];

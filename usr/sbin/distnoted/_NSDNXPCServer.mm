@@ -56,9 +56,7 @@
 
   else
   {
-    v4 = [name copy];
-    serviceName = self->_serviceName;
-    self->_serviceName = v4;
+    self->_serviceName = [name copy];
 
     _objc_release_x1();
   }
@@ -80,9 +78,7 @@
 
   else
   {
-    v4 = [client copy];
-    makeNewClient = self->_makeNewClient;
-    self->_makeNewClient = v4;
+    self->_makeNewClient = [client copy];
 
     _objc_release_x1();
   }

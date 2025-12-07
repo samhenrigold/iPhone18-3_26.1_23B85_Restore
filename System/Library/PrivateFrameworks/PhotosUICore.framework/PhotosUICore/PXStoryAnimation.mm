@@ -25,11 +25,11 @@
 - (void)_updateTime
 {
   memset(&v22[2], 0, sizeof(CMTime));
-  [(PXStoryAnimation *)self elapsedTime];
+  objc_msgSend_elapsedTime(self, a2);
   if (0 >> 96)
   {
     memset(&v22[1], 0, sizeof(CMTime));
-    [(PXStoryAnimation *)self time];
+    objc_msgSend_time(self);
     [(PXStoryAnimation *)self velocity];
     v4 = v3;
     if ([(PXStoryAnimation *)self isPaused])
@@ -70,7 +70,7 @@ LABEL_30:
     }
 
     memset(v22, 0, 24);
-    [(PXStoryAnimation *)self lastElapsedTime];
+    objc_msgSend_lastElapsedTime(self);
     memset(&v21, 0, sizeof(v21));
     if (0 >> 96)
     {
@@ -171,7 +171,7 @@ LABEL_17:
   [v5 px_removePrefix:@"PXStory"];
   [v5 px_removeSuffix:@"Animation"];
   v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self);
   time = v9;
   v7 = [v6 initWithFormat:@"%@: %0.1fs", v5, CMTimeGetSeconds(&time)];
 
@@ -183,7 +183,7 @@ LABEL_17:
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self);
   time = v12;
   Seconds = CMTimeGetSeconds(&time);
   isStopped = [(PXStoryAnimation *)self isStopped];

@@ -1,15 +1,20 @@
 @interface CoreDAVOrderedAction
-- (id)description;
+- (CoreDAVOrderedAction)initWithAction:(int)action context:(id)context absoluteOrder:(int)order;
 @end
 
 @implementation CoreDAVOrderedAction
 
-- (id)description
+- (CoreDAVOrderedAction)initWithAction:(int)action context:(id)context absoluteOrder:(int)order
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  v5 = *&self->_absoluteOrder;
-  return [v3 stringWithFormat:@"<%@: %p> { Change type %d, Absolute Order %d prior url %@, Context: %@ }", v4, self, self->super._action, *(&self->super._ignoresGuardianRestrictions + 1), v5, self->super._context];
+  v7.receiver = self;
+  v7.super_class = CoreDAVOrderedAction;
+  result = [(CoreDAVAction *)&v7 initWithAction:*&action context:context];
+  if (result)
+  {
+    *(&result->super._ignoresGuardianRestrictions + 1) = order;
+  }
+
+  return result;
 }
 
 @end

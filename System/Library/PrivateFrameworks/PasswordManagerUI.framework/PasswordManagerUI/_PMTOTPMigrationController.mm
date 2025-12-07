@@ -38,55 +38,52 @@
 - (_TtC17PasswordManagerUI26_PMTOTPMigrationController)initWithMigrationURL:(id)l delegate:(id)delegate
 {
   v5 = sub_21CB80BE4();
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB80B94();
   swift_unknownObjectRetain();
-  return _PMTOTPMigrationController.init(migrationURL:delegate:)(v8, delegate);
+  return _PMTOTPMigrationController.init(migrationURL:delegate:)(v7, delegate);
 }
 
 - (void)addGenerator:(WBSTOTPGenerator *)generator toSavedAccount:(WBSSavedAccount *)account completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDF1D50, &qword_21CBA0C00);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = generator;
-  v14[3] = account;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_21CB858E4();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = generator;
+  v13[3] = account;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_21CB858E4();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_21CBA0DB0;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_21CBA0DB0;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_21CBA0DB8;
-  v17[5] = v16;
+  v16[4] = &unk_21CBA0DB8;
+  v16[5] = v15;
   generatorCopy = generator;
   accountCopy = account;
   selfCopy = self;
-  sub_21C963EF4(0, 0, v12, &unk_21CBA0DC0, v17);
+  sub_21C963EF4(0, 0, v11, &unk_21CBA0DC0, v16);
 }
 
 - (int64_t)numberOfCodes
 {
-  v3 = *(self + OBJC_IVAR____TtC17PasswordManagerUI26_PMTOTPMigrationController_totpMigrationModel);
-  swift_getKeyPath();
-  swift_getKeyPath();
+  swift_getKeyPath(asc_21CBA0C90, a2);
+  swift_getKeyPath(byte_21CBA0CB8);
   selfCopy = self;
   sub_21CB81DB4();
 
-  v5 = *(v7 + 16);
+  v4 = *(v6 + 16);
 
-  return v5;
+  return v4;
 }
 
 - (NSArray)totpGenerators

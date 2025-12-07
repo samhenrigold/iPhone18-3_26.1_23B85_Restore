@@ -15,7 +15,7 @@
 
 - (void)convertToSpringTrackerEntry:(CLSpringTrackerEntry *)entry
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   memset(src, 0, sizeof(src));
   uuid_clear(uu);
@@ -28,7 +28,6 @@
   objc_msgSend_timeIntervalSinceReferenceDate(self->fEventTime, v7, v8);
   entry->var3 = v9;
   entry->var4 = self->fEventType;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (CMSleepData)initWithRecordId:(unint64_t)id sourceId:(id)sourceId sessionId:(id)sessionId eventTime:(id)time eventType:(int64_t)type
@@ -121,10 +120,6 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   fRecordId = self->fRecordId;
-  fSourceId = self->fSourceId;
-  fSessionId = self->fSessionId;
-  fEventTime = self->fEventTime;
-  fEventType = self->fEventType;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithRecordId_sourceId_sessionId_eventTime_eventType_, fRecordId);
 }

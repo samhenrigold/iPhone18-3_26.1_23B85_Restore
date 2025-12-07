@@ -1,6 +1,7 @@
 @interface JavaIoByteArrayInputStream
 - (int)available;
 - (int)read;
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (int64_t)skipWithLong:(int64_t)long;
 - (void)dealloc;
 - (void)markWithInt:(int)int;
@@ -54,6 +55,46 @@
 
   objc_sync_exit(self);
   return v6;
+}
+
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  LODWORD(v5) = withInt;
+  v6 = *&int;
+  objc_sync_enter(self);
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, v5);
+  pos = self->pos_;
+  count = self->count_;
+  v11 = __OFSUB__(count, pos);
+  v12 = count - pos;
+  if ((v12 < 0) ^ v11 | (v12 == 0))
+  {
+    LODWORD(v5) = -1;
+  }
+
+  else if (v5)
+  {
+    if (v12 >= v5)
+    {
+      v5 = v5;
+    }
+
+    else
+    {
+      v5 = v12;
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->buf_, pos, array, v6, v5);
+    self->pos_ += v5;
+  }
+
+  objc_sync_exit(self);
+  return v5;
 }
 
 - (void)reset

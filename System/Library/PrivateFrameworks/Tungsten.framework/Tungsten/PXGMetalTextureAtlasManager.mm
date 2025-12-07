@@ -250,8 +250,8 @@ void __83__PXGMetalTextureAtlasManager__requestQueue_getNextAvailableAtlas_thumb
     while (v7);
   }
 
-  indexSet = [MEMORY[0x277CCAA78] indexSet];
-  [(PXGMetalTextureAtlasManager *)self setSkipRenderSpriteIndexes:indexSet];
+  v10 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
+  [(PXGMetalTextureAtlasManager *)self setSkipRenderSpriteIndexes:v10];
 }
 
 - (void)setSkipRenderSpriteIndexes:(id)indexes
@@ -446,9 +446,9 @@ void __76__PXGMetalTextureAtlasManager_processPendingThumbnailRequestIDsWithHand
     v21->_thumbnailSize.height = height;
     v21->_capacityPerAtlas = v23;
     v21->_mipmapped = mipmapped;
-    indexSet = [MEMORY[0x277CCAA78] indexSet];
+    v29 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
     skipRenderSpriteIndexes = v21->_skipRenderSpriteIndexes;
-    v21->_skipRenderSpriteIndexes = indexSet;
+    v21->_skipRenderSpriteIndexes = v29;
 
     atlasTextures = v21->_atlasTextures;
     v21->_atlasTextures = MEMORY[0x277CBEBF8];

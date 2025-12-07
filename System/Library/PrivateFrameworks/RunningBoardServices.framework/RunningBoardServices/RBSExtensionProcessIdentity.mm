@@ -6,11 +6,72 @@
 - (BOOL)supportsLaunchingDirectly;
 - (RBSExtensionProcessIdentity)initWithDecodeFromJob:(id)job uuid:(id)uuid;
 - (RBSExtensionProcessIdentity)initWithRBSXPCCoder:(id)coder;
+- (id)_initWithExtensionIdentity:(id)identity hostIdentity:(id)hostIdentity hostIdentifier:(id)identifier auid:(unsigned int)auid;
 - (id)encodeForJob;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
 
 @implementation RBSExtensionProcessIdentity
+
+- (id)_initWithExtensionIdentity:(id)identity hostIdentity:(id)hostIdentity hostIdentifier:(id)identifier auid:(unsigned int)auid
+{
+  v6 = *&auid;
+  identityCopy = identity;
+  hostIdentityCopy = hostIdentity;
+  identifierCopy = identifier;
+  v34.receiver = self;
+  v34.super_class = RBSExtensionProcessIdentity;
+  _init = [(RBSProcessIdentity *)&v34 _init];
+  v15 = _init;
+  if (_init)
+  {
+    objc_storeStrong(_init + 7, identity);
+    objc_storeStrong(v15 + 8, hostIdentity);
+    objc_storeStrong(v15 + 9, identifier);
+    v16 = v15[7];
+    if (v6)
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"extension<%@(%@:%@)(%d)>", v16, v15[8], v15[9], v6];
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"extension<%@(%@:%@)>", v16, v15[8], v15[9], v33];
+    }
+    v17 = ;
+    v18 = v15[2];
+    v15[2] = v17;
+
+    uuid = [v15 uuid];
+
+    if (uuid)
+    {
+      v20 = MEMORY[0x1E696AEC0];
+      v21 = v15[2];
+      uuid2 = [v15 uuid];
+      v23 = [v20 stringWithFormat:@"%@[uuid:%@]", v21, uuid2];
+      v24 = v15[2];
+      v15[2] = v23;
+    }
+
+    personaString = [v15 personaString];
+
+    if (personaString)
+    {
+      v26 = MEMORY[0x1E696AEC0];
+      v27 = v15[2];
+      personaString2 = [v15 personaString];
+      v29 = [v26 stringWithFormat:@"%@{persona:%@}", v27, personaString2];
+      v30 = v15[2];
+      v15[2] = v29;
+    }
+
+    v15[3] = [v15[7] hash];
+    v31 = v15;
+  }
+
+  return v15;
+}
 
 - (BOOL)isMultiInstanceExtension
 {
@@ -65,7 +126,7 @@
 
 - (id)encodeForJob
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_int64(empty, "TYPE", 8);
   hostIdentifier = [(RBSExtensionProcessIdentity *)self hostIdentifier];
@@ -82,7 +143,7 @@
   if (uuid)
   {
     *uuid = 0;
-    v19 = 0;
+    v18 = 0;
     [uuid getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(empty, "hu", uuid);
   }
@@ -99,7 +160,7 @@
 
     else
     {
-      v11 = rbs_process_log();
+      v11 = rbs_process_log(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [(RBSXPCServiceProcessIdentity *)v9 encodeForJob];
@@ -122,8 +183,6 @@
   {
     xpc_dictionary_set_string(empty, "o", uTF8String);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return empty;
 }

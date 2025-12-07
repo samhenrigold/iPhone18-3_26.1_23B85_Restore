@@ -81,7 +81,7 @@ void __111___UIWindowSceneFBSSceneLifecycleMonitor_transitionToTargetState_fromS
   }
 }
 
-uint64_t __111___UIWindowSceneFBSSceneLifecycleMonitor_transitionToTargetState_fromState_withTransitionContext_preparations___block_invoke_5(uint64_t result, int a2)
+id *__111___UIWindowSceneFBSSceneLifecycleMonitor_transitionToTargetState_fromState_withTransitionContext_preparations___block_invoke_5(id *result, int a2)
 {
   v2 = result;
   if (a2 > 3)
@@ -89,23 +89,23 @@ uint64_t __111___UIWindowSceneFBSSceneLifecycleMonitor_transitionToTargetState_f
     switch(a2)
     {
       case 4:
-        [*(result + 32) willResignActive];
-        (*(*(v2 + 40) + 16))();
-        v6 = *(v2 + 32);
+        [result[4] willResignActive];
+        (*(v2[5] + 2))();
+        v6 = v2[4];
 
         return [v6 didResignActive];
       case 6:
-        [*(result + 32) willDisonnect];
-        (*(*(v2 + 40) + 16))();
-        *(*(v2 + 32) + 25) = 0;
-        v8 = *(v2 + 32);
+        [result[4] willDisonnect];
+        (*(v2[5] + 2))();
+        *(v2[4] + 25) = 0;
+        v8 = v2[4];
 
         return [v8 didDisonnect];
       case 5:
-        [*(result + 32) willConnect];
-        *(*(v2 + 32) + 25) = 1;
-        (*(*(v2 + 40) + 16))();
-        v4 = *(v2 + 32);
+        [result[4] willConnect];
+        *(v2[4] + 25) = 1;
+        (*(v2[5] + 2))();
+        v4 = v2[4];
 
         return [v4 didConnect];
     }
@@ -116,23 +116,23 @@ uint64_t __111___UIWindowSceneFBSSceneLifecycleMonitor_transitionToTargetState_f
     switch(a2)
     {
       case 1:
-        [*(result + 32) willBecomeActive];
-        (*(*(v2 + 40) + 16))();
-        v5 = *(v2 + 32);
+        [result[4] willBecomeActive];
+        (*(v2[5] + 2))();
+        v5 = v2[4];
 
         return [v5 didBecomeActive];
       case 2:
-        [*(*(*(result + 64) + 8) + 40) _enqueuePostSettingsUpdateResponseBlock:*(result + 48) inPhase:0x1EFB17490];
-        [*(v2 + 32) willEnterForeground];
-        (*(*(v2 + 40) + 16))();
-        v7 = *(v2 + 32);
+        [*(*(result[8] + 1) + 40) _enqueuePostSettingsUpdateResponseBlock:result[6] inPhase:0x1EFB17490];
+        [v2[4] willEnterForeground];
+        (*(v2[5] + 2))();
+        v7 = v2[4];
 
         return [v7 didEnterForeground];
       case 3:
-        [*(*(*(result + 64) + 8) + 40) _enqueuePostSettingsUpdateResponseBlock:*(result + 56) inPhase:0x1EFB17490];
-        [*(v2 + 32) willEnterBackground];
-        (*(*(v2 + 40) + 16))();
-        v3 = *(v2 + 32);
+        [*(*(result[8] + 1) + 40) _enqueuePostSettingsUpdateResponseBlock:result[7] inPhase:0x1EFB17490];
+        [v2[4] willEnterBackground];
+        (*(v2[5] + 2))();
+        v3 = v2[4];
 
         return [v3 didEnterBackground];
     }

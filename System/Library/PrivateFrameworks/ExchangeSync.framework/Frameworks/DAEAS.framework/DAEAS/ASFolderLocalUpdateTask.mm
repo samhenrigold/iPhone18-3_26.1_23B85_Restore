@@ -102,7 +102,7 @@ LABEL_9:
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -236,13 +236,12 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)finishWithError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (errorCopy)
@@ -272,8 +271,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v34 = 2112;
-        v35 = errorCopy;
+        v33 = 2112;
+        v34 = errorCopy;
         v10 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v8, v9, "%@ failed: %@", buf, 0x16u);
       }
@@ -294,8 +293,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v34 = 2112;
-        v35 = v8;
+        v33 = 2112;
+        v34 = v8;
         v15 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v13, v14, "%@ Parsed response of %@", buf, 0x16u);
       }
@@ -332,20 +331,18 @@ LABEL_31:
 
   if (![(ASTask *)self attemptRetryWithStatus:v6 error:errorCopy])
   {
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __43__ASFolderLocalUpdateTask_finishWithError___block_invoke;
-    v27 = &unk_278FC7D70;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __43__ASFolderLocalUpdateTask_finishWithError___block_invoke;
+    v26 = &unk_278FC7D70;
     selfCopy2 = self;
-    v31 = v6;
-    v29 = errorCopy;
-    v30 = syncKey;
-    [(ASTask *)self finishWithError:v29 afterDelegateCallout:&v24];
+    v30 = v6;
+    v28 = errorCopy;
+    v29 = syncKey;
+    [(ASTask *)self finishWithError:v28 afterDelegateCallout:&v23];
   }
 
-  [(ASTask *)self setCurrentlyParsingItem:0, v24, v25, v26, v27, selfCopy2];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(ASTask *)self setCurrentlyParsingItem:0, v23, v24, v25, v26, selfCopy2];
 }
 
 void __43__ASFolderLocalUpdateTask_finishWithError___block_invoke(void *a1)

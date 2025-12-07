@@ -62,16 +62,21 @@
       shouldLog = [mEMORY[0x1E69D4938]2 shouldLog];
       if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
       {
-        v13 = shouldLog | 2;
+        LODWORD(v13) = shouldLog | 2;
       }
 
       else
       {
-        v13 = shouldLog;
+        LODWORD(v13) = shouldLog;
       }
 
       oSLogObject = [mEMORY[0x1E69D4938]2 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
@@ -82,22 +87,20 @@
         v58 = 138543362;
         v59 = v15;
         v16 = v15;
-        LODWORD(v49) = 12;
-        v47 = &v58;
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Preparing to display upsell view controller", &v58, 12);
 
         if (!v17)
         {
-          goto LABEL_14;
+          goto LABEL_15;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v58, v49}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
         free(v17);
         v47 = oSLogObject;
         SSFileLog();
       }
 
-LABEL_14:
+LABEL_15:
       v18 = dispatch_semaphore_create(0);
       [(SUCardEnrollmentUpsellOperation *)self setSemaphore:v18];
 
@@ -120,16 +123,21 @@ LABEL_14:
       shouldLog2 = [mEMORY[0x1E69D4938]3 shouldLog];
       if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
       {
-        v22 = shouldLog2 | 2;
+        LODWORD(v22) = shouldLog2 | 2;
       }
 
       else
       {
-        v22 = shouldLog2;
+        LODWORD(v22) = shouldLog2;
       }
 
       oSLogObject2 = [mEMORY[0x1E69D4938]3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = v22;
+      }
+
+      else
       {
         v22 &= 2u;
       }
@@ -141,21 +149,20 @@ LABEL_14:
         v59 = v24;
         v25 = v24;
         LODWORD(v49) = 12;
-        v48 = &v58;
-        v26 = _os_log_send_and_compose_impl();
+        v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Finishing upsell view controller operation", &v58, v49);
 
         if (!v26)
         {
-          goto LABEL_25;
+          goto LABEL_27;
         }
 
-        oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v58, v49}];
+        oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
         free(v26);
         v48 = oSLogObject2;
         SSFileLog();
       }
 
-LABEL_25:
+LABEL_27:
       _paymentSetupFeature2 = [(SUCardEnrollmentUpsellOperation *)self _paymentSetupFeature];
 
       if (_paymentSetupFeature2)
@@ -169,10 +176,10 @@ LABEL_25:
         v51 = _paymentSetupFeature2;
         dispatch_sync(v28, v50);
 
-LABEL_61:
+LABEL_66:
         mEMORY[0x1E69D4938]2 = v53;
         mEMORY[0x1E69D4938]5 = _paymentSetupFeature2;
-        goto LABEL_62;
+        goto LABEL_67;
       }
 
       mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
@@ -184,16 +191,21 @@ LABEL_61:
       shouldLog3 = [mEMORY[0x1E69D4938]4 shouldLog];
       if ([mEMORY[0x1E69D4938]4 shouldLogToDisk])
       {
-        v42 = shouldLog3 | 2;
+        LODWORD(v42) = shouldLog3 | 2;
       }
 
       else
       {
-        v42 = shouldLog3;
+        LODWORD(v42) = shouldLog3;
       }
 
       oSLogObject3 = [mEMORY[0x1E69D4938]4 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+      {
+        v42 = v42;
+      }
+
+      else
       {
         v42 &= 2u;
       }
@@ -205,21 +217,21 @@ LABEL_61:
         v59 = v44;
         v45 = v44;
         LODWORD(v49) = 12;
-        v46 = _os_log_send_and_compose_impl();
+        v46 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "%{public}@: Exiting upsell operation for no payment setup feature on completion", &v58, v49);
 
         if (!v46)
         {
-LABEL_60:
+LABEL_65:
 
-          goto LABEL_61;
+          goto LABEL_66;
         }
 
-        oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v46 encoding:{4, &v58, v49}];
+        oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v46 encoding:4];
         free(v46);
         SSFileLog();
       }
 
-      goto LABEL_60;
+      goto LABEL_65;
     }
 
     if (!mEMORY[0x1E69D4938])
@@ -230,16 +242,21 @@ LABEL_60:
     shouldLog4 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v35 = shouldLog4 | 2;
+      LODWORD(v35) = shouldLog4 | 2;
     }
 
     else
     {
-      v35 = shouldLog4;
+      LODWORD(v35) = shouldLog4;
     }
 
     oSLogObject4 = [mEMORY[0x1E69D4938]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+    {
+      v35 = v35;
+    }
+
+    else
     {
       v35 &= 2u;
     }
@@ -250,22 +267,21 @@ LABEL_60:
       v58 = 138543362;
       v59 = v37;
       v38 = v37;
-      LODWORD(v49) = 12;
-      v39 = _os_log_send_and_compose_impl();
+      v39 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1C21AF000, oSLogObject4, 16, "%{public}@: Exiting upsell operation for no payment setup request", &v58, 12);
 
       if (!v39)
       {
-LABEL_62:
+LABEL_67:
 
-        goto LABEL_63;
+        goto LABEL_68;
       }
 
-      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:{4, &v58, v49}];
+      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:4];
       free(v39);
       SSFileLog();
     }
 
-    goto LABEL_62;
+    goto LABEL_67;
   }
 
   mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
@@ -277,43 +293,47 @@ LABEL_62:
   shouldLog5 = [mEMORY[0x1E69D4938]5 shouldLog];
   if ([mEMORY[0x1E69D4938]5 shouldLogToDisk])
   {
-    v30 = shouldLog5 | 2;
+    LODWORD(v30) = shouldLog5 | 2;
   }
 
   else
   {
-    v30 = shouldLog5;
+    LODWORD(v30) = shouldLog5;
   }
 
   oSLogObject5 = [mEMORY[0x1E69D4938]5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+  {
+    v30 = v30;
+  }
+
+  else
   {
     v30 &= 2u;
   }
 
   if (!v30)
   {
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   v58 = 138543362;
   v59 = objc_opt_class();
   v32 = v59;
-  LODWORD(v49) = 12;
-  v33 = _os_log_send_and_compose_impl();
+  v33 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_1C21AF000, oSLogObject5, 16, "%{public}@: Exiting upsell operation for no payment setup feature", &v58, 12);
 
   if (v33)
   {
-    oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:{4, &v58, v49}];
+    oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
     free(v33);
     SSFileLog();
-LABEL_37:
+LABEL_40:
   }
 
-LABEL_63:
+LABEL_68:
 }
 
-uint64_t __38__SUCardEnrollmentUpsellOperation_run__block_invoke(uint64_t a1)
+void *__38__SUCardEnrollmentUpsellOperation_run__block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69D4938] sharedConfig];
@@ -325,42 +345,47 @@ uint64_t __38__SUCardEnrollmentUpsellOperation_run__block_invoke(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v6 = objc_opt_class();
   v7 = MEMORY[0x1E696AD98];
   v8 = *(a1 + 40);
   v9 = v6;
-  [v7 numberWithInteger:{objc_msgSend(v8, "state")}];
+  v10 = [v7 numberWithInteger:{objc_msgSend(v8, "state")}];
   v13 = 138543618;
   v14 = v6;
-  v16 = v15 = 2114;
-  LODWORD(v12) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v15 = 2114;
+  v16 = v10;
+  v11 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%{public}@: Initial payment setup feature state: %{public}@", &v13, 22);
 
-  if (v10)
+  if (v11)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v12}];
-    free(v10);
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+    free(v11);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   result = [*(a1 + 40) state];
@@ -411,20 +436,19 @@ void __38__SUCardEnrollmentUpsellOperation_run__block_invoke_2()
     goto LABEL_12;
   }
 
-  v7[0] = 0;
-  LODWORD(v6) = 2;
-  v5 = _os_log_send_and_compose_impl();
+  v6[0] = 0;
+  v5 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v3, 0, "SUCardEnrollmentUpsellOperation: Did present upsell view controller", v6, 2);
 
   if (v5)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, v7, v6}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
     free(v5);
     SSFileLog();
 LABEL_12:
   }
 }
 
-uint64_t __38__SUCardEnrollmentUpsellOperation_run__block_invoke_14(uint64_t a1)
+void *__38__SUCardEnrollmentUpsellOperation_run__block_invoke_14(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69D4938] sharedConfig];
@@ -436,42 +460,47 @@ uint64_t __38__SUCardEnrollmentUpsellOperation_run__block_invoke_14(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v6 = objc_opt_class();
   v7 = MEMORY[0x1E696AD98];
   v8 = *(a1 + 40);
   v9 = v6;
-  [v7 numberWithInteger:{objc_msgSend(v8, "state")}];
+  v10 = [v7 numberWithInteger:{objc_msgSend(v8, "state")}];
   v13 = 138543618;
   v14 = v6;
-  v16 = v15 = 2114;
-  LODWORD(v12) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v15 = 2114;
+  v16 = v10;
+  v11 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%{public}@: Final payment setup feature state: %{public}@", &v13, 22);
 
-  if (v10)
+  if (v11)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v12}];
-    free(v10);
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+    free(v11);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   result = [*(a1 + 40) state];
@@ -481,15 +510,15 @@ LABEL_11:
 
 - (id)_paymentSetupFeature
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E698CAB8]);
   referrerIdentifier = [(SUCardEnrollmentUpsellOperation *)self referrerIdentifier];
   v5 = [v3 initWithIdentifier:referrerIdentifier];
 
   performPaymentSetupFeatureLookup = [v5 performPaymentSetupFeatureLookup];
-  v18 = 0;
-  v7 = [performPaymentSetupFeatureLookup resultWithError:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [performPaymentSetupFeatureLookup resultWithError:&v17];
+  v8 = v17;
 
   if (v8)
   {
@@ -502,16 +531,21 @@ LABEL_11:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -519,30 +553,29 @@ LABEL_11:
     if (v11)
     {
       v13 = objc_opt_class();
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v8;
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v8;
       v14 = v13;
-      LODWORD(v17) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to find payment setup feature with error: %{public}@", &v18, 22);
 
       if (!v15)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v19, v17}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return v7;
 }
@@ -559,37 +592,41 @@ LABEL_14:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v7 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v10 = 138543362;
+  v11 = objc_opt_class();
+  v7 = v11;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Upsell view controller delegate called", &v10, 12);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v11, v10, v11}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   semaphore = [(SUCardEnrollmentUpsellOperation *)self semaphore];

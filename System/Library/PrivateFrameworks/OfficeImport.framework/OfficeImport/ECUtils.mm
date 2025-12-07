@@ -55,7 +55,7 @@
 
 + (id)lassoDefaultTableName
 {
-  v2 = TCBundle();
+  v2 = TCBundle(self);
   v3 = [v2 localizedStringForKey:@"Table 1" value:&stru_286EE1130 table:@"TCCompatibility"];
 
   return v3;

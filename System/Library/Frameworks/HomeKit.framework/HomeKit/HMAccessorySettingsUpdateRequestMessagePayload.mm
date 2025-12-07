@@ -80,21 +80,19 @@
 
 - (NSArray)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   keyPath = [(HMAccessorySettingsUpdateRequestMessagePayload *)self keyPath];
   v5 = [v3 initWithName:@"keyPath" value:keyPath];
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMAccessorySettingsUpdateRequestMessagePayload *)self accessoryUUID];
   v8 = [v6 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   settingValue = [(HMAccessorySettingsUpdateRequestMessagePayload *)self settingValue];
   v11 = [v9 initWithName:@"settingValue" value:settingValue];
-  v15[2] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14[2] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -108,28 +106,26 @@
 
 - (id)payloadCopy
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"HMAccessoryUUIDPayloadKey";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"HMAccessoryUUIDPayloadKey";
   accessoryUUID = [(HMAccessorySettingsUpdateRequestMessagePayload *)self accessoryUUID];
   uUIDString = [accessoryUUID UUIDString];
-  v12[0] = uUIDString;
-  v11[1] = @"HMImmutableSettingKeyPathPayloadKey";
+  v11[0] = uUIDString;
+  v10[1] = @"HMImmutableSettingKeyPathPayloadKey";
   keyPath = [(HMAccessorySettingsUpdateRequestMessagePayload *)self keyPath];
-  v12[1] = keyPath;
-  v11[2] = @"HMImmutableSettingValuePayloadKey";
+  v11[1] = keyPath;
+  v10[2] = @"HMImmutableSettingValuePayloadKey";
   settingValue = [(HMAccessorySettingsUpdateRequestMessagePayload *)self settingValue];
   payloadCopy = [settingValue payloadCopy];
-  v12[2] = payloadCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[2] = payloadCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }
 
 - (HMAccessorySettingsUpdateRequestMessagePayload)initWithPayload:(id)payload
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_UUIDForKey:@"HMAccessoryUUIDPayloadKey"];
   v6 = [payloadCopy hmf_stringForKey:@"HMImmutableSettingKeyPathPayloadKey"];
@@ -152,11 +148,11 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v17;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings update request message due to invalid setting value payload: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v17;
+        v21 = 2112;
+        v22 = v8;
+        _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings update request message due to invalid setting value payload: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -172,18 +168,17 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings update request message payload: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode accessory settings update request message payload: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -241,12 +236,11 @@ LABEL_9:
 
 uint64_t __61__HMAccessorySettingsUpdateRequestMessagePayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_34023;
-  logCategory__hmf_once_v3_34023 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_34023;
+  logCategory__hmf_once_v3_34023 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

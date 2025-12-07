@@ -1686,7 +1686,7 @@ LABEL_23:
   {
     [(PKTiledCanvasView *)self adjustedPixelSize:&sizeCopy drawingSize:&drawingSizeCopy];
     v5 = [PKController alloc];
-    v6 = [(PKController *)v5 initWithPixelSize:[(PKTiledCanvasView *)self sixChannelBlendingMode] actualSize:[(PKTiledCanvasView *)self wantsExtendedDynamicRangeContent] singleComponent:self->_metalConfig sixChannelBlendingMode:sizeCopy.width wantsExtendedDynamicRangeContent:sizeCopy.height metalConfig:drawingSizeCopy.width, drawingSizeCopy.height];
+    v6 = [(PKController *)&v5->super.isa initWithPixelSize:[(PKTiledCanvasView *)self sixChannelBlendingMode] actualSize:[(PKTiledCanvasView *)self wantsExtendedDynamicRangeContent] singleComponent:self->_metalConfig sixChannelBlendingMode:sizeCopy.width wantsExtendedDynamicRangeContent:sizeCopy.height metalConfig:drawingSizeCopy.width, drawingSizeCopy.height];
     drawingController = self->_drawingController;
     self->_drawingController = v6;
 
@@ -1990,40 +1990,40 @@ LABEL_23:
   [(CADisplayLink *)self->_displayLink setPaused:0];
 }
 
-void __50__PKTiledCanvasView__startDisplayLinkShouldPause___block_invoke(uint64_t a1)
+void __50__PKTiledCanvasView__startDisplayLinkShouldPause___block_invoke(uint64_t a1, double a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    v3 = [WeakRetained _rendererController];
-    -[PKMetalRendererController updateCyclePreCACommit:isDrawing:](v3, [*(a1 + 32) isDrawing]);
+    v5 = WeakRetained;
+    v4 = [WeakRetained _rendererController];
+    -[PKMetalRendererController updateCyclePreCACommit:isDrawing:](v4, [*(a1 + 32) isDrawing]);
 
-    WeakRetained = v4;
+    WeakRetained = v5;
   }
 }
 
-void __50__PKTiledCanvasView__startDisplayLinkShouldPause___block_invoke_2(uint64_t a1)
+void __50__PKTiledCanvasView__startDisplayLinkShouldPause___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   kdebug_trace();
   _UIMediaTimeForMachTime();
-  v3 = v2;
-  v4 = *(a1 + 40);
-  if (v4 >= 1)
+  v5 = v4;
+  v6 = *(a1 + 40);
+  if (v6 >= 1)
   {
-    v5 = 1.0 / v4;
+    v7 = 1.0 / v6;
     mach_absolute_time();
     _UIMediaTimeForMachTime();
-    v7 = v3 - v5 - v6;
-    if (v7 > 0.0 && v7 < v5 / 3.0)
+    v9 = v5 - v7 - v8;
+    if (v9 > 0.0 && v9 < v7 / 3.0)
     {
-      v9 = _UIMachTimeForMediaTime();
-      mach_wait_until(v9);
+      v11 = _UIMachTimeForMediaTime();
+      mach_wait_until(v11);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _updateSequenceVSync:v3];
+  [WeakRetained _updateSequenceVSync:v5];
 }
 
 - (void)_stopDisplayLink
@@ -2095,7 +2095,7 @@ void __50__PKTiledCanvasView__startDisplayLinkShouldPause___block_invoke_2(uint6
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __43__PKTiledCanvasView_setNeedsDrawingDisplay__block_invoke(uint64_t a1)
+void *__43__PKTiledCanvasView_setNeedsDrawingDisplay__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isDisplayLinkPaused];
   if (result)
@@ -2158,7 +2158,7 @@ uint64_t __43__PKTiledCanvasView_setNeedsDrawingDisplay__block_invoke(uint64_t a
   }
 }
 
-uint64_t __46__PKTiledCanvasView_handleDrawingShouldPause___block_invoke(uint64_t a1)
+void *__46__PKTiledCanvasView_handleDrawingShouldPause___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v3 = *(a1 + 32);
@@ -2213,7 +2213,7 @@ uint64_t __46__PKTiledCanvasView_handleDrawingShouldPause___block_invoke(uint64_
     snapshotFramebuffer = self->_snapshotFramebuffer;
     self->_snapshotFramebuffer = 0;
 
-    [(PKMetalView *)self->_metalView flushDrawables];
+    [(PKMetalView *)&self->_metalView->super.super.super.isa flushDrawables];
     _rendererController = [(PKTiledCanvasView *)self _rendererController];
     [(PKMetalRendererController *)_rendererController purgeOriginalBackFramebuffer];
 
@@ -2305,11 +2305,11 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
 
 - (void)_updateSequenceVSync:(double)sync
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v148 = *MEMORY[0x1E69E9840];
   v5 = CACurrentMediaTime();
   _isLiveAnimating = [(PKTiledCanvasView *)self _isLiveAnimating];
   isReplaying = [(PKDrawingGestureRecognizerProtocol *)self->_drawingGestureRecognizer isReplaying];
-  v102 = _isLiveAnimating;
+  v103 = _isLiveAnimating;
   val = self;
   if (_isLiveAnimating)
   {
@@ -2400,7 +2400,7 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
         [(PKDrawingPowerSavingController *)powerSavingController2 accumulateMovementForCurrentFrame];
 
         v21 = val;
-        if (!((val->_metalView == 0) | (v102 | isReplaying) & 1) && ![(PKTiledCanvasView *)val isPreviewing])
+        if (!((val->_metalView == 0) | (v103 | isReplaying) & 1) && ![(PKTiledCanvasView *)val isPreviewing])
         {
           powerSavingController3 = [(PKTiledCanvasView *)val powerSavingController];
           v31 = [(PKDrawingPowerSavingController *)powerSavingController3 shouldSkipFrameWithFrameStartTimestamp:v20 framesAfterStart:?];
@@ -2445,25 +2445,25 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
     height = *(MEMORY[0x1E695F050] + 24);
     v38 = [MEMORY[0x1E695DFA8] setWithCapacity:100];
     v39 = [MEMORY[0x1E695DF70] arrayWithCapacity:100];
-    v139 = 0u;
     v140 = 0u;
-    v137 = 0u;
+    v141 = 0u;
     v138 = 0u;
+    v139 = 0u;
     v40 = val->_fadeOutStrokeAnimations;
-    v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v137 objects:v146 count:16];
+    v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v138 objects:v147 count:16];
     if (v41)
     {
-      v42 = *v138;
+      v42 = *v139;
       do
       {
         for (i = 0; i != v41; ++i)
         {
-          if (*v138 != v42)
+          if (*v139 != v42)
           {
             objc_enumerationMutation(v40);
           }
 
-          v44 = *(*(&v137 + 1) + 8 * i);
+          v44 = *(*(&v138 + 1) + 8 * i);
           v45 = [v44 newStrokeAtTime:v5];
           [v39 addObject:v45];
 
@@ -2472,52 +2472,52 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
           [v38 addObject:_strokeUUID];
         }
 
-        v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v137 objects:v146 count:16];
+        v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v138 objects:v147 count:16];
       }
 
       while (v41);
     }
 
-    v135 = 0u;
     v136 = 0u;
-    v133 = 0u;
+    v137 = 0u;
     v134 = 0u;
+    v135 = 0u;
     obj = [(PKTiledCanvasView *)val particlesToDestinationAnimations];
-    v48 = [obj countByEnumeratingWithState:&v133 objects:v145 count:16];
+    v48 = [obj countByEnumeratingWithState:&v134 objects:v146 count:16];
     if (v48)
     {
-      v106 = *v134;
+      v107 = *v135;
       do
       {
-        v108 = v48;
-        for (j = 0; j != v108; ++j)
+        v109 = v48;
+        for (j = 0; j != v109; ++j)
         {
-          if (*v134 != v106)
+          if (*v135 != v107)
           {
             objc_enumerationMutation(obj);
           }
 
-          v50 = *(*(&v133 + 1) + 8 * j);
-          v129 = 0u;
+          v50 = *(*(&v134 + 1) + 8 * j);
           v130 = 0u;
           v131 = 0u;
           v132 = 0u;
-          v110 = v50;
+          v133 = 0u;
+          v111 = v50;
           strokes = [v50 strokes];
-          v52 = [strokes countByEnumeratingWithState:&v129 objects:v144 count:16];
+          v52 = [strokes countByEnumeratingWithState:&v130 objects:v145 count:16];
           if (v52)
           {
-            v53 = *v130;
+            v53 = *v131;
             do
             {
               for (k = 0; k != v52; ++k)
               {
-                if (*v130 != v53)
+                if (*v131 != v53)
                 {
                   objc_enumerationMutation(strokes);
                 }
 
-                v55 = *(*(&v129 + 1) + 8 * k);
+                v55 = *(*(&v130 + 1) + 8 * k);
                 _strokeUUID2 = [v55 _strokeUUID];
                 v57 = [v38 containsObject:_strokeUUID2];
 
@@ -2528,123 +2528,123 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
                 }
               }
 
-              v52 = [strokes countByEnumeratingWithState:&v129 objects:v144 count:16];
+              v52 = [strokes countByEnumeratingWithState:&v130 objects:v145 count:16];
             }
 
             while (v52);
           }
 
-          [v110 bounds];
-          v153.origin.x = v58;
-          v153.origin.y = v59;
-          v153.size.width = v60;
-          v153.size.height = v61;
-          v149.origin.x = x;
-          v149.origin.y = y;
-          v149.size.width = width;
-          v149.size.height = height;
-          v150 = CGRectUnion(v149, v153);
-          x = v150.origin.x;
-          y = v150.origin.y;
-          width = v150.size.width;
-          height = v150.size.height;
+          [v111 bounds];
+          v154.origin.x = v58;
+          v154.origin.y = v59;
+          v154.size.width = v60;
+          v154.size.height = v61;
+          v150.origin.x = x;
+          v150.origin.y = y;
+          v150.size.width = width;
+          v150.size.height = height;
+          v151 = CGRectUnion(v150, v154);
+          x = v151.origin.x;
+          y = v151.origin.y;
+          width = v151.size.width;
+          height = v151.size.height;
         }
 
-        v48 = [obj countByEnumeratingWithState:&v133 objects:v145 count:16];
+        v48 = [obj countByEnumeratingWithState:&v134 objects:v146 count:16];
       }
 
       while (v48);
     }
 
-    v127 = 0u;
     v128 = 0u;
-    v125 = 0u;
+    v129 = 0u;
     v126 = 0u;
+    v127 = 0u;
     transformStrokesAnimations = [(PKTiledCanvasView *)val transformStrokesAnimations];
-    v107 = transformStrokesAnimations;
-    v63 = [transformStrokesAnimations countByEnumeratingWithState:&v125 objects:v143 count:16];
+    v108 = transformStrokesAnimations;
+    v63 = [transformStrokesAnimations countByEnumeratingWithState:&v126 objects:v144 count:16];
     if (v63)
     {
-      obja = *v126;
+      obja = *v127;
       do
       {
-        v64 = 0;
-        v109 = v63;
+        v65 = 0;
+        v110 = v63;
         do
         {
-          if (*v126 != obja)
+          if (*v127 != obja)
           {
             objc_enumerationMutation(transformStrokesAnimations);
           }
 
-          v111 = v64;
-          v65 = *(*(&v125 + 1) + 8 * v64);
-          v121 = 0u;
+          v112 = v65;
+          v66 = *(*(&v126 + 1) + 8 * v65);
           v122 = 0u;
           v123 = 0u;
           v124 = 0u;
-          v66 = [(PKTransformStrokesAnimation *)v65 newStrokesAtTime:v5];
-          v67 = [v66 countByEnumeratingWithState:&v121 objects:v142 count:16];
-          if (v67)
+          v125 = 0u;
+          v67 = [(PKTransformStrokesAnimation *)v66 newStrokesAtTime:v64, v5];
+          v68 = [v67 countByEnumeratingWithState:&v122 objects:v143 count:16];
+          if (v68)
           {
-            v68 = *v122;
+            v69 = *v123;
             do
             {
-              for (m = 0; m != v67; ++m)
+              for (m = 0; m != v68; ++m)
               {
-                if (*v122 != v68)
+                if (*v123 != v69)
                 {
-                  objc_enumerationMutation(v66);
+                  objc_enumerationMutation(v67);
                 }
 
-                v70 = *(*(&v121 + 1) + 8 * m);
-                _strokeUUID3 = [v70 _strokeUUID];
-                v72 = [v38 containsObject:_strokeUUID3];
+                v71 = *(*(&v122 + 1) + 8 * m);
+                _strokeUUID3 = [v71 _strokeUUID];
+                v73 = [v38 containsObject:_strokeUUID3];
 
-                if ((v72 & 1) == 0)
+                if ((v73 & 1) == 0)
                 {
-                  [v39 addObject:v70];
-                  [v38 addObject:v70];
+                  [v39 addObject:v71];
+                  [v38 addObject:v71];
                 }
               }
 
-              v67 = [v66 countByEnumeratingWithState:&v121 objects:v142 count:16];
+              v68 = [v67 countByEnumeratingWithState:&v122 objects:v143 count:16];
             }
 
-            while (v67);
+            while (v68);
           }
 
-          if (v65)
+          if (v66)
           {
-            v73 = v65[13];
-            v74 = v65[14];
-            v75 = v65[15];
-            v76 = v65[16];
+            v74 = v66[13];
+            v75 = v66[14];
+            v76 = v66[15];
+            v77 = v66[16];
           }
 
           else
           {
-            v74 = 0;
             v75 = 0;
             v76 = 0;
-            v73 = 0;
+            v77 = 0;
+            v74 = 0;
           }
 
-          transformStrokesAnimations = v107;
-          v151.origin.x = x;
-          v151.origin.y = y;
-          v151.size.width = width;
-          v151.size.height = height;
-          v152 = CGRectUnion(v151, *&v73);
-          x = v152.origin.x;
-          y = v152.origin.y;
-          width = v152.size.width;
-          height = v152.size.height;
-          v64 = v111 + 1;
+          transformStrokesAnimations = v108;
+          v152.origin.x = x;
+          v152.origin.y = y;
+          v152.size.width = width;
+          v152.size.height = height;
+          v153 = CGRectUnion(v152, *&v74);
+          x = v153.origin.x;
+          y = v153.origin.y;
+          width = v153.size.width;
+          height = v153.size.height;
+          v65 = v112 + 1;
         }
 
-        while (v111 + 1 != v109);
-        v63 = [v107 countByEnumeratingWithState:&v125 objects:v143 count:16];
+        while (v112 + 1 != v110);
+        v63 = [v108 countByEnumeratingWithState:&v126 objects:v144 count:16];
       }
 
       while (v63);
@@ -2653,40 +2653,40 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
     strokeUUIDsAboutToBeRemoved = [(PKTiledCanvasView *)val strokeUUIDsAboutToBeRemoved];
     [v38 unionSet:strokeUUIDsAboutToBeRemoved];
 
-    v119 = 0u;
     v120 = 0u;
-    v117 = 0u;
+    v121 = 0u;
     v118 = 0u;
+    v119 = 0u;
     _drawingController2 = [(PKTiledCanvasView *)val _drawingController];
     renderedStrokes = [(PKController *)_drawingController2 renderedStrokes];
 
-    v80 = [renderedStrokes countByEnumeratingWithState:&v117 objects:v141 count:16];
-    if (v80)
+    v81 = [renderedStrokes countByEnumeratingWithState:&v118 objects:v142 count:16];
+    if (v81)
     {
-      v81 = *v118;
+      v82 = *v119;
       do
       {
-        for (n = 0; n != v80; ++n)
+        for (n = 0; n != v81; ++n)
         {
-          if (*v118 != v81)
+          if (*v119 != v82)
           {
             objc_enumerationMutation(renderedStrokes);
           }
 
-          v83 = *(*(&v117 + 1) + 8 * n);
-          _strokeUUID4 = [v83 _strokeUUID];
-          v85 = [v38 containsObject:_strokeUUID4];
+          v84 = *(*(&v118 + 1) + 8 * n);
+          _strokeUUID4 = [v84 _strokeUUID];
+          v86 = [v38 containsObject:_strokeUUID4];
 
-          if ((v85 & 1) == 0)
+          if ((v86 & 1) == 0)
           {
-            [v39 addObject:v83];
+            [v39 addObject:v84];
           }
         }
 
-        v80 = [renderedStrokes countByEnumeratingWithState:&v117 objects:v141 count:16];
+        v81 = [renderedStrokes countByEnumeratingWithState:&v118 objects:v142 count:16];
       }
 
-      while (v80);
+      while (v81);
     }
 
     [PKDrawing sortStrokes:v39];
@@ -2705,68 +2705,68 @@ void __48__PKTiledCanvasView_schedulePurgeResourcesBlock__block_invoke(uint64_t 
       alternativeStrokesAnimation = alternativeStrokesAnimation->_strokes;
     }
 
-    v89 = alternativeStrokesAnimation;
-    v90 = val->_alternativeStrokesAnimation;
-    v91 = [(PKAlternativeStrokesAnimation *)v90 alphaAtTime:v5];
-    v92 = [(PKAlternativeStrokesAnimation *)v90 originalStrokeAlphaAtTime:v5];
-    [(PKMetalRendererController *)_rendererController3 setAlternativeStrokes:v89 alpha:v91 originalStrokeAlpha:v92];
+    v90 = alternativeStrokesAnimation;
+    v91 = val->_alternativeStrokesAnimation;
+    v92 = [(PKAlternativeStrokesAnimation *)v91 alphaAtTime:v5];
+    v93 = [(PKAlternativeStrokesAnimation *)v91 originalStrokeAlphaAtTime:v5];
+    [(PKMetalRendererController *)_rendererController3 setAlternativeStrokes:v90 alpha:v92 originalStrokeAlpha:v93];
 
     v21 = val;
   }
 
-  v93 = v21[109];
-  if (v93)
+  v94 = v21[109];
+  if (v94)
   {
-    v94 = [(PKInterpolateColorAnimation *)v93 colorAtTime:v5];
+    v95 = [(PKInterpolateColorAnimation *)v94 colorAtTime:v5];
     _rendererController4 = [(PKTiledCanvasView *)val _rendererController];
-    v96 = v94;
-    -[PKMetalRendererController setLiveRenderingOverrideColor:](_rendererController4, [v94 CGColor]);
+    v97 = v95;
+    -[PKMetalRendererController setLiveRenderingOverrideColor:](_rendererController4, [v95 CGColor]);
 
     v21 = val;
   }
 
-  if (v102)
+  if (v103)
   {
     [v21 checkAnimationsDidEndAtTime:v5];
     v21 = val;
   }
 
   _rendererController5 = [v21 _rendererController];
-  v115 = 0u;
   v116 = 0u;
-  v114 = 0u;
+  v117 = 0u;
+  v115 = 0u;
   [(PKMetalRendererController *)_rendererController5 prerenderWithTransform:val->_inputScale inputScale:sync at:?];
 
-  *&v114 = 0;
-  *(&v114 + 1) = &v114;
-  *&v115 = 0x3042000000;
-  *(&v115 + 1) = __Block_byref_object_copy__3;
-  *&v116 = __Block_byref_object_dispose__3;
-  objc_initWeak(&v116 + 1, val);
+  *&v115 = 0;
+  *(&v115 + 1) = &v115;
+  *&v116 = 0x3042000000;
+  *(&v116 + 1) = __Block_byref_object_copy__3;
+  *&v117 = __Block_byref_object_dispose__3;
+  objc_initWeak(&v117 + 1, val);
   val->_latestRenderTimestamp = CACurrentMediaTime();
   _drawingController3 = [(PKTiledCanvasView *)val _drawingController];
-  v99 = _drawingController3;
+  v100 = _drawingController3;
   if (_drawingController3)
   {
-    v100 = *(_drawingController3 + 64);
+    v101 = *(_drawingController3 + 64);
   }
 
   else
   {
-    v100 = 0;
+    v101 = 0;
   }
 
-  v101 = v100;
-  v112[0] = MEMORY[0x1E69E9820];
-  v112[1] = 3221225472;
-  v112[2] = __42__PKTiledCanvasView__updateSequenceVSync___block_invoke;
-  v112[3] = &unk_1E82D7320;
-  v112[4] = &v114;
-  v113 = v102;
-  [(PKMetalRendererController *)v101 didFinishRendering:v112];
+  v102 = v101;
+  v113[0] = MEMORY[0x1E69E9820];
+  v113[1] = 3221225472;
+  v113[2] = __42__PKTiledCanvasView__updateSequenceVSync___block_invoke;
+  v113[3] = &unk_1E82D7320;
+  v113[4] = &v115;
+  v114 = v103;
+  [(PKMetalRendererController *)v102 didFinishRendering:v113];
 
-  _Block_object_dispose(&v114, 8);
-  objc_destroyWeak(&v116 + 1);
+  _Block_object_dispose(&v115, 8);
+  objc_destroyWeak(&v117 + 1);
 }
 
 void __42__PKTiledCanvasView__updateSequenceVSync___block_invoke(uint64_t a1, int a2)
@@ -3005,7 +3005,7 @@ LABEL_5:
   v44 = 0u;
   v45 = 0u;
   v43 = 0u;
-  [(PKTiledCanvasView *)self scaledStrokeTransform];
+  objc_msgSend_scaledStrokeTransform(self);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __106__PKTiledCanvasView__setDrawing_tiles_tileScale_snapshotTexture_snapshotTextureTransform_completionBlock___block_invoke;
@@ -3029,7 +3029,7 @@ LABEL_5:
   if (tilesCopy || !textureCopy)
   {
     memset(&v30, 0, sizeof(v30));
-    [(PKTiledCanvasView *)self strokeTransform];
+    objc_msgSend_strokeTransform(self);
     t1 = v30;
     CGAffineTransformMakeScale(&v27, scale, scale);
     CGAffineTransformConcat(&v29, &t1, &v27);
@@ -3375,7 +3375,7 @@ LABEL_6:
 
 - (double)_inputScale
 {
-  [(PKTiledCanvasView *)self strokeTransform];
+  objc_msgSend_strokeTransform(self, a2);
   CGAffineTransformInvert(&v11, &v10);
   a = v11.a;
   b = v11.b;
@@ -3407,7 +3407,7 @@ LABEL_6:
 {
   v6 = a4;
   memset(&v18, 0, sizeof(v18));
-  [(PKTiledCanvasView *)self _replayCoordinateSystemTransform];
+  objc_msgSend__replayCoordinateSystemTransform(self);
   t1 = v18;
   if (!CGAffineTransformIsIdentity(&t1))
   {
@@ -3428,7 +3428,7 @@ LABEL_6:
       tileContainerView = [v6 tileContainerView];
       PK_transformToConvertFromCoordinateSpaceToCoordinateSpace(tileContainerView, self, &retstr->a);
 
-      [v6 drawingTransform];
+      objc_msgSend_drawingTransform(v6);
       v12 = *&retstr->c;
       *&v16.a = *&retstr->a;
       *&v16.c = v12;
@@ -3455,7 +3455,7 @@ LABEL_10:
 
 - (CGAffineTransform)scaledStrokeTransform
 {
-  [(PKTiledCanvasView *)self strokeTransform];
+  objc_msgSend_strokeTransform(self, a3);
   [(PKTiledCanvasView *)self layerContentsScale];
   v6 = v5;
   [(PKTiledCanvasView *)self layerContentsScale];
@@ -3932,7 +3932,7 @@ LABEL_14:
     v116 = 0u;
     v117 = 0u;
     v115 = 0u;
-    [(PKTiledCanvasView *)self scaledStrokeTransform];
+    objc_msgSend_scaledStrokeTransform(self);
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
@@ -5314,7 +5314,7 @@ LABEL_6:
     v16 = v15;
     if (v15)
     {
-      [v15 canvasView:*(a1 + 40) transformForStroke:v3];
+      objc_msgSend_canvasView_transformForStroke_(v15);
     }
 
     else
@@ -5326,7 +5326,7 @@ LABEL_6:
     if (!CGAffineTransformIsIdentity(&t1))
     {
       v48 = [v3 mutableCopy];
-      [v3 transform];
+      objc_msgSend_transform(v3);
       t2 = location;
       CGAffineTransformConcat(&v74, &t1, &t2);
       t1 = v74;
@@ -5359,7 +5359,7 @@ LABEL_6:
               v25 = [v24 mutableCopy];
               if (v24)
               {
-                [v24 transform];
+                objc_msgSend_transform(v24);
               }
 
               else
@@ -5876,7 +5876,7 @@ LABEL_14:
     PK_transformToConvertFromCoordinateSpaceToCoordinateSpace(v6, tileContainerView, &v16.a);
 
     memset(&v15, 0, sizeof(v15));
-    [v6 drawingTransform];
+    objc_msgSend_drawingTransform(v6);
     CGAffineTransformInvert(&v14, &t1);
     t1 = v16;
     t2 = v14;
@@ -6374,7 +6374,7 @@ LABEL_14:
   y = frame.origin.y;
   x = frame.origin.x;
   strokesCopy = strokes;
-  [(PKTiledCanvasView *)self strokeTransform];
+  objc_msgSend_strokeTransform(self);
   CGAffineTransformInvert(&v36, &v35);
   v37.origin.x = x;
   v37.origin.y = y;
@@ -6993,7 +6993,7 @@ void __51__PKTiledCanvasView_strokeGeneratorDidSnapToRuler___block_invoke(uint64
     v4 = v3;
     if (v3)
     {
-      [v3 _latestStrokePoint];
+      objc_msgSend__latestStrokePoint(v3);
       v6 = *(&v12 + 1);
       v5 = *&v13;
     }
@@ -7330,7 +7330,7 @@ LABEL_22:
 {
   if ([(PKTiledCanvasView *)self isDrawing])
   {
-    [(PKTiledCanvasView *)self scaledStrokeTransform];
+    objc_msgSend_scaledStrokeTransform(self);
     memset(v11, 0, sizeof(v11));
     _rendererController = [(PKTiledCanvasView *)self _rendererController];
     v4 = _rendererController;

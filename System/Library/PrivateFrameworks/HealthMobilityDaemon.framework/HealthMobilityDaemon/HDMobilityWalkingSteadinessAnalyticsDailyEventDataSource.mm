@@ -396,21 +396,19 @@ LABEL_24:
 
 - (id)_samplePredicateForPastYearFromDate:(id)date
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA80];
   dateCopy = date;
   hk_gregorianCalendarWithLocalTimeZone = [v3 hk_gregorianCalendarWithLocalTimeZone];
   v6 = [hk_gregorianCalendarWithLocalTimeZone dateByAddingUnit:4 value:-1 toDate:dateCopy options:0];
   v7 = MEMORY[0x277D10B20];
   v8 = HDSampleEntityPredicateForStartDate();
-  v14[0] = v8;
+  v13[0] = v8;
   v9 = HDSampleEntityPredicateForStartDate();
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v7 predicateMatchingAllPredicates:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -625,14 +623,13 @@ LABEL_11:
 
 - (void)walkingSteadinessNotificationsEnabledWithError:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_251962000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to retrieve feature settings due to error %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_251962000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to retrieve feature settings due to error %{public}@", &v4, 0x16u);
 }
 
 @end

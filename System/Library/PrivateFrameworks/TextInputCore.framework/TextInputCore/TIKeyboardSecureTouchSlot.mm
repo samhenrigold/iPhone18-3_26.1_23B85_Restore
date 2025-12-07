@@ -6,14 +6,14 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     slotID = self->_slotID;
     *buf = 136315394;
-    v8 = "[TIKeyboardSecureTouchSlot dealloc]";
-    v9 = 1024;
-    v10 = slotID;
+    v7 = "[TIKeyboardSecureTouchSlot dealloc]";
+    v8 = 1024;
+    v9 = slotID;
     _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Invalidating slotID %X", buf, 0x12u);
   }
 
@@ -22,10 +22,9 @@
   invalidatable = self->_invalidatable;
   self->_invalidatable = 0;
 
-  v6.receiver = self;
-  v6.super_class = TIKeyboardSecureTouchSlot;
-  [(TIKeyboardSecureTouchSlot *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = TIKeyboardSecureTouchSlot;
+  [(TIKeyboardSecureTouchSlot *)&v5 dealloc];
 }
 
 @end

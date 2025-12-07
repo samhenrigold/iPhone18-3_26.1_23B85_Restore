@@ -55,13 +55,11 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v23 = v5;
-      v24 = 2114;
-      v25 = v6;
+      v21 = v5;
+      v22 = 2114;
+      v23 = v6;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing %{public}@ from relativePathsNotToBackup", buf, 0x16u);
-      v20 = v5;
-      v21 = v6;
-      _MBLog();
+      _MBLog(@"Df", "%{public}@: Removing %{public}@ from relativePathsNotToBackup", v5, v6);
     }
 
     [v10 removeObject:v6];
@@ -85,11 +83,11 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v23 = v5;
-    v24 = 2114;
-    v25 = @"Library/Application Support/com.apple.remotemanagementd";
+    v21 = v5;
+    v22 = 2114;
+    v23 = @"Library/Application Support/com.apple.remotemanagementd";
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding %{public}@ to relativePathsToBackupAndRestore", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "%{public}@: Adding %{public}@ to relativePathsToBackupAndRestore", v5, @"Library/Application Support/com.apple.remotemanagementd");
   }
 
   [v14 addObject:@"Library/Application Support/com.apple.remotemanagementd"];
@@ -111,11 +109,11 @@
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v23 = v5;
-    v24 = 2114;
-    v25 = @"Library/Application Support/com.apple.remotemanagementd";
+    v21 = v5;
+    v22 = 2114;
+    v23 = @"Library/Application Support/com.apple.remotemanagementd";
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Adding %{public}@ to relativePathsToIgnoreExclusionsForDrive", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "%{public}@: Adding %{public}@ to relativePathsToIgnoreExclusionsForDrive", v5, @"Library/Application Support/com.apple.remotemanagementd");
   }
 
   [v18 addObject:@"Library/Application Support/com.apple.remotemanagementd"];

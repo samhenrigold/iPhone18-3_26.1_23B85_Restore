@@ -1,3 +1,22 @@
+void sub_25D2B2FA8(_Unwind_Exception *a1)
+{
+  OcText::~OcText((v1 + 632));
+  OcText::~OcText((v1 + 584));
+  OcText::~OcText((v1 + 536));
+  OcText::~OcText((v1 + 488));
+  OcText::~OcText((v1 + 440));
+  OcText::~OcText((v1 + 392));
+  OcText::~OcText((v1 + 344));
+  OcText::~OcText((v1 + 296));
+  OcText::~OcText((v1 + 248));
+  OcText::~OcText((v1 + 200));
+  OcText::~OcText((v1 + 152));
+  OcText::~OcText((v1 + 104));
+  OcText::~OcText(v2);
+  OcText::~OcText((v1 + 8));
+  _Unwind_Resume(a1);
+}
+
 void OcText::OcText(OcText *this)
 {
   this->var0 = &unk_286EC8C60;
@@ -120,11 +139,11 @@ LABEL_38:
   OcBinaryReader::parseDateTimeProp(this, 1, 13, a2 + 176);
   *(a2 + 761) = OcBinaryReader::parseBoolProp(this, 2, 16);
   *(a2 + 760) = OcBinaryReader::parseBoolProp(this, 2, 11);
-  OcBinaryReader::parseBLOBProp(this, 3, 4096, a2 + 440);
+  OcBinaryReader::parseBLOBProp(this, 3, 4096, (a2 + 440));
   OcBinaryReader::parseHyperlinksProp(this, a2);
 }
 
-uint64_t OcBinaryReader::parseChUINT2Prop(uint64_t a1, int a2, uint64_t a3)
+uint64_t OcBinaryReader::parseChUINT2Prop(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v12 = 7;
   v11 = 0;
@@ -151,7 +170,7 @@ uint64_t OcBinaryReader::parseChUINT2Prop(uint64_t a1, int a2, uint64_t a3)
   return v8;
 }
 
-uint64_t SsrwOORootStorage::getDocumentProperty(uint64_t a1, int a2, uint64_t a3, int *a4, void **a5)
+uint64_t SsrwOORootStorage::getDocumentProperty(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, void **a5)
 {
   result = getDocumentProperty(*(a1 + 80), a2, a3, a4, a5);
   if ((result & 0xFFFFFFFE) == 0xC)
@@ -399,7 +418,7 @@ LABEL_52:
   return v5;
 }
 
-uint64_t propertyStorageOpen(uint64_t *a1, void *a2, uint64_t **a3)
+uint64_t propertyStorageOpen(uint64_t *a1, void *a2, void **a3)
 {
   v6 = malloc_type_malloc(0x10uLL, 0x20040A4A59CD2uLL);
   *a3 = v6;
@@ -416,7 +435,7 @@ uint64_t propertyStorageOpen(uint64_t *a1, void *a2, uint64_t **a3)
 
     else
     {
-      (*a3)[1] = storageGetRoot(a1);
+      *(*a3 + 1) = storageGetRoot(a1);
     }
   }
 
@@ -429,7 +448,7 @@ uint64_t propertyStorageOpen(uint64_t *a1, void *a2, uint64_t **a3)
   return PropertySetFromStorage;
 }
 
-uint64_t getPropertySetFromStorage(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t getPropertySetFromStorage(uint64_t *a1, void *a2, uint64_t *a3)
 {
   v17 = 0;
   v18 = 0;
@@ -439,7 +458,7 @@ uint64_t getPropertySetFromStorage(uint64_t a1, void *a2, uint64_t *a3)
   {
     TOC = rootStorageGetTOC(a1);
     v8 = TOC;
-    if (!areGUIDsEqual(a2, SSRW_FMTID_SummaryInformation))
+    if (!areGUIDsEqual(a2, &SSRW_FMTID_SummaryInformation))
     {
       if (areGUIDsEqual(a2, &SSRW_FMTID_DocumentSummaryInformation))
       {
@@ -457,7 +476,7 @@ uint64_t getPropertySetFromStorage(uint64_t a1, void *a2, uint64_t *a3)
       }
     }
 
-    if (areGUIDsEqual(a2, SSRW_FMTID_SummaryInformation))
+    if (areGUIDsEqual(a2, &SSRW_FMTID_SummaryInformation))
     {
       v9 = 24;
     }
@@ -482,9 +501,9 @@ uint64_t getPropertySetFromStorage(uint64_t a1, void *a2, uint64_t *a3)
         goto LABEL_22;
       }
 
-      if (areGUIDsEqual(a2, SSRW_FMTID_SummaryInformation))
+      if (areGUIDsEqual(a2, &SSRW_FMTID_SummaryInformation))
       {
-        v13 = &SUMMARY_INFO_NAME;
+        v13 = SUMMARY_INFO_NAME;
       }
 
       else
@@ -624,7 +643,7 @@ uint64_t propertySetConstruct(_OWORD *a1, int a2, uint64_t *a3)
   return result;
 }
 
-uint64_t propertySetRead(uint64_t a1, uint64_t a2, void *a3)
+uint64_t propertySetRead(uint64_t a1, uint64_t *a2, void *a3)
 {
   v38[1] = *MEMORY[0x277D85DE8];
   v28 = 0;
@@ -1261,7 +1280,7 @@ uint64_t freeDocumentProperty(void **a1)
   return 0;
 }
 
-uint64_t OcBinaryReader::parseStringProp(uint64_t a1, int a2, uint64_t a3, OcText *a4)
+uint64_t OcBinaryReader::parseStringProp(uint64_t a1, uint64_t a2, uint64_t a3, OcText *a4)
 {
   v14 = 0;
   __s = 0;
@@ -1315,7 +1334,7 @@ void OcText::allocBuffer(OcText *this, unsigned int a2, int a3)
 
       this->var5 = 0;
 LABEL_8:
-      operator new[](a2);
+      operator new[](a2, 0x1000C8077774924);
     }
 
 LABEL_7:
@@ -1390,7 +1409,7 @@ uint64_t OcText::isSingleByteEncoding(int a1)
   return result;
 }
 
-uint64_t OcBinaryReader::parseDateTimeProp(uint64_t a1, int a2, uint64_t a3, unsigned int *a4)
+uint64_t OcBinaryReader::parseDateTimeProp(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   v13 = 7;
   v12 = 0;
@@ -1428,7 +1447,7 @@ uint64_t ChWindowsTimeFromTime_t(uint64_t result, unsigned int *a2)
   return result;
 }
 
-BOOL OcBinaryReader::parseBoolProp(uint64_t a1, int a2, uint64_t a3)
+BOOL OcBinaryReader::parseBoolProp(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v12 = 7;
   v11 = 0;
@@ -1455,7 +1474,7 @@ BOOL OcBinaryReader::parseBoolProp(uint64_t a1, int a2, uint64_t a3)
   return v8;
 }
 
-uint64_t OcBinaryReader::parseBLOBProp(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t OcBinaryReader::parseBLOBProp(uint64_t a1, uint64_t a2, uint64_t a3, OcText *a4)
 {
   v16 = 0;
   v15 = 0;
@@ -1474,13 +1493,13 @@ uint64_t OcBinaryReader::parseBLOBProp(uint64_t a1, int a2, uint64_t a3, uint64_
 
   if (v11)
   {
-    *(a4 + 8) = 1;
+    a4->var1 = 1;
     v12 = *v10;
     isSingleByteEncoding = OcText::isSingleByteEncoding(1);
     v12 /= 2;
     OcText::setMinimumCapacity(a4, v12 << (isSingleByteEncoding ^ 1));
-    CsLeReadChars16((v15 + 1), v12, *(a4 + 24));
-    *(a4 + 16) = v12;
+    CsLeReadChars16((v15 + 1), v12, a4->var5);
+    a4->var3 = v12;
     v14 = (*(*a1 + 88))(a1);
     return SsrwOORootStorage::freeDocumentProperty(v14, &v15);
   }
@@ -1488,7 +1507,7 @@ uint64_t OcBinaryReader::parseBLOBProp(uint64_t a1, int a2, uint64_t a3, uint64_
   return result;
 }
 
-uint64_t propertySetLoadNameList(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t propertySetLoadNameList(uint64_t a1, uint64_t *a2, unsigned int a3)
 {
   v11 = 0;
   if (*(a1 + 2440))
@@ -1601,26 +1620,27 @@ void sub_25D2B5128(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void OcBinaryReader::getPropertyValue(uint64_t a1, int a2)
+void OcBinaryReader::getPropertyValue(uint64_t a1, uint64_t a2, unsigned int a3, SsrwOOPropVariant *a4)
 {
-  v4 = (*(*a1 + 88))(a1);
-  v7 = 0;
-  v5 = (*(*a1 + 96))(a1);
-  if (v5)
+  v4 = a2;
+  v6 = (*(*a1 + 88))(a1);
+  v9 = 0;
+  v7 = (*(*a1 + 96))(a1);
+  if (v7)
   {
-    if (SsrwOOStorage::hasChild(v4, v5))
+    if (SsrwOOStorage::hasChild(v6, v7))
     {
-      SsrwOOStorage::openStorage(v4, v5);
+      SsrwOOStorage::openStorage(v6, v7);
     }
   }
 
-  FMTIDForStreamType = SsrwOOPropertyStorage::getFMTIDForStreamType(a2);
-  SsrwOOStorage::openPropertyStorage(v4, FMTIDForStreamType);
+  FMTIDForStreamType = SsrwOOPropertyStorage::getFMTIDForStreamType(v4);
+  SsrwOOStorage::openPropertyStorage(v6, FMTIDForStreamType);
 }
 
-void sub_25D2B5380(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D2B5380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ChAutoPtr<SsrwOOStorage>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
@@ -1768,7 +1788,7 @@ void SsrwOOPropVariant::~SsrwOOPropVariant(SsrwOOPropVariant *this)
   *(this + 1) = 0;
 }
 
-unsigned __int8 *OcBinaryReader::parseClipboardProp(uint64_t a1, int a2, uint64_t a3, OcBinaryData *a4)
+unsigned __int8 *OcBinaryReader::parseClipboardProp(uint64_t a1, uint64_t a2, uint64_t a3, OcBinaryData *a4)
 {
   v13 = 0;
   v12 = 0;
@@ -1991,18 +2011,18 @@ LABEL_5:
   return 1;
 }
 
-uint64_t *EshOpt::getProperty(uint64_t a1, unsigned int a2)
+uint64_t *EshOpt::getProperty(uint64_t a1, int a2)
 {
   v3 = a2;
   v4 = &v3;
-  return std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v3) + 5;
+  return std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v3, &std::piecewise_construct, &v4) + 5;
 }
 
-uint64_t EshOpt::getColorProperty(uint64_t a1, unsigned int a2)
+uint64_t EshOpt::getColorProperty(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = &v4;
-  *(a1 + 56) = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v4)[5];
+  *(a1 + 56) = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v4, &std::piecewise_construct, &v5)[5];
   return a1 + 56;
 }
 
@@ -2461,7 +2481,7 @@ __n128 EshContentProperties::getBounds(uint64_t a1, __n128 *a2)
   v8 = 0.0;
   if (isPropertySet)
   {
-    Property = EshOpt::getProperty(*(a1 + 16), 4u);
+    Property = EshOpt::getProperty(*(a1 + 16), 4);
     v10 = EshFixedPointUtil::toFloat(*Property);
     v8 = v10;
     if (fabs(v10) > 365.0)
@@ -2785,17 +2805,17 @@ void *getShapeType(int a1)
   switch(a1)
   {
     case 1:
-      if ((atomic_load_explicit(&_MergedGlobals_57, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(_MergedGlobals_57, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FCF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FCF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FCF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FCF8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_8;
         v3 = &getShapeType(int)::theShapeType;
@@ -2805,29 +2825,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FCF8;
+        v4 = byte_27FC3FCF8;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 2:
-      if ((atomic_load_explicit(&qword_27FC3FD00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD18, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_12;
         v3 = &getShapeType(int)::theShapeType;
@@ -2837,24 +2857,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FD18;
+        v4 = byte_27FC3FD18;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 3:
-      if ((atomic_load_explicit(&qword_27FC3FD20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD20, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD30, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_15;
         v3 = &getShapeType(int)::theShapeType;
@@ -2864,24 +2884,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FD30;
+        v4 = byte_27FC3FD30;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 4:
-      if ((atomic_load_explicit(&qword_27FC3FD38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD38, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD48, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_18;
         v3 = &getShapeType(int)::theShapeType;
@@ -2891,29 +2911,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FD48;
+        v4 = byte_27FC3FD48;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 5:
-      if ((atomic_load_explicit(&qword_27FC3FD50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD68, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_22;
         v3 = &getShapeType(int)::theShapeType;
@@ -2923,24 +2943,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FD68;
+        v4 = byte_27FC3FD68;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 6:
-      if ((atomic_load_explicit(&qword_27FC3FD70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD80, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_25_0;
         v3 = &getShapeType(int)::theShapeType;
@@ -2949,29 +2969,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FD80;
+        v4 = byte_27FC3FD80;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 7:
-      if ((atomic_load_explicit(&qword_27FC3FD88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FD98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FD98, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDA0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_29;
         v3 = &getShapeType(int)::theShapeType;
@@ -2981,29 +3001,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FDA0;
+        v4 = byte_27FC3FDA0;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 8:
-      if ((atomic_load_explicit(&qword_27FC3FDA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDB0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDC0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_33;
         v3 = &getShapeType(int)::theShapeType;
@@ -3012,29 +3032,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FDC0;
+        v4 = byte_27FC3FDC0;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 9:
-      if ((atomic_load_explicit(&qword_27FC3FDC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDD0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDE0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_37_0;
         v3 = &getShapeType(int)::theShapeType;
@@ -3044,29 +3064,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FDE0;
+        v4 = byte_27FC3FDE0;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 10:
-      if ((atomic_load_explicit(&qword_27FC3FDE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FDF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FDF8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE00, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_41;
         v3 = &getShapeType(int)::theShapeType;
@@ -3075,29 +3095,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE00;
+        v4 = byte_27FC3FE00;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 11:
-      if ((atomic_load_explicit(&qword_27FC3FE08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE20, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_45;
         v3 = &getShapeType(int)::theShapeType;
@@ -3107,24 +3127,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE20;
+        v4 = byte_27FC3FE20;
         goto LABEL_1773;
       }
 
       result = &getShapeType(int)::theShapeType;
       break;
     case 12:
-      if ((atomic_load_explicit(&qword_27FC3FE28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE38, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_48;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__10_;
@@ -3133,29 +3153,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE38;
+        v4 = byte_27FC3FE38;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__10_;
       break;
     case 13:
-      if ((atomic_load_explicit(&qword_27FC3FE40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE58, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_52_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__11_;
@@ -3164,29 +3184,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE58;
+        v4 = byte_27FC3FE58;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__11_;
       break;
     case 14:
-      if ((atomic_load_explicit(&qword_27FC3FE60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE68, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE78, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_56_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__12_;
@@ -3195,29 +3215,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE78;
+        v4 = byte_27FC3FE78;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__12_;
       break;
     case 15:
-      if ((atomic_load_explicit(&qword_27FC3FE80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE80, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FE98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FE98, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_60;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__13_;
@@ -3227,29 +3247,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FE98;
+        v4 = byte_27FC3FE98;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__13_;
       break;
     case 16:
-      if ((atomic_load_explicit(&qword_27FC3FEA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEB0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEB8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_64;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__14_;
@@ -3259,29 +3279,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FEB8;
+        v4 = byte_27FC3FEB8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__14_;
       break;
     case 17:
-      if ((atomic_load_explicit(&qword_27FC3FEC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FED0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FED0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FED8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FED8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_68;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__15_;
@@ -3290,29 +3310,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FED8;
+        v4 = byte_27FC3FED8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__15_;
       break;
     case 18:
-      if ((atomic_load_explicit(&qword_27FC3FEE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEE0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FEF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FEF8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_72;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__16_;
@@ -3322,24 +3342,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FEF8;
+        v4 = byte_27FC3FEF8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__16_;
       break;
     case 19:
-      if ((atomic_load_explicit(&qword_27FC3FF00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF10, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_75;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__17_;
@@ -3349,19 +3369,19 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF10;
+        v4 = byte_27FC3FF10;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__17_;
       break;
     case 20:
-      if ((atomic_load_explicit(&qword_27FC3FF18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF20, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_77;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__18_;
@@ -3371,29 +3391,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF20;
+        v4 = byte_27FC3FF20;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__18_;
       break;
     case 21:
-      if ((atomic_load_explicit(&qword_27FC3FF28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF38, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF40, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_81;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__19_;
@@ -3403,29 +3423,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF40;
+        v4 = byte_27FC3FF40;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__19_;
       break;
     case 22:
-      if ((atomic_load_explicit(&qword_27FC3FF48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF60, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_85_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__20_;
@@ -3435,29 +3455,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF60;
+        v4 = byte_27FC3FF60;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__20_;
       break;
     case 23:
-      if ((atomic_load_explicit(&qword_27FC3FF68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF68, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF80, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_89;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__21_;
@@ -3467,24 +3487,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF80;
+        v4 = byte_27FC3FF80;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__21_;
       break;
     case 24:
-      if ((atomic_load_explicit(&qword_27FC3FF88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FF98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FF98, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_92;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__22_;
@@ -3494,24 +3514,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FF98;
+        v4 = byte_27FC3FF98;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__22_;
       break;
     case 25:
-      if ((atomic_load_explicit(&qword_27FC3FFA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFB0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_95;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__23_;
@@ -3521,24 +3541,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FFB0;
+        v4 = byte_27FC3FFB0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__23_;
       break;
     case 26:
-      if ((atomic_load_explicit(&qword_27FC3FFB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFC8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_98;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__24_;
@@ -3548,24 +3568,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FFC8;
+        v4 = byte_27FC3FFC8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__24_;
       break;
     case 27:
-      if ((atomic_load_explicit(&qword_27FC3FFD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFD0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFE0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_101;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__25_;
@@ -3575,24 +3595,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FFE0;
+        v4 = byte_27FC3FFE0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__25_;
       break;
     case 28:
-      if ((atomic_load_explicit(&qword_27FC3FFE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC3FFF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC3FFF8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_104;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__26_;
@@ -3602,24 +3622,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC3FFF8;
+        v4 = byte_27FC3FFF8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__26_;
       break;
     case 29:
-      if ((atomic_load_explicit(&qword_27FC40000, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40000, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40008, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40008, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40010, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40010, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_107;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__27_;
@@ -3629,24 +3649,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40010;
+        v4 = byte_27FC40010;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__27_;
       break;
     case 30:
-      if ((atomic_load_explicit(&qword_27FC40018, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40018, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40020, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40020, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40028, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40028, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_110;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__28_;
@@ -3656,24 +3676,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40028;
+        v4 = byte_27FC40028;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__28_;
       break;
     case 31:
-      if ((atomic_load_explicit(&qword_27FC40030, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40030, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40038, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40038, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40040, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40040, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_113;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__29_;
@@ -3683,19 +3703,19 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40040;
+        v4 = byte_27FC40040;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__29_;
       break;
     case 32:
-      if ((atomic_load_explicit(&qword_27FC40048, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40048, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40050, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40050, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_115;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__30_;
@@ -3705,19 +3725,19 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40050;
+        v4 = byte_27FC40050;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__30_;
       break;
     case 33:
-      if ((atomic_load_explicit(&qword_27FC40058, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40058, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40060, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40060, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_117;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__31_;
@@ -3727,24 +3747,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40060;
+        v4 = byte_27FC40060;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__31_;
       break;
     case 34:
-      if ((atomic_load_explicit(&qword_27FC40068, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40068, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40070, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40070, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40078, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40078, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_120;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__32_;
@@ -3754,24 +3774,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40078;
+        v4 = byte_27FC40078;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__32_;
       break;
     case 35:
-      if ((atomic_load_explicit(&qword_27FC40080, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40080, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40088, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40088, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40090, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40090, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_123;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__33_;
@@ -3780,24 +3800,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40090;
+        v4 = byte_27FC40090;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__33_;
       break;
     case 36:
-      if ((atomic_load_explicit(&qword_27FC40098, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40098, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400A8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_126;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__34_;
@@ -3807,19 +3827,19 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC400A8;
+        v4 = byte_27FC400A8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__34_;
       break;
     case 37:
-      if ((atomic_load_explicit(&qword_27FC400B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400B8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_128;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__35_;
@@ -3829,24 +3849,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC400B8;
+        v4 = byte_27FC400B8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__35_;
       break;
     case 38:
-      if ((atomic_load_explicit(&qword_27FC400C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400D0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_131;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__36_;
@@ -3856,24 +3876,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC400D0;
+        v4 = byte_27FC400D0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__36_;
       break;
     case 39:
-      if ((atomic_load_explicit(&qword_27FC400D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400E8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_134;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__37_;
@@ -3882,24 +3902,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC400E8;
+        v4 = byte_27FC400E8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__37_;
       break;
     case 40:
-      if ((atomic_load_explicit(&qword_27FC400F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC400F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC400F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40100, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40100, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_137;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__38_;
@@ -3909,24 +3929,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40100;
+        v4 = byte_27FC40100;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__38_;
       break;
     case 41:
-      if ((atomic_load_explicit(&qword_27FC40108, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40108, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40110, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40110, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40118, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40118, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_140;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__39_;
@@ -3936,24 +3956,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40118;
+        v4 = byte_27FC40118;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__39_;
       break;
     case 42:
-      if ((atomic_load_explicit(&qword_27FC40120, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40120, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40128, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40128, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40130, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40130, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_143;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__40_;
@@ -3963,24 +3983,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40130;
+        v4 = byte_27FC40130;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__40_;
       break;
     case 43:
-      if ((atomic_load_explicit(&qword_27FC40138, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40138, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40140, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40140, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40148, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40148, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_146;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__41_;
@@ -3990,24 +4010,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40148;
+        v4 = byte_27FC40148;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__41_;
       break;
     case 44:
-      if ((atomic_load_explicit(&qword_27FC40150, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40150, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40158, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40158, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40160, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40160, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_149;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__42_;
@@ -4017,24 +4037,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40160;
+        v4 = byte_27FC40160;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__42_;
       break;
     case 45:
-      if ((atomic_load_explicit(&qword_27FC40168, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40168, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40170, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40170, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40178, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40178, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_152;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__43_;
@@ -4044,24 +4064,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40178;
+        v4 = byte_27FC40178;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__43_;
       break;
     case 46:
-      if ((atomic_load_explicit(&qword_27FC40180, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40180, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40188, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40188, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40190, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40190, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_155;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__44_;
@@ -4071,24 +4091,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40190;
+        v4 = byte_27FC40190;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__44_;
       break;
     case 47:
-      if ((atomic_load_explicit(&qword_27FC40198, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40198, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401A8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_158;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__45_;
@@ -4098,24 +4118,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC401A8;
+        v4 = byte_27FC401A8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__45_;
       break;
     case 48:
-      if ((atomic_load_explicit(&qword_27FC401B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_161;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__46_;
@@ -4125,24 +4145,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC401C0;
+        v4 = byte_27FC401C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__46_;
       break;
     case 49:
-      if ((atomic_load_explicit(&qword_27FC401C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401D8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_164;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__47_;
@@ -4152,24 +4172,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC401D8;
+        v4 = byte_27FC401D8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__47_;
       break;
     case 50:
-      if ((atomic_load_explicit(&qword_27FC401E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC401F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401F0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_167;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__48_;
@@ -4179,24 +4199,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC401F0;
+        v4 = byte_27FC401F0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__48_;
       break;
     case 51:
-      if ((atomic_load_explicit(&qword_27FC401F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC401F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40200, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40200, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40208, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40208, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_170;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__49_;
@@ -4206,24 +4226,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40208;
+        v4 = byte_27FC40208;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__49_;
       break;
     case 52:
-      if ((atomic_load_explicit(&qword_27FC40210, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40210, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40218, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40218, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40220, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40220, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_173;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__50_;
@@ -4233,29 +4253,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40220;
+        v4 = byte_27FC40220;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__50_;
       break;
     case 53:
-      if ((atomic_load_explicit(&qword_27FC40228, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40228, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40230, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40230, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40238, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40238, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40240, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40240, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_177;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__51_;
@@ -4265,29 +4285,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40240;
+        v4 = byte_27FC40240;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__51_;
       break;
     case 54:
-      if ((atomic_load_explicit(&qword_27FC40248, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40248, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40250, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40250, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40258, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40258, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40260, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40260, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_181;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__52_;
@@ -4296,29 +4316,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40260;
+        v4 = byte_27FC40260;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__52_;
       break;
     case 55:
-      if ((atomic_load_explicit(&qword_27FC40268, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40268, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40270, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40270, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40278, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40278, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40280, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40280, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_185;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__53_;
@@ -4328,24 +4348,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40280;
+        v4 = byte_27FC40280;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__53_;
       break;
     case 56:
-      if ((atomic_load_explicit(&qword_27FC40288, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40288, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40290, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40290, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40298, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40298, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_188;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__54_;
@@ -4355,29 +4375,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40298;
+        v4 = byte_27FC40298;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__54_;
       break;
     case 57:
-      if ((atomic_load_explicit(&qword_27FC402A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402B8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_192;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__55_;
@@ -4387,29 +4407,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC402B8;
+        v4 = byte_27FC402B8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__55_;
       break;
     case 58:
-      if ((atomic_load_explicit(&qword_27FC402C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402D8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_196;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__56_;
@@ -4419,29 +4439,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC402D8;
+        v4 = byte_27FC402D8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__56_;
       break;
     case 59:
-      if ((atomic_load_explicit(&qword_27FC402E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC402F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC402F8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_200_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__57_;
@@ -4451,29 +4471,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC402F8;
+        v4 = byte_27FC402F8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__57_;
       break;
     case 60:
-      if ((atomic_load_explicit(&qword_27FC40300, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40300, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40308, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40308, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40310, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40310, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40318, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40318, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_204;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__58_;
@@ -4483,24 +4503,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40318;
+        v4 = byte_27FC40318;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__58_;
       break;
     case 61:
-      if ((atomic_load_explicit(&qword_27FC40320, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40320, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40328, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40328, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40330, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40330, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_207;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__59_;
@@ -4510,29 +4530,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40330;
+        v4 = byte_27FC40330;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__59_;
       break;
     case 62:
-      if ((atomic_load_explicit(&qword_27FC40338, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40338, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40340, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40340, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40348, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40348, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40350, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40350, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_211;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__60_;
@@ -4541,29 +4561,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40350;
+        v4 = byte_27FC40350;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__60_;
       break;
     case 63:
-      if ((atomic_load_explicit(&qword_27FC40358, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40358, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40360, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40360, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40368, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40368, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40370, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40370, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_215_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__61_;
@@ -4573,29 +4593,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40370;
+        v4 = byte_27FC40370;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__61_;
       break;
     case 64:
-      if ((atomic_load_explicit(&qword_27FC40378, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40378, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40380, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40380, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40388, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40388, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40390, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40390, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_219;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__62_;
@@ -4604,29 +4624,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40390;
+        v4 = byte_27FC40390;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__62_;
       break;
     case 65:
-      if ((atomic_load_explicit(&qword_27FC40398, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40398, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403B0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_223;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__63_;
@@ -4635,29 +4655,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC403B0;
+        v4 = byte_27FC403B0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__63_;
       break;
     case 66:
-      if ((atomic_load_explicit(&qword_27FC403B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403D0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_227;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__64_;
@@ -4666,29 +4686,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC403D0;
+        v4 = byte_27FC403D0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__64_;
       break;
     case 67:
-      if ((atomic_load_explicit(&qword_27FC403D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC403F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403F0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_231;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__65_;
@@ -4698,29 +4718,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC403F0;
+        v4 = byte_27FC403F0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__65_;
       break;
     case 68:
-      if ((atomic_load_explicit(&qword_27FC403F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC403F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40400, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40400, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40408, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40408, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40410, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40410, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_235;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__66_;
@@ -4730,29 +4750,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40410;
+        v4 = byte_27FC40410;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__66_;
       break;
     case 69:
-      if ((atomic_load_explicit(&qword_27FC40418, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40418, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40420, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40420, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40428, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40428, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40430, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40430, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_239_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__67_;
@@ -4761,29 +4781,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40430;
+        v4 = byte_27FC40430;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__67_;
       break;
     case 70:
-      if ((atomic_load_explicit(&qword_27FC40438, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40438, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40440, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40440, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40448, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40448, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40450, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40450, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_243;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__68_;
@@ -4792,24 +4812,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40450;
+        v4 = byte_27FC40450;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__68_;
       break;
     case 71:
-      if ((atomic_load_explicit(&qword_27FC40458, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40458, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40460, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40460, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40468, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40468, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_246;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__69_;
@@ -4818,24 +4838,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40468;
+        v4 = byte_27FC40468;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__69_;
       break;
     case 72:
-      if ((atomic_load_explicit(&qword_27FC40470, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40470, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40478, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40478, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40480, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40480, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_249;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__70_;
@@ -4844,24 +4864,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40480;
+        v4 = byte_27FC40480;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__70_;
       break;
     case 73:
-      if ((atomic_load_explicit(&qword_27FC40488, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40488, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40490, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40490, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40498, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40498, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_252;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__71_;
@@ -4870,24 +4890,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40498;
+        v4 = byte_27FC40498;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__71_;
       break;
     case 74:
-      if ((atomic_load_explicit(&qword_27FC404A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404B0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_255;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__72_;
@@ -4896,19 +4916,19 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC404B0;
+        v4 = byte_27FC404B0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__72_;
       break;
     case 75:
-      if ((atomic_load_explicit(&qword_27FC404B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_257;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__73_;
@@ -4918,29 +4938,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC404C0;
+        v4 = byte_27FC404C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__73_;
       break;
     case 76:
-      if ((atomic_load_explicit(&qword_27FC404C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404E0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_261;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__74_;
@@ -4949,29 +4969,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC404E0;
+        v4 = byte_27FC404E0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__74_;
       break;
     case 77:
-      if ((atomic_load_explicit(&qword_27FC404E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC404F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC404F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40500, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40500, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_265_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__75_;
@@ -4981,29 +5001,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40500;
+        v4 = byte_27FC40500;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__75_;
       break;
     case 78:
-      if ((atomic_load_explicit(&qword_27FC40508, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40508, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40510, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40510, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40518, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40518, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40520, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40520, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_269;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__76_;
@@ -5012,29 +5032,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40520;
+        v4 = byte_27FC40520;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__76_;
       break;
     case 79:
-      if ((atomic_load_explicit(&qword_27FC40528, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40528, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40530, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40530, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40538, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40538, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40540, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40540, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_273;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__77_;
@@ -5044,29 +5064,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40540;
+        v4 = byte_27FC40540;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__77_;
       break;
     case 80:
-      if ((atomic_load_explicit(&qword_27FC40548, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40548, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40550, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40550, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40558, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40558, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40560, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40560, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_277;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__78_;
@@ -5075,29 +5095,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40560;
+        v4 = byte_27FC40560;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__78_;
       break;
     case 81:
-      if ((atomic_load_explicit(&qword_27FC40568, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40568, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40570, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40570, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40578, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40578, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40580, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40580, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_281;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__79_;
@@ -5107,29 +5127,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40580;
+        v4 = byte_27FC40580;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__79_;
       break;
     case 82:
-      if ((atomic_load_explicit(&qword_27FC40588, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40588, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40590, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40590, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40598, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40598, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405A0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_285;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__80_;
@@ -5138,29 +5158,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC405A0;
+        v4 = byte_27FC405A0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__80_;
       break;
     case 83:
-      if ((atomic_load_explicit(&qword_27FC405A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_289;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__81_;
@@ -5170,29 +5190,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC405C0;
+        v4 = byte_27FC405C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__81_;
       break;
     case 84:
-      if ((atomic_load_explicit(&qword_27FC405C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405E0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_293_0;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__82_;
@@ -5202,29 +5222,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC405E0;
+        v4 = byte_27FC405E0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__82_;
       break;
     case 85:
-      if ((atomic_load_explicit(&qword_27FC405E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC405F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC405F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40600, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40600, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_297;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__83_;
@@ -5234,29 +5254,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40600;
+        v4 = byte_27FC40600;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__83_;
       break;
     case 86:
-      if ((atomic_load_explicit(&qword_27FC40608, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40608, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40610, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40610, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40618, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40618, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40620, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40620, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_301;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__84_;
@@ -5266,29 +5286,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40620;
+        v4 = byte_27FC40620;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__84_;
       break;
     case 87:
-      if ((atomic_load_explicit(&qword_27FC40628, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40628, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40630, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40630, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40638, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40638, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40640, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40640, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_305;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__85_;
@@ -5297,29 +5317,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40640;
+        v4 = byte_27FC40640;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__85_;
       break;
     case 88:
-      if ((atomic_load_explicit(&qword_27FC40648, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40648, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40650, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40650, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40658, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40658, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40660, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40660, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_309;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__86_;
@@ -5328,29 +5348,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40660;
+        v4 = byte_27FC40660;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__86_;
       break;
     case 89:
-      if ((atomic_load_explicit(&qword_27FC40668, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40668, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40670, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40670, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40678, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40678, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40680, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40680, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_313;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__87_;
@@ -5359,29 +5379,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40680;
+        v4 = byte_27FC40680;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__87_;
       break;
     case 90:
-      if ((atomic_load_explicit(&qword_27FC40688, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40688, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40690, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40690, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40698, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40698, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406A0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_317;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__88_;
@@ -5390,29 +5410,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC406A0;
+        v4 = byte_27FC406A0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__88_;
       break;
     case 91:
-      if ((atomic_load_explicit(&qword_27FC406A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_321;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__89_;
@@ -5422,29 +5442,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC406C0;
+        v4 = byte_27FC406C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__89_;
       break;
     case 92:
-      if ((atomic_load_explicit(&qword_27FC406C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406E0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_325;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__90_;
@@ -5454,29 +5474,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC406E0;
+        v4 = byte_27FC406E0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__90_;
       break;
     case 93:
-      if ((atomic_load_explicit(&qword_27FC406E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC406F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC406F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40700, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40700, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_329;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__91_;
@@ -5486,29 +5506,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40700;
+        v4 = byte_27FC40700;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__91_;
       break;
     case 94:
-      if ((atomic_load_explicit(&qword_27FC40708, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40708, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40710, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40710, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40718, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40718, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40720, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40720, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_333;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__92_;
@@ -5518,29 +5538,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40720;
+        v4 = byte_27FC40720;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__92_;
       break;
     case 95:
-      if ((atomic_load_explicit(&qword_27FC40728, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40728, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40730, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40730, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40738, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40738, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40740, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40740, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_337;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__93_;
@@ -5549,29 +5569,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40740;
+        v4 = byte_27FC40740;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__93_;
       break;
     case 96:
-      if ((atomic_load_explicit(&qword_27FC40748, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40748, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40750, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40750, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40758, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40758, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40760, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40760, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_341;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__94_;
@@ -5581,29 +5601,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40760;
+        v4 = byte_27FC40760;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__94_;
       break;
     case 97:
-      if ((atomic_load_explicit(&qword_27FC40768, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40768, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40770, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40770, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40778, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40778, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40780, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40780, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_345;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__95_;
@@ -5612,29 +5632,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40780;
+        v4 = byte_27FC40780;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__95_;
       break;
     case 98:
-      if ((atomic_load_explicit(&qword_27FC40788, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40788, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40790, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40790, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40798, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40798, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407A0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_349;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__96_;
@@ -5643,29 +5663,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC407A0;
+        v4 = byte_27FC407A0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__96_;
       break;
     case 99:
-      if ((atomic_load_explicit(&qword_27FC407A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_353;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__97_;
@@ -5675,29 +5695,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC407C0;
+        v4 = byte_27FC407C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__97_;
       break;
     case 100:
-      if ((atomic_load_explicit(&qword_27FC407C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407E0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_357;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__98_;
@@ -5707,24 +5727,24 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC407E0;
+        v4 = byte_27FC407E0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__98_;
       break;
     case 101:
-      if ((atomic_load_explicit(&qword_27FC407E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC407F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC407F8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_360;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__99_;
@@ -5734,29 +5754,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC407F8;
+        v4 = byte_27FC407F8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__99_;
       break;
     case 102:
-      if ((atomic_load_explicit(&qword_27FC40800, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40800, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40808, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40808, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40810, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40810, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40818, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40818, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_364;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__100_;
@@ -5766,29 +5786,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40818;
+        v4 = byte_27FC40818;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__100_;
       break;
     case 103:
-      if ((atomic_load_explicit(&qword_27FC40820, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40820, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40828, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40828, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40830, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40830, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40838, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40838, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_368;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__101_;
@@ -5797,29 +5817,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40838;
+        v4 = byte_27FC40838;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__101_;
       break;
     case 104:
-      if ((atomic_load_explicit(&qword_27FC40840, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40840, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40848, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40848, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40850, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40850, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40858, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40858, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_372;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__102_;
@@ -5828,29 +5848,29 @@ void *getShapeType(int a1)
           goto LABEL_1770;
         }
 
-        v4 = &qword_27FC40858;
+        v4 = byte_27FC40858;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__102_;
       break;
     case 105:
-      if ((atomic_load_explicit(&qword_27FC40860, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40860, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40868, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40868, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40870, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40870, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if (atomic_load_explicit(&qword_27FC40878, memory_order_acquire))
+      if (atomic_load_explicit(byte_27FC40878, memory_order_acquire))
       {
         result = &_ZZL12getShapeTypeiE12theShapeType__103_;
       }
@@ -5861,7 +5881,7 @@ void *getShapeType(int a1)
         v3 = &_ZZL12getShapeTypeiE12theShapeType__103_;
         if ((getShapeType() & 1) == 0)
         {
-          v4 = &qword_27FC40878;
+          v4 = byte_27FC40878;
           goto LABEL_1773;
         }
 
@@ -5871,22 +5891,22 @@ LABEL_1770:
 
       break;
     case 106:
-      if ((atomic_load_explicit(&qword_27FC40880, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40880, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40888, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40888, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40890, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40890, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40898, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40898, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_380;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__104_;
@@ -5895,29 +5915,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40898;
+        v4 = byte_27FC40898;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__104_;
       break;
     case 107:
-      if ((atomic_load_explicit(&qword_27FC408A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408B8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_384;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__105_;
@@ -5926,29 +5946,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC408B8;
+        v4 = byte_27FC408B8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__105_;
       break;
     case 108:
-      if ((atomic_load_explicit(&qword_27FC408C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408D8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_388;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__106_;
@@ -5957,19 +5977,19 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC408D8;
+        v4 = byte_27FC408D8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__106_;
       break;
     case 109:
-      if ((atomic_load_explicit(&qword_27FC408E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408E8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_390;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__107_;
@@ -5979,24 +5999,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC408E8;
+        v4 = byte_27FC408E8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__107_;
       break;
     case 110:
-      if ((atomic_load_explicit(&qword_27FC408F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408F0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC408F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC408F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40900, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40900, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_393;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__108_;
@@ -6006,24 +6026,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40900;
+        v4 = byte_27FC40900;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__108_;
       break;
     case 111:
-      if ((atomic_load_explicit(&qword_27FC40908, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40908, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40910, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40910, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40918, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40918, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_396;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__109_;
@@ -6033,24 +6053,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40918;
+        v4 = byte_27FC40918;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__109_;
       break;
     case 112:
-      if ((atomic_load_explicit(&qword_27FC40920, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40920, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40928, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40928, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40930, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40930, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_399;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__110_;
@@ -6060,24 +6080,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40930;
+        v4 = byte_27FC40930;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__110_;
       break;
     case 113:
-      if ((atomic_load_explicit(&qword_27FC40938, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40938, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40940, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40940, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40948, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40948, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_402;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__111_;
@@ -6087,24 +6107,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40948;
+        v4 = byte_27FC40948;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__111_;
       break;
     case 114:
-      if ((atomic_load_explicit(&qword_27FC40950, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40950, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40958, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40958, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40960, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40960, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_405;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__112_;
@@ -6113,24 +6133,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40960;
+        v4 = byte_27FC40960;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__112_;
       break;
     case 115:
-      if ((atomic_load_explicit(&qword_27FC40968, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40968, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40970, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40970, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40978, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40978, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_408;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__113_;
@@ -6139,24 +6159,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40978;
+        v4 = byte_27FC40978;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__113_;
       break;
     case 116:
-      if ((atomic_load_explicit(&qword_27FC40980, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40980, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40988, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40988, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40990, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40990, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_411;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__114_;
@@ -6165,24 +6185,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40990;
+        v4 = byte_27FC40990;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__114_;
       break;
     case 117:
-      if ((atomic_load_explicit(&qword_27FC40998, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40998, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409A8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_414;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__115_;
@@ -6192,24 +6212,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC409A8;
+        v4 = byte_27FC409A8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__115_;
       break;
     case 118:
-      if ((atomic_load_explicit(&qword_27FC409B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409B0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409C0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_417;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__116_;
@@ -6219,24 +6239,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC409C0;
+        v4 = byte_27FC409C0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__116_;
       break;
     case 119:
-      if ((atomic_load_explicit(&qword_27FC409C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409D0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409D8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_420;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__117_;
@@ -6245,24 +6265,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC409D8;
+        v4 = byte_27FC409D8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__117_;
       break;
     case 120:
-      if ((atomic_load_explicit(&qword_27FC409E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC409F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409F0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_423;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__118_;
@@ -6272,24 +6292,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC409F0;
+        v4 = byte_27FC409F0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__118_;
       break;
     case 121:
-      if ((atomic_load_explicit(&qword_27FC409F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC409F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A08, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_426;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__119_;
@@ -6299,24 +6319,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A08;
+        v4 = byte_27FC40A08;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__119_;
       break;
     case 122:
-      if ((atomic_load_explicit(&qword_27FC40A10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A20, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_429;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__120_;
@@ -6325,24 +6345,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A20;
+        v4 = byte_27FC40A20;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__120_;
       break;
     case 123:
-      if ((atomic_load_explicit(&qword_27FC40A28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A38, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_432;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__121_;
@@ -6352,24 +6372,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A38;
+        v4 = byte_27FC40A38;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__121_;
       break;
     case 124:
-      if ((atomic_load_explicit(&qword_27FC40A40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A50, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_435;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__122_;
@@ -6379,24 +6399,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A50;
+        v4 = byte_27FC40A50;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__122_;
       break;
     case 125:
-      if ((atomic_load_explicit(&qword_27FC40A58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A68, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_438;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__123_;
@@ -6406,24 +6426,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A68;
+        v4 = byte_27FC40A68;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__123_;
       break;
     case 126:
-      if ((atomic_load_explicit(&qword_27FC40A70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A80, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_441;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__124_;
@@ -6433,24 +6453,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A80;
+        v4 = byte_27FC40A80;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__124_;
       break;
     case 127:
-      if ((atomic_load_explicit(&qword_27FC40A88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40A98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40A98, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_444;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__125_;
@@ -6459,24 +6479,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40A98;
+        v4 = byte_27FC40A98;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__125_;
       break;
     case 128:
-      if ((atomic_load_explicit(&qword_27FC40AA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AB0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_447;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__126_;
@@ -6485,24 +6505,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40AB0;
+        v4 = byte_27FC40AB0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__126_;
       break;
     case 129:
-      if ((atomic_load_explicit(&qword_27FC40AB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AC8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_450;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__127_;
@@ -6511,24 +6531,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40AC8;
+        v4 = byte_27FC40AC8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__127_;
       break;
     case 130:
-      if ((atomic_load_explicit(&qword_27FC40AD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AD0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AE0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_453;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__128_;
@@ -6537,24 +6557,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40AE0;
+        v4 = byte_27FC40AE0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__128_;
       break;
     case 131:
-      if ((atomic_load_explicit(&qword_27FC40AE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40AF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40AF8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_456;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__129_;
@@ -6564,24 +6584,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40AF8;
+        v4 = byte_27FC40AF8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__129_;
       break;
     case 132:
-      if ((atomic_load_explicit(&qword_27FC40B00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B10, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_459;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__130_;
@@ -6590,24 +6610,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B10;
+        v4 = byte_27FC40B10;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__130_;
       break;
     case 133:
-      if ((atomic_load_explicit(&qword_27FC40B18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B20, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B28, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_462;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__131_;
@@ -6616,24 +6636,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B28;
+        v4 = byte_27FC40B28;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__131_;
       break;
     case 134:
-      if ((atomic_load_explicit(&qword_27FC40B30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B38, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B40, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_465;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__132_;
@@ -6642,24 +6662,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B40;
+        v4 = byte_27FC40B40;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__132_;
       break;
     case 135:
-      if ((atomic_load_explicit(&qword_27FC40B48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B58, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_468;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__133_;
@@ -6668,24 +6688,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B58;
+        v4 = byte_27FC40B58;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__133_;
       break;
     case 136:
-      if ((atomic_load_explicit(&qword_27FC40B60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B68, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B70, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_471;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__134_;
@@ -6695,24 +6715,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B70;
+        v4 = byte_27FC40B70;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__134_;
       break;
     case 137:
-      if ((atomic_load_explicit(&qword_27FC40B78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B80, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B88, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_474;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__135_;
@@ -6722,24 +6742,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40B88;
+        v4 = byte_27FC40B88;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__135_;
       break;
     case 138:
-      if ((atomic_load_explicit(&qword_27FC40B90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40B98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40B98, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BA0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_477;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__136_;
@@ -6749,24 +6769,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40BA0;
+        v4 = byte_27FC40BA0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__136_;
       break;
     case 139:
-      if ((atomic_load_explicit(&qword_27FC40BA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BB0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BB8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_480;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__137_;
@@ -6776,24 +6796,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40BB8;
+        v4 = byte_27FC40BB8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__137_;
       break;
     case 140:
-      if ((atomic_load_explicit(&qword_27FC40BC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BD0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_483;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__138_;
@@ -6803,24 +6823,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40BD0;
+        v4 = byte_27FC40BD0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__138_;
       break;
     case 141:
-      if ((atomic_load_explicit(&qword_27FC40BD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BE0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BE8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_486;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__139_;
@@ -6830,24 +6850,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40BE8;
+        v4 = byte_27FC40BE8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__139_;
       break;
     case 142:
-      if ((atomic_load_explicit(&qword_27FC40BF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40BF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40BF8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C00, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_489;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__140_;
@@ -6857,24 +6877,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C00;
+        v4 = byte_27FC40C00;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__140_;
       break;
     case 143:
-      if ((atomic_load_explicit(&qword_27FC40C08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C18, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_492;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__141_;
@@ -6884,24 +6904,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C18;
+        v4 = byte_27FC40C18;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__141_;
       break;
     case 144:
-      if ((atomic_load_explicit(&qword_27FC40C20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C20, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C30, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_495;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__142_;
@@ -6911,24 +6931,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C30;
+        v4 = byte_27FC40C30;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__142_;
       break;
     case 145:
-      if ((atomic_load_explicit(&qword_27FC40C38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C38, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C48, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_498;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__143_;
@@ -6938,24 +6958,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C48;
+        v4 = byte_27FC40C48;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__143_;
       break;
     case 146:
-      if ((atomic_load_explicit(&qword_27FC40C50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C60, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_501;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__144_;
@@ -6965,24 +6985,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C60;
+        v4 = byte_27FC40C60;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__144_;
       break;
     case 147:
-      if ((atomic_load_explicit(&qword_27FC40C68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C68, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C78, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_504;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__145_;
@@ -6992,24 +7012,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C78;
+        v4 = byte_27FC40C78;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__145_;
       break;
     case 148:
-      if ((atomic_load_explicit(&qword_27FC40C80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C80, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40C90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C90, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_507;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__146_;
@@ -7019,24 +7039,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40C90;
+        v4 = byte_27FC40C90;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__146_;
       break;
     case 149:
-      if ((atomic_load_explicit(&qword_27FC40C98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40C98, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CA8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_510;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__147_;
@@ -7046,24 +7066,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40CA8;
+        v4 = byte_27FC40CA8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__147_;
       break;
     case 150:
-      if ((atomic_load_explicit(&qword_27FC40CB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CB0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CC0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_513;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__148_;
@@ -7073,24 +7093,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40CC0;
+        v4 = byte_27FC40CC0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__148_;
       break;
     case 151:
-      if ((atomic_load_explicit(&qword_27FC40CC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CD0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CD8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_516;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__149_;
@@ -7100,24 +7120,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40CD8;
+        v4 = byte_27FC40CD8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__149_;
       break;
     case 152:
-      if ((atomic_load_explicit(&_MergedGlobals_697, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(_MergedGlobals_697, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40CF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CF0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_519;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__150_;
@@ -7127,24 +7147,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40CF0;
+        v4 = byte_27FC40CF0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__150_;
       break;
     case 153:
-      if ((atomic_load_explicit(&qword_27FC40CF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40CF8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D08, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_522;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__151_;
@@ -7154,24 +7174,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D08;
+        v4 = byte_27FC40D08;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__151_;
       break;
     case 154:
-      if ((atomic_load_explicit(&qword_27FC40D10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D20, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_525;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__152_;
@@ -7181,24 +7201,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D20;
+        v4 = byte_27FC40D20;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__152_;
       break;
     case 155:
-      if ((atomic_load_explicit(&qword_27FC40D28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D38, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_528;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__153_;
@@ -7208,24 +7228,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D38;
+        v4 = byte_27FC40D38;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__153_;
       break;
     case 156:
-      if ((atomic_load_explicit(&qword_27FC40D40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D50, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_531;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__154_;
@@ -7235,24 +7255,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D50;
+        v4 = byte_27FC40D50;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__154_;
       break;
     case 157:
-      if ((atomic_load_explicit(&qword_27FC40D58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D68, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_534;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__155_;
@@ -7262,24 +7282,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D68;
+        v4 = byte_27FC40D68;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__155_;
       break;
     case 158:
-      if ((atomic_load_explicit(&qword_27FC40D70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D80, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_537;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__156_;
@@ -7289,24 +7309,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D80;
+        v4 = byte_27FC40D80;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__156_;
       break;
     case 159:
-      if ((atomic_load_explicit(&qword_27FC40D88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40D98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40D98, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_540;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__157_;
@@ -7316,24 +7336,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40D98;
+        v4 = byte_27FC40D98;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__157_;
       break;
     case 160:
-      if ((atomic_load_explicit(&qword_27FC40DA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DB0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_543;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__158_;
@@ -7343,24 +7363,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40DB0;
+        v4 = byte_27FC40DB0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__158_;
       break;
     case 161:
-      if ((atomic_load_explicit(&qword_27FC40DB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DC8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_546;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__159_;
@@ -7370,24 +7390,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40DC8;
+        v4 = byte_27FC40DC8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__159_;
       break;
     case 162:
-      if ((atomic_load_explicit(&qword_27FC40DD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DD0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DE0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_549;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__160_;
@@ -7397,24 +7417,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40DE0;
+        v4 = byte_27FC40DE0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__160_;
       break;
     case 163:
-      if ((atomic_load_explicit(&qword_27FC40DE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40DF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40DF8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_552;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__161_;
@@ -7424,24 +7444,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40DF8;
+        v4 = byte_27FC40DF8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__161_;
       break;
     case 164:
-      if ((atomic_load_explicit(&qword_27FC40E00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E00, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E10, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_555;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__162_;
@@ -7451,24 +7471,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E10;
+        v4 = byte_27FC40E10;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__162_;
       break;
     case 165:
-      if ((atomic_load_explicit(&qword_27FC40E18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E18, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E20, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E28, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_558;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__163_;
@@ -7478,24 +7498,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E28;
+        v4 = byte_27FC40E28;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__163_;
       break;
     case 166:
-      if ((atomic_load_explicit(&qword_27FC40E30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E38, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E40, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_561;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__164_;
@@ -7505,24 +7525,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E40;
+        v4 = byte_27FC40E40;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__164_;
       break;
     case 167:
-      if ((atomic_load_explicit(&qword_27FC40E48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E50, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E58, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_564;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__165_;
@@ -7532,24 +7552,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E58;
+        v4 = byte_27FC40E58;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__165_;
       break;
     case 168:
-      if ((atomic_load_explicit(&qword_27FC40E60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E68, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E70, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_567;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__166_;
@@ -7559,24 +7579,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E70;
+        v4 = byte_27FC40E70;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__166_;
       break;
     case 169:
-      if ((atomic_load_explicit(&qword_27FC40E78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E80, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E88, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_570;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__167_;
@@ -7586,24 +7606,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40E88;
+        v4 = byte_27FC40E88;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__167_;
       break;
     case 170:
-      if ((atomic_load_explicit(&qword_27FC40E90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40E98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40E98, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EA0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_573;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__168_;
@@ -7613,24 +7633,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40EA0;
+        v4 = byte_27FC40EA0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__168_;
       break;
     case 171:
-      if ((atomic_load_explicit(&qword_27FC40EA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EB0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EB8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_576;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__169_;
@@ -7640,24 +7660,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40EB8;
+        v4 = byte_27FC40EB8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__169_;
       break;
     case 172:
-      if ((atomic_load_explicit(&qword_27FC40EC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40ED0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40ED0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_579;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__170_;
@@ -7667,24 +7687,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40ED0;
+        v4 = byte_27FC40ED0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__170_;
       break;
     case 173:
-      if ((atomic_load_explicit(&qword_27FC40ED8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40ED8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EE0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EE8, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_582;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__171_;
@@ -7694,24 +7714,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40EE8;
+        v4 = byte_27FC40EE8;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__171_;
       break;
     case 174:
-      if ((atomic_load_explicit(&qword_27FC40EF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EF0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40EF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40EF8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F00, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F00, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_585;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__172_;
@@ -7721,24 +7741,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F00;
+        v4 = byte_27FC40F00;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__172_;
       break;
     case 175:
-      if ((atomic_load_explicit(&qword_27FC40F08, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F08, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F10, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F10, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F18, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F18, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_588;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__173_;
@@ -7748,29 +7768,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F18;
+        v4 = byte_27FC40F18;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__173_;
       break;
     case 176:
-      if ((atomic_load_explicit(&qword_27FC40F20, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F20, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F28, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F28, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F30, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F30, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F38, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F38, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_592;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__174_;
@@ -7780,24 +7800,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F38;
+        v4 = byte_27FC40F38;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__174_;
       break;
     case 177:
-      if ((atomic_load_explicit(&qword_27FC40F40, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F40, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F48, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F48, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F50, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F50, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_595;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__175_;
@@ -7806,24 +7826,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F50;
+        v4 = byte_27FC40F50;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__175_;
       break;
     case 178:
-      if ((atomic_load_explicit(&qword_27FC40F58, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F58, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F60, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F60, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F68, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F68, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_598;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__176_;
@@ -7833,24 +7853,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F68;
+        v4 = byte_27FC40F68;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__176_;
       break;
     case 179:
-      if ((atomic_load_explicit(&qword_27FC40F70, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F70, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F78, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F78, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F80, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F80, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_601;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__177_;
@@ -7860,24 +7880,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F80;
+        v4 = byte_27FC40F80;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__177_;
       break;
     case 180:
-      if ((atomic_load_explicit(&qword_27FC40F88, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F88, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F90, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F90, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40F98, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40F98, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_604;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__178_;
@@ -7887,24 +7907,24 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40F98;
+        v4 = byte_27FC40F98;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__178_;
       break;
     case 181:
-      if ((atomic_load_explicit(&qword_27FC40FA0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FA0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FA8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FA8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FB0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FB0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_607;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__179_;
@@ -7914,29 +7934,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40FB0;
+        v4 = byte_27FC40FB0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__179_;
       break;
     case 182:
-      if ((atomic_load_explicit(&qword_27FC40FB8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FB8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FC0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FC0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FC8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FC8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FD0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FD0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_611;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__180_;
@@ -7945,29 +7965,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40FD0;
+        v4 = byte_27FC40FD0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__180_;
       break;
     case 183:
-      if ((atomic_load_explicit(&qword_27FC40FD8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FD8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FE0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FE0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FE8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC40FF0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FF0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_615;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__181_;
@@ -7977,29 +7997,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC40FF0;
+        v4 = byte_27FC40FF0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__181_;
       break;
     case 184:
-      if ((atomic_load_explicit(&qword_27FC40FF8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC40FF8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41000, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41000, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41008, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41008, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41010, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41010, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_619;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__182_;
@@ -8008,29 +8028,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41010;
+        v4 = byte_27FC41010;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__182_;
       break;
     case 185:
-      if ((atomic_load_explicit(&qword_27FC41018, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41018, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41020, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41020, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41028, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41028, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41030, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41030, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_623;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__183_;
@@ -8040,29 +8060,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41030;
+        v4 = byte_27FC41030;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__183_;
       break;
     case 186:
-      if ((atomic_load_explicit(&qword_27FC41038, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41038, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41040, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41040, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41048, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41048, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41050, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41050, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_627;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__184_;
@@ -8071,29 +8091,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41050;
+        v4 = byte_27FC41050;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__184_;
       break;
     case 187:
-      if ((atomic_load_explicit(&qword_27FC41058, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41058, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41060, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41060, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41068, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41068, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41070, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41070, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_631;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__185_;
@@ -8103,29 +8123,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41070;
+        v4 = byte_27FC41070;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__185_;
       break;
     case 188:
-      if ((atomic_load_explicit(&qword_27FC41078, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41078, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41080, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41080, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41088, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41088, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41090, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41090, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_635;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__186_;
@@ -8134,29 +8154,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41090;
+        v4 = byte_27FC41090;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__186_;
       break;
     case 189:
-      if ((atomic_load_explicit(&qword_27FC41098, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41098, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410B0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_639;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__187_;
@@ -8166,29 +8186,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC410B0;
+        v4 = byte_27FC410B0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__187_;
       break;
     case 190:
-      if ((atomic_load_explicit(&qword_27FC410B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410D0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_643;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__188_;
@@ -8198,29 +8218,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC410D0;
+        v4 = byte_27FC410D0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__188_;
       break;
     case 191:
-      if ((atomic_load_explicit(&qword_27FC410D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC410F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410F0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_647;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__189_;
@@ -8230,29 +8250,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC410F0;
+        v4 = byte_27FC410F0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__189_;
       break;
     case 192:
-      if ((atomic_load_explicit(&qword_27FC410F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC410F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41100, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41100, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41108, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41108, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41110, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41110, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_651;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__190_;
@@ -8262,29 +8282,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41110;
+        v4 = byte_27FC41110;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__190_;
       break;
     case 193:
-      if ((atomic_load_explicit(&qword_27FC41118, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41118, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41120, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41120, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41128, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41128, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41130, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41130, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_655;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__191_;
@@ -8294,29 +8314,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41130;
+        v4 = byte_27FC41130;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__191_;
       break;
     case 194:
-      if ((atomic_load_explicit(&qword_27FC41138, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41138, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41140, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41140, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41148, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41148, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41150, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41150, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_659;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__192_;
@@ -8326,29 +8346,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41150;
+        v4 = byte_27FC41150;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__192_;
       break;
     case 195:
-      if ((atomic_load_explicit(&qword_27FC41158, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41158, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41160, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41160, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41168, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41168, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41170, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41170, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_663;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__193_;
@@ -8358,29 +8378,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41170;
+        v4 = byte_27FC41170;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__193_;
       break;
     case 196:
-      if ((atomic_load_explicit(&qword_27FC41178, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41178, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41180, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41180, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41188, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41188, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41190, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41190, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_667;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__194_;
@@ -8390,29 +8410,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41190;
+        v4 = byte_27FC41190;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__194_;
       break;
     case 197:
-      if ((atomic_load_explicit(&qword_27FC41198, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41198, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411A0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411A0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411A8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411B0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411B0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_671;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__195_;
@@ -8422,29 +8442,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC411B0;
+        v4 = byte_27FC411B0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__195_;
       break;
     case 198:
-      if ((atomic_load_explicit(&qword_27FC411B8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411B8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411C0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411C0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411C8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411C8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411D0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411D0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_675;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__196_;
@@ -8454,29 +8474,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC411D0;
+        v4 = byte_27FC411D0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__196_;
       break;
     case 199:
-      if ((atomic_load_explicit(&qword_27FC411D8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411D8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411E0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411E0, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411E8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411E8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC411F0, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411F0, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_679;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__197_;
@@ -8486,29 +8506,29 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC411F0;
+        v4 = byte_27FC411F0;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__197_;
       break;
     case 200:
-      if ((atomic_load_explicit(&qword_27FC411F8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC411F8, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41200, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41200, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41208, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41208, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41210, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41210, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_683;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__198_;
@@ -8518,19 +8538,19 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41210;
+        v4 = byte_27FC41210;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__198_;
       break;
     case 201:
-      if ((atomic_load_explicit(&qword_27FC41218, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41218, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if ((atomic_load_explicit(&qword_27FC41220, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41220, memory_order_acquire) & 1) == 0)
       {
         v2 = __cxx_global_array_dtor_685;
         v3 = &_ZZL12getShapeTypeiE12theShapeType__199_;
@@ -8540,19 +8560,19 @@ LABEL_1770:
           goto LABEL_1726;
         }
 
-        v4 = &qword_27FC41220;
+        v4 = byte_27FC41220;
         goto LABEL_1773;
       }
 
       result = &_ZZL12getShapeTypeiE12theShapeType__199_;
       break;
     case 202:
-      if ((atomic_load_explicit(&qword_27FC41228, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_27FC41228, memory_order_acquire) & 1) == 0)
       {
         getShapeType();
       }
 
-      if (atomic_load_explicit(&qword_27FC41230, memory_order_acquire))
+      if (atomic_load_explicit(byte_27FC41230, memory_order_acquire))
       {
         result = &_ZZL12getShapeTypeiE12theShapeType__200_;
       }
@@ -8570,7 +8590,7 @@ LABEL_1726:
 
         else
         {
-          v4 = &qword_27FC41230;
+          v4 = byte_27FC41230;
 LABEL_1773:
           __cxa_atexit(v2, 0, &dword_25D297000);
           __cxa_guard_release(v4);
@@ -8608,17 +8628,17 @@ void EshContainer::addChild(EshContainer *this, EshObject *a2)
   operator new();
 }
 
-void PptEshClientTextBox::~PptEshClientTextBox(PptEshClientTextBox *this)
+void PptEshClientTextBox::~PptEshClientTextBox(PptEshClientTextBox *this, uint64_t a2)
 {
-  EshContainer::~EshContainer(this);
+  EshContainer::~EshContainer(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
-void sub_25D2C76DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D2C76DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CMDrawingContext;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8657,91 +8677,91 @@ unint64_t OCNsEncodingForOcEncoding(UInt32 a1)
   return CFStringConvertEncodingToNSStringEncoding(v2);
 }
 
-void sub_25D2C865C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D2C865C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PBPresentationReaderState;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void PptContainer::~PptContainer(PptContainer *this)
+void PptContainer::~PptContainer(PptContainer *this, uint64_t a2)
 {
-  EshContainer::~EshContainer(this);
+  EshContainer::~EshContainer(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
-void PptEshClientData::~PptEshClientData(PptEshClientData *this)
+void PptEshClientData::~PptEshClientData(PptEshClientData *this, uint64_t a2)
 {
-  EshContainer::~EshContainer(this);
+  EshContainer::~EshContainer(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
-void PptEshShape::~PptEshShape(PptEshShape *this)
+void PptEshShape::~PptEshShape(PptEshShape *this, uint64_t a2)
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 576));
+  PptEshClientContainer::~PptEshClientContainer((this + 576), a2);
   EshContentBase::~EshContentBase(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 576));
+  PptEshClientContainer::~PptEshClientContainer((this + 576), a2);
 
   EshContentBase::~EshContentBase(this);
 }
 
-void PptEshClientContainer::~PptEshClientContainer(PptEshClientContainer *this)
+void PptEshClientContainer::~PptEshClientContainer(PptEshClientContainer *this, uint64_t a2)
 {
   *this = &unk_286ED8D98;
-  PptEshClientContainer::removeChildren(this);
-  v2 = *(this + 1);
-  if (v2)
+  PptEshClientContainer::removeChildren(this, a2);
+  v3 = *(this + 1);
+  if (v3)
   {
-    *(this + 2) = v2;
-    operator delete(v2);
+    *(this + 2) = v3;
+    operator delete(v3);
   }
 }
 
 {
-  PptEshClientContainer::~PptEshClientContainer(this);
+  PptEshClientContainer::~PptEshClientContainer(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
-uint64_t PptEshClientContainer::removeChildren(uint64_t this)
+uint64_t PptEshClientContainer::removeChildren(uint64_t this, uint64_t a2)
 {
-  v1 = this;
-  v2 = *(this + 8);
-  v3 = *(this + 16);
-  if (((v3 - v2) & 0x7FFFFFFF8) != 0)
+  v2 = this;
+  v3 = *(this + 8);
+  v4 = *(this + 16);
+  if (((v4 - v3) & 0x7FFFFFFF8) != 0)
   {
-    v4 = 0;
+    v5 = 0;
     do
     {
-      this = *(v2 + 8 * v4);
+      this = *(v3 + 8 * v5);
       if (this)
       {
         this = MEMORY[0x25F897000](this, 0x1000C408B6DE1C6);
-        v2 = *(v1 + 8);
-        v3 = *(v1 + 16);
+        v3 = *(v2 + 8);
+        v4 = *(v2 + 16);
       }
 
-      if (v4 >= ((v3 - v2) >> 3))
+      if (v5 >= ((v4 - v3) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      *(v2 + 8 * v4++) = 0;
-      v2 = *(v1 + 8);
-      v3 = *(v1 + 16);
+      *(v3 + 8 * v5++) = 0;
+      v3 = *(v2 + 8);
+      v4 = *(v2 + 16);
     }
 
-    while (v4 < ((v3 - v2) >> 3));
+    while (v5 < ((v4 - v3) >> 3));
   }
 
-  *(v1 + 16) = v2;
+  *(v2 + 16) = v3;
   return this;
 }
 
@@ -8831,9 +8851,9 @@ void EshOpt::destroy(EshOpt *this)
   *(this + 4) = v4;
 }
 
-uint64_t *EshOpt::deleteComplexPropertyValue(uint64_t *result, int a2)
+uint64_t *EshOpt::deleteComplexPropertyValue(uint64_t *result, unsigned int a2)
 {
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v4 = a2;
   }
@@ -8849,8 +8869,8 @@ uint64_t *EshOpt::deleteComplexPropertyValue(uint64_t *result, int a2)
     return result;
   }
 
-  v20 = v2;
-  v21 = v3;
+  v19[5] = v2;
+  v19[6] = v3;
   v7 = result;
   v8 = v4 >> 6;
   if (v8 > 25)
@@ -8871,8 +8891,8 @@ uint64_t *EshOpt::deleteComplexPropertyValue(uint64_t *result, int a2)
     {
       case 11:
         v18 = a2;
-        v19 = &v18;
-        v16 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18)[5];
+        v19[0] = &v18;
+        v16 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18, &std::piecewise_construct, v19)[5];
         if (v16)
         {
           CsData::~CsData(v16);
@@ -8882,15 +8902,15 @@ uint64_t *EshOpt::deleteComplexPropertyValue(uint64_t *result, int a2)
         goto LABEL_32;
       case 10:
         v18 = a2;
-        v19 = &v18;
-        v11 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18)[5];
+        v19[0] = &v18;
+        v11 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18, &std::piecewise_construct, v19)[5];
         if (!v11)
         {
 LABEL_32:
           v18 = a2;
-          v19 = &v18;
+          v19[0] = &v18;
 LABEL_26:
-          result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18);
+          result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18, &std::piecewise_construct, v19);
           result[5] = 0;
           return result;
         }
@@ -8898,8 +8918,8 @@ LABEL_26:
         break;
       case 9:
         v18 = a2;
-        v19 = &v18;
-        v11 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18)[5];
+        v19[0] = &v18;
+        v11 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18, &std::piecewise_construct, v19)[5];
         if (!v11)
         {
           goto LABEL_32;
@@ -8918,8 +8938,8 @@ LABEL_26:
   {
 LABEL_21:
     v18 = a2;
-    v19 = &v18;
-    v14 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18)[5];
+    v19[0] = &v18;
+    v14 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18, &std::piecewise_construct, v19)[5];
     if (v14)
     {
       *(v14 + 8) = &unk_286EC63D8;
@@ -8935,7 +8955,7 @@ LABEL_21:
     }
 
     v18 = a2;
-    v19 = &v18;
+    v19[0] = &v18;
     goto LABEL_26;
   }
 
@@ -8973,21 +8993,21 @@ LABEL_19:
   }
 
   v18 = a2;
-  v19 = &v18;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18);
+  v19[0] = &v18;
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((result + 4), &v18, &std::piecewise_construct, v19);
   if ((result[5] & 1) == 0)
   {
     v18 = a2;
-    v19 = &v18;
-    v17 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18)[6];
+    v19[0] = &v18;
+    v17 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18, &std::piecewise_construct, v19)[6];
     if (v17)
     {
       (*(*v17 + 8))(v17);
     }
 
     v18 = a2;
-    v19 = &v18;
-    result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18);
+    v19[0] = &v18;
+    result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v7 + 4), &v18, &std::piecewise_construct, v19);
     *(result + 40) = 0;
     result[6] = 0;
   }
@@ -8995,16 +9015,16 @@ LABEL_19:
   return result;
 }
 
-void PptEshBackground::~PptEshBackground(PptEshBackground *this)
+void PptEshBackground::~PptEshBackground(PptEshBackground *this, uint64_t a2)
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 328));
+  PptEshClientContainer::~PptEshClientContainer((this + 328), a2);
   EshContentBase::~EshContentBase(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  PptEshClientContainer::~PptEshClientContainer((this + 328));
+  PptEshClientContainer::~PptEshClientContainer((this + 328), a2);
 
   EshContentBase::~EshContentBase(this);
 }
@@ -9505,10 +9525,10 @@ void PptObjectFactory::~PptObjectFactory(PptObjectFactory *this)
   this->var1 = 0;
 }
 
-void sub_25D2C9ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D2C9ED8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = OCBReader;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9728,168 +9748,168 @@ void PptPersistPtrIncrAtom::~PptPersistPtrIncrAtom(PptPersistPtrIncrAtom *this)
   }
 }
 
-void SsrwOORootStorage::~SsrwOORootStorage(SsrwOOStorage *this)
+void SsrwOORootStorage::~SsrwOORootStorage(SsrwOOStorage *this, uint64_t a2)
 {
   var0 = this[1].var0;
-  v2 = &this[1];
+  v3 = &this[1];
   if (var0)
   {
-    closeStructuredStorage(v2);
+    closeStructuredStorage(v3, a2);
     this->var0 = 0;
   }
 
-  SsrwOOStorage::~SsrwOOStorage(this);
+  SsrwOOStorage::~SsrwOOStorage(this, a2);
 }
 
-uint64_t closeStructuredStorage(uint64_t **a1)
+uint64_t closeStructuredStorage(uint64_t *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  v2 = *a1;
+  v3 = *a1;
   if (!*a1)
   {
     return 6;
   }
 
-  if (v2[13])
+  if (*(v3 + 104))
   {
-    v6 = 0;
     v7 = 0;
-    if (v2[6] && (FatSectors = closeStorageInternal((v2 + 6)), FatSectors) || (FatSectors = tocWrite(v2[5], v2), FatSectors) || (FatSectors = fatTrimFreeSectorsAtEnd(v2[3], &v6), FatSectors) || (FatSectors = fatMarkFreeChain(v2[3]), FatSectors) || (FatSectors = fatWriteMiniFat(v2[4]), FatSectors) || (FatSectors = fatWriteFatAndXFat(v2[3]), FatSectors) || (FatSectors = headerWrite(*v2, v2[2]), FatSectors) || (FatSectors = fatGetFatSectors(v2[3], &v7, &v6 + 1), FatSectors) || (FatSectors = headerWriteFatSectors(*v2, v7, HIDWORD(v6)), FatSectors) || (FatSectors = headerWriteSectorFiller(v2[2], *v2), FatSectors))
+    v8 = 0;
+    if (*(v3 + 48) && (FatSectors = closeStorageInternal((v3 + 48), a2), FatSectors) || (FatSectors = tocWrite(*(v3 + 40), v3), FatSectors) || (FatSectors = fatTrimFreeSectorsAtEnd(*(v3 + 24), &v7), FatSectors) || (FatSectors = fatMarkFreeChain(*(v3 + 24)), FatSectors) || (FatSectors = fatWriteMiniFat(*(v3 + 32)), FatSectors) || (FatSectors = fatWriteFatAndXFat(*(v3 + 24)), FatSectors) || (FatSectors = headerWrite(*v3, *(v3 + 16)), FatSectors) || (FatSectors = fatGetFatSectors(*(v3 + 24), &v8, &v7 + 1), FatSectors) || (FatSectors = headerWriteFatSectors(*v3, v8, HIDWORD(v7)), FatSectors) || (FatSectors = headerWriteSectorFiller(*(v3 + 16), *v3), FatSectors))
     {
-      v4 = FatSectors;
+      v5 = FatSectors;
     }
 
     else
     {
-      headerGetSectorShift(v2[2]);
-      fatGetLength(v2[3]);
-      SsrwFtruncate(*v2);
-      v4 = 0;
+      headerGetSectorShift(*(v3 + 16));
+      fatGetLength(*(v3 + 24));
+      SsrwFtruncate(*v3);
+      v5 = 0;
     }
 
-    v2 = *a1;
+    v3 = *a1;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  closeStg(v2);
+  closeStg(v3, a2);
   *a1 = 0;
-  return v4;
+  return v5;
 }
 
-void closeStg(char *a1)
+void closeStg(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    v3 = *(a1 + 6);
-    v2 = a1 + 48;
-    if (v3)
+    v4 = a1[6];
+    v3 = (a1 + 6);
+    if (v4)
     {
-      closeStorageInternal(v2);
+      closeStorageInternal(v3, a2);
     }
 
-    v4 = *a1;
+    v5 = *a1;
     if (*a1)
     {
-      if (a1[8])
+      if (*(a1 + 8))
       {
-        SsrwFclose(v4);
+        SsrwFclose(v5);
       }
 
       else
       {
-        SsrwDisconnect(v4);
+        SsrwDisconnect(v5);
       }
     }
 
-    v5 = *(a1 + 10);
-    if (v5)
-    {
-      free(v5);
-    }
-
-    if (*(a1 + 4))
-    {
-      fatDestroy(a1 + 4);
-    }
-
-    v6 = *(a1 + 8);
+    v6 = a1[10];
     if (v6)
     {
       free(v6);
     }
 
-    if (*(a1 + 3))
+    if (a1[4])
     {
-      fatDestroy(a1 + 3);
+      fatDestroy(a1 + 4);
     }
 
-    v7 = *(a1 + 2);
+    v7 = a1[8];
     if (v7)
     {
       free(v7);
     }
 
-    if (*(a1 + 5))
+    if (a1[3])
+    {
+      fatDestroy(a1 + 3);
+    }
+
+    v8 = a1[2];
+    if (v8)
+    {
+      free(v8);
+    }
+
+    if (a1[5])
     {
       tocDestroy(a1 + 5);
     }
 
-    v8 = *(a1 + 12);
-    if (v8)
+    v9 = a1[12];
+    if (v9)
     {
-      free(v8);
+      free(v9);
     }
 
     free(a1);
   }
 }
 
-uint64_t closeStorageInternal(uint64_t a1)
+uint64_t closeStorageInternal(uint64_t **a1, uint64_t a2)
 {
-  v13 = 2;
-  v11 = 0;
+  v15 = 2;
+  v13 = 0;
+  v14 = 0;
   v12 = 0;
-  v10 = 0;
   if (!a1)
   {
     return 6;
   }
 
-  v2 = *a1;
-  if (!v2)
+  v3 = *a1;
+  if (!v3)
   {
     return 6;
   }
 
-  result = documentPropertiesWrite(v2);
+  result = documentPropertiesWrite(v3);
   if (result)
   {
     return result;
   }
 
-  v4 = openListItemCount(*(*a1 + 24));
-  if (!v4)
+  v5 = openListItemCount((*a1)[3]);
+  if (!v5)
   {
 LABEL_13:
-    v6 = *a1;
-    if ((*(*a1 + 32) - 1) > 1)
+    v8 = *a1;
+    if ((*(*a1 + 8) - 1) > 1)
     {
 LABEL_17:
-      v9 = v6[2];
-      if (!v9)
+      v11 = v8[2];
+      if (!v11)
       {
         return storageDestroy(a1);
       }
 
-      result = storageRemoveOpenChild(v9, 1, v6);
+      result = storageRemoveOpenChild(v11, 1, v8);
       if (!result)
       {
         return storageDestroy(a1);
@@ -9898,8 +9918,8 @@ LABEL_17:
       return result;
     }
 
-    TOC = rootStorageGetTOC(*v6);
-    EntryAtIndex = tocGetEntryAtIndex(TOC, *(*a1 + 8));
+    TOC = rootStorageGetTOC(*v8);
+    EntryAtIndex = tocGetEntryAtIndex(TOC, *(*a1 + 2));
     if (EntryAtIndex)
     {
       result = directorySetCurrentModificationTime(EntryAtIndex);
@@ -9908,43 +9928,43 @@ LABEL_17:
         return result;
       }
 
-      v6 = *a1;
+      v8 = *a1;
       goto LABEL_17;
     }
 
     return 6;
   }
 
-  v5 = v4 - 1;
+  v6 = v5 - 1;
   while (1)
   {
-    result = openListGetItem(*(*a1 + 24), v5, &v13, &v12);
+    result = openListGetItem((*a1)[3], v6, &v15, &v14);
     if (result)
     {
       return result;
     }
 
-    if (v13 == 1)
+    if (v15 == 1)
     {
-      v10 = v12;
-      result = closeStorageInternal(&v10);
+      v12 = v14;
+      result = closeStorageInternal(&v12, v7);
       if (result)
       {
         return result;
       }
     }
 
-    else if (v13 == 2)
+    else if (v15 == 2)
     {
-      v11 = v12;
-      result = closeStream(&v11);
+      v13 = v14;
+      result = closeStream(&v13);
       if (result)
       {
         return result;
       }
     }
 
-    if (--v5 == -1)
+    if (--v6 == -1)
     {
       goto LABEL_13;
     }

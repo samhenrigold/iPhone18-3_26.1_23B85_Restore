@@ -676,7 +676,6 @@ void __43__AKConfiguration__clearGlobalConfigValues__block_invoke(id *a1)
   MEMORY[0x1E69E5920](v5);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(v21, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)overrideForKey:(id)key

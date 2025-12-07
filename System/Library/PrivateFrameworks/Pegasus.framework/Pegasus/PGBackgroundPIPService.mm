@@ -74,7 +74,7 @@ void __30__PGBackgroundPIPService_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -85,36 +85,35 @@ void __30__PGBackgroundPIPService_init__block_invoke(uint64_t a1, void *a2)
 
   if (v13)
   {
-    v14 = [[_PGBackgroundPIPServiceConnectionTarget alloc] initWithConnection:connectionCopy delegate:self];
-    v15 = PGLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [[_PGBackgroundPIPServiceConnectionTarget alloc] initWithConnection:connectionCopy delegate:self];
+    v16 = PGLogCommon(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v24 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
-      v25 = 2114;
-      v26 = v14;
-      _os_log_impl(&dword_1BB282000, v15, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+      v25 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
+      v26 = 2114;
+      v27 = v15;
+      _os_log_impl(&dword_1BB282000, v16, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_lock);
-    [(NSMutableSet *)self->_lock_targets addObject:v14];
+    [(NSMutableSet *)self->_lock_targets addObject:v15];
     os_unfair_lock_unlock(&self->_lock);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___block_invoke;
-    v19[3] = &unk_1E7F336D8;
-    v16 = v14;
-    v20 = v16;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___block_invoke;
+    v20[3] = &unk_1E7F336D8;
+    v17 = v15;
+    v21 = v17;
     selfCopy = self;
-    [(_PGBackgroundPIPServiceConnectionTarget *)connectionCopy configureConnection:v19];
-    v17 = PGLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = PGLogCommon([(_PGBackgroundPIPServiceConnectionTarget *)connectionCopy configureConnection:v20]);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v24 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
-      v25 = 2114;
-      v26 = connectionCopy;
-      _os_log_impl(&dword_1BB282000, v17, OS_LOG_TYPE_DEFAULT, "%s Activating connection %{public}@", buf, 0x16u);
+      v25 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
+      v26 = 2114;
+      v27 = connectionCopy;
+      _os_log_impl(&dword_1BB282000, v18, OS_LOG_TYPE_DEFAULT, "%s Activating connection %{public}@", buf, 0x16u);
     }
 
     [(_PGBackgroundPIPServiceConnectionTarget *)connectionCopy activate];
@@ -122,14 +121,14 @@ void __30__PGBackgroundPIPService_init__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v18 = PGLogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = PGLogCommon(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v24 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
-      v25 = 2114;
-      v26 = connectionCopy;
-      _os_log_impl(&dword_1BB282000, v18, OS_LOG_TYPE_DEFAULT, "%s Invalidating unvalidated client %{public}@", buf, 0x16u);
+      v25 = "[PGBackgroundPIPService listener:didReceiveConnection:withContext:]";
+      v26 = 2114;
+      v27 = connectionCopy;
+      _os_log_impl(&dword_1BB282000, v19, OS_LOG_TYPE_DEFAULT, "%s Invalidating unvalidated client %{public}@", buf, 0x16u);
     }
 
     [(_PGBackgroundPIPServiceConnectionTarget *)connectionCopy invalidate];
@@ -167,7 +166,7 @@ void __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___bl
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -185,7 +184,7 @@ void __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___bl
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -205,7 +204,7 @@ void __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___bl
 {
   v15 = *MEMORY[0x1E69E9840];
   targetCopy = target;
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(targetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -222,7 +221,7 @@ void __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___bl
   if (activitySessionIdentifier)
   {
     v7 = [(NSMutableDictionary *)self->_lock_targetsByActivitySessionIdentifier objectForKeyedSubscript:activitySessionIdentifier];
-    v8 = PGLogCommon();
+    v8 = PGLogCommon(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -259,7 +258,7 @@ void __68__PGBackgroundPIPService_listener_didReceiveConnection_withContext___bl
 
 void __51__PGBackgroundPIPService__handleInvalidatedTarget___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 24) containsObject:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
@@ -268,33 +267,33 @@ void __51__PGBackgroundPIPService__handleInvalidatedTarget___block_invoke(uint64
     v4 = *(v3 + 64);
     *(v3 + 64) = v2;
 
-    v5 = PGLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PGLogCommon(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v8 = 136315394;
-      v9 = "[PGBackgroundPIPService _handleInvalidatedTarget:]_block_invoke";
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_1BB282000, v5, OS_LOG_TYPE_DEFAULT, "%s BackgroundPIP: Revoking authorization for identifier %{public}@", &v8, 0x16u);
+      v7 = *(a1 + 40);
+      v9 = 136315394;
+      v10 = "[PGBackgroundPIPService _handleInvalidatedTarget:]_block_invoke";
+      v11 = 2114;
+      v12 = v7;
+      _os_log_impl(&dword_1BB282000, v6, OS_LOG_TYPE_DEFAULT, "%s BackgroundPIP: Revoking authorization for identifier %{public}@", &v9, 0x16u);
     }
 
-    v7 = [*(a1 + 32) delegate];
-    [v7 backgroundPIPService:*(a1 + 32) didRevokeBackgroundPIPAuthorizationForActivitySessionWithIdentifier:*(a1 + 40)];
+    v8 = [*(a1 + 32) delegate];
+    [v8 backgroundPIPService:*(a1 + 32) didRevokeBackgroundPIPAuthorizationForActivitySessionWithIdentifier:*(a1 + 40)];
   }
 }
 
 - (void)backgroundPIPTargetRequestsAuthorization:(id)authorization
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(authorizationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[PGBackgroundPIPService backgroundPIPTargetRequestsAuthorization:]";
-    v13 = 2114;
-    v14 = authorizationCopy;
+    v13 = "[PGBackgroundPIPService backgroundPIPTargetRequestsAuthorization:]";
+    v14 = 2114;
+    v15 = authorizationCopy;
     _os_log_impl(&dword_1BB282000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
   }
 
@@ -309,27 +308,27 @@ void __51__PGBackgroundPIPService__handleInvalidatedTarget___block_invoke(uint64
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  if (![v7 isConnectionActive] || objc_msgSend(v7, "state") == 4 || objc_msgSend(v7, "state") == 5)
+  if (![v7 isConnectionActive] || objc_msgSend(v7, "state") == 4 || (v8 = objc_msgSend(v7, "state"), v8 == 5))
   {
     [v7 invalidate];
 LABEL_9:
-    v9 = authorizationCopy;
-    v10 = activitySessionIdentifier;
+    v10 = authorizationCopy;
+    v11 = activitySessionIdentifier;
     BSDispatchMain();
 
     goto LABEL_10;
   }
 
-  v8 = PGLogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PGLogCommon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v12 = activitySessionIdentifier;
-    v13 = 2114;
-    v14 = authorizationCopy;
-    v15 = 2114;
-    v16 = v7;
-    _os_log_impl(&dword_1BB282000, v8, OS_LOG_TYPE_DEFAULT, "Refusing authorization for %{public}@ because an authorization request (%{public}@) for this activitySessionIdentifier already exists %{public}@ and has not yet been revoked.", buf, 0x20u);
+    v13 = activitySessionIdentifier;
+    v14 = 2114;
+    v15 = authorizationCopy;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_1BB282000, v9, OS_LOG_TYPE_DEFAULT, "Refusing authorization for %{public}@ because an authorization request (%{public}@) for this activitySessionIdentifier already exists %{public}@ and has not yet been revoked.", buf, 0x20u);
   }
 
   [authorizationCopy transitionToStateIfPossible:4];
@@ -338,7 +337,7 @@ LABEL_10:
 
 void __67__PGBackgroundPIPService_backgroundPIPTargetRequestsAuthorization___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) activitySessionIdentifier];
@@ -347,37 +346,36 @@ void __67__PGBackgroundPIPService_backgroundPIPTargetRequestsAuthorization___blo
 
   if (v3)
   {
-    [*(*(a1 + 32) + 24) addObject:*(a1 + 48)];
-    v6 = PGLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PGLogCommon([*(*(a1 + 32) + 24) addObject:*(a1 + 48)]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 48);
-      v14 = 136315394;
-      v15 = "[PGBackgroundPIPService backgroundPIPTargetRequestsAuthorization:]_block_invoke";
-      v16 = 2114;
-      v17 = v7;
-      _os_log_impl(&dword_1BB282000, v6, OS_LOG_TYPE_DEFAULT, "%s BackgroundPIP: Authorizing identifier %{public}@", &v14, 0x16u);
+      v8 = *(a1 + 48);
+      v15 = 136315394;
+      v16 = "[PGBackgroundPIPService backgroundPIPTargetRequestsAuthorization:]_block_invoke";
+      v17 = 2114;
+      v18 = v8;
+      _os_log_impl(&dword_1BB282000, v7, OS_LOG_TYPE_DEFAULT, "%s BackgroundPIP: Authorizing identifier %{public}@", &v15, 0x16u);
     }
 
-    v8 = [*(*(a1 + 32) + 24) copy];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 64);
-    *(v9 + 64) = v8;
+    v9 = [*(*(a1 + 32) + 24) copy];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 64);
+    *(v10 + 64) = v9;
 
     [*(a1 + 40) transitionToStateIfPossible:2];
-    v11 = [*(a1 + 32) delegate];
-    [v11 backgroundPIPService:*(a1 + 32) didGrantBackgroundPIPAuthorizationForActivitySessionWithIdentifier:*(a1 + 48)];
+    v12 = [*(a1 + 32) delegate];
+    [v12 backgroundPIPService:*(a1 + 32) didGrantBackgroundPIPAuthorizationForActivitySessionWithIdentifier:*(a1 + 48)];
   }
 
   else
   {
-    v12 = PGLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PGLogCommon(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 48);
-      v14 = 138543362;
-      v15 = v13;
-      _os_log_impl(&dword_1BB282000, v12, OS_LOG_TYPE_DEFAULT, "Refusing authorization for %{public}@ because delegate didn't allow it.", &v14, 0xCu);
+      v14 = *(a1 + 48);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_1BB282000, v13, OS_LOG_TYPE_DEFAULT, "Refusing authorization for %{public}@ because delegate didn't allow it.", &v15, 0xCu);
     }
 
     [*(a1 + 40) transitionToStateIfPossible:4];

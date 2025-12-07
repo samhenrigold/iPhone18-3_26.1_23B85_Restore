@@ -34,17 +34,17 @@
 
   shadowLayer = self->_shadowLayer;
   layer = [(_SBHShadowView *)self layer];
-  [layer bounds];
+  objc_msgSend_bounds(layer);
   [(CALayer *)shadowLayer setFrame:?];
 
   backdropCaptureLayer = self->_backdropCaptureLayer;
   layer2 = [(_SBHShadowView *)self layer];
-  [layer2 bounds];
+  objc_msgSend_bounds(layer2);
   [(CABackdropLayer *)backdropCaptureLayer setFrame:?];
 
   stackBackdropCaptureLayer = self->_stackBackdropCaptureLayer;
   layer3 = [(_SBHShadowView *)self layer];
-  [layer3 bounds];
+  objc_msgSend_bounds(layer3);
   [(CABackdropLayer *)stackBackdropCaptureLayer setFrame:?];
 }
 

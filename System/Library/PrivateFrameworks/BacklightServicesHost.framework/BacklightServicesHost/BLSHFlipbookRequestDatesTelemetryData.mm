@@ -30,16 +30,15 @@
 - (id)description
 {
   v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  timestamp = self->_timestamp;
-  v5 = BLSShortLoggingStringForContinuousMachTime();
-  v6 = [v3 appendObject:v5 withName:@"timestamp"];
+  v4 = BLSShortLoggingStringForContinuousMachTime();
+  v5 = [v3 appendObject:v4 withName:@"timestamp"];
 
-  v7 = [v3 appendTimeInterval:@"shortestInterval" withName:1 decomposeUnits:self->_shortestInterval];
-  v8 = [v3 appendTimeInterval:@"averageInterval" withName:1 decomposeUnits:self->_averageInterval];
-  v9 = [v3 appendTimeInterval:@"longestInterval" withName:1 decomposeUnits:self->_longestInterval];
-  v10 = [v3 appendTimeInterval:@"completionDuration" withName:1 decomposeUnits:self->_completionDuration];
-  v11 = [v3 appendBool:self->_didReset withName:@"didReset"];
-  v12 = [v3 appendUnsignedInteger:self->_timedOutCount withName:@"timedOutCount"];
+  v6 = [v3 appendTimeInterval:@"shortestInterval" withName:1 decomposeUnits:self->_shortestInterval];
+  v7 = [v3 appendTimeInterval:@"averageInterval" withName:1 decomposeUnits:self->_averageInterval];
+  v8 = [v3 appendTimeInterval:@"longestInterval" withName:1 decomposeUnits:self->_longestInterval];
+  v9 = [v3 appendTimeInterval:@"completionDuration" withName:1 decomposeUnits:self->_completionDuration];
+  v10 = [v3 appendBool:self->_didReset withName:@"didReset"];
+  v11 = [v3 appendUnsignedInteger:self->_timedOutCount withName:@"timedOutCount"];
   [v3 appendArraySection:self->_environmentIdentifiers withName:@"environments" skipIfEmpty:1];
   build = [v3 build];
 

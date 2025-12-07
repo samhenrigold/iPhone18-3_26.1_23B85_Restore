@@ -26,7 +26,7 @@ void smb2_smb_parse_create_str(void *a1, int a2, UInt8 **a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_create_str_cold_4(&size);
+      smb2_smb_parse_create_str_cold_4();
     }
 
     return;
@@ -91,7 +91,7 @@ LABEL_25:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    smb2_smb_parse_create_str_cold_3(&size);
+    smb2_smb_parse_create_str_cold_3();
   }
 }
 
@@ -114,16 +114,16 @@ uint64_t OUTLINED_FUNCTION_5@<X0>(uint64_t result@<X0>, int a2@<W1>, int a3@<W2>
 uint64_t piston_hexdump(const char *a1, const char *a2, unsigned __int8 *a3, uint64_t a4)
 {
   v4 = a4;
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   result = printf("%s: %s %p length %ld \n", a1, a2, a3, a4);
-  v23 = a3;
+  v19 = a3;
   if (a3)
   {
     if (v4 >= 1)
     {
       v7 = 0;
       v8 = v4 & 0x7FFFFFFF;
-      v22 = v4;
+      v18 = v4;
       do
       {
         v9 = snprintf(__str, 0x200uLL, "%6.6x - ", v7);
@@ -134,59 +134,55 @@ uint64_t piston_hexdump(const char *a1, const char *a2, unsigned __int8 *a3, uin
         {
           if (v7 + v10 >= v8)
           {
-            v14 = snprintf(v11, v12, "   ");
+            v13 = snprintf(v11, v12, "   ");
           }
 
           else
           {
-            v13 = v23[v7 + v10];
-            v14 = snprintf(v11, v12, "%2.2x ");
+            v13 = snprintf(v11, v12, "%2.2x ");
           }
 
-          v11 += v14;
+          v11 += v13;
           v12 = (&__str[v12] - v11);
           ++v10;
         }
 
         while (v10 != 16);
-        v15 = 0;
-        v16 = &v11[snprintf(v11, v12, " ")];
-        v17 = (&__str[v12] - v16);
-        v18 = &v23[v7];
+        v14 = 0;
+        v15 = &v11[snprintf(v11, v12, " ")];
+        v16 = (&__str[v12] - v15);
         do
         {
-          if (v7 + v15 < v8)
+          if (v7 + v14 < v8)
           {
-            if (v18[v15] - 26 > 0x63)
+            if (v19[v7 + v14] - 26 > 0x63)
             {
-              v19 = snprintf(v16, v17, ".");
+              v17 = snprintf(v15, v16, ".");
             }
 
             else
             {
-              v21 = v18[v15];
-              v19 = snprintf(v16, v17, "%c");
+              v17 = snprintf(v15, v16, "%c");
             }
 
-            v16 += v19;
-            v17 = (&__str[v17] - v16);
+            v15 += v17;
+            v16 = (&__str[v16] - v15);
           }
 
-          ++v15;
+          ++v14;
         }
 
-        while (v15 != 16);
+        while (v14 != 16);
         printf("%s \n", __str);
         v7 += 16;
       }
 
-      while (v7 < v22);
+      while (v7 < v18);
     }
 
-    result = puts(" ");
+    return puts(" ");
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -234,7 +230,7 @@ uint64_t smb2_smb_lease_break_ack(void *a1, unsigned int *a2, void *a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_lease_break_ack_cold_2(a2);
+      smb2_smb_lease_break_ack_cold_2();
       if (v6)
       {
         goto LABEL_9;
@@ -391,13 +387,13 @@ LABEL_5:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        __smb2_smb_lease_break_ack_block_invoke_cold_3(v7);
+        __smb2_smb_lease_break_ack_block_invoke_cold_3();
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __smb2_smb_lease_break_ack_block_invoke_cold_2(&v15 + 1);
+      __smb2_smb_lease_break_ack_block_invoke_cold_2();
     }
 
     a2 = 72;
@@ -572,7 +568,7 @@ LABEL_17:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_lease_break_cold_2(&v37 + 1);
+      smb2_smb_parse_lease_break_cold_2();
     }
 
     [(SMB_rq *)v10 smb_rq_done];
@@ -779,7 +775,7 @@ void __smb2_smb_lock_block_invoke(uint64_t a1, uint64_t uint16le)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __smb2_smb_lock_block_invoke_cold_2(&v8 + 1);
+          __smb2_smb_lock_block_invoke_cold_2();
         }
 
         uint16le = 72;
@@ -811,20 +807,20 @@ void piston_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *
 
 uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, void *a8, uint64_t a9, SMB_rq **a10, void *a11)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v18 = a1;
   v19 = a2;
-  v66 = a5;
-  v68 = a6;
-  v67 = a7;
-  v65 = a8;
+  v65 = a5;
+  v67 = a6;
+  v66 = a7;
+  v64 = a8;
   v20 = a11;
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x2020000000;
-  v84 = 0;
-  __n = 0;
   v80 = 0;
+  v81 = &v80;
+  v82 = 0x2020000000;
+  v83 = 0;
+  __n = 0;
+  v79 = 0;
   v21 = v18;
   v22 = v21;
   if (v19)
@@ -891,16 +887,16 @@ uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, 
     goto LABEL_156;
   }
 
-  v78 = 0;
-  v30 = smb2_rq_alloc(11, v24, v25, 0, v23, &v78);
-  v31 = v78;
+  v77 = 0;
+  v30 = smb2_rq_alloc(11, v24, v25, 0, v23, &v77);
+  v31 = v77;
   v32 = v31;
   if (!v30)
   {
     v33 = [(SMB_rq *)v31 smb_rq_getrequest];
     mb_put_uint16le(v33, 57);
     mb_put_uint16le(v33, 0);
-    v64 = (a4 + 4);
+    v63 = (a4 + 4);
     mb_put_uint32le(v33, *(a4 + 4));
     v34 = *(a4 + 4);
     if (v34 == 393620 || v34 == 1311236 || v34 == 1114136 || a10)
@@ -917,8 +913,8 @@ uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, 
     }
 
     mb_put_uint64le(v33, v35);
-    v36 = *v64;
-    if (*v64 > 1163286)
+    v36 = *v63;
+    if (*v63 > 1163286)
     {
       if (v36 > 1311235)
       {
@@ -954,19 +950,19 @@ uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, 
 
         if (v36 == 1327346)
         {
-          if (v68)
+          if (v67)
           {
-            v40 = [v68 length];
+            v40 = [v67 length];
             mb_put_uint32le(v33, 120);
             mb_put_uint32le(v33, v40);
             mb_put_uint32le(v33, 0);
             mb_put_uint32le(v33, 0);
             mb_put_uint32le(v33, 0);
-            mb_put_uint32le(v33, [v67 length]);
+            mb_put_uint32le(v33, [v66 length]);
             mb_put_uint32le(v33, 1);
             mb_put_uint32le(v33, 0);
-            v41 = v68;
-            mb_put_mem(v33, [v68 bytes], v40, 0);
+            v41 = v67;
+            mb_put_mem(v33, [v67 bytes], v40, 0);
             if ((*([v23 getSessionPtr] + 560) & 0x40) != 0)
             {
               [(SMB_rq *)v32 smb_rq_set_srflags:512];
@@ -993,20 +989,20 @@ uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, 
 
       if (v36 == 1163287)
       {
-        if (v68 && v67)
+        if (v67 && v66)
         {
-          if ([v68 length])
+          if ([v67 length])
           {
             mb_put_uint32le(v33, 120);
-            mb_put_uint32le(v33, [v68 length]);
-            mb_put_uint32le(v33, 0);
-            mb_put_uint32le(v33, 0);
-            mb_put_uint32le(v33, 0);
             mb_put_uint32le(v33, [v67 length]);
+            mb_put_uint32le(v33, 0);
+            mb_put_uint32le(v33, 0);
+            mb_put_uint32le(v33, 0);
+            mb_put_uint32le(v33, [v66 length]);
             mb_put_uint32le(v33, 1);
             mb_put_uint32le(v33, 0);
-            v44 = v68;
-            mb_put_mem(v33, [v68 bytes], objc_msgSend(v68, "length"), 0);
+            v44 = v67;
+            mb_put_mem(v33, [v67 bytes], objc_msgSend(v67, "length"), 0);
             goto LABEL_74;
           }
 
@@ -1042,7 +1038,7 @@ uint64_t smb2_smb_ioctl(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, 
 LABEL_84:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb2_smb_ioctl_cold_15(v64);
+          smb2_smb_ioctl_cold_15();
         }
 
         if (!v32)
@@ -1053,7 +1049,7 @@ LABEL_84:
         goto LABEL_140;
       }
 
-      if (!v67)
+      if (!v66)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -1073,7 +1069,7 @@ LABEL_84:
       mb_put_uint32le(v33, 0);
       mb_put_uint32le(v33, 0);
       mb_put_uint32le(v33, 0);
-      v38 = [v67 length];
+      v38 = [v66 length];
     }
 
     else
@@ -1082,7 +1078,7 @@ LABEL_84:
       {
         if (v36 == 393620)
         {
-          if (!v66 || !v67)
+          if (!v65 || !v66)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
@@ -1097,14 +1093,14 @@ LABEL_84:
             goto LABEL_147;
           }
 
-          cstring_len = smb_get_cstring_len(v66, &__n + 1);
+          cstring_len = smb_get_cstring_len(v65, &__n + 1);
           v43 = HIDWORD(__n);
           mb_put_uint32le(v33, 120);
           mb_put_uint32le(v33, v43 + 4);
           mb_put_uint32le(v33, 0);
           mb_put_uint32le(v33, 0);
           mb_put_uint32le(v33, 0);
-          mb_put_uint32le(v33, [v67 length]);
+          mb_put_uint32le(v33, [v66 length]);
           mb_put_uint32le(v33, 1);
           mb_put_uint32le(v33, 0);
           mb_put_uint16le(v33, *(a4 + 8));
@@ -1153,9 +1149,9 @@ LABEL_148:
 
         if (v36 == 589988)
         {
-          if (v66)
+          if (v65)
           {
-            v37 = smb_get_cstring_len(v66, &__n);
+            v37 = smb_get_cstring_len(v65, &__n);
             if ((__n - 32761) <= 0xFFFF8007)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1172,13 +1168,13 @@ LABEL_148:
             }
 
             v51 = v37;
-            v80 = 2 * __n + 2;
-            v52 = malloc_type_malloc(v80, 0xC0223181uLL);
+            v79 = 2 * __n + 2;
+            v52 = malloc_type_malloc(v79, 0xC0223181uLL);
             v53 = v52;
             if (v52)
             {
-              bzero(v52, v80);
-              v30 = smb_convert_path_to_network(v51, __n, v53, &v80, 92, 32, 1);
+              bzero(v52, v79);
+              v30 = smb_convert_path_to_network(v51, __n, v53, &v79, 92, 32, 1);
               if (v30)
               {
                 free(v53);
@@ -1196,10 +1192,10 @@ LABEL_148:
               }
 
               [(SMB_rq *)v32 smb_rq_set_extflag:8];
-              v61 = v80;
+              v60 = v79;
               mb_put_uint32le(v33, 120);
-              LODWORD(__src) = 2 * v61 + 12;
-              mb_put_uint32le(v33, (2 * v61 + 12) + 8);
+              LODWORD(__src) = 2 * v60 + 12;
+              mb_put_uint32le(v33, (2 * v60 + 12) + 8);
               mb_put_uint32le(v33, 0);
               mb_put_uint32le(v33, 0);
               mb_put_uint32le(v33, 0);
@@ -1210,12 +1206,12 @@ LABEL_148:
               mb_put_uint16le(v33, __src);
               mb_put_uint16le(v33, 0);
               mb_put_uint16le(v33, 0);
-              mb_put_uint16le(v33, v61);
-              mb_put_uint16le(v33, v61);
-              mb_put_uint16le(v33, v61);
+              mb_put_uint16le(v33, v60);
+              mb_put_uint16le(v33, v60);
+              mb_put_uint16le(v33, v60);
               mb_put_uint32le(v33, *v53 != 92);
-              mb_put_mem(v33, v53, v61, 0);
-              mb_put_mem(v33, v53, v61, 0);
+              mb_put_mem(v33, v53, v60, 0);
+              mb_put_mem(v33, v53, v60, 0);
               free(v53);
 LABEL_74:
               if (a10)
@@ -1229,22 +1225,22 @@ LABEL_74:
 
               else if (v20)
               {
-                v69[0] = MEMORY[0x277D85DD0];
-                v69[1] = 3221225472;
-                v69[2] = __smb2_smb_ioctl_block_invoke;
-                v69[3] = &unk_279B4F718;
+                v68[0] = MEMORY[0x277D85DD0];
+                v68[1] = 3221225472;
+                v68[2] = __smb2_smb_ioctl_block_invoke;
+                v68[3] = &unk_279B4F718;
                 v48 = v20;
-                v75 = v48;
-                v77 = a4;
+                v74 = v48;
+                v76 = a4;
                 v32 = v32;
-                v70 = v32;
-                v76 = &v81;
+                v69 = v32;
+                v75 = &v80;
                 v23 = v23;
-                v71 = v23;
-                v72 = v66;
-                v73 = v68;
-                v74 = v67;
-                v30 = smb_rq_simple_block(v23, v32, v69);
+                v70 = v23;
+                v71 = v65;
+                v72 = v67;
+                v73 = v66;
+                v30 = smb_rq_simple_block(v23, v32, v68);
                 if (v30)
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1267,11 +1263,11 @@ LABEL_74:
                 *(a4 + 12) = [(SMB_rq *)v32 sr_ntstatus];
                 if (v30)
                 {
-                  if (*v64 == 1327346 && v30 == 22)
+                  if (*v63 == 1327346 && v30 == 22)
                   {
                     v50 = [(SMB_rq *)v32 smb_rq_getreply];
-                    v82[3] = v50;
-                    smb2_smb_parse_ioctl_internal(v23, v50, a4, v66, v67);
+                    v81[3] = v50;
+                    smb2_smb_parse_ioctl_internal(v23, v50, a4, v65, v66);
                     v30 = 22;
                   }
 
@@ -1289,8 +1285,8 @@ LABEL_74:
                 else
                 {
                   v56 = [(SMB_rq *)v32 smb_rq_getreply];
-                  v82[3] = v56;
-                  v30 = smb2_smb_parse_ioctl_internal(v23, v56, a4, v66, v67);
+                  v81[3] = v56;
+                  v30 = smb2_smb_parse_ioctl_internal(v23, v56, a4, v65, v66);
                 }
 
                 [(SMB_rq *)v32 smb_rq_done];
@@ -1334,7 +1330,7 @@ LABEL_162:
       {
         if (v36 == 1114136)
         {
-          if (!v65)
+          if (!v64)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
@@ -1349,7 +1345,7 @@ LABEL_162:
             goto LABEL_147;
           }
 
-          v39 = smb_get_cstring_len(v65, &__n);
+          v39 = smb_get_cstring_len(v64, &__n);
           if (!v39)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1367,14 +1363,14 @@ LABEL_162:
 
           if ((__n - 32761) > 0xFFFF8007)
           {
-            v80 = 2 * __n + 2;
-            v54 = malloc_type_malloc(v80, 0xDC9DB7BCuLL);
+            v79 = 2 * __n + 2;
+            v54 = malloc_type_malloc(v79, 0xDC9DB7BCuLL);
             __src = v54;
             v55 = v54;
             if (v54)
             {
-              bzero(v54, v80);
-              v30 = smb_convert_path_to_network(v39, __n, v55, &v80, 92, 32, 1);
+              bzero(v54, v79);
+              v30 = smb_convert_path_to_network(v39, __n, v55, &v79, 92, 32, 1);
               if (v30)
               {
                 free(__src);
@@ -1391,9 +1387,9 @@ LABEL_162:
                 goto LABEL_156;
               }
 
-              v62 = v80;
+              v61 = v79;
               mb_put_uint32le(v33, 120);
-              mb_put_uint32le(v33, v62 + 14);
+              mb_put_uint32le(v33, v61 + 14);
               mb_put_uint32le(v33, 0);
               mb_put_uint32le(v33, 0);
               mb_put_uint32le(v33, 0);
@@ -1401,10 +1397,10 @@ LABEL_162:
               mb_put_uint32le(v33, 1);
               mb_put_uint32le(v33, 0);
               mb_put_uint64le(v33, a9);
-              mb_put_uint32le(v33, v80);
+              mb_put_uint32le(v33, v79);
               mb_put_uint8(v33, a9 != 0);
               mb_put_uint8(v33, 0);
-              v30 = mb_put_mem(v33, __src, v80, 0);
+              v30 = mb_put_mem(v33, __src, v79, 0);
               free(__src);
               if (v30)
               {
@@ -1457,7 +1453,7 @@ LABEL_141:
         goto LABEL_84;
       }
 
-      if (!v66)
+      if (!v65)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -1499,8 +1495,7 @@ LABEL_170:
 
 LABEL_156:
 
-  _Block_object_dispose(&v81, 8);
-  v59 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v80, 8);
   return v30;
 }
 
@@ -1509,9 +1504,9 @@ void piston_validate_negotiate(void *a1, uint64_t a2, uint64_t a3, void *a4)
   v7 = a1;
   v8 = a4;
   v23 = 0;
-  v24[0] = &v23;
-  v24[1] = 0x2020000000;
-  v25 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v9 = [v7 getSessionPtr];
   v10 = v9;
   if (!v9)
@@ -1521,10 +1516,10 @@ void piston_validate_negotiate(void *a1, uint64_t a2, uint64_t a3, void *a4)
       piston_validate_negotiate_cold_4();
     }
 
-    v13 = v24[0];
+    v13 = v24;
     v14 = 22;
 LABEL_11:
-    *(v13 + 24) = v14;
+    *(v13 + 6) = v14;
     if (!v8)
     {
       goto LABEL_19;
@@ -1536,7 +1531,7 @@ LABEL_11:
   if ((*(v9 + 552) & 0xC07000) != 0x1000)
   {
     v14 = 0;
-    *(v24[0] + 24) = 0;
+    *(v24 + 6) = 0;
     if (!v8)
     {
       goto LABEL_19;
@@ -1557,10 +1552,10 @@ LABEL_11:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        piston_validate_negotiate_cold_2((v10 + 194));
+        piston_validate_negotiate_cold_2();
       }
 
-      v13 = v24[0];
+      v13 = v24;
       v14 = 12;
       goto LABEL_11;
     }
@@ -1589,16 +1584,16 @@ LABEL_11:
     v16 = v8;
     v19 = v16;
     v17 = smb2_smb_ioctl(v7, 0, a3, a2, 0, 0, 0, 0, 0, 0, v18);
-    *(v24[0] + 24) = v17;
+    *(v24 + 6) = v17;
     if (v17)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        piston_validate_negotiate_cold_1(v24);
+        piston_validate_negotiate_cold_1();
         if (v16)
         {
 LABEL_26:
-          if (*(v24[0] + 24))
+          if (*(v24 + 6))
           {
             v16[2](v16);
           }
@@ -1637,9 +1632,9 @@ LABEL_19:
   _Block_object_dispose(&v23, 8);
 }
 
-void sub_26429B660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26429B660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1768,7 +1763,7 @@ LABEL_23:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        __piston_validate_negotiate_block_invoke_cold_1(v3);
+        __piston_validate_negotiate_block_invoke_cold_1();
       }
 
       v4 = *(*v3 + 8);
@@ -1779,7 +1774,7 @@ LABEL_23:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __piston_validate_negotiate_block_invoke_cold_10(v3);
+    __piston_validate_negotiate_block_invoke_cold_10();
   }
 
 LABEL_24:
@@ -1816,7 +1811,7 @@ uint64_t smb2_smb_parse_ioctl_internal(void *a1, void *a2, uint64_t a3, void *a4
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_ioctl_internal_cold_1(&v28 + 1);
+      smb2_smb_parse_ioctl_internal_cold_1();
     }
 
     goto LABEL_21;
@@ -1924,7 +1919,7 @@ LABEL_48:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb2_smb_parse_ioctl_internal_cold_4(&v24);
+          smb2_smb_parse_ioctl_internal_cold_4();
         }
 
         v16 = piston_log_level;
@@ -1932,7 +1927,7 @@ LABEL_48:
 
       if (HIDWORD(v22) && v16 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb2_smb_parse_ioctl_internal_cold_10(&v22 + 1);
+        smb2_smb_parse_ioctl_internal_cold_10();
       }
 
       if (HIDWORD(v23))
@@ -1989,7 +1984,7 @@ LABEL_48:
     {
       if (v24 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb2_smb_parse_ioctl_internal_cold_4(&v24);
+        smb2_smb_parse_ioctl_internal_cold_4();
       }
 
       if (v23 == 32)
@@ -2004,7 +1999,7 @@ LABEL_48:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb2_smb_parse_ioctl_internal_cold_8(&v23);
+        smb2_smb_parse_ioctl_internal_cold_8();
       }
 
 LABEL_21:
@@ -2022,7 +2017,7 @@ LABEL_21:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb2_smb_parse_ioctl_internal_cold_2(&v23);
+        smb2_smb_parse_ioctl_internal_cold_2();
       }
 
       v19 = v23;
@@ -2052,7 +2047,7 @@ LABEL_21:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_ioctl_internal_cold_3(&v23);
+      smb2_smb_parse_ioctl_internal_cold_3();
     }
 
     goto LABEL_21;
@@ -2063,7 +2058,7 @@ LABEL_21:
 LABEL_71:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_ioctl_internal_cold_12(&v27);
+      smb2_smb_parse_ioctl_internal_cold_12();
     }
 
     goto LABEL_21;
@@ -2071,14 +2066,14 @@ LABEL_71:
 
   if (v24 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    smb2_smb_parse_ioctl_internal_cold_4(&v24);
+    smb2_smb_parse_ioctl_internal_cold_4();
   }
 
   if (v23 != 12)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_ioctl_internal_cold_5(&v23);
+      smb2_smb_parse_ioctl_internal_cold_5();
     }
 
     goto LABEL_21;
@@ -2363,23 +2358,23 @@ LABEL_48:
 
 void smb2fs_smb_copyfile_stream(void *a1, uint64_t a2, void *a3, void *a4, char a5, int a6, uint64_t a7, int a8, void *a9)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v15 = a1;
   v16 = a3;
   v17 = a4;
   v18 = v15;
   v19 = a9;
-  v93 = 0;
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
+  v92 = 0;
   v90 = 0u;
-  v87 = 0u;
+  v91 = 0u;
   v88 = 0u;
-  v85 = 0u;
+  v89 = 0u;
   v86 = 0u;
+  v87 = 0u;
   v84 = 0u;
-  memset(v83, 0, sizeof(v83));
+  v85 = 0u;
+  v83 = 0u;
+  memset(v82, 0, sizeof(v82));
   v20 = [v15 getShare:a2];
   v21 = v20;
   if (v20)
@@ -2387,11 +2382,11 @@ void smb2fs_smb_copyfile_stream(void *a1, uint64_t a2, void *a3, void *a4, char 
     v22 = v20;
     v23 = [[SMBNode alloc] init:v18];
     v24 = v18;
-    v65 = v18;
+    v64 = v18;
     if (v23)
     {
       v25 = v23;
-      v63 = v17;
+      v62 = v17;
       v26 = [v23 commonInit:v24 onShareID:a2];
       if (v26)
       {
@@ -2404,11 +2399,11 @@ void smb2fs_smb_copyfile_stream(void *a1, uint64_t a2, void *a3, void *a4, char 
         v19[2](v19, v27);
       }
 
-      v28 = [[SMBNode alloc] init:v65];
+      v28 = [[SMBNode alloc] init:v64];
       if (v28)
       {
         v29 = v28;
-        v30 = [v28 commonInit:v65 onShareID:a2];
+        v30 = [v28 commonInit:v64 onShareID:a2];
         v21 = v22;
         if (v30)
         {
@@ -2431,7 +2426,7 @@ void smb2fs_smb_copyfile_stream(void *a1, uint64_t a2, void *a3, void *a4, char 
           v32 = 0;
         }
 
-        fid = smb2_smb_create_fid(v25, v16, v32, 137, 1, 1, 1, 2 * (a8 != 0), v83, 0, 0);
+        fid = smb2_smb_create_fid(v25, v16, v32, 137, 1, 1, 1, 2 * (a8 != 0), v82, 0, 0);
         if (fid)
         {
           v34 = fid;
@@ -2444,11 +2439,11 @@ LABEL_45:
           v19[2](v19, v34);
 
 LABEL_46:
-          v17 = v63;
+          v17 = v62;
           goto LABEL_47;
         }
 
-        v35 = *(&v84 + 1);
+        v35 = *(&v83 + 1);
         if (a5)
         {
           v36 = 2;
@@ -2479,7 +2474,7 @@ LABEL_46:
           v38 = v36;
         }
 
-        v39 = smb2_smb_create_fid(v29, v63, v32, 407, 1, 0, v38, v37, 0, 0, 0);
+        v39 = smb2_smb_create_fid(v29, v62, v32, 407, 1, 0, v38, v37, 0, 0, 0);
         if (v39)
         {
           v34 = v39;
@@ -2496,122 +2491,122 @@ LABEL_46:
           goto LABEL_45;
         }
 
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v67 = __smb2fs_smb_copyfile_stream_block_invoke;
-        v68 = &unk_279B4F948;
-        v73 = a6;
-        v41 = v29;
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v66 = __smb2fs_smb_copyfile_stream_block_invoke;
+        v67 = &unk_279B4F948;
+        v72 = a6;
+        v40 = v29;
+        v68 = v40;
+        v57 = v35;
+        v71 = v35;
+        v41 = v25;
         v69 = v41;
-        v58 = v35;
-        v72 = v35;
-        v42 = v25;
-        v70 = v42;
-        v74 = 0x100000001;
-        v71 = v19;
-        v61 = v65;
-        v43 = v42;
-        v62 = v41;
-        v60 = v66;
-        v44 = objc_alloc_init(MEMORY[0x277CBEB28]);
-        if (v44)
+        v73 = 0x100000001;
+        v70 = v19;
+        v60 = v64;
+        v42 = v41;
+        v61 = v40;
+        v59 = v65;
+        v43 = objc_alloc_init(MEMORY[0x277CBEB28]);
+        if (v43)
         {
-          v45 = malloc_type_malloc(0x1A0uLL, 0x9527E659uLL);
-          if (v45)
+          v44 = malloc_type_malloc(0x1A0uLL, 0x9527E659uLL);
+          if (v44)
           {
-            v46 = v45;
-            v59 = v43;
-            v45[24] = 0u;
-            v45[25] = 0u;
-            v45[22] = 0u;
-            v45[23] = 0u;
-            v45[20] = 0u;
-            v45[21] = 0u;
-            v45[18] = 0u;
-            v45[19] = 0u;
-            v45[16] = 0u;
-            v45[17] = 0u;
-            v45[14] = 0u;
-            v45[15] = 0u;
-            v45[12] = 0u;
-            v45[13] = 0u;
-            v45[10] = 0u;
-            v45[11] = 0u;
-            v45[8] = 0u;
-            v45[9] = 0u;
-            v45[6] = 0u;
-            v45[7] = 0u;
-            v45[4] = 0u;
-            v45[5] = 0u;
-            v45[2] = 0u;
-            v45[3] = 0u;
-            *v45 = 0u;
-            v45[1] = 0u;
-            v47 = malloc_type_malloc(0x60uLL, 0x1000040718B784FuLL);
-            if (v47)
+            v45 = v44;
+            v58 = v42;
+            v44[24] = 0u;
+            v44[25] = 0u;
+            v44[22] = 0u;
+            v44[23] = 0u;
+            v44[20] = 0u;
+            v44[21] = 0u;
+            v44[18] = 0u;
+            v44[19] = 0u;
+            v44[16] = 0u;
+            v44[17] = 0u;
+            v44[14] = 0u;
+            v44[15] = 0u;
+            v44[12] = 0u;
+            v44[13] = 0u;
+            v44[10] = 0u;
+            v44[11] = 0u;
+            v44[8] = 0u;
+            v44[9] = 0u;
+            v44[6] = 0u;
+            v44[7] = 0u;
+            v44[4] = 0u;
+            v44[5] = 0u;
+            v44[2] = 0u;
+            v44[3] = 0u;
+            *v44 = 0u;
+            v44[1] = 0u;
+            v46 = malloc_type_malloc(0x60uLL, 0x1000040718B784FuLL);
+            if (v46)
             {
-              v48 = v47;
-              v47[4] = 0u;
-              v47[5] = 0u;
-              v47[2] = 0u;
-              v47[3] = 0u;
-              *v47 = 0u;
-              v47[1] = 0u;
-              *(v47 + 1) = 1310840;
-              [v44 setLength:32];
-              v49 = smb2_smb_ioctl(0, v59, 0, v48, 0, 0, v44, 0, 0, 0, 0);
-              if (v49)
+              v47 = v46;
+              v46[4] = 0u;
+              v46[5] = 0u;
+              v46[2] = 0u;
+              v46[3] = 0u;
+              *v46 = 0u;
+              v46[1] = 0u;
+              *(v46 + 1) = 1310840;
+              [v43 setLength:32];
+              v48 = smb2_smb_ioctl(0, v58, 0, v47, 0, 0, v43, 0, 0, 0, 0);
+              if (v48)
               {
-                v50 = v49;
+                v49 = v48;
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   smb2fs_smb_copyfile_stream_cold_6();
                 }
 
-                v51 = 0;
+                v50 = 0;
                 goto LABEL_70;
               }
 
-              if ([v44 length] <= 0x17)
+              if ([v43 length] <= 0x17)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  smb2fs_smb_copyfile_stream_cold_9(v44);
+                  smb2fs_smb_copyfile_stream_cold_9(v43);
                 }
 
-                v51 = 0;
-                v50 = 72;
+                v50 = 0;
+                v49 = 72;
                 goto LABEL_70;
               }
 
-              [v44 getBytes:&v94 length:24];
-              *(v48 + 4) = 1327346;
-              [v44 setLength:12];
-              *v46 = v94;
-              v46[2] = v95;
-              *(v46 + 7) = 0;
+              [v43 getBytes:&v93 length:24];
+              *(v47 + 4) = 1327346;
+              [v43 setLength:12];
+              *v45 = v93;
+              v45[2] = v94;
+              *(v45 + 7) = 0;
               if (a6 == 1)
               {
-                v53 = objc_alloc_init(MEMORY[0x277CBEB28]);
-                if (v53)
+                v52 = objc_alloc_init(MEMORY[0x277CBEB28]);
+                if (v52)
                 {
-                  v51 = v53;
-                  [v53 appendBytes:v46 length:32];
-                  *(v46 + 6) = 0;
-                  v75 = MEMORY[0x277D85DD0];
-                  v76 = 3221225472;
-                  v77 = __smb2fs_smb_copychunks_block_invoke;
-                  v78 = &unk_279B4F970;
-                  v54 = v44;
-                  v79 = v54;
-                  v81 = v48;
-                  v82 = v46;
-                  v52 = v60;
-                  v80 = v60;
-                  v50 = smb2_smb_ioctl(v61, v62, 0, v48, 0, v51, v54, 0, 0, 0, &v75);
+                  v50 = v52;
+                  [v52 appendBytes:v45 length:32];
+                  *(v45 + 6) = 0;
+                  v74 = MEMORY[0x277D85DD0];
+                  v75 = 3221225472;
+                  v76 = __smb2fs_smb_copychunks_block_invoke;
+                  v77 = &unk_279B4F970;
+                  v53 = v43;
+                  v78 = v53;
+                  v80 = v47;
+                  v81 = v45;
+                  v51 = v59;
+                  v79 = v59;
+                  v49 = smb2_smb_ioctl(v60, v61, 0, v47, 0, v50, v53, 0, 0, 0, &v74);
 
-                  v43 = v59;
-                  if (!v50)
+                  v42 = v58;
+                  if (!v49)
                   {
                     goto LABEL_73;
                   }
@@ -2627,27 +2622,27 @@ LABEL_46:
                 goto LABEL_65;
               }
 
-              v55 = malloc_type_malloc(0x20uLL, 0x1000040F6D918ACuLL);
-              if (v55)
+              v54 = malloc_type_malloc(0x20uLL, 0x1000040F6D918ACuLL);
+              if (v54)
               {
+                v55 = v54;
+                *v54 = v57;
+                v54[1] = 0;
+                v54[2] = 0x10000000000000;
+                v54[3] = 16;
+                v74 = MEMORY[0x277D85DD0];
+                v75 = 3221225472;
+                v76 = __smb2fs_smb_copychunks_block_invoke_3;
+                v77 = &unk_279B4F8F8;
+                v79 = v54;
+                v80 = v45;
+                v78 = v59;
                 v56 = v55;
-                *v55 = v58;
-                v55[1] = 0;
-                v55[2] = 0x10000000000000;
-                v55[3] = 16;
-                v75 = MEMORY[0x277D85DD0];
-                v76 = 3221225472;
-                v77 = __smb2fs_smb_copychunks_block_invoke_3;
-                v78 = &unk_279B4F8F8;
-                v80 = v55;
-                v81 = v46;
-                v79 = v60;
-                v57 = v56;
-                v52 = v60;
-                smb2fs_smb_copychunks_win(v61, v62, v58, v46, v57, v48, &v75);
+                v51 = v59;
+                smb2fs_smb_copychunks_win(v60, v61, v57, v45, v56, v47, &v74);
 
-                v51 = 0;
-                v43 = v59;
+                v50 = 0;
+                v42 = v58;
                 goto LABEL_73;
               }
 
@@ -2664,13 +2659,13 @@ LABEL_64:
             }
 
 LABEL_65:
-            v51 = 0;
-            v50 = 12;
+            v50 = 0;
+            v49 = 12;
 LABEL_70:
-            v43 = v59;
-            v52 = v60;
+            v42 = v58;
+            v51 = v59;
 LABEL_71:
-            free(v46);
+            free(v45);
             goto LABEL_72;
           }
 
@@ -2685,11 +2680,11 @@ LABEL_71:
           smb2fs_smb_copyfile_stream_cold_8();
         }
 
-        v51 = 0;
-        v50 = 12;
-        v52 = v60;
+        v50 = 0;
+        v49 = 12;
+        v51 = v59;
 LABEL_72:
-        v67(v52, v50);
+        v66(v51, v49);
 LABEL_73:
 
         goto LABEL_46;
@@ -2702,7 +2697,7 @@ LABEL_73:
 
       v19[2](v19, 12);
 
-      v17 = v63;
+      v17 = v62;
     }
 
     else
@@ -2717,7 +2712,7 @@ LABEL_73:
 
     v21 = v22;
 LABEL_47:
-    v18 = v65;
+    v18 = v64;
     goto LABEL_48;
   }
 
@@ -2739,22 +2734,20 @@ LABEL_16:
   }
 
 LABEL_48:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t smb2fs_smb_check_copyfile(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  memset(v10, 0, sizeof(v10));
+  memset(v9, 0, sizeof(v9));
   v2 = objc_alloc_init(MEMORY[0x277CBEB28]);
   v3 = v2;
   if (v2)
   {
-    DWORD1(v10[0]) = 1310840;
+    DWORD1(v9[0]) = 1310840;
     [v2 setLength:32];
-    v4 = smb2_smb_ioctl(0, v1, 0, v10, 0, 0, v3, 0, 0, 0, 0);
+    v4 = smb2_smb_ioctl(0, v1, 0, v9, 0, 0, v3, 0, 0, 0, 0);
     if (v4)
     {
       v5 = v4;
@@ -2794,7 +2787,6 @@ uint64_t smb2fs_smb_check_copyfile(void *a1)
     v5 = 12;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2815,7 +2807,7 @@ uint64_t smb2_smb_parse_get_reparse_point(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_smb_parse_get_reparse_point_cold_1(&v21 + 1);
+      smb2_smb_parse_get_reparse_point_cold_1();
     }
 
     mem = 72;
@@ -2993,7 +2985,7 @@ void smb2fs_smb_copyfile_win_xattr(void *a1, uint64_t a2, void *a3, void *a4, ui
   smb2fs_smb_copyfile_stream(v26, a2, v25, v24, a5, 0, a9, a10, v27);
 }
 
-uint64_t __smb2fs_smb_copyfile_win_block_invoke(void *a1, int a2)
+uint64_t __smb2fs_smb_copyfile_win_block_invoke(void *a1, uint64_t a2)
 {
   if (a2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -3015,7 +3007,7 @@ uint64_t __smb2fs_smb_copyfile_win_block_invoke(void *a1, int a2)
   return (*(a1[4] + 16))();
 }
 
-uint64_t __smb2fs_smb_copyfile_win_xattr_block_invoke(uint64_t a1, int a2)
+void __smb2fs_smb_copyfile_win_xattr_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -3024,49 +3016,50 @@ uint64_t __smb2fs_smb_copyfile_win_xattr_block_invoke(uint64_t a1, int a2)
       __smb2fs_smb_copyfile_win_xattr_block_invoke_cold_1();
     }
 
-    return (*(*(a1 + 56) + 16))();
+    goto LABEL_4;
   }
 
-  v4 = *(a1 + 64);
-  v5 = *v4;
-  if (*v4)
+  v3 = *(a1 + 64);
+  v4 = *v3;
+  if (*v3)
   {
-    v6 = v4[2] + 1;
-    v7 = v4[1] - v6;
-    v4[1] = v7;
-    v4[2] = v6;
-    if (v7)
+    v5 = v3[2] + 1;
+    v6 = v3[1] - v5;
+    v3[1] = v6;
+    v3[2] = v5;
+    if (v6)
     {
-      *v4 = v5 + v6;
-      v8 = *(a1 + 64);
-      v9 = *v8;
-      v10 = strnlen(*v8, *(v8 + 8));
-      *(v8 + 16) = v10;
-      v11 = *(a1 + 96);
-      return smb2fs_smb_copyfile_win_xattr(*(a1 + 32), *(a1 + 104), *(a1 + 40), *(a1 + 48), *(a1 + 88), v8, *(a1 + 80), *(a1 + 72), v9, v10, v11, *(a1 + 56));
+      *v3 = v4 + v5;
+      v7 = *(a1 + 64);
+      v8 = *v7;
+      v9 = strnlen(*v7, *(v7 + 8));
+      *(v7 + 16) = v9;
+      smb2fs_smb_copyfile_win_xattr(*(a1 + 32), *(a1 + 104), *(a1 + 40), *(a1 + 48), *(a1 + 88), v7, *(a1 + 80), *(a1 + 72), v8, v9, *(a1 + 96), *(a1 + 56));
+      return;
     }
 
-    return (*(*(a1 + 56) + 16))();
+LABEL_4:
+    (*(*(a1 + 56) + 16))();
+    return;
   }
 
-  v12 = *(a1 + 72);
-  v4[1] = v12;
-  if (!v12)
+  v10 = *(a1 + 72);
+  v3[1] = v10;
+  if (!v10)
   {
-    return (*(*(a1 + 56) + 16))();
+    goto LABEL_4;
   }
 
-  v13 = *(a1 + 80);
-  *v4 = v13;
-  v14 = *(a1 + 64);
-  v15 = *v14;
-  v16 = strnlen(*v14, v12);
-  *(v14 + 16) = v16;
-  v17 = *(a1 + 96);
-  return smb2fs_smb_copyfile_win_xattr(*(a1 + 32), *(a1 + 104), *(a1 + 40), *(a1 + 48), *(a1 + 88), v14, v13, *(a1 + 72), v15, v16, v17, *(a1 + 56));
+  v11 = *(a1 + 80);
+  *v3 = v11;
+  v12 = *(a1 + 64);
+  v13 = *v12;
+  v14 = strnlen(*v12, v10);
+  *(v12 + 16) = v14;
+  smb2fs_smb_copyfile_win_xattr(*(a1 + 32), *(a1 + 104), *(a1 + 40), *(a1 + 48), *(a1 + 88), v12, v11, *(a1 + 72), v13, v14, *(a1 + 96), *(a1 + 56));
 }
 
-uint64_t __smb2fs_smb_copyfile_stream_block_invoke(uint64_t a1, int a2)
+uint64_t __smb2fs_smb_copyfile_stream_block_invoke(uint64_t a1, uint64_t a2)
 {
   tv_sec = 0;
   v5 = 0;
@@ -3125,7 +3118,7 @@ LABEL_6:
   return (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __smb2fs_smb_copychunks_block_invoke(uint64_t a1, int a2)
+uint64_t __smb2fs_smb_copychunks_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -3144,7 +3137,7 @@ uint64_t __smb2fs_smb_copychunks_block_invoke(uint64_t a1, int a2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        __smb2fs_smb_copychunks_block_invoke_cold_3((a1 + 48));
+        __smb2fs_smb_copychunks_block_invoke_cold_3();
       }
 
       v3 = *(*(a1 + 48) + 12);
@@ -3264,7 +3257,7 @@ void smb2fs_smb_copychunks_win(void *a1, void *a2, uint64_t a3, uint64_t a4, uni
   }
 }
 
-uint64_t __smb2fs_smb_copychunks_block_invoke_3(void *a1, int a2)
+uint64_t __smb2fs_smb_copychunks_block_invoke_3(void *a1, uint64_t a2)
 {
   if (a2 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -3286,27 +3279,27 @@ uint64_t __smb2fs_smb_copychunks_block_invoke_3(void *a1, int a2)
   return (*(a1[4] + 16))();
 }
 
-uint64_t __smb2fs_smb_copychunks_win_block_invoke(uint64_t a1, int a2)
+void __smb2fs_smb_copychunks_win_block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v15 = 0;
-  v14 = 0;
+  v12 = 0;
+  v11 = 0;
   if (a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __smb2fs_smb_copychunks_win_block_invoke_cold_1(a1);
+      __smb2fs_smb_copychunks_win_block_invoke_cold_1();
     }
 
     if (*(*(a1 + 80) + 12) != -1073741811)
     {
-      return (*(*(a1 + 56) + 16))();
+      goto LABEL_34;
     }
   }
 
   if ([*(a1 + 32) length] > 0xB)
   {
-    [*(a1 + 32) getBytes:&v14 length:12];
+    [*(a1 + 32) getBytes:&v11 length:12];
     v4 = *(*(a1 + 80) + 12);
     if (v4)
     {
@@ -3315,34 +3308,34 @@ uint64_t __smb2fs_smb_copychunks_win_block_invoke(uint64_t a1, int a2)
         v5 = *(a1 + 64);
         if (!v5[4])
         {
-          v9 = HIDWORD(v14);
-          v10 = v5[5];
-          if (HIDWORD(v14) < v10)
+          v7 = HIDWORD(v11);
+          v8 = v5[5];
+          if (HIDWORD(v11) < v8)
           {
-            v5[5] = HIDWORD(v14);
-            v10 = v9;
+            v5[5] = HIDWORD(v11);
+            v8 = v7;
           }
 
-          v11 = v15 / v10;
-          if (v11 >= v14)
+          v9 = v12 / v8;
+          if (v9 >= v11)
           {
-            v11 = v14;
+            v9 = v11;
           }
 
-          v5[6] = v11;
+          v5[6] = v9;
           v5[4] = 1;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            __smb2fs_smb_copychunks_win_block_invoke_cold_4((a1 + 64));
+            __smb2fs_smb_copychunks_win_block_invoke_cold_4();
           }
 
-          v12 = *(a1 + 88);
-          v13 = *(a1 + 64);
-          *v13 = v12;
-          v13[1] = 0;
-          if (!v12)
+          v10 = *(a1 + 88);
+          v6 = *(a1 + 64);
+          *v6 = v10;
+          v6[1] = 0;
+          if (!v10)
           {
-            return (*(*(a1 + 56) + 16))();
+            goto LABEL_34;
           }
 
           goto LABEL_19;
@@ -3353,7 +3346,7 @@ uint64_t __smb2fs_smb_copychunks_win_block_invoke(uint64_t a1, int a2)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __smb2fs_smb_copychunks_win_block_invoke_cold_5((a1 + 80));
+          __smb2fs_smb_copychunks_win_block_invoke_cold_5();
         }
 
         v4 = *(*(a1 + 80) + 12);
@@ -3364,36 +3357,41 @@ uint64_t __smb2fs_smb_copychunks_win_block_invoke(uint64_t a1, int a2)
 
     else
     {
-      if (v14 != *(*(a1 + 96) + 24))
+      if (v11 != *(*(a1 + 96) + 24))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __smb2fs_smb_copychunks_win_block_invoke_cold_2(&v14);
+          __smb2fs_smb_copychunks_win_block_invoke_cold_2();
         }
 
-        return (*(*(a1 + 56) + 16))();
+        goto LABEL_34;
       }
 
-      if (*(a1 + 72) != v15)
+      if (*(a1 + 72) != v12)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __smb2fs_smb_copychunks_win_block_invoke_cold_3(&v15);
+          __smb2fs_smb_copychunks_win_block_invoke_cold_3();
         }
 
-        return (*(*(a1 + 56) + 16))();
+        goto LABEL_34;
       }
     }
 
-    if (v2 || !**(a1 + 64))
+    if (v2)
     {
-      return (*(*(a1 + 56) + 16))();
+      goto LABEL_34;
+    }
+
+    v6 = *(a1 + 64);
+    if (!*v6)
+    {
+      goto LABEL_34;
     }
 
 LABEL_19:
-    v6 = *(a1 + 80);
-    v7 = *(a1 + 56);
-    return smb2fs_smb_copychunks_win(*(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 104));
+    smb2fs_smb_copychunks_win(*(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 104), v6, *(a1 + 80), *(a1 + 56));
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3401,14 +3399,8 @@ LABEL_19:
     __smb2fs_smb_copychunks_win_block_invoke_cold_6((a1 + 32));
   }
 
-  return (*(*(a1 + 56) + 16))();
-}
-
-uint64_t *OUTLINED_FUNCTION_6@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+LABEL_34:
+  (*(*(a1 + 56) + 16))();
 }
 
 uint64_t smb2_smb_echo(void *a1)
@@ -3487,7 +3479,7 @@ LABEL_14:
   return v3;
 }
 
-void *__smb2_smb_echo_block_invoke(uint64_t a1, int a2)
+void *__smb2_smb_echo_block_invoke(uint64_t a1, uint64_t a2)
 {
   v5 = 0;
   if (a2)
@@ -3510,7 +3502,7 @@ void *__smb2_smb_echo_block_invoke(uint64_t a1, int a2)
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        __smb2_smb_echo_block_invoke_cold_2(&v5 + 1);
+        __smb2_smb_echo_block_invoke_cold_2();
       }
     }
   }
@@ -3577,19 +3569,18 @@ void smb_rq_bend(void *a1)
   v1 = a1;
   if ([v1 sr_bcount])
   {
-    v2 = ([v1 smb_rq_getrequest] + 24);
-    v3 = *v2;
-    if (*v2 >= 0x10000)
+    v2 = *([v1 smb_rq_getrequest] + 24);
+    if (v2 >= 0x10000)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb_rq_bend_cold_1(v2);
+        smb_rq_bend_cold_1();
       }
 
-      LOWORD(v3) = -1;
+      LOWORD(v2) = -1;
     }
 
-    *[v1 sr_bcount] = v3;
+    *[v1 sr_bcount] = v2;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3603,19 +3594,18 @@ void smb_rq_bend32(void *a1)
   v1 = a1;
   if ([v1 sr_lcount])
   {
-    v2 = ([v1 smb_rq_getrequest] + 24);
-    v3 = *v2;
-    if (HIDWORD(*v2))
+    v2 = *([v1 smb_rq_getrequest] + 24);
+    if (HIDWORD(v2))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb_rq_bend32_cold_1(v2);
+        smb_rq_bend32_cold_1();
       }
 
-      LODWORD(v3) = 0xFFFFFFF;
+      LODWORD(v2) = 0xFFFFFFF;
     }
 
-    *[v1 sr_lcount] = v3;
+    *[v1 sr_lcount] = v2;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3669,12 +3659,12 @@ void smb_rq_cancel_all_requests(pthread_mutex_t *a1, void *a2, _DWORD *a3, void 
   }
 }
 
-id smb_rq_find(pthread_mutex_t *a1, void *a2, uint64_t a3, _BOOL4 *a4, uint64_t *a5, void *a6, char a7)
+id smb_rq_find(pthread_mutex_t *a1, void *a2, void *a3, _BOOL4 *a4, uint64_t *a5, void *a6, char a7)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v11 = a2;
-  v54.tv_sec = 0;
-  *&v54.tv_usec = 0;
+  v53.tv_sec = 0;
+  *&v53.tv_usec = 0;
   pthread_mutex_lock(a1);
   v12 = [v11 count];
   if (!v12)
@@ -3700,22 +3690,22 @@ id smb_rq_find(pthread_mutex_t *a1, void *a2, uint64_t a3, _BOOL4 *a4, uint64_t 
   }
 
   v14 = v12;
-  v47 = a1;
-  v48 = a4;
+  v46 = a1;
+  v47 = a4;
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v49 = 0;
+  v48 = 0;
+  v50 = 0;
   v51 = 0;
-  v52 = 0;
   v18 = 0;
   *&v13 = 136315650;
-  v46 = v13;
+  v45 = v13;
   v19 = a5;
   while (1)
   {
     v20 = v16;
-    v16 = [v11 objectAtIndexedSubscript:{v18, v46}];
+    v16 = [v11 objectAtIndexedSubscript:{v18, v45}];
 
     if (v16)
     {
@@ -3737,19 +3727,19 @@ LABEL_29:
     }
 
     v21 = [v16 sr_credit_timesent];
-    v23 = v52 <= v21;
-    if (v52 == v21)
+    v23 = v51 <= v21;
+    if (v51 == v21)
     {
-      v23 = v51 <= v22;
+      v23 = v50 <= v22;
     }
 
     if (!v23)
     {
 LABEL_9:
-      v49 = [v16 sr_messageid];
+      v48 = [v16 sr_messageid];
       v24 = [v16 sr_credit_timesent];
-      v51 = v25;
-      v52 = v24;
+      v50 = v25;
+      v51 = v24;
     }
 
     v17 = 1;
@@ -3763,15 +3753,15 @@ LABEL_15:
       v27 = [v16 sr_extflags];
       if (a6 && (v27 & 4) != 0 && ([v16 sr_flags] & 2) == 0 && (objc_msgSend(v16, "sr_flags") & 0x200) == 0)
       {
-        gettimeofday(&v54, 0);
-        tv_usec = v54.tv_usec;
+        gettimeofday(&v53, 0);
+        tv_usec = v53.tv_usec;
         v29 = -121;
-        if (v54.tv_usec >= 0)
+        if (v53.tv_usec >= 0)
         {
           v29 = -120;
         }
 
-        v30 = v29 + v54.tv_sec;
+        v30 = v29 + v53.tv_sec;
         v31 = [v16 sr_timesent];
         v33 = v30 <= v31;
         if (v30 == v31)
@@ -3794,12 +3784,12 @@ LABEL_15:
           {
             v36 = [v16 sr_command];
             v37 = [v16 sr_messageid];
-            *buf = v46;
-            v56 = "smb_rq_find";
-            v57 = 1024;
-            v58 = v36;
-            v59 = 2048;
-            v60 = v37;
+            *buf = v45;
+            v55 = "smb_rq_find";
+            v56 = 1024;
+            v57 = v36;
+            v58 = 2048;
+            v59 = v37;
             _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Timed out waiting on the response for <0x%x> message_id = <%lld> \n", buf, 0x1Cu);
           }
 
@@ -3819,11 +3809,11 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    pthread_mutex_unlock(v47);
+    pthread_mutex_unlock(v46);
     v15 = v26;
 LABEL_44:
-    v41 = v48;
-    if (!v48)
+    v41 = v47;
+    if (!v47)
     {
       goto LABEL_55;
     }
@@ -3836,7 +3826,7 @@ LABEL_44:
   v15 = v39;
   v19 = a5;
 LABEL_39:
-  pthread_mutex_unlock(v47);
+  pthread_mutex_unlock(v46);
   if (!v19)
   {
     goto LABEL_44;
@@ -3844,14 +3834,14 @@ LABEL_39:
 
   if (v17)
   {
-    v41 = v48;
-    v40 = v49;
+    v41 = v47;
+    v40 = v48;
   }
 
   else
   {
-    v41 = v48;
-    v40 = v49;
+    v41 = v47;
+    v40 = v48;
     if (v15)
     {
       v40 = [v15 sr_messageid];
@@ -3870,7 +3860,6 @@ LABEL_55:
   v38 = v15;
 
 LABEL_56:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -3894,7 +3883,7 @@ void smb_rq_dequeue(pthread_mutex_t *a1, void *a2, _DWORD *a3, void *a4, void *a
 
 void smb_rq_empty_queue(pthread_mutex_t *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   pthread_mutex_lock(a1);
   v4 = [v3 lastObject];
@@ -3903,7 +3892,7 @@ void smb_rq_empty_queue(pthread_mutex_t *a1, void *a2)
     v6 = v4;
     v7 = MEMORY[0x277D86220];
     *&v5 = 136315650;
-    v12 = v5;
+    v11 = v5;
     do
     {
       [v3 removeLastObject];
@@ -3911,12 +3900,12 @@ void smb_rq_empty_queue(pthread_mutex_t *a1, void *a2)
       {
         v9 = [v6 sr_messageid];
         v10 = [v6 sr_command];
-        *buf = v12;
-        v14 = "smb_rq_empty_queue";
-        v15 = 2048;
-        v16 = v9;
-        v17 = 1024;
-        v18 = v10;
+        *buf = v11;
+        v13 = "smb_rq_empty_queue";
+        v14 = 2048;
+        v15 = v9;
+        v16 = 1024;
+        v17 = v10;
         _os_log_error_impl(&dword_264287000, v7, OS_LOG_TYPE_ERROR, "%s: rqp with message ID <%lld> cmd <%d> left on queue \n", buf, 0x1Cu);
       }
 
@@ -3930,8 +3919,6 @@ void smb_rq_empty_queue(pthread_mutex_t *a1, void *a2)
   }
 
   pthread_mutex_unlock(a1);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void smb_rq_enqueue(pthread_mutex_t *a1, void *a2, _DWORD *a3, void *a4, void *a5)
@@ -3951,7 +3938,7 @@ void smb_rq_enqueue(pthread_mutex_t *a1, void *a2, _DWORD *a3, void *a4, void *a
   pthread_mutex_unlock(a1);
 }
 
-id smb_rq_find_cmpd(pthread_mutex_t *a1, void *a2, uint64_t a3, void *a4)
+id smb_rq_find_cmpd(pthread_mutex_t *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   pthread_mutex_lock(a1);
@@ -4076,9 +4063,9 @@ uint64_t smb_rq_simple_timed(void *a1, void *a2, uint64_t a3)
   v28 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
-  v24 = 0;
-  v25[0] = &v24;
-  v25[1] = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v26 = 0;
   v7 = dispatch_semaphore_create(0);
   v8 = [v5 sock];
@@ -4094,24 +4081,24 @@ uint64_t smb_rq_simple_timed(void *a1, void *a2, uint64_t a3)
     [v6 setSr_timeout:a3];
     if (([v6 sr_flags] & 0x800) != 0)
     {
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __smb_rq_simple_timed_block_invoke;
-      v21 = &unk_279B4FA10;
-      v23 = &v24;
-      v22 = v7;
-      [v6 setSr_callback:&v18];
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __smb_rq_simple_timed_block_invoke;
+      v20 = &unk_279B4FA10;
+      v22 = &v23;
+      v21 = v7;
+      [v6 setSr_callback:&v17];
     }
 
     v10 = [v5 sock];
     v11 = [v10 sendRequest:v6];
-    *(v25[0] + 24) = v11;
+    *(v24 + 6) = v11;
 
-    if (*(v25[0] + 24))
+    if (*(v24 + 6))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb_rq_simple_timed_cold_1(v25);
+        smb_rq_simple_timed_cold_1();
       }
     }
 
@@ -4129,7 +4116,7 @@ uint64_t smb_rq_simple_timed(void *a1, void *a2, uint64_t a3)
             smb_rq_simple_timed_cold_2([v6 sr_command], buf, objc_msgSend(v6, "sr_timeout"));
           }
 
-          *(v25[0] + 24) = 60;
+          *(v24 + 6) = 60;
         }
       }
 
@@ -4139,17 +4126,16 @@ uint64_t smb_rq_simple_timed(void *a1, void *a2, uint64_t a3)
       }
     }
 
-    v12 = *(v25[0] + 24);
+    v12 = *(v24 + 6);
   }
 
-  _Block_object_dispose(&v24, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
   return v12;
 }
 
-void sub_26429F5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26429F5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4182,10 +4168,10 @@ uint64_t smb_rq_simple_block(void *a1, void *a2, void *a3)
   return v10;
 }
 
-uint64_t smb2_rq_align8(void *a1)
+void *smb2_rq_align8(void *a1)
 {
   result = [a1 smb_rq_getrequest];
-  v2 = *(result + 32) & 7;
+  v2 = result[4] & 7;
   if (v2)
   {
 
@@ -4197,7 +4183,7 @@ uint64_t smb2_rq_align8(void *a1)
 
 uint64_t smb2_rq_alloc(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, void *a5, SMB_rq **a6)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v11 = a5;
   v12 = [v11 getSessionPtr];
   v13 = objc_alloc_init(SMB_rq);
@@ -4225,10 +4211,10 @@ uint64_t smb2_rq_alloc(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, 
   [(SMB_rq *)v14 setSr_sessionp:v12];
   [(SMB_rq *)v14 setOnEncryptedShare:a3];
   v15 = v14;
-  v63.tv_sec = 0;
-  v63.tv_nsec = 0;
   v62.tv_sec = 0;
-  *&v62.tv_usec = 0;
+  v62.tv_nsec = 0;
+  v61.tv_sec = 0;
+  *&v61.tv_usec = 0;
   v16 = [(SMB_rq *)v15 sr_sessionp];
   pthread_mutex_lock((v16 + 608));
   v17 = [(SMB_rq *)v15 sr_command];
@@ -4259,8 +4245,8 @@ uint64_t smb2_rq_alloc(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, 
     if (v17 == 18)
     {
 LABEL_17:
-      v60 = a4;
-      v61 = a6;
+      v59 = a4;
+      v60 = a6;
       v19 = MEMORY[0x277D86220];
 LABEL_18:
       while (1)
@@ -4296,17 +4282,17 @@ LABEL_18:
           v32 = *(v16 + 752);
           v33 = atomic_load((v16 + 692));
           *buf = 136316418;
-          v65 = "smb2_rq_credit_decrement";
-          v66 = 1024;
-          v67 = v20;
-          v68 = 1024;
-          v69 = v30;
-          v70 = 2048;
-          v71 = v31;
-          v72 = 2048;
-          v73 = v32;
-          v74 = 1024;
-          v75 = v33;
+          v64 = "smb2_rq_credit_decrement";
+          v65 = 1024;
+          v66 = v20;
+          v67 = 1024;
+          v68 = v30;
+          v69 = 2048;
+          v70 = v31;
+          v71 = 2048;
+          v72 = v32;
+          v73 = 1024;
+          v74 = v33;
           _os_log_error_impl(&dword_264287000, v19, OS_LOG_TYPE_ERROR, "%s: Wait for credits curr %d max %d curr ID %lld pending ID %lld session_credits_wait %d\n", buf, 0x32u);
         }
 
@@ -4314,11 +4300,11 @@ LABEL_18:
         while (1)
         {
           atomic_fetch_add((v16 + 692), 1u);
-          v63 = xmmword_2642C0A90;
-          gettimeofday(&v62, 0);
-          v63.tv_sec += v62.tv_sec;
-          v63.tv_nsec += 1000 * v62.tv_usec;
-          v26 = pthread_cond_timedwait((v16 + 696), (v16 + 608), &v63);
+          v62 = xmmword_2642C0A90;
+          gettimeofday(&v61, 0);
+          v62.tv_sec += v61.tv_sec;
+          v62.tv_nsec += 1000 * v61.tv_usec;
+          v26 = pthread_cond_timedwait((v16 + 696), (v16 + 608), &v62);
           if (v26 != 60 && v26 != 35)
           {
             break;
@@ -4345,17 +4331,17 @@ LABEL_18:
               v36 = *(v16 + 752);
               v37 = atomic_load((v16 + 692));
               *buf = 136316418;
-              v65 = "smb2_rq_credit_decrement";
-              v66 = 1024;
-              v67 = v29;
-              v68 = 1024;
-              v69 = v34;
-              v70 = 2048;
-              v71 = v35;
-              v72 = 2048;
-              v73 = v36;
-              v74 = 1024;
-              v75 = v37;
+              v64 = "smb2_rq_credit_decrement";
+              v65 = 1024;
+              v66 = v29;
+              v67 = 1024;
+              v68 = v34;
+              v69 = 2048;
+              v70 = v35;
+              v71 = 2048;
+              v72 = v36;
+              v73 = 1024;
+              v74 = v37;
               _os_log_error_impl(&dword_264287000, v19, OS_LOG_TYPE_ERROR, "%s: Timed out waiting for credits curr %d max %d curr ID %lld pending ID %lld session_credits_wait %d\n", buf, 0x32u);
             }
 
@@ -4367,9 +4353,9 @@ LABEL_18:
       }
 
       a2 = a2;
-      if (v60)
+      if (v59)
       {
-        v38 = *v60;
+        v38 = *v59;
         v39 = v15;
         v40 = [(SMB_rq *)v39 sr_sessionp];
         if (v38 > 0x10000)
@@ -4397,12 +4383,12 @@ LABEL_18:
           }
         }
 
-        *v60 = v38;
+        *v59 = v38;
       }
 
       atomic_fetch_add((v16 + 680), [(SMB_rq *)v15]);
       v43 = atomic_load((v16 + 680));
-      a6 = v61;
+      a6 = v60;
       if (v43 <= 65534)
       {
         [(SMB_rq *)v15 setSr_creditsrequested:256];
@@ -4509,7 +4495,6 @@ LABEL_59:
   *a6 = v15;
 LABEL_64:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -4652,129 +4637,129 @@ uint64_t smb2_rq_next_command(void *a1, void *a2, void *a3)
 
 uint64_t smb2_rq_parse_header(void *a1, __int128 **a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v31 = 0;
   v30 = 0;
   v29 = 0;
   v28 = 0;
-  v26 = 0;
   v27 = 0;
+  v25 = 0;
+  v26 = 0;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = [v3 sr_sessionp];
   v5 = [v3 sr_command];
-  v23 = 0;
   v22 = 0;
   v21 = 0;
+  v20 = 0;
   if (v3)
   {
     v6 = v5;
     v7 = *a2;
     v8 = (*a2)[1];
-    v24 = **a2;
-    v25 = v8;
-    uint32le = md_get_uint32le(v7, &v31);
+    v23 = **a2;
+    v24 = v8;
+    uint32le = md_get_uint32le(v7, &v30);
     if (uint32le)
     {
       goto LABEL_4;
     }
 
-    uint32le = md_get_uint16le(*a2, &v30);
+    uint32le = md_get_uint16le(*a2, &v29);
     if (uint32le)
     {
       goto LABEL_4;
     }
 
-    if (v30 == 64)
+    if (v29 == 64)
     {
-      uint32le = md_get_uint16le(*a2, &v29);
-      if (uint32le)
-      {
-        goto LABEL_4;
-      }
-
-      uint32le = md_get_uint32le(*a2, &v23);
-      if (uint32le)
-      {
-        goto LABEL_4;
-      }
-
-      [v3 setSr_ntstatus:v23];
       uint32le = md_get_uint16le(*a2, &v28);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      uint32le = md_get_uint16le(*a2, &v22);
+      uint32le = md_get_uint32le(*a2, &v22);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      [v3 setSr_rspcreditsgranted:v22];
+      [v3 setSr_ntstatus:v22];
+      uint32le = md_get_uint16le(*a2, &v27);
+      if (uint32le)
+      {
+        goto LABEL_4;
+      }
+
+      uint32le = md_get_uint16le(*a2, &v21);
+      if (uint32le)
+      {
+        goto LABEL_4;
+      }
+
+      [v3 setSr_rspcreditsgranted:v21];
       smb2_rq_credit_increment(v3);
-      uint32le = md_get_uint32le(*a2, &v23);
+      uint32le = md_get_uint32le(*a2, &v22);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      [v3 setSr_rspflags:v23];
-      uint32le = md_get_uint32le(*a2, &v23);
+      [v3 setSr_rspflags:v22];
+      uint32le = md_get_uint32le(*a2, &v22);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      [v3 setSr_rspnextcmd:v23];
-      uint32le = md_get_uint64le(*a2, &v27);
+      [v3 setSr_rspnextcmd:v22];
+      uint32le = md_get_uint64le(*a2, &v26);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      v16 = [v3 sr_rspflags];
-      v17 = *a2;
-      if ((v16 & 2) == 0)
+      v15 = [v3 sr_rspflags];
+      v16 = *a2;
+      if ((v15 & 2) == 0)
       {
-        uint32le = md_get_uint32le(v17, &v23);
+        uint32le = md_get_uint32le(v16, &v22);
         if (uint32le)
         {
           goto LABEL_4;
         }
 
-        [v3 setSr_rsppid:v23];
-        uint32le = md_get_uint32le(*a2, &v23);
+        [v3 setSr_rsppid:v22];
+        uint32le = md_get_uint32le(*a2, &v22);
         if (uint32le)
         {
           goto LABEL_4;
         }
 
-        [v3 setSr_rsptreeid:v23];
+        [v3 setSr_rsptreeid:v22];
         goto LABEL_32;
       }
 
-      uint32le = md_get_uint64le(v17, &v26);
+      uint32le = md_get_uint64le(v16, &v25);
       if (uint32le)
       {
         goto LABEL_4;
       }
 
-      v18 = v26;
-      if (v18 == [v3 sr_rspasyncid])
+      v17 = v25;
+      if (v17 == [v3 sr_rspasyncid])
       {
 LABEL_32:
-        uint32le = md_get_uint64le(*a2, &v21);
+        uint32le = md_get_uint64le(*a2, &v20);
         if (!uint32le)
         {
-          [v3 setSr_rspsessionid:v21];
+          [v3 setSr_rspsessionid:v20];
           uint32le = md_get_mem(*a2, __dst, 0x10uLL, 0);
           if (!uint32le)
           {
-            v19 = *(v4 + 552);
-            if ((v19 & 0x28800) == 0)
+            v18 = *(v4 + 552);
+            if ((v18 & 0x28800) == 0)
             {
               goto LABEL_43;
             }
@@ -4784,9 +4769,9 @@ LABEL_32:
               if (!v6)
               {
 LABEL_43:
-                if ((v19 & 8) != 0 || ([v3 sr_flags] & 0x400) != 0)
+                if ((v18 & 8) != 0 || ([v3 sr_flags] & 0x400) != 0)
                 {
-                  uint32le = smb2_rq_verify(v3, &v24, __dst);
+                  uint32le = smb2_rq_verify(v3, &v23, __dst);
                   if (uint32le)
                   {
                     goto LABEL_4;
@@ -4804,14 +4789,14 @@ LABEL_43:
 
               if (![v3 onEncryptedShare])
               {
-                v19 = *(v4 + 552);
+                v18 = *(v4 + 552);
                 goto LABEL_43;
               }
             }
 
             v10 = piston_ntstatus_to_errno([v3 sr_ntstatus]);
-            v20 = [v3 sr_ntstatus];
-            if (v20 == -1073740964)
+            v19 = [v3 sr_ntstatus];
+            if (v19 == -1073740964)
             {
               if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
@@ -4819,7 +4804,7 @@ LABEL_43:
               }
             }
 
-            else if (v20 == -1073741670 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            else if (v19 == -1073741670 && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               smb2_rq_parse_header_cold_4(v3);
             }
@@ -4835,13 +4820,13 @@ LABEL_4:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        smb2_rq_parse_header_cold_2(&v27, &v26, v3);
+        smb2_rq_parse_header_cold_2(&v26, &v25, v3);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb2_rq_parse_header_cold_1(&v30);
+      smb2_rq_parse_header_cold_1();
     }
 
     v10 = 72;
@@ -4868,13 +4853,12 @@ LABEL_8:
 
   [v3 setReplyError:v13];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void piston_smb3_derive_keys(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -4894,123 +4878,161 @@ void piston_smb3_derive_keys(void *a1)
       CCHmacUpdate(&ctx, &__buf, 8uLL);
       CCHmacFinal(&ctx, &macOut);
       *(v5 + 312) = macOut;
-      if (*(v5 - 8))
+      v6 = *(v5 - 8);
+      if (v6)
       {
-        if (*v5 > 0xFu)
+        v7 = *v5;
+        if (*v5 <= 0xFu)
         {
-          if ((*(v4 + 554) & 2) != 0)
+          if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            *ctx.ctx = *"SMBSigningKey";
+            piston_smb3_derive_keys_cold_4();
           }
 
-          else
+          goto LABEL_40;
+        }
+
+        if ((*(v4 + 554) & 2) != 0)
+        {
+          *ctx.ctx = *"SMBSigningKey";
+          p_macOut = (v4 + 392);
+          v9 = v4 + 244;
+          v10 = 14;
+          v11 = 64;
+        }
+
+        else
+        {
+          macOut = *"SmbSign";
+          *ctx.ctx = *"SMB2AESCMAC";
+          p_macOut = &macOut;
+          v9 = v4 + 244;
+          v10 = 12;
+          v11 = 8;
+        }
+
+        if (piston_smb3_kdf_hmac_sha256(v6, v7, &ctx, v10, p_macOut, v11, v9, 0x10u))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            macOut = *"SmbSign";
-            *ctx.ctx = *"SMB2AESCMAC";
+            piston_smb3_derive_keys_cold_1();
           }
 
-          if (piston_smb3_kdf_hmac_sha256())
+          goto LABEL_40;
+        }
+
+        *(v4 + 260) = 16;
+        *(v4 + 456) = 0;
+        *(v4 + 464) = 0;
+        *(v4 + 488) = 0;
+        if ((*(v4 + 554) & 2) != 0)
+        {
+          strcpy(&ctx, "SMBC2SCipherKey");
+          if (*(v4 + 492) - 3 <= 1)
           {
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              piston_smb3_derive_keys_cold_1();
-            }
+            v12 = *(v4 + 232);
+            v13 = *(v4 + 240);
+            v14 = 32;
+            v15 = (v4 + 392);
+            v16 = v4 + 456;
+            v17 = 16;
+            v18 = 64;
+            v19 = 32;
+            goto LABEL_27;
           }
 
-          else
+          v12 = *(v4 + 216);
+          v13 = *(v4 + 224);
+          v14 = 16;
+          v15 = (v4 + 392);
+          v16 = v4 + 456;
+          v17 = 16;
+          v18 = 64;
+        }
+
+        else
+        {
+          macOut = *"ServerIn ";
+          *ctx.ctx = *"SMB2AESCCM";
+          v12 = *(v4 + 216);
+          v13 = *(v4 + 224);
+          v14 = 16;
+          v15 = &macOut;
+          v16 = v4 + 456;
+          v17 = 11;
+          v18 = 10;
+        }
+
+        v19 = 16;
+LABEL_27:
+        if (piston_smb3_kdf_hmac_sha256(v12, v13, &ctx, v17, v15, v18, v16, v19))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            *(v4 + 260) = 16;
-            *(v4 + 456) = 0;
-            *(v4 + 464) = 0;
-            *(v4 + 488) = 0;
-            if ((*(v4 + 554) & 2) != 0)
-            {
-              strcpy(&ctx, "SMBC2SCipherKey");
-              if (*(v4 + 492) - 3 > 1)
-              {
-                v11 = *(v4 + 216);
-                v12 = *(v4 + 224);
-                v8 = 16;
-              }
+            piston_smb3_derive_keys_cold_2();
+          }
 
-              else
-              {
-                v9 = *(v4 + 232);
-                v10 = *(v4 + 240);
-                v8 = 32;
-              }
-            }
+          goto LABEL_40;
+        }
 
-            else
-            {
-              macOut = *"ServerIn ";
-              *ctx.ctx = *"SMB2AESCCM";
-              v6 = *(v4 + 216);
-              v7 = *(v4 + 224);
-              v8 = 16;
-            }
+        *(v4 + 488) = v14;
+        if ((*(v4 + 554) & 2) != 0)
+        {
+          strcpy(&ctx, "SMBS2CCipherKey");
+          if (*(v4 + 492) - 3 <= 1)
+          {
+            v20 = *(v4 + 232);
+            v21 = *(v4 + 240);
+            v22 = 32;
+            v23 = (v4 + 392);
+            v24 = v4 + 494;
+            v25 = 16;
+            v26 = 64;
+            v27 = 32;
+            goto LABEL_36;
+          }
 
-            if (piston_smb3_kdf_hmac_sha256())
-            {
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                piston_smb3_derive_keys_cold_2();
-              }
-            }
+          v20 = *(v4 + 216);
+          v21 = *(v4 + 224);
+          v22 = 16;
+          v23 = (v4 + 392);
+          v24 = v4 + 494;
+          v25 = 16;
+          v26 = 64;
+        }
 
-            else
-            {
-              *(v4 + 488) = v8;
-              if ((*(v4 + 554) & 2) != 0)
-              {
-                strcpy(&ctx, "SMBS2CCipherKey");
-                if (*(v4 + 492) - 3 > 1)
-                {
-                  v18 = *(v4 + 216);
-                  v19 = *(v4 + 224);
-                  v15 = 16;
-                }
+        else
+        {
+          macOut = *"ServerOut";
+          *ctx.ctx = *"SMB2AESCCM";
+          v20 = *(v4 + 216);
+          v21 = *(v4 + 224);
+          v22 = 16;
+          v23 = &macOut;
+          v24 = v4 + 494;
+          v25 = 11;
+          v26 = 10;
+        }
 
-                else
-                {
-                  v16 = *(v4 + 232);
-                  v17 = *(v4 + 240);
-                  v15 = 32;
-                }
-              }
-
-              else
-              {
-                macOut = *"ServerOut";
-                *ctx.ctx = *"SMB2AESCCM";
-                v13 = *(v4 + 216);
-                v14 = *(v4 + 224);
-                v15 = 16;
-              }
-
-              if (piston_smb3_kdf_hmac_sha256())
-              {
-                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  piston_smb3_derive_keys_cold_3();
-                }
-              }
-
-              else
-              {
-                *(v4 + 528) = v15;
-              }
-            }
+        v27 = 16;
+LABEL_36:
+        if (piston_smb3_kdf_hmac_sha256(v20, v21, &ctx, v25, v23, v26, v24, v27))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            piston_smb3_derive_keys_cold_3();
           }
         }
 
-        else if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        else
         {
-          piston_smb3_derive_keys_cold_4(v5);
+          *(v4 + 528) = v22;
         }
+
+        goto LABEL_40;
       }
 
-      else if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         piston_smb3_derive_keys_cold_5();
       }
@@ -5027,10 +5049,10 @@ void piston_smb3_derive_keys(void *a1)
     piston_smb3_derive_keys_cold_7();
   }
 
-  v20 = *MEMORY[0x277D85DE8];
+LABEL_40:
 }
 
-uint64_t piston_smb3_kdf_hmac_sha256()
+uint64_t piston_smb3_kdf_hmac_sha256(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int a8)
 {
   CtrHmac = CCKDFParametersCreateCtrHmac();
   if (!CtrHmac)
@@ -5072,7 +5094,7 @@ double smb_reset_sig(uint64_t a1)
 
 uint64_t smb2_rq_sign(void *a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 sr_sessionp];
   v3 = [v1 sr_command];
@@ -5115,7 +5137,7 @@ LABEL_44:
   }
 
   v5 = *(v2 + 552) & 0x28800;
-  v35 = v1;
+  v34 = v1;
   v6 = v1;
   v7 = &piston_log_level;
   v8 = MEMORY[0x277D86220];
@@ -5189,7 +5211,7 @@ LABEL_44:
 
       else if (*v7 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        smb2_rq_sign_cold_1(v36, &v37);
+        smb2_rq_sign_cold_1(v35, &v35[4]);
       }
     }
 
@@ -5233,7 +5255,7 @@ LABEL_44:
 
       else if (*v7 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        smb2_rq_sign_cold_2(v38, &v39);
+        smb2_rq_sign_cold_2(v36, &v36[4]);
       }
     }
 
@@ -5242,16 +5264,15 @@ LABEL_44:
 
   while (v6);
   v4 = 0;
-  v1 = v35;
+  v1 = v34;
 LABEL_45:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t smb2_rq_verify(void *a1, uint64_t a2, void *a3)
+uint64_t smb2_rq_verify(void *a1, uint64_t a2, const void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [v5 sr_sessionp];
   v7 = [v5 sr_command];
@@ -5304,94 +5325,94 @@ LABEL_24:
         v16 = v15;
         if (*(v15 + 260) > 0xFu)
         {
-          v55 = v14;
-          v27 = *(a2 + 8);
-          v28 = mbuf_data(v27);
-          v29 = mbuf_len(v27);
-          v30 = *(a2 + 8);
-          if (v30)
+          v54 = v14;
+          v26 = *(a2 + 8);
+          v27 = mbuf_data(v26);
+          v28 = mbuf_len(v26);
+          v29 = *(a2 + 8);
+          if (v29)
           {
-            v31 = v29 + v28 - *(a2 + 16);
-            v32 = 48;
+            v30 = v28 + v27 - *(a2 + 16);
+            v31 = 48;
             while (1)
             {
-              if (v30 != *(a2 + 8))
+              if (v29 != *(a2 + 8))
               {
-                v31 = mbuf_len(v30);
+                v30 = mbuf_len(v29);
               }
 
-              if (v32 < v31)
+              if (v31 < v30)
               {
                 break;
               }
 
-              v30 = mbuf_next(v30);
-              v32 -= v31;
-              if (!v30)
+              v29 = mbuf_next(v29);
+              v31 -= v30;
+              if (!v29)
               {
                 goto LABEL_39;
               }
             }
 
-            v54 = v16;
-            v33 = 16;
+            v53 = v16;
+            v32 = 16;
             while (1)
             {
-              v34 = v30 == *(a2 + 8) ? *(a2 + 16) : mbuf_data(v30);
-              v35 = v33 >= v31 - v32 ? v31 - v32 : v33;
-              bzero((v34 + v32), v35);
-              v33 -= v35;
-              v36 = mbuf_next(v30);
-              if (!v36)
+              v33 = v29 == *(a2 + 8) ? *(a2 + 16) : mbuf_data(v29);
+              v34 = v32 >= v30 - v31 ? v30 - v31 : v32;
+              bzero((v33 + v31), v34);
+              v32 -= v34;
+              v35 = mbuf_next(v29);
+              if (!v35)
               {
                 break;
               }
 
-              v30 = v36;
-              v31 = mbuf_len(v36);
-              v32 = 0;
-              if (!v33)
+              v29 = v35;
+              v30 = mbuf_len(v35);
+              v31 = 0;
+              if (!v32)
               {
                 goto LABEL_105;
               }
             }
 
-            if (!v33)
+            if (!v32)
             {
 LABEL_105:
               if (v9)
               {
                 v9 = v9;
-                v49 = v54;
-                v14 = v55;
+                v48 = v53;
+                v14 = v54;
               }
 
               else
               {
-                v50 = *(a2 + 8);
-                v51 = mbuf_data(v50);
-                v9 = mbuf_len(v50) + v51 - *(a2 + 16);
-                v52 = mbuf_next(v50);
-                v49 = v54;
-                v14 = v55;
-                if (v52)
+                v49 = *(a2 + 8);
+                v50 = mbuf_data(v49);
+                v9 = mbuf_len(v49) + v50 - *(a2 + 16);
+                v51 = mbuf_next(v49);
+                v48 = v53;
+                v14 = v54;
+                if (v51)
                 {
-                  v53 = v52;
+                  v52 = v51;
                   do
                   {
-                    v9 += mbuf_len(v53);
-                    v53 = mbuf_next(v53);
+                    v9 += mbuf_len(v52);
+                    v52 = mbuf_next(v52);
                   }
 
-                  while (v53);
+                  while (v52);
                 }
               }
 
-              smb3_get_signature(v49, v14, 0, a2, v9, 0, 0, 0, &ctx);
+              smb3_get_signature(v48, v14, 0, a2, v9, 0, 0, 0, &ctx);
               v17 = timingsafe_bcmp(a3, &ctx, 0x10uLL);
-              if (v17 && piston_log_level && (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR) || !smb2_rq_verify_cold_2(v14)) && (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR) || !smb2_rq_verify_cold_3(&ctx)) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              if (v17 && piston_log_level && (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR) || !smb2_rq_verify_cold_2(v14)) && (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR) || !smb2_rq_verify_cold_3()) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                smb2_rq_verify_cold_4(a3);
+                smb2_rq_verify_cold_4();
               }
 
               goto LABEL_46;
@@ -5433,17 +5454,17 @@ LABEL_39:
     else
     {
       memset(&ctx, 0, sizeof(ctx));
-      v20 = [v13 sr_sessionp];
-      if (v20)
+      v19 = [v13 sr_sessionp];
+      if (v19)
       {
-        v21 = v20;
-        v55 = v14;
-        v22 = *(a2 + 8);
-        v23 = mbuf_data(v22);
-        v24 = mbuf_len(v22) + v23 - *(a2 + 16);
-        v25 = mbuf_len(v22);
-        v26 = mbuf_len(v22) - v24;
-        if (v26 > v25)
+        v20 = v19;
+        v54 = v14;
+        v21 = *(a2 + 8);
+        v22 = mbuf_data(v21);
+        v23 = mbuf_len(v21) + v22 - *(a2 + 16);
+        v24 = mbuf_len(v21);
+        v25 = mbuf_len(v21) - v23;
+        if (v25 > v24)
         {
           if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
@@ -5460,19 +5481,19 @@ LABEL_39:
 
         else
         {
-          v37 = mbuf_next(v22);
-          v9 = v24;
-          if (v37)
+          v36 = mbuf_next(v21);
+          v9 = v23;
+          if (v36)
           {
-            v38 = v37;
-            v9 = v24;
+            v37 = v36;
+            v9 = v23;
             do
             {
-              v9 += mbuf_len(v38);
-              v38 = mbuf_next(v38);
+              v9 += mbuf_len(v37);
+              v37 = mbuf_next(v37);
             }
 
-            while (v38);
+            while (v37);
           }
         }
 
@@ -5483,7 +5504,7 @@ LABEL_39:
             goto LABEL_41;
           }
 
-          v14 = v55;
+          v14 = v54;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             smb2_rq_verify_cold_14();
@@ -5496,13 +5517,13 @@ LABEL_70:
 
         data[0] = 0;
         data[1] = 0;
-        CCHmacInit(&ctx, 2u, *(v21 + 216), *(v21 + 224));
-        v39 = 48;
+        CCHmacInit(&ctx, 2u, *(v20 + 216), *(v20 + 224));
+        v38 = 48;
         while (1)
         {
-          if (v24)
+          if (v23)
           {
-            if (v26 > v25)
+            if (v25 > v24)
             {
               if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
@@ -5515,15 +5536,15 @@ LABEL_70:
 
           else
           {
-            v40 = mbuf_next(v22);
-            if (!v40)
+            v39 = mbuf_next(v21);
+            if (!v39)
             {
               if (!piston_log_level)
               {
                 goto LABEL_41;
               }
 
-              v14 = v55;
+              v14 = v54;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 smb2_rq_verify_cold_11();
@@ -5532,37 +5553,37 @@ LABEL_70:
               goto LABEL_70;
             }
 
-            v22 = v40;
-            v24 = mbuf_len(v40);
-            v25 = mbuf_len(v22);
-            v26 = 0;
+            v21 = v39;
+            v23 = mbuf_len(v39);
+            v24 = mbuf_len(v21);
+            v25 = 0;
           }
 
-          if (v39 >= v24)
+          if (v38 >= v23)
           {
-            v41 = v24;
+            v40 = v23;
           }
 
           else
           {
-            v41 = v39;
+            v40 = v38;
           }
 
-          v42 = mbuf_data(v22);
-          CCHmacUpdate(&ctx, (v42 + v26), v41);
-          v26 += v41;
-          v24 -= v41;
-          v9 -= v41;
-          v39 -= v41;
-          if (!v39)
+          v41 = mbuf_data(v21);
+          CCHmacUpdate(&ctx, (v41 + v25), v40);
+          v25 += v40;
+          v23 -= v40;
+          v9 -= v40;
+          v38 -= v40;
+          if (!v38)
           {
-            v43 = 16;
+            v42 = 16;
             CCHmacUpdate(&ctx, data, 0x10uLL);
             while (1)
             {
-              if (v24)
+              if (v23)
               {
-                if (v26 > v25)
+                if (v25 > v24)
                 {
                   if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
@@ -5575,15 +5596,15 @@ LABEL_70:
 
               else
               {
-                v44 = mbuf_next(v22);
-                if (!v44)
+                v43 = mbuf_next(v21);
+                if (!v43)
                 {
                   if (!piston_log_level)
                   {
                     goto LABEL_41;
                   }
 
-                  v14 = v55;
+                  v14 = v54;
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
                     smb2_rq_verify_cold_11();
@@ -5592,27 +5613,27 @@ LABEL_70:
                   goto LABEL_70;
                 }
 
-                v22 = v44;
-                v24 = mbuf_len(v44);
-                v25 = mbuf_len(v22);
-                v26 = 0;
+                v21 = v43;
+                v23 = mbuf_len(v43);
+                v24 = mbuf_len(v21);
+                v25 = 0;
               }
 
-              if (v43 >= v24)
+              if (v42 >= v23)
               {
-                v45 = v24;
+                v44 = v23;
               }
 
               else
               {
-                v45 = v43;
+                v44 = v42;
               }
 
-              v26 += v45;
-              v24 -= v45;
-              v9 -= v45;
-              v43 -= v45;
-              if (!v43)
+              v25 += v44;
+              v23 -= v44;
+              v9 -= v44;
+              v42 -= v44;
+              if (!v42)
               {
                 if (!v9)
                 {
@@ -5624,9 +5645,9 @@ LABEL_101:
 
                 while (1)
                 {
-                  if (v24)
+                  if (v23)
                   {
-                    if (v26 > v25)
+                    if (v25 > v24)
                     {
                       if (!piston_log_level || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
@@ -5638,7 +5659,7 @@ LABEL_124:
 LABEL_41:
                       v17 = 72;
 LABEL_42:
-                      v14 = v55;
+                      v14 = v54;
 LABEL_46:
 
                       if (v17)
@@ -5658,8 +5679,8 @@ LABEL_46:
 
                   else
                   {
-                    v46 = mbuf_next(v22);
-                    if (!v46)
+                    v45 = mbuf_next(v21);
+                    if (!v45)
                     {
                       if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
@@ -5669,27 +5690,27 @@ LABEL_46:
                       goto LABEL_41;
                     }
 
-                    v22 = v46;
-                    v24 = mbuf_len(v46);
-                    v25 = mbuf_len(v22);
-                    v26 = 0;
+                    v21 = v45;
+                    v23 = mbuf_len(v45);
+                    v24 = mbuf_len(v21);
+                    v25 = 0;
                   }
 
-                  if (v9 >= v24)
+                  if (v9 >= v23)
                   {
-                    v47 = v24;
+                    v46 = v23;
                   }
 
                   else
                   {
-                    v47 = v9;
+                    v46 = v9;
                   }
 
-                  v48 = mbuf_data(v22);
-                  CCHmacUpdate(&ctx, (v48 + v26), v47);
-                  v26 += v47;
-                  v24 -= v47;
-                  v9 -= v47;
+                  v47 = mbuf_data(v21);
+                  CCHmacUpdate(&ctx, (v47 + v25), v46);
+                  v25 += v46;
+                  v23 -= v46;
+                  v9 -= v46;
                   if (!v9)
                   {
                     goto LABEL_101;
@@ -5719,18 +5740,17 @@ LABEL_46:
   v10 = 22;
 LABEL_25:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t smb3_rq_encrypt(void *a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v32 = 0;
+  v31 = 0;
   v2 = [v1 sr_sessionp];
-  v35 = 0uLL;
   v34 = 0uLL;
+  v33 = 0uLL;
   cryptorRef[1] = 0;
   dataOutMoved = 0;
   dataOut[0] = 0;
@@ -5740,7 +5760,7 @@ uint64_t smb3_rq_encrypt(void *a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb3_rq_encrypt_cold_1((v2 + 492));
+      smb3_rq_encrypt_cold_1();
     }
 
     *(v2 + 492) = 1;
@@ -5770,10 +5790,10 @@ uint64_t smb3_rq_encrypt(void *a1)
     m_fixhdr(v5);
   }
 
-  v32 = 0;
+  v31 = 0;
   if (*(v2 + 488))
   {
-    if (mbuf_gethdr(0, 1, &v32))
+    if (mbuf_gethdr(0, 1, &v31))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -5784,7 +5804,7 @@ uint64_t smb3_rq_encrypt(void *a1)
       goto LABEL_32;
     }
 
-    v11 = mbuf_data(v32);
+    v11 = mbuf_data(v31);
     *v11 = 0u;
     *(v11 + 16) = 0u;
     *(v11 + 32) = 0u;
@@ -5800,7 +5820,7 @@ uint64_t smb3_rq_encrypt(void *a1)
     }
 
     pthread_mutex_unlock(v2);
-    v35 = *(v2 + 536);
+    v34 = *(v2 + 536);
     v13 = *(v2 + 492);
     if (v13 > 2)
     {
@@ -5820,7 +5840,7 @@ uint64_t smb3_rq_encrypt(void *a1)
       if (v13 != 2)
       {
 LABEL_28:
-        *(v11 + 20) = v35;
+        *(v11 + 20) = v34;
         chain_len = mbuf_get_chain_len(v5);
         if (HIDWORD(chain_len))
         {
@@ -5835,18 +5855,18 @@ LABEL_28:
         *(v11 + 36) = chain_len;
         *(v11 + 42) = 1;
         *(v11 + 44) = [v1 sr_rqsessionid];
-        mbuf_setlen(v32, 52);
-        v17 = *(v2 + 492);
-        if (v17 > 2)
+        mbuf_setlen(v31, 52);
+        v16 = *(v2 + 492);
+        if (v16 > 2)
         {
-          if (v17 != 3)
+          if (v16 != 3)
           {
-            if (v17 != 4)
+            if (v16 != 4)
             {
 LABEL_94:
-              v32 = mbuf_concatenate(v32, v5);
-              m_fixhdr(v32);
-              mb_initm(v3, v32);
+              v31 = mbuf_concatenate(v31, v5);
+              m_fixhdr(v31);
+              mb_initm(v3, v31);
               v10 = 0;
 LABEL_34:
               if (cryptorRef[0])
@@ -5861,9 +5881,9 @@ LABEL_34:
           }
         }
 
-        else if (v17 != 1)
+        else if (v16 != 1)
         {
-          if (v17 != 2)
+          if (v16 != 2)
           {
             goto LABEL_94;
           }
@@ -5877,9 +5897,9 @@ LABEL_31:
               v10 = 80;
 LABEL_32:
               mbuf_freem(v5);
-              if (v32)
+              if (v31)
               {
-                mbuf_freem(v32);
+                mbuf_freem(v31);
               }
 
               goto LABEL_34;
@@ -5916,24 +5936,24 @@ LABEL_57:
 
           if (v5)
           {
-            v18 = v5;
+            v17 = v5;
             while (1)
             {
-              v19 = mbuf_len(v18);
-              if (v19)
+              v18 = mbuf_len(v17);
+              if (v18)
               {
-                v20 = v19;
-                v21 = cryptorRef[0];
-                v22 = mbuf_data(v18);
-                v23 = mbuf_data(v18);
-                if (CCCryptorUpdate(v21, v22, v20, v23, v20, &dataOutMoved))
+                v19 = v18;
+                v20 = cryptorRef[0];
+                v21 = mbuf_data(v17);
+                v22 = mbuf_data(v17);
+                if (CCCryptorUpdate(v20, v21, v19, v22, v19, &dataOutMoved))
                 {
                   break;
                 }
               }
 
-              v18 = mbuf_next(v18);
-              if (!v18)
+              v17 = mbuf_next(v17);
+              if (!v17)
               {
                 goto LABEL_66;
               }
@@ -5959,7 +5979,7 @@ LABEL_66:
           }
 
 LABEL_93:
-          *(v11 + 4) = v34;
+          *(v11 + 4) = v33;
           goto LABEL_94;
         }
 
@@ -6015,24 +6035,24 @@ LABEL_93:
 
         if (v5)
         {
-          v24 = v5;
+          v23 = v5;
           while (1)
           {
-            v25 = mbuf_len(v24);
-            if (v25)
+            v24 = mbuf_len(v23);
+            if (v24)
             {
-              v26 = v25;
-              v27 = cryptorRef[0];
-              v28 = mbuf_data(v24);
-              v29 = mbuf_data(v24);
-              if (CCCryptorUpdate(v27, v28, v26, v29, v26, &dataOutMoved))
+              v25 = v24;
+              v26 = cryptorRef[0];
+              v27 = mbuf_data(v23);
+              v28 = mbuf_data(v23);
+              if (CCCryptorUpdate(v26, v27, v25, v28, v25, &dataOutMoved))
               {
                 break;
               }
             }
 
-            v24 = mbuf_next(v24);
-            if (!v24)
+            v23 = mbuf_next(v23);
+            if (!v23)
             {
               goto LABEL_82;
             }
@@ -6063,7 +6083,7 @@ LABEL_82:
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            smb3_rq_encrypt_cold_10(&dataOutMoved);
+            smb3_rq_encrypt_cold_10();
           }
 
           goto LABEL_31;
@@ -6083,12 +6103,12 @@ LABEL_82:
       }
 
 LABEL_26:
-      HIDWORD(v35) = 0;
+      HIDWORD(v34) = 0;
       goto LABEL_28;
     }
 
-    HIBYTE(v35) = 0;
-    *(&v35 + 11) = 0;
+    HIBYTE(v34) = 0;
+    *(&v34 + 11) = 0;
     goto LABEL_28;
   }
 
@@ -6100,16 +6120,15 @@ LABEL_26:
   v10 = 22;
 LABEL_36:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t smb3_msg_decrypt(uint64_t a1, void **a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   cryptorRef = 0;
-  v26 = 0;
-  *v28 = 0uLL;
+  v24 = 0;
+  v26 = 0uLL;
   dataOutMoved = 0;
   dataOut[0] = 0;
   dataOut[1] = 0;
@@ -6117,13 +6136,13 @@ uint64_t smb3_msg_decrypt(uint64_t a1, void **a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb3_msg_decrypt_cold_1((a1 + 492));
+      smb3_msg_decrypt_cold_1();
     }
 
     *(a1 + 492) = 1;
   }
 
-  v26 = 0;
+  v24 = 0;
   if (!*(a1 + 528))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -6135,7 +6154,7 @@ uint64_t smb3_msg_decrypt(uint64_t a1, void **a2)
   }
 
   v4 = *a2;
-  if (mbuf_split(*a2, 0x34uLL, 0, &v26))
+  if (mbuf_split(*a2, 0x34uLL, 0, &v24))
   {
 LABEL_10:
     v7 = 72;
@@ -6148,7 +6167,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb3_msg_decrypt_cold_2(v6);
+      smb3_msg_decrypt_cold_2();
     }
 
     goto LABEL_10;
@@ -6168,19 +6187,18 @@ LABEL_10:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb3_msg_decrypt_cold_4((a1 + 568));
+      smb3_msg_decrypt_cold_4();
     }
 
     goto LABEL_13;
   }
 
-  v10 = *(v5 + 36);
-  v11 = *(a1 + 492);
-  if (v11 > 2)
+  v9 = *(a1 + 492);
+  if (v9 > 2)
   {
-    if (v11 != 3)
+    if (v9 != 3)
     {
-      if (v11 != 4)
+      if (v9 != 4)
       {
         goto LABEL_87;
       }
@@ -6239,8 +6257,8 @@ LABEL_32:
       goto LABEL_43;
     }
 
-    v18 = v26;
-    if (!v26)
+    v16 = v24;
+    if (!v24)
     {
 LABEL_66:
       if (CCCryptorFinal(cryptorRef, dataOut, 0x10uLL, &dataOutMoved))
@@ -6255,7 +6273,7 @@ LABEL_66:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb3_msg_decrypt_cold_12(&dataOutMoved);
+          smb3_msg_decrypt_cold_12();
         }
       }
 
@@ -6285,12 +6303,12 @@ LABEL_66:
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              smb3_msg_decrypt_cold_15(v6 + 4, v6);
+              smb3_msg_decrypt_cold_15();
             }
 
             if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              smb3_msg_decrypt_cold_16(v28);
+              smb3_msg_decrypt_cold_16();
             }
           }
         }
@@ -6301,21 +6319,21 @@ LABEL_66:
 
     while (1)
     {
-      v19 = mbuf_len(v18);
-      if (v19)
+      v17 = mbuf_len(v16);
+      if (v17)
       {
-        v20 = v19;
-        v21 = cryptorRef;
-        v22 = mbuf_data(v18);
-        v23 = mbuf_data(v18);
-        if (CCCryptorUpdate(v21, v22, v20, v23, v20, &dataOutMoved))
+        v18 = v17;
+        v19 = cryptorRef;
+        v20 = mbuf_data(v16);
+        v21 = mbuf_data(v16);
+        if (CCCryptorUpdate(v19, v20, v18, v21, v18, &dataOutMoved))
         {
           break;
         }
       }
 
-      v18 = mbuf_next(v18);
-      if (!v18)
+      v16 = mbuf_next(v16);
+      if (!v16)
       {
         goto LABEL_66;
       }
@@ -6331,19 +6349,19 @@ LABEL_61:
     goto LABEL_13;
   }
 
-  if (v11 == 1)
+  if (v9 == 1)
   {
     goto LABEL_32;
   }
 
-  if (v11 != 2)
+  if (v9 != 2)
   {
 LABEL_87:
     v7 = 0;
-    *a2 = v26;
+    *a2 = v24;
     if (!v4)
     {
-      goto LABEL_16;
+      return v7;
     }
 
     goto LABEL_15;
@@ -6376,11 +6394,11 @@ LABEL_43:
       goto LABEL_13;
     }
 
-    v12 = v26;
-    if (!v26)
+    v10 = v24;
+    if (!v24)
     {
 LABEL_51:
-      *v28 = *(v6 + 4);
+      v26 = *(v6 + 4);
       if (!CCCryptorGCMFinalize())
       {
         goto LABEL_87;
@@ -6396,21 +6414,21 @@ LABEL_51:
 
     while (1)
     {
-      v13 = mbuf_len(v12);
-      if (v13)
+      v11 = mbuf_len(v10);
+      if (v11)
       {
-        v14 = v13;
-        v15 = cryptorRef;
-        v16 = mbuf_data(v12);
-        v17 = mbuf_data(v12);
-        if (CCCryptorUpdate(v15, v16, v14, v17, v14, &dataOutMoved))
+        v12 = v11;
+        v13 = cryptorRef;
+        v14 = mbuf_data(v10);
+        v15 = mbuf_data(v10);
+        if (CCCryptorUpdate(v13, v14, v12, v15, v12, &dataOutMoved))
         {
           break;
         }
       }
 
-      v12 = mbuf_next(v12);
-      if (!v12)
+      v10 = mbuf_next(v10);
+      if (!v10)
       {
         goto LABEL_51;
       }
@@ -6433,23 +6451,20 @@ LABEL_31:
 LABEL_13:
   v7 = 80;
 LABEL_14:
-  v4 = v26;
-  if (v26)
+  v4 = v24;
+  if (v24)
   {
 LABEL_15:
     mbuf_freem(v4);
   }
 
-LABEL_16:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t smb3_verify_session_setup(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t smb3_verify_session_setup(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
   ccaes_cbc_encrypt_mode();
-  v6 = *(a1 + 264);
+  v7 = *(a1 + 264);
   if (!a2 || !a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -6457,139 +6472,131 @@ uint64_t smb3_verify_session_setup(uint64_t a1, uint64_t a2, unint64_t a3)
       smb3_verify_session_setup_cold_9();
     }
 
-    goto LABEL_8;
+    return 80;
   }
 
-  if (a3 > 0x40)
+  if (a3 <= 0x40)
   {
-    if (*(a1 + 260) > 0xFu)
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a2 + 48);
-      *(a2 + 48) = 0;
-      *(a2 + 56) = 0;
-      if (v6 == 2)
-      {
-        if (CCCryptorGCMOneshotEncrypt())
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            smb3_verify_session_setup_cold_1();
-          }
+      smb3_verify_session_setup_cold_8();
+    }
 
-          goto LABEL_8;
-        }
+    return 80;
+  }
+
+  if (*(a1 + 260) <= 0xFu)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      smb3_verify_session_setup_cold_7();
+    }
+
+    return 80;
+  }
+
+  *(a2 + 48) = 0;
+  *(a2 + 56) = 0;
+  if (v7 == 2)
+  {
+    if (CCCryptorGCMOneshotEncrypt())
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        smb3_verify_session_setup_cold_1();
       }
 
-      else
+      return 80;
+    }
+  }
+
+  else
+  {
+    if (v7 != 1)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        if (v6 != 1)
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            smb3_verify_session_setup_cold_6();
-          }
-
-          goto LABEL_8;
-        }
-
-        if (cccmac_one_shot_generate())
-        {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            smb3_verify_session_setup_cold_2();
-          }
-
-          goto LABEL_8;
-        }
+        smb3_verify_session_setup_cold_6();
       }
 
-      *v11 = v9;
-      result = cc_cmp_safe();
-      if (!result)
+      return 80;
+    }
+
+    if (cccmac_one_shot_generate())
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_9;
+        smb3_verify_session_setup_cold_2();
+      }
+
+      return 80;
+    }
+  }
+
+  result = cc_cmp_safe();
+  if (result)
+  {
+    if (piston_log_level)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        smb3_verify_session_setup_cold_3();
       }
 
       if (piston_log_level)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb3_verify_session_setup_cold_3();
+          smb3_verify_session_setup_cold_4();
         }
 
-        if (piston_log_level)
+        if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            smb3_verify_session_setup_cold_4(v11);
-          }
-
-          if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-          {
-            smb3_verify_session_setup_cold_5(&v10);
-          }
+          smb3_verify_session_setup_cold_5();
         }
       }
     }
 
-    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      smb3_verify_session_setup_cold_7();
-    }
+    return 80;
   }
 
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    smb3_verify_session_setup_cold_8();
-  }
-
-LABEL_8:
-  result = 80;
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t smb311_pre_auth_integrity_hash_init(uint64_t a1, int a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, sizeof(v12));
-  if (a1)
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v11, 0, sizeof(v11));
+  if (!a1)
   {
-    memset(&v11, 0, sizeof(v11));
-    CC_SHA512_Init(&v11);
-    if (a2)
-    {
-      v6 = (a1 + 328);
-    }
+    return 22;
+  }
 
-    else
-    {
-      v6 = v12;
-    }
-
-    CC_SHA512_Update(&v11, v6, 0x40u);
-    for (; a3; a3 = mbuf_next(a3))
-    {
-      if (mbuf_len(a3))
-      {
-        v7 = mbuf_data(a3);
-        v8 = mbuf_len(a3);
-        CC_SHA512_Update(&v11, v7, v8);
-      }
-    }
-
-    CC_SHA512_Final((a1 + 392), &v11);
-    result = 0;
+  memset(&v10, 0, sizeof(v10));
+  CC_SHA512_Init(&v10);
+  if (a2)
+  {
+    v6 = (a1 + 328);
   }
 
   else
   {
-    result = 22;
+    v6 = v11;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  CC_SHA512_Update(&v10, v6, 0x40u);
+  for (; a3; a3 = mbuf_next(a3))
+  {
+    if (mbuf_len(a3))
+    {
+      v7 = mbuf_data(a3);
+      v8 = mbuf_len(a3);
+      CC_SHA512_Update(&v10, v7, v8);
+    }
+  }
+
+  CC_SHA512_Final((a1 + 392), &v10);
+  return 0;
 }
 
 uint64_t smb311_pre_auth_integrity_hash_update(uint64_t a1, uint64_t a2)
@@ -6629,17 +6636,18 @@ uint64_t smb311_pre_auth_integrity_hash_print(uint64_t a1)
   }
 }
 
-void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint64_t a5, uint64_t a6, int a7, int a8, void *a9)
+void smb3_get_signature(uint64_t a1, void *a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, int a8, void *a9)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v10 = a7;
+  v34 = *MEMORY[0x277D85DE8];
   v16 = a2;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0;
-  v33 = 0;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0;
+  v31 = 0;
   v17 = *(a1 + 264);
   cryptorRef = 0;
-  v31 = 0;
+  v29 = 0;
   if (!a9)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -6664,7 +6672,7 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      smb3_get_signature_cold_10((a1 + 260));
+      smb3_get_signature_cold_10();
     }
 
     goto LABEL_76;
@@ -6679,7 +6687,7 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
   }
 
   v19 = *v18;
-  v29 = v17;
+  v27 = v17;
   if (v17 == 2)
   {
     if (CCCryptorCreateWithMode(0, 0xBu, 0, 0, 0, (a1 + 244), *(a1 + 260), 0, 0, 0, 0, &cryptorRef))
@@ -6692,15 +6700,15 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
       goto LABEL_74;
     }
 
-    v31 = [v16 sr_messageid];
+    v29 = [v16 sr_messageid];
     if (a4)
     {
-      LODWORD(v32) = v32 | 1;
+      LODWORD(v30) = v30 | 1;
     }
 
     if ([v16 sr_command] == 12)
     {
-      LODWORD(v32) = v32 | 2;
+      LODWORD(v30) = v30 | 2;
     }
 
     if (CCCryptorGCMSetIV())
@@ -6713,7 +6721,7 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
       goto LABEL_74;
     }
 
-    v21 = 0;
+    v20 = 0;
   }
 
   else
@@ -6728,9 +6736,8 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
       goto LABEL_74;
     }
 
-    v20 = *(a1 + 260);
-    v21 = CCAESCmacCreate();
-    if (!v21)
+    v20 = CCAESCmacCreate();
+    if (!v20)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -6741,17 +6748,17 @@ void smb3_get_signature(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint6
     }
   }
 
-  v27 = v21;
+  v25 = v20;
   if (!v19)
   {
 LABEL_48:
-    v25 = v27;
-    if (!a6 || !a7)
+    v24 = v25;
+    if (!a6 || !v10)
     {
       goto LABEL_59;
     }
 
-    if (v29 == 1)
+    if (v27 == 1)
     {
       CCAESCmacUpdate();
     }
@@ -6766,9 +6773,9 @@ LABEL_48:
       goto LABEL_72;
     }
 
-    if (a8 && (a7 & 7) != 0)
+    if (a8 && (v10 & 7) != 0)
     {
-      if (v29 == 1)
+      if (v27 == 1)
       {
         CCAESCmacUpdate();
 LABEL_60:
@@ -6790,7 +6797,7 @@ LABEL_60:
     else
     {
 LABEL_59:
-      if (v29 == 1)
+      if (v27 == 1)
       {
         goto LABEL_60;
       }
@@ -6812,34 +6819,34 @@ LABEL_67:
       smb3_get_signature_cold_7();
     }
 
-    *a9 = v34;
+    *a9 = v32;
     goto LABEL_72;
   }
 
-  v28 = v19;
+  v26 = v19;
   while (1)
   {
-    if (a4 && v19 == v28)
+    if (a4 && v19 == v26)
     {
-      v22 = mbuf_data(v19);
-      v23 = mbuf_len(v19) + v22 - *(a4 + 16);
+      v21 = mbuf_data(v19);
+      v22 = mbuf_len(v19) + v21 - *(a4 + 16);
     }
 
     else
     {
-      v23 = mbuf_len(v19);
+      v22 = mbuf_len(v19);
       mbuf_data(v19);
     }
 
-    v24 = a5 >= v23 ? v23 : a5;
-    if (v29 != 1)
+    v23 = a5 >= v22 ? v22 : a5;
+    if (v27 != 1)
     {
       break;
     }
 
     CCAESCmacUpdate();
 LABEL_27:
-    if (a4 == 0 || a5 == 0 || (a5 -= v24) != 0)
+    if (a4 == 0 || a5 == 0 || (a5 -= v23) != 0)
     {
       v19 = mbuf_next(v19);
       if (v19)
@@ -6856,14 +6863,14 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v25 = v27;
+  v24 = v25;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     smb3_get_signature_cold_2();
   }
 
 LABEL_72:
-  if (v25)
+  if (v24)
   {
     CCAESCmacDestroy();
   }
@@ -6876,40 +6883,6 @@ LABEL_74:
   }
 
 LABEL_76:
-
-  v26 = *MEMORY[0x277D85DE8];
-}
-
-unsigned __int8 *OUTLINED_FUNCTION_3_4@<X0>(unsigned __int8 *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  v4 = result[1];
-  v5 = result[2];
-  v6 = result[3];
-  v7 = result[4];
-  v8 = result[5];
-  v9 = result[6];
-  v10 = result[7];
-  v11 = result[8];
-  v12 = result[9];
-  return result;
-}
-
-char *OUTLINED_FUNCTION_6_0@<X0>(char *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  v4 = result[1];
-  v5 = result[2];
-  v6 = result[3];
-  v7 = result[4];
-  v8 = result[5];
-  v9 = result[6];
-  v10 = result[7];
-  v11 = result[8];
-  v12 = result[9];
-  return result;
 }
 
 void piston_flush(void *a1, _WORD *a2, void *a3)
@@ -7049,7 +7022,7 @@ void __smb2_smb_flush_block_invoke(uint64_t a1, uint64_t uint16le)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __smb2_smb_flush_block_invoke_cold_2(&v8 + 1);
+          __smb2_smb_flush_block_invoke_cold_2();
         }
 
         uint16le = 72;
@@ -7075,29 +7048,38 @@ void sub_2642A3C74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2642A5648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_2642A543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2642A5808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  objc_destroyWeak((v8 + 48));
+  va_start(va, a29);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 56), 8);
-  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
-void sub_2642A60CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_2642A5648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2642A5808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  objc_destroyWeak((v15 + 48));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 56), 8);
+  objc_destroyWeak((v16 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_2642A60CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
   objc_destroyWeak(&location);
   _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7139,9 +7121,9 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
 {
   output_token.length = 0;
   output_token.value = 0;
-  memset(v16, 0, sizeof(v16));
   memset(v14, 0, sizeof(v14));
-  v15 = 0u;
+  memset(v12, 0, sizeof(v12));
+  v13 = 0u;
   if (!*(a1 + 144))
   {
     return 589824;
@@ -7151,7 +7133,7 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
   v2 = gss_decapsulate_token((a1 + 136), MEMORY[0x277CCAF40], &output_token);
   if (!v2)
   {
-    v3 = decode_NegotiationToken(output_token.value, output_token.length, v16, 0);
+    v3 = decode_NegotiationToken(output_token.value, output_token.length, v14, 0);
     if (v3)
     {
       if ((piston_log_level & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -7159,7 +7141,7 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
         piston_gss_parse_server_mechs_cold_1();
       }
 
-      v4 = decode_NegotiationTokenWin(output_token.value, output_token.length, v14, 0);
+      v4 = decode_NegotiationTokenWin(output_token.value, output_token.length, v12, 0);
       if (v4)
       {
         v2 = v4;
@@ -7172,7 +7154,7 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
         goto LABEL_44;
       }
 
-      if (LODWORD(v14[0]) != 1)
+      if (LODWORD(v12[0]) != 1)
       {
         gss_release_buffer(&minor_status, &output_token);
         v5 = 0;
@@ -7180,20 +7162,10 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
         goto LABEL_48;
       }
 
-      p_value = v14 + 1;
-      if (*(&v15 + 1))
+      p_value = v12 + 1;
+      if (*(&v13 + 1) && **(&v13 + 1) && (piston_log_level & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        if (**(&v15 + 1))
-        {
-          if ((piston_log_level & 4) != 0)
-          {
-            v7 = ***(&v15 + 1);
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-            {
-              piston_gss_parse_server_mechs_cold_3();
-            }
-          }
-        }
+        piston_gss_parse_server_mechs_cold_3();
       }
 
       v5 = 0;
@@ -7201,7 +7173,7 @@ uint64_t piston_gss_parse_server_mechs(uint64_t a1)
 
     else
     {
-      if (LODWORD(v16[0].length) != 1)
+      if (LODWORD(v14[0].length) != 1)
       {
         v5 = 1;
         v2 = 589824;
@@ -7210,17 +7182,16 @@ LABEL_44:
         goto LABEL_49;
       }
 
-      p_value = &v16[0].value;
+      p_value = &v14[0].value;
       v5 = 1;
     }
 
     if (*p_value)
     {
+      v7 = 0;
       v8 = 0;
-      v9 = 0;
       while (1)
       {
-        v10 = p_value[1];
         v2 = der_print_heim_oid();
         if (!v2)
         {
@@ -7228,9 +7199,9 @@ LABEL_44:
         }
 
 LABEL_41:
-        ++v9;
-        v8 += 16;
-        if (v9 >= *p_value)
+        ++v8;
+        v7 += 16;
+        if (v8 >= *p_value)
         {
           goto LABEL_47;
         }
@@ -7238,32 +7209,32 @@ LABEL_41:
 
       if (!strcmp(0, "1.2.840.48018.1.2.2"))
       {
-        v11 = 1;
+        v9 = 1;
       }
 
       else if (!strcmp(0, "1.2.840.113554.1.2.2"))
       {
-        v11 = 2;
+        v9 = 2;
       }
 
       else if (!strcmp(0, "1.2.752.43.14.3"))
       {
-        v11 = 4;
+        v9 = 4;
       }
 
       else if (!strcmp(0, "1.3.6.1.5.5.14"))
       {
-        v11 = 8;
+        v9 = 8;
       }
 
       else if (!strcmp(0, "1.3.6.1.4.1.311.2.2.10"))
       {
-        v11 = 16;
+        v9 = 16;
       }
 
       else if (!strcmp(0, "1.3.5.1.5.2.7"))
       {
-        v11 = 32;
+        v9 = 32;
       }
 
       else
@@ -7275,10 +7246,10 @@ LABEL_40:
           goto LABEL_41;
         }
 
-        v11 = 64;
+        v9 = 64;
       }
 
-      *(a1 + 112) |= v11;
+      *(a1 + 112) |= v9;
       goto LABEL_40;
     }
 
@@ -7291,11 +7262,11 @@ LABEL_47:
     }
 
 LABEL_48:
-    free_NegotiationTokenWin(v14);
+    free_NegotiationTokenWin(v12);
 LABEL_49:
     if (v5)
     {
-      free_NegotiationToken(v16);
+      free_NegotiationToken(v14);
     }
   }
 
@@ -7304,7 +7275,7 @@ LABEL_49:
 
 uint64_t piston_gss_transact(void *a1)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v1 = a1;
   *minor_status = 0;
   ret_flags = 0;
@@ -7386,7 +7357,7 @@ LABEL_166:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          piston_gss_transact_cold_12(error);
+          piston_gss_transact_cold_12();
         }
 
         v25 = 0;
@@ -7518,12 +7489,12 @@ LABEL_164:
 
     v40 = v1;
     *status_value = 0u;
-    memset(&v94, 0, sizeof(v94));
+    memset(&v93, 0, sizeof(v93));
     memset(&output_cred_handle, 0, sizeof(output_cred_handle));
     LODWORD(rctx) = 0;
     v41 = [v40 getSessionPtr];
-    v92 = 0;
-    v89 = 0;
+    v91 = 0;
+    v88 = 0;
     v42 = pthread_mutex_init(&output_cred_handle, 0);
     if (v42)
     {
@@ -7533,7 +7504,7 @@ LABEL_81:
       goto LABEL_167;
     }
 
-    v51 = pthread_cond_init(&v94, 0);
+    v51 = pthread_cond_init(&v93, 0);
     if (v51)
     {
       printf("pthread_cond_init failed <%d> \n", v51);
@@ -7561,13 +7532,13 @@ LABEL_81:
     }
 
     v54 = [v40 userName];
-    cstring_len = smb_get_cstring_len(v54, &v92);
+    cstring_len = smb_get_cstring_len(v54, &v91);
 
     v56 = [v40 password];
-    v57 = smb_get_cstring_len(v56, &v89 + 1);
+    v57 = smb_get_cstring_len(v56, &v88 + 1);
 
     v58 = [v40 realm];
-    v59 = smb_get_cstring_len(v58, &v89);
+    v59 = smb_get_cstring_len(v58, &v88);
 
     error[0] = 1;
     error[1] = cstring_len;
@@ -7601,7 +7572,7 @@ LABEL_81:
       pthread_mutex_lock(&output_cred_handle);
       while (!status_value[0])
       {
-        v75 = pthread_cond_wait(&v94, &output_cred_handle);
+        v75 = pthread_cond_wait(&v93, &output_cred_handle);
         if (v75)
         {
           v76 = v75;
@@ -7634,7 +7605,7 @@ LABEL_141:
         free(v61);
 LABEL_176:
         pthread_mutex_destroy(&output_cred_handle);
-        pthread_cond_destroy(&v94);
+        pthread_cond_destroy(&v93);
 LABEL_167:
 
         if (v30)
@@ -7735,7 +7706,7 @@ LABEL_44:
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                piston_gss_transact_cold_37((v2 + 152));
+                piston_gss_transact_cold_37();
               }
 
               goto LABEL_61;
@@ -7743,16 +7714,16 @@ LABEL_44:
 
             v45 = actual_mech_type;
             v46 = v1;
-            v92 = 0;
+            v91 = 0;
             error[0] = 0;
             rctx = 0;
             v47 = [v46 getSessionPtr];
             if (gss_oid_equal(v45, MEMORY[0x277CCAF38]))
             {
-              v48 = gss_inquire_sec_context_by_oid(&v92, *(v47 + 120), MEMORY[0x277CCAF30], error);
+              v48 = gss_inquire_sec_context_by_oid(&v91, *(v47 + 120), MEMORY[0x277CCAF30], error);
               if (v48)
               {
-                v49 = piston_gss_error(v48, v92, v45);
+                v49 = piston_gss_error(v48, v91, v45);
                 v50 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
                 if (!v49)
                 {
@@ -7795,7 +7766,7 @@ LABEL_44:
               }
 
               piston_set_session_key(v46, *(*(v63 + 1) + 8), **(v63 + 1));
-              gss_release_buffer_set(&v92, error);
+              gss_release_buffer_set(&v91, error);
 LABEL_183:
 
               if (gss_oid_equal(actual_mech_type, MEMORY[0x277CCAF38]))
@@ -7805,7 +7776,7 @@ LABEL_183:
                 {
                   if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
-                    piston_gss_transact_cold_33(minor_status);
+                    piston_gss_transact_cold_33();
                   }
                 }
 
@@ -7843,10 +7814,10 @@ LABEL_183:
               goto LABEL_193;
             }
 
-            v52 = gss_krb5_export_lucid_sec_context(&v92, (v47 + 120), 1u, &rctx);
+            v52 = gss_krb5_export_lucid_sec_context(&v91, (v47 + 120), 1u, &rctx);
             if (v52)
             {
-              v49 = piston_gss_error(v52, v92, v45);
+              v49 = piston_gss_error(v52, v91, v45);
               v53 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
               if (!v49)
               {
@@ -7883,7 +7854,7 @@ LABEL_171:
             {
               if ((piston_log_level & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                piston_gss_transact_cold_30(v67);
+                piston_gss_transact_cold_30();
               }
 
               v68 = v67[8];
@@ -7907,14 +7878,14 @@ LABEL_171:
 
                 v69 = 12;
 LABEL_179:
-                v82 = &v67[v69];
+                v81 = &v67[v69];
                 if ((piston_log_level & 4) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  piston_gss_transact_cold_32(v82);
+                  piston_gss_transact_cold_32();
                 }
 
-                piston_set_session_key(v46, *(v82 + 1), *(v82 + 1));
-                gss_krb5_free_lucid_sec_context(&v92, rctx);
+                piston_set_session_key(v46, *(v81 + 1), *(v81 + 1));
+                gss_krb5_free_lucid_sec_context(&v91, rctx);
                 goto LABEL_183;
               }
 
@@ -7931,7 +7902,7 @@ LABEL_179:
               v79 = 0;
             }
 
-            gss_krb5_free_lucid_sec_context(&v92, v79);
+            gss_krb5_free_lucid_sec_context(&v91, v79);
             goto LABEL_193;
           }
 
@@ -7988,7 +7959,6 @@ LABEL_61:
   v6 = 57;
 LABEL_173:
 
-  v80 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -8288,7 +8258,7 @@ LABEL_37:
 
 void __piston_negotiate_block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) getSessionPtr];
   v3 = [*(a1 + 32) sock];
   v4 = [v3 connectSocket];
@@ -8313,9 +8283,9 @@ void __piston_negotiate_block_invoke(uint64_t a1)
 
   v7 = *(v2 + 64);
   v8 = *(a1 + 32);
-  v52 = 0;
-  v9 = smb2_rq_alloc(0, 0, 0, 0, v8, &v52);
-  v10 = v52;
+  v51 = 0;
+  v9 = smb2_rq_alloc(0, 0, 0, 0, v8, &v51);
+  v10 = v51;
   v6 = v10;
   if (v9)
   {
@@ -8350,25 +8320,25 @@ LABEL_17:
     *(v2 + 172) = client_capabilities;
     mb_put_uint32le(v13, client_capabilities);
     *mb_reserve(v13, 0x10uLL) = *(v2 + 176);
-    v18 = mb_reserve(v13, 4uLL);
-    v19 = mb_reserve(v13, 2uLL);
+    v17 = mb_reserve(v13, 4uLL);
+    v18 = mb_reserve(v13, 2uLL);
     mb_put_uint16le(v13, 0);
     if (*(v2 + 194))
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        mb_put_uint16le(v13, *(v2 + 196 + 2 * v20++));
-        v21 = *(v2 + 194);
+        mb_put_uint16le(v13, *(v2 + 196 + 2 * v19++));
+        v20 = *(v2 + 194);
       }
 
-      while (v20 < v21);
-      v22 = 2 * v21 + 36;
+      while (v19 < v20);
+      v21 = 2 * v20 + 36;
     }
 
     else
     {
-      v22 = 36;
+      v21 = 36;
     }
 
     if ((*(v2 + 555) & 0x40) != 0)
@@ -8376,35 +8346,35 @@ LABEL_17:
       goto LABEL_28;
     }
 
-    v23 = v22 & 6;
-    if ((v22 & 6) != 0)
+    v22 = v21 & 6;
+    if ((v21 & 6) != 0)
     {
-      v24 = 8 - v23;
-      mb_put_mem(v13, 0, (8 - v23), 3);
-      v22 += v24;
+      v23 = 8 - v22;
+      mb_put_mem(v13, 0, (8 - v22), 3);
+      v21 += v23;
     }
 
     if ((*(v2 + 561) & 0x10) == 0)
     {
 LABEL_28:
+      *v17 = 0;
       *v18 = 0;
-      *v19 = 0;
       goto LABEL_29;
     }
 
-    v44 = v19;
-    v31 = [*(a1 + 32) sock];
-    v32 = [v31 serverName];
-    v33 = [v32 cStringUsingEncoding:4];
+    v43 = v18;
+    v30 = [*(a1 + 32) sock];
+    v31 = [v30 serverName];
+    v32 = [v31 cStringUsingEncoding:4];
 
-    if (!v33)
+    if (!v32)
     {
-      v34 = [*(a1 + 32) sock];
-      v33 = [v34 getIPv4IPv6DotName];
+      v33 = [*(a1 + 32) sock];
+      v32 = [v33 getIPv4IPv6DotName];
     }
 
-    *v18 = v22 + 64;
-    v53 = 0;
+    *v17 = v21 + 64;
+    v52 = 0;
     arc4random_buf((v2 + 296), 0x20uLL);
     mb_put_uint16le(v13, 1);
     mb_put_uint16le(v13, 38);
@@ -8414,36 +8384,36 @@ LABEL_28:
     mb_put_uint16le(v13, 1);
     mb_put_mem(v13, (v2 + 296), 0x20uLL, 0);
     mb_put_mem(v13, 0, 2uLL, 3);
-    v35 = *(v2 + 560);
-    v36 = vaddvq_s32((*&vshlq_u32(vdupq_n_s32(v35), xmmword_2642C0B20) & __PAIR128__(0xFFFFFF01FFFFFF01, 0xFFFFFF01FFFFFF01)));
-    if (!v36)
+    v34 = *(v2 + 560);
+    v35 = vaddvq_s32((*&vshlq_u32(vdupq_n_s32(v34), xmmword_2642C0B20) & __PAIR128__(0xFFFFFF01FFFFFF01, 0xFFFFFF01FFFFFF01)));
+    if (!v35)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v55 = "smb2_smb_add_negotiate_contexts";
+        v54 = "smb2_smb_add_negotiate_contexts";
         _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: No encryption algorithm set? Assuming AES-128-CCM \n", buf, 0xCu);
-        v35 = *(v2 + 560);
+        v34 = *(v2 + 560);
       }
 
-      *(v2 + 560) = v35 | 0x1000000;
-      LOWORD(v36) = 1;
+      *(v2 + 560) = v34 | 0x1000000;
+      LOWORD(v35) = 1;
     }
 
-    v37 = 2 * v36 + 2;
+    v36 = 2 * v35 + 2;
     mb_put_uint16le(v13, 2);
-    mb_put_uint16le(v13, v37 & 0xFFFE);
+    mb_put_uint16le(v13, v36 & 0xFFFE);
     mb_put_uint32le(v13, 0);
-    mb_put_uint16le(v13, v36);
-    v38 = *(v2 + 560);
-    if ((v38 & 0x8000000) != 0)
+    mb_put_uint16le(v13, v35);
+    v37 = *(v2 + 560);
+    if ((v37 & 0x8000000) != 0)
     {
       mb_put_uint16le(v13, 4);
-      v38 = *(v2 + 560);
-      if ((v38 & 0x4000000) == 0)
+      v37 = *(v2 + 560);
+      if ((v37 & 0x4000000) == 0)
       {
 LABEL_44:
-        if ((v38 & 0x2000000) == 0)
+        if ((v37 & 0x2000000) == 0)
         {
           goto LABEL_45;
         }
@@ -8452,22 +8422,22 @@ LABEL_44:
       }
     }
 
-    else if ((v38 & 0x4000000) == 0)
+    else if ((v37 & 0x4000000) == 0)
     {
       goto LABEL_44;
     }
 
     mb_put_uint16le(v13, 3);
-    v38 = *(v2 + 560);
-    if ((v38 & 0x2000000) == 0)
+    v37 = *(v2 + 560);
+    if ((v37 & 0x2000000) == 0)
     {
 LABEL_45:
-      if ((v38 & 0x1000000) == 0)
+      if ((v37 & 0x1000000) == 0)
       {
 LABEL_47:
-        if ((v37 & 6) != 0)
+        if ((v36 & 6) != 0)
         {
-          mb_put_mem(v13, 0, 8 - (v37 & 6u), 3);
+          mb_put_mem(v13, 0, 8 - (v36 & 6u), 3);
         }
 
         mb_put_uint16le(v13, 3);
@@ -8486,25 +8456,25 @@ LABEL_47:
         mb_put_uint16le(v13, 1);
         mb_put_mem(v13, 0, 2uLL, 3);
         mb_put_uint16le(v13, 5);
-        v39 = mb_reserve(v13, 2uLL);
+        v38 = mb_reserve(v13, 2uLL);
         mb_put_uint32le(v13, 0);
-        if (v33)
+        if (v32)
         {
-          v40 = strlen(v33);
-          v41 = v13;
-          v42 = v33;
+          v39 = strlen(v32);
+          v40 = v13;
+          v41 = v32;
         }
 
         else
         {
-          v42 = "UnknownServer";
-          v41 = v13;
-          v40 = 13;
+          v41 = "UnknownServer";
+          v40 = v13;
+          v39 = 13;
         }
 
-        v43 = smb_put_dmem(v41, v42, v40, 0, 1, &v53);
-        *v39 = v53;
-        if (v43)
+        v42 = smb_put_dmem(v40, v41, v39, 0, 1, &v52);
+        *v38 = v52;
+        if (v42)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
@@ -8514,42 +8484,42 @@ LABEL_47:
           goto LABEL_10;
         }
 
-        *v44 = 5;
+        *v43 = 5;
 LABEL_29:
         *(v2 + 552) |= 0x1000uLL;
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __piston_negotiate_block_invoke_9;
-        v45[3] = &unk_279B4FC10;
-        v25 = *(a1 + 32);
-        v26 = *(a1 + 40);
-        v27 = *(a1 + 48);
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __piston_negotiate_block_invoke_9;
+        v44[3] = &unk_279B4FC10;
+        v24 = *(a1 + 32);
+        v25 = *(a1 + 40);
+        v26 = *(a1 + 48);
+        v46 = v25;
         v47 = v26;
-        v48 = v27;
         v6 = v6;
-        v49 = v2;
-        v50 = 0;
-        v51 = v7;
-        v46 = v6;
-        v28 = smb_rq_simple_block(v25, v6, v45);
-        if (!v28)
+        v48 = v2;
+        v49 = 0;
+        v50 = v7;
+        v45 = v6;
+        v27 = smb_rq_simple_block(v24, v6, v44);
+        if (!v27)
         {
 LABEL_35:
 
           goto LABEL_18;
         }
 
-        v29 = v28;
+        v28 = v27;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           __piston_negotiate_block_invoke_cold_3();
           if (!v6)
           {
 LABEL_33:
-            v30 = *(a1 + 40);
-            if (v30)
+            v29 = *(a1 + 40);
+            if (v29)
             {
-              (*(v30 + 16))(v30, v29);
+              (*(v29 + 16))(v29, v28);
             }
 
             goto LABEL_35;
@@ -8593,17 +8563,16 @@ LABEL_53:
   }
 
 LABEL_18:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void __piston_negotiate_block_invoke_9(uint64_t a1, int a2)
+void __piston_negotiate_block_invoke_9(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v36 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x266734A50](*(a1 + 40));
   v5 = (a1 + 32);
   **(a1 + 48) = [*(a1 + 32) sr_ntstatus];
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -8617,7 +8586,7 @@ LABEL_17:
 
   v6 = *v5;
   size = 0;
-  v31 = 0;
+  v30 = 0;
   v7 = [v6 sr_sessionp];
   v8 = [v6 smb_rq_getreply];
   if (md_get_uint16le(v8, &size + 3))
@@ -8642,7 +8611,7 @@ LABEL_14:
 LABEL_15:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __piston_negotiate_block_invoke_9_cold_6(a1);
+      __piston_negotiate_block_invoke_9_cold_6();
     }
 
     goto LABEL_17;
@@ -8673,19 +8642,19 @@ LABEL_24:
     goto LABEL_14;
   }
 
-  v13 = *(v7 + 70);
-  if (v13 > 0x2FF)
+  v12 = *(v7 + 70);
+  if (v12 > 0x2FF)
   {
-    switch(v13)
+    switch(v12)
     {
       case 0x300u:
-        v14 = 6144;
+        v13 = 6144;
         break;
       case 0x311u:
-        v14 = 135168;
+        v13 = 135168;
         break;
       case 0x302u:
-        v14 = 36864;
+        v13 = 36864;
         break;
       default:
         goto LABEL_37;
@@ -8694,16 +8663,16 @@ LABEL_24:
 
   else
   {
-    switch(v13)
+    switch(v12)
     {
       case 0x202u:
-        v14 = 12288;
+        v13 = 12288;
         break;
       case 0x210u:
-        v14 = 20480;
+        v13 = 20480;
         break;
       case 0x2FFu:
-        v14 = 4096;
+        v13 = 4096;
         break;
       default:
 LABEL_37:
@@ -8716,16 +8685,16 @@ LABEL_37:
     }
   }
 
-  *(v7 + 552) |= v14;
+  *(v7 + 552) |= v13;
   if (md_get_uint16le(v8, &size) || md_get_mem(v8, (v7 + 92), 0x10uLL, 0) || md_get_uint32le(v8, (v7 + 76)))
   {
     goto LABEL_14;
   }
 
-  v15 = *(v7 + 76);
-  if ((v15 & 2) != 0)
+  v14 = *(v7 + 76);
+  if ((v14 & 2) != 0)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
@@ -8733,26 +8702,26 @@ LABEL_37:
     if (piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v34 = "smb2_smb_parse_negotiate";
+      v33 = "smb2_smb_parse_negotiate";
       _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Server does not support leasing but supports dir leases? Disabling dir leases. \n", buf, 0xCu);
-      v15 = *(v7 + 76);
+      v14 = *(v7 + 76);
     }
 
-    *(v7 + 76) = v15 & 0xFFFFFFDF;
-    v16 = (v15 & 2) == 0;
+    *(v7 + 76) = v14 & 0xFFFFFFDF;
+    v15 = (v14 & 2) == 0;
   }
 
-  if ((*(v7 + 553) & 0xC8) != 0 && !v16)
+  if ((*(v7 + 553) & 0xC8) != 0 && !v15)
   {
-    v17 = [v6 sr_pd];
-    v18 = [v17 sock];
-    v19 = [v18 resp_wait_timeout];
+    v16 = [v6 sr_pd];
+    v17 = [v16 sock];
+    v18 = [v17 resp_wait_timeout];
 
-    if (v19 <= 0x2C)
+    if (v18 <= 0x2C)
     {
-      v20 = [v6 sr_pd];
-      v21 = [v20 sock];
-      [v21 setResp_wait_timeout:45];
+      v19 = [v6 sr_pd];
+      v20 = [v19 sock];
+      [v20 setResp_wait_timeout:45];
 
       if (piston_log_level)
       {
@@ -8764,7 +8733,7 @@ LABEL_37:
     }
   }
 
-  if (md_get_uint32le(v8, (v7 + 80)) || md_get_uint32le(v8, (v7 + 84)) || md_get_uint32le(v8, (v7 + 88)) || md_get_mem(v8, __dst, 8uLL, 0) || md_get_mem(v8, v35, 8uLL, 0) || md_get_uint16le(v8, &size + 2) || md_get_uint16le(v8, &size + 1) || md_get_uint32le(v8, &v31))
+  if (md_get_uint32le(v8, (v7 + 80)) || md_get_uint32le(v8, (v7 + 84)) || md_get_uint32le(v8, (v7 + 88)) || md_get_mem(v8, __dst, 8uLL, 0) || md_get_mem(v8, v34, 8uLL, 0) || md_get_uint16le(v8, &size + 2) || md_get_uint16le(v8, &size + 1) || md_get_uint32le(v8, &v30))
   {
     goto LABEL_14;
   }
@@ -8777,77 +8746,77 @@ LABEL_37:
       goto LABEL_14;
     }
 
-    v22 = WORD2(size) + 64;
+    v21 = WORD2(size) + 64;
   }
 
   else
   {
-    v22 = 64;
+    v21 = 64;
   }
 
-  v23 = *(v7 + 144);
-  if (v23)
+  v22 = *(v7 + 144);
+  if (v22)
   {
-    free(v23);
+    free(v22);
     *(v7 + 144) = 0;
   }
 
   *(v7 + 136) = 0;
   if (WORD1(size))
   {
-    v24 = malloc_type_malloc(WORD1(size), 0xF288B77uLL);
-    *(v7 + 144) = v24;
-    if (v24)
+    v23 = malloc_type_malloc(WORD1(size), 0xF288B77uLL);
+    *(v7 + 144) = v23;
+    if (v23)
     {
-      v25 = WORD1(size);
+      v24 = WORD1(size);
       *(v7 + 136) = WORD1(size);
-      if (!md_get_mem(v8, v24, v25, 0))
+      if (!md_get_mem(v8, v23, v24, 0))
       {
         piston_gss_parse_server_mechs(v7);
-        v26 = 0;
-        v22 += WORD1(size);
+        v25 = 0;
+        v21 += WORD1(size);
         goto LABEL_76;
       }
 
       goto LABEL_14;
     }
 
-    v26 = 12;
+    v25 = 12;
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
 LABEL_76:
   if ((*(v7 + 554) & 2) != 0)
   {
-    v26 = smb2_smb_parse_negotiate_contexts(v7, v8, v22, v31, size);
+    v25 = smb2_smb_parse_negotiate_contexts(v7, v8, v21, v30, size);
   }
 
-  if (v26)
+  if (v25)
   {
     goto LABEL_15;
   }
 
   if (*(a1 + 68) == 1 && *(a1 + 72) != *(*(a1 + 56) + 64) && piston_log_level && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __piston_negotiate_block_invoke_9_cold_4((a1 + 72), a1 + 56);
+    __piston_negotiate_block_invoke_9_cold_4();
   }
 
-  v27 = *(a1 + 48);
+  v26 = *(a1 + 48);
   v11 = 0;
-  if (v27)
+  if (v26)
   {
+    v27 = *(a1 + 56);
+    *(v26 + 4) = *(v27 + 108);
+    *(v26 + 6) = *(v27 + 70);
+    *(v26 + 16) = *(v27 + 92);
+    v29 = *(a1 + 48);
     v28 = *(a1 + 56);
-    *(v27 + 4) = *(v28 + 108);
-    *(v27 + 6) = *(v28 + 70);
-    *(v27 + 16) = *(v28 + 92);
-    v30 = *(a1 + 48);
-    v29 = *(a1 + 56);
-    *(v30 + 32) = *(v29 + 76);
-    *(v30 + 48) = *(v29 + 112);
+    *(v29 + 32) = *(v28 + 76);
+    *(v29 + 48) = *(v28 + 112);
   }
 
 LABEL_18:
@@ -8860,21 +8829,19 @@ LABEL_18:
   {
     v4[2](v4, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t smb2_smb_parse_negotiate_contexts(uint64_t a1, __n128 *a2, int a3, int a4, int a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v21 = 0;
-  v18 = 0;
+  v25 = *MEMORY[0x277D85DE8];
   v19 = 0;
+  v20 = 0;
   v17 = 0;
-  v15 = 0;
+  v18 = 0;
   v16 = 0;
-  memset(v14, 0, sizeof(v14));
+  v14 = 0;
+  v15 = 0;
+  memset(v13, 0, sizeof(v13));
   if (!a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -8882,7 +8849,7 @@ uint64_t smb2_smb_parse_negotiate_contexts(uint64_t a1, __n128 *a2, int a3, int 
       smb2_smb_parse_negotiate_contexts_cold_4();
     }
 
-    goto LABEL_49;
+    return 22;
   }
 
   if (a4)
@@ -8890,211 +8857,206 @@ uint64_t smb2_smb_parse_negotiate_contexts(uint64_t a1, __n128 *a2, int a3, int 
     result = md_get_mem(a2, 0, (a4 - a3 - 64), 0);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
   }
 
   v9 = MEMORY[0x277D86220];
   while (1)
   {
-    md_shadow_copy(a2, v14);
-    result = md_get_uint16le(v14, &v21 + 1);
+    md_shadow_copy(a2, v13);
+    result = md_get_uint16le(v13, &v20 + 1);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
 
-    result = md_get_uint16le(v14, &v21);
+    result = md_get_uint16le(v13, &v20);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
 
-    result = md_get_uint32le(v14, 0);
+    result = md_get_uint32le(v13, 0);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
 
-    if (HIWORD(v21) > 5u)
+    if (HIWORD(v20) > 5u)
     {
-      if (HIWORD(v21) - 6 < 2)
+      if (HIWORD(v20) - 6 < 2)
       {
         goto LABEL_41;
       }
 
-      if (HIWORD(v21) == 8)
+      if (HIWORD(v20) == 8)
       {
-        result = md_get_uint16le(v14, &v15 + 1);
+        result = md_get_uint16le(v13, &v14 + 1);
         if (result)
         {
-          goto LABEL_50;
+          return result;
         }
 
-        if (HIWORD(v15) == 1)
+        if (HIWORD(v14) == 1)
         {
-          result = md_get_uint16le(v14, &v15);
+          result = md_get_uint16le(v13, &v14);
           if (result)
           {
-            goto LABEL_50;
+            return result;
           }
 
-          if (v15 - 3 > 0xFFFFFFFD)
+          if (v14 - 3 > 0xFFFFFFFD)
           {
-            *(a1 + 264) = v15;
+            *(a1 + 264) = v14;
             goto LABEL_41;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            smb2_smb_parse_negotiate_contexts_cold_2(&v15);
+            smb2_smb_parse_negotiate_contexts_cold_2();
           }
 
-LABEL_49:
-          result = 22;
-          goto LABEL_50;
+          return 22;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb2_smb_parse_negotiate_contexts_cold_1(&v15 + 1);
+          smb2_smb_parse_negotiate_contexts_cold_1();
         }
 
-LABEL_56:
-        result = 72;
-        goto LABEL_50;
+        return 72;
       }
 
 LABEL_35:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v23 = "smb2_smb_parse_negotiate_contexts";
-        v24 = 1024;
-        v25 = HIWORD(v21);
+        v22 = "smb2_smb_parse_negotiate_contexts";
+        v23 = 1024;
+        v24 = HIWORD(v20);
         _os_log_error_impl(&dword_264287000, v9, OS_LOG_TYPE_ERROR, "%s: Unknown context type: 0x%x\n", buf, 0x12u);
       }
 
       goto LABEL_41;
     }
 
-    if (HIWORD(v21) == 1)
+    if (HIWORD(v20) == 1)
     {
       break;
     }
 
-    if (HIWORD(v21) == 2)
+    if (HIWORD(v20) == 2)
     {
-      result = md_get_uint16le(v14, &v19);
+      result = md_get_uint16le(v13, &v18);
       if (result)
       {
-        goto LABEL_50;
+        return result;
       }
 
-      if (v19 != 1)
+      if (v18 != 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          smb2_smb_parse_negotiate_contexts_cold_3(&v19);
+          smb2_smb_parse_negotiate_contexts_cold_3();
         }
 
-        goto LABEL_56;
+        return 72;
       }
 
-      result = md_get_uint16le(v14, &v18 + 1);
+      result = md_get_uint16le(v13, &v17 + 1);
       if (result)
       {
-        goto LABEL_50;
+        return result;
       }
 
-      *(a1 + 492) = HIWORD(v18);
+      *(a1 + 492) = HIWORD(v17);
     }
 
     else
     {
-      if (HIWORD(v21) != 3)
+      if (HIWORD(v20) != 3)
       {
         goto LABEL_35;
       }
 
-      result = md_get_uint16le(v14, &v18);
+      result = md_get_uint16le(v13, &v17);
       if (result)
       {
-        goto LABEL_50;
+        return result;
       }
 
-      result = md_get_uint16le(v14, 0);
+      result = md_get_uint16le(v13, 0);
       if (result)
       {
-        goto LABEL_50;
+        return result;
       }
 
-      result = md_get_uint32le(v14, &v16);
+      result = md_get_uint32le(v13, &v15);
       if (result)
       {
-        goto LABEL_50;
+        return result;
       }
 
-      if (v18)
+      if (v17)
       {
         v10 = 0;
         do
         {
-          result = md_get_uint16le(v14, &v17);
+          result = md_get_uint16le(v13, &v16);
           if (result)
           {
-            goto LABEL_50;
+            return result;
           }
         }
 
-        while (++v10 < v18);
+        while (++v10 < v17);
       }
     }
 
 LABEL_41:
     if (!--a5)
     {
-      result = 0;
-      goto LABEL_50;
+      return 0;
     }
 
-    if ((v21 & 7) != 0)
+    if ((v20 & 7) != 0)
     {
-      v12 = ((v21 + 8) & 0xFFF8) + 8;
+      v12 = ((v20 + 8) & 0xFFF8) + 8;
     }
 
     else
     {
-      v12 = v21 + 8;
+      v12 = v20 + 8;
     }
 
-    LOWORD(v21) = v12;
+    LOWORD(v20) = v12;
     result = md_get_mem(a2, 0, v12, 0);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
   }
 
-  result = md_get_uint16le(v14, &v20 + 1);
+  result = md_get_uint16le(v13, &v19 + 1);
   if (result)
   {
-    goto LABEL_50;
+    return result;
   }
 
-  result = md_get_uint16le(v14, &v20);
+  result = md_get_uint16le(v13, &v19);
   if (result)
   {
-    goto LABEL_50;
+    return result;
   }
 
-  if (!HIWORD(v20))
+  if (!HIWORD(v19))
   {
 LABEL_33:
-    result = md_get_mem(v14, 0, v20, 0);
+    result = md_get_mem(v13, 0, v19, 0);
     if (result)
     {
-      goto LABEL_50;
+      return result;
     }
 
     goto LABEL_41;
@@ -9103,66 +9065,45 @@ LABEL_33:
   v11 = 0;
   while (1)
   {
-    result = md_get_uint16le(v14, &v19 + 1);
+    result = md_get_uint16le(v13, &v18 + 1);
     if (result)
     {
-      break;
+      return result;
     }
 
-    if (++v11 >= HIWORD(v20))
+    if (++v11 >= HIWORD(v19))
     {
       goto LABEL_33;
     }
   }
-
-LABEL_50:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void piston_set_info_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void piston_set_info_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_set_info_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void smb2_smb_set_info_cold_2(unsigned __int8 *a1)
+void smb2_smb_set_info_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void smb2_smb_set_info_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_set_info_cold_4(uint8_t *buf, int a2, int a3)
@@ -9176,248 +9117,180 @@ void smb2_smb_set_info_cold_4(uint8_t *buf, int a2, int a3)
   _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Reply failed <%d> ntStatus <0x%x> \n", buf, 0x18u);
 }
 
-void smb2_smb_set_info_cold_5(uint64_t a1)
+void smb2_smb_set_info_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 24);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void __smb2_smb_set_info_block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __smb2_smb_set_info_block_invoke_cold_2(uint64_t a1)
+void __smb2_smb_set_info_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*a1 + 8) + 24);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void smb2fs_smb_set_delete_cold_1(uint64_t a1)
+void smb2fs_smb_set_delete_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 84);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void smb2fs_smb_set_eof_cold_1(uint64_t a1)
+void smb2fs_smb_set_eof_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 84);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void smb2fs_smb_setfattrNT_cold_1(uint64_t a1)
+void smb2fs_smb_setfattrNT_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 84);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void smb2fs_smb_setfattrNT_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 shareID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void smb2fs_smb_setfattrNT_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void piston_read_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void piston_read_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_read_one_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void piston_write_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void piston_write_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_write_one_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_write_one_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void smb2_smb_write_one_cold_3(void *a1, unsigned int *a2)
+void smb2_smb_write_one_cold_3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [a1 length];
-  v3 = *a2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x18u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
-void smb2_smb_parse_read_one_cold_1(unsigned __int16 *a1)
+void smb2_smb_parse_read_one_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void smb2_smb_parse_read_one_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void smb2_smb_parse_write_one_cold_1(unsigned __int16 *a1)
+void smb2_smb_parse_write_one_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void __smb2_smb_read_one_block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __smb2_smb_write_one_block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void piston_query_dir_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void piston_query_dir_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "piston_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: sock is NULL. \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_query_dir_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_query_dir_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: path is NULL\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: path is NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_query_dir_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_query_dir_cold_4(uint8_t *buf, int a2, int a3)
@@ -9433,75 +9306,66 @@ void smb2_smb_query_dir_cold_4(uint8_t *buf, int a2, int a3)
 
 void smb2_smb_query_dir_cold_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: outputBuffer is NULL \n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: outputBuffer is NULL \n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_parse_query_dir_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting struct size\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_parse_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting struct size\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void smb2_smb_parse_query_dir_cold_2(unsigned __int16 *a1)
+void smb2_smb_parse_query_dir_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void smb2_smb_parse_query_dir_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer offset\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_parse_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer offset\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_parse_query_dir_cold_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer len\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_parse_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer len\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_parse_query_dir_cold_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer offset bytes\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "smb2_smb_parse_query_dir";
+  OUTLINED_FUNCTION_1_0(&dword_264287000, MEMORY[0x277D86220], a3, "%s: failed getting output buffer offset bytes\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void smb2_smb_parse_query_dir_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __smb2_smb_query_dir_block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void piston_change_notify_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void piston_change_notify_cold_2(uint8_t *buf, int a2, int a3)
@@ -9517,83 +9381,54 @@ void piston_change_notify_cold_2(uint8_t *buf, int a2, int a3)
 
 void piston_change_notify_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void piston_change_notify_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void smb2_smb_parse_change_notify_cold_1(unsigned __int16 *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_parse_change_notify_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __smb2_smb_change_notify_block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_ntstatus];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void piston_query_info_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void smb2_smb_query_info_cold_1(unsigned __int8 *a1)
+void smb2_smb_query_info_cold_1()
 {
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void smb2_smb_query_info_cold_2(unsigned __int8 *a1)
+void smb2_smb_query_info_cold_2()
 {
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void smb2_smb_query_info_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void smb2_smb_query_info_cold_4(uint8_t *buf, int a2, int a3)
@@ -9607,98 +9442,269 @@ void smb2_smb_query_info_cold_4(uint8_t *buf, int a2, int a3)
   _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Reply failed <%d> ntStatus <0x%x> \n", buf, 0x18u);
 }
 
-void smb2_smb_query_info_cold_5(unsigned __int8 *a1)
+void smb2_smb_query_info_cold_5()
 {
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void smb2_smb_query_info_cold_6(unsigned __int8 *a1)
+void smb2_smb_query_info_cold_6()
 {
-  OUTLINED_FUNCTION_3_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void smb2_smb_query_info_cold_7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void piston_query_share_info_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void __piston_query_share_info_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __piston_query_share_info_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __piston_query_share_info_block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __piston_query_share_info_block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __piston_query_share_info_block_invoke_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __piston_query_share_info_block_invoke_cold_6()
+void __piston_query_share_info_block_invoke_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __piston_query_share_info_block_invoke_cold_7(unsigned int *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_parse_query_info_cold_1()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_parse_query_info_cold_6()
+{
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_parse_file_all_info_cold_2()
+{
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_parse_fs_attr_cold_1()
+{
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_parse_fs_attr_cold_3(void *a1)
+{
+  v2 = [a1 sharename];
+  [v2 cStringUsingEncoding:4];
+  [a1 file_system_attrs];
+  [a1 max_component_name_len];
+  [a1 fstype];
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x32u);
+}
+
+void smb2_smb_parse_fs_attr_cold_5(void *a1)
+{
+  [a1 shareID];
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+void smb2_smb_parse_fs_size_cold_1(void *a1)
+{
+  [a1 shareID];
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+}
+
+void smb2_smb_parse_security_cold_1()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+void smb2_smb_parse_security_cold_2()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void __smb2_smb_query_info_block_invoke_cold_1(id *a1)
+{
+  [*a1 sr_ntstatus];
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+}
+
+void smb2fs_smb_listxattrs_cold_1()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+uint64_t mb_reserve_cold_1(uint8_t *buf, uint64_t a2, uint64_t a3, char a4)
+{
+  *buf = 136315650;
+  *(buf + 4) = "mb_reserve";
+  *(buf + 6) = 2048;
+  *(buf + 14) = a2;
+  *(buf + 11) = 2048;
+  *(buf + 3) = a3;
+  _os_log_error_impl(&dword_264287000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: mb_reserve: size (%ld) > mbuf_maxlen (%ld)", buf, 0x20u);
+  return a4 & 1;
+}
+
+void piston_tree_connect_cold_1()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_tree_connect_cold_3()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_tree_connect_cold_4()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void smb2_smb_tree_connect_cold_5()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void __piston_tree_connect_block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void piston_tree_disconnect_cold_1()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void piston_tree_disconnect_cold_2(void *a1)
+{
+  [a1 tree_id];
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+}
+
+void piston_tree_disconnect_cold_3()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void piston_tree_disconnect_cold_4()
+{
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+void __smb2_smb_tree_connect_block_invoke_cold_1(id *a1)
+{
+  [*a1 sr_ntstatus];
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+}
+
+void __smb2_smb_tree_connect_block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void __smb2_smb_tree_disconnect_block_invoke_cold_1(id *a1)
+{
+  [*a1 sr_ntstatus];
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+}
+
+void __smb2_smb_tree_disconnect_block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void piston_logoff_cold_1(void *a1)
+{
+  [a1 sr_ntstatus];
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+}
+
+void __piston_session_setup_block_invoke_cold_3(id *a1)
+{
+  v1 = [*a1 realm];
+  [v1 cStringUsingEncoding:4];
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }

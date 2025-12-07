@@ -26,7 +26,7 @@
   v5 = dataCopy;
   if (!dataCopy)
   {
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(0);
@@ -45,7 +45,7 @@ LABEL_8:
 
   if ([dataCopy length] <= 0xB)
   {
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(0);
@@ -71,7 +71,7 @@ LABEL_7:
   if (v13 <= 0xB)
   {
     v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Invalid serialized data length %tu", [v12 length]);
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = sub_10007FAFC(0);
@@ -105,7 +105,7 @@ LABEL_7:
   v6 = v14;
   if (v13 <= 0xB)
   {
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(0);

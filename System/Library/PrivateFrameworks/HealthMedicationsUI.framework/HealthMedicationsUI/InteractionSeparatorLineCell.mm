@@ -52,7 +52,7 @@
   [(InteractionSeparatorLineCell *)&v4 awakeFromNib];
   sub_2283922A0();
   v3[2] = v2;
-  sub_22817F074(sub_228202124, v3);
+  sub_22817F074(sub_228202124, v3, "HealthMedicationsUI/InteractionSeparatorLineCell.swift", 54, 2u, 41);
 }
 
 @end

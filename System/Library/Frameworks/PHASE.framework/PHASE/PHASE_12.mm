@@ -128,7 +128,7 @@ uint64_t Phase::SpatialModeler::convertRayTracingPlaneWaveListToDirectionalMetad
   return result;
 }
 
-void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(uint64_t a1, char a2, unsigned int a3, int a4, void *a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
+void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(uint64_t a1, char a2, unsigned int a3, int a4, char **a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
 {
   v127 = *MEMORY[0x277D85DE8];
   v19 = fabsf(a9) / -20.0;
@@ -226,12 +226,12 @@ LABEL_23:
   if (v33 != *a5)
   {
     v35 = v33 - 64;
-    v36 = (v33 - 64);
-    v37 = (v33 - 64);
+    v36 = v33 - 64;
+    v37 = v33 - 64;
     do
     {
       v38 = *v37;
-      v37 -= 8;
+      v37 -= 64;
       (*(v38 + 16))(v36);
       v35 -= 64;
       v39 = v36 == v34;
@@ -241,7 +241,7 @@ LABEL_23:
     while (!v39);
   }
 
-  *(v113 + 8) = v34;
+  v113[1] = v34;
   if ((a2 & 1) == 0)
   {
     a3 = time(0);
@@ -594,8 +594,8 @@ LABEL_81:
               }
 
               v92 = v91 / a8;
-              v94 = *(v113 + 8);
-              v93 = *(v113 + 16);
+              v94 = v113[1];
+              v93 = v113[2];
               if (v94 >= v93)
               {
                 v97 = (v94 - *v113) >> 6;
@@ -635,19 +635,19 @@ LABEL_81:
                 *&buf[16] += 64;
                 std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::__swap_out_circular_buffer(v113, buf);
                 v96 = v113;
-                v95 = *(v113 + 8);
+                v95 = v113[1];
                 std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::~__split_buffer(buf);
               }
 
               else
               {
-                Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave::PhaseSpatialModelerMetadata_Octave(*(v113 + 8), __p, *&v120, *(&v120 + 1), v91 / a8);
+                Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave::PhaseSpatialModelerMetadata_Octave(v113[1], __p, *&v120, *(&v120 + 1), v91 / a8);
                 v95 = v94 + 64;
                 v96 = v113;
-                *(v113 + 8) = v95;
+                v113[1] = v95;
               }
 
-              *(v96 + 8) = v95;
+              v96[1] = v95;
             }
           }
 
@@ -825,7 +825,7 @@ uint64_t Phase::SpatialModeler::convertRayTracingPlaneWaveListToDirectionalMetad
   return result;
 }
 
-void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(uint64_t a1, char a2, unsigned int a3, int a4, void *a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
+void Phase::SpatialModeler::computePlaneWaveList_RayTracing<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(uint64_t a1, char a2, unsigned int a3, int a4, char **a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
 {
   v135 = *MEMORY[0x277D85DE8];
   v19 = fabsf(a9) / -20.0;
@@ -937,12 +937,12 @@ LABEL_22:
   if (v37 != *a5)
   {
     v39 = v37 - 144;
-    v40 = (v37 - 144);
-    v41 = (v37 - 144);
+    v40 = v37 - 144;
+    v41 = v37 - 144;
     do
     {
       v42 = *v41;
-      v41 -= 18;
+      v41 -= 144;
       (*(v42 + 16))(v40);
       v39 -= 144;
       v43 = v40 == v38;
@@ -952,7 +952,7 @@ LABEL_22:
     while (!v43);
   }
 
-  *(v121 + 8) = v38;
+  v121[1] = v38;
   if ((a2 & 1) == 0)
   {
     a3 = time(0);
@@ -1319,8 +1319,8 @@ LABEL_79:
               }
 
               v100 = v99 / a8;
-              v102 = *(v121 + 8);
-              v101 = *(v121 + 16);
+              v102 = v121[1];
+              v101 = v121[2];
               if (v102 >= v101)
               {
                 v105 = 0x8E38E38E38E38E39 * ((v102 - *v121) >> 4);
@@ -1360,19 +1360,19 @@ LABEL_79:
                 *&buf[16] += 144;
                 std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::__swap_out_circular_buffer(v121, buf);
                 v104 = v121;
-                v103 = *(v121 + 8);
+                v103 = v121[1];
                 std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::~__split_buffer(buf);
               }
 
               else
               {
-                Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave::PhaseSpatialModelerMetadata_ThirdOctave(*(v121 + 8), __p, *&v128, *(&v128 + 1), v99 / a8);
+                Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave::PhaseSpatialModelerMetadata_ThirdOctave(v121[1], __p, *&v128, *(&v128 + 1), v99 / a8);
                 v103 = v102 + 144;
                 v104 = v121;
-                *(v121 + 8) = v103;
+                v121[1] = v103;
               }
 
-              *(v104 + 8) = v103;
+              v104[1] = v103;
             }
           }
 
@@ -1915,15 +1915,15 @@ void sub_23A3E5754(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-Phase::Logger *Phase::GetBandsFromCenterFrequencies<float const*,float>@<X0>(float *a1@<X0>, float *a2@<X1>, float **a3@<X8>, float a4@<S0>)
+uint64_t *Phase::GetBandsFromCenterFrequencies<float const*,float>@<X0>(float *a1@<X0>, float *a2@<X1>, uint64_t *a3@<X8>, float a4@<S0>)
 {
   v6 = a1;
   v44 = *MEMORY[0x277D85DE8];
   v8 = a2 - a1;
   *v37 = 0;
-  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8);
+  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8, v37);
   v10 = *a3;
-  **a3 = 10.0;
+  **a3 = 1092616192;
   if (v8 == 31)
   {
     if (v6 == a2)
@@ -2149,15 +2149,15 @@ void std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::__de
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 32;
-      v7 = v4 - 32;
-      v8 = v4 - 32;
+      v6 = v4 - 4;
+      v7 = v4 - 4;
+      v8 = v4 - 4;
       do
       {
         v9 = *v8;
-        v8 -= 32;
+        v8 -= 4;
         (*(v9 + 16))(v7);
-        v6 -= 32;
+        v6 -= 4;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2182,15 +2182,15 @@ void std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::__d
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 64;
-      v7 = v4 - 64;
-      v8 = v4 - 64;
+      v6 = v4 - 8;
+      v7 = v4 - 8;
+      v8 = v4 - 8;
       do
       {
         v9 = *v8;
-        v8 -= 64;
+        v8 -= 8;
         (*(v9 + 16))(v7);
-        v6 -= 64;
+        v6 -= 8;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2215,15 +2215,15 @@ void std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 144;
-      v7 = v4 - 144;
-      v8 = v4 - 144;
+      v6 = v4 - 18;
+      v7 = v4 - 18;
+      v8 = v4 - 18;
       do
       {
         v9 = *v8;
-        v8 -= 144;
+        v8 -= 18;
         (*(v9 + 16))(v7);
-        v6 -= 144;
+        v6 -= 18;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2238,7 +2238,7 @@ void std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>
   }
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2287,7 +2287,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -2867,10 +2867,10 @@ uint64_t Phase::Controller::DVM23::GeneratorController::GeneratorController(uint
   return a1;
 }
 
-void sub_23A3E6F64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E6F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__function::__value_func<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v2 + 64);
+  va_start(va, a3);
+  std::__function::__value_func<void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v3 + 64);
   std::vector<Phase::Controller::DVM23::SamplerChannelStripController>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3040,9 +3040,9 @@ uint64_t Phase::Controller::DVM23::GeneratorController::SetPlaystate(uint64_t a1
   return 0;
 }
 
-void sub_23A3E7548(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E7548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3076,7 +3076,7 @@ uint64_t Phase::Controller::DVM23::GeneratorController::SetControllerParameter(u
   return result;
 }
 
-uint64_t std::vector<Phase::Controller::DVM23::SamplerChannelStripController>::__emplace_back_slow_path<unsigned long long>(uint64_t *a1, void *a2)
+unint64_t std::vector<Phase::Controller::DVM23::SamplerChannelStripController>::__emplace_back_slow_path<unsigned long long>(unint64_t *a1, void *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -3217,15 +3217,15 @@ void std::vector<Phase::Controller::DVM23::SamplerChannelStripController>::__des
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 160;
-      v7 = v4 - 160;
-      v8 = v4 - 160;
+      v6 = v4 - 20;
+      v7 = v4 - 20;
+      v8 = v4 - 20;
       do
       {
         v9 = *v8;
-        v8 -= 160;
+        v8 -= 20;
         (*v9)(v7);
-        v6 -= 160;
+        v6 -= 20;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -3306,14 +3306,14 @@ void std::__function::__func<Phase::Controller::DVM23::GeneratorController::SetP
   operator delete(a1);
 }
 
-void Phase::Geometry::CreateCardioidDirectivity(uint64_t a1, void *a2)
+void Phase::Geometry::CreateCardioidDirectivity(void x0_0, void *a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   *&v3 = "DirectivityDataMapSize";
   *(&v3 + 1) = 22;
-  if (a2)
+  if (a1)
   {
-    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &v3);
+    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a1, &v3);
     if (v2)
     {
       if (*(v2 + 24) == 1 && *(v2 + 14) <= 0)
@@ -3326,9 +3326,9 @@ void Phase::Geometry::CreateCardioidDirectivity(uint64_t a1, void *a2)
   operator new();
 }
 
-void *std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::resize(void *result, unint64_t a2)
+uint64_t **std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::resize(uint64_t **result, unint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((result[1] - *result) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * (result[1] - *result);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
@@ -3338,7 +3338,7 @@ void *std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()
 
   if (!v3)
   {
-    return std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::__base_destruct_at_end[abi:ne200100](result, *result + 40 * a2);
+    return std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::__base_destruct_at_end[abi:ne200100](result, &(*result)[5 * a2]);
   }
 
   return result;
@@ -3353,10 +3353,10 @@ uint64_t *std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)
   return a1;
 }
 
-void Phase::Geometry::CreateCardioidDirectivityFromDirectivity(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateCardioidDirectivityFromDirectivity(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 1)
+  if (*a1 == 1)
   {
     operator new();
   }
@@ -3364,12 +3364,12 @@ void Phase::Geometry::CreateCardioidDirectivityFromDirectivity(uint64_t a1, _DWO
   std::terminate();
 }
 
-uint64_t std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::__append(uint64_t result, unint64_t a2)
+uint64_t **std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::__append(uint64_t **result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
-  if (0xCCCCCCCCCCCCCCCDLL * ((v5 - v4) >> 3) >= a2)
+  v4 = result[1];
+  v5 = result[2];
+  if (0xCCCCCCCCCCCCCCCDLL * (v5 - v4) >= a2)
   {
     if (a2)
     {
@@ -3385,19 +3385,19 @@ uint64_t std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
   {
-    v6 = 0xCCCCCCCCCCCCCCCDLL * ((v4 - *result) >> 3);
+    v6 = 0xCCCCCCCCCCCCCCCDLL * (v4 - *result);
     v7 = v6 + a2;
     if (v6 + a2 > 0x666666666666666)
     {
       std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
     }
 
-    v8 = 0xCCCCCCCCCCCCCCCDLL * ((v5 - *result) >> 3);
+    v8 = 0xCCCCCCCCCCCCCCCDLL * (v5 - *result);
     if (2 * v8 > v7)
     {
       v7 = 2 * v8;
@@ -3433,13 +3433,13 @@ uint64_t std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void
 
     while (v12 != 40 * v6 + 40 * a2);
     *&v19 = v11 + 40 * a2;
-    v13 = *(result + 8);
+    v13 = result[1];
     v14 = (v11 + *result - v13);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>,std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>*>(result, *result, v13, v14);
     v15 = *v3;
     *v3 = v14;
-    v16 = *(v3 + 16);
-    *(v3 + 8) = v19;
+    v16 = v3[2];
+    *(v3 + 1) = v19;
     *&v19 = v15;
     *(&v19 + 1) = v16;
     v17 = v15;
@@ -3450,9 +3450,9 @@ uint64_t std::vector<std::unique_ptr<Phase::Geometry::DataMap,std::function<void
   return result;
 }
 
-void sub_23A3E83BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E83BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::unique_ptr<Phase::Geometry::DataMap,std::function<void ()(void *)>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3639,14 +3639,14 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-void Phase::Geometry::CreateConeDirectivity(uint64_t a1, void *a2)
+void Phase::Geometry::CreateConeDirectivity(void x0_0, void *a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   *&v3 = "DirectivityDataMapSize";
   *(&v3 + 1) = 22;
-  if (a2)
+  if (a1)
   {
-    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a2, &v3);
+    v2 = Phase::UnorderedStringMap<Phase::OptionsValue>::Find(a1, &v3);
     if (v2)
     {
       if (*(v2 + 24) == 1 && *(v2 + 14) <= 0)
@@ -3659,10 +3659,10 @@ void Phase::Geometry::CreateConeDirectivity(uint64_t a1, void *a2)
   operator new();
 }
 
-void Phase::Geometry::CreateConeDirectivityFromDirectivity(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateConeDirectivityFromDirectivity(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 2)
+  if (*a1 == 2)
   {
     operator new();
   }
@@ -3681,7 +3681,7 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-uint64_t **Phase::Geometry::ContextFactory::Create@<X0>(void *a1@<X1>, void *a2@<X8>)
+uint64_t **Phase::Geometry::ContextFactory::Create@<X0>(void *a1@<X1>, uint64_t *a2@<X8>)
 {
   v5 = *MEMORY[0x277D85DE8];
   *&v4 = "ContextDataMapSize";
@@ -3723,7 +3723,7 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-uint64_t Phase::Geometry::DirectivityFactory::Create@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::DirectivityFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int a2@<W1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v6 = *result;
   v7 = *(*result + 656);
@@ -3736,13 +3736,13 @@ uint64_t Phase::Geometry::DirectivityFactory::Create@<X0>(uint64_t result@<X0>, 
   if (*(v8 + 32))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::Directivity> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::Directivity> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -3815,19 +3815,19 @@ void *std::function<std::shared_ptr<Phase::Geometry::Directivity> ()(Phase::Geom
   return a1;
 }
 
-void std::vector<Phase::Geometry::DirectivityTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::DirectivityTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::DirectivityTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::DirectivityTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::DirectivityTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<Phase::Geometry::DirectivityTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
@@ -4190,9 +4190,9 @@ void std::vector<Phase::Geometry::DirectivityTypeDefinition>::__append(uint64_t 
   }
 }
 
-void sub_23A3E9DA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3E9DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::DirectivityTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4331,7 +4331,7 @@ void sub_23A3EA2C8(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t Phase::Geometry::DistanceModelFactory::Create@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::DistanceModelFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int a2@<W1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v6 = *result;
   v7 = *(*result + 904);
@@ -4344,13 +4344,13 @@ uint64_t Phase::Geometry::DistanceModelFactory::Create@<X0>(uint64_t result@<X0>
   if (*(v8 + 32))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::DistanceModel> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::DistanceModel> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -4423,19 +4423,19 @@ void *std::function<std::shared_ptr<Phase::Geometry::DistanceModel> ()(Phase::Ge
   return a1;
 }
 
-void std::vector<Phase::Geometry::DistanceModelTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::DistanceModelTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
@@ -4788,9 +4788,9 @@ void std::vector<Phase::Geometry::DistanceModelTypeDefinition>::__append(uint64_
   }
 }
 
-void sub_23A3EAE04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3EAE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::DistanceModelTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4970,16 +4970,16 @@ uint64_t Phase::Geometry::Entity::RemoveChild(void *a1, uint64_t a2)
   return result;
 }
 
-void Phase::Geometry::EntityFactory::Create(int a1@<W1>, void *a2@<X8>)
+void Phase::Geometry::EntityFactory::Create(int a2@<W1>, void *a5@<X8>)
 {
-  if (a1 <= 2)
+  if (a2 <= 2)
   {
-    if (a1 == 1)
+    if (a2 == 1)
     {
       Phase::Geometry::CreateEntity<Phase::Geometry::Entity>();
     }
 
-    if (a1 == 2)
+    if (a2 == 2)
     {
       Phase::Geometry::CreateEntity<Phase::Geometry::Listener>();
     }
@@ -4987,7 +4987,7 @@ void Phase::Geometry::EntityFactory::Create(int a1@<W1>, void *a2@<X8>)
 
   else
   {
-    switch(a1)
+    switch(a2)
     {
       case 3:
         Phase::Geometry::CreateEntity<Phase::Geometry::Source>();
@@ -4998,8 +4998,8 @@ void Phase::Geometry::EntityFactory::Create(int a1@<W1>, void *a2@<X8>)
     }
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a5 = 0;
+  a5[1] = 0;
 }
 
 void sub_23A3EB590(_Unwind_Exception *exception_object)
@@ -5057,17 +5057,17 @@ void sub_23A3EB95C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::Geometry::EntityFactory::Create(int *a1@<X1>, void *a2@<X8>)
+void Phase::Geometry::EntityFactory::Create(int *a2@<X1>, void *a3@<X8>)
 {
-  v2 = *a1;
-  if (*a1 <= 2)
+  v3 = *a2;
+  if (*a2 <= 2)
   {
-    if (v2 == 1)
+    if (v3 == 1)
     {
       Phase::Geometry::CreateEntityFromEntity<Phase::Geometry::Entity>();
     }
 
-    if (v2 == 2)
+    if (v3 == 2)
     {
       Phase::Geometry::CreateEntityFromEntity<Phase::Geometry::Listener>();
     }
@@ -5075,7 +5075,7 @@ void Phase::Geometry::EntityFactory::Create(int *a1@<X1>, void *a2@<X8>)
 
   else
   {
-    switch(v2)
+    switch(v3)
     {
       case 3:
         Phase::Geometry::CreateEntityFromEntity<Phase::Geometry::Source>();
@@ -5086,8 +5086,8 @@ void Phase::Geometry::EntityFactory::Create(int *a1@<X1>, void *a2@<X8>)
     }
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
 }
 
 void sub_23A3EBB30(void *a1)
@@ -5480,7 +5480,7 @@ uint64_t std::__shared_ptr_pointer<Phase::Geometry::Entity *,std::shared_ptr<Pha
   return result;
 }
 
-void *std::vector<Phase::Handle64>::__assign_with_size[abi:ne200100]<Phase::Handle64*,Phase::Handle64*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<Phase::Handle64>::__assign_with_size[abi:ne200100]<Phase::Handle64*,Phase::Handle64*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5828,10 +5828,10 @@ void sub_23A3ED3F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::Geometry::CreateEnvelopeDistanceModelFromDistanceModel(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateEnvelopeDistanceModelFromDistanceModel(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 2)
+  if (*a1 == 2)
   {
     operator new();
   }
@@ -5839,12 +5839,12 @@ void Phase::Geometry::CreateEnvelopeDistanceModelFromDistanceModel(uint64_t a1, 
   __assert_rtn("CreateEnvelopeDistanceModelFromDistanceModel", "GeoEnvelopeDistanceModel.mm", 43, "inDistanceModel.mType == DefaultDistanceModelType::Envelope");
 }
 
-void sub_23A3ED674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A3ED674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
-  MEMORY[0x23EE864A0](v4, 0xA0C40987D6AD5);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  MEMORY[0x23EE864A0](v6, 0xA0C40987D6AD5);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   _Unwind_Resume(a1);
 }
 
@@ -5877,7 +5877,7 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-uint64_t **Phase::Geometry::EnvironmentalMetadataStreamFactory::Create@<X0>(void *a1@<X1>, void *a2@<X8>)
+uint64_t **Phase::Geometry::EnvironmentalMetadataStreamFactory::Create@<X0>(void *a1@<X1>, uint64_t *a2@<X8>)
 {
   v5 = *MEMORY[0x277D85DE8];
   *&v4 = "EnvironmentalMetadataStreamDataMapSize";
@@ -5924,10 +5924,10 @@ void std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::funct
   }
 }
 
-void Phase::Geometry::CreateGeometricSpreadingDistanceModelFromDistanceModel(uint64_t a1, _DWORD *a2)
+void Phase::Geometry::CreateGeometricSpreadingDistanceModelFromDistanceModel(void x0_0, _DWORD *a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  if (*a2 == 1)
+  if (*a1 == 1)
   {
     operator new();
   }
@@ -5946,7 +5946,7 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-uint64_t Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int a2@<W1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v6 = *result;
   v7 = *(*result + 1400);
@@ -5959,13 +5959,13 @@ uint64_t Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t result@<X0>, uns
   if (*(v8 + 32))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -5983,7 +5983,7 @@ uint64_t std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geom
   return (*(*v3 + 48))(v3, a2, &v5);
 }
 
-uint64_t Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int *a2@<X1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v7 = *result;
   v8 = *a2;
@@ -5997,13 +5997,13 @@ uint64_t Phase::Geometry::MaterialFactory::Create@<X0>(uint64_t result@<X0>, uns
   if (*(v10 + 64))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::Geometry::Material const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v10 + 40, v7, a2, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometry::System &,Phase::Geometry::Material const&,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v10 + 40, v7, a2, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -6076,19 +6076,19 @@ void *std::function<std::shared_ptr<Phase::Geometry::Material> ()(Phase::Geometr
   return a1;
 }
 
-void std::vector<Phase::Geometry::MaterialTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::MaterialTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::MaterialTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::MaterialTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::MaterialTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<Phase::Geometry::MaterialTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
@@ -6441,9 +6441,9 @@ void std::vector<Phase::Geometry::MaterialTypeDefinition>::__append(uint64_t a1,
   }
 }
 
-void sub_23A3EF044(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3EF044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::MaterialTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6591,7 +6591,7 @@ void Phase::Geometry::MdlMeshReader::SetupVertexDescriptor(Phase::Geometry::MdlM
   std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(&__p[1], 1uLL);
   v8 = 0uLL;
   v9 = 0;
-  Phase::sGetStdStringFromNsString(*MEMORY[0x277CD7AB0], &v8);
+  Phase::sGetStdStringFromNsString(&v8, *MEMORY[0x277CD7AB0]);
   v2 = v10;
   if (*(v10 + 23) < 0)
   {
@@ -6612,7 +6612,7 @@ void Phase::Geometry::MdlMeshReader::SetupVertexDescriptor(Phase::Geometry::MdlM
 
   v8 = 0uLL;
   v9 = 0;
-  Phase::sGetStdStringFromNsString(*MEMORY[0x277CD7AA0], &v8);
+  Phase::sGetStdStringFromNsString(&v8, *MEMORY[0x277CD7AA0]);
   v5 = v10;
   v6 = v10;
   if (*(v10 + 95) < 0)
@@ -6644,29 +6644,29 @@ void Phase::Geometry::MdlMeshReader::SetupVertexDescriptor(Phase::Geometry::MdlM
   std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::__destroy_vector::operator()[abi:ne200100](&v8);
 }
 
-void sub_23A3EF7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A3EF7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   Phase::MdlMeshAsset::VertexDescriptor::~VertexDescriptor(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Geometry::MdlMeshReader::CalculateAABB@<X0>(id **this@<X0>, uint64_t a2@<X8>)
+char *Phase::Geometry::MdlMeshReader::CalculateAABB@<X0>(id **this@<X0>, uint64_t a2@<X8>)
 {
   result = [*this[1] vertexCount];
   if (result)
   {
     v5 = 0x80000000800000;
     v6 = vneg_f32(0x80000000800000);
-    v7 = (this[2] + 1);
+    v7 = this[2] + 1;
     v8 = -3.4028e38;
     v9 = 3.4028e38;
     do
     {
-      v10 = *(v7 - 2);
+      v10 = *(v7 - 1);
       v6 = vminnm_f32(v6, v10);
       v11 = *v7;
-      v7 += 6;
+      v7 += 3;
       v9 = fminf(v9, v11);
       v5 = vmaxnm_f32(v5, v10);
       v8 = fmaxf(v8, v11);
@@ -6691,7 +6691,7 @@ uint64_t Phase::Geometry::MdlMeshReader::CalculateAABB@<X0>(id **this@<X0>, uint
   return result;
 }
 
-void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::resize(char **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = 0x8E38E38E38E38E39 * ((v3 - *a1) >> 3);
@@ -6705,7 +6705,7 @@ void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::resize(void 
 
   else if (!v5)
   {
-    v7 = *a1 + 72 * a2;
+    v7 = &(*a1)[72 * a2];
     while (v3 != v7)
     {
       v8 = *(v3 - 49);
@@ -6720,37 +6720,37 @@ void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::resize(void 
   }
 }
 
-void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::__append(a1, a2 - v2);
+    std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::__append(result, a2 - v2);
   }
 }
 
-void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::__append(uint64_t a1, unint64_t a2)
+void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::__append(char **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (0x8E38E38E38E38E39 * ((v4 - v5) >> 3) >= a2)
   {
     if (a2)
     {
       v10 = 72 * ((72 * a2 - 72) / 0x48) + 72;
-      bzero(*(a1 + 8), v10);
+      bzero(a1[1], v10);
       v5 += v10;
     }
 
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
@@ -6789,13 +6789,13 @@ void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::__append(uin
     v11 = 72 * ((72 * a2 - 72) / 0x48) + 72;
     bzero((72 * v6), v11);
     v18 = 72 * v6 + v11;
-    v12 = *(a1 + 8);
-    v13 = 72 * v6 + *a1 - v12;
+    v12 = a1[1];
+    v13 = (72 * v6 + *a1 - v12);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Phase::MdlMeshAsset::VertexDescriptor::Attribute>,Phase::MdlMeshAsset::VertexDescriptor::Attribute*>(a1, *a1, v12, v13);
     v14 = *a1;
     *a1 = v13;
-    v15 = *(a1 + 16);
-    *(a1 + 8) = v18;
+    v15 = a1[2];
+    *(a1 + 1) = v18;
     *&v18 = v14;
     *(&v18 + 1) = v15;
     v16 = v14;
@@ -6804,9 +6804,9 @@ void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::__append(uin
   }
 }
 
-void sub_23A3EFB0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3EFB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7034,7 +7034,7 @@ void std::vector<Phase::MdlMeshAsset::VertexDescriptor::Attribute>::clear[abi:ne
   a1[1] = v2;
 }
 
-uint64_t Phase::Geometry::MediumFactory::Create@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *Phase::Geometry::MediumFactory::Create@<X0>(uint64_t *result@<X0>, unsigned int a2@<W1>, void *a3@<X8>, uint64_t a4@<X2>)
 {
   v6 = *result;
   v7 = *(*result + 1152);
@@ -7047,13 +7047,13 @@ uint64_t Phase::Geometry::MediumFactory::Create@<X0>(uint64_t result@<X0>, unsig
   if (*(v8 + 32))
   {
 
-    return std::function<std::shared_ptr<Phase::Geometry::Medium> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a3);
+    return std::function<std::shared_ptr<Phase::Geometry::Medium> ()(Phase::Geometry::System &,Phase::UnorderedStringMap<Phase::OptionsValue> *)>::operator()(v8 + 8, v6, a4);
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   return result;
@@ -7126,19 +7126,19 @@ void *std::function<std::shared_ptr<Phase::Geometry::Medium> ()(Phase::Geometry:
   return a1;
 }
 
-void std::vector<Phase::Geometry::MediumTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::MediumTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::MediumTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::MediumTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::MediumTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<Phase::Geometry::MediumTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
@@ -7491,9 +7491,9 @@ void std::vector<Phase::Geometry::MediumTypeDefinition>::__append(uint64_t a1, u
   }
 }
 
-void sub_23A3F0A10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3F0A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::MediumTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7632,11 +7632,11 @@ void sub_23A3F0F34(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void Phase::Geometry::AddMesh(uint64_t a1, uint64_t a2)
+void Phase::Geometry::AddMesh(const void **a1, unint64_t a2)
 {
   v2 = 2 * a2 + 4;
-  v3 = (*(a1 + 104) - *(a1 + 96)) >> 4;
-  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 96, v2);
+  v3 = (a1[13] - a1[12]) >> 4;
+  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 12, v2);
   if (v3 < v2)
   {
     operator new();
@@ -7655,7 +7655,7 @@ void sub_23A3F14A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_23A3F2330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30)
+void sub_23A3F2330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30)
 {
   if (__p)
   {
@@ -7668,32 +7668,32 @@ void sub_23A3F2330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Geometry::DataStreamReference<Phase::Vector<float,3ul>>::Resize(uint64_t result, unint64_t a2)
+uint64_t Phase::Geometry::DataStreamReference<Phase::Vector<float,3ul>>::Resize(uint64_t result, unint64_t a2, unint64_t a3)
 {
-  v3 = result;
-  v4 = *(**result + 16 * *(result + 8));
-  v5 = *(v4 + 24);
-  if (v5 == a2)
+  v4 = result;
+  v5 = *(**result + 16 * *(result + 8));
+  v6 = *(v5 + 24);
+  if (v6 == a2)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = *(v4 + 8);
-    *(v4 + 8) = 0;
+    v7 = *(v5 + 8);
+    *(v5 + 8) = 0;
     if (a2)
     {
-      Phase::Geometry::DataStream::Alloc(*(v4 + 16), *(v4 + 32) * a2, &v18);
-      v7 = v18;
-      v18 = 0;
-      result = *(v4 + 8);
-      *(v4 + 8) = v7;
+      Phase::Geometry::DataStream::Alloc(&v19, *(v5 + 16), *(v5 + 32) * a2);
+      v8 = v19;
+      v19 = 0;
+      result = *(v5 + 8);
+      *(v5 + 8) = v8;
       if (result)
       {
         MEMORY[0x23EE86470](result, 0x1000C8077774924);
-        result = v18;
-        v18 = 0;
+        result = v19;
+        v19 = 0;
         if (result)
         {
           result = MEMORY[0x23EE86470](result, 0x1000C8077774924);
@@ -7701,59 +7701,59 @@ uint64_t Phase::Geometry::DataStreamReference<Phase::Vector<float,3ul>>::Resize(
       }
     }
 
-    *(v4 + 24) = a2;
+    *(v5 + 24) = a2;
   }
 
-  if (v5 >= a2)
+  if (v6 >= a2)
   {
-    v8 = a2;
+    v9 = a2;
   }
 
   else
   {
-    v8 = v5;
+    v9 = v6;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = (*(v4 + 8) + 8);
-    v10 = (v6 + 8);
-    v11 = v8;
+    v10 = (*(v5 + 8) + 8);
+    v11 = (v7 + 8);
+    v12 = v9;
     do
     {
-      *(v9 - 2) = *(v10 - 2);
-      *(v9 - 1) = *(v10 - 1);
-      v12 = *v10;
+      *(v10 - 2) = *(v11 - 2);
+      *(v10 - 1) = *(v11 - 1);
+      v13 = *v11;
+      v11 += 3;
+      *v10 = v13;
       v10 += 3;
-      *v9 = v12;
-      v9 += 3;
-      --v11;
+      --v12;
     }
 
-    while (v11);
+    while (v12);
   }
 
-  if (v5 < a2)
+  if (v6 < a2)
   {
-    v13 = *(**v3 + 16 * *(v3 + 8));
-    v14 = *(v13 + 8);
-    v15 = *(v13 + 32);
-    v16 = a2 - v8;
-    v17 = (v14 + v15 * v8 + 8);
+    v14 = *(**v4 + 16 * *(v4 + 8));
+    v15 = *(v14 + 8);
+    v16 = *(v14 + 32);
+    v17 = a2 - v9;
+    v18 = (v15 + v16 * v9 + 8);
     do
     {
-      *(v17 - 1) = 0;
-      *v17 = 0;
-      v17 = (v17 + v15);
-      --v16;
+      *(v18 - 1) = 0;
+      *v18 = 0;
+      v18 = (v18 + v16);
+      --v17;
     }
 
-    while (v16);
+    while (v17);
   }
 
-  if (v6)
+  if (v7)
   {
-    return MEMORY[0x23EE86470](v6, 0x1000C8077774924);
+    return MEMORY[0x23EE86470](v7, 0x1000C8077774924, a3);
   }
 
   return result;
@@ -7769,19 +7769,17 @@ void sub_23A3F2520(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t Phase::Geometry::DataStreamReference<unsigned int>::Resize(uint64_t result, uint64_t a2, unint64_t a3)
@@ -7805,7 +7803,7 @@ uint64_t Phase::Geometry::DataStreamReference<unsigned int>::Resize(uint64_t res
     *(v4 + 8) = 0;
     if (a3)
     {
-      Phase::Geometry::DataStream::Alloc(*(v4 + 16), *(v4 + 32) * a3, &v10);
+      Phase::Geometry::DataStream::Alloc(&v10, *(v4 + 16), *(v4 + 32) * a3);
       v7 = v10;
       v10 = 0;
       result = *(v4 + 8);
@@ -7861,7 +7859,7 @@ void sub_23A3F26EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL Phase::Geometry::MdlMeshReader::GetTriangle<unsigned int>(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, _DWORD *a5, unsigned int *a6, uint64_t a7, float *a8)
+BOOL Phase::Geometry::MdlMeshReader::GetTriangle<unsigned int>(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, _DWORD *a5, unsigned int *a6, float *a7, float *a8)
 {
   *a4 = Phase::Geometry::MdlMeshReader::GetVertexIndex<unsigned int>(a1, a2, a3);
   *a5 = Phase::Geometry::MdlMeshReader::GetVertexIndex<unsigned int>(a1, a2, a3 + 1);
@@ -7870,16 +7868,16 @@ BOOL Phase::Geometry::MdlMeshReader::GetTriangle<unsigned int>(uint64_t a1, uint
   v17 = *(a1 + 16);
   v18 = (v17 + 24 * *a4);
   *a7 = *v18;
-  *(a7 + 4) = v18[1];
-  *(a7 + 8) = v18[2];
+  a7[1] = v18[1];
+  a7[2] = v18[2];
   v19 = (v17 + 24 * *a5);
-  *(a7 + 12) = *v19;
-  *(a7 + 16) = v19[1];
-  *(a7 + 20) = v19[2];
+  a7[3] = *v19;
+  a7[4] = v19[1];
+  a7[5] = v19[2];
   v20 = (v17 + 24 * Vertex);
-  *(a7 + 24) = *v20;
-  *(a7 + 28) = v20[1];
-  *(a7 + 32) = v20[2];
+  a7[6] = *v20;
+  a7[7] = v20[1];
+  a7[8] = v20[2];
   Phase::UnnormalizedNormalCCW<float>(a7, &v24);
   v21 = vmul_f32(v25, v25);
   v22 = sqrtf(((v24 * v24) + v21.f32[0]) + v21.f32[1]) * 0.5;
@@ -7903,12 +7901,12 @@ float Phase::Enclose<float>@<S0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3
   return result;
 }
 
-void Phase::Geometry::CreateMeshFromShape(int a1, _DWORD *a2, void *a3)
+void Phase::Geometry::CreateMeshFromShape(void x0_0, _DWORD *a1, void *a2)
 {
   v14 = *MEMORY[0x277D85DE8];
-  if (*a2 == 1)
+  if (*a1 == 1)
   {
-    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(1uLL, a3, &__src);
+    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(&__src, 1uLL, a2);
     end = __src.__end_;
     if (__src.__end_ >= __src.__end_cap_.__value_)
     {
@@ -8041,7 +8039,7 @@ float Phase::Geometry::GetNormals(uint64_t a1, float *a2, unsigned int *a3, int 
   {
     v9 = a3;
     v12 = a6;
-    v13 = a3 + v8;
+    v13 = (a3 + v8);
     v14 = (a5 + 8);
     do
     {
@@ -8069,7 +8067,7 @@ float Phase::Geometry::GetNormals(uint64_t a1, float *a2, unsigned int *a3, int 
   {
     v9 = a3;
     v11 = a6;
-    v12 = a3 + v8;
+    v12 = (a3 + v8);
     v13 = *(*(**(a1 + 40) + 16 * *(a1 + 48)) + 8);
     v14 = *(**(v13 + 40) + 16 * *(v13 + 48));
     v15 = v14[1] + (v14[3] - 1) * v14[4];
@@ -8101,7 +8099,7 @@ void Phase::Geometry::GetMaterials(_BOOL8 a1, unsigned int *a2, int a3, void *a4
     v9 = a2;
     v10 = a1;
     v20 = a5;
-    v11 = a2 + v7;
+    v11 = (a2 + v7);
     while (1)
     {
       v12 = *v9 >> 24;
@@ -8166,7 +8164,7 @@ LABEL_7:
   {
     v9 = a2;
     v10 = a1;
-    v23 = a2 + v7;
+    v23 = (a2 + v7);
     v24 = a5;
     while (1)
     {
@@ -8241,9 +8239,9 @@ LABEL_9:
   }
 }
 
-void std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = (v3 - *a1) >> 4;
   if (a2 <= v4)
   {
@@ -8252,7 +8250,7 @@ void std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(uin
       v6 = *a1 + 16 * a2;
       while (v3 != v6)
       {
-        v7 = *(v3 - 8);
+        v7 = *(v3 - 1);
         if (v7)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -8261,7 +8259,7 @@ void std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(uin
         v3 -= 16;
       }
 
-      *(a1 + 8) = v6;
+      a1[1] = v6;
     }
   }
 
@@ -8401,7 +8399,7 @@ uint64_t std::__function::__func<std::unique_ptr<Phase::Geometry::DataMap,std::f
   return result;
 }
 
-void *Phase::Geometry::DataStream::Alloc@<X0>(std::align_val_t this@<X0>, size_t __sz@<X1>, void *a3@<X8>)
+uint64_t *Phase::Geometry::DataStream::Alloc@<X0>(uint64_t *__return_ptr a1@<X8>, std::align_val_t this@<X0>, size_t __sz@<X1>)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (__sz)
@@ -8440,8 +8438,21 @@ void *Phase::Geometry::DataStream::Alloc@<X0>(std::align_val_t this@<X0>, size_t
     result = 0;
   }
 
-  *a3 = result;
+  *a1 = result;
   return result;
+}
+
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_23A3F3478(_Unwind_Exception *exception_object)
@@ -8475,13 +8486,13 @@ uint64_t *std::unique_ptr<Phase::Geometry::PrimitiveSortEntry [],std::function<v
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
 LABEL_1:
-  v8 = a1;
+  v8 = result;
   while (1)
   {
-    a1 = v8;
+    result = v8;
     v9 = (a2 - v8) >> 5;
     if (v9 > 2)
     {
@@ -8489,29 +8500,29 @@ LABEL_1:
       {
         case 3:
 
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(v8, (v8 + 32), (a2 - 32));
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(v8, (v8 + 32), a2 - 4);
           return;
         case 4:
           std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(v8, (v8 + 32), (v8 + 64));
           v50 = *(v8 + 64);
-          if (*(a2 - 32) < v50)
+          if (*(a2 - 4) < v50)
           {
             v51 = (v8 + 84);
             v52 = *(v8 + 80);
             v145 = *(v8 + 84);
             v156 = *(v8 + 92);
-            *(v8 + 64) = *(a2 - 32);
+            *(v8 + 64) = *(a2 - 4);
             v53 = *(v8 + 72);
-            *(v8 + 72) = *(a2 - 24);
-            *(v8 + 76) = *(a2 - 20);
-            *(v8 + 80) = *(a2 - 16);
+            *(v8 + 72) = *(a2 - 6);
+            *(v8 + 76) = *(a2 - 5);
+            *(v8 + 80) = *(a2 - 4);
             v54 = *(a2 - 12);
-            *(v8 + 92) = *(a2 - 4);
+            *(v8 + 92) = *(a2 - 1);
             *(v8 + 84) = v54;
-            *(a2 - 32) = v50;
-            *(a2 - 24) = v53;
-            *(a2 - 16) = v52;
-            *(a2 - 4) = v156;
+            *(a2 - 4) = v50;
+            *(a2 - 3) = v53;
+            *(a2 - 4) = v52;
+            *(a2 - 1) = v156;
             *(a2 - 12) = v145;
             v55 = *(v8 + 64);
             v56 = *(v8 + 32);
@@ -8561,7 +8572,7 @@ LABEL_1:
           return;
         case 5:
 
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(v8, v8 + 32, v8 + 64, (v8 + 96), (a2 - 32));
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(v8, v8 + 32, v8 + 64, (v8 + 96), a2 - 4);
           return;
       }
     }
@@ -8576,23 +8587,23 @@ LABEL_1:
       if (v9 == 2)
       {
         v46 = *v8;
-        if (*(a2 - 32) < *v8)
+        if (*(a2 - 4) < *v8)
         {
           v47 = *(v8 + 16);
           v48 = *(v8 + 8);
           v144 = *(v8 + 20);
           v155 = *(v8 + 28);
-          *v8 = *(a2 - 32);
-          *(v8 + 8) = *(a2 - 24);
-          *(v8 + 12) = *(a2 - 20);
-          *(v8 + 16) = *(a2 - 16);
+          *v8 = *(a2 - 4);
+          *(v8 + 8) = *(a2 - 6);
+          *(v8 + 12) = *(a2 - 5);
+          *(v8 + 16) = *(a2 - 4);
           v49 = *(a2 - 12);
-          *(v8 + 28) = *(a2 - 4);
+          *(v8 + 28) = *(a2 - 1);
           *(v8 + 20) = v49;
-          *(a2 - 32) = v46;
-          *(a2 - 24) = v48;
-          *(a2 - 16) = v47;
-          *(a2 - 4) = v155;
+          *(a2 - 4) = v46;
+          *(a2 - 3) = v48;
+          *(a2 - 4) = v47;
+          *(a2 - 1) = v155;
           *(a2 - 12) = v144;
         }
 
@@ -8767,20 +8778,20 @@ LABEL_1:
         }
 
         while (v96 <= ((v9 - 2) >> 1));
-        if (v103 != a2 - 32)
+        if (v103 != a2 - 4)
         {
-          *v103 = *(a2 - 32);
-          *(v103 + 8) = *(a2 - 24);
-          *(v103 + 12) = *(a2 - 20);
-          *(v103 + 16) = *(a2 - 16);
+          *v103 = *(a2 - 4);
+          *(v103 + 8) = *(a2 - 6);
+          *(v103 + 12) = *(a2 - 5);
+          *(v103 + 16) = *(a2 - 4);
           v112 = *(a2 - 12);
-          *(v103 + 28) = *(a2 - 4);
+          *(v103 + 28) = *(a2 - 1);
           *v110 = v112;
-          *(a2 - 32) = v97;
-          *(a2 - 24) = v99;
-          *(a2 - 20) = v98;
-          *(a2 - 16) = v100;
-          *(a2 - 4) = v140;
+          *(a2 - 4) = v97;
+          *(a2 - 6) = v99;
+          *(a2 - 5) = v98;
+          *(a2 - 4) = v100;
+          *(a2 - 1) = v140;
           *(a2 - 12) = v137;
           v113 = (v103 - v8 + 32) >> 5;
           v114 = v113 < 2;
@@ -8830,7 +8841,7 @@ LABEL_127:
             }
           }
 
-          a2 -= 32;
+          a2 -= 4;
           v114 = v9-- <= 2;
           if (v114)
           {
@@ -8856,26 +8867,26 @@ LABEL_127:
     v11 = v8 + 32 * (v9 >> 1);
     if (v9 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((a1 + 32 * (v9 >> 1)), a1, (a2 - 32));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((result + 32 * (v9 >> 1)), result, a2 - 4);
     }
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, (a1 + 32 * (v9 >> 1)), (a2 - 32));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((a1 + 32), (v11 - 32), (a2 - 64));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((a1 + 64), (a1 + 32 + 32 * v10), (a2 - 96));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((v11 - 32), v11, (a1 + 32 + 32 * v10));
-      v12 = *a1;
-      v13 = *(a1 + 16);
-      v14 = *(a1 + 8);
-      v141 = *(a1 + 20);
-      v152 = *(a1 + 28);
-      *a1 = *v11;
-      *(a1 + 8) = *(v11 + 8);
-      *(a1 + 16) = *(v11 + 16);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(result, (result + 32 * (v9 >> 1)), a2 - 4);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((result + 32), (v11 - 32), a2 - 8);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((result + 64), (result + 32 + 32 * v10), a2 - 12);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>((v11 - 32), v11, (result + 32 + 32 * v10));
+      v12 = *result;
+      v13 = *(result + 16);
+      v14 = *(result + 8);
+      v141 = *(result + 20);
+      v152 = *(result + 28);
+      *result = *v11;
+      *(result + 8) = *(v11 + 8);
+      *(result + 16) = *(v11 + 16);
       v15 = *(v11 + 28);
-      *(a1 + 20) = *(v11 + 20);
-      *(a1 + 28) = v15;
+      *(result + 20) = *(v11 + 20);
+      *(result + 28) = v15;
       *v11 = v12;
       *(v11 + 8) = v14;
       *(v11 + 16) = v13;
@@ -8884,22 +8895,22 @@ LABEL_127:
     }
 
     --a3;
-    v16 = *a1;
-    if ((a4 & 1) != 0 || *(a1 - 32) < v16)
+    v16 = *result;
+    if ((a4 & 1) != 0 || *(result - 32) < v16)
     {
       v17 = 0;
-      v18 = *(a1 + 8);
-      v19 = *(a1 + 16);
-      v135 = *(a1 + 20);
-      v138 = *(a1 + 28);
+      v18 = *(result + 8);
+      v19 = *(result + 16);
+      v135 = *(result + 20);
+      v138 = *(result + 28);
       do
       {
-        v20 = *(a1 + v17 + 32);
+        v20 = *(result + v17 + 32);
         v17 += 32;
       }
 
       while (v20 < v16);
-      v21 = a1 + v17;
+      v21 = result + v17;
       v22 = a2;
       if (v17 == 32)
       {
@@ -8911,8 +8922,8 @@ LABEL_127:
             break;
           }
 
-          v24 = *(v22 - 32);
-          v22 -= 32;
+          v24 = *(v22 - 4);
+          v22 -= 4;
         }
 
         while (v24 >= v16);
@@ -8922,14 +8933,14 @@ LABEL_127:
       {
         do
         {
-          v23 = *(v22 - 32);
-          v22 -= 32;
+          v23 = *(v22 - 4);
+          v22 -= 4;
         }
 
         while (v23 >= v16);
       }
 
-      v8 = a1 + v17;
+      v8 = result + v17;
       if (v21 < v22)
       {
         v25 = v22;
@@ -8940,17 +8951,17 @@ LABEL_127:
           v153 = *(v8 + 28);
           v142 = *(v8 + 20);
           *v8 = *v25;
-          *(v8 + 8) = *(v25 + 8);
-          *(v8 + 12) = *(v25 + 12);
-          *(v8 + 16) = *(v25 + 16);
+          *(v8 + 8) = *(v25 + 2);
+          *(v8 + 12) = *(v25 + 3);
+          *(v8 + 16) = *(v25 + 4);
           v28 = *(v25 + 20);
-          *(v8 + 28) = *(v25 + 28);
+          *(v8 + 28) = *(v25 + 7);
           *(v8 + 20) = v28;
           *v25 = v20;
-          *(v25 + 8) = v27;
-          *(v25 + 16) = v26;
+          v25[1] = v27;
+          *(v25 + 4) = v26;
           *(v25 + 20) = v142;
-          *(v25 + 28) = v153;
+          *(v25 + 7) = v153;
           do
           {
             v29 = *(v8 + 32);
@@ -8961,8 +8972,8 @@ LABEL_127:
           while (v29 < v16);
           do
           {
-            v30 = *(v25 - 32);
-            v25 -= 32;
+            v30 = *(v25 - 4);
+            v25 -= 4;
           }
 
           while (v30 >= v16);
@@ -8971,15 +8982,15 @@ LABEL_127:
         while (v8 < v25);
       }
 
-      if (v8 - 32 != a1)
+      if (v8 - 32 != result)
       {
-        *a1 = *(v8 - 32);
-        *(a1 + 8) = *(v8 - 24);
-        *(a1 + 12) = *(v8 - 20);
-        *(a1 + 16) = *(v8 - 16);
+        *result = *(v8 - 32);
+        *(result + 8) = *(v8 - 24);
+        *(result + 12) = *(v8 - 20);
+        *(result + 16) = *(v8 - 16);
         v31 = *(v8 - 12);
-        *(a1 + 28) = *(v8 - 4);
-        *(a1 + 20) = v31;
+        *(result + 28) = *(v8 - 4);
+        *(result + 20) = v31;
       }
 
       *(v8 - 32) = v16;
@@ -8992,10 +9003,10 @@ LABEL_127:
         goto LABEL_35;
       }
 
-      v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *>(a1, v8 - 32);
+      v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *>(result, (v8 - 32));
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *>(v8, a2))
       {
-        a2 = v8 - 32;
+        a2 = (v8 - 32);
         if (v32)
         {
           return;
@@ -9007,20 +9018,20 @@ LABEL_127:
       if (!v32)
       {
 LABEL_35:
-        std::__introsort<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,false>(a1, v8 - 32, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,false>(result, v8 - 32, a3, a4 & 1);
         a4 = 0;
       }
     }
 
     else
     {
-      v33 = *(a1 + 8);
-      v34 = *(a1 + 16);
-      v136 = *(a1 + 20);
-      v139 = *(a1 + 28);
-      if (v16 >= *(a2 - 32))
+      v33 = *(result + 8);
+      v34 = *(result + 16);
+      v136 = *(result + 20);
+      v139 = *(result + 28);
+      if (v16 >= *(a2 - 4))
       {
-        v36 = a1 + 32;
+        v36 = (result + 32);
         do
         {
           v8 = v36;
@@ -9029,7 +9040,7 @@ LABEL_35:
             break;
           }
 
-          v36 += 32;
+          v36 += 4;
         }
 
         while (v16 >= *v8);
@@ -9037,7 +9048,7 @@ LABEL_35:
 
       else
       {
-        v8 = a1;
+        v8 = result;
         do
         {
           v35 = *(v8 + 32);
@@ -9053,8 +9064,8 @@ LABEL_35:
         v37 = a2;
         do
         {
-          v38 = *(v37 - 32);
-          v37 -= 32;
+          v38 = *(v37 - 4);
+          v37 -= 4;
         }
 
         while (v16 < v38);
@@ -9070,17 +9081,17 @@ LABEL_35:
           v154 = *(v8 + 28);
           v143 = *(v8 + 20);
           *v8 = *v37;
-          *(v8 + 8) = *(v37 + 8);
-          *(v8 + 12) = *(v37 + 12);
-          *(v8 + 16) = *(v37 + 16);
+          *(v8 + 8) = *(v37 + 2);
+          *(v8 + 12) = *(v37 + 3);
+          *(v8 + 16) = *(v37 + 4);
           v42 = *(v37 + 20);
-          *(v8 + 28) = *(v37 + 28);
+          *(v8 + 28) = *(v37 + 7);
           *(v8 + 20) = v42;
           *v37 = v39;
-          *(v37 + 8) = v41;
-          *(v37 + 16) = v40;
+          v37[1] = v41;
+          *(v37 + 4) = v40;
           *(v37 + 20) = v143;
-          *(v37 + 28) = v154;
+          *(v37 + 7) = v154;
           do
           {
             v43 = *(v8 + 32);
@@ -9091,8 +9102,8 @@ LABEL_35:
           while (v16 >= v43);
           do
           {
-            v44 = *(v37 - 32);
-            v37 -= 32;
+            v44 = *(v37 - 4);
+            v37 -= 4;
           }
 
           while (v16 < v44);
@@ -9101,15 +9112,15 @@ LABEL_35:
         while (v8 < v37);
       }
 
-      if (v8 - 32 != a1)
+      if (v8 - 32 != result)
       {
-        *a1 = *(v8 - 32);
-        *(a1 + 8) = *(v8 - 24);
-        *(a1 + 12) = *(v8 - 20);
-        *(a1 + 16) = *(v8 - 16);
+        *result = *(v8 - 32);
+        *(result + 8) = *(v8 - 24);
+        *(result + 12) = *(v8 - 20);
+        *(result + 16) = *(v8 - 16);
         v45 = *(v8 - 12);
-        *(a1 + 28) = *(v8 - 4);
-        *(a1 + 20) = v45;
+        *(result + 28) = *(v8 - 4);
+        *(result + 20) = v45;
       }
 
       a4 = 0;
@@ -9121,7 +9132,7 @@ LABEL_35:
     }
   }
 
-  v66 = v8 + 32;
+  v66 = (v8 + 32);
   v68 = v8 == a2 || v66 == a2;
   if (a4)
   {
@@ -9173,12 +9184,12 @@ LABEL_84:
           *(v77 + 20) = v148;
         }
 
-        v66 = v71 + 32;
+        v66 = v71 + 4;
         v69 += 32;
         v70 = v71;
       }
 
-      while (v71 + 32 != a2);
+      while (v71 + 4 != a2);
     }
   }
 
@@ -9188,14 +9199,14 @@ LABEL_84:
     do
     {
       v126 = v66;
-      v127 = *(a1 + 32);
-      if (v127 < *a1)
+      v127 = *(result + 32);
+      if (v127 < *result)
       {
-        v128 = *(a1 + 40);
-        v129 = *(a1 + 48);
-        v151 = *(a1 + 52);
-        v162 = *(a1 + 60);
-        v130 = *a1;
+        v128 = *(result + 40);
+        v129 = *(result + 48);
+        v151 = *(result + 52);
+        v162 = *(result + 60);
+        v130 = *result;
         v131 = v125;
         do
         {
@@ -9219,12 +9230,12 @@ LABEL_84:
         *v131 = v151;
       }
 
-      v66 = v126 + 32;
+      v66 = (v126 + 32);
       v125 += 32;
-      a1 = v126;
+      result = v126;
     }
 
-    while (v126 + 32 != a2);
+    while ((v126 + 32) != a2);
   }
 }
 
@@ -9498,7 +9509,7 @@ float std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPri
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *>(uint64_t a1, uint64_t *a2)
 {
   v4 = (a2 - a1) >> 5;
   if (v4 > 2)
@@ -9506,11 +9517,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, (a1 + 32), (a2 - 32));
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, (a1 + 32), a2 - 4);
         break;
       case 4:
         std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, (a1 + 32), (a1 + 64));
-        v22 = *(a2 - 32);
+        v22 = *(a2 - 4);
         v23 = *(a1 + 64);
         if (v22 < v23)
         {
@@ -9520,17 +9531,17 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
           v48 = *(a1 + 92);
           *(a1 + 64) = v22;
           v26 = *(a1 + 72);
-          *(a1 + 72) = *(a2 - 24);
-          *(a1 + 76) = *(a2 - 20);
-          *(a1 + 80) = *(a2 - 16);
-          v27 = *(a2 - 4);
+          *(a1 + 72) = *(a2 - 6);
+          *(a1 + 76) = *(a2 - 5);
+          *(a1 + 80) = *(a2 - 4);
+          v27 = *(a2 - 1);
           *(a1 + 84) = *(a2 - 12);
           *(a1 + 92) = v27;
-          *(a2 - 32) = v23;
-          *(a2 - 24) = v26;
-          *(a2 - 16) = v25;
+          *(a2 - 4) = v23;
+          *(a2 - 3) = v26;
+          *(a2 - 4) = v25;
           *(a2 - 12) = v44;
-          *(a2 - 4) = v48;
+          *(a2 - 1) = v48;
           v28 = *(a1 + 64);
           v29 = *(a1 + 32);
           if (v28 < v29)
@@ -9580,7 +9591,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
 
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, a1 + 32, a1 + 64, (a1 + 96), (a2 - 32));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, a1 + 32, a1 + 64, (a1 + 96), a2 - 4);
         break;
       default:
         goto LABEL_11;
@@ -9596,7 +9607,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
 
   if (v4 == 2)
   {
-    v5 = *(a2 - 32);
+    v5 = *(a2 - 4);
     v6 = *a1;
     if (v5 < *a1)
     {
@@ -9605,17 +9616,17 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
       v46 = *(a1 + 28);
       *a1 = v5;
       v8 = *(a1 + 8);
-      *(a1 + 8) = *(a2 - 24);
-      *(a1 + 12) = *(a2 - 20);
-      *(a1 + 16) = *(a2 - 16);
-      v9 = *(a2 - 4);
+      *(a1 + 8) = *(a2 - 6);
+      *(a1 + 12) = *(a2 - 5);
+      *(a1 + 16) = *(a2 - 4);
+      v9 = *(a2 - 1);
       *(a1 + 20) = *(a2 - 12);
       *(a1 + 28) = v9;
-      *(a2 - 32) = v6;
-      *(a2 - 24) = v8;
-      *(a2 - 16) = v7;
+      *(a2 - 4) = v6;
+      *(a2 - 3) = v8;
+      *(a2 - 4) = v7;
       *(a2 - 12) = v42;
-      *(a2 - 4) = v46;
+      *(a2 - 1) = v46;
     }
 
     return 1;
@@ -9624,8 +9635,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase
 LABEL_11:
   v10 = (a1 + 64);
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Geometry::SortPrimitivesByMortonNumber(Phase::Geometry::System &,Phase::Geometry::Mesh *,Phase::Geometry::MeshOptions::PrimitiveSortType)::$_0 &,Phase::Geometry::PrimitiveSortEntry *,0>(a1, (a1 + 32), (a1 + 64));
-  v11 = a1 + 96;
-  if (a1 + 96 == a2)
+  v11 = (a1 + 96);
+  if ((a1 + 96) == a2)
   {
     return 1;
   }
@@ -9637,10 +9648,10 @@ LABEL_11:
     v14 = *v11;
     if (*v11 < *v10)
     {
-      v15 = *(v11 + 8);
-      v16 = *(v11 + 16);
+      v15 = v11[1];
+      v16 = *(v11 + 4);
       v43 = *(v11 + 20);
-      v47 = *(v11 + 28);
+      v47 = *(v11 + 7);
       v17 = *v10;
       v18 = v12;
       while (1)
@@ -9675,13 +9686,13 @@ LABEL_19:
       *(v19 + 92) = v47;
       if (++v13 == 8)
       {
-        return v11 + 32 == a2;
+        return v11 + 4 == a2;
       }
     }
 
     v10 = v11;
     v12 += 32;
-    v11 += 32;
+    v11 += 4;
     if (v11 == a2)
     {
       return 1;
@@ -9784,7 +9795,7 @@ uint64_t Phase::Geometry::Shape::Shape(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a1 + 60) = v6;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   v8 = Phase::Geometry::DataSet::DataSet((v7 + 24), (a2 + 96), a3);
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
@@ -9806,7 +9817,7 @@ void sub_23A3F4D18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *Phase::Geometry::DataSet::DataSet(uint64_t *a1, uint64_t *a2, uint64_t a3)
+const void **Phase::Geometry::DataSet::DataSet(const void **a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -9858,10 +9869,10 @@ LABEL_11:
         atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v17 = (v15 + 16 * v9);
-      v18 = v17[1];
+      v17 = &v15[16 * v9];
+      v18 = *(v17 + 1);
       *v17 = v12;
-      v17[1] = v16;
+      *(v17 + 1) = v16;
       if (v18)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v18);

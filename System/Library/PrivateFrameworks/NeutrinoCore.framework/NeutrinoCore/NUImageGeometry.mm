@@ -92,7 +92,7 @@
 - ($0AC6E346AE4835514AAA8AC86D8F4844)scaledSize
 {
   v4 = 0u;
-  [(NUImageGeometry *)self physicalScaledExtent:0];
+  objc_msgSend_physicalScaledExtent(self, a2, 0, 0);
   v3 = *(&v4 + 1);
   v2 = v4;
   result.var1 = v3;
@@ -118,7 +118,7 @@
 {
   renderScale = [(NUImageGeometry *)self renderScale];
   v5 = NUScaleToDouble(renderScale, v4);
-  [(NUImageGeometry *)self extent];
+  objc_msgSend_extent(self);
   v10.origin.x = v5 * v6;
   v10.origin.y = v5 * v7;
   v10.size.width = v5 * v8;

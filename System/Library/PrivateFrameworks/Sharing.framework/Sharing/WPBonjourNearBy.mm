@@ -100,33 +100,31 @@
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = daemon_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "deviceDidStartScanning with error %@\n", buf, 0xCu);
+      v10 = v3;
+      _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "deviceDidStartScanning with error %@\n", buf, 0xCu);
     }
 
-    v6 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      v7 = WeakRetained[3];
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_124;
-      v9[3] = &unk_1E788F430;
-      v9[4] = WeakRetained;
-      [v7 enumerateKeysAndObjectsUsingBlock:v9];
+      v7 = v5[3];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_124;
+      v8[3] = &unk_1E788F430;
+      v8[4] = v5;
+      [v7 enumerateKeysAndObjectsUsingBlock:v8];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_124(uint64_t a1, void *a2)
@@ -140,37 +138,35 @@ uint64_t __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_124(uint6
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v5 UUIDString];
+      v10 = [v5 UUIDString];
       *buf = 138412546;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Found device %@ with advertisementData %@\n", buf, 0x16u);
+      v14 = v10;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Found device %@ with advertisementData %@\n", buf, 0x16u);
     }
 
-    v10 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_129;
-      v12[3] = &unk_1E788F8C8;
-      v12[4] = WeakRetained;
-      v13 = v5;
-      [v6 enumerateObjectsUsingBlock:v12];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_129;
+      v11[3] = &unk_1E788F8C8;
+      v11[4] = v8;
+      v12 = v5;
+      [v6 enumerateObjectsUsingBlock:v11];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_129(uint64_t a1, void *a2)
@@ -187,16 +183,16 @@ void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_129(uint64_t 
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_2_138(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = daemon_log();
+  v8 = daemon_log(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v5 UUIDString];
     *buf = 138412290;
-    v16 = v9;
+    v14 = v9;
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Lost device %@\n", buf, 0xCu);
   }
 
@@ -212,20 +208,17 @@ void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_2_138(uint64_
       [WeakRetained[3] allKeys];
     }
     v10 = ;
-    v11 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_141;
-      v13[3] = &unk_1E788F8C8;
-      v13[4] = WeakRetained;
-      v14 = v5;
-      [v10 enumerateObjectsUsingBlock:v13];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_141;
+      v11[3] = &unk_1E788F8C8;
+      v11[4] = WeakRetained;
+      v12 = v5;
+      [v10 enumerateObjectsUsingBlock:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_141(uint64_t a1, void *a2)
@@ -243,130 +236,122 @@ void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_2_142(uint64_
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = daemon_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
       v14 = a2;
       v15 = 2112;
       v16 = v5;
-      _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Advertising state update isStarted %d with error %@\n", buf, 0x12u);
+      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Advertising state update isStarted %d with error %@\n", buf, 0x12u);
     }
 
-    v8 = WeakRetained[3];
+    v9 = v7[3];
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
     v10[2] = __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_143;
     v10[3] = &unk_1E788F918;
     v12 = a2;
-    v10[4] = WeakRetained;
+    v10[4] = v7;
     v11 = v5;
-    [v8 enumerateKeysAndObjectsUsingBlock:v10];
+    [v9 enumerateKeysAndObjectsUsingBlock:v10];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_143(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  v6 = *(*(a1 + 32) + 40);
   if (*(a1 + 48) == 1)
   {
     if (objc_opt_respondsToSelector())
     {
-      [*(*(a1 + 32) + 40) nearby:*(a1 + 32) didStartAdvertisingType:{objc_msgSend(v7, "unsignedIntValue")}];
+      [*(*(a1 + 32) + 40) nearby:*(a1 + 32) didStartAdvertisingType:{objc_msgSend(v6, "unsignedIntValue")}];
     }
   }
 
   else if (objc_opt_respondsToSelector())
   {
-    [*(*(a1 + 32) + 40) nearby:*(a1 + 32) didStopAdvertisingType:objc_msgSend(v7 withError:{"unsignedIntValue"), *(a1 + 40)}];
+    [*(*(a1 + 32) + 40) nearby:*(a1 + 32) didStopAdvertisingType:objc_msgSend(v6 withError:{"unsignedIntValue"), *(a1 + 40)}];
   }
 }
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_2_149(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Device didConnect %@ with error %@\n", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Device didConnect %@ with error %@\n", &v10, 0x16u);
     }
 
-    v9 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      [WeakRetained[5] nearby:WeakRetained didConnectToPeer:v5 transport:0 error:v6];
+      [v8[5] nearby:v8 didConnectToPeer:v5 transport:0 error:v6];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_153(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = daemon_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Device didDisConnect %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Device didDisConnect %@", &v7, 0xCu);
     }
 
-    v6 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      [WeakRetained[5] nearby:WeakRetained didDisconnectFromPeer:v3 error:0];
+      [v5[5] nearby:v5 didDisconnectFromPeer:v3 error:0];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_157(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Device didReceiveData from %@ with data %@\n", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Device didReceiveData from %@ with data %@\n", &v10, 0x16u);
     }
 
-    v9 = WeakRetained[5];
     if (objc_opt_respondsToSelector())
     {
-      [WeakRetained[5] nearby:WeakRetained didReceiveData:v6 fromPeer:v5];
+      [v8[5] nearby:v8 didReceiveData:v6 fromPeer:v5];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingOfType:(int64_t)type data:(id)data priority:(int64_t)priority mode:(int64_t)mode options:(id)options
@@ -375,28 +360,28 @@ void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_157(uint64_t 
   dataCopy = data;
   optionsCopy = options;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v13 = daemon_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = objc_sync_enter(selfCopy);
+  v14 = daemon_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     typeCopy = type;
     v26 = 2112;
     v27 = dataCopy;
-    _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "startAdvertisingOfType %ld with data %@\n", buf, 0x16u);
+    _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "startAdvertisingOfType %ld with data %@\n", buf, 0x16u);
   }
 
   advertiserNearbyTypesAdvData = selfCopy->_advertiserNearbyTypesAdvData;
-  v15 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  [(NSMutableDictionary *)advertiserNearbyTypesAdvData setObject:dataCopy forKeyedSubscript:v15];
+  v16 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  [(NSMutableDictionary *)advertiserNearbyTypesAdvData setObject:dataCopy forKeyedSubscript:v16];
 
   objc_initWeak(buf, selfCopy);
   v22[0] = @"WPBonjourNearbyType";
-  v16 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  v17 = [MEMORY[0x1E696AD98] numberWithInteger:type];
   v22[1] = @"WPBonjourNearbyPayloadKey";
-  v23[0] = v16;
+  v23[0] = v17;
   v23[1] = dataCopy;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   sfBonjourNearBy = selfCopy->_sfBonjourNearBy;
   v20[0] = MEMORY[0x1E69E9820];
@@ -406,13 +391,11 @@ void __44__WPBonjourNearBy__listenForSFBonjourEvents__block_invoke_157(uint64_t 
   objc_copyWeak(v21, buf);
   v21[1] = type;
   v20[4] = selfCopy;
-  [(SFBonjourNearBy *)sfBonjourNearBy startAdvertisingWithData:v17 completionHandler:v20];
+  [(SFBonjourNearBy *)sfBonjourNearBy startAdvertisingWithData:v18 completionHandler:v20];
   objc_destroyWeak(v21);
 
   objc_destroyWeak(buf);
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__WPBonjourNearBy_startAdvertisingOfType_data_priority_mode_options___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -450,27 +433,27 @@ void __69__WPBonjourNearBy_startAdvertisingOfType_data_priority_mode_options___b
 
   if (v7)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       typeCopy2 = type;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "stopAdvertisingOfType %ld", buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "stopAdvertisingOfType %ld", buf, 0xCu);
     }
 
     v20[0] = @"WPBonjourNearbyType";
-    v9 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    v10 = [MEMORY[0x1E696AD98] numberWithInteger:type];
     v20[1] = @"WPBonjourNearbyPayloadKey";
-    v21[0] = v9;
-    v10 = selfCopy->_advertiserNearbyTypesAdvData;
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    v12 = [(NSMutableDictionary *)v10 objectForKeyedSubscript:v11];
-    v21[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v21[0] = v10;
+    v11 = selfCopy->_advertiserNearbyTypesAdvData;
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    v13 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:v12];
+    v21[1] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
-    v14 = selfCopy->_advertiserNearbyTypesAdvData;
-    v15 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    [(NSMutableDictionary *)v14 removeObjectForKey:v15];
+    v15 = selfCopy->_advertiserNearbyTypesAdvData;
+    v16 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    [(NSMutableDictionary *)v15 removeObjectForKey:v16];
 
     objc_initWeak(buf, selfCopy);
     sfBonjourNearBy = selfCopy->_sfBonjourNearBy;
@@ -480,24 +463,23 @@ void __69__WPBonjourNearBy_startAdvertisingOfType_data_priority_mode_options___b
     v18[3] = &unk_1E788F9E0;
     objc_copyWeak(v19, buf);
     v19[1] = type;
-    [(SFBonjourNearBy *)sfBonjourNearBy stopAdvertisingForData:v13 completionHandler:v18];
+    [(SFBonjourNearBy *)sfBonjourNearBy stopAdvertisingForData:v14 completionHandler:v18];
     objc_destroyWeak(v19);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v13 = daemon_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = daemon_log(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       typeCopy2 = type;
-      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "No Advertising for type %ld, not stopping anything!\n", buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "No Advertising for type %ld, not stopping anything!\n", buf, 0xCu);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __41__WPBonjourNearBy_stopAdvertisingOfType___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -579,36 +561,34 @@ void __41__WPBonjourNearBy_stopAdvertisingOfType___block_invoke(uint64_t a1, uin
   v30 = [MEMORY[0x1E696AD98] numberWithInteger:v34];
   [(NSMutableDictionary *)scannerNearbyTypesToScan setObject:v28 forKey:v30];
 
-  v31 = daemon_log();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v32 = daemon_log(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     v39 = v34;
-    _os_log_impl(&dword_1A9662000, v31, OS_LOG_TYPE_DEFAULT, "[Discovery] starting for type %ld\n", buf, 0xCu);
+    _os_log_impl(&dword_1A9662000, v32, OS_LOG_TYPE_DEFAULT, "[Discovery] starting for type %ld\n", buf, 0xCu);
   }
 
   [(SFBonjourNearBy *)selfCopy->_sfBonjourNearBy startDiscovery];
   objc_sync_exit(selfCopy);
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopScanningForType:(int64_t)type
 {
   v13 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v5 = daemon_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_sync_enter(selfCopy);
+  v6 = daemon_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "[Discovery] stopping for type %ld\n", &v11, 0xCu);
+    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "[Discovery] stopping for type %ld\n", &v11, 0xCu);
   }
 
   scannerNearbyTypesToScan = selfCopy->_scannerNearbyTypesToScan;
-  v7 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  [(NSMutableDictionary *)scannerNearbyTypesToScan removeObjectForKey:v7];
+  v8 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  [(NSMutableDictionary *)scannerNearbyTypesToScan removeObjectForKey:v8];
 
   allKeys = [(NSMutableDictionary *)selfCopy->_scannerNearbyTypesToScan allKeys];
   LODWORD(scannerNearbyTypesToScan) = [allKeys count] == 0;
@@ -625,40 +605,36 @@ void __41__WPBonjourNearBy_stopAdvertisingOfType___block_invoke(uint64_t a1, uin
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToPeer:(id)peer withOptions:(id)options
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
-  v6 = daemon_log();
+  v6 = daemon_log(peerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = peerCopy;
-    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to peer %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = peerCopy;
+    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to peer %@", &v7, 0xCu);
   }
 
   [(SFBonjourNearBy *)self->_sfBonjourNearBy connectToDevice:peerCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disconnectFromPeer:(id)peer
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
-  v5 = daemon_log();
+  v5 = daemon_log(peerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = peerCopy;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Disconnecting from peer %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = peerCopy;
+    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Disconnecting from peer %@", &v6, 0xCu);
   }
 
   [(SFBonjourNearBy *)self->_sfBonjourNearBy disconnectFromDevice:peerCopy];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendData:(id)data toPeer:(id)peer
@@ -684,16 +660,11 @@ void __41__WPBonjourNearBy_stopAdvertisingOfType___block_invoke(uint64_t a1, uin
 
 void __35__WPBonjourNearBy_sendData_toPeer___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v4 = WeakRetained;
-  if (WeakRetained)
+  if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = WeakRetained[5];
-    if (objc_opt_respondsToSelector())
-    {
-      [v4[5] nearby:v4 didSendData:*(a1 + 32) toPeer:*(a1 + 40) error:v6];
-    }
+    [WeakRetained[5] nearby:WeakRetained didSendData:*(a1 + 32) toPeer:*(a1 + 40) error:v4];
   }
 }
 

@@ -237,7 +237,7 @@ LABEL_8:
   x = rect.origin.x;
   if (CGRectIsEmpty(rect))
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"The menu path rect should not have been empty");
 
     return CGPathCreateMutable();
   }
@@ -301,7 +301,7 @@ LABEL_8:
   x = rect.origin.x;
   if (CGRectIsEmpty(rect))
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"The menu path rect should not have been empty");
 
     return CGPathCreateMutable();
   }

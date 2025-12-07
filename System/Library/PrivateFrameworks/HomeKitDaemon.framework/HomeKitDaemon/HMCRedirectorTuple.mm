@@ -43,11 +43,11 @@
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   target = [(HMCRedirectorTuple *)&self->super.super.isa target];
   v5 = [v3 initWithName:@"Target" value:target];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
@@ -61,10 +61,8 @@
 
   v8 = NSStringFromSelector(selector);
   v9 = [v6 initWithName:@"Selector" value:v8];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
@@ -168,7 +166,7 @@ LABEL_8:
         goto LABEL_9;
       }
 
-      objc_storeStrong(v4 + 1, selfCopy);
+      objc_storeStrong(&v4->_tuple, selfCopy);
       target = [(HMCRedirectorTuple *)&v3->super.super.isa target];
       target = v2->_target;
       v2->_target = target;

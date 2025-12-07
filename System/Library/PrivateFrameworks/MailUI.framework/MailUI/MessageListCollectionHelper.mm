@@ -48,20 +48,20 @@ void __34__MessageListCollectionHelper_log__block_invoke(uint64_t a1)
 
 + (id)signpostLog
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __42__MessageListCollectionHelper_signpostLog__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (signpostLog_onceToken != -1)
   {
     dispatch_once(&signpostLog_onceToken, block);
   }
 
-  v1 = signpostLog_log;
+  v2 = signpostLog_log;
 
-  return v1;
+  return v2;
 }
 
 void __42__MessageListCollectionHelper_signpostLog__block_invoke(uint64_t a1)
@@ -807,52 +807,52 @@ uint64_t __67__MessageListCollectionHelper_didScheduleReadInteractionForItemID__
 
 - (void)_reportChangedItemIDs:(void *)ds
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v5 = v3;
+  v7 = v3;
   if (ds)
   {
-    v6 = OUTLINED_FUNCTION_6(v3, v4);
-    if (v6)
+    v8 = OUTLINED_FUNCTION_6(v3, v4, v5, v6);
+    if (v8)
     {
-      v8 = v6;
-      v9 = MEMORY[0];
-      *&v7 = 67240192;
-      v20 = v7;
+      v10 = v8;
+      v11 = MEMORY[0];
+      *&v9 = 67240192;
+      v24 = v9;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (MEMORY[0] != v9)
+          if (MEMORY[0] != v11)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(8 * i);
+          v13 = *(8 * i);
           pendingReadTimeoutCancelables = [ds pendingReadTimeoutCancelables];
-          v13 = [pendingReadTimeoutCancelables objectForKeyedSubscript:v11];
+          v15 = [pendingReadTimeoutCancelables objectForKeyedSubscript:v13];
 
-          if (v13)
+          if (v15)
           {
-            [ds removePendingReadCancelablesForItemID:v11];
-            v16 = +[MessageListCollectionHelper signpostLog];
-            v17 = os_signpost_id_make_with_pointer(v16, v11);
+            [ds removePendingReadCancelablesForItemID:v13];
+            v20 = +[MessageListCollectionHelper signpostLog];
+            v21 = os_signpost_id_make_with_pointer(v20, v13);
 
-            v18 = +[MessageListCollectionHelper signpostLog];
-            v19 = v18;
-            if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+            v22 = +[MessageListCollectionHelper signpostLog];
+            v23 = v22;
+            if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
             {
-              *buf = v20;
-              v22 = 0;
-              _os_signpost_emit_with_name_impl(&dword_214A5E000, v19, OS_SIGNPOST_INTERVAL_END, v17, "EMMessageListItemReadUnread", "TimedOut=%{public,signpost.telemetry:number1}u enableTelemetry=YES ", buf, 8u);
+              *buf = v24;
+              v26 = 0;
+              _os_signpost_emit_with_name_impl(&dword_214A5E000, v23, OS_SIGNPOST_INTERVAL_END, v21, "EMMessageListItemReadUnread", "TimedOut=%{public,signpost.telemetry:number1}u enableTelemetry=YES ", buf, 8u);
             }
           }
         }
 
-        v8 = OUTLINED_FUNCTION_6(v14, v15);
+        v10 = OUTLINED_FUNCTION_6(v16, v17, v18, v19);
       }
 
-      while (v8);
+      while (v10);
     }
   }
 }
@@ -861,21 +861,21 @@ uint64_t __67__MessageListCollectionHelper_didScheduleReadInteractionForItemID__
 {
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v1, v2, "Failed to insert %{public}ld identifiers before %{public}@. Could not find validExistingItemId", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v1, v2, "Failed to insert %{public}ld identifiers before %{public}@. Could not find validExistingItemId", v3, v4, v5, v6);
 }
 
 - (void)addItemIDs:(void *)a1 after:snapshot:section:validateOtherSections:.cold.2(void *a1)
 {
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v1, v2, "Failed to insert %{public}ld identifiers after %{public}@. Could not find validExistingItemId", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v1, v2, "Failed to insert %{public}ld identifiers after %{public}@. Could not find validExistingItemId", v3, v4, v5, v6);
 }
 
 - (void)moveItemID:(uint64_t)a1 before:(void *)a2 snapshot:section:.cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 itemIdentifiers];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v3, v4, "Moving existing identifiers %{public}@ before or after snapshot %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_1(&dword_214A5E000, v3, v4, "Moving existing identifiers %{public}@ before or after snapshot %{public}@", v5, v6, v7, v8);
 }
 
 @end

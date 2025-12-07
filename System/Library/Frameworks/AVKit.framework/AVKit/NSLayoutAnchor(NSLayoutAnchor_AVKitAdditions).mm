@@ -11,7 +11,7 @@
 
 - (id)avkit_constraintLessThanOrEqualToAnchor:()NSLayoutAnchor_AVKitAdditions constant:priority:
 {
-  v4 = [self constraintLessThanOrEqualToAnchor:? constant:?];
+  v4 = [self constraintLessThanOrEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -20,7 +20,7 @@
 
 - (id)avkit_constraintGreaterThanOrEqualToAnchor:()NSLayoutAnchor_AVKitAdditions constant:priority:
 {
-  v4 = [self constraintGreaterThanOrEqualToAnchor:? constant:?];
+  v4 = [self constraintGreaterThanOrEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -29,7 +29,7 @@
 
 - (id)avkit_constraintEqualToAnchor:()NSLayoutAnchor_AVKitAdditions constant:priority:
 {
-  v4 = [self constraintEqualToAnchor:? constant:?];
+  v4 = [self constraintEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 

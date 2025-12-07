@@ -64,7 +64,7 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
 
 - (void)setBrowseItem:(id)item
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if (self->_browseItem != itemCopy)
   {
@@ -82,9 +82,9 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
       v10 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
       [v10 setAlignment:1];
       v11 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v16 = *MEMORY[0x1E69DB688];
-      v17[0] = v10;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E69DB688];
+      v16[0] = v10;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v13 = [v11 initWithString:title attributes:v12];
     }
 
@@ -96,8 +96,6 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
     titleLabel = [(MUBrowseCategoryCollectionViewCell *)self titleLabel];
     [titleLabel setAttributedText:v13];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes
@@ -154,10 +152,10 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
 
 - (MUBrowseCategoryCollectionViewCell)initWithFrame:(CGRect)frame
 {
-  v66[4] = *MEMORY[0x1E69E9840];
-  v63.receiver = self;
-  v63.super_class = MUBrowseCategoryCollectionViewCell;
-  v3 = [(MUBrowseCategoryCollectionViewCell *)&v63 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v65[4] = *MEMORY[0x1E69E9840];
+  v62.receiver = self;
+  v62.super_class = MUBrowseCategoryCollectionViewCell;
+  v3 = [(MUBrowseCategoryCollectionViewCell *)&v62 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -172,25 +170,25 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
     contentView = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     [contentView addSubview:v4->_imageView];
 
-    v48 = MEMORY[0x1E696ACD8];
+    v47 = MEMORY[0x1E696ACD8];
     centerXAnchor = [(UIImageView *)v4->_imageView centerXAnchor];
     contentView2 = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     centerXAnchor2 = [contentView2 centerXAnchor];
-    v51 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v66[0] = v51;
+    v50 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v65[0] = v50;
     topAnchor = [(UIImageView *)v4->_imageView topAnchor];
     contentView3 = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     topAnchor2 = [contentView3 topAnchor];
     v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v66[1] = v10;
+    v65[1] = v10;
     widthAnchor = [(UIImageView *)v4->_imageView widthAnchor];
     v12 = [widthAnchor constraintEqualToConstant:40.0];
-    v66[2] = v12;
+    v65[2] = v12;
     heightAnchor = [(UIImageView *)v4->_imageView heightAnchor];
     v14 = [heightAnchor constraintEqualToConstant:40.0];
-    v66[3] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:4];
-    [v48 activateConstraints:v15];
+    v65[3] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:4];
+    [v47 activateConstraints:v15];
 
     v16 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
     highlightedImageView = v4->_highlightedImageView;
@@ -201,25 +199,25 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
     imageView = [(MUBrowseCategoryCollectionViewCell *)v4 imageView];
     [imageView addSubview:v4->_highlightedImageView];
 
-    v47 = MEMORY[0x1E696ACD8];
+    v46 = MEMORY[0x1E696ACD8];
     topAnchor3 = [(UIImageView *)v4->_highlightedImageView topAnchor];
     topAnchor4 = [(UIImageView *)v4->_imageView topAnchor];
-    v55 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v65[0] = v55;
+    v54 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+    v64[0] = v54;
     bottomAnchor = [(UIImageView *)v4->_highlightedImageView bottomAnchor];
     bottomAnchor2 = [(UIImageView *)v4->_imageView bottomAnchor];
-    v45 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v65[1] = v45;
+    v44 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v64[1] = v44;
     leadingAnchor = [(UIImageView *)v4->_highlightedImageView leadingAnchor];
     leadingAnchor2 = [(UIImageView *)v4->_imageView leadingAnchor];
     v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v65[2] = v21;
+    v64[2] = v21;
     trailingAnchor = [(UIImageView *)v4->_highlightedImageView trailingAnchor];
     trailingAnchor2 = [(UIImageView *)v4->_imageView trailingAnchor];
     v24 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v65[3] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:4];
-    [v47 activateConstraints:v25];
+    v64[3] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:4];
+    [v46 activateConstraints:v25];
 
     [(UIImageView *)v4->_highlightedImageView setAlpha:0.0];
     v26 = objc_alloc_init(MEMORY[0x1E69DCC10]);
@@ -241,28 +239,27 @@ void __53__MUBrowseCategoryCollectionViewCell_setHighlighted___block_invoke(uint
     titleLabelTopConstraint = v4->_titleLabelTopConstraint;
     v4->_titleLabelTopConstraint = v32;
 
-    v50 = MEMORY[0x1E696ACD8];
+    v49 = MEMORY[0x1E696ACD8];
     leadingAnchor3 = [(UILabel *)v4->_titleLabel leadingAnchor];
     contentView5 = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     leadingAnchor4 = [contentView5 leadingAnchor];
-    v53 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v64[0] = v53;
+    v52 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v63[0] = v52;
     trailingAnchor3 = [(UILabel *)v4->_titleLabel trailingAnchor];
     contentView6 = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     trailingAnchor4 = [contentView6 trailingAnchor];
     v37 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v64[1] = v37;
-    v64[2] = v4->_titleLabelTopConstraint;
+    v63[1] = v37;
+    v63[2] = v4->_titleLabelTopConstraint;
     lastBaselineAnchor = [(UILabel *)v4->_titleLabel lastBaselineAnchor];
     contentView7 = [(MUBrowseCategoryCollectionViewCell *)v4 contentView];
     bottomAnchor4 = [contentView7 bottomAnchor];
     v41 = [lastBaselineAnchor constraintEqualToAnchor:bottomAnchor4];
-    v64[3] = v41;
-    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:4];
-    [v50 activateConstraints:v42];
+    v63[3] = v41;
+    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:4];
+    [v49 activateConstraints:v42];
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

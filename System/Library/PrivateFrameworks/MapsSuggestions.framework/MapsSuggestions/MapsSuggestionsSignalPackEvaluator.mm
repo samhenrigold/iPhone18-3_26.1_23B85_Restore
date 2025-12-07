@@ -46,11 +46,11 @@ LABEL_6:
     v7 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "IsTransitUser: MapsSuggestionsSignalTypeIsTransitAvailableHere is NO", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "IsTransitUser: MapsSuggestionsSignalTypeIsTransitAvailableHere is NO", v10, 2u);
     }
 
-    return MapsSuggestionsConfidenceDefinitelyFalse();
+    return MapsSuggestionsConfidenceDefinitelyFalse(v8, v9);
   }
 
   else
@@ -58,8 +58,8 @@ LABEL_6:
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "IsTransitUser: we don't have MapsSuggestionsSignalTypeIsTransitAvailableHere", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "IsTransitUser: we don't have MapsSuggestionsSignalTypeIsTransitAvailableHere", v11, 2u);
     }
 
     return MapsSuggestionsConfidenceDontKnow();
@@ -68,14 +68,14 @@ LABEL_6:
 
 - (double)isTransitUserConfidence
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if ([(MapsSuggestionsSignalPack *)self->_signalPack hasType:19]&& [(MapsSuggestionsSignalPackEvaluator *)self isUserPreferenceTransit])
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v44) = 0;
-      _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "IsTransitUser: Prefered Transport type is Transit", &v44, 2u);
+      LOWORD(v45) = 0;
+      _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "IsTransitUser: Prefered Transport type is Transit", &v45, 2u);
     }
 
     return MapsSuggestionsConfidenceDefinitelyTrue();
@@ -84,9 +84,9 @@ LABEL_6:
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v44 = 134217984;
-    v45 = 0.0;
-    _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "IsTransitUser: startScore = %.2f", &v44, 0xCu);
+    v45 = 134217984;
+    v46 = 0.0;
+    _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "IsTransitUser: startScore = %.2f", &v45, 0xCu);
   }
 
   v5 = 0.0;
@@ -100,9 +100,9 @@ LABEL_6:
       v8 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v44 = 134217984;
-        v45 = v5;
-        _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasTransitPass = %.2f", &v44, 0xCu);
+        v45 = 134217984;
+        v46 = v5;
+        _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasTransitPass = %.2f", &v45, 0xCu);
       }
     }
 
@@ -125,9 +125,9 @@ LABEL_6:
       v12 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v44 = 134217984;
-        v45 = v5;
-        _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasFavoriteTransitPOI = %.2f", &v44, 0xCu);
+        v45 = 134217984;
+        v46 = v5;
+        _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasFavoriteTransitPOI = %.2f", &v45, 0xCu);
       }
     }
   }
@@ -143,9 +143,9 @@ LABEL_6:
       v15 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v44 = 134217984;
-        v45 = v5;
-        _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasFavoriteTransitLine = %.2f", &v44, 0xCu);
+        v45 = 134217984;
+        v46 = v5;
+        _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasFavoriteTransitLine = %.2f", &v45, 0xCu);
       }
     }
   }
@@ -161,9 +161,9 @@ LABEL_6:
       v18 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v44 = 134217984;
-        v45 = v5;
-        _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasRecentTransitRoute = %.2f", &v44, 0xCu);
+        v45 = 134217984;
+        v46 = v5;
+        _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeHasRecentTransitRoute = %.2f", &v45, 0xCu);
       }
     }
   }
@@ -194,13 +194,13 @@ LABEL_6:
       else
       {
         GEOConfigGetDouble();
-        v38 = v20 - v37;
+        v39 = v20 - v38;
         GEOConfigGetDouble();
-        v40 = 1.0 - v38 / v39;
+        v41 = 1.0 - v39 / v40;
         GEOConfigGetDouble();
-        v42 = v41;
+        v43 = v42;
         GEOConfigGetDouble();
-        v29 = v40 * (v42 * (1.0 - v43));
+        v29 = v41 * (v43 * (1.0 - v44));
       }
     }
 
@@ -209,9 +209,9 @@ LABEL_6:
     v31 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v44 = 134217984;
-      v45 = v5;
-      _os_log_impl(&dword_1C5126000, v31, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeTimeSinceLastTransitRoute = %.2f", &v44, 0xCu);
+      v45 = 134217984;
+      v46 = v5;
+      _os_log_impl(&dword_1C5126000, v31, OS_LOG_TYPE_DEBUG, "IsTransitUser: score after MapsSuggestionsSignalTypeTimeSinceLastTransitRoute = %.2f", &v45, 0xCu);
     }
   }
 
@@ -224,11 +224,11 @@ LABEL_6:
   v33 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    v44 = 134218240;
-    v45 = v32;
-    v46 = 1024;
-    v47 = v9;
-    _os_log_impl(&dword_1C5126000, v33, OS_LOG_TYPE_DEBUG, "IsTransitUser: finalScore = %.2f, number of signals: %d", &v44, 0x12u);
+    v45 = 134218240;
+    v46 = v32;
+    v47 = 1024;
+    v48 = v9;
+    _os_log_impl(&dword_1C5126000, v33, OS_LOG_TYPE_DEBUG, "IsTransitUser: finalScore = %.2f, number of signals: %d", &v45, 0x12u);
   }
 
   GEOConfigGetDouble();
@@ -246,7 +246,7 @@ LABEL_6:
 
   if (Integer <= v9)
   {
-    return MapsSuggestionsConfidenceDefinitelyFalse();
+    return MapsSuggestionsConfidenceDefinitelyFalse(Integer, v37);
   }
 
   else

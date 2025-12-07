@@ -193,7 +193,7 @@
   v4 = device;
   if (device)
   {
-    [device operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(device);
   }
 
   else

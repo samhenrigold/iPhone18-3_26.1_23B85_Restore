@@ -342,49 +342,49 @@ LABEL_17:
   line = [(EQKitStringBox *)self line];
   if (line)
   {
-    v6 = line;
-    FakeContext = EQKitUtilGetFakeContext();
-    ImageBounds = CTLineGetImageBounds(v6, FakeContext);
+    v7 = line;
+    FakeContext = EQKitUtilGetFakeContext(line, v6);
+    ImageBounds = CTLineGetImageBounds(v7, FakeContext);
     x = ImageBounds.origin.x;
     y = ImageBounds.origin.y;
     width = ImageBounds.size.width;
     height = ImageBounds.size.height;
     MaxY = CGRectGetMaxY(ImageBounds);
-    v20.origin.x = x;
-    v20.origin.y = y;
-    v20.size.width = width;
-    v20.size.height = height;
-    MinY = CGRectGetMinY(v20);
-    TypographicBounds = CTLineGetTypographicBounds(v6, 0, 0, 0);
+    v21.origin.x = x;
+    v21.origin.y = y;
+    v21.size.width = width;
+    v21.size.height = height;
+    MinY = CGRectGetMinY(v21);
+    TypographicBounds = CTLineGetTypographicBounds(v7, 0, 0, 0);
     if (TypographicBounds > 0.0)
     {
       self->mHeight = MaxY;
       self->mDepth = -MinY;
       self->mWidth = TypographicBounds;
-      v21.origin.x = x;
-      v21.origin.y = y;
-      v21.size.width = width;
-      v21.size.height = height;
-      MinX = CGRectGetMinX(v21);
       v22.origin.x = x;
       v22.origin.y = y;
       v22.size.width = width;
       v22.size.height = height;
-      v16 = -CGRectGetMaxY(v22);
+      MinX = CGRectGetMinX(v22);
       v23.origin.x = x;
       v23.origin.y = y;
       v23.size.width = width;
       v23.size.height = height;
-      v17 = CGRectGetWidth(v23);
+      v17 = -CGRectGetMaxY(v23);
       v24.origin.x = x;
       v24.origin.y = y;
       v24.size.width = width;
       v24.size.height = height;
-      v18 = CGRectGetHeight(v24);
+      v18 = CGRectGetWidth(v24);
+      v25.origin.x = x;
+      v25.origin.y = y;
+      v25.size.width = width;
+      v25.size.height = height;
+      v19 = CGRectGetHeight(v25);
       p_mErasableBounds->origin.x = MinX;
-      p_mErasableBounds->origin.y = v16;
-      p_mErasableBounds->size.width = v17;
-      p_mErasableBounds->size.height = v18;
+      p_mErasableBounds->origin.y = v17;
+      p_mErasableBounds->size.width = v18;
+      p_mErasableBounds->size.height = v19;
     }
   }
 }

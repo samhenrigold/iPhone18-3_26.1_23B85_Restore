@@ -282,9 +282,9 @@
 
 - (void)layoutSubviews
 {
-  v60.receiver = self;
-  v60.super_class = SKUICollectionViewCell;
-  [(SKUICollectionViewCell *)&v60 layoutSubviews];
+  v68.receiver = self;
+  v68.super_class = SKUICollectionViewCell;
+  [(SKUICollectionViewCell *)&v68 layoutSubviews];
   right = *(MEMORY[0x277D768C8] + 24);
   left = *(MEMORY[0x277D768C8] + 8);
   if (self->_separatorStyle != 4)
@@ -300,8 +300,8 @@
     }
   }
 
-  v56 = *(MEMORY[0x277D768C8] + 16);
-  v57 = *MEMORY[0x277D768C8];
+  v64 = *(MEMORY[0x277D768C8] + 16);
+  v65 = *MEMORY[0x277D768C8];
   [(SKUICollectionViewCell *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -316,165 +316,165 @@
     if (![(UIView *)bottomBorderView isHidden])
     {
       v13 = v10 - self->_separatorWidths.bottom;
-      v61.origin.x = v4;
-      v61.origin.y = v6;
-      v61.size.width = v8;
-      v61.size.height = v10;
-      MinX = CGRectGetMinX(v61);
-      v62.origin.x = v4;
-      v62.origin.y = v6;
-      v62.size.width = v8;
-      v62.size.height = v10;
-      v15 = CGRectGetMaxY(v62) - self->_separatorWidths.bottom;
-      v63.origin.x = v4;
-      v63.origin.y = v6;
-      v63.size.width = v8;
-      v63.size.height = v10;
-      Width = CGRectGetWidth(v63);
+      v69.origin.x = v4;
+      v69.origin.y = v6;
+      v69.size.width = v8;
+      v69.size.height = v10;
+      MinX = CGRectGetMinX(v69);
+      v70.origin.x = v4;
+      v70.origin.y = v6;
+      v70.size.width = v8;
+      v70.size.height = v10;
+      v15 = CGRectGetMaxY(v70) - self->_separatorWidths.bottom;
+      v71.origin.x = v4;
+      v71.origin.y = v6;
+      v71.size.width = v8;
+      v71.size.height = v10;
+      Width = CGRectGetWidth(v71);
       v17 = self->_bottomBorderView;
-      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(left + MinX, v57 + v15, Width - (right + left), self->_separatorWidths.bottom - (v57 + v56), v4, v6, v8, v10);
+      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(left + MinX, v65 + v15, Width - (right + left), self->_separatorWidths.bottom - (v65 + v64), v4, v6, v8, v10, v18, v19);
       [(UIView *)v17 setFrame:?];
     }
   }
 
   leftBorderView = self->_leftBorderView;
-  v19 = v8;
-  v20 = v4;
+  v21 = v8;
+  v22 = v4;
   if (leftBorderView)
   {
-    v19 = v8;
-    v20 = v4;
+    v21 = v8;
+    v22 = v4;
     if (![(UIView *)leftBorderView isHidden])
     {
-      v53 = v13;
-      v21 = self->_separatorWidths.left;
-      v22 = 0.0;
-      if (v21 > 0.00000011920929)
+      v61 = v13;
+      v23 = self->_separatorWidths.left;
+      v24 = 0.0;
+      if (v23 > 0.00000011920929)
       {
-        v23 = v21 * 0.5;
+        v25 = v23 * 0.5;
         mainScreen = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen scale];
-        v26 = 1.0 / v25;
+        v28 = 1.0 / v27;
 
-        if (v23 >= v26)
+        if (v25 >= v28)
         {
-          v22 = v23;
+          v24 = v25;
         }
 
         else
         {
-          v22 = v26;
+          v24 = v28;
         }
       }
 
-      v52 = v8 - v22;
-      v64.origin.x = v4;
-      v64.origin.y = v6;
-      v64.size.width = v8;
-      v64.size.height = v10;
-      v27 = CGRectGetMinX(v64);
-      v65.origin.x = v4;
-      v65.origin.y = v6;
-      v65.size.width = v8;
-      v65.size.height = v10;
-      MinY = CGRectGetMinY(v65);
-      v66.origin.x = v4;
-      v66.origin.y = v6;
-      v66.size.width = v8;
-      v66.size.height = v10;
-      v29 = CGRectGetHeight(v66) - self->_separatorWidths.bottom;
-      v30 = self->_leftBorderView;
-      v31 = v27;
-      v20 = v4 + v22;
-      v19 = v8 - v22;
-      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v31, MinY, v22, v29, v4, v6, v8, v10);
-      [(UIView *)v30 setFrame:?];
-      v13 = v53;
+      v60 = v8 - v24;
+      v72.origin.x = v4;
+      v72.origin.y = v6;
+      v72.size.width = v8;
+      v72.size.height = v10;
+      v29 = CGRectGetMinX(v72);
+      v73.origin.x = v4;
+      v73.origin.y = v6;
+      v73.size.width = v8;
+      v73.size.height = v10;
+      MinY = CGRectGetMinY(v73);
+      v74.origin.x = v4;
+      v74.origin.y = v6;
+      v74.size.width = v8;
+      v74.size.height = v10;
+      v31 = CGRectGetHeight(v74) - self->_separatorWidths.bottom;
+      v32 = self->_leftBorderView;
+      v33 = v29;
+      v22 = v4 + v24;
+      v21 = v8 - v24;
+      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v33, MinY, v24, v31, v4, v6, v8, v10, v34, v35);
+      [(UIView *)v32 setFrame:?];
+      v13 = v61;
     }
   }
 
   rightBorderView = self->_rightBorderView;
   if (rightBorderView && ![(UIView *)rightBorderView isHidden])
   {
-    v52 = v20;
-    v54 = v13;
-    v33 = self->_separatorWidths.right;
-    v34 = 0.0;
-    if (v33 > 0.00000011920929)
+    v60 = v22;
+    v62 = v13;
+    v37 = self->_separatorWidths.right;
+    v38 = 0.0;
+    if (v37 > 0.00000011920929)
     {
-      v35 = v33 * 0.5;
+      v39 = v37 * 0.5;
       mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen2 scale];
-      v38 = 1.0 / v37;
+      v42 = 1.0 / v41;
 
-      if (v35 >= v38)
+      if (v39 >= v42)
       {
-        v34 = v35;
+        v38 = v39;
       }
 
       else
       {
-        v34 = v38;
+        v38 = v42;
       }
     }
 
-    v19 = v19 - v34;
-    v67.origin.x = v4;
-    v67.origin.y = v6;
-    v67.size.width = v8;
-    v67.size.height = v10;
-    v39 = CGRectGetMaxX(v67) - v34;
-    v68.origin.x = v4;
-    v68.origin.y = v6;
-    v68.size.width = v8;
-    v68.size.height = v10;
-    v40 = CGRectGetMinY(v68);
-    v69.origin.x = v4;
-    v69.origin.y = v6;
-    v69.size.width = v8;
-    v69.size.height = v10;
-    Height = CGRectGetHeight(v69);
-    v42 = self->_rightBorderView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v39, v40, v34, Height - self->_separatorWidths.bottom, v4, v6, v8, v10);
-    [(UIView *)v42 setFrame:?];
-    v20 = v52;
-    v13 = v54;
+    v21 = v21 - v38;
+    v75.origin.x = v4;
+    v75.origin.y = v6;
+    v75.size.width = v8;
+    v75.size.height = v10;
+    v43 = CGRectGetMaxX(v75) - v38;
+    v76.origin.x = v4;
+    v76.origin.y = v6;
+    v76.size.width = v8;
+    v76.size.height = v10;
+    v44 = CGRectGetMinY(v76);
+    v77.origin.x = v4;
+    v77.origin.y = v6;
+    v77.size.width = v8;
+    v77.size.height = v10;
+    Height = CGRectGetHeight(v77);
+    v46 = self->_rightBorderView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v43, v44, v38, Height - self->_separatorWidths.bottom, v4, v6, v8, v10, v47, v48);
+    [(UIView *)v46 setFrame:?];
+    v22 = v60;
+    v13 = v62;
   }
 
   topBorderView = self->_topBorderView;
   if (topBorderView && ![(UIView *)topBorderView isHidden])
   {
     top = self->_separatorWidths.top;
-    v55 = v6 + top;
+    v63 = v6 + top;
     v13 = v13 - top;
-    v70.origin.x = v4;
-    v70.origin.y = v6;
-    v70.size.width = v8;
-    v70.size.height = v10;
-    v52 = v19;
-    v45 = v20;
-    v46 = CGRectGetMinX(v70);
-    v71.origin.x = v4;
-    v71.origin.y = v6;
-    v71.size.width = v8;
-    v71.size.height = v10;
-    v47 = CGRectGetMinY(v71);
-    v72.origin.x = v4;
-    v72.origin.y = v6;
-    v72.size.width = v8;
-    v72.size.height = v10;
-    v48 = CGRectGetWidth(v72);
-    v49 = self->_separatorWidths.top;
-    v50 = self->_topBorderView;
-    v51 = left + v46;
-    v20 = v45;
-    v19 = v52;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v51, v57 + v47, v48 - (right + left), v49 - (v57 + v56), v4, v6, v8, v10);
-    [(UIView *)v50 setFrame:?];
-    v6 = v55;
+    v78.origin.x = v4;
+    v78.origin.y = v6;
+    v78.size.width = v8;
+    v78.size.height = v10;
+    v60 = v21;
+    v51 = v22;
+    v52 = CGRectGetMinX(v78);
+    v79.origin.x = v4;
+    v79.origin.y = v6;
+    v79.size.width = v8;
+    v79.size.height = v10;
+    v53 = CGRectGetMinY(v79);
+    v80.origin.x = v4;
+    v80.origin.y = v6;
+    v80.size.width = v8;
+    v80.size.height = v10;
+    v54 = CGRectGetWidth(v80);
+    v55 = self->_separatorWidths.top;
+    v56 = self->_topBorderView;
+    v57 = left + v52;
+    v22 = v51;
+    v21 = v60;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v57, v65 + v53, v54 - (right + left), v55 - (v65 + v64), v4, v6, v8, v10, v58, v59);
+    [(UIView *)v56 setFrame:?];
+    v6 = v63;
   }
 
-  [contentView setFrame:{v20, v6, v19, v13, *&v52}];
+  [contentView setFrame:{v22, v6, v21, v13, *&v60}];
 }
 
 - (void)_setPosition:(int64_t)position

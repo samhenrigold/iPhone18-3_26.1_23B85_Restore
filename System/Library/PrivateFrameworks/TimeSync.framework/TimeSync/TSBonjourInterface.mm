@@ -15,9 +15,8 @@
 - (TSBonjourInterface)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSBonjourInterface init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -61,35 +60,34 @@
 - (void)resolvedWithHostTarget:(const char *)target port:(unsigned __int16)port
 {
   portCopy = port;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     uTF8String = [(NSString *)self->_name UTF8String];
     uTF8String2 = [(NSString *)self->_type UTF8String];
     uTF8String3 = [(NSString *)self->_domain UTF8String];
     interfaceName = [(TSBonjourInterface *)self interfaceName];
-    v14 = 136316418;
-    v15 = uTF8String;
-    v16 = 2080;
-    v17 = uTF8String2;
-    v18 = 2080;
-    v19 = uTF8String3;
-    v20 = 2080;
+    v13 = 136316418;
+    v14 = uTF8String;
+    v15 = 2080;
+    v16 = uTF8String2;
+    v17 = 2080;
+    v18 = uTF8String3;
+    v19 = 2080;
     uTF8String4 = [interfaceName UTF8String];
-    v22 = 2080;
+    v21 = 2080;
     targetCopy = target;
-    v24 = 1024;
-    v25 = portCopy;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Resolved service with name %s type %s domain %s on interface %s to host %s port %hu\n", &v14, 0x3Au);
+    v23 = 1024;
+    v24 = portCopy;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Resolved service with name %s type %s domain %s on interface %s to host %s port %hu\n", &v13, 0x3Au);
   }
 
-  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:target];
+  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:?];
   hostTarget = self->_hostTarget;
   self->_hostTarget = v11;
 
   self->_port = portCopy;
-  [(TSBonjourInterface *)self startAddressLookupWithError:0];
-  v13 = *MEMORY[0x277D85DE8];
+  [(TSBonjourInterface *)self startAddressLookupWithError:?];
 }
 
 - (BOOL)startResolveWithError:(id *)error
@@ -142,8 +140,8 @@
     return 1;
   }
 
-  [(TSBonjourInterface *)self setIpv4Addresses:0];
-  [(TSBonjourInterface *)self setIpv6Addresses:0];
+  [(TSBonjourInterface *)self setIpv4Addresses:?];
+  [(TSBonjourInterface *)self setIpv6Addresses:?];
   AddrInfo = DNSServiceGetAddrInfo(p_addressRef, 0x100000u, self->_interfaceIndex, 0, [(NSString *)self->_hostTarget UTF8String], TSBIGetAddrReply, self);
   if (error && AddrInfo)
   {
@@ -182,7 +180,7 @@
 - (void)pokeIPv6Destination
 {
   ipv6Address = [(TSBonjourInterface *)self ipv6Address];
-  [ipv6Address pokeDestinationAtPort:self->_port onInterfaceIndex:self->_interfaceIndex];
+  [ipv6Address pokeDestinationAtPort:? onInterfaceIndex:?];
 }
 
 - (void)dealloc

@@ -54,8 +54,8 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  menu = [(UIInputSwitcherShadowView *)self menu];
-  mode = [menu mode];
+  v8 = objc_msgSend_menu(self, a2);
+  mode = [v8 mode];
 
   if (mode)
   {
@@ -102,8 +102,8 @@
   {
     [(UIView *)self addSubview:blurView];
 
-    menu = [(UIInputSwitcherShadowView *)self menu];
-    maskForShadowViewBlurredBackground = [menu maskForShadowViewBlurredBackground];
+    v6 = objc_msgSend_menu(self);
+    maskForShadowViewBlurredBackground = [v6 maskForShadowViewBlurredBackground];
 
     blurView2 = [(UIInputSwitcherShadowView *)self blurView];
     inputSettings = [blurView2 inputSettings];
@@ -136,8 +136,8 @@
 
   if ([(UIInputSwitcherShadowView *)self mode]== 1)
   {
-    menu = [(UIInputSwitcherShadowView *)self menu];
-    containerView = [menu containerView];
+    v15 = objc_msgSend_menu(self);
+    containerView = [v15 containerView];
     [(UIInputSwitcherShadowView *)self keyRect];
     [containerView convertRect:self toView:?];
     v18 = v17;
@@ -155,8 +155,8 @@
     [_inheritedRenderConfig colorAdaptiveBackground];
 
     CGContextSaveGState(v14);
-    menu2 = [(UIInputSwitcherShadowView *)self menu];
-    usesStraightLeftEdge = [menu2 usesStraightLeftEdge];
+    v28 = objc_msgSend_menu(self);
+    usesStraightLeftEdge = [v28 usesStraightLeftEdge];
     v30 = v6;
     v31 = v24;
     PopupPath = UIInputSwitcherCreatePopupPath(usesStraightLeftEdge, 0, -1, v4, v30, v8, v10, v12 + -16.0, v18, v20, v22, v24);
@@ -201,8 +201,8 @@
     CGContextFillPath(v14);
     CGContextRestoreGState(v14);
     CGContextSaveGState(v14);
-    menu3 = [(UIInputSwitcherShadowView *)self menu];
-    v39 = UIInputSwitcherCreatePopupPath([menu3 usesStraightLeftEdge], 0, -1, v4, v51, v8, v10, v12 + -16.0, v18, *&v52, v22, v31);
+    v38 = objc_msgSend_menu(self);
+    v39 = UIInputSwitcherCreatePopupPath([v38 usesStraightLeftEdge], 0, -1, v4, v51, v8, v10, v12 + -16.0, v18, *&v52, v22, v31);
 
     v40 = [UIColor colorWithWhite:0.0 alpha:0.2];
     cGColor3 = [v40 CGColor];

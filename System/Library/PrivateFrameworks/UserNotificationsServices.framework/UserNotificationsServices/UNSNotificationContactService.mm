@@ -8,6 +8,7 @@
 - (id)newCuratedContactForContact:(id)contact imageData:(id)data bundleIdentifier:(id)identifier;
 - (id)updateServiceWithContact:(id)contact bundleIdentifier:(id)identifier;
 - (void)_setResult:(id)result forContact:(id)contact bundleIdentifier:(id)identifier;
+- (void)confirmCuratedContactSuggestion:(BOOL)suggestion forContact:(id)contact bundleIdentifier:(id)identifier;
 - (void)didAddToCuratedContactsForContact:(id)contact bundleIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier;
 @end
 
@@ -181,12 +182,13 @@ void __47__UNSNotificationContactService_sharedInstance__block_invoke()
   if ([cnContactIdentifier length])
   {
     curatedContactStore = self->_curatedContactStore;
-    v18 = 0;
-    v15 = [(CNContactStore *)curatedContactStore unifiedContactWithIdentifier:cnContactIdentifier keysToFetch:fetchCopy error:&v18];
-    if (v18)
+    v19 = 0;
+    v15 = [(CNContactStore *)curatedContactStore unifiedContactWithIdentifier:cnContactIdentifier keysToFetch:fetchCopy error:&v19];
+    v16 = v15;
+    if (v19)
     {
-      v16 = UNSLogCommunicationNotifications();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = UNSLogCommunicationNotifications(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [UNSNotificationContactService curatedContactForContact:bundleIdentifier:keysToFetch:];
       }
@@ -195,10 +197,48 @@ void __47__UNSNotificationContactService_sharedInstance__block_invoke()
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
+}
+
+- (void)confirmCuratedContactSuggestion:(BOOL)suggestion forContact:(id)contact bundleIdentifier:(id)identifier
+{
+  suggestionCopy = suggestion;
+  contactCopy = contact;
+  identifierCopy = identifier;
+  v10 = [(UNSNotificationContactService *)self _matchForContact:contactCopy bundleIdentifier:identifierCopy];
+  v11 = v10;
+  if (!v10)
+  {
+    v14 = UNSLogCommunicationNotifications(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [UNSNotificationContactService confirmCuratedContactSuggestion:forContact:bundleIdentifier:];
+    }
+
+    goto LABEL_8;
+  }
+
+  isMatchTypeSuggested = [v10 isMatchTypeSuggested];
+  if (!isMatchTypeSuggested)
+  {
+    v14 = UNSLogCommunicationNotifications(isMatchTypeSuggested);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [UNSNotificationContactService confirmCuratedContactSuggestion:forContact:bundleIdentifier:];
+    }
+
+LABEL_8:
+
+    goto LABEL_9;
+  }
+
+  v13 = [(UNSCNContactResolver *)self->_resolver confirm:suggestionCopy match:v11];
+  [(UNSNotificationContactService *)self _setResult:v13 forContact:contactCopy bundleIdentifier:identifierCopy];
+
+LABEL_9:
 }
 
 - (BOOL)canAddToCuratedContacts:(id)contacts bundleIdentifier:(id)identifier
@@ -211,7 +251,7 @@ void __47__UNSNotificationContactService_sharedInstance__block_invoke()
 
 - (id)newCuratedContactForContact:(id)contact imageData:(id)data bundleIdentifier:(id)identifier
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   dataCopy = data;
   identifierCopy = identifier;
@@ -234,16 +274,16 @@ void __47__UNSNotificationContactService_sharedInstance__block_invoke()
     handle = [contactCopy handle];
     customIdentifier = [contactCopy customIdentifier];
     serviceName = [contactCopy serviceName];
-    v31 = identifierCopy;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v30 = identifierCopy;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
     v16 = [v21 initWithUrlString:0 username:handle userIdentifier:customIdentifier service:serviceName displayname:displayName teamIdentifier:0 bundleIdentifiers:v25];
 
     v26 = objc_alloc(MEMORY[0x277CBDB20]);
     service = [v16 service];
     v17 = [v26 initWithLabel:service value:v16];
 
-    v30 = v17;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = v17;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     [v12 setSocialProfiles:v20];
     goto LABEL_10;
   }
@@ -255,8 +295,8 @@ void __47__UNSNotificationContactService_sharedInstance__block_invoke()
     v16 = [v18 initWithStringValue:handle2];
 
     v17 = [MEMORY[0x277CBDB20] labeledValueWithLabel:0 value:v16];
-    v32 = v17;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v31 = v17;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     [v12 setPhoneNumbers:v20];
 LABEL_10:
 
@@ -272,8 +312,8 @@ LABEL_10:
   handle3 = [contactCopy handle];
   v16 = [v14 labeledValueWithLabel:0 value:handle3];
 
-  v33[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   [v12 setEmailAddresses:v17];
 LABEL_11:
 
@@ -283,7 +323,6 @@ LABEL_12:
     [v12 setImageData:dataCopy];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -301,7 +340,7 @@ LABEL_12:
   v13 = [(UNSCNContactResolver *)self->_resolver resultForContactIdentifier:contactIdentifierCopy emailAddress:0 phoneNumber:0 userIdentifier:0 username:0 bundleIdentifier:identifierCopy];
   if (!v13)
   {
-    v14 = UNSLogCommunicationNotifications();
+    v14 = UNSLogCommunicationNotifications(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [UNSNotificationContactService didAddToCuratedContactsForContact:bundleIdentifier:cnContactIdentifier:];

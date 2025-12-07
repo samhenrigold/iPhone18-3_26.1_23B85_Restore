@@ -113,7 +113,7 @@ LABEL_4:
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   v8 = _os_activity_create(&dword_22506F000, "CKDPushConnection/didReceivePublicToken", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
@@ -129,9 +129,9 @@ LABEL_4:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v20 = connectionCopy;
-    v21 = 2114;
-    v22 = tokenCopy;
+    v19 = connectionCopy;
+    v20 = 2114;
+    v21 = tokenCopy;
     _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Received public token from connection %@: %{public}@", buf, 0x16u);
   }
 
@@ -146,24 +146,22 @@ LABEL_4:
   if (tokenCopy)
   {
     v13 = objc_msgSend_queue(self, v11, v12);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_2253B0BCC;
-    v15[3] = &unk_278545898;
-    v15[4] = self;
-    v16 = tokenCopy;
-    dispatch_async(v13, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_2253B0BCC;
+    v14[3] = &unk_278545898;
+    v14[4] = self;
+    v15 = tokenCopy;
+    dispatch_async(v13, v14);
   }
 
   os_activity_scope_leave(&state);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
 {
   statusCopy = status;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -182,14 +180,12 @@ LABEL_4:
       v13 = @"connected";
     }
 
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2114;
-    v18 = v13;
-    _os_log_impl(&dword_22506F000, v8, OS_LOG_TYPE_INFO, "Push connection for environment %{public}@ changed status: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v13;
+    _os_log_impl(&dword_22506F000, v8, OS_LOG_TYPE_INFO, "Push connection for environment %{public}@ changed status: %{public}@", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidReconnect:(id)reconnect

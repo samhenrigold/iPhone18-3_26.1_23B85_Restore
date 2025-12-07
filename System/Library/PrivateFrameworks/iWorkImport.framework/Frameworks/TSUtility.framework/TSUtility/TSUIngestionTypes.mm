@@ -116,7 +116,7 @@
   identifier = [*MEMORY[0x277CE1D90] identifier];
   identifier2 = [*MEMORY[0x277CE1D98] identifier];
   v8[1] = identifier2;
-  v4 = sub_277095430();
+  v4 = sub_277095430(identifier2);
   identifier3 = [v4 identifier];
   v8[2] = identifier3;
   v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
@@ -130,7 +130,7 @@
   v2 = *MEMORY[0x277CE1D98];
   v6[0] = *MEMORY[0x277CE1D90];
   v6[1] = v2;
-  v3 = sub_277095430();
+  v3 = sub_277095430(self);
   v6[2] = v3;
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
 

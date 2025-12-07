@@ -17,139 +17,138 @@
   eventCopy = event;
   appletCopy = applet;
   moduleCopy = module;
-  if ([eventCopy length] > 2)
+  v14 = [eventCopy length];
+  if (v14 > 2)
   {
-    v24 = *[eventCopy bytes];
-    v25 = *([eventCopy bytes] + 1);
-    if (v24 == 2)
+    v25 = *[eventCopy bytes];
+    bytes = [eventCopy bytes];
+    v27 = *(bytes + 1);
+    if (v25 == 2)
     {
-      if (v25 == 6 || v25 == 1)
+      if (v27 == 6 || v27 == 1)
       {
-        v26 = [EMVDecoder parseEndEvent:eventCopy withApplet:appletCopy withModule:moduleCopy withLegacy:v25 == 1 error:error];
+        v28 = [EMVDecoder parseEndEvent:eventCopy withApplet:appletCopy withModule:moduleCopy withLegacy:v27 == 1 error:error];
         goto LABEL_15;
       }
     }
 
-    else if (v24 == 1 && (v25 == 6 || v25 == 1))
+    else if (v25 == 1 && (v27 == 6 || v27 == 1))
     {
-      v26 = [EMVDecoder parseStartEvent:eventCopy withApplet:appletCopy error:error];
+      v28 = [EMVDecoder parseStartEvent:eventCopy withApplet:appletCopy error:error];
 LABEL_15:
-      v27 = v26;
+      v29 = v28;
       goto LABEL_27;
     }
 
-    v28 = ATLLogObject();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = ATLLogObject(bytes);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v48 = v24;
+      v48 = v25;
       v49 = 1024;
-      v50 = v25;
-      _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_ERROR, "Invalid event type 0x%x version 0x%x", buf, 0xEu);
+      v50 = v27;
+      _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_ERROR, "Invalid event type 0x%x version 0x%x", buf, 0xEu);
     }
 
-    v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid event type 0x%x version 0x%x", v24, v25];
-    v16 = v29;
+    v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid event type 0x%x version 0x%x", v25, v27];
+    v17 = v31;
     if (!error)
     {
       goto LABEL_26;
     }
 
-    v30 = *error;
-    v31 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
+    v32 = *error;
+    v33 = MEMORY[0x277CCA9B8];
     if (*error)
     {
-      v33 = *MEMORY[0x277CCA7E8];
+      v34 = *MEMORY[0x277CCA7E8];
       v43[0] = *MEMORY[0x277CCA450];
-      v43[1] = v33;
-      v44[0] = v29;
-      v44[1] = v30;
-      v34 = MEMORY[0x277CBEAC0];
-      v35 = v44;
-      v36 = v43;
-      v37 = 2;
+      v43[1] = v34;
+      v44[0] = v31;
+      v44[1] = v32;
+      v35 = MEMORY[0x277CBEAC0];
+      v36 = v44;
+      v37 = v43;
+      v38 = 2;
     }
 
     else
     {
       v45 = *MEMORY[0x277CCA450];
-      v46 = v29;
-      v34 = MEMORY[0x277CBEAC0];
-      v35 = &v46;
-      v36 = &v45;
-      v37 = 1;
+      v46 = v31;
+      v35 = MEMORY[0x277CBEAC0];
+      v36 = &v46;
+      v37 = &v45;
+      v38 = 1;
     }
 
-    v38 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:v37];
-    v39 = v31;
-    v40 = 3;
+    v39 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:v38];
+    v40 = v33;
+    v41 = 3;
     goto LABEL_25;
   }
 
-  v14 = ATLLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = ATLLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     v48 = [eventCopy length];
-    _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_ERROR, "Short eventData? %u", buf, 8u);
+    _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_ERROR, "Short eventData? %u", buf, 8u);
   }
 
-  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Short eventData? %u", objc_msgSend(eventCopy, "length")];
-  v16 = v15;
+  v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Short eventData? %u", objc_msgSend(eventCopy, "length")];
+  v17 = v16;
   if (!error)
   {
     goto LABEL_26;
   }
 
-  v17 = *error;
-  v18 = MEMORY[0x277CCA9B8];
+  v18 = *error;
+  v19 = MEMORY[0x277CCA9B8];
   if (*error)
   {
-    v19 = *MEMORY[0x277CCA7E8];
+    v20 = *MEMORY[0x277CCA7E8];
     v51[0] = *MEMORY[0x277CCA450];
-    v51[1] = v19;
-    v52[0] = v15;
-    v52[1] = v17;
-    v20 = MEMORY[0x277CBEAC0];
-    v21 = v52;
-    v22 = v51;
-    v23 = 2;
+    v51[1] = v20;
+    v52[0] = v16;
+    v52[1] = v18;
+    v21 = MEMORY[0x277CBEAC0];
+    v22 = v52;
+    v23 = v51;
+    v24 = 2;
   }
 
   else
   {
     v53 = *MEMORY[0x277CCA450];
-    v54[0] = v15;
-    v20 = MEMORY[0x277CBEAC0];
-    v21 = v54;
-    v22 = &v53;
-    v23 = 1;
+    v54[0] = v16;
+    v21 = MEMORY[0x277CBEAC0];
+    v22 = v54;
+    v23 = &v53;
+    v24 = 1;
   }
 
-  v38 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:v23];
-  v39 = v18;
-  v40 = 6;
+  v39 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:v24];
+  v40 = v19;
+  v41 = 6;
 LABEL_25:
-  *error = [v39 errorWithDomain:@"ATL" code:v40 userInfo:v38];
+  *error = [v40 errorWithDomain:@"ATL" code:v41 userInfo:v39];
 
 LABEL_26:
-  v27 = 0;
+  v29 = 0;
 LABEL_27:
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v29;
 }
 
 - (id)getAppletStateAndHistory:(id)history withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "EMVDecoder doesn't support GetState", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "EMVDecoder doesn't support GetState", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"EMVDecoder doesn't support GetState"];
@@ -158,35 +157,33 @@ LABEL_27:
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:2 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -195,7 +192,8 @@ LABEL_27:
   v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
-  if ([eventCopy length] == 4)
+  v9 = [eventCopy length];
+  if (v9 == 4)
   {
     bytes = [eventCopy bytes];
     v23[0] = @"EventType";
@@ -203,10 +201,10 @@ LABEL_27:
     v24[0] = @"StartEvent";
     v24[1] = appletCopy;
     v23[2] = @"selectStatus";
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes + 2)) >> 16];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes + 2)) >> 16];
     v23[3] = @"IgnoreRFEvents";
     v23[4] = @"DontWaitForEOT";
-    v24[2] = v10;
+    v24[2] = v11;
     v24[3] = MEMORY[0x277CBEC28];
     v24[4] = MEMORY[0x277CBEC28];
     v24[5] = MEMORY[0x277CBEC28];
@@ -218,53 +216,51 @@ LABEL_27:
 
   else
   {
-    v11 = ATLLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ATLLogObject(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       v30 = [eventCopy length];
       v31 = 2048;
       v32 = 4;
-      _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_ERROR, "Start event length %zu (exp) %zu", buf, 0x16u);
+      _os_log_impl(&dword_22EEF5000, v12, OS_LOG_TYPE_ERROR, "Start event length %zu (exp) %zu", buf, 0x16u);
     }
 
-    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event length %zu (exp) %zu", objc_msgSend(eventCopy, "length"), 4];
-    v10 = v12;
+    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event length %zu (exp) %zu", objc_msgSend(eventCopy, "length"), 4];
+    v11 = v13;
     if (error)
     {
-      v13 = *error;
-      v14 = MEMORY[0x277CCA9B8];
+      v14 = *error;
+      v15 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v15 = *MEMORY[0x277CCA7E8];
+        v16 = *MEMORY[0x277CCA7E8];
         v25[0] = *MEMORY[0x277CCA450];
-        v25[1] = v15;
-        v26[0] = v12;
-        v26[1] = v13;
-        v16 = MEMORY[0x277CBEAC0];
-        v17 = v26;
-        v18 = v25;
-        v19 = 2;
+        v25[1] = v16;
+        v26[0] = v13;
+        v26[1] = v14;
+        v17 = MEMORY[0x277CBEAC0];
+        v18 = v26;
+        v19 = v25;
+        v20 = 2;
       }
 
       else
       {
         v27 = *MEMORY[0x277CCA450];
-        v28 = v12;
-        v16 = MEMORY[0x277CBEAC0];
-        v17 = &v28;
-        v18 = &v27;
-        v19 = 1;
+        v28 = v13;
+        v17 = MEMORY[0x277CBEAC0];
+        v18 = &v28;
+        v19 = &v27;
+        v20 = 1;
       }
 
-      v20 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:v19];
-      *error = [v14 errorWithDomain:@"ATL" code:3 userInfo:v20];
+      v21 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
+      *error = [v15 errorWithDomain:@"ATL" code:3 userInfo:v21];
 
       error = 0;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -272,40 +268,41 @@ LABEL_27:
 + (id)parseEndEvent:(id)event withApplet:(id)applet withModule:(id)module withLegacy:(BOOL)legacy error:(id *)error
 {
   legacyCopy = legacy;
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
   moduleCopy = module;
-  if ([eventCopy length] > 0x29)
+  v14 = [eventCopy length];
+  if (v14 > 0x29)
   {
-    v50 = legacyCopy;
+    v49 = legacyCopy;
     errorCopy = error;
     bytes = [eventCopy bytes];
     v25 = MEMORY[0x277CBEB38];
-    v55[0] = @"EventType";
-    v55[1] = @"appletIdentifier";
-    v56[0] = @"EndEvent";
-    v56[1] = appletCopy;
-    v52 = appletCopy;
-    v55[2] = @"status";
+    v54[0] = @"EventType";
+    v54[1] = @"appletIdentifier";
+    v55[0] = @"EndEvent";
+    v55[1] = appletCopy;
+    v51 = appletCopy;
+    v54[2] = @"status";
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(bytes[1]) >> 16];
-    v56[2] = v26;
-    v55[3] = @"command";
+    v55[2] = v26;
+    v54[3] = @"command";
     v27 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(bytes[2]) >> 16];
-    v56[3] = v27;
-    v55[4] = @"transactionIdentifier";
+    v55[3] = v27;
+    v54[4] = @"transactionIdentifier";
     [MEMORY[0x277CBEA90] dataWithBytes:bytes + 3 length:32];
     v29 = v28 = moduleCopy;
     asHexString = [v29 asHexString];
-    v56[4] = asHexString;
-    v55[5] = @"informative";
+    v55[4] = asHexString;
+    v54[5] = @"informative";
     v31 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(bytes[20]) >> 16];
-    v56[5] = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:6];
-    v16 = [v25 dictionaryWithDictionary:v32];
+    v55[5] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:6];
+    v17 = [v25 dictionaryWithDictionary:v32];
 
     moduleCopy = v28;
-    v53 = -1;
+    v52 = -1;
     v33 = bytes[1];
     v34 = v33 != 144;
     if ([eventCopy length] < 0x2B)
@@ -316,7 +313,7 @@ LABEL_27:
     v35 = [eventCopy subdataWithRange:{42, objc_msgSend(eventCopy, "length") - 42}];
     *&buf = [v35 bytes];
     *(&buf + 1) = [v35 length];
-    error = [EMVDecoder DecodeEndE1TLV:&buf withModule:v28 withLegacy:v50 withType:&v53 withTransactionStatus:v33 == 144 error:errorCopy];
+    error = [EMVDecoder DecodeEndE1TLV:&buf withModule:v28 withLegacy:v49 withType:&v52 withTransactionStatus:v33 == 144 error:errorCopy];
     if (!error)
     {
 
@@ -325,14 +322,14 @@ LABEL_27:
 
     v36 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
     [v36 setObject:error forKeyedSubscript:@"Transaction"];
-    [v16 setObject:v35 forKeyedSubscript:@"tlv"];
-    [v16 setObject:v36 forKeyedSubscript:@"parsedInfo"];
+    [v17 setObject:v35 forKeyedSubscript:@"tlv"];
+    [v17 setObject:v36 forKeyedSubscript:@"parsedInfo"];
     v37 = [error objectForKeyedSubscript:@"Amount"];
 
     if (v37)
     {
       v38 = [error objectForKeyedSubscript:@"Amount"];
-      [v16 setObject:v38 forKeyedSubscript:@"amount"];
+      [v17 setObject:v38 forKeyedSubscript:@"amount"];
     }
 
     v39 = [error objectForKeyedSubscript:@"Currency"];
@@ -340,10 +337,10 @@ LABEL_27:
     if (v39)
     {
       v40 = [error objectForKeyedSubscript:@"Currency"];
-      [v16 setObject:v40 forKeyedSubscript:@"currency"];
+      [v17 setObject:v40 forKeyedSubscript:@"currency"];
     }
 
-    if (v53 - 1 >= 0xFFFE)
+    if (v52 - 1 >= 0xFFFE)
     {
 LABEL_15:
       v42 = bswap32(bytes[19]);
@@ -357,66 +354,63 @@ LABEL_15:
     }
 
     v44 = [MEMORY[0x277CCABB0] numberWithBool:v34];
-    [v16 setObject:v44 forKeyedSubscript:@"didError"];
+    [v17 setObject:v44 forKeyedSubscript:@"didError"];
 
-    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v53];
-    [v16 setObject:v45 forKeyedSubscript:@"type"];
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v52];
+    [v17 setObject:v45 forKeyedSubscript:@"type"];
 
     v46 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v41];
-    [v16 setObject:v46 forKeyedSubscript:@"result"];
+    [v17 setObject:v46 forKeyedSubscript:@"result"];
 
-    error = v16;
+    error = v17;
 LABEL_22:
-    appletCopy = v52;
+    appletCopy = v51;
     goto LABEL_25;
   }
 
-  v14 = ATLLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = ATLLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf) = 134217984;
     *(&buf + 4) = [eventCopy length];
-    _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_ERROR, "End event length %zu", &buf, 0xCu);
+    _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_ERROR, "End event length %zu", &buf, 0xCu);
   }
 
-  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"End event length %zu", objc_msgSend(eventCopy, "length")];
-  v16 = v15;
+  v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"End event length %zu", objc_msgSend(eventCopy, "length")];
+  v17 = v16;
   if (error)
   {
-    v17 = *error;
-    v18 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
+    v18 = *error;
+    v19 = MEMORY[0x277CCA9B8];
     if (*error)
     {
-      v57[0] = *MEMORY[0x277CCA450];
-      v57[1] = *MEMORY[0x277CCA7E8];
-      v58[0] = v15;
-      v58[1] = v17;
+      v56[0] = *MEMORY[0x277CCA450];
+      v56[1] = *MEMORY[0x277CCA7E8];
+      v57[0] = v16;
+      v57[1] = v18;
       v20 = MEMORY[0x277CBEAC0];
-      v21 = v58;
-      v22 = v57;
+      v21 = v57;
+      v22 = v56;
       v23 = 2;
     }
 
     else
     {
-      v59 = *MEMORY[0x277CCA450];
-      v60[0] = v15;
+      v58 = *MEMORY[0x277CCA450];
+      v59[0] = v16;
       v20 = MEMORY[0x277CBEAC0];
-      v21 = v60;
-      v22 = &v59;
+      v21 = v59;
+      v22 = &v58;
       v23 = 1;
     }
 
     v47 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:v23];
-    *error = [v18 errorWithDomain:@"ATL" code:3 userInfo:v47];
+    *error = [v19 errorWithDomain:@"ATL" code:3 userInfo:v47];
 
     error = 0;
   }
 
 LABEL_25:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -424,26 +418,27 @@ LABEL_25:
 + (id)DecodeEndE1TLV:(id *)v withModule:(id)module withLegacy:(BOOL)legacy withType:(unsigned __int16 *)type withTransactionStatus:(BOOL)status error:(id *)error
 {
   statusCopy = status;
-  v143[1] = *MEMORY[0x277D85DE8];
+  v140[1] = *MEMORY[0x277D85DE8];
   moduleCopy = module;
-  v97 = 0;
-  v98 = 0;
-  v99 = 0;
-  v14 = DERDecodeItemCtx(v, &v97);
-  if (v14 || v97 != 0xE000000000000001)
+  v94 = 0;
+  v95 = 0;
+  v96 = 0;
+  v14 = DERDecodeItemCtx(v, &v94);
+  v15 = v14;
+  if (v14 || v94 != 0xE000000000000001)
   {
-    v28 = ATLLogObject();
+    v28 = ATLLogObject(v14);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v122[0].data) = 67109376;
-      HIDWORD(v122[0].data) = v14;
-      LOWORD(v122[0].length) = 2048;
-      *(&v122[0].length + 2) = v97;
-      _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_ERROR, "Failed to decode E1 tag %d or wrong tag 0x%llx", v122, 0x12u);
+      LODWORD(v119[0].data) = 67109376;
+      HIDWORD(v119[0].data) = v15;
+      LOWORD(v119[0].length) = 2048;
+      *(&v119[0].length + 2) = v94;
+      _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_ERROR, "Failed to decode E1 tag %d or wrong tag 0x%llx", v119, 0x12u);
     }
 
     v29 = objc_alloc(MEMORY[0x277CCACA8]);
-    v30 = [v29 initWithFormat:@"Failed to decode E1 tag %d or wrong tag 0x%llx", v14, v97];
+    v30 = [v29 initWithFormat:@"Failed to decode E1 tag %d or wrong tag 0x%llx", v15, v94];
     v31 = v30;
     if (!error)
     {
@@ -452,37 +447,36 @@ LABEL_25:
 
     v32 = *error;
     v33 = MEMORY[0x277CCA9B8];
-    v34 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v35 = *MEMORY[0x277CCA7E8];
-      v140[0] = *MEMORY[0x277CCA450];
-      v140[1] = v35;
-      v141[0] = v30;
-      v141[1] = v32;
-      v36 = MEMORY[0x277CBEAC0];
-      v37 = v141;
-      v38 = v140;
+      v34 = *MEMORY[0x277CCA7E8];
+      v137[0] = *MEMORY[0x277CCA450];
+      v137[1] = v34;
+      v138[0] = v30;
+      v138[1] = v32;
+      v35 = MEMORY[0x277CBEAC0];
+      v36 = v138;
+      v37 = v137;
 LABEL_15:
-      v39 = 2;
+      v38 = 2;
 LABEL_24:
-      v45 = [v36 dictionaryWithObjects:v37 forKeys:v38 count:v39];
-      *error = [v33 errorWithDomain:@"ATL" code:3 userInfo:v45];
+      v43 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:v38];
+      *error = [v33 errorWithDomain:@"ATL" code:3 userInfo:v43];
 
       goto LABEL_25;
     }
 
-    v142 = *MEMORY[0x277CCA450];
-    v143[0] = v30;
-    v36 = MEMORY[0x277CBEAC0];
-    v37 = v143;
-    v38 = &v142;
+    v139 = *MEMORY[0x277CCA450];
+    v140[0] = v30;
+    v35 = MEMORY[0x277CBEAC0];
+    v36 = v140;
+    v37 = &v139;
 LABEL_23:
-    v39 = 1;
+    v38 = 1;
     goto LABEL_24;
   }
 
-  if (!v99)
+  if (!v96)
   {
     if (!statusCopy)
     {
@@ -490,15 +484,15 @@ LABEL_23:
       goto LABEL_100;
     }
 
-    v40 = ATLLogObject();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v39 = ATLLogObject(v14);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v122[0].data) = 0;
-      _os_log_impl(&dword_22EEF5000, v40, OS_LOG_TYPE_ERROR, "Missing E1 content", v122, 2u);
+      LOWORD(v119[0].data) = 0;
+      _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_ERROR, "Missing E1 content", v119, 2u);
     }
 
-    v41 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing E1 content"];
-    v31 = v41;
+    v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing E1 content"];
+    v31 = v40;
     if (!error)
     {
 LABEL_25:
@@ -507,189 +501,189 @@ LABEL_25:
       goto LABEL_100;
     }
 
-    v42 = *error;
+    v41 = *error;
     v33 = MEMORY[0x277CCA9B8];
-    v43 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v44 = *MEMORY[0x277CCA7E8];
-      v136[0] = *MEMORY[0x277CCA450];
-      v136[1] = v44;
-      v137[0] = v41;
-      v137[1] = v42;
-      v36 = MEMORY[0x277CBEAC0];
-      v37 = v137;
-      v38 = v136;
+      v42 = *MEMORY[0x277CCA7E8];
+      v133[0] = *MEMORY[0x277CCA450];
+      v133[1] = v42;
+      v134[0] = v40;
+      v134[1] = v41;
+      v35 = MEMORY[0x277CBEAC0];
+      v36 = v134;
+      v37 = v133;
       goto LABEL_15;
     }
 
-    v138 = *MEMORY[0x277CCA450];
-    v139 = v41;
-    v36 = MEMORY[0x277CBEAC0];
-    v37 = &v139;
-    v38 = &v138;
+    v135 = *MEMORY[0x277CCA450];
+    v136 = v40;
+    v35 = MEMORY[0x277CBEAC0];
+    v36 = &v136;
+    v37 = &v135;
     goto LABEL_23;
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
-  v128 = 0u;
+  v132 = 0u;
   v129 = 0u;
-  v126 = 0u;
+  v130 = 0u;
   v127 = 0u;
-  v124 = 0u;
+  v128 = 0u;
   v125 = 0u;
+  v126 = 0u;
   v123 = 0u;
-  memset(v122, 0, sizeof(v122));
-  v15 = DERParseSequenceSpec(&v98, &e1EndEventContentSpec, v122, 0xF0uLL);
-  if (v15)
+  v124 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v120 = 0u;
+  memset(v119, 0, sizeof(v119));
+  v16 = DERParseSequenceSpec(&v95, &e1EndEventContentSpec, v119, 0xF0uLL);
+  if (v16)
   {
-    v16 = v15;
-    v17 = ATLLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v17 = v16;
+    v18 = ATLLogObject(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v121 = v16;
-      _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_ERROR, "Failed to decode E1 contents %d", buf, 8u);
+      v118 = v17;
+      _os_log_impl(&dword_22EEF5000, v18, OS_LOG_TYPE_ERROR, "Failed to decode E1 contents %d", buf, 8u);
     }
 
-    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode E1 contents %d", v16];
-    v19 = v18;
+    v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode E1 contents %d", v17];
+    v20 = v19;
     if (!error)
     {
       goto LABEL_99;
     }
 
-    v20 = *error;
-    v21 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *error;
+    v22 = MEMORY[0x277CCA9B8];
     if (*error)
     {
       v23 = *MEMORY[0x277CCA7E8];
-      v116[0] = *MEMORY[0x277CCA450];
-      v116[1] = v23;
-      v117[0] = v18;
-      v117[1] = v20;
+      v113[0] = *MEMORY[0x277CCA450];
+      v113[1] = v23;
+      v114[0] = v19;
+      v114[1] = v21;
       v24 = MEMORY[0x277CBEAC0];
-      v25 = v117;
-      v26 = v116;
+      v25 = v114;
+      v26 = v113;
       v27 = 2;
     }
 
     else
     {
-      v118 = *MEMORY[0x277CCA450];
-      v119 = v18;
+      v115 = *MEMORY[0x277CCA450];
+      v116 = v19;
       v24 = MEMORY[0x277CBEAC0];
-      v25 = &v119;
-      v26 = &v118;
+      v25 = &v116;
+      v26 = &v115;
       v27 = 1;
     }
 
-    v68 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:v27];
-    *error = [v21 errorWithDomain:@"ATL" code:3 userInfo:v68];
+    v66 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:v27];
+    *error = [v22 errorWithDomain:@"ATL" code:3 userInfo:v66];
 
     goto LABEL_71;
   }
 
-  v19 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:15];
+  v44 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:15];
+  v20 = v44;
   *buf = 0;
-  if (*(&v123 + 1))
+  if (*(&v120 + 1))
   {
-    v46 = DecodeBCD(&v123);
-    v47 = [ATLCurrency currencyCodeForNumber:v46 exponentOut:buf];
-    if (v47)
+    v45 = DecodeBCD(&v120);
+    v46 = [ATLCurrency currencyCodeForNumber:v45 exponentOut:buf];
+    if (v46)
     {
-      [v19 setObject:v47 forKeyedSubscript:@"Currency"];
-      v48 = [MEMORY[0x277CCABB0] numberWithShort:*buf];
-      [v19 setObject:v48 forKeyedSubscript:@"CurrencyExponent"];
+      [v20 setObject:v46 forKeyedSubscript:@"Currency"];
+      v47 = [MEMORY[0x277CCABB0] numberWithShort:*buf];
+      [v20 setObject:v47 forKeyedSubscript:@"CurrencyExponent"];
 
-      v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v46];
-      [v19 setObject:v49 forKeyedSubscript:@"CurrencyCode"];
+      v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v45];
+      [v20 setObject:v48 forKeyedSubscript:@"CurrencyCode"];
     }
   }
 
-  if (v122[1].length)
+  if (v119[1].length)
   {
-    v50 = DecodeBCD(&v122[1]);
-    v51 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v50 exponent:-*buf isNegative:0];
-    [v19 setObject:v51 forKeyedSubscript:@"Amount"];
+    v49 = DecodeBCD(&v119[1]);
+    v50 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v49 exponent:-*buf isNegative:0];
+    [v20 setObject:v50 forKeyedSubscript:@"Amount"];
   }
 
-  if (legacy || v122[0].length || !statusCopy)
+  if (legacy || v119[0].length || !statusCopy)
   {
-    if (v122[0].length)
+    if (v119[0].length)
     {
-      v63 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(v122)];
-      [v19 setObject:v63 forKeyedSubscript:@"LocalValidation"];
+      v61 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(v119)];
+      [v20 setObject:v61 forKeyedSubscript:@"LocalValidation"];
     }
 
-    if (type && *(&v124 + 1))
+    if (type && *(&v121 + 1))
     {
-      *type = *v124;
+      *type = *v121;
     }
 
-    if (*(&v125 + 1))
+    if (*(&v122 + 1))
     {
-      v64 = [MEMORY[0x277CBEA90] dataWithDERItem:&v125];
-      [v19 setObject:v64 forKeyedSubscript:@"MerchantNameAndLocation"];
+      v62 = [MEMORY[0x277CBEA90] dataWithDERItem:&v122];
+      [v20 setObject:v62 forKeyedSubscript:@"MerchantNameAndLocation"];
     }
 
     if ([EMVDecoder isArgon:moduleCopy])
     {
-      if (*(&v134 + 1))
+      if (*(&v131 + 1))
       {
-        v65 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v134)];
-        [v19 setObject:v65 forKeyedSubscript:@"MerchantCategoryCode"];
+        v63 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v131)];
+        [v20 setObject:v63 forKeyedSubscript:@"MerchantCategoryCode"];
       }
 
-      if (!*(&v135 + 1))
+      if (!*(&v132 + 1))
       {
         goto LABEL_98;
       }
 
-      v66 = [MEMORY[0x277CBEA90] dataWithDERItem:&v135];
-      v67 = @"MCII";
+      v64 = [MEMORY[0x277CBEA90] dataWithDERItem:&v132];
+      v65 = @"MCII";
       goto LABEL_97;
     }
 
-    if ([EMVDecoder isHelium:moduleCopy])
+    v67 = [EMVDecoder isHelium:moduleCopy];
+    if (v67)
     {
-      if (*(&v126 + 1))
+      if (*(&v123 + 1))
       {
-        v69 = [MEMORY[0x277CBEA90] dataWithDERItem:&v126];
-        [v19 setObject:v69 forKeyedSubscript:@"CDI"];
+        v68 = [MEMORY[0x277CBEA90] dataWithDERItem:&v123];
+        [v20 setObject:v68 forKeyedSubscript:@"CDI"];
 
 LABEL_85:
-        if (*(&v127 + 1))
+        if (*(&v124 + 1))
         {
-          v80 = [MEMORY[0x277CBEA90] dataWithDERItem:&v127];
-          [v19 setObject:v80 forKeyedSubscript:@"AIDPersonalized"];
+          v78 = [MEMORY[0x277CBEA90] dataWithDERItem:&v124];
+          [v20 setObject:v78 forKeyedSubscript:@"AIDPersonalized"];
         }
 
-        if (*(&v128 + 1))
+        if (*(&v125 + 1))
         {
-          v81 = [MEMORY[0x277CBEA90] dataWithDERItem:&v128];
-          [v19 setObject:v81 forKeyedSubscript:@"MAID"];
+          v79 = [MEMORY[0x277CBEA90] dataWithDERItem:&v125];
+          [v20 setObject:v79 forKeyedSubscript:@"MAID"];
         }
 
-        if (*(&v129 + 1))
+        if (*(&v126 + 1))
         {
-          v82 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v129)];
-          [v19 setObject:v82 forKeyedSubscript:@"MSC"];
+          v80 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v126)];
+          [v20 setObject:v80 forKeyedSubscript:@"MSC"];
         }
 
-        if (!*(&v130 + 1))
+        if (!*(&v127 + 1))
         {
           goto LABEL_98;
         }
 
-        v66 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v130)];
-        v67 = @"TerminalTypeQualifiers";
+        v64 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v127)];
+        v65 = @"TerminalTypeQualifiers";
         goto LABEL_97;
       }
 
@@ -698,141 +692,140 @@ LABEL_85:
         goto LABEL_85;
       }
 
-      v75 = ATLLogObject();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v74 = ATLLogObject(v67);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        *v96 = 0;
-        _os_log_impl(&dword_22EEF5000, v75, OS_LOG_TYPE_ERROR, "Missing mandatory CDI tag", v96, 2u);
+        *v93 = 0;
+        _os_log_impl(&dword_22EEF5000, v74, OS_LOG_TYPE_ERROR, "Missing mandatory CDI tag", v93, 2u);
       }
 
-      v76 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory CDI tag"];
-      v54 = v76;
+      v75 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory CDI tag"];
+      v53 = v75;
       if (!error)
       {
         goto LABEL_70;
       }
 
-      v77 = *error;
-      v56 = MEMORY[0x277CCA9B8];
-      v78 = *MEMORY[0x277CCA450];
+      v76 = *error;
+      v55 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v79 = *MEMORY[0x277CCA7E8];
-        v108[0] = *MEMORY[0x277CCA450];
-        v108[1] = v79;
-        v109[0] = v76;
-        v109[1] = v77;
-        v59 = MEMORY[0x277CBEAC0];
-        v60 = v109;
-        v61 = v108;
+        v77 = *MEMORY[0x277CCA7E8];
+        v105[0] = *MEMORY[0x277CCA450];
+        v105[1] = v77;
+        v106[0] = v75;
+        v106[1] = v76;
+        v57 = MEMORY[0x277CBEAC0];
+        v58 = v106;
+        v59 = v105;
         goto LABEL_40;
       }
 
-      v110 = *MEMORY[0x277CCA450];
-      v111 = v76;
-      v59 = MEMORY[0x277CBEAC0];
-      v60 = &v111;
-      v61 = &v110;
+      v107 = *MEMORY[0x277CCA450];
+      v108 = v75;
+      v57 = MEMORY[0x277CBEAC0];
+      v58 = &v108;
+      v59 = &v107;
 LABEL_68:
-      v62 = 1;
+      v60 = 1;
       goto LABEL_69;
     }
 
     if ([EMVDecoder isNeon:moduleCopy])
     {
-      if (*(&v131 + 1))
+      if (*(&v128 + 1))
       {
-        v70 = [MEMORY[0x277CBEA90] dataWithDERItem:&v131];
-        [v19 setObject:v70 forKeyedSubscript:@"IssuerApplicationData"];
+        v69 = [MEMORY[0x277CBEA90] dataWithDERItem:&v128];
+        [v20 setObject:v69 forKeyedSubscript:@"IssuerApplicationData"];
       }
 
-      if (*(&v132 + 1))
+      if (*(&v129 + 1))
       {
-        v71 = [MEMORY[0x277CBEA90] dataWithDERItem:&v132];
-        [v19 setObject:v71 forKeyedSubscript:@"MobileCVMResults"];
+        v70 = [MEMORY[0x277CBEA90] dataWithDERItem:&v129];
+        [v20 setObject:v70 forKeyedSubscript:@"MobileCVMResults"];
       }
 
-      if (!*(&v133 + 1))
+      if (!*(&v130 + 1))
       {
         goto LABEL_98;
       }
 
-      v66 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v133)];
-      v67 = @"EnhancedContactlessReaderCapabilities";
+      v64 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v130)];
+      v65 = @"EnhancedContactlessReaderCapabilities";
       goto LABEL_97;
     }
 
     if ([EMVDecoder isXenon:moduleCopy])
     {
-      if (*(&v130 + 1))
+      if (*(&v127 + 1))
       {
-        v73 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v130)];
-        [v19 setObject:v73 forKeyedSubscript:@"TerminalTypeQualifiers"];
+        v72 = [MEMORY[0x277CCABB0] numberWithInt:ReadS32BE(&v127)];
+        [v20 setObject:v72 forKeyedSubscript:@"TerminalTypeQualifiers"];
       }
 
-      if (*(&v134 + 1))
+      if (*(&v131 + 1))
       {
-        v74 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v134)];
-        [v19 setObject:v74 forKeyedSubscript:@"MerchantCategoryCode"];
+        v73 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:ReadU16BE(&v131)];
+        [v20 setObject:v73 forKeyedSubscript:@"MerchantCategoryCode"];
       }
     }
 
     else
     {
-      if (![EMVDecoder isLuau:moduleCopy])
+      v81 = [EMVDecoder isLuau:moduleCopy];
+      if (!v81)
       {
 LABEL_98:
-        error = v19;
+        error = v20;
         goto LABEL_99;
       }
 
-      if (*(&v126 + 1))
+      if (*(&v123 + 1))
       {
-        v83 = [MEMORY[0x277CBEA90] dataWithDERItem:&v126];
-        [v19 setObject:v83 forKeyedSubscript:@"CDI"];
+        v82 = [MEMORY[0x277CBEA90] dataWithDERItem:&v123];
+        [v20 setObject:v82 forKeyedSubscript:@"CDI"];
 
-        if (!*(&v131 + 1))
+        if (!*(&v128 + 1))
         {
           if (!statusCopy)
           {
             goto LABEL_98;
           }
 
-          v91 = ATLLogObject();
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+          v89 = ATLLogObject(v83);
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
           {
-            *v96 = 0;
-            _os_log_impl(&dword_22EEF5000, v91, OS_LOG_TYPE_ERROR, "Missing mandatory IAD tag", v96, 2u);
+            *v93 = 0;
+            _os_log_impl(&dword_22EEF5000, v89, OS_LOG_TYPE_ERROR, "Missing mandatory IAD tag", v93, 2u);
           }
 
-          v92 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory IAD tag"];
-          v54 = v92;
+          v90 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory IAD tag"];
+          v53 = v90;
           if (!error)
           {
             goto LABEL_70;
           }
 
-          v93 = *error;
-          v56 = MEMORY[0x277CCA9B8];
-          v94 = *MEMORY[0x277CCA450];
+          v91 = *error;
+          v55 = MEMORY[0x277CCA9B8];
           if (*error)
           {
-            v95 = *MEMORY[0x277CCA7E8];
-            v100[0] = *MEMORY[0x277CCA450];
-            v100[1] = v95;
-            v101[0] = v92;
-            v101[1] = v93;
-            v59 = MEMORY[0x277CBEAC0];
-            v60 = v101;
-            v61 = v100;
+            v92 = *MEMORY[0x277CCA7E8];
+            v97[0] = *MEMORY[0x277CCA450];
+            v97[1] = v92;
+            v98[0] = v90;
+            v98[1] = v91;
+            v57 = MEMORY[0x277CBEAC0];
+            v58 = v98;
+            v59 = v97;
             goto LABEL_40;
           }
 
-          v102 = *MEMORY[0x277CCA450];
-          v103 = v92;
-          v59 = MEMORY[0x277CBEAC0];
-          v60 = &v103;
-          v61 = &v102;
+          v99 = *MEMORY[0x277CCA450];
+          v100 = v90;
+          v57 = MEMORY[0x277CBEAC0];
+          v58 = &v100;
+          v59 = &v99;
           goto LABEL_68;
         }
 
@@ -841,99 +834,97 @@ LABEL_98:
 
       if (statusCopy)
       {
-        v86 = ATLLogObject();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+        v85 = ATLLogObject(v81);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
-          *v96 = 0;
-          _os_log_impl(&dword_22EEF5000, v86, OS_LOG_TYPE_ERROR, "Missing mandatory CVS tag", v96, 2u);
+          *v93 = 0;
+          _os_log_impl(&dword_22EEF5000, v85, OS_LOG_TYPE_ERROR, "Missing mandatory CVS tag", v93, 2u);
         }
 
-        v87 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory CVS tag"];
-        v54 = v87;
+        v86 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory CVS tag"];
+        v53 = v86;
         if (!error)
         {
           goto LABEL_70;
         }
 
-        v88 = *error;
-        v56 = MEMORY[0x277CCA9B8];
-        v89 = *MEMORY[0x277CCA450];
+        v87 = *error;
+        v55 = MEMORY[0x277CCA9B8];
         if (*error)
         {
-          v90 = *MEMORY[0x277CCA7E8];
-          v104[0] = *MEMORY[0x277CCA450];
-          v104[1] = v90;
-          v105[0] = v87;
-          v105[1] = v88;
-          v59 = MEMORY[0x277CBEAC0];
-          v60 = v105;
-          v61 = v104;
+          v88 = *MEMORY[0x277CCA7E8];
+          v101[0] = *MEMORY[0x277CCA450];
+          v101[1] = v88;
+          v102[0] = v86;
+          v102[1] = v87;
+          v57 = MEMORY[0x277CBEAC0];
+          v58 = v102;
+          v59 = v101;
           goto LABEL_40;
         }
 
-        v106 = *MEMORY[0x277CCA450];
-        v107 = v87;
-        v59 = MEMORY[0x277CBEAC0];
-        v60 = &v107;
-        v61 = &v106;
+        v103 = *MEMORY[0x277CCA450];
+        v104 = v86;
+        v57 = MEMORY[0x277CBEAC0];
+        v58 = &v104;
+        v59 = &v103;
         goto LABEL_68;
       }
     }
 
-    if (!*(&v131 + 1))
+    if (!*(&v128 + 1))
     {
       goto LABEL_98;
     }
 
 LABEL_96:
-    v66 = [MEMORY[0x277CBEA90] dataWithDERItem:&v131];
-    v67 = @"IssuerApplicationData";
+    v64 = [MEMORY[0x277CBEA90] dataWithDERItem:&v128];
+    v65 = @"IssuerApplicationData";
 LABEL_97:
-    [v19 setObject:v66 forKeyedSubscript:v67];
+    [v20 setObject:v64 forKeyedSubscript:v65];
 
     goto LABEL_98;
   }
 
-  v52 = ATLLogObject();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+  v51 = ATLLogObject(v44);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    *v96 = 0;
-    _os_log_impl(&dword_22EEF5000, v52, OS_LOG_TYPE_ERROR, "Missing mandatory local validation tag", v96, 2u);
+    *v93 = 0;
+    _os_log_impl(&dword_22EEF5000, v51, OS_LOG_TYPE_ERROR, "Missing mandatory local validation tag", v93, 2u);
   }
 
-  v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory local validation tag"];
-  v54 = v53;
+  v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Missing mandatory local validation tag"];
+  v53 = v52;
   if (!error)
   {
     goto LABEL_70;
   }
 
-  v55 = *error;
-  v56 = MEMORY[0x277CCA9B8];
-  v57 = *MEMORY[0x277CCA450];
+  v54 = *error;
+  v55 = MEMORY[0x277CCA9B8];
   if (!*error)
   {
-    v114 = *MEMORY[0x277CCA450];
-    v115 = v53;
-    v59 = MEMORY[0x277CBEAC0];
-    v60 = &v115;
-    v61 = &v114;
+    v111 = *MEMORY[0x277CCA450];
+    v112 = v52;
+    v57 = MEMORY[0x277CBEAC0];
+    v58 = &v112;
+    v59 = &v111;
     goto LABEL_68;
   }
 
-  v58 = *MEMORY[0x277CCA7E8];
-  v112[0] = *MEMORY[0x277CCA450];
-  v112[1] = v58;
-  v113[0] = v53;
-  v113[1] = v55;
-  v59 = MEMORY[0x277CBEAC0];
-  v60 = v113;
-  v61 = v112;
+  v56 = *MEMORY[0x277CCA7E8];
+  v109[0] = *MEMORY[0x277CCA450];
+  v109[1] = v56;
+  v110[0] = v52;
+  v110[1] = v54;
+  v57 = MEMORY[0x277CBEAC0];
+  v58 = v110;
+  v59 = v109;
 LABEL_40:
-  v62 = 2;
+  v60 = 2;
 LABEL_69:
-  v72 = [v59 dictionaryWithObjects:v60 forKeys:v61 count:v62];
-  *error = [v56 errorWithDomain:@"ATL" code:3 userInfo:v72];
+  v71 = [v57 dictionaryWithObjects:v58 forKeys:v59 count:v60];
+  *error = [v55 errorWithDomain:@"ATL" code:3 userInfo:v71];
 
 LABEL_70:
 LABEL_71:
@@ -941,7 +932,6 @@ LABEL_71:
 LABEL_99:
 
 LABEL_100:
-  v84 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -956,25 +946,24 @@ LABEL_100:
 
 - (id)GetAppletProperties:(id)properties withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Supported";
-  v10[1] = @"DelayExpressReentry";
-  v11[0] = MEMORY[0x277CBEC38];
-  v11[1] = &unk_2843C65A8;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:{2, transceiver, error}];
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Supported";
+  v9[1] = @"DelayExpressReentry";
+  v10[0] = MEMORY[0x277CBEC38];
+  v10[1] = &unk_2843C65A8;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:{2, transceiver, error}];
 
   return v7;
 }
 
 - (id)processEndOfTransaction:(id)transaction withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "EMV decoder doesn't expect processEndOfTransaction", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "EMV decoder doesn't expect processEndOfTransaction", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"EMV decoder doesn't expect processEndOfTransaction"];
@@ -983,35 +972,33 @@ LABEL_100:
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

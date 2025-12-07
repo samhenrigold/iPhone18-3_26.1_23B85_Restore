@@ -220,7 +220,7 @@ double __31__WFTemperature_initWithCoder___block_invoke(uint64_t a1, void *a2, v
   return v5;
 }
 
-uint64_t __36__WFTemperature_temperatureForUnit___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__36__WFTemperature_temperatureForUnit___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v4 = a2;
   result = [*(a1 + 32) _unitIsHydrated:a2 outputValue:*(*(a1 + 40) + 8) + 24];

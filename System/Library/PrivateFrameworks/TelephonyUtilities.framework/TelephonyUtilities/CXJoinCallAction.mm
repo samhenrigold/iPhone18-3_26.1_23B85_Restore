@@ -56,10 +56,10 @@
     return 1;
   }
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_10047DA68(self, v6);
+    sub_10047DA68(self, v7);
   }
 
   return 0;

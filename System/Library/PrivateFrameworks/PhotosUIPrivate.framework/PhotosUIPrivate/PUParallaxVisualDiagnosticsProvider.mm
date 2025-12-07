@@ -404,23 +404,23 @@ void __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_10
   [v3 addCellForColumnWithIdentifier:v17 format:{@"%.1f", v18}];
 }
 
-uint64_t __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_11(uint64_t a1, void *a2, double a3)
+uint64_t __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_11(uint64_t a1, void *a2, double a3, double a4, double a5, double a6)
 {
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_12;
-  v14[3] = &__block_descriptor_40_e52_v16__0___PXVisualDiagnosticsDrawTextConfiguration__8l;
-  v14[4] = *(a1 + 56);
-  [a2 drawTextInRect:v14 configuration:a3];
-  v4 = [*(a1 + 32) asset];
-  [v4 aspectRatio];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_12;
+  v17[3] = &__block_descriptor_40_e52_v16__0___PXVisualDiagnosticsDrawTextConfiguration__8l;
+  v17[4] = *(a1 + 56);
+  [a2 drawTextInRect:v17 configuration:a3];
+  v7 = [*(a1 + 32) asset];
+  [v7 aspectRatio];
   PXRectWithAspectRatioFittingRect();
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
 
-  return [*(a1 + 32) _drawLayer:*(a1 + 40) inRect:*(a1 + 48) context:{v6 + 25.0, v8, v10, v12}];
+  return [*(a1 + 32) _drawLayer:*(a1 + 40) inRect:*(a1 + 48) context:{v9 + 25.0, v11, v13, v15}];
 }
 
 void __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_12(uint64_t a1, void *a2)
@@ -504,7 +504,7 @@ void __55__PUParallaxVisualDiagnosticsProvider__addLayersTable___block_invoke_3(
     v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v18 = [v15 initWithCVPixelBuffer:image options:v17];
 
-    [v18 extent];
+    objc_msgSend_extent(v18);
     v20 = v19;
     v22 = v21;
     v24 = v23;

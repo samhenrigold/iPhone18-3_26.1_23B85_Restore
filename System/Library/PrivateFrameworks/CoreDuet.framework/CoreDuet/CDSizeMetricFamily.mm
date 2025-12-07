@@ -20,7 +20,6 @@ void __48___CDSizeMetricFamily_sizeMetricFamilyWithName___block_invoke(uint64_t 
     if (*(*(*(a1 + 40) + 8) + 40))
     {
       v8 = _CDSizeMetricFamilies;
-      v9 = *(a1 + 32);
 
       [v8 setObject:? forKeyedSubscript:?];
     }
@@ -43,10 +42,9 @@ void __55___CDSizeMetricFamily_sizeMetricWithName_string_scale___block_invoke(vo
 
     if (*(*(a1[7] + 8) + 40))
     {
-      v8 = a1[5];
-      v9 = *(a1[4] + 16);
+      v8 = *(a1[4] + 16);
 
-      [v9 setObject:? forKeyedSubscript:?];
+      [v8 setObject:? forKeyedSubscript:?];
     }
   }
 }

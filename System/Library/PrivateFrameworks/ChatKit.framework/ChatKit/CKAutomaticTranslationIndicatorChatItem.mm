@@ -62,7 +62,7 @@
 
 - (id)layoutItemSpacingWithEnvironment:(id)environment datasourceItemIndex:(int64_t)index allDatasourceItems:(id)items supplementryItems:(id)supplementryItems sizeOverride:(CGSize)override
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5D9E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5D9E0, &qword_190DF2FB8);
   v10 = sub_190D57180();
   environmentCopy = environment;
   selfCopy = self;
@@ -147,7 +147,7 @@
 
 - (id)incomingTranslationButtonText
 {
-  result = CKFrameworkBundle();
+  result = CKFrameworkBundle(self);
   if (result)
   {
     v3 = result;

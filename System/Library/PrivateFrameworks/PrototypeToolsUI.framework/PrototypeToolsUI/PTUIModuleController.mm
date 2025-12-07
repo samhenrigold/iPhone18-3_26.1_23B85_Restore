@@ -13,6 +13,7 @@
 - (void)moduleDidReload:(id)reload;
 - (void)showActionsForRowTableViewCell:(id)cell;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 @end
 
@@ -64,6 +65,14 @@
   v3.super_class = PTUIModuleController;
   [(PTUIModuleController *)&v3 viewDidLayoutSubviews];
   [(PTUIModuleController *)self _updateTitle];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PTUIModuleController;
+  [(PTUIModuleController *)&v4 viewDidDisappear:disappear];
+  [(PTUIModuleController *)self setEditing:0 animated:0];
 }
 
 - (void)_reloadWithModule:(id)module
@@ -263,21 +272,19 @@ LABEL_8:
 
 - (void)showActionsForRowTableViewCell:(id)cell
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   cellCopy = cell;
   array = [MEMORY[0x277CBEB18] array];
   if ([array count])
   {
     v6 = objc_alloc(MEMORY[0x277D546D8]);
     v7 = [cellCopy row];
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v9 = [v6 initWithActivityItems:v8 applicationActivities:array];
 
     [(PTUIModuleController *)self presentViewController:v9 animated:1 completion:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

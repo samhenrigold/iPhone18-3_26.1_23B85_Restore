@@ -115,69 +115,67 @@
 - (void)signTransactionWithPaymentCardData:(id)data generalCardData:(id)cardData transactionUUID:(id)d vtid:(id)vtid reply:(id)reply
 {
   v13 = type metadata accessor for UUID();
-  v40 = *(v13 - 8);
-  v41 = v13;
-  v14 = *(v40 + 64);
+  v39 = *(v13 - 8);
+  v40 = v13;
   __chkstk_darwin(v13);
-  v16 = &v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = _Block_copy(reply);
+  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = _Block_copy(reply);
   dataCopy = data;
   cardDataCopy = cardData;
   dCopy = d;
   vtidCopy = vtid;
   selfCopy = self;
-  v22 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v24 = v23;
+  v21 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v23 = v22;
 
-  v25 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v27 = v26;
+  v24 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v26 = v25;
 
-  v28 = v22;
+  v27 = v21;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v29 = v24;
-  v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v32 = v31;
+  v28 = v23;
+  v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v31 = v30;
 
-  v39 = selfCopy;
-  v34 = *&selfCopy->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 16];
-  v33 = *&selfCopy->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 24];
-  sub_10000BE18((&selfCopy->super.isa + OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance), v34);
-  v35 = (*(v33 + 48))(v28, v29, v25, v27, v16, v30, v32, v34, v33);
+  v38 = selfCopy;
+  v33 = *&selfCopy->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 16];
+  v32 = *&selfCopy->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 24];
+  sub_10000BE18((&selfCopy->super.isa + OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance), v33);
+  v34 = (*(v32 + 48))(v27, v28, v24, v26, v15, v29, v31, v33, v32);
 
-  v36 = v38;
-  (*(v38 + 2))(v38, v35, 0);
-  _Block_release(v36);
+  v35 = v37;
+  (*(v37 + 2))(v37, v34, 0);
+  _Block_release(v35);
 
-  sub_100009548(v25, v27);
-  sub_100009548(v28, v29);
-  (*(v40 + 8))(v16, v41);
+  sub_100009548(v24, v26);
+  sub_100009548(v27, v28);
+  (*(v39 + 8))(v15, v40);
 }
 
 - (void)signBatchWithBatchId:(id)id count:(int64_t)count vtid:(id)vtid reply:(id)reply
 {
   countCopy = count;
   v8 = type metadata accessor for UUID();
-  v23 = *(v8 - 8);
-  v24 = v8;
-  v9 = *(v23 + 64);
+  v22 = *(v8 - 8);
+  v23 = v8;
   __chkstk_darwin(v8);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(reply);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
-  v17 = *&self->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 16];
-  v16 = *&self->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 24];
-  sub_10000BE18((&self->super.isa + OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance), v17);
-  v18 = *(v16 + 56);
+  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+  v16 = *&self->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 16];
+  v15 = *&self->instance[OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance + 24];
+  sub_10000BE18((&self->super.isa + OBJC_IVAR____TtC14softposreaderd12RemoteReader_instance), v16);
+  v17 = *(v15 + 56);
   selfCopy = self;
-  v19 = v18(v11, countCopy, v13, v15, v17, v16);
+  v18 = v17(v10, countCopy, v12, v14, v16, v15);
 
-  v12[2](v12, v19, 0);
-  _Block_release(v12);
+  v11[2](v11, v18, 0);
+  _Block_release(v11);
 
-  (*(v23 + 8))(v11, v24);
+  (*(v22 + 8))(v10, v23);
 }
 
 - (void)getCardReaderBlobWithTxnBlob:(id)blob reply:(id)reply

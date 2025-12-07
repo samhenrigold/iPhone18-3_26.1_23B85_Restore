@@ -7,7 +7,6 @@
 
 - (void)valueChanged:(id)changed
 {
-  v4 = *&self->parent[OBJC_IVAR____TtCV20ColorPickerUIService11PageControl11Coordinator_parent];
   changedCopy = changed;
   selfCopy = self;
 

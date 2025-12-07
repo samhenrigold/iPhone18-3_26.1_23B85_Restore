@@ -37,7 +37,7 @@
   v6 = geometry;
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
   }
 
   else
@@ -55,7 +55,7 @@
       v9 = parent2;
       if (parent2)
       {
-        [parent2 transformInRoot];
+        objc_msgSend_transformInRoot(parent2);
       }
 
       else

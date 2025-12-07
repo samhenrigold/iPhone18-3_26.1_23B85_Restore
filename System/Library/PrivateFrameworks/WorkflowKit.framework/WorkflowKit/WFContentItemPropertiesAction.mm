@@ -140,7 +140,7 @@ void __60__WFContentItemPropertiesAction_runAsynchronouslyWithInput___block_invo
 
 - (id)parameterDefinitions
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   defaultProperty = [(WFContentItemAction *)self defaultProperty];
   name = [defaultProperty name];
 
@@ -187,12 +187,10 @@ void __60__WFContentItemPropertiesAction_runAsynchronouslyWithInput___block_invo
   [v14 setValue:localizedFilterDescription2 forKey:@"Placeholder"];
 
   v20 = [[WFParameterDefinition alloc] initWithDictionary:v5];
-  v25[0] = v20;
+  v24[0] = v20;
   v21 = [[WFParameterDefinition alloc] initWithDictionary:v14];
-  v25[1] = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
-
-  v23 = *MEMORY[0x1E69E9840];
+  v24[1] = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
 
   return v22;
 }
@@ -248,7 +246,7 @@ LABEL_6:
   v9.receiver = self;
   v9.super_class = WFContentItemPropertiesAction;
   v7 = [(WFAction *)&v9 setParameterState:state forKey:keyCopy];
-  if (v7 && [keyCopy isEqualToString:@"WFContentItemPropertyName"])
+  if (v7 && objc_msgSend_isEqualToString_(keyCopy))
   {
     [(WFAction *)self outputDetailsUpdated];
   }
@@ -268,41 +266,41 @@ LABEL_6:
 
 - (id)outputContentClasses
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   selectedProperty = [(WFContentItemPropertiesAction *)self selectedProperty];
   v4 = selectedProperty;
   if (selectedProperty)
   {
-    v19[0] = [selectedProperty valueItemClass];
-    array = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = [selectedProperty valueItemClass];
+    array = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   }
 
   else
   {
     v6 = objc_opt_new();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     properties = [(WFContentItemPropertiesAction *)self properties];
-    v8 = [properties countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [properties countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(properties);
           }
 
-          [v6 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "valueItemClass")}];
+          [v6 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "valueItemClass")}];
         }
 
-        v9 = [properties countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [properties countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -310,8 +308,6 @@ LABEL_6:
 
     array = [v6 array];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return array;
 }

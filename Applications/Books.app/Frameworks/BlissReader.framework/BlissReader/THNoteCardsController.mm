@@ -95,7 +95,7 @@
     v6->_delayedUpdateNoteCardIndex = 0x7FFFFFFFFFFFFFFFLL;
     v6->_noteCardsView = objc_alloc_init(UIView);
     v6->_noteCardsLayer = objc_alloc_init(TSDNoDefaultImplicitActionLayer);
-    [(THNoteCardsController *)v6 p_perspectiveTransformWithScale:1.0];
+    objc_msgSend_p_perspectiveTransformWithScale_(v6, 1.0);
     noteCardsLayer = v6->_noteCardsLayer;
     v18[4] = v18[12];
     v18[5] = v18[13];
@@ -934,96 +934,101 @@
   glossaryController = [(THDocumentRoot *)self->_documentRoot glossaryController];
   contentNodes = [unit contentNodes];
   model = [(THGlossaryController *)glossaryController model];
-  v26 = +[NSMutableSet set];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v32 = +[NSMutableSet set];
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = contentNodes;
-  v9 = [contentNodes countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v9 = [contentNodes countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v11 = v9;
   if (v9)
   {
-    v10 = 0;
-    v11 = *v34;
+    v12 = 0;
+    v13 = *v40;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      v14 = 0;
+      do
       {
-        if (*v34 != v11)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
-        v14 = THBundle();
-        if (v10)
+        v15 = *(*(&v39 + 1) + 8 * v14);
+        v16 = THBundle(v9, v10);
+        if (v12)
         {
-          v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v14 localizedStringForKey:@"SECTION: %lu \\U2014 %@" value:&stru_471858 table:0], v10, objc_msgSend(v13, "title"));
+          v17 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v16 localizedStringForKey:@"SECTION: %lu \\U2014 %@" value:&stru_471858 table:0], v12, objc_msgSend(v15, "title"));
         }
 
         else
         {
-          v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v14 localizedStringForKey:@"%@" value:&stru_471858 table:0], objc_msgSend(v13, "title"));
+          v17 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v16 localizedStringForKey:@"%@" value:&stru_471858 table:0], objc_msgSend(v15, "title"));
         }
 
-        v16 = v15;
-        v17 = [(THAnnotationStorageController *)annotationController cachedAnnotationsForContentNode:v13];
-        v32[0] = 0;
-        v32[1] = v32;
-        v32[2] = 0x3052000000;
-        v32[3] = sub_1CC3F0;
-        v32[4] = sub_1CC400;
-        v32[5] = 0;
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = sub_1CC40C;
-        v31[3] = &unk_45F048;
-        v31[7] = v5;
-        v31[8] = v32;
-        v31[4] = v13;
-        v31[5] = selfCopy;
-        v31[6] = v16;
-        [v17 enumerateAnnotationsWithBlock:v31];
-        [v26 addObjectsFromArray:{-[THModelGlossary pathsForEntriesInContentNode:](model, "pathsForEntriesInContentNode:", v13)}];
-        ++v10;
-        _Block_object_dispose(v32, 8);
+        v18 = v17;
+        v19 = [(THAnnotationStorageController *)annotationController cachedAnnotationsForContentNode:v15];
+        v38[0] = 0;
+        v38[1] = v38;
+        v38[2] = 0x3052000000;
+        v38[3] = sub_1CC3F0;
+        v38[4] = sub_1CC400;
+        v38[5] = 0;
+        v37[0] = _NSConcreteStackBlock;
+        v37[1] = 3221225472;
+        v37[2] = sub_1CC40C;
+        v37[3] = &unk_45F048;
+        v37[7] = v5;
+        v37[8] = v38;
+        v37[4] = v15;
+        v37[5] = selfCopy;
+        v37[6] = v18;
+        [v19 enumerateAnnotationsWithBlock:v37];
+        [v32 addObjectsFromArray:{-[THModelGlossary pathsForEntriesInContentNode:](model, "pathsForEntriesInContentNode:", v15)}];
+        ++v12;
+        _Block_object_dispose(v38, 8);
+        v14 = v14 + 1;
       }
 
-      v9 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v11 != v14);
+      v9 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v11 = v9;
     }
 
     while (v9);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v18 = [v26 countByEnumeratingWithState:&v27 objects:v37 count:16];
-  if (v18)
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v20 = [v32 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v20)
   {
-    v19 = *v28;
+    v21 = *v34;
     do
     {
-      for (j = 0; j != v18; j = j + 1)
+      for (i = 0; i != v20; i = i + 1)
       {
-        if (*v28 != v19)
+        if (*v34 != v21)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v32);
         }
 
-        v21 = [(THModelGlossary *)model entryForPath:*(*(&v27 + 1) + 8 * j)];
-        v22 = objc_alloc_init(THGlossaryNoteCardInfo);
-        [(THGlossaryNoteCardInfo *)v22 setGlossaryEntry:v21];
-        -[THGlossaryNoteCardInfo setTitle:](v22, "setTitle:", [THBundle() localizedStringForKey:@"GLOSSARY TERM" value:&stru_471858 table:0]);
-        -[THGlossaryNoteCardInfo setBackTitle:](v22, "setBackTitle:", [THBundle() localizedStringForKey:@"DEFINITION" value:&stru_471858 table:0]);
-        [(NSMutableArray *)v5 addObject:v22];
+        v23 = [(THModelGlossary *)model entryForPath:*(*(&v33 + 1) + 8 * i)];
+        v24 = objc_alloc_init(THGlossaryNoteCardInfo);
+        v25 = [(THGlossaryNoteCardInfo *)v24 setGlossaryEntry:v23];
+        v27 = -[THGlossaryNoteCardInfo setTitle:](v24, "setTitle:", [THBundle(v25 v26)]);
+        -[THGlossaryNoteCardInfo setBackTitle:](v24, "setBackTitle:", [THBundle(v27 v28)]);
+        [(NSMutableArray *)v5 addObject:v24];
       }
 
-      v18 = [v26 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v20 = [v32 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
-    while (v18);
+    while (v20);
   }
 
   selfCopy->_unfilteredNoteCardInfos = v5;
@@ -1309,11 +1314,13 @@
   [card setNoteCardInfo:info];
   if (([info isEmptyCard] & 1) == 0)
   {
-    v7 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"%lu of %lu" value:&stru_471858 table:0], -[NSArray count](self->_noteCardInfosUnrotated, "count") - -[NSArray indexOfObject:](self->_noteCardInfosUnrotated, "indexOfObject:", info), -[THNoteCardsController noteCardCount](self, "noteCardCount"));
+    v7 = [(NSArray *)self->_noteCardInfosUnrotated count];
+    v8 = [(NSArray *)self->_noteCardInfosUnrotated indexOfObject:info];
+    v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v8 v9)], v7 - v8, -[THNoteCardsController noteCardCount](self, "noteCardCount"));
     [objc_msgSend(card "frontLayer")];
     backLayer = [card backLayer];
 
-    [backLayer setCardNumberString:v7];
+    [backLayer setCardNumberString:v10];
   }
 }
 
@@ -1543,7 +1550,7 @@
   noteCardsLayer = self->_noteCardsLayer;
   if (noteCardsLayer)
   {
-    [(CALayer *)noteCardsLayer sublayerTransform];
+    objc_msgSend_sublayerTransform(noteCardsLayer, a2);
     v9 = 0uLL;
   }
 
@@ -1555,7 +1562,7 @@
   v23 = v9;
   v20 = v9;
   v21 = v9;
-  [(THNoteCardsController *)self p_perspectiveTransformWithScale:scale];
+  objc_msgSend_p_perspectiveTransformWithScale_(self, a2, scale);
   v16 = v24;
   v17 = v25;
   v18 = v26;

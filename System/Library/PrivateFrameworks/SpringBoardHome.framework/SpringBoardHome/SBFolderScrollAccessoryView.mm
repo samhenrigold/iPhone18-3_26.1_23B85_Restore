@@ -78,7 +78,7 @@
   v31.receiver = self;
   v31.super_class = SBFolderScrollAccessoryView;
   [(SBFolderScrollAccessoryView *)&v31 layoutSubviews];
-  [(SBFolderScrollAccessoryView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -99,7 +99,7 @@
     v21 = v20;
     v22 = [(SBFolderScrollAccessoryView *)self _numberOfPagesForWidth:maxListCount maxPageCount:?];
     superview = [auxiliaryView superview];
-    [superview bounds];
+    objc_msgSend_bounds(superview);
 
     BSRectWithSize();
     UIRectCenteredIntegralRectScale();
@@ -128,7 +128,7 @@
 
     if (backgroundView)
     {
-      [pageControl bounds];
+      objc_msgSend_bounds(pageControl);
       v27 = v26 * 0.5;
     }
 
@@ -472,7 +472,7 @@ void __48__SBFolderScrollAccessoryView__applyCurrentMode__block_invoke(uint64_t 
   if (firstObject && ([firstObject subviews], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6 >= 2))
   {
     subviews2 = [firstObject subviews];
-    v8 = [subviews2 objectAtIndex:1];
+    v8 = objc_msgSend_objectAtIndex_(subviews2);
   }
 
   else

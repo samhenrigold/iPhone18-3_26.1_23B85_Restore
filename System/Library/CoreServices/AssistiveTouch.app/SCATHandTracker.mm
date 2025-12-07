@@ -26,7 +26,7 @@
   if (switches)
   {
     sub_10011C7EC();
-    sub_10011C838(&qword_100217BD0, sub_10011C7EC);
+    sub_10011C838(&qword_100217BD0, sub_10011C7EC, &protocol conformance descriptor for NSObject);
     switchesCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

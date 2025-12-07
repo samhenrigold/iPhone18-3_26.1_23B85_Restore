@@ -56,7 +56,7 @@
   WebCore::JSMainThreadNullState::JSMainThreadNullState(v17);
   internal = self->super.super._internal;
   MEMORY[0x1CCA63A40](&v13, rule);
-  inserted = WebCore::CSSStyleSheet::insertRule(internal, &v13);
+  inserted = WebCore::CSSStyleSheet::insertRule(&v14, internal, &v13);
   if (v16)
   {
     if (v16 == 1)
@@ -86,16 +86,18 @@
 
 - (void)deleteRule:(unsigned int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::CSSStyleSheet::deleteRule(self->super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::CSSStyleSheet::deleteRule(&v6, self->super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (int)addRule:(NSString *)selector style:(NSString *)style index:(unsigned int)index
@@ -140,16 +142,18 @@
 
 - (void)removeRule:(unsigned int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::CSSStyleSheet::deleteRule(self->super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::CSSStyleSheet::deleteRule(&v6, self->super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 @end

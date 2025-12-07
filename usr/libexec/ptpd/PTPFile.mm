@@ -403,7 +403,7 @@ LABEL_52:
 {
   v7 = objc_autoreleasePoolPush();
   plAssetHandle = [(PTPFile *)self plAssetHandle];
-  v9 = sub_10000C470();
+  v9 = sub_10000C470(plAssetHandle);
   if (size != 160 && size)
   {
     imagePixWidth = [(PTPObjectInfoDataset *)self->_objectInfoDataset imagePixWidth];
@@ -554,7 +554,7 @@ LABEL_27:
 - (id)metadata
 {
   plAssetHandle = [(PTPFile *)self plAssetHandle];
-  v4 = sub_10000C470();
+  v4 = sub_10000C470(plAssetHandle);
   v5 = v4;
   if (!v4 || ([v4 ptpImagePropertiesForAssetHandle:plAssetHandle], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {

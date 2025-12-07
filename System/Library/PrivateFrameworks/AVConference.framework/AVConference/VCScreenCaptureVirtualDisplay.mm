@@ -517,7 +517,7 @@ LABEL_38:
   return v17;
 }
 
-void __62__VCScreenCaptureVirtualDisplay_startScreenCaptureWithConfig___block_invoke(uint64_t a1, int a2)
+void __62__VCScreenCaptureVirtualDisplay_startScreenCaptureWithConfig___block_invoke(uint64_t a1, uint64_t a2)
 {
   v30 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
@@ -592,6 +592,7 @@ void __62__VCScreenCaptureVirtualDisplay_startScreenCaptureWithConfig___block_in
     return;
   }
 
+  v4 = a2;
   [v3 callbackWithEventString:@"vcScreenCaptureFailStart"];
   if (objc_opt_class() == *(a1 + 32))
   {
@@ -635,7 +636,7 @@ void __62__VCScreenCaptureVirtualDisplay_startScreenCaptureWithConfig___block_in
         v26 = 2048;
         v27 = v9;
         v28 = 1024;
-        v29 = a2;
+        v29 = v4;
         _os_log_error_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) startPreview FigVirtualDisplaySessionStart error %d", &v18, 0x36u);
       }
     }

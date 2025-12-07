@@ -31,13 +31,14 @@
   {
     v6 = colorCopy;
     objc_storeStrong(&self->_normalBackgroundColor, color);
-    if (([(BCLibraryButton *)self isHighlighted]& 1) == 0)
+    colorCopy = [(BCLibraryButton *)self isHighlighted];
+    if ((colorCopy & 1) == 0)
     {
-      [(BCLibraryButton *)self setBackgroundColor:v6];
+      colorCopy = [(BCLibraryButton *)self setBackgroundColor:v6];
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(colorCopy);
 }
 
 - (void)setHighlightBackgroundColor:(id)color

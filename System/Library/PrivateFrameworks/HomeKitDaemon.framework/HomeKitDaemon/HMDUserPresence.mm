@@ -18,49 +18,47 @@
 
 - (id)attributeDescriptions
 {
-  v35[8] = *MEMORY[0x277D85DE8];
+  v34[8] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   user = [(HMDUserPresence *)self user];
   userID = [user userID];
-  v32 = +[HMDAccountHandleFormatter defaultFormatter];
-  v31 = [v3 initWithName:@"UID" value:userID options:2 formatter:v32];
-  v35[0] = v31;
+  v31 = +[HMDAccountHandleFormatter defaultFormatter];
+  v30 = [v3 initWithName:@"UID" value:userID options:2 formatter:v31];
+  v34[0] = v30;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   user2 = [(HMDUserPresence *)self user];
   uuid = [user2 uuid];
-  v28 = [v4 initWithName:@"UUID" value:uuid];
-  v35[1] = v28;
+  v27 = [v4 initWithName:@"UUID" value:uuid];
+  v34[1] = v27;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   presenceRegionStatus = [(HMDUserPresence *)self presenceRegionStatus];
-  v26 = [v5 initWithName:@"Reg" value:presenceRegionStatus];
-  v35[2] = v26;
+  v25 = [v5 initWithName:@"Reg" value:presenceRegionStatus];
+  v34[2] = v25;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   updateTimestamp = [(HMDUserPresence *)self updateTimestamp];
   hmf_localTimeDescription = [updateTimestamp hmf_localTimeDescription];
   v7 = [v6 initWithName:@"TS" value:hmf_localTimeDescription];
-  v35[3] = v7;
+  v34[3] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   presenceUpdateReason = [(HMDUserPresence *)self presenceUpdateReason];
   v10 = [v8 initWithName:@"Reason" value:presenceUpdateReason];
-  v35[4] = v10;
+  v34[4] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   deviceWhichUpdatedUserPresence = [(HMDUserPresence *)self deviceWhichUpdatedUserPresence];
   v13 = [v11 initWithName:@"Device" value:deviceWhichUpdatedUserPresence];
-  v35[5] = v13;
+  v34[5] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   lastLocalActivityTimeStamp = [(HMDUserPresence *)self lastLocalActivityTimeStamp];
   v16 = [v14 initWithName:@"lastAccess" value:lastLocalActivityTimeStamp];
-  v35[6] = v16;
+  v34[6] = v16;
   v17 = objc_alloc(MEMORY[0x277D0F778]);
   user3 = [(HMDUserPresence *)self user];
   presenceAuthStatus = [user3 presenceAuthStatus];
   v20 = [v17 initWithName:@"Auth" value:presenceAuthStatus];
-  v35[7] = v20;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:8];
+  v34[7] = v20;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (id)shortDescription
@@ -135,27 +133,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    user = [(HMDUserPresence *)self user];
-    uuid = [user uuid];
-    user2 = [(HMDUserPresence *)v6 user];
-    uuid2 = [user2 uuid];
-    v11 = HMFEqualObjects();
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-
-    presenceRegionStatus = [(HMDUserPresence *)self presenceRegionStatus];
-    presenceRegionStatus2 = [(HMDUserPresence *)v6 presenceRegionStatus];
-    v14 = HMFEqualObjects();
-
-    if (v14)
+    if (v6 && (-[HMDUserPresence user](self, "user"), v7 = objc_claimAutoreleasedReturnValue(), [v7 uuid], v8 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresence user](v6, "user"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uuid"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v8, v7, v11) && (-[HMDUserPresence presenceRegionStatus](self, "presenceRegionStatus"), v12 = objc_claimAutoreleasedReturnValue(), -[HMDUserPresence presenceRegionStatus](v6, "presenceRegionStatus"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14))
     {
       updateTimestamp = [(HMDUserPresence *)self updateTimestamp];
       updateTimestamp2 = [(HMDUserPresence *)v6 updateTimestamp];
@@ -164,7 +142,6 @@
 
     else
     {
-LABEL_9:
       v17 = 0;
     }
   }
@@ -190,7 +167,7 @@ LABEL_9:
 
 - (void)setPresenceRegionStatus:(id)status
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = statusCopy;
   if (statusCopy)
@@ -209,22 +186,20 @@ LABEL_9:
     v10 = HMFGetLogIdentifier();
     presenceRegionStatus = selfCopy->_presenceRegionStatus;
     hmf_localTimeDescription = [(NSDate *)self->_updateTimestamp hmf_localTimeDescription];
-    v15 = 138544130;
-    v16 = v10;
-    v17 = 2112;
-    v18 = presenceRegionStatus;
-    v19 = 2112;
-    v20 = v5;
-    v21 = 2112;
-    v22 = hmf_localTimeDescription;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating region status from %@ to %@ with update timestamp %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v10;
+    v16 = 2112;
+    v17 = presenceRegionStatus;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = hmf_localTimeDescription;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating region status from %@ to %@ with update timestamp %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v7);
   v13 = selfCopy->_presenceRegionStatus;
   selfCopy->_presenceRegionStatus = v5;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserPresenceRegion)presenceRegionStatus

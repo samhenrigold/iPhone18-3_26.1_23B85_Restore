@@ -1,5 +1,6 @@
 @interface SRAuthorizationTable
 + (void)initialize;
+- (SRAuthorizationTable)initWithServices:(id)services appBundle:(id)bundle authStore:(id)store migrationMode:(BOOL)mode;
 - (void)cancelPrompt;
 - (void)completePrompt;
 - (void)dealloc;
@@ -19,6 +20,47 @@
   {
     qword_100015F40 = os_log_create("com.apple.SensorKit", "AuthorizationTable");
   }
+}
+
+- (SRAuthorizationTable)initWithServices:(id)services appBundle:(id)bundle authStore:(id)store migrationMode:(BOOL)mode
+{
+  modeCopy = mode;
+  if (mode)
+  {
+    v17 = 0;
+    v11 = +[NSString stringWithValidatedFormat:validFormatSpecifiers:error:](NSString, "stringWithValidatedFormat:validFormatSpecifiers:error:", +[NSString srui_localizedStringForCode:](NSString, "srui_localizedStringForCode:", 88), @"%@", &v17, [bundle sk_studyName]);
+    if (!v11)
+    {
+      v12 = qword_100015F40;
+      if (os_log_type_enabled(qword_100015F40, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138543362;
+        v19 = v17;
+        _os_log_fault_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "Failed to localize string because %{public}@", buf, 0xCu);
+      }
+
+      return 0;
+    }
+  }
+
+  else
+  {
+    v11 = [NSString srui_localizedStringForCode:71];
+  }
+
+  v16.receiver = self;
+  v16.super_class = SRAuthorizationTable;
+  v14 = [(SRAuthorizationTable *)&v16 initWithTitle:v11 detailText:0 icon:+[UIImage skui_imageNamed:bundle:imageDescriptor:](UIImage, "skui_imageNamed:bundle:imageDescriptor:", @"SensorKit", +[NSBundle skui_bundle](NSBundle, "skui_bundle"), +[ISImageDescriptor skui_imageDescriptorForAuthorization])];
+  v13 = v14;
+  if (v14)
+  {
+    [(SRAuthorizationTable *)v14 setMigrationMode:modeCopy];
+    [(SRAuthorizationTable *)v13 setAppBundle:bundle];
+    [(SRAuthorizationTable *)v13 setServices:services];
+    [(SRAuthorizationTable *)v13 setAuthStore:store];
+  }
+
+  return v13;
 }
 
 - (void)viewDidLoad

@@ -14,34 +14,32 @@
 
 - (BOOL)addSelfToBuffer:(void *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(SAWSUpdate *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SAWSUpdate *)self debugDescription];
+      v12 = [(SAWSUpdate *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v25 = 2048;
+      uTF8String = [v12 UTF8String];
+      v17 = 2048;
       sizeInBytesForSerializedVersion = [(SAWSUpdate *)self sizeInBytesForSerializedVersion];
-      v27 = 2048;
+      v19 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SAWSUpdate *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SAWSUpdate *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(986, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SAWSUpdate *)self debugDescription];
+    _SASetCrashLogMessage(986, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SAWSUpdate sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
 LABEL_8:
-    v22 = [SAException exceptionWithName:@"Encoding failure" reason:@"No buffer or completedSerializationDictionary" userInfo:0];
-    objc_exception_throw(v22);
+    v14 = [SAException exceptionWithName:@"Encoding failure" reason:@"No buffer or completedSerializationDictionary" userInfo:0];
+    objc_exception_throw(v14);
   }
 
   if (!buffer || !dictionary)
@@ -54,7 +52,6 @@ LABEL_8:
   *(buffer + 2) = *&self->_deferStartTime;
   *(buffer + 3) = *&self->_workStartTime;
   *(buffer + 4) = *&self->_workEndTime;
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

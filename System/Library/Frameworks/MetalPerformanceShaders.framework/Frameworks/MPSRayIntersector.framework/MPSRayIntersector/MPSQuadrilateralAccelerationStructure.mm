@@ -11,7 +11,7 @@
 {
   if (type != 1)
   {
-    sub_239E2074C();
+    sub_239E2074C(self, a2);
   }
 }
 
@@ -49,25 +49,26 @@
 
 - (id)vertexBuffer
 {
-  if (objc_msgSend_polygonBuffers(self, a2, v2, v3, v4))
+  if (objc_msgSend_polygonBuffers(self, a2, v2))
   {
-    v10 = objc_msgSend_polygonBuffers(self, v6, v7, v8, v9);
-    objc_msgSend_count(v10, v11, v12, v13, v14);
+    v6 = objc_msgSend_polygonBuffers(self, v4, v5);
+    objc_msgSend_count(v6, v7, v8);
   }
 
-  if (objc_msgSend_polygonBuffers(self, v6, v7, v8, v9))
+  if (objc_msgSend_polygonBuffers(self, v4, v5))
   {
-    v19 = objc_msgSend_polygonBuffers(self, v15, v16, v17, v18);
-    if (objc_msgSend_count(v19, v20, v21, v22, v23) != 1)
+    v11 = objc_msgSend_polygonBuffers(self, v9, v10);
+    v14 = objc_msgSend_count(v11, v12, v13);
+    if (v14 != 1)
     {
-      sub_239E2079C();
+      sub_239E2079C(v14, v9);
     }
   }
 
-  v24 = objc_msgSend_polygonBuffers(self, v15, v16, v17, v18);
-  v28 = objc_msgSend_objectAtIndexedSubscript_(v24, v25, 0, v26, v27);
+  v15 = objc_msgSend_polygonBuffers(self, v9, v10);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(v15, v16, 0);
 
-  return objc_msgSend_vertexBuffer(v28, v29, v30, v31, v32);
+  return objc_msgSend_vertexBuffer(v17, v18, v19);
 }
 
 @end

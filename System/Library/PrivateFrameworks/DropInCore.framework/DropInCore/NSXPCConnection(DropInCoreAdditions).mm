@@ -6,19 +6,19 @@
 
 - (id)bundleIdentifier
 {
-  v3 = 0;
-  [self auditToken];
+  v4 = 0;
+  objc_msgSend_auditToken(self, a2);
   if (CPCopyBundleIdentifierAndTeamFromAuditToken())
   {
-    v1 = v3;
+    v2 = v4;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -170,7 +170,7 @@
 LABEL_7:
         if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_100024628(error == 0, error);
+          sub_100024628();
         }
 
 LABEL_21:
@@ -198,7 +198,7 @@ LABEL_21:
 
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000246AC(error == 0, error);
+      sub_1000246AC();
     }
 
     goto LABEL_21;
@@ -209,7 +209,7 @@ LABEL_21:
   {
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000247B0(error);
+      sub_1000247B0();
     }
 
     goto LABEL_21;

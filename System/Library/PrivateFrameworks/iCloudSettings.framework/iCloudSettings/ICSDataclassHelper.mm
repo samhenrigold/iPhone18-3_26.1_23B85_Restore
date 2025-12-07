@@ -22,23 +22,21 @@
 
 + (id)localizedSubTitleForDataclass:(id)dataclass idmsAccount:(id)account securityLevel:(unint64_t)level
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   dataclassCopy = dataclass;
-  v10 = LogSubsystem();
+  v10 = LogSubsystem(dataclassCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = accountCopy;
-    v17 = 2048;
+    v14 = 138412546;
+    v15 = accountCopy;
+    v16 = 2048;
     levelCopy = level;
-    _os_log_impl(&dword_275819000, v10, OS_LOG_TYPE_DEFAULT, "localizedSubTitleForDataclass idmsAccount: %@, securityLevel: %lu", &v15, 0x16u);
+    _os_log_impl(&dword_275819000, v10, OS_LOG_TYPE_DEFAULT, "localizedSubTitleForDataclass idmsAccount: %@, securityLevel: %lu", &v14, 0x16u);
   }
 
   v11 = [self dataclassSubTitleDictionary:dataclassCopy idmsAccount:accountCopy securityLevel:level];
   v12 = [v11 objectForKeyedSubscript:dataclassCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -71,66 +69,61 @@
 
 void __46__ICSDataclassHelper_dataclassTitleDictionary__block_invoke(uint64_t a1)
 {
-  v39 = objc_alloc_init(MEMORY[0x277CEC7B8]);
-  v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"NOTES_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v7 = [v39 deviceClass];
-  v8 = [v3 stringWithFormat:v6, v7];
-  [v2 setObject:v8 forKeyedSubscript:*MEMORY[0x277CB89F8]];
+  v33 = objc_alloc_init(MEMORY[0x277CEC7B8]);
+  v1 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v2 = MEMORY[0x277CCACA8];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"NOTES_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v5 = [v33 deviceClass];
+  v6 = [v2 stringWithFormat:v4, v5];
+  [v1 setObject:v6 forKeyedSubscript:*MEMORY[0x277CB89F8]];
 
-  v9 = MEMORY[0x277CCACA8];
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"MESSAGES_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v13 = [v39 deviceClass];
-  v14 = [v9 stringWithFormat:v12, v13];
-  [v2 setObject:v14 forKeyedSubscript:*MEMORY[0x277CB89D8]];
+  v7 = MEMORY[0x277CCACA8];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"MESSAGES_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v10 = [v33 deviceClass];
+  v11 = [v7 stringWithFormat:v9, v10];
+  [v1 setObject:v11 forKeyedSubscript:*MEMORY[0x277CB89D8]];
 
-  v15 = [MEMORY[0x277CEC7A0] sharedManager];
-  v16 = *MEMORY[0x277CB89A0];
-  LODWORD(v12) = [v15 appIsNeitherInstalledOrPlaceholder:*MEMORY[0x277CB89A0]];
+  v12 = [MEMORY[0x277CEC7A0] sharedManager];
+  v13 = *MEMORY[0x277CB89A0];
+  LODWORD(v9) = [v12 appIsNeitherInstalledOrPlaceholder:*MEMORY[0x277CB89A0]];
 
-  v17 = MEMORY[0x277CCACA8];
-  v18 = *(a1 + 32);
-  v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v20 = v19;
-  if (v12)
+  v14 = MEMORY[0x277CCACA8];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v16 = v15;
+  if (v9)
   {
-    v21 = @"HEALTH_DATA_DATACLASS_TITLE";
+    v17 = @"HEALTH_DATA_DATACLASS_TITLE";
   }
 
   else
   {
-    v21 = @"HEALTH_DATACLASS_TITLE";
+    v17 = @"HEALTH_DATACLASS_TITLE";
   }
 
-  v22 = [v19 localizedStringForKey:v21 value:&stru_288487370 table:@"Localizable-AppleID"];
-  v23 = [v39 deviceClass];
-  v24 = [v17 stringWithFormat:v22, v23];
-  [v2 setObject:v24 forKeyedSubscript:v16];
+  v18 = [v15 localizedStringForKey:v17 value:&stru_288487370 table:@"Localizable-AppleID"];
+  v19 = [v33 deviceClass];
+  v20 = [v14 stringWithFormat:v18, v19];
+  [v1 setObject:v20 forKeyedSubscript:v13];
 
-  v25 = MEMORY[0x277CCACA8];
-  v26 = *(a1 + 32);
+  v21 = MEMORY[0x277CCACA8];
+  v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v23 = [v22 localizedStringForKey:@"KEYCHAIN_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v24 = [v33 deviceClass];
+  v25 = [v21 stringWithFormat:v23, v24];
+  [v1 setObject:v25 forKeyedSubscript:*MEMORY[0x277CB89C0]];
+
+  v26 = MEMORY[0x277CCACA8];
   v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v28 = [v27 localizedStringForKey:@"KEYCHAIN_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v29 = [v39 deviceClass];
-  v30 = [v25 stringWithFormat:v28, v29];
-  [v2 setObject:v30 forKeyedSubscript:*MEMORY[0x277CB89C0]];
+  v28 = [v27 localizedStringForKey:@"ICLOUD_DRIVE_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v29 = [v33 deviceClass];
+  v30 = [v26 stringWithFormat:v28, v29];
+  [v1 setObject:v30 forKeyedSubscript:*MEMORY[0x277CB8A58]];
 
-  v31 = MEMORY[0x277CCACA8];
-  v32 = *(a1 + 32);
-  v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v34 = [v33 localizedStringForKey:@"ICLOUD_DRIVE_DATACLASS_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v35 = [v39 deviceClass];
-  v36 = [v31 stringWithFormat:v34, v35];
-  [v2 setObject:v36 forKeyedSubscript:*MEMORY[0x277CB8A58]];
-
-  v37 = [v2 copy];
-  v38 = dataclassTitleDictionary_dataclassTitleMap;
-  dataclassTitleDictionary_dataclassTitleMap = v37;
+  v31 = [v1 copy];
+  v32 = dataclassTitleDictionary_dataclassTitleMap;
+  dataclassTitleDictionary_dataclassTitleMap = v31;
 }
 
 + (id)dataclassSubTitleDictionary:(id)dictionary idmsAccount:(id)account securityLevel:(unint64_t)level
@@ -143,7 +136,7 @@ void __46__ICSDataclassHelper_dataclassTitleDictionary__block_invoke(uint64_t a1
 
   else
   {
-    v10 = LogSubsystem();
+    v10 = LogSubsystem(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -176,31 +169,27 @@ void __46__ICSDataclassHelper_dataclassTitleDictionary__block_invoke(uint64_t a1
 
 void __76__ICSDataclassHelper_dataclassSubTitleDictionary_idmsAccount_securityLevel___block_invoke(uint64_t a1)
 {
-  v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v2 = *(a1 + 40);
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"NOTES_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v4 forKeyedSubscript:*MEMORY[0x277CB89F8]];
+  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"NOTES_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v12 setObject:v3 forKeyedSubscript:*MEMORY[0x277CB89F8]];
 
-  v5 = *(a1 + 40);
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"MESSAGES_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v12 setObject:v5 forKeyedSubscript:*MEMORY[0x277CB89D8]];
+
+  [v12 setObject:*(a1 + 32) forKeyedSubscript:*MEMORY[0x277CB89A0]];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"MESSAGES_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v7 forKeyedSubscript:*MEMORY[0x277CB89D8]];
+  v7 = [v6 localizedStringForKey:@"KEYCHAIN_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v12 setObject:v7 forKeyedSubscript:*MEMORY[0x277CB89C0]];
 
-  [v16 setObject:*(a1 + 32) forKeyedSubscript:*MEMORY[0x277CB89A0]];
-  v8 = *(a1 + 40);
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"KEYCHAIN_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v10 forKeyedSubscript:*MEMORY[0x277CB89C0]];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"ICLOUD_DRIVE_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v12 setObject:v9 forKeyedSubscript:*MEMORY[0x277CB8A58]];
 
-  v11 = *(a1 + 40);
-  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = [v12 localizedStringForKey:@"ICLOUD_DRIVE_DATACLASS_SUBTITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v13 forKeyedSubscript:*MEMORY[0x277CB8A58]];
-
-  v14 = [v16 copy];
-  v15 = dataclassSubTitleDictionary_idmsAccount_securityLevel__dataclassSubTitleMap;
-  dataclassSubTitleDictionary_idmsAccount_securityLevel__dataclassSubTitleMap = v14;
+  v10 = [v12 copy];
+  v11 = dataclassSubTitleDictionary_idmsAccount_securityLevel__dataclassSubTitleMap;
+  dataclassSubTitleDictionary_idmsAccount_securityLevel__dataclassSubTitleMap = v10;
 }
 
 + (id)healthDataclassSubtitleForSecurityLevel:(unint64_t)level
@@ -269,30 +258,26 @@ void __76__ICSDataclassHelper_dataclassSubTitleDictionary_idmsAccount_securityLe
 
 void __55__ICSDataclassHelper_dataclassAttributedLinkDictionary__block_invoke(uint64_t a1)
 {
-  v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v2 = *(a1 + 32);
+  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v1 localizedStringForKey:@"NOTES_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v11 setObject:v2 forKeyedSubscript:*MEMORY[0x277CB89F8]];
+
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"NOTES_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v4 forKeyedSubscript:*MEMORY[0x277CB89F8]];
+  v4 = [v3 localizedStringForKey:@"MESSAGES_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v11 setObject:v4 forKeyedSubscript:*MEMORY[0x277CB89D8]];
 
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"MESSAGES_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v7 forKeyedSubscript:*MEMORY[0x277CB89D8]];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"HEALTH_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v11 setObject:v6 forKeyedSubscript:*MEMORY[0x277CB89A0]];
 
-  v8 = *(a1 + 32);
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"HEALTH_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v10 forKeyedSubscript:*MEMORY[0x277CB89A0]];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"ICLOUD_DRIVE_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [v11 setObject:v8 forKeyedSubscript:*MEMORY[0x277CB8A58]];
 
-  v11 = *(a1 + 32);
-  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = [v12 localizedStringForKey:@"ICLOUD_DRIVE_LEARN_MORE_LINK" value:&stru_288487370 table:@"Localizable-AppleID"];
-  [v16 setObject:v13 forKeyedSubscript:*MEMORY[0x277CB8A58]];
-
-  v14 = [v16 copy];
-  v15 = dataclassAttributedLinkDictionary_dataclassAttributedLinksMap;
-  dataclassAttributedLinkDictionary_dataclassAttributedLinksMap = v14;
+  v9 = [v11 copy];
+  v10 = dataclassAttributedLinkDictionary_dataclassAttributedLinksMap;
+  dataclassAttributedLinkDictionary_dataclassAttributedLinksMap = v9;
 }
 
 @end

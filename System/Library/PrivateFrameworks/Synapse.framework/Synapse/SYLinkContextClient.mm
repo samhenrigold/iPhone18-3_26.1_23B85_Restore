@@ -7,6 +7,7 @@
 - (void)_invalidateConnection;
 - (void)_processFetchLinkContextsRequestForUserActivity:(id)activity serviceProxy:(id)proxy completion:(id)completion;
 - (void)_sendInitialMessage;
+- (void)_sendRequestToCreateLinkWithContentItemData:(id)data preferNewDocument:(BOOL)document completion:(id)completion;
 - (void)_updateObserverAndCreateConnectionIfNeeded;
 - (void)createAndShowContextualLinkWithUserActivity:(id)activity linkPreviewMetadata:(id)metadata preferNewDocument:(BOOL)document completion:(id)completion;
 - (void)createConnectionWithEndpoint:(id)endpoint;
@@ -153,13 +154,10 @@ void __65__SYLinkContextClient__updateObserverAndCreateConnectionIfNeeded__block
 
 - (void)_sendInitialMessage
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SYLinkContextClient__sendInitialMessage__block_invoke(uint64_t a1, void *a2)
@@ -174,7 +172,7 @@ void __42__SYLinkContextClient__sendInitialMessage__block_invoke(uint64_t a1, vo
 
 - (void)createAndShowContextualLinkWithUserActivity:(id)activity linkPreviewMetadata:(id)metadata preferNewDocument:(BOOL)document completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   metadataCopy = metadata;
   completionCopy = completion;
@@ -215,7 +213,7 @@ LABEL_3:
     }
 
     [activityCopy _linkContextInfo];
-    v14 = v26 = v14;
+    v14 = v25 = v14;
     *buf = 138413058;
     if (v14)
     {
@@ -227,7 +225,7 @@ LABEL_3:
       v18 = @"N";
     }
 
-    v37 = _uniqueIdentifier;
+    v36 = _uniqueIdentifier;
     if (metadataCopy)
     {
       v19 = @"Y";
@@ -238,16 +236,16 @@ LABEL_3:
       v19 = @"N";
     }
 
-    v38 = 2112;
-    v39 = v17;
+    v37 = 2112;
+    v38 = v17;
     self = selfCopy;
-    v40 = 2112;
-    v41 = v18;
-    v42 = 2112;
-    v43 = v19;
+    v39 = 2112;
+    v40 = v18;
+    v41 = 2112;
+    v42 = v19;
     _os_log_impl(&dword_225901000, v16, OS_LOG_TYPE_DEFAULT, "LinkContextClient: Create contextual link with user activity %@, is linkable: %@, has link context: %@, has link preview: %@", buf, 0x2Au);
 
-    LOBYTE(v14) = v26;
+    LOBYTE(v14) = v25;
   }
 
   _clientQueue = [(SYLinkContextClient *)self _clientQueue];
@@ -255,11 +253,11 @@ LABEL_3:
   block[1] = 3221225472;
   block[2] = __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke;
   block[3] = &unk_27856BDD8;
-  v34 = v14;
-  v29 = activityCopy;
-  v30 = metadataCopy;
-  v32 = _uniqueIdentifier;
-  v33 = v13;
+  v33 = v14;
+  v28 = activityCopy;
+  v29 = metadataCopy;
+  v31 = _uniqueIdentifier;
+  v32 = v13;
   documentCopy = document;
   selfCopy2 = self;
   v21 = _uniqueIdentifier;
@@ -267,13 +265,11 @@ LABEL_3:
   v23 = metadataCopy;
   v24 = activityCopy;
   dispatch_async(_clientQueue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 72))
   {
     v2 = [MEMORY[0x277CCA8D8] mainBundle];
@@ -289,9 +285,9 @@ void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_link
 
     v7 = [[SYContentItem alloc] initWithUserActivity:*(a1 + 32) sourceAppID:v6 sourceAppName:0 identifier:0];
     [(SYContentItem *)v7 setLinkPreviewMetadata:*(a1 + 40)];
-    v26 = 0;
-    v8 = [(SYContentItem *)v7 dataRepresentationWithError:&v26];
-    v9 = v26;
+    v25 = 0;
+    v8 = [(SYContentItem *)v7 dataRepresentationWithError:&v25];
+    v9 = v25;
 
     if (v8)
     {
@@ -301,18 +297,18 @@ void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_link
       [v11 addObject:v12];
 
       v13 = *(a1 + 73);
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke_2;
-      v22[3] = &unk_27856BDB0;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke_2;
+      v21[3] = &unk_27856BDB0;
       v14 = *(a1 + 48);
       v15 = *(a1 + 56);
       v16 = *(a1 + 48);
-      v23 = v15;
-      v24 = v16;
-      v25 = v10;
+      v22 = v15;
+      v23 = v16;
+      v24 = v10;
       v17 = v10;
-      [v14 _sendRequestToCreateLinkWithContentItemData:v8 preferNewDocument:v13 completion:v22];
+      [v14 _sendRequestToCreateLinkWithContentItemData:v8 preferNewDocument:v13 completion:v21];
 
       goto LABEL_10;
     }
@@ -321,9 +317,9 @@ void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_link
   else
   {
     v18 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"User activity is not linkable.";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"User activity is not linkable.";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v9 = [v18 errorWithDomain:@"com.apple.synapse" code:-126 userInfo:v19];
   }
 
@@ -335,31 +331,29 @@ void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_link
 
   (*(*(a1 + 64) + 16))();
 LABEL_10:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = os_log_create("com.apple.synapse", "LinkContext");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"N";
-    v15 = 138412802;
+    v14 = 138412802;
     if (a2)
     {
       v8 = @"Y";
     }
 
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v5;
-    _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "LinkContextClient: Finished request to create contextual link for activity %@, success: %@, error: %@", &v15, 0x20u);
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "LinkContextClient: Finished request to create contextual link for activity %@, success: %@, error: %@", &v14, 0x20u);
   }
 
   v9 = [*(a1 + 40) _pendingCreateLinkCompletionBlocks];
@@ -374,8 +368,73 @@ void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_link
 
     (*(*(a1 + 48) + 16))(*(a1 + 48));
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_sendRequestToCreateLinkWithContentItemData:(id)data preferNewDocument:(BOOL)document completion:(id)completion
+{
+  documentCopy = document;
+  v24[2] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  completionCopy = completion;
+  if (!dataCopy)
+  {
+    [SYLinkContextClient _sendRequestToCreateLinkWithContentItemData:preferNewDocument:completion:];
+  }
+
+  v11 = [objc_alloc(MEMORY[0x277CC1EF0]) initWithActivityType:@"com.apple.notes.activity.create-link"];
+  v24[0] = dataCopy;
+  v23[0] = @"SYContentItemData";
+  v23[1] = @"SYLinkPreferNewDocument";
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:documentCopy];
+  v24[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  [v11 setUserInfo:v13];
+
+  v14 = os_log_create("com.apple.synapse", "LinkContext");
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "LinkContextClient: Sending request to create link.", buf, 2u);
+  }
+
+  testingShouldSendCreateLinkRequest = [(SYLinkContextClient *)self testingShouldSendCreateLinkRequest];
+
+  if (testingShouldSendCreateLinkRequest && ([(SYLinkContextClient *)self testingShouldSendCreateLinkRequest], v16 = objc_claimAutoreleasedReturnValue(), v17 = (v16)[2](v16, v11), v16, !v17))
+  {
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0, 0);
+    }
+  }
+
+  else
+  {
+    v18 = SYSystemPaperActivationMethodAddHighlight;
+    if (documentCopy)
+    {
+      v18 = SYSystemPaperActivationMethodNewHighlight;
+    }
+
+    [SYSystemPaperAnalytics logActivationEvent:*v18];
+    if (SYIsPhone() && SYIsQuickNoteOnPhoneEnabled())
+    {
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __96__SYLinkContextClient__sendRequestToCreateLinkWithContentItemData_preferNewDocument_completion___block_invoke;
+      v21[3] = &unk_27856BE00;
+      v21[4] = self;
+      v21[5] = a2;
+      [SYNotesActivationCommandInAppImpl setFetchPresenterViewControllerInvocationBlock:v21];
+    }
+
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __96__SYLinkContextClient__sendRequestToCreateLinkWithContentItemData_preferNewDocument_completion___block_invoke_2;
+    v19[3] = &unk_27856BCB0;
+    v19[4] = self;
+    v20 = completionCopy;
+    [SYNotesActivationCommand activateWithMetaActivity:v11 completion:v19];
+  }
 }
 
 id __96__SYLinkContextClient__sendRequestToCreateLinkWithContentItemData_preferNewDocument_completion___block_invoke(uint64_t a1)
@@ -458,7 +517,7 @@ LABEL_3:
 
 void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _createConnectionIfNeeded];
   v2 = os_log_create("com.apple.synapse", "LinkContext");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -475,17 +534,17 @@ void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___blo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v11 = __Block_byref_object_copy__3;
-  v12 = __Block_byref_object_dispose__3;
-  v13 = 0;
+  v9 = __Block_byref_object_copy__3;
+  v10 = __Block_byref_object_dispose__3;
+  v11 = 0;
   v5 = [*(a1 + 32) _connection];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___block_invoke_56;
-  v9[3] = &unk_27856B6C0;
-  v9[4] = *(a1 + 32);
-  v9[5] = buf;
-  v6 = [v5 remoteObjectProxyWithErrorHandler:v9];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___block_invoke_56;
+  v7[3] = &unk_27856B6C0;
+  v7[4] = *(a1 + 32);
+  v7[5] = buf;
+  v6 = [v5 remoteObjectProxyWithErrorHandler:v7];
 
   if (v6)
   {
@@ -494,12 +553,10 @@ void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___blo
 
   else
   {
-    v7 = *(*&buf[8] + 40);
     (*(*(a1 + 48) + 16))();
   }
 
   _Block_object_dispose(buf, 8);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___block_invoke_56(uint64_t a1, void *a2)
@@ -515,7 +572,7 @@ void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___blo
 
 - (void)_processFetchLinkContextsRequestForUserActivity:(id)activity serviceProxy:(id)proxy completion:(id)completion
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   proxyCopy = proxy;
   completionCopy = completion;
@@ -563,16 +620,16 @@ LABEL_4:
 
     v15 = [[SYUserActivityIdentifierInfo alloc] initWithUserActivity:activityCopy];
     _uniqueIdentifier = [activityCopy _uniqueIdentifier];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_serviceProxy_completion___block_invoke;
-    v23[3] = &unk_27856BE50;
-    v23[4] = self;
-    v24 = _uniqueIdentifier;
-    v25 = v12;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_serviceProxy_completion___block_invoke;
+    v22[3] = &unk_27856BE50;
+    v22[4] = self;
+    v23 = _uniqueIdentifier;
+    v24 = v12;
     v17 = v12;
     v18 = _uniqueIdentifier;
-    [proxyCopy fetchLinkContextsDataForUserActivityInfo:v15 completion:v23];
+    [proxyCopy fetchLinkContextsDataForUserActivityInfo:v15 completion:v22];
   }
 
   else
@@ -584,15 +641,13 @@ LABEL_4:
     }
 
     v20 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
-    v27[0] = @"Error communicating with remote service. The service doesn't have the expected interface.";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26[0] = @"Error communicating with remote service. The service doesn't have the expected interface.";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v15 = [v20 errorWithDomain:@"com.apple.synapse" code:-124 userInfo:v21];
 
     (*(completionCopy + 2))(completionCopy, 0, v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_serviceProxy_completion___block_invoke(id *a1, void *a2, void *a3)
@@ -616,7 +671,7 @@ void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_s
 
 void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_serviceProxy_completion___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = os_log_create("com.apple.synapse", "LinkContext");
   v4 = v3;
@@ -628,9 +683,9 @@ void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_s
       v6 = *(a1 + 40);
       v7 = [*(a1 + 32) count];
       *buf = 138412546;
-      v21 = v6;
-      v22 = 2048;
-      v23 = v7;
+      v20 = v6;
+      v21 = 2048;
+      v22 = v7;
       _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextClient: fetchLinkContexts finished for activity: %@, found contexts: %ld", buf, 0x16u);
     }
   }
@@ -651,9 +706,9 @@ void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_s
     if (v12)
     {
       v13 = *(a1 + 56);
-      v19 = v11;
-      v14 = [v13 _linkContextDictionariesFromDataArray:v12 error:&v19];
-      v15 = v19;
+      v18 = v11;
+      v14 = [v13 _linkContextDictionariesFromDataArray:v12 error:&v18];
+      v15 = v18;
 
       v11 = v15;
     }
@@ -669,52 +724,50 @@ void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_s
 
     (*(*(a1 + 64) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_linkContextDictionariesFromDataArray:(id)array error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
-  v7 = SYSupportedLinkContextInfoClasses();
+  v7 = SYSupportedLinkContextInfoClasses(v6);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = arrayCopy;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
     v10 = 0;
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       v12 = 0;
       v13 = v10;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v12);
-        v25 = v13;
-        v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:v14 error:&v25];
-        v10 = v25;
+        v14 = *(*(&v25 + 1) + 8 * v12);
+        v24 = v13;
+        v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:v14 error:&v24];
+        v10 = v24;
 
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
           v16 = MEMORY[0x277CCA9B8];
-          v30 = *MEMORY[0x277CCA450];
-          v31 = @"Invalid link context data, not a dictionary.";
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v29 = *MEMORY[0x277CCA450];
+          v30 = @"Invalid link context data, not a dictionary.";
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
           v18 = [v16 errorWithDomain:@"com.apple.synapse" code:-125 userInfo:v17];
 
           v19 = os_log_create("com.apple.synapse", "LinkContext");
@@ -741,7 +794,7 @@ LABEL_15:
       }
 
       while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v9 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v9)
       {
         continue;
@@ -764,8 +817,6 @@ LABEL_16:
     v20 = v10;
     *error = v10;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -861,7 +912,7 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
 
 - (void)userDidRemoveContentItemDatas:(id)datas
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   datasCopy = datas;
   delegate = [(SYLinkContextClient *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -869,29 +920,29 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
   if (v6)
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(datasCopy, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = datasCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
+          v13 = *(*(&v17 + 1) + 8 * v12);
           v14 = [SYContentItem alloc];
-          v15 = [(SYContentItem *)v14 initWithData:v13 error:0, v18];
+          v15 = [(SYContentItem *)v14 initWithData:v13 error:0, v17];
           if (v15)
           {
             [v7 addObject:v15];
@@ -901,7 +952,7 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -910,13 +961,11 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
     delegate2 = [(SYLinkContextClient *)self delegate];
     [delegate2 userDidRemoveContentItems:v7];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userEditDidAddContentItemDatas:(id)datas
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   datasCopy = datas;
   delegate = [(SYLinkContextClient *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -924,29 +973,29 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
   if (v6)
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(datasCopy, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = datasCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
+          v13 = *(*(&v17 + 1) + 8 * v12);
           v14 = [SYContentItem alloc];
-          v15 = [(SYContentItem *)v14 initWithData:v13 error:0, v18];
+          v15 = [(SYContentItem *)v14 initWithData:v13 error:0, v17];
           if (v15)
           {
             [v7 addObject:v15];
@@ -956,7 +1005,7 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -965,8 +1014,6 @@ void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___bloc
     delegate2 = [(SYLinkContextClient *)self delegate];
     [delegate2 userEditDidAddContentItems:v7];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertImagesData:(id)data completion:(id)completion
@@ -1008,12 +1055,12 @@ LABEL_3:
 
 void __51__SYLinkContextClient_insertImagesData_completion___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CC1EF0]) initWithActivityType:@"com.apple.notes.activity.insert-image"];
   v3 = *(a1 + 32);
-  v13 = @"SYContentItemData";
-  v14[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"SYContentItemData";
+  v13[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [v2 setUserInfo:v4];
 
   v5 = os_log_create("com.apple.synapse", "LinkContext");
@@ -1021,20 +1068,18 @@ void __51__SYLinkContextClient_insertImagesData_completion___block_invoke(uint64
   {
     v6 = [*(a1 + 32) count];
     *buf = 134217984;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "LinkContextClient: Sending request to insert %lu images.", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__SYLinkContextClient_insertImagesData_completion___block_invoke_85;
-  v9[3] = &unk_27856BCB0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__SYLinkContextClient_insertImagesData_completion___block_invoke_85;
+  v8[3] = &unk_27856BCB0;
   v7 = *(a1 + 48);
-  v9[4] = *(a1 + 40);
-  v10 = v7;
-  [SYNotesActivationCommand activateWithMetaActivity:v2 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[4] = *(a1 + 40);
+  v9 = v7;
+  [SYNotesActivationCommand activateWithMetaActivity:v2 completion:v8];
 }
 
 void __51__SYLinkContextClient_insertImagesData_completion___block_invoke_85(uint64_t a1, void *a2)
@@ -1055,12 +1100,10 @@ void __51__SYLinkContextClient_insertImagesData_completion___block_invoke_85(uin
 
 - (void)_createConnectionIfNeeded
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   _connection = [self _connection];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "LinkContextClient: Create new connection if needed: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "LinkContextClient: Create new connection if needed: %@", v4, 0xCu);
 }
 
 - (void)_configureConnectionAndResume
@@ -1099,20 +1142,18 @@ void __52__SYLinkContextClient__configureConnectionAndResume__block_invoke_94(ui
 
 - (void)_invalidateConnection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _connection = [self _connection];
   _pendingCreateLinkCompletionBlocks = [self _pendingCreateLinkCompletionBlocks];
   v6 = [_pendingCreateLinkCompletionBlocks count];
   _pendingFetchLinkCompletionBlocks = [self _pendingFetchLinkCompletionBlocks];
-  v9 = 138412802;
-  v10 = _connection;
-  v11 = 2048;
-  v12 = v6;
-  v13 = 2048;
-  v14 = [_pendingFetchLinkCompletionBlocks count];
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "LinkContextClient: Invalidating connection: %@, pending createLink blocks: %ld, fetchLink blocks: %ld", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = _connection;
+  v10 = 2048;
+  v11 = v6;
+  v12 = 2048;
+  v13 = [_pendingFetchLinkCompletionBlocks count];
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "LinkContextClient: Invalidating connection: %@, pending createLink blocks: %ld, fetchLink blocks: %ld", &v8, 0x20u);
 }
 
 void __44__SYLinkContextClient__invalidateConnection__block_invoke(uint64_t a1)
@@ -1159,14 +1200,6 @@ uint64_t __52__SYLinkContextClient_createConnectionWithEndpoint___block_invoke(u
   return WeakRetained;
 }
 
-void __42__SYLinkContextClient__sendInitialMessage__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "LinkContextClient: Error creating remote service proxy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)createAndShowContextualLinkWithUserActivity:linkPreviewMetadata:preferNewDocument:completion:.cold.1()
 {
   OUTLINED_FUNCTION_0_1();
@@ -1181,14 +1214,6 @@ void __42__SYLinkContextClient__sendInitialMessage__block_invoke_cold_1()
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_1_2();
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
-}
-
-void __116__SYLinkContextClient_createAndShowContextualLinkWithUserActivity_linkPreviewMetadata_preferNewDocument_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "LinkContextClient: Request to create link failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequestToCreateLinkWithContentItemData:preferNewDocument:completion:.cold.1()
@@ -1224,13 +1249,10 @@ void __96__SYLinkContextClient__sendRequestToCreateLinkWithContentItemData_prefe
 
 void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___block_invoke_56_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a2 + 32) _connection];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processFetchLinkContextsRequestForUserActivity:serviceProxy:completion:.cold.1()
@@ -1259,66 +1281,49 @@ void __67__SYLinkContextClient_fetchLinkContextsForUserActivity_completion___blo
 
 - (void)_processFetchLinkContextsRequestForUserActivity:(int)a1 serviceProxy:(SEL)aSelector completion:.cold.4(int a1, SEL aSelector)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(aSelector);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __95__SYLinkContextClient__processFetchLinkContextsRequestForUserActivity_serviceProxy_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
-  v5 = 138412546;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "LinkContextClient: fetchLinkContexts FAILED for activity: %@, error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "LinkContextClient: fetchLinkContexts FAILED for activity: %@, error: %@", &v4, 0x16u);
 }
 
 - (void)_linkContextDictionariesFromDataArray:error:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_1();
   v1 = v0;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [a1 activityType];
   v5 = [a1 title];
   v6 = [a1 _linkContextInfo];
   v7 = [v6 allKeys];
-  v9 = 138413058;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v4;
-  v13 = 2112;
-  v14 = v5;
-  v15 = 2112;
-  v16 = v7;
-  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "LinkContextClient: link context info wasn't added or updated for userActivity: %@, type: %@, title: %@, contextInfo keys: %@", &v9, 0x2Au);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SYLinkContextClient_userWillAddLinkWithActivityData_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "LinkContextClient: error creating data for contentItem %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 138413058;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v4;
+  v12 = 2112;
+  v13 = v5;
+  v14 = 2112;
+  v15 = v7;
+  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "LinkContextClient: link context info wasn't added or updated for userActivity: %@, type: %@, title: %@, contextInfo keys: %@", &v8, 0x2Au);
 }
 
 - (void)insertImagesData:completion:.cold.1()

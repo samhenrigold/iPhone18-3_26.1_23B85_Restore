@@ -3,6 +3,7 @@
 - (_TtC21FindMyRemoteUIService23AirTagMapViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (id)mapView:(id)view viewForAnnotation:(id)annotation;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AirTagMapViewController
@@ -24,6 +25,25 @@
   sub_1000161D4();
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for AirTagMapViewController();
+  v4 = v8.receiver;
+  [(AirTagMapViewController *)&v8 viewDidAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC21FindMyRemoteUIService23AirTagMapViewController_mapAnnotation];
+  if (v5)
+  {
+    v6 = *&v4[OBJC_IVAR____TtC21FindMyRemoteUIService23AirTagMapViewController_mapView];
+    v7 = v5;
+    [v6 addAnnotation:{v7, v8.receiver, v8.super_class}];
+    [v6 selectAnnotation:v7 animated:appearCopy];
+
+    v4 = v7;
+  }
+}
+
 - (_TtC21FindMyRemoteUIService23AirTagMapViewController)initWithNibName:(id)name bundle:(id)bundle
 {
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -36,11 +56,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_10001656C(viewCopy);
+  v8 = sub_10001656C(viewCopy, annotation);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 @end

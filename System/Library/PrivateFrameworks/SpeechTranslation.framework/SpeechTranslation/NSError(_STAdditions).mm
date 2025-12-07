@@ -15,13 +15,11 @@
   v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SpeechTranslationErrorDomain" code:a3 userInfo:v5];
-  v7 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _LTOSLogSTMultiprocess(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(NSError(_STAdditions) *)v6 st_errorForCode:v7];
+    [(NSError(_STAdditions) *)v6 st_errorForCode:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -117,11 +115,10 @@ LABEL_23:
 
 + (void)st_errorForCode:()_STAdditions .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Generating error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Generating error: %@", &v2, 0xCu);
 }
 
 @end

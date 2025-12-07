@@ -26,10 +26,10 @@
 
 - (OSActivityLossEvent)initWithEntry:(os_activity_stream_entry_s *)entry
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = OSActivityLossEvent;
-  v4 = [(OSActivityLossEvent *)&v11 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = OSActivityLossEvent;
+  v4 = [(OSActivityLossEvent *)&v10 init];
   v5 = v4;
   if (v4)
   {
@@ -49,7 +49,6 @@
     [(OSActivityEvent *)v5 fillFromStreamEntry:entry eventMessage:__str persisted:1];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

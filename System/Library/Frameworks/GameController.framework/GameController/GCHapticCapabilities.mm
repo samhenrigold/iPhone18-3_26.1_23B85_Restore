@@ -45,7 +45,7 @@
 
 - (void)initializeHapticEngines
 {
-  v4 = getGCLogger();
+  v4 = getGCLogger(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *self = 0;
@@ -56,34 +56,34 @@
 
 - (void)removeHapticEngines
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_initialized)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = self->_hapticEngines;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v11 + 1) + 8 * v7++) stopWithCompletionHandler:{&__block_literal_global_10, v11}];
+          [*(*(&v10 + 1) + 8 * v7++) stopWithCompletionHandler:{&__block_literal_global_10, v10}];
         }
 
         while (v5 != v7);
-        v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -95,8 +95,6 @@
 
     self->_initialized = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setController:(id)controller
@@ -109,43 +107,44 @@
 - (GCHapticCapabilities)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = GCHapticCapabilities;
-  v5 = [(GCHapticCapabilities *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = GCHapticCapabilities;
+  v5 = [(GCHapticCapabilities *)&v28 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v9 = MEMORY[0x1E695DFD8];
-    v10 = objc_opt_class();
-    v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"hapticEnginesInfo"];
-    hapticEnginesInfo = v5->_hapticEnginesInfo;
-    v5->_hapticEnginesInfo = v12;
+    v10 = MEMORY[0x1E695DFD8];
+    v11 = objc_opt_class();
+    v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
+    v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"hapticEnginesInfo"];
+    hapticEnginesInfo = v6->_hapticEnginesInfo;
+    v6->_hapticEnginesInfo = v13;
 
-    v14 = MEMORY[0x1E695DFD8];
-    v15 = objc_opt_class();
+    v15 = MEMORY[0x1E695DFD8];
     v16 = objc_opt_class();
     v17 = objc_opt_class();
-    v18 = [v14 setWithObjects:{v15, v16, v17, objc_opt_class(), 0}];
-    v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"capabilityGraphDict"];
-    v20 = [[GCHapticCapabilityGraph alloc] initWithJSONDictionaryRepresentation:v19];
-    capabilityGraph = v5->_capabilityGraph;
-    v5->_capabilityGraph = v20;
+    v18 = objc_opt_class();
+    v19 = [v15 setWithObjects:{v16, v17, v18, objc_opt_class(), 0}];
+    v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"capabilityGraphDict"];
+    v21 = [[GCHapticCapabilityGraph alloc] initWithJSONDictionaryRepresentation:v20];
+    capabilityGraph = v6->_capabilityGraph;
+    v6->_capabilityGraph = v21;
 
-    v22 = [[GCDeviceHaptics alloc] initWithCapabilityGraph:v5->_capabilityGraph];
-    deviceHaptics = v5->_deviceHaptics;
-    v5->_deviceHaptics = v22;
+    v23 = [[GCDeviceHaptics alloc] initWithCapabilityGraph:v6->_capabilityGraph];
+    deviceHaptics = v6->_deviceHaptics;
+    v6->_deviceHaptics = v23;
 
     array = [MEMORY[0x1E695DEC8] array];
-    hapticEngines = v5->_hapticEngines;
-    v5->_hapticEngines = array;
+    hapticEngines = v6->_hapticEngines;
+    v6->_hapticEngines = array;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

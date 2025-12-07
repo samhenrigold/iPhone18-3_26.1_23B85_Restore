@@ -181,79 +181,75 @@
 
 - (void)setHostedIdioms:(id)idioms
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [idioms countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [idioms countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(idioms);
         }
 
-        [v5 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", -[TDDeviceTraits _idiomFromTraitString:](self, "_idiomFromTraitString:", *(*(&v11 + 1) + 8 * v9++)))}];
+        [v5 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", -[TDDeviceTraits _idiomFromTraitString:](self, "_idiomFromTraitString:", *(*(&v10 + 1) + 8 * v9++)))}];
       }
 
       while (v7 != v9);
-      v7 = [idioms countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [idioms countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(TDDeviceTraits *)self setHostedIdiomValues:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)hostedIdioms
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   hostedIdiomValues = [(TDDeviceTraits *)self hostedIdiomValues];
-  v5 = [(NSArray *)hostedIdiomValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSArray *)hostedIdiomValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(hostedIdiomValues);
         }
 
-        [v3 addObject:{-[TDDeviceTraits _idiomToTraitString:](self, "_idiomToTraitString:", objc_msgSend(*(*(&v11 + 1) + 8 * v8++), "integerValue"))}];
+        [v3 addObject:{-[TDDeviceTraits _idiomToTraitString:](self, "_idiomToTraitString:", objc_msgSend(*(*(&v10 + 1) + 8 * v8++), "integerValue"))}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)hostedIdiomValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSArray *)hostedIdiomValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = v3;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 - (id)_graphicsFeatureSetClassToTraitString:(int64_t)string
@@ -365,79 +361,75 @@
 
 - (void)setGraphicsFeatureSetFallbacks:(id)fallbacks
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [fallbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [fallbacks countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(fallbacks);
         }
 
-        [v5 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", -[TDDeviceTraits _graphicsFeatureSetClassFromTraitString:](self, "_graphicsFeatureSetClassFromTraitString:", *(*(&v11 + 1) + 8 * v9++)))}];
+        [v5 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", -[TDDeviceTraits _graphicsFeatureSetClassFromTraitString:](self, "_graphicsFeatureSetClassFromTraitString:", *(*(&v10 + 1) + 8 * v9++)))}];
       }
 
       while (v7 != v9);
-      v7 = [fallbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [fallbacks countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(TDDeviceTraits *)self setGraphicsFeatureSetFallbackValues:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)graphicsFeatureSetFallbacks
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   graphicsFeatureSetFallbackValues = [(TDDeviceTraits *)self graphicsFeatureSetFallbackValues];
-  v5 = [(NSArray *)graphicsFeatureSetFallbackValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSArray *)graphicsFeatureSetFallbackValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(graphicsFeatureSetFallbackValues);
         }
 
-        [v3 addObject:{-[TDDeviceTraits _graphicsFeatureSetClassToTraitString:](self, "_graphicsFeatureSetClassToTraitString:", objc_msgSend(*(*(&v11 + 1) + 8 * v8++), "integerValue"))}];
+        [v3 addObject:{-[TDDeviceTraits _graphicsFeatureSetClassToTraitString:](self, "_graphicsFeatureSetClassToTraitString:", objc_msgSend(*(*(&v10 + 1) + 8 * v8++), "integerValue"))}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)graphicsFeatureSetFallbackValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSArray *)graphicsFeatureSetFallbackValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = v3;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 - (id)_displayGamutToTraitString:(int64_t)string
@@ -555,19 +547,9 @@
     [(TDDeviceTraits *)self idiomValue];
   }
 
-  else
+  else if (self->_platform == -1)
   {
-    platform = self->_platform;
-    if (platform == -1)
-    {
-      [(TDDeviceTraits *)a2 _deploymentTargetFromTraitString:&self->_platform, &v9];
-      platform = v9;
-    }
-
-    if (platform <= 5)
-    {
-      v7 = dword_247A49310[platform];
-    }
+    [(TDDeviceTraits *)a2 _deploymentTargetFromTraitString:&self->_platform, &v7];
   }
 
   [string UTF8String];
@@ -693,7 +675,7 @@
   return v3;
 }
 
-- (uint64_t)_deploymentTargetFromTraitString:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3, void *a4)
+- (void)_deploymentTargetFromTraitString:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   result = [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
   *a4 = *a3;

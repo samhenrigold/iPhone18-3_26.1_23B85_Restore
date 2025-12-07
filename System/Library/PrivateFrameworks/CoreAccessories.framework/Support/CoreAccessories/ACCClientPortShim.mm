@@ -98,8 +98,6 @@
 {
   if (data && length)
   {
-    xpcConnection = self->_xpcConnection;
-    portUID = self->_portUID;
     delegate = self->_delegate;
 
     [ACCClientPortShimDelegate sendData:"sendData:length:forConnection:portUID:" length:? forConnection:? portUID:?];
@@ -107,38 +105,38 @@
 
   else
   {
-    v13 = v4;
-    v14 = v5;
+    v11 = v4;
+    v12 = v5;
     if (gLogObjects)
     {
-      v9 = gNumLogObjects < 7;
+      v7 = gNumLogObjects < 7;
     }
 
     else
     {
-      v9 = 1;
+      v7 = 1;
     }
 
-    if (v9)
+    if (v7)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v11 = &_os_log_default;
-      v10 = &_os_log_default;
+      v9 = &_os_log_default;
+      v8 = &_os_log_default;
     }
 
     else
     {
-      v11 = *(gLogObjects + 48);
+      v9 = *(gLogObjects + 48);
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ACCClientPortShim: ERROR: NULL transport data", v12, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ACCClientPortShim: ERROR: NULL transport data", v10, 2u);
     }
   }
 }

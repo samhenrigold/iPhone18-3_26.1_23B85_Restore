@@ -63,7 +63,7 @@
   v15 = rect.size.width;
   v16 = rect.origin.y;
   v17 = rect.origin.x;
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   CGContextSaveGState(context);
   mShadow = self->mShadow;
   if (!mShadow)
@@ -73,25 +73,25 @@
     *lengths = xmmword_26CA65510;
     CGContextSetLineWidth(context, 1.0);
     CGContextSetLineDash(context, 0.0, lengths, 2uLL);
-    v39.origin.x = x;
-    v39.origin.y = y;
-    v39.size.width = width;
-    v39.size.height = height;
-    CGContextStrokeRect(context, v39);
+    v41.origin.x = x;
+    v41.origin.y = y;
+    v41.size.width = width;
+    v41.size.height = height;
+    CGContextStrokeRect(context, v41);
     CGContextSetFillColorWithColor(context, v21);
-    v22 = [TSDBundle() localizedStringForKey:@"None" value:&stru_287D36338 table:@"TSDrawables"];
+    v24 = [TSDBundle(v22 v23)];
     UIGraphicsPushContext(context);
-    v23 = [MEMORY[0x277D74300] boldSystemFontOfSize:16.0];
-    v34 = *MEMORY[0x277D740A8];
-    v24 = v34;
-    v35 = v23;
-    [v22 sizeWithAttributes:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v35, &v34, 1)}];
-    *&v25 = (width - v25) * 0.5;
-    v26 = x + floorf(*&v25);
-    *&v25 = (height - v27) * 0.5;
-    v32 = v24;
-    v33 = v23;
-    [v22 drawAtPoint:objc_msgSend(MEMORY[0x277CBEAC0] withAttributes:{"dictionaryWithObjects:forKeys:count:", &v33, &v32, 1), v26, y + floorf(*&v25)}];
+    v25 = [MEMORY[0x277D74300] boldSystemFontOfSize:16.0];
+    v36 = *MEMORY[0x277D740A8];
+    v26 = v36;
+    v37 = v25;
+    [v24 sizeWithAttributes:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v37, &v36, 1)}];
+    *&v27 = (width - v27) * 0.5;
+    v28 = x + floorf(*&v27);
+    *&v27 = (height - v29) * 0.5;
+    v34 = v26;
+    v35 = v25;
+    [v24 drawAtPoint:objc_msgSend(MEMORY[0x277CBEAC0] withAttributes:{"dictionaryWithObjects:forKeys:count:", &v35, &v34, 1), v28, y + floorf(*&v27)}];
     UIGraphicsPopContext();
     goto LABEL_12;
   }
@@ -102,11 +102,11 @@
     newShadowClampedForSwatches = [TSUDynamicCast() newShadowClampedForSwatches];
     CGContextSaveGState(context);
     [(TSDShadowSwatch *)self p_drawContactShadowInContext:context inRect:newShadowClampedForSwatches forShadow:image forImage:v17 forSwatchRect:v16, v15, v14, x, y, width, height];
-    v38.origin.x = x;
-    v38.origin.y = y;
-    v38.size.width = width;
-    v38.size.height = height;
-    CGContextDrawImage(context, v38, image);
+    v40.origin.x = x;
+    v40.origin.y = y;
+    v40.size.width = width;
+    v40.size.height = height;
+    CGContextDrawImage(context, v40, image);
     CGContextRestoreGState(context);
     if (!image)
     {
@@ -126,40 +126,40 @@
 
 LABEL_11:
     CGContextSetFillColorWithColor(context, [objc_msgSend(MEMORY[0x277D6C2A8] "lightGrayColor")]);
-    v42.origin.x = x;
-    v42.origin.y = y;
-    v42.size.width = width;
-    v42.size.height = height;
-    CGContextFillRect(context, v42);
+    v44.origin.x = x;
+    v44.origin.y = y;
+    v44.size.width = width;
+    v44.size.height = height;
+    CGContextFillRect(context, v44);
     goto LABEL_12;
   }
 
   currentHandler = [MEMORY[0x277D6C290] currentHandler];
-  v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDShadowSwatch drawSwatchInRect:inContext:forImage:swatchRect:wantsStroke:]"];
-  [currentHandler handleFailureInFunction:v31 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDShadowSwatch.m"), 79, @"-drawSwatchInRect: Invalid shadow type"}];
+  v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDShadowSwatch drawSwatchInRect:inContext:forImage:swatchRect:wantsStroke:]"];
+  [currentHandler handleFailureInFunction:v33 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDShadowSwatch.m"), 79, @"-drawSwatchInRect: Invalid shadow type"}];
   if (!image)
   {
     goto LABEL_11;
   }
 
 LABEL_8:
-  v28 = x + 1.0;
-  v29 = y + 1.0;
+  v30 = x + 1.0;
+  v31 = y + 1.0;
   CGContextTranslateCTM(context, 0.0, v14);
   CGContextScaleCTM(context, 1.0, -1.0);
-  v40.origin.x = v28;
-  v40.origin.y = v29;
-  v40.size.width = width;
-  v40.size.height = height;
-  CGContextDrawImage(context, v40, image);
+  v42.origin.x = v30;
+  v42.origin.y = v31;
+  v42.size.width = width;
+  v42.size.height = height;
+  CGContextDrawImage(context, v42, image);
   if (strokeCopy)
   {
     CGContextSetStrokeColorWithColor(context, [objc_msgSend(MEMORY[0x277D6C2A8] colorWithWhite:0.0 alpha:{0.2), "CGColor"}]);
-    v41.origin.x = v28;
-    v41.origin.y = v29;
-    v41.size.width = width;
-    v41.size.height = height;
-    CGContextStrokeRectWithWidth(context, v41, 1.0);
+    v43.origin.x = v30;
+    v43.origin.y = v31;
+    v43.size.width = width;
+    v43.size.height = height;
+    CGContextStrokeRectWithWidth(context, v43, 1.0);
   }
 
 LABEL_12:
@@ -172,7 +172,7 @@ LABEL_12:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v10 = [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"TSD_ShadowSwatch" inBundle:{TSDBundle()), "CGImage"}];
+  v10 = [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"TSD_ShadowSwatch" inBundle:{TSDBundle(self, a2)), "CGImage"}];
   v14 = TSDCenterRectOverRect(0.0, 0.0, 50.0, 50.0, x, y, width, height);
 
   [(TSDShadowSwatch *)self drawSwatchInRect:context inContext:v10 forImage:1 swatchRect:x wantsStroke:y, width, height, v14, v11, v12, v13];

@@ -343,7 +343,7 @@ uint64_t __36__NWConcrete_nw_association_dealloc__block_invoke(uint64_t a1, uint
   v19 = "[NWConcrete_nw_association dealloc]_block_invoke";
   v20 = 2048;
   v21 = a2;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s Association failed to remove cache entry for node %p", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -468,8 +468,9 @@ void __35__NWConcrete_nw_connection_dealloc__block_invoke(uint64_t a1, uint64_t 
   }
 }
 
-const char *__42__NWConcrete_nw_listener_copyPeerDeviceID__block_invoke(uint64_t a1)
+char *__42__NWConcrete_nw_listener_copyPeerDeviceID__block_invoke(uint64_t a1)
 {
+  v9 = *MEMORY[0x1E69E9840];
   result = *(*(a1 + 32) + 232);
   if (result)
   {
@@ -477,17 +478,29 @@ const char *__42__NWConcrete_nw_listener_copyPeerDeviceID__block_invoke(uint64_t
     if (!result)
     {
       v3 = __nwlog_obj();
-      os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
-      v4 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      {
+        v4 = 3;
+      }
 
-      result = __nwlog_should_abort(v4);
+      else
+      {
+        v4 = 2;
+      }
+
+      v7 = 136446210;
+      v8 = "strict_strdup";
+      v6 = 12;
+      v5 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s strdup() failed", &v7, v6);
+
+      result = __nwlog_should_abort(v5);
       if (result)
       {
         __break(1u);
         return result;
       }
 
-      free(v4);
+      free(v5);
       result = 0;
     }
 
@@ -528,7 +541,7 @@ uint64_t __58__NWConcrete_nw_ethernet_channel_updateClientState_error___block_in
 
 void __47__NWConcrete_nw_ethernet_channel_createChannel__block_invoke(uint64_t a1)
 {
-  v170 = *MEMORY[0x1E69E9840];
+  v169 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2 && *(v2 + 152))
   {
@@ -549,11 +562,11 @@ void __47__NWConcrete_nw_ethernet_channel_createChannel__block_invoke(uint64_t a
     *&buf[12] = 2080;
     *&buf[14] = v5;
     *&buf[22] = 1042;
-    LODWORD(v162) = 16;
-    WORD2(v162) = 2098;
-    *(&v162 + 6) = v6;
-    HIWORD(v162) = 1024;
-    *v163 = v4;
+    LODWORD(v161) = 16;
+    WORD2(v161) = 2098;
+    *(&v161 + 6) = v6;
+    HIWORD(v161) = 1024;
+    *v162 = v4;
     v7 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] INPUT SOURCE: READ EVENT";
     v8 = v3;
     v9 = 44;
@@ -593,73 +606,73 @@ LABEL_8:
       goto LABEL_11;
     }
 
-    v63 = __nwlog_obj();
+    v62 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "receiveFramesfromRings";
-    v64 = _os_log_send_and_compose_impl();
+    v63 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v62, 16, "%{public}s called with null ethernet_channel", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(block[0]) = 0;
-    if (__nwlog_fault(v64, type, block))
+    if (__nwlog_fault(v63, type, block))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
-        v65 = __nwlog_obj();
-        v66 = type[0];
-        if (os_log_type_enabled(v65, type[0]))
+        v64 = __nwlog_obj();
+        v65 = type[0];
+        if (os_log_type_enabled(v64, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "receiveFramesfromRings";
-          _os_log_impl(&dword_181A37000, v65, v66, "%{public}s called with null ethernet_channel", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v64, v65, "%{public}s called with null ethernet_channel", buf, 0xCu);
         }
       }
 
       else if (LOBYTE(block[0]) == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v65 = __nwlog_obj();
-        v68 = type[0];
-        v69 = os_log_type_enabled(v65, type[0]);
+        v64 = __nwlog_obj();
+        v67 = type[0];
+        v68 = os_log_type_enabled(v64, type[0]);
         if (backtrace_string)
         {
-          if (v69)
+          if (v68)
           {
             *buf = 136446466;
             *&buf[4] = "receiveFramesfromRings";
             *&buf[12] = 2082;
             *&buf[14] = backtrace_string;
-            _os_log_impl(&dword_181A37000, v65, v68, "%{public}s called with null ethernet_channel, dumping backtrace:%{public}s", buf, 0x16u);
+            _os_log_impl(&dword_181A37000, v64, v67, "%{public}s called with null ethernet_channel, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
           goto LABEL_90;
         }
 
-        if (v69)
+        if (v68)
         {
           *buf = 136446210;
           *&buf[4] = "receiveFramesfromRings";
-          _os_log_impl(&dword_181A37000, v65, v68, "%{public}s called with null ethernet_channel, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v64, v67, "%{public}s called with null ethernet_channel, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v65 = __nwlog_obj();
-        v70 = type[0];
-        if (os_log_type_enabled(v65, type[0]))
+        v64 = __nwlog_obj();
+        v69 = type[0];
+        if (os_log_type_enabled(v64, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "receiveFramesfromRings";
-          _os_log_impl(&dword_181A37000, v65, v70, "%{public}s called with null ethernet_channel, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v64, v69, "%{public}s called with null ethernet_channel, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
 LABEL_90:
-    if (v64)
+    if (v63)
     {
-      free(v64);
+      free(v63);
     }
 
     goto LABEL_66;
@@ -691,13 +704,13 @@ LABEL_11:
       *&buf[12] = 2080;
       *&buf[14] = v17;
       *&buf[22] = 1042;
-      LODWORD(v162) = 16;
-      WORD2(v162) = 2098;
-      *(&v162 + 6) = v12 + 115;
-      HIWORD(v162) = 1024;
-      *v163 = v18;
-      *&v163[4] = 1024;
-      *&v163[6] = v13;
+      LODWORD(v161) = 16;
+      WORD2(v161) = 2098;
+      *(&v161 + 6) = v12 + 115;
+      HIWORD(v161) = 1024;
+      *v162 = v18;
+      *&v162[4] = 1024;
+      *&v162[6] = v13;
       v19 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] receiveDatafromRing: avail slots %u";
       v20 = v15;
       v21 = 50;
@@ -713,68 +726,68 @@ LABEL_21:
     *&buf[12] = 2114;
     *&buf[14] = v12;
     *&buf[22] = 1024;
-    LODWORD(v162) = v13;
+    LODWORD(v161) = v13;
     v19 = "%{public}s [%{public}@] receiveDatafromRing: avail slots %u";
     v20 = v15;
     v21 = 28;
     goto LABEL_21;
   }
 
-  v23 = v12 + 115;
-  v24 = &v162 + 8;
-  v25 = v152;
-  v26 = 1;
+  v22 = v12 + 115;
+  v23 = &v161 + 8;
+  v24 = v151;
+  v25 = 1;
   while (1)
   {
-    if (!v26)
+    if (!v25)
     {
       goto LABEL_65;
     }
 
+    v146 = v23;
     v147 = v24;
-    v148 = v25;
-    v149 = v23;
-    v150 = v12;
-    v159 = 0u;
-    v160 = 0u;
-    *type = 0u;
+    v148 = v22;
+    v149 = v12;
     v158 = 0u;
+    v159 = 0u;
+    *type = 0u;
+    v157 = 0u;
     if (!os_channel_get_next_slot())
     {
-      v52 = *(v12 + 19);
+      v51 = *(v12 + 19);
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v53 = gLogObj;
-      v54 = os_log_type_enabled(v53, OS_LOG_TYPE_ERROR);
-      if (v52)
+      v52 = gLogObj;
+      v53 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
+      if (v51)
       {
-        if (!v54)
+        if (!v53)
         {
           goto LABEL_60;
         }
 
-        v55 = *(v12 + 3);
-        v56 = *(v12 + 42);
+        v54 = *(v12 + 3);
+        v55 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v55;
+        *&buf[14] = v54;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v56;
-        *&v163[4] = 2112;
-        *&v163[6] = @"NULL RX next slot";
-        v57 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v58 = v53;
-        v59 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v55;
+        *&v162[4] = 2112;
+        *&v162[6] = @"NULL RX next slot";
+        v56 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v57 = v52;
+        v58 = 54;
       }
 
       else
       {
-        if (!v54)
+        if (!v53)
         {
           goto LABEL_60;
         }
@@ -784,16 +797,16 @@ LABEL_21:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"NULL RX next slot";
-        v57 = "%{public}s [%{public}@]  %@";
-        v58 = v53;
-        v59 = 32;
+        *&v161 = @"NULL RX next slot";
+        v56 = "%{public}s [%{public}@]  %@";
+        v57 = v52;
+        v58 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v58, OS_LOG_TYPE_ERROR, v57, buf, v59);
+      _os_log_impl(&dword_181A37000, v57, OS_LOG_TYPE_ERROR, v56, buf, v58);
 LABEL_60:
 
-      v60 = v150;
+      v59 = v149;
       if (!*(v12 + 19))
       {
         goto LABEL_64;
@@ -804,40 +817,40 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    if (!v158)
+    if (!v157)
     {
-      v71 = *(v12 + 19);
-      v72 = __nwlog_obj();
-      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
-      if (v71)
+      v70 = *(v12 + 19);
+      v71 = __nwlog_obj();
+      v72 = os_log_type_enabled(v71, OS_LOG_TYPE_ERROR);
+      if (v70)
       {
-        if (!v73)
+        if (!v72)
         {
           goto LABEL_95;
         }
 
-        v74 = *(v12 + 3);
-        v75 = *(v12 + 42);
+        v73 = *(v12 + 3);
+        v74 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v74;
+        *&buf[14] = v73;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v75;
-        *&v163[4] = 2112;
-        *&v163[6] = @"NULL RX prop buf";
-        v76 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v77 = v72;
-        v78 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v74;
+        *&v162[4] = 2112;
+        *&v162[6] = @"NULL RX prop buf";
+        v75 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v76 = v71;
+        v77 = 54;
       }
 
       else
       {
-        if (!v73)
+        if (!v72)
         {
           goto LABEL_95;
         }
@@ -847,16 +860,16 @@ LABEL_61:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"NULL RX prop buf";
-        v76 = "%{public}s [%{public}@]  %@";
-        v77 = v72;
-        v78 = 32;
+        *&v161 = @"NULL RX prop buf";
+        v75 = "%{public}s [%{public}@]  %@";
+        v76 = v71;
+        v77 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v77, OS_LOG_TYPE_ERROR, v76, buf, v78);
+      _os_log_impl(&dword_181A37000, v76, OS_LOG_TYPE_ERROR, v75, buf, v77);
 LABEL_95:
 
-      v60 = v150;
+      v59 = v149;
       if (!*(v12 + 19))
       {
         goto LABEL_64;
@@ -867,38 +880,38 @@ LABEL_95:
 
     if (!os_channel_slot_get_packet())
     {
-      v79 = *(v12 + 19);
-      v80 = __nwlog_obj();
-      v81 = os_log_type_enabled(v80, OS_LOG_TYPE_ERROR);
-      if (v79)
+      v78 = *(v12 + 19);
+      v79 = __nwlog_obj();
+      v80 = os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
+      if (v78)
       {
-        if (!v81)
+        if (!v80)
         {
           goto LABEL_103;
         }
 
-        v82 = *(v12 + 3);
-        v83 = *(v12 + 42);
+        v81 = *(v12 + 3);
+        v82 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v82;
+        *&buf[14] = v81;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v83;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Bad RX pkt";
-        v84 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v85 = v80;
-        v86 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v82;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Bad RX pkt";
+        v83 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v84 = v79;
+        v85 = 54;
       }
 
       else
       {
-        if (!v81)
+        if (!v80)
         {
           goto LABEL_103;
         }
@@ -908,16 +921,16 @@ LABEL_95:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Bad RX pkt";
-        v84 = "%{public}s [%{public}@]  %@";
-        v85 = v80;
-        v86 = 32;
+        *&v161 = @"Bad RX pkt";
+        v83 = "%{public}s [%{public}@]  %@";
+        v84 = v79;
+        v85 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v85, OS_LOG_TYPE_ERROR, v84, buf, v86);
+      _os_log_impl(&dword_181A37000, v84, OS_LOG_TYPE_ERROR, v83, buf, v85);
 LABEL_103:
 
-      v60 = v150;
+      v59 = v149;
       if (!*(v12 + 19))
       {
         goto LABEL_64;
@@ -928,38 +941,38 @@ LABEL_103:
 
     if (os_channel_slot_detach_packet())
     {
-      v87 = *(v12 + 19);
-      v88 = __nwlog_obj();
-      v89 = os_log_type_enabled(v88, OS_LOG_TYPE_ERROR);
-      if (v87)
+      v86 = *(v12 + 19);
+      v87 = __nwlog_obj();
+      v88 = os_log_type_enabled(v87, OS_LOG_TYPE_ERROR);
+      if (v86)
       {
-        if (!v89)
+        if (!v88)
         {
           goto LABEL_130;
         }
 
-        v90 = *(v12 + 3);
-        v91 = *(v12 + 42);
+        v89 = *(v12 + 3);
+        v90 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v90;
+        *&buf[14] = v89;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v91;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Bad RX detach";
-        v92 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v93 = v88;
-        v94 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v90;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Bad RX detach";
+        v91 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v92 = v87;
+        v93 = 54;
       }
 
       else
       {
-        if (!v89)
+        if (!v88)
         {
           goto LABEL_130;
         }
@@ -969,16 +982,16 @@ LABEL_103:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Bad RX detach";
-        v92 = "%{public}s [%{public}@]  %@";
-        v93 = v88;
-        v94 = 32;
+        *&v161 = @"Bad RX detach";
+        v91 = "%{public}s [%{public}@]  %@";
+        v92 = v87;
+        v93 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v93, OS_LOG_TYPE_ERROR, v92, buf, v94);
+      _os_log_impl(&dword_181A37000, v92, OS_LOG_TYPE_ERROR, v91, buf, v93);
 LABEL_130:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -989,38 +1002,38 @@ LABEL_130:
 
     if (!os_packet_get_next_buflet())
     {
-      v102 = *(v12 + 19);
-      v103 = __nwlog_obj();
-      v104 = os_log_type_enabled(v103, OS_LOG_TYPE_ERROR);
-      if (v102)
+      v101 = *(v12 + 19);
+      v102 = __nwlog_obj();
+      v103 = os_log_type_enabled(v102, OS_LOG_TYPE_ERROR);
+      if (v101)
       {
-        if (!v104)
+        if (!v103)
         {
           goto LABEL_140;
         }
 
-        v105 = *(v12 + 3);
-        v106 = *(v12 + 42);
+        v104 = *(v12 + 3);
+        v105 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v105;
+        *&buf[14] = v104;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v106;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Bad RX buflet";
-        v107 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v108 = v103;
-        v109 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v105;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Bad RX buflet";
+        v106 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v107 = v102;
+        v108 = 54;
       }
 
       else
       {
-        if (!v104)
+        if (!v103)
         {
           goto LABEL_140;
         }
@@ -1030,16 +1043,16 @@ LABEL_130:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Bad RX buflet";
-        v107 = "%{public}s [%{public}@]  %@";
-        v108 = v103;
-        v109 = 32;
+        *&v161 = @"Bad RX buflet";
+        v106 = "%{public}s [%{public}@]  %@";
+        v107 = v102;
+        v108 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v108, OS_LOG_TYPE_ERROR, v107, buf, v109);
+      _os_log_impl(&dword_181A37000, v107, OS_LOG_TYPE_ERROR, v106, buf, v108);
 LABEL_140:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -1052,38 +1065,38 @@ LABEL_140:
     object_address = os_buflet_get_object_address();
     if (!object_address)
     {
-      v110 = *(v12 + 19);
-      v111 = __nwlog_obj();
-      v112 = os_log_type_enabled(v111, OS_LOG_TYPE_ERROR);
-      if (v110)
+      v109 = *(v12 + 19);
+      v110 = __nwlog_obj();
+      v111 = os_log_type_enabled(v110, OS_LOG_TYPE_ERROR);
+      if (v109)
       {
-        if (!v112)
+        if (!v111)
         {
           goto LABEL_145;
         }
 
-        v113 = *(v12 + 3);
-        v114 = *(v12 + 42);
+        v112 = *(v12 + 3);
+        v113 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v113;
+        *&buf[14] = v112;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v114;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Bad RX address";
-        v115 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v116 = v111;
-        v117 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v113;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Bad RX address";
+        v114 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v115 = v110;
+        v116 = 54;
       }
 
       else
       {
-        if (!v112)
+        if (!v111)
         {
           goto LABEL_145;
         }
@@ -1093,16 +1106,16 @@ LABEL_140:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Bad RX address";
-        v115 = "%{public}s [%{public}@]  %@";
-        v116 = v111;
-        v117 = 32;
+        *&v161 = @"Bad RX address";
+        v114 = "%{public}s [%{public}@]  %@";
+        v115 = v110;
+        v116 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v116, OS_LOG_TYPE_ERROR, v115, buf, v117);
+      _os_log_impl(&dword_181A37000, v115, OS_LOG_TYPE_ERROR, v114, buf, v116);
 LABEL_145:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -1114,38 +1127,38 @@ LABEL_145:
     size = os_packet_get_data_length();
     if (!size)
     {
-      v118 = *(v12 + 19);
-      v119 = __nwlog_obj();
-      v120 = os_log_type_enabled(v119, OS_LOG_TYPE_ERROR);
-      if (v118)
+      v117 = *(v12 + 19);
+      v118 = __nwlog_obj();
+      v119 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
+      if (v117)
       {
-        if (!v120)
+        if (!v119)
         {
           goto LABEL_150;
         }
 
-        v121 = *(v12 + 3);
-        v122 = *(v12 + 42);
+        v120 = *(v12 + 3);
+        v121 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v121;
+        *&buf[14] = v120;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v122;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Bad RX frame length";
-        v123 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v124 = v119;
-        v125 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v121;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Bad RX frame length";
+        v122 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v123 = v118;
+        v124 = 54;
       }
 
       else
       {
-        if (!v120)
+        if (!v119)
         {
           goto LABEL_150;
         }
@@ -1155,16 +1168,16 @@ LABEL_145:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Bad RX frame length";
-        v123 = "%{public}s [%{public}@]  %@";
-        v124 = v119;
-        v125 = 32;
+        *&v161 = @"Bad RX frame length";
+        v122 = "%{public}s [%{public}@]  %@";
+        v123 = v118;
+        v124 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v124, OS_LOG_TYPE_ERROR, v123, buf, v125);
+      _os_log_impl(&dword_181A37000, v123, OS_LOG_TYPE_ERROR, v122, buf, v124);
 LABEL_150:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -1173,41 +1186,41 @@ LABEL_150:
       goto LABEL_64;
     }
 
-    v27 = os_channel_advance_slot();
-    v28 = *(v12 + 19);
-    if (v27)
+    v26 = os_channel_advance_slot();
+    v27 = *(v12 + 19);
+    if (v26)
     {
-      v95 = __nwlog_obj();
-      v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
-      if (v28)
+      v94 = __nwlog_obj();
+      v95 = os_log_type_enabled(v94, OS_LOG_TYPE_ERROR);
+      if (v27)
       {
-        if (!v96)
+        if (!v95)
         {
           goto LABEL_135;
         }
 
-        v97 = *(v12 + 3);
-        v98 = *(v12 + 42);
+        v96 = *(v12 + 3);
+        v97 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v97;
+        *&buf[14] = v96;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v98;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Failed to advance RX slot";
-        v99 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v100 = v95;
-        v101 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v97;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Failed to advance RX slot";
+        v98 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v99 = v94;
+        v100 = 54;
       }
 
       else
       {
-        if (!v96)
+        if (!v95)
         {
           goto LABEL_135;
         }
@@ -1217,16 +1230,16 @@ LABEL_150:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Failed to advance RX slot";
-        v99 = "%{public}s [%{public}@]  %@";
-        v100 = v95;
-        v101 = 32;
+        *&v161 = @"Failed to advance RX slot";
+        v98 = "%{public}s [%{public}@]  %@";
+        v99 = v94;
+        v100 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v100, OS_LOG_TYPE_ERROR, v99, buf, v101);
+      _os_log_impl(&dword_181A37000, v99, OS_LOG_TYPE_ERROR, v98, buf, v100);
 LABEL_135:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -1235,41 +1248,41 @@ LABEL_135:
       goto LABEL_64;
     }
 
-    v29 = os_channel_sync();
-    v30 = *(v12 + 19);
+    v28 = os_channel_sync();
+    v29 = *(v12 + 19);
     oslog = __nwlog_obj();
-    if (v29)
+    if (v28)
     {
-      v126 = os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR);
-      if (v30)
+      v125 = os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR);
+      if (v29)
       {
-        if (!v126)
+        if (!v125)
         {
           goto LABEL_155;
         }
 
-        v127 = *(v12 + 3);
-        v128 = *(v12 + 42);
+        v126 = *(v12 + 3);
+        v127 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v127;
+        *&buf[14] = v126;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v128;
-        *&v163[4] = 2112;
-        *&v163[6] = @"Failed to sync RX";
-        v129 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v130 = oslog;
-        v131 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v127;
+        *&v162[4] = 2112;
+        *&v162[6] = @"Failed to sync RX";
+        v128 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v129 = oslog;
+        v130 = 54;
       }
 
       else
       {
-        if (!v126)
+        if (!v125)
         {
           goto LABEL_155;
         }
@@ -1279,16 +1292,16 @@ LABEL_135:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"Failed to sync RX";
-        v129 = "%{public}s [%{public}@]  %@";
-        v130 = oslog;
-        v131 = 32;
+        *&v161 = @"Failed to sync RX";
+        v128 = "%{public}s [%{public}@]  %@";
+        v129 = oslog;
+        v130 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v130, OS_LOG_TYPE_ERROR, v129, buf, v131);
+      _os_log_impl(&dword_181A37000, v129, OS_LOG_TYPE_ERROR, v128, buf, v130);
 LABEL_155:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
         goto LABEL_161;
@@ -1297,36 +1310,36 @@ LABEL_155:
       goto LABEL_64;
     }
 
-    v31 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG);
-    if (v30)
+    v30 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG);
+    if (v29)
     {
-      if (!v31)
+      if (!v30)
       {
         goto LABEL_39;
       }
 
-      v32 = *(v12 + 3);
-      v33 = *(v12 + 42);
+      v31 = *(v12 + 3);
+      v32 = *(v12 + 42);
       *buf = 136447490;
       *&buf[4] = "receiveOneFramefromRing_locked";
       *&buf[12] = 2080;
-      *&buf[14] = v32;
+      *&buf[14] = v31;
       *&buf[22] = 1042;
-      LODWORD(v162) = 16;
-      WORD2(v162) = 2098;
-      *(&v162 + 6) = v149;
-      HIWORD(v162) = 1024;
-      *v163 = v33;
-      *&v163[4] = 1024;
-      *&v163[6] = size;
-      v34 = oslog;
-      v35 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] receiveDatafromRing: frame len %d";
-      v36 = 50;
+      LODWORD(v161) = 16;
+      WORD2(v161) = 2098;
+      *(&v161 + 6) = v148;
+      HIWORD(v161) = 1024;
+      *v162 = v32;
+      *&v162[4] = 1024;
+      *&v162[6] = size;
+      v33 = oslog;
+      v34 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] receiveDatafromRing: frame len %d";
+      v35 = 50;
     }
 
     else
     {
-      if (!v31)
+      if (!v30)
       {
         goto LABEL_39;
       }
@@ -1336,49 +1349,49 @@ LABEL_155:
       *&buf[12] = 2114;
       *&buf[14] = v12;
       *&buf[22] = 1024;
-      LODWORD(v162) = size;
-      v34 = oslog;
-      v35 = "%{public}s [%{public}@] receiveDatafromRing: frame len %d";
-      v36 = 28;
+      LODWORD(v161) = size;
+      v33 = oslog;
+      v34 = "%{public}s [%{public}@] receiveDatafromRing: frame len %d";
+      v35 = 28;
     }
 
-    _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_DEBUG, v35, buf, v36);
+    _os_log_impl(&dword_181A37000, v33, OS_LOG_TYPE_DEBUG, v34, buf, v35);
 LABEL_39:
 
     if ((size - 1519) <= 0xFFFFFA4C)
     {
-      v132 = *(v12 + 19);
-      v133 = __nwlog_obj();
-      v134 = os_log_type_enabled(v133, OS_LOG_TYPE_ERROR);
-      if (v132)
+      v131 = *(v12 + 19);
+      v132 = __nwlog_obj();
+      v133 = os_log_type_enabled(v132, OS_LOG_TYPE_ERROR);
+      if (v131)
       {
-        if (!v134)
+        if (!v133)
         {
           goto LABEL_160;
         }
 
-        v135 = *(v12 + 3);
-        v136 = *(v12 + 42);
+        v134 = *(v12 + 3);
+        v135 = *(v12 + 42);
         *buf = 136447490;
         *&buf[4] = "receiveOneFramefromRing_locked";
         *&buf[12] = 2080;
-        *&buf[14] = v135;
+        *&buf[14] = v134;
         *&buf[22] = 1042;
-        LODWORD(v162) = 16;
-        WORD2(v162) = 2098;
-        *(&v162 + 6) = v149;
-        HIWORD(v162) = 1024;
-        *v163 = v136;
-        *&v163[4] = 2112;
-        *&v163[6] = @"frame size len is invalid";
-        v137 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
-        v138 = v133;
-        v139 = 54;
+        LODWORD(v161) = 16;
+        WORD2(v161) = 2098;
+        *(&v161 + 6) = v148;
+        HIWORD(v161) = 1024;
+        *v162 = v135;
+        *&v162[4] = 2112;
+        *&v162[6] = @"frame size len is invalid";
+        v136 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>]  %@";
+        v137 = v132;
+        v138 = 54;
       }
 
       else
       {
-        if (!v134)
+        if (!v133)
         {
           goto LABEL_160;
         }
@@ -1388,16 +1401,16 @@ LABEL_39:
         *&buf[12] = 2114;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        *&v162 = @"frame size len is invalid";
-        v137 = "%{public}s [%{public}@]  %@";
-        v138 = v133;
-        v139 = 32;
+        *&v161 = @"frame size len is invalid";
+        v136 = "%{public}s [%{public}@]  %@";
+        v137 = v132;
+        v138 = 32;
       }
 
-      _os_log_impl(&dword_181A37000, v138, OS_LOG_TYPE_ERROR, v137, buf, v139);
+      _os_log_impl(&dword_181A37000, v137, OS_LOG_TYPE_ERROR, v136, buf, v138);
 LABEL_160:
 
-      v60 = v150;
+      v59 = v149;
       if (*(v12 + 19))
       {
 LABEL_161:
@@ -1406,7 +1419,7 @@ LABEL_161:
 LABEL_62:
         if (is_defunct)
         {
-          [(NWConcrete_nw_ethernet_channel *)v60 closeChannel:?];
+          [(NWConcrete_nw_ethernet_channel *)v59 closeChannel:?];
         }
       }
 
@@ -1416,73 +1429,73 @@ LABEL_64:
     }
 
     sizea = (size - 14);
-    v37 = object_address + data_offset;
-    v38 = *(v37 + 12);
-    if (v38 == 129)
+    v36 = object_address + data_offset;
+    v37 = *(v36 + 12);
+    if (v37 == 129)
     {
-      osloga = bswap32(*(v37 + 14)) >> 16;
-      v142 = bswap32(*(v37 + 16)) >> 16;
-      v39 = (v37 + 18);
+      osloga = bswap32(*(v36 + 14)) >> 16;
+      v141 = bswap32(*(v36 + 16)) >> 16;
+      v38 = (v36 + 18);
       sizea -= 4;
     }
 
     else
     {
       osloga = 0;
-      v39 = (v37 + 14);
-      v142 = __rev16(v38);
+      v38 = (v36 + 14);
+      v141 = __rev16(v37);
     }
 
-    v40 = dispatch_data_create(v39, sizea, 0, 0);
-    v41 = *(v12 + 19);
-    if (!v40)
+    v39 = dispatch_data_create(v38, sizea, 0, 0);
+    v40 = *(v12 + 19);
+    if (!v39)
     {
       goto LABEL_53;
     }
 
-    v42 = __nwlog_obj();
-    v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG);
-    if (v41)
+    v41 = __nwlog_obj();
+    v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG);
+    if (v40)
     {
-      if (!v43)
+      if (!v42)
       {
         goto LABEL_50;
       }
 
-      v44 = *(v12 + 3);
-      v45 = *(v12 + 42);
+      v43 = *(v12 + 3);
+      v44 = *(v12 + 42);
       *buf = 136449026;
       *&buf[4] = "receiveOneFramefromRing_locked";
       *&buf[12] = 2080;
-      *&buf[14] = v44;
+      *&buf[14] = v43;
       *&buf[22] = 1042;
-      LODWORD(v162) = 16;
-      WORD2(v162) = 2098;
-      *(&v162 + 6) = v149;
-      HIWORD(v162) = 1024;
-      *v163 = v45;
-      *&v163[4] = 1024;
-      *&v163[6] = v142;
-      *&v163[10] = 1024;
-      *&v163[12] = osloga;
-      *&v163[16] = 1042;
-      *&v163[18] = 6;
-      *&v163[22] = 2098;
-      *&v163[24] = v37;
-      v164 = 1042;
-      v165 = 6;
-      v166 = 2098;
-      v167 = v37 + 6;
-      v168 = 1024;
-      v169 = sizea;
-      v46 = v42;
-      v47 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] receiveDatafromRing: ethertype %X vlantag %X local %{public,nw_ethernet_address_t}.6P remote %{public,nw_ethernet_address_t}.6P data size %d";
-      v48 = 94;
+      LODWORD(v161) = 16;
+      WORD2(v161) = 2098;
+      *(&v161 + 6) = v148;
+      HIWORD(v161) = 1024;
+      *v162 = v44;
+      *&v162[4] = 1024;
+      *&v162[6] = v141;
+      *&v162[10] = 1024;
+      *&v162[12] = osloga;
+      *&v162[16] = 1042;
+      *&v162[18] = 6;
+      *&v162[22] = 2098;
+      *&v162[24] = v36;
+      v163 = 1042;
+      v164 = 6;
+      v165 = 2098;
+      v166 = v36 + 6;
+      v167 = 1024;
+      v168 = sizea;
+      v45 = v41;
+      v46 = "%{public}s [%s: nexus instance %{public,uuid_t}.16P <fd %d>] receiveDatafromRing: ethertype %X vlantag %X local %{public,nw_ethernet_address_t}.6P remote %{public,nw_ethernet_address_t}.6P data size %d";
+      v47 = 94;
     }
 
     else
     {
-      if (!v43)
+      if (!v42)
       {
         goto LABEL_50;
       }
@@ -1492,49 +1505,49 @@ LABEL_64:
       *&buf[12] = 2114;
       *&buf[14] = v12;
       *&buf[22] = 1024;
-      LODWORD(v162) = v142;
-      WORD2(v162) = 1024;
-      *(&v162 + 6) = osloga;
-      WORD5(v162) = 1042;
-      HIDWORD(v162) = 6;
-      *v163 = 2098;
-      *&v163[2] = v37;
-      *&v163[10] = 1042;
-      *&v163[12] = 6;
-      *&v163[16] = 2098;
-      *&v163[18] = v37 + 6;
-      *&v163[26] = 1024;
-      *&v163[28] = sizea;
-      v46 = v42;
-      v47 = "%{public}s [%{public}@] receiveDatafromRing: ethertype %X vlantag %X local %{public,nw_ethernet_address_t}.6P remote %{public,nw_ethernet_address_t}.6P data size %d";
-      v48 = 72;
+      LODWORD(v161) = v141;
+      WORD2(v161) = 1024;
+      *(&v161 + 6) = osloga;
+      WORD5(v161) = 1042;
+      HIDWORD(v161) = 6;
+      *v162 = 2098;
+      *&v162[2] = v36;
+      *&v162[10] = 1042;
+      *&v162[12] = 6;
+      *&v162[16] = 2098;
+      *&v162[18] = v36 + 6;
+      *&v162[26] = 1024;
+      *&v162[28] = sizea;
+      v45 = v41;
+      v46 = "%{public}s [%{public}@] receiveDatafromRing: ethertype %X vlantag %X local %{public,nw_ethernet_address_t}.6P remote %{public,nw_ethernet_address_t}.6P data size %d";
+      v47 = 72;
     }
 
-    _os_log_impl(&dword_181A37000, v46, OS_LOG_TYPE_DEBUG, v47, buf, v48);
+    _os_log_impl(&dword_181A37000, v45, OS_LOG_TYPE_DEBUG, v46, buf, v47);
 LABEL_50:
 
-    v49 = *(v12 + 5);
-    if (v49)
+    v48 = *(v12 + 5);
+    if (v48)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x4012000000;
-      *&v162 = __Block_byref_object_copy__138;
-      *(&v162 + 1) = __Block_byref_object_dispose__139;
-      *v163 = &unk_182E7191A;
-      v50 = *v37;
-      *&v163[14] = *(v37 + 6);
-      *&v163[8] = v50;
+      *&v161 = __Block_byref_object_copy__138;
+      *(&v161 + 1) = __Block_byref_object_dispose__139;
+      *v162 = &unk_182E7191A;
+      v49 = *v36;
+      *&v162[14] = *(v36 + 6);
+      *&v162[8] = v49;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
-      v152[0] = ___ZL30receiveOneFramefromRing_lockedP30NWConcrete_nw_ethernet_channel_block_invoke;
-      v152[1] = &unk_1E6A2BC38;
-      v153 = v150;
-      v51 = v40;
-      v156 = osloga;
-      v154 = v51;
-      v155 = buf;
-      dispatch_async(v49, block);
+      v151[0] = ___ZL30receiveOneFramefromRing_lockedP30NWConcrete_nw_ethernet_channel_block_invoke;
+      v151[1] = &unk_1E6A2BC38;
+      v152 = v149;
+      v50 = v39;
+      v155 = osloga;
+      v153 = v50;
+      v154 = buf;
+      dispatch_async(v48, block);
 
       _Block_object_dispose(buf, 8);
       goto LABEL_53;
@@ -1551,27 +1564,27 @@ LABEL_50:
 LABEL_53:
     os_channel_packet_free();
 
-    v26 = os_channel_available_slot_count();
-    v23 = v149;
+    v25 = os_channel_available_slot_count();
+    v22 = v148;
+    v23 = v146;
     v24 = v147;
-    v25 = v148;
   }
 
 LABEL_65:
   os_unfair_lock_unlock(v12 + 2);
 
 LABEL_66:
-  v62 = *(a1 + 32);
-  if (*(v62 + 112) == 1)
+  v61 = *(a1 + 32);
+  if (*(v61 + 112) == 1)
   {
-    *(v62 + 112) = 0;
-    nw_queue_resume_source(*(*(a1 + 32) + 104), v22);
-    v62 = *(a1 + 32);
+    *(v61 + 112) = 0;
+    nw_queue_resume_source(*(*(a1 + 32) + 104));
+    v61 = *(a1 + 32);
   }
 
-  if (*(v62 + 114) == 1)
+  if (*(v61 + 114) == 1)
   {
-    nw_ethernet_channel_cancel(v62);
+    nw_ethernet_channel_cancel(v61);
   }
 }
 
@@ -1657,7 +1670,7 @@ uint64_t __42__NWConcrete_nw_protocol_instance_destroy__block_invoke_57(uint64_t
   v30 = v5;
   v31 = 2048;
   v32 = v6;
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s Path state %p has an output handler %p when protocol instance %p is deallocated", buf, 42);
 
   type = OS_LOG_TYPE_ERROR;
   v23 = 0;
@@ -2064,13 +2077,13 @@ void __57__NWConcrete_nw_listener_handleInbound_addProtocolInbox___block_invoke_
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v8 = _nw_parameters_copy(*(a1[4] + 16));
+  v8 = _nw_parameters_copy();
   v9 = *(a1[9] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 }
 
-uint64_t __49__NWConcrete_nw_listener_canHandleNewConnection___block_invoke(void *a1)
+void *__49__NWConcrete_nw_listener_canHandleNewConnection___block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(a1[4] + 104) == 0;
   *(*(a1[6] + 8) + 24) = (*(a1[4] + 310) & 8) != 0;
@@ -2117,7 +2130,8 @@ uint64_t __49__NWConcrete_nw_endpoint_proxy_startWithHandler___block_invoke_2(ui
   }
 
   generation = nw_proxy_config_get_generation(v4);
-  *v15 = 0uLL;
+  *v15 = 0;
+  *&v15[8] = 0;
   nw_proxy_config_copy_fallback_proxy_agent(v4, v15);
   v8 = nw_proxy_config_copy_fallback_proxy_config(v4);
   v9 = 0;
@@ -2295,7 +2309,7 @@ void __52__NWConcrete_nw_endpoint_resolver_startWithHandler___block_invoke_2(uin
     v119 = __nwlog_obj();
     *buf = 136446210;
     v170 = "nw_endpoint_resolver_handle_alternative";
-    v120 = _os_log_send_and_compose_impl();
+    v120 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v119, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v167 = 0;

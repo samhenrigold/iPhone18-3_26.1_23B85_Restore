@@ -4,7 +4,6 @@
 - (BOOL)hasOffsets;
 - (BOOL)hasPayloads;
 - (BOOL)hasPositions;
-- (NSString)description;
 - (id)getChildResources;
 - (id)getMax;
 - (id)getMin;
@@ -157,17 +156,8 @@
   else
   {
 
-    return JavaUtilCollections_emptyList();
+    return JavaUtilCollections_emptyList(self, 0);
   }
-}
-
-- (NSString)description
-{
-  docCount = self->docCount_;
-  sumTotalTermFreq = self->sumTotalTermFreq_;
-  sumDocFreq = self->sumDocFreq_;
-  numTerms = self->numTerms_;
-  return JreStrcat("$J$J$J$IC", a2, v2, v3, v4, v5, v6, v7, @"BlockTreeTerms(terms=");
 }
 
 - (void)dealloc
@@ -190,8 +180,8 @@
   {
     v2 = OrgApacheLuceneCodecsBlocktreeFieldReader_class_();
     v3 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v2);
-    v4 = OrgApacheLuceneUtilBytesRef_class_();
-    qword_100553EB0 = 3 * OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v4) + v3;
+    v5 = OrgApacheLuceneUtilBytesRef_class_(v3, v4);
+    qword_100553EB0 = 3 * OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v5) + v3;
     atomic_store(1u, OrgApacheLuceneCodecsBlocktreeFieldReader__initialized);
   }
 }

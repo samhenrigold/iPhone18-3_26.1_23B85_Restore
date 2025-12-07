@@ -72,7 +72,7 @@
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v9 = [(NSArray *)connectedAccessories countByEnumeratingWithState:&v30 objects:v45 count:16];
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(connectedAccessories);
     if (v9)
     {
       v10 = *v31;
@@ -176,7 +176,7 @@
           }
         }
 
-        v9 = [(NSArray *)connectedAccessories countByEnumeratingWithState:&v30 objects:v45 count:16];
+        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(connectedAccessories);
       }
 
       while (v9);
@@ -516,16 +516,16 @@ LABEL_17:
     return 0;
   }
 
-  memset(v103, 0, sizeof(v103));
-  v102 = 0u;
-  *v101 = 0u;
-  *v100 = 0u;
-  v99 = 0u;
-  *v98 = 0u;
-  *v97 = 0u;
-  v96 = 0u;
+  memset(v112, 0, sizeof(v112));
+  v111 = 0u;
+  *v110 = 0u;
+  *v109 = 0u;
+  v108 = 0u;
+  *v107 = 0u;
+  *v106 = 0u;
+  v105 = 0u;
   memset(buf, 0, sizeof(buf));
-  v104 = 257;
+  v113 = 257;
   sub_1006360B4(accessory, buf);
   if (qword_1025D4620 != -1)
   {
@@ -541,10 +541,10 @@ LABEL_17:
       v11 = buf;
     }
 
-    v12 = v97;
-    if (SHIBYTE(v98[0]) < 0)
+    v12 = v106;
+    if (SHIBYTE(v107[0]) < 0)
     {
-      v12 = v97[0];
+      v12 = v106[0];
     }
 
     LODWORD(__p[0]) = 136315394;
@@ -557,76 +557,77 @@ LABEL_17:
   if (sub_10000A100(121, 2))
   {
     sub_1018EE494(__p);
-    v32 = *buf;
+    v33 = *buf;
     if ((buf[23] & 0x80u) == 0)
     {
-      v32 = buf;
+      v33 = buf;
     }
 
-    v33 = v97;
-    if (SHIBYTE(v98[0]) < 0)
+    v34 = v106;
+    if (SHIBYTE(v107[0]) < 0)
     {
-      v33 = v97[0];
+      v34 = v106[0];
     }
 
-    *v80 = 136315394;
-    *&v80[4] = v32;
-    v81 = 2080;
-    v82 = v33;
-    v34 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v34);
-    if (v34 != __p)
+    *v89 = 136315394;
+    *&v89[4] = v33;
+    v90 = 2080;
+    v91 = v34;
+    _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D4628, 0, "@ClxAccessory, state, 1, model, %s, %s", v89, 22);
+    v36 = v35;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v35);
+    if (v36 != __p)
     {
-      free(v34);
+      free(v36);
     }
   }
 
-  sub_10000EC00(v76, "AccessoryObserver,setting up accessory");
-  sub_10063861C(buf, v76);
-  if (v77 < 0)
+  sub_10000EC00(v85, "AccessoryObserver,setting up accessory");
+  sub_10063861C(buf, v85);
+  if (v86 < 0)
   {
-    operator delete(v76[0]);
+    operator delete(v85[0]);
   }
 
   if ([(CLAccessoryObserver *)self isOnDenyList:accessory]|| sub_100CE5278(&self->fAccessoryMobileAssetConfig, buf))
   {
-    v103[24] = 1;
+    v112[24] = 1;
     p_fListener = &self->fListener;
     info = self->fListener.info;
     onConnected = p_fListener->onConnected;
     sub_10063A160(__dst, buf);
     onConnected(info, __dst, 1);
-    if (v75 < 0)
+    if (v84 < 0)
     {
-      operator delete(v74);
+      operator delete(v83);
     }
 
-    if (v73 < 0)
+    if (v82 < 0)
     {
-      operator delete(v72);
+      operator delete(v81);
     }
 
-    if (v71 < 0)
+    if (v80 < 0)
     {
-      operator delete(v70);
+      operator delete(v79);
     }
 
-    if (v69 < 0)
+    if (v78 < 0)
     {
-      operator delete(v68);
+      operator delete(v77);
     }
 
-    if (v67 < 0)
+    if (v76 < 0)
     {
-      operator delete(v66);
+      operator delete(v75);
     }
 
-    if (v65 < 0)
+    if (v74 < 0)
     {
-      operator delete(v64);
+      operator delete(v73);
     }
 
-    if (v63 < 0)
+    if (v72 < 0)
     {
       operator delete(__dst[0]);
     }
@@ -649,9 +650,11 @@ LABEL_17:
     }
 
     sub_1018EE428(__p);
-    *v80 = 0;
-    v31 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v31);
+    *v89 = 0;
+    LODWORD(v48) = 2;
+    _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D45E8, 0, "AccessoryObserver,accessory is on deny list", v89, v48);
+    v32 = v37;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v37);
     goto LABEL_122;
   }
 
@@ -667,29 +670,29 @@ LABEL_17:
       v18 = qword_1025D45E8;
       if (os_log_type_enabled(qword_1025D45E8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = v80;
-        sub_1000238CC([(EAAccessory *)self->fAccessory manufacturer], v80);
-        if (v83 < 0)
+        v19 = v89;
+        sub_1000238CC([(EAAccessory *)self->fAccessory manufacturer], v89);
+        if (v92 < 0)
         {
-          v19 = *v80;
+          v19 = *v89;
         }
 
-        v20 = v46;
-        sub_1000238CC([(EAAccessory *)self->fAccessory modelNumber], v46);
-        if (v47 < 0)
+        v20 = v55;
+        sub_1000238CC([(EAAccessory *)self->fAccessory modelNumber], v55);
+        if (v56 < 0)
         {
-          v20 = v46[0];
+          v20 = v55[0];
         }
 
-        sub_1000238CC([(EAAccessory *)self->fAccessory name], v44);
-        if (v45 >= 0)
+        sub_1000238CC([(EAAccessory *)self->fAccessory name], v53);
+        if (v54 >= 0)
         {
-          v21 = v44;
+          v21 = v53;
         }
 
         else
         {
-          v21 = v44[0];
+          v21 = v53[0];
         }
 
         LODWORD(__p[0]) = 136381187;
@@ -699,97 +702,100 @@ LABEL_17:
         HIWORD(__p[2]) = 2081;
         __p[3] = v21;
         _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "AccessoryObserver,discarding old location accessory and handling new,oldManufacturer,%{private}s,oldModel,%{private}s,oldName,%{private}s", __p, 0x20u);
-        if (v45 < 0)
+        if (v54 < 0)
         {
-          operator delete(v44[0]);
+          operator delete(v53[0]);
         }
 
-        if (v47 < 0)
+        if (v56 < 0)
         {
-          operator delete(v46[0]);
+          operator delete(v55[0]);
         }
 
-        if (SHIBYTE(v83) < 0)
+        if (SHIBYTE(v92) < 0)
         {
-          operator delete(*v80);
+          operator delete(*v89);
         }
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018EE428(__p);
-        v36 = v46;
-        sub_1000238CC([(EAAccessory *)self->fAccessory manufacturer], v46);
-        if (v47 < 0)
+        v40 = qword_1025D45E8;
+        v41 = v55;
+        sub_1000238CC([(EAAccessory *)self->fAccessory manufacturer], v55);
+        if (v56 < 0)
         {
-          v36 = v46[0];
+          v41 = v55[0];
         }
 
-        v37 = v44;
-        sub_1000238CC([(EAAccessory *)self->fAccessory modelNumber], v44);
-        if (v45 < 0)
+        v42 = v53;
+        sub_1000238CC([(EAAccessory *)self->fAccessory modelNumber], v53);
+        if (v54 < 0)
         {
-          v37 = v44[0];
+          v42 = v53[0];
         }
 
-        sub_1000238CC([(EAAccessory *)self->fAccessory name], v42);
-        if (v43 >= 0)
+        sub_1000238CC([(EAAccessory *)self->fAccessory name], v51);
+        if (v52 >= 0)
         {
-          v38 = v42;
+          v43 = v51;
         }
 
         else
         {
-          v38 = v42[0];
+          v43 = v51[0];
         }
 
-        *v80 = 136381187;
-        *&v80[4] = v36;
-        v81 = 2081;
-        v82 = v37;
-        v83 = 2081;
-        v84 = v38;
-        v39 = _os_log_send_and_compose_impl();
-        if (v43 < 0)
+        *v89 = 136381187;
+        *&v89[4] = v41;
+        v90 = 2081;
+        v91 = v42;
+        v92 = 2081;
+        v93 = v43;
+        LODWORD(v48) = 32;
+        _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, v40, 0, "AccessoryObserver,discarding old location accessory and handling new,oldManufacturer,%{private}s,oldModel,%{private}s,oldName,%{private}s", v89, v48);
+        v45 = v44;
+        if (v52 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v51[0]);
         }
 
-        if (v45 < 0)
+        if (v54 < 0)
         {
-          operator delete(v44[0]);
+          operator delete(v53[0]);
         }
 
-        if (v47 < 0)
+        if (v56 < 0)
         {
-          operator delete(v46[0]);
+          operator delete(v55[0]);
         }
 
-        sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v39);
-        if (v39 != __p)
+        sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v45);
+        if (v45 != __p)
         {
-          free(v39);
+          free(v45);
         }
       }
 
       if (callCopy)
       {
-        v92 = 0u;
-        memset(v93, 0, sizeof(v93));
-        v90 = 0u;
-        v91 = 0u;
-        v88 = 0u;
-        v89 = 0u;
-        v86 = 0u;
-        v87 = 0u;
+        v101 = 0u;
+        memset(v102, 0, sizeof(v102));
+        v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
+        v95 = 0u;
+        v96 = 0u;
         memset(__p, 0, sizeof(__p));
-        v94 = 257;
+        v103 = 257;
         sub_1006360B4(self->fAccessory, __p);
         onDisconnected = self->fListener.onDisconnected;
         v23 = self->fListener.info;
-        sub_10063A160(v41, __p);
-        onDisconnected(v23, v41);
-        sub_10063A344(v41);
+        sub_10063A160(v50, __p);
+        onDisconnected(v23, v50);
+        sub_10063A344(v50);
         sub_10063A344(__p);
       }
 
@@ -811,12 +817,14 @@ LABEL_17:
     if (sub_10000A100(121, 2))
     {
       sub_1018EE428(__p);
-      *v80 = 0;
-      v35 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v35);
-      if (v35 != __p)
+      *v89 = 0;
+      LODWORD(v48) = 2;
+      _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D45E8, 0, "AccessoryObserver,connected to new location accessory", v89, v48);
+      v39 = v38;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v38);
+      if (v39 != __p)
       {
-        free(v35);
+        free(v39);
       }
     }
 
@@ -827,11 +835,11 @@ LABEL_17:
     [(CLAccessoryObserver *)self setupEphemeris];
     if ([(CLAccessoryObserver *)self iAPTimeSyncEnable])
     {
-      v78[0] = EATimeSyncOffsetUncertaintyThreshold;
-      v78[1] = EATimeSyncOffsetMeasurementInterval;
-      v79[0] = &off_10254ED80;
-      v79[1] = &off_10254ED98;
-      [(EAAccessory *)self->fAccessory setIAPTimeSyncParams:[NSDictionary dictionaryWithObjects:v79 forKeys:v78 count:2]];
+      v87[0] = EATimeSyncOffsetUncertaintyThreshold;
+      v87[1] = EATimeSyncOffsetMeasurementInterval;
+      v88[0] = &off_10254ED80;
+      v88[1] = &off_10254ED98;
+      [(EAAccessory *)self->fAccessory setIAPTimeSyncParams:[NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:2]];
       if (qword_1025D45E0 != -1)
       {
         sub_1018EE1FC();
@@ -850,15 +858,17 @@ LABEL_17:
       if (sub_10000A100(121, 2))
       {
         sub_1018EE428(__p);
-        *v80 = 134349312;
-        *&v80[4] = 100;
-        v81 = 1026;
-        LODWORD(v82) = 10000;
-        v40 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v40);
-        if (v40 != __p)
+        *v89 = 134349312;
+        *&v89[4] = 100;
+        v90 = 1026;
+        LODWORD(v91) = 10000;
+        LODWORD(v49) = 18;
+        _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D45E8, 2, "AccessoryObserver,STARK:setIAPTimeSyncParams,uncThresholdMs,%{public}llu,intervalMs,%{public}u", v89, v49);
+        v47 = v46;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v46);
+        if (v47 != __p)
         {
-          free(v40);
+          free(v47);
         }
       }
     }
@@ -867,45 +877,45 @@ LABEL_17:
     goto LABEL_46;
   }
 
-  LOBYTE(v104) = 0;
+  LOBYTE(v113) = 0;
   v29 = &self->fListener;
   v27 = self->fListener.info;
   v28 = v29->onConnected;
-  sub_10063A160(v48, buf);
-  v28(v27, v48, 1);
-  if (v61 < 0)
+  sub_10063A160(v57, buf);
+  v28(v27, v57, 1);
+  if (v70 < 0)
   {
-    operator delete(v60);
+    operator delete(v69);
   }
 
-  if (v59 < 0)
+  if (v68 < 0)
   {
-    operator delete(v58);
+    operator delete(v67);
   }
 
-  if (v57 < 0)
+  if (v66 < 0)
   {
-    operator delete(v56);
+    operator delete(v65);
   }
 
-  if (v55 < 0)
+  if (v64 < 0)
   {
-    operator delete(v54);
+    operator delete(v63);
   }
 
-  if (v53 < 0)
+  if (v62 < 0)
   {
-    operator delete(v52);
+    operator delete(v61);
   }
 
-  if (v51 < 0)
+  if (v60 < 0)
   {
-    operator delete(v50);
+    operator delete(v59);
   }
 
-  if (v49 < 0)
+  if (v58 < 0)
   {
-    operator delete(v48[0]);
+    operator delete(v57[0]);
   }
 
   if (qword_1025D45E0 != -1)
@@ -923,45 +933,47 @@ LABEL_17:
   if (sub_10000A100(121, 2))
   {
     sub_1018EE428(__p);
-    *v80 = 0;
-    v31 = _os_log_send_and_compose_impl();
+    *v89 = 0;
+    LODWORD(v48) = 2;
+    _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D45E8, 0, "AccessoryObserver,detected new non-location accessory", v89, v48);
+    v32 = v31;
     sub_100152C7C("Generic", 1, 0, 2, "[CLAccessoryObserver setupAccessory:withListenerCall:]", "%s\n", v31);
 LABEL_122:
-    if (v31 != __p)
+    if (v32 != __p)
     {
-      free(v31);
+      free(v32);
     }
   }
 
 LABEL_45:
   v9 = 0;
 LABEL_46:
-  if ((v103[23] & 0x80000000) != 0)
+  if ((v112[23] & 0x80000000) != 0)
   {
-    operator delete(*v103);
+    operator delete(*v112);
   }
 
-  if (SHIBYTE(v102) < 0)
+  if (SHIBYTE(v111) < 0)
   {
-    operator delete(v101[1]);
+    operator delete(v110[1]);
   }
 
-  if (SHIBYTE(v101[0]) < 0)
+  if (SHIBYTE(v110[0]) < 0)
   {
-    operator delete(v100[0]);
+    operator delete(v109[0]);
   }
 
-  if (SHIBYTE(v99) < 0)
+  if (SHIBYTE(v108) < 0)
   {
-    operator delete(v98[1]);
+    operator delete(v107[1]);
   }
 
-  if (SHIBYTE(v98[0]) < 0)
+  if (SHIBYTE(v107[0]) < 0)
   {
-    operator delete(v97[0]);
+    operator delete(v106[0]);
   }
 
-  if (SHIBYTE(v96) < 0)
+  if (SHIBYTE(v105) < 0)
   {
     operator delete(*&buf[24]);
   }

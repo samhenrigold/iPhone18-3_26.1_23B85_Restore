@@ -87,38 +87,34 @@
 
 - (void)publishingServiceClientConnectionWasInterrupted:(id)interrupted
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   interruptedCopy = interrupted;
   v5 = +[SKAStatusPublishingServiceClient logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = interruptedCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Publishing service client connection was interrupted: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = interruptedCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Publishing service client connection was interrupted: %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained publishingServiceClientWasInvalidated:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishingServiceClientConnectionWasInvalidated:(id)invalidated
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   v5 = +[SKAStatusPublishingServiceClient logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = invalidatedCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Publishing service client connection was invalidated: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = invalidatedCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Publishing service client connection was invalidated: %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained publishingServiceClientWasInvalidated:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__SKAStatusPublishingServiceClient_logger__block_invoke()
@@ -130,7 +126,7 @@ uint64_t __42__SKAStatusPublishingServiceClient_logger__block_invoke()
 
 - (void)publishStatusRequest:(id)request statusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -139,7 +135,7 @@ uint64_t __42__SKAStatusPublishingServiceClient_logger__block_invoke()
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = requestCopy;
+    v24 = requestCopy;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Received request to publish status: %@", buf, 0xCu);
   }
 
@@ -173,25 +169,23 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdentifier_completion___block_invoke;
-  v19[3] = &unk_27843F1A0;
-  v23 = completionCopy;
-  v20 = requestCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdentifier_completion___block_invoke;
+  v18[3] = &unk_27843F1A0;
+  v22 = completionCopy;
+  v19 = requestCopy;
   selfCopy = self;
-  v22 = identifierCopy;
-  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v19];
+  v21 = identifierCopy;
+  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v18];
 
-  v14 = v23;
+  v14 = v22;
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 32) statusUniqueIdentifier];
@@ -214,11 +208,11 @@ void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdent
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = *(a1 + 32);
-        v21 = 138412546;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v7;
-        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "dateCreated not set on statusPublishRequest:%@. Setting to serverTime: %@", &v21, 0x16u);
+        v20 = 138412546;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v7;
+        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "dateCreated not set on statusPublishRequest:%@. Setting to serverTime: %@", &v20, 0x16u);
       }
 
       [*(a1 + 32) setDateCreated:v7];
@@ -263,8 +257,6 @@ void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdent
     v7 = [SKAError errorWithCode:300];
     (*(*(a1 + 56) + 16))();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provisionPayloads:(id)payloads statusTypeIdentifier:(id)identifier completion:(id)completion
@@ -376,7 +368,7 @@ LABEL_9:
 
 void __85__SKAStatusPublishingServiceClient_invitedHandlesForStatusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 32) databaseManager];
@@ -388,27 +380,27 @@ void __85__SKAStatusPublishingServiceClient_invitedHandlesForStatusTypeIdentifie
     if (v6)
     {
       v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v8 = [v6 invitedUsers];
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v20;
+        v11 = *v19;
         do
         {
           v12 = 0;
           do
           {
-            if (*v20 != v11)
+            if (*v19 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v19 + 1) + 8 * v12) invitedSKHandle];
+            v13 = [*(*(&v18 + 1) + 8 * v12) invitedSKHandle];
             if (v13)
             {
               [v7 addObject:v13];
@@ -418,7 +410,7 @@ void __85__SKAStatusPublishingServiceClient_invitedHandlesForStatusTypeIdentifie
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v10);
@@ -454,13 +446,11 @@ void __85__SKAStatusPublishingServiceClient_invitedHandlesForStatusTypeIdentifie
     v4 = [SKAError errorWithCode:300];
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isHandleInvited:(id)invited fromSenderHandle:(id)handle forStatusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   invitedCopy = invited;
   handleCopy = handle;
   identifierCopy = identifier;
@@ -470,9 +460,9 @@ void __85__SKAStatusPublishingServiceClient_invitedHandlesForStatusTypeIdentifie
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = invitedCopy;
-    v28 = 2112;
-    v29 = handleCopy;
+    v26 = invitedCopy;
+    v27 = 2112;
+    v28 = handleCopy;
     _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Attempting to determine if handle %@ has already been invited from handle: %@", buf, 0x16u);
   }
 
@@ -500,26 +490,24 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_forStatusTypeIdentifier_completion___block_invoke;
-  v21[3] = &unk_27843F100;
-  v25 = completionCopy;
-  v21[4] = self;
-  v22 = identifierCopy;
-  v23 = handleCopy;
-  v24 = invitedCopy;
-  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_forStatusTypeIdentifier_completion___block_invoke;
+  v20[3] = &unk_27843F100;
+  v24 = completionCopy;
+  v20[4] = self;
+  v21 = identifierCopy;
+  v22 = handleCopy;
+  v23 = invitedCopy;
+  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v20];
 
-  v17 = v25;
+  v17 = v24;
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_forStatusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 32) databaseManager];
@@ -538,7 +526,7 @@ void __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_fo
         v23 = +[SKAStatusPublishingServiceClient logger];
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          __87__SKAPresenceClient_isHandleInvited_fromSenderHandle_forPresenceIdentifier_completion___block_invoke_cold_2((a1 + 48));
+          __87__SKAPresenceClient_isHandleInvited_fromSenderHandle_forPresenceIdentifier_completion___block_invoke_cold_2();
         }
 
         v24 = [SKAError errorWithCode:500];
@@ -547,28 +535,28 @@ void __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_fo
         goto LABEL_33;
       }
 
-      v26 = v6;
-      v27 = v4;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
+      v25 = v6;
+      v26 = v4;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v9 = [v6 invitedUsers];
-      v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v29;
+        v12 = *v28;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v29 != v12)
+            if (*v28 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v28 + 1) + 8 * i);
+            v14 = *(*(&v27 + 1) + 8 * i);
             v15 = [v14 invitedSKHandle];
             if ([*(a1 + 56) isNormalizedEqualToHandle:v15])
             {
@@ -590,15 +578,15 @@ void __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_fo
               if (v19)
               {
                 *buf = 138412546;
-                v33 = v16;
-                v34 = 2112;
-                v35 = v8;
+                v32 = v16;
+                v33 = 2112;
+                v34 = v8;
                 _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "We found an existing invited user matching the requested user, but that invitation was sent with handle %@ instead of handle %@. Ignoring.", buf, 0x16u);
               }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v11)
           {
             continue;
@@ -616,8 +604,8 @@ void __104__SKAStatusPublishingServiceClient_isHandleInvited_fromSenderHandle_fo
       }
 
 LABEL_31:
-      v6 = v26;
-      v4 = v27;
+      v6 = v25;
+      v4 = v26;
 
       v22 = *(*(a1 + 64) + 16);
     }
@@ -650,8 +638,6 @@ LABEL_33:
   v4 = [SKAError errorWithCode:300];
   (*(*(a1 + 64) + 16))();
 LABEL_34:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isHandleInviteable:(id)inviteable fromHandle:(id)handle forStatusTypeIdentifier:(id)identifier completion:(id)completion
@@ -808,7 +794,7 @@ void __106__SKAStatusPublishingServiceClient_fetchHandleInvitability_fromHandle_
 
 - (void)inviteHandles:(id)handles fromSenderHandle:(id)handle withInvitationPayload:(id)payload statusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handleCopy = handle;
   payloadCopy = payload;
@@ -819,9 +805,9 @@ void __106__SKAStatusPublishingServiceClient_fetchHandleInvitability_fromHandle_
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = identifierCopy;
-    v32 = 2112;
-    v33 = handlesCopy;
+    v30 = identifierCopy;
+    v31 = 2112;
+    v32 = handlesCopy;
     _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Received request to send invitation for personal channel with statusTypeIdentifier %@ to handles: %@", buf, 0x16u);
   }
 
@@ -849,22 +835,20 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_withInvitationPayload_statusTypeIdentifier_completion___block_invoke;
-  v24[3] = &unk_27843F420;
-  v29 = completionCopy;
-  v24[4] = self;
-  v25 = identifierCopy;
-  v26 = handlesCopy;
-  v27 = handleCopy;
-  v28 = payloadCopy;
-  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_withInvitationPayload_statusTypeIdentifier_completion___block_invoke;
+  v23[3] = &unk_27843F420;
+  v28 = completionCopy;
+  v23[4] = self;
+  v24 = identifierCopy;
+  v25 = handlesCopy;
+  v26 = handleCopy;
+  v27 = payloadCopy;
+  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v23];
 
-  v20 = v29;
+  v20 = v28;
 LABEL_11:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_withInvitationPayload_statusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
@@ -902,7 +886,7 @@ void __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_with
 
 void __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_withInvitationPayload_statusTypeIdentifier_completion___block_invoke_24(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[SKAStatusPublishingServiceClient logger];
   v7 = v6;
@@ -917,18 +901,17 @@ void __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_with
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Successfully sent invitation to handles: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Successfully sent invitation to handles: %@", &v9, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeInvitedHandles:(id)handles statusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -937,9 +920,9 @@ void __121__SKAStatusPublishingServiceClient_inviteHandles_fromSenderHandle_with
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = identifierCopy;
-    v24 = 2112;
-    v25 = handlesCopy;
+    v22 = identifierCopy;
+    v23 = 2112;
+    v24 = handlesCopy;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Received request to remove invitation from personal channel with statusTypeIdentifier %@ for handles: %@", buf, 0x16u);
   }
 
@@ -967,20 +950,18 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdentifier_completion___block_invoke;
-  v18[3] = &unk_27843F1A0;
-  v21 = completionCopy;
-  v18[4] = self;
-  v19 = identifierCopy;
-  v20 = handlesCopy;
-  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdentifier_completion___block_invoke;
+  v17[3] = &unk_27843F1A0;
+  v20 = completionCopy;
+  v17[4] = self;
+  v18 = identifierCopy;
+  v19 = handlesCopy;
+  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v17];
 
-  v14 = v21;
+  v14 = v20;
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
@@ -1016,7 +997,7 @@ void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdent
 
 void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdentifier_completion___block_invoke_25(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAStatusPublishingServiceClient logger];
   v5 = v4;
@@ -1031,18 +1012,17 @@ void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdent
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Invitation revocation for handles %@ completed successfully", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Invitation revocation for handles %@ completed successfully", &v7, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllInvitedHandlesFromPersonalChannelWithStatusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -1050,7 +1030,7 @@ void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdent
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = identifierCopy;
+    v18 = identifierCopy;
     _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Received request to remove all invitations from personal channel with statusTypeIdentifier %@", buf, 0xCu);
   }
 
@@ -1078,19 +1058,17 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __114__SKAStatusPublishingServiceClient_removeAllInvitedHandlesFromPersonalChannelWithStatusTypeIdentifier_completion___block_invoke;
-  v15[3] = &unk_27843F128;
-  v17 = completionCopy;
-  v15[4] = self;
-  v16 = identifierCopy;
-  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __114__SKAStatusPublishingServiceClient_removeAllInvitedHandlesFromPersonalChannelWithStatusTypeIdentifier_completion___block_invoke;
+  v14[3] = &unk_27843F128;
+  v16 = completionCopy;
+  v14[4] = self;
+  v15 = identifierCopy;
+  [(SKAStatusPublishingServiceClient *)self accountIsStatusKitCapableWithCompletion:v14];
 
-  v11 = v17;
+  v11 = v16;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __114__SKAStatusPublishingServiceClient_removeAllInvitedHandlesFromPersonalChannelWithStatusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
@@ -1188,7 +1166,7 @@ LABEL_9:
 
 void __100__SKAStatusPublishingServiceClient_registerForDelegateCallbacksWithStatusTypeIdentifier_completion___block_invoke(uint64_t a1, char a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(a1 + 32);
@@ -1204,11 +1182,11 @@ void __100__SKAStatusPublishingServiceClient_registerForDelegateCallbacksWithSta
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v13 = 138412546;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Client %@ has registered for delegate callbacks for statusTypeIdentifier: %@.", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Client %@ has registered for delegate callbacks for statusTypeIdentifier: %@.", &v12, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1225,8 +1203,6 @@ void __100__SKAStatusPublishingServiceClient_registerForDelegateCallbacksWithSta
     v11 = [SKAError errorWithCode:300];
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -1311,7 +1287,7 @@ LABEL_8:
 
 - (double)_randomSecondaryDeviceRepublishDelay
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(SKAStatusPublishingServiceClient *)self _secondaryDeviceRepublishMaxDelayTime];
   v4 = v3;
   [(SKAStatusPublishingServiceClient *)self _secondaryDeviceRepublishMinDelayTime];
@@ -1320,16 +1296,15 @@ LABEL_8:
   v8 = +[SKAStatusPublishingServiceClient logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134218496;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v6;
-    v15 = 2048;
-    v16 = v4;
-    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Resolved secondary device republish delay of %.1f seconds, within allowed range of (%.1f,%.1f) seconds.", &v11, 0x20u);
+    v10 = 134218496;
+    v11 = v7;
+    v12 = 2048;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v4;
+    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Resolved secondary device republish delay of %.1f seconds, within allowed range of (%.1f,%.1f) seconds.", &v10, 0x20u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1372,11 +1347,9 @@ LABEL_8:
 
 - (void)publishStatusRequest:statusTypeIdentifier:completion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdentifier_completion___block_invoke_cold_1()
@@ -1386,39 +1359,20 @@ void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdent
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __89__SKAStatusPublishingServiceClient_publishStatusRequest_statusTypeIdentifier_completion___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __89__SKAStatusPublishingServiceClient_removeInvitedHandles_statusTypeIdentifier_completion___block_invoke_25_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Invitation revocation for handles %@ failed with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Invitation revocation for handles %@ failed with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __114__SKAStatusPublishingServiceClient_removeAllInvitedHandlesFromPersonalChannelWithStatusTypeIdentifier_completion___block_invoke_27_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_serverBagNumberForKey:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Server bag unexpected value type for key %@. Value: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

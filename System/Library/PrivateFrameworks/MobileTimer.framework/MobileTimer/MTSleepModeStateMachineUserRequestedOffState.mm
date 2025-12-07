@@ -2,6 +2,7 @@
 - (BOOL)isEqualToState:(id)state;
 - (MTSleepModeStateMachineUserRequestedOffState)initWithKeepOffUntilDate:(id)date stateMachine:(id)machine;
 - (void)didEnterWithPreviousState:(id)state;
+- (void)updateState:(BOOL)state;
 @end
 
 @implementation MTSleepModeStateMachineUserRequestedOffState
@@ -47,7 +48,7 @@
 
 - (void)didEnterWithPreviousState:(id)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (![(MTSleepModeStateMachineUserRequestedOffState *)self isEqualToState:state])
   {
     stateMachine = [(MTStateMachineState *)self stateMachine];
@@ -59,11 +60,11 @@
       v7 = MTLogForCategory(7);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543618;
+        v15 = 138543618;
         selfCopy3 = self;
-        v18 = 2114;
-        v19 = @"sleep mode";
-        _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling manual %{public}@ invalidation", &v16, 0x16u);
+        v17 = 2114;
+        v18 = @"sleep mode";
+        _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling manual %{public}@ invalidation", &v15, 0x16u);
       }
 
       stateMachine3 = [(MTStateMachineState *)self stateMachine];
@@ -76,11 +77,11 @@
         if (v11)
         {
           keepOffUntilDate = [(MTSleepModeStateMachineUserRequestedOffState *)self keepOffUntilDate];
-          v16 = 138543618;
+          v15 = 138543618;
           selfCopy3 = self;
-          v18 = 2114;
-          v19 = keepOffUntilDate;
-          _os_log_impl(&dword_1B1F9F000, stateMachine4, OS_LOG_TYPE_DEFAULT, "%{public}@ Keeping off until: %{public}@", &v16, 0x16u);
+          v17 = 2114;
+          v18 = keepOffUntilDate;
+          _os_log_impl(&dword_1B1F9F000, stateMachine4, OS_LOG_TYPE_DEFAULT, "%{public}@ Keeping off until: %{public}@", &v15, 0x16u);
         }
 
         stateMachine4 = [(MTStateMachineState *)self stateMachine];
@@ -91,14 +92,54 @@
 
       else if (v11)
       {
-        v16 = 138543362;
+        v15 = 138543362;
         selfCopy3 = self;
-        _os_log_impl(&dword_1B1F9F000, stateMachine4, OS_LOG_TYPE_DEFAULT, "%{public}@ Not in user sleep window", &v16, 0xCu);
+        _os_log_impl(&dword_1B1F9F000, stateMachine4, OS_LOG_TYPE_DEFAULT, "%{public}@ Not in user sleep window", &v15, 0xCu);
       }
     }
   }
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (void)updateState:(BOOL)state
+{
+  stateCopy = state;
+  v16 = *MEMORY[0x1E69E9840];
+  [(MTSleepModeStateMachineState *)self updateModeKeepOffUntilDateIfNecessary];
+  stateMachine = [(MTStateMachineState *)self stateMachine];
+  currentDate = [stateMachine currentDate];
+
+  stateMachine2 = [(MTStateMachineState *)self stateMachine];
+  keepOffUntilDate = [stateMachine2 keepOffUntilDate];
+
+  if (keepOffUntilDate && ![currentDate mtIsAfterDate:keepOffUntilDate])
+  {
+    v10 = MTLogForCategory(7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      selfCopy2 = self;
+      v14 = 2114;
+      v15 = keepOffUntilDate;
+      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring updateState until keepOffUntilDate: %{public}@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v9 = MTLogForCategory(7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      selfCopy2 = self;
+      v14 = 2114;
+      v15 = keepOffUntilDate;
+      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ We are past keepOffUntilDate: %{public}@", buf, 0x16u);
+    }
+
+    v11.receiver = self;
+    v11.super_class = MTSleepModeStateMachineUserRequestedOffState;
+    [(MTSleepModeStateMachineState *)&v11 updateState:stateCopy];
+  }
 }
 
 @end

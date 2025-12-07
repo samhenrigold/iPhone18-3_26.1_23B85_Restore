@@ -7,7 +7,7 @@
 
 + (id)errorWithCode:(int64_t)code
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ((code + 1) > 0x19)
   {
     v4 = @"Unknown error";
@@ -19,12 +19,10 @@
   }
 
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.copresence.CPServiceErrorDomain" code:code userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

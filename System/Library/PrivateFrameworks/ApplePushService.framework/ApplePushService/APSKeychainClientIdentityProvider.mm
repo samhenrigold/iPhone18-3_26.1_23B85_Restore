@@ -473,7 +473,7 @@ LABEL_15:
     v8 = +[APSLog courier];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10010BD78(self, &cf2);
+      sub_10010BD78();
     }
 
     v5 = 1;

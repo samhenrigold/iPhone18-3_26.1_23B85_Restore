@@ -112,23 +112,30 @@
 
 - (REBookReaderHostLayoutController)initWithView:(id)view
 {
+  left = UIEdgeInsetsZero.left;
+  right = UIEdgeInsetsZero.right;
+  bottom = UIEdgeInsetsZero.bottom;
   viewCopy = view;
   [viewCopy frame];
-  [viewCopy safeAreaInsets];
   v5 = v4;
   v7 = v6;
   v9 = v8;
   v11 = v10;
+  [viewCopy safeAreaInsets];
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
   traitCollection = [viewCopy traitCollection];
-  v13 = objc_allocWithZone(type metadata accessor for BookReaderHostLayoutController());
-  *&v22 = v9;
-  *(&v22 + 1) = v11;
-  *&v21 = v5;
-  *(&v21 + 1) = v7;
-  v19 = sub_100545708(traitCollection, viewCopy, v13, v14, v15, v16, v17, v18, v21, v22);
+  v21 = objc_allocWithZone(type metadata accessor for BookReaderHostLayoutController());
+  *&v30 = v17;
+  *(&v30 + 1) = v19;
+  *&v29 = v13;
+  *(&v29 + 1) = v15;
+  v27 = sub_100545708(traitCollection, viewCopy, UIEdgeInsetsZero.top, left, bottom, right, v5, v7, v9, v11, v21, v22, v23, v24, v25, v26, v29, v30);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v19;
+  return v27;
 }
 
 - (void)willEnterForeground

@@ -34,22 +34,21 @@ void __61__WFiCloudShortcutFileExporter_exportWorkflowWithCompletion___block_inv
     [v5 removeObject:@"/"];
     v6 = *(a1 + 32);
     v7 = [v5 objectAtIndexedSubscript:1];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __61__WFiCloudShortcutFileExporter_exportWorkflowWithCompletion___block_invoke_2;
-    v12[3] = &unk_1E8377F00;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __61__WFiCloudShortcutFileExporter_exportWorkflowWithCompletion___block_invoke_2;
+    v11[3] = &unk_1E8377F00;
     v8 = *(a1 + 48);
-    v12[4] = *(a1 + 40);
-    v13 = v8;
-    v9 = [v6 getWorkflowForIdentifier:v7 completionHandler:v12];
+    v11[4] = *(a1 + 40);
+    v12 = v8;
+    v9 = [v6 getWorkflowForIdentifier:v7 completionHandler:v11];
   }
 
   else
   {
-    v10 = *(a1 + 48);
-    v11 = *(*(a1 + 48) + 16);
+    v10 = *(*(a1 + 48) + 16);
 
-    v11();
+    v10();
   }
 }
 

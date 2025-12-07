@@ -104,7 +104,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   if (equal != self)
   {
     equalCopy = equal;
@@ -410,17 +410,17 @@
             v101 = +[REMLogStore read];
             if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
             {
-              v112 = objc_opt_class();
-              v113 = NSStringFromClass(v112);
+              v111 = objc_opt_class();
+              v112 = NSStringFromClass(v111);
               resolutionTokenMap = self->_resolutionTokenMap;
-              v115 = v6[21];
-              v116 = 138543874;
-              v117 = v113;
-              v118 = 2112;
-              v119 = resolutionTokenMap;
-              v120 = 2112;
-              v121 = v115;
-              _os_log_error_impl(&dword_19A0DB000, v101, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v116, 0x20u);
+              v114 = v6[21];
+              v115 = 138543874;
+              v116 = v112;
+              v117 = 2112;
+              v118 = resolutionTokenMap;
+              v119 = 2112;
+              v120 = v114;
+              _os_log_error_impl(&dword_19A0DB000, v101, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v115, 0x20u);
             }
           }
 
@@ -450,7 +450,7 @@
             v13 = effectiveMinimumSupportedVersion == [v6 effectiveMinimumSupportedVersion];
 LABEL_78:
 
-            goto LABEL_79;
+            return v13;
           }
         }
       }
@@ -461,10 +461,7 @@ LABEL_77:
     goto LABEL_78;
   }
 
-  v13 = 1;
-LABEL_79:
-  v110 = *MEMORY[0x1E69E9840];
-  return v13;
+  return 1;
 }
 
 + (id)newObjectID
@@ -787,11 +784,10 @@ LABEL_79:
 
 - (void)resolutionTokenMap
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from template storage. Initialize an empty map {template: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from template storage. Initialize an empty map {template: %@}", &v2, 0xCu);
 }
 
 @end

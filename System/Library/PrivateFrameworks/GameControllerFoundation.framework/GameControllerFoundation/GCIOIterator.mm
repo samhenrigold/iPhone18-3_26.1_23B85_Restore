@@ -16,10 +16,10 @@
 
 - (GCIOIterator)initWithPort:(unsigned int)port objectClass:(Class)class error:(id *)error
 {
-  v20[2] = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = GCIOIterator;
-  v9 = [(GCIOIterator *)&v18 init];
+  v19[2] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = GCIOIterator;
+  v9 = [(GCIOIterator *)&v17 init];
   if (([(objc_class *)class isSubclassOfClass:objc_opt_class()]& 1) == 0)
   {
     [GCIOIterator initWithPort:a2 objectClass:v9 error:?];
@@ -41,11 +41,11 @@
     v12 = *MEMORY[0x1E696A5A0];
     v13 = v10;
     v14 = *MEMORY[0x1E696A588];
-    v19[0] = *MEMORY[0x1E696A578];
-    v19[1] = v14;
-    v20[0] = @"Invalid port.";
-    v20[1] = @"Error incrementing port retain count.";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = *MEMORY[0x1E696A578];
+    v18[1] = v14;
+    v19[0] = @"Invalid port.";
+    v19[1] = @"Error incrementing port retain count.";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
     *error = [v11 errorWithDomain:v12 code:v13 userInfo:v15];
 
 LABEL_5:
@@ -54,7 +54,6 @@ LABEL_5:
 
 LABEL_7:
 
-  v16 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -194,7 +193,7 @@ LABEL_8:
 
 - (id)nextObject
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   while (1)
   {
     while (self)
@@ -236,16 +235,16 @@ LABEL_15:
     Property = 0;
 LABEL_5:
     v7 = [Property alloc];
-    v21 = 0;
-    v8 = [v7 initWithPort:v5 error:&v21];
-    v9 = v21;
+    v20 = 0;
+    v8 = [v7 initWithPort:v5 error:&v20];
+    v9 = v20;
     v10 = v9;
     if (v8)
     {
       break;
     }
 
-    v11 = _gc_log_iokit();
+    v11 = _gc_log_iokit(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v13 = IOObjectCopyClass(v5);
@@ -255,18 +254,17 @@ LABEL_5:
 
       *buf = 138413058;
       selfCopy = self;
-      v24 = 2114;
-      v25 = v13;
-      v26 = 1024;
-      v27 = code;
-      v28 = 2114;
-      v29 = localizedFailureReason;
+      v23 = 2114;
+      v24 = v13;
+      v25 = 1024;
+      v26 = code;
+      v27 = 2114;
+      v28 = localizedFailureReason;
       _os_log_error_impl(&dword_1D2C3B000, v11, OS_LOG_TYPE_ERROR, "%@ Error instantiating wrapper for next object '%{public}@': %{mach.errno}d %{public}@", buf, 0x26u);
     }
   }
 
 LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

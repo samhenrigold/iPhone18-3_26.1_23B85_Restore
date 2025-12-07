@@ -5,6 +5,7 @@
 - (id)getReverseReaderWithBoolean:(BOOL)boolean;
 - (int64_t)getPosition;
 - (int64_t)ramBytesUsed;
+- (void)copyBytesWithLong:(int64_t)long withLong:(int64_t)withLong withInt:(int)int;
 - (void)dealloc;
 - (void)finish;
 - (void)reverseWithLong:(int64_t)long withLong:(int64_t)withLong;
@@ -12,6 +13,8 @@
 - (void)truncateWithLong:(int64_t)long;
 - (void)writeByteWithByte:(char)byte;
 - (void)writeByteWithInt:(int)int withByte:(char)byte;
+- (void)writeBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (void)writeBytesWithLong:(int64_t)long withByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)writeIntWithLong:(int64_t)long withInt:(int)int;
 - (void)writeToWithOrgApacheLuceneStoreDataOutput:(id)output;
 @end
@@ -69,6 +72,144 @@ LABEL_8:
   }
 
   *(&current->super.size_ + nextWrite + 4) = byte;
+}
+
+- (void)writeBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (withInt >= 1)
+  {
+    v5 = *&withInt;
+    v6 = *&int;
+    for (i = self->nextWrite_; ; i = 0)
+    {
+      blockSize = self->blockSize_;
+      v11 = blockSize - i;
+      if (v5 <= blockSize - i)
+      {
+        break;
+      }
+
+      if (v11 >= 1)
+      {
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v6, self->current_, i, (blockSize - i));
+        v6 = (v11 + v6);
+        blockSize = self->blockSize_;
+        v5 = (v5 - v11);
+      }
+
+      JreStrongAssignAndConsume(&self->current_, [IOSByteArray newArrayWithLength:blockSize]);
+      blocks = self->blocks_;
+      if (!blocks)
+      {
+        JreThrowNullPointerException();
+      }
+
+      [(JavaUtilList *)blocks addWithId:self->current_];
+      self->nextWrite_ = 0;
+      if (v5 <= 0)
+      {
+        return;
+      }
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v6, self->current_, i, v5);
+    self->nextWrite_ += v5;
+  }
+}
+
+- (void)writeBytesWithLong:(int64_t)long withByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v6 = *&withInt;
+  v7 = *&int;
+  v10 = long + withInt;
+  v11 = v10 >> self->blockBits_;
+  blockMask = self->blockMask_;
+  blockSize = blockMask & v10;
+  if ((blockMask & v10) == 0)
+  {
+    v11 = (v11 - 1);
+    blockSize = self->blockSize_;
+  }
+
+  blocks = self->blocks_;
+  if (!blocks)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v15 = [(JavaUtilList *)blocks getWithInt:v11];
+  if (v6 >= 1)
+  {
+    v16 = v15;
+    v17 = (v11 - 1);
+    while (1)
+    {
+      v18 = (v6 - blockSize);
+      if (v6 <= blockSize)
+      {
+        break;
+      }
+
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, (v18 + v7), v16, 0, blockSize);
+      v16 = [(JavaUtilList *)self->blocks_ getWithInt:v17];
+      blockSize = self->blockSize_;
+      v17 = (v17 - 1);
+      v6 = v18;
+      if (v18 <= 0)
+      {
+        return;
+      }
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v7, v16, (blockSize - v6), v6);
+  }
+}
+
+- (void)copyBytesWithLong:(int64_t)long withLong:(int64_t)withLong withInt:(int)int
+{
+  v5 = *&int;
+  v8 = long + int;
+  v9 = v8 >> self->blockBits_;
+  blockMask = self->blockMask_;
+  blockSize = blockMask & v8;
+  if ((blockMask & v8) == 0)
+  {
+    v9 = (v9 - 1);
+    blockSize = self->blockSize_;
+  }
+
+  blocks = self->blocks_;
+  if (!blocks)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v13 = [(JavaUtilList *)blocks getWithInt:v9];
+  if (v5 >= 1)
+  {
+    v14 = v13;
+    v15 = (v9 - 1);
+    while (1)
+    {
+      v16 = (v5 - blockSize);
+      if (v5 <= blockSize)
+      {
+        break;
+      }
+
+      [(OrgApacheLuceneUtilFstBytesStore *)self writeBytesWithLong:withLong + v16 withByteArray:v14 withInt:0 withInt:blockSize];
+      v14 = [(JavaUtilList *)self->blocks_ getWithInt:v15];
+      blockSize = self->blockSize_;
+      v15 = (v15 - 1);
+      v5 = v16;
+      if (v16 <= 0)
+      {
+        return;
+      }
+    }
+
+    [(OrgApacheLuceneUtilFstBytesStore *)self writeBytesWithLong:withLong withByteArray:v14 withInt:(blockSize - v5) withInt:v5];
+  }
 }
 
 - (void)writeIntWithLong:(int64_t)long withInt:(int)int
@@ -352,7 +493,7 @@ LABEL_12:
   {
     v4 = [OrgApacheLuceneUtilFstBytesStore__1 alloc];
     JreStrongAssign(&v4->this$0_, self);
-    OrgApacheLuceneUtilFstFST_BytesReader_init(v4, v5);
+    OrgApacheLuceneUtilFstFST_BytesReader_init();
     v4->nextRead_ = self->blockSize_;
   }
 
@@ -452,8 +593,8 @@ LABEL_5:
   {
     v2 = OrgApacheLuceneUtilFstBytesStore_class_();
     v3 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v2);
-    v4 = JavaUtilArrayList_class_();
-    qword_100554500 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v4) + v3;
+    v5 = JavaUtilArrayList_class_(v3, v4);
+    qword_100554500 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v5) + v3;
     atomic_store(1u, &OrgApacheLuceneUtilFstBytesStore__initialized);
   }
 }

@@ -1,4 +1,5 @@
 @interface BCReadingNowDetail
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt;
 - (NSString)debugDescription;
 - (id)mutableCopy;
 - (void)_configureFromReadingNowDetail:(id)detail withMergers:(id)mergers;
@@ -26,7 +27,7 @@
 
   else
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E47086E4();
@@ -37,10 +38,10 @@
 - (void)_configureFromReadingNowDetail:(id)detail withMergers:(id)mergers
 {
   detailCopy = detail;
-  v14.receiver = self;
-  v14.super_class = BCReadingNowDetail;
+  v15.receiver = self;
+  v15.super_class = BCReadingNowDetail;
   mergersCopy = mergers;
-  [(BCCloudData *)&v14 configureFromCloudData:detailCopy withMergers:mergersCopy];
+  [(BCCloudData *)&v15 configureFromCloudData:detailCopy withMergers:mergersCopy];
   assetID = [detailCopy assetID];
   [(NSManagedObject *)self setDifferentString:assetID forKey:@"assetID"];
 
@@ -53,45 +54,121 @@
   cloudAssetType = [detailCopy cloudAssetType];
   [(NSManagedObject *)self setDifferentString:cloudAssetType forKey:@"cloudAssetType"];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1E463AF88;
-  v13[3] = &unk_1E875B130;
-  v13[4] = self;
-  [mergersCopy enumerateKeysAndObjectsUsingBlock:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E463AF88;
+  v14[3] = &unk_1E875B130;
+  v14[4] = self;
+  [mergersCopy enumerateKeysAndObjectsUsingBlock:v14];
 
-  v12 = BDSCloudKitLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = BDSCloudKitLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    sub_1E4708718(self, detailCopy, v12);
+    sub_1E4708718(self, detailCopy, v13);
   }
+}
+
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt
+{
+  saltCopy = salt;
+  v35 = *MEMORY[0x1E69E9840];
+  dateCopy = date;
+  v8 = BUProtocolCast();
+  v28.receiver = self;
+  v28.super_class = BCReadingNowDetail;
+  v27 = [(BCCloudData *)&v28 isEqualExceptForDate:dateCopy ignoringEmptySalt:saltCopy];
+
+  assetID = [(BCReadingNowDetail *)self assetID];
+  assetID2 = [v8 assetID];
+  v11 = [assetID isEqualToString:assetID2];
+
+  isTrackedAsRecent = [(BCReadingNowDetail *)self isTrackedAsRecent];
+  isTrackedAsRecent2 = [v8 isTrackedAsRecent];
+  lastEngagedDate = [(BCReadingNowDetail *)self lastEngagedDate];
+  if (!lastEngagedDate)
+  {
+    lastEngagedDate2 = [v8 lastEngagedDate];
+    if (!lastEngagedDate2)
+    {
+      v17 = 1;
+LABEL_6:
+
+      goto LABEL_7;
+    }
+  }
+
+  lastEngagedDate3 = [(BCReadingNowDetail *)self lastEngagedDate];
+  lastEngagedDate4 = [v8 lastEngagedDate];
+  v17 = [lastEngagedDate3 isEqualToDate:lastEngagedDate4];
+
+  if (!lastEngagedDate)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  v18 = isTrackedAsRecent ^ isTrackedAsRecent2;
+
+  cloudAssetType = [(BCReadingNowDetail *)self cloudAssetType];
+  if (cloudAssetType || ([v8 cloudAssetType], (isTrackedAsRecent2 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    cloudAssetType2 = [(BCReadingNowDetail *)self cloudAssetType];
+    cloudAssetType3 = [v8 cloudAssetType];
+    v22 = [cloudAssetType2 isEqualToString:cloudAssetType3];
+
+    if (cloudAssetType)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+LABEL_13:
+  v23 = v27 & v11 & (v18 ^ 1) & v17 & v22;
+  v25 = BDSCloudKitLog(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412802;
+    v30 = v8;
+    v31 = 2112;
+    selfCopy = self;
+    v33 = 1024;
+    v34 = v23;
+    _os_log_debug_impl(&dword_1E45E0000, v25, OS_LOG_TYPE_DEBUG, "BCReadingNowDetail compare %@ to self:%@ SAME:%{BOOL}d", buf, 0x1Cu);
+  }
+
+  return v23;
 }
 
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   recordCopy = record;
-  v40.receiver = self;
-  v40.super_class = BCReadingNowDetail;
-  [(BCCloudData *)&v40 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
+  v44.receiver = self;
+  v44.super_class = BCReadingNowDetail;
+  v7 = [(BCCloudData *)&v44 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
   if (recordCopy)
   {
-    v7 = [BCCloudData localIdentifierFromRecord:recordCopy];
+    v8 = [BCCloudData localIdentifierFromRecord:recordCopy];
     assetID = [(BCReadingNowDetail *)self assetID];
-    v9 = [assetID isEqualToString:v7];
+    v10 = [assetID isEqualToString:v8];
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v10 = BDSCloudKitLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = BDSCloudKitLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1E47087FC(self, v7, v10);
+        sub_1E47087FC(self, v8, v12);
       }
 
-      [(BCReadingNowDetail *)self setAssetID:v7];
+      [(BCReadingNowDetail *)self setAssetID:v8];
     }
 
-    v11 = [recordCopy objectForKey:@"lastEngagedDate"];
+    v13 = [recordCopy objectForKey:@"lastEngagedDate"];
     modificationDate = [(BCReadingNowDetail *)self modificationDate];
     if (modificationDate)
     {
@@ -103,15 +180,15 @@
 
       if (lastEngagedDate)
       {
-        if (!v11)
+        if (!v13)
         {
           goto LABEL_9;
         }
 
         lastEngagedDate2 = [(BCReadingNowDetail *)self lastEngagedDate];
-        v28 = [lastEngagedDate2 compare:v11];
+        v31 = [lastEngagedDate2 compare:v13];
 
-        if (v28 == 1)
+        if (v31 == 1)
         {
           goto LABEL_9;
         }
@@ -122,35 +199,35 @@
 
     modificationDate2 = [(BCReadingNowDetail *)self modificationDate];
     modificationDate3 = [recordCopy modificationDate];
-    v15 = [modificationDate2 compare:modificationDate3];
+    v17 = [modificationDate2 compare:modificationDate3];
 
-    if (v15 == 1)
+    if (v17 == 1)
     {
 LABEL_9:
-      v16 = BDSCloudKitLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v19 = BDSCloudKitLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         assetID2 = [(BCReadingNowDetail *)self assetID];
         recordID = [recordCopy recordID];
         recordName = [recordID recordName];
         modificationDate4 = [(BCReadingNowDetail *)self modificationDate];
         [modificationDate4 timeIntervalSinceReferenceDate];
-        v22 = v21;
+        v25 = v24;
         modificationDate5 = [recordCopy modificationDate];
         [modificationDate5 timeIntervalSinceReferenceDate];
-        v24 = @"newer";
+        v27 = @"newer";
         *buf = 138412802;
-        v42 = assetID2;
-        if (v22 == v25)
+        v46 = assetID2;
+        if (v25 == v28)
         {
-          v24 = @"the same";
+          v27 = @"the same";
         }
 
-        v43 = 2112;
-        v44 = recordName;
-        v45 = 2114;
-        v46 = v24;
-        _os_log_impl(&dword_1E45E0000, v16, OS_LOG_TYPE_INFO, "BCReadingNowDetail %@ Resolving conflicts from record %@, keeping my properties as my modification date is %{public}@.", buf, 0x20u);
+        v47 = 2112;
+        v48 = recordName;
+        v49 = 2114;
+        v50 = v27;
+        _os_log_impl(&dword_1E45E0000, v19, OS_LOG_TYPE_INFO, "BCReadingNowDetail %@ Resolving conflicts from record %@, keeping my properties as my modification date is %{public}@.", buf, 0x20u);
       }
 
       [(BCCloudData *)self incrementEditGeneration];
@@ -160,43 +237,45 @@ LABEL_29:
     }
 
 LABEL_19:
-    v29 = [recordCopy objectForKey:@"isTrackedAsRecent"];
-    [(NSManagedObject *)self setDifferentNumber:v29 forKey:@"isTrackedAsRecent"];
-    [(NSManagedObject *)self setDifferentDate:v11 forKey:@"lastEngagedDate"];
-    v30 = [recordCopy objectForKey:@"cloudAssetType"];
-    if (v30)
+    v32 = [recordCopy objectForKey:@"isTrackedAsRecent"];
+    [(NSManagedObject *)self setDifferentNumber:v32 forKey:@"isTrackedAsRecent"];
+    [(NSManagedObject *)self setDifferentDate:v13 forKey:@"lastEngagedDate"];
+    v33 = [recordCopy objectForKey:@"cloudAssetType"];
+    v34 = v33;
+    if (v33)
     {
-      v31 = BDSCloudKitLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v35 = BDSCloudKitLog(v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         sub_1E47088AC(self, recordCopy);
       }
 
-      [(NSManagedObject *)self setDifferentString:v30 forKey:@"cloudAssetType"];
+      [(NSManagedObject *)self setDifferentString:v34 forKey:@"cloudAssetType"];
     }
 
     hasChanges = [(BCReadingNowDetail *)self hasChanges];
-    v33 = BDSCloudKitLog();
-    v34 = v33;
-    if (hasChanges)
+    v37 = hasChanges;
+    v38 = BDSCloudKitLog(hasChanges);
+    v39 = v38;
+    if (v37)
     {
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         assetID3 = [(BCReadingNowDetail *)self assetID];
         recordID2 = [recordCopy recordID];
         recordName2 = [recordID2 recordName];
-        v38 = [(BCReadingNowDetail *)self debugDescription];
+        v43 = [(BCReadingNowDetail *)self debugDescription];
         *buf = 138412802;
-        v42 = assetID3;
-        v43 = 2112;
-        v44 = recordName2;
-        v45 = 2112;
-        v46 = v38;
-        _os_log_impl(&dword_1E45E0000, v34, OS_LOG_TYPE_INFO, "BCReadingNowDetail %@ Resolving: Adopted properties from record: %@ %@", buf, 0x20u);
+        v46 = assetID3;
+        v47 = 2112;
+        v48 = recordName2;
+        v49 = 2112;
+        v50 = v43;
+        _os_log_impl(&dword_1E45E0000, v39, OS_LOG_TYPE_INFO, "BCReadingNowDetail %@ Resolving: Adopted properties from record: %@ %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       sub_1E4708980(self, recordCopy);
     }
@@ -204,15 +283,13 @@ LABEL_19:
     goto LABEL_29;
   }
 
-  v7 = BDSCloudKitLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = BDSCloudKitLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_1E4708A54(self, v7);
+    sub_1E4708A54(self, v8);
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)debugDescription

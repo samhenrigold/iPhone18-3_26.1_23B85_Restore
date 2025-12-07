@@ -30,7 +30,7 @@
 - (id)_processLastAnalysisForSaliencyOConfiguration:(void *)configuration regionOfInterest:(uint64_t)interest originalImageSize:(void *)size options:(void *)options qosClass:(double)class warningRecorder:(double)recorder error:(double)error;
 - (id)_processLastAnalysisForSignificantEventConfiguration:(void *)configuration error:;
 - (id)_processLastAnalysisForVN5kJNH3eYuyaLxNpZr5Z7ziConfiguration:(void *)configuration error:;
-- (id)_processSaliencyTensor:(double)tensor regionOfInterest:(double)interest originalImageSize:(double)size options:(double)options saliencyConfiguration:(uint64_t)configuration saliencyGeneratorType:(int8x16_t *)type startCode:(void *)code finishCode:(void *)self0 qosClass:(void *)self1 warningRecorder:(uint64_t)self2 error:(uint64_t)self3;
+- (id)_processSaliencyTensor:(void *)tensor regionOfInterest:(void *)interest originalImageSize:(void *)size options:(uint64_t)options saliencyConfiguration:(unsigned int)configuration saliencyGeneratorType:(uint64_t)type startCode:(double)code finishCode:(double)self0 qosClass:(double)self1 warningRecorder:(double)self2 error:(double)self3;
 - (id)allCityNatureIdentifiersWithOptions:(id)options error:(id *)error;
 - (id)allJunkIdentifiersForOptions:(id)options error:(id *)error;
 - (id)allRecognizedObjectsIdentifiersWithOptions:(id)options error:(id *)error;
@@ -1294,7 +1294,7 @@ LABEL_12:
           v15 = *(v14 + 23);
           if (v15 < 0)
           {
-            if (v14[1] != 5)
+            if (*(v14 + 8) != 5)
             {
               goto LABEL_15;
             }
@@ -1319,7 +1319,7 @@ LABEL_12:
           }
 
 LABEL_15:
-          v14 += 3;
+          v14 += 24;
           if (v14 == v34)
           {
             goto LABEL_22;
@@ -1351,7 +1351,7 @@ LABEL_22:
         v21 = *(v12 + 23);
         if (v21 < 0)
         {
-          if (v12[1] != 4)
+          if (*(v12 + 8) != 4)
           {
             goto LABEL_29;
           }
@@ -1384,7 +1384,7 @@ LABEL_22:
         }
 
 LABEL_29:
-        v12 += 3;
+        v12 += 24;
       }
 
       while (v12 != v13);
@@ -1393,9 +1393,9 @@ LABEL_29:
 LABEL_30:
     disallowedList = [v8 disallowedList];
     v24 = objc_alloc(MEMORY[0x1E695DF70]);
-    v20 = [v24 initWithCapacity:0xAAAAAAAAAAAAAAABLL * (v34 - v33)];
+    v20 = [v24 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v34 - v33) >> 3)];
     v25 = v33;
-    for (i = v34; v25 != i; v25 += 3)
+    for (i = v34; v25 != i; v25 += 24)
     {
       v27 = objc_alloc(MEMORY[0x1E696AEC0]);
       v28 = v25;
@@ -1643,7 +1643,7 @@ LABEL_13:
           while (v20 - v21 >= 13);
         }
 
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(__p, &v62);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(__p, &v62, &v62);
       }
 
 LABEL_25:
@@ -1671,7 +1671,7 @@ LABEL_25:
       {
         if (!std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v30, v29))
         {
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(__p, v29);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(__p, v29, v29);
         }
 
         v29 += 3;
@@ -1872,8 +1872,8 @@ void __69__VNImageAnalyzerMultiDetector_allSceneIdentifiersWithOptions_error___b
 
 - (id)_observationsForScenes:(void *)scenes entityNet:(void *)net junk:(void *)junk VNVYvzEtX1JlUdu8xx5qhDI:(void *)i landmark:(void *)landmark sceneprints:(void *)sceneprints compressedSceneprint:(double)sceneprint fingerprints:(double)self0 aesthetics:(double)self1 saliencyA:(double)self2 saliencyO:(double)self3 recognizeObjects:(double)self4 VN5kJNH3eYuyaLxNpZr5Z7zi:(void *)self5 VNdGg5skzXHSAENO6T3enHE:(void *)self6 cityNatureGating:(void *)self7 photosAdjustments:(void *)self8 pixelBuffer:(void *)self9 withOptions:(void *)options originalImageSize:(void *)size regionOfInterest:(void *)interest qosClass:(void *)class warningRecorder:(uint64_t)recorder error:(void *)error
 {
-  v321 = *MEMORY[0x1E69E9840];
-  v261 = a2;
+  v325 = *MEMORY[0x1E69E9840];
+  v265 = a2;
   scenesCopy = scenes;
   netCopy = net;
   junkCopy = junk;
@@ -1890,23 +1890,23 @@ void __69__VNImageAnalyzerMultiDetector_allSceneIdentifiersWithOptions_error___b
   interestCopy = interest;
   classCopy = class;
   errorCopy = error;
-  v247 = a27;
-  v248 = adjustmentsCopy;
-  v255 = z7ziCopy;
-  v256 = sceneprintsCopy;
-  v249 = gatingCopy;
-  v250 = eCopy;
-  v245 = optionsCopy;
-  v246 = bufferCopy;
-  v243 = interestCopy;
-  v244 = sizeCopy;
-  v242 = classCopy;
+  v251 = a27;
+  v252 = adjustmentsCopy;
+  v259 = z7ziCopy;
+  v260 = sceneprintsCopy;
+  v253 = gatingCopy;
+  v254 = eCopy;
+  v249 = optionsCopy;
+  v250 = bufferCopy;
+  v247 = interestCopy;
+  v248 = sizeCopy;
+  v246 = classCopy;
   if (!self)
   {
     goto LABEL_55;
   }
 
-  v44 = [VNImageAnalyzerMultiDetector _analysisTypeForScenes:v261 entityNet:scenesCopy junk:netCopy VNVYvzEtX1JlUdu8xx5qhDI:junkCopy landmark:iCopy sceneprints:landmarkCopy compressedSceneprint:sceneprintsCopy fingerprints:z7ziCopy aesthetics:eCopy saliencyA:gatingCopy saliencyO:adjustmentsCopy recognizeObjects:bufferCopy VN5kJNH3eYuyaLxNpZr5Z7zi:optionsCopy VNdGg5skzXHSAENO6T3enHE:sizeCopy cityNatureGating:interestCopy photosAdjustments:classCopy];
+  v44 = [VNImageAnalyzerMultiDetector _analysisTypeForScenes:v265 entityNet:scenesCopy junk:netCopy VNVYvzEtX1JlUdu8xx5qhDI:junkCopy landmark:iCopy sceneprints:landmarkCopy compressedSceneprint:sceneprintsCopy fingerprints:z7ziCopy aesthetics:eCopy saliencyA:gatingCopy saliencyO:adjustmentsCopy recognizeObjects:bufferCopy VN5kJNH3eYuyaLxNpZr5Z7zi:optionsCopy VNdGg5skzXHSAENO6T3enHE:sizeCopy cityNatureGating:interestCopy photosAdjustments:classCopy];
   if (!v44)
   {
     fingerprints = MEMORY[0x1E695E0F0];
@@ -1920,7 +1920,7 @@ LABEL_55:
     goto LABEL_291;
   }
 
-  v232 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v236 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v45 = [landmarkCopy count];
   if (!sceneprintsCopy && !v45)
   {
@@ -1928,37 +1928,37 @@ LABEL_55:
   }
 
   v46 = landmarkCopy;
-  v224 = sceneprintsCopy;
-  v222 = errorCopy;
-  v251 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  vision::mod::ImageAnalyzer::getSceneRepresentation(&v317, *(self + 112));
-  vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&__p, &v317);
-  vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v317);
-  memset(v312, 0, sizeof(v312));
-  v313 = 0u;
-  v314 = 0u;
+  v228 = sceneprintsCopy;
+  v226 = errorCopy;
+  v255 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  vision::mod::ImageAnalyzer::getSceneRepresentation(&v321, *(self + 112));
+  vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&__p, &v321);
+  vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v321);
+  memset(v316, 0, sizeof(v316));
+  v317 = 0u;
+  v318 = 0u;
   obj = v46;
-  v47 = [obj countByEnumeratingWithState:v312 objects:&v317 count:16];
+  v47 = [obj countByEnumeratingWithState:v316 objects:&v321 count:16];
   if (v47)
   {
-    v238 = *v312[2];
+    v242 = *v316[2];
     while (2)
     {
-      v235 = v47;
-      for (i = 0; i != v235; ++i)
+      v239 = v47;
+      for (i = 0; i != v239; ++i)
       {
-        if (*v312[2] != v238)
+        if (*v316[2] != v242)
         {
           objc_enumerationMutation(obj);
         }
 
-        v49 = *(v312[1] + 8 * i);
+        v49 = *&v316[1][2 * i];
         observationsRecipient = [v49 observationsRecipient];
         originatingRequestSpecifier = [observationsRecipient originatingRequestSpecifier];
         [originatingRequestSpecifier requestClassCode];
         [originatingRequestSpecifier requestRevision];
         kdebug_trace();
-        v50 = v302;
+        v50 = v306;
         v51 = __p;
         v52 = objc_alloc(MEMORY[0x1E695DEF0]);
         v53 = [v52 initWithBytes:__p length:v50 - v51];
@@ -1974,47 +1974,47 @@ LABEL_55:
           v56 = MEMORY[0x1E695E0F8];
           if (includeLabelsAndConfidences)
           {
-            [(VNImageAnalyzerMultiDetector *)&v308 _lastAnalysisSceneClassifications];
+            [(VNImageAnalyzerMultiDetector *)&v312 _lastAnalysisSceneClassifications];
             v57 = objc_alloc(MEMORY[0x1E695DF90]);
-            begin = v308.__begin_;
-            v59 = [v57 initWithCapacity:(*(v308.__begin_ + 1) - *v308.__begin_) >> 5];
+            begin = v312.__begin_;
+            v59 = [v57 initWithCapacity:(*(v312.__begin_ + 1) - *v312.__begin_) >> 5];
             v61 = *begin;
             v60 = *(begin + 1);
             while (v61 != v60)
             {
               if (*(v61 + 23) < 0)
               {
-                std::string::__init_copy_ctor_external(&v309, *v61, *(v61 + 1));
+                std::string::__init_copy_ctor_external(&v313, *v61, *(v61 + 1));
               }
 
               else
               {
                 v62 = *v61;
-                v309.__r_.__value_.__r.__words[2] = *(v61 + 2);
-                *&v309.__r_.__value_.__l.__data_ = v62;
+                v313.__r_.__value_.__r.__words[2] = *(v61 + 2);
+                *&v313.__r_.__value_.__l.__data_ = v62;
               }
 
-              v310 = *(v61 + 6);
-              v311 = *(v61 + 28);
+              v314 = *(v61 + 6);
+              v315 = *(v61 + 28);
               v63 = objc_alloc(MEMORY[0x1E696AEC0]);
-              if ((v309.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v313.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v64 = &v309;
+                v64 = &v313;
               }
 
               else
               {
-                v64 = v309.__r_.__value_.__r.__words[0];
+                v64 = v313.__r_.__value_.__r.__words[0];
               }
 
               v65 = [v63 initWithUTF8String:v64];
-              LODWORD(v66) = v310;
+              LODWORD(v66) = v314;
               v67 = [MEMORY[0x1E696AD98] numberWithFloat:v66];
               [v59 setObject:v67 forKeyedSubscript:v65];
 
-              if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v309.__r_.__value_.__l.__data_);
+                operator delete(v313.__r_.__value_.__l.__data_);
               }
 
               v61 += 2;
@@ -2022,9 +2022,9 @@ LABEL_55:
 
             v56 = [v59 copy];
 
-            if (v308.__end_)
+            if (v312.__end_)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v308.__end_);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v312.__end_);
             }
           }
 
@@ -2037,8 +2037,8 @@ LABEL_57:
           }
 
           v69 = [VNSceneObservation alloc];
-          v315[0] = v68;
-          v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v315 count:1];
+          v319[0] = v68;
+          v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v319 count:1];
           v71 = [(VNSceneObservation *)v69 initWithOriginatingRequestSpecifier:originatingRequestSpecifier sceneprints:v70];
 
           [v54 addObject:v71];
@@ -2046,10 +2046,10 @@ LABEL_57:
 
         kdebug_trace();
         [observationsRecipient receiveObservations:v54];
-        [v251 addObjectsFromArray:v54];
+        [v255 addObjectsFromArray:v54];
       }
 
-      v47 = [obj countByEnumeratingWithState:v312 objects:&v317 count:16];
+      v47 = [obj countByEnumeratingWithState:v316 objects:&v321 count:16];
       if (v47)
       {
         continue;
@@ -2059,9 +2059,9 @@ LABEL_57:
     }
   }
 
-  if (v224)
+  if (v228)
   {
-    observationsRecipient2 = [v224 observationsRecipient];
+    observationsRecipient2 = [v228 observationsRecipient];
     originatingRequestSpecifier2 = [observationsRecipient2 originatingRequestSpecifier];
     [originatingRequestSpecifier2 requestClassCode];
     requestRevision = [originatingRequestSpecifier2 requestRevision];
@@ -2080,7 +2080,7 @@ LABEL_57:
     if (v75)
     {
 LABEL_317:
-      if ((v302 - __p) >> 2 == *(v75 + 24))
+      if ((v306 - __p) >> 2 == *(v75 + 24))
       {
         operator new();
       }
@@ -2100,18 +2100,18 @@ LABEL_317:
     {
       if (a28)
       {
-        v208 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unable to locate %@", @"pca256"];
-        *a28 = [VNError errorForInvalidOperationWithLocalizedDescription:v208];
+        v212 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unable to locate %@", @"pca256"];
+        *a28 = [VNError errorForInvalidOperationWithLocalizedDescription:v212];
       }
 
       v81 = 0;
 LABEL_314:
 
-      v210 = *(self + 176);
+      v214 = *(self + 176);
       *(self + 176) = v81;
-      if (v210)
+      if (v214)
       {
-        std::default_delete<vision::mod::ImageAnalyzer_PCA>::operator()[abi:ne200100](v210);
+        std::default_delete<vision::mod::ImageAnalyzer_PCA>::operator()[abi:ne200100](v214);
       }
 
       v75 = *(self + 176);
@@ -2128,106 +2128,106 @@ LABEL_58:
     }
 
     v79 = v77;
-    std::string::basic_string[abi:ne200100]<0>(v306, [v78 UTF8String]);
-    std::string::basic_string[abi:ne200100]<0>(v304, [@"pca256" UTF8String]);
-    memset(&v308, 0, sizeof(v308));
-    if (v307 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(v310, [v78 UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(v308, [@"pca256" UTF8String]);
+    memset(&v312, 0, sizeof(v312));
+    if (v311 >= 0)
     {
-      v80 = v306;
+      v80 = v310;
     }
 
     else
     {
-      v80 = v306[0];
+      v80 = v310[0];
     }
 
     v81 = fopen(v80, "rb");
     if (!v81)
     {
-      v82 = 8565;
+      BinSerializerBlob = 8565;
 LABEL_305:
-      if (v308.__begin_)
+      if (v312.__begin_)
       {
-        operator delete(v308.__begin_);
+        operator delete(v312.__begin_);
       }
 
-      if (v305 < 0)
+      if (v309 < 0)
       {
-        operator delete(v304[0]);
+        operator delete(v308[0]);
       }
 
-      if (v307 < 0)
+      if (v311 < 0)
       {
-        operator delete(v306[0]);
+        operator delete(v310[0]);
       }
 
       if (!v81 && a28)
       {
-        *a28 = VNErrorForCVMLStatus(v82);
+        *a28 = VNErrorForCVMLStatus(BinSerializerBlob);
       }
 
       goto LABEL_314;
     }
 
-    LODWORD(v299[0]) = 0;
-    std::string::basic_string[abi:ne200100]<0>(&v309, "origDim");
-    v82 = vision::mod::_readBinSerializerBlob(v81, &v309, v299, 1);
-    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    LODWORD(v303[0]) = 0;
+    std::string::basic_string[abi:ne200100]<0>(&v313, "origDim");
+    BinSerializerBlob = vision::mod::_readBinSerializerBlob(v81, &v313.__r_.__value_.__l.__data_, v303, 1);
+    if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v309.__r_.__value_.__l.__data_);
+      operator delete(v313.__r_.__value_.__l.__data_);
     }
 
-    if (v82 == 128)
+    if (BinSerializerBlob == 128)
     {
-      v83 = *v299;
-      if (!*v299)
+      v83 = *v303;
+      if (!*v303)
       {
         goto LABEL_303;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v309, "pcaDim");
-      v82 = vision::mod::_readBinSerializerBlob(v81, &v309, v299, 1);
-      if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v313, "pcaDim");
+      BinSerializerBlob = vision::mod::_readBinSerializerBlob(v81, &v313.__r_.__value_.__l.__data_, v303, 1);
+      if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v309.__r_.__value_.__l.__data_);
+        operator delete(v313.__r_.__value_.__l.__data_);
       }
 
-      if (v82 == 128)
+      if (BinSerializerBlob == 128)
       {
-        v84 = *v299;
-        if (*v299 - 1 < v83)
+        v84 = *v303;
+        if (*v303 - 1 < v83)
         {
-          std::vector<float>::resize(&v308, v84 * v83);
-          if (v305 >= 0)
+          std::vector<float>::resize(&v312, v84 * v83);
+          if (v309 >= 0)
           {
-            v85 = v304;
+            v85 = v308;
           }
 
           else
           {
-            v85 = v304[0];
+            v85 = v308[0];
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v309, v85);
-          v82 = vision::mod::_readBinSerializerBlob(v81, &v309, v308.__begin_, v84 * v83);
-          if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+          std::string::basic_string[abi:ne200100]<0>(&v313, v85);
+          BinSerializerBlob = vision::mod::_readBinSerializerBlob(v81, &v313.__r_.__value_.__l.__data_, v312.__begin_, v84 * v83);
+          if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v309.__r_.__value_.__l.__data_);
+            operator delete(v313.__r_.__value_.__l.__data_);
           }
 
-          if (v82 == 128)
+          if (BinSerializerBlob == 128)
           {
             fclose(v81);
-            v82 = 8576;
+            BinSerializerBlob = 8576;
             goto LABEL_301;
           }
 
-          std::vector<float>::resize(&v308, 0);
+          std::vector<float>::resize(&v312, 0);
           goto LABEL_300;
         }
 
 LABEL_303:
-        v82 = 8564;
+        BinSerializerBlob = 8564;
         fclose(v81);
 LABEL_304:
         v81 = 0;
@@ -2243,24 +2243,24 @@ LABEL_304:
     v84 = 0;
 LABEL_300:
     fclose(v81);
-    if (v82 == 128)
+    if (BinSerializerBlob == 128)
     {
 LABEL_301:
-      v209 = operator new(0x28uLL, MEMORY[0x1E69E5398]);
-      v81 = v209;
-      if (v209)
+      v213 = operator new(0x28uLL, MEMORY[0x1E69E5398]);
+      v81 = v213;
+      if (v213)
       {
-        v209->_p = 0;
-        *&v209->_r = 0;
-        *&v209->_flags = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v209, v308.__begin_, v308.__end_, v308.__end_ - v308.__begin_);
+        *v213 = 0;
+        v213[1] = 0;
+        v213[2] = 0;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v213, v312.__begin_, v312.__end_, v312.__end_ - v312.__begin_);
         v81->_bf._base = v83;
         *&v81->_bf._size = v84;
       }
 
       else
       {
-        v82 = 8571;
+        BinSerializerBlob = 8571;
       }
 
       goto LABEL_305;
@@ -2269,11 +2269,11 @@ LABEL_301:
     goto LABEL_304;
   }
 
-  fingerprints = v251;
+  fingerprints = v255;
 LABEL_59:
   if (__p)
   {
-    v302 = __p;
+    v306 = __p;
     operator delete(__p);
   }
 
@@ -2282,29 +2282,29 @@ LABEL_59:
     goto LABEL_290;
   }
 
-  [v232 addObjectsFromArray:fingerprints];
+  [v236 addObjectsFromArray:fingerprints];
 
 LABEL_63:
-  if (v255)
+  if (v259)
   {
-    [v255 observationsRecipient];
+    [v259 observationsRecipient];
     originatingRequestSpecifier3 = [objc_claimAutoreleasedReturnValue() originatingRequestSpecifier];
     [originatingRequestSpecifier3 requestClassCode];
     [originatingRequestSpecifier3 requestRevision];
     kdebug_trace();
-    memset(&v308, 0, sizeof(v308));
+    memset(&v312, 0, sizeof(v312));
     v87 = *(self + 112);
-    LODWORD(v306[0]) = 1024;
-    v312[0] = v306;
-    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v87 + 824), 0x400u) + 20))
+    LODWORD(v310[0]) = 1024;
+    v316[0] = v310;
+    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v87 + 824), 0x400u, v316) + 20))
     {
-      LODWORD(v306[0]) = 1024;
-      v312[0] = v306;
-      v88 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v87 + 784), 0x400u);
-      vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v317, (v88 + 3), 1);
-      vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(v312, &v317);
-      v306[0] = 0;
-      std::vector<long long>::vector[abi:ne200100](&v309, 1uLL);
+      LODWORD(v310[0]) = 1024;
+      v316[0] = v310;
+      v88 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v87 + 784), 0x400u, v316);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v321, (v88 + 3), 1);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(v316, &v321);
+      v310[0] = 0;
+      std::vector<long long>::vector[abi:ne200100](&v313, 1uLL, v310);
       operator new();
     }
 
@@ -2313,28 +2313,28 @@ LABEL_63:
     __cxa_throw(exception, MEMORY[0x1E69E54B0], 0);
   }
 
-  if (v261)
+  if (v265)
   {
-    v89 = v261;
-    memset(v312, 0, sizeof(v312));
-    v313 = 0u;
-    v314 = 0u;
-    v265 = v89;
+    v89 = v265;
+    memset(v316, 0, sizeof(v316));
+    v317 = 0u;
+    v318 = 0u;
+    v269 = v89;
     v90 = 0;
-    v91 = [v265 countByEnumeratingWithState:v312 objects:&v317 count:16];
+    v91 = [v269 countByEnumeratingWithState:v316 objects:&v321 count:16];
     if (v91)
     {
-      v269 = *v312[2];
+      v273 = *v316[2];
       while (2)
       {
         for (j = 0; j != v91; ++j)
         {
-          if (*v312[2] != v269)
+          if (*v316[2] != v273)
           {
-            objc_enumerationMutation(v265);
+            objc_enumerationMutation(v269);
           }
 
-          v93 = *(v312[1] + 8 * j);
+          v93 = *&v316[1][2 * j];
           observationsRecipient3 = [v93 observationsRecipient];
           originatingRequestSpecifier4 = [observationsRecipient3 originatingRequestSpecifier];
           [originatingRequestSpecifier4 requestClassCode];
@@ -2368,7 +2368,7 @@ LABEL_63:
           }
         }
 
-        v91 = [v265 countByEnumeratingWithState:v312 objects:&v317 count:16];
+        v91 = [v269 countByEnumeratingWithState:v316 objects:&v321 count:16];
         if (v91)
         {
           continue;
@@ -2387,7 +2387,7 @@ LABEL_80:
       goto LABEL_289;
     }
 
-    [v232 addObjectsFromArray:v100];
+    [v236 addObjectsFromArray:v100];
   }
 
   if (scenesCopy)
@@ -2403,38 +2403,38 @@ LABEL_80:
     if (v103)
     {
       disallowedList = [v101 disallowedList];
-      v239 = v101;
+      v243 = v101;
       [v101 minimumConfidence];
       v105 = v104;
       maximumLabels = [v101 maximumLabels];
       v107 = *(self + 112);
-      v306[0] = maximumLabels;
-      memset(v312, 0, sizeof(v312));
-      LODWORD(v313) = 1065353216;
-      LODWORD(v309.__r_.__value_.__l.__data_) = 4096;
-      v317.i64[0] = &v309;
-      if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 103, 0x1000u) + 20) != 1)
+      v310[0] = maximumLabels;
+      memset(v316, 0, sizeof(v316));
+      LODWORD(v317) = 1065353216;
+      LODWORD(v313.__r_.__value_.__l.__data_) = 4096;
+      v321.i64[0] = &v313;
+      if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 103, 0x1000u, &v321) + 20) != 1)
       {
-        v212 = __cxa_allocate_exception(8uLL);
-        *v212 = 8574;
-        __cxa_throw(v212, MEMORY[0x1E69E54B0], 0);
+        v216 = __cxa_allocate_exception(8uLL);
+        *v216 = 8574;
+        __cxa_throw(v216, MEMORY[0x1E69E54B0], 0);
       }
 
-      LODWORD(v304[0]) = 4096;
-      v308.__begin_ = v304;
-      v108 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 98, 0x1000u);
-      vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v317, (v108 + 3), 1);
-      vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&v309, &v317);
-      vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v317);
-      v317 = 0uLL;
-      v318 = 0;
+      LODWORD(v308[0]) = 4096;
+      v312.__begin_ = v308;
+      v108 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 98, 0x1000u, &v312.__begin_);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v321, (v108 + 3), 1);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&v313, &v321);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v321);
+      v321 = 0uLL;
+      v322 = 0;
       v109 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::find<vision::mod::ImageAnalyzer_AnalysisType>(v107 + 93, 0x1000u);
       if (v109)
       {
-        LODWORD(v304[0]) = 4096;
-        v308.__begin_ = v304;
-        v110 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 93, 0x1000u);
-        vision::mod::ImageAnalyzer_PostProcessor::process(v110 + 3, &v309, &v317);
+        LODWORD(v308[0]) = 4096;
+        v312.__begin_ = v308;
+        v110 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 186, 0x1000u, &v312.__begin_);
+        vision::mod::ImageAnalyzer_PostProcessor::process(v110 + 3, &v313, &v321);
       }
 
       v111 = *(self + 128);
@@ -2443,55 +2443,55 @@ LABEL_80:
         v113 = *v111;
         if (v109)
         {
-          v114 = &v317;
+          v114 = &v321;
         }
 
         else
         {
-          v114 = &v309;
+          v114 = &v313;
         }
 
         v115 = *(v114->__r_.__value_.__r.__words[0] + 4 * v113);
         if (fabsf(v115) >= v105)
         {
-          LODWORD(v304[0]) = 4096;
-          v308.__begin_ = v304;
-          v308.__begin_ = (std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 108, 0x1000u)[3] + 24 * v113);
-          *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v312, v308.__begin_) + 10) = v115;
+          LODWORD(v308[0]) = 4096;
+          v312.__begin_ = v308;
+          v312.__begin_ = (std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v107 + 108, 0x1000u, &v312.__begin_)[3] + 24 * v113);
+          *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v316, v312.__begin_, &v312) + 10) = v115;
         }
       }
 
-      if (v317.i64[0])
+      if (v321.i64[0])
       {
-        v317.i64[1] = v317.i64[0];
-        operator delete(v317.i64[0]);
+        v321.i64[1] = v321.i64[0];
+        operator delete(v321.i64[0]);
       }
 
-      v101 = v239;
+      v101 = v243;
       v102 = originatingRequestSpecifier5;
-      if (v309.__r_.__value_.__r.__words[0])
+      if (v313.__r_.__value_.__r.__words[0])
       {
-        v309.__r_.__value_.__l.__size_ = v309.__r_.__value_.__r.__words[0];
-        operator delete(v309.__r_.__value_.__l.__data_);
+        v313.__r_.__value_.__l.__size_ = v313.__r_.__value_.__r.__words[0];
+        operator delete(v313.__r_.__value_.__l.__data_);
       }
 
       v116 = objc_alloc(MEMORY[0x1E695DF70]);
-      v117 = [v116 initWithCapacity:v312[3]];
-      v118 = v312[2];
-      if (v312[2])
+      v117 = [v116 initWithCapacity:v316[3]];
+      v118 = v316[2];
+      if (v316[2])
       {
         while (1)
         {
           v119 = *(v118 + 10);
           v120 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v121 = v118 + 2;
+          v121 = v118 + 4;
           if (*(v118 + 39) < 0)
           {
             v121 = *v121;
           }
 
           v122 = [v120 initWithUTF8String:v121];
-          v123 = v306[0] == 0x7FFFFFFFFFFFFFFFLL ? 0 : v306;
+          v123 = v310[0] == 0x7FFFFFFFFFFFFFFFLL ? 0 : v310;
           v124 = [(VNImageAnalyzerMultiDetector *)self _processSceneIdentifier:v122 withConfidence:disallowedList disallowedList:v103 operationPoints:originatingRequestSpecifier5 originatingRequestSpecifier:v117 observationsArray:v123 optionalTopN:a28 error:v119];
 
           if (!v124)
@@ -2520,9 +2520,9 @@ LABEL_106:
         v126 = v117;
       }
 
-      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__deallocate_node(v312[2]);
-      v127 = v312[0];
-      v312[0] = 0;
+      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__deallocate_node(v316[2]);
+      v127 = v316[0];
+      v316[0] = 0;
       if (v127)
       {
         operator delete(v127);
@@ -2539,77 +2539,80 @@ LABEL_106:
       goto LABEL_289;
     }
 
-    [v232 addObjectsFromArray:v126];
+    [v236 addObjectsFromArray:v126];
   }
 
   if (netCopy)
   {
-    v236 = netCopy;
-    observationsRecipient6 = [v236 observationsRecipient];
+    v240 = netCopy;
+    observationsRecipient6 = [v240 observationsRecipient];
     originatingRequestSpecifier6 = [observationsRecipient6 originatingRequestSpecifier];
     [originatingRequestSpecifier6 requestClassCode];
     [originatingRequestSpecifier6 requestRevision];
     kdebug_trace();
-    [(VNImageAnalyzerMultiDetector *)&v309 _junkCustomClassifiersAndReturnError:self, a28];
-    v129 = v309.__r_.__value_.__r.__words[0];
-    if (v309.__r_.__value_.__r.__words[0])
+    [(VNImageAnalyzerMultiDetector *)&v313 _junkCustomClassifiersAndReturnError:self, a28];
+    v129 = v313.__r_.__value_.__r.__words[0];
+    if (v313.__r_.__value_.__r.__words[0])
     {
-      vision::mod::ImageAnalyzer::getSceneRepresentation(&v317, *(self + 112));
+      vision::mod::ImageAnalyzer::getSceneRepresentation(&v321, *(self + 112));
       v130 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if (*v129 != v129[1])
+      v131 = *v129;
+      if (*v129 != *(v129 + 8))
       {
-        v131 = *(*v129 + 8);
-        if (v131)
+        v132 = *v131;
+        v133 = v131[1];
+        if (v133)
         {
-          atomic_fetch_add_explicit((v131 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v133 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v308.__begin_ = 0;
-        vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+        v312.__begin_ = 0;
+        vision::mod::ImageAnalyzer_CustomClassifier::performInference(v310, v132, &v321, &v312);
       }
 
-      v132 = &__block_literal_global_128;
+      v134 = &__block_literal_global_128;
       [v130 sortWithOptions:16 usingComparator:&__block_literal_global_128];
 
       kdebug_trace();
       [observationsRecipient6 receiveObservations:v130];
-      v133 = v130;
+      v135 = v130;
 
-      vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v317);
+      vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v321);
     }
 
     else
     {
-      v133 = 0;
+      v135 = 0;
     }
 
-    if (v309.__r_.__value_.__l.__size_)
+    if (v313.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v309.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v313.__r_.__value_.__l.__size_);
     }
 
-    if (!v133)
+    if (!v135)
     {
       goto LABEL_289;
     }
 
-    [v232 addObjectsFromArray:v133];
+    [v236 addObjectsFromArray:v135];
   }
 
   if (junkCopy)
   {
-    v134 = junkCopy;
-    [(VNImageAnalyzerMultiDetector *)v312 _VNVYvzEtX1JlUdu8xx5qhDICustomClassifierAndReturnError:self, a28];
-    if (v312[0])
+    v136 = junkCopy;
+    [(VNImageAnalyzerMultiDetector *)v316 _VNVYvzEtX1JlUdu8xx5qhDICustomClassifierAndReturnError:self, a28];
+    v137 = v316[0];
+    if (v316[0])
     {
-      vision::mod::ImageAnalyzer::getSceneRepresentation(&v317, *(self + 112));
-      v309.__r_.__value_.__r.__words[0] = 0;
-      vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+      vision::mod::ImageAnalyzer::getSceneRepresentation(&v321, *(self + 112));
+      v313.__r_.__value_.__r.__words[0] = 0;
+      vision::mod::ImageAnalyzer_CustomClassifier::performInference(&v312, v137, &v321, &v313);
     }
 
-    if (v312[1])
+    if (v316[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v312[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v316[1]);
     }
 
 LABEL_134:
@@ -2621,141 +2624,118 @@ LABEL_289:
 
   if (iCopy)
   {
-    v134 = iCopy;
-    [(VNImageAnalyzerMultiDetector *)&v309 _potentialLandmarksCustomClassifierAndReturnError:self, a28];
-    if (v309.__r_.__value_.__r.__words[0])
+    v136 = iCopy;
+    [(VNImageAnalyzerMultiDetector *)&v313 _potentialLandmarksCustomClassifierAndReturnError:self, a28];
+    v138 = v313.__r_.__value_.__r.__words[0];
+    if (v313.__r_.__value_.__r.__words[0])
     {
-      vision::mod::ImageAnalyzer::getSceneRepresentation(&v317, *(self + 112));
-      v308.__begin_ = 0;
-      vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+      vision::mod::ImageAnalyzer::getSceneRepresentation(&v321, *(self + 112));
+      v312.__begin_ = 0;
+      vision::mod::ImageAnalyzer_CustomClassifier::performInference(v310, v138, &v321, &v312);
     }
 
-    if (v309.__r_.__value_.__l.__size_)
+    if (v313.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v309.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v313.__r_.__value_.__l.__size_);
     }
 
     goto LABEL_134;
   }
 
-  if (v250)
+  if (v254)
   {
-    v271 = v250;
-    observationsRecipient7 = [v271 observationsRecipient];
+    v275 = v254;
+    observationsRecipient7 = [v275 observationsRecipient];
     originatingRequestSpecifier7 = [observationsRecipient7 originatingRequestSpecifier];
     [originatingRequestSpecifier7 requestClassCode];
     [originatingRequestSpecifier7 requestRevision];
     kdebug_trace();
-    v137 = *(self + 112);
-    LODWORD(v312[0]) = 8;
-    v317.i64[0] = v312;
-    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v137 + 824), 8u) + 20) != 1)
-    {
-      v213 = __cxa_allocate_exception(8uLL);
-      *v213 = 8574;
-      __cxa_throw(v213, MEMORY[0x1E69E54B0], 0);
-    }
-
-    LODWORD(v309.__r_.__value_.__l.__data_) = 8;
-    v312[0] = &v309;
-    v138 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v137 + 784), 8u);
-    vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v317, (v138 + 3), 0);
-    v140 = vision::mod::ImageAnalyzer_Tensor1D<float>::operator[](&v317, 0, v139);
-    vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v317);
     v141 = *(self + 112);
-    memset(v312, 0, sizeof(v312));
-    LODWORD(v313) = 1065353216;
-    LODWORD(v309.__r_.__value_.__l.__data_) = 4;
-    v317.i64[0] = &v309;
-    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v141 + 103, 4u) + 20) != 1)
+    LODWORD(v316[0]) = 8;
+    v321.i64[0] = v316;
+    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v141 + 824), 8u, &v321) + 20) != 1)
     {
-      v214 = __cxa_allocate_exception(8uLL);
-      *v214 = 8574;
-      __cxa_throw(v214, MEMORY[0x1E69E54B0], 0);
+      v217 = __cxa_allocate_exception(8uLL);
+      *v217 = 8574;
+      __cxa_throw(v217, MEMORY[0x1E69E54B0], 0);
     }
 
-    LODWORD(v306[0]) = 4;
-    v308.__begin_ = v306;
-    v142 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v141 + 98, 4u);
-    vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v317, (v142 + 3), 1);
-    vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&v309, &v317);
-    vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v317);
-    v317 = 0uLL;
-    v318 = 0;
-    v143 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::find<vision::mod::ImageAnalyzer_AnalysisType>(v141 + 93, 4u);
-    if (v143)
+    LODWORD(v313.__r_.__value_.__l.__data_) = 8;
+    v316[0] = &v313;
+    v142 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v141 + 784), 8u, v316);
+    vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v321, (v142 + 3), 0);
+    v144 = vision::mod::ImageAnalyzer_Tensor1D<float>::operator[](&v321, 0, v143);
+    vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v321);
+    v145 = *(self + 112);
+    memset(v316, 0, sizeof(v316));
+    LODWORD(v317) = 1065353216;
+    LODWORD(v313.__r_.__value_.__l.__data_) = 4;
+    v321.i64[0] = &v313;
+    if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v145 + 103, 4u, &v321) + 20) != 1)
     {
-      LODWORD(v306[0]) = 4;
-      v308.__begin_ = v306;
-      v144 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v141 + 93, 4u);
-      vision::mod::ImageAnalyzer_PostProcessor::process(v144 + 3, &v309, &v317);
+      v218 = __cxa_allocate_exception(8uLL);
+      *v218 = 8574;
+      __cxa_throw(v218, MEMORY[0x1E69E54B0], 0);
     }
 
-    v145 = v309.__r_.__value_.__r.__words[0];
-    if (v309.__r_.__value_.__l.__size_ != v309.__r_.__value_.__r.__words[0])
+    LODWORD(v310[0]) = 4;
+    v312.__begin_ = v310;
+    v146 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v145 + 98, 4u, &v312.__begin_);
+    vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v321, (v146 + 3), 1);
+    vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&v313, &v321);
+    vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v321);
+    v321 = 0uLL;
+    v322 = 0;
+    v147 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::find<vision::mod::ImageAnalyzer_AnalysisType>(v145 + 93, 4u);
+    if (v147)
     {
-      v146 = 0;
-      v147 = 0;
+      LODWORD(v310[0]) = 4;
+      v312.__begin_ = v310;
+      v148 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v145 + 186, 4u, &v312.__begin_);
+      vision::mod::ImageAnalyzer_PostProcessor::process(v148 + 3, &v313, &v321);
+    }
+
+    v149 = v313.__r_.__value_.__r.__words[0];
+    if (v313.__r_.__value_.__l.__size_ != v313.__r_.__value_.__r.__words[0])
+    {
+      v150 = 0;
+      v151 = 0;
       do
       {
-        v148 = v317.i64[0];
-        if (!v143)
+        v152 = v321.i64[0];
+        if (!v147)
         {
-          v148 = v145;
+          v152 = v149;
         }
 
-        v149 = *(v148 + 4 * v147);
-        LODWORD(v306[0]) = 4;
-        v308.__begin_ = v306;
-        v308.__begin_ = (std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v141 + 108, 4u)[3] + v146);
-        *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v312, v308.__begin_) + 10) = v149;
-        v145 = v309.__r_.__value_.__r.__words[0];
-        ++v147;
-        v146 += 24;
+        v153 = *(v152 + 4 * v151);
+        LODWORD(v310[0]) = 4;
+        v312.__begin_ = v310;
+        v312.__begin_ = (std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>(v145 + 108, 4u, &v312.__begin_)[3] + v150);
+        *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v316, v312.__begin_, &v312) + 10) = v153;
+        v149 = v313.__r_.__value_.__r.__words[0];
+        ++v151;
+        v150 += 24;
       }
 
-      while (v147 < (v309.__r_.__value_.__l.__size_ - v309.__r_.__value_.__r.__words[0]) >> 2);
+      while (v151 < (v313.__r_.__value_.__l.__size_ - v313.__r_.__value_.__r.__words[0]) >> 2);
     }
 
-    if (v317.i64[0])
+    if (v321.i64[0])
     {
-      v317.i64[1] = v317.i64[0];
-      operator delete(v317.i64[0]);
-      v145 = v309.__r_.__value_.__r.__words[0];
+      v321.i64[1] = v321.i64[0];
+      operator delete(v321.i64[0]);
+      v149 = v313.__r_.__value_.__r.__words[0];
     }
 
-    if (v145)
+    if (v149)
     {
-      v309.__r_.__value_.__l.__size_ = v145;
-      operator delete(v145);
+      v313.__r_.__value_.__l.__size_ = v149;
+      operator delete(v149);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v317, "subject_framing");
-    v150 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, &v317);
-    if (v150)
-    {
-      v151 = *(v150 + 10);
-    }
-
-    else
-    {
-      v151 = 0;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v309, "background");
-    v152 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, &v309);
-    if (v152)
-    {
-      v153 = *(v152 + 10);
-    }
-
-    else
-    {
-      v153 = 0;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v308, "blur");
-    v154 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, &v308);
+    std::string::basic_string[abi:ne200100]<0>(&v321, "subject_framing");
+    v154 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, &v321);
     if (v154)
     {
       v155 = *(v154 + 10);
@@ -2766,8 +2746,8 @@ LABEL_289:
       v155 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v306, "subject_sharpness");
-    v156 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v306);
+    std::string::basic_string[abi:ne200100]<0>(&v313, "background");
+    v156 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, &v313);
     if (v156)
     {
       v157 = *(v156 + 10);
@@ -2778,8 +2758,8 @@ LABEL_289:
       v157 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v304, "timing");
-    v158 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v304);
+    std::string::basic_string[abi:ne200100]<0>(&v312, "blur");
+    v158 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, &v312);
     if (v158)
     {
       v159 = *(v158 + 10);
@@ -2790,8 +2770,8 @@ LABEL_289:
       v159 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&__p, "lightning");
-    v160 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, &__p);
+    std::string::basic_string[abi:ne200100]<0>(v310, "subject_sharpness");
+    v160 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v310);
     if (v160)
     {
       v161 = *(v160 + 10);
@@ -2802,8 +2782,8 @@ LABEL_289:
       v161 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v315, "reflections");
-    v162 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v315);
+    std::string::basic_string[abi:ne200100]<0>(v308, "timing");
+    v162 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v308);
     if (v162)
     {
       v163 = *(v162 + 10);
@@ -2814,8 +2794,8 @@ LABEL_289:
       v163 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v299, "color_harmony");
-    v164 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v299);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "lightning");
+    v164 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, &__p);
     if (v164)
     {
       v165 = *(v164 + 10);
@@ -2826,9 +2806,8 @@ LABEL_289:
       v165 = 0;
     }
 
-    v267 = v165;
-    std::string::basic_string[abi:ne200100]<0>(v297, "color_brightness");
-    v166 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v297);
+    std::string::basic_string[abi:ne200100]<0>(v319, "reflections");
+    v166 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v319);
     if (v166)
     {
       v167 = *(v166 + 10);
@@ -2839,9 +2818,8 @@ LABEL_289:
       v167 = 0;
     }
 
-    v253 = v167;
-    std::string::basic_string[abi:ne200100]<0>(v295, "symmetry");
-    v168 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v295);
+    std::string::basic_string[abi:ne200100]<0>(v303, "color_harmony");
+    v168 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v303);
     if (v168)
     {
       v169 = *(v168 + 10);
@@ -2852,9 +2830,9 @@ LABEL_289:
       v169 = 0;
     }
 
-    v241 = v169;
-    std::string::basic_string[abi:ne200100]<0>(v293, "repetition");
-    v170 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v293);
+    v271 = v169;
+    std::string::basic_string[abi:ne200100]<0>(v301, "color_brightness");
+    v170 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v301);
     if (v170)
     {
       v171 = *(v170 + 10);
@@ -2865,9 +2843,9 @@ LABEL_289:
       v171 = 0;
     }
 
-    v237 = v171;
-    std::string::basic_string[abi:ne200100]<0>(v291, "immersive_feeling");
-    v172 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v291);
+    v257 = v171;
+    std::string::basic_string[abi:ne200100]<0>(v299, "symmetry");
+    v172 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v299);
     if (v172)
     {
       v173 = *(v172 + 10);
@@ -2878,9 +2856,9 @@ LABEL_289:
       v173 = 0;
     }
 
-    obja = v173;
-    std::string::basic_string[abi:ne200100]<0>(v289, "perspective");
-    v174 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v289);
+    v245 = v173;
+    std::string::basic_string[abi:ne200100]<0>(v297, "repetition");
+    v174 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v297);
     if (v174)
     {
       v175 = *(v174 + 10);
@@ -2891,9 +2869,9 @@ LABEL_289:
       v175 = 0;
     }
 
-    v225 = v175;
-    std::string::basic_string[abi:ne200100]<0>(v287, "post_processing");
-    v176 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v287);
+    v241 = v175;
+    std::string::basic_string[abi:ne200100]<0>(v295, "immersive_feeling");
+    v176 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v295);
     if (v176)
     {
       v177 = *(v176 + 10);
@@ -2904,9 +2882,9 @@ LABEL_289:
       v177 = 0;
     }
 
-    v223 = v177;
-    std::string::basic_string[abi:ne200100]<0>(v285, "noise");
-    v178 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v285);
+    obja = v177;
+    std::string::basic_string[abi:ne200100]<0>(v293, "perspective");
+    v178 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v293);
     if (v178)
     {
       v179 = *(v178 + 10);
@@ -2917,9 +2895,9 @@ LABEL_289:
       v179 = 0;
     }
 
-    v221 = v179;
-    std::string::basic_string[abi:ne200100]<0>(v283, "failure");
-    v180 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v283);
+    v229 = v179;
+    std::string::basic_string[abi:ne200100]<0>(v291, "post_processing");
+    v180 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v291);
     if (v180)
     {
       v181 = *(v180 + 10);
@@ -2930,9 +2908,9 @@ LABEL_289:
       v181 = 0;
     }
 
-    v220 = v181;
-    std::string::basic_string[abi:ne200100]<0>(v281, "composition");
-    v182 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v281);
+    v227 = v181;
+    std::string::basic_string[abi:ne200100]<0>(v289, "noise");
+    v182 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v289);
     if (v182)
     {
       v183 = *(v182 + 10);
@@ -2943,9 +2921,9 @@ LABEL_289:
       v183 = 0;
     }
 
-    v219 = v183;
-    std::string::basic_string[abi:ne200100]<0>(v279, "interestingness");
-    v184 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v279);
+    v225 = v183;
+    std::string::basic_string[abi:ne200100]<0>(v287, "failure");
+    v184 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v287);
     if (v184)
     {
       v185 = *(v184 + 10);
@@ -2956,10 +2934,9 @@ LABEL_289:
       v185 = 0;
     }
 
-    v218 = v185;
-    std::string::basic_string[abi:ne200100]<0>(v277, "object_intrusion");
-    v217 = v140;
-    v186 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v277);
+    v224 = v185;
+    std::string::basic_string[abi:ne200100]<0>(v285, "composition");
+    v186 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v285);
     if (v186)
     {
       v187 = *(v186 + 10);
@@ -2970,9 +2947,9 @@ LABEL_289:
       v187 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v275, "tilt");
-    v216 = v163;
-    v188 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v275);
+    v223 = v187;
+    std::string::basic_string[abi:ne200100]<0>(v283, "interestingness");
+    v188 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v283);
     if (v188)
     {
       v189 = *(v188 + 10);
@@ -2983,38 +2960,55 @@ LABEL_289:
       v189 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v273, "low_light");
-    v190 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v312, v273);
+    v222 = v189;
+    std::string::basic_string[abi:ne200100]<0>(v281, "object_intrusion");
+    v221 = v144;
+    v190 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v281);
     if (v190)
     {
-      LODWORD(v191) = *(v190 + 10);
+      v191 = *(v190 + 10);
     }
 
     else
     {
-      v191 = 0.0;
+      v191 = 0;
     }
 
-    v215 = __PAIR64__(LODWORD(v191), v189);
-    LODWORD(v198) = v216;
-    *&v191 = v217;
-    LODWORD(v192) = v151;
-    LODWORD(v193) = v153;
-    LODWORD(v194) = v155;
-    LODWORD(v195) = v157;
-    LODWORD(v196) = v159;
-    LODWORD(v197) = v161;
-    v199 = [VNImageAestheticsObservation observationForOriginatingRequestSpecifier:originatingRequestSpecifier7 overallAestheticScore:a28 wellFramedSubjectScore:v191 wellChosenBackgroundScore:v192 tastefullyBlurredScore:v193 sharplyFocusedSubjectScore:v194 wellTimedShotScore:v195 pleasantLightingScore:v196 pleasantReflectionsScore:v197 harmoniousColorScore:v198 livelyColorScore:__PAIR64__(v253 pleasantSymmetryScore:v267) pleasantPatternScore:__PAIR64__(v237 immersivenessScore:v241) pleasantPerspectiveScore:__PAIR64__(v225 pleasantPostProcessingScore:obja) noiseScore:__PAIR64__(v221 failureScore:v223) pleasantCompositionScore:__PAIR64__(v219 interestingSubjectScore:v220) intrusiveObjectPresenceScore:__PAIR64__(v187 pleasantCameraTiltScore:v218) lowKeyLightingScore:v215 error:?];
-    if (v274 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v279, "tilt");
+    v220 = v167;
+    v192 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v279);
+    if (v192)
     {
-      operator delete(v273[0]);
+      v193 = *(v192 + 10);
     }
 
-    if (v276 < 0)
+    else
     {
-      operator delete(v275[0]);
+      v193 = 0;
     }
 
+    std::string::basic_string[abi:ne200100]<0>(v277, "low_light");
+    v194 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v316, v277);
+    if (v194)
+    {
+      LODWORD(v195) = *(v194 + 10);
+    }
+
+    else
+    {
+      v195 = 0.0;
+    }
+
+    v219 = __PAIR64__(LODWORD(v195), v193);
+    LODWORD(v202) = v220;
+    *&v195 = v221;
+    LODWORD(v196) = v155;
+    LODWORD(v197) = v157;
+    LODWORD(v198) = v159;
+    LODWORD(v199) = v161;
+    LODWORD(v200) = v163;
+    LODWORD(v201) = v165;
+    v203 = [VNImageAestheticsObservation observationForOriginatingRequestSpecifier:originatingRequestSpecifier7 overallAestheticScore:a28 wellFramedSubjectScore:v195 wellChosenBackgroundScore:v196 tastefullyBlurredScore:v197 sharplyFocusedSubjectScore:v198 wellTimedShotScore:v199 pleasantLightingScore:v200 pleasantReflectionsScore:v201 harmoniousColorScore:v202 livelyColorScore:__PAIR64__(v257 pleasantSymmetryScore:v271) pleasantPatternScore:__PAIR64__(v241 immersivenessScore:v245) pleasantPerspectiveScore:__PAIR64__(v229 pleasantPostProcessingScore:obja) noiseScore:__PAIR64__(v225 failureScore:v227) pleasantCompositionScore:__PAIR64__(v223 interestingSubjectScore:v224) intrusiveObjectPresenceScore:__PAIR64__(v191 pleasantCameraTiltScore:v222) lowKeyLightingScore:v219 error:?];
     if (v278 < 0)
     {
       operator delete(v277[0]);
@@ -3075,155 +3069,165 @@ LABEL_289:
       operator delete(v299[0]);
     }
 
-    if (v316 < 0)
+    if (v302 < 0)
     {
-      operator delete(v315[0]);
+      operator delete(v301[0]);
     }
 
-    if (v303 < 0)
+    if (v304 < 0)
     {
-      operator delete(__p);
+      operator delete(v303[0]);
     }
 
-    if (v305 < 0)
+    if (v320 < 0)
     {
-      operator delete(v304[0]);
+      operator delete(v319[0]);
     }
 
     if (v307 < 0)
     {
-      operator delete(v306[0]);
+      operator delete(__p);
     }
 
-    if (SHIBYTE(v308.__end_cap_.__value_) < 0)
+    if (v309 < 0)
     {
-      operator delete(v308.__begin_);
+      operator delete(v308[0]);
     }
 
-    if (SHIBYTE(v309.__r_.__value_.__r.__words[2]) < 0)
+    if (v311 < 0)
     {
-      operator delete(v309.__r_.__value_.__l.__data_);
+      operator delete(v310[0]);
     }
 
-    if (SHIBYTE(v318) < 0)
+    if (SHIBYTE(v312.__end_cap_.__value_) < 0)
     {
-      operator delete(v317.i64[0]);
+      operator delete(v312.__begin_);
     }
 
-    if (v199)
+    if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v313.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v322) < 0)
+    {
+      operator delete(v321.i64[0]);
+    }
+
+    if (v203)
     {
       kdebug_trace();
-      v317.i64[0] = v199;
-      v200 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v317 count:1];
-      [observationsRecipient7 receiveObservations:v200];
-      v201 = v200;
+      v321.i64[0] = v203;
+      v204 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v321 count:1];
+      [observationsRecipient7 receiveObservations:v204];
+      v205 = v204;
     }
 
     else
     {
-      v201 = 0;
+      v205 = 0;
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__deallocate_node(v312[2]);
-    v202 = v312[0];
-    v312[0] = 0;
-    if (v202)
+    std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__deallocate_node(v316[2]);
+    v206 = v316[0];
+    v316[0] = 0;
+    if (v206)
     {
-      operator delete(v202);
+      operator delete(v206);
     }
 
-    if (!v201)
+    if (!v205)
     {
       goto LABEL_289;
     }
 
-    [v232 addObjectsFromArray:v201];
+    [v236 addObjectsFromArray:v205];
+  }
+
+  if (v253)
+  {
+    v207 = v253;
+    v208 = errorCopy;
+    v209 = v251;
+    vision::mod::ImageAnalyzer::getSceneSaliency(&v321, *(self + 112));
+    v210 = [(VNImageAnalyzerMultiDetector *)self _processSaliencyTensor:v208 regionOfInterest:v207 originalImageSize:@"VNAttentionBasedSaliencyHeatmapBoundingBoxGeneratorType" options:723845552 saliencyConfiguration:0x2B2501B4u saliencyGeneratorType:a26 startCode:aesthetics finishCode:a qosClass:o warningRecorder:objects error:sceneprint, fingerprints, v209, a28];
+    free(v323);
+    free(v324);
+
+    if (!v210)
+    {
+      goto LABEL_289;
+    }
+
+    [v236 addObjectsFromArray:v210];
+  }
+
+  if (v252)
+  {
+    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForSaliencyOConfiguration:v252 regionOfInterest:errorCopy originalImageSize:a26 options:v251 qosClass:a28 warningRecorder:aesthetics error:a, o, objects, sceneprint, fingerprints];
+    if (!fingerprints)
+    {
+      goto LABEL_290;
+    }
+
+    [v236 addObjectsFromArray:fingerprints];
+  }
+
+  if (v250)
+  {
+    fingerprints = [VNImageAnalyzerMultiDetector _processLastAnalysisForRecognizeObjectsConfiguration:self error:v250];
+    if (!fingerprints)
+    {
+      goto LABEL_290;
+    }
+
+    [v236 addObjectsFromArray:fingerprints];
   }
 
   if (v249)
   {
-    v203 = v249;
-    v204 = errorCopy;
-    v205 = v247;
-    vision::mod::ImageAnalyzer::getSceneSaliency(&v317, *(self + 112));
-    v206 = [(VNImageAnalyzerMultiDetector *)aesthetics _processSaliencyTensor:a regionOfInterest:o originalImageSize:objects options:sceneprint saliencyConfiguration:fingerprints saliencyGeneratorType:self startCode:&v317 finishCode:v204 qosClass:v203 warningRecorder:@"VNAttentionBasedSaliencyHeatmapBoundingBoxGeneratorType" error:723845552, 723845556, a26, v205, a28];
-    free(v319);
-    free(v320);
-
-    if (!v206)
+    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForVN5kJNH3eYuyaLxNpZr5Z7ziConfiguration:v249 error:a28];
+    if (!fingerprints)
     {
-      goto LABEL_289;
+      goto LABEL_290;
     }
 
-    [v232 addObjectsFromArray:v206];
+    [v236 addObjectsFromArray:fingerprints];
   }
 
   if (v248)
   {
-    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForSaliencyOConfiguration:v248 regionOfInterest:errorCopy originalImageSize:a26 options:v247 qosClass:a28 warningRecorder:aesthetics error:a, o, objects, sceneprint, fingerprints];
+    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForSignificantEventConfiguration:v248 error:a28];
     if (!fingerprints)
     {
       goto LABEL_290;
     }
 
-    [v232 addObjectsFromArray:fingerprints];
+    [v236 addObjectsFromArray:fingerprints];
   }
 
-  if (v246)
+  if (v247)
   {
-    fingerprints = [VNImageAnalyzerMultiDetector _processLastAnalysisForRecognizeObjectsConfiguration:self error:v246];
+    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForCityNatureConfiguration:v247 error:a28];
     if (!fingerprints)
     {
       goto LABEL_290;
     }
 
-    [v232 addObjectsFromArray:fingerprints];
+    [v236 addObjectsFromArray:fingerprints];
   }
 
-  if (v245)
-  {
-    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForVN5kJNH3eYuyaLxNpZr5Z7ziConfiguration:v245 error:a28];
-    if (!fingerprints)
-    {
-      goto LABEL_290;
-    }
-
-    [v232 addObjectsFromArray:fingerprints];
-  }
-
-  if (v244)
-  {
-    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForSignificantEventConfiguration:v244 error:a28];
-    if (!fingerprints)
-    {
-      goto LABEL_290;
-    }
-
-    [v232 addObjectsFromArray:fingerprints];
-  }
-
-  if (v243)
-  {
-    fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForCityNatureConfiguration:v243 error:a28];
-    if (!fingerprints)
-    {
-      goto LABEL_290;
-    }
-
-    [v232 addObjectsFromArray:fingerprints];
-  }
-
-  if (!v242)
+  if (!v246)
   {
 LABEL_288:
-    fingerprints = v232;
+    fingerprints = v236;
     goto LABEL_290;
   }
 
-  fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForPhotosAdjustmentsConfiguration:v242 error:a28];
+  fingerprints = [(VNImageAnalyzerMultiDetector *)self _processLastAnalysisForPhotosAdjustmentsConfiguration:v246 error:a28];
   if (fingerprints)
   {
-    [v232 addObjectsFromArray:fingerprints];
+    [v236 addObjectsFromArray:fingerprints];
 
     goto LABEL_288;
   }
@@ -3410,7 +3414,7 @@ LABEL_291:
   v26 = *(self + 112);
   v34 = 128;
   v35 = &v34;
-  if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v26 + 824), 0x80u) + 20) != 1)
+  if (*(std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,BOOL>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v26 + 824), 0x80u, &v35) + 20) != 1)
   {
     exception = __cxa_allocate_exception(8uLL);
     *exception = 8574;
@@ -3419,9 +3423,9 @@ LABEL_291:
 
   v34 = 128;
   v35 = &v34;
-  v27 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v26 + 784), 0x80u);
+  v27 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v26 + 784), 0x80u, &v35);
   vision::mod::ImageAnalyzer_Tensor2D::ImageAnalyzer_Tensor2D(v31, (v27 + 3));
-  options = [(VNImageAnalyzerMultiDetector *)class _processSaliencyTensor:recorder regionOfInterest:error originalImageSize:a10 options:a11 saliencyConfiguration:a12 saliencyGeneratorType:self startCode:v31 finishCode:configurationCopy qosClass:v23 warningRecorder:@"VNObjectnessBasedSaliencyHeatmapBoundingBoxGeneratorType" error:723845584, 723845588, interest, sizeCopy, options];
+  options = [(VNImageAnalyzerMultiDetector *)self _processSaliencyTensor:v31 regionOfInterest:configurationCopy originalImageSize:v23 options:@"VNObjectnessBasedSaliencyHeatmapBoundingBoxGeneratorType" saliencyConfiguration:723845584 saliencyGeneratorType:0x2B2501D4u startCode:interest finishCode:class qosClass:recorder warningRecorder:error error:a10, a11, a12, sizeCopy, options];
   free(v32);
   free(v33);
 
@@ -3546,7 +3550,7 @@ LABEL_217:
       }
 
       v192[0] = &v193;
-      v67 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, &v193);
+      v67 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, &v193, v192);
       std::vector<std::tuple<float,_Geometry2D_rect2D_>>::reserve(v67 + 5);
       if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -3567,7 +3571,7 @@ LABEL_217:
     }
 
     v69 = -1431655765 * ((v68[4] - v68[3]) >> 3);
-    std::vector<float>::vector[abi:ne200100](&v200, v69);
+    std::vector<float>::vector[abi:ne200100](&v200, v69, &v201);
     if (v69 >= 2)
     {
       v70 = 0;
@@ -3877,7 +3881,7 @@ LABEL_148:
       }
 
       v204 = (v127[3] + 24 * v117);
-      v128 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, v204);
+      v128 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, v204, &v204);
       std::vector<std::tuple<float,_Geometry2D_rect2D_>>::push_back[abi:ne200100]((v128 + 5), v186);
       ++v106;
       --v107;
@@ -3914,7 +3918,7 @@ LABEL_147:
     }
 
     v192[0] = &v193;
-    v18 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, &v193);
+    v18 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, &v193, v192);
     std::vector<std::tuple<float,_Geometry2D_rect2D_>>::reserve(v18 + 5);
     if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3935,7 +3939,7 @@ LABEL_147:
   }
 
   v20 = -1431655765 * ((v19[4] - v19[3]) >> 3);
-  std::vector<float>::vector[abi:ne200100](&v200, v20);
+  std::vector<float>::vector[abi:ne200100](&v200, v20, &v204);
   if (v20 >= 2)
   {
     v21 = 0;
@@ -4128,7 +4132,7 @@ LABEL_67:
       }
 
       v186[0] = (v61[3] + 24 * v55);
-      v62 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, v186[0]);
+      v62 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v183, v186[0], v186);
       std::vector<std::tuple<float,_Geometry2D_rect2D_>>::push_back[abi:ne200100]((v62 + 5), &v187);
       ++v49;
     }
@@ -4226,7 +4230,7 @@ LABEL_167:
 
       std::string::basic_string[abi:ne200100]<0>(&v193, "vegetable");
       v192[0] = &v193;
-      v138 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v183, &v193);
+      v138 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v183, &v193, v192);
       if (v138 != v137)
       {
         std::vector<std::tuple<float,_Geometry2D_rect2D_>>::__assign_with_size[abi:ne200100]<std::tuple<float,_Geometry2D_rect2D_>*,std::tuple<float,_Geometry2D_rect2D_>*>((v138 + 5), v137[5], v137[6], 0xCCCCCCCCCCCCCCCDLL * ((v137[6] - v137[5]) >> 2));
@@ -4257,7 +4261,7 @@ LABEL_190:
 
       std::string::basic_string[abi:ne200100]<0>(&v193, "seafood");
       v192[0] = &v193;
-      v141 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v183, &v193);
+      v141 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::tuple<float,_Geometry2D_rect2D_>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v183, &v193, v192);
       if (v141 != v140)
       {
         std::vector<std::tuple<float,_Geometry2D_rect2D_>>::__assign_with_size[abi:ne200100]<std::tuple<float,_Geometry2D_rect2D_>*,std::tuple<float,_Geometry2D_rect2D_>*>((v141 + 5), v140[5], v140[6], 0xCCCCCCCCCCCCCCCDLL * ((v140[6] - v140[5]) >> 2));
@@ -4338,17 +4342,18 @@ LABEL_198:
   [originatingRequestSpecifier requestClassCode];
   [originatingRequestSpecifier requestRevision];
   kdebug_trace();
-  [(VNImageAnalyzerMultiDetector *)&v11 _VN5kJNH3eYuyaLxNpZr5Z7ziCustomClassifierAndReturnError:self, configuration];
-  v8 = v11;
-  if (v11)
+  [(VNImageAnalyzerMultiDetector *)&v13 _VN5kJNH3eYuyaLxNpZr5Z7ziCustomClassifierAndReturnError:self, configuration];
+  v8 = v13;
+  if (v13)
   {
-    vision::mod::ImageAnalyzer::getSceneRepresentation(v10, *(self + 112));
-    vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+    vision::mod::ImageAnalyzer::getSceneRepresentation(v12, *(self + 112));
+    v11 = 0;
+    vision::mod::ImageAnalyzer_CustomClassifier::performInference(&v10, v8, v12, &v11);
   }
 
-  if (v12)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   return v8;
@@ -4362,17 +4367,18 @@ LABEL_198:
   [originatingRequestSpecifier requestClassCode];
   [originatingRequestSpecifier requestRevision];
   kdebug_trace();
-  [(VNImageAnalyzerMultiDetector *)&v11 _VNdGg5skzXHSAENO6T3enHECustomClassifierForOriginatingRequestSpecifier:self, configuration];
-  v8 = v11;
-  if (v11)
+  [(VNImageAnalyzerMultiDetector *)&v13 _VNdGg5skzXHSAENO6T3enHECustomClassifierForOriginatingRequestSpecifier:self, configuration];
+  v8 = v13;
+  if (v13)
   {
-    vision::mod::ImageAnalyzer::getSceneRepresentation(v10, *(self + 112));
-    vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+    vision::mod::ImageAnalyzer::getSceneRepresentation(v12, *(self + 112));
+    v11 = 0;
+    vision::mod::ImageAnalyzer_CustomClassifier::performInference(&v10, v8, v12, &v11);
   }
 
-  if (v12)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   return v8;
@@ -4386,17 +4392,18 @@ LABEL_198:
   [originatingRequestSpecifier requestClassCode];
   [originatingRequestSpecifier requestRevision];
   kdebug_trace();
-  [(VNImageAnalyzerMultiDetector *)&v11 _cityNatureCustomClassifierAndReturnError:self, configuration];
-  v8 = v11;
-  if (v11)
+  [(VNImageAnalyzerMultiDetector *)&v13 _cityNatureCustomClassifierAndReturnError:self, configuration];
+  v8 = v13;
+  if (v13)
   {
-    vision::mod::ImageAnalyzer::getSceneRepresentation(v10, *(self + 112));
-    vision::mod::ImageAnalyzer_CustomClassifier::performInference();
+    vision::mod::ImageAnalyzer::getSceneRepresentation(v12, *(self + 112));
+    v11 = 0;
+    vision::mod::ImageAnalyzer_CustomClassifier::performInference(&v10, v8, v12, &v11);
   }
 
-  if (v12)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   return v8;
@@ -4553,32 +4560,32 @@ LABEL_36:
   return v31;
 }
 
-- (id)_processSaliencyTensor:(double)tensor regionOfInterest:(double)interest originalImageSize:(double)size options:(double)options saliencyConfiguration:(uint64_t)configuration saliencyGeneratorType:(int8x16_t *)type startCode:(void *)code finishCode:(void *)self0 qosClass:(void *)self1 warningRecorder:(uint64_t)self2 error:(uint64_t)self3
+- (id)_processSaliencyTensor:(void *)tensor regionOfInterest:(void *)interest originalImageSize:(void *)size options:(uint64_t)options saliencyConfiguration:(unsigned int)configuration saliencyGeneratorType:(uint64_t)type startCode:(double)code finishCode:(double)self0 qosClass:(double)self1 warningRecorder:(double)self2 error:(double)self3
 {
   v50[1] = *MEMORY[0x1E69E9840];
-  codeCopy = code;
-  finishCodeCopy = finishCode;
-  classCopy = class;
-  v41 = finishCodeCopy;
+  tensorCopy = tensor;
+  interestCopy = interest;
+  sizeCopy = size;
+  v41 = interestCopy;
   v42 = a15;
-  observationsRecipient = [finishCodeCopy observationsRecipient];
+  observationsRecipient = [interestCopy observationsRecipient];
   originatingRequestSpecifier = [observationsRecipient originatingRequestSpecifier];
   [originatingRequestSpecifier requestClassCode];
   [originatingRequestSpecifier requestRevision];
   kdebug_trace();
   v48 = 0;
   memset(v47, 0, sizeof(v47));
-  vision::mod::ImageAnalyzer_Tensor2D::getVImageBufferFromTensor(v47, type, &v48);
+  vision::mod::ImageAnalyzer_Tensor2D::getVImageBufferFromTensor(v47, a2, &v48);
   v46 = 0;
   DeepCopyCVPixelBufferFromVImageBuffer = ImageProcessing_createDeepCopyCVPixelBufferFromVImageBuffer(v47, v48, &v46);
   if (DeepCopyCVPixelBufferFromVImageBuffer)
   {
     v28 = DeepCopyCVPixelBufferFromVImageBuffer;
-    v29 = [VNValidationUtilities requiredSessionInOptions:codeCopy error:a16];
+    v29 = [VNValidationUtilities requiredSessionInOptions:tensorCopy error:a16];
     if (v29)
     {
-      v30 = [objc_opt_class() _newSaliencyHeatmapBoundingBoxGeneratorOptionsForOptions:codeCopy];
-      v40 = [v29 detectorOfType:classCopy configuredWithOptions:v30 error:a16];
+      v30 = [objc_opt_class() _newSaliencyHeatmapBoundingBoxGeneratorOptionsForOptions:tensorCopy];
+      v40 = [v29 detectorOfType:sizeCopy configuredWithOptions:v30 error:a16];
       if (v40)
       {
         v31 = [VNImageBuffer alloc];
@@ -4590,20 +4597,20 @@ LABEL_36:
         [v30 setObject:originatingRequestSpecifier forKeyedSubscript:@"VNDetectorOption_OriginatingRequestSpecifier"];
         if ([originatingRequestSpecifier observationProvidesBoundsNormalizedToROI])
         {
-          selfCopy = 0.0;
+          codeCopy = 0.0;
         }
 
         else
         {
-          selfCopy = self;
+          codeCopy = code;
         }
 
-        v35 = [v40 processUsingQualityOfServiceClass:a14 options:v30 regionOfInterest:0 warningRecorder:a16 error:0 progressHandler:selfCopy];
+        v35 = [v40 processUsingQualityOfServiceClass:type options:v30 regionOfInterest:0 warningRecorder:a16 error:0 progressHandler:codeCopy];
         if (v35)
         {
-          options = [[VNSaliencyImageObservation alloc] initWithOriginatingRequestSpecifier:originatingRequestSpecifier rawSaliencyImage:v28 originalImageSize:v35 salientObjectBoundingBoxes:tensor * size, interest * options];
+          v36 = [[VNSaliencyImageObservation alloc] initWithOriginatingRequestSpecifier:originatingRequestSpecifier rawSaliencyImage:v28 originalImageSize:v35 salientObjectBoundingBoxes:class * error, recorder * a14];
           kdebug_trace();
-          v49 = options;
+          v49 = v36;
           v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
           [observationsRecipient receiveObservations:v37];
         }
@@ -4993,7 +5000,7 @@ LABEL_5:
   }
 
   v64 = v18;
-  v19 = [[_VNImageAnalyzerMultiDetectorSceneOperationPointsProvider alloc] initWithOperationPointsCache:self[19] originatingRequestSpecifier:originatingRequestSpecifier];
+  v19 = [[_VNImageAnalyzerMultiDetectorSceneOperationPointsProvider alloc] initWithOperationPointsCache:*&self[38]._os_unfair_lock_opaque originatingRequestSpecifier:originatingRequestSpecifier];
   v20 = [(_VNImageAnalyzerMultiDetectorSceneOperationPointsProvider *)v19 operationPointsAndReturnError:configuration];
   if (v20)
   {
@@ -5073,8 +5080,8 @@ LABEL_15:
     if (v33)
     {
       [v51 addObjectsFromArray:v33];
-      v34 = self[12];
-      v35 = self[13];
+      v34 = *&self[24]._os_unfair_lock_opaque;
+      v35 = *&self[26]._os_unfair_lock_opaque;
       if (v35)
       {
         atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5148,7 +5155,7 @@ LABEL_37:
       if ([customHierarchy requestRevision] == v46)
       {
         v45 = v33;
-        [v37 hierarchicalModelAndReturnError:configuration];
+        objc_msgSend_hierarchicalModelAndReturnError_(v37);
         v34 = v66;
         v38 = v67;
         v66 = 0;
@@ -5218,12 +5225,12 @@ BOOL __134__VNImageAnalyzerMultiDetector__populateLeafSceneObservations_hierarch
   while (v3 != v4)
   {
     v5 = v3[6];
-    __p = v3;
-    *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, v3) + 10) = v5;
+    __p[0] = v3;
+    *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, v3, __p) + 10) = v5;
     v3 += 8;
   }
 
-  vision::mod::ImageClassifier_HierarchicalModel::infer(&__p, *(a1 + 72), v28, 0);
+  vision::mod::ImageClassifier_HierarchicalModel::infer(__p, *(a1 + 72), v28, 0);
   if (*(a1 + 100))
   {
     v6 = 0;
@@ -5296,8 +5303,8 @@ LABEL_14:
   }
 
   std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__deallocate_node(v27);
-  v22 = __p;
-  __p = 0;
+  v22 = __p[0];
+  __p[0] = 0;
   if (v22)
   {
     operator delete(v22);
@@ -5323,18 +5330,18 @@ LABEL_14:
 {
   if (a2)
   {
-    os_unfair_lock_lock((a2 + 264));
-    v4 = *(a2 + 272);
+    os_unfair_lock_lock(a2 + 66);
+    v4 = *&a2[68]._os_unfair_lock_opaque;
     if (!v4)
     {
-      v5 = *(a2 + 112);
+      v5 = *&a2[28]._os_unfair_lock_opaque;
       v37 = 0;
       v36 = 0uLL;
       if (*(v5 + 384) != 1)
       {
         LODWORD(v38.__r_.__value_.__l.__data_) = 2;
         __p = &v38;
-        v6 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 784), 2u);
+        v6 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,espresso_buffer_t>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 784), 2u, &__p);
         vision::mod::ImageAnalyzer_Tensor1D<float>::ImageAnalyzer_Tensor1D(&v44, (v6 + 3), 0);
         vision::mod::ImageAnalyzer_Tensor1D<float>::getVectorFromTensor(&v49, &v44);
         vision::mod::ImageAnalyzer_Tensor1D<float>::~ImageAnalyzer_Tensor1D(&v44);
@@ -5346,7 +5353,7 @@ LABEL_14:
         {
           LODWORD(v38.__r_.__value_.__l.__data_) = 2;
           v44 = &v38;
-          v8 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 744), 2u);
+          v8 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,vision::mod::ImageAnalyzer_PostProcessor>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 744), 2u, &v44);
           vision::mod::ImageAnalyzer_PostProcessor::process(v8 + 3, &v49, &__p);
         }
 
@@ -5355,7 +5362,7 @@ LABEL_14:
         v10 = v50;
         LODWORD(v38.__r_.__value_.__l.__data_) = 2;
         v44 = &v38;
-        v12 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 864), 2u);
+        v12 = std::__hash_table<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::__unordered_map_hasher<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::__unordered_map_equal<vision::mod::ImageAnalyzer_AnalysisType,std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>,std::equal_to<vision::mod::ImageAnalyzer_AnalysisType>,std::hash<vision::mod::ImageAnalyzer_AnalysisType>,true>,std::allocator<std::__hash_value_type<vision::mod::ImageAnalyzer_AnalysisType,std::vector<std::string>>>>::__emplace_unique_key_args<vision::mod::ImageAnalyzer_AnalysisType,std::piecewise_construct_t const&,std::tuple<vision::mod::ImageAnalyzer_AnalysisType&&>,std::tuple<>>((v5 + 864), 2u, &v44);
         if (v10 != v11)
         {
           v13 = v12;
@@ -5522,7 +5529,7 @@ LABEL_14:
       __cxa_throw(exception, MEMORY[0x1E69E54B0], 0);
     }
 
-    v34 = *(a2 + 280);
+    v34 = *&a2[70]._os_unfair_lock_opaque;
     *self = v4;
     self[1] = v34;
     if (v34)
@@ -5530,7 +5537,7 @@ LABEL_14:
       atomic_fetch_add_explicit((v34 + 8), 1uLL, memory_order_relaxed);
     }
 
-    os_unfair_lock_unlock((a2 + 264));
+    os_unfair_lock_unlock(a2 + 66);
   }
 
   else
@@ -7064,7 +7071,7 @@ LABEL_58:
 
     if (v65)
     {
-      [v65 createHierarchicalModelForInferenceDescriptor:self->_inferenceDescriptor error:error];
+      objc_msgSend_createHierarchicalModelForInferenceDescriptor_error_(v65);
       v48 = *__p;
     }
 
@@ -7541,22 +7548,22 @@ uint64_t __64__VNImageAnalyzerMultiDetector_warmUpSession_withOptions_error___bl
 
 + (shared_ptr<vision::mod::ImageClassifier_HierarchicalModel>)createHierarchicalModelForMultiDetectorModel:(unint64_t)model error:(id *)error
 {
-  v8 = v4;
-  v12 = [self fullyPopulatedConfigurationOptionsWithOverridingOptions:MEMORY[0x1E695E0F8] populateComputeDevice:1];
-  v9 = [self _newInferenceDescriptorForModel:model configuredWithOptions:? error:?];
-  if (v9)
+  v7 = v4;
+  v11 = [self fullyPopulatedConfigurationOptionsWithOverridingOptions:MEMORY[0x1E695E0F8] populateComputeDevice:1];
+  v8 = [self _newInferenceDescriptorForModel:model configuredWithOptions:? error:?];
+  if (v8)
   {
-    [self createHierarchicalModelForInferenceDescriptor:v9 error:error];
+    objc_msgSend_createHierarchicalModelForInferenceDescriptor_error_(self);
   }
 
   else
   {
-    *v8 = 0;
-    v8[1] = 0;
+    *v7 = 0;
+    v7[1] = 0;
   }
 
-  result.__cntrl_ = v11;
-  result.__ptr_ = v10;
+  result.__cntrl_ = v10;
+  result.__ptr_ = v9;
   return result;
 }
 
@@ -7680,7 +7687,7 @@ void __84__VNImageAnalyzerMultiDetector_createHierarchicalModelForInferenceDescr
           v8 = v7 + 1;
         }
 
-        if (v17 - v15 >= 0x7FFFFFFFFFFFFFE0)
+        if ((v17 - v15) >= 0x7FFFFFFFFFFFFFE0)
         {
           v9 = 0x7FFFFFFFFFFFFFFLL;
         }
@@ -7732,7 +7739,7 @@ void __84__VNImageAnalyzerMultiDetector_createHierarchicalModelForInferenceDescr
   }
 
   v14.__r_.__value_.__r.__words[0] = [*(a1 + 40) UTF8String];
-  std::allocate_shared[abi:ne200100]<vision::mod::ImageClassifier_HierarchicalModel,std::allocator<vision::mod::ImageClassifier_HierarchicalModel>,char const*,decltype(nullptr),std::vector<std::pair<std::string,BOOL>> &,0>();
+  std::allocate_shared[abi:ne200100]<vision::mod::ImageClassifier_HierarchicalModel,std::allocator<vision::mod::ImageClassifier_HierarchicalModel>,char const*,decltype(nullptr),std::vector<std::pair<std::string,BOOL>> &,0>(v20, &v14.__r_.__value_.__l.__data_, &v15);
 }
 
 + (id)disallowedListForModel:(unint64_t)model
@@ -7758,7 +7765,7 @@ void __84__VNImageAnalyzerMultiDetector_createHierarchicalModelForInferenceDescr
   }
 
   v6 = +[VNImageAnalyzerMultiDetector modelForRequestClass:revision:]::ourModelMap;
-  v7 = VNRequestClassFromClientSubclass(class);
+  v7 = VNRequestClassFromClientSubclass(class, a2);
   v10 = *(v6 + 8);
   v9 = (v6 + 8);
   v8 = v10;

@@ -101,16 +101,16 @@
       if (((1 << unsignedIntegerValue) & 0x10015) != 0)
       {
 LABEL_4:
-        v9 = 0;
+        v11 = 0;
 LABEL_7:
-        [(_SFLocationManager *)self _setApplication:v6 isForeground:v9];
+        [(_SFLocationManager *)self _setApplication:v6 isForeground:v11];
 
         goto LABEL_8;
       }
 
       if (((1 << unsignedIntegerValue) & 0x100000100) != 0)
       {
-        v9 = 1;
+        v11 = 1;
         goto LABEL_7;
       }
 
@@ -130,10 +130,10 @@ LABEL_7:
       }
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXViewService(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(_SFLocationManager *)unsignedIntegerValue _handleApplicationStateChange:v10];
+      [(_SFLocationManager *)unsignedIntegerValue _handleApplicationStateChange:v12];
     }
 
     goto LABEL_4;

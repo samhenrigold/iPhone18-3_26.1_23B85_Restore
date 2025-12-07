@@ -22,13 +22,13 @@
 - (RestorationMailboxDecoder)initWithDaemonInterface:(id)interface log:(id)log
 {
   interfaceCopy = interface;
-  v11.receiver = self;
-  v11.super_class = RestorationMailboxDecoder;
-  v7 = [(RestorationMailboxDecoder *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = RestorationMailboxDecoder;
+  v7 = [(RestorationMailboxDecoder *)&v12 init];
   v8 = v7;
   if (v7)
   {
-    objc_storeWeak(&v7->_daemonInterface, interfaceCopy);
+    v9 = objc_storeWeak(&v7->_daemonInterface, interfaceCopy);
     if (log)
     {
       v8->_log = log;
@@ -36,8 +36,8 @@
 
     else
     {
-      v9 = sub_100243B10();
-      v8->_log = v9;
+      v10 = sub_100243B10(v9);
+      v8->_log = v10;
     }
   }
 

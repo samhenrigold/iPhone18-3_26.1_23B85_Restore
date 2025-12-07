@@ -26,12 +26,11 @@
 
 - (NSArray)durationOptions
 {
-  v2 = *(self + OBJC_IVAR___GKChallengeDefinition_durationOptions);
   sub_2186B6EEC();
 
-  v3 = sub_2186B7A9C();
+  v2 = sub_2186B7A9C();
 
-  return v3;
+  return v2;
 }
 
 - (GKChallengeDefinition)initWithIdentifier:(id)identifier groupIdentifier:(id)groupIdentifier title:(id)title details:(id)details isRepeatable:(BOOL)repeatable durationOptions:(id)options leaderboard:(id)leaderboard imageUrl:(id)self0 releaseState:(unint64_t)self1
@@ -73,35 +72,34 @@
 - (void)loadImageWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CC06D70, &qword_2186B92A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
   selfCopy = self;
-  _Block_copy(v9);
+  _Block_copy(v8);
   imageUrl = [(GKChallengeDefinition *)selfCopy imageUrl];
   if (imageUrl)
   {
-    v12 = imageUrl;
+    v11 = imageUrl;
     sub_2186804FC(0, &qword_27CC07158, off_278236500);
     sub_2186B6F9C();
-    v13 = sub_2186B6FAC();
-    (*(*(v13 - 8) + 56))(v8, 0, 1, v13);
-    sub_218682758(v8, sub_2186AE9F8, v10);
+    v12 = sub_2186B6FAC();
+    (*(*(v12 - 8) + 56))(v7, 0, 1, v12);
+    sub_218682758(v7, sub_2186AE9F8, v9);
 
-    sub_21867F0B8(v8, &qword_27CC06D70, &qword_2186B92A0);
+    sub_21867F0B8(v7, &qword_27CC06D70, &qword_2186B92A0);
 
-    _Block_release(v9);
+    _Block_release(v8);
   }
 
   else
   {
-    (*(v9 + 2))(v9, 0, 0);
+    (*(v8 + 2))(v8, 0, 0);
 
-    _Block_release(v9);
-    v14 = selfCopy;
+    _Block_release(v8);
+    v13 = selfCopy;
   }
 }
 

@@ -147,7 +147,7 @@ LABEL_18:
       v9 = 0;
       [objc_opt_class() __setErrorForPtr:&v9 code:v5];
       v7 = v9;
-      v8 = sub_124C();
+      v8 = sub_124C(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_3768(v7, v8);

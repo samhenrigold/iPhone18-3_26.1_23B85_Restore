@@ -6,6 +6,7 @@
 - (float)remainingLength;
 - (id)copyStatusInfo;
 - (id)insertNewEternalRampFrequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier progressCallback:(id)callback;
+- (id)insertNewLinearRampOrigin:(float)origin target:(float)target length:(float)length frequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier;
 - (id)insertNewRampOrigin:(float)origin target:(float)target length:(float)length frequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier progressCallback:(id)callback;
 - (id)rampForIdentifier:(id)identifier;
 - (void)activate;
@@ -247,17 +248,16 @@
   }
 
   _Block_object_dispose(&v19, 8);
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__35__CBRampManager_reevaluateClocking__block_invoke(void *a1, uint64_t a2, void *a3)
 {
   [a3 frequency];
   result = a1;
-  if (v4 > *(*(*(a1 + 32) + 8) + 24))
+  if (v4 > *(*(a1[4] + 8) + 24))
   {
     result = [a3 frequency];
-    *(*(*(a1 + 32) + 8) + 24) = v5;
+    *(*(a1[4] + 8) + 24) = v5;
   }
 
   return result;
@@ -311,8 +311,6 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
   {
     [(CBRampManager *)self reevaluateClocking];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)insertNewRampOrigin:(float)origin target:(float)target length:(float)length frequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier progressCallback:(id)callback
@@ -327,6 +325,14 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
   [(CBRampManager *)self insertRamp:v15 identifier:identifier reevaluate:ramp];
   MEMORY[0x1E69E5920](v15);
   return v15;
+}
+
+- (id)insertNewLinearRampOrigin:(float)origin target:(float)target length:(float)length frequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier
+{
+  v9 = [CBRamp newLinearRampWithWithOrigin:identifier target:*&origin length:*&target frequency:*&length identifier:*&frequency];
+  [(CBRampManager *)self insertRamp:v9 identifier:identifier reevaluate:ramp];
+  MEMORY[0x1E69E5920](v9);
+  return v9;
 }
 
 - (id)insertNewEternalRampFrequency:(float)frequency startRamp:(BOOL)ramp identifier:(id)identifier progressCallback:(id)callback
@@ -410,8 +416,6 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
     selfCopy->_requiredFrequency = 0.0;
     [(CBRampManager *)selfCopy disableClocking];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllRamps
@@ -516,7 +520,6 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
   [(NSMutableDictionary *)selfCopy->_eternalRamps removeAllObjects];
   selfCopy->_requiredFrequency = 0.0;
   [(CBRampManager *)selfCopy disableClocking];
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasRampRunningForIdentifier:(id)identifier
@@ -645,8 +648,6 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
     _Block_release(aBlock);
     dispatch_resume(selfCopy->_clockTimer);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopTimer
@@ -710,10 +711,9 @@ uint64_t __35__CBRampManager_reevaluateClocking__block_invoke(uint64_t a1, uint6
 
   _Block_object_dispose(&v8, 8);
   _Block_object_dispose(&v13, 8);
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __29__CBRampManager_generateRamp__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__29__CBRampManager_generateRamp__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v12 = *(*(*(a1 + 32) + 8) + 24);
   [a3 length];
@@ -852,16 +852,17 @@ uint64_t __29__CBRampManager_generateRamp__block_invoke(uint64_t a1, uint64_t a2
 
     [v15 enumerateObjectsUsingBlock:?];
     *&v4 = MEMORY[0x1E69E5920](v15).n128_u64[0];
-    if (![(NSMutableDictionary *)selfCopy->_ramps count]&& selfCopy->_rampDoneCallback)
+    if (![(NSMutableDictionary *)selfCopy->_ramps count])
     {
-      (*(selfCopy->_rampDoneCallback + 2))();
+      if (selfCopy->_rampDoneCallback)
+      {
+        (*(selfCopy->_rampDoneCallback + 2))();
+      }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __41__CBRampManager_updateRampsForTimestamp___block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
+void *__41__CBRampManager_updateRampsForTimestamp___block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isFinished];
   if (result)
@@ -904,29 +905,24 @@ float __32__CBRampManager_remainingLength__block_invoke(uint64_t a1, uint64_t a2
 
 - (id)copyStatusInfo
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v6 = objc_alloc(MEMORY[0x1E695DF90]);
-  v9[0] = @"Ramps";
-  v10[0] = [(NSMutableDictionary *)self->_ramps description];
-  v9[1] = @"Eternal Ramps";
-  v10[1] = [(NSMutableDictionary *)self->_eternalRamps description];
-  v9[2] = @"Frequency";
+  v5 = objc_alloc(MEMORY[0x1E695DF90]);
+  v8[0] = @"Ramps";
+  v9[0] = [(NSMutableDictionary *)self->_ramps description];
+  v8[1] = @"Eternal Ramps";
+  v9[1] = [(NSMutableDictionary *)self->_eternalRamps description];
+  v8[2] = @"Frequency";
   *&v2 = self->_requiredFrequency;
-  v10[2] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v7 = [v6 initWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v10, v9, 3)}];
-  if (self->_enableFrameSynchronisation)
+  v9[2] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  v6 = [v5 initWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, v8, 3)}];
+  if (self->_enableFrameSynchronisation && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    frameLink = self->_frameLink;
-    if (objc_opt_respondsToSelector())
-    {
-      [v7 setObject:-[CBClockSource copyStatusInfo](self->_frameLink forKey:{"copyStatusInfo"), @"DisplayLink"}];
-    }
+    [v6 setObject:-[CBClockSource copyStatusInfo](self->_frameLink forKey:{"copyStatusInfo"), @"DisplayLink"}];
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
-  return v7;
+  return v6;
 }
 
 @end

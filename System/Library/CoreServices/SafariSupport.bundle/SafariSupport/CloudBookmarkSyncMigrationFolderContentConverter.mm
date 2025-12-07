@@ -21,10 +21,10 @@
 {
   errorCopy = error;
   v5 = objc_retainBlock(self->_completionHandler);
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_10007EFD8(v6, errorCopy);
+    sub_10007EFD8(v7, errorCopy);
   }
 
   positionGenerator = self->_positionGenerator;
@@ -45,11 +45,11 @@
   completionHandler = self->_completionHandler;
   namesCopy = names;
   v6 = objc_retainBlock(completionHandler);
-  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Did finish migrating folder contents", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Did finish migrating folder contents", v12, 2u);
   }
 
   positionGenerator = self->_positionGenerator;
@@ -58,7 +58,7 @@
   recordNameEnumerator = self->_recordNameEnumerator;
   self->_recordNameEnumerator = 0;
 
-  v10 = self->_completionHandler;
+  v11 = self->_completionHandler;
   self->_completionHandler = 0;
 
   self->_isMigrating = 0;

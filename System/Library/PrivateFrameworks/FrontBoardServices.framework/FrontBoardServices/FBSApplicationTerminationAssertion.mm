@@ -25,12 +25,12 @@
   handlerCopy = handler;
   if (!dCopy)
   {
-    [FBSApplicationTerminationAssertion initWithBundleID:a2 reason:? acquisitionHandler:?];
+    [FBSApplicationTerminationAssertion initWithBundleID:a2 reason:self acquisitionHandler:?];
   }
 
   if (!reasonCopy)
   {
-    [FBSApplicationTerminationAssertion initWithBundleID:a2 reason:? acquisitionHandler:?];
+    [FBSApplicationTerminationAssertion initWithBundleID:a2 reason:self acquisitionHandler:?];
   }
 
   v12 = handlerCopy;
@@ -201,45 +201,45 @@ void __81__FBSApplicationTerminationAssertion_initWithBundleID_reason_acquisitio
   self->_assertionState = 3;
 }
 
-- (void)initWithBundleID:(const char *)a1 reason:acquisitionHandler:.cold.1(const char *a1)
+- (void)initWithBundleID:(const char *)a1 reason:(uint64_t)a2 acquisitionHandler:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"FBSApplicationTerminationAssertion.m";
-    v9 = 1024;
-    v10 = 40;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBSApplicationTerminationAssertion.m";
+    v10 = 1024;
+    v11 = 40;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)initWithBundleID:(const char *)a1 reason:acquisitionHandler:.cold.2(const char *a1)
+- (void)initWithBundleID:(const char *)a1 reason:(uint64_t)a2 acquisitionHandler:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bundleID"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bundleID"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"FBSApplicationTerminationAssertion.m";
-    v9 = 1024;
-    v10 = 39;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBSApplicationTerminationAssertion.m";
+    v10 = 1024;
+    v11 = 39;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 

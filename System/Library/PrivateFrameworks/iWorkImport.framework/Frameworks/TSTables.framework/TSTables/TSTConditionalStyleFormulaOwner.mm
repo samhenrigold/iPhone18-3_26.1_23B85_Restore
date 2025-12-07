@@ -17,97 +17,97 @@
 - (TSTConditionalStyleFormulaOwner)initWithTableModel:(id)model ownerUID:(const TSKUIDStruct *)d
 {
   modelCopy = model;
-  v38.receiver = self;
-  v38.super_class = TSTConditionalStyleFormulaOwner;
-  v7 = [(TSTConditionalStyleFormulaOwner *)&v38 init];
-  v11 = v7;
+  v33.receiver = self;
+  v33.super_class = TSTConditionalStyleFormulaOwner;
+  v7 = [(TSTConditionalStyleFormulaOwner *)&v33 init];
+  v10 = v7;
   if (v7)
   {
     v7->_tableModel = modelCopy;
     if (*d == 0)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTConditionalStyleFormulaOwner initWithTableModel:ownerUID:]", v9, v10);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleFormulaOwner.mm", v15, v16);
-      v37._lower = objc_msgSend_tableUID(modelCopy, v18, v19, v20, v21);
-      v37._upper = v22;
-      v23 = TSKUIDStruct::description(&v37);
-      v28 = objc_msgSend_tableName(modelCopy, v24, v25, v26, v27);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v29, v13, v17, 60, 0, "TSTConditionalStyleFormulaOwner: requires a valid ownerUID, table is: %@ (%@)", v23, v28);
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTConditionalStyleFormulaOwner initWithTableModel:ownerUID:]", v9);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConditionalStyleFormulaOwner.mm", v14);
+      v32._lower = objc_msgSend_tableUID(modelCopy, v16, v17, v18);
+      v32._upper = v19;
+      v20 = TSKUIDStruct::description(&v32);
+      v24 = objc_msgSend_tableName(modelCopy, v21, v22, v23);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v25, v12, v15, 60, 0, "TSTConditionalStyleFormulaOwner: requires a valid ownerUID, table is: %@ (%@)", v20, v24);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
     }
 
-    v11->_ownerUID = *d;
-    v34 = objc_alloc_init(TSCECellCoordinateVector);
-    cellsToInvalidate = v11->_cellsToInvalidate;
-    v11->_cellsToInvalidate = v34;
+    v10->_ownerUID = *d;
+    v29 = objc_alloc_init(TSCECellCoordinateVector);
+    cellsToInvalidate = v10->_cellsToInvalidate;
+    v10->_cellsToInvalidate = v29;
   }
 
-  return v11;
+  return v10;
 }
 
 - (TSTConditionalStyleFormulaOwner)initWithTableModel:(id)model
 {
   modelCopy = model;
-  *&v17 = objc_msgSend_tableUID(modelCopy, v5, v6, v7, v8);
-  *(&v17 + 1) = v9;
-  v18[0] = sub_2212C4930(&v17, 3, v10, v11, v12);
-  v18[1] = v13;
-  v15 = objc_msgSend_initWithTableModel_ownerUID_(self, v13, modelCopy, v18, v14);
+  *&v14 = objc_msgSend_tableUID(modelCopy, v5, v6, v7);
+  *(&v14 + 1) = v8;
+  v15[0] = sub_2212C4930(&v14, 3, v9, v10);
+  v15[1] = v11;
+  v12 = objc_msgSend_initWithTableModel_ownerUID_(self, v11, modelCopy, v15);
 
-  return v15;
+  return v12;
 }
 
 - (BOOL)checkConditionForCellID:(TSUCellCoord)d withConditionalStyle:(id)style withIndex:(unint64_t *)index
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   styleCopy = style;
-  v12 = objc_msgSend_calcEngine(self->_tableModel, v8, v9, v10, v11);
+  v11 = objc_msgSend_calcEngine(self->_tableModel, v8, v9, v10);
 
-  if (v12)
+  if (v11)
   {
-    v37 = 0u;
-    v38 = 0u;
+    v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v17 = objc_msgSend_currentRules(styleCopy, v13, v14, v15, v16);
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v35, v39, 16);
-    if (v23)
+    v32 = 0u;
+    v33 = 0u;
+    v15 = objc_msgSend_currentRules(styleCopy, v12, v13, v14);
+    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v32, v36, 16);
+    if (v20)
     {
       indexCopy = index;
-      v24 = 0;
-      v25 = *v36;
+      v21 = 0;
+      v22 = *v33;
       while (2)
       {
-        v26 = 0;
-        v27 = v24;
-        v24 += v23;
+        v23 = 0;
+        v24 = v21;
+        v21 += v20;
         do
         {
-          if (*v36 != v25)
+          if (*v33 != v22)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v15);
           }
 
-          v28 = *(*(&v35 + 1) + 8 * v26);
-          v29 = objc_msgSend_calcEngine(self->_tableModel, v19, v20, v21, v22, indexCopy);
-          LODWORD(v28) = objc_msgSend_evaluateFormulaAtCellID_withCalcEngine_onOwnerUID_(v28, v30, *&d, v29, &self->_ownerUID);
+          v25 = *(*(&v32 + 1) + 8 * v23);
+          v26 = objc_msgSend_calcEngine(self->_tableModel, v17, v18, v19, indexCopy);
+          LODWORD(v25) = objc_msgSend_evaluateFormulaAtCellID_withCalcEngine_onOwnerUID_(v25, v27, *&d, v26, &self->_ownerUID);
 
-          if (v28)
+          if (v25)
           {
-            *indexCopy = v27;
-            v31 = 1;
+            *indexCopy = v24;
+            v28 = 1;
             goto LABEL_12;
           }
 
-          ++v27;
-          ++v26;
+          ++v24;
+          ++v23;
         }
 
-        while (v23 != v26);
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v35, v39, 16);
-        if (v23)
+        while (v20 != v23);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v32, v36, 16);
+        if (v20)
         {
           continue;
         }
@@ -116,16 +116,16 @@
       }
     }
 
-    v31 = 0;
+    v28 = 0;
 LABEL_12:
   }
 
   else
   {
-    v31 = 0;
+    v28 = 0;
   }
 
-  return v31;
+  return v28;
 }
 
 - (void)addFormulaForConditionalStyle:(id)style atCellID:(TSUCellCoord)d
@@ -135,41 +135,41 @@ LABEL_12:
   calcEngine = self->_calcEngine;
   if (calcEngine)
   {
-    *&v16.var0 = objc_msgSend_tableUID(self->_tableModel, v5, v6, v7, v8);
-    v16.var6._lower = v11;
-    v12 = objc_msgSend_precedentsWithCalcEngine_hostOwnerUID_hostCellID_(styleCopy, v11, calcEngine, &v16, &dCopy);
-    TSCEReplaceFormulaOptions::TSCEReplaceFormulaOptions(&v16, 0, 1);
-    v13 = self->_calcEngine;
-    TSCEReplaceFormulaOptions::TSCEReplaceFormulaOptions(&v15, &v16);
-    objc_msgSend_replaceFormulaAt_inOwner_precedents_replaceOptions_(v13, v14, &dCopy, &self->_ownerUID, v12, &v15);
+    *&v15.var0 = objc_msgSend_tableUID(self->_tableModel, v5, v6, v7);
+    v15.var6._lower = v10;
+    v11 = objc_msgSend_precedentsWithCalcEngine_hostOwnerUID_hostCellID_(styleCopy, v10, calcEngine, &v15, &dCopy);
+    TSCEReplaceFormulaOptions::TSCEReplaceFormulaOptions(&v15, 0, 1);
+    v12 = self->_calcEngine;
+    TSCEReplaceFormulaOptions::TSCEReplaceFormulaOptions(&v14, &v15);
+    objc_msgSend_replaceFormulaAt_inOwner_precedents_replaceOptions_(v12, v13, &dCopy, &self->_ownerUID, v11, &v14);
   }
 }
 
 - (void)removeFormulasInRange:(TSUCellRect)range
 {
   calcEngine = self->_calcEngine;
-  v12[0] = j__TSUCellRectToTSCERangeCoordinate(*&range.origin, *&range.size);
-  v12[1] = v5;
+  v10[0] = j__TSUCellRectToTSCERangeCoordinate(*&range.origin, *&range.size);
+  v10[1] = v5;
   if (calcEngine)
   {
-    objc_msgSend_formulaCoordsInRange_inOwner_(calcEngine, v5, v12, &self->_ownerUID, v6);
-    v10 = v13;
-    v11 = v14;
-    if (v13 != v14)
+    objc_msgSend_formulaCoordsInRange_inOwner_(calcEngine, v5, v10, &self->_ownerUID);
+    v8 = v11;
+    v9 = v12;
+    if (v11 != v12)
     {
       do
       {
-        objc_msgSend_removeFormulaAtCellID_(self, v7, *v10++, v8, v9);
+        objc_msgSend_removeFormulaAtCellID_(self, v6, *v8++, v7);
       }
 
-      while (v10 != v11);
-      v10 = v13;
+      while (v8 != v9);
+      v8 = v11;
     }
 
-    if (v10)
+    if (v8)
     {
-      v14 = v10;
-      operator delete(v10);
+      v12 = v8;
+      operator delete(v8);
     }
   }
 }
@@ -177,20 +177,20 @@ LABEL_12:
 - (void)replaceFormulaForConditionalStyle:(id)style atCellID:(TSUCellCoord)d
 {
   styleCopy = style;
-  objc_msgSend_removeFormulaAtCellID_(self, v6, *&d, v7, v8);
+  objc_msgSend_removeFormulaAtCellID_(self, v6, *&d, v7);
   if (styleCopy)
   {
-    objc_msgSend_addFormulaForConditionalStyle_atCellID_(self, v9, styleCopy, *&d, v11);
+    objc_msgSend_addFormulaForConditionalStyle_atCellID_(self, v8, styleCopy, *&d);
   }
 
-  objc_msgSend_addCellCoordinate_(self->_cellsToInvalidate, v9, *&d, v10, v11);
+  objc_msgSend_addCellCoordinate_(self->_cellsToInvalidate, v8, *&d, v9);
 }
 
 - (void)changedConditionForCellID:(TSUCellCoord)d
 {
   dCopy = d;
   ownerUID = self->_ownerUID;
-  objc_msgSend_markCellRefAsDirty_(self->_calcEngine, a2, &dCopy, v3, v4);
+  objc_msgSend_markCellRefAsDirty_(self->_calcEngine, a2, &dCopy, v3);
 }
 
 - (int)registerWithCalcEngine:(id)engine baseOwnerUID:(const TSKUIDStruct *)d
@@ -202,66 +202,66 @@ LABEL_12:
 
 - (TSCERecalculationState)evaluateFormulaAt:(TSUCellCoord)at withCalcEngine:(id)engine recalcOptions:(TSCERecalculationState)options
 {
-  if (objc_msgSend_shouldAbortRecalculation(engine, a2, *&at, engine, *&options.var0))
+  if (objc_msgSend_shouldAbortRecalculation(engine, a2, *&at, engine))
   {
-    v12 = options.var0 & 0x5F | 0x20;
-    v13 = 0x80;
+    v11 = options.var0 & 0x5F | 0x20;
+    v12 = 0x80;
   }
 
   else
   {
-    v14 = objc_msgSend_cellsPendingWrite(self->_tableModel, v8, v9, v10, v11);
-    v18 = objc_msgSend_cellAtCellID_(v14, v15, *&at, v16, v17);
+    v13 = objc_msgSend_cellsPendingWrite(self->_tableModel, v8, v9, v10);
+    v16 = objc_msgSend_cellAtCellID_(v13, v14, *&at, v15);
 
-    if (v18)
+    if (v16)
     {
-      v27 = objc_msgSend_copy(v18, v19, v20, v21, v22);
+      v23 = objc_msgSend_copy(v16, v17, v18, v19);
     }
 
     else
     {
-      v27 = objc_msgSend_newCell(self->_tableModel, v19, v20, v21, v22);
-      objc_msgSend_getCell_atBaseCellCoord_suppressCellBorder_(self->_tableModel, v28, v27, *&at, 1);
+      v23 = objc_msgSend_newCell(self->_tableModel, v17, v18, v19);
+      objc_msgSend_getCell_atBaseCellCoord_suppressCellBorder_(self->_tableModel, v24, v23, *&at, 1);
     }
 
-    v54 = 0;
-    v30 = objc_msgSend_conditionalStyle(v27, v23, v24, v25, v26);
-    if (v30)
+    v44 = 0;
+    v26 = objc_msgSend_conditionalStyle(v23, v20, v21, v22);
+    if (v26)
     {
-      if (objc_msgSend_checkConditionForCellID_withConditionalStyle_withIndex_(self, v29, *&at, v30, &v54))
+      if (objc_msgSend_checkConditionForCellID_withConditionalStyle_withIndex_(self, v25, *&at, v26, &v44))
       {
-        v35 = objc_msgSend_conditionalStyleAppliedRule(v27, v31, v32, v33, v34);
-        v36 = v35 != v54;
-        objc_msgSend_setConditionalStyleAppliedRule_(v27, v37, v54, v38, v39);
+        v30 = objc_msgSend_conditionalStyleAppliedRule(v23, v27, v28, v29);
+        v31 = v30 != v44;
+        objc_msgSend_setConditionalStyleAppliedRule_(v23, v32, v44, v33);
       }
 
       else
       {
-        v36 = objc_msgSend_conditionalStyleAppliedRule(v27, v31, v32, v33, v34) != 15;
-        objc_msgSend_setConditionalStyleAppliedRule_(v27, v44, 15, v45, v46);
+        v31 = objc_msgSend_conditionalStyleAppliedRule(v23, v27, v28, v29) != 15;
+        objc_msgSend_setConditionalStyleAppliedRule_(v23, v37, 15, v38);
       }
 
-      if (v36)
+      if (v31)
       {
-        v47 = objc_msgSend_cellsPendingWrite(self->_tableModel, v40, v41, v42, v43);
-        objc_msgSend_setCell_atCellID_(v47, v48, v27, *&at, v49);
+        v39 = objc_msgSend_cellsPendingWrite(self->_tableModel, v34, v35, v36);
+        objc_msgSend_setCell_atCellID_(v39, v40, v23, *&at);
 
-        objc_msgSend_addCellCoordinate_(self->_cellsToInvalidate, v50, *&at, v51, v52);
+        objc_msgSend_addCellCoordinate_(self->_cellsToInvalidate, v41, *&at, v42);
       }
     }
 
-    v13 = 0;
-    v12 = options.var0 & 0x5F;
+    v12 = 0;
+    v11 = options.var0 & 0x5F;
   }
 
-  return (v13 | v12);
+  return (v12 | v11);
 }
 
 + (id)allCondStyleFormulasForTable:(id)table
 {
-  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, table, v3, v4);
+  v4 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, table, v3);
 
-  return v5;
+  return v4;
 }
 
 - (TSKUIDStruct)ownerUID

@@ -95,7 +95,7 @@
 
         v14 = *(*(&v17 + 1) + 8 * i);
         v15 = SUUIReuseIdentifierForView(v14);
-        if (v15 && [identifierCopy isEqualToString:v15])
+        if (v15 && objc_msgSend_isEqualToString_(identifierCopy))
         {
           v16 = 0;
           blockCopy[2](blockCopy, v14, v11, &v16);

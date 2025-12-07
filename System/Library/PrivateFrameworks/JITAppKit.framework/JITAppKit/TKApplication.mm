@@ -342,31 +342,30 @@ void __39__TKApplication_loadBundle_completion___block_invoke(uint64_t a1, void 
   location[0] = 0;
   objc_storeStrong(location, l);
   scheme = [location[0] scheme];
-  v12 = 0;
+  v11 = 0;
   if (![scheme length])
   {
-    v12 = selfCopy->_baseURL != 0;
+    v11 = selfCopy->_baseURL != 0;
   }
 
   MEMORY[0x277D82BD8](scheme);
-  if (v12)
+  if (v11)
   {
-    v8 = MEMORY[0x277CBEBC0];
+    v7 = MEMORY[0x277CBEBC0];
     absoluteString = [location[0] absoluteString];
-    baseURL = selfCopy->_baseURL;
-    v9 = [v8 URLWithString:? relativeToURL:?];
-    absoluteURL = [v9 absoluteURL];
-    v5 = location[0];
+    v8 = [v7 URLWithString:? relativeToURL:?];
+    absoluteURL = [v8 absoluteURL];
+    v4 = location[0];
     location[0] = absoluteURL;
-    MEMORY[0x277D82BD8](v5);
-    MEMORY[0x277D82BD8](v9);
+    MEMORY[0x277D82BD8](v4);
+    MEMORY[0x277D82BD8](v8);
     MEMORY[0x277D82BD8](absoluteString);
   }
 
-  v7 = MEMORY[0x277D82BE0](location[0]);
+  v6 = MEMORY[0x277D82BE0](location[0]);
   objc_storeStrong(location, 0);
 
-  return v7;
+  return v6;
 }
 
 - (id)tmlPathForName:(id)name

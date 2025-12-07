@@ -109,7 +109,7 @@
 
 void __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -120,9 +120,9 @@ void __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_inv
     {
       [WeakRetained _setRemoteHostViewController:v5];
       [v5 setDelegate:v8];
-      v9 = v14;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
+      v9 = v13;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
       v10 = __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_invoke_2;
       v11 = v5;
     }
@@ -133,15 +133,15 @@ void __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v17 = "[INUIEditVoiceShortcutViewController initWithVoiceShortcut:]_block_invoke";
-        v18 = 2114;
-        v19 = v6;
+        v16 = "[INUIEditVoiceShortcutViewController initWithVoiceShortcut:]_block_invoke";
+        v17 = 2114;
+        v18 = v6;
         _os_log_error_impl(&dword_22CA36000, v12, OS_LOG_TYPE_ERROR, "%s Failed to get view controller for editing: %{public}@", buf, 0x16u);
       }
 
-      v9 = v15;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
+      v9 = v14;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
       v10 = __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_invoke_5;
       v11 = v6;
     }
@@ -152,17 +152,14 @@ void __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_inv
     v9[5] = v11;
     dispatch_async(MEMORY[0x277D85CD0], v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __61__INUIEditVoiceShortcutViewController_initWithVoiceShortcut___block_invoke_5(uint64_t a1)
 {
-  v5 = [*(a1 + 32) delegate];
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = INIntentError();
-  [v5 editVoiceShortcutViewController:v3 didUpdateVoiceShortcut:0 error:v4];
+  v4 = [*(a1 + 32) delegate];
+  v2 = *(a1 + 32);
+  v3 = INIntentError();
+  [v4 editVoiceShortcutViewController:v2 didUpdateVoiceShortcut:0 error:v3];
 }
 
 + (void)initialize

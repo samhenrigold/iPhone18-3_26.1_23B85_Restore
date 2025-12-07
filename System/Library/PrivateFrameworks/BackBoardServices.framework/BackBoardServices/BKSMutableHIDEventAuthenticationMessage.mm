@@ -61,46 +61,46 @@
 
 - (void)setDestinationAuditToken:(id)token
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v6 = MEMORY[0x1E696AEC0];
+      v5 = MEMORY[0x1E696AEC0];
       classForCoder = [tokenCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v8 = NSStringFromClass(classForCoder);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = [v6 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"destinationAuditToken", v8, v10];
+      v7 = NSStringFromClass(classForCoder);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = [v5 stringWithFormat:@"destinationAuditToken", v7, v9];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v12 = NSStringFromSelector(a2);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v11 = NSStringFromSelector(a2);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138544642;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v14;
-        v20 = 2048;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v13;
+        v19 = 2048;
         selfCopy = self;
-        v22 = 2114;
-        v23 = @"BKSHIDEventAuthenticationMessage.m";
-        v24 = 1024;
-        v25 = 419;
-        v26 = 2114;
-        v27 = v11;
+        v21 = 2114;
+        v22 = @"BKSHIDEventAuthenticationMessage.m";
+        v23 = 1024;
+        v24 = 419;
+        v25 = 2114;
+        v26 = v10;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v11 UTF8String];
+      [v10 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186396868);
@@ -108,7 +108,6 @@
   }
 
   self->super._versionedPID = [tokenCopy versionedPID];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

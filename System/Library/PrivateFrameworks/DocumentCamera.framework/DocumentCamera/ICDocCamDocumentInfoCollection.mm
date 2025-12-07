@@ -415,7 +415,7 @@ void __92__ICDocCamDocumentInfoCollection_infoCollectionFromImageSidecarItems_im
 {
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Collecting info collection for scan archive items… {#items: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Collecting info collection for scan archive items… {#items: %@}", v4, v5, v6, v7);
 }
 
 + (void)infoCollectionFromArchiveSidecarItems:imageCache:.cold.3()
@@ -443,7 +443,7 @@ void __92__ICDocCamDocumentInfoCollection_infoCollectionFromImageSidecarItems_im
 {
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Collecting info collection for image sidecar items… {#items: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Collecting info collection for image sidecar items… {#items: %@}", v4, v5, v6, v7);
 }
 
 + (void)infoCollectionFromImageSidecarItems:(uint8_t *)buf imageCache:(_BYTE *)a2 completion:(os_log_t)log .cold.2(uint8_t *buf, _BYTE *a2, os_log_t log)

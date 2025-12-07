@@ -28,9 +28,9 @@
 - (int64_t)read:(char *)read maxLength:(int64_t)length
 {
   selfCopy = self;
-  v5 = sub_1DD941C0C();
+  v7 = sub_1DD941C0C(read, length);
 
-  return v5;
+  return v7;
 }
 
 - (NSStreamDelegate)delegate
@@ -53,7 +53,6 @@
 - (_TtC5Anvil25FileDescriptorInputStream)initWithURL:(id)l
 {
   v3 = sub_1DDA134E0();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
   sub_1DDA134A0();
   result = _swift_stdlib_reportUnimplementedInitializer();

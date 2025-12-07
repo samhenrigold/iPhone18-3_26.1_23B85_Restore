@@ -769,11 +769,11 @@ LABEL_9:
 
 - (WFNetworkScanRecord)initWithScanResults:(id)results
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v67.receiver = self;
-  v67.super_class = WFNetworkScanRecord;
-  v9 = [(WFNetworkScanRecord *)&v67 init];
+  v70.receiver = self;
+  v70.super_class = WFNetworkScanRecord;
+  v9 = [(WFNetworkScanRecord *)&v70 init];
   if (!v9)
   {
     OUTLINED_FUNCTION_7_1();
@@ -784,10 +784,10 @@ LABEL_9:
   {
     scanRecord = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && scanRecord && os_log_type_enabled(scanRecord, v4))
+    if (WFCurrentLogLevel(v4, v68) && scanRecord && os_log_type_enabled(scanRecord, v4))
     {
       *buf = 136315138;
-      v69 = "[WFNetworkScanRecord initWithScanResults:]";
+      v72 = "[WFNetworkScanRecord initWithScanResults:]";
       _os_log_impl(&dword_273ECD000, scanRecord, v4, "%s: nil scan result", buf, 0xCu);
     }
 
@@ -807,12 +807,12 @@ LABEL_9:
   {
     scanRecord = WFLogForCategory(0);
     v4 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && scanRecord && os_log_type_enabled(scanRecord, v4))
+    if (WFCurrentLogLevel(v4, v69) && scanRecord && os_log_type_enabled(scanRecord, v4))
     {
       *buf = 136315394;
-      v69 = "[WFNetworkScanRecord initWithScanResults:]";
-      v70 = 2112;
-      v71 = resultsCopy;
+      v72 = "[WFNetworkScanRecord initWithScanResults:]";
+      v73 = 2112;
+      v74 = resultsCopy;
       _os_log_impl(&dword_273ECD000, scanRecord, v4, "%s: nil SSID for %@", buf, 0x16u);
     }
 
@@ -878,9 +878,9 @@ LABEL_58:
           v9->_unconfiguredAccessoryType = 1;
           if (v9->_unconfiguredDeviceName && v9->_bssid)
           {
-            v65 = [MEMORY[0x277CEA3A8] uniqueBaseStationName:? withBssid:?];
-            v66 = *p_unconfiguredDeviceName;
-            *p_unconfiguredDeviceName = v65;
+            v66 = [MEMORY[0x277CEA3A8] uniqueBaseStationName:? withBssid:?];
+            v67 = *p_unconfiguredDeviceName;
+            *p_unconfiguredDeviceName = v66;
           }
 
           goto LABEL_13;
@@ -967,34 +967,35 @@ LABEL_14:
     v46 = intValue;
     v47 = WFLogForCategory(0);
     v48 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v47)
+    v49 = v48;
+    if (WFCurrentLogLevel(v48, v50) >= 3 && v47)
     {
-      v49 = v47;
-      if (os_log_type_enabled(v49, v48))
+      v51 = v47;
+      if (os_log_type_enabled(v51, v49))
       {
         networkName2 = [resultsCopy networkName];
         *buf = 138412546;
-        v69 = networkName2;
-        v70 = 2048;
-        v71 = v46;
-        _os_log_impl(&dword_273ECD000, v49, v48, "Popularity for network: %@ is %lu", buf, 0x16u);
+        v72 = networkName2;
+        v73 = 2048;
+        v74 = v46;
+        _os_log_impl(&dword_273ECD000, v51, v49, "Popularity for network: %@ is %lu", buf, 0x16u);
       }
     }
 
-    v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Score %lu", v46];
+    v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Score %lu", v46];
   }
 
   else
   {
-    v51 = &stru_2882E4AD8;
+    v53 = &stru_2882E4AD8;
   }
 
   crowdsourceDescription = v9->_crowdsourceDescription;
-  v9->_crowdsourceDescription = &v51->isa;
+  v9->_crowdsourceDescription = &v53->isa;
 
   oSSpecificAttributes2 = [resultsCopy OSSpecificAttributes];
-  v54 = [oSSpecificAttributes2 objectForKey:*MEMORY[0x277D29828]];
-  if ([v54 BOOLValue])
+  v56 = [oSSpecificAttributes2 objectForKey:*MEMORY[0x277D29828]];
+  if ([v56 BOOLValue])
   {
     v9->_known = 1;
   }
@@ -1006,35 +1007,34 @@ LABEL_14:
   }
 
   oSSpecificAttributes3 = [resultsCopy OSSpecificAttributes];
-  v57 = [oSSpecificAttributes3 objectForKey:*MEMORY[0x277D29830]];
-  v9->_popular = [v57 BOOLValue];
+  v59 = [oSSpecificAttributes3 objectForKey:*MEMORY[0x277D29830]];
+  v9->_popular = [v59 BOOLValue];
 
   if (v9->_popular && v9->_enterprise)
   {
     v9->_popular = 0;
   }
 
-  v58 = [[WFPrivateAddressConfig alloc] initWithPrivateAddressConfigDictionary:v4 ssid:v9->_ssid];
+  v60 = [[WFPrivateAddressConfig alloc] initWithPrivateAddressConfigDictionary:v4 ssid:v9->_ssid];
   privateAddressConfig = v9->_privateAddressConfig;
-  v9->_privateAddressConfig = v58;
+  v9->_privateAddressConfig = v60;
 
   matchingKnownNetworkProfile2 = [resultsCopy matchingKnownNetworkProfile];
-  v60 = [matchingKnownNetworkProfile2 copy];
+  v62 = [matchingKnownNetworkProfile2 copy];
   matchingKnownNetworkProfile = v9->_matchingKnownNetworkProfile;
-  v9->_matchingKnownNetworkProfile = v60;
+  v9->_matchingKnownNetworkProfile = v62;
 
 LABEL_43:
-  v62 = v9;
+  v64 = v9;
 
-  v63 = *MEMORY[0x277D85DE8];
-  return v62;
+  return v64;
 }
 
 - (WFNetworkScanRecord)initWithNetworkRef:(__WiFiNetwork *)ref
 {
-  v64.receiver = self;
-  v64.super_class = WFNetworkScanRecord;
-  v4 = [(WFNetworkScanRecord *)&v64 init];
+  v59.receiver = self;
+  v59.super_class = WFNetworkScanRecord;
+  v4 = [(WFNetworkScanRecord *)&v59 init];
   if (!v4 || !ref)
   {
     return v4;
@@ -1075,41 +1075,40 @@ LABEL_43:
     v4->_carPlayType = v16;
   }
 
-  v17 = *MEMORY[0x277D29850];
-  v18 = WiFiNetworkGetProperty();
-  if (v18)
+  v17 = WiFiNetworkGetProperty();
+  if (v17)
   {
-    objc_storeStrong(&v4->_eapProfile, v18);
+    objc_storeStrong(&v4->_eapProfile, v17);
   }
 
   WiFiNetworkIsAdHoc();
   OUTLINED_FUNCTION_2_2();
-  v4->_adhoc = v19;
-  v4->_enterprise = WFWiFiNetworkRefIsEnterprise();
+  v4->_adhoc = v18;
+  v4->_enterprise = WFWiFiNetworkRefIsEnterprise(ref);
   v4->_phyMode = WiFiNetworkGetPhyMode();
   WiFiNetworkIsSSIDAmbiguous();
   OUTLINED_FUNCTION_2_2();
-  v4->_ambiguousSSID = v20;
-  v21 = WiFiNetworkGetChannel();
+  v4->_ambiguousSSID = v19;
+  v20 = WiFiNetworkGetChannel();
   channel = v4->_channel;
-  v4->_channel = v21;
+  v4->_channel = v20;
 
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:WiFiNetworkGetChannelWidthInMHz()];
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:WiFiNetworkGetChannelWidthInMHz()];
   channelWidth = v4->_channelWidth;
-  v4->_channelWidth = v23;
+  v4->_channelWidth = v22;
 
   WiFiNetworkIsHotspot20();
   OUTLINED_FUNCTION_2_2();
-  v4->_hotspot20 = v25;
-  v26 = WiFiNetworkCopyRecord();
-  v27 = [OUTLINED_FUNCTION_4_2() isUnconfiguredDevice:?];
-  v4->_unconfiguredAccessory = v27;
-  if (v27)
+  v4->_hotspot20 = v24;
+  v25 = WiFiNetworkCopyRecord();
+  v26 = [OUTLINED_FUNCTION_4_2() isUnconfiguredDevice:?];
+  v4->_unconfiguredAccessory = v26;
+  if (v26)
   {
-    v28 = [OUTLINED_FUNCTION_4_2() unconfiguredDeviceName:?];
+    v27 = [OUTLINED_FUNCTION_4_2() unconfiguredDeviceName:?];
     p_unconfiguredDeviceName = &v4->_unconfiguredDeviceName;
     unconfiguredDeviceName = v4->_unconfiguredDeviceName;
-    v4->_unconfiguredDeviceName = v28;
+    v4->_unconfiguredDeviceName = v27;
 
     if ([OUTLINED_FUNCTION_4_2() isHomeKitSecureWACDevice:?])
     {
@@ -1121,7 +1120,7 @@ LABEL_43:
     {
       if ([OUTLINED_FUNCTION_4_2() isAirPlayDevice:?])
       {
-        v31 = 2;
+        v30 = 2;
       }
 
       else
@@ -1131,59 +1130,58 @@ LABEL_43:
           v4->_unconfiguredAccessoryType = 1;
           if (v4->_bssid)
           {
-            v60 = WiFiNetworkGetProperty();
-            v61 = v60;
-            if (*p_unconfiguredDeviceName && v60)
+            v55 = WiFiNetworkGetProperty();
+            v56 = v55;
+            if (*p_unconfiguredDeviceName && v55)
             {
-              v62 = [MEMORY[0x277CEA3A8] uniqueBaseStationName:? withBssid:?];
-              v63 = *p_unconfiguredDeviceName;
-              *p_unconfiguredDeviceName = v62;
+              v57 = [MEMORY[0x277CEA3A8] uniqueBaseStationName:? withBssid:?];
+              v58 = *p_unconfiguredDeviceName;
+              *p_unconfiguredDeviceName = v57;
             }
           }
 
           goto LABEL_21;
         }
 
-        v31 = 3;
+        v30 = 3;
       }
 
-      v4->_unconfiguredAccessoryType = v31;
+      v4->_unconfiguredAccessoryType = v30;
     }
 
 LABEL_21:
     v4->_unconfiguredAccessorySTAOnly = [OUTLINED_FUNCTION_4_2() isSTAOnlyDevice:?];
-    v32 = [OUTLINED_FUNCTION_4_2() unconfiguredDeviceID:?];
+    v31 = [OUTLINED_FUNCTION_4_2() unconfiguredDeviceID:?];
     unconfiguredDeviceID = v4->_unconfiguredDeviceID;
-    v4->_unconfiguredDeviceID = v32;
+    v4->_unconfiguredDeviceID = v31;
 
     goto LABEL_22;
   }
 
   v4->_unconfiguredAccessoryType = 0;
 LABEL_22:
-  v34 = *MEMORY[0x277D298D8];
-  v35 = WiFiNetworkGetProperty();
-  v36 = [v35 objectForKey:*MEMORY[0x277D298B8]];
-  v4->_supervised = [v36 BOOLValue];
+  v33 = WiFiNetworkGetProperty();
+  v34 = [v33 objectForKey:*MEMORY[0x277D298B8]];
+  v4->_supervised = [v34 BOOLValue];
 
-  v37 = [v35 objectForKey:*MEMORY[0x277D298E8]];
-  v4->_privateMACDisabledByProfile = [v37 BOOLValue];
+  v35 = [v33 objectForKey:*MEMORY[0x277D298E8]];
+  v4->_privateMACDisabledByProfile = [v35 BOOLValue];
 
-  v38 = [v26 objectForKey:@"PRIVATE_MAC_ADDRESS"];
-  v39 = v38;
-  if (v38)
+  v36 = [v25 objectForKey:@"PRIVATE_MAC_ADDRESS"];
+  v37 = v36;
+  if (v36)
   {
-    v40 = [v38 objectForKey:@"PRIVATE_MAC_ADDRESS_VALUE"];
-    if (v40)
+    v38 = [v36 objectForKey:@"PRIVATE_MAC_ADDRESS_VALUE"];
+    if (v38)
     {
-      v41 = WFConvertEthernetNetworkAddressToString(v40);
+      v39 = WFConvertEthernetNetworkAddressToString(v38);
       randomMACAddress = v4->_randomMACAddress;
-      v4->_randomMACAddress = v41;
+      v4->_randomMACAddress = v39;
     }
 
-    v43 = [objc_msgSend(v35 objectForKey:{@"PRIVATE_MAC_ADDRESS_TYPE", "intValue"}];
-    v4->_privateAddressMode = v43;
-    v4->_randomMACAddressEnabled = v43 == 2;
+    v41 = [objc_msgSend(v33 objectForKey:{@"PRIVATE_MAC_ADDRESS_TYPE", "intValue"}];
+    v4->_privateAddressMode = v41;
+    v4->_randomMACAddressEnabled = v41 == 2;
   }
 
   else
@@ -1191,16 +1189,16 @@ LABEL_22:
     v4->_randomMACAddressEnabled = 0;
   }
 
-  v44 = [v26 objectForKey:@"RSSI"];
-  v4->_rssi = [v44 integerValue];
+  v42 = [v25 objectForKey:@"RSSI"];
+  v4->_rssi = [v42 integerValue];
 
-  v45 = [v26 objectForKey:@"ScaledRSSI"];
+  v43 = [v25 objectForKey:@"ScaledRSSI"];
 
-  if (v45)
+  if (v43)
   {
-    v46 = [v26 objectForKey:@"ScaledRSSI"];
-    [v46 floatValue];
-    v4->_scaledRSSI = v47;
+    v44 = [v25 objectForKey:@"ScaledRSSI"];
+    [v44 floatValue];
+    v4->_scaledRSSI = v45;
   }
 
   else
@@ -1208,41 +1206,38 @@ LABEL_22:
     v4->_scaledRSSI = WFScaleRSSI(v4->_rssi);
   }
 
-  v48 = WFSecurityModeFromScanDictionary(v26, &v4->_securityModeExt);
-  v4->_securityMode = v48;
-  v49 = (v48 | 0x800) != 0x800 || WiFiNetworkIsWAPICERT() || WiFiNetworkIsWAPIPSK() != 0;
-  v4->_secure = v49;
-  v4->_obsoleteNetworkCipherType = WFDetermineNetworkCipherTypeObsolete(v26);
-  v50 = [v26 objectForKey:@"APPLE_IE"];
+  v46 = WFSecurityModeFromScanDictionary(v25, &v4->_securityModeExt);
+  v4->_securityMode = v46;
+  v47 = (v46 | 0x800) != 0x800 || WiFiNetworkIsWAPICERT() || WiFiNetworkIsWAPIPSK() != 0;
+  v4->_secure = v47;
+  v4->_obsoleteNetworkCipherType = WFDetermineNetworkCipherTypeObsolete(v25);
+  v48 = [v25 objectForKey:@"APPLE_IE"];
 
-  if (v50)
+  if (v48)
   {
     v4->_airPortBaseStation = 1;
   }
 
   v4->_prominentDisplay = 1;
-  objc_storeStrong(&v4->_attributes, v26);
-  v51 = *MEMORY[0x277D29828];
+  objc_storeStrong(&v4->_attributes, v25);
   v4->_known = WiFiNetworkGetProperty() != 0;
-  v52 = *MEMORY[0x277D29838];
   if (WiFiNetworkGetProperty())
   {
-    v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Score %lu", WiFiNetworkGetIntProperty()];
+    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Score %lu", WiFiNetworkGetIntProperty()];
     crowdsourceDescription = v4->_crowdsourceDescription;
-    v4->_crowdsourceDescription = v53;
+    v4->_crowdsourceDescription = v49;
   }
 
-  v55 = *MEMORY[0x277D29830];
-  v56 = WiFiNetworkGetProperty() == *MEMORY[0x277CBED28];
-  v4->_popular = v56;
-  if (v56 && v4->_enterprise)
+  v51 = WiFiNetworkGetProperty() == *MEMORY[0x277CBED28];
+  v4->_popular = v51;
+  if (v51 && v4->_enterprise)
   {
     v4->_popular = 0;
   }
 
-  v57 = [[WFPrivateAddressConfig alloc] initWithPrivateAddressConfigDictionary:v35 ssid:v4->_ssid];
+  v52 = [[WFPrivateAddressConfig alloc] initWithPrivateAddressConfigDictionary:v33 ssid:v4->_ssid];
   privateAddressConfig = v4->_privateAddressConfig;
-  v4->_privateAddressConfig = v57;
+  v4->_privateAddressConfig = v52;
 
   return v4;
 }

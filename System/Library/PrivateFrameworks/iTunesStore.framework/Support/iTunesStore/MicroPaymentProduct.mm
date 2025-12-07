@@ -144,31 +144,36 @@
       shouldLog = [v24 shouldLog];
       if ([v24 shouldLogToDisk])
       {
-        v26 = shouldLog | 2;
+        LODWORD(v26) = shouldLog | 2;
       }
 
       else
       {
-        v26 = shouldLog;
+        LODWORD(v26) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v24 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = v26;
+      }
+
+      else
       {
         v26 &= 2u;
       }
 
       if (v26)
       {
-        v27 = objc_opt_class();
+        v28 = objc_opt_class();
         v36 = 138412290;
-        v37 = v27;
-        LODWORD(v31) = 12;
-        v28 = _os_log_send_and_compose_impl();
-        if (v28)
+        v37 = v28;
+        v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Received invalid product dictionary", &v36, 12);
+        if (v29)
         {
-          v29 = v28;
-          [NSString stringWithCString:v28 encoding:4, &v36, v31];
-          free(v29);
+          v30 = v29;
+          [NSString stringWithCString:v29 encoding:4];
+          free(v30);
           SSFileLog();
         }
       }

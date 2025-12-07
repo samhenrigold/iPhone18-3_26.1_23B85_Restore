@@ -163,24 +163,24 @@
 - (void)updateSamplesWithTime:(double)time bumpSamples:(BOOL)samples
 {
   samplesCopy = samples;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v8 = v7;
-    v27 = 134219264;
+    v26 = 134219264;
     timeCopy = time;
-    v29 = 1024;
-    v30 = samplesCopy;
-    v31 = 2048;
+    v28 = 1024;
+    v29 = samplesCopy;
+    v30 = 2048;
     lastSampledRxBytes = [(FlowHistorian *)self lastSampledRxBytes];
-    v33 = 2048;
+    v32 = 2048;
     totalRxBytes = [(FlowHistorian *)self totalRxBytes];
-    v35 = 2048;
+    v34 = 2048;
     lastSampledTxBytes = [(FlowHistorian *)self lastSampledTxBytes];
-    v37 = 2048;
+    v36 = 2048;
     totalTxBytes = [(FlowHistorian *)self totalTxBytes];
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "FlowHistorySampler updateSamplesWithTime %.3f bump %d, self.lastSampledRxBytes %lld self.totalRxBytes %lld  tx %lld %lld", &v27, 0x3Au);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "FlowHistorySampler updateSamplesWithTime %.3f bump %d, self.lastSampledRxBytes %lld self.totalRxBytes %lld  tx %lld %lld", &v26, 0x3Au);
   }
 
   if (self->_lastSampleTimeIntervalSinceReferenceDate == 0.0)
@@ -250,8 +250,6 @@
     *&self->_lastSampledCounts.counts[1].openedFlows = v25;
     self->_lastSampleTimeIntervalSinceReferenceDate = time;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyDeltaRx:(unint64_t)rx deltaTx:(unint64_t)tx snapshot:(id)snapshot
@@ -309,38 +307,38 @@
 - (id)getState:(BOOL)state
 {
   stateCopy = state;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = apparentTime();
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [(FlowHistorian *)self description];
-  v28 = v6;
+  v27 = v6;
   [v6 addObject:v7];
 
   if (stateCopy)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v8 = self->_historySamples;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         v13 = 0;
         v14 = v11;
         do
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * v13);
+          v15 = *(*(&v28 + 1) + 8 * v13);
           v16 = objc_alloc(MEMORY[0x277CCACA8]);
           logPrefix = self->_logPrefix;
           if (!logPrefix)
@@ -350,13 +348,13 @@
 
           v11 = [v16 initWithFormat:@"          %@%@", logPrefix, v15];
 
-          [v28 addObject:v11];
+          [v27 addObject:v11];
           ++v13;
           v14 = v11;
         }
 
         while (v10 != v13);
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v10);
@@ -387,7 +385,7 @@
 
           v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"<partial> %@%@", v24, v23];
 
-          [v28 addObject:v25];
+          [v27 addObject:v25];
           v11 = v25;
         }
       }
@@ -405,7 +403,7 @@
     }
 
     v11 = [v19 initWithFormat:@"          %@%@", v20, lastObject];
-    [v28 addObject:v11];
+    [v27 addObject:v11];
   }
 
   else
@@ -413,9 +411,7 @@
     v11 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 @end

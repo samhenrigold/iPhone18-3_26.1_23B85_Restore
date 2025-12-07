@@ -97,7 +97,7 @@
   }
 
   [(PLManagedFolder *)self didAccessValueForKey:@"childCollections"];
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     [(PLManagedFolder *)self willChange:3 valuesAtIndexes:v6 forKey:@"childCollections"];
     primitiveChildCollections2 = [(PLManagedFolder *)self primitiveChildCollections];
@@ -112,8 +112,8 @@
   collectionsCopy = collections;
   [(PLManagedFolder *)self willAccessValueForKey:@"childCollections"];
   v5 = [(PLManagedFolder *)self primitiveValueForKey:@"childCollections"];
-  v6 = [v5 count];
-  v7 = [collectionsCopy count];
+  v6 = objc_msgSend_count(v5);
+  v7 = objc_msgSend_count(collectionsCopy);
 
   v10 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{v6, v7}];
   [(PLManagedFolder *)self didAccessValueForKey:@"childCollections"];
@@ -150,7 +150,7 @@
   [(PLManagedFolder *)self willAccessValueForKey:@"childCollections"];
   v5 = objc_alloc(MEMORY[0x1E696AC90]);
   primitiveChildCollections = [(PLManagedFolder *)self primitiveChildCollections];
-  v8 = [v5 initWithIndex:{objc_msgSend(primitiveChildCollections, "count")}];
+  v8 = [v5 initWithIndex:objc_msgSend_count(primitiveChildCollections)];
 
   [(PLManagedFolder *)self didAccessValueForKey:@"childCollections"];
   [(PLManagedFolder *)self willChange:2 valuesAtIndexes:v8 forKey:@"childCollections"];
@@ -170,7 +170,7 @@
   [(PLManagedFolder *)self didAccessValueForKey:@"childCollections"];
   [(PLManagedFolder *)self removeChildCollectionsAtIndexes:indexesCopy];
 
-  v8 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{index, objc_msgSend(v9, "count")}];
+  v8 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{index, objc_msgSend_count(v9)}];
   [(PLManagedFolder *)self insertChildCollections:v9 atIndexes:v8];
 }
 
@@ -492,7 +492,7 @@ LABEL_34:
 - (BOOL)hasAtLeastOneAlbum
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count] != 0;
+  v3 = objc_msgSend_count(childCollections) != 0;
 
   return v3;
 }
@@ -500,7 +500,7 @@ LABEL_34:
 - (unint64_t)albumsCount
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count];
+  v3 = objc_msgSend_count(childCollections);
 
   return v3;
 }
@@ -508,7 +508,7 @@ LABEL_34:
 - (unint64_t)containersCount
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count];
+  v3 = objc_msgSend_count(childCollections);
 
   return v3;
 }
@@ -540,7 +540,7 @@ LABEL_34:
 - (BOOL)isEmpty
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count] == 0;
+  v3 = objc_msgSend_count(childCollections) == 0;
 
   return v3;
 }
@@ -548,7 +548,7 @@ LABEL_34:
 - (unint64_t)count
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count];
+  v3 = objc_msgSend_count(childCollections);
 
   return v3;
 }
@@ -556,7 +556,7 @@ LABEL_34:
 - (unint64_t)approximateCount
 {
   childCollections = [(PLManagedFolder *)self childCollections];
-  v3 = [childCollections count];
+  v3 = objc_msgSend_count(childCollections);
 
   return v3;
 }
@@ -897,7 +897,7 @@ LABEL_22:
   objectID = [(PLManagedFolder *)self objectID];
   v7 = [managedObjectContext _orderKeysForRelationshipWithName__:@"childCollections" onObjectWithID:objectID];
 
-  if ([v7 count] == 2)
+  if (objc_msgSend_count(v7) == 2)
   {
     v24 = v5;
     v25 = managedObjectContext;
@@ -907,7 +907,7 @@ LABEL_22:
     objectID2 = [(PLManagedFolder *)self objectID];
     uRIRepresentation = [objectID2 URIRepresentation];
     v12 = [v7 objectAtIndexedSubscript:0];
-    [string appendFormat:@"FOLDER %@ [%d]\n", uRIRepresentation, objc_msgSend(v12, "count")];
+    [string appendFormat:@"FOLDER %@ [%d]\n", uRIRepresentation, objc_msgSend_count(v12)];
 
     v28 = 0u;
     v29 = 0u;

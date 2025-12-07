@@ -1,12 +1,12 @@
 @interface NSError(HealthDaemon)
+- (BOOL)hd_containsCKDuplicateRecordError;
+- (BOOL)hd_containsCKMissingZoneError;
 - (double)hd_cloudKitRetryDelay;
 - (id)hd_cloudKitErrorRequiringUserAction;
 - (id)hd_errorForAnalytics;
 - (id)hd_errorStrippingCloudKitPartialFailuresWithShouldIgnoreBlock:()HealthDaemon;
 - (id)hd_errorSurfacingFatalCloudKitPartialFailure;
 - (id)hd_errorSurfacingFatalCloudKitPartialFailureForAnalytics;
-- (uint64_t)hd_containsCKDuplicateRecordError;
-- (uint64_t)hd_containsCKMissingZoneError;
 - (uint64_t)hd_isCloudKitErrorQuotaExceeded;
 - (uint64_t)hd_isCorruptionError;
 - (uint64_t)hd_isManateeIdentityLossError;
@@ -19,35 +19,35 @@
 
 - (uint64_t)hd_isCloudKitErrorQuotaExceeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([self hk_isHealthKitError] && objc_msgSend(self, "code") == 711)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     userInfo = [self userInfo];
     v3 = [userInfo objectForKeyedSubscript:0x283C1FA68];
 
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v6 |= [*(*(&v13 + 1) + 8 * i) code] == 25;
+          v6 |= [*(*(&v12 + 1) + 8 * i) code] == 25;
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -72,13 +72,12 @@
     v6 = [self code] == 25;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
 - (id)hd_cloudKitErrorRequiringUserAction
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (![self hk_isHealthKitError])
   {
     goto LABEL_16;
@@ -130,31 +129,31 @@ LABEL_16:
         {
           *buf = 138543618;
           selfCopy2 = self;
-          v39 = 2114;
-          v40 = v18;
+          v38 = 2114;
+          v39 = v18;
           _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ partial error: %{public}@", buf, 0x16u);
         }
 
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
         allValues = [v18 allValues];
-        v21 = [allValues countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v21 = [allValues countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v29;
+          v23 = *v28;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v29 != v23)
+              if (*v28 != v23)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v25 = *(*(&v28 + 1) + 8 * i);
+              v25 = *(*(&v27 + 1) + 8 * i);
               if ([v25 code] != 22)
               {
                 selfCopy = [(NSError *)v25 _hd_cloudKitErrorRequiringUserActionFromCKErrorDomain];
@@ -163,7 +162,7 @@ LABEL_16:
               }
             }
 
-            v22 = [allValues countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v22 = [allValues countByEnumeratingWithState:&v27 objects:v35 count:16];
             if (v22)
             {
               continue;
@@ -180,14 +179,14 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   userInfo4 = [self userInfo];
   v4 = [userInfo4 objectForKeyedSubscript:0x283C1FA68];
 
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (!v5)
   {
 LABEL_13:
@@ -196,17 +195,17 @@ LABEL_13:
   }
 
   v6 = v5;
-  v7 = *v33;
+  v7 = *v32;
 LABEL_7:
   v8 = 0;
   while (1)
   {
-    if (*v33 != v7)
+    if (*v32 != v7)
     {
       objc_enumerationMutation(v4);
     }
 
-    hd_cloudKitErrorRequiringUserAction = [*(*(&v32 + 1) + 8 * v8) hd_cloudKitErrorRequiringUserAction];
+    hd_cloudKitErrorRequiringUserAction = [*(*(&v31 + 1) + 8 * v8) hd_cloudKitErrorRequiringUserAction];
     if (hd_cloudKitErrorRequiringUserAction)
     {
       break;
@@ -214,7 +213,7 @@ LABEL_7:
 
     if (v6 == ++v8)
     {
-      v6 = [v4 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v31 objects:v40 count:16];
       if (v6)
       {
         goto LABEL_7;
@@ -229,57 +228,53 @@ LABEL_19:
 LABEL_20:
 
 LABEL_34:
-  v26 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
 - (uint64_t)hd_isManateeIdentityLossError
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   domain = [self domain];
   v3 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
   if (!v3)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   if ([self code] == 112)
   {
-    v4 = 1;
-    goto LABEL_15;
+    return 1;
   }
 
   if ([self code] != 2)
   {
-LABEL_14:
-    v4 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   userInfo = [self userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = v6;
-  v4 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 = [v7 objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+        v10 = [v7 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         hd_isManateeIdentityLossError = [v10 hd_isManateeIdentityLossError];
 
         if (hd_isManateeIdentityLossError)
@@ -289,7 +284,7 @@ LABEL_14:
         }
       }
 
-      v4 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -301,57 +296,52 @@ LABEL_14:
 
 LABEL_17:
 
-LABEL_15:
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (uint64_t)hd_shouldPreventCloudKitCacheUpdate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   domain = [self domain];
   v3 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
   if (!v3)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   if ([self code] == 111)
   {
-    v4 = 1;
-    goto LABEL_15;
+    return 1;
   }
 
   if ([self code] != 2)
   {
-LABEL_14:
-    v4 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   userInfo = [self userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = v6;
-  v4 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 = [v7 objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+        v10 = [v7 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         hd_shouldPreventCloudKitCacheUpdate = [v10 hd_shouldPreventCloudKitCacheUpdate];
 
         if (hd_shouldPreventCloudKitCacheUpdate)
@@ -361,7 +351,7 @@ LABEL_14:
         }
       }
 
-      v4 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -373,14 +363,12 @@ LABEL_14:
 
 LABEL_17:
 
-LABEL_15:
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)hd_errorStrippingCloudKitPartialFailuresWithShouldIgnoreBlock:()HealthDaemon
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = a3;
   domain = [self domain];
   v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
@@ -403,7 +391,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
   userInfo = [self userInfo];
   v8 = *MEMORY[0x277CBBFB0];
   v9 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
@@ -414,16 +402,16 @@ LABEL_20:
   {
     v11 = v10;
     *buf = 134217984;
-    v38 = [v9 count];
+    v37 = [v9 count];
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%ld partial errors", buf, 0xCu);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   allKeys = [v9 allKeys];
-  v13 = [allKeys countByEnumeratingWithState:&v33 objects:v43 count:16];
+  v13 = [allKeys countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (!v13)
   {
     selfCopy = 0;
@@ -433,58 +421,58 @@ LABEL_23:
   }
 
   v14 = v13;
-  v28 = v8;
+  v27 = v8;
   selfCopy2 = self;
   v15 = 0;
-  v16 = *v34;
-  v30 = 1;
+  v16 = *v33;
+  v29 = 1;
   obj = allKeys;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v34 != v16)
+      if (*v33 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v33 + 1) + 8 * i);
+      v18 = *(*(&v32 + 1) + 8 * i);
       ++v15;
       v19 = v9;
-      v20 = [v9 objectForKeyedSubscript:{v18, v28}];
+      v20 = [v9 objectForKeyedSubscript:{v18, v27}];
       _HKInitializeLogging();
       v21 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218498;
-        v38 = v15;
-        v39 = 2114;
-        v40 = v20;
-        v41 = 2114;
-        v42 = v18;
+        v37 = v15;
+        v38 = 2114;
+        v39 = v20;
+        v40 = 2114;
+        v41 = v18;
         _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "     %2ld: Partial error: %{public}@, ID: %{public}@", buf, 0x20u);
       }
 
       if ((v4[2](v4, v20) & 1) == 0)
       {
-        [v31 setObject:v20 forKeyedSubscript:v18];
-        v30 = 0;
+        [v30 setObject:v20 forKeyedSubscript:v18];
+        v29 = 0;
       }
 
       v9 = v19;
     }
 
-    v14 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+    v14 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
   }
 
   while (v14);
 
-  if ((v30 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
     userInfo2 = [selfCopy2 userInfo];
     allKeys = [userInfo2 mutableCopy];
 
-    [allKeys setObject:v31 forKeyedSubscript:v28];
+    [allKeys setObject:v30 forKeyedSubscript:v27];
     v24 = objc_alloc(MEMORY[0x277CCA9B8]);
     domain2 = [selfCopy2 domain];
     selfCopy = [v24 initWithDomain:domain2 code:objc_msgSend(selfCopy2 userInfo:{"code"), allKeys}];
@@ -496,7 +484,6 @@ LABEL_23:
 LABEL_24:
 
 LABEL_25:
-  v26 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -532,32 +519,32 @@ LABEL_9:
 
 - (id)hd_errorSurfacingFatalCloudKitPartialFailure
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBBF50];
   if ([self hk_isErrorInDomain:*MEMORY[0x277CBBF50] code:2])
   {
     userInfo = [self userInfo];
     v4 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allValues = [v4 allValues];
-    selfCopy = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+    selfCopy = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (selfCopy)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != selfCopy; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 code] != 11 && objc_msgSend(v9, "code") != 22)
           {
             selfCopy = v9;
@@ -565,7 +552,7 @@ LABEL_9:
           }
         }
 
-        selfCopy = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        selfCopy = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (selfCopy)
         {
           continue;
@@ -589,39 +576,37 @@ LABEL_17:
     selfCopy = self;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)hd_errorSurfacingFatalCloudKitPartialFailureForAnalytics
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBBF50];
   if ([self hk_isErrorInDomain:*MEMORY[0x277CBBF50] code:2])
   {
     userInfo = [self userInfo];
     v4 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allValues = [v4 allValues];
-    selfCopy = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+    selfCopy = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (selfCopy)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != selfCopy; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 code] != 22)
           {
             selfCopy = v9;
@@ -629,7 +614,7 @@ LABEL_17:
           }
         }
 
-        selfCopy = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        selfCopy = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (selfCopy)
         {
           continue;
@@ -653,14 +638,12 @@ LABEL_16:
     selfCopy = self;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)hd_errorForAnalytics
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   userInfo = [self userInfo];
   v3 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCBDA8]];
 
@@ -679,9 +662,9 @@ LABEL_16:
     localizedDescription = [hd_errorForAnalytics localizedDescription];
     v13 = [v11 stringWithFormat:@"%@: %@", v3, localizedDescription];
 
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     selfCopy = [hd_errorForAnalytics hk_errorByAddingEntriesToUserInfo:v14];
 
     goto LABEL_25;
@@ -775,12 +758,73 @@ LABEL_22:
 LABEL_24:
 LABEL_25:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (void)hd_enumerateCloudKitPartialErrorsWithHandler:()HealthDaemon
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  domain = [self domain];
+  v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
+
+  if (v6)
+  {
+    if ([self code] == 2)
+    {
+      userInfo = [self userInfo];
+      v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
+
+      v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      allValues = [v8 allValues];
+      v10 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
+      if (v10)
+      {
+        v11 = v10;
+        v12 = *v16;
+LABEL_5:
+        v13 = 0;
+        while (1)
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(allValues);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          v19 = 0;
+          v4[2](v4, v14, &v19);
+          if (v19)
+          {
+            break;
+          }
+
+          if (v11 == ++v13)
+          {
+            v11 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
+            if (v11)
+            {
+              goto LABEL_5;
+            }
+
+            break;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v19 = 0;
+      v4[2](v4, self, &v19);
+    }
+  }
+}
+
+- (void)hd_enumerateCloudKitPartialErrorsByKeyWithHandler:()HealthDaemon
 {
   v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
@@ -798,8 +842,8 @@ LABEL_25:
       v19 = 0u;
       v16 = 0u;
       v17 = 0u;
-      allValues = [v8 allValues];
-      v10 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+      allKeys = [v8 allKeys];
+      v10 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v10)
       {
         v11 = v10;
@@ -810,12 +854,14 @@ LABEL_5:
         {
           if (*v17 != v12)
           {
-            objc_enumerationMutation(allValues);
+            objc_enumerationMutation(allKeys);
           }
 
           v14 = *(*(&v16 + 1) + 8 * v13);
           v20 = 0;
-          v4[2](v4, v14, &v20);
+          v15 = [v8 objectForKeyedSubscript:v14];
+          v4[2](v4, v14, v15, &v20);
+
           if (v20)
           {
             break;
@@ -823,7 +869,7 @@ LABEL_5:
 
           if (v11 == ++v13)
           {
-            v11 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+            v11 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
             if (v11)
             {
               goto LABEL_5;
@@ -838,83 +884,14 @@ LABEL_5:
     else
     {
       v20 = 0;
-      v4[2](v4, self, &v20);
+      v4[2](v4, 0, self, &v20);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-- (void)hd_enumerateCloudKitPartialErrorsByKeyWithHandler:()HealthDaemon
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v4 = a3;
-  domain = [self domain];
-  v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
-
-  if (v6)
-  {
-    if ([self code] == 2)
-    {
-      userInfo = [self userInfo];
-      v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
-
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      allKeys = [v8 allKeys];
-      v10 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
-      if (v10)
-      {
-        v11 = v10;
-        v12 = *v18;
-LABEL_5:
-        v13 = 0;
-        while (1)
-        {
-          if (*v18 != v12)
-          {
-            objc_enumerationMutation(allKeys);
-          }
-
-          v14 = *(*(&v17 + 1) + 8 * v13);
-          v21 = 0;
-          v15 = [v8 objectForKeyedSubscript:v14];
-          v4[2](v4, v14, v15, &v21);
-
-          if (v21)
-          {
-            break;
-          }
-
-          if (v11 == ++v13)
-          {
-            v11 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
-            if (v11)
-            {
-              goto LABEL_5;
-            }
-
-            break;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v21 = 0;
-      v4[2](v4, 0, self, &v21);
-    }
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (double)hd_cloudKitRetryDelay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   domain = [self domain];
   v3 = *MEMORY[0x277CBBF50];
   v4 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
@@ -934,27 +911,27 @@ LABEL_5:
     {
       v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       allValues = [v12 allValues];
-      v14 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v24;
+        v16 = *v23;
         v8 = 0.0;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v18 = *(*(&v23 + 1) + 8 * i);
+            v18 = *(*(&v22 + 1) + 8 * i);
             if ([v18 code] != 11 && objc_msgSend(v18, "code") != 22)
             {
               [v18 hd_cloudKitRetryDelay];
@@ -965,7 +942,7 @@ LABEL_5:
             }
           }
 
-          v15 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v15 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v15);
@@ -994,19 +971,18 @@ LABEL_5:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-- (uint64_t)hd_containsCKDuplicateRecordError
+- (BOOL)hd_containsCKDuplicateRecordError
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   domain = [self domain];
   v3 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
   if (!v3)
   {
-    goto LABEL_19;
+    return 0;
   }
 
   if ([self code] == 2)
@@ -1014,33 +990,33 @@ LABEL_5:
     userInfo = [self userInfo];
     v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     allValues = [v5 allValues];
-    v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v17 + 1) + 8 * i) hd_containsCKDuplicateRecordError])
+          if ([*(*(&v16 + 1) + 8 * i) hd_containsCKDuplicateRecordError])
           {
 
-            goto LABEL_22;
+            return 1;
           }
         }
 
-        v8 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -1052,12 +1028,12 @@ LABEL_5:
 
 LABEL_18:
 
-    goto LABEL_19;
+    return 0;
   }
 
   if ([self code] != 14)
   {
-    goto LABEL_19;
+    return 0;
   }
 
   userInfo2 = [self userInfo];
@@ -1065,7 +1041,7 @@ LABEL_18:
 
   if (!v5)
   {
-    goto LABEL_19;
+    return 0;
   }
 
   allValues = [v5 domain];
@@ -1078,29 +1054,18 @@ LABEL_18:
   v13 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x277CBBF70]];
   v14 = [v13 isEqualToString:@"record to insert already exists"];
 
-  if (v14)
-  {
-LABEL_22:
-    result = 1;
-    goto LABEL_20;
-  }
-
-LABEL_19:
-  result = 0;
-LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return (v14 & 1) != 0;
 }
 
-- (uint64_t)hd_containsCKMissingZoneError
+- (BOOL)hd_containsCKMissingZoneError
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   domain = [self domain];
   v3 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
   if (!v3)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   if ([self code] == 2)
@@ -1108,33 +1073,33 @@ LABEL_20:
     userInfo = [self userInfo];
     v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     allValues = [v5 allValues];
-    v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v15 + 1) + 8 * i) hd_containsCKMissingZoneError])
+          if ([*(*(&v14 + 1) + 8 * i) hd_containsCKMissingZoneError])
           {
 
-            goto LABEL_18;
+            return 1;
           }
         }
 
-        v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -1146,14 +1111,12 @@ LABEL_20:
 
 LABEL_19:
 
-LABEL_20:
-    result = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   if ([self code] != 26)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   userInfo2 = [self userInfo];
@@ -1161,7 +1124,7 @@ LABEL_20:
 
   if (!v5)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   allValues = [v5 domain];
@@ -1172,16 +1135,7 @@ LABEL_20:
 
   code = [v5 code];
 
-  if (code != 2036)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_18:
-  result = 1;
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return code == 2036;
 }
 
 @end

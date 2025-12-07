@@ -363,7 +363,7 @@ LABEL_12:
 
     if ((_UISolariumEnabled() & 1) == 0)
     {
-      v12 = +[UIColor blackColor];
+      v12 = objc_msgSend_blackColor(UIColor);
       cGColor = [v12 CGColor];
       layer2 = [(UIView *)v6 layer];
       [layer2 setShadowColor:cGColor];
@@ -756,7 +756,7 @@ LABEL_12:
           identifiersCopy = [(NSMutableDictionary *)self->_itemViewsByIdentifier objectForKey:v42, identifiersCopy];
           [identifiersCopy setCollapsed:0];
 
-          if (([v42 isEqualToString:@"dic"] & 1) != 0 || objc_msgSend(v42, "isEqualToString:", @"mod:2"))
+          if ((objc_msgSend_isEqualToString_(v42) & 1) != 0 || objc_msgSend_isEqualToString_(v42))
           {
             v39 = 1;
           }

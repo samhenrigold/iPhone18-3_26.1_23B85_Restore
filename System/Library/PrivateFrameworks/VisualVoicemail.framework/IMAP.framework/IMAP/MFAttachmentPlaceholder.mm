@@ -11,6 +11,7 @@
 - (unint64_t)fileSize;
 - (void)dealloc;
 - (void)setFileSize:(unint64_t)size;
+- (void)setUseMailDrop:(BOOL)drop;
 @end
 
 @implementation MFAttachmentPlaceholder
@@ -96,6 +97,13 @@
   return bOOLValue;
 }
 
+- (void)setUseMailDrop:(BOOL)drop
+{
+  jsonDictionary = self->_jsonDictionary;
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:drop];
+  [(NSMutableDictionary *)jsonDictionary setValue:v4 forKey:@"mailDrop"];
+}
+
 + (id)placeholderFromSerializedRepresentation:(id)representation
 {
   representationCopy = representation;
@@ -118,7 +126,7 @@
 
     else
     {
-      v7 = vm_imap_log();
+      v7 = vm_imap_log(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [MFAttachmentPlaceholder placeholderFromSerializedRepresentation:v7];
@@ -191,7 +199,7 @@ uint64_t __44__MFAttachmentPlaceholder__placeholderMagic__block_invoke()
 
     else
     {
-      v5 = vm_imap_log();
+      v5 = vm_imap_log(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [(MFAttachmentPlaceholder *)v5 serializedRepresentation];

@@ -93,7 +93,7 @@ BOOL UpdateSigningContext(uint64_t a1, void *data, unint64_t len)
   return a1 != 0;
 }
 
-uint64_t IapAuthGetAppCert(unsigned int a1, UInt8 **a2, CFIndex *a3)
+uint64_t IapAuthGetAppCert(uint64_t a1, UInt8 **a2, CFIndex *a3)
 {
   if (a2 && a3)
   {
@@ -112,7 +112,6 @@ uint64_t IapAuthGetAppCert(unsigned int a1, UInt8 **a2, CFIndex *a3)
         {
           if (*a3 < Length)
           {
-            v14 = *a3;
             syslog(3, "%s ERROR: Cert serial number output buffer size too small, outLen:%04lX < certSerLen:%04lX\n");
 LABEL_16:
             v12 = 0;
@@ -131,9 +130,9 @@ LABEL_16:
           }
         }
 
-        v15.location = 0;
-        v15.length = v10;
-        CFDataGetBytes(v8, v15, v11);
+        v14.location = 0;
+        v14.length = v10;
+        CFDataGetBytes(v8, v14, v11);
         *a3 = v10;
         v12 = 1;
 LABEL_17:
@@ -236,7 +235,6 @@ uint64_t IapAuthGetAppCertP7Sync(unsigned int a1, UInt8 **a2, CFIndex *a3)
         {
           if (*a3 < Length)
           {
-            v14 = *a3;
             syslog(3, "%s ERROR: Application P7 cert output buffer size too small, outLen:%04lX < certAppLen:%04lX\n");
 LABEL_16:
             v12 = 0;
@@ -255,9 +253,9 @@ LABEL_16:
           }
         }
 
-        v15.location = 0;
-        v15.length = v10;
-        CFDataGetBytes(v8, v15, v11);
+        v14.location = 0;
+        v14.length = v10;
+        CFDataGetBytes(v8, v14, v11);
         *a3 = v10;
         v12 = 1;
 LABEL_17:
@@ -350,13 +348,12 @@ void __IapAuthGetAppCertP7_block_invoke(uint64_t a1, uint64_t a2)
 
 void __IapAuthGetAppCertP7_block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  if (v3)
+  v2 = *(*(*(a1 + 40) + 8) + 24);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -483,13 +480,12 @@ void __IapAuthChallengeRespond_block_invoke(uint64_t a1, const void *a2)
 
 void __IapAuthChallengeRespond_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -842,19 +838,17 @@ const void *GetCertRef(UInt8 *bytes, CFIndex length)
 
 void PrintCertSerialNumber(UInt8 *a1, CFIndex a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v6[0] = v2;
-  v6[1] = v2;
-  v5 = 32;
-  v4 = v6;
-  if (IapAuthCertSerial(a1, a2, &v4, &v5))
+  v5[0] = v2;
+  v5[1] = v2;
+  v4 = 32;
+  v3 = v5;
+  if (IapAuthCertSerial(a1, a2, &v3, &v4))
   {
-    PrintSerialNumberBytes(v4, v5);
+    PrintSerialNumberBytes(v3, v4);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t IapAuthCertVerifyAuthVersion(UInt8 *a1, CFIndex a2, int a3)
@@ -1148,22 +1142,22 @@ LABEL_11:
 
 void PrintSerialNumberBytes(unsigned __int8 *a1, unint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  memset(v21, 0, sizeof(v21));
-  v18 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v19 = 0u;
-  v16 = 0u;
+  memset(v20, 0, sizeof(v20));
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  *v7 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  *v6 = 0u;
   if (a2 > 0x7D)
   {
     PrintSerialNumberBytes_cold_1();
@@ -1172,7 +1166,7 @@ void PrintSerialNumberBytes(unsigned __int8 *a1, unint64_t a2)
   v2 = a2;
   if (a2)
   {
-    v4 = v7;
+    v4 = v6;
     while (1)
     {
       v5 = sprintf(v4, "%02X", *a1);
@@ -1193,19 +1187,18 @@ void PrintSerialNumberBytes(unsigned __int8 *a1, unint64_t a2)
   }
 
 LABEL_8:
-  syslog(3, "Certificate serial number: [%s]\n", v7);
-  v6 = *MEMORY[0x277D85DE8];
+  syslog(3, "Certificate serial number: [%s]\n", v6);
 }
 
 BOOL IapAuthVerifyCertSerialNumber(UInt8 *a1, CFIndex a2, int a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v9[0] = v3;
-  v9[1] = v3;
-  v8 = v9;
-  v7 = 32;
+  v8[0] = v3;
+  v8[1] = v3;
+  v7 = v8;
+  v6 = 32;
   if (a3 == 2)
   {
     v4 = 15;
@@ -1216,27 +1209,25 @@ BOOL IapAuthVerifyCertSerialNumber(UInt8 *a1, CFIndex a2, int a3)
     v4 = 16;
   }
 
-  if (!IapAuthCertSerial(a1, a2, &v8, &v7))
+  if (IapAuthCertSerial(a1, a2, &v7, &v6))
+  {
+    if (v6 == v4)
+    {
+      return MFiVerifyCertificateSerialNumber(v7, v4) == 0;
+    }
+
+    syslog(3, "%s AuthVer:%1X serial number wrong length, expect:%02lX, actual:%02lX\n");
+  }
+
+  else
   {
     syslog(3, "%s AuthVer:%1X IapAuthCertSerial call fail bSerNumValid:%d\n");
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
   }
 
-  if (v7 != v4)
-  {
-    syslog(3, "%s AuthVer:%1X serial number wrong length, expect:%02lX, actual:%02lX\n");
-    goto LABEL_9;
-  }
-
-  result = MFiVerifyCertificateSerialNumber(v8, v4) == 0;
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t MFiVerifyCertificateSerialNumber(unsigned __int8 *a1, uint64_t a2)
+uint64_t MFiVerifyCertificateSerialNumber(char *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -1370,39 +1361,37 @@ LABEL_26:
 
 uint64_t IapAuthGetCertClassAuthV2(UInt8 *a1, CFIndex a2)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[0] = 0xAAAAAAAAAAAAAAAALL;
-  v6[1] = 0xAAAAAAAAAAAAAAAALL;
-  v5 = 16;
-  v4 = v6;
-  if (IapAuthCertSerial(a1, a2, &v4, &v5) && v5 == 15)
+  v5[2] = *MEMORY[0x277D85DE8];
+  v5[0] = 0xAAAAAAAAAAAAAAAALL;
+  v5[1] = 0xAAAAAAAAAAAAAAAALL;
+  v4 = 16;
+  v3 = v5;
+  if (!IapAuthCertSerial(a1, a2, &v3, &v4) || v4 != 15)
   {
-    result = v4[7];
-    if (result < 0x11)
+    if (v4 != 15)
     {
-      goto LABEL_11;
+      syslog(3, "%s:%d ERROR (if auth v2, not v3): Certificate serial number size invalid, expect:%02lX, actual:%02lX\n");
+      goto LABEL_9;
     }
 
-    goto LABEL_7;
-  }
+    if (v3[7] < 0x11u)
+    {
+      return 0x7FFFFFFFLL;
+    }
 
-  if (v5 != 15)
-  {
-    syslog(3, "%s:%d ERROR (if auth v2, not v3): Certificate serial number size invalid, expect:%02lX, actual:%02lX\n");
-    goto LABEL_9;
-  }
-
-  if (v4[7] >= 0x11u)
-  {
 LABEL_7:
     syslog(3, "%s:%d ERROR (if auth v2, not v3): Certificate serial number class invalid, actual:%02X > maximum:%02X\n");
 LABEL_9:
-    PrintSerialNumberBytes(v4, v5);
+    PrintSerialNumberBytes(v3, v4);
+    return 0x7FFFFFFFLL;
   }
 
-  result = 0x7FFFFFFFLL;
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
+  result = v3[7];
+  if (result >= 0x11)
+  {
+    goto LABEL_7;
+  }
+
   return result;
 }
 

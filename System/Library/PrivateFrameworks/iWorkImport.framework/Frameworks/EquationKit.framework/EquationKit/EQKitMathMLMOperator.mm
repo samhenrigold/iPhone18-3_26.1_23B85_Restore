@@ -30,40 +30,40 @@
 
 - (EQKitMathMLMOperator)initWithString:(id)string environment:(id)environment
 {
-  v20.receiver = self;
-  v20.super_class = EQKitMathMLMOperator;
-  v9 = [EQKitMathMLMToken initWithString:sel_initWithString_environment_ environment:?];
-  if (v9)
+  v14.receiver = self;
+  v14.super_class = EQKitMathMLMOperator;
+  v6 = [EQKitMathMLMToken initWithString:sel_initWithString_environment_ environment:?];
+  if (v6)
   {
-    v10 = objc_msgSend_operatorDictionary(environment, v6, v7, v8);
-    v14 = objc_msgSend_UTF8String(string, v11, v12, v13);
-    v15 = strlen(v14);
-    if (v15 >= 0x7FFFFFFFFFFFFFF8)
+    operatorDictionary = [environment operatorDictionary];
+    uTF8String = [string UTF8String];
+    v9 = strlen(uTF8String);
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_275C8EE7C();
     }
 
-    v16 = v15;
-    if (v15 >= 0x17)
+    v10 = v9;
+    if (v9 >= 0x17)
     {
       operator new();
     }
 
-    v19 = v15;
-    if (v15)
+    v13 = v9;
+    if (v9)
     {
-      memmove(&__dst, v14, v15);
+      memmove(&__dst, uTF8String, v9);
     }
 
-    *(&__dst + v16) = 0;
-    v9->mOperatorId = sub_275CC8278(v10, &__dst);
-    if (v19 < 0)
+    *(&__dst + v10) = 0;
+    v6->mOperatorId = sub_275CC8278(operatorDictionary, &__dst);
+    if (v13 < 0)
     {
       operator delete(__dst);
     }
   }
 
-  return v9;
+  return v6;
 }
 
 - (id)initFromXMLNode:(_xmlNode *)node parser:(id)parser

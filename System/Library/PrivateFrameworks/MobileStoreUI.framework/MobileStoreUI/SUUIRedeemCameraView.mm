@@ -188,15 +188,15 @@
 {
   textCopy = text;
   text = [(SUUIRedeemTextField *)self->_textField text];
-  v5 = [text isEqualToString:textCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(SUUIRedeemTextField *)self->_textField setText:textCopy];
   }
 
   text2 = [(SUUIRedeemTextField *)self->_inputAccessoryTextField text];
-  v7 = [text2 isEqualToString:textCopy];
+  v7 = objc_msgSend_isEqualToString_(text2);
 
   if ((v7 & 1) == 0)
   {
@@ -398,11 +398,11 @@ uint64_t __41__SUUIRedeemCameraView_keyboardWillShow___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __41__SUUIRedeemCameraView_keyboardWillHide___block_invoke_2(uint64_t result, int a2)
+void *__41__SUUIRedeemCameraView_keyboardWillHide___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 456) removeFromSuperview];
+    return [*(result[4] + 456) removeFromSuperview];
   }
 
   return result;

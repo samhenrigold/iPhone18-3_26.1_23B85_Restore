@@ -27,6 +27,8 @@
 - (void)setLocalizedHandoffRecipientDeviceCategory:(id)category;
 - (void)setOutputAudioPowerSpectrumToken:(int64_t)token;
 - (void)setRemoteIDSDestination:(id)destination;
+- (void)setRemoteMomentsAvailable:(BOOL)available;
+- (void)updatePropertiesForVideo:(BOOL)video;
 @end
 
 @implementation CXCallUpdate
@@ -34,39 +36,25 @@
 - (CXCallUpdate)sanitizedCallUpdate
 {
   v2 = [(CXCallUpdate *)self copy];
-  if (([v2 hasSet] & 4) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  remoteMember = [v2 remoteMember];
-  handle = [remoteMember handle];
-  value = [handle value];
-  v6 = [value length];
-
-  if (!v6)
+  if (([v2 hasSet] & 4) != 0 && (objc_msgSend(v2, "remoteMember"), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "handle"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "value"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "length"), v5, v4, v3, !v6))
   {
     [v2 setRemoteMember:0];
   }
 
-  else
+  else if (([v2 hasSet] & 0x400000000000) != 0)
   {
-LABEL_3:
-    if (([v2 hasSet] & 0x400000000000) != 0)
-    {
-      v7 = +[NSMutableSet set];
-      remoteParticipantHandles = [v2 remoteParticipantHandles];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_1001238D0;
-      v12[3] = &unk_10061C190;
-      v13 = v7;
-      v9 = v7;
-      [remoteParticipantHandles enumerateObjectsUsingBlock:v12];
+    v7 = +[NSMutableSet set];
+    remoteParticipantHandles = [v2 remoteParticipantHandles];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1001238D0;
+    v12[3] = &unk_10061C190;
+    v13 = v7;
+    v9 = v7;
+    [remoteParticipantHandles enumerateObjectsUsingBlock:v12];
 
-      v10 = [v9 copy];
-      [v2 setRemoteParticipantHandles:v10];
-    }
+    v10 = [v9 copy];
+    [v2 setRemoteParticipantHandles:v10];
   }
 
   return v2;
@@ -288,7 +276,7 @@ LABEL_22:
 
   else
   {
-    v30 = sub_100004778();
+    v30 = sub_100004778(0);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       uUID = [conversationCopy UUID];
@@ -691,6 +679,27 @@ LABEL_116:
   return bOOLValue;
 }
 
+- (void)setRemoteMomentsAvailable:(BOOL)available
+{
+  availableCopy = available;
+  context = [(CXCallUpdate *)self context];
+  if (context)
+  {
+    context2 = [(CXCallUpdate *)self context];
+    v8 = [context2 mutableCopy];
+  }
+
+  else
+  {
+    v8 = +[NSMutableDictionary dictionary];
+  }
+
+  v7 = [NSNumber numberWithBool:availableCopy];
+  [v8 setObject:v7 forKeyedSubscript:TUCallFaceTimeRemoteMomentsAvailableKey];
+
+  [(CXCallUpdate *)self setContext:v8];
+}
+
 - (NSString)localizedHandoffRecipientDeviceCategory
 {
   context = [(CXCallUpdate *)self context];
@@ -745,6 +754,31 @@ LABEL_116:
 
   [v7 setObject:participantCopy forKeyedSubscript:TUCallFaceTimeHandoffRecipientParticipantKey];
   [(CXCallUpdate *)self setContext:v7];
+}
+
+- (void)updatePropertiesForVideo:(BOOL)video
+{
+  [(CXCallUpdate *)self setHasVideo:video];
+  if (qword_1006ACB28 != -1)
+  {
+    sub_100471A50();
+  }
+
+  if (qword_1006ACB38 != -1)
+  {
+    sub_100471A64();
+  }
+
+  hasVideo = [(CXCallUpdate *)self hasVideo];
+  v5 = &qword_1006ACB30;
+  if (!hasVideo)
+  {
+    v5 = &qword_1006ACB20;
+  }
+
+  v6 = *v5;
+
+  [(CXCallUpdate *)self setAudioMode:v6];
 }
 
 - (void)setConversationID:(id)d
@@ -860,10 +894,10 @@ LABEL_116:
     }
 
     isVideo = [chatCopy isVideo];
-    v15 = &unk_1006ACD28;
+    v15 = &qword_1006ACD28;
     if (!isVideo)
     {
-      v15 = &unk_1006ACD18;
+      v15 = &qword_1006ACD18;
     }
 
     [(CXCallUpdate *)v5 setAudioMode:*v15];

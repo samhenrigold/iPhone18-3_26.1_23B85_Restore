@@ -39,9 +39,11 @@
 
 uint64_t __33__PRLikenessCache_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (id)_applicationCacheDirectory

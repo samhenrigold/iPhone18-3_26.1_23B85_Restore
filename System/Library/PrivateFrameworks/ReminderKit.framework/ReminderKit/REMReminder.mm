@@ -39,22 +39,22 @@
 
 id __86__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDBlock__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a4;
   v10 = v9;
   if (a3)
   {
-    v23 = 0;
-    v11 = &v23;
-    v12 = [v9 fetchReminderIncludingConcealedWithObjectID:v8 error:&v23];
+    v22 = 0;
+    v11 = &v22;
+    v12 = [v9 fetchReminderIncludingConcealedWithObjectID:v8 error:&v22];
   }
 
   else
   {
-    v22 = 0;
-    v11 = &v22;
-    v12 = [v9 fetchReminderWithObjectID:v8 error:&v22];
+    v21 = 0;
+    v11 = &v21;
+    v12 = [v9 fetchReminderWithObjectID:v8 error:&v21];
   }
 
   v13 = v12;
@@ -65,14 +65,14 @@ id __86__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByO
     v16 = +[REMLog changeTracking];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-      v21 = [v15 localizedDescription];
+      v19 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+      v20 = [v15 localizedDescription];
       *buf = 138543874;
-      v25 = v8;
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v21;
+      v24 = v8;
+      v25 = 2114;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v20;
       _os_log_error_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_ERROR, "REMDAChangeTrackingHelper:_REMDAChangeTrackableModel: ERROR: Failed to fetch REMReminder {objectID: %{public}@, includeConcealedObjects: %{public}@, error: %@}.", buf, 0x20u);
     }
   }
@@ -82,8 +82,6 @@ id __86__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByO
     v17 = v15;
     *a5 = v15;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -196,12 +194,12 @@ id __105__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_deleted
 
 + (id)fetchRequestForScheduledRemindersWithDueDateOnOrAfter:(id)after
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = [REMReminderPredicateDescriptor predicateDescriptorForRemindersWithDueDateOnOrAfter:after];
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = [REMReminderPredicateDescriptor predicateDescriptorForRemindersWithCompleted:0];
-  v14[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   v6 = [REMReminderPredicateDescriptor andPredicateDescriptorWithDescriptors:v5];
 
   v7 = MEMORY[0x1E695DEC8];
@@ -210,8 +208,6 @@ id __105__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_deleted
 
   v10 = [[REMReminderFetchExecutor alloc] initWithPredicateDescriptor:v6 sortDescriptors:v9 options:4];
   v11 = [[REMFetchRequest alloc] initWithFetchExecutor:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -674,66 +670,56 @@ LABEL_11:
 void __87__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDsBlock__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __105__REMReminder_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_deletedKeyFromConcealedModelObjectBlock__block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = +[REMLog changeTracking];
   if (OUTLINED_FUNCTION_7_0(v3))
   {
-    v5 = [a1 objectID];
+    v4 = [a1 objectID];
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_fault_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timeZone
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dueDateComponents = [self dueDateComponents];
   timeZone = [dueDateComponents timeZone];
   storage = [self storage];
   timeZone2 = [storage timeZone];
-  v9 = 138412546;
-  v10 = timeZone;
-  v11 = 2112;
-  v12 = timeZone2;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Found internal inconsistency between reminder.storage.timeZone vs reminder.storage.dueDateComponents.timeZone {dueDateComponents.timeZone: %@, storage.timeZone: %@}.", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412546;
+  v9 = timeZone;
+  v10 = 2112;
+  v11 = timeZone2;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Found internal inconsistency between reminder.storage.timeZone vs reminder.storage.dueDateComponents.timeZone {dueDateComponents.timeZone: %@, storage.timeZone: %@}.", &v8, 0x16u);
 }
 
 - (void)allDay
 {
-  v9 = *MEMORY[0x1E69E9840];
   dueDateComponents = [self dueDateComponents];
-  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "Found internal inconsistency between reminder.storage.allDay vs reminder.storage.dueDateComponents {dueDateComponents: %@}.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = dueDateComponents;
+  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "Found internal inconsistency between reminder.storage.allDay vs reminder.storage.dueDateComponents {dueDateComponents: %@}.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)shouldUseExternalIdentifierAsDeletionKey
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore read];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     objectID = [self objectID];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v5, v6, "rem_log_fault_if (self.account == nil) -- REMReminder.account is nil for -shouldUseExternalIdentifierAsDeletionKey {reminderID: %{public}@}", v7, v8, v9, v10, 2u);
+    LODWORD(v10) = 138543362;
+    *(&v10 + 4) = objectID;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v4, v5, "rem_log_fault_if (self.account == nil) -- REMReminder.account is nil for -shouldUseExternalIdentifierAsDeletionKey {reminderID: %{public}@}", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,877 +1,41 @@
-uint64_t ListBottomView.appIconView.getter()
-{
-  v0 = type metadata accessor for ImageElement.ImageStyle();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = v22 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for ImageElement();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v22[1] = v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07SnippetB016ImageElementViewVAA30_EnvironmentKeyWritingModifierVy0E3Kit0fG0V0F5StyleOSgGGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB016ImageElementViewVAA30_EnvironmentKeyWritingModifierVy0E3Kit0fG0V0F5StyleOSgGGMR);
-  v8 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24);
-  v10 = v22 - v9;
-  v22[0] = "hone";
-  v11 = *MEMORY[0x277D62B70];
-  v23 = *(v1 + 104);
-  v23(v4, v11, v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMd, &_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMR);
-  v12 = type metadata accessor for _ProtoIdiom();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 72);
-  v15 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_25E59F720;
-  (*(v13 + 104))(v16 + v15, *MEMORY[0x277D62A28], v12);
-  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5Tf4g_n(v16);
-  swift_setDeallocating();
-  (*(v13 + 8))(v16 + v15, v12);
-  swift_deallocClassInstance();
-  static ImageElement.appIcon(_:imageStyle:idioms:)();
-
-  (*(v1 + 8))(v4, v0);
-  ImageElementView.init(_:)();
-  KeyPath = swift_getKeyPath();
-  v18 = &v10[*(v24 + 36)];
-  v19 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy10SnippetKit12ImageElementV0I5StyleOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy10SnippetKit12ImageElementV0I5StyleOSgGMR) + 28);
-  v23(v18 + v19, *MEMORY[0x277D62BD8], v0);
-  (*(v1 + 56))(v18 + v19, 0, 1, v0);
-  *v18 = KeyPath;
-  lazy protocol witness table accessor for type ModifiedContent<ImageElementView, _EnvironmentKeyWritingModifier<ImageElement.ImageStyle?>> and conformance <> ModifiedContent<A, B>();
-  v20 = View.eraseToAnyView()();
-  outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v10, &_s7SwiftUI15ModifiedContentVy07SnippetB016ImageElementViewVAA30_EnvironmentKeyWritingModifierVy0E3Kit0fG0V0F5StyleOSgGGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB016ImageElementViewVAA30_EnvironmentKeyWritingModifierVy0E3Kit0fG0V0F5StyleOSgGGMR);
-  return v20;
-}
-
-uint64_t closure #1 in ListBottomView.body.getter(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI15InteractionTypeOSgMd, &_s9SnippetUI15InteractionTypeOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v37 = &v36 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14ActionPropertyVSgMd, "6~");
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v36 = &v36 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v36 - v10;
-  v12 = type metadata accessor for ActionProperty();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit24ActionElementConvertible_pGMd, "6~");
-  v17 = swift_allocObject();
-  *(v17 + 16) = xmmword_25E59F720;
-  v18 = type metadata accessor for Command();
-  v19 = MEMORY[0x277D63778];
-  *(v17 + 56) = v18;
-  *(v17 + 64) = v19;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v17 + 32));
-  v21 = type metadata accessor for ListBottomView();
-  v22 = a1;
-  v23 = *(a1 + *(v21 + 28));
-  *boxed_opaque_existential_1 = v23;
-  *(boxed_opaque_existential_1 + 8) = 0;
-  (*(*(v18 - 8) + 104))(boxed_opaque_existential_1, *MEMORY[0x277D63720], v18);
-  v24 = v23;
-  ActionProperty.init(_:)();
-  if (one-time initialization token for phoneSnippetUI != -1)
-  {
-    swift_once();
-  }
-
-  v25 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v25, static Logger.phoneSnippetUI);
-  v26 = Logger.logObject.getter();
-  v27 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v26, v27))
-  {
-    v28 = swift_slowAlloc();
-    *v28 = 0;
-    _os_log_impl(&dword_25E523000, v26, v27, "#Show call history ListBottomView performing direct action", v28, 2u);
-    MEMORY[0x25F8B8670](v28, -1, -1);
-  }
-
-  v29 = v22 + *(v21 + 20);
-  ActionHandler.wrappedValue.getter();
-  v30 = type metadata accessor for StandardActionHandler();
-  v31 = *(v30 - 8);
-  if ((*(v31 + 48))(v11, 1, v30) == 1)
-  {
-    (*(v13 + 8))(v16, v12);
-    return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v11, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
-  }
-
-  else
-  {
-    v33 = v36;
-    (*(v13 + 16))(v36, v16, v12);
-    (*(v13 + 56))(v33, 0, 1, v12);
-    v34 = type metadata accessor for InteractionType();
-    v35 = v37;
-    (*(*(v34 - 8) + 56))(v37, 1, 1, v34);
-    StandardActionHandler.perform(_:interactionType:)();
-    outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v35, &_s9SnippetUI15InteractionTypeOSgMd, &_s9SnippetUI15InteractionTypeOSgMR);
-    outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v33, &_s10SnippetKit14ActionPropertyVSgMd, "6~");
-    (*(v13 + 8))(v16, v12);
-    return (*(v31 + 8))(v11, v30);
-  }
-}
-
-uint64_t outlined init with copy of ListBottomView(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ListBottomView();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_25E55EA64()
-{
-  v1 = (type metadata accessor for ListBottomView() - 8);
-  v2 = *(*v1 + 64);
-  v3 = (v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80)));
-
-  v4 = v1[7];
-  v5 = type metadata accessor for ActionHandler();
-  (*(*(v5 - 8) + 8))(v3 + v4, v5);
-  v6 = *(v3 + v1[8] + 8);
-
-  return swift_deallocObject();
-}
-
-uint64_t outlined init with take of ListBottomView(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ListBottomView();
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t partial apply for closure #1 in ListBottomView.body.getter()
-{
-  v1 = *(type metadata accessor for ListBottomView() - 8);
-  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
-
-  return closure #1 in ListBottomView.body.getter(v2);
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<SimpleItemRichView, _BackgroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<SimpleItemRichView, _BackgroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<SimpleItemRichView, _BackgroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewVAA24_BackgroundStyleModifierVyAA8MaterialVGGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewVAA24_BackgroundStyleModifierVyAA8MaterialVGGMR);
-    lazy protocol witness table accessor for type Context and conformance Context(&lazy protocol witness table cache variable for type SimpleItemRichView and conformance SimpleItemRichView, MEMORY[0x277D63D00]);
-    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _BackgroundStyleModifier<Material> and conformance _BackgroundStyleModifier<A>, &_s7SwiftUI24_BackgroundStyleModifierVyAA8MaterialVGMd, &_s7SwiftUI24_BackgroundStyleModifierVyAA8MaterialVGMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<SimpleItemRichView, _BackgroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-uint64_t sub_25E55ED50(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for ActionHandler();
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = v6;
-    v9 = *(v7 + 48);
-    v10 = a1 + *(a3 + 20);
-
-    return v9(v10, a2, v8);
-  }
-
-  else
-  {
-    v12 = *(a1 + *(a3 + 24) + 8);
-    if (v12 >= 0xFFFFFFFF)
-    {
-      LODWORD(v12) = -1;
-    }
-
-    return (v12 + 1);
-  }
-}
-
-uint64_t sub_25E55EE28(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  result = type metadata accessor for ActionHandler();
-  v9 = *(result - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = result;
-    v11 = *(v9 + 56);
-    v12 = a1 + *(a4 + 20);
-
-    return v11(v12, a2, a2, v10);
-  }
-
-  else
-  {
-    *(a1 + *(a4 + 24) + 8) = (a2 - 1);
-  }
-
-  return result;
-}
-
-void type metadata completion function for ListBottomView()
-{
-  type metadata accessor for EnvironmentObject<Context>();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for ActionHandler();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for SABaseCommand();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-unint64_t type metadata accessor for SABaseCommand()
-{
-  result = lazy cache variable for type metadata for SABaseCommand;
-  if (!lazy cache variable for type metadata for SABaseCommand)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for SABaseCommand);
-  }
-
-  return result;
-}
-
-uint64_t sub_25E55EFD8()
-{
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewVAA24_BackgroundStyleModifierVyAA8MaterialVGGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewVAA24_BackgroundStyleModifierVyAA8MaterialVGGMR);
-  lazy protocol witness table accessor for type ModifiedContent<SimpleItemRichView, _BackgroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>();
-  return swift_getOpaqueTypeConformance2();
-}
-
-uint64_t outlined init with copy of ImageElement.ImageStyle?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit12ImageElementV0C5StyleOSgMd, &_s10SnippetKit12ImageElementV0C5StyleOSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t ListHeaderView.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v2 = Text.init<A>(_:)();
-  v4 = v3;
-  v6 = v5;
-  static Font.title3.getter();
-  v7 = Text.font(_:)();
-  v9 = v8;
-  v11 = v10;
-
-  outlined consume of Text.Storage(v2, v4, v6 & 1);
-
-  static Font.Weight.semibold.getter();
-  v12 = Text.fontWeight(_:)();
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  outlined consume of Text.Storage(v7, v9, v11 & 1);
-
-  v29 = swift_allocObject();
-  *(v29 + 16) = v12;
-  *(v29 + 24) = v14;
-  *(v29 + 32) = v16 & 1;
-  *(v29 + 40) = v18;
-  PrimaryHeaderStandardView.init(text1:text2:text3:addTint:)();
-  LOBYTE(v12) = static Edge.Set.leading.getter();
-  EdgeInsets.init(_all:)();
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07SnippetB025PrimaryHeaderStandardViewVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB025PrimaryHeaderStandardViewVAA14_PaddingLayoutVGMR);
-  v28 = a1 + *(result + 36);
-  *v28 = v12;
-  *(v28 + 8) = v20;
-  *(v28 + 16) = v22;
-  *(v28 + 24) = v24;
-  *(v28 + 32) = v26;
-  *(v28 + 40) = 0;
-  return result;
-}
-
-uint64_t sub_25E55F2B4()
-{
-  outlined consume of Text.Storage(*(v0 + 16), *(v0 + 24), *(v0 + 32));
-  v1 = *(v0 + 40);
-
-  return swift_deallocObject();
-}
-
-uint64_t protocol witness for View.body.getter in conformance ListHeaderView@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *v1;
-  v3 = v1[1];
-  return ListHeaderView.body.getter(a1);
-}
-
-uint64_t getEnumTagSinglePayload for ListHeaderView(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 16))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *(a1 + 8);
-  if (v2 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ListHeaderView(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *result = a2 & 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 < 0)
-    {
-      *(result + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 16) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<PrimaryHeaderStandardView, _PaddingLayout> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<PrimaryHeaderStandardView, _PaddingLayout> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<PrimaryHeaderStandardView, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07SnippetB025PrimaryHeaderStandardViewVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB025PrimaryHeaderStandardViewVAA14_PaddingLayoutVGMR);
-    lazy protocol witness table accessor for type PrimaryHeaderStandardView and conformance PrimaryHeaderStandardView();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<PrimaryHeaderStandardView, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PrimaryHeaderStandardView and conformance PrimaryHeaderStandardView()
-{
-  result = lazy protocol witness table cache variable for type PrimaryHeaderStandardView and conformance PrimaryHeaderStandardView;
-  if (!lazy protocol witness table cache variable for type PrimaryHeaderStandardView and conformance PrimaryHeaderStandardView)
-  {
-    type metadata accessor for PrimaryHeaderStandardView();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PrimaryHeaderStandardView and conformance PrimaryHeaderStandardView);
-  }
-
-  return result;
-}
-
-uint64_t LocalEmergencyCallDisambiguationView.init(model:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  type metadata accessor for Context();
-  _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68]);
-  *a2 = EnvironmentObject.init()();
-  a2[1] = v4;
-  v5 = type metadata accessor for LocalEmergencyCallDisambiguationView();
-  v6 = a2 + *(v5 + 20);
-  InteractionDelegate.init()();
-  return outlined init with take of LocalEmergencyCallDisambiguationModel(a1, a2 + *(v5 + 24), type metadata accessor for LocalEmergencyCallDisambiguationModel);
-}
-
-uint64_t type metadata accessor for LocalEmergencyCallDisambiguationView()
-{
-  result = type metadata singleton initialization cache for LocalEmergencyCallDisambiguationView;
-  if (!type metadata singleton initialization cache for LocalEmergencyCallDisambiguationView)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t LocalEmergencyCallDisambiguationView.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  v44 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI14HostBackgroundOSgMd, &_s9SnippetUI14HostBackgroundOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v43 = (&v39 - v4);
-  v5 = type metadata accessor for LocalEmergencyCallDisambiguationView();
-  v6 = v5 - 8;
-  v40 = *(v5 - 8);
-  v46 = *(v40 + 8);
-  MEMORY[0x28223BE20](v5);
-  v45 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DisambiguationTitle();
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMd, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMR);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v39 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
-  v18 = &v39 - v17;
-  v19 = *(v6 + 32);
-  v20 = *(type metadata accessor for LocalEmergencyCallDisambiguationModel(0) + 32);
-  v42 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  Loggable.wrappedValue.getter();
-  v50 = MEMORY[0x277D837D0];
-  v51 = MEMORY[0x277D63F88];
-  v49 = 0;
-  v47 = 0u;
-  v48 = 0u;
-  DisambiguationTitle.init(text1:thumbnail:)();
-  v41 = type metadata accessor for LocalEmergencyCallDisambiguationView;
-  v21 = v45;
-  outlined init with copy of LocalEmergencyCallDisambiguationView(v1, v45, type metadata accessor for LocalEmergencyCallDisambiguationView);
-  v22 = (*(v40 + 80) + 16) & ~*(v40 + 80);
-  v23 = swift_allocObject();
-  v40 = type metadata accessor for LocalEmergencyCallDisambiguationView;
-  outlined init with take of LocalEmergencyCallDisambiguationModel(v21, v23 + v22, type metadata accessor for LocalEmergencyCallDisambiguationView);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy012PhoneSnippetB016ForEachWithIndexVySayAD018DisambiguationItemI21DirectInvocationModelVGAA4ViewP0fB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAkLE15componentTapped0R10Navigation7performQrSb_yyctFQOyACyAL06Simplel4RichP0VAD07CarPlayk4ListL0VG_Qo__Qo_GAA25_AppearanceActionModifierVGMd, &_s7SwiftUI15ModifiedContentVy012PhoneSnippetB016ForEachWithIndexVySayAD018DisambiguationItemI21DirectInvocationModelVGAA4ViewP0fB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAkLE15componentTapped0R10Navigation7performQrSb_yyctFQOyACyAL06Simplel4RichP0VAD07CarPlayk4ListL0VG_Qo__Qo_GAA25_AppearanceActionModifierVGMR);
-  lazy protocol witness table accessor for type ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>();
-  DisambiguationView.init(title:content:)();
-  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type DisambiguationView<ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier>> and conformance DisambiguationView<A>, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMd, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMR);
-  View.privacySensitive(_:)();
-  (*(v11 + 8))(v14, v10);
-  KeyPath = swift_getKeyPath();
-  v25 = &v18[*(v15 + 36)];
-  v26 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMR) + 28);
-  v27 = *MEMORY[0x277CDF3C8];
-  v28 = type metadata accessor for ColorScheme();
-  (*(*(v28 - 8) + 104))(v25 + v26, v27, v28);
-  *v25 = KeyPath;
-  v29 = static Color.black.getter();
-  v30 = v43;
-  *v43 = v29;
-  v31 = *MEMORY[0x277D63BB8];
-  v32 = type metadata accessor for HostBackground();
-  v33 = *(v32 - 8);
-  (*(v33 + 104))(v30, v31, v32);
-  (*(v33 + 56))(v30, 0, 1, v32);
-  lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.privacySensitive(_:)>>.0, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>();
-  v34 = v44;
-  View.requestHostBackground<A, B>(_:accepted:denied:)();
-  outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v30, &_s9SnippetUI14HostBackgroundOSgMd, &_s9SnippetUI14HostBackgroundOSgMR);
-  sub_25E560018(v18);
-  v35 = v45;
-  outlined init with copy of LocalEmergencyCallDisambiguationView(v42, v45, v41);
-  v36 = swift_allocObject();
-  outlined init with take of LocalEmergencyCallDisambiguationModel(v35, v36 + v22, v40);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E21requestHostBackground_8accepted6deniedQrAF0hI0OSg_qd__xcqd_0_xctAaDRd__AaDRd_0_r0_lFQOyACyAeAE16privacySensitiveyQrSbFQOyAF014DisambiguationE0VyACy05PhonefB016ForEachWithIndexVySayAP0n4ItemR21DirectInvocationModelVGAeFE10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAeFE15componentTapped0Y10Navigation7performQrSb_yyctFQOyACyAF06Simplet4RichE0VAP07CarPlayn4ListT0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGG_A20_A20_Qo_A11_GMd, &_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E21requestHostBackground_8accepted6deniedQrAF0hI0OSg_qd__xcqd_0_xctAaDRd__AaDRd_0_r0_lFQOyACyAeAE16privacySensitiveyQrSbFQOyAF014DisambiguationE0VyACy05PhonefB016ForEachWithIndexVySayAP0n4ItemR21DirectInvocationModelVGAeFE10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAeFE15componentTapped0Y10Navigation7performQrSb_yyctFQOyACyAF06Simplet4RichE0VAP07CarPlayn4ListT0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGG_A20_A20_Qo_A11_GMR);
-  v38 = (v34 + *(result + 36));
-  *v38 = partial apply for closure #4 in LocalEmergencyCallDisambiguationView.body.getter;
-  v38[1] = v36;
-  v38[2] = 0;
-  v38[3] = 0;
-  return result;
-}
-
-uint64_t closure #1 in LocalEmergencyCallDisambiguationView.body.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v4 = type metadata accessor for LocalEmergencyCallDisambiguationView();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = *(a1 + *(MEMORY[0x28223BE20](v4 - 8) + 32) + 16);
-  outlined init with copy of LocalEmergencyCallDisambiguationView(a1, &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for LocalEmergencyCallDisambiguationView);
-  v8 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v9 = swift_allocObject();
-  outlined init with take of LocalEmergencyCallDisambiguationModel(&v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v9 + v8, type metadata accessor for LocalEmergencyCallDisambiguationView);
-  *a2 = v7;
-  a2[1] = partial apply for closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter;
-  a2[2] = v9;
-  a2[3] = closure #2 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter;
-  a2[4] = 0;
-  a2[5] = 0;
-  a2[6] = 0;
-}
-
-uint64_t partial apply for closure #1 in LocalEmergencyCallDisambiguationView.body.getter@<X0>(void *a1@<X8>)
-{
-  v3 = *(type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
-  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
-
-  return closure #1 in LocalEmergencyCallDisambiguationView.body.getter(v4, a1);
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy012PhoneSnippetB016ForEachWithIndexVySayAD018DisambiguationItemI21DirectInvocationModelVGAA4ViewP0fB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAkLE15componentTapped0R10Navigation7performQrSb_yyctFQOyACyAL06Simplel4RichP0VAD07CarPlayk4ListL0VG_Qo__Qo_GAA25_AppearanceActionModifierVGMd, &_s7SwiftUI15ModifiedContentVy012PhoneSnippetB016ForEachWithIndexVySayAD018DisambiguationItemI21DirectInvocationModelVGAA4ViewP0fB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAkLE15componentTapped0R10Navigation7performQrSb_yyctFQOyACyAL06Simplel4RichP0VAD07CarPlayk4ListL0VG_Qo__Qo_GAA25_AppearanceActionModifierVGMR);
-    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0> and conformance ForEachWithIndex<A, B>, &_s14PhoneSnippetUI16ForEachWithIndexVySayAA018DisambiguationItemF21DirectInvocationModelVG05SwiftC04ViewP0bC0E10separators_10isOverrideQr0B3Kit14SeparatorStyleO_SbtFQOyAiJE15componentTapped0P10Navigation7performQrSb_yyctFQOyAG15ModifiedContentVyAJ06Simplei4RichN0VAA07CarPlayh4ListI0VG_Qo__Qo_GMd, &_s14PhoneSnippetUI16ForEachWithIndexVySayAA018DisambiguationItemF21DirectInvocationModelVG05SwiftC04ViewP0bC0E10separators_10isOverrideQr0B3Kit14SeparatorStyleO_SbtFQOyAiJE15componentTapped0P10Navigation7performQrSb_yyctFQOyAG15ModifiedContentVyAJ06Simplei4RichN0VAA07CarPlayh4ListI0VG_Qo__Qo_GMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-uint64_t key path setter for EnvironmentValues.colorScheme : EnvironmentValues(uint64_t a1)
-{
-  v2 = type metadata accessor for ColorScheme();
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
-  return EnvironmentValues.colorScheme.setter();
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.privacySensitive(_:)>>.0, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.privacySensitive(_:)>>.0, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.privacySensitive(_:)>>.0, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMR);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMd, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMR);
-    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type DisambiguationView<ModifiedContent<ForEachWithIndex<[DisambiguationItemWithDirectInvocationModel], <<opaque return type of View.separators(_:isOverride:)>>.0>, _AppearanceActionModifier>> and conformance DisambiguationView<A>, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMd, &_s9SnippetUI18DisambiguationViewVy05SwiftB015ModifiedContentVy05PhoneaB016ForEachWithIndexVySayAG0c4ItemK21DirectInvocationModelVGAD0D0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAnAE15componentTapped0R10Navigation7performQrSb_yyctFQOyAFyAA06Simplem4RichD0VAG07CarPlayc4ListM0VG_Qo__Qo_GAD25_AppearanceActionModifierVGGMR);
-    swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ColorScheme> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.privacySensitive(_:)>>.0, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-uint64_t sub_25E560018(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE16privacySensitiveyQrSbFQOy07SnippetB0014DisambiguationE0VyACy05PhonehB016ForEachWithIndexVySayAJ0i4ItemM21DirectInvocationModelVGAeGE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAeGE15componentTapped0T10Navigation7performQrSb_yyctFQOyACyAG06Simpleo4RichE0VAJ07CarPlayi4ListO0VG_Qo__Qo_GAA25_AppearanceActionModifierVGG_Qo_AA30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGGMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-void closure #4 in LocalEmergencyCallDisambiguationView.body.getter(uint64_t a1)
-{
-  if (*a1)
-  {
-    v2 = *a1;
-    dispatch thunk of Context.currentIdiom.getter();
-
-    if (VRXIdiom.isCarPlay.getter())
-    {
-      v3 = v2;
-      dispatch thunk of Context.hideBackgroundBehindSiri()();
-
-      v4 = *(*(a1 + *(type metadata accessor for LocalEmergencyCallDisambiguationView() + 24) + 16) + 16);
-      v6 = v3;
-      dispatch thunk of Context.informHostListItemCount(_:)();
-    }
-  }
-
-  else
-  {
-    v5 = *(a1 + 8);
-    type metadata accessor for Context();
-    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68]);
-    EnvironmentObject.error()();
-    __break(1u);
-  }
-}
-
-void partial apply for closure #4 in LocalEmergencyCallDisambiguationView.body.getter()
-{
-  v1 = *(type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
-  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
-
-  closure #4 in LocalEmergencyCallDisambiguationView.body.getter(v2);
-}
-
-uint64_t LocalEmergencyCallDisambiguationView.separatorStyle.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = v1;
-  if (!*v1)
-  {
-    v16 = *(v1 + 8);
-    type metadata accessor for Context();
-    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68]);
-    result = EnvironmentObject.error()();
-    __break(1u);
-    return result;
-  }
-
-  v4 = *v1;
-  dispatch thunk of Context.currentIdiom.getter();
-
-  if ((VRXIdiom.isCarPlay.getter() & 1) != 0 && (*(v2 + *(type metadata accessor for LocalEmergencyCallDisambiguationView() + 24) + 24) & 1) == 0)
-  {
-    v6 = MEMORY[0x277D62F38];
-  }
-
-  else
-  {
-    v5 = v4;
-    dispatch thunk of Context.currentIdiom.getter();
-
-    if ((VRXIdiom.isCarPlay.getter() & 1) == 0)
-    {
-      v7 = v5;
-      dispatch thunk of Context.currentIdiom.getter();
-
-      LOBYTE(v7) = VRXIdiom.isWatchOS.getter();
-      v8 = type metadata accessor for SeparatorStyle();
-      v9 = *(*(v8 - 8) + 104);
-      if (v7)
-      {
-        v10 = MEMORY[0x277D62F38];
-      }
-
-      else
-      {
-        v10 = MEMORY[0x277D62F28];
-      }
-
-      v14 = *v10;
-      v13 = a1;
-      goto LABEL_12;
-    }
-
-    v6 = MEMORY[0x277D62F58];
-  }
-
-  v11 = *v6;
-  v12 = type metadata accessor for SeparatorStyle();
-  v9 = *(*(v12 - 8) + 104);
-  v8 = v12;
-  v13 = a1;
-  v14 = v11;
-LABEL_12:
-
-  return v9(v13, v14, v8);
-}
-
-uint64_t closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v75 = a3;
-  v69 = a1;
-  v78 = a4;
-  v79 = type metadata accessor for SeparatorStyle();
-  v77 = *(v79 - 8);
-  v5 = *(v77 + 64);
-  MEMORY[0x28223BE20](v79);
-  v76 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for DisambiguationItemWithDirectInvocationModel(0);
-  v8 = v7 - 8;
-  v72 = *(v7 - 8);
-  v73 = *(v72 + 64);
-  MEMORY[0x28223BE20](v7);
-  v70 = &v60 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for LocalEmergencyCallDisambiguationView();
-  v68 = *(v10 - 8);
-  v67 = *(v68 + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v66 = &v60 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for SimpleItemRichView();
-  v63 = *(v12 - 8);
-  v64 = v12;
-  v13 = *(v63 + 64);
-  MEMORY[0x28223BE20](v12);
-  v60 = &v60 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMR);
-  v15 = *(*(v62 - 8) + 64);
-  MEMORY[0x28223BE20](v62);
-  v61 = &v60 - v16;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15componentTapped12isNavigation7performQrSb_yyctFQOyAA15ModifiedContentVyAD014SimpleItemRichC0V05PhonedB0025CarPlayDisambiguationListM0VG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15componentTapped12isNavigation7performQrSb_yyctFQOyAA15ModifiedContentVyAD014SimpleItemRichC0V05PhonedB0025CarPlayDisambiguationListM0VG_Qo_MR);
-  v74 = *(v71 - 8);
-  v17 = *(v74 + 64);
-  MEMORY[0x28223BE20](v71);
-  v65 = &v60 - v18;
-  v19 = *(v8 + 40);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
-  Loggable.wrappedValue.getter();
-  v20 = v105;
-  v21 = v106;
-  if (!v106)
-  {
-    v20 = 0;
-    v21 = 0xE000000000000000;
-  }
-
-  v105 = v20;
-  v106 = v21;
-  lazy protocol witness table accessor for type String and conformance String();
-  v22 = Text.init<A>(_:)();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v107 = MEMORY[0x277CE0BD0];
-  v108 = MEMORY[0x277D638F0];
-  v29 = swift_allocObject();
-  v105 = v29;
-  *(v29 + 16) = v22;
-  *(v29 + 24) = v24;
-  *(v29 + 32) = v26 & 1;
-  *(v29 + 40) = v28;
-  v30 = a2 + *(v8 + 28);
-  v31 = a2;
-  Loggable.wrappedValue.getter();
-  v32 = v101;
-  v33 = v102;
-  if (!v102)
-  {
-    v32 = 0;
-    v33 = 0xE000000000000000;
-  }
-
-  v101 = v32;
-  v102 = v33;
-  v34 = Text.init<A>(_:)();
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v103 = MEMORY[0x277CE0BD0];
-  v104 = MEMORY[0x277D638F0];
-  v41 = swift_allocObject();
-  v100 = 0;
-  v101 = v41;
-  *(v41 + 16) = v34;
-  *(v41 + 24) = v36;
-  *(v41 + 32) = v38 & 1;
-  *(v41 + 40) = v40;
-  v98 = 0u;
-  v99 = 0u;
-  v97 = 0;
-  v95 = 0u;
-  v96 = 0u;
-  v94 = 0;
-  v92 = 0u;
-  v93 = 0u;
-  v91 = 0;
-  v89 = 0u;
-  v90 = 0u;
-  v88 = 0;
-  v86 = 0u;
-  v87 = 0u;
-  v85 = 0;
-  v83 = 0u;
-  v84 = 0u;
-  v82 = 0;
-  v80 = 0u;
-  v81 = 0u;
-  v42 = v60;
-  SimpleItemRichView.init(text1:text2:text3:text4:text5:text6:text7:text8:thumbnail:)();
-  v43 = v69 == 0;
-  type metadata accessor for Context();
-  _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68]);
-  v44 = EnvironmentObject.init()();
-  v46 = v45;
-  v47 = v61;
-  (*(v63 + 32))(v61, v42, v64);
-  v48 = v62;
-  v49 = v47 + *(v62 + 36);
-  *v49 = v44;
-  *(v49 + 8) = v46;
-  *(v49 + 16) = v43;
-  v50 = v66;
-  outlined init with copy of LocalEmergencyCallDisambiguationView(v75, v66, type metadata accessor for LocalEmergencyCallDisambiguationView);
-  v51 = v70;
-  outlined init with copy of LocalEmergencyCallDisambiguationView(v31, v70, type metadata accessor for DisambiguationItemWithDirectInvocationModel);
-  v52 = (*(v68 + 80) + 16) & ~*(v68 + 80);
-  v53 = (v67 + *(v72 + 80) + v52) & ~*(v72 + 80);
-  v54 = swift_allocObject();
-  outlined init with take of LocalEmergencyCallDisambiguationModel(v50, v54 + v52, type metadata accessor for LocalEmergencyCallDisambiguationView);
-  outlined init with take of LocalEmergencyCallDisambiguationModel(v51, v54 + v53, type metadata accessor for DisambiguationItemWithDirectInvocationModel);
-  v55 = lazy protocol witness table accessor for type ModifiedContent<SimpleItemRichView, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>();
-  v56 = v65;
-  View.componentTapped(isNavigation:perform:)();
-
-  outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v47, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMR);
-  v57 = v76;
-  LocalEmergencyCallDisambiguationView.separatorStyle.getter(v76);
-  v105 = v48;
-  v106 = v55;
-  swift_getOpaqueTypeConformance2();
-  v58 = v71;
-  View.separators(_:isOverride:)();
-  (*(v77 + 8))(v57, v79);
-  return (*(v74 + 8))(v56, v58);
-}
-
-uint64_t closure #1 in closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter(uint64_t a1, uint64_t a2)
+uint64_t closure #1 in closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter(void **a1, uint64_t a2)
 {
   v4 = type metadata accessor for InteractionDelegateWrapper();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for phoneSnippetUI != -1)
   {
     swift_once();
   }
 
-  v9 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v9, static Logger.phoneSnippetUI);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v10, v11))
+  v8 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v8, static Logger.phoneSnippetUI);
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v9, v10))
   {
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    _os_log_impl(&dword_25E523000, v10, v11, "#LocalEmergencyCallDisambiguationView component tapped", v12, 2u);
-    MEMORY[0x25F8B8670](v12, -1, -1);
+    v11 = swift_slowAlloc();
+    *v11 = 0;
+    _os_log_impl(&dword_25E523000, v9, v10, "#LocalEmergencyCallDisambiguationView component tapped", v11, 2u);
+    MEMORY[0x25F8B8670](v11, -1, -1);
   }
 
-  v13 = *a1;
+  v12 = *a1;
   if (*a1)
   {
-    v14 = *(type metadata accessor for LocalEmergencyCallDisambiguationView() + 20);
-    v15 = v13;
+    type metadata accessor for LocalEmergencyCallDisambiguationView(0);
+    v13 = v12;
     InteractionDelegate.wrappedValue.getter();
     specialized LocalEmergencyCallDisambiguationView.selected(emergencyService:context:interactionDelegate:)(a2);
 
-    return (*(v5 + 8))(v8, v4);
+    return (*(v5 + 8))(v7, v4);
   }
 
   else
   {
-    v17 = *(a1 + 8);
     type metadata accessor for Context();
-    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68]);
+    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68], MEMORY[0x277D63F58]);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -899,7 +63,7 @@ void closure #2 in LocalEmergencyCallDisambiguationView.disambiguationViewConten
   }
 }
 
-uint64_t sub_25E560DFC(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_25E560DFC(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2147483646)
   {
@@ -976,16 +140,16 @@ void *sub_25E560F40(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void type metadata completion function for LocalEmergencyCallDisambiguationView()
+void type metadata completion function for LocalEmergencyCallDisambiguationView(uint64_t a1)
 {
-  type metadata accessor for EnvironmentObject<Context>();
-  if (v0 <= 0x3F)
+  type metadata accessor for EnvironmentObject<Context>(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for InteractionDelegate();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for LocalEmergencyCallDisambiguationModel(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1018,33 +182,28 @@ uint64_t sub_25E5611D4(uint64_t a1, uint64_t a2)
 
 uint64_t objectdestroyTm_6()
 {
-  v1 = (type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
-  v2 = *(*v1 + 64);
-  v3 = (v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80)));
+  v1 = (type metadata accessor for LocalEmergencyCallDisambiguationView(0) - 8);
+  v2 = (v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80)));
 
-  v4 = v1[7];
-  v5 = type metadata accessor for InteractionDelegate();
-  (*(*(v5 - 8) + 8))(v3 + v4, v5);
-  v6 = v3 + v1[8];
-  v7 = *(v6 + 1);
+  v3 = v1[7];
+  v4 = type metadata accessor for InteractionDelegate();
+  (*(*(v4 - 8) + 8))(v2 + v3, v4);
+  v5 = v2 + v1[8];
 
-  v8 = *(v6 + 2);
-
-  v9 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
-  v10 = v9[7];
-  v11 = type metadata accessor for UUID();
-  (*(*(v11 - 8) + 8))(&v6[v10], v11);
-  v12 = v9[8];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  (*(*(v13 - 8) + 8))(&v6[v12], v13);
-  v14 = *&v6[v9[9] + 8];
+  v6 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
+  v7 = *(v6 + 28);
+  v8 = type metadata accessor for UUID();
+  (*(*(v8 - 8) + 8))(&v5[v7], v8);
+  v9 = *(v6 + 32);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  (*(*(v10 - 8) + 8))(&v5[v9], v10);
 
   return swift_deallocObject();
 }
 
 uint64_t partial apply for closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v7 = *(type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
+  v7 = *(type metadata accessor for LocalEmergencyCallDisambiguationView(0) - 8);
   v8 = v3 + ((*(v7 + 80) + 16) & ~*(v7 + 80));
 
   return closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter(a1, a2, v8, a3);
@@ -1053,7 +212,6 @@ uint64_t partial apply for closure #1 in LocalEmergencyCallDisambiguationView.di
 uint64_t sub_25E561474()
 {
   outlined consume of Text.Storage(*(v0 + 16), *(v0 + 24), *(v0 + 32));
-  v1 = *(v0 + 40);
 
   return swift_deallocObject();
 }
@@ -1067,49 +225,44 @@ uint64_t outlined init with copy of LocalEmergencyCallDisambiguationView(uint64_
 
 uint64_t sub_25E561520()
 {
-  v1 = (type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
+  v1 = (type metadata accessor for LocalEmergencyCallDisambiguationView(0) - 8);
   v2 = (*(*v1 + 80) + 16) & ~*(*v1 + 80);
   v3 = *(*v1 + 64);
   v4 = (type metadata accessor for DisambiguationItemWithDirectInvocationModel(0) - 8);
-  v31 = (v2 + v3 + *(*v4 + 80)) & ~*(*v4 + 80);
-  v29 = *(*v4 + 64);
+  v27 = (v2 + v3 + *(*v4 + 80)) & ~*(*v4 + 80);
   v5 = v0 + v2;
 
   v6 = v1[7];
   v7 = type metadata accessor for InteractionDelegate();
   (*(*(v7 - 8) + 8))(v5 + v6, v7);
   v8 = v5 + v1[8];
-  v9 = *(v8 + 8);
 
-  v10 = *(v8 + 16);
+  v9 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
+  v10 = *(v9 + 28);
+  v11 = type metadata accessor for UUID();
+  v12 = *(*(v11 - 8) + 8);
+  v12(v8 + v10, v11);
+  v13 = *(v9 + 32);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v15 = *(*(v14 - 8) + 8);
+  v15(v8 + v13, v14);
 
-  v11 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
-  v12 = v11[7];
-  v13 = type metadata accessor for UUID();
-  v14 = *(*(v13 - 8) + 8);
-  v14(v8 + v12, v13);
-  v15 = v11[8];
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  v17 = *(*(v16 - 8) + 8);
-  v17(v8 + v15, v16);
-  v18 = *(v8 + v11[9] + 8);
-
-  v14(v30 + v31, v13);
-  v19 = v4[7];
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
-  v21 = *(*(v20 - 8) + 8);
-  v21(v30 + v31 + v19, v20);
-  v17(v30 + v31 + v4[8], v16);
-  v22 = v4[9];
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
-  (*(*(v23 - 8) + 8))(v30 + v31 + v22, v23);
-  v21(v30 + v31 + v4[10], v20);
-  v24 = v4[11];
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMd, &_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMR);
-  (*(*(v25 - 8) + 8))(v30 + v31 + v24, v25);
-  v26 = v4[12];
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy05PhoneA2UI43DisambiguationItemWithDirectInvocationModelV0G4TypeOGMd, &_s10SnippetKit8LoggableVy05PhoneA2UI43DisambiguationItemWithDirectInvocationModelV0G4TypeOGMR);
-  (*(*(v27 - 8) + 8))(v30 + v31 + v26, v27);
+  v12(v26 + v27, v11);
+  v16 = v4[7];
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
+  v18 = *(*(v17 - 8) + 8);
+  v18(v26 + v27 + v16, v17);
+  v15(v26 + v27 + v4[8], v14);
+  v19 = v4[9];
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
+  (*(*(v20 - 8) + 8))(v26 + v27 + v19, v20);
+  v18(v26 + v27 + v4[10], v17);
+  v21 = v4[11];
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMd, &_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMR);
+  (*(*(v22 - 8) + 8))(v26 + v27 + v21, v22);
+  v23 = v4[12];
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy05PhoneA2UI43DisambiguationItemWithDirectInvocationModelV0G4TypeOGMd, &_s10SnippetKit8LoggableVy05PhoneA2UI43DisambiguationItemWithDirectInvocationModelV0G4TypeOGMR);
+  (*(*(v24 - 8) + 8))(v26 + v27 + v23, v24);
 
   return swift_deallocObject();
 }
@@ -1123,13 +276,13 @@ uint64_t outlined init with take of LocalEmergencyCallDisambiguationModel(uint64
 
 uint64_t partial apply for closure #1 in closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter()
 {
-  v1 = *(type metadata accessor for LocalEmergencyCallDisambiguationView() - 8);
+  v1 = *(type metadata accessor for LocalEmergencyCallDisambiguationView(0) - 8);
   v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
   v3 = *(v1 + 64);
   v4 = *(type metadata accessor for DisambiguationItemWithDirectInvocationModel(0) - 8);
   v5 = v0 + ((v2 + v3 + *(v4 + 80)) & ~*(v4 + 80));
 
-  return closure #1 in closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter(v0 + v2, v5);
+  return closure #1 in closure #1 in LocalEmergencyCallDisambiguationView.disambiguationViewContent.getter((v0 + v2), v5);
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<SimpleItemRichView, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>()
@@ -1138,8 +291,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<SimpleIt
   if (!lazy protocol witness table cache variable for type ModifiedContent<SimpleItemRichView, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMd, &_s7SwiftUI15ModifiedContentVy07SnippetB018SimpleItemRichViewV05PhoneeB0025CarPlayDisambiguationListG0VGMR);
-    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type SimpleItemRichView and conformance SimpleItemRichView, MEMORY[0x277D63D00]);
-    lazy protocol witness table accessor for type CarPlayDisambiguationListItem and conformance CarPlayDisambiguationListItem();
+    v3 = _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(&lazy protocol witness table cache variable for type SimpleItemRichView and conformance SimpleItemRichView, MEMORY[0x277D63D00], MEMORY[0x277D63CF8]);
+    lazy protocol witness table accessor for type CarPlayDisambiguationListItem and conformance CarPlayDisambiguationListItem(v3, v1, v2);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<SimpleItemRichView, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>);
   }
@@ -1147,7 +300,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<SimpleIt
   return result;
 }
 
-uint64_t _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1163,19 +316,16 @@ uint64_t _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_5(unint64_t *a1
 void specialized LocalEmergencyCallDisambiguationView.selected(emergencyService:context:interactionDelegate:)(uint64_t a1)
 {
   v2 = type metadata accessor for DisambiguationItemWithDirectInvocationModel(0);
-  v3 = *(*(v2 - 1) + 64);
   MEMORY[0x28223BE20](v2);
-  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMd, &_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMR);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v23 - v9;
-  v11 = v2[9];
+  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMd, &_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v18 - v7;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMd, &_s10SnippetKit8LoggableVyAA16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGGMR);
   Loggable.wrappedValue.getter();
-  v12 = CodableAceObject.wrappedValue.getter();
-  (*(v7 + 8))(v10, v6);
+  v9 = CodableAceObject.wrappedValue.getter();
+  (*(v6 + 8))(v8, v5);
   InteractionDelegateWrapper.perform(directInvocation:)();
 
   if (one-time initialization token for phoneSnippetUI != -1)
@@ -1183,276 +333,273 @@ void specialized LocalEmergencyCallDisambiguationView.selected(emergencyService:
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Logger.phoneSnippetUI);
-  outlined init with copy of LocalEmergencyCallDisambiguationView(a1, v5, type metadata accessor for DisambiguationItemWithDirectInvocationModel);
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v14, v15))
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Logger.phoneSnippetUI);
+  outlined init with copy of LocalEmergencyCallDisambiguationView(a1, v4, type metadata accessor for DisambiguationItemWithDirectInvocationModel);
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v11, v12))
   {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v26 = v17;
-    *v16 = 136315138;
-    v18 = v2[8];
+    v13 = swift_slowAlloc();
+    v14 = swift_slowAlloc();
+    v21 = v14;
+    *v13 = 136315138;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
     Loggable.wrappedValue.getter();
-    v19 = v25;
-    if (v25)
+    v15 = v20;
+    if (v20)
     {
-      v20 = v24;
+      v16 = v19;
     }
 
     else
     {
-      v21 = &v5[v2[5]];
       Loggable.wrappedValue.getter();
-      if (v25)
+      if (v20)
       {
-        v20 = v24;
+        v16 = v19;
       }
 
       else
       {
-        v20 = 0x6E776F6E6B6E75;
+        v16 = 0x6E776F6E6B6E75;
       }
 
-      if (v25)
+      if (v20)
       {
-        v19 = v25;
+        v15 = v20;
       }
 
       else
       {
-        v19 = 0xE700000000000000;
+        v15 = 0xE700000000000000;
       }
     }
 
-    outlined destroy of DisambiguationItemWithDirectInvocationModel(v5);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v19, &v26);
+    outlined destroy of DisambiguationItemWithDirectInvocationModel(v4);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v15, &v21);
 
-    *(v16 + 4) = v22;
-    _os_log_impl(&dword_25E523000, v14, v15, "#LocalEmergencyCallDisambiguationView performing direct invocation to start emergency call to %s", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    MEMORY[0x25F8B8670](v17, -1, -1);
-    MEMORY[0x25F8B8670](v16, -1, -1);
+    *(v13 + 4) = v17;
+    _os_log_impl(&dword_25E523000, v11, v12, "#LocalEmergencyCallDisambiguationView performing direct invocation to start emergency call to %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x25F8B8670](v14, -1, -1);
+    MEMORY[0x25F8B8670](v13, -1, -1);
   }
 
   else
   {
 
-    outlined destroy of DisambiguationItemWithDirectInvocationModel(v5);
+    outlined destroy of DisambiguationItemWithDirectInvocationModel(v4);
   }
 }
 
 uint64_t LoggableError.logged(shouldLogToAbc:shouldCreateTTR:)@<X0>(char a1@<W0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v6 = v5;
-  LODWORD(v83) = a2;
+  LODWORD(v82) = a2;
   v11 = type metadata accessor for Logger();
-  v86 = *(v11 - 8);
-  v12 = *(v86 + 8);
-  v13 = MEMORY[0x28223BE20](v11);
-  v15 = &v74 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v13);
-  v84 = (&v74 - v17);
-  MEMORY[0x28223BE20](v16);
-  v19 = &v74 - v18;
-  v89 = 0;
-  v90 = 0xE000000000000000;
+  v85 = *(v11 - 8);
+  v12 = MEMORY[0x28223BE20](v11);
+  v14 = &v73 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v12);
+  v83 = (&v73 - v16);
+  MEMORY[0x28223BE20](v15);
+  v18 = &v73 - v17;
+  v88 = 0;
+  v89 = 0xE000000000000000;
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v20 = v90;
-  v82 = v89;
-  v85 = v11;
+  v19 = v89;
+  v81 = v88;
+  v84 = v11;
   if (a1)
   {
-    v77 = *(a4 + 32);
-    v78 = (a4 + 32);
-    v77(a3, a4);
+    v76 = *(a4 + 32);
+    v77 = (a4 + 32);
+    v76(a3, a4);
 
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.debug.getter();
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.debug.getter();
 
-    v23 = os_log_type_enabled(v21, v22);
-    v79 = v20;
-    v80 = v15;
-    if (v23)
+    v22 = os_log_type_enabled(v20, v21);
+    v78 = v19;
+    v79 = v14;
+    if (v22)
     {
-      v24 = v11;
+      v23 = v11;
+      v24 = swift_slowAlloc();
       v25 = swift_slowAlloc();
-      v26 = swift_slowAlloc();
-      v27 = v20;
-      v28 = v26;
-      v89 = v26;
-      *v25 = 136315138;
-      *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v27, &v89);
-      _os_log_impl(&dword_25E523000, v21, v22, "#LoggableError Trying ABC for %s", v25, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v28);
-      MEMORY[0x25F8B8670](v28, -1, -1);
-      MEMORY[0x25F8B8670](v25, -1, -1);
+      v26 = v19;
+      v27 = v25;
+      v88 = v25;
+      *v24 = 136315138;
+      *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v26, &v88);
+      _os_log_impl(&dword_25E523000, v20, v21, "#LoggableError Trying ABC for %s", v24, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v27);
+      MEMORY[0x25F8B8670](v27, -1, -1);
+      MEMORY[0x25F8B8670](v24, -1, -1);
 
-      v29 = *(v86 + 1);
-      v30 = v19;
-      v31 = v24;
+      v28 = *(v85 + 1);
+      v29 = v18;
+      v30 = v23;
     }
 
     else
     {
 
-      v29 = *(v86 + 1);
-      v30 = v19;
-      v31 = v11;
+      v28 = *(v85 + 1);
+      v29 = v18;
+      v30 = v11;
     }
 
-    v76 = v29;
-    v29(v30, v31);
-    v32 = v88;
-    v87 = (*(a4 + 8))(a3, a4);
-    v88[0] = v33;
-    v34 = 0;
-    v88[1] = (*(a4 + 16))(a3, a4);
-    v88[2] = v35;
-    v36 = MEMORY[0x277D84F90];
+    v75 = v28;
+    v28(v29, v30);
+    v31 = v87;
+    v86 = (*(a4 + 8))(a3, a4);
+    v87[0] = v32;
+    v33 = 0;
+    v87[1] = (*(a4 + 16))(a3, a4);
+    v87[2] = v34;
+    v35 = MEMORY[0x277D84F90];
 LABEL_6:
-    v37 = &v32[2 * v34];
-    while (++v34 != 3)
+    v36 = &v31[2 * v33];
+    while (++v33 != 3)
     {
-      v39 = *(v37 - 1);
-      v38 = *v37;
-      v37 += 2;
-      v40 = HIBYTE(v38) & 0xF;
-      if ((v38 & 0x2000000000000000) == 0)
+      v38 = *(v36 - 1);
+      v37 = *v36;
+      v36 += 2;
+      v39 = HIBYTE(v37) & 0xF;
+      if ((v37 & 0x2000000000000000) == 0)
       {
-        v40 = v39 & 0xFFFFFFFFFFFFLL;
+        v39 = v38 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v40)
+      if (v39)
       {
-        v75 = v32;
+        v74 = v31;
 
-        v41 = a5;
+        v40 = a5;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v36 + 2) + 1, 1, v36);
+          v35 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v35 + 2) + 1, 1, v35);
         }
 
-        v43 = *(v36 + 2);
-        v42 = *(v36 + 3);
-        if (v43 >= v42 >> 1)
+        v42 = *(v35 + 2);
+        v41 = *(v35 + 3);
+        if (v42 >= v41 >> 1)
         {
-          v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v36);
+          v35 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v35);
         }
 
-        *(v36 + 2) = v43 + 1;
-        v44 = &v36[16 * v43];
-        *(v44 + 4) = v39;
-        *(v44 + 5) = v38;
-        a5 = v41;
-        v32 = v75;
+        *(v35 + 2) = v42 + 1;
+        v43 = &v35[16 * v42];
+        *(v43 + 4) = v38;
+        *(v43 + 5) = v37;
+        a5 = v40;
+        v31 = v74;
         goto LABEL_6;
       }
     }
 
     swift_arrayDestroy();
-    v89 = v36;
+    v88 = v35;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
     lazy protocol witness table accessor for type [String] and conformance [A]();
-    v45 = BidirectionalCollection<>.joined(separator:)();
-    v47 = v46;
+    v44 = BidirectionalCollection<>.joined(separator:)();
+    v46 = v45;
 
-    v48 = LoggableError.caseName.getter(a3);
-    v50 = v49;
-    v51 = v84;
-    v77(a3, a4);
-    specialized static FileRadarUtils.autoBugCapture(errorType:errorSubType:subTypeContext:logger:)(0x4C41544146, 0xE500000000000000, v48, v50, v45, v47, v51);
+    v47 = LoggableError.caseName.getter(a3);
+    v49 = v48;
+    v50 = v83;
+    v76(a3, a4);
+    specialized static FileRadarUtils.autoBugCapture(errorType:errorSubType:subTypeContext:logger:)(0x4C41544146, 0xE500000000000000, v47, v49, v44, v46, v50);
 
-    v11 = v85;
-    v76(v51, v85);
-    v20 = v79;
-    v15 = v80;
+    v11 = v84;
+    v75(v50, v84);
+    v19 = v78;
+    v14 = v79;
   }
 
-  if (v83)
+  if (v82)
   {
-    v52 = *(a4 + 32);
-    v83 = a4 + 32;
-    v78 = v52;
-    v52(a3, a4);
+    v51 = *(a4 + 32);
+    v82 = a4 + 32;
+    v77 = v51;
+    v51(a3, a4);
 
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
+    v52 = Logger.logObject.getter();
+    v53 = static os_log_type_t.debug.getter();
 
-    v55 = os_log_type_enabled(v53, v54);
-    v81 = a5;
-    if (v55)
+    v54 = os_log_type_enabled(v52, v53);
+    v80 = a5;
+    if (v54)
     {
-      v56 = swift_slowAlloc();
-      v57 = v20;
-      v58 = swift_slowAlloc();
-      v89 = v58;
-      *v56 = 136315138;
-      v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v57, &v89);
+      v55 = swift_slowAlloc();
+      v56 = v19;
+      v57 = swift_slowAlloc();
+      v88 = v57;
+      *v55 = 136315138;
+      v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v56, &v88);
 
-      *(v56 + 4) = v59;
-      _os_log_impl(&dword_25E523000, v53, v54, "#LoggableError Trying TTR for %s", v56, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v58);
-      MEMORY[0x25F8B8670](v58, -1, -1);
-      MEMORY[0x25F8B8670](v56, -1, -1);
+      *(v55 + 4) = v58;
+      _os_log_impl(&dword_25E523000, v52, v53, "#LoggableError Trying TTR for %s", v55, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v57);
+      MEMORY[0x25F8B8670](v57, -1, -1);
+      MEMORY[0x25F8B8670](v55, -1, -1);
 
-      v60 = v85;
-      v61 = *(v86 + 1);
-      v82 = ((v86 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-      v62 = v15;
+      v59 = v84;
+      v60 = *(v85 + 1);
+      v81 = ((v85 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+      v61 = v14;
     }
 
     else
     {
 
-      v61 = *(v86 + 1);
-      v82 = ((v86 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
-      v62 = v15;
-      v60 = v11;
+      v60 = *(v85 + 1);
+      v81 = ((v85 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+      v61 = v14;
+      v59 = v11;
     }
 
-    v86 = v61;
-    v61(v62, v60);
-    v89 = 0;
-    v90 = 0xE000000000000000;
+    v85 = v60;
+    v60(v61, v59);
+    v88 = 0;
+    v89 = 0xE000000000000000;
     _StringGuts.grow(_:)(28);
 
-    v89 = 0xD00000000000001ALL;
-    v90 = 0x800000025E5A66B0;
-    v63 = LoggableError.caseName.getter(a3);
-    MEMORY[0x25F8B7B50](v63);
+    v88 = 0xD00000000000001ALL;
+    v89 = 0x800000025E5A66B0;
+    v62 = LoggableError.caseName.getter(a3);
+    MEMORY[0x25F8B7B50](v62);
 
-    v64 = v90;
-    v80 = v89;
-    v89 = (*(a4 + 8))(a3, a4);
-    v90 = v65;
+    v63 = v89;
+    v79 = v88;
+    v88 = (*(a4 + 8))(a3, a4);
+    v89 = v64;
     MEMORY[0x25F8B7B50](657930, 0xE300000000000000);
-    v66 = (*(a4 + 16))(a3, a4);
+    v65 = (*(a4 + 16))(a3, a4);
+    MEMORY[0x25F8B7B50](v65);
+
+    MEMORY[0x25F8B7B50](657930, 0xE300000000000000);
+    v66 = (*(a4 + 24))(a3, a4);
     MEMORY[0x25F8B7B50](v66);
 
-    MEMORY[0x25F8B7B50](657930, 0xE300000000000000);
-    v67 = (*(a4 + 24))(a3, a4);
-    MEMORY[0x25F8B7B50](v67);
-
+    v67 = v88;
     v68 = v89;
-    v69 = v90;
-    v89 = 0;
-    v90 = 0xE000000000000000;
+    v88 = 0;
+    v89 = 0xE000000000000000;
     _StringGuts.grow(_:)(31);
     MEMORY[0x25F8B7B50](0x45656E6F68502061, 0xEE002820726F7272);
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
     MEMORY[0x25F8B7B50](0x6564207361772029, 0xEF2E646574636574);
-    v71 = v89;
-    v70 = v90;
-    v72 = v84;
-    v78(a3, a4);
-    specialized static FileRadarUtils.tapToRadar(title:desc:reason:logger:)(v80, v64, v68, v69, v71, v70, v72);
+    v70 = v88;
+    v69 = v89;
+    v71 = v83;
+    v77(a3, a4);
+    specialized static FileRadarUtils.tapToRadar(title:desc:reason:logger:)(v79, v63, v67, v68, v70, v69, v71);
 
-    v86(v72, v85);
-    a5 = v81;
+    v85(v71, v84);
+    a5 = v80;
   }
 
   else
@@ -1467,30 +614,25 @@ uint64_t LoggableError.caseName.getter(uint64_t a1)
   v2 = v1;
   v4 = type metadata accessor for Mirror();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21[3] = a1;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v21);
+  v7 = v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15[3] = a1;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v15);
   (*(*(a1 - 8) + 16))(boxed_opaque_existential_1, v2, a1);
   Mirror.init(reflecting:)();
-  v10 = Mirror.children.getter();
-  (*(v5 + 8))(v8, v4);
-  v11 = v10[2];
-  v12 = v10[3];
-  v13 = v10[4];
-  v14 = v10[5];
+  Mirror.children.getter();
+  (*(v5 + 8))(v7, v4);
   swift_getObjectType();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v15 = dispatch thunk of _AnyIndexBox._typeID.getter();
+  v9 = dispatch thunk of _AnyIndexBox._typeID.getter();
   swift_getObjectType();
   result = dispatch thunk of _AnyIndexBox._typeID.getter();
-  if (v15 == result)
+  if (v9 == result)
   {
-    v17 = dispatch thunk of _AnyIndexBox._isEqual(to:)();
+    v11 = dispatch thunk of _AnyIndexBox._isEqual(to:)();
     swift_unknownObjectRelease();
-    if (v17)
+    if (v11)
     {
       swift_unknownObjectRelease();
     }
@@ -1500,28 +642,28 @@ uint64_t LoggableError.caseName.getter(uint64_t a1)
       dispatch thunk of _AnyCollectionBox.subscript.getter();
       swift_unknownObjectRelease();
 
-      v19 = v22;
-      v18 = v23;
-      __swift_destroy_boxed_opaque_existential_0(v24);
-      if (v18)
+      v13 = v16;
+      v12 = v17;
+      __swift_destroy_boxed_opaque_existential_0(v18);
+      if (v12)
       {
 LABEL_6:
         swift_getDynamicType();
-        v22 = _typeName(_:qualified:)();
-        v23 = v20;
+        v16 = _typeName(_:qualified:)();
+        v17 = v14;
         MEMORY[0x25F8B7B50](46, 0xE100000000000000);
-        MEMORY[0x25F8B7B50](v19, v18);
+        MEMORY[0x25F8B7B50](v13, v12);
 
-        return v22;
+        return v16;
       }
     }
 
-    v22 = 0;
-    v23 = 0xE000000000000000;
+    v16 = 0;
+    v17 = 0xE000000000000000;
     DefaultStringInterpolation.appendInterpolation<A>(_:)();
 
-    v19 = v22;
-    v18 = v23;
+    v13 = v16;
+    v12 = v17;
     goto LABEL_6;
   }
 
@@ -1574,7 +716,7 @@ uint64_t static PhoneCallAppNameConstants.macFaceTimeBundleId.getter()
   return v0;
 }
 
-unint64_t static PhoneCallAppNameConstants.sanitizeFirstPartyAppId(_:)(uint64_t a1, uint64_t a2)
+uint64_t static PhoneCallAppNameConstants.sanitizeFirstPartyAppId(_:)(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
   if (specialized static PhoneCallAppNameConstants.isFaceTimeCaseInsensitive(appId:)(a1, a2))
@@ -1592,29 +734,28 @@ uint64_t specialized Set.contains(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v6 = *(a3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(a3 + 32);
-  v9 = v7 & ~v8;
-  if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(a3 + 32);
+  v8 = v6 & ~v7;
+  if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = ~v8;
+  v9 = ~v7;
   while (1)
   {
-    v11 = (*(a3 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v10 = (*(a3 + 48) + 16 * v8);
+    v11 = *v10 == a1 && v10[1] == a2;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
       break;
     }
 
-    v9 = (v9 + 1) & v10;
-    if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+    v8 = (v8 + 1) & v9;
+    if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
     {
       return 0;
     }
@@ -1805,22 +946,21 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(uint64_t a1)
       v7 = (v6 + 16 * v4);
       v9 = *v7;
       v8 = v7[1];
-      v10 = *(v3 + 40);
       Hasher.init(_seed:)();
 
       String.hash(into:)();
       result = Hasher._finalize()();
-      v12 = ~(-1 << *(v3 + 32));
-      for (i = result & v12; ; i = (i + 1) & v12)
+      v11 = ~(-1 << *(v3 + 32));
+      for (i = result & v11; ; i = (i + 1) & v11)
       {
-        v14 = *(v5 + 8 * (i >> 6));
-        if (((1 << i) & v14) == 0)
+        v13 = *(v5 + 8 * (i >> 6));
+        if (((1 << i) & v13) == 0)
         {
           break;
         }
 
-        v15 = (*(v3 + 48) + 16 * i);
-        if (*v15 != v9 || v15[1] != v8)
+        v14 = (*(v3 + 48) + 16 * i);
+        if (*v14 != v9 || v14[1] != v8)
         {
           result = _stringCompareWithSmolCheck(_:_:expecting:)();
           if ((result & 1) == 0)
@@ -1832,16 +972,16 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(uint64_t a1)
         goto LABEL_4;
       }
 
-      *(v5 + 8 * (i >> 6)) = (1 << i) | v14;
-      v17 = (*(v3 + 48) + 16 * i);
-      *v17 = v9;
-      v17[1] = v8;
-      v18 = *(v3 + 16);
-      v19 = __OFADD__(v18, 1);
-      v20 = v18 + 1;
-      if (!v19)
+      *(v5 + 8 * (i >> 6)) = (1 << i) | v13;
+      v16 = (*(v3 + 48) + 16 * i);
+      *v16 = v9;
+      v16[1] = v8;
+      v17 = *(v3 + 16);
+      v18 = __OFADD__(v17, 1);
+      v19 = v17 + 1;
+      if (!v18)
       {
-        *(v3 + 16) = v20;
+        *(v3 + 16) = v19;
 LABEL_4:
         if (++v4 == v1)
         {
@@ -1996,18 +1136,19 @@ LABEL_21:
   return v2 & 1;
 }
 
-unint64_t PhoneCallNLConstants.canonicalName.getter(char a1)
+unint64_t PhoneCallNLConstants.canonicalName.getter(uint64_t a1)
 {
+  v1 = a1;
   _StringGuts.grow(_:)(20);
 
-  v2 = PhoneCallNLConstants.rawValue.getter(a1);
+  v2 = PhoneCallNLConstants.rawValue.getter(v1);
   v4 = v3;
   specialized Collection.prefix(_:)(1, v2, v3, v5);
   v6 = Substring.uppercased()();
 
   specialized Collection.dropFirst(_:)(1uLL, v2, v4, v7);
 
-  lazy protocol witness table accessor for type Substring and conformance Substring();
+  lazy protocol witness table accessor for type Substring and conformance Substring(v8, v9, v10);
   String.append<A>(contentsOf:)();
 
   MEMORY[0x25F8B7B50](v6._countAndFlagsBits, v6._object);
@@ -2102,20 +1243,20 @@ unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance P
   return result;
 }
 
-unint64_t PhoneCallConfirmationSemantics.canonicalName.getter()
+unint64_t PhoneCallConfirmationSemantics.canonicalName.getter(unsigned __int8 a1)
 {
   String.uppercased()();
 
-  lazy protocol witness table accessor for type String and conformance String();
+  lazy protocol witness table accessor for type String and conformance String(v1, v2, v3);
   StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
 
-  v2 = PhoneCallNLConstants.canonicalName.getter(6);
+  v6 = PhoneCallNLConstants.canonicalName.getter(6);
   MEMORY[0x25F8B7B50](0x2E65756C61562ELL, 0xE700000000000000);
-  v0 = String.uppercased()();
+  v4 = String.uppercased()();
 
-  MEMORY[0x25F8B7B50](v0._countAndFlagsBits, v0._object);
+  MEMORY[0x25F8B7B50](v4._countAndFlagsBits, v4._object);
 
-  return v2;
+  return v6;
 }
 
 uint64_t PhoneCallConfirmationSemantics.rawValue.getter(unsigned __int8 a1)
@@ -2237,24 +1378,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pho
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance PhoneCallConfirmationSemantics()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallConfirmationSemantics()
+uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallConfirmationSemantics(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallConfirmationSemantics()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallConfirmationSemantics(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -2305,20 +1441,20 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance PhoneC
   a1[1] = v2;
 }
 
-unint64_t VoicemailVerbSemantics.canonicalName.getter()
+unint64_t VoicemailVerbSemantics.canonicalName.getter(unsigned __int8 a1)
 {
   String.uppercased()();
 
-  lazy protocol witness table accessor for type String and conformance String();
+  lazy protocol witness table accessor for type String and conformance String(v1, v2, v3);
   StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
 
-  v2 = PhoneCallNLConstants.canonicalName.getter(14);
+  v6 = PhoneCallNLConstants.canonicalName.getter(14);
   MEMORY[0x25F8B7B50](0x2E65756C61562ELL, 0xE700000000000000);
-  v0 = String.uppercased()();
+  v4 = String.uppercased()();
 
-  MEMORY[0x25F8B7B50](v0._countAndFlagsBits, v0._object);
+  MEMORY[0x25F8B7B50](v4._countAndFlagsBits, v4._object);
 
-  return v2;
+  return v6;
 }
 
 uint64_t VoicemailVerbSemantics.rawValue.getter(unsigned __int8 a1)
@@ -2463,24 +1599,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Voi
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance VoicemailVerbSemantics()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance VoicemailVerbSemantics()
+uint64_t protocol witness for Hashable.hash(into:) in conformance VoicemailVerbSemantics(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance VoicemailVerbSemantics()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance VoicemailVerbSemantics(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -2545,16 +1676,16 @@ unint64_t PhoneCallVerbSemantics.canonicalName.getter(char a1)
   PhoneCallVerbSemantics.rawValue.getter(a1);
   String.uppercased()();
 
-  lazy protocol witness table accessor for type String and conformance String();
+  lazy protocol witness table accessor for type String and conformance String(v1, v2, v3);
   StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
 
-  v3 = PhoneCallNLConstants.canonicalName.getter(15);
+  v6 = PhoneCallNLConstants.canonicalName.getter(15);
   MEMORY[0x25F8B7B50](0x2E65756C61562ELL, 0xE700000000000000);
-  v1 = String.uppercased()();
+  v4 = String.uppercased()();
 
-  MEMORY[0x25F8B7B50](v1._countAndFlagsBits, v1._object);
+  MEMORY[0x25F8B7B50](v4._countAndFlagsBits, v4._object);
 
-  return v3;
+  return v6;
 }
 
 uint64_t PhoneCallVerbSemantics.rawValue.getter(char a1)
@@ -2624,7 +1755,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pho
   return v12 & 1;
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, void (*a3)(uint64_t))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
 {
   v5 = *v3;
   Hasher.init(_seed:)();
@@ -2634,13 +1765,13 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance PhoneCa
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
+uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  a4(*v4);
+  (a4)(*v4, a2, a3);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
 {
   v6 = *v4;
   Hasher.init(_seed:)();
@@ -2744,22 +1875,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pho
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance PhoneCallHandleType()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallHandleType()
+uint64_t protocol witness for Hashable.hash(into:) in conformance PhoneCallHandleType(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallHandleType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallHandleType(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -2891,7 +2019,7 @@ LABEL_14:
   return MEMORY[0x2821FBFB0](a1, a2, a3, a4);
 }
 
-unint64_t lazy protocol witness table accessor for type Substring and conformance Substring()
+unint64_t lazy protocol witness table accessor for type Substring and conformance Substring(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Substring and conformance Substring;
   if (!lazy protocol witness table cache variable for type Substring and conformance Substring)
@@ -2975,7 +2103,7 @@ unint64_t specialized PhoneCallVerbSemantics.init(rawValue:)(Swift::String strin
   }
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneCallNLConstants and conformance PhoneCallNLConstants()
+unint64_t lazy protocol witness table accessor for type PhoneCallNLConstants and conformance PhoneCallNLConstants(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneCallNLConstants and conformance PhoneCallNLConstants;
   if (!lazy protocol witness table cache variable for type PhoneCallNLConstants and conformance PhoneCallNLConstants)
@@ -2987,7 +2115,7 @@ unint64_t lazy protocol witness table accessor for type PhoneCallNLConstants and
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneCallConfirmationSemantics and conformance PhoneCallConfirmationSemantics()
+unint64_t lazy protocol witness table accessor for type PhoneCallConfirmationSemantics and conformance PhoneCallConfirmationSemantics(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneCallConfirmationSemantics and conformance PhoneCallConfirmationSemantics;
   if (!lazy protocol witness table cache variable for type PhoneCallConfirmationSemantics and conformance PhoneCallConfirmationSemantics)
@@ -2999,7 +2127,7 @@ unint64_t lazy protocol witness table accessor for type PhoneCallConfirmationSem
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type VoicemailVerbSemantics and conformance VoicemailVerbSemantics()
+unint64_t lazy protocol witness table accessor for type VoicemailVerbSemantics and conformance VoicemailVerbSemantics(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type VoicemailVerbSemantics and conformance VoicemailVerbSemantics;
   if (!lazy protocol witness table cache variable for type VoicemailVerbSemantics and conformance VoicemailVerbSemantics)
@@ -3011,7 +2139,7 @@ unint64_t lazy protocol witness table accessor for type VoicemailVerbSemantics a
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneCallVerbSemantics and conformance PhoneCallVerbSemantics()
+unint64_t lazy protocol witness table accessor for type PhoneCallVerbSemantics and conformance PhoneCallVerbSemantics(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneCallVerbSemantics and conformance PhoneCallVerbSemantics;
   if (!lazy protocol witness table cache variable for type PhoneCallVerbSemantics and conformance PhoneCallVerbSemantics)
@@ -3023,7 +2151,7 @@ unint64_t lazy protocol witness table accessor for type PhoneCallVerbSemantics a
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneCallHandleType and conformance PhoneCallHandleType()
+unint64_t lazy protocol witness table accessor for type PhoneCallHandleType and conformance PhoneCallHandleType(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneCallHandleType and conformance PhoneCallHandleType;
   if (!lazy protocol witness table cache variable for type PhoneCallHandleType and conformance PhoneCallHandleType)
@@ -3524,7 +2652,6 @@ LABEL_20:
 uint64_t PhoneContactHeader.appBundleId.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -3532,7 +2659,6 @@ uint64_t PhoneContactHeader.appBundleId.getter()
 uint64_t PhoneContactHeader.contactId.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -3540,7 +2666,6 @@ uint64_t PhoneContactHeader.contactId.getter()
 uint64_t PhoneContactHeader.displayName.getter()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
@@ -3548,7 +2673,6 @@ uint64_t PhoneContactHeader.displayName.getter()
 uint64_t PhoneContactHeader.handle.getter()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
@@ -3624,67 +2748,55 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance PhoneC
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PhoneContactHeader.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PhoneContactHeader.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized PhoneContactHeader.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized PhoneContactHeader.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneContactHeader.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneContactHeader.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneContactHeader.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneContactHeader.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
 uint64_t PhoneContactHeader.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v21[-v8];
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11[-v5];
+  v7 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys(v7, v8, v9);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = *v3;
-  v12 = v3[1];
-  v21[15] = 0;
+  v11[15] = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (v2)
+  if (v1)
   {
-    return (*(v6 + 8))(v9, v5);
+    return (*(v4 + 8))(v6, v3);
   }
 
-  v13 = v3[2];
-  v14 = v3[3];
-  v21[14] = 1;
+  v11[14] = 1;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v15 = v3[4];
-  v16 = v3[5];
-  v21[13] = 2;
+  v11[13] = 2;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v17 = v3[6];
-  v18 = v3[7];
-  v21[12] = 3;
+  v11[12] = 3;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v20 = *(v3 + 64);
-  v21[11] = 4;
+  v11[11] = 4;
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys)
@@ -3738,35 +2850,35 @@ void __swiftcall PhoneContactHeader.init(appBundleId:contactId:displayName:handl
   retstr->isFirstPartyApp = isFirstPartyApp;
 }
 
-__n128 PhoneContactHeader.init(from:)@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 PhoneContactHeader.init(from:)@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized PhoneContactHeader.init(from:)(a1, v6);
+  specialized PhoneContactHeader.init(from:)(a2, v6);
   if (!v2)
   {
     v5 = v6[3];
-    *(a2 + 32) = v6[2];
-    *(a2 + 48) = v5;
-    *(a2 + 64) = v7;
+    *(a1 + 32) = v6[2];
+    *(a1 + 48) = v5;
+    *(a1 + 64) = v7;
     result = v6[1];
-    *a2 = v6[0];
-    *(a2 + 16) = result;
+    *a1 = v6[0];
+    *(a1 + 16) = result;
   }
 
   return result;
 }
 
-__n128 protocol witness for Decodable.init(from:) in conformance PhoneContactHeader@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 protocol witness for Decodable.init(from:) in conformance PhoneContactHeader@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized PhoneContactHeader.init(from:)(a1, v6);
+  specialized PhoneContactHeader.init(from:)(a2, v6);
   if (!v2)
   {
     v5 = v6[3];
-    *(a2 + 32) = v6[2];
-    *(a2 + 48) = v5;
-    *(a2 + 64) = v7;
+    *(a1 + 32) = v6[2];
+    *(a1 + 48) = v5;
+    *(a1 + 64) = v7;
     result = v6[1];
-    *a2 = v6[0];
-    *(a2 + 16) = result;
+    *a1 = v6[0];
+    *(a1 + 16) = result;
   }
 
   return result;
@@ -3821,72 +2933,70 @@ uint64_t specialized PhoneContactHeader.CodingKeys.init(stringValue:)(uint64_t a
   }
 }
 
-uint64_t specialized PhoneContactHeader.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t specialized PhoneContactHeader.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0D13ContactHeaderV10CodingKeys33_B3E138E788F551605F0D3EFA341B5FE2LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v26 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys();
+  v8 = &v27 - v7;
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type PhoneContactHeader.CodingKeys and conformance PhoneContactHeader.CodingKeys(v9, v10, v11);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
     return __swift_destroy_boxed_opaque_existential_0(a1);
   }
 
-  LOBYTE(v38[0]) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v32 = v12;
-  LOBYTE(v38[0]) = 1;
-  v13 = KeyedDecodingContainer.decode(_:forKey:)();
-  v31 = v14;
-  v28 = v13;
-  LOBYTE(v38[0]) = 2;
+  LOBYTE(v39[0]) = 0;
+  v12 = KeyedDecodingContainer.decode(_:forKey:)();
+  v33 = v13;
+  LOBYTE(v39[0]) = 1;
+  v14 = KeyedDecodingContainer.decode(_:forKey:)();
+  v32 = v15;
+  v29 = v14;
+  LOBYTE(v39[0]) = 2;
+  v28 = KeyedDecodingContainer.decode(_:forKey:)();
+  v31 = v16;
+  LOBYTE(v39[0]) = 3;
   v27 = KeyedDecodingContainer.decode(_:forKey:)();
-  v30 = v15;
-  LOBYTE(v38[0]) = 3;
-  v26 = KeyedDecodingContainer.decode(_:forKey:)();
-  v29 = v16;
-  v41 = 4;
-  v17 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v40 = v17 & 1;
-  v19 = v31;
-  v18 = v32;
-  *&v33 = v11;
-  *(&v33 + 1) = v32;
-  v20 = v28;
-  *&v34 = v28;
-  *(&v34 + 1) = v31;
-  v21 = v30;
-  *&v35 = v27;
-  *(&v35 + 1) = v30;
-  v22 = v29;
-  *&v36 = v26;
-  *(&v36 + 1) = v29;
-  v37 = v40;
-  outlined init with copy of PhoneContactHeader(&v33, v38);
+  v30 = v17;
+  v42 = 4;
+  v18 = KeyedDecodingContainer.decode(_:forKey:)();
+  (*(v6 + 8))(v8, v5);
+  v41 = v18 & 1;
+  v20 = v32;
+  v19 = v33;
+  *&v34 = v12;
+  *(&v34 + 1) = v33;
+  v21 = v29;
+  *&v35 = v29;
+  *(&v35 + 1) = v32;
+  v22 = v31;
+  *&v36 = v28;
+  *(&v36 + 1) = v31;
+  v23 = v30;
+  *&v37 = v27;
+  *(&v37 + 1) = v30;
+  v38 = v41;
+  outlined init with copy of PhoneContactHeader(&v34, v39);
   __swift_destroy_boxed_opaque_existential_0(a1);
-  v38[0] = v11;
-  v38[1] = v18;
-  v38[2] = v20;
-  v38[3] = v19;
-  v38[4] = v27;
-  v38[5] = v21;
-  v38[6] = v26;
-  v38[7] = v22;
-  v39 = v40;
-  result = outlined destroy of PhoneContactHeader(v38);
-  v24 = v36;
-  *(a2 + 32) = v35;
-  *(a2 + 48) = v24;
-  *(a2 + 64) = v37;
-  v25 = v34;
-  *a2 = v33;
-  *(a2 + 16) = v25;
+  v39[0] = v12;
+  v39[1] = v19;
+  v39[2] = v21;
+  v39[3] = v20;
+  v39[4] = v28;
+  v39[5] = v22;
+  v39[6] = v27;
+  v39[7] = v23;
+  v40 = v41;
+  result = outlined destroy of PhoneContactHeader(v39);
+  v25 = v37;
+  *(a2 + 32) = v36;
+  *(a2 + 48) = v25;
+  *(a2 + 64) = v38;
+  v26 = v35;
+  *a2 = v34;
+  *(a2 + 16) = v26;
   return result;
 }
 
@@ -3992,41 +3102,38 @@ uint64_t PhoneSnippetDataModels.snippetHidden(for:idiom:)(uint64_t a1, uint64_t 
   v3 = v2;
   v5 = type metadata accessor for DeviceIdiom();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for PhoneSnippetDataModels();
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of PhoneSnippetDataModels(v3, v13);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for PhoneSnippetDataModels(0);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PhoneSnippetDataModels(v3, v11);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload != 7)
   {
     if (EnumCaseMultiPayload == 6)
     {
-      v16 = *v13;
-      v15 = specialized StackedButtonsModel.shouldHideSnippet(on:)(a2, v13[8]);
+      v13 = specialized StackedButtonsModel.shouldHideSnippet(on:)(a2, v11[8]);
 
-      return v15 & 1;
+      return v13 & 1;
     }
 
     if (EnumCaseMultiPayload)
     {
-      outlined destroy of PhoneSnippetDataModels(v13, type metadata accessor for PhoneSnippetDataModels);
-      v15 = 0;
-      return v15 & 1;
+      outlined destroy of PhoneSnippetDataModels(v11, type metadata accessor for PhoneSnippetDataModels);
+      v13 = 0;
+      return v13 & 1;
     }
   }
 
-  outlined destroy of PhoneSnippetDataModels(v13, type metadata accessor for PhoneSnippetDataModels);
-  (*(v6 + 104))(v9, *MEMORY[0x277D61BE8], v5);
-  v15 = static DeviceIdiom.== infix(_:_:)();
-  (*(v6 + 8))(v9, v5);
-  return v15 & 1;
+  outlined destroy of PhoneSnippetDataModels(v11, type metadata accessor for PhoneSnippetDataModels);
+  (*(v6 + 104))(v8, *MEMORY[0x277D61BE8], v5);
+  v13 = static DeviceIdiom.== infix(_:_:)();
+  (*(v6 + 8))(v8, v5);
+  return v13 & 1;
 }
 
-uint64_t type metadata accessor for PhoneSnippetDataModels()
+uint64_t type metadata accessor for PhoneSnippetDataModels(uint64_t a1)
 {
   result = type metadata singleton initialization cache for PhoneSnippetDataModels;
   if (!type metadata singleton initialization cache for PhoneSnippetDataModels)
@@ -4039,7 +3146,7 @@ uint64_t type metadata accessor for PhoneSnippetDataModels()
 
 uint64_t outlined init with copy of PhoneSnippetDataModels(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PhoneSnippetDataModels();
+  v4 = type metadata accessor for PhoneSnippetDataModels(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4092,1019 +3199,980 @@ unint64_t PhoneSnippetDataModels.CodingKeys.stringValue.getter(char a1)
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PhoneSnippetDataModels.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PhoneSnippetDataModels.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized PhoneSnippetDataModels.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized PhoneSnippetDataModels.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys();
+  v4 = lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
 uint64_t PhoneSnippetDataModels.encode(to:)(void *a1)
 {
-  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v112 = *(v155 - 8);
-  v2 = *(v112 + 64);
-  MEMORY[0x28223BE20](v155);
-  v154 = &v101 - v3;
-  v152 = type metadata accessor for SingleResultCallHistoryModel();
-  v4 = *(*(v152 - 8) + 64);
-  MEMORY[0x28223BE20](v152);
-  v153 = &v101 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v111 = *(v151 - 8);
-  v6 = *(v111 + 64);
-  MEMORY[0x28223BE20](v151);
-  v150 = &v101 - v7;
-  v148 = type metadata accessor for SingleResultVoicemailModel();
-  v8 = *(*(v148 - 8) + 64);
-  MEMORY[0x28223BE20](v148);
-  v149 = &v101 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v110 = *(v147 - 8);
-  v10 = *(v110 + 64);
-  MEMORY[0x28223BE20](v147);
-  v146 = &v101 - v11;
-  v144 = type metadata accessor for PlayVoicemailModel();
-  v12 = *(*(v144 - 8) + 64);
-  MEMORY[0x28223BE20](v144);
-  v145 = &v101 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v143 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v109 = *(v143 - 8);
-  v14 = *(v109 + 64);
-  MEMORY[0x28223BE20](v143);
-  v142 = &v101 - v15;
-  v140 = type metadata accessor for SearchCallHistoryModel();
-  v16 = *(*(v140 - 8) + 64);
-  MEMORY[0x28223BE20](v140);
-  v141 = &v101 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v139 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v108 = *(v139 - 8);
-  v18 = *(v108 + 64);
-  MEMORY[0x28223BE20](v139);
-  v138 = &v101 - v19;
-  v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v107 = *(v137 - 8);
-  v20 = *(v107 + 64);
-  MEMORY[0x28223BE20](v137);
-  v136 = &v101 - v21;
-  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v106 = *(v135 - 8);
-  v22 = *(v106 + 64);
-  MEMORY[0x28223BE20](v135);
-  v133 = &v101 - v23;
-  v134 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v105 = *(v134 - 8);
-  v24 = *(v105 + 64);
-  MEMORY[0x28223BE20](v134);
-  v132 = &v101 - v25;
-  v130 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
-  v26 = *(*(v130 - 8) + 64);
-  MEMORY[0x28223BE20](v130);
-  v131 = &v101 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v129 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v104 = *(v129 - 8);
-  v28 = *(v104 + 64);
-  MEMORY[0x28223BE20](v129);
-  v128 = &v101 - v29;
-  v126 = type metadata accessor for ForeignEmergencyCallDisambiguationModel(0);
-  v30 = *(*(v126 - 8) + 64);
-  MEMORY[0x28223BE20](v126);
-  v127 = &v101 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v103 = *(v125 - 8);
-  v32 = *(v103 + 64);
-  MEMORY[0x28223BE20](v125);
-  v124 = &v101 - v33;
-  v122 = type metadata accessor for EmergencyCountdownModel();
-  v34 = *(*(v122 - 8) + 64);
-  MEMORY[0x28223BE20](v122);
-  v123 = &v101 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v121 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v102 = *(v121 - 8);
-  v36 = *(v102 + 64);
-  MEMORY[0x28223BE20](v121);
-  v120 = &v101 - v37;
-  v119 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v118 = *(v119 - 8);
-  v38 = *(v118 + 64);
-  MEMORY[0x28223BE20](v119);
-  v116 = &v101 - v39;
-  v117 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v115 = *(v117 - 8);
-  v40 = *(v115 + 64);
-  MEMORY[0x28223BE20](v117);
-  v113 = &v101 - v41;
-  v156 = type metadata accessor for YesNoConfirmationModel();
-  v42 = *(*(v156 - 8) + 64);
-  v43 = MEMORY[0x28223BE20](v156);
-  v114 = &v101 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v45 = MEMORY[0x28223BE20](v43);
-  v47 = &v101 - v46;
-  v48 = MEMORY[0x28223BE20](v45);
-  v50 = &v101 - v49;
-  MEMORY[0x28223BE20](v48);
-  v52 = &v101 - v51;
-  v53 = type metadata accessor for PhoneSnippetDataModels();
-  v54 = *(*(v53 - 8) + 64);
-  MEMORY[0x28223BE20](v53);
-  v56 = (&v101 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v160 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v157 = *(v160 - 8);
-  v57 = *(v157 + 64);
+  v176 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v133 = *(v176 - 8);
+  MEMORY[0x28223BE20](v176);
+  v175 = &v122 - v2;
+  v173 = type metadata accessor for SingleResultCallHistoryModel(0);
+  MEMORY[0x28223BE20](v173);
+  v174 = &v122 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v172 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v132 = *(v172 - 8);
+  MEMORY[0x28223BE20](v172);
+  v171 = &v122 - v4;
+  v169 = type metadata accessor for SingleResultVoicemailModel(0);
+  MEMORY[0x28223BE20](v169);
+  v170 = &v122 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v168 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v131 = *(v168 - 8);
+  MEMORY[0x28223BE20](v168);
+  v167 = &v122 - v6;
+  v165 = type metadata accessor for PlayVoicemailModel(0);
+  MEMORY[0x28223BE20](v165);
+  v166 = &v122 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v164 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v130 = *(v164 - 8);
+  MEMORY[0x28223BE20](v164);
+  v163 = &v122 - v8;
+  v161 = type metadata accessor for SearchCallHistoryModel(0);
+  MEMORY[0x28223BE20](v161);
+  v162 = &v122 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v160 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v129 = *(v160 - 8);
   MEMORY[0x28223BE20](v160);
-  v59 = &v101 - v58;
-  v60 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys();
-  v159 = v59;
+  v159 = &v122 - v10;
+  v158 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v128 = *(v158 - 8);
+  MEMORY[0x28223BE20](v158);
+  v157 = &v122 - v11;
+  v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v127 = *(v156 - 8);
+  MEMORY[0x28223BE20](v156);
+  v154 = &v122 - v12;
+  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v126 = *(v155 - 8);
+  MEMORY[0x28223BE20](v155);
+  v153 = &v122 - v13;
+  v151 = type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
+  MEMORY[0x28223BE20](v151);
+  v152 = &v122 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v150 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v125 = *(v150 - 8);
+  MEMORY[0x28223BE20](v150);
+  v149 = &v122 - v15;
+  v147 = type metadata accessor for ForeignEmergencyCallDisambiguationModel(0);
+  MEMORY[0x28223BE20](v147);
+  v148 = &v122 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v124 = *(v146 - 8);
+  MEMORY[0x28223BE20](v146);
+  v145 = &v122 - v17;
+  v143 = type metadata accessor for EmergencyCountdownModel(0);
+  MEMORY[0x28223BE20](v143);
+  v144 = &v122 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v142 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v123 = *(v142 - 8);
+  MEMORY[0x28223BE20](v142);
+  v141 = &v122 - v19;
+  v140 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v139 = *(v140 - 8);
+  MEMORY[0x28223BE20](v140);
+  v137 = &v122 - v20;
+  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v136 = *(v138 - 8);
+  MEMORY[0x28223BE20](v138);
+  v134 = &v122 - v21;
+  v177 = type metadata accessor for YesNoConfirmationModel(0);
+  v22 = MEMORY[0x28223BE20](v177);
+  v135 = &v122 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = MEMORY[0x28223BE20](v22);
+  v26 = &v122 - v25;
+  v27 = MEMORY[0x28223BE20](v24);
+  v29 = &v122 - v28;
+  MEMORY[0x28223BE20](v27);
+  v31 = &v122 - v30;
+  v32 = type metadata accessor for PhoneSnippetDataModels(0);
+  MEMORY[0x28223BE20](v32);
+  v34 = (&v122 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v181 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v178 = *(v181 - 8);
+  MEMORY[0x28223BE20](v181);
+  v36 = &v122 - v35;
+  v37 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys(v37, v38, v39);
+  v180 = v36;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  outlined init with copy of PhoneSnippetDataModels(v158, v56);
-  switch(swift_getEnumCaseMultiPayload())
+  outlined init with copy of PhoneSnippetDataModels(v179, v34);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  switch(EnumCaseMultiPayload)
   {
-    case 1u:
-      v83 = *v56;
-      v84 = v56[1];
-      v85 = v56[2];
-      LOBYTE(v161) = 1;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys();
-      v86 = v116;
-      v88 = v159;
-      v87 = v160;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v161 = v83;
-      v162 = v84;
-      v163 = v85;
-      lazy protocol witness table accessor for type AppDisambiguationModel and conformance AppDisambiguationModel();
-      v89 = v119;
+    case 1:
+      v89 = *v34;
+      v90 = v34[1];
+      v91 = v34[2];
+      LOBYTE(v182) = 1;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(EnumCaseMultiPayload, v41, v42);
+      v92 = v137;
+      v94 = v180;
+      v93 = v181;
+      v95 = KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      v182 = v89;
+      v183 = v90;
+      v184 = v91;
+      lazy protocol witness table accessor for type AppDisambiguationModel and conformance AppDisambiguationModel(v95, v96, v97);
+      v98 = v140;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v118 + 8))(v86, v89);
-      (*(v157 + 8))(v88, v87);
+      (*(v139 + 8))(v92, v98);
+      (*(v178 + 8))(v94, v93);
 
-    case 2u:
-      outlined init with take of SingleResultCallHistoryModel(v56, v50, type metadata accessor for YesNoConfirmationModel);
-      LOBYTE(v161) = 2;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys();
-      v75 = v120;
-      v63 = v159;
-      v62 = v160;
+    case 2:
+      v72 = outlined init with take of SingleResultCallHistoryModel(v34, v29, type metadata accessor for YesNoConfirmationModel);
+      LOBYTE(v182) = 2;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(v72, v73, v74);
+      v75 = v141;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v76 = v121;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v76 = v142;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v102 + 8))(v75, v76);
+      (*(v123 + 8))(v75, v76);
       v77 = type metadata accessor for YesNoConfirmationModel;
-      v78 = v50;
+      v78 = v29;
       goto LABEL_18;
-    case 3u:
-      v52 = v123;
-      outlined init with take of SingleResultCallHistoryModel(v56, v123, type metadata accessor for EmergencyCountdownModel);
-      LOBYTE(v161) = 3;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys();
-      v79 = v124;
-      v63 = v159;
-      v62 = v160;
+    case 3:
+      v31 = v144;
+      v79 = outlined init with take of SingleResultCallHistoryModel(v34, v144, type metadata accessor for EmergencyCountdownModel);
+      LOBYTE(v182) = 3;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(v79, v80, v81);
+      v82 = v145;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type EmergencyCountdownModel and conformance EmergencyCountdownModel, type metadata accessor for EmergencyCountdownModel);
-      v80 = v125;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type EmergencyCountdownModel and conformance EmergencyCountdownModel, type metadata accessor for EmergencyCountdownModel, &protocol conformance descriptor for EmergencyCountdownModel);
+      v83 = v146;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v103 + 8))(v79, v80);
-      v68 = type metadata accessor for EmergencyCountdownModel;
+      (*(v124 + 8))(v82, v83);
+      v56 = type metadata accessor for EmergencyCountdownModel;
       goto LABEL_17;
-    case 4u:
-      v52 = v127;
-      outlined init with take of SingleResultCallHistoryModel(v56, v127, type metadata accessor for ForeignEmergencyCallDisambiguationModel);
-      LOBYTE(v161) = 4;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys();
-      v69 = v128;
-      v63 = v159;
-      v62 = v160;
+    case 4:
+      v31 = v148;
+      v57 = outlined init with take of SingleResultCallHistoryModel(v34, v148, type metadata accessor for ForeignEmergencyCallDisambiguationModel);
+      LOBYTE(v182) = 4;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(v57, v58, v59);
+      v60 = v149;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationModel and conformance ForeignEmergencyCallDisambiguationModel, type metadata accessor for ForeignEmergencyCallDisambiguationModel);
-      v70 = v129;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationModel and conformance ForeignEmergencyCallDisambiguationModel, type metadata accessor for ForeignEmergencyCallDisambiguationModel, &protocol conformance descriptor for ForeignEmergencyCallDisambiguationModel);
+      v61 = v150;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v104 + 8))(v69, v70);
-      v68 = type metadata accessor for ForeignEmergencyCallDisambiguationModel;
+      (*(v125 + 8))(v60, v61);
+      v56 = type metadata accessor for ForeignEmergencyCallDisambiguationModel;
       goto LABEL_17;
-    case 5u:
-      v52 = v131;
-      outlined init with take of SingleResultCallHistoryModel(v56, v131, type metadata accessor for LocalEmergencyCallDisambiguationModel);
-      LOBYTE(v161) = 5;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys();
-      v90 = v132;
-      v63 = v159;
-      v62 = v160;
+    case 5:
+      v31 = v152;
+      v99 = outlined init with take of SingleResultCallHistoryModel(v34, v152, type metadata accessor for LocalEmergencyCallDisambiguationModel);
+      LOBYTE(v182) = 5;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(v99, v100, v101);
+      v102 = v153;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationModel and conformance LocalEmergencyCallDisambiguationModel, type metadata accessor for LocalEmergencyCallDisambiguationModel);
-      v91 = v134;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationModel and conformance LocalEmergencyCallDisambiguationModel, type metadata accessor for LocalEmergencyCallDisambiguationModel, &protocol conformance descriptor for LocalEmergencyCallDisambiguationModel);
+      v103 = v155;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v105 + 8))(v90, v91);
-      v68 = type metadata accessor for LocalEmergencyCallDisambiguationModel;
+      (*(v126 + 8))(v102, v103);
+      v56 = type metadata accessor for LocalEmergencyCallDisambiguationModel;
       goto LABEL_17;
-    case 6u:
-      v92 = *v56;
-      v93 = *(v56 + 8);
-      LOBYTE(v161) = 6;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys();
-      v94 = v133;
-      v96 = v159;
-      v95 = v160;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v161 = v92;
-      LOBYTE(v162) = v93;
-      lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel();
-      v97 = v135;
+    case 6:
+      v104 = *v34;
+      v105 = *(v34 + 8);
+      LOBYTE(v182) = 6;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(EnumCaseMultiPayload, v41, v42);
+      v106 = v154;
+      v108 = v180;
+      v107 = v181;
+      v109 = KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      v182 = v104;
+      LOBYTE(v183) = v105;
+      lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel(v109, v110, v111);
+      v112 = v156;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v106 + 8))(v94, v97);
-      (*(v157 + 8))(v96, v95);
+      (*(v127 + 8))(v106, v112);
+      (*(v178 + 8))(v108, v107);
 
-    case 7u:
-      outlined init with take of SingleResultCallHistoryModel(v56, v47, type metadata accessor for YesNoConfirmationModel);
-      LOBYTE(v161) = 7;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys();
-      v81 = v136;
-      v63 = v159;
-      v62 = v160;
+    case 7:
+      v84 = outlined init with take of SingleResultCallHistoryModel(v34, v26, type metadata accessor for YesNoConfirmationModel);
+      LOBYTE(v182) = 7;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(v84, v85, v86);
+      v87 = v157;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v82 = v137;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v88 = v158;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v107 + 8))(v81, v82);
+      (*(v128 + 8))(v87, v88);
       v77 = type metadata accessor for YesNoConfirmationModel;
-      v78 = v47;
+      v78 = v26;
       goto LABEL_18;
-    case 8u:
-      v52 = v114;
-      outlined init with take of SingleResultCallHistoryModel(v56, v114, type metadata accessor for YesNoConfirmationModel);
-      LOBYTE(v161) = 8;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys();
-      v61 = v138;
-      v63 = v159;
-      v62 = v160;
+    case 8:
+      v31 = v135;
+      v119 = outlined init with take of SingleResultCallHistoryModel(v34, v135, type metadata accessor for YesNoConfirmationModel);
+      LOBYTE(v182) = 8;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(v119, v120, v121);
+      v46 = v159;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v64 = v139;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v49 = v160;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v65 = &v140;
+      v50 = &v161;
       goto LABEL_16;
-    case 9u:
-      v52 = v141;
-      outlined init with take of SingleResultCallHistoryModel(v56, v141, type metadata accessor for SearchCallHistoryModel);
-      LOBYTE(v161) = 9;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys();
-      v73 = v142;
-      v63 = v159;
-      v62 = v160;
+    case 9:
+      v31 = v162;
+      v67 = outlined init with take of SingleResultCallHistoryModel(v34, v162, type metadata accessor for SearchCallHistoryModel);
+      LOBYTE(v182) = 9;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(v67, v68, v69);
+      v70 = v163;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel);
-      v74 = v143;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel, &protocol conformance descriptor for SearchCallHistoryModel);
+      v71 = v164;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v109 + 8))(v73, v74);
-      v68 = type metadata accessor for SearchCallHistoryModel;
+      (*(v130 + 8))(v70, v71);
+      v56 = type metadata accessor for SearchCallHistoryModel;
       goto LABEL_17;
-    case 0xAu:
-      v52 = v145;
-      outlined init with take of SingleResultCallHistoryModel(v56, v145, type metadata accessor for PlayVoicemailModel);
-      LOBYTE(v161) = 10;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys();
-      v99 = v146;
-      v63 = v159;
-      v62 = v160;
+    case 10:
+      v31 = v166;
+      v114 = outlined init with take of SingleResultCallHistoryModel(v34, v166, type metadata accessor for PlayVoicemailModel);
+      LOBYTE(v182) = 10;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(v114, v115, v116);
+      v117 = v167;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel);
-      v100 = v147;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel, &protocol conformance descriptor for PlayVoicemailModel);
+      v118 = v168;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v110 + 8))(v99, v100);
-      v68 = type metadata accessor for PlayVoicemailModel;
+      (*(v131 + 8))(v117, v118);
+      v56 = type metadata accessor for PlayVoicemailModel;
       goto LABEL_17;
-    case 0xBu:
-      v52 = v149;
-      outlined init with take of SingleResultCallHistoryModel(v56, v149, type metadata accessor for SingleResultVoicemailModel);
-      LOBYTE(v161) = 11;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys();
-      v66 = v150;
-      v63 = v159;
-      v62 = v160;
+    case 11:
+      v31 = v170;
+      v51 = outlined init with take of SingleResultCallHistoryModel(v34, v170, type metadata accessor for SingleResultVoicemailModel);
+      LOBYTE(v182) = 11;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(v51, v52, v53);
+      v54 = v171;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultVoicemailModel and conformance SingleResultVoicemailModel, type metadata accessor for SingleResultVoicemailModel);
-      v67 = v151;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultVoicemailModel and conformance SingleResultVoicemailModel, type metadata accessor for SingleResultVoicemailModel, &protocol conformance descriptor for SingleResultVoicemailModel);
+      v55 = v172;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v111 + 8))(v66, v67);
-      v68 = type metadata accessor for SingleResultVoicemailModel;
+      (*(v132 + 8))(v54, v55);
+      v56 = type metadata accessor for SingleResultVoicemailModel;
       goto LABEL_17;
-    case 0xCu:
-      v52 = v153;
-      outlined init with take of SingleResultCallHistoryModel(v56, v153, type metadata accessor for SingleResultCallHistoryModel);
-      LOBYTE(v161) = 12;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys();
-      v71 = v154;
-      v63 = v159;
-      v62 = v160;
+    case 12:
+      v31 = v174;
+      v62 = outlined init with take of SingleResultCallHistoryModel(v34, v174, type metadata accessor for SingleResultCallHistoryModel);
+      LOBYTE(v182) = 12;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(v62, v63, v64);
+      v65 = v175;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel, type metadata accessor for SingleResultCallHistoryModel);
-      v72 = v155;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel, type metadata accessor for SingleResultCallHistoryModel, &protocol conformance descriptor for SingleResultCallHistoryModel);
+      v66 = v176;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v112 + 8))(v71, v72);
-      v68 = type metadata accessor for SingleResultCallHistoryModel;
+      (*(v133 + 8))(v65, v66);
+      v56 = type metadata accessor for SingleResultCallHistoryModel;
       goto LABEL_17;
     default:
-      outlined init with take of SingleResultCallHistoryModel(v56, v52, type metadata accessor for YesNoConfirmationModel);
-      LOBYTE(v161) = 0;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys();
-      v61 = v113;
-      v63 = v159;
-      v62 = v160;
+      v43 = outlined init with take of SingleResultCallHistoryModel(v34, v31, type metadata accessor for YesNoConfirmationModel);
+      LOBYTE(v182) = 0;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(v43, v44, v45);
+      v46 = v134;
+      v48 = v180;
+      v47 = v181;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v64 = v117;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v49 = v138;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v65 = &v147;
+      v50 = &v168;
 LABEL_16:
-      (*(*(v65 - 32) + 8))(v61, v64);
-      v68 = type metadata accessor for YesNoConfirmationModel;
+      (*(*(v50 - 32) + 8))(v46, v49);
+      v56 = type metadata accessor for YesNoConfirmationModel;
 LABEL_17:
-      v77 = v68;
-      v78 = v52;
+      v77 = v56;
+      v78 = v31;
 LABEL_18:
       outlined destroy of PhoneSnippetDataModels(v78, v77);
-      return (*(v157 + 8))(v63, v62);
+      return (*(v178 + 8))(v48, v47);
   }
 }
 
-uint64_t PhoneSnippetDataModels.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t PhoneSnippetDataModels.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v190 = a2;
-  v170 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v173 = *(v170 - 8);
-  v3 = *(v173 + 64);
-  MEMORY[0x28223BE20](v170);
-  v184 = &v134 - v4;
-  v172 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v171 = *(v172 - 8);
-  v5 = *(v171 + 64);
-  MEMORY[0x28223BE20](v172);
-  v188 = &v134 - v6;
-  v169 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v168 = *(v169 - 8);
-  v7 = *(v168 + 64);
-  MEMORY[0x28223BE20](v169);
-  v183 = &v134 - v8;
-  v167 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v166 = *(v167 - 8);
-  v9 = *(v166 + 64);
-  MEMORY[0x28223BE20](v167);
-  v182 = &v134 - v10;
-  v165 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v164 = *(v165 - 8);
-  v11 = *(v164 + 64);
-  MEMORY[0x28223BE20](v165);
-  v181 = &v134 - v12;
-  v163 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v184 = a2;
+  v164 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO33SingleCallHistoryRecordCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v167 = *(v164 - 8);
+  MEMORY[0x28223BE20](v164);
+  v178 = &v128 - v3;
+  v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25SingleVoicemailCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v165 = *(v166 - 8);
+  MEMORY[0x28223BE20](v166);
+  v182 = &v128 - v4;
+  v163 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27PlayVoicemailListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
   v162 = *(v163 - 8);
-  v13 = *(v162 + 64);
   MEMORY[0x28223BE20](v163);
-  v180 = &v134 - v14;
-  v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v177 = &v128 - v5;
+  v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25CallHistoryListCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
   v160 = *(v161 - 8);
-  v15 = *(v160 + 64);
   MEMORY[0x28223BE20](v161);
-  v179 = &v134 - v16;
-  v159 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v176 = &v128 - v6;
+  v159 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO34YesNoConfirmationCarPlayCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
   v158 = *(v159 - 8);
-  v17 = *(v158 + 64);
   MEMORY[0x28223BE20](v159);
-  v178 = &v134 - v18;
-  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v175 = &v128 - v7;
+  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27YesNoConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
   v156 = *(v157 - 8);
-  v19 = *(v156 + 64);
   MEMORY[0x28223BE20](v157);
-  v177 = &v134 - v20;
-  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v174 = &v128 - v8;
+  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO24StackedButtonsCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
   v154 = *(v155 - 8);
-  v21 = *(v154 + 64);
   MEMORY[0x28223BE20](v155);
-  v187 = &v134 - v22;
-  v152 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v153 = *(v152 - 8);
-  v23 = *(v153 + 64);
-  MEMORY[0x28223BE20](v152);
-  v176 = &v134 - v24;
-  v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v186 = *(v151 - 8);
-  v25 = *(v186 + 64);
+  v173 = &v128 - v9;
+  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO42LocalEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v152 = *(v153 - 8);
+  MEMORY[0x28223BE20](v153);
+  v172 = &v128 - v10;
+  v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO44ForeignEmergencyCallDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v150 = *(v151 - 8);
   MEMORY[0x28223BE20](v151);
-  v175 = &v134 - v26;
-  v150 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v149 = *(v150 - 8);
-  v27 = *(v149 + 64);
-  MEMORY[0x28223BE20](v150);
-  v174 = &v134 - v28;
-  v185 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
-  v189 = *(v185 - 8);
-  v29 = *(v189 + 64);
-  MEMORY[0x28223BE20](v185);
-  v31 = &v134 - v30;
-  v191 = type metadata accessor for PhoneSnippetDataModels();
-  v32 = *(*(v191 - 8) + 64);
-  v33 = MEMORY[0x28223BE20](v191);
-  v148 = &v134 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = MEMORY[0x28223BE20](v33);
-  v147 = &v134 - v36;
-  v37 = MEMORY[0x28223BE20](v35);
-  v146 = &v134 - v38;
-  v39 = MEMORY[0x28223BE20](v37);
-  v145 = &v134 - v40;
-  v41 = MEMORY[0x28223BE20](v39);
-  v144 = &v134 - v42;
-  v43 = MEMORY[0x28223BE20](v41);
-  v143 = &v134 - v44;
-  v45 = MEMORY[0x28223BE20](v43);
-  v140 = (&v134 - v46);
-  v47 = MEMORY[0x28223BE20](v45);
-  v142 = &v134 - v48;
-  v49 = MEMORY[0x28223BE20](v47);
-  v141 = &v134 - v50;
-  v51 = MEMORY[0x28223BE20](v49);
-  v53 = &v134 - v52;
-  v54 = MEMORY[0x28223BE20](v51);
-  v56 = &v134 - v55;
-  v57 = MEMORY[0x28223BE20](v54);
-  v59 = &v134 - v58;
-  v60 = MEMORY[0x28223BE20](v57);
-  v62 = &v134 - v61;
-  MEMORY[0x28223BE20](v60);
-  v64 = &v134 - v63;
-  v65 = a1[3];
-  v66 = a1[4];
-  v196 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v65);
-  lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys();
-  v192 = v31;
-  v67 = v193;
+  v171 = &v128 - v11;
+  v149 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO28EmergencyCountdownCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v148 = *(v149 - 8);
+  MEMORY[0x28223BE20](v149);
+  v181 = &v128 - v12;
+  v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO29ContactConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v147 = *(v146 - 8);
+  MEMORY[0x28223BE20](v146);
+  v170 = &v128 - v13;
+  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO27AppDisambiguationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v180 = *(v145 - 8);
+  MEMORY[0x28223BE20](v145);
+  v169 = &v128 - v14;
+  v144 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO25AppConfirmationCodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v143 = *(v144 - 8);
+  MEMORY[0x28223BE20](v144);
+  v168 = &v128 - v15;
+  v179 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI0dE10DataModelsO10CodingKeys33_374FEEA39292D60DBDB1F10CD6A31427LLOGMR);
+  v183 = *(v179 - 8);
+  MEMORY[0x28223BE20](v179);
+  v17 = &v128 - v16;
+  v185 = type metadata accessor for PhoneSnippetDataModels(0);
+  v18 = MEMORY[0x28223BE20](v185);
+  v142 = &v128 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = MEMORY[0x28223BE20](v18);
+  v141 = &v128 - v21;
+  v22 = MEMORY[0x28223BE20](v20);
+  v140 = &v128 - v23;
+  v24 = MEMORY[0x28223BE20](v22);
+  v139 = &v128 - v25;
+  v26 = MEMORY[0x28223BE20](v24);
+  v138 = &v128 - v27;
+  v28 = MEMORY[0x28223BE20](v26);
+  v137 = &v128 - v29;
+  v30 = MEMORY[0x28223BE20](v28);
+  v134 = (&v128 - v31);
+  v32 = MEMORY[0x28223BE20](v30);
+  v136 = &v128 - v33;
+  v34 = MEMORY[0x28223BE20](v32);
+  v135 = &v128 - v35;
+  v36 = MEMORY[0x28223BE20](v34);
+  v38 = &v128 - v37;
+  v39 = MEMORY[0x28223BE20](v36);
+  v41 = &v128 - v40;
+  v42 = MEMORY[0x28223BE20](v39);
+  v44 = &v128 - v43;
+  v45 = MEMORY[0x28223BE20](v42);
+  v47 = &v128 - v46;
+  MEMORY[0x28223BE20](v45);
+  v49 = &v128 - v48;
+  v50 = a1[3];
+  v190 = a1;
+  v51 = __swift_project_boxed_opaque_existential_1(a1, v50);
+  lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys(v51, v52, v53);
+  v186 = v17;
+  v54 = v187;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v67)
+  if (v54)
   {
 LABEL_34:
-    v91 = v196;
-    return __swift_destroy_boxed_opaque_existential_0(v91);
+    v79 = v190;
+    return __swift_destroy_boxed_opaque_existential_0(v79);
   }
 
-  v135 = v59;
-  v136 = v62;
-  v137 = v56;
-  v138 = v53;
-  v69 = v186;
-  v68 = v187;
-  v70 = v188;
-  v193 = 0;
-  v139 = v64;
-  v71 = v190;
-  v72 = v185;
-  v73 = KeyedDecodingContainer.allKeys.getter();
-  if (*(v73 + 16) != 1 || *(v73 + 32) == 13)
+  v129 = v44;
+  v130 = v47;
+  v131 = v41;
+  v132 = v38;
+  v56 = v180;
+  v55 = v181;
+  v57 = v182;
+  v187 = 0;
+  v133 = v49;
+  v58 = v184;
+  v59 = v179;
+  v60 = KeyedDecodingContainer.allKeys.getter();
+  if (*(v60 + 16) != 1 || *(v60 + 32) == 13)
   {
-    v77 = type metadata accessor for DecodingError();
+    v66 = type metadata accessor for DecodingError();
     swift_allocError();
-    v79 = v78;
-    v80 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    v81 = v192;
-    *v79 = v191;
+    v68 = v67;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    v69 = v186;
+    *v68 = v185;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v77 - 8) + 104))(v79, *MEMORY[0x277D84160], v77);
+    (*(*(v66 - 8) + 104))(v68, *MEMORY[0x277D84160], v66);
     swift_willThrow();
-    (*(v189 + 8))(v81, v72);
+    (*(v183 + 8))(v69, v59);
 LABEL_33:
     swift_unknownObjectRelease();
     goto LABEL_34;
   }
 
-  switch(*(v73 + 32))
+  switch(*(v60 + 32))
   {
     case 1:
-      LOBYTE(v194) = 1;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys();
-      v106 = v175;
-      v107 = v192;
-      v108 = v193;
-      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v108)
-      {
-        (*(v189 + 8))(v107, v72);
-        swift_unknownObjectRelease();
-        v91 = v196;
-        return __swift_destroy_boxed_opaque_existential_0(v91);
-      }
-
-      lazy protocol witness table accessor for type AppDisambiguationModel and conformance AppDisambiguationModel();
-      v127 = v151;
-      KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v128 = v189;
-      v193 = 0;
-      (*(v69 + 8))(v106, v127);
-      (*(v128 + 8))(v192, v72);
-      swift_unknownObjectRelease();
-      v133 = v135;
-      *v135 = v194;
-      *(v133 + 1) = v195;
-      goto LABEL_39;
-    case 2:
-      LOBYTE(v194) = 2;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys();
-      v95 = v176;
-      v83 = v192;
-      v96 = v193;
-      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      LOBYTE(v188) = 1;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(v60, v61, v62);
+      v94 = v169;
+      v95 = v186;
+      v96 = v187;
+      v97 = KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       if (v96)
       {
-        goto LABEL_32;
+        (*(v183 + 8))(v95, v59);
+        swift_unknownObjectRelease();
+        v79 = v190;
+        return __swift_destroy_boxed_opaque_existential_0(v79);
       }
 
-      type metadata accessor for YesNoConfirmationModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v97 = v137;
-      v98 = v152;
+      lazy protocol witness table accessor for type AppDisambiguationModel and conformance AppDisambiguationModel(v97, v98, v99);
+      v121 = v145;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v153 + 8))(v95, v98);
-      (*(v189 + 8))(v83, v72);
+      v122 = v183;
+      v187 = 0;
+      (*(v56 + 8))(v94, v121);
+      (*(v122 + 8))(v186, v59);
       swift_unknownObjectRelease();
-      swift_storeEnumTagMultiPayload();
-      v129 = v97;
-      goto LABEL_41;
-    case 3:
-      LOBYTE(v194) = 3;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys();
-      v99 = v68;
-      v83 = v192;
-      v100 = v193;
+      v127 = v129;
+      *v129 = v188;
+      *(v127 + 1) = v189;
+      goto LABEL_39;
+    case 2:
+      LOBYTE(v188) = 2;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(v60, v61, v62);
+      v83 = v170;
+      v71 = v186;
+      v84 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v100)
+      if (v84)
       {
         goto LABEL_32;
       }
 
-      type metadata accessor for EmergencyCountdownModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type EmergencyCountdownModel and conformance EmergencyCountdownModel, type metadata accessor for EmergencyCountdownModel);
-      v101 = v138;
-      v102 = v155;
+      type metadata accessor for YesNoConfirmationModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v85 = v131;
+      v86 = v146;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v154 + 8))(v99, v102);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v147 + 8))(v83, v86);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       swift_storeEnumTagMultiPayload();
-      v130 = v139;
-      outlined init with take of SingleResultCallHistoryModel(v101, v139, type metadata accessor for PhoneSnippetDataModels);
-      v131 = v196;
-      v71 = v190;
+      v123 = v85;
+      goto LABEL_41;
+    case 3:
+      LOBYTE(v188) = 3;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(v60, v61, v62);
+      v87 = v55;
+      v71 = v186;
+      v88 = v187;
+      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      if (v88)
+      {
+        goto LABEL_32;
+      }
+
+      type metadata accessor for EmergencyCountdownModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type EmergencyCountdownModel and conformance EmergencyCountdownModel, type metadata accessor for EmergencyCountdownModel, &protocol conformance descriptor for EmergencyCountdownModel);
+      v89 = v132;
+      v90 = v149;
+      KeyedDecodingContainer.decode<A>(_:forKey:)();
+      v187 = 0;
+      (*(v148 + 8))(v87, v90);
+      (*(v183 + 8))(v71, v59);
+      swift_unknownObjectRelease();
+      swift_storeEnumTagMultiPayload();
+      v124 = v133;
+      outlined init with take of SingleResultCallHistoryModel(v89, v133, type metadata accessor for PhoneSnippetDataModels);
+      v125 = v190;
+      v58 = v184;
       goto LABEL_42;
     case 4:
-      LOBYTE(v194) = 4;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys();
-      v86 = v177;
-      v83 = v192;
-      v87 = v193;
+      LOBYTE(v188) = 4;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(v60, v61, v62);
+      v74 = v171;
+      v71 = v186;
+      v75 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v87)
+      if (v75)
       {
         goto LABEL_32;
       }
 
       type metadata accessor for ForeignEmergencyCallDisambiguationModel(0);
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationModel and conformance ForeignEmergencyCallDisambiguationModel, type metadata accessor for ForeignEmergencyCallDisambiguationModel);
-      v84 = v141;
-      v88 = v157;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationModel and conformance ForeignEmergencyCallDisambiguationModel, type metadata accessor for ForeignEmergencyCallDisambiguationModel, &protocol conformance descriptor for ForeignEmergencyCallDisambiguationModel);
+      v72 = v135;
+      v76 = v151;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v156 + 8))(v86, v88);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v150 + 8))(v74, v76);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 5:
-      LOBYTE(v194) = 5;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys();
-      v109 = v178;
-      v83 = v192;
-      v110 = v193;
+      LOBYTE(v188) = 5;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(v60, v61, v62);
+      v100 = v172;
+      v71 = v186;
+      v101 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v110)
+      if (v101)
       {
         goto LABEL_32;
       }
 
       type metadata accessor for LocalEmergencyCallDisambiguationModel(0);
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationModel and conformance LocalEmergencyCallDisambiguationModel, type metadata accessor for LocalEmergencyCallDisambiguationModel);
-      v84 = v142;
-      v111 = v159;
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationModel and conformance LocalEmergencyCallDisambiguationModel, type metadata accessor for LocalEmergencyCallDisambiguationModel, &protocol conformance descriptor for LocalEmergencyCallDisambiguationModel);
+      v72 = v136;
+      v102 = v153;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v158 + 8))(v109, v111);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v152 + 8))(v100, v102);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 6:
-      LOBYTE(v194) = 6;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys();
-      v112 = v179;
-      v83 = v192;
-      v113 = v193;
-      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v113)
-      {
-        goto LABEL_32;
-      }
-
-      lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel();
-      v114 = v161;
-      KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v115 = v189;
-      v193 = 0;
-      (*(v160 + 8))(v112, v114);
-      (*(v115 + 8))(v83, v72);
-      swift_unknownObjectRelease();
-      v132 = v195;
-      v133 = v140;
-      *v140 = v194;
-      *(v133 + 8) = v132;
-LABEL_39:
-      swift_storeEnumTagMultiPayload();
-      v129 = v133;
-      goto LABEL_41;
-    case 7:
-      LOBYTE(v194) = 7;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys();
-      v103 = v180;
-      v83 = v192;
-      v104 = v193;
-      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      LOBYTE(v188) = 6;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(v60, v61, v62);
+      v103 = v173;
+      v71 = v186;
+      v104 = v187;
+      v105 = KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       if (v104)
       {
         goto LABEL_32;
       }
 
-      type metadata accessor for YesNoConfirmationModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v84 = v143;
-      v105 = v163;
+      lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel(v105, v106, v107);
+      v108 = v155;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v162 + 8))(v103, v105);
-      (*(v189 + 8))(v83, v72);
+      v109 = v183;
+      v187 = 0;
+      (*(v154 + 8))(v103, v108);
+      (*(v109 + 8))(v71, v59);
+      swift_unknownObjectRelease();
+      v126 = v189;
+      v127 = v134;
+      *v134 = v188;
+      *(v127 + 8) = v126;
+LABEL_39:
+      swift_storeEnumTagMultiPayload();
+      v123 = v127;
+      goto LABEL_41;
+    case 7:
+      LOBYTE(v188) = 7;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(v60, v61, v62);
+      v91 = v174;
+      v71 = v186;
+      v92 = v187;
+      KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      if (v92)
+      {
+        goto LABEL_32;
+      }
+
+      type metadata accessor for YesNoConfirmationModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v72 = v137;
+      v93 = v157;
+      KeyedDecodingContainer.decode<A>(_:forKey:)();
+      v187 = 0;
+      (*(v156 + 8))(v91, v93);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 8:
-      LOBYTE(v194) = 8;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys();
-      v119 = v181;
-      v83 = v192;
-      v120 = v193;
+      LOBYTE(v188) = 8;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(v60, v61, v62);
+      v113 = v175;
+      v71 = v186;
+      v114 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v120)
+      if (v114)
       {
         goto LABEL_32;
       }
 
-      type metadata accessor for YesNoConfirmationModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v84 = v144;
-      v121 = v165;
+      type metadata accessor for YesNoConfirmationModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v72 = v138;
+      v115 = v159;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v164 + 8))(v119, v121);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v158 + 8))(v113, v115);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 9:
-      LOBYTE(v194) = 9;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys();
-      v92 = v182;
-      v83 = v192;
-      v93 = v193;
+      LOBYTE(v188) = 9;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(v60, v61, v62);
+      v80 = v176;
+      v71 = v186;
+      v81 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v93)
+      if (v81)
       {
         goto LABEL_32;
       }
 
-      type metadata accessor for SearchCallHistoryModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel);
-      v84 = v145;
-      v94 = v167;
+      type metadata accessor for SearchCallHistoryModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel, &protocol conformance descriptor for SearchCallHistoryModel);
+      v72 = v139;
+      v82 = v161;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v166 + 8))(v92, v94);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v160 + 8))(v80, v82);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 0xA:
-      LOBYTE(v194) = 10;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys();
-      v116 = v183;
-      v83 = v192;
-      v117 = v193;
+      LOBYTE(v188) = 10;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(v60, v61, v62);
+      v110 = v177;
+      v71 = v186;
+      v111 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v117)
+      if (v111)
       {
         goto LABEL_32;
       }
 
-      type metadata accessor for PlayVoicemailModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel);
-      v84 = v146;
-      v118 = v169;
+      type metadata accessor for PlayVoicemailModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel, &protocol conformance descriptor for PlayVoicemailModel);
+      v72 = v140;
+      v112 = v163;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v168 + 8))(v116, v118);
-      (*(v189 + 8))(v83, v72);
+      v187 = 0;
+      (*(v162 + 8))(v110, v112);
+      (*(v183 + 8))(v71, v59);
       swift_unknownObjectRelease();
       goto LABEL_40;
     case 0xB:
-      LOBYTE(v194) = 11;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys();
-      v83 = v192;
-      v82 = v193;
+      LOBYTE(v188) = 11;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(v60, v61, v62);
+      v71 = v186;
+      v70 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (!v82)
+      if (!v70)
       {
-        type metadata accessor for SingleResultVoicemailModel();
-        lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultVoicemailModel and conformance SingleResultVoicemailModel, type metadata accessor for SingleResultVoicemailModel);
-        v84 = v147;
-        v85 = v172;
+        type metadata accessor for SingleResultVoicemailModel(0);
+        lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultVoicemailModel and conformance SingleResultVoicemailModel, type metadata accessor for SingleResultVoicemailModel, &protocol conformance descriptor for SingleResultVoicemailModel);
+        v72 = v141;
+        v73 = v166;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
-        v193 = 0;
-        (*(v171 + 8))(v70, v85);
-        (*(v189 + 8))(v83, v72);
+        v187 = 0;
+        (*(v165 + 8))(v57, v73);
+        (*(v183 + 8))(v71, v59);
         swift_unknownObjectRelease();
         goto LABEL_40;
       }
 
 LABEL_32:
-      (*(v189 + 8))(v83, v72);
+      (*(v183 + 8))(v71, v59);
       goto LABEL_33;
     case 0xC:
-      LOBYTE(v194) = 12;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys();
-      v90 = v192;
-      v89 = v193;
+      LOBYTE(v188) = 12;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(v60, v61, v62);
+      v78 = v186;
+      v77 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v89)
+      if (v77)
       {
-        (*(v189 + 8))(v90, v72);
+        (*(v183 + 8))(v78, v59);
         swift_unknownObjectRelease();
-        v91 = v196;
-        return __swift_destroy_boxed_opaque_existential_0(v91);
+        v79 = v190;
+        return __swift_destroy_boxed_opaque_existential_0(v79);
       }
 
-      type metadata accessor for SingleResultCallHistoryModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel, type metadata accessor for SingleResultCallHistoryModel);
-      v84 = v148;
-      v123 = v170;
-      v124 = v184;
+      type metadata accessor for SingleResultCallHistoryModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel, type metadata accessor for SingleResultCallHistoryModel, &protocol conformance descriptor for SingleResultCallHistoryModel);
+      v72 = v142;
+      v117 = v164;
+      v118 = v178;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v193 = 0;
-      (*(v173 + 8))(v124, v123);
-      (*(v189 + 8))(v90, v72);
+      v187 = 0;
+      (*(v167 + 8))(v118, v117);
+      (*(v183 + 8))(v78, v59);
       swift_unknownObjectRelease();
 LABEL_40:
       swift_storeEnumTagMultiPayload();
-      v129 = v84;
+      v123 = v72;
 LABEL_41:
-      v130 = v139;
-      outlined init with take of SingleResultCallHistoryModel(v129, v139, type metadata accessor for PhoneSnippetDataModels);
-      v131 = v196;
+      v124 = v133;
+      outlined init with take of SingleResultCallHistoryModel(v123, v133, type metadata accessor for PhoneSnippetDataModels);
+      v125 = v190;
       goto LABEL_42;
     default:
-      LOBYTE(v194) = 0;
-      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys();
-      v74 = v174;
-      v76 = v192;
-      v75 = v193;
+      LOBYTE(v188) = 0;
+      lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(v60, v61, v62);
+      v63 = v168;
+      v65 = v186;
+      v64 = v187;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v75)
+      if (v64)
       {
-        (*(v189 + 8))(v76, v72);
+        (*(v183 + 8))(v65, v59);
         goto LABEL_33;
       }
 
-      type metadata accessor for YesNoConfirmationModel();
-      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel);
-      v125 = v136;
-      v126 = v150;
+      type metadata accessor for YesNoConfirmationModel(0);
+      lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(&lazy protocol witness table cache variable for type YesNoConfirmationModel and conformance YesNoConfirmationModel, type metadata accessor for YesNoConfirmationModel, &protocol conformance descriptor for YesNoConfirmationModel);
+      v119 = v130;
+      v120 = v144;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      (*(v149 + 8))(v74, v126);
-      (*(v189 + 8))(v76, v72);
+      (*(v143 + 8))(v63, v120);
+      (*(v183 + 8))(v65, v59);
       swift_unknownObjectRelease();
-      v193 = 0;
-      v131 = v196;
+      v187 = 0;
+      v125 = v190;
       swift_storeEnumTagMultiPayload();
-      v130 = v139;
-      outlined init with take of SingleResultCallHistoryModel(v125, v139, type metadata accessor for PhoneSnippetDataModels);
+      v124 = v133;
+      outlined init with take of SingleResultCallHistoryModel(v119, v133, type metadata accessor for PhoneSnippetDataModels);
 LABEL_42:
-      outlined init with take of SingleResultCallHistoryModel(v130, v71, type metadata accessor for PhoneSnippetDataModels);
-      result = __swift_destroy_boxed_opaque_existential_0(v131);
+      outlined init with take of SingleResultCallHistoryModel(v124, v58, type metadata accessor for PhoneSnippetDataModels);
+      result = __swift_destroy_boxed_opaque_existential_0(v125);
       break;
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.CodingKeys and conformance PhoneSnippetDataModels.CodingKeys)
@@ -5149,7 +4217,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.C
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys and conformance PhoneSnippetDataModels.SingleCallHistoryRecordCodingKeys)
@@ -5194,7 +4262,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.S
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.SingleVoicemailCodingKeys and conformance PhoneSnippetDataModels.SingleVoicemailCodingKeys)
@@ -5239,7 +4307,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.S
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.PlayVoicemailListCodingKeys and conformance PhoneSnippetDataModels.PlayVoicemailListCodingKeys)
@@ -5284,7 +4352,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.P
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.CallHistoryListCodingKeys and conformance PhoneSnippetDataModels.CallHistoryListCodingKeys)
@@ -5329,7 +4397,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.C
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCarPlayCodingKeys)
@@ -5374,7 +4442,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.Y
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.YesNoConfirmationCodingKeys and conformance PhoneSnippetDataModels.YesNoConfirmationCodingKeys)
@@ -5419,7 +4487,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.Y
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.StackedButtonsCodingKeys and conformance PhoneSnippetDataModels.StackedButtonsCodingKeys)
@@ -5464,7 +4532,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.S
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel()
+unint64_t lazy protocol witness table accessor for type StackedButtonsModel and conformance StackedButtonsModel(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type StackedButtonsModel and conformance StackedButtonsModel;
   if (!lazy protocol witness table cache variable for type StackedButtonsModel and conformance StackedButtonsModel)
@@ -5498,7 +4566,7 @@ unint64_t lazy protocol witness table accessor for type StackedButtonsModel and 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.LocalEmergencyCallDisambiguationCodingKeys)
@@ -5543,7 +4611,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.L
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys and conformance PhoneSnippetDataModels.ForeignEmergencyCallDisambiguationCodingKeys)
@@ -5588,7 +4656,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.F
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.EmergencyCountdownCodingKeys and conformance PhoneSnippetDataModels.EmergencyCountdownCodingKeys)
@@ -5640,7 +4708,7 @@ uint64_t outlined destroy of PhoneSnippetDataModels(uint64_t a1, uint64_t (*a2)(
   return a1;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.ContactConfirmationCodingKeys and conformance PhoneSnippetDataModels.ContactConfirmationCodingKeys)
@@ -5685,7 +4753,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.C
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.AppDisambiguationCodingKeys and conformance PhoneSnippetDataModels.AppDisambiguationCodingKeys)
@@ -5730,7 +4798,7 @@ unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.A
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys;
   if (!lazy protocol witness table cache variable for type PhoneSnippetDataModels.AppConfirmationCodingKeys and conformance PhoneSnippetDataModels.AppConfirmationCodingKeys)
@@ -5782,7 +4850,7 @@ uint64_t outlined init with take of SingleResultCallHistoryModel(uint64_t a1, ui
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SingleResultCallHistoryModel and conformance SingleResultCallHistoryModel(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5795,31 +4863,31 @@ uint64_t lazy protocol witness table accessor for type SingleResultCallHistoryMo
   return result;
 }
 
-uint64_t type metadata completion function for PhoneSnippetDataModels()
+uint64_t type metadata completion function for PhoneSnippetDataModels(uint64_t a1)
 {
-  result = type metadata accessor for YesNoConfirmationModel();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for YesNoConfirmationModel(319);
+  if (v2 <= 0x3F)
   {
-    result = type metadata accessor for EmergencyCountdownModel();
-    if (v2 <= 0x3F)
+    result = type metadata accessor for EmergencyCountdownModel(319);
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for ForeignEmergencyCallDisambiguationModel(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for LocalEmergencyCallDisambiguationModel(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
-          result = type metadata accessor for SearchCallHistoryModel();
-          if (v5 <= 0x3F)
+          result = type metadata accessor for SearchCallHistoryModel(319);
+          if (v6 <= 0x3F)
           {
-            result = type metadata accessor for PlayVoicemailModel();
-            if (v6 <= 0x3F)
+            result = type metadata accessor for PlayVoicemailModel(319);
+            if (v7 <= 0x3F)
             {
-              result = type metadata accessor for SingleResultVoicemailModel();
-              if (v7 <= 0x3F)
+              result = type metadata accessor for SingleResultVoicemailModel(319);
+              if (v8 <= 0x3F)
               {
-                result = type metadata accessor for SingleResultCallHistoryModel();
-                if (v8 <= 0x3F)
+                result = type metadata accessor for SingleResultCallHistoryModel(319);
+                if (v9 <= 0x3F)
                 {
                   swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                   return 0;
@@ -6252,30 +5320,25 @@ uint64_t specialized LoggableError.caseName.getter()
   v1 = v0;
   v2 = type metadata accessor for Mirror();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18[3] = &type metadata for PhoneSnippetUIError;
-  v18[0] = swift_allocObject();
-  outlined init with copy of PhoneSnippetUIError(v1, v18[0] + 16);
+  v5 = v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[3] = &type metadata for PhoneSnippetUIError;
+  v12[0] = swift_allocObject();
+  outlined init with copy of PhoneSnippetUIError(v1, v12[0] + 16);
   Mirror.init(reflecting:)();
-  v7 = Mirror.children.getter();
-  (*(v3 + 8))(v6, v2);
-  v8 = v7[2];
-  v9 = v7[3];
-  v10 = v7[4];
-  v11 = v7[5];
+  Mirror.children.getter();
+  (*(v3 + 8))(v5, v2);
   swift_getObjectType();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v12 = dispatch thunk of _AnyIndexBox._typeID.getter();
+  v6 = dispatch thunk of _AnyIndexBox._typeID.getter();
   swift_getObjectType();
   result = dispatch thunk of _AnyIndexBox._typeID.getter();
-  if (v12 == result)
+  if (v6 == result)
   {
-    v14 = dispatch thunk of _AnyIndexBox._isEqual(to:)();
+    v8 = dispatch thunk of _AnyIndexBox._isEqual(to:)();
     swift_unknownObjectRelease();
-    if (v14)
+    if (v8)
     {
       swift_unknownObjectRelease();
     }
@@ -6285,27 +5348,27 @@ uint64_t specialized LoggableError.caseName.getter()
       dispatch thunk of _AnyCollectionBox.subscript.getter();
       swift_unknownObjectRelease();
 
-      v16 = v19;
-      v15 = v20;
-      __swift_destroy_boxed_opaque_existential_0(v21);
-      if (v15)
+      v10 = v13;
+      v9 = v14;
+      __swift_destroy_boxed_opaque_existential_0(v15);
+      if (v9)
       {
 LABEL_6:
-        v19 = _typeName(_:qualified:)();
-        v20 = v17;
+        v13 = _typeName(_:qualified:)();
+        v14 = v11;
         MEMORY[0x25F8B7B50](46, 0xE100000000000000);
-        MEMORY[0x25F8B7B50](v16, v15);
+        MEMORY[0x25F8B7B50](v10, v9);
 
-        return v19;
+        return v13;
       }
     }
 
-    v19 = 0;
-    v20 = 0xE000000000000000;
+    v13 = 0;
+    v14 = 0xE000000000000000;
     _print_unlocked<A, B>(_:_:)();
 
-    v16 = v19;
-    v15 = v20;
+    v10 = v13;
+    v9 = v14;
     goto LABEL_6;
   }
 
@@ -6318,35 +5381,34 @@ unint64_t PhoneSnippetUIError.errorDescription.getter()
   v1 = 0xD000000000000010;
   v2 = type metadata accessor for AppIntentSpecification();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of PhoneSnippetUIError(v0, v14);
-  if (v16)
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PhoneSnippetUIError(v0, v13);
+  if (v15)
   {
-    outlined destroy of PhoneSnippetUIError(v14);
+    outlined destroy of PhoneSnippetUIError(v13);
   }
 
   else
   {
 
-    outlined init with take of AppIntentRepresentation(v14, v13);
-    v11 = 0;
-    v12 = 0xE000000000000000;
+    outlined init with take of AppIntentRepresentation(v13, v12);
+    v10 = 0;
+    v11 = 0xE000000000000000;
     _StringGuts.grow(_:)(19);
 
-    v11 = 0xD000000000000010;
-    v12 = 0x800000025E5A6BA0;
-    __swift_project_boxed_opaque_existential_1(v13, v13[3]);
+    v10 = 0xD000000000000010;
+    v11 = 0x800000025E5A6BA0;
+    __swift_project_boxed_opaque_existential_1(v12, v12[3]);
     dispatch thunk of AppIntentRepresentation.exportToSpecification()();
-    v7 = AppIntentSpecification.actionIdentifier.getter();
-    v9 = v8;
-    (*(v3 + 8))(v6, v2);
-    MEMORY[0x25F8B7B50](v7, v9);
+    v6 = AppIntentSpecification.actionIdentifier.getter();
+    v8 = v7;
+    (*(v3 + 8))(v5, v2);
+    MEMORY[0x25F8B7B50](v6, v8);
 
     MEMORY[0x25F8B7B50](41, 0xE100000000000000);
-    v1 = v11;
-    __swift_destroy_boxed_opaque_existential_0(v13);
+    v1 = v10;
+    __swift_destroy_boxed_opaque_existential_0(v12);
   }
 
   return v1;
@@ -6436,7 +5498,7 @@ uint64_t protocol witness for LoggableError.logger.getter in conformance PhoneSn
   return v4(a1, v3, v2);
 }
 
-unint64_t lazy protocol witness table accessor for type PhoneSnippetUIError and conformance PhoneSnippetUIError()
+unint64_t lazy protocol witness table accessor for type PhoneSnippetUIError and conformance PhoneSnippetUIError(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PhoneSnippetUIError and conformance PhoneSnippetUIError;
   if (!lazy protocol witness table cache variable for type PhoneSnippetUIError and conformance PhoneSnippetUIError)
@@ -6534,7 +5596,6 @@ uint64_t sub_25E56D920()
 {
   if (*(v0 + 64))
   {
-    v1 = *(v0 + 24);
   }
 
   else
@@ -6591,18 +5652,16 @@ uint64_t *PhoneStartRequestUtterances.cancelUtterance.unsafeMutableAddressor()
 
 uint64_t one-time initialization function for cancelUtterance(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5)
 {
-  v7 = type metadata accessor for MachineUtteranceBuilder();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  type metadata accessor for MachineUtteranceBuilder();
   swift_allocObject();
   MachineUtteranceBuilder.init()();
   dispatch thunk of MachineUtteranceBuilder.addMapping(node:value:)();
 
-  v10 = dispatch thunk of MachineUtteranceBuilder.build()();
-  v12 = v11;
+  v7 = dispatch thunk of MachineUtteranceBuilder.build()();
+  v9 = v8;
 
-  *a4 = v10;
-  *a5 = v12;
+  *a4 = v7;
+  *a5 = v9;
   return result;
 }
 
@@ -6616,34 +5675,29 @@ uint64_t *PhoneStartRequestUtterances.confirmUtterance.unsafeMutableAddressor()
   return &static PhoneStartRequestUtterances.confirmUtterance;
 }
 
-uint64_t static PhoneStartRequestUtterances.cancelUtterance.getter(void *a1, void *a2, void *a3)
+uint64_t static PhoneStartRequestUtterances.cancelUtterance.getter(void *a1, void *a2, void *a3, uint64_t a4)
 {
   if (*a1 != -1)
   {
     v6 = a2;
-    v7 = a3;
     swift_once();
     a2 = v6;
-    a3 = v7;
   }
 
-  v3 = *a2;
-  v4 = *a3;
+  v4 = *a2;
 
-  return v3;
+  return v4;
 }
 
 uint64_t PlayVoicemailModel.responseViewId.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t PlayVoicemailModel.responseViewId.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -6652,13 +5706,13 @@ uint64_t PlayVoicemailModel.responseViewId.setter(uint64_t a1, uint64_t a2)
 
 uint64_t PlayVoicemailModel.callRecords.getter()
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 20);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t type metadata accessor for PlayVoicemailModel()
+uint64_t type metadata accessor for PlayVoicemailModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for PlayVoicemailModel;
   if (!type metadata singleton initialization cache for PlayVoicemailModel)
@@ -6669,32 +5723,31 @@ uint64_t type metadata accessor for PlayVoicemailModel()
   return result;
 }
 
-uint64_t key path getter for PlayVoicemailModel.callRecords : PlayVoicemailModel@<X0>(void *a1@<X8>)
+void *key path getter for PlayVoicemailModel.callRecords : PlayVoicemailModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for PlayVoicemailModel() + 20);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
+  *a1 = v3;
   return result;
 }
 
 uint64_t key path setter for PlayVoicemailModel.callRecords : PlayVoicemailModel(uint64_t *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for PlayVoicemailModel() + 20);
+  type metadata accessor for PlayVoicemailModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t PlayVoicemailModel.callRecords.setter()
+uint64_t PlayVoicemailModel.callRecords.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 20);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*PlayVoicemailModel.callRecords.modify(uint64_t *a1))()
+void (*PlayVoicemailModel.callRecords.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6708,7 +5761,7 @@ uint64_t (*PlayVoicemailModel.callRecords.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for PlayVoicemailModel() + 20);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -6716,40 +5769,38 @@ uint64_t (*PlayVoicemailModel.callRecords.modify(uint64_t *a1))()
 
 uint64_t PlayVoicemailModel.voicemailTitle.getter()
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 24);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for PlayVoicemailModel.voicemailTitle : PlayVoicemailModel@<X0>(void *a1@<X8>)
+void *key path getter for PlayVoicemailModel.voicemailTitle : PlayVoicemailModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for PlayVoicemailModel() + 24);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for PlayVoicemailModel.voicemailTitle : PlayVoicemailModel(uint64_t *a1)
+uint64_t key path setter for PlayVoicemailModel.voicemailTitle : PlayVoicemailModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for PlayVoicemailModel() + 24);
+  type metadata accessor for PlayVoicemailModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t PlayVoicemailModel.voicemailTitle.setter()
+uint64_t PlayVoicemailModel.voicemailTitle.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 24);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*PlayVoicemailModel.voicemailTitle.modify(uint64_t *a1))()
+void (*PlayVoicemailModel.voicemailTitle.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6763,7 +5814,7 @@ uint64_t (*PlayVoicemailModel.voicemailTitle.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for PlayVoicemailModel() + 24);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -6771,40 +5822,38 @@ uint64_t (*PlayVoicemailModel.voicemailTitle.modify(uint64_t *a1))()
 
 uint64_t PlayVoicemailModel.openPhoneText.getter()
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 28);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for PlayVoicemailModel.openPhoneText : PlayVoicemailModel@<X0>(void *a1@<X8>)
+void *key path getter for PlayVoicemailModel.openPhoneText : PlayVoicemailModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for PlayVoicemailModel() + 28);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for PlayVoicemailModel.openPhoneText : PlayVoicemailModel(uint64_t *a1)
+uint64_t key path setter for PlayVoicemailModel.openPhoneText : PlayVoicemailModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for PlayVoicemailModel() + 28);
+  type metadata accessor for PlayVoicemailModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t PlayVoicemailModel.openPhoneText.setter()
+uint64_t PlayVoicemailModel.openPhoneText.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 28);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*PlayVoicemailModel.openPhoneText.modify(uint64_t *a1))()
+void (*PlayVoicemailModel.openPhoneText.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6818,13 +5867,13 @@ uint64_t (*PlayVoicemailModel.openPhoneText.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for PlayVoicemailModel() + 28);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.callAction.modify;
 }
 
-uint64_t property wrapper backing initializer of PlayVoicemailModel.openPhoneAction()
+uint64_t property wrapper backing initializer of PlayVoicemailModel.openPhoneAction(uint64_t a1)
 {
   type metadata accessor for SABaseCommand();
 
@@ -6833,14 +5882,14 @@ uint64_t property wrapper backing initializer of PlayVoicemailModel.openPhoneAct
 
 uint64_t PlayVoicemailModel.openPhoneAction.getter()
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 32);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.getter();
 }
 
 uint64_t key path getter for PlayVoicemailModel.openPhoneAction : PlayVoicemailModel@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *(type metadata accessor for PlayVoicemailModel() + 32);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   result = CodableAceObject.wrappedValue.getter();
   *a1 = result;
@@ -6850,20 +5899,20 @@ uint64_t key path getter for PlayVoicemailModel.openPhoneAction : PlayVoicemailM
 uint64_t key path setter for PlayVoicemailModel.openPhoneAction : PlayVoicemailModel(void **a1)
 {
   v1 = *a1;
-  v2 = *(type metadata accessor for PlayVoicemailModel() + 32);
-  v3 = v1;
+  type metadata accessor for PlayVoicemailModel(0);
+  v2 = v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t PlayVoicemailModel.openPhoneAction.setter()
+uint64_t PlayVoicemailModel.openPhoneAction.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for PlayVoicemailModel() + 32);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t (*PlayVoicemailModel.openPhoneAction.modify(uint64_t *a1))()
+void (*PlayVoicemailModel.openPhoneAction.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6877,7 +5926,7 @@ uint64_t (*PlayVoicemailModel.openPhoneAction.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for PlayVoicemailModel() + 32);
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   *(v3 + 32) = CodableAceObject.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -6908,70 +5957,61 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance PlayVo
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PlayVoicemailModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PlayVoicemailModel.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized PlayVoicemailModel.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized PlayVoicemailModel.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PlayVoicemailModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PlayVoicemailModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PlayVoicemailModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PlayVoicemailModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
 uint64_t PlayVoicemailModel.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v19 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11 - v5;
+  v7 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys(v7, v8, v9);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = *v3;
-  v12 = v3[1];
-  v24 = 0;
+  v16 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
+  if (!v1)
   {
-    v13 = type metadata accessor for PlayVoicemailModel();
-    v14 = v13[5];
-    v23 = 1;
+    type metadata accessor for PlayVoicemailModel(0);
+    v15 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
-    lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>);
+    lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v15 = v13[6];
-    v22 = 2;
+    v14 = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
+    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16 = v13[7];
-    v21 = 3;
+    v13 = 3;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v17 = v13[8];
-    v20 = 4;
+    v12 = 4;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
-    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>);
+    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63228]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-unint64_t lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys()
+unint64_t lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys;
   if (!lazy protocol witness table cache variable for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys)
@@ -7016,13 +6056,13 @@ unint64_t lazy protocol witness table accessor for type PlayVoicemailModel.Codin
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14PhoneSnippetUI20SingleVoicemailModelVGMd, &_sSay14PhoneSnippetUI20SingleVoicemailModelVGMR);
-    lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(a2, type metadata accessor for SingleVoicemailModel);
+    lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(a2, type metadata accessor for SingleVoicemailModel, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7030,102 +6070,96 @@ uint64_t lazy protocol witness table accessor for type [SingleVoicemailModel] an
   return result;
 }
 
-uint64_t PlayVoicemailModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t PlayVoicemailModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v44 = a2;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
-  v43 = *(v45 - 8);
-  v3 = *(v43 + 64);
-  MEMORY[0x28223BE20](v45);
-  v46 = v41 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  v6 = *(v5 - 8);
-  v54 = v5;
-  v55 = v6;
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = v41 - v11;
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
-  v48 = *(v50 - 8);
-  v13 = *(v48 + 64);
-  MEMORY[0x28223BE20](v50);
-  v15 = v41 - v14;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMR);
-  v16 = *(v47 - 8);
-  v17 = *(v16 + 64);
+  v41 = a2;
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
+  v40 = *(v42 - 8);
+  MEMORY[0x28223BE20](v42);
+  v43 = v38 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v5 = *(v4 - 8);
+  v51 = v4;
+  v52 = v5;
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = v38 - v9;
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
+  v45 = *(v47 - 8);
   MEMORY[0x28223BE20](v47);
-  v19 = v41 - v18;
-  v52 = type metadata accessor for PlayVoicemailModel();
-  v20 = *(*(v52 - 8) + 64);
-  MEMORY[0x28223BE20](v52);
-  v22 = (v41 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v23 = a1[3];
-  v24 = a1[4];
-  v53 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v23);
-  lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys();
-  v49 = v19;
-  v25 = v51;
+  v12 = v38 - v11;
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI18PlayVoicemailModelV10CodingKeys33_64070EAF537F7871EE15D26D9151C462LLOGMR);
+  v13 = *(v44 - 8);
+  MEMORY[0x28223BE20](v44);
+  v15 = v38 - v14;
+  v49 = type metadata accessor for PlayVoicemailModel(0);
+  MEMORY[0x28223BE20](v49);
+  v17 = (v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v18 = a1[3];
+  v50 = a1;
+  v19 = __swift_project_boxed_opaque_existential_1(a1, v18);
+  lazy protocol witness table accessor for type PlayVoicemailModel.CodingKeys and conformance PlayVoicemailModel.CodingKeys(v19, v20, v21);
+  v46 = v15;
+  v22 = v48;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v25)
+  if (v22)
   {
-    __swift_destroy_boxed_opaque_existential_0(v53);
+    __swift_destroy_boxed_opaque_existential_0(v50);
   }
 
   else
   {
-    v42 = v10;
-    v51 = v16;
-    v60 = 0;
-    *v22 = KeyedDecodingContainer.decode(_:forKey:)();
-    v22[1] = v26;
-    v41[1] = v26;
-    v59 = 1;
-    lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>);
-    v27 = v50;
+    v39 = v8;
+    v48 = v13;
+    v57 = 0;
+    *v17 = KeyedDecodingContainer.decode(_:forKey:)();
+    v17[1] = v23;
+    v38[1] = v23;
+    v56 = 1;
+    lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+    v24 = v47;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v28 = v54;
-    v29 = v52;
-    v30 = *(v52 + 20);
-    v31 = *(v48 + 32);
-    v41[0] = v22;
-    v31(v22 + v30, v15, v27);
-    v58 = 2;
-    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
-    v32 = v12;
+    v25 = v51;
+    v26 = v49;
+    v27 = *(v49 + 20);
+    v28 = *(v45 + 32);
+    v38[0] = v17;
+    v28(v17 + v27, v12, v24);
+    v55 = 2;
+    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+    v29 = v10;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v33 = *(v55 + 32);
-    v33(v41[0] + v29[6], v32, v28);
-    v57 = 3;
+    v30 = *(v52 + 32);
+    v30(v38[0] + v26[6], v29, v25);
+    v54 = 3;
+    v31 = v39;
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v32 = v48;
+    v33 = v38[0];
+    v30(v38[0] + v26[7], v31, v25);
+    v53 = 4;
+    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63230]);
     v34 = v42;
+    v35 = v43;
+    v36 = v46;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v35 = v51;
-    v36 = v41[0];
-    v33(v41[0] + v29[7], v34, v28);
-    v56 = 4;
-    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>);
-    v37 = v45;
-    v38 = v46;
-    v39 = v49;
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v35 + 8))(v39, v47);
-    (*(v43 + 32))(v36 + v29[8], v38, v37);
-    outlined init with copy of PlayVoicemailModel(v36, v44);
-    __swift_destroy_boxed_opaque_existential_0(v53);
-    return outlined destroy of PlayVoicemailModel(v36);
+    (*(v32 + 8))(v36, v44);
+    (*(v40 + 32))(v33 + v26[8], v35, v34);
+    outlined init with copy of PlayVoicemailModel(v33, v41);
+    __swift_destroy_boxed_opaque_existential_0(v50);
+    return outlined destroy of PlayVoicemailModel(v33);
   }
 }
 
-uint64_t lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Loggable<[SingleVoicemailModel]> and conformance <A> Loggable<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI20SingleVoicemailModelVGGMR);
-    lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleVoicemailModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleVoicemailModel and conformance SingleVoicemailModel);
-    lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleVoicemailModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleVoicemailModel and conformance SingleVoicemailModel);
+    lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleVoicemailModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleVoicemailModel and conformance SingleVoicemailModel, &protocol conformance descriptor for SingleVoicemailModel, MEMORY[0x277D83978]);
+    lazy protocol witness table accessor for type [SingleVoicemailModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleVoicemailModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleVoicemailModel and conformance SingleVoicemailModel, &protocol conformance descriptor for SingleVoicemailModel, MEMORY[0x277D83948]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7133,7 +6167,7 @@ uint64_t lazy protocol witness table accessor for type Loggable<[SingleVoicemail
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -7148,31 +6182,27 @@ uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseCo
 
 uint64_t outlined init with copy of PlayVoicemailModel(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PlayVoicemailModel();
+  v4 = type metadata accessor for PlayVoicemailModel(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of PlayVoicemailModel(uint64_t a1)
 {
-  v2 = type metadata accessor for PlayVoicemailModel();
+  v2 = type metadata accessor for PlayVoicemailModel(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t PlayVoicemailModel.init(responseViewId:callRecords:voicemailTitle:openPhoneText:openPhoneAction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t PlayVoicemailModel.init(responseViewId:callRecords:voicemailTitle:openPhoneText:openPhoneAction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a9@<X8>)
 {
-  *a3 = a1;
-  a3[1] = a2;
-  v3 = type metadata accessor for PlayVoicemailModel();
-  v4 = v3[5];
+  *a9 = a1;
+  a9[1] = a2;
+  type metadata accessor for PlayVoicemailModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14PhoneSnippetUI20SingleVoicemailModelVGMd, &_sSay14PhoneSnippetUI20SingleVoicemailModelVGMR);
   Loggable.init(wrappedValue:)();
-  v5 = v3[6];
   Loggable.init(wrappedValue:)();
-  v6 = v3[7];
   Loggable.init(wrappedValue:)();
-  v7 = v3[8];
   type metadata accessor for SABaseCommand();
   return CodableAceObject.init(wrappedValue:)();
 }
@@ -7180,19 +6210,18 @@ uint64_t PlayVoicemailModel.init(responseViewId:callRecords:voicemailTitle:openP
 uint64_t protocol witness for PhoneSnippetModel.responseViewId.getter in conformance PlayVoicemailModel()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t instantiation function for generic protocol witness table for PlayVoicemailModel(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel);
+  result = lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(&lazy protocol witness table cache variable for type PlayVoicemailModel and conformance PlayVoicemailModel, type metadata accessor for PlayVoicemailModel, &protocol conformance descriptor for PlayVoicemailModel);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SingleVoicemailModel and conformance SingleVoicemailModel(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7283,16 +6312,16 @@ LABEL_7:
   return v15(v16, a2, a2, v14);
 }
 
-void type metadata completion function for PlayVoicemailModel()
+void type metadata completion function for PlayVoicemailModel(uint64_t a1)
 {
-  type metadata accessor for Loggable<[SingleVoicemailModel]>();
-  if (v0 <= 0x3F)
+  type metadata accessor for Loggable<[SingleVoicemailModel]>(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Loggable<String>();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for CodableAceObject<SABaseCommand>();
-      if (v2 <= 0x3F)
+      type metadata accessor for CodableAceObject<SABaseCommand>(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -7300,15 +6329,15 @@ void type metadata completion function for PlayVoicemailModel()
   }
 }
 
-void type metadata accessor for Loggable<[SingleVoicemailModel]>()
+void type metadata accessor for Loggable<[SingleVoicemailModel]>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Loggable<[SingleVoicemailModel]>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14PhoneSnippetUI20SingleVoicemailModelVGMd, &_sSay14PhoneSnippetUI20SingleVoicemailModelVGMR);
-    v0 = type metadata accessor for Loggable();
-    if (!v1)
+    v1 = type metadata accessor for Loggable();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Loggable<[SingleVoicemailModel]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Loggable<[SingleVoicemailModel]>);
     }
   }
 }
@@ -7325,15 +6354,15 @@ void type metadata accessor for Loggable<String>()
   }
 }
 
-void type metadata accessor for CodableAceObject<SABaseCommand>()
+void type metadata accessor for CodableAceObject<SABaseCommand>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CodableAceObject<SABaseCommand>)
   {
     type metadata accessor for SABaseCommand();
-    v0 = type metadata accessor for CodableAceObject();
-    if (!v1)
+    v1 = type metadata accessor for CodableAceObject();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CodableAceObject<SABaseCommand>);
+      atomic_store(v1, &lazy cache variable for type metadata for CodableAceObject<SABaseCommand>);
     }
   }
 }
@@ -7394,7 +6423,7 @@ uint64_t SearchCallHistoryBinaryButtonModel.primaryText.getter()
   return v1;
 }
 
-uint64_t (*SearchCallHistoryBinaryButtonModel.primaryText.modify(uint64_t *a1))()
+void (*SearchCallHistoryBinaryButtonModel.primaryText.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7413,7 +6442,7 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.primaryText.modify(uint64_t *a1))(
   return EmergencyCountdownModel.callAction.modify;
 }
 
-uint64_t property wrapper backing initializer of SearchCallHistoryBinaryButtonModel.primaryAction()
+uint64_t property wrapper backing initializer of SearchCallHistoryBinaryButtonModel.primaryAction(uint64_t a1)
 {
   type metadata accessor for SABaseClientBoundCommand();
 
@@ -7435,12 +6464,12 @@ unint64_t type metadata accessor for SABaseClientBoundCommand()
 
 uint64_t SearchCallHistoryBinaryButtonModel.primaryAction.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 20);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.getter();
 }
 
-uint64_t type metadata accessor for SearchCallHistoryBinaryButtonModel()
+uint64_t type metadata accessor for SearchCallHistoryBinaryButtonModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SearchCallHistoryBinaryButtonModel;
   if (!type metadata singleton initialization cache for SearchCallHistoryBinaryButtonModel)
@@ -7453,7 +6482,7 @@ uint64_t type metadata accessor for SearchCallHistoryBinaryButtonModel()
 
 uint64_t key path getter for SearchCallHistoryBinaryButtonModel.primaryAction : SearchCallHistoryBinaryButtonModel@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 20);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   result = CodableAceObject.wrappedValue.getter();
   *a1 = result;
@@ -7463,20 +6492,20 @@ uint64_t key path getter for SearchCallHistoryBinaryButtonModel.primaryAction : 
 uint64_t key path setter for SearchCallHistoryBinaryButtonModel.primaryAction : SearchCallHistoryBinaryButtonModel(void **a1)
 {
   v1 = *a1;
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 20);
-  v3 = v1;
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
+  v2 = v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryBinaryButtonModel.primaryAction.setter()
+uint64_t SearchCallHistoryBinaryButtonModel.primaryAction.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 20);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryBinaryButtonModel.primaryAction.modify(uint64_t *a1))()
+void (*SearchCallHistoryBinaryButtonModel.primaryAction.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7490,7 +6519,7 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.primaryAction.modify(uint64_t *a1)
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 20);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   *(v3 + 32) = CodableAceObject.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -7498,40 +6527,38 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.primaryAction.modify(uint64_t *a1)
 
 uint64_t SearchCallHistoryBinaryButtonModel.secondaryText.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryBinaryButtonModel.secondaryText : SearchCallHistoryBinaryButtonModel@<X0>(void *a1@<X8>)
+void *key path getter for SearchCallHistoryBinaryButtonModel.secondaryText : SearchCallHistoryBinaryButtonModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for SearchCallHistoryBinaryButtonModel.secondaryText : SearchCallHistoryBinaryButtonModel(uint64_t *a1)
+uint64_t key path setter for SearchCallHistoryBinaryButtonModel.secondaryText : SearchCallHistoryBinaryButtonModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryBinaryButtonModel.secondaryText.setter()
+uint64_t SearchCallHistoryBinaryButtonModel.secondaryText.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryText.modify(uint64_t *a1))()
+void (*SearchCallHistoryBinaryButtonModel.secondaryText.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7545,7 +6572,7 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryText.modify(uint64_t *a1)
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -7553,14 +6580,14 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryText.modify(uint64_t *a1)
 
 uint64_t SearchCallHistoryBinaryButtonModel.secondaryAction.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 28);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.getter();
 }
 
 uint64_t key path getter for SearchCallHistoryBinaryButtonModel.secondaryAction : SearchCallHistoryBinaryButtonModel@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 28);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   result = CodableAceObject.wrappedValue.getter();
   *a1 = result;
@@ -7570,20 +6597,20 @@ uint64_t key path getter for SearchCallHistoryBinaryButtonModel.secondaryAction 
 uint64_t key path setter for SearchCallHistoryBinaryButtonModel.secondaryAction : SearchCallHistoryBinaryButtonModel(void **a1)
 {
   v1 = *a1;
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 28);
-  v3 = v1;
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
+  v2 = v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryBinaryButtonModel.secondaryAction.setter()
+uint64_t SearchCallHistoryBinaryButtonModel.secondaryAction.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 28);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryAction.modify(uint64_t *a1))()
+void (*SearchCallHistoryBinaryButtonModel.secondaryAction.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7597,7 +6624,7 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryAction.modify(uint64_t *a
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 28);
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   *(v3 + 32) = CodableAceObject.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -7605,37 +6632,30 @@ uint64_t (*SearchCallHistoryBinaryButtonModel.secondaryAction.modify(uint64_t *a
 
 uint64_t SearchCallHistoryBinaryButtonModel.responseViewId.getter()
 {
-  v1 = (v0 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 32));
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(v0 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel(0) + 32));
 
-  return v2;
+  return v1;
 }
 
 uint64_t SearchCallHistoryBinaryButtonModel.responseViewId.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 32));
-  v6 = v5[1];
+  v5 = (v2 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel(0) + 32));
 
   *v5 = a1;
   v5[1] = a2;
   return result;
 }
 
-void SearchCallHistoryBinaryButtonModel.init(primaryText:primaryAction:secondaryText:secondaryAction:)(void *a1@<X2>, uint64_t a2@<X8>)
+void SearchCallHistoryBinaryButtonModel.init(primaryText:primaryAction:secondaryText:secondaryAction:)(void *a3@<X2>, uint64_t a7@<X8>)
 {
-  v4 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
-  v5 = (a2 + v4[8]);
-  *v5 = 0xD000000000000021;
-  v5[1] = 0x800000025E5A6180;
+  v8 = (a7 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel(0) + 32));
+  *v8 = 0xD000000000000021;
+  v8[1] = 0x800000025E5A6180;
   Loggable.init(wrappedValue:)();
-  v6 = v4[5];
   type metadata accessor for SABaseClientBoundCommand();
-  v7 = a1;
+  v9 = a3;
   CodableAceObject.init(wrappedValue:)();
-  v8 = v4[6];
   Loggable.init(wrappedValue:)();
-  v9 = a2 + v4[7];
   CodableAceObject.init(wrappedValue:)();
 }
 
@@ -7671,25 +6691,25 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Search
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchCallHistoryBinaryButtonModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchCallHistoryBinaryButtonModel.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized SearchCallHistoryBinaryButtonModel.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized SearchCallHistoryBinaryButtonModel.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchCallHistoryBinaryButtonModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchCallHistoryBinaryButtonModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchCallHistoryBinaryButtonModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchCallHistoryBinaryButtonModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
 uint64_t SearchCallHistoryBinaryButtonModel.encode(to:)(void *a1)
@@ -7697,48 +6717,39 @@ uint64_t SearchCallHistoryBinaryButtonModel.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = v23 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys();
+  v8 = v17 - v7;
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys(v9, v10, v11);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v30 = 0;
+  v22 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
+  lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v25 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
-    v11 = v25[5];
-    v29 = 1;
+    v17[3] = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
+    v21 = 1;
     v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
-    v13 = lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>);
+    v13 = lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63228]);
     v14 = v3;
     v15 = v13;
-    v24 = v14;
+    v17[2] = v14;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v23[0] = v15;
-    v23[1] = v12;
-    v16 = v24;
-    v17 = v25[6];
-    v28 = 2;
+    v17[0] = v15;
+    v17[1] = v12;
+    v20 = 2;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v18 = v25[7];
-    v27 = 3;
+    v19 = 3;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v19 = (v16 + v25[8]);
-    v20 = *v19;
-    v21 = v19[1];
-    v26 = 4;
+    v18 = 4;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v6 + 8))(v8, v5);
 }
 
-unint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys()
+unint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys;
   if (!lazy protocol witness table cache variable for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys)
@@ -7783,95 +6794,90 @@ unint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryB
   return result;
 }
 
-uint64_t SearchCallHistoryBinaryButtonModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t SearchCallHistoryBinaryButtonModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v50 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
-  v52 = *(v57 - 8);
-  v3 = *(v52 + 64);
-  v4 = MEMORY[0x28223BE20](v57);
-  v51 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v54 = &v43 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  v53 = *(v7 - 8);
-  v8 = *(v53 + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v55 = &v43 - v12;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMR);
-  v56 = *(v59 - 8);
-  v13 = *(v56 + 64);
-  MEMORY[0x28223BE20](v59);
-  v15 = &v43 - v14;
-  v16 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16);
-  v19 = &v43 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys();
-  v58 = v15;
-  v21 = v60;
+  v48 = a2;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
+  v50 = *(v55 - 8);
+  v3 = MEMORY[0x28223BE20](v55);
+  v49 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v52 = &v41 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v51 = *(v6 - 8);
+  v7 = MEMORY[0x28223BE20](v6);
+  v9 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v53 = &v41 - v10;
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI34SearchCallHistoryBinaryButtonModelV10CodingKeys33_AADF14F654E464EFF47F7DF097AB64CALLOGMR);
+  v54 = *(v57 - 8);
+  MEMORY[0x28223BE20](v57);
+  v12 = &v41 - v11;
+  v13 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
+  MEMORY[0x28223BE20](v13);
+  v15 = &v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel.CodingKeys and conformance SearchCallHistoryBinaryButtonModel.CodingKeys(v16, v17, v18);
+  v56 = v12;
+  v19 = v58;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v21)
+  if (v19)
   {
     return __swift_destroy_boxed_opaque_existential_0(a1);
   }
 
-  v22 = v54;
-  v48 = v11;
-  v49 = v16;
-  v23 = v19;
-  v60 = a1;
-  v24 = v57;
-  v65 = 0;
-  v25 = lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
-  v26 = v55;
+  v20 = v52;
+  v46 = v9;
+  v47 = v13;
+  v21 = v15;
+  v58 = a1;
+  v22 = v55;
+  v63 = 0;
+  v23 = lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+  v24 = v53;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v45 = v25;
-  v27 = v7;
-  v28 = *(v53 + 32);
-  v47 = v23;
-  v28(v23, v26, v27);
-  v64 = 1;
-  lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>);
-  v29 = v22;
-  v30 = v24;
+  v43 = v23;
+  v25 = v6;
+  v26 = *(v51 + 32);
+  v45 = v21;
+  v26(v21, v24, v25);
+  v62 = 1;
+  lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63230]);
+  v27 = v20;
+  v28 = v22;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v46 = v27;
-  v44 = v28;
-  v31 = (v52 + 32);
-  v32 = *(v52 + 32);
-  v32(v47 + v49[5], v29, v30);
-  v63 = 2;
-  v33 = v48;
-  v55 = 0;
+  v44 = v25;
+  v42 = v26;
+  v29 = (v50 + 32);
+  v30 = *(v50 + 32);
+  v30(v45 + v47[5], v27, v28);
+  v61 = 2;
+  v31 = v46;
+  v53 = 0;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v45 = v32;
-  v54 = v31;
-  v44(v47 + v49[6], v33, v27);
-  v62 = 3;
-  v34 = v51;
+  v43 = v30;
+  v52 = v29;
+  v42(v45 + v47[6], v31, v25);
+  v60 = 3;
+  v32 = v49;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v35 = v30;
-  v36 = v56;
-  v37 = v47;
-  v45(v47 + v49[7], v34, v35);
-  v61 = 4;
-  v38 = KeyedDecodingContainer.decode(_:forKey:)();
-  v40 = v39;
-  v41 = (v37 + v49[8]);
-  (*(v36 + 8))(v58, v59);
-  *v41 = v38;
-  v41[1] = v40;
-  outlined init with copy of SearchCallHistoryBinaryButtonModel(v37, v50);
-  __swift_destroy_boxed_opaque_existential_0(v60);
-  return outlined destroy of SearchCallHistoryBinaryButtonModel(v37);
+  v33 = v28;
+  v34 = v54;
+  v35 = v45;
+  v43(v45 + v47[7], v32, v33);
+  v59 = 4;
+  v36 = KeyedDecodingContainer.decode(_:forKey:)();
+  v38 = v37;
+  v39 = (v35 + v47[8]);
+  (*(v34 + 8))(v56, v57);
+  *v39 = v36;
+  v39[1] = v38;
+  outlined init with copy of SearchCallHistoryBinaryButtonModel(v35, v48);
+  __swift_destroy_boxed_opaque_existential_0(v58);
+  return outlined destroy of SearchCallHistoryBinaryButtonModel(v35);
 }
 
-uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseClientBoundCommand> and conformance CodableAceObject<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -7886,31 +6892,31 @@ uint64_t lazy protocol witness table accessor for type CodableAceObject<SABaseCl
 
 uint64_t outlined init with copy of SearchCallHistoryBinaryButtonModel(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
+  v4 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of SearchCallHistoryBinaryButtonModel(uint64_t a1)
 {
-  v2 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
+  v2 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t instantiation function for generic protocol witness table for SearchCallHistoryBinaryButtonModel(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel(&lazy protocol witness table cache variable for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel);
+  result = lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel(&lazy protocol witness table cache variable for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel, &protocol conformance descriptor for SearchCallHistoryBinaryButtonModel);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryButtonModel and conformance SearchCallHistoryBinaryButtonModel(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for SearchCallHistoryBinaryButtonModel();
+    type metadata accessor for SearchCallHistoryBinaryButtonModel(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7918,7 +6924,7 @@ uint64_t lazy protocol witness table accessor for type SearchCallHistoryBinaryBu
   return result;
 }
 
-uint64_t sub_25E5717B8@<X0>(void *a1@<X8>)
+void *sub_25E5717B8@<X0>(void *a1@<X8>)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
@@ -7989,28 +6995,28 @@ uint64_t sub_25E571974(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v11(v12, a2, a2, v10);
 }
 
-void type metadata completion function for SearchCallHistoryBinaryButtonModel()
+void type metadata completion function for SearchCallHistoryBinaryButtonModel(uint64_t a1)
 {
   type metadata accessor for Loggable<String>();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for CodableAceObject<SABaseClientBoundCommand>();
-    if (v1 <= 0x3F)
+    type metadata accessor for CodableAceObject<SABaseClientBoundCommand>(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for CodableAceObject<SABaseClientBoundCommand>()
+void type metadata accessor for CodableAceObject<SABaseClientBoundCommand>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CodableAceObject<SABaseClientBoundCommand>)
   {
     type metadata accessor for SABaseClientBoundCommand();
-    v0 = type metadata accessor for CodableAceObject();
-    if (!v1)
+    v1 = type metadata accessor for CodableAceObject();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CodableAceObject<SABaseClientBoundCommand>);
+      atomic_store(v1, &lazy cache variable for type metadata for CodableAceObject<SABaseClientBoundCommand>);
     }
   }
 }
@@ -8067,23 +7073,21 @@ uint64_t specialized SearchCallHistoryBinaryButtonModel.CodingKeys.init(stringVa
 uint64_t key path setter for SearchCallHistoryBinaryButtonView.actionHandler : SearchCallHistoryBinaryButtonView(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = MEMORY[0x28223BE20](v2 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v10 - v7;
-  outlined init with copy of StandardActionHandler?(a1, &v10 - v7);
-  outlined init with copy of StandardActionHandler?(v8, v6);
+  v3 = MEMORY[0x28223BE20](v2 - 8);
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v7 = &v9 - v6;
+  outlined init with copy of StandardActionHandler?(a1, &v9 - v6);
+  outlined init with copy of StandardActionHandler?(v7, v5);
   ActionHandler.wrappedValue.setter();
-  return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v8, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
+  return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v7, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
 }
 
 uint64_t SearchCallHistoryBinaryButtonView.actionHandler.setter(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  outlined init with copy of StandardActionHandler?(a1, &v6 - v4);
+  outlined init with copy of StandardActionHandler?(a1, &v5 - v3);
   ActionHandler.wrappedValue.setter();
   return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(a1, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
 }
@@ -8105,7 +7109,7 @@ void (*SearchCallHistoryBinaryButtonView.actionHandler.modify(uint64_t *a1))(voi
   return AppDescription.rskeCommand.modify;
 }
 
-uint64_t type metadata accessor for SearchCallHistoryBinaryButtonView()
+uint64_t type metadata accessor for SearchCallHistoryBinaryButtonView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SearchCallHistoryBinaryButtonView;
   if (!type metadata singleton initialization cache for SearchCallHistoryBinaryButtonView)
@@ -8119,107 +7123,97 @@ uint64_t type metadata accessor for SearchCallHistoryBinaryButtonView()
 uint64_t SearchCallHistoryBinaryButtonView.init(model:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   ActionHandler.init()();
-  v4 = type metadata accessor for SearchCallHistoryBinaryButtonView();
+  v4 = type metadata accessor for SearchCallHistoryBinaryButtonView(0);
   return outlined init with take of SearchCallHistoryBinaryButtonModel(a1, a2 + *(v4 + 20), type metadata accessor for SearchCallHistoryBinaryButtonModel);
 }
 
 uint64_t SearchCallHistoryBinaryButtonView.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = v1;
-  v20[1] = a1;
-  v3 = type metadata accessor for SearchCallHistoryBinaryButtonView();
-  v4 = v3 - 8;
-  v5 = *(v3 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = v20 - v10;
-  v12 = SearchCallHistoryBinaryButtonView.primaryButton.getter();
-  v13 = MEMORY[0x277D63A58];
-  v20[10] = MEMORY[0x277CE11D0];
-  v20[11] = MEMORY[0x277D63A58];
-  v20[7] = v12;
-  v14 = *(v4 + 28);
-  v15 = v2 + *(type metadata accessor for SearchCallHistoryBinaryButtonModel() + 24);
+  v18[1] = a1;
+  v2 = type metadata accessor for SearchCallHistoryBinaryButtonView(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x28223BE20](v2);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v18 - v7;
+  v9 = SearchCallHistoryBinaryButtonView.primaryButton.getter();
+  v10 = MEMORY[0x277D63A58];
+  v18[10] = MEMORY[0x277CE11D0];
+  v18[11] = MEMORY[0x277D63A58];
+  v18[7] = v9;
+  type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  outlined init with copy of SearchCallHistoryBinaryButtonModel(v2, v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for SearchCallHistoryBinaryButtonView);
-  v16 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v17 = swift_allocObject();
-  outlined init with take of SearchCallHistoryBinaryButtonModel(v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v17 + v16, type metadata accessor for SearchCallHistoryBinaryButtonView);
-  lazy protocol witness table accessor for type String and conformance String();
+  outlined init with copy of SearchCallHistoryBinaryButtonModel(v1, v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for SearchCallHistoryBinaryButtonView);
+  v11 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v12 = swift_allocObject();
+  v13 = outlined init with take of SearchCallHistoryBinaryButtonModel(v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v12 + v11, type metadata accessor for SearchCallHistoryBinaryButtonView);
+  lazy protocol witness table accessor for type String and conformance String(v13, v14, v15);
   Button<>.init<A>(_:action:)();
   lazy protocol witness table accessor for type Button<Text> and conformance Button<A>();
-  v18 = View.eraseToAnyView()();
-  (*(v8 + 8))(v11, v7);
-  v20[6] = v13;
-  v20[5] = MEMORY[0x277CE11D0];
-  v20[2] = v18;
+  v16 = View.eraseToAnyView()();
+  (*(v6 + 8))(v8, v5);
+  v18[6] = v10;
+  v18[5] = MEMORY[0x277CE11D0];
+  v18[2] = v16;
   return BinaryButtonView.init(primaryButton:secondaryButton:)();
 }
 
 uint64_t SearchCallHistoryBinaryButtonView.primaryButton.getter()
 {
-  v1 = v0;
-  v30 = type metadata accessor for ButtonItemButtonStyle.Role();
-  v2 = *(v30 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v30);
-  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SearchCallHistoryBinaryButtonView();
-  v7 = v6 - 8;
-  v8 = *(v6 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
-  v27 = *(v10 - 8);
-  v11 = *(v27 + 64);
+  v27 = type metadata accessor for ButtonItemButtonStyle.Role();
+  v1 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v3 = &v24 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for SearchCallHistoryBinaryButtonView(0);
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 64);
+  MEMORY[0x28223BE20](v4);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
+  v24 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v24 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E10buttonRoleyQrAD010ButtonItemG5StyleV0F0OFQOyAA0G0VyAA4TextVG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E10buttonRoleyQrAD010ButtonItemG5StyleV0F0OFQOyAA0G0VyAA4TextVG_Qo_MR);
+  v11 = *(v10 - 8);
+  v25 = v10;
+  v26 = v11;
   MEMORY[0x28223BE20](v10);
-  v13 = &v27 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E10buttonRoleyQrAD010ButtonItemG5StyleV0F0OFQOyAA0G0VyAA4TextVG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E10buttonRoleyQrAD010ButtonItemG5StyleV0F0OFQOyAA0G0VyAA4TextVG_Qo_MR);
-  v15 = *(v14 - 8);
-  v28 = v14;
-  v29 = v15;
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  v18 = &v27 - v17;
-  v19 = *(v7 + 28);
+  v13 = &v24 - v12;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  outlined init with copy of SearchCallHistoryBinaryButtonModel(v1, &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for SearchCallHistoryBinaryButtonView);
-  v20 = (*(v8 + 80) + 16) & ~*(v8 + 80);
-  v21 = swift_allocObject();
-  outlined init with take of SearchCallHistoryBinaryButtonModel(&v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v21 + v20, type metadata accessor for SearchCallHistoryBinaryButtonView);
-  lazy protocol witness table accessor for type String and conformance String();
+  outlined init with copy of SearchCallHistoryBinaryButtonModel(v0, &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for SearchCallHistoryBinaryButtonView);
+  v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+  v15 = swift_allocObject();
+  v16 = outlined init with take of SearchCallHistoryBinaryButtonModel(&v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v15 + v14, type metadata accessor for SearchCallHistoryBinaryButtonView);
+  lazy protocol witness table accessor for type String and conformance String(v16, v17, v18);
   Button<>.init<A>(_:action:)();
-  v22 = v30;
-  (*(v2 + 104))(v5, *MEMORY[0x277D63A98], v30);
-  v23 = lazy protocol witness table accessor for type Button<Text> and conformance Button<A>();
+  v19 = v27;
+  (*(v1 + 104))(v3, *MEMORY[0x277D63A98], v27);
+  v20 = lazy protocol witness table accessor for type Button<Text> and conformance Button<A>();
   View.buttonRole(_:)();
-  (*(v2 + 8))(v5, v22);
-  (*(v27 + 8))(v13, v10);
-  v31 = v10;
-  v32 = v23;
+  (*(v1 + 8))(v3, v19);
+  (*(v24 + 8))(v9, v7);
+  v28 = v7;
+  v29 = v20;
   swift_getOpaqueTypeConformance2();
-  v24 = v28;
-  v25 = View.eraseToAnyView()();
-  (*(v29 + 8))(v18, v24);
-  return v25;
+  v21 = v25;
+  v22 = View.eraseToAnyView()();
+  (*(v26 + 8))(v13, v21);
+  return v22;
 }
 
-void SearchCallHistoryBinaryButtonView.command(for:)(uint64_t a1@<X8>)
+void SearchCallHistoryBinaryButtonView.command(for:)(uint64_t a2@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryBinaryButtonView() + 20);
+  type metadata accessor for SearchCallHistoryBinaryButtonView(0);
   swift_getAtKeyPath();
   v3 = [v23 dictionary];
 
   if (v3)
   {
     type metadata accessor for NSObject();
-    lazy protocol witness table accessor for type NSObject and conformance NSObject(&lazy protocol witness table cache variable for type NSObject and conformance NSObject, type metadata accessor for NSObject);
+    lazy protocol witness table accessor for type NSObject and conformance NSObject(&lazy protocol witness table cache variable for type NSObject and conformance NSObject, type metadata accessor for NSObject, MEMORY[0x277D85378]);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     v5 = objc_opt_self();
@@ -8251,8 +7245,8 @@ void SearchCallHistoryBinaryButtonView.command(for:)(uint64_t a1@<X8>)
         MEMORY[0x25F8B8670](v15, -1, -1);
       }
 
-      *a1 = v9;
-      *(a1 + 8) = 0;
+      *a2 = v9;
+      *(a2 + 8) = 0;
       v16 = MEMORY[0x277D63750];
     }
 
@@ -8276,14 +7270,14 @@ void SearchCallHistoryBinaryButtonView.command(for:)(uint64_t a1@<X8>)
       }
 
       swift_getAtKeyPath();
-      *a1 = v23;
-      *(a1 + 8) = 0;
+      *a2 = v23;
+      *(a2 + 8) = 0;
       v16 = MEMORY[0x277D63720];
     }
 
     v21 = *v16;
     v22 = type metadata accessor for Command();
-    (*(*(v22 - 8) + 104))(a1, v21, v22);
+    (*(*(v22 - 8) + 104))(a2, v21, v22);
   }
 
   else
@@ -8292,65 +7286,62 @@ void SearchCallHistoryBinaryButtonView.command(for:)(uint64_t a1@<X8>)
   }
 }
 
-uint64_t closure #1 in SearchCallHistoryBinaryButtonView.primaryButton.getter(uint64_t a1, const char *a2)
+uint64_t closure #1 in SearchCallHistoryBinaryButtonView.primaryButton.getter(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI15InteractionTypeOSgMd, &_s9SnippetUI15InteractionTypeOSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v28 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI15InteractionTypeOSgMd, &_s9SnippetUI15InteractionTypeOSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v26 - v5;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14ActionPropertyVSgMd, "6~");
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v28 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v28 - v13;
+  v9 = &v26 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v26 - v11;
   if (one-time initialization token for phoneSnippetUI != -1)
   {
     swift_once();
   }
 
-  v15 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v15, static Logger.phoneSnippetUI);
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v16, v17))
+  v13 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v13, static Logger.phoneSnippetUI);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    _os_log_impl(&dword_25E523000, v16, v17, a2, v18, 2u);
-    MEMORY[0x25F8B8670](v18, -1, -1);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&dword_25E523000, v14, v15, a2, v16, 2u);
+    MEMORY[0x25F8B8670](v16, -1, -1);
   }
 
   ActionHandler.wrappedValue.getter();
-  v19 = type metadata accessor for StandardActionHandler();
-  v20 = *(v19 - 8);
-  if ((*(v20 + 48))(v14, 1, v19) == 1)
+  v17 = type metadata accessor for StandardActionHandler();
+  v18 = *(v17 - 8);
+  if ((*(v18 + 48))(v12, 1, v17) == 1)
   {
-    return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v14, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
+    return outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v12, &_s9SnippetUI21StandardActionHandlerVSgMd, &_s9SnippetUI21StandardActionHandlerVSgMR);
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit24ActionElementConvertible_pGMd, "6~");
-  v22 = swift_allocObject();
-  *(v22 + 16) = xmmword_25E59F720;
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_25E59F720;
   swift_getKeyPath();
-  v23 = type metadata accessor for Command();
-  v24 = MEMORY[0x277D63778];
-  *(v22 + 56) = v23;
-  *(v22 + 64) = v24;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v22 + 32));
+  v21 = type metadata accessor for Command();
+  v22 = MEMORY[0x277D63778];
+  *(v20 + 56) = v21;
+  *(v20 + 64) = v22;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v20 + 32));
   SearchCallHistoryBinaryButtonView.command(for:)(boxed_opaque_existential_1);
 
   ActionProperty.init(_:)();
-  v26 = type metadata accessor for ActionProperty();
-  (*(*(v26 - 8) + 56))(v10, 0, 1, v26);
-  v27 = type metadata accessor for InteractionType();
-  (*(*(v27 - 8) + 56))(v6, 1, 1, v27);
+  v24 = type metadata accessor for ActionProperty();
+  (*(*(v24 - 8) + 56))(v9, 0, 1, v24);
+  v25 = type metadata accessor for InteractionType();
+  (*(*(v25 - 8) + 56))(v6, 1, 1, v25);
   StandardActionHandler.perform(_:interactionType:)();
   outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v6, &_s9SnippetUI15InteractionTypeOSgMd, &_s9SnippetUI15InteractionTypeOSgMR);
-  outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v10, &_s10SnippetKit14ActionPropertyVSgMd, "6~");
-  return (*(v20 + 8))(v14, v19);
+  outlined destroy of ModifiedContent<ComponentStack<TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)>>, _AppearanceActionModifier>(v9, &_s10SnippetKit14ActionPropertyVSgMd, "6~");
+  return (*(v18 + 8))(v12, v17);
 }
 
 uint64_t outlined init with copy of SearchCallHistoryBinaryButtonModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
@@ -8460,74 +7451,74 @@ LABEL_13:
   v13 = v3 + 64;
 
   v15 = 0;
-  v34 = v8;
+  v31 = v8;
   while ((v8 & 0x8000000000000000) != 0)
   {
-    v26 = __CocoaDictionary.Iterator.next()();
-    if (!v26 || (*&v35 = v26, type metadata accessor for NSObject(), swift_dynamicCast(), v25 = v39, v19 = v15, v21 = v7, !v39))
+    v23 = __CocoaDictionary.Iterator.next()();
+    if (!v23 || (*&v32 = v23, type metadata accessor for NSObject(), swift_dynamicCast(), v22 = v36, v19 = v15, v21 = v7, !v36))
     {
 LABEL_36:
-      outlined consume of [NSObject : Swift.AnyObject].Iterator._Variant();
+      outlined consume of [NSObject : Swift.AnyObject].Iterator._Variant(v31);
 
       return v3;
     }
 
 LABEL_27:
-    *&v43[0] = v25;
+    *&v40[0] = v22;
     type metadata accessor for NSObject();
     swift_dynamicCast();
     swift_dynamicCast();
-    v39 = v35;
-    v40 = v36;
-    v41 = v37;
-    outlined init with take of Any(&v38, v42);
-    v35 = v39;
-    v36 = v40;
-    v37 = v41;
-    outlined init with take of Any(v42, v43);
+    v36 = v32;
+    v37 = v33;
+    v38 = v34;
+    outlined init with take of Any(&v35, v39);
+    v32 = v36;
+    v33 = v37;
+    v34 = v38;
+    outlined init with take of Any(v39, v40);
     result = AnyHashable._rawHashValue(seed:)(*(v3 + 40));
-    v27 = -1 << *(v3 + 32);
-    v28 = result & ~v27;
-    v29 = v28 >> 6;
-    if (((-1 << v28) & ~*(v13 + 8 * (v28 >> 6))) != 0)
+    v24 = -1 << *(v3 + 32);
+    v25 = result & ~v24;
+    v26 = v25 >> 6;
+    if (((-1 << v25) & ~*(v13 + 8 * (v25 >> 6))) != 0)
     {
-      v16 = __clz(__rbit64((-1 << v28) & ~*(v13 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
-      v8 = v34;
+      v16 = __clz(__rbit64((-1 << v25) & ~*(v13 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
+      v8 = v31;
     }
 
     else
     {
-      v30 = 0;
-      v31 = (63 - v27) >> 6;
-      v8 = v34;
+      v27 = 0;
+      v28 = (63 - v24) >> 6;
+      v8 = v31;
       do
       {
-        if (++v29 == v31 && (v30 & 1) != 0)
+        if (++v26 == v28 && (v27 & 1) != 0)
         {
           __break(1u);
           goto LABEL_37;
         }
 
-        v32 = v29 == v31;
-        if (v29 == v31)
+        v29 = v26 == v28;
+        if (v26 == v28)
         {
-          v29 = 0;
+          v26 = 0;
         }
 
-        v30 |= v32;
-        v33 = *(v13 + 8 * v29);
+        v27 |= v29;
+        v30 = *(v13 + 8 * v26);
       }
 
-      while (v33 == -1);
-      v16 = __clz(__rbit64(~v33)) + (v29 << 6);
+      while (v30 == -1);
+      v16 = __clz(__rbit64(~v30)) + (v26 << 6);
     }
 
     *(v13 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
     v17 = *(v3 + 48) + 40 * v16;
-    *v17 = v35;
-    *(v17 + 16) = v36;
-    *(v17 + 32) = v37;
-    result = outlined init with take of Any(v43, (*(v3 + 56) + 32 * v16));
+    *v17 = v32;
+    *(v17 + 16) = v33;
+    *(v17 + 32) = v34;
+    result = outlined init with take of Any(v40, (*(v3 + 56) + 32 * v16));
     ++*(v3 + 16);
     v15 = v19;
     v7 = v21;
@@ -8539,12 +7530,9 @@ LABEL_27:
   {
 LABEL_23:
     v21 = (v18 - 1) & v18;
-    v22 = (v19 << 9) | (8 * __clz(__rbit64(v18)));
-    v23 = *(*(v8 + 48) + v22);
-    v24 = *(*(v8 + 56) + v22);
-    v25 = v23;
+    v22 = *(*(v8 + 48) + ((v19 << 9) | (8 * __clz(__rbit64(v18)))));
     swift_unknownObjectRetain();
-    if (!v25)
+    if (!v22)
     {
       goto LABEL_36;
     }
@@ -8570,7 +7558,7 @@ LABEL_23:
     ++v20;
     if (v18)
     {
-      v8 = v34;
+      v8 = v31;
       goto LABEL_23;
     }
   }
@@ -8593,7 +7581,7 @@ uint64_t sub_25E573470(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
+    v10 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -8614,7 +7602,7 @@ uint64_t sub_25E573574(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
+    v12 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -8622,13 +7610,13 @@ uint64_t sub_25E573574(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t type metadata completion function for SearchCallHistoryBinaryButtonView()
+uint64_t type metadata completion function for SearchCallHistoryBinaryButtonView(uint64_t a1)
 {
   result = type metadata accessor for ActionHandler();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    result = type metadata accessor for SearchCallHistoryBinaryButtonModel();
-    if (v2 <= 0x3F)
+    result = type metadata accessor for SearchCallHistoryBinaryButtonModel(319);
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -8638,7 +7626,7 @@ uint64_t type metadata completion function for SearchCallHistoryBinaryButtonView
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NSObject and conformance NSObject(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NSObject and conformance NSObject(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8653,33 +7641,30 @@ uint64_t lazy protocol witness table accessor for type NSObject and conformance 
 
 uint64_t objectdestroyTm_7()
 {
-  v1 = (type metadata accessor for SearchCallHistoryBinaryButtonView() - 8);
-  v12 = (*(*v1 + 80) + 16) & ~*(*v1 + 80);
-  v13 = *(*v1 + 64);
+  v1 = (type metadata accessor for SearchCallHistoryBinaryButtonView(0) - 8);
+  v11 = (*(*v1 + 80) + 16) & ~*(*v1 + 80);
   v2 = type metadata accessor for ActionHandler();
-  (*(*(v2 - 8) + 8))(v0 + v12, v2);
-  v3 = v0 + v12 + v1[7];
+  (*(*(v2 - 8) + 8))(v0 + v11, v2);
+  v3 = v0 + v11 + v1[7];
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   v5 = *(*(v4 - 8) + 8);
   v5(v3, v4);
-  v6 = type metadata accessor for SearchCallHistoryBinaryButtonModel();
+  v6 = type metadata accessor for SearchCallHistoryBinaryButtonModel(0);
   v7 = v6[5];
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo24SABaseClientBoundCommandCGMR);
   v9 = *(*(v8 - 8) + 8);
   v9(v3 + v7, v8);
   v5(v3 + v6[6], v4);
   v9(v3 + v6[7], v8);
-  v10 = *(v3 + v6[8] + 8);
 
   return swift_deallocObject();
 }
 
-uint64_t static ViewBuilder.buildEither<A, B>(second:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t static ViewBuilder.buildEither<A, B>(second:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = type metadata accessor for _ConditionalContent.Storage();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5);
-  (*(*(a3 - 8) + 16))(&v9 - v7, a1, a3);
+  v7 = type metadata accessor for _ConditionalContent.Storage();
+  MEMORY[0x28223BE20](v7);
+  (*(*(a3 - 8) + 16))(&v10 - v8, a1, a3);
   swift_storeEnumTagMultiPayload();
   return _ConditionalContent<>.init(storage:)();
 }
@@ -8693,80 +7678,76 @@ uint64_t PhoneComponentStack.init(content:)()
 
 uint64_t PhoneComponentStack.body.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  v37 = a3;
-  v38 = a4;
-  v36 = a2;
-  v41 = a7;
+  v34 = a3;
+  v35 = a4;
+  v33 = a2;
+  v38 = a7;
   v10 = type metadata accessor for ComponentStack();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x28223BE20](v10);
-  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v36 - v16;
-  v18 = type metadata accessor for VStack();
-  v19 = type metadata accessor for _ConditionalContent();
-  v20 = *(v19 - 8);
-  v39 = v19;
-  v40 = v20;
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
-  v23 = &v36 - v22;
-  v24 = swift_allocObject();
-  v24[2] = a5;
-  v24[3] = a6;
-  v25 = a1;
-  v27 = v36;
-  v26 = v37;
-  v24[4] = a1;
-  v24[5] = v27;
-  v28 = v38;
-  v24[6] = v26;
-  v24[7] = v28;
-  v29 = v25;
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v33 - v15;
+  v17 = type metadata accessor for VStack();
+  v18 = type metadata accessor for _ConditionalContent();
+  v19 = *(v18 - 8);
+  v36 = v18;
+  v37 = v19;
+  MEMORY[0x28223BE20](v18);
+  v21 = &v33 - v20;
+  v22 = swift_allocObject();
+  v22[2] = a5;
+  v22[3] = a6;
+  v23 = a1;
+  v25 = v33;
+  v24 = v34;
+  v22[4] = a1;
+  v22[5] = v25;
+  v26 = v35;
+  v22[6] = v24;
+  v22[7] = v26;
+  v27 = v23;
 
   ComponentStack.init(content:)();
   WitnessTable = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v15, v10, WitnessTable);
-  v31 = *(v11 + 8);
-  v31(v15, v10);
-  static ViewBuilder.buildExpression<A>(_:)(v17, v10, WitnessTable);
-  v32 = swift_getWitnessTable();
-  static ViewBuilder.buildEither<A, B>(second:)(v15, v18, v10);
-  v31(v15, v10);
-  v31(v17, v10);
-  v42 = v32;
-  v43 = WitnessTable;
-  v33 = v39;
-  v34 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v23, v33, v34);
-  return (*(v40 + 8))(v23, v33);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v29 = *(v11 + 8);
+  v29(v14, v10);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v30 = swift_getWitnessTable();
+  static ViewBuilder.buildEither<A, B>(second:)(v14, v17, v10, v30, WitnessTable);
+  v29(v14, v10);
+  v29(v16, v10);
+  v39 = v30;
+  v40 = WitnessTable;
+  v31 = v36;
+  swift_getWitnessTable();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v37 + 8))(v21, v31);
 }
 
-uint64_t closure #2 in PhoneComponentStack.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t closure #2 in PhoneComponentStack.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = *(a5 - 8);
-  v9 = *(v8 + 64);
-  v10 = (MEMORY[0x28223BE20])();
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x28223BE20](v10);
-  v15 = &v19 - v14;
-  v16(v13);
-  static ViewBuilder.buildExpression<A>(_:)(v12, a5, a6);
-  v17 = *(v8 + 8);
-  v17(v12, a5);
-  static ViewBuilder.buildExpression<A>(_:)(v15, a5, a6);
-  return (v17)(v15, a5);
+  v6 = *(a5 - 8);
+  v7 = MEMORY[0x28223BE20](a1);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v7);
+  v12 = &v16 - v11;
+  v13(v10);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v14 = *(v6 + 8);
+  v14(v9, a5);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v14)(v12, a5);
 }
 
 uint64_t sub_25E573FCC()
 {
-  v1 = *(v0 + 56);
 
   return swift_deallocObject();
 }
 
-uint64_t type metadata instantiation function for PhoneComponentStack()
+uint64_t type metadata instantiation function for PhoneComponentStack(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8832,10 +7813,8 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_25E57415C(uint64_t *a1)
+uint64_t sub_25E57415C(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for VStack();
   type metadata accessor for ComponentStack();
   type metadata accessor for _ConditionalContent();
@@ -8847,14 +7826,12 @@ uint64_t sub_25E57415C(uint64_t *a1)
 uint64_t SearchCallHistoryModel.responseViewId.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t SearchCallHistoryModel.responseViewId.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -8863,13 +7840,13 @@ uint64_t SearchCallHistoryModel.responseViewId.setter(uint64_t a1, uint64_t a2)
 
 uint64_t SearchCallHistoryModel.appId.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 20);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t type metadata accessor for SearchCallHistoryModel()
+uint64_t type metadata accessor for SearchCallHistoryModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SearchCallHistoryModel;
   if (!type metadata singleton initialization cache for SearchCallHistoryModel)
@@ -8880,34 +7857,32 @@ uint64_t type metadata accessor for SearchCallHistoryModel()
   return result;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.appId : SearchCallHistoryModel@<X0>(void *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.appId : SearchCallHistoryModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 20);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for SearchCallHistoryModel.appId : SearchCallHistoryModel(uint64_t *a1)
+uint64_t key path setter for SearchCallHistoryModel.appId : SearchCallHistoryModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 20);
+  type metadata accessor for SearchCallHistoryModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.appId.setter()
+uint64_t SearchCallHistoryModel.appId.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 20);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.appId.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.appId.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8921,7 +7896,7 @@ uint64_t (*SearchCallHistoryModel.appId.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 20);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -8929,38 +7904,37 @@ uint64_t (*SearchCallHistoryModel.appId.modify(uint64_t *a1))()
 
 uint64_t SearchCallHistoryModel.callRecords.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 24);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.callRecords : SearchCallHistoryModel@<X0>(void *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.callRecords : SearchCallHistoryModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 24);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
+  *a1 = v3;
   return result;
 }
 
 uint64_t key path setter for SearchCallHistoryModel.callRecords : SearchCallHistoryModel(uint64_t *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 24);
+  type metadata accessor for SearchCallHistoryModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.callRecords.setter()
+uint64_t SearchCallHistoryModel.callRecords.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 24);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.callRecords.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.callRecords.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8974,7 +7948,7 @@ uint64_t (*SearchCallHistoryModel.callRecords.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 24);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -8982,40 +7956,38 @@ uint64_t (*SearchCallHistoryModel.callRecords.modify(uint64_t *a1))()
 
 uint64_t SearchCallHistoryModel.recentsText.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 28);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.recentsText : SearchCallHistoryModel@<X0>(void *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.recentsText : SearchCallHistoryModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 28);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for SearchCallHistoryModel.recentsText : SearchCallHistoryModel(uint64_t *a1)
+uint64_t key path setter for SearchCallHistoryModel.recentsText : SearchCallHistoryModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 28);
+  type metadata accessor for SearchCallHistoryModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.recentsText.setter()
+uint64_t SearchCallHistoryModel.recentsText.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 28);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.recentsText.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.recentsText.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9029,7 +8001,7 @@ uint64_t (*SearchCallHistoryModel.recentsText.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 28);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -9037,40 +8009,38 @@ uint64_t (*SearchCallHistoryModel.recentsText.modify(uint64_t *a1))()
 
 uint64_t SearchCallHistoryModel.openPhoneText.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.openPhoneText : SearchCallHistoryModel@<X0>(void *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.openPhoneText : SearchCallHistoryModel@<X0>(void *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
-  a1[1] = v5;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-uint64_t key path setter for SearchCallHistoryModel.openPhoneText : SearchCallHistoryModel(uint64_t *a1)
+uint64_t key path setter for SearchCallHistoryModel.openPhoneText : SearchCallHistoryModel(void *a1)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.openPhoneText.setter()
+uint64_t SearchCallHistoryModel.openPhoneText.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.openPhoneText.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.openPhoneText.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9084,7 +8054,7 @@ uint64_t (*SearchCallHistoryModel.openPhoneText.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.callAction.modify;
@@ -9092,37 +8062,36 @@ uint64_t (*SearchCallHistoryModel.openPhoneText.modify(uint64_t *a1))()
 
 uint64_t SearchCallHistoryModel.shouldShowBottomView.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 36);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.shouldShowBottomView : SearchCallHistoryModel@<X0>(_BYTE *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.shouldShowBottomView : SearchCallHistoryModel@<X0>(_BYTE *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 36);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
+  *a1 = v3;
   return result;
 }
 
 uint64_t key path setter for SearchCallHistoryModel.shouldShowBottomView : SearchCallHistoryModel(char *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 36);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.shouldShowBottomView.setter()
+uint64_t SearchCallHistoryModel.shouldShowBottomView.setter(char a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 36);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.shouldShowBottomView.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.shouldShowBottomView.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9136,7 +8105,7 @@ uint64_t (*SearchCallHistoryModel.shouldShowBottomView.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 36);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -9144,37 +8113,36 @@ uint64_t (*SearchCallHistoryModel.shouldShowBottomView.modify(uint64_t *a1))()
 
 uint64_t SearchCallHistoryModel.shouldReactOpenContact.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 40);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   Loggable.wrappedValue.getter();
-  return v2;
+  return v1;
 }
 
-uint64_t key path getter for SearchCallHistoryModel.shouldReactOpenContact : SearchCallHistoryModel@<X0>(_BYTE *a1@<X8>)
+void *key path getter for SearchCallHistoryModel.shouldReactOpenContact : SearchCallHistoryModel@<X0>(_BYTE *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 40);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   result = Loggable.wrappedValue.getter();
-  *a1 = v4;
+  *a1 = v3;
   return result;
 }
 
 uint64_t key path setter for SearchCallHistoryModel.shouldReactOpenContact : SearchCallHistoryModel(char *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for SearchCallHistoryModel() + 40);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.shouldReactOpenContact.setter()
+uint64_t SearchCallHistoryModel.shouldReactOpenContact.setter(char a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 40);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   return Loggable.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.shouldReactOpenContact.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.shouldReactOpenContact.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9188,13 +8156,13 @@ uint64_t (*SearchCallHistoryModel.shouldReactOpenContact.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 40);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
   *(v3 + 32) = Loggable.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
 }
 
-uint64_t property wrapper backing initializer of SearchCallHistoryModel.openPhoneAction()
+uint64_t property wrapper backing initializer of SearchCallHistoryModel.openPhoneAction(uint64_t a1)
 {
   type metadata accessor for SABaseCommand();
 
@@ -9203,14 +8171,14 @@ uint64_t property wrapper backing initializer of SearchCallHistoryModel.openPhon
 
 uint64_t SearchCallHistoryModel.openPhoneAction.getter()
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 44);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.getter();
 }
 
 uint64_t key path getter for SearchCallHistoryModel.openPhoneAction : SearchCallHistoryModel@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 44);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   result = CodableAceObject.wrappedValue.getter();
   *a1 = result;
@@ -9220,20 +8188,20 @@ uint64_t key path getter for SearchCallHistoryModel.openPhoneAction : SearchCall
 uint64_t key path setter for SearchCallHistoryModel.openPhoneAction : SearchCallHistoryModel(void **a1)
 {
   v1 = *a1;
-  v2 = *(type metadata accessor for SearchCallHistoryModel() + 44);
-  v3 = v1;
+  type metadata accessor for SearchCallHistoryModel(0);
+  v2 = v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t SearchCallHistoryModel.openPhoneAction.setter()
+uint64_t SearchCallHistoryModel.openPhoneAction.setter(uint64_t a1)
 {
-  v0 = *(type metadata accessor for SearchCallHistoryModel() + 44);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   return CodableAceObject.wrappedValue.setter();
 }
 
-uint64_t (*SearchCallHistoryModel.openPhoneAction.modify(uint64_t *a1))()
+void (*SearchCallHistoryModel.openPhoneAction.modify(uint64_t *a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9247,7 +8215,7 @@ uint64_t (*SearchCallHistoryModel.openPhoneAction.modify(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for SearchCallHistoryModel() + 44);
+  type metadata accessor for SearchCallHistoryModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
   *(v3 + 32) = CodableAceObject.wrappedValue.modify();
   return EmergencyCountdownModel.sashTitle.modify;
@@ -9301,83 +8269,70 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance Searc
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchCallHistoryModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchCallHistoryModel.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized SearchCallHistoryModel.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized SearchCallHistoryModel.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchCallHistoryModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchCallHistoryModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE718](a1, v2);
+  return MEMORY[0x2821FE718](a1, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchCallHistoryModel.CodingKeys(uint64_t a1)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchCallHistoryModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys();
+  v4 = lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys(a1, a2, a3);
 
-  return MEMORY[0x2821FE720](a1, v2);
+  return MEMORY[0x2821FE720](a1, v4);
 }
 
 uint64_t SearchCallHistoryModel.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v23 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMd, &_ss22KeyedEncodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = v12 - v5;
+  v7 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys(v7, v8, v9);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = *v3;
-  v12 = v3[1];
-  v32 = 0;
+  v20 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
+  if (!v1)
   {
-    v13 = type metadata accessor for SearchCallHistoryModel();
-    v14 = *(v13 + 20);
-    v31 = 1;
+    v10 = type metadata accessor for SearchCallHistoryModel(0);
+    v19 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
+    lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v24 = v13;
-    v15 = *(v13 + 24);
-    v30 = 2;
+    v12[1] = v10;
+    v18 = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
-    lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>);
+    lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16 = v24;
-    v17 = v24[7];
-    v29 = 3;
+    v17 = 3;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v18 = v16[8];
-    v28 = 4;
+    v16 = 4;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v19 = v16[9];
-    v27 = 5;
+    v15 = 5;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
-    lazy protocol witness table accessor for type Loggable<Bool> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<Bool> and conformance <A> Loggable<A>);
+    lazy protocol witness table accessor for type Loggable<Bool> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<Bool> and conformance <A> Loggable<A>, MEMORY[0x277D637D0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v20 = v16[10];
-    v26 = 6;
+    v14 = 6;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v21 = v16[11];
-    v25 = 7;
+    v13 = 7;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
-    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>);
+    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63228]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-unint64_t lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys()
+unint64_t lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys;
   if (!lazy protocol witness table cache variable for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys)
@@ -9422,13 +8377,13 @@ unint64_t lazy protocol witness table accessor for type SearchCallHistoryModel.C
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14PhoneSnippetUI21SingleCallRecordModelVGMd, &_sSay14PhoneSnippetUI21SingleCallRecordModelVGMR);
-    lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(a2, type metadata accessor for SingleCallRecordModel);
+    lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(a2, type metadata accessor for SingleCallRecordModel, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9436,132 +8391,125 @@ uint64_t lazy protocol witness table accessor for type [SingleCallRecordModel] a
   return result;
 }
 
-uint64_t SearchCallHistoryModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t SearchCallHistoryModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v62 = a2;
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
-  v61 = *(v63 - 8);
-  v3 = *(v61 + 64);
-  MEMORY[0x28223BE20](v63);
-  v64 = v56 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
-  v6 = *(v5 - 8);
-  v74 = v5;
-  v75 = v6;
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v65 = v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v66 = v56 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
-  v70 = *(v11 - 8);
-  v71 = v11;
-  v12 = *(v70 + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = v56 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
-  v16 = *(v15 - 8);
-  v76 = v15;
-  v77 = v16;
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = v56 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = v56 - v22;
-  MEMORY[0x28223BE20](v21);
-  v25 = v56 - v24;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMR);
-  v68 = *(v26 - 8);
-  v69 = v26;
-  v27 = *(v68 + 64);
-  MEMORY[0x28223BE20](v26);
-  v29 = v56 - v28;
-  v79 = type metadata accessor for SearchCallHistoryModel();
-  v30 = *(*(v79 - 1) + 64);
-  MEMORY[0x28223BE20](v79);
-  v78 = (v56 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v32 = a1[3];
-  v33 = a1[4];
-  v73 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v32);
-  lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys();
-  v67 = v29;
-  v34 = v72;
+  v58 = a2;
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
+  v57 = *(v59 - 8);
+  MEMORY[0x28223BE20](v59);
+  v60 = v52 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
+  v5 = *(v4 - 8);
+  v70 = v4;
+  v71 = v5;
+  v6 = MEMORY[0x28223BE20](v4);
+  v61 = v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v62 = v52 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
+  v66 = *(v9 - 8);
+  v67 = v9;
+  MEMORY[0x28223BE20](v9);
+  v11 = v52 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v13 = *(v12 - 8);
+  v72 = v12;
+  v73 = v13;
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = v52 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x28223BE20](v14);
+  v19 = v52 - v18;
+  MEMORY[0x28223BE20](v17);
+  v21 = v52 - v20;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMd, &_ss22KeyedDecodingContainerVy14PhoneSnippetUI22SearchCallHistoryModelV10CodingKeys33_5601A6582648817F6EF546A177F3ABBALLOGMR);
+  v64 = *(v22 - 8);
+  v65 = v22;
+  MEMORY[0x28223BE20](v22);
+  v24 = v52 - v23;
+  v75 = type metadata accessor for SearchCallHistoryModel(0);
+  MEMORY[0x28223BE20](v75);
+  v74 = (v52 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v26 = a1[3];
+  v69 = a1;
+  v27 = __swift_project_boxed_opaque_existential_1(a1, v26);
+  lazy protocol witness table accessor for type SearchCallHistoryModel.CodingKeys and conformance SearchCallHistoryModel.CodingKeys(v27, v28, v29);
+  v63 = v24;
+  v30 = v68;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v34)
+  if (v30)
   {
-    __swift_destroy_boxed_opaque_existential_0(v73);
+    __swift_destroy_boxed_opaque_existential_0(v69);
   }
 
   else
   {
-    v72 = v23;
-    v60 = v20;
-    v87 = 0;
-    v35 = KeyedDecodingContainer.decode(_:forKey:)();
-    v36 = v78;
-    *v78 = v35;
-    v36[1] = v37;
-    v59 = v37;
-    v86 = 1;
-    v38 = lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>);
-    v39 = v76;
+    v68 = v19;
+    v56 = v16;
+    v83 = 0;
+    v31 = KeyedDecodingContainer.decode(_:forKey:)();
+    v32 = v74;
+    *v74 = v31;
+    v32[1] = v33;
+    v55 = v33;
+    v82 = 1;
+    v34 = lazy protocol witness table accessor for type Loggable<String> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<String> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+    v35 = v72;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v58 = v38;
-    v40 = v77 + 32;
-    v41 = v36 + v79[5];
-    v57 = *(v77 + 32);
-    v57(v41, v25, v39);
-    v85 = 2;
-    lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>);
-    v42 = v71;
+    v54 = v34;
+    v36 = v73 + 32;
+    v37 = v32 + v75[5];
+    v53 = *(v73 + 32);
+    v53(v37, v21, v35);
+    v81 = 2;
+    lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+    v38 = v67;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v43 = v74;
-    v56[1] = v40;
-    (*(v70 + 32))(v36 + v79[6], v14, v42);
-    v84 = 3;
-    v44 = v72;
+    v39 = v70;
+    v52[1] = v36;
+    (*(v66 + 32))(v32 + v75[6], v11, v38);
+    v80 = 3;
+    v40 = v68;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v45 = v57;
-    v57(v36 + v79[7], v44, v39);
-    v83 = 4;
-    v46 = v60;
+    v41 = v53;
+    v53(v32 + v75[7], v40, v35);
+    v79 = 4;
+    v42 = v56;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v47 = v36;
-    v45(v36 + v79[8], v46, v39);
-    v82 = 5;
-    lazy protocol witness table accessor for type Loggable<Bool> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<Bool> and conformance <A> Loggable<A>);
-    v48 = v66;
+    v43 = v32;
+    v41(v32 + v75[8], v42, v35);
+    v78 = 5;
+    lazy protocol witness table accessor for type Loggable<Bool> and conformance <A> Loggable<A>(&lazy protocol witness table cache variable for type Loggable<Bool> and conformance <A> Loggable<A>, MEMORY[0x277D637E0]);
+    v44 = v62;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v49 = v79;
-    v50 = *(v75 + 32);
-    v50(v47 + v79[9], v48, v43);
-    v81 = 6;
-    v51 = v65;
+    v45 = v75;
+    v46 = *(v71 + 32);
+    v46(v43 + v75[9], v44, v39);
+    v77 = 6;
+    v47 = v61;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v50(v47 + v49[10], v51, v43);
-    v80 = 7;
-    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>);
-    v52 = v63;
-    v53 = v64;
-    v54 = v67;
+    v46(v43 + v45[10], v47, v39);
+    v76 = 7;
+    lazy protocol witness table accessor for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAceObject<SABaseCommand> and conformance CodableAceObject<A>, MEMORY[0x277D63230]);
+    v48 = v59;
+    v49 = v60;
+    v50 = v63;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v68 + 8))(v54, v69);
-    (*(v61 + 32))(v47 + v49[11], v53, v52);
-    outlined init with copy of SearchCallHistoryModel(v47, v62);
-    __swift_destroy_boxed_opaque_existential_0(v73);
-    return outlined destroy of SearchCallHistoryModel(v47);
+    (*(v64 + 8))(v50, v65);
+    (*(v57 + 32))(v43 + v45[11], v49, v48);
+    outlined init with copy of SearchCallHistoryModel(v43, v58);
+    __swift_destroy_boxed_opaque_existential_0(v69);
+    return outlined destroy of SearchCallHistoryModel(v43);
   }
 }
 
-uint64_t lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Loggable<[SingleCallRecordModel]> and conformance <A> Loggable<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
-    lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleCallRecordModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleCallRecordModel and conformance SingleCallRecordModel);
-    lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleCallRecordModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleCallRecordModel and conformance SingleCallRecordModel);
+    lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleCallRecordModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleCallRecordModel and conformance SingleCallRecordModel, &protocol conformance descriptor for SingleCallRecordModel, MEMORY[0x277D83978]);
+    lazy protocol witness table accessor for type [SingleCallRecordModel] and conformance <A> [A](&lazy protocol witness table cache variable for type [SingleCallRecordModel] and conformance <A> [A], &lazy protocol witness table cache variable for type SingleCallRecordModel and conformance SingleCallRecordModel, &protocol conformance descriptor for SingleCallRecordModel, MEMORY[0x277D83948]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9571,49 +8519,42 @@ uint64_t lazy protocol witness table accessor for type Loggable<[SingleCallRecor
 
 uint64_t outlined init with copy of SearchCallHistoryModel(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for SearchCallHistoryModel();
+  v4 = type metadata accessor for SearchCallHistoryModel(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of SearchCallHistoryModel(uint64_t a1)
 {
-  v2 = type metadata accessor for SearchCallHistoryModel();
+  v2 = type metadata accessor for SearchCallHistoryModel(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t SearchCallHistoryModel.init(responseViewId:appId:callRecords:recentsText:openPhoneText:shouldShowBottomView:shouldReactOpenContact:openPhoneAction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t SearchCallHistoryModel.init(responseViewId:appId:callRecords:recentsText:openPhoneText:shouldShowBottomView:shouldReactOpenContact:openPhoneAction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a9@<X8>, uint64_t a10, char a11, char a12, uint64_t a13)
 {
-  *a3 = a1;
-  a3[1] = a2;
-  v3 = type metadata accessor for SearchCallHistoryModel();
-  v4 = v3[5];
+  *a9 = a1;
+  a9[1] = a2;
+  type metadata accessor for SearchCallHistoryModel(0);
   Loggable.init(wrappedValue:)();
-  v5 = v3[6];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14PhoneSnippetUI21SingleCallRecordModelVGMd, &_sSay14PhoneSnippetUI21SingleCallRecordModelVGMR);
   Loggable.init(wrappedValue:)();
-  v6 = v3[7];
   Loggable.init(wrappedValue:)();
-  v7 = v3[8];
   Loggable.init(wrappedValue:)();
-  v8 = v3[9];
   Loggable.init(wrappedValue:)();
-  v9 = v3[10];
   Loggable.init(wrappedValue:)();
-  v10 = v3[11];
   type metadata accessor for SABaseCommand();
   return CodableAceObject.init(wrappedValue:)();
 }
 
 uint64_t instantiation function for generic protocol witness table for SearchCallHistoryModel(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel);
+  result = lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(&lazy protocol witness table cache variable for type SearchCallHistoryModel and conformance SearchCallHistoryModel, type metadata accessor for SearchCallHistoryModel, &protocol conformance descriptor for SearchCallHistoryModel);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SingleCallRecordModel and conformance SingleCallRecordModel(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9722,19 +8663,19 @@ LABEL_9:
   return v16(v17, a2, a2, v15);
 }
 
-void type metadata completion function for SearchCallHistoryModel()
+void type metadata completion function for SearchCallHistoryModel(uint64_t a1)
 {
-  type metadata accessor for Loggable<String>(319, &lazy cache variable for type metadata for Loggable<String>);
-  if (v0 <= 0x3F)
+  type metadata accessor for Loggable<String>(319, &lazy cache variable for type metadata for Loggable<String>, MEMORY[0x277D837D0]);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Loggable<[SingleCallRecordModel]>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Loggable<[SingleCallRecordModel]>(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Loggable<String>(319, &lazy cache variable for type metadata for Loggable<Bool>);
-      if (v2 <= 0x3F)
+      type metadata accessor for Loggable<String>(319, &lazy cache variable for type metadata for Loggable<Bool>, MEMORY[0x277D839B0]);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for CodableAceObject<SABaseCommand>();
-        if (v3 <= 0x3F)
+        type metadata accessor for CodableAceObject<SABaseCommand>(319);
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9743,15 +8684,15 @@ void type metadata completion function for SearchCallHistoryModel()
   }
 }
 
-void type metadata accessor for Loggable<[SingleCallRecordModel]>()
+void type metadata accessor for Loggable<[SingleCallRecordModel]>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Loggable<[SingleCallRecordModel]>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14PhoneSnippetUI21SingleCallRecordModelVGMd, &_sSay14PhoneSnippetUI21SingleCallRecordModelVGMR);
-    v0 = type metadata accessor for Loggable();
-    if (!v1)
+    v1 = type metadata accessor for Loggable();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Loggable<[SingleCallRecordModel]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Loggable<[SingleCallRecordModel]>);
     }
   }
 }
@@ -9916,4 +8857,1013 @@ LABEL_20:
   }
 
   return result;
+}
+
+uint64_t specialized SearchCallHistoryModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x65736E6F70736572 && a2 == 0xEE00644977656956;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x6449707061 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x6F6365526C6C6163 && a2 == 0xEB00000000736472 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x5473746E65636572 && a2 == 0xEB00000000747865 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 3;
+  }
+
+  else if (a1 == 0x6E6F68506E65706FLL && a2 == 0xED00007478655465 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 4;
+  }
+
+  else if (a1 == 0xD000000000000014 && 0x800000025E5A6BE0 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 5;
+  }
+
+  else if (a1 == 0xD000000000000016 && 0x800000025E5A6C00 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 6;
+  }
+
+  else if (a1 == 0x6E6F68506E65706FLL && a2 == 0xEF6E6F6974634165)
+  {
+
+    return 7;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 7;
+    }
+
+    else
+    {
+      return 8;
+    }
+  }
+}
+
+uint64_t YesNoConfirmationCarPlayView.body.getter()
+{
+  v1 = type metadata accessor for YesNoConfirmationCarPlayView(0);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 64);
+  MEMORY[0x28223BE20](v1 - 8);
+  outlined init with copy of YesNoConfirmationModel(v0, &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for YesNoConfirmationCarPlayView);
+  v4 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v5 = swift_allocObject();
+  outlined init with take of YesNoConfirmationModel(&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v5 + v4, type metadata accessor for YesNoConfirmationCarPlayView);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMR);
+  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(SystemTextClarificationTitleView?, YesNoConfirmationView)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMR, MEMORY[0x277CE14C8]);
+  return ComponentStack.init(content:)();
+}
+
+uint64_t type metadata accessor for YesNoConfirmationCarPlayView(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for YesNoConfirmationCarPlayView;
+  if (!type metadata singleton initialization cache for YesNoConfirmationCarPlayView)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in YesNoConfirmationCarPlayView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v23[0] = a2;
+  v3 = type metadata accessor for YesNoConfirmationView(0);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = v23 - v7;
+  v9 = type metadata accessor for SystemTextClarificationTitleView();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI32SystemTextClarificationTitleViewVSgMd, &_s9SnippetUI32SystemTextClarificationTitleViewVSgMR);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = v23 - v17;
+  type metadata accessor for YesNoConfirmationModel(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
+  Loggable.wrappedValue.getter();
+  if (v23[2])
+  {
+    v23[4] = MEMORY[0x277D837D0];
+    v23[5] = MEMORY[0x277D63F88];
+    SystemTextClarificationTitleView.init(text1:)();
+    (*(v10 + 32))(v18, v12, v9);
+    v19 = 0;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  (*(v10 + 56))(v18, v19, 1, v9);
+  outlined init with copy of YesNoConfirmationModel(a1, &v8[*(v3 + 20)], type metadata accessor for YesNoConfirmationModel);
+  ActionHandler.init()();
+  outlined init with copy of SystemTextClarificationTitleView?(v18, v16);
+  outlined init with copy of YesNoConfirmationModel(v8, v6, type metadata accessor for YesNoConfirmationView);
+  v20 = v23[0];
+  outlined init with copy of SystemTextClarificationTitleView?(v16, v23[0]);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI32SystemTextClarificationTitleViewVSg_05PhoneaB0017YesNoConfirmationG0VtMd, &_s9SnippetUI32SystemTextClarificationTitleViewVSg_05PhoneaB0017YesNoConfirmationG0VtMR);
+  outlined init with copy of YesNoConfirmationModel(v6, v20 + *(v21 + 48), type metadata accessor for YesNoConfirmationView);
+  outlined destroy of YesNoConfirmationView(v8);
+  outlined destroy of SystemTextClarificationTitleView?(v18);
+  outlined destroy of YesNoConfirmationView(v6);
+  return outlined destroy of SystemTextClarificationTitleView?(v16);
+}
+
+uint64_t outlined init with take of YesNoConfirmationModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t protocol witness for View.body.getter in conformance YesNoConfirmationCarPlayView(uint64_t a1)
+{
+  v2 = *(a1 - 8);
+  v3 = *(v2 + 64);
+  MEMORY[0x28223BE20](a1 - 8);
+  outlined init with copy of YesNoConfirmationModel(v1, &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for YesNoConfirmationCarPlayView);
+  v4 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v5 = swift_allocObject();
+  outlined init with take of YesNoConfirmationModel(&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v5 + v4, type metadata accessor for YesNoConfirmationCarPlayView);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMR);
+  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(SystemTextClarificationTitleView?, YesNoConfirmationView)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0028SystemTextClarificationTitleD0VSg_05PhoneeB0017YesNoConfirmationD0VtGMR, MEMORY[0x277CE14C8]);
+  return ComponentStack.init(content:)();
+}
+
+uint64_t sub_25E5779EC(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for YesNoConfirmationModel(0);
+  v5 = *(*(v4 - 8) + 48);
+
+  return v5(a1, a2, v4);
+}
+
+uint64_t sub_25E577A6C(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for YesNoConfirmationModel(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(a1, a2, a2, v4);
+}
+
+uint64_t type metadata completion function for YesNoConfirmationCarPlayView(uint64_t a1)
+{
+  result = type metadata accessor for YesNoConfirmationModel(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t objectdestroyTm_8()
+{
+  v1 = *(type metadata accessor for YesNoConfirmationCarPlayView(0) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v4 = *(*(v3 - 8) + 8);
+  v4(v2, v3);
+  v5 = type metadata accessor for YesNoConfirmationModel(0);
+  v6 = v5[5];
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMd, &_s10SnippetKit16CodableAceObjectVySo020SAIntentGroupRunSiriB8ExecutorCGMR);
+  v8 = *(*(v7 - 8) + 8);
+  v8(v2 + v6, v7);
+  v4(v2 + v5[6], v3);
+  v8(v2 + v5[7], v7);
+  v9 = v5[8];
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSSgGMd, &_s10SnippetKit8LoggableVySSSgGMR);
+  (*(*(v10 - 8) + 8))(v2 + v9, v10);
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in YesNoConfirmationCarPlayView.body.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = *(type metadata accessor for YesNoConfirmationCarPlayView(0) - 8);
+  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
+
+  return closure #1 in YesNoConfirmationCarPlayView.body.getter(v4, a1);
+}
+
+uint64_t outlined init with copy of SystemTextClarificationTitleView?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI32SystemTextClarificationTitleViewVSgMd, &_s9SnippetUI32SystemTextClarificationTitleViewVSgMR);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined init with copy of YesNoConfirmationModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t outlined destroy of YesNoConfirmationView(uint64_t a1)
+{
+  v2 = type metadata accessor for YesNoConfirmationView(0);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t outlined destroy of SystemTextClarificationTitleView?(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI32SystemTextClarificationTitleViewVSgMd, &_s9SnippetUI32SystemTextClarificationTitleViewVSgMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+unint64_t Symbols.rawValue.getter(unsigned __int8 a1)
+{
+  v1 = 0x70752E776F727261;
+  v2 = 0x69662E6F65646976;
+  if (a1 != 6)
+  {
+    v2 = 0x6B72616D78;
+  }
+
+  v3 = 0xD000000000000019;
+  if (a1 != 4)
+  {
+    v3 = 0x69662E656E6F6870;
+  }
+
+  if (a1 <= 5u)
+  {
+    v2 = v3;
+  }
+
+  v4 = 0x7269632E6F666E69;
+  if (a1 != 2)
+  {
+    v4 = 0x662E656C63726963;
+  }
+
+  if (!a1)
+  {
+    v1 = 0xD000000000000010;
+  }
+
+  if (a1 > 1u)
+  {
+    v1 = v4;
+  }
+
+  if (a1 <= 3u)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t static RFImage.sfSymbol(_:)(unsigned __int8 a1)
+{
+  static RFImage.symbol(_:dark:)();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Symbols(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  v3 = Symbols.rawValue.getter(*a1);
+  v5 = v4;
+  if (v3 == Symbols.rawValue.getter(v2) && v5 == v6)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return v8 & 1;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance Symbols()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  Symbols.rawValue.getter(v1);
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Symbols(uint64_t a1)
+{
+  Symbols.rawValue.getter(*v1);
+  String.hash(into:)();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Symbols(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Symbols.rawValue.getter(v2);
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Symbols@<X0>(Swift::String *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = specialized Symbols.init(rawValue:)(*a1);
+  *a2 = result;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Symbols@<X0>(unint64_t *a1@<X8>)
+{
+  result = Symbols.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v4;
+  return result;
+}
+
+unint64_t specialized Symbols.init(rawValue:)(Swift::String string)
+{
+  object = string._object;
+  v2._countAndFlagsBits = string._countAndFlagsBits;
+  v2._object = object;
+  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of Symbols.init(rawValue:), v2);
+
+  if (v3 >= 8)
+  {
+    return 8;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type Symbols and conformance Symbols(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = lazy protocol witness table cache variable for type Symbols and conformance Symbols;
+  if (!lazy protocol witness table cache variable for type Symbols and conformance Symbols)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Symbols and conformance Symbols);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for ShowCallHistoryListView(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for ShowCallHistoryListView;
+  if (!type metadata singleton initialization cache for ShowCallHistoryListView)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t ShowCallHistoryListView.init(model:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  type metadata accessor for Context();
+  _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68], MEMORY[0x277D63F58]);
+  *a2 = EnvironmentObject.init()();
+  a2[1] = v4;
+  v5 = type metadata accessor for ShowCallHistoryListView(0);
+  ActionHandler.init()();
+  return outlined init with take of SearchCallHistoryModel(a1, a2 + *(v5 + 24), type metadata accessor for SearchCallHistoryModel);
+}
+
+uint64_t ShowCallHistoryListView.body.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = v1;
+  v4 = type metadata accessor for RoundedCornerStyle();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for UnevenRoundedRectangle();
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = (&v23 - v12);
+  *a1 = static HorizontalAlignment.center.getter();
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 1;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA0D0P07SnippetB0E26lastComponentBottomSpacingyQrAL0k5StacklM0OFQOyAL0kN0VyAIyAkLE10separators_10isOverrideQr0I3Kit14SeparatorStyleO_SbtFQOyAkLE09componentM03top6bottomQr12CoreGraphics7CGFloatV_A0_tFQOy05PhoneiB0010ListHeaderD0V_Qo__Qo__AA7ForEachVySaySi6offset_A1_21SingleCallRecordModelV7elementtGSiAkLEAwxYQrA0__A0_tFQOyAA15ModifiedContentVyAkLEAR_ASQrAV_SbtFQOyA1_025ShowCallHistorySingleItemD0V_Qo_A1_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A1_04ListlD0VSgtGGMd, "<_");
+  closure #1 in ShowCallHistoryListView.body.getter(v2, (a1 + *(v14 + 44)));
+  LOBYTE(v2) = static Edge.Set.all.getter();
+  *(a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGMR) + 36)) = v2;
+  (*(v5 + 104))(v7, *MEMORY[0x277CE0120], v4);
+  (*(v5 + 16))(v13 + *(v8 + 20), v7, v4);
+  v15 = MEMORY[0x25F8B6F50](0.0, 0.0, 20.0, 20.0);
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  (*(v5 + 8))(v7, v4);
+  *v13 = v15;
+  *(v13 + 1) = v17;
+  *(v13 + 2) = v19;
+  *(v13 + 3) = v21;
+  outlined init with copy of SearchCallHistoryModel(v13, v11, MEMORY[0x277CE0548]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGAA41_ContainerRoundedRectangularShapeModifierVyAA22UnevenRoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGAA41_ContainerRoundedRectangularShapeModifierVyAA22UnevenRoundedRectangleVGGMR);
+  _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type UnevenRoundedRectangle and conformance UnevenRoundedRectangle, MEMORY[0x277CE0548], MEMORY[0x277CE0528]);
+  _ContainerRoundedRectangularShapeModifier.init(shape:)();
+  return outlined destroy of UnevenRoundedRectangle(v13, MEMORY[0x277CE0548]);
+}
+
+uint64_t closure #1 in ShowCallHistoryListView.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  v49[1] = a1;
+  v59 = a2;
+  v3 = type metadata accessor for ListBottomView(0);
+  v4 = *(v3 - 8);
+  v56 = v3;
+  v57 = v4;
+  MEMORY[0x28223BE20](v3);
+  v49[0] = v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14PhoneSnippetUI14ListBottomViewVSgMd, &_s14PhoneSnippetUI14ListBottomViewVSgMR);
+  v7 = MEMORY[0x28223BE20](v6 - 8);
+  v58 = v49 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v55 = v49 - v9;
+  v51 = type metadata accessor for ComponentStackBottomSpacing();
+  v10 = *(v51 - 8);
+  MEMORY[0x28223BE20](v51);
+  v12 = v49 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for ShowCallHistoryListView(0);
+  v14 = *(v13 - 8);
+  v15 = *(v14 + 64);
+  MEMORY[0x28223BE20](v13);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI14ComponentStackVy05SwiftB09TupleViewVyAD0G0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAhAE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AStFQOy05PhoneaB0010ListHeaderG0V_Qo__Qo__AD7ForEachVySaySi6offset_AT21SingleCallRecordModelV7elementtGSiAhAEAnoPQrAS_AStFQOyAD15ModifiedContentVyAhAEAI_AJQrAM_SbtFQOyAT025ShowCallHistorySingleItemG0V_Qo_AT021CarPlayDisambiguationV4ItemVG_Qo_GtGGMd, &_s9SnippetUI14ComponentStackVy05SwiftB09TupleViewVyAD0G0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAhAE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AStFQOy05PhoneaB0010ListHeaderG0V_Qo__Qo__AD7ForEachVySaySi6offset_AT21SingleCallRecordModelV7elementtGSiAhAEAnoPQrAS_AStFQOyAD15ModifiedContentVyAhAEAI_AJQrAM_SbtFQOyAT025ShowCallHistorySingleItemG0V_Qo_AT021CarPlayDisambiguationV4ItemVG_Qo_GtGGMR);
+  v16 = *(v50 - 8);
+  MEMORY[0x28223BE20](v50);
+  v18 = v49 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E26lastComponentBottomSpacingyQrAD0f5StackgH0OFQOyAD0fI0VyAA05TupleC0VyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE09componentH03top6bottomQr12CoreGraphics7CGFloatV_AVtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AW21SingleCallRecordModelV7elementtGSiAcDEAqrSQrAV_AVtFQOyAA15ModifiedContentVyAcDEAL_AMQrAP_SbtFQOyAW025ShowCallHistorySingleItemC0V_Qo_AW021CarPlayDisambiguationX4ItemVG_Qo_GtGG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E26lastComponentBottomSpacingyQrAD0f5StackgH0OFQOyAD0fI0VyAA05TupleC0VyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE09componentH03top6bottomQr12CoreGraphics7CGFloatV_AVtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AW21SingleCallRecordModelV7elementtGSiAcDEAqrSQrAV_AVtFQOyAA15ModifiedContentVyAcDEAL_AMQrAP_SbtFQOyAW025ShowCallHistorySingleItemC0V_Qo_AW021CarPlayDisambiguationX4ItemVG_Qo_GtGG_Qo_MR);
+  v53 = *(v19 - 8);
+  v54 = v19;
+  v20 = MEMORY[0x28223BE20](v19);
+  v52 = v49 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v23 = v49 - v22;
+  outlined init with copy of SearchCallHistoryModel(a1, v49 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ShowCallHistoryListView);
+  v24 = (*(v14 + 80) + 16) & ~*(v14 + 80);
+  v25 = swift_allocObject();
+  outlined init with take of SearchCallHistoryModel(v49 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v25 + v24, type metadata accessor for ShowCallHistoryListView);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0P07SnippetB0E10separators_10isOverrideQr0E3Kit14SeparatorStyleO_SbtFQOyAeFE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AQtFQOy05PhoneeB0010ListHeaderD0V_Qo__Qo__AA7ForEachVySaySi6offset_AR21SingleCallRecordModelV7elementtGSiAeFEAlmNQrAQ_AQtFQOyAA15ModifiedContentVyAeFEAG_AHQrAK_SbtFQOyAR04Showz7Historyy4ItemD0V_Qo_AR021CarPlayDisambiguationT4ItemVG_Qo_GtGMd, &_s7SwiftUI9TupleViewVyAA0D0P07SnippetB0E10separators_10isOverrideQr0E3Kit14SeparatorStyleO_SbtFQOyAeFE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AQtFQOy05PhoneeB0010ListHeaderD0V_Qo__Qo__AA7ForEachVySaySi6offset_AR21SingleCallRecordModelV7elementtGSiAeFEAlmNQrAQ_AQtFQOyAA15ModifiedContentVyAeFEAG_AHQrAK_SbtFQOyAR04Showz7Historyy4ItemD0V_Qo_AR021CarPlayDisambiguationT4ItemVG_Qo_GtGMR);
+  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.separators(_:isOverride:)>>.0, ForEach<[(offset: Int, element: SingleCallRecordModel)], Int, <<opaque return type of View.componentSpacing(top:bottom:)>>.0>)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0P07SnippetB0E10separators_10isOverrideQr0E3Kit14SeparatorStyleO_SbtFQOyAeFE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AQtFQOy05PhoneeB0010ListHeaderD0V_Qo__Qo__AA7ForEachVySaySi6offset_AR21SingleCallRecordModelV7elementtGSiAeFEAlmNQrAQ_AQtFQOyAA15ModifiedContentVyAeFEAG_AHQrAK_SbtFQOyAR04Showz7Historyy4ItemD0V_Qo_AR021CarPlayDisambiguationT4ItemVG_Qo_GtGMd, &_s7SwiftUI9TupleViewVyAA0D0P07SnippetB0E10separators_10isOverrideQr0E3Kit14SeparatorStyleO_SbtFQOyAeFE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AQtFQOy05PhoneeB0010ListHeaderD0V_Qo__Qo__AA7ForEachVySaySi6offset_AR21SingleCallRecordModelV7elementtGSiAeFEAlmNQrAQ_AQtFQOyAA15ModifiedContentVyAeFEAG_AHQrAK_SbtFQOyAR04Showz7Historyy4ItemD0V_Qo_AR021CarPlayDisambiguationT4ItemVG_Qo_GtGMR, MEMORY[0x277CE14C8]);
+  v26 = v23;
+  ComponentStack.init(content:)();
+  v27 = v51;
+  (*(v10 + 104))(v12, *MEMORY[0x277D63EC8], v51);
+  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ComponentStack<TupleView<(<<opaque return type of View.separators(_:isOverride:)>>.0, ForEach<[(offset: Int, element: SingleCallRecordModel)], Int, <<opaque return type of View.componentSpacing(top:bottom:)>>.0>)>> and conformance ComponentStack<A>, &_s9SnippetUI14ComponentStackVy05SwiftB09TupleViewVyAD0G0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAhAE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AStFQOy05PhoneaB0010ListHeaderG0V_Qo__Qo__AD7ForEachVySaySi6offset_AT21SingleCallRecordModelV7elementtGSiAhAEAnoPQrAS_AStFQOyAD15ModifiedContentVyAhAEAI_AJQrAM_SbtFQOyAT025ShowCallHistorySingleItemG0V_Qo_AT021CarPlayDisambiguationV4ItemVG_Qo_GtGGMd, &_s9SnippetUI14ComponentStackVy05SwiftB09TupleViewVyAD0G0PAAE10separators_10isOverrideQr0A3Kit14SeparatorStyleO_SbtFQOyAhAE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AStFQOy05PhoneaB0010ListHeaderG0V_Qo__Qo__AD7ForEachVySaySi6offset_AT21SingleCallRecordModelV7elementtGSiAhAEAnoPQrAS_AStFQOyAD15ModifiedContentVyAhAEAI_AJQrAM_SbtFQOyAT025ShowCallHistorySingleItemG0V_Qo_AT021CarPlayDisambiguationV4ItemVG_Qo_GtGGMR, MEMORY[0x277D63B98]);
+  v28 = v50;
+  View.lastComponentBottomSpacing(_:)();
+  (*(v10 + 8))(v12, v27);
+  (*(v16 + 8))(v18, v28);
+  type metadata accessor for SearchCallHistoryModel(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
+  Loggable.wrappedValue.getter();
+  if (v60 == 1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+    Loggable.wrappedValue.getter();
+    v29 = v60;
+    v30 = v61;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
+    v31 = CodableAceObject.wrappedValue.getter();
+    type metadata accessor for Context();
+    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68], MEMORY[0x277D63F58]);
+    v32 = EnvironmentObject.init()();
+    v33 = v49[0];
+    *v49[0] = v32;
+    *(v33 + 8) = v34;
+    v35 = v56;
+    ActionHandler.init()();
+    v36 = (v33 + *(v35 + 24));
+    *v36 = v29;
+    v36[1] = v30;
+    *(v33 + *(v35 + 28)) = v31;
+    v37 = v55;
+    outlined init with take of SearchCallHistoryModel(v33, v55, type metadata accessor for ListBottomView);
+    v38 = 0;
+    v39 = v35;
+  }
+
+  else
+  {
+    v38 = 1;
+    v37 = v55;
+    v39 = v56;
+  }
+
+  (*(v57 + 56))(v37, v38, 1, v39);
+  v41 = v52;
+  v40 = v53;
+  v42 = *(v53 + 16);
+  v43 = v54;
+  v42(v52, v26, v54);
+  v44 = v58;
+  outlined init with copy of ListBottomView?(v37, v58);
+  v45 = v59;
+  v42(v59, v41, v43);
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E26lastComponentBottomSpacingyQrAD0f5StackgH0OFQOyAD0fI0VyAA05TupleC0VyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE09componentH03top6bottomQr12CoreGraphics7CGFloatV_AVtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AW21SingleCallRecordModelV7elementtGSiAcDEAqrSQrAV_AVtFQOyAA15ModifiedContentVyAcDEAL_AMQrAP_SbtFQOyAW025ShowCallHistorySingleItemC0V_Qo_AW021CarPlayDisambiguationX4ItemVG_Qo_GtGG_Qo__AW0xgC0VSgtMd, &_s7SwiftUI4ViewP07SnippetB0E26lastComponentBottomSpacingyQrAD0f5StackgH0OFQOyAD0fI0VyAA05TupleC0VyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE09componentH03top6bottomQr12CoreGraphics7CGFloatV_AVtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AW21SingleCallRecordModelV7elementtGSiAcDEAqrSQrAV_AVtFQOyAA15ModifiedContentVyAcDEAL_AMQrAP_SbtFQOyAW025ShowCallHistorySingleItemC0V_Qo_AW021CarPlayDisambiguationX4ItemVG_Qo_GtGG_Qo__AW0xgC0VSgtMR);
+  outlined init with copy of ListBottomView?(v44, &v45[*(v46 + 48)]);
+  outlined destroy of ListBottomView?(v37);
+  v47 = *(v40 + 8);
+  v47(v26, v43);
+  outlined destroy of ListBottomView?(v44);
+  return (v47)(v41, v43);
+}
+
+uint64_t closure #1 in closure #1 in ShowCallHistoryListView.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  v49 = a1;
+  v59 = a2;
+  v3 = type metadata accessor for ShowCallHistoryListView(0);
+  v4 = v3 - 8;
+  v54 = *(v3 - 8);
+  v53 = *(v54 + 64);
+  MEMORY[0x28223BE20](v3);
+  v51 = v46 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySi6offset_012PhoneSnippetB021SingleCallRecordModelV7elementtGSiAA4ViewP0gB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_ARtFQOyAA15ModifiedContentVyAkLE10separators_10isOverrideQr0G3Kit14SeparatorStyleO_SbtFQOyAE04Showi7Historyh4ItemM0V_Qo_AE29CarPlayDisambiguationListItemVG_Qo_GMd, &_s7SwiftUI7ForEachVySaySi6offset_012PhoneSnippetB021SingleCallRecordModelV7elementtGSiAA4ViewP0gB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_ARtFQOyAA15ModifiedContentVyAkLE10separators_10isOverrideQr0G3Kit14SeparatorStyleO_SbtFQOyAE04Showi7Historyh4ItemM0V_Qo_AE29CarPlayDisambiguationListItemVG_Qo_GMR);
+  v57 = *(v6 - 8);
+  v58 = v6;
+  v7 = MEMORY[0x28223BE20](v6);
+  v56 = v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v62 = v46 - v9;
+  v48 = type metadata accessor for SeparatorStyle();
+  v10 = *(v48 - 8);
+  MEMORY[0x28223BE20](v48);
+  v12 = v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AJtFQOy05PhonedB0010ListHeaderC0V_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AJtFQOy05PhonedB0010ListHeaderC0V_Qo_MR);
+  v13 = *(v47 - 8);
+  MEMORY[0x28223BE20](v47);
+  v15 = v46 - v14;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AOtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AOtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo_MR);
+  v61 = *(v55 - 8);
+  v16 = MEMORY[0x28223BE20](v55);
+  v52 = v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v60 = v46 - v18;
+  v46[1] = a1 + *(v4 + 32);
+  type metadata accessor for SearchCallHistoryModel(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v19 = Loggable.wrappedValue.getter();
+  v22 = lazy protocol witness table accessor for type ListHeaderView and conformance ListHeaderView(v19, v20, v21);
+  View.componentSpacing(top:bottom:)();
+
+  v23 = v48;
+  (*(v10 + 104))(v12, *MEMORY[0x277D62F28], v48);
+  v64 = &type metadata for ListHeaderView;
+  v65 = v22;
+  v50 = MEMORY[0x277D63988];
+  swift_getOpaqueTypeConformance2();
+  v24 = v47;
+  View.separators(_:isOverride:)();
+  (*(v10 + 8))(v12, v23);
+  (*(v13 + 8))(v15, v24);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
+  Loggable.wrappedValue.getter();
+  v25 = specialized _copySequenceToContiguousArray<A>(_:)(v64);
+
+  v63 = v25;
+  swift_getKeyPath();
+  v26 = v51;
+  outlined init with copy of SearchCallHistoryModel(v49, v51, type metadata accessor for ShowCallHistoryListView);
+  v27 = (*(v54 + 80) + 16) & ~*(v54 + 80);
+  v28 = swift_allocObject();
+  outlined init with take of SearchCallHistoryModel(v26, v28 + v27, type metadata accessor for ShowCallHistoryListView);
+  v29 = swift_allocObject();
+  *(v29 + 16) = partial apply for closure #1 in closure #1 in closure #1 in ShowCallHistoryListView.body.getter;
+  *(v29 + 24) = v28;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtGMd, &_sSaySi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AJtFQOyAA15ModifiedContentVyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOy05PhonedB0025ShowCallHistorySingleItemC0V_Qo_AR025CarPlayDisambiguationListY0VG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AJtFQOyAA15ModifiedContentVyAcDE10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOy05PhonedB0025ShowCallHistorySingleItemC0V_Qo_AR025CarPlayDisambiguationListY0VG_Qo_MR);
+  lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [(offset: Int, element: SingleCallRecordModel)] and conformance [A], &_sSaySi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtGMd, &_sSaySi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtGMR, MEMORY[0x277D83980]);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMR);
+  v31 = lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>();
+  v64 = v30;
+  v65 = v31;
+  swift_getOpaqueTypeConformance2();
+  v32 = v62;
+  ForEach<>.init(_:id:content:)();
+  v33 = *(v61 + 16);
+  v34 = v52;
+  v35 = v55;
+  v33(v52, v60, v55);
+  v36 = v56;
+  v37 = v57;
+  v38 = *(v57 + 16);
+  v39 = v32;
+  v40 = v58;
+  v38(v56, v39, v58);
+  v41 = v59;
+  v33(v59, v34, v35);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AOtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AP21SingleCallRecordModelV7elementtGSiAcDEAjkLQrAO_AOtFQOyAA15ModifiedContentVyAcDEAE_AFQrAI_SbtFQOyAP04Showy7Historyx4ItemC0V_Qo_AP021CarPlayDisambiguationS4ItemVG_Qo_GtMd, &_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOyAcDE16componentSpacing3top6bottomQr12CoreGraphics7CGFloatV_AOtFQOy05PhonedB0010ListHeaderC0V_Qo__Qo__AA7ForEachVySaySi6offset_AP21SingleCallRecordModelV7elementtGSiAcDEAjkLQrAO_AOtFQOyAA15ModifiedContentVyAcDEAE_AFQrAI_SbtFQOyAP04Showy7Historyx4ItemC0V_Qo_AP021CarPlayDisambiguationS4ItemVG_Qo_GtMR);
+  v38(&v41[*(v42 + 48)], v36, v40);
+  v43 = *(v37 + 8);
+  v43(v62, v40);
+  v44 = *(v61 + 8);
+  v44(v60, v35);
+  v43(v36, v40);
+  return (v44)(v34, v35);
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in ShowCallHistoryListView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v40 = a3;
+  v51 = a1;
+  v52 = a4;
+  v5 = type metadata accessor for SeparatorStyle();
+  v49 = *(v5 - 8);
+  v50 = v5;
+  MEMORY[0x28223BE20](v5);
+  v48 = &v38[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = type metadata accessor for Font.TextStyle();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v38[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = type metadata accessor for ShowCallHistorySingleItemView(0);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v38[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOy05PhonedB0025ShowCallHistorySingleItemC0V_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E10separators_10isOverrideQr0D3Kit14SeparatorStyleO_SbtFQOy05PhonedB0025ShowCallHistorySingleItemC0V_Qo_MR);
+  v45 = *(v47 - 8);
+  MEMORY[0x28223BE20](v47);
+  v43 = &v38[-v14];
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMR);
+  MEMORY[0x28223BE20](v46);
+  v44 = &v38[-v15];
+  outlined init with copy of SearchCallHistoryModel(a2, v13 + *(v11 + 32), type metadata accessor for SingleCallRecordModel);
+  type metadata accessor for ShowCallHistoryListView(0);
+  type metadata accessor for SearchCallHistoryModel(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
+  Loggable.wrappedValue.getter();
+  v39 = v53;
+  v16 = type metadata accessor for Context();
+  v41 = _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type Context and conformance Context, MEMORY[0x277D63F68], MEMORY[0x277D63F58]);
+  v42 = v16;
+  *v13 = EnvironmentObject.init()();
+  v13[1] = v17;
+  ActionHandler.init()();
+  v53 = 0x4041800000000000;
+  v18 = *MEMORY[0x277CE0A60];
+  v19 = *(v8 + 104);
+  v20 = v19(v10, v18, v7);
+  lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v20, v21, v22);
+  ScaledMetric.init(wrappedValue:relativeTo:)();
+  v53 = 0x4041800000000000;
+  v19(v10, v18, v7);
+  ScaledMetric.init(wrappedValue:relativeTo:)();
+  v23 = v40;
+  *(v13 + *(v11 + 36)) = v39;
+  if (*v23)
+  {
+    v24 = *v23;
+    dispatch thunk of Context.currentIdiom.getter();
+    v25 = VRXIdiom.isCarPlay.getter();
+
+    v27 = v48;
+    v26 = v49;
+    v28 = MEMORY[0x277D62F38];
+    if ((v25 & 1) == 0)
+    {
+      v28 = MEMORY[0x277D62F28];
+    }
+
+    v29 = v50;
+    (*(v49 + 104))(v48, *v28, v50);
+    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type ShowCallHistorySingleItemView and conformance ShowCallHistorySingleItemView, type metadata accessor for ShowCallHistorySingleItemView, &protocol conformance descriptor for ShowCallHistorySingleItemView);
+    v30 = v43;
+    View.separators(_:isOverride:)();
+    (*(v26 + 8))(v27, v29);
+    outlined destroy of UnevenRoundedRectangle(v13, type metadata accessor for ShowCallHistorySingleItemView);
+    v31 = EnvironmentObject.init()();
+    v33 = v32;
+    v34 = v44;
+    (*(v45 + 32))(v44, v30, v47);
+    v35 = v51 == 0;
+    v36 = v34 + *(v46 + 36);
+    *v36 = v31;
+    *(v36 + 8) = v33;
+    *(v36 + 16) = v35;
+    lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>();
+    View.componentSpacing(top:bottom:)();
+    return sub_25E57A900(v34);
+  }
+
+  else
+  {
+    result = EnvironmentObject.error()();
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t sub_25E579C58(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 2147483646)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    v5 = v4 - 1;
+    if (v5 < 0)
+    {
+      v5 = -1;
+    }
+
+    return (v5 + 1);
+  }
+
+  else
+  {
+    v9 = type metadata accessor for ActionHandler();
+    v10 = *(v9 - 8);
+    if (*(v10 + 84) == a2)
+    {
+      v11 = v9;
+      v12 = *(v10 + 48);
+      v13 = a1 + *(a3 + 20);
+
+      return v12(v13, a2, v11);
+    }
+
+    else
+    {
+      v14 = type metadata accessor for SearchCallHistoryModel(0);
+      v15 = *(*(v14 - 8) + 48);
+      v16 = a1 + *(a3 + 24);
+
+      return v15(v16, a2, v14);
+    }
+  }
+}
+
+void *sub_25E579D9C(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 2147483646)
+  {
+    *result = a2;
+  }
+
+  else
+  {
+    v8 = type metadata accessor for ActionHandler();
+    v9 = *(v8 - 8);
+    if (*(v9 + 84) == a3)
+    {
+      v10 = v8;
+      v11 = *(v9 + 56);
+      v12 = v5 + *(a4 + 20);
+
+      return v11(v12, a2, a2, v10);
+    }
+
+    else
+    {
+      v13 = type metadata accessor for SearchCallHistoryModel(0);
+      v14 = *(*(v13 - 8) + 56);
+      v15 = v5 + *(a4 + 24);
+
+      return v14(v15, a2, a2, v13);
+    }
+  }
+
+  return result;
+}
+
+void type metadata completion function for ShowCallHistoryListView(uint64_t a1)
+{
+  type metadata accessor for EnvironmentObject<Context>(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for ActionHandler();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for SearchCallHistoryModel(319);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>>, _ContainerRoundedRectangularShapeModifier<UnevenRoundedRectangle>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>>, _ContainerRoundedRectangularShapeModifier<UnevenRoundedRectangle>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>>, _ContainerRoundedRectangularShapeModifier<UnevenRoundedRectangle>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGAA41_ContainerRoundedRectangularShapeModifierVyAA22UnevenRoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGAA41_ContainerRoundedRectangularShapeModifierVyAA22UnevenRoundedRectangleVGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _ContainerRoundedRectangularShapeModifier<UnevenRoundedRectangle> and conformance _ContainerRoundedRectangularShapeModifier<A>, &_s7SwiftUI41_ContainerRoundedRectangularShapeModifierVyAA06UnevenD9RectangleVGMd, &_s7SwiftUI41_ContainerRoundedRectangularShapeModifierVyAA06UnevenD9RectangleVGMR, MEMORY[0x277CE08C0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>>, _ContainerRoundedRectangularShapeModifier<UnevenRoundedRectangle>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E26lastComponentBottomSpacingyQrAJ0j5StackkL0OFQOyAJ0jM0VyAGyAiJE10separators_10isOverrideQr0H3Kit14SeparatorStyleO_SbtFQOyAiJE09componentL03top6bottomQr12CoreGraphics7CGFloatV_AZtFQOy05PhonehB0010ListHeaderG0V_Qo__Qo__AA7ForEachVySaySi6offset_A_21SingleCallRecordModelV7elementtGSiAiJEAuvWQrAZ_AZtFQOyACyAiJEAP_AQQrAT_SbtFQOyA_025ShowCallHistorySingleItemG0V_Qo_A_29CarPlayDisambiguationListItemVG_Qo_GtGG_Qo__A_04ListkG0VSgtGGAA011_BackgroundS8ModifierVyAA010BackgroundS0VGGMR);
+    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E26lastComponentBottomSpacingyQrAH0h5StackiJ0OFQOyAH0hK0VyAEyAgHE10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAgHE09componentJ03top6bottomQr12CoreGraphics7CGFloatV_AXtFQOy05PhonefB0010ListHeaderE0V_Qo__Qo__AA7ForEachVySaySi6offset_AY21SingleCallRecordModelV7elementtGSiAgHEAstUQrAX_AXtFQOyAA15ModifiedContentVyAgHEAN_AOQrAR_SbtFQOyAY025ShowCallHistorySingleItemE0V_Qo_AY021CarPlayDisambiguationY4ItemVG_Qo_GtGG_Qo__AY0yiE0VSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E26lastComponentBottomSpacingyQrAH0h5StackiJ0OFQOyAH0hK0VyAEyAgHE10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOyAgHE09componentJ03top6bottomQr12CoreGraphics7CGFloatV_AXtFQOy05PhonefB0010ListHeaderE0V_Qo__Qo__AA7ForEachVySaySi6offset_AY21SingleCallRecordModelV7elementtGSiAgHEAstUQrAX_AXtFQOyAA15ModifiedContentVyAgHEAN_AOQrAR_SbtFQOyAY025ShowCallHistorySingleItemE0V_Qo_AY021CarPlayDisambiguationY4ItemVG_Qo_GtGG_Qo__AY0yiE0VSgtGGMR, MEMORY[0x277CE11A0]);
+    lazy protocol witness table accessor for type TupleView<(EmergencyCountdownSash, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, _FrameLayout>, _BackgroundStyleModifier<Color>>, _ClipEffect<Circle>>, _PaddingLayout>, _FlexFrameLayout>, Divider, BinaryButtonView)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _BackgroundStyleModifier<BackgroundStyle> and conformance _BackgroundStyleModifier<A>, &_s7SwiftUI24_BackgroundStyleModifierVyAA0cD0VGMd, &_s7SwiftUI24_BackgroundStyleModifierVyAA0cD0VGMR, MEMORY[0x277CE0720]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.lastComponentBottomSpacing(_:)>>.0, ListBottomView?)>>, _BackgroundStyleModifier<BackgroundStyle>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t partial apply for closure #1 in closure #1 in ShowCallHistoryListView.body.getter@<X0>(char *a1@<X8>)
+{
+  v3 = *(type metadata accessor for ShowCallHistoryListView(0) - 8);
+  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
+
+  return closure #1 in closure #1 in ShowCallHistoryListView.body.getter(v4, a1);
+}
+
+uint64_t outlined init with copy of ListBottomView?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14PhoneSnippetUI14ListBottomViewVSgMd, &_s14PhoneSnippetUI14ListBottomViewVSgMR);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined destroy of ListBottomView?(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14PhoneSnippetUI14ListBottomViewVSgMd, &_s14PhoneSnippetUI14ListBottomViewVSgMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t outlined init with take of SearchCallHistoryModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type ListHeaderView and conformance ListHeaderView(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = lazy protocol witness table cache variable for type ListHeaderView and conformance ListHeaderView;
+  if (!lazy protocol witness table cache variable for type ListHeaderView and conformance ListHeaderView)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ListHeaderView and conformance ListHeaderView);
+  }
+
+  return result;
+}
+
+uint64_t objectdestroyTm_9()
+{
+  v1 = (type metadata accessor for ShowCallHistoryListView(0) - 8);
+  v2 = (v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80)));
+
+  v3 = v1[7];
+  v4 = type metadata accessor for ActionHandler();
+  (*(*(v4 - 8) + 8))(v2 + v3, v4);
+  v5 = v2 + v1[8];
+
+  v6 = type metadata accessor for SearchCallHistoryModel(0);
+  v7 = v6[5];
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySSGMd, &_s10SnippetKit8LoggableVySSGMR);
+  v9 = *(*(v8 - 8) + 8);
+  v9(&v5[v7], v8);
+  v10 = v6[6];
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMd, &_s10SnippetKit8LoggableVySay05PhoneA2UI21SingleCallRecordModelVGGMR);
+  (*(*(v11 - 8) + 8))(&v5[v10], v11);
+  v9(&v5[v6[7]], v8);
+  v9(&v5[v6[8]], v8);
+  v12 = v6[9];
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVySbGMd, &_s10SnippetKit8LoggableVySbGMR);
+  v14 = *(*(v13 - 8) + 8);
+  v14(&v5[v12], v13);
+  v14(&v5[v6[10]], v13);
+  v15 = v6[11];
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMd, &_s10SnippetKit16CodableAceObjectVySo13SABaseCommandCGMR);
+  (*(*(v16 - 8) + 8))(&v5[v15], v16);
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #1 in ShowCallHistoryListView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v7 = *(type metadata accessor for ShowCallHistoryListView(0) - 8);
+  v8 = v3 + ((*(v7 + 80) + 16) & ~*(v7 + 80));
+
+  return closure #1 in closure #1 in closure #1 in ShowCallHistoryListView.body.getter(a1, a2, v8, a3);
+}
+
+uint64_t sub_25E57A610()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned Int, @in_guaranteed SingleCallRecordModel) -> (@out <<opaque return type of View.componentSpacing(top:bottom:)>>.0)(char *a1)
+{
+  v3 = *(v1 + 16);
+  v4 = *a1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtMd, &_sSi6offset_14PhoneSnippetUI21SingleCallRecordModelV7elementtMR);
+  return v3(v4, &a1[*(v5 + 48)]);
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0025ShowCallHistorySingleItemE0V_Qo_AL025CarPlayDisambiguationListR0VGMR);
+    type metadata accessor for ShowCallHistorySingleItemView(255);
+    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(&lazy protocol witness table cache variable for type ShowCallHistorySingleItemView and conformance ShowCallHistorySingleItemView, type metadata accessor for ShowCallHistorySingleItemView, &protocol conformance descriptor for ShowCallHistorySingleItemView);
+    OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+    lazy protocol witness table accessor for type CarPlayDisambiguationListItem and conformance CarPlayDisambiguationListItem(OpaqueTypeConformance2, v1, v2);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0027ShowPlayVoicemailSingleItemE0V_Qo_AL03Caro18DisambiguationListR0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewP07SnippetB0E10separators_10isOverrideQr0F3Kit14SeparatorStyleO_SbtFQOy05PhonefB0027ShowPlayVoicemailSingleItemE0V_Qo_AL03Caro18DisambiguationListR0VGMR);
+    type metadata accessor for ShowPlayVoicemailSingleItemView(255);
+    _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_7(&lazy protocol witness table cache variable for type ShowPlayVoicemailSingleItemView and conformance ShowPlayVoicemailSingleItemView, type metadata accessor for ShowPlayVoicemailSingleItemView, &protocol conformance descriptor for ShowPlayVoicemailSingleItemView);
+    OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+    lazy protocol witness table accessor for type CarPlayDisambiguationListItem and conformance CarPlayDisambiguationListItem(OpaqueTypeConformance2, v1, v2);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.separators(_:isOverride:)>>.0, CarPlayDisambiguationListItem> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t _s9SnippetUI7ContextCAC7Combine16ObservableObjectAAWlTm_6(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of SearchCallHistoryModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
 }

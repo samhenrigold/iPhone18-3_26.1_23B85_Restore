@@ -87,28 +87,28 @@ void __42__HFUserNotificationCenter_sharedInstance__block_invoke_2()
 
 - (void)_applicationWillEnterForeground
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   observers = [(HFUserNotificationCenter *)self observers];
-  v4 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(observers);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 settingsInvalidatedForNotificationCenter:self];
@@ -118,13 +118,11 @@ void __42__HFUserNotificationCenter_sharedInstance__block_invoke_2()
       }
 
       while (v5 != v7);
-      v5 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [observers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationSettings
@@ -190,7 +188,7 @@ void __48__HFUserNotificationCenter_notificationSettings__block_invoke(uint64_t 
 
 void __79__HFUserNotificationCenter_userNotificationCenter_openSettingsForNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) request];
   v3 = [v2 content];
   v4 = [v3 defaultActionURL];
@@ -199,17 +197,15 @@ void __79__HFUserNotificationCenter_userNotificationCenter_openSettingsForNotifi
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Received request to open settings for notification: %@ (object URL: %@)", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Received request to open settings for notification: %@ (object URL: %@)", &v8, 0x16u);
   }
 
   v7 = [*(a1 + 40) presentationHandler];
   [v7 notificationCenter:*(a1 + 40) presentCustomSettingsForNotificationWithObjectURL:v4];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
@@ -232,7 +228,7 @@ void __79__HFUserNotificationCenter_userNotificationCenter_openSettingsForNotifi
 
 void __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) notification];
   v3 = [v2 request];
   v4 = [v3 content];
@@ -243,9 +239,9 @@ void __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificati
   {
     v7 = [*(a1 + 32) notification];
     *buf = 138412546;
-    v36 = v7;
-    v37 = 2112;
-    v38 = v5;
+    v35 = v7;
+    v36 = 2112;
+    v37 = v5;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "didReceiveNotificationResponse for notification: %@, userInfo:%@", buf, 0x16u);
   }
 
@@ -265,9 +261,9 @@ void __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificati
     v17 = [v5 objectForKeyedSubscript:*MEMORY[0x277CCF318]];
     v18 = [v16 initWithName:@"accessoryId" value:v17];
 
-    v41[0] = v15;
-    v41[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+    v40[0] = v15;
+    v40[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
     [v12 setQueryItems:v19];
 
     v20 = [v12 URL];
@@ -302,50 +298,46 @@ void __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificati
       v27 = *(a1 + 40);
       v28 = NSStringFromSelector(*(a1 + 56));
       *buf = 138412802;
-      v36 = v27;
-      v37 = 2112;
-      v38 = v28;
-      v39 = 2112;
-      v40 = v20;
+      v35 = v27;
+      v36 = 2112;
+      v37 = v28;
+      v38 = 2112;
+      v39 = v20;
       _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "%@: %@ Notification URL %@", buf, 0x20u);
     }
 
     v29 = [*(a1 + 40) presentationHandler];
     v30 = [v29 notificationCenter:*(a1 + 40) presentNotificationWithObjectURL:v20];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_30;
-    v33[3] = &unk_277DFB678;
-    v34 = *(a1 + 48);
-    v31 = [v30 addCompletionBlock:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_30;
+    v32[3] = &unk_277DFB678;
+    v33 = *(a1 + 48);
+    v31 = [v30 addCompletionBlock:v32];
   }
 
   else
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HFUserNotificationCenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_30(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     v5 = HFLogForCategory(0x34uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[HFUserNotificationCenter-userNotificationCenter:didReceiveNotificationResponse:] Presentation failed with error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[HFUserNotificationCenter-userNotificationCenter:didReceiveNotificationResponse:] Presentation failed with error: %{public}@", &v6, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HFUserNotificationPresentationHandling)presentationHandler

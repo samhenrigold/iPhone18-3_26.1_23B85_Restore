@@ -245,7 +245,7 @@ LABEL_10:
       __B = 0.0;
       v15 = 1132396544;
       v11 = malloc_type_malloc(4 * Width, 0x100004052888210uLL);
-      std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&__D, v11);
+      std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&__D, v11, MEMORY[0x1E69E9B38]);
     }
 
     if (error)

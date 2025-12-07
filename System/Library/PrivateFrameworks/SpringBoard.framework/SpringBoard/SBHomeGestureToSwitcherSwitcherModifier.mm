@@ -148,7 +148,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __75__SBHomeGestureToSwitcherSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
+void *__75__SBHomeGestureToSwitcherSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) contentOffsetForIndex:a1[6] alignment:a1[7]];
   v3 = *(a1[5] + 8);
@@ -416,7 +416,7 @@ void __64__SBHomeGestureToSwitcherSwitcherModifier_topMostLayoutElements__block_
   return result;
 }
 
-uint64_t __63__SBHomeGestureToSwitcherSwitcherModifier_cornerRadiiForIndex___block_invoke(void *a1)
+void *__63__SBHomeGestureToSwitcherSwitcherModifier_cornerRadiiForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) cornerRadiiForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -514,9 +514,9 @@ void __69__SBHomeGestureToSwitcherSwitcherModifier_appLayoutsToCacheSnapshots__b
 - (id)_appLayoutToScrollToDuringTransition
 {
   homeGestureSettings = [(SBHomeGestureToSwitcherSwitcherModifier *)self homeGestureSettings];
-  [homeGestureSettings velocityXThresholdForUnconditionalArcSwipe];
-  v5 = v4;
-  v6 = SBMainScreenPointsPerMillimeter();
+  velocityXThresholdForUnconditionalArcSwipe = [homeGestureSettings velocityXThresholdForUnconditionalArcSwipe];
+  v6 = v5;
+  v8 = SBMainScreenPointsPerMillimeter(velocityXThresholdForUnconditionalArcSwipe, v7);
   windowManagementContext = [(SBHomeGestureToSwitcherSwitcherModifier *)self windowManagementContext];
   if ([windowManagementContext isFlexibleWindowingEnabled])
   {
@@ -536,71 +536,71 @@ void __69__SBHomeGestureToSwitcherSwitcherModifier_appLayoutsToCacheSnapshots__b
 
   else
   {
-    v11 = [appLayouts indexOfObject:self->_selectedAppLayout];
-    if (([appLayouts containsObject:self->_selectedAppLayout] & 1) == 0)
+    v13 = [appLayouts indexOfObject:self->_selectedAppLayout];
+    if ((objc_msgSend_containsObject_(appLayouts) & 1) == 0)
     {
       allItems = [(SBAppLayout *)self->_selectedAppLayout allItems];
-      v13 = [allItems count];
+      v15 = [allItems count];
 
-      if (v13 >= 2)
+      if (v15 >= 2)
       {
         displayItemInSlideOver = [(SBHomeGestureToSwitcherSwitcherModifier *)self displayItemInSlideOver];
         if ([(SBAppLayout *)self->_selectedAppLayout containsItem:displayItemInSlideOver])
         {
-          v15 = [(SBAppLayout *)self->_selectedAppLayout appLayoutByRemovingItemInLayoutRole:[(SBAppLayout *)self->_selectedAppLayout layoutRoleForItem:displayItemInSlideOver]];
-          v11 = [appLayouts indexOfObject:v15];
+          v17 = [(SBAppLayout *)self->_selectedAppLayout appLayoutByRemovingItemInLayoutRole:[(SBAppLayout *)self->_selectedAppLayout layoutRoleForItem:displayItemInSlideOver]];
+          v13 = [appLayouts indexOfObject:v17];
         }
       }
     }
 
-    if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v13 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v16 = 0;
+      v18 = 0;
       goto LABEL_28;
     }
 
-    v17 = v5 * v6;
+    v19 = v6 * v8;
     [(SBHomeGestureToSwitcherSwitcherModifier *)self containerViewBounds];
     x = self->_liftOffVelocity.x;
-    v20 = x > v17 || self->_liftOffTranslation.x > v18 * 0.5;
-    if (x >= -v17 && self->_liftOffTranslation.x >= v18 * -0.5)
+    v22 = x > v19 || self->_liftOffTranslation.x > v20 * 0.5;
+    if (x >= -v19 && self->_liftOffTranslation.x >= v20 * -0.5)
     {
-      v22 = 0;
-      v21 = v11 + v20;
+      v24 = 0;
+      v23 = v13 + v22;
     }
 
     else
     {
-      v21 = v11 - 1;
-      v22 = 1;
+      v23 = v13 - 1;
+      v24 = 1;
     }
 
-    v23 = 1;
-    if (self->_startingEnvironmentMode == 3 && !v21)
+    v25 = 1;
+    if (self->_startingEnvironmentMode == 3 && !v23)
     {
       switcherSettings = [(SBHomeGestureToSwitcherSwitcherModifier *)self switcherSettings];
-      v23 = [switcherSettings effectiveSwitcherStyle] != 1;
+      v25 = [switcherSettings effectiveSwitcherStyle] != 1;
     }
 
-    v25 = v21 + ((((v22 | v23) | v20) & 1) == 0);
-    v26 = [appLayouts count];
-    if (v26 - 1 >= (v25 & ~(v25 >> 63)))
+    v27 = v23 + ((((v24 | v25) | v22) & 1) == 0);
+    v28 = [appLayouts count];
+    if (v28 - 1 >= (v27 & ~(v27 >> 63)))
     {
-      v27 = v25 & ~(v25 >> 63);
+      v29 = v27 & ~(v27 >> 63);
     }
 
     else
     {
-      v27 = v26 - 1;
+      v29 = v28 - 1;
     }
 
-    firstObject = [appLayouts objectAtIndex:v27];
+    firstObject = [appLayouts objectAtIndex:v29];
   }
 
-  v16 = firstObject;
+  v18 = firstObject;
 LABEL_28:
 
-  return v16;
+  return v18;
 }
 
 - (int64_t)_appLayoutAlignmentToScrollToDuringTransition

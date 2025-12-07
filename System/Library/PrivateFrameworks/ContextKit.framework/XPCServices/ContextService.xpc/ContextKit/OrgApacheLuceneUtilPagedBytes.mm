@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneUtilPagedBytes
 + (void)initialize;
+- (id)freezeWithBoolean:(BOOL)boolean;
 - (id)getDataInput;
 - (id)getDataOutput;
 - (int64_t)copyUsingLengthPrefixWithOrgApacheLuceneUtilBytesRef:(id)ref;
@@ -111,6 +112,49 @@ LABEL_7:
   self->upto_ += *(ref + 5);
 }
 
+- (id)freezeWithBoolean:(BOOL)boolean
+{
+  if (self->frozen_)
+  {
+    v13 = @"already frozen";
+    goto LABEL_13;
+  }
+
+  if (self->didSkipBytes_)
+  {
+    v13 = @"cannot freeze when copy(BytesRef, BytesRef) was used";
+LABEL_13:
+    v14 = new_JavaLangIllegalStateException_initWithNSString_(v13);
+    objc_exception_throw(v14);
+  }
+
+  if (boolean)
+  {
+    *&boolean = self->upto_;
+    if (boolean < self->blockSize_)
+    {
+      v9 = [IOSByteArray arrayWithLength:?];
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->currentBlock_, 0, v9, 0, self->upto_);
+      JreStrongAssign(&self->currentBlock_, v9);
+    }
+  }
+
+  currentBlock = self->currentBlock_;
+  if (!currentBlock)
+  {
+    JreStrongAssign(&self->currentBlock_, qword_100554800);
+    currentBlock = self->currentBlock_;
+  }
+
+  sub_100131BE0(self, currentBlock, boolean, v3, v4, v5, v6, v7);
+  self->frozen_ = 1;
+  JreStrongAssign(&self->currentBlock_, 0);
+  v11 = [OrgApacheLuceneUtilPagedBytes_Reader alloc];
+  sub_1001325A4(v11, self);
+
+  return v11;
+}
+
 - (int64_t)getPointer
 {
   if (self->currentBlock_)
@@ -167,7 +211,6 @@ LABEL_7:
   v9 = *(ref + 5);
   if (v9 >= 0x8000)
   {
-    v25 = *(ref + 5);
     v23 = JreStrcat("$IC", a2, ref, v3, v4, v5, v6, v7, @"max length is 32767 (got ");
     goto LABEL_23;
   }
@@ -180,8 +223,6 @@ LABEL_7:
 
   if (v9 + 2 > blockSize)
   {
-    v27 = *(ref + 5);
-    v26 = self->blockSize_;
     v23 = JreStrcat("$I$I$", a2, ref, v3, v4, v5, v6, v7, @"block size ");
 LABEL_23:
     v24 = new_JavaLangIllegalArgumentException_initWithNSString_(v23);

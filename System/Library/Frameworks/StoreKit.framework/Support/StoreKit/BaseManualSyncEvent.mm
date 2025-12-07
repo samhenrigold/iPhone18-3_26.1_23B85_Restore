@@ -8,7 +8,7 @@
 {
   clientCopy = client;
   selfCopy = self;
-  sub_100174A00();
+  sub_100174A00(clientCopy);
 }
 
 @end

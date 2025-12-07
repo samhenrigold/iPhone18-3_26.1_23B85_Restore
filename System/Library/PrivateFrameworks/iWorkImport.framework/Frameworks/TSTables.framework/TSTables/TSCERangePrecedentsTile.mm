@@ -76,9 +76,12 @@
 {
   if (coord->row != 0x7FFFFFFF && (*coord & 0xFFFF00000000) != 0x7FFF00000000)
   {
-    objc_msgSend_willModify(self, a2, rect, coord, v4);
-    v9 = sub_2212E4404(&self->_fromCoordToReferRect, coord);
-    sub_2212E4518(v9 + 40, rect);
+    v11[5] = v4;
+    v11[6] = v5;
+    objc_msgSend_willModify(self, a2, rect, coord);
+    v11[0] = coord;
+    v10 = sub_2212E4404(&self->_fromCoordToReferRect, coord, &unk_2217E1202, v11);
+    sub_2212E4518(v10 + 5, rect, rect);
   }
 }
 
@@ -90,10 +93,10 @@
     v9 = sub_2212E46E0(&self->_fromCoordToReferRect, coord);
     if (p_fromCoordToReferRect + 1 != v9)
     {
-      v14 = v9;
-      objc_msgSend_willModify(self, v10, v11, v12, v13);
-      sub_2212E4768(v14 + 5, rect);
-      if (!v14[7])
+      v13 = v9;
+      objc_msgSend_willModify(self, v10, v11, v12);
+      sub_2212E4768(v13 + 5, rect);
+      if (!v13[7])
       {
 
         sub_2212E484C(p_fromCoordToReferRect, coord);
@@ -121,7 +124,7 @@
     p_fromCoordToReferRect = &self->_fromCoordToReferRect;
     if (&self->_fromCoordToReferRect.__tree_.__end_node_ != sub_2212E46E0(&self->_fromCoordToReferRect, coord))
     {
-      objc_msgSend_willModify(self, v7, v8, v9, v10);
+      objc_msgSend_willModify(self, v7, v8, v9);
 
       sub_2212E484C(p_fromCoordToReferRect, coord);
     }
@@ -286,11 +289,11 @@ LABEL_17:
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212E48D4, off_2812E2AC8[84], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212E48D4, off_2812E2AC8[84]);
 
   toInternalOwnerID = self->_toInternalOwnerID;
-  *(v6 + 16) |= 1u;
-  *(v6 + 48) = toInternalOwnerID;
+  *(v5 + 16) |= 1u;
+  *(v5 + 48) = toInternalOwnerID;
   p_end_node = &self->_fromCoordToReferRect.__tree_.__end_node_;
   begin_node = self->_fromCoordToReferRect.__tree_.__begin_node_;
   if (begin_node != &self->_fromCoordToReferRect.__tree_.__end_node_)
@@ -304,32 +307,32 @@ LABEL_17:
       }
 
 LABEL_24:
-      v24 = begin_node[1].__left_;
-      if (v24)
+      v23 = begin_node[1].__left_;
+      if (v23)
       {
         do
         {
-          v25 = v24;
-          v24 = v24->__left_;
+          v24 = v23;
+          v23 = v23->__left_;
         }
 
-        while (v24);
+        while (v23);
       }
 
       else
       {
         do
         {
-          v25 = begin_node[2].__left_;
-          v23 = v25->__left_ == begin_node;
-          begin_node = v25;
+          v24 = begin_node[2].__left_;
+          v22 = v24->__left_ == begin_node;
+          begin_node = v24;
         }
 
-        while (!v23);
+        while (!v22);
       }
 
-      begin_node = v25;
-      if (v25 == p_end_node)
+      begin_node = v24;
+      if (v24 == p_end_node)
       {
         goto LABEL_30;
       }
@@ -337,97 +340,97 @@ LABEL_24:
 
     while (1)
     {
-      v11 = *(v6 + 40);
-      if (!v11)
+      v10 = *(v5 + 40);
+      if (!v10)
       {
         goto LABEL_8;
       }
 
-      v12 = *(v6 + 32);
-      v13 = *v11;
-      if (v12 >= *v11)
+      v11 = *(v5 + 32);
+      v12 = *v10;
+      if (v11 >= *v10)
       {
         break;
       }
 
-      *(v6 + 32) = v12 + 1;
-      v14 = *&v11[2 * v12 + 2];
+      *(v5 + 32) = v11 + 1;
+      v13 = *&v10[2 * v11 + 2];
 LABEL_10:
-      *(v14 + 16) |= 1u;
-      v17 = *(v14 + 24);
-      if (!v17)
+      *(v13 + 16) |= 1u;
+      v16 = *(v13 + 24);
+      if (!v16)
       {
-        v18 = *(v14 + 8);
-        if (v18)
+        v17 = *(v13 + 8);
+        if (v17)
         {
-          v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+          v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v17 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v18);
-        *(v14 + 24) = v17;
+        v16 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v17);
+        *(v13 + 24) = v16;
       }
 
-      sub_221269820(&begin_node[4], v17);
-      *(v14 + 16) |= 2u;
-      v19 = *(v14 + 32);
-      if (!v19)
+      sub_221269820(&begin_node[4], v16);
+      *(v13 + 16) |= 2u;
+      v18 = *(v13 + 32);
+      if (!v18)
       {
-        v20 = *(v14 + 8);
-        if (v20)
+        v19 = *(v13 + 8);
+        if (v19)
         {
-          v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
+          v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v19 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellRectArchive>(v20);
-        *(v14 + 32) = v19;
+        v18 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellRectArchive>(v19);
+        *(v13 + 32) = v18;
       }
 
-      sub_2212698FC(left + 7, v19);
-      v21 = *(left + 1);
-      if (v21)
+      sub_2212698FC(left + 7, v18);
+      v20 = *(left + 1);
+      if (v20)
       {
         do
         {
-          v22 = v21;
-          v21 = v21->__left_;
+          v21 = v20;
+          v20 = v20->__left_;
         }
 
-        while (v21);
+        while (v20);
       }
 
       else
       {
         do
         {
-          v22 = *(left + 2);
-          v23 = v22->__left_ == left;
-          left = v22;
+          v21 = *(left + 2);
+          v22 = v21->__left_ == left;
+          left = v21;
         }
 
-        while (!v23);
+        while (!v22);
       }
 
-      left = v22;
-      if (v22 == &begin_node[6])
+      left = v21;
+      if (v21 == &begin_node[6])
       {
         goto LABEL_24;
       }
     }
 
-    if (v13 == *(v6 + 36))
+    if (v12 == *(v5 + 36))
     {
 LABEL_8:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 24));
-      v11 = *(v6 + 40);
-      v13 = *v11;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v5 + 24));
+      v10 = *(v5 + 40);
+      v12 = *v10;
     }
 
-    *v11 = v13 + 1;
-    v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RangePrecedentsTileArchive_FromToRangeArchive>(*(v6 + 24));
-    v15 = *(v6 + 32);
-    v16 = *(v6 + 40) + 8 * v15;
-    *(v6 + 32) = v15 + 1;
-    *(v16 + 8) = v14;
+    *v10 = v12 + 1;
+    v13 = google::protobuf::Arena::CreateMaybeMessage<TSCE::RangePrecedentsTileArchive_FromToRangeArchive>(*(v5 + 24));
+    v14 = *(v5 + 32);
+    v15 = *(v5 + 40) + 8 * v14;
+    *(v5 + 32) = v14 + 1;
+    *(v15 + 8) = v13;
     goto LABEL_10;
   }
 
@@ -438,49 +441,49 @@ LABEL_30:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E2AC8[84], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E2AC8[84], v6);
 
-  self->_toInternalOwnerID = *(v8 + 48);
-  v9 = *(v8 + 32);
-  if (v9 >= 1)
+  self->_toInternalOwnerID = *(v7 + 48);
+  v8 = *(v7 + 32);
+  if (v8 >= 1)
   {
-    v10 = 8;
+    v9 = 8;
     do
     {
-      v11 = *(*(v8 + 40) + v10);
-      v19 = 0;
-      if (*(v11 + 24))
-      {
-        v12 = *(v11 + 24);
-      }
-
-      else
-      {
-        v12 = &TSCE::_CellCoordinateArchive_default_instance_;
-      }
-
-      v13 = sub_2212697C0(v12);
-      v18 = 0;
-      v19 = v13;
+      v10 = *(*(v7 + 40) + v9);
       v17 = 0;
-      if (*(v11 + 32))
+      if (*(v10 + 24))
       {
-        v14 = *(v11 + 32);
+        v11 = *(v10 + 24);
       }
 
       else
       {
-        v14 = &TSCE::_CellRectArchive_default_instance_;
+        v11 = &TSCE::_CellCoordinateArchive_default_instance_;
       }
 
-      v17 = sub_2212699D8(v14);
-      v18 = v15;
-      objc_msgSend_addRect_fromCoord_(self, v15, &v17, &v19, v16);
-      v10 += 8;
-      --v9;
+      v12 = sub_2212697C0(v11);
+      v16 = 0;
+      v17 = v12;
+      v15 = 0;
+      if (*(v10 + 32))
+      {
+        v13 = *(v10 + 32);
+      }
+
+      else
+      {
+        v13 = TSCE::_CellRectArchive_default_instance_;
+      }
+
+      v15 = sub_2212699D8(v13);
+      v16 = v14;
+      objc_msgSend_addRect_fromCoord_(self, v14, &v15, &v17);
+      v9 += 8;
+      --v8;
     }
 
-    while (v9);
+    while (v8);
   }
 }
 

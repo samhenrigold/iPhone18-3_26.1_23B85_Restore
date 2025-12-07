@@ -13,19 +13,19 @@
 - (void)setIsOneToOneRemoteMediaStalling:()OneToOne
 {
   v3 = a3;
-  v7[5] = *MEMORY[0x1E69E9840];
+  v8[5] = *MEMORY[0x1E69E9840];
   firstObject = [(NSArray *)[(VCSession *)self remoteParticipants] firstObject];
   self->_isOneToOneRemoteMediaStalling = v3;
-  [VCRemoteVideoManager_DefaultManager() remoteMediaDidStall:v3 streamToken:{objc_msgSend(firstObject, "participantVideoToken")}];
+  [VCRemoteVideoManager_DefaultManager(firstObject v6)];
   if (v3)
   {
     notificationQueue = self->_notificationQueue;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __56__VCSession_OneToOne__setIsOneToOneRemoteMediaStalling___block_invoke;
-    v7[3] = &unk_1E85F3778;
-    v7[4] = self;
-    dispatch_async(notificationQueue, v7);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __56__VCSession_OneToOne__setIsOneToOneRemoteMediaStalling___block_invoke;
+    v8[3] = &unk_1E85F3778;
+    v8[4] = self;
+    dispatch_async(notificationQueue, v8);
     self->_isReconnectPending = 1;
     reportingGenericEvent();
   }
@@ -265,7 +265,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_33_6() == v0)
+  if (OUTLINED_FUNCTION_33_6(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -282,7 +282,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 

@@ -18,7 +18,7 @@
   v12.receiver = self;
   v12.super_class = type metadata accessor for SearchBar();
   height = [(SearchBar *)&v12 initWithFrame:x, y, width, height];
-  sub_10000A5D4(&unk_100945BF0);
+  sub_10000A5D4(&unk_100945BF0, &qword_100786810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100783DD0;
   *(v9 + 32) = sub_10076E3FC();
@@ -41,11 +41,11 @@
 - (NSArray)keyCommands
 {
   selfCopy = self;
-  v3 = sub_100510A7C();
+  v3 = sub_100510A7C(selfCopy);
 
   if (v3)
   {
-    sub_100016F40(0, &unk_10094C270);
+    sub_100016F40(0, &unk_10094C270, UIKeyCommand_ptr);
     v4.super.isa = sub_1007701AC().super.isa;
   }
 

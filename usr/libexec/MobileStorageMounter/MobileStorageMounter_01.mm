@@ -57,38 +57,38 @@ LABEL_13:
   return v6;
 }
 
-id sub_100014B34()
+id sub_100014B34(int a1)
 {
-  v0 = objc_alloc_init(NSMutableDictionary);
-  if (v0)
+  v2 = objc_alloc_init(NSMutableDictionary);
+  if (v2)
   {
-    v1 = sub_100013C4C();
-    if (v1)
-    {
-      [v0 addEntriesFromDictionary:v1];
-    }
-
-    v2 = sub_100013F98();
-
-    if (v2)
-    {
-      [v0 addEntriesFromDictionary:v2];
-    }
-
-    v3 = sub_1000121F0();
-
+    v3 = sub_100013C4C();
     if (v3)
     {
-      [v0 addEntriesFromDictionary:v3];
+      [v2 addEntriesFromDictionary:v3];
+    }
+
+    v4 = sub_100013F98();
+
+    if (v4)
+    {
+      [v2 addEntriesFromDictionary:v4];
+    }
+
+    v5 = sub_1000121F0(a1);
+
+    if (v5)
+    {
+      [v2 addEntriesFromDictionary:v5];
     }
   }
 
-  return v0;
+  return v2;
 }
 
 id sub_100014BE8(void *a1)
 {
-  v1 = sub_100014CA8(@"MassStorage", @"DeviceNode", a1);
+  v1 = sub_100014CA8(@"MassStorage", @"DeviceNode", a1, 0);
   v2 = v1;
   if (v1 && [v1 count] && (objc_msgSend(v2, "objectAtIndex:", 0), v3 = objc_claimAutoreleasedReturnValue(), sub_100011578(v3), v4 = objc_claimAutoreleasedReturnValue(), v4, v3, v4))
   {
@@ -103,12 +103,12 @@ id sub_100014BE8(void *a1)
   return v5;
 }
 
-id sub_100014CA8(void *a1, void *a2, void *a3)
+id sub_100014CA8(void *a1, void *a2, void *a3, int a4)
 {
-  v5 = a1;
-  v29 = a2;
-  v28 = a3;
-  if (!v5 || !v29 || !v28)
+  v7 = a1;
+  v31 = a2;
+  v30 = a3;
+  if (!v7 || !v31 || !v30)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
@@ -119,107 +119,107 @@ id sub_100014CA8(void *a1, void *a2, void *a3)
     goto LABEL_26;
   }
 
-  v6 = sub_100014B34();
-  if (!v6)
+  v8 = sub_100014B34(a4);
+  if (!v8)
   {
-    v22 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
-    if (v22)
+    v24 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+    if (v24)
     {
-      sub_10001C284(v22, v23, v24);
+      sub_10001C284(v24, v25, v26);
     }
 
 LABEL_26:
+    v29 = 0;
     v27 = 0;
-    v25 = 0;
-    v10 = 0;
-    v7 = 0;
+    v12 = 0;
+    v9 = 0;
     goto LABEL_32;
   }
 
-  v7 = v6;
-  v27 = objc_alloc_init(NSMutableArray);
-  if (v27)
+  v9 = v8;
+  v29 = objc_alloc_init(NSMutableArray);
+  if (v29)
   {
+    v36 = 0u;
+    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v7 = v7;
-    v8 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
-    if (v8)
+    v9 = v9;
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v31 = 0;
-      v10 = 0;
-      v11 = *v33;
+      v11 = v10;
+      v33 = 0;
+      v12 = 0;
+      v13 = *v35;
       do
       {
-        v12 = 0;
-        v30 = v9;
+        v14 = 0;
+        v32 = v11;
         do
         {
-          v13 = v10;
-          if (*v33 != v11)
+          v15 = v12;
+          if (*v35 != v13)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          v14 = [v7 objectForKey:*(*(&v32 + 1) + 8 * v12)];
-          v10 = [v14 objectForKeyedSubscript:@"DeviceType"];
+          v16 = [v9 objectForKey:*(*(&v34 + 1) + 8 * v14)];
+          v12 = [v16 objectForKeyedSubscript:@"DeviceType"];
 
-          if (v10)
+          if (v12)
           {
-            if ([v10 isEqual:v5])
+            if ([v12 isEqual:v7])
             {
-              v15 = v11;
-              v16 = v7;
-              v17 = v5;
-              v18 = [v14 objectForKeyedSubscript:v29];
+              v17 = v13;
+              v18 = v9;
+              v19 = v7;
+              v20 = [v16 objectForKeyedSubscript:v31];
 
-              v19 = sub_100011650(v18);
-              if (v19)
+              v21 = sub_100011650(v20);
+              if (v21)
               {
-                v20 = v19;
-                v21 = [v18 isEqual:v28];
+                v22 = v21;
+                v23 = [v20 isEqual:v30];
 
-                if (v21)
+                if (v23)
                 {
-                  [v27 addObject:v14];
+                  [v29 addObject:v16];
                 }
               }
 
-              v31 = v18;
-              v5 = v17;
-              v7 = v16;
-              v11 = v15;
-              v9 = v30;
+              v33 = v20;
+              v7 = v19;
+              v9 = v18;
+              v13 = v17;
+              v11 = v32;
             }
           }
 
           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v37 = @"DeviceType";
+            v39 = @"DeviceType";
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid value for %@.", buf, 0xCu);
           }
 
-          v12 = v12 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v9 != v12);
-        v9 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        while (v11 != v14);
+        v11 = [v9 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
 
     else
     {
-      v31 = 0;
-      v10 = 0;
+      v33 = 0;
+      v12 = 0;
     }
 
-    v25 = v31;
+    v27 = v33;
   }
 
   else
@@ -230,102 +230,102 @@ LABEL_26:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create array.", buf, 2u);
     }
 
+    v29 = 0;
     v27 = 0;
-    v25 = 0;
-    v10 = 0;
+    v12 = 0;
   }
 
 LABEL_32:
 
-  return v27;
+  return v29;
 }
 
-id sub_100015054(void *a1)
+id sub_100015054(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = sub_100014B34();
-  v3 = v2;
-  if (v2)
+  v3 = a1;
+  v4 = sub_100014B34(a2);
+  v5 = v4;
+  if (v4)
   {
+    v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v5)
+    v6 = v4;
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v7)
     {
-      v6 = v5;
-      v20 = v3;
-      v7 = 0;
-      v8 = *v22;
-LABEL_4:
+      v8 = v7;
+      v22 = v5;
       v9 = 0;
+      v10 = *v24;
+LABEL_4:
+      v11 = 0;
       while (1)
       {
-        if (*v22 != v8)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = [v4 objectForKey:*(*(&v21 + 1) + 8 * v9)];
-        v11 = sub_100011578(v10);
+        v12 = [v6 objectForKey:*(*(&v23 + 1) + 8 * v11)];
+        v13 = sub_100011578(v12);
 
-        if (v11)
-        {
-          v12 = [v10 objectForKeyedSubscript:@"MountPath"];
-
-          v7 = v12;
-        }
-
-        v13 = sub_100011650(v7);
         if (v13)
         {
-          v14 = v13;
-          v15 = [v7 isEqualToString:v1];
+          v14 = [v12 objectForKeyedSubscript:@"MountPath"];
 
-          if (v15)
+          v9 = v14;
+        }
+
+        v15 = sub_100011650(v9);
+        if (v15)
+        {
+          v16 = v15;
+          v17 = [v9 isEqualToString:v3];
+
+          if (v17)
           {
             break;
           }
         }
 
-        if (v6 == ++v9)
+        if (v8 == ++v11)
         {
-          v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
-          if (v6)
+          v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          if (v8)
           {
             goto LABEL_4;
           }
 
-          v10 = 0;
+          v12 = 0;
           break;
         }
       }
 
-      v3 = v20;
+      v5 = v22;
     }
 
     else
     {
-      v7 = 0;
-      v10 = 0;
+      v9 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v16 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
-    if (v16)
+    v18 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+    if (v18)
     {
-      sub_10001C284(v16, v17, v18);
+      sub_10001C284(v18, v19, v20);
     }
 
-    v7 = 0;
-    v10 = 0;
+    v9 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 void sub_100015248(uint64_t a1, io_registry_entry_t entry, _BYTE *a3)
@@ -675,16 +675,16 @@ LABEL_10:
   return v5;
 }
 
-id sub_100015DA0()
+id sub_100015DA0(uint64_t a1)
 {
   if (qword_1000388B0 != -1)
   {
     sub_10001C2C4();
   }
 
-  v1 = qword_1000388B8;
+  v2 = qword_1000388B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100015DE4(id a1)
@@ -1058,7 +1058,7 @@ uint64_t DERImg4DecodeProperty(void *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v10 = 0;
   v11 = 0uLL;
@@ -1512,7 +1512,6 @@ LABEL_8:
 
   else
   {
-    v7 = *(a1 + 32);
     a2();
     *&v5 = 0;
     *a3 = 0uLL;
@@ -1586,37 +1585,37 @@ uint64_t Img4DecodeRestoreInfoExists(uint64_t a1, BOOL *a2)
   return result;
 }
 
-uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, unsigned int a2, uint64_t a3, BOOL *a4)
+uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4, uint64_t a5, uint64_t a6)
+{
+  memset(v10, 0, sizeof(v10));
+  v6 = 6;
+  if (a1)
+  {
+    if (a4)
+    {
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v10);
+      v6 = v8;
+      if (!v8)
+      {
+        return DERParseBoolean(&v10[1] + 1, a4);
+      }
+    }
+  }
+
+  return v6;
+}
+
+void Img4DecodeGetIntegerFromSection(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6)
 {
   memset(v8, 0, sizeof(v8));
-  v4 = 6;
   if (a1)
   {
     if (a4)
     {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v8);
-      v4 = v6;
-      if (!v6)
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v8);
+      if (!v7)
       {
-        return DERParseBoolean(&v8[1] + 1, a4);
-      }
-    }
-  }
-
-  return v4;
-}
-
-void Img4DecodeGetIntegerFromSection(uint64_t a1, unsigned int a2, uint64_t a3, _DWORD *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
-      {
-        if (DERParseInteger(&v6[1] + 8, a4))
+        if (DERParseInteger(&v8[1] + 8, a4))
         {
           *a4 = 0;
         }
@@ -1625,17 +1624,17 @@ void Img4DecodeGetIntegerFromSection(uint64_t a1, unsigned int a2, uint64_t a3, 
   }
 }
 
-void Img4DecodeGetInteger64FromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t *a4)
+void Img4DecodeGetInteger64FromSection(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  memset(v6, 0, sizeof(v6));
+  memset(v8, 0, sizeof(v8));
   if (a1)
   {
     if (a4)
     {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v8);
+      if (!v7)
       {
-        if (DERParseInteger64(&v6[1] + 8, a4))
+        if (DERParseInteger64(&v8[1] + 8, a4))
         {
           *a4 = 0;
         }
@@ -1644,15 +1643,15 @@ void Img4DecodeGetInteger64FromSection(uint64_t a1, unsigned int a2, uint64_t a3
   }
 }
 
-void Img4DecodeGetDataFromSection(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, void *a5)
+void Img4DecodeGetDataFromSection(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v10 = 0u;
   v11 = 0u;
-  v9 = 0u;
+  v12 = 0u;
+  v10 = 0u;
   if (a1 && a4 && a5)
   {
-    Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 4uLL, &v9);
-    if (v7)
+    Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 4uLL, &v10);
+    if (v8)
     {
       *a5 = 0;
       *a4 = 0;
@@ -1660,9 +1659,9 @@ void Img4DecodeGetDataFromSection(uint64_t a1, unsigned int a2, uint64_t a3, voi
 
     else
     {
-      v8 = v11;
-      *a4 = *(&v10 + 1);
-      *a5 = v8;
+      v9 = v12;
+      *a4 = *(&v11 + 1);
+      *a5 = v9;
     }
   }
 }
@@ -1766,7 +1765,7 @@ void Img4DecodeGetObjectPropertyString(uint64_t a1, uint64_t a2, uint64_t a3, vo
 
 double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, _OWORD *a5)
 {
-  *v11 = 0uLL;
+  v11 = 0uLL;
   if (a2 <= 1 && a1 && a5)
   {
     v12 = 0;
@@ -1774,14 +1773,14 @@ double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a
     {
       if (a2)
       {
-        *v11 = *(a1 + 440);
+        v11 = *(a1 + 440);
         goto LABEL_9;
       }
 
-      if (!DERImg4DecodeParseManifestProperties(a1, 0, v11))
+      if (!DERImg4DecodeParseManifestProperties(a1, 0, &v11))
       {
 LABEL_9:
-        if (!DERImg4DecodeFindProperty(v11, a3, a4, a5))
+        if (!DERImg4DecodeFindProperty(&v11, a3, a4, a5))
         {
           return result;
         }
@@ -1882,7 +1881,7 @@ double Img4DecodeInit(uint64_t a1, uint64_t a2, uint64_t a3)
       *(a3 + 416) = 0u;
       *(a3 + 432) = 0u;
       *(a3 + 448) = 0;
-      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, a3 + 88) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
+      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, (a3 + 88)) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
       {
         *(a3 + 8) = v6;
         result = *&v7;
@@ -1929,7 +1928,7 @@ double Img4DecodeInitPayload(uint64_t a1, uint64_t a2, uint64_t a3)
     *(a3 + 416) = 0u;
     *(a3 + 432) = 0u;
     *(a3 + 448) = 0;
-    if (!DERImg4DecodePayload(&v5, a3 + 88))
+    if (!DERImg4DecodePayload(&v5, (a3 + 88)))
     {
       result = *&v5;
       *(a3 + 8) = v5;
@@ -2053,7 +2052,7 @@ uint64_t sub_100017F04(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
   return result;
 }
 
-uint64_t Img4DecodePerformTrustEvaluation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Img4DecodePerformTrustEvaluation(uint64_t a1, uint64_t a2, uint64_t (*a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, uint64_t a5)
 {
   v6[1] = 0;
   v6[2] = 0;
@@ -2061,7 +2060,7 @@ uint64_t Img4DecodePerformTrustEvaluation(unsigned int a1, uint64_t a2, uint64_t
   return sub_100018674(a1, a2, v6, a4, 0, a5);
 }
 
-uint64_t Img4DecodePerformTrustEvaluatation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Img4DecodePerformTrustEvaluatation(uint64_t a1, uint64_t a2, uint64_t (*a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, uint64_t a5)
 {
   v6[1] = 0;
   v6[2] = 0;
@@ -2120,9 +2119,9 @@ void sub_100018274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_1000182CC(a1, a2, 2uLL, &a9, 0);
 }
 
-void sub_100018294(uint64_t a1, ...)
+void sub_100018294(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
 
   bzero(va, 0xA0uLL);
 }
@@ -2133,7 +2132,7 @@ void *sub_1000182B4(uint64_t a1, const void *a2)
   return memcpy(v3, a2, v2);
 }
 
-void sub_1000182CC(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, BOOL *a5)
+void sub_1000182CC(uint64_t a1, uint64_t a2, unint64_t a3, void *a4, BOOL *a5)
 {
   if (a1)
   {
@@ -2207,7 +2206,7 @@ void sub_100018418(void *a1, _OWORD *a2)
         return;
       }
 
-      v4 = (a1 + 7);
+      v4 = a1 + 7;
       switch(v17)
       {
         case 0xE00000004D414E50:
@@ -2281,13 +2280,13 @@ LABEL_11:
 
           break;
         case 0xE00000004F424A50:
-          v4 = (a1 + 9);
+          v4 = a1 + 9;
           if (a1[9])
           {
             goto LABEL_11;
           }
 
-          v4 = (a1 + 9);
+          v4 = a1 + 9;
           if (a1[10])
           {
             goto LABEL_11;
@@ -2301,11 +2300,11 @@ LABEL_11:
   }
 }
 
-uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t (**a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, char a5, uint64_t a6)
 {
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(v23, 0, sizeof(v23));
+  memset(v22, 0, sizeof(v22));
   result = 6;
   if (!a2)
   {
@@ -2363,7 +2362,6 @@ uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, c
     return 7;
   }
 
-  v14 = *(a2 + 32);
   result = (*a4)();
   if (result)
   {
@@ -2371,15 +2369,15 @@ uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, c
   }
 
   *(a2 + 1) = 1;
-  v15 = *(a3 + 8);
-  if (v15 && (v16 = v15(a2, a6)) != 0 && !memcmp((a2 + 328), v16, **(a4 + 32)))
+  v14 = a3[1];
+  if (v14 && (v15 = (v14)(a2, a6)) != 0 && !memcmp((a2 + 328), v15, **(a4 + 32)))
   {
-    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
-    result = (*(a4 + 8))(*(a2 + 296), *(a2 + 304), &v21, &v22, a2 + 312, a2 + 320, a4, a6);
+    result = (*(a4 + 8))(*(a2 + 296), *(a2 + 304), &v20, &v21, a2 + 312, a2 + 320, a4, a6);
     if (result)
     {
       return result;
@@ -2396,13 +2394,13 @@ uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, c
       return result;
     }
 
-    result = (*(a4 + 16))(v21, v22, *(a2 + 280), *(a2 + 288), a2 + 376, **(a4 + 32), a4, a6);
+    result = (*(a4 + 16))(v20, v21, *(a2 + 280), *(a2 + 288), a2 + 376, **(a4 + 32), a4, a6);
     if (result)
     {
       return result;
     }
 
-    v17 = 1;
+    v16 = 1;
   }
 
   result = DERImg4DecodeParseManifestProperties(a2, a2 + 40, a2 + 56);
@@ -2413,12 +2411,12 @@ uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, c
 
   if ((a5 & 1) == 0)
   {
-    v18 = *(a3 + 16);
-    v19 = (a2 + 40);
-    v20 = a1 | 0xE000000000000000;
-    if (v18)
+    v17 = a3[2];
+    v18 = (a2 + 40);
+    v19 = a1 | 0xE000000000000000;
+    if (v17)
     {
-      result = v18(v19, v20, 0x2000000000000011, v23, a6);
+      result = (v17)(v18, v19, 0x2000000000000011, v22, a6);
       if (result)
       {
         return result;
@@ -2427,17 +2425,17 @@ uint64_t sub_100018674(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, c
 
     else
     {
-      result = DERImg4DecodeFindProperty(v19, v20, 0x2000000000000011uLL, v23);
+      result = DERImg4DecodeFindProperty(v18, v19, 0x2000000000000011uLL, v22);
       if (result)
       {
         return result;
       }
     }
 
-    *(a2 + 72) = *(&v23[1] + 8);
+    *(a2 + 72) = *(&v22[1] + 8);
   }
 
-  if (v17)
+  if (v16)
   {
     result = (*(a4 + 24))(a2, a6);
     if (result)
@@ -2555,35 +2553,31 @@ uint64_t verify_signature_rsa3k(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return result;
 }
 
-uint64_t sub_1000189A8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+uint64_t sub_1000189A8(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 {
   if (a5 != 4096 && a5 != 3072)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v23[2] = 0;
-  v23[3] = 0;
-  v8 = (a5 + 63) >> 6;
-  __chkstk_darwin();
-  v10 = (v22 - v9);
-  bzero(v22 - v9, v9);
-  *v10 = v8;
-  v11 = *(a1 + 8);
-  v23[0] = *a1;
-  v23[1] = v11;
-  memset(v22, 0, sizeof(v22));
-  if (DERParseSequenceToObject(v23, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v22, 0x20uLL, 0x20uLL) || sub_100018DD4(v10, *(&v22[0] + 1), *&v22[0]))
+  v13[2] = 0;
+  v13[3] = 0;
+  v6 = (a5 + 63) >> 6;
+  __chkstk_darwin(a1);
+  v8 = (v12 - v7);
+  bzero(v12 - v7, v7);
+  *v8 = v6;
+  v9 = *(a1 + 8);
+  v13[0] = *a1;
+  v13[1] = v9;
+  memset(v12, 0, sizeof(v12));
+  if (DERParseSequenceToObject(v13, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v12, 0x20uLL, 0x20uLL) || sub_100018DD4(v8, *(&v12[0] + 1), *&v12[0]))
   {
     return 0xFFFFFFFFLL;
   }
 
   if (&CCRSA_PKCS1_FAULT_CANARY && &_ccrsa_verify_pkcs1v15_digest)
   {
-    v13 = *a3;
-    v12 = a3[1];
-    v15 = *a4;
-    v14 = a4[1];
     if (ccrsa_verify_pkcs1v15_digest() || cc_cmp_safe())
     {
       return 0xFFFFFFFFLL;
@@ -2592,14 +2586,10 @@ uint64_t sub_1000189A8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uin
     return 0;
   }
 
-  LOBYTE(v22[0]) = 0;
-  v18 = *a3;
-  v17 = a3[1];
-  v20 = *a4;
-  v19 = a4[1];
-  v21 = ccrsa_verify_pkcs1v15();
+  LOBYTE(v12[0]) = 0;
+  v11 = ccrsa_verify_pkcs1v15();
   result = 0xFFFFFFFFLL;
-  if (!v21 && (v22[0] & 1) != 0)
+  if (!v11 && (v12[0] & 1) != 0)
   {
     return 0;
   }
@@ -2684,8 +2674,8 @@ uint64_t verify_signature_rsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
 
 uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v17 = 0;
-  v18 = 0;
+  v14 = 0;
+  v15 = 0;
   result = 6;
   if (a1)
   {
@@ -2707,11 +2697,10 @@ uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uin
                   v10 = *(v9 + 16);
                   if (v10)
                   {
-                    v11 = *v10;
                     if (*v10)
                     {
                       result = 0xFFFFFFFFLL;
-                      if (a2 == 516 && *v11 == a6)
+                      if (a2 == 516 && **v10 == a6)
                       {
                         if (a1 >= 0xFFFFFFFFFFFFFE00)
                         {
@@ -2721,14 +2710,13 @@ uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uin
                         else
                         {
                           __chkstk_darwin(0xFFFFFFFFLL);
-                          bzero(&v15, 0x638uLL);
-                          v14 = 64;
-                          result = sub_100018DD4(&v14, 0x200uLL, a1);
+                          bzero(&v12, 0x638uLL);
+                          v11 = 64;
+                          result = sub_100018DD4(&v11, 0x200uLL, a1);
                           if (!result)
                           {
                             if (&CCRSA_PKCS1_FAULT_CANARY && &_ccrsa_verify_pkcs1v15_digest)
                             {
-                              v12 = v11[4];
                               result = ccrsa_verify_pkcs1v15_digest();
                               if (!result)
                               {
@@ -2743,10 +2731,9 @@ uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uin
 
                             else
                             {
-                              v16 = 0;
-                              v13 = v11[4];
+                              v13 = 0;
                               LODWORD(result) = ccrsa_verify_pkcs1v15();
-                              if (!result && (v16 & 1) != 0)
+                              if (!result && (v13 & 1) != 0)
                               {
                                 return 0;
                               }
@@ -2865,52 +2852,45 @@ void verify_signature_ecdsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   }
 }
 
-void sub_100018EDC(uint64_t *a1, uint64_t *a2, uint64_t *a3)
+void sub_100018EDC(void *a1, void *a2, void *a3)
 {
-  v23[7] = 0;
-  v6 = a1[1];
+  v13[7] = 0;
   ccec_x963_import_pub_size();
   if (ccec_keysize_is_supported())
   {
     cp = ccec_get_cp();
-    v8 = *cp;
-    if (*cp >> 61 || !is_mul_ok(8 * v8, 3uLL))
+    v4 = *cp;
+    if (*cp >> 61 || !is_mul_ok(8 * v4, 3uLL))
     {
       __break(0x550Cu);
     }
 
     else
     {
-      v9 = 24 * v8;
-      v10 = __CFADD__(v9, 16);
-      v11 = v9 + 16;
-      if (!v10)
+      v5 = 24 * v4;
+      v6 = __CFADD__(v5, 16);
+      v7 = v5 + 16;
+      if (!v6)
       {
-        v10 = __CFADD__(v11, 16);
-        v12 = v11 + 16;
-        if (!v10)
+        v6 = __CFADD__(v7, 16);
+        v8 = v7 + 16;
+        if (!v6)
         {
-          v13 = cp;
-          v14 = v12 - 1;
-          __chkstk_darwin();
-          v16 = &v23[-v15];
-          bzero(&v23[-v15], v15);
-          if (v14 < 0x10)
+          v9 = cp;
+          v10 = v8 - 1;
+          __chkstk_darwin(cp);
+          v12 = &v13[-v11];
+          bzero(&v13[-v11], v11);
+          if (v10 < 0x10)
           {
             __break(1u);
           }
 
           else
           {
-            *v16 = v13;
-            v18 = *a1;
-            v17 = a1[1];
+            *v12 = v9;
             if (!ccec_import_pub())
             {
-              v20 = *a2;
-              v19 = a2[1];
-              v22 = *a3;
-              v21 = a3[1];
               ccec_verify();
             }
           }
@@ -3350,7 +3330,7 @@ uint64_t sub_10001971C(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, v
   return result;
 }
 
-uint64_t sub_1000198AC(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000198AC(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_X86_ROOT_CA_CERTIFICATE;
   a2[1] = 1382;
@@ -3365,7 +3345,7 @@ uint64_t sub_1000198AC(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000198F8(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000198F8(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_ROOT_CA_CERTIFICATE;
   a2[1] = 1394;
@@ -3380,7 +3360,7 @@ uint64_t sub_1000198F8(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019944(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019944(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1404;
@@ -3395,7 +3375,7 @@ uint64_t sub_100019944(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019990(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019990(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_ROOT_CA_CERTIFICATE;
   a2[1] = 1425;
@@ -3410,7 +3390,7 @@ uint64_t sub_100019990(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_1000199DC(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_1000199DC(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1435;
@@ -3425,7 +3405,7 @@ uint64_t sub_1000199DC(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019A28(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019A28(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_AVP_ROOT_CA_CERTIFICATE;
   a2[1] = 1431;
@@ -3440,7 +3420,7 @@ uint64_t sub_100019A28(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019A74(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019A74(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1382;
@@ -3455,7 +3435,7 @@ uint64_t sub_100019A74(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019AC0(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019AC0(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1442;
@@ -3470,7 +3450,7 @@ uint64_t sub_100019AC0(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019B0C(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019B0C(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA3K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1118;
@@ -3485,7 +3465,7 @@ uint64_t sub_100019B0C(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019B58(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019B58(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1374;
@@ -3500,7 +3480,7 @@ uint64_t sub_100019B58(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019BA4(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019BA4(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE_AWG1;
   a2[1] = 1404;
@@ -3515,7 +3495,7 @@ uint64_t sub_100019BA4(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_100019BF0(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_100019BF0(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_PED_ROOT_CA_CERTIFICATE;
   a2[1] = 1400;
@@ -3615,7 +3595,7 @@ uint64_t verify_chain_img4_ec_v1(uint64_t a1, uint64_t a2, void *a3, void *a4, v
   return result;
 }
 
-uint64_t sub_100019DD8(uint64_t result, unsigned int a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t sub_100019DD8(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -3832,7 +3812,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_10001A1B8(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001A1B8(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC256_SHA256_ROOT_CA_CERTIFICATE;
   a2[1] = 551;
@@ -3847,7 +3827,7 @@ uint64_t sub_10001A1B8(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_10001A204(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001A204(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 610;
@@ -3862,7 +3842,7 @@ uint64_t sub_10001A204(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_10001A26C(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001A26C(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &EC384_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 542;
@@ -3877,7 +3857,7 @@ uint64_t sub_10001A26C(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t sub_10001A304(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t sub_10001A304(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &QA_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 540;
@@ -5204,29 +5184,28 @@ void sub_10001B568()
   }
 }
 
-void sub_10001B5E4()
+void sub_10001B5E4(uint64_t a1)
 {
-  v0 = sub_100007B7C();
+  v1 = sub_100007B7C(a1);
   sub_100006BB4();
   sub_100006BA8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_10001B674(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = sub_100007B7C();
+  v1 = sub_100007B7C(*(a1 + 32));
   sub_100006BB4();
   sub_100006BA8();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_10001B708()
+void sub_10001B708(uint64_t a1)
 {
-  v0 = sub_100007B7C();
+  v1 = sub_100007B7C(a1);
   sub_100006BB4();
   sub_100006BA8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_10001B7A8()
@@ -5276,6 +5255,46 @@ void sub_10001BB64()
   sub_100007B6C();
   sub_100006BA8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_10001BD54(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 138543618;
+  *&v8[4] = a1;
+  *&v8[12] = 2114;
+  *&v8[14] = *a2;
+  sub_100010CC8(&_mh_execute_header, &_os_log_default, a3, "Failed to remove launchd job '%{public}@': %{public}@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
+void sub_10001BDD8()
+{
+  v5 = 0;
+  sub_100010C84();
+  sub_100010C94(&_mh_execute_header, &_os_log_default, v0, "FDSET[%lld] = %d", v1, v2, v3, v4, 134218240, v5);
+}
+
+void sub_10001BE50()
+{
+  LODWORD(v5) = 134218240;
+  *(&v5 + 4) = 1;
+  sub_100010C84();
+  sub_100010C94(&_mh_execute_header, &_os_log_default, v0, "FDSET[%lld] = %d", v1, v2, v3, v4, v5, DWORD2(v5));
+}
+
+void sub_10001BECC()
+{
+  LODWORD(v5) = 134218240;
+  *(&v5 + 4) = 3;
+  sub_100010C84();
+  sub_100010C94(&_mh_execute_header, &_os_log_default, v0, "FDSET[%lld] = %d", v1, v2, v3, v4, v5, DWORD2(v5));
+}
+
+void sub_10001BF48()
+{
+  LODWORD(v5) = 134218240;
+  *(&v5 + 4) = 2;
+  sub_100010C84();
+  sub_100010C94(&_mh_execute_header, &_os_log_default, v0, "FDSET[%lld] = %d", v1, v2, v3, v4, v5, DWORD2(v5));
 }
 
 void sub_10001BFC4(uint64_t a1, int __errnum)
@@ -5433,7 +5452,7 @@ uint64_t DERImg4DecodePayloadCompression(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, void *a2)
 {
   result = 6;
   if (a1)
@@ -5448,10 +5467,10 @@ uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
           return 2;
         }
 
-        else if (!*(a2 + 80) || (sub_100016F88(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
+        else if (!a2[10] || (sub_100016F88(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
         {
-          v6 = *(a2 + 96);
-          v5 = a2 + 96;
+          v6 = a2[12];
+          v5 = a2 + 12;
           if (!v6)
           {
             return 0;
@@ -5503,7 +5522,7 @@ uint64_t DERImg4DecodePayloadProperties(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayload(uint64_t a1, _OWORD *a2)
 {
   result = 6;
   if (a1 && a2)
@@ -5522,8 +5541,8 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
 
         else
         {
-          v6 = *(a2 + 80);
-          v5 = a2 + 80;
+          v6 = *(a2 + 10);
+          v5 = a2 + 5;
           if (!v6)
           {
             return 0;
@@ -5543,13 +5562,13 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
     {
       v7 = v11[1];
       *a2 = v11[0];
-      *(a2 + 16) = v7;
+      a2[1] = v7;
       v8 = v11[3];
-      *(a2 + 32) = v11[2];
-      *(a2 + 48) = v8;
+      a2[2] = v11[2];
+      a2[3] = v8;
       v9 = v11[5];
-      *(a2 + 64) = v11[4];
-      *(a2 + 80) = v9;
+      a2[4] = v11[4];
+      a2[5] = v9;
     }
   }
 
@@ -5669,7 +5688,7 @@ uint64_t DERImg4DecodeRestoreInfo(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = 0;
   v9[0] = 0;
@@ -5686,8 +5705,8 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
       if ((v8 | 0xE000000000000000) == a2)
       {
         result = 0;
-        *(a4 + 16) = a2 | 0xE000000000000000;
-        *(a4 + 40) = a3;
+        a4[2] = a2 | 0xE000000000000000;
+        a4[5] = a3;
       }
 
       else
@@ -5700,7 +5719,7 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8[0] = 0;
   v8[1] = 0;
@@ -5810,25 +5829,25 @@ uint64_t Img4DecodeGetManifest(uint64_t a1, void *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1)
+uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  sub_100018294(a1);
+  sub_100018294(a1, a2);
   result = 6;
-  if (v1)
+  if (v2)
   {
-    v5 = *(v2 + 8);
-    v4 = v2 + 8;
-    if (v5)
+    v6 = *(v3 + 8);
+    v5 = v3 + 8;
+    if (v6)
     {
-      result = DERImg4DecodePayloadWithProperties(v4, v6);
+      result = DERImg4DecodePayloadWithProperties(v5, v7);
       if (!result)
       {
-        *v1 = v7 != 0;
+        *v2 = v7[12] != 0;
       }
     }
   }
@@ -5836,30 +5855,30 @@ uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1)
   return result;
 }
 
-uint64_t Img4DecodeGetPayloadProperties(uint64_t a1)
+uint64_t Img4DecodeGetPayloadProperties(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  sub_100018294(a1);
+  sub_100018294(a1, a2);
   result = 6;
-  if (v1)
+  if (v2)
   {
-    v5 = *(v2 + 8);
-    v4 = v2 + 8;
-    if (v5)
+    v6 = *(v3 + 8);
+    v5 = v3 + 8;
+    if (v6)
     {
-      result = DERImg4DecodePayloadWithProperties(v4, v7);
+      result = DERImg4DecodePayloadWithProperties(v5, v8);
       if (!result)
       {
-        if (v8)
+        if (v9)
         {
           result = 0;
-          v6 = v9;
-          *v1 = v8;
-          v1[1] = v6;
+          v7 = v10;
+          *v2 = v9;
+          v2[1] = v7;
           return result;
         }
 
@@ -5982,7 +6001,7 @@ void Img4DecodePayloadPropertiesFindItemWithTag(unint64_t *a1, unsigned int a2, 
 void Img4DecodeGetPayloadPropertiesBoolean()
 {
   sub_100018210();
-  sub_1000182CC(v0, v1, 1uLL, &v5, 0);
+  sub_1000182CC(v0, v1, 1uLL, v5, 0);
   if (!v2)
   {
     v3 = sub_100018268();
@@ -6495,7 +6514,7 @@ uint64_t verify_signature_hybrid_scheme3_no_pqc(uint64_t a1, uint64_t a2, uint64
   return verify_signature_rsa4096_fixed(v9, v10, v11, v12, v13, v14, v15);
 }
 
-uint64_t Img4DecodeDigestInit(uint64_t a1, uint64_t *a2)
+uint64_t Img4DecodeDigestInit(uint64_t a1, void *a2)
 {
   if (!a1)
   {
@@ -6508,19 +6527,17 @@ uint64_t Img4DecodeDigestInit(uint64_t a1, uint64_t *a2)
     return 0xFFFFFFFFLL;
   }
 
-  v3 = *a2;
   ccdigest_init();
   return 0;
 }
 
-uint64_t Img4DecodeDigestUpdate(uint64_t a1, uint64_t *a2)
+uint64_t Img4DecodeDigestUpdate(uint64_t a1, void *a2)
 {
   if (!a1 || !**(a1 + 16))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *a2;
   ccdigest_update();
   return 0;
 }

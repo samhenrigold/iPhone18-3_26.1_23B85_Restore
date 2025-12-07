@@ -61,7 +61,7 @@
   v9 = v8;
   v10 = swift_allocObject();
   *(v10 + 16) = v6;
-  sub_264C8A740(0, &qword_27FFA9C28);
+  sub_264C8A740(0, &qword_27FFA9C28, off_279B7B640);
   v11 = sub_264C8971C(model, v7, v9, sub_264C8A820, v10, &block_descriptor_63);
 
   return v11;
@@ -93,7 +93,7 @@
   v9 = v8;
   v10 = swift_allocObject();
   *(v10 + 16) = v6;
-  sub_264C8A740(0, &qword_27FFA9C20);
+  sub_264C8A740(0, &qword_27FFA9C20, off_279B7B650);
   v11 = sub_264C8971C(model, v7, v9, sub_264C8A820, v10, &block_descriptor_72);
 
   return v11;

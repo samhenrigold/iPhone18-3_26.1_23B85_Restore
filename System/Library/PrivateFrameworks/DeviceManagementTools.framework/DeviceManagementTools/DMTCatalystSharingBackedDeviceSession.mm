@@ -76,7 +76,7 @@
 
 void __49__DMTCatalystSharingBackedDeviceSession_activate__block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -84,7 +84,7 @@ void __49__DMTCatalystSharingBackedDeviceSession_activate__block_invoke(uint64_t
   {
     if (!v3)
     {
-      v7 = _DMTLogGeneral_4();
+      v7 = _DMTLogGeneral_4(WeakRetained);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         __49__DMTCatalystSharingBackedDeviceSession_activate__block_invoke_cold_1();
@@ -99,17 +99,15 @@ void __49__DMTCatalystSharingBackedDeviceSession_activate__block_invoke(uint64_t
     if (v6)
     {
       v7 = [v5 deviceSessionInvalidatedHandler];
-      v11 = *MEMORY[0x277CCA7E8];
-      v12[0] = v3;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x277CCA7E8];
+      v11[0] = v3;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       v9 = DMTErrorWithCodeAndUserInfo(20, v8);
       (*(v7 + 16))(v7, v9);
 
 LABEL_7:
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivate
@@ -166,7 +164,7 @@ void __55__DMTCatalystSharingBackedDeviceSession_verifyPairing___block_invoke(ui
   {
     if (v3)
     {
-      v6 = _DMTLogGeneral_4();
+      v6 = _DMTLogGeneral_4(WeakRetained);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __55__DMTCatalystSharingBackedDeviceSession_verifyPairing___block_invoke_cold_1();
@@ -303,20 +301,21 @@ void __61__DMTCatalystSharingBackedDeviceSession_addPrimitiveHandlers__block_inv
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    if ([WeakRetained isInvalidated])
+    v3 = [WeakRetained isInvalidated];
+    if (v3)
     {
-      v3 = _DMTLogGeneral_4();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = _DMTLogGeneral_4(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v4, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v5, 2u);
       }
     }
 
     else
     {
-      v3 = DMTErrorWithCodeAndUserInfo(21, 0);
-      [v2 invalidateWithError:v3];
+      v4 = DMTErrorWithCodeAndUserInfo(21, 0);
+      [v2 invalidateWithError:v4];
     }
   }
 }
@@ -411,24 +410,25 @@ void __70__DMTCatalystSharingBackedDeviceSession_performPairingWithCompletion___
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = *(a1 + 32);
-      v6 = [DMTCatalystSharingBackedDeviceSession failureTypeForPairingError:v3];
-      (*(v5 + 16))(v5, v6);
+      v6 = *(a1 + 32);
+      v7 = [DMTCatalystSharingBackedDeviceSession failureTypeForPairingError:v3];
+      (*(v6 + 16))(v6, v7);
     }
 
     else
     {
-      v7 = _DMTLogGeneral_4();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _DMTLogGeneral_4(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         __70__DMTCatalystSharingBackedDeviceSession_performPairingWithCompletion___block_invoke_cold_1();
       }
 
-      [WeakRetained setPaired:1];
+      [v5 setPaired:1];
       (*(*(a1 + 32) + 16))();
     }
   }
@@ -436,28 +436,26 @@ void __70__DMTCatalystSharingBackedDeviceSession_performPairingWithCompletion___
 
 - (void)performPairingWithPreAuthWithCompletion:(id)completion
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   objc_initWeak(&location, self);
   v5 = +[DMTPairingConstants localeIdentifierKey];
-  v15 = v5;
+  v14 = v5;
   locale = [(DMTCatalystSharingBackedDeviceSession *)self locale];
   localeIdentifier = [locale localeIdentifier];
-  v16[0] = localeIdentifier;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke;
-  v11[3] = &unk_278F5E6C8;
-  objc_copyWeak(&v13, &location);
+  v15[0] = localeIdentifier;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke;
+  v10[3] = &unk_278F5E6C8;
+  objc_copyWeak(&v12, &location);
   v9 = completionCopy;
-  v12 = v9;
-  [(DMTCatalystSharingBackedDeviceSession *)self sendRequestID:@"_pa" unencryptedRequestData:v8 withTimeout:2000000000 completion:v11];
+  v11 = v9;
+  [(DMTCatalystSharingBackedDeviceSession *)self sendRequestID:@"_pa" unencryptedRequestData:v8 withTimeout:2000000000 completion:v10];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -468,24 +466,24 @@ void __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCo
   {
     if (!a2)
     {
-      if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (v6 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
       {
-        v9 = _DMTLogGeneral_4();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = _DMTLogGeneral_4(isKindOfClass);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke_cold_1(v6, v9);
+          __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke_cold_1(v6, v10);
         }
       }
 
       else
       {
-        v8 = [WeakRetained device];
-        [v8 setContext:v6];
+        v9 = [WeakRetained device];
+        [v9 setContext:v6];
 
-        v9 = [MEMORY[0x277CCAB98] defaultCenter];
-        v10 = +[DMTPairingConstants deviceContextDidUpdateNotification];
-        v11 = [WeakRetained device];
-        [v9 postNotificationName:v10 object:v11 userInfo:v6];
+        v10 = [MEMORY[0x277CCAB98] defaultCenter];
+        v11 = +[DMTPairingConstants deviceContextDidUpdateNotification];
+        v12 = [WeakRetained device];
+        [v10 postNotificationName:v11 object:v12 userInfo:v6];
       }
     }
 
@@ -520,44 +518,44 @@ void __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCo
   dataCopy = data;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 0;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2020000000;
+  v32 = 0;
   v13 = dispatch_time(0, timeout);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke;
   block[3] = &unk_278F5E6F0;
-  v28 = v30;
-  objc_copyWeak(&v29, &location);
+  v29 = v31;
+  objc_copyWeak(&v30, &location);
   v14 = dCopy;
-  v26 = v14;
+  v27 = v14;
   v15 = completionCopy;
-  v27 = v15;
+  v28 = v15;
   dispatch_after(v13, MEMORY[0x277D85CD0], block);
-  v16 = _DMTLogGeneral_4();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _DMTLogGeneral_4(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [DMTCatalystSharingBackedDeviceSession sendRequestID:unencryptedRequestData:withTimeout:completion:];
   }
 
   session = [(DMTCatalystSharingBackedDeviceSession *)self session];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke_27;
-  v20[3] = &unk_278F5E718;
-  v23 = v30;
-  objc_copyWeak(&v24, &location);
-  v18 = v14;
-  v21 = v18;
-  v19 = v15;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke_27;
+  v21[3] = &unk_278F5E718;
+  v24 = v31;
+  objc_copyWeak(&v25, &location);
+  v19 = v14;
   v22 = v19;
-  [session sendRequestID:v18 options:&unk_285B5BFC8 request:dataCopy responseHandler:v20];
+  v20 = v15;
+  v23 = v20;
+  [session sendRequestID:v19 options:&unk_285B5BFC8 request:dataCopy responseHandler:v21];
 
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v29);
-  _Block_object_dispose(v30, 8);
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v30);
+  _Block_object_dispose(v31, 8);
   objc_destroyWeak(&location);
 }
 
@@ -568,18 +566,19 @@ void __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedReque
   {
     *(v1 + 24) = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 56));
+    v4 = WeakRetained;
     if (WeakRetained)
     {
-      v4 = _DMTLogGeneral_4();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v5 = _DMTLogGeneral_4(WeakRetained);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke_cold_1(WeakRetained, a1);
+        __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke_cold_1();
       }
     }
 
-    v5 = *(a1 + 40);
-    v6 = DMTErrorWithCodeAndUserInfo(4, 0);
-    (*(v5 + 16))(v5, v6, 0, 0);
+    v6 = *(a1 + 40);
+    v7 = DMTErrorWithCodeAndUserInfo(4, 0);
+    (*(v6 + 16))(v6, v7, 0, 0);
   }
 }
 
@@ -594,28 +593,27 @@ void __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedReque
   {
     *(v10 + 24) = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 56));
+    v12 = WeakRetained;
     if (WeakRetained)
     {
-      v12 = _DMTLogGeneral_4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = _DMTLogGeneral_4(WeakRetained);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         v14 = *(a1 + 32);
         v15 = 138544130;
-        v16 = WeakRetained;
+        v16 = v12;
         v17 = 2114;
         v18 = v14;
         v19 = 2114;
         v20 = v7;
         v21 = 2114;
         v22 = v9;
-        _os_log_debug_impl(&dword_24891B000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ received response to sendRequestID:'%{public}@' (error: %{public}@, response: %{public}@)", &v15, 0x2Au);
+        _os_log_debug_impl(&dword_24891B000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ received response to sendRequestID:'%{public}@' (error: %{public}@, response: %{public}@)", &v15, 0x2Au);
       }
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)failureTypeForPairingError:(id)error
@@ -629,54 +627,32 @@ void __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedReque
 
 void __49__DMTCatalystSharingBackedDeviceSession_activate__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ activated successfully", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ activated successfully", v1, 0xCu);
 }
 
 void __55__DMTCatalystSharingBackedDeviceSession_verifyPairing___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Not already paired: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Not already paired: %{public}@", v1, 0xCu);
 }
 
 void __70__DMTCatalystSharingBackedDeviceSession_performPairingWithCompletion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ paired successfully", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ paired successfully", v1, 0xCu);
 }
 
 void __81__DMTCatalystSharingBackedDeviceSession_performPairingWithPreAuthWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   v4 = v3;
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "PreAuth request received non-dictionary object (%{public}@)", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendRequestID:unencryptedRequestData:withTimeout:completion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_24891B000, v0, v1, "%{public}@ Calling sendRequestID: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __101__DMTCatalystSharingBackedDeviceSession_sendRequestID_unencryptedRequestData_withTimeout_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_24891B000, v3, v4, "%{public}@ timed out waiting for response to sendRequestID:'%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "PreAuth request received non-dictionary object (%{public}@)", v5, 0xCu);
 }
 
 @end

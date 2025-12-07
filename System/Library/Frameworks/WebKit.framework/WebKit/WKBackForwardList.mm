@@ -20,7 +20,7 @@
   {
     if (self)
     {
-      [(WKBackForwardList *)self _protectedList];
+      objc_msgSend__protectedList(self);
       v4 = v7;
     }
 
@@ -57,7 +57,7 @@
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v7;
   }
 
@@ -66,7 +66,7 @@
     v7 = 0;
   }
 
-  WebKit::WebBackForwardList::protectedCurrentItem(self, &v8);
+  WebKit::WebBackForwardList::protectedCurrentItem(&v8, self);
   v2 = v8;
   if (v8)
   {
@@ -111,7 +111,7 @@
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v8;
   }
 
@@ -166,7 +166,7 @@
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v8;
   }
 
@@ -222,7 +222,7 @@
   v3 = index;
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v10;
   }
 
@@ -277,7 +277,7 @@
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v9;
   }
 
@@ -287,8 +287,8 @@
   }
 
   WebKit::WebBackForwardList::backList(self, &v10);
-  v2 = *(v10 + 1);
-  if (!v2)
+  var1 = v10->var1;
+  if (!var1)
   {
     v6 = 0;
     v10 = 0;
@@ -303,13 +303,13 @@
     return result;
   }
 
-  v3 = v2;
-  v4 = v2;
+  v3 = var1;
+  v4 = var1;
   v5 = v10;
   v10 = 0;
   if (v5)
   {
-    v6 = *(v5 + 1);
+    v6 = v5->var1;
 LABEL_8:
     CFRelease(v6);
   }
@@ -321,14 +321,14 @@ LABEL_8:
     CFRelease(*(v7 + 1));
   }
 
-  return v2;
+  return var1;
 }
 
 - (NSArray)forwardList
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v9;
   }
 
@@ -338,8 +338,8 @@ LABEL_8:
   }
 
   WebKit::WebBackForwardList::forwardList(self, &v10);
-  v2 = *(v10 + 1);
-  if (!v2)
+  var1 = v10->var1;
+  if (!var1)
   {
     v6 = 0;
     v10 = 0;
@@ -354,13 +354,13 @@ LABEL_8:
     return result;
   }
 
-  v3 = v2;
-  v4 = v2;
+  v3 = var1;
+  v4 = var1;
   v5 = v10;
   v10 = 0;
   if (v5)
   {
-    v6 = *(v5 + 1);
+    v6 = v5->var1;
 LABEL_8:
     CFRelease(v6);
   }
@@ -372,14 +372,14 @@ LABEL_8:
     CFRelease(*(v7 + 1));
   }
 
-  return v2;
+  return var1;
 }
 
 - (void)_removeAllItems
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v4;
   }
 
@@ -401,7 +401,7 @@ LABEL_8:
 {
   if (self)
   {
-    [(WKBackForwardList *)self _protectedList];
+    objc_msgSend__protectedList(self, a2);
     self = v3;
   }
 

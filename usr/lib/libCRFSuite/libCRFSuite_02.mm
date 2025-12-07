@@ -6,7 +6,7 @@ void ME_Efficient_Model_Trainer::backtracking_line_search(ME_Efficient_Model_Tra
   do
   {
     v16 = v16 * 0.5;
-    Vec::Vec(&v35, (v14 - v15) >> 3, 0.0);
+    Vec::Vec(&v35, 0.0, (v14 - v15) >> 3);
     v17 = *a5;
     v18 = *(a5 + 1);
     v19 = v18 - *a5;
@@ -30,7 +30,7 @@ void ME_Efficient_Model_Trainer::backtracking_line_search(ME_Efficient_Model_Tra
       while (v21);
     }
 
-    Vec::Vec(&__p, (*(a2 + 1) - *a2) >> 3, 0.0);
+    Vec::Vec(&__p, 0.0, (*(a2 + 1) - *a2) >> 3);
     v23 = *a2;
     v24 = *(a2 + 1);
     v25 = v24 - *a2;
@@ -125,23 +125,23 @@ void sub_29771A734(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, const double *a4@<X4>, int a5@<W0>, uint64_t a6@<X8>)
+void approximate_Hg(uint64_t *__return_ptr a1@<X8>, const Vec *a2@<X1>, const Vec *a3@<X2>, const Vec *a4@<X3>, const double *a5@<X4>, int a6@<W0>)
 {
-  v62[10] = *MEMORY[0x29EDCA608];
-  v57 = a5 - 1;
-  if (a5 >= 11)
+  v61[10] = *MEMORY[0x29EDCA608];
+  v56 = a6 - 1;
+  if (a6 >= 11)
   {
     v10 = 9;
   }
 
   else
   {
-    v10 = (a5 - 1);
+    v10 = (a6 - 1);
   }
 
-  if (a5 >= 11)
+  if (a6 >= 11)
   {
-    v11 = a5 - 10;
+    v11 = a6 - 10;
   }
 
   else
@@ -149,19 +149,19 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     v11 = 0;
   }
 
-  *a6 = 0;
-  *(a6 + 8) = 0;
-  *(a6 + 16) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a6, *a1, *(a1 + 1), (*(a1 + 1) - *a1) >> 3);
-  v59 = v10;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, *a2, *(a2 + 1), (*(a2 + 1) - *a2) >> 3);
+  v58 = v10;
   if ((v10 & 0x80000000) == 0)
   {
     v12 = v10;
     do
     {
       v13 = (v11 + v12) % 0xAu;
-      v14 = *(a2 + 3 * v13);
-      v15 = *(a2 + 3 * v13 + 1);
+      v14 = *(a3 + 3 * v13);
+      v15 = *(a3 + 3 * v13 + 1);
       v16 = 0.0;
       v17 = v15 - v14;
       if (v15 != v14)
@@ -175,7 +175,7 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
 
         do
         {
-          v16 = v16 + *(v14 + (v18 >> 29)) * *(*a6 + (v18 >> 29));
+          v16 = v16 + *(v14 + (v18 >> 29)) * *(*a1 + (v18 >> 29));
           v18 += 0x100000000;
           --v19;
         }
@@ -183,10 +183,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v19);
       }
 
-      v20 = a4[v13];
-      *&v62[v12] = v20 * v16;
-      v21 = (a3 + 24 * v13);
-      Vec::Vec(&__p, (v21[1] - *v21) >> 3, 0.0);
+      v20 = a5[v13];
+      *&v61[v12] = v20 * v16;
+      v21 = (a4 + 24 * v13);
+      Vec::Vec(&__p, 0.0, (v21[1] - *v21) >> 3);
       v22 = *v21;
       v23 = v21[1];
       v24 = v23 - *v21;
@@ -210,10 +210,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v26);
       }
 
-      Vec::operator+=(a6, &__p);
+      Vec::operator+=(a1, &__p);
       if (__p)
       {
-        v61 = __p;
+        v60 = __p;
         operator delete(__p);
       }
     }
@@ -221,10 +221,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     while (v12-- > 0);
   }
 
-  if (a5 > 0)
+  if (a6 > 0)
   {
-    v29 = *(a3 + 3 * (v57 % 0xA));
-    v30 = *(a3 + 3 * (v57 % 0xA) + 1);
+    v29 = *(a4 + 3 * (v56 % 0xA));
+    v30 = *(a4 + 3 * (v56 % 0xA) + 1);
     v31 = v30 - v29;
     if (v30 == v29)
     {
@@ -251,11 +251,11 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
       while (v33);
     }
 
-    v35 = *a6;
-    v36 = *(a6 + 8) - *a6;
+    v35 = *a1;
+    v36 = a1[1] - *a1;
     if (v36)
     {
-      v37 = 1.0 / a4[v57 % 0xA] / v34;
+      v37 = 1.0 / a5[v56 % 0xA] / v34;
       v38 = v36 >> 3;
       if ((v36 >> 3) <= 1)
       {
@@ -279,8 +279,8 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     do
     {
       v40 = (v11 + v39) % 10;
-      v41 = *(a3 + 3 * v40);
-      v42 = *(a3 + 3 * v40 + 1);
+      v41 = *(a4 + 3 * v40);
+      v42 = *(a4 + 3 * v40 + 1);
       v43 = 0.0;
       v44 = v42 - v41;
       if (v42 != v41)
@@ -294,7 +294,7 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
 
         do
         {
-          v43 = v43 + *(v41 + (v45 >> 29)) * *(*a6 + (v45 >> 29));
+          v43 = v43 + *(v41 + (v45 >> 29)) * *(*a1 + (v45 >> 29));
           v45 += 0x100000000;
           --v46;
         }
@@ -302,10 +302,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v46);
       }
 
-      v47 = a4[v40];
-      v48 = (a2 + 24 * v40);
-      v49 = *&v62[v39];
-      Vec::Vec(&__p, (v48[1] - *v48) >> 3, 0.0);
+      v47 = a5[v40];
+      v48 = (a3 + 24 * v40);
+      v49 = *&v61[v39];
+      Vec::Vec(&__p, 0.0, (v48[1] - *v48) >> 3);
       v50 = *v48;
       v51 = v48[1];
       v52 = v51 - *v48;
@@ -329,20 +329,18 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v54);
       }
 
-      Vec::operator+=(a6, &__p);
+      Vec::operator+=(a1, &__p);
       if (__p)
       {
-        v61 = __p;
+        v60 = __p;
         operator delete(__p);
       }
 
       ++v39;
     }
 
-    while (v39 != v59 + 1);
+    while (v39 != v58 + 1);
   }
-
-  v56 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29771AB08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -391,27 +389,27 @@ double Vec::operator+=(double **a1, uint64_t *a2)
   return result;
 }
 
-void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   v4 = *a2;
-  v5 = a2[1];
+  v5 = *(a2 + 8);
   v7 = (v5 - v4) >> 3;
+  v55 = 0;
   v56 = 0;
   v57 = 0;
-  v58 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v56, v4, v5, v7);
-  Vec::Vec(&v54, v7, 0.0);
-  Vec::Vec(v53, v7, 0.0);
-  v8 = ME_Efficient_Model_Trainer::FunctionGradient(a1, &v56, &v54);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v55, v4, v5, v7);
+  Vec::Vec(&v53, 0.0, v7);
+  Vec::Vec(v52, 0.0, v7);
+  v8 = ME_Efficient_Model_Trainer::FunctionGradient(a1, &v55, &v53);
   for (i = 0; i != 30; i += 3)
   {
-    Vec::Vec(&v61[i], 0, 0.0);
+    Vec::Vec(&v60[i], 0.0, 0);
   }
 
   for (j = 0; j != 30; j += 3)
   {
-    Vec::Vec(&v60[j], 0, 0.0);
+    Vec::Vec(&v59[j], 0.0, 0);
   }
 
   v11 = 0;
@@ -427,7 +425,7 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
     }
 
     fputc(10, *v12);
-    if (v55 == v54)
+    if (v54 == v53)
     {
       v17 = 0.0;
     }
@@ -435,7 +433,7 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
     else
     {
       v15 = 0;
-      v16 = (v55 - v54) >> 3;
+      v16 = (v54 - v53) >> 3;
       if (v16 <= 1)
       {
         v16 = 1;
@@ -444,7 +442,7 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
       v17 = 0.0;
       do
       {
-        v17 = v17 + *(v54 + (v15 >> 29)) * *(v54 + (v15 >> 29));
+        v17 = v17 + *(v53 + (v15 >> 29)) * *(v53 + (v15 >> 29));
         v15 += 0x100000000;
         --v16;
       }
@@ -457,13 +455,13 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
       break;
     }
 
-    approximate_Hg(&v54, v61, v60, v59, v11, &v49);
-    Vec::Vec(&__p, (v50 - v49) >> 3, 0.0);
-    v18 = v49;
-    if (v50 != v49)
+    approximate_Hg(&v48, &v53, v60, v59, v58, v11);
+    Vec::Vec(&__p, 0.0, (v49 - v48) >> 3);
+    v18 = v48;
+    if (v49 != v48)
     {
       v19 = 0;
-      v20 = (v50 - v49) >> 3;
+      v20 = (v49 - v48) >> 3;
       v21 = __p;
       if (v20 <= 1)
       {
@@ -480,36 +478,36 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
       while (v20);
     }
 
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v53, __p, v52, (v52 - __p) >> 3);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v52, __p, v51, (v51 - __p) >> 3);
     if (__p)
     {
-      v52 = __p;
+      v51 = __p;
       operator delete(__p);
     }
 
-    if (v49)
+    if (v48)
     {
-      v50 = v49;
-      operator delete(v49);
+      v49 = v48;
+      operator delete(v48);
     }
 
-    Vec::Vec(&__p, v7, 0.0);
-    Vec::Vec(&v49, v7, 0.0);
-    ME_Efficient_Model_Trainer::backtracking_line_search(a1, &v56, &v54, v8, v53, &__p, &v49);
+    Vec::Vec(&__p, 0.0, v7);
+    Vec::Vec(&v48, 0.0, v7);
+    ME_Efficient_Model_Trainer::backtracking_line_search(a1, &v55, &v53, v8, v52, &__p, &v48);
     v8 = v22;
-    Vec::Vec(&v47, (v52 - __p) >> 3, 0.0);
+    Vec::Vec(&v46, 0.0, (v51 - __p) >> 3);
     v23 = __p;
-    v24 = v56;
-    if (v52 - __p != v57 - v56)
+    v24 = v55;
+    if (v51 - __p != v56 - v55)
     {
       __assert_rtn("operator-", "mathvec.h", 74, "a.Size() == b.Size()");
     }
 
-    if (v52 != __p)
+    if (v51 != __p)
     {
       v25 = 0;
-      v26 = (v52 - __p) >> 3;
-      v27 = v47;
+      v26 = (v51 - __p) >> 3;
+      v27 = v46;
       if (v26 <= 1)
       {
         v26 = 1;
@@ -526,31 +524,31 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
     }
 
     v28 = v11 % 0xA;
-    v29 = &v61[3 * v28];
-    if (v29 != &v47)
+    v29 = &v60[3 * v28];
+    if (v29 != &v46)
     {
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v61[3 * v28], v47, v48, (v48 - v47) >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v60[3 * v28], v46, v47, (v47 - v46) >> 3);
     }
 
-    if (v47)
+    if (v46)
     {
-      v48 = v47;
-      operator delete(v47);
+      v47 = v46;
+      operator delete(v46);
     }
 
-    Vec::Vec(&v47, (v50 - v49) >> 3, 0.0);
-    v30 = v49;
-    v31 = v54;
-    if (v50 - v49 != v55 - v54)
+    Vec::Vec(&v46, 0.0, (v49 - v48) >> 3);
+    v30 = v48;
+    v31 = v53;
+    if (v49 - v48 != v54 - v53)
     {
       __assert_rtn("operator-", "mathvec.h", 74, "a.Size() == b.Size()");
     }
 
-    if (v50 != v49)
+    if (v49 != v48)
     {
       v32 = 0;
-      v33 = (v50 - v49) >> 3;
-      v34 = v47;
+      v33 = (v49 - v48) >> 3;
+      v34 = v46;
       if (v33 <= 1)
       {
         v33 = 1;
@@ -566,16 +564,16 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
       while (v33);
     }
 
-    v35 = &v60[3 * v28];
-    if (v35 != &v47)
+    v35 = &v59[3 * v28];
+    if (v35 != &v46)
     {
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v60[3 * v28], v47, v48, (v48 - v47) >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v59[3 * v28], v46, v47, (v47 - v46) >> 3);
     }
 
-    if (v47)
+    if (v46)
     {
-      v48 = v47;
-      operator delete(v47);
+      v47 = v46;
+      operator delete(v46);
     }
 
     v36 = v35[1];
@@ -605,18 +603,18 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
       while (v39);
     }
 
-    v59[v28] = 1.0 / v40;
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v56, __p, v52, (v52 - __p) >> 3);
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v54, v49, v50, (v50 - v49) >> 3);
-    if (v49)
+    v58[v28] = 1.0 / v40;
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v55, __p, v51, (v51 - __p) >> 3);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v53, v48, v49, (v49 - v48) >> 3);
+    if (v48)
     {
-      v50 = v49;
-      operator delete(v49);
+      v49 = v48;
+      operator delete(v48);
     }
 
     if (__p)
     {
-      v52 = __p;
+      v51 = __p;
       operator delete(__p);
     }
 
@@ -627,79 +625,77 @@ void ME_Efficient_Model_Trainer::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a3, v56, v57, (v57 - v56) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a3, v55, v56, (v56 - v55) >> 3);
   for (k = 0; k != -30; k -= 3)
   {
-    v42 = v60[k + 27];
+    v42 = v59[k + 27];
     if (v42)
     {
-      v60[k + 28] = v42;
+      v59[k + 28] = v42;
       operator delete(v42);
     }
   }
 
   for (m = 0; m != -30; m -= 3)
   {
-    v44 = v61[m + 27];
+    v44 = v60[m + 27];
     if (v44)
     {
-      v61[m + 28] = v44;
+      v60[m + 28] = v44;
       operator delete(v44);
     }
   }
 
-  if (v53[0])
+  if (v52[0])
   {
-    v53[1] = v53[0];
-    operator delete(v53[0]);
+    v52[1] = v52[0];
+    operator delete(v52[0]);
   }
 
-  if (v54)
+  if (v53)
   {
-    v55 = v54;
-    operator delete(v54);
+    v54 = v53;
+    operator delete(v53);
   }
 
-  if (v56)
+  if (v55)
   {
-    v57 = v56;
-    operator delete(v56);
+    v56 = v55;
+    operator delete(v55);
   }
-
-  v45 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29771B16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v70 = &a69;
-  v71 = -240;
+  v66 = &a65;
+  v67 = -240;
   while (1)
   {
-    v72 = *(v70 - 1);
-    if (v72)
+    v68 = *(v66 - 1);
+    if (v68)
     {
-      *v70 = v72;
-      operator delete(v72);
+      *v66 = v68;
+      operator delete(v68);
     }
 
-    v70 -= 3;
-    v71 += 24;
-    if (!v71)
+    v66 -= 3;
+    v67 += 24;
+    if (!v67)
     {
-      v73 = &STACK[0x2D0];
-      v74 = -240;
+      v69 = &STACK[0x2D0];
+      v70 = -240;
       while (1)
       {
-        v75 = *(v73 - 1);
-        if (v75)
+        v71 = *(v69 - 1);
+        if (v71)
         {
-          *v73 = v75;
-          operator delete(v75);
+          *v69 = v71;
+          operator delete(v71);
         }
 
-        v73 -= 3;
-        v74 += 24;
-        if (!v74)
+        v69 -= 3;
+        v70 += 24;
+        if (!v70)
         {
           if (__p)
           {
@@ -759,213 +755,205 @@ uint64_t crfsuite_train_lbfgs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
 {
   v12 = clock();
   v13 = *(a1 + 44);
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
-  v119 = 0u;
-  v117 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v127 = 0;
-  v112 = 0u;
-  v113 = 0u;
-  v114 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v29 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   *__s1 = 0u;
-  v116 = 0;
-  lbfgs_parameter_init(&v117);
+  v28 = 0;
+  lbfgs_parameter_init(&v29);
   v14 = malloc_type_calloc(8uLL, v13, 0x100004000313F17uLL);
   if (!v14)
   {
-    v82 = 2147483649;
-    v83 = 0;
+    v16 = 2147483649;
+    v17 = 0;
     goto LABEL_21;
   }
 
-  *(&v126 + 1) = malloc_type_calloc(8uLL, v13, 0x100004000313F17uLL);
-  if (!*(&v126 + 1))
+  *(&v38 + 1) = malloc_type_calloc(8uLL, v13, 0x100004000313F17uLL);
+  if (!*(&v38 + 1))
   {
-    v82 = 2147483649;
-    v83 = v14;
+    v16 = 2147483649;
+    v17 = v14;
     v14 = 0;
     goto LABEL_21;
   }
 
-  exchange_options_1(a4, &v112, -1);
-  logging(a5, "L-BFGS optimization\n", v15, v16, v17, v18, v19, v20, v108);
-  logging(a5, "c1: %f\n", v21, v22, v23, v24, v25, v26, v112);
-  logging(a5, "c2: %f\n", v27, v28, v29, v30, v31, v32, *(&v112 + 1));
-  logging(a5, "num_memories: %d\n", v33, v34, v35, v36, v37, v38, v113);
-  logging(a5, "max_iterations: %d\n", v39, v40, v41, v42, v43, v44, LODWORD(__s1[0]));
-  logging(a5, "epsilon: %f\n", v45, v46, v47, v48, v49, v50, *(&v113 + 1));
-  logging(a5, "stop: %d\n", v51, v52, v53, v54, v55, v56, v114);
-  logging(a5, "delta: %f\n", v57, v58, v59, v60, v61, v62, *(&v114 + 1));
-  logging(a5, "linesearch: %s\n", v63, v64, v65, v66, v67, v68, __s1[1]);
-  logging(a5, "linesearch.max_iterations: %d\n", v69, v70, v71, v72, v73, v74, v116);
-  logging(a5, "\n", v75, v76, v77, v78, v79, v80, v109);
-  LODWORD(v117) = v113;
-  *(&v117 + 1) = *(&v113 + 1);
-  LODWORD(v118) = v114;
-  *(&v118 + 1) = *(&v114 + 1);
-  LODWORD(v119) = __s1[0];
-  v81 = __s1[1];
+  exchange_options_1(a4, &v24, -1);
+  logging(a5, "L-BFGS optimization\n");
+  logging(a5, "c1: %f\n", *&v24);
+  logging(a5, "c2: %f\n", *(&v24 + 1));
+  logging(a5, "num_memories: %d\n", v25);
+  logging(a5, "max_iterations: %d\n", LODWORD(__s1[0]));
+  logging(a5, "epsilon: %f\n", *(&v25 + 1));
+  logging(a5, "stop: %d\n", v26);
+  logging(a5, "delta: %f\n", *(&v26 + 1));
+  logging(a5, "linesearch: %s\n", __s1[1]);
+  logging(a5, "linesearch.max_iterations: %d\n", v28);
+  logging(a5, "\n");
+  LODWORD(v29) = v25;
+  *(&v29 + 1) = *(&v25 + 1);
+  LODWORD(v30) = v26;
+  *(&v30 + 1) = *(&v26 + 1);
+  LODWORD(v31) = __s1[0];
+  v15 = __s1[1];
   if (!strcmp(__s1[1], "Backtracking"))
   {
-    v84 = 2;
+    v18 = 2;
 LABEL_10:
-    DWORD1(v119) = v84;
+    DWORD1(v31) = v18;
     goto LABEL_11;
   }
 
-  if (!strcmp(v81, "StrongBacktracking"))
+  if (!strcmp(v15, "StrongBacktracking"))
   {
-    v84 = 3;
+    v18 = 3;
     goto LABEL_10;
   }
 
-  DWORD1(v119) = 0;
+  DWORD1(v31) = 0;
 LABEL_11:
-  DWORD2(v119) = v116;
-  v85 = 0;
-  if (*&v112 > 0.0)
+  DWORD2(v31) = v28;
+  v19 = 0;
+  if (*&v24 > 0.0)
   {
-    DWORD1(v119) = 2;
-    v85 = v112;
+    DWORD1(v31) = 2;
+    v19 = v24;
   }
 
-  *&v123 = v85;
-  *&v124 = a1;
-  *(&v124 + 1) = a2;
-  *&v126 = *(&v112 + 1);
-  *&v125 = a3;
-  *(&v125 + 1) = a5;
-  v127 = clock();
-  v86 = lbfgs(v13, v14, 0, lbfgs_evaluate, lbfgs_progress, &v124, &v117);
-  if (v86 == -997)
+  *&v35 = v19;
+  *&v36 = a1;
+  *(&v36 + 1) = a2;
+  *&v38 = *(&v24 + 1);
+  *&v37 = a3;
+  *(&v37 + 1) = a5;
+  v39 = clock();
+  v20 = lbfgs(v13, v14, 0, lbfgs_evaluate, lbfgs_progress, &v36, &v29);
+  if (v20 == -997)
   {
-    v93 = "L-BFGS terminated with the maximum number of iterations\n";
+    logging(a5, "L-BFGS terminated with the maximum number of iterations\n");
   }
 
-  else if (v86 == 1)
+  else if (v20 == 1)
   {
-    v93 = "L-BFGS terminated with the stopping criteria\n";
+    logging(a5, "L-BFGS terminated with the stopping criteria\n", v23);
   }
 
-  else if (v86)
+  else if (v20)
   {
-    v110 = v86;
-    v93 = "L-BFGS terminated with error code (%d)\n";
+    logging(a5, "L-BFGS terminated with error code (%d)\n");
   }
 
   else
   {
-    v93 = "L-BFGS resulted in convergence\n";
+    logging(a5, "L-BFGS resulted in convergence\n", v23);
   }
 
-  logging(a5, v93, v87, v88, v89, v90, v91, v92, v110);
-  memcpy(v14, *(&v126 + 1), 8 * v13);
-  v94 = clock();
-  logging(a5, "Total seconds required for training: %.3f\n", v95, v96, v97, v98, v99, v100, COERCE__INT64((v94 - v12) / 1000000.0));
-  logging(a5, "\n", v101, v102, v103, v104, v105, v106, v111);
-  v82 = 0;
-  v83 = *(&v126 + 1);
+  memcpy(v14, *(&v38 + 1), 8 * v13);
+  v21 = clock();
+  logging(a5, "Total seconds required for training: %.3f\n", (v21 - v12) / 1000000.0);
+  logging(a5, "\n");
+  v16 = 0;
+  v17 = *(&v38 + 1);
 LABEL_21:
-  free(v83);
+  free(v17);
   *a6 = v14;
-  return v82;
+  return v16;
 }
 
-double lbfgs_evaluate(uint64_t a1, double *a2, double *a3, int a4)
+double lbfgs_evaluate(double *a1, double *a2, double *a3, unsigned int a4)
 {
-  v8 = *(a1 + 8);
   (*(*a1 + 72))();
-  v9 = *(a1 + 32);
-  if (v9 <= 0.0)
+  v8 = a1[4];
+  if (v8 <= 0.0)
   {
     return 0.0;
   }
 
   if (a4 < 1)
   {
-    v12 = 0.0;
+    v11 = 0.0;
   }
 
   else
   {
-    v10 = v9 + v9;
-    v11 = a4;
-    v12 = 0.0;
+    v9 = v8 + v8;
+    v10 = a4;
+    v11 = 0.0;
     do
     {
-      *a3 = *a3 + v10 * *a2;
+      *a3 = *a3 + v9 * *a2;
       ++a3;
-      v13 = *a2++;
-      v12 = v12 + v13 * v13;
-      --v11;
+      v12 = *a2++;
+      v11 = v11 + v12 * v12;
+      --v10;
     }
 
-    while (v11);
-    v9 = *(a1 + 32);
+    while (v10);
+    v8 = a1[4];
   }
 
-  return v9 * v12 + 0.0;
+  return v8 * v11 + 0.0;
 }
 
-uint64_t lbfgs_progress(uint64_t *a1, uint64_t a2, double a3, double a4, double a5, double a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10)
+uint64_t lbfgs_progress(uint64_t *a1, double *a2, double a3, double a4, double a5, double a6, uint64_t a7, unsigned int a8, int a9, int a10)
 {
   v19 = clock();
-  v26 = *a1;
-  v28 = a1[2];
-  v27 = a1[3];
-  v29 = v19 - a1[6];
+  v20 = *a1;
+  v22 = a1[2];
+  v21 = a1[3];
+  v23 = v19 - a1[6];
   a1[6] = v19;
   if (a8 < 1)
   {
-    v30 = 0;
+    v24 = 0;
   }
 
   else
   {
-    LODWORD(v30) = 0;
-    v31 = a1[5];
-    v32 = a8;
-    v33 = a2;
+    v24 = 0;
+    v25 = a1[5];
+    v26 = a8;
+    v27 = a2;
     do
     {
-      v34 = *v33++;
-      *v31++ = v34;
-      if (v34 == 0.0)
+      v28 = *v27++;
+      *v25++ = v28;
+      if (v28 != 0.0)
       {
-        v30 = v30;
+        ++v24;
       }
 
-      else
-      {
-        v30 = (v30 + 1);
-      }
-
-      --v32;
+      --v26;
     }
 
-    while (v32);
+    while (v26);
   }
 
-  logging(v27, "***** Iteration #%d *****\n", v20, v21, v22, v23, v24, v25, a9);
-  logging(v27, "Loss: %f\n", v35, v36, v37, v38, v39, v40, *&a3);
-  logging(v27, "Feature norm: %f\n", v41, v42, v43, v44, v45, v46, *&a4);
-  logging(v27, "Error norm: %f\n", v47, v48, v49, v50, v51, v52, *&a5);
-  logging(v27, "Active features: %d\n", v53, v54, v55, v56, v57, v58, v30);
-  logging(v27, "Line search trials: %d\n", v59, v60, v61, v62, v63, v64, a10);
-  logging(v27, "Line search step: %f\n", v65, v66, v67, v68, v69, v70, *&a6);
-  logging(v27, "Seconds required for this iteration: %.3f\n", v71, v72, v73, v74, v75, v76, COERCE__INT64(v29 / 1000000.0));
-  if (v28)
+  logging(v21, "***** Iteration #%d *****\n", a9);
+  logging(v21, "Loss: %f\n", a3);
+  logging(v21, "Feature norm: %f\n", a4);
+  logging(v21, "Error norm: %f\n", a5);
+  logging(v21, "Active features: %d\n", v24);
+  logging(v21, "Line search trials: %d\n", a10);
+  logging(v21, "Line search step: %f\n", a6);
+  logging(v21, "Seconds required for this iteration: %.3f\n", v23 / 1000000.0);
+  if (v22)
   {
-    holdout_evaluation(v26, v28, a2, v27);
+    holdout_evaluation(v20, v22, a2, v21);
   }
 
-  logging(v27, "\n", v77, v78, v79, v80, v81, v82, v84);
+  logging(v21, "\n");
   return 0;
 }
 
@@ -995,25 +983,25 @@ uint64_t exchange_options_2(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t crfsuite_train_passive_aggressive(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, void *a5, char **a6)
+uint64_t crfsuite_train_passive_aggressive(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t *a5, char **a6)
 {
-  v183 = *(a2 + 16);
+  v76 = *(a2 + 16);
   v10 = *(a1 + 44);
   v11 = *(a1 + 48);
-  v190 = 0.0;
-  v188 = 0u;
-  v189 = 0u;
+  v83 = 0.0;
+  v81 = 0u;
+  v82 = 0u;
   v12 = clock();
-  v185 = 0u;
-  v186 = 0u;
-  v187 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v13 = malloc_type_calloc(v10, 1uLL, 0x100004077774924uLL);
-  *&v186 = v13;
+  *&v79 = v13;
   v14 = 0;
-  *&v187 = malloc_type_calloc(v10, 8uLL, 0x100004000313F17uLL);
+  *&v80 = malloc_type_calloc(v10, 8uLL, 0x100004000313F17uLL);
   size = v10;
-  DWORD2(v187) = v10;
-  if (!v187)
+  DWORD2(v80) = v10;
+  if (!v80)
   {
     v15 = 0;
     v16 = 0;
@@ -1021,8 +1009,8 @@ uint64_t crfsuite_train_passive_aggressive(uint64_t a1, uint64_t a2, _DWORD *a3,
     goto LABEL_61;
   }
 
-  v176 = a3;
-  v173 = v12;
+  v69 = a3;
+  v66 = v12;
   v15 = 0;
   v16 = 0;
   v17 = 0;
@@ -1030,13 +1018,13 @@ uint64_t crfsuite_train_passive_aggressive(uint64_t a1, uint64_t a2, _DWORD *a3,
   {
 LABEL_61:
     free(v17);
-    v165 = 2147483649;
+    v64 = 2147483649;
     v17 = v14;
     v18 = 0;
     goto LABEL_62;
   }
 
-  exchange_options_2(a4, &v188, -1);
+  exchange_options_2(a4, &v81, -1);
   v16 = malloc_type_calloc(8uLL, size, 0x100004000313F17uLL);
   v15 = malloc_type_calloc(8uLL, size, 0x100004000313F17uLL);
   v18 = malloc_type_calloc(8uLL, size, 0x100004000313F17uLL);
@@ -1048,250 +1036,251 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  if (v189)
+  if (v82)
   {
-    v26 = cost_sensitive;
+    v20 = cost_sensitive;
   }
 
   else
   {
-    v26 = cost_insensitive;
+    v20 = cost_insensitive;
   }
 
-  v27 = tau0;
-  if (v188 == 2)
+  v21 = tau0;
+  if (v81 == 2)
   {
-    v27 = tau2;
+    v21 = tau2;
   }
 
-  if (v188 == 1)
+  if (v81 == 1)
   {
-    v27 = tau1;
+    v21 = tau1;
   }
 
-  v181 = v27;
-  v182 = v26;
-  v28 = a5;
-  logging(a5, "Passive Aggressive\n", v20, v21, v22, v23, v24, v25, v167);
-  logging(a5, "type: %d\n", v29, v30, v31, v32, v33, v34, v188);
-  logging(a5, "c: %f\n", v35, v36, v37, v38, v39, v40, *(&v188 + 1));
-  logging(a5, "error_sensitive: %d\n", v41, v42, v43, v44, v45, v46, v189);
-  logging(a5, "averaging: %d\n", v47, v48, v49, v50, v51, v52, DWORD1(v189));
-  logging(a5, "max_iterations: %d\n", v53, v54, v55, v56, v57, v58, DWORD2(v189));
-  logging(a5, "epsilon: %f\n", v59, v60, v61, v62, v63, v64, *&v190);
-  logging(a5, "\n", v65, v66, v67, v68, v69, v70, v168);
-  LODWORD(v180) = 0;
-  v71 = 1;
-  v175 = v18;
-  while (v180 < SDWORD2(v189))
+  v74 = v21;
+  v75 = v20;
+  v22 = a5;
+  logging(a5, "Passive Aggressive\n");
+  logging(a5, "type: %d\n", v81);
+  logging(a5, "c: %f\n", *(&v81 + 1));
+  logging(a5, "error_sensitive: %d\n", v82);
+  logging(a5, "averaging: %d\n", DWORD1(v82));
+  logging(a5, "max_iterations: %d\n", DWORD2(v82));
+  logging(a5, "epsilon: %f\n", v83);
+  logging(a5, "\n");
+  v73 = 0;
+  v23 = v76;
+  v24 = 1;
+  v68 = v18;
+  while (v73 < SDWORD2(v82))
   {
-    v178 = clock();
+    v71 = clock();
     dataset_shuffle(a2);
-    if (v183 < 1)
+    if (v76 < 1)
     {
-      v73 = 0.0;
+      v26 = 0.0;
     }
 
     else
     {
-      v72 = 0;
-      v73 = 0.0;
+      v25 = 0;
+      v26 = 0.0;
       do
       {
-        v184 = 0.0;
-        v74 = dataset_get(a2, v72);
+        v77 = 0.0;
+        v27 = dataset_get(a2, v25);
         (*(a1 + 88))(a1, v16, 1.0);
-        (*(a1 + 96))(a1, v74);
-        (*(a1 + 112))(a1, v17, &v184);
-        v75 = *v74;
-        if (v75 >= 1)
+        (*(a1 + 96))(a1, v27);
+        (*(a1 + 112))(a1, v17, &v77);
+        v28 = *v27;
+        if (v28 >= 1)
         {
-          v76 = 0;
-          v77 = 0;
-          v78 = 4 * v75;
+          v29 = 0;
+          v30 = 0;
+          v31 = 4 * v28;
           do
           {
-            if (*(*(v74 + 2) + v76) != *&v17[v76])
+            if (*(*(v27 + 2) + v29) != *&v17[v29])
             {
-              ++v77;
+              ++v30;
             }
 
-            v76 += 4;
+            v29 += 4;
           }
 
-          while (v78 != v76);
-          if (v77)
+          while (v31 != v29);
+          if (v30)
           {
             (*(a1 + 104))(a1);
-            v79 = v182(v184 - 0.0, v77);
-            v80 = DWORD2(v185);
-            if (SDWORD2(v185) >= 1)
+            v32 = v75(v77 - 0.0, v30);
+            v33 = DWORD2(v78);
+            if (SDWORD2(v78) >= 1)
             {
-              v81 = v185;
-              v82 = v187;
+              v34 = v78;
+              v35 = v80;
               do
               {
-                v83 = *v81++;
-                *(v82 + 8 * v83) = 0;
-                --v80;
+                v36 = *v34++;
+                *(v35 + 8 * v36) = 0;
+                --v33;
               }
 
-              while (v80);
+              while (v33);
             }
 
-            DWORD2(v185) = 0;
-            *(&v186 + 1) = 0x3FF0000000000000;
-            (*(a1 + 80))(a1, v74, *(v74 + 2), delta_collect_0, &v185);
-            *(&v186 + 1) = 0xBFF0000000000000;
-            v84 = (*(a1 + 80))(a1, v74, v17, delta_collect_0, &v185);
-            v86 = DWORD2(v185);
-            if (SDWORD2(v185) < 1)
+            DWORD2(v78) = 0;
+            *(&v79 + 1) = 0x3FF0000000000000;
+            (*(a1 + 80))(a1, v27, *(v27 + 2), delta_collect_0, &v78);
+            *(&v79 + 1) = 0xBFF0000000000000;
+            v37 = (*(a1 + 80))(a1, v27, v17, delta_collect_0, &v78);
+            v39 = DWORD2(v78);
+            if (SDWORD2(v78) < 1)
             {
-              DWORD2(v185) = 0;
-              v85.n128_u64[0] = 0;
+              DWORD2(v78) = 0;
+              v38.n128_u64[0] = 0;
             }
 
             else
             {
-              v87 = 0;
-              v88 = 0;
+              v40 = 0;
+              v41 = 0;
               do
               {
-                v89 = v186;
-                v90 = *(v185 + 4 * v87);
-                if (!*(v186 + v90))
+                v42 = v79;
+                v43 = *(v78 + 4 * v40);
+                if (!*(v79 + v43))
                 {
-                  *(v185 + 4 * v88++) = v90;
-                  *(v89 + v90) = 1;
-                  v86 = DWORD2(v185);
+                  *(v78 + 4 * v41++) = v43;
+                  *(v42 + v43) = 1;
+                  v39 = DWORD2(v78);
                 }
 
-                ++v87;
+                ++v40;
               }
 
-              while (v87 < v86);
-              DWORD2(v185) = v88;
-              v85.n128_u64[0] = 0;
-              if (v88 >= 1)
+              while (v40 < v39);
+              DWORD2(v78) = v41;
+              v38.n128_u64[0] = 0;
+              if (v41 >= 1)
               {
-                v91 = 0;
+                v44 = 0;
                 do
                 {
-                  *(v186 + *(v185 + 4 * v91++)) = 0;
-                  v92 = SDWORD2(v185);
+                  *(v79 + *(v78 + 4 * v44++)) = 0;
+                  v45 = SDWORD2(v78);
                 }
 
-                while (v91 < SDWORD2(v185));
-                if (SDWORD2(v185) >= 1)
+                while (v44 < SDWORD2(v78));
+                if (SDWORD2(v78) >= 1)
                 {
-                  v85.n128_u64[0] = 0;
-                  v93 = v185;
+                  v38.n128_u64[0] = 0;
+                  v46 = v78;
                   do
                   {
-                    v94 = *v93++;
-                    v85.n128_f64[0] = v85.n128_f64[0] + *(v187 + 8 * v94) * *(v187 + 8 * v94);
-                    --v92;
+                    v47 = *v46++;
+                    v38.n128_f64[0] = v38.n128_f64[0] + *(v80 + 8 * v47) * *(v80 + 8 * v47);
+                    --v45;
                   }
 
-                  while (v92);
+                  while (v45);
                 }
               }
             }
 
-            v181(v84, v79, v85, *(&v188 + 1));
-            v96 = DWORD2(v185);
-            if (SDWORD2(v185) >= 1)
+            v74(v37, v32, v38, *(&v81 + 1));
+            v49 = DWORD2(v78);
+            if (SDWORD2(v78) >= 1)
             {
-              v97 = v185;
-              v98 = v187;
+              v50 = v78;
+              v51 = v80;
               do
               {
-                v99 = *v97++;
-                v16[v99] = v16[v99] + v95 * *(v98 + 8 * v99);
-                v15[v99] = v15[v99] + v95 * v71 * *(v98 + 8 * v99);
-                --v96;
+                v52 = *v50++;
+                v16[v52] = v16[v52] + v48 * *(v51 + 8 * v52);
+                v15[v52] = v15[v52] + v48 * v24 * *(v51 + 8 * v52);
+                --v49;
               }
 
-              while (v96);
+              while (v49);
             }
 
-            v73 = v73 + v79;
+            v26 = v26 + v32;
           }
         }
 
-        ++v71;
-        ++v72;
+        ++v24;
+        ++v25;
       }
 
-      while (v72 != v183);
+      while (v25 != v76);
     }
 
-    v100 = DWORD1(v189);
-    v18 = v175;
-    memcpy(v175, v16, 8 * size);
-    if (v100 && size >= 1)
+    v53 = DWORD1(v82);
+    v18 = v68;
+    memcpy(v68, v16, 8 * size);
+    if (v53 && size >= 1)
     {
-      v107 = v15;
-      v108 = v175;
-      v109 = size;
+      v54 = v15;
+      v55 = v68;
+      v56 = size;
       do
       {
-        v110 = *v107++;
-        *v108 = *v108 + -1.0 / v71 * v110;
-        ++v108;
-        --v109;
+        v57 = *v54++;
+        *v55 = *v55 + -1.0 / v24 * v57;
+        ++v55;
+        --v56;
       }
 
-      while (v109);
+      while (v56);
     }
 
-    v180 = (v180 + 1);
-    v28 = a5;
-    logging(a5, "***** Iteration #%d *****\n", v101, v102, v103, v104, v105, v106, v180);
-    logging(a5, "Loss: %f\n", v111, v112, v113, v114, v115, v116, *&v73);
-    v123 = 0.0;
+    ++v73;
+    v22 = a5;
+    logging(a5, "***** Iteration #%d *****\n", v73);
+    logging(a5, "Loss: %f\n", v26);
+    v58 = 0.0;
     if (size >= 1)
     {
-      v124 = v16;
-      v125 = size;
+      v59 = v16;
+      v60 = size;
       do
       {
-        v126 = *v124++;
-        v123 = v123 + v126 * v126;
-        --v125;
+        v61 = *v59++;
+        v58 = v58 + v61 * v61;
+        --v60;
       }
 
-      while (v125);
+      while (v60);
     }
 
-    logging(a5, "Feature norm: %f\n", v117, v118, v119, v120, v121, v122, COERCE__INT64(sqrt(v123)));
-    v127 = clock();
-    logging(a5, "Seconds required for this iteration: %.3f\n", v128, v129, v130, v131, v132, v133, COERCE__INT64((v127 - v178) / 1000000.0));
-    if (v176)
+    logging(a5, "Feature norm: %f\n", sqrt(v58));
+    v62 = clock();
+    logging(a5, "Seconds required for this iteration: %.3f\n", (v62 - v71) / 1000000.0);
+    if (v69)
     {
-      holdout_evaluation(a1, v176, v175, a5);
+      holdout_evaluation(a1, v69, v68, a5);
     }
 
-    logging(a5, "\n", v134, v135, v136, v137, v138, v139, v169);
-    if (v73 / v183 < v190)
+    logging(a5, "\n");
+    if (v26 / v23 < v83)
     {
-      logging(a5, "Terminated with the stopping criterion\n", v140, v141, v142, v143, v144, v145, v170);
-      logging(a5, "\n", v146, v147, v148, v149, v150, v151, v171);
+      logging(a5, "Terminated with the stopping criterion\n", v26 / v23);
+      logging(a5, "\n");
       break;
     }
   }
 
-  v152 = clock();
-  logging(v28, "Total seconds required for training: %.3f\n", v153, v154, v155, v156, v157, v158, COERCE__INT64((v152 - v173) / 1000000.0));
-  logging(v28, "\n", v159, v160, v161, v162, v163, v164, v172);
-  v165 = 0;
+  v63 = clock();
+  logging(v22, "Total seconds required for training: %.3f\n", (v63 - v66) / 1000000.0);
+  logging(v22, "\n");
+  v64 = 0;
 LABEL_62:
   free(v17);
   free(v15);
   free(v16);
   *a6 = v18;
-  delta_finish(&v185);
-  return v165;
+  delta_finish(&v78);
+  return v64;
 }
 
 double tau1(double a1, double a2, double a3)
@@ -1359,13 +1348,13 @@ double lbfgs_parameter_init(_OWORD *a1)
   a1[6] = xmmword_2977327D0;
   *a1 = _defparam;
   a1[1] = unk_297732780;
-  result = dbl_2977327A0[0];
+  result = 1.0e-20;
   a1[2] = xmmword_297732790;
   a1[3] = *dbl_2977327A0;
   return result;
 }
 
-uint64_t lbfgs(uint64_t a1, double *a2, double *a3, double (*a4)(void, void, void, void, double), uint64_t (*a5)(uint64_t, double *, uint64_t *, void, uint64_t, uint64_t, double, double, double, double), uint64_t a6, __int128 *a7)
+uint64_t lbfgs(uint64_t a1, double *a2, double *a3, double (*a4)(void, void, void, void, double), uint64_t (*a5)(uint64_t, double *, double *, void, uint64_t, uint64_t, double, double, double, double), uint64_t a6, __int128 *a7)
 {
   if (a7)
   {
@@ -3114,9 +3103,9 @@ void crf_output_finish(uint64_t a1)
   *(a1 + 16) = 0;
 }
 
-uint64_t crf_paragraph_get_item_count(uint64_t a1, unsigned int a2)
+uint64_t crf_paragraph_get_item_count(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(a1 + 12) < a2)
+  if (a2 < 0 || *(a1 + 12) < a2)
   {
     return 0xFFFFFFFFLL;
   }
@@ -3127,9 +3116,9 @@ uint64_t crf_paragraph_get_item_count(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t crf_paragraph_get_item_count_for_sentence(uint64_t a1, unsigned int a2)
+uint64_t crf_paragraph_get_item_count_for_sentence(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0xFFFFFFFFLL;
   }
@@ -3156,7 +3145,7 @@ uint64_t crf_paragraph_get_item_count_for_sentence(uint64_t a1, unsigned int a2)
   return (v5 - v4);
 }
 
-uint64_t crf_paragraph_get_id(uint64_t a1, unsigned int a2, int a3, int a4)
+uint64_t crf_paragraph_get_id(uint64_t a1, uint64_t a2, int a3, int a4)
 {
   if ((a2 & 0x80000000) != 0 || *(a1 + 12) < a2)
   {
@@ -3177,14 +3166,14 @@ uint64_t crf_paragraph_get_id(uint64_t a1, unsigned int a2, int a3, int a4)
   return *(*(a1 + 32) + 4 * v5);
 }
 
-void crf_paragraph_set_id(int *a1, int a2, int a3, int a4, int a5)
+void crf_paragraph_set_id(int *a1, unsigned int a2, int a3, int a4, int a5)
 {
   if (a1[3] == a2)
   {
     *(*(a1 + 3) + 4 * a2) = a1[1];
   }
 
-  if (a2 < 0 || a1[3] < a2)
+  if ((a2 & 0x80000000) != 0 || a1[3] < a2)
   {
     v8 = -1;
   }
@@ -3216,7 +3205,7 @@ void crf_paragraph_set_id(int *a1, int a2, int a3, int a4, int a5)
   }
 
   v18 = a1[4];
-  if (a2 + 1 >= v18)
+  if ((a2 + 1) >= v18)
   {
     a1[4] = 2 * v18;
     *(a1 + 3) = malloc_type_realloc(*(a1 + 3), 8 * v18, 0x100004052888210uLL);
@@ -3527,13 +3516,12 @@ void crf_paragraph_init_with_attrs(int *a1, int a2)
   *a1 = a2;
   *(a1 + 1) = xmmword_2977327E0;
   *(a1 + 3) = malloc_type_malloc(8uLL, 0x100004052888210uLL);
-  v3 = a1[4];
   __memset_chk();
-  v4 = malloc_type_malloc(4 * *a1 * a1[2], 0x100004052888210uLL);
-  *(a1 + 4) = v4;
-  v5 = 4 * *a1 * a1[2];
+  v3 = malloc_type_malloc(4 * *a1 * a1[2], 0x100004052888210uLL);
+  *(a1 + 4) = v3;
+  v4 = 4 * *a1 * a1[2];
 
-  bzero(v4, v5);
+  bzero(v3, v4);
 }
 
 void crf_paragraph_finish(void *a1)
@@ -3768,7 +3756,7 @@ void Cache::swap_index(Cache *this, int a2, int a3)
   }
 }
 
-void Kernel::Kernel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Kernel::Kernel(uint64_t a1, int a2, const void *a3, uint64_t a4)
 {
   *a1 = &unk_2A1E51DE8;
   v4 = *(a4 + 4);
@@ -4448,14 +4436,12 @@ uint64_t Solver::reconstruct_gradient(uint64_t this)
 uint64_t info(const char *a1, ...)
 {
   va_start(va, a1);
-  v4 = *MEMORY[0x29EDCA608];
-  vsprintf(v3, a1, va);
-  result = svm_print_string(v3);
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  v3 = *MEMORY[0x29EDCA608];
+  vsprintf(v2, a1, va);
+  return svm_print_string(v2);
 }
 
-void Solver::Solve(uint64_t a1, int a2, uint64_t a3)
+void Solver::Solve(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const void *a5, const void *a6, uint64_t a7, int a8, double a9, double a10, double a11)
 {
   *(a1 + 112) = a2;
   *(a1 + 48) = a3;
@@ -5316,19 +5302,19 @@ LABEL_27:
   return (v12 - v13) * 0.5;
 }
 
-char *svm_train(int *a1, uint64_t a2)
+char *svm_train(int *a1, __int128 *a2)
 {
   v4 = malloc_type_malloc(0xB0uLL, 0x1090040ECD48006uLL);
   v5 = v4;
   v6 = *a2;
-  v7 = *(a2 + 32);
-  *(v4 + 1) = *(a2 + 16);
+  v7 = a2[2];
+  *(v4 + 1) = a2[1];
   *(v4 + 2) = v7;
   *v4 = v6;
-  v8 = *(a2 + 48);
-  v9 = *(a2 + 64);
-  v10 = *(a2 + 80);
-  *(v4 + 12) = *(a2 + 96);
+  v8 = a2[3];
+  v9 = a2[4];
+  v10 = a2[5];
+  *(v4 + 12) = *(a2 + 12);
   *(v4 + 4) = v9;
   *(v4 + 5) = v10;
   *(v4 + 3) = v8;
@@ -5340,22 +5326,22 @@ char *svm_train(int *a1, uint64_t a2)
     *(v4 + 26) = 2;
     *(v4 + 152) = 0u;
     *(v4 + 15) = malloc_type_malloc(8uLL, 0x80040B8603338uLL);
-    if (*(a2 + 100) && (*a2 - 3) <= 1)
+    if (*(a2 + 25) && (*a2 - 3) <= 1)
     {
       *v11 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
       v12 = malloc_type_malloc(8 * *a1, 0x100004000313F17uLL);
-      v311 = *(a2 + 96);
-      v13 = *(a2 + 64);
-      v310 = *(a2 + 80);
-      v14 = *(a2 + 16);
-      v305 = *a2;
-      v306 = v14;
-      v15 = *(a2 + 32);
-      v308 = *(a2 + 48);
-      *v309 = v13;
-      v307 = v15;
-      HIDWORD(v311) = 0;
-      svm_cross_validation(a1, &v305, 5, v12);
+      v309 = *(a2 + 12);
+      v13 = a2[4];
+      v308 = a2[5];
+      v14 = a2[1];
+      v303 = *a2;
+      v304 = v14;
+      v15 = a2[2];
+      v306 = a2[3];
+      *v307 = v13;
+      v305 = v15;
+      HIDWORD(v309) = 0;
+      svm_cross_validation(a1, &v303, 5, v12);
       v16 = *a1;
       if (v16 < 1)
       {
@@ -5405,78 +5391,78 @@ char *svm_train(int *a1, uint64_t a2)
         while (v26);
       }
 
-      v248 = v25 / (v16 - v23);
-      info("Prob. model for test data: target value = predicted value + z,\nz: Laplace distribution e^(-|z|/sigma)/(2sigma),sigma= %g\n", v248);
+      v246 = v25 / (v16 - v23);
+      info("Prob. model for test data: target value = predicted value + z,\nz: Laplace distribution e^(-|z|/sigma)/(2sigma),sigma= %g\n", v246);
       free(v12);
-      **v11 = v248;
+      **v11 = v246;
     }
 
-    v217 = svm_train_one(a1, a2);
-    v250 = v249;
-    v251 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
-    *(v5 + 16) = v251;
-    *v251 = v250;
-    v252 = *a1;
-    if (v252 < 1)
+    v215 = svm_train_one(a1, a2, 0.0, 0.0);
+    v248 = v247;
+    v249 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
+    *(v5 + 16) = v249;
+    *v249 = v248;
+    v250 = *a1;
+    if (v250 < 1)
     {
-      v253 = 0;
+      v251 = 0;
     }
 
     else
     {
-      v253 = 0;
-      v254 = v217;
+      v251 = 0;
+      v252 = v215;
       do
       {
-        v255 = *v254++;
-        v256 = v255 < 0.0;
-        if (v255 > 0.0)
+        v253 = *v252++;
+        v254 = v253 < 0.0;
+        if (v253 > 0.0)
         {
-          v256 = 1;
+          v254 = 1;
         }
 
-        v253 += v256;
-        --v252;
+        v251 += v254;
+        --v250;
       }
 
-      while (v252);
+      while (v250);
     }
 
-    *(v5 + 27) = v253;
-    v257 = 8 * v253;
-    *(v5 + 14) = malloc_type_malloc(v257, 0x2004093837F09uLL);
-    **(v5 + 15) = malloc_type_malloc(v257, 0x100004000313F17uLL);
-    v258 = *a1;
-    if (v258 >= 1)
+    *(v5 + 27) = v251;
+    v255 = 8 * v251;
+    *(v5 + 14) = malloc_type_malloc(v255, 0x2004093837F09uLL);
+    **(v5 + 15) = malloc_type_malloc(v255, 0x100004000313F17uLL);
+    v256 = *a1;
+    if (v256 >= 1)
     {
-      v259 = 0;
-      v260 = 0;
-      v261 = 8 * v258;
+      v257 = 0;
+      v258 = 0;
+      v259 = 8 * v256;
       do
       {
-        v262 = *&v217[v259];
-        if (v262 != 0.0)
+        v260 = *&v215[v257];
+        if (v260 != 0.0)
         {
-          *(*(v5 + 14) + 8 * v260) = *(*(a1 + 2) + v259);
-          *(**(v5 + 15) + 8 * v260++) = v262;
+          *(*(v5 + 14) + 8 * v258) = *(*(a1 + 2) + v257);
+          *(**(v5 + 15) + 8 * v258++) = v260;
         }
 
-        v259 += 8;
+        v257 += 8;
       }
 
-      while (v261 != v259);
+      while (v259 != v257);
     }
 
     goto LABEL_231;
   }
 
   v30 = *a1;
-  v304 = 0;
   v302 = 0;
-  v303 = 0;
+  v300 = 0;
   v301 = 0;
+  v299 = 0;
   v31 = malloc_type_malloc(4 * v30, 0x100004052888210uLL);
-  svm_group_classes(a1, &v304, &v303, &v302, &v301, v31);
+  svm_group_classes(a1, &v302, &v301, &v300, &v299, v31);
   v32 = malloc_type_malloc(8 * v30, 0x2004093837F09uLL);
   v33 = v32;
   if (v30 >= 1)
@@ -5495,12 +5481,12 @@ char *svm_train(int *a1, uint64_t a2)
   }
 
   size = v30;
-  v38 = v304;
-  v39 = malloc_type_malloc(8 * v304, 0x100004000313F17uLL);
-  v267 = v38 - 1;
+  v38 = v302;
+  v39 = malloc_type_malloc(8 * v302, 0x100004000313F17uLL);
+  v265 = v38 - 1;
   if (v38 >= 1)
   {
-    v40 = *(a2 + 48);
+    v40 = *(a2 + 6);
     v41 = (v38 + 1) & 0xFFFFFFFE;
     v42 = vdupq_n_s64(v38 - 1);
     v43 = xmmword_297732570;
@@ -5527,13 +5513,13 @@ char *svm_train(int *a1, uint64_t a2)
     while (v41);
   }
 
-  v276 = v39;
-  v265 = v31;
-  v47 = *(a2 + 56);
+  v274 = v39;
+  v263 = v31;
+  v47 = *(a2 + 14);
   if (v47 >= 1)
   {
     v48 = 0;
-    v49 = v303;
+    v49 = v301;
     v50 = MEMORY[0x29EDCA610];
     do
     {
@@ -5545,7 +5531,7 @@ char *svm_train(int *a1, uint64_t a2)
       else
       {
         v51 = 0;
-        while (*(*(a2 + 64) + 4 * v48) != v49[v51])
+        while (*(*(a2 + 8) + 4 * v48) != v49[v51])
         {
           if (v38 == ++v51)
           {
@@ -5557,13 +5543,13 @@ char *svm_train(int *a1, uint64_t a2)
       if (v51 == v38)
       {
 LABEL_32:
-        fprintf(*v50, "warning: class label %d specified in weight is not found\n", *(*(a2 + 64) + 4 * v48));
-        v47 = *(a2 + 56);
+        fprintf(*v50, "warning: class label %d specified in weight is not found\n", *(*(a2 + 8) + 4 * v48));
+        v47 = *(a2 + 14);
       }
 
       else
       {
-        v276[v51] = *(*(a2 + 72) + 8 * v48) * v276[v51];
+        v274[v51] = *(*(a2 + 9) + 8 * v48) * v274[v51];
       }
 
       ++v48;
@@ -5579,29 +5565,29 @@ LABEL_32:
     bzero(v52, size);
   }
 
-  v280 = v53;
-  v269 = v267 * v38;
-  v282 = malloc_type_malloc(16 * ((v267 * v38) / 2), 0x1080040FC6463CFuLL);
-  v266 = (v267 * v38 + ((v267 * v38) >> 31)) >> 1;
-  v54 = 8 * v266;
-  v264 = 8 * v266;
-  if (*(a2 + 100))
+  v278 = v53;
+  v267 = v265 * v38;
+  v280 = malloc_type_malloc(16 * ((v265 * v38) / 2), 0x1080040FC6463CFuLL);
+  v264 = (v265 * v38 + ((v265 * v38) >> 31)) >> 1;
+  v54 = 8 * v264;
+  v262 = 8 * v264;
+  if (*(a2 + 25))
   {
-    v290 = malloc_type_malloc(v54, 0x100004000313F17uLL);
+    v288 = malloc_type_malloc(v54, 0x100004000313F17uLL);
     v55 = malloc_type_malloc(v54, 0x100004000313F17uLL);
   }
 
   else
   {
     v55 = 0;
-    v290 = 0;
+    v288 = 0;
   }
 
   v56 = v38;
-  v275 = v33;
-  v57 = v276;
-  v289 = v55;
-  v271 = v38;
+  v273 = v33;
+  v57 = v274;
+  v287 = v55;
+  v269 = v38;
   if (v38 < 1)
   {
     goto LABEL_163;
@@ -5609,13 +5595,13 @@ LABEL_32:
 
   v58 = 0;
   LODWORD(v59) = 0;
-  v277 = v301;
-  v278 = v302;
+  v275 = v299;
+  v276 = v300;
   v60 = -1.0;
   v61 = 1;
-  v270 = v5;
-  v279 = v38;
-  v274 = a2;
+  v268 = v5;
+  v277 = v38;
+  v272 = a2;
   do
   {
     v62 = v58 + 1;
@@ -5624,39 +5610,39 @@ LABEL_32:
       goto LABEL_162;
     }
 
-    v272 = v58 + 1;
-    v273 = v61;
+    v270 = v58 + 1;
+    v271 = v61;
     v59 = v59;
-    v285 = v58;
+    v283 = v58;
     do
     {
-      v283 = v278[v58];
-      v284 = v278[v61];
-      v63 = v277[v58];
-      v286 = v277[v61];
-      v287 = v61;
-      v298 = v286 + v63;
-      v300 = malloc_type_malloc(8 * (v286 + v63), 0x2004093837F09uLL);
-      v299 = malloc_type_malloc(8 * v298, 0x100004000313F17uLL);
+      v281 = v276[v58];
+      v282 = v276[v61];
+      v63 = v275[v58];
+      v284 = v275[v61];
+      v285 = v61;
+      v296 = v284 + v63;
+      v298 = malloc_type_malloc(8 * (v284 + v63), 0x2004093837F09uLL);
+      v297 = malloc_type_malloc(8 * v296, 0x100004000313F17uLL);
       if (v63 >= 1)
       {
         for (i = 0; i != v63; ++i)
         {
-          *(v300 + i * 8) = v33[v283 + i];
-          *(v299 + i * 8) = 0x3FF0000000000000;
+          *(v298 + i * 8) = v33[v281 + i];
+          *(v297 + i * 8) = 0x3FF0000000000000;
         }
       }
 
-      v65 = v286;
-      if (v286 >= 1)
+      v65 = v284;
+      if (v284 >= 1)
       {
         v66 = 8 * v63;
-        v67 = &v33[v284];
+        v67 = &v33[v282];
         do
         {
           v68 = *v67++;
-          *(v300 + v66) = v68;
-          *(v299 + v66) = 0xBFF0000000000000;
+          *(v298 + v66) = v68;
+          *(v297 + v66) = 0xBFF0000000000000;
           v66 += 8;
           --v65;
         }
@@ -5664,30 +5650,30 @@ LABEL_32:
         while (v65);
       }
 
-      v281 = v63;
-      if (!*(a2 + 100))
+      v279 = v63;
+      if (!*(a2 + 25))
       {
         goto LABEL_148;
       }
 
-      v291 = v59;
-      v69 = v57[v285];
-      v70 = v57[v287];
-      v71 = malloc_type_malloc(4 * v298, 0x100004052888210uLL);
-      v72 = malloc_type_malloc(8 * v298, 0x100004000313F17uLL);
-      if (v298 >= 1)
+      v289 = v59;
+      v69 = v57[v283];
+      v70 = v57[v285];
+      v71 = malloc_type_malloc(4 * v296, 0x100004052888210uLL);
+      v72 = malloc_type_malloc(8 * v296, 0x100004000313F17uLL);
+      if (v296 >= 1)
       {
-        for (j = 0; j < v298; ++j)
+        for (j = 0; j < v296; ++j)
         {
           v71[j] = j;
         }
 
-        if (v298 >= 1)
+        if (v296 >= 1)
         {
           v74 = 0;
-          for (k = 0; k < v298; ++k)
+          for (k = 0; k < v296; ++k)
           {
-            v76 = k + rand() % (v74 + v298);
+            v76 = k + rand() % (v74 + v296);
             v77 = v71[k];
             v71[k] = v71[v76];
             v71[v76] = v77;
@@ -5699,13 +5685,13 @@ LABEL_32:
       v78 = 0;
       do
       {
-        v79 = v298 * v78;
-        v80 = (v298 * v78++ / 5);
-        v81 = v298 * v78 / 5;
-        v312 = v80 - v81 + v298;
-        v314 = malloc_type_malloc(8 * v312, 0x2004093837F09uLL);
-        v82 = malloc_type_malloc(8 * v312, 0x100004000313F17uLL);
-        v313 = v82;
+        v79 = v296 * v78;
+        v80 = (v296 * v78++ / 5);
+        v81 = v296 * v78 / 5;
+        v310 = v80 - v81 + v296;
+        v312 = malloc_type_malloc(8 * v310, 0x2004093837F09uLL);
+        v82 = malloc_type_malloc(8 * v310, 0x100004000313F17uLL);
+        v311 = v82;
         if (v79 < 5)
         {
           LODWORD(v85) = 0;
@@ -5717,16 +5703,16 @@ LABEL_32:
           do
           {
             v84 = v71[v83];
-            v314[v83] = *(v300 + v84);
-            v82 = v313;
-            v313[v83++] = *(v299 + v84);
+            v312[v83] = *(v298 + v84);
+            v82 = v311;
+            v311[v83++] = *(v297 + v84);
           }
 
           while (v80 != v83);
           LODWORD(v85) = v79 / 5;
         }
 
-        if (v81 >= v298)
+        if (v81 >= v296)
         {
           if (!v85)
           {
@@ -5740,13 +5726,13 @@ LABEL_32:
         {
           v86 = &v71[v81];
           v87 = v85;
-          v88 = v298 - v81;
+          v88 = v296 - v81;
           do
           {
             v89 = *v86++;
-            v314[v87] = *(v300 + v89);
-            v82 = v313;
-            v313[v87++] = *(v299 + v89);
+            v312[v87] = *(v298 + v89);
+            v82 = v311;
+            v311[v87++] = *(v297 + v89);
             LODWORD(v85) = v85 + 1;
             --v88;
           }
@@ -5808,26 +5794,26 @@ LABEL_73:
 
             if (v97)
             {
-              v311 = *(a2 + 96);
-              v98 = *(a2 + 64);
-              v310 = *(a2 + 80);
-              v99 = *(a2 + 16);
-              v305 = *a2;
-              v306 = v99;
-              v100 = *(a2 + 32);
-              HIDWORD(v308) = HIDWORD(*(a2 + 48));
-              *v309 = v98;
-              v307 = v100;
-              HIDWORD(v311) = 0;
-              *&v308 = 0x3FF0000000000000;
-              DWORD2(v308) = 2;
-              v309[0] = malloc_type_malloc(8uLL, 0x100004052888210uLL);
+              v309 = *(a2 + 12);
+              v98 = a2[4];
+              v308 = a2[5];
+              v99 = a2[1];
+              v303 = *a2;
+              v304 = v99;
+              v100 = a2[2];
+              HIDWORD(v306) = HIDWORD(a2[3]);
+              *v307 = v98;
+              v305 = v100;
+              HIDWORD(v309) = 0;
+              *&v306 = 0x3FF0000000000000;
+              DWORD2(v306) = 2;
+              v307[0] = malloc_type_malloc(8uLL, 0x100004052888210uLL);
               v101 = malloc_type_malloc(0x10uLL, 0x100004000313F17uLL);
-              v309[1] = v101;
-              *v309[0] = 0xFFFFFFFF00000001;
+              v307[1] = v101;
+              *v307[0] = 0xFFFFFFFF00000001;
               *v101 = v69;
               v101[1] = v70;
-              v102 = svm_train(&v312, &v305);
+              v102 = svm_train(&v310, &v303);
               v103 = v102;
               if (v80 >= v81)
               {
@@ -5843,7 +5829,7 @@ LABEL_73:
                 v105 = v81 - v80;
                 do
                 {
-                  svm_predict_values(v103, *(v300 + *v104), &v72[*v104]);
+                  svm_predict_values(v103, *(v298 + *v104), &v72[*v104]);
                   v106 = *v104++;
                   v72[v106] = v72[v106] * *v103[19];
                   --v105;
@@ -5855,8 +5841,8 @@ LABEL_101:
                 free(v103);
               }
 
-              free(v309[0]);
-              free(v309[1]);
+              free(v307[0]);
+              free(v307[1]);
               goto LABEL_103;
             }
 
@@ -5891,21 +5877,21 @@ LABEL_101:
         }
 
 LABEL_103:
-        free(v314);
-        free(v313);
+        free(v312);
+        free(v311);
       }
 
       while (v78 != 5);
-      v113 = v298;
-      v114 = v299;
+      v113 = v296;
+      v114 = v297;
       v115 = 0.0;
       v116 = 0.0;
       v117 = 0.0;
-      v288 = v298;
-      if (v298 >= 1)
+      v286 = v296;
+      if (v296 >= 1)
       {
-        v118 = v299;
-        v119 = v298;
+        v118 = v297;
+        v119 = v296;
         do
         {
           v120 = *v118++;
@@ -5925,10 +5911,10 @@ LABEL_103:
         while (v119);
       }
 
-      v121 = malloc_type_malloc(8 * v298, 0x100004000313F17uLL);
-      v290[v291] = 0;
+      v121 = malloc_type_malloc(8 * v296, 0x100004000313F17uLL);
+      v288[v289] = 0;
       v122 = log((v116 + 1.0) / (v117 + 1.0));
-      v55[v291] = v122;
+      v55[v289] = v122;
       if (v113 < 1)
       {
         v131 = v122;
@@ -5957,8 +5943,8 @@ LABEL_103:
 
           *v124++ = v129;
           v130 = *v125++;
-          v131 = v289[v291];
-          v132 = v131 + v130 * *&v290[v291];
+          v131 = v287[v289];
+          v132 = v131 + v130 * *&v288[v289];
           v133 = -v132;
           if (v132 >= 0.0)
           {
@@ -5980,15 +5966,15 @@ LABEL_103:
       }
 
       v136 = 0;
-      v55 = v289;
-      a2 = v274;
+      v55 = v287;
+      a2 = v272;
       v137 = 1.0;
       v138 = v131;
       while (1)
       {
-        v296 = v115;
-        v297 = v138;
-        if (v288 < 1)
+        v294 = v115;
+        v295 = v138;
+        if (v286 < 1)
         {
           v145 = 0.0;
           v147 = 1.0e-12;
@@ -5999,7 +5985,7 @@ LABEL_103:
 
         else
         {
-          v139 = *&v290[v291];
+          v139 = *&v288[v289];
           v140 = 0.0;
           v141 = v72;
           v142 = v121;
@@ -6037,7 +6023,7 @@ LABEL_103:
             v140 = v140 + v156 - v154;
             ++v141;
             --v143;
-            v138 = v297;
+            v138 = v295;
           }
 
           while (v143);
@@ -6049,15 +6035,15 @@ LABEL_103:
         }
 
         v157 = v146 * v147 - v145 * v145;
-        v294 = -(v146 * v140 + -v145 * v144) / v157;
-        v295 = -(v147 * v144 - v145 * v140) / v157;
-        v292 = *&v290[v291];
-        v293 = v140 * v294 + v144 * v295;
+        v292 = -(v146 * v140 + -v145 * v144) / v157;
+        v293 = -(v147 * v144 - v145 * v140) / v157;
+        v290 = *&v288[v289];
+        v291 = v140 * v292 + v144 * v293;
         v158 = 1.0;
         while (1)
         {
-          v159 = v292 + v158 * v295;
-          v160 = v138 + v158 * v294;
+          v159 = v290 + v158 * v293;
+          v160 = v138 + v158 * v292;
           v161 = 0.0;
           if (v113 >= 1)
           {
@@ -6092,22 +6078,22 @@ LABEL_103:
             while (v164);
           }
 
-          if (v161 < v296 + v158 * 0.0001 * v293)
+          if (v161 < v294 + v158 * 0.0001 * v291)
           {
             break;
           }
 
           v158 = v158 * 0.5;
-          v138 = v297;
+          v138 = v295;
           if (v158 < 1.0e-10)
           {
-            v115 = v296;
+            v115 = v294;
             goto LABEL_143;
           }
         }
 
-        *&v290[v291] = v159;
-        v289[v291] = v160;
+        *&v288[v289] = v159;
+        v287[v289] = v160;
         v138 = v160;
         v115 = v161;
 LABEL_143:
@@ -6128,70 +6114,68 @@ LABEL_143:
       free(v121);
       free(v72);
       free(v71);
-      v33 = v275;
-      v57 = v276;
-      v59 = v291;
+      v33 = v273;
+      v57 = v274;
+      v59 = v289;
       v60 = -1.0;
 LABEL_148:
-      v174 = v57[v285];
-      v175 = v57[v287];
-      v176 = svm_train_one(&v298, a2);
-      v177 = &v282[16 * v59];
-      *v177 = v176;
-      v177[1] = v178;
-      v179 = v286;
-      if (v281 >= 1)
+      v174 = svm_train_one(&v296, a2, v57[v283], v57[v285]);
+      v175 = &v280[16 * v59];
+      *v175 = v174;
+      v175[1] = v176;
+      v177 = v284;
+      if (v279 >= 1)
       {
-        v180 = &v280[v283];
-        v181 = v281;
-        v182 = v176;
+        v178 = &v278[v281];
+        v179 = v279;
+        v180 = v174;
         do
         {
-          if ((*v180 & 1) == 0 && *v182 != 0.0)
+          if ((*v178 & 1) == 0 && *v180 != 0.0)
           {
-            *v180 = 1;
+            *v178 = 1;
           }
 
+          ++v178;
           ++v180;
-          ++v182;
-          --v181;
-        }
-
-        while (v181);
-      }
-
-      if (v286 >= 1)
-      {
-        v183 = &v280[v284];
-        v184 = &v176[8 * v281];
-        do
-        {
-          if ((*v183 & 1) == 0 && *v184 != 0.0)
-          {
-            *v183 = 1;
-          }
-
-          ++v184;
-          ++v183;
           --v179;
         }
 
         while (v179);
       }
 
-      free(v300);
-      free(v299);
+      if (v284 >= 1)
+      {
+        v181 = &v278[v282];
+        v182 = &v174[8 * v279];
+        do
+        {
+          if ((*v181 & 1) == 0 && *v182 != 0.0)
+          {
+            *v181 = 1;
+          }
+
+          ++v182;
+          ++v181;
+          --v177;
+        }
+
+        while (v177);
+      }
+
+      free(v298);
+      free(v297);
       ++v59;
-      v61 = v287 + 1;
-      v38 = v279;
-      v58 = v285;
+      v61 = v285 + 1;
+      v38 = v277;
+      v58 = v283;
     }
 
-    while (v287 + 1 != v279);
-    v5 = v270;
-    v56 = v271;
-    v62 = v272;
-    v61 = v273;
+    while (v285 + 1 != v277);
+    v5 = v268;
+    v56 = v269;
+    v62 = v270;
+    v61 = v271;
 LABEL_162:
     ++v61;
     v58 = v62;
@@ -6200,60 +6184,60 @@ LABEL_162:
   while (v62 != v38);
 LABEL_163:
   *(v5 + 26) = v38;
-  v185 = 4 * v56;
-  v186 = malloc_type_malloc(4 * v56, 0x100004052888210uLL);
-  *(v5 + 19) = v186;
+  v183 = 4 * v56;
+  v184 = malloc_type_malloc(4 * v56, 0x100004052888210uLL);
+  *(v5 + 19) = v184;
   if (v38 >= 1)
   {
-    v187 = v303;
-    v188 = v38;
+    v185 = v301;
+    v186 = v38;
     do
     {
-      v189 = *v187++;
-      *v186++ = v189;
-      --v188;
+      v187 = *v185++;
+      *v184++ = v187;
+      --v186;
     }
 
-    while (v188);
+    while (v186);
   }
 
-  v190 = malloc_type_malloc(v264, 0x100004000313F17uLL);
-  *(v5 + 16) = v190;
-  if (v269 > 1)
+  v188 = malloc_type_malloc(v262, 0x100004000313F17uLL);
+  *(v5 + 16) = v188;
+  if (v267 > 1)
   {
-    v191 = (v282 + 8);
-    v192 = v266;
+    v189 = (v280 + 8);
+    v190 = v264;
     do
     {
-      v193 = *v191;
-      v191 += 2;
-      *v190++ = v193;
-      --v192;
+      v191 = *v189;
+      v189 += 2;
+      *v188++ = v191;
+      --v190;
     }
 
-    while (v192);
+    while (v190);
   }
 
-  if (*(a2 + 100))
+  if (*(a2 + 25))
   {
-    *(v5 + 17) = malloc_type_malloc(v264, 0x100004000313F17uLL);
-    v194 = malloc_type_malloc(v264, 0x100004000313F17uLL);
-    *(v5 + 18) = v194;
-    if (v269 > 1)
+    *(v5 + 17) = malloc_type_malloc(v262, 0x100004000313F17uLL);
+    v192 = malloc_type_malloc(v262, 0x100004000313F17uLL);
+    *(v5 + 18) = v192;
+    if (v267 > 1)
     {
-      v195 = *(v5 + 17);
-      v196 = v266;
-      v197 = v290;
+      v193 = *(v5 + 17);
+      v194 = v264;
+      v195 = v288;
       do
       {
-        v198 = *v197++;
-        *v195++ = v198;
-        v199 = *v55++;
-        *v194++ = v199;
-        --v196;
+        v196 = *v195++;
+        *v193++ = v196;
+        v197 = *v55++;
+        *v192++ = v197;
+        --v194;
       }
 
-      while (v196);
+      while (v194);
     }
   }
 
@@ -6263,306 +6247,299 @@ LABEL_163:
     *(v5 + 18) = 0;
   }
 
-  v200 = malloc_type_malloc(v185, 0x100004052888210uLL);
-  v201 = malloc_type_malloc(v185, 0x100004052888210uLL);
-  *(v5 + 20) = v201;
+  v198 = malloc_type_malloc(v183, 0x100004052888210uLL);
+  v199 = malloc_type_malloc(v183, 0x100004052888210uLL);
+  *(v5 + 20) = v199;
   if (v38 < 1)
   {
-    v203 = 0;
-    v206 = size;
+    v201 = 0;
+    v204 = size;
   }
 
   else
   {
-    v202 = 0;
-    v203 = 0;
-    v204 = v301;
-    v205 = v302;
-    v206 = size;
+    v200 = 0;
+    v201 = 0;
+    v202 = v299;
+    v203 = v300;
+    v204 = size;
     do
     {
-      v207 = v204[v202];
-      if (v207 < 1)
+      v205 = v202[v200];
+      if (v205 < 1)
       {
-        v208 = 0;
+        v206 = 0;
       }
 
       else
       {
-        v208 = 0;
-        v209 = &v280[v205[v202]];
+        v206 = 0;
+        v207 = &v278[v203[v200]];
         do
         {
-          v210 = *v209++;
-          v203 += v210;
-          v208 += v210;
-          --v207;
+          v208 = *v207++;
+          v201 += v208;
+          v206 += v208;
+          --v205;
         }
 
-        while (v207);
+        while (v205);
       }
 
-      v201[v202] = v208;
-      v200[v202++] = v208;
+      v199[v200] = v206;
+      v198[v200++] = v206;
     }
 
-    while (v202 != v38);
+    while (v200 != v38);
   }
 
-  info("Total nSV = %d\n", v203);
-  *(v5 + 27) = v203;
-  v211 = 8 * v203;
-  v212 = malloc_type_malloc(v211, 0x2004093837F09uLL);
-  v213 = v280;
-  *(v5 + 14) = v212;
-  if (v206 >= 1)
+  info("Total nSV = %d\n", v201);
+  *(v5 + 27) = v201;
+  v209 = 8 * v201;
+  v210 = malloc_type_malloc(v209, 0x2004093837F09uLL);
+  v211 = v278;
+  *(v5 + 14) = v210;
+  if (v204 >= 1)
   {
-    v214 = 0;
+    v212 = 0;
     do
     {
-      v215 = *v213++;
-      if (v215 == 1)
+      v213 = *v211++;
+      if (v213 == 1)
       {
-        *(*(v5 + 14) + 8 * v214++) = *v33;
+        *(*(v5 + 14) + 8 * v212++) = *v33;
       }
 
       ++v33;
-      --v206;
+      --v204;
     }
 
-    while (v206);
+    while (v204);
   }
 
-  v216 = malloc_type_malloc(v185, 0x100004052888210uLL);
-  v217 = v216;
-  *v216 = 0;
+  v214 = malloc_type_malloc(v183, 0x100004052888210uLL);
+  v215 = v214;
+  *v214 = 0;
   if (v38 <= 1)
   {
-    *(v5 + 15) = malloc_type_malloc(8 * v267, 0x80040B8603338uLL);
-    v224 = v5 + 120;
+    *(v5 + 15) = malloc_type_malloc(8 * v265, 0x80040B8603338uLL);
+    v222 = v5 + 120;
   }
 
   else
   {
-    v218 = 0;
-    v219 = v216 + 1;
-    v220 = v38 - 1;
-    v221 = v200;
+    v216 = 0;
+    v217 = v214 + 1;
+    v218 = v38 - 1;
+    v219 = v198;
     do
     {
-      v222 = *v221++;
-      v218 += v222;
-      *v219++ = v218;
-      --v220;
+      v220 = *v219++;
+      v216 += v220;
+      *v217++ = v216;
+      --v218;
     }
 
-    while (v220);
-    v223 = 0;
-    *(v5 + 15) = malloc_type_malloc(8 * v267, 0x80040B8603338uLL);
-    v224 = v5 + 120;
+    while (v218);
+    v221 = 0;
+    *(v5 + 15) = malloc_type_malloc(8 * v265, 0x80040B8603338uLL);
+    v222 = v5 + 120;
     do
     {
-      *(*v224 + v223) = malloc_type_malloc(v211, 0x100004000313F17uLL);
-      v223 += 8;
+      *(*v222 + v221) = malloc_type_malloc(v209, 0x100004000313F17uLL);
+      v221 += 8;
     }
 
-    while (8 * v267 != v223);
+    while (8 * v265 != v221);
   }
 
-  v226 = v301;
-  v225 = v302;
+  v224 = v299;
+  v223 = v300;
   if (v38 >= 1)
   {
-    v227 = 0;
-    LODWORD(v228) = 0;
-    v229 = 1;
+    v225 = 0;
+    LODWORD(v226) = 0;
+    v227 = 1;
     do
     {
-      v230 = v227 + 1;
-      if (v227 + 1 < v271)
+      v228 = v225 + 1;
+      if (v225 + 1 < v269)
       {
-        v231 = v226[v227];
-        v232 = *&v217[4 * v227];
-        v233 = v226[v227];
-        v228 = v228;
-        v234 = &v280[v225[v227]];
-        v235 = v229;
+        v229 = v224[v225];
+        v230 = *&v215[4 * v225];
+        v231 = v224[v225];
+        v226 = v226;
+        v232 = &v278[v223[v225]];
+        v233 = v227;
         do
         {
-          v236 = v225[v235];
-          v237 = v226[v235];
-          v238 = &v282[16 * v228];
-          if (v233 >= 1)
+          v234 = v223[v233];
+          v235 = v224[v233];
+          v236 = &v280[16 * v226];
+          if (v231 >= 1)
           {
-            v239 = 0;
-            v240 = v232;
+            v237 = 0;
+            v238 = v230;
             do
             {
-              if (v234[v239] == 1)
+              if (v232[v237] == 1)
               {
-                *(*(*v224 + 8 * v235 - 8) + 8 * v240++) = *(*v238 + 8 * v239);
+                *(*(*v222 + 8 * v233 - 8) + 8 * v238++) = *(*v236 + 8 * v237);
               }
 
-              ++v239;
+              ++v237;
             }
 
-            while (v231 != v239);
+            while (v229 != v237);
           }
 
-          if (v237 >= 1)
+          if (v235 >= 1)
           {
-            v241 = *&v217[4 * v235];
-            v242 = &v280[v236];
-            v243 = 8 * v231;
+            v239 = *&v215[4 * v233];
+            v240 = &v278[v234];
+            v241 = 8 * v229;
             do
             {
-              v244 = *v242++;
-              if (v244 == 1)
+              v242 = *v240++;
+              if (v242 == 1)
               {
-                *(*(*v224 + 8 * v227) + 8 * v241++) = *(*v238 + v243);
+                *(*(*v222 + 8 * v225) + 8 * v239++) = *(*v236 + v241);
               }
 
-              v243 += 8;
-              --v237;
+              v241 += 8;
+              --v235;
             }
 
-            while (v237);
+            while (v235);
           }
 
-          ++v228;
-          ++v235;
+          ++v226;
+          ++v233;
         }
 
-        while (v235 != v38);
+        while (v233 != v38);
       }
 
-      ++v229;
       ++v227;
+      ++v225;
     }
 
-    while (v230 != v38);
+    while (v228 != v38);
   }
 
-  free(v303);
-  free(v290);
-  free(v289);
-  free(v226);
-  free(v265);
-  free(v225);
-  free(v275);
-  free(v276);
-  free(v280);
-  v245 = v266;
-  if (v269 > 1)
+  free(v301);
+  free(v288);
+  free(v287);
+  free(v224);
+  free(v263);
+  free(v223);
+  free(v273);
+  free(v274);
+  free(v278);
+  v243 = v264;
+  if (v267 > 1)
   {
-    v246 = v282;
+    v244 = v280;
     do
     {
-      v247 = *v246;
-      v246 += 2;
-      free(v247);
-      --v245;
+      v245 = *v244;
+      v244 += 2;
+      free(v245);
+      --v243;
     }
 
-    while (v245);
+    while (v243);
   }
 
-  free(v282);
-  free(v200);
+  free(v280);
+  free(v198);
 LABEL_231:
-  free(v217);
+  free(v215);
   return v5;
 }
 
-char *svm_train_one(int *a1, uint64_t a2)
+char *svm_train_one(int *a1, int *a2, double a3, double a4)
 {
-  v4 = malloc_type_malloc(8 * *a1, 0x100004000313F17uLL);
-  v5 = *a2;
+  v6 = malloc_type_malloc(8 * *a1, 0x100004000313F17uLL);
+  v7 = *a2;
   if (*a2 <= 1)
   {
-    if (!v5)
+    if (!v7)
     {
-      *a1;
       operator new[]();
     }
 
-    if (v5 == 1)
+    if (v7 == 1)
     {
-      v7 = *a1;
-      v8 = *(a2 + 80);
       operator new[]();
     }
   }
 
   else
   {
-    switch(v5)
+    switch(v7)
     {
       case 2:
-        *a1;
         operator new[]();
       case 3:
-        *a1;
         operator new[]();
       case 4:
-        v6 = *(a2 + 48);
-        *a1;
         operator new[]();
     }
   }
 
-  info("obj = %f, rho = %f\n", v17, v18);
-  v9 = *a1;
-  if (v9 >= 1)
+  info("obj = %f, rho = %f\n", v16, v17);
+  v8 = *a1;
+  if (v8 >= 1)
   {
+    v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = 0;
-    v13 = 8 * v9;
+    v12 = 8 * v8;
     while (1)
     {
-      v14 = *&v4[v10];
-      if (v14 != 0.0)
+      v13 = *&v6[v9];
+      if (v13 != 0.0)
       {
-        v15 = fabs(v14);
-        ++v12;
-        if (*(*(a1 + 1) + v10) > 0.0)
+        v14 = fabs(v13);
+        ++v11;
+        if (*(*(a1 + 1) + v9) > 0.0)
         {
-          if (v15 < v19)
+          if (v14 < v18)
           {
             goto LABEL_20;
           }
 
 LABEL_19:
-          ++v11;
+          ++v10;
           goto LABEL_20;
         }
 
-        if (v15 >= v20)
+        if (v14 >= v19)
         {
           goto LABEL_19;
         }
       }
 
 LABEL_20:
-      v10 += 8;
-      if (v13 == v10)
+      v9 += 8;
+      if (v12 == v9)
       {
         goto LABEL_23;
       }
     }
   }
 
-  v12 = 0;
   v11 = 0;
+  v10 = 0;
 LABEL_23:
-  info("nSV = %d, nBSV = %d\n", v12, v11);
-  return v4;
+  info("nSV = %d, nBSV = %d\n", v11, v10);
+  return v6;
 }
 
-void sub_297722754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_297722754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   SVC_Q::~SVC_Q(va);
   _Unwind_Resume(a1);
 }
@@ -6680,7 +6657,7 @@ LABEL_11:
   free(v9);
 }
 
-void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
+void svm_cross_validation(int *a1, __int128 *a2, int a3, uint64_t a4)
 {
   v7 = (a3 + 1);
   v8 = malloc_type_malloc(4 * v7, 0x100004052888210uLL);
@@ -6921,9 +6898,9 @@ LABEL_59:
         v93 = v83;
         v94 = svm_train(&v112, v86);
         v95 = v94;
-        if (v86[25] && *v86 <= 1u)
+        if (*(v86 + 25) && *v86 <= 1u)
         {
-          v96 = malloc_type_malloc(8 * *(v94 + 104), 0x100004000313F17uLL);
+          v96 = malloc_type_malloc(8 * *(v94 + 26), 0x100004000313F17uLL);
           if (v93 < v84)
           {
             v97 = &v11[v93];
@@ -7481,120 +7458,109 @@ void svm_predict_values(uint64_t a1, double *a2, double *a3)
 
     v27 = malloc_type_malloc(4 * v14, 0x100004052888210uLL);
     v28 = v27;
-    if (v14 < 1)
+    if (v14 >= 1)
     {
-      goto LABEL_35;
-    }
-
-    bzero(v27, 4 * v14);
-    v29 = 0;
-    LODWORD(v30) = 0;
-    v31 = 1;
-    do
-    {
-      v32 = v29 + 1;
-      if (v29 + 1 < v14)
+      bzero(v27, 4 * v14);
+      v29 = 0;
+      LODWORD(v30) = 0;
+      v31 = 1;
+      do
       {
-        v33 = *(a1 + 160);
-        v35 = *(a1 + 120);
-        v34 = *(a1 + 128);
-        v36 = v35 - 8;
-        v37 = *(v35 + 8 * v29);
-        v30 = v30;
-        v38 = v31;
-        do
+        v32 = v29 + 1;
+        if (v29 + 1 < v14)
         {
-          v39 = *(v33 + 4 * v29);
-          if (v39 < 1)
+          v33 = *(a1 + 160);
+          v35 = *(a1 + 120);
+          v34 = *(a1 + 128);
+          v36 = v35 - 8;
+          v37 = *(v35 + 8 * v29);
+          v30 = v30;
+          v38 = v31;
+          do
           {
-            v43 = 0.0;
-          }
-
-          else
-          {
-            v40 = v21[v29];
-            v41 = (*(v36 + 8 * v38) + 8 * v40);
-            v42 = &v16[v40];
-            v43 = 0.0;
-            do
+            v39 = *(v33 + 4 * v29);
+            if (v39 < 1)
             {
-              v44 = *v41++;
-              v45 = v44;
-              v46 = *v42++;
-              v43 = v43 + v45 * v46;
-              --v39;
+              v43 = 0.0;
             }
 
-            while (v39);
-          }
-
-          v47 = *(v33 + 4 * v38);
-          if (v47 >= 1)
-          {
-            v48 = v21[v38];
-            v49 = (v37 + 8 * v48);
-            v50 = &v16[v48];
-            do
+            else
             {
-              v51 = *v49++;
-              v52 = v51;
-              v53 = *v50++;
-              v43 = v43 + v52 * v53;
-              --v47;
+              v40 = v21[v29];
+              v41 = (*(v36 + 8 * v38) + 8 * v40);
+              v42 = &v16[v40];
+              v43 = 0.0;
+              do
+              {
+                v44 = *v41++;
+                v45 = v44;
+                v46 = *v42++;
+                v43 = v43 + v45 * v46;
+                --v39;
+              }
+
+              while (v39);
             }
 
-            while (v47);
+            v47 = *(v33 + 4 * v38);
+            if (v47 >= 1)
+            {
+              v48 = v21[v38];
+              v49 = (v37 + 8 * v48);
+              v50 = &v16[v48];
+              do
+              {
+                v51 = *v49++;
+                v52 = v51;
+                v53 = *v50++;
+                v43 = v43 + v52 * v53;
+                --v47;
+              }
+
+              while (v47);
+            }
+
+            v54 = v43 - *(v34 + 8 * v30);
+            a3[v30] = v54;
+            if (v54 <= 0.0)
+            {
+              v55 = v38;
+            }
+
+            else
+            {
+              v55 = v29;
+            }
+
+            ++v28[v55];
+            ++v30;
+            ++v38;
           }
 
-          v54 = v43 - *(v34 + 8 * v30);
-          a3[v30] = v54;
-          if (v54 <= 0.0)
-          {
-            v55 = v38;
-          }
-
-          else
-          {
-            v55 = v29;
-          }
-
-          ++v28[v55];
-          ++v30;
-          ++v38;
+          while (v38 != v14);
         }
 
-        while (v38 != v14);
+        ++v31;
+        ++v29;
       }
 
-      ++v31;
-      ++v29;
-    }
-
-    while (v32 != v14);
-    if (v14 < 2)
-    {
-LABEL_35:
-      v58 = 0;
-    }
-
-    else
-    {
-      v56 = 0;
-      for (i = 1; i != v14; ++i)
+      while (v32 != v14);
+      if (v14 >= 2)
       {
-        if (v28[i] > v28[v56])
+        v56 = 0;
+        for (i = 1; i != v14; ++i)
         {
-          v56 = i;
+          if (v28[i] > v28[v56])
+          {
+            v56 = i;
+          }
         }
       }
-
-      v58 = v56;
     }
 
     free(v16);
     free(v21);
     free(v28);
-    v59 = *(*(a1 + 152) + 4 * v58);
   }
 
   else
@@ -7812,11 +7778,11 @@ uint64_t svm_save_model(const char *a1, double *a2)
 
 char *svm_load_model(const char *a1)
 {
-  v64 = *MEMORY[0x29EDCA608];
+  v63 = *MEMORY[0x29EDCA608];
   v1 = fopen(a1, "rb");
   if (!v1)
   {
-    goto LABEL_79;
+    return 0;
   }
 
   v2 = v1;
@@ -7843,7 +7809,7 @@ char *svm_load_model(const char *a1)
                 {
 LABEL_3:
                   fscanf(v2, "%80s", __s2);
-                  if (!(*__s2 ^ 0x657079745F6D7673 | v63))
+                  if (!(*__s2 ^ 0x657079745F6D7673 | v62))
                   {
                     fscanf(v2, "%80s", __s2);
                     for (i = 0; i != 5; ++i)
@@ -7863,7 +7829,7 @@ LABEL_77:
                     goto LABEL_78;
                   }
 
-                  if (*__s2 != 0x745F6C656E72656BLL || v63 != 6647929)
+                  if (*__s2 != 0x745F6C656E72656BLL || v62 != 6647929)
                   {
                     break;
                   }
@@ -7906,13 +7872,13 @@ LABEL_58:
                 fscanf(v2, "%lf", v19);
               }
 
-              if (!(*__s2 ^ 0x7373616C635F726ELL | v63))
+              if (!(*__s2 ^ 0x7373616C635F726ELL | v62))
               {
                 v18 = v3 + 104;
                 goto LABEL_54;
               }
 
-              if (*__s2 ^ 0x76735F6C61746F74 | v63)
+              if (*__s2 ^ 0x76735F6C61746F74 | v62)
               {
                 break;
               }
@@ -8038,127 +8004,123 @@ LABEL_78:
     free(*(v3 + 19));
     free(*(v3 + 20));
     free(v3);
-    goto LABEL_79;
+    return 0;
   }
 
   do
   {
-    v37 = getc(v2);
+    v36 = getc(v2);
   }
 
-  while (v37 != -1 && v37 != 10);
-  v38 = MEMORY[0x29C2730D0](v2);
+  while (v36 != -1 && v36 != 10);
+  v37 = MEMORY[0x29C2730D0](v2);
   max_line_len = 1024;
   line = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
   __endptr = 0;
-  v39 = 0;
+  v38 = 0;
   while (readline(v2))
   {
     strtok(line, ":");
-    --v39;
+    --v38;
     do
     {
-      ++v39;
+      ++v38;
     }
 
     while (strtok(0, ":"));
   }
 
-  v40 = *(v3 + 27);
-  fseek(v2, v38, 0);
-  v41 = *(v3 + 26);
-  v42 = *(v3 + 27);
-  *(v3 + 15) = malloc_type_malloc(8 * (v41 - 1), 0x80040B8603338uLL);
-  v60 = v42;
-  v43 = 8 * v42;
-  if (v41 > 1)
+  v39 = *(v3 + 27);
+  fseek(v2, v37, 0);
+  v40 = *(v3 + 26);
+  v41 = *(v3 + 27);
+  *(v3 + 15) = malloc_type_malloc(8 * (v40 - 1), 0x80040B8603338uLL);
+  v59 = v41;
+  v42 = 8 * v41;
+  if (v40 > 1)
   {
-    v44 = 0;
+    v43 = 0;
     do
     {
-      *(*(v3 + 15) + v44) = malloc_type_malloc(v43, 0x100004000313F17uLL);
-      v44 += 8;
+      *(*(v3 + 15) + v43) = malloc_type_malloc(v42, 0x100004000313F17uLL);
+      v43 += 8;
     }
 
-    while (8 * (v41 - 1) != v44);
+    while (8 * (v40 - 1) != v43);
   }
 
-  *(v3 + 14) = malloc_type_malloc(v43, 0x2004093837F09uLL);
-  if (v60 >= 1)
+  *(v3 + 14) = malloc_type_malloc(v42, 0x2004093837F09uLL);
+  if (v59 >= 1)
   {
-    v45 = malloc_type_malloc(16 * (v40 + v39), 0x1000040F7F8B94BuLL);
+    v44 = malloc_type_malloc(16 * (v39 + v38), 0x1000040F7F8B94BuLL);
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
-    v48 = 8 * (v41 - 1);
-    v58 = v45 + 8;
-    v59 = v45;
+    v47 = 8 * (v40 - 1);
+    v57 = v44 + 8;
+    v58 = v44;
     do
     {
       readline(v2);
-      *(*(v3 + 14) + 8 * v46) = &v45[16 * v47];
-      v49 = strtok(line, " \t");
-      *(**(v3 + 15) + 8 * v46) = strtod(v49, &__endptr);
-      if (v41 >= 3)
+      *(*(v3 + 14) + 8 * v45) = &v44[16 * v46];
+      v48 = strtok(line, " \t");
+      *(**(v3 + 15) + 8 * v45) = strtod(v48, &__endptr);
+      if (v40 >= 3)
       {
-        v50 = 8;
+        v49 = 8;
         do
         {
-          v51 = strtok(0, " \t");
-          *(*(*(v3 + 15) + v50) + 8 * v46) = strtod(v51, &__endptr);
-          v50 += 8;
+          v50 = strtok(0, " \t");
+          *(*(*(v3 + 15) + v49) + 8 * v45) = strtod(v50, &__endptr);
+          v49 += 8;
         }
 
-        while (v48 != v50);
+        while (v47 != v49);
       }
 
-      v52 = v47;
-      v53 = strtok(0, ":");
-      v54 = strtok(0, " \t");
-      if (v54)
+      v51 = v46;
+      v52 = strtok(0, ":");
+      v53 = strtok(0, " \t");
+      if (v53)
       {
-        v55 = v54;
-        v56 = v47 << 32;
-        v57 = &v58[16 * v47];
+        v54 = v53;
+        v55 = v46 << 32;
+        v56 = &v57[16 * v46];
         do
         {
-          *(v57 - 2) = strtol(v53, &__endptr, 10);
-          *v57 = strtod(v55, &__endptr);
-          v57 += 2;
-          v53 = strtok(0, ":");
-          v55 = strtok(0, " \t");
-          v56 += 0x100000000;
-          ++v47;
+          *(v56 - 2) = strtol(v52, &__endptr, 10);
+          *v56 = strtod(v54, &__endptr);
+          v56 += 2;
+          v52 = strtok(0, ":");
+          v54 = strtok(0, " \t");
+          v55 += 0x100000000;
+          ++v46;
         }
 
-        while (v55);
-        v52 = v56 >> 32;
-        v48 = 8 * (v41 - 1);
+        while (v54);
+        v51 = v55 >> 32;
+        v47 = 8 * (v40 - 1);
       }
 
-      ++v47;
-      v45 = v59;
-      *&v59[16 * v52] = -1;
       ++v46;
+      v44 = v58;
+      *&v58[16 * v51] = -1;
+      ++v45;
     }
 
-    while (v46 != v60);
+    while (v45 != v59);
   }
 
   free(line);
   if (!ferror(v2) && !fclose(v2))
   {
     *(v3 + 42) = 1;
-    goto LABEL_80;
+    return v3;
   }
 
-LABEL_79:
-  v3 = 0;
-LABEL_80:
-  v35 = *MEMORY[0x29EDCA608];
-  return v3;
+  return 0;
 }
 
-void *readline(__sFILE *a1)
+uint64_t readline(__sFILE *a1)
 {
   if (!fgets(line, max_line_len, a1))
   {
@@ -8692,7 +8654,7 @@ void sub_297725774(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-float *SVR_Q::get_Q(SVR_Q *this, int a2, int a3)
+float *SVR_Q::get_Q(SVR_Q *this, int a2, unsigned int a3)
 {
   v28 = 0;
   v6 = *(this + 11);
@@ -8831,7 +8793,7 @@ BOOL nlp::traverseCallback(uint64_t a1, uint64_t a2)
   return nlp::BurstTrieAdd(a1, a2, v3, v4);
 }
 
-BOOL nlp::BurstTrieAdd(uint64_t a1, uint64_t a2, int a3, int a4)
+BOOL nlp::BurstTrieAdd(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (*(a1 + 2080))
   {
@@ -8847,74 +8809,78 @@ BOOL nlp::BurstTrieAdd(uint64_t a1, uint64_t a2, int a3, int a4)
 
   v8 = 0;
   v24 = 0;
-  if ((a3 - 1) <= 0x3FE && a4)
+  if ((a3 - 1) <= 0x3FE)
   {
-    v11 = 0;
-    v12 = 1;
-    v13 = a1;
-    while (1)
+    v9 = a4;
+    if (a4)
     {
-      v14 = v13 + 1;
-      v15 = *&v13[2 * *(a2 + v11) + 1];
-      if ((v15 & 3) != 1)
+      v11 = 0;
+      v12 = 1;
+      v13 = a1;
+      while (1)
       {
-        break;
-      }
-
-      v13 = (v15 & 0xFFFFFFFFFFFFFFFCLL);
-      ++v11;
-      ++v12;
-      if (a3 == v11)
-      {
-        v16 = *v13;
-        *v13 = a4;
-        if (!v16)
+        v14 = v13 + 1;
+        v15 = *&v13[2 * *(a2 + v11) + 1];
+        if ((v15 & 3) != 1)
         {
-          goto LABEL_18;
+          break;
         }
 
+        v13 = (v15 & 0xFFFFFFFFFFFFFFFCLL);
+        ++v11;
+        ++v12;
+        if (a3 == v11)
+        {
+          v16 = *v13;
+          *v13 = a4;
+          if (!v16)
+          {
+            goto LABEL_18;
+          }
+
 LABEL_19:
-        v8 = 1;
-        return v8 != 0;
+          v8 = 1;
+          return v8 != 0;
+        }
       }
-    }
 
-    if ((v15 & 3) != 2)
-    {
-      v20 = a3 - v12;
-      v21 = (a3 - v12);
-      v22 = malloc_type_calloc(1uLL, v21 + 15, 0x1020040D0C9BDDAuLL);
-      memcpy((v22 + 14), (a2 + v12), v21);
-      *(v22 + 14 + v20) = 0;
-      *(v22 + 12) = v20;
-      *(v22 + 8) = a4;
-      *v22 = 0;
-      *&v14[2 * *(a2 + v11)] = v22 | 2;
-      goto LABEL_18;
-    }
+      if ((v15 & 3) != 2)
+      {
+        v20 = a3 - v12;
+        v21 = (a3 - v12);
+        v22 = malloc_type_calloc(1uLL, v21 + 15, 0x1020040D0C9BDDAuLL);
+        memcpy((v22 + 14), (a2 + v12), v21);
+        *(v22 + 14 + v20) = 0;
+        *(v22 + 12) = v20;
+        *(v22 + 8) = v9;
+        *v22 = 0;
+        *&v14[2 * *(a2 + v11)] = v22 | 2;
+        goto LABEL_18;
+      }
 
-    v25[0] = (v15 & 0xFFFFFFFFFFFFFFFCLL);
-    v17 = nlp::addListNode(a1, v25, a2, a3, v12, a4, &v24);
-    v18 = v25[0];
-    if (v17 >= *(a1 + 2088))
-    {
-      v18 = nlp::burstLevel(a1, v25[0], &v24);
-      v19 = 1;
-    }
+      v25[0] = (v15 & 0xFFFFFFFFFFFFFFFCLL);
+      v17 = nlp::addListNode(a1, v25, a2, a3, v12, a4, &v24);
+      v18 = v25[0];
+      if (v17 >= *(a1 + 2088))
+      {
+        v18 = nlp::burstLevel(a1, v25[0], &v24);
+        v19 = 1;
+      }
 
-    else
-    {
-      v19 = 2;
-    }
+      else
+      {
+        v19 = 2;
+      }
 
-    v23 = v19 | v18;
-    v8 = v24;
-    *&v14[2 * *(a2 + v11)] = v23;
-    if (v8 == 2)
-    {
+      v23 = v19 | v18;
+      v8 = v24;
+      *&v14[2 * *(a2 + v11)] = v23;
+      if (v8 == 2)
+      {
 LABEL_18:
-      ++*(a1 + 2060);
-      goto LABEL_19;
+        ++*(a1 + 2060);
+        goto LABEL_19;
+      }
     }
   }
 
@@ -8956,10 +8922,10 @@ uint64_t nlp::TrieCompletionGetPayload(uint64_t result)
 
 uint64_t nlp::rankedTraverseCallback(uint64_t a1, float *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2)
   {
-    v3 = (a2 + 5);
+    v3 = a2 + 5;
   }
 
   else
@@ -8981,55 +8947,49 @@ uint64_t nlp::rankedTraverseCallback(uint64_t a1, float *a2)
     v6 = 0.0;
   }
 
-  v10 = 0;
-  nlp::BurstTrieAddWithScore(a1, v3, v4, v5, 0, v9, v6);
-  result = std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v9);
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  v9 = 0;
+  nlp::BurstTrieAddWithScore(a1, v3, v4, v5, 0, v8, v6);
+  return std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_297725CEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297725CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 BOOL nlp::BurstTrieAddWithScore(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, float a7)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  if (!*(a1 + 2080) && (*(a1 + 2064) & 1) != 0)
+  v18 = *MEMORY[0x29EDCA608];
+  if (*(a1 + 2080) || (*(a1 + 2064) & 1) == 0)
   {
-    result = 0;
-    v17 = 0;
-    if ((a3 - 1) <= 0x3FE && a4)
+    return 0;
+  }
+
+  result = 0;
+  v16 = 0;
+  if ((a3 - 1) <= 0x3FE && a4)
+  {
+    v15 = 0;
+    std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v17, a6);
+    nlp::addLevelRanked(a1, a1, a2, a3, 0, a4, &v15, &v16, a7, a5, v17);
+    std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v17);
+    v14 = v16;
+    if (v16 == 2)
     {
-      v16 = 0;
-      std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v18, a6);
-      nlp::addLevelRanked(a1, a1, a2, a3, 0, a4, &v16, &v17, a7, a5, v18);
-      std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v18);
-      v15 = v17;
-      if (v17 == 2)
-      {
-        ++*(a1 + 2060);
-      }
-
-      result = v15 != 0;
+      ++*(a1 + 2060);
     }
+
+    return v14 != 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_297725E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_297725E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9062,54 +9022,52 @@ double nlp::BurstTrieCreateMutableWithOptions(int a1, int a2)
   return result;
 }
 
-char *nlp::BurstTrieCreateFromFile(char *this, const __CFString *a2)
+const __CFString *nlp::BurstTrieCreateFromFile(const __CFString *this, const __CFString *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (this)
   {
     v2 = this;
     usedBufLen = 0;
-    v11.length = CFStringGetLength(this);
-    v11.location = 0;
-    CFStringGetBytes(v2, v11, 0x8000100u, 0x2Du, 0, buffer, 1024, &usedBufLen);
+    v10.length = CFStringGetLength(this);
+    v10.location = 0;
+    CFStringGetBytes(v2, v10, 0x8000100u, 0x2Du, 0, buffer, 1024, &usedBufLen);
     buffer[usedBufLen] = 0;
-    if (stat(buffer, &v8))
+    if (stat(buffer, &v7))
     {
       v3 = -1;
+LABEL_4:
+      close(v3);
+      return 0;
     }
 
-    else
+    v3 = open(buffer, 0);
+    if (v3 < 0)
     {
-      v3 = open(buffer, 0);
-      if ((v3 & 0x80000000) == 0)
-      {
-        v5 = mmap(0, v8.st_size, 1, 1, v3, 0);
-        if (v5)
-        {
-          v6 = v5;
-          this = nlp::burstTrieCreateWithBytes(v5, 1);
-          if (this)
-          {
-            goto LABEL_6;
-          }
-
-          munmap(v6, v8.st_size);
-        }
-
-        if (!v3)
-        {
-          goto LABEL_5;
-        }
-      }
+      goto LABEL_4;
     }
 
-    close(v3);
-LABEL_5:
-    this = 0;
+    v4 = mmap(0, v7.st_size, 1, 1, v3, 0);
+    if (!v4)
+    {
+LABEL_11:
+      if (!v3)
+      {
+        return 0;
+      }
+
+      goto LABEL_4;
+    }
+
+    v5 = v4;
+    this = nlp::burstTrieCreateWithBytes(v4, 1);
+    if (!this)
+    {
+      munmap(v5, v7.st_size);
+      goto LABEL_11;
+    }
   }
 
-LABEL_6:
-  v4 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -9123,17 +9081,17 @@ char *nlp::burstTrieCreateWithBytes(char *this, const char *a2)
       v4 = a2;
       this = malloc_type_calloc(1uLL, 0x838uLL, 0x105004014637929uLL);
       *(this + 260) = v2;
-      v5 = v2[3];
-      *(this + 2068) = v2[2];
+      v5 = *(v2 + 3);
+      *(this + 2068) = *(v2 + 2);
       *(this + 515) = v5;
-      v6 = v2[4];
+      v6 = *(v2 + 4);
       *(this + 516) = v6;
       if (*v2 == -900339842)
       {
         *(this + 516) = v6 | 1;
       }
 
-      *(this + 522) = v2[5];
+      *(this + 522) = *(v2 + 5);
       *(this + 523) = v4;
       *(this + 524) = 2;
       *(this + 519) = 1;
@@ -9192,72 +9150,60 @@ uint64_t nlp::BurstTrieGetCount(uint64_t result)
 
 uint64_t nlp::BurstTrieCreateMutableCopy(int *a1)
 {
-  v8[4] = *MEMORY[0x29EDCA608];
-  if (a1)
+  v7[4] = *MEMORY[0x29EDCA608];
+  if (!a1)
   {
-    nlp::BurstTrieCreateMutableWithOptions(a1[522], a1[516]);
-    v3 = v2;
-    if (a1[516])
-    {
-      v4 = v8;
-      v8[0] = &unk_2A1E51D20;
-      v8[1] = nlp::rankedTraverseCallback;
-      v8[3] = v8;
-      nlp::BurstTrieSearch(a1, 0, 0, v2, v8, -1);
-    }
+    return 0;
+  }
 
-    else
-    {
-      v4 = v7;
-      v7[0] = &unk_2A1E51D20;
-      v7[1] = nlp::traverseCallback;
-      v7[3] = v7;
-      nlp::BurstTrieSearch(a1, 0, 0, v2, v7, -1);
-    }
-
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v4);
+  nlp::BurstTrieCreateMutableWithOptions(a1[522], a1[516]);
+  v3 = v2;
+  if (a1[516])
+  {
+    v4 = v7;
+    v7[0] = &unk_2A1E51D20;
+    v7[1] = nlp::rankedTraverseCallback;
+    v7[3] = v7;
+    nlp::BurstTrieSearch(a1, 0, 0, v2, v7, 0xFFFFFFFFLL);
   }
 
   else
   {
-    v3 = 0;
+    v4 = v6;
+    v6[0] = &unk_2A1E51D20;
+    v6[1] = nlp::traverseCallback;
+    v6[3] = v6;
+    nlp::BurstTrieSearch(a1, 0, 0, v2, v6, 0xFFFFFFFFLL);
   }
 
-  v5 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v4);
   return v3;
 }
 
-void sub_297726280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_297726280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlp::BurstTrieSearch(nlp *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+void nlp::BurstTrieSearch(nlp *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14[4] = *MEMORY[0x29EDCA608];
-  if (a6 < 0)
+  v12[4] = *MEMORY[0x29EDCA608];
+  if ((a6 & 0x80000000) != 0)
   {
-    v11 = 0xFFFFFFFF00000003;
-    v12 = 0;
-    v13 = a4;
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::__value_func[abi:ne200100](v14, a5);
-    nlp::searchWithContext(a1, a2, a3, 0, &v11);
-    result = std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v14);
+    v9 = 0xFFFFFFFF00000003;
+    v10 = 0;
+    v11 = a4;
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::__value_func[abi:ne200100](v12, a5);
+    nlp::searchWithContext(a1, a2, a3, 0, &v9);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v12);
   }
 
-  else
+  else if (nlp::BurstTrieCreateCursorWithBytes(a1, a2, a3))
   {
-    result = nlp::BurstTrieCreateCursorWithBytes(a1, a2, a3);
-    if (result)
-    {
-      operator new();
-    }
+    operator new();
   }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t nlp::BurstTrieRetain(uint64_t result)
@@ -9270,10 +9216,10 @@ uint64_t nlp::BurstTrieRetain(uint64_t result)
   return result;
 }
 
-uint64_t nlp::addLevelRanked(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, float *a7, int *a8, float a9, uint64_t a10, uint64_t a11)
+void nlp::addLevelRanked(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, float *a7, int *a8, float a9, uint64_t a10, uint64_t a11)
 {
   v13 = a9;
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   if (a5 >= a4)
   {
     *a8 = 2;
@@ -9282,7 +9228,7 @@ uint64_t nlp::addLevelRanked(uint64_t result, uint64_t a2, uint64_t a3, uint64_t
       *a8 = 1;
       if (*(a11 + 24))
       {
-        result = std::function<float ()(void *,float,float)>::operator()(a11, a10, *(a2 + 4), a9);
+        std::function<float ()(void *,float,float)>::operator()(a11, a10, *(a2 + 4), a9);
         v13 = v21;
       }
     }
@@ -9294,21 +9240,19 @@ uint64_t nlp::addLevelRanked(uint64_t result, uint64_t a2, uint64_t a3, uint64_t
 
   else
   {
-    v19 = result;
-    v31 = (a3 + a5);
-    v20 = *(a2 + 12 + 8 * *v31);
+    v30 = (a3 + a5);
+    v20 = *(a2 + 12 + 8 * *v30);
     if ((v20 & 3) == 2)
     {
-      v30 = a2 + 12;
-      v32 = (v20 & 0xFFFFFFFFFFFFFFFCLL);
-      std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v33, a11);
-      v22 = nlp::addListNodeRanked(v19, &v32, a3, a4, a5 + 1, a6, a7, a8, v13, a10, v33);
-      result = std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v33);
-      v23 = v32;
-      if (v22 >= *(v19 + 2088))
+      v29 = a2 + 12;
+      v31 = (v20 & 0xFFFFFFFFFFFFFFFCLL);
+      std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v32, a11);
+      v22 = nlp::addListNodeRanked(a1, &v31, a3, a4, a5 + 1, a6, a7, a8, v13, a10, v32);
+      std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v32);
+      v23 = v31;
+      if (v22 >= *(a1 + 2088))
       {
-        result = nlp::burstLevelRanked(v19, v32, a7, a8);
-        v23 = result;
+        v23 = nlp::burstLevelRanked(a1, v31, a7, a8);
         v24 = 1;
       }
 
@@ -9318,25 +9262,25 @@ uint64_t nlp::addLevelRanked(uint64_t result, uint64_t a2, uint64_t a3, uint64_t
       }
 
       v28 = v24 | v23;
-      v27 = v31;
+      v27 = v30;
     }
 
     else
     {
       if ((v20 & 3) == 1)
       {
-        std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v34, a11);
-        nlp::addLevelRanked(v19, v20 & 0xFFFFFFFFFFFFFFFCLL, a3, a4, a5 + 1, a6, a7, a8, v13, a10, v34);
-        result = std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v34);
+        std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](v33, a11);
+        nlp::addLevelRanked(a1, v20 & 0xFFFFFFFFFFFFFFFCLL, a3, a4, a5 + 1, a6, a7, a8, v13, a10, v33);
+        std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v33);
         goto LABEL_15;
       }
 
-      v30 = a2 + 12;
+      v29 = a2 + 12;
       *a7 = a9;
       v25 = ~a5 + a4;
       v26 = malloc_type_calloc(1uLL, v25 + 23, 0x10200402E77EEF7uLL);
-      v27 = v31;
-      result = memcpy((v26 + 22), v31 + 1, v25);
+      v27 = v30;
+      memcpy((v26 + 22), v30 + 1, v25);
       *(v26 + 22 + v25) = 0;
       *(v26 + 20) = v25;
       *(v26 + 16) = a6;
@@ -9347,7 +9291,7 @@ uint64_t nlp::addLevelRanked(uint64_t result, uint64_t a2, uint64_t a3, uint64_t
       *a8 = 2;
     }
 
-    *(v30 + 8 * *v27) = v28;
+    *(v29 + 8 * *v27) = v28;
   }
 
 LABEL_15:
@@ -9355,14 +9299,11 @@ LABEL_15:
   {
     *a2 = *a7;
   }
-
-  v29 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_29772668C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29772668C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9370,33 +9311,33 @@ void sub_29772668C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t nlp::BurstTrieRemove(_DWORD *a1, uint64_t a2, unsigned int a3)
 {
   result = 0;
-  v106 = *MEMORY[0x29EDCA608];
+  v105 = *MEMORY[0x29EDCA608];
   if (!a1 || !a2 || !a3)
   {
-    goto LABEL_127;
+    return result;
   }
 
   v6 = a3;
   if (a1[516])
   {
-    v103 = a1;
+    v102 = a1;
+    v90 = 0;
     v91 = 0;
-    v92 = 0;
     __p = 0;
-    std::vector<nlp::_RankedTrieLevel *>::__init_with_size[abi:ne200100]<nlp::_RankedTrieLevel * const*,nlp::_RankedTrieLevel * const*>(&__p, &v103, v104, 1uLL);
+    std::vector<nlp::_RankedTrieLevel *>::__init_with_size[abi:ne200100]<nlp::_RankedTrieLevel * const*,nlp::_RankedTrieLevel * const*>(&__p, &v102, v103, 1uLL);
     v19 = (a2 + 1);
     v20 = a1;
     do
     {
-      v21 = v20 + 12;
+      v21 = v20 + 3;
       v22 = *(v19 - 1);
-      v23 = *(v21 + 8 * v22);
+      v23 = *&v21[2 * v22];
       if ((v23 & 3) == 0)
       {
         goto LABEL_54;
       }
 
-      if ((*(v21 + 8 * v22) & 3) == 2)
+      if ((*&v21[2 * v22] & 3) == 2)
       {
         v36 = (v23 & 0xFFFFFFFFFFFFFFFCLL);
         v37 = *((v23 & 0xFFFFFFFFFFFFFFFCLL) + 20);
@@ -9410,7 +9351,7 @@ uint64_t nlp::BurstTrieRemove(_DWORD *a1, uint64_t a2, unsigned int a3)
             v45 = 0;
           }
 
-          *(v21 + 8 * v22) = v45;
+          *&v21[2 * v22] = v45;
         }
 
         else
@@ -9445,23 +9386,23 @@ uint64_t nlp::BurstTrieRemove(_DWORD *a1, uint64_t a2, unsigned int a3)
         goto LABEL_70;
       }
 
-      v20 = v23 & 0xFFFFFFFFFFFFFFFCLL;
-      v24 = v91;
-      if (v91 >= v92)
+      v20 = (v23 & 0xFFFFFFFFFFFFFFFCLL);
+      v24 = v90;
+      if (v90 >= v91)
       {
-        v26 = (v91 - __p) >> 3;
+        v26 = (v90 - __p) >> 3;
         if ((v26 + 1) >> 61)
         {
           std::vector<double>::__throw_length_error[abi:ne200100]();
         }
 
-        v27 = (v92 - __p) >> 2;
+        v27 = (v91 - __p) >> 2;
         if (v27 <= v26 + 1)
         {
           v27 = v26 + 1;
         }
 
-        if (v92 - __p >= 0x7FFFFFFFFFFFFFF8)
+        if (v91 - __p >= 0x7FFFFFFFFFFFFFF8)
         {
           v28 = 0x1FFFFFFFFFFFFFFFLL;
         }
@@ -9478,12 +9419,12 @@ uint64_t nlp::BurstTrieRemove(_DWORD *a1, uint64_t a2, unsigned int a3)
 
         *(8 * v26) = v20;
         v25 = 8 * v26 + 8;
-        v29 = (8 * v26 - (v91 - __p));
-        memcpy(v29, __p, v91 - __p);
+        v29 = (8 * v26 - (v90 - __p));
+        memcpy(v29, __p, v90 - __p);
         v30 = __p;
         __p = v29;
-        v91 = v25;
-        v92 = 0;
+        v90 = v25;
+        v91 = 0;
         if (v30)
         {
           operator delete(v30);
@@ -9492,48 +9433,48 @@ uint64_t nlp::BurstTrieRemove(_DWORD *a1, uint64_t a2, unsigned int a3)
 
       else
       {
-        *v91 = v20;
+        *v90 = v20;
         v25 = (v24 + 8);
       }
 
-      v91 = v25;
+      v90 = v25;
       ++v19;
       --v6;
     }
 
     while (v6);
-    if (!*(v20 + 8))
+    if (!v20[2])
     {
       goto LABEL_54;
     }
 
-    *(v20 + 8) = 0;
+    v20[2] = 0;
 LABEL_70:
-    v51 = (v91 - __p) >> 3;
+    v51 = (v90 - __p) >> 3;
     if (v51 < 2)
     {
       goto LABEL_121;
     }
 
-    v96 = 0;
+    v95 = 0;
     v52 = v51 - 1;
     LOBYTE(v53) = 0;
     v54 = a1[522];
     while (1)
     {
       v55 = nlp::burstTrieCreateCursorWithTrieLevelRef<nlp::_RankedTrieLevel *>(a1, *(__p + v52));
-      v96 = 0;
-      v103 = &unk_2A1E51B10;
-      v104[0] = &v96;
-      v105 = &v103;
-      nlp::BurstTrieTraverseFromCursor(v55, 0, &v103, -1);
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v103);
+      v95 = 0;
+      v102 = &unk_2A1E51B10;
+      v103[0] = &v95;
+      v104 = &v102;
+      nlp::BurstTrieTraverseFromCursor(v55, 0, &v102, 0xFFFFFFFFLL);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v102);
       if (v55)
       {
         free(v55);
       }
 
-      if (v96 >= v54)
+      if (v95 >= v54)
       {
         break;
       }
@@ -9554,18 +9495,18 @@ LABEL_121:
 
     v53 = v52 + 1;
 LABEL_101:
+    v92 = 0;
     v93 = 0;
     v94 = 0;
-    v95 = 0;
-    std::vector<std::tuple<std::string,unsigned int,float>>::reserve(&v93, v54);
+    std::vector<std::tuple<std::string,unsigned int,float>>::reserve(&v92, v54);
     v72 = *(__p + v53);
     v73 = nlp::burstTrieCreateCursorWithTrieLevelRef<nlp::_RankedTrieLevel *>(a1, v72);
-    v100 = &unk_2A1E51B68;
-    v101 = &v93;
-    v102 = &v100;
-    nlp::BurstTrieTraverseFromCursor(v73, 0, &v100, -1);
-    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v100);
-    if (v54 <= (v94 - v93) >> 5)
+    v99 = &unk_2A1E51B68;
+    v100 = &v92;
+    v101 = &v99;
+    nlp::BurstTrieTraverseFromCursor(v73, 0, &v99, 0xFFFFFFFFLL);
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v99);
+    if (v54 <= (v93 - v92) >> 5)
     {
       __assert_rtn("reverseBurst", "BurstTrie.cpp", 965, "items.size() < sizeThreshold");
     }
@@ -9576,10 +9517,10 @@ LABEL_101:
     }
 
     nlp::finishLevel<nlp::_RankedTrieLevel *,nlp::_RankedListNode *>(v72);
-    a1[515] -= (v94 - v93) >> 5;
+    a1[515] -= (v93 - v92) >> 5;
     v75 = __p;
     *(*(__p + v52) + 8 * *(a2 + v52) + 12) = 0;
-    if (a3 + 1 < ((v91 - v75) >> 3))
+    if (a3 + 1 < ((v90 - v75) >> 3))
     {
       __assert_rtn("reverseBurst", "BurstTrie.cpp", 974, "levels.size() <= keyLen + 1");
     }
@@ -9604,24 +9545,24 @@ LABEL_101:
     }
 
     while (v79 != v78);
-    v80 = v93;
-    v81 = v94;
-    if (v93 == v94)
+    v80 = v92;
+    v81 = v93;
+    if (v92 == v93)
     {
 LABEL_120:
-      v97 = &v93;
-      std::vector<std::pair<std::string,double>>::__destroy_vector::operator()[abi:ne200100](&v97);
+      v96 = &v92;
+      std::vector<std::pair<std::string,double>>::__destroy_vector::operator()[abi:ne200100](&v96);
       goto LABEL_121;
     }
 
     v82 = a1[516];
     while (1)
     {
-      v83 = *(v80 + 23);
+      v83 = v80[23];
       if ((v83 & 0x8000000000000000) != 0)
       {
         v84 = *v80;
-        v83 = *(v80 + 8);
+        v83 = *(v80 + 1);
       }
 
       else
@@ -9629,19 +9570,19 @@ LABEL_120:
         v84 = v80;
       }
 
-      v85 = *(v80 + 24);
-      v86 = *(v80 + 28);
+      v85 = *(v80 + 6);
+      v86 = *(v80 + 7);
       memcpy((v77 + v53), v84, v83);
-      v87 = *(v80 + 23);
+      v87 = v80[23];
       if (v87 < 0)
       {
-        v87 = *(v80 + 8);
+        v87 = *(v80 + 1);
         if (v82)
         {
 LABEL_118:
-          v99 = 0;
-          nlp::BurstTrieAddWithScore(a1, v77, (v87 + v53), v85, 0, v98, v86);
-          std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v98);
+          v98 = 0;
+          nlp::BurstTrieAddWithScore(a1, v77, (v87 + v53), v85, 0, v97, v86);
+          std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v97);
           goto LABEL_119;
         }
       }
@@ -9661,11 +9602,11 @@ LABEL_119:
     }
   }
 
-  v103 = a1;
+  v102 = a1;
+  v90 = 0;
   v91 = 0;
-  v92 = 0;
   __p = 0;
-  std::vector<nlp::_TrieLevel *>::__init_with_size[abi:ne200100]<nlp::_TrieLevel * const*,nlp::_TrieLevel * const*>(&__p, &v103, v104, 1uLL);
+  std::vector<nlp::_TrieLevel *>::__init_with_size[abi:ne200100]<nlp::_TrieLevel * const*,nlp::_TrieLevel * const*>(&__p, &v102, v103, 1uLL);
   v7 = (a2 + 1);
   v8 = a1;
   do
@@ -9722,31 +9663,31 @@ LABEL_119:
       *v31 = *v34;
       free(v34);
 LABEL_62:
-      v46 = (v91 - __p) >> 3;
+      v46 = (v90 - __p) >> 3;
       if (v46 < 2)
       {
         goto LABEL_121;
       }
 
-      v96 = 0;
+      v95 = 0;
       v47 = v46 - 1;
       LOBYTE(v48) = 0;
       v49 = a1[522];
       while (1)
       {
         v50 = nlp::burstTrieCreateCursorWithTrieLevelRef<nlp::_TrieLevel *>(a1, *(__p + v47));
-        v96 = 0;
-        v103 = &unk_2A1E51BC0;
-        v104[0] = &v96;
-        v105 = &v103;
-        nlp::BurstTrieTraverseFromCursor(v50, 0, &v103, -1);
-        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v103);
+        v95 = 0;
+        v102 = &unk_2A1E51BC0;
+        v103[0] = &v95;
+        v104 = &v102;
+        nlp::BurstTrieTraverseFromCursor(v50, 0, &v102, 0xFFFFFFFFLL);
+        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v102);
         if (v50)
         {
           free(v50);
         }
 
-        if (v96 >= v49)
+        if (v95 >= v49)
         {
           break;
         }
@@ -9765,18 +9706,18 @@ LABEL_62:
 
       v48 = v47 + 1;
 LABEL_79:
+      v92 = 0;
       v93 = 0;
       v94 = 0;
-      v95 = 0;
-      std::vector<std::tuple<std::string,unsigned int,float>>::reserve(&v93, v49);
+      std::vector<std::tuple<std::string,unsigned int,float>>::reserve(&v92, v49);
       v56 = *(__p + v48);
       v57 = nlp::burstTrieCreateCursorWithTrieLevelRef<nlp::_TrieLevel *>(a1, v56);
-      v100 = &unk_2A1E51C18;
-      v101 = &v93;
-      v102 = &v100;
-      nlp::BurstTrieTraverseFromCursor(v57, 0, &v100, -1);
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v100);
-      if (v49 <= (v94 - v93) >> 5)
+      v99 = &unk_2A1E51C18;
+      v100 = &v92;
+      v101 = &v99;
+      nlp::BurstTrieTraverseFromCursor(v57, 0, &v99, 0xFFFFFFFFLL);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](&v99);
+      if (v49 <= (v93 - v92) >> 5)
       {
         __assert_rtn("reverseBurst", "BurstTrie.cpp", 965, "items.size() < sizeThreshold");
       }
@@ -9787,10 +9728,10 @@ LABEL_79:
       }
 
       nlp::finishLevel<nlp::_TrieLevel *,nlp::_ListNode *>(v56);
-      a1[515] -= (v94 - v93) >> 5;
+      a1[515] -= (v93 - v92) >> 5;
       v59 = __p;
       *(*(__p + v47) + 8 * *(a2 + v47) + 4) = 0;
-      if (a3 + 1 < ((v91 - v59) >> 3))
+      if (a3 + 1 < ((v90 - v59) >> 3))
       {
         __assert_rtn("reverseBurst", "BurstTrie.cpp", 974, "levels.size() <= keyLen + 1");
       }
@@ -9815,18 +9756,18 @@ LABEL_79:
       }
 
       while (v63 != v62);
-      v64 = v93;
-      v65 = v94;
-      if (v93 != v94)
+      v64 = v92;
+      v65 = v93;
+      if (v92 != v93)
       {
         v66 = a1[516];
         while (1)
         {
-          v67 = *(v64 + 23);
+          v67 = v64[23];
           if ((v67 & 0x8000000000000000) != 0)
           {
             v68 = *v64;
-            v67 = *(v64 + 8);
+            v67 = *(v64 + 1);
           }
 
           else
@@ -9834,19 +9775,19 @@ LABEL_79:
             v68 = v64;
           }
 
-          v69 = *(v64 + 24);
-          v70 = *(v64 + 28);
+          v69 = *(v64 + 6);
+          v70 = *(v64 + 7);
           memcpy((v61 + v48), v68, v67);
-          v71 = *(v64 + 23);
+          v71 = v64[23];
           if (v71 < 0)
           {
-            v71 = *(v64 + 8);
+            v71 = *(v64 + 1);
             if (v66)
             {
 LABEL_96:
-              v99 = 0;
-              nlp::BurstTrieAddWithScore(a1, v61, (v71 + v48), v69, 0, v98, v70);
-              std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v98);
+              v98 = 0;
+              nlp::BurstTrieAddWithScore(a1, v61, (v71 + v48), v69, 0, v97, v70);
+              std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v97);
               goto LABEL_97;
             }
           }
@@ -9870,22 +9811,22 @@ LABEL_97:
     }
 
     v8 = (v11 & 0xFFFFFFFFFFFFFFFCLL);
-    v12 = v91;
-    if (v91 >= v92)
+    v12 = v90;
+    if (v90 >= v91)
     {
-      v14 = (v91 - __p) >> 3;
+      v14 = (v90 - __p) >> 3;
       if ((v14 + 1) >> 61)
       {
         std::vector<double>::__throw_length_error[abi:ne200100]();
       }
 
-      v15 = (v92 - __p) >> 2;
+      v15 = (v91 - __p) >> 2;
       if (v15 <= v14 + 1)
       {
         v15 = v14 + 1;
       }
 
-      if (v92 - __p >= 0x7FFFFFFFFFFFFFF8)
+      if (v91 - __p >= 0x7FFFFFFFFFFFFFF8)
       {
         v16 = 0x1FFFFFFFFFFFFFFFLL;
       }
@@ -9902,12 +9843,12 @@ LABEL_97:
 
       *(8 * v14) = v8;
       v13 = 8 * v14 + 8;
-      v17 = (8 * v14 - (v91 - __p));
-      memcpy(v17, __p, v91 - __p);
+      v17 = (8 * v14 - (v90 - __p));
+      memcpy(v17, __p, v90 - __p);
       v18 = __p;
       __p = v17;
-      v91 = v13;
-      v92 = 0;
+      v90 = v13;
+      v91 = 0;
       if (v18)
       {
         operator delete(v18);
@@ -9916,11 +9857,11 @@ LABEL_97:
 
     else
     {
-      *v91 = v8;
+      *v90 = v8;
       v13 = (v12 + 8);
     }
 
-    v91 = v13;
+    v90 = v13;
     ++v7;
     --v6;
   }
@@ -9937,22 +9878,15 @@ LABEL_54:
 LABEL_122:
   if (__p)
   {
-    v91 = __p;
+    v90 = __p;
     operator delete(__p);
   }
 
-  if (v41)
+  if (!v41)
   {
-    --a1[515];
-    result = 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-LABEL_127:
-  v88 = *MEMORY[0x29EDCA608];
-  return result;
+  --a1[515];
+  return 1;
 }

@@ -18,7 +18,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_267515880(dictionary);
+  sub_267515880(dictionary, selfCopy, v5);
   swift_unknownObjectRelease();
 }
 
@@ -26,7 +26,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_267515A10(coderCopy);
+  sub_267515A10(coderCopy, selfCopy, v5);
 }
 
 @end

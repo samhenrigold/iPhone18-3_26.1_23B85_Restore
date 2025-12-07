@@ -8,8 +8,7 @@ void sub_1F54(uint64_t a1)
   if (*(*(a1 + 48) + 8))
   {
     v15 = +[NSAssertionHandler currentHandler];
-    v16 = *(a1 + 48);
-    [v15 handleFailureInMethod:*(a1 + 56) object:v16 file:*(a1 + 40) lineNumber:? description:?];
+    [v15 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:*(a1 + 40) lineNumber:? description:?];
   }
 
   v2 = [*(a1 + 40) appMetadata];
@@ -27,15 +26,15 @@ void sub_1F54(uint64_t a1)
     v10 = *(a1 + 40);
     v11 = *(a1 + 48);
     v12 = *(v11 + 8);
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_2170;
-    v17[3] = &unk_8310;
-    v17[4] = v11;
-    v18 = v8;
-    v19 = v10;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_2170;
+    v16[3] = &unk_8310;
+    v16[4] = v11;
+    v17 = v8;
+    v18 = v10;
     v13 = v8;
-    [v9 fetchInfoForApplicationWithBundleID:v12 forPairedDevice:0 completion:v17];
+    [v9 fetchInfoForApplicationWithBundleID:v12 forPairedDevice:0 completion:v16];
   }
 
   else
@@ -44,7 +43,7 @@ void sub_1F54(uint64_t a1)
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[NASAppIntentsInfoSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:]_block_invoke";
+      v20 = "[NASAppIntentsInfoSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:]_block_invoke";
       _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%s ERROR: no app id?!", buf, 0xCu);
     }
   }

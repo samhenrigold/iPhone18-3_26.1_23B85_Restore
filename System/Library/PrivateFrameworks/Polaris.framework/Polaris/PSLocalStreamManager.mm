@@ -42,21 +42,21 @@
 
 - (void)startSourceForKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v5 = __PLSLogSharedInstance();
+  v5 = __PLSLogSharedInstance(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315138;
+    v16 = 136315138;
     uTF8String = [keyCopy UTF8String];
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEFAULT, "Starting local stream for key %s", &v17, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEFAULT, "Starting local stream for key %s", &v16, 0xCu);
   }
 
   v6 = [(NSMutableDictionary *)self->_activeStreams objectForKeyedSubscript:keyCopy];
 
   if (v6)
   {
-    [(PSLocalStreamManager *)&v17 startSourceForKey:keyCopy];
+    [(PSLocalStreamManager *)&v16 startSourceForKey:keyCopy];
     goto LABEL_12;
   }
 
@@ -64,9 +64,9 @@
   if (!v7)
   {
 LABEL_12:
-    [(PSLocalStreamManager *)&v17 startSourceForKey:keyCopy];
+    [(PSLocalStreamManager *)&v16 startSourceForKey:keyCopy];
 LABEL_13:
-    [(PSLocalStreamManager *)&v17 startSourceForKey:keyCopy];
+    [(PSLocalStreamManager *)&v16 startSourceForKey:keyCopy];
   }
 
   v8 = v7;
@@ -89,24 +89,22 @@ LABEL_13:
     [(PSLocalStreamManager *)self startIMUSource:keyCopy withResStream:v8];
 LABEL_10:
 
-    v12 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v13 = [(PSLocalStreamManager *)&v17 startSourceForKey:v10];
-  [(PSLocalStreamManager *)v13 createWriterInstForKey:v14 withResStream:v15, v16];
+  v12 = [(PSLocalStreamManager *)&v16 startSourceForKey:v10];
+  [(PSLocalStreamManager *)v12 createWriterInstForKey:v13 withResStream:v14, v15];
 }
 
 - (PRMWriterInstance)createWriterInstForKey:(id)key withResStream:(id)stream
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   streamCopy = stream;
   v8 = ps_prm_opts_create();
-  retainedBufferIndexers = self->_retainedBufferIndexers;
-  [PSGraphCompiler populateWriterOpts:v8 forKey:keyCopy withCapacity:1 forGraph:0 withResStream:streamCopy withContext:self->_context retainedBufferIndexers:retainedBufferIndexers withGSM:self->_gsm];
+  [PSGraphCompiler populateWriterOpts:v8 forKey:keyCopy withCapacity:1 forGraph:0 withResStream:streamCopy withContext:self->_context retainedBufferIndexers:self->_retainedBufferIndexers withGSM:self->_gsm];
 
-  v10 = __PLSLogSharedInstance();
+  v10 = __PLSLogSharedInstance(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -117,7 +115,6 @@ LABEL_10:
   writer_instance = ps_prm_create_writer_instance(self->_prm_mgr, v8);
   ps_prm_opts_destroy(v8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return writer_instance;
 }
 
@@ -141,16 +138,16 @@ LABEL_10:
 
 - (void)startEventSource:(id)source withResStream:(id)stream
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   streamCopy = stream;
   v8 = [(PSLocalStreamManager *)self createWriterInstForKey:sourceCopy withResStream:streamCopy];
-  v9 = __PLSLogSharedInstance();
+  v9 = __PLSLogSharedInstance(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315138;
+    v16 = 136315138;
     uTF8String = [sourceCopy UTF8String];
-    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "Starting event source for key %s", &v17, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "Starting event source for key %s", &v16, 0xCu);
   }
 
   v10 = [(PLSDevice *)self->_device isTimer:sourceCopy];
@@ -182,46 +179,42 @@ LABEL_10:
   v15 = v14;
   [(PSSystemEventStream *)v14 start];
   [(NSMutableDictionary *)self->_activeStreams setObject:v15 forKeyedSubscript:sourceCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPolarisdCommsStream:(id)stream withResStream:(id)resStream
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v6 = __PLSLogSharedInstance();
+  v6 = __PLSLogSharedInstance(streamCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
+    v8 = 136315138;
     uTF8String = [streamCopy UTF8String];
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "Starting polarisd comms for key %s", &v9, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "Starting polarisd comms for key %s", &v8, 0xCu);
   }
 
   v7 = [[PSDaemonCommsStream alloc] initWithKey:streamCopy];
   [(PSDaemonCommsStream *)v7 start];
   [(NSMutableDictionary *)self->_activeStreams setObject:v7 forKeyedSubscript:streamCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSourceForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [(NSMutableDictionary *)self->_activeStreams objectForKeyedSubscript:keyCopy];
   if (!v5)
   {
-    [(PSLocalStreamManager *)&v9 stopSourceForKey:keyCopy];
+    [(PSLocalStreamManager *)&v8 stopSourceForKey:keyCopy];
   }
 
   v6 = v5;
-  v7 = __PLSLogSharedInstance();
+  v7 = __PLSLogSharedInstance(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
+    v8 = 136315138;
     uTF8String = [keyCopy UTF8String];
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Stopping stream for key %s", &v9, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Stopping stream for key %s", &v8, 0xCu);
   }
 
   [v6 stop];
@@ -232,8 +225,6 @@ LABEL_10:
   }
 
   [(NSMutableDictionary *)self->_activeStreams removeObjectForKey:keyCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (PSTransitionManager)transitionManager
@@ -246,23 +237,24 @@ LABEL_10:
 - (uint64_t)startSourceForKey:(char *)a1 .cold.1(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Stream for key %s is already active.", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Stream for key %s is already active.", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Stream for key %s is already active.", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Stream for key %s is already active.", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -271,30 +263,30 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager startSourceForKey:v19];
+  v21 = OUTLINED_FUNCTION_0();
+  return [(PSLocalStreamManager *)v21 startSourceForKey:v22];
 }
 
 - (uint64_t)startSourceForKey:(char *)a1 .cold.2(char **a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Type not supported: %lu", [a2 type]);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "Type not supported: %lu", [a2 type]);
+  v5 = __PLSLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     [a2 type];
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Type not supported: %lu", v7, v8, v9, v10, v20, v21, v22);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Type not supported: %lu", v8, v9, v10, v11, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v13 = __PLSLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -303,30 +295,31 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager startSourceForKey:v18];
+  v20 = OUTLINED_FUNCTION_0();
+  return [(PSLocalStreamManager *)v20 startSourceForKey:v21];
 }
 
 - (uint64_t)startSourceForKey:(char *)a1 .cold.3(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "PLSDevice properties for key %s not defined.", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "PLSDevice properties for key %s not defined.", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d PLSDevice properties for key %s not defined.", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d PLSDevice properties for key %s not defined.", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -335,30 +328,31 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager startSourceForKey:v19];
+  v21 = OUTLINED_FUNCTION_0();
+  return [(PSLocalStreamManager *)v21 startSourceForKey:v22];
 }
 
 - (uint64_t)startSourceForKey:(char *)a1 .cold.4(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Stream for key %s not defined in PSContext.", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Stream for key %s not defined in PSContext.", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Stream for key %s not defined in PSContext.", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Stream for key %s not defined in PSContext.", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -367,30 +361,31 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager startEventSource:v19 withResStream:?];
+  v21 = OUTLINED_FUNCTION_0();
+  return [PSLocalStreamManager startEventSource:v21 withResStream:v22];
 }
 
 - (uint64_t)startEventSource:(char *)a1 withResStream:(void *)a2 .cold.1(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Unexpected system event key %s (only timers are supported on OSX)", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Unexpected system event key %s (only timers are supported on OSX)", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Unexpected system event key %s (only timers are supported on OSX)", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Unexpected system event key %s (only timers are supported on OSX)", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -399,30 +394,31 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager startEventSource:v19 withResStream:?];
+  v21 = OUTLINED_FUNCTION_0();
+  return [PSLocalStreamManager startEventSource:v21 withResStream:v22];
 }
 
 - (uint64_t)startEventSource:(char *)a1 withResStream:(void *)a2 .cold.2(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Something happened, stream could not be created for key %s", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Something happened, stream could not be created for key %s", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Something happened, stream could not be created for key %s", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Something happened, stream could not be created for key %s", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -431,30 +427,31 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return [PSLocalStreamManager stopSourceForKey:v19];
+  v21 = OUTLINED_FUNCTION_0();
+  return [(PSLocalStreamManager *)v21 stopSourceForKey:v22];
 }
 
 - (uint64_t)stopSourceForKey:(char *)a1 .cold.1(char **a1, void *a2)
 {
   OUTLINED_FUNCTION_3_1(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Stream for key %s is not running.", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Stream for key %s is not running.", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     [a2 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Stream for key %s is not running.", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Stream for key %s is not running.", v9, v10, v11, v12, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v13 = OSLogFlushBuffers();
+  if (v13)
   {
-    v12 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
     }
   }
 
@@ -463,8 +460,8 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return ps_reader_block_acquire_cold_1(v19, v20);
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_reader_block_acquire_cold_1(v21, v22);
 }
 
 @end

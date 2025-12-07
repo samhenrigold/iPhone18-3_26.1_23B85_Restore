@@ -27,7 +27,7 @@
       v11 = v9;
       do
       {
-        v12 = [thresholdsCopy objectAtIndexedSubscript:v10];
+        v12 = [thresholdsCopy objectAtIndexedSubscript:?];
         [v12 floatValue];
         *(v11 + 2) = v13;
 
@@ -124,8 +124,8 @@ void __49__HMISignificantActivityFcosDetector_sharedModel__block_invoke(uint64_t
   v6 = +[HMISignificantActivityFcosDetector defaultAssetPath];
   if (v6)
   {
-    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v6];
-    v8 = [[HMIMLModel alloc] initWithModelURL:v7];
+    v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+    v8 = [[HMIMLModel alloc] initWithModelURL:?];
     v9 = sharedModel_model;
     sharedModel_model = v8;
 
@@ -164,21 +164,21 @@ void __49__HMISignificantActivityFcosDetector_sharedModel__block_invoke(uint64_t
 - (BOOL)predict:(__CVBuffer *)predict detectedObjects:(id)objects error:(id *)error
 {
   objectsCopy = objects;
-  v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
-  v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
-  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
-  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
-  v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
-  v16 = [[HMISignpost alloc] initWithName:@"SignificantActivityFcosDetector"];
-  v14 = [(HMISignificantActivityFcosDetector *)self _runNeuralNetworkOnPixelBuffer:predict offsetsZero:v9 offsetsOne:v10 scores:v11 yaws:v12 rolls:v13 error:error];
-  if (v14)
+  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v15 = [[HMISignpost alloc] initWithName:?];
+  v13 = [HMISignificantActivityFcosDetector _runNeuralNetworkOnPixelBuffer:"_runNeuralNetworkOnPixelBuffer:offsetsZero:offsetsOne:scores:yaws:rolls:error:" offsetsZero:error offsetsOne:? scores:? yaws:? rolls:? error:?];
+  if (v13)
   {
-    [(HMISignificantActivityFcosDetector *)self _postProcessOffsetsZero:v9 offsetsOne:v10 scores:v11 yaws:v12 rolls:v13 outputPredictions:objectsCopy];
+    [HMISignificantActivityFcosDetector _postProcessOffsetsZero:"_postProcessOffsetsZero:offsetsOne:scores:yaws:rolls:outputPredictions:" offsetsOne:? scores:? yaws:? rolls:? outputPredictions:?];
   }
 
-  __HMISignpostScopeLeave(&v16);
+  __HMISignpostScopeLeave(&v15);
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)_runNeuralNetworkOnPixelBuffer:(__CVBuffer *)buffer offsetsZero:(id)zero offsetsOne:(id)one scores:(id)scores yaws:(id)yaws rolls:(id)rolls error:(id *)error
@@ -189,231 +189,226 @@ void __49__HMISignificantActivityFcosDetector_sharedModel__block_invoke(uint64_t
   scoresCopy = scores;
   yawsCopy = yaws;
   rollsCopy = rolls;
-  v19 = +[HMIPreference sharedInstance];
-  LODWORD(yaws) = [v19 BOOLPreferenceForKey:@"showROI" defaultValue:0];
+  v18 = +[HMIPreference sharedInstance];
+  LODWORD(yaws) = [v18 BOOLPreferenceForKey:? defaultValue:?];
 
   if (yaws)
   {
-    v20 = [HMIVideoFrame alloc];
-    v87 = *MEMORY[0x277CC08F0];
-    v88 = *(MEMORY[0x277CC08F0] + 16);
-    v21 = [(HMIVideoFrame *)v20 initWithPixelBuffer:buffer presentationTimeStamp:&v87];
-    [(HMIVideoFrame *)v21 printWithScale:1.0];
+    v19 = [HMIVideoFrame initWithPixelBuffer:"initWithPixelBuffer:presentationTimeStamp:" presentationTimeStamp:?];
+    [(HMIVideoFrame *)v19 printWithScale:?];
   }
 
-  v22 = [HMIVisionUtilities transferPixelBuffer:buffer pixelFormat:1111970369 options:0 error:error];
-  v23 = [HMIInputFeatureProvider alloc];
+  v20 = [HMIVisionUtilities transferPixelBuffer:"transferPixelBuffer:pixelFormat:options:error:" pixelFormat:? options:? error:?];
+  v21 = [HMIInputFeatureProvider alloc];
   selfCopy2 = self;
   inputFeatureValueName = [(HMISignificantActivityFcosDetector *)self inputFeatureValueName];
-  v26 = [(HMIInputFeatureProvider *)v23 initWithPixelBuffer:v22 inputName:inputFeatureValueName];
+  v24 = [HMIInputFeatureProvider initWithPixelBuffer:v21 inputName:"initWithPixelBuffer:inputName:"];
 
-  CVPixelBufferRelease(v22);
-  v27 = +[HMISignificantActivityFcosDetector sharedModel];
-  v86 = 0;
-  v28 = [v27 predictionFromFeatures:v26 error:&v86];
-  v29 = v86;
+  CVPixelBufferRelease(v20);
+  v25 = +[HMISignificantActivityFcosDetector sharedModel];
+  v26 = [v25 predictionFromFeatures:? error:?];
+  v27 = 0;
 
-  if (!v28 || v29)
+  if (!v26 || v27)
   {
-    v58 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1019 underlyingError:v29];
-    v59 = v58;
+    v56 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+    v57 = v56;
     if (error)
     {
-      v60 = v58;
-      *error = v59;
+      v58 = v56;
+      *error = v57;
     }
 
-    HMIErrorLog(self, v59);
+    HMIErrorLog(self, v57);
   }
 
   else
   {
-    v78 = 0;
-    v79 = v26;
-    v80 = rollsCopy;
-    v83 = v28;
+    v76 = 0;
+    v77 = v24;
+    v78 = rollsCopy;
+    v81 = v26;
     while (1)
     {
-      v30 = scoresCopy;
-      v31 = oneCopy;
-      v32 = zeroCopy;
-      v33 = [(HMISignificantActivityFcosDetector *)selfCopy2 offsetsZeroFeatureValueNames:v78];
-      v34 = [v33 objectAtIndexedSubscript:v29];
-      v35 = [v28 featureValueForName:v34];
+      v28 = scoresCopy;
+      v29 = oneCopy;
+      v30 = zeroCopy;
+      v31 = [(HMISignificantActivityFcosDetector *)selfCopy2 offsetsZeroFeatureValueNames:v76];
+      v32 = [v31 objectAtIndexedSubscript:?];
+      v33 = [v26 featureValueForName:?];
 
-      if (!v35 || [v35 type] != 5)
+      if (!v33 || [v33 type] != 5)
       {
-        v61 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1020 description:@"CoreML output nil or not of type MLFeatureTypeMultiArray"];
-        v62 = v61;
+        v59 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+        v60 = v59;
         if (errorCopy2)
         {
-          v63 = v61;
-          *errorCopy2 = v62;
+          v61 = v59;
+          *errorCopy2 = v60;
         }
 
-        HMIErrorLog(selfCopy2, v62);
+        HMIErrorLog(selfCopy2, v60);
 
-        v29 = v78;
-        v26 = v79;
-        v59 = v35;
-        zeroCopy = v32;
-        oneCopy = v31;
+        v27 = v76;
+        v24 = v77;
+        v57 = v33;
+        zeroCopy = v30;
+        oneCopy = v29;
 LABEL_27:
-        scoresCopy = v30;
+        scoresCopy = v28;
 LABEL_31:
-        rollsCopy = v80;
+        rollsCopy = v78;
         goto LABEL_39;
       }
 
-      v82 = v35;
-      multiArrayValue = [v35 multiArrayValue];
-      zeroCopy = v32;
-      [v32 addObject:multiArrayValue];
+      v80 = v33;
+      multiArrayValue = [v33 multiArrayValue];
+      zeroCopy = v30;
+      [v30 addObject:?];
 
       offsetsOneFeatureValueNames = [(HMISignificantActivityFcosDetector *)selfCopy2 offsetsOneFeatureValueNames];
-      v38 = [offsetsOneFeatureValueNames objectAtIndexedSubscript:v29];
-      v39 = [v28 featureValueForName:v38];
+      v36 = [offsetsOneFeatureValueNames objectAtIndexedSubscript:?];
+      v37 = [v26 featureValueForName:?];
 
-      if (!v39 || [v39 type] != 5)
+      if (!v37 || [v37 type] != 5)
       {
-        v64 = v39;
-        v65 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1020 description:@"CoreML output nil or not of type MLFeatureTypeMultiArray"];
-        v66 = v65;
-        oneCopy = v31;
+        v62 = v37;
+        v63 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+        v64 = v63;
+        oneCopy = v29;
         if (errorCopy2)
         {
-          v67 = v65;
-          *errorCopy2 = v66;
+          v65 = v63;
+          *errorCopy2 = v64;
         }
 
-        HMIErrorLog(selfCopy2, v66);
+        HMIErrorLog(selfCopy2, v64);
 
-        v29 = v78;
-        v26 = v79;
-        v59 = v82;
+        v27 = v76;
+        v24 = v77;
+        v57 = v80;
         goto LABEL_27;
       }
 
-      v81 = v39;
-      multiArrayValue2 = [v39 multiArrayValue];
-      oneCopy = v31;
-      [v31 addObject:multiArrayValue2];
+      v79 = v37;
+      multiArrayValue2 = [v37 multiArrayValue];
+      oneCopy = v29;
+      [v29 addObject:?];
 
       scoresFeatureValueNames = [(HMISignificantActivityFcosDetector *)selfCopy2 scoresFeatureValueNames];
-      v42 = [scoresFeatureValueNames objectAtIndexedSubscript:v29];
-      v43 = [v28 featureValueForName:v42];
+      v40 = [scoresFeatureValueNames objectAtIndexedSubscript:?];
+      v41 = [v26 featureValueForName:?];
 
-      if (!v43 || [v43 type] != 5)
+      if (!v41 || [v41 type] != 5)
       {
-        v68 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1020 description:@"CoreML output nil or not of type MLFeatureTypeMultiArray"];
-        v69 = v68;
-        scoresCopy = v30;
+        v66 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+        v67 = v66;
+        scoresCopy = v28;
         if (error)
         {
-          v70 = v68;
-          *error = v69;
+          v68 = v66;
+          *error = v67;
         }
 
-        HMIErrorLog(selfCopy2, v69);
+        HMIErrorLog(selfCopy2, v67);
 
-        v29 = v78;
-        v26 = v79;
-        v59 = v82;
+        v27 = v76;
+        v24 = v77;
+        v57 = v80;
         goto LABEL_31;
       }
 
-      multiArrayValue3 = [v43 multiArrayValue];
-      scoresCopy = v30;
-      [v30 addObject:multiArrayValue3];
+      multiArrayValue3 = [v41 multiArrayValue];
+      scoresCopy = v28;
+      [v28 addObject:?];
 
       yawsFeatureValueNames = [(HMISignificantActivityFcosDetector *)selfCopy2 yawsFeatureValueNames];
-      v46 = [yawsFeatureValueNames objectAtIndexedSubscript:v29];
-      v47 = [v28 featureValueForName:v46];
+      v44 = [yawsFeatureValueNames objectAtIndexedSubscript:?];
+      v45 = [v26 featureValueForName:?];
 
-      if (!v47 || [v47 type] != 5)
+      if (!v45 || [v45 type] != 5)
       {
         break;
       }
 
-      v48 = selfCopy2;
-      v49 = scoresCopy;
-      v50 = oneCopy;
-      v51 = zeroCopy;
-      multiArrayValue4 = [v47 multiArrayValue];
-      [yawsCopy addObject:multiArrayValue4];
+      v46 = selfCopy2;
+      v47 = scoresCopy;
+      v48 = oneCopy;
+      v49 = zeroCopy;
+      multiArrayValue4 = [v45 multiArrayValue];
+      [yawsCopy addObject:?];
 
-      rollsFeatureValueNames = [(HMISignificantActivityFcosDetector *)v48 rollsFeatureValueNames];
-      v54 = [rollsFeatureValueNames objectAtIndexedSubscript:v29];
-      v55 = [v83 featureValueForName:v54];
+      rollsFeatureValueNames = [(HMISignificantActivityFcosDetector *)v46 rollsFeatureValueNames];
+      v52 = [rollsFeatureValueNames objectAtIndexedSubscript:?];
+      v53 = [v81 featureValueForName:?];
 
-      if (!v55 || [v55 type] != 5)
+      if (!v53 || [v53 type] != 5)
       {
-        v74 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1020 description:@"CoreML output nil or not of type MLFeatureTypeMultiArray"];
-        v75 = v74;
-        rollsCopy = v80;
+        v72 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+        v73 = v72;
+        rollsCopy = v78;
         if (error)
         {
-          v76 = v74;
-          *error = v75;
+          v74 = v72;
+          *error = v73;
         }
 
-        HMIErrorLog(self, v75);
+        HMIErrorLog(self, v73);
 
-        zeroCopy = v51;
-        oneCopy = v50;
-        scoresCopy = v49;
+        zeroCopy = v49;
+        oneCopy = v48;
+        scoresCopy = v47;
         goto LABEL_38;
       }
 
-      multiArrayValue5 = [v55 multiArrayValue];
-      rollsCopy = v80;
-      [v80 addObject:multiArrayValue5];
+      multiArrayValue5 = [v53 multiArrayValue];
+      rollsCopy = v78;
+      [v78 addObject:?];
 
-      ++v29;
-      zeroCopy = v51;
-      oneCopy = v50;
-      scoresCopy = v49;
-      v28 = v83;
+      ++v27;
+      zeroCopy = v49;
+      oneCopy = v48;
+      scoresCopy = v47;
+      v26 = v81;
       selfCopy2 = self;
       errorCopy2 = error;
-      if (v29 == 5)
+      if (v27 == 5)
       {
-        v57 = 1;
-        v29 = v78;
-        v26 = v79;
+        v55 = 1;
+        v27 = v76;
+        v24 = v77;
         goto LABEL_40;
       }
     }
 
-    v71 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1020 description:@"CoreML output nil or not of type MLFeatureTypeMultiArray"];
-    v72 = v71;
+    v69 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v70 = v69;
     if (error)
     {
-      v73 = v71;
-      *error = v72;
+      v71 = v69;
+      *error = v70;
     }
 
-    HMIErrorLog(selfCopy2, v72);
+    HMIErrorLog(selfCopy2, v70);
 
-    rollsCopy = v80;
+    rollsCopy = v78;
 LABEL_38:
-    v29 = v78;
-    v26 = v79;
-    v59 = v82;
-    v28 = v83;
+    v27 = v76;
+    v24 = v77;
+    v57 = v80;
+    v26 = v81;
   }
 
 LABEL_39:
 
-  v57 = 0;
+  v55 = 0;
 LABEL_40:
 
-  return v57;
+  return v55;
 }
 
 - (void)_postProcessOffsetsZero:(id)zero offsetsOne:(id)one scores:(id)scores yaws:(id)yaws rolls:(id)rolls outputPredictions:(id)predictions
 {
-  v109 = *MEMORY[0x277D85DE8];
   zeroCopy = zero;
   oneCopy = one;
   scoresCopy = scores;
@@ -424,201 +419,177 @@ LABEL_40:
   v13 = 0;
   do
   {
-    v14 = [zeroCopy objectAtIndexedSubscript:v13];
-    v15 = [oneCopy objectAtIndexedSubscript:v13];
-    v16 = [scoresCopy objectAtIndexedSubscript:v13];
-    v17 = [yawsCopy objectAtIndexedSubscript:v13];
-    v90 = v13;
-    v18 = [rollsCopy objectAtIndexedSubscript:v13];
+    v14 = [zeroCopy objectAtIndexedSubscript:?];
+    v15 = [oneCopy objectAtIndexedSubscript:?];
+    v16 = [scoresCopy objectAtIndexedSubscript:?];
+    v17 = [yawsCopy objectAtIndexedSubscript:?];
+    v71 = v13;
+    v18 = [rollsCopy objectAtIndexedSubscript:?];
     shape = [v14 shape];
-    v20 = [shape objectAtIndexedSubscript:3];
+    v20 = [shape objectAtIndexedSubscript:?];
     unsignedLongValue = [v20 unsignedLongValue];
 
     shape2 = [v14 shape];
-    v22 = [shape2 objectAtIndexedSubscript:2];
+    v22 = [shape2 objectAtIndexedSubscript:?];
     unsignedLongValue2 = [v22 unsignedLongValue];
 
     strides = [v14 strides];
-    v24 = [strides objectAtIndexedSubscript:1];
+    v24 = [strides objectAtIndexedSubscript:?];
     unsignedLongValue3 = [v24 unsignedLongValue];
 
     strides2 = [v14 strides];
-    v26 = [strides2 objectAtIndexedSubscript:3];
+    v26 = [strides2 objectAtIndexedSubscript:?];
     unsignedLongValue4 = [v26 unsignedLongValue];
 
     strides3 = [v16 strides];
-    v28 = [strides3 objectAtIndexedSubscript:3];
+    v28 = [strides3 objectAtIndexedSubscript:?];
     unsignedLongValue5 = [v28 unsignedLongValue];
 
     strides4 = [v18 strides];
-    v31 = [strides4 objectAtIndexedSubscript:3];
+    v31 = [strides4 objectAtIndexedSubscript:?];
     unsignedLongValue6 = [v31 unsignedLongValue];
 
     dataPointer = [v14 dataPointer];
-    v89 = v15;
+    v70 = v15;
     dataPointer2 = [v15 dataPointer];
     dataPointer3 = [v16 dataPointer];
-    v88 = v17;
+    v69 = v17;
     dataPointer4 = [v17 dataPointer];
-    v87 = v18;
+    v68 = v18;
     dataPointer5 = [v18 dataPointer];
     if (unsignedLongValue2)
     {
       v36 = dataPointer5;
       v37 = 0;
-      v94 = unsignedLongValue5;
-      v101 = (self + 16 * v90);
+      v75 = unsignedLongValue5;
       do
       {
-        v93 = v37;
+        v74 = v37;
         if (unsignedLongValue)
         {
           v38 = 0;
-          v39 = v37 + 0.5;
           do
           {
-            v98 = v38;
-            v99 = dataPointer3;
-            v40 = v38 + 0.5;
+            v79 = v38;
+            v80 = dataPointer3;
             for (i = 1; i != 7; ++i)
             {
-              v42 = self->_confidenceThresholds[i];
-              if (v42 >= 0.0)
+              v40 = self->_confidenceThresholds[i];
+              if (v40 >= 0.0 && *dataPointer3 >= v40)
               {
-                v43 = *dataPointer3;
-                if (*dataPointer3 >= v42)
+                if (i == 5)
                 {
-                  v44 = v40 * v101[5];
-                  v45 = v39 * v101[6];
-                  if (i == 5)
-                  {
-                    v46 = dataPointer2;
-                  }
-
-                  else
-                  {
-                    v46 = dataPointer;
-                  }
-
-                  v47 = expf(*v46);
-                  v48 = expf(v46[unsignedLongValue3]);
-                  v49 = expf(v46[2 * unsignedLongValue3]);
-                  v50 = (v44 - v48);
-                  v51 = (v48 + expf(v46[3 * unsignedLongValue3]));
-                  v52 = [HMIObjectDetection alloc];
-                  LODWORD(v53) = *dataPointer4;
-                  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v53];
-                  LODWORD(v55) = *v36;
-                  v56 = [MEMORY[0x277CCABB0] numberWithFloat:v55];
-                  v57 = [(HMIObjectDetection *)v52 initWithLabelIndex:i confidence:v54 unclampedBoundingBox:v56 yaw:v43 roll:v50, (v45 - v47), v51, (v47 + v49)];
-
-                  [array addObject:v57];
+                  v41 = dataPointer2;
                 }
+
+                else
+                {
+                  v41 = dataPointer;
+                }
+
+                expf(*v41);
+                expf(v41[unsignedLongValue3]);
+                expf(v41[2 * unsignedLongValue3]);
+                expf(v41[3 * unsignedLongValue3]);
+                v42 = [HMIObjectDetection alloc];
+                v43 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+                v44 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+                v45 = [HMIObjectDetection initWithLabelIndex:v42 confidence:"initWithLabelIndex:confidence:unclampedBoundingBox:yaw:roll:" unclampedBoundingBox:? yaw:? roll:?];
+
+                [array addObject:?];
               }
 
               dataPointer3 += unsignedLongValue3;
             }
 
-            dataPointer3 = &v99[v94];
-            dataPointer += 4 * unsignedLongValue4;
-            dataPointer2 += 4 * unsignedLongValue4;
-            dataPointer4 += unsignedLongValue6;
-            v38 = v98 + 1;
-            v36 += unsignedLongValue6;
+            dataPointer3 = &v80[v75];
+            dataPointer += unsignedLongValue4;
+            dataPointer2 += unsignedLongValue4;
+            dataPointer4 = (dataPointer4 + 4 * unsignedLongValue6);
+            v38 = v79 + 1;
+            v36 = (v36 + 4 * unsignedLongValue6);
           }
 
-          while (v98 + 1 != unsignedLongValue);
+          while ((v79 + 1) != unsignedLongValue);
         }
 
-        v37 = v93 + 1;
+        v37 = v74 + 1;
       }
 
-      while (v93 + 1 != unsignedLongValue2);
+      while ((v74 + 1) != unsignedLongValue2);
     }
 
-    v13 = v90 + 1;
+    v13 = v71 + 1;
   }
 
-  while (v90 != 4);
+  while (v71 != 4);
   array2 = [MEMORY[0x277CBEB18] array];
   nmsConfiguration = [(HMISignificantActivityFcosDetector *)self nmsConfiguration];
-  [HMIObjectDetectionUtils nmsMultiClass:array output:array2 nmsConfiguration:nmsConfiguration];
+  [HMIObjectDetectionUtils nmsMultiClass:"nmsMultiClass:output:nmsConfiguration:" output:? nmsConfiguration:?];
 
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  v60 = array2;
-  v61 = [v60 countByEnumeratingWithState:&v104 objects:v108 count:16];
-  if (v61)
+  v48 = array2;
+  v49 = [v48 countByEnumeratingWithState:? objects:? count:?];
+  if (v49)
   {
-    v62 = v61;
-    v63 = *v105;
+    v50 = v49;
+    v51 = MEMORY[0];
     do
     {
-      for (j = 0; j != v62; ++j)
+      for (j = 0; j != v50; j = (j + 1))
       {
-        if (*v105 != v63)
+        if (MEMORY[0] != v51)
         {
-          objc_enumerationMutation(v60);
+          objc_enumerationMutation(v48);
         }
 
-        v65 = *(*(&v104 + 1) + 8 * j);
-        [v65 boundingBox];
-        v112.origin.x = v66;
-        v112.origin.y = v67;
-        v112.size.width = v68;
-        v112.size.height = v69;
-        v110.origin.x = 0.0;
-        v110.origin.y = 0.0;
-        v110.size.width = 1.0;
-        v110.size.height = 1.0;
-        v111 = CGRectIntersection(v110, v112);
-        x = v111.origin.x;
-        y = v111.origin.y;
-        width = v111.size.width;
-        height = v111.size.height;
-        if (!CGRectIsEmpty(v111))
+        v53 = *(8 * j);
+        [v53 boundingBox];
+        v86.origin.x = v54;
+        v86.origin.y = v55;
+        v86.size.width = v56;
+        v86.size.height = v57;
+        v84.origin.x = 0.0;
+        v84.origin.y = 0.0;
+        v84.size.width = 1.0;
+        v84.size.height = 1.0;
+        v85 = CGRectIntersection(v84, v86);
+        if (!CGRectIsEmpty(v85))
         {
-          v74 = [HMIObjectDetection alloc];
-          labelIndex = [v65 labelIndex];
-          [v65 confidence];
-          v77 = v76;
-          v78 = [v65 yaw];
-          roll = [v65 roll];
-          height = [(HMIObjectDetection *)v74 initWithLabelIndex:labelIndex confidence:v78 boundingBox:roll yaw:v77 roll:x, y, width, height];
+          v58 = [HMIObjectDetection alloc];
+          [v53 labelIndex];
+          [v53 confidence];
+          v59 = [v53 yaw];
+          roll = [v53 roll];
+          v61 = [HMIObjectDetection initWithLabelIndex:v58 confidence:"initWithLabelIndex:confidence:boundingBox:yaw:roll:" boundingBox:? yaw:? roll:?];
 
-          [predictionsCopy addObject:height];
+          [predictionsCopy addObject:?];
         }
       }
 
-      v62 = [v60 countByEnumeratingWithState:&v104 objects:v108 count:16];
+      v50 = [v48 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v62);
+    while (v50);
   }
 }
 
 + (id)defaultNMSConfiguration
 {
-  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [HMINMSConfiguration alloc];
-  v6[0] = &unk_284074FA0;
-  v6[1] = &unk_284074FB8;
-  v7[0] = &unk_2840757C8;
-  v7[1] = &unk_2840757D8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = [(HMINMSConfiguration *)v2 initWithThresholdWithLabels:v3 metricWithLabels:MEMORY[0x277CBEC10] thresholdDefault:&unk_2840757E8 metricDefault:&unk_284074FD0];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v4 = [HMINMSConfiguration initWithThresholdWithLabels:v2 metricWithLabels:"initWithThresholdWithLabels:metricWithLabels:thresholdDefault:metricDefault:" thresholdDefault:? metricDefault:?];
 
   return v4;
 }
 
 + (id)defaultAssetPath
 {
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v2 pathForResource:@"SignificantActivityFcos" ofType:@"mlmodelc"];
+  v2 = MEMORY[0x277CCA8D8];
+  objc_opt_class();
+  v3 = [v2 bundleForClass:?];
+  v4 = [v3 pathForResource:? ofType:?];
 
-  return v3;
+  return v4;
 }
 
 - (CGSize)inputDimensions

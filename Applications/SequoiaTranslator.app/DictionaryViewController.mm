@@ -51,7 +51,7 @@
 {
   disappearCopy = disappear;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for DictionaryViewController();
+  v10.super_class = type metadata accessor for DictionaryViewController(0);
   v4 = v10.receiver;
   [(DictionaryViewController *)&v10 viewDidDisappear:disappearCopy];
   v5 = String._bridgeToObjectiveC()();
@@ -79,7 +79,7 @@
   swift_unknownObjectRelease();
   sub_1000DFB64();
 
-  sub_100008664(&v5);
+  sub_100008664(v5);
 }
 
 @end

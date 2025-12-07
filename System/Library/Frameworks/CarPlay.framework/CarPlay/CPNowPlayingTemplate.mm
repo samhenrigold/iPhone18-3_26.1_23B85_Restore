@@ -49,9 +49,11 @@
 
 uint64_t __38__CPNowPlayingTemplate_sharedTemplate__block_invoke()
 {
-  sharedTemplate___template = objc_alloc_init(CPNowPlayingTemplate);
+  v0 = objc_alloc_init(CPNowPlayingTemplate);
+  v1 = sharedTemplate___template;
+  sharedTemplate___template = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (CPNowPlayingTemplate)initWithCoder:(id)coder
@@ -135,19 +137,18 @@ uint64_t __38__CPNowPlayingTemplate_sharedTemplate__block_invoke()
   v5 = self->_nowPlayingButtons;
   self->_nowPlayingButtons = v4;
 
-  v6 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarPlayFrameworkGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     nowPlayingButtons = [(CPNowPlayingTemplate *)self nowPlayingButtons];
     v9 = 138412546;
     selfCopy = self;
     v11 = 2112;
     v12 = nowPlayingButtons;
-    _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "%@: Update now playing buttons %@", &v9, 0x16u);
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "%@: Update now playing buttons %@", &v9, 0x16u);
   }
 
   [(CPNowPlayingTemplate *)self _updateNowPlayingTemplateWithThrottle:1];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpNextButtonEnabled:(BOOL)upNextButtonEnabled
@@ -201,7 +202,7 @@ void __58__CPNowPlayingTemplate_handleAction_forControlIdentifier___block_invoke
   v26 = __Block_byref_object_copy__2;
   v27 = __Block_byref_object_dispose__2;
   v28 = 0;
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -227,56 +228,55 @@ void __58__CPNowPlayingTemplate_handleAction_forControlIdentifier___block_invoke
 
   if (v24[5])
   {
-    v7 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v24[5];
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
+      v9 = v24[5];
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138412802;
-      v30 = v9;
+      v30 = v10;
       v31 = 2112;
-      v32 = v8;
+      v32 = v9;
       v33 = 2112;
-      v34 = v10;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
+      v34 = v11;
+      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
-    v11 = *(a1 + 48);
-    v12 = v24[5];
-    if (v11 == 2)
+    v12 = *(a1 + 48);
+    v13 = v24[5];
+    if (v12 == 2)
     {
-      [v12 handlePressesEnd];
+      [v13 handlePressesEnd];
     }
 
-    else if (v11 == 1)
+    else if (v12 == 1)
     {
-      [v12 handlePressesStart];
+      [v13 handlePressesStart];
     }
 
     else
     {
-      [v12 handlePrimaryAction];
+      [v13 handlePrimaryAction];
     }
   }
 
   else
   {
-    v13 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 40);
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
       *buf = 138412546;
-      v30 = v14;
+      v30 = v15;
       v31 = 2112;
-      v32 = v15;
-      _os_log_impl(&dword_236ED4000, v13, OS_LOG_TYPE_DEFAULT, "%@: No available button for identifier %@", buf, 0x16u);
+      v32 = v16;
+      _os_log_impl(&dword_236ED4000, v14, OS_LOG_TYPE_DEFAULT, "%@: No available button for identifier %@", buf, 0x16u);
     }
   }
 
   _Block_object_dispose(&v23, 8);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CPNowPlayingTemplate_handleAction_forControlIdentifier___block_invoke_98(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -331,14 +331,14 @@ void __58__CPNowPlayingTemplate_handleAction_forControlIdentifier___block_invoke
 - (void)_updateNowPlayingTemplateWithThrottle:(BOOL)throttle
 {
   v16 = *MEMORY[0x277D85DE8];
-  objc_initWeak(&location, self);
-  v5 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v6 = CarPlayFrameworkGeneralLogging(inited);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_loadWeakRetained(&location);
+    v7 = objc_loadWeakRetained(&location);
     *buf = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Updating now playing template", buf, 0xCu);
+    v15 = v7;
+    _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "%@: Updating now playing template", buf, 0xCu);
   }
 
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
@@ -348,24 +348,23 @@ void __58__CPNowPlayingTemplate_handleAction_forControlIdentifier___block_invoke
   v10[3] = &unk_278A10D98;
   objc_copyWeak(&v11, &location);
   throttleCopy = throttle;
-  v8 = [templateProviderFuture addSuccessBlock:v10];
+  v9 = [templateProviderFuture addSuccessBlock:v10];
 
   objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __62__CPNowPlayingTemplate__updateNowPlayingTemplateWithThrottle___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CarPlayFrameworkGeneralLogging();
+  v4 = CarPlayFrameworkGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v12 = 138412290;
-    v13 = WeakRetained;
-    _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "%@: Executing Future success block", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = WeakRetained;
+    _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "%@: Executing Future success block", &v11, 0xCu);
   }
 
   v6 = objc_loadWeakRetained((a1 + 32));
@@ -374,8 +373,6 @@ void __62__CPNowPlayingTemplate__updateNowPlayingTemplateWithThrottle___block_in
   v9 = v6;
   v10 = [v7 numberWithBool:v8];
   [v3 updateNowPlayingTemplate:v9 withProxyDelegate:v9 canThrottle:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNowPlayingMode:(id)mode
@@ -389,22 +386,20 @@ void __62__CPNowPlayingTemplate__updateNowPlayingTemplateWithThrottle___block_in
 
     if ((v7 & 1) == 0)
     {
-      v8 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = CarPlayFrameworkGeneralLogging(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = 138412546;
         selfCopy = self;
         v12 = 2112;
         v13 = modeCopy;
-        _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "%@: Update now playing mode %@", &v10, 0x16u);
+        _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "%@: Update now playing mode %@", &v10, 0x16u);
       }
 
       objc_storeStrong(&self->_nowPlayingMode, mode);
       [(CPNowPlayingTemplate *)self _updateNowPlayingTemplateWithThrottle:0];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

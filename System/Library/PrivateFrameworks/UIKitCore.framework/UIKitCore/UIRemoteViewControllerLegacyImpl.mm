@@ -134,7 +134,7 @@ uint64_t __69___UIRemoteViewControllerLegacyImpl__applicationWillEnterForeground
 void __76___UIRemoteViewControllerLegacyImpl__snapshotAndRemoveTextEffectsRemoteView__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_70 = [v0 isEqualToString:@"com.apple.Spotlight"];
+  _MergedGlobals_70 = objc_msgSend_isEqualToString_(v0);
 }
 
 void __64___UIRemoteViewControllerLegacyImpl__applicationWillDeactivate___block_invoke()
@@ -513,17 +513,17 @@ void __103___UIRemoteViewControllerLegacyImpl__notifyServiceOfScreenUpdateConsid
   }
 }
 
-uint64_t __103___UIRemoteViewControllerLegacyImpl__notifyServiceOfScreenUpdateConsideringDeferringOverridesIfNeeded___block_invoke_5(uint64_t result)
+void *__103___UIRemoteViewControllerLegacyImpl__notifyServiceOfScreenUpdateConsideringDeferringOverridesIfNeeded___block_invoke_5(void *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(*(result + 40) + 152) setHostedWindowHostingHandle:?];
+    result = [*(result[5] + 152) setHostedWindowHostingHandle:?];
   }
 
-  if (*(v1 + 48))
+  if (v1[6])
   {
-    v2 = *(*(v1 + 40) + 168);
+    v2 = *(v1[5] + 168);
 
     return [v2 setHostedWindowHostingHandle:?];
   }

@@ -90,9 +90,10 @@
   v32 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(payloadCopy, "announcementPlatform")}];
   [v6 setValue:v32 forKey:@"announcePlatform"];
 
-  v39 = 0;
-  v33 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v39];
-  v34 = v39;
+  v40 = 0;
+  v33 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v40];
+  v34 = v40;
+  v35 = v34;
   if (v33)
   {
     [v6 setValue:v33 forKey:@"announcePayload"];
@@ -100,32 +101,33 @@
 
   else
   {
-    v35 = SKIDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = SKIDefaultLog(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [(SKINotificationsInvocation *)v34 announceNotificationsRequestFromAnnounceDirectInvocationPayload:v35];
+      [(SKINotificationsInvocation *)v35 announceNotificationsRequestFromAnnounceDirectInvocationPayload:v36];
     }
   }
 
   [(SKIDirectInvocationPayload *)v5 setUserData:v6];
-  v36 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
-  v37 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v36];
+  v37 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
+  v38 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v37];
 
-  return v37;
+  return v38;
 }
 
 + (id)announcePayloadFromUserData:(id)data
 {
   v3 = [data objectForKeyedSubscript:@"announcePayload"];
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = SKIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SKIDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SKINotificationsInvocation *)v5 announceNotificationsRequestFromAnnounceDirectInvocationPayload:v6];
+      [(SKINotificationsInvocation *)v6 announceNotificationsRequestFromAnnounceDirectInvocationPayload:v7];
     }
   }
 
@@ -134,11 +136,10 @@
 
 + (void)announceNotificationsRequestFromAnnounceDirectInvocationPayload:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error unarchiving SKIAnnounceNotificationDirectInvocationPayload from userData for SKINotificationsInvocation: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error unarchiving SKIAnnounceNotificationDirectInvocationPayload from userData for SKINotificationsInvocation: %@", &v2, 0xCu);
 }
 
 @end

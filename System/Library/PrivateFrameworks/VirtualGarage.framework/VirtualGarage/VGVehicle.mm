@@ -40,233 +40,25 @@
       identifier = v5->_identifier;
       v7 = self->_identifier;
       v8 = identifier;
-      if (v7 | v8)
-      {
-        v9 = v8;
-        v10 = [v7 isEqual:v8];
-
-        if (!v10)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      creationDate = v5->_creationDate;
-      v12 = self->_creationDate;
-      v13 = creationDate;
-      if (v12 | v13)
-      {
-        v14 = v13;
-        v15 = [v12 isEqual:v13];
-
-        if (!v15)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      iapIdentifier = v5->_iapIdentifier;
-      v17 = self->_iapIdentifier;
-      v18 = iapIdentifier;
-      if (v17 | v18)
-      {
-        v19 = v18;
-        v20 = [v17 isEqual:v18];
-
-        if (!v20)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      siriIntentsIdentifier = v5->_siriIntentsIdentifier;
-      v22 = self->_siriIntentsIdentifier;
-      v23 = siriIntentsIdentifier;
-      if (v22 | v23)
-      {
-        v24 = v23;
-        v25 = [v22 isEqual:v23];
-
-        if (!v25)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      lastStateUpdateDate = v5->_lastStateUpdateDate;
-      v27 = self->_lastStateUpdateDate;
-      v28 = lastStateUpdateDate;
-      if (v27 | v28)
-      {
-        v29 = v28;
-        v30 = [v27 isEqual:v28];
-
-        if (!v30)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      displayName = v5->_displayName;
-      v32 = self->_displayName;
-      v33 = displayName;
-      if (v32 | v33)
-      {
-        v34 = v33;
-        v35 = [v32 isEqual:v33];
-
-        if (!v35)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      manufacturer = v5->_manufacturer;
-      v37 = self->_manufacturer;
-      v38 = manufacturer;
-      if (v37 | v38)
-      {
-        v39 = v38;
-        v40 = [v37 isEqual:v38];
-
-        if (!v40)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      model = v5->_model;
-      v42 = self->_model;
-      v43 = model;
-      if (v42 | v43)
-      {
-        v44 = v43;
-        v45 = [v42 isEqual:v43];
-
-        if (!v45)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      year = v5->_year;
-      v47 = self->_year;
-      v48 = year;
-      if (v47 | v48)
-      {
-        v49 = v48;
-        v50 = [v47 isEqual:v48];
-
-        if (!v50)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      headUnitBluetoothIdentifier = v5->_headUnitBluetoothIdentifier;
-      v52 = self->_headUnitBluetoothIdentifier;
-      v53 = headUnitBluetoothIdentifier;
-      if (v52 | v53)
-      {
-        v54 = v53;
-        v55 = [v52 isEqual:v53];
-
-        if (!v55)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      headUnitIdentifier = v5->_headUnitIdentifier;
-      v57 = self->_headUnitIdentifier;
-      v58 = headUnitIdentifier;
-      if (v57 | v58)
-      {
-        v59 = v58;
-        v60 = [v57 isEqual:v58];
-
-        if (!v60)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      colorHex = v5->_colorHex;
-      v62 = self->_colorHex;
-      v63 = colorHex;
-      if (v62 | v63)
-      {
-        v64 = v63;
-        v65 = [v62 isEqual:v63];
-
-        if (!v65)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      licensePlate = v5->_licensePlate;
-      v67 = self->_licensePlate;
-      v68 = licensePlate;
-      if (v67 | v68)
-      {
-        v69 = v68;
-        v70 = [v67 isEqual:v68];
-
-        if (!v70)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      lprVehicleType = v5->_lprVehicleType;
-      v72 = self->_lprVehicleType;
-      v73 = lprVehicleType;
-      if (v72 | v73)
-      {
-        v74 = v73;
-        v75 = [v72 isEqual:v73];
-
-        if (!v75)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      lprPowerType = v5->_lprPowerType;
-      v77 = self->_lprPowerType;
-      v78 = lprPowerType;
-      if (v77 | v78)
-      {
-        v79 = v78;
-        v80 = [v77 isEqual:v78];
-
-        if (!v80)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      if (self->_supportedConnectors != v5->_supportedConnectors)
-      {
-        goto LABEL_43;
-      }
-
-      powerByConnector = v5->_powerByConnector;
-      v82 = self->_powerByConnector;
-      v83 = powerByConnector;
-      if (v82 | v83)
-      {
-        v84 = v83;
-        v85 = [v82 isEqual:v83];
-
-        if (!v85)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      if (((preferredChargingNetworks = v5->_preferredChargingNetworks, v87 = self->_preferredChargingNetworks, v88 = preferredChargingNetworks, !(v87 | v88)) || (v89 = v88, v90 = [v87 isEqual:v88], v89, v87, v90)) && self->_usesPreferredNetworksForRouting == v5->_usesPreferredNetworksForRouting)
+      if ((!(v7 | v8) || (v9 = v8, v10 = [v7 isEqual:v8], v9, v7, v10))
+        && ((creationDate = v5->_creationDate, v12 = self->_creationDate, v13 = creationDate, !(v12 | v13)) || (v14 = v13, v15 = [v12 isEqual:v13], v14, v12, v15))
+        && ((iapIdentifier = v5->_iapIdentifier, v17 = self->_iapIdentifier, v18 = iapIdentifier, !(v17 | v18)) || (v19 = v18, v20 = [v17 isEqual:v18], v19, v17, v20))
+        && ((siriIntentsIdentifier = v5->_siriIntentsIdentifier, v22 = self->_siriIntentsIdentifier, v23 = siriIntentsIdentifier, !(v22 | v23)) || (v24 = v23, v25 = [v22 isEqual:v23], v24, v22, v25))
+        && ((lastStateUpdateDate = v5->_lastStateUpdateDate, v27 = self->_lastStateUpdateDate, v28 = lastStateUpdateDate, !(v27 | v28)) || (v29 = v28, v30 = [v27 isEqual:v28], v29, v27, v30))
+        && ((displayName = v5->_displayName, v32 = self->_displayName, v33 = displayName, !(v32 | v33)) || (v34 = v33, v35 = [v32 isEqual:v33], v34, v32, v35))
+        && ((manufacturer = v5->_manufacturer, v37 = self->_manufacturer, v38 = manufacturer, !(v37 | v38)) || (v39 = v38, v40 = [v37 isEqual:v38], v39, v37, v40))
+        && ((model = v5->_model, v42 = self->_model, v43 = model, !(v42 | v43)) || (v44 = v43, v45 = [v42 isEqual:v43], v44, v42, v45))
+        && ((year = v5->_year, v47 = self->_year, v48 = year, !(v47 | v48)) || (v49 = v48, v50 = [v47 isEqual:v48], v49, v47, v50))
+        && ((headUnitBluetoothIdentifier = v5->_headUnitBluetoothIdentifier, v52 = self->_headUnitBluetoothIdentifier, v53 = headUnitBluetoothIdentifier, !(v52 | v53)) || (v54 = v53, v55 = [v52 isEqual:v53], v54, v52, v55))
+        && ((headUnitIdentifier = v5->_headUnitIdentifier, v57 = self->_headUnitIdentifier, v58 = headUnitIdentifier, !(v57 | v58)) || (v59 = v58, v60 = [v57 isEqual:v58], v59, v57, v60))
+        && ((colorHex = v5->_colorHex, v62 = self->_colorHex, v63 = colorHex, !(v62 | v63)) || (v64 = v63, v65 = [v62 isEqual:v63], v64, v62, v65))
+        && ((licensePlate = v5->_licensePlate, v67 = self->_licensePlate, v68 = licensePlate, !(v67 | v68)) || (v69 = v68, v70 = [v67 isEqual:v68], v69, v67, v70))
+        && ((lprVehicleType = v5->_lprVehicleType, v72 = self->_lprVehicleType, v73 = lprVehicleType, !(v72 | v73)) || (v74 = v73, v75 = [v72 isEqual:v73], v74, v72, v75))
+        && ((lprPowerType = v5->_lprPowerType, v77 = self->_lprPowerType, v78 = lprPowerType, !(v77 | v78)) || (v79 = v78, v80 = [v77 isEqual:v78], v79, v77, v80))
+        && self->_supportedConnectors == v5->_supportedConnectors
+        && ((powerByConnector = v5->_powerByConnector, v82 = self->_powerByConnector, v83 = powerByConnector, !(v82 | v83)) || (v84 = v83, v85 = [v82 isEqual:v83], v84, v82, v85))
+        && ((preferredChargingNetworks = v5->_preferredChargingNetworks, v87 = self->_preferredChargingNetworks, v88 = preferredChargingNetworks, !(v87 | v88)) || (v89 = v88, v90 = [v87 isEqual:v88], v89, v87, v90))
+        && self->_usesPreferredNetworksForRouting == v5->_usesPreferredNetworksForRouting)
       {
         currentVehicleState = self->_currentVehicleState;
         v92 = v5->_currentVehicleState;
@@ -285,7 +77,6 @@
 
       else
       {
-LABEL_43:
         v95 = 0;
       }
     }
@@ -410,32 +201,32 @@ LABEL_43:
 
 - (double)batteryPercentageBasedOfCapacity
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (![(VGVehicle *)self isPureElectricVehicle])
   {
-    v19 = VGGetAssertLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = VGGetAssertLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315906;
+      v21 = 136315906;
       selfCopy = "[VGVehicle batteryPercentageBasedOfCapacity]";
-      v24 = 2080;
-      v25 = "VGVehicle.m";
-      v26 = 1024;
-      v27 = 465;
-      v28 = 2080;
-      v29 = "self.isPureElectricVehicle";
-      _os_log_impl(&dword_270EC1000, v19, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v22, 0x26u);
+      v23 = 2080;
+      v24 = "VGVehicle.m";
+      v25 = 1024;
+      v26 = 465;
+      v27 = 2080;
+      v28 = "self.isPureElectricVehicle";
+      _os_log_impl(&dword_270EC1000, v18, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v21, 0x26u);
     }
 
     if (_vg_isInternalInstall())
     {
-      v20 = VGGetAssertLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = VGGetAssertLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-        v22 = 138412290;
+        v21 = 138412290;
         selfCopy = callStackSymbols;
-        _os_log_impl(&dword_270EC1000, v20, OS_LOG_TYPE_ERROR, "%@", &v22, 0xCu);
+        _os_log_impl(&dword_270EC1000, v19, OS_LOG_TYPE_ERROR, "%@", &v21, 0xCu);
       }
     }
   }
@@ -460,9 +251,9 @@ LABEL_43:
       v15 = VGGetVirtualGarageLog();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v22 = 138412290;
+        v21 = 138412290;
         selfCopy = currentVehicleState;
-        _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "Vehicle provided invalid battery state: %@", &v22, 0xCu);
+        _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "Vehicle provided invalid battery state: %@", &v21, 0xCu);
       }
 
       v16 = 0.0;
@@ -480,44 +271,43 @@ LABEL_43:
     v16 = 0.0;
     if (os_log_type_enabled(currentVehicleState, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138412290;
+      v21 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_270EC1000, currentVehicleState, OS_LOG_TYPE_ERROR, "Querried a vehicle for battery state that is not an EV. Vehicle: %@", &v22, 0xCu);
+      _os_log_impl(&dword_270EC1000, currentVehicleState, OS_LOG_TYPE_ERROR, "Querried a vehicle for battery state that is not an EV. Vehicle: %@", &v21, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (unint64_t)displayedBatteryPercentage
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (![(VGVehicle *)self isPureElectricVehicle])
   {
-    v14 = VGGetAssertLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = VGGetAssertLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315906;
+      v16 = 136315906;
       selfCopy = "[VGVehicle displayedBatteryPercentage]";
-      v19 = 2080;
-      v20 = "VGVehicle.m";
-      v21 = 1024;
-      v22 = 445;
-      v23 = 2080;
-      v24 = "self.isPureElectricVehicle";
-      _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v17, 0x26u);
+      v18 = 2080;
+      v19 = "VGVehicle.m";
+      v20 = 1024;
+      v21 = 445;
+      v22 = 2080;
+      v23 = "self.isPureElectricVehicle";
+      _os_log_impl(&dword_270EC1000, v13, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v16, 0x26u);
     }
 
     if (_vg_isInternalInstall())
     {
-      v15 = VGGetAssertLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = VGGetAssertLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-        v17 = 138412290;
+        v16 = 138412290;
         selfCopy = callStackSymbols;
-        _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "%@", &v17, 0xCu);
+        _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_ERROR, "%@", &v16, 0xCu);
       }
     }
   }
@@ -540,14 +330,14 @@ LABEL_43:
       v11 = VGGetVirtualGarageLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v17) = 0;
+        LOWORD(v16) = 0;
       }
 
       [(VGVehicle *)self batteryPercentageBasedOfCapacity];
       v8 = v12;
     }
 
-    result = vcvtad_u64_f64(fmin(fmax(v8, 0.0), 1.0) * 100.0);
+    return vcvtad_u64_f64(fmin(fmax(v8, 0.0), 1.0) * 100.0);
   }
 
   else
@@ -555,16 +345,13 @@ LABEL_43:
     v9 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
+      v16 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_ERROR, "Querried a vehicle for battery state that is not an EV. Vehicle: %@", &v17, 0xCu);
+      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_ERROR, "Querried a vehicle for battery state that is not an EV. Vehicle: %@", &v16, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (id)combinedDisplayName
@@ -603,7 +390,7 @@ LABEL_5:
 
 - (id)_identifierForVehicleStateOrigin:(int64_t)origin
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (origin == 2)
   {
     siriIntentsIdentifier = self->_siriIntentsIdentifier;
@@ -621,13 +408,13 @@ LABEL_5:
   v5 = VGGetAssertLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315650;
-    v11 = "[VGVehicle _identifierForVehicleStateOrigin:]";
-    v12 = 2080;
-    v13 = "VGVehicle.m";
-    v14 = 1024;
-    v15 = 424;
-    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v10, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[VGVehicle _identifierForVehicleStateOrigin:]";
+    v11 = 2080;
+    v12 = "VGVehicle.m";
+    v13 = 1024;
+    v14 = 424;
+    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v9, 0x1Cu);
   }
 
   if (_vg_isInternalInstall())
@@ -636,22 +423,21 @@ LABEL_5:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-      v10 = 138412290;
-      v11 = callStackSymbols;
-      _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = callStackSymbols;
+      _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%@", &v9, 0xCu);
     }
   }
 
   v4 = 0;
 LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)pairToIapIdentifier:(id)identifier bluetoothIdentifier:(id)bluetoothIdentifier
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bluetoothIdentifierCopy = bluetoothIdentifier;
   if (!self->_iapIdentifier)
@@ -659,29 +445,29 @@ LABEL_13:
     goto LABEL_2;
   }
 
-  v16 = VGGetAssertLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v15 = VGGetAssertLog();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315906;
+    v18 = 136315906;
     selfCopy = "[VGVehicle pairToIapIdentifier:bluetoothIdentifier:]";
-    v21 = 2080;
-    v22 = "VGVehicle.m";
-    v23 = 1024;
-    LODWORD(v24[0]) = 398;
-    WORD2(v24[0]) = 2080;
-    *(v24 + 6) = "!_iapIdentifier";
-    _os_log_impl(&dword_270EC1000, v16, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v19, 0x26u);
+    v20 = 2080;
+    v21 = "VGVehicle.m";
+    v22 = 1024;
+    LODWORD(v23[0]) = 398;
+    WORD2(v23[0]) = 2080;
+    *(v23 + 6) = "!_iapIdentifier";
+    _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v18, 0x26u);
   }
 
   if (_vg_isInternalInstall())
   {
-    v17 = VGGetAssertLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = VGGetAssertLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-      v19 = 138412290;
+      v18 = 138412290;
       selfCopy = callStackSymbols;
-      _os_log_impl(&dword_270EC1000, v17, OS_LOG_TYPE_ERROR, "%@", &v19, 0xCu);
+      _os_log_impl(&dword_270EC1000, v16, OS_LOG_TYPE_ERROR, "%@", &v18, 0xCu);
     }
   }
 
@@ -690,13 +476,13 @@ LABEL_13:
     headUnitBluetoothIdentifier = VGGetDataCoordinatorLog();
     if (os_log_type_enabled(headUnitBluetoothIdentifier, OS_LOG_TYPE_FAULT))
     {
-      v19 = 138412802;
+      v18 = 138412802;
       selfCopy = self;
-      v21 = 2112;
-      v22 = identifierCopy;
-      v23 = 2112;
-      v24[0] = bluetoothIdentifierCopy;
-      _os_log_impl(&dword_270EC1000, headUnitBluetoothIdentifier, OS_LOG_TYPE_FAULT, "Tried to pair a vehicle: (%@) to iapID: %@, bluetoothID: %@, but it was already paired.", &v19, 0x20u);
+      v20 = 2112;
+      v21 = identifierCopy;
+      v22 = 2112;
+      v23[0] = bluetoothIdentifierCopy;
+      _os_log_impl(&dword_270EC1000, headUnitBluetoothIdentifier, OS_LOG_TYPE_FAULT, "Tried to pair a vehicle: (%@) to iapID: %@, bluetoothID: %@, but it was already paired.", &v18, 0x20u);
     }
   }
 
@@ -706,11 +492,11 @@ LABEL_2:
     v8 = VGGetDataCoordinatorLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412546;
+      v18 = 138412546;
       selfCopy = identifierCopy;
-      v21 = 2112;
-      v22 = bluetoothIdentifierCopy;
-      _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_INFO, "Pairing vehicle to iapIdentifier: %@, bluetoothIdentifier: %@", &v19, 0x16u);
+      v20 = 2112;
+      v21 = bluetoothIdentifierCopy;
+      _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_INFO, "Pairing vehicle to iapIdentifier: %@, bluetoothIdentifier: %@", &v18, 0x16u);
     }
 
     v9 = [identifierCopy copy];
@@ -725,8 +511,6 @@ LABEL_2:
     headUnitBluetoothIdentifier = self->_headUnitBluetoothIdentifier;
     self->_headUnitBluetoothIdentifier = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_vehicleByUpdatingUsesPreferredNetworksForRouting:(BOOL)routing
@@ -851,7 +635,7 @@ LABEL_2:
 
 - (void)_updateWithVehicleState:(id)state
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([(VGVehicle *)self _canBeUpdatedFromState:stateCopy])
   {
@@ -860,59 +644,57 @@ LABEL_2:
 
   else
   {
-    v6 = VGGetAssertLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = VGGetAssertLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315906;
+      v12 = 136315906;
       selfCopy = "[VGVehicle _updateWithVehicleState:]";
-      v15 = 2080;
-      v16 = "VGVehicle.m";
-      v17 = 1024;
-      LODWORD(v18[0]) = 330;
-      WORD2(v18[0]) = 2080;
-      *(v18 + 6) = "isStateValidForVehicle";
-      _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v13, 0x26u);
+      v14 = 2080;
+      v15 = "VGVehicle.m";
+      v16 = 1024;
+      LODWORD(v17[0]) = 330;
+      WORD2(v17[0]) = 2080;
+      *(v17 + 6) = "isStateValidForVehicle";
+      _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion: (%s)", &v12, 0x26u);
     }
 
     if (_vg_isInternalInstall())
     {
-      v7 = VGGetAssertLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = VGGetAssertLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-        v13 = 138412290;
+        v12 = 138412290;
         selfCopy = callStackSymbols;
-        _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "%@", &v13, 0xCu);
+        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%@", &v12, 0xCu);
       }
     }
 
-    v9 = VGGetDataCoordinatorLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = VGGetDataCoordinatorLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       identifier = [stateCopy identifier];
       origin = [stateCopy origin];
-      v12 = @"Unknown";
+      v11 = @"Unknown";
       if (origin == 1)
       {
-        v12 = @"iAP2";
+        v11 = @"iAP2";
       }
 
-      v13 = 138412802;
+      v12 = 138412802;
       selfCopy = self;
-      v15 = 2112;
-      v16 = identifier;
+      v14 = 2112;
+      v15 = identifier;
       if (origin == 2)
       {
-        v12 = @"SiriIntents";
+        v11 = @"SiriIntents";
       }
 
-      v17 = 2112;
-      v18[0] = v12;
-      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_FAULT, "Tried to update a vehicle %@, with an incompatible state: id: %@, origin: %@", &v13, 0x20u);
+      v16 = 2112;
+      v17[0] = v11;
+      _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_FAULT, "Tried to update a vehicle %@, with an incompatible state: id: %@, origin: %@", &v12, 0x20u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPureElectricVehicle
@@ -1074,11 +856,11 @@ LABEL_2:
 
 - (VGVehicle)initWithMapsSyncVehicle:(id)vehicle
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   vehicleCopy = vehicle;
-  v97.receiver = self;
-  v97.super_class = VGVehicle;
-  v5 = [(VGVehicle *)&v97 init];
+  v96.receiver = self;
+  v96.super_class = VGVehicle;
+  v5 = [(VGVehicle *)&v96 init];
   if (v5)
   {
     vehicleIdentifier = [vehicleCopy vehicleIdentifier];
@@ -1159,13 +941,13 @@ LABEL_2:
     supportedConnectors = [vehicleCopy supportedConnectors];
     v5->_supportedConnectors = [supportedConnectors unsignedIntegerValue];
 
-    v95[0] = MEMORY[0x277D85DD0];
-    v95[1] = 3221225472;
-    v95[2] = __37__VGVehicle_initWithMapsSyncVehicle___block_invoke;
-    v95[3] = &unk_279E26630;
+    v94[0] = MEMORY[0x277D85DD0];
+    v94[1] = 3221225472;
+    v94[2] = __37__VGVehicle_initWithMapsSyncVehicle___block_invoke;
+    v94[3] = &unk_279E26630;
     v52 = vehicleCopy;
-    v96 = v52;
-    v53 = MEMORY[0x2743B8310](v95);
+    v95 = v52;
+    v53 = MEMORY[0x2743B8310](v94);
     powerByConnector = [v52 powerByConnector];
     v55 = (v53)[2](v53, powerByConnector);
     powerByConnector = v5->_powerByConnector;
@@ -1180,32 +962,32 @@ LABEL_2:
     v62 = &__block_literal_global_55;
     if (networks)
     {
-      v91 = v60;
-      v93 = v52;
-      v94 = v53;
+      v90 = v60;
+      v92 = v52;
+      v93 = v53;
       v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v97 = 0u;
       v98 = 0u;
       v99 = 0u;
       v100 = 0u;
-      v101 = 0u;
-      v92 = networks;
+      v91 = networks;
       v64 = networks;
-      v65 = [v64 countByEnumeratingWithState:&v98 objects:buf count:16];
+      v65 = [v64 countByEnumeratingWithState:&v97 objects:buf count:16];
       if (v65)
       {
         v66 = v65;
         v67 = 0;
-        v68 = *v99;
+        v68 = *v98;
         do
         {
           for (i = 0; i != v66; ++i)
           {
-            if (*v99 != v68)
+            if (*v98 != v68)
             {
               objc_enumerationMutation(v64);
             }
 
-            v70 = __37__VGVehicle_initWithMapsSyncVehicle___block_invoke_13(&__block_literal_global_55, *(*(&v98 + 1) + 8 * i));
+            v70 = __37__VGVehicle_initWithMapsSyncVehicle___block_invoke_13(&__block_literal_global_55, *(*(&v97 + 1) + 8 * i));
             if (v70)
             {
               [v63 addObject:v70];
@@ -1214,17 +996,17 @@ LABEL_2:
             ++v67;
           }
 
-          v66 = [v64 countByEnumeratingWithState:&v98 objects:buf count:16];
+          v66 = [v64 countByEnumeratingWithState:&v97 objects:buf count:16];
         }
 
         while (v66);
       }
 
       v71 = [v63 copy];
-      v53 = v94;
-      networks = v92;
-      v52 = v93;
-      v60 = v91;
+      v53 = v93;
+      networks = v91;
+      v52 = v92;
+      v60 = v90;
     }
 
     else
@@ -1252,7 +1034,7 @@ LABEL_2:
       if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v103 = v52;
+        v102 = v52;
         _os_log_impl(&dword_270EC1000, v78, OS_LOG_TYPE_ERROR, "Failed to load vehicleStateStorage from MapsSyncVehicle: %@.", buf, 0xCu);
       }
 
@@ -1278,13 +1060,12 @@ LABEL_2:
     v5->_pairedAppInstallSessionIdentifier = v87;
   }
 
-  v89 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1292,9 +1073,9 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
     v5 = MEMORY[0x277CBEB98];
     v6 = objc_opt_class();
     v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
-    v39 = 0;
-    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:v3 error:&v39];
-    v9 = v39;
+    v38 = 0;
+    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:v3 error:&v38];
+    v9 = v38;
 
     if (v9 || !v8)
     {
@@ -1303,7 +1084,7 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
       {
         v24 = *(a1 + 32);
         *buf = 138412290;
-        v41 = v24;
+        v40 = v24;
         _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_ERROR, "Failed to load powerByConnector dictionary from MapsSyncVehicle: %@.", buf, 0xCu);
       }
 
@@ -1312,30 +1093,30 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
 
     else
     {
-      v32 = a1;
+      v31 = a1;
       v10 = objc_opt_new();
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v35 objects:v46 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v34 objects:v45 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v36;
-        v33 = v8;
-        v34 = v3;
+        v14 = *v35;
+        v32 = v8;
+        v33 = v3;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v36 != v14)
+            if (*v35 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v35 + 1) + 8 * i);
+            v16 = *(*(&v34 + 1) + 8 * i);
             v17 = [v11 objectForKeyedSubscript:v16];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -1344,16 +1125,16 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v41 = "[VGVehicle initWithMapsSyncVehicle:]_block_invoke";
-                v42 = 2080;
-                v43 = "VGVehicle.m";
-                v44 = 1024;
-                v45 = 206;
+                v40 = "[VGVehicle initWithMapsSyncVehicle:]_block_invoke";
+                v41 = 2080;
+                v42 = "VGVehicle.m";
+                v43 = 1024;
+                v44 = 206;
                 _os_log_impl(&dword_270EC1000, v25, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
               }
 
               v9 = 0;
-              v8 = v33;
+              v8 = v32;
               if (_vg_isInternalInstall())
               {
                 v26 = VGGetAssertLog();
@@ -1361,7 +1142,7 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
                 {
                   v27 = [MEMORY[0x277CCACC8] callStackSymbols];
                   *buf = 138412290;
-                  v41 = v27;
+                  v40 = v27;
                   _os_log_impl(&dword_270EC1000, v26, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
                 }
               }
@@ -1369,14 +1150,14 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
               v28 = VGGetPersistingLog();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
               {
-                v29 = *(v32 + 32);
+                v29 = *(v31 + 32);
                 *buf = 138412290;
-                v41 = v29;
+                v40 = v29;
                 _os_log_impl(&dword_270EC1000, v28, OS_LOG_TYPE_FAULT, "Failed to parse a powerByConnector dictionary from MapsSyncVehicle: %@.", buf, 0xCu);
               }
 
               v23 = 0;
-              v3 = v34;
+              v3 = v33;
               goto LABEL_27;
             }
 
@@ -1388,9 +1169,9 @@ NSObject *__37__VGVehicle_initWithMapsSyncVehicle___block_invoke(uint64_t a1, vo
             [v10 setObject:v22 forKeyedSubscript:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v35 objects:v46 count:16];
-          v8 = v33;
-          v3 = v34;
+          v13 = [v11 countByEnumeratingWithState:&v34 objects:v45 count:16];
+          v8 = v32;
+          v3 = v33;
           v9 = 0;
           if (v13)
           {
@@ -1412,8 +1193,6 @@ LABEL_27:
   {
     v23 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

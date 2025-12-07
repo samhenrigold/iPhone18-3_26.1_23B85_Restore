@@ -1,4 +1,5 @@
 @interface PQLConnection
+- (BOOL)_performSchemaUpgrade:(id)upgrade fromDatabaseVersion:(unsigned int)version error:(id *)error;
 - (BOOL)executeStatements:(id)statements error:(id *)error;
 - (BOOL)executeWithError:(id *)error sql:(id)sql;
 - (BOOL)fetchObjectOfClass:(Class)class outObject:(id *)object error:(id *)error sql:(id)sql;
@@ -271,6 +272,144 @@ LABEL_26:
 LABEL_28:
 
   return v19;
+}
+
+- (BOOL)_performSchemaUpgrade:(id)upgrade fromDatabaseVersion:(unsigned int)version error:(id *)error
+{
+  v6 = *&version;
+  upgradeCopy = upgrade;
+  if (!error)
+  {
+    sub_10009FE74();
+  }
+
+  v9 = upgradeCopy;
+  version = [upgradeCopy version];
+  upgradeBlock = [v9 upgradeBlock];
+
+  if (upgradeBlock)
+  {
+    if (version > v6)
+    {
+      v12 = MBGetDefaultLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109376;
+        *&buf[4] = v6;
+        LOWORD(v37) = 1024;
+        *(&v37 + 2) = version;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=pqldb= Migrating database from version %d to %d", buf, 0xEu);
+        _MBLog(@"Df", "=pqldb= Migrating database from version %d to %d", v6, version);
+      }
+
+      *buf = 0;
+      v37 = buf;
+      v38 = 0x3032000000;
+      v39 = sub_1000795DC;
+      v40 = sub_1000795EC;
+      v41 = 0;
+      v22 = _NSConcreteStackBlock;
+      v23 = 3221225472;
+      v24 = sub_1000795F4;
+      v25 = &unk_1000FE508;
+      v13 = v9;
+      v28 = v6;
+      v29 = version;
+      v26 = v13;
+      v27 = buf;
+      if (([(PQLConnection *)self performWithFlags:10 action:&v22]& 1) != 0)
+      {
+
+        if (![v13 shouldVacuum])
+        {
+LABEL_12:
+          [(PQLConnection *)self setUserVersion:version];
+          v15 = 1;
+LABEL_22:
+          _Block_object_dispose(buf, 8);
+
+          goto LABEL_23;
+        }
+
+        if (([(PQLConnection *)self execute:@"vacuum;"]& 1) != 0)
+        {
+          v14 = MBGetDefaultLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *v30 = 67109376;
+            v31 = v6;
+            v32 = 1024;
+            v33 = version;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=pqldb= Vacuumed after migrating database from version %d to %d", v30, 0xEu);
+            _MBLog(@"Df", "=pqldb= Vacuumed after migrating database from version %d to %d", v6, version);
+          }
+
+          goto LABEL_12;
+        }
+
+        lastError = [(PQLConnection *)self lastError];
+        v20 = MBGetDefaultLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          *v30 = 67109634;
+          v31 = v6;
+          v32 = 1024;
+          v33 = version;
+          v34 = 2112;
+          v35 = lastError;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=pqldb= Vacuum after migration from version %d to %d failed: %@", v30, 0x18u);
+          _MBLog(@"E ", "=pqldb= Vacuum after migration from version %d to %d failed: %@", v6, version, lastError, v22, v23, v24, v25);
+        }
+
+        v21 = lastError;
+        *error = lastError;
+      }
+
+      else
+      {
+        v17 = MBGetDefaultLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          *v30 = 67109376;
+          v31 = v6;
+          v32 = 1024;
+          v33 = version;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=pqldb= Migration from version %d to %d failed", v30, 0xEu);
+          _MBLog(@"E ", "=pqldb= Migration from version %d to %d failed", v6, version);
+        }
+
+        *error = *(v37 + 5);
+        lastError = v26;
+      }
+
+      v15 = 0;
+      goto LABEL_22;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (version != v6)
+  {
+LABEL_17:
+    v15 = 1;
+    goto LABEL_23;
+  }
+
+  v16 = MBGetDefaultLog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *&buf[4] = v6;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=pqldb= Found invalid database version %d", buf, 8u);
+    _MBLog(@"Df", "=pqldb= Found invalid database version %d", v6);
+  }
+
+  [MBError errorWithCode:1 format:@"Found invalid database version %d", v6];
+  *error = v15 = 0;
+LABEL_23:
+
+  return v15;
 }
 
 - (BOOL)groupInTransaction:(id *)transaction transaction:(id)a4

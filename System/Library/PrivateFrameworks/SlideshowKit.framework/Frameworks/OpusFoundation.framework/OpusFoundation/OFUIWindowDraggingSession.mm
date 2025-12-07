@@ -593,7 +593,7 @@ LABEL_21:
   }
 }
 
-uint64_t __67__OFUIWindowDraggingSession__updatePresentationViewWithCompletion___block_invoke(uint64_t a1)
+void *__67__OFUIWindowDraggingSession__updatePresentationViewWithCompletion___block_invoke(uint64_t a1)
 {
   v38 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 112) bounds];
@@ -709,7 +709,7 @@ LABEL_21:
         LODWORD(v23) = 1051931443;
         [v22 setShadowOpacity:v23];
         ++v10;
-        ++v13;
+        v13 = v13 + 1;
       }
 
       while (v9 != v13);
@@ -923,7 +923,7 @@ uint64_t __67__OFUIWindowDraggingSession__finishPresentationViewWithCompletion__
   return (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __67__OFUIWindowDraggingSession__finishPresentationViewWithCompletion___block_invoke_3(uint64_t a1)
+void *__67__OFUIWindowDraggingSession__finishPresentationViewWithCompletion___block_invoke_3(uint64_t a1)
 {
   v43 = *MEMORY[0x277D85DE8];
   v40 = 0u;
@@ -1045,7 +1045,7 @@ LABEL_17:
           [objc_msgSend(objc_msgSend(v11 "imageView")];
         }
 
-        ++v10;
+        v10 = v10 + 1;
       }
 
       while (v4 != v10);

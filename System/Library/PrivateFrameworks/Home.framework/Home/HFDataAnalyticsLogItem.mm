@@ -75,7 +75,7 @@ LABEL_3:
 
 id __34__HFDataAnalyticsLogItem_fetchLog__block_invoke(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 pathExtension];
   if ([v3 isEqualToString:@"metriclog"])
@@ -88,10 +88,10 @@ LABEL_4:
 LABEL_5:
     v7 = MEMORY[0x277D2C900];
     v8 = objc_alloc(MEMORY[0x277CCA898]);
-    v20 = *MEMORY[0x277D740C0];
+    v19 = *MEMORY[0x277D740C0];
     v9 = [MEMORY[0x277D75348] labelColor];
-    v21[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v11 = [v8 initWithString:v6 attributes:v10];
     v12 = [v7 futureWithResult:v11];
 
@@ -106,30 +106,28 @@ LABEL_5:
     goto LABEL_4;
   }
 
-  v15 = [v2 pathExtension];
-  v16 = [v15 isEqualToString:@"plist"];
+  v14 = [v2 pathExtension];
+  v15 = [v14 isEqualToString:@"plist"];
 
-  if (v16)
+  if (v15)
   {
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v2];
-    v6 = [v17 description];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v2];
+    v6 = [v16 description];
 
     goto LABEL_5;
   }
 
-  v19 = 0;
-  v6 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:&v19];
-  v18 = v19;
-  if (!v18)
+  v18 = 0;
+  v6 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:&v18];
+  v17 = v18;
+  if (!v17)
   {
     goto LABEL_5;
   }
 
-  v9 = v18;
-  v12 = [MEMORY[0x277D2C900] futureWithError:v18];
+  v9 = v17;
+  v12 = [MEMORY[0x277D2C900] futureWithError:v17];
 LABEL_6:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

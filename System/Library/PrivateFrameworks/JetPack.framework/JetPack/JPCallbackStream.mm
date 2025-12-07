@@ -9,7 +9,7 @@
   callbackCopy = callback;
   forwardCallbackCopy = forwardCallback;
   endCallbackCopy = endCallback;
-  JetPackStreamCreate();
+  JetPackStreamCreate(self, readStreamCallback, 0, 0);
 }
 
 @end

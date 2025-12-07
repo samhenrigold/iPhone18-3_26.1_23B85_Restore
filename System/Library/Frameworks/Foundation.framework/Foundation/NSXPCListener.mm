@@ -103,7 +103,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t __32__NSXPCListener_serviceListener__block_invoke(uint64_t a1)
+void *__32__NSXPCListener_serviceListener__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _initShared];
   qword_1ED4402D0 = result;
@@ -145,7 +145,7 @@ uint64_t __32__NSXPCListener_serviceListener__block_invoke(uint64_t a1)
     {
       if (xpc)
       {
-        _xpc_remote_connection_cancel(xpc);
+        _xpc_remote_connection_cancel(xpc, a2);
       }
     }
 
@@ -259,7 +259,7 @@ uint64_t __32__NSXPCListener_serviceListener__block_invoke(uint64_t a1)
       v8 = qos_class_main();
       v9 = dispatch_queue_attr_make_with_qos_class(v7, v8, 0);
       v6->_userQueue = dispatch_queue_create("com.apple.NSXPCListener.main", v9);
-      if (![name isEqualToString:&stru_1EEEFDF90])
+      if (!objc_msgSend_isEqualToString_(name))
       {
         atomic_fetch_or_explicit(&v6->_state, 8u, memory_order_relaxed);
         v6->_serviceName = [name copy];

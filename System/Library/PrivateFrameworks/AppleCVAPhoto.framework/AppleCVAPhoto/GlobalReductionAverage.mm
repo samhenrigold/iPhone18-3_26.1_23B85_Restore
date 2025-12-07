@@ -7,7 +7,7 @@
 
 - (void)parallelReductionAverage:(id)average inTexture:(id)texture outGlobalAverage:(id)globalAverage
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   averageCopy = average;
   textureCopy = texture;
   globalAverageCopy = globalAverage;
@@ -17,12 +17,12 @@
     height = self->_textureSize.height;
     *buf = 67109888;
     *&buf[4] = width;
-    LOWORD(v24) = 1024;
-    *(&v24 + 2) = height;
-    HIWORD(v24) = 1024;
-    LODWORD(v25[0]) = [textureCopy width];
-    WORD2(v25[0]) = 1024;
-    *(v25 + 6) = [textureCopy height];
+    LOWORD(v23) = 1024;
+    *(&v23 + 2) = height;
+    HIWORD(v23) = 1024;
+    LODWORD(v24[0]) = [textureCopy width];
+    WORD2(v24[0]) = 1024;
+    *(v24 + 6) = [textureCopy height];
     _os_log_error_impl(&dword_1DED23000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "TextureSize does not mathc input, expected w:%i h:%i got w:%i h:%i", buf, 0x1Au);
   }
 
@@ -58,16 +58,14 @@
     [computeCommandEncoder setBytes:&self->_numberOfElements length:4 atIndex:0];
     [computeCommandEncoder setBuffer:globalAverageCopy offset:0 atIndex:1];
     *buf = (width + 1) >> 1;
-    v24 = (height + 1) >> 1;
-    v25[0] = 1;
-    v21 = *&self->_simdReductionThreadsPerGroup.width;
+    v23 = (height + 1) >> 1;
+    v24[0] = 1;
+    v20 = *&self->_simdReductionThreadsPerGroup.width;
     depth = self->_simdReductionThreadsPerGroup.depth;
-    [computeCommandEncoder dispatchThreads:buf threadsPerThreadgroup:&v21];
+    [computeCommandEncoder dispatchThreads:buf threadsPerThreadgroup:&v20];
   }
 
   [computeCommandEncoder endEncoding];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (GlobalReductionAverage)initWithFigMetalContext:(id)context textureSize:(CGSize)size

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)fingerprintDetectionAsString:(int)string;
+- (id)watermarkDetectionAsString:(int)string;
 - (int)StringAsFingerprintDetection:(id)detection;
 - (int)StringAsWatermarkDetection:(id)detection;
 - (int)fingerprintDetection;
@@ -62,6 +64,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)fingerprintDetectionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BA88[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsFingerprintDetection:(id)detection
 {
   detectionCopy = detection;
@@ -119,6 +136,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)watermarkDetectionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BAA8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsWatermarkDetection:(id)detection
@@ -302,98 +334,93 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v7 = toCopy;
   if (self->_speechId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_sessionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    returnCode = self->_returnCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_returnStr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_recognitionResult)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_resultId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   has = self->_has;
   if (has)
   {
-    snr = self->_snr;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    fingerprintDetection = self->_fingerprintDetection;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_audioAnalytics)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v9 = self->_has;
-  if ((v9 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    watermarkDetection = self->_watermarkDetection;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
-    v9 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v9 & 2) != 0)
+  if ((v6 & 2) != 0)
   {
-    watermarkPeakAverage = self->_watermarkPeakAverage;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_latnnMitigatorResult)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_requestLocale)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 }
 
@@ -592,7 +619,6 @@
     }
   }
 
-  v7 = *(equalCopy + 116);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 116) & 8) == 0 || self->_returnCode != *(equalCopy + 20))
@@ -631,7 +657,6 @@
   }
 
   has = self->_has;
-  v12 = *(equalCopy + 116);
   if (has)
   {
     if ((*(equalCopy + 116) & 1) == 0 || self->_snr != *(equalCopy + 1))
@@ -664,14 +689,13 @@
     if (![(MXAudioAnalytics *)audioAnalytics isEqual:?])
     {
 LABEL_46:
-      v18 = 0;
+      v15 = 0;
       goto LABEL_47;
     }
 
     has = self->_has;
   }
 
-  v14 = *(equalCopy + 116);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 116) & 0x10) == 0 || self->_watermarkDetection != *(equalCopy + 28))
@@ -716,17 +740,17 @@ LABEL_46:
   requestLocale = self->_requestLocale;
   if (requestLocale | *(equalCopy + 8))
   {
-    v18 = [(NSString *)requestLocale isEqual:?];
+    v15 = [(NSString *)requestLocale isEqual:?];
   }
 
   else
   {
-    v18 = 1;
+    v15 = 1;
   }
 
 LABEL_47:
 
-  return v18;
+  return v15;
 }
 
 - (unint64_t)hash

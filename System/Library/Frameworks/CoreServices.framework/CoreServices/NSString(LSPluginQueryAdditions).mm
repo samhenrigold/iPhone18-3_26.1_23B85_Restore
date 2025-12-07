@@ -76,7 +76,7 @@
         {
           if (![v4 hasPrefix:@">"])
           {
-            v8 = [(__CFString *)self compare:v4 options:64]== 0;
+            v9 = [(__CFString *)self compare:v4 options:64]== 0;
             goto LABEL_20;
           }
 
@@ -84,7 +84,7 @@
           v12 = [(__CFString *)self compare:v6 options:64]== 1;
         }
 
-        v8 = v12;
+        v9 = v12;
         goto LABEL_19;
       }
 
@@ -92,7 +92,7 @@
       v7 = [(__CFString *)self compare:v6 options:64]== -1;
     }
 
-    v8 = !v7;
+    v9 = !v7;
 LABEL_19:
 
     goto LABEL_20;
@@ -102,29 +102,29 @@ LABEL_19:
   {
     v5 = UTTypeConformsTo(self, [v4 substringFromIndex:13]);
 LABEL_8:
-    v8 = v5 != 0;
+    v9 = v5 != 0;
     goto LABEL_20;
   }
 
-  if ([v4 hasPrefix:@"?UT-IS:"])
+  v8 = [v4 hasPrefix:@"?UT-IS:"];
+  if (v8)
   {
     v5 = UTTypeConformsTo([v4 substringFromIndex:7], self);
     goto LABEL_8;
   }
 
-  v9 = _LSDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _LSDefaultLog(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
     v14 = v4;
-    _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Unrecognized match operator %@", &v13, 0xCu);
+    _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Unrecognized match operator %@", &v13, 0xCu);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_20:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (uint64_t)ls_matchesForPluginQuery:()LSPluginQueryAdditions

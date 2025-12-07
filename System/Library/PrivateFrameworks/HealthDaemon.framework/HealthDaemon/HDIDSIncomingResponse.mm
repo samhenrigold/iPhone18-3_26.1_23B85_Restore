@@ -10,11 +10,11 @@
   pbResponse = [(HDIDSIncomingResponse *)self pbResponse];
   v4 = HDNanoSyncDescriptionSafe(pbResponse);
 
-  LODWORD(pbResponse) = [(HDIDSIncomingResponse *)self messageID];
+  messageID = [(HDIDSIncomingResponse *)self messageID];
   idsIdentifier = [(HDIDSIncomingResponse *)self idsIdentifier];
-  v6 = FormattedMessageDescription(pbResponse, 1, 0, idsIdentifier, v4);
+  v7 = FormattedMessageDescription(messageID, 1, 0, idsIdentifier, v4);
 
-  return v6;
+  return v7;
 }
 
 - (NSString)description

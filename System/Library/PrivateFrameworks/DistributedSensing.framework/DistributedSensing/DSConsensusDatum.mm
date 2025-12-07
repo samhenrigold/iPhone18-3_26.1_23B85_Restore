@@ -25,7 +25,7 @@
 
 - (void)printInfo
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v3 setDateFormat:@"yyyy-MM-dd 'at' HH:mm"];
   if (onceTokenDSConsensus != -1)
@@ -67,13 +67,13 @@
           v7 = "highest";
 LABEL_16:
           v8 = [v3 stringFromDate:self->_time];
-          v10 = 136315650;
-          v11 = uTF8String;
-          v12 = 2080;
-          v13 = v7;
-          v14 = 2112;
-          v15 = v8;
-          _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "Consensus Datum with ID: %s, Confidence: %s, time: %@", &v10, 0x20u);
+          v9 = 136315650;
+          v10 = uTF8String;
+          v11 = 2080;
+          v12 = v7;
+          v13 = 2112;
+          v14 = v8;
+          _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "Consensus Datum with ID: %s, Confidence: %s, time: %@", &v9, 0x20u);
 
           goto LABEL_17;
       }
@@ -84,8 +84,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -111,11 +111,11 @@
   v6 = sub_21DBF5D5C();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  sub_21D316564(viewCopy);
+  sub_21D316564(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 }

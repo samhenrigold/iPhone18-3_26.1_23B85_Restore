@@ -527,28 +527,29 @@ LABEL_15:
 
 - (BOOL)_isDeviceUnlocked
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v2 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v11 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v12 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
-    v7[3] = &unk_1E7A1C700;
-    v7[4] = &v8;
-    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v7);
-    v2 = v9[3];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
+    v8[3] = &unk_1E7A1C700;
+    v8[4] = &v9;
+    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v8);
+    v2 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v2)
   {
-    v6 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v6);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   v3 = v2(0);

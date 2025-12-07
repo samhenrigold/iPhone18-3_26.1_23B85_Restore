@@ -95,7 +95,7 @@ void ___PLRequestCloudStorageInfoForAccount_block_invoke(uint64_t a1, void *a2)
             v24 = *(*(&v34 + 1) + 8 * i);
             v25 = [v24 objectForKeyedSubscript:@"media_key"];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v25 isEqualToString:@"photos"])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(v25))
             {
               v26 = [v24 objectForKeyedSubscript:@"usage_in_bytes"];
               objc_opt_class();

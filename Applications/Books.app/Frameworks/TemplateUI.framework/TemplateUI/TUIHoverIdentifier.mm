@@ -96,7 +96,7 @@
   if (!v10)
   {
     name = self->_name;
-    if (name == v8->_name || [(NSString *)name isEqualToString:?])
+    if (name == v8->_name || objc_msgSend_isEqualToString_(name))
     {
       identifier = self->_identifier;
       if (identifier == v8->_identifier)

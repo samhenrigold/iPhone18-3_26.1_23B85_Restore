@@ -6,6 +6,7 @@
 - (void)prepUndoAndSetPreferenceValue:(id)value specifier:(id)specifier;
 - (void)setOptimizedStorageEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setValue:(id)value forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FRNewsDownloadsSettingsController
@@ -60,13 +61,39 @@
   return v3;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = FRNewsDownloadsSettingsController;
+  [(FRNewsDownloadsSettingsController *)&v16 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.news/AUTOMATIC_DOWNLOADS_LINK"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"Download Options" table:0 locale:v6 bundleURL:bundleURL];
+
+  v10 = [_NSLocalizedStringResource alloc];
+  v11 = +[NSLocale currentLocale];
+  v12 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v12 bundleURL];
+  v14 = [v10 initWithKey:@"Download Options" table:0 locale:v11 bundleURL:bundleURL2];
+
+  if (objc_opt_respondsToSelector())
+  {
+    v17 = v14;
+    v15 = [NSArray arrayWithObjects:&v17 count:1];
+    [(FRNewsDownloadsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.news" title:v9 localizedNavigationComponents:v15 deepLink:v4];
+  }
+}
+
 - (id)specifiers
 {
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
     v70 = OBJC_IVAR___PSListController__specifiers;
-    v4 = FRNewsSettingsLog();
+    v4 = FRNewsSettingsLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

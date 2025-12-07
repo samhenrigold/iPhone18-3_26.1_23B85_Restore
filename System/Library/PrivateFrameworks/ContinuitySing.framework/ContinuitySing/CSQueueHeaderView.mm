@@ -244,7 +244,7 @@ void __44__CSQueueHeaderView_setupPlayerControlsView__block_invoke_3(uint64_t a1
 
 - (void)_onPlayPausePressed
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -271,7 +271,7 @@ void __44__CSQueueHeaderView_setupPlayerControlsView__block_invoke_3(uint64_t a1
 
 - (void)_onForwardPressed
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -286,7 +286,7 @@ void __44__CSQueueHeaderView_setupPlayerControlsView__block_invoke_3(uint64_t a1
 
 - (void)_onBackwardPressed
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;

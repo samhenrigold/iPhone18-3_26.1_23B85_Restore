@@ -36,25 +36,26 @@
   if ([identity type] == 3)
   {
     pui_previewIdentifier = [[PRPosterConfiguration alloc] _initWithPath:pui_posterContents];
-    v26 = 0;
-    v13 = [pui_previewIdentifier loadComplicationLayoutWithError:&v26];
-    v14 = v26;
+    v27 = 0;
+    v13 = [pui_previewIdentifier loadComplicationLayoutWithError:&v27];
+    v14 = v27;
+    v15 = v14;
     if (v14)
     {
-      inlineComplication = PRLogCommon();
+      inlineComplication = PRLogCommon(v14);
       if (os_log_type_enabled(inlineComplication, OS_LOG_TYPE_ERROR))
       {
-        [PRWidgetGridSnapshotViewController initWithScene:pui_previewIdentifier complicationLayoutProvider:v14 gridType:inlineComplication];
+        [PRWidgetGridSnapshotViewController initWithScene:pui_previewIdentifier complicationLayoutProvider:v15 gridType:inlineComplication];
       }
 
-      v16 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v21 = [PRComplicationDescriptor alloc];
+      v22 = [PRComplicationDescriptor alloc];
       inlineComplication = [v13 inlineComplication];
-      v16 = [(PRComplicationDescriptor *)v21 initWithPRSWidget:inlineComplication];
+      v17 = [(PRComplicationDescriptor *)v22 initWithPRSWidget:inlineComplication];
     }
   }
 
@@ -63,28 +64,28 @@
     settings2 = [sceneCopy settings];
     pui_previewIdentifier = [settings2 pui_previewIdentifier];
 
-    v18 = [providerCopy complicationLayoutForPreviewIdentifier:pui_previewIdentifier];
-    v19 = [PRComplicationDescriptor alloc];
-    inlineComplication2 = [v18 inlineComplication];
-    v16 = [(PRComplicationDescriptor *)v19 initWithPRSWidget:inlineComplication2];
+    v19 = [providerCopy complicationLayoutForPreviewIdentifier:pui_previewIdentifier];
+    v20 = [PRComplicationDescriptor alloc];
+    inlineComplication2 = [v19 inlineComplication];
+    v17 = [(PRComplicationDescriptor *)v20 initWithPRSWidget:inlineComplication2];
   }
 
-  if (![(PRComplicationDescriptor *)v16 hasMatchingDescriptor])
+  if (![(PRComplicationDescriptor *)v17 hasMatchingDescriptor])
   {
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  v22 = [(PRInlineComplicationSnapshotViewController *)self initWithComplicationDescriptor:v16];
-  if (v22)
+  v23 = [(PRInlineComplicationSnapshotViewController *)self initWithComplicationDescriptor:v17];
+  if (v23)
   {
     clientSettings = [sceneCopy clientSettings];
     pr_vibrancyConfiguration = [clientSettings pr_vibrancyConfiguration];
 
-    [(PRInlineComplicationSnapshotViewController *)v22 setVibrancyConfiguration:pr_vibrancyConfiguration];
+    [(PRInlineComplicationSnapshotViewController *)v23 setVibrancyConfiguration:pr_vibrancyConfiguration];
   }
 
-  return v22;
+  return v23;
 }
 
 - (void)viewDidLoad
@@ -120,45 +121,45 @@
 
 void __57__PRInlineComplicationSnapshotViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v6 = PRLogSnapshotter();
-    v7 = v6;
+    v7 = PRLogSnapshotter(v6);
+    v8 = v7;
     if (v3)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = WeakRetained[127];
-        v9 = Current - *(a1 + 40);
-        v15 = 138543874;
-        v16 = v8;
-        v17 = 2048;
-        v18 = v9;
-        v19 = 2114;
-        v20 = v3;
-        _os_log_error_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_ERROR, "Error loading content for snapshot %{public}@ (%f seconds elapsed): %{public}@", &v15, 0x20u);
+        v9 = WeakRetained[127];
+        v10 = Current - *(a1 + 40);
+        v16 = 138543874;
+        v17 = v9;
+        v18 = 2048;
+        v19 = v10;
+        v20 = 2114;
+        v21 = v3;
+        _os_log_error_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_ERROR, "Error loading content for snapshot %{public}@ (%f seconds elapsed): %{public}@", &v16, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = WeakRetained[127];
-      v11 = Current - *(a1 + 40);
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v11;
-      _os_log_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_DEFAULT, "Successfully loaded content for snapshot %{public}@ (%f seconds elapsed)", &v15, 0x16u);
+      v11 = WeakRetained[127];
+      v12 = Current - *(a1 + 40);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2048;
+      v19 = v12;
+      _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "Successfully loaded content for snapshot %{public}@ (%f seconds elapsed)", &v16, 0x16u);
     }
 
-    v12 = [objc_alloc(MEMORY[0x1E69C5550]) initWithInfo:0 responder:0];
-    v13 = WeakRetained[124];
-    v14 = [MEMORY[0x1E695DFD8] setWithObject:v12];
-    [v13 sendActions:v14];
+    v13 = [objc_alloc(MEMORY[0x1E69C5550]) initWithInfo:0 responder:0];
+    v14 = WeakRetained[124];
+    v15 = [MEMORY[0x1E695DFD8] setWithObject:v13];
+    [v14 sendActions:v15];
   }
 }
 
@@ -234,7 +235,7 @@ void __57__PRInlineComplicationSnapshotViewController_viewDidLoad__block_invoke(
 
   [v6 setPresentationMode:2];
   widget = [descriptorCopy widget];
-  v13 = PRSharedWidgetExtensionProvider();
+  v13 = PRSharedWidgetExtensionProvider(widget);
   v14 = [v13 widgetDescriptorForWidget:widget];
 
   intentType = [v14 intentType];
@@ -278,7 +279,7 @@ void __91__PRInlineComplicationSnapshotViewController__hostViewControllerForComp
 
   else
   {
-    v7 = PRLogCommon();
+    v7 = PRLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __91__PRInlineComplicationSnapshotViewController__hostViewControllerForComplicationDescriptor___block_invoke_cold_1(a1, v7);

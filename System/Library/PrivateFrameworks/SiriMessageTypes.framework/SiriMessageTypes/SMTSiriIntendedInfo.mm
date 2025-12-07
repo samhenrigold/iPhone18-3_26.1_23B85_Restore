@@ -197,70 +197,7 @@ void __37__SMTSiriIntendedInfo_initWithCoder___block_invoke(uint64_t a1, void *a
       v5 = equalCopy;
       odldScore = self->_odldScore;
       [(SMTSiriIntendedInfo *)v5 odldScore];
-      if (odldScore != v7)
-      {
-        goto LABEL_16;
-      }
-
-      aftmScore = self->_aftmScore;
-      [(SMTSiriIntendedInfo *)v5 aftmScore];
-      if (aftmScore != v9)
-      {
-        goto LABEL_16;
-      }
-
-      spkrIdScore = self->_spkrIdScore;
-      [(SMTSiriIntendedInfo *)v5 spkrIdScore];
-      if (spkrIdScore != v11)
-      {
-        goto LABEL_16;
-      }
-
-      lrnnScore = self->_lrnnScore;
-      [(SMTSiriIntendedInfo *)v5 lrnnScore];
-      if (lrnnScore != v13)
-      {
-        goto LABEL_16;
-      }
-
-      checkerScore = self->_checkerScore;
-      [(SMTSiriIntendedInfo *)v5 checkerScore];
-      if (checkerScore != v15)
-      {
-        goto LABEL_16;
-      }
-
-      invocationType = self->_invocationType;
-      invocationType = [(SMTSiriIntendedInfo *)v5 invocationType];
-
-      if (invocationType != invocationType)
-      {
-        goto LABEL_16;
-      }
-
-      lrnnThreshold = self->_lrnnThreshold;
-      [(SMTSiriIntendedInfo *)v5 lrnnThreshold];
-      if (lrnnThreshold != v19)
-      {
-        goto LABEL_16;
-      }
-
-      lrnnScale = self->_lrnnScale;
-      [(SMTSiriIntendedInfo *)v5 lrnnScale];
-      if (lrnnScale != v21)
-      {
-        goto LABEL_16;
-      }
-
-      lrnnOffset = self->_lrnnOffset;
-      [(SMTSiriIntendedInfo *)v5 lrnnOffset];
-      if (lrnnOffset != v23)
-      {
-        goto LABEL_16;
-      }
-
-      isGazeSignalPresent = self->_isGazeSignalPresent;
-      if (isGazeSignalPresent == [(SMTSiriIntendedInfo *)v5 isGazeSignalPresent]&& (conversationalOdldScore = self->_conversationalOdldScore, [(SMTSiriIntendedInfo *)v5 conversationalOdldScore], conversationalOdldScore == v26) && (spkrIdThreshold = self->_spkrIdThreshold, [(SMTSiriIntendedInfo *)v5 spkrIdThreshold], spkrIdThreshold == v28) && (neuralCombinerScore = self->_neuralCombinerScore, [(SMTSiriIntendedInfo *)v5 neuralCombinerScore], neuralCombinerScore == v30))
+      if (odldScore == v7 && (aftmScore = self->_aftmScore, [(SMTSiriIntendedInfo *)v5 aftmScore], aftmScore == v9) && (spkrIdScore = self->_spkrIdScore, [(SMTSiriIntendedInfo *)v5 spkrIdScore], spkrIdScore == v11) && (lrnnScore = self->_lrnnScore, [(SMTSiriIntendedInfo *)v5 lrnnScore], lrnnScore == v13) && (checkerScore = self->_checkerScore, [(SMTSiriIntendedInfo *)v5 checkerScore], checkerScore == v15) && (invocationType = self->_invocationType, [(SMTSiriIntendedInfo *)v5 invocationType], v17 = objc_claimAutoreleasedReturnValue(), v17, invocationType == v17) && (lrnnThreshold = self->_lrnnThreshold, [(SMTSiriIntendedInfo *)v5 lrnnThreshold], lrnnThreshold == v19) && (lrnnScale = self->_lrnnScale, [(SMTSiriIntendedInfo *)v5 lrnnScale], lrnnScale == v21) && (lrnnOffset = self->_lrnnOffset, [(SMTSiriIntendedInfo *)v5 lrnnOffset], lrnnOffset == v23) && (isGazeSignalPresent = self->_isGazeSignalPresent, isGazeSignalPresent == [(SMTSiriIntendedInfo *)v5 isGazeSignalPresent]) && (conversationalOdldScore = self->_conversationalOdldScore, [(SMTSiriIntendedInfo *)v5 conversationalOdldScore], conversationalOdldScore == v26) && (spkrIdThreshold = self->_spkrIdThreshold, [(SMTSiriIntendedInfo *)v5 spkrIdThreshold], spkrIdThreshold == v28) && (neuralCombinerScore = self->_neuralCombinerScore, [(SMTSiriIntendedInfo *)v5 neuralCombinerScore], neuralCombinerScore == v30))
       {
         neuralCombinerThreshold = self->_neuralCombinerThreshold;
         [(SMTSiriIntendedInfo *)v5 neuralCombinerThreshold];
@@ -269,7 +206,6 @@ void __37__SMTSiriIntendedInfo_initWithCoder___block_invoke(uint64_t a1, void *a
 
       else
       {
-LABEL_16:
         v31 = 0;
       }
     }

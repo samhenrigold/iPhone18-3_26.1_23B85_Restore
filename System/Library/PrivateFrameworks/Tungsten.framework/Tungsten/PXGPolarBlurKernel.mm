@@ -192,7 +192,7 @@ LABEL_10:
     *&v29 = width;
     *(&v29 + 1) = height;
     v30 = 1;
-    [PXGKernel groupSizeForImageSize:&v29 pipelineState:v17];
+    objc_msgSend_groupSizeForImageSize_pipelineState_(PXGKernel);
     v29 = 0uLL;
     v30 = 0;
     v27 = v31;
@@ -200,7 +200,7 @@ LABEL_10:
     *&v25 = width;
     *(&v25 + 1) = height;
     v26 = 1;
-    [PXGKernel gridSizeForThreadGroupSize:&v27 imageSize:&v25];
+    objc_msgSend_gridSizeForThreadGroupSize_imageSize_(PXGKernel);
     v27 = v29;
     v28 = v30;
     v25 = v31;

@@ -487,11 +487,11 @@ uint64_t __65__HUQuickControlContainerViewController__updateControlStatusText__b
   [(HUQuickControlContainerViewController *)self _performTransitionToPresentationState:2 animated:animatedCopy initialProgress:v10 completion:0.0];
 }
 
-uint64_t __79__HUQuickControlContainerViewController_presentControlFromSourceRect_animated___block_invoke(uint64_t result, int a2)
+id *__79__HUQuickControlContainerViewController_presentControlFromSourceRect_animated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setPresentationState:3];
+    return [result[4] setPresentationState:3];
   }
 
   return result;

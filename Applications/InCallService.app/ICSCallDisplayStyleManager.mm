@@ -50,7 +50,7 @@
 {
   if (self->_callDisplayStyle != style)
   {
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134217984;

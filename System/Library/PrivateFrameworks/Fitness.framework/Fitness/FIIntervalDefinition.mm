@@ -34,18 +34,18 @@
 
 + (id)definitionFromDictionary:(id)dictionary error:(id *)error
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [FIValidation validationWithName:@"Key 'type' exists" test:&__block_literal_global_3];
   v7 = [FIValidation validationWithName:@"Key 'quantity' exists" test:&__block_literal_global_43, v6];
-  v23[1] = v7;
+  v22[1] = v7;
   v8 = [FIValidation validationWithName:@"'quantity' is number" test:&__block_literal_global_48];
-  v23[2] = v8;
+  v22[2] = v8;
   v9 = [FIValidation validationWithName:@"'type' is number" test:&__block_literal_global_53];
-  v23[3] = v9;
+  v22[3] = v9;
   v10 = [FIValidation validationWithName:@"'type' is a valid identifier" test:&__block_literal_global_58];
-  v23[4] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
+  v22[4] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:5];
 
   LODWORD(error) = [FIValidation performValidations:v11 withObject:dictionaryCopy error:error];
   if (error)
@@ -69,28 +69,24 @@
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   quantity = [(FIIntervalDefinition *)self quantity];
   v4 = FICanonicalQuantityUnitForIntervalType([(FIIntervalDefinition *)self type]);
   [quantity doubleValueForUnit:v4];
   v6 = v5;
 
-  v12[0] = @"type";
+  v11[0] = @"type";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FIIntervalDefinition type](self, "type")}];
-  v12[1] = @"quantity";
-  v13[0] = v7;
+  v11[1] = @"quantity";
+  v12[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

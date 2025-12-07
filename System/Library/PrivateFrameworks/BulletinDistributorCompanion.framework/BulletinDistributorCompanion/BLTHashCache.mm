@@ -45,7 +45,7 @@
 
 - (void)_updateCacheWithItems:(id)items forSectionID:(id)d matchID:(id)iD result:(id)result
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   dCopy = d;
   iDCopy = iD;
@@ -56,13 +56,13 @@
   v17 = [v16 mutableCopy];
   [v16 minusSet:v15];
   [v17 minusSet:v16];
-  v45 = [v15 mutableCopy];
-  v47 = v17;
-  [v45 minusSet:v17];
-  v42 = iDCopy;
-  v43 = dCopy;
+  v44 = [v15 mutableCopy];
+  v46 = v17;
+  [v44 minusSet:v17];
+  v41 = iDCopy;
+  v42 = dCopy;
   selfCopy = self;
-  if ([v16 count] || objc_msgSend(v45, "count"))
+  if ([v16 count] || objc_msgSend(v44, "count"))
   {
     if (!dictionary)
     {
@@ -73,7 +73,7 @@
     [dictionary objectForKeyedSubscript:{iDCopy, self}];
     v19 = v18 = dictionary;
 
-    v46 = v18;
+    v45 = v18;
     if (v19)
     {
       v15 = v19;
@@ -88,107 +88,107 @@
 
   else
   {
-    v46 = dictionary;
+    v45 = dictionary;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v20 = v16;
-  v21 = [v20 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v57;
+    v23 = *v56;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v57 != v23)
+        if (*v56 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v56 + 1) + 8 * i);
+        v25 = *(*(&v55 + 1) + 8 * i);
         if (resultCopy)
         {
-          resultCopy[2](resultCopy, v25, [itemsCopy indexOfObject:*(*(&v56 + 1) + 8 * i)], 1);
+          resultCopy[2](resultCopy, v25, [itemsCopy indexOfObject:*(*(&v55 + 1) + 8 * i)], 1);
         }
 
         [v15 addObject:{v25, selfCopy}];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v22);
   }
 
-  v41 = v20;
+  v40 = v20;
 
   if (resultCopy)
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    v26 = v47;
-    v27 = [v26 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v26 = v46;
+    v27 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v53;
+      v29 = *v52;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v53 != v29)
+          if (*v52 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          resultCopy[2](resultCopy, *(*(&v52 + 1) + 8 * j), [itemsCopy indexOfObject:{*(*(&v52 + 1) + 8 * j), selfCopy, v41}], 0);
+          resultCopy[2](resultCopy, *(*(&v51 + 1) + 8 * j), [itemsCopy indexOfObject:{*(*(&v51 + 1) + 8 * j), selfCopy, v40}], 0);
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
       while (v28);
     }
   }
 
-  v44 = itemsCopy;
+  v43 = itemsCopy;
   v31 = [itemsCopy count];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v32 = v45;
-  v33 = [v32 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v32 = v44;
+  v33 = [v32 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v49;
+    v35 = *v48;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v49 != v35)
+        if (*v48 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v48 + 1) + 8 * k);
+        v37 = *(*(&v47 + 1) + 8 * k);
         if (resultCopy)
         {
-          resultCopy[2](resultCopy, *(*(&v48 + 1) + 8 * k), v31++, 2);
+          resultCopy[2](resultCopy, *(*(&v47 + 1) + 8 * k), v31++, 2);
         }
 
         [v15 removeObject:v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v47 objects:v59 count:16];
     }
 
     while (v34);
@@ -196,14 +196,12 @@
 
   if (![v15 count])
   {
-    [v46 removeObjectForKey:v42];
-    if (![v46 count])
+    [v45 removeObjectForKey:v41];
+    if (![v45 count])
     {
-      [*(v40 + 8) removeObjectForKey:v43];
+      [*(v39 + 8) removeObjectForKey:v42];
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

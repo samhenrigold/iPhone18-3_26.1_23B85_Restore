@@ -22,7 +22,11 @@
 - (void)periodicPromptedAssessmentNotificationTimeOfDay;
 - (void)periodicPromptedAssessmentNotificationsEnabled;
 - (void)setCustomReminderSchedule:(id)schedule;
+- (void)setEndOfDayNotificationsEnabled:(BOOL)enabled;
+- (void)setMiddayNotificationsEnabled:(BOOL)enabled;
 - (void)setPeriodicPromptedAssessmentNotificationTimeOfDay:(id)day;
+- (void)setPeriodicPromptedAssessmentNotificationsEnabled:(BOOL)enabled;
+- (void)setReminders:(BOOL)reminders;
 @end
 
 @implementation HKMHSettingsManager
@@ -80,6 +84,35 @@
   return [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"StateOfMindLoggingReminderNotificationMiddayEnabledKey"];
 }
 
+- (void)setMiddayNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2F0];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v11 = 138543618;
+    *&v11[4] = v7;
+    *&v11[12] = 2114;
+    *&v11[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_25895E000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set emotion logging reminder notifications enabled: %{public}@", v11, 0x16u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:@"StateOfMindLoggingReminderNotificationMiddayEnabledKey", *v11, *&v11[8], v12];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"StateOfMindLoggingReminderNotificationMiddayEnabledKey"];
+  HKSynchronizeNanoPreferencesUserDefaults();
+}
+
 - (BOOL)endOfDayNotificationsEnabled
 {
   _HKInitializeLogging();
@@ -92,31 +125,60 @@
   return [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"StateOfMindLoggingReminderNotificationEndOfDayEnabledKey"];
 }
 
+- (void)setEndOfDayNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2F0];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v11 = 138543618;
+    *&v11[4] = v7;
+    *&v11[12] = 2114;
+    *&v11[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_25895E000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set emotion logging reminder notifications enabled: %{public}@", v11, 0x16u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:@"StateOfMindLoggingReminderNotificationEndOfDayEnabledKey", *v11, *&v11[8], v12];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"StateOfMindLoggingReminderNotificationEndOfDayEnabledKey"];
+  HKSynchronizeNanoPreferencesUserDefaults();
+}
+
 - (NSArray)customReminderSchedule
 {
-  v2 = [(NSUserDefaults *)self->_userDefaults dataForKey:@"StateOfMindLoggingReminderNotificationCustomScheduleKey"];
-  if (v2)
+  v3 = [(NSUserDefaults *)self->_userDefaults dataForKey:@"StateOfMindLoggingReminderNotificationCustomScheduleKey"];
+  if (v3)
   {
-    v7 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v2 error:&v7];
-    v4 = v7;
-    if (!v3)
+    v8 = 0;
+    v4 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v3 error:&v8];
+    v5 = v8;
+    if (!v4)
     {
       _HKInitializeLogging();
-      v5 = *MEMORY[0x277CCC2F0];
+      v6 = *MEMORY[0x277CCC2F0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
       {
-        [(HKMHSettingsManager *)v5 customReminderSchedule];
+        [(HKMHSettingsManager *)v6 customReminderSchedule];
       }
     }
   }
 
   else
   {
-    v3 = MEMORY[0x277CBEBF8];
+    v4 = MEMORY[0x277CBEBF8];
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)setCustomReminderSchedule:(id)schedule
@@ -137,7 +199,7 @@
     v7 = *MEMORY[0x277CCC2F0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
     {
-      [HKMHSettingsManager setCustomReminderSchedule:v7];
+      [(HKMHSettingsManager *)v7 setCustomReminderSchedule:?];
     }
   }
 }
@@ -156,7 +218,7 @@
 
 - (void)onboardToPregnancyRecommendedSettings
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (HKShowSensitiveLogItems())
   {
     _HKInitializeLogging();
@@ -164,15 +226,43 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      *v7 = 138543362;
-      *&v7[4] = objc_opt_class();
-      v5 = *&v7[4];
-      _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding to recommended pregnancy settings", v7, 0xCu);
+      *v6 = 138543362;
+      *&v6[4] = objc_opt_class();
+      v5 = *&v6[4];
+      _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding to recommended pregnancy settings", v6, 0xCu);
     }
   }
 
-  [(HKMHSettingsManager *)self setPeriodicPromptedAssessmentNotificationsEnabled:1, *v7];
-  v6 = *MEMORY[0x277D85DE8];
+  [(HKMHSettingsManager *)self setPeriodicPromptedAssessmentNotificationsEnabled:1, *v6, *&v6[8]];
+}
+
+- (void)setPeriodicPromptedAssessmentNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2F0];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    *v10 = 138543874;
+    *&v10[4] = v7;
+    *&v10[12] = 2114;
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *&v10[14] = @"PeriodicPromptedAssessmentNotificationEnabledKey";
+    *&v10[22] = 2114;
+    v11 = v8;
+    v9 = v7;
+    _os_log_impl(&dword_25895E000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set Periodic prompted assessment notifications for key: %{public}@: %{public}@", v10, 0x20u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:@"PeriodicPromptedAssessmentNotificationEnabledKey", *v10, *&v10[8], v11];
 }
 
 - (id)periodicPromptedAssessmentNotificationTimeOfDay
@@ -207,79 +297,75 @@
 
 - (void)_startObservingDefaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_allSettingsToObserve;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_userDefaults addObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) options:3 context:0, v9];
+        [(NSUserDefaults *)self->_userDefaults addObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++) options:3 context:0, v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingAllDefaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_allSettingsToObserve;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_userDefaults removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(NSUserDefaults *)self->_userDefaults removeObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -294,13 +380,13 @@
     v18 = [changeCopy objectForKeyedSubscript:v16];
     v19 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
     *buf = 138544130;
-    v25 = v15;
-    v26 = 2114;
-    v27 = pathCopy;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2114;
-    v31 = v19;
+    v24 = v15;
+    v25 = 2114;
+    v26 = pathCopy;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v19;
     _os_log_impl(&dword_25895E000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ changed: %{public}@ -> %{public}@", buf, 0x2Au);
   }
 
@@ -314,12 +400,10 @@
 
   else
   {
-    v23.receiver = self;
-    v23.super_class = HKMHSettingsManager;
-    [(HKMHSettingsManager *)&v23 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v22.receiver = self;
+    v22.super_class = HKMHSettingsManager;
+    [(HKMHSettingsManager *)&v22 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasAnyMentalHealthNotificationsEnabled
@@ -357,6 +441,14 @@
   return (v5 | v6) != 0;
 }
 
+- (void)setReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  [(HKMHSettingsManager *)self setMiddayNotificationsEnabled:?];
+
+  [(HKMHSettingsManager *)self setEndOfDayNotificationsEnabled:remindersCopy];
+}
+
 - (void)_notificationSettingsDidUpdate
 {
   observers = self->_observers;
@@ -389,77 +481,60 @@ void __53__HKMHSettingsManager__notificationSettingsDidUpdate__block_invoke(uint
 
 - (void)middayNotificationsEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = objc_opt_class();
   v5 = *(a2 + 24);
   v6 = v4;
   [v5 BOOLForKey:@"StateOfMindLoggingReminderNotificationMiddayEnabledKey"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Emotion logging enabled: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Emotion logging enabled: %{public}@", v9, v10, v11, v12);
 }
 
 - (void)endOfDayNotificationsEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = objc_opt_class();
   v5 = *(a2 + 24);
   v6 = v4;
   [v5 BOOLForKey:@"StateOfMindLoggingReminderNotificationEndOfDayEnabledKey"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Emotion logging enabled: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Emotion logging enabled: %{public}@", v9, v10, v11, v12);
 }
 
 - (void)customReminderSchedule
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_1(v2);
-  OUTLINED_FUNCTION_3(&dword_25895E000, v4, v5, "[%{public}@] Failed to fetch custom schedule with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1(v3);
+  OUTLINED_FUNCTION_3(&dword_25895E000, v5, v6, "[%{public}@] Failed to fetch custom schedule with error: %{public}@", v7, v8, v9, v10);
 }
 
-- (void)setCustomReminderSchedule:(void *)a1 .cold.1(void *a1)
+- (void)setCustomReminderSchedule:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_1(v2);
-  OUTLINED_FUNCTION_3(&dword_25895E000, v4, v5, "[%{public}@] Failed to write data with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1(v3);
+  OUTLINED_FUNCTION_3(&dword_25895E000, v5, v6, "[%{public}@] Failed to write data with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)periodicPromptedAssessmentNotificationsEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = objc_opt_class();
   v5 = *(a2 + 24);
   v6 = v4;
   [v5 BOOLForKey:@"PeriodicPromptedAssessmentNotificationEnabledKey"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Periodic prompted assessment notifications enabled: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25895E000, v7, v8, "[%{public}@] Periodic prompted assessment notifications enabled: %{public}@", v9, v10, v11, v12);
 }
 
 - (void)periodicPromptedAssessmentNotificationTimeOfDay
 {
   v6 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_1(v2);
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1(v3);
   _os_log_debug_impl(&dword_25895E000, selfCopy, OS_LOG_TYPE_DEBUG, "[%{public}@] Using overridden mental health notification time: %{public}@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

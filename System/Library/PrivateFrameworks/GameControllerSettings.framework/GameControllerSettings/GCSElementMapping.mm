@@ -121,18 +121,16 @@
 
 - (GCSJSONObject)jsonObject
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"elementKey";
-  v7[1] = @"mappingKey";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"elementKey";
+  v6[1] = @"mappingKey";
   mappingKey = self->_mappingKey;
-  v8[0] = self->_elementKey;
-  v8[1] = mappingKey;
-  v7[2] = @"remappingOrder";
+  v7[0] = self->_elementKey;
+  v7[1] = mappingKey;
+  v6[2] = @"remappingOrder";
   v3 = [MEMORY[0x277CCABB0] numberWithInt:self->_remappingOrder];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }

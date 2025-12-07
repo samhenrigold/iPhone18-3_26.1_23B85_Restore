@@ -64,10 +64,10 @@
 
 + (void)_expectedArity:(uint64_t)arity
 {
-  objc_opt_self();
+  v3 = objc_opt_self();
   if ((a2 + 1) >= 0x14)
   {
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       +[_ATXScoreInterpreter _expectedArity:];
@@ -75,16 +75,11 @@
 
     __break(1u);
   }
-
-  else
-  {
-    v3 = qword_226872090[a2 + 1];
-  }
 }
 
 - (void)_runOperator:(unint64_t)operator arity:(void *)arity context:
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   arityCopy = arity;
   v8 = arityCopy;
   if (self)
@@ -114,24 +109,24 @@
           break;
         }
 
-        v33 = &v8[v8[1] - operator];
-        v35 = *(v33 + 2);
-        v34 = *(v33 + 3);
+        v34 = &v8[v8[1] - operator];
+        v36 = *(v34 + 2);
+        v35 = *(v34 + 3);
         drop(v8, operator);
-        if (v35 <= 0.0)
-        {
-          [_ATXScoreInterpreter _runOperator:arity:context:];
-        }
-
-        if (v34 <= 0.0)
+        if (v36 <= 0.0)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
         if (v35 <= 0.0)
         {
-          v36 = __atxlog_handle_default();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          [_ATXScoreInterpreter _runOperator:arity:context:];
+        }
+
+        if (v36 <= 0.0)
+        {
+          v38 = __atxlog_handle_default(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             [_ATXScoreInterpreter _runOperator:arity:context:];
           }
@@ -139,24 +134,24 @@
 
         else
         {
-          if (v34 > 0.0)
+          if (v35 > 0.0)
           {
             goto LABEL_97;
           }
 
-          v36 = __atxlog_handle_default();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v38 = __atxlog_handle_default(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             [_ATXScoreInterpreter _runOperator:arity:context:];
           }
         }
 
 LABEL_97:
-        v58 = log10(v35);
-        v9 = v58 / log10(v34);
+        v64 = log10(v36);
+        v9 = v64 / log10(v35);
         goto LABEL_12;
       case 4:
-        if (([(_ATXScoreInterpreter *)arityCopy _runOperator:operator arity:&v71 context:buf]& 1) == 0)
+        if (([(_ATXScoreInterpreter *)arityCopy _runOperator:operator arity:&v77 context:buf]& 1) == 0)
         {
           [_ATXScoreInterpreter _runOperator:v8 arity:? context:?];
         }
@@ -168,19 +163,19 @@ LABEL_97:
           break;
         }
 
-        v37 = *&v8[v8[1] - operator + 2];
+        v39 = *&v8[v8[1] - operator + 2];
         drop(v8, operator);
-        if (v37 <= 0.0)
+        if (v39 <= 0.0)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
-          v38 = __atxlog_handle_default();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v41 = __atxlog_handle_default(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             [_ATXScoreInterpreter _runOperator:arity:context:];
           }
         }
 
-        v9 = log(v37);
+        v9 = log(v39);
         goto LABEL_12;
       case 6:
         if (shouldReturnUndefined(arityCopy, 2uLL))
@@ -206,25 +201,25 @@ LABEL_97:
           break;
         }
 
-        v39 = &v8[v8[1] - operator];
-        v41 = v39[2];
-        v40 = v39[3];
-        v25 = v39[4];
+        v42 = &v8[v8[1] - operator];
+        v44 = v42[2];
+        v43 = v42[3];
+        v25 = v42[4];
         drop(v8, operator);
-        if (v41 < 0.0)
+        if (v44 < 0.0)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
-        if (v40 <= 0.0)
+        if (v43 <= 0.0)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
-        if (v41 < 0.0)
+        if (v44 < 0.0)
         {
-          v42 = __atxlog_handle_default();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v46 = __atxlog_handle_default(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             [_ATXScoreInterpreter _runOperator:arity:context:];
           }
@@ -232,15 +227,15 @@ LABEL_97:
           goto LABEL_99;
         }
 
-        if (v40 > 0.0)
+        if (v43 > 0.0)
         {
 LABEL_99:
-          v59 = exp(v41 * (-0.693147181 / v40));
+          v65 = exp(v44 * (-0.693147181 / v43));
           goto LABEL_106;
         }
 
-        v27 = __atxlog_handle_default();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = __atxlog_handle_default(v45);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
@@ -277,10 +272,10 @@ LABEL_13:
 
         if (v26 == 1.0)
         {
-          v27 = __atxlog_handle_default();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v28 = __atxlog_handle_default(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            [_ATXScoreInterpreter _runOperator:v27 arity:? context:?];
+            [_ATXScoreInterpreter _runOperator:v28 arity:? context:?];
           }
 
           goto LABEL_109;
@@ -288,16 +283,16 @@ LABEL_13:
 
         if (v26 < 0.0 && v24 != v24)
         {
-          v60 = __atxlog_handle_default();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          v66 = __atxlog_handle_default(v27);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
           {
-            [(_ATXScoreInterpreter *)v60 _runOperator:v26 arity:v24 context:v61, v62];
+            [(_ATXScoreInterpreter *)v66 _runOperator:v26 arity:v24 context:v67, v68];
           }
         }
 
-        v59 = (1.0 - pow(v26, v24)) / (1.0 - v26);
+        v65 = (1.0 - pow(v26, v24)) / (1.0 - v26);
 LABEL_106:
-        v9 = v25 * v59;
+        v9 = v25 * v65;
         goto LABEL_12;
       case 10:
         [_ATXScoreInterpreter _runOperator:arity:context:];
@@ -308,31 +303,31 @@ LABEL_106:
           break;
         }
 
-        v15 = &v8[v8[1] - operator];
-        v17 = v15[2];
-        v16 = v15[3];
-        v19 = v15[4];
-        v18 = v15[5];
+        v14 = &v8[v8[1] - operator];
+        v16 = v14[2];
+        v15 = v14[3];
+        v18 = v14[4];
+        v17 = v14[5];
         drop(v8, operator);
-        if (v16 > v18)
+        if (v15 > v17)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
-        if (v18 > v19)
+        if (v17 > v18)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
-        v20 = v17;
-        if (v17 < v16)
+        v20 = v16;
+        if (v16 < v15)
         {
-          v20 = v16;
+          v20 = v15;
         }
 
-        if (v20 >= v19)
+        if (v20 >= v18)
         {
-          v21 = v19;
+          v21 = v18;
         }
 
         else
@@ -340,21 +335,21 @@ LABEL_106:
           v21 = v20;
         }
 
-        if (v21 != v17)
+        if (v21 != v16)
         {
-          v22 = __atxlog_handle_default();
+          v22 = __atxlog_handle_default(v19);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134219008;
-            *&buf[4] = v17;
-            v74 = 2048;
-            v75 = v16;
-            v76 = 2048;
-            v77 = v19;
-            v78 = 2048;
-            v79 = v18;
+            *&buf[4] = v16;
             v80 = 2048;
-            v81 = v21;
+            v81 = v15;
+            v82 = 2048;
+            v83 = v18;
+            v84 = 2048;
+            v85 = v17;
+            v86 = 2048;
+            v87 = v21;
             _os_log_debug_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEBUG, "ClampToRange(input=%f, min=%f, max=%f, default=%f): input coerced to %f", buf, 0x34u);
           }
         }
@@ -377,101 +372,102 @@ LABEL_106:
           break;
         }
 
-        v28 = [*(self + 16) objectAtIndexedSubscript:*&v8[v8[1] - operator + 2]];
-        if ([v28 hasOutputIndexedSubscript])
+        v29 = [*(self + 16) objectAtIndexedSubscript:*&v8[v8[1] - operator + 2]];
+        if ([v29 hasOutputIndexedSubscript])
         {
-          v29 = pop(v8);
+          v30 = pop(v8);
         }
 
         else
         {
-          v29 = -1;
+          v30 = -1;
         }
 
-        v66 = v29;
-        v43 = objc_opt_new();
-        numberOfFeatures = [v28 numberOfFeatures];
+        v72 = v30;
+        v47 = objc_opt_new();
+        numberOfFeatures = [v29 numberOfFeatures];
         if (!numberOfFeatures)
         {
           goto LABEL_93;
         }
 
-        v45 = numberOfFeatures;
-        v46 = 0;
-        v67 = v28;
-        v68 = v43;
+        v49 = numberOfFeatures;
+        v50 = 0;
+        v73 = v29;
+        v74 = v47;
         while (2)
         {
-          v47 = [v28 featureAtIndex:v45 + ~v46];
-          featureName = [v47 featureName];
-          if ([v47 featureType] == 2)
+          v51 = [v29 featureAtIndex:v49 + ~v50];
+          featureName = [v51 featureName];
+          if ([v51 featureType] == 2)
           {
-            v49 = [MEMORY[0x277CCABB0] numberWithDouble:pop(v8)];
+            v53 = [MEMORY[0x277CCABB0] numberWithDouble:pop(v8)];
             goto LABEL_92;
           }
 
-          if ([v47 featureType] == 5)
+          featureType = [v51 featureType];
+          if (featureType == 5)
           {
-            v69 = featureName;
-            multiArraySize = [v47 multiArraySize];
-            v51 = objc_alloc(MEMORY[0x277CBFF48]);
-            v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:multiArraySize];
-            v72 = v52;
-            v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
-            v70 = 0;
-            v49 = [v51 initWithShape:v53 dataType:65600 error:&v70];
-            v54 = v70;
+            v75 = featureName;
+            multiArraySize = [v51 multiArraySize];
+            v56 = objc_alloc(MEMORY[0x277CBFF48]);
+            v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:multiArraySize];
+            v78 = v57;
+            v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
+            v76 = 0;
+            v53 = [v56 initWithShape:v58 dataType:65600 error:&v76];
+            v59 = v76;
 
-            if (!v54)
+            if (!v59)
             {
               if (multiArraySize)
               {
-                v55 = multiArraySize - 1;
+                v61 = multiArraySize - 1;
                 do
                 {
-                  v56 = [MEMORY[0x277CCABB0] numberWithDouble:pop(v8)];
-                  [v49 setObject:v56 atIndexedSubscript:v55];
+                  v62 = [MEMORY[0x277CCABB0] numberWithDouble:pop(v8)];
+                  [v53 setObject:v62 atIndexedSubscript:v61];
 
-                  --v55;
+                  --v61;
                 }
 
-                while (v55 != -1);
+                while (v61 != -1);
               }
 
-              v28 = v67;
-              v43 = v68;
-              featureName = v69;
+              v29 = v73;
+              v47 = v74;
+              featureName = v75;
 LABEL_92:
-              [v43 setObject:v49 forKeyedSubscript:featureName];
+              [v47 setObject:v53 forKeyedSubscript:featureName];
 
-              if (++v46 == v45)
+              if (++v50 == v49)
               {
 LABEL_93:
                 drop(v8, 1uLL);
-                [v28 predictionForEvaluatedFeatures:v43 withOutputIndexedSubscript:v66];
-                push(v8, v57);
+                [v29 predictionForEvaluatedFeatures:v47 withOutputIndexedSubscript:v72];
+                push(v8, v63);
                 goto LABEL_117;
               }
 
               continue;
             }
 
-            v64 = __atxlog_handle_default();
-            featureName = v69;
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+            v70 = __atxlog_handle_default(v60);
+            featureName = v75;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
               [_ATXScoreInterpreter _runOperator:arity:context:];
             }
 
             push(v8, -31337.0);
-            v28 = v67;
-            v43 = v68;
+            v29 = v73;
+            v47 = v74;
           }
 
           else
           {
-            v63 = __atxlog_handle_default();
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+            v69 = __atxlog_handle_default(featureType);
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               [_ATXScoreInterpreter _runOperator:arity:context:];
             }
@@ -493,20 +489,20 @@ LABEL_117:
           break;
         }
 
-        v30 = &v8[v8[1] - operator];
-        v31 = v30[2];
-        v32 = v30[3];
+        v31 = &v8[v8[1] - operator];
+        v32 = v31[2];
+        v33 = v31[3];
         drop(v8, operator);
-        if (v31 > v32)
+        if (v32 > v33)
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
 
-        v9 = v31 + (v32 - v31) * (arc4random_uniform(0xFFFFFFFF) / 4294967300.0);
+        v9 = v32 + (v33 - v32) * (arc4random_uniform(0xFFFFFFFF) / 4294967300.0);
         goto LABEL_12;
       default:
-        v65 = __atxlog_handle_default();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v71 = __atxlog_handle_default(arityCopy);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           [_ATXScoreInterpreter _runOperator:arity:context:];
         }
@@ -515,8 +511,6 @@ LABEL_117:
         return;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runBytecode:(void *)bytecode context:
@@ -601,13 +595,13 @@ LABEL_13:
               [(_ATXScoreInterpreter *)self _runOperator:v12 arity:v15 context:bytecodeCopy];
               if (bytecodeCopy[1] > v23)
               {
-                v24 = __atxlog_handle_default();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+                v25 = __atxlog_handle_default(v24);
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
                 {
-                  v25 = (bytecodeCopy[1] - v23);
+                  v26 = (bytecodeCopy[1] - v23);
                   *buf = 134217984;
-                  v28 = v25;
-                  _os_log_fault_impl(&dword_2263AA000, v24, OS_LOG_TYPE_FAULT, "Stack size after op > old stack size! This is an issue. Diff = %lu", buf, 0xCu);
+                  v28 = v26;
+                  _os_log_fault_impl(&dword_2263AA000, v25, OS_LOG_TYPE_FAULT, "Stack size after op > old stack size! This is an issue. Diff = %lu", buf, 0xCu);
                 }
               }
 
@@ -648,7 +642,7 @@ LABEL_13:
               [bytecodeCopy[503] scoreForKey:v17 found:buf];
               if ((buf[0] & 1) == 0)
               {
-                [(_ATXScoreInterpreter *)self _evalVariable:v17 withCtx:bytecodeCopy];
+                v18 = [(_ATXScoreInterpreter *)self _evalVariable:v17 withCtx:bytecodeCopy];
               }
             }
 
@@ -692,8 +686,6 @@ LABEL_42:
   }
 
 LABEL_49:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_compileToBytecode:(id *)bytecode
@@ -937,8 +929,8 @@ LABEL_43:
 
 + (id)_bytecodeInstructionForOp:(void *)op unsignedIntegerArgument:(void *)argument doubleArgument:
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = a2;
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = a2;
   opCopy = op;
   argumentCopy = argument;
   objc_opt_self();
@@ -954,31 +946,31 @@ LABEL_43:
       unsignedIntValue = [opCopy unsignedIntValue];
       if (HIWORD(unsignedIntValue))
       {
-        v17 = -4;
-        LOBYTE(v18) = a2;
-        *(&v18 + 1) = unsignedIntValue;
+        v16 = -4;
+        LOBYTE(v17) = a2;
+        *(&v17 + 1) = unsignedIntValue;
         v8 = objc_alloc(MEMORY[0x277CBEA90]);
-        v9 = &v17;
+        v9 = &v16;
         v10 = 6;
       }
 
       else
       {
-        v17 = a2;
-        LOWORD(v18) = unsignedIntValue;
+        v16 = a2;
+        LOWORD(v17) = unsignedIntValue;
         v8 = objc_alloc(MEMORY[0x277CBEA90]);
-        v9 = &v17;
+        v9 = &v16;
         v10 = 3;
       }
     }
 
     else
     {
-      v17 = a2;
+      v16 = a2;
       [argumentCopy doubleValue];
-      v18 = v12;
+      v17 = v12;
       v8 = objc_alloc(MEMORY[0x277CBEA90]);
-      v9 = &v17;
+      v9 = &v16;
       v10 = 9;
     }
   }
@@ -986,41 +978,39 @@ LABEL_43:
   else
   {
     v8 = objc_alloc(MEMORY[0x277CBEA90]);
-    v9 = &v16;
+    v9 = &v15;
     v10 = 1;
   }
 
   v13 = [v8 initWithBytes:v9 length:v10];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)evaluateWithInputScores:(id)scores intentType:(id)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   typeCopy = type;
   v8 = [_ATXScoreInterpreterCtx alloc];
   v9 = [ATXScoreDict scoreDictFromDictionary:scoresCopy];
   v10 = [(_ATXScoreInterpreterCtx *)v8 initWithInputScores:v9 intentType:typeCopy];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = self->_bytecode;
-  v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
@@ -1028,7 +1018,7 @@ LABEL_43:
         v16 = [(_ATXScoreInterpreter *)self _evalVariable:v10 withCtx:?];
       }
 
-      v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16, v16];
+      v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16, v16];
     }
 
     while (v13);
@@ -1036,32 +1026,30 @@ LABEL_43:
 
   toDictionary = [v10[503] toDictionary];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return toDictionary;
 }
 
 - (id)evaluateWithInputScoreDict:(id)dict intentType:(id)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   typeCopy = type;
   v8 = [[_ATXScoreInterpreterCtx alloc] initWithInputScores:dictCopy intentType:typeCopy];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = self->_bytecode;
-  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
@@ -1069,7 +1057,7 @@ LABEL_43:
         v14 = [(_ATXScoreInterpreter *)self _evalVariable:v8 withCtx:?];
       }
 
-      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16, v14];
+      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16, v14];
     }
 
     while (v11);
@@ -1078,7 +1066,6 @@ LABEL_43:
   subscores = v8->subscores;
   v16 = subscores;
 
-  v17 = *MEMORY[0x277D85DE8];
   return subscores;
 }
 
@@ -1121,29 +1108,28 @@ LABEL_43:
     v7 = [*(self + 8) objectForKeyedSubscript:v5];
     [(_ATXScoreInterpreter *)self _runBytecode:v7 context:variableCopy];
 
-    v8 = pop(variableCopy);
-    if ((*&v8 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+    v9 = pop(variableCopy);
+    if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      v9 = __atxlog_handle_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v15 = 138412546;
         v16 = v5;
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_12(&dword_2263AA000, v9, v12, "Score for variable %@ returned Nan or Inf: %f", &v15);
+        OUTLINED_FUNCTION_12(&dword_2263AA000, v10, v12, "Score for variable %@ returned Nan or Inf: %f", &v15);
       }
     }
 
-    [variableCopy[503] setScore:v5 forKey:v8];
+    [variableCopy[503] setScore:v5 forKey:v9];
   }
 
   else
   {
-    v8 = 0.0;
+    v9 = 0.0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (id)retainBytecodeDependencyObject:(id *)object
@@ -1157,30 +1143,6 @@ LABEL_43:
   }
 
   return object;
-}
-
-+ (void)_expectedArity:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Arity not specified for op %tu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_runOperator:arity:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ScoreInterpreter - CoreMLModel - input feature with name %@ is not of type Double or MLMultiArray", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_runOperator:arity:context:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ScoreInterpreter - CoreMLModel - Error in initializing MLMultiArray: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:arity:context:.cold.3()
@@ -1215,13 +1177,12 @@ LABEL_43:
 
 - (void)_runOperator:(double)a3 arity:(uint64_t)a4 context:(uint64_t)a5 .cold.7(NSObject *a1, double a2, double a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218240;
-  v7 = a2;
-  v8 = 2048;
-  v9 = a3;
-  OUTLINED_FUNCTION_12(&dword_2263AA000, a1, a5, "Attempted to compute GeometricSum with ratio of %f and terms of %f -- result will be NaN", &v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = a2;
+  v7 = 2048;
+  v8 = a3;
+  OUTLINED_FUNCTION_12(&dword_2263AA000, a1, a5, "Attempted to compute GeometricSum with ratio of %f and terms of %f -- result will be NaN", &v5);
 }
 
 - (void)_runOperator:arity:context:.cold.9()
@@ -1236,22 +1197,6 @@ LABEL_43:
   v7 = [MEMORY[0x277CCA890] currentHandler];
   v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXScoreInterpreter _runOperator:arity:context:]"];
   [OUTLINED_FUNCTION_0_16(v0 v1];
-}
-
-- (void)_runOperator:arity:context:.cold.11()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Attempted to compute ExpDecay with non-positive half-life: %f -- forcing output to _ATXScoreNotSet", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_runOperator:arity:context:.cold.12()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Attempted to compute ExpDecay with negative age: %f  -- output is NaN", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:arity:context:.cold.13()
@@ -1270,16 +1215,14 @@ LABEL_43:
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXScoreInterpreter _runOperator:arity:context:]"];
   [v2 handleFailureInFunction:v3 file:@"_ATXScoreInterpreter.m" lineNumber:450 description:@"Attempted to compute pow(%f, %f)", v1, v0];
 
-  v4 = __atxlog_handle_default();
-  if (OUTLINED_FUNCTION_10(v4))
+  v5 = __atxlog_handle_default(v4);
+  if (OUTLINED_FUNCTION_10(v5))
   {
     v7 = 134218240;
     v8 = v1;
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_12(&dword_2263AA000, v2, v6, "Attempted to compute pow(%f,%f) -- output is NaN", &v7);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:arity:context:.cold.15()
@@ -1287,14 +1230,6 @@ LABEL_43:
   v7 = [MEMORY[0x277CCA890] currentHandler];
   v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXScoreInterpreter _runOperator:arity:context:]"];
   [OUTLINED_FUNCTION_0_16(v0 v1];
-}
-
-- (void)_runOperator:arity:context:.cold.16()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Attempted to compute NatLog of non-positive number %f -- output is NaN", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:(void *)a1 arity:context:.cold.17(void *a1)
@@ -1305,17 +1240,16 @@ LABEL_43:
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXScoreInterpreter _runOperator:arity:context:]"];
   [v3 handleFailureInFunction:v4 file:@"_ATXScoreInterpreter.m" lineNumber:427 description:{@"Invalid parameter not satisfying: %@", @"denominator != 0"}];
 
-  v5 = __atxlog_handle_default();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = __atxlog_handle_default(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v8 = 134218240;
     v9 = v1;
     OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_12(&dword_2263AA000, v5, v7, "Divide by zero error (%f / %f) -- setting output to _ATXScoreNotSet", &v8);
+    OUTLINED_FUNCTION_12(&dword_2263AA000, v6, v7, "Divide by zero error (%f / %f) -- setting output to _ATXScoreNotSet", &v8);
   }
 
   push(a1, -31337.0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:arity:context:.cold.18()
@@ -1330,30 +1264,6 @@ LABEL_43:
   v7 = [MEMORY[0x277CCA890] currentHandler];
   v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_ATXScoreInterpreter _runOperator:arity:context:]"];
   [OUTLINED_FUNCTION_0_16(v0 v1];
-}
-
-- (void)_runOperator:arity:context:.cold.20()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Attempted to compute log10 of non-positive number %f (value arg of Logarithm operator) --  output is NaN", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_runOperator:arity:context:.cold.21()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Attempted to compute log10 of non-positive number %f (base arg of Logarithm operator) -- output is NaN", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_runOperator:arity:context:.cold.22()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Undefined operator of value %tu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runOperator:(uint64_t)a1 arity:(void *)a2 context:.cold.23(uint64_t a1, void *a2)

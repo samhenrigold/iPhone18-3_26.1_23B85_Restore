@@ -107,7 +107,7 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   useCase = [(BMModelCatalogSubscription *)self useCase];
   jsonDictionary = [useCase jsonDictionary];
 
@@ -126,31 +126,31 @@ LABEL_16:
     v9 = 0;
   }
 
-  v16[0] = @"useCase";
+  v15[0] = @"useCase";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[0] = null;
-  v16[1] = @"parameters";
+  v16[0] = null;
+  v15[1] = @"parameters";
   null2 = _parametersJSONArray;
   if (!_parametersJSONArray)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"expirationDate";
+  v16[1] = null2;
+  v15[2] = @"expirationDate";
   null3 = v9;
   if (!v9)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = null3;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
   if (v9)
   {
     if (_parametersJSONArray)
@@ -182,52 +182,49 @@ LABEL_12:
 LABEL_18:
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)_parametersJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   parameters = [(BMModelCatalogSubscription *)self parameters];
-  v5 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMModelCatalogSubscription)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v76[1] = *MEMORY[0x1E69E9840];
+  v75[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"useCase"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -240,10 +237,10 @@ LABEL_13:
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = dictionaryCopy;
         v25 = *MEMORY[0x1E698F240];
-        v75 = *MEMORY[0x1E696A578];
+        v74 = *MEMORY[0x1E696A578];
         v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"useCase"];
-        v76[0] = v26;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:&v75 count:1];
+        v75[0] = v26;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
         v27 = v25;
         dictionaryCopy = v24;
         v8 = v26;
@@ -257,9 +254,9 @@ LABEL_13:
     }
 
     v9 = v7;
-    v65 = 0;
-    v8 = [[BMModelCatalogSubscriptionUseCase alloc] initWithJSONDictionary:v9 error:&v65];
-    v22 = v65;
+    v64 = 0;
+    v8 = [[BMModelCatalogSubscriptionUseCase alloc] initWithJSONDictionary:v9 error:&v64];
+    v22 = v64;
     if (v22)
     {
       if (error)
@@ -286,8 +283,8 @@ LABEL_13:
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       errorCopy2 = error;
-      v56 = v8;
-      v57 = v7;
+      v55 = v8;
+      v56 = v7;
       selfCopy2 = self;
       goto LABEL_9;
     }
@@ -296,10 +293,10 @@ LABEL_13:
     {
       v38 = objc_alloc(MEMORY[0x1E696ABC0]);
       v39 = *MEMORY[0x1E698F240];
-      v73 = *MEMORY[0x1E696A578];
-      v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"parameters"];
-      v74 = v59;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+      v72 = *MEMORY[0x1E696A578];
+      v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"parameters"];
+      v73 = v58;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
       v21 = v40 = error;
       selfCopy3 = 0;
       *v40 = [v38 initWithDomain:v39 code:2 userInfo:v21];
@@ -312,37 +309,37 @@ LABEL_40:
   }
 
   errorCopy2 = error;
-  v56 = v8;
-  v57 = v7;
+  v55 = v8;
+  v56 = v7;
   selfCopy2 = self;
 
   v9 = 0;
 LABEL_9:
-  v59 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v9 = v9;
-  v12 = [v9 countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v12 = [v9 countByEnumeratingWithState:&v60 objects:v71 count:16];
   if (!v12)
   {
     goto LABEL_19;
   }
 
   v13 = v12;
-  v14 = *v62;
-  v54 = dictionaryCopy;
+  v14 = *v61;
+  v53 = dictionaryCopy;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v62 != v14)
+      if (*v61 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v16 = *(*(&v61 + 1) + 8 * i);
+      v16 = *(*(&v60 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -351,12 +348,12 @@ LABEL_9:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v70 = *MEMORY[0x1E696A578];
+          v69 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"parameters"];
-          v71 = v17;
+          v70 = v17;
           v32 = MEMORY[0x1E695DF20];
-          v33 = &v71;
-          v34 = &v70;
+          v33 = &v70;
+          v34 = &v69;
 LABEL_33:
           v35 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:1];
           *v29 = [v30 initWithDomain:v31 code:2 userInfo:v35];
@@ -364,19 +361,19 @@ LABEL_33:
 LABEL_37:
           selfCopy3 = 0;
           v21 = v9;
-          dictionaryCopy = v54;
+          dictionaryCopy = v53;
           self = selfCopy2;
-          v8 = v56;
+          v8 = v55;
           goto LABEL_51;
         }
 
 LABEL_41:
         selfCopy3 = 0;
         v21 = v9;
-        dictionaryCopy = v54;
-        v7 = v57;
+        dictionaryCopy = v53;
+        v7 = v56;
         self = selfCopy2;
-        v8 = v56;
+        v8 = v55;
         goto LABEL_52;
       }
 
@@ -388,12 +385,12 @@ LABEL_41:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v68 = *MEMORY[0x1E696A578];
+          v67 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"parameters"];
-          v69 = v17;
+          v68 = v17;
           v32 = MEMORY[0x1E695DF20];
-          v33 = &v69;
-          v34 = &v68;
+          v33 = &v68;
+          v34 = &v67;
           goto LABEL_33;
         }
 
@@ -402,9 +399,9 @@ LABEL_41:
 
       v17 = v16;
       v18 = [BMModelCatalogSubscriptionParameter alloc];
-      v60 = 0;
-      v19 = [(BMModelCatalogSubscriptionParameter *)v18 initWithJSONDictionary:v17 error:&v60];
-      v20 = v60;
+      v59 = 0;
+      v19 = [(BMModelCatalogSubscriptionParameter *)v18 initWithJSONDictionary:v17 error:&v59];
+      v20 = v59;
       if (v20)
       {
         v36 = v20;
@@ -417,11 +414,11 @@ LABEL_41:
         goto LABEL_37;
       }
 
-      [v59 addObject:v19];
+      [v58 addObject:v19];
     }
 
-    v13 = [v9 countByEnumeratingWithState:&v61 objects:v72 count:16];
-    dictionaryCopy = v54;
+    v13 = [v9 countByEnumeratingWithState:&v60 objects:v71 count:16];
+    dictionaryCopy = v53;
     if (v13)
     {
       continue;
@@ -437,13 +434,13 @@ LABEL_19:
   {
     v21 = 0;
     self = selfCopy2;
-    v8 = v56;
+    v8 = v55;
     goto LABEL_50;
   }
 
   objc_opt_class();
   self = selfCopy2;
-  v8 = v56;
+  v8 = v55;
   if (objc_opt_isKindOfClass())
   {
     v21 = 0;
@@ -479,7 +476,7 @@ LABEL_19:
 LABEL_45:
     v21 = v46;
 LABEL_50:
-    self = [(BMModelCatalogSubscription *)self initWithUseCase:v8 parameters:v59 expirationDate:v21];
+    self = [(BMModelCatalogSubscription *)self initWithUseCase:v8 parameters:v58 expirationDate:v21];
     selfCopy3 = self;
   }
 
@@ -488,13 +485,13 @@ LABEL_50:
     selfCopy3 = errorCopy2;
     if (errorCopy2)
     {
-      v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v50 = *MEMORY[0x1E698F240];
-      v66 = *MEMORY[0x1E696A578];
-      v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"expirationDate"];
-      v67 = v51;
-      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-      *errorCopy2 = [v53 initWithDomain:v50 code:2 userInfo:v52];
+      v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v49 = *MEMORY[0x1E698F240];
+      v65 = *MEMORY[0x1E696A578];
+      v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"expirationDate"];
+      v66 = v50;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      *errorCopy2 = [v52 initWithDomain:v49 code:2 userInfo:v51];
 
       v21 = 0;
       selfCopy3 = 0;
@@ -508,13 +505,12 @@ LABEL_50:
 
 LABEL_51:
 
-  v7 = v57;
+  v7 = v56;
 LABEL_52:
 
 LABEL_53:
 LABEL_54:
 
-  v48 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -529,46 +525,46 @@ LABEL_54:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_useCase)
   {
-    v17 = 0;
+    v15 = 0;
     PBDataWriterPlaceMark();
     [(BMModelCatalogSubscriptionUseCase *)self->_useCase writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_parameters;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
-        v17 = 0;
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        v15 = 0;
         PBDataWriterPlaceMark();
-        [v10 writeTo:{toCopy, v13}];
+        [v10 writeTo:{toCopy, v11}];
         PBDataWriterRecallMark();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
@@ -576,11 +572,8 @@ LABEL_54:
 
   if (self->_hasRaw_expirationDate)
   {
-    raw_expirationDate = self->_raw_expirationDate;
     PBDataWriterWriteDoubleField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -780,52 +773,48 @@ LABEL_36:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"useCase" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"parameters" number:2 type:14 subMessageClass:{objc_opt_class(), v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"expirationDate" number:3 type:0 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"useCase_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_100342];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"parameters_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_164];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"expirationDate" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __37__BMModelCatalogSubscription_columns__block_invoke_2(uint64_t a1, void *a2)
+id __37__BMModelCatalogSubscription_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _parametersJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __37__BMModelCatalogSubscription_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 useCase];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _parametersJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __37__BMModelCatalogSubscription_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 useCase];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

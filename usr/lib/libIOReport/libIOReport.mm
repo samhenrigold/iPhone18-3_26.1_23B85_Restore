@@ -69,11 +69,11 @@ __CFDictionary *IOReportCreateSamplesRaw(const __CFDictionary *a1, CFDataRef the
 {
   v5 = 0;
   v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x4800000000;
-  v17 = 0u;
+  v16 = &v15;
+  v17 = 0x4800000000;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v6 = -536870206;
   if (!a1 || !theData)
   {
@@ -105,14 +105,14 @@ LABEL_5:
   }
 
   BytePtr = CFDataGetBytePtr(theData);
-  v11 = v16[0];
-  *(v16[0] + 24) = BytePtr;
-  *(v11 + 32) = &BytePtr[v9 & 0xFFFFFFFFFFFFFFC0];
-  *(v11 + 60) = 0;
-  *(v11 + 64) = 0;
+  v11 = v16;
+  v16[3] = BytePtr;
+  v11[4] = &BytePtr[v9 & 0xFFFFFFFFFFFFFFC0];
+  *(v11 + 15) = 0;
+  *(v11 + 16) = 0;
   v12 = MEMORY[0x29EDCA5F8];
-  *(v11 + 40) = 0;
-  *(v11 + 48) = 0;
+  v11[5] = 0;
+  v11[6] = 0;
   *(v11 + 56) = 0;
   v14[0] = v12;
   v14[1] = 0x40000000;
@@ -123,7 +123,7 @@ LABEL_5:
   v5 = cloneAggregate(a1, v14);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG))
   {
-    IOReportIterateSamplesRaw_cold_1(v16);
+    IOReportIterateSamplesRaw_cold_1();
   }
 
   v6 = -536870212;
@@ -562,7 +562,7 @@ const void *_getChannelAtIndex(const __CFArray *a1, CFIndex a2)
   }
 }
 
-uint64_t _visitSample(const __CFDictionary *a1, const __CFDictionary *a2, int a3, unint64_t *a4, CFErrorRef *a5)
+uint64_t _visitSample(const __CFDictionary *a1, __CFDictionary *a2, int a3, unint64_t *a4, CFErrorRef *a5)
 {
   DriverID = IOReportChannelGetDriverID(a1);
   ChannelID = IOReportChannelGetChannelID(a1);
@@ -819,7 +819,7 @@ uint64_t _iterSubDictsForKey(CFDictionaryRef theDict, void *key, __CFDictionary 
   return v17;
 }
 
-uint64_t getChannelType(const __CFDictionary *a1, unint64_t *a2)
+uint64_t getChannelType(const __CFDictionary *a1, uint64_t *a2)
 {
   ChDetail = _getChDetail(a1, 1u);
   v4 = _validateInt(ChDetail);
@@ -1399,10 +1399,11 @@ const void *_validateStr(const void *result)
   return result;
 }
 
-void _iterSubDicts(CFTypeRef cf, const void *a2, __int128 *a3)
+void _iterSubDicts(CFTypeRef cf, const void *a2, uint64_t a3)
 {
   if (*(a3 + 60) != 1 || (*(a3 + 56) & 1) == 0)
   {
+    v21 = 0;
     if (cf)
     {
       if (a2)
@@ -1413,49 +1414,73 @@ void _iterSubDicts(CFTypeRef cf, const void *a2, __int128 *a3)
           v7 = CFGetTypeID(a2);
           if (v7 == CFDictionaryGetTypeID())
           {
-            v8 = *(a3 + 6);
+            v8 = *(a3 + 48);
             if (v8)
             {
-              CFDictionaryGetValue(v8, cf);
+              Value = CFDictionaryGetValue(v8, cf);
             }
 
-            v14 = a3[3];
-            v12 = *a3;
-            v13 = a3[1];
-            v16 = HIDWORD(*(a3 + 8));
-            v15 = *(a3 + 16) + 1;
-            *(a3 + 60);
-            v9 = *(a3 + 5);
-            v10 = _iterate(a2);
+            else
+            {
+              Value = 0;
+            }
+
+            v19 = *(a3 + 48);
+            v10 = *(a3 + 64);
+            v11 = *(a3 + 16);
+            v16[0] = *a3;
+            v16[1] = v11;
+            v17 = 0;
+            v18 = 0;
+            v20 = v10;
+            *&v19 = 0;
+            LODWORD(v20) = *(a3 + 64) + 1;
             if (*(a3 + 60) == 1)
             {
-              v10 |= *(a3 + 14);
+              DWORD2(v19) = 0;
             }
 
-            *(a3 + 14) = v10;
-            if ((v10 & 1) == 0)
+            v12 = *(a3 + 40);
+            if (v12)
             {
-              if (v9)
+              v13 = &v21;
+            }
+
+            else
+            {
+              v13 = 0;
+            }
+
+            v14 = _iterate(a2, Value, v16, v13);
+            if (*(a3 + 60) == 1)
+            {
+              v14 |= *(a3 + 56);
+            }
+
+            *(a3 + 56) = v14;
+            if ((v14 & 1) == 0)
+            {
+              if (v12 && !v21)
               {
-                *(a3 + 14) = 273;
+                *(a3 + 56) = 273;
+                return;
               }
 
-              else
+              v15 = *(a3 + 40);
+              if (v15)
               {
-                v11 = *(a3 + 5);
-                if (v11)
-                {
-                  CFDictionarySetValue(v11, cf, 0);
-                }
-
-                else if (*(a3 + 4))
-                {
-                  if (!CFDictionaryGetCount(a2))
-                  {
-                    CFArrayAppendValue(*(a3 + 4), cf);
-                  }
-                }
+                CFDictionarySetValue(v15, cf, v21);
               }
+
+              else if (*(a3 + 32) && !CFDictionaryGetCount(a2))
+              {
+                CFArrayAppendValue(*(a3 + 32), cf);
+              }
+            }
+
+            if (v21)
+            {
+              CFRelease(v21);
             }
           }
         }
@@ -1814,7 +1839,7 @@ uint64_t IOReportStateGetCount(const __CFDictionary *a1)
   return result;
 }
 
-uint64_t _getStateValues(const __CFDictionary *a1, int a2, _OWORD *a3)
+uint64_t _getStateValues(const __CFDictionary *a1, unsigned int a2, _OWORD *a3)
 {
   v3 = 3758097084;
   v13 = 0;
@@ -1840,7 +1865,7 @@ uint64_t _getStateValues(const __CFDictionary *a1, int a2, _OWORD *a3)
   return v3;
 }
 
-double IOReportStateGetDutyCycle(const __CFDictionary *a1, int a2)
+double IOReportStateGetDutyCycle(const __CFDictionary *a1, unsigned int a2)
 {
   if (!a1)
   {
@@ -1876,7 +1901,7 @@ double IOReportStateGetDutyCycle(const __CFDictionary *a1, int a2)
   return NAN;
 }
 
-unint64_t IOReportStateGetInTransitions(const __CFDictionary *a1, int a2)
+unint64_t IOReportStateGetInTransitions(const __CFDictionary *a1, unsigned int a2)
 {
   memset(v3, 0, sizeof(v3));
   if (_getStateValues(a1, a2, v3))
@@ -1890,7 +1915,7 @@ unint64_t IOReportStateGetInTransitions(const __CFDictionary *a1, int a2)
   }
 }
 
-unint64_t IOReportStateGetIDForIndex(const __CFDictionary *a1, int a2)
+unint64_t IOReportStateGetIDForIndex(const __CFDictionary *a1, unsigned int a2)
 {
   memset(v3, 0, sizeof(v3));
   if (_getStateValues(a1, a2, v3))
@@ -1904,7 +1929,7 @@ unint64_t IOReportStateGetIDForIndex(const __CFDictionary *a1, int a2)
   }
 }
 
-unint64_t IOReportStateGetResidency(const __CFDictionary *a1, int a2)
+unint64_t IOReportStateGetResidency(const __CFDictionary *a1, unsigned int a2)
 {
   v3 = 0u;
   v4 = 0u;
@@ -2019,8 +2044,8 @@ LABEL_17:
 CFStringRef copyPrintableIDString(unint64_t a1)
 {
   v2 = 0;
-  v13 = *MEMORY[0x29EDCA608];
-  v12 = 0;
+  v12 = *MEMORY[0x29EDCA608];
+  v11 = 0;
   *cStr = 0;
   LODWORD(v3) = 8;
   v4 = MEMORY[0x29EDCA600];
@@ -2061,16 +2086,13 @@ LABEL_2:
 
   if (v2 && (cStr[v2] = 0, !v6))
   {
-    result = CFStringCreateWithCString(0, cStr, 0x8000100u);
+    return CFStringCreateWithCString(0, cStr, 0x8000100u);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 const void *IOReportChannelGetGroup(const __CFDictionary *a1)
@@ -2336,12 +2358,12 @@ LABEL_50:
 
   switch(v3)
   {
-    case 0xAA0000000000:
+    case 0xAA0000000000uLL:
       goto LABEL_50;
-    case 0x1000000000000:
+    case 0x1000000000000uLL:
       v4 = "hwticks?";
       break;
-    case 0x2000000000000:
+    case 0x2000000000000uLL:
       v4 = "hwpage?";
       break;
     default:
@@ -2378,7 +2400,7 @@ double IOReportScaleValue(unint64_t a1, unint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t getFactorsFromScale(unint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t getFactorsFromScale(unint64_t a1, uint64_t *a2, unint64_t *a3)
 {
   if ((a1 & 0xFF000000000000) != 0)
   {
@@ -2475,8 +2497,7 @@ CFErrorRef createCFErr(CFIndex a1, const char *a2)
     userInfoValues = CFStringCreateWithCString(0, a2, 0x600u);
     if (!userInfoValues)
     {
-      v5 = 0;
-      goto LABEL_8;
+      return 0;
     }
 
     v4 = 1;
@@ -2493,8 +2514,6 @@ CFErrorRef createCFErr(CFIndex a1, const char *a2)
     CFRelease(userInfoValues);
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -2794,11 +2813,11 @@ uint64_t IOReportIterateSamplesRaw(const __CFDictionary *a1, CFDataRef theData, 
 {
   v5 = -536870206;
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x4800000000;
-  v20 = 0u;
+  v19 = &v18;
+  v20 = 0x4800000000;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   if (!a1 || !theData || CFDataGetLength(theData) < 64)
   {
     goto LABEL_10;
@@ -2816,14 +2835,14 @@ uint64_t IOReportIterateSamplesRaw(const __CFDictionary *a1, CFDataRef theData, 
   }
 
   BytePtr = CFDataGetBytePtr(theData);
-  v12 = v19[0];
-  *(v19[0] + 24) = BytePtr;
-  *(v12 + 32) = &BytePtr[v10 & 0xFFFFFFFFFFFFFFC0];
-  *(v12 + 60) = 0;
-  *(v12 + 64) = 0;
+  v12 = v19;
+  v19[3] = BytePtr;
+  v12[4] = &BytePtr[v10 & 0xFFFFFFFFFFFFFFC0];
+  *(v12 + 15) = 0;
+  *(v12 + 16) = 0;
   v13 = MEMORY[0x29EDCA5F8];
-  *(v12 + 40) = 0;
-  *(v12 + 48) = 0;
+  v12[5] = 0;
+  v12[6] = 0;
   *(v12 + 56) = 0;
   v17[0] = v13;
   v17[1] = 0x40000000;
@@ -2835,7 +2854,7 @@ uint64_t IOReportIterateSamplesRaw(const __CFDictionary *a1, CFDataRef theData, 
   updated = updateAggregate(a1, v17);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG))
   {
-    IOReportIterateSamplesRaw_cold_1(v19);
+    IOReportIterateSamplesRaw_cold_1();
     if (updated)
     {
       goto LABEL_9;
@@ -3367,7 +3386,7 @@ uint64_t IOReportMergeChannels(const __CFDictionary *a1, const __CFDictionary *a
   return v5;
 }
 
-__CFDictionary *IOReportCopyChannelsInCategories(__int16 a1, int a2, CFErrorRef *a3)
+__CFDictionary *IOReportCopyChannelsInCategories(__int16 a1, uint64_t a2, CFErrorRef *a3)
 {
   v4[0] = MEMORY[0x29EDCA5F8];
   v4[1] = 0x40000000;
@@ -3707,21 +3726,18 @@ __CFDictionary *IOReportCreateUnitInfo(uint64_t a1)
 
 CFStringRef IOReportCopyDriverName(uint64_t a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
-  memset(v5, 0, sizeof(v5));
+  v5 = *MEMORY[0x29EDCA608];
+  memset(v4, 0, sizeof(v4));
   entryID = 0;
-  if (IORegistryEntryGetRegistryEntryID(a1, &entryID) || MEMORY[0x29C278970](a1, v5))
+  if (IORegistryEntryGetRegistryEntryID(a1, &entryID) || MEMORY[0x29C278970](a1, v4))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = CFStringCreateWithFormat(0, 0, @"%s <id %#llx>", v5, entryID);
+    return CFStringCreateWithFormat(0, 0, @"%s <id %#llx>", v4, entryID);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 __CFDictionary *IOReportCopyChannelsWithID(const void *a1, uint64_t a2, CFErrorRef *a3)
@@ -4220,7 +4236,7 @@ uint64_t IOReportHistogramGetBucketCount(const __CFDictionary *a1)
   return result;
 }
 
-unint64_t IOReportHistogramGetBucketHits(const __CFDictionary *a1, int a2)
+unint64_t IOReportHistogramGetBucketHits(const __CFDictionary *a1, uint64_t a2)
 {
   memset(v3, 0, sizeof(v3));
   if (_getHistogramValues(a1, a2, v3))
@@ -4655,8 +4671,8 @@ CFMutableDictionaryRef IOReportSampleCreateDelta(CFDictionaryRef theDict, const 
 
 __CFString *IOReportSampleCopyDescription(const __CFDictionary *a1, char a2, const char *a3)
 {
-  v66 = *MEMORY[0x29EDCA608];
-  v59 = 0;
+  v65 = *MEMORY[0x29EDCA608];
+  v58 = 0;
   strcpy(__str, "<unknown>");
   v5 = "";
   if (a3)
@@ -4664,7 +4680,7 @@ __CFString *IOReportSampleCopyDescription(const __CFDictionary *a1, char a2, con
     v5 = a3;
   }
 
-  v56 = v5;
+  v55 = v5;
   Mutable = CFStringCreateMutable(0, 0);
   if (!Mutable)
   {
@@ -4680,7 +4696,7 @@ __CFString *IOReportSampleCopyDescription(const __CFDictionary *a1, char a2, con
 
   v7 = Mutable;
   Format = IOReportChannelGetFormat(a1);
-  RawElements = getRawElements(a1, &v59, Format);
+  RawElements = getRawElements(a1, &v58, Format);
   ChannelName = IOReportChannelGetChannelName(a1);
   if (ChannelName)
   {
@@ -4727,30 +4743,30 @@ LABEL_16:
   v14 = 0;
 LABEL_17:
   UnitLabel = IOReportChannelGetUnitLabel(a1);
-  if (!v59)
+  if (!v58)
   {
     goto LABEL_69;
   }
 
   theString = v7;
-  v53 = a2;
+  v52 = a2;
   v16 = 0;
   v17 = 0;
   v18 = RawElements + 32;
   while (1)
   {
+    v56 = 0;
     v57 = 0;
-    v58 = 0;
     *buffer = 0;
+    v62 = 0;
     v63 = 0;
-    v64 = 0;
     v19 = IOReportChannelGetFormat(a1);
     if (v19 <= 2)
     {
       if (v19 == 1)
       {
         IntegerValue = IOReportSimpleGetIntegerValue(a1, 0);
-        v29 = CFStringCreateWithFormat(0, 0, @"%s%32s = { %12lld %@ }\n", v56, v13, IntegerValue, UnitLabel, v46, v47, v48, v50, v51);
+        v29 = CFStringCreateWithFormat(0, 0, @"%s%32s = { %12lld %@ }\n", v55, v13, IntegerValue, UnitLabel, v45, v46, v47, v49, v50);
       }
 
       else
@@ -4763,10 +4779,10 @@ LABEL_17:
         NameForIndex = IOReportStateGetNameForIndex(a1, v17);
         if (!NameForIndex || (v21 = NameForIndex, (v22 = CFStringGetCStringPtr(NameForIndex, 0x8000100u)) == 0) && (v22 = buffer, !CFStringGetCString(v21, buffer, 20, 0x8000100u)))
         {
+          v59 = 0u;
           v60 = 0u;
-          v61 = 0u;
-          StateValues = _getStateValues(a1, v17, &v60);
-          v24 = v60;
+          StateValues = _getStateValues(a1, v17, &v59);
+          v24 = v59;
           if (StateValues)
           {
             v24 = 0x8000000000000000;
@@ -4776,34 +4792,34 @@ LABEL_17:
           snprintf(buffer, 0x14uLL, "%#llx", v24);
         }
 
+        v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
-        if (_getStateValues(a1, v17, &v60))
+        if (_getStateValues(a1, v17, &v59))
         {
           v25 = 0x8000000000000000;
         }
 
         else
         {
-          v25 = *(&v60 + 1);
+          v25 = *(&v59 + 1);
         }
 
+        v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
-        if (_getStateValues(a1, v17, &v60))
+        if (_getStateValues(a1, v17, &v59))
         {
           v26 = 0x8000000000000000;
         }
 
         else
         {
-          v26 = v61;
+          v26 = v60;
         }
 
         Unit = IOReportChannelGetUnit(a1);
         v28 = IOReportScaleValue(v26, Unit, 0x100000000000000);
-        v49 = IOReportStateGetDutyCycle(a1, v17) * 100.0;
-        v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%8s] = { # %-8llu %9.3e %s / %4.1f%% }\n", v56, v13, v22, v25, *&v28, "s", *&v49, v50, v51);
+        v48 = IOReportStateGetDutyCycle(a1, v17) * 100.0;
+        v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%8s] = { # %-8llu %9.3e %s / %4.1f%% }\n", v55, v13, v22, v25, *&v28, "s", *&v48, v49, v50);
       }
 
       goto LABEL_61;
@@ -4814,21 +4830,21 @@ LABEL_17:
       break;
     }
 
-    if (IOReportHistogramGetBucketBounds(a1, v17, &v58, &v57))
+    if (IOReportHistogramGetBucketBounds(a1, v17, &v57, &v56))
     {
       goto LABEL_66;
     }
 
+    v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    if (_getHistogramValues(a1, v17, &v60))
+    if (_getHistogramValues(a1, v17, &v59))
     {
       v36 = 0x8000000000000000;
     }
 
     else
     {
-      v36 = v60;
+      v36 = v59;
     }
 
     if (v36)
@@ -4838,49 +4854,49 @@ LABEL_17:
         goto LABEL_66;
       }
 
-      v37 = v57;
-      v52 = v58;
+      v37 = v56;
+      v51 = v57;
+      v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      if (_getHistogramValues(a1, v17, &v60))
+      if (_getHistogramValues(a1, v17, &v59))
       {
         v38 = 0x8000000000000000;
       }
 
       else
       {
-        v38 = *(&v60 + 1);
+        v38 = *(&v59 + 1);
       }
 
+      v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      if (_getHistogramValues(a1, v17, &v60))
+      if (_getHistogramValues(a1, v17, &v59))
       {
         v39 = 0x8000000000000000;
       }
 
       else
       {
-        v39 = v61;
+        v39 = v60;
       }
 
+      v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      HistogramValues = _getHistogramValues(a1, v17, &v60);
-      v41 = *(&v61 + 1);
+      HistogramValues = _getHistogramValues(a1, v17, &v59);
+      v41 = *(&v60 + 1);
       if (HistogramValues)
       {
         v41 = 0x8000000000000000;
       }
 
-      v45 = v37;
+      v44 = v37;
       v7 = theString;
-      v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%12lld - %12lld %@] = { m %12lld; M %12lld; s %12lld; # %12llu }\n", v56, v13, v52, v45, UnitLabel, v38, v39, v41, v36);
+      v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%12lld - %12lld %@] = { m %12lld; M %12lld; s %12lld; # %12llu }\n", v55, v13, v51, v44, UnitLabel, v38, v39, v41, v36);
     }
 
     else
     {
-      v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%12lld - %12lld %@] = { <no hits>; # 0 }\n", v56, v13, v58, v57, UnitLabel, v47, v48, v50, v51);
+      v29 = CFStringCreateWithFormat(0, 0, @"%s%20s[%12lld - %12lld %@] = { <no hits>; # 0 }\n", v55, v13, v57, v56, UnitLabel, v46, v47, v49, v50);
     }
 
 LABEL_61:
@@ -4896,7 +4912,7 @@ LABEL_62:
     ++v17;
     v18 += 64;
     v16 = (v16 + 4);
-    if (v17 >= v59)
+    if (v17 >= v58)
     {
       goto LABEL_69;
     }
@@ -4914,11 +4930,11 @@ LABEL_62:
       {
         if (*&v18[v32] != 0x8000000000000000)
         {
-          v34 = CFStringCreateWithFormat(0, 0, @"%s%28s[%4d] = { %12lld %@ }\n", v56, v13, v33, *&v18[v32], UnitLabel);
+          v34 = CFStringCreateWithFormat(0, 0, @"%s%28s[%4d] = { %12lld %@ }\n", v55, v13, v33, *&v18[v32], UnitLabel);
           if (!v34)
           {
             CFRelease(v31);
-            a2 = v53;
+            a2 = v52;
             v7 = theString;
             goto LABEL_67;
           }
@@ -4940,7 +4956,7 @@ LABEL_62:
   }
 
 LABEL_66:
-  a2 = v53;
+  a2 = v52;
 LABEL_67:
   CFRelease(v7);
   if ((a2 & 1) == 0)
@@ -4957,14 +4973,13 @@ LABEL_9:
     v15 = v13;
   }
 
-  v7 = CFStringCreateWithFormat(0, 0, @"%s%32s =  %s \n", v56, v15, "error");
+  v7 = CFStringCreateWithFormat(0, 0, @"%s%32s =  %s \n", v55, v15, "error");
 LABEL_69:
   if (v14)
   {
     free(v14);
   }
 
-  v42 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -5309,19 +5324,15 @@ void _add_double_val(__CFDictionary *a1, const void *a2, double a3)
   }
 }
 
-void IOReportIterateSamplesRaw_cold_1(uint64_t a1)
+void IOReportIterateSamplesRaw_cold_1()
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v1 = *(*a1 + 60);
-  v2 = *(*a1 + 64);
+  v1 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "iterated %d channels with %d iterations", v4, 0xEu);
-  v3 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "iterated %d channels with %d iterations", v0, 0xEu);
 }
 
 void _visitSample_cold_1(const __CFDictionary *a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
   IOReportChannelGetDriverName(a1);
   IOReportChannelGetGroup(a1);
   IOReportChannelGetSubGroup(a1);
@@ -5329,36 +5340,32 @@ void _visitSample_cold_1(const __CFDictionary *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x30u);
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void __IOReportUpdateSamplesRaw_block_invoke_cold_1(const __CFDictionary *a1)
 {
-  v3 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
   IOReportChannelGetDriverName(a1);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Stale samplesDict, IOReporter elements count changed %@ -- %@ -- %@ -- %@", v2, 0x2Au);
-  v1 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Stale samplesDict, IOReporter elements count changed %@ -- %@ -- %@ -- %@", v1, 0x2Au);
 }
 
 void __IOReportUpdateSamplesRaw_block_invoke_cold_2(const __CFDictionary *a1)
 {
-  v3 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
   IOReportChannelGetDriverName(a1);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Didn't find provider_id channel_id match for samplesDict channel %@ -- %@ -- %@ -- %@", v2, 0x2Au);
-  v1 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_2979AE000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Didn't find provider_id channel_id match for samplesDict channel %@ -- %@ -- %@ -- %@", v1, 0x2Au);
 }
 
 void __IOReportUpdateSamplesRaw_block_invoke_cold_3(const __CFDictionary *a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   IOReportChannelGetDriverName(a1);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
@@ -5366,12 +5373,10 @@ void __IOReportUpdateSamplesRaw_block_invoke_cold_3(const __CFDictionary *a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void __IOReportUpdateSamplesRaw_block_invoke_cold_4(const __CFDictionary *a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   IOReportChannelGetDriverName(a1);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
@@ -5379,5 +5384,4 @@ void __IOReportUpdateSamplesRaw_block_invoke_cold_4(const __CFDictionary *a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x29EDCA608];
 }

@@ -297,12 +297,11 @@ LABEL_11:
 {
   toCopy = to;
   has = self->_has;
-  v15 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    locationLatitude = self->_locationLatitude;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -321,9 +320,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  locationLongitude = self->_locationLongitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -337,9 +335,8 @@ LABEL_4:
   }
 
 LABEL_18:
-  locationAltitude = self->_locationAltitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -353,9 +350,8 @@ LABEL_5:
   }
 
 LABEL_19:
-  locationHorizontalAccuracy = self->_locationHorizontalAccuracy;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -369,9 +365,8 @@ LABEL_6:
   }
 
 LABEL_20:
-  locationVerticalAccuracy = self->_locationVerticalAccuracy;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -385,9 +380,8 @@ LABEL_7:
   }
 
 LABEL_21:
-  locationCourse = self->_locationCourse;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -401,9 +395,8 @@ LABEL_8:
   }
 
 LABEL_22:
-  locationSpeed = self->_locationSpeed;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -417,22 +410,20 @@ LABEL_9:
   }
 
 LABEL_23:
-  locationTimestamp = self->_locationTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_10:
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v15;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_errorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v6;
   }
 }
 

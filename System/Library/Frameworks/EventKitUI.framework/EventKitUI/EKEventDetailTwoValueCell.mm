@@ -215,8 +215,8 @@ LABEL_7:
   v5.receiver = self;
   v5.super_class = EKEventDetailTwoValueCell;
   [(EKUITableViewCell *)&v5 layoutSubviews];
-  contentView = [(EKEventDetailTwoValueCell *)self contentView];
-  [contentView bounds];
+  v3 = objc_msgSend_contentView(self);
+  [v3 bounds];
   [(EKEventDetailTwoValueCell *)self _layoutForWidth:v4];
 }
 
@@ -225,8 +225,8 @@ LABEL_7:
   [(EKEventDetailCell *)self detailsLeftInset];
   v6 = v5;
   titleView = [(EKEventDetailTwoValueCell *)self titleView];
-  contentView = [(EKEventDetailTwoValueCell *)self contentView];
-  [contentView addSubview:titleView];
+  v8 = objc_msgSend_contentView(self);
+  [v8 addSubview:titleView];
 
   v9 = *MEMORY[0x1E695F058];
   v10 = *(MEMORY[0x1E695F058] + 8);
@@ -234,67 +234,67 @@ LABEL_7:
   [(EKEventDetailTwoValueCell *)self layoutMargins];
   v13 = width - v12;
   [(EKEventDetailTwoValueCell *)self layoutMargins];
-  v42 = v13 - v14;
+  v48 = v13 - v14;
   [*&self->_style setFrame:{v9, v10}];
   [*&self->_style sizeToFit];
-  [titleView frame];
-  v16 = v15;
-  v18 = v17;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
-  v20 = v6;
+  frame = [titleView frame];
+  v17 = v16;
+  v19 = v18;
+  IsLeftToRight = CalInterfaceIsLeftToRight(frame, v20);
+  v22 = v6;
   if ((IsLeftToRight & 1) == 0)
   {
     [*&self->_style bounds];
-    v20 = width - v6 - CGRectGetWidth(v43);
+    v22 = width - v6 - CGRectGetWidth(v49);
   }
 
-  [titleView setFrame:{v20, 11.0, v16, v18}];
+  [titleView setFrame:{v22, 11.0, v17, v19}];
   [objc_opt_class() detailsPostLabelSpace];
-  v22 = v18 + 11.0 + v21;
-  [(UILabel *)self->_titleView setFrame:v9, v10, v42, v11];
+  v24 = v19 + 11.0 + v23;
+  [(UILabel *)self->_titleView setFrame:v9, v10, v48, v11];
   [(UILabel *)self->_titleView sizeToFit];
-  contentView2 = [(EKEventDetailTwoValueCell *)self contentView];
-  [contentView2 addSubview:self->_titleView];
+  v25 = objc_msgSend_contentView(self);
+  [v25 addSubview:self->_titleView];
 
   [(UILabel *)self->_titleView frame];
-  v25 = v24;
   v27 = v26;
-  [(UILabel *)self->_titleView sizeToFit];
-  v28 = CalInterfaceIsLeftToRight();
-  v29 = v6;
-  if ((v28 & 1) == 0)
+  v29 = v28;
+  sizeToFit = [(UILabel *)self->_titleView sizeToFit];
+  v32 = CalInterfaceIsLeftToRight(sizeToFit, v31);
+  v33 = v6;
+  if ((v32 & 1) == 0)
   {
     [(UILabel *)self->_titleView bounds];
-    v29 = width - v6 - CGRectGetWidth(v44);
+    v33 = width - v6 - CGRectGetWidth(v50);
   }
 
-  [(UILabel *)self->_titleView setFrame:v29, v22, v25, v27];
+  [(UILabel *)self->_titleView setFrame:v33, v24, v27, v29];
   [(UILabel *)self->_titleView frame];
-  v31 = v30;
+  v35 = v34;
   visibleItems = [(EKEventDetailTwoValueCell *)self visibleItems];
   valueView = self->_valueView;
   if ((visibleItems & 2) != 0)
   {
     widthCopy = width;
-    [(UILabel *)valueView setFrame:v9, v10, v42, v11];
+    [(UILabel *)valueView setFrame:v9, v10, v48, v11];
     [(UILabel *)self->_valueView sizeToFit];
-    contentView3 = [(EKEventDetailTwoValueCell *)self contentView];
-    [contentView3 addSubview:self->_valueView];
+    v38 = objc_msgSend_contentView(self);
+    [v38 addSubview:self->_valueView];
 
-    v22 = v22 + v31 + 1.0;
+    v24 = v24 + v35 + 1.0;
     [(UILabel *)self->_valueView frame];
-    v36 = v35;
-    v38 = v37;
-    [(UILabel *)self->_valueView sizeToFit];
-    if ((CalInterfaceIsLeftToRight() & 1) == 0)
+    v40 = v39;
+    v42 = v41;
+    sizeToFit2 = [(UILabel *)self->_valueView sizeToFit];
+    if ((CalInterfaceIsLeftToRight(sizeToFit2, v44) & 1) == 0)
     {
       [(UILabel *)self->_valueView bounds];
-      v6 = widthCopy - v6 - CGRectGetWidth(v45);
+      v6 = widthCopy - v6 - CGRectGetWidth(v51);
     }
 
-    [(UILabel *)self->_valueView setFrame:v6, v22, v36, v38];
+    [(UILabel *)self->_valueView setFrame:v6, v24, v40, v42];
     [(UILabel *)self->_valueView frame];
-    v31 = v39;
+    v35 = v45;
   }
 
   else
@@ -302,7 +302,7 @@ LABEL_7:
     [(UILabel *)valueView removeFromSuperview];
   }
 
-  return v31 + v22;
+  return v35 + v24;
 }
 
 - (void)layoutForWidth:(double)width position:(int)position

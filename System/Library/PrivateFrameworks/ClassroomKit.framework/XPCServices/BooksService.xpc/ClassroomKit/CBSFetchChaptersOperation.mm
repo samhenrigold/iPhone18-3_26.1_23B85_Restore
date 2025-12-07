@@ -1,6 +1,5 @@
 @interface CBSFetchChaptersOperation
 - (CBSFetchChaptersOperation)initWithRequest:(id)request;
-- (void)cleanUp;
 - (void)finishOperation:(id)operation;
 - (void)finishOperationWithError:(id)error;
 - (void)parseOFPPackageContentsOperationDidFinish:(id)finish;
@@ -167,13 +166,6 @@ LABEL_14:
   errorCopy = error;
   [(CBSFetchChaptersOperation *)self cleanUp];
   [(CBSFetchChaptersOperation *)self endOperationWithError:errorCopy];
-}
-
-- (void)cleanUp
-{
-  mSandboxExtension = self->mSandboxExtension;
-  self->mSandboxExtension = 0;
-  _objc_release_x1();
 }
 
 @end

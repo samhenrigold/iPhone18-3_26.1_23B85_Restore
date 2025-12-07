@@ -41,7 +41,7 @@
 
 void __51__CSTUPhoneCallStateMonitor__fetchTUPhoneCallState__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 32) currentAudioAndVideoCalls];
   if (![v2 count])
   {
@@ -49,45 +49,45 @@ void __51__CSTUPhoneCallStateMonitor__fetchTUPhoneCallState__block_invoke(uint64
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v21 = "[CSTUPhoneCallStateMonitor _fetchTUPhoneCallState]_block_invoke";
-      v22 = 1024;
-      v23 = 6;
+      v20 = "[CSTUPhoneCallStateMonitor _fetchTUPhoneCallState]_block_invoke";
+      v21 = 1024;
+      v22 = 6;
       _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s TUPhone call - [TUCallStatus: %d]", buf, 0x12u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     *&v6 = 136315394;
-    v14 = v6;
+    v13 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * v9) status];
+        v10 = [*(*(&v14 + 1) + 8 * v9) status];
         v11 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v14;
-          v21 = "[CSTUPhoneCallStateMonitor _fetchTUPhoneCallState]_block_invoke";
-          v22 = 1024;
-          v23 = v10;
+          *buf = v13;
+          v20 = "[CSTUPhoneCallStateMonitor _fetchTUPhoneCallState]_block_invoke";
+          v21 = 1024;
+          v22 = v10;
           _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s TUPhone call - [TUCallStatus: %d]", buf, 0x12u);
         }
 
@@ -123,15 +123,13 @@ LABEL_21:
       }
 
       while (v7 != v9);
-      v7 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
 LABEL_24:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)phoneCallState
@@ -181,38 +179,38 @@ LABEL_24:
 
 void __43__CSTUPhoneCallStateMonitor_firstPartyCall__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 32) currentAudioAndVideoCalls];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v2 = v19 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v2 = v18 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v17;
+    v6 = *v16;
     *&v4 = 136315394;
-    v15 = v4;
+    v14 = v4;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(*(&v16 + 1) + 8 * i) provider];
+        v8 = [*(*(&v15 + 1) + 8 * i) provider];
         v9 = [v8 identifier];
 
         v10 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v15;
-          v21 = "[CSTUPhoneCallStateMonitor firstPartyCall]_block_invoke";
-          v22 = 2112;
-          v23 = v9;
+          *buf = v14;
+          v20 = "[CSTUPhoneCallStateMonitor firstPartyCall]_block_invoke";
+          v21 = 2112;
+          v22 = v9;
           _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s TUPhone Call - [providerIdentifier: %@]", buf, 0x16u);
         }
 
@@ -230,10 +228,10 @@ void __43__CSTUPhoneCallStateMonitor_firstPartyCall__block_invoke(uint64_t a1)
           v13 = CSLogContextFacilityCoreSpeech;
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v15;
-            v21 = "[CSTUPhoneCallStateMonitor firstPartyCall]_block_invoke";
-            v22 = 2112;
-            v23 = v9;
+            *buf = v14;
+            v20 = "[CSTUPhoneCallStateMonitor firstPartyCall]_block_invoke";
+            v21 = 2112;
+            v22 = v9;
             _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s TUPhone call - identifier is not first party: %@", buf, 0x16u);
           }
 
@@ -241,7 +239,7 @@ void __43__CSTUPhoneCallStateMonitor_firstPartyCall__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
       if (v5)
       {
         continue;
@@ -252,8 +250,6 @@ void __43__CSTUPhoneCallStateMonitor_firstPartyCall__block_invoke(uint64_t a1)
   }
 
 LABEL_18:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callStatusDidChangeHandler:(id)handler
@@ -296,15 +292,15 @@ void __57__CSTUPhoneCallStateMonitor__callStatusDidChangeHandler___block_invoke(
 
 - (void)_registerPhoneCallStateChangeNotifier
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (self->_tuCallCenter)
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[CSTUPhoneCallStateMonitor _registerPhoneCallStateChangeNotifier]";
-      _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s register tuCallCenter notification call backs", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSTUPhoneCallStateMonitor _registerPhoneCallStateChangeNotifier]";
+      _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s register tuCallCenter notification call backs", &v6, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -318,12 +314,10 @@ void __57__CSTUPhoneCallStateMonitor__callStatusDidChangeHandler___block_invoke(
 
   else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315138;
-    v8 = "[CSTUPhoneCallStateMonitor _registerPhoneCallStateChangeNotifier]";
-    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s No tuCallCenter to register", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSTUPhoneCallStateMonitor _registerPhoneCallStateChangeNotifier]";
+    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s No tuCallCenter to register", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopMonitoring

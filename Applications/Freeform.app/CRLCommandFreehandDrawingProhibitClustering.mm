@@ -29,7 +29,7 @@
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v7 + 16))(self + OBJC_IVAR____TtC8Freeform43CRLCommandFreehandDrawingProhibitClustering_id, v9, v6);
   *(self + OBJC_IVAR____TtC8Freeform43CRLCommandFreehandDrawingProhibitClustering_prohibitsClustering) = clustering;
-  v10 = type metadata accessor for CRLCommandFreehandDrawingProhibitClustering();
+  v10 = type metadata accessor for CRLCommandFreehandDrawingProhibitClustering(0);
   v13.receiver = self;
   v13.super_class = v10;
   v11 = [(CRLCommand *)&v13 init];

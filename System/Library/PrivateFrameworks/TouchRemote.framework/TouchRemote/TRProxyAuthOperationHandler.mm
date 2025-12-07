@@ -70,7 +70,7 @@
 
 - (void)_handleProxyAuthenticationRequest:(id)request withResponseHandler:(id)handler
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   if (*&self->_proxyAuthHandler != 0)
@@ -85,39 +85,39 @@
       {
         if (targetedAccountServices)
         {
-          v29[0] = @"TRProxyAuthOperationHandlerParamKeyAccount";
-          v29[1] = @"TRProxyAuthOperationHandlerParamKeyTargetedAccountServices";
-          v30[0] = account;
-          v30[1] = targetedAccountServices;
-          v30[2] = rawPassword;
-          v29[2] = @"TRProxyAuthOperationHandlerParamKeyAccountRawPassword";
-          v29[3] = @"TRProxyAuthOperationHandlerParamKeyUseAIDA";
+          v28[0] = @"TRProxyAuthOperationHandlerParamKeyAccount";
+          v28[1] = @"TRProxyAuthOperationHandlerParamKeyTargetedAccountServices";
+          v29[0] = account;
+          v29[1] = targetedAccountServices;
+          v29[2] = rawPassword;
+          v28[2] = @"TRProxyAuthOperationHandlerParamKeyAccountRawPassword";
+          v28[3] = @"TRProxyAuthOperationHandlerParamKeyUseAIDA";
           v11 = [MEMORY[0x277CCABB0] numberWithBool:shouldUseAIDA];
-          v30[3] = v11;
-          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+          v29[3] = v11;
+          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
           proxyAuthHandlerWithError = self->_proxyAuthHandlerWithError;
           if (proxyAuthHandlerWithError)
           {
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __85__TRProxyAuthOperationHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke;
-            v27[3] = &unk_279DCED18;
-            v14 = &v28;
-            v28 = handlerCopy;
-            proxyAuthHandlerWithError[2](proxyAuthHandlerWithError, v12, v27);
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __85__TRProxyAuthOperationHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke;
+            v26[3] = &unk_279DCED18;
+            v14 = &v27;
+            v27 = handlerCopy;
+            proxyAuthHandlerWithError[2](proxyAuthHandlerWithError, v12, v26);
           }
 
           else
           {
             proxyAuthHandler = self->_proxyAuthHandler;
-            v25[0] = MEMORY[0x277D85DD0];
-            v25[1] = 3221225472;
-            v25[2] = __85__TRProxyAuthOperationHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_2;
-            v25[3] = &unk_279DCED40;
-            v14 = &v26;
-            v26 = handlerCopy;
-            proxyAuthHandler[2](proxyAuthHandler, v12, v25);
+            v24[0] = MEMORY[0x277D85DD0];
+            v24[1] = 3221225472;
+            v24[2] = __85__TRProxyAuthOperationHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_2;
+            v24[3] = &unk_279DCED40;
+            v14 = &v25;
+            v25 = handlerCopy;
+            proxyAuthHandler[2](proxyAuthHandler, v12, v24);
           }
 
           v22 = *v14;
@@ -125,38 +125,38 @@
         }
 
         v21 = *MEMORY[0x277CCA470];
-        v31[0] = *MEMORY[0x277CCA450];
-        v31[1] = v21;
-        v32[0] = @"Invalid Message Parameters";
-        v32[1] = @"Missing targetedAccountServices parameter";
+        v30[0] = *MEMORY[0x277CCA450];
+        v30[1] = v21;
+        v31[0] = @"Invalid Message Parameters";
+        v31[1] = @"Missing targetedAccountServices parameter";
         v16 = MEMORY[0x277CBEAC0];
-        v17 = v32;
-        v18 = v31;
+        v17 = v31;
+        v18 = v30;
       }
 
       else
       {
         v19 = *MEMORY[0x277CCA470];
-        v33[0] = *MEMORY[0x277CCA450];
-        v33[1] = v19;
-        v34[0] = @"Invalid Message Parameters";
-        v34[1] = @"Missing accountRawPassword parameter";
+        v32[0] = *MEMORY[0x277CCA450];
+        v32[1] = v19;
+        v33[0] = @"Invalid Message Parameters";
+        v33[1] = @"Missing accountRawPassword parameter";
         v16 = MEMORY[0x277CBEAC0];
-        v17 = v34;
-        v18 = v33;
+        v17 = v33;
+        v18 = v32;
       }
     }
 
     else
     {
       v15 = *MEMORY[0x277CCA470];
-      v35[0] = *MEMORY[0x277CCA450];
-      v35[1] = v15;
-      v36[0] = @"Invalid Message Parameters";
-      v36[1] = @"Missing account parameter";
+      v34[0] = *MEMORY[0x277CCA450];
+      v34[1] = v15;
+      v35[0] = @"Invalid Message Parameters";
+      v35[1] = @"Missing account parameter";
       v16 = MEMORY[0x277CBEAC0];
-      v17 = v36;
-      v18 = v35;
+      v17 = v35;
+      v18 = v34;
     }
 
     v12 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:2];
@@ -170,8 +170,6 @@ LABEL_14:
   account = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9001 userInfo:0];
   (*(handlerCopy + 2))(handlerCopy, account, 0);
 LABEL_15:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TRProxyAuthOperationHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke(uint64_t a1, void *a2, void *a3)

@@ -125,7 +125,7 @@ uint64_t __68__HDFHIRExtensionProcessor_extensionsForURL_inJSONDictionary_error_
 
 - (int64_t)visitor:(id)visitor willVisitArray:(id)array
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   visitorCopy = visitor;
   arrayCopy = array;
   if (!self->_collectingUnsupportedModifierExtensions)
@@ -138,39 +138,39 @@ uint64_t __68__HDFHIRExtensionProcessor_extensionsForURL_inJSONDictionary_error_
 
   if (v10)
   {
-    v40 = 0;
-    v11 = [HDFHIRExtensionElement FHIRExtensionElementsFromJSONExtensionObject:arrayCopy error:&v40];
-    v12 = v40;
+    v39 = 0;
+    v11 = [HDFHIRExtensionElement FHIRExtensionElementsFromJSONExtensionObject:arrayCopy error:&v39];
+    v12 = v39;
     v13 = v12;
     if (v11)
     {
-      v31 = v12;
-      v33 = arrayCopy;
-      v34 = visitorCopy;
+      v30 = v12;
+      v32 = arrayCopy;
+      v33 = visitorCopy;
       allKeyPathComponents = [visitorCopy allKeyPathComponents];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v32 = v11;
+      v31 = v11;
       v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v15)
       {
         v16 = v15;
         v17 = 0;
-        v18 = *v37;
+        v18 = *v36;
         do
         {
           v19 = 0;
           do
           {
-            if (*v37 != v18)
+            if (*v36 != v18)
             {
               objc_enumerationMutation(v14);
             }
 
-            v20 = *(*(&v36 + 1) + 8 * v19);
+            v20 = *(*(&v35 + 1) + 8 * v19);
             if (([objc_opt_class() isSupportedModifierExtension:v20] & 1) == 0)
             {
               v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
@@ -189,16 +189,16 @@ uint64_t __68__HDFHIRExtensionProcessor_extensionsForURL_inJSONDictionary_error_
           }
 
           while (v16 != v19);
-          v16 = [v14 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v16);
       }
 
-      arrayCopy = v33;
-      visitorCopy = v34;
-      v13 = v31;
-      v11 = v32;
+      arrayCopy = v32;
+      visitorCopy = v33;
+      v13 = v30;
+      v11 = v31;
     }
 
     else
@@ -207,7 +207,7 @@ uint64_t __68__HDFHIRExtensionProcessor_extensionsForURL_inJSONDictionary_error_
       v28 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        [HDFHIRExtensionProcessor visitor:v28 willVisitArray:?];
+        [HDFHIRExtensionProcessor visitor:v28 willVisitArray:v13];
       }
     }
 
@@ -219,7 +219,6 @@ uint64_t __68__HDFHIRExtensionProcessor_extensionsForURL_inJSONDictionary_error_
     v27 = 1;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

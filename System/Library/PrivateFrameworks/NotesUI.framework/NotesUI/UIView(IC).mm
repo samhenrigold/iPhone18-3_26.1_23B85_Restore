@@ -14,7 +14,6 @@
 - (id)ic_window;
 - (id)ic_windowScene;
 - (uint64_t)ic_behavior;
-- (uint64_t)ic_crashIfWindowIsSecure;
 - (uint64_t)ic_hasCompactHeight;
 - (uint64_t)ic_hasCompactSize;
 - (uint64_t)ic_hasCompactWidth;
@@ -27,6 +26,7 @@
 - (void)ic_applyRoundedCornersFromView:()IC;
 - (void)ic_applyRoundedCornersWithTopLeadingRadius:()IC topTrailingRadius:bottomLeadingRadius:bottomTrailingRadius:;
 - (void)ic_applyShadowWithRadius:()IC opacity:offset:shadowPathIsBounds:;
+- (void)ic_crashIfWindowIsSecure;
 - (void)ic_removeAllConstraintsForSubview:()IC;
 - (void)ic_removeShadow;
 - (void)setIc_preferredContentSizeCategory:()IC;
@@ -91,7 +91,7 @@
   }
 }
 
-- (uint64_t)ic_crashIfWindowIsSecure
+- (void)ic_crashIfWindowIsSecure
 {
   result = [self ic_isInSecureWindow];
   if (result)
@@ -254,7 +254,7 @@ LABEL_6:
   v9 = layer3;
   if (layer3)
   {
-    [layer3 cornerRadii];
+    objc_msgSend_cornerRadii(layer3);
   }
 
   else

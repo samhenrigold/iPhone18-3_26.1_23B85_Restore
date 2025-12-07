@@ -84,7 +84,7 @@
 
 void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v4 = *(a1 + 32)) == 0)
   {
@@ -106,7 +106,7 @@ void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke(uint64_t a1, 
   v7 = [MEMORY[0x277D77BF8] sharedManager];
   v8 = [v7 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v9 = [v8 userPersonaUniqueString];
   v10 = v9;
   if (v9 == v5 || ([v9 isEqualToString:v5] & 1) != 0)
@@ -117,17 +117,17 @@ void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke(uint64_t a1, 
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v27 = 0;
-    v17 = [v8 copyCurrentPersonaContextWithError:&v27];
+    v26 = 0;
+    v16 = [v8 copyCurrentPersonaContextWithError:&v26];
+    v17 = v26;
     v18 = v27;
-    v19 = v28;
-    v28 = v17;
+    v27 = v16;
 
-    if (v18)
+    if (v17)
     {
-      v20 = brc_bread_crumbs();
-      v21 = brc_default_log();
-      if (os_log_type_enabled(v21, 0x90u))
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, 0x90u))
       {
         __br_notify_register_dispatch_block_invoke_cold_4();
       }
@@ -137,18 +137,18 @@ void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke(uint64_t a1, 
 
     if (v11)
     {
-      v22 = brc_bread_crumbs();
-      v23 = brc_default_log();
-      if (os_log_type_enabled(v23, 0x90u))
+      v21 = brc_bread_crumbs();
+      v22 = brc_default_log();
+      if (os_log_type_enabled(v22, 0x90u))
       {
-        v24 = *(a1 + 32);
+        v23 = *(a1 + 32);
         *buf = 138412802;
-        *&buf[4] = v24;
+        *&buf[4] = v23;
         *&buf[12] = 2112;
         *&buf[14] = v11;
         *&buf[22] = 2112;
-        v30 = v22;
-        _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v29 = v21;
+        _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_31:
@@ -159,9 +159,9 @@ LABEL_31:
   {
     if (v6 && ([v8 isDataSeparatedPersona] & 1) == 0)
     {
-      v22 = brc_bread_crumbs();
-      v23 = brc_default_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = brc_bread_crumbs();
+      v22 = brc_default_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -170,9 +170,9 @@ LABEL_31:
       goto LABEL_31;
     }
 
-    v25 = brc_bread_crumbs();
-    v26 = brc_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v24 = brc_bread_crumbs();
+    v25 = brc_default_log();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -190,7 +190,7 @@ LABEL_10:
     v14 = brc_default_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke_cold_5(buf);
+      __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke_cold_5();
     }
 
     v15 = WeakRetained[3];
@@ -203,7 +203,6 @@ LABEL_10:
   }
 
   _BRRestorePersona();
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke_2()
@@ -295,7 +294,7 @@ void __44__BRCUserDefaultsManager_initWithPersonaID___block_invoke_2()
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [BRCUserDefaultsManager _setServerConfigurationURL:? whenLoaded:?];
+      [BRCUserDefaultsManager _setServerConfigurationURL:whenLoaded:];
     }
 
     [(BRCUserDefaultsManager *)self _loadServerConfigurationDictionary];
@@ -330,7 +329,7 @@ void __64__BRCUserDefaultsManager__setServerConfigurationURL_whenLoaded___block_
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __64__BRCUserDefaultsManager__setServerConfigurationURL_whenLoaded___block_invoke_cold_1(v11);
+      __64__BRCUserDefaultsManager__setServerConfigurationURL_whenLoaded___block_invoke_cold_1();
     }
 
     v7 = WeakRetained[7];
@@ -387,24 +386,24 @@ void __63__BRCUserDefaultsManager_setServerConfigurationURL_whenLoaded___block_i
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   lCopy = l;
-  memset(v27, 0, sizeof(v27));
-  __brc_create_section(0, "[BRCUserDefaultsManager URLSession:downloadTask:didFinishDownloadingToURL:]", 398, 0, v27);
+  memset(v26, 0, sizeof(v26));
+  __brc_create_section(0, "[BRCUserDefaultsManager URLSession:downloadTask:didFinishDownloadingToURL:]", 398, 0, v26);
   v11 = brc_bread_crumbs();
   v12 = brc_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v29 = v27[0];
-    v30 = 2112;
-    v31 = taskCopy;
-    v32 = 2112;
-    v33 = lCopy;
-    v34 = 2112;
-    v35 = v11;
+    v28 = v26[0];
+    v29 = 2112;
+    v30 = taskCopy;
+    v31 = 2112;
+    v32 = lCopy;
+    v33 = 2112;
+    v34 = v11;
     _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx config: download task finished %@, plist %@%@", buf, 0x2Au);
   }
 
@@ -413,9 +412,9 @@ void __63__BRCUserDefaultsManager_setServerConfigurationURL_whenLoaded___block_i
   v15 = [v13 fileURLWithPath:v14];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v26 = 0;
-  v17 = [defaultManager br_forceMoveItemAtURL:lCopy toURL:v15 error:&v26];
-  v18 = v26;
+  v25 = 0;
+  v17 = [defaultManager br_forceMoveItemAtURL:lCopy toURL:v15 error:&v25];
+  v18 = v25;
 
   if ((v17 & 1) == 0)
   {
@@ -428,43 +427,40 @@ void __63__BRCUserDefaultsManager_setServerConfigurationURL_whenLoaded___block_i
   }
 
   queue = self->_queue;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __76__BRCUserDefaultsManager_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke;
-  v24[3] = &unk_2784FF478;
-  v24[4] = self;
-  v25 = v15;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __76__BRCUserDefaultsManager_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke;
+  v23[3] = &unk_2784FF478;
+  v23[4] = self;
+  v24 = v15;
   v22 = v15;
-  dispatch_sync(queue, v24);
+  dispatch_sync(queue, v23);
 
-  __brc_leave_section(v27);
-  v23 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v26);
 }
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, 0x90u))
   {
-    v10 = 138412802;
-    v11 = sessionCopy;
-    v12 = 2112;
-    v13 = errorCopy;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] config: session %@ become invalid: %@%@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = sessionCopy;
+    v11 = 2112;
+    v12 = errorCopy;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] config: session %@ become invalid: %@%@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   v8 = errorCopy;
@@ -496,7 +492,7 @@ void __63__BRCUserDefaultsManager_setServerConfigurationURL_whenLoaded___block_i
 
       if ([domain isEqual:v15])
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@" (URL %@)", domain, v19];
+        [MEMORY[0x277CCACA8] stringWithFormat:@" (URL %@)", domain, v18];
       }
 
       else
@@ -516,20 +512,20 @@ LABEL_14:
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, 0x90u))
     {
-      v18 = &stru_2837504F0;
+      v17 = &stru_2837504F0;
       *buf = 138413058;
       if (v10)
       {
-        v18 = v10;
+        v17 = v10;
       }
 
-      v21 = taskCopy;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v11;
+      v20 = taskCopy;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v11;
       _os_log_error_impl(&dword_223E7A000, v16, 0x90u, "[ERROR] config: can't download task %@%@: %@%@", buf, 0x2Au);
     }
 
@@ -544,8 +540,6 @@ LABEL_14:
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadCachedServerConfiguration
@@ -573,7 +567,7 @@ LABEL_16:
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(BRCUserDefaultsManager *)&self->_serverConfigurationDict loadCachedServerConfiguration];
+    [BRCUserDefaultsManager loadCachedServerConfiguration];
   }
 
   objc_sync_exit(v7);
@@ -581,7 +575,7 @@ LABEL_16:
 
 - (void)_parsePlistWithURL:(id)l
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy];
@@ -589,33 +583,23 @@ LABEL_16:
   {
 LABEL_11:
     callbackQueue = self->_callbackQueue;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke;
-    v23[3] = &unk_2784FF450;
-    v23[4] = self;
-    dispatch_async(callbackQueue, v23);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke;
+    v22[3] = &unk_2784FF450;
+    v22[4] = self;
+    dispatch_async(callbackQueue, v22);
     goto LABEL_15;
   }
 
-  v24 = 0;
-  v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v24];
-  v7 = v24;
+  v23 = 0;
+  v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v23];
+  v7 = v23;
   if (v6)
   {
     v8 = [(NSDictionary *)self->_serverConfigurationDict objectForKeyedSubscript:@"etag"];
-    if (!v8)
+    if (!v8 || ([v6 objectForKeyedSubscript:@"etag"], v9 = objc_claimAutoreleasedReturnValue(), -[NSDictionary objectForKeyedSubscript:](self->_serverConfigurationDict, "objectForKeyedSubscript:", @"etag"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
     {
-      goto LABEL_5;
-    }
-
-    v9 = [v6 objectForKeyedSubscript:@"etag"];
-    v10 = [(NSDictionary *)self->_serverConfigurationDict objectForKeyedSubscript:@"etag"];
-    v11 = [v9 isEqual:v10];
-
-    if ((v11 & 1) == 0)
-    {
-LABEL_5:
       v12 = self->_userDefaultsCache;
       objc_sync_enter(v12);
       v13 = brc_bread_crumbs();
@@ -636,7 +620,7 @@ LABEL_5:
     v17 = brc_default_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [BRCUserDefaultsManager _parsePlistWithURL:?];
+      [BRCUserDefaultsManager _parsePlistWithURL:];
     }
 
     goto LABEL_11;
@@ -648,16 +632,15 @@ LABEL_5:
   {
     serverConfigurationURL = self->_serverConfigurationURL;
     *buf = 138412802;
-    v26 = serverConfigurationURL;
-    v27 = 2112;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v19;
+    v25 = serverConfigurationURL;
+    v26 = 2112;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v19;
     _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] failed parsing plist at %@: %@%@", buf, 0x20u);
   }
 
 LABEL_15:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke(uint64_t a1)
@@ -673,21 +656,21 @@ uint64_t __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke(uint64_t
 
 - (void)_loadServerConfigurationDictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  memset(v13, 0, sizeof(v13));
-  __brc_create_section(0, "[BRCUserDefaultsManager _loadServerConfigurationDictionary]", 493, 0, v13);
+  memset(v12, 0, sizeof(v12));
+  __brc_create_section(0, "[BRCUserDefaultsManager _loadServerConfigurationDictionary]", 493, 0, v12);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     serverConfigurationURL = self->_serverConfigurationURL;
     *buf = 134218498;
-    v15 = v13[0];
-    v16 = 2112;
-    v17 = serverConfigurationURL;
-    v18 = 2112;
-    v19 = v3;
+    v14 = v12[0];
+    v15 = 2112;
+    v16 = serverConfigurationURL;
+    v17 = 2112;
+    v18 = v3;
     _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx config: asynchronously loading %@%@", buf, 0x20u);
   }
 
@@ -698,7 +681,7 @@ uint64_t __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] loading iCloud Drive configuration from disk%@", buf, 0xCu);
     }
 
@@ -712,21 +695,20 @@ uint64_t __45__BRCUserDefaultsManager__parsePlistWithURL___block_invoke(uint64_t
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[NOTICE] downloading iCloud Drive configuration%@", buf, 0xCu);
     }
 
     downloadQueue = self->_downloadQueue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __60__BRCUserDefaultsManager__loadServerConfigurationDictionary__block_invoke;
-    v12[3] = &unk_2784FF450;
-    v12[4] = self;
-    [(NSOperationQueue *)downloadQueue addOperationWithBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __60__BRCUserDefaultsManager__loadServerConfigurationDictionary__block_invoke;
+    v11[3] = &unk_2784FF450;
+    v11[4] = self;
+    [(NSOperationQueue *)downloadQueue addOperationWithBlock:v11];
   }
 
-  __brc_leave_section(v13);
-  v10 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v12);
 }
 
 void __60__BRCUserDefaultsManager__loadServerConfigurationDictionary__block_invoke(uint64_t a1)

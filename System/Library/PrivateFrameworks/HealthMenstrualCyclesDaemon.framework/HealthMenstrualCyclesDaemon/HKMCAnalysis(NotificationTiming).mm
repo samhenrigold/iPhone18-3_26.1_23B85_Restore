@@ -164,7 +164,7 @@ LABEL_11:
 
 - (HDMCNotification)hdmc_fertileWindowDidUpdateDueToSensorDataNotificationForNotificationFireDate:()NotificationTiming lastFiredDate:fertileWindowNotificationTimeOfDay:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -187,8 +187,8 @@ LABEL_11:
     {
       v16 = v15;
       *buf = 138543362;
-      v38 = objc_opt_class();
-      v17 = v38;
+      v37 = objc_opt_class();
+      v17 = v37;
       _os_log_impl(&dword_2293D1000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Our next date to fire a notification is nil, defaulting back to today as our next fire date", buf, 0xCu);
     }
 
@@ -205,7 +205,7 @@ LABEL_11:
       v24 = v31;
       v32 = objc_opt_class();
       *buf = 138543362;
-      v38 = v32;
+      v37 = v32;
       v33 = v32;
       _os_log_impl(&dword_2293D1000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] We have already fired our update fertile window notification within the past 10 days, we are going to skip scheduling another one.", buf, 0xCu);
 
@@ -230,13 +230,13 @@ LABEL_19:
       v24 = v23;
       v25 = objc_opt_class();
       v26 = MEMORY[0x277CCABB0];
-      v36 = v25;
+      v35 = v25;
       v27 = [v26 numberWithInteger:v22];
       v28 = HKSensitiveLogItem();
       *buf = 138543618;
-      v38 = v25;
-      v39 = 2112;
-      v40 = v28;
+      v37 = v25;
+      v38 = 2112;
+      v39 = v28;
       _os_log_impl(&dword_2293D1000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] The remaining days in our fertile window are: %@, so we will skip scheduling an update fertile window notification", buf, 0x16u);
 
 LABEL_18:
@@ -251,7 +251,6 @@ LABEL_18:
 LABEL_20:
 
 LABEL_21:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

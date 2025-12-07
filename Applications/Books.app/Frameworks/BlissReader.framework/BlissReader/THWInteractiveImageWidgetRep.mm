@@ -839,7 +839,7 @@
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWInteractiveImageWidgetRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -911,7 +911,7 @@
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWInteractiveImageWidgetRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWInteractiveImageWidgetRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWInteractiveImageWidgetRep *)self freeTransformableHandler] ftc]);
   }
 
   else
@@ -1777,7 +1777,7 @@ LABEL_7:
   v42 = [(THWFreeTransformableRepGestureTargetHandler *)self->_freeTransformableHandler ftc];
   if (v42)
   {
-    [(THWFreeTransformController *)v42 originalShadowTransform];
+    objc_msgSend_originalShadowTransform(v42);
   }
 
   else
@@ -2264,7 +2264,7 @@ LABEL_7:
   stageCanvasController = [(THWInteractiveImageWidgetRep *)self stageCanvasController];
   if (stageCanvasController)
   {
-    [(THWOverlayableZoomableCanvasController *)stageCanvasController contentViewTransform];
+    objc_msgSend_contentViewTransform(stageCanvasController);
   }
 
   else
@@ -2297,7 +2297,7 @@ LABEL_7:
   stageCanvasController = [(THWInteractiveImageWidgetRep *)self stageCanvasController];
   if (stageCanvasController)
   {
-    [(THWOverlayableZoomableCanvasController *)stageCanvasController contentViewTransform];
+    objc_msgSend_contentViewTransform(stageCanvasController);
   }
 
   else

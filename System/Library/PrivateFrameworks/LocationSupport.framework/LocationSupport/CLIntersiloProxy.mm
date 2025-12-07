@@ -30,8 +30,8 @@
 
 - (CLIntersiloProxy)init
 {
-  null = [MEMORY[0x1E695DFB0] null];
-  objc_storeWeak(&self->_delegate, null);
+  v4 = objc_msgSend_null(MEMORY[0x1E695DFB0], a2, v2);
+  objc_storeWeak(&self->_delegate, v4);
 
   return self;
 }
@@ -41,129 +41,129 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  peer = [(CLIntersiloProxy *)self peer];
-  delegateSilo = [peer delegateSilo];
-  identifier = [delegateSilo identifier];
-  v9 = [v3 stringWithFormat:@"<%@: peer silo:%@>", v5, identifier];
+  v8 = objc_msgSend_peer(self, v6, v7);
+  v11 = objc_msgSend_delegateSilo(v8, v9, v10);
+  v14 = objc_msgSend_identifier(v11, v12, v13);
+  v16 = objc_msgSend_stringWithFormat_(v3, v15, @"<%@: peer silo:%@>", v5, v14);
 
-  return v9;
+  return v16;
 }
 
 + (id)proxyForRecipientObject:(id)object inSilo:(id)silo recipientName:(id)name
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   siloCopy = silo;
   nameCopy = name;
-  v11 = objc_alloc([self initiatorRepresentingClass]);
-  v12 = objc_alloc([self recipientRepresentingClass]);
-  v13 = v11;
-  v14 = [v13 initWithDelegateObject:objectCopy delegateSilo:siloCopy uninitializedPeer:v12];
-  if (v14 != v13)
+  v13 = objc_alloc(objc_msgSend_initiatorRepresentingClass(self, v11, v12));
+  v16 = objc_alloc(objc_msgSend_recipientRepresentingClass(self, v14, v15));
+  v17 = v13;
+  v19 = objc_msgSend_initWithDelegateObject_delegateSilo_uninitializedPeer_(v17, v18, objectCopy, siloCopy, v16);
+  if (v19 != v17)
   {
-    v19 = sub_1DF81C298();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v29 = sub_1DF81C298();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == initiatorProxy";
-      _os_log_impl(&dword_1DF7FE000, v19, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == initiatorProxy";
+      _os_log_impl(&dword_1DF7FE000, v29, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v20 = sub_1DF81C298();
-    if (os_signpost_enabled(v20))
+    v30 = sub_1DF81C298();
+    if (os_signpost_enabled(v30))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == initiatorProxy";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo proxy init changed self", "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == initiatorProxy";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo proxy init changed self", "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v21 = sub_1DF81C298();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v31 = sub_1DF81C298();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == initiatorProxy";
-      _os_log_impl(&dword_1DF7FE000, v21, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == initiatorProxy";
+      _os_log_impl(&dword_1DF7FE000, v31, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 140, "+[CLIntersiloProxy proxyForRecipientObject:inSilo:recipientName:]");
 LABEL_20:
     __break(1u);
   }
 
-  v15 = v12;
-  v16 = [v15 initWithUninitializedPeer:v13];
+  v20 = v16;
+  v22 = objc_msgSend_initWithUninitializedPeer_(v20, v21, v17);
 
-  if (v16 != v15)
+  if (v22 != v20)
   {
-    v22 = sub_1DF81C298();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v32 = sub_1DF81C298();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == recipientProxy";
-      _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == recipientProxy";
+      _os_log_impl(&dword_1DF7FE000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v23 = sub_1DF81C298();
-    if (os_signpost_enabled(v23))
+    v33 = sub_1DF81C298();
+    if (os_signpost_enabled(v33))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == recipientProxy";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo proxy init changed self", "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == recipientProxy";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Intersilo proxy init changed self", "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v24 = sub_1DF81C298();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v34 = sub_1DF81C298();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = &unk_1DF8255EF;
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "postInit == recipientProxy";
-      _os_log_impl(&dword_1DF7FE000, v24, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = &unk_1DF8255EF;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "postInit == recipientProxy";
+      _os_log_impl(&dword_1DF7FE000, v34, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Intersilo proxy init changed self, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 142, "+[CLIntersiloProxy proxyForRecipientObject:inSilo:recipientName:]");
     goto LABEL_20;
   }
 
-  [v13 setDelegateEntityName:{objc_msgSend(nameCopy, "UTF8String")}];
+  v23 = nameCopy;
+  v26 = objc_msgSend_UTF8String(v23, v24, v25);
+  objc_msgSend_setDelegateEntityName_(v17, v27, v26);
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v20;
 }
 
 - (CLIntersiloProxy)initWithDelegateObject:(id)object delegateSilo:(id)silo
@@ -177,203 +177,208 @@ LABEL_20:
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v4 = +[CLIntersiloInterface sharedInterface];
-  LOBYTE(selector) = [v4 hasInfoForSelector:selector];
+  selectorCopy = selector;
+  v4 = objc_msgSend_sharedInterface(CLIntersiloInterface, a2, selector);
+  LOBYTE(selectorCopy) = objc_msgSend_hasInfoForSelector_(v4, v5, selectorCopy);
 
-  return selector;
+  return selectorCopy;
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v4 = +[CLIntersiloInterface sharedInterface];
-  v5 = [v4 getInfoForSelector:selector];
-  v6 = [v5 sig];
+  v4 = objc_msgSend_sharedInterface(CLIntersiloInterface, a2, selector);
+  v6 = objc_msgSend_getInfoForSelector_(v4, v5, selector);
+  v9 = objc_msgSend_sig(v6, v7, v8);
 
-  return v6;
+  return v9;
 }
 
 - (void)forwardInvocation:(id)invocation
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
-  selector = [invocationCopy selector];
-  v6 = +[CLIntersiloInterface sharedInterface];
-  v57 = [v6 getInfoForSelector:selector];
+  v7 = objc_msgSend_selector(invocationCopy, v5, v6);
+  v10 = objc_msgSend_sharedInterface(CLIntersiloInterface, v8, v9);
+  v98 = objc_msgSend_getInfoForSelector_(v10, v11, v7);
 
-  peer = [(CLIntersiloProxy *)self peer];
-  v56 = peer;
-  if ([invocationCopy argumentsRetained])
+  v14 = objc_msgSend_peer(self, v12, v13);
+  v97 = v14;
+  if (objc_msgSend_argumentsRetained(invocationCopy, v15, v16))
   {
-    v44 = sub_1DF81C298();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    v85 = sub_1DF81C298();
+    if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_log_impl(&dword_1DF7FE000, v44, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_log_impl(&dword_1DF7FE000, v85, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v45 = sub_1DF81C298();
-    if (os_signpost_enabled(v45))
+    v86 = sub_1DF81C298();
+    if (os_signpost_enabled(v86))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v45, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Didn't expect the arguments to be retained before now", "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v86, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Didn't expect the arguments to be retained before now", "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v46 = sub_1DF81C298();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+    v87 = sub_1DF81C298();
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_log_impl(&dword_1DF7FE000, v46, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_log_impl(&dword_1DF7FE000, v87, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
-LABEL_74:
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 198, "[CLIntersiloProxy forwardInvocation:]");
+LABEL_75:
     __break(1u);
   }
 
-  v65 = 0;
-  if ([v57 lastArgBlockIndex])
+  v106 = 0;
+  if (objc_msgSend_lastArgBlockIndex(v98, v17, v18))
   {
-    lastArgBlockIndex = [v57 lastArgBlockIndex];
-    if (lastArgBlockIndex >= 0)
+    ArgBlockIndex = objc_msgSend_lastArgBlockIndex(v98, v19, v20);
+    if (ArgBlockIndex >= 0)
     {
-      v9 = lastArgBlockIndex;
+      v23 = ArgBlockIndex;
     }
 
     else
     {
-      v9 = -lastArgBlockIndex;
+      v23 = -ArgBlockIndex;
     }
 
-    v64 = 0;
-    [invocationCopy getArgument:&v64 atIndex:v9];
-    cf = [v64 copy];
-    v10 = *_Block_signature(cf);
-    if ((v10 == 118) != [v57 lastArgBlockIndex] < 1)
+    v105 = 0;
+    objc_msgSend_getArgument_atIndex_(invocationCopy, v22, &v105, v23);
+    cf = objc_msgSend_copy(v105, v24, v25);
+    v26 = *_Block_signature(cf);
+    if ((v26 == 118) != objc_msgSend_lastArgBlockIndex(v98, v27, v28) < 1)
     {
-      if (v10 == 118)
+      if (v26 == 118)
       {
 LABEL_19:
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        v19 = WeakRetained == 0;
+        v41 = WeakRetained == 0;
 
-        if (v19)
+        if (v41)
         {
-          v50 = sub_1DF81C298();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+          v91 = sub_1DF81C298();
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_FAULT))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegate";
-            _os_log_impl(&dword_1DF7FE000, v50, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegate";
+            _os_log_impl(&dword_1DF7FE000, v91, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v51 = sub_1DF81C298();
-          if (os_signpost_enabled(v51))
+          v92 = sub_1DF81C298();
+          if (os_signpost_enabled(v92))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegate";
-            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v51, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Delegate is necessary for reply delivery", "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegate";
+            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v92, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Delegate is necessary for reply delivery", "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v35 = sub_1DF81C298();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+          v63 = sub_1DF81C298();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegate";
-            _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegate";
+            _os_log_impl(&dword_1DF7FE000, v63, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Delegate is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
+
+          v64 = 236;
         }
 
         else
         {
-          v20 = objc_loadWeakRetained(&self->_delegateSilo);
-          v21 = v20 == 0;
+          v42 = objc_loadWeakRetained(&self->_delegateSilo);
+          v43 = v42 == 0;
 
-          if (!v21)
+          if (!v43)
           {
             objc_loadWeakRetained(&self->_delegate);
             objc_loadWeakRetained(&self->_delegateSilo);
-            [peer delegateSilo];
+            objc_msgSend_delegateSilo(v14, v44, v45);
             objc_claimAutoreleasedReturnValue();
             operator new();
           }
 
-          v52 = sub_1DF81C298();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+          v93 = sub_1DF81C298();
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegateSilo";
-            _os_log_impl(&dword_1DF7FE000, v52, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegateSilo";
+            _os_log_impl(&dword_1DF7FE000, v93, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v53 = sub_1DF81C298();
-          if (os_signpost_enabled(v53))
+          v94 = sub_1DF81C298();
+          if (os_signpost_enabled(v94))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegateSilo";
-            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v53, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Silo is necessary for reply delivery", "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegateSilo";
+            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v94, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Silo is necessary for reply delivery", "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v35 = sub_1DF81C298();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+          v63 = sub_1DF81C298();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "_delegateSilo";
-            _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "_delegateSilo";
+            _os_log_impl(&dword_1DF7FE000, v63, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Silo is necessary for reply delivery, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
+
+          v64 = 237;
         }
 
-LABEL_73:
+LABEL_74:
 
-        abort_report_np();
-        goto LABEL_74;
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", v64, "[CLIntersiloProxy forwardInvocation:]");
+        goto LABEL_75;
       }
     }
 
@@ -384,16 +389,16 @@ LABEL_73:
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6A38);
       }
 
-      v11 = qword_1ED5FAD48;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v29 = qword_1ED5FAD48;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
-        v12 = [v57 description];
+        v32 = objc_msgSend_description(v98, v30, v31);
         *buf = 68289282;
-        v67 = 2082;
-        v68 = &unk_1DF8255EF;
-        v69 = 2114;
-        v70 = v12;
-        _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:withReply: and void-returning block must be used in conjunction for correct reply handling, selector:%{public, location:escape_only}@}", buf, 0x1Cu);
+        v108 = 2082;
+        v109 = &unk_1DF8255EF;
+        v110 = 2114;
+        v111 = v32;
+        _os_log_impl(&dword_1DF7FE000, v29, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:withReply: and void-returning block must be used in conjunction for correct reply handling, selector:%{public, location:escape_only}@}", buf, 0x1Cu);
       }
 
       if (qword_1ED5FAD40 != -1)
@@ -401,25 +406,25 @@ LABEL_73:
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6A38);
       }
 
-      v13 = qword_1ED5FAD48;
-      if (os_signpost_enabled(v13))
+      v33 = qword_1ED5FAD48;
+      if (os_signpost_enabled(v33))
       {
-        v14 = [v57 description];
+        v36 = objc_msgSend_description(v98, v34, v35);
         *buf = 68289282;
-        v67 = 2082;
-        v68 = &unk_1DF8255EF;
-        v69 = 2114;
-        v70 = v14;
-        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "withReply: and void-returning block must be used in conjunction for correct reply handling", "{msg%{public}.0s:withReply: and void-returning block must be used in conjunction for correct reply handling, selector:%{public, location:escape_only}@}", buf, 0x1Cu);
+        v108 = 2082;
+        v109 = &unk_1DF8255EF;
+        v110 = 2114;
+        v111 = v36;
+        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "withReply: and void-returning block must be used in conjunction for correct reply handling", "{msg%{public}.0s:withReply: and void-returning block must be used in conjunction for correct reply handling, selector:%{public, location:escape_only}@}", buf, 0x1Cu);
       }
 
-      v15 = objc_loadWeakRetained(&self->_delegate);
-      if (v15)
+      v37 = objc_loadWeakRetained(&self->_delegate);
+      if (v37)
       {
-        v16 = objc_loadWeakRetained(&self->_delegateSilo);
-        v17 = v16 != 0;
+        v38 = objc_loadWeakRetained(&self->_delegateSilo);
+        v39 = v38 != 0;
 
-        if (v17 && v10 == 118)
+        if (v39 && v26 == 118)
         {
           goto LABEL_19;
         }
@@ -427,277 +432,278 @@ LABEL_73:
     }
   }
 
-  returnAddressIndex = [v57 returnAddressIndex];
-  if (returnAddressIndex)
+  v46 = objc_msgSend_returnAddressIndex(v98, v19, v20);
+  if (v46)
   {
-    v64 = 0;
-    v23 = returnAddressIndex;
-    [invocationCopy getArgument:&v64 atIndex:returnAddressIndex];
-    v24 = objc_loadWeakRetained(&self->_delegate);
-    v25 = v24;
-    if (!v24 || (v26 = v64, v64 == CLISP_ME_TOKEN))
+    v105 = 0;
+    v49 = v46;
+    objc_msgSend_getArgument_atIndex_(invocationCopy, v47, &v105, v46);
+    v50 = objc_loadWeakRetained(&self->_delegate);
+    v51 = v50;
+    if (!v50 || (v52 = v105, v105 == CLISP_ME_TOKEN))
     {
     }
 
     else
     {
-      v27 = objc_loadWeakRetained(&self->_delegate);
-      v28 = v26 == v27;
+      v53 = objc_loadWeakRetained(&self->_delegate);
+      v54 = v52 == v53;
 
-      if (!v28)
+      if (!v54)
       {
-        null = [MEMORY[0x1E695DFB0] null];
-        v30 = objc_loadWeakRetained(&self->_delegate);
-        v31 = null == v30;
+        v57 = objc_msgSend_null(MEMORY[0x1E695DFB0], v55, v56);
+        v58 = objc_loadWeakRetained(&self->_delegate);
+        v59 = v57 == v58;
 
-        v32 = sub_1DF81C298();
-        v33 = os_log_type_enabled(v32, OS_LOG_TYPE_FAULT);
-        if (v31)
+        v60 = sub_1DF81C298();
+        v61 = os_log_type_enabled(v60, OS_LOG_TYPE_FAULT);
+        if (v59)
         {
-          if (v33)
+          if (v61)
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "(id)[NSNull null] != _delegate";
-            _os_log_impl(&dword_1DF7FE000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "(id)[NSNull null] != _delegate";
+            _os_log_impl(&dword_1DF7FE000, v60, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v54 = sub_1DF81C298();
-          if (os_signpost_enabled(v54))
+          v95 = sub_1DF81C298();
+          if (os_signpost_enabled(v95))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "(id)[NSNull null] != _delegate";
-            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v54, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A delegate must be set before sending messages with byref return address parameters", "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "(id)[NSNull null] != _delegate";
+            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v95, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A delegate must be set before sending messages with byref return address parameters", "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v35 = sub_1DF81C298();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+          v63 = sub_1DF81C298();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "(id)[NSNull null] != _delegate";
-            _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "(id)[NSNull null] != _delegate";
+            _os_log_impl(&dword_1DF7FE000, v63, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A delegate must be set before sending messages with byref return address parameters, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
+
+          v64 = 285;
         }
 
         else
         {
-          if (v33)
+          if (v61)
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "__objc_no";
-            _os_log_impl(&dword_1DF7FE000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "__objc_no";
+            _os_log_impl(&dword_1DF7FE000, v60, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v34 = sub_1DF81C298();
-          if (os_signpost_enabled(v34))
+          v62 = sub_1DF81C298();
+          if (os_signpost_enabled(v62))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "__objc_no";
-            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "The object passed to byref return address parameters MUST BE the registered delegate", "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "__objc_no";
+            _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v62, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "The object passed to byref return address parameters MUST BE the registered delegate", "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
 
-          v35 = sub_1DF81C298();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+          v63 = sub_1DF81C298();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
             *buf = 68289539;
-            v67 = 2082;
-            v68 = &unk_1DF8255EF;
-            v69 = 2082;
-            v70 = "assert";
-            v71 = 2081;
-            v72 = "__objc_no";
-            _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_INFO, "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+            v108 = 2082;
+            v109 = &unk_1DF8255EF;
+            v110 = 2082;
+            v111 = "assert";
+            v112 = 2081;
+            v113 = "__objc_no";
+            _os_log_impl(&dword_1DF7FE000, v63, OS_LOG_TYPE_INFO, "{msg%{public}.0s:The object passed to byref return address parameters MUST BE the registered delegate, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
           }
+
+          v64 = 286;
         }
 
-        goto LABEL_73;
+        goto LABEL_74;
       }
     }
 
-    peer = v56;
-    v64 = v56;
-    [invocationCopy setArgument:&v64 atIndex:v23];
+    v14 = v97;
+    v105 = v97;
+    objc_msgSend_setArgument_atIndex_(invocationCopy, v55, &v105, v49);
   }
 
-  if ([invocationCopy argumentsRetained])
+  if (objc_msgSend_argumentsRetained(invocationCopy, v47, v48))
   {
-    v47 = sub_1DF81C298();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v88 = sub_1DF81C298();
+    if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_log_impl(&dword_1DF7FE000, v47, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_log_impl(&dword_1DF7FE000, v88, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v48 = sub_1DF81C298();
-    if (os_signpost_enabled(v48))
+    v89 = sub_1DF81C298();
+    if (os_signpost_enabled(v89))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v48, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Didn't expect the arguments to be retained before now", "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v89, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Didn't expect the arguments to be retained before now", "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v49 = sub_1DF81C298();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+    v90 = sub_1DF81C298();
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v67 = 2082;
-      v68 = &unk_1DF8255EF;
-      v69 = 2082;
-      v70 = "assert";
-      v71 = 2081;
-      v72 = "![inv argumentsRetained]";
-      _os_log_impl(&dword_1DF7FE000, v49, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v108 = 2082;
+      v109 = &unk_1DF8255EF;
+      v110 = 2082;
+      v111 = "assert";
+      v112 = 2081;
+      v113 = "![inv argumentsRetained]";
+      _os_log_impl(&dword_1DF7FE000, v90, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Didn't expect the arguments to be retained before now, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
-    goto LABEL_74;
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 299, "[CLIntersiloProxy forwardInvocation:]");
+    goto LABEL_75;
   }
 
-  [invocationCopy retainArguments];
-  if (v65)
+  objc_msgSend_retainArguments(invocationCopy, v65, v66);
+  if (v106)
   {
 
-    v65 = 0;
-    peer = v56;
+    v106 = 0;
+    v14 = v97;
   }
 
-  delegateSilo = [peer delegateSilo];
-  if (delegateSilo)
+  v71 = objc_msgSend_delegateSilo(v14, v67, v68);
+  if (v71)
   {
-    delegate = [v56 delegate];
+    v72 = objc_msgSend_delegate(v97, v69, v70);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1DF81D8D4;
     aBlock[3] = &unk_1E86C85C0;
-    v38 = delegate;
-    v59 = v38;
+    v73 = v72;
+    v100 = v73;
     selfCopy = self;
-    v61 = invocationCopy;
-    v39 = v57;
-    v62 = v39;
-    v63 = v56;
-    v40 = _Block_copy(aBlock);
-    v41 = [v39 sig];
-    v42 = [v41 methodReturnLength] == 0;
+    v102 = invocationCopy;
+    v74 = v98;
+    v103 = v74;
+    v104 = v97;
+    v75 = _Block_copy(aBlock);
+    v78 = objc_msgSend_sig(v74, v76, v77);
+    v81 = objc_msgSend_methodReturnLength(v78, v79, v80) == 0;
 
-    if (v42)
+    if (v81)
     {
-      [delegateSilo async:v40];
+      objc_msgSend_async_(v71, v82, v75);
     }
 
     else
     {
-      [objc_opt_class() performSyncOnSilo:delegateSilo invoker:v40];
+      v83 = objc_opt_class();
+      objc_msgSend_performSyncOnSilo_invoker_(v83, v84, v71, v75);
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerDelegate:(id)delegate inSilo:(id)silo
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   obj = delegate;
   siloCopy = silo;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  null = [MEMORY[0x1E695DFB0] null];
-  v9 = null;
-  if (WeakRetained != null)
+  v10 = objc_msgSend_null(MEMORY[0x1E695DFB0], v8, v9);
+  v11 = v10;
+  if (WeakRetained != v10)
   {
 
 LABEL_7:
-    v12 = sub_1DF81C298();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 68289539;
-      v17 = 0;
-      v18 = 2082;
-      v19 = &unk_1DF8255EF;
-      v20 = 2082;
-      v21 = "assert";
-      v22 = 2081;
-      v23 = "_delegate == (id)[NSNull null] && !_delegateSilo";
-      _os_log_impl(&dword_1DF7FE000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
     v13 = sub_1DF81C298();
-    if (os_signpost_enabled(v13))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v17 = 0;
-      v18 = 2082;
-      v19 = &unk_1DF8255EF;
-      v20 = 2082;
-      v21 = "assert";
-      v22 = 2081;
-      v23 = "_delegate == (id)[NSNull null] && !_delegateSilo";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Once registered, delegate may not be changed", "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "_delegate == (id)[NSNull null] && !_delegateSilo";
+      _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     v14 = sub_1DF81C298();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    if (os_signpost_enabled(v14))
     {
       *buf = 68289539;
-      v17 = 0;
-      v18 = 2082;
-      v19 = &unk_1DF8255EF;
-      v20 = 2082;
-      v21 = "assert";
-      v22 = 2081;
-      v23 = "_delegate == (id)[NSNull null] && !_delegateSilo";
-      _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "_delegate == (id)[NSNull null] && !_delegateSilo";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Once registered, delegate may not be changed", "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    v15 = sub_1DF81C298();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "_delegate == (id)[NSNull null] && !_delegateSilo";
+      _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Once registered, delegate may not be changed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 349, "[CLIntersiloProxy registerDelegate:inSilo:]");
     __break(1u);
   }
 
-  v10 = objc_loadWeakRetained(&self->_delegateSilo);
+  v12 = objc_loadWeakRetained(&self->_delegateSilo);
 
-  if (v10)
+  if (v12)
   {
     goto LABEL_7;
   }
 
   objc_storeWeak(&self->_delegate, obj);
   objc_storeWeak(&self->_delegateSilo, siloCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)peer
@@ -760,7 +766,7 @@ LABEL_7:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:-peer should never be invoked at this level..., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloProxy.mm", 371, "[CLIntersiloProxy peer]");
 LABEL_11:
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6A38);
   }

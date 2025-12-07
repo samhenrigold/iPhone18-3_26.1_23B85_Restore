@@ -2784,7 +2784,7 @@ LABEL_17:
   return accessibilityContainer;
 }
 
-uint64_t __66__UIKitWebAccessibilityObjectWrapper__accessibilityScrollAncestor__block_invoke(uint64_t a1)
+void *__66__UIKitWebAccessibilityObjectWrapper__accessibilityScrollAncestor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) convertDeviceToWindow:{*(a1 + 48), *(a1 + 56)}];
   v3 = *(*(a1 + 40) + 8);
@@ -4706,7 +4706,7 @@ uint64_t __58__UIKitWebAccessibilityObjectWrapper__misspelledWordRotor__block_in
   return v4;
 }
 
-uint64_t __82__UIKitWebAccessibilityObjectWrapper__accessibilityReplaceTextInRange_withString___block_invoke(uint64_t a1)
+void *__82__UIKitWebAccessibilityObjectWrapper__accessibilityReplaceTextInRange_withString___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) accessibilityReplaceRange:*(a1 + 56) withText:{*(a1 + 64), *(a1 + 40)}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -5676,7 +5676,7 @@ LABEL_40:
   return _axSupportsWebKitNotificationRelay_Supports;
 }
 
-uint64_t __72__UIKitWebAccessibilityObjectWrapper__axSupportsWebKitNotificationRelay__block_invoke()
+uint64_t __72__UIKitWebAccessibilityObjectWrapper__axSupportsWebKitNotificationRelay__block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   _axSupportsWebKitNotificationRelay_Supports = result & 1;

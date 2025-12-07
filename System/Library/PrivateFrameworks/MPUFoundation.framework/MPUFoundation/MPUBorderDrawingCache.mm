@@ -2,6 +2,7 @@
 - (MPUBorderDrawingCache)init;
 - (id)_borderView;
 - (id)imageForBorderConfiguration:(id)configuration;
+- (void)_applicationDidReceiveMemoryWarning:(id)warning;
 - (void)_invalidate;
 - (void)dealloc;
 - (void)setDisplayScale:(double)scale;
@@ -104,6 +105,13 @@ LABEL_3:
 LABEL_9:
 
   return v6;
+}
+
+- (void)_applicationDidReceiveMemoryWarning:(id)warning
+{
+  borderView = self->_borderView;
+  self->_borderView = 0;
+  MEMORY[0x2821F96F8](self, borderView);
 }
 
 - (id)_borderView

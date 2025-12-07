@@ -1,4 +1,4 @@
-uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::ContentWorldIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(uint64_t result, IPC::Decoder *a2)
+uint64_t *IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::ContentWorldIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(uint64_t *result, IPC::Decoder *a2)
 {
   v3 = result;
   v4 = ((*(a2 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -8,12 +8,12 @@ uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::ObjectIdentifierGeneri
   {
     *a2 = 0;
     *(a2 + 1) = 0;
-    v20 = *(a2 + 3);
-    if (v20)
+    v21 = *(a2 + 3);
+    if (v21)
     {
       if (v6)
       {
-        (*(*v20 + 16))(v20);
+        (*(*v21 + 16))(v21);
         v5 = *a2;
         v6 = *(a2 + 1);
         goto LABEL_50;
@@ -29,42 +29,42 @@ uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::ObjectIdentifierGeneri
 LABEL_50:
     *a2 = 0;
     *(a2 + 1) = 0;
-    v21 = *(a2 + 3);
-    if (v21 && v6)
+    v22 = *(a2 + 3);
+    if (v22 && v6)
     {
-      (*(*v21 + 16))(v21, v5);
+      (*(*v22 + 16))(v22, v5);
     }
 
 LABEL_34:
-    v17 = *a2;
-    v18 = *(a2 + 1);
+    v18 = *a2;
+    v19 = *(a2 + 1);
     *a2 = 0;
     *(a2 + 1) = 0;
     result = *(a2 + 3);
     if (result)
     {
-      if (v18)
+      if (v19)
       {
-        (*(*result + 16))(result, v17);
-        v18 = *(a2 + 1);
+        (*(*result + 16))(result, v18);
+        v19 = *(a2 + 1);
         result = *(a2 + 3);
       }
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     *v3 = 0;
     *(v3 + 16) = 0;
     *a2 = 0;
     *(a2 + 1) = 0;
-    if (result && v18)
+    if (result && v19)
     {
-      v19 = *(*result + 16);
+      v20 = *(*result + 16);
 
-      return v19();
+      return v20();
     }
 
     return result;
@@ -77,8 +77,8 @@ LABEL_34:
   }
 
   v8 = *v4;
-  v24 = 0;
   v25 = 0;
+  v26 = 0;
   if (v8 >= 0x20000)
   {
     v14 = 0;
@@ -86,12 +86,12 @@ LABEL_34:
     do
     {
       result = IPC::Decoder::decode<WTF::ObjectIdentifierGeneric<WebKit::ContentWorldIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>(a2);
-      v22 = result;
-      v23 = v11;
+      v23 = result;
+      v24 = v11;
       if ((v11 & 1) == 0)
       {
-        v9 = v24;
-        if (!v24)
+        v9 = v25;
+        if (!v25)
         {
           goto LABEL_34;
         }
@@ -99,28 +99,28 @@ LABEL_34:
         goto LABEL_33;
       }
 
-      if (v10 == v25)
+      if (v10 == v26)
       {
-        result = WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::AttributedStringTextTableBlockIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v24, v10 + 1, &v22);
-        v15 = HIDWORD(v25);
-        v14 = v24;
-        *(v24 + HIDWORD(v25)) = *result;
+        result = WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::AttributedStringTextTableBlockIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v25, v10 + 1, &v23);
+        v15 = HIDWORD(v26);
+        v14 = v25;
+        v25[HIDWORD(v26)] = *result;
       }
 
       else
       {
         *(v14 + v10) = result;
-        v15 = HIDWORD(v25);
+        v15 = HIDWORD(v26);
       }
 
       v10 = (v15 + 1);
-      HIDWORD(v25) = v15 + 1;
+      HIDWORD(v26) = v15 + 1;
       --v8;
     }
 
     while (v8);
-    v13 = v25;
-    if (v25 <= v10)
+    v13 = v26;
+    if (v26 <= v10)
     {
       goto LABEL_46;
     }
@@ -130,21 +130,19 @@ LABEL_34:
       goto LABEL_44;
     }
 
-    if (!(v10 >> 29))
+    v16 = (v10 >> 29);
+    if (!v16)
     {
-      result = WTF::fastMalloc((8 * v10));
-      LODWORD(v25) = v10;
-      v24 = result;
+      result = WTF::fastMalloc(v16, (8 * v10));
+      LODWORD(v26) = v10;
+      v25 = result;
       if (result != v14)
       {
-        v16 = 0;
-        do
+        for (i = 0; i != v10; ++i)
         {
-          *(result + v16) = *(v14 + v16);
-          v16 += 8;
+          result[i] = *(v14 + i * 8);
         }
 
-        while (8 * v10 != v16);
         v13 = v10;
         if (!v14)
         {
@@ -153,16 +151,16 @@ LABEL_34:
 
 LABEL_45:
         result = WTF::fastFree(v14, v11);
-        v13 = v25;
-        LODWORD(v10) = HIDWORD(v25);
+        v13 = v26;
+        LODWORD(v10) = HIDWORD(v26);
 LABEL_46:
-        v9 = v24;
+        v9 = v25;
         goto LABEL_17;
       }
 
 LABEL_44:
-      v24 = 0;
-      LODWORD(v25) = 0;
+      v25 = 0;
+      LODWORD(v26) = 0;
       goto LABEL_45;
     }
 
@@ -173,46 +171,46 @@ LABEL_44:
   {
     if (v8)
     {
-      v9 = WTF::fastMalloc((8 * v8));
+      v9 = WTF::fastMalloc(v4, (8 * v8));
       LODWORD(v10) = 0;
-      LODWORD(v25) = v8;
-      v24 = v9;
+      LODWORD(v26) = v8;
+      v25 = v9;
       while (1)
       {
         result = IPC::Decoder::decode<WTF::ObjectIdentifierGeneric<WebKit::ContentWorldIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>(a2);
-        v22 = result;
-        v23 = v11;
+        v23 = result;
+        v24 = v11;
         if ((v11 & 1) == 0)
         {
           break;
         }
 
-        if (v10 == v25)
+        if (v10 == v26)
         {
-          result = WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::AttributedStringTextTableBlockIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v24, v10 + 1, &v22);
-          v12 = HIDWORD(v25);
-          v9 = v24;
-          *(v24 + HIDWORD(v25)) = *result;
+          result = WTF::Vector<WTF::ObjectIdentifierGeneric<WebCore::AttributedStringTextTableBlockIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v25, v10 + 1, &v23);
+          v12 = HIDWORD(v26);
+          v9 = v25;
+          v25[HIDWORD(v26)] = *result;
         }
 
         else
         {
-          *(v9 + v10) = result;
-          v12 = HIDWORD(v25);
+          v9[v10] = result;
+          v12 = HIDWORD(v26);
         }
 
         LODWORD(v10) = v12 + 1;
-        HIDWORD(v25) = v12 + 1;
+        HIDWORD(v26) = v12 + 1;
         if (!--v8)
         {
-          v13 = v25;
+          v13 = v26;
           goto LABEL_17;
         }
       }
 
 LABEL_33:
-      v24 = 0;
-      LODWORD(v25) = 0;
+      v25 = 0;
+      LODWORD(v26) = 0;
       WTF::fastFree(v9, v11);
       goto LABEL_34;
     }
@@ -222,8 +220,8 @@ LABEL_33:
     v9 = 0;
 LABEL_17:
     *v3 = v9;
-    *(v3 + 8) = v13;
-    *(v3 + 12) = v10;
+    *(v3 + 2) = v13;
+    *(v3 + 3) = v10;
     *(v3 + 16) = 1;
   }
 
@@ -244,7 +242,7 @@ uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<std::pair<WebKit::WebCompil
 
 uint64_t IPC::ArgumentCoder<std::tuple<WTF::Vector<std::pair<WebKit::WebCompiledContentRuleListData,WTF::URL>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,void>::decode<IPC::Decoder>(uint64_t a1, IPC::Decoder *a2)
 {
-  result = IPC::Decoder::decode<WTF::Vector<std::pair<WebKit::WebCompiledContentRuleListData,WTF::URL>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(a2, a2, &v7);
+  result = IPC::Decoder::decode<WTF::Vector<std::pair<WebKit::WebCompiledContentRuleListData,WTF::URL>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(a2, &v7, a2);
   if (v9)
   {
     *a1 = v7;
@@ -266,14 +264,14 @@ uint64_t IPC::ArgumentCoder<std::tuple<WTF::Vector<std::pair<WebKit::WebCompiled
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages29WebUserContentControllerProxy14DidPostMessageENS2_10ConnectionEN6WebKit29WebUserContentControllerProxyES9_FvNS_23ObjectIdentifierGenericINS8_26WebPageProxyIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS8_13FrameInfoDataENSA_INS8_34ScriptMessageHandlerIdentifierTypeESD_yEEONS8_26JavaScriptEvaluationResultEONS_17CompletionHandlerIFvONSt12experimental15fundamentals_v38expectedISJ_NS_6StringEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJSR_EED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages29WebUserContentControllerProxy14DidPostMessageENS2_10ConnectionEN6WebKit29WebUserContentControllerProxyES9_FvNS_23ObjectIdentifierGenericINS8_26WebPageProxyIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS8_13FrameInfoDataENSA_INS8_34ScriptMessageHandlerIdentifierTypeESD_yEEONS8_26JavaScriptEvaluationResultEONS_17CompletionHandlerIFvONSt12experimental15fundamentals_v38expectedISJ_NS_6StringEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJSR_EED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10F8940;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -286,7 +284,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages29
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -410,7 +408,7 @@ void sub_19DAFD688(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DAFECD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33)
+void sub_19DAFECD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
 {
   v34 = a33;
   a33 = 0;
@@ -445,7 +443,7 @@ void sub_19DAFEF18(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DAFF27C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, WTF::StringImpl *a11, unsigned int *a12, uint64_t a13)
+void sub_19DAFF27C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, WTF::StringImpl *a10, WTF::StringImpl *a11, unsigned int *a12, uint64_t a13)
 {
   if (a9 && atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -467,18 +465,18 @@ void sub_19DAFF27C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
     if (atomic_fetch_add(a12 + 2, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a12 + 2);
-      (*(*a12 + 8))(a12);
+      (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DAFF484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
+void sub_19DAFF484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -602,11 +600,11 @@ void sub_19DB013D4(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB01A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *aBlock)
+void sub_19DB01A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *aBlock)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -658,7 +656,7 @@ void sub_19DB024A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB025AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
+void sub_19DB025AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
 {
   v16 = *(v14 - 24);
   *(v14 - 24) = 0;
@@ -682,7 +680,7 @@ void sub_19DB025AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB027AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
+void sub_19DB027AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
 {
   v26 = a14;
   a14 = 0;
@@ -706,20 +704,20 @@ void sub_19DB027AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB02B10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location, uint64_t a11, uint64_t a12)
+void sub_19DB02B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id location, uint64_t a11, uint64_t a12)
 {
   v13 = a12;
   a12 = 0;
   if (v13)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v14 = a11;
   a11 = 0;
   if (v14)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak(&location);
@@ -773,31 +771,31 @@ void sub_19DB03EEC(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0413C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_19DB0413C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v70 = *(v68 - 64);
-  *(v68 - 64) = 0;
-  if (v70)
+  v67 = *(v65 - 64);
+  *(v65 - 64) = 0;
+  if (v67)
   {
-    CFRelease(*(v70 + 8));
+    CFRelease(*(v67 + 8));
   }
 
   if (a10 && atomic_fetch_add(a10 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, a10 + 2);
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v71 = a42;
+  v68 = a42;
   a42 = 0;
-  if (v71)
+  if (v68)
   {
   }
 
   WebCore::ResourceResponseBase::~ResourceResponseBase(&a11, a2);
-  v72 = a68;
-  a68 = 0;
-  if (v72)
+  v69 = a65;
+  a65 = 0;
+  if (v69)
   {
   }
 
@@ -875,21 +873,21 @@ void sub_19DB04C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB04F4C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_19DB04F4C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a10);
+  va_start(va, a16);
   WTF::Vector<WebCore::WritingTools::Context,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0547C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_19DB0547C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   WTF::Vector<WebCore::WritingTools::TextSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a21, a2);
   if (LOBYTE(STACK[0x200]) == 1)
@@ -900,7 +898,7 @@ void sub_19DB0547C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0570C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_19DB0570C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WTF::StringImpl *a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
 {
   if (a15 == 1 && a13 && atomic_fetch_add_explicit(a13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -909,7 +907,7 @@ void sub_19DB0570C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
   if (a27 == 1)
   {
-    MEMORY[0x19EB065D0](&a19);
+    MEMORY[0x19EB065D0](&a19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -926,7 +924,7 @@ void sub_19DB05D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a53 == 1)
   {
-    MEMORY[0x19EB065D0](&a45);
+    MEMORY[0x19EB065D0](&a45, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -936,18 +934,18 @@ void sub_19DB0604C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB06200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, uint64_t a11, uint64_t a12)
+void sub_19DB06200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *aBlock, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak((v12 + 8));
@@ -955,11 +953,11 @@ void sub_19DB06200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB06368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, uint64_t a11, uint64_t a12)
+void sub_19DB06368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *aBlock, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak((v12 + 8));
@@ -971,7 +969,7 @@ void sub_19DB0648C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -982,7 +980,7 @@ void sub_19DB06590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -993,7 +991,7 @@ void sub_19DB06698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1081,7 +1079,7 @@ void sub_19DB07A20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB08018(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, WTF *a27, uint64_t a28, uint64_t a29)
+void sub_19DB08018(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, WTF *a27, uint64_t a28, uint64_t a29)
 {
   if (a27)
   {
@@ -1224,11 +1222,11 @@ void sub_19DB09AF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_19DB09D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12)
+void sub_19DB09D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1248,23 +1246,24 @@ void sub_19DB09D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0A314(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_19DB0A314(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_release(v31);
-  (*(*v30 + 8))(v30);
+  va_start(va, a29);
+  _Block_release(v30);
+  (*(*v29 + 8))(v29);
   objc_destroyWeak(&location);
-  WTF::Vector<WebCore::TextManipulationControllerExclusionRule,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a30, v33);
+  WTF::Vector<WebCore::TextManipulationControllerExclusionRule,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v32);
   CFRelease(*(a14 + 8));
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0A80C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, WTF::StringImpl *a28, WTF::StringImpl *a29, WTF::StringImpl *a30, WTF::StringImpl *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_19DB0A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, WTF::StringImpl *a28, WTF::StringImpl *a29, WTF::StringImpl *a30, WTF::StringImpl *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
 {
   v38 = a27;
   a27 = 0;
   if (v38)
   {
-    (*(*v38 + 8))(v38);
+    (*(*v38 + 8))(v38, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1384,7 +1383,7 @@ void sub_19DB0B490(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0B5FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
+void sub_19DB0B5FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
 {
   _Block_release(v34);
   if (*(v35 - 48))
@@ -1439,7 +1438,7 @@ void sub_19DB0BD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1450,7 +1449,7 @@ void sub_19DB0BE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1493,16 +1492,16 @@ void sub_19DB0C600(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0CAE8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19DB0CAE8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a11);
+  va_start(va, a17);
   WTF::Vector<WTF::Ref<WebCore::SharedMemory,WTF::RawPtrTraits<WebCore::SharedMemory>,WTF::DefaultRefDerefTraits<WebCore::SharedMemory>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
 atomic_uint *convertAndAddHighlight(uint64_t a1, void *a2)
 {
-  result = WebCore::SharedMemory::allocate([a2 length]);
+  result = WebCore::SharedMemory::allocate(&v13, [a2 length]);
   if (v13)
   {
     [a2 getBytes:*(v13 + 16) length:{objc_msgSend(a2, "length")}];
@@ -1517,7 +1516,7 @@ atomic_uint *convertAndAddHighlight(uint64_t a1, void *a2)
       v9 = *a1;
       v10 = *v7;
       *v7 = 0;
-      *(v9 + 8 * v8) = v10;
+      v9[v8] = v10;
       v11 = v12;
       *(a1 + 12) = v8 + 1;
       v12 = 0;
@@ -1563,20 +1562,20 @@ void sub_19DB0CE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0CFA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location, void *aBlock, uint64_t a12)
+void sub_19DB0CFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id location, void *aBlock, uint64_t a12)
 {
   v13 = a12;
   a12 = 0;
   if (v13)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(aBlock);
@@ -1588,7 +1587,7 @@ void sub_19DB0D0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1600,7 +1599,7 @@ void sub_19DB0D1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1653,7 +1652,7 @@ void sub_19DB0D48C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0D7A4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, WTF::StringImpl *a13, unsigned int *a14, uint64_t a15)
+void sub_19DB0D7A4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, WTF::StringImpl *a13, unsigned int *a14, uint64_t a15)
 {
   if ((v15 & 1) != 0 && a10)
   {
@@ -1680,14 +1679,14 @@ void sub_19DB0D7A4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
     if (atomic_fetch_add(a14 + 2, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a14 + 2);
-      (*(*a14 + 8))(a14);
+      (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0DA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
+void sub_19DB0DA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
 {
   v35 = a34;
   a34 = 0;
@@ -1699,11 +1698,11 @@ void sub_19DB0DA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0DCB4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *aBlock, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_19DB0DCB4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *aBlock, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1712,21 +1711,21 @@ void sub_19DB0DCB4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
   }
 
   _Block_release(aBlock);
-  v72 = a40;
+  v67 = a40;
   a40 = 0;
-  if (v72)
+  if (v67)
   {
   }
 
   WebCore::ResourceRequestBase::~ResourceRequestBase(&a16);
-  if (v70 && atomic_fetch_add_explicit(v70, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v65 && atomic_fetch_add_explicit(v65, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v70, v73);
+    WTF::StringImpl::destroy(v65, v68);
   }
 
-  v74 = a70;
-  a70 = 0;
-  if (v74)
+  v69 = a65;
+  a65 = 0;
+  if (v69)
   {
   }
 
@@ -1734,11 +1733,11 @@ void sub_19DB0DCB4(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0DEE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF *a11, int a12)
+void sub_19DB0DEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF *a11, int a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1750,11 +1749,11 @@ void sub_19DB0DEE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0E1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, unsigned int *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, WTF *a19, int a20)
+void sub_19DB0E1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, WTF *a19, int a20)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1776,7 +1775,7 @@ void sub_19DB0E3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1792,11 +1791,11 @@ void sub_19DB0E3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0E5FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
+void sub_19DB0E5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1815,7 +1814,7 @@ void sub_19DB0EB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1826,7 +1825,7 @@ void sub_19DB0EC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1874,11 +1873,11 @@ void sub_19DB0EFFC(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0F350(_Unwind_Exception *exception_object)
+void sub_19DB0F350(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2, a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -1904,14 +1903,14 @@ void sub_19DB0F5A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0F6C8(_Unwind_Exception *a1)
+void sub_19DB0F6C8(_Unwind_Exception *a1, unint64_t a2)
 {
-  v5 = v4;
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5);
-  WTF::RefCounted<WebKit::ProvisionalPageProxy>::deref(v3);
-  if (v2)
+  v6 = v5;
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v6, a2);
+  WTF::RefCounted<WebKit::ProvisionalPageProxy>::deref(v4);
+  if (v3)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2, v8);
   }
 
   _Unwind_Resume(a1);
@@ -1926,7 +1925,7 @@ void sub_19DB0F7E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB0FA84(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
+void sub_19DB0FA84(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
 {
   v16 = *(v14 - 24);
   *(v14 - 24) = 0;
@@ -1951,7 +1950,7 @@ void sub_19DB0FA84(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0FBEC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15)
+void sub_19DB0FBEC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15)
 {
   v16 = a15;
   a15 = 0;
@@ -1969,7 +1968,7 @@ void sub_19DB0FBEC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0FDB8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
+void sub_19DB0FDB8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
 {
   v26 = a14;
   a14 = 0;
@@ -1993,7 +1992,7 @@ void sub_19DB0FDB8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB0FFEC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
+void sub_19DB0FFEC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, WTF::StringImpl *a25)
 {
   v26 = a14;
   a14 = 0;
@@ -2117,40 +2116,41 @@ void sub_19DB118EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB11B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, char a13)
+void sub_19DB11B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, ...)
 {
+  va_start(va, a12);
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a11, v15);
+    WTF::StringImpl::destroy(a11, v14);
   }
 
   if (a12 && atomic_fetch_add_explicit(a12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a12, v15);
+    WTF::StringImpl::destroy(a12, v14);
   }
 
-  WTF::Vector<WebCore::MarkupExclusionRule,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v15);
-  if (v13)
+  WTF::Vector<WebCore::MarkupExclusionRule,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v14);
+  if (v12)
   {
-    CFRelease(*(v13 + 8));
+    CFRelease(*(v12 + 8));
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_19DB120BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, WTF::StringImpl *a15, uint64_t a16, WTF::StringImpl *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30)
+void sub_19DB120BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, WTF::StringImpl *a15, uint64_t a16, WTF::StringImpl *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   v32 = a30;
   a30 = 0;
   if (v32)
   {
-    (*(*v32 + 8))(v32);
+    (*(*v32 + 8))(v32, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -2184,11 +2184,11 @@ void sub_19DB12314(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_19DB125EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, atomic_ullong *a10)
+void sub_19DB125EC(_Unwind_Exception *a1, unint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, atomic_ullong *a10)
 {
   if (a10)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(a10);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(a10, a2);
   }
 
   _Block_release(aBlock);
@@ -2199,7 +2199,7 @@ void sub_19DB12818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -2210,14 +2210,14 @@ void sub_19DB13690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB13810(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38)
+void sub_19DB13810(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   if (a9 && atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -2268,21 +2268,21 @@ void sub_19DB13D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB14854(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB14854(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB15118(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB15118(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2301,10 +2301,11 @@ void sub_19DB151FC(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB152FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_19DB152FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  _Block_release(v11);
-  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a11, v13);
+  va_start(va, a10);
+  _Block_release(v10);
+  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v12);
   _Unwind_Resume(a1);
 }
 
@@ -2323,7 +2324,7 @@ unint64_t elementsFromWKElements(uint64_t a1, void *a2)
       return result;
     }
 
-    v6 = WTF::fastMalloc((8 * result));
+    v6 = WTF::fastMalloc(0, (8 * result));
     *(a1 + 8) = v5;
     *a1 = v6;
   }
@@ -2363,13 +2364,13 @@ unint64_t elementsFromWKElements(uint64_t a1, void *a2)
           v6 = *a1;
           v13 = *v12;
           *v12 = 0;
-          *(v6 + 8 * v8) = v13;
+          v6[v8] = v13;
         }
 
         else
         {
           v15 = 0;
-          *(v6 + 8 * v8) = v11 + 16;
+          v6[v8] = v11 + 16;
         }
 
         LODWORD(v8) = v8 + 1;
@@ -2395,16 +2396,16 @@ unint64_t elementsFromWKElements(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_19DB155C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19DB155C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    (*(*a3 + 8))(a3);
+    (*(*a5 + 8))(a5, a2, a3);
   }
 
   _Block_release(0);
-  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v4);
+  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v6);
   _Unwind_Resume(a1);
 }
 
@@ -2412,7 +2413,7 @@ void sub_19DB157D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -2433,11 +2434,11 @@ void sub_19DB15AC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB15C38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, uint64_t a10, uint64_t a11, WTF::StringImpl *a12)
+void sub_19DB15C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *aBlock, uint64_t a10, uint64_t a11, WTF::StringImpl *a12)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak((v12 + 8));
@@ -2467,11 +2468,11 @@ void sub_19DB15F0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_19DB161B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB161B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2643,11 +2644,11 @@ void sub_19DB17A3C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB17C88(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12)
+void sub_19DB17C88(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, char a12)
 {
   if (v12[2] == 1)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2726,7 +2727,7 @@ void sub_19DB187D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB188B0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12)
+void sub_19DB188B0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a10, a2);
   v13 = a12;
@@ -2759,7 +2760,7 @@ void sub_19DB18C20(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB18D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl **a10, unsigned int a11, uint64_t a12, char a13)
+void sub_19DB18D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl **a10, int a11, uint64_t a12, char a13)
 {
   if (a13 == 1 && a10)
   {
@@ -2776,7 +2777,7 @@ void sub_19DB18D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB18F88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, CFTypeRef *a19, int a20, uint64_t a21, WTF::StringImpl **a22, unsigned int a23, uint64_t a24, char a25)
+void sub_19DB18F88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, CFTypeRef *a19, int a20, uint64_t a21, WTF::StringImpl **a22, int a23, uint64_t a24, char a25)
 {
   if (a25 == 1 && a22)
   {
@@ -2832,7 +2833,7 @@ void sub_19DB19570(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB197A8(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14)
+void sub_19DB197A8(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14)
 {
   if (a13 == 1)
   {
@@ -2922,12 +2923,13 @@ void sub_19DB19F00(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
+uint64_t dumpCALayer(WTF::TextStream *a1, CALayer *a2)
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   [(CALayer *)a2 bounds];
-  WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>("[x: ", 5, " y: ", 5, " width: ", 9, " height: ", 10, __src, 0x5Du);
-  WTF::TextStream::dumpProperty<WTF::String>(a1);
+  LOBYTE(v48) = 93;
+  WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>("[x: ", 5, " y: ", 5, " width: ", 9, " height: ", 0xA, __src, v48);
+  WTF::TextStream::dumpProperty<WTF::String>(a1, "layer bounds", 13, __src);
   v5 = *&__src[0];
   *&__src[0] = 0;
   if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -2940,7 +2942,7 @@ NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
   {
     [(CALayer *)a2 position];
     WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>("[x: ", 5, " y: ", 5, 93, __src, v8, v8);
-    WTF::TextStream::dumpProperty<WTF::String>(a1);
+    WTF::TextStream::dumpProperty<WTF::String>(a1, "layer position", 15, __src);
     v10 = *&__src[0];
     *&__src[0] = 0;
     if (v10)
@@ -2957,16 +2959,16 @@ NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
   {
     [(CALayer *)a2 zPosition];
     *&__src[0] = v12;
-    WTF::tryMakeString<double>(v62);
-    if (!v62[0])
+    WTF::tryMakeString<double>(v63);
+    if (!v63[0])
     {
       __break(0xC471u);
       JUMPOUT(0x19DB1A5ECLL);
     }
 
-    WTF::TextStream::dumpProperty<WTF::String>(a1);
-    v14 = v62[0];
-    v62[0] = 0;
+    WTF::TextStream::dumpProperty<WTF::String>(a1, "layer zPosition", 16, v63);
+    v14 = v63[0];
+    v63[0] = 0;
     if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v14, v13);
@@ -2978,7 +2980,7 @@ NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
   {
     [(CALayer *)a2 anchorPoint];
     WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>("[x: ", 5, " y: ", 5, 93, __src, v17, v17);
-    WTF::TextStream::dumpProperty<WTF::String>(a1);
+    WTF::TextStream::dumpProperty<WTF::String>(a1, "layer anchorPoint", 18, __src);
     v19 = *&__src[0];
     *&__src[0] = 0;
     if (v19)
@@ -2995,16 +2997,16 @@ NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
   {
     [(CALayer *)a2 anchorPointZ];
     *&__src[0] = v21;
-    WTF::tryMakeString<double>(v62);
-    if (!v62[0])
+    WTF::tryMakeString<double>(v63);
+    if (!v63[0])
     {
       __break(0xC471u);
       JUMPOUT(0x19DB1A5F4);
     }
 
-    WTF::TextStream::dumpProperty<WTF::String>(a1);
-    v23 = v62[0];
-    v62[0] = 0;
+    WTF::TextStream::dumpProperty<WTF::String>(a1, "layer anchorPointZ", 19, v63);
+    v23 = v63[0];
+    v63[0] = 0;
     if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v23, v22);
@@ -3017,33 +3019,35 @@ NSUInteger dumpCALayer(WTF::TextStream *a1, CALayer *a2)
     [(CALayer *)a2 opacity];
     WTF::numberToStringAndSize();
     v26 = v25;
-    HIDWORD(v61) = v25;
+    HIDWORD(v62) = v25;
     if ((v25 & 0x80000000) == 0)
     {
-      v66 = v58;
       v67 = v59;
       v68 = v60;
       v69 = v61;
-      *v62 = v54;
-      v63 = v55;
+      v70 = v62;
+      *v63 = v55;
       v64 = v56;
       v65 = v57;
+      v66 = v58;
       if (!v25)
       {
         v27 = MEMORY[0x1E696EB88];
         atomic_fetch_add_explicit(MEMORY[0x1E696EB88], 2u, memory_order_relaxed);
 LABEL_32:
-        WTF::TextStream::dumpProperty<WTF::String>(a1);
-        v52 = 0;
-        if (v27 && atomic_fetch_add_explicit(v27, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v53 = v27;
+        WTF::TextStream::dumpProperty<WTF::String>(a1, "layer opacity", 14, &v53);
+        v30 = v53;
+        v53 = 0;
+        if (v30 && atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v27, v29);
+          WTF::StringImpl::destroy(v30, v29);
         }
 
         goto LABEL_35;
       }
 
-      WTF::tryFastCompactMalloc((v25 + 20));
+      WTF::tryFastCompactMalloc(__src, (v25 + 20));
       v27 = *&__src[0];
       if (*&__src[0])
       {
@@ -3052,30 +3056,30 @@ LABEL_32:
         *(v27 + 4) = v26;
         *(v27 + 8) = v27 + 20;
         *(v27 + 16) = 4;
-        __src[4] = v66;
-        __src[5] = v67;
-        __src[6] = v68;
-        __src[7] = v69;
-        __src[0] = *v62;
-        __src[1] = v63;
-        __src[2] = v64;
-        __src[3] = v65;
-        if (HIDWORD(v69) >= 0x7D)
+        __src[4] = v67;
+        __src[5] = v68;
+        __src[6] = v69;
+        __src[7] = v70;
+        __src[0] = *v63;
+        __src[1] = v64;
+        __src[2] = v65;
+        __src[3] = v66;
+        if (HIDWORD(v70) >= 0x7D)
         {
           __break(1u);
           goto LABEL_62;
         }
 
-        if (HIDWORD(v69))
+        if (HIDWORD(v70))
         {
-          if (HIDWORD(v69) == 1)
+          if (HIDWORD(v70) == 1)
           {
             *v28 = __src[0];
           }
 
           else
           {
-            memcpy(v28, __src, HIDWORD(v69));
+            memcpy(v28, __src, HIDWORD(v70));
           }
         }
 
@@ -3083,34 +3087,34 @@ LABEL_32:
       }
     }
 
-    v52 = 0;
+    v53 = 0;
     __break(0xC471u);
     goto LABEL_69;
   }
 
 LABEL_35:
   [(CALayer *)a2 cornerRadius];
-  if (v30 == 0.0)
+  if (v31 == 0.0)
   {
     goto LABEL_40;
   }
 
   [(CALayer *)a2 cornerRadius];
-  *&__src[0] = v31;
-  WTF::tryMakeString<double>(v62);
-  if (!v62[0])
+  *&__src[0] = v32;
+  WTF::tryMakeString<double>(v63);
+  if (!v63[0])
   {
     __break(0xC471u);
 LABEL_69:
     JUMPOUT(0x19DB1A5DCLL);
   }
 
-  WTF::TextStream::dumpProperty<WTF::String>(a1);
-  v33 = v62[0];
-  v62[0] = 0;
-  if (v33 && atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WTF::TextStream::dumpProperty<WTF::String>(a1, "layer cornerRadius", 19, v63);
+  v34 = v63[0];
+  v63[0] = 0;
+  if (v34 && atomic_fetch_add_explicit(v34, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v33, v32);
+    WTF::StringImpl::destroy(v34, v33);
   }
 
 LABEL_40:
@@ -3119,53 +3123,53 @@ LABEL_40:
     goto LABEL_50;
   }
 
-  v34 = [(CALayer *)a2 maskedCorners];
-  LODWORD(v35) = 0;
-  v36 = v34;
+  v35 = [(CALayer *)a2 maskedCorners];
+  LODWORD(v36) = 0;
+  v37 = v35;
   do
   {
-    v35 = (v35 + 1);
-    v37 = v36 > 9;
-    v36 /= 0xAuLL;
+    v36 = (v36 + 1);
+    v38 = v37 > 9;
+    v37 /= 0xAuLL;
   }
 
-  while (v37);
-  if ((v35 & 0x80000000) != 0)
+  while (v38);
+  if ((v36 & 0x80000000) != 0)
   {
 LABEL_65:
     __break(0xC471u);
     JUMPOUT(0x19DB1A5E4);
   }
 
-  if (!v35)
+  if (!v36)
   {
 LABEL_62:
-    v38 = MEMORY[0x1E696EB88];
+    v39 = MEMORY[0x1E696EB88];
     atomic_fetch_add_explicit(MEMORY[0x1E696EB88], 2u, memory_order_relaxed);
     goto LABEL_47;
   }
 
-  WTF::tryFastCompactMalloc((v35 + 20));
-  v38 = *&__src[0];
+  WTF::tryFastCompactMalloc(__src, (v36 + 20));
+  v39 = *&__src[0];
   if (!*&__src[0])
   {
     goto LABEL_65;
   }
 
   **&__src[0] = 2;
-  *(v38 + 4) = v35;
-  *(v38 + 8) = v38 + 20;
-  *(v38 + 16) = 4;
-  *&__src[0] = v34;
-  WTF::StringTypeAdapter<unsigned long long,void>::writeTo<unsigned char>(__src, (v38 + 20), v35);
+  *(v39 + 4) = v36;
+  *(v39 + 8) = v39 + 20;
+  *(v39 + 16) = 4;
+  *&__src[0] = v35;
+  WTF::StringTypeAdapter<unsigned long long,void>::writeTo<unsigned char>(__src, (v39 + 20), v36);
 LABEL_47:
-  v62[0] = v38;
-  WTF::TextStream::dumpProperty<WTF::String>(a1);
-  v40 = v62[0];
-  v62[0] = 0;
-  if (v40 && atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v63[0] = v39;
+  WTF::TextStream::dumpProperty<WTF::String>(a1, "layer masked corners", 21, v63);
+  v41 = v63[0];
+  v63[0] = 0;
+  if (v41 && atomic_fetch_add_explicit(v41, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v40, v39);
+    WTF::StringImpl::destroy(v41, v40);
   }
 
 LABEL_50:
@@ -3174,34 +3178,34 @@ LABEL_50:
   {
     WTF::TextStream::startGroup(a1);
     WTF::TextStream::operator<<();
-    v50 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v42 = [(CALayer *)a2 sublayers];
-    v43 = [(NSArray *)v42 countByEnumeratingWithState:&v48 objects:v53 count:16];
-    if (v43)
+    v50 = 0u;
+    v43 = [(CALayer *)a2 sublayers];
+    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    if (v44)
     {
-      v44 = *v49;
+      v45 = *v50;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v44; ++i)
         {
-          if (*v49 != v44)
+          if (*v50 != v45)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v43);
           }
 
-          v46 = *(*(&v48 + 1) + 8 * i);
+          v47 = *(*(&v49 + 1) + 8 * i);
           WTF::TextStream::startGroup(a1);
-          dumpCALayer(a1, v46, v47);
+          dumpCALayer(a1, v47);
           WTF::TextStream::endGroup(a1);
         }
 
-        v43 = [(NSArray *)v42 countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v44 = [(NSArray *)v43 countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
-      while (v43);
+      while (v44);
     }
 
     return WTF::TextStream::endGroup(a1);
@@ -3220,8 +3224,9 @@ void sub_19DB1A600(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB1A8D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, WTF::StringImpl *a21, char a22)
+void sub_19DB1A8D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, WTF::StringImpl *a21, ...)
 {
+  va_start(va, a21);
   if (a16)
   {
     if (atomic_fetch_add_explicit(a16, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -3230,7 +3235,7 @@ void sub_19DB1A8D0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(&a22, a2);
+  WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -3248,7 +3253,7 @@ void sub_19DB1AE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3274,7 +3279,7 @@ uint64_t *std::unique_ptr<WTF::Observer<void ()(WebCore::NowPlayingMetadata cons
     *(v3 + 8) = 0;
     if (v5)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 8))(v5, a2);
     }
 
     v6 = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::~WeakPtrFactory(v3, a2);
@@ -3305,38 +3310,38 @@ void sub_19DB1B524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   if (v11)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_19DB1B658(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB1B658(_Unwind_Exception *exception_object, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v11)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB1B720(_Unwind_Exception *exception_object)
+void sub_19DB1B720(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2, a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -3387,7 +3392,7 @@ void sub_19DB1BE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3523,7 +3528,7 @@ void sub_19DB1CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3550,15 +3555,15 @@ void sub_19DB1CE48(_Unwind_Exception *a1)
 void sub_19DB1D0C8(_Unwind_Exception *a1)
 {
   _Block_release(v2);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1, v4);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB1D2F8(_Unwind_Exception *a1)
+void sub_19DB1D2F8(_Unwind_Exception *a1, unint64_t a2)
 {
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2);
-  CFRelease(*(v3 + 8));
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v3, a2);
+  CFRelease(*(v4 + 8));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2, v6);
   _Unwind_Resume(a1);
 }
 
@@ -3571,7 +3576,7 @@ void sub_19DB1D42C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
   if (v12)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v11);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v11, a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -3581,7 +3586,7 @@ void sub_19DB1DFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3598,7 +3603,7 @@ void sub_19DB1E354(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB1E4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_19DB1E4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   _Block_object_dispose(&a14, 8);
   if (a20)
@@ -3629,8 +3634,9 @@ uint64_t __Block_byref_object_dispose__5(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_19DB1E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WTF::StringImpl *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_19DB1E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WTF::StringImpl *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
   if (a12)
   {
     if (atomic_fetch_add_explicit(a12, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -3639,7 +3645,7 @@ void sub_19DB1E6A8(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
     }
   }
 
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a22, a2);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -3705,6 +3711,13 @@ void sub_19DB1F334(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void sub_19DB1FA64(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  WTF::Vector<WTF::Vector<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
+  _Unwind_Resume(a1);
 }
 
 uint64_t API::WebsitePolicies::setVisibilityAdjustmentSelectors(uint64_t a1, WTF::StringImpl *a2)
@@ -3808,7 +3821,7 @@ void sub_19DB212B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a18)
   {
-    (*(*a18 + 8))(a18);
+    (*(*a18 + 8))(a18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3822,7 +3835,7 @@ void sub_19DB2159C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a20 = 0;
   if (v22)
   {
-    (*(*v22 + 8))(v22);
+    (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3871,7 +3884,7 @@ void sub_19DB21EB0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DB2251C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, WTF *a29)
+void sub_19DB2251C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, WTF *a29)
 {
   if (a29)
   {
@@ -3886,7 +3899,7 @@ void sub_19DB2290C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3941,13 +3954,13 @@ void sub_19DB23358(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB23688(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, WTF::StringImpl *a14)
+void sub_19DB23688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
 {
   v16 = *(v14 - 40);
   *(v14 - 40) = 0;
   if (v16)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v16 + 8))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -3966,7 +3979,7 @@ void sub_19DB23688(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB23878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, WTF::StringImpl *a12)
+void sub_19DB23878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WTF::StringImpl *a12)
 {
   _Block_release(v12);
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a10, v14);
@@ -4043,7 +4056,7 @@ void sub_19DB24158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4054,7 +4067,7 @@ void sub_19DB24250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4099,7 +4112,7 @@ void sub_19DB24534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19DB24AC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, WTF::StringImpl *a28)
+void sub_19DB24AC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, WTF::StringImpl *a28)
 {
   _Block_release(v28);
   mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(&a20);
@@ -4165,7 +4178,7 @@ void sub_19DB253B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4176,40 +4189,40 @@ void sub_19DB254A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB256F4(_Unwind_Exception *a1)
+void sub_19DB256F4(_Unwind_Exception *a1, unint64_t a2)
 {
-  v3 = v2;
-  WebKit::ProcessThrottler::deref((v3 + 144));
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  v4 = v3;
+  WebKit::ProcessThrottler::deref((v4 + 144), a2);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v2, v6);
   _Unwind_Resume(a1);
 }
 
 void sub_19DB25954(_Unwind_Exception *a1)
 {
   _Block_release(v2);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1, v4);
   _Unwind_Resume(a1);
 }
 
 void sub_19DB25AA0(_Unwind_Exception *a1)
 {
   _Block_release(v2);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1, v4);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB25BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_19DB25BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4221,14 +4234,14 @@ void sub_19DB25BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19DB25EC4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_19DB25EC4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WebCore::NotificationData::~NotificationData(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB26034(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_19DB26034(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
 {
   if (a43 == 1)
   {
@@ -4238,7 +4251,7 @@ void sub_19DB26034(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB2634C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_19DB2634C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
 {
   if (a43 == 1)
   {
@@ -4251,7 +4264,7 @@ void sub_19DB2634C(_Unwind_Exception *exception_object, void *a2, int a3, int a4
 void sub_19DB26448(_Unwind_Exception *a1)
 {
   _Block_release(v2);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v1, v4);
   _Unwind_Resume(a1);
 }
 
@@ -4266,7 +4279,7 @@ void sub_19DB2657C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   _Unwind_Resume(a1);
 }
 
@@ -4281,7 +4294,7 @@ void sub_19DB2673C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   _Unwind_Resume(a1);
 }
 
@@ -4296,7 +4309,7 @@ void sub_19DB26904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   _Unwind_Resume(a1);
 }
 
@@ -4311,7 +4324,7 @@ void sub_19DB26ACC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   _Unwind_Resume(a1);
 }
 
@@ -4326,7 +4339,7 @@ void sub_19DB26C94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v13);
   _Unwind_Resume(a1);
 }
 
@@ -4341,26 +4354,27 @@ void sub_19DB26F3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, v15);
   _Block_release(v11);
   _Unwind_Resume(a1);
 }
 
-void sub_19DB27170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_19DB27170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  _Block_release(v20);
-  mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v21 + 32);
-  mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(&a20);
+  va_start(va, a19);
+  _Block_release(v19);
+  mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v20 + 32);
+  mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(va);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(a10, v23);
+    WTF::StringImpl::destroy(a10, v22);
   }
 
   if (a15)
   {
     if (atomic_fetch_add_explicit(a15, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a15, v23);
+      WTF::StringImpl::destroy(a15, v22);
     }
   }
 
@@ -4503,7 +4517,7 @@ void sub_19DB27584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4533,7 +4547,7 @@ void sub_19DB27824(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB27E60(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_19DB27E60(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
 {
   if (a57 == 1)
   {
@@ -4828,7 +4842,7 @@ void ___ZZ61__WKWebView_takeSnapshotWithConfiguration_completionHandler__ENK4__2
 
   else
   {
-    createNSError(WKErrorUnknown, 0, &v5);
+    createNSError(&v5, WKErrorUnknown, 0);
     v3 = 0;
     v4 = v5;
   }
@@ -4865,7 +4879,7 @@ double __copy_helper_block_e8_32c96_ZTSKZZ61__WKWebView_takeSnapshotWithConfigur
   return result;
 }
 
-uint64_t WTF::Vector<WTF::Ref<WebKit::FrameState,WTF::RawPtrTraits<WebKit::FrameState>,WTF::DefaultRefDerefTraits<WebKit::FrameState>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WTF::Ref<WebKit::FrameState,WTF::RawPtrTraits<WebKit::FrameState>,WTF::DefaultRefDerefTraits<WebKit::FrameState>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -4877,25 +4891,26 @@ uint64_t WTF::Vector<WTF::Ref<WebKit::FrameState,WTF::RawPtrTraits<WebKit::Frame
     return v2;
   }
 
-  if (!(v3 >> 29))
+  v4 = (v3 >> 29);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((8 * v3));
+    v6 = WTF::fastMalloc(v4, (8 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 12);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 12);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = 8 * v6;
+      v8 = *a2;
+      v9 = 8 * v7;
       do
       {
-        v9 = *v7++;
-        ++*v9;
-        *v5++ = v9;
-        v8 -= 8;
+        v10 = *v8++;
+        ++*v10;
+        *v6++ = v10;
+        v9 -= 8;
       }
 
-      while (v8);
+      while (v9);
     }
 
     return v2;
@@ -4909,7 +4924,7 @@ void sub_19DB29D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -4971,7 +4986,7 @@ void sub_19DB2A084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak((v11 + 56));
@@ -4983,7 +4998,7 @@ void sub_19DB2A5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -5080,7 +5095,7 @@ void sub_19DB2AB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-WTF::StringImpl *std::__optional_storage_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>>(WTF::StringImpl *result, uint64_t a2)
+WTF::StringImpl *std::__optional_storage_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>>(WTF::StringImpl *result, uint64_t *a2)
 {
   v2 = result;
   if (*(result + 24) == *(a2 + 24))
@@ -5111,14 +5126,14 @@ WTF::StringImpl *std::__optional_storage_base<WTF::HashSet<WTF::String,WTF::Defa
     v3 = *a2;
     *a2 = 0;
     *result = v3;
-    LODWORD(v3) = *(a2 + 8);
-    *(a2 + 8) = 0;
+    LODWORD(v3) = *(a2 + 2);
+    *(a2 + 2) = 0;
     *(result + 2) = v3;
-    LODWORD(v3) = *(a2 + 12);
-    *(a2 + 12) = 0;
+    LODWORD(v3) = *(a2 + 3);
+    *(a2 + 3) = 0;
     *(result + 3) = v3;
-    LODWORD(v3) = *(a2 + 16);
-    *(a2 + 16) = 0;
+    LODWORD(v3) = *(a2 + 4);
+    *(a2 + 4) = 0;
     *(result + 4) = v3;
     LOBYTE(v3) = *(a2 + 20);
     *(a2 + 20) = 0;
@@ -5153,7 +5168,7 @@ uint64_t WTF::RobinHoodHashTable<WTF::String,WTF::String,WTF::IdentityExtractor,
   return a1;
 }
 
-uint64_t WTF::TextStream::dumpProperty<WTF::String>(WTF::TextStream *a1)
+uint64_t WTF::TextStream::dumpProperty<WTF::String>(WTF::TextStream *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   WTF::TextStream::startGroup(a1);
   WTF::TextStream::operator<<();
@@ -5163,17 +5178,17 @@ uint64_t WTF::TextStream::dumpProperty<WTF::String>(WTF::TextStream *a1)
   return WTF::TextStream::endGroup(a1);
 }
 
-uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, unsigned __int8 a10)
+int8x16_t *WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int8x16_t *a3@<X2>, int8x16_t *a4@<X3>, int8x16_t *a5@<X4>, int8x16_t *a6@<X5>, int8x16_t *a7@<X6>, int8x16_t *a8@<X7>, uint64_t *a9@<X8>, uint64_t a14)
 {
-  v15[0] = a1;
-  v15[1] = a2;
-  v14[0] = a3;
-  v14[1] = a4;
-  v13[0] = a5;
-  v13[1] = a6;
-  v12[0] = a7;
-  v12[1] = a8;
-  result = WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>(v15, v14, v13, v12, a9, &a10);
+  v19[0] = a1;
+  v19[1] = a2;
+  v18[0] = a3;
+  v18[1] = a4;
+  v17[0] = a5;
+  v17[1] = a6;
+  v16[0] = a7;
+  v16[1] = a8;
+  result = WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>(v19, v18, v17, v16, a9, &a14);
   if (!*a9)
   {
     __break(0xC471u);
@@ -5182,73 +5197,73 @@ uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::
   return result;
 }
 
-uint64_t WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(void *a1@<X0>, void *a2@<X2>, void *a3@<X4>, void *a4@<X6>, uint64_t *a5@<X8>, unsigned __int8 *a6)
+int8x16_t *WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t *a1@<X0>, int8x16_t **a3@<X2>, int8x16_t **a5@<X4>, int8x16_t **a7@<X6>, uint64_t *x8_0@<X8>, char *a9)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v7 = a1[1];
-  v8 = v7 != 0;
-  v9 = v7 - 1;
-  if (!v8)
+  v41 = *MEMORY[0x1E69E9840];
+  v11 = a1[1];
+  v12 = v11 != 0;
+  v13 = v11 - 1;
+  if (!v12)
   {
-    v9 = 0;
+    v13 = 0;
   }
 
-  v28[0] = *a1;
-  v28[1] = v9;
-  if (v9 >> 31)
+  v32[0] = *a1;
+  v32[1] = v13;
+  if (v13 >> 31)
   {
     goto LABEL_17;
   }
 
   WTF::numberToStringAndSize();
-  v36 = v13;
-  v14 = a2[1];
-  v8 = v14 != 0;
-  v15 = v14 - 1;
-  if (!v8)
+  v40 = v17;
+  v18 = a3[1];
+  v12 = v18 != 0;
+  v19 = (v18 - 1);
+  if (!v12)
   {
-    v15 = 0;
+    v19 = 0;
   }
 
-  v27[0] = *a2;
-  v27[1] = v15;
-  if (v15 >> 31)
+  v31[0] = *a3;
+  v31[1] = v19;
+  if (v19 >> 31)
   {
     __break(0xC471u);
     JUMPOUT(0x19DB2B144);
   }
 
   WTF::numberToStringAndSize();
-  v34 = v16;
-  v17 = a3[1];
-  v8 = v17 != 0;
-  v18 = v17 - 1;
-  if (!v8)
+  v38 = v20;
+  v21 = a5[1];
+  v12 = v21 != 0;
+  v22 = (v21 - 1);
+  if (!v12)
   {
-    v18 = 0;
+    v22 = 0;
   }
 
-  v26[0] = *a3;
-  v26[1] = v18;
-  if (v18 >> 31)
+  v30[0] = *a5;
+  v30[1] = v22;
+  if (v22 >> 31)
   {
     __break(0xC471u);
     JUMPOUT(0x19DB2B164);
   }
 
   WTF::numberToStringAndSize();
-  v32 = v19;
-  v20 = a4[1];
-  v8 = v20 != 0;
-  v21 = v20 - 1;
-  if (!v8)
+  v36 = v23;
+  v24 = a7[1];
+  v12 = v24 != 0;
+  v25 = (v24 - 1);
+  if (!v12)
   {
-    v21 = 0;
+    v25 = 0;
   }
 
-  v25[0] = *a4;
-  v25[1] = v21;
-  if (v21 >> 31)
+  v29[0] = *a7;
+  v29[1] = v25;
+  if (v25 >> 31)
   {
 LABEL_17:
     __break(0xC471u);
@@ -5256,15 +5271,15 @@ LABEL_17:
   }
 
   WTF::numberToStringAndSize();
-  v30 = v22;
-  v24 = *a6;
-  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v28, v35, v27, v33, v26, v31, v25, v29, a5, &v24);
+  v34 = v26;
+  v28 = *a9;
+  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v32, v39, v31, v37, v30, v35, v29, v33, x8_0, &v28);
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t a1@<X0>, int8x16_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, unsigned __int8 *a10)
+int8x16_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t *a1@<X0>, int8x16_t *a2@<X1>, int8x16_t **a3@<X2>, int8x16_t *a4@<X3>, int8x16_t **a5@<X4>, int8x16_t *a6@<X5>, int8x16_t **a7@<X6>, int8x16_t *a8@<X7>, uint64_t *a9@<X8>, unsigned __int8 *a10)
 {
   v52 = *MEMORY[0x1E69E9840];
-  result = WTF::checkedSum<int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int>(*(a1 + 8), a2[7].i32[3], *(a3 + 8), *(a4 + 124), *(a5 + 8), *(a6 + 124), *(a7 + 8), *(a8 + 124), v46, 1);
+  result = WTF::checkedSum<int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int>(*(a1 + 2), a2[7].i32[3], *(a3 + 2), a4[7].u32[3], *(a5 + 2), a6[7].u32[3], *(a7 + 2), a8[7].u32[3], v46, 1);
   if (v46[0])
   {
     v20 = 0;
@@ -5273,7 +5288,7 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral
   else
   {
     v21 = *a1;
-    v22 = *(a1 + 8);
+    v22 = a1[1];
     v23 = a2[5];
     v51[4] = a2[4];
     v51[5] = v23;
@@ -5287,48 +5302,48 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral
     v51[2] = a2[2];
     v51[3] = v26;
     v27 = *a3;
-    v28 = *(a3 + 8);
-    v29 = *(a4 + 80);
-    v50[4] = *(a4 + 64);
+    v28 = a3[1];
+    v29 = a4[5];
+    v50[4] = a4[4];
     v50[5] = v29;
-    v30 = *(a4 + 112);
-    v50[6] = *(a4 + 96);
+    v30 = a4[7];
+    v50[6] = a4[6];
     v50[7] = v30;
-    v31 = *(a4 + 16);
+    v31 = a4[1];
     v50[0] = *a4;
     v50[1] = v31;
-    v32 = *(a4 + 48);
-    v50[2] = *(a4 + 32);
+    v32 = a4[3];
+    v50[2] = a4[2];
     v50[3] = v32;
     v33 = *a5;
-    v34 = *(a5 + 8);
-    v35 = *(a6 + 80);
-    v49[4] = *(a6 + 64);
+    v34 = a5[1];
+    v35 = a6[5];
+    v49[4] = a6[4];
     v49[5] = v35;
-    v36 = *(a6 + 112);
-    v49[6] = *(a6 + 96);
+    v36 = a6[7];
+    v49[6] = a6[6];
     v49[7] = v36;
-    v37 = *(a6 + 16);
+    v37 = a6[1];
     v49[0] = *a6;
     v49[1] = v37;
-    v38 = *(a6 + 48);
-    v49[2] = *(a6 + 32);
+    v38 = a6[3];
+    v49[2] = a6[2];
     v49[3] = v38;
     v39 = *a7;
-    v40 = *(a7 + 8);
-    v41 = *(a8 + 80);
-    v48[4] = *(a8 + 64);
+    v40 = a7[1];
+    v41 = a8[5];
+    v48[4] = a8[4];
     v48[5] = v41;
-    v42 = *(a8 + 112);
-    v48[6] = *(a8 + 96);
+    v42 = a8[7];
+    v48[6] = a8[6];
     v48[7] = v42;
-    v43 = *(a8 + 16);
+    v43 = a8[1];
     v48[0] = *a8;
     v48[1] = v43;
-    v44 = *(a8 + 48);
-    v48[2] = *(a8 + 32);
+    v44 = a8[3];
+    v48[2] = a8[2];
     v48[3] = v44;
-    result = WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v47, 1, v21, v22, v51, v27, v28, v50, &v45, v33, v34, v49, v39, v40, v48, *a10);
+    result = WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v47, 1uLL, v21, v22, v51, v27, v28, v50, &v45, v33, v34, v49, v39, v40, v48, *a10);
     v20 = v45;
   }
 
@@ -5336,7 +5351,7 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, int8x16_t *a3@<X2>, unint64_t a4@<X3>, int8x16_t *a5@<X4>, int8x16_t *a6@<X5>, unint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, int8x16_t *a10, unint64_t a11, __int128 *a12, int8x16_t *a13, unint64_t a14, __int128 *a15, unsigned __int8 a16)
+int8x16_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(int8x16_t *result@<X0>, unint64_t a2@<X1>, int8x16_t *a3@<X2>, size_t a4@<X3>, int8x16_t *a5@<X4>, int8x16_t *a6@<X5>, size_t a7@<X6>, int8x16_t *a8@<X7>, uint64_t *a9@<X8>, int8x16_t *a10, size_t a11, int8x16_t *a12, int8x16_t *a13, size_t a14, int8x16_t *a15, unsigned __int8 a16)
 {
   v20 = result;
   v111 = *MEMORY[0x1E69E9840];
@@ -5347,7 +5362,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(v103.i64, (2 * result + 20));
         v23 = v103.i64[0];
         if (v103.i64[0])
         {
@@ -5367,17 +5382,17 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
           v29 = a5[3];
           v105 = a5[2];
           v106 = v29;
-          v30 = *(a8 + 80);
-          v99 = *(a8 + 64);
+          v30 = a8[5];
+          v99 = a8[4];
           v100 = v30;
-          v31 = *(a8 + 112);
-          v101 = *(a8 + 96);
+          v31 = a8[7];
+          v101 = a8[6];
           v102 = v31;
-          v32 = *(a8 + 16);
+          v32 = a8[1];
           v95 = *a8;
           v96 = v32;
-          v33 = *(a8 + 48);
-          v97 = *(a8 + 32);
+          v33 = a8[3];
+          v97 = a8[2];
           v98 = v33;
           v34 = a12[5];
           v91 = a12[4];
@@ -5430,7 +5445,7 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(v103.i64, (result + 20));
   v23 = v103.i64[0];
   if (v103.i64[0])
   {
@@ -5448,14 +5463,14 @@ LABEL_18:
     v72 = a5[1];
     v73 = a5[2];
     v74 = a5[3];
-    v65 = *(a8 + 32);
-    v66 = *(a8 + 48);
+    v65 = a8[2];
+    v66 = a8[3];
     v63 = *a8;
-    v64 = *(a8 + 16);
-    v69 = *(a8 + 96);
-    v70 = *(a8 + 112);
-    v67 = *(a8 + 64);
-    v68 = *(a8 + 80);
+    v64 = a8[1];
+    v69 = a8[6];
+    v70 = a8[7];
+    v67 = a8[4];
+    v68 = a8[5];
     v57 = a12[2];
     v58 = a12[3];
     v55 = *a12;
@@ -5494,24 +5509,24 @@ LABEL_18:
         v80 = v72;
         v81 = v73;
         v82 = v74;
-        if (v78.i32[3] < 0x7Du)
+        if (HIDWORD(v78) < 0x7D)
         {
           v25 = v22 - a4;
           v24 += a4;
-          if (v78.i32[3])
+          if (HIDWORD(v78))
           {
-            if (v78.i32[3] == 1)
+            if (HIDWORD(v78) == 1)
             {
-              *v24 = __src;
+              *v24 = __src.i8[0];
             }
 
             else
             {
-              memcpy(v24, &__src, v78.u32[3]);
+              memcpy(v24, &__src, HIDWORD(v78));
             }
           }
 
-          if (v25 >= v78.u32[3])
+          if (v25 >= HIDWORD(v78))
           {
             break;
           }
@@ -5547,7 +5562,7 @@ LABEL_23:
     v88 = v48;
     v89 = v49;
     v90 = v50;
-    result = WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(&v24[v78.u32[3]], (v25 - v78.u32[3]), a6, a7, &v103, a10->i8, a11, v95.i8, a13, a14, &v87, a16);
+    result = WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(&v24[HIDWORD(v78)], (v25 - HIDWORD(v78)), a6, a7, &v103, a10->i8, a11, &v95, a13, a14, &v87, a16);
     a9 = v42;
   }
 
@@ -5566,7 +5581,7 @@ void sub_19DB2B700(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(char *a1, unint64_t a2, int8x16_t *a3, unint64_t a4, uint64_t a5, int8x16_t *a6, unint64_t a7, int8x16_t *a8, int8x16_t *a9, unint64_t a10, __int128 *a11, int8x16_t *a12, unint64_t a13, int8x16_t *a14, char a15)
+int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(char *a1, unint64_t a2, int8x16_t *a3, unint64_t a4, int8x16_t *a5, int8x16_t *a6, unint64_t a7, int8x16_t *a8, int8x16_t *a9, unint64_t a10, __int128 *a11, int8x16_t *a12, unint64_t a13, int8x16_t *a14, char a15)
 {
   v102 = *MEMORY[0x1E69E9840];
   if (a4 < 0x40)
@@ -5620,17 +5635,17 @@ int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF
 
   v27 = a2 - a4;
   v28 = &a1[2 * a4];
-  v29 = *(a5 + 80);
-  v72[4] = *(a5 + 64);
+  v29 = a5[5];
+  v72[4] = a5[4];
   v72[5] = v29;
-  v30 = *(a5 + 112);
-  v72[6] = *(a5 + 96);
+  v30 = a5[7];
+  v72[6] = a5[6];
   v73 = v30;
-  v31 = *(a5 + 16);
+  v31 = a5[1];
   v72[0] = *a5;
   v72[1] = v31;
-  v32 = *(a5 + 48);
-  v72[2] = *(a5 + 32);
+  v32 = a5[3];
+  v72[2] = a5[2];
   v72[3] = v32;
   v68 = a8[4];
   v69 = a8[5];
@@ -5657,13 +5672,13 @@ int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF
   v50 = a14[2];
   v51 = a14[3];
   WTF::StringTypeAdapter<double,void>::writeTo<char16_t>(v72, v28);
-  v33 = v27 - HIDWORD(v73);
-  if (v27 < HIDWORD(v73))
+  v33 = v27 - v73.u32[3];
+  if (v27 < v73.u32[3])
   {
     goto LABEL_20;
   }
 
-  v34 = &v28[2 * HIDWORD(v73)];
+  v34 = &v28[2 * v73.u32[3]];
   v94 = v68;
   v95 = v69;
   v96 = v70;
@@ -5690,14 +5705,14 @@ int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF
   v79 = v53;
   if (a7 < 0x40)
   {
-    v35 = &v28[2 * HIDWORD(v73)];
+    v35 = &v28[2 * v73.u32[3]];
   }
 
   else
   {
     v35 = &v34[2 * (a7 & 0x7FFFFFFFFFFFFFC0)];
     v36 = 0uLL;
-    v37 = &v28[2 * HIDWORD(v73)];
+    v37 = &v28[2 * v73.u32[3]];
     do
     {
       v104.val[0] = *a6;
@@ -5732,7 +5747,7 @@ int8x16_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF
     v35 += 2;
   }
 
-  if (v33 < a7 || (v45 = v33 - a7, v46 = &v34[2 * a7], v98[4] = v94, v98[5] = v95, v98[6] = v96, v99 = v97, v98[0] = v90, v98[1] = v91, v98[2] = v92, v98[3] = v93, WTF::StringTypeAdapter<double,void>::writeTo<char16_t>(v98, v46), v45 < v99.u32[3]))
+  if (v33 < a7 || (v45 = v33 - a7, v46 = &v34[2 * a7], v98[4] = v94, v98[5] = v95, v98[6] = v96, v99 = v97, v98[0] = v90, v98[1] = v91, v98[2] = v92, v98[3] = v93, WTF::StringTypeAdapter<double,void>::writeTo<char16_t>(v98, v46), v45 < HIDWORD(v99)))
   {
 LABEL_20:
     __break(1u);
@@ -5754,10 +5769,10 @@ LABEL_20:
   v100[1] = v75;
   v100[2] = v76;
   v100[3] = v77;
-  return WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(&v46[2 * v99.u32[3]], v45 - v99.u32[3], a9, a10, v101, a12, a13, v100, a15);
+  return WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(&v46[2 * HIDWORD(v99)], v45 - HIDWORD(v99), a9, a10, v101, a12, a13, v100, a15);
 }
 
-_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(_BYTE *__dst, char *a2, _BYTE *__src, size_t __n, _OWORD *a5, char *a6, size_t a7, char *a8, _BYTE *a9, size_t a10, __int128 *a11, uint64_t a12)
+_BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(_BYTE *__dst, char *a2, _BYTE *__src, size_t __n, _OWORD *a5, char *a6, size_t a7, unint64_t a8, _BYTE *a9, size_t a10, __int128 *a11, uint64_t a12)
 {
   LODWORD(v16) = __n;
   v18 = __dst;
@@ -5788,14 +5803,14 @@ _BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WT
       v22 = a5[3];
       __srca[2] = a5[2];
       __srca[3] = v22;
-      v35 = *(a8 + 2);
-      v36 = *(a8 + 3);
+      v35 = *(a8 + 32);
+      v36 = *(a8 + 48);
       v33 = *a8;
-      v34 = *(a8 + 1);
-      v39 = *(a8 + 6);
-      v40 = *(a8 + 7);
-      v37 = *(a8 + 4);
-      v38 = *(a8 + 5);
+      v34 = *(a8 + 16);
+      v39 = *(a8 + 96);
+      v40 = *(a8 + 112);
+      v37 = *(a8 + 64);
+      v38 = *(a8 + 80);
       v27 = a11[2];
       v28 = a11[3];
       v25 = *a11;
@@ -5823,10 +5838,10 @@ _BYTE *WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WT
         }
 
         v24 = v23 >= a8;
-        a2 = (v23 - a8);
+        a2 = &v23[-a8];
         if (v24)
         {
-          v16 = &a8[v16];
+          v16 += a8;
           if (a7)
           {
             if (a7 == 1)
@@ -6129,7 +6144,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char a5@<W4>, _BYTE *a6@<X8>, double a7@<D0>, double a8@<D1>)
+uint64_t *WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int8x16_t *a3@<X2>, int8x16_t *a4@<X3>, char a5@<W4>, void *a6@<X8>, double a7@<D0>, double a8@<D1>)
 {
   v14[0] = a1;
   v14[1] = a2;
@@ -6147,37 +6162,37 @@ uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>
   return result;
 }
 
-uint64_t WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(void *a1@<X0>, void *a2@<X2>, char *a3@<X4>, _BYTE *a4@<X8>)
+uint64_t *WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral,double,char>@<X0>(uint64_t *a1@<X0>, int8x16_t **a3@<X2>, char *a5@<X4>, void *x8_0@<X8>)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v5 = a1[1];
-  v6 = v5 != 0;
-  v7 = v5 - 1;
-  if (!v6)
+  v24 = *MEMORY[0x1E69E9840];
+  v7 = a1[1];
+  v8 = v7 != 0;
+  v9 = v7 - 1;
+  if (!v8)
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  v17[0] = *a1;
-  v17[1] = v7;
-  if (v7 >> 31)
+  v19[0] = *a1;
+  v19[1] = v9;
+  if (v9 >> 31)
   {
     goto LABEL_8;
   }
 
   WTF::numberToStringAndSize();
-  v21 = v10;
-  v11 = a2[1];
-  v6 = v11 != 0;
-  v12 = v11 - 1;
-  if (!v6)
+  v23 = v12;
+  v13 = a3[1];
+  v8 = v13 != 0;
+  v14 = (v13 - 1);
+  if (!v8)
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  v16[0] = *a2;
-  v16[1] = v12;
-  if (v12 >> 31)
+  v18[0] = *a3;
+  v18[1] = v14;
+  if (v14 >> 31)
   {
 LABEL_8:
     __break(0xC471u);
@@ -6185,18 +6200,18 @@ LABEL_8:
   }
 
   WTF::numberToStringAndSize();
-  v19 = v13;
-  v15 = *a3;
-  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v17, v20, v16, v18, &v15, a4);
+  v21 = v15;
+  v17 = *a5;
+  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(v19, v22, v18, v20, x8_0, &v17);
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t result@<X0>, int8x16_t *a2@<X1>, uint64_t a3@<X2>, int8x16_t *a4@<X3>, char *a5@<X4>, _BYTE *a6@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t *result@<X0>, int8x16_t *a2@<X1>, int8x16_t **a3@<X2>, int8x16_t *a4@<X3>, void *a5@<X8>, char *a6@<X4>)
 {
   v30 = *MEMORY[0x1E69E9840];
   v6 = a4[7].i32[3];
-  if (v6 < 0 || ((v7 = *(a3 + 8), v8 = __OFADD__(v6, 1), v9 = v6 + 1, !v8) ? (v10 = 0) : (v10 = 1), (v7 & 0x80000000) != 0 || (v10 & 1) != 0 || ((v11 = a2[7].i32[3], v12 = v7 + v9, !__OFADD__(v7, v9)) ? (v13 = 0) : (v13 = 1), v11 < 0 || (v13 & 1) != 0 || ((v14 = result, v15 = *(result + 8), v8 = __OFADD__(v11, v12), v16 = v11 + v12, !v8) ? (v17 = 0) : (v17 = 1), (v15 & 0x80000000) != 0 || (v17 & 1) != 0 || (result = (v15 + v16), __OFADD__(v15, v16))))))
+  if (v6 < 0 || ((v7 = a3[1], v8 = __OFADD__(v6, 1), v9 = v6 + 1, !v8) ? (v10 = 0) : (v10 = 1), (v7 & 0x80000000) != 0 || (v10 & 1) != 0 || ((v11 = a2[7].i32[3], v12 = v7 + v9, !__OFADD__(v7, v9)) ? (v13 = 0) : (v13 = 1), v11 < 0 || (v13 & 1) != 0 || ((v14 = result, v15 = result[1], v8 = __OFADD__(v11, v12), v16 = v11 + v12, !v8) ? (v17 = 0) : (v17 = 1), (v15 & 0x80000000) != 0 || (v17 & 1) != 0 || (result = (v15 + v16), __OFADD__(v15, v16))))))
   {
-    *a6 = 0;
+    *a5 = 0;
   }
 
   else
@@ -6227,13 +6242,13 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral
     v27 = a4[3];
     v28[2] = a4[2];
     v28[3] = v27;
-    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(result, 1, v18, v15, v29, v23, v7, v28, a6, *a5);
+    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>(result, 1uLL, v18, v15, v29, v23, v7, v28, a5, *a6);
   }
 
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, int8x16_t *a3@<X2>, unint64_t a4@<X3>, int8x16_t *a5@<X4>, int8x16_t *a6@<X5>, unint64_t a7@<X6>, int8x16_t *a8@<X7>, _BYTE *a9@<X8>, char a10)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<char,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, int8x16_t *a3@<X2>, unint64_t a4@<X3>, int8x16_t *a5@<X4>, int8x16_t *a6@<X5>, unint64_t a7@<X6>, int8x16_t *a8@<X7>, _BYTE *a9@<X8>, char a10)
 {
   v15 = result;
   v67 = *MEMORY[0x1E69E9840];
@@ -6244,7 +6259,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(v59.i64, (2 * result + 20));
         v18 = v59.i64[0];
         if (v59.i64[0])
         {
@@ -6303,7 +6318,7 @@ LABEL_28:
     goto LABEL_27;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(v59.i64, (result + 20));
   v18 = v59.i64[0];
   if (v59.i64[0])
   {
@@ -6449,35 +6464,35 @@ void sub_19DB2C5B4(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::tryMakeString<double>@<X0>(uint64_t *a1@<X8>)
+void *WTF::tryMakeString<double>@<X0>(uint64_t *a2@<X8>)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   result = WTF::numberToStringAndSize();
-  HIDWORD(v13) = v3;
-  if ((v3 & 0x80000000) != 0)
+  HIDWORD(v14) = v4;
+  if ((v4 & 0x80000000) != 0)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v14[4] = v10;
-    v14[5] = v11;
-    v14[6] = v12;
-    v14[7] = v13;
-    v14[0] = v6;
-    v14[1] = v7;
-    v14[2] = v8;
-    v14[3] = v9;
-    result = WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<double,void>>(v3, 1, v14, &v5);
-    v4 = v5;
+    v15[4] = v11;
+    v15[5] = v12;
+    v15[6] = v13;
+    v15[7] = v14;
+    v15[0] = v7;
+    v15[1] = v8;
+    v15[2] = v9;
+    v15[3] = v10;
+    result = WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<double,void>>(v4, 1uLL, v15, &v6);
+    v5 = v6;
   }
 
-  *a1 = v4;
+  *a2 = v5;
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<double,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<double,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v5 = result;
   v25 = *MEMORY[0x1E69E9840];
@@ -6487,7 +6502,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<doubl
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(v17.i64, (2 * result + 20));
         v7 = v17.i64[0];
         if (v17.i64[0])
         {
@@ -6535,11 +6550,11 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(v17.i64, (result + 20));
   v7 = v17.i64[0];
   if (v17.i64[0])
   {
-    result = v17.i64[0] + 20;
+    result = (v17.i64[0] + 20);
     *v17.i64[0] = 2;
     *(v7 + 4) = v5;
     *(v7 + 8) = v7 + 20;
@@ -6650,7 +6665,7 @@ void sub_19DB2CC14(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned long long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned long long>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::HashTable(uint64_t *a1, _DWORD **a2)
+uint64_t *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned long long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned long long>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,unsigned long long,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::HashTable(uint64_t *a1, void *a2)
 {
   *a1 = 0;
   v3 = *a2;
@@ -6744,35 +6759,35 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned long
   return result;
 }
 
-uint64_t *WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::HashTable(uint64_t *a1, uint64_t *a2)
+uint64_t **WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::HashTable(uint64_t **a1, WebCore::SecurityOriginData **a2)
 {
   *a1 = 0;
   v3 = *a2;
   if (*a2)
   {
-    v4 = *(v3 - 12);
+    v4 = *(v3 - 3);
     if (v4)
     {
-      v6 = WTF::HashTable<Inspector::Protocol::Automation::VirtualKey,WTF::KeyValuePair<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey>>,WTF::IntHash<Inspector::Protocol::Automation::VirtualKey>,WTF::HashMap<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey,WTF::IntHash<Inspector::Protocol::Automation::VirtualKey>,WTF::StrongEnumHashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::HashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::StrongEnumHashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::FastMalloc>::computeBestTableSize(*(v3 - 12));
-      v7 = WTF::fastMalloc(((32 * v6) | 0x10));
+      v6 = WTF::HashTable<Inspector::Protocol::Automation::VirtualKey,WTF::KeyValuePair<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey>>,WTF::IntHash<Inspector::Protocol::Automation::VirtualKey>,WTF::HashMap<Inspector::Protocol::Automation::VirtualKey,Inspector::Protocol::Automation::VirtualKey,WTF::IntHash<Inspector::Protocol::Automation::VirtualKey>,WTF::StrongEnumHashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::HashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::StrongEnumHashTraits<Inspector::Protocol::Automation::VirtualKey>,WTF::FastMalloc>::computeBestTableSize(*(v3 - 3));
+      v7 = WTF::fastMalloc(v6, ((32 * v6) | 0x10));
       v8 = v7;
-      v9 = v7 + 16;
+      v9 = v7 + 2;
       if (v6)
       {
-        bzero((v7 + 16), 32 * v6);
+        bzero(v7 + 2, 32 * v6);
       }
 
       *a1 = v9;
-      v8[2] = v6 - 1;
-      v8[3] = v6;
+      *(v8 + 2) = v6 - 1;
+      *(v8 + 3) = v6;
       *v8 = 0;
-      v8[1] = v4;
+      *(v8 + 1) = v4;
       v10 = WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::begin(a2);
       v11 = v10;
       v13 = v12;
       if (*a2)
       {
-        v14 = *a2 + 32 * *(*a2 - 4);
+        v14 = *a2 + 32 * *(*a2 - 1);
       }
 
       else
@@ -6866,17 +6881,17 @@ uint64_t WTF::IdentityHashTranslator<WTF::HashTraits<WebCore::SecurityOriginData
 
   v9 = v4;
 LABEL_8:
-  WebCore::SecurityOriginData::operator=(a1);
+  WebCore::SecurityOriginData::operator=(a1, &v7);
   return mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(&v7);
 }
 
-unint64_t WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 80 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 80 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -6908,7 +6923,7 @@ unint64_t WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WT
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -6954,7 +6969,7 @@ uint64_t WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF
     v3 = *a1;
     v4 = (*a1 + 80 * *(a1 + 12));
     v5 = 80 * a2;
-    v6 = WTF::fastMalloc((80 * a2));
+    v6 = WTF::fastMalloc((5 * a2), (80 * a2));
     *(a1 + 8) = v5 / 0x50;
     *a1 = v6;
     WTF::VectorMover<false,WebKit::WebsiteDataRecord>::move(v3, v4, v6);
@@ -7171,7 +7186,7 @@ WebCore::NotificationData *WebCore::NotificationData::NotificationData(WebCore::
   *(this + 59) = v17;
   if (v17)
   {
-    v18 = WTF::fastMalloc(v17);
+    v18 = WTF::fastMalloc(v12, v17);
     *(this + 58) = v17;
     *(this + 28) = v18;
     memcpy(v18, *(a2 + 28), *(a2 + 59));
@@ -7245,11 +7260,11 @@ void sub_19DB2D504(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB2DAD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB2DAD4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7539,7 +7554,7 @@ void sub_19DB2FA94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB30318(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, atomic_ullong *a14)
+void sub_19DB30318(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF *a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, atomic_ullong *a14)
 {
   if (!a14)
   {
@@ -7560,13 +7575,13 @@ void sub_19DB30318(_Unwind_Exception *exception_object, void *a2, int a3, int a4
     {
       if (v16 == 3)
       {
-        (*(*a14 + 8))(a14);
+        (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
       }
 
 LABEL_7:
       if (v14[4] == 1)
       {
-        (*(*v14 + 8))(v14);
+        (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
       }
 
       else
@@ -7582,13 +7597,13 @@ LABEL_7:
   goto LABEL_7;
 }
 
-unint64_t WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(void **a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 4 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 4 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -7620,7 +7635,7 @@ unint64_t WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF:
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -7668,7 +7683,7 @@ void **WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::Fa
       v3 = result;
       v4 = *result;
       v5 = *(result + 3);
-      v6 = WTF::fastMalloc((4 * a2));
+      v6 = WTF::fastMalloc(0, (4 * a2));
       *(v3 + 2) = v2;
       *v3 = v6;
       result = memcpy(v6, v4, 4 * v5);
@@ -7688,10 +7703,10 @@ void **WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::Fa
   return result;
 }
 
-void sub_19DB30974(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19DB30974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
   }
 
@@ -7772,10 +7787,10 @@ uint64_t WTF::Persistence::Coder<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap
   return result;
 }
 
-mpark *std::__optional_storage_base<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,false>>(mpark *result, unsigned __int8 *a2)
+mpark *std::__optional_storage_base<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,false>>(mpark *result, WTF::StringImpl *a2)
 {
   v2 = result;
-  if (*(result + 8) == a2[8])
+  if (*(result + 8) == *(a2 + 8))
   {
     if (*(result + 8))
     {
@@ -7867,7 +7882,7 @@ void sub_19DB31190(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t API::FrameTreeNode::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t API::FrameTreeNode::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Object **a3@<X8>)
 {
   v6 = API::Object::newObject(0x190uLL, 61);
   result = API::FrameTreeNode::FrameTreeNode(v6, a1, a2);
@@ -8007,12 +8022,12 @@ void sub_19DB320A8()
   JUMPOUT(0x19DB32098);
 }
 
-uint64_t WTF::makeString<unsigned long long,char,unsigned long long>@<X0>(uint64_t a1@<X0>, char a2@<W1>, unint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *WTF::makeString<unsigned long long,char,unsigned long long>@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v8 = a1;
   v7 = a2;
   v6 = a3;
-  result = WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>(&v8, &v7, &v6, a4);
+  result = WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>(&v8, &v6, a4, &v7);
   if (!*a4)
   {
     __break(0xC471u);
@@ -8021,7 +8036,7 @@ uint64_t WTF::makeString<unsigned long long,char,unsigned long long>@<X0>(uint64
   return result;
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>@<X0>(uint64_t result@<X0>, char *a2@<X1>, unint64_t *a3@<X2>, void *a4@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>@<X0>(uint64_t *result@<X0>, unint64_t *a2@<X2>, void *a3@<X8>, char *a4@<X1>)
 {
   v5 = 0;
   v6 = *result;
@@ -8035,8 +8050,8 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long lon
 
   while (v8);
   v9 = 0;
-  v10 = *a3;
-  v11 = *a3;
+  v10 = *a2;
+  v11 = *a2;
   do
   {
     ++v9;
@@ -8054,16 +8069,16 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<unsigned long lon
       result = (v5 + v12);
       if (!__OFADD__(v5, v12))
       {
-        return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>(result, 1, v6, *a2, v10, a4);
+        return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>(result, 1uLL, v6, *a4, v10, a3);
       }
     }
   }
 
-  *a4 = 0;
+  *a3 = 0;
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, unint64_t a3@<X2>, char a4@<W3>, _DWORD *a5@<X4>, void *a6@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<unsigned long long,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<unsigned long long,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, char a4@<W3>, _DWORD *a5@<X4>, void *a6@<X8>)
 {
   v9 = result;
   v11 = result;
@@ -8073,7 +8088,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<unsig
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(&v21, (2 * result + 20));
         v12 = v21;
         if (!v21)
         {
@@ -8129,7 +8144,7 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(&v21, (result + 20));
   v12 = v21;
   if (!v21)
   {
@@ -8192,67 +8207,68 @@ uint64_t WTF::Vector<WebCore::TextManipulationToken,0ul,WTF::CrashOnOverflow,16u
 
   if (v3 < 0x2AAAAAB)
   {
-    v5 = 96 * v3;
-    v6 = WTF::fastMalloc((96 * v3));
-    *(v2 + 8) = v5 / 0x60;
-    *v2 = v6;
-    v7 = *(a2 + 3);
-    if (v7)
+    v5 = (3 * v3);
+    v6 = 32 * v5;
+    v7 = WTF::fastMalloc(v5, (32 * v5));
+    *(v2 + 8) = v6 / 0x60;
+    *v2 = v7;
+    v8 = *(a2 + 3);
+    if (v8)
     {
-      v8 = 0;
-      v9 = *a2;
-      v10 = *a2 + 96 * v7;
+      v9 = 0;
+      v10 = *a2;
+      v11 = *a2 + 96 * v8;
       do
       {
-        v11 = v9 + v8;
-        v12 = v6 + v8;
-        *(v6 + v8) = *(v9 + v8);
-        v13 = *(v9 + v8 + 8);
-        if (v13)
+        v12 = v10 + v9;
+        v13 = &v7[v9 / 8];
+        v7[v9 / 8] = *(v10 + v9);
+        v14 = *(v10 + v9 + 8);
+        if (v14)
         {
-          atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
         }
 
-        *(v12 + 8) = v13;
-        *(v12 + 16) = 0;
-        *(v12 + 80) = 0;
-        if (*(v11 + 80) == 1)
+        v13[1] = v14;
+        *(v13 + 16) = 0;
+        *(v13 + 80) = 0;
+        if (*(v12 + 80) == 1)
         {
-          v14 = *(v9 + v8 + 16);
-          if (v14)
-          {
-            atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
-          }
-
-          *(v12 + 16) = v14;
-          v15 = *(v9 + v8 + 24);
+          v15 = *(v10 + v9 + 16);
           if (v15)
           {
             atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
           }
 
-          *(v6 + v8 + 24) = v15;
-          v16 = v9 + v8;
-          v17 = *(v9 + v8 + 32);
-          if (v17)
+          v13[2] = v15;
+          v16 = *(v10 + v9 + 24);
+          if (v16)
           {
-            atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
           }
 
-          v18 = v6 + v8;
-          *(v18 + 32) = v17;
-          v19 = *(v16 + 40);
-          *(v18 + 56) = *(v16 + 56);
-          *(v18 + 40) = v19;
-          *(v18 + 72) = *(v16 + 72);
-          *(v12 + 80) = 1;
+          v7[v9 / 8 + 3] = v16;
+          v17 = v10 + v9;
+          v18 = *(v10 + v9 + 32);
+          if (v18)
+          {
+            atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+          }
+
+          v19 = &v7[v9 / 8];
+          v19[4] = v18;
+          v20 = *(v17 + 40);
+          *(v19 + 7) = *(v17 + 56);
+          *(v19 + 5) = v20;
+          *(v19 + 72) = *(v17 + 72);
+          *(v13 + 80) = 1;
         }
 
-        *(v6 + v8 + 88) = *(v11 + 88);
-        v8 += 96;
+        LOBYTE(v7[v9 / 8 + 11]) = *(v12 + 88);
+        v9 += 96;
       }
 
-      while (v11 + 96 != v10);
+      while (v12 + 96 != v11);
     }
 
     return v2;
@@ -8417,7 +8433,7 @@ uint64_t WTF::ThreadSafeRefCounted<WebCore::DataSegment,(WTF::DestructionThread)
       *(v4 + 8) = 0;
       if (v6)
       {
-        (*(*v6 + 8))(v6);
+        (*(*v6 + 8))(v6, a2);
       }
     }
 
@@ -8456,23 +8472,23 @@ void sub_19DB338B8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB33D20(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_19DB33D20(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
+  if (v6)
+  {
+  }
+
   if (v5)
   {
+    WTF::fastFree(v5, a2);
   }
 
   if (v4)
   {
-    WTF::fastFree(v4, a2);
-  }
-
-  if (v3)
-  {
-    if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v3, a2);
+      WTF::StringImpl::destroy(v4, a2);
     }
   }
 
@@ -8504,10 +8520,10 @@ uint64_t std::experimental::fundamentals_v3::expected<std::pair<WTF::String,WTF:
   return a1;
 }
 
-uint64_t mpark::detail::move_constructor<mpark::detail::traits<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>,(mpark::detail::Trait)1>::move_constructor(uint64_t a1, uint64_t a2)
+_BYTE *mpark::detail::move_constructor<mpark::detail::traits<std::pair<WTF::String,WTF::Vector<WebCore::IntSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WebCore::ImageDecodingError>,(mpark::detail::Trait)1>::move_constructor(_BYTE *a1, uint64_t *a2)
 {
   *a1 = 0;
-  *(a1 + 24) = -1;
+  a1[24] = -1;
   v3 = *(a2 + 24);
   if (v3 != 255)
   {
@@ -8522,7 +8538,7 @@ uint64_t mpark::detail::move_constructor<mpark::detail::traits<std::pair<WTF::St
       LOBYTE(v3) = *(a2 + 24);
     }
 
-    *(a1 + 24) = v3;
+    a1[24] = v3;
   }
 
   return a1;
@@ -8738,7 +8754,7 @@ void sub_19DB35D34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t API::ApplicationManifest::create@<X0>(uint64_t a1@<X0>, API::Object **a2@<X8>)
+uint64_t API::ApplicationManifest::create@<X0>(const WebCore::ApplicationManifest *a1@<X0>, Object **a2@<X8>)
 {
   v4 = API::Object::newObject(0x120uLL, 39);
   v5 = API::Object::Object(v4);
@@ -8953,44 +8969,45 @@ uint64_t WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow
 
   if (v3 < 0x38E38E4)
   {
-    v5 = 72 * v3;
-    v6 = WTF::fastMalloc((72 * v3));
-    *(v2 + 8) = v5 / 0x48;
-    *v2 = v6;
-    v7 = *(a2 + 3);
-    if (v7)
+    v5 = (9 * v3);
+    v6 = 8 * v5;
+    v7 = WTF::fastMalloc(v5, (8 * v5));
+    *(v2 + 8) = v6 / 0x48;
+    *v2 = v7;
+    v8 = *(a2 + 3);
+    if (v8)
     {
-      v8 = *a2;
-      v9 = *a2 + 72 * v7;
-      v10 = v6 + 40;
-      v11 = v8 + 40;
+      v9 = *a2;
+      v10 = *a2 + 72 * v8;
+      v11 = (v7 + 5);
+      v12 = v9 + 40;
       do
       {
-        v13 = v11 - 40;
-        v12 = *(v11 - 40);
-        if (v12)
+        v14 = v12 - 40;
+        v13 = *(v12 - 40);
+        if (v13)
         {
-          atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
         }
 
-        *(v10 - 40) = v12;
-        v14 = *(v11 - 16);
-        *(v10 - 32) = *(v11 - 32);
-        *(v10 - 16) = v14;
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v10, v11);
-        v15 = *(v11 + 16);
-        if (v15)
+        *(v11 - 40) = v13;
+        v15 = *(v12 - 16);
+        *(v11 - 32) = *(v12 - 32);
+        *(v11 - 16) = v15;
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v11, v12);
+        v16 = *(v12 + 16);
+        if (v16)
         {
-          atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
         }
 
-        *(v10 + 16) = v15;
-        *(v10 + 24) = *(v11 + 24);
-        v10 += 72;
+        *(v11 + 16) = v16;
+        *(v11 + 24) = *(v12 + 24);
         v11 += 72;
+        v12 += 72;
       }
 
-      while (v13 + 72 != v9);
+      while (v14 + 72 != v10);
     }
 
     return v2;
@@ -9032,44 +9049,45 @@ uint64_t WTF::Vector<WebCore::ApplicationManifest::Shortcut,0ul,WTF::CrashOnOver
     return v2;
   }
 
-  if (!(v3 >> 26))
+  v4 = (v3 >> 26);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((v3 << 6));
+    v6 = WTF::fastMalloc(v4, (v3 << 6));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 3);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 3);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = (*a2 + (v6 << 6));
-      v9 = v5 + 48;
-      v10 = (v7 + 48);
+      v8 = *a2;
+      v9 = (*a2 + (v7 << 6));
+      v10 = (v6 + 6);
+      v11 = (v8 + 48);
       do
       {
-        v12 = v10 - 6;
-        v11 = *(v10 - 6);
-        if (v11)
+        v13 = v11 - 6;
+        v12 = *(v11 - 6);
+        if (v12)
         {
-          atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
         }
 
-        *(v9 - 48) = v11;
-        v13 = *(v10 - 5);
-        if (v13)
+        *(v10 - 48) = v12;
+        v14 = *(v11 - 5);
+        if (v14)
         {
-          atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
         }
 
-        *(v9 - 40) = v13;
-        v14 = *(v10 - 1);
-        *(v9 - 32) = *(v10 - 2);
-        *(v9 - 16) = v14;
-        WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9, v10);
-        v9 += 64;
-        v10 += 8;
+        *(v10 - 40) = v14;
+        v15 = *(v11 - 1);
+        *(v10 - 32) = *(v11 - 2);
+        *(v10 - 16) = v15;
+        WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v10, v11);
+        v10 += 64;
+        v11 += 8;
       }
 
-      while (v12 + 8 != v8);
+      while (v13 + 8 != v9);
     }
 
     return v2;
@@ -9116,13 +9134,13 @@ void sub_19DB36674(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<WTF::BlockPtr<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WTF::BlockPtr<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -9154,7 +9172,7 @@ unint64_t WTF::Vector<WTF::BlockPtr<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -9200,7 +9218,7 @@ uint64_t WTF::Vector<WTF::BlockPtr<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
     v3 = result;
     v4 = *result;
     v5 = *(result + 12);
-    v6 = WTF::fastMalloc((8 * a2));
+    v6 = WTF::fastMalloc(0, (8 * a2));
     *(v3 + 8) = v2;
     *v3 = v6;
     if (v5)
@@ -9362,7 +9380,7 @@ void sub_19DB38848(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<WebCore::HTTPHeaderField,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WebCore::HTTPHeaderField,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -9374,37 +9392,38 @@ uint64_t WTF::Vector<WebCore::HTTPHeaderField,0ul,WTF::CrashOnOverflow,16ul,WTF:
     return v2;
   }
 
-  if (!(v3 >> 28))
+  v4 = (v3 >> 28);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((16 * v3));
+    v6 = WTF::fastMalloc(v4, (16 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 12);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 12);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = *a2 + 16 * v6;
+      v8 = *a2;
+      v9 = *a2 + 16 * v7;
       do
       {
-        v9 = *v7;
-        if (*v7)
-        {
-          atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-        }
-
-        *v5 = v9;
-        v10 = v7[1];
-        if (v10)
+        v10 = *v8;
+        if (*v8)
         {
           atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
         }
 
-        v5[1] = v10;
-        v5 += 2;
-        v7 += 2;
+        *v6 = v10;
+        v11 = v8[1];
+        if (v11)
+        {
+          atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
+        }
+
+        v6[1] = v11;
+        v6 += 2;
+        v8 += 2;
       }
 
-      while (v7 != v8);
+      while (v8 != v9);
     }
 
     return v2;
@@ -9442,10 +9461,10 @@ uint64_t WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF
   return a1;
 }
 
-void sub_19DB38D80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19DB38D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
   }
 
@@ -9481,15 +9500,15 @@ void sub_19DB394E4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB39710(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_19DB39710(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va1, a2);
-  WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v4);
+  WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v5);
   _Unwind_Resume(a1);
 }
 
@@ -9715,67 +9734,4 @@ void sub_19DB3AD80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void WebsiteDataStoreClient::openWindowFromServiceWorker(uint64_t a1, atomic_uint **a2, uint64_t a3, uint64_t *a4)
-{
-  if (*(a1 + 26) == 1 && (WeakRetained = objc_loadWeakRetained((a1 + 16))) != 0 && (WeakRetained, (v8 = objc_loadWeakRetained((a1 + 8))) != 0))
-  {
-
-    Weak = objc_loadWeak((a1 + 16));
-    WebKit::CompletionHandlerCallChecker::create(Weak, sel_websiteDataStore_openWindow_fromServiceWorkerOrigin_completionHandler_, &v23);
-    v10 = *a4;
-    *a4 = 0;
-    v11 = v23;
-    v12 = malloc_type_malloc(0x30uLL, 0x10E0040FAC56454uLL);
-    *v12 = MEMORY[0x1E69E9818];
-    v12[1] = 50331650;
-    v12[2] = WTF::BlockPtr<void ()(WKWebView *)>::fromCallable<WebsiteDataStoreClient::openWindowFromServiceWorker(WTF::String const&,WebCore::SecurityOriginData const&,WTF::CompletionHandler<void ()(WebKit::WebPageProxy *)> &&)::{lambda(WKWebView *)#1}>(WebsiteDataStoreClient::openWindowFromServiceWorker(WTF::String const&,WebCore::SecurityOriginData const&,WTF::CompletionHandler<void ()(WebKit::WebPageProxy *)> &&)::{lambda(WKWebView *)#1})::{lambda(void *,WKWebView *)#1}::__invoke;
-    v12[3] = &WTF::BlockPtr<void ()(WKWebView *)>::fromCallable<WebsiteDataStoreClient::openWindowFromServiceWorker(WTF::String const&,WebCore::SecurityOriginData const&,WTF::CompletionHandler<void ()(WebKit::WebPageProxy *)> &&)::{lambda(WKWebView *)#1}>(WebsiteDataStoreClient::openWindowFromServiceWorker(WTF::String const&,WebCore::SecurityOriginData const&,WTF::CompletionHandler<void ()(WebKit::WebPageProxy *)> &&)::{lambda(WKWebView *)#1})::descriptor;
-    v12[4] = v10;
-    v12[5] = v11;
-    WTF::URL::URL(v21, a2);
-    WTF::URL::createCFURL(&v22, v21);
-    v14 = v21[0];
-    v21[0] = 0;
-    if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v14, v13);
-    }
-
-    API::SecurityOrigin::create(v21);
-    v15 = objc_loadWeak((a1 + 16));
-    v16 = objc_loadWeak((a1 + 8));
-    v17 = v22;
-    v18 = *(v21[0] + 1);
-    if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-    {
-      __break(0xC471u);
-    }
-
-    else
-    {
-      [v15 websiteDataStore:v16 openWindow:v17 fromServiceWorkerOrigin:v18 completionHandler:v12];
-      v19 = v21[0];
-      v21[0] = 0;
-      if (v19)
-      {
-        CFRelease(*(v19 + 1));
-      }
-
-      v20 = v22;
-      v22 = 0;
-      if (v20)
-      {
-      }
-
-      _Block_release(v12);
-    }
-  }
-
-  else
-  {
-
-    WTF::CompletionHandler<void ()(WebKit::WebPageProxy *)>::operator()(a4);
-  }
 }

@@ -7,6 +7,7 @@
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCAssociatedTypeSelectionViewController
@@ -158,6 +159,51 @@
   [(HSPCAssociatedTypeSelectionViewController *)&v4 viewDidLoad];
   tableView = [(HSPCAssociatedTypeSelectionViewController *)self tableView];
   [tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v19.receiver = self;
+  v19.super_class = HSPCAssociatedTypeSelectionViewController;
+  [(HSPCAssociatedTypeSelectionViewController *)&v19 viewWillAppear:appear];
+  tableView = [(HSPCAssociatedTypeSelectionViewController *)self tableView];
+  [tableView reloadData];
+
+  v5 = 0;
+  do
+  {
+    v6 = v5;
+    possibleAssociatedServiceTypes = [(HSPCAssociatedTypeSelectionViewController *)self possibleAssociatedServiceTypes];
+    v8 = [possibleAssociatedServiceTypes count];
+
+    if (v6 >= v8)
+    {
+      break;
+    }
+
+    possibleAssociatedServiceTypes2 = [(HSPCAssociatedTypeSelectionViewController *)self possibleAssociatedServiceTypes];
+    v10 = [possibleAssociatedServiceTypes2 objectAtIndexedSubscript:v6];
+
+    defaultAssociatedServiceType = [(HSPCAssociatedTypeSelectionViewController *)self defaultAssociatedServiceType];
+    v12 = [v10 isEqualToString:defaultAssociatedServiceType];
+
+    v5 = v6 + 1;
+  }
+
+  while (!v12);
+  v13 = [NSIndexPath indexPathForRow:v6 inSection:0];
+  tableView2 = [(HSPCAssociatedTypeSelectionViewController *)self tableView];
+  [tableView2 selectRowAtIndexPath:v13 animated:1 scrollPosition:0];
+
+  tableView3 = [(HSPCAssociatedTypeSelectionViewController *)self tableView];
+  [tableView3 layoutIfNeeded];
+
+  contentView = [(HSPCAssociatedTypeSelectionViewController *)self contentView];
+  [contentView setNeedsUpdateConstraints];
+
+  view = [(HSPCAssociatedTypeSelectionViewController *)self view];
+  [view bounds];
+  [(HSPCAssociatedTypeSelectionViewController *)self updatePreferredContentSizeForCardWidth:v18];
 }
 
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path

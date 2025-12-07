@@ -1,4 +1,5 @@
 @interface PFSandboxExtendedURL
++ (id)sandboxExtendedURLForURL:(id)l options:(unsigned __int8)options auditToken:(id)token error:(id *)error;
 + (id)temporaryReadonlySandboxExtendedURLForAuditToken:(id)token error:(id *)error;
 + (id)temporaryReadwriteSandboxExtendedURLForAuditToken:(id)token error:(id *)error;
 - (BOOL)_consumeSandboxExtensionHandleForXPCObject:(id)object context:(id)context;
@@ -15,6 +16,16 @@
 @end
 
 @implementation PFSandboxExtendedURL
+
++ (id)sandboxExtendedURLForURL:(id)l options:(unsigned __int8)options auditToken:(id)token error:(id *)error
+{
+  optionsCopy = options;
+  tokenCopy = token;
+  lCopy = l;
+  v11 = [[PFSandboxExtendedURL alloc] initWithURL:lCopy options:optionsCopy auditToken:tokenCopy error:error];
+
+  return v11;
+}
 
 + (id)temporaryReadwriteSandboxExtendedURLForAuditToken:(id)token error:(id *)error
 {
@@ -37,13 +48,13 @@
 
 void __80__PFSandboxExtendedURL_temporaryReadwriteSandboxExtendedURLForAuditToken_error___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v1 = *(a1 + 32);
-  v9 = 0;
-  v3 = [v1 pf_markPurgableInOneHourWithError:&v9];
-  v4 = v9;
-  v5 = PFLogPosterContents();
+  v8 = 0;
+  v3 = [v1 pf_markPurgableInOneHourWithError:&v8];
+  v4 = v8;
+  v5 = PFLogPosterContents(v4);
   v6 = v5;
   if (v3)
   {
@@ -51,7 +62,7 @@ void __80__PFSandboxExtendedURL_temporaryReadwriteSandboxExtendedURLForAuditToke
     {
       v7 = *v2;
       *buf = 138412290;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&dword_1C269D000, v6, OS_LOG_TYPE_INFO, "Set purgability on URL %@", buf, 0xCu);
     }
   }
@@ -60,8 +71,6 @@ void __80__PFSandboxExtendedURL_temporaryReadwriteSandboxExtendedURLForAuditToke
   {
     __80__PFSandboxExtendedURL_temporaryReadwriteSandboxExtendedURLForAuditToken_error___block_invoke_cold_1(v2, v4, v6);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)temporaryReadonlySandboxExtendedURLForAuditToken:(id)token error:(id *)error
@@ -163,12 +172,11 @@ LABEL_12:
 
 - (void)invalidate
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1C269D000, a2, OS_LOG_TYPE_DEBUG, "purged contents : %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1C269D000, a2, OS_LOG_TYPE_DEBUG, "purged contents : %{public}@", &v3, 0xCu);
 }
 
 - (PFSandboxExtendedURL)initWithCoder:(id)coder
@@ -315,86 +323,71 @@ LABEL_6:
 
 - (id)_issueSandboxExtensionTokenWithContext:(id)context
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   p_sandboxExtensionURL = &self->_sandboxExtensionURL;
-  if ((self->_options & 4) != 0)
-  {
-    v6 = MEMORY[0x1E69E9BB0];
-  }
-
-  else
-  {
-    v6 = MEMORY[0x1E69E9BA8];
-  }
-
-  v7 = *v6;
   sandboxExtensionAuditToken = self->_sandboxExtensionAuditToken;
   [(NSURL *)self->_sandboxExtensionURL fileSystemRepresentation];
-  v9 = *MEMORY[0x1E69E9BE0];
   if (sandboxExtensionAuditToken)
   {
-    v10 = self->_sandboxExtensionAuditToken;
-    if (v10)
+    v7 = self->_sandboxExtensionAuditToken;
+    if (v7)
     {
-      [(BSAuditToken *)v10 realToken];
+      objc_msgSend_realToken(v7);
     }
 
     else
     {
-      memset(v22, 0, 32);
+      memset(v17, 0, 32);
     }
 
-    v12 = sandbox_extension_issue_file_to_process();
-    if (v12)
+    v8 = sandbox_extension_issue_file_to_process();
+    if (v8)
     {
-      goto LABEL_13;
+      goto LABEL_10;
     }
 
-    v16 = PFLogPosterContents();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v12 = PFLogPosterContents(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = [(BSAuditToken *)self->_sandboxExtensionAuditToken pid];
+      v14 = [(BSAuditToken *)self->_sandboxExtensionAuditToken pid];
       sandboxExtensionURL = self->_sandboxExtensionURL;
-      v21 = *__error();
-      *v22 = 138544130;
-      *&v22[4] = contextCopy;
-      *&v22[12] = 1024;
-      *&v22[14] = v19;
-      *&v22[18] = 2114;
-      *&v22[20] = sandboxExtensionURL;
-      *&v22[28] = 1024;
-      *&v22[30] = v21;
-      _os_log_error_impl(&dword_1C269D000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] failed to issue sandbox extension to PID %d for path %{public}@: %{darwin.errno}d", v22, 0x22u);
+      v16 = *__error();
+      *v17 = 138544130;
+      *&v17[4] = contextCopy;
+      *&v17[12] = 1024;
+      *&v17[14] = v14;
+      *&v17[18] = 2114;
+      *&v17[20] = sandboxExtensionURL;
+      *&v17[28] = 1024;
+      *&v17[30] = v16;
+      _os_log_error_impl(&dword_1C269D000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] failed to issue sandbox extension to PID %d for path %{public}@: %{darwin.errno}d", v17, 0x22u);
     }
   }
 
   else
   {
-    v11 = *MEMORY[0x1E69E9BE0];
-    v12 = sandbox_extension_issue_file();
-    if (v12)
+    v8 = sandbox_extension_issue_file();
+    if (v8)
     {
-LABEL_13:
-      v14 = v12;
-      v15 = xpc_string_create(v12);
-      free(v14);
-      goto LABEL_18;
+LABEL_10:
+      v10 = v8;
+      v11 = xpc_string_create(v8);
+      free(v10);
+      goto LABEL_15;
     }
 
-    v13 = PFLogPosterContents();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v9 = PFLogPosterContents(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(PFSandboxExtendedURL *)contextCopy _issueSandboxExtensionTokenWithContext:?];
     }
   }
 
-  v15 = 0;
-LABEL_18:
+  v11 = 0;
+LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v11;
 }
 
 - (BOOL)_consumeSandboxExtensionHandleForXPCObject:(id)object context:(id)context
@@ -402,12 +395,13 @@ LABEL_18:
   v28 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
+  v8 = contextCopy;
   if (!objectCopy)
   {
-    v10 = PFLogPosterContents();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PFLogPosterContents(contextCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PFSandboxExtendedURL _consumeSandboxExtensionHandleForXPCObject:contextCopy context:self];
+      [PFSandboxExtendedURL _consumeSandboxExtensionHandleForXPCObject:context:];
     }
 
     goto LABEL_11;
@@ -417,41 +411,41 @@ LABEL_18:
   {
     Class = object_getClass(objectCopy);
     name = xpc_type_get_name(Class);
-    v10 = PFLogPosterContents();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PFLogPosterContents(name);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       sandboxExtensionURL = self->_sandboxExtensionURL;
       v22 = 138544386;
-      v23 = contextCopy;
+      v23 = v8;
       v24 = 2080;
       v25 = name;
       v26 = 2112;
       *v27 = objectCopy;
       *&v27[8] = 2114;
-      *&v27[10] = v14;
+      *&v27[10] = v15;
       *&v27[18] = 2114;
       *&v27[20] = sandboxExtensionURL;
-      _os_log_error_impl(&dword_1C269D000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] failed to decode sandbox token: Bad XPC object: %s %@ : <%{public}@ path=%{public}@>", &v22, 0x34u);
+      _os_log_error_impl(&dword_1C269D000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] failed to decode sandbox token: Bad XPC object: %s %@ : <%{public}@ path=%{public}@>", &v22, 0x34u);
     }
 
     goto LABEL_11;
   }
 
-  v8 = sandbox_extension_consume();
-  self->_sandboxExtensionHandle = v8;
-  if (v8 == -1)
+  v9 = sandbox_extension_consume();
+  self->_sandboxExtensionHandle = v9;
+  if (v9 == -1)
   {
-    v10 = PFLogPosterContents();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PFLogPosterContents(-1);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v18 = *__error();
       v19 = objc_opt_class();
       v20 = NSStringFromClass(v19);
       v21 = self->_sandboxExtensionURL;
       v22 = 138544386;
-      v23 = contextCopy;
+      v23 = v8;
       v24 = 2112;
       v25 = objectCopy;
       v26 = 1024;
@@ -460,71 +454,60 @@ LABEL_18:
       *&v27[6] = v20;
       *&v27[14] = 2114;
       *&v27[16] = v21;
-      _os_log_error_impl(&dword_1C269D000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] failed to consume sandboxToken %@ with %{darwin.errno}d : <%{public}@ path=%{public}@>", &v22, 0x30u);
+      _os_log_error_impl(&dword_1C269D000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] failed to consume sandboxToken %@ with %{darwin.errno}d : <%{public}@ path=%{public}@>", &v22, 0x30u);
     }
 
 LABEL_11:
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 void __80__PFSandboxExtendedURL_temporaryReadwriteSandboxExtendedURLForAuditToken_error___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, a2, a3, "Unable to set purgability on URL %@: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1C269D000, a2, a3, "Unable to set purgability on URL %@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)encodeWithCoder:(uint64_t)a3 .cold.1(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138544642;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2048;
-  v14 = a2;
-  v15 = 2114;
-  v16 = @"PFSandboxExtendedURL.m";
-  v17 = 1024;
-  v18 = 157;
-  v19 = 2114;
-  v20 = a3;
-  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138544642;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2048;
+  v13 = a2;
+  v14 = 2114;
+  v15 = @"PFSandboxExtendedURL.m";
+  v16 = 1024;
+  v17 = 157;
+  v18 = 2114;
+  v19 = a3;
+  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8, 0x3Au);
 }
 
-- (void)_issueSandboxExtensionTokenWithContext:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)_issueSandboxExtensionTokenWithContext:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v9 = *a2;
-  v10 = *__error();
-  OUTLINED_FUNCTION_2_7(&dword_1C269D000, v2, v3, "[%{public}@] failed to issue sandbox extension for path %{public}@: %{darwin.errno}d", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_consumeSandboxExtensionHandleForXPCObject:(uint64_t)a1 context:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 24);
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v3, v4, "[%{public}@] failed to decode sandbox token for %{public}@: No XPC object found");
-  v5 = *MEMORY[0x1E69E9840];
+  *v8 = 138543874;
+  *&v8[4] = a1;
+  *&v8[12] = 2114;
+  *&v8[14] = *a2;
+  *&v8[22] = 1024;
+  v9 = *__error();
+  OUTLINED_FUNCTION_2_7(&dword_1C269D000, v2, v3, "[%{public}@] failed to issue sandbox extension for path %{public}@: %{darwin.errno}d", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], v9);
 }
 
 @end

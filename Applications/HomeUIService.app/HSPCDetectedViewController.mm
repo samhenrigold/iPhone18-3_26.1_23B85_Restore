@@ -6,6 +6,7 @@
 - (id)commitConfiguration;
 - (id)handleInstallationGuideURL;
 - (id)iconDescriptor;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HSPCDetectedViewController
@@ -204,6 +205,27 @@ LABEL_15:
 
 LABEL_24:
   return v9;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  coordinator = [(HSPCCenterIconViewController *)self coordinator];
+  setupAccessoryDescription = [coordinator setupAccessoryDescription];
+  setupAccessoryPayload = [setupAccessoryDescription setupAccessoryPayload];
+
+  if ([setupAccessoryPayload supportsBTLE])
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    coordinator2 = [(HSPCCenterIconViewController *)self coordinator];
+    v6 = [coordinator2 accessoryCommunicationProtocol] == 2;
+  }
+
+  networkInterfaceManager = [(HSPCDetectedViewController *)self networkInterfaceManager];
+  [networkInterfaceManager checkNetworkStatusAndShowAlertIfNeededForBluetooth:v6 Wifi:1];
 }
 
 - (HSPCDetectedViewController)initWithCenterContentView:(id)view

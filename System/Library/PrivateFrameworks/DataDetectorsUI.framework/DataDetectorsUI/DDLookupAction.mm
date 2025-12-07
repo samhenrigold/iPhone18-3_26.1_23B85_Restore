@@ -113,7 +113,7 @@ LABEL_6:
 
 - (id)menuActions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   query = self->_query;
   if (query)
   {
@@ -131,12 +131,10 @@ LABEL_6:
 
   v7 = [[DDCopyAction alloc] initWithQueryString:title range:location context:length, self->super.super.super.super._context];
   v8 = [[DDSearchWebAction alloc] initWithQueryString:title range:location context:length, self->super.super.super.super._context];
-  v13[0] = v8;
-  v13[1] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v8;
+  v12[1] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v10 = [DDActionGroup groupWithActions:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

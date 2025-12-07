@@ -22,7 +22,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -35,85 +35,77 @@
     *&buf[12] = 2114;
     *&buf[14] = container;
     *&buf[22] = 2114;
-    v24 = configuration;
+    v23 = configuration;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning reset for container (%{public}@) with configuration %{public}@", buf, 0x20u);
-
-LABEL_4:
-    v7 = [objc_alloc(MEMORY[0x277CBC388]) initWithPreviousServerChangeToken:0];
-    [v7 setFetchAllChanges:1];
-    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke;
-    v21[3] = &unk_278627050;
-    v9 = v8;
-    v22 = v9;
-    [v7 setRecordZoneWithIDChangedBlock:v21];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_2;
-    v19[3] = &unk_278627050;
-    v10 = v9;
-    v20 = v10;
-    [v7 setRecordZoneWithIDWasPurgedBlock:v19];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_3;
-    v17[3] = &unk_278627050;
-    v11 = v10;
-    v18 = v11;
-    [v7 setRecordZoneWithIDWasDeletedBlock:v17];
-    *buf = MEMORY[0x277D85DD0];
-    *&buf[8] = 3221225472;
-    *&buf[16] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4;
-    v24 = &unk_278627078;
-    selfCopy = self;
-    v26 = v11;
-    v12 = v11;
-    [v7 setFetchDatabaseChangesCompletionBlock:buf];
-    configuration2 = [(HDCloudSyncOperation *)self configuration];
-    operationGroup = [configuration2 operationGroup];
-    [v7 setGroup:operationGroup];
-
-    privateCloudDatabase = [(CKContainer *)self->_container privateCloudDatabase];
-    [privateCloudDatabase addOperation:v7];
-
-    goto LABEL_5;
   }
 
-  if (self)
+  else if (!self)
   {
-    goto LABEL_4;
+    return;
   }
 
-LABEL_5:
-  v16 = *MEMORY[0x277D85DE8];
+  v7 = [objc_alloc(MEMORY[0x277CBC388]) initWithPreviousServerChangeToken:0];
+  [v7 setFetchAllChanges:1];
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke;
+  v20[3] = &unk_278627050;
+  v9 = v8;
+  v21 = v9;
+  [v7 setRecordZoneWithIDChangedBlock:v20];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_2;
+  v18[3] = &unk_278627050;
+  v10 = v9;
+  v19 = v10;
+  [v7 setRecordZoneWithIDWasPurgedBlock:v18];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_3;
+  v16[3] = &unk_278627050;
+  v11 = v10;
+  v17 = v11;
+  [v7 setRecordZoneWithIDWasDeletedBlock:v16];
+  *buf = MEMORY[0x277D85DD0];
+  *&buf[8] = 3221225472;
+  *&buf[16] = __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4;
+  v23 = &unk_278627078;
+  selfCopy = self;
+  v25 = v11;
+  v12 = v11;
+  [v7 setFetchDatabaseChangesCompletionBlock:buf];
+  configuration2 = [(HDCloudSyncOperation *)self configuration];
+  operationGroup = [configuration2 operationGroup];
+  [v7 setGroup:operationGroup];
+
+  privateCloudDatabase = [(CKContainer *)self->_container privateCloudDatabase];
+  [privateCloudDatabase addOperation:v7];
 }
 
 void __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v7;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete zones: %{public}@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete zones: %{public}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke_293(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
@@ -122,21 +114,19 @@ void __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke_293(
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = [v3 recordZoneIDsToDelete];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully deleted zones %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully deleted zones %{public}@", &v8, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:1 error:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a4;
   _HKInitializeLogging();
   v6 = MEMORY[0x277CCC328];
@@ -146,14 +136,14 @@ void __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4(uint6
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 32);
-      v27 = *(v26 + 104);
+      v25 = *(a1 + 32);
+      v26 = *(v25 + 104);
       *buf = 138543874;
-      *&buf[4] = v26;
+      *&buf[4] = v25;
       *&buf[12] = 2114;
-      *&buf[14] = v27;
+      *&buf[14] = v26;
       *&buf[22] = 2114;
-      v30 = v5;
+      v29 = v5;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch record zones in %{public}@ with error: %{public}@", buf, 0x20u);
     }
 
@@ -195,15 +185,15 @@ void __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4(uint6
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke;
-        v30 = &unk_278627000;
-        v31 = v14;
+        v29 = &unk_278627000;
+        v30 = v14;
         [(HDCloudSyncOperation *)v22 setOnError:buf];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke_293;
-        v28[3] = &unk_278627028;
-        v28[4] = v14;
-        [(HDCloudSyncOperation *)v22 setOnSuccess:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __53__HDCloudSyncResetOperation__deleteZonesWithZoneIDs___block_invoke_293;
+        v27[3] = &unk_278627028;
+        v27[4] = v14;
+        [(HDCloudSyncOperation *)v22 setOnSuccess:v27];
         [(HDCloudSyncOperation *)v22 start];
       }
     }
@@ -223,8 +213,6 @@ void __50__HDCloudSyncResetOperation__fetchDatabaseChanges__block_invoke_4(uint6
       [*(a1 + 32) finishWithSuccess:1 error:0];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

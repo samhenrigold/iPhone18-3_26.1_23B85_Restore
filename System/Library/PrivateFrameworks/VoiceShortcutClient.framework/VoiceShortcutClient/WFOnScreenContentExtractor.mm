@@ -27,7 +27,7 @@
 
 - (id)nodeWithContentCollection:(id)collection file:(id)file linkPresentationMetadata:(id)metadata
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   fileCopy = file;
   metadataCopy = metadata;
@@ -44,28 +44,28 @@
   {
     name = [firstObject name];
     v17 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     items3 = [collectionCopy items];
-    v19 = [items3 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v19 = [items3 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v19)
     {
       v20 = v19;
-      v41 = metadataCopy;
-      v42 = fileCopy;
-      v21 = *v45;
+      v40 = metadataCopy;
+      v41 = fileCopy;
+      v21 = *v44;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v45 != v21)
+          if (*v44 != v21)
           {
             objc_enumerationMutation(items3);
           }
 
-          v23 = *(*(&v44 + 1) + 8 * i);
+          v23 = *(*(&v43 + 1) + 8 * i);
           getWFStringContentItemClass();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -78,7 +78,7 @@
           [v17 appendString:string];
         }
 
-        v20 = [items3 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v20 = [items3 countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (v20)
         {
           continue;
@@ -88,8 +88,8 @@
       }
 
 LABEL_12:
-      metadataCopy = v41;
-      fileCopy = v42;
+      metadataCopy = v40;
+      fileCopy = v41;
     }
 
     if ([v17 length])
@@ -111,8 +111,6 @@ LABEL_12:
   v37 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WFOnScreenContentExtractor applicationLevel](self, "applicationLevel")}];
   v38 = [(WFOnScreenContentNode *)v28 initWithContentItem:firstObject file:fileCopy applicationBundleIdentifier:bundleIdentifier applicationFrame:v37 applicationLevel:@"UIActivityItemsConfiguration" source:metadataCopy linkPresentationMetadata:v30, v32, v34, v36];
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v38;
 }
 
@@ -127,29 +125,29 @@ LABEL_12:
 
 - (id)activityItemsConfigurationFromScene:(id)scene
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   windows = [sceneCopy windows];
-  v5 = [windows countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [windows countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(windows);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v10 isKeyWindow])
         {
           v11 = v10;
@@ -158,7 +156,7 @@ LABEL_12:
         }
       }
 
-      v6 = [windows countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [windows countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -208,8 +206,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return nextResponder;
 }
@@ -271,48 +267,48 @@ void __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForSce
 
 void __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForScene_serviceOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2050000000;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2050000000;
   v8 = getWFContentItemClass_softClass_19008;
-  v42 = getWFContentItemClass_softClass_19008;
+  v41 = getWFContentItemClass_softClass_19008;
   if (!getWFContentItemClass_softClass_19008)
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __getWFContentItemClass_block_invoke_19009;
-    v38[3] = &unk_1E7B02C60;
-    v38[4] = &v39;
-    __getWFContentItemClass_block_invoke_19009(v38);
-    v8 = v40[3];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __getWFContentItemClass_block_invoke_19009;
+    v37[3] = &unk_1E7B02C60;
+    v37[4] = &v38;
+    __getWFContentItemClass_block_invoke_19009(v37);
+    v8 = v39[3];
   }
 
-  v26 = v7;
+  v25 = v7;
   v9 = v8;
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v38, 8);
   v10 = [v8 itemWithObject:v6 named:0];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v11 = [v10 outputTypes];
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v12)
   {
-    v13 = *v35;
+    v13 = *v34;
 LABEL_5:
     v14 = 0;
     while (1)
     {
-      if (*v35 != v13)
+      if (*v34 != v13)
       {
         objc_enumerationMutation(v11);
       }
 
-      v15 = *(*(&v34 + 1) + 8 * v14);
+      v15 = *(*(&v33 + 1) + 8 * v14);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -327,7 +323,7 @@ LABEL_5:
 
       if (v12 == ++v14)
       {
-        v12 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -342,8 +338,8 @@ LABEL_5:
       goto LABEL_16;
     }
 
-    v43 = @"WFStringContentItem";
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+    v42 = @"WFStringContentItem";
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
     v19 = *(*(a1 + 56) + 8);
     v11 = *(v19 + 40);
     *(v19 + 40) = v18;
@@ -352,24 +348,22 @@ LABEL_5:
 LABEL_15:
 
 LABEL_16:
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForScene_serviceOptions_completionHandler___block_invoke_3;
-  v27[3] = &unk_1E7B02460;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForScene_serviceOptions_completionHandler___block_invoke_3;
+  v26[3] = &unk_1E7B02460;
   v20 = *(a1 + 56);
-  v32 = v26;
-  v33 = v20;
-  v28 = *(a1 + 32);
+  v31 = v25;
+  v32 = v20;
+  v27 = *(a1 + 32);
   v21 = *(a1 + 40);
   v22 = *(a1 + 48);
-  v29 = v21;
-  v30 = v22;
-  v31 = v10;
+  v28 = v21;
+  v29 = v22;
+  v30 = v10;
   v23 = v10;
-  v24 = v26;
-  [v23 preloadImportantItemsWithCompletionHandler:v27];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = v25;
+  [v23 preloadImportantItemsWithCompletionHandler:v26];
 }
 
 void __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForScene_serviceOptions_completionHandler___block_invoke_3(uint64_t a1)
@@ -452,31 +446,29 @@ void __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForSce
 
       if (v17)
       {
-        v18 = *MEMORY[0x1E69E9BB0];
-        v19 = [v7 fileURL];
-        v20 = [v19 path];
-        [v20 fileSystemRepresentation];
-        v21 = *MEMORY[0x1E69E9BE0];
-        v22 = sandbox_extension_issue_file();
+        v18 = [v7 fileURL];
+        v19 = [v18 path];
+        [v19 fileSystemRepresentation];
+        v20 = sandbox_extension_issue_file();
 
-        if (v22)
+        if (v20)
         {
-          v23 = *(a1 + 32);
-          if (v23)
+          v21 = *(a1 + 32);
+          if (v21)
           {
-            [v23 originatingProcessAuditToken];
+            objc_msgSend_originatingProcessAuditToken(v21);
           }
 
           else
           {
-            v35 = 0u;
-            v36 = 0u;
+            v32 = 0u;
+            v33 = 0u;
           }
 
-          [v13 _setAssociatedAuditToken:&v35];
-          v24 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v22 length:strlen(v22) + 1];
-          v25 = [v7 fileURL];
-          MEMORY[0x1B273E920](v25, v24);
+          [v13 _setAssociatedAuditToken:&v32];
+          v22 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v20 length:strlen(v20) + 1];
+          v23 = [v7 fileURL];
+          MEMORY[0x1B273E920](v23, v22);
         }
       }
     }
@@ -487,47 +479,46 @@ void __107__WFOnScreenContentExtractor_loadActivityItemsConfigurationItemsForSce
     v13 = 0;
   }
 
-  v26 = *(a1 + 40);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v31 = 0;
+    v28 = 0;
     goto LABEL_19;
   }
 
-  v27 = *(a1 + 40);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v28 = getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr;
-  v41 = getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr;
+  v24 = *(a1 + 40);
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v25 = getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr;
+  v38 = getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr;
   if (!getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr)
   {
-    *&v35 = MEMORY[0x1E69E9820];
-    *(&v35 + 1) = 3221225472;
-    *&v36 = __getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_block_invoke;
-    *(&v36 + 1) = &unk_1E7B02C60;
-    v37 = &v38;
-    v29 = UIKitLibrary();
-    v30 = dlsym(v29, "UIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata");
-    *(v37[1] + 24) = v30;
-    getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr = *(v37[1] + 24);
-    v28 = v39[3];
+    *&v32 = MEMORY[0x1E69E9820];
+    *(&v32 + 1) = 3221225472;
+    *&v33 = __getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_block_invoke;
+    *(&v33 + 1) = &unk_1E7B02C60;
+    v34 = &v35;
+    v26 = UIKitLibrary();
+    v27 = dlsym(v26, "UIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata");
+    *(v34[1] + 24) = v27;
+    getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr = *(v34[1] + 24);
+    v25 = v36[3];
   }
 
-  _Block_object_dispose(&v38, 8);
-  if (v28)
+  _Block_object_dispose(&v35, 8);
+  if (v25)
   {
-    v31 = [v27 activityItemsConfigurationMetadataForKey:*v28];
+    v28 = [v24 activityItemsConfigurationMetadataForKey:*v25];
 LABEL_19:
-    v32 = [*(a1 + 48) nodeWithContentCollection:*(a1 + 56) file:v13 linkPresentationMetadata:v31];
+    v29 = [*(a1 + 48) nodeWithContentCollection:*(a1 + 56) file:v13 linkPresentationMetadata:v28];
     (*(*(a1 + 64) + 16))();
 
     return;
   }
 
-  v33 = [MEMORY[0x1E696AAA8] currentHandler];
-  v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UIActivityItemsConfigurationMetadataKey getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata(void)"];
-  [v33 handleFailureInFunction:v34 file:@"WFOnScreenContentExtractor.m" lineNumber:37 description:{@"%s", dlerror()}];
+  v30 = [MEMORY[0x1E696AAA8] currentHandler];
+  v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UIActivityItemsConfigurationMetadataKey getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata(void)"];
+  [v30 handleFailureInFunction:v31 file:@"WFOnScreenContentExtractor.m" lineNumber:37 description:{@"%s", dlerror()}];
 
   __break(1u);
 }
@@ -583,39 +574,39 @@ LABEL_19:
 
 - (void)handleAction:(id)action completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2050000000;
   v5 = getUIApplicationClass_softClass;
-  v51 = getUIApplicationClass_softClass;
+  v50 = getUIApplicationClass_softClass;
   if (!getUIApplicationClass_softClass)
   {
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __getUIApplicationClass_block_invoke;
-    v41 = &unk_1E7B02C60;
-    v42 = &v48;
-    __getUIApplicationClass_block_invoke(&v38);
-    v5 = v49[3];
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __getUIApplicationClass_block_invoke;
+    v40 = &unk_1E7B02C60;
+    v41 = &v47;
+    __getUIApplicationClass_block_invoke(&v37);
+    v5 = v48[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   sharedApplication = [v5 sharedApplication];
   connectedScenes = [sharedApplication connectedScenes];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = connectedScenes;
-  v8 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v8 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (!v8)
   {
 
-    v34 = 0;
+    v33 = 0;
 LABEL_23:
     v27 = [(WFOnScreenContentExtractor *)self responseWithError:0];
     handlerCopy[2](handlerCopy, v27);
@@ -624,37 +615,37 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v34 = 0;
+  v33 = 0;
   v9 = 0;
-  v10 = *v45;
+  v10 = *v44;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v45 != v10)
+      if (*v44 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v44 + 1) + 8 * i);
-      v48 = 0;
-      v49 = &v48;
-      v50 = 0x2050000000;
+      v12 = *(*(&v43 + 1) + 8 * i);
+      v47 = 0;
+      v48 = &v47;
+      v49 = 0x2050000000;
       v13 = getUIWindowSceneClass_softClass;
-      v51 = getUIWindowSceneClass_softClass;
+      v50 = getUIWindowSceneClass_softClass;
       if (!getUIWindowSceneClass_softClass)
       {
-        v38 = MEMORY[0x1E69E9820];
-        v39 = 3221225472;
-        v40 = __getUIWindowSceneClass_block_invoke;
-        v41 = &unk_1E7B02C60;
-        v42 = &v48;
-        __getUIWindowSceneClass_block_invoke(&v38);
-        v13 = v49[3];
+        v37 = MEMORY[0x1E69E9820];
+        v38 = 3221225472;
+        v39 = __getUIWindowSceneClass_block_invoke;
+        v40 = &unk_1E7B02C60;
+        v41 = &v47;
+        __getUIWindowSceneClass_block_invoke(&v37);
+        v13 = v48[3];
       }
 
       v14 = v13;
-      _Block_object_dispose(&v48, 8);
+      _Block_object_dispose(&v47, 8);
       if (objc_opt_isKindOfClass())
       {
         v15 = v12;
@@ -679,7 +670,7 @@ LABEL_23:
           v22 = v17;
 
           v23 = _FBSScene;
-          v34 = v23;
+          v33 = v23;
         }
 
         else
@@ -691,7 +682,7 @@ LABEL_23:
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v8 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
   }
 
   while (v8);
@@ -701,31 +692,29 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  [(WFOnScreenContentExtractor *)self applicationFrameForScene:v34];
+  [(WFOnScreenContentExtractor *)self applicationFrameForScene:v33];
   [(WFOnScreenContentExtractor *)self setApplicationFrame:?];
-  settings = [v34 settings];
+  settings = [v33 settings];
   [settings level];
   [(WFOnScreenContentExtractor *)self setApplicationLevel:v25];
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__19005;
-  v42 = __Block_byref_object_dispose__19006;
-  v43 = objc_alloc_init(WFOnScreenContentNode);
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__19005;
+  v41 = __Block_byref_object_dispose__19006;
+  v42 = objc_alloc_init(WFOnScreenContentNode);
   serviceOptions = [actionCopy serviceOptions];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __61__WFOnScreenContentExtractor_handleAction_completionHandler___block_invoke;
-  v35[3] = &unk_1E7B023C8;
-  v37 = &v38;
-  v36 = handlerCopy;
-  [(WFOnScreenContentExtractor *)self loadActivityItemsConfigurationItemsForScene:v9 serviceOptions:serviceOptions completionHandler:v35];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __61__WFOnScreenContentExtractor_handleAction_completionHandler___block_invoke;
+  v34[3] = &unk_1E7B023C8;
+  v36 = &v37;
+  v35 = handlerCopy;
+  [(WFOnScreenContentExtractor *)self loadActivityItemsConfigurationItemsForScene:v9 serviceOptions:serviceOptions completionHandler:v34];
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v37, 8);
 LABEL_24:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __61__WFOnScreenContentExtractor_handleAction_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

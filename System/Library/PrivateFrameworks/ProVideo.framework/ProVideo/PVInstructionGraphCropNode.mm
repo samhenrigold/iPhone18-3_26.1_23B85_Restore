@@ -72,71 +72,69 @@
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v12 = v6;
-  HGTraceGuard::HGTraceGuard(v36, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphCropNode hgNodeForTime:...]");
+  v9 = v6;
+  HGTraceGuard::HGTraceGuard(v31, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphCropNode hgNodeForTime:...]");
   inputNode = [(PVInstructionGraphCropNode *)self inputNode];
-  v35 = *time;
-  v14 = *context.m_Obj;
-  v34 = v14;
-  if (v14)
+  v30 = *context.m_Obj;
+  if (*context.m_Obj)
   {
-    (*(*v14 + 16))(v14);
+    (*(**context.m_Obj + 16))(*context.m_Obj);
   }
 
   if (inputNode)
   {
-    [inputNode hgNodeForTime:&v35 trackInputs:inputs renderer:renderer igContext:&v34];
+    objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(inputNode);
   }
 
   else
   {
-    *v12 = 0;
+    *v9 = 0;
   }
 
-  if (v34)
+  if (v30)
   {
-    (*(*v34 + 24))(v34);
+    (*(*v30 + 24))(v30);
   }
 
-  v15 = (*(**context.m_Obj + 40))();
-  v17 = v16;
-  v18 = (*(**context.m_Obj + 48))().n128_f32[0];
-  v19 = v15 * v18;
-  v20 = v17 * v18;
-  [(PVInstructionGraphCropNode *)self denormalizedCropRectInSize:v19, v20];
-  v21 = HGRectMakeWithCGRect(v39);
-  v23 = v22;
-  v24 = HGObject::operator new(0x1A0uLL);
-  HGCrop::HGCrop(v24);
-  (*(*v24 + 96))(v24, 0, v21, SHIDWORD(v21), v23, SHIDWORD(v23));
-  (*(*v24 + 120))(v24, 0, *v12);
-  v25 = *v12;
-  if (*v12 != v24)
+  v11 = (*(**context.m_Obj + 40))();
+  v13 = v12;
+  v14 = (*(**context.m_Obj + 48))().n128_f32[0];
+  v15 = v11 * v14;
+  v16 = v13 * v14;
+  [(PVInstructionGraphCropNode *)self denormalizedCropRectInSize:v15, v16];
+  v17 = HGRectMakeWithCGRect(v34);
+  v19 = v18;
+  v20 = HGObject::operator new(0x1A0uLL);
+  HGCrop::HGCrop(v20);
+  (*(*v20 + 96))(v20, 0, v17, SHIDWORD(v17), v19, SHIDWORD(v19));
+  (*(*v20 + 120))(v20, 0, *v9);
+  v21 = *v9;
+  if (*v9 != v20)
   {
-    if (v25)
+    if (v21)
     {
-      (*(*v25 + 24))(v25);
+      (*(*v21 + 24))(v21);
     }
 
-    *v12 = v24;
-    (*(*v24 + 16))(v24);
+    *v9 = v20;
+    (*(*v20 + 16))(v20);
   }
 
   if ([(PVInstructionGraphNode *)self isDebugDrawingEnabled])
   {
-    v27 = v19;
-    v28 = v20;
-    v29 = HGRectMake4f(v26, 0.0, 0.0, v27, v28);
-    v31 = v30;
-    v32 = HGObject::operator new(0x1A0uLL);
-    *&v38.var0 = v29;
-    *&v38.var2 = v31;
-    HGSolidColor::HGSolidColor(v32, v38);
+    v23 = v15;
+    v24 = v16;
+    v25 = HGRectMake4f(v22, 0.0, 0.0, v23, v24);
+    v27 = v26;
+    v28 = HGObject::operator new(0x1A0uLL);
+    *&v33.var0 = v25;
+    *&v33.var2 = v27;
+    HGSolidColor::HGSolidColor(v28, v33);
   }
 
-  (*(*v24 + 24))(v24);
-  HGTraceGuard::~HGTraceGuard(v36);
-  return v33;
+  (*(*v20 + 24))(v20);
+  HGTraceGuard::~HGTraceGuard(v31);
+  return v29;
 }
 
 - (id)requiredSourceTrackIDs

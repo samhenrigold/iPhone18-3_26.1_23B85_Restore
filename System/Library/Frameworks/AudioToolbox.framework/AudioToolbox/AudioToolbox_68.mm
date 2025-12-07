@@ -1253,8 +1253,10 @@ void sub_1DE032FF0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
 
 void *DSPSplitComplexV<float>::DSPSplitComplexV(void *a1, unint64_t a2)
 {
-  std::vector<float>::vector[abi:ne200100](a1 + 2, a2);
-  std::vector<float>::vector[abi:ne200100](a1 + 5, a2);
+  v7 = 0;
+  std::vector<float>::vector[abi:ne200100](a1 + 2, a2, &v7);
+  v6 = 0;
+  std::vector<float>::vector[abi:ne200100](a1 + 5, a2, &v6);
   v4 = a1[5];
   *a1 = a1[2];
   a1[1] = v4;
@@ -4099,7 +4101,7 @@ void sub_1DE039D18(_Unwind_Exception *a1)
 
 uint64_t SpectralMagnitude<float,(LogTypes)0>::SpectralMagnitude(uint64_t a1, __int128 *a2, unint64_t a3, void *a4)
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F5938340;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
@@ -4127,32 +4129,33 @@ uint64_t SpectralMagnitude<float,(LogTypes)0>::SpectralMagnitude(uint64_t a1, __
   *(a1 + 184) = 0u;
   *(a1 + 200) = 0u;
   *(a1 + 216) = 0;
-  *&v13 = a4;
-  std::vector<Trackable *>::push_back[abi:ne200100](a1 + 128, &v13);
+  *&v14 = a4;
+  std::vector<Trackable *>::push_back[abi:ne200100](a1 + 128, &v14);
   *(a1 + 56) = 0;
   *(a1 + 8) = 0;
   *a1 = &unk_1F59383E0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  v13 = 0uLL;
+  v14 = 0uLL;
   __p[0] = 0;
-  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer((a1 + 280), 1uLL, &v13);
+  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer((a1 + 280), 1uLL, &v14);
   *(a1 + 344) = 0;
-  *&v13 = &unk_1F5938548;
-  *(&v13 + 1) = SpectralMagnitude<float,(LogTypes)0>::ComputeMagnitude;
+  *&v14 = &unk_1F5938548;
+  *(&v14 + 1) = SpectralMagnitude<float,(LogTypes)0>::ComputeMagnitude;
   __p[0] = a4;
-  __p[1] = &v13;
-  std::__function::__value_func<std::vector<float> const& ()(std::vector<float>&)>::swap[abi:ne200100](&v13, (a1 + 224));
-  std::__function::__value_func<std::vector<float> const& ()(std::vector<float>&)>::~__value_func[abi:ne200100](&v13);
+  __p[1] = &v14;
+  std::__function::__value_func<std::vector<float> const& ()(std::vector<float>&)>::swap[abi:ne200100](&v14, (a1 + 224));
+  std::__function::__value_func<std::vector<float> const& ()(std::vector<float>&)>::~__value_func[abi:ne200100](&v14);
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *a1 = &unk_1F5938528;
+  v12 = 0;
   v8 = *(a1 + 344);
-  std::vector<float>::vector[abi:ne200100](v12, a3);
-  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v13, v8 + 1, v12);
-  *(a1 + 280) = v13;
+  std::vector<float>::vector[abi:ne200100](v13, a3, &v12);
+  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v14, v8 + 1, v13);
+  *(a1 + 280) = v14;
   v9 = (a1 + 296);
   v10 = *(a1 + 296);
   if (v10)
@@ -4165,26 +4168,26 @@ uint64_t SpectralMagnitude<float,(LogTypes)0>::SpectralMagnitude(uint64_t a1, __
   }
 
   *v9 = *__p;
-  *(a1 + 312) = v15;
+  *(a1 + 312) = v16;
   __p[1] = 0;
-  v15 = 0;
+  v16 = 0;
   __p[0] = 0;
-  if (&v13 != (a1 + 280))
+  if (&v14 != (a1 + 280))
   {
-    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v16);
+    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v17);
   }
 
-  boost::container::vector<std::vector<float>,void,void>::~vector(v16);
+  boost::container::vector<std::vector<float>,void,void>::~vector(v17);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v12[0])
+  if (v13[0])
   {
-    v12[1] = v12[0];
-    operator delete(v12[0]);
+    v13[1] = v13[0];
+    operator delete(v13[0]);
   }
 
   return a1;
@@ -4429,44 +4432,44 @@ void sub_1DE03B464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AutoValue<std::vector<float>,(LogTypes)0>::PreAllocate<unsigned long const&,float>(uint64_t a1, unint64_t a2)
+void AutoValue<std::vector<float>,(LogTypes)0>::PreAllocate<unsigned long const&,float>(uint64_t a1, unint64_t a2, __int32 *a3)
 {
-  v3 = *(a1 + 344);
-  std::vector<float>::vector[abi:ne200100](v6, a2);
-  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v7, v3 + 1, v6);
-  *(a1 + 280) = v7;
-  v4 = (a1 + 296);
-  v5 = *(a1 + 296);
-  if (v5)
+  v4 = *(a1 + 344);
+  std::vector<float>::vector[abi:ne200100](v7, a2, a3);
+  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v8, v4 + 1, v7);
+  *(a1 + 280) = v8;
+  v5 = (a1 + 296);
+  v6 = *(a1 + 296);
+  if (v6)
   {
-    *(a1 + 304) = v5;
-    operator delete(v5);
-    *v4 = 0;
+    *(a1 + 304) = v6;
+    operator delete(v6);
+    *v5 = 0;
     *(a1 + 304) = 0;
     *(a1 + 312) = 0;
   }
 
-  *v4 = *__p;
-  *(a1 + 312) = v9;
+  *v5 = *__p;
+  *(a1 + 312) = v10;
   __p[1] = 0;
-  v9 = 0;
+  v10 = 0;
   __p[0] = 0;
-  if (&v7 != (a1 + 280))
+  if (&v8 != (a1 + 280))
   {
-    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v10);
+    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v11);
   }
 
-  boost::container::vector<std::vector<float>,void,void>::~vector(v10);
+  boost::container::vector<std::vector<float>,void,void>::~vector(v11);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v6[0])
+  if (v7[0])
   {
-    v6[1] = v6[0];
-    operator delete(v6[0]);
+    v7[1] = v7[0];
+    operator delete(v7[0]);
   }
 }
 
@@ -4480,44 +4483,44 @@ void sub_1DE03B678(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AutoValue<std::vector<float>,(LogTypes)0>::PreAllocate<int,float>(uint64_t a1, int a2)
+void AutoValue<std::vector<float>,(LogTypes)0>::PreAllocate<int,float>(uint64_t a1, int a2, __int32 *a3)
 {
-  v3 = *(a1 + 344);
-  std::vector<float>::vector[abi:ne200100](v6, a2);
-  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v7, v3 + 1, v6);
-  *(a1 + 280) = v7;
-  v4 = (a1 + 296);
-  v5 = *(a1 + 296);
-  if (v5)
+  v4 = *(a1 + 344);
+  std::vector<float>::vector[abi:ne200100](v7, a2, a3);
+  AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(&v8, v4 + 1, v7);
+  *(a1 + 280) = v8;
+  v5 = (a1 + 296);
+  v6 = *(a1 + 296);
+  if (v6)
   {
-    *(a1 + 304) = v5;
-    operator delete(v5);
-    *v4 = 0;
+    *(a1 + 304) = v6;
+    operator delete(v6);
+    *v5 = 0;
     *(a1 + 304) = 0;
     *(a1 + 312) = 0;
   }
 
-  *v4 = *__p;
-  *(a1 + 312) = v9;
+  *v5 = *__p;
+  *(a1 + 312) = v10;
   __p[1] = 0;
-  v9 = 0;
+  v10 = 0;
   __p[0] = 0;
-  if (&v7 != (a1 + 280))
+  if (&v8 != (a1 + 280))
   {
-    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v10);
+    boost::container::vector<std::vector<float>,void,void>::priv_move_assign<void>(a1 + 320, v11);
   }
 
-  boost::container::vector<std::vector<float>,void,void>::~vector(v10);
+  boost::container::vector<std::vector<float>,void,void>::~vector(v11);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v6[0])
+  if (v7[0])
   {
-    v6[1] = v6[0];
-    operator delete(v6[0]);
+    v7[1] = v7[0];
+    operator delete(v7[0]);
   }
 }
 
@@ -4627,7 +4630,7 @@ void dBToLinear<float,(LogTypes)0>::~dBToLinear(uint64_t a1)
   JUMPOUT(0x1E12BD160);
 }
 
-void *AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(void *a1, unint64_t a2, uint64_t *a3)
+void *AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(void *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a2;
   *a1 = 0;
@@ -4635,7 +4638,7 @@ void *AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(
   a1[2] = 0;
   a1[3] = 0;
   a1[4] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 2), *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   a1[5] = 0;
   a1[6] = v4;
   a1[7] = 0;
@@ -4656,7 +4659,7 @@ void *AutoValue<std::vector<float>,(LogTypes)0>::CircularBuffer::CircularBuffer(
       *v9 = 0;
       v9[1] = 0;
       v9[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v9, *a3, a3[1], (a3[1] - *a3) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v9, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
       v9 += 3;
       v8 -= 24;
       --v4;
@@ -4956,11 +4959,16 @@ uint64_t *Filterbank::BarkCore<float>::BarkCore(uint64_t *a1, unint64_t a2, unin
 {
   v8 = std::vector<int>::vector[abi:ne200100](a1, a2);
   std::vector<int>::vector[abi:ne200100](v8 + 3, a2);
-  std::vector<float>::vector[abi:ne200100](a1 + 6, a2);
-  std::vector<float>::vector[abi:ne200100](a1 + 9, a2);
+  v40 = 0;
+  std::vector<float>::vector[abi:ne200100](a1 + 6, a2, &v40);
+  v40 = 0;
+  std::vector<float>::vector[abi:ne200100](a1 + 9, a2, &v40);
+  v40 = 0;
   std::vector<int>::vector[abi:ne200100](a1 + 12, a3);
+  v40 = 0;
   std::vector<int>::vector[abi:ne200100](a1 + 15, a3);
-  std::vector<float>::vector[abi:ne200100](a1 + 18, a3);
+  v40 = 0;
+  std::vector<float>::vector[abi:ne200100](a1 + 18, a3, &v40);
   v9 = a4 * 0.5;
   v10 = atanf((a4 * 0.5) * 0.00074);
   v11 = atanf((v9 * v9) * 0.0000000185);
@@ -5134,7 +5142,7 @@ void sub_1DE03C92C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AutoValue<std::vector<float>,(LogTypes)0>::AutoValue<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0>&,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>>,std::vector<float>>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
+void AutoValue<std::vector<float>,(LogTypes)0>::AutoValue<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0>&,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>>,std::vector<float>>(uint64_t a1, __int128 *a2, void **a3, uint64_t a4)
 {
   v39 = *MEMORY[0x1E69E9840];
   v7 = Trackable::Trackable<AutoValue<std::vector<float>,(LogTypes)0>>(a1, a2, a4);
@@ -5147,7 +5155,7 @@ void AutoValue<std::vector<float>,(LogTypes)0>::AutoValue<std::__bind<std::vecto
   v8 = *a3;
   *(a1 + 344) = 0;
   v9[0] = v8;
-  Filterbank::BarkCore<float>::BarkCore(&v9[1], (a3 + 8));
+  Filterbank::BarkCore<float>::BarkCore(&v9[1], (a3 + 1));
   v23 = a4;
   v24 = *v9;
   v25 = v10;
@@ -5298,36 +5306,36 @@ void sub_1DE03CEB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *Filterbank::BarkCore<float>::BarkCore(void *a1, uint64_t *a2)
+uint64_t *Filterbank::BarkCore<float>::BarkCore(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), a2[3], a2[4], (a2[4] - a2[3]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 6), a2[6], a2[7], (a2[7] - a2[6]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 6, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 2);
   a1[9] = 0;
   a1[10] = 0;
   a1[11] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 9), a2[9], a2[10], (a2[10] - a2[9]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 9, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   a1[12] = 0;
   a1[13] = 0;
   a1[14] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 12), a2[12], a2[13], (a2[13] - a2[12]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 12), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 2);
   a1[15] = 0;
   a1[16] = 0;
   a1[17] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 15), a2[15], a2[16], (a2[16] - a2[15]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 15), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
   a1[18] = 0;
   a1[19] = 0;
   a1[20] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 18), a2[18], a2[19], (a2[19] - a2[18]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 18, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 2);
   return a1;
 }
 
@@ -5459,13 +5467,13 @@ void std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (
   operator delete(a1);
 }
 
-void *std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>,std::allocator<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>>,std::vector<float> const& ()(std::vector<float>&)>::__clone(void *a1, void *a2)
+uint64_t *std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>,std::allocator<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,Filterbank::BarkCore<float> const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,Filterbank::BarkCore<float>> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>>,std::vector<float> const& ()(std::vector<float>&)>::__clone(uint64_t a1, void *a2)
 {
-  v4 = a1[1];
+  v4 = *(a1 + 8);
   *a2 = &unk_1F59385F8;
   a2[1] = v4;
-  result = Filterbank::BarkCore<float>::BarkCore(a2 + 2, a1 + 2);
-  a2[23] = a1[23];
+  result = Filterbank::BarkCore<float>::BarkCore(a2 + 2, a1 + 16);
+  a2[23] = *(a1 + 184);
   return result;
 }
 
@@ -6815,7 +6823,7 @@ void sub_1DE0403DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-float **SquareMagFreqVector<float>(float **a1, DSPSplitComplex *a2)
+uint64_t *SquareMagFreqVector<float>(uint64_t *a1, DSPSplitComplex *a2)
 {
   v4 = a1[1] - *a1;
   if (DSPSplitComplexV<float>::size(a2) != v4 >> 2)
@@ -6823,11 +6831,11 @@ float **SquareMagFreqVector<float>(float **a1, DSPSplitComplex *a2)
     __assert_rtn("SquareMagFreqVector", "VectorUtils.h", 412, "result.size() == a.size()");
   }
 
-  v6 = a1[1] - *a1;
+  v6 = (a1[1] - *a1) >> 2;
   v9 = 0;
   std::vector<float>::assign(a1, v6, &v9, v5);
   v7 = *a2->realp;
-  vDSP_zaspec(a2, *a1, a1[1] - *a1);
+  vDSP_zaspec(a2, *a1, (a1[1] - *a1) >> 2);
   **a1 = v7 * v7;
   return a1;
 }
@@ -8254,17 +8262,17 @@ void std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (
   }
 }
 
-uint64_t std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,std::vector<float> const&,unsigned int const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,std::vector<float>&,unsigned long const&> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>,std::allocator<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,std::vector<float> const&,unsigned int const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,std::vector<float>&,unsigned long const&> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>>,std::vector<float> const& ()(std::vector<float>&)>::__clone(void *a1, void *a2)
+uint64_t *std::__function::__func<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,std::vector<float> const&,unsigned int const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,std::vector<float>&,unsigned long const&> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>,std::allocator<std::__bind<std::__bind<std::vector<float> const& (&)(std::vector<float>&,AutoValue<std::vector<float>,(LogTypes)0> &,std::vector<float> const&,unsigned int const&),std::placeholders::__ph<1> const&,std::placeholders::__ph<2> const&,std::vector<float>&,unsigned long const&> const&,std::placeholders::__ph<1> const&,std::reference_wrapper<AutoValue<std::vector<float>,(LogTypes)0>>>>,std::vector<float> const& ()(std::vector<float>&)>::__clone(uint64_t a1, void *a2)
 {
-  v4 = a1[1];
+  v4 = *(a1 + 8);
   *a2 = &unk_1F5938868;
   a2[1] = v4;
   a2[3] = 0;
   a2[4] = 0;
   a2[2] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a2 + 2), a1[2], a1[3], (a1[3] - a1[2]) >> 2);
-  a2[5] = a1[5];
-  a2[6] = a1[6];
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2 + 2, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
+  a2[5] = *(a1 + 40);
+  a2[6] = *(a1 + 48);
   return result;
 }
 
@@ -8891,7 +8899,7 @@ __n128 std::__function::__func<std::__bind<std::__bind<std::vector<float> const&
   v4 = *(a1 + 8);
   *a2 = &unk_1F59385B0;
   *(a2 + 8) = v4;
-  Filterbank::BarkCore<float>::BarkCore((a2 + 16), (a1 + 16));
+  Filterbank::BarkCore<float>::BarkCore((a2 + 16), a1 + 16);
   result = *(a1 + 184);
   *(a2 + 184) = result;
   return result;
@@ -8993,10 +9001,10 @@ __n128 std::__function::__func<std::__bind<std::vector<float> const& (&)(std::ve
   return result;
 }
 
-float **SpectralMagnitude<float,(LogTypes)0>::ComputeMagnitude(uint64_t a1, uint64_t a2)
+uint64_t *SpectralMagnitude<float,(LogTypes)0>::ComputeMagnitude(uint64_t *a1, uint64_t a2)
 {
   v3 = AutoValue<DSPSplitComplexV<float>,(LogTypes)0>::Get(a2);
-  v4 = *(a1 + 8) - *a1;
+  v4 = a1[1] - *a1;
   if (DSPSplitComplexV<float>::size(v3) != v4 >> 2)
   {
     __assert_rtn("ComputeMagnitude", "SpectralMagnitude.h", 35, "result.size() == input.size()");

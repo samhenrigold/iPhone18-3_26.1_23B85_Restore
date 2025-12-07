@@ -52,11 +52,11 @@
   v3 = objc_opt_new();
   [(TLKSimpleRowView *)self setLeadingImageView:v3];
 
-  leadingImageView = [(TLKSimpleRowView *)self leadingImageView];
-  [leadingImageView setCustomAlignmentRectInsets:{-10.0, 0.0, -10.0, 0.0}];
+  v4 = objc_msgSend_leadingImageView(self);
+  [v4 setCustomAlignmentRectInsets:{-10.0, 0.0, -10.0, 0.0}];
 
-  leadingImageView2 = [(TLKSimpleRowView *)self leadingImageView];
-  [TLKLayoutUtilities requireIntrinsicSizeForView:leadingImageView2];
+  v5 = objc_msgSend_leadingImageView(self);
+  [TLKLayoutUtilities requireIntrinsicSizeForView:v5];
 
   v6 = objc_opt_new();
   [(TLKSimpleRowView *)self setLeadingTitleLabel:v6];
@@ -116,8 +116,8 @@
   trailingImageView = [(TLKSimpleRowView *)self trailingImageView];
   [TLKLayoutUtilities requireIntrinsicSizeForView:trailingImageView];
 
-  leadingImageView3 = [(TLKSimpleRowView *)self leadingImageView];
-  v40[0] = leadingImageView3;
+  v38 = objc_msgSend_leadingImageView(self);
+  v40[0] = v38;
   leadingTitleLabel3 = [(TLKSimpleRowView *)self leadingTitleLabel];
   v40[1] = leadingTitleLabel3;
   trailingTitleLabel4 = [(TLKSimpleRowView *)self trailingTitleLabel];
@@ -126,8 +126,8 @@
   v40[3] = trailingImageView2;
   v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:4];
   v41[0] = v29;
-  leadingImageView4 = [(TLKSimpleRowView *)self leadingImageView];
-  v39[0] = leadingImageView4;
+  v30 = objc_msgSend_leadingImageView(self);
+  v39[0] = v30;
   leadingSubtitleLabel = [(TLKSimpleRowView *)self leadingSubtitleLabel];
   v39[1] = leadingSubtitleLabel;
   trailingSubtitleLabel4 = [(TLKSimpleRowView *)self trailingSubtitleLabel];
@@ -660,7 +660,7 @@ void __45__TLKSimpleRowView_observedPropertiesChanged__block_invoke(uint64_t a1)
   }
 
   v7 = [*v1 leadingImage];
-  v8 = [*v1 leadingImageView];
+  v8 = objc_msgSend_leadingImageView(*v1);
   [v8 setTlkImage:v7];
 
   v9 = [*v1 contentView];
@@ -674,7 +674,7 @@ void __45__TLKSimpleRowView_observedPropertiesChanged__block_invoke(uint64_t a1)
   [v10 setHidden:v13 == 0];
 
   v14 = [*v1 contentView];
-  v15 = [*v1 leadingImageView];
+  v15 = objc_msgSend_leadingImageView(*v1);
   [v14 setAlignment:v6 forView:v15 inAxis:1];
 
   v16 = [*v1 trailingImage];
@@ -1003,7 +1003,7 @@ LABEL_26:
 
   else
   {
-    v78 = [*v1 leadingImageView];
+    v78 = objc_msgSend_leadingImageView(*v1);
     [v78 customAlignmentRectInsets];
     v87 = v91;
     v88 = v92;
@@ -1275,12 +1275,12 @@ LABEL_26:
   x = frame.origin.x;
   viewCopy = view;
   subviewCopy = subview;
-  leadingImageView = [(TLKSimpleRowView *)self leadingImageView];
+  v13 = objc_msgSend_leadingImageView(self);
 
-  if (leadingImageView == subviewCopy)
+  if (v13 == subviewCopy)
   {
-    leadingImageView2 = [(TLKSimpleRowView *)self leadingImageView];
-    if ([viewCopy alignmentForView:leadingImageView2 inAxis:1] != 1)
+    leadingTitleLabel3 = objc_msgSend_leadingImageView(self);
+    if ([viewCopy alignmentForView:leadingTitleLabel3 inAxis:1] != 1)
     {
 LABEL_5:
 
@@ -1298,15 +1298,15 @@ LABEL_5:
 
     if (height < v22)
     {
-      leadingImageView2 = [(TLKSimpleRowView *)self leadingTitleLabel];
-      [leadingImageView2 customAlignmentRectInsets];
-      v24 = v23;
       leadingTitleLabel3 = [(TLKSimpleRowView *)self leadingTitleLabel];
-      font3 = [leadingTitleLabel3 font];
+      [leadingTitleLabel3 customAlignmentRectInsets];
+      v24 = v23;
+      leadingTitleLabel4 = [(TLKSimpleRowView *)self leadingTitleLabel];
+      font3 = [leadingTitleLabel4 font];
       [font3 ascender];
       v28 = v27 - v24;
-      leadingTitleLabel4 = [(TLKSimpleRowView *)self leadingTitleLabel];
-      font4 = [leadingTitleLabel4 font];
+      leadingTitleLabel5 = [(TLKSimpleRowView *)self leadingTitleLabel];
+      font4 = [leadingTitleLabel5 font];
       [font4 capHeight];
       y = ceil(v28 + (height + v31) * -0.5);
 
@@ -1332,11 +1332,11 @@ LABEL_6:
   height = size.height;
   width = size.width;
   viewCopy = view;
-  leadingImageView = [(TLKSimpleRowView *)self leadingImageView];
-  [leadingImageView setMaximumLayoutSize:{width * 0.4, 1.79769313e308}];
+  v10 = objc_msgSend_leadingImageView(self);
+  [v10 setMaximumLayoutSize:{width * 0.4, 1.79769313e308}];
 
-  leadingImageView2 = [(TLKSimpleRowView *)self leadingImageView];
-  [leadingImageView2 maximumLayoutSize];
+  v11 = objc_msgSend_leadingImageView(self);
+  [v11 maximumLayoutSize];
   v13 = v12;
   v15 = v14;
   trailingImageView = [(TLKSimpleRowView *)self trailingImageView];
@@ -1345,7 +1345,7 @@ LABEL_6:
   if (!reason)
   {
     leadingTitle = [(TLKSimpleRowView *)self leadingTitle];
-    if (leadingTitle || ([(TLKSimpleRowView *)self leadingSubtitle], (leadingImageView2 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (leadingTitle || ([(TLKSimpleRowView *)self leadingSubtitle], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       trailingTitle = [(TLKSimpleRowView *)self trailingTitle];
       if (trailingTitle)
@@ -1358,7 +1358,7 @@ LABEL_6:
 
         else
         {
-          v19 = leadingImageView2;
+          v19 = v11;
         }
       }
 
@@ -1414,7 +1414,7 @@ void __83__TLKSimpleRowView_containerView_willMeasureArrangedSubviewsFittingSize
 
   else
   {
-    v1 = [*(a1 + 40) leadingImageView];
+    v1 = objc_msgSend_leadingImageView(*(a1 + 40));
     [v1 intrinsicContentSize];
     v8 = v4 + v9;
   }

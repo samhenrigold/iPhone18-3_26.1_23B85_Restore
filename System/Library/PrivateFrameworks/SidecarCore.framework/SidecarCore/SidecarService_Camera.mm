@@ -7,10 +7,10 @@
 
 - (id)mutableRequestMessage
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = SidecarService_Camera;
-  mutableRequestMessage = [(SidecarService *)&v20 mutableRequestMessage];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = SidecarService_Camera;
+  mutableRequestMessage = [(SidecarService *)&v19 mutableRequestMessage];
   v3 = objc_opt_new();
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v5 = [standardUserDefaults valueForKey:@"ContinuityCameraImageQuality"];
@@ -46,14 +46,14 @@
 
     else
     {
-      v25 = NSSizeFromString(lowercaseString);
-      width = v25.width;
-      height = v25.height;
-      if (!NSEqualSizes(v25, *MEMORY[0x277CCA870]))
+      v24 = NSSizeFromString(lowercaseString);
+      width = v24.width;
+      height = v24.height;
+      if (!NSEqualSizes(v24, *MEMORY[0x277CCA870]))
       {
-        v26.width = width;
-        v26.height = height;
-        v13 = NSStringFromSize(v26);
+        v25.width = width;
+        v25.height = height;
+        v13 = NSStringFromSize(v25);
         [v3 setObject:v13 forKey:@"ContinuityCameraImageSize"];
       }
     }
@@ -76,14 +76,12 @@
     if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v22 = v3;
+      v21 = v3;
       _os_log_impl(&dword_26604C000, v17, OS_LOG_TYPE_INFO, "defaults: %{public}@", buf, 0xCu);
     }
 
     SidecarMessageSetDefaults(mutableRequestMessage, v3);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return mutableRequestMessage;
 }

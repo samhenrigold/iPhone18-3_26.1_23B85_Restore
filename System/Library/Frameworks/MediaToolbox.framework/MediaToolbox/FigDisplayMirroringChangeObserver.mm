@@ -37,7 +37,7 @@
   return v2;
 }
 
-uint64_t __41__FigDisplayMirroringChangeObserver_init__block_invoke(uint64_t a1)
+void *__41__FigDisplayMirroringChangeObserver_init__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -63,7 +63,7 @@ uint64_t __41__FigDisplayMirroringChangeObserver_init__block_invoke(uint64_t a1)
         v7 = *(*(&v8 + 1) + 8 * v6);
         [v7 addObserver:*(a1 + 32) forKeyPath:@"cloned" options:4 context:0];
         [v7 addObserver:*(a1 + 32) forKeyPath:@"cloningSupported" options:4 context:0];
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -115,10 +115,10 @@ uint64_t __41__FigDisplayMirroringChangeObserver_init__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __64__FigDisplayMirroringChangeObserver_removeObserversOnCADisplays__block_invoke(uint64_t result)
+void *__64__FigDisplayMirroringChangeObserver_removeObserversOnCADisplays__block_invoke(void *result)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 40) == 1)
+  if (*(result[4] + 40) == 1)
   {
     v1 = result;
     v9 = 0u;
@@ -142,9 +142,9 @@ uint64_t __64__FigDisplayMirroringChangeObserver_removeObserversOnCADisplays__bl
           }
 
           v6 = *(*(&v7 + 1) + 8 * v5);
-          [v6 removeObserver:*(v1 + 32) forKeyPath:@"cloned"];
-          [v6 removeObserver:*(v1 + 32) forKeyPath:@"cloningSupported"];
-          ++v5;
+          [v6 removeObserver:v1[4] forKeyPath:@"cloned"];
+          [v6 removeObserver:v1[4] forKeyPath:@"cloningSupported"];
+          v5 = (v5 + 1);
         }
 
         while (v3 != v5);
@@ -155,7 +155,7 @@ uint64_t __64__FigDisplayMirroringChangeObserver_removeObserversOnCADisplays__bl
       while (result);
     }
 
-    *(*(v1 + 32) + 40) = 0;
+    *(v1[4] + 40) = 0;
   }
 
   return result;
@@ -250,15 +250,15 @@ uint64_t __84__FigDisplayMirroringChangeObserver_observeValueForKeyPath_ofObject
   dispatch_sync(FigDisplayMirroringGetAccessQueue_sFigDisplayMirroringAccessQueue, v5);
 }
 
-uint64_t __56__FigDisplayMirroringChangeObserver_setBaseDisplayList___block_invoke(uint64_t result)
+void *__56__FigDisplayMirroringChangeObserver_setBaseDisplayList___block_invoke(void *result)
 {
-  v2 = *(*(result + 40) + 32);
-  if (*(result + 32) != v2)
+  v2 = *(result[5] + 32);
+  if (result[4] != v2)
   {
     v3 = result;
 
-    *(*(v3 + 40) + 32) = *(v3 + 32);
-    v4 = *(v3 + 40);
+    *(v3[5] + 32) = v3[4];
+    v4 = v3[5];
 
     return [v4 updatePlayerDisplayList];
   }
@@ -318,14 +318,14 @@ uint64_t __56__FigDisplayMirroringChangeObserver_setBaseDisplayList___block_invo
   }
 
 LABEL_14:
-  player = self->_player;
-  if (player)
+  if (self->_player)
   {
-    FigBaseObject = FigPlayerGetFigBaseObject(player);
+    FigPlayerGetFigBaseObject();
+    v12 = v11;
     v13 = *(*(CMBaseObjectGetVTable() + 8) + 56);
     if (v13)
     {
-      v13(FigBaseObject, 0x1F0B344F8, v5);
+      v13(v12, 0x1F0B344F8, v5);
     }
   }
 

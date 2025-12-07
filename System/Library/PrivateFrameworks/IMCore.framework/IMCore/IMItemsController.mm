@@ -55,7 +55,7 @@ LABEL_9:
     {
       v5 = CFArrayGetValueAtIndex(items, v4 - 2);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isTypingMessage(v5, v6, v7) & 1) == 0 && (objc_msgSend_isSuggestedActionResponse(v5, v8, v9) & 1) == 0 && objc_msgSend_isLastMessageCandidate(v5, v10, v11) && !objc_msgSend_isRCSEncryptionTest(v5, v12, v13))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v5 isTypingMessage] & 1) == 0 && (objc_msgSend(v5, "isSuggestedActionResponse") & 1) == 0 && objc_msgSend(v5, "isLastMessageCandidate") && !objc_msgSend(v5, "isRCSEncryptionTest"))
       {
         break;
       }
@@ -72,34 +72,32 @@ LABEL_9:
 
 - (BOOL)_trimIfNeeded
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   items = self->_items;
   Count = CFArrayGetCount(items);
   v5 = self->_capacity + 5;
   if (Count > v5)
   {
-    v18.location = 0;
-    v18.length = Count - v5;
-    CFArrayReplaceValues(items, v18, 0, 0);
+    v15.location = 0;
+    v15.length = Count - v5;
+    CFArrayReplaceValues(items, v15, 0, 0);
     if (IMOSLoggingEnabled())
     {
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v8 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v7, Count);
-        v10 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v9, v5);
-        v13 = 138412546;
-        v14 = v8;
-        v15 = 2112;
-        v16 = v10;
-        _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "We are trimming items as our count (count: %@) is over the maxCapacity (maxCapacity: %@)", &v13, 0x16u);
+        v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:Count];
+        v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
+        v10 = 138412546;
+        v11 = v7;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "We are trimming items as our count (count: %@) is over the maxCapacity (maxCapacity: %@)", &v10, 0x16u);
       }
     }
   }
 
-  result = Count > v5;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return Count > v5;
 }
 
 - (id)_lastMessage
@@ -119,7 +117,7 @@ LABEL_6:
     {
       v5 = CFArrayGetValueAtIndex(items, v4 - 2);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isLastMessageCandidate(v5, v6, v7))
+      if (objc_opt_isKindOfClass() & 1) != 0 && ([v5 isLastMessageCandidate])
       {
         break;
       }
@@ -151,7 +149,7 @@ LABEL_8:
     {
       v5 = CFArrayGetValueAtIndex(items, v4 - 2);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isFromMe(v5, v6, v7) & 1) == 0 && (objc_msgSend_isTypingMessage(v5, v8, v9) & 1) == 0 && (objc_msgSend_isLastMessageCandidate(v5, v10, v11))
+      if (objc_opt_isKindOfClass() & 1) != 0 && ([v5 isFromMe] & 1) == 0 && (objc_msgSend(v5, "isTypingMessage") & 1) == 0 && (objc_msgSend(v5, "isLastMessageCandidate"))
       {
         break;
       }
@@ -184,11 +182,11 @@ LABEL_8:
   if (self->_capacity != capacity)
   {
     self->_capacity = capacity;
-    if (objc_msgSend__trimIfNeeded(self, a2, capacity))
+    if ([(IMItemsController *)self _trimIfNeeded])
     {
       items = self->_items;
 
-      objc_msgSend__itemsDidChange_(self, v4, items);
+      [(IMItemsController *)self _itemsDidChange:items];
     }
   }
 }
@@ -196,75 +194,75 @@ LABEL_8:
 - (void)assignSortIDsToItems:(id)items shouldRecalculateSortIDForAllMessages:(BOOL)messages
 {
   messagesCopy = messages;
-  v39 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  if (objc_msgSend_count(itemsCopy, v7, v8) != 1)
+  if ([itemsCopy count] != 1)
   {
-    v13 = itemsCopy;
-    v15 = v13;
-    v33 = itemsCopy;
+    v8 = itemsCopy;
+    v9 = v8;
+    v19 = itemsCopy;
     if (messagesCopy)
     {
-      v16 = objc_msgSend_sortedArrayUsingComparator_(v13, v14, &unk_1F1B6E0C0);
+      v10 = [v8 sortedArrayUsingComparator:&unk_1F1B6E0C0];
 
-      v15 = v16;
+      v9 = v10;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v17 = v15;
-    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v34, v38, 16);
-    if (!v19)
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v11 = v9;
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (!v12)
     {
 LABEL_20:
 
-      itemsCopy = v33;
+      itemsCopy = v19;
       goto LABEL_21;
     }
 
-    v22 = v19;
-    v23 = *v35;
-    v24 = 1;
+    v13 = v12;
+    v14 = *v21;
+    v15 = 1;
 LABEL_7:
-    v25 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v35 != v23)
+      if (*v21 != v14)
       {
-        objc_enumerationMutation(v17);
+        objc_enumerationMutation(v11);
       }
 
-      v26 = *(*(&v34 + 1) + 8 * v25);
-      v29 = 0;
-      if (objc_msgSend__shouldPinUnsentMessagesToBottom(self, v20, v21) && !messagesCopy)
+      v17 = *(*(&v20 + 1) + 8 * v16);
+      unsentIsFromMeItem = 0;
+      if ([(IMItemsController *)self _shouldPinUnsentMessagesToBottom]&& !messagesCopy)
       {
-        v29 = objc_msgSend_unsentIsFromMeItem(v26, v27, v28);
+        unsentIsFromMeItem = [v17 unsentIsFromMeItem];
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ((objc_msgSend_isTypingMessage(v26, v30, v31) | v29))
+        if (([v17 isTypingMessage] | unsentIsFromMeItem))
         {
           goto LABEL_17;
         }
       }
 
-      else if (v29)
+      else if (unsentIsFromMeItem)
       {
 LABEL_17:
-        objc_msgSend_setSortID_(v26, v30, 0);
+        [v17 setSortID:0];
         goto LABEL_18;
       }
 
-      objc_msgSend_setSortID_(v26, v30, v24++);
+      [v17 setSortID:v15++];
 LABEL_18:
-      if (v22 == ++v25)
+      if (v13 == ++v16)
       {
-        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v34, v38, 16);
-        if (!v22)
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        if (!v13)
         {
           goto LABEL_20;
         }
@@ -274,31 +272,30 @@ LABEL_18:
     }
   }
 
-  v11 = objc_msgSend_firstObject(itemsCopy, v9, v10);
-  objc_msgSend_setSortID_(v11, v12, 1);
+  firstObject = [itemsCopy firstObject];
+  [firstObject setSortID:1];
 
 LABEL_21:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithItems:(id)items
 {
   itemsCopy = items;
-  v18.receiver = self;
-  v18.super_class = IMItemsController;
-  v7 = [(IMItemsController *)&v18 init];
-  if (v7)
+  v12.receiver = self;
+  v12.super_class = IMItemsController;
+  v5 = [(IMItemsController *)&v12 init];
+  if (v5)
   {
-    v8 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v5, v6);
-    isGroupTypingIndicatorsEnabled = objc_msgSend_isGroupTypingIndicatorsEnabled(v8, v9, v10);
+    mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+    isGroupTypingIndicatorsEnabled = [mEMORY[0x1E69A8070] isGroupTypingIndicatorsEnabled];
 
     if (isGroupTypingIndicatorsEnabled)
     {
-      v12 = objc_alloc_init(IMGroupTypingTrackingController);
-      typingTrackingController = v7->_typingTrackingController;
-      v7->_typingTrackingController = v12;
+      v8 = objc_alloc_init(IMGroupTypingTrackingController);
+      typingTrackingController = v5->_typingTrackingController;
+      v5->_typingTrackingController = v8;
 
-      objc_msgSend_setDelegate_(v7->_typingTrackingController, v14, v7);
+      [(IMGroupTypingTrackingController *)v5->_typingTrackingController setDelegate:v5];
     }
 
     if (itemsCopy)
@@ -311,12 +308,12 @@ LABEL_21:
       MutableCopy = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     }
 
-    v7->_items = MutableCopy;
-    v7->_capacity = CFArrayGetCount(MutableCopy);
-    objc_msgSend_assignSortIDsToItems_(v7, v16, itemsCopy);
+    v5->_items = MutableCopy;
+    v5->_capacity = CFArrayGetCount(MutableCopy);
+    [(IMItemsController *)v5 assignSortIDsToItems:itemsCopy];
   }
 
-  return v7;
+  return v5;
 }
 
 - (void)_handleItem:(id)item forChatStyle:(unsigned __int8)style keepExistingIndex:(BOOL)index messageComingFromStorage:(BOOL)storage
@@ -325,13 +322,13 @@ LABEL_21:
   itemCopy = item;
   items = self->_items;
   v11 = _IMItemsControllerGetTypingMessage(items);
-  v57 = itemCopy;
+  v31 = itemCopy;
   objc_opt_class();
-  v14 = (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_associatedMessageType(v57, v12, v13) == 3;
+  v12 = (objc_opt_isKindOfClass() & 1) != 0 && [v31 associatedMessageType] == 3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    hasEditedParts = objc_msgSend_hasEditedParts(v57, v15, v16);
+    hasEditedParts = [v31 hasEditedParts];
   }
 
   else
@@ -339,44 +336,44 @@ LABEL_21:
     hasEditedParts = 0;
   }
 
-  _IMItemsControllerHandleItem(self, items, v57, (v14 | hasEditedParts) & 1, 1, indexCopy, storage);
-  v18 = _IMItemsControllerGetTypingMessage(items);
-  v21 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v19, v20);
-  isGroupTypingIndicatorsEnabled = objc_msgSend_isGroupTypingIndicatorsEnabled(v21, v22, v23);
+  _IMItemsControllerHandleItem(self, items, v31, (v12 | hasEditedParts) & 1, 1, indexCopy, storage);
+  v14 = _IMItemsControllerGetTypingMessage(items);
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isGroupTypingIndicatorsEnabled = [mEMORY[0x1E69A8070] isGroupTypingIndicatorsEnabled];
 
-  if ((isGroupTypingIndicatorsEnabled & 1) == 0 && v11 != v18)
+  if ((isGroupTypingIndicatorsEnabled & 1) == 0 && v11 != v14)
   {
     if (v11)
     {
-      objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v25, self, sel__replaceStaleTypingMessage, 0);
+      [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__replaceStaleTypingMessage object:0];
     }
 
-    if (v18)
+    if (v14)
     {
-      v26 = _IMTypingMessageTimeout();
-      v29 = objc_msgSend_date(MEMORY[0x1E695DF00], v27, v28);
-      objc_msgSend_timeIntervalSinceReferenceDate(v29, v30, v31);
-      v33 = v32;
-      v36 = objc_msgSend_time(v18, v34, v35);
-      objc_msgSend_timeIntervalSinceReferenceDate(v36, v37, v38);
-      v40 = v26 - (v33 - v39) + 1.0;
-      v41 = 0.0;
-      if (v40 >= 0.0)
+      v17 = _IMTypingMessageTimeout();
+      date = [MEMORY[0x1E695DF00] date];
+      [date timeIntervalSinceReferenceDate];
+      v20 = v19;
+      time = [v14 time];
+      [time timeIntervalSinceReferenceDate];
+      v23 = v17 - (v20 - v22) + 1.0;
+      v24 = 0.0;
+      if (v23 >= 0.0)
       {
-        v42 = _IMTypingMessageTimeout();
-        v45 = objc_msgSend_date(MEMORY[0x1E695DF00], v43, v44);
-        objc_msgSend_timeIntervalSinceReferenceDate(v45, v46, v47);
-        v49 = v48;
-        v52 = objc_msgSend_time(v18, v50, v51);
-        objc_msgSend_timeIntervalSinceReferenceDate(v52, v53, v54);
-        v41 = v42 - (v49 - v55) + 1.0;
+        v25 = _IMTypingMessageTimeout();
+        date2 = [MEMORY[0x1E695DF00] date];
+        [date2 timeIntervalSinceReferenceDate];
+        v28 = v27;
+        time2 = [v14 time];
+        [time2 timeIntervalSinceReferenceDate];
+        v24 = v25 - (v28 - v30) + 1.0;
       }
 
-      objc_msgSend_performSelector_withObject_afterDelay_(self, v56, sel__replaceStaleTypingMessage, 0, v41);
+      [(IMItemsController *)self performSelector:sel__replaceStaleTypingMessage withObject:0 afterDelay:v24];
     }
   }
 
-  objc_msgSend__itemsDidChange_(self, v25, items);
+  [(IMItemsController *)self _itemsDidChange:items];
 }
 
 - (void)_removeItem:(id)item
@@ -387,7 +384,7 @@ LABEL_21:
   {
     CFArrayRemoveValueAtIndex(items, v5);
 
-    objc_msgSend__itemsDidChange_(self, v6, items);
+    [(IMItemsController *)self _itemsDidChange:items];
   }
 }
 
@@ -397,33 +394,33 @@ LABEL_21:
   items = self->_items;
   _IMItemsControllerReplaceItems(self, items, itemsCopy);
   capacity = self->_capacity;
-  if (capacity <= objc_msgSend_count(itemsCopy, v8, v9))
+  if (capacity <= [itemsCopy count])
   {
-    v12 = objc_msgSend_count(itemsCopy, v10, v11);
+    v8 = [itemsCopy count];
   }
 
   else
   {
-    v12 = self->_capacity;
+    v8 = self->_capacity;
   }
 
-  self->_capacity = v12;
-  objc_msgSend_assignSortIDsToItems_(self, v10, items);
+  self->_capacity = v8;
+  [(IMItemsController *)self assignSortIDsToItems:items];
   if (!change)
   {
-    objc_msgSend__itemsDidChange_(self, v13, items);
+    [(IMItemsController *)self _itemsDidChange:items];
   }
 }
 
 - (void)_replaceAndSortItemsWithUnsortedItems:(id)items
 {
-  v7 = objc_msgSend_mutableCopy(items, a2, items);
-  if (objc_msgSend_count(v7, v4, v5) >= 2)
+  v4 = [items mutableCopy];
+  if ([(__CFArray *)v4 count]>= 2)
   {
-    _IMItemsControllerSortItems(v7);
+    _IMItemsControllerSortItems(v4);
   }
 
-  objc_msgSend__replaceItems_(self, v6, v7);
+  [(IMItemsController *)self _replaceItems:v4];
 }
 
 - (void)_removeAllItemsSkippingCallToItemsDidChange:(BOOL)change
@@ -433,13 +430,13 @@ LABEL_21:
   if (!change)
   {
 
-    objc_msgSend__itemsDidChange_(self, v6, items);
+    [(IMItemsController *)self _itemsDidChange:items];
   }
 }
 
 - (void)_replaceStaleTypingMessage
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   items = self->_items;
   v4 = _IMItemsControllerGetTypingMessage(items);
   if (v4)
@@ -449,17 +446,15 @@ LABEL_21:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = v4;
-        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Replacing stale typing indicator: %@)", &v8, 0xCu);
+        v6 = 138412290;
+        v7 = v4;
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Replacing stale typing indicator: %@)", &v6, 0xCu);
       }
     }
 
     _IMItemsControllerHandleItem(self, items, v4, 0, 0, 0, 0);
-    objc_msgSend__itemsDidChange_(self, v6, items);
+    [(IMItemsController *)self _itemsDidChange:items];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resortItems
@@ -467,236 +462,231 @@ LABEL_21:
   Count = CFArrayGetCount(self->_items);
   MutableCopy = CFArrayCreateMutableCopy(0, Count, self->_items);
   _IMItemsControllerSortItems(MutableCopy);
-  objc_msgSend__replaceItems_(self, v5, MutableCopy);
+  [(IMItemsController *)self _replaceItems:MutableCopy];
 
   CFRelease(MutableCopy);
 }
 
 - (void)_setSortID:(id)d
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = objc_msgSend__items(self, v3, v4);
-  v91 = objc_msgSend_lastObject(v5, v6, v7);
+  _items = [(IMItemsController *)self _items];
+  lastObject = [_items lastObject];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isTypingMessage(v91, v8, v9))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [(__CFString *)lastObject isTypingMessage])
   {
-    v88 = objc_msgSend_isFromMe(v91, v10, v11) ^ 1;
+    v38 = [(__CFString *)lastObject isFromMe]^ 1;
   }
 
   else
   {
-    v88 = 0;
+    v38 = 0;
   }
 
   objc_opt_class();
-  v14 = (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isTypingMessage(v91, v12, v13) & 1) == 0 && objc_msgSend_sortID(v91, v12, v13) == 0;
-  if (((v88 | v14) & 1) != 0 && (objc_msgSend__shouldPinUnsentMessagesToBottom(self, v12, v13) & 1) == 0)
+  v4 = (objc_opt_isKindOfClass() & 1) != 0 && ([(__CFString *)lastObject isTypingMessage]& 1) == 0 && [(__CFString *)lastObject sortID]== 0;
+  if (((v38 | v4) & 1) != 0 && ![(IMItemsController *)self _shouldPinUnsentMessagesToBottom])
   {
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v18 = @"NO";
-        if (v88)
+        v6 = @"NO";
+        if (v38)
         {
-          v19 = @"YES";
+          v7 = @"YES";
         }
 
         else
         {
-          v19 = @"NO";
+          v7 = @"NO";
         }
 
         *buf = 138412802;
-        v103 = v19;
-        v104 = 2112;
-        if (v14)
+        v53 = v7;
+        v54 = 2112;
+        if (v4)
         {
-          v18 = @"YES";
+          v6 = @"YES";
         }
 
-        v105 = v18;
-        v106 = 2112;
-        v107 = v91;
-        _os_log_impl(&dword_1A823F000, v17, OS_LOG_TYPE_INFO, "Setting the sort ID from item before the last item -- lastItemIsTypingMessage %@ lastItemIsErrorCase %@ Last item %@", buf, 0x20u);
+        v55 = v6;
+        v56 = 2112;
+        v57 = lastObject;
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Setting the sort ID from item before the last item -- lastItemIsTypingMessage %@ lastItemIsErrorCase %@ Last item %@", buf, 0x20u);
       }
     }
 
-    if (v14)
+    if (v4)
     {
       if (IMOSLoggingEnabled())
       {
-        v22 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v8 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A823F000, v22, OS_LOG_TYPE_INFO, "*** ---- Trying to fix a bad sort ID -- Printing All Items -- Please file a radar ---- ***", buf, 2u);
+          _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "*** ---- Trying to fix a bad sort ID -- Printing All Items -- Please file a radar ---- ***", buf, 2u);
         }
       }
 
-      v98 = 0u;
-      v99 = 0u;
-      v96 = 0u;
-      v97 = 0u;
-      v23 = objc_msgSend__items(self, v20, v21);
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v96, v101, 16);
-      if (v25)
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      _items2 = [(IMItemsController *)self _items];
+      v10 = [_items2 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      if (v10)
       {
-        v26 = *v97;
+        v11 = *v47;
         do
         {
-          for (i = 0; i != v25; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v97 != v26)
+            if (*v47 != v11)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(_items2);
             }
 
-            v28 = *(*(&v96 + 1) + 8 * i);
+            v13 = *(*(&v46 + 1) + 8 * i);
             if (IMOSLoggingEnabled())
             {
-              v30 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+              v14 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v103 = v28;
-                _os_log_impl(&dword_1A823F000, v30, OS_LOG_TYPE_INFO, "\t\t%@", buf, 0xCu);
+                v53 = v13;
+                _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "\t\t%@", buf, 0xCu);
               }
             }
           }
 
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v29, &v96, v101, 16);
+          v10 = [_items2 countByEnumeratingWithState:&v46 objects:v51 count:16];
         }
 
-        while (v25);
+        while (v10);
       }
     }
 
-    v31 = objc_msgSend__items(self, v15, v16);
-    v34 = objc_msgSend_count(v31, v32, v33);
+    _items3 = [(IMItemsController *)self _items];
+    v16 = [_items3 count];
 
-    v35 = v34 >= 2;
-    v36 = v34 - 2;
-    if (v35)
+    v17 = v16 >= 2;
+    v18 = v16 - 2;
+    if (v17)
     {
-      v37 = objc_msgSend__items(self, v12, v13);
-      v39 = objc_msgSend_objectAtIndex_(v37, v38, v36);
+      _items4 = [(IMItemsController *)self _items];
+      v20 = [_items4 objectAtIndex:v18];
 
-      v91 = v39;
+      lastObject = v20;
     }
   }
 
-  if (objc_msgSend__shouldPinUnsentMessagesToBottom(self, v12, v13))
+  if ([(IMItemsController *)self _shouldPinUnsentMessagesToBottom])
   {
-    if ((objc_msgSend_unsentIsFromMeItem(dCopy, v40, v41) & 1) == 0)
+    if ([dCopy unsentIsFromMeItem])
     {
-      v44 = objc_msgSend_sortID(v91, v42, v43);
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      v47 = objc_msgSend__items(self, v45, v46);
-      v50 = objc_msgSend_reverseObjectEnumerator(v47, v48, v49);
+      goto LABEL_55;
+    }
 
-      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v51, &v92, v100, 16);
-      if (v54)
+    sortID = [(__CFString *)lastObject sortID];
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    _items5 = [(IMItemsController *)self _items];
+    reverseObjectEnumerator = [_items5 reverseObjectEnumerator];
+
+    v24 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v50 count:16];
+    if (v24)
+    {
+      v25 = *v43;
+      while (2)
       {
-        v55 = *v93;
-        while (2)
+        for (j = 0; j != v24; ++j)
         {
-          for (j = 0; j != v54; ++j)
+          if (*v43 != v25)
           {
-            if (*v93 != v55)
-            {
-              objc_enumerationMutation(v50);
-            }
-
-            v57 = *(*(&v92 + 1) + 8 * j);
-            if (objc_msgSend_sortID(v57, v52, v53))
-            {
-              v44 = objc_msgSend_sortID(v57, v52, v53);
-              goto LABEL_53;
-            }
+            objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v52, &v92, v100, 16);
-          if (v54)
+          v27 = *(*(&v42 + 1) + 8 * j);
+          if ([v27 sortID])
           {
-            continue;
+            sortID = [v27 sortID];
+            goto LABEL_53;
           }
-
-          break;
         }
+
+        v24 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v50 count:16];
+        if (v24)
+        {
+          continue;
+        }
+
+        break;
       }
+    }
 
 LABEL_53:
-
-      objc_msgSend_setSortID_(dCopy, v60, v44 + 1);
-    }
   }
 
   else
   {
-    v58 = objc_msgSend_sortID(v91, v40, v41);
-    objc_msgSend_setSortID_(dCopy, v59, v58 + 1);
+    sortID = [(__CFString *)lastObject sortID];
   }
 
+  [dCopy setSortID:sortID + 1];
+LABEL_55:
   if (IMOSLoggingEnabled())
   {
-    v61 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v64 = MEMORY[0x1E696AD98];
-      v65 = objc_msgSend_sortID(v91, v62, v63);
-      v67 = objc_msgSend_numberWithUnsignedInteger_(v64, v66, v65);
-      v70 = objc_msgSend_guid(v91, v68, v69);
-      v71 = v70;
-      v72 = @"NO";
+      v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFString sortID](lastObject, "sortID")}];
+      guid = [(__CFString *)lastObject guid];
+      v31 = guid;
+      v32 = @"NO";
       *buf = 138412802;
-      v103 = v67;
-      v104 = 2112;
-      if (v88)
+      v53 = v29;
+      v54 = 2112;
+      if (v38)
       {
-        v72 = @"YES";
+        v32 = @"YES";
       }
 
-      v105 = v70;
-      v106 = 2112;
-      v107 = v72;
-      _os_log_impl(&dword_1A823F000, v61, OS_LOG_TYPE_INFO, "last item's sortID %@ guid %@ isTyping %@", buf, 0x20u);
+      v55 = guid;
+      v56 = 2112;
+      v57 = v32;
+      _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, "last item's sortID %@ guid %@ isTyping %@", buf, 0x20u);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v73 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    v33 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v76 = MEMORY[0x1E696AD98];
-      v77 = objc_msgSend_sortID(dCopy, v74, v75);
-      v79 = objc_msgSend_numberWithUnsignedInteger_(v76, v78, v77);
-      v82 = objc_msgSend_guid(dCopy, v80, v81);
-      v85 = objc_msgSend_unsentIsFromMeItem(dCopy, v83, v84);
-      v86 = @"NO";
+      v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dCopy, "sortID")}];
+      guid2 = [dCopy guid];
+      unsentIsFromMeItem = [dCopy unsentIsFromMeItem];
+      v37 = @"NO";
       *buf = 138412802;
-      v103 = v79;
-      v104 = 2112;
-      if (v85)
+      v53 = v34;
+      v54 = 2112;
+      if (unsentIsFromMeItem)
       {
-        v86 = @"YES";
+        v37 = @"YES";
       }
 
-      v105 = v82;
-      v106 = 2112;
-      v107 = v86;
-      _os_log_impl(&dword_1A823F000, v73, OS_LOG_TYPE_INFO, "set sortID %@ guid %@ itemIsUnsentAndFromMe %@", buf, 0x20u);
+      v55 = guid2;
+      v56 = 2112;
+      v57 = v37;
+      _os_log_impl(&dword_1A823F000, v33, OS_LOG_TYPE_INFO, "set sortID %@ guid %@ itemIsUnsentAndFromMe %@", buf, 0x20u);
     }
   }
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_indexOfItem:(id)item
@@ -727,10 +717,10 @@ LABEL_5:
     while (1)
     {
       v8 = CFArrayGetValueAtIndex(items, v7 - 2);
-      v11 = objc_msgSend_guid(v8, v9, v10);
-      isEqualToString = objc_msgSend_isEqualToString_(dCopy, v12, v11);
+      guid = [v8 guid];
+      v10 = [dCopy isEqualToString:guid];
 
-      if (isEqualToString)
+      if (v10)
       {
         break;
       }
@@ -747,72 +737,66 @@ LABEL_5:
 
 - (void)_mergeItems:(id)items
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = itemsCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v40, v48, 16);
-  if (v10)
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v7)
   {
-    v11 = *v41;
+    v8 = *v19;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v41 != v11)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v40 + 1) + 8 * i);
-        v14 = objc_msgSend_guid(v13, v8, v9, v40);
-        v16 = objc_msgSend__itemForGUID_(self, v15, v14);
+        v10 = *(*(&v18 + 1) + 8 * i);
+        guid = [v10 guid];
+        v12 = [(IMItemsController *)self _itemForGUID:guid];
 
-        if (!v16)
+        if (!v12)
         {
-          objc_msgSend_addObject_(v5, v17, v13);
+          [v5 addObject:v10];
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v40, v48, 16);
+      v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v7);
   }
 
   if (IMOSLoggingEnabled())
   {
-    v20 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v23 = MEMORY[0x1E696AD98];
-      v24 = objc_msgSend_count(v5, v21, v22);
-      v26 = objc_msgSend_numberWithUnsignedInteger_(v23, v25, v24);
-      v27 = MEMORY[0x1E696AD98];
-      v30 = objc_msgSend_count(v6, v28, v29);
-      v32 = objc_msgSend_numberWithUnsignedInteger_(v27, v31, v30);
+      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
+      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
       *buf = 138412546;
-      v45 = v26;
-      v46 = 2112;
-      v47 = v32;
-      _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Merging %@ items of %@ items", buf, 0x16u);
+      v23 = v14;
+      v24 = 2112;
+      v25 = v15;
+      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Merging %@ items of %@ items", buf, 0x16u);
     }
   }
 
-  if (objc_msgSend_count(v5, v18, v19, v40))
+  if ([v5 count])
   {
-    v34 = objc_msgSend_arrayByAddingObjectsFromArray_(self->_items, v33, v5);
-    v37 = objc_msgSend_mutableCopy(v34, v35, v36);
+    v16 = [(__CFArray *)self->_items arrayByAddingObjectsFromArray:v5];
+    v17 = [v16 mutableCopy];
 
-    _IMItemsControllerSortItems(v37);
-    objc_msgSend__replaceItems_skipCallToItemsDidChange_(self, v38, v37, 1);
+    _IMItemsControllerSortItems(v17);
+    [(IMItemsController *)self _replaceItems:v17 skipCallToItemsDidChange:1];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_firstMessage
@@ -833,7 +817,7 @@ LABEL_6:
     {
       v6 = CFArrayGetValueAtIndex(items, v5);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isFirstMessageCandidate(v6, v7, v8))
+      if (objc_opt_isKindOfClass() & 1) != 0 && ([v6 isFirstMessageCandidate])
       {
         break;
       }
@@ -915,46 +899,46 @@ LABEL_5:
 
 - (id)_sentMessagesSinceInterworking
 {
-  v4 = objc_msgSend__lastInterworkedMessage(self, a2, v2);
-  if (v4)
+  _lastInterworkedMessage = [(IMItemsController *)self _lastInterworkedMessage];
+  if (_lastInterworkedMessage)
   {
-    v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v7 = objc_msgSend__indexOfItem_(self, v6, v4);
-    for (i = CFArrayGetCount(self->_items) - 1; i > v7; --i)
+    v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v5 = [(IMItemsController *)self _indexOfItem:_lastInterworkedMessage];
+    for (i = CFArrayGetCount(self->_items) - 1; i > v5; --i)
     {
-      v11 = CFArrayGetValueAtIndex(self->_items, i);
-      if (objc_msgSend__isSentMessage_(self, v12, v11))
+      v7 = CFArrayGetValueAtIndex(self->_items, i);
+      if ([(IMItemsController *)self _isSentMessage:v7])
       {
-        objc_msgSend_addObject_(v5, v13, v11);
+        [v4 addObject:v7];
       }
     }
 
-    v14 = objc_msgSend_copy(v5, v8, v9);
+    v8 = [v4 copy];
   }
 
   else
   {
-    v14 = 0;
+    v8 = 0;
   }
 
-  return v14;
+  return v8;
 }
 
 - (BOOL)_isSentMessage:(id)message
 {
   messageCopy = message;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isTypingMessage(messageCopy, v4, v5) & 1) == 0 && (objc_msgSend_isSuggestedActionResponse(messageCopy, v6, v7) & 1) == 0 && objc_msgSend_isFromMe(messageCopy, v8, v9) && objc_msgSend_isLastMessageCandidate(messageCopy, v10, v11))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([messageCopy isTypingMessage] & 1) == 0 && (objc_msgSend(messageCopy, "isSuggestedActionResponse") & 1) == 0 && objc_msgSend(messageCopy, "isFromMe") && objc_msgSend(messageCopy, "isLastMessageCandidate"))
   {
-    v14 = objc_msgSend_isRCSEncryptionTest(messageCopy, v12, v13) ^ 1;
+    v4 = [messageCopy isRCSEncryptionTest] ^ 1;
   }
 
   else
   {
-    LOBYTE(v14) = 0;
+    LOBYTE(v4) = 0;
   }
 
-  return v14;
+  return v4;
 }
 
 - (id)_lastSentMessage
@@ -973,7 +957,7 @@ LABEL_5:
     while (1)
     {
       v6 = CFArrayGetValueAtIndex(items, v5 - 2);
-      if (objc_msgSend__isSentMessage_(self, v7, v6))
+      if ([(IMItemsController *)self _isSentMessage:v6])
       {
         break;
       }
@@ -1005,7 +989,7 @@ LABEL_11:
     {
       v5 = CFArrayGetValueAtIndex(items, v4 - 2);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isTypingMessage(v5, v6, v7) & 1) == 0 && (objc_msgSend_isSuggestedActionResponse(v5, v8, v9) & 1) == 0 && objc_msgSend_isFromMe(v5, v10, v11) && objc_msgSend_isLastMessageCandidate(v5, v12, v13) && (objc_msgSend_isRCSEncryptionTest(v5, v14, v15) & 1) == 0 && (objc_msgSend_isPendingSatelliteSend(v5, v16, v17))
+      if (objc_opt_isKindOfClass() & 1) != 0 && ([v5 isTypingMessage] & 1) == 0 && (objc_msgSend(v5, "isSuggestedActionResponse") & 1) == 0 && objc_msgSend(v5, "isFromMe") && objc_msgSend(v5, "isLastMessageCandidate") && (objc_msgSend(v5, "isRCSEncryptionTest") & 1) == 0 && (objc_msgSend(v5, "isPendingSatelliteSend"))
       {
         break;
       }
@@ -1037,7 +1021,7 @@ LABEL_7:
     {
       v5 = CFArrayGetValueAtIndex(items, v4 - 2);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isFromMe(v5, v6, v7) & 1) == 0 && (objc_msgSend_isLastMessageCandidate(v5, v8, v9))
+      if (objc_opt_isKindOfClass() & 1) != 0 && ([v5 isFromMe] & 1) == 0 && (objc_msgSend(v5, "isLastMessageCandidate"))
       {
         break;
       }
@@ -1080,17 +1064,17 @@ LABEL_10:
   {
     v5 = CFArrayGetValueAtIndex(items, v4 - 2);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_isLastMessageCandidate(v5, v6, v7))
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v5 isLastMessageCandidate])
     {
       goto LABEL_9;
     }
 
-    v10 = objc_msgSend_body(v5, v8, v9);
-    v13 = objc_msgSend_string(v10, v11, v12);
-    v16 = objc_msgSend__charactersToIgnoreWhenParsingTextContent(IMItemsController, v14, v15);
-    v18 = objc_msgSend_stringByRemovingCharactersFromSet_(v13, v17, v16);
+    body = [v5 body];
+    string = [body string];
+    v8 = +[IMItemsController _charactersToIgnoreWhenParsingTextContent];
+    v9 = [string stringByRemovingCharactersFromSet:v8];
 
-    if ((objc_msgSend_isFromMe(v5, v19, v20) & 1) == 0 && (objc_msgSend_isTypingMessage(v5, v21, v22) & 1) == 0 && objc_msgSend_length(v18, v23, v24))
+    if (([v5 isFromMe] & 1) == 0 && (objc_msgSend(v5, "isTypingMessage") & 1) == 0 && objc_msgSend(v9, "length"))
     {
       break;
     }
@@ -1109,95 +1093,95 @@ LABEL_11:
 
 - (id)_lastRelatedIncomingFinishedMessageTextContentWithLimit:(int64_t)limit
 {
-  v48 = objc_msgSend__lastIncomingFinishedMessageItemWithTextContent(self, a2, limit);
-  if (!v48)
+  _lastIncomingFinishedMessageItemWithTextContent = [(IMItemsController *)self _lastIncomingFinishedMessageItemWithTextContent];
+  if (!_lastIncomingFinishedMessageItemWithTextContent)
   {
-    v42 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
-  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
   items = self->_items;
   Count = CFArrayGetCount(items);
   if (Count < 1)
   {
-    v9 = 0;
+    v7 = 0;
     goto LABEL_23;
   }
 
-  v8 = 0;
-  v9 = 0;
-  v10 = Count + 1;
+  v6 = 0;
+  v7 = 0;
+  v8 = Count + 1;
   while (1)
   {
-    v11 = CFArrayGetValueAtIndex(items, v10 - 2);
+    v9 = CFArrayGetValueAtIndex(items, v8 - 2);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_isLastMessageCandidate(v11, v12, v13))
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v9 isLastMessageCandidate])
     {
       goto LABEL_18;
     }
 
-    v16 = objc_msgSend_body(v11, v14, v15);
-    v19 = objc_msgSend_string(v16, v17, v18);
-    v22 = objc_msgSend__charactersToIgnoreWhenParsingTextContent(IMItemsController, v20, v21);
-    v24 = objc_msgSend_stringByRemovingCharactersFromSet_(v19, v23, v22);
+    body = [v9 body];
+    string = [body string];
+    v12 = +[IMItemsController _charactersToIgnoreWhenParsingTextContent];
+    v13 = [string stringByRemovingCharactersFromSet:v12];
 
-    if (v11 == v48)
+    if (v9 == _lastIncomingFinishedMessageItemWithTextContent)
     {
-      objc_msgSend_addObject_(v47, v25, v24);
-      v27 = objc_msgSend_time(v11, v40, v41);
+      [v21 addObject:v13];
+      time = [v9 time];
       goto LABEL_15;
     }
 
-    if ((v8 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
-      v8 = 0;
+      v6 = 0;
       goto LABEL_17;
     }
 
-    v27 = objc_msgSend_time(v11, v25, v26);
-    objc_msgSend_timeIntervalSinceDate_(v27, v28, v9);
-    v30 = v29;
-    if ((objc_msgSend_isFromMe(v11, v31, v32) & 1) != 0 || (objc_msgSend_isTypingMessage(v11, v33, v34) & 1) != 0 || !objc_msgSend_length(v24, v35, v36) || fabs(v30) > 60.0 || objc_msgSend_count(v47, v37, v38) >= limit)
+    time = [v9 time];
+    [time timeIntervalSinceDate:v7];
+    v16 = v15;
+    if (([v9 isFromMe] & 1) != 0 || (objc_msgSend(v9, "isTypingMessage") & 1) != 0 || !objc_msgSend(v13, "length") || fabs(v16) > 60.0 || objc_msgSend(v21, "count") >= limit)
     {
       break;
     }
 
-    objc_msgSend_addObject_(v47, v39, v24);
+    [v21 addObject:v13];
 LABEL_15:
 
-    v8 = 1;
-    v9 = v27;
+    v6 = 1;
+    v7 = time;
 LABEL_17:
 
 LABEL_18:
-    if (--v10 <= 1)
+    if (--v8 <= 1)
     {
       goto LABEL_23;
     }
   }
 
 LABEL_23:
-  if (objc_msgSend_count(v47, v6, v7))
+  if ([v21 count])
   {
-    v43 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = sub_1A82A96BC;
-    v49[3] = &unk_1E7810C68;
-    v42 = v43;
-    v50 = v42;
-    objc_msgSend_enumerateObjectsWithOptions_usingBlock_(v47, v44, 2, v49);
+    v18 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_1A82A96BC;
+    v23[3] = &unk_1E7810C68;
+    v17 = v18;
+    v24 = v17;
+    [v21 enumerateObjectsWithOptions:2 usingBlock:v23];
   }
 
   else
   {
-    v42 = 0;
+    v17 = 0;
   }
 
 LABEL_27:
 
-  return v42;
+  return v17;
 }
 
 - (id)_appendArchivedItemsToItemsArray:(id)array
@@ -1205,32 +1189,32 @@ LABEL_27:
   arrayCopy = array;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "appending archived items to current items array", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "appending archived items to current items array", buf, 2u);
     }
   }
 
-  v8 = objc_msgSend__items(self, v5, v6);
-  v11 = objc_msgSend_count(v8, v9, v10);
+  _items = [(IMItemsController *)self _items];
+  v7 = [_items count];
 
-  if (!v11)
+  if (!v7)
   {
     if (!IMOSLoggingEnabled())
     {
       goto LABEL_29;
     }
 
-    v44 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v76 = 0;
-      v45 = "Cannot append to either beginning or end as there are no previous items to append to";
-      v46 = &v76;
+      v34 = 0;
+      v20 = "Cannot append to either beginning or end as there are no previous items to append to";
+      v21 = &v34;
 LABEL_27:
-      _os_log_impl(&dword_1A823F000, v44, OS_LOG_TYPE_INFO, v45, v46, 2u);
+      _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, v20, v21, 2u);
     }
 
 LABEL_28:
@@ -1238,34 +1222,32 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v14 = objc_msgSend_firstObject(arrayCopy, v12, v13);
-  v17 = objc_msgSend_messageID(v14, v15, v16);
-  v20 = objc_msgSend__items(self, v18, v19);
-  v23 = objc_msgSend_lastMessageItem(v20, v21, v22);
-  v26 = objc_msgSend_messageID(v23, v24, v25);
+  firstObject = [arrayCopy firstObject];
+  messageID = [firstObject messageID];
+  _items2 = [(IMItemsController *)self _items];
+  lastMessageItem = [_items2 lastMessageItem];
+  messageID2 = [lastMessageItem messageID];
 
-  if (v17 == v26)
+  if (messageID == messageID2)
   {
     if (IMOSLoggingEnabled())
     {
-      v29 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v75 = 0;
-        _os_log_impl(&dword_1A823F000, v29, OS_LOG_TYPE_INFO, "Going to append the incoming messages to the end of the _items array", v75, 2u);
+        *v33 = 0;
+        _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Going to append the incoming messages to the end of the _items array", v33, 2u);
       }
     }
 
-    v30 = objc_alloc(MEMORY[0x1E696AC90]);
-    v33 = objc_msgSend_count(arrayCopy, v31, v32);
-    v35 = objc_msgSend_initWithIndexesInRange_(v30, v34, 1, v33 - 1);
-    v38 = objc_msgSend__items(self, v36, v37);
-    v40 = objc_msgSend_objectsAtIndexes_(arrayCopy, v39, v35);
+    v14 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{1, objc_msgSend(arrayCopy, "count") - 1}];
+    _items3 = [(IMItemsController *)self _items];
+    _items5 = [arrayCopy objectsAtIndexes:v14];
 LABEL_12:
-    v42 = v40;
-    v43 = objc_msgSend_arrayByAddingObjectsFromArray_(v38, v41, v40);
+    v17 = _items5;
+    _items6 = [_items3 arrayByAddingObjectsFromArray:_items5];
 
-    if (v43)
+    if (_items6)
     {
       goto LABEL_30;
     }
@@ -1273,62 +1255,61 @@ LABEL_12:
     goto LABEL_29;
   }
 
-  v47 = objc_msgSend_lastObject(arrayCopy, v27, v28);
-  v50 = objc_msgSend_messageID(v47, v48, v49);
-  v53 = objc_msgSend__items(self, v51, v52);
-  v56 = objc_msgSend_firstMessageItem(v53, v54, v55);
-  v59 = objc_msgSend_messageID(v56, v57, v58);
+  lastObject = [arrayCopy lastObject];
+  messageID3 = [lastObject messageID];
+  _items4 = [(IMItemsController *)self _items];
+  firstMessageItem = [_items4 firstMessageItem];
+  messageID4 = [firstMessageItem messageID];
 
-  v60 = IMOSLoggingEnabled();
-  if (v50 != v59)
+  v27 = IMOSLoggingEnabled();
+  if (messageID3 != messageID4)
   {
-    if (!v60)
+    if (!v27)
     {
       goto LABEL_29;
     }
 
-    v44 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v73 = 0;
-      v45 = "Cannot append to either beginning or end as there is a mismatch in messageIDs";
-      v46 = &v73;
+      v31 = 0;
+      v20 = "Cannot append to either beginning or end as there is a mismatch in messageIDs";
+      v21 = &v31;
       goto LABEL_27;
     }
 
     goto LABEL_28;
   }
 
-  if (v60)
+  if (v27)
   {
-    v63 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      *v74 = 0;
-      _os_log_impl(&dword_1A823F000, v63, OS_LOG_TYPE_INFO, "Going to append the incoming messages to the beginning of the _items array", v74, 2u);
+      *v32 = 0;
+      _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, "Going to append the incoming messages to the beginning of the _items array", v32, 2u);
     }
   }
 
-  if (objc_msgSend_count(arrayCopy, v61, v62) >= 2)
+  if ([arrayCopy count] >= 2)
   {
-    v66 = objc_msgSend_count(arrayCopy, v64, v65) - 1;
-    v67 = objc_alloc(MEMORY[0x1E696AC90]);
-    v35 = objc_msgSend_initWithIndexesInRange_(v67, v68, 0, v66);
-    v38 = objc_msgSend_objectsAtIndexes_(arrayCopy, v69, v35);
-    v40 = objc_msgSend__items(self, v70, v71);
+    v29 = [arrayCopy count] - 1;
+    v14 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{0, v29}];
+    _items3 = [arrayCopy objectsAtIndexes:v14];
+    _items5 = [(IMItemsController *)self _items];
     goto LABEL_12;
   }
 
-  v43 = objc_msgSend__items(self, v64, v65);
-  if (!v43)
+  _items6 = [(IMItemsController *)self _items];
+  if (!_items6)
   {
 LABEL_29:
-    v43 = arrayCopy;
+    _items6 = arrayCopy;
   }
 
 LABEL_30:
 
-  return v43;
+  return _items6;
 }
 
 - (id)_lastMessageItemMatchingCriteria:(id)criteria
@@ -1349,7 +1330,7 @@ LABEL_7:
     {
       v8 = CFArrayGetValueAtIndex(items, v7 - 2);
       objc_opt_class();
-      if (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isLastMessageCandidate(v8, v9, v10) && (criteriaCopy[2](criteriaCopy, v8))
+      if (objc_opt_isKindOfClass() & 1) != 0 && [v8 isLastMessageCandidate] && (criteriaCopy[2](criteriaCopy, v8))
       {
         break;
       }
@@ -1367,29 +1348,29 @@ LABEL_7:
 - (id)_lastMessageItemWithService:(id)service
 {
   serviceCopy = service;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_1A82A9C68;
-  v9[3] = &unk_1E7810C90;
-  v10 = serviceCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1A82A9C68;
+  v8[3] = &unk_1E7810C90;
+  v9 = serviceCopy;
   v5 = serviceCopy;
-  v7 = objc_msgSend__lastMessageItemMatchingCriteria_(self, v6, v9);
+  v6 = [(IMItemsController *)self _lastMessageItemMatchingCriteria:v8];
 
-  return v7;
+  return v6;
 }
 
 - (id)_lastMessageItemWithServiceCapability:(id)capability
 {
   capabilityCopy = capability;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_1A82A9D5C;
-  v9[3] = &unk_1E7810C90;
-  v10 = capabilityCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1A82A9D5C;
+  v8[3] = &unk_1E7810C90;
+  v9 = capabilityCopy;
   v5 = capabilityCopy;
-  v7 = objc_msgSend__lastMessageItemMatchingCriteria_(self, v6, v9);
+  v6 = [(IMItemsController *)self _lastMessageItemMatchingCriteria:v8];
 
-  return v7;
+  return v6;
 }
 
 - (void)_didReplaceItem:(__CFArray *)item oldItem:(id)oldItem idx:(int64_t)idx
@@ -1399,38 +1380,38 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = v9;
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = sub_1A839343C;
-    v54 = &unk_1E7813D58;
-    v55 = v12;
+    v10 = v9;
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = sub_1A839343C;
+    v26 = &unk_1E7813D58;
+    v27 = v10;
     itemCopy = item;
     idxCopy = idx;
-    v56 = oldItemCopy;
-    v13 = _Block_copy(&v51);
-    v16 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v14, v15, v51, v52, v53, v54);
-    isGroupTypingIndicatorsEnabled = objc_msgSend_isGroupTypingIndicatorsEnabled(v16, v17, v18);
+    v28 = oldItemCopy;
+    v11 = _Block_copy(&v23);
+    mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+    isGroupTypingIndicatorsEnabled = [mEMORY[0x1E69A8070] isGroupTypingIndicatorsEnabled];
 
     if (isGroupTypingIndicatorsEnabled)
     {
-      if (objc_msgSend_expireState(v12, v20, v21) == 2)
+      if ([v10 expireState] == 2)
       {
         CFArrayRemoveValueAtIndex(item, idx);
       }
 
-      v24 = objc_msgSend_typingTrackingController(self, v22, v23);
-      v27 = objc_msgSend_currentTypingHandles(v24, v25, v26);
-      v30 = objc_msgSend_count(v27, v28, v29);
+      typingTrackingController = [(IMItemsController *)self typingTrackingController];
+      currentTypingHandles = [typingTrackingController currentTypingHandles];
+      v16 = [currentTypingHandles count];
 
-      if (!v30)
+      if (!v16)
       {
-        v31 = _IMItemsControllerGetTypingMessage(item);
-        if (v31)
+        v17 = _IMItemsControllerGetTypingMessage(item);
+        if (v17)
         {
-          v59.length = CFArrayGetCount(item);
-          v59.location = 0;
-          LastIndexOfValue = CFArrayGetLastIndexOfValue(item, v59, v31);
+          v31.length = CFArrayGetCount(item);
+          v31.location = 0;
+          LastIndexOfValue = CFArrayGetLastIndexOfValue(item, v31, v17);
           CFArrayRemoveValueAtIndex(item, LastIndexOfValue);
         }
       }
@@ -1438,26 +1419,26 @@ LABEL_7:
 
     else
     {
-      v13[2](v13);
+      v11[2](v11);
     }
   }
 
-  else if (objc_msgSend_associatedMessageType(oldItemCopy, v10, v11) == 2 && objc_msgSend_associatedMessageType(v9, v33, v34) == 2)
+  else if ([oldItemCopy associatedMessageType] == 2 && objc_msgSend(v9, "associatedMessageType") == 2)
   {
-    v37 = objc_msgSend_associatedMessageGUID(oldItemCopy, v35, v36);
-    v40 = objc_msgSend_associatedMessageGUID(v9, v38, v39);
-    if (objc_msgSend_isEqualToString_(v37, v41, v40))
+    associatedMessageGUID = [oldItemCopy associatedMessageGUID];
+    associatedMessageGUID2 = [v9 associatedMessageGUID];
+    if ([associatedMessageGUID isEqualToString:associatedMessageGUID2])
     {
-      v44 = objc_msgSend_consumedSessionPayloads(oldItemCopy, v42, v43);
-      v47 = objc_msgSend_count(v44, v45, v46);
+      consumedSessionPayloads = [oldItemCopy consumedSessionPayloads];
+      v22 = [consumedSessionPayloads count];
 
-      if (!v47)
+      if (!v22)
       {
         goto LABEL_16;
       }
 
-      v37 = objc_msgSend_consumedSessionPayloads(oldItemCopy, v48, v49);
-      objc_msgSend_setConsumedSessionPayloads_(v9, v50, v37);
+      associatedMessageGUID = [oldItemCopy consumedSessionPayloads];
+      [v9 setConsumedSessionPayloads:associatedMessageGUID];
     }
 
     else

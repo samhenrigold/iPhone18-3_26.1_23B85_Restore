@@ -185,19 +185,14 @@
 {
   v3 = [NSString alloc];
   v4 = objc_opt_class();
-  airPlayService = self->_airPlayService;
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
   v6 = MRCreateIndentedDebugDescriptionFromObject();
-  companionService = self->_companionService;
+  v7 = MRCreateIndentedDebugDescriptionFromObject();
   v8 = MRCreateIndentedDebugDescriptionFromObject();
-  rapportService = self->_rapportService;
-  v10 = MRCreateIndentedDebugDescriptionFromObject();
-  idsService = self->_idsService;
-  v12 = MRCreateIndentedDebugDescriptionFromObject();
-  mrRelayRemoteControlService = self->_mrRelayRemoteControlService;
-  v14 = MRCreateIndentedDebugDescriptionFromObject();
-  v15 = [v3 initWithFormat:@"<%@ %p {\n  AirPlayService = %@\n  CompanionService = %@\n  RapportService = %@\n  IDSService = %@\n  MRRelayService = %@\n}>", v4, self, v6, v8, v10, v12, v14];
+  v9 = MRCreateIndentedDebugDescriptionFromObject();
+  v10 = [v3 initWithFormat:@"<%@ %p {\n  AirPlayService = %@\n  CompanionService = %@\n  RapportService = %@\n  IDSService = %@\n  MRRelayService = %@\n}>", v4, self, v5, v6, v7, v8, v9];
 
-  return v15;
+  return v10;
 }
 
 - (void)start

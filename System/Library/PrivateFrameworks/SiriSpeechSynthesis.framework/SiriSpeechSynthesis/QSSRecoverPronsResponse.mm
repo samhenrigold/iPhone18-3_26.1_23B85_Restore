@@ -43,7 +43,7 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
 
 - (Offset<siri::speech::schema_fb::RecoverPronsResponse>)addObjectToBuffer:(void *)buffer
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSRecoverPronsResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -64,7 +64,7 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v13 = strlen(uTF8String2);
-  v38 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
+  v37 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v13);
 
   error_code = [(QSSRecoverPronsResponse *)self error_code];
   error_str = [(QSSRecoverPronsResponse *)self error_str];
@@ -78,50 +78,50 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
   v17 = strlen(uTF8String3);
   v18 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v17);
 
-  memset(&v49, 0, sizeof(v49));
+  memset(&v45, 0, sizeof(v45));
   recovery_return_codes = [(QSSRecoverPronsResponse *)self recovery_return_codes];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v49, [recovery_return_codes count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v45, [recovery_return_codes count]);
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   recovery_return_codes2 = [(QSSRecoverPronsResponse *)self recovery_return_codes];
-  v36 = v18;
-  v21 = [recovery_return_codes2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v35 = v18;
+  v21 = [recovery_return_codes2 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v21)
   {
-    v22 = *v46;
+    v22 = *v42;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v46 != v22)
+        if (*v42 != v22)
         {
           objc_enumerationMutation(recovery_return_codes2);
         }
 
-        intValue = [*(*(&v45 + 1) + 8 * i) intValue];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v49, &intValue);
+        intValue = [*(*(&v41 + 1) + 8 * i) intValue];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v45, &intValue);
       }
 
-      v21 = [recovery_return_codes2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v21 = [recovery_return_codes2 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v21);
   }
 
-  if (v49.__end_ == v49.__begin_)
+  if (v45.__end_ == v45.__begin_)
   {
     begin = &flatbuffers::data<int,std::allocator<int>>(std::vector<int> const&)::t;
   }
 
   else
   {
-    begin = v49.__begin_;
+    begin = v45.__begin_;
   }
 
-  v35 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v49.__end_ - v49.__begin_);
+  v34 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v45.__end_ - v45.__begin_);
   voc_tokens = [(QSSRecoverPronsResponse *)self voc_tokens];
   v26 = [voc_tokens count];
   if (v26)
@@ -134,16 +134,11 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  memset(v39, 0, sizeof(v39));
   obj = [(QSSRecoverPronsResponse *)self voc_tokens];
-  if ([obj countByEnumeratingWithState:&v40 objects:v50 count:16])
+  if ([obj countByEnumeratingWithState:v39 objects:v46 count:16])
   {
-    *v41;
-    *v41;
-    [**(&v40 + 1) addObjectToBuffer:buffer];
+    [**(&v39[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -155,10 +150,10 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
   v29 = *(buffer + 12);
   v30 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v38);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v37);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, error_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v36);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v35);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v35);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v34);
   if (v27)
   {
     v31 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v27);
@@ -166,12 +161,11 @@ flatbuffers::DetachedBuffer *__39__QSSRecoverPronsResponse_flatbuffData__block_i
   }
 
   v32.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v28 - v29 + v30);
-  if (v49.__begin_)
+  if (v45.__begin_)
   {
-    operator delete(v49.__begin_);
+    operator delete(v45.__begin_);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 

@@ -5,184 +5,176 @@
 
 void __54__HKSleepHealthStore_HDSPSleep__hdsp_persistSessions___block_invoke(id *a1)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
     *buf = 138543362;
-    v65 = objc_opt_class();
-    v4 = v65;
+    v58 = objc_opt_class();
+    v3 = v58;
     _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] saving sessions", buf, 0xCu);
   }
 
-  v5 = [a1[4] healthStore];
-  v6 = HKSPLogForCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v4 = [a1[4] healthStore];
+  v5 = HKSPLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v8 = objc_opt_class();
+    v6 = objc_opt_class();
     *buf = 138543362;
-    v65 = v8;
-    v9 = v8;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] checking auth status", buf, 0xCu);
+    v58 = v6;
+    v7 = v6;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] checking auth status", buf, 0xCu);
   }
 
-  v10 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
-  v11 = [v5 authorizationStatusForType:v10];
+  v8 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
+  v9 = [v4 authorizationStatusForType:v8];
 
-  if (v11 == 1)
+  if (v9 == 1)
   {
-    v12 = HKSPLogForCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = HKSPLogForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v44 = a1[4];
-      v45 = objc_opt_class();
+      v38 = objc_opt_class();
       *buf = 138543362;
-      v65 = v45;
-      v46 = v45;
-      _os_log_error_impl(&dword_269B11000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] doesn't have write access for HKCategoryTypeIdentifierSleepAnalysis", buf, 0xCu);
+      v58 = v38;
+      v39 = v38;
+      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] doesn't have write access for HKCategoryTypeIdentifierSleepAnalysis", buf, 0xCu);
     }
 
-    v13 = a1[5];
-    v14 = [MEMORY[0x277CCA9B8] na_genericError];
-    [v13 finishWithError:v14];
+    v11 = a1[5];
+    v12 = [MEMORY[0x277CCA9B8] na_genericError];
+    [v11 finishWithError:v12];
   }
 
   else
   {
-    v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
+    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obj = a1[6];
-    v16 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
-    if (v16)
+    v14 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+    if (v14)
     {
-      v17 = v16;
-      v18 = *v60;
-      v47 = *v60;
-      v48 = a1;
+      v15 = v14;
+      v16 = *v53;
+      v40 = *v53;
+      v41 = a1;
       do
       {
-        v19 = 0;
-        v49 = v17;
+        v17 = 0;
+        v42 = v15;
         do
         {
-          if (*v60 != v18)
+          if (*v53 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v51 = v19;
-          v20 = *(*(&v59 + 1) + 8 * v19);
-          v21 = HKSPLogForCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v44 = v17;
+          v18 = *(*(&v52 + 1) + 8 * v17);
+          v19 = HKSPLogForCategory();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = a1[4];
-            v23 = objc_opt_class();
+            v20 = objc_opt_class();
             *buf = 138543618;
-            v65 = v23;
-            v66 = 2112;
-            v67 = v20;
-            v24 = v23;
-            _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing session: %@", buf, 0x16u);
+            v58 = v20;
+            v59 = 2112;
+            v60 = v18;
+            v21 = v20;
+            _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing session: %@", buf, 0x16u);
           }
 
-          v25 = [v20 interval];
+          v22 = [v18 interval];
 
-          v26 = HKSPLogForCategory();
-          v27 = v26;
-          if (v25)
+          v23 = HKSPLogForCategory();
+          v24 = v23;
+          if (v22)
           {
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
-              v28 = a1[4];
-              v29 = objc_opt_class();
+              v25 = objc_opt_class();
               *buf = 138543362;
-              v65 = v29;
-              v30 = v29;
-              _os_log_impl(&dword_269B11000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating HealthKit samples", buf, 0xCu);
+              v58 = v25;
+              v26 = v25;
+              _os_log_impl(&dword_269B11000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating HealthKit samples", buf, 0xCu);
             }
 
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
-            v56 = 0u;
-            v27 = [v20 sleepIntervals];
-            v31 = [v27 countByEnumeratingWithState:&v55 objects:v63 count:16];
-            if (v31)
+            v50 = 0u;
+            v51 = 0u;
+            v48 = 0u;
+            v49 = 0u;
+            v24 = [v18 sleepIntervals];
+            v27 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
+            if (v27)
             {
-              v32 = v31;
-              v33 = *v56;
+              v28 = v27;
+              v29 = *v49;
               do
               {
-                for (i = 0; i != v32; ++i)
+                for (i = 0; i != v28; ++i)
                 {
-                  if (*v56 != v33)
+                  if (*v49 != v29)
                   {
-                    objc_enumerationMutation(v27);
+                    objc_enumerationMutation(v24);
                   }
 
-                  v35 = *(*(&v55 + 1) + 8 * i);
-                  v36 = MEMORY[0x277CCD0B0];
-                  v37 = [v20 metadata];
-                  v38 = [v36 hdsp_categorySampleForSleepSessionInterval:v35 metadata:v37];
+                  v31 = *(*(&v48 + 1) + 8 * i);
+                  v32 = MEMORY[0x277CCD0B0];
+                  v33 = [v18 metadata];
+                  v34 = [v32 hdsp_categorySampleForSleepSessionInterval:v31 metadata:v33];
 
-                  [v15 na_safeAddObject:v38];
+                  [v13 na_safeAddObject:v34];
                 }
 
-                v32 = [v27 countByEnumeratingWithState:&v55 objects:v63 count:16];
+                v28 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
               }
 
-              while (v32);
-              v18 = v47;
-              a1 = v48;
-              v17 = v49;
+              while (v28);
+              v16 = v40;
+              a1 = v41;
+              v15 = v42;
             }
           }
 
-          else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v39 = a1[4];
-            v40 = objc_opt_class();
+            v35 = objc_opt_class();
             *buf = 138543618;
-            v65 = v40;
-            v66 = 2112;
-            v67 = v20;
-            v41 = v40;
-            _os_log_error_impl(&dword_269B11000, v27, OS_LOG_TYPE_ERROR, "[%{public}@] skipping session due to missing bedtime or wake time: %@", buf, 0x16u);
+            v58 = v35;
+            v59 = 2112;
+            v60 = v18;
+            v36 = v35;
+            _os_log_error_impl(&dword_269B11000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] skipping session due to missing bedtime or wake time: %@", buf, 0x16u);
           }
 
-          v19 = v51 + 1;
+          v17 = v44 + 1;
         }
 
-        while (v51 + 1 != v17);
-        v17 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+        while (v44 + 1 != v15);
+        v15 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
       }
 
-      while (v17);
+      while (v15);
     }
 
-    v42 = a1[4];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __54__HKSleepHealthStore_HDSPSleep__hdsp_persistSessions___block_invoke_296;
-    v52[3] = &unk_279C7C850;
-    v52[4] = v42;
-    v53 = v15;
-    v54 = a1[5];
-    v14 = v15;
-    [v42 saveSleepTrackingSamples:v14 completion:v52];
+    v37 = a1[4];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __54__HKSleepHealthStore_HDSPSleep__hdsp_persistSessions___block_invoke_296;
+    v45[3] = &unk_279C7C850;
+    v45[4] = v37;
+    v46 = v13;
+    v47 = a1[5];
+    v12 = v13;
+    [v37 saveSleepTrackingSamples:v12 completion:v45];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HKSleepHealthStore_HDSPSleep__hdsp_persistSessions___block_invoke_296(void *a1, char a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPLogForCategory();
   v7 = v6;
@@ -190,34 +182,30 @@ void __54__HKSleepHealthStore_HDSPSleep__hdsp_persistSessions___block_invoke_296
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = a1[4];
-      v9 = objc_opt_class();
-      v10 = a1[5];
-      v11 = v9;
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2048;
-      v20 = [v10 count];
-      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] finished saving %lu samples", &v17, 0x16u);
+      v8 = objc_opt_class();
+      v9 = a1[5];
+      v10 = v8;
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2048;
+      v17 = [v9 count];
+      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] finished saving %lu samples", &v14, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v15 = a1[4];
-    v17 = 138543618;
-    v18 = objc_opt_class();
-    v19 = 2114;
-    v20 = v5;
-    v16 = v18;
-    _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] saving samples to HealthKit failed with error: %{public}@", &v17, 0x16u);
+    v14 = 138543618;
+    v15 = objc_opt_class();
+    v16 = 2114;
+    v17 = v5;
+    v13 = v15;
+    _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] saving samples to HealthKit failed with error: %{public}@", &v14, 0x16u);
   }
 
-  v12 = a1[6];
-  v13 = NAEmptyResult();
-  [v12 finishWithResult:v13 error:v5];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = a1[6];
+  v12 = NAEmptyResult();
+  [v11 finishWithResult:v12 error:v5];
 }
 
 @end

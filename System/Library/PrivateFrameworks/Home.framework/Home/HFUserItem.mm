@@ -1,5 +1,7 @@
 @interface HFUserItem
 + (NSMutableDictionary)_fakeHMSettings;
+- (BOOL)_getBoolSettingsValueForKeyPath:(id)path defaultValue:(BOOL)value settingsType:(unint64_t)type;
+- (BOOL)_getFakeBoolSettingsValueForKeyPath:(id)path defaultValue:(BOOL)value;
 - (BOOL)_hasDismissalExpired:(id)expired;
 - (BOOL)_hasValidPrivateSettings;
 - (BOOL)_isSettingsValueForKeyPath:(id)path atMaximumValue:(int64_t)value settingsType:(unint64_t)type;
@@ -24,12 +26,17 @@
 - (id)_incrementSettingsValueForKeyPath:(id)path stepValue:(int64_t)value maximumValue:(int64_t)maximumValue settingsType:(unint64_t)type;
 - (id)_privateSettings;
 - (id)_privateSettingsValueManager;
+- (id)_setBoolSettingsValueForKeyPath:(id)path newValue:(BOOL)value settingsType:(unint64_t)type;
+- (id)_setDismissWalletKeyFeatureOnboarding:(BOOL)onboarding forWalletKeyUUID:(id)d featureDescription:(id)description keyPath:(id)path keyOnThisDevice:(id)device;
 - (id)_setSettingsValueForKeyPath:(id)path settingsType:(unint64_t)type usingBlock:(id)block;
 - (id)_subclass_updateWithOptions:(id)options;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)setDismissedAudioAnalysisOnboardingOnThisDevice:(BOOL)device;
 - (id)setDismissedHomeHubMigrationBanner:(BOOL)banner;
+- (id)setDismissedWelcomeUIBanner:(BOOL)banner;
 - (id)setEnableAnnounce:(BOOL)announce;
 - (unint64_t)nameStyle;
+- (void)_setFakeBoolSettingsValueForKeyPath:(id)path newValue:(BOOL)value;
 @end
 
 @implementation HFUserItem
@@ -116,9 +123,9 @@ void __29__HFUserItem__fakeHMSettings__block_invoke_2()
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [HFUserItem allocWithZone:zone];
-  home = [(HFUserItem *)self home];
+  v5 = objc_msgSend_home(self);
   user = [(HFUserItem *)self user];
-  v7 = [(HFUserItem *)v4 initWithHome:home user:user nameStyle:[(HFUserItem *)self nameStyle]];
+  v7 = [(HFUserItem *)v4 initWithHome:v5 user:user nameStyle:[(HFUserItem *)self nameStyle]];
 
   return v7;
 }
@@ -126,9 +133,9 @@ void __29__HFUserItem__fakeHMSettings__block_invoke_2()
 - (id)_subclass_updateWithOptions:(id)options
 {
   v4 = objc_alloc_init(HFMutableItemUpdateOutcome);
-  home = [(HFUserItem *)self home];
+  v5 = objc_msgSend_home(self);
   user = [(HFUserItem *)self user];
-  v7 = [home hf_handleForUser:user];
+  v7 = [v5 hf_handleForUser:user];
 
   if (v7)
   {
@@ -156,8 +163,8 @@ void __29__HFUserItem__fakeHMSettings__block_invoke_2()
 
 - (NSString)description
 {
-  home = [(HFUserItem *)self home];
-  currentUser = [home currentUser];
+  v3 = objc_msgSend_home(self, a2);
+  currentUser = [v3 currentUser];
   user = [(HFUserItem *)self user];
 
   if (currentUser == user)
@@ -181,9 +188,9 @@ void __29__HFUserItem__fakeHMSettings__block_invoke_2()
 - (id)_accessDescription
 {
   v3 = _HFLocalizedStringWithDefaultValue(@"HFUserAccessDescription", @"HFUserAccessDescription", 1);
-  home = [(HFUserItem *)self home];
+  v4 = objc_msgSend_home(self);
   user = [(HFUserItem *)self user];
-  v6 = [home hf_userIsOwner:user];
+  v6 = [v4 hf_userIsOwner:user];
 
   if (v6)
   {
@@ -197,9 +204,9 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  home2 = [(HFUserItem *)self home];
+  v8 = objc_msgSend_home(self);
   user2 = [(HFUserItem *)self user];
-  v10 = [home2 hf_userIsAdministrator:user2];
+  v10 = [v8 hf_userIsAdministrator:user2];
 
   if (v10)
   {
@@ -207,15 +214,15 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  home3 = [(HFUserItem *)self home];
+  v14 = objc_msgSend_home(self);
   user3 = [(HFUserItem *)self user];
-  v16 = [home3 hf_userIsRestrictedGuest:user3];
+  v16 = [v14 hf_userIsRestrictedGuest:user3];
 
   if (v16)
   {
-    home4 = [(HFUserItem *)self home];
+    v17 = objc_msgSend_home(self);
     user4 = [(HFUserItem *)self user];
-    v11 = [home4 homeAccessControlForUser:user4];
+    v11 = [v17 homeAccessControlForUser:user4];
 
     restrictedGuestAccessSettings = [v11 restrictedGuestAccessSettings];
     guestAccessSchedule = [restrictedGuestAccessSettings guestAccessSchedule];
@@ -282,8 +289,8 @@ LABEL_7:
 - (HMSettings)settings
 {
   user = [(HFUserItem *)self user];
-  home = [(HFUserItem *)self home];
-  v5 = [user userSettingsForHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [user userSettingsForHome:v4];
 
   settings = [v5 settings];
 
@@ -323,8 +330,8 @@ LABEL_7:
 - (id)_privateSettings
 {
   user = [(HFUserItem *)self user];
-  home = [(HFUserItem *)self home];
-  v5 = [user userSettingsForHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [user userSettingsForHome:v4];
 
   privateSettings = [v5 privateSettings];
 
@@ -342,7 +349,7 @@ LABEL_7:
 
 - (id)_getSettingsValueForKeyPath:(id)path defaultValue:(id)value settingsType:(unint64_t)type block:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   blockCopy = block;
@@ -355,15 +362,15 @@ LABEL_7:
       v15 = HFLogForCategory(0x3EuLL);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138412802;
+        v25 = 138412802;
         selfCopy4 = self;
-        v28 = 2112;
-        v29 = pathCopy;
-        v30 = 2112;
-        v31 = valueCopy;
+        v27 = 2112;
+        v28 = pathCopy;
+        v29 = 2112;
+        v30 = valueCopy;
         v16 = "%@ Read setting %@ failed - invalid private settings, returning default value %@";
 LABEL_19:
-        _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, v16, &v26, 0x20u);
+        _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, v16, &v25, 0x20u);
         goto LABEL_20;
       }
 
@@ -397,15 +404,15 @@ LABEL_6:
     {
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138413058;
+        v25 = 138413058;
         selfCopy4 = self;
-        v28 = 2112;
-        v29 = v17;
-        v30 = 2112;
-        v31 = pathCopy;
-        v32 = 2112;
-        v33 = v20;
-        _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Read setting item '%@/%@/%@' : value: %@", &v26, 0x2Au);
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2112;
+        v30 = pathCopy;
+        v31 = 2112;
+        v32 = v20;
+        _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Read setting item '%@/%@/%@' : value: %@", &v25, 0x2Au);
       }
 
       v23 = v20;
@@ -419,15 +426,15 @@ LABEL_6:
     {
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v26 = 138413058;
+        v25 = 138413058;
         selfCopy4 = self;
-        v28 = 2112;
-        v29 = v17;
-        v30 = 2112;
-        v31 = pathCopy;
-        v32 = 2112;
-        v33 = valueCopy;
-        _os_log_error_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_ERROR, "READ HMSETTING FAILED '%@/%@/%@' - returning default value: %@", &v26, 0x2Au);
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2112;
+        v30 = pathCopy;
+        v31 = 2112;
+        v32 = valueCopy;
+        _os_log_error_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_ERROR, "READ HMSETTING FAILED '%@/%@/%@' - returning default value: %@", &v25, 0x2Au);
       }
 
       v18 = valueCopy;
@@ -453,12 +460,12 @@ LABEL_16:
   v15 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412802;
+    v25 = 138412802;
     selfCopy4 = self;
-    v28 = 2112;
-    v29 = pathCopy;
-    v30 = 2112;
-    v31 = valueCopy;
+    v27 = 2112;
+    v28 = pathCopy;
+    v29 = 2112;
+    v30 = valueCopy;
     v16 = "%@ Read setting %@ failed - invalid settings, returning default value %@";
     goto LABEL_19;
   }
@@ -468,14 +475,12 @@ LABEL_20:
   v18 = valueCopy;
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_setSettingsValueForKeyPath:(id)path settingsType:(unint64_t)type usingBlock:(id)block
 {
-  *&v33[11] = *MEMORY[0x277D85DE8];
+  *&v32[11] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   blockCopy = block;
   if (type)
@@ -503,15 +508,15 @@ LABEL_21:
     {
       if (v18)
       {
-        v26 = 138413058;
+        v25 = 138413058;
         selfCopy2 = self;
-        v28 = 2112;
-        v29 = v15;
-        v30 = 2112;
+        v27 = 2112;
+        v28 = v15;
+        v29 = 2112;
         selfCopy3 = pathCopy;
-        v32 = 2112;
-        *v33 = v16;
-        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Updating setting item '%@/%@/%@' to value: %@", &v26, 0x2Au);
+        v31 = 2112;
+        *v32 = v16;
+        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Updating setting item '%@/%@/%@' to value: %@", &v25, 0x2Au);
       }
 
       futureWithNoResult = [_privateSettingsValueManager changeValueForSetting:v15 toValue:v16];
@@ -521,13 +526,13 @@ LABEL_21:
     {
       if (v18)
       {
-        v26 = 138412802;
+        v25 = 138412802;
         selfCopy2 = self;
-        v28 = 2112;
-        v29 = v15;
-        v30 = 2112;
+        v27 = 2112;
+        v28 = v15;
+        v29 = 2112;
         selfCopy3 = pathCopy;
-        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Setting item '%@/%@/%@' not updated", &v26, 0x20u);
+        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Setting item '%@/%@/%@' not updated", &v25, 0x20u);
       }
 
       futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -541,32 +546,73 @@ LABEL_21:
     v20 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v24 = NSStringFromSelector(a2);
-      v26 = 138413314;
-      v25 = @"private";
-      selfCopy2 = v24;
-      v28 = 2112;
+      v23 = NSStringFromSelector(a2);
+      v25 = 138413314;
+      v24 = @"private";
+      selfCopy2 = v23;
+      v27 = 2112;
       if (!type)
       {
-        v25 = @"public";
+        v24 = @"public";
       }
 
-      v29 = v25;
-      v30 = 2112;
+      v28 = v24;
+      v29 = 2112;
       selfCopy3 = self;
-      v32 = 1024;
-      *v33 = v14;
-      v33[2] = 2112;
-      *&v33[3] = _privateSettingsValueManager;
-      _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "%@: No valid %@ settings or value manager found on user: %@ - valid settings %{BOOL}d, value manager %@", &v26, 0x30u);
+      v31 = 1024;
+      *v32 = v14;
+      v32[2] = 2112;
+      *&v32[3] = _privateSettingsValueManager;
+      _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "%@: No valid %@ settings or value manager found on user: %@ - valid settings %{BOOL}d, value manager %@", &v25, 0x30u);
     }
 
     futureWithNoResult2 = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult2;
+}
+
+- (BOOL)_getBoolSettingsValueForKeyPath:(id)path defaultValue:(BOOL)value settingsType:(unint64_t)type
+{
+  valueCopy = value;
+  pathCopy = path;
+  if (HKFakeFeatureOnboardingSettings())
+  {
+    bOOLValue = [(HFUserItem *)self _getFakeBoolSettingsValueForKeyPath:pathCopy defaultValue:0];
+  }
+
+  else
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+    v11 = [(HFUserItem *)self _getSettingsValueForKeyPath:pathCopy defaultValue:v10 settingsType:type block:0];
+    bOOLValue = [v11 BOOLValue];
+  }
+
+  return bOOLValue;
+}
+
+- (id)_setBoolSettingsValueForKeyPath:(id)path newValue:(BOOL)value settingsType:(unint64_t)type
+{
+  valueCopy = value;
+  pathCopy = path;
+  if (HKFakeFeatureOnboardingSettings())
+  {
+    [(HFUserItem *)self _setFakeBoolSettingsValueForKeyPath:pathCopy newValue:valueCopy];
+
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+  }
+
+  else
+  {
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __68__HFUserItem__setBoolSettingsValueForKeyPath_newValue_settingsType___block_invoke;
+    v11[3] = &__block_descriptor_33_e63___NSNumber_24__0__HMSetting_8__HFHomeKitSettingsValueManager_16l;
+    v12 = valueCopy;
+    futureWithNoResult = [(HFUserItem *)self _setSettingsValueForKeyPath:pathCopy settingsType:type usingBlock:v11];
+  }
+
+  return futureWithNoResult;
 }
 
 - (BOOL)_isSettingsValueForKeyPath:(id)path atMaximumValue:(int64_t)value settingsType:(unint64_t)type
@@ -594,29 +640,100 @@ id __84__HFUserItem__incrementSettingsValueForKeyPath_stepValue_maximumValue_set
 {
   v5 = a2;
   v6 = a3;
-  if (!v5)
-  {
-    goto LABEL_7;
-  }
-
-  objc_opt_class();
-  v7 = [v6 valueForSetting:v5];
-  v8 = (objc_opt_isKindOfClass() & 1) != 0 ? v7 : 0;
-  v9 = v8;
-  v10 = [v9 integerValue];
-
-  if (v10 < *(a1 + 32))
+  if (v5 && ((objc_opt_class(), [v6 valueForSetting:v5], v7 = objc_claimAutoreleasedReturnValue(), (objc_opt_isKindOfClass() & 1) == 0) ? (v8 = 0) : (v8 = v7), v9 = v8, v10 = objc_msgSend(v9, "integerValue"), v9, v7, v10 < *(a1 + 32)))
   {
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40) + v10];
   }
 
   else
   {
-LABEL_7:
     v11 = 0;
   }
 
   return v11;
+}
+
+- (BOOL)_getFakeBoolSettingsValueForKeyPath:(id)path defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  v25 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  v8 = HFLogForCategory(0x3EuLL);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = 138412546;
+    selfCopy = self;
+    v23 = 2112;
+    v24 = pathCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@ ACCESSING FAKE SETTINGS FOR %@ - DO NOT FILE RADARS.", &v21, 0x16u);
+  }
+
+  if (!HKFakeFeatureOnboardingSettings())
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HFUserItem.m" lineNumber:407 description:@"This is only useful for layout & design testing. Do not use unless you know what you are doing"];
+  }
+
+  v9 = +[HFUserItem _fakeHMSettings];
+  v10 = [v9 objectForKeyedSubscript:pathCopy];
+
+  if (!v10)
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+    v12 = +[HFUserItem _fakeHMSettings];
+    [v12 setObject:v11 forKeyedSubscript:pathCopy];
+  }
+
+  objc_opt_class();
+  v13 = +[HFUserItem _fakeHMSettings];
+  v14 = [v13 objectForKeyedSubscript:pathCopy];
+  if (objc_opt_isKindOfClass())
+  {
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = v15;
+
+  if (!v16)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"HFUserItem.m" lineNumber:414 description:@"This should not happen"];
+  }
+
+  bOOLValue = [v16 BOOLValue];
+
+  return bOOLValue;
+}
+
+- (void)_setFakeBoolSettingsValueForKeyPath:(id)path newValue:(BOOL)value
+{
+  valueCopy = value;
+  v16 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  v8 = HFLogForCategory(0x3EuLL);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 138412546;
+    selfCopy = self;
+    v14 = 2112;
+    v15 = pathCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@ ACCESSING FAKE SETTINGS FOR %@ - DO NOT FILE RADARS.", &v12, 0x16u);
+  }
+
+  if (!HKFakeFeatureOnboardingSettings())
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HFUserItem.m" lineNumber:423 description:@"This is only useful for layout & design testing. Do not use unless you know what you are doing"];
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+  v10 = +[HFUserItem _fakeHMSettings];
+  [v10 setObject:v9 forKeyedSubscript:pathCopy];
 }
 
 - (BOOL)hasDismissedCameraUpgradeBanner
@@ -643,11 +760,21 @@ LABEL_7:
   return [(HFUserItem *)self _getBoolSettingsValueForKeyPath:@"root.home.dismissedWelcomeUI" defaultValue:0 settingsType:1];
 }
 
+- (id)setDismissedWelcomeUIBanner:(BOOL)banner
+{
+  bannerCopy = banner;
+  v5 = +[HFLocalSettingCachingUtility sharedInstance];
+  hf_home = [(HFUserItem *)self hf_home];
+  [v5 setWelcomeBannerDismissedLocalCachedValue:bannerCopy home:hf_home];
+
+  return [(HFUserItem *)self _setBoolSettingsValueForKeyPath:@"root.home.dismissedWelcomeUI" newValue:bannerCopy settingsType:1];
+}
+
 - (id)setEnableAnnounce:(BOOL)announce
 {
-  home = [(HFUserItem *)self home];
+  v5 = objc_msgSend_home(self, a2);
   user = [(HFUserItem *)self user];
-  v7 = [home homeAccessControlForUser:user];
+  v7 = [v5 homeAccessControlForUser:user];
 
   v8 = MEMORY[0x277D2C900];
   v12[0] = MEMORY[0x277D85DD0];
@@ -690,9 +817,9 @@ uint64_t __32__HFUserItem_setEnableAnnounce___block_invoke_2(uint64_t a1, uint64
 
 - (BOOL)isAnnounceEnabled
 {
-  home = [(HFUserItem *)self home];
+  v3 = objc_msgSend_home(self, a2);
   user = [(HFUserItem *)self user];
-  v5 = [home homeAccessControlForUser:user];
+  v5 = [v3 homeAccessControlForUser:user];
 
   LOBYTE(user) = [v5 isAnnounceAccessAllowed];
   return user;
@@ -700,20 +827,20 @@ uint64_t __32__HFUserItem_setEnableAnnounce___block_invoke_2(uint64_t a1, uint64
 
 - (id)_hasDismissedWalletKeyFeatureOnboardingForKeyPath:(id)path onThisDeviceKeyPath:(id)keyPath
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyPathCopy = keyPath;
   if ([(HFUserItem *)self _getBoolSettingsValueForKeyPath:path defaultValue:1 settingsType:1])
   {
-    home = [(HFUserItem *)self home];
-    hf_walletKeyUUID = [home hf_walletKeyUUID];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDeviceKeyPath___block_invoke;
-    v13[3] = &unk_277DFCB20;
-    v13[4] = self;
-    v14 = keyPathCopy;
-    v15 = 1;
-    v9 = [hf_walletKeyUUID flatMap:v13];
+    v7 = objc_msgSend_home(self);
+    hf_walletKeyUUID = [v7 hf_walletKeyUUID];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDeviceKeyPath___block_invoke;
+    v12[3] = &unk_277DFCB20;
+    v12[4] = self;
+    v13 = keyPathCopy;
+    v14 = 1;
+    v9 = [hf_walletKeyUUID flatMap:v12];
   }
 
   else
@@ -722,21 +849,19 @@ uint64_t __32__HFUserItem_setEnableAnnounce___block_invoke_2(uint64_t a1, uint64
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]";
+      v16 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]";
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) home level flag is not onboarded. Returning NO since user can't onboard if home isn't onboarded.", buf, 0xCu);
     }
 
     v9 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC28]];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDeviceKeyPath___block_invoke(uint64_t a1, void *a2)
 {
-  *&v44[5] = *MEMORY[0x277D85DE8];
+  *&v43[5] = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   v4 = v3;
@@ -760,9 +885,9 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
       v8 = HFLogForCategory(0x3EuLL);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v36 = 136315138;
-        v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "(%s) Failed to fetch shared app suite user defaults!", &v36, 0xCu);
+        v35 = 136315138;
+        v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+        _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "(%s) Failed to fetch shared app suite user defaults!", &v35, 0xCu);
       }
     }
 
@@ -781,20 +906,20 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
         {
           v15 = [v10 allKeys];
           v16 = [v15 count];
-          v36 = 136316418;
-          v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-          v38 = 2112;
-          *v39 = v10;
-          *&v39[8] = 2048;
-          v40 = v16;
-          *v41 = 2112;
-          *&v41[2] = v6;
-          strcpy(&v42, "p\bhash");
-          HIBYTE(v42) = 0;
-          v43 = 0;
-          LOWORD(v44[0]) = 2112;
-          *(v44 + 2) = v6;
-          _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "(%s) dict does NOT contain wallet key uuid. dict = %@ | keys.count = %ld | walletKeyUUID = %@ (Hashed walletKeyUUID = %{mask.hash}@)", &v36, 0x3Eu);
+          v35 = 136316418;
+          v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+          v37 = 2112;
+          *v38 = v10;
+          *&v38[8] = 2048;
+          v39 = v16;
+          *v40 = 2112;
+          *&v40[2] = v6;
+          strcpy(&v41, "p\bhash");
+          HIBYTE(v41) = 0;
+          v42 = 0;
+          LOWORD(v43[0]) = 2112;
+          *(v43 + 2) = v6;
+          _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "(%s) dict does NOT contain wallet key uuid. dict = %@ | keys.count = %ld | walletKeyUUID = %@ (Hashed walletKeyUUID = %{mask.hash}@)", &v35, 0x3Eu);
         }
       }
 
@@ -808,20 +933,20 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
         {
           v20 = [v10 allKeys];
           v21 = [v20 count];
-          v36 = 136316418;
-          v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-          v38 = 2112;
-          *v39 = v10;
-          *&v39[8] = 2048;
-          v40 = v21;
-          *v41 = 2112;
-          *&v41[2] = v6;
-          strcpy(&v42, "p\bhash");
-          HIBYTE(v42) = 0;
-          v43 = 0;
-          LOWORD(v44[0]) = 2112;
-          *(v44 + 2) = v6;
-          _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedOnThisDeviceObj is NOT found among dict %@ (count = %ld | walletKeyUUID = %@ (uuid hashed = %{mask.hash}@)", &v36, 0x3Eu);
+          v35 = 136316418;
+          v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+          v37 = 2112;
+          *v38 = v10;
+          *&v38[8] = 2048;
+          v39 = v21;
+          *v40 = 2112;
+          *&v40[2] = v6;
+          strcpy(&v41, "p\bhash");
+          HIBYTE(v41) = 0;
+          v42 = 0;
+          LOWORD(v43[0]) = 2112;
+          *(v43 + 2) = v6;
+          _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedOnThisDeviceObj is NOT found among dict %@ (count = %ld | walletKeyUUID = %@ (uuid hashed = %{mask.hash}@)", &v35, 0x3Eu);
         }
       }
 
@@ -844,11 +969,11 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
         v25 = HFLogForCategory(0x3EuLL);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = 136315394;
-          v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-          v38 = 2112;
-          *v39 = v22;
-          _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedOnThisDeviceObj is NOT an NSNumber. hasDismissedOnThisDeviceObj = %@", &v36, 0x16u);
+          v35 = 136315394;
+          v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+          v37 = 2112;
+          *v38 = v22;
+          _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedOnThisDeviceObj is NOT an NSNumber. hasDismissedOnThisDeviceObj = %@", &v35, 0x16u);
         }
       }
     }
@@ -858,11 +983,11 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
       v22 = HFLogForCategory(0x3EuLL);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 136315394;
-        v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-        v38 = 2112;
-        *v39 = v7;
-        _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "(%s) dictionary is nil for 'onThisDevice' key. defaults = %@", &v36, 0x16u);
+        v35 = 136315394;
+        v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+        v37 = 2112;
+        *v38 = v7;
+        _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "(%s) dictionary is nil for 'onThisDevice' key. defaults = %@", &v35, 0x16u);
       }
     }
 
@@ -880,35 +1005,100 @@ id __84__HFUserItem__hasDismissedWalletKeyFeatureOnboardingForKeyPath_onThisDevi
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     v30 = *(a1 + 48);
-    v36 = 136316674;
-    v37 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
-    v38 = 1024;
-    *v39 = v30;
-    *&v39[4] = 1024;
-    *&v39[6] = v26;
-    LOWORD(v40) = 1024;
-    *(&v40 + 2) = v28 & 1;
-    HIWORD(v40) = 2112;
-    *v41 = v6;
-    *&v41[8] = 2160;
-    v42 = 1752392040;
-    v43 = 2112;
-    *v44 = v6;
-    _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedForHome = %{BOOL}d. hasDismissedOnThisDevice = %{BOOL}d. result = %{BOOL}d | walletKeyUUID = %@ (uuid hashed = %{mask.hash}@)", &v36, 0x3Cu);
+    v35 = 136316674;
+    v36 = "[HFUserItem _hasDismissedWalletKeyFeatureOnboardingForKeyPath:onThisDeviceKeyPath:]_block_invoke";
+    v37 = 1024;
+    *v38 = v30;
+    *&v38[4] = 1024;
+    *&v38[6] = v26;
+    LOWORD(v39) = 1024;
+    *(&v39 + 2) = v28 & 1;
+    HIWORD(v39) = 2112;
+    *v40 = v6;
+    *&v40[8] = 2160;
+    v41 = 1752392040;
+    v42 = 2112;
+    *v43 = v6;
+    _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "(%s) hasDismissedForHome = %{BOOL}d. hasDismissedOnThisDevice = %{BOOL}d. result = %{BOOL}d | walletKeyUUID = %@ (uuid hashed = %{mask.hash}@)", &v35, 0x3Cu);
   }
 
   v31 = MEMORY[0x277D2C900];
   v32 = [MEMORY[0x277CCABB0] numberWithBool:v28 & 1];
   v33 = [v31 futureWithResult:v32];
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v33;
+}
+
+- (id)_setDismissWalletKeyFeatureOnboarding:(BOOL)onboarding forWalletKeyUUID:(id)d featureDescription:(id)description keyPath:(id)path keyOnThisDevice:(id)device
+{
+  onboardingCopy = onboarding;
+  v44[2] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  descriptionCopy = description;
+  deviceCopy = device;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke;
+  aBlock[3] = &unk_277DFCB48;
+  aBlock[4] = self;
+  v15 = descriptionCopy;
+  v41 = v15;
+  v43 = onboardingCopy;
+  v16 = deviceCopy;
+  v42 = v16;
+  pathCopy = path;
+  v18 = _Block_copy(aBlock);
+  v19 = v18;
+  if (dCopy)
+  {
+    v20 = MEMORY[0x277D2C900];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke_92;
+    v37[3] = &unk_277DFCB70;
+    v21 = &v39;
+    v39 = v18;
+    v38 = dCopy;
+    recoverIgnoringError = [v20 futureWithBlock:v37];
+    v23 = v38;
+  }
+
+  else
+  {
+    v24 = objc_msgSend_home(self);
+    [v24 hf_fetchWalletKeyDeviceStateForCurrentDevice];
+    v25 = v32 = v16;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke_2;
+    v33[3] = &unk_277DFCB98;
+    v21 = &v35;
+    v35 = v19;
+    v33[4] = self;
+    v34 = v15;
+    v36 = onboardingCopy;
+    v26 = [v25 flatMap:v33];
+    recoverIgnoringError = [v26 recoverIgnoringError];
+
+    v16 = v32;
+    dCopy = 0;
+    v23 = v34;
+  }
+
+  v27 = [(HFUserItem *)self _setBoolSettingsValueForKeyPath:pathCopy newValue:onboardingCopy settingsType:1];
+
+  v28 = MEMORY[0x277D2C900];
+  v44[0] = recoverIgnoringError;
+  v44[1] = v27;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v30 = [v28 combineAllFutures:v29];
+
+  return v30;
 }
 
 void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -916,21 +1106,21 @@ void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_fe
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     v7 = *(a1 + 56);
-    v20 = 138413826;
-    v21 = v5;
-    v22 = 2080;
-    v23 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
-    v24 = 2112;
-    v25 = v6;
-    v26 = 1024;
-    v27 = v7;
-    v28 = 2112;
-    v29 = v3;
-    v30 = 2160;
-    v31 = 1752392040;
-    v32 = 2112;
-    v33 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Setting Wallet Key %@ Onboarding value: %{BOOL}d for walletKeyUUID: %@ (uuid hashed = %{mask.hash}@)", &v20, 0x44u);
+    v19 = 138413826;
+    v20 = v5;
+    v21 = 2080;
+    v22 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
+    v23 = 2112;
+    v24 = v6;
+    v25 = 1024;
+    v26 = v7;
+    v27 = 2112;
+    v28 = v3;
+    v29 = 2160;
+    v30 = 1752392040;
+    v31 = 2112;
+    v32 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Setting Wallet Key %@ Onboarding value: %{BOOL}d for walletKeyUUID: %@ (uuid hashed = %{mask.hash}@)", &v19, 0x44u);
   }
 
   v8 = [*(a1 + 32) userDefaults];
@@ -939,15 +1129,15 @@ void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_fe
     v9 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v19 = *(a1 + 40);
-      v20 = 138412802;
-      v21 = v18;
-      v22 = 2080;
-      v23 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
-      v24 = 2112;
-      v25 = v19;
-      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%@:%s) Failed to fetch shared app suite user defaults for %@", &v20, 0x20u);
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40);
+      v19 = 138412802;
+      v20 = v17;
+      v21 = 2080;
+      v22 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
+      v23 = 2112;
+      v24 = v18;
+      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "(%@:%s) Failed to fetch shared app suite user defaults for %@", &v19, 0x20u);
     }
   }
 
@@ -960,9 +1150,9 @@ void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_fe
     v12 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315138;
-      v21 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "(%s) Dictionary for 'keyOnThisDevice' doesn't exist.", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "(%s) Dictionary for 'keyOnThisDevice' doesn't exist.", &v19, 0xCu);
     }
   }
 
@@ -975,16 +1165,14 @@ void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_fe
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [v11 count];
-    v20 = 136315650;
-    v21 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2048;
-    v25 = v16;
-    _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "(%s) Updating wallet key feature onboarding | dict = %@ (count = %lu) ", &v20, 0x20u);
+    v19 = 136315650;
+    v20 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2048;
+    v24 = v16;
+    _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "(%s) Updating wallet key feature onboarding | dict = %@ (count = %lu) ", &v19, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke_92(uint64_t a1, void *a2)
@@ -999,7 +1187,7 @@ void __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_fe
 
 id __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_featureDescription_keyPath_keyOnThisDevice___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [a2 walletKey];
   v4 = [v3 UUID];
 
@@ -1009,15 +1197,15 @@ id __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_feat
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315906;
-      v14 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke_2";
-      v15 = 2112;
-      v16 = v4;
-      v17 = 2160;
-      v18 = 1752392040;
-      v19 = 2112;
-      v20 = v4;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Fetched wallet key UUID %@ (hashed uuid = %{mask.hash}@)", &v13, 0x2Au);
+      v12 = 136315906;
+      v13 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v4;
+      v16 = 2160;
+      v17 = 1752392040;
+      v18 = 2112;
+      v19 = v4;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Fetched wallet key UUID %@ (hashed uuid = %{mask.hash}@)", &v12, 0x2Au);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1027,24 +1215,22 @@ id __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_feat
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v12 = *(a1 + 56);
-      v13 = 138413058;
-      v14 = v10;
-      v15 = 2080;
-      v16 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
-      v17 = 2112;
-      v18 = v11;
-      v19 = 1024;
-      LODWORD(v20) = v12;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%@:%s) Attempting to set wallet key %@ onboarding value: %{BOOL}d but it looks like Wallet Key doesn't exist!", &v13, 0x26u);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 56);
+      v12 = 138413058;
+      v13 = v9;
+      v14 = 2080;
+      v15 = "[HFUserItem _setDismissWalletKeyFeatureOnboarding:forWalletKeyUUID:featureDescription:keyPath:keyOnThisDevice:]_block_invoke";
+      v16 = 2112;
+      v17 = v10;
+      v18 = 1024;
+      LODWORD(v19) = v11;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%@:%s) Attempting to set wallet key %@ onboarding value: %{BOOL}d but it looks like Wallet Key doesn't exist!", &v12, 0x26u);
     }
   }
 
   v7 = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1073,17 +1259,51 @@ id __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_feat
   }
 
   v5 = [userDefaults dictionaryForKey:@"HFUserHasDismissedAudioAnalysisOnboarding"];
-  home = [(HFUserItem *)self home];
-  uniqueIdentifier = [home uniqueIdentifier];
+  v6 = objc_msgSend_home(self);
+  uniqueIdentifier = [v6 uniqueIdentifier];
   uUIDString = [uniqueIdentifier UUIDString];
   v9 = [v5 hmf_BOOLForKey:uUIDString];
 
   return v9;
 }
 
+- (id)setDismissedAudioAnalysisOnboardingOnThisDevice:(BOOL)device
+{
+  deviceCopy = device;
+  userDefaults = [(HFUserItem *)self userDefaults];
+  if (!userDefaults)
+  {
+    v6 = HFLogForCategory(0x3EuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v15 = 0;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Failed to fetch shared app suite user defaults!", v15, 2u);
+    }
+  }
+
+  v7 = [userDefaults dictionaryForKey:@"HFUserHasDismissedAudioAnalysisOnboarding"];
+  dictionary = [v7 mutableCopy];
+
+  if (!dictionary)
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:deviceCopy];
+  v10 = objc_msgSend_home(self);
+  uniqueIdentifier = [v10 uniqueIdentifier];
+  uUIDString = [uniqueIdentifier UUIDString];
+  [dictionary setObject:v9 forKey:uUIDString];
+
+  [userDefaults setObject:dictionary forKey:@"HFUserHasDismissedAudioAnalysisOnboarding"];
+  futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+
+  return futureWithNoResult;
+}
+
 - (BOOL)hasDismissedHomeHubMigrationBanner
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   userDefaults = [(HFUserItem *)self userDefaults];
   if (!userDefaults)
   {
@@ -1099,16 +1319,16 @@ id __112__HFUserItem__setDismissWalletKeyFeatureOnboarding_forWalletKeyUUID_feat
   v6 = v5;
   if (v5)
   {
-    v29 = 0;
-    v7 = [v5 hmf_integerForKey:@"majorVersion" error:&v29];
-    v8 = v29;
+    v28 = 0;
+    v7 = [v5 hmf_integerForKey:@"majorVersion" error:&v28];
+    v8 = v28;
     if (v8)
     {
       v9 = HFLogForCategory(0x3EuLL);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = v8;
+        v30 = v8;
         _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Failed to decode major OS version for when home hub migration banner was dismissed! Error: %@", buf, 0xCu);
       }
 
@@ -1119,9 +1339,9 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v28 = 0;
-    v11 = [v6 hmf_integerForKey:@"minorVersion" error:&v28];
-    v12 = v28;
+    v27 = 0;
+    v11 = [v6 hmf_integerForKey:@"minorVersion" error:&v27];
+    v12 = v27;
     if (v12)
     {
       v9 = v12;
@@ -1129,7 +1349,7 @@ LABEL_17:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = v9;
+        v30 = v9;
         _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Failed to decode minor OS version for when home hub migration banner was dismissed! Error: %@", buf, 0xCu);
       }
 
@@ -1137,27 +1357,27 @@ LABEL_17:
     }
 
     processInfo = [MEMORY[0x277CCAC38] processInfo];
-    v17 = processInfo;
+    v16 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
-    v18 = v11 < 0 && v7 == 0;
-    if (v7 < 0 || v18)
+    v17 = v11 < 0 && v7 == 0;
+    if (v7 < 0 || v17)
     {
-      v21 = HFLogForCategory(0x3EuLL);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = HFLogForCategory(0x3EuLL);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218752;
-        v31 = v7;
-        v32 = 2048;
-        v33 = v11;
-        v34 = 2048;
-        v35 = 0;
-        v36 = 2048;
-        v37 = 0;
-        _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Ignoring previous user dismissal for home hub migration banner due to updated system software. Previous OS version: %ld.%ld | Current OS version: %ld.%ld", buf, 0x2Au);
+        v30 = v7;
+        v31 = 2048;
+        v32 = v11;
+        v33 = 2048;
+        v34 = 0;
+        v35 = 2048;
+        v36 = 0;
+        _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Ignoring previous user dismissal for home hub migration banner due to updated system software. Previous OS version: %ld.%ld | Current OS version: %ld.%ld", buf, 0x2Au);
       }
 
       v10 = 0;
@@ -1165,59 +1385,59 @@ LABEL_17:
     }
 
     objc_opt_class();
-    v19 = [userDefaults valueForKey:@"HFUserHasDismissedHomeHubMigrationBannerDismissalDate"];
+    v18 = [userDefaults valueForKey:@"HFUserHasDismissedHomeHubMigrationBannerDismissalDate"];
     if (objc_opt_isKindOfClass())
     {
-      v20 = v19;
+      v19 = v18;
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v21 = v20;
+    v20 = v19;
 
-    v22 = [(HFUserItem *)self _hasDismissalExpired:v21];
-    v23 = HFLogForCategory(0x3EuLL);
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-    if (v22)
+    v21 = [(HFUserItem *)self _hasDismissalExpired:v20];
+    v22 = HFLogForCategory(0x3EuLL);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    if (v21)
     {
-      if (v24)
+      if (v23)
       {
         *buf = 138412546;
-        v31 = v21;
-        v32 = 1024;
-        LODWORD(v33) = 1;
-        v25 = "Ignoring previous user dismissal for home hub migration banner due to dismissal expired after 2 weeks | dismissalDate: %@ | hasExpired: %{BOOL}d ";
-        v26 = v23;
-        v27 = 18;
+        v30 = v20;
+        v31 = 1024;
+        LODWORD(v32) = 1;
+        v24 = "Ignoring previous user dismissal for home hub migration banner due to dismissal expired after 2 weeks | dismissalDate: %@ | hasExpired: %{BOOL}d ";
+        v25 = v22;
+        v26 = 18;
 LABEL_37:
-        _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+        _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, v24, buf, v26);
       }
     }
 
-    else if (v24)
+    else if (v23)
     {
       *buf = 134219266;
-      v31 = v7;
-      v32 = 2048;
-      v33 = v11;
-      v34 = 2048;
-      v35 = 0;
-      v36 = 2048;
-      v37 = 0;
-      v38 = 2112;
-      v39 = v21;
-      v40 = 1024;
-      v41 = 0;
-      v25 = "User did previously dismiss home hub migration banner on OS version: %ld.%ld | Current OS version: %ld.%ld | dismissalDate: %@ | hasExpired: %{BOOL}d";
-      v26 = v23;
-      v27 = 58;
+      v30 = v7;
+      v31 = 2048;
+      v32 = v11;
+      v33 = 2048;
+      v34 = 0;
+      v35 = 2048;
+      v36 = 0;
+      v37 = 2112;
+      v38 = v20;
+      v39 = 1024;
+      v40 = 0;
+      v24 = "User did previously dismiss home hub migration banner on OS version: %ld.%ld | Current OS version: %ld.%ld | dismissalDate: %@ | hasExpired: %{BOOL}d";
+      v25 = v22;
+      v26 = 58;
       goto LABEL_37;
     }
 
-    v10 = !v22;
+    v10 = !v21;
 LABEL_39:
 
     v9 = 0;
@@ -1234,7 +1454,6 @@ LABEL_39:
   v10 = 0;
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1266,7 +1485,7 @@ LABEL_18:
   v9 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   else

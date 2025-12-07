@@ -82,8 +82,7 @@ void __64__VUIASDDialogObserver_handleAuthenticateRequest_resultHandler___block_
   v5 = a3;
   if (v5)
   {
-    a2;
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
@@ -162,8 +161,7 @@ void __58__VUIASDDialogObserver_handleDialogRequest_resultHandler___block_invoke
   v5 = a3;
   if (v5)
   {
-    a2;
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;

@@ -1,416 +1,3 @@
-uint64_t specialized PacerGoalCompletionModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x7079547472656C61 && a2 == 0xE900000000000065;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x647574696E67616DLL && a2 == 0xE900000000000065 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 1953066613 && a2 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 0x6E6F697461727564 && a2 == 0xE800000000000000)
-  {
-
-    return 3;
-  }
-
-  else
-  {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v6)
-    {
-      return 3;
-    }
-
-    else
-    {
-      return 4;
-    }
-  }
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.exerciseRingCompleted.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.exerciseRingCompleted;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.exerciseRingCompleted.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.exerciseRingCompleted = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.intervalEnded.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.intervalEnded;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.intervalEnded.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.intervalEnded = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.moveRingCompleted.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.moveRingCompleted;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.moveRingCompleted.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.moveRingCompleted = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceAheadOfGhost.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceAheadOfGhost;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceAheadOfGhost.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceAheadOfGhost = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceBehindGhost.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceBehindGhost;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceBehindGhost.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceBehindGhost = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceExpired.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceExpired;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceExpired.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceExpired = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceOffRoute.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceOffRoute;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceOffRoute.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceOffRoute = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceOnRoute.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceOnRoute;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceOnRoute.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceOnRoute = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceRouteCompletedRaceLost.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceRouteCompletedRaceLost;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceRouteCompletedRaceLost.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceRouteCompletedRaceLost = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceRouteCompleteRaceWon.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.raceRouteCompleteRaceWon;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.raceRouteCompleteRaceWon.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.raceRouteCompleteRaceWon = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.trackStatusChanged.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.trackStatusChanged;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.trackStatusChanged.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.trackStatusChanged = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.workoutPaused.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.workoutPaused;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.workoutPaused.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.workoutPaused = v1;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.workoutResumed.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = static BasicVoiceFeedbackAlerts.workoutResumed;
-  return result;
-}
-
-uint64_t static BasicVoiceFeedbackAlerts.workoutResumed.setter(char *a1)
-{
-  v1 = *a1;
-  result = swift_beginAccess();
-  static BasicVoiceFeedbackAlerts.workoutResumed = v1;
-  return result;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance BasicVoiceFeedbackAlerts.CodingKeys()
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x277C670A0](0);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance BasicVoiceFeedbackAlerts.CodingKeys()
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x277C670A0](0);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance BasicVoiceFeedbackAlerts.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  if (a1 == 0x7079547472656C61 && a2 == 0xE900000000000065)
-  {
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v7 = v5 ^ 1;
-  }
-
-  *a3 = v7 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance BasicVoiceFeedbackAlerts.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance BasicVoiceFeedbackAlerts.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t BasicVoiceFeedbackAlerts.encode(to:)(void *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements24BasicVoiceFeedbackAlertsV10CodingKeys33_FFD12A5356160AA1271CAF13B365BACELLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements24BasicVoiceFeedbackAlertsV10CodingKeys33_FFD12A5356160AA1271CAF13B365BACELLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v11 - v6;
-  v8 = *v1;
-  v9 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12 = v8;
-  lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
-}
-
-unint64_t lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t BasicVoiceFeedbackAlerts.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements24BasicVoiceFeedbackAlertsV10CodingKeys33_FFD12A5356160AA1271CAF13B365BACELLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements24BasicVoiceFeedbackAlertsV10CodingKeys33_FFD12A5356160AA1271CAF13B365BACELLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v12 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts.CodingKeys and conformance BasicVoiceFeedbackAlerts.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v2)
-  {
-    lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    *a2 = v13;
-  }
-
-  return __swift_destroy_boxed_opaque_existential_0Tm(a1);
-}
-
-unint64_t instantiation function for generic protocol witness table for BasicVoiceFeedbackAlerts(void *a1)
-{
-  a1[1] = lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts();
-  a1[2] = lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts();
-  result = lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts();
-  a1[3] = result;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts()
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts;
-  if (!lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BasicVoiceFeedbackAlerts and conformance BasicVoiceFeedbackAlerts);
-  }
-
-  return result;
-}
-
 uint64_t sub_274C5CCA0@<X0>(_BYTE *a1@<X8>)
 {
   result = swift_beginAccess();
@@ -717,51 +304,48 @@ _WORD *storeEnumTagSinglePayload for BasicVoiceFeedbackAlerts.CodingKeys(_WORD *
 
 uint64_t dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
+  v9 = (*(a3 + 8) + **(a3 + 8));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:)(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
-uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, unsigned __int8 a2)
+uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, uint64_t a2, __n128 a3)
 {
-  v2 = 0x747065636361;
-  v3 = a1;
+  v3 = 0x747065636361;
+  v4 = a1;
   if (a1 > 1u)
   {
     if (a1 == 2)
     {
-      v4 = 0x6573756170;
+      v5 = 0x6573756170;
     }
 
     else
     {
-      v4 = 0x54726F466574756DLL;
+      v5 = 0x54726F466574756DLL;
     }
 
-    if (v3 == 2)
+    if (v4 == 2)
     {
-      v5 = 0xE500000000000000;
+      v6 = 0xE500000000000000;
     }
 
     else
     {
-      v5 = 0xEC0000007961646FLL;
+      v6 = 0xEC0000007961646FLL;
     }
   }
 
@@ -769,83 +353,91 @@ uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, unsigned __int8 a2)
   {
     if (a1)
     {
-      v4 = 0x7463656A6572;
+      v5 = 0x7463656A6572;
     }
 
     else
     {
-      v4 = 0x747065636361;
+      v5 = 0x747065636361;
     }
 
-    v5 = 0xE600000000000000;
+    v6 = 0xE600000000000000;
   }
 
-  v6 = 0xE500000000000000;
-  v7 = 0x6573756170;
+  v7 = 0xE500000000000000;
+  v8 = 0x6573756170;
   if (a2 != 2)
   {
-    v7 = 0x54726F466574756DLL;
-    v6 = 0xEC0000007961646FLL;
+    v8 = 0x54726F466574756DLL;
+    v7 = 0xEC0000007961646FLL;
   }
 
   if (a2)
   {
-    v2 = 0x7463656A6572;
+    v3 = 0x7463656A6572;
   }
 
   if (a2 <= 1u)
   {
-    v8 = v2;
+    v9 = v3;
   }
 
   else
   {
-    v8 = v7;
+    v9 = v8;
   }
 
   if (a2 <= 1u)
   {
-    v9 = 0xE600000000000000;
+    v10 = 0xE600000000000000;
   }
 
   else
   {
-    v9 = v6;
+    v10 = v7;
   }
 
-  if (v4 == v8 && v5 == v9)
+  if (v5 == v9 && v6 == v10)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v10 & 1;
+  return v11 & 1;
+}
+
+WorkoutAnnouncements::WorkoutReminderControlsDirectInvocation __swiftcall WorkoutReminderControlsDirectInvocation.init(action:identifier:)(WorkoutAnnouncements::WorkoutReminderControlsDirectInvocation::Action action, Swift::String_optional identifier)
+{
+  *v2 = *action;
+  *(v2 + 8) = identifier;
+  result.identifier = identifier;
+  result.action = action;
+  return result;
 }
 
 id WorkoutReminderControlsDirectInvocation.asStartLocalRequest(device:)(void *a1)
 {
   v3 = type metadata accessor for Parse.DirectInvocation();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v21[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = *v1;
-  v9 = *(v1 + 1);
-  v10 = *(v1 + 2);
-  v11 = objc_allocWithZone(MEMORY[0x277D5C220]);
-  v12 = MEMORY[0x277C66D70](0xD00000000000003ELL, 0x8000000274C70280);
-  v13 = [v11 initWithIdentifier_];
+  v6 = &v19[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = *v1;
+  v8 = *(v1 + 1);
+  v9 = *(v1 + 2);
+  v10 = objc_allocWithZone(MEMORY[0x277D5C220]);
+  v11 = MEMORY[0x277C66D70](0xD00000000000003ELL, 0x8000000274C70280);
+  v12 = [v10 initWithIdentifier_];
 
-  v21[8] = v8;
-  v22 = v9;
-  v23 = v10;
+  v19[8] = v7;
+  v20 = v8;
+  v21 = v9;
   WorkoutReminderControlsDirectInvocation.asDirectInvocation()();
   isa = Parse.DirectInvocation.userData.getter();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
   if (isa)
   {
     specialized _dictionaryUpCast<A, B, C, D>(_:)(isa);
@@ -853,16 +445,15 @@ id WorkoutReminderControlsDirectInvocation.asStartLocalRequest(device:)(void *a1
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
-  [v13 setUserData_];
+  [v12 setUserData_];
 
-  v15 = objc_opt_self();
-  v16 = a1[4];
+  v14 = objc_opt_self();
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v17 = DeviceState.asInvocationContext.getter();
-  v18 = [v15 runSiriKitExecutorCommandWithContext:v17 payload:v13];
+  v15 = DeviceState.asInvocationContext.getter();
+  v16 = [v14 runSiriKitExecutorCommandWithContext:v15 payload:v12];
 
-  v19 = [v15 wrapCommandInStartLocalRequest_];
-  return v19;
+  v17 = [v14 wrapCommandInStartLocalRequest_];
+  return v17;
 }
 
 WorkoutAnnouncements::WorkoutReminderControlsDirectInvocation::Action_optional __swiftcall WorkoutReminderControlsDirectInvocation.Action.init(rawValue:)(Swift::String rawValue)
@@ -910,24 +501,19 @@ uint64_t WorkoutReminderControlsDirectInvocation.Action.rawValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance WorkoutReminderControlsDirectInvocation.Action()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance WorkoutReminderControlsDirectInvocation.Action()
+uint64_t protocol witness for Hashable.hash(into:) in conformance WorkoutReminderControlsDirectInvocation.Action(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WorkoutReminderControlsDirectInvocation.Action()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WorkoutReminderControlsDirectInvocation.Action(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -973,151 +559,149 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance Workou
 
 uint64_t WorkoutReminderControlsDirectInvocation.init(directInvocation:)@<X0>(char *a1@<X0>, unint64_t *a2@<X8>)
 {
-  v75 = a2;
-  v76 = type metadata accessor for Parse.DirectInvocation();
-  v3 = *(v76 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v76);
-  v6 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v77 = type metadata accessor for Logger();
-  v7 = *(v77 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v77);
-  v11 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v73 - v13;
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = &v73 - v16;
-  MEMORY[0x28223BE20](v15);
-  v19 = &v73 - v18;
-  v78 = a1;
-  if (Parse.DirectInvocation.identifier.getter() == 0xD00000000000003ELL && 0x8000000274C70280 == v20)
+  v73 = a2;
+  v74 = type metadata accessor for Parse.DirectInvocation();
+  v3 = *(v74 - 8);
+  MEMORY[0x28223BE20](v74);
+  v5 = &v71 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v75 = type metadata accessor for Logger();
+  v6 = *(v75 - 8);
+  v7 = MEMORY[0x28223BE20](v75);
+  v9 = &v71 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v7);
+  v12 = &v71 - v11;
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = &v71 - v14;
+  MEMORY[0x28223BE20](v13);
+  v17 = &v71 - v16;
+  v76 = a1;
+  if (Parse.DirectInvocation.identifier.getter() == 0xD00000000000003ELL && 0x8000000274C70280 == v18)
   {
   }
 
   else
   {
-    v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v19 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v21 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      v46 = Logger.workout.unsafeMutableAddressor();
+      v44 = Logger.workout.unsafeMutableAddressor();
       swift_beginAccess();
-      v47 = v77;
-      (*(v7 + 16))(v11, v46, v77);
-      v48 = v76;
-      (*(v3 + 16))(v6, v78, v76);
-      v49 = Logger.logObject.getter();
-      v50 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v49, v50))
+      v45 = v75;
+      (*(v6 + 16))(v9, v44, v75);
+      v46 = v74;
+      (*(v3 + 16))(v5, v76, v74);
+      v47 = Logger.logObject.getter();
+      v48 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v47, v48))
       {
-        v51 = swift_slowAlloc();
-        v74 = swift_slowAlloc();
-        v79._countAndFlagsBits = v74;
-        *v51 = 136315394;
-        *(v51 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v79._countAndFlagsBits);
-        *(v51 + 12) = 2080;
-        v52 = Parse.DirectInvocation.identifier.getter();
-        v54 = v53;
-        v55 = *(v3 + 8);
-        v56 = v6;
-        v57 = v76;
-        v55(v56, v76);
-        v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v54, &v79._countAndFlagsBits);
+        v49 = swift_slowAlloc();
+        v72 = swift_slowAlloc();
+        v77._countAndFlagsBits = v72;
+        *v49 = 136315394;
+        *(v49 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v77._countAndFlagsBits);
+        *(v49 + 12) = 2080;
+        v50 = Parse.DirectInvocation.identifier.getter();
+        v52 = v51;
+        v53 = *(v3 + 8);
+        v54 = v5;
+        v55 = v74;
+        v53(v54, v74);
+        v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v52, &v77._countAndFlagsBits);
 
-        *(v51 + 14) = v58;
-        _os_log_impl(&dword_274C46000, v49, v50, "Unsupported identifier for %s: %s", v51, 0x16u);
-        v59 = v74;
+        *(v49 + 14) = v56;
+        _os_log_impl(&dword_274C46000, v47, v48, "Unsupported identifier for %s: %s", v49, 0x16u);
+        v57 = v72;
         swift_arrayDestroy();
-        MEMORY[0x277C67550](v59, -1, -1);
-        MEMORY[0x277C67550](v51, -1, -1);
+        MEMORY[0x277C67550](v57, -1, -1);
+        MEMORY[0x277C67550](v49, -1, -1);
 
-        v55(v78, v57);
-        result = (*(v7 + 8))(v11, v77);
+        v53(v76, v55);
+        result = (*(v6 + 8))(v9, v75);
       }
 
       else
       {
 
-        v60 = *(v3 + 8);
-        v60(v78, v48);
-        v60(v6, v48);
-        result = (*(v7 + 8))(v11, v47);
+        v58 = *(v3 + 8);
+        v58(v76, v46);
+        v58(v5, v46);
+        result = (*(v6 + 8))(v9, v45);
       }
 
 LABEL_27:
-      v61 = v75;
-      *v75 = 0;
-      v61[1] = 0;
-      v61[2] = 1;
+      v59 = v73;
+      *v73 = 0;
+      v59[1] = 0;
+      v59[2] = 1;
       return result;
     }
   }
 
-  v22 = v78;
-  v23 = Parse.DirectInvocation.userData.getter();
-  if (!v23)
+  v20 = v76;
+  v21 = Parse.DirectInvocation.userData.getter();
+  if (!v21)
   {
-    v40 = Logger.workout.unsafeMutableAddressor();
+    v38 = Logger.workout.unsafeMutableAddressor();
     swift_beginAccess();
-    v41 = v77;
-    (*(v7 + 16))(v14, v40, v77);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v42, v43))
+    v39 = v75;
+    (*(v6 + 16))(v12, v38, v75);
+    v40 = Logger.logObject.getter();
+    v41 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v40, v41))
     {
-      v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      v79._countAndFlagsBits = v45;
-      *v44 = 136315138;
-      *(v44 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v79._countAndFlagsBits);
-      _os_log_impl(&dword_274C46000, v42, v43, "%s: No user data in the direct invocation", v44, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v45);
-      MEMORY[0x277C67550](v45, -1, -1);
-      MEMORY[0x277C67550](v44, -1, -1);
+      v42 = swift_slowAlloc();
+      v43 = swift_slowAlloc();
+      v77._countAndFlagsBits = v43;
+      *v42 = 136315138;
+      *(v42 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v77._countAndFlagsBits);
+      _os_log_impl(&dword_274C46000, v40, v41, "%s: No user data in the direct invocation", v42, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v43);
+      MEMORY[0x277C67550](v43, -1, -1);
+      MEMORY[0x277C67550](v42, -1, -1);
     }
 
-    (*(v3 + 8))(v22, v76);
-    result = (*(v7 + 8))(v14, v41);
+    (*(v3 + 8))(v20, v74);
+    result = (*(v6 + 8))(v12, v39);
     goto LABEL_27;
   }
 
-  v24 = v23;
-  v25 = v77;
-  if (!*(v23 + 16) || (v26 = specialized __RawDictionaryStorage.find<A>(_:)(0x6E6F69746361, 0xE600000000000000), (v27 & 1) == 0) || (outlined init with copy of Any(*(v24 + 56) + 32 * v26, v80), (swift_dynamicCast() & 1) == 0) || (v28 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of WorkoutReminderControlsDirectInvocation.Action.init(rawValue:), v79), , v28 >= 4))
+  v22 = v21;
+  v23 = v75;
+  if (!*(v21 + 16) || (v24 = specialized __RawDictionaryStorage.find<A>(_:)(0x6E6F69746361, 0xE600000000000000), (v25 & 1) == 0) || (outlined init with copy of Any(*(v22 + 56) + 32 * v24, v78), (swift_dynamicCast() & 1) == 0) || (v26 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of WorkoutReminderControlsDirectInvocation.Action.init(rawValue:), v77), , v26 >= 4))
   {
 
-    v34 = Logger.workout.unsafeMutableAddressor();
+    v32 = Logger.workout.unsafeMutableAddressor();
     swift_beginAccess();
-    (*(v7 + 16))(v17, v34, v25);
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v35, v36))
+    (*(v6 + 16))(v15, v32, v23);
+    v33 = Logger.logObject.getter();
+    v34 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v33, v34))
     {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v79._countAndFlagsBits = v38;
-      *v37 = 136315138;
-      *(v37 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v79._countAndFlagsBits);
-      _os_log_impl(&dword_274C46000, v35, v36, "%s: Found no action in the direct invocation data", v37, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v38);
-      MEMORY[0x277C67550](v38, -1, -1);
-      MEMORY[0x277C67550](v37, -1, -1);
+      v35 = swift_slowAlloc();
+      v36 = swift_slowAlloc();
+      v77._countAndFlagsBits = v36;
+      *v35 = 136315138;
+      *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v77._countAndFlagsBits);
+      _os_log_impl(&dword_274C46000, v33, v34, "%s: Found no action in the direct invocation data", v35, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v36);
+      MEMORY[0x277C67550](v36, -1, -1);
+      MEMORY[0x277C67550](v35, -1, -1);
     }
 
-    (*(v3 + 8))(v22, v76);
-    result = (*(v7 + 8))(v17, v25);
+    (*(v3 + 8))(v20, v74);
+    result = (*(v6 + 8))(v15, v23);
     goto LABEL_27;
   }
 
-  if (*(v24 + 16) && (v29 = specialized __RawDictionaryStorage.find<A>(_:)(0x696669746E656469, 0xEA00000000007265), (v30 & 1) != 0))
+  if (*(v22 + 16) && (v27 = specialized __RawDictionaryStorage.find<A>(_:)(0x696669746E656469, 0xEA00000000007265), (v28 & 1) != 0))
   {
-    outlined init with copy of Any(*(v24 + 56) + 32 * v29, v80);
+    outlined init with copy of Any(*(v22 + 56) + 32 * v27, v78);
 
-    v31 = swift_dynamicCast();
-    if (v31)
+    v29 = swift_dynamicCast();
+    if (v29)
     {
-      countAndFlagsBits = v79._countAndFlagsBits;
+      countAndFlagsBits = v77._countAndFlagsBits;
     }
 
     else
@@ -1125,9 +709,9 @@ LABEL_27:
       countAndFlagsBits = 0;
     }
 
-    if (v31)
+    if (v29)
     {
-      object = v79._object;
+      object = v77._object;
     }
 
     else
@@ -1143,80 +727,80 @@ LABEL_27:
     object = 0;
   }
 
-  v62 = 0x747065636361;
-  if (v28 > 2u)
+  v60 = 0x747065636361;
+  if (v26 > 2u)
   {
   }
 
   else
   {
-    v63 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v61 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v63 & 1) == 0 && !object)
+    if ((v61 & 1) == 0 && !object)
     {
-      v64 = Logger.workout.unsafeMutableAddressor();
+      v62 = Logger.workout.unsafeMutableAddressor();
       swift_beginAccess();
-      v65 = v77;
-      (*(v7 + 16))(v19, v64, v77);
-      v66 = Logger.logObject.getter();
-      v67 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v66, v67))
+      v63 = v75;
+      (*(v6 + 16))(v17, v62, v75);
+      v64 = Logger.logObject.getter();
+      v65 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v64, v65))
       {
-        v68 = swift_slowAlloc();
-        v74 = swift_slowAlloc();
-        v79._countAndFlagsBits = v74;
-        *v68 = 136315394;
-        *(v68 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v79._countAndFlagsBits);
-        *(v68 + 12) = 2080;
-        if (v28)
+        v66 = swift_slowAlloc();
+        v72 = swift_slowAlloc();
+        v77._countAndFlagsBits = v72;
+        *v66 = 136315394;
+        *(v66 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000027, 0x8000000274C6E800, &v77._countAndFlagsBits);
+        *(v66 + 12) = 2080;
+        if (v26)
         {
-          if (v28 == 2)
+          if (v26 == 2)
           {
-            v69 = 0xE500000000000000;
-            v62 = 0x6573756170;
+            v67 = 0xE500000000000000;
+            v60 = 0x6573756170;
           }
 
           else
           {
-            v69 = 0xE600000000000000;
-            v62 = 0x7463656A6572;
+            v67 = 0xE600000000000000;
+            v60 = 0x7463656A6572;
           }
         }
 
         else
         {
-          v69 = 0xE600000000000000;
+          v67 = 0xE600000000000000;
         }
 
-        v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v62, v69, &v79._countAndFlagsBits);
+        v69 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v67, &v77._countAndFlagsBits);
 
-        *(v68 + 14) = v71;
-        _os_log_impl(&dword_274C46000, v66, v67, "%s: A prediction identifier is required for %s", v68, 0x16u);
-        v72 = v74;
+        *(v66 + 14) = v69;
+        _os_log_impl(&dword_274C46000, v64, v65, "%s: A prediction identifier is required for %s", v66, 0x16u);
+        v70 = v72;
         swift_arrayDestroy();
-        MEMORY[0x277C67550](v72, -1, -1);
-        MEMORY[0x277C67550](v68, -1, -1);
+        MEMORY[0x277C67550](v70, -1, -1);
+        MEMORY[0x277C67550](v66, -1, -1);
 
-        (*(v3 + 8))(v78, v76);
-        (*(v7 + 8))(v19, v77);
+        (*(v3 + 8))(v76, v74);
+        (*(v6 + 8))(v17, v75);
       }
 
       else
       {
 
-        (*(v3 + 8))(v78, v76);
-        (*(v7 + 8))(v19, v65);
+        (*(v3 + 8))(v76, v74);
+        (*(v6 + 8))(v17, v63);
       }
 
       goto LABEL_27;
     }
   }
 
-  result = (*(v3 + 8))(v78, v76);
-  v70 = v75;
-  *v75 = v28;
-  v70[1] = countAndFlagsBits;
-  v70[2] = object;
+  result = (*(v3 + 8))(v76, v74);
+  v68 = v73;
+  *v73 = v26;
+  v68[1] = countAndFlagsBits;
+  v68[2] = object;
   return result;
 }
 
@@ -1434,40 +1018,28 @@ uint64_t WorkoutReminderPromptStrategy.parseValueResponse(input:)(uint64_t a1, u
   v3[11] = a1;
   v5 = type metadata accessor for Siri_Nlu_External_UserParse();
   v3[14] = v5;
-  v6 = *(v5 - 8);
-  v3[15] = v6;
-  v7 = *(v6 + 64) + 15;
+  v3[15] = *(v5 - 8);
   v3[16] = swift_task_alloc();
-  v8 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v3[17] = v8;
-  v9 = *(v8 - 8);
-  v3[18] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v3[17] = v6;
+  v3[18] = *(v6 - 8);
   v3[19] = swift_task_alloc();
-  v11 = type metadata accessor for Parse();
-  v3[20] = v11;
-  v12 = *(v11 - 8);
-  v3[21] = v12;
-  v13 = *(v12 + 64) + 15;
+  v7 = type metadata accessor for Parse();
+  v3[20] = v7;
+  v3[21] = *(v7 - 8);
   v3[22] = swift_task_alloc();
   v3[23] = swift_task_alloc();
-  v14 = type metadata accessor for USOParse();
-  v3[24] = v14;
-  v15 = *(v14 - 8);
-  v3[25] = v15;
-  v16 = *(v15 + 64) + 15;
+  v8 = type metadata accessor for USOParse();
+  v3[24] = v8;
+  v3[25] = *(v8 - 8);
   v3[26] = swift_task_alloc();
-  v17 = type metadata accessor for Input();
-  v3[27] = v17;
-  v18 = *(v17 - 8);
-  v3[28] = v18;
-  v19 = *(v18 + 64) + 15;
+  v9 = type metadata accessor for Input();
+  v3[27] = v9;
+  v3[28] = *(v9 - 8);
   v3[29] = swift_task_alloc();
-  v20 = type metadata accessor for Logger();
-  v3[30] = v20;
-  v21 = *(v20 - 8);
-  v3[31] = v21;
-  v22 = *(v21 + 64) + 15;
+  v10 = type metadata accessor for Logger();
+  v3[30] = v10;
+  v3[31] = *(v10 - 8);
   v3[32] = swift_task_alloc();
   v3[33] = swift_task_alloc();
   v3[34] = swift_task_alloc();
@@ -1475,354 +1047,329 @@ uint64_t WorkoutReminderPromptStrategy.parseValueResponse(input:)(uint64_t a1, u
   return MEMORY[0x2822009F8](WorkoutReminderPromptStrategy.parseValueResponse(input:), 0, 0);
 }
 
-uint64_t WorkoutReminderPromptStrategy.parseValueResponse(input:)()
+uint64_t WorkoutReminderPromptStrategy.parseValueResponse(input:)(uint64_t a1)
 {
-  v99 = v0;
-  v2 = *(v0 + 240);
-  v1 = (v0 + 240);
-  v3 = v1[4];
-  v4 = v1[1];
-  v5 = *(v1 - 2);
-  v6 = *(v1 - 1);
-  v7 = *(v1 - 3);
-  v8 = *(v1 - 18);
-  v9 = Logger.workout.unsafeMutableAddressor();
+  v83 = v1;
+  v3 = *(v1 + 240);
+  v2 = (v1 + 240);
+  v4 = v2[4];
+  v5 = v2[1];
+  v6 = *(v2 - 2);
+  v7 = *(v2 - 1);
+  v8 = *(v2 - 3);
+  v9 = *(v2 - 18);
+  v10 = Logger.workout.unsafeMutableAddressor();
   swift_beginAccess();
-  v91 = *(v4 + 16);
-  v92 = v9;
-  v91(v3, v9, v2);
-  (*(v5 + 16))(v6, v8, v7);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.debug.getter();
-  v12 = os_log_type_enabled(v10, v11);
-  v13 = v1[4];
-  v14 = *v1;
-  v15 = v1[1];
-  v17 = *(v1 - 2);
-  v16 = *(v1 - 1);
-  v18 = *(v1 - 3);
-  if (v12)
+  v76 = *(v5 + 16);
+  v77 = v10;
+  v76(v4, v10, v3);
+  (*(v6 + 16))(v7, v9, v8);
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.debug.getter();
+  v13 = os_log_type_enabled(v11, v12);
+  v14 = v2[4];
+  v15 = *v2;
+  v16 = v2[1];
+  v18 = *(v2 - 2);
+  v17 = *(v2 - 1);
+  v19 = *(v2 - 3);
+  if (v13)
   {
-    v93 = v1[4];
-    v19 = v96[13];
-    v88 = v11;
+    v78 = v2[4];
+    v73 = v12;
     v20 = swift_slowAlloc();
     v21 = swift_slowAlloc();
-    v98 = v21;
+    v82 = v21;
     *v20 = 136315394;
     v22 = _typeName(_:qualified:)();
-    v89 = v14;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v98);
+    v74 = v15;
+    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v82);
 
     *(v20 + 4) = v24;
     *(v20 + 12) = 2080;
     lazy protocol witness table accessor for type Input and conformance Input();
     v25 = dispatch thunk of CustomStringConvertible.description.getter();
     v27 = v26;
-    (*(v17 + 8))(v16, v18);
-    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, &v98);
+    (*(v18 + 8))(v17, v19);
+    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, &v82);
 
     *(v20 + 14) = v28;
-    _os_log_impl(&dword_274C46000, v10, v88, "%s Parsing Input: %s", v20, 0x16u);
+    _os_log_impl(&dword_274C46000, v11, v73, "%s Parsing Input: %s", v20, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x277C67550](v21, -1, -1);
     MEMORY[0x277C67550](v20, -1, -1);
 
-    v29 = *(v15 + 8);
-    v30 = v93;
-    v31 = v89;
+    v29 = *(v16 + 8);
+    v30 = v78;
+    v31 = v74;
   }
 
   else
   {
 
-    (*(v17 + 8))(v16, v18);
-    v29 = *(v15 + 8);
-    v30 = v13;
-    v31 = v14;
+    (*(v18 + 8))(v17, v19);
+    v29 = *(v16 + 8);
+    v30 = v14;
+    v31 = v15;
   }
 
-  v94 = v29;
+  v79 = v29;
   v29(v30, v31);
-  v32 = v96;
-  v33 = v96[23];
-  v34 = v96[20];
-  v35 = v96[21];
-  v36 = v96[12];
+  v32 = v80;
+  v33 = v80[23];
+  v34 = v80[20];
+  v35 = v80[21];
   Input.parse.getter();
   if ((*(v35 + 88))(v33, v34) != *MEMORY[0x277D5C160])
   {
-    (*(v96[21] + 8))(v96[23], v96[20]);
+    (*(v80[21] + 8))(v80[23], v80[20]);
 LABEL_10:
-    v38 = v96 + 32;
-    v49 = v96[32];
-    v50 = v96[30];
+    v37 = v80 + 32;
+    v48 = v80[32];
+    v49 = v80[30];
     swift_beginAccess();
-    v91(v49, v92, v50);
-    v51 = Logger.logObject.getter();
-    v52 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v51, v52))
+    v76(v48, v77, v49);
+    v50 = Logger.logObject.getter();
+    v51 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v50, v51))
     {
-      v53 = swift_slowAlloc();
-      *v53 = 0;
-      _os_log_impl(&dword_274C46000, v51, v52, "Received unsupported type of input", v53, 2u);
-      MEMORY[0x277C67550](v53, -1, -1);
+      v52 = swift_slowAlloc();
+      *v52 = 0;
+      _os_log_impl(&dword_274C46000, v50, v51, "Received unsupported type of input", v52, 2u);
+      MEMORY[0x277C67550](v52, -1, -1);
     }
 
-    v54 = v96[31];
-
-    v97 = 4;
-    v48 = v94;
+    v81 = 4;
+    v47 = v79;
     goto LABEL_13;
   }
 
-  v38 = v96 + 26;
-  v37 = v96[26];
-  v39 = v96[25];
-  v40 = v96[24];
-  v90 = v96 + 24;
-  v41 = v96[23];
-  v43 = v96[15];
-  v42 = v96[16];
-  v44 = v96[14];
-  (*(v96[21] + 96))(v41, v96[20]);
-  (*(v39 + 32))(v37, v41, v40);
-  v45 = USOParse.userParse.getter();
-  v46 = MEMORY[0x277C66AE0](v45);
-  (*(v43 + 8))(v42, v44);
-  if (!*(v46 + 16))
+  v37 = v80 + 26;
+  v36 = v80[26];
+  v38 = v80[25];
+  v39 = v80[24];
+  v75 = v80 + 24;
+  v40 = v80[23];
+  v42 = v80[15];
+  v41 = v80[16];
+  v43 = v80[14];
+  (*(v80[21] + 96))(v40, v80[20]);
+  (*(v38 + 32))(v36, v40, v39);
+  v44 = USOParse.userParse.getter();
+  v45 = MEMORY[0x277C66AE0](v44);
+  (*(v42 + 8))(v41, v43);
+  if (!*(v45 + 16))
   {
-    (*(v96[25] + 8))(v96[26], v96[24]);
+    (*(v80[25] + 8))(v80[26], v80[24]);
 
     goto LABEL_10;
   }
 
-  (*(v96[18] + 16))(v96[19], v46 + ((*(v96[18] + 80) + 32) & ~*(v96[18] + 80)), v96[17]);
+  (*(v80[18] + 16))(v80[19], v45 + ((*(v80[18] + 80) + 32) & ~*(v80[18] + 80)), v80[17]);
 
   if (Siri_Nlu_External_UserDialogAct.hasAccepted.getter())
   {
 LABEL_7:
-    v47 = v96[25];
-    (*(v96[18] + 8))(v96[19], v96[17]);
-    v97 = 0;
-    v48 = *(v47 + 8);
-    v1 = v32 + 24;
+    v46 = v80[25];
+    (*(v80[18] + 8))(v80[19], v80[17]);
+    v81 = 0;
+    v47 = *(v46 + 8);
+    v2 = v32 + 24;
     goto LABEL_13;
   }
 
-  v69 = v96[19];
   if (Siri_Nlu_External_UserDialogAct.hasRejected.getter())
   {
-    v70 = v96[25];
-    (*(v96[18] + 8))(v96[19], v96[17]);
-    v48 = *(v70 + 8);
-    v71 = 1;
+    v56 = v80[25];
+    (*(v80[18] + 8))(v80[19], v80[17]);
+    v47 = *(v56 + 8);
+    v57 = 1;
   }
 
   else
   {
-    v73 = v96[21];
-    v72 = v96[22];
-    v74 = v96[20];
-    v75 = v96[12];
+    v59 = v80[21];
+    v58 = v80[22];
+    v60 = v80[20];
     Input.parse.getter();
-    LOBYTE(v75) = isProbablyWorkout(from:requireWorkoutIdentifier:)();
-    (*(v73 + 8))(v72, v74);
-    if (v75)
+    v61 = isProbablyWorkout(from:requireWorkoutIdentifier:)();
+    (*(v59 + 8))(v58, v60);
+    if (v61)
     {
       goto LABEL_7;
     }
 
-    v76 = v96[33];
-    v77 = v96[30];
+    v62 = v80[33];
+    v63 = v80[30];
     swift_beginAccess();
-    v91(v76, v92, v77);
-    v78 = Logger.logObject.getter();
-    v79 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v78, v79))
+    v76(v62, v77, v63);
+    v64 = Logger.logObject.getter();
+    v65 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v64, v65))
     {
-      v80 = swift_slowAlloc();
-      *v80 = 0;
-      _os_log_impl(&dword_274C46000, v78, v79, "Parse did not contain accept, reject, or workout task", v80, 2u);
-      MEMORY[0x277C67550](v80, -1, -1);
+      v66 = swift_slowAlloc();
+      *v66 = 0;
+      _os_log_impl(&dword_274C46000, v64, v65, "Parse did not contain accept, reject, or workout task", v66, 2u);
+      MEMORY[0x277C67550](v66, -1, -1);
     }
 
-    v81 = v96[33];
-    v82 = v96[30];
-    v83 = v96[31];
-    v84 = v96[25];
-    v86 = v96[18];
-    v85 = v96[19];
-    v87 = v96[17];
+    v67 = v80[33];
+    v68 = v80[30];
+    v69 = v80[25];
+    v71 = v80[18];
+    v70 = v80[19];
+    v72 = v80[17];
 
-    v94(v81, v82);
-    (*(v86 + 8))(v85, v87);
-    v32 = v96;
-    v48 = *(v84 + 8);
-    v71 = 4;
+    v79(v67, v68);
+    (*(v71 + 8))(v70, v72);
+    v32 = v80;
+    v47 = *(v69 + 8);
+    v57 = 4;
   }
 
-  v97 = v71;
-  v1 = v90;
+  v81 = v57;
+  v2 = v75;
 LABEL_13:
-  v55 = *v38;
-  v56 = *v1;
-  v57 = v32[33];
-  v58 = v32[34];
-  v59 = v32[32];
-  v60 = v32[29];
-  v61 = v32[26];
-  v63 = v32[22];
-  v62 = v32[23];
-  v64 = v32;
-  v65 = v32[19];
-  v95 = v64[16];
-  v66 = v64[11];
-  v48(v55, v56);
-  *v66 = v97;
+  v53 = v32[11];
+  v47(*v37, *v2);
+  *v53 = v81;
 
-  v67 = v64[1];
+  v54 = v32[1];
 
-  return v67();
+  return v54();
 }
 
 uint64_t WorkoutReminderPromptStrategy.actionForInput(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v73 = *v3;
+  v67 = *v3;
   v6 = type metadata accessor for Siri_Nlu_External_UserParse();
-  v69 = *(v6 - 8);
-  v70 = v6;
-  v7 = *(v69 + 64);
+  v63 = *(v6 - 8);
+  v64 = v6;
   MEMORY[0x28223BE20](v6);
-  v68 = &v62 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v67 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v9 = *(v67 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v67);
-  v65 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for USOParse();
+  v62 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v8 = *(v61 - 8);
+  MEMORY[0x28223BE20](v61);
+  v59 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for USOParse();
+  v65 = *(v10 - 8);
+  v66 = v10;
+  MEMORY[0x28223BE20](v10);
+  v74 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Parse();
   v71 = *(v12 - 8);
   v72 = v12;
-  v13 = *(v71 + 64);
-  MEMORY[0x28223BE20](v12);
-  v80 = &v62 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for Parse();
-  v77 = *(v15 - 8);
-  v78 = v15;
-  v16 = *(v77 + 64);
-  v17 = MEMORY[0x28223BE20](v15);
-  v74 = &v62 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v76 = &v62 - v19;
-  v20 = type metadata accessor for Input();
+  v13 = MEMORY[0x28223BE20](v12);
+  v68 = &v56 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v70 = &v56 - v15;
+  v16 = type metadata accessor for Input();
+  v17 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16);
+  v19 = &v56 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = type metadata accessor for Logger();
   v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
   MEMORY[0x28223BE20](v20);
-  v24 = &v62 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for Logger();
-  v26 = *(v25 - 8);
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v25);
-  v29 = &v62 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = Logger.workout.unsafeMutableAddressor();
+  v23 = &v56 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = Logger.workout.unsafeMutableAddressor();
   swift_beginAccess();
-  v31 = *(v26 + 16);
-  v75 = v25;
-  v31(v29, v30, v25);
-  v32 = *(v21 + 16);
-  v79 = a1;
-  v32(v24, a1, v20);
-  v33 = Logger.logObject.getter();
-  v34 = static os_log_type_t.debug.getter();
-  v35 = os_log_type_enabled(v33, v34);
-  v66 = v9;
-  if (v35)
+  v25 = *(v21 + 16);
+  v69 = v20;
+  v25(v23, v24, v20);
+  v26 = *(v17 + 16);
+  v73 = a1;
+  v26(v19, a1, v16);
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.debug.getter();
+  v29 = os_log_type_enabled(v27, v28);
+  v60 = v8;
+  if (v29)
   {
-    v36 = swift_slowAlloc();
-    v64 = a2;
-    v37 = v36;
-    v63 = swift_slowAlloc();
-    v81 = v63;
-    *v37 = 136315394;
-    v38 = _typeName(_:qualified:)();
-    v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v39, &v81);
+    v30 = swift_slowAlloc();
+    v58 = a2;
+    v31 = v30;
+    v57 = swift_slowAlloc();
+    v75 = v57;
+    *v31 = 136315394;
+    v32 = _typeName(_:qualified:)();
+    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v75);
 
-    *(v37 + 4) = v40;
-    *(v37 + 12) = 2080;
+    *(v31 + 4) = v34;
+    *(v31 + 12) = 2080;
     lazy protocol witness table accessor for type Input and conformance Input();
-    v41 = dispatch thunk of CustomStringConvertible.description.getter();
-    v43 = v42;
-    (*(v21 + 8))(v24, v20);
-    v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, &v81);
+    v35 = dispatch thunk of CustomStringConvertible.description.getter();
+    v37 = v36;
+    (*(v17 + 8))(v19, v16);
+    v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, &v75);
 
-    *(v37 + 14) = v44;
-    _os_log_impl(&dword_274C46000, v33, v34, "%s Handling Input: %s", v37, 0x16u);
-    v45 = v63;
+    *(v31 + 14) = v38;
+    _os_log_impl(&dword_274C46000, v27, v28, "%s Handling Input: %s", v31, 0x16u);
+    v39 = v57;
     swift_arrayDestroy();
-    MEMORY[0x277C67550](v45, -1, -1);
-    MEMORY[0x277C67550](v37, -1, -1);
+    MEMORY[0x277C67550](v39, -1, -1);
+    MEMORY[0x277C67550](v31, -1, -1);
   }
 
   else
   {
 
-    (*(v21 + 8))(v24, v20);
+    (*(v17 + 8))(v19, v16);
   }
 
-  (*(v26 + 8))(v29, v75);
-  v46 = v76;
+  (*(v21 + 8))(v23, v69);
+  v40 = v70;
   Input.parse.getter();
-  v47 = isProbablyWorkout(from:requireWorkoutIdentifier:)();
-  v49 = v77;
-  v48 = v78;
-  v50 = *(v77 + 8);
-  v50(v46, v78);
-  v51 = v80;
-  if (v47)
+  v41 = isProbablyWorkout(from:requireWorkoutIdentifier:)();
+  v43 = v71;
+  v42 = v72;
+  v44 = *(v71 + 8);
+  v44(v40, v72);
+  v45 = v74;
+  if (v41)
   {
     return static ActionForInput.handle()();
   }
 
-  v53 = v74;
+  v47 = v68;
   Input.parse.getter();
-  if ((*(v49 + 88))(v53, v48) == *MEMORY[0x277D5C160])
+  if ((*(v43 + 88))(v47, v42) == *MEMORY[0x277D5C160])
   {
-    (*(v49 + 96))(v53, v48);
-    v55 = v71;
-    v54 = v72;
-    (*(v71 + 32))(v51, v53, v72);
-    v56 = v68;
-    v57 = USOParse.userParse.getter();
-    v58 = MEMORY[0x277C66AE0](v57);
-    (*(v69 + 8))(v56, v70);
-    if (*(v58 + 16))
+    (*(v43 + 96))(v47, v42);
+    v49 = v65;
+    v48 = v66;
+    (*(v65 + 32))(v45, v47, v66);
+    v50 = v62;
+    v51 = USOParse.userParse.getter();
+    v52 = MEMORY[0x277C66AE0](v51);
+    (*(v63 + 8))(v50, v64);
+    if (*(v52 + 16))
     {
-      v59 = v65;
-      v60 = v66;
-      v61 = v67;
-      (*(v66 + 16))(v65, v58 + ((*(v66 + 80) + 32) & ~*(v66 + 80)), v67);
+      v53 = v59;
+      v54 = v60;
+      v55 = v61;
+      (*(v60 + 16))(v59, v52 + ((*(v60 + 80) + 32) & ~*(v60 + 80)), v61);
 
       if (Siri_Nlu_External_UserDialogAct.hasAccepted.getter() & 1) != 0 || (Siri_Nlu_External_UserDialogAct.hasRejected.getter())
       {
         static ActionForInput.handle()();
-        (*(v60 + 8))(v59, v61);
-        return (*(v71 + 8))(v51, v72);
+        (*(v54 + 8))(v53, v55);
+        return (*(v65 + 8))(v45, v66);
       }
 
-      (*(v60 + 8))(v59, v61);
-      (*(v71 + 8))(v51, v72);
+      (*(v54 + 8))(v53, v55);
+      (*(v65 + 8))(v45, v66);
     }
 
     else
     {
-      (*(v55 + 8))(v51, v54);
+      (*(v49 + 8))(v45, v48);
     }
   }
 
   else
   {
-    v50(v53, v48);
+    v44(v47, v42);
   }
 
   return static ActionForInput.ignore()();
@@ -1832,35 +1379,29 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()(uint64_t a1)
 {
   v2[7] = a1;
   v2[8] = v1;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17DismissalSettingsVSgMd, &_s11SiriKitFlow17DismissalSettingsVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17DismissalSettingsVSgMd, &_s11SiriKitFlow17DismissalSettingsVSgMR);
   v2[9] = swift_task_alloc();
-  v4 = type metadata accessor for DismissalSettings();
-  v2[10] = v4;
-  v5 = *(v4 - 8);
-  v2[11] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3 = type metadata accessor for DismissalSettings();
+  v2[10] = v3;
+  v2[11] = *(v3 - 8);
   v2[12] = swift_task_alloc();
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR);
   v2[13] = swift_task_alloc();
-  v8 = *(*(type metadata accessor for DialogPhase() - 8) + 64) + 15;
+  type metadata accessor for DialogPhase();
   v2[14] = swift_task_alloc();
-  v9 = type metadata accessor for OutputGenerationManifest();
-  v2[15] = v9;
-  v10 = *(v9 - 8);
-  v2[16] = v10;
-  v11 = *(v10 + 64) + 15;
+  v4 = type metadata accessor for OutputGenerationManifest();
+  v2[15] = v4;
+  v2[16] = *(v4 - 8);
   v2[17] = swift_task_alloc();
-  v12 = swift_task_alloc();
-  v2[18] = v12;
-  *v12 = v2;
-  v12[1] = WorkoutReminderPromptStrategy.makePromptForValue();
+  v5 = swift_task_alloc();
+  v2[18] = v5;
+  *v5 = v2;
+  v5[1] = WorkoutReminderPromptStrategy.makePromptForValue();
 
   return WorkoutReminderPromptStrategy.announcementDialog()();
 }
 
 {
-  v2 = *(*v1 + 144);
-  v4 = *v1;
   *(*v1 + 152) = a1;
 
   return MEMORY[0x2822009F8](WorkoutReminderPromptStrategy.makePromptForValue(), 0, 0);
@@ -1870,39 +1411,35 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()()
 {
   if (v0[19])
   {
-    v1 = v0[17];
-    v2 = v0[13];
-    v3 = v0[14];
-    v5 = v0[11];
-    v4 = v0[12];
-    v6 = v0[9];
-    v7 = v0[10];
-    v8 = v0[8];
+    v1 = v0[13];
+    v3 = v0[11];
+    v2 = v0[12];
+    v4 = v0[9];
+    v5 = v0[10];
     static DialogPhase.confirmation.getter();
     OutputGenerationManifest.init(dialogPhase:_:)();
-    WorkoutReminderPromptStrategy.confirmationSDA()(v2);
+    WorkoutReminderPromptStrategy.confirmationSDA()(v1);
     OutputGenerationManifest.nlContextUpdate.setter();
     OutputGenerationManifest.canUseServerTTS.setter();
     DismissalSettings.init(_:)();
     DismissalSettings.minimumAutoDismissalTimeInMs.setter();
-    (*(v5 + 16))(v6, v4, v7);
-    (*(v5 + 56))(v6, 0, 1, v7);
+    (*(v3 + 16))(v4, v2, v5);
+    (*(v3 + 56))(v4, 0, 1, v5);
     OutputGenerationManifest.dismissalSettings.setter();
-    v9 = [objc_allocWithZone(MEMORY[0x277D47AE8]) init];
-    v0[20] = v9;
-    [v9 setNotificationType_];
+    v6 = [objc_allocWithZone(MEMORY[0x277D47AE8]) init];
+    v0[20] = v6;
+    [v6 setNotificationType_];
     static AceService.currentAsync.getter();
-    v10 = v0[5];
-    v11 = v0[6];
-    __swift_project_boxed_opaque_existential_1(v0 + 2, v10);
-    v12 = *(MEMORY[0x277D5BFB8] + 4);
-    v13 = swift_task_alloc();
-    v0[21] = v13;
-    v14 = type metadata accessor for SABaseCommand();
-    *v13 = v0;
-    v13[1] = WorkoutReminderPromptStrategy.makePromptForValue();
+    v7 = v0[5];
+    v8 = v0[6];
+    __swift_project_boxed_opaque_existential_1(v0 + 2, v7);
+    v9 = swift_task_alloc();
+    v0[21] = v9;
+    v10 = type metadata accessor for SABaseCommand();
+    *v9 = v0;
+    v9[1] = WorkoutReminderPromptStrategy.makePromptForValue();
 
-    return MEMORY[0x2821BB6A0](v9, v10, v14, v11);
+    return MEMORY[0x2821BB6A0](v6, v7, v10, v8);
   }
 
   else
@@ -1910,15 +1447,10 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()()
     lazy protocol witness table accessor for type WorkoutReminderErrors and conformance WorkoutReminderErrors();
     swift_allocError();
     swift_willThrow();
-    v15 = v0[17];
-    v17 = v0[13];
-    v16 = v0[14];
-    v18 = v0[12];
-    v19 = v0[9];
 
-    v20 = v0[1];
+    v11 = v0[1];
 
-    return v20();
+    return v11();
   }
 }
 
@@ -1929,53 +1461,47 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()()
   v3 = v2[16];
   v4 = v2[17];
   __swift_project_boxed_opaque_existential_1(v2 + 13, v3);
-  v5 = *(MEMORY[0x277D5BE50] + 4);
-  v6 = swift_task_alloc();
-  v0[23] = v6;
-  *v6 = v0;
-  v6[1] = WorkoutReminderPromptStrategy.makePromptForValue();
-  v7 = v0[17];
-  v8 = v0[7];
+  v5 = swift_task_alloc();
+  v0[23] = v5;
+  *v5 = v0;
+  v5[1] = WorkoutReminderPromptStrategy.makePromptForValue();
+  v6 = v0[17];
+  v7 = v0[7];
 
-  return MEMORY[0x2821BB480](v8, v1, v7, v3, v4);
+  return MEMORY[0x2821BB480](v7, v1, v6, v3, v4);
 }
 
 {
-  v2 = *(*v1 + 184);
-  v5 = *v1;
   *(*v1 + 192) = v0;
 
   if (v0)
   {
-    v3 = WorkoutReminderPromptStrategy.makePromptForValue();
+    v2 = WorkoutReminderPromptStrategy.makePromptForValue();
   }
 
   else
   {
-    v3 = WorkoutReminderPromptStrategy.makePromptForValue();
+    v2 = WorkoutReminderPromptStrategy.makePromptForValue();
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
   v1 = *(v0 + 152);
   v3 = *(v0 + 128);
   v2 = *(v0 + 136);
-  v5 = *(v0 + 112);
   v4 = *(v0 + 120);
-  v7 = *(v0 + 96);
-  v6 = *(v0 + 104);
-  v8 = *(v0 + 80);
-  v9 = *(v0 + 88);
-  v12 = *(v0 + 72);
+  v5 = *(v0 + 96);
+  v6 = *(v0 + 80);
+  v7 = *(v0 + 88);
 
-  (*(v9 + 8))(v7, v8);
+  (*(v7 + 8))(v5, v6);
   (*(v3 + 8))(v2, v4);
 
-  v10 = *(v0 + 8);
+  v8 = *(v0 + 8);
 
-  return v10();
+  return v8();
 }
 
 {
@@ -1990,16 +1516,10 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()()
   (*(v6 + 8))(v5, v7);
   (*(v3 + 8))(v2, v4);
   __swift_destroy_boxed_opaque_existential_0Tm((v0 + 16));
-  v8 = *(v0 + 176);
-  v9 = *(v0 + 136);
-  v11 = *(v0 + 104);
-  v10 = *(v0 + 112);
-  v12 = *(v0 + 96);
-  v13 = *(v0 + 72);
 
-  v14 = *(v0 + 8);
+  v8 = *(v0 + 8);
 
-  return v14();
+  return v8();
 }
 
 {
@@ -2013,36 +1533,28 @@ uint64_t WorkoutReminderPromptStrategy.makePromptForValue()()
 
   (*(v6 + 8))(v5, v7);
   (*(v3 + 8))(v2, v4);
-  v8 = *(v0 + 192);
-  v9 = *(v0 + 136);
-  v11 = *(v0 + 104);
-  v10 = *(v0 + 112);
-  v12 = *(v0 + 96);
-  v13 = *(v0 + 72);
 
-  v14 = *(v0 + 8);
+  v8 = *(v0 + 8);
 
-  return v14();
+  return v8();
 }
 
 uint64_t WorkoutReminderPromptStrategy.makePromptForValue()(void *a1)
 {
-  v4 = *(*v2 + 168);
-  v7 = *v2;
   *(*v2 + 176) = v1;
 
   if (v1)
   {
-    v5 = WorkoutReminderPromptStrategy.makePromptForValue();
+    v4 = WorkoutReminderPromptStrategy.makePromptForValue();
   }
 
   else
   {
 
-    v5 = WorkoutReminderPromptStrategy.makePromptForValue();
+    v4 = WorkoutReminderPromptStrategy.makePromptForValue();
   }
 
-  return MEMORY[0x2822009F8](v5, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t WorkoutReminderPromptStrategy.announcementDialog()()
@@ -2100,280 +1612,257 @@ LABEL_7:
 
 uint64_t WorkoutReminderPromptStrategy.announcementDialog()(uint64_t a1)
 {
-  v4 = *(*v2 + 24);
-  v5 = *(*v2 + 16);
-  v6 = *v2;
+  v4 = *v2;
 
   if (v1)
   {
 
-    v7 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v7 = a1;
+    v5 = a1;
   }
 
-  v8 = *(v6 + 8);
+  v6 = *(v4 + 8);
 
-  return v8(v7);
+  return v6(v5);
 }
 
 {
-  v4 = *(*v2 + 32);
-  v5 = *(*v2 + 16);
-  v6 = *v2;
+  v4 = *v2;
 
   if (v1)
   {
 
-    v7 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v7 = a1;
+    v5 = a1;
   }
 
-  v8 = *(v6 + 8);
+  v6 = *(v4 + 8);
 
-  return v8(v7);
+  return v6(v5);
 }
 
 {
-  v4 = *(*v2 + 40);
-  v5 = *(*v2 + 16);
-  v6 = *v2;
+  v4 = *v2;
 
   if (v1)
   {
 
-    v7 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v7 = a1;
+    v5 = a1;
   }
 
-  v8 = *(v6 + 8);
+  v6 = *(v4 + 8);
 
-  return v8(v7);
+  return v6(v5);
 }
 
 uint64_t WorkoutReminderPromptStrategy.confirmationSDA()@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMd, &_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v38 - v5;
-  v7 = type metadata accessor for Siri_Nlu_External_SystemDialogAct();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Logger();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = [*(v1 + 16) predictionType];
-  if (v17 == 3)
+  v5 = &v25 - v4;
+  v6 = type metadata accessor for Siri_Nlu_External_SystemDialogAct();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for Logger();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = [*(v1 + 16) predictionType];
+  if (v14 == 3)
   {
-    v24 = type metadata accessor for UsoTaskBuilder_resume_common_Workout();
-    v25 = *(v24 + 48);
-    v26 = *(v24 + 52);
+    type metadata accessor for UsoTaskBuilder_resume_common_Workout();
     swift_allocObject();
     UsoTaskBuilder_resume_common_Workout.init()();
   }
 
-  else if (v17 == 2)
+  else if (v14 == 2)
   {
-    v21 = type metadata accessor for UsoTaskBuilder_stop_common_Workout();
-    v22 = *(v21 + 48);
-    v23 = *(v21 + 52);
+    type metadata accessor for UsoTaskBuilder_stop_common_Workout();
     swift_allocObject();
     UsoTaskBuilder_stop_common_Workout.init()();
   }
 
   else
   {
-    if (v17 != 1)
+    if (v14 != 1)
     {
-      v32 = Logger.workout.unsafeMutableAddressor();
+      v19 = Logger.workout.unsafeMutableAddressor();
       swift_beginAccess();
-      (*(v13 + 16))(v16, v32, v12);
-      v33 = Logger.logObject.getter();
-      v34 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v33, v34))
+      (*(v11 + 16))(v13, v19, v10);
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v20, v21))
       {
-        v35 = swift_slowAlloc();
-        *v35 = 0;
-        _os_log_impl(&dword_274C46000, v33, v34, "Unknown prediction type - unable to build SystemDialogAct", v35, 2u);
-        MEMORY[0x277C67550](v35, -1, -1);
+        v22 = swift_slowAlloc();
+        *v22 = 0;
+        _os_log_impl(&dword_274C46000, v20, v21, "Unknown prediction type - unable to build SystemDialogAct", v22, 2u);
+        MEMORY[0x277C67550](v22, -1, -1);
       }
 
-      (*(v13 + 8))(v16, v12);
+      (*(v11 + 8))(v13, v10);
       goto LABEL_13;
     }
 
-    common_Workout = type metadata accessor for UsoTaskBuilder_create_common_Workout();
-    v19 = *(common_Workout + 48);
-    v20 = *(common_Workout + 52);
+    type metadata accessor for UsoTaskBuilder_create_common_Workout();
     swift_allocObject();
     UsoTaskBuilder_create_common_Workout.init()();
   }
 
-  WorkoutReminderPromptStrategy.makeConfirmationAct(for:)(v27, v6);
+  WorkoutReminderPromptStrategy.makeConfirmationAct(for:)(v15, v5);
 
-  if ((*(v8 + 48))(v6, 1, v7) == 1)
+  if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
 
-    outlined destroy of AceOutput?(v6, &_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMd, &_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMR);
+    outlined destroy of AceOutput?(v5, &_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMd, &_s12SiriNLUTypes0A29_Nlu_External_SystemDialogActVSgMR);
 LABEL_13:
-    v31 = 1;
+    v18 = 1;
     goto LABEL_14;
   }
 
-  (*(v8 + 32))(v11, v6, v7);
+  (*(v7 + 32))(v9, v5, v6);
   NLContextUpdate.init()();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMd, &_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMR);
-  v28 = *(v8 + 72);
-  v29 = (*(v8 + 80) + 32) & ~*(v8 + 80);
-  v30 = swift_allocObject();
-  *(v30 + 16) = xmmword_274C6DB40;
-  (*(v8 + 16))(v30 + v29, v11, v7);
+  v16 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_274C6DB40;
+  (*(v7 + 16))(v17 + v16, v9, v6);
   NLContextUpdate.nluSystemDialogActs.setter();
 
-  (*(v8 + 8))(v11, v7);
-  v31 = 0;
+  (*(v7 + 8))(v9, v6);
+  v18 = 0;
 LABEL_14:
-  v36 = type metadata accessor for NLContextUpdate();
-  return (*(*(v36 - 8) + 56))(a1, v31, 1, v36);
+  v23 = type metadata accessor for NLContextUpdate();
+  return (*(*(v23 - 8) + 56))(a1, v18, 1, v23);
 }
 
 uint64_t WorkoutReminderPromptStrategy.makeConfirmationAct(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v72 = a2;
+  v66 = a2;
   v3 = type metadata accessor for Logger();
-  v69 = *(v3 - 8);
-  v70 = v3;
-  v4 = *(v69 + 64);
+  v63 = *(v3 - 8);
+  v64 = v3;
   MEMORY[0x28223BE20](v3);
-  v68 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Siri_Nlu_External_SystemOffered();
-  v66 = *(v6 - 8);
-  v67 = v6;
-  v7 = *(v66 + 64);
-  v8 = MEMORY[0x28223BE20](v6);
-  v64 = &v57 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v63 = &v57 - v10;
-  v65 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v62 = *(v65 - 8);
-  v11 = *(v62 + 64);
-  v12 = MEMORY[0x28223BE20](v65);
-  v61 = &v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v60 = &v57 - v14;
-  v71 = type metadata accessor for Siri_Nlu_External_UserWantedToProceed();
-  v15 = *(v71 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x28223BE20](v71);
-  v19 = &v57 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v57 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x28223BE20](v22 - 8);
-  v25 = &v57 - v24;
-  v26 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 64);
-  v29 = MEMORY[0x28223BE20](v26);
-  v31 = &v57 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v29);
-  v33 = &v57 - v32;
-  v34 = a1;
+  v62 = &v51 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Siri_Nlu_External_SystemOffered();
+  v60 = *(v5 - 8);
+  v61 = v5;
+  v6 = MEMORY[0x28223BE20](v5);
+  v58 = &v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v57 = &v51 - v8;
+  v59 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v56 = *(v59 - 8);
+  v9 = MEMORY[0x28223BE20](v59);
+  v55 = &v51 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v54 = &v51 - v11;
+  v65 = type metadata accessor for Siri_Nlu_External_UserWantedToProceed();
+  v12 = *(v65 - 8);
+  v13 = MEMORY[0x28223BE20](v65);
+  v15 = &v51 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = &v51 - v16;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+  MEMORY[0x28223BE20](v18 - 8);
+  v20 = &v51 - v19;
+  v21 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  v22 = *(v21 - 8);
+  v23 = MEMORY[0x28223BE20](v21);
+  v25 = &v51 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v23);
+  v27 = &v51 - v26;
+  v28 = a1;
   UsoTaskBuilder.toProtobufUsoGraph()();
-  if ((*(v27 + 48))(v25, 1, v26) == 1)
+  if ((*(v22 + 48))(v20, 1, v21) == 1)
   {
-    outlined destroy of AceOutput?(v25, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
-    v35 = Logger.workout.unsafeMutableAddressor();
+    outlined destroy of AceOutput?(v20, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMd, &_s12SiriNLUTypes0A22_Nlu_External_UsoGraphVSgMR);
+    v29 = Logger.workout.unsafeMutableAddressor();
     swift_beginAccess();
-    v37 = v68;
-    v36 = v69;
-    v38 = v70;
-    (*(v69 + 16))(v68, v35, v70);
+    v31 = v62;
+    v30 = v63;
+    v32 = v64;
+    (*(v63 + 16))(v62, v29, v64);
 
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.error.getter();
+    v33 = Logger.logObject.getter();
+    v34 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v39, v40))
+    if (os_log_type_enabled(v33, v34))
     {
-      v41 = swift_slowAlloc();
-      v42 = swift_slowAlloc();
-      v73 = v34;
-      v74 = v42;
-      *v41 = 136315138;
+      v35 = swift_slowAlloc();
+      v36 = swift_slowAlloc();
+      v67 = v28;
+      v68 = v36;
+      *v35 = 136315138;
       type metadata accessor for UsoTaskBuilder();
 
-      v43 = String.init<A>(describing:)();
-      v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v44, &v74);
+      v37 = String.init<A>(describing:)();
+      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v38, &v68);
 
-      *(v41 + 4) = v45;
-      _os_log_impl(&dword_274C46000, v39, v40, "Failed to create protobuf UsoGraph from Task builder %s", v41, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v42);
-      MEMORY[0x277C67550](v42, -1, -1);
-      MEMORY[0x277C67550](v41, -1, -1);
+      *(v35 + 4) = v39;
+      _os_log_impl(&dword_274C46000, v33, v34, "Failed to create protobuf UsoGraph from Task builder %s", v35, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v36);
+      MEMORY[0x277C67550](v36, -1, -1);
+      MEMORY[0x277C67550](v35, -1, -1);
     }
 
-    (*(v36 + 8))(v37, v38);
-    v46 = 1;
-    v47 = v72;
+    (*(v30 + 8))(v31, v32);
+    v40 = 1;
+    v41 = v66;
   }
 
   else
   {
-    v48 = *(v27 + 32);
-    v58 = v26;
-    v59 = v33;
-    v48(v33, v25, v26);
+    v42 = *(v22 + 32);
+    v52 = v21;
+    v53 = v27;
+    v42(v27, v20, v21);
     Siri_Nlu_External_UserWantedToProceed.init()();
-    (*(v27 + 16))(v31, v33, v26);
-    v57 = v21;
+    (*(v22 + 16))(v25, v27, v21);
+    v51 = v17;
     Siri_Nlu_External_UserWantedToProceed.reference.setter();
-    v49 = v60;
+    v43 = v54;
     Siri_Nlu_External_UserDialogAct.init()();
-    (*(v15 + 16))(v19, v21, v71);
+    (*(v12 + 16))(v15, v17, v65);
     Siri_Nlu_External_UserDialogAct.wantedToProceed.setter();
-    v50 = v63;
+    v44 = v57;
     Siri_Nlu_External_SystemOffered.init()();
-    v51 = v62;
-    v52 = v65;
-    (*(v62 + 16))(v61, v49, v65);
+    v45 = v56;
+    v46 = v59;
+    (*(v56 + 16))(v55, v43, v59);
     Siri_Nlu_External_SystemOffered.offeredAct.setter();
-    v47 = v72;
+    v41 = v66;
     Siri_Nlu_External_SystemDialogAct.init()();
-    v54 = v66;
-    v53 = v67;
-    (*(v66 + 16))(v64, v50, v67);
+    v48 = v60;
+    v47 = v61;
+    (*(v60 + 16))(v58, v44, v61);
     Siri_Nlu_External_SystemDialogAct.offered.setter();
-    (*(v54 + 8))(v50, v53);
-    (*(v51 + 8))(v49, v52);
-    (*(v15 + 8))(v57, v71);
-    (*(v27 + 8))(v59, v58);
-    v46 = 0;
+    (*(v48 + 8))(v44, v47);
+    (*(v45 + 8))(v43, v46);
+    (*(v12 + 8))(v51, v65);
+    (*(v22 + 8))(v53, v52);
+    v40 = 0;
   }
 
-  v55 = type metadata accessor for Siri_Nlu_External_SystemDialogAct();
-  return (*(*(v55 - 8) + 56))(v47, v46, 1, v55);
+  v49 = type metadata accessor for Siri_Nlu_External_SystemDialogAct();
+  return (*(*(v49 - 8) + 56))(v41, v40, 1, v49);
 }
 
 uint64_t WorkoutReminderPromptStrategy.__deallocating_deinit()
 {
-  v1 = *(v0 + 32);
 
   __swift_destroy_boxed_opaque_existential_0Tm((v0 + 64));
   __swift_destroy_boxed_opaque_existential_0Tm((v0 + 104));
@@ -2403,44 +1892,40 @@ uint64_t protocol witness for PromptForValueFlowStrategyAsync.makePromptForValue
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeRepromptOnEmptyParse() in conformance WorkoutReminderPromptStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B460] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
 
   return MEMORY[0x2821B9D48](a1, a2, a3);
 }
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeRepromptOnLowConfidence() in conformance WorkoutReminderPromptStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B468] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
 
   return MEMORY[0x2821B9D50](a1, a2, a3);
 }
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeFlowCancelledResponse() in conformance WorkoutReminderPromptStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B450] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for Flow.execute() in conformance VoiceFeedbackAnnouncementFlow;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for Flow.execute() in conformance VoiceFeedbackAnnouncementFlow;
 
   return MEMORY[0x2821B9D38](a1, a2, a3);
 }
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeErrorResponse(_:) in conformance WorkoutReminderPromptStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(MEMORY[0x277D5B458] + 4);
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance WorkoutReminderPromptStrategy;
 
   return MEMORY[0x2821B9D40](a1, a2, a3, a4);
 }
@@ -2485,16 +1970,15 @@ void __swiftcall BelowTargetZoneModel.init(magnitude:unit:targetZone:)(WorkoutAn
 {
   object = unit._object;
   countAndFlagsBits = unit._countAndFlagsBits;
-  v8 = targetZone->unit._object;
   metricType = targetZone->metricType;
   value = targetZone->paceFormat.value;
-  v11 = BYTE1(targetZone[1].minMagnitude);
+  v10 = BYTE1(targetZone[1].minMagnitude);
 
   retstr->alertType = WorkoutAnnouncements_VoiceFeedbackAlertType_zoneExitedBelow;
   retstr->magnitude = magnitude;
   retstr->unit._countAndFlagsBits = countAndFlagsBits;
   retstr->unit._object = object;
-  retstr->isSingleThreshold = v11;
+  retstr->isSingleThreshold = v10;
   retstr->paceFormat.value = value;
   retstr->metricType = metricType;
 }
@@ -2517,57 +2001,52 @@ uint64_t BelowTargetZoneModel.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements20BelowTargetZoneModelV10CodingKeys33_F0F000A9373B30E9B9F0312F54FCF0C1LLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements20BelowTargetZoneModelV10CodingKeys33_F0F000A9373B30E9B9F0312F54FCF0C1LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v16 - v7;
-  v9 = *v1;
-  v10 = *(v1 + 1);
-  v11 = *(v1 + 2);
-  v19 = *(v1 + 3);
-  v20 = v11;
-  LODWORD(v11) = v1[32];
-  v17 = v1[33];
-  v18 = v11;
-  HIDWORD(v16) = v1[34];
-  v12 = a1[4];
+  v7 = &v13 - v6;
+  v8 = *v1;
+  v9 = *(v1 + 2);
+  v16 = *(v1 + 3);
+  v17 = v9;
+  LODWORD(v9) = v1[32];
+  v14 = v1[33];
+  v15 = v9;
+  HIDWORD(v13) = v1[34];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type BelowTargetZoneModel.CodingKeys and conformance BelowTargetZoneModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v29 = v9;
-  v28 = 0;
+  v26 = v8;
+  v25 = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v13 = v17;
-    v14 = BYTE4(v16);
-    v27 = 1;
+    v10 = v14;
+    v11 = BYTE4(v13);
+    v24 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v26 = 2;
+    v23 = 2;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v25 = 3;
+    v22 = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v24 = v13;
-    v23 = 4;
+    v21 = v10;
+    v20 = 4;
     lazy protocol witness table accessor for type VoiceFeedbackPaceFormat and conformance VoiceFeedbackPaceFormat();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v22 = v14;
-    v21 = 5;
+    v19 = v11;
+    v18 = 5;
     lazy protocol witness table accessor for type VoiceFeedbackMetricType and conformance VoiceFeedbackMetricType();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t BelowTargetZoneModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t BelowTargetZoneModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements20BelowTargetZoneModelV10CodingKeys33_F0F000A9373B30E9B9F0312F54FCF0C1LLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements20BelowTargetZoneModelV10CodingKeys33_F0F000A9373B30E9B9F0312F54FCF0C1LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v20 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type BelowTargetZoneModel.CodingKeys and conformance BelowTargetZoneModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2576,36 +2055,36 @@ uint64_t BelowTargetZoneModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X
     return __swift_destroy_boxed_opaque_existential_0Tm(a1);
   }
 
-  v30 = 0;
+  v28 = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v31;
-  v29 = 1;
+  v9 = v29;
+  v27 = 1;
   KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v28 = 2;
-  v14 = KeyedDecodingContainer.decode(_:forKey:)();
-  v16 = v15;
-  v22 = v14;
-  v27 = 3;
-  v21 = KeyedDecodingContainer.decode(_:forKey:)();
-  v25 = 4;
+  v11 = v10;
+  v26 = 2;
+  v12 = KeyedDecodingContainer.decode(_:forKey:)();
+  v14 = v13;
+  v20 = v12;
+  v25 = 3;
+  v19 = KeyedDecodingContainer.decode(_:forKey:)();
+  v23 = 4;
   lazy protocol witness table accessor for type VoiceFeedbackPaceFormat and conformance VoiceFeedbackPaceFormat();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v20 = v26;
-  v23 = 5;
+  v18 = v24;
+  v21 = 5;
   lazy protocol witness table accessor for type VoiceFeedbackMetricType and conformance VoiceFeedbackMetricType();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v18 = v21 & 1;
-  (*(v6 + 8))(v9, v5);
-  v19 = v24;
-  *a2 = v11;
-  *(a2 + 8) = v13;
-  *(a2 + 16) = v22;
-  *(a2 + 24) = v16;
-  *(a2 + 32) = v18;
-  *(a2 + 33) = v20;
-  *(a2 + 34) = v19;
+  v16 = v19 & 1;
+  (*(v6 + 8))(v8, v5);
+  v17 = v22;
+  *a2 = v9;
+  *(a2 + 8) = v11;
+  *(a2 + 16) = v20;
+  *(a2 + 24) = v14;
+  *(a2 + 32) = v16;
+  *(a2 + 33) = v18;
+  *(a2 + 34) = v17;
 
   __swift_destroy_boxed_opaque_existential_0Tm(a1);
 }
@@ -2700,456 +2179,390 @@ unint64_t lazy protocol witness table accessor for type BelowTargetZoneModel and
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 8) + **(a3 + 8));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.goalCompletion(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 16);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 16) + **(a5 + 16));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.goalHalfwayPoint(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 24);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 24) + **(a5 + 24));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.intervalEnded(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 32);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 32) + **(a3 + 32));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.intervalUpcomingHeartRateZone(conclusionInSingleWindowResponse:executeSashGroupOnWatch:isFirstWindow:isLastWindow:isNextWindowLastWindow:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v17 = *(a9 + 40);
-  v21 = (v17 + *v17);
-  v18 = v17[1];
-  v19 = swift_task_alloc();
-  *(v9 + 16) = v19;
-  *v19 = v9;
-  v19[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v19 = (*(a9 + 40) + **(a9 + 40));
+  v17 = swift_task_alloc();
+  *(v9 + 16) = v17;
+  *v17 = v9;
+  v17[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v21(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  return v19(a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.intervalUpcomingNonPace(conclusionInSingleWindowResponse:executeSashGroupOnWatch:isCadence:isFirstWindow:isHeartRate:isLastWindow:isNextWindowLastWindow:isPower:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  v18 = *(a13 + 48);
-  v22 = (v18 + *v18);
-  v19 = v18[1];
-  v20 = swift_task_alloc();
-  *(v13 + 16) = v20;
-  *v20 = v13;
-  v20[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v20 = (*(a13 + 48) + **(a13 + 48));
+  v18 = swift_task_alloc();
+  *(v13 + 16) = v18;
+  *v18 = v13;
+  v18[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return (v22)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.intervalUpcomingPace(conclusionInSingleWindowResponse:executeSashGroupOnWatch:isFirstWindow:isLastWindow:isNextWindowLastWindow:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v18 = *(a10 + 56);
-  v22 = (v18 + *v18);
-  v19 = v18[1];
-  v20 = swift_task_alloc();
-  *(v10 + 16) = v20;
-  *v20 = v10;
-  v20[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v20 = (*(a10 + 56) + **(a10 + 56));
+  v18 = swift_task_alloc();
+  *(v10 + 16) = v18;
+  *v18 = v10;
+  v18[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v22(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.intervalUpcomingSpeed(conclusionInSingleWindowResponse:executeSashGroupOnWatch:isFirstWindow:isLastWindow:isNextWindowLastWindow:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v18 = *(a10 + 64);
-  v22 = (v18 + *v18);
-  v19 = v18[1];
-  v20 = swift_task_alloc();
-  *(v10 + 16) = v20;
-  *v20 = v10;
-  v20[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v20 = (*(a10 + 64) + **(a10 + 64));
+  v18 = swift_task_alloc();
+  *(v10 + 16) = v18;
+  *v18 = v10;
+  v18[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v22(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.lapCompletionPace(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 72);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 72) + **(a5 + 72));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.lapCompletionSpeed(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 80);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 80) + **(a5 + 80));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.moveRingCompleted(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 88);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 88) + **(a3 + 88));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.pacerGoalCompletion(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 96);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 96) + **(a5 + 96));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceAheadOfGhost(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 104);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 104) + **(a3 + 104));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceBehindGhost(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 112);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 112) + **(a3 + 112));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceExpired(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 120);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
+  v9 = (*(a3 + 120) + **(a3 + 120));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceOffRoute(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 128);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 128) + **(a3 + 128));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceOnRoute(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 136);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 136) + **(a3 + 136));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceRouteCompleteRaceWon(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 144);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 144) + **(a3 + 144));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.raceRouteCompletedRaceLost(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 152);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 152) + **(a3 + 152));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.segmentMarked(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 160);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 160) + **(a5 + 160));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.trackStatusChanged(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 168);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 168) + **(a3 + 168));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.transitionedNotableDistancePace(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 176);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 176) + **(a5 + 176));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.transitionedNotableDistanceSpeed(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 184);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 184) + **(a5 + 184));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.transitionedNotableTime(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 192);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 192) + **(a5 + 192));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.workoutPaused(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 200);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 200) + **(a3 + 200));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.workoutResumed(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 208);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 208) + **(a3 + 208));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneEnteredNonPace(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 216);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 216) + **(a5 + 216));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneEnteredPace(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 224);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 224) + **(a5 + 224));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneEnteredSpeed(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 232);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 232) + **(a5 + 232));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedAboveNonPace(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = *(a6 + 240);
-  v17 = (v13 + *v13);
-  v14 = v13[1];
-  v15 = swift_task_alloc();
-  *(v6 + 16) = v15;
-  *v15 = v6;
-  v15[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 240) + **(a6 + 240));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v17(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedAbovePace(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = *(a6 + 248);
-  v17 = (v13 + *v13);
-  v14 = v13[1];
-  v15 = swift_task_alloc();
-  *(v6 + 16) = v15;
-  *v15 = v6;
-  v15[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 248) + **(a6 + 248));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v17(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedAboveSpeed(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v16 = (*(a6 + 256) + **(a6 + 256));
-  v13 = *(*(a6 + 256) + 4);
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 256) + **(a6 + 256));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v16(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedBelowNonPace(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v16 = (*(a6 + 264) + **(a6 + 264));
-  v13 = *(*(a6 + 264) + 4);
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 264) + **(a6 + 264));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v16(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedBelowPace(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v16 = (*(a6 + 272) + **(a6 + 272));
-  v13 = *(*(a6 + 272) + 4);
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 272) + **(a6 + 272));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v16(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
 uint64_t dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.zoneExitedBelowSpeed(executeSashGroupOnWatch:isSingleThreshold:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v16 = (*(a6 + 280) + **(a6 + 280));
-  v13 = *(*(a6 + 280) + 4);
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v15 = (*(a6 + 280) + **(a6 + 280));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v16(a1, a2, a3, a4, a5, a6);
+  return v15(a1, a2, a3, a4, a5, a6);
 }
 
-uint64_t type metadata accessor for WorkoutVoiceFeedbackCATPatternsExecutor()
+uint64_t type metadata accessor for WorkoutVoiceFeedbackCATPatternsExecutor(uint64_t a1)
 {
   result = type metadata singleton initialization cache for WorkoutVoiceFeedbackCATPatternsExecutor;
   if (!type metadata singleton initialization cache for WorkoutVoiceFeedbackCATPatternsExecutor)
@@ -3160,166 +2573,142 @@ uint64_t type metadata accessor for WorkoutVoiceFeedbackCATPatternsExecutor()
   return result;
 }
 
-uint64_t WorkoutVoiceFeedbackCATPatternsExecutor.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2)
+uint64_t WorkoutVoiceFeedbackCATPatternsExecutor.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = type metadata accessor for CATOption();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v18 - v12;
-  v14 = *(v2 + 48);
-  v15 = *(v2 + 52);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v14 - v10;
   swift_allocObject();
-  outlined init with copy of URL?(a1, v13);
-  (*(v6 + 16))(v9, a2, v5);
-  v16 = CATWrapper.init(templateDir:options:globals:)();
+  outlined init with copy of URL?(a1, v11);
+  (*(v6 + 16))(v8, a2, v5);
+  v12 = CATWrapper.init(templateDir:options:globals:)();
   (*(v6 + 8))(a2, v5);
   outlined destroy of URL?(a1);
-  return v16;
+  return v12;
 }
 
 id SAUIAudioDescription.init(asbd:)(uint64_t a1)
 {
   v2 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v3 = *(a1 + 32);
-  v4 = v2;
   isa = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setBitsPerChannel_];
+  [v2 setBitsPerChannel_];
 
-  v6 = *(a1 + 24);
+  v4 = UInt32._bridgeToObjectiveC()().super.super.isa;
+  [v2 setBytesPerFrame_];
+
+  v5 = UInt32._bridgeToObjectiveC()().super.super.isa;
+  [v2 setBytesPerPacket_];
+
+  v6 = UInt32._bridgeToObjectiveC()().super.super.isa;
+  [v2 setChannelsPerFrame_];
+
   v7 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setBytesPerFrame_];
+  [v2 setFormatFlags_];
 
-  v8 = *(a1 + 16);
+  v8 = *(a1 + 8);
   v9 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setBytesPerPacket_];
+  [v2 setFormatID_];
 
-  v10 = *(a1 + 28);
+  v10 = UInt32._bridgeToObjectiveC()().super.super.isa;
+  [v2 setFramesPerPacket_];
+
   v11 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setChannelsPerFrame_];
+  [v2 setReserved_];
 
-  v12 = *(a1 + 12);
-  v13 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setFormatFlags_];
+  v12 = MEMORY[0x277C66E20](*a1);
+  [v2 setSampleRate_];
 
-  v14 = *(a1 + 8);
-  v15 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setFormatID_];
-
-  v16 = *(a1 + 20);
-  v17 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setFramesPerPacket_];
-
-  v18 = *(a1 + 36);
-  v19 = UInt32._bridgeToObjectiveC()().super.super.isa;
-  [v4 setReserved_];
-
-  v20 = MEMORY[0x277C66E20](*a1);
-  [v4 setSampleRate_];
-
-  switch(v14)
+  switch(v8)
   {
     case 778924083:
-      v21 = MEMORY[0x277D48B48];
+      v13 = MEMORY[0x277D48B48];
       break;
     case 1819304813:
-      v21 = MEMORY[0x277D48B40];
+      v13 = MEMORY[0x277D48B40];
       break;
     case 1869641075:
-      v21 = MEMORY[0x277D48B50];
+      v13 = MEMORY[0x277D48B50];
       break;
     default:
-      v21 = MEMORY[0x277D48B58];
+      v13 = MEMORY[0x277D48B58];
       break;
   }
 
-  [v4 setFormat_];
-  return v4;
+  [v2 setFormat_];
+  return v2;
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.acceptedEndWorkout(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
+  v9 = (*(a3 + 8) + **(a3 + 8));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of VoiceFeedbackPatternResolving.executePattern(wrapper:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.acceptedStartWorkout(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 16);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 16) + **(a3 + 16));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.acceptedResumeWorkout(executeSashGroupOnWatch:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 24);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v9 = (*(a3 + 24) + **(a3 + 24));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.end(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 32);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 32) + **(a5 + 32));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.start(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 40);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 40) + **(a5 + 40));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
 uint64_t dispatch thunk of WorkoutRemindersCATPatternsExecuting.resume(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v11 = *(a5 + 48);
-  v15 = (v11 + *v11);
-  v12 = v11[1];
-  v13 = swift_task_alloc();
-  *(v5 + 16) = v13;
-  *v13 = v5;
-  v13[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
+  v13 = (*(a5 + 48) + **(a5 + 48));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of WorkoutVoiceFeedbackCATPatternsExecuting.exerciseRingCompleted(executeSashGroupOnWatch:);
 
-  return v15(a1, a2, a3, a4, a5);
+  return v13(a1, a2, a3, a4, a5);
 }
 
-uint64_t type metadata accessor for WorkoutRemindersCATPatternsExecutor()
+uint64_t type metadata accessor for WorkoutRemindersCATPatternsExecutor(uint64_t a1)
 {
   result = type metadata singleton initialization cache for WorkoutRemindersCATPatternsExecutor;
   if (!type metadata singleton initialization cache for WorkoutRemindersCATPatternsExecutor)
@@ -3436,26 +2825,22 @@ uint64_t WorkoutRemindersResumeParameters.asKeyValuePairs()()
   return v2;
 }
 
-uint64_t WorkoutRemindersCATPatternsExecutor.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2)
+uint64_t WorkoutRemindersCATPatternsExecutor.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = type metadata accessor for CATOption();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v18 - v12;
-  v14 = *(v2 + 48);
-  v15 = *(v2 + 52);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v14 - v10;
   swift_allocObject();
-  outlined init with copy of URL?(a1, v13);
-  (*(v6 + 16))(v9, a2, v5);
-  v16 = CATWrapper.init(templateDir:options:globals:)();
+  outlined init with copy of URL?(a1, v11);
+  (*(v6 + 16))(v8, a2, v5);
+  v12 = CATWrapper.init(templateDir:options:globals:)();
   (*(v6 + 8))(a2, v5);
   outlined destroy of URL?(a1);
-  return v16;
+  return v12;
 }
 
 uint64_t specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupOnWatch:_:)(char a1, uint64_t a2, uint64_t a3)
@@ -3490,22 +2875,18 @@ uint64_t specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupO
   *(v5 + 136) = 0xEB00000000657079;
   *(v5 + 168) = v6;
   *(v5 + 144) = v3;
-  v8 = *(MEMORY[0x277D55BE8] + 4);
-  v12 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
-  v9 = swift_task_alloc();
-  *(v0 + 40) = v9;
-  *v9 = v0;
-  v9[1] = specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupOnWatch:_:);
-  v10 = *(v0 + 16);
+  v10 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
+  v8 = swift_task_alloc();
+  *(v0 + 40) = v8;
+  *v8 = v0;
+  v8[1] = specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupOnWatch:_:);
 
-  return v12(0xD000000000000016, 0x8000000274C703D0, v5);
+  return v10(0xD000000000000016, 0x8000000274C703D0, v5);
 }
 
 uint64_t specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupOnWatch:_:)(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 40);
-  v6 = *v2;
   *(*v2 + 48) = v1;
 
   if (v1)
@@ -3516,11 +2897,10 @@ uint64_t specialized WorkoutRemindersCATPatternsExecutor.start(executeSashGroupO
 
   else
   {
-    v7 = *(v4 + 32);
 
-    v8 = *(v6 + 8);
+    v5 = *(v4 + 8);
 
-    return v8(a1);
+    return v5(a1);
   }
 }
 
@@ -3556,31 +2936,18 @@ uint64_t specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnW
   *(v5 + 136) = 0xEB00000000657079;
   *(v5 + 168) = v6;
   *(v5 + 144) = v3;
-  v8 = *(MEMORY[0x277D55BE8] + 4);
-  v12 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
-  v9 = swift_task_alloc();
-  *(v0 + 40) = v9;
-  *v9 = v0;
-  v9[1] = specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnWatch:_:);
-  v10 = *(v0 + 16);
+  v10 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
+  v8 = swift_task_alloc();
+  *(v0 + 40) = v8;
+  *v8 = v0;
+  v8[1] = specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnWatch:_:);
 
-  return v12(0xD000000000000014, 0x8000000274C703F0, v5);
-}
-
-{
-  v1 = v0[4];
-
-  v2 = v0[1];
-  v3 = v0[6];
-
-  return v2();
+  return v10(0xD000000000000014, 0x8000000274C703F0, v5);
 }
 
 uint64_t specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnWatch:_:)(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 40);
-  v6 = *v2;
   *(*v2 + 48) = v1;
 
   if (v1)
@@ -3591,12 +2958,19 @@ uint64_t specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnW
 
   else
   {
-    v7 = *(v4 + 32);
 
-    v8 = *(v6 + 8);
+    v5 = *(v4 + 8);
 
-    return v8(a1);
+    return v5(a1);
   }
+}
+
+uint64_t specialized WorkoutRemindersCATPatternsExecutor.end(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2)
+{
+
+  v3 = *(v2 + 8);
+
+  return v3();
 }
 
 uint64_t specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:)(char a1, uint64_t a2, uint64_t a3)
@@ -3631,51 +3005,45 @@ uint64_t specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroup
   v9 = WorkoutRemindersResumeParameters.asKeyValuePairs()();
   *(v0 + 112) = v9;
   outlined destroy of WorkoutRemindersResumeParameters(v0 + 16);
-  v10 = *(MEMORY[0x277D55BE8] + 4);
-  v14 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
-  v11 = swift_task_alloc();
-  *(v0 + 120) = v11;
-  *v11 = v0;
-  v11[1] = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
-  v12 = *(v0 + 96);
+  v12 = (*MEMORY[0x277D55BE8] + MEMORY[0x277D55BE8]);
+  v10 = swift_task_alloc();
+  *(v0 + 120) = v10;
+  *v10 = v0;
+  v10[1] = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
 
-  return v14(0xD000000000000017, 0x8000000274C70410, v9);
+  return v12(0xD000000000000017, 0x8000000274C70410, v9);
 }
 
 {
   return (*(v0 + 8))(*(v0 + 136));
 }
 
-{
-  v1 = v0[14];
-
-  v2 = v0[1];
-  v3 = v0[16];
-
-  return v2();
-}
-
 uint64_t specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:)(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 120);
-  v6 = *v2;
   *(*v2 + 128) = v1;
 
   if (v1)
   {
-    v7 = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
+    v5 = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
   }
 
   else
   {
-    v8 = *(v4 + 112);
 
     *(v4 + 136) = a1;
-    v7 = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
+    v5 = specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:);
   }
 
-  return MEMORY[0x2822009F8](v7, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
+}
+
+uint64_t specialized WorkoutRemindersCATPatternsExecutor.resume(executeSashGroupOnWatch:_:)(uint64_t a1, uint64_t a2)
+{
+
+  v3 = *(v2 + 8);
+
+  return v3();
 }
 
 __n128 __swift_memcpy80_8(uint64_t a1, uint64_t a2)
@@ -4240,99 +3608,118 @@ LABEL_20:
   return result;
 }
 
-uint64_t VoiceFeedbackWorkoutStep.init(from:)@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+void __swiftcall VoiceFeedbackWorkoutStep.init(magnitude:unit:stepType:targetZone:)(WorkoutAnnouncements::VoiceFeedbackWorkoutStep *__return_ptr retstr, Swift::Double_optional magnitude, Swift::String_optional unit, WorkoutAnnouncements::VoiceFeedbackStepType stepType, WorkoutAnnouncements::VoiceFeedbackTargetZone_optional *targetZone)
+{
+  v6 = v5;
+  minMagnitude_low = LOBYTE(targetZone->value.minMagnitude);
+  v9 = *(v5 + 32);
+  v10 = *(v5 + 40);
+  v11 = *(v5 + 48);
+  retstr->magnitude.value = *&magnitude.is_nil;
+  retstr->magnitude.is_nil = unit.value._countAndFlagsBits & 1;
+  retstr->unit.value._countAndFlagsBits = unit.value._object;
+  retstr->unit.value._object = stepType;
+  retstr->stepType = minMagnitude_low;
+
+  v12 = *v6;
+  *(&retstr->targetZone.value.unit + 7) = v6[1];
+  *(&retstr->targetZone.value.minMagnitude + 7) = v12;
+  *(&retstr->targetZone.value.zoneIndex.value + 5) = v9;
+  *(&retstr->targetZone.value.isSingleThreshold + 4) = v10;
+  LOWORD(retstr[1].magnitude.value) = v11;
+}
+
+uint64_t VoiceFeedbackWorkoutStep.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements013VoiceFeedbackD4StepV10CodingKeys33_18A63B2CD911CFEF9ACD6291F2D4C790LLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements013VoiceFeedbackD4StepV10CodingKeys33_18A63B2CD911CFEF9ACD6291F2D4C790LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v27 - v8;
-  v10 = a1[3];
-  v11 = a1[4];
-  v36 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v10);
+  v8 = &v25 - v7;
+  v9 = a1[3];
+  v34 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v9);
   lazy protocol witness table accessor for type VoiceFeedbackWorkoutStep.CodingKeys and conformance VoiceFeedbackWorkoutStep.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    LOBYTE(v42) = 0;
+    LOBYTE(v40) = 0;
+    v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v59 = v11 & 1;
+    LOBYTE(v40) = 1;
     v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v61 = v13 & 1;
-    LOBYTE(v42) = 1;
-    v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v16 = v15;
-    v35 = v14;
-    LOBYTE(v42) = 2;
-    v17 = KeyedDecodingContainer.decode(_:forKey:)();
-    if (v17 < 4)
+    v14 = v13;
+    v33 = v12;
+    LOBYTE(v40) = 2;
+    v15 = KeyedDecodingContainer.decode(_:forKey:)();
+    if (v15 < 4)
     {
-      v34 = v17;
-      v62 = 3;
+      v32 = v15;
+      v60 = 3;
       lazy protocol witness table accessor for type VoiceFeedbackTargetZone and conformance VoiceFeedbackTargetZone();
       KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-      (*(v6 + 8))(v9, v5);
-      v19 = v54;
-      v18 = v55;
-      v30 = v54;
-      v31 = v55;
-      v20 = v56;
-      v21 = v57;
-      v28 = v59;
-      v29 = v58;
-      HIDWORD(v27) = v60;
+      (*(v6 + 8))(v8, v5);
+      v17 = v52;
+      v16 = v53;
+      v28 = v52;
+      v29 = v53;
+      v18 = v54;
+      v19 = v55;
+      v26 = v57;
+      v27 = v56;
+      HIDWORD(v25) = v58;
 
-      v33 = v12;
-      *&v37 = v12;
-      v32 = v61;
-      BYTE8(v37) = v61;
-      *&v38 = v35;
-      *(&v38 + 1) = v16;
-      LOBYTE(v39) = v34;
-      *(&v39 + 1) = v19;
-      *&v40 = v18;
-      *(&v40 + 1) = v20;
-      *&v41[0] = v21;
-      v22 = v28;
-      v23 = v29;
-      *(&v41[0] + 1) = v29;
-      *&v41[1] = v28;
-      LOWORD(v19) = WORD2(v27);
-      WORD4(v41[1]) = WORD2(v27);
-      v24 = v40;
-      a2[2] = v39;
-      a2[3] = v24;
-      a2[4] = v41[0];
-      *(a2 + 74) = *(v41 + 10);
-      v25 = v38;
-      *a2 = v37;
-      a2[1] = v25;
-      outlined init with copy of VoiceFeedbackWorkoutStep(&v37, &v42);
-      __swift_destroy_boxed_opaque_existential_0Tm(v36);
+      v31 = v10;
+      *&v35 = v10;
+      v30 = v59;
+      BYTE8(v35) = v59;
+      *&v36 = v33;
+      *(&v36 + 1) = v14;
+      LOBYTE(v37) = v32;
+      *(&v37 + 1) = v17;
+      *&v38 = v16;
+      *(&v38 + 1) = v18;
+      *&v39[0] = v19;
+      v20 = v26;
+      v21 = v27;
+      *(&v39[0] + 1) = v27;
+      *&v39[1] = v26;
+      LOWORD(v17) = WORD2(v25);
+      WORD4(v39[1]) = WORD2(v25);
+      v22 = v38;
+      a2[2] = v37;
+      a2[3] = v22;
+      a2[4] = v39[0];
+      *(a2 + 74) = *(v39 + 10);
+      v23 = v36;
+      *a2 = v35;
+      a2[1] = v23;
+      outlined init with copy of VoiceFeedbackWorkoutStep(&v35, &v40);
+      __swift_destroy_boxed_opaque_existential_0Tm(v34);
+      v40 = v31;
+      v41 = v30;
       v42 = v33;
-      v43 = v32;
-      v44 = v35;
-      v45 = v16;
-      v46 = v34;
-      v47 = v30;
-      v48 = v31;
-      v49 = v20;
-      v50 = v21;
-      v51 = v23;
-      v52 = v22;
-      v53 = v19;
-      return outlined destroy of VoiceFeedbackWorkoutStep(&v42);
+      v43 = v14;
+      v44 = v32;
+      v45 = v28;
+      v46 = v29;
+      v47 = v18;
+      v48 = v19;
+      v49 = v21;
+      v50 = v20;
+      v51 = v17;
+      return outlined destroy of VoiceFeedbackWorkoutStep(&v40);
     }
 
-    LOBYTE(v42) = 2;
+    LOBYTE(v40) = 2;
     type metadata accessor for DecodingError();
     swift_allocError();
     lazy protocol witness table accessor for type KeyedDecodingContainer<VoiceFeedbackWorkoutStep.CodingKeys> and conformance KeyedDecodingContainer<A>();
     static DecodingError.dataCorruptedError<A>(forKey:in:debugDescription:)();
     swift_willThrow();
-    (*(v6 + 8))(v9, v5);
+    (*(v6 + 8))(v8, v5);
   }
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v36);
+  __swift_destroy_boxed_opaque_existential_0Tm(v34);
 }
 
 unint64_t lazy protocol witness table accessor for type VoiceFeedbackWorkoutStep.CodingKeys and conformance VoiceFeedbackWorkoutStep.CodingKeys()
@@ -4441,10 +3828,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance VoiceF
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance VoiceFeedbackWorkoutStep.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance VoiceFeedbackWorkoutStep.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, __n128 a4@<Q0>)
 {
-  result = specialized VoiceFeedbackWorkoutStep.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized VoiceFeedbackWorkoutStep.CodingKeys.init(stringValue:)(a2, a3, a4);
+  *a1 = result;
   return result;
 }
 
@@ -4466,74 +3853,70 @@ uint64_t VoiceFeedbackWorkoutStep.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements013VoiceFeedbackD4StepV10CodingKeys33_18A63B2CD911CFEF9ACD6291F2D4C790LLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements013VoiceFeedbackD4StepV10CodingKeys33_18A63B2CD911CFEF9ACD6291F2D4C790LLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v20 - v6;
-  v8 = *v1;
-  v9 = *(v1 + 8);
-  v10 = v1[2];
-  v25 = v1[3];
-  v26 = v10;
-  v33 = *(v1 + 32);
-  v11 = *(v1 + 7);
-  v20 = *(v1 + 5);
-  v21 = v11;
-  v12 = v1[9];
-  v23 = v1[10];
-  v24 = v12;
-  v22 = *(v1 + 44);
-  v13 = a1[4];
+  v6 = &v16 - v5;
+  v7 = *(v1 + 16);
+  v21 = *(v1 + 24);
+  v22 = v7;
+  v29 = *(v1 + 32);
+  v8 = *(v1 + 56);
+  v16 = *(v1 + 40);
+  v17 = v8;
+  v9 = *(v1 + 72);
+  v19 = *(v1 + 80);
+  v20 = v9;
+  v18 = *(v1 + 88);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type VoiceFeedbackWorkoutStep.CodingKeys and conformance VoiceFeedbackWorkoutStep.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  LOBYTE(v28) = 0;
-  v14 = v27;
+  LOBYTE(v24) = 0;
+  v10 = v23;
   KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-  if (!v14)
+  if (!v10)
   {
-    v16 = v33;
-    v17 = v22;
-    v19 = v23;
-    v18 = v24;
-    LOBYTE(v28) = 1;
+    v12 = v29;
+    v13 = v18;
+    v15 = v19;
+    v14 = v20;
+    LOBYTE(v24) = 1;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    LOBYTE(v28) = v16;
-    v34 = 2;
+    LOBYTE(v24) = v12;
+    v30 = 2;
     lazy protocol witness table accessor for type VoiceFeedbackStepType and conformance VoiceFeedbackStepType();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v29 = v21;
-    v28 = v20;
-    v30 = v18;
-    v31 = v19;
-    v32 = v17;
-    v34 = 3;
+    v25 = v17;
+    v24 = v16;
+    v26 = v14;
+    v27 = v15;
+    v28 = v13;
+    v30 = 3;
     lazy protocol witness table accessor for type VoiceFeedbackTargetZone and conformance VoiceFeedbackTargetZone();
 
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 80);
-  v12 = *(a1 + 88);
-  v13 = *(a2 + 24);
-  v14 = *(a2 + 32);
-  v15 = *(a2 + 40);
-  v16 = *(a2 + 56);
-  v17 = *(a2 + 64);
-  v18 = *(a2 + 80);
-  v19 = *(a2 + 88);
-  if (v4)
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 16);
+  v7 = *(a1 + 24);
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 56);
+  v11 = *(a1 + 64);
+  v12 = *(a1 + 80);
+  v13 = *(a1 + 88);
+  v14 = *(a2 + 24);
+  v15 = *(a2 + 32);
+  v16 = *(a2 + 40);
+  v17 = *(a2 + 56);
+  v18 = *(a2 + 64);
+  v19 = *(a2 + 80);
+  v20 = *(a2 + 88);
+  if (v5)
   {
     if (!*(a2 + 8))
     {
@@ -4543,119 +3926,120 @@ uint64_t specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(uint64_t a1,
 
   else
   {
+    a3.n128_u64[0] = *a2;
     if (*a1 == *a2)
     {
-      v20 = *(a2 + 8);
+      v21 = *(a2 + 8);
     }
 
     else
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    if (v20)
+    if (v21)
     {
       goto LABEL_13;
     }
   }
 
-  if (!v6)
+  if (!v7)
   {
-    v21 = 0;
-    if (!v13 && v7 == v14)
+    v22 = 0;
+    if (!v14 && v8 == v15)
     {
       goto LABEL_20;
     }
 
-    return v21 & 1;
+    return v22 & 1;
   }
 
-  if (!v13)
+  if (!v14)
   {
 LABEL_13:
-    v21 = 0;
-    return v21 & 1;
+    v22 = 0;
+    return v22 & 1;
   }
 
-  if (v5 == *(a2 + 16) && v6 == v13)
+  if (v6 == *(a2 + 16) && v7 == v14)
   {
-    if (v7 != v14)
+    if (v8 != v15)
     {
       goto LABEL_13;
     }
 
 LABEL_20:
-    if (v10)
+    if (v11)
     {
-      v36 = v8;
-      *v37 = v9;
-      *&v37[8] = v10;
-      *&v37[24] = v11;
-      v38 = v12;
-      if (v17)
+      v37 = v9;
+      *v38 = v10;
+      *&v38[8] = v11;
+      *&v38[24] = v12;
+      v39 = v13;
+      if (v18)
       {
-        v27 = v15;
-        *v28 = v16;
-        *&v28[8] = v17;
-        *&v28[24] = v18;
-        v29 = v19;
-        v21 = specialized static VoiceFeedbackTargetZone.== infix(_:_:)(&v36, &v27);
-        v30[0] = v27;
-        v30[1] = *v28;
-        v30[2] = *&v28[16];
-        v31 = v29;
+        v28 = v16;
+        *v29 = v17;
+        *&v29[8] = v18;
+        *&v29[24] = v19;
+        v30 = v20;
+        v22 = specialized static VoiceFeedbackTargetZone.== infix(_:_:)(&v37, &v28, a3);
+        v31[0] = v28;
+        v31[1] = *v29;
+        v31[2] = *&v29[16];
+        v32 = v30;
 
         swift_bridgeObjectRetain_n();
-        outlined destroy of VoiceFeedbackTargetZone(v30);
-        v32 = v36;
-        v33 = *v37;
-        v34 = *&v37[16];
-        v35 = v38;
-        outlined destroy of VoiceFeedbackTargetZone(&v32);
+        outlined destroy of VoiceFeedbackTargetZone(v31);
+        v33 = v37;
+        v34 = *v38;
+        v35 = *&v38[16];
+        v36 = v39;
+        outlined destroy of VoiceFeedbackTargetZone(&v33);
 
-        return v21 & 1;
+        return v22 & 1;
       }
 
-      v32 = v36;
-      v33 = *v37;
-      v34 = *&v37[16];
-      v35 = v38;
+      v33 = v37;
+      v34 = *v38;
+      v35 = *&v38[16];
+      v36 = v39;
       swift_bridgeObjectRetain_n();
-      outlined destroy of VoiceFeedbackTargetZone(&v32);
+      outlined destroy of VoiceFeedbackTargetZone(&v33);
     }
 
     else
     {
-      if (!v17)
+      if (!v18)
       {
 
-        v21 = 1;
-        return v21 & 1;
+        v22 = 1;
+        return v22 & 1;
       }
     }
 
-    v21 = 0;
-    return v21 & 1;
+    v22 = 0;
+    return v22 & 1;
   }
 
-  v23 = v10;
-  v24 = v8;
-  v25 = *(a2 + 40);
-  v26 = *(a2 + 64);
-  v21 = 0;
+  v24 = v11;
+  v25 = v9;
+  v26 = *(a2 + 40);
+  v27 = *(a2 + 64);
+  v22 = 0;
   if (_stringCompareWithSmolCheck(_:_:expecting:)())
   {
-    v15 = v25;
-    v17 = v26;
-    v10 = v23;
-    v8 = v24;
-    if (v7 == v14)
+    v16 = v26;
+    v18 = v27;
+    v11 = v24;
+    v9 = v25;
+    if (v8 == v15)
     {
       goto LABEL_20;
     }
   }
 
-  return v21 & 1;
+  return v22 & 1;
 }
 
 __n128 __swift_memcpy90_8(uint64_t a1, uint64_t a2)
@@ -4733,10 +4117,10 @@ uint64_t storeEnumTagSinglePayload for VoiceFeedbackWorkoutStep(uint64_t result,
   return result;
 }
 
-uint64_t specialized VoiceFeedbackWorkoutStep.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+uint64_t specialized VoiceFeedbackWorkoutStep.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = a1 == 0x647574696E67616DLL && a2 == 0xE900000000000065;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v5 = a1 == 0x647574696E67616DLL && a2 == 0xE900000000000065;
+  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
     return 0;
@@ -4762,9 +4146,9 @@ uint64_t specialized VoiceFeedbackWorkoutStep.CodingKeys.init(stringValue:)(uint
 
   else
   {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v6)
+    if (v7)
     {
       return 3;
     }
@@ -4787,49 +4171,46 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Segmen
 {
   if (*v0)
   {
-    result = 0x7865646E69;
+    return 0x7865646E69;
   }
 
   else
   {
-    result = 0x7079547472656C61;
+    return 0x7079547472656C61;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SegmentModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
-  v6 = a1 == 0x7079547472656C61 && a2 == 0xE900000000000065;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v7 = a1 == 0x7079547472656C61 && a2 == 0xE900000000000065;
+  if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else if (a1 == 0x7865646E69 && a2 == 0xE500000000000000)
   {
 
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v10)
     {
-      v8 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v9 = 2;
     }
   }
 
-  *a3 = v8;
+  *a3 = v9;
   return result;
 }
 
@@ -4851,26 +4232,24 @@ uint64_t SegmentModel.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements12SegmentModelV10CodingKeys33_2AB8F4E1749EF8C56127E99B22054B9DLLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements12SegmentModelV10CodingKeys33_2AB8F4E1749EF8C56127E99B22054B9DLLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v12 - v7;
-  v9 = *v1;
-  v12[1] = *(v1 + 1);
-  v10 = a1[4];
+  v7 = v10 - v6;
+  v8 = *v1;
+  v10[1] = *(v1 + 1);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type SegmentModel.CodingKeys and conformance SegmentModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15 = v9;
-  v14 = 0;
+  v13 = v8;
+  v12 = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v13 = 1;
+    v11 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
 unint64_t lazy protocol witness table accessor for type SegmentModel.CodingKeys and conformance SegmentModel.CodingKeys()
@@ -4918,28 +4297,26 @@ unint64_t lazy protocol witness table accessor for type SegmentModel.CodingKeys 
   return result;
 }
 
-uint64_t SegmentModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t SegmentModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements12SegmentModelV10CodingKeys33_2AB8F4E1749EF8C56127E99B22054B9DLLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements12SegmentModelV10CodingKeys33_2AB8F4E1749EF8C56127E99B22054B9DLLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - v8;
-  v10 = a1[4];
+  v8 = &v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type SegmentModel.CodingKeys and conformance SegmentModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v16 = 0;
+    v14 = 0;
     lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v11 = v17;
-    v15 = 1;
-    v12 = KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    *a2 = v11;
-    *(a2 + 8) = v12;
+    v9 = v15;
+    v13 = 1;
+    v10 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v6 + 8))(v8, v5);
+    *a2 = v9;
+    *(a2 + 8) = v10;
   }
 
   return __swift_destroy_boxed_opaque_existential_0Tm(a1);
@@ -5045,10 +4422,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Upcomi
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance UpcomingIntervalModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance UpcomingIntervalModel.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, __n128 a4@<Q0>)
 {
-  result = specialized UpcomingIntervalModel.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized UpcomingIntervalModel.CodingKeys.init(stringValue:)(a2, a3, a4);
+  *a1 = result;
   return result;
 }
 
@@ -5070,216 +4447,212 @@ uint64_t UpcomingIntervalModel.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements21UpcomingIntervalModelV10CodingKeys33_2D96C49AE7A0F9B5185DF2CE594465CDLLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements21UpcomingIntervalModelV10CodingKeys33_2D96C49AE7A0F9B5185DF2CE594465CDLLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v16 - v6;
-  v8 = *v1;
-  v9 = *(v1 + 56);
-  v34 = *(v1 + 40);
-  v35 = v9;
-  v36[0] = *(v1 + 72);
-  *(v36 + 10) = *(v1 + 82);
-  v10 = *(v1 + 24);
-  v32 = *(v1 + 8);
-  v33 = v10;
-  v11 = *(v1 + 152);
-  v39 = *(v1 + 136);
-  v40 = v11;
-  v41[0] = *(v1 + 168);
-  *(v41 + 10) = *(v1 + 178);
-  v12 = *(v1 + 120);
-  v37 = *(v1 + 104);
-  v38 = v12;
-  v13 = a1[4];
+  v6 = v14 - v5;
+  v7 = *v1;
+  v8 = *(v1 + 56);
+  v32 = *(v1 + 40);
+  v33 = v8;
+  v34[0] = *(v1 + 72);
+  *(v34 + 10) = *(v1 + 82);
+  v9 = *(v1 + 24);
+  v30 = *(v1 + 8);
+  v31 = v9;
+  v10 = *(v1 + 152);
+  v37 = *(v1 + 136);
+  v38 = v10;
+  v39[0] = *(v1 + 168);
+  *(v39 + 10) = *(v1 + 178);
+  v11 = *(v1 + 120);
+  v35 = *(v1 + 104);
+  v36 = v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type UpcomingIntervalModel.CodingKeys and conformance UpcomingIntervalModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  LOBYTE(v27) = v8;
-  LOBYTE(v24[0]) = 0;
+  LOBYTE(v25) = v7;
+  LOBYTE(v22[0]) = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
-  v14 = v42;
+  v12 = v40;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v14)
+  if (!v12)
   {
-    v29 = v34;
-    v30 = v35;
-    v31[0] = v36[0];
-    *(v31 + 10) = *(v36 + 10);
     v27 = v32;
     v28 = v33;
-    v26 = 1;
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v32, v24);
+    v29[0] = v34[0];
+    *(v29 + 10) = *(v34 + 10);
+    v25 = v30;
+    v26 = v31;
+    v24 = 1;
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v30, v22);
     lazy protocol witness table accessor for type VoiceFeedbackWorkoutStep and conformance VoiceFeedbackWorkoutStep();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v24[2] = v29;
-    v24[3] = v30;
-    *v25 = v31[0];
-    *&v25[10] = *(v31 + 10);
-    v24[0] = v27;
-    v24[1] = v28;
-    outlined destroy of AceOutput?(v24, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
-    v21 = v39;
-    v22 = v40;
-    v23[0] = v41[0];
-    *(v23 + 10) = *(v41 + 10);
+    v22[2] = v27;
+    v22[3] = v28;
+    *v23 = v29[0];
+    *&v23[10] = *(v29 + 10);
+    v22[0] = v25;
+    v22[1] = v26;
+    outlined destroy of AceOutput?(v22, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
     v19 = v37;
     v20 = v38;
-    v18 = 2;
-    outlined init with copy of VoiceFeedbackWorkoutStep(&v37, v16);
+    v21[0] = v39[0];
+    *(v21 + 10) = *(v39 + 10);
+    v17 = v35;
+    v18 = v36;
+    v16 = 2;
+    outlined init with copy of VoiceFeedbackWorkoutStep(&v35, v14);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16[2] = v21;
-    v16[3] = v22;
-    *v17 = v23[0];
-    *&v17[10] = *(v23 + 10);
-    v16[0] = v19;
-    v16[1] = v20;
-    outlined destroy of VoiceFeedbackWorkoutStep(v16);
+    v14[2] = v19;
+    v14[3] = v20;
+    *v15 = v21[0];
+    *&v15[10] = *(v21 + 10);
+    v14[0] = v17;
+    v14[1] = v18;
+    outlined destroy of VoiceFeedbackWorkoutStep(v14);
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t UpcomingIntervalModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t UpcomingIntervalModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements21UpcomingIntervalModelV10CodingKeys33_2D96C49AE7A0F9B5185DF2CE594465CDLLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements21UpcomingIntervalModelV10CodingKeys33_2D96C49AE7A0F9B5185DF2CE594465CDLLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v30 - v8;
-  v10 = a1[3];
-  v11 = a1[4];
-  v36 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v10);
+  v8 = &v28 - v7;
+  v9 = a1[3];
+  v34 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v9);
   lazy protocol witness table accessor for type UpcomingIntervalModel.CodingKeys and conformance UpcomingIntervalModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v40 = 0;
-    v89 = 0;
     v38 = 0;
-    v39 = 0;
-    v41 = 0;
+    v87 = 0;
+    v36 = 0;
     v37 = 0;
-    __swift_destroy_boxed_opaque_existential_0Tm(v36);
-    v48 = 0;
+    v39 = 0;
+    v35 = 0;
+    __swift_destroy_boxed_opaque_existential_0Tm(v34);
+    v46 = 0;
+    v47 = 0;
+    *&v48 = 0;
+    *(&v48 + 1) = 1;
     v49 = 0;
-    *&v50 = 0;
-    *(&v50 + 1) = 1;
-    v51 = 0;
-    v52 = v40;
-    v53 = v89;
+    v50 = v38;
+    v51 = v87;
+    v52 = v37;
+    v53 = v36;
     v54 = v39;
-    v55 = v38;
-    v56 = v41;
-    v57 = v37;
-    LOWORD(v58) = 0;
-    return outlined destroy of AceOutput?(&v48, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
+    v55 = v35;
+    LOWORD(v56) = 0;
+    return outlined destroy of AceOutput?(&v46, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
   }
 
   else
   {
-    v35 = v6;
-    LOBYTE(v42[0]) = 0;
+    v33 = v6;
+    LOBYTE(v40[0]) = 0;
     lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v12 = v48;
-    v76[31] = 1;
+    v10 = v46;
+    v74[31] = 1;
     lazy protocol witness table accessor for type VoiceFeedbackWorkoutStep and conformance VoiceFeedbackWorkoutStep();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v31 = v12;
-    v32 = v77;
-    v33 = v78;
-    v13 = v79;
-    v34 = v80;
-    v40 = v81;
-    v89 = v82;
-    v38 = v84;
+    v29 = v10;
+    v30 = v75;
+    v31 = v76;
+    v11 = v77;
+    v32 = v78;
+    v38 = v79;
+    v87 = v80;
+    v36 = v82;
+    v37 = v81;
     v39 = v83;
-    v41 = v85;
-    v37 = v86;
-    v14 = v87;
-    memset(v72, 0, sizeof(v72));
-    v73 = 1;
-    v74 = 0u;
-    v75 = 0u;
-    memset(v76, 0, 26);
-    outlined destroy of AceOutput?(v72, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
-    v66 = 2;
+    v35 = v84;
+    v12 = v85;
+    memset(v70, 0, sizeof(v70));
+    v71 = 1;
+    v72 = 0u;
+    v73 = 0u;
+    memset(v74, 0, 26);
+    outlined destroy of AceOutput?(v70, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
+    v64 = 2;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v35 + 8))(v9, v5);
-    *&v88[38] = v69;
-    *&v88[54] = v70;
-    *&v88[70] = v71[0];
-    *&v88[80] = *(v71 + 10);
-    *&v88[6] = v67;
-    *&v88[22] = v68;
-    LOBYTE(v42[0]) = v31;
-    *(&v42[0] + 1) = v32;
-    v42[1] = v33;
-    *&v43 = v13;
-    v30 = v13;
-    v16 = v39;
-    v15 = v40;
-    *(&v43 + 1) = v34;
-    *&v44 = v40;
-    *(&v44 + 1) = v89;
-    *&v45 = v39;
-    v17 = v37;
-    v18 = v38;
-    *(&v45 + 1) = v38;
-    *&v46 = v41;
-    *(&v46 + 1) = v37;
-    *v47 = v14;
-    *&v47[82] = *(v71 + 10);
-    *&v47[50] = *&v88[48];
-    *&v47[34] = *&v88[32];
-    *&v47[2] = *v88;
-    *&v47[18] = *&v88[16];
-    *&v47[66] = *&v88[64];
-    v19 = v42[0];
-    v20 = v33;
+    (*(v33 + 8))(v8, v5);
+    *&v86[38] = v67;
+    *&v86[54] = v68;
+    *&v86[70] = v69[0];
+    *&v86[80] = *(v69 + 10);
+    *&v86[6] = v65;
+    *&v86[22] = v66;
+    LOBYTE(v40[0]) = v29;
+    *(&v40[0] + 1) = v30;
+    v40[1] = v31;
+    *&v41 = v11;
+    v28 = v11;
+    v14 = v37;
+    v13 = v38;
+    *(&v41 + 1) = v32;
+    *&v42 = v38;
+    *(&v42 + 1) = v87;
+    *&v43 = v37;
+    v15 = v35;
+    v16 = v36;
+    *(&v43 + 1) = v36;
+    *&v44 = v39;
+    *(&v44 + 1) = v35;
+    *v45 = v12;
+    *&v45[82] = *(v69 + 10);
+    *&v45[50] = *&v86[48];
+    *&v45[34] = *&v86[32];
+    *&v45[2] = *v86;
+    *&v45[18] = *&v86[16];
+    *&v45[66] = *&v86[64];
+    v17 = v40[0];
+    v18 = v31;
+    v19 = v42;
+    *(a2 + 32) = v41;
+    *(a2 + 48) = v19;
+    *a2 = v17;
+    *(a2 + 16) = v18;
+    v20 = v43;
     v21 = v44;
-    *(a2 + 32) = v43;
-    *(a2 + 48) = v21;
-    *a2 = v19;
-    *(a2 + 16) = v20;
-    v22 = v45;
-    v23 = v46;
-    v24 = *&v47[16];
-    *(a2 + 96) = *v47;
-    *(a2 + 112) = v24;
-    *(a2 + 64) = v22;
-    *(a2 + 80) = v23;
-    v25 = *&v47[32];
-    v26 = *&v47[48];
-    v27 = *&v47[64];
-    v28 = *&v47[80];
-    *(a2 + 192) = *&v47[96];
-    *(a2 + 160) = v27;
-    *(a2 + 176) = v28;
-    *(a2 + 128) = v25;
-    *(a2 + 144) = v26;
-    outlined init with copy of UpcomingIntervalModel(v42, &v48);
-    __swift_destroy_boxed_opaque_existential_0Tm(v36);
-    v62 = *&v88[32];
-    v63 = *&v88[48];
-    v64 = *&v88[64];
-    v65 = *&v88[80];
-    v60 = *v88;
-    LOBYTE(v48) = v31;
-    v49 = v32;
-    v50 = v33;
-    v51 = v30;
-    v52 = v34;
-    v53 = v15;
-    v54 = v89;
-    v55 = v16;
-    v56 = v18;
-    v57 = v41;
-    v58 = v17;
-    v59 = v14;
-    v61 = *&v88[16];
-    return outlined destroy of UpcomingIntervalModel(&v48);
+    v22 = *&v45[16];
+    *(a2 + 96) = *v45;
+    *(a2 + 112) = v22;
+    *(a2 + 64) = v20;
+    *(a2 + 80) = v21;
+    v23 = *&v45[32];
+    v24 = *&v45[48];
+    v25 = *&v45[64];
+    v26 = *&v45[80];
+    *(a2 + 192) = *&v45[96];
+    *(a2 + 160) = v25;
+    *(a2 + 176) = v26;
+    *(a2 + 128) = v23;
+    *(a2 + 144) = v24;
+    outlined init with copy of UpcomingIntervalModel(v40, &v46);
+    __swift_destroy_boxed_opaque_existential_0Tm(v34);
+    v60 = *&v86[32];
+    v61 = *&v86[48];
+    v62 = *&v86[64];
+    v63 = *&v86[80];
+    v58 = *v86;
+    LOBYTE(v46) = v29;
+    v47 = v30;
+    v48 = v31;
+    v49 = v28;
+    v50 = v32;
+    v51 = v13;
+    v52 = v87;
+    v53 = v14;
+    v54 = v16;
+    v55 = v39;
+    v56 = v15;
+    v57 = v12;
+    v59 = *&v86[16];
+    return outlined destroy of UpcomingIntervalModel(&v46);
   }
 }
 
@@ -5287,191 +4660,191 @@ uint64_t specialized static UpcomingIntervalModel.== infix(_:_:)(unsigned __int8
 {
   v2 = *a1;
   v3 = *(a1 + 56);
-  v61 = *(a1 + 40);
-  v62 = v3;
-  v63[0] = *(a1 + 72);
-  *(v63 + 10) = *(a1 + 82);
+  v63 = *(a1 + 40);
+  v64 = v3;
+  v65[0] = *(a1 + 72);
+  *(v65 + 10) = *(a1 + 82);
   v4 = *(a1 + 24);
-  v59 = *(a1 + 8);
-  v60 = v4;
+  v61 = *(a1 + 8);
+  v62 = v4;
   v5 = *(a1 + 120);
-  v64 = *(a1 + 104);
-  v65 = v5;
+  v66 = *(a1 + 104);
+  v67 = v5;
   v6 = *(a1 + 136);
   v7 = *(a1 + 152);
   v8 = *(a1 + 168);
-  *(v68 + 10) = *(a1 + 178);
-  v67 = v7;
-  v68[0] = v8;
-  v66 = v6;
+  *(v70 + 10) = *(a1 + 178);
+  v69 = v7;
+  v70[0] = v8;
+  v68 = v6;
   v9 = *a2;
-  *(v73 + 10) = *(a2 + 82);
+  *(v75 + 10) = *(a2 + 82);
   v10 = *(a2 + 56);
-  v71 = *(a2 + 40);
-  v72 = v10;
+  v73 = *(a2 + 40);
+  v74 = v10;
   v11 = *(a2 + 24);
-  v69 = *(a2 + 8);
-  v70 = v11;
-  v73[0] = *(a2 + 72);
-  *(v78 + 10) = *(a2 + 178);
+  v71 = *(a2 + 8);
+  v72 = v11;
+  v75[0] = *(a2 + 72);
+  *(v80 + 10) = *(a2 + 178);
   v12 = *(a2 + 168);
   v13 = *(a2 + 136);
-  v77 = *(a2 + 152);
-  v78[0] = v12;
+  v79 = *(a2 + 152);
+  v80[0] = v12;
   v14 = *(a2 + 104);
-  v75 = *(a2 + 120);
-  v76 = v13;
-  v74 = v14;
+  v77 = *(a2 + 120);
+  v78 = v13;
+  v76 = v14;
   if (v2 != v9)
   {
     goto LABEL_9;
   }
 
-  v16 = *(&v60 + 1);
-  *&v58[6] = *(a2 + 8);
-  *&v58[22] = *(a2 + 3);
-  v17 = *(&v70 + 1);
-  if (*(&v60 + 1) == 1)
+  v16 = *(&v62 + 1);
+  *&v60[6] = *(a2 + 8);
+  *&v60[22] = *(a2 + 3);
+  v17 = *(&v72 + 1);
+  if (*(&v62 + 1) == 1)
   {
-    if (*(&v70 + 1) == 1)
+    if (*(&v72 + 1) == 1)
     {
-      v48 = *(a1 + 8);
-      *&v49 = *(a1 + 3);
-      *(&v49 + 1) = 1;
+      v50 = *(a1 + 8);
+      *&v51 = *(a1 + 3);
+      *(&v51 + 1) = 1;
       v18 = *(a1 + 56);
-      v50 = *(a1 + 40);
-      v51 = v18;
-      *v52 = *(a1 + 72);
-      *&v52[10] = *(a1 + 82);
-      outlined init with copy of VoiceFeedbackWorkoutStep?(&v59, &v43);
-      outlined init with copy of VoiceFeedbackWorkoutStep?(&v69, &v43);
-      outlined destroy of AceOutput?(&v48, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
+      v52 = *(a1 + 40);
+      v53 = v18;
+      *v54 = *(a1 + 72);
+      *&v54[10] = *(a1 + 82);
+      outlined init with copy of VoiceFeedbackWorkoutStep?(&v61, &v45);
+      outlined init with copy of VoiceFeedbackWorkoutStep?(&v71, &v45);
+      outlined destroy of AceOutput?(&v50, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
 LABEL_12:
+      v42 = v68;
+      v43 = v69;
+      v44[0] = v70[0];
+      *(v44 + 10) = *(v70 + 10);
       v40 = v66;
       v41 = v67;
-      v42[0] = v68[0];
-      *(v42 + 10) = *(v68 + 10);
-      v38 = v64;
-      v39 = v65;
+      v37 = v78;
+      v38 = v79;
+      v39[0] = v80[0];
+      *(v39 + 10) = *(v80 + 10);
       v35 = v76;
       v36 = v77;
-      v37[0] = v78[0];
-      *(v37 + 10) = *(v78 + 10);
-      v33 = v74;
-      v34 = v75;
-      outlined init with copy of VoiceFeedbackWorkoutStep(&v64, &v48);
-      outlined init with copy of VoiceFeedbackWorkoutStep(&v74, &v48);
-      v25 = specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(&v38, &v33);
+      outlined init with copy of VoiceFeedbackWorkoutStep(&v66, &v50);
+      outlined init with copy of VoiceFeedbackWorkoutStep(&v76, &v50);
+      v25 = specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(&v40, &v35, v32);
+      v47 = v37;
+      v48 = v38;
+      v49[0] = v39[0];
+      *(v49 + 10) = *(v39 + 10);
       v45 = v35;
       v46 = v36;
-      v47[0] = v37[0];
-      *(v47 + 10) = *(v37 + 10);
-      v43 = v33;
-      v44 = v34;
-      outlined destroy of VoiceFeedbackWorkoutStep(&v43);
+      outlined destroy of VoiceFeedbackWorkoutStep(&v45);
+      v52 = v42;
+      v53 = v43;
+      *v54 = v44[0];
+      *&v54[10] = *(v44 + 10);
       v50 = v40;
       v51 = v41;
-      *v52 = v42[0];
-      *&v52[10] = *(v42 + 10);
-      v48 = v38;
-      v49 = v39;
-      outlined destroy of VoiceFeedbackWorkoutStep(&v48);
+      outlined destroy of VoiceFeedbackWorkoutStep(&v50);
       return v25 & 1;
     }
 
     v21 = a2;
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v59, &v48);
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v69, &v48);
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v61, &v50);
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v71, &v50);
     goto LABEL_8;
   }
 
   v19 = *(a1 + 3);
-  v48 = *(a1 + 8);
-  *&v49 = v19;
-  *(&v49 + 1) = *(&v60 + 1);
-  *v52 = *(a1 + 72);
-  *&v52[10] = *(a1 + 82);
+  v50 = *(a1 + 8);
+  *&v51 = v19;
+  *(&v51 + 1) = *(&v62 + 1);
+  *v54 = *(a1 + 72);
+  *&v54[10] = *(a1 + 82);
   v20 = *(a1 + 56);
-  v50 = *(a1 + 40);
-  v51 = v20;
+  v52 = *(a1 + 40);
+  v53 = v20;
+  v47 = v52;
+  v48 = v20;
+  *(v49 + 10) = *&v54[10];
+  v49[0] = *v54;
   v45 = v50;
-  v46 = v20;
-  *(v47 + 10) = *&v52[10];
-  v47[0] = *v52;
-  v43 = v48;
-  v44 = v49;
-  if (*(&v70 + 1) == 1)
+  v46 = v51;
+  if (*(&v72 + 1) == 1)
   {
     v21 = a2;
+    v42 = v52;
+    v43 = v53;
+    v44[0] = *v54;
+    *(v44 + 10) = *&v54[10];
     v40 = v50;
     v41 = v51;
-    v42[0] = *v52;
-    *(v42 + 10) = *&v52[10];
-    v38 = v48;
-    v39 = v49;
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v59, &v33);
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v69, &v33);
-    outlined init with copy of VoiceFeedbackWorkoutStep?(&v48, &v33);
-    outlined destroy of VoiceFeedbackWorkoutStep(&v38);
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v61, &v35);
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v71, &v35);
+    outlined init with copy of VoiceFeedbackWorkoutStep?(&v50, &v35);
+    outlined destroy of VoiceFeedbackWorkoutStep(&v40);
 LABEL_8:
-    v48 = *(a1 + 8);
-    *&v49 = *(a1 + 3);
-    *(&v49 + 1) = v16;
+    v50 = *(a1 + 8);
+    *&v51 = *(a1 + 3);
+    *(&v51 + 1) = v16;
     v22 = *(a1 + 56);
-    v50 = *(a1 + 40);
-    v51 = v22;
-    *v52 = *(a1 + 72);
-    *&v52[10] = *(a1 + 82);
-    *&v53[14] = *&v58[14];
-    *v53 = *v58;
-    v54 = v17;
-    *(v57 + 10) = *(v21 + 82);
+    v52 = *(a1 + 40);
+    v53 = v22;
+    *v54 = *(a1 + 72);
+    *&v54[10] = *(a1 + 82);
+    *&v55[14] = *&v60[14];
+    *v55 = *v60;
+    v56 = v17;
+    *(v59 + 10) = *(v21 + 82);
     v23 = *(v21 + 72);
     v24 = *(v21 + 40);
-    v56 = *(v21 + 56);
-    v57[0] = v23;
-    v55 = v24;
-    outlined destroy of AceOutput?(&v48, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSg_ADtMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSg_ADtMR);
+    v58 = *(v21 + 56);
+    v59[0] = v23;
+    v57 = v24;
+    outlined destroy of AceOutput?(&v50, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSg_ADtMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSg_ADtMR);
     goto LABEL_9;
   }
 
-  v38 = *(a2 + 8);
+  v40 = *(a2 + 8);
   v27 = *(a2 + 3);
   v28 = *(a2 + 56);
-  v40 = *(a2 + 40);
-  v41 = v28;
-  v42[0] = *(a2 + 72);
-  *(v42 + 10) = *(a2 + 82);
-  *&v39 = v27;
-  *(&v39 + 1) = *(&v70 + 1);
-  outlined init with copy of VoiceFeedbackWorkoutStep?(&v59, &v33);
-  outlined init with copy of VoiceFeedbackWorkoutStep?(&v69, &v33);
-  outlined init with copy of VoiceFeedbackWorkoutStep?(&v48, &v33);
-  v29 = specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(&v43, &v38);
-  v31[2] = v40;
-  v31[3] = v41;
-  v32[0] = v42[0];
-  *(v32 + 10) = *(v42 + 10);
-  v31[0] = v38;
-  v31[1] = v39;
-  outlined destroy of VoiceFeedbackWorkoutStep(v31);
+  v42 = *(a2 + 40);
+  v43 = v28;
+  v44[0] = *(a2 + 72);
+  *(v44 + 10) = *(a2 + 82);
+  *&v41 = v27;
+  *(&v41 + 1) = *(&v72 + 1);
+  outlined init with copy of VoiceFeedbackWorkoutStep?(&v61, &v35);
+  outlined init with copy of VoiceFeedbackWorkoutStep?(&v71, &v35);
+  outlined init with copy of VoiceFeedbackWorkoutStep?(&v50, &v35);
+  v30 = specialized static VoiceFeedbackWorkoutStep.== infix(_:_:)(&v45, &v40, v29);
+  v33[2] = v42;
+  v33[3] = v43;
+  v34[0] = v44[0];
+  *(v34 + 10) = *(v44 + 10);
+  v33[0] = v40;
+  v33[1] = v41;
+  outlined destroy of VoiceFeedbackWorkoutStep(v33);
+  v37 = v47;
+  v38 = v48;
+  v39[0] = v49[0];
+  *(v39 + 10) = *(v49 + 10);
   v35 = v45;
   v36 = v46;
-  v37[0] = v47[0];
-  *(v37 + 10) = *(v47 + 10);
-  v33 = v43;
-  v34 = v44;
-  outlined destroy of VoiceFeedbackWorkoutStep(&v33);
-  v38 = *(a1 + 8);
-  *&v39 = *(a1 + 3);
-  *(&v39 + 1) = v16;
-  v30 = *(a1 + 56);
-  v40 = *(a1 + 40);
-  v41 = v30;
-  v42[0] = *(a1 + 72);
-  *(v42 + 10) = *(a1 + 82);
-  outlined destroy of AceOutput?(&v38, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
-  if (v29)
+  outlined destroy of VoiceFeedbackWorkoutStep(&v35);
+  v40 = *(a1 + 8);
+  *&v41 = *(a1 + 3);
+  *(&v41 + 1) = v16;
+  v31 = *(a1 + 56);
+  v42 = *(a1 + 40);
+  v43 = v31;
+  v44[0] = *(a1 + 72);
+  *(v44 + 10) = *(a1 + 82);
+  outlined destroy of AceOutput?(&v40, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMd, &_s20WorkoutAnnouncements013VoiceFeedbackA4StepVSgMR);
+  if (v30)
   {
     goto LABEL_12;
   }
@@ -5710,10 +5083,10 @@ uint64_t storeEnumTagSinglePayload for UpcomingIntervalModel(uint64_t result, un
   return result;
 }
 
-uint64_t specialized UpcomingIntervalModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+uint64_t specialized UpcomingIntervalModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = a1 == 0x7079547472656C61 && a2 == 0xE900000000000065;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v5 = a1 == 0x7079547472656C61 && a2 == 0xE900000000000065;
+  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
     return 0;
@@ -5733,9 +5106,9 @@ uint64_t specialized UpcomingIntervalModel.CodingKeys.init(stringValue:)(uint64_
 
   else
   {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v6)
+    if (v7)
     {
       return 2;
     }
@@ -5751,16 +5124,15 @@ void __swiftcall EnteredTargetZoneModel.init(magnitude:unit:targetZone:)(Workout
 {
   object = unit._object;
   countAndFlagsBits = unit._countAndFlagsBits;
-  v8 = targetZone->unit._object;
   metricType = targetZone->metricType;
   value = targetZone->paceFormat.value;
-  v11 = BYTE1(targetZone[1].minMagnitude);
+  v10 = BYTE1(targetZone[1].minMagnitude);
 
   retstr->alertType = WorkoutAnnouncements_VoiceFeedbackAlertType_zoneEntered;
   retstr->magnitude = magnitude;
   retstr->unit._countAndFlagsBits = countAndFlagsBits;
   retstr->unit._object = object;
-  retstr->isSingleThreshold = v11;
+  retstr->isSingleThreshold = v10;
   retstr->paceFormat.value = value;
   retstr->metricType = metricType;
 }
@@ -5783,57 +5155,52 @@ uint64_t EnteredTargetZoneModel.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy20WorkoutAnnouncements22EnteredTargetZoneModelV10CodingKeys33_520EC161D85A1C4F62CA995B21BF7696LLOGMd, &_ss22KeyedEncodingContainerVy20WorkoutAnnouncements22EnteredTargetZoneModelV10CodingKeys33_520EC161D85A1C4F62CA995B21BF7696LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v16 - v7;
-  v9 = *v1;
-  v10 = *(v1 + 1);
-  v11 = *(v1 + 2);
-  v19 = *(v1 + 3);
-  v20 = v11;
-  LODWORD(v11) = v1[32];
-  v17 = v1[33];
-  v18 = v11;
-  HIDWORD(v16) = v1[34];
-  v12 = a1[4];
+  v7 = &v13 - v6;
+  v8 = *v1;
+  v9 = *(v1 + 2);
+  v16 = *(v1 + 3);
+  v17 = v9;
+  LODWORD(v9) = v1[32];
+  v14 = v1[33];
+  v15 = v9;
+  HIDWORD(v13) = v1[34];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type EnteredTargetZoneModel.CodingKeys and conformance EnteredTargetZoneModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v29 = v9;
-  v28 = 0;
+  v26 = v8;
+  v25 = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v13 = v17;
-    v14 = BYTE4(v16);
-    v27 = 1;
+    v10 = v14;
+    v11 = BYTE4(v13);
+    v24 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v26 = 2;
+    v23 = 2;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v25 = 3;
+    v22 = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v24 = v13;
-    v23 = 4;
+    v21 = v10;
+    v20 = 4;
     lazy protocol witness table accessor for type VoiceFeedbackPaceFormat and conformance VoiceFeedbackPaceFormat();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v22 = v14;
-    v21 = 5;
+    v19 = v11;
+    v18 = 5;
     lazy protocol witness table accessor for type VoiceFeedbackMetricType and conformance VoiceFeedbackMetricType();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t EnteredTargetZoneModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t EnteredTargetZoneModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy20WorkoutAnnouncements22EnteredTargetZoneModelV10CodingKeys33_520EC161D85A1C4F62CA995B21BF7696LLOGMd, &_ss22KeyedDecodingContainerVy20WorkoutAnnouncements22EnteredTargetZoneModelV10CodingKeys33_520EC161D85A1C4F62CA995B21BF7696LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v20 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type EnteredTargetZoneModel.CodingKeys and conformance EnteredTargetZoneModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5842,36 +5209,36 @@ uint64_t EnteredTargetZoneModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@
     return __swift_destroy_boxed_opaque_existential_0Tm(a1);
   }
 
-  v30 = 0;
+  v28 = 0;
   lazy protocol witness table accessor for type VoiceFeedbackAlertType and conformance VoiceFeedbackAlertType();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v31;
-  v29 = 1;
+  v9 = v29;
+  v27 = 1;
   KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v28 = 2;
-  v14 = KeyedDecodingContainer.decode(_:forKey:)();
-  v16 = v15;
-  v22 = v14;
-  v27 = 3;
-  v21 = KeyedDecodingContainer.decode(_:forKey:)();
-  v25 = 4;
+  v11 = v10;
+  v26 = 2;
+  v12 = KeyedDecodingContainer.decode(_:forKey:)();
+  v14 = v13;
+  v20 = v12;
+  v25 = 3;
+  v19 = KeyedDecodingContainer.decode(_:forKey:)();
+  v23 = 4;
   lazy protocol witness table accessor for type VoiceFeedbackPaceFormat and conformance VoiceFeedbackPaceFormat();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v20 = v26;
-  v23 = 5;
+  v18 = v24;
+  v21 = 5;
   lazy protocol witness table accessor for type VoiceFeedbackMetricType and conformance VoiceFeedbackMetricType();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v18 = v21 & 1;
-  (*(v6 + 8))(v9, v5);
-  v19 = v24;
-  *a2 = v11;
-  *(a2 + 8) = v13;
-  *(a2 + 16) = v22;
-  *(a2 + 24) = v16;
-  *(a2 + 32) = v18;
-  *(a2 + 33) = v20;
-  *(a2 + 34) = v19;
+  v16 = v19 & 1;
+  (*(v6 + 8))(v8, v5);
+  v17 = v22;
+  *a2 = v9;
+  *(a2 + 8) = v11;
+  *(a2 + 16) = v20;
+  *(a2 + 24) = v14;
+  *(a2 + 32) = v16;
+  *(a2 + 33) = v18;
+  *(a2 + 34) = v17;
 
   __swift_destroy_boxed_opaque_existential_0Tm(a1);
 }
@@ -6015,6 +5382,14 @@ unint64_t instantiation function for generic protocol witness table for VoiceFee
 {
   result = lazy protocol witness table accessor for type VoiceFeedbackPaceFormat and conformance VoiceFeedbackPaceFormat();
   *(a1 + 8) = result;
+  return result;
+}
+
+Swift::String __swiftcall URL.path(percentEncoded:)(Swift::Bool percentEncoded)
+{
+  v1 = MEMORY[0x28211D098](percentEncoded);
+  result._object = v2;
+  result._countAndFlagsBits = v1;
   return result;
 }
 

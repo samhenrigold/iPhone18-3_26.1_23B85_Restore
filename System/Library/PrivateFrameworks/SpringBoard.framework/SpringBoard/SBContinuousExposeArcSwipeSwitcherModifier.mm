@@ -116,7 +116,7 @@
   [layoutSettings settlingDuration];
   v8 = [(SBTimerEventSwitcherEventResponse *)v4 initWithDelay:0 validator:self->_uniqueTimerReason reason:v7 * 0.3];
 
-  v9 = SBAppendSwitcherModifierResponse(v8, transitionWillUpdate);
+  v9 = SBAppendSwitcherModifierResponse();
 
   return v9;
 }
@@ -134,7 +134,7 @@
   {
     self->_hideSplitViewHandles = 0;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:16 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -196,7 +196,7 @@
   v9 = [layoutCopy itemForLayoutRole:role];
   if (v9)
   {
-    v10 = [(NSSet *)self->_initialVisibleDisplayItems containsObject:v9];
+    v10 = objc_msgSend_containsObject_(self->_initialVisibleDisplayItems);
     v21.receiver = self;
     v21.super_class = SBContinuousExposeArcSwipeSwitcherModifier;
     visibleAppLayouts = [(SBContinuousExposeArcSwipeSwitcherModifier *)&v21 visibleAppLayouts];
@@ -211,7 +211,7 @@
     v14 = v10 & (v12 ^ 1);
     if (transitionPhase == 1)
     {
-      v14 = !v10 & v12;
+      v14 = (v10 ^ 1) & v12;
     }
 
     if (v14)

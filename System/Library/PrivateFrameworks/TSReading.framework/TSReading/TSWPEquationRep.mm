@@ -64,7 +64,7 @@
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -82,7 +82,7 @@
     v17 = [(TSDRep *)self layout:v29.origin.x];
     if (v17)
     {
-      [(TSDAbstractLayout *)v17 transformInRoot];
+      objc_msgSend_transformInRoot(v17);
     }
 
     else

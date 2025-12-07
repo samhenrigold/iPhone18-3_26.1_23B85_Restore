@@ -20,12 +20,12 @@
 
 - (void)purge
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = 138412290;
-  v3 = v1;
-  _os_log_fault_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "%@ does not implement purge", &v2, 0xCu);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "%@ does not implement purge", &v4, 0xCu);
 }
 
 @end

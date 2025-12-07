@@ -21,7 +21,7 @@ uint64_t *IOAccelMemoryInfoRegisterAPICollectionBlock(const void *a1)
 
   pthread_mutex_lock(&ioaccel_collection_block_mutex);
   v2 = 0;
-  v3 = &ioaccel_collection_blocks;
+  v3 = ioaccel_collection_blocks;
   while (ioaccel_collection_blocks_orig[v2] != a1)
   {
     if (!*v3)
@@ -53,20 +53,18 @@ void IOAccelInitCommPage()
 
 uint64_t __IOAccelMemoryInfoRegisterAPICollectionBlock_block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3.__sig = 0;
-  *v3.__opaque = 0;
-  pthread_mutexattr_init(&v3);
-  pthread_mutexattr_settype(&v3, 1);
-  pthread_mutex_init(&ioaccel_collection_block_mutex, &v3);
-  pthread_mutexattr_destroy(&v3);
+  v3 = *MEMORY[0x277D85DE8];
+  v2.__sig = 0;
+  *v2.__opaque = 0;
+  pthread_mutexattr_init(&v2);
+  pthread_mutexattr_settype(&v2, 1);
+  pthread_mutex_init(&ioaccel_collection_block_mutex, &v2);
+  pthread_mutexattr_destroy(&v2);
   global_queue = dispatch_get_global_queue(0, 0);
-  result = notify_register_dispatch("com.apple.gpumemd.check_in_request", &ioaccel_memlist_notify_token, global_queue, &__block_literal_global_5);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return notify_register_dispatch("com.apple.gpumemd.check_in_request", &ioaccel_memlist_notify_token, global_queue, &__block_literal_global_5);
 }
 
-uint64_t IOAccelDeviceGetTypeID()
+uint64_t IOAccelDeviceGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOAccelDeviceGetTypeID_onceToken != -1)
   {
@@ -85,7 +83,7 @@ uint64_t __IOAccelDeviceGetTypeID_block_invoke()
 
 uint64_t IOAccelDeviceCreateWithAPIProperty(io_service_t a1, const char *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connect = 0;
   v4 = IOServiceOpen(a1, *MEMORY[0x277D85F48], 1u, &connect);
   if (v4)
@@ -96,7 +94,7 @@ uint64_t IOAccelDeviceCreateWithAPIProperty(io_service_t a1, const char *a2)
       IOAccelDeviceCreateWithAPIProperty_cold_1(v5);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   if (a2)
@@ -106,89 +104,86 @@ uint64_t IOAccelDeviceCreateWithAPIProperty(io_service_t a1, const char *a2)
   }
 
   v6 = connect;
-  v7 = *MEMORY[0x277CBECF8];
   if (IOAccelDeviceGetTypeID_onceToken != -1)
   {
     IOAccelDeviceCreateWithAPIProperty_cold_2();
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v9 = Instance;
+  v8 = Instance;
   if (!Instance)
   {
-    goto LABEL_22;
+    return v8;
   }
 
   *(Instance + 16) = a1;
   *(Instance + 20) = v6;
-  v26 = 0u;
-  memset(v27, 0, 432);
   v24 = 0u;
-  v25 = 0u;
-  *__dst = 0u;
+  memset(v25, 0, 432);
+  v22 = 0u;
   v23 = 0u;
+  *__dst = 0u;
+  v21 = 0u;
   outputStructCnt = 600;
   if (IOConnectCallStructMethod(v6, 2u, 0, 0, __dst, &outputStructCnt))
   {
 LABEL_20:
-    CFRelease(v9);
-LABEL_21:
-    v9 = 0;
-    goto LABEL_22;
+    CFRelease(v8);
+    return 0;
   }
 
-  *(v9 + 32) = *__dst;
-  v10 = DWORD1(v23);
-  *(v9 + 48) = DWORD1(v23);
-  if (v10 < 2)
+  *(v8 + 32) = *__dst;
+  v9 = DWORD1(v21);
+  *(v8 + 48) = DWORD1(v21);
+  if (v9 < 2)
   {
-    *(v9 + 40) = v9 + 32;
+    *(v8 + 40) = v8 + 32;
     goto LABEL_16;
   }
 
-  *(v9 + 40) = malloc_type_malloc(8 * v10, 0x10040436913F5uLL);
-  v10 = *(v9 + 48);
-  if (v10 >= 1)
+  *(v8 + 40) = malloc_type_malloc(8 * v9, 0x10040436913F5uLL);
+  v9 = *(v8 + 48);
+  if (v9 >= 1)
   {
-    for (i = 0; i != v10; ++i)
+    for (i = 0; i != v9; ++i)
     {
-      *(*(v9 + 40) + 8 * i) = *(v27 + i + 2) + *(v9 + 32);
+      *(*(v8 + 40) + 8 * i) = *(v25 + i + 2) + *(v8 + 32);
     }
 
 LABEL_16:
-    if (v10 >= 1)
+    if (v9 >= 1)
     {
-      v12 = 0;
-      v13 = *(v9 + 40);
+      v11 = 0;
+      v12 = *(v8 + 40);
       do
       {
-        *(v9 + 68 + 4 * v12) = **(v13 + 8 * v12);
-        ++v12;
+        *(v8 + 68 + 4 * v11) = **(v12 + 8 * v11);
+        ++v11;
       }
 
-      while (v12 < v10);
+      while (v11 < v9);
     }
   }
 
-  *(v9 + 52) = *&__dst[8];
-  *(v9 + 60) = v23;
-  *(v9 + 24) = IOAccelDeviceTestEventFast;
+  *(v8 + 52) = *&__dst[8];
+  *(v8 + 60) = v21;
+  *(v8 + 24) = IOAccelDeviceTestEventFast;
   outputStruct = 64;
-  if (IOConnectCallStructMethod(*(v9 + 20), 0, 0, 0, (v9 + 624), &outputStruct))
+  if (IOConnectCallStructMethod(*(v8 + 20), 0, 0, 0, (v8 + 624), &outputStruct))
   {
     goto LABEL_20;
   }
 
   outputStruct = 0;
-  v18 = 0;
-  v19 = 0;
-  v16 = 24;
-  if (!IOConnectCallStructMethod(*(v9 + 20), 5u, 0, 0, &outputStruct, &v16))
+  v16 = 0;
+  v17 = 0;
+  v14 = 24;
+  if (!IOConnectCallStructMethod(*(v8 + 20), 5u, 0, 0, &outputStruct, &v14))
   {
-    *(v9 + 584) = outputStruct;
-    if (v19 >= 4)
+    *(v8 + 584) = outputStruct;
+    if (v17 >= 4)
     {
-      *(v9 + 592) = v18;
+      *(v8 + 592) = v16;
     }
   }
 
@@ -197,11 +192,9 @@ LABEL_16:
     IOAccelDeviceCreateWithAPIProperty_cold_3();
   }
 
-  *(v9 + 616) = 0;
-  *(v9 + 600) = 0u;
-LABEL_22:
-  v14 = *MEMORY[0x277D85DE8];
-  return v9;
+  *(v8 + 616) = 0;
+  *(v8 + 600) = 0u;
+  return v8;
 }
 
 void IOAccelDeviceRelease(CFTypeRef cf)
@@ -289,14 +282,14 @@ unsigned int *IOAccelDeviceGetConnect(unsigned int *result)
 
 uint64_t IOAccelDeviceGetName(mach_port_t *a1, char *a2, size_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = 3758097090;
-  v9 = 64;
+  v8 = 64;
   if (a1)
   {
     if (CFGetTypeID(a1) == kIOAccelDeviceID)
     {
-      v3 = IOConnectCallStructMethod(a1[5], 1u, 0, 0, outputStruct, &v9);
+      v3 = IOConnectCallStructMethod(a1[5], 1u, 0, 0, outputStruct, &v8);
       if (!v3)
       {
         strncpy(a2, outputStruct, a3);
@@ -304,7 +297,6 @@ uint64_t IOAccelDeviceGetName(mach_port_t *a1, char *a2, size_t a3)
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -360,11 +352,11 @@ uint64_t IOAccelDeviceGetNextGlobalTraceID(uint64_t a1)
   return result;
 }
 
-uint64_t IOAccelDeviceTraceObjectLabel()
+uint64_t IOAccelDeviceTraceObjectLabel(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v0 = kdebug_trace_string();
+  v6 = kdebug_trace_string();
   kdebug_trace();
-  return v0;
+  return v6;
 }
 
 uint64_t IOAccelDeviceGetCurrentTraceFilter(mach_port_t *a1)
@@ -417,7 +409,7 @@ CFStringRef ioAccelDeviceCopyDebugDescription(unsigned int *a1)
   return CFStringCreateWithFormat(0, 0, @"<IOAccelDevice %p connect=%08x refcnt=%d>", a1, v2, v3);
 }
 
-uint64_t IOAccelSharedGetTypeID()
+uint64_t IOAccelSharedGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOAccelSharedGetTypeID_onceToken != -1)
   {
@@ -443,7 +435,6 @@ uint64_t IOAccelSharedCreate(uint64_t a1)
   }
 
   v3 = connect;
-  v4 = *MEMORY[0x277CBECF8];
   if (IOAccelSharedGetTypeID_onceToken != -1)
   {
     IOAccelSharedCreate_cold_1();
@@ -459,19 +450,19 @@ uint64_t IOAccelSharedCreate(uint64_t a1)
     *(Instance + 32) = 0;
     *(Instance + 48) = 0;
     outputStruct = 0;
-    v12 = 0;
-    v10 = 16;
-    v6 = IOConnectCallStructMethod(v3, 7u, 0, 0, &outputStruct, &v10);
-    v7 = outputStruct;
-    v8 = v12;
-    if (v6)
+    v11 = 0;
+    v9 = 16;
+    v5 = IOConnectCallStructMethod(v3, 7u, 0, 0, &outputStruct, &v9);
+    v6 = outputStruct;
+    v7 = v11;
+    if (v5)
     {
+      v6 = 0;
       v7 = 0;
-      v8 = 0;
     }
 
-    *(v2 + 40) = v7;
-    *(v2 + 96) = v8;
+    *(v2 + 40) = v6;
+    *(v2 + 96) = v7;
     os_unfair_lock_lock((v2 + 84));
     *(v2 + 88) = 0;
     os_unfair_lock_unlock((v2 + 84));
@@ -751,7 +742,7 @@ CFStringRef ioAccelSharedCopyDebugDescription(unsigned int *a1)
   return CFStringCreateWithFormat(0, 0, @"<IOAccelShared %p connect=%08x refcnt=%d>", a1, v2, v3);
 }
 
-uint64_t IOAccelContextGetTypeID()
+uint64_t IOAccelContextGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOAccelContextGetTypeID_onceToken != -1)
   {
@@ -783,14 +774,13 @@ const void *IOAccelContextCreate(uint64_t a1, uint32_t type)
   }
 
   v4 = connect;
-  v5 = *MEMORY[0x277CBECF8];
   if (IOAccelContextGetTypeID_onceToken != -1)
   {
     IOAccelContextCreate_cold_1();
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v7 = Instance;
+  v6 = Instance;
   if (Instance)
   {
     *(Instance + 168) = 0u;
@@ -815,12 +805,12 @@ const void *IOAccelContextCreate(uint64_t a1, uint32_t type)
     *(Instance + 296) = 0;
     if (MEMORY[0x259C1DEF0](connect, *(a1 + 24)))
     {
-      CFRelease(v7);
+      CFRelease(v6);
       return 0;
     }
   }
 
-  return v7;
+  return v6;
 }
 
 void IOAccelContextRelease(CFTypeRef cf)
@@ -1014,11 +1004,9 @@ uint64_t IOAccelContextGetDataBufferResource(uint64_t a1, unsigned int a2)
 
 uint64_t IOAccelContextSetExecutableName(uint64_t a1, const char *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   strncpy(__dst, a2, 0x3FFuLL);
-  result = IOConnectCallStructMethod(*(a1 + 24), 1u, __dst, 0x400uLL, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallStructMethod(*(a1 + 24), 1u, __dst, 0x400uLL, 0, 0);
 }
 
 uint64_t IOAccelContextGetSidebandBuffer(uint64_t a1, void *a2, void *a3)
@@ -1110,19 +1098,20 @@ uint64_t IOAccelContextFlushResourceSysMem(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-void *IOAccelContextFinishResourceSysMem(uint64_t a1, void *a2, int a3, void (*a4)(uint64_t), uint64_t a5)
+void *IOAccelContextFinishResourceSysMem(uint64_t a1, void *a2, uint64_t a3, void (*a4)(uint64_t), uint64_t a5)
 {
+  v5 = a3;
   if ((*(a2[9] + 260) & 0xD) == 0 && *(a2[10] + 24) != 1)
   {
     a4(a5);
   }
 
-  return IOAccelResourceFinishSysMem(a2, a3);
+  return IOAccelResourceFinishSysMem(a2, v5);
 }
 
 uint64_t IOAccelContextEnableBlockFences(unint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     IOAccelContextEnableBlockFences_cold_4();
@@ -1145,10 +1134,10 @@ uint64_t IOAccelContextEnableBlockFences(unint64_t a1)
       IONotificationPortSetDispatchQueue(v5, v4);
       dispatch_release(v4);
       reference[0] = 0;
+      v10 = 0u;
       v11 = 0u;
-      v12 = 0u;
       reference[1] = ioAccelContextBlockFenceCallback;
-      v10 = a1;
+      v9 = a1;
       if (!*(a1 + 24))
       {
         IOAccelContextEnableBlockFences_cold_3();
@@ -1174,7 +1163,6 @@ uint64_t IOAccelContextEnableBlockFences(unint64_t a1)
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1267,7 +1255,7 @@ CFStringRef ioAccelContextCopyDebugDescription(unsigned int *a1)
   return CFStringCreateWithFormat(0, 0, @"<IOAccelContext %p connect=%08x refcnt=%d>", a1, v2, v3);
 }
 
-uint64_t IOAccelCommandQueueGetTypeID()
+uint64_t IOAccelCommandQueueGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOAccelCommandQueueGetTypeID_onceToken != -1)
   {
@@ -1286,7 +1274,7 @@ uint64_t __IOAccelCommandQueueGetTypeID_block_invoke()
 
 uint64_t IOAccelCommandQueueCreateWithQoS(uint64_t a1, int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connect = 0;
   v4 = MEMORY[0x277D85F48];
   v5 = IOServiceOpen(*(*(a1 + 16) + 16), *MEMORY[0x277D85F48], 4u, &connect);
@@ -1297,18 +1285,17 @@ uint64_t IOAccelCommandQueueCreateWithQoS(uint64_t a1, int a2)
       IOAccelKillClient_LeakingContext();
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   v6 = connect;
-  v7 = *MEMORY[0x277CBECF8];
   if (IOAccelCommandQueueGetTypeID_onceToken != -1)
   {
     IOAccelCommandQueueCreateWithQoS_cold_1();
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v9 = Instance;
+  v8 = Instance;
   if (Instance)
   {
     *(Instance + 16) = a1;
@@ -1319,66 +1306,62 @@ uint64_t IOAccelCommandQueueCreateWithQoS(uint64_t a1, int a2)
       goto LABEL_8;
     }
 
-    v12 = dispatch_queue_create("com.apple.IOAccelerator.CommandQueueCompletion", 0);
+    v10 = dispatch_queue_create("com.apple.IOAccelerator.CommandQueueCompletion", 0);
+    if (!v10)
+    {
+      goto LABEL_8;
+    }
+
+    v11 = v10;
+    v12 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
+    *(v8 + 32) = v12;
     if (!v12)
     {
+      dispatch_release(v11);
       goto LABEL_8;
     }
 
-    v13 = v12;
-    v14 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
-    *(v9 + 32) = v14;
-    if (!v14)
-    {
-      dispatch_release(v13);
-      goto LABEL_8;
-    }
-
-    IONotificationPortSetDispatchQueue(v14, v13);
-    dispatch_release(v13);
+    IONotificationPortSetDispatchQueue(v12, v11);
+    dispatch_release(v11);
     reference[0] = 0;
+    v23 = 0u;
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
     reference[1] = ioAccelCommandQueueBlockFenceCallback;
-    *&v25 = v9;
-    MachPort = IONotificationPortGetMachPort(*(v9 + 32));
+    *&v23 = v8;
+    MachPort = IONotificationPortGetMachPort(*(v8 + 32));
     if (!MachPort)
     {
       IOAccelCommandQueueCreateWithQoS_cold_2();
     }
 
-    if (IOConnectCallAsyncScalarMethod(*(v9 + 24), 0, MachPort, reference, 3u, 0, 0, 0, 0))
+    if (IOConnectCallAsyncScalarMethod(*(v8 + 24), 0, MachPort, reference, 3u, 0, 0, 0, 0))
     {
-      IONotificationPortDestroy(*(v9 + 32));
-      *(v9 + 32) = 0;
+      IONotificationPortDestroy(*(v8 + 32));
+      *(v8 + 32) = 0;
 LABEL_8:
-      CFRelease(v9);
-LABEL_9:
-      v9 = 0;
-      goto LABEL_10;
+      CFRelease(v8);
+      return 0;
     }
 
     bzero(buffer, 0x404uLL);
     x = 0;
     pid_for_task(*v4, &x);
     proc_pidpath(x, buffer, 0x400u);
-    v23 = a2;
+    v21 = a2;
     outputStructCnt = 8;
     outputStruct = 0;
-    v16 = IOConnectCallStructMethod(*(v9 + 24), 5u, buffer, 0x404uLL, &outputStruct, &outputStructCnt);
-    v17 = outputStruct;
-    if (v16)
+    v14 = IOConnectCallStructMethod(*(v8 + 24), 5u, buffer, 0x404uLL, &outputStruct, &outputStructCnt);
+    v15 = outputStruct;
+    if (v14)
     {
-      v17 = 0;
+      v15 = 0;
     }
 
-    *(v9 + 40) = v17;
+    *(v8 + 40) = v15;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v8;
 }
 
 void ioAccelCommandQueueBlockFenceCallback(const void *a1, int a2, uint64_t a3)
@@ -1521,7 +1504,7 @@ void IOAccelGLContextRelease(CFTypeRef cf)
   }
 }
 
-uint64_t IOAccelResourceGetTypeID()
+uint64_t IOAccelResourceGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOAccelResourceGetTypeID_onceToken != -1)
   {
@@ -1540,19 +1523,19 @@ uint64_t __IOAccelResourceGetTypeID_block_invoke()
 
 uint64_t IOAccelResourceCreate(uint64_t a1, void *a2, size_t a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v6 = *(*(a1 + 16) + 60);
-  v20[0] = v6 + 88;
+  v19[0] = v6 + 88;
   v7 = MEMORY[0x28223BE20](a1, a2);
-  v8 = v20 - ((v6 + 103) & 0x1FFFFFFF0);
-  v9 = _IOAccelResourceAlloc(v7);
+  v8 = v19 - ((v6 + 103) & 0x1FFFFFFF0);
+  v9 = _IOAccelResourceAlloc(v7, v6);
   if (v9)
   {
-    bzero(v20 - ((v6 + 103) & 0x1FFFFFFF0), v6 + 88);
-    if (IOConnectCallMethod(*(a1 + 24), 0, 0, 0, a2, a3, 0, 0, v20 - ((v6 + 103) & 0x1FFFFFFF0), v20))
+    bzero(v19 - ((v6 + 103) & 0x1FFFFFFF0), v6 + 88);
+    if (IOConnectCallMethod(*(a1 + 24), 0, 0, 0, a2, a3, 0, 0, v19 - ((v6 + 103) & 0x1FFFFFFF0), v19))
     {
       CFRelease(v9);
-      v9 = 0;
+      return 0;
     }
 
     else
@@ -1561,49 +1544,49 @@ uint64_t IOAccelResourceCreate(uint64_t a1, void *a2, size_t a3)
       *(v9 + 48) = *(v8 + 5);
       if ((*a2 & 0xF) != 0)
       {
-        v12 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v12 = a2[11];
+        v11 = a2[11];
       }
 
-      *(v9 + 40) = v12;
-      v13 = *(v8 + 10);
+      *(v9 + 40) = v11;
+      v12 = *(v8 + 10);
       *(v9 + 56) = *v8;
-      *(v9 + 64) = v13;
-      v14 = *(v8 + 3);
+      *(v9 + 64) = v12;
+      v13 = *(v8 + 3);
       *(v9 + 72) = *(v8 + 2);
-      *(v9 + 80) = v14;
+      *(v9 + 80) = v13;
       memcpy((v9 + 128), v8 + 88, v6);
       *(v9 + 96) = *(v8 + 56);
       *(v9 + 112) = *(v8 + 9);
-      atomic_fetch_add_explicit((v14 + 24), 1u, memory_order_relaxed);
+      atomic_fetch_add_explicit((v13 + 24), 1u, memory_order_relaxed);
       if ((*(a2 + 36) & 0x40) != 0 && (v8[32] & 1) != 0 && (*(*(v9 + 72) + 260) | 0x40) == 0x40)
       {
-        v15 = *(v9 + 32);
-        if (v15)
+        v14 = *(v9 + 32);
+        if (v14)
         {
-          bzero(v15, a2[11]);
+          bzero(v14, a2[11]);
           if (*(*(v9 + 72) + 260) == 64)
           {
-            v16 = *(a2 + 32);
-            v17 = *(v9 + 80);
+            v15 = *(a2 + 32);
+            v16 = *(v9 + 80);
             if (*(a2 + 32))
             {
-              v18 = ~(-1 << *(a2 + 33));
-              v19 = *(v9 + 80);
+              v17 = ~(-1 << *(a2 + 33));
+              v18 = *(v9 + 80);
               do
               {
-                *v19++ |= v18;
-                --v16;
+                *v18++ |= v17;
+                --v15;
               }
 
-              while (v16);
+              while (v15);
             }
 
-            *(v17 + 28) |= 1u;
+            *(v16 + 28) |= 1u;
           }
         }
       }
@@ -1616,13 +1599,11 @@ uint64_t IOAccelResourceCreate(uint64_t a1, void *a2, size_t a3)
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t _IOAccelResourceAlloc(void *a1)
+uint64_t _IOAccelResourceAlloc(void *a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277CBECF8];
   if (IOAccelResourceGetTypeID_onceToken != -1)
   {
     IOAccelResourceGetTypeID_cold_1();
@@ -1644,7 +1625,7 @@ uint64_t _IOAccelResourceAlloc(void *a1)
 
 void *IOAccelResourceCreateDataBuffer(void *a1, void *a2, const void *a3, size_t a4)
 {
-  v7 = _IOAccelResourceAlloc(a1);
+  v7 = _IOAccelResourceAlloc(a1, a4);
   v8 = v7;
   if (v7)
   {
@@ -1831,15 +1812,13 @@ uint64_t IOAccelResourceSetPurgeable(uint64_t a1, unsigned int a2, _DWORD *a3)
     *a3 = output;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t IOAccelResourceFinishEvent(void *a1, unsigned int a2)
+CFTypeID IOAccelResourceFinishEvent(void *a1, unsigned int a2)
 {
   input[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = a1[9] + (a2 << 6);
   result = (*(a1[2] + 24))();
   if (!result)
   {
@@ -1848,19 +1827,18 @@ uint64_t IOAccelResourceFinishEvent(void *a1, unsigned int a2)
     {
       input[0] = *(a1[9] + 256);
       input[1] = v3;
-      v6 = a1[3];
-      v7 = *(v6 + 32);
-      if (v7)
+      v5 = a1[3];
+      v6 = *(v5 + 32);
+      if (v6)
       {
-        (*(v7 + 16))();
-        v6 = a1[3];
+        (*(v6 + 16))();
+        v5 = a1[3];
       }
 
-      result = IOConnectCallMethod(*(v6 + 24), 3u, input, 2u, 0, 0, 0, 0, 0, 0);
+      return IOConnectCallMethod(*(v5 + 24), 3u, input, 2u, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2034,18 +2012,19 @@ double IOAccelResourceListDestroy(uint64_t a1)
   return result;
 }
 
-uint64_t IOAccelResourceListAddResourceNoThreshold(uint64_t a1, uint64_t a2, __int16 a3)
+uint64_t IOAccelResourceListAddResourceNoThreshold(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = *(a2 + 16);
+  v3 = a3;
+  v4 = *(a2 + 4);
   v5 = *(a1 + 2 * v4);
   if (v5 == 0xFFFF)
   {
 LABEL_22:
     v19 = *a2;
-    v20 = *(a2 + 8) & 0xFFFFFFFFFFFFFFLL;
-    v21 = *(a2 + 16);
+    v20 = a2[1] & 0xFFFFFFFFFFFFFFLL;
+    v21 = *(a2 + 4);
 
-    return ioAccelResourceListAddNewGroupAndResource(a1, v21, v20, a3, v19, 1);
+    return ioAccelResourceListAddNewGroupAndResource(a1, v21, v20, v3, v19, 1);
   }
 
   v6 = *(a1 + 512);
@@ -2057,7 +2036,7 @@ LABEL_6:
     v10 = *(v7 + 84);
     if (v8 <= 5 && v10 == 0xFFFF)
     {
-      return ioAccelResourceGroupAddNewResource(a1, v6 + 88 * v5, v5, v8, v4, *(a2 + 8) & 0xFFFFFFFFFFFFFFLL, a3, *a2, 1);
+      return ioAccelResourceGroupAddNewResource(a1, v6 + 88 * v5, v5, v8, v4, a2[1] & 0xFFFFFFFFFFFFFFLL, v3, *a2, 1);
     }
 
     v12 = (v6 + 88 * *(a1 + 2 * v4) + 84);
@@ -2082,7 +2061,7 @@ LABEL_6:
         *(v15 + 84) = v5;
         *(a1 + 2 * v4) = v13;
         v22 = v6 + 88 * v13 + 2 * v17;
-        *(v22 + 72) |= a3;
+        *(v22 + 72) |= v3;
         return v17 | (8 * v13);
       }
 
@@ -2094,7 +2073,7 @@ LABEL_16:
         *v14 = -1;
         *(v15 + 84) = v5;
         *(a1 + 2 * v4) = v13;
-        return ioAccelResourceGroupAddNewResource(a1, v15, v13, v16, v4, *(a2 + 8) & 0xFFFFFFFFFFFFFFLL, a3, *a2, 1);
+        return ioAccelResourceGroupAddNewResource(a1, v15, v13, v16, v4, a2[1] & 0xFFFFFFFFFFFFFFLL, v3, *a2, 1);
       }
     }
 
@@ -2110,22 +2089,23 @@ LABEL_16:
     }
   }
 
-  *(v7 + 2 * v9 + 72) |= a3;
+  *(v7 + 2 * v9 + 72) |= v3;
   return v9 | (8 * v5);
 }
 
-uint64_t IOAccelResourceListAddResource(uint64_t a1, uint64_t a2, __int16 a3)
+uint64_t IOAccelResourceListAddResource(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = *(a2 + 16);
+  v3 = a3;
+  v4 = *(a2 + 4);
   v5 = *(a1 + 2 * v4);
   if (v5 == 0xFFFF)
   {
 LABEL_22:
     v19 = *a2;
-    v20 = *(a2 + 8) & 0xFFFFFFFFFFFFFFLL;
-    v21 = *(a2 + 16);
+    v20 = a2[1] & 0xFFFFFFFFFFFFFFLL;
+    v21 = *(a2 + 4);
 
-    return ioAccelResourceListAddNewGroupAndResource(a1, v21, v20, a3, v19, 0);
+    return ioAccelResourceListAddNewGroupAndResource(a1, v21, v20, v3, v19, 0);
   }
 
   v6 = *(a1 + 512);
@@ -2137,7 +2117,7 @@ LABEL_6:
     v10 = *(v7 + 84);
     if (v8 <= 5 && v10 == 0xFFFF)
     {
-      return ioAccelResourceGroupAddNewResource(a1, v6 + 88 * v5, v5, v8, v4, *(a2 + 8) & 0xFFFFFFFFFFFFFFLL, a3, *a2, 0);
+      return ioAccelResourceGroupAddNewResource(a1, v6 + 88 * v5, v5, v8, v4, a2[1] & 0xFFFFFFFFFFFFFFLL, v3, *a2, 0);
     }
 
     v12 = (v6 + 88 * *(a1 + 2 * v4) + 84);
@@ -2162,7 +2142,7 @@ LABEL_6:
         *(v15 + 84) = v5;
         *(a1 + 2 * v4) = v13;
         v22 = v6 + 88 * v13 + 2 * v17;
-        *(v22 + 72) |= a3;
+        *(v22 + 72) |= v3;
         return v17 | (8 * v13);
       }
 
@@ -2174,7 +2154,7 @@ LABEL_16:
         *v14 = -1;
         *(v15 + 84) = v5;
         *(a1 + 2 * v4) = v13;
-        return ioAccelResourceGroupAddNewResource(a1, v15, v13, v16, v4, *(a2 + 8) & 0xFFFFFFFFFFFFFFLL, a3, *a2, 0);
+        return ioAccelResourceGroupAddNewResource(a1, v15, v13, v16, v4, a2[1] & 0xFFFFFFFFFFFFFFLL, v3, *a2, 0);
       }
     }
 
@@ -2190,7 +2170,7 @@ LABEL_16:
     }
   }
 
-  *(v7 + 2 * v9 + 72) |= a3;
+  *(v7 + 2 * v9 + 72) |= v3;
   return v9 | (8 * v5);
 }
 
@@ -2424,7 +2404,6 @@ uint64_t ioAccelResourceGroupAddNewResource(uint64_t a1, uint64_t a2, int a3, un
   ++*(a1 + 548);
   if (a8)
   {
-    v15 = *(a1 + 560);
     IOSurfaceBindAccel();
   }
 
@@ -2603,9 +2582,8 @@ uint64_t __launchMemlistConnection_block_invoke(uint64_t a1, void *a2)
 
 void IOAccelDeviceCreateWithAPIProperty_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_fault_impl(&dword_2548EA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to create an IOAccelDevice... IOServiceOpen returned kIOReturn(0x%X)", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_fault_impl(&dword_2548EA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to create an IOAccelDevice... IOServiceOpen returned kIOReturn(0x%X)", v1, 8u);
 }

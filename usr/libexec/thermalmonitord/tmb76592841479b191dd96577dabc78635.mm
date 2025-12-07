@@ -42,7 +42,7 @@
   [v10 calculateControlEffort:v12 trigger:v13];
   v14 = gasGaugeBatteryTemperature;
   sub_10000533C(47, (gasGaugeBatteryTemperature * 0.7 + -70.0 + v6 * 0.24 + v8 * 0.09));
-  v15 = dword_1000AB8E0;
+  v15 = qword_1000AB8E0;
   v16 = [(CommonProduct *)self findComponent:19];
   v17 = v15 / 100.0;
   *&v18 = v17;
@@ -71,14 +71,14 @@
 
 - (int)computeMaxCGTemp
 {
-  if (qword_1000AB8E4 <= SHIDWORD(qword_1000AB8E4))
+  if (SHIDWORD(qword_1000AB8E0) <= dword_1000AB8E8)
   {
-    return HIDWORD(qword_1000AB8E4);
+    return dword_1000AB8E8;
   }
 
   else
   {
-    return qword_1000AB8E4;
+    return HIDWORD(qword_1000AB8E0);
   }
 }
 

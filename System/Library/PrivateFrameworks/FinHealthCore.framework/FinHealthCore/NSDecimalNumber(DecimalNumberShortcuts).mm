@@ -2,18 +2,18 @@
 + (id)abs:()DecimalNumberShortcuts;
 - (BOOL)greaterThan:()DecimalNumberShortcuts;
 - (BOOL)greaterThanOrEqual:()DecimalNumberShortcuts;
-- (BOOL)isNegative;
-- (BOOL)isOne;
-- (BOOL)isPositive;
 - (BOOL)isValid;
-- (BOOL)isZero;
 - (BOOL)lessThan:()DecimalNumberShortcuts;
 - (BOOL)lessThanOrEqual:()DecimalNumberShortcuts;
+- (unint64_t)isNegative;
+- (unint64_t)isOne;
+- (unint64_t)isPositive;
+- (unint64_t)isZero;
 @end
 
 @implementation NSDecimalNumber(DecimalNumberShortcuts)
 
-- (BOOL)isNegative
+- (unint64_t)isNegative
 {
   selfCopy = self;
   if (self)
@@ -33,7 +33,7 @@
   return selfCopy;
 }
 
-- (BOOL)isPositive
+- (unint64_t)isPositive
 {
   selfCopy = self;
   if (self)
@@ -53,7 +53,7 @@
   return selfCopy;
 }
 
-- (BOOL)isZero
+- (unint64_t)isZero
 {
   selfCopy = self;
   if (self)
@@ -73,7 +73,7 @@
   return selfCopy;
 }
 
-- (BOOL)isOne
+- (unint64_t)isOne
 {
   selfCopy = self;
   if (self)

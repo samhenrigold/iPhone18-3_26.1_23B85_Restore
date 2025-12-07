@@ -9,78 +9,78 @@
 {
   compositionCopy = composition;
   formatCopy = format;
-  v32.receiver = self;
-  v32.super_class = RCAudioBufferEnumerator;
-  v12 = [(RCAudioBufferEnumerator *)&v32 init];
-  if (!v12)
+  v30.receiver = self;
+  v30.super_class = RCAudioBufferEnumerator;
+  v11 = [(RCAudioBufferEnumerator *)&v30 init];
+  if (!v11)
   {
 LABEL_9:
-    v15 = v12;
+    v14 = v11;
     goto LABEL_11;
   }
 
-  v13 = [compositionCopy playableAsset:error];
-  asset = v12->_asset;
-  v12->_asset = v13;
+  v12 = [compositionCopy playableAsset:error];
+  asset = v11->_asset;
+  v11->_asset = v12;
 
-  if (!v12->_asset)
+  if (!v11->_asset)
   {
-    v15 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
-  objc_storeStrong(&v12->_processingFormat, format);
-  v15 = [objc_alloc(MEMORY[0x277CE6410]) initWithAsset:v12->_asset error:error];
-  if (v15)
+  objc_storeStrong(&v11->_processingFormat, format);
+  v14 = [objc_alloc(MEMORY[0x277CE6410]) initWithAsset:v11->_asset error:error];
+  if (v14)
   {
-    [(AVAsset *)v12->_asset rc_durationInSeconds];
-    v17 = RCTimeRangeMake(time, v16);
-    CMTimeRangeFromRCTimeRange(&v31, v17, v18);
-    v30 = v31;
-    [(RCAudioBufferEnumerator *)v15 setTimeRange:&v30];
-    rc_audioTracks = [(AVAsset *)v12->_asset rc_audioTracks];
-    v20 = MEMORY[0x277CE6418];
+    [(AVAsset *)v11->_asset rc_durationInSeconds];
+    RCTimeRangeMake();
+    CMTimeRangeFromRCTimeRange(&v29, v15, v16);
+    v28 = v29;
+    [(RCAudioBufferEnumerator *)v14 setTimeRange:&v28];
+    rc_audioTracks = [(AVAsset *)v11->_asset rc_audioTracks];
+    v18 = MEMORY[0x277CE6418];
     settings = [formatCopy settings];
-    v22 = [v20 assetReaderAudioMixOutputWithAudioTracks:rc_audioTracks audioSettings:settings];
+    v20 = [v18 assetReaderAudioMixOutputWithAudioTracks:rc_audioTracks audioSettings:settings];
 
-    [(AVAssetReaderAudioMixOutput *)v22 setAlwaysCopiesSampleData:0];
+    [(AVAssetReaderAudioMixOutput *)v20 setAlwaysCopiesSampleData:0];
     if ([rc_audioTracks count] >= 2)
     {
-      v23 = objc_opt_new();
-      v30.start.value = 0;
-      *&v30.start.timescale = &v30;
-      *&v30.start.epoch = 0x2020000000uLL;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __80__RCAudioBufferEnumerator_initWithComposition_processingFormat_startTime_error___block_invoke;
-      v29[3] = &unk_279E44748;
-      v29[4] = &v30;
-      v24 = [rc_audioTracks na_map:v29];
-      [v23 setInputParameters:v24];
+      v21 = objc_opt_new();
+      v28.start.value = 0;
+      *&v28.start.timescale = &v28;
+      *&v28.start.epoch = 0x2020000000uLL;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __80__RCAudioBufferEnumerator_initWithComposition_processingFormat_startTime_error___block_invoke;
+      v27[3] = &unk_279E44748;
+      v27[4] = &v28;
+      v22 = [rc_audioTracks na_map:v27];
+      [v21 setInputParameters:v22];
 
-      [(AVAssetReaderAudioMixOutput *)v22 setAudioMix:v23];
-      _Block_object_dispose(&v30, 8);
+      [(AVAssetReaderAudioMixOutput *)v20 setAudioMix:v21];
+      _Block_object_dispose(&v28, 8);
     }
 
-    if ([(RCAudioBufferEnumerator *)v15 canAddOutput:v22])
+    if ([(RCAudioBufferEnumerator *)v14 canAddOutput:v20])
     {
-      [(RCAudioBufferEnumerator *)v15 addOutput:v22];
-      [(RCAudioBufferEnumerator *)v15 startReading];
+      [(RCAudioBufferEnumerator *)v14 addOutput:v20];
+      [(RCAudioBufferEnumerator *)v14 startReading];
     }
 
-    assetReader = v12->_assetReader;
-    v12->_assetReader = v15;
-    v26 = v15;
+    assetReader = v11->_assetReader;
+    v11->_assetReader = v14;
+    v24 = v14;
 
-    mixerOutput = v12->_mixerOutput;
-    v12->_mixerOutput = v22;
+    mixerOutput = v11->_mixerOutput;
+    v11->_mixerOutput = v20;
 
     goto LABEL_9;
   }
 
 LABEL_11:
 
-  return v15;
+  return v14;
 }
 
 id __80__RCAudioBufferEnumerator_initWithComposition_processingFormat_startTime_error___block_invoke(uint64_t a1, uint64_t a2)

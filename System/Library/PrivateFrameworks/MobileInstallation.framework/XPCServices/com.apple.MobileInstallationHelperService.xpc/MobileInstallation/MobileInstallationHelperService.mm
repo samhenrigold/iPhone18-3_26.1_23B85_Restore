@@ -12,6 +12,7 @@
 - (id)_verifyBooleanEntitlement:(id)entitlement;
 - (unint64_t)_changeOwnerTo:(unsigned int)to atURL:(id)l;
 - (void)_onQueue_cloneItemAtURL:(id)l toURL:(id)rL onBehalfOf:(id *)of completion:(id)completion;
+- (void)_onQueue_createAppSnapshotWithBundleID:(id)d snapshotToURL:(id)l onlyV1AppIfPresent:(BOOL)present placeholderOnly:(BOOL)only completion:(id)completion;
 - (void)_onQueue_createSafeHarborWithIdentifier:(id)identifier forPersona:(id)persona containerType:(unint64_t)type andMigrateDataFrom:(id)from completion:(id)completion;
 - (void)_onQueue_makeSymlinkFromAppDataContainerToBundleForIdentifier:(id)identifier forPersona:(id)persona completion:(id)completion;
 - (void)_onQueue_moveItemInStagingLocation:(id)location atRelativePath:(id)path toDestinationURL:(id)l onBehalfOf:(id *)of completion:(id)completion;
@@ -190,9 +191,9 @@ LABEL_17:
 - (unint64_t)_changeOwnerTo:(unsigned int)to atURL:(id)l
 {
   lCopy = l;
-  v17[0] = [lCopy fileSystemRepresentation];
-  v17[1] = 0;
-  v6 = fts_open(v17, 84, 0);
+  v15[0] = [lCopy fileSystemRepresentation];
+  v15[1] = 0;
+  v6 = fts_open(v15, 84, 0);
   if (v6)
   {
     v7 = v6;
@@ -215,9 +216,8 @@ LABEL_17:
           {
             if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-              fts_path = v9->fts_path;
-              v13 = __error();
-              strerror(*v13);
+              v12 = __error();
+              strerror(*v12);
               goto LABEL_14;
             }
 
@@ -240,7 +240,6 @@ LABEL_16:
 
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v16 = v9->fts_path;
         strerror(v9->fts_errno);
 LABEL_14:
         MOLogWrite();
@@ -260,8 +259,8 @@ LABEL_23:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v14 = __error();
-      strerror(*v14);
+      v13 = __error();
+      strerror(*v13);
       MOLogWrite();
     }
 
@@ -1396,6 +1395,105 @@ LABEL_18:
   completionCopy[2](completionCopy, v21, v9);
 }
 
+- (void)_onQueue_createAppSnapshotWithBundleID:(id)d snapshotToURL:(id)l onlyV1AppIfPresent:(BOOL)present placeholderOnly:(BOOL)only completion:(id)completion
+{
+  onlyCopy = only;
+  presentCopy = present;
+  dCopy = d;
+  lCopy = l;
+  completionCopy = completion;
+  v15 = [(MobileInstallationHelperService *)self _verifyBooleanEntitlement:@"com.apple.private.MobileInstallationHelperService.InstallDaemonOpsEnabled"];
+  if (v15)
+  {
+    goto LABEL_19;
+  }
+
+  objc_opt_class();
+  v16 = dCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (!v17)
+  {
+    v21 = MIInstallerErrorDomain;
+    v22 = @"bundleID parameter was not a string";
+    v23 = 966;
+LABEL_18:
+    v15 = _CreateAndLogError("[MobileInstallationHelperService _onQueue_createAppSnapshotWithBundleID:snapshotToURL:onlyV1AppIfPresent:placeholderOnly:completion:]", v23, v21, 104, 0, 0, v22, v18, v31);
+LABEL_19:
+    v25 = v15;
+    completionCopy[2](completionCopy, 0, v15);
+    v30 = 0;
+    goto LABEL_20;
+  }
+
+  objc_opt_class();
+  v19 = lCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v20 = v19;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (!v20)
+  {
+    v21 = MIInstallerErrorDomain;
+    v22 = @"destURL parameter is not a valid url";
+    v23 = 972;
+    goto LABEL_18;
+  }
+
+  if (!gLogHandle || *(gLogHandle + 44) >= 5)
+  {
+    path = [v19 path];
+    MOLogWrite();
+  }
+
+  v34 = 0;
+  v24 = MIAssumeMobileIdentity(&v34);
+  v25 = v34;
+  if (v24)
+  {
+    v26 = [[MIWatchKitAppSnapshot alloc] initWithBundleID:v16 snapshotTo:v19 onlyV1AppIfPresent:presentCopy placeholderOnly:onlyCopy];
+    v33 = v25;
+    v27 = [(MIWatchKitAppSnapshot *)v26 createSnapshotWithError:&v33];
+    v28 = v33;
+
+    if (v27)
+    {
+      resultDict = [(MIWatchKitAppSnapshot *)v26 resultDict];
+    }
+
+    else
+    {
+      resultDict = 0;
+    }
+
+    v25 = v28;
+    MIRestoreIdentity();
+    v30 = resultDict;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  (completionCopy)[2](completionCopy, v30, v25);
+LABEL_20:
+}
+
 - (void)createAppSnapshotWithBundleID:(id)d snapshotToURL:(id)l onlyV1AppIfPresent:(BOOL)present placeholderOnly:(BOOL)only completion:(id)completion
 {
   dCopy = d;
@@ -2368,7 +2466,7 @@ LABEL_4:
   else
   {
 
-    MIHelperServiceDisableTestModes();
+    MIHelperServiceDisableTestModes(self);
   }
 }
 

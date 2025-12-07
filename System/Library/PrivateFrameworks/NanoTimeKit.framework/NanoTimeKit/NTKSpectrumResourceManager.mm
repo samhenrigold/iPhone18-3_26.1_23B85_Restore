@@ -49,9 +49,9 @@
 
 - (NTKSpectrumResourceManager)initWithPixelFormat:(unint64_t)format
 {
-  v12.receiver = self;
-  v12.super_class = NTKSpectrumResourceManager;
-  v4 = [(NTKSpectrumResourceManager *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = NTKSpectrumResourceManager;
+  v4 = [(NTKSpectrumResourceManager *)&v13 init];
   if (v4)
   {
     sharedDevice = [off_27877BF18 sharedDevice];
@@ -59,10 +59,10 @@
     v4->_device = sharedDevice;
 
     v7 = v4->_device;
-    v8 = NTKBundle();
-    v9 = [(MTLDevice *)v7 newDefaultLibraryWithBundle:v8 error:0];
+    v9 = NTKBundle(v8);
+    v10 = [(MTLDevice *)v7 newDefaultLibraryWithBundle:v9 error:0];
     library = v4->_library;
-    v4->_library = v9;
+    v4->_library = v10;
 
     v4->_pixelFormat = format;
     [(NTKSpectrumResourceManager *)v4 _loadGeometry];
@@ -169,8 +169,7 @@
   [v6 setConstantValue:&v23 type:53 atIndex:0];
   [v6 setConstantValue:&v22 type:53 atIndex:1];
   [v6 setConstantValue:&v21 type:53 atIndex:2];
-  [v6 setConstantValue:&v20 type:53 atIndex:3];
-  v7 = NTKBundle();
+  v7 = NTKBundle([v6 setConstantValue:&v20 type:53 atIndex:3]);
   device = self->_device;
   p_device = &self->_device;
   v10 = [off_27877BF10 archiveWithName:@"NTKSpectrumShaders" bundle:v7 device:device];

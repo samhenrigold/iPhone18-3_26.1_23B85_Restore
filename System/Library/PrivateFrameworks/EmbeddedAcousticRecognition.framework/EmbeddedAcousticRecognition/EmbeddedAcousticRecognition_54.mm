@@ -1,146 +1,13 @@
-void sub_1B5422B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a17)
-  {
-    operator delete(a17);
-  }
-
-  if (a20)
-  {
-    operator delete(a20);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void quasar::QuantizationTool::SimpleDequantize(char **a1@<X0>, const void **a2@<X8>, float a3@<S0>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v3 = *a1;
-  v4 = a1[1];
-  if (*a1 != v4)
-  {
-    v6 = 0;
-    v7 = 1.0 / a3;
-    do
-    {
-      v8 = v7 * *v3;
-      v9 = a2[2];
-      if (v6 >= v9)
-      {
-        v10 = *a2;
-        v11 = v6 - *a2;
-        v12 = v11 >> 2;
-        v13 = (v11 >> 2) + 1;
-        if (v13 >> 62)
-        {
-          std::vector<int>::__throw_length_error[abi:ne200100]();
-        }
-
-        v14 = v9 - v10;
-        if (v14 >> 1 > v13)
-        {
-          v13 = v14 >> 1;
-        }
-
-        if (v14 >= 0x7FFFFFFFFFFFFFFCLL)
-        {
-          v15 = 0x3FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v15 = v13;
-        }
-
-        if (v15)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a2, v15);
-        }
-
-        *(4 * v12) = v8;
-        v6 = (4 * v12 + 4);
-        memcpy(0, v10, v11);
-        v16 = *a2;
-        *a2 = 0;
-        a2[1] = v6;
-        a2[2] = 0;
-        if (v16)
-        {
-          operator delete(v16);
-        }
-      }
-
-      else
-      {
-        *v6++ = v8;
-      }
-
-      a2[1] = v6;
-      ++v3;
-    }
-
-    while (v3 != v4);
-  }
-}
-
-void sub_1B5422D14(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *quasar::QuantizationTool::SimpleQuantizeWithRatio@<X0>(uint64_t *result@<X0>, void *a2@<X8>, float a3@<S0>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v3 = *result;
-  v4 = result[1];
-  for (i = a2; v3 != v4; ++v3)
-  {
-    v6 = (*v3 * a3);
-    result = std::back_insert_iterator<std::vector<signed char>>::operator=[abi:ne200100](&i, &v6);
-  }
-
-  return result;
-}
-
-void sub_1B5422DB0(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::pair<std::vector<float>,std::vector<unsigned char>>::pair[abi:ne200100]<std::vector<float>&,std::vector<unsigned char>&,0>(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *std::pair<std::vector<float>,std::vector<unsigned char>>::pair[abi:ne200100]<std::vector<float>&,std::vector<unsigned char>&,0>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 3), *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 3, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   return a1;
 }
 
@@ -156,7 +23,7 @@ void sub_1B5422E28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -178,7 +45,7 @@ void sub_1B5422EA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -200,17 +67,17 @@ void sub_1B5422F20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<quasar::rescoring::FeatureType>::__vallocate[abi:ne200100](result, a2);
+    std::vector<quasar::rescoring::FeatureType>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B5422FA0(_Unwind_Exception *exception_object)
@@ -225,7 +92,7 @@ void sub_1B5422FA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::back_insert_iterator<std::vector<signed char>>::operator=[abi:ne200100](uint64_t *a1, _BYTE *a2)
+uint64_t *std::back_insert_iterator<std::vector<signed char>>::operator=[abi:ne200100](uint64_t *a1, char *a2)
 {
   v3 = *a1;
   v5 = *(*a1 + 8);
@@ -322,33 +189,33 @@ void quasar::BasicTokenizer::~BasicTokenizer(void **this)
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t quasar::BasicTokenizer::tokenize(uint64_t a1, uint64_t a2)
+uint64_t quasar::BasicTokenizer::tokenize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v6, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v7, *a2, *(a2 + 8));
   }
 
   else
   {
-    v6 = *a2;
+    v7 = *a2;
   }
 
-  quasar::trim(&v6);
-  size = HIBYTE(v6.__r_.__value_.__r.__words[2]);
-  if ((v6.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  quasar::trim(&v7);
+  size = HIBYTE(v7.__r_.__value_.__r.__words[2]);
+  if ((v7.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v6.__r_.__value_.__l.__size_;
+    size = v7.__r_.__value_.__l.__size_;
   }
 
   if (size)
   {
-    quasar::split(&v6, (a1 + 8), 1, &v5);
+    quasar::split(&v7, &v6, (a1 + 8), 1);
   }
 
-  if ((*(&v6.__r_.__value_.__s + 23) & 0x80) != 0)
+  if ((*(&v7.__r_.__value_.__s + 23) & 0x80) != 0)
   {
-    operator delete(v6.__r_.__value_.__l.__data_);
+    operator delete(v7.__r_.__value_.__l.__data_);
   }
 
   return 1;
@@ -367,10 +234,10 @@ void sub_1B5423404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<quasar::TextTokenizer::TokenString>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<quasar::TextTokenizer::TokenString>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<quasar::TextTokenizer::TokenString>::__emplace_back_slow_path<quasar::TextTokenizer::TokenString const&>(a1, a2);
   }
@@ -381,7 +248,7 @@ uint64_t std::vector<quasar::TextTokenizer::TokenString>::push_back[abi:ne200100
     result = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -398,16 +265,16 @@ float std::vector<quasar::TextTokenizer::TokenString>::__construct_one_at_end[ab
   return result;
 }
 
-uint64_t std::vector<quasar::TextTokenizer::TokenString>::__emplace_back_slow_path<quasar::TextTokenizer::TokenString const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<quasar::TextTokenizer::TokenString>::__emplace_back_slow_path<quasar::TextTokenizer::TokenString const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -439,14 +306,14 @@ uint64_t std::vector<quasar::TextTokenizer::TokenString>::__emplace_back_slow_pa
   std::vector<quasar::TextTokenizer::Token>::__init_with_size[abi:ne200100]<quasar::TextTokenizer::Token*,quasar::TextTokenizer::Token*>(v8, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 5);
   *(v8 + 24) = *(a2 + 24);
   *&v17 = v17 + 32;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::TextTokenizer::TokenString>,quasar::TextTokenizer::TokenString*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -455,9 +322,9 @@ uint64_t std::vector<quasar::TextTokenizer::TokenString>::__emplace_back_slow_pa
   return v14;
 }
 
-void sub_1B5423654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5423654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::TextTokenizer::TokenString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -645,56 +512,59 @@ void sub_1B5423BF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-float kaldi::DecodableMatrixScaledMappedLazyNnet1::LogLikelihood(kaldi::DecodableMatrixScaledMappedLazyNnet1 *this, int a2, int a3)
+float kaldi::DecodableMatrixScaledMappedLazyNnet1::LogLikelihood(kaldi::DecodableMatrixScaledMappedLazyNnet1 *this, int a2, int a3, __n128 a4)
 {
-  v19[3] = *MEMORY[0x1E69E9840];
-  v4 = a2 / *(this + 16) * *(this + 16);
-  v5 = *(*(*(this + 1) + 96) + 4 * a3);
+  v23 = *MEMORY[0x1E69E9840];
+  v5 = a2 / *(this + 16) * *(this + 16);
+  v6 = *(*(*(this + 1) + 96) + 4 * a3);
   if (*(this + 6))
   {
-    LODWORD(v18) = a2 / *(this + 16) * *(this + 16);
-    HIDWORD(v18) = v5;
-    v16 = 0;
+    LODWORD(v21) = a2 / *(this + 16) * *(this + 16);
+    HIDWORD(v21) = v6;
+    v19 = 0;
+    v20 = 0;
+    v18 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v18, &v21, v22, 2uLL);
     v17 = 0;
-    v15 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v15, &v18, v19, 2uLL);
-    v14 = 0;
-    if (!kaldi::LRUCacheMap<std::vector<int>,kaldi::CuVector<float>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::Get(this + 72, &v15, &v14))
+    kaldi::LRUCacheMap<std::vector<int>,kaldi::CuVector<float>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::Get(this + 72, &v18, &v17);
+    if ((v7 & 1) == 0)
     {
-      v14 = kaldi::LRUCacheMap<std::vector<int>,kaldi::CuVector<float>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::InsertInPlace(this + 9, &v15);
-      kaldi::CuVector<float>::Resize(v14, 1, 0);
-      v6 = *(this + 2);
-      v7 = *v6;
-      v8 = *(v6 + 16);
-      v13[2] = 0;
-      v13[0] = v7 + 4 * v8 * v4;
-      v13[1] = kaldi::MatrixBase<float>::NumCols(v6);
-      kaldi::CuVector<float>::CuVector(&v18, v13, 0);
-      v9 = (*(**(this + 6) + 136))(*(this + 6), &v18, v5);
-      v10 = v14;
-      *v14[1] = v9;
-      kaldi::nnet1::PdfPrior::SubtractLogpostForPdf(*(this + 4), v5, v10);
-      kaldi::CuVectorBase<float>::Scale();
-      kaldi::CuVector<float>::~CuVector(&v18);
+      kaldi::LRUCacheMap<std::vector<int>,kaldi::CuVector<float>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::InsertInPlace(this + 9, &v18);
+      v17 = v8;
+      kaldi::CuVector<float>::Resize(v8, 1, 0);
+      v9 = *(this + 2);
+      v10 = *v9;
+      v11 = *(v9 + 16);
+      v16[2] = 0;
+      v16[0] = v10 + 4 * v11 * v5;
+      v16[1] = kaldi::MatrixBase<float>::NumCols(v9);
+      kaldi::CuVector<float>::CuVector(&v21, v16, 0);
+      v12.n128_f64[0] = (*(**(this + 6) + 136))(*(this + 6), &v21, v6);
+      v13 = v17;
+      **(v17 + 8) = v12.n128_u32[0];
+      kaldi::nnet1::PdfPrior::SubtractLogpostForPdf(*(this + 4), v6, v13, v12);
+      kaldi::CuVectorBase<float>::Scale(v17, *(this + 6));
+      kaldi::CuVector<float>::~CuVector(&v21);
     }
 
-    v11 = *v14[1];
-    if (v15)
+    v14 = **(v17 + 8);
+    if (v18)
     {
-      v16 = v15;
-      operator delete(v15);
+      v19 = v18;
+      operator delete(v18);
     }
   }
 
   else
   {
-    **(this + 20) = *(**(this + 2) + 4 * *(*(this + 2) + 16) * v4 + 4 * v5);
-    kaldi::nnet1::PdfPrior::SubtractLogpostForPdf(*(this + 4), v5, this + 152);
-    kaldi::CuVectorBase<float>::Scale();
+    a4.n128_u32[0] = *(**(this + 2) + 4 * *(*(this + 2) + 16) * v5 + 4 * v6);
+    **(this + 20) = a4.n128_u32[0];
+    kaldi::nnet1::PdfPrior::SubtractLogpostForPdf(*(this + 4), v6, this + 152, a4);
+    kaldi::CuVectorBase<float>::Scale(this + 152, *(this + 6));
     return **(this + 20);
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1B5423E28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16)
@@ -2229,99 +2099,84 @@ uint64_t kaldi::quasar::SeevaStepInferenceTensorNames::SeevaStepInferenceTensorN
   v2 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v3 = *(a2 + 24);
   *(result + 40) = *(a2 + 5);
   *(result + 24) = v3;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 3) = 0;
   v4 = a2[3];
   *(result + 64) = *(a2 + 8);
   *(result + 48) = v4;
-  *(a2 + 7) = 0;
-  *(a2 + 8) = 0;
+  *(a2 + 56) = 0uLL;
   *(a2 + 6) = 0;
   v5 = *(a2 + 72);
   *(result + 88) = *(a2 + 11);
   *(result + 72) = v5;
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
+  *(a2 + 72) = 0uLL;
   *(a2 + 11) = 0;
   v6 = a2[6];
   *(result + 112) = *(a2 + 14);
   *(result + 96) = v6;
-  *(a2 + 12) = 0;
-  *(a2 + 13) = 0;
+  a2[6] = 0uLL;
   *(a2 + 14) = 0;
   v7 = *(a2 + 120);
   *(result + 136) = *(a2 + 17);
   *(result + 120) = v7;
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
+  *(a2 + 120) = 0uLL;
   *(a2 + 17) = 0;
   v8 = a2[9];
   *(result + 160) = *(a2 + 20);
   *(result + 144) = v8;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
+  a2[9] = 0uLL;
   *(a2 + 20) = 0;
   v9 = *(a2 + 168);
   *(result + 184) = *(a2 + 23);
   *(result + 168) = v9;
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
+  *(a2 + 168) = 0uLL;
   *(a2 + 23) = 0;
   v10 = a2[12];
   *(result + 208) = *(a2 + 26);
   *(result + 192) = v10;
-  *(a2 + 24) = 0;
-  *(a2 + 25) = 0;
+  a2[12] = 0uLL;
   *(a2 + 26) = 0;
   *(result + 216) = 0;
   *(result + 224) = 0;
   *(result + 232) = 0;
   *(result + 216) = *(a2 + 216);
   *(result + 232) = *(a2 + 29);
-  *(a2 + 27) = 0;
-  *(a2 + 28) = 0;
+  *(a2 + 216) = 0uLL;
   *(a2 + 29) = 0;
   *(result + 240) = 0;
   *(result + 248) = 0;
   *(result + 256) = 0;
   *(result + 240) = a2[15];
   *(result + 256) = *(a2 + 32);
-  *(a2 + 30) = 0;
-  *(a2 + 31) = 0;
+  a2[15] = 0uLL;
   *(a2 + 32) = 0;
   *(result + 264) = 0;
   *(result + 272) = 0;
   *(result + 280) = 0;
   *(result + 264) = *(a2 + 33);
   *(result + 272) = a2[17];
-  *(a2 + 33) = 0;
-  *(a2 + 34) = 0;
+  *(a2 + 264) = 0uLL;
   *(a2 + 35) = 0;
   *(result + 288) = 0;
   *(result + 296) = 0;
   *(result + 304) = 0;
   *(result + 288) = a2[18];
   *(result + 304) = *(a2 + 38);
-  *(a2 + 36) = 0;
-  *(a2 + 37) = 0;
+  a2[18] = 0uLL;
   *(a2 + 38) = 0;
   *(result + 312) = 0;
   *(result + 320) = 0;
   *(result + 328) = 0;
   *(result + 312) = *(a2 + 39);
   *(result + 320) = a2[20];
-  *(a2 + 39) = 0;
-  *(a2 + 40) = 0;
+  *(a2 + 312) = 0uLL;
   *(a2 + 41) = 0;
-  *(result + 336) = *(a2 + 42);
-  *(result + 344) = *(a2 + 43);
+  *(result + 336) = a2[21];
   v11 = result + 352;
   v12 = *(a2 + 44);
   v13 = *(a2 + 45);
@@ -2330,8 +2185,7 @@ uint64_t kaldi::quasar::SeevaStepInferenceTensorNames::SeevaStepInferenceTensorN
   if (v13)
   {
     *(v12 + 16) = v11;
-    *(a2 + 43) = a2 + 22;
-    *(a2 + 44) = 0;
+    *(a2 + 344) = (a2 + 22);
     *(a2 + 45) = 0;
   }
 
@@ -2427,7 +2281,7 @@ void kaldi::quasar::SeevaStepInferenceConfig::~SeevaStepInferenceConfig(void **t
   }
 }
 
-uint64_t std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2470,61 +2324,61 @@ uint64_t kaldi::ScoreCacheFasterDecoder::ScoreCacheFasterDecoder(uint64_t a1, ui
   v8 = *(a1 + 152);
   *(a1 + 32) = v8;
   *(a1 + 24) = 1;
-  v33 = 0;
+  v35 = 0;
   address = 0;
   v9 = MEMORY[0x1E69E9A60];
   v10 = vm_allocate(*MEMORY[0x1E69E9A60], &address, 28 * v8, 1711276033);
   if (v10)
   {
-    v30 = v10;
+    v32 = v10;
     if (kaldi::g_kaldi_verbose_level < 0)
     {
       goto LABEL_9;
     }
 
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v32);
-    v13 = MEMORY[0x1B8C84BB0](v32, a1);
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ": Could not vm_allocate ", 24);
-    v15 = MEMORY[0x1B8C84C30](v14, 28 * *(a1 + 32));
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " of ", 4);
-    v17 = strlen((0x80000001B5AFEAF8 & 0x7FFFFFFFFFFFFFFFLL));
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, 0x80000001B5AFEAF8 & 0x7FFFFFFFFFFFFFFFLL, v17);
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ": ", 2);
-    MEMORY[0x1B8C84C00](v19, v30);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v34);
+    v15 = MEMORY[0x1B8C84BB0](v34, a1);
+    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ": Could not vm_allocate ", 24);
+    v17 = MEMORY[0x1B8C84C30](v16, 28 * *(a1 + 32));
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " of ", 4);
+    v19 = strlen((0x80000001B5AFEAF8 & 0x7FFFFFFFFFFFFFFFLL));
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, 0x80000001B5AFEAF8 & 0x7FFFFFFFFFFFFFFFLL, v19);
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ": ", 2);
+    MEMORY[0x1B8C84C00](v21, v32);
     goto LABEL_8;
   }
 
   *(a1 + 16) = address;
-  v11 = vm_allocate(*v9, &v33, 4 * *(a1 + 32), 1711276033);
+  v11 = vm_allocate(*v9, &v35, 4 * *(a1 + 32), 1711276033);
   if (v11)
   {
-    v31 = v11;
+    v33 = v11;
     if (kaldi::g_kaldi_verbose_level < 0)
     {
       goto LABEL_9;
     }
 
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v32);
-    v20 = MEMORY[0x1B8C84BB0](v32, a1);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ": Could not vm_allocate ", 24);
-    v22 = MEMORY[0x1B8C84C30](v21, 4 * *(a1 + 32));
-    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " of ", 4);
-    v24 = *(MEMORY[0x1E69E5480] + 8);
-    v25 = strlen((v24 & 0x7FFFFFFFFFFFFFFFLL));
-    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v24 & 0x7FFFFFFFFFFFFFFFLL, v25);
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ": ", 2);
-    MEMORY[0x1B8C84C00](v27, v31);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v34);
+    v22 = MEMORY[0x1B8C84BB0](v34, a1);
+    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ": Could not vm_allocate ", 24);
+    v24 = MEMORY[0x1B8C84C30](v23, 4 * *(a1 + 32));
+    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, " of ", 4);
+    v26 = *(MEMORY[0x1E69E5480] + 8);
+    v27 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
+    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v26 & 0x7FFFFFFFFFFFFFFFLL, v27);
+    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ": ", 2);
+    MEMORY[0x1B8C84C00](v29, v33);
 LABEL_8:
-    kaldi::KaldiLogMessage::~KaldiLogMessage(v32);
+    kaldi::KaldiLogMessage::~KaldiLogMessage(v34);
 LABEL_9:
     exception = __cxa_allocate_exception(8uLL);
-    v29 = std::bad_alloc::bad_alloc(exception);
-    __cxa_throw(v29, MEMORY[0x1E69E5430], MEMORY[0x1E69E5388]);
+    v31 = std::bad_alloc::bad_alloc(exception);
+    __cxa_throw(v31, MEMORY[0x1E69E5430], MEMORY[0x1E69E5388]);
   }
 
-  *a1 = v33;
+  *a1 = v35;
   *(a1 + 8) = 0;
-  kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(v5, 0x3E8uLL);
+  kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(v5, 0x3E8uLL, v12, v13);
   return a1;
 }
 
@@ -2633,7 +2487,7 @@ uint64_t kaldi::ScoreCacheFasterDecoder::Decode(kaldi::ScoreCacheFasterDecoder *
   v19 = v18;
   v20 = v17 % *(this + 8);
   v21 = (*(this + 9) + 16 * v20);
-  v22 = kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::New(this + 48);
+  v22 = kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::New(this + 6);
   *v22 = v17;
   *(v22 + 8) = v19;
   v23 = v21[1];
@@ -2678,7 +2532,7 @@ uint64_t kaldi::ScoreCacheFasterDecoder::Decode(kaldi::ScoreCacheFasterDecoder *
   return result;
 }
 
-uint64_t *kaldi::ScoreCacheFasterDecoder::ClearToks(uint64_t *this, uint64_t a2)
+kaldi::ScoreCacheFasterDecoder *kaldi::ScoreCacheFasterDecoder::ClearToks(kaldi::ScoreCacheFasterDecoder *this, uint64_t a2)
 {
   if (a2)
   {
@@ -2749,7 +2603,7 @@ void kaldi::ScoreCacheFasterDecoder::ProcessNonemitting(kaldi::ScoreCacheFasterD
   v4 = *(this + 21);
   v6 = *(this + 6);
   v44 = this + 168;
-  v45 = this + 48;
+  v45 = (this + 48);
   if (v6)
   {
     do
@@ -2962,11 +2816,11 @@ LABEL_45:
   }
 }
 
-void sub_1B5427148(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _DWORD *a15)
+void sub_1B5427148(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _DWORD *a15)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a15)
@@ -2996,61 +2850,61 @@ float kaldi::ScoreCacheFasterDecoder::ProcessEmitting(kaldi::ScoreCacheFasterDec
   v9 = *(this + 6);
   *(this + 6) = 0;
   *(this + 7) = -1;
+  v85 = 0;
+  v84 = 0.0;
   v83 = 0;
-  v82 = 0.0;
-  v81 = 0;
   v10 = v9;
-  v11 = kaldi::GetCutoffHelper<kaldi::ScoreCacheFasterDecoder,kaldi::ScoreCacheFasterDecoderOptions,kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::Elem>(this, this + 136, v9, &v83, &v82, &v81, 1, a4);
+  v13 = kaldi::GetCutoffHelper<kaldi::ScoreCacheFasterDecoder,kaldi::ScoreCacheFasterDecoderOptions,kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::Elem>(this, this + 136, v9, &v85, &v84, &v83, 1, a4);
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v76, 3);
-    v12 = MEMORY[0x1B8C84C30](&v76, v83);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " tokens active.", 15);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v76);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v78, 3);
+    v14 = MEMORY[0x1B8C84C30](&v78, v85);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " tokens active.", 15);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v78);
   }
 
-  v74 = this + 48;
-  v13 = (*(this + 40) * v83);
-  if (*(this + 8) < v13)
+  v76 = (this + 48);
+  v15 = (*(this + 40) * v85);
+  if (*(this + 8) < v15)
   {
-    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(v74, v13);
+    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(v76, v15, v11, v12);
   }
 
-  if (!v81)
+  if (!v83)
   {
-    v18 = v10;
-    v19 = INFINITY;
+    v20 = v10;
+    v21 = INFINITY;
     if (!v10)
     {
-      return v19;
+      return v21;
     }
 
     goto LABEL_48;
   }
 
-  v14 = *v81;
-  v15 = HIDWORD(*v81);
-  v16 = *(v81 + 8);
-  if (v16 && *(this + 8) >= v16)
+  v16 = *v83;
+  v17 = HIDWORD(*v83);
+  v18 = *(v83 + 8);
+  if (v18 && *(this + 8) >= v18)
   {
-    v17 = *(this + 2) + 28 * v16;
+    v19 = *(this + 2) + 28 * v18;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  v20 = *(this + 16);
-  v80 = 0;
-  (*(*v20 + 136))(v20, v14, &v76);
-  v21 = v14 >> 32;
-  v19 = INFINITY;
+  v22 = *(this + 16);
+  v82 = 0;
+  (*(*v22 + 136))(v22, v16, &v78);
+  v23 = v16 >> 32;
+  v21 = INFINITY;
   while (1)
   {
-    if (!v76.__locale_)
+    if (!v78.__locale_)
     {
-      if (v80 >= v78)
+      if (v82 >= v80)
       {
         goto LABEL_45;
       }
@@ -3058,128 +2912,128 @@ float kaldi::ScoreCacheFasterDecoder::ProcessEmitting(kaldi::ScoreCacheFasterDec
       goto LABEL_21;
     }
 
-    if ((*(*v76.__locale_ + 24))(v76.__locale_))
+    if ((*(*v78.__locale_ + 24))(v78.__locale_))
     {
       break;
     }
 
-    if (v76.__locale_)
+    if (v78.__locale_)
     {
-      v22 = (*(*v76.__locale_ + 32))();
+      v24 = (*(*v78.__locale_ + 32))();
       goto LABEL_22;
     }
 
 LABEL_21:
-    v22 = (v77 + 16 * v80);
+    v24 = (v79 + 16 * v82);
 LABEL_22:
-    v23 = *v22;
-    if (v23)
+    v25 = *v24;
+    if (v25)
     {
-      v24 = *(v22 + 1);
-      v25 = v22[2];
-      if (v24)
+      v26 = *(v24 + 1);
+      v27 = v24[2];
+      if (v26)
       {
-        v26 = *(this + 5);
-        if (v26)
+        v28 = *(this + 5);
+        if (v28)
         {
-          if ((*(*v26 + 32))(v26, *(*(this + 24) + 32 * v21 + 24)))
+          if ((*(*v28 + 32))(v28, *(*(this + 24) + 32 * v23 + 24)))
           {
-            v27 = NAN;
-            if (v25 != -INFINITY)
+            v29 = NAN;
+            if (v27 != -INFINITY)
             {
-              v27 = NAN;
-              if (v86 != -INFINITY)
+              v29 = NAN;
+              if (v88 != -INFINITY)
               {
-                if (v86 == INFINITY || v25 == INFINITY)
+                if (v88 == INFINITY || v27 == INFINITY)
                 {
-                  v27 = INFINITY;
+                  v29 = INFINITY;
                 }
 
                 else
                 {
-                  v27 = v25 + v86;
+                  v29 = v27 + v88;
                 }
               }
             }
 
-            kaldi::ScoreCacheFasterDecoder::AddLmState(this, v15, v85, v87);
+            kaldi::ScoreCacheFasterDecoder::AddLmState(this, v17, v87, v89);
           }
 
           else
           {
-            v27 = INFINITY;
+            v29 = INFINITY;
           }
 
-          v25 = v27;
+          v27 = v29;
         }
 
         else
         {
-          kaldi::ScoreCacheFasterDecoder::AddLmState(this, v15, v24, 0);
+          kaldi::ScoreCacheFasterDecoder::AddLmState(this, v17, v26, 0);
         }
       }
 
-      v29 = (**a2)(a2, a3, v23);
-      v30 = v82 + ((v25 + *(v17 + 24)) - v29);
-      if (v30 < v19)
+      v31 = (**a2)(a2, a3, v25);
+      v32 = v84 + ((v27 + *(v19 + 24)) - v31);
+      if (v32 < v21)
       {
-        v19 = v30;
+        v21 = v32;
       }
     }
 
-    if (v76.__locale_)
+    if (v78.__locale_)
     {
-      (*(*v76.__locale_ + 40))(v76.__locale_);
+      (*(*v78.__locale_ + 40))(v78.__locale_);
     }
 
     else
     {
-      ++v80;
+      ++v82;
     }
   }
 
-  if (v76.__locale_)
+  if (v78.__locale_)
   {
-    (*(*v76.__locale_ + 8))();
+    (*(*v78.__locale_ + 8))();
     goto LABEL_47;
   }
 
 LABEL_45:
-  if (v79)
+  if (v81)
   {
-    --*v79;
+    --*v81;
   }
 
 LABEL_47:
-  v18 = v10;
+  v20 = v10;
   if (!v10)
   {
-    return v19;
+    return v21;
   }
 
 LABEL_48:
   while (2)
   {
-    v31 = *(v18 + 8);
-    v32 = *(this + 2) + 28 * v31;
-    if (*(v32 + 24) >= v11)
+    v33 = *(v20 + 8);
+    v34 = *(this + 2) + 28 * v33;
+    if (*(v34 + 24) >= v13)
     {
       goto LABEL_99;
     }
 
-    v73 = *(v18 + 8);
-    v71 = v18;
-    v33 = *v18;
-    v34 = HIDWORD(*v18);
-    v35 = *(this + 16);
-    v80 = 0;
-    (*(*v35 + 136))(v35, v33, &v76);
-    v72 = v33 >> 32;
+    v75 = *(v20 + 8);
+    v73 = v20;
+    v35 = *v20;
+    v36 = HIDWORD(*v20);
+    v37 = *(this + 16);
+    v82 = 0;
+    (*(*v37 + 136))(v37, v35, &v78);
+    v74 = v35 >> 32;
     while (2)
     {
-      if (!v76.__locale_)
+      if (!v78.__locale_)
       {
-        if (v80 >= v78)
+        if (v82 >= v80)
         {
           goto LABEL_96;
         }
@@ -3187,98 +3041,98 @@ LABEL_48:
         goto LABEL_55;
       }
 
-      if (!(*(*v76.__locale_ + 24))(v76.__locale_))
+      if (!(*(*v78.__locale_ + 24))(v78.__locale_))
       {
-        if (v76.__locale_)
+        if (v78.__locale_)
         {
-          v36 = (*(*v76.__locale_ + 32))();
+          v38 = (*(*v78.__locale_ + 32))();
           goto LABEL_56;
         }
 
 LABEL_55:
-        v36 = v77 + 16 * v80;
+        v38 = v79 + 16 * v82;
 LABEL_56:
-        if (*v36)
+        if (*v38)
         {
-          v37 = *v36;
-          v38 = *(v36 + 8);
-          v39 = *(v36 + 12);
-          v40 = (**a2)(a2, a3, *v36);
-          v41 = HIDWORD(v37);
-          if (!HIDWORD(v37))
+          v39 = *v38;
+          v40 = *(v38 + 8);
+          v41 = *(v38 + 12);
+          v42 = (**a2)(a2, a3, *v38);
+          v43 = HIDWORD(v39);
+          if (!HIDWORD(v39))
           {
             goto LABEL_71;
           }
 
-          v42 = *(this + 5);
-          if (v42)
+          v44 = *(this + 5);
+          if (v44)
           {
-            if ((*(*v42 + 32))(v42, *(*(this + 24) + 32 * v72 + 24), HIDWORD(v37), v84))
+            if ((*(*v44 + 32))(v44, *(*(this + 24) + 32 * v74 + 24), HIDWORD(v39), v86))
             {
-              v43 = v38;
-              v38 = NAN;
-              if (v43 != -INFINITY && v86 != -INFINITY)
+              v45 = v40;
+              v40 = NAN;
+              if (v45 != -INFINITY && v88 != -INFINITY)
               {
-                if (v86 == INFINITY || v43 == INFINITY)
+                if (v88 == INFINITY || v45 == INFINITY)
                 {
-                  v38 = INFINITY;
+                  v40 = INFINITY;
                 }
 
                 else
                 {
-                  v38 = v86 + v43;
+                  v40 = v88 + v45;
                 }
               }
 
-              LODWORD(v41) = v85;
-              v45 = kaldi::ScoreCacheFasterDecoder::AddLmState(this, v34, v85, v87);
+              LODWORD(v43) = v87;
+              v47 = kaldi::ScoreCacheFasterDecoder::AddLmState(this, v36, v87, v89);
               goto LABEL_72;
             }
 
-            v38 = INFINITY;
+            v40 = INFINITY;
 LABEL_71:
-            v45 = v34;
+            v47 = v36;
           }
 
           else
           {
-            v45 = kaldi::ScoreCacheFasterDecoder::AddLmState(this, v34, SHIDWORD(v37), 0);
+            v47 = kaldi::ScoreCacheFasterDecoder::AddLmState(this, v36, SHIDWORD(v39), 0);
           }
 
 LABEL_72:
-          v46 = (*(v32 + 24) + v38) - v40;
-          if (v46 < v19)
+          v48 = (*(v34 + 24) + v40) - v42;
+          if (v48 < v21)
           {
-            v47 = -v40;
-            v48 = v39 + (v45 << 32);
-            v49 = *(this + 9);
-            v50 = (v49 + 16 * (v48 % *(this + 8)));
-            v51 = v50[1];
-            if (v51)
+            v49 = -v42;
+            v50 = v41 + (v47 << 32);
+            v51 = *(this + 9);
+            v52 = (v51 + 16 * (v50 % *(this + 8)));
+            v53 = v52[1];
+            if (v53)
             {
-              v52 = *v50;
-              v53 = (this + 48);
-              if (v52 != -1)
+              v54 = *v52;
+              v55 = (this + 48);
+              if (v54 != -1)
               {
-                v53 = (*(v49 + 16 * v52 + 8) + 16);
+                v55 = (*(v51 + 16 * v54 + 8) + 16);
               }
 
-              v54 = *(v51 + 16);
-              for (i = *v53; i != v54; i = *(i + 16))
+              v56 = *(v53 + 16);
+              for (i = *v55; i != v56; i = *(i + 16))
               {
-                if (*i == v48)
+                if (*i == v50)
                 {
-                  if ((v46 + v82) < v19)
+                  if ((v48 + v84) < v21)
                   {
-                    v19 = v46 + v82;
+                    v21 = v48 + v84;
                   }
 
-                  if (v46 < *(*(this + 2) + 28 * *(i + 8) + 24))
+                  if (v48 < *(*(this + 2) + 28 * *(i + 8) + 24))
                   {
-                    kaldi::ScoreCacheFasterDecoder::NewToken(this, v73, v37 | (v41 << 32), LODWORD(v38) | (v39 << 32), v47);
-                    v67 = v66;
+                    kaldi::ScoreCacheFasterDecoder::NewToken(this, v75, v39 | (v43 << 32), LODWORD(v40) | (v41 << 32), v49);
+                    v69 = v68;
                     kaldi::ScoreCacheFasterDecoder::DeleteTokenChain(this, *(i + 8));
-                    *(i + 8) = v67;
+                    *(i + 8) = v69;
                   }
 
                   goto LABEL_91;
@@ -3286,55 +3140,55 @@ LABEL_72:
               }
             }
 
-            v56 = v46 + v82;
-            if (v56 < v19)
+            v58 = v48 + v84;
+            if (v58 < v21)
             {
-              v19 = v56;
+              v21 = v58;
             }
 
-            kaldi::ScoreCacheFasterDecoder::NewToken(this, v73, v37 | (v41 << 32), LODWORD(v38) | (v39 << 32), v47);
-            v58 = v57;
-            v59 = *(this + 8);
-            v60 = *(this + 9);
-            v61 = kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::New(v74);
-            v62 = (v60 + 16 * (v48 % v59));
-            *v61 = v48;
-            *(v61 + 8) = v58;
-            v63 = v62[1];
-            if (v63)
+            kaldi::ScoreCacheFasterDecoder::NewToken(this, v75, v39 | (v43 << 32), LODWORD(v40) | (v41 << 32), v49);
+            v60 = v59;
+            v61 = *(this + 8);
+            v62 = *(this + 9);
+            v63 = kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::New(v76);
+            v64 = (v62 + 16 * (v50 % v61));
+            *v63 = v50;
+            *(v63 + 8) = v60;
+            v65 = v64[1];
+            if (v65)
             {
-              *(v61 + 16) = *(v63 + 16);
-              *(v63 + 16) = v61;
-              v62[1] = v61;
+              *(v63 + 16) = *(v65 + 16);
+              *(v65 + 16) = v63;
+              v64[1] = v63;
             }
 
             else
             {
-              v64 = *(this + 7);
-              v65 = (this + 48);
-              if (v64 != -1)
+              v66 = *(this + 7);
+              v67 = (this + 48);
+              if (v66 != -1)
               {
-                v65 = (*(*(this + 9) + 16 * v64 + 8) + 16);
+                v67 = (*(*(this + 9) + 16 * v66 + 8) + 16);
               }
 
-              *v65 = v61;
-              *(v61 + 16) = 0;
-              *v62 = v64;
-              v62[1] = v61;
-              *(this + 7) = v48 % v59;
+              *v67 = v63;
+              *(v63 + 16) = 0;
+              *v64 = v66;
+              v64[1] = v63;
+              *(this + 7) = v50 % v61;
             }
           }
         }
 
 LABEL_91:
-        if (v76.__locale_)
+        if (v78.__locale_)
         {
-          (*(*v76.__locale_ + 40))(v76.__locale_);
+          (*(*v78.__locale_ + 40))(v78.__locale_);
         }
 
         else
         {
-          ++v80;
+          ++v82;
         }
 
         continue;
@@ -3343,40 +3197,40 @@ LABEL_91:
       break;
     }
 
-    if (v76.__locale_)
+    if (v78.__locale_)
     {
-      (*(*v76.__locale_ + 8))();
+      (*(*v78.__locale_ + 8))();
       goto LABEL_98;
     }
 
 LABEL_96:
-    if (v79)
+    if (v81)
     {
-      --*v79;
+      --*v81;
     }
 
 LABEL_98:
-    v18 = v71;
-    v31 = *(v71 + 8);
+    v20 = v73;
+    v33 = *(v73 + 8);
 LABEL_99:
-    v68 = *(v18 + 16);
-    v69 = v18;
-    kaldi::ScoreCacheFasterDecoder::DeleteTokenChain(this, v31);
-    *(v69 + 16) = *(this + 12);
-    *(this + 12) = v69;
-    v18 = v68;
-    if (v68)
+    v70 = *(v20 + 16);
+    v71 = v20;
+    kaldi::ScoreCacheFasterDecoder::DeleteTokenChain(this, v33);
+    *(v71 + 16) = *(this + 12);
+    *(this + 12) = v71;
+    v20 = v70;
+    if (v70)
     {
       continue;
     }
 
-    return v19;
+    return v21;
   }
 }
 
-void sub_1B54279D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B54279D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3406,7 +3260,7 @@ BOOL kaldi::ScoreCacheFasterDecoder::ReachedFinal(kaldi::ScoreCacheFasterDecoder
   return result;
 }
 
-uint64_t kaldi::ScoreCacheFasterDecoder::GetBestPath(uint64_t a1, uint64_t a2, kaldi::LatticeScoreCache *a3, kaldi::TransitionModel *a4)
+uint64_t kaldi::ScoreCacheFasterDecoder::GetBestPath(uint64_t a1, uint64_t a2, uint64_t **a3, kaldi::TransitionModel *a4)
 {
   (*(*a2 + 224))(a2);
   v6 = kaldi::ScoreCacheFasterDecoder::ReachedFinal(a1);
@@ -3606,7 +3460,7 @@ void fst::RemoveEpsLocal<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>(uint64_t
   }
 }
 
-uint64_t kaldi::ScoreCacheFasterDecoder::GetRawLattice(uint64_t a1, uint64_t a2, kaldi::LatticeScoreCache *a3, kaldi::TransitionModel *a4)
+uint64_t kaldi::ScoreCacheFasterDecoder::GetRawLattice(uint64_t a1, uint64_t a2, uint64_t **a3, kaldi::TransitionModel *a4)
 {
   (*(*a2 + 224))(a2);
   v7 = kaldi::ScoreCacheFasterDecoder::ReachedFinal(a1);
@@ -3711,7 +3565,7 @@ uint64_t kaldi::ScoreCacheFasterDecoder::GetRawLattice(uint64_t a1, uint64_t a2,
 
           else
           {
-            std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,int &,float &>(&v47, &v40);
+            std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,int &,float &>(&v47, &v40, &v40, &v39);
             LODWORD(v8) = v36;
             v28 = *(a1 + 40);
             if (v28)
@@ -3719,6 +3573,7 @@ uint64_t kaldi::ScoreCacheFasterDecoder::GetRawLattice(uint64_t a1, uint64_t a2,
               v29 = (*(*v28 + 16))(v28, *(*(a1 + 192) + 32 * v9[1] + 24));
               v35 |= v29 != INFINITY;
               v30 = v29 + v39;
+              v39 = v30;
             }
 
             else
@@ -3777,11 +3632,20 @@ uint64_t kaldi::ScoreCacheFasterDecoder::GetRawLattice(uint64_t a1, uint64_t a2,
   return v7;
 }
 
-void sub_1B54286F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_1B54286F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::locale a9)
 {
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(&a9);
   fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>::~ImplToFst((v9 - 64));
   _Unwind_Resume(a1);
+}
+
+void fst::TopSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(uint64_t a1)
+{
+  memset(__p, 0, sizeof(__p));
+  v2 = 0;
+  v1[0] = __p;
+  v1[1] = &v2;
+  fst::DfsVisit<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::TopOrderVisitor<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,fst::AnyArcFilter<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>(a1, v1, 0);
 }
 
 void sub_1B54287D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
@@ -3794,7 +3658,7 @@ void sub_1B54287D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float kaldi::GetCutoffHelper<kaldi::ScoreCacheFasterDecoder,kaldi::ScoreCacheFasterDecoderOptions,kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::Elem>(void *a1, uint64_t a2, uint64_t a3, void *a4, float *a5, void *a6, int a7, float a8)
+float kaldi::GetCutoffHelper<kaldi::ScoreCacheFasterDecoder,kaldi::ScoreCacheFasterDecoderOptions,kaldi::HashList<unsigned long long,unsigned int,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::Elem>(void *a1, uint64_t a2, uint64_t a3, void *a4, float *a5, uint64_t *a6, int a7, float a8)
 {
   v9 = a3;
   v11 = *(a2 + 8);
@@ -4142,7 +4006,7 @@ uint64_t kaldi::ScoreCacheFasterDecoder::AddLmState(kaldi::ScoreCacheFasterDecod
   v18 = (((*(this + 25) - v16) >> 5) - 1);
   v20 = a3;
   v21[0] = v18;
-  std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned long>>(v17, &v20);
+  std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned long>>(v17, &v20, &v20);
   return ((*(this + 25) - *(this + 24)) >> 5) - 1;
 }
 
@@ -4198,9 +4062,9 @@ uint64_t std::vector<kaldi::ScoreCacheFasterDecoder::LmTrie>::__emplace_back_slo
   return v13;
 }
 
-void sub_1B5428DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5428DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::ScoreCacheFasterDecoder::LmTrie>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4312,41 +4176,41 @@ void std::__split_buffer<kaldi::ScoreCacheFasterDecoder::LmTrie>::clear[abi:ne20
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned long>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned long>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4457,33 +4321,33 @@ void std::vector<kaldi::ScoreCacheFasterDecoder::LmTrie>::__destroy_vector::oper
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,int &,float &>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,int &,float &>(void *a1, int *a2, _DWORD *a3, _DWORD *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4491,44 +4355,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::DeleteStates(void *a1)
@@ -4552,7 +4416,7 @@ void fst::StateSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightT
     v5 = (*(*a1 + 64))(a1, 0xF3FFFFF0007, 0);
     v6 = (a2[1] - *a2) >> 2;
     LOBYTE(v26) = 0;
-    std::vector<BOOL>::vector(&v48, v6);
+    std::vector<BOOL>::vector(&v48, v6, &v26);
     memset(v47, 0, sizeof(v47));
     memset(v46, 0, sizeof(v46));
     v7 = (*(*a1 + 24))(a1);
@@ -4842,7 +4706,7 @@ LABEL_68:
   }
 }
 
-void sub_1B5429ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, void *a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, char a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33)
+void sub_1B5429ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, void *a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33)
 {
   fst::LogMessage::~LogMessage(&a29);
   if (a17 < 0)
@@ -4853,7 +4717,7 @@ void sub_1B5429ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t quasar::tennessee::Collation<long long,long long>::SortInPlace<std::vector<long long>>(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t quasar::tennessee::Collation<long long,long long>::SortInPlace<std::vector<long long>>(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v9 = *MEMORY[0x1E69E9840];
   v4 = *a2;
@@ -4864,42 +4728,43 @@ uint64_t quasar::tennessee::Collation<long long,long long>::SortInPlace<std::vec
   return std::__function::__value_func<long long const& ()(long long const&)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_1B542A1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_1B542A1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  v13 = a9;
+  va_start(va, a9);
+  v12 = a9;
   a9 = 0;
-  if (v13)
+  if (v12)
   {
-    std::default_delete<std::vector<long long>>::operator()[abi:ne200100](&a9, v13);
+    std::default_delete<std::vector<long long>>::operator()[abi:ne200100](&a9, v12);
   }
 
-  std::make_unique[abi:ne200100]<quasar::tennessee::internal::ManagedImmutableSortedArrayStlVectorImpl<long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>,std::unique_ptr<std::vector<long long>>,0>(&a10);
-  MEMORY[0x1B8C85350](v11, v10);
+  std::make_unique[abi:ne200100]<quasar::tennessee::internal::ManagedImmutableSortedArrayStlVectorImpl<long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>,std::unique_ptr<std::vector<long long>>,0>(va);
+  MEMORY[0x1B8C85350](v10, v9);
   _Unwind_Resume(a1);
 }
 
 void quasar::tennessee::Deserialize<long long,true>(uint64_t a1, quasar::tennessee::memory_mapping::VirtualMemoryFile **a2)
 {
-  v2 = *a2;
+  v3 = *a2;
   *a2 = 0;
-  v4 = v2;
-  quasar::tennessee::generic_flatbuf_ptr<flatbuffers_2_0_6::Vector<long long>,quasar::tennessee::memory_mapping::VirtualMemoryFile,std::unique_ptr<quasar::tennessee::memory_mapping::VirtualMemoryFile>>::generic_flatbuf_ptr(&v5, &v4, 0);
-  v3 = v4;
-  v4 = 0;
-  v5 = &unk_1F2D125C8;
-  if (v3)
+  v5 = v3;
+  quasar::tennessee::generic_flatbuf_ptr<flatbuffers_2_0_6::Vector<long long>,quasar::tennessee::memory_mapping::VirtualMemoryFile,std::unique_ptr<quasar::tennessee::memory_mapping::VirtualMemoryFile>>::generic_flatbuf_ptr(&v6, &v5, 0);
+  v4 = v5;
+  v5 = 0;
+  v6 = &unk_1F2D125C8;
+  if (v4)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v4 + 8))(v4);
   }
 
   std::make_unique[abi:ne200100]<quasar::tennessee::internal::VmemFileImmutableSortedArrayFlatbufferVectorImpl<long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>,quasar::tennessee::unique_vmem_file_flatbuf_ptr<flatbuffers_2_0_6::Vector<long long>>,0>();
 }
 
-void sub_1B542A31C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_1B542A31C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    (*(*a13 + 8))(a13);
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4921,7 +4786,7 @@ uint64_t std::__function::__value_func<long long const& ()(long long const&)>::~
   return a1;
 }
 
-uint64_t std::vector<long long>::__init_with_size[abi:ne200100]<boost::iterators::counting_iterator<long long,boost::use_default,boost::use_default>,boost::iterators::counting_iterator<long long,boost::use_default,boost::use_default>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long long>::__init_with_size[abi:ne200100]<boost::iterators::counting_iterator<long long,boost::use_default,boost::use_default>,boost::iterators::counting_iterator<long long,boost::use_default,boost::use_default>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4958,9 +4823,9 @@ void std::default_delete<std::vector<long long>>::operator()[abi:ne200100](uint6
   }
 }
 
-uint64_t std::sort[abi:ne200100]<std::__wrap_iter<long long *>,void quasar::tennessee::Collation<long long,long long>::SortInPlace<std::__wrap_iter<long long *>>(std::__wrap_iter<long long *>,std::__wrap_iter<long long *>,std::function<long long const& ()(std::__wrap_iter<long long *>::value_type const&)>)::{lambda(long long,long long)#1}>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t std::sort[abi:ne200100]<std::__wrap_iter<long long *>,void quasar::tennessee::Collation<long long,long long>::SortInPlace<std::__wrap_iter<long long *>>(std::__wrap_iter<long long *>,std::__wrap_iter<long long *>,std::function<long long const& ()(std::__wrap_iter<long long *>::value_type const&)>)::{lambda(long long,long long)#1}>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = 126 - 2 * __clz((a2 - a1) >> 3);
+  v4 = 126 - 2 * __clz(a2 - a1);
   v7[0] = a3;
   v7[1] = a4;
   if (a2 == a1)
@@ -6476,7 +6341,7 @@ void *quasar::tennessee::internal::ImmutableSortedArrayStlVectorImpl<long long,s
   v5 = *a3;
   *a3 = 0;
   a1[2] = v5;
-  quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(a1);
+  quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(a1, a2);
   return a1;
 }
 
@@ -6551,26 +6416,23 @@ uint64_t quasar::tennessee::internal::ImmutableSortedArrayStlVectorImpl<long lon
   return v2 + 8 * a2;
 }
 
-uint64_t quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(void *a1)
+void quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(void *a1, BOOL a2)
 {
-  result = quasar::tennessee::ShouldCheckSorted(0);
-  if (result)
+  quasar::tennessee::ShouldCheckSorted(0);
+  if (v3)
   {
-    v3 = a1[1];
-    v4 = (*(*a1 + 40))(a1);
-    v6 = v5;
-    v7 = (*(*a1 + 48))(a1);
-    result = quasar::tennessee::Collation<long long,long long>::IsSorted<quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::Iterator>(v3, v4, v6, v7, v8);
-    if ((result & 1) == 0)
+    v4 = a1[1];
+    v5 = (*(*a1 + 40))(a1);
+    v7 = v6;
+    v8 = (*(*a1 + 48))(a1);
+    if (!quasar::tennessee::Collation<long long,long long>::IsSorted<quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::Iterator>(v4, v5, v7, v8, v9))
     {
-      memset(v9, 0, sizeof(v9));
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v9);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, "Input container is not sorted.");
-      quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v9);
+      memset(v10, 0, sizeof(v10));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v10);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, "Input container is not sorted.");
+      quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v10);
     }
   }
-
-  return result;
 }
 
 void *quasar::tennessee::internal::ImmutableSortedArrayStlVectorImpl<long long,std::vector<long long>,std::unique_ptr<std::vector<long long>>>::~ImmutableSortedArrayStlVectorImpl(void *a1)
@@ -6619,7 +6481,7 @@ void quasar::tennessee::internal::ImmutableSortedArrayStlVectorImpl<long long,st
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t quasar::tennessee::Collation<long long,long long>::IsSorted<quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::Iterator>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+BOOL quasar::tennessee::Collation<long long,long long>::IsSorted<quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::Iterator>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v21[4] = *MEMORY[0x1E69E9840];
   if (a2 == a4 && a3 == a5)
@@ -6723,10 +6585,10 @@ void sub_1B542D9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x1B8C85350](v15, v14);
+  MEMORY[0x1B8C85350](v15, v14, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -6874,7 +6736,7 @@ void *quasar::tennessee::internal::ImmutableSortedArrayFlatbufferVectorImpl<long
   *a1 = &unk_1F2D126B8;
   a1[1] = v4;
   quasar::tennessee::unique_vmem_file_flatbuf_ptr<flatbuffers_2_0_6::Vector<long long>>::unique_vmem_file_flatbuf_ptr(a1 + 2, a3);
-  quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(a1);
+  quasar::tennessee::ImmutableSortedArray<long long,quasar::tennessee::Collation<long long,long long>,std::unique_ptr<quasar::tennessee::Collation<long long,long long>>>::CheckSorted(a1, v5);
   return a1;
 }
 
@@ -6987,7 +6849,7 @@ void quasar::tennessee::internal::ImmutableSortedArrayFlatbufferVectorImpl<long 
   JUMPOUT(0x1B8C85350);
 }
 
-void quasar::LanguageDetectorV2::languageIdV2Configuration(quasar::LanguageDetectorV2 *this, const quasar::SystemConfig *a2)
+void quasar::LanguageDetectorV2::languageIdV2Configuration(quasar::LanguageDetectorV2 *this)
 {
   memset(&v4, 0, sizeof(v4));
   std::string::basic_string[abi:ne200100]<0>(__p, "ld-inference");
@@ -7013,7 +6875,7 @@ void sub_1B542E558(_Unwind_Exception *a1)
 {
   if ((*(v1 - 73) & 0x80000000) == 0)
   {
-    v3 = v1 - 64;
+    v3 = (v1 - 64);
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
     _Unwind_Resume(a1);
   }
@@ -7021,14 +6883,14 @@ void sub_1B542E558(_Unwind_Exception *a1)
   JUMPOUT(0x1B542E580);
 }
 
-uint64_t SdapiAnnotatedText::SdapiAnnotatedText(uint64_t result, uint64_t a2)
+uint64_t SdapiAnnotatedText::SdapiAnnotatedText(uint64_t a1, uint64_t a2)
 {
   __dst[3] = *MEMORY[0x1E69E9840];
-  *(result + 48) = 0u;
-  *(result + 64) = 0;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *result = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
   v2 = *(a2 + 23);
   if ((v2 & 0x80u) != 0)
   {
@@ -7038,20 +6900,20 @@ uint64_t SdapiAnnotatedText::SdapiAnnotatedText(uint64_t result, uint64_t a2)
   if (v2)
   {
     memset(__str, 0, sizeof(__str));
-    v5[0] = "\";
+    v5[0] = "\"";
     v5[1] = "";
     boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<char const*>>(__dst, v5);
     boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(__str, a2, __dst, 1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B542E70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, unint64_t a17)
 {
   if (a17 >= 0x11 && a15)
   {
-    MEMORY[0x1B8C85310](a15, 0x1000C8077774924);
+    MEMORY[0x1B8C85310](a15, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   a14 = &a9;
@@ -7312,37 +7174,37 @@ uint64_t LMStats::countFile(LMStats *this, File *a2, uint64_t a3)
   return v8;
 }
 
-void quasar::lm::SymbolTableData::SymbolTableData(uint64_t a1, uint64_t *a2)
+void quasar::lm::SymbolTableData::SymbolTableData(void *a1, uint64_t *a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
+  a1[1] = 0;
   v3 = *a2;
   *a2 = 0;
-  *(a1 + 144) = 0u;
-  *(a1 + 16) = v3;
-  *(a1 + 24) = 0u;
-  v4 = a1 + 24;
-  v5 = a1 + 48;
-  *(a1 + 80) = -1;
-  v6 = (a1 + 80);
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0;
-  *(a1 + 88) = -1;
-  *(a1 + 96) = -1;
-  *(a1 + 104) = 0u;
+  *(a1 + 9) = 0u;
+  a1[2] = v3;
+  *(a1 + 3) = 0u;
+  v4 = a1 + 3;
+  v5 = a1 + 6;
+  a1[10] = -1;
+  v6 = a1 + 10;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  a1[9] = 0;
+  a1[11] = -1;
+  *(a1 + 24) = -1;
+  *(a1 + 13) = 0u;
   *(a1 + 100) = 0;
-  *(a1 + 120) = 0u;
-  *(a1 + 136) = 1065353216;
-  *(a1 + 160) = 0u;
-  *(a1 + 176) = 1065353216;
+  *(a1 + 15) = 0u;
+  *(a1 + 34) = 1065353216;
+  *(a1 + 10) = 0u;
+  *(a1 + 44) = 1065353216;
   if (!v3)
   {
     quasar::lm::LogMessage::LogMessage(__p, 5, "SymbolTableData", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 45);
     Featurizer = quasar::rescoring::AdapterModel::getFeaturizer(__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(Featurizer, "Null symbol table passed to constructor", 39);
     quasar::lm::LogMessage::~LogMessage(__p);
-    v3 = *(a1 + 16);
+    v3 = a1[2];
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "<s>");
@@ -7352,16 +7214,16 @@ void quasar::lm::SymbolTableData::SymbolTableData(uint64_t a1, uint64_t *a2)
     operator delete(__p[0]);
   }
 
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   std::string::basic_string[abi:ne200100]<0>(__p, "</s>");
-  *(a1 + 84) = (*(*v8 + 32))(v8, __p);
+  *(a1 + 21) = (*(*v8 + 32))(v8, __p);
   if (v18 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v9 = (*(**(a1 + 16) + 104))(*(a1 + 16), "#0");
-  *(a1 + 92) = v9;
+  v9 = (*(*a1[2] + 104))(a1[2], "#0");
+  *(a1 + 23) = v9;
   if (v9 <= 0)
   {
     quasar::lm::LogMessage::LogMessage(__p, 5, "SymbolTableData", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 64);
@@ -7371,8 +7233,8 @@ void quasar::lm::SymbolTableData::SymbolTableData(uint64_t a1, uint64_t *a2)
     quasar::lm::LogMessage::~LogMessage(__p);
   }
 
-  v12 = (*(**(a1 + 16) + 104))(*(a1 + 16), "/WORD-DIS-1/");
-  *(a1 + 88) = v12;
+  v12 = (*(*a1[2] + 104))(a1[2], "/WORD-DIS-1/");
+  *(a1 + 22) = v12;
   if (v12 <= 0)
   {
     quasar::lm::LogMessage::LogMessage(__p, 5, "SymbolTableData", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 68);
@@ -7382,9 +7244,9 @@ void quasar::lm::SymbolTableData::SymbolTableData(uint64_t a1, uint64_t *a2)
     quasar::lm::LogMessage::~LogMessage(__p);
   }
 
-  v15 = (*(**(a1 + 16) + 112))(*(a1 + 16));
+  v15 = (*(*a1[2] + 112))(a1[2]);
   std::vector<BOOL>::resize(v4, v15, 0);
-  v16 = (*(**(a1 + 16) + 112))(*(a1 + 16));
+  v16 = (*(*a1[2] + 112))(a1[2]);
   std::vector<BOOL>::resize(v5, v16, 0);
   _ZNSt3__115allocate_sharedB8ne200100I5VocabNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
@@ -7521,7 +7383,7 @@ uint64_t quasar::lm::SymbolTableData::getAndCheckSymbolId(uint64_t a1, uint64_t 
   }
 
   v8 = v5;
-  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>((a1 + 104), &__p.__r_.__value_.__l.__data_);
+  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>((a1 + 104), &__p, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7540,7 +7402,7 @@ void sub_1B542F9EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t quasar::lm::SymbolTableData::symbolIdIsOov(quasar::lm::SymbolTableData *this, int a2)
+uint64_t quasar::lm::SymbolTableData::symbolIdIsOov(quasar::lm::SymbolTableData *this, unsigned int a2)
 {
   v2 = (a2 < 1) | *(this + 100) ^ 1;
   if (a2 >= 1 && (*(this + 100) & 1) == 0)
@@ -7592,13 +7454,13 @@ uint64_t quasar::lm::SymbolTableData::observeTrainingSymbol(void *a1, int *a2, u
   }
 
   v9 = (*(**a1 + 16))(*a1, v11);
-  v13[0] = *a2;
-  v13[1] = v9;
-  std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(a1 + 18, v13);
+  LODWORD(v13[0]) = *a2;
+  HIDWORD(v13[0]) = v9;
+  std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(a1 + 18, v13, v13);
   return v9;
 }
 
-uint64_t quasar::lm::SymbolTableData::lookupTrainId(quasar::lm::SymbolTableData *this, int *a2, int a3)
+uint64_t quasar::lm::SymbolTableData::lookupTrainId(quasar::lm::SymbolTableData *this, unsigned int *a2, int a3)
 {
   if (quasar::lm::SymbolTableData::symbolIdIsOov(this, *a2))
   {
@@ -7618,10 +7480,10 @@ uint64_t quasar::lm::SymbolTableData::lookupTrainId(quasar::lm::SymbolTableData 
   (*(**(this + 2) + 88))(&__p);
   if (a3)
   {
-    quasar::lm::LogMessage::LogMessage(&v27, 5, "lookupTrainId", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 224);
-    v10 = quasar::rescoring::AdapterModel::getFeaturizer(&v27);
+    quasar::lm::LogMessage::LogMessage(v27, 5, "lookupTrainId", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 224);
+    v10 = quasar::rescoring::AdapterModel::getFeaturizer(v27);
     v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "training token ", 15);
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -7631,35 +7493,35 @@ uint64_t quasar::lm::SymbolTableData::lookupTrainId(quasar::lm::SymbolTableData 
       p_p = __p;
     }
 
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
-      v13 = v31;
+      v13 = v30;
     }
 
     else
     {
-      v13 = v30;
+      v13 = v29;
     }
 
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, p_p, v13);
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " : ", 3);
     v16 = MEMORY[0x1B8C84C00](v15, *a2);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " not present in training map", 28);
-    quasar::lm::LogMessage::~LogMessage(&v27);
+    quasar::lm::LogMessage::~LogMessage(v27);
   }
 
-  if ((v31 & 0x80000000) == 0)
+  if ((v30 & 0x80000000) == 0)
   {
-    if (v31)
+    if (v30)
     {
       v17 = &__p;
       goto LABEL_18;
     }
 
 LABEL_20:
-    quasar::lm::LogMessage::LogMessage(&v27, 2, "lookupTrainId", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 235);
-    v19 = quasar::rescoring::AdapterModel::getFeaturizer(&v27);
-    if ((v31 & 0x80u) == 0)
+    quasar::lm::LogMessage::LogMessage(v27, 2, "lookupTrainId", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 235);
+    v19 = quasar::rescoring::AdapterModel::getFeaturizer(v27);
+    if ((v30 & 0x80u) == 0)
     {
       v20 = &__p;
     }
@@ -7669,30 +7531,30 @@ LABEL_20:
       v20 = __p;
     }
 
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
-      v21 = v31;
+      v21 = v30;
     }
 
     else
     {
-      v21 = v30;
+      v21 = v29;
     }
 
     v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, v20, v21);
     v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " : ", 3);
     v24 = MEMORY[0x1B8C84C00](v23, *a2);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, " not present in training or ARPA vocabulary", 43);
-    quasar::lm::LogMessage::~LogMessage(&v27);
+    quasar::lm::LogMessage::~LogMessage(v27);
     v25 = *(this + 24);
-    v27 = *a2;
-    v28 = v25;
-    std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(this + 18, &v27);
+    LODWORD(v27[0]) = *a2;
+    HIDWORD(v27[0]) = v25;
+    std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(this + 18, v27, v27);
     v9 = *(this + 24);
     goto LABEL_27;
   }
 
-  if (!v30)
+  if (!v29)
   {
     goto LABEL_20;
   }
@@ -7706,11 +7568,11 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v27 = *a2;
-  v28 = v18;
-  std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(this + 18, &v27);
+  LODWORD(v27[0]) = *a2;
+  HIDWORD(v27[0]) = v18;
+  std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(this + 18, v27, v27);
 LABEL_27:
-  if (v31 < 0)
+  if (v30 < 0)
   {
     operator delete(__p);
   }
@@ -7892,23 +7754,23 @@ LABEL_7:
   return std::unique_ptr<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::reset[abi:ne200100](&v19, 0);
 }
 
-void sub_1B54303D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B54303D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
 void quasar::lm::SymbolTableData::extractTrainVocabFromSymbolTable(quasar::lm::SymbolTableData *this)
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v2 = *(*(**this + 88))(*this);
   v3 = (*(**this + 32))(*this, v2);
   v4 = strlen(v3);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = v8 - v5;
-  v7 = (*(**this + 32))(*this, v2);
-  strcpy(v6, v7);
+  MEMORY[0x1EEE9AC00](v4, v5, v6);
+  v8 = v10 - v7;
+  v9 = (*(**this + 32))(*this, v2);
+  strcpy(v8, v9);
   (*(**this + 64))(*this, v2);
   operator new();
 }
@@ -7962,9 +7824,9 @@ uint64_t quasar::lm::SymbolTableData::observeSrilmVocabulary(quasar::lm::SymbolT
   return LHashIter<char const*,unsigned int>::~LHashIter(v18);
 }
 
-void sub_1B5430A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B5430A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   LHashIter<char const*,unsigned int>::~LHashIter(va);
   _Unwind_Resume(a1);
 }
@@ -7980,12 +7842,12 @@ void sub_1B5430E1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void quasar::lm::InsertOrDie<std::unordered_map<unsigned int,int>>(void *a1, unsigned int *a2, unsigned int *a3)
+void quasar::lm::InsertOrDie<std::unordered_map<unsigned int,int>>(void *a1, _DWORD *a2, int *a3)
 {
   v4 = *a3;
-  v9[0] = *a2;
-  v9[1] = v4;
-  v5 = std::__hash_table<std::__hash_value_type<char32_t,char32_t>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,char32_t>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,char32_t>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,char32_t>>>::__emplace_unique_key_args<char32_t,std::pair<char32_t const,char32_t> const&>(a1, v9);
+  LODWORD(v9[0]) = *a2;
+  HIDWORD(v9[0]) = v4;
+  v5 = std::__hash_table<std::__hash_value_type<char32_t,char32_t>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,char32_t>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,char32_t>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,char32_t>>>::__emplace_unique_key_args<char32_t,std::pair<char32_t const,char32_t> const&>(a1, v9, v9);
   if (v6)
   {
     quasar::lm::nullstream(v5);
@@ -8054,9 +7916,9 @@ LABEL_7:
   }
 }
 
-void sub_1B54310D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B54310D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   LHashIter<char const*,unsigned int>::~LHashIter(va);
   _Unwind_Resume(a1);
 }
@@ -8074,7 +7936,7 @@ uint64_t std::function<void ()(char const*,unsigned int)>::operator()(uint64_t a
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-void quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRemapping(uint64_t a1, uint64_t a2, void *a3, int a4)
+void quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRemapping(Vocab *a1, uint64_t a2, void *a3, int a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::clear(a3);
@@ -8112,16 +7974,16 @@ void quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRemapping(uint64_t a1, uin
   operator new();
 }
 
-void sub_1B5431328(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5431328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   quasar::lm::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5431400(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5431400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::unordered_map<unsigned int,int>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8139,9 +8001,9 @@ uint64_t *std::unique_ptr<std::unordered_map<unsigned int,int>>::~unique_ptr[abi
   return a1;
 }
 
-void quasar::lm::InsertOrDie<std::set<std::string>>(uint64_t a1, uint64_t a2)
+void quasar::lm::InsertOrDie<std::set<std::string>>(uint64_t **a1, uint64_t a2)
 {
-  v3 = std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2);
+  v3 = std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2, a2);
   if (v4)
   {
 
@@ -8196,16 +8058,16 @@ void quasar::lm::ExtractVocabularyFromARPA(uint64_t a1, File *a2)
   File::~File(v5);
 }
 
-void sub_1B5431584(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5431584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   File::~File(va);
   _Unwind_Resume(a1);
 }
 
 void quasar::lm::ExtractVocabularyFromARPA(quasar::lm *this, File *a2, Vocab *a3)
 {
-  Ngram::Ngram(v4, a2, 1u);
+  Ngram::Ngram(v4, a2, 1);
   Ngram::read(v4, this, 0);
   v4[0] = &unk_1F2D0A578;
   Trie<unsigned int,BOnode>::~Trie(&v5);
@@ -8217,7 +8079,7 @@ void *_ZNSt3__120__shared_ptr_emplaceI5VocabNS_9allocatorIS1_EEEC2B8ne200100IJES
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D128C0;
-  Vocab::Vocab((a1 + 3), 0, 0xFFFFFFFE);
+  Vocab::Vocab((a1 + 3), 0, -2);
   return a1;
 }
 
@@ -8229,35 +8091,35 @@ void std::__shared_ptr_emplace<Vocab>::~__shared_ptr_emplace(std::__shared_weak_
   JUMPOUT(0x1B8C85350);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -8265,73 +8127,73 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::pair<int,unsigned int>>(void *a1, int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8339,44 +8201,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void **std::unique_ptr<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::reset[abi:ne200100](void **result, void *a2)
@@ -8413,33 +8275,33 @@ void std::__shared_ptr_emplace<std::unordered_map<unsigned int,int>>::~__shared_
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,int> &>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,int> &>(void *a1, unsigned int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8447,44 +8309,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 __n128 std::__function::__func<quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRemapping(Vocab const&,fst::SymbolTable const&,std::unordered_map<unsigned int,int> *,BOOL)::$_0,std::allocator<quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRemapping(Vocab const&,fst::SymbolTable const&,std::unordered_map<unsigned int,int> *,BOOL)::$_0>,void ()(char const*,unsigned int)>::__clone(uint64_t a1, uint64_t a2)
@@ -8502,7 +8364,7 @@ void std::__function::__func<quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRe
   v5 = *a3;
   v14 = *a3;
   v13 = (*(**(a1 + 16) + 104))(*(a1 + 16), v4);
-  if ((v13 & 0x80000000) != 0)
+  if (v13 < 0)
   {
     quasar::lm::LogMessage::LogMessage(v12, 5, "operator()", "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/liblm/src/symbol_tables.cpp", 474);
     Featurizer = quasar::rescoring::AdapterModel::getFeaturizer(v12);
@@ -8518,9 +8380,9 @@ void std::__function::__func<quasar::lm::ComputeSRILMVocabToOpenFSTSymbolTableRe
   quasar::lm::InsertOrDie<std::unordered_map<unsigned int,int>>(*(a1 + 24), &v14, &v13);
 }
 
-void sub_1B5432180(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5432180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   quasar::lm::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8553,85 +8415,81 @@ uint64_t std::__function::__value_func<void ()(char const*,unsigned int)>::~__va
   return a1;
 }
 
-void quasar::CalculateJoinedNBest<0ul>::operator()(uint64_t a1, uint64_t a2)
+void quasar::CalculateJoinedNBest<0ul>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8)
 {
-  quasar::CalculateJoinedNBest<0ul>::operator()(a1, *(a2 + 8));
-}
-
-{
-  v32 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (quasar::gLogLevel >= 6)
   {
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v24);
-    kaldi::WriteCompactLattice(v25, 0, a2);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v31);
+    kaldi::WriteCompactLattice(v32, 0, a2);
     if (quasar::gLogLevel >= 6)
     {
-      v22 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v8 = 0u;
-      v9 = 0u;
-      *v7 = 0u;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v7);
-      v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Primary lattice: ", 17);
+      v16 = 0u;
+      *v14 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v14);
+      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Primary lattice: ", 17);
       std::stringbuf::str();
-      if ((v31 & 0x80u) == 0)
+      if ((v38 & 0x80u) == 0)
       {
-        v4 = v30;
+        v10 = v37;
       }
 
       else
       {
-        v4 = v30[0];
+        v10 = v37[0];
       }
 
-      if ((v31 & 0x80u) == 0)
+      if ((v38 & 0x80u) == 0)
       {
-        v5 = v31;
+        v11 = v38;
       }
 
       else
       {
-        v5 = v30[1];
+        v11 = v37[1];
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v4, v5);
-      if (v31 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v10, v11);
+      if (v38 < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v37[0]);
       }
 
-      quasar::QuasarTraceMessage::~QuasarTraceMessage(v7);
+      quasar::QuasarTraceMessage::~QuasarTraceMessage(v14);
     }
 
-    *&v24 = *MEMORY[0x1E69E54D8];
-    v6 = *(MEMORY[0x1E69E54D8] + 72);
-    *(&v25[-2] + *(v24 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-    v25[0] = v6;
-    v25[1] = (MEMORY[0x1E69E5548] + 16);
-    if (v28 < 0)
+    *&v31 = *MEMORY[0x1E69E54D8];
+    v12 = *(MEMORY[0x1E69E54D8] + 72);
+    *(&v32[-2] + *(v31 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+    v32[0] = v12;
+    v32[1] = (MEMORY[0x1E69E5548] + 16);
+    if (v35 < 0)
     {
       operator delete(__p);
     }
 
-    v25[1] = (MEMORY[0x1E69E5538] + 16);
-    std::locale::~locale(&v26);
+    v32[1] = (MEMORY[0x1E69E5538] + 16);
+    std::locale::~locale(&v33);
     std::iostream::~basic_iostream();
-    MEMORY[0x1B8C85200](&v29);
+    MEMORY[0x1B8C85200](&v36);
   }
 
-  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst(&v13);
 }
 
 void sub_1B54328B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, std::locale a57, uint64_t a58, uint64_t a59, uint64_t a60)
@@ -8641,7 +8499,7 @@ void sub_1B54328B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::vector<quasar::NBestToken<0ul>>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::vector<quasar::NBestToken<0ul>>>::reserve(const void **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -8886,85 +8744,81 @@ void sub_1B5432FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void quasar::CalculateJoinedNBest<1ul>::operator()(uint64_t a1, uint64_t a2)
+void quasar::CalculateJoinedNBest<1ul>::operator()(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8)
 {
-  quasar::CalculateJoinedNBest<1ul>::operator()(a1, *(a2 + 8));
-}
-
-{
-  v32 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (quasar::gLogLevel >= 6)
   {
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v24);
-    kaldi::WriteCompactLattice(v25, 0, a2);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v31);
+    kaldi::WriteCompactLattice(v32, 0, a2);
     if (quasar::gLogLevel >= 6)
     {
-      v22 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v18 = 0u;
+      v22 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v8 = 0u;
-      v9 = 0u;
-      *v7 = 0u;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v7);
-      v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Primary lattice: ", 17);
+      v16 = 0u;
+      *v14 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v14);
+      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Primary lattice: ", 17);
       std::stringbuf::str();
-      if ((v31 & 0x80u) == 0)
+      if ((v38 & 0x80u) == 0)
       {
-        v4 = v30;
+        v10 = v37;
       }
 
       else
       {
-        v4 = v30[0];
+        v10 = v37[0];
       }
 
-      if ((v31 & 0x80u) == 0)
+      if ((v38 & 0x80u) == 0)
       {
-        v5 = v31;
+        v11 = v38;
       }
 
       else
       {
-        v5 = v30[1];
+        v11 = v37[1];
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v4, v5);
-      if (v31 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v10, v11);
+      if (v38 < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v37[0]);
       }
 
-      quasar::QuasarTraceMessage::~QuasarTraceMessage(v7);
+      quasar::QuasarTraceMessage::~QuasarTraceMessage(v14);
     }
 
-    *&v24 = *MEMORY[0x1E69E54D8];
-    v6 = *(MEMORY[0x1E69E54D8] + 72);
-    *(&v25[-2] + *(v24 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-    v25[0] = v6;
-    v25[1] = (MEMORY[0x1E69E5548] + 16);
-    if (v28 < 0)
+    *&v31 = *MEMORY[0x1E69E54D8];
+    v12 = *(MEMORY[0x1E69E54D8] + 72);
+    *(&v32[-2] + *(v31 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+    v32[0] = v12;
+    v32[1] = (MEMORY[0x1E69E5548] + 16);
+    if (v35 < 0)
     {
       operator delete(__p);
     }
 
-    v25[1] = (MEMORY[0x1E69E5538] + 16);
-    std::locale::~locale(&v26);
+    v32[1] = (MEMORY[0x1E69E5538] + 16);
+    std::locale::~locale(&v33);
     std::iostream::~basic_iostream();
-    MEMORY[0x1B8C85200](&v29);
+    MEMORY[0x1B8C85200](&v36);
   }
 
-  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::VectorFst(&v13);
 }
 
 void sub_1B5433AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, std::locale a61)
@@ -8982,7 +8836,7 @@ void sub_1B5433AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::vector<quasar::NBestToken<1ul>>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::vector<quasar::NBestToken<1ul>>>::reserve(const void **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -9041,7 +8895,7 @@ void fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<
   *(a1 + 60) = 0u;
   *(a1 + 76) = 0u;
   *(a1 + 92) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, 0, 0, 0);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), 0, 0, 0);
   *(a1 + 96) = -1;
   *(a1 + 106) = 0;
   fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::MemoryPool((a1 + 112), 1);
@@ -9166,20 +9020,20 @@ uint64_t fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeight
   return result;
 }
 
-uint64_t fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>::Final_@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>::Final_@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   v3 = *(*(*(*(a1 + 8) + 8) + 64) + 8 * a2);
   *a3 = *v3;
   a3[2] = 0;
   a3[3] = 0;
   a3[1] = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a3 + 1), v3[1], v3[2], (v3[2] - v3[1]) >> 2);
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3 + 1, *(v3 + 8), *(v3 + 16), (*(v3 + 16) - *(v3 + 8)) >> 2);
 }
 
 void fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::~MemoryPool(quasar::Bitmap *a1)
 {
   *a1 = &unk_1F2D12A88;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena((a1 + 8));
   quasar::Bitmap::~Bitmap(a1);
 
   JUMPOUT(0x1B8C85350);
@@ -9187,7 +9041,7 @@ void fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLat
 
 {
   *a1 = &unk_1F2D12A88;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena((a1 + 8));
 
   quasar::Bitmap::~Bitmap(a1);
 }
@@ -9210,7 +9064,7 @@ void sub_1B543461C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(void *a1)
+void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(quasar::Bitmap *a1)
 {
   fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(a1);
 
@@ -9219,9 +9073,9 @@ void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTp
 
 {
   *a1 = &unk_1F2D12AC8;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v2 = (a1 + 24);
+  v3 = *(a1 + 4);
+  if (v3 != (a1 + 24))
   {
     do
     {
@@ -9260,7 +9114,7 @@ void *fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl
   }
 
   a1[14] = &unk_1F2D12A88;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena(a1 + 15);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::Link>::~MemoryArena((a1 + 15));
   quasar::Bitmap::~Bitmap(v3);
   v5 = a1[9];
   if (v5)
@@ -9287,7 +9141,7 @@ void fst::SortedMatcher<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<
   *(a1 + 64) = v5;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   *(a1 + 96) = *(a2 + 96);
   *(a1 + 106) = *(a2 + 106);
   fst::MemoryPool<fst::ArcIterator<fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>>>::MemoryPool((a1 + 112), 1);
@@ -9582,7 +9436,7 @@ uint64_t quasar::CalculateJoinedNBest<0ul>::operator()(fst::VectorFst<fst::ArcTp
       v10 = *v4;
       if (*v4 != -1)
       {
-        *(v4 + 6) = v5;
+        v4[6] = v5;
         if (v10 == v6)
         {
           v11 = v8[1];
@@ -9594,12 +9448,12 @@ uint64_t quasar::CalculateJoinedNBest<0ul>::operator()(fst::VectorFst<fst::ArcTp
           *v4 = -1;
           if ((v7 & 1) == 0)
           {
-            *(v4 + 1) = 0;
+            v4[1] = 0;
           }
 
           std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v4 + 2, 0, 0, 0);
-          *(v4 + 5) = 0;
-          *(v4 + 6) = 0;
+          v4[5] = 0;
+          v4[6] = 0;
         }
 
         else
@@ -9619,17 +9473,17 @@ uint64_t quasar::CalculateJoinedNBest<0ul>::operator()(fst::VectorFst<fst::ArcTp
 
           v8[1] = v16;
           *v4 = -1;
-          *(v4 + 1) = 0;
+          v4[1] = 0;
           std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v4 + 2, 0, 0, 0);
-          *(v4 + 18) = 0u;
-          *(v4 + 14) = 0u;
-          *(v4 + 10) = 0u;
+          *(v4 + 9) = 0u;
+          *(v4 + 7) = 0u;
+          *(v4 + 5) = 0u;
         }
       }
 
       v4 = *a1;
       *v4 = a3->i32[1];
-      *(v4 + 5) = **(a1 + 8);
+      v4[5] = **(a1 + 8);
     }
 
     fst::Times<fst::LatticeWeightTpl<float>,int>(v4 + 1, a3 + 1, __p);
@@ -9735,7 +9589,7 @@ LABEL_48:
 
     if (**a1 != -1)
     {
-      *(v4 + 6) = v5;
+      v4[6] = v5;
       if (*v4 == v6)
       {
         v14 = v8[1];
@@ -9747,12 +9601,12 @@ LABEL_48:
         *v4 = -1;
         if ((v7 & 1) == 0)
         {
-          *(v4 + 1) = 0;
+          v4[1] = 0;
         }
 
         std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v4 + 2, 0, 0, 0);
-        *(v4 + 5) = 0;
-        *(v4 + 6) = 0;
+        v4[5] = 0;
+        v4[6] = 0;
       }
 
       else
@@ -9772,11 +9626,11 @@ LABEL_48:
 
         v8[1] = v18;
         *v4 = -1;
-        *(v4 + 1) = 0;
+        v4[1] = 0;
         std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v4 + 2, 0, 0, 0);
-        *(v4 + 18) = 0u;
-        *(v4 + 14) = 0u;
-        *(v4 + 10) = 0u;
+        *(v4 + 9) = 0u;
+        *(v4 + 7) = 0u;
+        *(v4 + 5) = 0u;
       }
     }
 
@@ -9808,21 +9662,21 @@ LABEL_48:
   return 1;
 }
 
-uint64_t std::vector<quasar::NBestToken<0ul>>::__emplace_back_slow_path<quasar::NBestToken<0ul>>(uint64_t a1, int *a2)
+uint64_t std::vector<quasar::NBestToken<0ul>>::__emplace_back_slow_path<quasar::NBestToken<0ul>>(uint64_t *a1, int *a2)
 {
-  v2 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x2E8BA2E8BA2E8BA3 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x2E8BA2E8BA2E8BALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x2E8BA2E8BA2E8BA3 * ((*(a1 + 16) - *a1) >> 3)) >= 0x1745D1745D1745DLL)
+  if ((0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3)) >= 0x1745D1745D1745DLL)
   {
     v6 = 0x2E8BA2E8BA2E8BALL;
   }
@@ -9842,14 +9696,14 @@ uint64_t std::vector<quasar::NBestToken<0ul>>::__emplace_back_slow_path<quasar::
   v14 = 88 * v2;
   quasar::NBestToken<0ul>::NBestToken(88 * v2, a2);
   v15 = (88 * v2 + 88);
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 88 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -9858,9 +9712,158 @@ uint64_t std::vector<quasar::NBestToken<0ul>>::__emplace_back_slow_path<quasar::
   return v12;
 }
 
-void sub_1B54353A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54353A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::NBestToken<0ul>>::~__split_buffer(va);
   _Unwind_Resume(a1);
+}
+
+uint64_t quasar::NBestToken<0ul>::NBestToken(uint64_t a1, int *a2)
+{
+  v4 = *a2;
+  *a2 = -1;
+  *a1 = v4;
+  *(a1 + 8) = *(a2 + 1);
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  v5 = (a2 + 4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 16), *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 2);
+  *(a2 + 1) = 0;
+  std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v5, 0, 0, 0);
+  v6 = *(a2 + 5);
+  *(a2 + 5) = 0;
+  *(a1 + 40) = v6;
+  v7 = *(a2 + 6);
+  *(a2 + 6) = 0;
+  *(a1 + 48) = v7;
+  v8 = *(a2 + 14);
+  *(a1 + 72) = *(a2 + 18);
+  *(a1 + 56) = v8;
+  return a1;
+}
+
+void sub_1B543546C(_Unwind_Exception *exception_object)
+{
+  v4 = *v2;
+  if (*v2)
+  {
+    *(v1 + 24) = v4;
+    operator delete(v4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::NBestToken<0ul>>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x2E8BA2E8BA2E8BBLL)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>(uint64_t a1, int *a2, int *a3, uint64_t a4)
+{
+  v11 = a4;
+  v12 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
+  v10 = 0;
+  if (a2 == a3)
+  {
+    v10 = 1;
+  }
+
+  else
+  {
+    v5 = a2;
+    v6 = a2;
+    do
+    {
+      quasar::NBestToken<0ul>::NBestToken(a4, v6);
+      v6 += 22;
+      a4 = v12 + 88;
+      v12 += 88;
+    }
+
+    while (v6 != a3);
+    v10 = 1;
+    while (v5 != a3)
+    {
+      v7 = *(v5 + 2);
+      if (v7)
+      {
+        *(v5 + 3) = v7;
+        operator delete(v7);
+      }
+
+      v5 += 22;
+    }
+  }
+
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>>::~__exception_guard_exceptions[abi:ne200100](v9);
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+void std::_AllocatorDestroyRangeReverse<std::allocator<quasar::NBestToken<0ul>>,quasar::NBestToken<0ul>*>::operator()[abi:ne200100](uint64_t a1)
+{
+  v1 = **(a1 + 16);
+  v2 = **(a1 + 8);
+  while (v1 != v2)
+  {
+    v3 = *(v1 - 72);
+    if (v3)
+    {
+      *(v1 - 64) = v3;
+      operator delete(v3);
+    }
+
+    v1 -= 88;
+  }
+}
+
+uint64_t std::__split_buffer<quasar::NBestToken<0ul>>::~__split_buffer(uint64_t a1)
+{
+  std::__split_buffer<quasar::NBestToken<0ul>>::__destruct_at_end[abi:ne200100](a1, *(a1 + 8));
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__split_buffer<quasar::NBestToken<0ul>>::__destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  while (v2 != a2)
+  {
+    *(a1 + 16) = v2 - 88;
+    v5 = *(v2 - 72);
+    if (v5)
+    {
+      *(v2 - 64) = v5;
+      operator delete(v5);
+      v2 = *(a1 + 16);
+    }
+
+    else
+    {
+      v2 -= 88;
+    }
+  }
 }

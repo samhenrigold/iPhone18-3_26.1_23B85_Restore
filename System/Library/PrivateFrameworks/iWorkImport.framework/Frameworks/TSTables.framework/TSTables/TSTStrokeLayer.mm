@@ -33,10 +33,10 @@
 + (id)strokeLayer
 {
   v2 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_contextForTransientObjects(MEMORY[0x277D80878], v3, v4, v5, v6);
-  v10 = objc_msgSend_initWithContext_columnOrRowIndex_(v2, v8, v7, 0, v9);
+  v6 = objc_msgSend_contextForTransientObjects(MEMORY[0x277D80878], v3, v4, v5);
+  v8 = objc_msgSend_initWithContext_columnOrRowIndex_(v2, v7, v6, 0);
 
-  return v10;
+  return v8;
 }
 
 - (TSTStrokeLayer)initWithContext:(id)context columnOrRowIndex:(unsigned int)index
@@ -138,18 +138,18 @@
   rangeCopy = range;
   objc_opt_class();
   v5 = TSUCheckedDynamicCast();
-  v10 = objc_msgSend_position(v5, v6, v7, v8, v9);
-  if (v5 && (begin = self->_strokeRuns.__begin_, v10 + 1 < ((self->_strokeRuns.__end_ - begin) >> 5)))
+  v9 = objc_msgSend_position(v5, v6, v7, v8);
+  if (v5 && (begin = self->_strokeRuns.__begin_, v9 + 1 < ((self->_strokeRuns.__end_ - begin) >> 5)))
   {
-    v13 = objc_msgSend_tokenWithStroke_range_order_andPosition_(TSTStrokeLayerToken, v11, *(begin + 4 * v10 + 4), *(begin + 4 * v10 + 5), *(begin + 4 * v10 + 6), *(begin + 8 * v10 + 14));
+    v12 = objc_msgSend_tokenWithStroke_range_order_andPosition_(TSTStrokeLayerToken, v10, *(begin + 4 * v9 + 4), *(begin + 4 * v9 + 5), *(begin + 4 * v9 + 6), *(begin + 8 * v9 + 14));
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - ($DE50B600744B7521845B4CEF3C5064D2)findWidthAndRangeAtIndex:(SEL)index
@@ -163,7 +163,7 @@
   p_strokeRuns = &self->_strokeRuns;
   begin = self->_strokeRuns.__begin_;
   end = self->_strokeRuns.__end_;
-  sub_2213FFC6C(v30, 0, a4, 1, 0);
+  sub_2213FFC6C(v28, 0, a4, 1, 0);
   if (end != begin)
   {
     v10 = (end - begin) >> 5;
@@ -174,7 +174,7 @@
       v13 = *(v12 + 2) + *(v12 + 1);
       v14 = (v12 + 32);
       v10 += ~(v10 >> 1);
-      if (v13 < v30[1])
+      if (v13 < v28[1])
       {
         begin = v14;
       }
@@ -189,24 +189,24 @@
     end = begin;
   }
 
-  v20 = p_strokeRuns->__begin_;
-  v21 = end - p_strokeRuns->__begin_;
-  v22 = v21 >> 5;
-  v23 = (p_strokeRuns->__end_ - p_strokeRuns->__begin_) >> 5;
-  if (v21 >> 5 < v23 && *(v20 + v21 + 16) + *(v20 + v21 + 8) <= a4)
+  v19 = p_strokeRuns->__begin_;
+  v20 = end - p_strokeRuns->__begin_;
+  v21 = v20 >> 5;
+  v22 = (p_strokeRuns->__end_ - p_strokeRuns->__begin_) >> 5;
+  if (v20 >> 5 < v22 && *(v19 + v20 + 16) + *(v19 + v20 + 8) <= a4)
   {
-    ++v22;
+    ++v21;
   }
 
-  if (v22 < v23)
+  if (v21 < v22)
   {
-    v24 = *(v20 + 4 * v22);
-    objc_msgSend_width(v24, v16, v17, v18, v19);
-    retstr->var0 = v25;
-    *p_var1 = *(p_strokeRuns->__begin_ + 32 * v22 + 8);
-    result = objc_msgSend_isPortalStroke(v24, v26, v27, v28, v29);
+    v23 = *(v19 + 4 * v21);
+    objc_msgSend_width(v23, v16, v17, v18);
+    retstr->var0 = v24;
+    *p_var1 = *(p_strokeRuns->__begin_ + 32 * v21 + 8);
+    result = objc_msgSend_isPortalStroke(v23, v25, v26, v27);
     retstr->var2 = result;
-    retstr->var3 = v22;
+    retstr->var3 = v21;
   }
 
   return result;
@@ -221,18 +221,18 @@
   retstr->var3 = 0x7FFFFFFFFFFFFFFFLL;
   if (a4->var1.origin != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = a4->var3 + 1;
+    v6 = a4->var3 + 1;
     p_var2 = &self[1].var2;
-    v9 = *&self[1].var2;
-    if (v7 < (self[1].var3 - v9) >> 5)
+    v8 = *&self[1].var2;
+    if (v6 < (self[1].var3 - v8) >> 5)
     {
-      v10 = *(v9 + 32 * v7);
-      objc_msgSend_width(v10, range, a4, v4, v5);
-      retstr->var0 = v11;
-      retstr->var1 = *(*p_var2 + 32 * v7 + 8);
-      self = objc_msgSend_isPortalStroke(v10, v12, v13, v14, v15);
+      v9 = *(v8 + 32 * v6);
+      objc_msgSend_width(v9, range, a4, v4);
+      retstr->var0 = v10;
+      retstr->var1 = *(*p_var2 + 32 * v6 + 8);
+      self = objc_msgSend_isPortalStroke(v9, v11, v12, v13);
       retstr->var2 = self;
-      retstr->var3 = v7;
+      retstr->var3 = v6;
     }
   }
 
@@ -262,82 +262,82 @@
   length = range.length;
   origin = range.origin;
   blockCopy = block;
-  v47 = 0;
-  v11 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v8, origin, v9, v10);
-  if (v11)
+  v41 = 0;
+  v10 = objc_msgSend_findStrokeAndRangeAtIndex_(self, v8, origin, v9);
+  if (v10)
   {
-    v16 = origin + length;
-    v46 = v11;
-    v17 = v11;
+    v14 = origin + length;
+    v40 = v10;
+    v15 = v10;
     while (1)
     {
-      v18 = objc_msgSend_range(v17, v12, v13, v14, v15);
+      v16 = objc_msgSend_range(v15, v11, v12, v13);
       if (origin == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
       }
 
-      if (v18 != 0x7FFFFFFFFFFFFFFFLL && length && v19)
+      if (v16 != 0x7FFFFFFFFFFFFFFFLL && length && v17)
       {
-        if (origin <= v18)
+        if (origin <= v16)
         {
-          v23 = v18;
+          v20 = v16;
         }
 
         else
         {
-          v23 = origin;
+          v20 = origin;
         }
 
-        v24 = &v19[v18];
-        if (v16 < &v19[v18])
+        v21 = &v17[v16];
+        if (v14 < &v17[v16])
         {
-          v24 = (origin + length);
+          v21 = (origin + length);
         }
 
-        if (v24 > v23 && (v47 & 1) == 0)
+        if (v21 > v20 && (v41 & 1) == 0)
         {
-          v25 = objc_msgSend_range(v17, v19, v20, v21, v22);
-          if (origin <= v25)
+          v22 = objc_msgSend_range(v15, v17, v18, v19);
+          if (origin <= v22)
           {
-            v30 = v25;
+            v26 = v22;
           }
 
           else
           {
-            v30 = origin;
+            v26 = origin;
           }
 
-          v31 = &v26[v25];
-          if (v16 < &v26[v25])
+          v27 = &v23[v22];
+          if (v14 < &v23[v22])
           {
-            v31 = (origin + length);
+            v27 = (origin + length);
           }
 
-          v32 = v31 < v30;
-          v33 = &v31[-v30];
-          if (v32)
+          v28 = v27 < v26;
+          v29 = &v27[-v26];
+          if (v28)
           {
-            v30 = 0x7FFFFFFFFFFFFFFFLL;
-            v33 = 0;
+            v26 = 0x7FFFFFFFFFFFFFFFLL;
+            v29 = 0;
           }
 
-          if (!v26)
+          if (!v23)
           {
-            v30 = 0x7FFFFFFFFFFFFFFFLL;
-            v33 = 0;
+            v26 = 0x7FFFFFFFFFFFFFFFLL;
+            v29 = 0;
           }
 
-          v34 = v25 == 0x7FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v30;
-          v35 = v25 == 0x7FFFFFFFFFFFFFFFLL ? 0 : v33;
-          v36 = objc_msgSend_stroke(v17, v26, v27, v28, v29);
-          v41 = objc_msgSend_order(v17, v37, v38, v39, v40);
-          blockCopy[2](blockCopy, v36, v34, v35, v41, &v47);
+          v30 = v22 == 0x7FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v26;
+          v31 = v22 == 0x7FFFFFFFFFFFFFFFLL ? 0 : v29;
+          v32 = objc_msgSend_stroke(v15, v23, v24, v25);
+          v36 = objc_msgSend_order(v15, v33, v34, v35);
+          blockCopy[2](blockCopy, v32, v30, v31, v36, &v41);
 
-          v45 = objc_msgSend_nextStrokeAndRange_(self, v42, v17, v43, v44);
+          v39 = objc_msgSend_nextStrokeAndRange_(self, v37, v15, v38);
 
-          v17 = v45;
-          if (v45)
+          v15 = v39;
+          if (v39)
           {
             continue;
           }
@@ -347,7 +347,7 @@
       goto LABEL_32;
     }
 
-    v17 = v46;
+    v15 = v40;
 LABEL_32:
   }
 }
@@ -357,51 +357,51 @@ LABEL_32:
   length = range.length;
   origin = range.origin;
   blockCopy = block;
-  v27 = 0;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  objc_msgSend_findWidthAndRangeAtIndex_(self, v8, origin, v9, v10);
-  v11 = 0;
+  v25 = 0;
+  v24 = 0;
+  v22 = 0u;
+  v23 = 0u;
+  objc_msgSend_findWidthAndRangeAtIndex_(self, v8, origin, v9);
+  v10 = 0;
   if (origin != 0x7FFFFFFFFFFFFFFFLL && length != 0)
   {
-    v13 = origin + length;
+    v12 = origin + length;
     do
     {
-      if (!v25)
+      if (!v23)
       {
         break;
       }
 
-      v14 = origin <= v11 ? v11 : origin;
-      v15 = v25 + v11;
-      if (v13 < v15)
+      v13 = origin <= v10 ? v10 : origin;
+      v14 = v23 + v10;
+      if (v12 < v14)
       {
-        v15 = v13;
+        v14 = v12;
       }
 
-      if (v15 <= v14)
-      {
-        break;
-      }
-
-      if (v27)
+      if (v14 <= v13)
       {
         break;
       }
 
-      blockCopy[2](blockCopy, *&v24);
-      v19[0] = v24;
-      v19[1] = v25;
-      v20 = v26;
-      objc_msgSend_nextWidthAndRange_(self, v16, v19, v17, v18);
+      if (v25)
+      {
+        break;
+      }
+
+      blockCopy[2](blockCopy, *&v22);
+      v17[0] = v22;
+      v17[1] = v23;
+      v18 = v24;
+      objc_msgSend_nextWidthAndRange_(self, v15, v17, v16);
+      v22 = v19;
+      v23 = v20;
       v24 = v21;
-      v25 = v22;
-      v26 = v23;
-      v11 = *(&v21 + 1);
+      v10 = *(&v19 + 1);
     }
 
-    while (*(&v21 + 1) != 0x7FFFFFFFFFFFFFFFLL);
+    while (*(&v19 + 1) != 0x7FFFFFFFFFFFFFFFLL);
   }
 }
 
@@ -409,52 +409,33 @@ LABEL_32:
 {
   length = at.length;
   origin = at.origin;
-  v6 = objc_msgSend_mutableCopy(self, a2, at.origin, at.length, v3);
-  objc_msgSend_insertSpaceAtRange_(v6, v7, origin, length, v8);
+  v5 = objc_msgSend_mutableCopy(self, a2, at.origin, at.length);
+  objc_msgSend_insertSpaceAtRange_(v5, v6, origin, length);
 
-  return v6;
+  return v5;
 }
 
 - (id)strokeLayerModifiedByRemovingRangeAt:(TSTSimpleRange)at
 {
   length = at.length;
   origin = at.origin;
-  v6 = objc_msgSend_mutableCopy(self, a2, at.origin, at.length, v3);
-  objc_msgSend_removeRange_(v6, v7, origin, length, v8);
+  v5 = objc_msgSend_mutableCopy(self, a2, at.origin, at.length);
+  objc_msgSend_removeRange_(v5, v6, origin, length);
 
-  return v6;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_context(self, v10, v11, v12, v13);
-  v18 = objc_msgSend_initWithContext_(v9, v15, v14, v16, v17);
-
-  if (v18)
-  {
-    v23 = objc_msgSend_columnOrRowIndex(self, v19, v20, v21, v22);
-    objc_msgSend_setColumnOrRowIndex_(v18, v24, v23, v25, v26);
-    if (v18 != self)
-    {
-      sub_2213FFCEC(&v18->_strokeRuns, self->_strokeRuns.__begin_, self->_strokeRuns.__end_, (self->_strokeRuns.__end_ - self->_strokeRuns.__begin_) >> 5);
-    }
-  }
-
-  return v18;
-}
-
-- (id)mutableCopyWithZone:(_NSZone *)zone
-{
-  v6 = objc_msgSend_allocWithZone_(TSTMutableStrokeLayer, a2, zone, v3, v4);
-  v11 = objc_msgSend_context(self, v7, v8, v9, v10);
-  v15 = objc_msgSend_initWithContext_(v6, v12, v11, v13, v14);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_context(self, v9, v10, v11);
+  v15 = objc_msgSend_initWithContext_(v8, v13, v12, v14);
 
   if (v15)
   {
-    v20 = objc_msgSend_columnOrRowIndex(self, v16, v17, v18, v19);
-    objc_msgSend_setColumnOrRowIndex_(v15, v21, v20, v22, v23);
+    v19 = objc_msgSend_columnOrRowIndex(self, v16, v17, v18);
+    objc_msgSend_setColumnOrRowIndex_(v15, v20, v19, v21);
     if (v15 != self)
     {
       sub_2213FFCEC(&v15->_strokeRuns, self->_strokeRuns.__begin_, self->_strokeRuns.__end_, (self->_strokeRuns.__end_ - self->_strokeRuns.__begin_) >> 5);
@@ -464,16 +445,35 @@ LABEL_32:
   return v15;
 }
 
+- (id)mutableCopyWithZone:(_NSZone *)zone
+{
+  v5 = objc_msgSend_allocWithZone_(TSTMutableStrokeLayer, a2, zone, v3);
+  v9 = objc_msgSend_context(self, v6, v7, v8);
+  v12 = objc_msgSend_initWithContext_(v5, v10, v9, v11);
+
+  if (v12)
+  {
+    v16 = objc_msgSend_columnOrRowIndex(self, v13, v14, v15);
+    objc_msgSend_setColumnOrRowIndex_(v12, v17, v16, v18);
+    if (v12 != self)
+    {
+      sub_2213FFCEC(&v12->_strokeRuns, self->_strokeRuns.__begin_, self->_strokeRuns.__end_, (self->_strokeRuns.__end_ - self->_strokeRuns.__begin_) >> 5);
+    }
+  }
+
+  return v12;
+}
+
 - (id)strokeLayerAtIndex:(unint64_t)index
 {
   if (index)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeLayer strokeLayerAtIndex:]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v9, v10);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 338, 0, "should never call this with index > 0");
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTStrokeLayer strokeLayerAtIndex:]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStrokeLayer.mm", v8);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 338, 0, "should never call this with index > 0");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   }
 
   return self;
@@ -501,14 +501,14 @@ LABEL_32:
   begin = self->_strokeRuns.__begin_;
   if (begin == end)
   {
-    sub_2213FFC6C(v58, strokeCopy, origin, length, order);
-    sub_2213FD8F0(&self->_strokeRuns, begin, v58);
+    sub_2213FFC6C(v57, strokeCopy, origin, length, order);
+    sub_2213FD8F0(&self->_strokeRuns, begin, v57);
 LABEL_36:
 
     goto LABEL_39;
   }
 
-  sub_2213FFC6C(v58, strokeCopy, origin, length, order);
+  sub_2213FFC6C(v57, strokeCopy, origin, length, order);
   v13 = (end - begin) >> 5;
   do
   {
@@ -517,7 +517,7 @@ LABEL_36:
     v16 = *(v15 + 2) + *(v15 + 1);
     v17 = (v15 + 32);
     v13 += ~(v13 >> 1);
-    if (v16 < v58[1])
+    if (v16 < v57[1])
     {
       begin = v17;
     }
@@ -543,111 +543,111 @@ LABEL_36:
     if (v24 > origin || v25 + v24 - 1 < (length + origin - 1))
     {
       v28 = v24 == 0x7FFFFFFFFFFFFFFFLL || v25 == 0 || origin == 0x7FFFFFFFFFFFFFFFLL || length == 0;
-      if (!v28 && ((v47 = v25 + v24, origin + length != v24) ? (v48 = v47 == origin) : (v48 = 1), v48 && *(v23 + 24) == order && (v49 = sub_2213FC7C4(*v23, strokeCopy), v50 = *p_strokeRuns + v20, v24 = *(v50 + 8), v49)))
+      if (!v28 && ((v46 = v25 + v24, origin + length != v24) ? (v47 = v46 == origin) : (v47 = 1), v47 && *(v23 + 24) == order && (v48 = sub_2213FC7C4(*v23, strokeCopy), v49 = *p_strokeRuns + v20, v24 = *(v49 + 8), v48)))
       {
-        v51 = *(v50 + 16);
+        v50 = *(v49 + 16);
         if (v24 >= origin)
         {
-          v52 = origin;
+          v51 = origin;
         }
 
         else
         {
-          v52 = *(v50 + 8);
+          v51 = *(v49 + 8);
         }
 
-        v53 = v51 + v24;
-        if (v51 + v24 <= (origin + length))
+        v52 = v50 + v24;
+        if (v50 + v24 <= (origin + length))
         {
-          v53 = origin + length;
+          v52 = origin + length;
         }
 
-        v54 = v53 - v52;
-        v55 = v24 == 0x7FFFFFFFFFFFFFFFLL || v51 == 0;
-        if (v55)
+        v53 = v52 - v51;
+        v54 = v24 == 0x7FFFFFFFFFFFFFFFLL || v50 == 0;
+        if (v54)
         {
-          v56 = length;
+          v55 = length;
         }
 
         else
         {
-          v56 = v54;
+          v55 = v53;
         }
 
-        if (v55)
+        if (v54)
         {
-          v57 = origin;
+          v56 = origin;
         }
 
         else
         {
-          v57 = v52;
+          v56 = v51;
         }
 
-        *(v50 + 8) = v57;
-        *(v50 + 16) = v56;
+        *(v49 + 8) = v56;
+        *(v49 + 16) = v55;
       }
 
       else if (origin >= v24)
       {
-        sub_2213FFC6C(v58, strokeCopy, origin, length, order);
-        sub_2213FD8F0(&self->_strokeRuns, begin + 32, v58);
+        sub_2213FFC6C(v57, strokeCopy, origin, length, order);
+        sub_2213FD8F0(&self->_strokeRuns, begin + 32, v57);
 
         ++v21;
       }
 
       else
       {
-        sub_2213FFC6C(v58, strokeCopy, origin, length, order);
-        sub_2213FD8F0(&self->_strokeRuns, begin, v58);
+        sub_2213FFC6C(v57, strokeCopy, origin, length, order);
+        sub_2213FD8F0(&self->_strokeRuns, begin, v57);
       }
 
-      objc_msgSend_p_mergeStrokeRunsAtPosition_(self, v29, v21, v30, v31);
+      objc_msgSend_p_mergeStrokeRunsAtPosition_(self, v29, v21, v30);
     }
 
     goto LABEL_39;
   }
 
-  v32 = (v22 >> 5) - 1;
-  v33 = v18 + 32 * v32;
-  v34 = *(v33 + 8);
-  v35 = *(v33 + 16);
-  v38 = v34 == 0x7FFFFFFFFFFFFFFFLL || v35 == 0 || origin == 0x7FFFFFFFFFFFFFFFLL || length == 0;
-  if (v38 || ((v39 = v35 + v34, v40 = origin + length, origin + length != v34) ? (v41 = v39 == origin) : (v41 = 1), !v41 || *(v33 + 24) != order))
+  v31 = (v22 >> 5) - 1;
+  v32 = v18 + 32 * v31;
+  v33 = *(v32 + 8);
+  v34 = *(v32 + 16);
+  v37 = v33 == 0x7FFFFFFFFFFFFFFFLL || v34 == 0 || origin == 0x7FFFFFFFFFFFFFFFLL || length == 0;
+  if (v37 || ((v38 = v34 + v33, v39 = origin + length, origin + length != v33) ? (v40 = v38 == origin) : (v40 = 1), !v40 || *(v32 + 24) != order))
   {
 LABEL_35:
-    sub_2213FFC6C(v58, strokeCopy, origin, length, order);
-    sub_2213FD8F0(p_strokeRuns, v19, v58);
+    sub_2213FFC6C(v57, strokeCopy, origin, length, order);
+    sub_2213FD8F0(p_strokeRuns, v19, v57);
     goto LABEL_36;
   }
 
-  if ((sub_2213FC7C4(*v33, strokeCopy) & 1) == 0)
+  if ((sub_2213FC7C4(*v32, strokeCopy) & 1) == 0)
   {
     v19 = p_strokeRuns[1];
     goto LABEL_35;
   }
 
-  v42 = *p_strokeRuns + 32 * v32;
-  v43 = *(v42 + 8);
-  v44 = *(v42 + 16);
-  if (v43 != 0x7FFFFFFFFFFFFFFFLL && v44 != 0)
+  v41 = *p_strokeRuns + 32 * v31;
+  v42 = *(v41 + 8);
+  v43 = *(v41 + 16);
+  if (v42 != 0x7FFFFFFFFFFFFFFFLL && v43 != 0)
   {
-    if (v43 < origin)
+    if (v42 < origin)
     {
-      origin = *(v42 + 8);
+      origin = *(v41 + 8);
     }
 
-    v46 = v44 + v43;
-    if (v46 <= v40)
+    v45 = v43 + v42;
+    if (v45 <= v39)
     {
-      v46 = v40;
+      v45 = v39;
     }
 
-    length = v46 - origin;
+    length = v45 - origin;
   }
 
-  *(v42 + 8) = origin;
-  *(v42 + 16) = length;
+  *(v41 + 8) = origin;
+  *(v41 + 16) = length;
 LABEL_39:
 }
 
@@ -1502,36 +1502,36 @@ LABEL_71:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[94], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[94], v5);
 
-  if (*(v7 + 16))
+  if (*(v6 + 16))
   {
-    self->_columnOrRowIndex = *(v7 + 48);
+    self->_columnOrRowIndex = *(v6 + 48);
   }
 
-  if (*(v7 + 32) >= 1)
+  if (*(v6 + 32) >= 1)
   {
-    v10 = 0;
-    v11 = MEMORY[0x277D804A0];
+    v8 = 0;
+    v9 = MEMORY[0x277D804A0];
     do
     {
-      v12 = *(*(v7 + 40) + 8 * v10 + 8);
-      if (*(v12 + 24))
+      v10 = *(*(v6 + 40) + 8 * v8 + 8);
+      if (*(v10 + 24))
       {
-        objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D803C0], v8, *(v12 + 24), unarchiverCopy, v9);
+        objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D803C0], v7, *(v10 + 24), unarchiverCopy);
       }
 
       else
       {
-        objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D803C0], v8, v11, unarchiverCopy, v9);
+        objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D803C0], v7, v9, unarchiverCopy);
       }
-      v13 = ;
-      objc_msgSend_p_appendStroke_inRange_order_(self, v14, v13, *(v12 + 32), *(v12 + 36), *(v12 + 40));
+      v11 = ;
+      objc_msgSend_p_appendStroke_inRange_order_(self, v12, v11, *(v10 + 32), *(v10 + 36), *(v10 + 40));
 
-      ++v10;
+      ++v8;
     }
 
-    while (v10 < *(v7 + 32));
+    while (v8 < *(v6 + 32));
   }
 }
 
@@ -1539,66 +1539,66 @@ LABEL_71:
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214005C8, off_2812E4498[94], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214005C8, off_2812E4498[94]);
 
-  v11 = objc_msgSend_columnOrRowIndex(self, v7, v8, v9, v10);
-  *(v6 + 16) |= 1u;
-  *(v6 + 48) = v11;
+  v9 = objc_msgSend_columnOrRowIndex(self, v6, v7, v8);
+  *(v5 + 16) |= 1u;
+  *(v5 + 48) = v9;
   begin = self->_strokeRuns.__begin_;
   end = self->_strokeRuns.__end_;
   while (begin != end)
   {
-    v16 = *begin;
-    v28 = *(begin + 8);
-    v17 = *(begin + 6);
-    v18 = *(v6 + 40);
-    if (!v18)
+    v13 = *begin;
+    v25 = *(begin + 8);
+    v14 = *(begin + 6);
+    v15 = *(v5 + 40);
+    if (!v15)
     {
       goto LABEL_8;
     }
 
-    v19 = *(v6 + 32);
-    v20 = *v18;
-    if (v19 < *v18)
+    v16 = *(v5 + 32);
+    v17 = *v15;
+    if (v16 < *v15)
     {
-      *(v6 + 32) = v19 + 1;
-      v21 = *&v18[2 * v19 + 2];
+      *(v5 + 32) = v16 + 1;
+      v18 = *&v15[2 * v16 + 2];
       goto LABEL_10;
     }
 
-    if (v20 == *(v6 + 36))
+    if (v17 == *(v5 + 36))
     {
 LABEL_8:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 24));
-      v18 = *(v6 + 40);
-      v20 = *v18;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v5 + 24));
+      v15 = *(v5 + 40);
+      v17 = *v15;
     }
 
-    *v18 = v20 + 1;
-    v21 = google::protobuf::Arena::CreateMaybeMessage<TST::StrokeLayerArchive_StrokeRunArchive>(*(v6 + 24));
-    v22 = *(v6 + 32);
-    v23 = *(v6 + 40) + 8 * v22;
-    *(v6 + 32) = v22 + 1;
-    *(v23 + 8) = v21;
+    *v15 = v17 + 1;
+    v18 = google::protobuf::Arena::CreateMaybeMessage<TST::StrokeLayerArchive_StrokeRunArchive>(*(v5 + 24));
+    v19 = *(v5 + 32);
+    v20 = *(v5 + 40) + 8 * v19;
+    *(v5 + 32) = v19 + 1;
+    *(v20 + 8) = v18;
 LABEL_10:
-    v24 = v21[2].i32[0];
-    v21[4] = vmovn_s64(v28);
-    v21[5].i32[0] = v17;
-    v21[2].i32[0] = v24 | 0xF;
-    v25 = v21[3];
-    if (!v25)
+    v21 = v18[2].i32[0];
+    v18[4] = vmovn_s64(v25);
+    v18[5].i32[0] = v14;
+    v18[2].i32[0] = v21 | 0xF;
+    v22 = v18[3];
+    if (!v22)
     {
-      v26 = v21[1];
-      if (v26.i8[0])
+      v23 = v18[1];
+      if (v23.i8[0])
       {
-        v26 = *(*&v26 & 0xFFFFFFFFFFFFFFFELL);
+        v23 = *(*&v23 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v25 = MEMORY[0x223DA0290](*&v26);
-      v21[3] = v25;
+      v22 = MEMORY[0x223DA0290](*&v23);
+      v18[3] = v22;
     }
 
-    objc_msgSend_saveToArchive_archiver_(v16, v14, v25, archiverCopy, v15);
+    objc_msgSend_saveToArchive_archiver_(v13, v12, v22, archiverCopy);
 
     begin = (begin + 32);
   }

@@ -291,9 +291,9 @@ LABEL_18:
   if ((optionsCopy & 4) != 0)
   {
 LABEL_40:
-    v14 = 0;
+    v13 = 0;
     self->_indexType = 3;
-    return v14;
+    return v13;
   }
 
 LABEL_19:
@@ -304,8 +304,8 @@ LABEL_19:
 
   v6 = +[NSFileManager defaultManager];
   path = [(SIIndexer *)self path];
-  v41 = 0;
-  if (![v6 fileExistsAtPath:path isDirectory:&v41])
+  v33 = 0;
+  if (![v6 fileExistsAtPath:path isDirectory:&v33])
   {
     if ((optionsCopy & 0x40) == 0)
     {
@@ -315,7 +315,7 @@ LABEL_19:
     goto LABEL_25;
   }
 
-  if ((optionsCopy & 0x40) != 0 && (v41 & 1) == 0)
+  if ((optionsCopy & 0x40) != 0 && (v33 & 1) == 0)
   {
 LABEL_25:
     if ([v6 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:0])
@@ -335,69 +335,64 @@ LABEL_26:
   v9 = open(v8, 0x8000);
   if (v9 == -1)
   {
-    v38 = *__error();
-    NSLog(@"### Open %d error at %s", v38, v8);
+    v30 = *__error();
+    NSLog(@"### Open %d error at %s", v30, v8);
     goto LABEL_32;
   }
 
   v10 = v9;
   self->_cancel = 0;
-  readOnly = self->_readOnly;
   if ((optionsCopy & 2) != 0)
   {
     if (self->_readOnly)
     {
-      v43 = @"kIndexOptionReadOnly";
-      v16 = [NSNumber numberWithBool:1];
-      v44 = v16;
-      v17 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+      v35 = @"kIndexOptionReadOnly";
+      v15 = [NSNumber numberWithBool:1];
+      v36 = v15;
+      v16 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
     self->_indexType = 2;
-    v18 = SIOpenIndexAtPathWithCallbacks();
+    v17 = SIOpenIndexAtPathWithCallbacks();
 
     goto LABEL_88;
   }
 
   self->_indexType = (optionsCopy >> 3) & 1;
-  v12 = malloc_type_malloc(0x98uLL, 0x800407567D3B1uLL);
-  *&v12->var12 = *&off_100035228;
-  *&v12->var14 = *&off_100035238;
-  *&v12->var16 = xmmword_100035248;
-  *&v12->var4 = *off_1000351E8;
-  *&v12->var6 = *off_1000351F8;
-  *&v12->var8 = *&off_100035208;
-  *&v12->var10 = *&off_100035218;
-  *&v12->var0 = *off_1000351C8;
-  *&v12->var2 = *off_1000351D8;
-  v12->var18 = self;
-  self->_indexCallbacks = v12;
+  v11 = malloc_type_malloc(0x98uLL, 0x800407567D3B1uLL);
+  *&v11->var12 = *&off_100035228;
+  *&v11->var14 = *&off_100035238;
+  *&v11->var16 = xmmword_100035248;
+  *&v11->var4 = *&off_1000351E8;
+  *&v11->var6 = *&off_1000351F8;
+  *&v11->var8 = *&off_100035208;
+  *&v11->var10 = *&off_100035218;
+  *&v11->var0 = *&off_1000351C8;
+  *&v11->var2 = *&off_1000351D8;
+  v11->var18 = self;
+  self->_indexCallbacks = v11;
   indexType = self->_indexType;
-  v40 = 0u;
+  v32 = 0u;
   if ((indexType - 1) > 1)
   {
-    memset(&v42, 0, sizeof(v42));
-    if (!sub_10001B1E8(v8, &v42))
+    memset(&v34, 0, sizeof(v34));
+    if (!sub_10001B1E8(v8, &v34))
     {
-      DWORD2(v40) = v42.st_dev;
-      if (indexType == 3 || (bzero(&v45, 0x400uLL), snprintf(&v45, 0x400uLL, "%s/%s", v8, "psid.db"), sub_10001B1E8(&v45, &v42)) || v42.st_size <= 0)
+      DWORD2(v32) = v34.st_dev;
+      if (indexType == 3 || (bzero(&v37, 0x400uLL), snprintf(&v37, 0x400uLL, "%s/%s", v8, "psid.db"), sub_10001B1E8(&v37, &v34)) || v34.st_size <= 0)
       {
-        bzero(&v45, 0x878uLL);
-        statfs(v8, &v45);
+        bzero(&v37, 0x878uLL);
+        statfs(v8, &v37);
       }
     }
   }
 
-  self->_device = DWORD2(v40);
-  self->_permissions;
-  self->_persistentFileIDs;
-  self->_isHFS;
-  self->_isAPFS;
+  self->_device = DWORD2(v32);
   psid = self->_psid;
   if (psid)
   {
@@ -405,40 +400,40 @@ LABEL_26:
     self->_psid = 0;
   }
 
-  v20 = self->_indexType;
-  if (v20)
+  v19 = self->_indexType;
+  if (v19)
   {
-    if (v20 == 1)
+    if (v19 == 1)
     {
-      v21 = sub_10000B48C();
+      v20 = sub_10000B48C(psid);
 LABEL_59:
-      v22 = v21;
-      self->_psid = v21;
+      v21 = v20;
+      self->_psid = v20;
       goto LABEL_64;
     }
   }
 
   else if (self->_persistentFileIDs)
   {
-    memset(&v45, 0, 144);
-    if (!fstatat(v10, "psid.db", &v45, 0))
+    memset(&v37, 0, 144);
+    if (!fstatat(v10, "psid.db", &v37, 0))
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_1000241B0();
       }
 
-      v18 = -4;
+      v17 = -4;
       goto LABEL_70;
     }
 
-    v21 = sub_100022C5C(self->_volumeObject);
+    v20 = sub_100022C5C(self->_volumeObject);
     goto LABEL_59;
   }
 
-  v22 = SIPersistentIDStoreCreate();
-  self->_psid = v22;
-  if (v22)
+  v21 = SIPersistentIDStoreCreate();
+  self->_psid = v21;
+  if (v21)
   {
     rootPath = self->_rootPath;
     if (rootPath)
@@ -447,22 +442,20 @@ LABEL_59:
       {
         [(NSString *)rootPath UTF8String];
         SIPersistentIDStoreSetRootPath();
-        v22 = self->_psid;
+        v21 = self->_psid;
       }
     }
   }
 
 LABEL_64:
-  indexCallbacks = self->_indexCallbacks;
-  memset(&v45, 0, 24);
-  v37 = v22;
+  memset(&v37, 0, 24);
+  v29 = v21;
   p_cancel = &self->_cancel;
-  v18 = SIOpenIndex();
-  if ((v18 & 0x80000000) == 0)
+  v17 = SIOpenIndex();
+  if ((v17 & 0x80000000) == 0)
   {
     if (!self->_readOnly)
     {
-      index = self->_index;
       SISetScanCount();
     }
 
@@ -472,50 +465,46 @@ LABEL_64:
 LABEL_70:
   if ((optionsCopy & 0x40) != 0 && !self->_readOnly)
   {
-    v26 = self->_psid;
-    if (v26)
+    v23 = self->_psid;
+    if (v23)
     {
-      CFRelease(v26);
+      CFRelease(v23);
       self->_psid = 0;
     }
 
-    [(SIIndexer *)self deleteFilesInDirectory:v10, v37, p_cancel];
+    p_cancel = [(SIIndexer *)self deleteFilesInDirectory:v10, v29, p_cancel];
     if (!self->_indexCallbacks)
     {
-      v27 = malloc_type_malloc(0x98uLL, 0x800407567D3B1uLL);
-      *&v27->var12 = *&off_100035228;
-      *&v27->var14 = *&off_100035238;
-      *&v27->var16 = xmmword_100035248;
-      *&v27->var4 = *off_1000351E8;
-      *&v27->var6 = *off_1000351F8;
-      *&v27->var8 = *&off_100035208;
-      *&v27->var10 = *&off_100035218;
-      *&v27->var0 = *off_1000351C8;
-      *&v27->var2 = *off_1000351D8;
-      v27->var18 = self;
-      self->_indexCallbacks = v27;
+      p_cancel = malloc_type_malloc(0x98uLL, 0x800407567D3B1uLL);
+      *&p_cancel->var12 = *&off_100035228;
+      *&p_cancel->var14 = *&off_100035238;
+      *&p_cancel->var16 = xmmword_100035248;
+      *&p_cancel->var4 = *&off_1000351E8;
+      *&p_cancel->var6 = *&off_1000351F8;
+      *&p_cancel->var8 = *&off_100035208;
+      *&p_cancel->var10 = *&off_100035218;
+      *&p_cancel->var0 = *&off_1000351C8;
+      *&p_cancel->var2 = *&off_1000351D8;
+      p_cancel->var18 = self;
+      self->_indexCallbacks = p_cancel;
     }
 
-    v28 = self->_indexType;
-    if (v28)
+    v25 = self->_indexType;
+    if (v25)
     {
-      if (v28 == 1)
+      if (v25 == 1)
       {
-        v29 = sub_10000B48C();
+        v26 = sub_10000B48C(p_cancel);
 LABEL_81:
-        self->_psid = v29;
+        self->_psid = v26;
 LABEL_86:
         self->_cancel = 0;
-        v33 = self->_indexCallbacks;
-        memset(&v45, 0, 24);
-        v18 = SICreateNewIndex();
-        if ((v18 & 0x80000000) == 0)
+        memset(&v37, 0, 24);
+        v17 = SICreateNewIndex();
+        if ((v17 & 0x80000000) == 0)
         {
-          v34 = self->_index;
           SISetScanCount();
-          v35 = self->_index;
           SIInitialIndexingEnded();
-          v36 = self->_index;
           SISyncIndex();
         }
 
@@ -525,22 +514,21 @@ LABEL_86:
 
     else if (self->_persistentFileIDs)
     {
-      v29 = sub_100022C5C(self->_volumeObject);
+      v26 = sub_100022C5C(self->_volumeObject);
       goto LABEL_81;
     }
 
-    v30 = SIPersistentIDStoreCreate();
-    self->_psid = v30;
-    if (v30)
+    v27 = SIPersistentIDStoreCreate();
+    self->_psid = v27;
+    if (v27)
     {
-      v31 = self->_rootPath;
-      if (v31)
+      v28 = self->_rootPath;
+      if (v28)
       {
         if (!self->_indexType)
         {
-          [(NSString *)v31 UTF8String];
+          [(NSString *)v28 UTF8String];
           SIPersistentIDStoreSetRootPath();
-          v32 = self->_psid;
         }
       }
     }
@@ -549,14 +537,14 @@ LABEL_86:
   }
 
 LABEL_88:
-  v14 = v18 >= 0;
-  if ((v18 & 0x80000000) == 0)
+  v13 = v17 >= 0;
+  if ((v17 & 0x80000000) == 0)
   {
     self->_isOpen = 1;
   }
 
   close(v10);
-  return v14;
+  return v13;
 }
 
 - (void)close
@@ -595,62 +583,59 @@ LABEL_88:
   v6 = &off_100036C30;
   v7 = &NSLog_ptr;
   v8 = &NSLog_ptr;
-  v25 = v5;
+  v22 = v5;
   do
   {
     v9 = [(SIIndexer *)self getAttributes:v6 forOid:path];
-    v10 = v7[435];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0 || [v9 count] != 3)
     {
-      v16 = 1;
+      v13 = 1;
 LABEL_9:
       path = [v8[398] stringWithFormat:@"<%lld>", path];
       goto LABEL_10;
     }
 
-    v11 = [v9 objectAtIndexedSubscript:0];
-    v12 = v8[398];
+    v10 = [v9 objectAtIndexedSubscript:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       goto LABEL_7;
     }
 
-    v13 = [v9 objectAtIndexedSubscript:2];
+    v11 = [v9 objectAtIndexedSubscript:2];
 
-    v14 = v8[398];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v13;
+      v10 = v11;
 LABEL_7:
-      path = v11;
-      v13 = path;
+      path = v10;
+      v11 = path;
       goto LABEL_13;
     }
 
     path = 0;
 LABEL_13:
-    v16 = (path & 0xFFFFFFFFFFFFFFFDLL) == 0;
+    v13 = (path & 0xFFFFFFFFFFFFFFFDLL) == 0;
     if ((path & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
       selfCopy = self;
-      v18 = v8;
-      v19 = v6;
-      v20 = v7;
-      v21 = [v9 objectAtIndexedSubscript:1];
+      v15 = v8;
+      v16 = v6;
+      v17 = v7;
+      v18 = [v9 objectAtIndexedSubscript:1];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        path = [v21 integerValue];
+        path = [v18 integerValue];
       }
 
-      v7 = v20;
-      v6 = v19;
-      v8 = v18;
+      v7 = v17;
+      v6 = v16;
+      v8 = v15;
       self = selfCopy;
-      v5 = v25;
+      v5 = v22;
     }
 
     if (!path)
@@ -662,17 +647,17 @@ LABEL_10:
     [v5 insertObject:path atIndex:0];
   }
 
-  while (!v16);
+  while (!v13);
   if ([v5 count])
   {
     [v5 insertObject:&stru_100035EB0 atIndex:0];
   }
 
-  v22 = [v5 componentsJoinedByString:@"/"];
+  v19 = [v5 componentsJoinedByString:@"/"];
 
   objc_autoreleasePoolPop(context);
 
-  return v22;
+  return v19;
 }
 
 - (id)termIndex:(unint64_t)index
@@ -835,13 +820,11 @@ LABEL_10:
 {
   if ([(SIIndexer *)self isOpen]|| [(SIIndexer *)self openWithOptions:0])
   {
-    index = self->_index;
     _SIConsistencyCheck();
-    v4 = self->_index;
     _SICheckIndexForDuplicateOids();
-    v5 = self->_index;
+    index = self->_index;
 
-    __SIIssueVerify(v5, 0xFFFFLL);
+    __SIIssueVerify(index, 0xFFFFLL);
   }
 }
 
@@ -871,10 +854,10 @@ LABEL_10:
   }
 
   v17 = v14;
-  v18 = v41;
-  bzero(v41, 0x2008uLL);
-  v19 = v40;
+  v18 = v40;
   bzero(v40, 0x2008uLL);
+  v19 = v39;
+  bzero(v39, 0x2008uLL);
   isXcodeIndex = [v10 isXcodeIndex];
   if (!isXcodeIndex)
   {
@@ -932,24 +915,23 @@ LABEL_17:
     if (v17 == ++v25)
     {
       objc_initWeak(&location, v10);
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_10000C150;
-      v35[3] = &unk_100035158;
-      v37[1] = v17;
-      v36 = v13;
-      objc_copyWeak(v37, &location);
-      v34 = objc_retainBlock(v35);
-      v39 = kCFNull;
-      v27 = [NSArray arrayWithObjects:&v39 count:1];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_10000C150;
+      v34[3] = &unk_100035158;
+      v36[1] = v17;
+      v35 = v13;
+      objc_copyWeak(v36, &location);
+      v33 = objc_retainBlock(v34);
+      v38 = kCFNull;
+      v27 = [NSArray arrayWithObjects:&v38 count:1];
       v28 = [v27 arrayByAddingObjectsFromArray:v12];
 
       v29 = malloc_type_malloc(0x10uLL, 0xE0040E685C293uLL);
       v30 = *(v10 + 136);
-      v31 = [v34 copy];
+      v31 = [v33 copy];
       *v29 = v30;
       v29[1] = v31;
-      v32 = *(v10 + 136);
       if (SIBulkSetAttributes())
       {
         v16 = 0;
@@ -960,7 +942,7 @@ LABEL_17:
         v16 = 22;
       }
 
-      objc_destroyWeak(v37);
+      objc_destroyWeak(v36);
       objc_destroyWeak(&location);
       goto LABEL_29;
     }
@@ -973,7 +955,7 @@ LABEL_17:
 
   v16 = 22;
 LABEL_29:
-  if (v18 != v41)
+  if (v18 != v40)
   {
     free(v18);
     if ((v24 & 1) == 0)
@@ -985,8 +967,8 @@ LABEL_29:
 LABEL_32:
   if (v13 && v16)
   {
-    v33 = [NSError errorWithDomain:@"SIIndexer" code:v16 userInfo:0];
-    (*(v13 + 2))(v13, v33);
+    v32 = [NSError errorWithDomain:@"SIIndexer" code:v16 userInfo:0];
+    (*(v13 + 2))(v13, v32);
   }
 }
 
@@ -1017,8 +999,8 @@ LABEL_32:
   else
   {
     v17 = v14;
-    v18 = v34;
-    bzero(v34, 0x2008uLL);
+    v18 = v33;
+    bzero(v33, 0x2008uLL);
     if (v17 >= 0x401)
     {
       v18 = malloc_type_malloc(8 * v17 + 8, 0x100004000313F17uLL);
@@ -1040,16 +1022,16 @@ LABEL_32:
       if (v17 == v19)
       {
         objc_initWeak(&location, v10);
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_10000C694;
-        v29[3] = &unk_100035158;
-        v31[1] = v17;
-        v30 = v13;
-        objc_copyWeak(v31, &location);
-        v21 = objc_retainBlock(v29);
-        v33 = kCFNull;
-        v22 = [NSArray arrayWithObjects:&v33 count:1];
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = sub_10000C694;
+        v28[3] = &unk_100035158;
+        v30[1] = v17;
+        v29 = v13;
+        objc_copyWeak(v30, &location);
+        v21 = objc_retainBlock(v28);
+        v32 = kCFNull;
+        v22 = [NSArray arrayWithObjects:&v32 count:1];
         v23 = [v22 arrayByAddingObjectsFromArray:v12];
 
         v24 = malloc_type_malloc(0x10uLL, 0xE0040E685C293uLL);
@@ -1057,7 +1039,6 @@ LABEL_32:
         v26 = [v21 copy];
         *v24 = v25;
         v24[1] = v26;
-        v27 = *(v10 + 136);
         if (SIBulkSetAttributes())
         {
           v16 = 0;
@@ -1068,7 +1049,7 @@ LABEL_32:
           v16 = 22;
         }
 
-        objc_destroyWeak(v31);
+        objc_destroyWeak(v30);
         objc_destroyWeak(&location);
         goto LABEL_19;
       }
@@ -1081,7 +1062,7 @@ LABEL_32:
 
     v16 = 22;
 LABEL_19:
-    if (v18 != v34)
+    if (v18 != v33)
     {
       free(v18);
     }
@@ -1089,8 +1070,8 @@ LABEL_19:
 
   if (v13 && v16)
   {
-    v28 = [NSError errorWithDomain:@"SIIndexer" code:v16 userInfo:0];
-    (*(v13 + 2))(v13, v28);
+    v27 = [NSError errorWithDomain:@"SIIndexer" code:v16 userInfo:0];
+    (*(v13 + 2))(v13, v27);
   }
 }
 
@@ -1104,8 +1085,8 @@ LABEL_19:
   v13 = 22;
   if (v7 && v10[17])
   {
-    v14 = v27;
-    bzero(v27, 0x2008uLL);
+    v14 = v26;
+    bzero(v26, 0x2008uLL);
     if (v7 >= 0x401)
     {
       v14 = malloc_type_malloc(8 * v7 + 8, 0x100004000313F17uLL);
@@ -1125,20 +1106,19 @@ LABEL_19:
       if (v7 == v15)
       {
         objc_initWeak(&location, v10);
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = sub_10000CAF0;
-        v23[3] = &unk_100035158;
-        v25[1] = v7;
-        v24 = v12;
-        objc_copyWeak(v25, &location);
-        v17 = objc_retainBlock(v23);
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_10000CAF0;
+        v22[3] = &unk_100035158;
+        v24[1] = v7;
+        v23 = v12;
+        objc_copyWeak(v24, &location);
+        v17 = objc_retainBlock(v22);
         v18 = malloc_type_malloc(0x10uLL, 0xE0040E685C293uLL);
         v19 = v10[17];
         v20 = [v17 copy];
         *v18 = v19;
         v18[1] = v20;
-        v21 = v10[17];
         if (SIBulkSetAttributes())
         {
           v13 = 0;
@@ -1149,7 +1129,7 @@ LABEL_19:
           v13 = 22;
         }
 
-        objc_destroyWeak(v25);
+        objc_destroyWeak(v24);
         objc_destroyWeak(&location);
         goto LABEL_15;
       }
@@ -1162,7 +1142,7 @@ LABEL_19:
 
     v13 = 22;
 LABEL_15:
-    if (v14 != v27)
+    if (v14 != v26)
     {
       free(v14);
     }
@@ -1170,8 +1150,8 @@ LABEL_15:
 
   if (v12 && v13)
   {
-    v22 = [NSError errorWithDomain:@"SIIndexer" code:v13 userInfo:0];
-    (*(v12 + 2))(v12, v22);
+    v21 = [NSError errorWithDomain:@"SIIndexer" code:v13 userInfo:0];
+    (*(v12 + 2))(v12, v21);
   }
 }
 
@@ -1205,7 +1185,6 @@ LABEL_15:
 {
   if ([(SIIndexer *)self isOpen])
   {
-    index = self->_index;
 
     _SIIssueSplit();
   }
@@ -1236,7 +1215,6 @@ LABEL_15:
   parentsCopy = parents;
   if (([(SIIndexer *)self isSpotlightIndex]|| [(SIIndexer *)self isCoreSpotlight]) && ([(SIIndexer *)self isOpen]|| [(SIIndexer *)self openWithOptions:0]))
   {
-    index = self->_index;
     _SIReverseStoreIterate();
   }
 }
@@ -1422,26 +1400,25 @@ LABEL_12:
   attributesCopy = attributes;
   if (![attributesCopy count] || !-[SIIndexer isOpen](self, "isOpen") && !-[SIIndexer openWithOptions:](self, "openWithOptions:", 0))
   {
-    v9 = 0;
+    v8 = 0;
     goto LABEL_13;
   }
 
   v6 = [SIIndexer createUserContext:0];
-  index = self->_index;
-  v8 = SIGetAttributes();
+  v7 = SIGetAttributes();
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || [v8 count] != 2)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || [v7 count] != 2)
   {
     goto LABEL_8;
   }
 
-  v9 = [v8 objectAtIndexedSubscript:1];
+  v8 = [v7 objectAtIndexedSubscript:1];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
 LABEL_8:
-    v9 = 0;
+    v8 = 0;
   }
 
   if (v6)
@@ -1451,7 +1428,7 @@ LABEL_8:
 
 LABEL_13:
 
-  return v9;
+  return v8;
 }
 
 - (void)_indexFinalize
@@ -1512,7 +1489,6 @@ LABEL_13:
 {
   group = dispatch_group_create();
   dispatch_group_enter(group);
-  index = self->_index;
   SISynchedOp();
   dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
 }
@@ -1520,25 +1496,22 @@ LABEL_13:
 - (void)bulkSetCSAttributes:(id)attributes bundle:(id)bundle
 {
   attributesCopy = attributes;
-  bundleCopy = bundle;
-  v8 = [[NSConditionLock alloc] initWithCondition:0];
-  index = self->_index;
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_10000D72C;
-  v17 = &unk_1000351A8;
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_10000D72C;
+  v14 = &unk_1000351A8;
   selfCopy = self;
-  v19 = bundleCopy;
-  v20 = attributesCopy;
-  v21 = v8;
-  v10 = v8;
-  v11 = attributesCopy;
-  v12 = bundleCopy;
-  v13 = [&v14 copy];
+  bundleCopy = bundle;
+  v17 = attributesCopy;
+  v18 = [[NSConditionLock alloc] initWithCondition:0];
+  v7 = v18;
+  v8 = attributesCopy;
+  v9 = bundleCopy;
+  v10 = [&v11 copy];
   _SIScheduleBackgroundOperation();
 
-  [v10 lockWhenCondition:{1, v14, v15, v16, v17, selfCopy}];
-  [v10 unlock];
+  [v7 lockWhenCondition:{1, v11, v12, v13, v14, selfCopy}];
+  [v7 unlock];
 }
 
 - (id)resultsForPommesUserQuery:(id)query withFields:(id)fields maxCount:(int64_t)count languages:(id)languages liftingRules:(id)rules scope:(id)scope pommesBundles:(id)bundles clientBundleID:(id)self0
@@ -1550,59 +1523,50 @@ LABEL_13:
   scopeCopy = scope;
   bundlesCopy = bundles;
   dCopy = d;
-  v36 = languagesCopy;
+  v28 = languagesCopy;
   v21 = SIUserCtxCreateWithLanguages();
   [NSString stringWithFormat:@"**=%@*cwdt", queryCopy];
-  v37 = fieldsCopy;
-  v35 = rulesCopy;
+  v27 = rulesCopy;
   CFAbsoluteTimeGetCurrent();
-  v34 = bundlesCopy;
+  v26 = bundlesCopy;
   if (SIQueryCreateWithParameters())
   {
     SIResultQueueCreate();
-    index = self->_index;
     SIExecuteQuery();
-    v23 = +[NSMutableDictionary dictionary];
+    v22 = +[NSMutableDictionary dictionary];
     while (1)
     {
       while (1)
       {
         do
         {
-          v24 = SIResultQueueDequeue();
+          v23 = SIResultQueueDequeue();
         }
 
-        while (!v24);
-        v25 = v24;
-        if (*v24 != 10)
+        while (!v23);
+        if (*v23 != 10)
         {
           break;
         }
 
-        v29 = *(v24 + 32);
-        v30 = _MDPlistContainerCopyRootObject();
-        NSLog(@"%@", v30);
-        CFRelease(v30);
+        v24 = _MDPlistContainerCopyRootObject();
+        NSLog(@"%@", v24);
+        CFRelease(v24);
         SIResultBatchFree();
       }
 
-      if (*v24 == 4)
+      if (*v23 == 4)
       {
         break;
       }
 
-      v26 = v23;
-      v27 = *(v25 + 32);
-      v38 = v26;
-      v39 = *(v25 + 40);
+      v29 = v22;
       _MDStoreOIDArrayGetVectorCount();
-      v28 = *(v25 + 32);
       _MDStoreOIDArrayApplyFunction();
       SIResultBatchFree();
     }
 
     SIResultBatchFree();
-    v31 = self->_index;
     SICancel();
     SIResultQueueRelease();
     SIQueryRelease();
@@ -1614,7 +1578,7 @@ LABEL_13:
 
   else
   {
-    v23 = 0;
+    v22 = 0;
     if (v21)
     {
 LABEL_9:
@@ -1622,7 +1586,7 @@ LABEL_9:
     }
   }
 
-  return v23;
+  return v22;
 }
 
 - (_opaque_pthread_rwlock_t)queryTasksRdWrLock

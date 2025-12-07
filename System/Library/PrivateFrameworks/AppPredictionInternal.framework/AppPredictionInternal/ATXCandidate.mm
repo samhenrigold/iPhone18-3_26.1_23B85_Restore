@@ -66,13 +66,12 @@
   serialize = [(BMStoreData *)biomeStoreData serialize];
   [coderCopy encodeObject:serialize forKey:@"biomeStoreData"];
 
-  v7 = self->_biomeStoreData;
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  [coderCopy encodeObject:v9 forKey:@"biomeStoreDataClassName"];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [coderCopy encodeObject:v8 forKey:@"biomeStoreDataClassName"];
 
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[BMStoreData dataVersion](self->_biomeStoreData, "dataVersion")}];
-  [coderCopy encodeObject:v10 forKey:@"biomeStoreDataDataVersion"];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[BMStoreData dataVersion](self->_biomeStoreData, "dataVersion")}];
+  [coderCopy encodeObject:v9 forKey:@"biomeStoreDataDataVersion"];
 }
 
 - (ATXCandidate)initWithCoder:(id)coder
@@ -80,21 +79,21 @@
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_relevance_model();
+  v7 = __atxlog_handle_relevance_model(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"biomeStoreData" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXCandidate" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_relevance_model();
+    v11 = __atxlog_handle_relevance_model(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"biomeStoreDataClassName" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXCandidate" errorCode:-1 logHandle:v11];
 
     if (v12)
     {
       v13 = MEMORY[0x277D42620];
       v14 = objc_opt_class();
-      v15 = __atxlog_handle_relevance_model();
+      v15 = __atxlog_handle_relevance_model(v14);
       v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"biomeStoreDataDataVersion" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXCandidate" errorCode:-1 logHandle:v15];
 
       if (v16)

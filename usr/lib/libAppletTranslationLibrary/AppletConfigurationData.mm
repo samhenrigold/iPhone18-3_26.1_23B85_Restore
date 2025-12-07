@@ -27,9 +27,9 @@
 - (id)pluginDecoderForMid:(int)mid depth:;
 - (uint64_t)isEligibleAsset:(NSObject *)asset;
 - (void)downloadAsset:(uint64_t)asset;
-- (void)handleAvailableAsset:(uint64_t)asset;
+- (void)handleAvailableAsset:(dispatch_queue_t *)asset;
 - (void)handleQueryResult:(void *)result query:;
-- (void)handleQuerySuccess:(uint64_t)success;
+- (void)handleQuerySuccess:(dispatch_queue_t *)success;
 - (void)maybeQueryMetadata;
 - (void)queryMA;
 - (void)queryMetadata;
@@ -41,33 +41,32 @@
 
 + (id)getOverrideConfig
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v0 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/AppleInternal/com.apple.stockholm.atl.override.plist"];
-  v8 = 0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v0 error:&v8];
-  v2 = v8;
-  if (v1)
+  v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/AppleInternal/com.apple.stockholm.atl.override.plist"];
+  v10 = 0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v2 error:&v10];
+  v4 = v10;
+  v5 = v4;
+  if (v3)
   {
     objc_opt_self();
-    v3 = v1;
+    v6 = v3;
   }
 
   else
   {
-    v4 = ATLLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v7 = ATLLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      code = [v2 code];
+      code = [v5 code];
       *buf = 67109120;
-      v10 = code;
-      _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_DEFAULT, "No valid override found %d", buf, 8u);
+      v12 = code;
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_DEFAULT, "No valid override found %d", buf, 8u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v1;
+  return v3;
 }
 
 + (id)getInstance
@@ -78,9 +77,9 @@
     +[AppletConfigurationData getInstance];
   }
 
-  v0 = getInstance_inst_1;
+  v2 = getInstance_inst_1;
 
-  return v0;
+  return v2;
 }
 
 uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
@@ -92,10 +91,10 @@ uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
 
 - (AppletConfigurationData)init
 {
-  *&v42[5] = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = AppletConfigurationData;
-  v2 = [(AppletConfigurationData *)&v40 init];
+  *&v48[5] = *MEMORY[0x277D85DE8];
+  v46.receiver = self;
+  v46.super_class = AppletConfigurationData;
+  v2 = [(AppletConfigurationData *)&v46 init];
   if (!v2)
   {
     goto LABEL_26;
@@ -108,23 +107,23 @@ uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
 
   v2->maErrorCount = 0;
   v2->retryInProgress = 0;
-  v6 = +[AppletTranslator userDefaults];
+  v7 = +[AppletTranslator userDefaults];
   userDefaults = v2->userDefaults;
-  v2->userDefaults = v6;
+  v2->userDefaults = v7;
 
-  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   pluginCache = v2->pluginCache;
-  v2->pluginCache = v8;
+  v2->pluginCache = v9;
 
-  v10 = +[AppletTranslator isInternalBuild];
-  if (v10)
+  v12 = +[AppletTranslator isInternalBuild];
+  if (v12)
   {
-    v11 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"debug.maMetadataQueryTimeInterval"];
+    v13 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"debug.maMetadataQueryTimeInterval"];
 
-    if (v11)
+    if (v13)
     {
-      v12 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"debug.maMetadataQueryTimeInterval"];
-      v2->maMetadataQueryInterval = [v12 intValue];
+      v15 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"debug.maMetadataQueryTimeInterval"];
+      v2->maMetadataQueryInterval = [v15 intValue];
     }
 
     else
@@ -132,20 +131,20 @@ uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
       v2->maMetadataQueryInterval = 604800.0;
     }
 
-    v13 = +[AppletConfigurationData getOverrideConfig];
+    v16 = +[AppletConfigurationData getOverrideConfig];
     config = v2->config;
-    v2->config = v13;
+    v2->config = v16;
 
-    if (v13)
+    if (v16)
     {
-      v15 = ATLLogObject();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = ATLLogObject(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_DEFAULT, "Override configuration, disabling updates via MA", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v19, OS_LOG_TYPE_DEFAULT, "Override configuration, disabling updates via MA", buf, 2u);
       }
 
-      v16 = v2;
+      v20 = v2;
       goto LABEL_26;
     }
   }
@@ -155,55 +154,55 @@ uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
     v2->maMetadataQueryInterval = 604800.0;
   }
 
-  v17 = +[AppletConfigurationData getStaticConfig];
-  v18 = [v17 mutableCopy];
+  v21 = +[AppletConfigurationData getStaticConfig];
+  v22 = [v21 mutableCopy];
 
-  v19 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"config"];
-  v20 = ATLLogObject();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v23 = [(NSUserDefaults *)v2->userDefaults objectForKey:@"config"];
+  v24 = ATLLogObject(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v42 = v19;
-    _os_log_impl(&dword_22EEF5000, v20, OS_LOG_TYPE_DEFAULT, "Loaded persisted MA config %@", buf, 0xCu);
+    *v48 = v23;
+    _os_log_impl(&dword_22EEF5000, v24, OS_LOG_TYPE_DEFAULT, "Loaded persisted MA config %@", buf, 0xCu);
   }
 
-  if (v19)
+  if (v23)
   {
-    v21 = [v19 objectForKeyedSubscript:@"_CompatibilityVersion"];
-    intValue = [v21 intValue];
+    v25 = [v23 objectForKeyedSubscript:@"_CompatibilityVersion"];
+    intValue = [v25 intValue];
 
     if (intValue == 6)
     {
-      [v18 addEntriesFromDictionary:v19];
+      [v22 addEntriesFromDictionary:v23];
     }
 
     else
     {
-      v23 = ATLLogObject();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v28 = ATLLogObject(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v42[0] = intValue;
-        LOWORD(v42[1]) = 1024;
-        *(&v42[1] + 2) = 6;
-        _os_log_impl(&dword_22EEF5000, v23, OS_LOG_TYPE_DEFAULT, "Incompatible (%d != %d) version, deleting it", buf, 0xEu);
+        v48[0] = intValue;
+        LOWORD(v48[1]) = 1024;
+        *(&v48[1] + 2) = 6;
+        _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_DEFAULT, "Incompatible (%d != %d) version, deleting it", buf, 0xEu);
       }
 
       [(NSUserDefaults *)v2->userDefaults removeObjectForKey:@"config"];
     }
   }
 
-  objc_storeStrong(&v2->config, v18);
-  v24 = ATLLogObject();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&v2->config, v22);
+  v30 = ATLLogObject(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = v2->config;
+    v31 = v2->config;
     *buf = 138412290;
-    *v42 = v25;
-    _os_log_impl(&dword_22EEF5000, v24, OS_LOG_TYPE_DEFAULT, "Resolved config %@", buf, 0xCu);
+    *v48 = v31;
+    _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_DEFAULT, "Resolved config %@", buf, 0xCu);
   }
 
-  if (v10)
+  if (v12)
   {
     [(NSUserDefaults *)v2->userDefaults setObject:&unk_2843C6A58 forKey:@"debug.currentCompatibilityVersion"];
   }
@@ -211,70 +210,68 @@ uint64_t __38__AppletConfigurationData_getInstance__block_invoke()
   defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
   [defaultCenter addObserver:v2 selector:sel_tsmScriptPerformed_ name:@"com.apple.stockholm.tsm.script.executed" object:0];
 
-  v27 = ATLLogObject();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v34 = ATLLogObject(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v42 = @"com.apple.stockholm.tsm.script.executed";
-    _os_log_impl(&dword_22EEF5000, v27, OS_LOG_TYPE_DEFAULT, "Listening to %@", buf, 0xCu);
+    *v48 = @"com.apple.stockholm.tsm.script.executed";
+    _os_log_impl(&dword_22EEF5000, v34, OS_LOG_TYPE_DEFAULT, "Listening to %@", buf, 0xCu);
   }
 
-  v28 = v2->queue;
+  v35 = v2->queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __31__AppletConfigurationData_init__block_invoke;
   block[3] = &unk_278874C98;
-  v29 = v2;
-  v39 = v29;
-  dispatch_async(v28, block);
-  v30 = dispatch_time(0, 15000000000);
-  v31 = v2->queue;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __31__AppletConfigurationData_init__block_invoke_2;
-  v36[3] = &unk_278874C98;
-  v32 = v29;
-  v37 = v32;
-  dispatch_after(v30, v31, v36);
-  v33 = v32;
+  v36 = v2;
+  v45 = v36;
+  dispatch_async(v35, block);
+  v37 = dispatch_time(0, 15000000000);
+  v38 = v2->queue;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __31__AppletConfigurationData_init__block_invoke_2;
+  v42[3] = &unk_278874C98;
+  v39 = v36;
+  v43 = v39;
+  dispatch_after(v37, v38, v42);
+  v40 = v39;
 
 LABEL_26:
-  v34 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (id)getConfig
 {
   objc_opt_self();
-  v0 = +[AppletConfigurationData getInstance];
-  objc_sync_enter(v0);
-  v1 = v0[3];
-  objc_sync_exit(v0);
+  v3 = +[AppletConfigurationData getInstance];
+  objc_sync_enter(v3);
+  v4 = v3[3];
+  objc_sync_exit(v3);
 
-  return v1;
+  return v4;
 }
 
 void __40__AppletConfigurationData_queryMetadata__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = ATLLogObject();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = ATLLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v10 = a2;
+    v9 = a2;
     _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_DEFAULT, "catalog download result %ld", buf, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 8);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __40__AppletConfigurationData_queryMetadata__block_invoke_997;
-  v8[3] = &unk_2788750B8;
-  v8[4] = v5;
-  v8[5] = a2;
-  dispatch_async(v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __40__AppletConfigurationData_queryMetadata__block_invoke_997;
+  v7[3] = &unk_2788750B8;
+  v7[4] = v5;
+  v7[5] = a2;
+  dispatch_async(v6, v7);
 }
 
 void __40__AppletConfigurationData_queryMetadata__block_invoke_997(uint64_t a1)
@@ -326,56 +323,56 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
 
 - (void)handleQueryResult:(void *)result query:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   if (self)
   {
     dispatch_assert_queue_V2(self[1]);
-    objc_initWeak(&location, self);
-    v6 = ATLLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v7 = ATLLogObject(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       *&buf[4] = resultCopy;
       *&buf[12] = 2048;
       *&buf[14] = a2;
-      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Query %@ result %ld", buf, 0x16u);
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_DEFAULT, "Query %@ result %ld", buf, 0x16u);
     }
 
     switch(a2)
     {
       case 0:
+        v29 = 0u;
+        v30 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
         results = [resultCopy results];
-        v11 = [results countByEnumeratingWithState:&v25 objects:v34 count:16];
-        if (v11)
+        v12 = [results countByEnumeratingWithState:&v27 objects:v36 count:16];
+        if (v12)
         {
-          v12 = *v26;
+          v13 = *v28;
           do
           {
-            v13 = 0;
+            v14 = 0;
             do
             {
-              if (*v26 != v12)
+              if (*v28 != v13)
               {
                 objc_enumerationMutation(results);
               }
 
-              v14 = *(*(&v25 + 1) + 8 * v13);
-              v15 = objc_loadWeakRetained(&location);
-              [(AppletConfigurationData *)v15 handleQuerySuccess:v14];
+              v15 = *(*(&v27 + 1) + 8 * v14);
+              v16 = objc_loadWeakRetained(&location);
+              [(AppletConfigurationData *)v16 handleQuerySuccess:v15];
 
-              ++v13;
+              ++v14;
             }
 
-            while (v11 != v13);
-            v11 = [results countByEnumeratingWithState:&v25 objects:v34 count:16];
+            while (v12 != v14);
+            v12 = [results countByEnumeratingWithState:&v27 objects:v36 count:16];
           }
 
-          while (v11);
+          while (v12);
         }
 
         break;
@@ -386,16 +383,16 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
       case 8:
       case 10:
       case 12:
-        v7 = ATLLogObject();
-        [AppletConfigurationData handleQueryResult:v7 query:a2];
+        v9 = ATLLogObject(v8);
+        [AppletConfigurationData handleQueryResult:v9 query:a2];
 
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __51__AppletConfigurationData_handleQueryResult_query___block_invoke;
-        v29[3] = &unk_278875090;
-        objc_copyWeak(&v30, &location);
-        [(AppletConfigurationData *)self retryWithBackoff:v29];
-        objc_destroyWeak(&v30);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __51__AppletConfigurationData_handleQueryResult_query___block_invoke;
+        v31[3] = &unk_278875090;
+        objc_copyWeak(&v32, &location);
+        [(AppletConfigurationData *)self retryWithBackoff:v31];
+        objc_destroyWeak(&v32);
         break;
       case 2:
         [(AppletConfigurationData *)self queryMetadata];
@@ -405,51 +402,52 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
       case 11:
       case 13:
       case 14:
-        v8 = ATLLogObject();
-        [AppletConfigurationData handleQueryResult:v8 query:?];
+        v10 = ATLLogObject(v8);
+        [AppletConfigurationData handleQueryResult:v10 query:?];
         break;
       case 9:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v33 = -1;
-        v16 = ATLLogObject();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v35 = -1;
+        v17 = ATLLogObject(v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Registering for lock status changes", v24, 2u);
+          *v26 = 0;
+          _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_DEFAULT, "Registering for lock status changes", v26, 2u);
         }
 
-        v17 = *&buf[8];
-        v18 = self[1];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001;
-        v22[3] = &unk_278875158;
-        v22[4] = buf;
-        objc_copyWeak(&v23, &location);
-        notify_register_dispatch("com.apple.mobile.keybagd.lock_status", (v17 + 24), v18, v22);
-        if (MKBDeviceUnlockedSinceBoot())
+        v18 = *&buf[8];
+        v19 = self[1];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001;
+        v24[3] = &unk_278875158;
+        v24[4] = buf;
+        objc_copyWeak(&v25, &location);
+        notify_register_dispatch("com.apple.mobile.keybagd.lock_status", (v18 + 24), v19, v24);
+        v20 = MKBDeviceUnlockedSinceBoot();
+        if (v20)
         {
-          v19 = ATLLogObject();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v21 = ATLLogObject(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            *v24 = 0;
-            _os_log_impl(&dword_22EEF5000, v19, OS_LOG_TYPE_DEFAULT, "Device unlocked between last query and registration, canceling notify and requery", v24, 2u);
+            *v26 = 0;
+            _os_log_impl(&dword_22EEF5000, v21, OS_LOG_TYPE_DEFAULT, "Device unlocked between last query and registration, canceling notify and requery", v26, 2u);
           }
 
-          v20 = *(*&buf[8] + 24);
-          if (v20 >= 1)
+          v22 = *(*&buf[8] + 24);
+          if (v22 >= 1)
           {
-            notify_cancel(v20);
+            notify_cancel(v22);
             *(*&buf[8] + 24) = -1;
           }
 
-          v21 = objc_loadWeakRetained(&location);
-          [(AppletConfigurationData *)v21 queryMA];
+          v23 = objc_loadWeakRetained(&location);
+          [(AppletConfigurationData *)v23 queryMA];
         }
 
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(&v25);
         _Block_object_dispose(buf, 8);
         break;
       default:
@@ -458,20 +456,18 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
 
     objc_destroyWeak(&location);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)handleQuerySuccess:(uint64_t)success
+- (void)handleQuerySuccess:(dispatch_queue_t *)success
 {
   v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (success)
   {
     objc_initWeak(&location, success);
-    dispatch_assert_queue_V2(*(success + 8));
-    v4 = ATLLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    dispatch_assert_queue_V2(success[1]);
+    v5 = ATLLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       assetId = [v3 assetId];
       state = [v3 state];
@@ -482,7 +478,7 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
       v20 = state;
       v21 = 2112;
       v22 = attributes;
-      _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_DEFAULT, "Got asset id %@ state %ld attributes %@", buf, 0x20u);
+      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Got asset id %@ state %ld attributes %@", buf, 0x20u);
     }
 
     if (([(AppletConfigurationData *)success isEligibleAsset:v3]& 1) != 0)
@@ -501,7 +497,7 @@ void __34__AppletConfigurationData_queryMA__block_invoke(uint64_t a1, uint64_t a
 
       if (((1 << state2) & 0x12) != 0)
       {
-        [(AppletConfigurationData *)(success + 8) handleQuerySuccess:?];
+        [(AppletConfigurationData *)success + 1 handleQuerySuccess:?];
 LABEL_17:
         objc_destroyWeak(&location);
         goto LABEL_18;
@@ -512,7 +508,7 @@ LABEL_17:
 LABEL_19:
         if (!state2)
         {
-          v12 = ATLLogObject();
+          v12 = ATLLogObject(0);
           [AppletConfigurationData handleQuerySuccess:v12];
 
           v14[0] = MEMORY[0x277D85DD0];
@@ -527,7 +523,7 @@ LABEL_19:
         goto LABEL_17;
       }
 
-      v10 = &__block_literal_global_1007;
+      v11 = &__block_literal_global_1007;
     }
 
     else
@@ -537,52 +533,48 @@ LABEL_19:
         goto LABEL_17;
       }
 
-      v9 = ATLLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = ATLLogObject(2);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_DEFAULT, "Purgning ineligible asset in installed state", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_DEFAULT, "Purgning ineligible asset in installed state", buf, 2u);
       }
 
-      v10 = &__block_literal_global_1004;
+      v11 = &__block_literal_global_1004;
     }
 
-    [v3 purge:v10];
+    [v3 purge:v11];
     goto LABEL_17;
   }
 
 LABEL_18:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = ATLLogObject();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = ATLLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(*(a1 + 32) + 8) + 24);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_22EEF5000, v2, OS_LOG_TYPE_DEFAULT, "Got lock status change, querying and canceling notify token %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_22EEF5000, v2, OS_LOG_TYPE_DEFAULT, "Got lock status change, querying and canceling notify token %d", v4, 8u);
   }
 
   if (*(*(*(a1 + 32) + 8) + 24) >= 1)
   {
     __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001_cold_1(a1, a1 + 32);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-- (void)handleAvailableAsset:(uint64_t)asset
+- (void)handleAvailableAsset:(dispatch_queue_t *)asset
 {
   v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (asset)
   {
-    dispatch_assert_queue_V2(*(asset + 8));
+    dispatch_assert_queue_V2(asset[1]);
     if (([(AppletConfigurationData *)asset isEligibleAsset:v3]& 1) != 0)
     {
       getLocalFileUrl = [v3 getLocalFileUrl];
@@ -591,50 +583,50 @@ void __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001(u
       v19 = 0;
       v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5 error:&v19];
       v7 = v19;
+      v8 = v7;
       if (v6)
       {
-        v8 = [v6 mutableCopy];
+        v9 = [v6 mutableCopy];
         attributes = [v3 attributes];
-        v10 = [attributes objectForKeyedSubscript:@"_CompatibilityVersion"];
-        [v8 setObject:v10 forKeyedSubscript:@"_CompatibilityVersion"];
+        v11 = [attributes objectForKeyedSubscript:@"_CompatibilityVersion"];
+        [v9 setObject:v11 forKeyedSubscript:@"_CompatibilityVersion"];
 
         attributes2 = [v3 attributes];
-        v12 = [attributes2 objectForKeyedSubscript:@"_ContentVersion"];
-        [v8 setObject:v12 forKeyedSubscript:@"_ContentVersion"];
+        v13 = [attributes2 objectForKeyedSubscript:@"_ContentVersion"];
+        [v9 setObject:v13 forKeyedSubscript:@"_ContentVersion"];
 
-        v13 = +[AppletConfigurationData getStaticConfig];
-        v14 = [v13 mutableCopy];
+        v14 = +[AppletConfigurationData getStaticConfig];
+        v15 = [v14 mutableCopy];
 
-        [v14 addEntriesFromDictionary:v8];
+        [v15 addEntriesFromDictionary:v9];
         assetCopy = asset;
         objc_sync_enter(assetCopy);
-        objc_storeStrong(assetCopy + 3, v14);
+        objc_storeStrong(assetCopy + 3, v15);
         [assetCopy[4] removeAllObjects];
         objc_sync_exit(assetCopy);
 
-        [assetCopy[2] setObject:v8 forKey:@"config"];
+        [assetCopy[2] setObject:v9 forKey:@"config"];
         [assetCopy[2] synchronize];
-        [v3 purge:&__block_literal_global_1019];
-        v16 = ATLLogObject();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = ATLLogObject([v3 purge:&__block_literal_global_1019]);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = [v8 objectForKeyedSubscript:@"_ContentVersion"];
+          v18 = [v9 objectForKeyedSubscript:@"_ContentVersion"];
           *buf = 138412290;
-          v21 = v17;
-          _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Asset version %@ successfully set and syncrhonized", buf, 0xCu);
+          v21 = v18;
+          _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_DEFAULT, "Asset version %@ successfully set and syncrhonized", buf, 0xCu);
         }
       }
 
       else
       {
-        v8 = ATLLogObject();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = ATLLogObject(v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
           v21 = v5;
           v22 = 2112;
-          v23 = v7;
-          _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "Failed to load config at URL %@ error %@", buf, 0x16u);
+          v23 = v8;
+          _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_ERROR, "Failed to load config at URL %@ error %@", buf, 0x16u);
         }
       }
     }
@@ -644,8 +636,6 @@ void __51__AppletConfigurationData_handleQueryResult_query___block_invoke_1001(u
       [AppletConfigurationData handleAvailableAsset:v3];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __41__AppletConfigurationData_downloadAsset___block_invoke(uint64_t a1, uint64_t a2)
@@ -665,13 +655,13 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke(uint64_t a1, uin
 
 void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = ATLLogObject();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = ATLLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 134217984;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_22EEF5000, v2, OS_LOG_TYPE_DEFAULT, "Download result %ld", buf, 0xCu);
   }
 
@@ -684,19 +674,17 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   else
   {
-    __41__AppletConfigurationData_downloadAsset___block_invoke_2_cold_1(a1, v7);
+    __41__AppletConfigurationData_downloadAsset___block_invoke_2_cold_1(a1, v6);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)pluginDecoderForMid:(id)mid
 {
   midCopy = mid;
-  v4 = +[AppletConfigurationData getInstance];
-  v5 = [(AppletConfigurationData *)v4 pluginDecoderForMid:midCopy depth:0];
+  v6 = +[(AppletConfigurationData *)self];
+  v7 = [(AppletConfigurationData *)v6 pluginDecoderForMid:midCopy depth:0];
 
-  return v5;
+  return v7;
 }
 
 - (id)pluginDecoderForMid:(int)mid depth:
@@ -738,7 +726,7 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
         v9 = 0;
         if (mid <= 11 && v14)
         {
-          v9 = [(AppletConfigurationData *)selfCopy pluginDecoderForMid:v14 depth:(mid + 1)];
+          v9 = [(AppletConfigurationData *)selfCopy pluginDecoderForMid:v14 depth:mid + 1];
         }
 
         v8 = 0;
@@ -759,9 +747,9 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 + (id)dataHash
 {
   v2 = +[AppletConfigurationData getConfig];
-  v3 = +[HashHelper hashHelper];
-  v4 = [(HashHelper *)v3 addDictionary:v2];
-  getHash = [(HashHelper *)v4 getHash];
+  v4 = +[HashHelper hashHelper];
+  v5 = [(HashHelper *)v4 addDictionary:v2];
+  getHash = [(HashHelper *)v5 getHash];
 
   return getHash;
 }
@@ -769,34 +757,34 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 + (id)scriptForModule:(id)module
 {
   moduleCopy = module;
-  v4 = +[AppletConfigurationData getConfig];
-  v5 = [v4 objectForKeyedSubscript:moduleCopy];
+  v5 = +[AppletConfigurationData getConfig];
+  v6 = [v5 objectForKeyedSubscript:moduleCopy];
 
-  v6 = [v5 objectForKeyedSubscript:@"appletConfigurationScript"];
+  v7 = [v6 objectForKeyedSubscript:@"appletConfigurationScript"];
 
-  return v6;
+  return v7;
 }
 
 + (id)plasticCardScriptForModule:(id)module
 {
   moduleCopy = module;
-  v4 = +[AppletConfigurationData getConfig];
-  v5 = [v4 objectForKeyedSubscript:moduleCopy];
+  v5 = +[AppletConfigurationData getConfig];
+  v6 = [v5 objectForKeyedSubscript:moduleCopy];
 
-  v6 = [v5 objectForKeyedSubscript:@"appletPlasticModeScript"];
+  v7 = [v6 objectForKeyedSubscript:@"appletPlasticModeScript"];
 
-  return v6;
+  return v7;
 }
 
 + (id)extraDebugScriptForModule:(id)module
 {
   moduleCopy = module;
-  v4 = +[AppletConfigurationData getConfig];
-  v5 = [v4 objectForKeyedSubscript:moduleCopy];
+  v5 = +[AppletConfigurationData getConfig];
+  v6 = [v5 objectForKeyedSubscript:moduleCopy];
 
-  v6 = [v5 objectForKeyedSubscript:@"appletDebugScript"];
+  v7 = [v6 objectForKeyedSubscript:@"appletDebugScript"];
 
-  return v6;
+  return v7;
 }
 
 + (id)getNFCSettings
@@ -806,22 +794,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No NFC Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No NFC Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)getWuluSettings
@@ -831,22 +819,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No Wulu Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No Wulu Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)getHerculesSettings
@@ -856,22 +844,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No Hercules Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No Hercules Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)getSlalomSettings
@@ -899,22 +887,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No Dreamworks Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No Dreamworks Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)getExpressModeSettings
@@ -924,22 +912,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No EM Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No EM Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)getCalypsoSettings
@@ -949,22 +937,22 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "No Calypso Settings in config?!", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_ERROR, "No Calypso Settings in config?!", v8, 2u);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)setConfiguration:(id)configuration
@@ -973,14 +961,14 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
   if (!configurationCopy)
   {
     configurationCopy = +[AppletConfigurationData getStaticConfig];
-    v4 = +[AppletConfigurationData getInstance];
-    [v4[4] removeAllObjects];
+    v5 = +[AppletConfigurationData getInstance];
+    [v5[4] removeAllObjects];
   }
 
   objc_opt_self();
-  v5 = +[AppletConfigurationData getInstance];
-  v6 = v5[3];
-  v5[3] = configurationCopy;
+  v7 = +[AppletConfigurationData getInstance];
+  v8 = v7[3];
+  v7[3] = configurationCopy;
 
   return 1;
 }
@@ -1004,168 +992,160 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
 + (_DWORD)dumpState
 {
   objc_opt_self();
-  v0 = MEMORY[0x277CCAC58];
-  v1 = +[AppletConfigurationData getConfig];
-  v2 = [v0 dataWithPropertyList:v1 format:200 options:0 error:0];
+  v2 = MEMORY[0x277CCAC58];
+  v4 = +[AppletConfigurationData getConfig];
+  v5 = [v2 dataWithPropertyList:v4 format:200 options:0 error:0];
 
-  v3 = malloc_type_calloc(1uLL, [v2 length] + 200, 0x1000040BEF03554uLL);
-  *v3 = 1;
-  v3[1] = [v2 length];
+  v6 = malloc_type_calloc(1uLL, [v5 length] + 200, 0x1000040BEF03554uLL);
+  *v6 = 1;
+  v6[1] = [v5 length];
   __strlcpy_chk();
-  memcpy(v3 + 50, [v2 bytes], objc_msgSend(v2, "length"));
+  memcpy(v6 + 50, [v5 bytes], objc_msgSend(v5, "length"));
 
-  return v3;
+  return v6;
 }
 
 + (id)getStaticConfig
 {
-  v36[2] = *MEMORY[0x277D85DE8];
-  v27[0] = @"appletConfigurationScript";
-  v27[1] = @"appletPlasticModeScript";
-  v28[0] = &unk_2843C7430;
-  v28[1] = &unk_2843C7460;
-  v29[0] = @"D1560000101000001201";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-  v30[0] = v18;
-  v29[1] = @"9156000014020001";
-  v25[0] = @"appletConfigurationScript";
-  v25[1] = @"appletPlasticModeScript";
-  v26[0] = &unk_2843C7448;
-  v26[1] = &unk_2843C7460;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-  v30[1] = v2;
-  v29[2] = @"A000000704A0010010010001";
-  v23[0] = @"appletConfigurationScript";
-  v23[1] = @"appletPlasticModeScript";
-  v24[0] = &unk_2843C7478;
-  v24[1] = &unk_2843C7490;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-  v30[2] = v3;
-  v29[3] = @"A0000003965453000000010150000000";
-  v21[0] = @"appletConfigurationScript";
-  v21[1] = @"appletPlasticModeScript";
-  v22[0] = &unk_2843C74C0;
-  v22[1] = &unk_2843C74A8;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  v30[3] = v4;
-  v29[4] = @"F8434E412E43414C2E52657633";
-  v19[0] = @"appletConfigurationScript";
-  v19[1] = @"appletPlasticModeScript";
-  v20[0] = &unk_2843C74F0;
-  v20[1] = &unk_2843C74D8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v30[4] = v5;
-  v29[5] = @"nfcSettings";
+  v39[2] = *MEMORY[0x277D85DE8];
+  v30[0] = @"appletConfigurationScript";
+  v30[1] = @"appletPlasticModeScript";
+  v31[0] = &unk_2843C7430;
+  v31[1] = &unk_2843C7460;
+  v32[0] = @"D1560000101000001201";
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v33[0] = v21;
+  v32[1] = @"9156000014020001";
+  v28[0] = @"appletConfigurationScript";
+  v28[1] = @"appletPlasticModeScript";
+  v29[0] = &unk_2843C7448;
+  v29[1] = &unk_2843C7460;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v33[1] = v3;
+  v32[2] = @"A000000704A0010010010001";
+  v26[0] = @"appletConfigurationScript";
+  v26[1] = @"appletPlasticModeScript";
+  v27[0] = &unk_2843C7478;
+  v27[1] = &unk_2843C7490;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v33[2] = v4;
+  v32[3] = @"A0000003965453000000010150000000";
+  v24[0] = @"appletConfigurationScript";
+  v24[1] = @"appletPlasticModeScript";
+  v25[0] = &unk_2843C74C0;
+  v25[1] = &unk_2843C74A8;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v33[3] = v5;
+  v32[4] = @"F8434E412E43414C2E52657633";
+  v22[0] = @"appletConfigurationScript";
+  v22[1] = @"appletPlasticModeScript";
+  v23[0] = &unk_2843C74F0;
+  v23[1] = &unk_2843C74D8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v33[4] = v6;
+  v32[5] = @"nfcSettings";
   objc_opt_self();
-  v30[5] = &unk_2843C76F0;
-  v29[6] = @"wuluSettings";
+  v33[5] = &unk_2843C76F0;
+  v32[6] = @"wuluSettings";
   objc_opt_self();
-  v30[6] = &unk_2843C7D58;
-  v29[7] = @"expressMode";
-  v6 = +[AppletConfigurationData getStaticExpressModeSettings];
-  v30[7] = v6;
-  v29[8] = @"herculesSettings";
-  v7 = +[AppletConfigurationData getStaticHerculesSettings];
-  v30[8] = v7;
-  v29[9] = @"calypsoSettings";
-  v8 = +[AppletConfigurationData getStaticCalypsoSettings];
-  v30[9] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:10];
-  v10 = [v9 mutableCopy];
+  v33[6] = &unk_2843C7D58;
+  v32[7] = @"expressMode";
+  v8 = +[(AppletConfigurationData *)self];
+  v33[7] = v8;
+  v32[8] = @"herculesSettings";
+  v10 = +[(AppletConfigurationData *)self];
+  v33[8] = v10;
+  v32[9] = @"calypsoSettings";
+  v12 = +[(AppletConfigurationData *)self];
+  v33[9] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:10];
+  v14 = [v13 mutableCopy];
 
-  v35[0] = @"dreamworksMetroTypes";
-  v35[1] = @"dreamworksBusTypeRanges";
-  v36[0] = &unk_2843C75F8;
-  v36[1] = &unk_2843C7658;
-  v11 = MEMORY[0x277CBEAC0];
-  v12 = v10;
-  v13 = [v11 dictionaryWithObjects:v36 forKeys:v35 count:2];
-  v31[0] = @"appletConfigurationScript";
-  v31[1] = @"appletPlasticModeScript";
-  v32[0] = &unk_2843C75C8;
-  v32[1] = &unk_2843C75E0;
-  v33[0] = @"A0000008588400010100";
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
-  v33[1] = @"dreamworksSettings";
-  v34[0] = v14;
-  v34[1] = v13;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
-  [v12 addEntriesFromDictionary:v15];
+  v38[0] = @"dreamworksMetroTypes";
+  v38[1] = @"dreamworksBusTypeRanges";
+  v39[0] = &unk_2843C75F8;
+  v39[1] = &unk_2843C7658;
+  v15 = MEMORY[0x277CBEAC0];
+  v16 = v14;
+  v17 = [v15 dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v34[0] = @"appletConfigurationScript";
+  v34[1] = @"appletPlasticModeScript";
+  v35[0] = &unk_2843C75C8;
+  v35[1] = &unk_2843C75E0;
+  v36[0] = @"A0000008588400010100";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v36[1] = @"dreamworksSettings";
+  v37[0] = v18;
+  v37[1] = v17;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  [v16 addEntriesFromDictionary:v19];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v16;
 }
 
 + (id)getStaticExpressModeSettings
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v11 = @"rfModifierTCIs";
-  v0 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciNYTR3 length:4];
-  v10[0] = v0;
-  v1 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciBrisbaneTR3 length:4];
-  v10[1] = v1;
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciAccessIS length:4];
-  v10[2] = v2;
-  v3 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciRevere length:4];
-  v10[3] = v3;
-  v4 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciLyon length:4];
-  v10[4] = v4;
-  v5 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciSF length:4];
-  v10[5] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v12 = @"rfModifierTCIs";
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciNYTR3 length:4];
+  v11[0] = v2;
+  v3 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciBrisbaneTR3 length:4];
+  v11[1] = v3;
+  v4 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciAccessIS length:4];
+  v11[2] = v4;
+  v5 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciRevere length:4];
+  v11[3] = v5;
+  v6 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciLyon length:4];
+  v11[4] = v6;
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&getStaticExpressModeSettings_tciSF length:4];
+  v11[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
+  v13[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v9;
 }
 
 + (id)getStaticHerculesSettings
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v8 = @"fareTables";
+  v9 = @"fareTables";
   stringValue = [&unk_2843C6C38 stringValue];
-  v6[0] = stringValue;
-  v7[0] = @"KHkBAQABAlAoeQIBAAECTCh5BgEAAQWoKXkBAQABAk8qeQEBAAECTip5AgEAAQM8KnkGAQABBaoreQEBAAECTS15AQEAAQXRLnkBAQABBdAyKQEDAAEAYT55AQEAAQI4P3kCAQABAjk/eQYBAAEFqUAAAQMAAEABQAACAwAAQAJAAAMDAAEE9EAABAMAAEAEQAAFAwAAQAVAAAYDAABABkAABwMAAEB/QAAJAwAAQAlAABADAABAhEAAEQMAAECFQAASAwAAQIZAABMDAABAh0AAFAMAAECIQAAVAwAAQIlAABYDAABACkAAFwMAAECLQACAAwAAQIBAAIEDAABAfkABCAMAAEAIQAGDAwAAQINAFQ8DAABAgkAWDgMAAECBQBZ/AwABBgxAMwwDAAEFMEBlCwMAAQTgURUBAQABBsBjFgEDAAEAYnIWAQMAAQBjgXkBAQABA1CaAQgBAACaCKMBCAEAAKMI8AABAwABAPrwAAIDAAEA+/AABgMAAQW/8DMMAwABAhfxAAEDAAEA+PEAAgMAAQD58QAGAwABBbzxAIADAAEFw/EzDAMAAQIY8gABAwABAPzyAAIDAAEA/fIABgMAAQXC8jMMAwABAhnzAAEDAAEB/PMAAgMAAQH98wAGAwABBcHzAIADAAEFx/QAAQMAAQIS9AACAwABAhP0AAYDAAEFwPUAAQMAAQH+9QACAwABAf/1AAYDAAEFvvUAgAMAAQXF9gABAwABAhD2AAIDAAECEfYABgMAAQW99gCAAwABBcT5AAEDAAECFPkAgAMAAQXG+gACAwABAhX7AAYDAAECFvwzDAMAAQIa";
+  v7[0] = stringValue;
+  v8[0] = @"KHkBAQABAlAoeQIBAAECTCh5BgEAAQWoKXkBAQABAk8qeQEBAAECTip5AgEAAQM8KnkGAQABBaoreQEBAAECTS15AQEAAQXRLnkBAQABBdAyKQEDAAEAYT55AQEAAQI4P3kCAQABAjk/eQYBAAEFqUAAAQMAAEABQAACAwAAQAJAAAMDAAEE9EAABAMAAEAEQAAFAwAAQAVAAAYDAABABkAABwMAAEB/QAAJAwAAQAlAABADAABAhEAAEQMAAECFQAASAwAAQIZAABMDAABAh0AAFAMAAECIQAAVAwAAQIlAABYDAABACkAAFwMAAECLQACAAwAAQIBAAIEDAABAfkABCAMAAEAIQAGDAwAAQINAFQ8DAABAgkAWDgMAAECBQBZ/AwABBgxAMwwDAAEFMEBlCwMAAQTgURUBAQABBsBjFgEDAAEAYnIWAQMAAQBjgXkBAQABA1CaAQgBAACaCKMBCAEAAKMI8AABAwABAPrwAAIDAAEA+/AABgMAAQW/8DMMAwABAhfxAAEDAAEA+PEAAgMAAQD58QAGAwABBbzxAIADAAEFw/EzDAMAAQIY8gABAwABAPzyAAIDAAEA/fIABgMAAQXC8jMMAwABAhnzAAEDAAEB/PMAAgMAAQH98wAGAwABBcHzAIADAAEFx/QAAQMAAQIS9AACAwABAhP0AAYDAAEFwPUAAQMAAQH+9QACAwABAf/1AAYDAAEFvvUAgAMAAQXF9gABAwABAhD2AAIDAAECEfYABgMAAQW99gCAAwABBcT5AAEDAAECFPkAgAMAAQXG+gACAwABAhX7AAYDAAECFvwzDAMAAQIa";
   stringValue2 = [&unk_2843C6D28 stringValue];
-  v6[1] = stringValue2;
-  v7[1] = @"AA0BAQABBH4BDQEBAAEEfwENAgEAAQSAAwoBAQABAZsFAwEBAAEElgUGAQEAAQANBQsBAQABBFYFDgEBAAEFlgYLAgEAAQRXBg4CAQABBZcHBgEBAAEEIwcLBAEAAQRYBw0BAQABBIcHDQIBAAEEiAcNBAEAAQSKBw0FAQABBIkHDgUBAAEFmQgBAQEAAAgBCAYBAQABBCQICwUBAAEEWQgOBAEAAQWYEAIBAQABAbMQAgIBAAEBtBEFAQEAAQM+EQsBAQABBGQSBQIBAAEDQBMFBAEAAQNCFAUFAQABA0QUBgEBAAEAURQLAQEAAQRnFQUBAQABAz8WBQUBAAEDRRcFAgEAAQNBGAUEAQABA0MYBgEBAAEAMhgIAQEAAQPAGQUBAQABBKwdAQEBAAAdAR0GAQEAAQQXHgUBAQABBTIfBgEBAAEENyEJAQEAAQLEIgkCAQABAsUjCQUBAAECxiMMAQEAAQRJJAkEAQABAsckDAIBAAEESiUCAQEAAQI2JQYBAQABBO4lDAUBAAEESyYCAQEAAQI3JgYBAQABBP8mDAQBAAEETCcCAQEAAQI4JwwBAQABBE0oAgIBAAECOSkCAgEAAQI6KgICAQABAjsrBwEBAAEDvzEHAQEAAQPMMQcCAQABA9gyBwEBAAEDzTIHAgEAAQPZMwcBAQABA84zBwIBAAED2jQGAQEAAQA7NAcBAQABA880BwIBAAED2zUHAQEAAQPQNQcCAQABA902AAIBAAEC0TcAAgEAAQLSNwYBAQABADo4BgEBAAEAOTkGAQEAAQA2OgABAQABA4I6AAIBAAEDgzoABAEAAQOEOgAFAQABA4U6AgUBAAECbjoGAQEAAQAwOwABAQABA448AAEBAAEDjz0AAQEAAQOQPgABAQABA5E/AAEBAAEDkj8CBAEAAQJ0PwcBAQABA/FCAgUBAAECeEMCBQEAAQJ5RAIFAQABAnpFAgQBAAECfEYCBAEAAQJ+RwIEAQABAoBPBwEBAAEEAVAHAgEAAQQCUgoBAQABApVWAAMDAAEDHFcCAQEAAQUEWAABAQABBPtYAgIBAAEFBVoAAQEAAQOTXQABAQABA5R/CgEBAAEDrX8KAgEAAQOuhgABAQABADyGAAIBAAEAPYYKAQEAAQO1hwABAwABAMmHAAIDAAEAU4cABAMAAQE9hwAFAwABAFSHCgIBAAEDsogKAgEAAQOziQoCAQABA7SKAAEBAAEDlYoKAQEAAQO2iwABAQABA5aLCgEBAAEDt4wAAQEAAQOXjAQBAQABAeWNAAEBAAEDmJkAAgEAAQT9mwAFAQABBQGcAAQBAAEFAJ0AAQEAAQURnwABAQABBUO5AQMBAAEDLroBAwEAAQMvvQEBAQABA1C+AQEBAAEDUcABAQEAAQNTwQECAQABA1XDAQIBAAEDVMUBBAEAAQNnxgEFAQABA2jPAQEBAAEDh9ABAQEAAQOI2QEBAQABA9HdAQEBAAED5eQBAQEAAQQT7wEBAQABBM3yAQEBAAEE0PgBAQEAAQUC";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v9[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7[1] = stringValue2;
+  v8[1] = @"AA0BAQABBH4BDQEBAAEEfwENAgEAAQSAAwoBAQABAZsFAwEBAAEElgUGAQEAAQANBQsBAQABBFYFDgEBAAEFlgYLAgEAAQRXBg4CAQABBZcHBgEBAAEEIwcLBAEAAQRYBw0BAQABBIcHDQIBAAEEiAcNBAEAAQSKBw0FAQABBIkHDgUBAAEFmQgBAQEAAAgBCAYBAQABBCQICwUBAAEEWQgOBAEAAQWYEAIBAQABAbMQAgIBAAEBtBEFAQEAAQM+EQsBAQABBGQSBQIBAAEDQBMFBAEAAQNCFAUFAQABA0QUBgEBAAEAURQLAQEAAQRnFQUBAQABAz8WBQUBAAEDRRcFAgEAAQNBGAUEAQABA0MYBgEBAAEAMhgIAQEAAQPAGQUBAQABBKwdAQEBAAAdAR0GAQEAAQQXHgUBAQABBTIfBgEBAAEENyEJAQEAAQLEIgkCAQABAsUjCQUBAAECxiMMAQEAAQRJJAkEAQABAsckDAIBAAEESiUCAQEAAQI2JQYBAQABBO4lDAUBAAEESyYCAQEAAQI3JgYBAQABBP8mDAQBAAEETCcCAQEAAQI4JwwBAQABBE0oAgIBAAECOSkCAgEAAQI6KgICAQABAjsrBwEBAAEDvzEHAQEAAQPMMQcCAQABA9gyBwEBAAEDzTIHAgEAAQPZMwcBAQABA84zBwIBAAED2jQGAQEAAQA7NAcBAQABA880BwIBAAED2zUHAQEAAQPQNQcCAQABA902AAIBAAEC0TcAAgEAAQLSNwYBAQABADo4BgEBAAEAOTkGAQEAAQA2OgABAQABA4I6AAIBAAEDgzoABAEAAQOEOgAFAQABA4U6AgUBAAECbjoGAQEAAQAwOwABAQABA448AAEBAAEDjz0AAQEAAQOQPgABAQABA5E/AAEBAAEDkj8CBAEAAQJ0PwcBAQABA/FCAgUBAAECeEMCBQEAAQJ5RAIFAQABAnpFAgQBAAECfEYCBAEAAQJ+RwIEAQABAoBPBwEBAAEEAVAHAgEAAQQCUgoBAQABApVWAAMDAAEDHFcCAQEAAQUEWAABAQABBPtYAgIBAAEFBVoAAQEAAQOTXQABAQABA5R/CgEBAAEDrX8KAgEAAQOuhgABAQABADyGAAIBAAEAPYYKAQEAAQO1hwABAwABAMmHAAIDAAEAU4cABAMAAQE9hwAFAwABAFSHCgIBAAEDsogKAgEAAQOziQoCAQABA7SKAAEBAAEDlYoKAQEAAQO2iwABAQABA5aLCgEBAAEDt4wAAQEAAQOXjAQBAQABAeWNAAEBAAEDmJkAAgEAAQT9mwAFAQABBQGcAAQBAAEFAJ0AAQEAAQURnwABAQABBUO5AQMBAAEDLroBAwEAAQMvvQEBAQABA1C+AQEBAAEDUcABAQEAAQNTwQECAQABA1XDAQIBAAEDVMUBBAEAAQNnxgEFAQABA2jPAQEBAAEDh9ABAQEAAQOI2QEBAQABA9HdAQEBAAED5eQBAQEAAQQT7wEBAQABBM3yAQEBAAEE0PgBAQEAAQUC";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return v3;
+  return v5;
 }
 
 + (id)getStaticCalypsoSettings
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v7 = &unk_2843C6C38;
-  v8 = &unk_2843C7D80;
-  v9[0] = @"calypsoSettings";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
-  v10[0] = v0;
-  v9[1] = @"fileMapping";
-  v5 = &unk_2843C6C38;
-  v6 = &unk_2843C7F60;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:&v5 count:1];
-  v10[1] = v1;
-  v10[2] = &unk_2843C7F88;
-  v9[2] = @"idToCityMapping";
-  v9[3] = @"aidToCityMapping";
-  v10[3] = &unk_2843C7FB0;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v8 = &unk_2843C6C38;
+  v9 = &unk_2843C7D80;
+  v10[0] = @"calypsoSettings";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v11[0] = v2;
+  v10[1] = @"fileMapping";
+  v6 = &unk_2843C6C38;
+  v7 = &unk_2843C7F60;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  v11[1] = v3;
+  v11[2] = &unk_2843C7F88;
+  v10[2] = @"idToCityMapping";
+  v10[3] = @"aidToCityMapping";
+  v11[3] = &unk_2843C7FB0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
-  v3 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v4;
 }
 
 - (void)queryMA
@@ -1173,37 +1153,37 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
-    v3 = ATLLogObject();
-    if (OUTLINED_FUNCTION_5(v3))
+    v4 = ATLLogObject(v3);
+    if (OUTLINED_FUNCTION_5(v4))
     {
-      *v10 = 0;
-      OUTLINED_FUNCTION_4(&dword_22EEF5000, v4, v5, "Querying MA", v10);
+      *v11 = 0;
+      OUTLINED_FUNCTION_4(&dword_22EEF5000, v5, v6, "Querying MA", v11);
     }
 
-    v6 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.AppletTranslationLibraryAssets"];
-    [v6 setDoNotBlockBeforeFirstUnlock:1];
+    v7 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.AppletTranslationLibraryAssets"];
+    [v7 setDoNotBlockBeforeFirstUnlock:1];
     OUTLINED_FUNCTION_0_1();
-    v8[1] = 3221225472;
-    v8[2] = __34__AppletConfigurationData_queryMA__block_invoke;
-    v8[3] = &unk_278875130;
-    v8[4] = self;
-    v9 = v6;
-    v7 = v6;
-    [v7 queryMetaData:v8];
+    v9[1] = 3221225472;
+    v9[2] = __34__AppletConfigurationData_queryMA__block_invoke;
+    v9[3] = &unk_278875130;
+    v9[4] = self;
+    v10 = v7;
+    v8 = v7;
+    [v8 queryMetaData:v9];
   }
 }
 
 - (void)maybeQueryMetadata
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
-    v2 = [*(self + 16) objectForKey:@"nextMetadataCheck"];
-    v3 = v2;
-    if (v2)
+    timeIntervalSinceNow = [*(self + 16) objectForKey:@"nextMetadataCheck"];
+    v3 = timeIntervalSinceNow;
+    if (timeIntervalSinceNow)
     {
-      [v2 timeIntervalSinceNow];
+      timeIntervalSinceNow = [timeIntervalSinceNow timeIntervalSinceNow];
       v5 = v4;
     }
 
@@ -1221,26 +1201,27 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
     {
       v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
 
-      [*(self + 16) setObject:v6 forKey:@"nextMetadataCheck"];
-      v7 = ATLLogObject();
+      v7 = ATLLogObject([*(self + 16) setObject:v6 forKey:@"nextMetadataCheck"]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        HIDWORD(v31) = HIDWORD(v5);
-        v32 = 2112;
-        v33 = *&v6;
-        OUTLINED_FUNCTION_6(&dword_22EEF5000, v8, v9, "Clamping ttnc %.0f to interval, next check %@", v10, v11, v12, v13, v25, block, v27, v28, v29, selfCopy, 2u);
+        *buf = 134218242;
+        v30 = v5;
+        v31 = 2112;
+        v32 = *&v6;
+        OUTLINED_FUNCTION_6(&dword_22EEF5000, v8, v9, "Clamping ttnc %.0f to interval, next check %@", v10, v11, v12, v13, v23, block, v25, v26, v27, selfCopy);
       }
 
       v5 = *(self + 56);
     }
 
-    v14 = ATLLogObject();
+    v14 = ATLLogObject(timeIntervalSinceNow);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      HIDWORD(v31) = HIDWORD(v6);
-      v32 = 2048;
-      v33 = v5;
-      OUTLINED_FUNCTION_6(&dword_22EEF5000, v15, v16, "nextCheck %@ ttNC %.0f", v17, v18, v19, v20, v25, block, v27, v28, v29, selfCopy, 2u);
+      *buf = 138412546;
+      v30 = *&v6;
+      v31 = 2048;
+      v32 = v5;
+      OUTLINED_FUNCTION_6(&dword_22EEF5000, v15, v16, "nextCheck %@ ttNC %.0f", v17, v18, v19, v20, v23, block, v25, v26, v27, selfCopy);
     }
 
     if (v5 <= 0.0)
@@ -1251,17 +1232,14 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
     else
     {
       dispatch_time(0, (v5 * 1000000000.0));
-      v21 = *(self + 8);
       OUTLINED_FUNCTION_2();
-      v27 = 3221225472;
-      v28 = __45__AppletConfigurationData_maybeQueryMetadata__block_invoke;
-      v29 = &unk_278874C98;
+      v25 = 3221225472;
+      v26 = __45__AppletConfigurationData_maybeQueryMetadata__block_invoke;
+      v27 = &unk_278874C98;
       selfCopy = self;
-      dispatch_after(v22, v23, &block);
+      dispatch_after(v21, v22, &block);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryMetadata
@@ -1325,55 +1303,53 @@ void __41__AppletConfigurationData_downloadAsset___block_invoke_2(uint64_t a1)
     dispatch_assert_queue_V2(*(backoff + 8));
     if (*(backoff + 48) == 1)
     {
-      v4 = ATLLogObject();
-      if (OUTLINED_FUNCTION_5(v4))
+      v5 = ATLLogObject(v4);
+      if (OUTLINED_FUNCTION_5(v5))
       {
         *buf = 0;
-        OUTLINED_FUNCTION_4(&dword_22EEF5000, v5, v6, "Retry is already in progress, dropping error", buf);
+        OUTLINED_FUNCTION_4(&dword_22EEF5000, v6, v7, "Retry is already in progress, dropping error", buf);
       }
     }
 
     else
     {
-      v7 = *(backoff + 40);
-      v8 = 7;
-      if (v7 < 7)
+      v8 = *(backoff + 40);
+      v9 = 7;
+      if (v8 < 7)
       {
-        v8 = *(backoff + 40);
+        v9 = *(backoff + 40);
       }
 
-      v9 = retryWithBackoff__backoffTable[v8];
+      v10 = retryWithBackoff__backoffTable[v9];
       *(backoff + 48) = 1;
-      *(backoff + 40) = v7 + 1;
-      v10 = ATLLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      *(backoff + 40) = v8 + 1;
+      v11 = ATLLogObject(v4);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(backoff + 40);
+        v12 = *(backoff + 40);
         *buf = 134218240;
-        v18 = v11;
+        v18 = v12;
         v19 = 2048;
-        v20 = v9;
-        _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_ERROR, "ec %lu retry in %lu sec", buf, 0x16u);
+        v20 = v10;
+        _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_ERROR, "ec %lu retry in %lu sec", buf, 0x16u);
       }
 
-      v12 = dispatch_time(0, 1000000000 * v9);
-      v13 = *(backoff + 8);
+      v13 = dispatch_time(0, 1000000000 * v10);
+      v14 = *(backoff + 8);
       OUTLINED_FUNCTION_0_1();
       v15[1] = 3221225472;
       v15[2] = __44__AppletConfigurationData_retryWithBackoff___block_invoke;
       v15[3] = &unk_2788751C8;
       v15[4] = backoff;
       v16 = v3;
-      dispatch_after(v12, v13, v15);
+      dispatch_after(v13, v14, v15);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__AppletConfigurationData_tsmScriptPerformed___block_invoke(uint64_t a1)
 {
-  v3 = ATLLogObject();
+  v3 = ATLLogObject(a1);
   if (OUTLINED_FUNCTION_5(v3))
   {
     *v6 = 0;
@@ -1391,7 +1367,7 @@ void __51__AppletConfigurationData_handleQueryResult_query___block_invoke(uint64
 
 - (uint64_t)isEligibleAsset:(NSObject *)asset
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (asset)
@@ -1402,78 +1378,78 @@ void __51__AppletConfigurationData_handleQueryResult_query___block_invoke(uint64
 
     if (intValue == 6)
     {
-      v8 = [(objc_class *)asset[2].isa objectForKey:@"config"];
-      asset = [v8 objectForKeyedSubscript:@"_ContentVersion"];
+      v9 = [(objc_class *)asset[2].isa objectForKey:@"config"];
+      asset = [v9 objectForKeyedSubscript:@"_ContentVersion"];
 
       attributes2 = [v4 attributes];
-      v10 = [attributes2 objectForKeyedSubscript:@"_ContentVersion"];
+      v11 = [attributes2 objectForKeyedSubscript:@"_ContentVersion"];
 
-      if (!asset || [asset compare:v10]== -1)
+      if (!asset || (v12 = [asset compare:v11], v12 == -1))
       {
-        v11 = MGCopyAnswer();
+        v13 = MGCopyAnswer();
         attributes3 = [v4 attributes];
-        v15 = [attributes3 objectForKeyedSubscript:@"deviceClasses"];
+        v17 = [attributes3 objectForKeyedSubscript:@"deviceClasses"];
 
-        v12 = [v15 containsObject:v11];
-        if ((v12 & 1) == 0)
+        v18 = [v17 containsObject:v13];
+        v14 = v18;
+        if ((v18 & 1) == 0)
         {
-          v16 = ATLLogObject();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v19 = ATLLogObject(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 138412546;
-            *v20 = v15;
-            *&v20[8] = 2112;
-            assetCopy = v11;
-            _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Asset ineligible because device class %@ does not contain %@", &v19, 0x16u);
+            v21 = 138412546;
+            *v22 = v17;
+            *&v22[8] = 2112;
+            assetCopy = v13;
+            _os_log_impl(&dword_22EEF5000, v19, OS_LOG_TYPE_DEFAULT, "Asset ineligible because device class %@ does not contain %@", &v21, 0x16u);
           }
         }
       }
 
       else
       {
-        v11 = ATLLogObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = ATLLogObject(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412546;
-          *v20 = v10;
-          *&v20[8] = 2112;
+          v21 = 138412546;
+          *v22 = v11;
+          *&v22[8] = 2112;
           assetCopy = asset;
-          _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_DEFAULT, "Asset CV %@ <= currentCV %@", &v19, 0x16u);
+          _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEFAULT, "Asset CV %@ <= currentCV %@", &v21, 0x16u);
         }
 
-        v12 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v13 = ATLLogObject();
-      if (OUTLINED_FUNCTION_5(v13))
+      v15 = ATLLogObject(v8);
+      if (OUTLINED_FUNCTION_5(v15))
       {
-        v19 = 67109376;
-        *v20 = intValue;
-        *&v20[4] = 1024;
-        *&v20[6] = 6;
-        _os_log_impl(&dword_22EEF5000, asset, OS_LOG_TYPE_DEFAULT, "Asset ineligible, asset compatVersion %d mine %d", &v19, 0xEu);
+        v21 = 67109376;
+        *v22 = intValue;
+        *&v22[4] = 1024;
+        *&v22[6] = 6;
+        _os_log_impl(&dword_22EEF5000, asset, OS_LOG_TYPE_DEFAULT, "Asset ineligible, asset compatVersion %d mine %d", &v21, 0xEu);
       }
 
-      v12 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 void __46__AppletConfigurationData_handleQuerySuccess___block_invoke_1005(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [AppletConfigurationData queryMA];
+  [(AppletConfigurationData *)WeakRetained queryMA];
 }
 
 - (void)downloadAsset:(uint64_t)asset
@@ -1510,7 +1486,7 @@ void __46__AppletConfigurationData_handleQuerySuccess___block_invoke_1005(uint64
   }
 }
 
-void __40__AppletConfigurationData_queryMetadata__block_invoke_997_cold_1(uint64_t a1, void *a2, void *a3)
+void __40__AppletConfigurationData_queryMetadata__block_invoke_997_cold_1(uint64_t a1, uint64_t *a2, void *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
   [*(a1 + 16) removeObjectForKey:@"catalogDownloadStartedOn"];
@@ -1526,29 +1502,26 @@ void __40__AppletConfigurationData_queryMetadata__block_invoke_997_cold_1(uint64
   a3[3] = &unk_278874C98;
   a3[4] = v7;
   dispatch_after(v6, v8, a3);
-  v9 = ATLLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = ATLLogObject(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
     v12 = v5;
-    _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_DEFAULT, "Metadata downloaded success, next check %@", &v11, 0xCu);
+    _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_DEFAULT, "Metadata downloaded success, next check %@", &v11, 0xCu);
   }
 
   [(AppletConfigurationData *)*a2 queryMA];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleQueryResult:(NSObject *)a1 query:(uint64_t)a2 .cold.1(NSObject *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 134217984;
-    v6 = a2;
-    _os_log_impl(&dword_22EEF5000, a1, OS_LOG_TYPE_ERROR, "MA Transient error %ld", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a2;
+    _os_log_impl(&dword_22EEF5000, a1, OS_LOG_TYPE_ERROR, "MA Transient error %ld", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleQueryResult:(NSObject *)a1 query:.cold.2(NSObject *a1)
@@ -1593,7 +1566,7 @@ uint64_t __51__AppletConfigurationData_handleQueryResult_query___block_invoke_10
 
 - (uint64_t)handleAvailableAsset:(void *)a1 .cold.1(void *a1)
 {
-  v3 = ATLLogObject();
+  v3 = ATLLogObject(a1);
   if (OUTLINED_FUNCTION_5(v3))
   {
     *v7 = 0;

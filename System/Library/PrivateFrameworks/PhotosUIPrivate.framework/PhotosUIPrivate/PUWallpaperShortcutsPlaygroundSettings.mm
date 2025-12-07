@@ -261,15 +261,15 @@ void __90__PUWallpaperShortcutsPlaygroundSettings_UI___runActionWithModuleContro
   return v26;
 }
 
-void __70__PUWallpaperShortcutsPlaygroundSettings_UI__settingsControllerModule__block_invoke_2(uint64_t a1)
+void __70__PUWallpaperShortcutsPlaygroundSettings_UI__settingsControllerModule__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PXFilter();
-  v3 = sPosterConfigurations;
-  sPosterConfigurations = v2;
+  v3 = PXFilter();
+  v4 = sPosterConfigurations;
+  sPosterConfigurations = v3;
 
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  dispatch_group_leave(v4);
+  dispatch_group_leave(v5);
 }
 
 void __70__PUWallpaperShortcutsPlaygroundSettings_UI__settingsControllerModule__block_invoke_4(uint64_t a1, void *a2)

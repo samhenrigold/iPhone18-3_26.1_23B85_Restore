@@ -332,7 +332,7 @@ unint64_t sub_100000C30()
   v3.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &v3);
   v3.tv_sec += 2208988800;
-  v0 = sntp_datestamp_from_timespec(v3.tv_sec);
+  v0 = sntp_datestamp_from_timespec(v3.tv_sec, v3.tv_nsec);
   return sntp_timestamp_from_datestamp(v0, v1);
 }
 
@@ -620,7 +620,7 @@ uint64_t sntp_print_datestamp(int a1, const char *a2, uint64_t *a3)
 uint64_t sntp_print_header(int a1, unsigned __int8 *a2)
 {
   v6 = *(a2 + 3);
-  v4 = (a2 + 12);
+  v4 = a2 + 12;
   v5 = v6;
   if (*(v4 - 11) > 1u)
   {
@@ -890,7 +890,7 @@ unint64_t sntp_server_respond@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   return result;
 }
 
-uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3@<W0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
+uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, uint64_t a3@<X0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
 {
   *(a6 + 48) = 0u;
   *(a6 + 64) = 0u;
@@ -902,6 +902,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
     sub_1000023C0();
   }
 
+  v10 = a3;
   v23 = 0uLL;
   v24 = 0uLL;
   v22 = 0uLL;
@@ -942,7 +943,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
       v15 = 0;
     }
 
-    if (sendto(a3, v20, 0x30uLL, 0, a1, v15) != 48)
+    if (sendto(v10, v20, 0x30uLL, 0, a1, v15) != 48)
     {
       *a6 = 5;
     }
@@ -1180,39 +1181,13 @@ LABEL_10:
   if (v21)
   {
     v22 = v21;
-    if (!a6)
-    {
-      goto LABEL_29;
-    }
-
-    v30 = 0;
-    v31 = 0;
-    memset(v27, 0, 28);
-    if (ai_family == 2)
-    {
-      v30 = 2063598080;
-      v31 = 0;
-      v23 = &v30;
-      v24 = 16;
-    }
-
-    else
-    {
-      memset(&v27[0].sa_data[2], 0, 24);
-      *&v27[0].sa_data[6] = in6addr_any;
-      *&v27[0].sa_len = 2063605276;
-      v23 = v27;
-      v24 = 28;
-    }
-
-    if (bind(v21, v23, v24))
+    if (a6 && ((v30 = 0, v31 = 0, memset(v27, 0, 28), ai_family != 2) ? (memset(&v27[0].sa_data[2], 0, 24), *&v27[0].sa_data[6] = in6addr_any, *&v27[0].sa_len = 2063605276, v23 = v27, v24 = 28) : (v30 = 2063598080, v31 = 0, v23 = &v30, v24 = 16), bind(v21, v23, v24)))
     {
       v25 = 3;
     }
 
     else
     {
-LABEL_29:
       if (!connect(v22, ai_addr, ai_addrlen))
       {
         sntp_client_exchange(v22, a4, a5, a7);

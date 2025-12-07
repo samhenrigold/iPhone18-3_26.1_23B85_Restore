@@ -5,15 +5,19 @@
 - (BOOL)URLIsBlocked;
 - (STWebServiceViewController)initWithCoder:(id)coder;
 - (STWebServiceViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)_hideBlockingViewControllerWithAnimation:(BOOL)animation replyHandler:(id)handler;
 - (void)_incrementPolicyRequestCountAndReportURLIsBlocked:(BOOL)blocked;
+- (void)_reportURLIsBlocked:(BOOL)blocked;
 - (void)_reportURLIsBlocked:(BOOL)blocked withDelay:(double)delay;
 - (void)_requestPolicyForCurrentURLWithReplyHandler:(id)handler;
 - (void)_requestPolicyForURL:(id)l replyHandler:(id)handler;
+- (void)_showBlockingViewControllerForWebpage:(id)webpage withPolicy:(int64_t)policy animated:(BOOL)animated replyHandler:(id)handler;
 - (void)_stWebServiceViewControllerCommonInit;
 - (void)_startRecordingUsageForURL:(id)l bundleIdentifier:(id)identifier profileIdentifier:(id)profileIdentifier usageState:(int64_t)state replyHandler:(id)handler;
 - (void)_stopRecordingUsage;
 - (void)changeUsageState:(int64_t)state replyHandler:(id)handler;
 - (void)setURL:(id)l bundleIdentifier:(id)identifier profileIdentifier:(id)profileIdentifier usageState:(int64_t)state replyHandler:(id)handler;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 @end
 
@@ -88,6 +92,15 @@
   [blockingViewController setAdditionalSafeAreaInsets:{0.0, 0.0, v4, 0.0}];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(STWebServiceViewController *)self _stopRecordingUsage];
+  v5.receiver = self;
+  v5.super_class = STWebServiceViewController;
+  [(STWebServiceViewController *)&v5 viewDidDisappear:disappearCopy];
+}
+
 - (void)_stopRecordingUsage
 {
   webpageUsage = [(STWebServiceViewController *)self webpageUsage];
@@ -140,7 +153,7 @@
   if (lCopy)
   {
     v16 = [USWebpageUsage alloc];
-    [(STWebServiceViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
     v17 = [v16 initWithURL:lCopy bundleIdentifier:identifierCopy profileIdentifier:profileIdentifierCopy auditToken:v24];
     [(STWebServiceViewController *)self setWebpageUsage:v17];
     if ((state - 1) >= 2)
@@ -234,6 +247,13 @@
   objc_destroyWeak(&location);
 }
 
+- (void)_reportURLIsBlocked:(BOOL)blocked
+{
+  blockedCopy = blocked;
+  v4 = [(STWebServiceViewController *)self _remoteViewControllerProxyWithErrorHandler:&stru_10000C5C8];
+  [v4 setURLIsBlocked:blockedCopy replyHandler:&stru_10000C608];
+}
+
 + (_TtC22ScreenTimeWebExtension19STURLRequestLimiter)sharedLimiter
 {
   if (qword_100010DD8[0] != -1)
@@ -253,6 +273,71 @@
   v5 = [childViewControllers containsObject:blockingViewController];
 
   return v5;
+}
+
+- (void)_showBlockingViewControllerForWebpage:(id)webpage withPolicy:(int64_t)policy animated:(BOOL)animated replyHandler:(id)handler
+{
+  animatedCopy = animated;
+  handlerCopy = handler;
+  webpageCopy = webpage;
+  blockingViewController = [(STWebServiceViewController *)self blockingViewController];
+  [blockingViewController updateAppearanceUsingPolicy:policy forWebpageURL:webpageCopy];
+
+  if ([(STWebServiceViewController *)self URLIsBlocked])
+  {
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    [(STWebServiceViewController *)self addChildViewController:blockingViewController];
+    view = [blockingViewController view];
+    [view setTranslatesAutoresizingMaskIntoConstraints:0];
+    view2 = [(STWebServiceViewController *)self view];
+    [view2 addSubview:view];
+
+    v15 = _NSDictionaryOfVariableBindings(@"blockingView", view, 0);
+    v16 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blockingView]|" options:0 metrics:0 views:v15];
+    v17 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blockingView]|" options:0 metrics:0 views:v15];
+    v18 = [v16 arrayByAddingObjectsFromArray:v17];
+    [NSLayoutConstraint activateConstraints:v18];
+
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100003004;
+    v19[3] = &unk_10000C650;
+    v20 = blockingViewController;
+    selfCopy = self;
+    v22 = handlerCopy;
+    [v20 showWithAnimation:animatedCopy completionHandler:v19];
+  }
+}
+
+- (void)_hideBlockingViewControllerWithAnimation:(BOOL)animation replyHandler:(id)handler
+{
+  animationCopy = animation;
+  handlerCopy = handler;
+  blockingViewController = [(STWebServiceViewController *)self blockingViewController];
+  if ([(STWebServiceViewController *)self URLIsBlocked])
+  {
+    [blockingViewController willMoveToParentViewController:0];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10000314C;
+    v8[3] = &unk_10000C650;
+    v9 = blockingViewController;
+    selfCopy = self;
+    v11 = handlerCopy;
+    [v9 hideWithAnimation:animationCopy completionHandler:v8];
+  }
+
+  else if (handlerCopy)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0);
+  }
 }
 
 - (void)_requestPolicyForCurrentURLWithReplyHandler:(id)handler

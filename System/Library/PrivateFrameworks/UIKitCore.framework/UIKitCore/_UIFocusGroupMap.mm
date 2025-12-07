@@ -288,9 +288,9 @@ LABEL_23:
       {
 LABEL_15:
         identifier = [coordinateSpace identifier];
-        v14 = [v8 isEqualToString:identifier];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if (!v14)
+        if (!isEqualToString)
         {
           v17 = [_UIFocusGroup alloc];
           coordinateSpace2 = [(_UIFocusGroupMap *)self coordinateSpace];

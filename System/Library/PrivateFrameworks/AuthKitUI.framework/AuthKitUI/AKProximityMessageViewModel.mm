@@ -70,8 +70,7 @@
           v18 = selfCopy->_titleText;
           selfCopy->_titleText = v17;
           MEMORY[0x277D82BD8](v18);
-          MEMORY[0x277D82BD8](v33);
-          v19 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:@"PROXIMITY_AUTH_SETUP_IN_PROGRESS_DESCRIPTION"];
+          v19 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:{@"PROXIMITY_AUTH_SETUP_IN_PROGRESS_DESCRIPTION", MEMORY[0x277D82BD8](v33).n128_f64[0]}];
           v20 = selfCopy->_detailedText;
           selfCopy->_detailedText = v19;
           MEMORY[0x277D82BD8](v20);
@@ -82,8 +81,7 @@
           v22 = selfCopy->_titleText;
           selfCopy->_titleText = v21;
           MEMORY[0x277D82BD8](v22);
-          MEMORY[0x277D82BD8](v32);
-          v23 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:@"PROXIMITY_AUTH_ERROR_DESCRIPTION"];
+          v23 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:{@"PROXIMITY_AUTH_ERROR_DESCRIPTION", MEMORY[0x277D82BD8](v32).n128_f64[0]}];
           v24 = selfCopy->_detailedText;
           selfCopy->_detailedText = v23;
           MEMORY[0x277D82BD8](v24);
@@ -94,8 +92,7 @@
           v26 = selfCopy->_titleText;
           selfCopy->_titleText = v25;
           MEMORY[0x277D82BD8](v26);
-          MEMORY[0x277D82BD8](v31);
-          v27 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:@"PROXIMITY_AUTH_CHILD_SETUP_DESCRIPTION"];
+          v27 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:{@"PROXIMITY_AUTH_CHILD_SETUP_DESCRIPTION", MEMORY[0x277D82BD8](v31).n128_f64[0]}];
           v28 = selfCopy->_detailedText;
           selfCopy->_detailedText = v27;
           MEMORY[0x277D82BD8](v28);
@@ -136,8 +133,7 @@
       v6 = selfCopy->_titleText;
       selfCopy->_titleText = v5;
       MEMORY[0x277D82BD8](v6);
-      MEMORY[0x277D82BD8](v38);
-      v7 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:@"PROXIMITY_AUTH_BROADCAST_DESCRIPTION"];
+      v7 = [MEMORY[0x277CF0218] deviceSpecificLocalizedStringWithKey:{@"PROXIMITY_AUTH_BROADCAST_DESCRIPTION", MEMORY[0x277D82BD8](v38).n128_f64[0]}];
       v8 = selfCopy->_detailedText;
       selfCopy->_detailedText = v7;
       MEMORY[0x277D82BD8](v8);

@@ -40,15 +40,14 @@
 
 - (VCSProperty)initWithName:(id)name value:(id)value
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v6 = MEMORY[0x277CBEA60];
   valueCopy2 = value;
   nameCopy = name;
   v9 = [v6 arrayWithObjects:&valueCopy count:1];
 
-  v10 = [(VCSProperty *)self initWithName:nameCopy values:v9, valueCopy, v14];
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [(VCSProperty *)self initWithName:nameCopy values:v9, valueCopy, v13];
   return v10;
 }
 
@@ -76,16 +75,16 @@ VCSPropertyValue *__43__VCSProperty_initWithName_rawValues_type___block_invoke(u
 
 - (VCSProperty)initWithName:(id)name rawValue:(id)value type:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v9 = valueCopy;
   if (valueCopy)
   {
-    v19 = valueCopy;
+    v18 = valueCopy;
     v10 = MEMORY[0x277CBEA60];
     nameCopy = name;
-    v12 = [v10 arrayWithObjects:&v19 count:1];
-    v13 = [(VCSProperty *)self initWithName:nameCopy rawValues:v12 type:type, v19, v20];
+    v12 = [v10 arrayWithObjects:&v18 count:1];
+    v13 = [(VCSProperty *)self initWithName:nameCopy rawValues:v12 type:type, v18, v19];
 
     v14 = v13;
   }
@@ -98,7 +97,6 @@ VCSPropertyValue *__43__VCSProperty_initWithName_rawValues_type___block_invoke(u
     v14 = v16;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -111,7 +109,7 @@ VCSPropertyValue *__43__VCSProperty_initWithName_rawValues_type___block_invoke(u
   v10 = [VCSParsedLine lookupProperty:tokenID];
   if (!v10)
   {
-    v14 = VCSLogHandle();
+    v14 = VCSLogHandle(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [VCSProperty initWithVCSLine:lineCopy parseState:?];
@@ -123,7 +121,7 @@ VCSPropertyValue *__43__VCSProperty_initWithName_rawValues_type___block_invoke(u
   v11 = v10;
   if ((v10->var1 & context) == 0)
   {
-    v14 = VCSLogHandle();
+    v14 = VCSLogHandle(v10);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [VCSProperty initWithVCSLine:lineCopy parseState:?];
@@ -207,8 +205,8 @@ LABEL_38:
 
           if (v22)
           {
-            v23 = VCSLogHandle();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = VCSLogHandle(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               [VCSProperty initWithVCSLine:lineCopy parseState:?];
             }
@@ -222,14 +220,14 @@ LABEL_38:
       else
       {
         content2 = [lineCopy content];
-        v32 = strcmp([content2 bytes], "PalmDesktop Generated");
+        v33 = strcmp([content2 bytes], "PalmDesktop Generated");
 
-        if (!v32)
+        if (!v33)
         {
-          v33 = VCSLogHandle();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v35 = VCSLogHandle(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            [VCSProperty initWithVCSLine:v33 parseState:?];
+            [VCSProperty initWithVCSLine:v35 parseState:?];
           }
 
           [stateCopy setPalmImport:1];
@@ -249,49 +247,50 @@ LABEL_72:
       }
 
       convertedContent = [lineCopy convertedContent];
-      v25 = [convertedContent componentsSeparatedByString:@" "];;
-      v26 = [[VCSPropertyValue alloc] initWithValue:v25 type:3];
+      v26 = [convertedContent componentsSeparatedByString:@" "];;
+      v27 = [[VCSPropertyValue alloc] initWithValue:v26 type:3];
       params = [lineCopy params];
-      v28 = [params objectForKeyedSubscript:@"VALUE"];
-      v29 = v28;
-      if (v28 && [v28 isEqual:@"URL"])
+      v29 = [params objectForKeyedSubscript:@"VALUE"];
+      v30 = v29;
+      if (v29 && [v29 isEqual:@"URL"])
       {
         singleValue = [(VCSProperty *)self singleValue];
-        [(VCSPropertyValue *)v26 addParameter:@"ALTREP" withValue:singleValue];
+        [(VCSPropertyValue *)v27 addParameter:@"ALTREP" withValue:singleValue];
       }
 
-      self = [(VCSProperty *)self initWithName:v11->var4 value:v26];
+      self = [(VCSProperty *)self initWithName:v11->var4 value:v27];
 
 LABEL_71:
       goto LABEL_72;
     }
 
     convertedContent = [lineCopy params];
-    v34 = [convertedContent objectForKey:@"VALUE"];
-    v25 = v34;
-    if (!v34)
+    v36 = [convertedContent objectForKey:@"VALUE"];
+    v26 = v36;
+    if (!v36)
     {
-      v39 = VCSLogHandle();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v41 = VCSLogHandle(0);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        [VCSProperty initWithVCSLine:v39 parseState:?];
+        [VCSProperty initWithVCSLine:v41 parseState:?];
       }
 
       goto LABEL_70;
     }
 
-    if ([v34 isEqual:@"URL"])
+    if ([v36 isEqual:@"URL"])
     {
-      v35 = MEMORY[0x277CBEBC0];
-      v36 = MEMORY[0x277CCACA8];
+      v37 = MEMORY[0x277CBEBC0];
+      v38 = MEMORY[0x277CCACA8];
       content3 = [lineCopy content];
-      v38 = [v36 stringWithUTF8String:{objc_msgSend(content3, "bytes")}];
-      v39 = [v35 URLWithString:v38 encodingInvalidCharacters:0];
+      v40 = [v38 stringWithUTF8String:{objc_msgSend(content3, "bytes")}];
+      v41 = [v37 URLWithString:v40 encodingInvalidCharacters:0];
     }
 
     else
     {
-      if (![v25 isEqual:@"CONTENT-ID"])
+      v42 = [v26 isEqual:@"CONTENT-ID"];
+      if (!v42)
       {
         goto LABEL_68;
       }
@@ -302,36 +301,36 @@ LABEL_71:
 
       if (*bytes == 60 && bytes[strlen(bytes) - 1] == 62)
       {
-        v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:bytes + 1];
-        [content3 appendString:v42];
+        v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:bytes + 1];
+        [content3 appendString:v45];
 
         [content3 deleteCharactersInRange:{objc_msgSend(content3, "length") - 1, 1}];
       }
 
       else
       {
-        v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:bytes];
-        [content3 appendString:v43];
+        v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:bytes];
+        [content3 appendString:v46];
       }
 
-      v39 = [MEMORY[0x277CBEBC0] URLWithString:content3 encodingInvalidCharacters:0];
+      v41 = [MEMORY[0x277CBEBC0] URLWithString:content3 encodingInvalidCharacters:0];
     }
 
-    if (v39)
+    if (v41)
     {
       var4 = v11->var4;
-      v45 = [[VCSAttachment alloc] initWithURL:v39];
-      self = [(VCSProperty *)self initWithName:var4 value:v45];
+      v48 = [[VCSAttachment alloc] initWithURL:v41];
+      self = [(VCSProperty *)self initWithName:var4 value:v48];
 
 LABEL_70:
       goto LABEL_71;
     }
 
 LABEL_68:
-    v39 = VCSLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v41 = VCSLogHandle(v42);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      [VCSProperty initWithVCSLine:v39 parseState:?];
+      [VCSProperty initWithVCSLine:v41 parseState:?];
     }
 
     goto LABEL_70;
@@ -425,21 +424,21 @@ LABEL_37:
     keyword = [propertyCopy keyword];
   }
 
-  v16 = 0;
+  v17 = 0;
   content = [propertyCopy content];
-  v12 = sscanf([content bytes], "%d", &v16);
+  v12 = sscanf([content bytes], "%d", &v17);
 
   if (v12 == 1)
   {
-    v13 = [MEMORY[0x277CCABB0] numberWithInt:v16];
-    self = [(VCSProperty *)self initWithName:keyword rawValue:v13 type:4];
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:v17];
+    self = [(VCSProperty *)self initWithName:keyword rawValue:v14 type:4];
     selfCopy = self;
   }
 
   else
   {
-    v13 = VCSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = VCSLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [VCSProperty initIntProperty:keyword withParseState:propertyCopy property:?];
     }
@@ -676,7 +675,7 @@ LABEL_14:
 
   else
   {
-    v16 = VCSLogHandle();
+    v16 = VCSLogHandle(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [VCSProperty initRFC822AddressProperty:propertyCopy withParseState:? property:?];
@@ -692,59 +691,44 @@ LABEL_14:
 
 - (void)initWithVCSLine:(void *)a1 parseState:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 content];
   [v1 bytes];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithVCSLine:(void *)a1 parseState:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 keyword];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithVCSLine:(void *)a1 parseState:.cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 keyword];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initIntProperty:(uint64_t)a1 withParseState:(void *)a2 property:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 content];
   [v2 bytes];
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initRFC822AddressProperty:(void *)a1 withParseState:property:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 content];
   [v1 bytes];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

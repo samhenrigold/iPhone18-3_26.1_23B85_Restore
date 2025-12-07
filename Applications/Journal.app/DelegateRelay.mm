@@ -72,7 +72,7 @@
     v7 = Strong;
     errorCopy = error;
     selfCopy = self;
-    sub_10010DEB4();
+    sub_10010DEB4(errorCopy);
   }
 }
 

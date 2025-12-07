@@ -6,6 +6,8 @@
 - (void)_setSoundValue:(id)value specifier:(id)specifier;
 - (void)_updateReloadSpecifierInParentController;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SHSKeyboardClicksControllerViewController
@@ -63,9 +65,36 @@
   [(SHSKeyboardClicksControllerViewController *)self setTitle:v3];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SHSKeyboardClicksControllerViewController;
+  [(SHSKeyboardClicksControllerViewController *)&v4 viewWillAppear:appear];
+  [(SHSKeyboardClicksControllerViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SHSKeyboardClicksControllerViewController;
+  [(SHSKeyboardClicksControllerViewController *)&v12 viewDidAppear:appear];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale);
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"KEYBOARD_FEEDBACK" table:@"Sounds" locale:currentLocale bundleURL:bundleURL];
+
+  shs_rootPaneComponent = [MEMORY[0x277CCAEB8] shs_rootPaneComponent];
+  v13[0] = shs_rootPaneComponent;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Sounds/KEYBOARD_FEEDBACK"];
+  [(SHSKeyboardClicksControllerViewController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.sound" title:v8 localizedNavigationComponents:v10 deepLink:v11];
+}
+
 - (id)specifiers
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -82,16 +111,14 @@
     v9 = SHS_LocalizedStringForSounds(@"HAPTIC");
     v10 = [v8 preferenceSpecifierNamed:v9 target:self set:sel__setHapticValue_specifier_ get:sel__hapticValue_ detail:0 cell:6 edit:0];
 
-    v15[0] = v7;
-    v15[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v7;
+    v14[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v12 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v11;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

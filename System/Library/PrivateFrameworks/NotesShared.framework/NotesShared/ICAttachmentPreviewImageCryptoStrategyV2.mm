@@ -333,22 +333,22 @@ void __62__ICAttachmentPreviewImageCryptoStrategyV2_decryptedImageData__block_in
   [v11 performBlockAndWait:v14];
 }
 
-void __62__ICAttachmentPreviewImageCryptoStrategyV2_decryptedImageData__block_invoke_2(void *a1)
+void __62__ICAttachmentPreviewImageCryptoStrategyV2_decryptedImageData__block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() ic_existingObjectWithID:a1[5] context:a1[6]];
-  if (v2)
+  v3 = [objc_opt_class() ic_existingObjectWithID:a1[5] context:a1[6]];
+  if (v3)
   {
-    v8 = v2;
+    v9 = v3;
     objc_opt_class();
-    v3 = [v8 cryptoStrategy];
-    v4 = ICCheckedDynamicCast();
+    v4 = [v9 cryptoStrategy];
+    v5 = ICCheckedDynamicCast();
 
-    v5 = [v4 _decryptedImageData];
-    v6 = *(a1[7] + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v6 = [v5 _decryptedImageData];
+    v7 = *(a1[7] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    v2 = v8;
+    v3 = v9;
   }
 }
 
@@ -494,91 +494,91 @@ void __67__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedMetadata___blo
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "attachment preview image is not password-protected, but writeEncryptedMetadata is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "attachment preview image is not password-protected, but writeEncryptedMetadata is called. %@", v4, v5, v6, v7);
 }
 
 void __67__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedMetadata___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt preview image: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt preview image: %@", v4, v5, v6, v7);
 }
 
 void __67__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedMetadata___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "attachment preview image is not supported, but writeEncryptedMetadata is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "attachment preview image is not supported, but writeEncryptedMetadata is called. %@", v4, v5, v6, v7);
 }
 
 void __68__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedImageData___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Attachment preview image is not password-protected, but writeEncryptedImageData is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Attachment preview image is not password-protected, but writeEncryptedImageData is called. %@", v4, v5, v6, v7);
 }
 
 void __68__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedImageData___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error writing encrypted preview image for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error writing encrypted preview image for %@", v4, v5, v6, v7);
 }
 
 void __68__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedImageData___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt data for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt data for %@", v4, v5, v6, v7);
 }
 
 void __68__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedImageData___block_invoke_cold_4(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "No encrypted preview image URL when encrypting %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "No encrypted preview image URL when encrypting %@", v4, v5, v6, v7);
 }
 
 void __68__ICAttachmentPreviewImageCryptoStrategyV2_writeEncryptedImageData___block_invoke_cold_5(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Attachment preview image is not supported, but writeEncryptedImageData is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Attachment preview image is not supported, but writeEncryptedImageData is called. %@", v4, v5, v6, v7);
 }
 
 void __61__ICAttachmentPreviewImageCryptoStrategyV2_decryptedMetadata__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "attachment preview image is not password-protected, but decryptedMetadata is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "attachment preview image is not password-protected, but decryptedMetadata is called. %@", v4, v5, v6, v7);
 }
 
 void __61__ICAttachmentPreviewImageCryptoStrategyV2_decryptedMetadata__block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error decrypting metadata for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error decrypting metadata for %@", v4, v5, v6, v7);
 }
 
 void __63__ICAttachmentPreviewImageCryptoStrategyV2__decryptedImageData__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to decrypt non-password-protected preview image %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Trying to decrypt non-password-protected preview image %@", v4, v5, v6, v7);
 }
 
 void __63__ICAttachmentPreviewImageCryptoStrategyV2__decryptedImageData__block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "No encrypted preview image URL when decrypting %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "No encrypted preview image URL when decrypting %@", v4, v5, v6, v7);
 }
 
 void __73__ICAttachmentPreviewImageCryptoStrategyV2_serializeToEncryptedMetadata___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encode encrypted object for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encode encrypted object for %@", v4, v5, v6, v7);
 }
 
 @end

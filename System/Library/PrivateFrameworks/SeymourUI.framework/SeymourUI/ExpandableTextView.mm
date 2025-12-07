@@ -35,11 +35,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI18ExpandableTextView_onMoreTapped);
   if (v3)
   {
+    v4 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI18ExpandableTextView_onMoreTapped);
     selfCopy = self;
-    v5 = sub_20B584050(v3);
-    v3(v5);
+    v6 = sub_20B584050(v3, v4);
+    v3(v6);
 
-    sub_20B583ECC(v3);
+    sub_20B583ECC(v3, v4);
   }
 }
 

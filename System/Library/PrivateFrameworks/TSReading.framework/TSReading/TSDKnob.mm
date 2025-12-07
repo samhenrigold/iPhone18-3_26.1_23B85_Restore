@@ -178,7 +178,7 @@ LABEL_17:
       if (mType == 3)
       {
         v3 = MEMORY[0x277D6C2F8];
-        v4 = TSDBundle();
+        v4 = TSDBundle(self, a2);
         v5 = @"sf-ios-canvas-knob-text";
         goto LABEL_12;
       }
@@ -188,7 +188,7 @@ LABEL_17:
 
 LABEL_7:
     v3 = MEMORY[0x277D6C2F8];
-    v4 = TSDBundle();
+    v4 = TSDBundle(self, a2);
     v5 = @"sf-ios-canvas-knob-yellow";
     goto LABEL_12;
   }
@@ -196,7 +196,7 @@ LABEL_7:
   if (mType == 4)
   {
     v3 = MEMORY[0x277D6C2F8];
-    v4 = TSDBundle();
+    v4 = TSDBundle(self, a2);
     v5 = @"sf-ios-canvas-knob-locked";
     goto LABEL_12;
   }
@@ -209,7 +209,7 @@ LABEL_7:
 LABEL_8:
   v6 = self->mTag - 12;
   v3 = MEMORY[0x277D6C2F8];
-  v4 = TSDBundle();
+  v4 = TSDBundle(self, a2);
   if (v6 > 4)
   {
     v5 = @"sf-ios-canvas-knob-blue";
@@ -342,7 +342,7 @@ LABEL_12:
   layout = [rep layout];
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else

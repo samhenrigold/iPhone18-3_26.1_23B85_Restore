@@ -13,7 +13,7 @@
 {
   ObjectType = swift_getObjectType();
   v3 = objc_allocWithZone(ObjectType);
-  v4 = objc_allocWithZone(type metadata accessor for TrafficIncidentViewModel());
+  v4 = objc_allocWithZone(type metadata accessor for TrafficIncidentViewModel(0));
   *&v3[OBJC_IVAR____TtC4Maps38TrafficIncidentContaineeViewController_viewModel] = sub_10034C598(0, 2);
   v7.receiver = v3;
   v7.super_class = ObjectType;

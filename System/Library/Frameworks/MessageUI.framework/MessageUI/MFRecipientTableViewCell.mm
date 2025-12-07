@@ -315,7 +315,7 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
 + (id)_attributedStringRepresentationOfCompleteMatchesForRecipient:(id)recipient constrainedToWidth:(double)width overflowRecipients:(id *)recipients useHighlighting:(BOOL)highlighting
 {
   highlightingCopy = highlighting;
-  v99 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   displayString = [recipientCopy displayString];
   if (([recipientCopy isGroup] & 1) == 0 && (!displayString || !objc_msgSend(displayString, "length")))
@@ -342,10 +342,10 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
   {
     [objc_opt_class() highlightedTitleStringAttributes];
   }
-  v79 = ;
+  v80 = ;
   if (displayString)
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:displayString attributes:v79];
+    v10 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:displayString attributes:v80];
   }
 
   else
@@ -357,27 +357,27 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
   if ([recipientCopy isGroup] && objc_msgSend(recipientCopy, "wasCompleteMatch"))
   {
     childrenWithCompleteMatches = [recipientCopy childrenWithCompleteMatches];
-    v80 = childrenWithCompleteMatches;
+    v81 = childrenWithCompleteMatches;
     children = [recipientCopy children];
     if ([children count] == 2)
     {
       children2 = [recipientCopy children];
       v15 = [children2 count];
-      v77 = v15 - [childrenWithCompleteMatches count] == 1;
+      v78 = v15 - [childrenWithCompleteMatches count] == 1;
     }
 
     else
     {
-      v77 = 0;
+      v78 = 0;
     }
 
     v16 = [childrenWithCompleteMatches count] > 1;
-    v86 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(childrenWithCompleteMatches, "count")}];
-    v17 = MFLocalizedAddressSeparator();
+    v87 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(childrenWithCompleteMatches, "count")}];
+    v17 = MFLocalizedAddressSeparator(v87);
     highlightedTitleStringAttributes = [objc_opt_class() highlightedTitleStringAttributes];
     [v17 sizeWithAttributes:highlightedTitleStringAttributes];
     v20 = v19;
-    v21 = v16 || v77;
+    v21 = v16 || v78;
 
     v22 = 0;
     v23 = 0;
@@ -393,7 +393,7 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
       v24 = v24 + v20 + v29;
       if (width <= 0.0 || v24 <= width)
       {
-        [v86 addObject:v26];
+        [v87 addObject:v26];
       }
 
       else
@@ -417,12 +417,12 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
       *recipients = v23;
     }
 
-    if ([v86 count])
+    if ([v87 count])
     {
-      if ([v86 count] != 2 || (v32 = objc_msgSend(v86, "count"), objc_msgSend(recipientCopy, "children"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "count"), v33, v32 != v34))
+      if ([v87 count] != 2 || (v32 = objc_msgSend(v87, "count"), objc_msgSend(recipientCopy, "children"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "count"), v33, v32 != v34))
       {
         obj = [MEMORY[0x1E696AD60] string];
-        for (i = 0; [v86 count] > i; ++i)
+        for (i = 0; [v87 count] > i; ++i)
         {
           v41 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
           if (i)
@@ -436,58 +436,58 @@ void __60__MFRecipientTableViewCell__realDetailButtonAccessoryMargin__block_invo
           }
           v42 = ;
 
-          v43 = [v86 objectAtIndexedSubscript:i];
+          v43 = [v87 objectAtIndexedSubscript:i];
           [obj appendFormat:v42, v43];
         }
 
-        v44 = [v86 count];
+        v44 = [v87 count];
         children3 = [recipientCopy children];
         v46 = [children3 count];
 
         if (v44 < v46)
         {
-          v47 = MFLocalizedAddressSeparator();
+          v48 = MFLocalizedAddressSeparator(v47);
           goto LABEL_45;
         }
 
 LABEL_44:
-        v47 = &stru_1F3CF3758;
+        v48 = &stru_1F3CF3758;
 LABEL_45:
-        if (v77)
+        if (v78)
         {
-          v94 = 0u;
           v95 = 0u;
-          v92 = 0u;
+          v96 = 0u;
           v93 = 0u;
+          v94 = 0u;
           children4 = [recipientCopy children];
-          v49 = [children4 countByEnumeratingWithState:&v92 objects:v98 count:16];
-          if (v49)
+          v50 = [children4 countByEnumeratingWithState:&v93 objects:v99 count:16];
+          if (v50)
           {
-            v50 = 0;
-            v51 = *v93;
+            v51 = 0;
+            v52 = *v94;
 LABEL_48:
-            v52 = 0;
-            v53 = v50;
+            v53 = 0;
+            v54 = v51;
             while (1)
             {
-              if (*v93 != v51)
+              if (*v94 != v52)
               {
                 objc_enumerationMutation(children4);
               }
 
-              v50 = *(*(&v92 + 1) + 8 * v52);
+              v51 = *(*(&v93 + 1) + 8 * v53);
 
-              if (([v80 containsObject:v50] & 1) == 0)
+              if (([v81 containsObject:v51] & 1) == 0)
               {
                 break;
               }
 
-              ++v52;
-              v53 = v50;
-              if (v49 == v52)
+              ++v53;
+              v54 = v51;
+              if (v50 == v53)
               {
-                v49 = [children4 countByEnumeratingWithState:&v92 objects:v98 count:16];
-                if (v49)
+                v50 = [children4 countByEnumeratingWithState:&v93 objects:v99 count:16];
+                if (v50)
                 {
                   goto LABEL_48;
                 }
@@ -496,49 +496,49 @@ LABEL_48:
               }
             }
 
-            if (!v50)
+            if (!v51)
             {
               goto LABEL_63;
             }
 
-            v54 = _displayNameForRecipient(v50, 1);
-            [v54 sizeWithAttributes:v79];
-            if (v24 + v55 >= width)
+            v55 = _displayNameForRecipient(v51, 1);
+            [v55 sizeWithAttributes:v80];
+            if (v24 + v56 >= width)
             {
               if (v23)
               {
-                [v23 addObject:v50];
+                [v23 addObject:v51];
               }
 
               else
               {
-                v97 = v50;
-                *recipients = [MEMORY[0x1E695DEC8] arrayWithObjects:&v97 count:1];
+                v98 = v51;
+                *recipients = [MEMORY[0x1E695DEC8] arrayWithObjects:&v98 count:1];
               }
             }
 
             else
             {
-              v56 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-              v57 = [v56 localizedStringForKey:@"SHORT_BINARY_RECIPIENT_SEPARATOR" value:&stru_1F3CF3758 table:@"Main"];
+              v57 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+              v58 = [v57 localizedStringForKey:@"SHORT_BINARY_RECIPIENT_SEPARATOR" value:&stru_1F3CF3758 table:@"Main"];
 
-              v58 = [MEMORY[0x1E696AEC0] stringWithFormat:v57, obj, v54];
+              v59 = [MEMORY[0x1E696AEC0] stringWithFormat:v58, obj, v55];
 
-              v47 = &stru_1F3CF3758;
-              obj = v58;
+              v48 = &stru_1F3CF3758;
+              obj = v59;
             }
           }
 
           else
           {
-            v50 = children4;
+            v51 = children4;
           }
         }
 
 LABEL_63:
-        v59 = [obj stringByAppendingString:v47];
-        v60 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v59 attributes:v79];
-        [v11 setAttributedString:v60];
+        v60 = [obj stringByAppendingString:v48];
+        v61 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v60 attributes:v80];
+        [v11 setAttributedString:v61];
 
         goto LABEL_64;
       }
@@ -547,8 +547,8 @@ LABEL_63:
       v36 = [v35 localizedStringForKey:@"SHORT_BINARY_RECIPIENT_SEPARATOR" value:&stru_1F3CF3758 table:@"Main"];
 
       v37 = MEMORY[0x1E696AEC0];
-      v38 = [v86 objectAtIndexedSubscript:0];
-      v39 = [v86 objectAtIndexedSubscript:1];
+      v38 = [v87 objectAtIndexedSubscript:0];
+      v39 = [v87 objectAtIndexedSubscript:1];
       obj = [v37 stringWithFormat:v36, v38, v39];
     }
 
@@ -564,49 +564,49 @@ LABEL_63:
 LABEL_64:
   if (highlightingCopy)
   {
-    v90 = 0u;
     v91 = 0u;
-    v88 = 0u;
+    v92 = 0u;
     v89 = 0u;
+    v90 = 0u;
     obja = [recipientCopy completelyMatchedAttributedStrings];
-    v61 = [obja countByEnumeratingWithState:&v88 objects:v96 count:16];
-    if (v61)
+    v62 = [obja countByEnumeratingWithState:&v89 objects:v97 count:16];
+    if (v62)
     {
-      v87 = *v89;
+      v88 = *v90;
       do
       {
-        for (j = 0; j != v61; ++j)
+        for (j = 0; j != v62; ++j)
         {
-          if (*v89 != v87)
+          if (*v90 != v88)
           {
             objc_enumerationMutation(obja);
           }
 
-          v63 = *(*(&v88 + 1) + 8 * j);
+          v64 = *(*(&v89 + 1) + 8 * j);
           string = [v11 string];
-          string2 = [v63 string];
-          v66 = [string rangeOfString:string2];
-          v68 = v67;
+          string2 = [v64 string];
+          v67 = [string rangeOfString:string2];
+          v69 = v68;
 
-          while (v66 != 0x7FFFFFFFFFFFFFFFLL)
+          while (v67 != 0x7FFFFFFFFFFFFFFFLL)
           {
             highlightedTitleStringAttributes3 = [objc_opt_class() highlightedTitleStringAttributes];
-            [v11 addAttributes:highlightedTitleStringAttributes3 range:{v66, v68}];
+            [v11 addAttributes:highlightedTitleStringAttributes3 range:{v67, v69}];
 
             string3 = [v11 string];
-            v71 = [string3 length];
+            v72 = [string3 length];
 
             string4 = [v11 string];
-            string5 = [v63 string];
-            v66 = [string4 rangeOfString:string5 options:0 range:{v66 + 1, v71 + ~v66}];
-            v68 = v74;
+            string5 = [v64 string];
+            v67 = [string4 rangeOfString:string5 options:0 range:{v67 + 1, v72 + ~v67}];
+            v69 = v75;
           }
         }
 
-        v61 = [obja countByEnumeratingWithState:&v88 objects:v96 count:16];
+        v62 = [obja countByEnumeratingWithState:&v89 objects:v97 count:16];
       }
 
-      while (v61);
+      while (v62);
     }
 
     regularTitleStringAttributes = obja;
@@ -1286,11 +1286,11 @@ uint64_t __61__MFRecipientTableViewCell_animateSnapshotOfLabel_withBlock___block
   return [v2 setAlpha:1.0];
 }
 
-uint64_t __61__MFRecipientTableViewCell_animateSnapshotOfLabel_withBlock___block_invoke_2(uint64_t result, int a2)
+id *__61__MFRecipientTableViewCell_animateSnapshotOfLabel_withBlock___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;
@@ -1346,14 +1346,14 @@ id __56__MFRecipientTableViewCell_defaultTitleStringAttributes__block_invoke()
   return v4;
 }
 
-id __56__MFRecipientTableViewCell_regularTitleStringAttributes__block_invoke()
+id __56__MFRecipientTableViewCell_regularTitleStringAttributes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_opt_class() defaultTitleStringAttributes];
-  v1 = [v0 mutableCopy];
+  v2 = [objc_opt_class() defaultTitleStringAttributes];
+  v3 = [v2 mutableCopy];
 
-  [v1 setObject:@"mf_ttstrong" forKey:@"mf_tintType"];
+  [v3 setObject:@"mf_ttstrong" forKey:@"mf_tintType"];
 
-  return v1;
+  return v3;
 }
 
 + (id)highlightedTitleStringAttributes

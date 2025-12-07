@@ -22,32 +22,30 @@
 
 + (id)responseWithStatus:(id)status
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"Status";
-  v10[0] = status;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"Status";
+  v9[0] = status;
   v3 = MEMORY[0x277CBEAC0];
   statusCopy = status;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v6 = [v5 mutableCopy];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)responseWithError:(id)error
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"Status";
-  v9[1] = @"ErrorObject";
-  v10[0] = @"Error";
-  v10[1] = error;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"Status";
+  v8[1] = @"ErrorObject";
+  v9[0] = @"Error";
+  v9[1] = error;
   v3 = MEMORY[0x277CBEAC0];
   errorCopy = error;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   v6 = [v5 mutableCopy];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

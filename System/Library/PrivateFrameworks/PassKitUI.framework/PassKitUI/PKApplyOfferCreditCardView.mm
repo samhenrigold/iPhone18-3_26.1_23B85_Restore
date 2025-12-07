@@ -9,9 +9,9 @@
 
 - (PKApplyOfferCreditCardView)init
 {
-  v45.receiver = self;
-  v45.super_class = PKApplyOfferCreditCardView;
-  v2 = [(PKApplyOfferCreditCardView *)&v45 init];
+  v47.receiver = self;
+  v47.super_class = PKApplyOfferCreditCardView;
+  v2 = [(PKApplyOfferCreditCardView *)&v47 init];
   if (v2)
   {
     v3 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD80], *MEMORY[0x1E69DDC38], 2, 0);
@@ -108,15 +108,15 @@
     bodyLabel = v2->_bodyLabel;
     v2->_bodyLabel = v38;
 
-    [(UILabel *)v2->_bodyLabel setTextAlignment:v5];
-    v40 = v2->_bodyLabel;
-    v41 = PKOBKBodyTextColor();
-    [(UILabel *)v40 setTextColor:v41];
+    v40 = [(UILabel *)v2->_bodyLabel setTextAlignment:v5];
+    v41 = v2->_bodyLabel;
+    v42 = PKOBKBodyTextColor(v40);
+    [(UILabel *)v41 setTextColor:v42];
 
-    [(UILabel *)v2->_bodyLabel setNumberOfLines:0];
-    v42 = v2->_bodyLabel;
-    v43 = PKOBKBodyFont();
-    [(UILabel *)v42 setFont:v43];
+    v43 = [(UILabel *)v2->_bodyLabel setNumberOfLines:0];
+    v44 = v2->_bodyLabel;
+    v45 = PKOBKBodyFont(v43);
+    [(UILabel *)v44 setFont:v45];
 
     [(PKApplyOfferCreditCardView *)v2 addSubview:v2->_bodyLabel];
   }
@@ -126,78 +126,81 @@
 
 - (void)layoutSubviews
 {
-  v33.receiver = self;
-  v33.super_class = PKApplyOfferCreditCardView;
-  [(PKApplyOfferCreditCardView *)&v33 layoutSubviews];
+  v39.receiver = self;
+  v39.super_class = PKApplyOfferCreditCardView;
+  [(PKApplyOfferCreditCardView *)&v39 layoutSubviews];
   [(PKApplyOfferCreditCardView *)self bounds];
-  x = v34.origin.x;
-  y = v34.origin.y;
-  Width = CGRectGetWidth(v34);
+  x = v40.origin.x;
+  y = v40.origin.y;
+  Width = CGRectGetWidth(v40);
   if ([(PKApplyOfferCreditCardView *)self showSchumerBox])
   {
-    PKFloatRoundToPixel();
-    v7 = v6;
+    v6.n128_f64[0] = Width * 0.39;
+    PKFloatRoundToPixel(v6, v7);
+    v9 = v8;
     [(UILabel *)self->_creditLimitTitleLabel sizeToFit];
     [(UILabel *)self->_creditLimitTitleLabel frame];
-    [(UILabel *)self->_creditLimitTitleLabel setFrame:x, y, v7 + -10.0];
+    [(UILabel *)self->_creditLimitTitleLabel setFrame:x, y, v9 + -10.0];
     [(UILabel *)self->_creditLimitLabel sizeToFit];
     [(UILabel *)self->_creditLimitLabel frame];
-    v9 = v8;
+    v11 = v10;
     [(UILabel *)self->_creditLimitTitleLabel frame];
-    [(UILabel *)self->_creditLimitLabel setFrame:x, CGRectGetMaxY(v35) + 5.0, v7 + -10.0, v9];
-    v10 = x + v7;
-    PKFloatRoundToPixel();
-    v31 = v11;
+    [(UILabel *)self->_creditLimitLabel setFrame:x, CGRectGetMaxY(v41) + 5.0, v9 + -10.0, v11];
+    v12 = x + v9;
+    v13.n128_f64[0] = Width * 0.36;
+    PKFloatRoundToPixel(v13, v14);
+    v37 = v15;
     [(UIView *)self->_dividerLeft frame];
-    v13 = v12;
+    v17 = v16;
     [(UILabel *)self->_creditLimitTitleLabel frame];
-    MinY = CGRectGetMinY(v36);
-    v15 = PKUIPixelLength();
+    MinY = CGRectGetMinY(v42);
+    v19 = PKUIPixelLength();
     [(UILabel *)self->_creditLimitLabel frame];
-    MaxY = CGRectGetMaxY(v37);
-    v38.origin.x = v10;
-    v38.origin.y = MinY;
-    v38.size.width = v15;
-    v38.size.height = v13;
-    [(UIView *)self->_dividerLeft setFrame:v10, MinY, v15, MaxY - CGRectGetMinY(v38)];
+    MaxY = CGRectGetMaxY(v43);
+    v44.origin.x = v12;
+    v44.origin.y = MinY;
+    v44.size.width = v19;
+    v44.size.height = v17;
+    [(UIView *)self->_dividerLeft setFrame:v12, MinY, v19, MaxY - CGRectGetMinY(v44)];
     [(UILabel *)self->_aprForPurchaseTitleLabel sizeToFit];
     [(UILabel *)self->_aprForPurchaseTitleLabel frame];
-    [(UILabel *)self->_aprForPurchaseTitleLabel setFrame:v10 + 10.0, y, v31 + -20.0];
+    [(UILabel *)self->_aprForPurchaseTitleLabel setFrame:v12 + 10.0, y, v37 + -20.0];
     [(UILabel *)self->_aprForPurchaseLabel sizeToFit];
     [(UILabel *)self->_aprForPurchaseLabel frame];
-    v18 = v17;
-    [(UILabel *)self->_creditLimitTitleLabel frame];
-    [(UILabel *)self->_aprForPurchaseLabel setFrame:v10 + 10.0, CGRectGetMaxY(v39) + 5.0, v31 + -20.0, v18];
-    v19 = v10 + v31;
-    PKFloatRoundToPixel();
-    v32 = v20;
-    [(UIView *)self->_dividerRight frame];
     v22 = v21;
+    [(UILabel *)self->_creditLimitTitleLabel frame];
+    [(UILabel *)self->_aprForPurchaseLabel setFrame:v12 + 10.0, CGRectGetMaxY(v45) + 5.0, v37 + -20.0, v22];
+    v23 = v12 + v37;
+    v24.n128_f64[0] = Width * 0.25;
+    PKFloatRoundToPixel(v24, v25);
+    v38 = v26;
+    [(UIView *)self->_dividerRight frame];
+    v28 = v27;
     [(UILabel *)self->_aprForPurchaseTitleLabel frame];
-    v23 = CGRectGetMinY(v40);
-    v24 = PKUIPixelLength();
+    v29 = CGRectGetMinY(v46);
+    v30 = PKUIPixelLength();
     [(UILabel *)self->_aprForPurchaseLabel frame];
-    v25 = CGRectGetMaxY(v41);
-    v42.origin.x = v19;
-    v42.origin.y = v23;
-    v42.size.width = v24;
-    v42.size.height = v22;
-    [(UIView *)self->_dividerRight setFrame:v19, v23, v24, v25 - CGRectGetMinY(v42)];
+    v31 = CGRectGetMaxY(v47);
+    v48.origin.x = v23;
+    v48.origin.y = v29;
+    v48.size.width = v30;
+    v48.size.height = v28;
+    [(UIView *)self->_dividerRight setFrame:v23, v29, v30, v31 - CGRectGetMinY(v48)];
     [(UILabel *)self->_feeTitleLabel sizeToFit];
     [(UILabel *)self->_feeTitleLabel frame];
-    v26 = v19 + 10.0;
-    [(UILabel *)self->_feeTitleLabel setFrame:v26, y, v32 + -10.0];
+    v32 = v23 + 10.0;
+    [(UILabel *)self->_feeTitleLabel setFrame:v32, y, v38 + -10.0];
     [(UILabel *)self->_feeLabel sizeToFit];
     [(UILabel *)self->_feeLabel frame];
-    v28 = v27;
+    v34 = v33;
     [(UILabel *)self->_feeTitleLabel frame];
-    [(UILabel *)self->_feeLabel setFrame:v26, CGRectGetMaxY(v43) + 5.0, v32 + -10.0, v28];
+    [(UILabel *)self->_feeLabel setFrame:v32, CGRectGetMaxY(v49) + 5.0, v38 + -10.0, v34];
   }
 
   [(UILabel *)self->_aprForPurchaseLabel frame];
-  v29 = CGRectGetMaxY(v44) + 10.0;
+  v35 = CGRectGetMaxY(v50) + 10.0;
   [(UILabel *)self->_bodyLabel sizeThatFits:Width, 1.79769313e308];
-  [(UILabel *)self->_bodyLabel setFrame:x, v29, Width, v30];
+  [(UILabel *)self->_bodyLabel setFrame:x, v35, Width, v36];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

@@ -34,14 +34,14 @@
 
 - (void)groupContext:(id)context cacheGroup:(id)group completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   completionCopy = completion;
   v9 = +[ENLog groupContext];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v35 = groupCopy;
+    v34 = groupCopy;
     _os_log_impl(&dword_24A04B000, v9, OS_LOG_TYPE_INFO, "CacheGroup - BEGIN {group: %{private}@}", buf, 0xCu);
   }
 
@@ -73,16 +73,16 @@
     _os_log_impl(&dword_24A04B000, v14, OS_LOG_TYPE_INFO, "CacheGroup - have existing stableGroupID - Testing order", buf, 2u);
   }
 
-  v33 = 0xAAAAAAAAAAAAAAAALL;
+  v32 = 0xAAAAAAAAAAAAAAAALL;
   groupID3 = [v13 groupID];
   groupID4 = [groupCopy groupID];
-  v32 = 0;
-  v18 = [groupID3 compare:groupID4 withResult:&v33 error:&v32];
-  latestStableGroupIDToGroup2 = v32;
+  v31 = 0;
+  v18 = [groupID3 compare:groupID4 withResult:&v32 error:&v31];
+  latestStableGroupIDToGroup2 = v31;
 
   if (v18)
   {
-    if (v33 == 1)
+    if (v32 == 1)
     {
       groupID2 = +[ENLog groupContext];
       if (os_log_type_enabled(groupID2, OS_LOG_TYPE_DEFAULT))
@@ -94,9 +94,9 @@
       goto LABEL_24;
     }
 
-    if (v33)
+    if (v32)
     {
-      if (v33 != -1)
+      if (v32 != -1)
       {
         goto LABEL_25;
       }
@@ -143,11 +143,11 @@ LABEL_24:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
     *buf = 138478339;
-    v35 = v13;
-    v36 = 2113;
-    v37 = groupCopy;
-    v38 = 2113;
-    v39 = latestStableGroupIDToGroup2;
+    v34 = v13;
+    v35 = 2113;
+    v36 = groupCopy;
+    v37 = 2113;
+    v38 = latestStableGroupIDToGroup2;
     _os_log_fault_impl(&dword_24A04B000, v26, OS_LOG_TYPE_FAULT, "CacheGroup - could not compare groups - Fail {existingLatestGroup: %{private}@, group: %{private}@, error: %{private}@}", buf, 0x20u);
   }
 
@@ -166,7 +166,6 @@ LABEL_25:
   }
 
   completionCopy[2](completionCopy);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllKnownGroupsForGroupContext:(id)context completion:(id)completion

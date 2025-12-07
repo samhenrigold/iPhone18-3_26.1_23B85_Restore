@@ -45,16 +45,16 @@
   os_unfair_lock_unlock(&self->_serviceContextLock);
   if (!remoteDeviceID)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized", v10, 2u);
       }
     }
   }
@@ -64,7 +64,7 @@
 
 - (id)remoteDeviceParingIDFor:(id)for
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   forCopy = for;
   if (forCopy)
   {
@@ -74,31 +74,32 @@
     os_unfair_lock_unlock(&self->_serviceContextLock);
     if (remoteDeviceID)
     {
-      if ([remoteDeviceID isEqualToString:forCopy])
+      v8 = [remoteDeviceID isEqualToString:forCopy];
+      if (v8)
       {
-        v7 = v6;
+        v9 = v6;
 LABEL_18:
 
 LABEL_19:
         goto LABEL_20;
       }
 
-      v17 = pk_Payment_log();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+      v21 = pk_Payment_log(v8);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-      if (v18)
+      if (v22)
       {
-        v12 = pk_Payment_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v16 = pk_Payment_log(v23);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v21 = 138412546;
-          v22 = remoteDeviceID;
-          v23 = 2112;
-          v24 = forCopy;
-          v13 = "Error: NPKIDVRemoteDeviceService: Current deviceID: %@ doesn't match expectedID:%@.";
-          v14 = v12;
-          v15 = OS_LOG_TYPE_ERROR;
-          v16 = 22;
+          v25 = 138412546;
+          v26 = remoteDeviceID;
+          v27 = 2112;
+          v28 = forCopy;
+          v17 = "Error: NPKIDVRemoteDeviceService: Current deviceID: %@ doesn't match expectedID:%@.";
+          v18 = v16;
+          v19 = OS_LOG_TYPE_ERROR;
+          v20 = 22;
           goto LABEL_15;
         }
 
@@ -108,202 +109,196 @@ LABEL_19:
 
     else
     {
-      v10 = pk_Payment_log();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v13 = pk_Payment_log(v7);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-      if (v11)
+      if (v14)
       {
-        v12 = pk_Payment_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v16 = pk_Payment_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21) = 0;
-          v13 = "Warning: NPKIDVRemoteDeviceService: Not active device initialized";
-          v14 = v12;
-          v15 = OS_LOG_TYPE_DEFAULT;
-          v16 = 2;
+          LOWORD(v25) = 0;
+          v17 = "Warning: NPKIDVRemoteDeviceService: Not active device initialized";
+          v18 = v16;
+          v19 = OS_LOG_TYPE_DEFAULT;
+          v20 = 2;
 LABEL_15:
-          _os_log_impl(&dword_25B300000, v14, v15, v13, &v21, v16);
+          _os_log_impl(&dword_25B300000, v18, v19, v17, &v25, v20);
         }
 
 LABEL_16:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
     goto LABEL_18;
   }
 
-  v8 = pk_Payment_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_Payment_log(0);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v11)
   {
-    v6 = pk_Payment_log();
+    v6 = pk_Payment_log(v12);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Unexpected nil remoteDeviceID", &v21, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Unexpected nil remoteDeviceID", &v25, 2u);
     }
 
-    v7 = 0;
+    v9 = 0;
     goto LABEL_19;
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v9;
 }
 
 - (void)teardownCurrentRemoteDeviceContextWithReason:(unint64_t)reason
 {
   v15 = *MEMORY[0x277D85DE8];
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
+      v9 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
       v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested tear down service context with reason:%@", &v13, 0xCu);
+      v14 = v9;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested tear down service context with reason:%@", &v13, 0xCu);
     }
   }
 
   if (reason)
   {
-    v9 = 4 * (reason == 1);
+    v10 = 4 * (reason == 1);
   }
 
   else
   {
-    v9 = 2;
+    v10 = 2;
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
   remoteDeviceID = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext remoteDeviceID];
-  v11 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:v9];
+  v12 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:v10];
   [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self insideLockTeardownCurrentRemoteDeviceContextWithReason:reason];
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v11 deviceEvent:v9 forDeviceID:remoteDeviceID eventContext:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v12 deviceEvent:v10 forDeviceID:remoteDeviceID eventContext:0];
 }
 
 - (void)insideLockTeardownCurrentRemoteDeviceContextWithReason:(unint64_t)reason
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   serviceContext = self->_serviceContext;
   if (serviceContext)
   {
     remoteDeviceID = [(NPKIDVRemoteDeviceServiceContext *)serviceContext remoteDeviceID];
     v7 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:4];
-    v8 = pk_Payment_log();
+    v8 = pk_Payment_log(v7);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
     if (v9)
     {
-      v10 = pk_Payment_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = self->_serviceContext;
+        v12 = self->_serviceContext;
         serviceContextPath = self->_serviceContextPath;
-        v13 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
-        v23 = 138413058;
-        v24 = v11;
-        v25 = 2112;
-        v26 = serviceContextPath;
+        v14 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
+        v25 = 138413058;
+        v26 = v12;
         v27 = 2112;
-        v28 = remoteDeviceID;
+        v28 = serviceContextPath;
         v29 = 2112;
-        v30 = v13;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Will tear down service context:%@ at path:%@ for deviceID:%@ reason:%@", &v23, 0x2Au);
+        v30 = remoteDeviceID;
+        v31 = 2112;
+        v32 = v14;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Will tear down service context:%@ at path:%@ for deviceID:%@ reason:%@", &v25, 0x2Au);
       }
     }
 
     [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockPersistServiceContext];
-    v14 = self->_serviceContext;
+    v15 = self->_serviceContext;
     self->_serviceContext = 0;
 
-    v15 = self->_serviceContextPath;
+    v16 = self->_serviceContextPath;
     self->_serviceContextPath = 0;
 
     pairingID = self->_pairingID;
     self->_pairingID = 0;
 
-    v17 = pk_Payment_log();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v19 = pk_Payment_log(v18);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (v18)
+    if (v20)
     {
-      v19 = pk_Payment_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_Payment_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
-        v23 = 138412546;
-        v24 = remoteDeviceID;
-        v25 = 2112;
-        v26 = v20;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did tear down service context for deviceID:%@ reason:%@", &v23, 0x16u);
+        v23 = NSStringFromNPKIDVRemoteDeviceTeardownReason(reason);
+        v25 = 138412546;
+        v26 = remoteDeviceID;
+        v27 = 2112;
+        v28 = v23;
+        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did tear down service context for deviceID:%@ reason:%@", &v25, 0x16u);
       }
     }
 
     if (reason)
     {
-      v21 = 4 * (reason == 1);
+      v24 = 4 * (reason == 1);
     }
 
     else
     {
-      v21 = 2;
+      v24 = 2;
     }
 
     [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockTeardownBiometricAuthenticationTokenReminderForDeviceID:remoteDeviceID];
-    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v7 deviceEvent:v21 forDeviceID:remoteDeviceID eventContext:0];
+    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v7 deviceEvent:v24 forDeviceID:remoteDeviceID eventContext:0];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeWithDevice:(id)device
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested initialize service context for device with ParingID:%@", buf, 0xCu);
+      v52 = v5;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested initialize service context for device with ParingID:%@", buf, 0xCu);
     }
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
   if (self->_serviceContext)
   {
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_Payment_log(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v12)
     {
-      v11 = pk_Payment_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_Payment_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         remoteDeviceID = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext remoteDeviceID];
         *buf = 138412290;
-        v45 = remoteDeviceID;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: It seem we didn't teardown deviceID:%@. Lets make sure we start from a clean state", buf, 0xCu);
+        v52 = remoteDeviceID;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: It seem we didn't teardown deviceID:%@. Lets make sure we start from a clean state", buf, 0xCu);
       }
     }
 
@@ -312,141 +307,140 @@ LABEL_20:
     self->_serviceContext = 0;
   }
 
-  v14 = pk_Payment_log();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_Payment_log(v10);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    if (v15)
+    if (v18)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_Payment_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = v5;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Will initialize context for device with ParingID:%@", buf, 0xCu);
+        v52 = v5;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Will initialize context for device with ParingID:%@", buf, 0xCu);
       }
     }
 
-    v17 = NPKHomeDirectoryPathForDevice(deviceCopy);
-    v18 = [v17 stringByAppendingPathComponent:@"remoteDeviceServiceContext.npkctx"];
+    v21 = NPKHomeDirectoryPathForDevice(deviceCopy);
+    v22 = [v21 stringByAppendingPathComponent:@"remoteDeviceServiceContext.npkctx"];
     serviceContextPath = self->_serviceContextPath;
-    self->_serviceContextPath = v18;
+    self->_serviceContextPath = v22;
 
-    v20 = self->_serviceContextPath;
-    v43 = 0;
-    v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v20 options:1 error:&v43];
-    v22 = v43;
-    if (v22)
+    v24 = self->_serviceContextPath;
+    v50 = 0;
+    v25 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v24 options:1 error:&v50];
+    v26 = v50;
+    v27 = v26;
+    if (v26)
     {
-      v23 = pk_Payment_log();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v28 = pk_Payment_log(v26);
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-      if (!v24)
+      if (!v29)
       {
 LABEL_26:
         if (!self->_serviceContext)
         {
-          v31 = pk_Payment_log();
-          v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+          v37 = pk_Payment_log(v30);
+          v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
 
-          if (v32)
+          if (v38)
           {
-            v33 = pk_Payment_log();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v40 = pk_Payment_log(v39);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
-              v34 = self->_serviceContextPath;
+              v41 = self->_serviceContextPath;
               *buf = 138412290;
-              v45 = v34;
-              _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: NPKIDVRemoteDeviceServiceContext from:%@ was nil.", buf, 0xCu);
+              v52 = v41;
+              _os_log_impl(&dword_25B300000, v40, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: NPKIDVRemoteDeviceServiceContext from:%@ was nil.", buf, 0xCu);
             }
           }
 
-          v35 = objc_alloc_init(NPKIDVRemoteDeviceServiceContext);
-          v36 = self->_serviceContext;
-          self->_serviceContext = v35;
+          v42 = objc_alloc_init(NPKIDVRemoteDeviceServiceContext);
+          v43 = self->_serviceContext;
+          self->_serviceContext = v42;
 
           [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockPersistServiceContext];
         }
 
         objc_storeStrong(&self->_pairingID, v5);
         remoteDeviceID2 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext remoteDeviceID];
-        v37 = pk_Payment_log();
-        v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+        v44 = pk_Payment_log(remoteDeviceID2);
+        v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
 
-        if (v38)
+        if (v45)
         {
-          v39 = pk_Payment_log();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v47 = pk_Payment_log(v46);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
-            v40 = self->_serviceContext;
-            v41 = self->_serviceContextPath;
+            v48 = self->_serviceContext;
+            v49 = self->_serviceContextPath;
             *buf = 138413058;
-            v45 = v40;
-            v46 = 2112;
-            v47 = v41;
-            v48 = 2112;
-            v49 = v5;
-            v50 = 2112;
-            v51 = remoteDeviceID2;
-            _os_log_impl(&dword_25B300000, v39, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: initialized context:%@ at path:%@ for device with ParingID:%@ and deviceID:%@", buf, 0x2Au);
+            v52 = v48;
+            v53 = 2112;
+            v54 = v49;
+            v55 = 2112;
+            v56 = v5;
+            v57 = 2112;
+            v58 = remoteDeviceID2;
+            _os_log_impl(&dword_25B300000, v47, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: initialized context:%@ at path:%@ for device with ParingID:%@ and deviceID:%@", buf, 0x2Au);
           }
         }
 
-        v27 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:1];
+        v33 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:1];
 
         goto LABEL_37;
       }
 
-      p_super = pk_Payment_log();
+      p_super = pk_Payment_log(v30);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = self->_serviceContextPath;
+        v32 = self->_serviceContextPath;
         *buf = 138412546;
-        v45 = v22;
-        v46 = 2112;
-        v47 = v26;
+        v52 = v27;
+        v53 = 2112;
+        v54 = v32;
         _os_log_impl(&dword_25B300000, p_super, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: NPKIDVRemoteDeviceServiceContext error:%@ loading context from:%@", buf, 0x16u);
       }
     }
 
     else
     {
-      v29 = objc_opt_class();
-      v30 = NPKSecureUnarchiveObject(v21, v29);
+      v35 = objc_opt_class();
+      v36 = NPKSecureUnarchiveObject(v25, v35);
       p_super = &self->_serviceContext->super;
-      self->_serviceContext = v30;
+      self->_serviceContext = v36;
     }
 
     goto LABEL_26;
   }
 
-  if (!v15)
+  if (!v18)
   {
-    v27 = 0;
+    v33 = 0;
     remoteDeviceID2 = 0;
     goto LABEL_38;
   }
 
-  v22 = pk_Payment_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v27 = pk_Payment_log(v19);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: No active device is found, this could be ok but we let you know just in case", buf, 2u);
+    _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: No active device is found, this could be ok but we let you know just in case", buf, 2u);
   }
 
-  v27 = 0;
+  v33 = 0;
   remoteDeviceID2 = 0;
 LABEL_37:
 
 LABEL_38:
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  if ([v27 count] && objc_msgSend(remoteDeviceID2, "length"))
+  if ([v33 count] && objc_msgSend(remoteDeviceID2, "length"))
   {
-    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v27 deviceEvent:1 forDeviceID:remoteDeviceID2 eventContext:0];
+    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v33 deviceEvent:1 forDeviceID:remoteDeviceID2 eventContext:0];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNeedsPrearmCredential:(BOOL)credential
@@ -463,27 +457,27 @@ LABEL_38:
     v5 = 16;
   }
 
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(self);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v5);
+      v10 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v5);
       v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested notify %@", &v13, 0xCu);
+      v14 = v10;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested notify %@", &v13, 0xCu);
     }
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
   remoteDeviceID = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext remoteDeviceID];
-  v11 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:v5];
+  v12 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:v5];
   if (credentialCopy)
   {
-    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockSetupBiometricAuthenticationTokenReminderForDeviceID:remoteDeviceID serviceNames:v11];
+    [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockSetupBiometricAuthenticationTokenReminderForDeviceID:remoteDeviceID serviceNames:v12];
   }
 
   else
@@ -492,41 +486,39 @@ LABEL_38:
   }
 
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v11 deviceEvent:v5 forDeviceID:remoteDeviceID eventContext:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v12 deviceEvent:v5 forDeviceID:remoteDeviceID eventContext:0];
 }
 
 - (void)handlePassDeletionForPass:(id)pass
 {
   v19 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(0x20uLL);
+      v9 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(0x20uLL);
       v17 = 138412290;
-      v18 = v8;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested notify %@", &v17, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested notify %@", &v17, 0xCu);
     }
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
   remoteDeviceID = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext remoteDeviceID];
-  v10 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:32];
+  v11 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext serviceNamesForEvent:32];
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
   secureElementPass = [passCopy secureElementPass];
   issuerAdministrativeAreaCode = [secureElementPass issuerAdministrativeAreaCode];
 
   if ([issuerAdministrativeAreaCode length])
   {
-    [v11 setObject:issuerAdministrativeAreaCode forKey:@"NPKIDVRemoteDeviceServiceEventContextDeletedPassState"];
+    [v12 setObject:issuerAdministrativeAreaCode forKey:@"NPKIDVRemoteDeviceServiceEventContextDeletedPassState"];
   }
 
   secureElementPass2 = [passCopy secureElementPass];
@@ -534,75 +526,73 @@ LABEL_38:
 
   if ([issuerCountryCode length])
   {
-    [v11 setObject:issuerCountryCode forKey:@"NPKIDVRemoteDeviceServiceEventContextDeletedPassCountry"];
+    [v12 setObject:issuerCountryCode forKey:@"NPKIDVRemoteDeviceServiceEventContextDeletedPassCountry"];
   }
 
-  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v10 deviceEvent:32 forDeviceID:remoteDeviceID eventContext:v11];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _notifyProcessWithServiceNames:v11 deviceEvent:32 forDeviceID:remoteDeviceID eventContext:v12];
 }
 
 - (unint64_t)registerEvents:(unint64_t)events forServiceName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(nameCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(events);
-      v20 = 138412546;
-      v21 = v10;
-      v22 = 2112;
-      v23 = nameCopy;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested register events:%@ forServiceName:%@", &v20, 0x16u);
+      v11 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(events);
+      v23 = 138412546;
+      v24 = v11;
+      v25 = 2112;
+      v26 = nameCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested register events:%@ forServiceName:%@", &v23, 0x16u);
     }
   }
 
   if (!self->_serviceContext)
   {
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v19 = pk_Payment_log(v9);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (!v17)
+    if (!v20)
     {
-      v11 = 0xFFFFFFFF80000000;
+      v12 = 0xFFFFFFFF80000000;
       goto LABEL_15;
     }
 
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v21);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized, we can't register requested events", &v20, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized, we can't register requested events", &v23, 2u);
     }
 
-    v11 = 0xFFFFFFFF80000000;
+    v12 = 0xFFFFFFFF80000000;
     goto LABEL_13;
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
-  v11 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext registerEvents:events forServiceName:nameCopy];
+  v12 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext registerEvents:events forServiceName:nameCopy];
   [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockPersistServiceContext];
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  v12 = pk_Payment_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v14 = pk_Payment_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v15)
   {
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v11);
-      v20 = 138412546;
-      v21 = v15;
-      v22 = 2112;
-      v23 = nameCopy;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Finish register events with currentEvents:%@ forServiceName:%@", &v20, 0x16u);
+      v18 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v12);
+      v23 = 138412546;
+      v24 = v18;
+      v25 = 2112;
+      v26 = nameCopy;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Finish register events with currentEvents:%@ forServiceName:%@", &v23, 0x16u);
     }
 
 LABEL_13:
@@ -610,71 +600,70 @@ LABEL_13:
 
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (unint64_t)unregisterEvents:(unint64_t)events forServiceName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(nameCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(events);
-      v20 = 138412546;
-      v21 = v10;
-      v22 = 2112;
-      v23 = nameCopy;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested unregister events:%@ forServiceName:%@", &v20, 0x16u);
+      v11 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(events);
+      v23 = 138412546;
+      v24 = v11;
+      v25 = 2112;
+      v26 = nameCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested unregister events:%@ forServiceName:%@", &v23, 0x16u);
     }
   }
 
   if (!self->_serviceContext)
   {
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v19 = pk_Payment_log(v9);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (!v17)
+    if (!v20)
     {
-      v11 = 0xFFFFFFFF80000000;
+      v12 = 0xFFFFFFFF80000000;
       goto LABEL_15;
     }
 
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v21);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized, we can't unregister requested events", &v20, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: Not active device initialized, we can't unregister requested events", &v23, 2u);
     }
 
-    v11 = 0xFFFFFFFF80000000;
+    v12 = 0xFFFFFFFF80000000;
     goto LABEL_13;
   }
 
   os_unfair_lock_lock(&self->_serviceContextLock);
-  v11 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext unregisterEvents:events forServiceName:nameCopy];
+  v12 = [(NPKIDVRemoteDeviceServiceContext *)self->_serviceContext unregisterEvents:events forServiceName:nameCopy];
   [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self _insideLockPersistServiceContext];
   os_unfair_lock_unlock(&self->_serviceContextLock);
-  v12 = pk_Payment_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v14 = pk_Payment_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v15)
   {
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v11);
-      v20 = 138412546;
-      v21 = v15;
-      v22 = 2112;
-      v23 = nameCopy;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Finish unregister events with currentEvents:%@ forServiceName:%@", &v20, 0x16u);
+      v18 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(v12);
+      v23 = 138412546;
+      v24 = v18;
+      v25 = 2112;
+      v26 = nameCopy;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Finish unregister events with currentEvents:%@ forServiceName:%@", &v23, 0x16u);
     }
 
 LABEL_13:
@@ -682,8 +671,7 @@ LABEL_13:
 
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)_notifyProcessWithServiceNames:(id)names deviceEvent:(unint64_t)event forDeviceID:(id)d eventContext:(id)context
@@ -693,24 +681,24 @@ LABEL_15:
   dCopy = d;
   contextCopy = context;
   v13 = [namesCopy count];
-  v14 = pk_Payment_log();
+  v14 = pk_Payment_log(v13);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
   if (v13)
   {
     if (v15)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(event);
+        v18 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(event);
         *buf = 138412802;
         v28 = namesCopy;
         v29 = 2112;
-        v30 = v17;
+        v30 = v18;
         v31 = 2112;
         v32 = dCopy;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Found remote process with service Names:%@ event:%@ for deviceID:%@", buf, 0x20u);
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Found remote process with service Names:%@ event:%@ for deviceID:%@", buf, 0x20u);
       }
     }
 
@@ -725,7 +713,7 @@ LABEL_15:
     v25 = contextCopy;
     dispatch_async(remoteProcessNotificationQueue, v22);
 
-    v19 = v23;
+    v20 = v23;
   }
 
   else
@@ -735,20 +723,19 @@ LABEL_15:
       goto LABEL_8;
     }
 
-    v19 = pk_Payment_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = pk_Payment_log(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(event);
       *buf = 138412546;
       v28 = v21;
       v29 = 2112;
       v30 = dCopy;
-      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: No service names to notify event:%@ for device with ID:%@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: No service names to notify event:%@ for device with ID:%@", buf, 0x16u);
     }
   }
 
 LABEL_8:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __114__NPKIDVRemoteDeviceServiceEventsCoordinator__notifyProcessWithServiceNames_deviceEvent_forDeviceID_eventContext___block_invoke(uint64_t a1)
@@ -784,47 +771,46 @@ void __114__NPKIDVRemoteDeviceServiceEventsCoordinator__notifyProcessWithService
   v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   namesCopy = names;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(namesCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v27 = dCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Setup biometric authentication token reminder for deviceID:%@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Setup biometric authentication token reminder for deviceID:%@", buf, 0xCu);
     }
   }
 
-  v11 = [[NPKLockStatusChangeCoordinator alloc] initWithQueue:self->_lockStatusChangeCoordinatorQueue reason:@"BiometricAuthenticationTokenReminder"];
-  [(NPKLockStatusChangeCoordinator *)v11 setWipeBlocksAfterPerform:0];
+  v12 = [[NPKLockStatusChangeCoordinator alloc] initWithQueue:self->_lockStatusChangeCoordinatorQueue reason:@"BiometricAuthenticationTokenReminder"];
+  [(NPKLockStatusChangeCoordinator *)v12 setWipeBlocksAfterPerform:0];
   objc_initWeak(buf, self);
-  v12 = [NPKLeakyBucket throttleWithEventsTimeInterval:@"BiometricAuthenticationTokenReminder" description:60.0];
+  v13 = [NPKLeakyBucket throttleWithEventsTimeInterval:@"BiometricAuthenticationTokenReminder" description:60.0];
   lockEventThrottle = self->_lockEventThrottle;
-  self->_lockEventThrottle = v12;
+  self->_lockEventThrottle = v13;
 
   lockStatusChangeCoordinatorQueue = self->_lockStatusChangeCoordinatorQueue;
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometricAuthenticationTokenReminderForDeviceID_serviceNames___block_invoke;
   v21[3] = &unk_279947FC8;
-  v15 = v11;
-  v22 = v15;
+  v16 = v12;
+  v22 = v16;
   objc_copyWeak(&v25, buf);
   v23 = namesCopy;
   v24 = dCopy;
-  v16 = dCopy;
-  v17 = namesCopy;
+  v17 = dCopy;
+  v18 = namesCopy;
   dispatch_async(lockStatusChangeCoordinatorQueue, v21);
   lockStatusChangeCoordinator = self->_lockStatusChangeCoordinator;
-  self->_lockStatusChangeCoordinator = v15;
-  v19 = v15;
+  self->_lockStatusChangeCoordinator = v16;
+  v20 = v16;
 
   objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometricAuthenticationTokenReminderForDeviceID_serviceNames___block_invoke(uint64_t a1)
@@ -864,16 +850,16 @@ void __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometric
 
 void __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometricAuthenticationTokenReminderForDeviceID_serviceNames___block_invoke_3(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Reminder: remote device Needs biometric authentication token", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Reminder: remote device Needs biometric authentication token", v7, 2u);
     }
   }
 
@@ -885,17 +871,17 @@ void __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometric
 {
   v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(dCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = dCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: tear down biometric authentication token reminder for deviceID:%@", &v11, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: tear down biometric authentication token reminder for deviceID:%@", &v11, 0xCu);
     }
   }
 
@@ -904,8 +890,6 @@ void __123__NPKIDVRemoteDeviceServiceEventsCoordinator__insideLockSetupBiometric
 
   lockStatusChangeCoordinator = self->_lockStatusChangeCoordinator;
   self->_lockStatusChangeCoordinator = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

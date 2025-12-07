@@ -47,44 +47,44 @@
   self->super._encode = sub_23997BBE0;
   *self->_strides = 0x100000001;
   self->_colorConversionData = 0;
-  v23 = 0;
-  v7 = objc_msgSend_device(self, a2, v2, v3, v4, v5);
-  v14 = objc_msgSend_newLibraryWithSource_options_error_(v7, v8, @"[[visible]] float4 __attribute__((__always_inline__)) color_conversion(float4 v, constant void* data){return v;}", 0, &v23, v9);
-  if (!v14 && MTLReportFailureTypeEnabled())
+  v13 = 0;
+  v4 = objc_msgSend_device(self, a2, v2);
+  v7 = objc_msgSend_newLibraryWithSource_options_error_(v4, v5, @"[[visible]] float4 __attribute__((__always_inline__)) color_conversion(float4 v, constant void* data){return v;}", 0, &v13);
+  if (!v7 && MTLReportFailureTypeEnabled())
   {
-    v22 = objc_msgSend_localizedDescription(v23, v10, v16, v11, v12, v13);
+    v12 = objc_msgSend_localizedDescription(v13, v6, v9);
     MTLReportFailure();
   }
 
-  v15 = objc_msgSend_newFunctionWithName_(v14, v10, @"color_conversion", v11, v12, v13, v22);
-  self->_defaultConversion = v15;
-  if (v15 || !MTLReportFailureTypeEnabled())
+  v8 = objc_msgSend_newFunctionWithName_(v7, v6, @"color_conversion", v12);
+  self->_defaultConversion = v8;
+  if (v8 || !MTLReportFailureTypeEnabled())
   {
   }
 
   else
   {
-    objc_msgSend_localizedDescription(v23, v17, v18, v19, v20, v21);
+    objc_msgSend_localizedDescription(v13, v10, v11);
     MTLReportFailure();
   }
 }
 
 - (MPSImageStatisticsMinMaxMean)initWithDevice:(id)device
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageStatisticsMinMaxMean;
-  result = [(MPSUnaryImageKernel *)&v12 initWithDevice:device];
+  v9.receiver = self;
+  v9.super_class = MPSImageStatisticsMinMaxMean;
+  result = [(MPSUnaryImageKernel *)&v9 initWithDevice:device];
   if (result)
   {
-    v9 = result;
-    objc_msgSend_initEncoder(result, v4, v5, v6, v7, v8);
-    result = v9;
-    v9->super._checkFlags = 515;
-    v10 = *MEMORY[0x277CD7200];
-    v11 = *(MEMORY[0x277CD7200] + 32);
-    *&v9->_clipRectSource.origin.z = *(MEMORY[0x277CD7200] + 16);
-    *&v9->_clipRectSource.size.height = v11;
-    *&v9->_clipRectSource.origin.x = v10;
+    v6 = result;
+    objc_msgSend_initEncoder(result, v4, v5);
+    result = v6;
+    v6->super._checkFlags = 515;
+    v7 = *MEMORY[0x277CD7200];
+    v8 = *(MEMORY[0x277CD7200] + 32);
+    *&v6->_clipRectSource.origin.z = *(MEMORY[0x277CD7200] + 16);
+    *&v6->_clipRectSource.size.height = v8;
+    *&v6->_clipRectSource.origin.x = v7;
   }
 
   return result;
@@ -93,42 +93,42 @@
 - (id)debugDescription
 {
   v2 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = MPSImageStatisticsMinMaxMean;
-  v3 = [(MPSUnaryImageKernel *)&v9 debugDescription];
-  return objc_msgSend_stringWithFormat_(v2, v4, @"%@\n", v5, v6, v7, v3);
+  v6.receiver = self;
+  v6.super_class = MPSImageStatisticsMinMaxMean;
+  v3 = [(MPSUnaryImageKernel *)&v6 debugDescription];
+  return objc_msgSend_stringWithFormat_(v2, v4, @"%@\n", v3);
 }
 
 - (MPSImageStatisticsMinMaxMean)initWithCoder:(id)coder device:(id)device
 {
-  v46.receiver = self;
-  v46.super_class = MPSImageStatisticsMinMaxMean;
-  v5 = [(MPSUnaryImageKernel *)&v46 initWithCoder:coder device:device];
-  v11 = v5;
+  v19.receiver = self;
+  v19.super_class = MPSImageStatisticsMinMaxMean;
+  v5 = [(MPSUnaryImageKernel *)&v19 initWithCoder:coder device:device];
+  v8 = v5;
   if (!v5)
   {
-    return v11;
+    return v8;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    objc_msgSend_initEncoder(v5, v6, v7, v8, v9, v10);
-    v11->super._checkFlags = 515;
-    v11->_clipRectSource.origin.x = objc_msgSend_decodeInt64ForKey_(coder, v12, @"MPSImageStatistics.clipRectSource.origin.x", v13, v14, v15);
-    v11->_clipRectSource.origin.y = objc_msgSend_decodeInt64ForKey_(coder, v16, @"MPSImageStatistics.clipRectSource.origin.y", v17, v18, v19);
-    v11->_clipRectSource.origin.z = objc_msgSend_decodeInt64ForKey_(coder, v20, @"MPSImageStatistics.clipRectSource.origin.z", v21, v22, v23);
-    v11->_clipRectSource.size.width = objc_msgSend_decodeInt64ForKey_(coder, v24, @"MPSImageStatistics.clipRectSource.size.width", v25, v26, v27);
-    v11->_clipRectSource.size.height = objc_msgSend_decodeInt64ForKey_(coder, v28, @"MPSImageStatistics.clipRectSource.size.height", v29, v30, v31);
-    v11->_clipRectSource.size.depth = objc_msgSend_decodeInt64ForKey_(coder, v32, @"MPSImageStatistics.clipRectSource.size.depth", v33, v34, v35);
-    *v11->_strides = objc_msgSend_decodeInt64ForKey_(coder, v36, @"MPSImageStatistics.stride.x", v37, v38, v39);
-    *&v11->_strides[4] = objc_msgSend_decodeInt64ForKey_(coder, v40, @"MPSImageStatistics.stride.y", v41, v42, v43);
-    return v11;
+    objc_msgSend_initEncoder(v5, v6, v7);
+    v8->super._checkFlags = 515;
+    v8->_clipRectSource.origin.x = objc_msgSend_decodeInt64ForKey_(coder, v9, @"MPSImageStatistics.clipRectSource.origin.x");
+    v8->_clipRectSource.origin.y = objc_msgSend_decodeInt64ForKey_(coder, v10, @"MPSImageStatistics.clipRectSource.origin.y");
+    v8->_clipRectSource.origin.z = objc_msgSend_decodeInt64ForKey_(coder, v11, @"MPSImageStatistics.clipRectSource.origin.z");
+    v8->_clipRectSource.size.width = objc_msgSend_decodeInt64ForKey_(coder, v12, @"MPSImageStatistics.clipRectSource.size.width");
+    v8->_clipRectSource.size.height = objc_msgSend_decodeInt64ForKey_(coder, v13, @"MPSImageStatistics.clipRectSource.size.height");
+    v8->_clipRectSource.size.depth = objc_msgSend_decodeInt64ForKey_(coder, v14, @"MPSImageStatistics.clipRectSource.size.depth");
+    *v8->_strides = objc_msgSend_decodeInt64ForKey_(coder, v15, @"MPSImageStatistics.stride.x");
+    *&v8->_strides[4] = objc_msgSend_decodeInt64ForKey_(coder, v16, @"MPSImageStatistics.stride.y");
+    return v8;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v45 = objc_opt_class();
-    NSStringFromClass(v45);
+    v18 = objc_opt_class();
+    NSStringFromClass(v18);
     MTLReportFailure();
   }
 
@@ -139,39 +139,39 @@
 {
   selfCopy = self;
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v29.receiver = self;
-  v29.super_class = MPSImageStatisticsMinMaxMean;
-  [(MPSUnaryImageKernel *)&v29 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, selfCopy->_clipRectSource.origin.x, @"MPSImageStatistics.clipRectSource.origin.x", v6, v7);
-  objc_msgSend_encodeInt64_forKey_(coder, v8, selfCopy->_clipRectSource.origin.y, @"MPSImageStatistics.clipRectSource.origin.y", v9, v10);
-  objc_msgSend_encodeInt64_forKey_(coder, v11, selfCopy->_clipRectSource.origin.z, @"MPSImageStatistics.clipRectSource.origin.z", v12, v13);
-  objc_msgSend_encodeInt64_forKey_(coder, v14, selfCopy->_clipRectSource.size.width, @"MPSImageStatistics.clipRectSource.size.width", v15, v16);
-  objc_msgSend_encodeInt64_forKey_(coder, v17, selfCopy->_clipRectSource.size.height, @"MPSImageStatistics.clipRectSource.size.height", v18, v19);
-  objc_msgSend_encodeInt64_forKey_(coder, v20, selfCopy->_clipRectSource.size.depth, @"MPSImageStatistics.clipRectSource.size.depth", v21, v22);
+  v13.receiver = self;
+  v13.super_class = MPSImageStatisticsMinMaxMean;
+  [(MPSUnaryImageKernel *)&v13 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, selfCopy->_clipRectSource.origin.x, @"MPSImageStatistics.clipRectSource.origin.x");
+  objc_msgSend_encodeInt64_forKey_(coder, v6, selfCopy->_clipRectSource.origin.y, @"MPSImageStatistics.clipRectSource.origin.y");
+  objc_msgSend_encodeInt64_forKey_(coder, v7, selfCopy->_clipRectSource.origin.z, @"MPSImageStatistics.clipRectSource.origin.z");
+  objc_msgSend_encodeInt64_forKey_(coder, v8, selfCopy->_clipRectSource.size.width, @"MPSImageStatistics.clipRectSource.size.width");
+  objc_msgSend_encodeInt64_forKey_(coder, v9, selfCopy->_clipRectSource.size.height, @"MPSImageStatistics.clipRectSource.size.height");
+  objc_msgSend_encodeInt64_forKey_(coder, v10, selfCopy->_clipRectSource.size.depth, @"MPSImageStatistics.clipRectSource.size.depth");
   selfCopy = (selfCopy + 256);
-  objc_msgSend_encodeInt64_forKey_(coder, v23, selfCopy->super.super.super.isa, @"MPSImageStatistics.stride.x", v24, v25);
-  objc_msgSend_encodeInt64_forKey_(coder, v26, HIDWORD(selfCopy->super.super.super.isa), @"MPSImageStatistics.stride.y", v27, v28);
+  objc_msgSend_encodeInt64_forKey_(coder, v11, selfCopy->super.super.super.isa, @"MPSImageStatistics.stride.x");
+  objc_msgSend_encodeInt64_forKey_(coder, v12, HIDWORD(selfCopy->super.super.super.isa), @"MPSImageStatistics.stride.y");
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v14.receiver = self;
-  v14.super_class = MPSImageStatisticsMinMaxMean;
-  v10 = [(MPSUnaryImageKernel *)&v14 copyWithZone:zone device:device];
-  if (v10)
+  v11.receiver = self;
+  v11.super_class = MPSImageStatisticsMinMaxMean;
+  v7 = [(MPSUnaryImageKernel *)&v11 copyWithZone:zone device:device];
+  if (v7)
   {
-    objc_msgSend_initEncoder(self, v5, v6, v7, v8, v9);
-    v12 = *&self->_clipRectSource.origin.z;
-    v11 = *&self->_clipRectSource.size.height;
-    v10[13] = *&self->_clipRectSource.origin.x;
-    v10[14] = v12;
-    v10[15] = v11;
-    *(v10 + 32) = *self->_strides;
-    *(v10 + 34) = self->_colorConversionFunction;
-    *(v10 + 35) = self->_colorConversionData;
+    objc_msgSend_initEncoder(self, v5, v6);
+    v9 = *&self->_clipRectSource.origin.z;
+    v8 = *&self->_clipRectSource.size.height;
+    v7[13] = *&self->_clipRectSource.origin.x;
+    v7[14] = v9;
+    v7[15] = v8;
+    *(v7 + 32) = *self->_strides;
+    *(v7 + 34) = self->_colorConversionFunction;
+    *(v7 + 35) = self->_colorConversionData;
   }
 
-  return v10;
+  return v7;
 }
 
 - ($1C75447F214D9465CD650DD956230C7F)clipRectSource

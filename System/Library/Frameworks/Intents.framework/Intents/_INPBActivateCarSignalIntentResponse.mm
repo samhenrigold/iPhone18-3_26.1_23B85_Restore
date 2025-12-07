@@ -3,6 +3,7 @@
 - (_INPBActivateCarSignalIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)signalsAsString:(int)string;
 - (int)StringAsSignals:(id)signals;
 - (void)addSignals:(int)signals;
 - (void)dealloc;
@@ -116,7 +117,6 @@
     v4 = 0;
     do
     {
-      v5 = p_signals->list[v4];
       PBDataWriterWriteInt32Field();
       ++v4;
     }
@@ -140,6 +140,26 @@
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)signalsAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AUDIBLE";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"VISIBLE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

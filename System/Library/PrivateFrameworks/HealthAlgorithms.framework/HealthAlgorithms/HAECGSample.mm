@@ -123,16 +123,17 @@
 
 - (BOOL)parseRepresentation:(id)representation withMetadata:(id)metadata
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   metadataCopy = metadata;
-  v35 = 0;
-  if ([representationCopy length] <= 1)
+  v40 = 0;
+  v8 = [representationCopy length];
+  if (v8 <= 1)
   {
-    v8 = ha_get_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = ha_get_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      -[HAECGSample parseRepresentation:withMetadata:].cold.7(&v36, [representationCopy length]);
+      -[HAECGSample parseRepresentation:withMetadata:].cold.7(&v41, [representationCopy length]);
     }
 
     goto LABEL_28;
@@ -140,23 +141,24 @@
 
   if (!metadataCopy)
   {
-    v19 = ha_get_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = ha_get_log(v8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [HAECGSample parseRepresentation:v19 withMetadata:?];
+      [HAECGSample parseRepresentation:v22 withMetadata:?];
     }
 
     goto LABEL_27;
   }
 
-  v9 = [metadataCopy objectForKeyedSubscript:@"timestampReference"];
-  if (!v9)
+  v10 = [metadataCopy objectForKeyedSubscript:@"timestampReference"];
+  v11 = v10;
+  if (!v10)
   {
 LABEL_25:
-    v19 = ha_get_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v22 = ha_get_log(v10);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [HAECGSample parseRepresentation:v19 withMetadata:?];
+      [HAECGSample parseRepresentation:v22 withMetadata:?];
     }
 
 LABEL_27:
@@ -164,144 +166,148 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v10 = [metadataCopy objectForKeyedSubscript:@"rtpTicksPerSecond"];
-  if (!v10)
+  v12 = [metadataCopy objectForKeyedSubscript:@"rtpTicksPerSecond"];
+  if (!v12)
   {
 LABEL_24:
 
     goto LABEL_25;
   }
 
-  v11 = [metadataCopy objectForKeyedSubscript:@"wallclockTimeReference"];
-  if (!v11)
+  v13 = [metadataCopy objectForKeyedSubscript:@"wallclockTimeReference"];
+  if (!v13)
   {
 LABEL_23:
 
     goto LABEL_24;
   }
 
-  v12 = [metadataCopy objectForKeyedSubscript:@"sessionIdentifier"];
-  if (!v12)
+  v14 = [metadataCopy objectForKeyedSubscript:@"sessionIdentifier"];
+  if (!v14)
   {
 LABEL_22:
 
     goto LABEL_23;
   }
 
-  v13 = [metadataCopy objectForKeyedSubscript:@"ecgApp"];
-  if (!v13)
+  v15 = [metadataCopy objectForKeyedSubscript:@"ecgApp"];
+  if (!v15)
   {
 
     goto LABEL_22;
   }
 
-  v14 = [metadataCopy objectForKeyedSubscript:@"contactDetected"];
+  v16 = [metadataCopy objectForKeyedSubscript:@"contactDetected"];
 
-  if (!v14)
+  if (!v16)
   {
     goto LABEL_25;
   }
 
-  v15 = [metadataCopy objectForKeyedSubscript:@"contactDetected"];
-  bOOLValue = [v15 BOOLValue];
+  v17 = [metadataCopy objectForKeyedSubscript:@"contactDetected"];
+  bOOLValue = [v17 BOOLValue];
 
   if ((bOOLValue & 1) == 0)
   {
     goto LABEL_28;
   }
 
-  [representationCopy getBytes:&v35 length:2];
-  if (v35 > 0x105u)
+  [representationCopy getBytes:&v40 length:2];
+  if (v40 > 0x105u)
   {
-    if (v35 == 262)
+    if (v40 == 262)
     {
-      if ([representationCopy length] != 13)
+      v30 = [representationCopy length];
+      if (v30 != 13)
       {
-        v34 = ha_get_log();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v39 = ha_get_log(v30);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
         {
-          -[HAECGSample parseRepresentation:withMetadata:].cold.1(&v36, [representationCopy length]);
+          -[HAECGSample parseRepresentation:withMetadata:].cold.1(&v41, [representationCopy length]);
         }
 
         goto LABEL_57;
       }
 
-      [representationCopy getBytes:&v38 length:13];
-      [(HAECGSample *)self setTimestampWithRtpTicks:v40 withMetadata:metadataCopy];
-      if (!v39)
+      [representationCopy getBytes:&v43 length:13];
+      [(HAECGSample *)self setTimestampWithRtpTicks:v45 withMetadata:metadataCopy];
+      if (!v44)
       {
         goto LABEL_41;
       }
 
-      v23 = self->_flags | 1;
+      v26 = self->_flags | 1;
     }
 
     else
     {
-      if (v35 != 265)
+      if (v40 != 265)
       {
         goto LABEL_28;
       }
 
-      if ([representationCopy length] != 13)
+      v25 = [representationCopy length];
+      if (v25 != 13)
       {
-        v34 = ha_get_log();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v39 = ha_get_log(v25);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
         {
-          -[HAECGSample parseRepresentation:withMetadata:].cold.1(&v36, [representationCopy length]);
+          -[HAECGSample parseRepresentation:withMetadata:].cold.1(&v41, [representationCopy length]);
         }
 
         goto LABEL_57;
       }
 
-      [representationCopy getBytes:&v38 length:13];
-      [(HAECGSample *)self setTimestampWithRtpTicks:v40 withMetadata:metadataCopy];
-      if (!v39)
+      [representationCopy getBytes:&v43 length:13];
+      [(HAECGSample *)self setTimestampWithRtpTicks:v45 withMetadata:metadataCopy];
+      if (!v44)
       {
         goto LABEL_41;
       }
 
-      v23 = self->_flags | 2;
+      v26 = self->_flags | 2;
     }
 
-    self->_flags = v23;
+    self->_flags = v26;
     goto LABEL_41;
   }
 
-  if (v35 == 170)
+  if (v40 == 170)
   {
-    if ([representationCopy length] == 315)
+    v27 = [representationCopy length];
+    if (v27 == 315)
     {
-      [representationCopy getBytes:&v36 length:315];
-      v24 = [(HAECGSample *)self decodeHALV1Payload:v37 withMetadata:metadataCopy];
+      [representationCopy getBytes:&v41 length:315];
+      v28 = [(HAECGSample *)self decodeHALV1Payload:v42 withMetadata:metadataCopy];
       ecgData = self->_ecgData;
-      self->_ecgData = v24;
+      self->_ecgData = v28;
 
       goto LABEL_41;
     }
 
-    v34 = ha_get_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v39 = ha_get_log(v27);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
     {
-      -[HAECGSample parseRepresentation:withMetadata:].cold.4(&v38, [representationCopy length]);
+      -[HAECGSample parseRepresentation:withMetadata:].cold.4(&v43, [representationCopy length]);
     }
 
     goto LABEL_57;
   }
 
-  if (v35 != 216)
+  if (v40 != 216)
   {
 LABEL_28:
-    v20 = 0;
+    v23 = 0;
     goto LABEL_29;
   }
 
-  if ([representationCopy length] != 483)
+  v19 = [representationCopy length];
+  if (v19 != 483)
   {
-    v34 = ha_get_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v39 = ha_get_log(v19);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
     {
-      -[HAECGSample parseRepresentation:withMetadata:].cold.3(&v38, [representationCopy length]);
+      -[HAECGSample parseRepresentation:withMetadata:].cold.3(&v43, [representationCopy length]);
     }
 
 LABEL_57:
@@ -309,41 +315,40 @@ LABEL_57:
     goto LABEL_28;
   }
 
-  [representationCopy getBytes:&v36 length:483];
-  v17 = [(HAECGSample *)self decodeHALV2Payload:v37 withMetadata:metadataCopy withPayloadVersion2:1];
-  v18 = self->_ecgData;
-  self->_ecgData = v17;
+  [representationCopy getBytes:&v41 length:483];
+  v20 = [(HAECGSample *)self decodeHALV2Payload:v42 withMetadata:metadataCopy withPayloadVersion2:1];
+  v21 = self->_ecgData;
+  self->_ecgData = v20;
 
 LABEL_41:
-  v26 = [metadataCopy objectForKeyedSubscript:@"sessionIdentifier"];
+  v31 = [metadataCopy objectForKeyedSubscript:@"sessionIdentifier"];
   sessionIdentifier = self->_sessionIdentifier;
-  self->_sessionIdentifier = v26;
+  self->_sessionIdentifier = v31;
 
-  v28 = [metadataCopy objectForKeyedSubscript:@"ecgApp"];
-  bOOLValue2 = [v28 BOOLValue];
-  v30 = 4;
+  v33 = [metadataCopy objectForKeyedSubscript:@"ecgApp"];
+  bOOLValue2 = [v33 BOOLValue];
+  v35 = 4;
   if (!bOOLValue2)
   {
-    v30 = 0;
+    v35 = 0;
   }
 
-  self->_flags |= v30;
+  self->_flags |= v35;
 
-  v31 = [metadataCopy objectForKeyedSubscript:@"rightWrist"];
-  bOOLValue3 = [v31 BOOLValue];
-  v33 = 8;
+  v36 = [metadataCopy objectForKeyedSubscript:@"rightWrist"];
+  bOOLValue3 = [v36 BOOLValue];
+  v38 = 8;
   if (bOOLValue3)
   {
-    v33 = 0;
+    v38 = 0;
   }
 
-  self->_flags |= v33;
+  self->_flags |= v38;
 
-  v20 = 1;
+  v23 = 1;
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v23;
 }
 
 - (HAECGSample)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp

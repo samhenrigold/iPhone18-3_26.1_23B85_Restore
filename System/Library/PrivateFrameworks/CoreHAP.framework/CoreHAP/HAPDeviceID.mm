@@ -44,8 +44,8 @@
 
 - (NSString)deviceIDString
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v3 = v9 - ((3 * HAPDeviceIDLength + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8[1] = *MEMORY[0x277D85DE8];
+  v3 = v8 - ((3 * HAPDeviceIDLength + 15) & 0xFFFFFFFFFFFFFFF0);
   data = [(HAPDeviceID *)self data];
   [data bytes];
   data2 = [(HAPDeviceID *)self data];
@@ -53,7 +53,6 @@
   HardwareAddressToCString();
 
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -129,14 +128,14 @@
 
 - (HAPDeviceID)initWithDeviceIDData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = [dataCopy length];
   if (v5 == HAPDeviceIDLength)
   {
-    v15.receiver = self;
-    v15.super_class = HAPDeviceID;
-    v6 = [(HAPDeviceID *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = HAPDeviceID;
+    v6 = [(HAPDeviceID *)&v14 init];
     if (v6)
     {
       v7 = [dataCopy copy];
@@ -156,9 +155,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = dataCopy;
+      v16 = v12;
+      v17 = 2112;
+      v18 = dataCopy;
       _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid device identifier data: %@", buf, 0x16u);
     }
 
@@ -166,13 +165,12 @@
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (HAPDeviceID)initWithDeviceIDString:(id)string
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = HAPDeviceIDLength;
   v6 = &buf[-((HAPDeviceIDLength + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -186,9 +184,9 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v15 = v9;
-      v16 = 2112;
-      v17 = stringCopy;
+      v14 = v9;
+      v15 = 2112;
+      v16 = stringCopy;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Invalid device identifier string: %@", buf, 0x16u);
     }
 
@@ -204,7 +202,6 @@
     selfCopy = self;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

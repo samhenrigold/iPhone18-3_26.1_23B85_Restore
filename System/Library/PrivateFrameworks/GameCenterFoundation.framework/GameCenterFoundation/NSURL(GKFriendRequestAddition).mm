@@ -6,7 +6,7 @@
 
 + (id)_gkGenerateFriendRequestURL:()GKFriendRequestAddition
 {
-  v50[4] = *MEMORY[0x277D85DE8];
+  v49[4] = *MEMORY[0x277D85DE8];
   v3 = a3;
   friendSupportPageURL = [v3 friendSupportPageURL];
 
@@ -27,37 +27,37 @@
 
   if (displayName)
   {
-    v49[0] = @"fc";
+    v48[0] = @"fc";
     friendCode = [v3 friendCode];
-    v50[0] = friendCode;
-    v49[1] = @"rqs";
+    v49[0] = friendCode;
+    v48[1] = @"rqs";
     friendRequestState = [v3 friendRequestState];
-    v50[1] = friendRequestState;
-    v49[2] = @"pn";
+    v49[1] = friendRequestState;
+    v48[2] = @"pn";
     initiator2 = [v3 initiator];
     displayName2 = [initiator2 displayName];
-    v50[2] = displayName2;
-    v49[3] = @"pid";
+    v49[2] = displayName2;
+    v48[3] = @"pid";
     initiator3 = [v3 initiator];
     internal = [initiator3 internal];
     playerID = [internal playerID];
-    v50[3] = playerID;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
+    v49[3] = playerID;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:4];
 
-    v46 = v17;
+    v45 = v17;
     v18 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v17 requiringSecureCoding:1 error:0];
     v19 = [v18 compressedDataUsingAlgorithm:3 error:0];
     v20 = [v19 base64EncodedStringWithOptions:0];
-    v47 = v7;
+    v46 = v7;
     v21 = objc_alloc(MEMORY[0x277CCAD18]);
     friendRequestVersion = [v3 friendRequestVersion];
     v23 = [v21 initWithName:@"vn" value:friendRequestVersion];
-    v48[0] = v23;
+    v47[0] = v23;
     v24 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"zd" value:v20];
-    v48[1] = v24;
+    v47[1] = v24;
     v25 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"pid" value:@"UnknownID"];
-    v48[2] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:3];
+    v47[2] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
     [v7 setQueryItems:v26];
 
     v27 = [v7 URL];
@@ -72,7 +72,7 @@
       v32 = [v31 numberWithUnsignedInteger:{objc_msgSend(absoluteString2, "length")}];
       absoluteString3 = [v27 absoluteString];
       [v30 stringWithFormat:@"messages url is too long: %@ - %@", v32, absoluteString3];
-      v34 = v45 = v18;
+      v34 = v44 = v18;
       v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/GameCenter/Frameworks/GameCenterFoundation/GKUtils+FriendRequest.m"];
       [v35 lastPathComponent];
       v36 = v20;
@@ -82,8 +82,8 @@
       v19 = v37;
       v20 = v36;
 
-      v7 = v47;
-      v18 = v45;
+      v7 = v46;
+      v18 = v44;
 
       [MEMORY[0x277CBEAD8] raise:@"GameKit Exception" format:{@"%@", v39}];
     }
@@ -104,8 +104,6 @@
 
     v27 = 0;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

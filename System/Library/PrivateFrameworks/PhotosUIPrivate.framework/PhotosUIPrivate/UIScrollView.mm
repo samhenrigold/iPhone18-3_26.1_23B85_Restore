@@ -28,24 +28,24 @@ uint64_t __77__UIScrollView_PhotosUI__pu_ppt_scrollToContentOffset_withCompletio
   return result;
 }
 
-double __77__UIScrollView_PhotosUI__pu_ppt_scrollToContentOffset_withCompletionHandler___block_invoke(double a1, double a2, double a3)
+double __77__UIScrollView_PhotosUI__pu_ppt_scrollToContentOffset_withCompletionHandler___block_invoke(uint64_t a1, double a2, double a3, double a4)
 {
   PXFloatSign();
-  v7 = v6;
+  v8 = v7;
   PXFloatSign();
-  if (v7 == v8)
+  if (v8 == v9)
   {
-    a1 = a1 + a2;
+    a2 = a2 + a3;
     PXFloatSign();
-    v10 = v9;
+    v11 = v10;
     PXFloatSign();
-    if (v10 != v11)
+    if (v11 != v12)
     {
-      return a3;
+      return a4;
     }
   }
 
-  return a1;
+  return a2;
 }
 
 @end

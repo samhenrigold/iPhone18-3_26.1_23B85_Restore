@@ -2,10 +2,12 @@
 - (BOOL)componentsAreEqualTo:(id)to;
 - (BOOL)isEqual:(id)equal;
 - (SFRemoteHotspotDevice)initWithCoder:(id)coder;
+- (SFRemoteHotspotDevice)initWithName:(id)name identifier:(id)identifier advertisement:(id)advertisement;
 - (id)description;
 - (id)signalStrengthFromInfo:(unsigned int)info;
 - (unsigned)networkTypeForIncomingType:(unsigned __int8)type;
 - (void)encodeWithCoder:(id)coder;
+- (void)updateWithHotspotInfo:(unsigned int)info;
 @end
 
 @implementation SFRemoteHotspotDevice
@@ -72,6 +74,43 @@
   return v17;
 }
 
+- (SFRemoteHotspotDevice)initWithName:(id)name identifier:(id)identifier advertisement:(id)advertisement
+{
+  v5 = *&advertisement.var0;
+  advertisementCopy = advertisement;
+  nameCopy = name;
+  identifierCopy = identifier;
+  v22.receiver = self;
+  v22.super_class = SFRemoteHotspotDevice;
+  v10 = [(SFRemoteHotspotDevice *)&v22 init];
+  if (v10)
+  {
+    v11 = [nameCopy copy];
+    deviceName = v10->_deviceName;
+    v10->_deviceName = v11;
+
+    v13 = [identifierCopy copy];
+    deviceIdentifier = v10->_deviceIdentifier;
+    v10->_deviceIdentifier = v13;
+
+    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:BYTE2(v5)];
+    batteryLife = v10->_batteryLife;
+    v10->_batteryLife = v15;
+
+    v10->_networkType = [(SFRemoteHotspotDevice *)v10 networkTypeForIncomingType:BYTE4(v5)];
+    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:BYTE5(v5)];
+    signalStrength = v10->_signalStrength;
+    v10->_signalStrength = v17;
+
+    v10->_hasDuplicates = (v5 & 0x8000) != 0;
+    v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&advertisementCopy length:6];
+    advertisementData = v10->_advertisementData;
+    v10->_advertisementData = v19;
+  }
+
+  return v10;
+}
+
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -108,39 +147,7 @@
     v5 = toCopy;
     batteryLife = [v5 batteryLife];
     v7 = [batteryLife isEqual:self->_batteryLife];
-
-    if (!v7)
-    {
-      goto LABEL_10;
-    }
-
-    deviceName = [v5 deviceName];
-    v9 = [deviceName isEqual:self->_deviceName];
-
-    if (!v9)
-    {
-      goto LABEL_10;
-    }
-
-    deviceIdentifier = [v5 deviceIdentifier];
-    v11 = [deviceIdentifier isEqual:self->_deviceIdentifier];
-
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-
-    [v5 lastSeen];
-    if (v12 == self->_lastSeen && [v5 networkType] == self->_networkType && (objc_msgSend(v5, "signalStrength"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqual:", self->_signalStrength), v13, v14))
-    {
-      v15 = self->_handoffActive == [v5 handoffActive];
-    }
-
-    else
-    {
-LABEL_10:
-      v15 = 0;
-    }
+    v15 = v7 && ([v5 deviceName], v8 = ;
   }
 
   else
@@ -149,6 +156,19 @@ LABEL_10:
   }
 
   return v15;
+}
+
+- (void)updateWithHotspotInfo:(unsigned int)info
+{
+  v3 = *&info;
+  v5 = [(SFRemoteHotspotDevice *)self batteryLifeFromInfo:?];
+  batteryLife = self->_batteryLife;
+  self->_batteryLife = v5;
+
+  self->_networkType = [(SFRemoteHotspotDevice *)self networkTypeFromInfo:v3];
+  v7 = [(SFRemoteHotspotDevice *)self signalStrengthFromInfo:v3];
+  signalStrength = self->_signalStrength;
+  self->_signalStrength = v7;
 }
 
 - (SFRemoteHotspotDevice)initWithCoder:(id)coder

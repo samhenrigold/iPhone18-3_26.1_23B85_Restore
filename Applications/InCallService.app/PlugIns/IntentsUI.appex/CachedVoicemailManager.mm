@@ -27,7 +27,7 @@
 
 - (void)fetchMessagesWithCompletion:(id)completion
 {
-  v5 = sub_100030744(&qword_1000C5110);
+  v5 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(completion);
@@ -52,7 +52,7 @@
 
 - (void)voicemailWithIdentifier:(MPMessageID *)identifier completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);

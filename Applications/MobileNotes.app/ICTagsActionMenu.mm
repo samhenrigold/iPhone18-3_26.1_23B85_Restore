@@ -69,7 +69,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v19 = sub_1002CB634(selectionCopy, controllerCopy, item, managerCopy, delegate, v13, v14);
-  sub_10000C840(v13);
+  sub_10000C840(v13, v14);
 
   swift_unknownObjectRelease();
   return v19;
@@ -96,7 +96,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v19 = sub_1002CB764(selectionCopy, controllerCopy, item, managerCopy, delegate, v13, v14);
-  sub_10000C840(v13);
+  sub_10000C840(v13, v14);
 
   swift_unknownObjectRelease();
 
@@ -124,7 +124,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v21 = sub_1002CB8B8(selectionCopy, controllerCopy, item, managerCopy, children, delegate, v15, v16);
-  sub_10000C840(v15);
+  sub_10000C840(v15, v16);
 
   swift_unknownObjectRelease();
 
@@ -171,10 +171,11 @@
 
   v7 = (self + OBJC_IVAR___ICTagsActionMenu_completion);
   v8 = *(self + OBJC_IVAR___ICTagsActionMenu_completion);
+  v9 = *(self + OBJC_IVAR___ICTagsActionMenu_completion + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (UIViewController)presentingViewController
@@ -196,7 +197,7 @@
   selfCopy = self;
   sub_1002C90D8();
 
-  sub_1000054A4(0, &qword_1006C6400);
+  sub_1000054A4(0, &qword_1006C6400, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

@@ -67,7 +67,7 @@ uint64_t __24__PDRSignposts_instance__block_invoke()
 
 - (void)endFetchIntervalTrace
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   traceLog = [(PDRSignposts *)self traceLog];
   if (traceLog)
@@ -80,16 +80,15 @@ uint64_t __24__PDRSignposts_instance__block_invoke()
       traceLog2 = [(PDRSignposts *)self traceLog];
       if (os_signpost_enabled(traceLog2))
       {
-        v8 = 134349056;
+        v7 = 134349056;
         intervalStart2 = [(PDRSignposts *)self intervalStart];
-        _os_signpost_emit_with_name_impl(&dword_22DF91000, traceLog2, OS_SIGNPOST_EVENT, 0xB8AB62A7B18D7940, "nanoregistry.pdr.slowFetch", "%{public, signpost.description:begin_time}llu", &v8, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_22DF91000, traceLog2, OS_SIGNPOST_EVENT, 0xB8AB62A7B18D7940, "nanoregistry.pdr.slowFetch", "%{public, signpost.description:begin_time}llu", &v7, 0xCu);
       }
     }
   }
 
   [(PDRSignposts *)self setIntervalStart:0];
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelFetchIntervalTrace

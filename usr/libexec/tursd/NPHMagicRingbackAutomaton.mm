@@ -111,48 +111,48 @@
 {
   requestCopy = request;
   objc_storeStrong(&self->_currentIncomingCallRequest, request);
-  v6 = sub_100001C24();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100001C24(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     currentIncomingCallRequest = self->_currentIncomingCallRequest;
     *buf = 138412290;
-    v13 = currentIncomingCallRequest;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "_currentIncomingCallRequest: %@", buf, 0xCu);
+    v14 = currentIncomingCallRequest;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_currentIncomingCallRequest: %@", buf, 0xCu);
   }
 
-  v8 = dispatch_time(0, 3000000000);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100008148;
-  v10[3] = &unk_1000148D8;
-  v10[4] = self;
-  v11 = requestCopy;
-  v9 = requestCopy;
-  dispatch_after(v8, &_dispatch_main_q, v10);
+  v9 = dispatch_time(0, 3000000000);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100008148;
+  v11[3] = &unk_1000148D8;
+  v11[4] = self;
+  v12 = requestCopy;
+  v10 = requestCopy;
+  dispatch_after(v9, &_dispatch_main_q, v11);
 }
 
 - (void)setCurrentOutgoingCallResponse:(id)response
 {
   responseCopy = response;
   objc_storeStrong(&self->_currentOutgoingCallResponse, response);
-  v6 = sub_100001C24();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100001C24(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     currentOutgoingCallResponse = self->_currentOutgoingCallResponse;
     *buf = 138412290;
-    v13 = currentOutgoingCallResponse;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "_currentOutgoingCallResponse: %@", buf, 0xCu);
+    v14 = currentOutgoingCallResponse;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_currentOutgoingCallResponse: %@", buf, 0xCu);
   }
 
-  v8 = dispatch_time(0, 3000000000);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000082A0;
-  v10[3] = &unk_1000148D8;
-  v10[4] = self;
-  v11 = responseCopy;
-  v9 = responseCopy;
-  dispatch_after(v8, &_dispatch_main_q, v10);
+  v9 = dispatch_time(0, 3000000000);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000082A0;
+  v11[3] = &unk_1000148D8;
+  v11[4] = self;
+  v12 = responseCopy;
+  v10 = responseCopy;
+  dispatch_after(v9, &_dispatch_main_q, v11);
 }
 
 - (void)_flipMuteForCall:(id)call

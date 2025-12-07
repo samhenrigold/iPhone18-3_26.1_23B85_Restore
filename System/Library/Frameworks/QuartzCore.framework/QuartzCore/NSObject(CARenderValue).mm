@@ -1,5 +1,5 @@
 @interface NSObject(CARenderValue)
-- (CA::Render::Texture)CA_copyRenderValue;
+- (atomic_uint)CA_copyRenderValue;
 - (uint64_t)CA_copyNumericValue:()CARenderValue;
 - (void)CA_prepareRenderValue;
 @end
@@ -27,28 +27,28 @@
     }
   }
 
-  v5 = CFGetTypeID(cf);
+  v6 = CFGetTypeID(cf);
   if (CA::Render::initialize_types(void)::once[0] != -1)
   {
     dispatch_once(CA::Render::initialize_types(void)::once, &__block_literal_global_9_6242);
   }
 
-  if (v5 == CA::Render::image_type)
+  if (v6 == CA::Render::image_type)
   {
 
-    CA::Render::prepare_image(cf, v4, 0, v6);
+    CA::Render::prepare_image(cf, v4, 0, v5, v7);
   }
 
-  else if (v5 == CA::Render::backing_type && (*(cf + 246) & 0x100) == 0 && !*(cf + 53))
+  else if (v6 == CA::Render::backing_type && (*(cf + 246) & 0x100) == 0 && !*(cf + 53))
   {
     pthread_mutex_lock((cf + 16));
-    CABackingStoreGetFrontTexture(cf, v4, v7);
+    CABackingStoreGetFrontTexture(cf, v4, v8);
 
     pthread_mutex_unlock((cf + 16));
   }
 }
 
-- (CA::Render::Texture)CA_copyRenderValue
+- (atomic_uint)CA_copyRenderValue
 {
   v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
   if (v4 && (v5 = *(v4 + 40)) != 0)

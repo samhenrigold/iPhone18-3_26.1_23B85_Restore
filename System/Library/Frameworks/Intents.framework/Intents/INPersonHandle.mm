@@ -25,8 +25,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"value";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"value";
   value = self->_value;
   null = value;
   if (!value)
@@ -34,8 +34,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"type";
+  v13[0] = null;
+  v12[1] = @"type";
   type = [(INPersonHandle *)self type];
   if (type <= INPersonHandleTypeEmailAddress)
   {
@@ -76,8 +76,8 @@
   null2 = [MEMORY[0x1E695DFB0] null];
   v6 = 1;
 LABEL_15:
-  v14[1] = null2;
-  v13[2] = @"label";
+  v13[1] = null2;
+  v12[2] = @"label";
   label = self->_label;
   null3 = label;
   if (!label)
@@ -85,8 +85,8 @@ LABEL_15:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (label)
   {
     if (!v6)
@@ -118,7 +118,6 @@ LABEL_19:
 LABEL_25:
 
 LABEL_20:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -170,7 +169,7 @@ LABEL_20:
   {
     v5 = equalCopy;
     value = self->_value;
-    v7 = (value == v5[2] || ([(NSString *)value isEqual:?]& 1) != 0 || self->_type != 1 && v5[3] != 1 && (v8 = self->_value, v9 = v5[2], PNPhoneNumbersEqual())) && self->_type == v5[3] && self->_emergencyType == v5[5] && self->_faceTimeType == v5[6] && self->_suggested == *(v5 + 8);
+    v7 = (value == v5[2] || ([(NSString *)value isEqual:?]& 1) != 0 || self->_type != 1 && v5[3] != 1 && PNPhoneNumbersEqual()) && self->_type == v5[3] && self->_emergencyType == v5[5] && self->_faceTimeType == v5[6] && self->_suggested == *(v5 + 8);
   }
 
   else

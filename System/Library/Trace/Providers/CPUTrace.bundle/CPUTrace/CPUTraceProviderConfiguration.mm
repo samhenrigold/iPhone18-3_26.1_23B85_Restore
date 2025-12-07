@@ -52,45 +52,8 @@
     processID = v7->_processID;
     v7->_processID = v15;
 
-    if (*error)
+    if (*error || (v7->_stream = (v14[2])(v14, @"stream", 1), *error) || (v7->_throttle = (v14[2])(v14, @"throttle", 0), *error) || (v7->_addressCapture = (v14[2])(v14, @"address", 0), *error) || ((v13[2])(v13, @"rate-limit", 0), v17 = objc_claimAutoreleasedReturnValue(), rateLimit = v7->_rateLimit, v7->_rateLimit = v17, rateLimit, *error) || ((v13[2])(v13, @"wrap", 0), v19 = objc_claimAutoreleasedReturnValue(), wrap = v7->_wrap, v7->_wrap = v19, wrap, *error) || ((v13[2])(v13, @"wrap-size", 0), v21 = objc_claimAutoreleasedReturnValue(), wrapSize = v7->_wrapSize, v7->_wrapSize = v21, wrapSize, *error) || (v7->_prod = (v14[2])(v14, @"prod", 0), *error) || (v7->_driver = (v14[2])(v14, @"driver", 1), *error))
     {
-      goto LABEL_12;
-    }
-
-    v7->_stream = (v14[2])(v14, @"stream", 1);
-    if (*error)
-    {
-      goto LABEL_12;
-    }
-
-    v7->_throttle = (v14[2])(v14, @"throttle", 0);
-    if (*error)
-    {
-      goto LABEL_12;
-    }
-
-    v7->_addressCapture = (v14[2])(v14, @"address", 0);
-    if (*error)
-    {
-      goto LABEL_12;
-    }
-
-    v17 = (v13[2])(v13, @"rate-limit", 0);
-    rateLimit = v7->_rateLimit;
-    v7->_rateLimit = v17;
-
-    if (*error)
-    {
-      goto LABEL_12;
-    }
-
-    v19 = (v13[2])(v13, @"wrap", 0);
-    wrap = v7->_wrap;
-    v7->_wrap = v19;
-
-    if (*error || ((v13[2])(v13, @"wrap-size", 0), v21 = objc_claimAutoreleasedReturnValue(), wrapSize = v7->_wrapSize, v7->_wrapSize = v21, wrapSize, *error) || (v7->_prod = (v14[2])(v14, @"prod", 0), *error) || (v7->_driver = (v14[2])(v14, @"driver", 1), *error))
-    {
-LABEL_12:
       v23 = 0;
       goto LABEL_13;
     }
@@ -192,7 +155,7 @@ LABEL_17:
           v15 = [allObjects componentsJoinedByString:{@", "}];
 
           v16 = [v12 componentsJoinedByString:{@", "}];
-          v17 = [NSString stringWithFormat:@"Missing system(s): [ %@ ], valid system(s): [ %@ ]", v15, v16];
+          v17 = [NSString stringWithFormat:@"Missing system(s): [ %@ ], valid system(s): [ %@ ]", v15, v16, 0];
           v18 = sub_1408(v17);
         }
 

@@ -82,17 +82,16 @@
 
 - (BOOL)resetWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v4 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA068];
-    v10[0] = @"This specific algorithm has not implemented a reset yet. If you need a reset, please file a radar to 'ANST | Implementation'. ";
-    v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v10, &v9, 1);
+    v8 = *MEMORY[0x277CCA068];
+    v9[0] = @"This specific algorithm has not implemented a reset yet. If you need a reset, please file a radar to 'ANST | Implementation'. ";
+    v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v9, &v8, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v4, v6, @"ANSTErrorDomain", 0, v5);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

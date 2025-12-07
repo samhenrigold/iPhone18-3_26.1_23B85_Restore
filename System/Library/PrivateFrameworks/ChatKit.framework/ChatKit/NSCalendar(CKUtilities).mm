@@ -73,15 +73,15 @@
 
   if (sTestCalendar)
   {
-    v1 = sTestCalendar;
+    v2 = sTestCalendar;
   }
 
   else
   {
-    v1 = __ck_currentCalendar_sCalendar;
+    v2 = __ck_currentCalendar_sCalendar;
   }
 
-  return v1;
+  return v2;
 }
 
 + (void)__ck_setTestCalendar:()CKUtilities

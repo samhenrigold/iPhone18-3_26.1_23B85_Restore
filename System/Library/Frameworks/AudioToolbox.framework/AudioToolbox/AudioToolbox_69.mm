@@ -8982,7 +8982,7 @@ void vec::init<float>(uint64_t *a1, unsigned int a2, unsigned int a3)
 {
   v6 = 0;
   v4 = a2;
-  std::vector<float>::vector[abi:ne200100](__p, a3);
+  std::vector<float>::vector[abi:ne200100](__p, a3, &v6);
   std::vector<std::vector<float>>::assign(a1, v4, __p);
   if (__p[0])
   {
@@ -13611,23 +13611,31 @@ uint64_t CircularModelSV::CircularModelSV(uint64_t a1, int a2, int a3, uint64_t 
   *(a1 + 8) = a2;
   *(a1 + 12) = a3;
   *(a1 + 16) = a3 * a2;
-  std::vector<float>::vector[abi:ne200100]((a1 + 24), (2 * a3 * a2));
-  std::vector<float>::vector[abi:ne200100]((a1 + 48), *(a1 + 12));
-  std::vector<float>::vector[abi:ne200100]((a1 + 72), *(a1 + 12));
-  *(a1 + 96) = 1065353216;
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 24), (2 * a3 * a2), &v15);
   v6 = *(a1 + 12);
-  *(a1 + 104) = v6;
-  v7 = *(a1 + 8);
-  *(a1 + 108) = v7;
-  v8 = powf(3.1416, v7);
-  v9 = v8 + v8;
-  *(a1 + 112) = v8 + v8;
-  v10 = tgammaf(v7);
-  *(a1 + 116) = v9 / v10;
-  *(a1 + 120) = logf(v10);
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 48), v6, &v15);
+  v7 = *(a1 + 12);
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100]((a1 + 72), v7, &v15);
+  *(a1 + 96) = 1065353216;
+  v8 = *(a1 + 12);
+  *(a1 + 104) = v8;
+  v9 = *(a1 + 8);
+  *(a1 + 108) = v9;
+  v10 = powf(3.1416, v9);
+  v11 = v10 + v10;
+  *(a1 + 112) = v10 + v10;
+  v12 = tgammaf(v9);
+  *(a1 + 116) = v11 / v12;
+  *(a1 + 120) = logf(v12);
   *(a1 + 124) = 1;
-  std::vector<float>::vector[abi:ne200100]((a1 + 128), (2 * v6));
-  std::vector<float>::vector[abi:ne200100]((a1 + 152), *(a1 + 12));
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100]((a1 + 128), (2 * v8), &v15);
+  v13 = *(a1 + 12);
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100]((a1 + 152), v13, &v15);
   CircularModelSV::SetTargetSV(a1, a4);
   return a1;
 }
@@ -13673,19 +13681,19 @@ void SVBasedProbability::SVBasedProbability(uint64_t a1, int a2, unsigned int a3
   v19 = *(v18 + 8) * a2;
   *(v18 + 444) = v19;
   LODWORD(v23) = 0;
-  std::vector<float>::vector[abi:ne200100]((v18 + 448), (2 * v19));
+  std::vector<float>::vector[abi:ne200100]((v18 + 448), (2 * v19), &v23);
   *(a1 + 472) = 0;
   *(a1 + 480) = 0;
   *(a1 + 488) = 0;
   v20 = *(a1 + 8);
   LODWORD(v23) = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 496), v20);
+  std::vector<float>::vector[abi:ne200100]((a1 + 496), v20, &v23);
   v21 = *(a1 + 8);
   LODWORD(v23) = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 520), v21);
+  std::vector<float>::vector[abi:ne200100]((a1 + 520), v21, &v23);
   v22 = (2 * *(a1 + 444));
   LODWORD(v23) = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 544), v22);
+  std::vector<float>::vector[abi:ne200100]((a1 + 544), v22, &v23);
   *(a1 + 568) = a4;
   *(a1 + 572) = a5;
   *(a1 + 576) = 0;
@@ -13809,7 +13817,7 @@ _DWORD *BeamformerFD::AllocateBlockSizeDependentVectors(BeamformerFD *this, int1
   if (*(this + 3))
   {
     v16 = 0;
-    v17 = this + 130200;
+    v17 = (this + 130200);
     do
     {
       if (*(this + 2))
@@ -13834,7 +13842,7 @@ _DWORD *BeamformerFD::AllocateBlockSizeDependentVectors(BeamformerFD *this, int1
       v23 = (2 * *(this + 8));
       v36 = 0;
       std::vector<float>::assign(this + 3 * v16++ + 30099, v23, &v36, v15);
-      v17 += 384;
+      v17 += 48;
     }
 
     while (v16 < *(this + 3));
@@ -13945,18 +13953,18 @@ void BeamformerFD::SelectBeam(float **this)
   *(this + 27) = v23;
 }
 
-uint64_t BeamformerFD::ECMixSwitch(BeamformerFD *this)
+void BeamformerFD::ECMixSwitch(BeamformerFD *this)
 {
   v26[1] = *MEMORY[0x1E69E9840];
-  result = MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](this);
   v5 = (v26 - ((v4 + 15) & 0x7FFFFFFF0));
   if (v3)
   {
-    v6 = *(result + 108);
-    v7 = (*(result + 32) * 1000.0) / (*(result + 24) * 0.5);
+    v6 = *(v1 + 108);
+    v7 = (*(v1 + 32) * 1000.0) / (*(v1 + 24) * 0.5);
     LODWORD(v2) = vcvtas_u32_f32(v7);
-    v8 = *(result + 24 * v6 + 247704);
-    v9 = (result + 384 * v6 + 130200);
+    v8 = *(v1 + 24 * v6 + 247704);
+    v9 = (v1 + 384 * v6 + 130200);
     v10 = 2.2204e-16;
     v11 = v8;
     v12 = v5;
@@ -13993,7 +14001,7 @@ uint64_t BeamformerFD::ECMixSwitch(BeamformerFD *this)
     }
 
     while (v17);
-    v19 = (result + 240);
+    v19 = (v1 + 240);
     v20 = 0;
     v21 = 1.0;
     v22 = 0;
@@ -14024,10 +14032,9 @@ uint64_t BeamformerFD::ECMixSwitch(BeamformerFD *this)
     v22 = 0;
   }
 
-  *(result + 228) = v20;
-  *(result + 240) = v22;
-  *(result + 236) = v21;
-  return result;
+  *(v1 + 228) = v20;
+  *(v1 + 240) = v22;
+  *(v1 + 236) = v21;
 }
 
 float BeamformerFD::MakeLSDDBeam(uint64_t a1, unsigned int *a2, float **a3, float **a4, uint64_t a5)
@@ -15339,8 +15346,8 @@ uint64_t BeamformerFD::SetProfile(BeamformerFD *this, CFDictionaryRef theDict)
             std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v42, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 2);
           }
 
-          v42[3] = v2;
-          *(v42 + 8) = 2 * v47 - 2;
+          *&v42[1].__r_.__value_.__l.__data_ = v2;
+          LODWORD(v42[1].__r_.__value_.__r.__words[1]) = 2 * v47 - 2;
           CFRelease(v46);
           if ((buf[23] & 0x80000000) != 0)
           {
@@ -15348,7 +15355,7 @@ uint64_t BeamformerFD::SetProfile(BeamformerFD *this, CFDictionaryRef theDict)
           }
 
           ++v41;
-          v42 += 5;
+          v42 = (v42 + 40);
         }
 
         while (v41 < *(this + 2));
@@ -15439,8 +15446,8 @@ uint64_t BeamformerFD::SetProfile(BeamformerFD *this, CFDictionaryRef theDict)
               std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v52, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 2);
             }
 
-            v52[3] = v2;
-            *(v52 + 8) = 2 * v57 - 2;
+            *&v52[1].__r_.__value_.__l.__data_ = v2;
+            LODWORD(v52[1].__r_.__value_.__r.__words[1]) = 2 * v57 - 2;
             CFRelease(v56);
             if ((buf[23] & 0x80000000) != 0)
             {
@@ -15448,7 +15455,7 @@ uint64_t BeamformerFD::SetProfile(BeamformerFD *this, CFDictionaryRef theDict)
             }
 
             ++v51;
-            v52 += 5;
+            v52 = (v52 + 40);
           }
 
           while (v51 < *(this + 2));
@@ -15512,8 +15519,8 @@ uint64_t BeamformerFD::SetProfile(BeamformerFD *this, CFDictionaryRef theDict)
       }
 
       v13 = v86 + 1;
-      v84 += 80;
-      v85 += 80;
+      v84 = (v84 + 640);
+      v85 = (v85 + 640);
       if (v86 + 1 >= *(this + 3))
       {
         goto LABEL_154;
@@ -15685,7 +15692,7 @@ uint64_t BeamformerFD::Initialize(BeamformerFD *this, double a2, unsigned int a3
   }
 
   (*(*this + 144))(this);
-  v10 = this + 130200;
+  v10 = (this + 130200);
   v53 = (this + 130200);
   if (*(this + 3))
   {
@@ -15778,7 +15785,7 @@ uint64_t BeamformerFD::Initialize(BeamformerFD *this, double a2, unsigned int a3
 
       ++v11;
       v28 = *(this + 3);
-      v10 += 384;
+      v10 += 48;
       v14 = v54 + 640;
     }
 
@@ -22573,16 +22580,16 @@ uint64_t IIRFilterFloat32::Set(IIRFilterFloat32 *this, unsigned int a2, const Bi
       v43 = *(v26 + 6);
       v44 = vextq_s8(v43, *(v26 + 9), 8uLL);
       v45 = *(v26 + 2);
-      v35.f64[1] = *(v26 + 7);
-      v43.f64[1] = *(v26 + 17);
+      v35.i64[1] = *(v26 + 7);
+      v43.i64[1] = *(v26 + 17);
       v46 = vaddq_f64(vabsq_f64(vextq_s8(*v26, *(v26 + 3), 8uLL)), vabsq_f64(v41));
       v47 = vaddq_f64(vabsq_f64(vextq_s8(v37, *(v26 + 8), 8uLL)), vabsq_f64(v44));
       v48 = vaddq_f64(vabsq_f64(vextq_s8(v40, *(v26 + 13), 8uLL)), vabsq_f64(vextq_s8(v39, *(v26 + 14), 8uLL)));
       v50 = *(v26 + 16);
       v49 = *(v26 + 17);
-      v39.f64[1] = *(v26 + 27);
+      v39.i64[1] = *(v26 + 27);
       v51 = vextq_s8(v50, *(v26 + 19), 8uLL);
-      v50.f64[1] = *(v26 + 37);
+      v50.i64[1] = *(v26 + 37);
       v52 = vabsq_f64(vextq_s8(v33, *(v26 + 24), 8uLL));
       v53 = vaddq_f64(vabsq_f64(vextq_s8(v36, *(v26 + 18), 8uLL)), vabsq_f64(v51));
       v33.i64[1] = *(v26 + 47);
@@ -22590,32 +22597,32 @@ uint64_t IIRFilterFloat32::Set(IIRFilterFloat32 *this, unsigned int a2, const Bi
       v54 = vaddq_f64(vabsq_f64(vextq_s8(v32, *(v26 + 23), 8uLL)), v52);
       v55 = *(v26 + 26);
       v56 = *(v26 + 27);
-      v29.f64[1] = *(v26 + 55);
-      v32.f64[1] = *(v26 + 45);
+      v29.i64[1] = *(v26 + 55);
+      v32.i64[1] = *(v26 + 45);
       v34.f64[1] = *(v26 + 5);
       v57 = vaddq_f64(v54, vabsq_f64(v32));
       v58 = vaddq_f64(vabsq_f64(v30), vabsq_f64(vextq_s8(v55, *(v26 + 29), 8uLL)));
       v59 = *(v26 + 30);
       v60 = vaddq_f64(v58, vabsq_f64(v29));
       v61 = *(v26 + 35);
-      v29.f64[0] = *(v26 + 62);
+      v29.i64[0] = *(v26 + 62);
       v62 = *(v26 + 32);
-      v29.f64[1] = *(v26 + 67);
+      v29.i64[1] = *(v26 + 67);
       v63 = vaddq_f64(vabsq_f64(vextq_s8(v59, *(v26 + 33), 8uLL)), vabsq_f64(vextq_s8(*(v26 + 31), *(v26 + 34), 8uLL)));
-      v37.f64[1] = *(v26 + 15);
+      v37.i64[1] = *(v26 + 15);
       v64 = vaddq_f64(v47, vabsq_f64(v37));
-      v40.f64[1] = *(v26 + 25);
-      v59.f64[1] = *(v26 + 65);
+      v40.i64[1] = *(v26 + 25);
+      v59.i64[1] = *(v26 + 65);
       v65 = vaddq_f64(v63, vabsq_f64(v59));
-      v55.f64[1] = *(v26 + 57);
+      v55.i64[1] = *(v26 + 57);
       v66 = *(v26 + 37);
       v67.f64[0] = *(v26 + 72);
       v67.f64[1] = *(v26 + 77);
       v68 = vabsq_f64(vextq_s8(v61, *(v26 + 38), 8uLL));
-      v61.f64[1] = *(v26 + 75);
+      v61.i64[1] = *(v26 + 75);
       v66.f64[1] = *(v26 + 79);
       v62.f64[1] = *(v26 + 69);
-      v36.f64[1] = *(v26 + 35);
+      v36.i64[1] = *(v26 + 35);
       v56.f64[1] = *(v26 + 59);
       v31.f64[1] = *(v26 + 49);
       v49.f64[1] = *(v26 + 39);
@@ -22625,8 +22632,8 @@ uint64_t IIRFilterFloat32::Set(IIRFilterFloat32 *this, unsigned int a2, const Bi
       v69 = vaddq_f64(vaddq_f64(v48, vabsq_f64(v40)), vabsq_f64(v38));
       _Q20 = v87;
       v70 = vuzp1q_s8(vuzp1q_s16(vuzp1q_s32(vcgeq_f64(vaddq_f64(vaddq_f64(vaddq_f64(v46, vabsq_f64(v34)), vabsq_f64(v45)), vabsq_f64(vaddq_f64(v35, v87))), v25), vcgeq_f64(vaddq_f64(vaddq_f64(v64, vabsq_f64(v42)), vabsq_f64(vaddq_f64(v43, v87))), v25)), vuzp1q_s32(vcgeq_f64(vaddq_f64(v69, vabsq_f64(vaddq_f64(v39, v87))), v25), vcgeq_f64(vaddq_f64(vaddq_f64(vaddq_f64(v53, vabsq_f64(v36)), vabsq_f64(v49)), vabsq_f64(vaddq_f64(v50, v87))), v25))), vuzp1q_s16(vuzp1q_s32(vcgeq_f64(vaddq_f64(vaddq_f64(v57, vabsq_f64(v31)), vabsq_f64(vaddq_f64(v88, v87))), v25), vcgeq_f64(vaddq_f64(vaddq_f64(v60, vabsq_f64(v56)), vabsq_f64(vaddq_f64(v55, v87))), v25)), vuzp1q_s32(vcgeq_f64(vaddq_f64(vaddq_f64(v65, vabsq_f64(v62)), vabsq_f64(vaddq_f64(v29, v87))), v25), vcgeq_f64(vaddq_f64(vaddq_f64(vaddq_f64(vaddq_f64(v68, vabsq_f64(vextq_s8(*(v26 + 36), *(v26 + 39), 8uLL))), vabsq_f64(v61)), vabsq_f64(v66)), vabsq_f64(vaddq_f64(v67, v87))), v25))));
-      v69.f64[0] = 7.74860419e-304;
-      v69.f64[1] = 7.74860419e-304;
+      v69.i64[0] = 0x101010101010101;
+      v69.i64[1] = 0x101010101010101;
       *v27++ = vandq_s8(v70, v69);
       v26 = (v26 + 640);
       v28 -= 16;
@@ -22678,7 +22685,7 @@ LABEL_24:
     *&v81.f64[0] = v80.i64[0];
     v81.f64[1] = v78.f64[1];
     v82 = vextq_s8(v79, v76, 8uLL);
-    *&v79.f64[1] = v77.i64[1];
+    v79.i64[1] = v77.i64[1];
     *&v78.f64[1] = v76.i64[1];
     *v76.i8 = vand_s8(vmovn_s64(vcgeq_f64(vaddq_f64(vaddq_f64(vaddq_f64(vaddq_f64(vabsq_f64(vextq_s8(v80, v77, 8uLL)), vabsq_f64(v82)), vabsq_f64(v81)), vabsq_f64(v78)), vabsq_f64(vaddq_f64(v79, _Q20))), v75)), 0x100000001);
     v73[1] = v76.i8[4];

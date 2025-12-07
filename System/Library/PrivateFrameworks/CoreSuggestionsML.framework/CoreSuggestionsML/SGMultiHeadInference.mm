@@ -13,14 +13,14 @@
 
 - (id)quickResponsesForMessage:(id)message conversationTurns:(id)turns maxResponses:(unint64_t)responses language:(id)language
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   languageCopy = language;
-  v42[0] = @"outputLabels";
-  v42[1] = @"PREDICTION_REPLIES";
+  v41[0] = @"outputLabels";
+  v41[1] = @"PREDICTION_REPLIES";
   v11 = MEMORY[0x277CBEA60];
   turnsCopy = turns;
   messageCopy = message;
-  v14 = [v11 arrayWithObjects:v42 count:2];
+  v14 = [v11 arrayWithObjects:v41 count:2];
   v15 = [(SGMultiHeadInference *)self predictForMessage:messageCopy conversationTurns:turnsCopy language:languageCopy heads:v14];
 
   if (v15)
@@ -51,28 +51,28 @@
     {
       v26 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"score" ascending:0];
       v27 = [v15 objectForKeyedSubscript:v19];
-      v37 = v26;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v36 = v26;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       v29 = [v27 sortedArrayUsingDescriptors:v28];
 
       v30 = [v29 subarrayWithRange:{0, responses}];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __89__SGMultiHeadInference_quickResponsesForMessage_conversationTurns_maxResponses_language___block_invoke;
-      v35[3] = &unk_278EB8160;
-      v36 = languageCopy;
-      v31 = [v30 _pas_mappedArrayWithTransform:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __89__SGMultiHeadInference_quickResponsesForMessage_conversationTurns_maxResponses_language___block_invoke;
+      v34[3] = &unk_278EB8160;
+      v35 = languageCopy;
+      v31 = [v30 _pas_mappedArrayWithTransform:v34];
     }
 
     else
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        v34 = [v15 objectForKeyedSubscript:v19];
+        v33 = [v15 objectForKeyedSubscript:v19];
         *buf = 134218240;
-        v39 = [v34 count];
-        v40 = 2048;
-        v41 = [labels count];
+        v38 = [v33 count];
+        v39 = 2048;
+        v40 = [labels count];
         _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Predicted output space does not match number of labels for output space %lu != %lu", buf, 0x16u);
       }
 
@@ -84,8 +84,6 @@
   {
     v31 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -105,7 +103,7 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
 
 - (id)predictForMessage:(id)message conversationTurns:(id)turns language:(id)language heads:(id)heads
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   turnsCopy = turns;
   headsCopy = heads;
@@ -124,9 +122,9 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v18 = 134217984;
-        v19 = maxPromptLength;
-        _os_log_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Returning nil because merged message length exceeds maximum length %ld", &v18, 0xCu);
+        v17 = 134217984;
+        v18 = maxPromptLength;
+        _os_log_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Returning nil because merged message length exceeds maximum length %ld", &v17, 0xCu);
       }
 
       v14 = 0;
@@ -137,15 +135,13 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v18 = 134217984;
-      v19 = maxPromptLength;
-      _os_log_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Returning nil because message length exceeds maximum length %ld", &v18, 0xCu);
+      v17 = 134217984;
+      v18 = maxPromptLength;
+      _os_log_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Returning nil because message length exceeds maximum length %ld", &v17, 0xCu);
     }
 
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -214,7 +210,7 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
 
 - (id)predictForVector:(id)vector heads:(id)heads
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   headsCopy = heads;
   v8 = sgLogHandle();
@@ -222,7 +218,7 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
 
   v10 = sgLogHandle();
   v11 = v10;
-  v36 = v9 - 1;
+  v35 = v9 - 1;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
@@ -231,31 +227,31 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
 
   spid = v9;
 
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
   context = objc_autoreleasePoolPush();
-  v37 = headsCopy;
-  v38 = vectorCopy;
+  v36 = headsCopy;
+  v37 = vectorCopy;
   v12 = [(SGMultiHeadEspressoModel *)self->_model predict:vectorCopy heads:headsCopy];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v41 objects:v51 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v43;
+    v15 = *v42;
     do
     {
       v16 = 0;
       do
       {
-        if (*v43 != v15)
+        if (*v42 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v42 + 1) + 8 * v16);
+        v17 = *(*(&v41 + 1) + 8 * v16);
         modelHeads = [(SGQuickResponsesConfig *)self->_config modelHeads];
         v19 = [modelHeads objectForKeyedSubscript:v17];
         labels = [v19 labels];
@@ -269,11 +265,11 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
             v28 = [v26 numberWithUnsignedInteger:{objc_msgSend(v27, "count")}];
             v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(labels, "count")}];
             *buf = 138412802;
-            v47 = v17;
-            v48 = 2112;
-            v49 = v28;
-            v50 = 2112;
-            v51 = v29;
+            v46 = v17;
+            v47 = 2112;
+            v48 = v28;
+            v49 = 2112;
+            v50 = v29;
             _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "MultiHead output head %@ has mismatching number of scores (%@) and labels (%@)", buf, 0x20u);
           }
         }
@@ -281,20 +277,20 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
         else
         {
           v24 = [v12 objectForKeyedSubscript:v17];
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v40[2] = __47__SGMultiHeadInference_predictForVector_heads___block_invoke;
-          v40[3] = &unk_278EB8138;
-          v41 = labels;
-          v25 = [v24 _pas_mappedArrayWithIndexedTransform:v40];
-          [v39 setObject:v25 forKeyedSubscript:v17];
+          v39[0] = MEMORY[0x277D85DD0];
+          v39[1] = 3221225472;
+          v39[2] = __47__SGMultiHeadInference_predictForVector_heads___block_invoke;
+          v39[3] = &unk_278EB8138;
+          v40 = labels;
+          v25 = [v24 _pas_mappedArrayWithIndexedTransform:v39];
+          [v38 setObject:v25 forKeyedSubscript:v17];
         }
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v41 objects:v51 count:16];
     }
 
     while (v14);
@@ -303,15 +299,13 @@ SGQuickResponse *__89__SGMultiHeadInference_quickResponsesForMessage_conversatio
   objc_autoreleasePoolPop(context);
   v30 = sgLogHandle();
   v31 = v30;
-  if (v36 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+  if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_24799E000, v31, OS_SIGNPOST_INTERVAL_END, spid, "QuickResponsesForMessagePrediction", &unk_2479DB655, buf, 2u);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -338,7 +332,7 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
 
 - (SGMultiHeadInference)initWithLanguage:(id)language inputName:(id)name plistPath:(id)path espressoModelPath:(id)modelPath vocabPath:(id)vocabPath
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   nameCopy = name;
   pathCopy = path;
@@ -347,32 +341,32 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
   v17 = [SGQuickResponsesConfig configWithLanguage:languageCopy mode:1 plistPath:pathCopy vocabPath:vocabPathCopy];
   if (v17)
   {
-    v42 = vocabPathCopy;
-    v43 = modelPathCopy;
+    v41 = vocabPathCopy;
+    v42 = modelPathCopy;
     selfCopy = self;
-    v40 = nameCopy;
-    v41 = languageCopy;
+    v39 = nameCopy;
+    v40 = languageCopy;
     v18 = objc_opt_new();
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     modelHeads = [v17 modelHeads];
-    v20 = [modelHeads countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v20 = [modelHeads countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v46;
+      v22 = *v45;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v46 != v22)
+          if (*v45 != v22)
           {
             objc_enumerationMutation(modelHeads);
           }
 
-          v24 = *(*(&v45 + 1) + 8 * i);
+          v24 = *(*(&v44 + 1) + 8 * i);
           modelHeads2 = [v17 modelHeads];
           v26 = [modelHeads2 objectForKeyedSubscript:v24];
 
@@ -380,15 +374,15 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
           [v18 setObject:v27 forKeyedSubscript:v24];
         }
 
-        v21 = [modelHeads countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v21 = [modelHeads countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v21);
     }
 
-    if ([v43 hasSuffix:@".net"])
+    if ([v42 hasSuffix:@".net"])
     {
-      v28 = v43;
+      v28 = v42;
     }
 
     else
@@ -396,22 +390,22 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
       v30 = objc_alloc(MEMORY[0x277CCACA8]);
       predictionParams = [v17 predictionParams];
       subModelKeyString = [predictionParams subModelKeyString];
-      v28 = [v30 initWithFormat:@"%@:%@", v43, subModelKeyString];
+      v28 = [v30 initWithFormat:@"%@:%@", v42, subModelKeyString];
     }
 
-    nameCopy = v40;
-    languageCopy = v41;
-    vocabPathCopy = v42;
-    v33 = [SGMultiHeadEspressoModelCached classifierWithEspressoModelFile:v28 inputName:v40 headDimensionality:v18];
+    nameCopy = v39;
+    languageCopy = v40;
+    vocabPathCopy = v41;
+    v33 = [SGMultiHeadEspressoModelCached classifierWithEspressoModelFile:v28 inputName:v39 headDimensionality:v18];
     self = selfCopy;
     if (v33)
     {
-      v34 = [(SGQuickResponsesModel *)SGQuickResponsesClassificationModel transformerInstanceForLanguage:v41 mode:1 plistPath:pathCopy vocabPath:v42];
+      v34 = [(SGQuickResponsesModel *)SGQuickResponsesClassificationModel transformerInstanceForLanguage:v40 mode:1 plistPath:pathCopy vocabPath:v41];
       if (v34)
       {
-        v44.receiver = selfCopy;
-        v44.super_class = SGMultiHeadInference;
-        v35 = [(SGMultiHeadInference *)&v44 init];
+        v43.receiver = selfCopy;
+        v43.super_class = SGMultiHeadInference;
+        v35 = [(SGMultiHeadInference *)&v43 init];
         p_isa = &v35->super.isa;
         if (v35)
         {
@@ -430,16 +424,16 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v51 = v41;
-          v52 = 2112;
-          v53 = pathCopy;
+          v50 = v40;
+          v51 = 2112;
+          v52 = pathCopy;
           _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to initialize transformer prerprocessor for language %@ and plist path %@", buf, 0x16u);
         }
 
         selfCopy2 = 0;
       }
 
-      vocabPathCopy = v42;
+      vocabPathCopy = v41;
     }
 
     else
@@ -447,16 +441,16 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v51 = v41;
-        v52 = 2112;
-        v53 = pathCopy;
+        v50 = v40;
+        v51 = 2112;
+        v52 = pathCopy;
         _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to initialize multi head model for language %@ and plist path %@", buf, 0x16u);
       }
 
       selfCopy2 = 0;
     }
 
-    modelPathCopy = v43;
+    modelPathCopy = v42;
   }
 
   else
@@ -464,16 +458,15 @@ SGMultiHeadPredictionItem *__47__SGMultiHeadInference_predictForVector_heads___b
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v51 = languageCopy;
-      v52 = 2112;
-      v53 = pathCopy;
+      v50 = languageCopy;
+      v51 = 2112;
+      v52 = pathCopy;
       _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Config not found for language %@ and plist path %@", buf, 0x16u);
     }
 
     selfCopy2 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

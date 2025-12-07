@@ -7,33 +7,33 @@
 
 - (id)valueFromString:(id)string
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (valueFromString__onceToken != -1)
   {
     [POXSTimeDefinition valueFromString:];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = valueFromString__timeFormatters;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v9 = [v8 dateFromString:{stringCopy, v14}];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [v8 dateFromString:{stringCopy, v13}];
         if (v9)
         {
           v10 = v9;
@@ -44,7 +44,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -56,16 +56,16 @@
 
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 uint64_t __38__POXSTimeDefinition_valueFromString___block_invoke()
 {
-  valueFromString__timeFormatters = +[POXSDateFormatterFactory newTimeFormatters];
+  v0 = +[POXSDateFormatterFactory newTimeFormatters];
+  v1 = valueFromString__timeFormatters;
+  valueFromString__timeFormatters = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)stringFromValue:(id)value

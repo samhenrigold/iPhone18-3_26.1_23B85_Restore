@@ -25,9 +25,9 @@
 
 - (MPSCNNSoftMax)initWithCoder:(id)coder device:(id)device
 {
-  v7.receiver = self;
-  v7.super_class = MPSCNNSoftMax;
-  result = [(MPSCNNKernel *)&v7 initWithCoder:coder device:device];
+  v11.receiver = self;
+  v11.super_class = MPSCNNSoftMax;
+  result = [(MPSCNNKernel *)&v11 initWithCoder:coder device:device];
   if (result)
   {
     if (*(&result->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
@@ -45,7 +45,7 @@
       {
         v6 = objc_opt_class();
         NSStringFromClass(v6);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNSoftMax.mm", 0xF3, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v7, v8, v9, v10);
       }
 
       return 0;

@@ -22,18 +22,16 @@
   return v3;
 }
 
-void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke()
+void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"playerID";
-  v3[1] = @"pseudonym";
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_19;
-  secureCodedPropertyKeys_sSecureCodedKeys_19 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"playerID";
+  v4[1] = @"pseudonym";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_19;
+  secureCodedPropertyKeys_sSecureCodedKeys_19 = v2;
 }
 
 - (GKTransportParticipant)initWithPlayerID:(id)d pseudonym:(id)pseudonym
@@ -65,32 +63,32 @@ void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke()
 
 + (id)participantsFrom:(id)from withKey:(id)key
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   keyCopy = key;
   v7 = [MEMORY[0x277CBEB58] set];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v23 = keyCopy;
-  v24 = fromCopy;
+  v22 = keyCopy;
+  v23 = fromCopy;
   v8 = [fromCopy objectForKeyedSubscript:keyCopy];
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         v14 = [v13 objectForKeyedSubscript:@"pid"];
         v15 = [v13 objectForKeyedSubscript:@"ps"];
         v16 = v15;
@@ -115,9 +113,9 @@ void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke()
           if (os_log_type_enabled(os_log_GKFastSync, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v30 = v14;
-            v31 = 2112;
-            v32 = v16;
+            v29 = v14;
+            v30 = 2112;
+            v31 = v16;
             _os_log_impl(&dword_227904000, v19, OS_LOG_TYPE_INFO, "UpdateAfterInviteeAcceptedUserInfo cannot init participant. playerID(%@) or pseudonym(%@) is nil.", buf, 0x16u);
           }
         }
@@ -129,20 +127,18 @@ void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke()
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)serverRepresentation
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   playerID = [(GKTransportParticipant *)self playerID];
   pseudonym = [(GKTransportParticipant *)self pseudonym];
   v5 = pseudonym;
@@ -158,13 +154,11 @@ void __49__GKTransportParticipant_secureCodedPropertyKeys__block_invoke()
     [MEMORY[0x277CBEAD8] raise:@"GameKit Exception" format:{@"%@", v11}];
   }
 
-  v15[0] = @"pid";
-  v15[1] = @"ps";
-  v16[0] = playerID;
-  v16[1] = v5;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = @"pid";
+  v14[1] = @"ps";
+  v15[0] = playerID;
+  v15[1] = v5;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v12;
 }

@@ -1083,7 +1083,7 @@ LABEL_33:
     }
 
     regionCode = [optionsCopy regionCode];
-    if ([(__CFString *)languageCode2 isEqualToString:@"ko"]&& [(__CFString *)regionCode isEqualToString:@"KO"])
+    if (objc_msgSend_isEqualToString_(languageCode2) && objc_msgSend_isEqualToString_(regionCode))
     {
 
       regionCode = @"KR";
@@ -1969,29 +1969,29 @@ LABEL_12:
         [tokens2 firstObject];
         v11 = v18 = firstObject2;
         text = [v11 text];
-        v13 = [text isEqualToString:@"DUMMYTOKEN"];
+        isEqualToString = objc_msgSend_isEqualToString_(text);
 
         firstObject2 = v18;
       }
 
       else
       {
-        v13 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v13 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    isEqualToString = 0;
   }
 
-  return v13;
+  return isEqualToString;
 }
 
 - (void)dictationConnection:(id)connection didDetectLanguage:(id)language confidenceScores:(id)scores isConfident:(BOOL)confident
@@ -2087,9 +2087,9 @@ LABEL_12:
     {
       lastUsedPrimaryLanguage = [(UIDictationConnection *)self lastUsedPrimaryLanguage];
       lastUsedDetectedLanguage3 = [(UIDictationConnection *)self lastUsedDetectedLanguage];
-      v30 = [lastUsedPrimaryLanguage isEqualToString:lastUsedDetectedLanguage3];
+      isEqualToString = objc_msgSend_isEqualToString_(lastUsedPrimaryLanguage);
 
-      if ((v30 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         lastReceivedPartials = [(UIDictationConnection *)self lastReceivedPartials];
         lastUsedDetectedLanguage4 = [(UIDictationConnection *)self lastUsedDetectedLanguage];
@@ -2492,8 +2492,8 @@ void __78__UIDictationConnection_dictationConnection_didRecognizeTokens_language
 
     lastUsedDetectedLanguage3 = [(UIDictationConnection *)self lastUsedDetectedLanguage];
 
-    v18 = [v52 isEqualToString:lastUsedPrimaryLanguage];
-    if (v18 & 1 | (lastUsedDetectedLanguage3 == 0) & [language isEqualToString:lastUsedPrimaryLanguage2] || (-[UIDictationConnection dictationOptions](self, "dictationOptions"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "languageDetectionUserContext"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v19, v21))
+    isEqualToString = objc_msgSend_isEqualToString_(v52);
+    if (isEqualToString & 1 | (lastUsedDetectedLanguage3 == 0) & objc_msgSend_isEqualToString_(language) || (-[UIDictationConnection dictationOptions](self, "dictationOptions"), v19 = objc_claimAutoreleasedReturnValue(), [v19 languageDetectionUserContext], v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v19, v21))
     {
       WeakRetained = objc_loadWeakRetained(&self->_tokenFilter);
       v47 = [WeakRetained resultTransformForLanguageModel:v52];
@@ -2749,9 +2749,9 @@ LABEL_10:
       {
         lastUsedPrimaryLanguage = [(UIDictationConnection *)self lastUsedPrimaryLanguage];
         lastUsedDetectedLanguage = [(UIDictationConnection *)self lastUsedDetectedLanguage];
-        v18 = [lastUsedPrimaryLanguage isEqualToString:lastUsedDetectedLanguage];
+        isEqualToString = objc_msgSend_isEqualToString_(lastUsedPrimaryLanguage);
 
-        if (self->_receivedMultilingualResultsCommand || ([(UIDictationConnection *)self lastUsedDetectedLanguage], v19 = objc_claimAutoreleasedReturnValue(), v20 = (v19 == 0) | v18, v19, (v20 & 1) != 0))
+        if (self->_receivedMultilingualResultsCommand || ([(UIDictationConnection *)self lastUsedDetectedLanguage], v19 = objc_claimAutoreleasedReturnValue(), v20 = (v19 == 0) | isEqualToString, v19, (v20 & 1) != 0))
         {
           v21 = _UIDictationConnectionLog();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))

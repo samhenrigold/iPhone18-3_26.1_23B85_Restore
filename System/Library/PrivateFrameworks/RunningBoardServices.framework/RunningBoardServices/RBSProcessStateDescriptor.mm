@@ -108,7 +108,6 @@
     v4 = 0;
   }
 
-  endowmentNamespaces = self->_endowmentNamespaces;
   self->_endowmentNamespaces = v4;
 
   MEMORY[0x1EEE66BB8]();

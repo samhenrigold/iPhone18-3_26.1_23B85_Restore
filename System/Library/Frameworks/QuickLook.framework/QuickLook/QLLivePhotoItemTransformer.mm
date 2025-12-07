@@ -9,13 +9,12 @@
 {
   v3 = MEMORY[0x277CBEB98];
   gotLoadHelper_x8__OBJC_CLASS___PHLivePhoto(v2);
-  v5 = *(v4 + 2248);
   return [v3 setWithObjects:{objc_opt_class(), 0}];
 }
 
 - (id)transformedContentsFromURL:(id)l context:(id)context error:(id *)error
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   gotLoadHelper_x8__OBJC_CLASS___PFVideoComplement(v7);
   v9 = [objc_alloc(*(v8 + 1312)) initWithBundleAtURL:lCopy];
@@ -32,96 +31,93 @@
     v19 = [v17 fileURLWithPath:videoPath];
 
     gotLoadHelper_x24__OBJC_CLASS___PHLivePhoto(v20);
-    v21 = videoPath[281];
     if ((objc_opt_respondsToSelector() & 1) != 0 && _os_feature_enabled_impl())
     {
-      v22 = videoPath[281];
-      v42[0] = v16;
-      v42[1] = v19;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
-      v36 = 0;
-      v24 = &v36;
-      v25 = [v22 livePhotoWithResourceFileURLs:v23 prefersHDR:1 error:&v36];
+      v21 = videoPath[281];
+      v40[0] = v16;
+      v40[1] = v19;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+      v34 = 0;
+      v23 = &v34;
+      v24 = [v21 livePhotoWithResourceFileURLs:v22 prefersHDR:1 error:&v34];
     }
 
     else
     {
-      v32 = videoPath[281];
-      v41[0] = v16;
-      v41[1] = v19;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
-      v35 = 0;
-      v24 = &v35;
-      v25 = [v32 livePhotoWithResourceFileURLs:v23 error:&v35];
+      v31 = videoPath[281];
+      v39[0] = v16;
+      v39[1] = v19;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+      v33 = 0;
+      v23 = &v33;
+      v24 = [v31 livePhotoWithResourceFileURLs:v22 error:&v33];
     }
 
-    v28 = v25;
-    v27 = *v24;
+    v27 = v24;
+    v26 = *v23;
 
-    if (!v27 && v28)
+    if (!v26 && v27)
     {
-      v28 = v28;
-      v27 = 0;
-      v31 = v28;
+      v27 = v27;
+      v26 = 0;
+      v30 = v27;
       goto LABEL_22;
     }
   }
 
   else
   {
-    v26 = *v11;
+    v25 = *v11;
     if (!*v11)
     {
       QLSInitLogging();
-      v26 = *v11;
+      v25 = *v11;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v38 = lCopy;
-      _os_log_impl(&dword_23A714000, v26, OS_LOG_TYPE_INFO, "Could not generate a PFVideoComplement from the given url: %@ #PreviewItem", buf, 0xCu);
+      v36 = lCopy;
+      _os_log_impl(&dword_23A714000, v25, OS_LOG_TYPE_INFO, "Could not generate a PFVideoComplement from the given url: %@ #PreviewItem", buf, 0xCu);
     }
 
-    v27 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.QLLivePhotoItemTransformer" code:0 userInfo:0];
+    v26 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.QLLivePhotoItemTransformer" code:0 userInfo:0];
     v16 = 0;
     v19 = 0;
-    v28 = 0;
+    v27 = 0;
   }
 
-  v29 = *v11;
+  v28 = *v11;
   if (!*v11)
   {
     QLSInitLogging();
-    v29 = *v11;
+    v28 = *v11;
   }
 
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v38 = lCopy;
-    v39 = 2112;
-    v40 = v27;
-    _os_log_impl(&dword_23A714000, v29, OS_LOG_TYPE_ERROR, "Error creating PHLivePhoto for url(%@) error (%@) #PreviewItem", buf, 0x16u);
+    v36 = lCopy;
+    v37 = 2112;
+    v38 = v26;
+    _os_log_impl(&dword_23A714000, v28, OS_LOG_TYPE_ERROR, "Error creating PHLivePhoto for url(%@) error (%@) #PreviewItem", buf, 0x16u);
   }
 
   if (error)
   {
-    v30 = v27;
-    v31 = 0;
-    *error = v27;
+    v29 = v26;
+    v30 = 0;
+    *error = v26;
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
 LABEL_22:
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 @end

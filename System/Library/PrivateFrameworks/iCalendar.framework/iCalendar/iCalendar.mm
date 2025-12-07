@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 const void *symbolicColorForLegacyRGB(CFStringRef theString)
@@ -97,16 +98,16 @@ __CFString *iCalendarRepresentationForCALDay(uint64_t a1)
   }
 }
 
-id VCSLogHandle()
+id VCSLogHandle(uint64_t a1)
 {
   if (VCSLogHandle_onceToken != -1)
   {
     VCSLogHandle_cold_1();
   }
 
-  v1 = VCSLogHandle_handle;
+  v2 = VCSLogHandle_handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VCSLogHandle_block_invoke()
@@ -118,19 +119,17 @@ uint64_t __VCSLogHandle_block_invoke()
 
 id ICSRedactString(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = [a1 dataUsingEncoding:4];
-  ICSRedactBytes([v1 bytes], objc_msgSend(v1, "length"), v5);
-  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v5 length:20 encoding:4];
-
-  v3 = *MEMORY[0x277D85DE8];
+  ICSRedactBytes([v1 bytes], objc_msgSend(v1, "length"), v4);
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v4 length:20 encoding:4];
 
   return v2;
 }
 
 void ICSRedactBytes(const void *a1, CC_LONG a2, _WORD *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = _testModeSalt;
   if (!_testModeSalt)
   {
@@ -143,11 +142,11 @@ void ICSRedactBytes(const void *a1, CC_LONG a2, _WORD *a3)
   }
 
   v7 = v6;
-  memset(&v13, 0, sizeof(v13));
-  CC_SHA256_Init(&v13);
-  CC_SHA256_Update(&v13, [v7 bytes], objc_msgSend(v7, "length"));
-  CC_SHA256_Update(&v13, a1, a2);
-  CC_SHA256_Final(md, &v13);
+  memset(&v12, 0, sizeof(v12));
+  CC_SHA256_Init(&v12);
+  CC_SHA256_Update(&v12, [v7 bytes], objc_msgSend(v7, "length"));
+  CC_SHA256_Update(&v12, a1, a2);
+  CC_SHA256_Final(md, &v12);
   v8 = 0;
   v9 = md[8];
   *a3 = -24592;
@@ -163,8 +162,6 @@ void ICSRedactBytes(const void *a1, CC_LONG a2, _WORD *a3)
   }
 
   while (v8 != 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _pictureForByte(uint64_t result, _WORD *a2)
@@ -240,50 +237,51 @@ void *VCSByteBufferWithCapacity(NSUInteger a1)
   return v2;
 }
 
-void VCSByteBufferAppendByte(uint64_t a1, char a2)
+void VCSByteBufferAppendByte(void **a1, char a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v3 = a1;
+  v4 = a1[1];
+  v5 = a1[2];
   if (v4 == v5 && v5 <= 0x7FFFFFFE)
   {
     v5 = 2 * v4;
-    v7 = NSZoneRealloc(0, *a1, 2 * v4);
-    if (v7)
+    a1 = NSZoneRealloc(0, *a1, 2 * v4);
+    if (a1)
     {
-      *a1 = v7;
-      *(a1 + 16) = v5;
+      *v3 = a1;
+      v3[2] = v5;
     }
 
     else
     {
-      v5 = *(a1 + 16);
+      v5 = v3[2];
     }
   }
 
-  v8 = *(a1 + 8);
-  if (v8 == v5)
+  v7 = v3[1];
+  if (v7 == v5)
   {
-    v9 = VCSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = VCSLogHandle(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      VCSByteBufferAppendByte_cold_1(a1, v9);
+      VCSByteBufferAppendByte_cold_1(v3, v8);
     }
   }
 
   else
   {
-    v10 = *a1;
-    *(a1 + 8) = v8 + 1;
-    v10[v8] = a2;
+    v9 = *v3;
+    v3[1] = v7 + 1;
+    *(v9 + v7) = a2;
   }
 }
 
-void VCSByteBufferAppendCString(uint64_t a1, char *a2)
+void VCSByteBufferAppendCString(void **a1, char *a2)
 {
   v2 = *a2;
   if (*a2)
   {
-    v4 = (a2 + 1);
+    v4 = a2 + 1;
     do
     {
       VCSByteBufferAppendByte(a1, v2);
@@ -303,16 +301,16 @@ id VCSByteBufferData(void *a1)
   return v2;
 }
 
-id ICSDefaultPRODID()
+id ICSDefaultPRODID(uint64_t a1)
 {
   if (ICSDefaultPRODID_onceToken != -1)
   {
     ICSDefaultPRODID_cold_1();
   }
 
-  v1 = ICSDefaultPRODID_defaultPRODID;
+  v2 = ICSDefaultPRODID_defaultPRODID;
 
-  return v1;
+  return v2;
 }
 
 void __ICSDefaultPRODID_block_invoke()
@@ -342,16 +340,23 @@ void __ICSDefaultPRODID_block_invoke()
   ICSDefaultPRODID_defaultPRODID = v6;
 }
 
-id logHandle()
+id logHandle(uint64_t a1)
 {
   if (logHandle_onceToken != -1)
   {
     logHandle_cold_1();
   }
 
-  v1 = logHandle_handle;
+  v2 = logHandle_handle;
 
-  return v1;
+  return v2;
+}
+
+void sub_2754E23A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -614,9 +619,8 @@ uint64_t strncmp_s(const char *a1, const char *a2, size_t a3)
 
 void VCSByteBufferAppendByte_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "Cannot append any more bytes to buffer at %p.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_2754C5000, a2, OS_LOG_TYPE_ERROR, "Cannot append any more bytes to buffer at %p.", &v2, 0xCu);
 }

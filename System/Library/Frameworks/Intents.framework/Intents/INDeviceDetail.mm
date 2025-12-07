@@ -45,8 +45,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v20[6] = *MEMORY[0x1E69E9840];
-  v19[0] = @"identifier";
+  v19[6] = *MEMORY[0x1E69E9840];
+  v18[0] = @"identifier";
   identifier = self->_identifier;
   null = identifier;
   if (!identifier)
@@ -54,9 +54,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v20[0] = null;
-  v19[1] = @"deviceName";
+  v17 = null;
+  v19[0] = null;
+  v18[1] = @"deviceName";
   deviceName = self->_deviceName;
   null2 = deviceName;
   if (!deviceName)
@@ -64,12 +64,12 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null2;
-  v20[1] = null2;
-  v19[2] = @"deviceClass";
+  v16 = null2;
+  v19[1] = null2;
+  v18[2] = @"deviceClass";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceClass];
-  v20[2] = v7;
-  v19[3] = @"productName";
+  v19[2] = v7;
+  v18[3] = @"productName";
   productName = self->_productName;
   null3 = productName;
   if (!productName)
@@ -77,8 +77,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[3] = null3;
-  v19[4] = @"category";
+  v19[3] = null3;
+  v18[4] = @"category";
   category = self->_category;
   null4 = category;
   if (!category)
@@ -86,8 +86,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[4] = null4;
-  v19[5] = @"deviceOwner";
+  v19[4] = null4;
+  v18[5] = @"deviceOwner";
   deviceOwner = self->_deviceOwner;
   null5 = deviceOwner;
   if (!deviceOwner)
@@ -95,8 +95,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[5] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v19[5] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
   if (deviceOwner)
   {
     if (category)
@@ -146,7 +146,6 @@ LABEL_14:
   }
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

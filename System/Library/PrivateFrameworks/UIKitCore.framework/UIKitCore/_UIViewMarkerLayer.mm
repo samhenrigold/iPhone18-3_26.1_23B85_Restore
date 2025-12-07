@@ -91,7 +91,7 @@
   sub_18A4A7DE8();
   swift_unknownObjectRelease();
   v4 = [(_UIViewMarkerLayer *)self init];
-  __swift_destroy_boxed_opaque_existential_0Tm(&v6);
+  __swift_destroy_boxed_opaque_existential_0Tm(v6);
   return v4;
 }
 

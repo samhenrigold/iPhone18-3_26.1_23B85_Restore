@@ -15,7 +15,7 @@
   v5 = [(ICQCloudStorageApps *)&v13 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"apps"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -30,7 +30,7 @@
       [(ICQCloudStorageApps *)v5 setApps:v8];
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"genericErrorMessage"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -71,17 +71,17 @@ void __42__ICQCloudStorageApps_initFromDictionary___block_invoke(uint64_t a1, vo
 
 - (ICQCloudStorageApps)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = ICQCloudStorageApps;
-  v5 = [(ICQCloudStorageApps *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = ICQCloudStorageApps;
+  v5 = [(ICQCloudStorageApps *)&v14 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"apps"];
@@ -93,7 +93,6 @@ void __42__ICQCloudStorageApps_initFromDictionary___block_invoke(uint64_t a1, vo
     v5->_genericErrorMessage = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

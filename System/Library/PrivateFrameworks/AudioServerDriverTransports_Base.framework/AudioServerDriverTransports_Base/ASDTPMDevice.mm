@@ -11,32 +11,33 @@
   configCopy = config;
   sequencerCopy = sequencer;
   asdtSubclass = [configCopy asdtSubclass];
-  if (([(objc_class *)asdtSubclass isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v8 = [asdtSubclass isSubclassOfClass:objc_opt_class()];
+  if (v8)
   {
-    v8 = [[asdtSubclass alloc] initWithConfig:configCopy forSequencer:sequencerCopy];
+    v10 = [[asdtSubclass alloc] initWithConfig:configCopy forSequencer:sequencerCopy];
   }
 
   else
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ASDTPMDevice pmDeviceWithConfig:configCopy forSequencer:?];
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (ASDTPMDevice)initWithConfig:(id)config forSequencer:(id)sequencer
 {
   configCopy = config;
   sequencerCopy = sequencer;
-  v17.receiver = self;
-  v17.super_class = ASDTPMDevice;
-  v8 = [(ASDTPMDevice *)&v17 init];
+  v21.receiver = self;
+  v21.super_class = ASDTPMDevice;
+  v8 = [(ASDTPMDevice *)&v21 init];
   v9 = v8;
   if (!v8)
   {
@@ -58,10 +59,11 @@
     [(ASDTPMDevice *)v9 setName:v13];
   }
 
-  if (([configCopy asdtPMOrder:&v9->_pmOrderPowerUp forPowerUp:1] & 1) == 0)
+  v14 = [configCopy asdtPMOrder:&v9->_pmOrderPowerUp forPowerUp:1];
+  if ((v14 & 1) == 0)
   {
-    v15 = ASDTBaseLogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = ASDTBaseLogType(v14, v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [ASDTPMDevice initWithConfig:v9 forSequencer:?];
     }
@@ -69,25 +71,26 @@
     goto LABEL_11;
   }
 
-  if (([configCopy asdtPMOrder:&v9->_pmOrderPowerDown forPowerUp:0] & 1) == 0)
+  v16 = [configCopy asdtPMOrder:&v9->_pmOrderPowerDown forPowerUp:0];
+  if ((v16 & 1) == 0)
   {
-    v15 = ASDTBaseLogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = ASDTBaseLogType(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [ASDTPMDevice initWithConfig:v9 forSequencer:?];
     }
 
 LABEL_11:
 
-    v14 = 0;
+    v18 = 0;
     goto LABEL_12;
   }
 
 LABEL_6:
-  v14 = v9;
+  v18 = v9;
 LABEL_12:
 
-  return v14;
+  return v18;
 }
 
 - (ASDTPMSequencer)parentSequencer
@@ -99,29 +102,26 @@ LABEL_12:
 
 + (void)pmDeviceWithConfig:(void *)a1 forSequencer:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectForKeyedSubscript:@"Subclass"];
-  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "Invalid subclass name: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "Invalid subclass name: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithConfig:(void *)a1 forSequencer:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
-  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "%@: Invalid or missing PMOrder (power up) property.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "%@: Invalid or missing PMOrder (power up) property.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithConfig:(void *)a1 forSequencer:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
-  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "%@: Invalid or missing PMOrder (power down) property.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_241659000, v2, v3, "%@: Invalid or missing PMOrder (power down) property.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

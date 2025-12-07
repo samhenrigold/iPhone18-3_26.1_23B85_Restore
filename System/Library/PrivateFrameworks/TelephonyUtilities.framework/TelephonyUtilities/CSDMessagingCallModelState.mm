@@ -326,7 +326,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    ambiguityState = self->_ambiguityState;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -346,7 +345,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  swappable = self->_swappable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -361,7 +359,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  mergeable = self->_mergeable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -376,7 +373,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  holdAllowed = self->_holdAllowed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -391,7 +387,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  addCallAllowed = self->_addCallAllowed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -406,7 +401,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  takingCallsPrivateAllowed = self->_takingCallsPrivateAllowed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -421,7 +415,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  hardPauseAvailable = self->_hardPauseAvailable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -436,7 +429,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  endAndAnswerAllowed = self->_endAndAnswerAllowed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -451,12 +443,10 @@ LABEL_10:
   }
 
 LABEL_23:
-  holdAndAnswerAllowed = self->_holdAndAnswerAllowed;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_11:
-    sendToVoicemailAllowed = self->_sendToVoicemailAllowed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -780,7 +770,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v8 = *(equalCopy + 19);
     if (self->_swappable)
     {
       if ((*(equalCopy + 19) & 1) == 0)
@@ -807,7 +796,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v9 = *(equalCopy + 17);
     if (self->_mergeable)
     {
       if ((*(equalCopy + 17) & 1) == 0)
@@ -834,7 +822,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v10 = *(equalCopy + 15);
     if (self->_holdAllowed)
     {
       if ((*(equalCopy + 15) & 1) == 0)
@@ -861,7 +848,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v11 = *(equalCopy + 12);
     if (self->_addCallAllowed)
     {
       if ((*(equalCopy + 12) & 1) == 0)
@@ -888,7 +874,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v12 = *(equalCopy + 20);
     if (self->_takingCallsPrivateAllowed)
     {
       if ((*(equalCopy + 20) & 1) == 0)
@@ -915,7 +900,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v13 = *(equalCopy + 14);
     if (self->_hardPauseAvailable)
     {
       if ((*(equalCopy + 14) & 1) == 0)
@@ -942,7 +926,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v14 = *(equalCopy + 13);
     if (self->_endAndAnswerAllowed)
     {
       if ((*(equalCopy + 13) & 1) == 0)
@@ -969,7 +952,6 @@ LABEL_11:
       goto LABEL_78;
     }
 
-    v15 = *(equalCopy + 16);
     if (self->_holdAndAnswerAllowed)
     {
       if ((*(equalCopy + 16) & 1) == 0)

@@ -105,7 +105,7 @@
     v20->_analyticsSubmissionQueue = v28;
 
     v30 = objc_alloc(MEMORY[0x1E696BF00]);
-    v31 = HKLogAFibBurden();
+    v31 = HKLogAFibBurden(v30);
     healthStore = [itemsCopy healthStore];
     v33 = [v30 initWithLoggingCategory:v31 healthDataSource:healthStore];
     analyticsEventSubmissionManager = v20->_analyticsEventSubmissionManager;
@@ -514,7 +514,7 @@ LABEL_17:
 
 void __145__HKOverlayRoomAFibBurdenViewController__infographicViewControllerForDisplayType_secondaryDisplayType_addDataViewControllerProvider_healthStore___block_invoke(uint64_t a1)
 {
-  v2 = HKLogAFibBurden();
+  v2 = HKLogAFibBurden(a1);
   v3 = [objc_alloc(MEMORY[0x1E696BF00]) initWithLoggingCategory:v2 healthDataSource:*(a1 + 32)];
   v4 = [HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent alloc];
   v5 = [*(a1 + 40) sampleType];

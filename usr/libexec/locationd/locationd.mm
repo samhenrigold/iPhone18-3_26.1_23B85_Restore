@@ -27,7 +27,7 @@ id sub_100004EE0(uint64_t a1, uint64_t a2, void *a3, void *a4)
   return [*(a1 + 32) onApplicationStateMonitor:a2 didUpdate:a4 forProcess:a3];
 }
 
-BOOL sub_100005050(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL sub_100005050(uint64_t a1, uint64_t a2, std::string *a3)
 {
   cf = 0;
   if (!(*(*a1 + 904))(a1, a2, &cf))
@@ -48,9 +48,9 @@ BOOL sub_100005050(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       v8 = (*(*a1 + 840))(a1);
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2112;
-      v20 = a2;
+      v20 = v8;
+      v21 = 2112;
+      v22 = a2;
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
     }
 
@@ -62,16 +62,18 @@ BOOL sub_100005050(uint64_t a1, uint64_t a2, uint64_t a3)
         sub_1018AA1FC();
       }
 
-      v10 = (*(*a1 + 840))(a1);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = a2;
-      v11 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, std::string &, int) const", "%s\n", v11);
-      if (v11 != buf)
+      v10 = qword_1025D48A8;
+      v11 = (*(*a1 + 840))(a1);
+      v15 = 138412546;
+      v16 = v11;
+      v17 = 2112;
+      v18 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v15, 22);
+      v13 = v12;
+      sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, std::string &, int) const", "%s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
   }
@@ -105,9 +107,9 @@ uint64_t sub_1000052CC(uint64_t a1, uint64_t a2, _DWORD *a3)
     {
       v8 = (*(*a1 + 840))(a1);
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2112;
-      v20 = a2;
+      v20 = v8;
+      v21 = 2112;
+      v22 = a2;
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
     }
 
@@ -119,16 +121,18 @@ uint64_t sub_1000052CC(uint64_t a1, uint64_t a2, _DWORD *a3)
         sub_1018AA1FC();
       }
 
-      v10 = (*(*a1 + 840))(a1);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = a2;
-      v11 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, int &, int) const", "%s\n", v11);
-      if (v11 != buf)
+      v10 = qword_1025D48A8;
+      v11 = (*(*a1 + 840))(a1);
+      v15 = 138412546;
+      v16 = v11;
+      v17 = 2112;
+      v18 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v15, 22);
+      v13 = v12;
+      sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, int &, int) const", "%s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
   }
@@ -167,27 +171,27 @@ LABEL_34:
         sub_1018AA1FC();
       }
 
-      v17 = qword_1025D48A8;
+      v19 = qword_1025D48A8;
       if (os_log_type_enabled(qword_1025D48A8, OS_LOG_TYPE_FAULT))
       {
         sub_1000238CC(a2, __p);
-        v18 = SBYTE3(v31);
-        v19 = *__p;
+        v20 = SBYTE3(v35);
+        v21 = *__p;
         Count = CFArrayGetCount(cf);
-        v21 = __p;
+        v23 = __p;
         *buf = 136446722;
-        if (v18 < 0)
+        if (v20 < 0)
         {
-          v21 = v19;
+          v23 = v21;
         }
 
-        *v33 = v21;
-        *&v33[8] = 1026;
-        *&v33[10] = v9;
-        v34 = 2050;
-        v35 = Count;
-        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_FAULT, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", buf, 0x1Cu);
-        if (SBYTE3(v31) < 0)
+        *v37 = v23;
+        *&v37[8] = 1026;
+        *&v37[10] = v9;
+        v38 = 2050;
+        v39 = Count;
+        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_FAULT, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", buf, 0x1Cu);
+        if (SBYTE3(v35) < 0)
         {
           operator delete(*__p);
         }
@@ -199,26 +203,28 @@ LABEL_34:
       }
 
       sub_1018AA53C(buf);
-      sub_1000238CC(a2, v26);
-      v22 = v27;
-      v23 = v26[0];
-      v24 = CFArrayGetCount(cf);
-      v25 = v26;
+      v24 = qword_1025D48A8;
+      sub_1000238CC(a2, v30);
+      v25 = v31;
+      v26 = v30[0];
+      v27 = CFArrayGetCount(cf);
+      v28 = v30;
       *__p = 136446722;
-      if (v22 < 0)
+      if (v25 < 0)
       {
-        v25 = v23;
+        v28 = v26;
       }
 
-      *&__p[4] = v25;
+      *&__p[4] = v28;
       *&__p[12] = 1026;
       *&__p[14] = v9;
-      v30 = 2050;
-      v31 = v24;
-      v16 = _os_log_send_and_compose_impl();
-      if (v27 < 0)
+      v34 = 2050;
+      v35 = v27;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v24, 17, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", __p, 28);
+      v18 = v29;
+      if (v31 < 0)
       {
-        operator delete(v26[0]);
+        operator delete(v30[0]);
       }
     }
 
@@ -240,15 +246,15 @@ LABEL_34:
       {
         v12 = CFGetTypeID(cf);
         sub_1000238CC(a2, __p);
-        v13 = (v31 & 0x80000000) == 0 ? __p : *__p;
+        v13 = (v35 & 0x80000000) == 0 ? __p : *__p;
         *buf = 67240706;
-        *v33 = a4;
-        *&v33[4] = 2050;
-        *&v33[6] = v12;
-        v34 = 2082;
-        v35 = v13;
+        *v37 = a4;
+        *&v37[4] = 2050;
+        *&v37[6] = v12;
+        v38 = 2082;
+        v39 = v13;
         _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "specified index %{public}d not applicable to type %{public}lu for key %{public}s", buf, 0x1Cu);
-        if (SBYTE3(v31) < 0)
+        if (SBYTE3(v35) < 0)
         {
           operator delete(*__p);
         }
@@ -265,35 +271,37 @@ LABEL_34:
         sub_1018AA1FC();
       }
 
-      v14 = CFGetTypeID(cf);
-      sub_1000238CC(a2, v26);
-      if (v27 >= 0)
+      v14 = qword_1025D48A8;
+      v15 = CFGetTypeID(cf);
+      sub_1000238CC(a2, v30);
+      if (v31 >= 0)
       {
-        v15 = v26;
+        v16 = v30;
       }
 
       else
       {
-        v15 = v26[0];
+        v16 = v30[0];
       }
 
       *__p = 67240706;
       *&__p[4] = a4;
       *&__p[8] = 2050;
-      *&__p[10] = v14;
-      v30 = 2082;
-      v31 = v15;
-      v16 = _os_log_send_and_compose_impl();
-      if (v27 < 0)
+      *&__p[10] = v15;
+      v34 = 2082;
+      v35 = v16;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v14, 17, "specified index %{public}d not applicable to type %{public}lu for key %{public}s", __p, 28);
+      v18 = v17;
+      if (v31 < 0)
       {
-        operator delete(v26[0]);
+        operator delete(v30[0]);
       }
     }
 
-    sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::copyInternal(CFStringRef, CFTypeRef &, int) const", "%s\n", v16);
-    if (v16 != buf)
+    sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::copyInternal(CFStringRef, CFTypeRef &, int) const", "%s\n", v18);
+    if (v18 != buf)
     {
-      free(v16);
+      free(v18);
     }
 
 LABEL_31:
@@ -319,7 +327,7 @@ void sub_1000059EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_100005A24(const __CFString *cf, uint64_t a2)
+BOOL sub_100005A24(const __CFString *cf, std::string *a2)
 {
   if (!cf)
   {
@@ -376,19 +384,19 @@ LABEL_10:
       sub_1018AADC0(cf == 0, cf);
     }
 
-    if (*(a2 + 23) < 0)
+    if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
     {
-      *(a2 + 8) = 0;
-      a2 = *a2;
+      a2->__r_.__value_.__l.__size_ = 0;
+      a2 = a2->__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      *(a2 + 23) = 0;
+      *(&a2->__r_.__value_.__s + 23) = 0;
     }
 
     v6 = 0;
-    *a2 = 0;
+    a2->__r_.__value_.__s.__data_[0] = 0;
     return v6;
   }
 
@@ -586,58 +594,58 @@ uint64_t sub_10000608C(uint64_t a1, int *a2, uint64_t a3)
   return v3;
 }
 
-uint64_t sub_100006104(uint64_t a1, uint64_t a2)
+_OWORD *sub_100006104(_OWORD *a1, uint64_t a2)
 {
   *a1 = *a2;
   if (*(a2 + 31) < 0)
   {
-    sub_100007244((a1 + 8), *(a2 + 8), *(a2 + 16));
+    sub_100007244(a1 + 8, *(a2 + 8), *(a2 + 16));
   }
 
   else
   {
     v4 = *(a2 + 8);
-    *(a1 + 24) = *(a2 + 24);
+    *(a1 + 3) = *(a2 + 24);
     *(a1 + 8) = v4;
   }
 
   if (*(a2 + 55) < 0)
   {
-    sub_100007244((a1 + 32), *(a2 + 32), *(a2 + 40));
+    sub_100007244(a1 + 32, *(a2 + 32), *(a2 + 40));
   }
 
   else
   {
     v5 = *(a2 + 32);
-    *(a1 + 48) = *(a2 + 48);
-    *(a1 + 32) = v5;
+    *(a1 + 6) = *(a2 + 48);
+    a1[2] = v5;
   }
 
   if (*(a2 + 79) < 0)
   {
-    sub_100007244((a1 + 56), *(a2 + 56), *(a2 + 64));
+    sub_100007244(a1 + 56, *(a2 + 56), *(a2 + 64));
   }
 
   else
   {
     v6 = *(a2 + 56);
-    *(a1 + 72) = *(a2 + 72);
+    *(a1 + 9) = *(a2 + 72);
     *(a1 + 56) = v6;
   }
 
   if (*(a2 + 103) < 0)
   {
-    sub_100007244((a1 + 80), *(a2 + 80), *(a2 + 88));
+    sub_100007244(a1 + 80, *(a2 + 80), *(a2 + 88));
   }
 
   else
   {
     v7 = *(a2 + 80);
-    *(a1 + 96) = *(a2 + 96);
-    *(a1 + 80) = v7;
+    *(a1 + 12) = *(a2 + 96);
+    a1[5] = v7;
   }
 
-  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 52) = *(a2 + 104);
   return a1;
 }
 
@@ -1124,7 +1132,7 @@ const char *sub_100006C9C(unsigned int *a1)
   }
 }
 
-void *sub_100006CC4(void *__dst, __int128 *a2, uint64_t a3)
+char *sub_100006CC4(char *__dst, __int128 *a2, uint64_t a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1134,11 +1142,11 @@ void *sub_100006CC4(void *__dst, __int128 *a2, uint64_t a3)
   else
   {
     v5 = *a2;
-    __dst[2] = *(a2 + 2);
+    *(__dst + 2) = *(a2 + 2);
     *__dst = v5;
   }
 
-  sub_100006104((__dst + 3), a3);
+  sub_100006104(__dst + 24, a3);
   return __dst;
 }
 
@@ -1159,7 +1167,7 @@ void sub_100006DBC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void **sub_100006DD8(void *a1, const void **a2)
+const void **sub_100006DD8(void *a1, uint64_t *a2)
 {
   v4 = sub_100007070(a1, a2);
   v5 = v4;
@@ -1245,7 +1253,7 @@ void sub_100007014(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_100007038(void *a1, const void **a2)
+uint64_t sub_100007038(void *a1, uint64_t *a2)
 {
   result = sub_1005D7C24(a1, a2);
   if (result)
@@ -1257,9 +1265,9 @@ uint64_t *sub_100007038(void *a1, const void **a2)
   return result;
 }
 
-unint64_t sub_100007070(uint64_t a1, uint64_t a2)
+unint64_t sub_100007070(uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1377,36 +1385,37 @@ uint64_t sub_100007338(uint64_t a1)
   return a1;
 }
 
-void sub_1000073AC(uint64_t a1, int *a2, uint64_t a3, int a4)
+void sub_1000073AC(uint64_t a1, int *a2, uint64_t a3, int a4, int a5)
 {
   if ((*(a1 + 108) & 1) == 0)
   {
-    v4 = *(a1 + 64);
-    if (!v4)
+    v7 = a1 + 64;
+    v6 = *(a1 + 64);
+    if (!v6)
     {
       goto LABEL_9;
     }
 
-    v5 = *a2;
-    v6 = a1 + 64;
+    v8 = *a2;
+    v9 = a1 + 64;
     do
     {
-      if (*(v4 + 32) >= v5)
+      if (*(v6 + 32) >= v8)
       {
-        v6 = v4;
+        v9 = v6;
       }
 
-      v4 = *(v4 + 8 * (*(v4 + 32) < v5));
+      v6 = *(v6 + 8 * (*(v6 + 32) < v8));
     }
 
-    while (v4);
-    if (v6 == a1 + 64 || v5 < *(v6 + 32))
+    while (v6);
+    if (v9 == v7 || v8 < *(v9 + 32))
     {
 LABEL_9:
-      v9 = v10;
-      memset(v10, 0, 32);
-      sub_100248B84(buf, a2, &v9);
-      sub_10047D8C8();
+      v12 = v13;
+      memset(v13, 0, 32);
+      sub_100248B84(buf, a2, &v12);
+      sub_10047D8C8(v7 - 8, buf);
     }
 
     if (a4)
@@ -1414,26 +1423,26 @@ LABEL_9:
       sub_101064420();
     }
 
-    v7 = *(v6 + 72);
-    *(v6 + 64) = 0;
-    *(v6 + 72) = 0;
-    if (v7)
+    v10 = *(v9 + 72);
+    *(v9 + 64) = 0;
+    *(v9 + 72) = 0;
+    if (v10)
     {
-      sub_100008080(v7);
+      sub_100008080(v10);
     }
 
-    if (*(v6 + 56))
+    if (*(v9 + 56))
     {
-      sub_100007170();
+      sub_100007170(a3);
     }
   }
 }
 
-void sub_100007858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100007858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_101865570(va);
-  sub_101864718(v9 - 144);
+  sub_101864718(v16 - 144);
   _Unwind_Resume(a1);
 }
 
@@ -1537,7 +1546,7 @@ _BYTE *sub_100007AEC(_BYTE *result, uint64_t a2, uint64_t *a3, void *a4)
     v9 = sub_100007A8C(a4);
     v10 = *a3;
     v13 = (*a2 + 32);
-    v11 = sub_100007FA0(v10 + 40, v13);
+    v11 = sub_100007FA0(v10 + 40, v13, &unk_101C66300, &v13);
     result = (*(*v7 + 192))(v7, v8, &v12, v9, v10 + 80, v11 + 4);
     if (result)
     {
@@ -1557,7 +1566,7 @@ void sub_100007BE4(void *a1, int *a2, void *a3)
     if (v4)
     {
       v8 = *a2;
-      v9 = (a1 + 8);
+      v9 = a1 + 8;
       do
       {
         if (*(v4 + 32) >= v8)
@@ -1569,13 +1578,13 @@ void sub_100007BE4(void *a1, int *a2, void *a3)
       }
 
       while (v4);
-      if (v9 != v5 && v8 >= *(v9 + 32))
+      if (v9 != v5 && v8 >= *(v9 + 8))
       {
-        v37 = v9;
+        v39 = v9;
         v10 = sub_100007A8C(a3);
-        (*(*a1 + 184))(a1, a2, v10, v9 + 80);
-        v11 = *(v9 + 40);
-        if (v11 != (v9 + 48))
+        (*(*a1 + 184))(a1, a2, v10, v9 + 10);
+        v11 = v9[5];
+        if (v11 != v9 + 6)
         {
           v12 = a1 + 11;
           v13 = a1 + 1;
@@ -1602,8 +1611,8 @@ void sub_100007BE4(void *a1, int *a2, void *a3)
             while (v14);
             if (v16 != v12 && (v17 = *(v16 + 8), v15 >= v17))
             {
-              v36 = v16;
-              sub_100007AEC(a1, &v36, &v37, a3);
+              v38 = v16;
+              sub_100007AEC(a1, &v38, &v39, a3);
               v21 = a1[8];
               if (!v21)
               {
@@ -1628,7 +1637,7 @@ void sub_100007BE4(void *a1, int *a2, void *a3)
                 return;
               }
 
-              v37 = v23;
+              v39 = v23;
               v25 = *(v23 + 48);
               v11 = (v23 + 48);
               v24 = v25;
@@ -1697,7 +1706,7 @@ void sub_100007BE4(void *a1, int *a2, void *a3)
             else
             {
 LABEL_18:
-              v36 = a1 + 11;
+              v38 = a1 + 11;
               if (qword_1025D47F0 != -1)
               {
                 sub_101B0DE18();
@@ -1714,9 +1723,9 @@ LABEL_18:
 
                 v20 = *(v11 + 7);
                 *buf = 136446466;
-                v43 = v19;
-                v44 = 1026;
-                v45 = v20;
+                v45 = v19;
+                v46 = 1026;
+                v47 = v20;
                 _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_FAULT, "%{public}s; unknown client %{public}d", buf, 0x12u);
               }
 
@@ -1735,62 +1744,64 @@ LABEL_18:
                 }
 
                 v34 = *(v11 + 7);
-                v38 = 136446466;
-                v39 = v33;
-                v40 = 1026;
-                v41 = v34;
-                v35 = _os_log_send_and_compose_impl();
+                v40 = 136446466;
+                v41 = v33;
+                v42 = 1026;
+                v43 = v34;
+                LODWORD(v37) = 18;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D47F8, 17, "%{public}s; unknown client %{public}d", &v40, v37);
+                v36 = v35;
                 sub_100152C7C("Generic", 1, 0, 0, "void CLNotifier<CLAppMonitor_Type::Notification, CLAppMonitor_Type::NotificationData>::invokeClientsWithData(const Notification_T &, CLCppContainer *) [Notification_T = CLAppMonitor_Type::Notification, NotificationData_T = CLAppMonitor_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v35);
-                if (v35 != buf)
+                if (v36 != buf)
                 {
-                  free(v35);
+                  free(v36);
                 }
               }
             }
           }
 
-          while (v11 != (v37 + 48));
+          while (v11 != v39 + 6);
         }
       }
     }
   }
 }
 
-uint64_t *sub_100007FA0(uint64_t a1, int *a2)
+uint64_t *sub_100007FA0(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1856,10 +1867,10 @@ double sub_1000081AC()
   return sub_1000080EC(v0);
 }
 
-void sub_1000081D4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
+void sub_1000081D4(uint64_t a1, int *a2, uint64_t a3, id *a4)
 {
   CLProfilingIdentify();
-  [objc_msgSend(*(a4 + 40) "silo")];
+  [objc_msgSend(a4[5] "silo")];
   if (qword_1025D47F0 != -1)
   {
     sub_101951884();
@@ -1908,24 +1919,24 @@ void sub_1000083A0(uint64_t a1, unsigned int *a2, uint64_t a3, void *a4)
   v5 = *a2;
   sub_100006104(&v6, a3);
   [a4 onAppMonitorNotification:v5 data:&v6];
-  if (v14 < 0)
+  if (v13 < 0)
   {
     operator delete(__p);
   }
 
-  if (v12 < 0)
+  if (v11 < 0)
   {
-    operator delete(v11);
+    operator delete(v10);
   }
 
-  if (v10 < 0)
+  if (v9 < 0)
   {
-    operator delete(v9);
+    operator delete(v8);
   }
 
-  if (v8 < 0)
+  if (v7 < 0)
   {
-    operator delete(v7);
+    operator delete(*(&v6 + 1));
   }
 }
 
@@ -1939,15 +1950,15 @@ void sub_100008444(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4)
       sub_101A2854C();
     }
 
-    v27 = qword_1025D48A8;
+    v28 = qword_1025D48A8;
     if (os_log_type_enabled(qword_1025D48A8, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = *a3;
+      v29 = *a3;
       *buf = 67109378;
-      *&buf[4] = v28;
+      *&buf[4] = v29;
       *&buf[8] = 2080;
       *&buf[10] = sub_100006C9C(a3);
-      _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEFAULT, "#Warning unhandled app monitor notification, %d, %s", buf, 0x12u);
+      _os_log_impl(dword_100000000, v28, OS_LOG_TYPE_DEFAULT, "#Warning unhandled app monitor notification, %d, %s", buf, 0x12u);
     }
 
     if (sub_10000A100(121, 2))
@@ -1985,8 +1996,8 @@ void sub_100008444(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4)
       *&buf[10] = v9;
       *&buf[18] = 1024;
       *&buf[20] = v10;
-      v35 = 2080;
-      v36 = v11;
+      v36 = 2080;
+      v37 = v11;
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "notification, %d, %s, pid, %d, bundleId, %s", buf, 0x22u);
     }
 
@@ -1995,22 +2006,22 @@ void sub_100008444(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4)
       sub_101A287B4(a3, a4);
     }
 
-    v33 = 0;
+    v34 = 0;
     v12 = [RBSProcessIdentifier identifierWithPid:*a4];
-    v13 = [RBSProcessHandle handleForIdentifier:v12 error:&v33];
+    v13 = [RBSProcessHandle handleForIdentifier:v12 error:&v34];
     if (v12 && v13)
     {
       v14 = [objc_msgSend(v13 "bundle")];
       memset(buf, 0, sizeof(buf));
       if (v14)
       {
-        sub_1000238CC(v14, &v31);
-        *buf = v31;
-        *&buf[16] = v32;
-        v15 = HIBYTE(v32);
-        if (v32 < 0)
+        sub_1000238CC(v14, &v32);
+        *buf = v32;
+        *&buf[16] = v33;
+        v15 = HIBYTE(v33);
+        if (v33 < 0)
         {
-          v15 = *(&v31 + 1);
+          v15 = *(&v32 + 1);
         }
 
         if (v15)
@@ -2080,7 +2091,7 @@ void sub_100008444(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4)
                 }
 
                 v17 = 1;
-                sub_100C10918(a1, a4, buf, 1);
+                sub_100C10918(a1, a4, buf, 1, v27);
               }
 
               v19 = *(v16 + 1);
@@ -2112,17 +2123,17 @@ LABEL_39:
         sub_101A28438();
       }
 
-      v29 = qword_1025D4798;
+      v30 = qword_1025D4798;
       if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *a4;
+        v31 = *a4;
         *buf = 68289282;
         *&buf[4] = 0;
         *&buf[8] = 2082;
         *&buf[10] = "";
         *&buf[18] = 1026;
-        *&buf[20] = v30;
-        _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ALM: unable to get process handle, pid:%{public}d}", buf, 0x18u);
+        *&buf[20] = v31;
+        _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ALM: unable to get process handle, pid:%{public}d}", buf, 0x18u);
       }
     }
   }
@@ -2138,22 +2149,22 @@ void sub_100008854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
+void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, int *a4)
 {
-  v7 = a4 + 8;
+  v7 = a4 + 2;
   if (*(a4 + 31) >= 0)
   {
-    v8 = a4 + 8;
+    v8 = a4 + 2;
   }
 
   else
   {
-    v8 = *(a4 + 8);
+    v8 = *(a4 + 1);
   }
 
-  v126 = [CLClientKeyPath clientKeyPathWithClientAnchor:[NSString stringWithUTF8String:v8] anchorType:105];
+  v131 = [CLClientKeyPath clientKeyPathWithClientAnchor:[NSString stringWithUTF8String:v8] anchorType:105];
   v9 = [*(a1 + 136) registeredKeyPathForClientIdentifier:?];
-  v127 = a3;
+  v132 = a3;
   if (*a3 - 10 < 2)
   {
     if (qword_1025D47A0 != -1)
@@ -2165,8 +2176,8 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = sub_100006C9C(a3);
-      v14 = *(a4 + 80);
-      v13 = a4 + 80;
+      v14 = *(a4 + 10);
+      v13 = a4 + 20;
       v12 = v14;
       if (*(v13 - 49) >= 0)
       {
@@ -2175,17 +2186,17 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
       else
       {
-        v15 = *(v13 - 72);
+        v15 = *(v13 - 9);
       }
 
       if (*(v13 - 1) >= 0)
       {
-        v16 = v13 - 24;
+        v16 = v13 - 6;
       }
 
       else
       {
-        v16 = *(v13 - 24);
+        v16 = *(v13 - 3);
       }
 
       if (*(v13 + 23) >= 0)
@@ -2235,19 +2246,19 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
     else
     {
-      sub_10000EC00(v136, "ClientRemoved");
-      sub_100777AC4(a1, v9, 1, v136);
-      if (v137 < 0)
+      sub_10000EC00(v141, "ClientRemoved");
+      sub_100777AC4(a1, v9, 1, v141);
+      if (v142 < 0)
       {
-        operator delete(v136[0]);
+        operator delete(v141[0]);
       }
 
       memset(buf, 0, 99);
-      v143 = 0u;
-      memset(v144, 0, 59);
-      if (v126)
+      v148 = 0u;
+      memset(v149, 0, 59);
+      if (v131)
       {
-        [(CLClientKeyPath *)v126 clientName];
+        objc_msgSend_clientName(v131);
         if (buf[23] < 0)
         {
           operator delete(*buf);
@@ -2256,131 +2267,131 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
       else
       {
-        v135 = 0;
-        memset(v134, 0, sizeof(v134));
-        *v133 = 0uLL;
-        *v131 = 0uLL;
-        memset(v132, 0, sizeof(v132));
-        memset(v130, 0, sizeof(v130));
+        v140 = 0;
+        memset(v139, 0, sizeof(v139));
+        *v138 = 0uLL;
+        *v136 = 0uLL;
+        memset(v137, 0, sizeof(v137));
+        memset(v135, 0, sizeof(v135));
         *__p = 0uLL;
       }
 
       *buf = *__p;
-      *&buf[16] = v130[0];
-      HIBYTE(v130[0]) = 0;
+      *&buf[16] = v135[0];
+      HIBYTE(v135[0]) = 0;
       LOBYTE(__p[0]) = 0;
       if (buf[47] < 0)
       {
         operator delete(*&buf[24]);
       }
 
-      *&buf[24] = *&v130[1];
-      *&buf[40] = v130[3];
-      HIBYTE(v130[3]) = 0;
-      LOBYTE(v130[1]) = 0;
+      *&buf[24] = *&v135[1];
+      *&buf[40] = v135[3];
+      HIBYTE(v135[3]) = 0;
+      LOBYTE(v135[1]) = 0;
       if (buf[71] < 0)
       {
         operator delete(*&buf[48]);
       }
 
-      *&buf[48] = *v131;
-      *&buf[64] = v132[0];
-      HIBYTE(v132[0]) = 0;
-      LOBYTE(v131[0]) = 0;
+      *&buf[48] = *v136;
+      *&buf[64] = v137[0];
+      HIBYTE(v137[0]) = 0;
+      LOBYTE(v136[0]) = 0;
       if (buf[95] < 0)
       {
         operator delete(*&buf[72]);
       }
 
-      *&buf[72] = *&v132[1];
-      *&buf[88] = v132[3];
-      HIBYTE(v132[3]) = 0;
-      LOBYTE(v132[1]) = 0;
-      *&buf[96] = v132[4];
-      buf[98] = BYTE2(v132[4]);
-      if (SBYTE7(v144[0]) < 0)
+      *&buf[72] = *&v137[1];
+      *&buf[88] = v137[3];
+      HIBYTE(v137[3]) = 0;
+      LOBYTE(v137[1]) = 0;
+      *&buf[96] = v137[4];
+      buf[98] = BYTE2(v137[4]);
+      if (SBYTE7(v149[0]) < 0)
       {
-        operator delete(v143);
+        operator delete(v148);
       }
 
-      v143 = *&v132[5];
-      *&v144[0] = v132[7];
-      HIBYTE(v132[7]) = 0;
-      LOBYTE(v132[5]) = 0;
-      if (SHIBYTE(v144[1]) < 0)
+      v148 = *&v137[5];
+      *&v149[0] = v137[7];
+      HIBYTE(v137[7]) = 0;
+      LOBYTE(v137[5]) = 0;
+      if (SHIBYTE(v149[1]) < 0)
       {
-        operator delete(*(&v144[0] + 1));
+        operator delete(*(&v149[0] + 1));
       }
 
-      *(v144 + 8) = *v133;
-      *(&v144[1] + 1) = *&v134[0];
-      BYTE7(v134[0]) = 0;
-      LOBYTE(v133[0]) = 0;
-      if (SBYTE7(v144[3]) < 0)
+      *(v149 + 8) = *v138;
+      *(&v149[1] + 1) = *&v139[0];
+      BYTE7(v139[0]) = 0;
+      LOBYTE(v138[0]) = 0;
+      if (SBYTE7(v149[3]) < 0)
       {
-        operator delete(*&v144[2]);
-        v144[2] = *(v134 + 8);
-        *&v144[3] = *(&v134[1] + 1);
-        HIBYTE(v134[1]) = 0;
-        BYTE8(v134[0]) = 0;
-        WORD4(v144[3]) = v135;
-        BYTE10(v144[3]) = BYTE2(v135);
-        if (SBYTE7(v134[0]) < 0)
+        operator delete(*&v149[2]);
+        v149[2] = *(v139 + 8);
+        *&v149[3] = *(&v139[1] + 1);
+        HIBYTE(v139[1]) = 0;
+        BYTE8(v139[0]) = 0;
+        WORD4(v149[3]) = v140;
+        BYTE10(v149[3]) = BYTE2(v140);
+        if (SBYTE7(v139[0]) < 0)
         {
-          operator delete(v133[0]);
+          operator delete(v138[0]);
         }
       }
 
       else
       {
-        v144[2] = *(v134 + 8);
-        *&v144[3] = *(&v134[1] + 1);
-        HIBYTE(v134[1]) = 0;
-        BYTE8(v134[0]) = 0;
-        WORD4(v144[3]) = v135;
-        BYTE10(v144[3]) = BYTE2(v135);
+        v149[2] = *(v139 + 8);
+        *&v149[3] = *(&v139[1] + 1);
+        HIBYTE(v139[1]) = 0;
+        BYTE8(v139[0]) = 0;
+        WORD4(v149[3]) = v140;
+        BYTE10(v149[3]) = BYTE2(v140);
       }
 
-      if (SHIBYTE(v132[7]) < 0)
+      if (SHIBYTE(v137[7]) < 0)
       {
-        operator delete(v132[5]);
+        operator delete(v137[5]);
       }
 
-      if (SHIBYTE(v132[3]) < 0)
+      if (SHIBYTE(v137[3]) < 0)
       {
-        operator delete(v132[1]);
+        operator delete(v137[1]);
       }
 
-      if (SHIBYTE(v132[0]) < 0)
+      if (SHIBYTE(v137[0]) < 0)
       {
-        operator delete(v131[0]);
+        operator delete(v136[0]);
       }
 
-      if (SHIBYTE(v130[3]) < 0)
+      if (SHIBYTE(v135[3]) < 0)
       {
-        operator delete(v130[1]);
+        operator delete(v135[1]);
       }
 
-      if (SHIBYTE(v130[0]) < 0)
+      if (SHIBYTE(v135[0]) < 0)
       {
         operator delete(__p[0]);
       }
 
       LODWORD(__p[0]) = 1;
       (*(*a1 + 152))(a1, __p, buf, 0, 0xFFFFFFFFLL, 0);
-      if (SBYTE7(v144[3]) < 0)
+      if (SBYTE7(v149[3]) < 0)
       {
-        operator delete(*&v144[2]);
+        operator delete(*&v149[2]);
       }
 
-      if (SHIBYTE(v144[1]) < 0)
+      if (SHIBYTE(v149[1]) < 0)
       {
-        operator delete(*(&v144[0] + 1));
+        operator delete(*(&v149[0] + 1));
       }
 
-      if (SBYTE7(v144[0]) < 0)
+      if (SBYTE7(v149[0]) < 0)
       {
-        operator delete(v143);
+        operator delete(v148);
       }
 
       if (buf[95] < 0)
@@ -2425,7 +2436,7 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
       else
       {
-        v20 = *(a4 + 8);
+        v20 = *(a4 + 1);
       }
 
       v21 = [(CLClientKeyPath *)v9 isValidCKP];
@@ -2497,7 +2508,7 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
     else
     {
-      v29 = *(a4 + 8);
+      v29 = *(a4 + 1);
     }
 
     *buf = 68289794;
@@ -2518,7 +2529,7 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
   {
     __p[0] = 0;
     __p[1] = 0;
-    v130[0] = 0;
+    v135[0] = 0;
     v31 = *(a1 + 840);
     v32 = (a1 + 848);
     if (v31 != (a1 + 848))
@@ -2547,19 +2558,21 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
           if (sub_10000A100(121, 2))
           {
             sub_10192DC88(buf);
-            *v138 = 138543362;
-            *&v138[4] = v35;
-            v47 = _os_log_send_and_compose_impl();
+            *v143 = 138543362;
+            *&v143[4] = v35;
+            LODWORD(v129) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 1, "'%{public}@' task suspended: removing client", v143, v129);
+            v48 = v47;
             sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::onAppMonitorNotification(int, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v47);
             p_info = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
-            if (v47 != buf)
+            if (v48 != buf)
             {
-              free(v47);
+              free(v48);
             }
           }
 
           v37 = __p[1];
-          if (__p[1] >= v130[0])
+          if (__p[1] >= v135[0])
           {
             v39 = (__p[1] - __p[0]) >> 3;
             if ((v39 + 1) >> 61)
@@ -2567,13 +2580,13 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
               sub_10028C64C();
             }
 
-            v40 = (v130[0] - __p[0]) >> 2;
+            v40 = (v135[0] - __p[0]) >> 2;
             if (v40 <= v39 + 1)
             {
               v40 = v39 + 1;
             }
 
-            if ((v130[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
+            if ((v135[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
             {
               v41 = 0x1FFFFFFFFFFFFFFFLL;
             }
@@ -2596,7 +2609,7 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
             v44 = __p[0];
             __p[0] = v43;
             __p[1] = v38;
-            v130[0] = 0;
+            v135[0] = 0;
             if (v44)
             {
               operator delete(v44);
@@ -2629,11 +2642,11 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
           do
           {
             v46 = v31[2];
-            v116 = *v46 == v31;
+            v120 = *v46 == v31;
             v31 = v46;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
         v31 = v46;
@@ -2642,14 +2655,14 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
       while (v46 != v32);
     }
 
-    v48 = *(a1 + 864);
-    if (v48 != (a1 + 872))
+    v49 = *(a1 + 864);
+    if (v49 != (a1 + 872))
     {
       do
       {
-        v49 = v48[4];
-        v50 = v48[5];
-        if (CLConnection::getRemotePid(v49) == *a4)
+        v50 = v49[4];
+        v51 = v49[5];
+        if (CLConnection::getRemotePid(v50) == *a4)
         {
           if (p_info[244] != -1)
           {
@@ -2657,19 +2670,19 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
             p_info = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
           }
 
-          v51 = off_1025D47A8;
+          v52 = off_1025D47A8;
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
           {
-            (*(*v50 + 24))(buf, v50);
-            v52 = buf;
+            (*(*v51 + 24))(buf, v51);
+            v53 = buf;
             if ((buf[23] & 0x80u) != 0)
             {
-              v52 = *buf;
+              v53 = *buf;
             }
 
-            *v138 = 136446210;
-            *&v138[4] = v52;
-            _os_log_impl(dword_100000000, v51, OS_LOG_TYPE_INFO, "'%{public}s' task suspended: removing client", v138, 0xCu);
+            *v143 = 136446210;
+            *&v143[4] = v53;
+            _os_log_impl(dword_100000000, v52, OS_LOG_TYPE_INFO, "'%{public}s' task suspended: removing client", v143, 0xCu);
             if (buf[23] < 0)
             {
               operator delete(*buf);
@@ -2679,128 +2692,131 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
           if (sub_10000A100(121, 2))
           {
             sub_10192DC88(buf);
-            (*(*v50 + 24))(v138, v50);
-            v63 = v138;
-            if (v139 < 0)
+            v64 = off_1025D47A8;
+            (*(*v51 + 24))(v143, v51);
+            v65 = v143;
+            if (v144 < 0)
             {
-              v63 = *v138;
+              v65 = *v143;
             }
 
-            v140 = 136446210;
-            v141 = v63;
-            v64 = _os_log_send_and_compose_impl();
+            v145 = 136446210;
+            v146 = v65;
+            LODWORD(v129) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v64, 1, "'%{public}s' task suspended: removing client", &v145, v129);
+            v67 = v66;
             p_info = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
-            if (v139 < 0)
+            if (v144 < 0)
             {
-              operator delete(*v138);
+              operator delete(*v143);
             }
 
-            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::onAppMonitorNotification(int, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v64);
-            if (v64 != buf)
+            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::onAppMonitorNotification(int, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v67);
+            if (v67 != buf)
             {
-              free(v64);
+              free(v67);
             }
           }
 
-          v53 = __p[1];
-          if (__p[1] >= v130[0])
+          v54 = __p[1];
+          if (__p[1] >= v135[0])
           {
-            v55 = (__p[1] - __p[0]) >> 3;
-            if ((v55 + 1) >> 61)
+            v56 = (__p[1] - __p[0]) >> 3;
+            if ((v56 + 1) >> 61)
             {
               sub_10028C64C();
             }
 
-            v56 = (v130[0] - __p[0]) >> 2;
-            if (v56 <= v55 + 1)
+            v57 = (v135[0] - __p[0]) >> 2;
+            if (v57 <= v56 + 1)
             {
-              v56 = v55 + 1;
+              v57 = v56 + 1;
             }
 
-            if ((v130[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
+            if ((v135[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
             {
-              v57 = 0x1FFFFFFFFFFFFFFFLL;
+              v58 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v57 = v56;
+              v58 = v57;
             }
 
-            if (v57)
+            if (v58)
             {
-              sub_10045E858(__p, v57);
+              sub_10045E858(__p, v58);
             }
 
-            v58 = (8 * v55);
-            *v58 = v49;
-            v54 = (8 * v55 + 8);
-            v59 = v58 - (__p[1] - __p[0]);
-            memcpy(v59, __p[0], __p[1] - __p[0]);
-            v60 = __p[0];
-            __p[0] = v59;
-            __p[1] = v54;
-            v130[0] = 0;
-            if (v60)
+            v59 = (8 * v56);
+            *v59 = v50;
+            v55 = (8 * v56 + 8);
+            v60 = v59 - (__p[1] - __p[0]);
+            memcpy(v60, __p[0], __p[1] - __p[0]);
+            v61 = __p[0];
+            __p[0] = v60;
+            __p[1] = v55;
+            v135[0] = 0;
+            if (v61)
             {
-              operator delete(v60);
+              operator delete(v61);
             }
           }
 
           else
           {
-            *__p[1] = v49;
-            v54 = v53 + 8;
+            *__p[1] = v50;
+            v55 = v54 + 8;
           }
 
-          __p[1] = v54;
+          __p[1] = v55;
         }
 
-        v61 = v48[1];
-        if (v61)
+        v62 = v49[1];
+        if (v62)
         {
           do
           {
-            v62 = v61;
-            v61 = *v61;
+            v63 = v62;
+            v62 = *v62;
           }
 
-          while (v61);
+          while (v62);
         }
 
         else
         {
           do
           {
-            v62 = v48[2];
-            v116 = *v62 == v48;
-            v48 = v62;
+            v63 = v49[2];
+            v120 = *v63 == v49;
+            v49 = v63;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
-        v48 = v62;
+        v49 = v63;
       }
 
-      while (v62 != (a1 + 872));
+      while (v63 != (a1 + 872));
     }
 
-    v65 = *(a1 + 936);
-    if (v65 != (a1 + 944))
+    v68 = *(a1 + 936);
+    if (v68 != (a1 + 944))
     {
       do
       {
-        v66 = v65[4];
-        if ([sub_100008880(v66) isEqual:v9])
+        v69 = v68[4];
+        if ([sub_100008880(v69) isEqual:v9])
         {
-          v67 = [sub_100008880(v66) clientKey];
+          v70 = [sub_100008880(v69) clientKey];
           if (qword_1025D47A0 != -1)
           {
             sub_10192D4D0();
           }
 
-          v68 = off_1025D47A8;
+          v71 = off_1025D47A8;
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289538;
@@ -2808,184 +2824,186 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
             *&buf[8] = 2082;
             *&buf[10] = "";
             *&buf[18] = 2114;
-            *&buf[20] = v67;
+            *&buf[20] = v70;
             *&buf[28] = 2050;
-            *&buf[30] = v66;
-            _os_log_impl(dword_100000000, v68, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic task suspended: cancelling retirement, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
+            *&buf[30] = v69;
+            _os_log_impl(dword_100000000, v71, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic task suspended: cancelling retirement, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
           }
 
-          sub_10102D0CC(v66);
+          sub_10102D0CC(v69);
         }
 
-        v69 = v65[1];
-        if (v69)
+        v72 = v68[1];
+        if (v72)
         {
           do
           {
-            v70 = v69;
-            v69 = *v69;
+            v73 = v72;
+            v72 = *v72;
           }
 
-          while (v69);
+          while (v72);
         }
 
         else
         {
           do
           {
-            v70 = v65[2];
-            v116 = *v70 == v65;
-            v65 = v70;
+            v73 = v68[2];
+            v120 = *v73 == v68;
+            v68 = v73;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
-        v65 = v70;
+        v68 = v73;
       }
 
-      while (v70 != (a1 + 944));
+      while (v73 != (a1 + 944));
     }
 
-    v71 = *(a1 + 912);
-    v72 = &OBJC_METACLASS___CLMotionHintLoggerAdapter.info;
-    if (v71 != (a1 + 920))
+    v74 = *(a1 + 912);
+    v75 = &OBJC_METACLASS___CLMotionHintLoggerAdapter.info;
+    if (v74 != (a1 + 920))
     {
       do
       {
-        v74 = v71[4];
-        v73 = v71[5];
-        if (CLConnection::getRemotePid(v74) == *a4)
+        v77 = v74[4];
+        v76 = v74[5];
+        if (CLConnection::getRemotePid(v77) == *a4)
         {
-          v75 = [sub_100008880(v73) clientKey];
-          if (v72[244] != -1)
+          v78 = [sub_100008880(v76) clientKey];
+          if (v75[244] != -1)
           {
             sub_10192D4D0();
-            v72 = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
+            v75 = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
           }
 
-          v76 = off_1025D47A8;
+          v79 = off_1025D47A8;
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            *&buf[4] = v75;
-            _os_log_impl(dword_100000000, v76, OS_LOG_TYPE_INFO, "'%{public}@' task suspended: removing daemonIdentifiableClient #dic", buf, 0xCu);
+            *&buf[4] = v78;
+            _os_log_impl(dword_100000000, v79, OS_LOG_TYPE_INFO, "'%{public}@' task suspended: removing daemonIdentifiableClient #dic", buf, 0xCu);
           }
 
           if (sub_10000A100(121, 2))
           {
             sub_10192DC88(buf);
-            *v138 = 138543362;
-            *&v138[4] = v75;
-            v87 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::onAppMonitorNotification(int, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v87);
-            v72 = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
-            if (v87 != buf)
+            *v143 = 138543362;
+            *&v143[4] = v78;
+            LODWORD(v129) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 1, "'%{public}@' task suspended: removing daemonIdentifiableClient #dic", v143, v129);
+            v91 = v90;
+            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::onAppMonitorNotification(int, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v90);
+            v75 = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
+            if (v91 != buf)
             {
-              free(v87);
+              free(v91);
             }
           }
 
-          v77 = __p[1];
-          if (__p[1] >= v130[0])
+          v80 = __p[1];
+          if (__p[1] >= v135[0])
           {
-            v79 = (__p[1] - __p[0]) >> 3;
-            if ((v79 + 1) >> 61)
+            v82 = (__p[1] - __p[0]) >> 3;
+            if ((v82 + 1) >> 61)
             {
               sub_10028C64C();
             }
 
-            v80 = (v130[0] - __p[0]) >> 2;
-            if (v80 <= v79 + 1)
+            v83 = (v135[0] - __p[0]) >> 2;
+            if (v83 <= v82 + 1)
             {
-              v80 = v79 + 1;
+              v83 = v82 + 1;
             }
 
-            if ((v130[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
+            if ((v135[0] - __p[0]) >= 0x7FFFFFFFFFFFFFF8)
             {
-              v81 = 0x1FFFFFFFFFFFFFFFLL;
+              v84 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v81 = v80;
+              v84 = v83;
             }
 
-            if (v81)
-            {
-              sub_10045E858(__p, v81);
-            }
-
-            v82 = (8 * v79);
-            *v82 = v74;
-            v78 = (8 * v79 + 8);
-            v83 = v82 - (__p[1] - __p[0]);
-            memcpy(v83, __p[0], __p[1] - __p[0]);
-            v84 = __p[0];
-            __p[0] = v83;
-            __p[1] = v78;
-            v130[0] = 0;
             if (v84)
             {
-              operator delete(v84);
+              sub_10045E858(__p, v84);
+            }
+
+            v85 = (8 * v82);
+            *v85 = v77;
+            v81 = (8 * v82 + 8);
+            v86 = v85 - (__p[1] - __p[0]);
+            memcpy(v86, __p[0], __p[1] - __p[0]);
+            v87 = __p[0];
+            __p[0] = v86;
+            __p[1] = v81;
+            v135[0] = 0;
+            if (v87)
+            {
+              operator delete(v87);
             }
           }
 
           else
           {
-            *__p[1] = v74;
-            v78 = v77 + 8;
+            *__p[1] = v77;
+            v81 = v80 + 8;
           }
 
-          __p[1] = v78;
+          __p[1] = v81;
         }
 
-        v85 = v71[1];
-        if (v85)
+        v88 = v74[1];
+        if (v88)
         {
           do
           {
-            v86 = v85;
-            v85 = *v85;
+            v89 = v88;
+            v88 = *v88;
           }
 
-          while (v85);
+          while (v88);
         }
 
         else
         {
           do
           {
-            v86 = v71[2];
-            v116 = *v86 == v71;
-            v71 = v86;
+            v89 = v74[2];
+            v120 = *v89 == v74;
+            v74 = v89;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
-        v71 = v86;
+        v74 = v89;
       }
 
-      while (v86 != (a1 + 920));
+      while (v89 != (a1 + 920));
     }
 
-    v88 = __p[0];
+    v92 = __p[0];
     if (__p[0] != __p[1])
     {
       do
       {
-        sub_10011219C(a1, *v88++);
+        sub_10011219C(a1, *v92++);
       }
 
-      while (v88 != __p[1]);
-      v88 = __p[0];
+      while (v92 != __p[1]);
+      v92 = __p[0];
     }
 
-    if (v88)
+    if (v92)
     {
-      __p[1] = v88;
-      operator delete(v88);
+      __p[1] = v92;
+      operator delete(v92);
     }
 
     v30 = *a3;
@@ -2993,22 +3011,22 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 
   if (v30 == 1 && [(CLClientKeyPath *)v9 isValidCKP])
   {
-    v89 = *(a1 + 936);
-    v90 = (a1 + 944);
-    if (v89 != (a1 + 944))
+    v93 = *(a1 + 936);
+    v94 = (a1 + 944);
+    if (v93 != (a1 + 944))
     {
       do
       {
-        v91 = v89[4];
-        if ([sub_100008880(v91) isEqual:v9])
+        v95 = v93[4];
+        if ([sub_100008880(v95) isEqual:v9])
         {
-          v92 = [sub_100008880(v91) clientKey];
+          v96 = [sub_100008880(v95) clientKey];
           if (qword_1025D47A0 != -1)
           {
             sub_10192D4D0();
           }
 
-          v93 = off_1025D47A8;
+          v97 = off_1025D47A8;
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289538;
@@ -3016,62 +3034,62 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
             *&buf[8] = 2082;
             *&buf[10] = "";
             *&buf[18] = 2114;
-            *&buf[20] = v92;
+            *&buf[20] = v96;
             *&buf[28] = 2050;
-            *&buf[30] = v91;
-            _os_log_impl(dword_100000000, v93, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic cancelRetirement due to termination before actual dic death, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
+            *&buf[30] = v95;
+            _os_log_impl(dword_100000000, v97, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic cancelRetirement due to termination before actual dic death, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
           }
 
-          sub_10102D0CC(v91);
+          sub_10102D0CC(v95);
         }
 
-        v94 = v89[1];
-        if (v94)
+        v98 = v93[1];
+        if (v98)
         {
           do
           {
-            v95 = v94;
-            v94 = *v94;
+            v99 = v98;
+            v98 = *v98;
           }
 
-          while (v94);
+          while (v98);
         }
 
         else
         {
           do
           {
-            v95 = v89[2];
-            v116 = *v95 == v89;
-            v89 = v95;
+            v99 = v93[2];
+            v120 = *v99 == v93;
+            v93 = v99;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
-        v89 = v95;
+        v93 = v99;
       }
 
-      while (v95 != v90);
+      while (v99 != v94);
     }
 
-    if (*(a4 + 104))
+    if (a4[26])
     {
-      v96 = *(a1 + 912);
-      if (v96 != (a1 + 920))
+      v100 = *(a1 + 912);
+      if (v100 != (a1 + 920))
       {
         do
         {
-          v97 = v96[5];
-          if ((*(*v97 + 24))(v97) == 3 && [sub_100008880(v97) isEqual:v9])
+          v101 = v100[5];
+          if ((*(*v101 + 24))(v101) == 3 && [sub_100008880(v101) isEqual:v9])
           {
-            v98 = [sub_100008880(v97) clientKey];
+            v102 = [sub_100008880(v101) clientKey];
             if (qword_1025D47A0 != -1)
             {
               sub_10192D4D0();
             }
 
-            v99 = off_1025D47A8;
+            v103 = off_1025D47A8;
             if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 68289538;
@@ -3079,176 +3097,176 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
               *&buf[8] = 2082;
               *&buf[10] = "";
               *&buf[18] = 2114;
-              *&buf[20] = v98;
+              *&buf[20] = v102;
               *&buf[28] = 2050;
-              *&buf[30] = v97;
-              _os_log_impl(dword_100000000, v99, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic #bas marking eligible for destructionUponDisconnection due to UserTermination, ClientKeyPath:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
+              *&buf[30] = v101;
+              _os_log_impl(dword_100000000, v103, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic #bas marking eligible for destructionUponDisconnection due to UserTermination, ClientKeyPath:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
             }
 
-            sub_10102CA94(v97);
+            sub_10102CA94(v101);
           }
 
-          v100 = v96[1];
-          if (v100)
+          v104 = v100[1];
+          if (v104)
           {
             do
             {
-              v101 = v100;
-              v100 = *v100;
+              v105 = v104;
+              v104 = *v104;
             }
 
-            while (v100);
+            while (v104);
           }
 
           else
           {
             do
             {
-              v101 = v96[2];
-              v116 = *v101 == v96;
-              v96 = v101;
+              v105 = v100[2];
+              v120 = *v105 == v100;
+              v100 = v105;
             }
 
-            while (!v116);
+            while (!v120);
           }
 
-          v96 = v101;
+          v100 = v105;
         }
 
-        while (v101 != (a1 + 920));
+        while (v105 != (a1 + 920));
       }
 
       memset(buf, 0, 24);
-      v102 = *(a1 + 936);
-      if (v102 != v90)
+      v106 = *(a1 + 936);
+      if (v106 != v94)
       {
         do
         {
-          v103 = v102[4];
-          if ((*(*v103 + 24))(v103) == 3 && [sub_100008880(v103) isEqual:v9])
+          v107 = v106[4];
+          if ((*(*v107 + 24))(v107) == 3 && [sub_100008880(v107) isEqual:v9])
           {
-            v104 = *&buf[8];
+            v108 = *&buf[8];
             if (*&buf[8] >= *&buf[16])
             {
-              v106 = (*&buf[8] - *buf) >> 3;
-              if ((v106 + 1) >> 61)
+              v110 = (*&buf[8] - *buf) >> 3;
+              if ((v110 + 1) >> 61)
               {
                 sub_10028C64C();
               }
 
-              v107 = (*&buf[16] - *buf) >> 2;
-              if (v107 <= v106 + 1)
+              v111 = (*&buf[16] - *buf) >> 2;
+              if (v111 <= v110 + 1)
               {
-                v107 = v106 + 1;
+                v111 = v110 + 1;
               }
 
               if (*&buf[16] - *buf >= 0x7FFFFFFFFFFFFFF8uLL)
               {
-                v108 = 0x1FFFFFFFFFFFFFFFLL;
+                v112 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v108 = v107;
+                v112 = v111;
               }
 
-              if (v108)
+              if (v112)
               {
-                sub_10045E858(buf, v108);
+                sub_10045E858(buf, v112);
               }
 
-              v109 = (8 * v106);
-              *v109 = v103;
-              v105 = 8 * v106 + 8;
-              v110 = v109 - (*&buf[8] - *buf);
-              memcpy(v110, *buf, *&buf[8] - *buf);
-              v111 = *buf;
-              *buf = v110;
-              *&buf[8] = v105;
+              v113 = (8 * v110);
+              *v113 = v107;
+              v109 = 8 * v110 + 8;
+              v114 = v113 - (*&buf[8] - *buf);
+              memcpy(v114, *buf, *&buf[8] - *buf);
+              v115 = *buf;
+              *buf = v114;
+              *&buf[8] = v109;
               *&buf[16] = 0;
-              if (v111)
+              if (v115)
               {
-                operator delete(v111);
+                operator delete(v115);
               }
             }
 
             else
             {
-              **&buf[8] = v103;
-              v105 = v104 + 8;
+              **&buf[8] = v107;
+              v109 = v108 + 8;
             }
 
-            *&buf[8] = v105;
+            *&buf[8] = v109;
           }
 
-          v112 = v102[1];
-          if (v112)
+          v116 = v106[1];
+          if (v116)
           {
             do
             {
-              v113 = v112;
-              v112 = *v112;
+              v117 = v116;
+              v116 = *v116;
             }
 
-            while (v112);
+            while (v116);
           }
 
           else
           {
             do
             {
-              v113 = v102[2];
-              v116 = *v113 == v102;
-              v102 = v113;
+              v117 = v106[2];
+              v120 = *v117 == v106;
+              v106 = v117;
             }
 
-            while (!v116);
+            while (!v120);
           }
 
-          v102 = v113;
+          v106 = v117;
         }
 
-        while (v113 != v90);
-        v115 = *buf;
-        v114 = *&buf[8];
+        while (v117 != v94);
+        v119 = *buf;
+        v118 = *&buf[8];
         if (*buf != *&buf[8])
         {
           do
           {
-            sub_10077F82C(a1, *v115++);
+            sub_10077F82C(a1, *v119++);
           }
 
-          while (v115 != v114);
-          v115 = *buf;
+          while (v119 != v118);
+          v119 = *buf;
         }
 
-        if (v115)
+        if (v119)
         {
-          *&buf[8] = v115;
-          operator delete(v115);
+          *&buf[8] = v119;
+          operator delete(v119);
         }
       }
     }
   }
 
-  v116 = *v127 > 6 || ((1 << *v127) & 0x58) == 0;
-  if (!v116)
+  v120 = *v132 > 6 || ((1 << *v132) & 0x58) == 0;
+  if (!v120)
   {
-    v117 = *(a1 + 936);
-    if (v117 != (a1 + 944))
+    v121 = *(a1 + 936);
+    if (v121 != (a1 + 944))
     {
       do
       {
-        v118 = v117[4];
-        if ([sub_100008880(v118) isEqual:v9])
+        v122 = v121[4];
+        if ([sub_100008880(v122) isEqual:v9])
         {
-          v119 = [sub_100008880(v118) clientKey];
+          v123 = [sub_100008880(v122) clientKey];
           if (qword_1025D47A0 != -1)
           {
             sub_10192D4D0();
           }
 
-          v120 = off_1025D47A8;
+          v124 = off_1025D47A8;
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289538;
@@ -3256,60 +3274,60 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
             *&buf[8] = 2082;
             *&buf[10] = "";
             *&buf[18] = 2114;
-            *&buf[20] = v119;
+            *&buf[20] = v123;
             *&buf[28] = 2050;
-            *&buf[30] = v118;
-            _os_log_impl(dword_100000000, v120, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic triggerRetirement, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
+            *&buf[30] = v122;
+            _os_log_impl(dword_100000000, v124, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic triggerRetirement, ClientKey:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
           }
 
-          sub_10102CAF8(v118);
+          sub_10102CAF8(v122);
         }
 
-        v121 = v117[1];
-        if (v121)
+        v125 = v121[1];
+        if (v125)
         {
           do
           {
-            v122 = v121;
-            v121 = *v121;
+            v126 = v125;
+            v125 = *v125;
           }
 
-          while (v121);
+          while (v125);
         }
 
         else
         {
           do
           {
-            v122 = v117[2];
-            v116 = *v122 == v117;
-            v117 = v122;
+            v126 = v121[2];
+            v120 = *v126 == v121;
+            v121 = v126;
           }
 
-          while (!v116);
+          while (!v120);
         }
 
-        v117 = v122;
+        v121 = v126;
       }
 
-      while (v122 != (a1 + 944));
+      while (v126 != (a1 + 944));
     }
   }
 
   if (![(CLClientKeyPath *)v9 isValidCKP])
   {
-    if ([(NSString *)[(CLClientKeyPath *)v126 bundleId] isEqualToString:@"com.apple.MercuryPoster"])
+    if ([(NSString *)[(CLClientKeyPath *)v131 bundleId] isEqualToString:@"com.apple.MercuryPoster"])
     {
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
 
-      v123 = off_1025D47A8;
+      v127 = off_1025D47A8;
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v123, OS_LOG_TYPE_DEBUG, "AppMonitor notification for unregistered MercuryPoster - skip InUseLevel tracking", buf, 2u);
+        _os_log_impl(dword_100000000, v127, OS_LOG_TYPE_DEBUG, "AppMonitor notification for unregistered MercuryPoster - skip InUseLevel tracking", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
@@ -3321,23 +3339,23 @@ void sub_100008888(uint64_t a1, unsigned int a2, unsigned int *a3, uint64_t a4)
     }
 
     memset(buf, 0, 41);
-    [*(a1 + 136) expensivelyGetIdentifyingInformation:buf forClient:v126];
+    [*(a1 + 136) expensivelyGetIdentifyingInformation:buf forClient:v131];
     v9 = [CLClientKeyPath clientKeyPathWithClientAnchor:*buf anchorType:105];
   }
 
-  sub_10000E670(*(a1 + 400), a2, v127, a4, v9);
-  if (*v127 == 4 && *(a1 + 1083) == 1)
+  sub_10000E670(*(a1 + 400), a2, v132, a4, v9);
+  if (*v132 == 4 && *(a1 + 1083) == 1)
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
     }
 
-    v124 = off_1025D47A8;
+    v128 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v124, OS_LOG_TYPE_INFO, "Trial period #reprompt disarmed by foregrounded app", buf, 2u);
+      _os_log_impl(dword_100000000, v128, OS_LOG_TYPE_INFO, "Trial period #reprompt disarmed by foregrounded app", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
@@ -3359,20 +3377,22 @@ void sub_10000A05C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_10000A100(int a1, int a2)
+uint64_t sub_10000A100(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10001CABC();
-  if ((a1 - 122) > 3)
+  v2 = a2;
+  v3 = a1;
+  v4 = sub_10001CABC(a1, a2);
+  if ((v3 - 122) > 3)
   {
     v5 = "Generic";
   }
 
   else
   {
-    v5 = off_102459F08[a1 - 122];
+    v5 = off_102459F08[v3 - 122];
   }
 
-  return sub_10001CA84(v4, v5, a2);
+  return sub_10001CA84(v4, v5, v2);
 }
 
 void sub_10000A154(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
@@ -3386,77 +3406,77 @@ void sub_10000A154(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 
   if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 1;
-    v6 = _os_activity_create(dword_100000000, "CL: CLCatherineNotifier::onAppMonitorNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v6, &state);
+    v11 = 1;
+    v7 = _os_activity_create(dword_100000000, "CL: CLCatherineNotifier::onAppMonitorNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v7, &state);
 
     if (qword_1025D47F0 != -1)
     {
       sub_1019939F8();
     }
 
-    v7 = qword_1025D47F8;
+    v8 = qword_1025D47F8;
     if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 68289538;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 2082;
-      v16 = "activity";
-      v17 = 2050;
-      v18 = a4;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLCatherineNotifier::onAppMonitorNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "activity";
+      v18 = 2050;
+      v19 = a4;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLCatherineNotifier::onAppMonitorNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   if ((*a2 - 4) >= 6)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 0x10000010001uLL >> (8 * (*a2 - 4));
+    v9 = 0x10000010001uLL >> (8 * (*a2 - 4));
   }
 
-  *(a4 + 208) = v8;
-  sub_10000A33C(a4);
-  if (v10 == 1)
+  *(a4 + 208) = v9;
+  sub_10000A33C(a4, v6);
+  if (v11 == 1)
   {
     os_activity_scope_leave(&state);
   }
 }
 
-void sub_10000A33C(uint64_t a1)
+void sub_10000A33C(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 200))
   {
-    v1 = 65.0;
-    v2 = (a1 + 232);
+    v2 = 65.0;
+    v3 = (a1 + 232);
   }
 
   else
   {
-    v3 = *(a1 + 208);
-    v2 = (a1 + 232);
-    if (v3 == 1)
+    v4 = *(a1 + 208);
+    v3 = (a1 + 232);
+    if (v4 == 1)
     {
-      v1 = 6.0;
+      v2 = 6.0;
     }
 
     else
     {
-      v1 = 30.0;
+      v2 = 30.0;
     }
   }
 
-  sub_10000A374(v2, v1);
+  sub_10000A374(v3, v2);
 }
 
 void sub_10000A374(double *a1, double a2)
@@ -3594,7 +3614,7 @@ void sub_10000A658(uint64_t a1, unsigned int *a2, unsigned int *a3, id *a4)
   }
 }
 
-void sub_10000A824(unsigned int a1, unsigned int *a2, uint64_t a3, uint64_t a4)
+void sub_10000A824(unsigned int a1, unsigned int *a2, int *a3, uint64_t a4)
 {
   CLProfilingIdentify();
   [objc_msgSend(*(a4 + 32) "silo")];
@@ -3641,7 +3661,7 @@ void sub_10000A824(unsigned int a1, unsigned int *a2, uint64_t a3, uint64_t a4)
   }
 }
 
-void sub_10000AA00(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
+void sub_10000AA00(id *a1, uint64_t a2, int *a3, uint64_t a4)
 {
   if (*a3 == 4)
   {
@@ -3728,7 +3748,7 @@ unint64_t sub_10000AC40(void *a1, uint64_t a2)
   return 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
 }
 
-uint64_t sub_10000AD98(int *a1)
+uint64_t sub_10000AD98(unsigned int *a1)
 {
   v1 = *a1;
   if (v1 < 0x1D)
@@ -3761,7 +3781,7 @@ uint64_t sub_10000AD98(int *a1)
   return result;
 }
 
-uint64_t sub_10000AE98()
+uint64_t sub_10000AE98(uint64_t a1, uint64_t a2)
 {
   if (qword_102658230 != -1)
   {
@@ -3805,7 +3825,7 @@ __n128 sub_10000AED4@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-void sub_10000AFE4(uint64_t a1, int *a2, int *a3, int *a4, uint64_t *a5)
+void sub_10000AFE4(uint64_t a1, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t *a5)
 {
   sub_100017DD0(a5, a1);
   *(a1 + 52) |= 2u;
@@ -3857,7 +3877,7 @@ void sub_10000AFE4(uint64_t a1, int *a2, int *a3, int *a4, uint64_t *a5)
   sub_100018068(a4, v16);
 }
 
-uint64_t sub_10000B1F8()
+uint64_t sub_10000B1F8(uint64_t a1, uint64_t a2)
 {
   if (qword_10265C410 != -1)
   {
@@ -3906,7 +3926,7 @@ void sub_10000B230(uint64_t a1@<X8>)
   }
 }
 
-void sub_10000B324(uint64_t a1, __int128 *a2)
+void sub_10000B324(uint64_t a1, uint64_t *a2)
 {
   if ((*(a1 + 24) & 1) == 0)
   {
@@ -3919,7 +3939,7 @@ void sub_10000B324(uint64_t a1, __int128 *a2)
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *a2;
-      v6 = *(a2 + 2);
+      v6 = a2[2];
       v7 = *(a2 + 24);
       v9 = 134218496;
       v10 = v5;
@@ -3942,18 +3962,19 @@ void sub_10000B324(uint64_t a1, __int128 *a2)
   *(a1 + 32) = sub_1000081AC();
 }
 
-uint64_t sub_10000B448(uint64_t a1, int a2, int *a3, uint64_t a4)
+uint64_t sub_10000B448(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4)
 {
-  v10 = a2;
-  v7 = sub_10000B1F8();
-  sub_10000B230(v11);
-  sub_10000B324(v7, v11[0].i8);
-  v12 = 12;
-  v11[0].i32[0] = 12;
-  v11[0].i32[1] = sub_10000AD98(&v12);
-  v8 = sub_10000AE98();
-  v12 = 4;
-  sub_10000B6F4(v8, &v12, v11, (a1 + 5220), &v10, a3, a4);
+  v12 = a2;
+  v7 = sub_10000B1F8(a1, a2);
+  sub_10000B230(v13);
+  sub_10000B324(v7, v13[0].i64);
+  v14 = 12;
+  v13[0].i32[0] = 12;
+  v8 = sub_10000AD98(&v14);
+  v13[0].i32[1] = v8;
+  v10 = sub_10000AE98(v8, v9);
+  v14 = 4;
+  sub_10000B6F4(v10, &v14, v13, (a1 + 5220), &v12, a3, a4);
   result = *(a1 + 280);
   if (result)
   {
@@ -3963,7 +3984,7 @@ uint64_t sub_10000B448(uint64_t a1, int a2, int *a3, uint64_t a4)
   return result;
 }
 
-void sub_10000B518(int a1, int *a2, uint64_t a3, uint64_t a4)
+void sub_10000B518(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
   CLProfilingIdentify();
   [objc_msgSend(*(a4 + 32) "silo")];
@@ -4010,7 +4031,7 @@ void sub_10000B518(int a1, int *a2, uint64_t a3, uint64_t a4)
   }
 }
 
-void sub_10000B6F4(uint64_t a1, int *a2, int32x4_t *a3, int *a4, int *a5, int *a6, uint64_t a7)
+void sub_10000B6F4(uint64_t a1, unsigned int *a2, int32x4_t *a3, unsigned int *a4, int *a5, unsigned int *a6, uint64_t a7)
 {
   if (*(a1 + 16))
   {
@@ -4050,8 +4071,8 @@ void sub_10000B6F4(uint64_t a1, int *a2, int32x4_t *a3, int *a4, int *a5, int *a
           v14 = !v13;
           LODWORD(buf) = 67109376;
           HIDWORD(buf) = v12;
-          v77 = 1024;
-          LODWORD(v78) = v14;
+          v86 = 1024;
+          LODWORD(v87) = v14;
           _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "#locctl,#rec,recordMessage,CLAppMonitor_Type,silo entry invalid,from_valid,%d,to_valid,%d", &buf, 0xEu);
         }
 
@@ -4085,222 +4106,225 @@ void sub_10000B6F4(uint64_t a1, int *a2, int32x4_t *a3, int *a4, int *a5, int *a
           }
 
           v18 = !v17;
-          *v72 = 67109376;
-          *v73 = v16;
-          *&v73[4] = 1024;
-          *&v73[6] = v18;
-          v19 = _os_log_send_and_compose_impl();
+          *v81 = 67109376;
+          *v82 = v16;
+          *&v82[4] = 1024;
+          *&v82[6] = v18;
+          _os_log_send_and_compose_impl(2, 0, &buf, 1628, dword_100000000, qword_1025D4608, 2, "#locctl,#rec,recordMessage,CLAppMonitor_Type,silo entry invalid,from_valid,%d,to_valid,%d", v81, 14);
+          v20 = v19;
           sub_100152C7C("Generic", 1, 0, 2, "void CLLocationControllerRecorder::recordMessage(const CLLocationControllerRecorder_Types::MessageType &, const CLLocationControllerRecorder_Types::Silo &, const CLLocationControllerRecorder_Types::Silo &, const int &, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v19);
-          if (v19 != &buf)
+          if (v20 != &buf)
           {
-            free(v19);
+            free(v20);
           }
         }
       }
 
       else
       {
-        sub_10000AED0(v72);
-        v26 = sub_10000B1F8();
-        sub_10000AED4(v26, v60);
-        sub_10000AFE4(v72, a2, a3->i32, a4, v60);
-        v75 |= 2u;
-        v27 = v74;
-        if (!v74)
+        v27 = sub_10000AED0();
+        v29 = sub_10000B1F8(v27, v28);
+        sub_10000AED4(v29, v69);
+        sub_10000AFE4(v81, a2, a3, a4, v69);
+        v84 |= 2u;
+        v30 = v83;
+        if (!v83)
         {
           operator new();
         }
 
-        *(v74 + 492) |= 0x800u;
-        v28 = *(v27 + 352);
-        if (!v28)
+        *(v83 + 492) |= 0x800u;
+        v31 = *(v30 + 352);
+        if (!v31)
         {
           operator new();
         }
 
-        *(v28 + 200) |= 0x8000u;
-        v29 = *(v28 + 120);
-        if (!v29)
+        *(v31 + 200) |= 0x8000u;
+        v32 = *(v31 + 120);
+        if (!v32)
         {
           operator new();
         }
 
-        v30 = *a5;
-        *(v29 + 28) |= 1u;
-        *(v29 + 8) = v30;
-        v31 = sub_10000D25C(a6);
-        if (!sub_10042B16C(v31))
+        v33 = *a5;
+        *(v32 + 28) |= 1u;
+        *(v32 + 8) = v33;
+        v34 = sub_10000D25C(a6);
+        if (!sub_10042B16C(v34))
         {
           __assert_rtn("set_notification_type", "CLPLocationController.pb.h", 12088, "::CLP::LogEntry::PrivateData::AppMonitorNotification_NotificationType_IsValid(value)");
         }
 
-        v32 = *(v29 + 28);
-        *(v29 + 12) = v31;
-        *(v29 + 28) = v32 | 6;
-        v33 = *(v29 + 16);
-        if (!v33)
+        v35 = *(v32 + 28);
+        *(v32 + 12) = v34;
+        *(v32 + 28) = v35 | 6;
+        v36 = *(v32 + 16);
+        if (!v36)
         {
           operator new();
         }
 
-        *(v33 + 20) |= 1u;
-        v34 = *(v33 + 8);
-        if (v34 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+        *(v36 + 20) |= 1u;
+        v37 = *(v36 + 8);
+        if (v37 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
         {
           operator new();
         }
 
-        std::string::operator=(v34, (a7 + 8));
-        v35 = sub_10000BFC0(a1);
+        std::string::operator=(v37, (a7 + 8));
+        v38 = sub_10000BFC0(a1, v81);
         if (*(a1 + 8) == 1)
         {
-          v36 = v35;
+          v39 = v38;
           if (qword_1025D4600 != -1)
           {
             sub_1018D8CDC();
           }
 
-          v37 = qword_1025D4608;
+          v40 = qword_1025D4608;
           if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
           {
-            sub_101322EE0(a2, &v61);
-            if (SBYTE3(v65) >= 0)
+            sub_101322EE0(a2, &v70);
+            if (SBYTE3(v74) >= 0)
             {
-              v38 = &v61;
+              v41 = &v70;
             }
 
             else
             {
-              v38 = v61;
+              v41 = v70;
             }
 
-            v51 = v38;
-            LODWORD(v53[0]) = a3->i32[0];
-            sub_1013230DC(v53, v58);
-            if (v59 >= 0)
+            v60 = v41;
+            LODWORD(v62[0]) = a3->i32[0];
+            sub_1013230DC(v62, v67);
+            if (v68 >= 0)
             {
-              v39 = v58;
+              v42 = v67;
             }
 
             else
             {
-              v39 = v58[0];
+              v42 = v67[0];
             }
 
-            v55 = *a4;
-            v40 = __p;
-            sub_1013230DC(&v55, __p);
-            if (v57 < 0)
+            v64 = *a4;
+            v43 = __p;
+            v44 = sub_1013230DC(&v64, __p);
+            if (v66 < 0)
             {
-              v40 = __p[0];
+              v43 = __p[0];
             }
 
-            v41 = *a6;
-            v42 = sub_10000B1F8();
-            v43 = sub_100125220(v42);
+            v46 = *a6;
+            v47 = sub_10000B1F8(v44, v45);
+            v48 = sub_100125220(v47);
             LODWORD(buf) = 67110402;
-            HIDWORD(buf) = v36;
-            v77 = 2080;
-            v78 = v51;
-            v79 = 2080;
-            v80 = v39;
-            v81 = 2080;
-            v82 = v40;
-            v83 = 1024;
-            v84 = v41;
-            v85 = 2050;
-            v86 = v43;
-            _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_DEBUG, "#locctl,#rec,recordMessage,CLAppMonitor_Type,success,%d,message_type,%s,from,%s,to,%s,notification_type,%d,propagation_us,%{public}.3f", &buf, 0x36u);
-            if (v57 < 0)
+            HIDWORD(buf) = v39;
+            v86 = 2080;
+            v87 = v60;
+            v88 = 2080;
+            v89 = v42;
+            v90 = 2080;
+            v91 = v43;
+            v92 = 1024;
+            v93 = v46;
+            v94 = 2050;
+            v95 = v48;
+            _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_DEBUG, "#locctl,#rec,recordMessage,CLAppMonitor_Type,success,%d,message_type,%s,from,%s,to,%s,notification_type,%d,propagation_us,%{public}.3f", &buf, 0x36u);
+            if (v66 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v59 < 0)
+            if (v68 < 0)
             {
-              operator delete(v58[0]);
+              operator delete(v67[0]);
             }
 
-            if (SBYTE3(v65) < 0)
+            if (SBYTE3(v74) < 0)
             {
-              operator delete(v61);
+              operator delete(v70);
             }
           }
 
           if (sub_10000A100(121, 2))
           {
             sub_1018D8D04(&buf);
-            sub_101322EE0(a2, v58);
-            if (v59 >= 0)
+            v49 = qword_1025D4608;
+            sub_101322EE0(a2, v67);
+            if (v68 >= 0)
             {
-              v44 = v58;
+              v50 = v67;
             }
 
             else
             {
-              v44 = v58[0];
+              v50 = v67[0];
             }
 
-            v55 = a3->i32[0];
-            v45 = __p;
-            sub_1013230DC(&v55, __p);
-            if (v57 < 0)
+            v64 = a3->i32[0];
+            v51 = __p;
+            sub_1013230DC(&v64, __p);
+            if (v66 < 0)
             {
-              v45 = __p[0];
+              v51 = __p[0];
             }
 
-            v52 = *a4;
-            sub_1013230DC(&v52, v53);
-            if (v54 >= 0)
+            v61 = *a4;
+            v52 = sub_1013230DC(&v61, v62);
+            if (v63 >= 0)
             {
-              v46 = v53;
+              v54 = v62;
             }
 
             else
             {
-              v46 = v53[0];
+              v54 = v62[0];
             }
 
-            v47 = *a6;
-            v48 = sub_10000B1F8();
-            v49 = sub_100125220(v48);
-            LODWORD(v61) = 67110402;
-            HIDWORD(v61) = v36;
-            v62 = 2080;
-            v63 = v44;
-            v64 = 2080;
-            v65 = v45;
-            v66 = 2080;
-            v67 = v46;
-            v68 = 1024;
-            v69 = v47;
-            v70 = 2050;
-            v71 = v49;
-            v50 = _os_log_send_and_compose_impl();
-            if (v54 < 0)
+            v55 = *a6;
+            v56 = sub_10000B1F8(v52, v53);
+            v57 = sub_100125220(v56);
+            LODWORD(v70) = 67110402;
+            HIDWORD(v70) = v39;
+            v71 = 2080;
+            v72 = v50;
+            v73 = 2080;
+            v74 = v51;
+            v75 = 2080;
+            v76 = v54;
+            v77 = 1024;
+            v78 = v55;
+            v79 = 2050;
+            v80 = v57;
+            _os_log_send_and_compose_impl(2, 0, &buf, 1628, dword_100000000, v49, 2, "#locctl,#rec,recordMessage,CLAppMonitor_Type,success,%d,message_type,%s,from,%s,to,%s,notification_type,%d,propagation_us,%{public}.3f", &v70, 54);
+            v59 = v58;
+            if (v63 < 0)
             {
-              operator delete(v53[0]);
+              operator delete(v62[0]);
             }
 
-            if (v57 < 0)
+            if (v66 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v59 < 0)
+            if (v68 < 0)
             {
-              operator delete(v58[0]);
+              operator delete(v67[0]);
             }
 
-            sub_100152C7C("Generic", 1, 0, 2, "void CLLocationControllerRecorder::recordMessage(const CLLocationControllerRecorder_Types::MessageType &, const CLLocationControllerRecorder_Types::Silo &, const CLLocationControllerRecorder_Types::Silo &, const int &, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v50);
-            if (v50 != &buf)
+            sub_100152C7C("Generic", 1, 0, 2, "void CLLocationControllerRecorder::recordMessage(const CLLocationControllerRecorder_Types::MessageType &, const CLLocationControllerRecorder_Types::Silo &, const CLLocationControllerRecorder_Types::Silo &, const int &, const CLAppMonitor_Type::Notification &, const CLAppMonitor_Type::NotificationData &)", "%s\n", v59);
+            if (v59 != &buf)
             {
-              free(v50);
+              free(v59);
             }
           }
         }
 
-        sub_10000CE1C(v72);
+        sub_10000CE1C(v81);
       }
     }
 
@@ -4311,15 +4335,15 @@ void sub_10000B6F4(uint64_t a1, int *a2, int32x4_t *a3, int *a4, int *a5, int *a
         sub_100287074();
       }
 
-      v20 = qword_1025D4608;
+      v21 = qword_1025D4608;
       if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
       {
         sub_101322EE0(a2, &buf);
-        v21 = SBYTE3(v80) >= 0 ? &buf : buf;
-        *v72 = 136315138;
-        *v73 = v21;
-        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEBUG, "#locctl,#rec,recordMessage,CLAppMonitor_Type,unsupported message type,%s", v72, 0xCu);
-        if (SBYTE3(v80) < 0)
+        v22 = SBYTE3(v89) >= 0 ? &buf : buf;
+        *v81 = 136315138;
+        *v82 = v22;
+        _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEBUG, "#locctl,#rec,recordMessage,CLAppMonitor_Type,unsupported message type,%s", v81, 0xCu);
+        if (SBYTE3(v89) < 0)
         {
           operator delete(buf);
         }
@@ -4333,7 +4357,7 @@ void sub_10000B6F4(uint64_t a1, int *a2, int32x4_t *a3, int *a4, int *a5, int *a
   }
 }
 
-uint64_t sub_10000BFC0(uint64_t a1)
+uint64_t sub_10000BFC0(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 16))
   {
@@ -4342,11 +4366,11 @@ uint64_t sub_10000BFC0(uint64_t a1)
       sub_100287074();
     }
 
-    v3 = qword_1025D4608;
+    v4 = qword_1025D4608;
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "#locctl,#rec,write:protobuf serializer object not initialized", buf, 2u);
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "#locctl,#rec,write:protobuf serializer object not initialized", buf, 2u);
     }
 
     if (sub_10000A100(121, 0))
@@ -4364,11 +4388,11 @@ uint64_t sub_10000BFC0(uint64_t a1)
       sub_100287074();
     }
 
-    v4 = qword_1025D4608;
+    v5 = qword_1025D4608;
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "#locctl,#rec,write:session not open", buf, 2u);
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "#locctl,#rec,write:session not open", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
@@ -4381,9 +4405,9 @@ uint64_t sub_10000BFC0(uint64_t a1)
 
   __p[0] = 0;
   __p[1] = 0;
-  v9 = 0;
-  v2 = wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
-  if (v2)
+  v12 = 0;
+  v3 = wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
+  if (v3)
   {
     sub_1000145C0(*(a1 + 16), __p);
   }
@@ -4395,31 +4419,33 @@ uint64_t sub_10000BFC0(uint64_t a1)
       sub_1018D8CDC();
     }
 
-    v5 = qword_1025D4608;
+    v6 = qword_1025D4608;
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "#locctl,#rec,write:could not serialize protobuf message", buf, 2u);
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "#locctl,#rec,write:could not serialize protobuf message", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
     {
       sub_1018D8D04(buf);
-      v7 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLLocationControllerRecorder::write(const CLP::LogEntry::LogEntry &)", "%s\n", v7);
-      if (v7 != buf)
+      v10 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4608, 2, "#locctl,#rec,write:could not serialize protobuf message", &v10, 2);
+      v9 = v8;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLLocationControllerRecorder::write(const CLP::LogEntry::LogEntry &)", "%s\n", v8);
+      if (v9 != buf)
       {
-        free(v7);
+        free(v9);
       }
     }
   }
 
-  if (SHIBYTE(v9) < 0)
+  if (SHIBYTE(v12) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v2;
+  return v3;
 }
 
 void sub_10000C250(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -5795,7 +5821,7 @@ void *sub_10000CE20(void *result)
   return result;
 }
 
-uint64_t sub_10000D25C(int *a1)
+uint64_t sub_10000D25C(unsigned int *a1)
 {
   v2 = *a1;
   if (v2 < 0xA && ((0x21Fu >> v2) & 1) != 0)
@@ -6089,61 +6115,61 @@ void sub_10000DA44(uint64_t a1, const void **a2, int a3)
   Current = CFAbsoluteTimeGetCurrent();
   *(a1 + 6368) = v4;
   v6 = [objc_msgSend(objc_msgSend(*(a1 + 32) "vendor")];
-  v34[0] = 0;
-  v34[1] = 0;
-  v33 = v34;
-  v29 = 0u;
-  v30 = 0u;
+  v36[0] = 0;
+  v36[1] = 0;
+  v35 = v36;
   v31 = 0u;
   v32 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v43 count:16];
+  v33 = 0u;
+  v34 = 0u;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6);
   if (v7)
   {
-    v8 = *v30;
+    v8 = *v32;
     do
     {
       v9 = 0;
       do
       {
-        if (*v30 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        sub_10000EC00(v27, [*(*(&v29 + 1) + 8 * v9) UTF8String]);
-        if (SHIBYTE(v28) < 0)
+        sub_10000EC00(v29, [*(*(&v31 + 1) + 8 * v9) UTF8String]);
+        if (SHIBYTE(v30) < 0)
         {
-          sub_100007244(__p, v27[0], v27[1]);
+          sub_100007244(__p, v29[0], v29[1]);
         }
 
         else
         {
-          *__p = *v27;
-          *&__p[16] = v28;
+          *__p = *v29;
+          *&__p[16] = v30;
         }
 
-        v42 = v4;
-        sub_100288728(&v33, __p);
+        v44 = v4;
+        sub_100288728(&v35, __p, __p);
         if ((__p[23] & 0x80000000) != 0)
         {
           operator delete(*__p);
         }
 
-        if (!sub_100192868(a1 + 6344, v27))
+        if (!sub_100192868(a1 + 6344, v29))
         {
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v30) < 0)
           {
-            sub_100007244(__p, v27[0], v27[1]);
+            sub_100007244(__p, v29[0], v29[1]);
           }
 
           else
           {
-            *__p = *v27;
-            *&__p[16] = v28;
+            *__p = *v29;
+            *&__p[16] = v30;
           }
 
-          v42 = v4;
-          sub_100288728(a1 + 6344, __p);
+          v44 = v4;
+          sub_100288728((a1 + 6344), __p, __p);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -6157,10 +6183,10 @@ void sub_10000DA44(uint64_t a1, const void **a2, int a3)
           v10 = qword_1025D45E8;
           if (os_log_type_enabled(qword_1025D45E8, OS_LOG_TYPE_DEBUG))
           {
-            v11 = v27;
-            if (v28 < 0)
+            v11 = v29;
+            if (v30 < 0)
             {
-              v11 = v27[0];
+              v11 = v29[0];
             }
 
             *__p = 134349571;
@@ -6168,122 +6194,124 @@ void sub_10000DA44(uint64_t a1, const void **a2, int a3)
             *&__p[12] = 2050;
             *&__p[14] = v4;
             *&__p[22] = 2081;
-            v42 = *&v11;
+            v44 = *&v11;
             _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "CLAccessoryAWD,%{public}.1lf,machContTime,%{public}.1lf,onApp,newApp,%{private}s", __p, 0x20u);
           }
 
           if (sub_10000A100(121, 2))
           {
             sub_1019133EC(__p);
-            v12 = v27;
-            if (v28 < 0)
+            v12 = v29;
+            if (v30 < 0)
             {
-              v12 = v27[0];
+              v12 = v29[0];
             }
 
-            v35 = 134349571;
-            v36 = Current;
-            v37 = 2050;
-            v38 = v4;
-            v39 = 2081;
-            v40 = v12;
-            v13 = _os_log_send_and_compose_impl();
+            v37 = 134349571;
+            v38 = Current;
+            v39 = 2050;
+            v40 = v4;
+            v41 = 2081;
+            v42 = v12;
+            LODWORD(v26) = 32;
+            _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, qword_1025D45E8, 2, "CLAccessoryAWD,%{public}.1lf,machContTime,%{public}.1lf,onApp,newApp,%{private}s", &v37, v26);
+            v14 = v13;
             sub_100152C7C("Generic", 1, 0, 2, "void CLAccessoryLocationProvider::updateLocationAppStatus(const std::string, const BOOL)", "%s\n", v13);
-            if (v13 != __p)
+            if (v14 != __p)
             {
-              free(v13);
+              free(v14);
             }
           }
         }
 
-        if (SHIBYTE(v28) < 0)
+        if (SHIBYTE(v30) < 0)
         {
-          operator delete(v27[0]);
+          operator delete(v29[0]);
         }
 
         v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      v14 = [v6 countByEnumeratingWithState:&v29 objects:v43 count:16];
-      v7 = v14;
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6);
+      v7 = v15;
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v15 = *(a1 + 6344);
-  if (v15 != a1 + 6352)
+  v16 = *(a1 + 6344);
+  if (v16 != a1 + 6352)
   {
     do
     {
-      if (!sub_100192868(&v33, (v15 + 32)))
+      if (!sub_100192868(&v35, (v16 + 32)))
       {
         goto LABEL_58;
       }
 
-      v16 = *(v15 + 55);
-      if (v16 >= 0)
+      v17 = *(v16 + 55);
+      if (v17 >= 0)
       {
-        v17 = *(v15 + 55);
+        v18 = *(v16 + 55);
       }
 
       else
       {
-        v17 = *(v15 + 40);
+        v18 = *(v16 + 40);
       }
 
-      v18 = *(a2 + 23);
-      v19 = v18;
-      if (v18 < 0)
+      v19 = *(a2 + 23);
+      v20 = v19;
+      if (v19 < 0)
       {
-        v18 = a2[1];
+        v19 = a2[1];
       }
 
-      if (v17 != v18 || (v16 >= 0 ? (v20 = (v15 + 32)) : (v20 = *(v15 + 32)), v19 >= 0 ? (v21 = a2) : (v21 = *a2), !memcmp(v20, v21, v17) ? (v22 = a3 == 0) : (v22 = 1), v22))
+      if (v18 != v19 || (v17 >= 0 ? (v21 = (v16 + 32)) : (v21 = *(v16 + 32)), v20 >= 0 ? (v22 = a2) : (v22 = *a2), !memcmp(v21, v22, v18) ? (v23 = a3 == 0) : (v23 = 1), v23))
       {
-        v23 = *(v15 + 8);
-        if (v23)
+        v24 = *(v16 + 8);
+        if (v24)
         {
           do
           {
-            v24 = v23;
-            v23 = *v23;
+            v25 = v24;
+            v24 = *v24;
           }
 
-          while (v23);
+          while (v24);
         }
 
         else
         {
           do
           {
-            v24 = *(v15 + 16);
-            v22 = *v24 == v15;
-            v15 = v24;
+            v25 = *(v16 + 16);
+            v23 = *v25 == v16;
+            v16 = v25;
           }
 
-          while (!v22);
+          while (!v23);
         }
       }
 
       else
       {
 LABEL_58:
-        sub_10030FDCC(a1 + 2664, (v15 + 32), (v15 + 56), v4);
-        v24 = sub_1001D2ED0((a1 + 6344), v15);
+        sub_10030FDCC(a1 + 2664, (v16 + 32), (v16 + 56), v4);
+        v25 = sub_1001D2ED0((a1 + 6344), v16);
       }
 
-      v15 = v24;
+      v16 = v25;
     }
 
-    while (v24 != (a1 + 6352));
+    while (v25 != (a1 + 6352));
   }
 
-  sub_10001AF44(&v33, v34[0]);
+  sub_10001AF44(&v35, v36[0]);
 }
 
-void sub_10000DEB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, char *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+void sub_10000DEB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
 {
   if (a21 < 0)
   {
@@ -6327,8 +6355,9 @@ void sub_10000E060(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10000E08C(std::string *this@<X2>, void *a2@<X0>, uint64_t a3@<X1>, int a4@<W3>, uint64_t a5@<X8>)
+void sub_10000E08C(std::string *this@<X2>, void *a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
+  v5 = a4;
   v10 = std::string::compare(this, "Location in use on paired watch by 3rd party app") == 0;
   sub_10000E198(&v14, a2);
   *v12 = *a3;
@@ -6340,7 +6369,7 @@ void sub_10000E08C(std::string *this@<X2>, void *a2@<X0>, uint64_t a3@<X1>, int 
   this->__r_.__value_.__r.__words[0] = 0;
   this->__r_.__value_.__l.__size_ = 0;
   this->__r_.__value_.__r.__words[2] = 0;
-  sub_10000EE68(a5, &v14, v12, &__p, a4, v10);
+  sub_10000EE68(a5, &v14, v12, &__p, v5, v10);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6357,7 +6386,7 @@ void sub_10000E08C(std::string *this@<X2>, void *a2@<X0>, uint64_t a3@<X1>, int 
   }
 }
 
-void sub_10000E170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_10000E170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
   if (a14 < 0)
   {
@@ -6396,10 +6425,10 @@ void sub_10000E284(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000E2A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_10000E2A0(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   *buf = a2;
-  v7 = sub_10000F264((a1 + 16), a2) + 5;
+  v7 = sub_10000F264((a1 + 16), a2, &unk_101C66300, buf) + 5;
   v8 = &dword_100000014;
   while (v8 != -4)
   {
@@ -6566,11 +6595,11 @@ uint64_t sub_10000E618(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10000E670(void *a1, uint64_t a2, int *a3, int *a4, void *a5)
+void sub_10000E670(void *a1, const char *a2, unsigned int *a3, int *a4, void *a5)
 {
   if (a5)
   {
-    [a5 cppClientKey];
+    objc_msgSend_cppClientKey(a5, a2);
   }
 
   else
@@ -6623,7 +6652,7 @@ void sub_10000E670(void *a1, uint64_t a2, int *a3, int *a4, void *a5)
   v13 = *a3;
   if (*a3 <= 3)
   {
-    if ((v13 - 2) >= 2)
+    if (v13 - 2 >= 2)
     {
       if (v13 == 1)
       {
@@ -6748,7 +6777,7 @@ LABEL_40:
 
     sub_10000EC00(&v28, "Process state from RunningBoard");
     sub_10000E08C(&v28, a1, __dst, 5, buf);
-    sub_10001BEE4(a1 + 10, a4 + 1);
+    sub_10001BEE4(a1 + 10, a4 + 1, (a4 + 2));
     sub_10001BAA0(buf);
     if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6815,7 +6844,7 @@ void sub_10000EB70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_10000EC00(_BYTE *a1, char *__s)
+void *sub_10000EC00(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6829,19 +6858,20 @@ _BYTE *sub_10000EC00(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_10000ECB8(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4, int a5)
+void sub_10000ECB8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, int a5)
 {
-  if (a4 - 6 <= 0xFFFFFFFA)
+  v5 = a4;
+  if ((a4 - 6) <= 0xFFFFFFFA)
   {
     sub_101A096B8();
   }
@@ -6883,7 +6913,7 @@ void sub_10000ECB8(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4, int 
     v22 = 2082;
     v23 = v13;
     v24 = 2050;
-    v25 = a4;
+    v25 = v5;
     v26 = 1026;
     v27 = a5;
     _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#CLIUA Marking change, clientKey:%{public, location:escape_only}s, reason:%{public, location:escape_only}s, AssertionLevel:%{public, location:CLClientInUseLevel}lld, coming:%{public}hhd}", buf, 0x36u);
@@ -6894,7 +6924,7 @@ void sub_10000ECB8(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4, int 
   v14[2] = sub_10000E618;
   v14[3] = &unk_10249BA08;
   v16 = a5;
-  v15 = a4;
+  v15 = v5;
   sub_10000E2A0(a1, a2, v11, v14);
 }
 
@@ -6903,14 +6933,12 @@ uint64_t sub_10000EE68(uint64_t a1, uint64_t *a2, __int128 *a3, __int128 *a4, in
   v8 = *a3;
   *(a1 + 16) = *(a3 + 2);
   *a1 = v8;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   v9 = *a4;
   *(a1 + 40) = *(a4 + 2);
   *(a1 + 24) = v9;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
   *(a1 + 48) = a5;
   v10 = *a2;
@@ -7059,7 +7087,7 @@ LABEL_11:
       _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#CLIUA Required parameter missing, logic:%{public}hhd, clientKey:%{public, location:escape_only}s, reason:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x40u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLInUseLevelTracker.mm", 23, "Assertion");
     __break(1u);
   }
 
@@ -7079,35 +7107,35 @@ void sub_10000F238(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void **sub_10000F264(void *a1, const void **a2)
+const void **sub_10000F264(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = sub_100007070(a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = sub_100007070(a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     sub_10000E1DC();
@@ -7115,44 +7143,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!sub_100019DF4(a1, v11 + 2, a2))
+  if (!sub_100019DF4(a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void sub_10000F4B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -7184,7 +7212,7 @@ uint64_t sub_10000F4DC(uint64_t a1, const void **a2)
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  result = [result countByEnumeratingWithState:&v17 objects:v21 count:16];
+  result = objc_msgSend_countByEnumeratingWithState_objects_count_(result);
   if (!result)
   {
     return result;
@@ -7266,7 +7294,7 @@ LABEL_24:
       }
     }
 
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4);
     result = 0;
     if (v5)
     {
@@ -7277,9 +7305,9 @@ LABEL_24:
   }
 }
 
-void sub_10000F68C(uint64_t a1, int *a2, uint64_t a3)
+void sub_10000F68C(uint64_t result, int *a2, uint64_t a3)
 {
-  if (*(a1 + 3912))
+  if (*(result + 3912))
   {
     v5 = *a2;
     if ((*a2 - 1) < 3)
@@ -7309,14 +7337,14 @@ void sub_10000F68C(uint64_t a1, int *a2, uint64_t a3)
       }
 
 LABEL_11:
-      sub_10001AFA8(a1, 0, 0);
+      sub_10001AFA8(result, 0, 0);
       return;
     }
 
     if (v5 == 9 || v5 == 4)
     {
       v9 = (a3 + 8);
-      if (!sub_10000F4DC(a1, (a3 + 8)))
+      if (!sub_10000F4DC(result, (a3 + 8)))
       {
         if (qword_1025D4600 != -1)
         {
@@ -7385,7 +7413,7 @@ LABEL_11:
 LABEL_48:
           v16 = 0;
 LABEL_49:
-          sub_10001AFA8(a1, 1, v16);
+          sub_10001AFA8(result, 1, v16);
           return;
         }
 
@@ -7454,7 +7482,7 @@ LABEL_7:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(3, v7, a2, a4);
 }
 
-uint64_t sub_10000FA44(uint64_t result)
+uint64_t sub_10000FA44(uint64_t result, uint64_t a2)
 {
   if (*(result + 20))
   {
@@ -7674,9 +7702,9 @@ uint64_t *sub_10000FF38(uint64_t *a1, uint64_t a2, int a3)
     {
       v7 = a1[1];
       *buf = 134349314;
-      v11 = a1;
-      v12 = 2114;
-      v13 = v7;
+      v17 = a1;
+      v18 = 2114;
+      v19 = v7;
       _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "os_transaction created: (%{public}p) %{public}@", buf, 0x16u);
     }
 
@@ -7688,11 +7716,17 @@ uint64_t *sub_10000FF38(uint64_t *a1, uint64_t a2, int a3)
         dispatch_once(&qword_1025D4880, &stru_102504868);
       }
 
-      v9 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "CLAutoOSTransaction::CLAutoOSTransaction(const char *, LoggingPolicy)", "%s\n", v9);
-      if (v9 != buf)
+      v9 = a1[1];
+      v12 = 134349314;
+      v13 = a1;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4888, 0, "os_transaction created: (%{public}p) %{public}@", &v12, 22);
+      v11 = v10;
+      sub_100152C7C("Generic", 1, 0, 2, "CLAutoOSTransaction::CLAutoOSTransaction(const char *, LoggingPolicy)", "%s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
@@ -7755,25 +7789,26 @@ uint64_t sub_10001034C(uint64_t result, uint64_t a2)
     }
 
     v7 = qword_1025D4608;
-    if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
+    v8 = os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG);
+    if (v8)
     {
-      v8 = *(v4 + 728);
-      v9 = *(v4 + 736);
-      v10 = *(v4 + 744);
-      v11 = sub_10000B1F8();
-      v12 = sub_100125220(v11);
+      v10 = *(v4 + 728);
+      v11 = *(v4 + 736);
+      v12 = *(v4 + 744);
+      v13 = sub_10000B1F8(v8, v9);
+      v14 = sub_100125220(v13);
       *buf = 67241472;
-      v30 = v8;
-      v31 = 2050;
-      v32 = v9;
-      v33 = 2050;
-      v34 = v10;
-      v35 = 2050;
-      v36 = v2;
+      v36 = v10;
       v37 = 2050;
-      v38 = v12;
-      v39 = 1026;
-      v40 = v6;
+      v38 = v11;
+      v39 = 2050;
+      v40 = v12;
+      v41 = 2050;
+      v42 = v2;
+      v43 = 2050;
+      v44 = v14;
+      v45 = 1026;
+      v46 = v6;
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "LocationController,gnssPredictedAvailability,%{public}d,probability,%{public}.3f,timestamp,%{public}.3f,lastPredictionTimestamp,%{public}.3f,propagation_us,%{public}.3f,clients,%{public}d", buf, 0x36u);
     }
 
@@ -7785,57 +7820,59 @@ uint64_t sub_10001034C(uint64_t result, uint64_t a2)
         sub_1018F7C0C();
       }
 
-      v13 = *(v4 + 728);
-      v14 = *(v4 + 736);
-      v15 = *(v4 + 744);
-      v16 = sub_10000B1F8();
-      v18[0] = 67241472;
-      v18[1] = v13;
-      v19 = 2050;
-      v20 = v14;
-      v21 = 2050;
-      v22 = v15;
-      v23 = 2050;
-      v24 = v2;
+      v17 = qword_1025D4608;
+      v18 = *(v4 + 728);
+      v19 = *(v4 + 736);
+      v20 = *(v4 + 744);
+      v21 = sub_10000B1F8(v15, v16);
+      v24[0] = 67241472;
+      v24[1] = v18;
       v25 = 2050;
-      v26 = sub_100125220(v16);
-      v27 = 1026;
-      v28 = v6;
-      v17 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "void CLLocationController::predictedGnssAvailabilityCallback(const CLGnssAvailabilityPredictor::Output &)", "%s\n", v17);
-      if (v17 != buf)
+      v26 = v19;
+      v27 = 2050;
+      v28 = v20;
+      v29 = 2050;
+      v30 = v2;
+      v31 = 2050;
+      v32 = sub_100125220(v21);
+      v33 = 1026;
+      v34 = v6;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v17, 2, "LocationController,gnssPredictedAvailability,%{public}d,probability,%{public}.3f,timestamp,%{public}.3f,lastPredictionTimestamp,%{public}.3f,propagation_us,%{public}.3f,clients,%{public}d", v24, 54);
+      v23 = v22;
+      sub_100152C7C("Generic", 1, 0, 2, "void CLLocationController::predictedGnssAvailabilityCallback(const CLGnssAvailabilityPredictor::Output &)", "%s\n", v22);
+      if (v23 != buf)
       {
-        free(v17);
+        free(v23);
       }
     }
 
     if (v6 >= 1)
     {
       sub_100021AFC(buf);
-      v48 = *(v4 + 728);
-      v49 = *(v4 + 736);
-      v47 = *(v4 + 752);
-      v18[0] = 36;
-      (*(*v4 + 152))(v4, v18, buf, 1, 0xFFFFFFFFLL, 0);
+      v54 = *(v4 + 728);
+      v55 = *(v4 + 736);
+      v53 = *(v4 + 752);
+      v24[0] = 36;
+      (*(*v4 + 152))(v4, v24, buf, 1, 0xFFFFFFFFLL, 0);
 
-      if (v45)
+      if (v51)
       {
-        sub_100008080(v45);
+        sub_100008080(v51);
       }
 
-      if (v44 < 0)
+      if (v50 < 0)
       {
         operator delete(__p);
       }
 
-      if (v42)
+      if (v48)
       {
-        sub_100008080(v42);
+        sub_100008080(v48);
       }
 
-      if (v41)
+      if (v47)
       {
-        sub_100008080(v41);
+        sub_100008080(v47);
       }
     }
 
@@ -7921,9 +7958,9 @@ void sub_1000106F0(uint64_t a1, uint64_t a2, __IOHIDServiceClient *a3, uint64_t 
       if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
       {
         *buf = 134283777;
-        v32 = a3;
-        v33 = 2050;
-        v34 = valuePtr;
+        v36 = a3;
+        v37 = 2050;
+        v38 = valuePtr;
         _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "[CLIoHidInterface] Got null event,sender %{private}p,registryID %{public}llx", buf, 0x16u);
       }
 
@@ -7963,11 +8000,14 @@ void sub_1000106F0(uint64_t a1, uint64_t a2, __IOHIDServiceClient *a3, uint64_t 
                 if (sub_10000A100(121, 2))
                 {
                   sub_101996798(buf);
-                  v29 = _os_log_send_and_compose_impl();
-                  sub_100152C7C("Generic", 1, 0, 2, "void CLIoHidInterface::onEvent(void *, void *, IOHIDEventRef)", "%s\n", v29);
-                  if (v29 != buf)
+                  v33 = 0;
+                  LODWORD(v32) = 2;
+                  _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 2, "[CLIoHidInterface] Fetching historical events", &v33, v32);
+                  v31 = v30;
+                  sub_100152C7C("Generic", 1, 0, 2, "void CLIoHidInterface::onEvent(void *, void *, IOHIDEventRef)", "%s\n", v30);
+                  if (v31 != buf)
                   {
-                    free(v29);
+                    free(v31);
                   }
                 }
 
@@ -7991,11 +8031,14 @@ void sub_1000106F0(uint64_t a1, uint64_t a2, __IOHIDServiceClient *a3, uint64_t 
                 if (sub_10000A100(121, 2))
                 {
                   sub_101996798(buf);
-                  v28 = _os_log_send_and_compose_impl();
+                  v33 = 0;
+                  LODWORD(v32) = 2;
+                  _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 2, "[CLIoHidInterface] Did not fetch historical events", &v33, v32);
+                  v29 = v28;
                   sub_100152C7C("Generic", 1, 0, 2, "void CLIoHidInterface::onEvent(void *, void *, IOHIDEventRef)", "%s\n", v28);
-                  if (v28 != buf)
+                  if (v29 != buf)
                   {
-                    free(v28);
+                    free(v29);
                   }
                 }
               }
@@ -8038,18 +8081,18 @@ void sub_100010B80(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100010BC0(uint64_t a1)
+uint64_t sub_100010BC0(uint64_t a1, uint64_t a2)
 {
   TimeStamp = IOHIDEventGetTimeStamp();
-  v3 = sub_1000080EC(TimeStamp);
+  v4 = sub_1000080EC(TimeStamp);
   IOHIDEventGetDoubleValue();
-  v5 = v4;
+  v6 = v5;
   IOHIDEventGetDoubleValue();
-  v7 = v6;
+  v8 = v7;
   IOHIDEventGetDoubleValue();
-  v9 = sub_100010C70(v5, v7, v8);
+  v10 = sub_100010C70(v6, v8, v9);
 
-  return sub_100010F38(a1, v9, v3);
+  return sub_100010F38(a1, v10, v4);
 }
 
 uint64_t sub_100010C70(double a1, double a2, double a3)
@@ -8117,13 +8160,13 @@ uint64_t sub_100010C70(double a1, double a2, double a3)
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134349824;
-      v16 = a1;
-      v17 = 2050;
-      v18 = a2;
-      v19 = 2050;
-      v20 = a3;
-      v21 = 1026;
-      v22 = v6;
+      v25 = a1;
+      v26 = 2050;
+      v27 = a2;
+      v28 = 2050;
+      v29 = a3;
+      v30 = 1026;
+      v31 = v6;
       _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "AmbientLight,DecisionTree,x,%{public}f,y,%{public}f,z,%{public}f,out,%{public}d", buf, 0x26u);
     }
 
@@ -8135,11 +8178,20 @@ uint64_t sub_100010C70(double a1, double a2, double a3)
         sub_101A0EA04();
       }
 
-      v14 = _os_log_send_and_compose_impl();
+      v16 = 134349824;
+      v17 = a1;
+      v18 = 2050;
+      v19 = a2;
+      v20 = 2050;
+      v21 = a3;
+      v22 = 1026;
+      v23 = v6;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4608, 2, "AmbientLight,DecisionTree,x,%{public}f,y,%{public}f,z,%{public}f,out,%{public}d", &v16, 38);
+      v15 = v14;
       sub_100152C7C("Generic", 1, 0, 2, "CLAmbientLightDecisionTreeOutput CLAmbientLightDecisionTree::decisionTree(const double, const double, const double) const", "%s\n", v14);
-      if (v14 != buf)
+      if (v15 != buf)
       {
-        free(v14);
+        free(v15);
       }
     }
 
@@ -8149,17 +8201,18 @@ uint64_t sub_100010C70(double a1, double a2, double a3)
   return v6;
 }
 
-uint64_t sub_100010F38(uint64_t a1, int a2, double a3)
+uint64_t sub_100010F38(uint64_t a1, uint64_t a2, double a3)
 {
+  v3 = a2;
   result = sub_100BB4310(a1, a3);
   if (result)
   {
-    *a1 = a2;
+    *a1 = v3;
     if (*(a1 + 32))
     {
       v6 = *(a1 + 56);
 
-      return sub_100010FEC(a1 + 8, a2, v6);
+      return sub_100010FEC(a1 + 8, v3, v6);
     }
   }
 
@@ -8188,7 +8241,7 @@ uint64_t sub_100010FEC(uint64_t a1, int a2, double a3)
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-uint64_t *sub_100011048(uint64_t a1, void *a2, double a3)
+double *sub_100011048(uint64_t a1, void *a2, double a3)
 {
   v24 = a2;
   *a1 = 1;
@@ -8300,21 +8353,21 @@ uint64_t sub_10001123C(uint64_t *a1, double a2)
   return result;
 }
 
-void sub_10001133C()
+void sub_10001133C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1[2] = 0;
-  v1[3] = 0;
+  v6 = 0;
+  v7 = 0;
   IOHIDEventGetVendorDefinedData();
   if (qword_1025D4210 != -1)
   {
     sub_1018D1768();
   }
 
-  v0 = qword_1025D4218;
+  v4 = qword_1025D4218;
   if (os_log_type_enabled(qword_1025D4218, OS_LOG_TYPE_FAULT))
   {
-    LOWORD(v1[0]) = 0;
-    _os_log_impl(dword_100000000, v0, OS_LOG_TYPE_FAULT, "Empty payload", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_FAULT, "Empty payload", v5, 2u);
   }
 
   if (sub_10000A100(121, 0))
@@ -8323,9 +8376,9 @@ void sub_10001133C()
   }
 }
 
-void sub_100011428(uint64_t a1, _BYTE *a2, void *a3, void *a4)
+void sub_100011428(uint64_t a1, unsigned __int8 *a2, void *a3, void *a4)
 {
-  sub_100011660();
+  sub_100011660(a1, a2);
   sub_10001160C();
   if (a3)
   {
@@ -8337,7 +8390,7 @@ void sub_100011428(uint64_t a1, _BYTE *a2, void *a3, void *a4)
     v8 = 0;
   }
 
-  v13 = v8;
+  v14 = v8;
   *(a1 + 352) = *a4;
   if ((sub_100011698(a1 + 152, a2, a3) & 1) == 0)
   {
@@ -8346,14 +8399,14 @@ void sub_100011428(uint64_t a1, _BYTE *a2, void *a3, void *a4)
       sub_10027BA68();
     }
 
-    v9 = qword_1025D4218;
+    v10 = qword_1025D4218;
     if (os_log_type_enabled(qword_1025D4218, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109376;
       *&buf[4] = v8;
-      v15 = 2048;
-      v16 = a3;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "CMMotionCoprocessorReply::visit() type %d, length %lu failed.", buf, 0x12u);
+      v16 = 2048;
+      v17 = a3;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_FAULT, "CMMotionCoprocessorReply::visit() type %d, length %lu failed.", buf, 0x12u);
     }
 
     if (sub_10000A100(121, 0))
@@ -8364,22 +8417,22 @@ void sub_100011428(uint64_t a1, _BYTE *a2, void *a3, void *a4)
 
   if (*(a1 + 652))
   {
-    *buf = &v13;
-    v10 = sub_1000135A4((a1 + 1832), &v13);
-    v10[3] = (v10[3] + 1);
+    *buf = &v14;
+    v11 = sub_1000135A4((a1 + 1832), &v14, &unk_101C66300, buf);
+    v11[3] = (v11[3] + 1);
   }
 
   else
   {
-    sub_100012B0C(a1);
-    *buf = &v13;
-    v11 = sub_1000135A4((a1 + 1872), &v13);
-    v11[3] = (v11[3] + 1);
-    v12 = sub_1000137E0();
-    if (v12 - *(a1 + 1824) > 300.0)
+    sub_100012B0C(a1, v9);
+    *buf = &v14;
+    v12 = sub_1000135A4((a1 + 1872), &v14, &unk_101C66300, buf);
+    v12[3] = (v12[3] + 1);
+    v13 = sub_1000137E0();
+    if (v13 - *(a1 + 1824) > 300.0)
     {
       sub_10026E678(a1, 0);
-      *(a1 + 1824) = v12;
+      *(a1 + 1824) = v13;
     }
   }
 }
@@ -8398,7 +8451,7 @@ void sub_10001160C()
   }
 }
 
-uint64_t sub_100011660()
+uint64_t sub_100011660(uint64_t a1, uint64_t a2)
 {
   if (qword_10265BA88 != -1)
   {
@@ -9092,108 +9145,110 @@ LABEL_164:
   }
 }
 
-uint64_t sub_100012B0C(uint64_t a1)
+uint64_t sub_100012B0C(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 859) & 1) == 0)
   {
     *(a1 + 408) = *(a1 + 400);
-    v2 = *(a1 + 504);
-    v3 = *(a1 + 512);
+    v3 = *(a1 + 504);
+    v4 = *(a1 + 512);
     *(a1 + 536) = 0;
-    v4 = (v3 - v2) >> 3;
-    if (v4 >= 3)
+    v5 = (v4 - v3) >> 3;
+    if (v5 >= 3)
     {
       do
       {
-        operator delete(*v2);
-        v5 = *(a1 + 512);
-        v2 = (*(a1 + 504) + 8);
-        *(a1 + 504) = v2;
-        v4 = (v5 - v2) >> 3;
+        operator delete(*v3);
+        v6 = *(a1 + 512);
+        v3 = (*(a1 + 504) + 8);
+        *(a1 + 504) = v3;
+        v5 = (v6 - v3) >> 3;
       }
 
-      while (v4 > 2);
+      while (v5 > 2);
     }
 
-    if (v4 == 1)
+    if (v5 == 1)
     {
-      v6 = 12;
+      v7 = 12;
     }
 
     else
     {
-      if (v4 != 2)
+      if (v5 != 2)
       {
 LABEL_9:
         *(a1 + 432) = *(a1 + 424);
         goto LABEL_10;
       }
 
-      v6 = 25;
+      v7 = 25;
     }
 
-    *(a1 + 528) = v6;
+    *(a1 + 528) = v7;
     goto LABEL_9;
   }
 
 LABEL_10:
-  v7 = sub_1000133C4();
-  sub_1000133FC(v45, v7, 0xD37A6F4DE9BD37A7 * ((*(a1 + 432) - *(a1 + 424)) >> 3) > 1);
-  if (*(a1 + 859) & 1) != 0 || (v8 = *(a1 + 1264)) != 0 && ((*(v8 + 16))(), (*(a1 + 859)))
+  v8 = sub_1000133C4(a1, a2);
+  v9 = sub_1000133FC(v52, v8, 0xD37A6F4DE9BD37A7 * ((*(a1 + 432) - *(a1 + 424)) >> 3) > 1);
+  if (*(a1 + 859) & 1) != 0 || (v11 = *(a1 + 1264)) != 0 && (v9 = (*(v11 + 16))(), (*(a1 + 859)))
   {
-    v9 = *(a1 + 424);
-    v10 = *(a1 + 432);
-    if (v9 != v10)
+    v12 = *(a1 + 424);
+    v13 = *(a1 + 432);
+    if (v12 != v13)
     {
       while (1)
       {
-        v11 = *(v9 + 8);
-        v12 = *(a1 + 1408);
-        if (v11 > v12 && v11 < v12 + 600.0)
+        v14 = *(v12 + 8);
+        v15 = *(a1 + 1408);
+        if (v14 > v15 && v14 < v15 + 600.0)
         {
           if (qword_1025D4250 != -1)
           {
             sub_100325134();
           }
 
-          v14 = qword_1025D4258;
+          v17 = qword_1025D4258;
           if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_INFO))
           {
-            v15 = *(v9 + 8);
-            v16 = *(v9 + 24);
-            v17 = *(v9 + 80);
+            v18 = *(v12 + 8);
+            v19 = *(v12 + 24);
+            v20 = *(v12 + 80);
             *buf = 134349568;
-            *&buf[4] = v15;
+            *&buf[4] = v18;
             *&buf[12] = 1024;
-            *&buf[14] = v16;
+            *&buf[14] = v19;
             *&buf[18] = 2048;
-            *&buf[20] = v17;
-            _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "#fmc After vehicle disconnect, startTime, %{public}f, stepCount, %d, currentPace, %f", buf, 0x1Cu);
+            *&buf[20] = v20;
+            _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_INFO, "#fmc After vehicle disconnect, startTime, %{public}f, stepCount, %d, currentPace, %f", buf, 0x1Cu);
           }
 
           if (sub_10000A100(121, 2))
           {
             sub_101AD9E20(buf);
-            v18 = *(v9 + 8);
-            v19 = *(v9 + 24);
-            v20 = *(v9 + 80);
-            v46 = 134349568;
-            v47 = v18;
-            v48 = 1024;
-            *v49 = v19;
-            *&v49[4] = 2048;
-            *&v49[6] = v20;
-            v21 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v21);
-            if (v21 != buf)
+            v21 = *(v12 + 8);
+            v22 = *(v12 + 24);
+            v23 = *(v12 + 80);
+            v53 = 134349568;
+            v54 = v21;
+            v55 = 1024;
+            *v56 = v22;
+            *&v56[4] = 2048;
+            *&v56[6] = v23;
+            LODWORD(v49) = 28;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4258, 1, "#fmc After vehicle disconnect, startTime, %{public}f, stepCount, %d, currentPace, %f", &v53, v49);
+            v25 = v24;
+            sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v24);
+            if (v25 != buf)
             {
-              free(v21);
+              free(v25);
             }
           }
         }
 
-        v9 += 184;
-        if (v9 == v10)
+        v12 += 184;
+        if (v12 == v13)
         {
           operator new();
         }
@@ -9202,22 +9257,22 @@ LABEL_10:
 
     if (*(a1 + 448) != *(a1 + 456))
     {
-      sub_10001A3E8();
+      sub_10001A3E8(v9, v10);
       if (sub_10001CF3C())
       {
-        v22 = *(a1 + 448);
-        v23 = *(a1 + 456);
-        while (v22 != v23)
+        v26 = *(a1 + 448);
+        v27 = *(a1 + 456);
+        while (v26 != v27)
         {
-          v24 = *v22;
-          v25 = v22[1];
-          v26 = v22[3];
-          v53 = v22[2];
-          v54 = v26;
-          *buf = v24;
-          *&buf[16] = v25;
+          v28 = *v26;
+          v29 = v26[1];
+          v30 = v26[3];
+          v60 = v26[2];
+          v61 = v30;
+          *buf = v28;
+          *&buf[16] = v29;
           sub_100013B00(a1, 20, buf, 64);
-          v22 += 4;
+          v26 += 4;
         }
       }
     }
@@ -9237,51 +9292,53 @@ LABEL_10:
     }
 
     *(a1 + 480) = *(a1 + 472);
-    v27 = *(a1 + 544);
-    for (i = *(a1 + 552); v27 != i; v27 += 2)
+    v31 = *(a1 + 544);
+    for (i = *(a1 + 552); v31 != i; v31 += 2)
     {
-      v29 = v27[1];
-      v43 = *v27;
-      v44 = v29;
+      v33 = v31[1];
+      v50 = *v31;
+      v51 = v33;
       if (qword_1025D4270 != -1)
       {
         sub_101AD9E64();
       }
 
-      v30 = qword_1025D4278;
+      v34 = qword_1025D4278;
       if (os_log_type_enabled(qword_1025D4278, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349824;
-        *&buf[4] = *(&v43 + 1);
+        *&buf[4] = *(&v50 + 1);
         *&buf[12] = 2050;
-        *&buf[14] = v44;
+        *&buf[14] = v51;
         *&buf[22] = 2050;
-        *&buf[24] = *(&v44 + 1);
-        LOWORD(v53) = 2050;
-        *(&v53 + 2) = v43;
-        _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEBUG, "notifying,straightness,%{public}.3f,confidence,%{public}.3f,startTimestamp,%{public}.3f,stopTimestamp,%{public}.3f", buf, 0x2Au);
+        *&buf[24] = *(&v51 + 1);
+        LOWORD(v60) = 2050;
+        *(&v60 + 2) = v50;
+        _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_DEBUG, "notifying,straightness,%{public}.3f,confidence,%{public}.3f,startTimestamp,%{public}.3f,stopTimestamp,%{public}.3f", buf, 0x2Au);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_101AD9E8C(buf);
-        v46 = 134349824;
-        v47 = *(&v43 + 1);
-        v48 = 2050;
-        *v49 = v44;
-        *&v49[8] = 2050;
-        *&v49[10] = *(&v44 + 1);
-        v50 = 2050;
-        v51 = v43;
-        v31 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v31);
-        if (v31 != buf)
+        v53 = 134349824;
+        v54 = *(&v50 + 1);
+        v55 = 2050;
+        *v56 = v51;
+        *&v56[8] = 2050;
+        *&v56[10] = *(&v51 + 1);
+        v57 = 2050;
+        v58 = v50;
+        LODWORD(v49) = 42;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4278, 2, "notifying,straightness,%{public}.3f,confidence,%{public}.3f,startTimestamp,%{public}.3f,stopTimestamp,%{public}.3f", &v53, v49);
+        v36 = v35;
+        sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v35);
+        if (v36 != buf)
         {
-          free(v31);
+          free(v36);
         }
       }
 
-      sub_100013B00(a1, 35, &v43, 32);
+      sub_100013B00(a1, 35, &v50, 32);
     }
   }
 
@@ -9291,78 +9348,80 @@ LABEL_10:
   }
 
   *(a1 + 552) = *(a1 + 544);
-  v32 = *(a1 + 408);
-  v33 = *(a1 + 400);
-  if (v33 != v32)
+  v37 = *(a1 + 408);
+  v38 = *(a1 + 400);
+  if (v38 != v37)
   {
     do
     {
-      sub_100013B00(a1, v33 != v32 - 160, v33, 160);
-      v34 = *(v33 + 8);
-      v35 = *(a1 + 1408);
-      if (v34 > v35 && v34 < v35 + 600.0)
+      sub_100013B00(a1, v38 != v37 - 160, v38, 160);
+      v39 = *(v38 + 8);
+      v40 = *(a1 + 1408);
+      if (v39 > v40 && v39 < v40 + 600.0)
       {
-        v37 = *(v33 + 24);
-        v38 = *(v33 + 28);
-        v39 = *(v33 + 29);
+        v42 = *(v38 + 24);
+        v43 = *(v38 + 28);
+        v44 = *(v38 + 29);
         if (qword_1025D4250 != -1)
         {
           sub_100325134();
         }
 
-        v40 = qword_1025D4258;
+        v45 = qword_1025D4258;
         if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_INFO))
         {
           *buf = 134349824;
-          *&buf[4] = v34;
+          *&buf[4] = v39;
           *&buf[12] = 1026;
-          *&buf[14] = v37;
+          *&buf[14] = v42;
           *&buf[18] = 1026;
-          *&buf[20] = v38;
+          *&buf[20] = v43;
           *&buf[24] = 1026;
-          *&buf[26] = v39;
-          _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_INFO, "#fmc After vehicle disconnect, startTime, %{public}f, motionType, %{public}d, confidence, %{public}d, mounted, %{public}d", buf, 0x1Eu);
+          *&buf[26] = v44;
+          _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_INFO, "#fmc After vehicle disconnect, startTime, %{public}f, motionType, %{public}d, confidence, %{public}d, mounted, %{public}d", buf, 0x1Eu);
         }
 
         if (sub_10000A100(121, 2))
         {
           sub_101AD9E20(buf);
-          v46 = 134349824;
-          v47 = v34;
-          v48 = 1026;
-          *v49 = v37;
-          *&v49[4] = 1026;
-          *&v49[6] = v38;
-          *&v49[10] = 1026;
-          *&v49[12] = v39;
-          v41 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v41);
-          if (v41 != buf)
+          v53 = 134349824;
+          v54 = v39;
+          v55 = 1026;
+          *v56 = v42;
+          *&v56[4] = 1026;
+          *&v56[6] = v43;
+          *&v56[10] = 1026;
+          *&v56[12] = v44;
+          LODWORD(v49) = 30;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4258, 1, "#fmc After vehicle disconnect, startTime, %{public}f, motionType, %{public}d, confidence, %{public}d, mounted, %{public}d", &v53, v49);
+          v47 = v46;
+          sub_100152C7C("Generic", 1, 0, 2, "void CLMotionCoprocessor::notifyClientsWithBufferedData()", "%s\n", v46);
+          if (v47 != buf)
           {
-            free(v41);
+            free(v47);
           }
         }
       }
 
-      v33 += 160;
-      v32 = *(a1 + 408);
+      v38 += 160;
+      v37 = *(a1 + 408);
     }
 
-    while (v33 != v32);
+    while (v38 != v37);
     *(a1 + 408) = *(a1 + 400);
   }
 
-  return sub_100013400(v45);
+  return sub_100013400(v52);
 }
 
-void sub_100013370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100013370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   sub_100013400(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000133C4()
+uint64_t sub_1000133C4(uint64_t a1, uint64_t a2)
 {
   if (qword_10265BA98 != -1)
   {
@@ -9428,33 +9487,33 @@ uint64_t sub_100013558(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_1000135A4(void *a1, unsigned __int8 *a2)
+uint64_t **sub_1000135A4(float *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % *(a1 + 1);
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9462,44 +9521,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 double sub_1000137E0()
@@ -9667,10 +9726,9 @@ uint64_t sub_100013B00(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-void *sub_100013C5C(void *result, unint64_t a2)
+void sub_100013C5C(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -9691,7 +9749,7 @@ void *sub_100013C5C(void *result, unint64_t a2)
     v5 = v4 >> 8;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 8)
   {
     v7 = v6 >> 8;
@@ -9704,19 +9762,19 @@ void *sub_100013C5C(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 8)
   {
-    for (result[4] = v6 - (v7 << 8); v7; --v7)
+    for (a1[4] = v6 - (v7 << 8); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = sub_10045E430(v2, v16);
+      a1[1] = (v14 + 1);
+      sub_10045E430(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -9732,10 +9790,10 @@ void *sub_100013C5C(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        sub_10045E858(result, v12);
+        sub_10045E858(a1, v12);
       }
 
       v16[0] = 0;
@@ -9746,7 +9804,7 @@ void *sub_100013C5C(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -9754,61 +9812,12 @@ void *sub_100013C5C(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] -= v7 << 8; v7; --v7)
+    for (a1[4] -= v7 << 8; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = sub_10045E430(v2, v16);
+      a1[1] = (v15 + 1);
+      sub_10045E430(a1, v16);
     }
   }
-
-  return result;
-}
-
-void sub_100013F00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *sub_100013F74(void *result, __int128 *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  v5 = result[1];
-  if (v4 == v5)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = 32 * (v4 - v5) - 1;
-  }
-
-  v7 = result[5];
-  v8 = v7 + result[4];
-  if (v6 == v8)
-  {
-    result = sub_100FBAFFC(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v7 + v3[4];
-  }
-
-  v9 = *a2;
-  *(*(v5 + ((v8 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8) = *a2;
-  if (*(&v9 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
-    v7 = v3[5];
-  }
-
-  v3[5] = v7 + 1;
-  return result;
 }

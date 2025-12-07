@@ -10,7 +10,7 @@
 {
   wrapperCopy = wrapper;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SeymourMedia19ArtworkImageLoading_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SeymourMedia19ArtworkImageLoading_pMd, &_s12SeymourMedia19ArtworkImageLoading_pMR);
   Dependencies.resolve<A>(failureHandler:)();
 
   outlined init with take of ArtworkImageLoading(&v8, self + OBJC_IVAR___SMAssetClient_artworkImageLoader);
@@ -23,7 +23,7 @@
 
 - (void)fetchArtwork:(id)artwork size:(CGSize)size completion:(id)completion
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVySo7UIImageCGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVySo7UIImageCGMd, &_s11SeymourCore7PromiseVySo7UIImageCGMR);
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
   v11 = &v18 - v10;

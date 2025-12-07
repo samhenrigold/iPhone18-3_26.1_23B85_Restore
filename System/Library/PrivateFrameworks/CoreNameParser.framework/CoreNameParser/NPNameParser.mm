@@ -75,7 +75,7 @@
 
 - (unint64_t)namingTraditionForName:(id)name
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA900];
   nameCopy = name;
   whitespaceAndNewlineCharacterSet = [v3 whitespaceAndNewlineCharacterSet];
@@ -88,43 +88,43 @@
   }
 
   v7 = v6;
-  v53 = v7;
-  v54 = v6;
+  v52 = v7;
+  v53 = v6;
   if (!v7)
   {
 LABEL_42:
+    v55 = 0;
     v56 = 0;
-    v57 = 0;
     v13 = 0;
-    v52 = 0;
+    v51 = 0;
     v16 = 0;
     goto LABEL_43;
   }
 
   v8 = v7;
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  *buffer = 0u;
+  v66 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  *buffer = 0u;
+  v62 = 0u;
   Length = CFStringGetLength(v7);
   theString = v8;
-  v73 = 0;
-  v74 = Length;
+  v72 = 0;
+  v73 = Length;
   CharactersPtr = CFStringGetCharactersPtr(v8);
   CStringPtr = 0;
-  v71 = CharactersPtr;
+  v70 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(v8, 0x600u);
   }
 
+  v74 = 0;
   v75 = 0;
-  v76 = 0;
-  v72 = CStringPtr;
+  v71 = CStringPtr;
   if (Length < 1)
   {
 
@@ -132,14 +132,14 @@ LABEL_42:
   }
 
   v12 = 0;
+  v55 = 0;
   v56 = 0;
-  v57 = 0;
   v13 = 0;
   v14 = 0;
   v15 = 0;
   v16 = 0;
   v17 = 64;
-  v55 = Length;
+  v54 = Length;
   do
   {
     if (v14 >= 4)
@@ -152,55 +152,55 @@ LABEL_42:
       v18 = v14;
     }
 
-    v19 = v74;
-    if (v74 <= v14)
+    v19 = v73;
+    if (v73 <= v14)
     {
       v21 = 0;
     }
 
     else
     {
-      if (v71)
+      if (v70)
       {
-        v20 = &v71[v73];
+        v20 = &v70[v72];
 LABEL_13:
         v21 = v20[v14];
         goto LABEL_15;
       }
 
-      if (!v72)
+      if (!v71)
       {
-        v27 = v75;
-        if (v76 <= v14 || v75 > v14)
+        v27 = v74;
+        if (v75 <= v14 || v74 > v14)
         {
           v29 = -v18;
           v30 = v18 + v12;
           v31 = v17 - v18;
           v32 = v14 + v29;
           v33 = v32 + 64;
-          if (v32 + 64 >= v74)
+          if (v32 + 64 >= v73)
           {
-            v33 = v74;
+            v33 = v73;
           }
 
-          v75 = v32;
-          v76 = v33;
-          if (v74 >= v31)
+          v74 = v32;
+          v75 = v33;
+          if (v73 >= v31)
           {
             v19 = v31;
           }
 
-          v79.location = v32 + v73;
-          v79.length = v19 + v30;
-          CFStringGetCharacters(theString, v79, buffer);
-          v27 = v75;
+          v78.location = v32 + v72;
+          v78.length = v19 + v30;
+          CFStringGetCharacters(theString, v78, buffer);
+          v27 = v74;
         }
 
         v20 = &buffer[-v27];
         goto LABEL_13;
       }
 
-      v21 = v72[v73 + v14];
+      v21 = v71[v72 + v14];
     }
 
 LABEL_15:
@@ -228,8 +228,8 @@ LABEL_15:
       [NPNameParser namingTraditionForName:];
     }
 
-    v56 += v24;
-    v57 += v22;
+    v55 += v24;
+    v56 += v22;
     v13 = v23 + v25;
     v15 += [_NPLatinCharSet_result characterIsMember:v21];
     whitespaceAndNewlineCharacterSet2 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
@@ -240,48 +240,48 @@ LABEL_15:
     ++v17;
   }
 
-  while (v55 != v14);
+  while (v54 != v14);
 
-  v6 = v54;
+  v6 = v53;
   if (v15)
   {
-    if (!(v56 + v57 + v13))
+    if (!(v55 + v56 + v13))
     {
       v34 = 3;
       goto LABEL_74;
     }
 
-    v52 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v52 = 0;
+    v51 = 0;
   }
 
 LABEL_43:
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v36 = [preferredLanguages countByEnumeratingWithState:&v58 objects:v77 count:16];
+  v36 = [preferredLanguages countByEnumeratingWithState:&v57 objects:v76 count:16];
   if (v36)
   {
     v37 = v36;
     v38 = 0;
     v39 = 0;
-    v40 = *v59;
+    v40 = *v58;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v59 != v40)
+        if (*v58 != v40)
         {
           objc_enumerationMutation(preferredLanguages);
         }
 
-        v42 = *(*(&v58 + 1) + 8 * i);
+        v42 = *(*(&v57 + 1) + 8 * i);
         if ([v42 hasPrefix:@"zh"])
         {
           v38 = 1;
@@ -293,7 +293,7 @@ LABEL_43:
         }
       }
 
-      v37 = [preferredLanguages countByEnumeratingWithState:&v58 objects:v77 count:16];
+      v37 = [preferredLanguages countByEnumeratingWithState:&v57 objects:v76 count:16];
     }
 
     while (v37);
@@ -311,12 +311,12 @@ LABEL_43:
   if ([regionCode isEqualToString:@"CN"])
   {
     v45 = v13;
-    v46 = v52;
+    v46 = v51;
     goto LABEL_61;
   }
 
   v45 = v13;
-  v46 = v52;
+  v46 = v51;
   if ([regionCode isEqualToString:@"HK"] & 1) != 0 || (objc_msgSend(regionCode, "isEqualToString:", @"MO") & 1) != 0 || (objc_msgSend(regionCode, "isEqualToString:", @"TW") & 1) != 0 || (v39 |= objc_msgSend(regionCode, "isEqualToString:", @"JP"), (v38))
   {
 LABEL_61:
@@ -329,8 +329,8 @@ LABEL_61:
     v47 = 1;
   }
 
-  v48 = [(__CFString *)v53 length];
-  if (v57 + v56 + v45)
+  v48 = [(__CFString *)v52 length];
+  if (v56 + v55 + v45)
   {
     v49 = v46;
   }
@@ -345,7 +345,7 @@ LABEL_61:
     v34 = 4;
   }
 
-  else if (v45 + v57 == v48 - v16)
+  else if (v45 + v56 == v48 - v16)
   {
     if ((v45 != 0) | v47 & v39 & 1)
     {
@@ -358,7 +358,7 @@ LABEL_61:
     }
   }
 
-  else if (v57 + v56 == v48 - v16)
+  else if (v56 + v55 == v48 - v16)
   {
     v34 = 2;
   }
@@ -368,10 +368,9 @@ LABEL_61:
     v34 = 5;
   }
 
-  v6 = v54;
+  v6 = v53;
 
 LABEL_74:
-  v50 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -422,7 +421,7 @@ LABEL_11:
 - (id)parseFullnameWithDefaultHMMClassifier:(id)classifier normalize:(BOOL)normalize score:(double *)score
 {
   normalizeCopy = normalize;
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   classifierCopy = classifier;
   if (normalizeCopy)
   {
@@ -479,34 +478,34 @@ LABEL_13:
   classifier = [(NPNameParser *)self classifier];
   v17 = [classifier hiddenStatesFromObservationSequence:v11];
 
-  v74 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self == %ld || self == %ld", 0, 1];
+  v73 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self == %ld || self == %ld", 0, 1];
   v18 = [v11 count];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   v19 = v17;
-  v20 = [v19 countByEnumeratingWithState:&v79 objects:v83 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v78 objects:v82 count:16];
   obj = v19;
-  v71 = classifierCopy;
+  v70 = classifierCopy;
   if (v20)
   {
     v21 = v20;
-    v68 = v11;
+    v67 = v11;
     v22 = 0;
     v23 = 0;
-    v24 = *v80;
+    v24 = *v79;
     v25 = -1.79769313e308;
     while (1)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v80 != v24)
+        if (*v79 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v79 + 1) + 8 * i);
+        v27 = *(*(&v78 + 1) + 8 * i);
         v28 = objc_autoreleasePoolPush();
         if ([v27 isFavorite])
         {
@@ -543,17 +542,17 @@ LABEL_21:
           if (v35 == v25)
           {
             sequence = [v23 sequence];
-            v76 = v23;
-            v37 = [sequence filteredArrayUsingPredicate:v74];
-            v75 = [v37 count];
+            v75 = v23;
+            v37 = [sequence filteredArrayUsingPredicate:v73];
+            v74 = [v37 count];
 
             sequence2 = [v27 sequence];
-            v39 = [sequence2 filteredArrayUsingPredicate:v74];
+            v39 = [sequence2 filteredArrayUsingPredicate:v73];
             v40 = [v39 count];
 
             v31 = v18;
-            v41 = v40 > v75;
-            v23 = v76;
+            v41 = v40 > v74;
+            v23 = v75;
             if (v41)
             {
               goto LABEL_21;
@@ -566,7 +565,7 @@ LABEL_27:
       }
 
       v19 = obj;
-      v21 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
+      v21 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
       if (!v21)
       {
 
@@ -575,8 +574,8 @@ LABEL_27:
           [v22 score];
           v43 = v42;
           [v23 score];
-          classifierCopy = v71;
-          v11 = v68;
+          classifierCopy = v70;
+          v11 = v67;
           if (v43 > v44)
           {
             v22 = v22;
@@ -586,8 +585,8 @@ LABEL_27:
 
         else
         {
-          classifierCopy = v71;
-          v11 = v68;
+          classifierCopy = v70;
+          v11 = v67;
         }
 
         goto LABEL_35;
@@ -612,7 +611,7 @@ LABEL_35:
 
   else
   {
-    v77 = v22;
+    v76 = v22;
     v49 = objc_opt_new();
     v50 = objc_opt_new();
     v51 = objc_opt_new();
@@ -664,18 +663,16 @@ LABEL_35:
     }
 
     v48 = [(NPNameParser *)selfCopy personNameCompomentsFromPrefix:firstObject2 suffix:lastObject2 givenNames:v49 middleNames:v51 familyNames:v50];
-    classifierCopy = v71;
+    classifierCopy = v70;
     if (scoreCopy)
     {
       [v23 score];
       *scoreCopy = v65;
     }
 
-    v22 = v77;
+    v22 = v76;
     v19 = obj;
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
@@ -1063,7 +1060,7 @@ LABEL_39:
 
 void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  if ([a2 isEqualToString:@"ja"])
+  if ([a2 isEqualToString:{@"ja", a4, a5, a6}])
   {
     v11 = *(a1 + 32);
     v12 = [MEMORY[0x277CCAE60] valueWithRange:{a3, a4}];
@@ -1080,7 +1077,7 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
 - (id)parseKoreanName:(id)name normalize:(BOOL)normalize
 {
   normalizeCopy = normalize;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (normalizeCopy)
   {
@@ -1094,75 +1091,75 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
   if ([v8 count] >= 2)
   {
-    v42 = whitespaceAndNewlineCharacterSet;
-    v43 = v8;
-    v44 = nameCopy;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
+    v41 = whitespaceAndNewlineCharacterSet;
+    v42 = v8;
+    v43 = nameCopy;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v53;
-      v45 = *v53;
+      v14 = *v52;
+      v44 = *v52;
       selfCopy = self;
       do
       {
         v15 = 0;
-        v47 = v13;
+        v46 = v13;
         do
         {
-          if (*v53 != v14)
+          if (*v52 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v52 + 1) + 8 * v15);
+          v16 = *(*(&v51 + 1) + 8 * v15);
           v17 = objc_autoreleasePoolPush();
           if ([(NPNameComponentsData *)self->_nameComponentsData collectionForEntry:4 contains:v16])
           {
             [v9 setGivenName:v16];
             [v9 setFamilyName:v16];
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
             v49 = 0u;
+            v50 = 0u;
+            v47 = 0u;
+            v48 = 0u;
             v18 = v11;
             v19 = v11;
-            v20 = [v19 countByEnumeratingWithState:&v48 objects:v56 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v47 objects:v55 count:16];
             if (v20)
             {
               v21 = v20;
-              v22 = *v49;
+              v22 = *v48;
               do
               {
                 for (i = 0; i != v21; ++i)
                 {
-                  if (*v49 != v22)
+                  if (*v48 != v22)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v24 = *(*(&v48 + 1) + 8 * i);
-                  if (([v16 isEqualToString:{v24, v42, v43, v44}] & 1) == 0)
+                  v24 = *(*(&v47 + 1) + 8 * i);
+                  if (([v16 isEqualToString:{v24, v41, v42, v43}] & 1) == 0)
                   {
                     [v9 setGivenName:v24];
                   }
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v48 objects:v56 count:16];
+                v21 = [v19 countByEnumeratingWithState:&v47 objects:v55 count:16];
               }
 
               while (v21);
             }
 
-            v14 = v45;
+            v14 = v44;
             self = selfCopy;
             v11 = v18;
-            v13 = v47;
+            v13 = v46;
           }
 
           objc_autoreleasePoolPop(v17);
@@ -1170,7 +1167,7 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
         }
 
         while (v15 != v13);
-        v13 = [v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v13);
@@ -1179,9 +1176,9 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
     familyName = [v9 familyName];
     v26 = [familyName length];
 
-    v8 = v43;
-    nameCopy = v44;
-    whitespaceAndNewlineCharacterSet = v42;
+    v8 = v42;
+    nameCopy = v43;
+    whitespaceAndNewlineCharacterSet = v41;
     if (!v26)
     {
       v27 = [v11 objectAtIndexedSubscript:0];
@@ -1210,8 +1207,8 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
 
       else
       {
-        v41 = [nameCopy substringFromIndex:2];
-        [v9 setGivenName:v41];
+        v40 = [nameCopy substringFromIndex:2];
+        [v9 setGivenName:v40];
       }
     }
   }
@@ -1230,8 +1227,8 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
 
       else
       {
-        v40 = [nameCopy substringFromIndex:1];
-        [v9 setGivenName:v40];
+        v39 = [nameCopy substringFromIndex:1];
+        [v9 setGivenName:v39];
       }
     }
   }
@@ -1255,8 +1252,6 @@ void __44__NPNameParser_parseJapaneseName_normalize___block_invoke(uint64_t a1, 
   familyName2 = [v9 familyName];
   v37 = [familyName2 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
   [v9 setFamilyName:v37];
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

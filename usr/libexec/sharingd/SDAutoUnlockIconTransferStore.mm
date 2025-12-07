@@ -38,21 +38,21 @@
     v13 = v14;
   }
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100136150;
-  v29 = sub_100136160;
-  v30 = 0;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100136168;
-  v22[3] = &unk_1008D1258;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_100136150;
+  v26 = sub_100136160;
+  v27 = 0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100136168;
+  v19[3] = &unk_1008D1258;
   v15 = nameCopy;
-  v23 = v15;
-  v24 = &v25;
-  [v13 enumerateKeysAndObjectsUsingBlock:v22];
-  if (v26[5])
+  v20 = v15;
+  v21 = &v22;
+  [v13 enumerateKeysAndObjectsUsingBlock:v19];
+  if (v23[5])
   {
     [v13 removeObjectForKey:?];
   }
@@ -63,18 +63,15 @@
 
   if (dword_100971278 <= 50 && (dword_100971278 != -1 || _LogCategory_Initialize()))
   {
-    v20 = deviceCopy;
-    v21 = v11;
-    v19 = v15;
-    LogPrintF();
+    LogPrintF(&dword_100971278, "[SDAutoUnlockIconTransferStore storeCachedImageForHash:device:appName:]", 50, "Storing cached image state: %@, device: %@, hash: %@", v15, deviceCopy, v11);
   }
 
-  v17 = [NSUserDefaults standardUserDefaults:v19];
+  v17 = +[NSUserDefaults standardUserDefaults];
   v18 = [(NSMutableDictionary *)self->_transferStore copy];
   [v17 setObject:v18 forKey:@"AUIconTransferStore"];
 
   [v17 synchronize];
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 - (BOOL)imageCachedForHash:(id)hash device:(id)device
@@ -111,7 +108,7 @@ LABEL_13:
   v11 = [v9 objectForKeyedSubscript:v10];
   if (dword_100971278 <= 50 && (dword_100971278 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971278, "[SDAutoUnlockIconTransferStore imageCachedForHash:device:]", 50, "Looking for transfer state for device %@ hash: %@ app: %@, store %@", deviceCopy, v10, v11, v9);
   }
 
   v12 = v11 != 0;

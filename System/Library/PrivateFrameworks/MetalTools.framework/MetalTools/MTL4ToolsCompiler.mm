@@ -132,7 +132,7 @@
   return v10;
 }
 
-uint64_t __45__MTL4ToolsCompiler_newDynamicLibrary_error___block_invoke(uint64_t a1)
+MTLToolsDynamicLibrary *__45__MTL4ToolsCompiler_newDynamicLibrary_error___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -168,7 +168,7 @@ uint64_t __45__MTL4ToolsCompiler_newDynamicLibrary_error___block_invoke(uint64_t
   return v10;
 }
 
-uint64_t __52__MTL4ToolsCompiler_newDynamicLibraryWithURL_error___block_invoke(uint64_t a1)
+MTLToolsDynamicLibrary *__52__MTL4ToolsCompiler_newDynamicLibraryWithURL_error___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -358,7 +358,7 @@ uint64_t __52__MTL4ToolsCompiler_newDynamicLibraryWithURL_error___block_invoke(u
   return v12;
 }
 
-uint64_t __60__MTL4ToolsCompiler_newDynamicLibraryWithURL_options_error___block_invoke(uint64_t a1)
+MTLToolsDynamicLibrary *__60__MTL4ToolsCompiler_newDynamicLibraryWithURL_options_error___block_invoke(uint64_t a1)
 {
   v2 = [MTLToolsDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -829,16 +829,15 @@ void __85__MTL4ToolsCompiler_newMachineLearningPipelineStateWithDescriptor_compl
 {
   if (a2)
   {
-    v5 = [[MTL4ToolsMachineLearningPipelineState alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
+    v4 = [[MTL4ToolsMachineLearningPipelineState alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 

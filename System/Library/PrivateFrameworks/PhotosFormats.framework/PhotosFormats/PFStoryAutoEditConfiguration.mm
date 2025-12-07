@@ -128,7 +128,9 @@
               v12 = *(*(&v20 + 1) + 8 * v11);
               v18 = 0u;
               memset(v19, 0, 56);
-              -[PFStoryAutoEditConfiguration durationInfoForPlaybackStyle:songPace:](self, "durationInfoForPlaybackStyle:songPace:", [v7 integerValue], objc_msgSend(v12, "integerValue"));
+              [v7 integerValue];
+              [v12 integerValue];
+              objc_msgSend_durationInfoForPlaybackStyle_songPace_(self);
               if ((retstr->var0.var2 & 1) == 0 || (*&time1.value = v18, time1.epoch = *v19, time2 = retstr->var0, CMTimeCompare(&time1, &time2) >= 1))
               {
                 *&retstr->var0.var0 = v18;
@@ -221,7 +223,9 @@
               v12 = *(*(&v20 + 1) + 8 * v11);
               v18 = 0u;
               memset(v19, 0, 56);
-              -[PFStoryAutoEditConfiguration durationInfoForPlaybackStyle:songPace:](self, "durationInfoForPlaybackStyle:songPace:", [v7 integerValue], objc_msgSend(v12, "integerValue"));
+              [v7 integerValue];
+              [v12 integerValue];
+              objc_msgSend_durationInfoForPlaybackStyle_songPace_(self);
               if ((retstr->var0.var2 & 1) == 0 || (*&time1.value = v18, time1.epoch = *v19, time2 = retstr->var0, CMTimeCompare(&time1, &time2) < 0))
               {
                 *&retstr->var0.var0 = v18;
@@ -1488,37 +1492,37 @@ void __42__PFStoryAutoEditConfiguration__loadData___block_invoke()
 
     v60[0] = &unk_1F2AAADC8;
     v58[0] = &unk_1F2AAADE0;
-    v48 = [&unk_1F2AAB698 mutableCopy];
+    v48 = objc_msgSend_mutableCopy(&unk_1F2AAB698);
     v59[0] = v48;
     v58[1] = &unk_1F2AAAE10;
-    v47 = [&unk_1F2AAB6B0 mutableCopy];
+    v47 = objc_msgSend_mutableCopy(&unk_1F2AAB6B0);
     v59[1] = v47;
     v58[2] = &unk_1F2AAAE28;
-    v46 = [&unk_1F2AAB6C8 mutableCopy];
+    v46 = objc_msgSend_mutableCopy(&unk_1F2AAB6C8);
     v59[2] = v46;
     v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:3];
     v61[0] = v45;
     v60[1] = &unk_1F2AAAE10;
     v56[0] = &unk_1F2AAADE0;
-    v21 = [&unk_1F2AAB6E0 mutableCopy];
+    v21 = objc_msgSend_mutableCopy(&unk_1F2AAB6E0);
     v57[0] = v21;
     v56[1] = &unk_1F2AAAE10;
-    v22 = [&unk_1F2AAB6F8 mutableCopy];
+    v22 = objc_msgSend_mutableCopy(&unk_1F2AAB6F8);
     v57[1] = v22;
     v56[2] = &unk_1F2AAAE28;
-    v23 = [&unk_1F2AAB710 mutableCopy];
+    v23 = objc_msgSend_mutableCopy(&unk_1F2AAB710);
     v57[2] = v23;
     v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
     v61[1] = v24;
     v60[2] = &unk_1F2AAADE0;
     v54[0] = &unk_1F2AAADE0;
-    v25 = [&unk_1F2AAB728 mutableCopy];
+    v25 = objc_msgSend_mutableCopy(&unk_1F2AAB728);
     v55[0] = v25;
     v54[1] = &unk_1F2AAAE10;
-    v26 = [&unk_1F2AAB740 mutableCopy];
+    v26 = objc_msgSend_mutableCopy(&unk_1F2AAB740);
     v55[1] = v26;
     v54[2] = &unk_1F2AAAE28;
-    v27 = [&unk_1F2AAB758 mutableCopy];
+    v27 = objc_msgSend_mutableCopy(&unk_1F2AAB758);
     v55[2] = v27;
     v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
     v61[2] = v28;
@@ -1535,13 +1539,13 @@ void __42__PFStoryAutoEditConfiguration__loadData___block_invoke()
     *(v2 + 136) = _Q0;
     *(v2 + 19) = 0x4000000000000000;
     v52[0] = &unk_1F2AAAE28;
-    v37 = [&unk_1F2AAB770 mutableCopy];
+    v37 = objc_msgSend_mutableCopy(&unk_1F2AAB770);
     v53[0] = v37;
     v52[1] = &unk_1F2AAAE40;
-    v38 = [&unk_1F2AAB788 mutableCopy];
+    v38 = objc_msgSend_mutableCopy(&unk_1F2AAB788);
     v53[1] = v38;
     v52[2] = &unk_1F2AAAE58;
-    v39 = [&unk_1F2AAB7A0 mutableCopy];
+    v39 = objc_msgSend_mutableCopy(&unk_1F2AAB7A0);
     v53[2] = v39;
     v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:3];
     v41 = *(v2 + 4);

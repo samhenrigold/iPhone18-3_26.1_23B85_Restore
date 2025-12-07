@@ -416,22 +416,22 @@ LABEL_59:
     {
       if (*(DerivedStorage + 64))
       {
-        v44 = 2;
+        v42 = 2;
       }
 
       else
       {
-        v44 = 1;
+        v42 = 1;
       }
 
       if (*(DerivedStorage + 72))
       {
-        ++v44;
+        ++v42;
       }
 
-      if (v32 >= v44)
+      if (v32 >= v42)
       {
-        v35 = v44;
+        v35 = v42;
       }
 
       else
@@ -444,11 +444,11 @@ LABEL_59:
         *a7 = sub_1DF8(*(DerivedStorage + 56));
         if (v35 >= 2)
         {
-          v45 = *(v14 + 64);
-          if (v45)
+          v43 = *(v14 + 64);
+          if (v43)
           {
-            a7[1] = sub_1DF8(v45);
-            v46 = 2;
+            a7[1] = sub_1DF8(v43);
+            v44 = 2;
             LODWORD(v32) = 2;
             if (v35 == 2)
             {
@@ -458,13 +458,13 @@ LABEL_59:
 
           else
           {
-            v46 = 1;
+            v44 = 1;
           }
 
-          v47 = *(v14 + 72);
-          if (v47)
+          v45 = *(v14 + 72);
+          if (v45)
           {
-            a7[v46] = sub_1DF8(v47);
+            a7[v44] = sub_1DF8(v45);
           }
 
           goto LABEL_159;
@@ -514,10 +514,10 @@ LABEL_59:
           if (v35 != 2)
           {
 LABEL_157:
-            v48 = *(v14 + 72);
-            if (v48)
+            v46 = *(v14 + 72);
+            if (v46)
             {
-              a7[v32] = sub_1DF8(v48);
+              a7[v32] = sub_1DF8(v46);
             }
 
 LABEL_159:
@@ -544,10 +544,10 @@ LABEL_146:
 
   if (v15 == 1819173229)
   {
-    v42 = *(DerivedStorage + 32);
-    if (!v42 || (v43 = CFRetain(v42)) == 0)
+    v40 = *(DerivedStorage + 32);
+    if (!v40 || (v41 = CFRetain(v40)) == 0)
     {
-      v43 = CFRetain(@"No Name Endpoint");
+      v41 = CFRetain(@"No Name Endpoint");
     }
 
     *a6 = 8;
@@ -559,12 +559,12 @@ LABEL_146:
     else
     {
       v16 = 0;
-      *a7 = CFRetain(v43);
+      *a7 = CFRetain(v41);
     }
 
-    if (v43)
+    if (v41)
     {
-      CFRelease(v43);
+      CFRelease(v41);
     }
 
     return v16;
@@ -577,16 +577,13 @@ LABEL_146:
   }
 
   v37 = *(DerivedStorage + 56);
-  VTable = CMBaseObjectGetVTable();
-  v39 = *(*(VTable + 16) + 40);
-  if (!v39)
+  v38 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+  if (!v38)
   {
     return 4294954514;
   }
 
-  v40 = *(VTable + 16) + 40;
-
-  return v39(v37, a2, a3, a4, a5, a6, a7);
+  return v38(v37, a2, a3, a4, a5, a6, a7);
 }
 
 BOOL sub_117C(uint64_t a1, int *a2)
@@ -745,24 +742,24 @@ uint64_t sub_13D4(const __CFAllocator *a1, uint64_t a2, uint64_t a3, CFTypeRef *
   v8 = CMDerivedObjectCreate();
   if (v8)
   {
-    v17 = v8;
-    sub_C164();
+    v18 = v8;
+    sub_C164(v8);
     goto LABEL_17;
   }
 
   v9 = FigHALAudioObjectMapperAddMapping();
   if (v9)
   {
-    v17 = v9;
-    sub_C18C();
+    v18 = v9;
+    sub_C18C(v9);
     goto LABEL_17;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  *(DerivedStorage + 1) = a3;
-  *(DerivedStorage + 2) = a2;
+  *(DerivedStorage + 8) = a3;
+  *(DerivedStorage + 16) = a2;
   *DerivedStorage = v21;
-  DerivedStorage[10] = 1634300528;
+  *(DerivedStorage + 40) = 1634300528;
   if (qword_18238 != -1)
   {
     sub_C1B4();
@@ -771,24 +768,24 @@ uint64_t sub_13D4(const __CFAllocator *a1, uint64_t a2, uint64_t a3, CFTypeRef *
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
-    *(DerivedStorage + 6) = Instance;
+    *(DerivedStorage + 48) = Instance;
   }
 
   else if ((sub_C1DC(&v23) & 1) == 0)
   {
-    v17 = v23;
+    v18 = v23;
     goto LABEL_17;
   }
 
-  *(DerivedStorage + 3) = CFRetain(@"ap:ha:nd:of:fd:ev-screen");
-  DerivedStorage[11] = 1885433953;
-  *(DerivedStorage + 4) = CFRetain(@"AirPlayHandoffDevice");
-  v12 = *(DerivedStorage + 6);
+  *(DerivedStorage + 24) = CFRetain(@"ap:ha:nd:of:fd:ev-screen");
+  *(DerivedStorage + 44) = 1885433953;
+  *(DerivedStorage + 32) = CFRetain(@"AirPlayHandoffDevice");
+  v12 = *(DerivedStorage + 48);
   v23 = 0;
   DescriptionArray = APAudioFormatCreateDescriptionArray();
   if (DescriptionArray)
   {
-    v17 = DescriptionArray;
+    v18 = DescriptionArray;
     sub_C27C(DescriptionArray, &v23);
   }
 
@@ -797,15 +794,14 @@ uint64_t sub_13D4(const __CFAllocator *a1, uint64_t a2, uint64_t a3, CFTypeRef *
     *(v12 + 64) = v23;
     if (dword_18000 <= 50 && (dword_18000 != -1 || _LogCategory_Initialize()))
     {
-      v19 = *DerivedStorage;
-      LogPrintF();
+      LogPrintF(&dword_18000, "OSStatus APHALHandoffAudioDeviceCreate(CFAllocatorRef, FigHALAudioObjectMapper, AudioServerPlugInHostRef, FigHALAudioDeviceRef *)", 33554482, "[%s] handoffDevice = %p (objectID = %d, deviceObjectID = %d)\n", "APHALHandoffAudioDeviceCreate", v22, *DerivedStorage, v21);
     }
 
-    v14 = sub_24D8(a1, a2, v21, a3, *(DerivedStorage + 6), DerivedStorage + 7);
+    v14 = sub_24D8(a1, a2, v21, a3, *(DerivedStorage + 48), (DerivedStorage + 56));
     if (v14)
     {
-      v17 = v14;
-      sub_C2D8();
+      v18 = v14;
+      sub_C2D8(v14);
     }
 
     else
@@ -813,25 +809,26 @@ uint64_t sub_13D4(const __CFAllocator *a1, uint64_t a2, uint64_t a3, CFTypeRef *
       v15 = sub_B3E4(a1, &cf);
       if (v15)
       {
-        v17 = v15;
-        sub_C300();
+        v18 = v15;
+        sub_C300(v15);
       }
 
       else
       {
-        v16 = sub_B444(a1, a2, a3, v21, cf, DerivedStorage + 8);
+        v16 = sub_B444(a1, a2, a3, v21, cf, (DerivedStorage + 64));
         if (v16)
         {
-          v17 = v16;
-          sub_C328();
+          v18 = v16;
+          sub_C328(v16);
         }
 
         else
         {
-          v17 = sub_B530(a1, a2, a3, v21, cf, DerivedStorage + 9);
+          v17 = sub_B530(a1, a2, a3, v21, cf, (DerivedStorage + 72));
+          v18 = v17;
           if (v17)
           {
-            sub_C350();
+            sub_C350(v17);
           }
 
           else
@@ -855,51 +852,51 @@ LABEL_17:
     CFRelease(v22);
   }
 
-  return v17;
+  return v18;
 }
 
-void sub_16A0()
+void sub_16A0(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage[3];
-  if (v1)
-  {
-    CFRelease(v1);
-    DerivedStorage[3] = 0;
-  }
-
-  v2 = DerivedStorage[4];
+  v2 = DerivedStorage[3];
   if (v2)
   {
     CFRelease(v2);
-    DerivedStorage[4] = 0;
+    DerivedStorage[3] = 0;
   }
 
-  v3 = DerivedStorage[7];
+  v3 = DerivedStorage[4];
   if (v3)
   {
     CFRelease(v3);
-    DerivedStorage[7] = 0;
+    DerivedStorage[4] = 0;
   }
 
-  v4 = DerivedStorage[6];
+  v4 = DerivedStorage[7];
   if (v4)
   {
     CFRelease(v4);
-    DerivedStorage[6] = 0;
+    DerivedStorage[7] = 0;
   }
 
-  v5 = DerivedStorage[8];
+  v5 = DerivedStorage[6];
   if (v5)
   {
     CFRelease(v5);
-    DerivedStorage[8] = 0;
+    DerivedStorage[6] = 0;
   }
 
-  v6 = DerivedStorage[9];
+  v6 = DerivedStorage[8];
   if (v6)
   {
     CFRelease(v6);
+    DerivedStorage[8] = 0;
+  }
+
+  v7 = DerivedStorage[9];
+  if (v7)
+  {
+    CFRelease(v7);
     DerivedStorage[9] = 0;
   }
 }
@@ -1150,11 +1147,11 @@ LABEL_63:
 uint64_t sub_1B10(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, double *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v34 = 0;
-  v35 = 0;
+  v32 = 0;
+  v33 = 0;
   if (*a2 != 1853059700)
   {
-    v24 = 2003332927;
+    v23 = 2003332927;
     goto LABEL_22;
   }
 
@@ -1162,138 +1159,134 @@ uint64_t sub_1B10(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, dou
   memset(__s2, 0, 40);
   v11 = *(DerivedStorage + 48);
   v12 = *(v11 + 32);
-  v30 = *(v11 + 16);
-  v31 = v12;
-  v32 = *(v11 + 48);
+  v28 = *(v11 + 16);
+  v29 = v12;
+  v30 = *(v11 + 48);
   if (a5 != 8)
   {
-    v24 = 561211770;
+    v23 = 561211770;
 LABEL_21:
     APSLogErrorAt();
     goto LABEL_22;
   }
 
   v13 = *a6;
-  if (*a6 == *&v30)
+  if (*a6 == *&v28)
   {
 LABEL_19:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_22;
   }
 
-  v14 = *(DerivedStorage + 56);
   CMBaseObject = FigHALAudioStreamGetCMBaseObject();
-  v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v16)
+  v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v15)
   {
-    v24 = 4294954514;
+    v23 = 4294954514;
     goto LABEL_21;
   }
 
-  v17 = v16(CMBaseObject, kFigHALAudioStreamProperty_SupportedPCMFormats, kCFAllocatorDefault, &v34);
-  if (v17)
+  v16 = v15(CMBaseObject, kFigHALAudioStreamProperty_SupportedPCMFormats, kCFAllocatorDefault, &v32);
+  if (v16)
   {
-    v24 = v17;
+    v23 = v16;
     goto LABEL_21;
   }
 
-  v18 = v34;
-  Length = CFDataGetLength(v34);
+  v17 = v32;
+  Length = CFDataGetLength(v32);
   if (Length < 0x70)
   {
-    v24 = 4294967246;
+    v23 = 4294967246;
+    v27 = 792;
 LABEL_28:
-    sub_C3B4();
+    sub_C3B4(v27, v23);
   }
 
   else
   {
-    v20 = Length / 0x38;
-    BytePtr = CFDataGetBytePtr(v18);
-    v22 = 0;
+    v19 = Length / 0x38;
+    BytePtr = CFDataGetBytePtr(v17);
+    v21 = 0;
     do
     {
       if (*(BytePtr + 5) <= v13 && *(BytePtr + 6) >= v13)
       {
-        v22 = BytePtr;
-        if (*(BytePtr + 7) == HIDWORD(v31))
+        v21 = BytePtr;
+        if (*(BytePtr + 7) == HIDWORD(v29))
         {
-          v22 = BytePtr;
-          if (*(BytePtr + 8) >= v32)
+          v21 = BytePtr;
+          if (*(BytePtr + 8) >= v30)
           {
-            v22 = BytePtr;
+            v21 = BytePtr;
             goto LABEL_14;
           }
         }
       }
 
       BytePtr += 56;
-      --v20;
+      --v19;
     }
 
-    while (v20);
-    if (!v22)
+    while (v19);
+    if (!v21)
     {
-      v24 = 1970171760;
+      v23 = 1970171760;
+      v27 = 807;
       goto LABEL_28;
     }
 
 LABEL_14:
     *__s2 = v13;
-    v23 = *(v22 + 24);
-    *(__s2 + 8) = *(v22 + 8);
-    *(&__s2[1] + 8) = v23;
-    if (!memcmp(&v30, __s2, 0x28uLL))
+    v22 = *(v21 + 24);
+    *(__s2 + 8) = *(v21 + 8);
+    *(&__s2[1] + 8) = v22;
+    if (!memcmp(&v28, __s2, 0x28uLL))
     {
       goto LABEL_19;
     }
 
-    sub_1DF8(*(v10 + 7));
-    v24 = FigHALAudioConfigChangeCreateRecord();
-    if (v24)
+    sub_1DF8(*(v10 + 56));
+    v23 = FigHALAudioConfigChangeCreateRecord();
+    if (v23)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      v25 = v35;
-      v26 = __s2[1];
-      *(v35 + 16) = __s2[0];
-      *(v25 + 32) = v26;
-      *(v25 + 48) = *&__s2[2];
-      v27 = *(v10 + 1);
-      v28 = *v10;
+      v24 = v33;
+      v25 = __s2[1];
+      *(v33 + 16) = __s2[0];
+      *(v24 + 32) = v25;
+      *(v24 + 48) = *&__s2[2];
       FigHALAudioConfigChangeSendRequest();
-      v35 = 0;
+      v33 = 0;
     }
   }
 
 LABEL_22:
   FigHALAudioConfigChangeDisposeRecord();
-  if (v34)
+  if (v32)
   {
-    CFRelease(v34);
+    CFRelease(v32);
   }
 
-  return v24;
+  return v23;
 }
 
 uint64_t sub_1DF8(uint64_t a1)
 {
-  VTable = CMBaseObjectGetVTable();
-  v3 = *(*(VTable + 16) + 8);
-  if (!v3)
+  v2 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v2)
   {
     return 0;
   }
 
-  v4 = *(VTable + 16) + 8;
-
-  return v3(a1);
+  return v2(a1);
 }
 
-CFTypeRef sub_1E90()
+CFTypeRef sub_1E90(uint64_t a1)
 {
   result = *(CMBaseObjectGetDerivedStorage() + 24);
   if (result)
@@ -1311,49 +1304,44 @@ uint64_t sub_1EC8(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a2 != 1718579821)
   {
     fig_log_get_emitter();
-    v11 = FigSignalErrorAtGM();
-    goto LABEL_9;
-  }
-
-  v6 = DerivedStorage;
-  v7 = *(DerivedStorage + 56);
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 24) + 16);
-  if (!v9)
-  {
-    v11 = 4294954514;
-LABEL_8:
-    APSLogErrorAt();
-    goto LABEL_9;
-  }
-
-  v10 = *(VTable + 24) + 16;
-  v11 = v9(v7, 1718579821, a3);
-  if (v11)
-  {
+    v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, v11, v12);
     goto LABEL_8;
   }
 
-  v12 = *(v6 + 1);
-  v13 = *v6;
+  v6 = *(DerivedStorage + 56);
+  v7 = *(*(CMBaseObjectGetVTable() + 24) + 16);
+  if (!v7)
+  {
+    v8 = 4294954514;
+    goto LABEL_7;
+  }
+
+  v8 = v7(v6, 1718579821, a3);
+  if (v8)
+  {
+LABEL_7:
+    APSLogErrorAt();
+    goto LABEL_8;
+  }
+
   FigHALAudioPropertySendChanges();
-LABEL_9:
+LABEL_8:
   FigHALAudioConfigChangeDisposeRecord();
-  return v11;
+  return v8;
 }
 
-uint64_t sub_203C()
+uint64_t sub_203C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
+  v2 = DerivedStorage;
   if (*(DerivedStorage + 84))
   {
-    if (sub_C404(&v17))
+    if (sub_C404(&v14))
     {
       return 0;
     }
 
-    v2 = v17;
+    v3 = v14;
   }
 
   else
@@ -1363,70 +1351,64 @@ uint64_t sub_203C()
       return 0;
     }
 
-    v4 = *(DerivedStorage + 48);
-    v5 = *(v4 + 32);
-    *(v4 + 104) = *(v4 + 16);
-    *(v4 + 120) = v5;
-    *(v4 + 136) = *(v4 + 48);
-    v6 = *(DerivedStorage + 48);
-    v7 = *(DerivedStorage + 56);
-    v8 = *(v6 + 128);
-    v9 = *(v6 + 104);
-    *(v6 + 172) = 0;
-    *(v6 + 176) = v9;
-    *(v6 + 180) = v8;
-    *(v6 + 200) = 0;
-    VTable = CMBaseObjectGetVTable();
-    v11 = *(*(VTable + 24) + 32);
+    v5 = *(DerivedStorage + 48);
+    v6 = *(v5 + 32);
+    *(v5 + 104) = *(v5 + 16);
+    *(v5 + 120) = v6;
+    *(v5 + 136) = *(v5 + 48);
+    v7 = *(DerivedStorage + 48);
+    v8 = *(DerivedStorage + 56);
+    v9 = *(v7 + 128);
+    v10 = *(v7 + 104);
+    *(v7 + 172) = 0;
+    *(v7 + 176) = v10;
+    *(v7 + 180) = v9;
+    *(v7 + 200) = 0;
+    v11 = *(*(CMBaseObjectGetVTable() + 24) + 32);
     if (v11)
     {
-      v12 = *(VTable + 24) + 32;
-      v2 = v11(v7);
-      if (!v2)
+      v3 = v11(v8);
+      if (!v3)
       {
-        *(*(v1 + 48) + 184) = 1;
-        *(v1 + 80) = 1;
-        return v2;
+        *(*(v2 + 48) + 184) = 1;
+        *(v2 + 80) = 1;
+        return v3;
       }
     }
 
     else
     {
-      v2 = 4294954514;
+      v3 = 4294954514;
     }
 
     APSLogErrorAt();
   }
 
-  v13 = *(v1 + 56);
-  v14 = CMBaseObjectGetVTable();
-  v15 = *(*(v14 + 24) + 40);
-  if (v15)
+  v12 = *(v2 + 56);
+  v13 = *(*(CMBaseObjectGetVTable() + 24) + 40);
+  if (v13)
   {
-    v16 = *(v14 + 24) + 40;
-    v15(v13);
+    v13(v12);
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t sub_21C8()
+uint64_t sub_21C8(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 80) >= 1)
   {
-    v1 = DerivedStorage;
+    v2 = DerivedStorage;
     *(DerivedStorage + 80) = 0;
-    v2 = *(DerivedStorage + 56);
-    VTable = CMBaseObjectGetVTable();
-    v4 = *(*(VTable + 24) + 40);
+    v3 = *(DerivedStorage + 56);
+    v4 = *(*(CMBaseObjectGetVTable() + 24) + 40);
     if (v4)
     {
-      v5 = *(VTable + 24) + 40;
-      v4(v2);
+      v4(v3);
     }
 
-    *(*(v1 + 48) + 184) = 0;
+    *(*(v2 + 48) + 184) = 0;
   }
 
   return 0;
@@ -1505,7 +1487,7 @@ uint64_t sub_2360(uint64_t a1, int a2, BOOL *a3, BOOL *a4)
   return result;
 }
 
-uint64_t sub_23CC()
+uint64_t sub_23CC(uint64_t a1)
 {
   if (*(*(CMBaseObjectGetDerivedStorage() + 48) + 184))
   {
@@ -1516,7 +1498,7 @@ uint64_t sub_23CC()
   return 1937010544;
 }
 
-uint64_t sub_2404()
+uint64_t sub_2404(uint64_t a1)
 {
   if (*(*(CMBaseObjectGetDerivedStorage() + 48) + 184))
   {
@@ -1567,23 +1549,23 @@ void sub_24C0(uint64_t a1)
   }
 }
 
-uint64_t sub_24D8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const void *a5, uint64_t *a6)
+uint64_t sub_24D8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const void *a5, CFTypeRef *a6)
 {
   FigHALAudioStreamGetClassID();
   v10 = CMDerivedObjectCreate();
   if (v10)
   {
-    v14 = v10;
-    sub_C4DC();
-    return v14;
+    v15 = v10;
+    sub_C4DC(v10);
+    return v15;
   }
 
   v11 = FigHALAudioObjectMapperAddMapping();
   if (v11)
   {
-    v14 = v11;
-    sub_C504();
-    return v14;
+    v15 = v11;
+    sub_C504(v11);
+    return v15;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -1596,9 +1578,9 @@ uint64_t sub_24D8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const 
   *(DerivedStorage + 24) = 1;
   if (CFDataGetLength(v13[8]) < 0x38)
   {
-    if ((sub_C52C(&v19) & 1) == 0)
+    if ((sub_C52C(&v17) & 1) == 0)
     {
-      return v19;
+      return v17;
     }
   }
 
@@ -1607,6 +1589,7 @@ uint64_t sub_24D8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const 
     sub_C5CC(DerivedStorage + 4);
   }
 
+  v14 = 0;
   *a6 = 0;
   if (dword_18070 <= 50)
   {
@@ -1617,25 +1600,23 @@ uint64_t sub_24D8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const 
         return 0;
       }
 
-      v16 = *a6;
+      v14 = *a6;
     }
 
-    v17 = *DerivedStorage;
-    v18 = DerivedStorage[4];
-    LogPrintF();
+    LogPrintF(&dword_18070, "OSStatus APHALHandoffAudioStreamCreate(CFAllocatorRef, FigHALAudioObjectMapper, AudioObjectID, AudioServerPlugInHostRef, APHALHandoffAudioSharedStateRef, FigHALAudioStreamRef *)", 33554482, "inStream %{ptr} APHALHandoffAudioStreamCreate, [streamObjectID %d, ownerDeviceID %d]", v14, *DerivedStorage, DerivedStorage[4]);
     return 0;
   }
 
   return 0;
 }
 
-void sub_2674()
+void sub_2674(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 32);
-  if (v1)
+  v2 = *(DerivedStorage + 32);
+  if (v2)
   {
-    CFRelease(v1);
+    CFRelease(v2);
     *(DerivedStorage + 32) = 0;
   }
 }
@@ -1956,39 +1937,37 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_2CD0(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, int a5, __int128 *a6)
+uint64_t sub_2CD0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, int a5, __int128 *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v27 = 0;
+  v24 = 0;
   if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
   {
-    sub_C62C(a2);
+    sub_C62C(a2, v9, v10);
   }
 
-  v10 = *a2;
-  if (*a2 != 1885762592 && v10 != 1936092532)
+  v12 = *a2;
+  if (*a2 != 1885762592 && v12 != 1936092532)
   {
-    if (v10 != 1935762292)
+    if (v12 != 1935762292)
     {
-      v14 = 2003332927;
+      v15 = 2003332927;
       goto LABEL_22;
     }
 
     if (a5 == 4)
     {
-      v20 = *a6 != 0;
-      if (*(DerivedStorage + 24) != v20)
+      v19 = *a6 != 0;
+      if (*(DerivedStorage + 24) != v19)
       {
-        *(DerivedStorage + 24) = v20;
-        v21 = *(DerivedStorage + 1);
-        v22 = *DerivedStorage;
+        *(DerivedStorage + 24) = v19;
         FigHALAudioPropertySendChanges();
       }
 
       goto LABEL_17;
     }
 
-    v14 = 561211770;
+    v15 = 561211770;
 LABEL_21:
     APSLogErrorAt();
     goto LABEL_22;
@@ -1996,45 +1975,42 @@ LABEL_21:
 
   if (a5 != 40)
   {
-    v14 = 561211770;
+    v15 = 561211770;
     goto LABEL_21;
   }
 
-  v12 = a6[1];
-  v24 = *a6;
-  v25 = v12;
-  v26 = *(a6 + 4);
-  if (!memcmp(&v24, (*(DerivedStorage + 4) + 16), 0x28uLL))
+  v14 = a6[1];
+  v21 = *a6;
+  v22 = v14;
+  v23 = *(a6 + 4);
+  if (!memcmp(&v21, (*(DerivedStorage + 32) + 16), 0x28uLL))
   {
 LABEL_17:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_22;
   }
 
-  v13 = *DerivedStorage;
-  v14 = FigHALAudioConfigChangeCreateRecord();
-  if (v14)
+  v15 = FigHALAudioConfigChangeCreateRecord();
+  if (v15)
   {
     APSLogErrorAt();
   }
 
   else
   {
-    v16 = v26;
-    v15 = v27;
-    v17 = v25;
-    *(v27 + 16) = v24;
-    *(v15 + 32) = v17;
-    *(v15 + 48) = v16;
-    v18 = *(DerivedStorage + 1);
-    v19 = DerivedStorage[4];
+    v17 = v23;
+    v16 = v24;
+    v18 = v22;
+    *(v24 + 16) = v21;
+    *(v16 + 32) = v18;
+    *(v16 + 48) = v17;
     FigHALAudioConfigChangeSendRequest();
-    v27 = 0;
+    v24 = 0;
   }
 
 LABEL_22:
   FigHALAudioConfigChangeDisposeRecord();
-  return v14;
+  return v15;
 }
 
 uint64_t sub_2EBC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2042,41 +2018,38 @@ uint64_t sub_2EBC(uint64_t a1, uint64_t a2, uint64_t a3)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (a2 == 1718579821)
   {
-    v6 = DerivedStorage;
-    v8 = DerivedStorage + 32;
-    v7 = *(DerivedStorage + 32);
-    v9 = *(a3 + 16);
-    v10 = *(a3 + 32);
-    *(v7 + 48) = *(a3 + 48);
-    *(v7 + 16) = v9;
-    *(v7 + 32) = v10;
+    v9 = DerivedStorage + 32;
+    v8 = *(DerivedStorage + 32);
+    v10 = *(a3 + 16);
+    v11 = *(a3 + 32);
+    *(v8 + 48) = *(a3 + 48);
+    *(v8 + 16) = v10;
+    *(v8 + 32) = v11;
     if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
     {
-      sub_C674(v8);
+      sub_C674(v9, v6, v7);
     }
 
-    v11 = *(v6 + 1);
-    v12 = *v6;
     FigHALAudioPropertySendChanges();
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
     fig_log_get_emitter();
-    v13 = FigSignalErrorAtGM();
+    v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v15, v16);
   }
 
   FigHALAudioConfigChangeDisposeRecord();
-  return v13;
+  return v12;
 }
 
-uint64_t sub_2FC4()
+uint64_t sub_2FC4(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
   {
-    sub_C6CC(DerivedStorage);
+    sub_C6CC();
   }
 
   if (*(DerivedStorage + 24))
@@ -2087,16 +2060,12 @@ uint64_t sub_2FC4()
   return 0;
 }
 
-uint64_t sub_3040()
+uint64_t sub_3040(uint64_t a1)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (dword_18070 <= 40)
+  CMBaseObjectGetDerivedStorage();
+  if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
   {
-    v1 = DerivedStorage;
-    if (dword_18070 != -1 || _LogCategory_Initialize())
-    {
-      sub_C708(v1);
-    }
+    sub_C708();
   }
 
   return 0;
@@ -2107,7 +2076,7 @@ uint64_t sub_30AC(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
   {
-    sub_C744(DerivedStorage);
+    sub_C744();
   }
 
   v8 = *(DerivedStorage + 32);
@@ -2138,57 +2107,50 @@ uint64_t sub_30AC(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
 uint64_t sub_3188(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = DerivedStorage;
+  v6 = DerivedStorage;
   if (a2)
   {
-    v5 = *(DerivedStorage + 32);
-    v6 = *(v5 + 16);
-    v7 = *(v5 + 32);
-    *(a2 + 32) = *(v5 + 48);
-    *a2 = v6;
-    *(a2 + 16) = v7;
+    v7 = *(DerivedStorage + 32);
+    v8 = *(v7 + 16);
+    v9 = *(v7 + 32);
+    *(a2 + 32) = *(v7 + 48);
+    *a2 = v8;
+    *(a2 + 16) = v9;
   }
 
   if (dword_18070 <= 40 && (dword_18070 != -1 || _LogCategory_Initialize()))
   {
-    sub_C814(v4);
+    sub_C814(v6, v4, v5);
   }
 
   return 0;
 }
 
-unsigned int *sub_3208(unsigned int *result)
-{
-  v1 = *result;
-  v2 = *(result + 24);
-  return result;
-}
-
-uint64_t sub_321C()
+uint64_t sub_321C(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 33554472, a4);
 }
 
 uint64_t sub_3234(uint64_t a1, uint64_t a2, int a3, const void *a4, uint64_t a5, const void *a6, CFTypeRef *a7)
 {
   cf = 0;
-  v32 = 0;
+  v29 = 0;
   kdebug_trace();
   FigHALAudioStreamGetClassID();
   v12 = CMDerivedObjectCreate();
   if (v12)
   {
-    v25 = v12;
-    sub_C86C();
+    v24 = v12;
+    sub_C86C(v12);
     goto LABEL_27;
   }
 
   v13 = FigHALAudioObjectMapperAddMapping();
   if (v13)
   {
-    v25 = v13;
-    sub_C894();
+    v24 = v13;
+    sub_C894(v13);
     goto LABEL_27;
   }
 
@@ -2200,13 +2162,13 @@ uint64_t sub_3234(uint64_t a1, uint64_t a2, int a3, const void *a4, uint64_t a5,
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v15 = DerivedStorage;
-  *DerivedStorage = v32;
+  *DerivedStorage = v29;
   *(DerivedStorage + 16) = a3;
   *(DerivedStorage + 8) = a5;
   if (!a4)
   {
     *(DerivedStorage + 24) = 0;
-    v16 = (DerivedStorage + 32);
+    v16 = DerivedStorage + 32;
 LABEL_8:
     *v16 = *&kCMTimeInvalid.value;
     epoch = kCMTimeInvalid.epoch;
@@ -2214,29 +2176,28 @@ LABEL_8:
   }
 
   v17 = CFRetain(a4);
-  *(v15 + 3) = v17;
-  v16 = v15 + 8;
+  *(v15 + 24) = v17;
+  v16 = v15 + 32;
   if (!v17)
   {
     goto LABEL_8;
   }
 
   APSGetFBOPropertyCMTime();
-  *v16 = v30;
-  epoch = v31;
+  *v16 = v27;
+  epoch = v28;
 LABEL_10:
-  *(v16 + 2) = epoch;
-  *(v15 + 8) = CFRetain(a6);
-  v19 = v15 + 16;
+  *(v16 + 16) = epoch;
+  *(v15 + 64) = CFRetain(a6);
   *(v15 + 56) = 1;
-  *(v15 + 14) = 0;
+  *(v15 + 112) = 0;
   APSAllocatorGetDefaultAirPlayMallocZoneCFAllocator();
   Typed = CFAllocatorAllocateTyped();
-  *(v15 + 12) = Typed;
+  *(v15 + 96) = Typed;
   if (!Typed)
   {
     sub_CACC();
-    v25 = 4294954510;
+    v24 = 4294954510;
     goto LABEL_27;
   }
 
@@ -2246,56 +2207,56 @@ LABEL_10:
   *(v15 + 81) = 0;
   if (IntWithDefault)
   {
-    v22 = CM8021ASClockCreate();
-    if (v22)
+    v21 = CM8021ASClockCreate();
+    if (v21)
     {
-      v25 = v22;
-      sub_C8BC();
+      v24 = v21;
+      sub_C8BC(v21);
       goto LABEL_27;
     }
   }
 
-  if (CFDataGetLength(*(*v19 + 64)) < 0x38)
+  if (CFDataGetLength(*(*(v15 + 64) + 64)) < 0x38)
   {
-    if ((sub_C8E4(&v30) & 1) == 0)
+    if ((sub_C8E4(&v27) & 1) == 0)
     {
-      v25 = v30;
+      v24 = v27;
       goto LABEL_27;
     }
   }
 
   else
   {
-    sub_C97C(v15 + 8);
+    sub_C97C((v15 + 64));
   }
 
   if (APSSettingsGetIntWithDefault())
   {
-    v23 = IsAppleInternalBuild();
-    *(v15 + 72) = v23 != 0;
-    if (v23)
+    v22 = IsAppleInternalBuild();
+    *(v15 + 72) = v22 != 0;
+    if (v22)
     {
-      v24 = *v19;
-      v25 = APRealTimeAudioFileWriterCreate();
+      v24 = APRealTimeAudioFileWriterCreate();
       if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
       {
-        sub_CA88((v15 + 16));
+        sub_CA88(v15 + 64, v24, v23);
       }
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
     *(v15 + 72) = 0;
   }
 
   APSAsyncLoggerGetSharedLogger();
+  v25 = cf;
   *a7 = cf;
   cf = 0;
   if (dword_180E0 <= 40)
@@ -2303,15 +2264,13 @@ LABEL_10:
     if (dword_180E0 != -1)
     {
 LABEL_25:
-      v29 = v15[4];
-      v28 = *v15;
-      LogPrintF();
+      LogPrintF(&dword_180E0, "OSStatus APHALAudioStreamCreate(CFAllocatorRef, FigHALAudioObjectMapper, AudioObjectID, FigEndpointStreamAudioEngineRef, AudioServerPlugInHostRef, APHALAudioSharedStateRef, FigHALAudioStreamRef *)", 33554472, "APHALAudioStreamCreate - outstream %p, [streamObjectID %d, ownerDeviceID %d, audioEngine %p]", v25, *v15, *(v15 + 16), a4);
       goto LABEL_27;
     }
 
     if (_LogCategory_Initialize())
     {
-      v27 = *a7;
+      v25 = *a7;
       goto LABEL_25;
     }
 
@@ -2322,17 +2281,16 @@ LABEL_27:
     }
   }
 
-  return v25;
+  return v24;
 }
 
-void sub_358C()
+void sub_358C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   kdebug_trace();
   if (*(DerivedStorage + 24))
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v1 = *(DerivedStorage + 24);
     FigNotificationCenterRemoveWeakListeners();
     v2 = *(DerivedStorage + 24);
     if (v2)
@@ -2345,7 +2303,6 @@ void sub_358C()
   v3 = *(DerivedStorage + 64);
   if (*(DerivedStorage + 72))
   {
-    v4 = v3[12];
     APRealTimeAudioFileWriterInvalidate();
     v3 = *(DerivedStorage + 64);
     if (v3[12])
@@ -2367,10 +2324,10 @@ LABEL_8:
 
   if (*(DerivedStorage + 80))
   {
-    v5 = *(DerivedStorage + 88);
-    if (v5)
+    v4 = *(DerivedStorage + 88);
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
       *(DerivedStorage + 88) = 0;
     }
   }
@@ -2382,29 +2339,22 @@ LABEL_8:
     CFAllocatorDeallocate(DefaultAirPlayMallocZoneCFAllocator, *(DerivedStorage + 96));
   }
 
-  v8 = *(DerivedStorage + 104);
-  v7 = (DerivedStorage + 104);
-  if (v8)
+  v7 = *(DerivedStorage + 104);
+  v6 = (DerivedStorage + 104);
+  if (v7)
   {
     APSAudioStats_TerminateSession();
     if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
     {
-      sub_CAF8(v7);
+      sub_CAF8(v6, v8, v9);
     }
 
-    if (*v7)
+    if (*v6)
     {
-      CFRelease(*v7);
-      *v7 = 0;
+      CFRelease(*v6);
+      *v6 = 0;
     }
   }
-}
-
-CFStringRef sub_36CC()
-{
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 3);
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APHALAudioStream ID %d Owner %d AudioEngine %p AudioSource %p", *DerivedStorage, DerivedStorage[4], v1, *(*(DerivedStorage + 8) + 144));
 }
 
 uint64_t sub_3728(uint64_t a1, const void *a2, uint64_t a3, void *a4)
@@ -2575,7 +2525,7 @@ uint64_t sub_3A40(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
         }
 
         result = 0;
-        v16 = 1;
+        v19 = 1;
         goto LABEL_37;
       }
 
@@ -2598,12 +2548,12 @@ uint64_t sub_3A40(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
       }
 
 LABEL_23:
-      v17 = 56 * (CFDataGetLength(*(*(DerivedStorage + 64) + 64)) / 0x38uLL);
-      *a6 = v17;
-      if (v17 <= a5)
+      v20 = 56 * (CFDataGetLength(*(*(DerivedStorage + 64) + 64)) / 0x38uLL);
+      *a6 = v20;
+      if (v20 <= a5)
       {
         BytePtr = CFDataGetBytePtr(*(*(DerivedStorage + 64) + 64));
-        memcpy(a7, BytePtr, v17);
+        memcpy(a7, BytePtr, v20);
         return 0;
       }
 
@@ -2618,7 +2568,7 @@ LABEL_23:
         if (a5 >= 4)
         {
           result = 0;
-          v16 = *(DerivedStorage + 16);
+          v19 = *(DerivedStorage + 16);
           goto LABEL_37;
         }
 
@@ -2637,9 +2587,9 @@ LABEL_23:
       }
 
       result = 0;
-      v16 = 1936747378;
+      v19 = 1936747378;
 LABEL_37:
-      *a7 = v16;
+      *a7 = v19;
       return result;
     }
 
@@ -2648,12 +2598,12 @@ LABEL_25:
     if (a5 >= 0x28)
     {
       result = 0;
-      v19 = *(DerivedStorage + 64);
-      v20 = *(v19 + 16);
-      v21 = *(v19 + 32);
-      *(a7 + 4) = *(v19 + 48);
-      *a7 = v20;
-      *(a7 + 1) = v21;
+      v22 = *(DerivedStorage + 64);
+      v23 = *(v22 + 16);
+      v24 = *(v22 + 32);
+      *(a7 + 4) = *(v22 + 48);
+      *a7 = v23;
+      *(a7 + 1) = v24;
       return result;
     }
 
@@ -2678,7 +2628,7 @@ LABEL_25:
         }
 
         result = 0;
-        v16 = *(DerivedStorage + 56);
+        v19 = *(DerivedStorage + 56);
         goto LABEL_37;
       }
 
@@ -2697,7 +2647,7 @@ LABEL_25:
     }
 
     result = 0;
-    v16 = 1634689642;
+    v19 = 1634689642;
     goto LABEL_37;
   }
 
@@ -2709,18 +2659,21 @@ LABEL_25:
     }
 
     v14 = *(*(DerivedStorage + 64) + 16);
-    v22 = *(DerivedStorage + 32);
-    CMTimeConvertScale(&v23, &v22, v14, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-    if ((v23.flags & 0x1D) == 1)
+    v25 = *(DerivedStorage + 32);
+    v15 = CMTimeConvertScale(&v26, &v25, v14, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+    if ((v26.flags & 0x1D) == 1)
     {
-      value = v23.value;
+      value = v26.value;
     }
 
     else
     {
-      if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
+      if (dword_180E0 <= 50)
       {
-        sub_CB4C();
+        if (dword_180E0 != -1 || (v15 = _LogCategory_Initialize(), v15))
+        {
+          sub_CB4C(v15, v16, v17);
+        }
       }
 
       value = kCMTimeZero.value;
@@ -2741,46 +2694,44 @@ LABEL_25:
   if (a5 >= 4)
   {
     result = 0;
-    v16 = 1634956402;
+    v19 = 1634956402;
     goto LABEL_37;
   }
 
   return 561211770;
 }
 
-uint64_t sub_3D98(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, int a5, __int128 *a6)
+uint64_t sub_3D98(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, int a5, __int128 *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v28 = 0;
+  v26 = 0;
   if (dword_180E0 <= 40 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_CB7C(a2);
+    sub_CB7C(a2, v9, v10);
   }
 
-  v10 = *a2;
-  if (*a2 != 1885762592 && v10 != 1936092532)
+  v12 = *a2;
+  if (*a2 != 1885762592 && v12 != 1936092532)
   {
-    if (v10 != 1935762292)
+    if (v12 != 1935762292)
     {
-      v21 = 2003332927;
+      v20 = 2003332927;
       goto LABEL_27;
     }
 
     if (a5 == 4)
     {
-      v18 = *a6 != 0;
-      if (*(DerivedStorage + 56) != v18)
+      v19 = *a6 != 0;
+      if (*(DerivedStorage + 56) != v19)
       {
-        *(DerivedStorage + 56) = v18;
-        v19 = *(DerivedStorage + 1);
-        v20 = *DerivedStorage;
+        *(DerivedStorage + 56) = v19;
         FigHALAudioPropertySendChanges();
       }
 
       goto LABEL_19;
     }
 
-    v21 = 561211770;
+    v20 = 561211770;
 LABEL_23:
     APSLogErrorAt();
     goto LABEL_27;
@@ -2788,79 +2739,77 @@ LABEL_23:
 
   if (a5 != 40)
   {
-    v21 = 561211770;
+    v20 = 561211770;
     goto LABEL_23;
   }
 
-  v12 = a6[1];
+  v14 = a6[1];
   __s1 = *a6;
-  v26 = v12;
-  v27 = *(a6 + 4);
-  if (!memcmp(&__s1, (*(DerivedStorage + 8) + 16), 0x28uLL))
+  v24 = v14;
+  v25 = *(a6 + 4);
+  if (!memcmp(&__s1, (*(DerivedStorage + 64) + 16), 0x28uLL))
   {
 LABEL_19:
-    v21 = 0;
+    v20 = 0;
     goto LABEL_27;
   }
 
-  v13 = *DerivedStorage;
-  v14 = FigHALAudioConfigChangeCreateRecord();
-  if (v14)
+  v15 = FigHALAudioConfigChangeCreateRecord();
+  if (v15)
   {
-    v21 = v14;
+    v20 = v15;
     APSLogErrorAt();
   }
 
   else
   {
-    v16 = v27;
-    v15 = v28;
-    v17 = v26;
-    *(v28 + 16) = __s1;
-    *(v15 + 32) = v17;
-    *(v15 + 48) = v16;
-    if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
+    v17 = v25;
+    v16 = v26;
+    v18 = v24;
+    *(v26 + 16) = __s1;
+    *(v16 + 32) = v18;
+    *(v16 + 48) = v17;
+    if (dword_180E0 <= 50)
     {
-      LogPrintF();
+      if (dword_180E0 != -1 || (v21 = _LogCategory_Initialize(), v16 = v26, v21))
+      {
+        LogPrintF(&dword_180E0, "OSStatus stream_SetPropertyData(FigHALAudioObjectRef, const AudioObjectPropertyAddress *, UInt32, const void *, UInt32, const void *)", 33554482, "[%s] newASBD: [%{asbd}] \n", "stream_SetPropertyData", v16 + 16);
+      }
     }
 
-    v22 = *(DerivedStorage + 1);
-    v23 = DerivedStorage[4];
     FigHALAudioConfigChangeSendRequest();
-    v21 = 0;
-    v28 = 0;
+    v20 = 0;
+    v26 = 0;
   }
 
 LABEL_27:
   FigHALAudioConfigChangeDisposeRecord();
-  return v21;
+  return v20;
 }
 
 uint64_t sub_3FFC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (!*(DerivedStorage + 3))
+  if (!*(DerivedStorage + 24))
   {
-    sub_CD20(&v20);
+    sub_CD20(&v24);
     goto LABEL_31;
   }
 
   if (a2 == 1818326115)
   {
-    memset(&v20, 0, sizeof(v20));
+    memset(&v24, 0, sizeof(v24));
     APSGetFBOPropertyCMTime();
     if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
     {
-      time = *(DerivedStorage + 8);
-      CMTimeGetSeconds(&time);
-      time = v20;
-      CMTimeGetSeconds(&time);
-      LogPrintF();
+      time = *(DerivedStorage + 32);
+      Seconds = CMTimeGetSeconds(&time);
+      time = v24;
+      v18 = CMTimeGetSeconds(&time);
+      LogPrintF(&dword_180E0, "OSStatus stream_PerformConfigChange(FigHALAudioDeviceRef, UInt64, void *)", 33554482, "[%{ptr}] latency changed from %1.3f to %1.3f\n", a1, *&Seconds, *&v18);
     }
 
-    *(DerivedStorage + 8) = v20;
-    v16 = *(DerivedStorage + 1);
-    v17 = *DerivedStorage;
+    *(DerivedStorage + 32) = v24;
     FigHALAudioPropertySendChanges();
     goto LABEL_25;
   }
@@ -2868,26 +2817,24 @@ uint64_t sub_3FFC(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a2 != 1718579821)
   {
     fig_log_get_emitter();
-    value_low = FigSignalErrorAtGM();
+    value_low = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, v21, v22);
     goto LABEL_26;
   }
 
-  v7 = (DerivedStorage + 16);
-  v6 = *(DerivedStorage + 8);
-  v8 = *(a3 + 16);
-  v9 = *(a3 + 32);
-  *(v6 + 48) = *(a3 + 48);
-  *(v6 + 16) = v8;
-  *(v6 + 32) = v9;
+  v10 = DerivedStorage + 64;
+  v9 = *(DerivedStorage + 64);
+  v11 = *(a3 + 16);
+  v12 = *(a3 + 32);
+  *(v9 + 48) = *(a3 + 48);
+  *(v9 + 16) = v11;
+  *(v9 + 32) = v12;
   if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_CBC4((DerivedStorage + 16));
+    sub_CBC4(DerivedStorage + 64, v6, v7);
   }
 
-  v10 = *(DerivedStorage + 1);
-  v11 = *DerivedStorage;
   FigHALAudioPropertySendChanges();
-  if (*(*(DerivedStorage + 8) + 72))
+  if (*(*(DerivedStorage + 64) + 72))
   {
     CompatibleTransportFromPCMAndSetDefault = APSAudioFormatDescriptionListFindCompatibleTransportFromPCMAndSetDefault();
     if (dword_180E0 > 50 || dword_180E0 == -1 && !_LogCategory_Initialize())
@@ -2900,13 +2847,13 @@ uint64_t sub_3FFC(uint64_t a1, uint64_t a2, uint64_t a3)
       goto LABEL_29;
     }
 
-    sub_CC1C((DerivedStorage + 16));
+    sub_CC1C(DerivedStorage + 64);
     if (CompatibleTransportFromPCMAndSetDefault)
     {
 LABEL_29:
-      sub_CC6C(CompatibleTransportFromPCMAndSetDefault, &v20);
+      sub_CC6C(CompatibleTransportFromPCMAndSetDefault, &v24);
 LABEL_31:
-      value_low = LODWORD(v20.value);
+      value_low = LODWORD(v24.value);
       goto LABEL_26;
     }
   }
@@ -2919,19 +2866,18 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v13 = *(*v7 + 96);
   APRealTimeAudioFileWriterInvalidate();
-  v14 = *(*v7 + 96);
+  v14 = *(*v10 + 96);
   if (v14)
   {
     CFRelease(v14);
-    *(*v7 + 96) = 0;
+    *(*v10 + 96) = 0;
   }
 
   value_low = APRealTimeAudioFileWriterCreate();
   if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_CCDC(v7);
+    sub_CCDC(v10, value_low, v15);
   }
 
 LABEL_26:
@@ -2939,16 +2885,16 @@ LABEL_26:
   return value_low;
 }
 
-uint64_t sub_4308()
+uint64_t sub_4308(uint64_t a1)
 {
-  v4 = 0;
+  v6 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   kdebug_trace();
   if (*(DerivedStorage + 24))
   {
     if (dword_180E0 <= 40 && (dword_180E0 != -1 || _LogCategory_Initialize()))
     {
-      sub_CD94(DerivedStorage);
+      sub_CD94();
     }
 
     if (*(DerivedStorage + 56))
@@ -2958,17 +2904,17 @@ uint64_t sub_4308()
       {
         if (FigGetCFPreferenceNumberWithDefault())
         {
-          v1 = CFStringCreateF();
-          v2 = *(DerivedStorage + 64);
+          v3 = CFStringCreateF(&v6, "APHALAudioStream-%{ptr}", a1);
           v4 = APSAudioStatsCreate();
+          v6 = v4;
           if (v4)
           {
-            sub_CDD0();
+            sub_CDD0(v4);
           }
 
           else
           {
-            CFRelease(v1);
+            CFRelease(v3);
           }
         }
       }
@@ -2977,36 +2923,36 @@ uint64_t sub_4308()
 
   else
   {
-    sub_CDF8(&v4);
+    sub_CDF8(&v6);
   }
 
   kdebug_trace();
-  return v4;
+  return v6;
 }
 
-uint64_t sub_4458()
+uint64_t sub_4458(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   kdebug_trace();
   if (dword_180E0 <= 40 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_CE6C(DerivedStorage);
+    sub_CE6C();
   }
 
-  v2 = *(DerivedStorage + 104);
-  v1 = (DerivedStorage + 104);
-  if (v2)
+  v3 = *(DerivedStorage + 104);
+  v2 = (DerivedStorage + 104);
+  if (v3)
   {
     APSAudioStats_TerminateSession();
     if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
     {
-      sub_CEA8(v1);
+      sub_CEA8(v2, v4, v5);
     }
 
-    if (*v1)
+    if (*v2)
     {
-      CFRelease(*v1);
-      *v1 = 0;
+      CFRelease(*v2);
+      *v2 = 0;
     }
   }
 
@@ -3017,14 +2963,14 @@ uint64_t sub_4458()
 uint64_t sub_4560(CMTimeValue a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v89 = *&kCMTimeInvalid.value;
-  *&v91.value = *&kCMTimeInvalid.value;
+  v77 = *&kCMTimeInvalid.value;
+  *&v79.value = *&kCMTimeInvalid.value;
   epoch = kCMTimeInvalid.epoch;
-  v91.epoch = epoch;
+  v79.epoch = epoch;
   kdebug_trace();
   if (dword_180E0 <= 40 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_CEE8(DerivedStorage);
+    sub_CEE8();
   }
 
   v12 = *(DerivedStorage + 64);
@@ -3037,15 +2983,15 @@ uint64_t sub_4560(CMTimeValue a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 
   if (a2 != 1919513701)
   {
-    sub_CF24(&v96);
+    sub_CF24(&v84);
 LABEL_87:
-    value_low = LODWORD(v96.value);
+    value_low = LODWORD(v84.value);
     goto LABEL_42;
   }
 
   if (!*(DerivedStorage + 24))
   {
-    sub_D124(&v96);
+    sub_D124(&v84);
     goto LABEL_87;
   }
 
@@ -3059,64 +3005,58 @@ LABEL_42:
 
   if (*(DerivedStorage + 104))
   {
-    v13 = *(v12 + 180);
     APSAudioStats_ProcessAudioBuffer();
     v12 = *(DerivedStorage + 64);
   }
 
-  v87 = epoch;
+  v75 = epoch;
   if (*(v12 + 96))
   {
-    v97[0] = 0.0;
-    v96.value = a1;
-    *&v96.timescale = 0;
-    v96.timescale = *(v12 + 180) * a3;
-    v96.epoch = *(a4 + 144);
+    v85[0] = 0.0;
+    v84.value = a1;
+    *&v84.timescale = 0;
+    v84.timescale = *(v12 + 180) * a3;
+    v84.epoch = *(a4 + 144);
     APSAsyncLoggerGetSharedLogger();
     APSAsyncLoggerLogMessage();
-    v14 = *(DerivedStorage + 64);
-    v15 = *(v14 + 96);
-    v16 = *(v14 + 180);
-    v17 = *(a4 + 144);
     APRealTimeAudioFileWriterWriteAudioBytes();
   }
 
-  v18 = CMBaseObjectGetDerivedStorage();
-  v19 = v18 + 64;
-  v88 = a5;
-  if (*(*(v18 + 64) + 152) == 0.0)
+  v13 = CMBaseObjectGetDerivedStorage();
+  v14 = v13 + 64;
+  v76 = a5;
+  if (*(*(v13 + 64) + 152) == 0.0)
   {
     goto LABEL_39;
   }
 
-  v20 = v18;
-  v21 = *(a4 + 144);
-  v22 = CMBaseObjectGetDerivedStorage();
-  memset(&v94, 0, sizeof(v94));
+  v15 = v13;
+  v16 = *(a4 + 144);
+  v17 = CMBaseObjectGetDerivedStorage();
+  memset(&v82, 0, sizeof(v82));
   memset(time, 0, sizeof(time));
-  v23 = *(v22 + 64);
-  v24 = v21 - *(v23 + 152);
-  if (v24 == 0.0)
+  v18 = *(v17 + 64);
+  v19 = v16 - *(v18 + 152);
+  if (v19 == 0.0)
   {
     goto LABEL_39;
   }
 
-  v25 = v22;
-  v90 = a4;
-  atomic_fetch_add_explicit((v23 + 160), 1uLL, memory_order_relaxed);
-  v96.value = a1;
-  v26 = *(v22 + 64);
-  v27 = *(v26 + 152);
-  *&v96.timescale = v24 / *(v26 + 16) * 1000.0;
-  v96.epoch = v27;
-  v97[0] = v21;
+  v20 = v17;
+  v78 = a4;
+  atomic_fetch_add_explicit((v18 + 160), 1uLL, memory_order_relaxed);
+  v84.value = a1;
+  v21 = *(v17 + 64);
+  v22 = *(v21 + 152);
+  *&v84.timescale = v19 / *(v21 + 16) * 1000.0;
+  v84.epoch = v22;
+  v85[0] = v16;
   APSAsyncLoggerGetSharedLogger();
   APSAsyncLoggerLogMessage();
-  if (*(*(v25 + 64) + 88))
+  if (*(*(v20 + 64) + 88))
   {
     if (APSRingBufferGetBytesUsed() >= 0x121)
     {
-      v28 = *(*(v25 + 64) + 88);
       APSRingBufferGetBytesUsed();
       if (APSRingBufferDequeueBytes())
       {
@@ -3124,155 +3064,151 @@ LABEL_42:
       }
     }
 
-    v29 = 12;
+    v23 = 12;
     do
     {
-      v30 = *(*(v25 + 64) + 88);
       if (APSRingBufferGetBytesUsed() < 0x18)
       {
         break;
       }
 
-      v31 = *(*(v25 + 64) + 88);
       if (APSRingBufferDequeueBytes())
       {
         goto LABEL_22;
       }
 
       *time = a1;
-      *&time[8] = v94;
+      *&time[8] = v82;
       APSAsyncLoggerGetSharedLogger();
       APSAsyncLoggerLogMessage();
-      --v29;
+      --v23;
     }
 
-    while (v29);
+    while (v23);
   }
 
-  sub_CF98(&v96.timescale, &v96.epoch, v97);
+  sub_CF98(&v84.timescale, &v84.epoch, v85);
 LABEL_22:
-  v32 = *v19;
-  if (*(*v19 + 80))
+  v24 = *v14;
+  if (*(*v14 + 80))
   {
     goto LABEL_39;
   }
 
-  v33 = v24 / *(v32 + 16);
-  if (v33 <= 0.0 || v33 >= 3.94)
+  v25 = v19 / *(v24 + 16);
+  if (v25 <= 0.0 || v25 >= 3.94)
   {
-    if (v24 >= 0.0 || -v24 >= a3)
+    if (v19 >= 0.0 || -v19 >= a3)
     {
-      v43 = 0;
-      *(v32 + 168) = 1;
+      v35 = 0;
+      *(v24 + 168) = 1;
     }
 
     else
     {
-      v43 = -v24;
+      v35 = -v19;
     }
 
     goto LABEL_40;
   }
 
-  v34 = v24;
-  if (!v24)
+  v26 = v19;
+  if (!v19)
   {
 LABEL_39:
-    v43 = 0;
+    v35 = 0;
     goto LABEL_40;
   }
 
-  v86 = DerivedStorage;
-  v35 = *(v32 + 152);
+  v74 = DerivedStorage;
+  v27 = *(v24 + 152);
   while (1)
   {
-    v36 = *(v20 + 64);
-    v37 = *(v36 + 180);
-    v38 = v34 >= 0x800 / v37 ? 0x800 / v37 : v34;
-    v39 = *(v36 + 144);
-    v40 = *(v20 + 96);
-    v41 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-    if (!v41)
+    v28 = *(v15 + 64);
+    v29 = *(v28 + 180);
+    v30 = v26 >= 0x800 / v29 ? 0x800 / v29 : v26;
+    v31 = *(v28 + 144);
+    v32 = *(v15 + 96);
+    v33 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+    if (!v33)
     {
       break;
     }
 
-    v42 = v41(v39, v40, v38 * v37, v35);
-    if (v42)
+    v34 = v33(v31, v32, v30 * v29, v27);
+    if (v34)
     {
       goto LABEL_81;
     }
 
-    v35 += v38;
-    v34 -= v38;
-    if (!v34)
+    v27 += v30;
+    v26 -= v30;
+    if (!v26)
     {
       goto LABEL_33;
     }
   }
 
-  v42 = 4294954514;
+  v34 = 4294954514;
 LABEL_81:
-  sub_CFDC(v42, v19);
+  sub_CFDC(v34, v14);
 LABEL_33:
-  v43 = 0;
-  DerivedStorage = v86;
-  a4 = v90;
+  v35 = 0;
+  DerivedStorage = v74;
+  a4 = v78;
 LABEL_40:
-  v45 = *(DerivedStorage + 64);
-  if (*(v45 + 80))
+  if (*(*(DerivedStorage + 64) + 80))
   {
-    v46 = *(v45 + 180);
     FigHALAudioConduitDeviceHALSendAudio();
     value_low = 0;
     *(*(DerivedStorage + 64) + 152) = *(a4 + 144) + a3;
     goto LABEL_42;
   }
 
-  v48 = CMBaseObjectGetDerivedStorage();
-  *&v96.value = v89;
-  v96.epoch = v87;
-  v49 = (*(v48 + 64) + 168);
-  __swp(v49, v49);
-  if (v49)
+  v38 = CMBaseObjectGetDerivedStorage();
+  *&v84.value = v77;
+  v84.epoch = v75;
+  v39 = (*(v38 + 64) + 168);
+  __swp(v39, v39);
+  if (v39)
   {
-    v50 = v48;
+    v40 = v38;
     Default = APSRealTimeAllocatorGetDefault();
     Mutable = CFDictionaryCreateMutable(Default, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (Mutable)
     {
-      v53 = Mutable;
-      CMTimeMake(&v96, *(a4 + 144), *(*(v50 + 64) + 176));
-      v54 = APSRealTimeAllocatorGetDefault();
-      *time = v96;
-      v55 = CMTimeCopyAsDictionary(time, v54);
-      if (v55)
+      v43 = Mutable;
+      CMTimeMake(&v84, *(a4 + 144), *(*(v40 + 64) + 176));
+      v44 = APSRealTimeAllocatorGetDefault();
+      *time = v84;
+      v45 = CMTimeCopyAsDictionary(time, v44);
+      if (v45)
       {
-        v56 = v55;
-        CFDictionarySetValue(v53, kFigEndpointStreamAudioEngineFlushOption_AnchorTime, v55);
-        CFDictionarySetValue(v53, kFigEndpointStreamAudioEngineFlushOption_TimelineReset, kCFBooleanTrue);
-        v57 = *(*(v50 + 64) + 144);
-        v58 = *(*(CMBaseObjectGetVTable() + 16) + 128);
-        if (v58)
+        v46 = v45;
+        CFDictionarySetValue(v43, kFigEndpointStreamAudioEngineFlushOption_AnchorTime, v45);
+        CFDictionarySetValue(v43, kFigEndpointStreamAudioEngineFlushOption_TimelineReset, kCFBooleanTrue);
+        v47 = *(*(v40 + 64) + 144);
+        v48 = *(*(CMBaseObjectGetVTable() + 16) + 128);
+        if (v48)
         {
-          v58(v57);
+          v48(v47);
         }
 
-        v59 = *(v50 + 24);
-        v60 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-        if (v60)
+        v49 = *(v40 + 24);
+        v50 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+        if (v50)
         {
-          v60(v59, v53);
+          v50(v49, v43);
         }
 
-        CFRelease(v53);
-        CFRelease(v56);
-        v43 = 0;
+        CFRelease(v43);
+        CFRelease(v46);
+        v35 = 0;
       }
 
       else
       {
-        sub_D01C(v53);
+        sub_D01C(v43);
       }
     }
 
@@ -3282,34 +3218,33 @@ LABEL_40:
     }
   }
 
-  v61 = *(DerivedStorage + 64);
-  if (*(v61 + 152) == 0.0)
+  v51 = *(DerivedStorage + 64);
+  if (*(v51 + 152) == 0.0)
   {
-    CMTimeMake(&v91, *(a4 + 144), *(v61 + 176));
-    v62 = APSRealTimeAllocatorGetDefault();
-    v96 = v91;
-    v63 = CMTimeCopyAsDictionary(&v96, v62);
-    if (!v63)
+    CMTimeMake(&v79, *(a4 + 144), *(v51 + 176));
+    v52 = APSRealTimeAllocatorGetDefault();
+    v84 = v79;
+    v53 = CMTimeCopyAsDictionary(&v84, v52);
+    if (!v53)
     {
       sub_D0F8();
       value_low = 4294954510;
       goto LABEL_42;
     }
 
-    v64 = v63;
-    v65 = *(DerivedStorage + 24);
+    v54 = v53;
     CMBaseObject = FigEndpointStreamAudioEngineGetCMBaseObject();
-    v67 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v67)
+    v56 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v56)
     {
-      v68 = v67(CMBaseObject, kAPAudioEngineProperty_AudioSourceFirstFrameAnchorTime, v64);
-      if (!v68)
+      v57 = v56(CMBaseObject, kAPAudioEngineProperty_AudioSourceFirstFrameAnchorTime, v54);
+      if (!v57)
       {
-        v61 = *(DerivedStorage + 64);
+        v51 = *(DerivedStorage + 64);
         goto LABEL_58;
       }
 
-      value_low = v68;
+      value_low = v57;
     }
 
     else
@@ -3317,72 +3252,71 @@ LABEL_40:
       value_low = 4294954514;
     }
 
-    sub_D0B4();
+    sub_D0B4(value_low);
 LABEL_78:
-    CFRelease(v64);
+    CFRelease(v54);
     return value_low;
   }
 
-  v64 = 0;
+  v54 = 0;
 LABEL_58:
-  v69 = *(a4 + 144);
-  *(v61 + 152) = v69 + a3;
-  v70 = *(v61 + 180);
-  v71 = a3;
-  v72 = v70 * a3;
+  v58 = *(a4 + 144);
+  *(v51 + 152) = v58 + a3;
+  v59 = *(v51 + 180);
+  v60 = a3;
+  *&v61 = v59 * a3;
   if (*(DerivedStorage + 80))
   {
-    v73 = DerivedStorage;
-    v74 = CMBaseObjectGetDerivedStorage();
-    v95 = 0;
+    v62 = DerivedStorage;
+    v63 = CMBaseObjectGetDerivedStorage();
+    v83 = 0.0;
     *time = *&kCMTimeZero.value;
     *&time[16] = kCMTimeZero.epoch;
-    v94 = *time;
-    if (v72 >= 8)
+    v82 = *time;
+    if (LODWORD(v61) >= 8)
     {
-      v75 = v74;
-      if (!*(v74 + 81))
+      v64 = v63;
+      if (!*(v63 + 81))
       {
-        v76 = v72 >> 3;
-        v77 = v88;
-        while (!*v77)
+        v65 = *&v61 >> 3;
+        v66 = v76;
+        while (!*v66)
         {
-          ++v77;
-          if (!--v76)
+          ++v66;
+          if (!--v65)
           {
             goto LABEL_67;
           }
         }
 
-        *(v74 + 81) = 1;
+        *(v63 + 81) = 1;
         HostTimeClock = CMClockGetHostTimeClock();
         CMClockGetTime(time, HostTimeClock);
-        v79 = *(v75 + 88);
-        v96 = *time;
+        v84 = *time;
         CM8021ASClockGetClockTimeForHostTime();
-        v96.value = *(v75 + 88);
-        v93 = *time;
-        *&v96.timescale = CMTimeGetSeconds(&v93);
-        v93 = v94;
-        v96.epoch = CMTimeGetSeconds(&v93);
-        v97[0] = *&v95;
+        v84.value = *(v64 + 88);
+        v81 = *time;
+        *&v84.timescale = CMTimeGetSeconds(&v81);
+        v81 = v82;
+        v84.epoch = CMTimeGetSeconds(&v81);
+        v85[0] = v83;
         APSAsyncLoggerGetSharedLogger();
         APSAsyncLoggerLogMessage();
       }
     }
 
 LABEL_67:
-    v61 = *(v73 + 64);
-    v70 = *(v61 + 180);
+    v51 = *(v62 + 64);
+    v59 = *(v51 + 180);
   }
 
   else
   {
-    v73 = DerivedStorage;
+    v62 = DerivedStorage;
   }
 
-  v80 = v43 * v70;
-  if (v72 < v80)
+  v68 = v35 * v59;
+  if (*&v61 < v68)
   {
     sub_D088();
     value_low = 4294960587;
@@ -3390,34 +3324,34 @@ LABEL_67:
 
   else
   {
-    v81 = v73;
-    if (*(v73 + 112))
+    v69 = v62;
+    if (*(v62 + 112))
     {
-      v82 = mach_absolute_time() - *(v73 + 112);
+      v70 = mach_absolute_time() - *(v62 + 112);
       value_low = 0;
-      if (v82 > 60 * UpTicksPerSecond())
+      if (v70 > 60 * UpTicksPerSecond())
       {
-        *(v81 + 112) = 0;
+        *(v69 + 112) = 0;
       }
     }
 
     else
     {
-      v83 = *(v61 + 144);
-      v84 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-      if (v84)
+      v71 = *(v51 + 144);
+      v72 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+      if (v72)
       {
-        value_low = v84(v83, v88 + v80, v72 - v80, v43 + v69);
-        v85 = CMBaseObjectGetDerivedStorage();
+        value_low = v72(v71, v76 + v68, *&v61 - v68, v35 + v58);
+        v73 = CMBaseObjectGetDerivedStorage();
         if (value_low == -6710)
         {
-          v96.value = (((*(*(v85 + 64) + 16) & 0xFFFFFFFF80000000) != 0) << 63) | ((*(*(v85 + 64) + 16) & 0x7FFFFFFF) << 32) | *(*(v85 + 64) + 180) & 0x7FFFFFFF | *(*(v85 + 64) + 180) & 0x80000000;
-          *&v96.timescale = v43 & 0x7FFFFFFF | (v71 << 32) | (((v43 & 0xFFFFFFFF80000000) != 0) << 31);
-          v96.epoch = v80;
-          v97[0] = *&v72;
+          v84.value = (((*(*(v73 + 64) + 16) & 0xFFFFFFFF80000000) != 0) << 63) | ((*(*(v73 + 64) + 16) & 0x7FFFFFFF) << 32) | *(*(v73 + 64) + 180) & 0x7FFFFFFF | *(*(v73 + 64) + 180) & 0x80000000;
+          *&v84.timescale = v35 & 0x7FFFFFFF | (v60 << 32) | (((v35 & 0xFFFFFFFF80000000) != 0) << 31);
+          v84.epoch = v68;
+          v85[0] = v61;
           APSAsyncLoggerGetSharedLogger();
           APSAsyncLoggerLogMessage();
-          *(v73 + 112) = mach_absolute_time();
+          *(v62 + 112) = mach_absolute_time();
           value_low = 4294960586;
         }
       }
@@ -3431,7 +3365,7 @@ LABEL_67:
   }
 
   kdebug_trace();
-  if (v64)
+  if (v54)
   {
     goto LABEL_78;
   }
@@ -3442,155 +3376,204 @@ LABEL_67:
 uint64_t sub_4FA4(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = DerivedStorage;
+  v6 = DerivedStorage;
   if (a2)
   {
-    v5 = *(DerivedStorage + 64);
-    v6 = *(v5 + 16);
-    v7 = *(v5 + 32);
-    *(a2 + 32) = *(v5 + 48);
-    *a2 = v6;
-    *(a2 + 16) = v7;
+    v7 = *(DerivedStorage + 64);
+    v8 = *(v7 + 16);
+    v9 = *(v7 + 32);
+    *(a2 + 32) = *(v7 + 48);
+    *a2 = v8;
+    *(a2 + 16) = v9;
   }
 
   if (dword_180E0 <= 40 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_D1AC(v4);
+    sub_D1AC(v6, v4, v5);
   }
 
   return 0;
 }
 
-uint64_t sub_5024(uint64_t result)
+uint64_t sub_5024(uint64_t result, double a2, uint64_t a3, uint64_t a4)
 {
   if (dword_180E0 <= 40)
   {
-    v1 = result;
+    v4 = result;
     if (dword_180E0 != -1)
     {
-      return sub_D204(v1);
+      return sub_D204(v4, a3, a4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_D204(v1);
+      return sub_D204(v4, a3, a4);
     }
   }
 
   return result;
 }
 
-uint64_t sub_5094(uint64_t result)
+uint64_t sub_5094(uint64_t result, double a2, uint64_t a3, uint64_t a4)
 {
   if (dword_180E0 <= 50)
   {
-    v1 = result;
+    v4 = result;
     if (dword_180E0 != -1)
     {
-      return sub_D250(v1);
+      return sub_D250(v4, a3, a4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_D250(v1);
+      return sub_D250(v4, a3, a4);
     }
   }
 
   return result;
 }
 
-uint64_t sub_5104(uint64_t result)
+uint64_t sub_5104(uint64_t result, double a2, uint64_t a3, uint64_t a4)
 {
   if (dword_180E0 <= 50)
   {
-    v1 = result;
+    v4 = result;
     if (dword_180E0 != -1)
     {
-      return sub_D2A8(v1);
+      return sub_D2A8(v4, a3, a4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_D2A8(v1);
+      return sub_D2A8(v4, a3, a4);
     }
   }
 
   return result;
 }
 
-uint64_t sub_5174(uint64_t result)
+uint64_t sub_5174(uint64_t result, double a2, uint64_t a3, uint64_t a4)
 {
   if (dword_180E0 <= 50)
   {
-    v1 = result;
+    v4 = result;
     if (dword_180E0 != -1)
     {
-      return sub_D308(v1);
+      return sub_D308(v4, a3, a4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_D308(v1);
+      return sub_D308(v4, a3, a4);
     }
   }
 
   return result;
 }
 
-void sub_51E4(uint64_t *a1)
+void sub_51E4(unint64_t *a1, double a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  v4 = a1[3];
-  v5 = CFStringCreateF();
+  v15 = 0;
+  v3 = a1[1];
+  v4 = HIDWORD(*a1) & 0x7FFFFFFF;
+  v5 = *a1 & 0x7FFFFFFF;
+  v6 = HIDWORD(v3) & 0x7FFFFFFF;
+  v7 = v3 & 0x7FFFFFFF;
+  v8 = a1[2];
+  v9 = a1[3];
+  if ((*a1 & 0x8000000000000000) != 0)
+  {
+    v10 = "bad";
+  }
+
+  else
+  {
+    v10 = "good";
+  }
+
+  if ((*a1 & 0x80000000) != 0)
+  {
+    v11 = "bad";
+  }
+
+  else
+  {
+    v11 = "good";
+  }
+
+  if (v3 < 0)
+  {
+    v12 = "bad";
+  }
+
+  else
+  {
+    v12 = "good";
+  }
+
+  if (v3 < 0)
+  {
+    v13 = "bad";
+  }
+
+  else
+  {
+    v13 = "good";
+  }
+
+  v14 = CFStringCreateF(&v15, "sampleRate=%u[%s] bytesPerFrame=%u[%s] ioBufferFrameSize=%u[%s] framesToDrop=%u[%s] bytesToDrop=%llu length=%llu", v4, v10, v5, v11, v6, v12, v7, v13, v8, v9);
+  if (v15)
+  {
+    sub_D35C(v15);
+    if (!v14)
+    {
+      return;
+    }
+
+    goto LABEL_19;
+  }
+
   if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_180E0, "void stream_ttrLogger(const APSAsyncLoggerParameters *, Float64)", 33554482, "Streaming Audio DoIO Bounds Checking Violation: %@ (log latency: %1.3f ms)\n", v14, *&a2);
   }
 
   APSTapToRadarInvoke();
-  if (v5)
+  if (v14)
   {
-    CFRelease(v5);
+LABEL_19:
+    CFRelease(v14);
   }
 }
 
-uint64_t sub_5334()
+uint64_t sub_5334(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (dword_180E0 <= 50 && (dword_180E0 != -1 || _LogCategory_Initialize()))
   {
-    v5 = *(DerivedStorage + 3);
-    LogPrintF();
+    LogPrintF(&dword_180E0, "void stream_AudioEngineOutputLatencyChanged(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] received LatencyChanged notification from AudioEngine [%{ptr}], reconfiguring...\n", a2, *(DerivedStorage + 24));
   }
 
-  v1 = *DerivedStorage;
-  if (FigHALAudioConfigChangeCreateRecord())
+  v4 = FigHALAudioConfigChangeCreateRecord();
+  if (v4)
   {
-    return sub_D384();
+    return sub_D384(v4);
   }
 
-  v2 = *(DerivedStorage + 1);
-  v3 = DerivedStorage[4];
-  return FigHALAudioConfigChangeSendRequest();
+  else
+  {
+    return FigHALAudioConfigChangeSendRequest();
+  }
 }
 
-unsigned int *sub_5420(unsigned int *result)
-{
-  v1 = *result;
-  v2 = *(result + 56);
-  return result;
-}
-
-uint64_t sub_5434()
+uint64_t sub_5434(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 33554482, a4);
 }
 
 uint64_t sub_5458(uint64_t a1, CFTypeRef *a2)
@@ -3633,14 +3616,14 @@ uint64_t sub_54CC(const __CFAllocator *a1, float a2, uint64_t a3, CFDataRef *a4)
   return result;
 }
 
-uint64_t sub_5538(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, const void *a6, void *a7)
+uint64_t sub_5538(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, const void *a6, CFTypeRef *a7)
 {
   FigHALAudioObjectGetClassID();
   v12 = CMDerivedObjectCreate();
   if (v12)
   {
     v17 = v12;
-    sub_D590();
+    sub_D590(v12);
   }
 
   else
@@ -3649,7 +3632,7 @@ uint64_t sub_5538(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
     if (v13)
     {
       v17 = v13;
-      sub_D5B8();
+      sub_D5B8(v13);
     }
 
     else
@@ -3684,7 +3667,7 @@ uint64_t sub_5538(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
       CMNotificationCenterAddListener();
       if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_18158, "OSStatus APHALAudioVolumeControlCreate(CFAllocatorRef, FigHALAudioObjectMapper, AudioServerPlugInHostRef, AudioObjectID, FigEndpointRef, CFDataRef, FigHALAudioObjectRef *)", 33554482, "[%{ptr}] HAL volumeControl object created for endpoint [%{ptr}]\n", 0, a5);
       }
 
       v17 = 0;
@@ -3695,73 +3678,68 @@ uint64_t sub_5538(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
   return v17;
 }
 
-uint64_t sub_56D8()
+void sub_56D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
-  result = APSGetFBOPropertyDouble();
-  v4 = v3;
-  if (dword_18158 <= 40)
+  APSGetFBOPropertyDouble();
+  v10 = v9;
+  if (dword_18158 <= 40 && (dword_18158 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_18158 != -1 || (result = _LogCategory_Initialize(), result))
-    {
-      result = sub_D5E0(BytePtr);
-    }
+    sub_D5E0(BytePtr, v10);
   }
 
-  if (*(BytePtr + 1))
+  v11 = *(BytePtr + 1);
+  if (v11)
   {
-    v5 = v4 == -144.0;
+    v12 = v10 == -144.0;
   }
 
   else
   {
-    v5 = 0;
+    v12 = 0;
   }
 
-  if (!v5)
+  if (!v12)
   {
     if (dword_18158 <= 50)
     {
-      if (dword_18158 == -1)
+      if (dword_18158 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_10:
+        if (v11)
         {
-          goto LABEL_16;
+          v13 = "yes";
         }
 
-        v9 = *(BytePtr + 1);
+        else
+        {
+          v13 = "no";
+        }
+
+        LogPrintF(&dword_18158, "void volumeControl_DACPDeviceVolumeNotificationCallback(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] volumeControl DACP callback: muted = %s; volume %.3f -> %.3f", a2, v13, *BytePtr, v10, *"vdclbolg", *"", 1735159650);
+        goto LABEL_19;
       }
 
-      v10 = *BytePtr;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        v11 = *(BytePtr + 1);
+        goto LABEL_10;
+      }
     }
 
-LABEL_16:
-    *BytePtr = v4;
-    v6 = *DerivedStorage;
-    v7 = *(DerivedStorage + 8);
+LABEL_19:
+    *BytePtr = v10;
     FigHALAudioPropertySendChanges();
     CMNotificationCenterGetDefaultLocalCenter();
-    v8 = *(DerivedStorage + 16);
-    return CMNotificationCenterPostNotification();
+    CMNotificationCenterPostNotification();
+    return;
   }
 
-  if (dword_18158 <= 50)
+  if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_18158 != -1)
-    {
-      return sub_D648();
-    }
-
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      return sub_D648();
-    }
+    sub_D648(a2, v7, v8);
   }
-
-  return result;
 }
 
 uint64_t sub_58DC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, const void *a6, CFTypeRef *a7)
@@ -3771,8 +3749,8 @@ uint64_t sub_58DC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
   v12 = CMDerivedObjectCreate();
   if (v12)
   {
-    v19 = v12;
-    sub_D684();
+    v18 = v12;
+    sub_D684(v12);
   }
 
   else
@@ -3780,8 +3758,8 @@ uint64_t sub_58DC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
     v13 = FigHALAudioObjectMapperAddMapping();
     if (v13)
     {
-      v19 = v13;
-      sub_D6AC();
+      v18 = v13;
+      sub_D6AC(v13);
     }
 
     else
@@ -3813,112 +3791,106 @@ uint64_t sub_58DC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
 
       *(DerivedStorage + 16) = v16;
       CMNotificationCenterGetDefaultLocalCenter();
-      v17 = *(DerivedStorage + 16);
       CMNotificationCenterAddListener();
       CMNotificationCenterGetDefaultLocalCenter();
-      v18 = *(DerivedStorage + 24);
       CMNotificationCenterAddListener();
       if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
       {
-        sub_D6D4(&cf, (DerivedStorage + 24));
+        sub_D6D4(&cf, DerivedStorage + 24, v17);
       }
 
-      v19 = 0;
+      v18 = 0;
       *a7 = cf;
     }
   }
 
-  return v19;
+  return v18;
 }
 
-uint64_t sub_5A8C(uint64_t a1, uint64_t a2)
+const UInt8 *sub_5A8C(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   result = CFDataGetBytePtr(*(DerivedStorage + 16));
-  v5 = result;
+  v6 = result;
   if (dword_18158 <= 50)
   {
     if (dword_18158 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = sub_D718(v5);
+      result = sub_D718(v6, a2, v5);
     }
   }
 
-  if (*(v5 + 4) && *v5 > -30.0)
+  if (*(v6 + 1) && *v6 > -30.0)
   {
 
-    return sub_6B98(a2, 0);
+    return sub_6B98(a2, 0, 1735159650, 0);
   }
 
   return result;
 }
 
-uint64_t sub_5B48(uint64_t a1, uint64_t a2)
+const UInt8 *sub_5B48(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
-  v5 = *(DerivedStorage + 24);
-  v6 = APSGetFBOPropertyInt64();
+  v5 = APSGetFBOPropertyInt64();
   if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
   {
-    sub_D77C(BytePtr);
+    sub_D77C(BytePtr, v5 != 0, a2);
   }
 
-  return sub_6B98(a2, v6 != 0);
+  return sub_6B98(a2, v5 != 0, 1735159650, 0);
 }
 
-void sub_5C14()
+void sub_5C14(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 24))
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v1 = *(DerivedStorage + 24);
     CMNotificationCenterRemoveListener();
-    v2 = *(DerivedStorage + 24);
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v4 = *(CMBaseObjectGetVTable() + 8);
-    if (*v4 >= 2uLL)
+    v3 = *(CMBaseObjectGetVTable() + 8);
+    if (*v3 >= 2uLL)
     {
-      v5 = v4[8];
-      if (v5)
+      v4 = v3[8];
+      if (v4)
       {
-        v6 = v4[8];
-        v5(CMBaseObject);
+        v4(CMBaseObject);
       }
     }
   }
 
-  v7 = *(DerivedStorage + 16);
-  if (v7)
+  v5 = *(DerivedStorage + 16);
+  if (v5)
   {
-    CFRelease(v7);
+    CFRelease(v5);
     *(DerivedStorage + 16) = 0;
   }
 
-  v8 = *(DerivedStorage + 24);
-  if (v8)
+  v6 = *(DerivedStorage + 24);
+  if (v6)
   {
-    CFRelease(v8);
+    CFRelease(v6);
     *(DerivedStorage + 24) = 0;
   }
 }
 
-CFStringRef sub_5D18()
+CFStringRef sub_5D18(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
   if (*(BytePtr + 1))
   {
-    v2 = " MUTED";
+    v3 = " MUTED";
   }
 
   else
   {
-    v2 = "";
+    v3 = "";
   }
 
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioVolumeControl ID %d Owner %d VolumeDB %f%s", *(DerivedStorage + 8), *(DerivedStorage + 12), *BytePtr, v2);
+  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioVolumeControl ID %d Owner %d VolumeDB %f%s", *(DerivedStorage + 8), *(DerivedStorage + 12), *BytePtr, v3);
 }
 
 uint64_t sub_5DBC(uint64_t a1, int *a2)
@@ -4133,15 +4105,14 @@ LABEL_33:
 
       else
       {
-        v21 = *(DerivedStorage + 24);
         APSGetFBOPropertyDouble();
-        v16 = v22;
+        v16 = v18;
       }
 
       *a6 = 4;
       if (a5 < 4)
       {
-        v24 = 561211770;
+        v20 = 561211770;
         goto LABEL_47;
       }
 
@@ -4150,12 +4121,11 @@ LABEL_33:
 
     if (a5 != 4)
     {
-      v24 = 561211770;
+      v20 = 561211770;
       goto LABEL_47;
     }
 
-    v17 = *a7;
-    v24 = 0;
+    v20 = 0;
     APSVolumeConvertDBToSliderValue();
   }
 
@@ -4184,7 +4154,6 @@ LABEL_33:
       v16 = 0.0;
       if (!*(BytePtr + 1))
       {
-        v20 = *(DerivedStorage + 24);
         APSGetFBOPropertyDouble();
         APSVolumeConvertDBToSliderValue();
       }
@@ -4192,10 +4161,10 @@ LABEL_33:
       *a6 = 4;
       if (a5 < 4)
       {
-        v24 = 561211770;
+        v20 = 561211770;
 LABEL_47:
         APSLogErrorAt();
-        return v24;
+        return v20;
       }
 
 LABEL_45:
@@ -4205,132 +4174,125 @@ LABEL_45:
 
     if (a5 != 4)
     {
-      v24 = 561211770;
+      v20 = 561211770;
       goto LABEL_47;
     }
 
-    v19 = *a7;
-    v24 = 0;
+    v20 = 0;
     APSVolumeConvertSliderValueToDB();
   }
 
   *a6 = 4;
-  *a7 = v18;
-  return v24;
+  *a7 = v17;
+  return v20;
 }
 
-uint64_t sub_6314(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, int a5, int *a6)
+uint64_t sub_6314(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, int a5, float *a6)
 {
+  v10 = 1818453110;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
-  v11 = BytePtr;
-  v24 = *(a2 + 1);
-  if (*a2 != 1818453110)
+  v13 = BytePtr;
+  LODWORD(v20) = 1818453110;
+  HIDWORD(v20) = a2[1];
+  if (*a2 == 1818453110)
   {
-    if (*a2 != 1818456950)
-    {
-      return 2003332927;
-    }
-
     if (a5 == 4)
     {
-      v12 = *a6;
-      APSVolumeConvertSliderValueToDB();
-      *v11 = v13;
+      v16 = *a6;
+      *BytePtr = *a6;
       if (dword_18158 <= 50)
       {
         if (dword_18158 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_18;
+            goto LABEL_19;
           }
 
-          v15 = *v11;
+          v10 = *a2;
+          v16 = *v13;
         }
 
-        v23 = *a2;
-        goto LABEL_10;
+        LogPrintF(&dword_18158, "OSStatus volumeControl_SetPropertyData(FigHALAudioObjectRef, const AudioObjectPropertyAddress *, UInt32, const void *, UInt32, const void *)", 33554482, "[%{ptr}] [AirPlayVolume] selector = '%C', volumeDB = %.3f", a1, v10, v16, v19, v20);
+        goto LABEL_19;
       }
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    v14 = 561211770;
-LABEL_14:
+    v17 = 561211770;
+LABEL_15:
     APSLogErrorAt();
-    return v14;
+    return v17;
+  }
+
+  if (*a2 != 1818456950)
+  {
+    return 2003332927;
   }
 
   if (a5 != 4)
   {
-    v14 = 561211770;
-    goto LABEL_14;
+    v17 = 561211770;
+    goto LABEL_15;
   }
 
-  *BytePtr = *a6;
+  v14 = *a6;
+  APSVolumeConvertSliderValueToDB();
+  *v13 = v15;
   if (dword_18158 <= 50)
   {
     if (dword_18158 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      v21 = *a2;
-      v22 = *v11;
+      v15 = *v13;
     }
 
-LABEL_10:
-    LogPrintF();
+    LogPrintF(&dword_18158, "OSStatus volumeControl_SetPropertyData(FigHALAudioObjectRef, const AudioObjectPropertyAddress *, UInt32, const void *, UInt32, const void *)", 33554482, "[%{ptr}] [AirPlayVolume] selector = '%C', volumeDB = %.3f, volumeSliderValue = %.3f", a1, *a2, v15, v14, v20);
   }
 
-LABEL_18:
-  if (*(v11 + 1))
+LABEL_19:
+  if (*(v13 + 1))
   {
-    v14 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = *(DerivedStorage + 24);
-    v17 = *v11;
-    v14 = APSSetFBOPropertyDouble();
+    v17 = APSSetFBOPropertyDouble();
   }
 
-  v18 = *DerivedStorage;
-  v19 = *(DerivedStorage + 8);
   FigHALAudioPropertySendChanges();
-  return v14;
+  return v17;
 }
 
-void sub_657C()
+void sub_657C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
   {
-    sub_D83C();
+    sub_D83C(a1, v2, v3);
   }
 
   if (*(DerivedStorage + 16))
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v1 = *(DerivedStorage + 16);
     CMNotificationCenterRemoveListener();
     CMNotificationCenterGetDefaultLocalCenter();
-    v2 = *(DerivedStorage + 24);
     CMNotificationCenterRemoveListener();
-    v3 = *(DerivedStorage + 24);
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v5 = *(CMBaseObjectGetVTable() + 8);
-    if (*v5 >= 2uLL)
+    v6 = *(CMBaseObjectGetVTable() + 8);
+    if (*v6 >= 2uLL)
     {
-      v6 = v5[8];
-      if (v6)
+      v7 = v6[8];
+      if (v7)
       {
-        v7 = v5[8];
-        v6(CMBaseObject);
+        v7(CMBaseObject);
       }
     }
 
@@ -4350,20 +4312,20 @@ void sub_657C()
   }
 }
 
-CFStringRef sub_66E4()
+CFStringRef sub_66E4(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(CFDataGetBytePtr(*(DerivedStorage + 16)) + 1))
   {
-    v1 = "";
+    v2 = "";
   }
 
   else
   {
-    v1 = "Not ";
+    v2 = "Not ";
   }
 
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioMuteControl ID %d Owner %d %sMuted", *(DerivedStorage + 8), *(DerivedStorage + 12), v1);
+  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioMuteControl ID %d Owner %d %sMuted", *(DerivedStorage + 8), *(DerivedStorage + 12), v2);
 }
 
 uint64_t sub_6760(uint64_t a1, int *a2)
@@ -4519,7 +4481,7 @@ LABEL_18:
   return 561211770;
 }
 
-uint64_t sub_69E4(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, int *a6)
+uint64_t sub_69E4(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, unsigned int *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
@@ -4530,76 +4492,72 @@ uint64_t sub_69E4(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, int
 
   if (a5 != 4)
   {
-    v19 = 561211770;
+    v18 = 561211770;
     goto LABEL_16;
   }
 
-  v12 = *a6;
-  if (v12 != *(BytePtr + 1))
+  v13 = *a6;
+  if (v13 != *(BytePtr + 1))
   {
     if (dword_18158 <= 50 && (dword_18158 != -1 || _LogCategory_Initialize()))
     {
-      sub_D878();
+      sub_D878(v13, a1, v12);
     }
 
-    v13 = *(DerivedStorage + 24);
-    if (v12)
+    v14 = *(DerivedStorage + 24);
+    if (v13)
     {
-      v14 = &kCFBooleanTrue;
+      v15 = &kCFBooleanTrue;
     }
 
     else
     {
-      v14 = &kCFBooleanFalse;
+      v15 = &kCFBooleanFalse;
     }
 
-    v15 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v15)
+    v16 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v16)
     {
-      v16 = v15(v13, kAPEndpointProperty_IsHALMuted, *v14);
-      if (!v16)
+      v17 = v16(v14, kAPEndpointProperty_IsHALMuted, *v15);
+      if (!v17)
       {
         goto LABEL_12;
       }
 
-      v19 = v16;
+      v18 = v17;
     }
 
     else
     {
-      v19 = 4294954514;
+      v18 = 4294954514;
     }
 
 LABEL_16:
     APSLogErrorAt();
-    return v19;
+    return v18;
   }
 
 LABEL_12:
-  v17 = a2[1];
-  v18 = a2[2];
-  sub_6B98(a1, v12);
+  sub_6B98(a1, v13, a2[1], a2[2]);
   return 0;
 }
 
-uint64_t sub_6B98(uint64_t a1, int a2)
+const UInt8 *sub_6B98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   result = CFDataGetBytePtr(*(DerivedStorage + 16));
-  v5 = result;
+  v8 = result;
   if (dword_18158 <= 50)
   {
     if (dword_18158 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = sub_D8D0(v5);
+      result = sub_D8D0(v8, a2, a1);
     }
   }
 
-  if (*(v5 + 4) != a2)
+  if (*(v8 + 1) != a2)
   {
-    *(v5 + 4) = a2;
-    v6 = *DerivedStorage;
-    v7 = *(DerivedStorage + 8);
+    *(v8 + 1) = a2;
 
     return FigHALAudioPropertySendOneChange();
   }
@@ -4607,12 +4565,12 @@ uint64_t sub_6B98(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const void *a5, CFDictionaryRef theDict, CFTypeRef *a7)
+uint64_t sub_6C78(const __CFAllocator *a1, uint64_t a2, uint64_t a3, const void *a4, const void *a5, CFDictionaryRef theDict, CFTypeRef *a7)
 {
-  v113 = 0;
-  v114 = 0;
-  v111 = 0;
-  v112 = 0;
+  v102 = 0;
+  v103 = 0;
+  v100 = 0;
+  v101 = 0;
   if (!theDict)
   {
     sub_E018();
@@ -4625,16 +4583,16 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
   }
 
   *label = 0;
-  v119 = 0;
+  v108 = 0;
   cf = 0;
-  v116 = 0;
-  v117 = 0;
-  v115 = 0;
+  v105 = 0;
+  v106 = 0;
+  v104 = 0;
   Value = CFDictionaryGetValue(theDict, kAPHALAudioDeviceCreationOption_AudioStreamOverride);
   v13 = kFigHALAudioConduitDeviceBrokeredDeviceCreationOption_Conduit;
   v14 = CFDictionaryGetValue(theDict, kFigHALAudioConduitDeviceBrokeredDeviceCreationOption_Conduit);
-  v106 = a7;
-  v109 = a1;
+  v95 = a7;
+  v98 = a1;
   if (!v14)
   {
     if (a4)
@@ -4661,7 +4619,7 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
       }
 
       MutableCopy = v21;
-      v107 = 0;
+      v96 = 0;
       v26 = 0;
       v24 = kCFAllocatorDefault;
       goto LABEL_22;
@@ -4669,7 +4627,7 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
 
     if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_181C8, "OSStatus device_copyEndpointAndEndpointStreamFromCreationParameters(CFAllocatorRef, FigEndpointRef, FigEndpointStreamRef, CFDictionaryRef, FigEndpointRef *, FigEndpointStreamRef *, CFStringRef *, Boolean *, CFDictionaryRef *, CFDictionaryRef *)", 33554482, "Replacing Audio endpoint stream[%{ptr}] with BufferedAudio endpoint stream[%{ptr}]\n", a5, Value);
     }
 
     v22 = CFRetain(Value);
@@ -4679,7 +4637,7 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
     {
       MutableCopy = v21;
       v24 = kCFAllocatorDefault;
-      v33 = v32(CMBaseObject, kFigEndpointStreamProperty_AudioEngineClone, kCFAllocatorDefault, &v119);
+      v33 = v32(CMBaseObject, kFigEndpointStreamProperty_AudioEngineClone, kCFAllocatorDefault, &v108);
       if (v33)
       {
         v30 = v33;
@@ -4694,7 +4652,7 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
           v36 = v35(v34, kAPEndpointStreamAudioEngineProperty_StartupOptions, kCFAllocatorDefault, &cf);
           if (!v36)
           {
-            v107 = cf;
+            v96 = cf;
             cf = 0;
             v26 = 1;
             goto LABEL_22;
@@ -4718,56 +4676,56 @@ uint64_t sub_6C78(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const v
 
     APSLogErrorAt();
 LABEL_39:
-    v107 = 0;
+    v96 = 0;
     v26 = 0;
     goto LABEL_40;
   }
 
   v15 = v14;
-  v16 = sub_7F80(v14, kFigHALAudioConduitDeviceProperty_DeviceUID, "Default DeviceUID", &v116);
+  v16 = sub_7F80(v14, kFigHALAudioConduitDeviceProperty_DeviceUID, "Default DeviceUID", &v105);
   if (v16)
   {
     v30 = v16;
-    sub_D934();
+    sub_D934(v16);
     v20 = 0;
     v22 = 0;
     MutableCopy = 0;
     goto LABEL_39;
   }
 
-  v17 = sub_7F80(v15, kFigHALAudioConduitDeviceProperty_ModelUID, "Default ModelUID", &v115);
+  v17 = sub_7F80(v15, kFigHALAudioConduitDeviceProperty_ModelUID, "Default ModelUID", &v104);
   v18 = a2;
   if (v17)
   {
     v30 = v17;
-    sub_D944();
+    sub_D944(v17);
 LABEL_201:
     v20 = 0;
     v22 = 0;
     MutableCopy = 0;
-    v107 = 0;
+    v96 = 0;
     v26 = 0;
     goto LABEL_41;
   }
 
-  v19 = sub_7F80(v15, kFigHALAudioConduitDeviceProperty_DeviceName, "Default DeviceName", &v117);
+  v19 = sub_7F80(v15, kFigHALAudioConduitDeviceProperty_DeviceName, "Default DeviceName", &v106);
   if (v19)
   {
     v30 = v19;
-    sub_D954();
+    sub_D954(v19);
     goto LABEL_201;
   }
 
   if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_181C8, "OSStatus device_copyEndpointAndEndpointStreamFromCreationParameters(CFAllocatorRef, FigEndpointRef, FigEndpointStreamRef, CFDictionaryRef, FigEndpointRef *, FigEndpointStreamRef *, CFStringRef *, Boolean *, CFDictionaryRef *, CFDictionaryRef *)", 33554482, "Conduit [%{ptr}] properties: deviceName=%@ deviceUID=%@ modelUID=%@", v15, v106, v105, v104);
   }
 
   v23 = APEndpointStreamAudioAVCCreate();
   if (v23)
   {
     v30 = v23;
-    sub_D964();
+    sub_D964(v23);
     goto LABEL_201;
   }
 
@@ -4778,7 +4736,7 @@ LABEL_201:
     sub_D98C();
     v20 = 0;
     v22 = 0;
-    v107 = 0;
+    v96 = 0;
     v26 = 0;
     v30 = 4294960568;
     goto LABEL_41;
@@ -4788,7 +4746,7 @@ LABEL_201:
   FigCFDictionarySetValue();
   FigCFDictionarySetValue();
   v20 = 0;
-  v107 = 0;
+  v96 = 0;
   v26 = 0;
   v22 = *label;
   *label = 0;
@@ -4805,7 +4763,7 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v29 = v28(v27, kFigEndpointStreamProperty_ID, v24, &v112);
+  v29 = v28(v27, kFigEndpointStreamProperty_ID, v24, &v101);
   if (v29)
   {
     v30 = v29;
@@ -4813,15 +4771,15 @@ LABEL_40:
   }
 
   v18 = a2;
-  if (v112)
+  if (v101)
   {
     v30 = 0;
   }
 
   else
   {
-    sub_D9B8(&v120);
-    v30 = v120;
+    sub_D9B8(&v109);
+    v30 = v109;
   }
 
 LABEL_41:
@@ -4835,29 +4793,29 @@ LABEL_41:
     CFRelease(cf);
   }
 
-  if (v119)
+  if (v108)
   {
-    CFRelease(v119);
+    CFRelease(v108);
   }
 
-  if (v116)
+  if (v105)
   {
-    CFRelease(v116);
+    CFRelease(v105);
   }
 
-  if (v115)
+  if (v104)
   {
-    CFRelease(v115);
+    CFRelease(v104);
   }
 
-  if (v117)
+  if (v106)
   {
-    CFRelease(v117);
+    CFRelease(v106);
   }
 
   if (v30)
   {
-    sub_DA2C();
+    sub_DA2C(v30);
 LABEL_193:
     v49 = 0;
     v50 = 0;
@@ -4870,7 +4828,7 @@ LABEL_193:
   if (v37)
   {
     v30 = v37;
-    sub_DA54();
+    sub_DA54(v37);
     goto LABEL_193;
   }
 
@@ -4878,7 +4836,7 @@ LABEL_193:
   if (v38)
   {
     v30 = v38;
-    sub_DA7C();
+    sub_DA7C(v38);
     goto LABEL_193;
   }
 
@@ -4910,8 +4868,8 @@ LABEL_193:
   *(DerivedStorage + 104) = v41;
   *(DerivedStorage + 89) = v26;
   *(DerivedStorage + 88) = 0;
-  *(DerivedStorage + 24) = v112;
-  v112 = 0;
+  *(DerivedStorage + 24) = v101;
+  v101 = 0;
   *(DerivedStorage + 64) = 0;
   if (qword_182C8 != -1)
   {
@@ -4935,16 +4893,16 @@ LABEL_193:
     goto LABEL_160;
   }
 
-  SNPrintF();
+  SNPrintF(label, 64, "APHALAudioDevice.%{ptr}.notification", v103);
   v43 = dispatch_queue_create(label, 0);
   *(DerivedStorage + 160) = v43;
   if (!v43)
   {
-    sub_DFA4(&v119);
+    sub_DFA4(&v108);
     v49 = 0;
     v50 = 0;
     Intersection = 0;
-    v30 = v119;
+    v30 = v108;
     goto LABEL_160;
   }
 
@@ -4966,7 +4924,7 @@ LABEL_75:
     v50 = 0;
     Intersection = 0;
 LABEL_160:
-    v60 = v107;
+    v60 = v96;
     goto LABEL_161;
   }
 
@@ -4979,12 +4937,12 @@ LABEL_160:
 
   if (*(DerivedStorage + 89))
   {
-    v105 = *(DerivedStorage + 112);
+    v94 = *(DerivedStorage + 112);
     v48 = APAudioEngineBufferedAdapterCreate();
     if (v48)
     {
       v30 = v48;
-      sub_DB64();
+      sub_DB64(v48);
 LABEL_204:
       v49 = 0;
 LABEL_210:
@@ -4995,19 +4953,19 @@ LABEL_210:
 
   else
   {
-    v105 = 0;
+    v94 = 0;
   }
 
   if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
-    sub_DB8C(&v114, (DerivedStorage + 112));
+    sub_DB8C();
   }
 
   v52 = APSRealTimeWritableCreate();
   if (v52)
   {
     v30 = v52;
-    sub_DBD0();
+    sub_DBD0(v52);
     goto LABEL_204;
   }
 
@@ -5053,7 +5011,7 @@ LABEL_210:
   FigCFDictionaryGetFloatIfPresent();
   if (-999.0 == -999 && dword_181C8 <= 60 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
-    sub_DBF8(&v114);
+    sub_DBF8();
   }
 
   if (FigCFEqual())
@@ -5099,256 +5057,232 @@ LABEL_210:
 
   *(DerivedStorage + 84) = v59;
 LABEL_110:
-  v62 = *(DerivedStorage + 104);
-  v63 = kFigEndpointStreamProperty_SupportedAudioFormatDescriptions;
-  v64 = FigEndpointStreamGetCMBaseObject();
-  v103 = MutableCopy;
-  v104 = v20;
-  if (sub_80CC(v64, v63, kCFAllocatorDefault, &v111) != -12784)
+  v62 = kFigEndpointStreamProperty_SupportedAudioFormatDescriptions;
+  v63 = FigEndpointStreamGetCMBaseObject();
+  v92 = MutableCopy;
+  v93 = v20;
+  if (sub_80CC(v63, v62, kCFAllocatorDefault, &v100) == -12784)
   {
-    v70 = *(DerivedStorage + 120);
-    v71 = APSAudioFormatDescriptionListCreateWithFigEndpointStreamAudioFormatDescriptionArray();
-    if (v71)
+    v64 = kFigEndpointStreamProperty_SupportedPCMFormats;
+    v65 = *(DerivedStorage + 120);
+    v66 = FigEndpointStreamGetCMBaseObject();
+    v67 = sub_80CC(v66, v64, kCFAllocatorDefault, v65 + 64);
+    if (v67)
     {
-      v30 = v71;
-      sub_DC3C();
-      goto LABEL_210;
+      v30 = v67;
+      sub_DD7C(v67);
+      Intersection = 0;
+      v20 = v93;
+      goto LABEL_105;
     }
 
-    if (*(*(DerivedStorage + 120) + 72))
-    {
-      if (APSAudioFormatDescriptionListGetFormatCount())
-      {
-        v72 = *(*(DerivedStorage + 120) + 72);
-        v73 = *(DerivedStorage + 84);
-        APSSettingsGetIntWithDefault();
-        v74 = *(DerivedStorage + 84);
-        Intersection = APSAudioFormatDescriptionListCreateIntersection();
-        if (APSAudioFormatDescriptionListGetFormatCount())
-        {
-          v75 = *(DerivedStorage + 120);
-          ASRDArrayPCM = APSAudioFormatDescriptionListCreateASRDArrayPCM();
-          if (ASRDArrayPCM)
-          {
-            v30 = ASRDArrayPCM;
-            sub_DC64();
-            goto LABEL_105;
-          }
+    Intersection = 0;
+    goto LABEL_130;
+  }
 
-          v77 = *(DerivedStorage + 120);
-          v78 = *(v77 + 72);
-          *(v77 + 72) = Intersection;
-          if (Intersection)
-          {
-            CFRetain(Intersection);
-          }
+  v68 = APSAudioFormatDescriptionListCreateWithFigEndpointStreamAudioFormatDescriptionArray();
+  if (v68)
+  {
+    v30 = v68;
+    sub_DC3C(v68);
+    goto LABEL_210;
+  }
 
-          if (v78)
-          {
-            CFRelease(v78);
-          }
-
-          v79 = *(*(DerivedStorage + 120) + 72);
-          DefaultFormat = APSAudioFormatDescriptionListGetDefaultFormat();
-          *(*(DerivedStorage + 120) + 56) = DefaultFormat;
-          if (DefaultFormat)
-          {
-            PCMASBD = APSAudioFormatDescriptionGetPCMASBD();
-            if (!PCMASBD)
-            {
-              goto LABEL_130;
-            }
-
-            v30 = PCMASBD;
-            sub_DC8C();
-LABEL_223:
-            v20 = v104;
-            goto LABEL_105;
-          }
-
-          APSLogErrorAt();
-          if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-          {
-            sub_DCB4(&v114);
-          }
-
-LABEL_215:
-          v30 = 4294960579;
-          goto LABEL_105;
-        }
-
-        v87 = *(DerivedStorage + 104);
-        v88 = kFigEndpointStreamProperty_SupportedPCMFormats;
-        v89 = *(DerivedStorage + 120);
-        v90 = FigEndpointStreamGetCMBaseObject();
-        v91 = sub_80CC(v90, v88, kCFAllocatorDefault, v89 + 64);
-        if (v91)
-        {
-          v30 = v91;
-          sub_DCF0();
-          goto LABEL_223;
-        }
-      }
-
-      else
-      {
-        v82 = *(DerivedStorage + 104);
-        v83 = kFigEndpointStreamProperty_SupportedPCMFormats;
-        v84 = *(DerivedStorage + 120);
-        v85 = FigEndpointStreamGetCMBaseObject();
-        v86 = sub_80CC(v85, v83, kCFAllocatorDefault, v84 + 64);
-        if (v86)
-        {
-          v30 = v86;
-          sub_DD18();
-          Intersection = 0;
-          goto LABEL_223;
-        }
-
-        Intersection = 0;
-      }
-
-      v92 = *(*(DerivedStorage + 120) + 72);
-      if (v92)
-      {
-        CFRelease(v92);
-        *(*(DerivedStorage + 120) + 72) = 0;
-      }
-
-      goto LABEL_130;
-    }
-
+  if (!*(*(DerivedStorage + 120) + 72))
+  {
     APSLogErrorAt();
     if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
     {
-      sub_DD40(&v114);
+      sub_DD40();
     }
 
     Intersection = 0;
     goto LABEL_215;
   }
 
-  v65 = *(DerivedStorage + 104);
-  v66 = kFigEndpointStreamProperty_SupportedPCMFormats;
-  v67 = *(DerivedStorage + 120);
-  v68 = FigEndpointStreamGetCMBaseObject();
-  v69 = sub_80CC(v68, v66, kCFAllocatorDefault, v67 + 64);
-  if (v69)
+  if (!APSAudioFormatDescriptionListGetFormatCount())
   {
-    v30 = v69;
-    sub_DD7C();
+    v74 = kFigEndpointStreamProperty_SupportedPCMFormats;
+    v75 = *(DerivedStorage + 120);
+    v76 = FigEndpointStreamGetCMBaseObject();
+    v77 = sub_80CC(v76, v74, kCFAllocatorDefault, v75 + 64);
+    if (v77)
+    {
+      v30 = v77;
+      sub_DD18(v77);
+      Intersection = 0;
+      goto LABEL_223;
+    }
+
     Intersection = 0;
-    v20 = v104;
+    goto LABEL_128;
+  }
+
+  APSSettingsGetIntWithDefault();
+  Intersection = APSAudioFormatDescriptionListCreateIntersection();
+  if (!APSAudioFormatDescriptionListGetFormatCount())
+  {
+    v78 = kFigEndpointStreamProperty_SupportedPCMFormats;
+    v79 = *(DerivedStorage + 120);
+    v80 = FigEndpointStreamGetCMBaseObject();
+    v81 = sub_80CC(v80, v78, kCFAllocatorDefault, v79 + 64);
+    if (v81)
+    {
+      v30 = v81;
+      sub_DCF0(v81);
+      goto LABEL_223;
+    }
+
+LABEL_128:
+    v82 = *(*(DerivedStorage + 120) + 72);
+    if (v82)
+    {
+      CFRelease(v82);
+      *(*(DerivedStorage + 120) + 72) = 0;
+    }
+
+    goto LABEL_130;
+  }
+
+  ASRDArrayPCM = APSAudioFormatDescriptionListCreateASRDArrayPCM();
+  if (ASRDArrayPCM)
+  {
+    v30 = ASRDArrayPCM;
+    sub_DC64(ASRDArrayPCM);
     goto LABEL_105;
   }
 
-  Intersection = 0;
-LABEL_130:
-  v93 = *(*(DerivedStorage + 120) + 64);
-  if (v93)
+  v70 = *(DerivedStorage + 120);
+  v71 = *(v70 + 72);
+  *(v70 + 72) = Intersection;
+  if (Intersection)
   {
-    Length = CFDataGetLength(v93);
+    CFRetain(Intersection);
+  }
+
+  if (v71)
+  {
+    CFRelease(v71);
+  }
+
+  DefaultFormat = APSAudioFormatDescriptionListGetDefaultFormat();
+  *(*(DerivedStorage + 120) + 56) = DefaultFormat;
+  if (!DefaultFormat)
+  {
+    APSLogErrorAt();
+    if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+    {
+      sub_DCB4();
+    }
+
+LABEL_215:
+    v30 = 4294960579;
+    goto LABEL_105;
+  }
+
+  PCMASBD = APSAudioFormatDescriptionGetPCMASBD();
+  if (PCMASBD)
+  {
+    v30 = PCMASBD;
+    sub_DC8C(PCMASBD);
+LABEL_223:
+    v20 = v93;
+    goto LABEL_105;
+  }
+
+LABEL_130:
+  v83 = *(*(DerivedStorage + 120) + 64);
+  if (v83)
+  {
+    Length = CFDataGetLength(v83);
     BytePtr = CFDataGetBytePtr(*(*(DerivedStorage + 120) + 64));
     if (Length >= 0x38)
     {
-      v96 = BytePtr;
-      v97 = 0;
+      v86 = BytePtr;
+      v87 = 0;
       do
       {
         if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_181C8, "OSStatus APHALAudioDeviceCreateForEndpointStream(CFAllocatorRef, FigHALAudioObjectMapper, AudioServerPlugInHostRef, FigEndpointRef, FigEndpointStreamRef, CFDictionaryRef, FigHALAudioDeviceRef *)", 33554482, "[%{ptr}] AudioDeviceType [%@]. SupportedPCMFormat[%d]: [%{asbd}]\n", v103, v49, v87, v86);
         }
 
-        ++v97;
-        v96 += 56;
+        ++v87;
+        v86 += 56;
       }
 
-      while (Length / 0x38 != v97);
+      while (Length / 0x38 != v87);
     }
   }
 
   if (*(*(DerivedStorage + 120) + 72))
   {
-    v119 = 0;
-    MutableCopy = v103;
-    v20 = v104;
-    v98 = a2;
-    if (dword_181C8 > 50)
-    {
-      goto LABEL_151;
-    }
-
-    if (dword_181C8 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_151;
-      }
-
-      v102 = *(*(DerivedStorage + 120) + 72);
-    }
-
-    APSAudioFormatDescriptionListCopyDebugString();
+    v108 = 0;
+    MutableCopy = v92;
+    v20 = v93;
+    v88 = a2;
     if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
     {
-      sub_DDA4(&v114, &v119);
-    }
-
-    if (v119)
-    {
-      CFRelease(v119);
-    }
-  }
-
-  else
-  {
-    MutableCopy = v103;
-    v20 = v104;
-    v98 = a2;
-    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-    {
-      sub_DDE4(&v114);
-    }
-  }
-
-LABEL_151:
-  v99 = sub_3234(v109, v98, 0, *(DerivedStorage + 112), a3, *(DerivedStorage + 120), (DerivedStorage + 136));
-  if (v99)
-  {
-    v30 = v99;
-    sub_DE20();
-  }
-
-  else
-  {
-    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-    {
-      sub_DE48(&v114, (DerivedStorage + 136));
-    }
-
-    v100 = sub_7E7C();
-    if (!v100)
-    {
-      v50 = v105;
+      APSAudioFormatDescriptionListCopyDebugString();
       if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
       {
-        sub_DF28(&v114, (DerivedStorage + 104));
+        sub_DDA4();
+      }
+
+      if (v108)
+      {
+        CFRelease(v108);
+      }
+    }
+  }
+
+  else
+  {
+    MutableCopy = v92;
+    v20 = v93;
+    v88 = a2;
+    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+    {
+      sub_DDE4();
+    }
+  }
+
+  v89 = sub_3234(v98, v88, 0, *(DerivedStorage + 112), a3, *(DerivedStorage + 120), (DerivedStorage + 136));
+  if (v89)
+  {
+    v30 = v89;
+    sub_DE20(v89);
+  }
+
+  else
+  {
+    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+    {
+      sub_DE48();
+    }
+
+    v90 = sub_7E7C(v103);
+    if (!v90)
+    {
+      v50 = v94;
+      if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_DF28();
       }
 
       v30 = 0;
-      *v106 = v114;
-      v114 = 0;
+      *v95 = v103;
+      v103 = 0;
       goto LABEL_160;
     }
 
-    v30 = v100;
-    sub_DF00();
+    v30 = v90;
+    sub_DF00(v90);
   }
 
 LABEL_105:
-  v60 = v107;
-  v50 = v105;
+  v60 = v96;
+  v50 = v94;
 LABEL_161:
   if (v60)
   {
@@ -5366,14 +5300,14 @@ LABEL_161:
   }
 
 LABEL_167:
-  if (v111)
+  if (v100)
   {
-    CFRelease(v111);
+    CFRelease(v100);
   }
 
-  if (v112)
+  if (v101)
   {
-    CFRelease(v112);
+    CFRelease(v101);
   }
 
   if (v50)
@@ -5396,107 +5330,114 @@ LABEL_167:
     CFRelease(v49);
   }
 
-  if (v113)
+  if (v102)
   {
-    CFRelease(v113);
+    CFRelease(v102);
   }
 
-  if (v114)
+  if (v103)
   {
-    CFRelease(v114);
+    CFRelease(v103);
   }
 
   return v30;
 }
 
-uint64_t sub_7E7C()
+uint64_t sub_7E7C(uint64_t a1)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   CMNotificationCenterGetDefaultLocalCenter();
-  v1 = *(DerivedStorage + 104);
-  v2 = FigNotificationCenterAddWeakListener();
-  if (v2)
+  v1 = FigNotificationCenterAddWeakListener();
+  if (v1)
   {
-    v4 = v2;
-    sub_E02C();
+    v3 = v1;
+    sub_E02C(v1);
   }
 
   else
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v3 = *(DerivedStorage + 104);
-    v4 = FigNotificationCenterAddWeakListener();
-    if (v4)
+    v2 = FigNotificationCenterAddWeakListener();
+    v3 = v2;
+    if (v2)
     {
-      sub_E03C();
+      sub_E03C(v2);
     }
 
     else
     {
       CMNotificationCenterGetDefaultLocalCenter();
-      v5 = *(DerivedStorage + 112);
-      v6 = FigNotificationCenterAddWeakListener();
-      if (v6)
+      v4 = FigNotificationCenterAddWeakListener();
+      if (v4)
       {
-        v8 = v6;
-        sub_E04C();
-        return v8;
+        v6 = v4;
+        sub_E04C(v4);
+        return v6;
       }
     }
   }
 
-  return v4;
+  return v3;
 }
 
-uint64_t sub_7F80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t sub_7F80(uint64_t a1, uint64_t a2, uint64_t a3, const __CFString **a4)
 {
-  v6 = FigHALAudioConduitDeviceCopyProperty();
-  if (v6)
+  theString = 0;
+  v8 = FigHALAudioConduitDeviceCopyProperty();
+  v12 = v8;
+  if (v8)
   {
-    sub_E05C();
+    sub_E05C(v8);
   }
 
   else
   {
     if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_181C8, "OSStatus device_copyPropertyFromConduitDevice(FigHALAudioConduitDeviceRef, const CFStringRef, const char *, CFStringRef *)", 33554482, "Conduit [%{ptr}] property: %@ is %s. A default value will be used.", a1, a2, "null");
     }
 
-    *a4 = CFStringCreateF();
+    v9 = CFStringCreateF(&v12, "%s:%{ptr}", a3, a1);
+    theString = v9;
+    if (!v12)
+    {
+      *a4 = v9;
+      return v12;
+    }
+
+    sub_E100(v12);
   }
 
-  return v6;
+  if (theString)
+  {
+    CFRelease(theString);
+  }
+
+  return v12;
 }
 
 uint64_t sub_80CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 48);
-  if (!v9)
+  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v8)
   {
     return 4294954514;
   }
 
-  v10 = *(VTable + 8) + 48;
-
-  return v9(a1, a2, a3, a4);
+  return v8(a1, a2, a3, a4);
 }
 
-void sub_8188()
+void sub_8188(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   CMNotificationCenterGetDefaultLocalCenter();
-  v2 = *(v1 + 104);
   FigNotificationCenterRemoveWeakListener();
   CMNotificationCenterGetDefaultLocalCenter();
-  v3 = *(v1 + 104);
   FigNotificationCenterRemoveWeakListener();
   CMNotificationCenterGetDefaultLocalCenter();
-  v4 = *(v1 + 112);
   FigNotificationCenterRemoveWeakListener();
-  sub_8440();
+  sub_8440(a1);
   v5 = DerivedStorage[3];
   if (v5)
   {
@@ -5548,8 +5489,7 @@ void sub_8188()
 
   if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
-    v20 = DerivedStorage[17];
-    LogPrintF();
+    LogPrintF(&dword_181C8, "void device_Finalize(CMBaseObjectRef)", 33554482, "[%{ptr}] Releasing APHALAudioStream [%{ptr}]\n", a1, DerivedStorage[17]);
   }
 
   v12 = DerivedStorage[17];
@@ -5617,11 +5557,11 @@ void sub_8188()
 
   if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
-    sub_E128();
+    sub_E128(a1, v3, v4);
   }
 }
 
-uint64_t sub_8440()
+uint64_t sub_8440(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   mach_absolute_time();
@@ -5634,75 +5574,73 @@ uint64_t sub_8440()
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
-    v2 = *(*(DerivedStorage + 120) + 160);
     CFDictionarySetInt64();
   }
 
-  v3 = *(DerivedStorage + 112);
   v4 = FigEndpointStreamAudioEngineSuspendSync();
-  v5 = v4;
+  v7 = v4;
   if (v4)
   {
     if (v4 == -15486)
     {
       if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
       {
-        sub_E164();
+        sub_E164(a1, v5, v6);
       }
 
-      v5 = 0;
+      v7 = 0;
     }
 
     else if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_181C8, "OSStatus device_StopIO(FigHALAudioDeviceRef)", 33554522, "### [%{ptr}] ESAE suspend failed err=%#m\n", a1, v7);
     }
   }
 
-  v6 = *(DerivedStorage + 136);
-  v7 = *(*(CMBaseObjectGetVTable() + 24) + 40);
-  if (v7)
-  {
-    v7(v6);
-  }
-
-  v8 = *(*(DerivedStorage + 120) + 144);
-  if (v8)
-  {
-    CFRelease(v8);
-    *(*(DerivedStorage + 120) + 144) = 0;
-  }
-
-  v9 = *(DerivedStorage + 176);
+  v8 = *(DerivedStorage + 136);
+  v9 = *(*(CMBaseObjectGetVTable() + 24) + 40);
   if (v9)
   {
-    CFRelease(v9);
-    *(DerivedStorage + 176) = 0;
+    v9(v8);
   }
 
-  v10 = *(DerivedStorage + 56);
+  v10 = *(*(DerivedStorage + 120) + 144);
   if (v10)
   {
     CFRelease(v10);
-    *(DerivedStorage + 56) = 0;
+    *(*(DerivedStorage + 120) + 144) = 0;
   }
 
-  v11 = *(DerivedStorage + 120);
-  v12 = *(v11 + 88);
+  v11 = *(DerivedStorage + 176);
+  if (v11)
+  {
+    CFRelease(v11);
+    *(DerivedStorage + 176) = 0;
+  }
+
+  v12 = *(DerivedStorage + 56);
   if (v12)
   {
     CFRelease(v12);
-    v11 = *(DerivedStorage + 120);
-    *(v11 + 88) = 0;
+    *(DerivedStorage + 56) = 0;
   }
 
-  *(v11 + 184) = 0;
+  v13 = *(DerivedStorage + 120);
+  v14 = *(v13 + 88);
+  if (v14)
+  {
+    CFRelease(v14);
+    v13 = *(DerivedStorage + 120);
+    *(v13 + 88) = 0;
+  }
+
+  *(v13 + 184) = 0;
   if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
   {
     sub_E1A0();
     if (!Mutable)
     {
-      return v5;
+      return v7;
     }
 
     goto LABEL_29;
@@ -5714,56 +5652,47 @@ LABEL_29:
     CFRelease(Mutable);
   }
 
-  return v5;
+  return v7;
 }
 
-uint64_t sub_86BC()
+uint64_t sub_86BC(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 20);
   CMNotificationCenterGetDefaultLocalCenter();
   FigDispatchAsyncPostNotification();
   *(DerivedStorage + 172) = 1;
-  v2 = *(DerivedStorage + 17);
-  if (v2)
+  v3 = *(DerivedStorage + 136);
+  if (v3)
   {
-    v3 = *(DerivedStorage + 2);
-    v4 = *(DerivedStorage + 17);
-    VTable = CMBaseObjectGetVTable();
-    v6 = *(*(VTable + 16) + 8);
-    if (v6)
+    v4 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v4)
     {
-      v7 = *(VTable + 16) + 8;
-      v6(v2);
+      v4(v3);
     }
 
     FigHALAudioObjectMapperRemoveMapping();
   }
 
-  v8 = *(DerivedStorage + 2);
-  v9 = *DerivedStorage;
-
   return FigHALAudioObjectMapperRemoveMapping();
 }
 
-uint64_t sub_87BC()
+uint64_t sub_87BC(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 112);
-  v2 = APSGetFBOPropertyInt64();
+  v4 = APSGetFBOPropertyInt64();
   result = 0;
-  *(DerivedStorage + 64) = v2;
+  *(DerivedStorage + 64) = v4;
   if (dword_181C8 <= 50)
   {
     if (dword_181C8 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_181C8, "void AudioEngineDynamicLatencyOffsetChangedCallback(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] Updated dynamic latency offset to %d ms\n", a2, v4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_181C8, "void AudioEngineDynamicLatencyOffsetChangedCallback(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] Updated dynamic latency offset to %d ms\n", a2, v4);
     }
   }
 
@@ -5773,151 +5702,151 @@ uint64_t sub_87BC()
 BOOL sub_88A4(uint64_t a1, int *a2)
 {
   result = 0;
-  v4 = *a2;
+  v5 = *a2;
   if (*a2 > 1818850925)
   {
-    if (v4 <= 1919512166)
+    if (v5 <= 1919512166)
     {
-      if (v4 > 1836411235)
+      if (v5 > 1836411235)
       {
-        if (v4 > 1853059699)
+        if (v5 > 1853059699)
         {
-          if (v4 == 1853059700)
+          if (v5 == 1853059700)
           {
             return 1;
           }
 
-          v5 = 1870098020;
+          v6 = 1870098020;
         }
 
         else
         {
-          if (v4 == 1836411236)
+          if (v5 == 1836411236)
           {
             return 1;
           }
 
-          v5 = 1853059619;
+          v6 = 1853059619;
         }
 
         goto LABEL_61;
       }
 
-      if (v4 <= 1819173228)
+      if (v5 <= 1819173228)
       {
-        if (v4 == 1818850926)
+        if (v5 == 1818850926)
         {
           return 1;
         }
 
-        v5 = 1819107691;
+        v6 = 1819107691;
         goto LABEL_61;
       }
 
-      if (v4 == 1819173229)
+      if (v5 == 1819173229)
       {
         return 1;
       }
 
-      v6 = 1819569763;
+      v7 = 1819569763;
       goto LABEL_51;
     }
 
-    if (v4 > 1937007733)
+    if (v5 > 1937007733)
     {
-      if (v4 > 1953653101)
+      if (v5 > 1953653101)
       {
-        if (v4 != 1953653102)
+        if (v5 != 1953653102)
         {
-          if (v4 == 1987012963)
+          if (v5 == 1987012963)
           {
 
-            return sub_A05C();
+            return sub_A05C(a1);
           }
 
-          v5 = 1969841184;
+          v6 = 1969841184;
           goto LABEL_61;
         }
 
         return 1;
       }
 
-      if (v4 == 1937007734)
+      if (v5 == 1937007734)
       {
         return 1;
       }
 
-      v5 = 1937009955;
+      v6 = 1937009955;
       goto LABEL_61;
     }
 
-    if (v4 <= 1936092275)
+    if (v5 <= 1936092275)
     {
-      if (v4 == 1919512167)
+      if (v5 == 1919512167)
       {
         return 1;
       }
 
-      v6 = 1935763060;
+      v7 = 1935763060;
       goto LABEL_51;
     }
 
-    if (v4 != 1936092276)
+    if (v5 != 1936092276)
     {
-      v6 = 1936879204;
+      v7 = 1936879204;
 LABEL_51:
-      if (v4 != v6)
+      if (v5 != v7)
       {
         return result;
       }
     }
 
 LABEL_52:
-    v7 = a2[1];
-    return v7 == 1768845428 || v7 == 1869968496;
+    v8 = a2[1];
+    return v8 == 1768845428 || v8 == 1869968496;
   }
 
-  if (v4 > 1668510817)
+  if (v5 > 1668510817)
   {
-    if (v4 <= 1684434035)
+    if (v5 <= 1684434035)
     {
-      if (v4 <= 1668641651)
+      if (v5 <= 1668641651)
       {
-        if (v4 == 1668510818)
+        if (v5 == 1668510818)
         {
           return 1;
         }
 
-        v5 = 1668575852;
+        v6 = 1668575852;
         goto LABEL_61;
       }
 
-      if (v4 == 1668641652)
+      if (v5 == 1668641652)
       {
         return 1;
       }
 
-      v6 = 1684236338;
+      v7 = 1684236338;
       goto LABEL_51;
     }
 
-    if (v4 > 1735354733)
+    if (v5 > 1735354733)
     {
-      if (v4 == 1735354734)
+      if (v5 == 1735354734)
       {
         return 1;
       }
 
-      v5 = 1751737454;
+      v6 = 1751737454;
       goto LABEL_61;
     }
 
-    if (v4 != 1684434036)
+    if (v5 != 1684434036)
     {
-      if (v4 == 1718383987)
+      if (v5 == 1718383987)
       {
 
-        return sub_9F6C();
+        return sub_9F6C(a1);
       }
 
       return result;
@@ -5926,15 +5855,15 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  if (v4 > 1651798131)
+  if (v5 > 1651798131)
   {
-    if (v4 <= 1668047218)
+    if (v5 <= 1668047218)
     {
-      if (v4 != 1651798132)
+      if (v5 != 1651798132)
       {
-        if (v4 == 1667658618)
+        if (v5 == 1667658618)
         {
-          return sub_A158() != 0;
+          return sub_A158(a1) != 0;
         }
 
         return result;
@@ -5943,36 +5872,36 @@ LABEL_52:
       return 1;
     }
 
-    if (v4 == 1668047219)
+    if (v5 == 1668047219)
     {
       return 1;
     }
 
-    v5 = 1668049764;
+    v6 = 1668049764;
   }
 
-  else if (v4 > 1634759531)
+  else if (v5 > 1634759531)
   {
-    if (v4 == 1634759532)
+    if (v5 == 1634759532)
     {
       return 1;
     }
 
-    v5 = 1650682995;
+    v6 = 1650682995;
   }
 
   else
   {
-    if (v4 == 1634429294)
+    if (v5 == 1634429294)
     {
       return 1;
     }
 
-    v5 = 1634758772;
+    v6 = 1634758772;
   }
 
 LABEL_61:
-  if (v4 == v5)
+  if (v5 == v6)
   {
     return 1;
   }
@@ -6261,36 +6190,36 @@ LABEL_32:
 uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int *a6, uint64_t a7)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v12 = DerivedStorage;
-  v13 = *a2;
+  v13 = DerivedStorage;
+  v14 = *a2;
   if (*a2 <= 1818850925)
   {
-    if (v13 <= 1668510817)
+    if (v14 <= 1668510817)
     {
-      if (v13 <= 1651798131)
+      if (v14 <= 1651798131)
       {
-        if (v13 > 1634759531)
+        if (v14 > 1634759531)
         {
-          if (v13 == 1634759532)
+          if (v14 == 1634759532)
           {
             *a6 = 4;
             if (a5 >= 4)
             {
-              v14 = 0;
-              v15 = *(DerivedStorage + 48);
+              v15 = 0;
+              v16 = *(DerivedStorage + 48);
               goto LABEL_136;
             }
 
             return 561211770;
           }
 
-          if (v13 == 1650682995)
+          if (v14 == 1650682995)
           {
             *a6 = 4;
             if (a5 >= 4)
             {
-              v14 = 0;
-              v15 = 1634689642;
+              v15 = 0;
+              v16 = 1634689642;
               goto LABEL_136;
             }
 
@@ -6300,7 +6229,7 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
 
         else
         {
-          if (v13 == 1634429294)
+          if (v14 == 1634429294)
           {
             *a6 = 4;
             if (a5 < 4)
@@ -6308,18 +6237,18 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
               return 0;
             }
 
-            v14 = 0;
-            v15 = *DerivedStorage;
+            v15 = 0;
+            v16 = *DerivedStorage;
             goto LABEL_136;
           }
 
-          if (v13 == 1634758772)
+          if (v14 == 1634758772)
           {
             *a6 = 4;
             if (a5 >= 4)
             {
-              v14 = 0;
-              v15 = *(DerivedStorage + 84);
+              v15 = 0;
+              v16 = *(DerivedStorage + 84);
               goto LABEL_136;
             }
 
@@ -6330,28 +6259,28 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
         return 2003332927;
       }
 
-      if (v13 > 1668047218)
+      if (v14 > 1668047218)
       {
-        if (v13 == 1668047219)
+        if (v14 == 1668047219)
         {
           *a6 = 4;
           if (a5 >= 4)
           {
-            v14 = 0;
-            v15 = 1633969526;
+            v15 = 0;
+            v16 = 1633969526;
             goto LABEL_136;
           }
 
           return 561211770;
         }
 
-        v23 = 1668049764;
+        v24 = 1668049764;
         goto LABEL_81;
       }
 
-      if (v13 == 1651798132)
+      if (v14 == 1651798132)
       {
-        v34 = *(CMBaseObjectGetDerivedStorage() + 128);
+        CMBaseObjectGetDerivedStorage();
         APSRealTimeWritableRead();
         *a6 = 40;
         if (a5 < 0x28)
@@ -6359,7 +6288,7 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
           return 561211770;
         }
 
-        v14 = 0;
+        v15 = 0;
         *a7 = 0;
         *(a7 + 8) = 0uLL;
         __asm { FMOV            V0.2D, #1.0 }
@@ -6369,7 +6298,7 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
 
       else
       {
-        if (v13 != 1667658618)
+        if (v14 != 1667658618)
         {
           return 2003332927;
         }
@@ -6380,40 +6309,40 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
           return 561211770;
         }
 
-        v14 = 0;
-        *a7 = sub_A158();
+        v15 = 0;
+        *a7 = sub_A158(a1);
       }
 
-      return v14;
+      return v15;
     }
 
-    if (v13 > 1684434035)
+    if (v14 > 1684434035)
     {
-      if (v13 > 1735354733)
+      if (v14 > 1735354733)
       {
-        if (v13 == 1735354734)
+        if (v14 == 1735354734)
         {
           *a6 = 4;
           if (a5 >= 4)
           {
-            v14 = 0;
-            v15 = *(DerivedStorage + 168) > 0;
+            v15 = 0;
+            v16 = *(DerivedStorage + 168) > 0;
             goto LABEL_136;
           }
 
           return 561211770;
         }
 
-        v23 = 1751737454;
+        v24 = 1751737454;
         goto LABEL_81;
       }
 
-      if (v13 == 1684434036)
+      if (v14 == 1684434036)
       {
         goto LABEL_82;
       }
 
-      if (v13 != 1718383987)
+      if (v14 != 1718383987)
       {
         return 2003332927;
       }
@@ -6421,147 +6350,147 @@ uint64_t sub_9048(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a
       return 1970171760;
     }
 
-    if (v13 > 1668641651)
+    if (v14 > 1668641651)
     {
-      if (v13 != 1668641652)
+      if (v14 != 1668641652)
       {
-        if (v13 != 1684236338)
+        if (v14 != 1684236338)
         {
           return 2003332927;
         }
 
         if (a5 <= 7)
         {
-          v14 = 561211770;
+          v15 = 561211770;
           sub_E254();
-          return v14;
+          return v15;
         }
 
-        v14 = 0;
+        v15 = 0;
         *a7 = 0x200000001;
-        v28 = 8;
+        v29 = 8;
 LABEL_171:
-        *a6 = v28;
-        return v14;
+        *a6 = v29;
+        return v15;
       }
 
       *a6 = 60;
       if (a5 <= 0x3B)
       {
-        v14 = 561211770;
+        v15 = 561211770;
         sub_E22C();
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
         *a7 = *"tppawwar";
         *(a7 + 16) = *"wwar";
         *(a7 + 32) = xmmword_F420;
         *(a7 + 44) = *(&xmmword_F420 + 12);
       }
 
-      return v14;
+      return v15;
     }
 
-    if (v13 == 1668510818)
+    if (v14 == 1668510818)
     {
       goto LABEL_82;
     }
 
-    if (v13 != 1668575852)
+    if (v14 != 1668575852)
     {
       return 2003332927;
     }
 
-    v16 = a5 >> 2;
-    v17 = a2[1];
-    switch(v17)
+    v17 = a5 >> 2;
+    v18 = a2[1];
+    switch(v18)
     {
       case 1869968496:
         goto LABEL_24;
       case 1768845428:
-        v16 = 0;
+        v17 = 0;
         break;
       case 1735159650:
 LABEL_24:
-        v19 = *(DerivedStorage + 144);
-        v18 = *(DerivedStorage + 152);
-        v20 = v19 != 0;
-        if (v18)
+        v20 = *(DerivedStorage + 144);
+        v19 = *(DerivedStorage + 152);
+        v21 = v20 != 0;
+        if (v19)
         {
-          ++v20;
+          ++v21;
         }
 
-        if (v16 >= v20)
+        if (v17 >= v21)
         {
-          v16 = v20;
+          v17 = v21;
         }
 
-        if (!v16)
+        if (!v17)
         {
           break;
         }
 
-        if (!v19)
+        if (!v20)
         {
-          v21 = 0;
+          v22 = 0;
 LABEL_168:
-          if (v18)
+          if (v19)
           {
-            *(a7 + 4 * v21) = sub_1DF8(v18);
+            *(a7 + 4 * v22) = sub_1DF8(v19);
           }
 
           break;
         }
 
-        *a7 = sub_1DF8(v12[18]);
-        if (v16 != 1)
+        *a7 = sub_1DF8(v13[18]);
+        if (v17 != 1)
         {
-          v18 = v12[19];
-          v21 = 1;
+          v19 = v13[19];
+          v22 = 1;
           goto LABEL_168;
         }
 
         break;
     }
 
-    v14 = 0;
-    v28 = 4 * v16;
+    v15 = 0;
+    v29 = 4 * v17;
     goto LABEL_171;
   }
 
-  if (v13 > 1919512166)
+  if (v14 > 1919512166)
   {
-    if (v13 > 1937007733)
+    if (v14 > 1937007733)
     {
-      if (v13 > 1953653101)
+      if (v14 > 1953653101)
       {
-        if (v13 == 1953653102)
+        if (v14 == 1953653102)
         {
           *a6 = 4;
           if (a5 >= 4)
           {
-            v14 = 0;
-            v15 = *(DerivedStorage + 80);
+            v15 = 0;
+            v16 = *(DerivedStorage + 80);
             goto LABEL_136;
           }
 
           return 561211770;
         }
 
-        if (v13 != 1969841184)
+        if (v14 != 1969841184)
         {
-          if (v13 == 1987012963)
+          if (v14 == 1987012963)
           {
             *a6 = 4;
             if (a5 >= 4)
             {
-              v14 = 0;
-              v15 = *(DerivedStorage + 88);
+              v15 = 0;
+              v16 = *(DerivedStorage + 88);
 LABEL_136:
-              *a7 = v15;
-              return v14;
+              *a7 = v16;
+              return v15;
             }
 
             return 561211770;
@@ -6577,8 +6506,8 @@ LABEL_123:
           return 561211770;
         }
 
-        v22 = v12[3];
-        if (!v22)
+        v23 = v13[3];
+        if (!v23)
         {
           goto LABEL_126;
         }
@@ -6586,35 +6515,35 @@ LABEL_123:
         goto LABEL_125;
       }
 
-      if (v13 == 1937007734)
+      if (v14 == 1937007734)
       {
         *a6 = 4;
         if (a5 >= 4)
         {
-          v14 = 0;
-          v15 = 1;
+          v15 = 0;
+          v16 = 1;
           goto LABEL_136;
         }
 
         return 561211770;
       }
 
-      if (v13 != 1937009955)
+      if (v14 != 1937009955)
       {
         return 2003332927;
       }
 
-      v27 = a2[1];
-      if (v27 != 1869968496)
+      v28 = a2[1];
+      if (v28 != 1869968496)
       {
-        if (v27 == 1768845428)
+        if (v28 == 1768845428)
         {
           goto LABEL_139;
         }
 
-        if (v27 != 1735159650)
+        if (v28 != 1735159650)
         {
-          v28 = a5 & 0xFFFFFFFC;
+          v29 = a5 & 0xFFFFFFFC;
           goto LABEL_148;
         }
       }
@@ -6622,35 +6551,35 @@ LABEL_123:
       if (a5 >= 4)
       {
         *a7 = sub_1DF8(*(DerivedStorage + 136));
-        v28 = 4;
+        v29 = 4;
 LABEL_148:
-        v14 = 0;
+        v15 = 0;
         goto LABEL_171;
       }
 
 LABEL_139:
-      v28 = 0;
+      v29 = 0;
       goto LABEL_148;
     }
 
-    if (v13 <= 1936092275)
+    if (v14 <= 1936092275)
     {
-      if (v13 == 1919512167)
+      if (v14 == 1919512167)
       {
         *a6 = 4;
         if (a5 >= 4)
         {
-          v14 = 0;
-          v15 = 11025;
+          v15 = 0;
+          v16 = 11025;
           goto LABEL_136;
         }
 
         return 561211770;
       }
 
-      v23 = 1935763060;
+      v24 = 1935763060;
 LABEL_81:
-      if (v13 != v23)
+      if (v14 != v24)
       {
         return 2003332927;
       }
@@ -6658,25 +6587,25 @@ LABEL_81:
       goto LABEL_82;
     }
 
-    if (v13 != 1936092276)
+    if (v14 != 1936092276)
     {
-      if (v13 != 1936879204)
+      if (v14 != 1936879204)
       {
         return 2003332927;
       }
 
-      v24 = *(*(DerivedStorage + 120) + 44);
-      v25 = 20 * v24 + 12;
-      if (v25 > a5)
+      v25 = *(*(DerivedStorage + 120) + 44);
+      v26 = 20 * v25 + 12;
+      if (v26 > a5)
       {
-        v14 = 561211770;
+        v15 = 561211770;
         sub_E240();
       }
 
       else
       {
-        bzero(a7, (20 * v24 + 12));
-        if (v24 == 8)
+        bzero(a7, (20 * v25 + 12));
+        if (v25 == 8)
         {
           *(a7 + 8) = 0x100000008;
           *(a7 + 32) = 2;
@@ -6690,24 +6619,24 @@ LABEL_81:
 
         else
         {
-          if (v24 == 1)
+          if (v25 == 1)
           {
-            v26 = 6553601;
+            v27 = 6553601;
           }
 
           else
           {
-            v26 = 6619138;
+            v27 = 6619138;
           }
 
-          *a7 = v26;
+          *a7 = v27;
         }
 
-        v14 = 0;
-        *a6 = v25;
+        v15 = 0;
+        *a6 = v26;
       }
 
-      return v14;
+      return v15;
     }
 
 LABEL_82:
@@ -6717,16 +6646,16 @@ LABEL_82:
       return 561211770;
     }
 
-    v14 = 0;
+    v15 = 0;
     *a7 = 0;
-    return v14;
+    return v15;
   }
 
-  if (v13 <= 1836411235)
+  if (v14 <= 1836411235)
   {
-    if (v13 > 1819173228)
+    if (v14 > 1819173228)
     {
-      if (v13 == 1819173229)
+      if (v14 == 1819173229)
       {
         v40 = *(DerivedStorage + 32);
         if (!v40 || (v41 = CFRetain(v40)) == 0)
@@ -6737,12 +6666,12 @@ LABEL_82:
         *a6 = 8;
         if (a5 < 8)
         {
-          v14 = 561211770;
+          v15 = 561211770;
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
           *a7 = CFRetain(v41);
         }
 
@@ -6751,27 +6680,27 @@ LABEL_82:
           CFRelease(v41);
         }
 
-        return v14;
+        return v15;
       }
 
-      v23 = 1819569763;
+      v24 = 1819569763;
       goto LABEL_81;
     }
 
-    if (v13 == 1818850926)
+    if (v14 == 1818850926)
     {
       *a6 = 4;
       if (a5 >= 4)
       {
-        v14 = 0;
-        v15 = *(DerivedStorage + 172) == 0;
+        v15 = 0;
+        v16 = *(DerivedStorage + 172) == 0;
         goto LABEL_136;
       }
 
       return 561211770;
     }
 
-    if (v13 != 1819107691)
+    if (v14 != 1819107691)
     {
       return 2003332927;
     }
@@ -6782,18 +6711,18 @@ LABEL_82:
       return 561211770;
     }
 
-    v22 = @"Apple, Inc.";
+    v23 = @"Apple, Inc.";
 LABEL_125:
-    v22 = CFRetain(v22);
+    v23 = CFRetain(v23);
 LABEL_126:
-    v14 = 0;
-    *a7 = v22;
-    return v14;
+    v15 = 0;
+    *a7 = v23;
+    return v15;
   }
 
-  if (v13 > 1853059699)
+  if (v14 > 1853059699)
   {
-    if (v13 == 1853059700)
+    if (v14 == 1853059700)
     {
       *a6 = 8;
       if (a5 < 8)
@@ -6801,19 +6730,19 @@ LABEL_126:
         return 561211770;
       }
 
-      v14 = 0;
+      v15 = 0;
       *a7 = *(*(DerivedStorage + 120) + 16);
-      return v14;
+      return v15;
     }
 
-    if (v13 != 1870098020)
+    if (v14 != 1870098020)
     {
       return 2003332927;
     }
 
-    LODWORD(v29) = a5 >> 2;
-    v30 = a2[1];
-    if (v30 == 1869968496)
+    LODWORD(v30) = a5 >> 2;
+    v31 = a2[1];
+    if (v31 == 1869968496)
     {
       if (*(DerivedStorage + 144))
       {
@@ -6830,28 +6759,28 @@ LABEL_126:
         ++v42;
       }
 
-      if (v29 >= v42)
+      if (v30 >= v42)
       {
-        v32 = v42;
+        v33 = v42;
       }
 
       else
       {
-        v32 = a5 >> 2;
+        v33 = a5 >> 2;
       }
 
       if (a5 >= 4)
       {
         *a7 = sub_1DF8(*(DerivedStorage + 136));
-        if (v32 >= 2)
+        if (v33 >= 2)
         {
-          v43 = v12[18];
+          v43 = v13[18];
           if (v43)
           {
             *(a7 + 4) = sub_1DF8(v43);
             v44 = 2;
-            LODWORD(v29) = 2;
-            if (v32 == 2)
+            LODWORD(v30) = 2;
+            if (v33 == 2)
             {
               goto LABEL_159;
             }
@@ -6862,7 +6791,7 @@ LABEL_126:
             v44 = 1;
           }
 
-          v46 = v12[19];
+          v46 = v13[19];
           if (v46)
           {
             *(a7 + 4 * v44) = sub_1DF8(v46);
@@ -6875,76 +6804,76 @@ LABEL_126:
       }
     }
 
-    else if (v30 != 1768845428)
+    else if (v31 != 1768845428)
     {
-      if (v30 != 1735159650)
+      if (v31 != 1735159650)
       {
         goto LABEL_159;
       }
 
       if (*(DerivedStorage + 144))
       {
-        v31 = 2;
+        v32 = 2;
       }
 
       else
       {
-        v31 = 1;
+        v32 = 1;
       }
 
       if (*(DerivedStorage + 152))
       {
-        ++v31;
+        ++v32;
       }
 
-      v32 = v29 >= v31 ? v31 : a5 >> 2;
+      v33 = v30 >= v32 ? v32 : a5 >> 2;
       if (a5 >= 4)
       {
         *a7 = sub_1DF8(*(DerivedStorage + 136));
-        if (v32 >= 2)
+        if (v33 >= 2)
         {
-          v33 = v12[18];
-          if (!v33)
+          v34 = v13[18];
+          if (!v34)
           {
-            v29 = 1;
+            v30 = 1;
             goto LABEL_177;
           }
 
-          *(a7 + 4) = sub_1DF8(v33);
-          v29 = 2;
-          if (v32 != 2)
+          *(a7 + 4) = sub_1DF8(v34);
+          v30 = 2;
+          if (v33 != 2)
           {
 LABEL_177:
-            v47 = v12[19];
+            v47 = v13[19];
             if (v47)
             {
-              *(a7 + 4 * v29) = sub_1DF8(v47);
+              *(a7 + 4 * v30) = sub_1DF8(v47);
             }
 
 LABEL_179:
-            LODWORD(v29) = v32;
+            LODWORD(v30) = v33;
           }
 
 LABEL_159:
-          v14 = 0;
-          v28 = 4 * v29;
+          v15 = 0;
+          v29 = 4 * v30;
           goto LABEL_171;
         }
 
 LABEL_166:
-        LODWORD(v29) = 1;
+        LODWORD(v30) = 1;
         goto LABEL_159;
       }
     }
 
-    LODWORD(v29) = 0;
+    LODWORD(v30) = 0;
     goto LABEL_159;
   }
 
-  if (v13 == 1836411236)
+  if (v14 == 1836411236)
   {
-    v22 = *(DerivedStorage + 40);
-    if (!v22)
+    v23 = *(DerivedStorage + 40);
+    if (!v23)
     {
       goto LABEL_123;
     }
@@ -6958,29 +6887,29 @@ LABEL_166:
     goto LABEL_125;
   }
 
-  if (v13 != 1853059619)
+  if (v14 != 1853059619)
   {
     return 2003332927;
   }
 
-  v14 = 0;
+  v15 = 0;
   *a6 = 0;
-  return v14;
+  return v15;
 }
 
 uint64_t sub_9A04(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, int a5, double *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v10 = DerivedStorage;
-  v45 = 0;
-  v46 = 0;
-  v11 = *a2;
+  v11 = DerivedStorage;
+  v42 = 0;
+  v43 = 0;
+  v12 = *a2;
   if (*a2 == 1718383987)
   {
-    if (sub_9F6C())
+    if (sub_9F6C(a1))
     {
       v25 = 0;
-      *(*(v10 + 15) + 168) = 1;
+      *(*(v11 + 120) + 168) = 1;
     }
 
     else
@@ -6989,123 +6918,136 @@ uint64_t sub_9A04(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, int a5, double
       sub_E2A4();
     }
 
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
-  if (v11 == 1987012963)
+  if (v12 == 1987012963)
   {
-    if (!sub_A05C())
+    if (!sub_A05C(a1))
     {
       v25 = 1970171760;
       sub_E290();
-      goto LABEL_44;
+      goto LABEL_47;
     }
 
-    if (a5 == 4)
+    if (a5 != 4)
     {
-      v29 = *a6;
-      *(v10 + 88) = *a6;
-      v30 = CMBaseObjectGetDerivedStorage();
-      v31 = v30;
-      *&__s2[0] = 0;
-      if (v29)
-      {
-        v32 = &kCFBooleanTrue;
-      }
-
-      else
-      {
-        v32 = &kCFBooleanFalse;
-      }
-
-      v33 = *(v30 + 104);
-      CMBaseObject = FigEndpointStreamGetCMBaseObject();
-      v35 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (!v35 || v35(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, __s2))
-      {
-        sub_E268();
-      }
-
-      else if (FigCFEqual())
-      {
-        if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-        {
-          v40 = *(v31 + 104);
-          LogPrintF();
-        }
-
-        v36 = *(v31 + 104);
-        v37 = FigEndpointStreamGetCMBaseObject();
-        v38 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-        if (v38)
-        {
-          v38(v37, kAPEndpointStreamProperty_IsHomeTheaterFaceTime, *v32);
-        }
-      }
-
-      if (*&__s2[0])
-      {
-        CFRelease(*&__s2[0]);
-      }
-
-      goto LABEL_43;
+      v25 = 561211770;
+      goto LABEL_38;
     }
 
-    v25 = 561211770;
-LABEL_36:
-    APSLogErrorAt();
-    goto LABEL_44;
+    v27 = *a6;
+    *(v11 + 88) = *a6;
+    v28 = CMBaseObjectGetDerivedStorage();
+    *&__s2[0] = 0;
+    if (v27)
+    {
+      v29 = &kCFBooleanTrue;
+    }
+
+    else
+    {
+      v29 = &kCFBooleanFalse;
+    }
+
+    CMBaseObject = FigEndpointStreamGetCMBaseObject();
+    v31 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v31)
+    {
+      v32 = v31(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, __s2);
+      if (!v32)
+      {
+        if (FigCFEqual())
+        {
+          if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+          {
+            v33 = "true";
+            if (!v27)
+            {
+              v33 = "false";
+            }
+
+            LogPrintF(&dword_181C8, "void device_setHTFTIsActive(FigHALAudioObjectRef, Boolean)", 33554482, "[%{ptr}] Updating 'usingVoice' property with value: %s; endpoint stream [%{ptr}].\n", a1, v33, *(v28 + 104));
+          }
+
+          v34 = FigEndpointStreamGetCMBaseObject();
+          v35 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+          if (v35)
+          {
+            v35(v34, kAPEndpointStreamProperty_IsHomeTheaterFaceTime, *v29);
+          }
+        }
+
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      v32 = 4294954514;
+    }
+
+    sub_E268(v32);
+LABEL_44:
+    if (*&__s2[0])
+    {
+      CFRelease(*&__s2[0]);
+    }
+
+    goto LABEL_46;
   }
 
-  if (v11 != 1853059700)
+  if (v12 != 1853059700)
   {
     v25 = 2003332927;
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
   memset(__s2, 0, 40);
-  v12 = *(DerivedStorage + 120);
-  v13 = *(v12 + 32);
-  __s1 = *(v12 + 16);
-  v42 = v13;
-  v43 = *(v12 + 48);
+  v13 = *(DerivedStorage + 120);
+  v14 = *(v13 + 32);
+  __s1 = *(v13 + 16);
+  v39 = v14;
+  v40 = *(v13 + 48);
   if (a5 != 8)
   {
     v25 = 561211770;
-    goto LABEL_36;
+LABEL_38:
+    APSLogErrorAt();
+    goto LABEL_47;
   }
 
-  v14 = *a6;
+  v15 = *a6;
   if (*a6 == *&__s1)
   {
-LABEL_43:
+LABEL_46:
     v25 = 0;
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
-  v15 = *(DerivedStorage + 136);
   v16 = FigHALAudioStreamGetCMBaseObject();
   v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v17)
   {
     v25 = 4294954514;
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
-  v18 = v17(v16, kFigHALAudioStreamProperty_SupportedPCMFormats, kCFAllocatorDefault, &v45);
+  v18 = v17(v16, kFigHALAudioStreamProperty_SupportedPCMFormats, kCFAllocatorDefault, &v42);
   if (v18)
   {
     v25 = v18;
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
-  v19 = v45;
-  Length = CFDataGetLength(v45);
+  v19 = v42;
+  Length = CFDataGetLength(v42);
   if (Length < 0x70)
   {
     v25 = 4294967246;
-LABEL_52:
-    sub_E2B8();
+    v37 = 1341;
+LABEL_55:
+    sub_E2B8(v37, v25);
   }
 
   else
@@ -7115,13 +7057,13 @@ LABEL_52:
     v23 = 0;
     do
     {
-      if (*(BytePtr + 5) <= v14 && *(BytePtr + 6) >= v14)
+      if (*(BytePtr + 5) <= v15 && *(BytePtr + 6) >= v15)
       {
         v23 = BytePtr;
-        if (*(BytePtr + 7) == HIDWORD(v42))
+        if (*(BytePtr + 7) == HIDWORD(v39))
         {
           v23 = BytePtr;
-          if (*(BytePtr + 8) >= v43)
+          if (*(BytePtr + 8) >= v40)
           {
             v23 = BytePtr;
             goto LABEL_16;
@@ -7137,20 +7079,21 @@ LABEL_52:
     if (!v23)
     {
       v25 = 1970171760;
-      goto LABEL_52;
+      v37 = 1358;
+      goto LABEL_55;
     }
 
 LABEL_16:
-    *__s2 = v14;
+    *__s2 = v15;
     v24 = *(v23 + 24);
     *(__s2 + 8) = *(v23 + 8);
     *(&__s2[1] + 8) = v24;
     if (!memcmp(&__s1, __s2, 0x28uLL))
     {
-      goto LABEL_43;
+      goto LABEL_46;
     }
 
-    sub_1DF8(*(v10 + 17));
+    sub_1DF8(*(v11 + 136));
     v25 = FigHALAudioConfigChangeCreateRecord();
     if (v25)
     {
@@ -7159,166 +7102,190 @@ LABEL_16:
 
     else
     {
-      v26 = v46;
-      *(v46 + 16) = __s2[0];
+      v26 = v43;
+      *(v43 + 16) = __s2[0];
       *(v26 + 32) = __s2[1];
       *(v26 + 48) = *&__s2[2];
-      v27 = *(v10 + 1);
-      v28 = *v10;
       FigHALAudioConfigChangeSendRequest();
-      v46 = 0;
+      v43 = 0;
     }
   }
 
-LABEL_44:
+LABEL_47:
   FigHALAudioConfigChangeDisposeRecord();
-  if (v45)
+  if (v42)
   {
-    CFRelease(v45);
+    CFRelease(v42);
   }
 
   return v25;
 }
 
-BOOL sub_9F6C()
+BOOL sub_9F6C(uint64_t a1)
 {
+  CMBaseObjectGetDerivedStorage();
   cf1 = 0;
-  v0 = *(CMBaseObjectGetDerivedStorage() + 104);
   CMBaseObject = FigEndpointStreamGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v3 = *(*(VTable + 8) + 48);
-  if (!v3 || (v4 = *(VTable + 8) + 48, v3(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1)))
+  v2 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v2)
   {
-    sub_E308();
-    v5 = 1;
+    v3 = v2(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1);
+    if (!v3)
+    {
+      v4 = CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) == 0;
+      goto LABEL_4;
+    }
   }
 
   else
   {
-    v5 = CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) == 0;
+    v3 = 4294954514;
   }
 
+  sub_E308(v3);
+  v4 = 1;
+LABEL_4:
   if (cf1)
   {
     CFRelease(cf1);
   }
 
-  return v5;
+  return v4;
 }
 
-BOOL sub_A05C()
+BOOL sub_A05C(uint64_t a1)
 {
+  CMBaseObjectGetDerivedStorage();
   cf1 = 0;
-  v0 = *(CMBaseObjectGetDerivedStorage() + 104);
   CMBaseObject = FigEndpointStreamGetCMBaseObject();
   v2 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v2 || v2(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1))
+  if (!v2)
   {
-    sub_E35C();
+    v3 = 4294954514;
+    goto LABEL_9;
   }
 
-  else
+  v3 = v2(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1);
+  if (v3)
   {
-    if (cf1)
-    {
-      v3 = CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) != 0;
-      goto LABEL_5;
-    }
-
-    sub_E330();
+LABEL_9:
+    sub_E35C(v3);
+    goto LABEL_10;
   }
 
-  v3 = 0;
+  if (cf1)
+  {
+    v4 = CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) != 0;
+    goto LABEL_5;
+  }
+
+  sub_E330();
+LABEL_10:
+  v4 = 0;
 LABEL_5:
   if (cf1)
   {
     CFRelease(cf1);
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t sub_A158()
+uint64_t sub_A158(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   cf1 = 0;
-  v1 = *(DerivedStorage + 104);
   CMBaseObject = FigEndpointStreamGetCMBaseObject();
-  v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v3 || v3(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1))
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v4)
   {
-    sub_E384();
-    v5 = 0;
+    v5 = 4294954514;
+    goto LABEL_16;
   }
 
-  else
+  v5 = v4(CMBaseObject, kFigEndpointStreamProperty_Type, kCFAllocatorDefault, &cf1);
+  if (v5)
   {
-    if (CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) && !*(DerivedStorage + 88))
-    {
-      UInt32 = 128;
-    }
+LABEL_16:
+    sub_E384(v5);
+    v9 = 0;
+    goto LABEL_33;
+  }
 
-    else if (*(*(DerivedStorage + 120) + 80))
+  if (CFEqual(cf1, kFigEndpointStreamType_LowLatencyAudio) && !*(DerivedStorage + 88))
+  {
+    UInt32 = 128;
+  }
+
+  else if (*(*(DerivedStorage + 120) + 80))
+  {
+    v6 = FigHALAudioConduitDeviceCopyProperty();
+    if (v6)
     {
-      if (FigHALAudioConduitDeviceCopyProperty())
+      if (dword_181C8 <= 90 && ((v7 = v6, dword_181C8 != -1) || _LogCategory_Initialize()))
       {
-        if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-        {
-          v8 = *(*(DerivedStorage + 120) + 80);
-          LogPrintF();
-          UInt32 = 480;
-        }
-
-        else
-        {
-          UInt32 = 480;
-        }
+        LogPrintF(&dword_181C8, "UInt32 device_getCalculatedBufferFrameSize(FigHALAudioObjectRef)", 33554522, "[%{ptr}] Conduit device %{ptr} returned %d for DesiredNumberPackets; using %u for BufferFrameSize\n", a1, *(*(DerivedStorage + 120) + 80), v7, 480);
+        UInt32 = 480;
       }
 
       else
       {
-        UInt32 = FigCFNumberGetUInt32();
-        if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-        {
-          v9 = *(*(DerivedStorage + 120) + 80);
-          LogPrintF();
-        }
+        UInt32 = 480;
       }
     }
 
     else
     {
-      UInt32 = 0;
-    }
-
-    IntWithDefault = APSSettingsGetIntWithDefault();
-    if (IntWithDefault)
-    {
-      v5 = IntWithDefault;
+      UInt32 = FigCFNumberGetUInt32();
       if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_181C8, "UInt32 device_getCalculatedBufferFrameSize(FigHALAudioObjectRef)", 33554482, "[%{ptr}] Conduit device %{ptr} DesiredNumberPackets for BufferFrameSize: %u\n", a1, *(*(DerivedStorage + 120) + 80), UInt32);
       }
-    }
-
-    else
-    {
-      if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
-      {
-        *(DerivedStorage + 88);
-        LogPrintF();
-      }
-
-      v5 = UInt32;
     }
   }
 
+  else
+  {
+    UInt32 = 0;
+  }
+
+  IntWithDefault = APSSettingsGetIntWithDefault();
+  if (IntWithDefault)
+  {
+    v9 = IntWithDefault;
+    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_181C8, "UInt32 device_getCalculatedBufferFrameSize(FigHALAudioObjectRef)", 33554482, "[%{ptr}] Using forced BufferFrameSize %u instead of %u for stream type %@.\n", a1, v9, UInt32, cf1);
+    }
+  }
+
+  else
+  {
+    if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
+    {
+      if (*(DerivedStorage + 88))
+      {
+        v11 = "true";
+      }
+
+      else
+      {
+        v11 = "false";
+      }
+
+      LogPrintF(&dword_181C8, "UInt32 device_getCalculatedBufferFrameSize(FigHALAudioObjectRef)", 33554482, "[%{ptr}] BufferFrameSize set to %u; and 'usingVoice' property is %s.\n", a1, UInt32, v11);
+    }
+
+    v9 = UInt32;
+  }
+
+LABEL_33:
   if (cf1)
   {
     CFRelease(cf1);
   }
 
-  return v5;
+  return v9;
 }
 
 uint64_t sub_A490(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7337,7 +7304,7 @@ uint64_t sub_A490(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-CFTypeRef sub_A544()
+CFTypeRef sub_A544(uint64_t a1)
 {
   result = *(CMBaseObjectGetDerivedStorage() + 24);
   if (result)
@@ -7352,74 +7319,67 @@ CFTypeRef sub_A544()
 uint64_t sub_A57C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = DerivedStorage;
   if (a2 != 1818326115 && a2 != 1718579821)
   {
     fig_log_get_emitter();
-    v11 = FigSignalErrorAtGM();
+    v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, v10[1]);
     goto LABEL_10;
   }
 
   if (!a3)
   {
-    sub_E3AC(&v17);
-    v11 = v17;
+    sub_E3AC(v10);
+    v8 = v10[0];
     goto LABEL_10;
   }
 
-  v15 = *(a3 + 4);
-  v16 = *(a3 + 12);
-  v7 = *(DerivedStorage + 136);
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 24) + 16);
-  if (!v9)
+  v6 = *(DerivedStorage + 136);
+  v7 = *(*(CMBaseObjectGetVTable() + 24) + 16);
+  if (!v7)
   {
-    v11 = 4294954514;
+    v8 = 4294954514;
     goto LABEL_8;
   }
 
-  v10 = *(VTable + 24) + 16;
-  v11 = v9(v7, a2, a3);
-  if (v11)
+  v8 = v7(v6, a2, a3);
+  if (v8)
   {
 LABEL_8:
     APSLogErrorAt();
     goto LABEL_10;
   }
 
-  v12 = *(v6 + 1);
-  v13 = *v6;
   FigHALAudioPropertySendChanges();
 LABEL_10:
   FigHALAudioConfigChangeDisposeRecord();
-  return v11;
+  return v8;
 }
 
-uint64_t sub_A728()
+uint64_t sub_A728(uint64_t a1)
 {
-  v52[0] = 0;
+  v55[0] = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v50 = kCMTimeInvalid;
+  v53 = kCMTimeInvalid;
+  v54 = 0;
+  v52 = v53;
+  v50 = 0;
   v51 = 0;
-  v49 = v50;
-  v47 = 0;
-  v48 = 0;
   *bytes = 0u;
-  v46 = 0u;
+  v49 = 0u;
   mach_absolute_time();
   if (!*(DerivedStorage + 112))
   {
-    sub_E7C8(v52, &time);
+    sub_E7C8(v55, &time);
     goto LABEL_100;
   }
 
   if (*(DerivedStorage + 172))
   {
-    sub_E424(v52, &time);
+    sub_E424(v55, &time);
 LABEL_100:
     Mutable = 0;
     SInt32 = 0;
-    v3 = 0;
+    v5 = 0;
     if (!LODWORD(time.value))
     {
       goto LABEL_76;
@@ -7435,44 +7395,44 @@ LABEL_4:
     Mutable = 0;
 LABEL_5:
     SInt32 = 0;
-    v3 = 0;
+    v5 = 0;
     goto LABEL_64;
   }
 
-  v5 = DerivedStorage + 120;
-  v4 = *(DerivedStorage + 120);
-  v6 = *(v4 + 32);
-  *(v4 + 104) = *(v4 + 16);
-  *(v4 + 120) = v6;
-  *(v4 + 136) = *(v4 + 48);
-  v7 = *(DerivedStorage + 120);
-  v8 = *(v7 + 128);
-  v9 = *(v7 + 104);
-  *(v7 + 172) = 0;
-  *(v7 + 176) = v9;
-  *(v7 + 180) = v8;
-  *(v7 + 168) = 0;
+  v7 = DerivedStorage + 120;
+  v6 = *(DerivedStorage + 120);
+  v8 = *(v6 + 32);
+  *(v6 + 104) = *(v6 + 16);
+  *(v6 + 120) = v8;
+  *(v6 + 136) = *(v6 + 48);
+  v9 = *(DerivedStorage + 120);
+  v10 = *(v9 + 128);
+  v11 = *(v9 + 104);
+  *(v9 + 172) = 0;
+  *(v9 + 176) = v11;
+  *(v9 + 180) = v10;
+  *(v9 + 168) = 0;
   *(*(DerivedStorage + 120) + 160) = 0;
-  v11 = (DerivedStorage + 176);
-  v10 = *(DerivedStorage + 176);
-  if (v10)
+  v13 = (DerivedStorage + 176);
+  v12 = *(DerivedStorage + 176);
+  if (v12)
   {
-    CFRelease(v10);
-    *v11 = 0;
+    CFRelease(v12);
+    *v13 = 0;
   }
 
-  v12 = *(DerivedStorage + 72);
   if (FigCFEqual())
   {
-    v13 = kCFAllocatorDefault;
-    v52[0] = CMTimeSyncClockCreateForSystemDomainClockIdentifier();
-    if (v52[0])
+    v14 = kCFAllocatorDefault;
+    v15 = CMTimeSyncClockCreateForSystemDomainClockIdentifier();
+    v55[0] = v15;
+    if (v15)
     {
-      sub_E4AC();
+      sub_E4AC(v15);
       goto LABEL_4;
     }
 
-    v14 = v51;
+    v16 = v54;
   }
 
   else
@@ -7480,88 +7440,91 @@ LABEL_5:
     HostTimeClock = CMClockGetHostTimeClock();
     if (HostTimeClock)
     {
-      v14 = CFRetain(HostTimeClock);
+      v16 = CFRetain(HostTimeClock);
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
 
-    v51 = v14;
-    v13 = kCFAllocatorDefault;
+    v54 = v16;
+    v14 = kCFAllocatorDefault;
   }
 
-  v52[0] = CMTimebaseCreateWithSourceClock(v13, v14, (DerivedStorage + 176));
-  if (v52[0])
+  v18 = CMTimebaseCreateWithSourceClock(v14, v16, (DerivedStorage + 176));
+  v55[0] = v18;
+  if (v18)
   {
-    sub_E4D4();
+    sub_E4D4(v18);
     goto LABEL_4;
   }
 
-  CMClockGetTime(&v50, v51);
-  v16 = v51;
-  v17 = CMClockGetHostTimeClock();
-  time = v50;
-  CMSyncConvertTime(&v49, &time, v16, v17);
-  v18 = *v11;
+  CMClockGetTime(&v53, v54);
+  v19 = v54;
+  v20 = CMClockGetHostTimeClock();
+  time = v53;
+  CMSyncConvertTime(&v52, &time, v19, v20);
+  v21 = *v13;
   time = kCMTimeZero;
-  immediateSourceTime = v50;
-  v52[0] = CMTimebaseSetRateAndAnchorTime(v18, 1.0, &time, &immediateSourceTime);
-  if (v52[0])
+  immediateSourceTime = v53;
+  v22 = CMTimebaseSetRateAndAnchorTime(v21, 1.0, &time, &immediateSourceTime);
+  v55[0] = v22;
+  if (v22)
   {
-    sub_E4FC();
+    sub_E4FC(v22);
     goto LABEL_4;
   }
 
-  v19 = *v5;
-  v52[0] = APAudioSourceConduitCreate();
-  if (v52[0])
+  v23 = APAudioSourceConduitCreate();
+  v55[0] = v23;
+  if (v23)
   {
-    sub_E524();
+    sub_E524(v23);
     goto LABEL_4;
   }
 
   if (IsAppleInternalBuild())
   {
-    v20 = *v5;
     APSRingBufferCreate();
   }
 
-  v21 = *(DerivedStorage + 136);
-  v22 = *(*(CMBaseObjectGetVTable() + 24) + 32);
-  if (!v22)
+  v24 = *(DerivedStorage + 136);
+  v25 = *(*(CMBaseObjectGetVTable() + 24) + 32);
+  if (!v25)
   {
-    v52[0] = -12782;
+    v26 = 4294954514;
+    v55[0] = -12782;
     goto LABEL_92;
   }
 
-  v52[0] = v22(v21);
-  if (v52[0])
+  v26 = v25(v24);
+  v55[0] = v26;
+  if (v26)
   {
 LABEL_92:
-    sub_E7A0();
+    sub_E7A0(v26);
     goto LABEL_4;
   }
 
-  Mutable = CFDictionaryCreateMutable(v13, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  Mutable = CFDictionaryCreateMutable(v14, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
-    time = v49;
-    v52[0] = FigCFDictionarySetCMTime();
-    if (v52[0])
+    time = v52;
+    v27 = FigCFDictionarySetCMTime();
+    v55[0] = v27;
+    if (v27)
     {
-      sub_E54C();
+      sub_E54C(v27);
       goto LABEL_5;
     }
 
-    v23 = *(*v5 + 144);
     FigCFDictionarySetValue();
-    if (*(*v5 + 56))
+    if (*(*v7 + 56))
     {
       ASBD = APSAudioFormatDescriptionGetASBD();
-      v3 = CFDataCreate(v13, ASBD, 40);
-      if (v3)
+      v5 = CFDataCreate(v14, ASBD, 40);
+      if (v5)
       {
         FigCFDictionarySetValue();
         if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
@@ -7572,53 +7535,54 @@ LABEL_92:
         goto LABEL_39;
       }
 
-      sub_E5C8(v52);
+      sub_E5C8(v55);
     }
 
     else
     {
-      if (*(DerivedStorage + 84) != 1885433964 || *(*v5 + 44) < 3u)
+      if (*(DerivedStorage + 84) != 1885433964 || *(*v7 + 44) < 3u)
       {
-        v3 = 0;
+        v5 = 0;
         goto LABEL_39;
       }
 
-      v52[0] = ASBDToAPAudioFormat();
-      if (v52[0])
+      v29 = ASBDToAPAudioFormat();
+      v55[0] = v29;
+      if (v29)
       {
-        sub_E608();
+        sub_E608(v29);
         goto LABEL_5;
       }
 
       APAudioFormatGetTransportAudioFormatForPCMFormatSender();
-      v52[0] = APAudioFormatToASBD();
-      if (v52[0])
+      v30 = APAudioFormatToASBD();
+      v55[0] = v30;
+      if (v30)
       {
-        sub_E630();
+        sub_E630(v30);
         goto LABEL_5;
       }
 
-      v3 = CFDataCreate(v13, bytes, 40);
-      if (v3)
+      v5 = CFDataCreate(v14, bytes, 40);
+      if (v5)
       {
         FigCFDictionarySetValue();
         if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_181C8, "OSStatus device_StartIO(FigHALAudioDeviceRef)", 33554482, "[%{ptr}] LLA Multichannel Audio format %{asbd} sent to audio engine for transport format.\n", a1, bytes);
         }
 
 LABEL_39:
         if (*(DerivedStorage + 89))
         {
-          v25 = *(DerivedStorage + 104);
           FigCFDictionarySetValue();
         }
 
-        v26 = *(DerivedStorage + 112);
-        v52[0] = FigEndpointStreamAudioEngineResumeSync();
-        if (v52[0])
+        v31 = FigEndpointStreamAudioEngineResumeSync();
+        v55[0] = v31;
+        if (v31)
         {
-          sub_E658();
+          sub_E658(v31);
           SInt32 = 0;
           goto LABEL_64;
         }
@@ -7626,64 +7590,60 @@ LABEL_39:
         mach_absolute_time();
         SInt32 = FigCFNumberCreateSInt32();
         sub_A490(*(DerivedStorage + 104), kFigEndpointStreamProperty_SubStreamResumptionTimeOutMs, SInt32);
-        v28 = *(DerivedStorage + 104);
-        v27 = *(DerivedStorage + 112);
-        v29 = FigEndpointStreamAudioEngineSetEndpointStreamSync();
-        v52[0] = v29;
-        if (v29 <= 200400)
+        v32 = FigEndpointStreamAudioEngineSetEndpointStreamSync();
+        v55[0] = v32;
+        if (v32 <= 200400)
         {
-          if (v29 == -15486)
+          if (v32 == -15486)
           {
             if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
             {
-              sub_E6BC();
+              sub_E6BC(a1, v33, v34);
             }
 
             goto LABEL_53;
           }
 
-          if (!v29)
+          if (!v32)
           {
             goto LABEL_55;
           }
         }
 
-        else if (v29 == 200401 || v29 == 200470)
+        else if (v32 == 200401 || v32 == 200470)
         {
           if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
           {
-            sub_E680();
+            sub_E680(a1, v33, v34);
           }
 
 LABEL_53:
-          v52[0] = 0;
+          v55[0] = 0;
 LABEL_55:
           mach_absolute_time();
-          v30 = *(DerivedStorage + 112);
-          v31 = APSGetFBOPropertyInt64();
-          if (v52[0])
+          v35 = APSGetFBOPropertyInt64();
+          if (v55[0])
           {
-            v32 = 0;
+            v36 = 0;
           }
 
           else
           {
-            v32 = v31;
+            v36 = v35;
           }
 
-          *(DerivedStorage + 64) = v32;
+          *(DerivedStorage + 64) = v36;
           if (dword_181C8 <= 50 && (dword_181C8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_181C8, "OSStatus device_StartIO(FigHALAudioDeviceRef)", 33554482, "[%{ptr}] Setting dynamic latency offset to %d\n", a1, v36);
           }
 
           APSSettingsGetDouble();
-          v33 = *(*(DerivedStorage + 120) + 176);
-          v34 = *(DerivedStorage + 176);
-          v52[0] = APSZTSControllerCreate();
-          if (v52[0])
+          v37 = APSZTSControllerCreate();
+          v55[0] = v37;
+          if (v37)
           {
-            sub_E6F8();
+            sub_E6F8(v37);
           }
 
           else
@@ -7698,11 +7658,11 @@ LABEL_55:
         APSLogErrorAt();
         if (dword_181C8 <= 90 && (dword_181C8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_181C8, "OSStatus device_StartIO(FigHALAudioDeviceRef)", 33554522, "### [%{ptr}] ESAE resume failed err=%#m\n", a1, v55[0]);
         }
 
 LABEL_64:
-        if (!v52[0])
+        if (!v55[0])
         {
           goto LABEL_76;
         }
@@ -7710,60 +7670,60 @@ LABEL_64:
         goto LABEL_65;
       }
 
-      sub_E720(v52);
+      sub_E720(v55);
     }
   }
 
   else
   {
-    sub_E760(v52);
-    v3 = 0;
+    sub_E760(v55);
+    v5 = 0;
   }
 
   SInt32 = 0;
 LABEL_65:
-  v35 = *(DerivedStorage + 136);
-  v36 = *(*(CMBaseObjectGetVTable() + 24) + 40);
-  if (v36)
+  v38 = *(DerivedStorage + 136);
+  v39 = *(*(CMBaseObjectGetVTable() + 24) + 40);
+  if (v39)
   {
-    v36(v35);
+    v39(v38);
   }
 
-  v37 = *(*(DerivedStorage + 120) + 144);
-  if (v37)
+  v40 = *(*(DerivedStorage + 120) + 144);
+  if (v40)
   {
-    CFRelease(v37);
+    CFRelease(v40);
     *(*(DerivedStorage + 120) + 144) = 0;
   }
 
-  v38 = *(DerivedStorage + 176);
-  if (v38)
+  v41 = *(DerivedStorage + 176);
+  if (v41)
   {
-    CFRelease(v38);
+    CFRelease(v41);
     *(DerivedStorage + 176) = 0;
   }
 
-  v39 = *(DerivedStorage + 56);
-  if (v39)
+  v42 = *(DerivedStorage + 56);
+  if (v42)
   {
-    CFRelease(v39);
+    CFRelease(v42);
     *(DerivedStorage + 56) = 0;
   }
 
-  v40 = *(DerivedStorage + 112);
-  if (v40)
+  v43 = *(DerivedStorage + 112);
+  if (v43)
   {
-    v41 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v41)
+    v44 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v44)
     {
-      v41(v40, 0, 0, 0);
+      v44(v43, 0, 0, 0);
     }
   }
 
 LABEL_76:
-  if (v51)
+  if (v54)
   {
-    CFRelease(v51);
+    CFRelease(v54);
   }
 
   if (Mutable)
@@ -7776,9 +7736,9 @@ LABEL_76:
     CFRelease(SInt32);
   }
 
-  if (v3)
+  if (v5)
   {
-    CFRelease(v3);
+    CFRelease(v5);
   }
 
   mach_absolute_time();
@@ -7795,38 +7755,33 @@ LABEL_76:
     }
   }
 
-  return v52[0];
+  return v55[0];
 }
 
-uint64_t sub_B0D8(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t sub_B0D8(uint64_t a1, double *a2, void *a3, void *a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v8 = *(DerivedStorage + 64);
   if (*(*(DerivedStorage + 120) + 184))
   {
-    v9 = DerivedStorage;
+    v8 = DerivedStorage;
     mach_absolute_time();
-    v10 = *(v9 + 56);
     ZeroTimeStamp = APSZTSControllerGetZeroTimeStamp();
     if (ZeroTimeStamp)
     {
-      v14 = ZeroTimeStamp;
-      sub_E908();
+      v10 = ZeroTimeStamp;
+      sub_E908(ZeroTimeStamp);
     }
 
     else
     {
-      *a2 = 0;
+      *a2 = 0.0;
       *a3 = 0;
       *a4 = 0;
-      if (*(*(v9 + 120) + 88))
+      if (*(*(v8 + 120) + 88))
       {
-        v16 = *a3;
         APSRingBufferEnqueueBytes();
       }
 
-      v12 = *a2;
-      v13 = *a3;
       kdebug_trace();
       return 0;
     }
@@ -7838,7 +7793,7 @@ uint64_t sub_B0D8(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
     return 1937010544;
   }
 
-  return v14;
+  return v10;
 }
 
 uint64_t sub_B1F4(uint64_t a1, int a2, BOOL *a3, BOOL *a4)
@@ -7859,7 +7814,7 @@ uint64_t sub_B1F4(uint64_t a1, int a2, BOOL *a3, BOOL *a4)
   return result;
 }
 
-uint64_t sub_B260()
+uint64_t sub_B260(uint64_t a1)
 {
   if (*(*(CMBaseObjectGetDerivedStorage() + 120) + 184))
   {
@@ -7870,7 +7825,7 @@ uint64_t sub_B260()
   return 1937010544;
 }
 
-uint64_t sub_B298()
+uint64_t sub_B298(uint64_t a1)
 {
   if (*(*(CMBaseObjectGetDerivedStorage() + 120) + 184))
   {
@@ -7929,17 +7884,10 @@ void sub_B354(void *a1)
   a1[7] = 0;
 }
 
-uint64_t sub_B3B4()
+uint64_t sub_B3B4(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
-}
-
-uint64_t *sub_B3D8(uint64_t *result, uint64_t *a2)
-{
-  v2 = *result;
-  v3 = *a2;
-  return result;
+  return LogPrintF(a1, a2, 33554522, a4);
 }
 
 uint64_t sub_B3E4(const __CFAllocator *a1, CFDataRef *a2)
@@ -7962,14 +7910,14 @@ uint64_t sub_B3E4(const __CFAllocator *a1, CFDataRef *a2)
   return result;
 }
 
-uint64_t sub_B444(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, void *a6)
+uint64_t sub_B444(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, CFTypeRef *a6)
 {
   FigHALAudioObjectGetClassID();
   v10 = CMDerivedObjectCreate();
   if (v10)
   {
     v14 = v10;
-    sub_E9FC();
+    sub_E9FC(v10);
   }
 
   else
@@ -7978,7 +7926,7 @@ uint64_t sub_B444(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
     if (v11)
     {
       v14 = v11;
-      sub_EA24();
+      sub_EA24(v11);
     }
 
     else
@@ -8006,14 +7954,14 @@ uint64_t sub_B444(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
   return v14;
 }
 
-uint64_t sub_B530(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, void *a6)
+uint64_t sub_B530(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5, CFTypeRef *a6)
 {
   FigHALAudioObjectGetClassID();
   v10 = CMDerivedObjectCreate();
   if (v10)
   {
     v14 = v10;
-    sub_EA4C();
+    sub_EA4C(v10);
   }
 
   else
@@ -8022,7 +7970,7 @@ uint64_t sub_B530(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
     if (v11)
     {
       v14 = v11;
-      sub_EA74();
+      sub_EA74(v11);
     }
 
     else
@@ -8050,32 +7998,32 @@ uint64_t sub_B530(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void *a5,
   return v14;
 }
 
-void sub_B61C()
+void sub_B61C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 16);
-  if (v1)
+  v2 = *(DerivedStorage + 16);
+  if (v2)
   {
-    CFRelease(v1);
+    CFRelease(v2);
     *(DerivedStorage + 16) = 0;
   }
 }
 
-CFStringRef sub_B650()
+CFStringRef sub_B650(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
   if (*(BytePtr + 1))
   {
-    v2 = " MUTED";
+    v3 = " MUTED";
   }
 
   else
   {
-    v2 = "";
+    v3 = "";
   }
 
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioVolumeControl ID %d Owner %d VolumeDB %f%s", *(DerivedStorage + 8), *(DerivedStorage + 12), *BytePtr, v2);
+  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioVolumeControl ID %d Owner %d VolumeDB %f%s", *(DerivedStorage + 8), *(DerivedStorage + 12), *BytePtr, v3);
 }
 
 uint64_t sub_B6F4(uint64_t a1, int *a2)
@@ -8193,7 +8141,7 @@ LABEL_18:
   }
 }
 
-uint64_t sub_B8C4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a5, _DWORD *a6, int *a7)
+uint64_t sub_B8C4(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, unsigned int a5, _DWORD *a6, float *a7)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
@@ -8238,7 +8186,6 @@ LABEL_43:
         goto LABEL_46;
       }
 
-      v17 = *a7;
       APSVolumeConvertDBToSliderValue();
     }
 
@@ -8269,7 +8216,6 @@ LABEL_33:
         v16 = 0;
         if (!*(BytePtr + 1))
         {
-          v19 = *BytePtr;
           APSVolumeConvertDBToSliderValue();
         }
 
@@ -8291,7 +8237,6 @@ LABEL_46:
         goto LABEL_46;
       }
 
-      v18 = *a7;
       APSVolumeConvertSliderValueToDB();
     }
 
@@ -8315,7 +8260,7 @@ LABEL_44:
       if (a5 >= 4)
       {
         v14 = 0;
-        *a7 = 0;
+        *a7 = 0.0;
         return v14;
       }
 
@@ -8370,23 +8315,22 @@ LABEL_44:
   return v14;
 }
 
-uint64_t sub_BBD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int *a6)
+uint64_t sub_BBD0(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, int a5, float *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
-  v17 = *(a2 + 4);
   if (*a2 == 1818453110)
   {
     if (a5 == 4)
     {
-      v12 = *a6;
+      v11 = *a6;
       goto LABEL_7;
     }
 
-    v15 = 561211770;
+    v12 = 561211770;
 LABEL_11:
     APSLogErrorAt();
-    return v15;
+    return v12;
   }
 
   if (*a2 != 1818456950)
@@ -8396,34 +8340,31 @@ LABEL_11:
 
   if (a5 != 4)
   {
-    v15 = 561211770;
+    v12 = 561211770;
     goto LABEL_11;
   }
 
-  v11 = *a6;
   APSVolumeConvertSliderValueToDB();
 LABEL_7:
-  *BytePtr = v12;
-  v13 = *DerivedStorage;
-  v14 = *(DerivedStorage + 8);
+  *BytePtr = v11;
   FigHALAudioPropertySendChanges();
   return 0;
 }
 
-CFStringRef sub_BD1C()
+CFStringRef sub_BD1C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(CFDataGetBytePtr(*(DerivedStorage + 16)) + 1))
   {
-    v1 = "";
+    v2 = "";
   }
 
   else
   {
-    v1 = "Not ";
+    v2 = "Not ";
   }
 
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioMuteControl ID %d Owner %d %sMuted", *(DerivedStorage + 8), *(DerivedStorage + 12), v1);
+  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"APAudioMuteControl ID %d Owner %d %sMuted", *(DerivedStorage + 8), *(DerivedStorage + 12), v2);
 }
 
 uint64_t sub_BD98(uint64_t a1, int *a2)
@@ -8589,16 +8530,11 @@ uint64_t sub_C01C(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, int
 
   if (a5 == 4)
   {
-    v10 = DerivedStorage;
-    v11 = *a6;
+    v10 = *a6;
     BytePtr = CFDataGetBytePtr(*(DerivedStorage + 16));
-    if (v11 != *(BytePtr + 1))
+    if (v10 != *(BytePtr + 1))
     {
-      *(BytePtr + 1) = v11 != 0;
-      v13 = *v10;
-      v14 = *(v10 + 8);
-      v15 = a2[1];
-      v16 = a2[2];
+      *(BytePtr + 1) = v10 != 0;
       FigHALAudioPropertySendOneChange();
     }
 
@@ -8607,11 +8543,11 @@ uint64_t sub_C01C(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, int
 
   else
   {
-    v17 = 561211770;
+    v12 = 561211770;
     APSLogErrorAt();
   }
 
-  return v17;
+  return v12;
 }
 
 uint64_t sub_C0F0()
@@ -8638,7 +8574,7 @@ uint64_t sub_C1DC(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
-  v2 = FigSignalErrorAtGM();
+  v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a1 = v2;
   if (!v2)
   {
@@ -8664,7 +8600,7 @@ BOOL sub_C404(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
-  v2 = FigSignalErrorAtGM();
+  v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a1 = v2;
   return v2 == 0;
 }
@@ -8673,7 +8609,7 @@ uint64_t sub_C52C(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
-  v2 = FigSignalErrorAtGM();
+  v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a1 = v2;
   if (!v2)
   {
@@ -8698,28 +8634,13 @@ double sub_C5CC(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_C674(uint64_t a1)
-{
-  v3 = *(*a1 + 24);
-  v2 = *(*a1 + 16);
-  return sub_321C();
-}
-
 uint64_t sub_C780(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_C814(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v4 = *(v1 + 24);
-  v3 = *(v1 + 16);
-  return sub_321C();
 }
 
 uint64_t sub_C8E4(_DWORD *a1)
@@ -8727,7 +8648,7 @@ uint64_t sub_C8E4(_DWORD *a1)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  v2 = FigSignalErrorAtGM();
+  v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a1 = v2;
   if (!v2)
   {
@@ -8738,23 +8659,17 @@ uint64_t sub_C8E4(_DWORD *a1)
   return 0;
 }
 
-uint64_t sub_C97C(uint64_t *a1)
+const UInt8 *sub_C97C(uint64_t *a1)
 {
-  v2 = *(*a1 + 72);
   result = APSAudioFormatDescriptionListGetFormatCount();
   if (result)
   {
     if (dword_180E0 < 51)
     {
-      if (dword_180E0 != -1)
+      if (dword_180E0 != -1 || (result = _LogCategory_Initialize(), result))
       {
-        goto LABEL_4;
-      }
-
-      result = _LogCategory_Initialize();
-      if (result)
-      {
-        goto LABEL_4;
+        v4 = "Verifying default output format [%{asbd}]";
+        return sub_5434(&dword_180E0, "OSStatus VerifyDefaultOutputFormat(APHALAudioStreamStorage *)", v3, v4);
       }
     }
   }
@@ -8764,43 +8679,29 @@ uint64_t sub_C97C(uint64_t *a1)
     result = CFDataGetBytePtr(*(*a1 + 64));
     v5 = *a1;
     v6 = *result;
-    v7 = *(result + 16);
-    *(v5 + 48) = *(result + 32);
+    v7 = *(result + 1);
+    *(v5 + 48) = *(result + 4);
     *(v5 + 16) = v6;
     *(v5 + 32) = v7;
-    *(*a1 + 16) = *(result + 40);
+    *(*a1 + 16) = *(result + 5);
     if (dword_180E0 < 51)
     {
       if (dword_180E0 != -1)
       {
-        return sub_5434();
+        v4 = "Initializing default output format [%{asbd}]";
+        return sub_5434(&dword_180E0, "OSStatus VerifyDefaultOutputFormat(APHALAudioStreamStorage *)", v3, v4);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-LABEL_4:
-        v4 = *a1;
-        return sub_5434();
+        v4 = "Initializing default output format [%{asbd}]";
+        return sub_5434(&dword_180E0, "OSStatus VerifyDefaultOutputFormat(APHALAudioStreamStorage *)", v3, v4);
       }
     }
   }
 
   return result;
-}
-
-uint64_t sub_CBC4(uint64_t a1)
-{
-  v3 = *(*a1 + 24);
-  v2 = *(*a1 + 16);
-  return sub_5434();
-}
-
-uint64_t sub_CC1C(uint64_t a1)
-{
-  v1 = *(*a1 + 56);
-  APSAudioFormatDescriptionGetASBD();
-  return sub_5434();
 }
 
 uint64_t sub_CC6C(uint64_t a1, _DWORD *a2)
@@ -8809,7 +8710,7 @@ uint64_t sub_CC6C(uint64_t a1, _DWORD *a2)
   fig_log_get_emitter();
   sub_5410();
   sub_544C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a2 = result;
   return result;
 }
@@ -8820,7 +8721,7 @@ uint64_t sub_CD20(_DWORD *a1)
   fig_log_get_emitter();
   sub_5410();
   sub_544C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8831,7 +8732,7 @@ uint64_t sub_CDF8(_DWORD *a1)
   fig_log_get_emitter();
   sub_5410();
   sub_544C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -8842,17 +8743,9 @@ uint64_t sub_CF24(_DWORD *a1)
   fig_log_get_emitter();
   sub_5410();
   sub_544C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_CF98(double *a1, double *a2, uint64_t *a3)
-{
-  v3 = *a1;
-  v4 = *a2;
-  v5 = *a3;
-  return kdebug_trace();
 }
 
 uint64_t sub_CFDC(uint64_t a1, uint64_t a2)
@@ -8868,51 +8761,9 @@ uint64_t sub_D124(_DWORD *a1)
   fig_log_get_emitter();
   sub_5410();
   sub_544C();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
-}
-
-uint64_t sub_D1AC(uint64_t a1)
-{
-  v1 = *(a1 + 64);
-  v4 = *(v1 + 24);
-  v3 = *(v1 + 16);
-  return sub_321C();
-}
-
-uint64_t sub_D204(uint64_t *a1)
-{
-  v4 = a1[2];
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  return sub_321C();
-}
-
-uint64_t sub_D250(uint64_t *a1)
-{
-  v4 = a1[3];
-  v3 = *(a1 + 1);
-  v2 = *a1;
-  return sub_5434();
-}
-
-uint64_t sub_D2A8(uint64_t *a1)
-{
-  v5 = a1[3];
-  v4 = a1[2];
-  v3 = a1[1];
-  v2 = *a1;
-  return sub_5434();
-}
-
-uint64_t sub_D308(uint64_t *a1)
-{
-  v5 = a1[3];
-  v3 = a1[1];
-  v4 = a1[2];
-  v2 = *a1;
-  return sub_5434();
 }
 
 uint64_t *APHALPlugin_Create(uint64_t a1, const void *a2)
@@ -8957,30 +8808,20 @@ void sub_D4E8(uint64_t a1, CFTypeRef *a2)
 uint64_t sub_D528(_DWORD *a1)
 {
   APSLogErrorAt();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_D6D4(uint64_t *a1, uint64_t *a2)
+uint64_t sub_D5E0(uint64_t a1, float a2)
 {
-  v3 = *a1;
-  v4 = *a2;
-  return sub_5434();
-}
+  v2 = "YES";
+  if (!*(a1 + 4))
+  {
+    v2 = "NO";
+  }
 
-uint64_t sub_D718(uint64_t a1)
-{
-  *(a1 + 4);
-  v2 = *a1;
-  return sub_5434();
-}
-
-uint64_t sub_D77C(uint64_t a1)
-{
-  *(a1 + 4);
-  v2 = *a1;
-  return sub_5434();
+  return LogPrintF(&dword_18158, "void volumeControl_DACPDeviceVolumeNotificationCallback(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554472, "isMuted = %s, newVolume = %f", v2, a2);
 }
 
 uint64_t sub_D9B8(_DWORD *a1)
@@ -8988,7 +8829,7 @@ uint64_t sub_D9B8(_DWORD *a1)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -8998,7 +8839,7 @@ uint64_t sub_DACC(_DWORD *a1)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  v2 = FigSignalErrorAtGM();
+  v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a1 = v2;
   if (!v2)
   {
@@ -9009,37 +8850,30 @@ uint64_t sub_DACC(_DWORD *a1)
   return 0;
 }
 
-uint64_t sub_DF28(uint64_t *a1, uint64_t *a2)
-{
-  sub_B3D8(a1, a2);
-  v4 = *v2 == 0;
-  return sub_5434();
-}
-
 uint64_t sub_DFA4(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_E05C()
+uint64_t sub_E05C(uint64_t a1)
 {
   result = APSLogErrorAt();
   if (dword_181C8 <= 90)
   {
     if (dword_181C8 != -1)
     {
-      return sub_B3B4();
+      return sub_B3B4(&dword_181C8, "OSStatus device_copyPropertyFromConduitDevice(FigHALAudioConduitDeviceRef, const CFStringRef, const char *, CFStringRef *)", v2, "Copy property %@ from conduit [%{ptr}] failed with error=%d");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_B3B4();
+      return sub_B3B4(&dword_181C8, "OSStatus device_copyPropertyFromConduitDevice(FigHALAudioConduitDeviceRef, const CFStringRef, const char *, CFStringRef *)", v2, "Copy property %@ from conduit [%{ptr}] failed with error=%d");
     }
   }
 
@@ -9051,7 +8885,7 @@ uint64_t sub_E1A0()
   mach_absolute_time();
   v0 = UpTicksPerSecond();
   sub_B390(v0);
-  return sub_5434();
+  return sub_5434(&dword_181C8, "OSStatus device_StopIO(FigHALAudioDeviceRef)", v1, "[%{ptr}] StopIO total: %1.3f ms\n");
 }
 
 uint64_t sub_E3AC(_DWORD *a1)
@@ -9059,7 +8893,7 @@ uint64_t sub_E3AC(_DWORD *a1)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -9069,17 +8903,10 @@ uint64_t sub_E424(_DWORD *a1, _DWORD *a2)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
   *a2 = result;
   *a1 = result;
   return result;
-}
-
-uint64_t sub_E574(uint64_t a1)
-{
-  v1 = *(*a1 + 56);
-  APSAudioFormatDescriptionGetASBD();
-  return sub_5434();
 }
 
 uint64_t sub_E5C8(_DWORD *a1)
@@ -9108,7 +8935,7 @@ uint64_t sub_E7C8(_DWORD *a1, _DWORD *a2)
   APSLogErrorAt();
   fig_log_get_emitter();
   sub_5410();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
   *a2 = result;
   *a1 = result;
   return result;
@@ -9118,21 +8945,21 @@ uint64_t sub_E850()
 {
   v0 = UpTicksPerSecond();
   sub_B390(v0);
-  return sub_5434();
+  return sub_5434(&dword_181C8, "OSStatus device_StartIO(FigHALAudioDeviceRef)", v1, "[%{ptr}] StartIO total: %1.3f ms\n");
 }
 
 uint64_t sub_E8AC()
 {
   v0 = UpTicksPerSecond();
   sub_B390(v0);
-  return sub_5434();
+  return sub_5434(&dword_181C8, "OSStatus device_StartIO(FigHALAudioDeviceRef)", v1, "[%{ptr}] StartIO setEndpointStream: %1.3f ms\n");
 }
 
 uint64_t sub_E980(_DWORD *a1)
 {
   APSLogErrorAt();
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

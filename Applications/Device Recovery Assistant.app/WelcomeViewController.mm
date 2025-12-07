@@ -238,12 +238,12 @@ LABEL_19:
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WelcomeViewController _didTapContinueButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for continue from welcome.", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WelcomeViewController _didTapContinueButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for continue from welcome.", &v8, 0xCu);
     }
 
     delegate2 = [(WelcomeViewController *)self delegate];
@@ -257,12 +257,12 @@ LABEL_19:
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WelcomeViewController _didTapCancelButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for cancel from welcome.", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WelcomeViewController _didTapCancelButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for cancel from welcome.", &v8, 0xCu);
     }
 
     delegate2 = [(WelcomeViewController *)self delegate];
@@ -276,12 +276,12 @@ LABEL_19:
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WelcomeViewController _didTapLanguageButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for language button from welcome.", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WelcomeViewController _didTapLanguageButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for language button from welcome.", &v8, 0xCu);
     }
 
     delegate2 = [(WelcomeViewController *)self delegate];
@@ -295,12 +295,12 @@ LABEL_19:
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446210;
-      v8 = "[WelcomeViewController _didTapDisableButton:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for disable recovery auto-boot button", &v7, 0xCu);
+      v8 = 136446210;
+      v9 = "[WelcomeViewController _didTapDisableButton:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for disable recovery auto-boot button", &v8, 0xCu);
     }
 
     delegate2 = [(WelcomeViewController *)self delegate];

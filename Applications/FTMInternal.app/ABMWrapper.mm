@@ -632,70 +632,67 @@ LABEL_44:
 {
   cntrl = self->_abmManager.__cntrl_;
   ptr = self->_abmManager.__ptr_;
-  v16 = cntrl;
+  v13 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  sub_1000182E8(v13, abm::kEventTrigger);
+  sub_1000182E8(v10, abm::kEventTrigger);
   abm::client::RegisterEventHandler();
-  if (v14 < 0)
+  if (v11 < 0)
   {
-    operator delete(v13[0]);
+    operator delete(v10[0]);
   }
 
-  if (v16)
+  if (v13)
   {
-    sub_100019D5C(v16);
+    sub_100019D5C(v13);
   }
 
   v4 = self->_abmManager.__cntrl_;
-  v11 = self->_abmManager.__ptr_;
-  v12 = v4;
+  v9 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
   }
 
-  sub_1000182E8(v13, abm::kEventMetric);
+  sub_1000182E8(v10, abm::kEventMetric);
   abm::client::RegisterEventHandler();
-  if (v14 < 0)
+  if (v11 < 0)
   {
-    operator delete(v13[0]);
+    operator delete(v10[0]);
   }
 
-  if (v12)
+  if (v9)
   {
-    sub_100019D5C(v12);
+    sub_100019D5C(v9);
   }
 
   v5 = self->_abmManager.__cntrl_;
-  v9 = self->_abmManager.__ptr_;
-  v10 = v5;
+  v8 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
   }
 
   abm::client::EventsOff();
-  if (v10)
+  if (v8)
   {
-    sub_100019D5C(v10);
+    sub_100019D5C(v8);
   }
 
   v6 = self->_abmManager.__cntrl_;
-  v7 = self->_abmManager.__ptr_;
-  v8 = v6;
+  v7 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
   }
 
   abm::client::EventsOn();
-  if (v8)
+  if (v7)
   {
-    sub_100019D5C(v8);
+    sub_100019D5C(v7);
   }
 }
 

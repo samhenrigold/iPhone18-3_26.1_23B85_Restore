@@ -8,7 +8,9 @@
 - (id)_getDefaultsFor:(id)for;
 - (id)_getDefaultsKey:(id)key;
 - (id)_getDeviceSpecificDefaultsFor:(id)for;
+- (id)_getSpecialKeys:(id)keys nano:(BOOL)nano;
 - (id)_migrateVolumeLimitThreshold:(BOOL)threshold;
+- (id)_setChainedKeys:(id)keys val:(id)val nano:(BOOL)nano modifiedKeys:(id)modifiedKeys;
 - (id)_setDefaultValueIfNeeded:(id)needed nano:(BOOL)nano sync:(BOOL)sync;
 - (id)_setDefaultsFor:(id)for value:(id)value;
 - (id)_setDeviceSpecificDefaultsFor:(id)for value:(id)value;
@@ -51,54 +53,56 @@
 - (id)setPreferenceFor:(id)for value:(id)value notify:(BOOL)notify
 {
   notifyCopy = notify;
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   forCopy = for;
   valueCopy = value;
-  v10 = ADAFLog();
+  v10 = ADAFLog(valueCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = forCopy;
-    v25 = 2112;
-    v26 = valueCopy;
-    _os_log_impl(&dword_241579000, v10, OS_LOG_TYPE_DEFAULT, "set preference for %@ to %@", &v23, 0x16u);
+    v24 = 138412546;
+    v25 = forCopy;
+    v26 = 2112;
+    v27 = valueCopy;
+    _os_log_impl(&dword_241579000, v10, OS_LOG_TYPE_DEFAULT, "set preference for %@ to %@", &v24, 0x16u);
   }
 
   v11 = [(ADASManager *)self _getDefaultsKey:forCopy];
+  v12 = v11;
   if (!v11)
   {
-    v15 = "yek!";
+    v16 = "yek!";
 LABEL_11:
-    v13 = [(ADASManager *)self _error:*v15];
+    v14 = [(ADASManager *)self _error:*v16];
     goto LABEL_22;
   }
 
   if (!valueCopy)
   {
-    v16 = ADAFLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ADAFLog(v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ADASManager setPreferenceFor:value:notify:];
     }
 
-    v15 = "lav!";
+    v16 = "lav!";
     goto LABEL_11;
   }
 
-  v12 = [(ADASManager *)self _setDefaultsFor:v11 value:valueCopy];
-  v13 = v12;
-  if (v12)
+  v13 = [(ADASManager *)self _setDefaultsFor:v11 value:valueCopy];
+  v14 = v13;
+  if (v13)
   {
-    v14 = v12;
+    v15 = v13;
   }
 
   else
   {
-    v14 = [(ADASManager *)self _setChainedKeys:forCopy val:valueCopy nano:0 modifiedKeys:0];
-    if (v14)
+    v18 = [(ADASManager *)self _setChainedKeys:forCopy val:valueCopy nano:0 modifiedKeys:0];
+    v15 = v18;
+    if (v18)
     {
-      v17 = ADAFLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = ADAFLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [ADASManager setPreferenceFor:value:notify:];
       }
@@ -108,103 +112,104 @@ LABEL_11:
     if (notifyCopy)
     {
       specialDarwinKeys = [(ADASPreferenceStore *)self->_prefStore specialDarwinKeys];
-      v19 = [specialDarwinKeys objectForKey:forCopy];
+      v21 = [specialDarwinKeys objectForKey:forCopy];
 
-      if (v19)
+      if (v21)
       {
-        v20 = v19;
+        v22 = v21;
       }
 
       else
       {
-        v20 = @"AppleHAESettingsChanged";
+        v22 = @"AppleHAESettingsChanged";
       }
 
-      [(ADASManager *)self _notify:v20];
+      [(ADASManager *)self _notify:v22];
     }
   }
 
 LABEL_22:
-  v21 = *MEMORY[0x277D85DE8];
 
-  return v13;
+  return v14;
 }
 
 - (id)setNanoPreferenceFor:(id)for value:(id)value notify:(BOOL)notify
 {
   notifyCopy = notify;
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   forCopy = for;
   valueCopy = value;
-  if (![(ADASManager *)self nanoSettingsAvailable])
+  nanoSettingsAvailable = [(ADASManager *)self nanoSettingsAvailable];
+  if ((nanoSettingsAvailable & 1) == 0)
   {
-    v17 = ADAFLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = ADAFLog(nanoSettingsAvailable);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ADASManager setNanoPreferenceFor:value:notify:];
     }
 
-    v18 = "nan!";
+    v21 = "nan!";
     goto LABEL_19;
   }
 
   if (!valueCopy)
   {
-    v19 = ADAFLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = ADAFLog(nanoSettingsAvailable);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [ADASManager setPreferenceFor:value:notify:];
     }
 
-    v18 = "lav!";
+    v21 = "lav!";
 LABEL_19:
-    v16 = [(ADASManager *)self _error:*v18];
+    v19 = [(ADASManager *)self _error:*v21];
     goto LABEL_22;
   }
 
-  v10 = [(ADASManager *)self _getDefaultsKey:forCopy];
-  if (v10)
+  v11 = [(ADASManager *)self _getDefaultsKey:forCopy];
+  v12 = v11;
+  if (v11)
   {
-    v11 = ADAFLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = ADAFLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v10;
-      _os_log_impl(&dword_241579000, v11, OS_LOG_TYPE_DEFAULT, "setting nano preference for key: %@", buf, 0xCu);
+      v25 = v12;
+      _os_log_impl(&dword_241579000, v13, OS_LOG_TYPE_DEFAULT, "setting nano preference for key: %@", buf, 0xCu);
     }
 
     coreAudioDomain = [(ADASPreferenceStore *)self->_prefStore coreAudioDomain];
-    [coreAudioDomain setObject:valueCopy forKey:v10];
+    [coreAudioDomain setObject:valueCopy forKey:v12];
 
-    v13 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v10, 0}];
-    v14 = [(ADASManager *)self _setChainedKeys:forCopy val:valueCopy nano:1 modifiedKeys:v13];
-    if (v14)
+    v15 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v12, 0}];
+    v16 = [(ADASManager *)self _setChainedKeys:forCopy val:valueCopy nano:1 modifiedKeys:v15];
+    v17 = v16;
+    if (v16)
     {
-      v15 = ADAFLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = ADAFLog(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ADASManager setNanoPreferenceFor:value:notify:];
       }
     }
 
-    [(ADASManager *)self _syncNanoForWrite:v13];
+    [(ADASManager *)self _syncNanoForWrite:v15];
     if (notifyCopy)
     {
       [(ADASManager *)self _notify:@"NanoHAESettingsChanged"];
     }
 
-    v16 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v16 = [(ADASManager *)self _error:*"yek!"];
+    v19 = [(ADASManager *)self _error:*"yek!"];
   }
 
 LABEL_22:
-  v20 = *MEMORY[0x277D85DE8];
 
-  return v16;
+  return v19;
 }
 
 - (id)getPreferenceFor:(id)for
@@ -213,105 +218,107 @@ LABEL_22:
   forCopy = for;
   [(ADASManager *)self _sync];
   v5 = [(ADASManager *)self _getSpecialKeys:forCopy nano:0];
+  v6 = v5;
   if (!v5)
   {
-    v6 = [(ADASManager *)self _getDefaultsKey:forCopy];
-    if (v6)
+    v7 = [(ADASManager *)self _getDefaultsKey:forCopy];
+    if (v7)
     {
-      v5 = [(ADASManager *)self _getDefaultsFor:v6];
-      if (!v5)
+      v6 = [(ADASManager *)self _getDefaultsFor:v7];
+      if (!v6)
       {
-        v5 = [(ADASManager *)self _setDefaultValueIfNeeded:v6 nano:0 sync:1];
+        v6 = [(ADASManager *)self _setDefaultValueIfNeeded:v7 nano:0 sync:1];
       }
     }
 
     else
     {
-      v7 = ADAFLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = ADAFLog(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [ADASManager getPreferenceFor:];
       }
 
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  v8 = ADAFLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = ADAFLog(v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412546;
     v12 = forCopy;
     v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_241579000, v8, OS_LOG_TYPE_DEFAULT, "get preference: %@ -> %@", &v11, 0x16u);
+    v14 = v6;
+    _os_log_impl(&dword_241579000, v9, OS_LOG_TYPE_DEFAULT, "get preference: %@ -> %@", &v11, 0x16u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 - (id)getNanoPreferenceFor:(id)for
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   forCopy = for;
-  v5 = ADAFLog();
+  v5 = ADAFLog(forCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = forCopy;
-    _os_log_impl(&dword_241579000, v5, OS_LOG_TYPE_DEFAULT, "get nano preference for %@", &v17, 0xCu);
+    v19 = 138412290;
+    v20 = forCopy;
+    _os_log_impl(&dword_241579000, v5, OS_LOG_TYPE_DEFAULT, "get nano preference for %@", &v19, 0xCu);
   }
 
-  if ([(ADASManager *)self nanoSettingsAvailable])
+  nanoSettingsAvailable = [(ADASManager *)self nanoSettingsAvailable];
+  if (nanoSettingsAvailable)
   {
-    v6 = [(ADASManager *)self _getSpecialKeys:forCopy nano:1];
-    if (v6)
+    v7 = [(ADASManager *)self _getSpecialKeys:forCopy nano:1];
+    v8 = v7;
+    if (v7)
     {
       goto LABEL_19;
     }
 
-    v7 = [(ADASManager *)self _getDefaultsKey:forCopy];
-    v8 = v7;
-    if (v7)
+    v9 = [(ADASManager *)self _getDefaultsKey:forCopy];
+    v10 = v9;
+    if (v9)
     {
-      v9 = MEMORY[0x277CBEB98];
-      v21[0] = v7;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-      v11 = [v9 setWithArray:v10];
-      [(ADASManager *)self _syncNanoForRead:v11];
+      v11 = MEMORY[0x277CBEB98];
+      v23[0] = v9;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v13 = [v11 setWithArray:v12];
+      [(ADASManager *)self _syncNanoForRead:v13];
 
       coreAudioDomain = [(ADASPreferenceStore *)self->_prefStore coreAudioDomain];
-      v6 = [coreAudioDomain objectForKey:v8];
+      v8 = [coreAudioDomain objectForKey:v10];
 
-      if (!v6)
+      if (!v8)
       {
-        v6 = [(ADASManager *)self _setDefaultValueIfNeeded:v8 nano:1 sync:1];
+        v8 = [(ADASManager *)self _setDefaultValueIfNeeded:v10 nano:1 sync:1];
         goto LABEL_18;
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
 LABEL_18:
 
 LABEL_19:
-        v14 = ADAFLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = ADAFLog(v7);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 138412546;
-          v18 = forCopy;
-          v19 = 2112;
-          v20 = v6;
-          _os_log_impl(&dword_241579000, v14, OS_LOG_TYPE_DEFAULT, "get nano preference: %@ -> %@", &v17, 0x16u);
+          v19 = 138412546;
+          v20 = forCopy;
+          v21 = 2112;
+          v22 = v8;
+          _os_log_impl(&dword_241579000, v17, OS_LOG_TYPE_DEFAULT, "get nano preference: %@ -> %@", &v19, 0x16u);
         }
 
         goto LABEL_21;
       }
 
-      v13 = ADAFLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = ADAFLog(isKindOfClass);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ADASManager getNanoPreferenceFor:];
       }
@@ -319,48 +326,46 @@ LABEL_19:
 
     else
     {
-      v6 = ADAFLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ADAFLog(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [ADASManager getNanoPreferenceFor:];
       }
     }
 
-    v6 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
-  v14 = ADAFLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v17 = ADAFLog(nanoSettingsAvailable);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [ADASManager setNanoPreferenceFor:value:notify:];
   }
 
-  v6 = 0;
+  v8 = 0;
 LABEL_21:
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v8;
 }
 
 - (void)removePreferenceFor:(id)for notify:(BOOL)notify
 {
   notifyCopy = notify;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   forCopy = for;
-  v7 = ADAFLog();
+  v7 = ADAFLog(forCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = forCopy;
-    _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "remove preference for %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = forCopy;
+    _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "remove preference for %@", &v14, 0xCu);
   }
 
   v8 = [(ADASManager *)self _getDefaultsKey:forCopy];
   if (!v8)
   {
-    v12 = ADAFLog();
+    v12 = ADAFLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ADASManager removePreferenceFor:notify:];
@@ -390,59 +395,59 @@ LABEL_21:
     [(ADASManager *)self _notify:v13];
 LABEL_11:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNanoPreferenceFor:(id)for notify:(BOOL)notify
 {
   notifyCopy = notify;
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   forCopy = for;
-  v7 = ADAFLog();
+  v7 = ADAFLog(forCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = forCopy;
+    v17 = forCopy;
     _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "remove nano preference for %@", buf, 0xCu);
   }
 
-  if ([(ADASManager *)self nanoSettingsAvailable])
+  nanoSettingsAvailable = [(ADASManager *)self nanoSettingsAvailable];
+  if (nanoSettingsAvailable)
   {
-    v8 = [(ADASManager *)self _getDefaultsKey:forCopy];
-    v9 = ADAFLog();
-    v10 = v9;
-    if (v8)
+    v9 = [(ADASManager *)self _getDefaultsKey:forCopy];
+    v10 = ADAFLog(v9);
+    v11 = v10;
+    if (v9)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = v8;
-        _os_log_impl(&dword_241579000, v10, OS_LOG_TYPE_DEFAULT, "removing nano preference for defaults key %@", buf, 0xCu);
+        v17 = v9;
+        _os_log_impl(&dword_241579000, v11, OS_LOG_TYPE_DEFAULT, "removing nano preference for defaults key %@", buf, 0xCu);
       }
 
       coreAudioDomain = [(ADASPreferenceStore *)self->_prefStore coreAudioDomain];
-      [coreAudioDomain removeObjectForKey:v8];
+      [coreAudioDomain removeObjectForKey:v9];
 
-      v10 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v8, 0}];
-      v12 = [(ADASManager *)self _setChainedKeys:forCopy val:0 nano:1 modifiedKeys:v10];
-      if (v12)
+      v11 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v9, 0}];
+      v13 = [(ADASManager *)self _setChainedKeys:forCopy val:0 nano:1 modifiedKeys:v11];
+      v14 = v13;
+      if (v13)
       {
-        v13 = ADAFLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = ADAFLog(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [ADASManager removeNanoPreferenceFor:notify:];
         }
       }
 
-      [(ADASManager *)self _syncNanoForWrite:v10];
+      [(ADASManager *)self _syncNanoForWrite:v11];
       if (notifyCopy)
       {
         [(ADASManager *)self _notify:@"NanoHAESettingsChanged"];
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ADASManager getPreferenceFor:];
     }
@@ -450,14 +455,12 @@ LABEL_11:
 
   else
   {
-    v8 = ADAFLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ADAFLog(nanoSettingsAvailable);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ADASManager setNanoPreferenceFor:value:notify:];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPreferencesFor:(id)for
@@ -513,72 +516,71 @@ void __33__ADASManager_getPreferencesFor___block_invoke(uint64_t a1, void *a2)
     }
 
 LABEL_3:
-    [*(a1 + 40) setObject:v5 forKey:v3];
+    v6 = [*(a1 + 40) setObject:v5 forKey:v3];
 LABEL_4:
-    v6 = ADAFLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = ADAFLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412546;
       v12 = v3;
       v13 = 2112;
       v14 = v5;
-      _os_log_impl(&dword_241579000, v6, OS_LOG_TYPE_DEFAULT, "get preferences for: %@ -> %@", &v11, 0x16u);
+      _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "get preferences for: %@ -> %@", &v11, 0x16u);
     }
 
     goto LABEL_7;
   }
 
-  v5 = ADAFLog();
+  v5 = ADAFLog(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __33__ADASManager_getPreferencesFor___block_invoke_cold_1();
   }
 
 LABEL_7:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getNanoPreferencesFor:(id)for
 {
   forCopy = for;
-  if ([(ADASManager *)self nanoSettingsAvailable])
+  nanoSettingsAvailable = [(ADASManager *)self nanoSettingsAvailable];
+  if (nanoSettingsAvailable)
   {
-    v5 = [MEMORY[0x277CBEB98] setWithArray:forCopy];
-    [(ADASManager *)self _syncNanoForRead:v5];
+    v6 = [MEMORY[0x277CBEB98] setWithArray:forCopy];
+    [(ADASManager *)self _syncNanoForRead:v6];
 
-    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __37__ADASManager_getNanoPreferencesFor___block_invoke;
-    v14 = &unk_278CE1308;
+    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __37__ADASManager_getNanoPreferencesFor___block_invoke;
+    v15 = &unk_278CE1308;
     selfCopy = self;
-    v16 = v6;
-    v7 = v6;
-    [forCopy enumerateObjectsUsingBlock:&v11];
-    v8 = [MEMORY[0x277CBEB98] setWithArray:{forCopy, v11, v12, v13, v14, selfCopy}];
-    [(ADASManager *)self _syncNanoForWrite:v8];
+    v17 = v7;
+    v8 = v7;
+    [forCopy enumerateObjectsUsingBlock:&v12];
+    v9 = [MEMORY[0x277CBEB98] setWithArray:{forCopy, v12, v13, v14, v15, selfCopy}];
+    [(ADASManager *)self _syncNanoForWrite:v9];
 
-    v9 = [v7 copy];
+    v10 = [v8 copy];
   }
 
   else
   {
-    v7 = ADAFLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = ADAFLog(nanoSettingsAvailable);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ADASManager setNanoPreferenceFor:value:notify:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 void __37__ADASManager_getNanoPreferencesFor___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _getSpecialKeys:v3 nano:1];
   if (!v4)
@@ -586,8 +588,8 @@ void __37__ADASManager_getNanoPreferencesFor___block_invoke(uint64_t a1, void *a
     v6 = [*(a1 + 32) _getDefaultsKey:v3];
     if (!v6)
     {
-      v8 = ADAFLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = ADAFLog(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __37__ADASManager_getNanoPreferencesFor___block_invoke_cold_2();
       }
@@ -602,10 +604,11 @@ void __37__ADASManager_getNanoPreferencesFor___block_invoke(uint64_t a1, void *a
     if (v5)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v8 = ADAFLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = ADAFLog(isKindOfClass);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           __37__ADASManager_getNanoPreferencesFor___block_invoke_cold_1();
         }
@@ -618,23 +621,24 @@ LABEL_15:
 
     else
     {
-      v5 = [*(a1 + 32) _setDefaultValueIfNeeded:v6 nano:1 sync:0];
-      if (!v5)
+      v10 = [*(a1 + 32) _setDefaultValueIfNeeded:v6 nano:1 sync:0];
+      v5 = v10;
+      if (!v10)
       {
         goto LABEL_13;
       }
     }
 
-    [*(a1 + 40) setObject:v5 forKey:v3];
+    v10 = [*(a1 + 40) setObject:v5 forKey:v3];
 LABEL_13:
-    v8 = ADAFLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = ADAFLog(v10);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_241579000, v8, OS_LOG_TYPE_DEFAULT, "get preferences for: %@ -> %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_241579000, v9, OS_LOG_TYPE_DEFAULT, "get preferences for: %@ -> %@", &v11, 0x16u);
     }
 
     goto LABEL_15;
@@ -643,51 +647,47 @@ LABEL_13:
   v5 = v4;
   [*(a1 + 40) setObject:v4 forKey:v3];
 LABEL_16:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setDefaultsFor:(id)for value:(id)value
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   forCopy = for;
   valueCopy = value;
   if (!valueCopy)
   {
-    v7 = ADAFLog();
+    v7 = ADAFLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
+      v9 = 136315138;
       uTF8String = [(__CFString *)forCopy UTF8String];
-      _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "removing key: %s", &v10, 0xCu);
+      _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "removing key: %s", &v9, 0xCu);
     }
   }
 
   CFPreferencesSetAppValue(forCopy, valueCopy, @"com.apple.coreaudio");
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)_setDeviceSpecificDefaultsFor:(id)for value:(id)value
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   forCopy = for;
   valueCopy = value;
   if (!valueCopy)
   {
-    v7 = ADAFLog();
+    v7 = ADAFLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = forCopy;
-      _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "removing key: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = forCopy;
+      _os_log_impl(&dword_241579000, v7, OS_LOG_TYPE_DEFAULT, "removing key: %@", &v9, 0xCu);
     }
   }
 
   CFPreferencesSetAppValue(forCopy, valueCopy, @"com.apple.coreaudio.device");
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -743,11 +743,109 @@ LABEL_16:
   [v7 synchronizeNanoDomain:@"com.apple.coreaudio" keys:writeCopy];
 }
 
+- (id)_setChainedKeys:(id)keys val:(id)val nano:(BOOL)nano modifiedKeys:(id)modifiedKeys
+{
+  nanoCopy = nano;
+  keysCopy = keys;
+  valCopy = val;
+  modifiedKeysCopy = modifiedKeys;
+  v13 = [keysCopy isEqualToString:@"_ADAFPreferenceKeyHAEEnableHKWrite"];
+  if (valCopy)
+  {
+    if (v13)
+    {
+      bOOLValue = [valCopy BOOLValue];
+      if ((bOOLValue & 1) == 0)
+      {
+        v17 = ADAFLog(bOOLValue);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *v19 = 0;
+          _os_log_impl(&dword_241579000, v17, OS_LOG_TYPE_DEFAULT, "HAE being turned off -> turning off notification feature as well.", v19, 2u);
+        }
+
+        if (nanoCopy)
+        {
+          coreAudioDomain = [(ADASPreferenceStore *)self->_prefStore coreAudioDomain];
+          [coreAudioDomain setObject:valCopy forKey:@"EnableHAELiveMonitor"];
+
+          v15 = 0;
+          if (!modifiedKeysCopy)
+          {
+            goto LABEL_8;
+          }
+        }
+
+        else
+        {
+          v15 = [(ADASManager *)self _setDefaultsFor:@"EnableHAELiveMonitor" value:valCopy];
+          if (!modifiedKeysCopy)
+          {
+            goto LABEL_8;
+          }
+        }
+
+        [modifiedKeysCopy addObject:@"EnableHAELiveMonitor"];
+        goto LABEL_8;
+      }
+    }
+  }
+
+  if ([keysCopy isEqualToString:@"_ADAFPreferenceKeyHAENotificationFeatureEnabled"] && !-[ADASManager _isDeviceMandatoryForHAENotification:](self, "_isDeviceMandatoryForHAENotification:", nanoCopy))
+  {
+    -[ADASManager _donateSignalToTipsKit:](self, "_donateSignalToTipsKit:", [valCopy BOOLValue]);
+  }
+
+  v15 = 0;
+LABEL_8:
+
+  return v15;
+}
+
+- (id)_getSpecialKeys:(id)keys nano:(BOOL)nano
+{
+  nanoCopy = nano;
+  keysCopy = keys;
+  if ([keysCopy isEqualToString:@"_ADAFPreferenceKeyHAENotificationIsMandatory"])
+  {
+    if ([(ADASManager *)self _featureFlagEnabled])
+    {
+      v7 = [(ADASManager *)self _isDeviceMandatoryForHAENotification:nanoCopy];
+      if (v7)
+      {
+        [(ADASManager *)self migrateKeyEnableHAEHKMeasurement:nanoCopy];
+      }
+
+      v8 = [MEMORY[0x277CCABB0] numberWithBool:v7];
+      goto LABEL_8;
+    }
+
+    v9 = MEMORY[0x277CBEC28];
+  }
+
+  else
+  {
+    if ([keysCopy isEqualToString:@"_ADAFPreferenceKeyVolumeLimitThreshold"])
+    {
+      v8 = [(ADASManager *)self _migrateVolumeLimitThreshold:nanoCopy];
+LABEL_8:
+      v9 = v8;
+      goto LABEL_11;
+    }
+
+    v9 = 0;
+  }
+
+LABEL_11:
+
+  return v9;
+}
+
 - (id)_setDefaultValueIfNeeded:(id)needed nano:(BOOL)nano sync:(BOOL)sync
 {
   syncCopy = sync;
   nanoCopy = nano;
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   defaultValues = [(ADASPreferenceStore *)self->_prefStore defaultValues];
   v10 = [defaultValues objectForKey:neededCopy];
@@ -774,11 +872,11 @@ LABEL_16:
 
       if (syncCopy)
       {
-        v15 = MEMORY[0x277CBEB98];
-        v28[0] = neededCopy;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-        v17 = [v15 setWithArray:v16];
-        [(ADASManager *)self _syncNanoForWrite:v17];
+        v16 = MEMORY[0x277CBEB98];
+        v27[0] = neededCopy;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+        v18 = [v16 setWithArray:v17];
+        [(ADASManager *)self _syncNanoForWrite:v18];
       }
     }
 
@@ -786,34 +884,32 @@ LABEL_16:
     {
       if (v11)
       {
-        v18 = [(ADASManager *)self _getDeviceSpecificDefaultsFor:@"HAENFeatureMandatory"];
-        v19 = v18;
-        if (v18 && ([v18 BOOLValue] & 1) == 0)
+        v19 = [(ADASManager *)self _getDeviceSpecificDefaultsFor:@"HAENFeatureMandatory"];
+        v20 = v19;
+        if (v19 && ([v19 BOOLValue] & 1) == 0)
         {
 
           v10 = &unk_28533CDF0;
         }
       }
 
-      v20 = [(ADASManager *)self _setDefaultsFor:neededCopy value:v10];
+      _sync = [(ADASManager *)self _setDefaultsFor:neededCopy value:v10];
       if (syncCopy)
       {
-        [(ADASManager *)self _sync];
+        _sync = [(ADASManager *)self _sync];
       }
     }
 
-    v21 = ADAFLog();
+    v21 = ADAFLog(_sync);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412546;
-      v25 = neededCopy;
-      v26 = 2112;
-      v27 = v10;
-      _os_log_impl(&dword_241579000, v21, OS_LOG_TYPE_DEFAULT, "setting default value for key [ %@ ] -> [ %@ ]", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = neededCopy;
+      v25 = 2112;
+      v26 = v10;
+      _os_log_impl(&dword_241579000, v21, OS_LOG_TYPE_DEFAULT, "setting default value for key [ %@ ] -> [ %@ ]", &v23, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -821,13 +917,13 @@ LABEL_16:
 - (void)migrateKeyEnableHAEHKMeasurement:(BOOL)measurement
 {
   measurementCopy = measurement;
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if (measurement)
   {
     v5 = MEMORY[0x277CBEB98];
-    v21[0] = @"EnableHAEHKWrite";
-    v21[1] = @"HAENSampleTransient";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = @"EnableHAEHKWrite";
+    v20[1] = @"HAENSampleTransient";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v7 = [v5 setWithArray:v6];
     [(ADASManager *)self _syncNanoForRead:v7];
 
@@ -894,8 +990,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_migrateVolumeLimitThreshold:(BOOL)threshold
@@ -941,121 +1035,119 @@ LABEL_14:
 
 void __44__ADASManager__migrateVolumeLimitThreshold___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getCurrentVolumeLimit];
-  v3 = ADAFLog();
+  v3 = ADAFLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = v2;
-    _os_log_impl(&dword_241579000, v3, OS_LOG_TYPE_DEFAULT, "VLT currentLimit = %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v2;
+    _os_log_impl(&dword_241579000, v3, OS_LOG_TYPE_DEFAULT, "VLT currentLimit = %@", &v21, 0xCu);
   }
 
-  if (v2 && ([v2 floatValue], v4 > 0.0))
+  if (v2 && (v4 = [v2 floatValue], v5 > 0.0))
   {
-    [v2 floatValue];
-    v6 = v5;
-    if (v5 >= 0.5)
+    v6 = [v2 floatValue];
+    v8 = v7;
+    if (v7 >= 0.5)
     {
-      if (v5 >= 0.6)
+      if (v7 >= 0.6)
       {
-        if (v5 >= 0.7)
+        if (v7 >= 0.7)
         {
-          if (v5 >= 0.8)
+          if (v7 >= 0.8)
           {
-            if (v5 >= 0.9)
+            if (v7 >= 0.9)
             {
-              if (v5 >= 1.0)
+              if (v7 >= 1.0)
               {
                 goto LABEL_10;
               }
 
-              v7 = 1120403456;
+              v9 = 1120403456;
             }
 
             else
             {
-              v7 = 1119748096;
+              v9 = 1119748096;
             }
           }
 
           else
           {
-            v7 = 1119092736;
+            v9 = 1119092736;
           }
         }
 
         else
         {
-          v7 = 1118437376;
+          v9 = 1118437376;
         }
       }
 
       else
       {
-        v7 = 1117782016;
+        v9 = 1117782016;
       }
     }
 
     else
     {
-      v7 = 1117126656;
+      v9 = 1117126656;
     }
 
-    v11 = *&v7;
-    v12 = ADAFLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = *&v9;
+    v13 = ADAFLog(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 48);
-      v22 = 138413058;
-      v23 = v2;
-      v24 = 2048;
-      v25 = v6;
-      v26 = 2048;
-      v27 = v11;
-      v28 = 1024;
-      v29 = v13;
-      _os_log_impl(&dword_241579000, v12, OS_LOG_TYPE_DEFAULT, "migrating %@ (%f) to %f\n nano? %d", &v22, 0x26u);
+      v14 = *(a1 + 48);
+      v21 = 138413058;
+      v22 = v2;
+      v23 = 2048;
+      v24 = v8;
+      v25 = 2048;
+      v26 = v12;
+      v27 = 1024;
+      v28 = v14;
+      _os_log_impl(&dword_241579000, v13, OS_LOG_TYPE_DEFAULT, "migrating %@ (%f) to %f\n nano? %d", &v21, 0x26u);
     }
 
     [*(a1 + 32) _clearCurrentVolumeLimit];
-    *&v14 = v11;
-    v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-    v16 = *(*(a1 + 40) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    *&v15 = v12;
+    v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+    v17 = *(*(a1 + 40) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
 
-    v18 = *(a1 + 32);
-    v19 = *(*(*(a1 + 40) + 8) + 40);
+    v19 = *(a1 + 32);
+    v20 = *(*(*(a1 + 40) + 8) + 40);
     if (*(a1 + 48) == 1)
     {
-      v20 = [v18 setNanoPreferenceFor:@"_ADAFPreferenceKeyVolumeLimitThreshold" value:v19 notify:1];
+      v6 = [v19 setNanoPreferenceFor:@"_ADAFPreferenceKeyVolumeLimitThreshold" value:v20 notify:1];
     }
 
     else
     {
-      v21 = [v18 setPreferenceFor:@"_ADAFPreferenceKeyVolumeLimitThreshold" value:v19 notify:1];
+      v6 = [v19 setPreferenceFor:@"_ADAFPreferenceKeyVolumeLimitThreshold" value:v20 notify:1];
     }
   }
 
   else
   {
-    v8 = ADAFLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ADAFLog(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __44__ADASManager__migrateVolumeLimitThreshold___block_invoke_cold_1();
     }
   }
 
 LABEL_10:
-  v9 = ADAFLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = ADAFLog(v6);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_241579000, v9, OS_LOG_TYPE_DEFAULT, "VLT migration done...", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_241579000, v11, OS_LOG_TYPE_DEFAULT, "VLT migration done...", &v21, 2u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getCurrentVolumeLimit
@@ -1070,7 +1162,7 @@ LABEL_10:
     if (v5)
     {
       v6 = v5;
-      v7 = ADAFLog();
+      v7 = ADAFLog(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(ADASManager *)v6 _getCurrentVolumeLimit:v7];
@@ -1092,9 +1184,9 @@ LABEL_10:
 
 - (void)_clearCurrentVolumeLimit
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_241579000, a2, a3, "error clearing current volume limit %llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_241579000, a2, a3, "error clearing current volume limit %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)shouldSufaceHAENotificationMigrationAlert
@@ -1122,7 +1214,7 @@ LABEL_10:
 
 - (void)didSurfaceMigrationAlert
 {
-  v3 = ADAFLog();
+  v3 = ADAFLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1165,11 +1257,11 @@ LABEL_10:
 
     if (!v8)
     {
-      v9 = MEMORY[0x277CBEB98];
+      v10 = MEMORY[0x277CBEB98];
       v18 = @"HAENFeatureMandatory";
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-      v11 = [v9 setWithArray:v10];
-      [(ADASManager *)self _syncNanoDeviceSpecificForRead:v11];
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      v12 = [v10 setWithArray:v11];
+      [(ADASManager *)self _syncNanoDeviceSpecificForRead:v12];
 
       coreAudioDeviceDomain = [(ADASPreferenceStore *)self->_prefStore coreAudioDeviceDomain];
       v8 = [coreAudioDeviceDomain objectForKey:@"HAENFeatureMandatory"];
@@ -1183,32 +1275,33 @@ LABEL_10:
     }
 
 LABEL_7:
-    v14 = ADAFLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ADAFLog(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v20 = v8;
-      _os_log_impl(&dword_241579000, v14, OS_LOG_TYPE_DEFAULT, "device has HAEN turned on through defaults: %@", buf, 0xCu);
+      _os_log_impl(&dword_241579000, v15, OS_LOG_TYPE_DEFAULT, "device has HAEN turned on through defaults: %@", buf, 0xCu);
     }
 
     goto LABEL_13;
   }
 
   [(ADASManager *)self _sync];
-  v13 = [(ADASManager *)self _getDefaultsFor:@"HAENFeatureMandatoryOverride"];
-  if (v13)
+  v9 = [(ADASManager *)self _getDefaultsFor:@"HAENFeatureMandatoryOverride"];
+  if (v9)
   {
-    v8 = v13;
+    v8 = v9;
     goto LABEL_7;
   }
 
   [(ADASManager *)self _syncDeviceSpecificDomain];
-  v8 = [(ADASManager *)self _getDeviceSpecificDefaultsFor:@"HAENFeatureMandatory"];
-  if (!v8)
+  v14 = [(ADASManager *)self _getDeviceSpecificDefaultsFor:@"HAENFeatureMandatory"];
+  v8 = v14;
+  if (!v14)
   {
 LABEL_10:
-    v14 = ADAFLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = ADAFLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ADASManager _isDeviceMandatoryForHAENotification:];
     }
@@ -1220,41 +1313,36 @@ LABEL_13:
 LABEL_14:
   bOOLValue = [v8 BOOLValue];
 
-  v16 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)_isAlertSupported
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  if (+[ADAFUtil isProcessMediaserverd])
+  v9[4] = *MEMORY[0x277D85DE8];
+  if (!+[ADAFUtil isProcessMediaserverd])
   {
-    [(ADASManager *)self _sync];
-    v3 = [(ADASManager *)self _getDefaultsFor:@"DisableHAENMigrationAlert"];
-    v4 = v3;
-    if (v3 && ([v3 BOOLValue] & 1) != 0)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v6 = MGGetStringAnswer();
-      v10[0] = @"iPhone";
-      v10[1] = @"iPad";
-      v10[2] = @"iPod";
-      v10[3] = @"Watch";
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-      v5 = [v7 containsObject:v6];
-    }
+    return 0;
   }
 
-  else
+  [(ADASManager *)self _sync];
+  v3 = [(ADASManager *)self _getDefaultsFor:@"DisableHAENMigrationAlert"];
+  v4 = v3;
+  if (v3 && ([v3 BOOLValue] & 1) != 0)
   {
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v6 = MGGetStringAnswer();
+    v9[0] = @"iPhone";
+    v9[1] = @"iPad";
+    v9[2] = @"iPod";
+    v9[3] = @"Watch";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+    v5 = [v7 containsObject:v6];
+  }
+
   return v5;
 }
 
@@ -1291,99 +1379,11 @@ LABEL_14:
   [source sendEvent:v9];
 }
 
-- (void)setPreferenceFor:value:notify:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_241579000, v0, v1, "failed to handle special key for %@ value: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPreferenceFor:value:notify:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "value cannot be null for key %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)setNanoPreferenceFor:value:notify:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)setNanoPreferenceFor:value:notify:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_241579000, v0, v1, "failed to handle nano special key for %@ value: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getPreferenceFor:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "defaults key %@ unknown to ADASManager.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getNanoPreferenceFor:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "result type must be a NSNumber for key:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getNanoPreferenceFor:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "defaults nano key %@ unknown to ADASManager.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removePreferenceFor:notify:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "unknown defaults key %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeNanoPreferenceFor:notify:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "failed to remove nano chained key for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __33__ADASManager_getPreferencesFor___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "key %@ unknown to ADASManager.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __37__ADASManager_getNanoPreferencesFor___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "result type must be a NSNumber for key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __37__ADASManager_getNanoPreferencesFor___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241579000, v0, v1, "nano key %@ unknown to ADASManager", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__ADASManager__migrateVolumeLimitThreshold___block_invoke_cold_1()
@@ -1395,9 +1395,9 @@ void __44__ADASManager__migrateVolumeLimitThreshold___block_invoke_cold_1()
 
 - (void)_getCurrentVolumeLimit
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_241579000, a2, a3, "error fetching current volume limit %llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_241579000, a2, a3, "error fetching current volume limit %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isDeviceMandatoryForHAENotification:.cold.1()

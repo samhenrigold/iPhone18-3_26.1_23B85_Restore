@@ -4,6 +4,7 @@
 - (id)specifiers;
 - (id)stringValueForSpecifier:(id)specifier;
 - (void)specifier:(id)specifier setValue:(double)value;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverKeyboardTimeoutController
@@ -39,6 +40,42 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v24[3] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = VoiceOverKeyboardTimeoutController;
+  [(AccessibilityBridgeBaseController *)&v23 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"KEYBOARD_TIMING_TIMEOUT" table:@"VoiceOverSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"KEYBOARDS" table:@"VoiceOverSettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale4 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL4 = [v3 bundleURL];
+  v19 = [v16 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale4 bundleURL:bundleURL4];
+
+  v20 = MEMORY[0x277CF3470];
+  v24[0] = v19;
+  v24[1] = v15;
+  v24[2] = v11;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/KeyboardRow/KEYBOARD_TIMING_TIMEOUT_ID"];
+  [v20 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (double)valueForSpecifier:(id)specifier

@@ -17,7 +17,7 @@
 - (_TtCE5UIKitCSo13UIWindowSceneP33_FDF62CE22547DB2BF49759240B89F9C117TextureController)initWithScene:(id)scene
 {
   sceneCopy = scene;
-  v4 = sub_188F167B8();
+  v4 = sub_188F167B8(sceneCopy);
 
   return v4;
 }

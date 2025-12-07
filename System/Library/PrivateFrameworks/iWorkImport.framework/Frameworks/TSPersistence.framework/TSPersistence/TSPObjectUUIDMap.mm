@@ -5,6 +5,7 @@
 - (BOOL)shouldSuppressAssertionForObjectUUID:(id)d;
 - (TSPObjectUUIDMap)init;
 - (TSPObjectUUIDMap)initWithDelegate:(id)delegate;
+- (id)objectWithUUID:(id)d onlyIfLoaded:(BOOL)loaded validateNewObjects:(BOOL)objects identifier:(int64_t *)identifier;
 - (int64_t)objectIdentifierForUUID:(id)d;
 - (void)endAssertOnRead;
 - (void)object:(id)object didChangeUUIDToValue:(id)value fromValue:(id)fromValue;
@@ -268,6 +269,87 @@
   }
 
   return v8 & 1;
+}
+
+- (id)objectWithUUID:(id)d onlyIfLoaded:(BOOL)loaded validateNewObjects:(BOOL)objects identifier:(int64_t *)identifier
+{
+  loadedCopy = loaded;
+  dCopy = d;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = sub_276A6366C;
+  v59 = sub_276A6367C;
+  v60 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  if (dCopy)
+  {
+    if (atomic_load(&self->_assertOnReadCount))
+    {
+      v12 = MEMORY[0x277D81150];
+      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPObjectUUIDMap objectWithUUID:onlyIfLoaded:validateNewObjects:identifier:]");
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectUUIDMap.mm");
+      v18 = objc_msgSend_UUIDString(dCopy, v16, v17);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v13, v15, 297, 0, "Attempting to read object with UUID %{public}@ when UUID map does not allow reading.", v18);
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21);
+    }
+
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v23 = MEMORY[0x277D81150];
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPObjectUUIDMap objectWithUUID:onlyIfLoaded:validateNewObjects:identifier:]");
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectUUIDMap.mm");
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v29, v24, v26, 298, 0, "You should pass a NSUUID to TSP, not a %{public}@.", v28);
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+    }
+
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x4012000000;
+    v47 = sub_276A63684;
+    v48 = nullsub_6;
+    v49 = &unk_276C58F2F;
+    sub_276A155D4(&v50);
+    accessQueue = self->_accessQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_276A63694;
+    block[3] = &unk_27A6E52E8;
+    block[4] = self;
+    v40 = dCopy;
+    v41 = &v55;
+    v42 = &v51;
+    v43 = &v44;
+    dispatch_sync(accessQueue, block);
+    if (!v56[5] && v52[3])
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      v35 = objc_msgSend_objectUUIDMap_needsObjectForIdentifier_componentIdentifier_onlyIfLoaded_(WeakRetained, v34, self, v52[3], v45[6], loadedCopy);
+      v36 = v56[5];
+      v56[5] = v35;
+    }
+
+    _Block_object_dispose(&v44, 8);
+  }
+
+  if (identifier)
+  {
+    *identifier = v52[3];
+  }
+
+  v37 = v56[5];
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
+
+  return v37;
 }
 
 - (void)object:(id)object didChangeUUIDToValue:(id)value fromValue:(id)fromValue

@@ -1794,7 +1794,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 - (void)dataSource:(id)source didUpdate:(id)update animated:(BOOL)animated
 {
   animatedCopy = animated;
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sourceCopy = source;
   selfCopy = self;
@@ -1803,7 +1803,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 
 - (void)clearDroppedLocationsAfterSwitchingViewStyle
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   selfCopy = self;
   isa = Array._bridgeToObjectiveC()().super.isa;
   [(DOCFullDocumentManagerViewController *)selfCopy setDroppedLocationsAfterSwitchingDisplayMode:isa];
@@ -1857,7 +1857,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -2239,10 +2239,10 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = DOCFullDocumentManagerViewController.isBrowserCurrentLocation(_:)();
+  v6 = DOCFullDocumentManagerViewController.isBrowserCurrentLocation(_:)(location);
   swift_unknownObjectRelease();
 
-  return v5 & 1;
+  return v6 & 1;
 }
 
 - (BOOL)infoPanelPreviewingMultipleItems
@@ -2265,7 +2265,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
   movingCopy = moving;
   if (moving)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
     movingCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -2416,7 +2416,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
   selfCopy = self;
   DOCFullDocumentManagerViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -2440,7 +2440,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 
   v8 = DOCFullDocumentManagerViewController.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8 & 1;
 }
 
@@ -2462,7 +2462,7 @@ void __105__DOCFullDocumentManagerViewController_revealDocumentAtURL_importIfNee
 
   DOCFullDocumentManagerViewController.target(forAction:withSender:)(action, v16, v17);
 
-  outlined destroy of CharacterSet?(v16, &_sypSgMd);
+  outlined destroy of CharacterSet?(v16, &_sypSgMd, &_sypSgMR);
   v8 = v18;
   if (v18)
   {
@@ -2738,7 +2738,7 @@ LABEL_7:
   isa = [(UIDocumentBrowserViewController *)selfCopy customActions];
   if (!isa)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }

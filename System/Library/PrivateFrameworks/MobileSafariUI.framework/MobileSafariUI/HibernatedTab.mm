@@ -339,31 +339,31 @@ id __49__HibernatedTab_initWithWBTab_browserController___block_invoke(uint64_t a
 
 - (void)loadURL:(id)l title:(id)title skipSyncableTabUpdates:(BOOL)updates
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
   self->_skipSyncableTabUpdates = updates;
   titleCopy = title;
   WeakRetained = objc_loadWeakRetained(&self->_browserController);
-  v11 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXPageLoading(WeakRetained, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v19 = 134218499;
+    v20 = 134218499;
     selfCopy = self;
-    v21 = 2160;
-    v22 = 1752392040;
-    v23 = 2117;
-    v24 = lCopy;
-    _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_INFO, "Store deferred navigation: (hibernated tab: %p) %{sensitive, mask.hash}@", &v19, 0x20u);
+    v22 = 2160;
+    v23 = 1752392040;
+    v24 = 2117;
+    v25 = lCopy;
+    _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_INFO, "Store deferred navigation: (hibernated tab: %p) %{sensitive, mask.hash}@", &v20, 0x20u);
   }
 
   self->_hasDeferredNavigation = 1;
-  v12 = [lCopy copy];
+  v13 = [lCopy copy];
   url = self->_url;
-  self->_url = v12;
+  self->_url = v13;
 
-  v14 = [titleCopy copy];
+  v15 = [titleCopy copy];
   title = self->_title;
-  self->_title = v14;
+  self->_title = v15;
 
   [(HibernatedTab *)self updateTabTitle];
   [(HibernatedTab *)self updateTabIcon];
@@ -905,7 +905,7 @@ void __40__HibernatedTab_updateTabIconWithDelay___block_invoke(uint64_t a1)
     {
       if (![(NSURL *)self->_url safari_isSafariWebExtensionURL])
       {
-        v11 = [objc_alloc(MEMORY[0x277D4A730]) initWithURL:self->_url iconSize:2 fallbackType:+[TabIconAndTitleView defaultTabIconSize]()];
+        v11 = [objc_alloc(MEMORY[0x277D4A730]) initWithURL:self->_url iconSize:2 fallbackType:+[TabIconAndTitleView defaultTabIconSize](TabIconAndTitleView)];
         objc_initWeak(&location, self);
         mEMORY[0x277D28F58] = [MEMORY[0x277D28F58] sharedSiteMetadataManager];
         v16[0] = MEMORY[0x277D85DD0];

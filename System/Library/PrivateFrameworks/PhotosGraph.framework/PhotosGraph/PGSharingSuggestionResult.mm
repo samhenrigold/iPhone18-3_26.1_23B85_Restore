@@ -20,7 +20,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   person = [(PGSharingSuggestionResult *)self person];
   contactIdentifier = [person contactIdentifier];
 
@@ -32,7 +32,7 @@
     contactIdentifier = suggestedContactIdentifier;
   }
 
-  v24[0] = @"localIdentifier";
+  v23[0] = @"localIdentifier";
   person3 = [(PGSharingSuggestionResult *)self person];
   localIdentifier = [person3 localIdentifier];
   v9 = localIdentifier;
@@ -56,10 +56,10 @@
     v11 = &stru_2843F5C58;
   }
 
-  v25[0] = v10;
-  v25[1] = v11;
-  v24[1] = @"contactIdentifier";
-  v24[2] = @"displayName";
+  v24[0] = v10;
+  v24[1] = v11;
+  v23[1] = @"contactIdentifier";
+  v23[2] = @"displayName";
   person4 = [(PGSharingSuggestionResult *)self person];
   fullName = [person4 fullName];
   v14 = fullName;
@@ -73,24 +73,22 @@
     v15 = &stru_2843F5C58;
   }
 
-  v25[2] = v15;
-  v24[3] = @"score";
+  v24[2] = v15;
+  v23[3] = @"score";
   v16 = MEMORY[0x277CCABB0];
   [(PGSharingSuggestionResult *)self score];
   v17 = [v16 numberWithDouble:?];
-  v25[3] = v17;
-  v24[4] = @"weight";
+  v24[3] = v17;
+  v23[4] = @"weight";
   v18 = [MEMORY[0x277CCABB0] numberWithDouble:self->_weight];
-  v25[4] = v18;
-  v24[5] = @"sourceWeight";
+  v24[4] = v18;
+  v23[5] = @"sourceWeight";
   v19 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sourceWeight];
-  v25[5] = v19;
-  v24[6] = @"sourceNames";
+  v24[5] = v19;
+  v23[6] = @"sourceNames";
   sourceNames = [(PGSharingSuggestionResult *)self sourceNames];
-  v25[6] = sourceNames;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v24[6] = sourceNames;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
   return v21;
 }
@@ -116,27 +114,26 @@
 
 - (PGSharingSuggestionResult)initWithPerson:(id)person weight:(double)weight sourceWeight:(double)sourceWeight sourceName:(id)name
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   personCopy = person;
   nameCopy = name;
-  v19.receiver = self;
-  v19.super_class = PGSharingSuggestionResult;
-  v13 = [(PGSharingSuggestionResult *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = PGSharingSuggestionResult;
+  v13 = [(PGSharingSuggestionResult *)&v18 init];
   v14 = v13;
   if (v13)
   {
     objc_storeStrong(&v13->_person, person);
     v14->_weight = weight;
     v14->_sourceWeight = sourceWeight;
-    v20[0] = nameCopy;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = nameCopy;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     sourceNames = v14->_sourceNames;
     v14->_sourceNames = v15;
 
     v14->_useContactSuggestion = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

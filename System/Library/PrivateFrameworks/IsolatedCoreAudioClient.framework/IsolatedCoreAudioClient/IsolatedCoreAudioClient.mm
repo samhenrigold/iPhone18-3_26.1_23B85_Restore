@@ -303,20 +303,17 @@ void std::allocator<void const*>::allocate_at_least[abi:ne200100](unint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       std::allocator<void const*>::allocate_at_least[abi:ne200100](a2);
     }
 
     std::vector<void const*>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t ClientSideServerConnection::kill(ClientSideServerConnection *this)
@@ -374,15 +371,14 @@ uint64_t std::__function::__func<ClientSideServerConnection::ClientSideServerCon
 
 id ServerSideHardware::GetWorkgroupForUseCase(uint64_t a1, unsigned int **a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v12, a1 + 8, **a2);
-  if (v14 != 1)
+  v25 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v11, a1 + 8, **a2);
+  if (v13 != 1)
   {
-    v7 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  v2 = *(v12 + 40);
+  v2 = *(v11 + 40);
   outData = 0;
   *&inAddress.mSelector = *"gwsobolg";
   inAddress.mElement = 0;
@@ -393,12 +389,12 @@ id ServerSideHardware::GetWorkgroupForUseCase(uint64_t a1, unsigned int **a2)
     v7 = outData;
     v9 = outData;
 LABEL_10:
-    if (v13)
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    goto LABEL_12;
+    return v7;
   }
 
   {
@@ -410,17 +406,17 @@ LABEL_10:
   {
     v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:PropertyData];
     *buf = 136315906;
-    v19 = "IsolatedCoreAudioClientWorkgroup.mm";
-    v20 = 1024;
-    v21 = 19;
-    v22 = 1024;
-    v23 = v2;
-    v24 = 2112;
-    v25 = v5;
+    v18 = "IsolatedCoreAudioClientWorkgroup.mm";
+    v19 = 1024;
+    v20 = 19;
+    v21 = 1024;
+    v22 = v2;
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Could not create get workgroup for deviceID: %u because of Error:%@", buf, 0x22u);
   }
 
-  v6 = v14;
+  v6 = v13;
   v7 = outData;
   v8 = outData;
   if (v6)
@@ -428,8 +424,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -446,10 +440,11 @@ void sub_255577C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void UseCaseSet<HALUseCase>::GetUseCase(uint64_t a1, uint64_t a2, unsigned int a3)
+void UseCaseSet<HALUseCase>::GetUseCase(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   std::mutex::lock((a2 + 40));
-  v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(a2, a3);
+  v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(a2, v3);
   if (v6)
   {
     v7 = v6[4];
@@ -547,67 +542,63 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<
 
 uint64_t ServerSideHardware::StopIOProc(uint64_t a1, unsigned int **a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v15, a1 + 8, **a2);
-  if (v17 == 1)
+  v23 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v14, a1 + 8, **a2);
+  if (v16 != 1)
   {
-    v2 = AudioDeviceStop(*(v15 + 40), *(v15 + 48));
-    v4 = v2;
-    if (v2)
-    {
-      v3.i32[0] = bswap32(v2);
-      v5 = vzip1_s8(v3, v3);
-      v6.i64[0] = 0x1F0000001FLL;
-      v6.i64[1] = 0x1F0000001FLL;
-      v7.i64[0] = 0x5F0000005FLL;
-      v7.i64[1] = 0x5F0000005FLL;
-      v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
-      v14 = 4;
-      LODWORD(__p) = vuzp1_s8(v8, v8).u32[0];
-      BYTE4(__p) = 0;
-      v9 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315650;
-        v19 = "ServerSideHardware.cpp";
-        v20 = 1024;
-        v21 = 208;
-        v22 = 2080;
-        p_p = &__p;
-        _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StopIOProc - Failed to stop audio device - error: %s", buf, 0x1Cu);
-        if (v14 < 0)
-        {
-          operator delete(__p);
-        }
-      }
-    }
+    return 5;
+  }
 
-    else
+  v2 = AudioDeviceStop(*(v14 + 40), *(v14 + 48));
+  v4 = v2;
+  if (v2)
+  {
+    v3.i32[0] = bswap32(v2);
+    v5 = vzip1_s8(v3, v3);
+    v6.i64[0] = 0x1F0000001FLL;
+    v6.i64[1] = 0x1F0000001FLL;
+    v7.i64[0] = 0x5F0000005FLL;
+    v7.i64[1] = 0x5F0000005FLL;
+    v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
+    v13 = 4;
+    LODWORD(__p) = vuzp1_s8(v8, v8).u32[0];
+    BYTE4(__p) = 0;
+    v9 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      *buf = 136315650;
+      v18 = "ServerSideHardware.cpp";
+      v19 = 1024;
+      v20 = 208;
+      v21 = 2080;
+      p_p = &__p;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StopIOProc - Failed to stop audio device - error: %s", buf, 0x1Cu);
+      if (v13 < 0)
       {
-        *buf = 136315394;
-        v19 = "ServerSideHardware.cpp";
-        v20 = 1024;
-        v21 = 212;
-        _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StopIOProc - Stopped audio device", buf, 0x12u);
-        v4 = 0;
+        operator delete(__p);
       }
-    }
-
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
   }
 
   else
   {
-    v4 = 5;
+    v10 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v18 = "ServerSideHardware.cpp";
+      v19 = 1024;
+      v20 = 212;
+      _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StopIOProc - Stopped audio device", buf, 0x12u);
+      v4 = 0;
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
   return v4;
 }
 
@@ -638,73 +629,69 @@ uint64_t sIsolatedCoreAudioServerLog()
 
 uint64_t ServerSideHardware::StartIOProcAtTime(uint64_t a1, unsigned int **a2, UInt64 a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v19, a1 + 8, **a2);
-  if (v21 == 1)
+  v22 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v18, a1 + 8, **a2);
+  if (v20 != 1)
   {
-    v4 = *(v19 + 40);
-    v5 = *(v19 + 48);
-    ioRequestedStartTime.mSampleTime = 0.0;
-    memset(&ioRequestedStartTime.mRateScalar, 0, 48);
-    ioRequestedStartTime.mHostTime = a3;
-    ioRequestedStartTime.mFlags = 2;
-    v6 = AudioDeviceStartAtTime(v4, v5, &ioRequestedStartTime, 9u);
-    v8 = v6;
-    if (v6)
-    {
-      v7.i32[0] = bswap32(v6);
-      v9 = vzip1_s8(v7, v7);
-      v10.i64[0] = 0x1F0000001FLL;
-      v10.i64[1] = 0x1F0000001FLL;
-      v11.i64[0] = 0x5F0000005FLL;
-      v11.i64[1] = 0x5F0000005FLL;
-      v12 = vbsl_s8(vmovn_s32(vcgtq_u32(v11, vsraq_n_s32(v10, vshlq_n_s32(vmovl_u16(v9), 0x18uLL), 0x18uLL))), v9, 0x2E002E002E002ELL);
-      v18 = 4;
-      LODWORD(__p) = vuzp1_s8(v12, v12).u32[0];
-      BYTE4(__p) = 0;
-      v13 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        LODWORD(ioRequestedStartTime.mSampleTime) = 136315650;
-        *(&ioRequestedStartTime.mSampleTime + 4) = "ServerSideHardware.cpp";
-        WORD2(ioRequestedStartTime.mHostTime) = 1024;
-        *(&ioRequestedStartTime.mHostTime + 6) = 186;
-        WORD1(ioRequestedStartTime.mRateScalar) = 2080;
-        *(&ioRequestedStartTime.mRateScalar + 4) = &__p;
-        _os_log_impl(&dword_255576000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StartIOProcAtTime - Failed to start audio device - error: %s", &ioRequestedStartTime, 0x1Cu);
-        if (v18 < 0)
-        {
-          operator delete(__p);
-        }
-      }
-    }
+    return 5;
+  }
 
-    else
+  v4 = *(v18 + 40);
+  v5 = *(v18 + 48);
+  ioRequestedStartTime.mSampleTime = 0.0;
+  memset(&ioRequestedStartTime.mRateScalar, 0, 48);
+  ioRequestedStartTime.mHostTime = a3;
+  ioRequestedStartTime.mFlags = 2;
+  v6 = AudioDeviceStartAtTime(v4, v5, &ioRequestedStartTime, 9u);
+  v8 = v6;
+  if (v6)
+  {
+    v7.i32[0] = bswap32(v6);
+    v9 = vzip1_s8(v7, v7);
+    v10.i64[0] = 0x1F0000001FLL;
+    v10.i64[1] = 0x1F0000001FLL;
+    v11.i64[0] = 0x5F0000005FLL;
+    v11.i64[1] = 0x5F0000005FLL;
+    v12 = vbsl_s8(vmovn_s32(vcgtq_u32(v11, vsraq_n_s32(v10, vshlq_n_s32(vmovl_u16(v9), 0x18uLL), 0x18uLL))), v9, 0x2E002E002E002ELL);
+    v17 = 4;
+    LODWORD(__p) = vuzp1_s8(v12, v12).u32[0];
+    BYTE4(__p) = 0;
+    v13 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      LODWORD(ioRequestedStartTime.mSampleTime) = 136315650;
+      *(&ioRequestedStartTime.mSampleTime + 4) = "ServerSideHardware.cpp";
+      WORD2(ioRequestedStartTime.mHostTime) = 1024;
+      *(&ioRequestedStartTime.mHostTime + 6) = 186;
+      WORD1(ioRequestedStartTime.mRateScalar) = 2080;
+      *(&ioRequestedStartTime.mRateScalar + 4) = &__p;
+      _os_log_impl(&dword_255576000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StartIOProcAtTime - Failed to start audio device - error: %s", &ioRequestedStartTime, 0x1Cu);
+      if (v17 < 0)
       {
-        LODWORD(ioRequestedStartTime.mSampleTime) = 136315394;
-        *(&ioRequestedStartTime.mSampleTime + 4) = "ServerSideHardware.cpp";
-        WORD2(ioRequestedStartTime.mHostTime) = 1024;
-        *(&ioRequestedStartTime.mHostTime + 6) = 190;
-        _os_log_impl(&dword_255576000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StartIOProcAtTime - Started audio device", &ioRequestedStartTime, 0x12u);
-        v8 = 0;
+        operator delete(__p);
       }
-    }
-
-    if (v20)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
 
   else
   {
-    v8 = 5;
+    v14 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(ioRequestedStartTime.mSampleTime) = 136315394;
+      *(&ioRequestedStartTime.mSampleTime + 4) = "ServerSideHardware.cpp";
+      WORD2(ioRequestedStartTime.mHostTime) = 1024;
+      *(&ioRequestedStartTime.mHostTime + 6) = 190;
+      _os_log_impl(&dword_255576000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StartIOProcAtTime - Started audio device", &ioRequestedStartTime, 0x12u);
+      v8 = 0;
+    }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  if (v19)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+  }
+
   return v8;
 }
 
@@ -720,67 +707,63 @@ void sub_25557821C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ServerSideHardware::StartIOProc(uint64_t a1, unsigned int **a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v15, a1 + 8, **a2);
-  if (v17 == 1)
+  v23 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v14, a1 + 8, **a2);
+  if (v16 != 1)
   {
-    v2 = AudioDeviceStart(*(v15 + 40), *(v15 + 48));
-    v4 = v2;
-    if (v2)
-    {
-      v3.i32[0] = bswap32(v2);
-      v5 = vzip1_s8(v3, v3);
-      v6.i64[0] = 0x1F0000001FLL;
-      v6.i64[1] = 0x1F0000001FLL;
-      v7.i64[0] = 0x5F0000005FLL;
-      v7.i64[1] = 0x5F0000005FLL;
-      v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
-      v14 = 4;
-      LODWORD(__p) = vuzp1_s8(v8, v8).u32[0];
-      BYTE4(__p) = 0;
-      v9 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315650;
-        v19 = "ServerSideHardware.cpp";
-        v20 = 1024;
-        v21 = 164;
-        v22 = 2080;
-        p_p = &__p;
-        _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StartIOProc - Failed to start audio device - error: %s", buf, 0x1Cu);
-        if (v14 < 0)
-        {
-          operator delete(__p);
-        }
-      }
-    }
+    return 5;
+  }
 
-    else
+  v2 = AudioDeviceStart(*(v14 + 40), *(v14 + 48));
+  v4 = v2;
+  if (v2)
+  {
+    v3.i32[0] = bswap32(v2);
+    v5 = vzip1_s8(v3, v3);
+    v6.i64[0] = 0x1F0000001FLL;
+    v6.i64[1] = 0x1F0000001FLL;
+    v7.i64[0] = 0x5F0000005FLL;
+    v7.i64[1] = 0x5F0000005FLL;
+    v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
+    v13 = 4;
+    LODWORD(__p) = vuzp1_s8(v8, v8).u32[0];
+    BYTE4(__p) = 0;
+    v9 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = sIsolatedCoreAudioServerLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      *buf = 136315650;
+      v18 = "ServerSideHardware.cpp";
+      v19 = 1024;
+      v20 = 164;
+      v21 = 2080;
+      p_p = &__p;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::StartIOProc - Failed to start audio device - error: %s", buf, 0x1Cu);
+      if (v13 < 0)
       {
-        *buf = 136315394;
-        v19 = "ServerSideHardware.cpp";
-        v20 = 1024;
-        v21 = 168;
-        _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StartIOProc - Started audio device", buf, 0x12u);
-        v4 = 0;
+        operator delete(__p);
       }
-    }
-
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
   }
 
   else
   {
-    v4 = 5;
+    v10 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v18 = "ServerSideHardware.cpp";
+      v19 = 1024;
+      v20 = 168;
+      _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::StartIOProc - Started audio device", buf, 0x12u);
+      v4 = 0;
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
   return v4;
 }
 
@@ -796,12 +779,12 @@ void sub_25557840C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ServerSideHardware::DeRegisterCallback(uint64_t a1, unsigned int **a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v14, a1 + 8, **a2);
-  if (v16 == 1)
+  v22 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v13, a1 + 8, **a2);
+  if (v15 == 1)
   {
-    v2 = v14;
-    v3 = AudioDeviceDestroyIOProcID(*(v14 + 40), *(v14 + 48));
+    v2 = v13;
+    v3 = AudioDeviceDestroyIOProcID(*(v13 + 40), *(v13 + 48));
     if (v3)
     {
       v4.i32[0] = bswap32(v3);
@@ -811,20 +794,20 @@ void ServerSideHardware::DeRegisterCallback(uint64_t a1, unsigned int **a2)
       v7.i64[0] = 0x5F0000005FLL;
       v7.i64[1] = 0x5F0000005FLL;
       v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
-      v13 = 4;
+      v12 = 4;
       LODWORD(__p) = vuzp1_s8(v8, v8).u32[0];
       BYTE4(__p) = 0;
       v9 = sIsolatedCoreAudioServerLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v18 = "ServerSideHardware.cpp";
-        v19 = 1024;
-        v20 = 145;
-        v21 = 2080;
+        v17 = "ServerSideHardware.cpp";
+        v18 = 1024;
+        v19 = 145;
+        v20 = 2080;
         p_p = &__p;
         _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::DeRegisterCallback - Failed to destroy audio device IO proc - error: %s", buf, 0x1Cu);
-        if (v13 < 0)
+        if (v12 < 0)
         {
           operator delete(__p);
         }
@@ -837,22 +820,20 @@ void ServerSideHardware::DeRegisterCallback(uint64_t a1, unsigned int **a2)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "ServerSideHardware.cpp";
-        v19 = 1024;
-        v20 = 149;
+        v17 = "ServerSideHardware.cpp";
+        v18 = 1024;
+        v19 = 149;
         _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::DeRegisterCallback - IOProcID destruction succeeded", buf, 0x12u);
       }
 
       *(v2 + 48) = 0;
     }
 
-    if (v15)
+    if (v14)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2555785EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
@@ -867,24 +848,24 @@ void sub_2555785EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ServerSideHardware::AttachCallbacksToHALDevice(uint64_t a1, unsigned int **a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v26, a1 + 8, **a2);
-  v3 = v26;
-  if (*(v26 + 44) == 1)
+  v34 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v25, a1 + 8, **a2);
+  v3 = v25;
+  if (*(v25 + 44) == 1)
   {
     v4 = 0;
     v5 = **a2;
     outIOProcID = 0;
-    v6 = *(v26 + 40);
+    v6 = *(v25 + 40);
     if (v5 > 1936290408)
     {
       if (v5 == 1936614497)
       {
         v7 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sound_analysis_ptr)>;
         {
-          v20 = v3;
-          v21 = v6;
-          v22 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sound_analysis_ptr)>;
+          v19 = v3;
+          v20 = v6;
+          v21 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sound_analysis_ptr)>;
           {
             v9 = &SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sound_analysis_ptr;
             goto LABEL_33;
@@ -903,17 +884,17 @@ void ServerSideHardware::AttachCallbacksToHALDevice(uint64_t a1, unsigned int **
 
         v7 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_siri_ptr)>;
         {
-          v20 = v3;
-          v21 = v6;
-          v22 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_siri_ptr)>;
+          v19 = v3;
+          v20 = v6;
+          v21 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_siri_ptr)>;
           {
             v9 = &SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_siri_ptr;
             goto LABEL_33;
           }
 
 LABEL_34:
-          v6 = v21;
-          v4 = v22;
+          v6 = v20;
+          v4 = v21;
 LABEL_20:
           v11 = AudioDeviceCreateIOProcID(v6, v4, 0, &outIOProcID);
           if (v11)
@@ -925,20 +906,20 @@ LABEL_20:
             v15.i64[0] = 0x5F0000005FLL;
             v15.i64[1] = 0x5F0000005FLL;
             v16 = vbsl_s8(vmovn_s32(vcgtq_u32(v15, vsraq_n_s32(v14, vshlq_n_s32(vmovl_u16(v13), 0x18uLL), 0x18uLL))), v13, 0x2E002E002E002ELL);
-            v24 = 4;
+            v23 = 4;
             LODWORD(__p) = vuzp1_s8(v16, v16).u32[0];
             BYTE4(__p) = 0;
             v17 = sIsolatedCoreAudioServerLog();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v30 = "ServerSideHardware.cpp";
-              v31 = 1024;
-              v32 = 107;
-              v33 = 2080;
+              v29 = "ServerSideHardware.cpp";
+              v30 = 1024;
+              v31 = 107;
+              v32 = 2080;
               p_p = &__p;
               _os_log_impl(&dword_255576000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideHardware::AttachCallbacksToHALDevice - Failed to create audio device IO proc - error: %s", buf, 0x1Cu);
-              if (v24 < 0)
+              if (v23 < 0)
               {
                 operator delete(__p);
               }
@@ -951,13 +932,13 @@ LABEL_20:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v30 = "ServerSideHardware.cpp";
-              v31 = 1024;
-              v32 = 111;
+              v29 = "ServerSideHardware.cpp";
+              v30 = 1024;
+              v31 = 111;
               _os_log_impl(&dword_255576000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::AttachCallbacksToHALDevice - IOProcID succeeded", buf, 0x12u);
             }
 
-            *(v26 + 48) = outIOProcID;
+            *(v25 + 48) = outIOProcID;
           }
 
           goto LABEL_27;
@@ -969,9 +950,9 @@ LABEL_20:
     {
       v7 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_meterClient_ptr)>;
       {
-        v20 = v3;
-        v21 = v6;
-        v22 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_meterClient_ptr)>;
+        v19 = v3;
+        v20 = v6;
+        v21 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_meterClient_ptr)>;
         {
           v9 = &SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_meterClient_ptr;
           goto LABEL_33;
@@ -990,13 +971,13 @@ LABEL_20:
 
       v7 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sharedDSP_ptr)>;
       {
-        v20 = v3;
-        v21 = v6;
-        v22 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sharedDSP_ptr)>;
+        v19 = v3;
+        v20 = v6;
+        v21 = IsolatedIOProcTemplate<&(SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sharedDSP_ptr)>;
         {
           v9 = &SetLegacyIOProcForIsolatedUseCase(IsolatedAudio_UseCaseID,std::shared_ptr<Isolated_Legacy_IO_Procedure> *)::smart_ptr_to_sharedDSP_ptr;
 LABEL_33:
-          *v9 = v20 + 24;
+          *v9 = v19 + 24;
           __cxa_guard_release(v8);
           goto LABEL_34;
         }
@@ -1013,19 +994,20 @@ LABEL_33:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v30 = "ServerSideHardware.cpp";
-    v31 = 1024;
-    v32 = 117;
+    v29 = "ServerSideHardware.cpp";
+    v30 = 1024;
+    v31 = 117;
     _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::AttachCallbacksToHALDevice - Skipping creating IO proc installation, device hasn't changed", buf, 0x12u);
   }
 
 LABEL_27:
-  if (v28 == 1 && v27)
+  if (v27 == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    if (v26)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_255578A18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, char a18)
@@ -1041,13 +1023,13 @@ void sub_255578A18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ServerSideHardware::RegisterCallback(uint64_t a1, uint64_t a2, unsigned int **a3)
+void ServerSideHardware::RegisterCallback(uint64_t a1, uint64_t a2, _DWORD **a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v7, a1 + 8, **a3);
-  if (v9 == 1)
+  v13 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v6, a1 + 8, **a3);
+  if (v8 == 1)
   {
-    std::function<void ()(CoreAudioTimestamp)>::operator=(*(v7 + 24) + 8, a2);
+    std::function<void ()(CoreAudioTimestamp)>::operator=(*(v6 + 24) + 8, a2);
     if (!**a3)
     {
       {
@@ -1058,20 +1040,21 @@ void ServerSideHardware::RegisterCallback(uint64_t a1, uint64_t a2, unsigned int
       if (os_log_type_enabled(sIsolatedCoreAudioClientLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v11 = "ServerSideHardware.cpp";
-        v12 = 1024;
-        v13 = 130;
+        v10 = "ServerSideHardware.cpp";
+        v11 = 1024;
+        v12 = 130;
         _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideHardware::RegisterCallback - legacyHalUseCase is unknown!", buf, 0x12u);
       }
     }
   }
 
-  if (v9 == 1 && v8)
+  if (v8 == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    if (v7)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_255578BA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
@@ -1086,32 +1069,32 @@ void sub_255578BA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t std::function<void ()(CoreAudioTimestamp)>::operator=(uint64_t a1, uint64_t a2)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v7, a2);
-  if (v7 != a1)
+  v8[3] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v6, a2);
+  if (v6 != a1)
   {
-    v3 = v8;
+    v3 = v7;
     v4 = *(a1 + 24);
-    if (v8 == v7)
+    if (v7 == v6)
     {
       if (v4 == a1)
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = 0;
-        (*(**(a1 + 24) + 24))(*(a1 + 24), v7);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = 0;
+        (*(**(a1 + 24) + 24))(*(a1 + 24), v6);
         (*(**(a1 + 24) + 32))(*(a1 + 24));
         *(a1 + 24) = 0;
-        v8 = v7;
-        (*(v9[0] + 24))(v9, a1);
-        (*(v9[0] + 32))(v9);
+        v7 = v6;
+        (*(v8[0] + 24))(v8, a1);
+        (*(v8[0] + 32))(v8);
       }
 
       else
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = *(a1 + 24);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = *(a1 + 24);
       }
 
       *(a1 + 24) = a1;
@@ -1119,21 +1102,20 @@ uint64_t std::function<void ()(CoreAudioTimestamp)>::operator=(uint64_t a1, uint
 
     else if (v4 == a1)
     {
-      (*(*v4 + 24))(*(a1 + 24), v7);
+      (*(*v4 + 24))(*(a1 + 24), v6);
       (*(**(a1 + 24) + 32))(*(a1 + 24));
-      *(a1 + 24) = v8;
-      v8 = v7;
+      *(a1 + 24) = v7;
+      v7 = v6;
     }
 
     else
     {
-      v8 = *(a1 + 24);
+      v7 = *(a1 + 24);
       *(a1 + 24) = v3;
     }
   }
 
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v6);
   return a1;
 }
 
@@ -1214,11 +1196,11 @@ uint64_t std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_fu
 
 void ServerSideHardware::AcquireDeviceForUseCase(uint64_t a1, unsigned int **a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  UseCaseSet<HALUseCase>::GetUseCase(&v13, a1 + 8, **a2);
+  v23 = *MEMORY[0x277D85DE8];
+  UseCaseSet<HALUseCase>::GetUseCase(&v12, a1 + 8, **a2);
   v2 = mach_absolute_time();
   v3 = 0;
-  v4 = v13;
+  v4 = v12;
   while (1)
   {
     v5 = (*(*v4 + 16))(v4);
@@ -1253,43 +1235,49 @@ LABEL_6:
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v10)
+    if (!v10)
     {
-      *buf = 136315906;
-      v17 = "ServerSideHardware.cpp";
-      v18 = 1024;
-      v19 = 39;
-      v20 = 1024;
-      v21 = v3;
-      v22 = 2048;
-      v23 = v8 / 1000000000.0;
-      v11 = "%25s:%-5d LogRetrySetDeviceIDState - Successfully set device ID after %u tries in %f seconds";
-LABEL_13:
-      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0x22u);
+      goto LABEL_14;
+    }
+
+    *buf = 136315906;
+    v16 = "ServerSideHardware.cpp";
+    v17 = 1024;
+    v18 = 39;
+    v19 = 1024;
+    v20 = v3;
+    v21 = 2048;
+    v22 = v8 / 1000000000.0;
+    v11 = "%25s:%-5d LogRetrySetDeviceIDState - Successfully set device ID after %u tries in %f seconds";
+  }
+
+  else
+  {
+    if (!v10)
+    {
+      goto LABEL_14;
+    }
+
+    *buf = 136315906;
+    v16 = "ServerSideHardware.cpp";
+    v17 = 1024;
+    v18 = 45;
+    v19 = 1024;
+    v20 = v3;
+    v21 = 2048;
+    v22 = v8 / 1000000000.0;
+    v11 = "%25s:%-5d LogRetrySetDeviceIDState - Failed to set device ID for use case ID for %u tries in %f seconds";
+  }
+
+  _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0x22u);
+LABEL_14:
+  if (v14 == 1)
+  {
+    if (v13)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
   }
-
-  else if (v10)
-  {
-    *buf = 136315906;
-    v17 = "ServerSideHardware.cpp";
-    v18 = 1024;
-    v19 = 45;
-    v20 = 1024;
-    v21 = v3;
-    v22 = 2048;
-    v23 = v8 / 1000000000.0;
-    v11 = "%25s:%-5d LogRetrySetDeviceIDState - Failed to set device ID for use case ID for %u tries in %f seconds";
-    goto LABEL_13;
-  }
-
-LABEL_14:
-  if (v15 == 1 && v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ServerSideHardware::RegisterUseCaseID(ServerSideHardware *this@<X0>, int a2@<W1>, void *a3@<X8>)
@@ -1542,10 +1530,8 @@ void std::__shared_ptr_emplace<HALUseCase>::~__shared_ptr_emplace(std::__shared_
   JUMPOUT(0x259C39250);
 }
 
-uint64_t IsolatedCoreAudioClientExclaveKitProxy::anchor(IsolatedCoreAudioClientExclaveKitProxy *this)
+uint64_t IsolatedCoreAudioClientExclaveKitProxy::anchor(IsolatedCoreAudioClientExclaveKitProxy *this, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 3);
   result = tb_client_connection_message_construct();
   if (!result)
   {
@@ -1553,107 +1539,95 @@ uint64_t IsolatedCoreAudioClientExclaveKitProxy::anchor(IsolatedCoreAudioClientE
     tb_message_raw_encode_u64();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v4 = *(this + 3);
     tb_connection_send_query();
-    v5 = *(this + 3);
-    result = tb_client_connection_message_destruct();
+    return tb_client_connection_message_destruct();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IsolatedCoreAudioClientExclaveKitProxy::ferryIsolatedAudioDataToScopedSinkFromSampleTime(IsolatedCoreAudioClientExclaveKitProxy *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 3);
   result = tb_client_connection_message_construct();
   if (!result)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v4 = *(this + 3);
     tb_connection_send_query();
-    v5 = *(this + 3);
-    result = tb_client_connection_message_destruct();
+    return tb_client_connection_message_destruct();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t IsolatedCoreAudioClientExclaveKitProxy::ferryIsolatedAudioDataToSinkFromSampleTime(uint64_t a1)
+uint64_t IsolatedCoreAudioClientExclaveKitProxy::ferryIsolatedAudioDataToSinkFromSampleTime(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2000000000;
-  v16 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 0x40000000;
-  v10 = ___ZN38IsolatedCoreAudioClientExclaveKitProxy42ferryIsolatedAudioDataToSinkFromSampleTimeE18CoreAudioTimestamp_block_invoke;
-  v11 = &unk_2797ED2C8;
-  v12 = &v13;
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
+  v29 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2000000000;
+  v14 = 0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 0x40000000;
+  v8 = ___ZN38IsolatedCoreAudioClientExclaveKitProxy42ferryIsolatedAudioDataToSinkFromSampleTimeE18CoreAudioTimestamp_block_invoke;
+  v9 = &unk_2797ED2C8;
+  v10 = &v11;
+  v21 = 0;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
+  v16 = 0u;
+  v28 = 0;
   v26 = 0u;
   v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   memset(buf, 0, sizeof(buf));
-  v2 = *(a1 + 24);
   if (!tb_client_connection_message_construct())
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v17 = 0;
-    v3 = *(a1 + 24);
-    if ((tb_connection_send_query() & 0xFFFFFFF7) == 0 && v17)
+    v15 = 0;
+    if ((tb_connection_send_query() & 0xFFFFFFF7) == 0 && v15)
     {
-      v24 = 0;
+      v22 = 0;
       tb_message_decode_s32();
-      if (v24 >= 6)
+      if (v22 >= 6)
       {
-        printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", v24, "/Library/Caches/com.apple.xbs/Binaries/IsolatedCoreAudioClient/install/TempContent/Objects/IsolatedCoreAudioClient.build/IsolatedCoreAudioClient.build/DerivedSources/IsolatedCoreAudioClient_C.c", 98);
-        result = _os_crash();
+        printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", v22, "/Library/Caches/com.apple.xbs/Binaries/IsolatedCoreAudioClient/install/TempContent/Objects/IsolatedCoreAudioClient.build/IsolatedCoreAudioClient.build/DerivedSources/IsolatedCoreAudioClient_C.c", 98);
+        result = _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v6);
         __break(1u);
         return result;
       }
 
-      (v10)(v9);
+      (v8)(v7);
     }
 
-    v4 = *(a1 + 24);
     tb_client_connection_message_destruct();
   }
 
-  v5 = *(v14 + 6);
-  if (v5)
+  v3 = *(v12 + 6);
+  if (v3)
   {
-    v6 = sIsolatedCoreAudioClientLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "IsolatedCoreAudioClientExclaveKitProxy.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 61;
       *&buf[18] = 1024;
-      *&buf[20] = v5;
-      _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d translateFerryToSinkStatus encountered an error! Result: %d", buf, 0x18u);
+      *&buf[20] = v3;
+      _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d translateFerryToSinkStatus encountered an error! Result: %d", buf, 0x18u);
     }
   }
 
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  _Block_object_dispose(&v11, 8);
+  return v3;
 }
 
 uint64_t sIsolatedCoreAudioClientLog()
@@ -1673,21 +1647,16 @@ uint64_t sIsolatedCoreAudioClientLog()
 
 uint64_t IsolatedCoreAudioClientExclaveKitProxy::ferryIsolatedAudioDataFromSourceAtSampleTime(IsolatedCoreAudioClientExclaveKitProxy *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 3);
   result = tb_client_connection_message_construct();
   if (!result)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v4 = *(this + 3);
     tb_connection_send_query();
-    v5 = *(this + 3);
-    result = tb_client_connection_message_destruct();
+    return tb_client_connection_message_destruct();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1700,7 +1669,6 @@ void IsolatedCoreAudioClientExclaveKitProxy::~IsolatedCoreAudioClientExclaveKitP
 
 {
   *this = &unk_286775638;
-  v2 = *(this + 2);
   tb_endpoint_destruct();
   *(this + 2) = 0;
 }
@@ -1776,7 +1744,7 @@ void IsolatedCoreAudioXPCPortal::IsolatedCoreAudioXPCPortal(IsolatedCoreAudioXPC
 
 void IsolatedCoreAudioClientBaseNSXPCConnection::makeConnection(uint64_t a1, uint64_t a2)
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 16);
   v5 = objc_alloc(MEMORY[0x277CCAE80]);
   if (v4)
@@ -1794,31 +1762,29 @@ void IsolatedCoreAudioClientBaseNSXPCConnection::makeConnection(uint64_t a1, uin
 
   (*(*a1 + 24))(a1, *(a1 + 8));
   v8 = *(a1 + 8);
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3321888768;
-  v17 = ___ZZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEENK3__0cvU13block_pointerS2_Ev_block_invoke;
-  v18 = &__block_descriptor_40_ea8_32c96_ZTSKZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEE3__0_e5_v8__0l;
-  v19[0] = v8;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3321888768;
+  v16 = ___ZZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEENK3__0cvU13block_pointerS2_Ev_block_invoke;
+  v17 = &__block_descriptor_40_ea8_32c96_ZTSKZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEE3__0_e5_v8__0l;
+  v18[0] = v8;
   v9 = v8;
-  v10 = MEMORY[0x259C39540](&v15);
+  v10 = MEMORY[0x259C39540](&v14);
 
   [*(a1 + 8) setInterruptionHandler:v10];
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v14, a2);
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3321888768;
-  v17 = ___ZZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEENK3__1cvU13block_pointerS2_Ev_block_invoke;
-  v18 = &__block_descriptor_64_ea8_32c96_ZTSKZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEE3__1_e5_v8__0l;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v19, v14);
-  v11 = MEMORY[0x259C39540](&v15);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v13, a2);
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3321888768;
+  v16 = ___ZZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEENK3__1cvU13block_pointerS2_Ev_block_invoke;
+  v17 = &__block_descriptor_64_ea8_32c96_ZTSKZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEEE3__1_e5_v8__0l;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v18, v13);
+  v11 = MEMORY[0x259C39540](&v14);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v18);
   [*(a1 + 8) setInvalidationHandler:v11];
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v13);
   [*(a1 + 8) resume];
   v12 = [*(a1 + 8) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global];
   (*(*a1 + 16))(a1, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -1861,71 +1827,69 @@ uint64_t ___ZZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3
 
 void ___ZN42IsolatedCoreAudioClientBaseNSXPCConnection14makeConnectionENSt3__18functionIFvvEEE_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315394;
-    v14 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
-    v15 = 1024;
-    v16 = 48;
-    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Attempt to connect to IsolatedAudio sever via XPC failed.", &v13, 0x12u);
+    v12 = 136315394;
+    v13 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
+    v14 = 1024;
+    v15 = 48;
+    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Attempt to connect to IsolatedAudio sever via XPC failed.", &v12, 0x12u);
   }
 
   v4 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [v2 code];
-    v13 = 136315650;
-    v14 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
-    v15 = 1024;
-    v16 = 49;
-    v17 = 2048;
-    v18 = v5;
-    _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d  Code:\t\t\t%ld", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
+    v14 = 1024;
+    v15 = 49;
+    v16 = 2048;
+    v17 = v5;
+    _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d  Code:\t\t\t%ld", &v12, 0x1Cu);
   }
 
   v6 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = [v2 localizedDescription];
-    v13 = 136315650;
-    v14 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
-    v15 = 1024;
-    v16 = 50;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d  Description:\t%@", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
+    v14 = 1024;
+    v15 = 50;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d  Description:\t%@", &v12, 0x1Cu);
   }
 
   v8 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = [v2 localizedFailureReason];
-    v13 = 136315650;
-    v14 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
-    v15 = 1024;
-    v16 = 51;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d  Reason:\t\t%@", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
+    v14 = 1024;
+    v15 = 51;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d  Reason:\t\t%@", &v12, 0x1Cu);
   }
 
   v10 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = [v2 localizedRecoverySuggestion];
-    v13 = 136315650;
-    v14 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
-    v15 = 1024;
-    v16 = 52;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d  Suggestion:\t%@", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "IsolatedCoreAudioClientBaseNSXPCConnection.mm";
+    v14 = 1024;
+    v15 = 52;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d  Suggestion:\t%@", &v12, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id sIsolatedCoreAudioClientLog()
@@ -2067,9 +2031,9 @@ uint64_t std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100]
   return a1;
 }
 
-void sub_25557B39C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25557B39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2132,9 +2096,9 @@ uint64_t std::function<void ()(int)>::operator()(uint64_t a1, int a2)
   return (*(*a1 + 48))(a1, &v3);
 }
 
-void sub_25557BC48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25557BC48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -2142,30 +2106,28 @@ void sub_25557BC48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void CreateIsolatedAudioServicePortal()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "IsolatedCoreAudioServiceLauncher.mm";
-    v5 = 1024;
-    v6 = 22;
+    v4 = 1024;
+    v5 = 22;
     _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received CreateIsolatedAudioServicePortal request", buf, 0x12u);
   }
 
   if (atomic_load_explicit(&serviceFlag, memory_order_acquire) != -1)
   {
-    *buf = &v2;
-    v3 = buf;
-    std::__call_once(&serviceFlag, &v3, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioServicePortal::$_0 &&>>);
+    *buf = &v1;
+    v2 = buf;
+    std::__call_once(&serviceFlag, &v2, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioServicePortal::$_0 &&>>);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioServicePortal::$_0 &&>>()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = MGGetBoolAnswer();
   v1 = sIsolatedCoreAudioClientLog();
   v2 = v1;
@@ -2173,11 +2135,11 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioServiceP
   {
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "IsolatedCoreAudioServiceLauncher.mm";
-      v6 = 1024;
-      v7 = 27;
-      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioServicePortal allocating portal", &v4, 0x12u);
+      v3 = 136315394;
+      v4 = "IsolatedCoreAudioServiceLauncher.mm";
+      v5 = 1024;
+      v6 = 27;
+      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioServicePortal allocating portal", &v3, 0x12u);
     }
 
     operator new();
@@ -2185,14 +2147,12 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioServiceP
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315394;
-    v5 = "IsolatedCoreAudioServiceLauncher.mm";
-    v6 = 1024;
-    v7 = 32;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioServicePortal unsupported", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "IsolatedCoreAudioServiceLauncher.mm";
+    v5 = 1024;
+    v6 = 32;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioServicePortal unsupported", &v3, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25557C0C4(_Unwind_Exception *a1)
@@ -2205,30 +2165,28 @@ void sub_25557C0C4(_Unwind_Exception *a1)
 
 void CreateIsolatedAudioSiphonPortal()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "IsolatedCoreAudioServiceLauncher.mm";
-    v5 = 1024;
-    v6 = 39;
+    v4 = 1024;
+    v5 = 39;
     _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received CreateIsolatedAudioSiphonPortal request", buf, 0x12u);
   }
 
   if (atomic_load_explicit(&siphonFlag, memory_order_acquire) != -1)
   {
-    *buf = &v2;
-    v3 = buf;
-    std::__call_once(&siphonFlag, &v3, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioSiphonPortal::$_0 &&>>);
+    *buf = &v1;
+    v2 = buf;
+    std::__call_once(&siphonFlag, &v2, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioSiphonPortal::$_0 &&>>);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioSiphonPortal::$_0 &&>>()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = MGGetBoolAnswer();
   v1 = sIsolatedCoreAudioClientLog();
   v2 = v1;
@@ -2236,11 +2194,11 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioSiphonPo
   {
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "IsolatedCoreAudioServiceLauncher.mm";
-      v6 = 1024;
-      v7 = 44;
-      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioSiphonPortal allocating portal", &v4, 0x12u);
+      v3 = 136315394;
+      v4 = "IsolatedCoreAudioServiceLauncher.mm";
+      v5 = 1024;
+      v6 = 44;
+      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioSiphonPortal allocating portal", &v3, 0x12u);
     }
 
     operator new();
@@ -2248,14 +2206,12 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateIsolatedAudioSiphonPo
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315394;
-    v5 = "IsolatedCoreAudioServiceLauncher.mm";
-    v6 = 1024;
-    v7 = 49;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioSiphonPortal unsupported", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "IsolatedCoreAudioServiceLauncher.mm";
+    v5 = 1024;
+    v6 = 49;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioSiphonPortal unsupported", &v3, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25557C390(_Unwind_Exception *a1)
@@ -2267,25 +2223,23 @@ void sub_25557C390(_Unwind_Exception *a1)
 
 void CreateMicrophoneActivityPortal()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "IsolatedCoreAudioServiceLauncher.mm";
-    v5 = 1024;
-    v6 = 56;
+    v4 = 1024;
+    v5 = 56;
     _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received CreateMicrophoneActivityPortal request", buf, 0x12u);
   }
 
   if (atomic_load_explicit(&micActivityFlag, memory_order_acquire) != -1)
   {
-    *buf = &v2;
-    v3 = buf;
-    std::__call_once(&micActivityFlag, &v3, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateMicrophoneActivityPortal::$_0 &&>>);
+    *buf = &v1;
+    v2 = buf;
+    std::__call_once(&micActivityFlag, &v2, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateMicrophoneActivityPortal::$_0 &&>>);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateMicrophoneActivityPortal::$_0 &&>>()
@@ -2306,7 +2260,7 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateMicrophoneActivityPor
 
 void CreateHistoricalAudioPortal()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   {
     sIsolatedCoreAudioMicActivityLog(void)::sLog = os_log_create("com.apple.coreaudio", "sIsolatedCoreAudioMicActivity");
   }
@@ -2316,24 +2270,22 @@ void CreateHistoricalAudioPortal()
   {
     *buf = 136315394;
     *&buf[4] = "IsolatedCoreAudioServiceLauncher.mm";
-    v5 = 1024;
-    v6 = 73;
+    v4 = 1024;
+    v5 = 73;
     _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received CreateHistoricalAudioPortal request", buf, 0x12u);
   }
 
   if (atomic_load_explicit(&historicalAudioFlag, memory_order_acquire) != -1)
   {
-    *buf = &v2;
-    v3 = buf;
-    std::__call_once(&historicalAudioFlag, &v3, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateHistoricalAudioPortal::$_0 &&>>);
+    *buf = &v1;
+    v2 = buf;
+    std::__call_once(&historicalAudioFlag, &v2, std::__call_once_proxy[abi:ne200100]<std::tuple<CreateHistoricalAudioPortal::$_0 &&>>);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateHistoricalAudioPortal::$_0 &&>>()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = MGGetBoolAnswer();
   v1 = sIsolatedCoreAudioClientLog();
   v2 = v1;
@@ -2341,11 +2293,11 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateHistoricalAudioPortal
   {
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "IsolatedCoreAudioServiceLauncher.mm";
-      v6 = 1024;
-      v7 = 78;
-      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioSiphonPortal allocating portal", &v4, 0x12u);
+      v3 = 136315394;
+      v4 = "IsolatedCoreAudioServiceLauncher.mm";
+      v5 = 1024;
+      v6 = 78;
+      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CreateIsolatedAudioSiphonPortal allocating portal", &v3, 0x12u);
     }
 
     operator new();
@@ -2353,14 +2305,12 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<CreateHistoricalAudioPortal
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315394;
-    v5 = "IsolatedCoreAudioServiceLauncher.mm";
-    v6 = 1024;
-    v7 = 83;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioSiphonPortal unsupported", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "IsolatedCoreAudioServiceLauncher.mm";
+    v5 = 1024;
+    v6 = 83;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d CreateIsolatedAudioSiphonPortal unsupported", &v3, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25557C9E4(_Unwind_Exception *a1)
@@ -2372,7 +2322,7 @@ void sub_25557C9E4(_Unwind_Exception *a1)
 
 void AudioClient::stop(AudioClient *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (atomic_exchange(this + 74, 1u))
   {
     v2 = sIsolatedCoreAudioClientLog();
@@ -2400,8 +2350,8 @@ LABEL_8:
       *block = MEMORY[0x277D85DD0];
       *&block[8] = 0x40000000;
       *&block[16] = ___ZN10applesauce8dispatch2v19sync_implIZN11AudioClient11guardedStopEvE3__0EEvP16dispatch_queue_sOT_NSt3__117integral_constantIbLb1EEE_block_invoke;
-      v12 = &__block_descriptor_tmp_168;
-      v13 = &v10;
+      v11 = &__block_descriptor_tmp_168;
+      v12 = &v9;
       dispatch_sync(v7, block);
       atomic_store(0, this + 73);
     }
@@ -2424,7 +2374,28 @@ LABEL_8:
   }
 
   atomic_store(0, this + 74);
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+void sub_25557CBD8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    v11 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "AudioClient.cpp";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 132;
+      _os_log_impl(&dword_255576000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::stop - Unknown exception caught.", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25557CBA4);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 std::once_flag::_State_type sIsolatedCoreAudioClientLog()
@@ -2472,19 +2443,19 @@ std::once_flag::_State_type sIsolatedCoreAudioClientLog()
 
 uint64_t AudioClient::startAtTime(AudioClient *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (atomic_exchange(this + 74, 1u))
   {
     v2 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 104;
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 104;
       v3 = "%25s:%-5d AudioClient::startAtTime - The client has tried to start IO, but IO is already being started or stopped by the client.";
 LABEL_7:
-      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, v3, &v9, 0x12u);
+      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, v3, &v8, 0x12u);
       goto LABEL_8;
     }
 
@@ -2497,10 +2468,10 @@ LABEL_7:
     v2 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 180;
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 180;
       v3 = "%25s:%-5d AudioClient::startAtTime - The client has tried to start IO, but client IO is already running.";
       goto LABEL_7;
     }
@@ -2514,14 +2485,14 @@ LABEL_8:
   v5 = (*(**(this + 5) + 48))(*(this + 5));
   if (v5)
   {
-    v8 = sIsolatedCoreAudioClientLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 175;
-      _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::startAtTime - There was an error trying to start IO at the given time.", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 175;
+      _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::startAtTime - There was an error trying to start IO at the given time.", &v8, 0x12u);
     }
   }
 
@@ -2532,25 +2503,46 @@ LABEL_8:
 
 LABEL_9:
   atomic_store(0, this + 74);
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
+}
+
+void sub_25557CEA8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    v9 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "AudioClient.cpp";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 109;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::startAtTime - Unknown exception caught.", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25557CDBCLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t AudioClient::start(AudioClient *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (atomic_exchange(this + 74, 1u))
   {
     v2 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 79;
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 79;
       v3 = "%25s:%-5d AudioClient::start - The client has tried to start IO, but IO is already being started or stopped by the client.";
 LABEL_7:
-      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, v3, &v9, 0x12u);
+      _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, v3, &v8, 0x12u);
       goto LABEL_8;
     }
 
@@ -2563,10 +2555,10 @@ LABEL_7:
     v2 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 156;
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 156;
       v3 = "%25s:%-5d AudioClient::start - The client has tried to start IO, but client IO is already running.";
       goto LABEL_7;
     }
@@ -2580,14 +2572,14 @@ LABEL_8:
   v5 = (*(**(this + 5) + 40))(*(this + 5));
   if (v5)
   {
-    v8 = sIsolatedCoreAudioClientLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AudioClient.cpp";
-      v11 = 1024;
-      v12 = 151;
-      _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::start - There was an error trying to start IO.", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "AudioClient.cpp";
+      v10 = 1024;
+      v11 = 151;
+      _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::start - There was an error trying to start IO.", &v8, 0x12u);
     }
   }
 
@@ -2598,28 +2590,47 @@ LABEL_8:
 
 LABEL_9:
   atomic_store(0, this + 74);
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
+}
+
+void sub_25557D100(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    v9 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "AudioClient.cpp";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 84;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioClient::start - Unknown exception caught.", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25557D014);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t AudioClient::setLapseCallback(AudioClient *this, void (*a2)(int, void *), void *a3)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   *(this + 3) = a2;
   *(this + 4) = a3;
   v3 = *(this + 5);
-  v6[0] = &unk_2867758E8;
-  v6[1] = this;
-  v6[3] = v6;
-  (*(*v3 + 32))(v3, v6);
-  result = std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_2867758E8;
+  v5[1] = this;
+  v5[3] = v5;
+  (*(*v3 + 32))(v3, v5);
+  return std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_25557D24C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25557D24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2671,29 +2682,27 @@ uint64_t std::__function::__func<AudioClient::setLapseCallback(void (*)(int,void
 
 uint64_t AudioClient::setAsyncIOCallback(void *a1, uint64_t a2, uint64_t a3)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   a1[1] = a2;
   a1[2] = a3;
-  v7[0] = &unk_286775868;
-  v7[1] = a1;
-  v7[3] = v7;
+  v6[0] = &unk_286775868;
+  v6[1] = a1;
+  v6[3] = v6;
   v3 = a1[5];
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v6, v7);
-  (*(*v3 + 16))(v3, v6);
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v6);
-  result = std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v5, v6);
+  (*(*v3 + 16))(v3, v5);
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v5);
+  return std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_25557D4C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25557D4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -2712,26 +2721,21 @@ uint64_t std::__function::__func<AudioClient::setAsyncIOCallback(void (*)(CoreAu
   }
 }
 
-uint64_t std::__function::__func<AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0,std::allocator<AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0>,void ()(CoreAudioTimestamp)>::operator()(uint64_t a1, uint64_t *a2)
+void std::__function::__func<AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0,std::allocator<AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0>,void ()(CoreAudioTimestamp)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v3 = *a2;
-  v2 = a2[1];
-  v4 = *(a1 + 8);
-  v5 = atomic_load((v4 + 72));
-  if (v5)
+  v2 = *(a1 + 8);
+  v3 = atomic_load((v2 + 72));
+  if (v3)
   {
-    (*(**(v4 + 48) + 48))(*(v4 + 48), a2[1]);
-    atomic_store(0, (v4 + 72));
+    (*(**(v2 + 48) + 48))(*(v2 + 48), a2[1]);
+    atomic_store(0, (v2 + 72));
   }
 
-  result = (*(**(v4 + 48) + 24))(*(v4 + 48));
-  if (*(v4 + 8))
+  (*(**(v2 + 48) + 24))(*(v2 + 48), a2);
+  if (*(v2 + 8))
   {
-    v7 = *(v4 + 64);
     operator new();
   }
-
-  return result;
 }
 
 void applesauce::dispatch::v1::async<AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0::operator() const(CoreAudioTimestamp)::{lambda(void)#1}>(dispatch_queue_s *,AudioClient::setAsyncIOCallback(void (*)(CoreAudioTimestamp,void *),void *)::$_0::operator() const(CoreAudioTimestamp)::{lambda(void)#1} &&)::{lambda(void *)#1}::__invoke(void *a1)
@@ -2815,9 +2819,9 @@ uint64_t XPCConnectionToServer::tellServerToStopIO(XPCConnectionToServer *this)
   return v3;
 }
 
-void sub_25557D998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25557D998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2841,9 +2845,9 @@ uint64_t XPCConnectionToServer::tellServerToStartIOAtTime(XPCConnectionToServer 
   return v4;
 }
 
-void sub_25557DA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25557DA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2867,9 +2871,9 @@ uint64_t XPCConnectionToServer::tellServerToStartIO(XPCConnectionToServer *this)
   return v3;
 }
 
-void sub_25557DB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25557DB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2907,7 +2911,7 @@ void XPCConnectionToServer::getWorkgroupFromServer(XPCConnectionToServer *this@<
   }
 }
 
-void sub_25557DC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
+void sub_25557DC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
 {
   _Block_object_dispose(&a15, 8);
   if (a22)
@@ -2922,8 +2926,7 @@ __n128 __Block_byref_object_copy__2(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -2938,7 +2941,7 @@ void __Block_byref_object_dispose__3(uint64_t a1)
 
 void ___ZN21XPCConnectionToServer22getWorkgroupFromServerEv_block_invoke(uint64_t a1, void *a2)
 {
-  [a2 getWorkgroup];
+  objc_msgSend_getWorkgroup(a2);
   caulk::mach::os_object<OS_os_workgroup * {__strong}>::get(*(v2 + 8));
   objc_claimAutoreleasedReturnValue();
   operator new();
@@ -2979,34 +2982,32 @@ void std::__shared_ptr_emplace<IOThreadWorkgroup>::~__shared_ptr_emplace(std::__
 
 void XPCConnectionToServer::releaseSharedIOThreadResourcesFromServer(XPCConnectionToServer *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "XPCConnectionToServer.mm";
-    v7 = 1024;
-    v8 = 49;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::releaseSharedIOThreadResourcesFromServer - before call", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "XPCConnectionToServer.mm";
+    v6 = 1024;
+    v7 = 49;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::releaseSharedIOThreadResourcesFromServer - before call", &v4, 0x12u);
   }
 
   [*(*(this + 2) + 32) checkOutForIsolatedAudioSharedResources:*(this + 2)];
   v3 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "XPCConnectionToServer.mm";
-    v7 = 1024;
-    v8 = 51;
-    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::releaseSharedIOThreadResourcesFromServer - after call", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "XPCConnectionToServer.mm";
+    v6 = 1024;
+    v7 = 51;
+    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::releaseSharedIOThreadResourcesFromServer - after call", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer(XPCConnectionToServer *this@<X0>, uint64_t a2@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3020,40 +3021,39 @@ void XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer(XPCConnecti
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x4812000000;
-  v16 = __Block_byref_object_copy__195;
-  v17 = __Block_byref_object_dispose__196;
-  v18 = &unk_25559C825;
-  v20 = 0;
-  v21 = 0;
+  v15 = __Block_byref_object_copy__195;
+  v16 = __Block_byref_object_dispose__196;
+  v17 = &unk_25559C825;
   v19 = 0;
+  v20 = 0;
+  v18 = 0;
   v5 = *(*(this + 2) + 32);
   v6 = *(this + 2);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = ___ZN21XPCConnectionToServer40acquireSharedIOThreadResourcesFromServerEv_block_invoke;
-  v10[3] = &unk_2797ED360;
-  v10[4] = buf;
-  [v5 checkInForIsolatedAudioSharedResources:v6 with:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZN21XPCConnectionToServer40acquireSharedIOThreadResourcesFromServerEv_block_invoke;
+  v9[3] = &unk_2797ED360;
+  v9[4] = buf;
+  [v5 checkInForIsolatedAudioSharedResources:v6 with:v9];
   v7 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 136315394;
-    v12 = "XPCConnectionToServer.mm";
-    v13 = 1024;
-    v14 = 42;
-    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer - after call", v11, 0x12u);
+    *v10 = 136315394;
+    v11 = "XPCConnectionToServer.mm";
+    v12 = 1024;
+    v13 = 42;
+    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer - after call", v10, 0x12u);
   }
 
   v8 = *&buf[8];
   *a2 = *(*&buf[8] + 48);
   *(a2 + 16) = *(v8 + 64);
   _Block_object_dispose(buf, 8);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25557E274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25557E274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3068,17 +3068,17 @@ __n128 __Block_byref_object_copy__195(__n128 *a1, __n128 *a2)
 
 void ___ZN21XPCConnectionToServer40acquireSharedIOThreadResourcesFromServerEv_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "XPCConnectionToServer.mm";
-    v14 = 1024;
-    v15 = 38;
-    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer - in reply call", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = "XPCConnectionToServer.mm";
+    v13 = 1024;
+    v14 = 38;
+    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::acquireSharedIOThreadResourcesFromServer - in reply call", &v11, 0x12u);
   }
 
   *(*(*(a1 + 32) + 8) + 48) = [v5 getSemaphores];
@@ -3086,29 +3086,25 @@ void ___ZN21XPCConnectionToServer40acquireSharedIOThreadResourcesFromServerEv_bl
   v9 = *(*(a1 + 32) + 8);
   *(v9 + 56) = v8;
   *(v9 + 64) = v10;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t XPCConnectionToServer::makeConnectionToServer(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "XPCConnectionToServer.mm";
-    v11 = 1024;
-    v12 = 27;
+    v9 = "XPCConnectionToServer.mm";
+    v10 = 1024;
+    v11 = 27;
     _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d XPCConnectionToServer::makeXPCConnectionToServer Received CreateIsolatedAudioServicePortal request", buf, 0x12u);
   }
 
   v5 = *(a1 + 16);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v8, a2);
-  IsolatedCoreAudioClientBaseNSXPCConnection::makeConnection(v5, v8);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v7, a2);
+  IsolatedCoreAudioClientBaseNSXPCConnection::makeConnection(v5, v7);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
 }
 
 void XPCConnectionToServer::~XPCConnectionToServer(XPCConnectionToServer *this)
@@ -3170,18 +3166,18 @@ uint64_t std::__function::__func<IsolatedCoreAudioClientMultiplexer::createShare
 
 void std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_1,std::allocator<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_1>,void ()(LapseChain)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *a2;
   v3 = *(a1 + 8);
   v4 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v14 = "IsolatedCoreAudioClientMultiplexer.cpp";
-    v15 = 1024;
-    v16 = 33;
-    v17 = 1024;
-    v18 = v2;
+    v13 = "IsolatedCoreAudioClientMultiplexer.cpp";
+    v14 = 1024;
+    v15 = 33;
+    v16 = 1024;
+    v17 = v2;
     _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer:: IO has lapsed with status %d", buf, 0x18u);
   }
 
@@ -3191,9 +3187,9 @@ void std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOP
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "IsolatedCoreAudioClientMultiplexer.cpp";
-      v15 = 1024;
-      v16 = 40;
+      v13 = "IsolatedCoreAudioClientMultiplexer.cpp";
+      v14 = 1024;
+      v15 = 40;
       _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer:: IO lapsed during rendezvous.", buf, 0x12u);
     }
 
@@ -3242,13 +3238,11 @@ void std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOP
 
     std::__shared_mutex_base::unlock((v3 + 96));
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25557E9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25557E9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3309,22 +3303,18 @@ uint64_t std::__function::__func<IsolatedCoreAudioClientMultiplexer::createShare
   }
 }
 
-uint64_t std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0,std::allocator<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0>,void ()(CoreAudioTimestamp)>::operator()(uint64_t a1, uint64_t *a2)
+void std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0,std::allocator<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0>,void ()(CoreAudioTimestamp)>::operator()(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 8);
-  result = std::function<void ()(CoreAudioTimestamp)>::operator()(*(a1 + 40), *a2, a2[1]);
+  std::function<void ()(CoreAudioTimestamp)>::operator()(*(a1 + 40), *a2, a2[1]);
   for (i = *(*(v2 + 8) + 16); i; i = *i)
   {
-    v5 = *i[3];
-    v6 = atomic_load((v5 + 64));
-    if (v6)
+    v4 = atomic_load((*i[3] + 64));
+    if (v4)
     {
-      v7 = *(v5 + 72);
       operator new();
     }
   }
-
-  return result;
 }
 
 void std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0,std::allocator<IsolatedCoreAudioClientMultiplexer::createSharedIOProcs(std::function<void ()(CoreAudioTimestamp)>)::$_0>,void ()(CoreAudioTimestamp)>::destroy_deallocate(void *a1)
@@ -3357,28 +3347,28 @@ void *std::__function::__func<IsolatedCoreAudioClientMultiplexer::createSharedIO
   return a1;
 }
 
-void IsolatedCoreAudioClientMultiplexer::IsolatedCoreAudioClientMultiplexer(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void IsolatedCoreAudioClientMultiplexer::IsolatedCoreAudioClientMultiplexer(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9[8] = *MEMORY[0x277D85DE8];
   v7 = *a2;
   *a2 = 0;
   *a1 = v7;
-  *(a1 + 8) = a3;
-  *(a1 + 16) = a4;
+  a1[1] = a3;
+  a1[2] = a4;
   if (a4)
   {
     atomic_fetch_add_explicit((a4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(a1 + 32) = 850045863;
+  a1[4] = 850045863;
   *(a1 + 24) = 0;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0;
-  std::__shared_mutex_base::__shared_mutex_base((a1 + 96));
-  *(a1 + 288) = 0;
-  *(a1 + 296) = 0;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 9) = 0u;
+  a1[11] = 0;
+  std::__shared_mutex_base::__shared_mutex_base((a1 + 12));
+  a1[36] = 0;
+  a1[37] = 0;
   std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v8, a5);
   v8[12] = a1;
   std::__function::__value_func<void ()(CoreAudioTimestamp)>::__value_func[abi:ne200100](v9, v8);
@@ -3566,7 +3556,7 @@ uint64_t IOThreadSynchronizer::signalAndWait(IOThreadSynchronizer *this, double 
   return v3;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3580,13 +3570,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3788,9 +3778,9 @@ void std::__function::__func<long long({block_pointer} {__strong})(void),std::al
   JUMPOUT(0x259C39250);
 }
 
-void sub_25557FDF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_25557FDF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x259C39250](v17, 0x1000C4090D0E795);
+  MEMORY[0x259C39250](v17, 0x1000C4090D0E795, a3, a4, a5, a6, a7, a8);
   v19 = *(v15 + 64);
   if (v19)
   {
@@ -3822,7 +3812,7 @@ IOThreadSynchronizer *ClientSideAudioSwitchboardIOThread::stop(ClientSideAudioSw
 
 void *std::__function::__value_func<long long ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -3832,15 +3822,15 @@ void *std::__function::__value_func<long long ()(void)>::swap[abi:ne200100](void
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -3868,7 +3858,6 @@ void *std::__function::__value_func<long long ()(void)>::swap[abi:ne200100](void
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3946,19 +3935,19 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
 
 uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_2,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_2>,long long ()(long long)>::operator()(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
   if (*a2)
   {
     v3 = atomic_load((v2 + 80));
-    *v15 = ((v3 & 1) << 32) | 0x68616C74;
+    *v14 = ((v3 & 1) << 32) | 0x68616C74;
     v4 = *(a1 + 40);
     if (!v4)
     {
       goto LABEL_17;
     }
 
-    (*(*v4 + 48))(v4, v15);
+    (*(*v4 + 48))(v4, v14);
   }
 
   v5 = **(v2 + 56);
@@ -3979,32 +3968,32 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
   v7 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    *v15 = 136315650;
-    *&v15[4] = "ClientSideAudioSwitchboardIOThread.mm";
-    v16 = 1024;
-    v17 = 151;
-    v18 = 1024;
-    v19 = v6;
-    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOTearDownFunction - Failed to leave the workgroup!!!! - %d", v15, 0x18u);
+    *v14 = 136315650;
+    *&v14[4] = "ClientSideAudioSwitchboardIOThread.mm";
+    v15 = 1024;
+    v16 = 151;
+    v17 = 1024;
+    v18 = v6;
+    _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOTearDownFunction - Failed to leave the workgroup!!!! - %d", v14, 0x18u);
   }
 
 LABEL_11:
   v8 = pthread_self();
-  *v15 = 1;
+  *v14 = 1;
   v9 = pthread_mach_thread_np(v8);
-  v10 = thread_policy_set(v9, 1u, v15, 1u);
+  v10 = thread_policy_set(v9, 1u, v14, 1u);
   if (v10)
   {
     v11 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 136315650;
-      *&v15[4] = "ClientSideAudioSwitchboardIOThread.mm";
-      v16 = 1024;
-      v17 = 157;
-      v18 = 1024;
-      v19 = v10;
-      _os_log_impl(&dword_255576000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOTearDownFunction - Failed to set the RT thread priority!!!! - %d", v15, 0x18u);
+      *v14 = 136315650;
+      *&v14[4] = "ClientSideAudioSwitchboardIOThread.mm";
+      v15 = 1024;
+      v16 = 157;
+      v17 = 1024;
+      v18 = v10;
+      _os_log_impl(&dword_255576000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOTearDownFunction - Failed to set the RT thread priority!!!! - %d", v14, 0x18u);
     }
   }
 
@@ -4016,59 +4005,53 @@ LABEL_17:
   }
 
   (*(*v12 + 48))(v12);
-  result = TranslateKernelError(v10);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return TranslateKernelError(v10);
 }
 
 uint64_t TranslateKernelError(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    if (a1 == 49)
-    {
-      v2 = sIsolatedCoreAudioClientLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-      {
-        v8 = 136315394;
-        v9 = "ClientSideAudioSwitchboardIOThread.mm";
-        v10 = 1024;
-        v11 = 68;
-        v3 = "%25s:%-5d ClientSideAudioSwitchboardIOThread::TranslateKernelError - Semaphores timed out!!! Exiting the workloop";
-        v4 = v2;
-        v5 = 18;
-LABEL_8:
-        _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, v3, &v8, v5);
-      }
-    }
-
-    else
-    {
-      v2 = sIsolatedCoreAudioClientLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-      {
-        v8 = 136315650;
-        v9 = "ClientSideAudioSwitchboardIOThread.mm";
-        v10 = 1024;
-        v11 = 72;
-        v12 = 1024;
-        v13 = a1;
-        v3 = "%25s:%-5d ClientSideAudioSwitchboardIOThread::TranslateKernelError - General Semaphore Error - %d. Exiting the workloop";
-        v4 = v2;
-        v5 = 24;
-        goto LABEL_8;
-      }
-    }
-
-    result = 1;
-    goto LABEL_10;
+    return 0;
   }
 
-  result = 0;
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  if (a1 == 49)
+  {
+    v2 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136315394;
+      v8 = "ClientSideAudioSwitchboardIOThread.mm";
+      v9 = 1024;
+      v10 = 68;
+      v3 = "%25s:%-5d ClientSideAudioSwitchboardIOThread::TranslateKernelError - Semaphores timed out!!! Exiting the workloop";
+      v4 = v2;
+      v5 = 18;
+LABEL_8:
+      _os_log_impl(&dword_255576000, v4, OS_LOG_TYPE_ERROR, v3, &v7, v5);
+    }
+  }
+
+  else
+  {
+    v2 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136315650;
+      v8 = "ClientSideAudioSwitchboardIOThread.mm";
+      v9 = 1024;
+      v10 = 72;
+      v11 = 1024;
+      v12 = a1;
+      v3 = "%25s:%-5d ClientSideAudioSwitchboardIOThread::TranslateKernelError - General Semaphore Error - %d. Exiting the workloop";
+      v4 = v2;
+      v5 = 24;
+      goto LABEL_8;
+    }
+  }
+
+  return 1;
 }
 
 void std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_2,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_2>,long long ()(long long)>::destroy_deallocate(void *a1)
@@ -4116,10 +4099,10 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
 
 uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_1,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_1>,long long ()(void)>::operator()(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   v3 = *(v2 + 32);
   if (*(v3 + 56) >= 0x10uLL)
   {
@@ -4131,8 +4114,8 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
     v4 = *(v3 + 56);
   }
 
-  memcpy(&v11, *(v3 + 48), v4);
-  std::function<void ()(CoreAudioTimestamp)>::operator()(*(a1 + 40), v11, v12);
+  memcpy(&v10, *(v3 + 48), v4);
+  std::function<void ()(CoreAudioTimestamp)>::operator()(*(a1 + 40), v10, v11);
   v5 = IOThreadSynchronizer::signalAndWait(*(*(v2 + 32) + 8), 0.5, *(*(v2 + 32) + 24));
   if (v5 == 49)
   {
@@ -4140,37 +4123,31 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v14 = "ClientSideAudioSwitchboardIOThread.mm";
-      v15 = 1024;
-      v16 = 125;
+      v13 = "ClientSideAudioSwitchboardIOThread.mm";
+      v14 = 1024;
+      v15 = 125;
       _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOMainWorkloopFunction - timed out waiting for signal from server.", buf, 0x12u);
     }
   }
 
   v7 = atomic_load((v2 + 81));
-  if (v7)
+  if ((v7 & 1) == 0)
   {
-    v8 = sIsolatedCoreAudioClientLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      v14 = "ClientSideAudioSwitchboardIOThread.mm";
-      v15 = 1024;
-      v16 = 130;
-      _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOMainWorkloopFunction - heading for the egress.", buf, 0x12u);
-    }
-
-    atomic_store(0, (v2 + 81));
-    result = 1;
+    return TranslateKernelError(v5);
   }
 
-  else
+  v8 = sIsolatedCoreAudioClientLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    result = TranslateKernelError(v5);
+    *buf = 136315394;
+    v13 = "ClientSideAudioSwitchboardIOThread.mm";
+    v14 = 1024;
+    v15 = 130;
+    _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOMainWorkloopFunction - heading for the egress.", buf, 0x12u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  atomic_store(0, (v2 + 81));
+  return 1;
 }
 
 void std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_1,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_1>,long long ()(void)>::destroy_deallocate(void *a1)
@@ -4218,7 +4195,7 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
 
 uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_0,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_0>,long long ()(void)>::operator()(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   v2 = *(a1 + 16);
   v3 = pthread_self();
@@ -4248,23 +4225,23 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
     v5 = v5;
   }
 
-  *v19 = v4 | (v5 << 32);
-  *&v19[8] = v4 | 0x100000000;
+  *v18 = v4 | (v5 << 32);
+  *&v18[8] = v4 | 0x100000000;
   v6 = pthread_mach_thread_np(v3);
-  v7 = thread_policy_set(v6, 2u, v19, 4u);
+  v7 = thread_policy_set(v6, 2u, v18, 4u);
   if (v7)
   {
     v8 = v7;
     v9 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 136315650;
-      *&v19[4] = "ClientSideAudioSwitchboardIOThread.mm";
-      *&v19[12] = 1024;
-      *&v19[14] = 88;
-      v20 = 1024;
-      v21 = v8;
-      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - Failed to set the RT thread priority!!!! - %d", v19, 0x18u);
+      *v18 = 136315650;
+      *&v18[4] = "ClientSideAudioSwitchboardIOThread.mm";
+      *&v18[12] = 1024;
+      *&v18[14] = 88;
+      v19 = 1024;
+      v20 = v8;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - Failed to set the RT thread priority!!!! - %d", v18, 0x18u);
     }
   }
 
@@ -4286,23 +4263,23 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThre
   v12 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    *v19 = 136315650;
-    *&v19[4] = "ClientSideAudioSwitchboardIOThread.mm";
-    *&v19[12] = 1024;
-    *&v19[14] = 94;
-    v20 = 1024;
-    v21 = v11;
-    _os_log_impl(&dword_255576000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - Failed to join the workgroup!!!! - %d", v19, 0x18u);
+    *v18 = 136315650;
+    *&v18[4] = "ClientSideAudioSwitchboardIOThread.mm";
+    *&v18[12] = 1024;
+    *&v18[14] = 94;
+    v19 = 1024;
+    v20 = v11;
+    _os_log_impl(&dword_255576000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - Failed to join the workgroup!!!! - %d", v18, 0x18u);
   }
 
 LABEL_20:
   v13 = caulk::mach::semaphore::timed_wait_or_error(*(*(v1 + 32) + 24), 4.0);
   v14 = v13;
-  *v19 = v13;
-  v19[4] = BYTE4(v13);
+  *v18 = v13;
+  v18[4] = BYTE4(v13);
   if ((v13 & 0x100000000) != 0)
   {
-    caulk::expected<BOOL,int>::value(v19);
+    caulk::expected<BOOL,int>::value(v18);
     if ((v14 & 1) == 0)
     {
       goto LABEL_28;
@@ -4311,7 +4288,7 @@ LABEL_20:
 LABEL_27:
     caulk::mach::semaphore::signal(*(v1 + 72));
     v14 = 0;
-    goto LABEL_31;
+    return TranslateKernelError(v14);
   }
 
   if (!v13)
@@ -4324,32 +4301,29 @@ LABEL_27:
     v15 = sIsolatedCoreAudioClientLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 136315394;
-      *&v19[4] = "ClientSideAudioSwitchboardIOThread.mm";
-      *&v19[12] = 1024;
-      *&v19[14] = 107;
-      _os_log_impl(&dword_255576000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - unknown error occurred waiting for signal from server.", v19, 0x12u);
+      *v18 = 136315394;
+      *&v18[4] = "ClientSideAudioSwitchboardIOThread.mm";
+      *&v18[12] = 1024;
+      *&v18[14] = 107;
+      _os_log_impl(&dword_255576000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - unknown error occurred waiting for signal from server.", v18, 0x12u);
     }
 
-    goto LABEL_31;
+    return TranslateKernelError(v14);
   }
 
 LABEL_28:
   v16 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    *v19 = 136315394;
-    *&v19[4] = "ClientSideAudioSwitchboardIOThread.mm";
-    *&v19[12] = 1024;
-    *&v19[14] = 103;
-    _os_log_impl(&dword_255576000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - timed out waiting for signal from server.", v19, 0x12u);
+    *v18 = 136315394;
+    *&v18[4] = "ClientSideAudioSwitchboardIOThread.mm";
+    *&v18[12] = 1024;
+    *&v18[14] = 103;
+    _os_log_impl(&dword_255576000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboardIOThread::IOSetUpFunction - timed out waiting for signal from server.", v18, 0x12u);
   }
 
   v14 = 49;
-LABEL_31:
-  result = TranslateKernelError(v14);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return TranslateKernelError(v14);
 }
 
 __n128 std::__function::__func<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_0,std::allocator<ClientSideAudioSwitchboardIOThread::spawnIOThread(unsigned int,std::function<void ()(CoreAudioTimestamp)>,std::function<void ()(LapseChain)>)::$_0>,long long ()(void)>::__clone(uint64_t a1, uint64_t a2)
@@ -4460,23 +4434,21 @@ uint64_t *std::unique_ptr<ServerIOThreadResources>::reset[abi:ne200100](uint64_t
   return result;
 }
 
-uint64_t ClientLocalServer::tellServerToStartIOAtTime(ClientLocalServer *this)
+void ClientLocalServer::tellServerToStartIOAtTime(ClientLocalServer *this, std::__thread_struct *a2)
 {
-  v1 = atomic_load(this + 81);
-  if (v1)
+  v2 = atomic_load(this + 81);
+  if (v2)
   {
     atomic_store(0, this + 80);
     operator new();
   }
-
-  return 0xFFFFFFFFLL;
 }
 
-void sub_2555813B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2555813B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
-  MEMORY[0x259C39250](v2, v3);
+  MEMORY[0x259C39250](v3, v4);
   _Unwind_Resume(a1);
 }
 
@@ -4506,7 +4478,7 @@ uint64_t *std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](uint6
   return a1;
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,ClientLocalServer::tellServerToStartIOAtTime(unsigned long long)::$_0>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,ClientLocalServer::tellServerToStartIOAtTime(unsigned long long)::$_0>>(const void **a1)
 {
   v13 = a1;
   v2 = std::__thread_local_data();
@@ -4552,9 +4524,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_255581540(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255581540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,ClientLocalServer::tellServerToStartIOAtTime(unsigned long long)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4569,32 +4541,32 @@ void sub_255581774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t std::function<void ()(void)>::operator=(uint64_t a1, uint64_t a2)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v7, a2);
-  if (v7 != a1)
+  v8[3] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a2);
+  if (v6 != a1)
   {
-    v3 = v8;
+    v3 = v7;
     v4 = *(a1 + 24);
-    if (v8 == v7)
+    if (v7 == v6)
     {
       if (v4 == a1)
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = 0;
-        (*(**(a1 + 24) + 24))(*(a1 + 24), v7);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = 0;
+        (*(**(a1 + 24) + 24))(*(a1 + 24), v6);
         (*(**(a1 + 24) + 32))(*(a1 + 24));
         *(a1 + 24) = 0;
-        v8 = v7;
-        (*(v9[0] + 24))(v9, a1);
-        (*(v9[0] + 32))(v9);
+        v7 = v6;
+        (*(v8[0] + 24))(v8, a1);
+        (*(v8[0] + 32))(v8);
       }
 
       else
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = *(a1 + 24);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = *(a1 + 24);
       }
 
       *(a1 + 24) = a1;
@@ -4602,21 +4574,20 @@ uint64_t std::function<void ()(void)>::operator=(uint64_t a1, uint64_t a2)
 
     else if (v4 == a1)
     {
-      (*(*v4 + 24))(*(a1 + 24), v7);
+      (*(*v4 + 24))(*(a1 + 24), v6);
       (*(**(a1 + 24) + 32))(*(a1 + 24));
-      *(a1 + 24) = v8;
-      v8 = v7;
+      *(a1 + 24) = v7;
+      v7 = v6;
     }
 
     else
     {
-      v8 = *(a1 + 24);
+      v7 = *(a1 + 24);
       *(a1 + 24) = v3;
     }
   }
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
   return a1;
 }
 
@@ -4630,6 +4601,173 @@ void sub_255581B1C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
+void sub_255581D00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    if (*(&a9 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&a9 + 1));
+    }
+
+    __cxa_begin_catch(exception_object);
+    v10 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "IsolatedCoreAudioXPCService.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 150;
+      _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCService - stopIsolatedAudioForUseCase - landed in the catch!", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255581CB8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_255581FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, __int128 buf, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  if (a2)
+  {
+    if (a10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    }
+
+    if (a15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a15);
+    }
+
+    if (*(&buf + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
+    }
+
+    __cxa_begin_catch(exception_object);
+    v16 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCService.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 133;
+      _os_log_impl(&dword_255576000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCService - startIsolatedAudioForUseCaseAtTime - landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255581FA4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_255582330(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, __int128 buf)
+{
+  if (a2)
+  {
+    if (a12)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+    }
+
+    if (a15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a15);
+    }
+
+    if (a10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    }
+
+    __cxa_begin_catch(a1);
+    v18 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCService.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 116;
+      _os_log_impl(&dword_255576000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCService - startIsolatedAudioForUseCase - landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2555822E8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2555825F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  if (a2)
+  {
+    v14 = a12;
+    a12 = 0;
+    if (v14)
+    {
+      (*(*v14 + 8))(v14);
+    }
+
+    __cxa_begin_catch(exception_object);
+    v15 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "IsolatedCoreAudioXPCService.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 99;
+      _os_log_impl(&dword_255576000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCService - getWorkgroupForIsolatedAudio - landed in the catch!", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2555825A0);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_255582888(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, __int128 buf, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  if (a2)
+  {
+    if (a10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    }
+
+    if (a15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a15);
+    }
+
+    if (*(&buf + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
+    }
+
+    __cxa_begin_catch(exception_object);
+    v16 = sIsolatedCoreAudioServerLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCService.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 82;
+      _os_log_impl(&dword_255576000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCService - checkOutForIsolatedAudioSharedResources - landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255582858);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 void sub_255583710(_Unwind_Exception *a1, int a2)
 {
   if (a2)
@@ -4640,18 +4778,18 @@ void sub_255583710(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_255583A2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255583A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_255583D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_255583D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  v8 = v7;
+  va_start(va, a13);
+  v14 = v13;
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -4743,18 +4881,18 @@ void std::__shared_ptr_emplace<caulk::mach::semaphore>::~__shared_ptr_emplace(st
 
 BOOL HALUseCase::SetDeviceIDUsingUseCaseID(HALUseCase *this)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(this + 2);
   inQualifierData = v2;
   v3 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v22 = "HALUseCase.cpp";
-    v23 = 1024;
-    v24 = 43;
-    v25 = 1024;
-    v26 = v2;
+    v21 = "HALUseCase.cpp";
+    v22 = 1024;
+    v23 = 43;
+    v24 = 1024;
+    v25 = v2;
     _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d HALUseCase::SetDeviceIDUsingUseCaseID looking for: %u", buf, 0x18u);
   }
 
@@ -4772,22 +4910,22 @@ BOOL HALUseCase::SetDeviceIDUsingUseCaseID(HALUseCase *this)
     v8.i64[0] = 0x5F0000005FLL;
     v8.i64[1] = 0x5F0000005FLL;
     v9 = vbsl_s8(vmovn_s32(vcgtq_u32(v8, vsraq_n_s32(v7, vshlq_n_s32(vmovl_u16(v6), 0x18uLL), 0x18uLL))), v6, 0x2E002E002E002ELL);
-    v16 = 4;
+    v15 = 4;
     LODWORD(__p) = vuzp1_s8(v9, v9).u32[0];
     BYTE4(__p) = 0;
     v10 = sIsolatedCoreAudioServerLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v22 = "HALUseCase.cpp";
-      v23 = 1024;
-      v24 = 52;
-      v25 = 1024;
-      v26 = inQualifierData;
-      v27 = 2080;
+      v21 = "HALUseCase.cpp";
+      v22 = 1024;
+      v23 = 52;
+      v24 = 1024;
+      v25 = inQualifierData;
+      v26 = 2080;
       p_p = &__p;
       _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d HALUseCase::SetDeviceIDUsingUseCaseID could not get device ID - looking for %u and received error: %s ", buf, 0x22u);
-      if (v16 < 0)
+      if (v15 < 0)
       {
         operator delete(__p);
       }
@@ -4806,17 +4944,15 @@ BOOL HALUseCase::SetDeviceIDUsingUseCaseID(HALUseCase *this)
   {
     v12 = *(this + 10);
     *buf = 136315650;
-    v22 = "HALUseCase.cpp";
-    v23 = 1024;
-    v24 = 61;
-    v25 = 1024;
-    v26 = v12;
+    v21 = "HALUseCase.cpp";
+    v22 = 1024;
+    v23 = 61;
+    v24 = 1024;
+    v25 = v12;
     _os_log_impl(&dword_255576000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d HALUseCase::SetDeviceIDUsingUseCaseID mDeviceID: %u", buf, 0x18u);
   }
 
-  result = *(this + 10) != 0;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(this + 10) != 0;
 }
 
 std::once_flag::_State_type sIsolatedCoreAudioServerLog()
@@ -4965,10 +5101,10 @@ void std::bad_expected_access<int>::~bad_expected_access(std::exception *a1)
 
 void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, uint64_t a2@<X8>)
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
+  v47 = 0;
   v48 = 0;
   v49 = 0;
-  v50 = 0;
   outDeviceID = 0;
   (*(*this + 32))(&__p);
   std::expected<unsigned int,int>::value[abi:ne200100](&__p);
@@ -4977,24 +5113,8 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
   std::expected<std::string,int>::value[abi:ne200100](&__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v46, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-    if (LOBYTE(v53[0]) == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-
-  else
-  {
-    v46 = __p;
-  }
-
-  (*(*this + 24))(&__p, this, data_low);
-  std::expected<std::string,int>::value[abi:ne200100](&__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
     std::string::__init_copy_ctor_external(&v45, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-    if (LOBYTE(v53[0]) == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    if (LOBYTE(v52[0]) == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
@@ -5005,25 +5125,41 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
     v45 = __p;
   }
 
+  (*(*this + 24))(&__p, this, data_low);
+  std::expected<std::string,int>::value[abi:ne200100](&__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v44, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    if (LOBYTE(v52[0]) == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v44 = __p;
+  }
+
   applesauce::CF::TypeRef::TypeRef(&__p, "uid");
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = &v46;
+    v5 = &v45;
   }
 
   else
   {
-    v5 = v46.__r_.__value_.__r.__words[0];
+    v5 = v45.__r_.__value_.__r.__words[0];
   }
 
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v46.__r_.__value_.__l.__size_;
+    size = v45.__r_.__value_.__l.__size_;
   }
 
   __p.__r_.__value_.__l.__size_ = CFStringCreateWithBytes(0, v5, size, 0x8000100u, 0);
@@ -5035,51 +5171,51 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
   }
 
   applesauce::CF::TypeRef::TypeRef(&__p.__r_.__value_.__r.__words[2], "name");
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v7 = &v45;
+    v7 = &v44;
   }
 
   else
   {
-    v7 = v45.__r_.__value_.__r.__words[0];
+    v7 = v44.__r_.__value_.__r.__words[0];
   }
 
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+    v8 = HIBYTE(v44.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v8 = v45.__r_.__value_.__l.__size_;
+    v8 = v44.__r_.__value_.__l.__size_;
   }
 
-  v53[0] = CFStringCreateWithBytes(0, v7, v8, 0x8000100u, 0);
-  if (!v53[0])
+  v52[0] = CFStringCreateWithBytes(0, v7, v8, 0x8000100u, 0);
+  if (!v52[0])
   {
-    v37 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x259C390C0](v37, "Could not construct");
-    __cxa_throw(v37, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v36 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x259C390C0](v36, "Could not construct");
+    __cxa_throw(v36, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   p_p = &__p;
-  v43 = 2;
+  v42 = 2;
   CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&p_p);
-  v44 = CFDictionaryRef;
-  v10 = v49;
-  if (v49 >= v50)
+  v43 = CFDictionaryRef;
+  v10 = v48;
+  if (v48 >= v49)
   {
-    v12 = v48;
-    v13 = (v49 - v48) >> 3;
+    v12 = v47;
+    v13 = (v48 - v47) >> 3;
     v14 = v13 + 1;
     if ((v13 + 1) >> 61)
     {
       std::vector<void const*>::__throw_length_error[abi:ne200100]();
     }
 
-    v15 = v50 - v48;
-    if ((v50 - v48) >> 2 > v14)
+    v15 = v49 - v47;
+    if ((v49 - v47) >> 2 > v14)
     {
       v14 = v15 >> 2;
     }
@@ -5105,10 +5241,10 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
     }
 
     v17 = (8 * v13);
-    v18 = &v17[-((v49 - v48) >> 3)];
+    v18 = &v17[-((v48 - v47) >> 3)];
     *v17 = CFDictionaryRef;
     v11 = v17 + 1;
-    v44 = 0;
+    v43 = 0;
     if (v12 != v10)
     {
       v19 = v12;
@@ -5127,12 +5263,12 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
       }
 
       while (v12 != v10);
-      v12 = v48;
+      v12 = v47;
     }
 
-    v48 = v18;
-    v49 = v11;
-    v50 = 0;
+    v47 = v18;
+    v48 = v11;
+    v49 = 0;
     if (v12)
     {
       operator delete(v12);
@@ -5141,16 +5277,16 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
 
   else
   {
-    *v49 = CFDictionaryRef;
-    v44 = 0;
+    *v48 = CFDictionaryRef;
+    v43 = 0;
     v11 = v10 + 1;
   }
 
   v22 = 0;
-  v49 = v11;
+  v48 = v11;
   do
   {
-    v23 = v53[v22];
+    v23 = v52[v22];
     if (v23)
     {
       CFRelease(v23);
@@ -5169,37 +5305,37 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
   applesauce::CF::TypeRef::TypeRef(&__p, "uid");
   applesauce::CF::TypeRef::TypeRef(&__p.__r_.__value_.__r.__words[1], "micactivityd-input-agg");
   applesauce::CF::TypeRef::TypeRef(&__p.__r_.__value_.__r.__words[2], "name");
-  applesauce::CF::TypeRef::TypeRef(v53, "micactivityd input agg");
-  applesauce::CF::TypeRef::TypeRef(&v54, "master");
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  applesauce::CF::TypeRef::TypeRef(v52, "micactivityd input agg");
+  applesauce::CF::TypeRef::TypeRef(&v52[1], "master");
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v25 = &v46;
+    v25 = &v45;
   }
 
   else
   {
-    v25 = v46.__r_.__value_.__r.__words[0];
+    v25 = v45.__r_.__value_.__r.__words[0];
   }
 
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v26 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+    v26 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v26 = v46.__r_.__value_.__l.__size_;
+    v26 = v45.__r_.__value_.__l.__size_;
   }
 
   if (!CFStringCreateWithBytes(0, v25, v26, 0x8000100u, 0))
   {
-    v38 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x259C390C0](v38, "Could not construct");
-    __cxa_throw(v38, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v37 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x259C390C0](v37, "Could not construct");
+    __cxa_throw(v37, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v27 = v49 - v48;
-  if (v49 != v48)
+  v27 = v48 - v47;
+  if (v48 != v47)
   {
     if (!((v27 >> 3) >> 61))
     {
@@ -5212,40 +5348,40 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
   v28 = CFArrayCreate(0, 0, 0, MEMORY[0x277CBF128]);
   if (!v28)
   {
+    v38 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x259C390C0](v38, "Could not construct");
+    __cxa_throw(v38, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  applesauce::CF::TypeRef::TypeRef(v54, "subdevices");
+  CFRetain(v28);
+  v54[1] = v28;
+  valuePtr = 1;
+  cf = CFNumberCreate(0, kCFNumberCharType, &valuePtr);
+  if (!cf)
+  {
     v39 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x259C390C0](v39, "Could not construct");
     __cxa_throw(v39, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  applesauce::CF::TypeRef::TypeRef(v56, "subdevices");
-  CFRetain(v28);
-  v56[1] = v28;
-  valuePtr = 1;
-  cf = CFNumberCreate(0, kCFNumberCharType, &valuePtr);
-  if (!cf)
-  {
-    v40 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x259C390C0](v40, "Could not construct");
-    __cxa_throw(v40, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  applesauce::CF::TypeRef::TypeRef(v57, "private");
+  applesauce::CF::TypeRef::TypeRef(v55, "private");
   CFRetain(cf);
-  v58[0] = cf;
+  v56[0] = cf;
   p_p = &__p;
-  v43 = 5;
+  v42 = 5;
   v29 = applesauce::CF::details::make_CFDictionaryRef(&p_p);
   v30 = 0;
-  v44 = v29;
+  v43 = v29;
   do
   {
-    v31 = v58[v30];
+    v31 = v56[v30];
     if (v31)
     {
       CFRelease(v31);
     }
 
-    v32 = *&v57[v30 * 8];
+    v32 = *&v55[v30 * 8];
     if (v32)
     {
       CFRelease(v32);
@@ -5267,19 +5403,18 @@ void HALBoilerplateImpl::CreateAggregateDevice(HALBoilerplateImpl *this@<X0>, ui
   *a2 = v34;
   *(a2 + 4) = v33 == 0;
   CFRelease(v29);
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v44.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  __p.__r_.__value_.__r.__words[0] = &v48;
+  __p.__r_.__value_.__r.__words[0] = &v47;
   std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25558518C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, const void *a11, uint64_t a12, uint64_t a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, char a40)
@@ -5547,25 +5682,25 @@ unint64_t HALBoilerplateImpl::EnableMTD(HALBoilerplateImpl *this, HALBoilerplate
   return v4 | ((v4 != 0) << 32);
 }
 
-uint64_t HALBoilerplateImpl::IsMicActivityDetected@<X0>(HALBoilerplateImpl *a1@<X1>, unsigned int *a2@<X3>, uint64_t a3@<X8>)
+uint64_t HALBoilerplateImpl::IsMicActivityDetected@<X0>(HALBoilerplateImpl *a1@<X1>, uint64_t a2@<X8>, unsigned int *a3@<X3>)
 {
-  v8.mElement = 0;
-  *&v8.mSelector = *"SdAvtpni";
-  v7 = 0;
-  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v8, &v7, a2);
+  v7.mElement = 0;
+  *&v7.mSelector = *"SdAvtpni";
+  v6 = 0;
+  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v7, &v6, a3);
   if (result)
   {
-    v6 = 0;
-    *a3 = result;
+    v5 = 0;
+    *a2 = result;
   }
 
   else
   {
-    *a3 = v7 != 0;
-    v6 = 1;
+    *a2 = v6 != 0;
+    v5 = 1;
   }
 
-  *(a3 + 4) = v6;
+  *(a2 + 4) = v5;
   return result;
 }
 
@@ -5584,80 +5719,80 @@ uint64_t HALBoilerplateImpl::GetProperty<unsigned int>(HALBoilerplateImpl *a1, c
 
 uint64_t HALBoilerplateImpl::IsProcessMuted@<X0>(HALBoilerplateImpl *a1@<X1>, unsigned int *a2@<X3>, uint64_t a3@<X8>)
 {
-  v8.mElement = 0;
-  *&v8.mSelector = *"mppatpni";
-  v7 = 0;
-  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v8, &v7, a2);
+  v7.mElement = 0;
+  *&v7.mSelector = *"mppatpni";
+  v6 = 0;
+  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v7, &v6, a2);
   if (result)
   {
-    v6 = 0;
+    v5 = 0;
     *a3 = result;
   }
 
   else
   {
-    *a3 = v7 != 0;
-    v6 = 1;
+    *a3 = v6 != 0;
+    v5 = 1;
   }
 
-  *(a3 + 4) = v6;
+  *(a3 + 4) = v5;
   return result;
 }
 
 uint64_t HALBoilerplateImpl::IsMTDEnabled@<X0>(HALBoilerplateImpl *a1@<X1>, unsigned int *a2@<X3>, uint64_t a3@<X8>)
 {
-  v8.mElement = 0;
-  *&v8.mSelector = *"+dAvtpni";
-  v7 = 0;
-  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v8, &v7, a2);
+  v7.mElement = 0;
+  *&v7.mSelector = *"+dAvtpni";
+  v6 = 0;
+  result = HALBoilerplateImpl::GetProperty<unsigned int>(a1, &v7, &v6, a2);
   if (result)
   {
-    v6 = 0;
+    v5 = 0;
     *a3 = result;
   }
 
   else
   {
-    *a3 = v7 != 0;
-    v6 = 1;
+    *a3 = v6 != 0;
+    v5 = 1;
   }
 
-  *(a3 + 4) = v6;
+  *(a3 + 4) = v5;
   return result;
 }
 
 uint64_t HALBoilerplateImpl::GetDefaultInput@<X0>(unsigned int *a1@<X3>, uint64_t a2@<X8>)
 {
-  v7.mElement = 0;
-  *&v7.mSelector = *" nIdbolg";
-  v6 = 0;
-  result = HALBoilerplateImpl::GetProperty<unsigned int>(1, &v7, &v6, a1);
-  v5 = v6;
+  v6.mElement = 0;
+  *&v6.mSelector = *" nIdbolg";
+  v5 = 0;
+  result = HALBoilerplateImpl::GetProperty<unsigned int>(1, &v6, &v5, a1);
+  v4 = v5;
   if (result)
   {
-    v5 = result;
+    v4 = result;
   }
 
-  *a2 = v5;
+  *a2 = v4;
   *(a2 + 4) = result == 0;
   return result;
 }
 
-void HALBoilerplateImpl::GetDeviceName(HALBoilerplateImpl *a1@<X1>, unsigned int *a2@<X3>, HALBoilerplateImpl *a3@<X8>)
+void HALBoilerplateImpl::GetDeviceName(HALBoilerplateImpl *a1@<X1>, HALBoilerplateImpl *a2@<X8>, unsigned int *a3@<X3>)
 {
   cf = 0;
-  *&v7.mSelector = 0x2A2A2A2A6C6E616DLL;
-  v7.mElement = -1;
-  v5 = HALBoilerplateImpl::GetProperty<applesauce::CF::StringRef>(a1, &v7, &cf, a2);
-  if (v5)
+  *&v6.mSelector = 0x2A2A2A2A6C6E616DLL;
+  v6.mElement = -1;
+  v4 = HALBoilerplateImpl::GetProperty<applesauce::CF::StringRef>(a1, &v6, &cf, a3);
+  if (v4)
   {
-    *a3 = v5;
-    *(a3 + 24) = 0;
+    *a2 = v4;
+    *(a2 + 24) = 0;
   }
 
   else
   {
-    HALBoilerplateImpl::StringRefToString(a3, cf);
+    HALBoilerplateImpl::StringRefToString(a2, cf);
   }
 
   if (cf)
@@ -5666,9 +5801,9 @@ void HALBoilerplateImpl::GetDeviceName(HALBoilerplateImpl *a1@<X1>, unsigned int
   }
 }
 
-void sub_255585D80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255585D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -5708,12 +5843,12 @@ char *HALBoilerplateImpl::StringRefToString(HALBoilerplateImpl *this, CFStringRe
 void HALBoilerplateImpl::GetDeviceUID(HALBoilerplateImpl *a1@<X1>, unsigned int *a2@<X3>, HALBoilerplateImpl *a3@<X8>)
 {
   cf = 0;
-  *&v7.mSelector = 0x2A2A2A2A75696420;
-  v7.mElement = -1;
-  v5 = HALBoilerplateImpl::GetProperty<applesauce::CF::StringRef>(a1, &v7, &cf, a2);
-  if (v5)
+  *&v6.mSelector = 0x2A2A2A2A75696420;
+  v6.mElement = -1;
+  v4 = HALBoilerplateImpl::GetProperty<applesauce::CF::StringRef>(a1, &v6, &cf, a2);
+  if (v4)
   {
-    *a3 = v5;
+    *a3 = v4;
     *(a3 + 24) = 0;
   }
 
@@ -5728,9 +5863,9 @@ void HALBoilerplateImpl::GetDeviceUID(HALBoilerplateImpl *a1@<X1>, unsigned int 
   }
 }
 
-void sub_255585ED4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255585ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -5750,41 +5885,41 @@ uint64_t HALTestImpl::IsMicActivityDetected@<X0>(uint64_t this@<X0>, _BYTE *a2@<
   return this;
 }
 
-_BYTE *HALTestImpl::GetDeviceName@<X0>(int a1@<W1>, _BYTE *a2@<X8>)
+void *HALTestImpl::GetDeviceName@<X0>(int a1@<W1>, void *a2@<X8>)
 {
   result = a2;
   if (a1 == 8)
   {
     result = std::string::basic_string[abi:ne200100]<0>(a2, "DefaultInput");
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
     *result = 0;
   }
 
-  result[24] = v4;
+  *(result + 24) = v3;
   return result;
 }
 
-_BYTE *HALTestImpl::GetDeviceUID@<X0>(int a1@<W1>, _BYTE *a2@<X8>)
+void *HALTestImpl::GetDeviceUID@<X0>(int a1@<W1>, void *a2@<X8>)
 {
   result = a2;
   if (a1 == 8)
   {
     result = std::string::basic_string[abi:ne200100]<0>(a2, "DefaultInputUUID");
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
     *result = 0;
   }
 
-  result[24] = v4;
+  *(result + 24) = v3;
   return result;
 }
 
@@ -5817,6 +5952,33 @@ uint64_t _ZNKSt3__110__function6__funcIN14MADMultiplexer29mMTDStateMultiplexingC
   return result;
 }
 
+void sub_255586490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    if (*(&a9 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&a9 + 1));
+    }
+
+    __cxa_begin_catch(exception_object);
+    v10 = sIsolatedCoreAudioSiphonLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "IsolatedCoreAudioXPCSiphon.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 206;
+      _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCSiphon - requestAudio Landed in the catch!", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255586450);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 id sIsolatedCoreAudioSiphonLog()
 {
   v1 = &micActivityFlag;
@@ -5832,6 +5994,121 @@ id sIsolatedCoreAudioSiphonLog()
   v2 = v1[19];
 
   return v2;
+}
+
+void sub_2555869FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+{
+  if (a2)
+  {
+    std::mutex::unlock((v19 + 32));
+    if (a11)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+    }
+
+    __cxa_begin_catch(a1);
+    v21 = sIsolatedCoreAudioSiphonLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCSiphon.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 189;
+      _os_log_impl(&dword_255576000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCSiphon - stopIO Landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25558699CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_255586E90(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+{
+  if (a2)
+  {
+    std::mutex::unlock((v19 + 32));
+    std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](&a17);
+    if (a10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    }
+
+    __cxa_begin_catch(a1);
+    v21 = sIsolatedCoreAudioSiphonLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCSiphon.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 171;
+      _os_log_impl(&dword_255576000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCSiphon - startIO Landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255586CDCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25558733C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+{
+  if (a2)
+  {
+    std::mutex::unlock((v19 + 32));
+    std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](&a17);
+    if (a10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    }
+
+    __cxa_begin_catch(a1);
+    v21 = sIsolatedCoreAudioSiphonLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCSiphon.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 153;
+      _os_log_impl(&dword_255576000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCSiphon - startIO Landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25558718CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2555878A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int128 buf, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  if (a2)
+  {
+    std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+    if (*(&buf + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
+    }
+
+    __cxa_begin_catch(exception_object);
+    v15 = sIsolatedCoreAudioSiphonLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "IsolatedCoreAudioXPCSiphon.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 129;
+      _os_log_impl(&dword_255576000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioXPCSiphon - setAudioAvailabilityCallback Landed in the catch!", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x255587848);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>>>::__rehash<true>(uint64_t a1, size_t __n)
@@ -5903,7 +6180,7 @@ LABEL_6:
   }
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unique_ptr<SiphonClient>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5958,13 +6235,13 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void sub_255588264(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_255588264(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
-  if (a3)
+  if (a6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
   }
 
   _Unwind_Resume(a1);
@@ -6143,18 +6420,16 @@ std::once_flag::_State_type sIsolatedCoreAudioSiphonLog()
 
 void ___ZN10applesauce8dispatch2v19sync_implIZN14SiphonIOClient22drainAvailabilityQueueEvE3__0EEvP16dispatch_queue_sOT_NSt3__117integral_constantIbLb1EEE_block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315394;
-    v3 = "SiphonIOClient.cpp";
-    v4 = 1024;
-    v5 = 55;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d SiphonIOClient::setHasStartedIO - Dispatch Queue has been flushed", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "SiphonIOClient.cpp";
+    v3 = 1024;
+    v4 = 55;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d SiphonIOClient::setHasStartedIO - Dispatch Queue has been flushed", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25558A160(_Unwind_Exception *a1)
@@ -6257,27 +6532,27 @@ void std::__shared_ptr_emplace<XPCConnectionToServer>::~__shared_ptr_emplace(std
   JUMPOUT(0x259C39250);
 }
 
-void sub_25558AC4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v9 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va1);
-  MEMORY[0x259C39250](v5, 0x1020C40A1C553C6);
-  v7 = *(v2 + 80);
-  *(v2 + 80) = 0;
-  if (v7)
+  MEMORY[0x259C39250](v6, 0x1020C40A1C553C6);
+  v8 = *(v3 + 80);
+  *(v3 + 80) = 0;
+  if (v8)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v8 + 8))(v8);
   }
 
-  std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v4);
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v2 + 16);
+  std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v5);
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v3 + 16);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  MEMORY[0x259C39250](v2, v3);
+  MEMORY[0x259C39250](v3, v4);
   _Unwind_Resume(a1);
 }
 
@@ -6440,30 +6715,30 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<getClient(unsigned int)::$_
     operator new();
   }
 
-  _ZNSt3__115allocate_sharedB8ne200100I38IsolatedCoreAudioClientExclaveKitProxyNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+  _ZNSt3__115allocate_sharedB8ne200100I38IsolatedCoreAudioClientExclaveKitProxyNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(buf);
 }
 
-void sub_25558B900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25558B900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (v12)
+  va_start(va, a16);
+  if (v19)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v19 + 8))(v19, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x259C39250](v10, 0x10A1C402DA23767);
-  (*(*v11 + 8))(v11);
-  if (a7)
+  MEMORY[0x259C39250](v17, 0x10A1C402DA23767, a3, a4, a5, a6, a7, a8);
+  (*(*v18 + 8))(v18);
+  if (a14)
   {
-    (*(*a7 + 8))(a7);
+    (*(*a14 + 8))(a14);
   }
 
-  if (a8)
+  if (a15)
   {
-    (*(*a8 + 8))(a8);
+    (*(*a15 + 8))(a15);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6487,21 +6762,19 @@ void RemoteAudioHardwareServer::~RemoteAudioHardwareServer(RemoteAudioHardwareSe
 
 uint64_t RemoteAudioHardwareServer::connectToServer(RemoteAudioHardwareServer *this)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
   atomic_store(0, this + 24);
   v1 = *(this + 1);
-  v4[0] = &unk_286776E20;
-  v4[1] = this;
-  v4[3] = v4;
-  (*(*v1 + 16))(v1, v4);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[0] = &unk_286776E20;
+  v3[1] = this;
+  v3[3] = v3;
+  (*(*v1 + 16))(v1, v3);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_25558BC18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558BC18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6521,7 +6794,7 @@ uint64_t std::__function::__func<RemoteAudioHardwareServer::connectToServer(void
 
 void std::__function::__func<RemoteAudioHardwareServer::connectToServer(void)::$_0,std::allocator<RemoteAudioHardwareServer::connectToServer(void)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   {
     sIsolatedCoreAudioServerLog(void)::sLog = os_log_create("com.apple.coreaudio", "IsolatedCoreAudioServer");
@@ -6530,15 +6803,14 @@ void std::__function::__func<RemoteAudioHardwareServer::connectToServer(void)::$
   v2 = sIsolatedCoreAudioServerLog(void)::sLog;
   if (os_log_type_enabled(sIsolatedCoreAudioServerLog(void)::sLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315394;
-    v5 = "RemoteAudioHardwareServer.mm";
-    v6 = 1024;
-    v7 = 23;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d RemoteAudioHardwareServer::RemoteAudioHardwareServer::InvalidationHandler - Connection invalidated!!!", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "RemoteAudioHardwareServer.mm";
+    v5 = 1024;
+    v6 = 23;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d RemoteAudioHardwareServer::RemoteAudioHardwareServer::InvalidationHandler - Connection invalidated!!!", &v3, 0x12u);
   }
 
   atomic_store(1u, (v1 + 24));
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<RemoteAudioHardwareServer::connectToServer(void)::$_0,std::allocator<RemoteAudioHardwareServer::connectToServer(void)::$_0>,void ()(void)>::__clone(uint64_t result, void *a2)
@@ -6603,14 +6875,14 @@ void sub_25558C46C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25558CDBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558CDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6867,19 +7139,19 @@ void ClientSideAudioSwitchboard::startIOProcAtTime(ClientSideAudioSwitchboard *t
   v2[1] = this;
   v2[2] = a2;
   v2[3] = v2;
-  ClientSideAudioSwitchboard::startIO(this);
+  ClientSideAudioSwitchboard::startIO(this, v2);
 }
 
-void sub_25558DE3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558DE3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void ClientSideAudioSwitchboard::startIO(uint64_t a1)
+void ClientSideAudioSwitchboard::startIO(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 80);
   v3 = atomic_load((v2 + 24));
   if (v3)
@@ -6887,9 +7159,7 @@ void ClientSideAudioSwitchboard::startIO(uint64_t a1)
     RemoteAudioHardwareServer::connectToServer(*(a1 + 80));
   }
 
-  (*(**(v2 + 8) + 24))(&buf);
-  v4 = *(a1 + 88);
-  v5 = buf;
+  (*(**(v2 + 8) + 24))(buf);
   operator new();
 }
 
@@ -6953,12 +7223,12 @@ void ClientSideAudioSwitchboard::startIOProc(ClientSideAudioSwitchboard *this)
   v1[0] = &unk_2867773E8;
   v1[1] = this;
   v1[3] = v1;
-  ClientSideAudioSwitchboard::startIO(this);
+  ClientSideAudioSwitchboard::startIO(this, v1);
 }
 
-void sub_25558EF70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6986,33 +7256,33 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboard::startIOProc(void)::
 
 uint64_t ClientSideAudioSwitchboard::setLapseCallback(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(LapseChain)>::__value_func[abi:ne200100](v8, a2);
+  v9[3] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(LapseChain)>::__value_func[abi:ne200100](v7, a2);
   v3 = a1 + 48;
-  if ((a1 + 48) != v8)
+  if ((a1 + 48) != v7)
   {
-    v4 = v9;
+    v4 = v8;
     v5 = *(a1 + 72);
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (v5 == v3)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(**(a1 + 72) + 24))(*(a1 + 72), v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(**(a1 + 72) + 24))(*(a1 + 72), v7);
         (*(**(a1 + 72) + 32))(*(a1 + 72));
         *(a1 + 72) = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, a1 + 48);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, a1 + 48);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = *(a1 + 72);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = *(a1 + 72);
       }
 
       *(a1 + 72) = v3;
@@ -7020,22 +7290,20 @@ uint64_t ClientSideAudioSwitchboard::setLapseCallback(uint64_t a1, uint64_t a2)
 
     else if (v5 == v3)
     {
-      (*(*v5 + 24))(*(a1 + 72), v8);
+      (*(*v5 + 24))(*(a1 + 72), v7);
       (*(**(a1 + 72) + 32))(*(a1 + 72));
-      *(a1 + 72) = v9;
-      v9 = v8;
+      *(a1 + 72) = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = *(a1 + 72);
+      v8 = *(a1 + 72);
       *(a1 + 72) = v4;
     }
   }
 
-  result = std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v7);
 }
 
 void sub_25558F33C(_Unwind_Exception *a1, int a2)
@@ -7050,34 +7318,30 @@ void sub_25558F33C(_Unwind_Exception *a1, int a2)
 
 void ServerDeathMessage(void)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315394;
-    v3 = "ClientSideAudioSwitchboard.cpp";
-    v4 = 1024;
-    v5 = 17;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboard::ServerDeathMessage - server disappeared!", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "ClientSideAudioSwitchboard.cpp";
+    v3 = 1024;
+    v4 = 17;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d ClientSideAudioSwitchboard::ServerDeathMessage - server disappeared!", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void defaultIOThreadExitHandler(void)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioClientLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315394;
-    v3 = "ClientSideAudioSwitchboard.cpp";
-    v4 = 1024;
-    v5 = 23;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ClientSideAudioSwitchboard::defaultIOThreadExitHandler - Local IO Thread has exited.", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "ClientSideAudioSwitchboard.cpp";
+    v3 = 1024;
+    v4 = 23;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ClientSideAudioSwitchboard::defaultIOThreadExitHandler - Local IO Thread has exited.", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<void (*)(void),std::allocator<void (*)(void)>,void ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -7127,9 +7391,9 @@ uint64_t std::__function::__func<ClientSideAudioSwitchboard::ClientSideAudioSwit
   }
 }
 
-void ClientSideAudioSwitchboard::ClientSideAudioSwitchboard(void *a1)
+void ClientSideAudioSwitchboard::ClientSideAudioSwitchboard(void *a1, uint64_t *a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = &unk_286777170;
   a1[1] = &unk_2867771D0;
   a1[5] = 0;
@@ -7138,26 +7402,26 @@ void ClientSideAudioSwitchboard::ClientSideAudioSwitchboard(void *a1)
   operator new();
 }
 
-void sub_25558F934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25558F934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  MEMORY[0x259C39250](v4, 0x1020C40A1C553C6);
-  v6 = *(v2 + 80);
-  *(v2 + 80) = 0;
-  if (v6)
+  MEMORY[0x259C39250](v5, 0x1020C40A1C553C6);
+  v7 = *(v3 + 80);
+  *(v3 + 80) = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
-  std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v3);
-  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v2 + 16);
+  std::__function::__value_func<void ()(LapseChain)>::~__value_func[abi:ne200100](v4);
+  std::__function::__value_func<void ()(CoreAudioTimestamp)>::~__value_func[abi:ne200100](v3 + 16);
   _Unwind_Resume(a1);
 }
 
 void SiphonClientMap::enableAvailabilityCallbacksForClient(SiphonClientMap *this, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(this, a2);
   if (v3)
   {
@@ -7169,20 +7433,20 @@ void SiphonClientMap::enableAvailabilityCallbacksForClient(SiphonClientMap *this
     v8.i64[0] = 0x5F0000005FLL;
     v8.i64[1] = 0x5F0000005FLL;
     v9 = vbsl_s8(vmovn_s32(vcgtq_u32(v8, vsraq_n_s32(v7, vshlq_n_s32(vmovl_u16(v6), 0x18uLL), 0x18uLL))), v6, 0x2E002E002E002ELL);
-    v14 = 4;
+    v13 = 4;
     LODWORD(__p) = vuzp1_s8(v9, v9).u32[0];
     BYTE4(__p) = 0;
     v10 = sIsolatedCoreAudioSiphonLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "SiphonClientMap.cpp";
-      v17 = 1024;
-      v18 = 21;
-      v19 = 2080;
+      v15 = "SiphonClientMap.cpp";
+      v16 = 1024;
+      v17 = 21;
+      v18 = 2080;
       p_p = &__p;
       _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Starting IO on the %s client", buf, 0x1Cu);
-      v11 = v14;
+      v11 = v13;
       atomic_store(1u, (*v5[3] + 64));
       if (v11 < 0)
       {
@@ -7195,13 +7459,11 @@ void SiphonClientMap::enableAvailabilityCallbacksForClient(SiphonClientMap *this
       atomic_store(1u, (*v5[3] + 64));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void SiphonClientMap::disableAvailabilityCallbacksForClient(SiphonClientMap *this, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(this, a2);
   if (v3)
   {
@@ -7213,20 +7475,20 @@ void SiphonClientMap::disableAvailabilityCallbacksForClient(SiphonClientMap *thi
     v8.i64[0] = 0x5F0000005FLL;
     v8.i64[1] = 0x5F0000005FLL;
     v9 = vbsl_s8(vmovn_s32(vcgtq_u32(v8, vsraq_n_s32(v7, vshlq_n_s32(vmovl_u16(v6), 0x18uLL), 0x18uLL))), v6, 0x2E002E002E002ELL);
-    v14 = 4;
+    v13 = 4;
     LODWORD(__p) = vuzp1_s8(v9, v9).u32[0];
     BYTE4(__p) = 0;
     v10 = sIsolatedCoreAudioSiphonLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "SiphonClientMap.cpp";
-      v17 = 1024;
-      v18 = 32;
-      v19 = 2080;
+      v15 = "SiphonClientMap.cpp";
+      v16 = 1024;
+      v17 = 32;
+      v18 = 2080;
       p_p = &__p;
       _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Stopping IO on the %s client", buf, 0x1Cu);
-      v11 = v14;
+      v11 = v13;
       atomic_store(0, (*v5[3] + 64));
       if (v11 < 0)
       {
@@ -7239,13 +7501,11 @@ void SiphonClientMap::disableAvailabilityCallbacksForClient(SiphonClientMap *thi
       atomic_store(0, (*v5[3] + 64));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void SiphonClientMap::disableLapseHandlingForClient(SiphonClientMap *this, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(this, a2);
   if (v3)
   {
@@ -7257,20 +7517,20 @@ void SiphonClientMap::disableLapseHandlingForClient(SiphonClientMap *this, unsig
     v8.i64[0] = 0x5F0000005FLL;
     v8.i64[1] = 0x5F0000005FLL;
     v9 = vbsl_s8(vmovn_s32(vcgtq_u32(v8, vsraq_n_s32(v7, vshlq_n_s32(vmovl_u16(v6), 0x18uLL), 0x18uLL))), v6, 0x2E002E002E002ELL);
-    v14 = 4;
+    v13 = 4;
     LODWORD(__p) = vuzp1_s8(v9, v9).u32[0];
     BYTE4(__p) = 0;
     v10 = sIsolatedCoreAudioSiphonLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "SiphonClientMap.cpp";
-      v17 = 1024;
-      v18 = 55;
-      v19 = 2080;
+      v15 = "SiphonClientMap.cpp";
+      v16 = 1024;
+      v17 = 55;
+      v18 = 2080;
       p_p = &__p;
       _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Disabling lapse handling on %s client", buf, 0x1Cu);
-      v11 = v14;
+      v11 = v13;
       atomic_store(0, (*v5[3] + 65));
       if (v11 < 0)
       {
@@ -7283,13 +7543,11 @@ void SiphonClientMap::disableLapseHandlingForClient(SiphonClientMap *this, unsig
       atomic_store(0, (*v5[3] + 65));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void SiphonClientMap::enableLapseHandlingForClient(SiphonClientMap *this, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(this, a2);
   if (v3)
   {
@@ -7301,20 +7559,20 @@ void SiphonClientMap::enableLapseHandlingForClient(SiphonClientMap *this, unsign
     v8.i64[0] = 0x5F0000005FLL;
     v8.i64[1] = 0x5F0000005FLL;
     v9 = vbsl_s8(vmovn_s32(vcgtq_u32(v8, vsraq_n_s32(v7, vshlq_n_s32(vmovl_u16(v6), 0x18uLL), 0x18uLL))), v6, 0x2E002E002E002ELL);
-    v14 = 4;
+    v13 = 4;
     LODWORD(__p) = vuzp1_s8(v9, v9).u32[0];
     BYTE4(__p) = 0;
     v10 = sIsolatedCoreAudioSiphonLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "SiphonClientMap.cpp";
-      v17 = 1024;
-      v18 = 66;
-      v19 = 2080;
+      v15 = "SiphonClientMap.cpp";
+      v16 = 1024;
+      v17 = 66;
+      v18 = 2080;
       p_p = &__p;
       _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Enabling lapse handling on %s client", buf, 0x1Cu);
-      v11 = v14;
+      v11 = v13;
       atomic_store(1u, (*v5[3] + 65));
       if (v11 < 0)
       {
@@ -7327,8 +7585,6 @@ void SiphonClientMap::enableLapseHandlingForClient(SiphonClientMap *this, unsign
       atomic_store(1u, (*v5[3] + 65));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void IOThreadWorkgroup::IOThreadWorkgroup(IOThreadWorkgroup *this, OS_os_workgroup *a2)
@@ -7351,20 +7607,19 @@ void IOThreadServerSynchronizer::~IOThreadServerSynchronizer(IOThreadServerSynch
   JUMPOUT(0x259C39250);
 }
 
-uint64_t std::shared_ptr<caulk::mach::semaphore>::operator=[abi:ne200100]<caulk::mach::semaphore,std::default_delete<caulk::mach::semaphore>,0>(uint64_t a1, uint64_t *a2)
+uint64_t std::shared_ptr<caulk::mach::semaphore>::operator=[abi:ne200100]<caulk::mach::semaphore,std::default_delete<caulk::mach::semaphore>,0>(uint64_t a1, void *a2)
 {
   if (*a2)
   {
-    v3 = *a2;
     operator new();
   }
 
   *a2 = 0;
-  v4 = *(a1 + 8);
+  v3 = *(a1 + 8);
   *a1 = 0u;
-  if (v4)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   return a1;
@@ -7418,7 +7673,7 @@ void std::__shared_ptr_pointer<caulk::mach::semaphore  *>::~__shared_ptr_pointer
 
 void ServerSideAudioSwitchboard::GetClientForIO(ServerSideAudioSwitchboard *this, void *a2, unsigned int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<HALUseCase>>>>::find<unsigned int>(a2, a3))
   {
     v6 = a2[1];
@@ -7508,20 +7763,19 @@ LABEL_22:
   v9 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315650;
-    v18 = "ServerSideAudioSwitchboard.cpp";
-    v19 = 1024;
-    v20 = 142;
-    v21 = 1024;
-    v22 = a3;
-    _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideAudioSwitchboard::GetClientForIO - No client exists for %u!", &v17, 0x18u);
+    v16 = 136315650;
+    v17 = "ServerSideAudioSwitchboard.cpp";
+    v18 = 1024;
+    v19 = 142;
+    v20 = 1024;
+    v21 = a3;
+    _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ServerSideAudioSwitchboard::GetClientForIO - No client exists for %u!", &v16, 0x18u);
   }
 
   v10 = 0;
   *this = 0;
 LABEL_26:
   *(this + 16) = v10;
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void std::__throw_bad_optional_access[abi:ne200100]()
@@ -7533,39 +7787,39 @@ void std::__throw_bad_optional_access[abi:ne200100]()
 
 uint64_t ServerSideAudioSwitchboard::stopServerIOThread(ServerSideAudioSwitchboard *this, unsigned int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  ServerSideAudioSwitchboard::GetClientForIO(&v22, this, a2);
-  v5 = v24;
-  if (v24 == 1)
+  v30 = *MEMORY[0x277D85DE8];
+  ServerSideAudioSwitchboard::GetClientForIO(&v21, this, a2);
+  v5 = v23;
+  if (v23 == 1)
   {
-    v6 = v22;
-    v7 = v22[2];
+    v6 = v21;
+    v7 = v21[2];
     if (*(v7 + 64))
     {
       atomic_store(1u, (v7 + 65));
       caulk::mach::semaphore::signal(*(v7 + 24));
       v8 = *(this + 5);
       v9 = v6[1];
-      v18 = *v6;
-      v19 = v9;
+      v17 = *v6;
+      v18 = v9;
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v10 = (*(*v8 + 72))(v8, &v18);
-      if (v19)
+      v10 = (*(*v8 + 72))(v8, &v17);
+      if (v18)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
       }
 
 LABEL_11:
-      if (v23)
+      if (v22)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       }
 
-      goto LABEL_13;
+      return v10;
     }
   }
 
@@ -7576,20 +7830,20 @@ LABEL_11:
   v13.i64[0] = 0x5F0000005FLL;
   v13.i64[1] = 0x5F0000005FLL;
   v14 = vbsl_s8(vmovn_s32(vcgtq_u32(v13, vsraq_n_s32(v12, vshlq_n_s32(vmovl_u16(v11), 0x18uLL), 0x18uLL))), v11, 0x2E002E002E002ELL);
-  v21 = 4;
+  v20 = 4;
   LODWORD(__p) = vuzp1_s8(v14, v14).u32[0];
   BYTE4(__p) = 0;
   v15 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v26 = "ServerSideAudioSwitchboard.cpp";
-    v27 = 1024;
-    v28 = 81;
-    v29 = 2080;
+    v25 = "ServerSideAudioSwitchboard.cpp";
+    v26 = 1024;
+    v27 = 81;
+    v28 = 2080;
     p_p = &__p;
     _os_log_impl(&dword_255576000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideAudioSwitchboard::stopServerIOThread IO not stopped for client %s", buf, 0x1Cu);
-    if (v21 < 0)
+    if (v20 < 0)
     {
       operator delete(__p);
     }
@@ -7601,8 +7855,6 @@ LABEL_11:
     goto LABEL_11;
   }
 
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -7653,19 +7905,16 @@ uint64_t std::__function::__func<ServerSideAudioSwitchboard::addClientUseCase(un
 
 void std::__function::__func<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0,std::allocator<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  if (v3)
+  v1 = *(a1 + 24);
+  if (v1)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  if (v5)
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   operator new();
@@ -7697,8 +7946,8 @@ uint64_t *std::unique_ptr<ServerSideAudioSwitchboard::addClientUseCase(unsigned 
 
 uint64_t *applesauce::dispatch::v1::async<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_queue_s *,ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0::operator() const(void)::{lambda(void)#1} &&)::{lambda(void *)#1}::__invoke(uint64_t a1, int8x8_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v12 = a1;
+  v17 = *MEMORY[0x277D85DE8];
+  v11 = a1;
   a2.i32[0] = bswap32(*a1);
   v3 = vzip1_s8(a2, a2);
   v4.i64[0] = 0x1F0000001FLL;
@@ -7706,7 +7955,7 @@ uint64_t *applesauce::dispatch::v1::async<ServerSideAudioSwitchboard::addClientU
   v5.i64[0] = 0x5F0000005FLL;
   v5.i64[1] = 0x5F0000005FLL;
   v6 = vbsl_s8(vmovn_s32(vcgtq_u32(v5, vsraq_n_s32(v4, vshlq_n_s32(vmovl_u16(v3), 0x18uLL), 0x18uLL))), v3, 0x2E002E002E002ELL);
-  v14 = 4;
+  v13 = 4;
   LODWORD(__p) = vuzp1_s8(v6, v6).u32[0];
   BYTE4(__p) = 0;
   v7 = sIsolatedCoreAudioServerLog();
@@ -7716,7 +7965,7 @@ uint64_t *applesauce::dispatch::v1::async<ServerSideAudioSwitchboard::addClientU
     *&buf[4] = "ServerSideAudioSwitchboard.cpp";
     *&buf[12] = 1024;
     *&buf[14] = 130;
-    v16 = 2080;
+    v15 = 2080;
     p_p = &__p;
     _os_log_impl(&dword_255576000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ServerSideAudioSwitchboard::addClientUseCase stopping IO for unresponsive client %s", buf, 0x1Cu);
   }
@@ -7736,14 +7985,12 @@ uint64_t *applesauce::dispatch::v1::async<ServerSideAudioSwitchboard::addClientU
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
 
-  if (v14 < 0)
+  if (v13 < 0)
   {
     operator delete(__p);
   }
 
-  result = std::unique_ptr<ServerSideAudioSwitchboard::addClientUseCase::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<ServerSideAudioSwitchboard::addClientUseCase::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::unique_ptr<ServerSideAudioSwitchboard::addClientUseCase::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<ServerSideAudioSwitchboard::addClientUseCase::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v11);
 }
 
 void sub_2555918A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, std::__shared_weak_count *a17)
@@ -7762,9 +8009,9 @@ void sub_2555918A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0,std::allocator<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0>,void ()(void)>::destroy_deallocate(void *a1)
+void std::__function::__func<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0,std::allocator<ServerSideAudioSwitchboard::addClientUseCase(unsigned int)::$_0>,void ()(void)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<ServerSideAudioSwitchboard::addClientUseCase::$_0,std::allocator<ServerSideAudioSwitchboard::addClientUseCase::$_0>,void ()(void)>::destroy[abi:ne200100](a1 + 8);
+  std::__function::__alloc_func<ServerSideAudioSwitchboard::addClientUseCase::$_0,std::allocator<ServerSideAudioSwitchboard::addClientUseCase::$_0>,void ()(void)>::destroy[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -7961,9 +8208,9 @@ uint64_t std::__function::__func<ServerSideUniqueClient::GetClientFacingIOCallba
   return result;
 }
 
-void std::__function::__func<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0,std::allocator<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0>,void ()(CoreAudioTimestamp)>::destroy_deallocate(void *a1)
+void std::__function::__func<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0,std::allocator<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0>,void ()(CoreAudioTimestamp)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0,std::allocator<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0>,void ()(CoreAudioTimestamp)>::destroy[abi:ne200100](a1 + 8);
+  std::__function::__alloc_func<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0,std::allocator<ServerSideUniqueClient::GetClientFacingIOCallback(void)::$_0>,void ()(CoreAudioTimestamp)>::destroy[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -8195,6 +8442,50 @@ void IsolatedCoreAudioServicePortal::~IsolatedCoreAudioServicePortal(id *this)
   IsolatedCoreAudioXPCPortal::~IsolatedCoreAudioXPCPortal(this);
 
   JUMPOUT(0x259C39250);
+}
+
+void sub_2555926F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    v9 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "ReverseSiphonDelegate.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 81;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ReverseSiphonDelegate LapseCallback failed.", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2555926A8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2555928A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    v9 = sIsolatedCoreAudioClientLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "ReverseSiphonDelegate.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 67;
+      _os_log_impl(&dword_255576000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d ReverseSiphonDelegate AudioAvailabilityCallback failed.", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x25559285CLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 void sub_255592AD8(_Unwind_Exception *a1)

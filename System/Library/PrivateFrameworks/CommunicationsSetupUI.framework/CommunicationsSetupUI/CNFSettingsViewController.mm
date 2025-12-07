@@ -74,7 +74,7 @@
 
 - (void)_loadChildViewController
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   serviceType = [(CNFSettingsViewController *)self serviceType];
   CNFRegSetStringTableForServiceType(serviceType);
   switch(serviceType)
@@ -110,13 +110,13 @@ LABEL_8:
   {
     v9 = NSStringFromClass(v6);
     *buf = 138412290;
-    v23 = v9;
+    v22 = v9;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Container view controller choosing to show initialChildViewControllerClass %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v21 = NSStringFromClass(v6);
+    v20 = NSStringFromClass(v6);
     IMLogString();
   }
 
@@ -153,8 +153,6 @@ LABEL_8:
   {
     [(CNFSettingsViewController *)self _invokePendingDeepLink];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)set_currentChildViewController:(id)controller
@@ -253,7 +251,7 @@ LABEL_8:
 
 - (void)containerViewControllerShouldUpdate:(id)update
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -290,7 +288,7 @@ LABEL_8:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v12;
+    v17 = v12;
     _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "Container view controller attempted to pop to {%@}.", buf, 0xCu);
   }
 
@@ -298,8 +296,6 @@ LABEL_8:
   {
     IMLogString();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion

@@ -74,41 +74,39 @@ void __58__CXNetworkExtensionMessageControllerXPCClient_connection__block_invoke
 {
   v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for network extension message client %@", &v4, 0xCu);
+      v5 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection interrupted for network extension message client %@", &v4, 0xCu);
     }
 
-    [WeakRetained invalidate];
-    [WeakRetained setConnection:0];
+    [v2 invalidate];
+    [v2 setConnection:0];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CXNetworkExtensionMessageControllerXPCClient_connection__block_invoke_4(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for network extension message client %@", &v4, 0xCu);
+      v5 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection invalidated for network extension message client %@", &v4, 0xCu);
     }
 
-    [WeakRetained setConnection:0];
+    [v2 setConnection:0];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConnection:(id)connection
@@ -156,7 +154,7 @@ void __58__CXNetworkExtensionMessageControllerXPCClient_connection__block_invoke
 void __107__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionMessage_forBundleIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __107__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionMessage_forBundleIdentifier_completion___block_invoke_cold_1(v3, v4);
@@ -205,7 +203,7 @@ uint64_t __107__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensio
 void __117__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionPushToTalkMessage_forBundleIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __117__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionPushToTalkMessage_forBundleIdentifier_completion___block_invoke_cold_1(v3, v4);
@@ -231,20 +229,18 @@ uint64_t __117__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensio
 
 void __107__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionMessage_forBundleIdentifier_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not send VoIP network extension message due to connection error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not send VoIP network extension message due to connection error %@", &v2, 0xCu);
 }
 
 void __117__CXNetworkExtensionMessageControllerXPCClient_sendNetworkExtensionPushToTalkMessage_forBundleIdentifier_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not send PushToTalk network extension message due to connection error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not send PushToTalk network extension message due to connection error %@", &v2, 0xCu);
 }
 
 @end

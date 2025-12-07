@@ -126,7 +126,7 @@ void __34__PDFPageEvaluator_asyncWorkQueue__block_invoke()
     if (!v6)
     {
 LABEL_7:
-      v15 = 0;
+      v10 = 0;
       goto LABEL_8;
     }
 
@@ -137,22 +137,22 @@ LABEL_7:
     v5->_pageArea = Width * Height;
     if (!is_mul_ok(Width, Height))
     {
-      _PDFLog(OS_LOG_TYPE_ERROR, "OCR", "%s: Page area would cause overflow", v8, v9, v10, v11, v12, "[PDFPageEvaluator initWithPage:]");
+      _PDFLog(OS_LOG_TYPE_ERROR, "OCR", "%s: Page area would cause overflow", "[PDFPageEvaluator initWithPage:]");
       goto LABEL_7;
     }
 
-    v14 = CGPDFContentStreamCreateWithPage([pageCopy pageRef]);
-    v5->_cs = v14;
-    if (!v14)
+    v9 = CGPDFContentStreamCreateWithPage([pageCopy pageRef]);
+    v5->_cs = v9;
+    if (!v9)
     {
       goto LABEL_7;
     }
   }
 
-  v15 = v5;
+  v10 = v5;
 LABEL_8:
 
-  return v15;
+  return v10;
 }
 
 - (PDFPageEvaluator)initWithParent:(id)parent
@@ -326,57 +326,57 @@ BOOL __26__PDFPageEvaluator_op_TJ___block_invoke(uint64_t a1, int a2, CGPDFObjec
       Resource = CGPDFContentStreamGetResource(ContentStream, "XObject", value);
       if (Resource)
       {
-        v28 = 0;
-        if (CGPDFObjectGetValue(Resource, kCGPDFObjectTypeStream, &v28))
+        v23 = 0;
+        if (CGPDFObjectGetValue(Resource, kCGPDFObjectTypeStream, &v23))
         {
-          Dictionary = CGPDFStreamGetDictionary(v28);
+          Dictionary = CGPDFStreamGetDictionary(v23);
           if (Dictionary)
           {
             v8 = Dictionary;
-            v27 = 0;
-            if (CGPDFDictionaryGetName(Dictionary, "Subtype", &v27))
+            v22 = 0;
+            if (CGPDFDictionaryGetName(Dictionary, "Subtype", &v22))
             {
-              v9 = v27;
-              if (!strcmp(v27, "Image"))
+              v9 = v22;
+              if (!strcmp(v22, "Image"))
               {
-                v25 = 0u;
-                v26 = 0u;
-                *v24 = 0u;
+                v20 = 0u;
+                v21 = 0u;
+                *v19 = 0u;
                 CGPDFGStateGetCTM();
-                memset(&v23, 0, sizeof(v23));
-                v30.origin.x = 0.0;
-                v30.origin.y = 0.0;
-                v30.size.width = 1.0;
-                v30.size.height = 1.0;
-                v31 = CGRectApplyAffineTransform(v30, &v23);
-                x = v31.origin.x;
-                y = v31.origin.y;
-                width = v31.size.width;
-                height = v31.size.height;
-                v16 = CGRectGetWidth(v31);
-                v32.origin.x = x;
-                v32.origin.y = y;
-                v32.size.width = width;
-                v32.size.height = height;
-                v22 = CGRectGetHeight(v32);
-                if (is_mul_ok(v16, v22))
+                memset(&v18, 0, sizeof(v18));
+                v25.origin.x = 0.0;
+                v25.origin.y = 0.0;
+                v25.size.width = 1.0;
+                v25.size.height = 1.0;
+                v26 = CGRectApplyAffineTransform(v25, &v18);
+                x = v26.origin.x;
+                y = v26.origin.y;
+                width = v26.size.width;
+                height = v26.size.height;
+                v16 = CGRectGetWidth(v26);
+                v27.origin.x = x;
+                v27.origin.y = y;
+                v27.size.width = width;
+                v27.size.height = height;
+                v17 = CGRectGetHeight(v27);
+                if (is_mul_ok(v16, v17))
                 {
-                  self->_containsLargeImage |= v16 * v22 >= self->_pageArea >> 1;
+                  self->_containsLargeImage |= v16 * v17 >= self->_pageArea >> 1;
                 }
 
                 else
                 {
-                  _PDFLog(OS_LOG_TYPE_ERROR, "OCR", "%s: Image area would cause overflow", v17, v18, v19, v20, v21, "[PDFPageEvaluator op_Do:]");
+                  _PDFLog(OS_LOG_TYPE_ERROR, "OCR", "%s: Image area would cause overflow", "[PDFPageEvaluator op_Do:]");
                 }
               }
 
               else if (!strcmp(v9, "Form"))
               {
-                v24[0] = 0;
-                if (CGPDFDictionaryGetDictionary(v8, "Resources", v24))
+                v19[0] = 0;
+                if (CGPDFDictionaryGetDictionary(v8, "Resources", v19))
                 {
                   v10 = [PDFPageEvaluator alloc];
-                  v11 = [(PDFPageEvaluator *)v10 initWithParent:self stream:v28 resources:v24[0]];
+                  v11 = [(PDFPageEvaluator *)v10 initWithParent:self stream:v23 resources:v19[0]];
                   [(PDFPageEvaluator *)v11 scan];
                   if (v11->_containsText)
                   {

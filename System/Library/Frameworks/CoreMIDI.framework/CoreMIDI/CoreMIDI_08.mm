@@ -1,6 +1,135 @@
-void sub_23725778C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237257500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  IPCBufferWriter::~IPCBufferWriter(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t MIGClient::MIDIObjectGetProperties(MIGClient *this, int a2, const UInt8 **a3, int a4)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v7 = MIDIProcess::defaultInstance(this);
+  v8 = *((**v7)(v7) + 468);
+  memset(&msg[20], 0, 44);
+  *&msg[4] = 0u;
+  *&msg[24] = *MEMORY[0x277D85EF8];
+  *&msg[32] = a2;
+  *&msg[36] = a4;
+  reply_port = mig_get_reply_port();
+  *&msg[8] = v8;
+  *&msg[12] = reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x1F5500000000;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(msg);
+    v10 = *&msg[12];
+  }
+
+  else
+  {
+    v10 = reply_port;
+  }
+
+  v11 = mach_msg(msg, 275, 0x28u, 0x40u, v10, 0x493E0u, 0);
+  v12 = v11;
+  if ((v11 - 268435458) <= 0xE && ((1 << (v11 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(*&msg[12]);
+  }
+
+  else
+  {
+    if (!v11)
+    {
+      if (*&msg[20] == 71)
+      {
+        v15 = 4294966988;
+      }
+
+      else if (*&msg[20] == 8121)
+      {
+        if ((*msg & 0x80000000) == 0)
+        {
+          if (*&msg[4] == 36)
+          {
+            v15 = 4294966996;
+            if (*&msg[32])
+            {
+              if (*&msg[8])
+              {
+                v15 = 4294966996;
+              }
+
+              else
+              {
+                v15 = *&msg[32];
+              }
+            }
+          }
+
+          else
+          {
+            v15 = 4294966996;
+          }
+
+          goto LABEL_31;
+        }
+
+        v15 = 4294966996;
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && msg[39] == 1)
+        {
+          v13 = *&msg[40];
+          if (*&msg[40] == *&msg[52])
+          {
+            v14 = *&msg[28];
+LABEL_21:
+            *msg = v14;
+            *&msg[8] = v13;
+            *&msg[12] = 1;
+            *&msg[16] = 0;
+            *a3 = IPCBufferReader::ReadCFPropertyList(msg, 1);
+            IPCBufferReader::~IPCBufferReader(msg);
+            return 0;
+          }
+        }
+      }
+
+      else
+      {
+        v15 = 4294966995;
+      }
+
+LABEL_31:
+      mach_msg_destroy(msg);
+      return v15;
+    }
+
+    mig_dealloc_reply_port(*&msg[12]);
+  }
+
+  v15 = 268435460;
+  if (v12 == 268435460)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x277D85F48], *&msg[12]);
+    }
+
+    goto LABEL_31;
+  }
+
+  if (!v12)
+  {
+    goto LABEL_21;
+  }
+
+  return v12;
+}
+
+void sub_23725778C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -328,13 +457,13 @@ LABEL_35:
   return v7;
 }
 
-void sub_237257DC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237257DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IPCBufferReader::~IPCBufferReader(va1);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
@@ -652,13 +781,13 @@ LABEL_33:
   return v7;
 }
 
-void sub_2372583FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372583FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IPCBufferReader::~IPCBufferReader(va1);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
@@ -976,19 +1105,19 @@ LABEL_33:
   return v7;
 }
 
-void sub_237258A40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237258A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IPCBufferReader::~IPCBufferReader(va1);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, int a2, CFStringRef theString, int a4)
+uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, mach_port_t a2, CFStringRef theString, mach_port_name_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   LODWORD(v17[0]) = 0;
@@ -1036,7 +1165,7 @@ uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, int a2, CFStri
     if (v18 > 0x200)
     {
       v7 = 4294966989;
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     __memcpy_chk();
@@ -1044,7 +1173,8 @@ uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, int a2, CFStri
     v11 = (v10 + 3) & 0x7FC;
     *&msg[v11 + 40] = a4;
     reply_port = mig_get_reply_port();
-    *&msg[8] = __PAIR64__(reply_port, v9);
+    *&msg[8] = v9;
+    *&msg[12] = reply_port;
     *msg = 5395;
     *&msg[16] = 0x1F4E00000000;
     if (MEMORY[0x28223BE58])
@@ -1077,13 +1207,13 @@ uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, int a2, CFStri
         else if (*&msg[20] == 8114)
         {
           v15 = 4294966996;
-          if ((*msg & 0x80000000) == 0 && *&msg[4] == 36)
+          if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
           {
             v15 = v20;
             if (!v20)
             {
               v7 = 0;
-              goto LABEL_24;
+              goto LABEL_25;
             }
           }
         }
@@ -1093,10 +1223,10 @@ uint64_t MIGClient::MIDIObjectSetIntegerProperty(MIGClient *this, int a2, CFStri
           v15 = 4294966995;
         }
 
-LABEL_23:
+LABEL_24:
         mach_msg_destroy(msg);
         v7 = v15;
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
       mig_dealloc_reply_port(*&msg[12]);
@@ -1105,7 +1235,7 @@ LABEL_23:
     v15 = 268435460;
     if (v7 != 268435460)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -1113,22 +1243,22 @@ LABEL_23:
       mach_port_deallocate(*MEMORY[0x277D85F48], *&msg[12]);
     }
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
-LABEL_24:
+LABEL_25:
   IPCBufferWriter::~IPCBufferWriter(v17);
   return v7;
 }
 
-void sub_237258D08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237258D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MIGClient::MIDIObjectGetIntegerProperty(MIGClient *this, int a2, CFStringRef theString, int *a4)
+uint64_t MIGClient::MIDIObjectGetIntegerProperty(MIGClient *this, mach_port_t a2, CFStringRef theString, mach_port_t *a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   LODWORD(v17[0]) = 0;
@@ -1186,7 +1316,8 @@ uint64_t MIGClient::MIDIObjectGetIntegerProperty(MIGClient *this, int a2, CFStri
   DWORD1(v20) = v10;
   v11 = (v10 + 3) & 0x7FC;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v9);
+  *&msg[8] = v9;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4D00000000;
   if (MEMORY[0x28223BE58])
@@ -1291,9 +1422,9 @@ LABEL_32:
   return v7;
 }
 
-void sub_237258FF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237258FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -1379,7 +1510,7 @@ LABEL_21:
   return v8;
 }
 
-uint64_t MIGClient::MIDISourceCreateWithProtocol(MIGClient *this, int a2, CFStringRef theString, MIDIProtocolID a4, unsigned int *a5)
+uint64_t MIGClient::MIDISourceCreateWithProtocol(MIGClient *this, mach_port_t a2, CFStringRef theString, mach_port_name_t a4, unsigned int *a5)
 {
   v52 = *MEMORY[0x277D85DE8];
   LODWORD(v19[0]) = 0;
@@ -1438,7 +1569,8 @@ uint64_t MIGClient::MIDISourceCreateWithProtocol(MIGClient *this, int a2, CFStri
   v13 = (v12 + 3) & 0x7FC;
   *&msg[v13 + 40] = a4;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v11);
+  *&msg[8] = v11;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4B00000000;
   if (MEMORY[0x28223BE58])
@@ -1543,9 +1675,9 @@ LABEL_32:
   return v9;
 }
 
-void sub_23725949C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23725949C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -1675,7 +1807,7 @@ uint64_t MIGClient::MIDIPortConnectSource(MIGClient *this, unsigned int a2, int 
       else if (v15.msgh_id == 8107)
       {
         v13 = 4294966996;
-        if ((v15.msgh_bits & 0x80000000) == 0 && *&v15.msgh_size == 36)
+        if ((v15.msgh_bits & 0x80000000) == 0 && v15.msgh_size == 36 && !v15.msgh_remote_port)
         {
           v13 = v17;
           if (!v17)
@@ -1690,7 +1822,7 @@ uint64_t MIGClient::MIDIPortConnectSource(MIGClient *this, unsigned int a2, int 
         v13 = 4294966995;
       }
 
-LABEL_20:
+LABEL_21:
       mach_msg_destroy(&v15);
       return v13;
     }
@@ -1706,7 +1838,7 @@ LABEL_20:
       mach_port_deallocate(*MEMORY[0x277D85F48], v15.msgh_local_port);
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   return v12;
@@ -1793,7 +1925,7 @@ LABEL_21:
   return v8;
 }
 
-uint64_t MIGClient::MIDIOutputPortCreate(MIGClient *this, int a2, CFStringRef theString, unsigned int *a4)
+uint64_t MIGClient::MIDIOutputPortCreate(MIGClient *this, mach_port_t a2, CFStringRef theString, unsigned int *a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   LODWORD(v17[0]) = 0;
@@ -1851,7 +1983,8 @@ uint64_t MIGClient::MIDIOutputPortCreate(MIGClient *this, int a2, CFStringRef th
   DWORD1(v20) = v10;
   v11 = (v10 + 3) & 0x7FC;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v9);
+  *&msg[8] = v9;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4500000000;
   if (MEMORY[0x28223BE58])
@@ -1956,9 +2089,9 @@ LABEL_32:
   return v7;
 }
 
-void sub_237259CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237259CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -2101,7 +2234,8 @@ uint64_t MIGClient::MIDIClientCreateWithBlock(MIGClient *this, const __CFString 
   LODWORD(v18) = v8;
   v9 = (v8 + 3) & 0x7FC;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v7);
+  *&msg[8] = v7;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4200000000;
   if (MEMORY[0x28223BE58])
@@ -2206,9 +2340,9 @@ LABEL_32:
   return v5;
 }
 
-void sub_23725A14C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23725A14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -2460,7 +2594,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueOb
       v24 = (8 * v19);
       v25 = (8 * v19 - 8 * v23);
       *v24 = v4;
-      v16 = v24 + 1;
+      v16 = (v24 + 1);
       memcpy(v25, v17, v18);
       a1[3] = v25;
       a1[4] = v16;
@@ -2474,7 +2608,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueOb
     else
     {
       *v15 = v4;
-      v16 = v15 + 1;
+      v16 = (v15 + 1);
     }
 
     a1[4] = v16;
@@ -2678,7 +2812,7 @@ void sub_23725C834(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIDICI::Profile::serialize(MIDICI::Profile *this@<X0>, CFDictionaryRef *a2@<X8>)
+void MIDICI::Profile::serialize(CFDictionaryRef *__return_ptr a1@<X8>, MIDICI::Profile *this@<X0>)
 {
   v41 = *MEMORY[0x277D85DE8];
   v18 = *(this + 2);
@@ -2783,7 +2917,7 @@ void MIDICI::Profile::serialize(MIDICI::Profile *this@<X0>, CFDictionaryRef *a2@
   v19[0] = v27;
   v19[1] = 13;
   v14 = 0;
-  *a2 = applesauce::CF::details::make_CFDictionaryRef(v19);
+  *a1 = applesauce::CF::details::make_CFDictionaryRef(v19);
   do
   {
     v15 = *&v40[v14 + 8];
@@ -2831,23 +2965,23 @@ CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::co
   return result;
 }
 
-void MIDICI::Profile::deserialize(MIDICI::Profile *this@<X0>, const __CFDictionary **a2@<X1>, void *a3@<X8>)
+void MIDICI::Profile::deserialize(uint64_t **__return_ptr a1@<X8>, MIDICI::Profile *this@<X0>, const __CFDictionary **a3@<X1>)
 {
-  v5 = a3;
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = a3 + 1;
+  v5 = a1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  if (!*a2)
+  if (!*a3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](exception, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a3, __p);
   if (LOBYTE(__str.length) == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, __p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, __p, __p);
   }
 
   else
@@ -2871,17 +3005,17 @@ void MIDICI::Profile::deserialize(MIDICI::Profile *this@<X0>, const __CFDictiona
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "id");
-  if (!*a2)
+  if (!*a3)
   {
     v42 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v42, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<std::vector<unsigned long long>,std::string const&>(&__str, *a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::vector<unsigned long long>,std::string const&>(&__str, *a3, __p);
   length_low = LOBYTE(__str.length);
   if (LOBYTE(__str.length) == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, __p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, __p, __p);
   }
 
   else
@@ -2913,7 +3047,7 @@ void MIDICI::Profile::deserialize(MIDICI::Profile *this@<X0>, const __CFDictiona
     goto LABEL_36;
   }
 
-  v52 = a2;
+  v52 = a3;
   v53 = v5;
   do
   {
@@ -2974,7 +3108,7 @@ void MIDICI::Profile::deserialize(MIDICI::Profile *this@<X0>, const __CFDictiona
 
   while (isa != info);
   v5 = v53;
-  a2 = v52;
+  a3 = v52;
   if (__str.length)
   {
     isa = __str.isa;
@@ -2987,16 +3121,16 @@ LABEL_36:
 
 LABEL_38:
   std::string::basic_string[abi:ne200100]<0>(&__str, "profile_type");
-  if (!*a2)
+  if (!*a3)
   {
     v43 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v43, "Could not construct");
   }
 
-  v18 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v18 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v18 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v19 = v18;
   }
 
@@ -3016,16 +3150,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "group_offset");
-  if (!*a2)
+  if (!*a3)
   {
     v44 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v44, "Could not construct");
   }
 
-  v20 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v20 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v20 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v21 = v20;
   }
 
@@ -3045,16 +3179,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "total_channel_count");
-  if (!*a2)
+  if (!*a3)
   {
     v45 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v45, "Could not construct");
   }
 
-  v22 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v22 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v22 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v23 = v22;
   }
 
@@ -3074,16 +3208,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "midi_channel");
-  if (!*a2)
+  if (!*a3)
   {
     v46 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v46, "Could not construct");
   }
 
-  v24 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v24 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v24 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v25 = v24;
   }
 
@@ -3103,16 +3237,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "enabled");
-  if (!*a2)
+  if (!*a3)
   {
     v47 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v47, "Could not construct");
   }
 
-  v26 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
+  v26 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__str);
   if (v26 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v27 = v26;
   }
 
@@ -3132,16 +3266,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "enabled_channel_count");
-  if (!*a2)
+  if (!*a3)
   {
     v48 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v48, "Could not construct");
   }
 
-  v28 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a2, &__str);
+  v28 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a3, &__str);
   if (v28 >= 0x10000)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v29 = v28;
   }
 
@@ -3161,16 +3295,16 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "owner");
-  if (!*a2)
+  if (!*a3)
   {
     v49 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v49, "Could not construct");
   }
 
-  v30 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a2, &__str);
+  v30 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a3, &__str);
   if (v30 >= 0x10000)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v31 = v30;
   }
 
@@ -3190,17 +3324,17 @@ LABEL_38:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "timestamp");
-  if (!*a2)
+  if (!*a3)
   {
     v50 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v50, "Could not construct");
   }
 
-  v32 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a2, &__str);
+  v32 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a3, &__str);
   v34 = v33;
   if (v33)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
     v35 = v32;
   }
 
@@ -3228,20 +3362,20 @@ LABEL_100:
 
 LABEL_101:
   std::string::basic_string[abi:ne200100]<0>(&__str, "owner_client_ref");
-  if (!*a2)
+  if (!*a3)
   {
     v51 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v51, "Could not construct");
   }
 
-  v36 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v36 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v36)
   {
     v37 = applesauce::CF::convert_as<unsigned int,0>(v36);
     v38 = v37;
     if ((v37 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v5, &__str, &__str);
       v39 = 0;
       v40 = v38;
       goto LABEL_109;
@@ -3326,7 +3460,7 @@ void MIDICI::Profile::~Profile(MIDICI::Profile *this)
   BaseOpaqueObject::~BaseOpaqueObject(this);
 }
 
-void MIDICI::Profile::Profile(uint64_t a1, unsigned __int8 *a2, __int128 *a3)
+void MIDICI::Profile::Profile(uint64_t a1, unsigned __int8 *a2, __int128 *a3, char a4)
 {
   std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, a3);
   MIDIObject::MIDIObject(a1);
@@ -3335,7 +3469,7 @@ void MIDICI::Profile::Profile(uint64_t a1, unsigned __int8 *a2, __int128 *a3)
   *(a1 + 52) = 0;
   *(a1 + 56) = 0;
   *a1 = &unk_284A49058;
-  if (v6 == 1)
+  if (v7 == 1)
   {
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3506,44 +3640,44 @@ BOOL MIDIIORingBufferReader::readPacketList(MIDIRingBuffer *this, void *a2, uint
   return *(a3 + 4) != 0;
 }
 
-void MIDIIORingBufferWriter::writePacket2(uint64_t a1, char *__src, char *a3)
+void MIDIIORingBufferWriter::writePacket2(uint64_t result, char *__src, char *a3)
 {
   if (*(__src + 9) >= 0x3E9u)
   {
     std::terminate();
   }
 
-  v6 = *(a1 + 136);
+  v6 = *(result + 136);
   if (v6)
   {
-    if (v6 == 1 || mach_absolute_time() < *(a1 + 144))
+    if (v6 == 1 || mach_absolute_time() < *(result + 144))
     {
       return;
     }
 
-    *(a1 + 136) = 0;
+    *(result + 136) = 0;
   }
 
-  v7 = *(a1 + 88);
+  v7 = *(result + 88);
   v8 = atomic_load(v7);
   LODWORD(v7) = atomic_load(v7 + 1);
   v9 = v8 - v7;
   if (v9 < 0)
   {
-    v9 += *(a1 + 32);
+    v9 += *(result + 32);
   }
 
-  if (*(__src + 9) + 20 >= *(a1 + 32) - v9 || (v10 = atomic_load((*(a1 + 88) + 16))) != 0)
+  if (*(__src + 9) + 20 >= *(result + 32) - v9 || (v10 = atomic_load((*(result + 88) + 16))) != 0)
   {
-    deque_vec<unsigned char>::append<unsigned char const*>(a1 + 104, __src, __src + 20);
-    deque_vec<unsigned char>::append<unsigned char const*>(a1 + 104, a3, &a3[*(__src + 9)]);
-    atomic_store(1u, (*(a1 + 88) + 16));
+    deque_vec<unsigned char>::append<unsigned char const*>((result + 104), __src, __src + 20);
+    deque_vec<unsigned char>::append<unsigned char const*>((result + 104), a3, &a3[*(__src + 9)]);
+    atomic_store(1u, (*(result + 88) + 16));
   }
 
   else
   {
 
-    MIDIIORingBufferWriter::writePacket3(a1, __src, a3);
+    MIDIIORingBufferWriter::writePacket3(result, __src, a3);
   }
 }
 
@@ -3558,16 +3692,16 @@ uint64_t MIDIIORingBufferWriter::writePacket3(MIDIRingBuffer *a1, uint64_t a2, c
   return result;
 }
 
-void deque_vec<unsigned char>::append<unsigned char const*>(uint64_t a1, char *__src, char *a3)
+void deque_vec<unsigned char>::append<unsigned char const*>(void **a1, char *__src, char *a3)
 {
-  v6 = *(a1 + 24);
+  v6 = a1[3];
   if (v6)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    if (&v7[a3] - &__src[*a1] > *(a1 + 16) - *a1)
+    v7 = a1[1];
+    if ((&v7[a3] - (*a1 + __src)) > (a1[2] - *a1))
     {
-      v9 = &v8[v6];
+      v9 = &v6[v8];
       v10 = v7 - v9;
       if (v7 != v9)
       {
@@ -3575,14 +3709,14 @@ void deque_vec<unsigned char>::append<unsigned char const*>(uint64_t a1, char *_
       }
 
       v7 = &v8[v10];
-      *(a1 + 8) = &v8[v10];
-      *(a1 + 24) = 0;
+      a1[1] = &v8[v10];
+      a1[3] = 0;
     }
   }
 
   else
   {
-    v7 = *(a1 + 8);
+    v7 = a1[1];
   }
 
   std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, v7, __src, a3, a3 - __src);
@@ -3726,7 +3860,7 @@ void ___ZN20BackgroundAppManager6UpdateEv_block_invoke(void *a1, void *a2)
 
 void ___ZN20BackgroundAppManager6UpdateEv_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = *(a1 + 32);
   v7 = [v5 state];
@@ -3743,42 +3877,42 @@ void ___ZN20BackgroundAppManager6UpdateEv_block_invoke_2(uint64_t a1, uint64_t a
     v13 = [v5 state];
     v14 = [v13 taskState];
     v15 = "NO";
-    *v25 = 136316162;
-    *&v25[4] = "BackgroundAppManager.mm";
-    v27 = 52;
-    v26 = 1024;
+    *v24 = 136316162;
+    *&v24[4] = "BackgroundAppManager.mm";
+    v26 = 52;
+    v25 = 1024;
     if (v11 == 3)
     {
       v15 = "YES";
     }
 
-    v28 = 1024;
-    v29 = v9;
-    v30 = 1024;
-    v31 = v14;
-    v32 = 2080;
-    v33 = v15;
-    _os_log_impl(&dword_2371C2000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d BackgroundAppManager:mProcessMonitor updateHandler called for pid %d, taskState = %d (isSuspended = %s)", v25, 0x28u);
+    v27 = 1024;
+    v28 = v9;
+    v29 = 1024;
+    v30 = v14;
+    v31 = 2080;
+    v32 = v15;
+    _os_log_impl(&dword_2371C2000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d BackgroundAppManager:mProcessMonitor updateHandler called for pid %d, taskState = %d (isSuspended = %s)", v24, 0x28u);
   }
 
   v16 = *v6;
-  v20 = MIDIServer::defaultInstance(v17, v18) + 16;
-  v19 = *v20;
-  *v25 = v20;
-  v21 = (*(v19 + 16))(v20);
-  v25[8] = v21;
+  v19 = MIDIServer::defaultInstance(v17) + 2;
+  v18 = *v19;
+  *v24 = v19;
+  v20 = (*(v18 + 16))(v19);
+  v24[8] = v20;
   for (i = *(v16 + 5); i != *(v16 + 6); ++i)
   {
-    v23 = *i;
+    v22 = *i;
     if (*(*i + 2) == v9)
     {
-      v24 = v11 == 3;
-      if (*(v23 + 13) != v24)
+      v23 = v11 == 3;
+      if (*(v22 + 13) != v23)
       {
-        *(v23 + 13) = v24;
-        if (v11 != 3 && (*(v23 + 320) & 1) == 0)
+        *(v22 + 13) = v23;
+        if (v11 != 3 && (*(v22 + 320) & 1) == 0)
         {
-          ClientProcess::DeliverNotifications(v23);
+          ClientProcess::DeliverNotifications(v22);
         }
       }
 
@@ -3787,9 +3921,9 @@ void ___ZN20BackgroundAppManager6UpdateEv_block_invoke_2(uint64_t a1, uint64_t a
     }
   }
 
-  if (v21)
+  if (v20)
   {
-    (*(*v20 + 24))(v20);
+    (*(*v19 + 24))(v19);
   }
 }
 
@@ -4420,205 +4554,205 @@ void MIDIServerXPC_Client::~MIDIServerXPC_Client(MIDIServerXPC_Client *this)
 
 void MIDIServerXPC_Server::dispatch_message(MIDIServerXPC_Server **this@<X0>, xpc_object_t *a2@<X1>, xpc_object_t *a3@<X8>)
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v147 = *MEMORY[0x277D85DE8];
   v6 = swix::message::message(a3);
   switch(*a2)
   {
     case 0xB565175:
       Server = MIDIServerXPC_Server::queryServer(v6);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       xpc_dictionary_set_int64(a3[1], ".error", 0);
       xpc_dictionary_set_int64(a3[1], "process", Server);
       return;
     case 0xB565176:
-      v69 = xpc_null_create();
-      value = v69;
+      v73 = xpc_null_create();
+      value = v73;
       LOBYTE(xstring[0]) = 0;
-      swix::xpcobj_coder<applesauce::xpc::object>::decode(&v140, a2[1]);
-      v70 = v140;
-      value = v140;
-      xpc_release(v69);
-      v140 = 0;
-      v71 = xpc_dictionary_get_BOOL(a2[1], "isIntel");
-      LOBYTE(xstring[0]) = v71;
-      MIDIServerXPC_Server::registerProcess(this, &value, v71);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<applesauce::xpc::object>::decode(&v145, a2[1]);
+      v74 = v145;
+      value = v145;
+      xpc_release(v73);
+      v145 = 0;
+      v75 = xpc_dictionary_get_BOOL(a2[1], "isIntel");
+      LOBYTE(xstring[0]) = v75;
+      MIDIServerXPC_Server::registerProcess(this, &value, v75);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       xpc_dictionary_set_int64(a3[1], ".error", 0);
-      xpc_release(v70);
+      xpc_release(v74);
       return;
     case 0xB565177:
       value = xpc_null_create();
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "name");
-      swix::string::operator=(&value, &v127);
-      xpc_release(v127);
-      v53 = MIDIServerXPC_Server::createClient(this[1], &value);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "name");
+      swix::string::operator=(&value, &v135);
+      xpc_release(v135);
+      v57 = MIDIServerXPC_Server::createClient(this[1], &value);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if ((v53 & 0x100000000) != 0)
+      if ((v57 & 0x100000000) != 0)
       {
-        v54 = 0;
+        v58 = 0;
       }
 
       else
       {
-        v54 = v53;
+        v58 = v57;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v54);
-      if (!v54)
+      xpc_dictionary_set_int64(a3[1], ".error", v58);
+      if (!v58)
       {
-        xpc_dictionary_set_uint64(a3[1], "client", v53);
+        xpc_dictionary_set_uint64(a3[1], "client", v57);
       }
 
       goto LABEL_221;
     case 0xB565178:
-      v89 = swix::decode_message::decode<unsigned int>(a2[1], "client");
-      v90 = MIDIServerXPC_Server::disposeClient(v89);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v95 = swix::decode_message::decode<unsigned int>(a2[1], "client");
+      v97 = MIDIServerXPC_Server::disposeClient(v95, v96);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v90 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v97 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v90;
+        v14 = v97;
       }
 
       goto LABEL_225;
     case 0xB56517A:
-      swix::decode_message::decode_message(v136, a2);
-      v93 = this[1];
-      if (v93)
+      swix::decode_message::decode_message(v144, a2);
+      v100 = this[1];
+      if (v100)
       {
-        v137 = &unk_284A45A00;
-        v138 = *(v93 + 1);
-        v94 = *(v93 + 2);
-        v139 = v94;
-        if (v94)
+        v144[4] = &unk_284A45A00;
+        v144[5] = *(v100 + 1);
+        v101 = *(v100 + 2);
+        v144[6] = v101;
+        if (v101)
         {
-          atomic_fetch_add_explicit((v94 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v101 + 8), 1uLL, memory_order_relaxed);
         }
 
-        _ZNSt3__18functionIFvN4swix6resultIJEEEEEC1IZN20MIDIServerXPC_Server16dispatch_messageERKNS1_14decode_messageEE3__0vEET_(v141);
+        _ZNSt3__18functionIFvN4swix6resultIJEEEEEC1IZN20MIDIServerXPC_Server16dispatch_messageERKNS1_14decode_messageEE3__0vEET_(v146, v144);
       }
 
       std::terminate();
       return;
     case 0xB56517B:
-      LODWORD(v127) = 0;
+      LODWORD(v135) = 0;
       object = xpc_null_create();
-      LODWORD(v129) = 0;
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "client");
+      LODWORD(v137) = 0;
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "client");
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "name");
       swix::string::operator=(&object, &value);
       xpc_release(value);
-      v61 = swix::decode_message::decode<int>(a2[1], "proto");
-      LODWORD(v129) = v61;
-      Source = MIDIServerXPC_Server::createSource(v127, object, v61);
+      v65 = swix::decode_message::decode<int>(a2[1], "proto");
+      LODWORD(v137) = v65;
+      Source = MIDIServerXPC_Server::createSource(v135, object, v65);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
       if ((Source & 0x100000000) != 0)
       {
-        v63 = 0;
+        v67 = 0;
       }
 
       else
       {
-        v63 = Source;
+        v67 = Source;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v63);
-      if (!v63)
+      xpc_dictionary_set_int64(a3[1], ".error", v67);
+      if (!v67)
       {
         xpc_dictionary_set_uint64(a3[1], "sourceRef", Source);
       }
 
       goto LABEL_178;
     case 0xB56517C:
-      LODWORD(v127) = 0;
+      LODWORD(v135) = 0;
       object = xpc_null_create();
-      LODWORD(v129) = 0;
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "client");
+      LODWORD(v137) = 0;
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "client");
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "name");
       swix::string::operator=(&object, &value);
       xpc_release(value);
-      v72 = swix::decode_message::decode<int>(a2[1], "proto");
-      LODWORD(v129) = v72;
-      Destination = MIDIServerXPC_Server::createDestination(v127, object, v72);
+      v76 = swix::decode_message::decode<int>(a2[1], "proto");
+      LODWORD(v137) = v76;
+      Destination = MIDIServerXPC_Server::createDestination(v135, object, v76);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
       if ((Destination & 0x100000000) != 0)
       {
-        v74 = 0;
+        v78 = 0;
       }
 
       else
       {
-        v74 = Destination;
+        v78 = Destination;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v74);
-      if (!v74)
+      xpc_dictionary_set_int64(a3[1], ".error", v78);
+      if (!v78)
       {
         xpc_dictionary_set_uint64(a3[1], "destination", Destination);
       }
 
       goto LABEL_178;
     case 0xB56517D:
-      v75 = swix::decode_message::decode<unsigned int>(a2[1], "endpointRef");
-      v76 = MIDIServerXPC_Server::disposeEndpoint(v75);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v79 = swix::decode_message::decode<unsigned int>(a2[1], "endpointRef");
+      v81 = MIDIServerXPC_Server::disposeEndpoint(v79, v80);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v76 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v81 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v76;
+        v14 = v81;
       }
 
       goto LABEL_225;
     case 0xB56517E:
-      LODWORD(v127) = 0;
+      LODWORD(v135) = 0;
       object = xpc_null_create();
-      LODWORD(v129) = 0;
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "client");
+      LODWORD(v137) = 0;
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "client");
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "name");
       swix::string::operator=(&object, &value);
       xpc_release(value);
-      v100 = swix::decode_message::decode<int>(a2[1], "proto");
-      LODWORD(v129) = v100;
-      InputPort = MIDIServerXPC_Server::createInputPort(v127, object, v100);
+      v107 = swix::decode_message::decode<int>(a2[1], "proto");
+      LODWORD(v137) = v107;
+      InputPort = MIDIServerXPC_Server::createInputPort(v135, object, v107);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
       if ((InputPort & 0x100000000) != 0)
       {
-        v102 = 0;
+        v109 = 0;
       }
 
       else
       {
-        v102 = InputPort;
+        v109 = InputPort;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v102);
-      if (!v102)
+      xpc_dictionary_set_int64(a3[1], ".error", v109);
+      if (!v109)
       {
         xpc_dictionary_set_uint64(a3[1], "portRef", InputPort);
       }
@@ -4628,225 +4762,225 @@ void MIDIServerXPC_Server::dispatch_message(MIDIServerXPC_Server **this@<X0>, xp
       LODWORD(value) = 0;
       xstring[0] = xpc_null_create();
       LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "client");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "name");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      OutputPort = MIDIServerXPC_Server::createOutputPort(value, xstring[0], v97);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "name");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      OutputPort = MIDIServerXPC_Server::createOutputPort(value, xstring[0], v104);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if ((OutputPort & 0x100000000) != 0)
-      {
-        v99 = 0;
-      }
-
-      else
-      {
-        v99 = OutputPort;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v99);
-      if (!v99)
-      {
-        xpc_dictionary_set_uint64(a3[1], "portRef", OutputPort);
-      }
-
-      goto LABEL_206;
-    case 0xB565180:
-      v35 = swix::decode_message::decode<unsigned int>(a2[1], "portRef");
-      v36 = MIDIServerXPC_Server::disposePort(v35);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v12 = a3[1];
-      if ((v36 & 0x100000000) != 0)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v36;
-      }
-
-      goto LABEL_225;
-    case 0xB565181:
-      v64 = swix::decode_message::decode<unsigned int>(a2[1], "port");
-      v65 = swix::decode_message::decode<unsigned int>(a2[1], "source");
-      v66 = swix::coder<IPCPtr>::decode(a2[1]);
-      v67 = MIDIServerXPC_Server::portConnectSource(v64, v65, v66);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v12 = a3[1];
-      if ((v67 & 0x100000000) != 0)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v67;
-      }
-
-      goto LABEL_225;
-    case 0xB565182:
-      v46 = swix::decode_message::decode<unsigned int>(a2[1], "port");
-      v47 = swix::decode_message::decode<unsigned int>(a2[1], "source");
-      v48 = MIDIServerXPC_Server::portDisconnectSource(v46, v47);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v12 = a3[1];
-      if ((v48 & 0x100000000) != 0)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v48;
-      }
-
-      goto LABEL_225;
-    case 0xB565183:
-      LODWORD(v127) = 0;
-      object = xpc_null_create();
-      LODWORD(v129) = 0;
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
-      swix::string::operator=(&object, &value);
-      xpc_release(value);
-      v27 = swix::decode_message::decode<int>(a2[1], "value");
-      LODWORD(v129) = v27;
-      v28 = MIDIServerXPC_Server::objectSetIntegerProperty(v127, object, v27);
-      swix::encode_message::encode_message(&value, a2);
-      swix::encode_message::operator=(a3, &value);
-      xpc_release(xstring[0]);
-      if ((v28 & 0x100000000) != 0)
-      {
-        v29 = 0;
-      }
-
-      else
-      {
-        v29 = v28;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v29);
-      xpc_release(object);
-      return;
-    case 0xB565184:
-      LODWORD(value) = 0;
-      xstring[0] = xpc_null_create();
-      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "propertyID");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      IntegerProperty = MIDIServerXPC_Server::objectGetIntegerProperty(value, xstring[0], v79);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if ((IntegerProperty & 0x100000000) != 0)
-      {
-        v81 = 0;
-      }
-
-      else
-      {
-        v81 = IntegerProperty;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v81);
-      if (!v81)
-      {
-        xpc_dictionary_set_int64(a3[1], "value", IntegerProperty);
-      }
-
-      goto LABEL_206;
-    case 0xB565185:
-      LODWORD(v127) = 0;
-      object = xpc_null_create();
-      v129 = xpc_null_create();
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
-      swix::string::operator=(&object, &value);
-      xpc_release(value);
-      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "value");
-      swix::string::operator=(&v129, &value);
-      xpc_release(value);
-      v83 = MIDIServerXPC_Server::objectSetStringProperty(v127, object, &v129, v82);
-      swix::encode_message::encode_message(&value, a2);
-      swix::encode_message::operator=(a3, &value);
-      xpc_release(xstring[0]);
-      if ((v83 & 0x100000000) != 0)
-      {
-        v84 = 0;
-      }
-
-      else
-      {
-        v84 = v83;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v84);
-      std::tuple<unsigned int,swix::string,swix::string>::~tuple(&v127);
-      return;
-    case 0xB565186:
-      LODWORD(value) = 0;
-      xstring[0] = xpc_null_create();
-      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "propertyID");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      MIDIServerXPC_Server::objectGetStringProperty(&v132, value, xstring[0]);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if (v133)
       {
         v106 = 0;
       }
 
       else
       {
-        v106 = v132;
+        v106 = OutputPort;
       }
 
       xpc_dictionary_set_int64(a3[1], ".error", v106);
       if (!v106)
       {
-        xpc_dictionary_set_value(a3[1], "value", v132);
-      }
-
-      if (v133 == 1)
-      {
-        xpc_release(v132);
+        xpc_dictionary_set_uint64(a3[1], "portRef", OutputPort);
       }
 
       goto LABEL_206;
-    case 0xB565187:
-      std::tuple<unsigned int,swix::string,swix::data>::tuple[abi:ne200100]<std::__is_implicitly_default_constructible,std::is_default_constructible,0>(&v127);
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
-      swix::string::operator=(&object, &value);
-      xpc_release(value);
-      swix::xpcobj_coder<swix::data>::decode(&value, a2[1], "value");
-      swix::data::operator=(&v129, &value);
-      xpc_release(value);
-      v104 = MIDIServerXPC_Server::objectSetDataProperty(v127, object, &v129, v103);
-      swix::encode_message::encode_message(&value, a2);
-      swix::encode_message::operator=(a3, &value);
-      xpc_release(xstring[0]);
-      v51 = a3[1];
-      if ((v104 & 0x100000000) != 0)
+    case 0xB565180:
+      v38 = swix::decode_message::decode<unsigned int>(a2[1], "portRef");
+      v40 = MIDIServerXPC_Server::disposePort(v38, v39);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v13 = a3[1];
+      if ((v40 & 0x100000000) != 0)
       {
-        v52 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v52 = v104;
+        v14 = v40;
+      }
+
+      goto LABEL_225;
+    case 0xB565181:
+      v68 = swix::decode_message::decode<unsigned int>(a2[1], "port");
+      v69 = swix::decode_message::decode<unsigned int>(a2[1], "source");
+      v70 = swix::coder<IPCPtr>::decode(a2[1]);
+      v71 = MIDIServerXPC_Server::portConnectSource(v68, v69, v70);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v13 = a3[1];
+      if ((v71 & 0x100000000) != 0)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = v71;
+      }
+
+      goto LABEL_225;
+    case 0xB565182:
+      v50 = swix::decode_message::decode<unsigned int>(a2[1], "port");
+      v51 = swix::decode_message::decode<unsigned int>(a2[1], "source");
+      v52 = MIDIServerXPC_Server::portDisconnectSource(v50, v51);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v13 = a3[1];
+      if ((v52 & 0x100000000) != 0)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = v52;
+      }
+
+      goto LABEL_225;
+    case 0xB565183:
+      LODWORD(v135) = 0;
+      object = xpc_null_create();
+      LODWORD(v137) = 0;
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
+      swix::string::operator=(&object, &value);
+      xpc_release(value);
+      v29 = swix::decode_message::decode<int>(a2[1], "value");
+      LODWORD(v137) = v29;
+      v30 = MIDIServerXPC_Server::objectSetIntegerProperty(v135, object, v29);
+      swix::encode_message::encode_message(&value, a2);
+      swix::encode_message::operator=(a3, &value);
+      xpc_release(xstring[0]);
+      if ((v30 & 0x100000000) != 0)
+      {
+        v31 = 0;
+      }
+
+      else
+      {
+        v31 = v30;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v31);
+      xpc_release(object);
+      return;
+    case 0xB565184:
+      LODWORD(value) = 0;
+      xstring[0] = xpc_null_create();
+      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "propertyID");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      IntegerProperty = MIDIServerXPC_Server::objectGetIntegerProperty(value, xstring[0], v85);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if ((IntegerProperty & 0x100000000) != 0)
+      {
+        v87 = 0;
+      }
+
+      else
+      {
+        v87 = IntegerProperty;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v87);
+      if (!v87)
+      {
+        xpc_dictionary_set_int64(a3[1], "value", IntegerProperty);
+      }
+
+      goto LABEL_206;
+    case 0xB565185:
+      LODWORD(v135) = 0;
+      object = xpc_null_create();
+      v137 = xpc_null_create();
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
+      swix::string::operator=(&object, &value);
+      xpc_release(value);
+      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "value");
+      swix::string::operator=(&v137, &value);
+      xpc_release(value);
+      v89 = MIDIServerXPC_Server::objectSetStringProperty(v135, object, &v137, v88);
+      swix::encode_message::encode_message(&value, a2);
+      swix::encode_message::operator=(a3, &value);
+      xpc_release(xstring[0]);
+      if ((v89 & 0x100000000) != 0)
+      {
+        v90 = 0;
+      }
+
+      else
+      {
+        v90 = v89;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v90);
+      std::tuple<unsigned int,swix::string,swix::string>::~tuple(&v135);
+      return;
+    case 0xB565186:
+      LODWORD(value) = 0;
+      xstring[0] = xpc_null_create();
+      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "propertyID");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      MIDIServerXPC_Server::objectGetStringProperty(&v140, value, xstring[0]);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if (v141)
+      {
+        v113 = 0;
+      }
+
+      else
+      {
+        v113 = v140;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v113);
+      if (!v113)
+      {
+        xpc_dictionary_set_value(a3[1], "value", v140);
+      }
+
+      if (v141 == 1)
+      {
+        xpc_release(v140);
+      }
+
+      goto LABEL_206;
+    case 0xB565187:
+      std::tuple<unsigned int,swix::string,swix::data>::tuple[abi:ne200100]<std::__is_implicitly_default_constructible,std::is_default_constructible,0>(&v135);
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
+      swix::string::operator=(&object, &value);
+      xpc_release(value);
+      swix::xpcobj_coder<swix::data>::decode(&value, a2[1], "value");
+      swix::data::operator=(&v137, &value);
+      xpc_release(value);
+      v111 = MIDIServerXPC_Server::objectSetDataProperty(v135, object, &v137, v110);
+      swix::encode_message::encode_message(&value, a2);
+      swix::encode_message::operator=(a3, &value);
+      xpc_release(xstring[0]);
+      v55 = a3[1];
+      if ((v111 & 0x100000000) != 0)
+      {
+        v56 = 0;
+      }
+
+      else
+      {
+        v56 = v111;
       }
 
       goto LABEL_182;
@@ -4854,93 +4988,93 @@ void MIDIServerXPC_Server::dispatch_message(MIDIServerXPC_Server **this@<X0>, xp
       LODWORD(value) = 0;
       xstring[0] = xpc_null_create();
       LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "propertyID");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      MIDIServerXPC_Server::objectGetDataProperty(&v132, value, xstring[0]);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "propertyID");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      MIDIServerXPC_Server::objectGetDataProperty(&v140, value, xstring[0]);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if (v133)
+      if (v141)
       {
-        v22 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v22 = v132;
+        v24 = v140;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v22);
-      if (!v22)
+      xpc_dictionary_set_int64(a3[1], ".error", v24);
+      if (!v24)
       {
-        xpc_dictionary_set_value(a3[1], "value", v132);
+        xpc_dictionary_set_value(a3[1], "value", v140);
       }
 
-      if (v133 == 1)
+      if (v141 == 1)
       {
-        xpc_release(v132);
+        xpc_release(v140);
       }
 
       goto LABEL_206;
     case 0xB565189:
-      std::tuple<unsigned int,swix::string,swix::data>::tuple[abi:ne200100]<std::__is_implicitly_default_constructible,std::is_default_constructible,0>(&v127);
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      std::tuple<unsigned int,swix::string,swix::data>::tuple[abi:ne200100]<std::__is_implicitly_default_constructible,std::is_default_constructible,0>(&v135);
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "object");
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "propertyID");
       swix::string::operator=(&object, &value);
       xpc_release(value);
       swix::xpcobj_coder<swix::data>::decode(&value, a2[1], "value");
-      swix::data::operator=(&v129, &value);
+      swix::data::operator=(&v137, &value);
       xpc_release(value);
-      v50 = MIDIServerXPC_Server::objectSetDictionaryProperty(v127, object, &v129, v49);
+      v54 = MIDIServerXPC_Server::objectSetDictionaryProperty(v135, object, &v137, v53);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
-      v51 = a3[1];
-      if ((v50 & 0x100000000) != 0)
+      v55 = a3[1];
+      if ((v54 & 0x100000000) != 0)
       {
-        v52 = 0;
+        v56 = 0;
       }
 
       else
       {
-        v52 = v50;
+        v56 = v54;
       }
 
 LABEL_182:
-      xpc_dictionary_set_int64(v51, ".error", v52);
-      std::tuple<unsigned int,swix::string,swix::data>::~tuple(&v127);
+      xpc_dictionary_set_int64(v55, ".error", v56);
+      std::tuple<unsigned int,swix::string,swix::data>::~tuple(&v135);
       return;
     case 0xB56518A:
       LODWORD(value) = 0;
       xstring[0] = xpc_null_create();
       LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "propertyID");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      MIDIServerXPC_Server::objectGetDictionaryProperty(&v132, value, xstring[0]);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "propertyID");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      MIDIServerXPC_Server::objectGetDictionaryProperty(&v140, value, xstring[0]);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if (v133)
+      if (v141)
       {
-        v112 = 0;
+        v119 = 0;
       }
 
       else
       {
-        v112 = v132;
+        v119 = v140;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v112);
-      if (!v112)
+      xpc_dictionary_set_int64(a3[1], ".error", v119);
+      if (!v119)
       {
-        xpc_dictionary_set_value(a3[1], "value", v132);
+        xpc_dictionary_set_value(a3[1], "value", v140);
       }
 
-      if (v133 == 1)
+      if (v141 == 1)
       {
-        xpc_release(v132);
+        xpc_release(v140);
       }
 
       goto LABEL_206;
@@ -4948,294 +5082,294 @@ LABEL_182:
       LODWORD(value) = 0;
       xstring[0] = xpc_null_create();
       LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "propertyID");
-      swix::string::operator=(xstring, &v127);
-      xpc_release(v127);
-      v24 = MIDIServerXPC_Server::objectRemoveProperty(value, xstring[0], v23);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "propertyID");
+      swix::string::operator=(xstring, &v135);
+      xpc_release(v135);
+      v26 = MIDIServerXPC_Server::objectRemoveProperty(value, xstring[0], v25);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v25 = a3[1];
-      if ((v24 & 0x100000000) != 0)
+      v27 = a3[1];
+      if ((v26 & 0x100000000) != 0)
       {
-        v26 = 0;
+        v28 = 0;
       }
 
       else
       {
-        v26 = v24;
+        v28 = v26;
       }
 
       goto LABEL_156;
     case 0xB56518C:
-      DiscoveryMUID = MIDIServerXPC_Server::capabilityGetDiscoveryMUID(v6);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      DiscoveryMUID = MIDIServerXPC_Server::capabilityGetDiscoveryMUID(v6, v7);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       xpc_dictionary_set_int64(a3[1], ".error", 0);
       xpc_dictionary_set_uint64(a3[1], "muid", DiscoveryMUID);
       return;
     case 0xB56518D:
-      v33 = swix::decode_message::decode<unsigned int>(a2[1], "muid");
-      v34 = MIDIServerXPC_Server::capabilityMUIDCollides(v33);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v35 = swix::decode_message::decode<unsigned int>(a2[1], "muid");
+      v37 = MIDIServerXPC_Server::capabilityMUIDCollides(v35, v36);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       xpc_dictionary_set_int64(a3[1], ".error", 0);
-      xpc_dictionary_set_BOOL(a3[1], "collides", v34 & 1);
+      xpc_dictionary_set_BOOL(a3[1], "collides", v37 & 1);
       return;
     case 0xB56518E:
-      MIDIServerXPC_Server::createSetup(v6);
+      MIDIServerXPC_Server::createSetup(v6, v7);
     case 0xB56518F:
       value = xpc_null_create();
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "data");
-      swix::data::operator=(&value, &v127);
-      xpc_release(v127);
-      v31 = MIDIServerXPC_Server::createSetupFromData(&value, v30);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "data");
+      swix::data::operator=(&value, &v135);
+      xpc_release(v135);
+      v33 = MIDIServerXPC_Server::createSetupFromData(&value, v32);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if ((v31 & 0x100000000) != 0)
+      if ((v33 & 0x100000000) != 0)
       {
-        v32 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v32 = v31;
+        v34 = v33;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v32);
-      if (!v32)
+      xpc_dictionary_set_int64(a3[1], ".error", v34);
+      if (!v34)
       {
-        xpc_dictionary_set_uint64(a3[1], "setup", v31);
+        xpc_dictionary_set_uint64(a3[1], "setup", v33);
       }
 
       goto LABEL_221;
     case 0xB565190:
-      v115 = swix::decode_message::decode<unsigned int>(a2[1], "setup");
-      v116 = MIDIServerXPC_Server::installSetup(v115);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v122 = swix::decode_message::decode<unsigned int>(a2[1], "setup");
+      v124 = MIDIServerXPC_Server::installSetup(v122, v123);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v116 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v124 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v116;
+        v14 = v124;
       }
 
       goto LABEL_225;
     case 0xB565191:
-      CurrentSetup = MIDIServerXPC_Server::getCurrentSetup(v6);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      CurrentSetup = MIDIServerXPC_Server::getCurrentSetup(v6, v7);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if ((CurrentSetup & 0x100000000) != 0)
       {
-        v114 = 0;
+        v121 = 0;
       }
 
       else
       {
-        v114 = CurrentSetup;
+        v121 = CurrentSetup;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v114);
-      if (!v114)
+      xpc_dictionary_set_int64(a3[1], ".error", v121);
+      if (!v121)
       {
         xpc_dictionary_set_uint64(a3[1], "setup", CurrentSetup);
       }
 
       return;
     case 0xB565192:
-      std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul>,swix::string,swix::string,swix::string>::__tuple_impl[abi:ne200100](&v127);
+      std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul>,swix::string,swix::string,swix::string>::__tuple_impl[abi:ne200100](&v135);
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "name");
-      swix::string::operator=(&v127, &value);
+      swix::string::operator=(&v135, &value);
       xpc_release(value);
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "manufacturer");
       swix::string::operator=(&object, &value);
       xpc_release(value);
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "model");
-      swix::string::operator=(&v129, &value);
+      swix::string::operator=(&v137, &value);
       xpc_release(value);
-      v41 = MIDIServerXPC_Server::createExternalDevice(v127, &object, &v129, v40);
+      v45 = MIDIServerXPC_Server::createExternalDevice(v135, &object, &v137, v44);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
-      if ((v41 & 0x100000000) != 0)
+      if ((v45 & 0x100000000) != 0)
       {
-        v42 = 0;
+        v46 = 0;
       }
 
       else
       {
-        v42 = v41;
+        v46 = v45;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v42);
-      if (!v42)
+      xpc_dictionary_set_int64(a3[1], ".error", v46);
+      if (!v46)
       {
-        xpc_dictionary_set_uint64(a3[1], "device", v41);
+        xpc_dictionary_set_uint64(a3[1], "device", v45);
       }
 
-      std::tuple<swix::string,swix::string,swix::string>::~tuple(&v127);
+      std::tuple<swix::string,swix::string,swix::string>::~tuple(&v135);
       return;
     case 0xB565193:
-      LODWORD(v127) = 0;
+      LODWORD(v135) = 0;
       object = xpc_null_create();
-      LODWORD(v129) = 0;
-      BYTE4(v129) = 0;
-      *v130 = 0;
+      LODWORD(v137) = 0;
+      BYTE4(v137) = 0;
+      *v138 = 0;
       uint64 = 0;
-      LODWORD(v127) = swix::decode_message::decode<unsigned int>(a2[1], "device");
+      LODWORD(v135) = swix::decode_message::decode<unsigned int>(a2[1], "device");
       swix::xpcobj_coder<swix::string>::decode(&value, a2[1], "name");
       swix::string::operator=(&object, &value);
       xpc_release(value);
-      LODWORD(v129) = swix::decode_message::decode<int>(a2[1], "proto");
-      BYTE4(v129) = xpc_dictionary_get_BOOL(a2[1], "embedded");
-      *v130 = xpc_dictionary_get_uint64(a2[1], "numSourceEndpoints");
+      LODWORD(v137) = swix::decode_message::decode<int>(a2[1], "proto");
+      BYTE4(v137) = xpc_dictionary_get_BOOL(a2[1], "embedded");
+      *v138 = xpc_dictionary_get_uint64(a2[1], "numSourceEndpoints");
       uint64 = xpc_dictionary_get_uint64(a2[1], "numDestinationEndpoints");
-      v55 = MIDIServerXPC_Server::deviceAddEntity(v127, object, v129, BYTE4(v129), *v130, uint64);
+      v59 = MIDIServerXPC_Server::deviceAddEntity(v135, object, v137, BYTE4(v137), *v138, uint64);
       swix::encode_message::encode_message(&value, a2);
       swix::encode_message::operator=(a3, &value);
       xpc_release(xstring[0]);
-      if ((v55 & 0x100000000) != 0)
+      if ((v59 & 0x100000000) != 0)
       {
-        v56 = 0;
+        v60 = 0;
       }
 
       else
       {
-        v56 = v55;
+        v60 = v59;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v56);
-      if (!v56)
+      xpc_dictionary_set_int64(a3[1], ".error", v60);
+      if (!v60)
       {
-        xpc_dictionary_set_uint64(a3[1], "entity", v55);
+        xpc_dictionary_set_uint64(a3[1], "entity", v59);
       }
 
 LABEL_178:
       xpc_release(object);
       return;
     case 0xB565194:
-      v86 = swix::decode_message::decode<unsigned int>(a2[1], "device");
-      v87 = swix::decode_message::decode<unsigned int>(a2[1], "entity");
-      v88 = MIDIServerXPC_Server::deviceRemoveEntity(v86, v87);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v92 = swix::decode_message::decode<unsigned int>(a2[1], "device");
+      v93 = swix::decode_message::decode<unsigned int>(a2[1], "entity");
+      v94 = MIDIServerXPC_Server::deviceRemoveEntity(v92, v93);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v88 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v94 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v88;
+        v14 = v94;
       }
 
       goto LABEL_225;
     case 0xB565195:
-      v57 = swix::decode_message::decode<unsigned int>(a2[1], "entity");
-      v58 = xpc_dictionary_get_uint64(a2[1], "numSourceEndpoints");
-      v59 = xpc_dictionary_get_uint64(a2[1], "numDestinationEndpoints");
-      v60 = MIDIServerXPC_Server::entityAddOrRemoveEndpoints(v57, v58, v59);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v61 = swix::decode_message::decode<unsigned int>(a2[1], "entity");
+      v62 = xpc_dictionary_get_uint64(a2[1], "numSourceEndpoints");
+      v63 = xpc_dictionary_get_uint64(a2[1], "numDestinationEndpoints");
+      v64 = MIDIServerXPC_Server::entityAddOrRemoveEndpoints(v61, v62, v63);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v60 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v64 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v60;
+        v14 = v64;
       }
 
       goto LABEL_225;
     case 0xB565196:
-      v120 = swix::decode_message::decode<unsigned int>(a2[1], "device");
-      v121 = xpc_dictionary_get_BOOL(a2[1], "external");
-      v122 = MIDIServerXPC_Server::setupAddDevice(v120, v121);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v128 = swix::decode_message::decode<unsigned int>(a2[1], "device");
+      v129 = xpc_dictionary_get_BOOL(a2[1], "external");
+      v130 = MIDIServerXPC_Server::setupAddDevice(v128, v129);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v122 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v130 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v122;
+        v14 = v130;
       }
 
       goto LABEL_225;
     case 0xB565197:
-      v37 = swix::decode_message::decode<unsigned int>(a2[1], "device");
-      v38 = xpc_dictionary_get_BOOL(a2[1], "external");
-      v39 = MIDIServerXPC_Server::setupRemoveDevice(v37, v38);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v41 = swix::decode_message::decode<unsigned int>(a2[1], "device");
+      v42 = xpc_dictionary_get_BOOL(a2[1], "external");
+      v43 = MIDIServerXPC_Server::setupRemoveDevice(v41, v42);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v39 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v43 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v39;
+        v14 = v43;
       }
 
       goto LABEL_225;
     case 0xB565198:
-      v105 = MIDIServerXPC_Server::midiRestart(v6);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v112 = MIDIServerXPC_Server::midiRestart(v6, v7);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v105 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v112 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v105;
+        v14 = v112;
       }
 
       goto LABEL_225;
     case 0xB565199:
-      v117 = swix::decode_message::decode<unsigned int>(a2[1], "object");
-      v118 = xpc_dictionary_get_BOOL(a2[1], "deep");
-      MIDIServerXPC_Server::objectGetProperties(&value, v117, v118);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v125 = swix::decode_message::decode<unsigned int>(a2[1], "object");
+      v126 = xpc_dictionary_get_BOOL(a2[1], "deep");
+      MIDIServerXPC_Server::objectGetProperties(&value, v125, v126);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if (LOBYTE(xstring[0]))
       {
-        v119 = 0;
+        v127 = 0;
       }
 
       else
       {
-        v119 = value;
+        v127 = value;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v119);
-      if (!v119)
+      xpc_dictionary_set_int64(a3[1], ".error", v127);
+      if (!v127)
       {
         xpc_dictionary_set_value(a3[1], "properties", value);
       }
@@ -5247,90 +5381,90 @@ LABEL_178:
 
       return;
     case 0xB56519A:
-      v18 = swix::decode_message::decode<unsigned int>(a2[1], "destination");
-      v19 = MIDIServerXPC_Server::flushOutput(v18);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v20 = swix::decode_message::decode<unsigned int>(a2[1], "destination");
+      v21 = MIDIServerXPC_Server::flushOutput(v20);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v19 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v21 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v19;
+        v14 = v21;
       }
 
       goto LABEL_225;
     case 0xB56519B:
       value = xpc_null_create();
       xstring[0] = xpc_null_create();
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "persistentOwnerID");
-      swix::string::operator=(&value, &v127);
-      xpc_release(v127);
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "connectionParams");
-      swix::data::operator=(xstring, &v127);
-      xpc_release(v127);
-      v95 = MIDIServerXPC_Server::createThruConnection(this[1], &value, xstring);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "persistentOwnerID");
+      swix::string::operator=(&value, &v135);
+      xpc_release(v135);
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "connectionParams");
+      swix::data::operator=(xstring, &v135);
+      xpc_release(v135);
+      v102 = MIDIServerXPC_Server::createThruConnection(this[1], &value, xstring);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if ((v95 & 0x100000000) != 0)
+      if ((v102 & 0x100000000) != 0)
       {
-        v96 = 0;
+        v103 = 0;
       }
 
       else
       {
-        v96 = v95;
+        v103 = v102;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v96);
-      if (!v96)
+      xpc_dictionary_set_int64(a3[1], ".error", v103);
+      if (!v103)
       {
-        xpc_dictionary_set_uint64(a3[1], "conn", v95);
+        xpc_dictionary_set_uint64(a3[1], "conn", v102);
       }
 
       std::tuple<swix::string,swix::data>::~tuple(&value);
       return;
     case 0xB56519C:
-      v16 = swix::decode_message::decode<unsigned int>(a2[1], "conn");
-      v17 = MIDIServerXPC_Server::disposeThruConnection(v16);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v17 = swix::decode_message::decode<unsigned int>(a2[1], "conn");
+      v19 = MIDIServerXPC_Server::disposeThruConnection(v17, v18);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v12 = a3[1];
-      if ((v17 & 0x100000000) != 0)
+      v13 = a3[1];
+      if ((v19 & 0x100000000) != 0)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v13 = v17;
+        v14 = v19;
       }
 
       goto LABEL_225;
     case 0xB56519D:
-      v14 = swix::decode_message::decode<unsigned int>(a2[1], "conn");
-      MIDIServerXPC_Server::thruConnectionGetParams(&value, v14);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v15 = swix::decode_message::decode<unsigned int>(a2[1], "conn");
+      MIDIServerXPC_Server::thruConnectionGetParams(&value, v15);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if (LOBYTE(xstring[0]))
       {
-        v15 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v15 = value;
+        v16 = value;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v15);
-      if (!v15)
+      xpc_dictionary_set_int64(a3[1], ".error", v16);
+      if (!v16)
       {
         xpc_dictionary_set_value(a3[1], "params", value);
       }
@@ -5345,46 +5479,46 @@ LABEL_178:
       LODWORD(value) = 0;
       xstring[0] = xpc_null_create();
       LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "conn");
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "connectionParams");
-      swix::data::operator=(xstring, &v127);
-      xpc_release(v127);
-      v44 = MIDIServerXPC_Server::thruConnectionSetParams(value, xstring, v43);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "connectionParams");
+      swix::data::operator=(xstring, &v135);
+      xpc_release(v135);
+      v48 = MIDIServerXPC_Server::thruConnectionSetParams(value, xstring, v47);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      v25 = a3[1];
-      if ((v44 & 0x100000000) != 0)
+      v27 = a3[1];
+      if ((v48 & 0x100000000) != 0)
       {
-        v26 = 0;
+        v28 = 0;
       }
 
       else
       {
-        v26 = v44;
+        v28 = v48;
       }
 
       goto LABEL_156;
     case 0xB56519F:
-      v132 = xpc_null_create();
-      swix::xpcobj_coder<swix::string>::decode(&v127, a2[1], "persistentOwnerID");
-      swix::string::operator=(&v132, &v127);
-      xpc_release(v127);
-      MIDIServerXPC_Server::thruConnectionFind(&value, v132);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v140 = xpc_null_create();
+      swix::xpcobj_coder<swix::string>::decode(&v135, a2[1], "persistentOwnerID");
+      swix::string::operator=(&v140, &v135);
+      xpc_release(v135);
+      MIDIServerXPC_Server::thruConnectionFind(&value, v140);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if (LOBYTE(xstring[0]))
       {
-        v68 = 0;
+        v72 = 0;
       }
 
       else
       {
-        v68 = value;
+        v72 = value;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v68);
-      if (!v68)
+      xpc_dictionary_set_int64(a3[1], ".error", v72);
+      if (!v72)
       {
         xpc_dictionary_set_value(a3[1], "connectionList", value);
       }
@@ -5396,206 +5530,35 @@ LABEL_178:
 
       goto LABEL_17;
     case 0xB5651A0:
-      v107 = swix::decode_message::decode<int>(a2[1], "uniqueID");
-      v108 = MIDIServerXPC_Server::objectFindByUniqueID(v107);
-      v110 = v109;
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v114 = swix::decode_message::decode<int>(a2[1], "uniqueID");
+      v115 = MIDIServerXPC_Server::objectFindByUniqueID(v114);
+      v117 = v116;
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
-      if (v110)
+      if (v117)
       {
-        v111 = 0;
+        v118 = 0;
       }
 
       else
       {
-        v111 = v108;
+        v118 = v115;
       }
 
-      xpc_dictionary_set_int64(a3[1], ".error", v111);
-      if (!v111)
+      xpc_dictionary_set_int64(a3[1], ".error", v118);
+      if (!v118)
       {
-        xpc_dictionary_set_uint64(a3[1], "object", v108);
-        xpc_dictionary_set_int64(a3[1], "objectType", v108 >> 32);
+        xpc_dictionary_set_uint64(a3[1], "object", v115);
+        xpc_dictionary_set_int64(a3[1], "objectType", v115 >> 32);
       }
 
       return;
     case 0xB5651A1:
-      v8 = xpc_dictionary_get_BOOL(a2[1], "isBigEndian");
-      MIDIServerXPC_Server::getObjectTree(&value, v8);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if (LOBYTE(xstring[0]))
-      {
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = value;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v9);
-      if (!v9)
-      {
-        xpc_dictionary_set_value(a3[1], "data", value);
-      }
-
-      if (LOBYTE(xstring[0]) == 1)
-      {
-        goto LABEL_221;
-      }
-
-      return;
-    case 0xB5651A2:
-      LODWORD(value) = 0;
-      xstring[0] = xpc_null_create();
-      LODWORD(value) = swix::decode_message::decode<int>(a2[1], "objectType");
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "description");
-      swix::data::operator=(xstring, &v127);
-      xpc_release(v127);
-      v20 = MIDIServerXPC_Server::umpciObjectCreate(this[1], value, xstring);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if ((v20 & 0x100000000) != 0)
-      {
-        v21 = 0;
-      }
-
-      else
-      {
-        v21 = v20;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v21);
-      if (!v21)
-      {
-        xpc_dictionary_set_uint64(a3[1], "umpcioo", v20);
-      }
-
-LABEL_206:
-      xpc_release(xstring[0]);
-      return;
-    case 0xB5651A3:
-      v77 = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
-      v78 = MIDIServerXPC_Server::umpciObjectDispose(v77);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v12 = a3[1];
-      if ((v78 & 0x100000000) != 0)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v78;
-      }
-
-      goto LABEL_225;
-    case 0xB5651A4:
-      LODWORD(value) = 0;
-      xstring[0] = xpc_null_create();
-      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "description");
-      swix::data::operator=(xstring, &v127);
-      xpc_release(v127);
-      v92 = MIDIServerXPC_Server::umpciObjectSetDescription(value, xstring, v91);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v25 = a3[1];
-      if ((v92 & 0x100000000) != 0)
-      {
-        v26 = 0;
-      }
-
-      else
-      {
-        v26 = v92;
-      }
-
-LABEL_156:
-      xpc_dictionary_set_int64(v25, ".error", v26);
-      xpc_release(xstring[0]);
-      return;
-    case 0xB5651A5:
-      v123 = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
-      v124 = xpc_dictionary_get_BOOL(a2[1], "enableState");
-      v125 = MIDIServerXPC_Server::umpciObjectSetEnableState(v123, v124);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if ((v125 & 0x100000000) != 0)
-      {
-        v126 = 0;
-      }
-
-      else
-      {
-        v126 = v125;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v126);
-      return;
-    case 0xB5651A6:
-      MIDIServerXPC_Server::umpciGlobalState(&value);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      if (LOBYTE(xstring[0]))
-      {
-        v85 = 0;
-      }
-
-      else
-      {
-        v85 = value;
-      }
-
-      xpc_dictionary_set_int64(a3[1], ".error", v85);
-      if (!v85)
-      {
-        xpc_dictionary_set_value(a3[1], "value", value);
-      }
-
-      if (LOBYTE(xstring[0]) == 1)
-      {
-LABEL_221:
-        xpc_release(value);
-      }
-
-      return;
-    case 0xB5651A7:
-      v11 = MIDIServerXPC_Server::umpciDiscover(v6);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
-      xpc_release(object);
-      v12 = a3[1];
-      if ((v11 & 0x100000000) != 0)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v11;
-      }
-
-LABEL_225:
-      xpc_dictionary_set_int64(v12, ".error", v13);
-      break;
-    case 0xB5651A8:
-      v132 = xpc_null_create();
-      swix::xpcobj_coder<swix::data>::decode(&v127, a2[1], "data");
-      swix::data::operator=(&v132, &v127);
-      xpc_release(v127);
-      MIDIServerXPC_Server::umpciServerSideMIDICITransaction(&value, &v132);
-      swix::encode_message::encode_message(&v127, a2);
-      swix::encode_message::operator=(a3, &v127);
+      v9 = xpc_dictionary_get_BOOL(a2[1], "isBigEndian");
+      MIDIServerXPC_Server::getObjectTree(&value, v9);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
       xpc_release(object);
       if (LOBYTE(xstring[0]))
       {
@@ -5610,6 +5573,177 @@ LABEL_225:
       xpc_dictionary_set_int64(a3[1], ".error", v10);
       if (!v10)
       {
+        xpc_dictionary_set_value(a3[1], "data", value);
+      }
+
+      if (LOBYTE(xstring[0]) == 1)
+      {
+        goto LABEL_221;
+      }
+
+      return;
+    case 0xB5651A2:
+      LODWORD(value) = 0;
+      xstring[0] = xpc_null_create();
+      LODWORD(value) = swix::decode_message::decode<int>(a2[1], "objectType");
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "description");
+      swix::data::operator=(xstring, &v135);
+      xpc_release(v135);
+      v22 = MIDIServerXPC_Server::umpciObjectCreate(this[1], value, xstring);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if ((v22 & 0x100000000) != 0)
+      {
+        v23 = 0;
+      }
+
+      else
+      {
+        v23 = v22;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v23);
+      if (!v23)
+      {
+        xpc_dictionary_set_uint64(a3[1], "umpcioo", v22);
+      }
+
+LABEL_206:
+      xpc_release(xstring[0]);
+      return;
+    case 0xB5651A3:
+      v82 = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
+      v84 = MIDIServerXPC_Server::umpciObjectDispose(v82, v83);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v13 = a3[1];
+      if ((v84 & 0x100000000) != 0)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = v84;
+      }
+
+      goto LABEL_225;
+    case 0xB5651A4:
+      LODWORD(value) = 0;
+      xstring[0] = xpc_null_create();
+      LODWORD(value) = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "description");
+      swix::data::operator=(xstring, &v135);
+      xpc_release(v135);
+      v99 = MIDIServerXPC_Server::umpciObjectSetDescription(value, xstring, v98);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v27 = a3[1];
+      if ((v99 & 0x100000000) != 0)
+      {
+        v28 = 0;
+      }
+
+      else
+      {
+        v28 = v99;
+      }
+
+LABEL_156:
+      xpc_dictionary_set_int64(v27, ".error", v28);
+      xpc_release(xstring[0]);
+      return;
+    case 0xB5651A5:
+      v131 = swix::decode_message::decode<unsigned int>(a2[1], "umpcioo");
+      v132 = xpc_dictionary_get_BOOL(a2[1], "enableState");
+      v133 = MIDIServerXPC_Server::umpciObjectSetEnableState(v131, v132);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if ((v133 & 0x100000000) != 0)
+      {
+        v134 = 0;
+      }
+
+      else
+      {
+        v134 = v133;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v134);
+      return;
+    case 0xB5651A6:
+      MIDIServerXPC_Server::umpciGlobalState(&value, v7);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if (LOBYTE(xstring[0]))
+      {
+        v91 = 0;
+      }
+
+      else
+      {
+        v91 = value;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v91);
+      if (!v91)
+      {
+        xpc_dictionary_set_value(a3[1], "value", value);
+      }
+
+      if (LOBYTE(xstring[0]) == 1)
+      {
+LABEL_221:
+        xpc_release(value);
+      }
+
+      return;
+    case 0xB5651A7:
+      v12 = MIDIServerXPC_Server::umpciDiscover(v6, v7);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      v13 = a3[1];
+      if ((v12 & 0x100000000) != 0)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = v12;
+      }
+
+LABEL_225:
+      xpc_dictionary_set_int64(v13, ".error", v14);
+      break;
+    case 0xB5651A8:
+      v140 = xpc_null_create();
+      swix::xpcobj_coder<swix::data>::decode(&v135, a2[1], "data");
+      swix::data::operator=(&v140, &v135);
+      xpc_release(v135);
+      MIDIServerXPC_Server::umpciServerSideMIDICITransaction(&value, &v140);
+      swix::encode_message::encode_message(&v135, a2);
+      swix::encode_message::operator=(a3, &v135);
+      xpc_release(object);
+      if (LOBYTE(xstring[0]))
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = value;
+      }
+
+      xpc_dictionary_set_int64(a3[1], ".error", v11);
+      if (!v11)
+      {
         xpc_dictionary_set_value(a3[1], "value", value);
       }
 
@@ -5619,7 +5753,7 @@ LABEL_225:
       }
 
 LABEL_17:
-      xpc_release(v132);
+      xpc_release(v140);
       break;
     default:
       return;
@@ -5983,14 +6117,12 @@ uint64_t std::optional<swix::connection_config>::optional[abi:ne200100](uint64_t
     v4 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v4;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v5;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(a1 + 48) = *(a2 + 6);
     v6 = xpc_null_create();
@@ -6576,14 +6708,14 @@ LABEL_10:
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_2372662C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372662C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferReader::~IPCBufferReader(va1);
   _Unwind_Resume(a1);
@@ -6598,7 +6730,7 @@ uint64_t _XUMPCIDiscover(MIDIServer *a1, uint64_t a2)
 
   else
   {
-    result = _UMPCIDiscover(a1);
+    result = _UMPCIDiscover(a1, a2);
   }
 
   *(a2 + 32) = result;
@@ -6617,7 +6749,7 @@ void _XUMPCIGlobalState(_DWORD *a1, uint64_t a2)
   {
     *(a2 + 36) = 16777472;
     cf = 0;
-    v3 = _UMPCIGlobalState(&cf);
+    v3 = _UMPCIGlobalState(&cf, a2);
     if (v3)
     {
       v4 = v3;
@@ -6701,9 +6833,9 @@ void _XUMPCIObjectSetDescription(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237266584(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237266584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -6717,7 +6849,7 @@ uint64_t _XUMPCIObjectDispose(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _UMPCIObjectDispose(a1[8]);
+    result = _UMPCIObjectDispose(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -6773,7 +6905,7 @@ uint64_t _XCIMUIDCollides(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDICapabilityMUIDCollides(a1[8]);
+    result = _MIDICapabilityMUIDCollides(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -6791,7 +6923,7 @@ MIDIServer *_XCIGetDiscoveryMUID(MIDIServer *result, uint64_t a2)
 
   else
   {
-    result = _MIDICapabilityGetDiscoveryMUID(result);
+    result = _MIDICapabilityGetDiscoveryMUID(result, a2);
     *(a2 + 32) = 0;
     *(a2 + 36) = result;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
@@ -6848,14 +6980,14 @@ void _XThruConnectionFind(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_2372668F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372668F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferReader::~IPCBufferReader(va1);
   _Unwind_Resume(a1);
@@ -6897,9 +7029,9 @@ void _XThruConnectionSetParams(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237266A04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237266A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -6955,7 +7087,7 @@ uint64_t _XThruConnectionDispose(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDIThruConnectionDispose(a1[8]);
+    result = _MIDIThruConnectionDispose(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -7030,7 +7162,7 @@ LABEL_16:
   v10 = *(v8 + 36);
   v11[0] = *(v8 + 20);
   v11[1] = v10;
-  result = MIDIServer_ThruConnectionCreate(v11, (result + 56), v5, v9, v7, a2 + 36);
+  result = MIDIServer_ThruConnectionCreate(v11, (result + 56), v5, v9, v7, (a2 + 36));
   *(a2 + 32) = result;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
   if (!result)
@@ -7050,12 +7182,12 @@ uint64_t _XSetupRemoveDevice(_DWORD *a1, uint64_t a2)
 
   else if (a1[9])
   {
-    result = _MIDISetupRemoveExternalDevice(a1[8]);
+    result = _MIDISetupRemoveExternalDevice(a1[8], a2);
   }
 
   else
   {
-    result = _MIDISetupRemoveDevice(a1[8]);
+    result = _MIDISetupRemoveDevice(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -7072,12 +7204,12 @@ uint64_t _XSetupAddDevice(_DWORD *a1, uint64_t a2)
 
   else if (a1[9])
   {
-    result = _MIDISetupAddExternalDevice(a1[8]);
+    result = _MIDISetupAddExternalDevice(a1[8], a2);
   }
 
   else
   {
-    result = _MIDISetupAddDevice(a1[8]);
+    result = _MIDISetupAddDevice(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -7133,7 +7265,7 @@ void _XDeviceAddEntity(uint64_t a1, uint64_t a2)
     v14 = v4;
     v15 = 0;
     v16 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
-    LODWORD(v7) = _MIDIDeviceAddEntity(v7, v16, v9, v10, v11, v12, a2 + 36);
+    LODWORD(v7) = _MIDIDeviceAddEntity(v7, v16, v9, v10, v11, v12, (a2 + 36));
     IPCBufferReader::~IPCBufferReader(&v13);
     *(a2 + 32) = v7;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
@@ -7150,9 +7282,9 @@ void _XDeviceAddEntity(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_237266F54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237266F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7189,7 +7321,7 @@ _DWORD *_XSetupGetCurrent(_DWORD *result, uint64_t a2)
 
   else
   {
-    result = _MIDISetupGetCurrent((a2 + 36));
+    result = _MIDISetupGetCurrent((a2 + 36), a2);
     *(a2 + 32) = result;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
     if (!result)
@@ -7210,7 +7342,7 @@ uint64_t _XSetupInstall(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDISetupInstall(a1[8]);
+    result = _MIDISetupInstall(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -7239,7 +7371,7 @@ LABEL_9:
   v8 = v3;
   v9 = 0;
   v10 = CFDataCreate(0, v4, v3);
-  v5 = _MIDISetupFromData(v10, a2 + 36);
+  v5 = _MIDISetupFromData(v10, (a2 + 36));
   if (!v5)
   {
     MEMORY[0x2383C8F80](*MEMORY[0x277D85F48], v4, v3);
@@ -7256,9 +7388,9 @@ LABEL_10:
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_23726725C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23726725C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7267,7 +7399,7 @@ _DWORD *_XSetupCreate(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && result[1] == 24)
   {
-    _MIDISetupCreate((a2 + 36));
+    _MIDISetupCreate((a2 + 36), a2);
   }
 
   *(a2 + 32) = -304;
@@ -7284,7 +7416,7 @@ uint64_t _XRestart(MIDIServer *a1, uint64_t a2)
 
   else
   {
-    result = _MIDIRestart(a1);
+    result = _MIDIRestart(a1, a2);
   }
 
   *(a2 + 32) = result;
@@ -7358,9 +7490,9 @@ void _XObjectRemoveProperty(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_2372674D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372674D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7509,14 +7641,14 @@ void _XObjectGetDictionaryProperty(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237267820(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237267820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferReader::~IPCBufferReader(va1);
   _Unwind_Resume(a1);
@@ -7623,14 +7755,14 @@ void _XObjectGetDataProperty(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237267A70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237267A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferReader::~IPCBufferReader(va1);
   _Unwind_Resume(a1);
@@ -7737,14 +7869,14 @@ void _XObjectGetStringProperty(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237267CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237267CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferReader::~IPCBufferReader(va1);
   _Unwind_Resume(a1);
@@ -7781,9 +7913,9 @@ void _XObjectSetIntegerProperty(uint64_t a1, uint64_t a2)
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_237267DBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237267DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7814,9 +7946,9 @@ void _XObjectGetIntegerProperty(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_237267EB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237267EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7830,7 +7962,7 @@ uint64_t _XEndpointDispose(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDIEndpointDispose(a1[8]);
+    result = _MIDIEndpointDispose(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -7840,18 +7972,19 @@ uint64_t _XEndpointDispose(_DWORD *a1, uint64_t a2)
 
 void _XSourceCreate(uint64_t a1, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) == 0 && (v3 = *(a1 + 4), (v3 - 557) >= 0xFFFFFDFF) && (v4 = *(a1 + 36), v4 <= 0x200) && (v3 - 44 >= v4 ? (v5 = v3 == ((v4 + 3) & 0xFFFFFFFC) + 44) : (v5 = 0), v5))
+  if ((*a1 & 0x80000000) == 0 && (v3 = *(a1 + 4), (v3 - 557) >= 0xFFFFFDFF) && (v4 = *(a1 + 36), v4 <= 0x200) && ((v5 = (v4 + 3) & 0xFFFFFFFC, v3 - 44 >= v4) ? (v6 = v3 == v5 + 44) : (v6 = 0), v6))
   {
-    v6 = *(a1 + 32);
-    v7 = a1 + 40;
-    v8 = v4;
-    v9 = 0;
-    v10 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
-    LODWORD(v6) = _MIDISourceCreate(v6);
-    IPCBufferReader::~IPCBufferReader(&v7);
-    *(a2 + 32) = v6;
+    v7 = *(a1 + 32);
+    v8 = *(a1 + v5 + 40);
+    v9 = a1 + 40;
+    v10 = v4;
+    v11 = 0;
+    v12 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
+    LODWORD(v7) = _MIDISourceCreate(v7, v12, v8, (a2 + 36));
+    IPCBufferReader::~IPCBufferReader(&v9);
+    *(a2 + 32) = v7;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
-    if (!v6)
+    if (!v7)
     {
       *(a2 + 4) = 40;
     }
@@ -7864,27 +7997,28 @@ void _XSourceCreate(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_23726801C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23726801C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
 
 void _XDestinationCreate(uint64_t a1, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) == 0 && (v3 = *(a1 + 4), (v3 - 557) >= 0xFFFFFDFF) && (v4 = *(a1 + 36), v4 <= 0x200) && (v3 - 44 >= v4 ? (v5 = v3 == ((v4 + 3) & 0xFFFFFFFC) + 44) : (v5 = 0), v5))
+  if ((*a1 & 0x80000000) == 0 && (v3 = *(a1 + 4), (v3 - 557) >= 0xFFFFFDFF) && (v4 = *(a1 + 36), v4 <= 0x200) && ((v5 = (v4 + 3) & 0xFFFFFFFC, v3 - 44 >= v4) ? (v6 = v3 == v5 + 44) : (v6 = 0), v6))
   {
-    v6 = *(a1 + 32);
-    v7 = a1 + 40;
-    v8 = v4;
-    v9 = 0;
-    v10 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
-    LODWORD(v6) = _MIDIDestinationCreate(v6);
-    IPCBufferReader::~IPCBufferReader(&v7);
-    *(a2 + 32) = v6;
+    v7 = *(a1 + 32);
+    v8 = *(a1 + v5 + 40);
+    v9 = a1 + 40;
+    v10 = v4;
+    v11 = 0;
+    v12 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
+    LODWORD(v7) = _MIDIDestinationCreate(v7, v12, v8, (a2 + 36), 0, 0);
+    IPCBufferReader::~IPCBufferReader(&v9);
+    *(a2 + 32) = v7;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
-    if (!v6)
+    if (!v7)
     {
       *(a2 + 4) = 40;
     }
@@ -7897,9 +8031,9 @@ void _XDestinationCreate(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_237268134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237268134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7917,46 +8051,46 @@ void _XGetObjectTree(MIDIServer *a1, uint64_t a2)
     v3 = *(a1 + 8);
     v5 = MIDIServer::defaultInstance(a1) + 2;
     v4 = *v5;
-    v19 = v5;
+    v20 = v5;
     v6 = (*(v4 + 16))(v5);
-    v20 = v6;
-    v16 = 0;
+    v21 = v6;
     v17 = 0;
     v18 = 0;
-    ObjectTreeCache::GetObjectTree(&v16);
-    v7 = v16;
-    v8 = CFDataCreateWithBytesNoCopy(0, v16, v17 - v16, *MEMORY[0x277CBED00]);
-    LODWORD(v15[0]) = 1;
-    v15[1] = 0;
-    v9 = IPCBufferWriter::write(v15, v8, (a2 + 28), (a2 + 52));
-    v10 = v9;
+    v19 = 0;
+    ObjectTreeCache::GetObjectTree(&v17, v7);
+    v8 = v17;
+    v9 = CFDataCreateWithBytesNoCopy(0, v17, v18 - v17, *MEMORY[0x277CBED00]);
+    LODWORD(v16[0]) = 1;
+    v16[1] = 0;
+    v10 = IPCBufferWriter::write(v16, v9, (a2 + 28), (a2 + 52));
+    v11 = v10;
     if (v3)
     {
-      if (!v9)
+      if (!v10)
       {
-        v11 = *(a2 + 52);
-        if (v11 >= 4)
+        v12 = *(a2 + 52);
+        if (v12 >= 4)
         {
-          v12 = v11 >> 2;
-          v13 = *(a2 + 28);
-          v14 = v12 + 1;
+          v13 = v12 >> 2;
+          v14 = *(a2 + 28);
+          v15 = v13 + 1;
           do
           {
-            *v13 = bswap32(*v13);
-            ++v13;
-            --v14;
+            *v14 = bswap32(*v14);
+            ++v14;
+            --v15;
           }
 
-          while (v14 > 1);
+          while (v15 > 1);
         }
       }
     }
 
-    CFRelease(v8);
-    IPCBufferWriter::~IPCBufferWriter(v15);
-    if (v7)
+    CFRelease(v9);
+    IPCBufferWriter::~IPCBufferWriter(v16);
+    if (v8)
     {
-      operator delete(v7);
+      operator delete(v8);
     }
 
     if (v6)
@@ -7964,7 +8098,7 @@ void _XGetObjectTree(MIDIServer *a1, uint64_t a2)
       (*(*v5 + 24))(v5);
     }
 
-    if (!v10)
+    if (!v11)
     {
       *(a2 + 40) = *(a2 + 52);
       *(a2 + 44) = *MEMORY[0x277D85EF8];
@@ -7974,20 +8108,21 @@ void _XGetObjectTree(MIDIServer *a1, uint64_t a2)
       return;
     }
 
-    *(a2 + 32) = v10;
+    *(a2 + 32) = v11;
   }
 
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void sub_23726831C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_23726831C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  if (v15)
+  va_start(va, a14);
+  if (v14)
   {
-    operator delete(v15);
+    operator delete(v14);
   }
 
-  CADeprecated::CAMutex::Locker::~Locker(&a15);
+  CADeprecated::CAMutex::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
@@ -8072,7 +8207,7 @@ uint64_t _XPortDispose(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDIPortDispose(a1[8]);
+    result = _MIDIPortDispose(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -8089,7 +8224,7 @@ void _XOutputPortCreate(uint64_t a1, uint64_t a2)
     v9 = v4;
     v10 = 0;
     v11 = CFStringCreateWithBytes(0, (a1 + 40), v4, 0x100u, 1u);
-    LODWORD(v7) = _MIDIOutputPortCreate(v7);
+    LODWORD(v7) = _MIDIOutputPortCreate(v7, v11, (a2 + 36));
     IPCBufferReader::~IPCBufferReader(&v8);
     *(a2 + 32) = v7;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
@@ -8106,48 +8241,49 @@ void _XOutputPortCreate(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_2372686C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372686C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
 
 void _XInputPortCreate(uint64_t a1, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 || (v4 = *(a1 + 4), (v4 - 557) < 0xFFFFFDFF) || (v5 = *(a1 + 36), v5 > 0x200) || (v4 - 44 >= v5 ? (v6 = v4 == ((v5 + 3) & 0xFFFFFFFC) + 44) : (v6 = 0), !v6))
+  if ((*a1 & 0x80000000) != 0 || (v4 = *(a1 + 4), (v4 - 557) < 0xFFFFFDFF) || (v5 = *(a1 + 36), v5 > 0x200) || ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 44 >= v5) ? (v7 = v4 == v6 + 44) : (v7 = 0), !v7))
   {
-    v7 = -304;
+    v8 = -304;
 LABEL_9:
-    *(a2 + 32) = v7;
+    *(a2 + 32) = v8;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
     return;
   }
 
-  v8 = *(a1 + 32);
+  v9 = *(a1 + 32);
+  v10 = *(a1 + v6 + 40);
   if (!BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, *(a1 + 32)))
   {
-    v7 = -50;
+    v8 = -50;
     goto LABEL_9;
   }
 
-  v10 = a1 + 40;
-  v11 = v5;
-  v12 = 0;
-  v13 = CFStringCreateWithBytes(0, (a1 + 40), v5, 0x100u, 1u);
-  v9 = _MIDIInputPortCreate(v8);
-  IPCBufferReader::~IPCBufferReader(&v10);
-  *(a2 + 32) = v9;
+  v12 = a1 + 40;
+  v13 = v5;
+  v14 = 0;
+  v15 = CFStringCreateWithBytes(0, (a1 + 40), v5, 0x100u, 1u);
+  v11 = _MIDIInputPortCreate(v9, v15, v10, (a2 + 36), 0, 0);
+  IPCBufferReader::~IPCBufferReader(&v12);
+  *(a2 + 32) = v11;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
-  if (!v9)
+  if (!v11)
   {
     *(a2 + 4) = 40;
   }
 }
 
-void sub_237268804(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237268804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -8161,7 +8297,7 @@ uint64_t _XClientDispose(_DWORD *a1, uint64_t a2)
 
   else
   {
-    result = _MIDIClientDispose(a1[8]);
+    result = _MIDIClientDispose(a1[8], a2);
   }
 
   *(a2 + 32) = result;
@@ -8199,7 +8335,7 @@ LABEL_11:
   pidp = 0;
   atoken = v18;
   audit_token_to_au32(&atoken, 0, &euidp, 0, 0, 0, &pidp, 0, 0);
-  v10 = _MIDIClientCreate(pidp, v14, (a2 + 36));
+  v10 = _MIDIClientCreate(pidp, v14, (a2 + 36), 0);
   IPCBufferReader::~IPCBufferReader(&v11);
   *(a2 + 32) = v10;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
@@ -8209,9 +8345,9 @@ LABEL_11:
   }
 }
 
-void sub_2372689F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372689F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -8239,7 +8375,7 @@ LABEL_7:
   v6 = *(v3 + 9);
   *v14.val = *(v3 + 5);
   *&v14.val[4] = v6;
-  MIDIServer = getMIDIServer(v3);
+  MIDIServer = getMIDIServer(v3, a2);
   v8 = MIDIServer::defaultInstance(MIDIServer);
   *pidp = 0;
   atoken = v14;
@@ -8282,10 +8418,13 @@ uint64_t _XRegisterProcess(uint64_t result, uint64_t a2)
     {
       if (!*(result + 68) && *(result + 72) >= 0x20u)
       {
-        v3 = *(result + 104);
-        v4[0] = *(result + 88);
-        v4[1] = v3;
-        MIDIServer_RegisterProcess(v4);
+        v3 = *(result + 28);
+        v4 = *(result + 40);
+        v5 = *(result + 60);
+        v6 = *(result + 104);
+        v7[0] = *(result + 88);
+        v7[1] = v6;
+        MIDIServer_RegisterProcess(v7, v3, v4, v5);
       }
 
       v2 = -309;

@@ -11,7 +11,11 @@
 - (void)stopObservingViewModel:(id)model;
 - (void)twoFactorDigitView:(id)view textDidChange:(id)change;
 - (void)verifyButtonPressed:(id)pressed;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation VSTwoFactorEntryViewController_iOS
@@ -41,10 +45,10 @@
 
 - (void)viewDidLoad
 {
-  v129 = *MEMORY[0x277D85DE8];
-  v125.receiver = self;
-  v125.super_class = VSTwoFactorEntryViewController_iOS;
-  [(VSTwoFactorEntryViewController_iOS *)&v125 viewDidLoad];
+  v128 = *MEMORY[0x277D85DE8];
+  v124.receiver = self;
+  v124.super_class = VSTwoFactorEntryViewController_iOS;
+  [(VSTwoFactorEntryViewController_iOS *)&v124 viewDidLoad];
   view = [(VSTwoFactorEntryViewController_iOS *)self view];
   v4 = objc_alloc_init(MEMORY[0x277D759D8]);
   [(VSTwoFactorEntryViewController_iOS *)self setScrollView:v4];
@@ -54,7 +58,7 @@
   systemGroupedBackgroundColor = [MEMORY[0x277D75348] systemGroupedBackgroundColor];
   [v4 setBackgroundColor:systemGroupedBackgroundColor];
 
-  v116 = view;
+  v115 = view;
   [view addSubview:v4];
   viewModel = [(VSTwoFactorEntryViewController_iOS *)self viewModel];
   title = [viewModel title];
@@ -66,7 +70,7 @@
   [(VSIdentityProviderLogoView *)v8 setLogo:logo];
 
   [v4 addSubview:v8];
-  v112 = v8;
+  v111 = v8;
   [(VSTwoFactorEntryViewController_iOS *)self setLogoView:v8];
   v10 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -79,7 +83,7 @@
   v13 = VSMainConcurrencyBindingOptions();
   [v10 vs_bind:@"font" toObject:fontCenter withKeyPath:@"title2Font" options:v13];
 
-  v111 = v10;
+  v110 = v10;
   [v4 addSubview:v10];
   v14 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -92,7 +96,7 @@
   v17 = VSMainConcurrencyBindingOptions();
   [v14 vs_bind:@"font" toObject:v16 withKeyPath:@"subheadlineFont" options:v17];
 
-  v110 = v14;
+  v109 = v14;
   [v4 addSubview:v14];
   v18 = [VSTwoFactorDigitView alloc];
   twoFactorTextField = [viewModel twoFactorTextField];
@@ -108,31 +112,31 @@
   twoFactorTextField3 = [viewModel twoFactorTextField];
   -[VSTwoFactorDigitView setAutocapitalizationType:](v20, "setAutocapitalizationType:", [twoFactorTextField3 autocapitalizationType]);
 
-  v108 = v4;
-  v113 = v20;
+  v107 = v4;
+  v112 = v20;
   [v4 addSubview:v20];
   v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
   v123 = 0u;
-  v124 = 0u;
-  v109 = viewModel;
+  v108 = viewModel;
   buttons = [viewModel buttons];
-  v25 = [buttons countByEnumeratingWithState:&v121 objects:v128 count:16];
+  v25 = [buttons countByEnumeratingWithState:&v120 objects:v127 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v122;
+    v27 = *v121;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v122 != v27)
+        if (*v121 != v27)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v29 = *(*(&v121 + 1) + 8 * i);
+        v29 = *(*(&v120 + 1) + 8 * i);
         v30 = objc_alloc_init(VSMultilineButton);
         whiteColor = [MEMORY[0x277D75348] whiteColor];
         [(VSMultilineButton *)v30 setTitleColor:whiteColor forState:1];
@@ -150,79 +154,79 @@
         [v23 addObject:v30];
       }
 
-      v26 = [buttons countByEnumeratingWithState:&v121 objects:v128 count:16];
+      v26 = [buttons countByEnumeratingWithState:&v120 objects:v127 count:16];
     }
 
     while (v26);
   }
 
   [(VSTwoFactorEntryViewController_iOS *)selfCopy setButtons:v23];
-  topAnchor = [v108 topAnchor];
-  topAnchor2 = [v116 topAnchor];
+  topAnchor = [v107 topAnchor];
+  topAnchor2 = [v115 topAnchor];
   v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
   [v37 setActive:1];
 
-  bottomAnchor = [v108 bottomAnchor];
-  bottomAnchor2 = [v116 bottomAnchor];
+  bottomAnchor = [v107 bottomAnchor];
+  bottomAnchor2 = [v115 bottomAnchor];
   v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   [v40 setActive:1];
 
-  leftAnchor = [v108 leftAnchor];
-  leftAnchor2 = [v116 leftAnchor];
+  leftAnchor = [v107 leftAnchor];
+  leftAnchor2 = [v115 leftAnchor];
   v43 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
   [v43 setActive:1];
 
-  rightAnchor = [v108 rightAnchor];
-  rightAnchor2 = [v116 rightAnchor];
+  rightAnchor = [v107 rightAnchor];
+  rightAnchor2 = [v115 rightAnchor];
   v46 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
   [v46 setActive:1];
 
-  topAnchor3 = [(VSIdentityProviderLogoView *)v112 topAnchor];
-  topAnchor4 = [v108 topAnchor];
+  topAnchor3 = [(VSIdentityProviderLogoView *)v111 topAnchor];
+  topAnchor4 = [v107 topAnchor];
   v49 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:10.0];
   [v49 setActive:1];
 
-  centerXAnchor = [(VSIdentityProviderLogoView *)v112 centerXAnchor];
-  centerXAnchor2 = [v108 centerXAnchor];
+  centerXAnchor = [(VSIdentityProviderLogoView *)v111 centerXAnchor];
+  centerXAnchor2 = [v107 centerXAnchor];
   v52 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
   [v52 setActive:1];
 
-  topAnchor5 = [v111 topAnchor];
-  bottomAnchor3 = [(VSIdentityProviderLogoView *)v112 bottomAnchor];
+  topAnchor5 = [v110 topAnchor];
+  bottomAnchor3 = [(VSIdentityProviderLogoView *)v111 bottomAnchor];
   v55 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3 constant:15.0];
   [v55 setActive:1];
 
-  leftAnchor3 = [v111 leftAnchor];
-  safeAreaLayoutGuide = [v108 safeAreaLayoutGuide];
+  leftAnchor3 = [v110 leftAnchor];
+  safeAreaLayoutGuide = [v107 safeAreaLayoutGuide];
   leftAnchor4 = [safeAreaLayoutGuide leftAnchor];
   v59 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
   [v59 setActive:1];
 
-  rightAnchor3 = [v111 rightAnchor];
-  safeAreaLayoutGuide2 = [v108 safeAreaLayoutGuide];
+  rightAnchor3 = [v110 rightAnchor];
+  safeAreaLayoutGuide2 = [v107 safeAreaLayoutGuide];
   rightAnchor4 = [safeAreaLayoutGuide2 rightAnchor];
   v63 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
   [v63 setActive:1];
 
-  topAnchor6 = [v110 topAnchor];
-  bottomAnchor4 = [v111 bottomAnchor];
+  topAnchor6 = [v109 topAnchor];
+  bottomAnchor4 = [v110 bottomAnchor];
   v66 = [topAnchor6 constraintEqualToAnchor:bottomAnchor4 constant:10.0];
   [v66 setActive:1];
 
-  leftAnchor5 = [v110 leftAnchor];
-  safeAreaLayoutGuide3 = [v108 safeAreaLayoutGuide];
+  leftAnchor5 = [v109 leftAnchor];
+  safeAreaLayoutGuide3 = [v107 safeAreaLayoutGuide];
   leftAnchor6 = [safeAreaLayoutGuide3 leftAnchor];
   v70 = [leftAnchor5 constraintEqualToAnchor:leftAnchor6];
   [v70 setActive:1];
 
-  rightAnchor5 = [v110 rightAnchor];
-  safeAreaLayoutGuide4 = [v108 safeAreaLayoutGuide];
+  rightAnchor5 = [v109 rightAnchor];
+  safeAreaLayoutGuide4 = [v107 safeAreaLayoutGuide];
   rightAnchor6 = [safeAreaLayoutGuide4 rightAnchor];
   v74 = [rightAnchor5 constraintEqualToAnchor:rightAnchor6];
   [v74 setActive:1];
 
   topAnchor7 = [(VSTwoFactorDigitView *)v20 topAnchor];
-  bottomAnchor5 = [v110 bottomAnchor];
+  bottomAnchor5 = [v109 bottomAnchor];
   v77 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5 constant:10.0];
   [v77 setActive:1];
 
@@ -231,48 +235,48 @@
   [v79 setActive:1];
 
   centerXAnchor3 = [(VSTwoFactorDigitView *)v20 centerXAnchor];
-  centerXAnchor4 = [v108 centerXAnchor];
+  centerXAnchor4 = [v107 centerXAnchor];
   v82 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
   [v82 setActive:1];
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
   obj = v23;
-  v83 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
+  v83 = [obj countByEnumeratingWithState:&v116 objects:v126 count:16];
   if (v83)
   {
     v84 = v83;
     v85 = 0;
-    v86 = *v118;
+    v86 = *v117;
     do
     {
       v87 = 0;
       v88 = v85;
       do
       {
-        if (*v118 != v86)
+        if (*v117 != v86)
         {
           objc_enumerationMutation(obj);
         }
 
-        v89 = *(*(&v117 + 1) + 8 * v87);
+        v89 = *(*(&v116 + 1) + 8 * v87);
         [v89 setTranslatesAutoresizingMaskIntoConstraints:0];
-        [v116 addSubview:v89];
+        [v115 addSubview:v89];
         centerXAnchor5 = [v89 centerXAnchor];
-        centerXAnchor6 = [v108 centerXAnchor];
+        centerXAnchor6 = [v107 centerXAnchor];
         v92 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
         [v92 setActive:1];
 
         leftAnchor7 = [v89 leftAnchor];
-        safeAreaLayoutGuide5 = [v108 safeAreaLayoutGuide];
+        safeAreaLayoutGuide5 = [v107 safeAreaLayoutGuide];
         leftAnchor8 = [safeAreaLayoutGuide5 leftAnchor];
         v96 = [leftAnchor7 constraintGreaterThanOrEqualToAnchor:leftAnchor8];
         [v96 setActive:1];
 
         rightAnchor7 = [v89 rightAnchor];
-        safeAreaLayoutGuide6 = [v108 safeAreaLayoutGuide];
+        safeAreaLayoutGuide6 = [v107 safeAreaLayoutGuide];
         rightAnchor8 = [safeAreaLayoutGuide6 rightAnchor];
         v100 = [rightAnchor7 constraintLessThanOrEqualToAnchor:rightAnchor8];
         [v100 setActive:1];
@@ -286,7 +290,7 @@
 
         else
         {
-          bottomAnchor6 = [(VSTwoFactorDigitView *)v113 bottomAnchor];
+          bottomAnchor6 = [(VSTwoFactorDigitView *)v112 bottomAnchor];
           v103 = 20.0;
         }
 
@@ -299,7 +303,7 @@
       }
 
       while (v84 != v87);
-      v84 = [obj countByEnumeratingWithState:&v117 objects:v127 count:16];
+      v84 = [obj countByEnumeratingWithState:&v116 objects:v126 count:16];
     }
 
     while (v84);
@@ -310,13 +314,59 @@
     v85 = 0;
   }
 
-  v126[0] = objc_opt_class();
-  v126[1] = objc_opt_class();
-  v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v126 count:2];
+  v125[0] = objc_opt_class();
+  v125[1] = objc_opt_class();
+  v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:2];
   v106 = [(VSTwoFactorEntryViewController_iOS *)selfCopy registerForTraitChanges:v105 withHandler:&__block_literal_global_8];
 
   VSAuthenticationViewControllerViewDidLoad(selfCopy);
-  v107 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSTwoFactorEntryViewController_iOS;
+  [(VSTwoFactorEntryViewController_iOS *)&v4 viewWillAppear:appear];
+  VSAuthenticationViewControllerViewWillAppear(self);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = VSTwoFactorEntryViewController_iOS;
+  [(VSTwoFactorEntryViewController_iOS *)&v9 viewDidAppear:appear];
+  viewModel = [(VSTwoFactorEntryViewController_iOS *)self viewModel];
+  twoFactorTextField = [viewModel twoFactorTextField];
+  autoShowKeyboard = [twoFactorTextField autoShowKeyboard];
+
+  if (autoShowKeyboard)
+  {
+    v7 = dispatch_time(0, 100000000);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __52__VSTwoFactorEntryViewController_iOS_viewDidAppear___block_invoke;
+    block[3] = &unk_279E19290;
+    block[4] = self;
+    dispatch_after(v7, MEMORY[0x277D85CD0], block);
+  }
+
+  VSAuthenticationViewControllerViewDidAppear(self);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSTwoFactorEntryViewController_iOS;
+  [(VSTwoFactorEntryViewController_iOS *)&v4 viewWillDisappear:disappear];
+  VSAuthenticationViewControllerViewWillDisappear(self);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSTwoFactorEntryViewController_iOS;
+  [(VSTwoFactorEntryViewController_iOS *)&v4 viewDidDisappear:disappear];
+  VSAuthenticationViewControllerViewWillDisappear(self);
 }
 
 - (void)verifyButtonPressed:(id)pressed
@@ -327,7 +377,7 @@
 
 - (void)buttonPressed:(id)pressed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -347,14 +397,12 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = v11;
+    v15 = v11;
     _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Generic two factor button with index %lu pressed.", buf, 0xCu);
   }
 
   viewModel = [(VSTwoFactorEntryViewController_iOS *)self viewModel];
   [viewModel buttonAtIndexWasPressed:v11];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObservingViewModel:(id)model

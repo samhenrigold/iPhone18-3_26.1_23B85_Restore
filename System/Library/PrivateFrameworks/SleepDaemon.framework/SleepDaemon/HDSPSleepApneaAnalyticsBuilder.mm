@@ -79,7 +79,7 @@
 
 - (void)updateDailyReportWithSleepApneaAnalytics:(id)analytics
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -87,11 +87,11 @@
     v6 = objc_opt_class();
     v7 = v6;
     breathingDisturbanceSamples = [(HDSPSleepApneaAnalyticsBuilder *)self breathingDisturbanceSamples];
-    v33 = 138543618;
-    v34 = v6;
-    v35 = 2050;
-    v36 = [breathingDisturbanceSamples count];
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Building daily analytics report from %{public}lu bd samples", &v33, 0x16u);
+    v32 = 138543618;
+    v33 = v6;
+    v34 = 2050;
+    v35 = [breathingDisturbanceSamples count];
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Building daily analytics report from %{public}lu bd samples", &v32, 0x16u);
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[HDSPSleepApneaAnalyticsBuilder _isEnabledBD](self, "_isEnabledBD")}];
@@ -153,8 +153,6 @@
 
   _weeksSinceOnboardedBD = [(HDSPSleepApneaAnalyticsBuilder *)self _weeksSinceOnboardedBD];
   [analyticsCopy setWeeksSinceOnboardedBD:_weeksSinceOnboardedBD];
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isOnboardedBD
@@ -470,7 +468,7 @@
 - (void)_calculateBreathingDisturbanceValueDependentMetrics
 {
   selfCopy = self;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if ([(HDSPSleepApneaAnalyticsBuilder *)self _isOnboardedBD])
   {
     breathingDisturbanceSamples = [(HDSPSleepApneaAnalyticsBuilder *)selfCopy breathingDisturbanceSamples];
@@ -491,29 +489,29 @@
         breathingDisturbanceSamples3 = [(HDSPSleepApneaAnalyticsBuilder *)selfCopy breathingDisturbanceSamples];
         v12 = [v10 initWithCapacity:{objc_msgSend(breathingDisturbanceSamples3, "count")}];
 
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         obj = [(HDSPSleepApneaAnalyticsBuilder *)selfCopy breathingDisturbanceSamples];
-        v13 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
-        v51 = selfCopy;
+        v13 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+        v50 = selfCopy;
         if (v13)
         {
           v14 = v13;
           v15 = 0;
-          v49 = *v61;
+          v48 = *v60;
           v16 = 2.22507386e-308;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v61 != v49)
+              if (*v60 != v48)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v60 + 1) + 8 * i);
+              v18 = *(*(&v59 + 1) + 8 * i);
               quantity = [v18 quantity];
               [quantity _value];
               v21 = v20;
@@ -547,10 +545,10 @@
               v31 = [v29 numberWithDouble:?];
               [v28 addObject:v31];
 
-              selfCopy = v51;
+              selfCopy = v50;
             }
 
-            v14 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+            v14 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
           }
 
           while (v14);
@@ -564,29 +562,29 @@
 
         selfCopy->_numSleepSessionsWithBDsOverThresholdLast30Days = v15;
         selfCopy->_maximumBDValueInPast30Days = v16;
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
         allKeys = [v12 allKeys];
-        v32 = [allKeys countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v32 = [allKeys countByEnumeratingWithState:&v55 objects:v64 count:16];
         if (v32)
         {
           v33 = v32;
           v34 = 0;
           v35 = 0;
-          v36 = *v57;
+          v36 = *v56;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v57 != v36)
+              if (*v56 != v36)
               {
                 objc_enumerationMutation(allKeys);
               }
 
               v38 = MEMORY[0x277CBEA60];
-              v39 = [v12 objectForKeyedSubscript:*(*(&v56 + 1) + 8 * j)];
+              v39 = [v12 objectForKeyedSubscript:*(*(&v55 + 1) + 8 * j)];
               v40 = [v38 arrayWithArray:v39];
 
               if ([v40 count] > 1)
@@ -594,26 +592,26 @@
                 ++v35;
               }
 
+              v51 = 0u;
               v52 = 0u;
               v53 = 0u;
               v54 = 0u;
-              v55 = 0u;
               v41 = v40;
-              v42 = [v41 countByEnumeratingWithState:&v52 objects:v64 count:16];
+              v42 = [v41 countByEnumeratingWithState:&v51 objects:v63 count:16];
               if (v42)
               {
                 v43 = v42;
-                v44 = *v53;
+                v44 = *v52;
                 while (2)
                 {
                   for (k = 0; k != v43; ++k)
                   {
-                    if (*v53 != v44)
+                    if (*v52 != v44)
                     {
                       objc_enumerationMutation(v41);
                     }
 
-                    [*(*(&v52 + 1) + 8 * k) doubleValue];
+                    [*(*(&v51 + 1) + 8 * k) doubleValue];
                     if (v46 > v9)
                     {
                       ++v34;
@@ -621,7 +619,7 @@
                     }
                   }
 
-                  v43 = [v41 countByEnumeratingWithState:&v52 objects:v64 count:16];
+                  v43 = [v41 countByEnumeratingWithState:&v51 objects:v63 count:16];
                   if (v43)
                   {
                     continue;
@@ -634,7 +632,7 @@
 LABEL_36:
             }
 
-            v33 = [allKeys countByEnumeratingWithState:&v56 objects:v65 count:16];
+            v33 = [allKeys countByEnumeratingWithState:&v55 objects:v64 count:16];
           }
 
           while (v33);
@@ -646,13 +644,11 @@ LABEL_36:
           v35 = 0;
         }
 
-        v51->_numSleepDaysWithMultipleBDsInLast30Days = v35;
-        v51->_numSleepDaysWithBDsOverThresholdLast30Days = v34;
+        v50->_numSleepDaysWithMultipleBDsInLast30Days = v35;
+        v50->_numSleepDaysWithBDsOverThresholdLast30Days = v34;
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_breathingDisturbanceSamplesInPastNight

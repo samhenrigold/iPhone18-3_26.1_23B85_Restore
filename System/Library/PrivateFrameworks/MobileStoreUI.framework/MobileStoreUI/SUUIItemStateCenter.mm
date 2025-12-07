@@ -206,10 +206,10 @@
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D25CA0] object:0];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D69D70] object:0];
-  [defaultCenter removeObserver:self name:*MEMORY[0x277CEC310] object:0];
-  v4 = SUUIMediaPlayerFramework();
-  v5 = *SUUIWeakLinkedSymbolForString("MPMediaLibraryDidChangeNotification", v4);
-  [defaultCenter removeObserver:self name:v5 object:0];
+  v4 = [defaultCenter removeObserver:self name:*MEMORY[0x277CEC310] object:0];
+  v6 = SUUIMediaPlayerFramework(v4, v5);
+  v7 = *SUUIWeakLinkedSymbolForString("MPMediaLibraryDidChangeNotification", v6);
+  [defaultCenter removeObserver:self name:v7 object:0];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, *MEMORY[0x277D69D78], 0);
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
@@ -217,9 +217,9 @@
   CFNotificationCenterRemoveObserver(DistributedCenter, self, @"com.apple.LaunchServices.applicationUnregistered", 0);
   [(SSDownloadManager *)self->_downloadManager removeObserver:self];
 
-  v8.receiver = self;
-  v8.super_class = SUUIItemStateCenter;
-  [(SUUIItemStateCenter *)&v8 dealloc];
+  v10.receiver = self;
+  v10.super_class = SUUIItemStateCenter;
+  [(SUUIItemStateCenter *)&v10 dealloc];
 }
 
 + (id)defaultCenter
@@ -415,46 +415,50 @@ LABEL_11:
 
 void __59__SUUIItemStateCenter_cancelDownloadForItemWithIdentifier___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D69B38] sharedConfig];
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v6 = objc_opt_class();
   v7 = *(a1 + 56);
-  *v12 = 138412546;
-  *&v12[4] = v6;
-  *&v12[12] = 2048;
-  *&v12[14] = v7;
+  v11 = 138412546;
+  v12 = v6;
+  v13 = 2048;
+  v14 = v7;
   v8 = v6;
-  LODWORD(v11) = 22;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_259CB8000, v5, 2, "[%@]: Unable to find job for item with itemID: %lld. Resetting state.", &v11, 22);
 
   if (v9)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:{4, v12, v11, *v12, *&v12[16]}];
+    v5 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -707,7 +711,7 @@ uint64_t __39__SUUIItemStateCenter_isGratisEligible__block_invoke(uint64_t a1)
   return [v1 enumerateKeysAndObjectsUsingBlock:v3];
 }
 
-uint64_t __39__SUUIItemStateCenter_isGratisEligible__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__39__SUUIItemStateCenter_isGratisEligible__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 state];
   if ((result & 0x10) != 0)
@@ -738,18 +742,18 @@ uint64_t __39__SUUIItemStateCenter_isGratisEligible__block_invoke_2(uint64_t a1,
   return v3;
 }
 
-uint64_t __47__SUUIItemStateCenter_isRunningInStoreDemoMode__block_invoke(uint64_t result)
+void *__47__SUUIItemStateCenter_isRunningInStoreDemoMode__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(*(result + 32) + 160);
+  v2 = *(result[4] + 160);
   if (v2 == 255)
   {
     result = [MEMORY[0x277D75128] isRunningInStoreDemoMode];
-    *(*(v1 + 32) + 160) = result;
-    v2 = *(*(v1 + 32) + 160);
+    *(v1[4] + 160) = result;
+    v2 = *(v1[4] + 160);
   }
 
-  *(*(*(v1 + 40) + 8) + 24) = v2 != 0;
+  *(*(v1[5] + 8) + 24) = v2 != 0;
   return result;
 }
 
@@ -886,7 +890,7 @@ void __43__SUUIItemStateCenter_parentalControlsRank__block_invoke(uint64_t a1)
   contextCopy = context;
   blockCopy = block;
   v14 = [(SUUIItemStateCenter *)self metricsActionTypeForItem:itemCopy];
-  if (([v14 isEqualToString:*MEMORY[0x277D6A438]] & 1) != 0 || objc_msgSend(v14, "isEqualToString:", *MEMORY[0x277D6A448]))
+  if ((objc_msgSend_isEqualToString_(v14) & 1) != 0 || objc_msgSend_isEqualToString_(v14))
   {
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
@@ -901,14 +905,14 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([v14 isEqualToString:*MEMORY[0x277D6A450]])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     bundleIdentifier = [itemCopy bundleIdentifier];
     SUUIMetricsLaunchApplicationWithIdentifier(bundleIdentifier, 0);
     CFRelease(bundleIdentifier);
   }
 
-  else if ([v14 isEqualToString:*MEMORY[0x277D6A440]])
+  else if (objc_msgSend_isEqualToString_(v14))
   {
     -[SUUIItemStateCenter cancelDownloadForItemWithIdentifier:](self, "cancelDownloadForItemWithIdentifier:", [itemCopy itemIdentifier]);
   }
@@ -951,7 +955,7 @@ uint64_t __80__SUUIItemStateCenter_performActionForItem_offer_clientContext_comp
   contextCopy = context;
   blockCopy = block;
   v14 = [(SUUIItemStateCenter *)self metricsActionTypeForItem:itemCopy];
-  if (([v14 isEqualToString:*MEMORY[0x277D6A438]] & 1) != 0 || objc_msgSend(v14, "isEqualToString:", *MEMORY[0x277D6A448]))
+  if ((objc_msgSend_isEqualToString_(v14) & 1) != 0 || objc_msgSend_isEqualToString_(v14))
   {
     if (SUUIItemStateCenterUseAppstoredPurchases(itemCopy))
     {
@@ -979,14 +983,14 @@ uint64_t __80__SUUIItemStateCenter_performActionForItem_offer_clientContext_comp
 
   else
   {
-    if ([v14 isEqualToString:*MEMORY[0x277D6A450]])
+    if (objc_msgSend_isEqualToString_(v14))
     {
       bundleIdentifier = [itemCopy bundleIdentifier];
       SUUIMetricsLaunchApplicationWithIdentifier(bundleIdentifier, 0);
       CFRelease(bundleIdentifier);
     }
 
-    else if ([v14 isEqualToString:*MEMORY[0x277D6A440]])
+    else if (objc_msgSend_isEqualToString_(v14))
     {
       -[SUUIItemStateCenter cancelDownloadForItemWithIdentifier:](self, "cancelDownloadForItemWithIdentifier:", [itemCopy itemIdentifier]);
     }
@@ -1353,7 +1357,7 @@ void __82__SUUIItemStateCenter_reloadGratisEligibilityWithBundleIdentifiers_clie
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __42__SUUIItemStateCenter_reloadMediaLibrary___block_invoke(uint64_t a1)
+void *__42__SUUIItemStateCenter_reloadMediaLibrary___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) containsObject:*(a1 + 40)];
   if (result)
@@ -1662,18 +1666,18 @@ void __50__SUUIItemStateCenter_beginObservingLibraryItems___block_invoke(uint64_
 
 void __50__SUUIItemStateCenter_beginObservingLibraryItems___block_invoke_2(uint64_t a1)
 {
-  v10 = [MEMORY[0x277CCAB98] defaultCenter];
-  v2 = SUUIMediaPlayerFramework();
-  v3 = SUUIWeakLinkedClassForString(&cfstr_Mpmedialibrary.isa, v2);
-  v4 = [v3 defaultMediaLibrary];
-  [v4 beginGeneratingLibraryChangeNotifications];
+  v13 = [MEMORY[0x277CCAB98] defaultCenter];
+  v3 = SUUIMediaPlayerFramework(v13, v2);
+  v4 = SUUIWeakLinkedClassForString(&cfstr_Mpmedialibrary.isa, v3);
+  v5 = [v4 defaultMediaLibrary];
+  [v5 beginGeneratingLibraryChangeNotifications];
 
-  v5 = SUUIMediaPlayerFramework();
-  v6 = SUUIWeakLinkedSymbolForString("MPMediaLibraryDidChangeNotification", v5);
-  v7 = *(a1 + 32);
-  v8 = *v6;
-  v9 = [v3 defaultMediaLibrary];
-  [v10 addObserver:v7 selector:sel__mediaLibraryDidChangeNotification_ name:v8 object:v9];
+  v8 = SUUIMediaPlayerFramework(v6, v7);
+  v9 = SUUIWeakLinkedSymbolForString("MPMediaLibraryDidChangeNotification", v8);
+  v10 = *(a1 + 32);
+  v11 = *v9;
+  v12 = [v4 defaultMediaLibrary];
+  [v13 addObserver:v10 selector:sel__mediaLibraryDidChangeNotification_ name:v11 object:v12];
 }
 
 - (void)evaluatePurchaseResponseForRentals:(id)rentals
@@ -2418,304 +2422,332 @@ void __58__SUUIItemStateCenter_removeRelationshipsForParentAdamId___block_invoke
 
 void __48__SUUIItemStateCenter_jobManager_completedJobs___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v50 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
+  v78 = *MEMORY[0x277D85DE8];
+  v53 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   obj = *(a1 + 32);
-  v57 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
-  if (v57)
+  v60 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
+  if (v60)
   {
-    v56 = *v63;
-    v48 = a1;
+    v59 = *v66;
+    v51 = a1;
     do
     {
-      for (i = 0; i != v57; ++i)
+      for (i = 0; i != v60; ++i)
       {
-        if (*v63 != v56)
+        if (*v66 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v62 + 1) + 8 * i);
-        v4 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "storeItemID", v46)}];
+        v3 = *(*(&v65 + 1) + 8 * i);
+        v4 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v3, "storeItemID", v49)}];
         v5 = [[SUUIStoreIdentifier alloc] initWithNumber:v4];
         v6 = [*(*(a1 + 40) + 88) objectForKey:v5];
         v7 = [v3 phase];
         if (!v6)
         {
-          v59 = v5;
+          v62 = v5;
           v19 = [MEMORY[0x277D69B38] sharedConfig];
-          v20 = [v19 shouldLog];
+          LODWORD(v20) = [v19 shouldLog];
           if ([v19 shouldLogToDisk])
           {
-            v20 |= 2u;
+            LODWORD(v20) = v20 | 2;
           }
 
           v21 = [v19 OSLogObject];
-          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          {
+            v20 = v20;
+          }
+
+          else
           {
             v20 &= 2u;
           }
 
           if (v20)
           {
-LABEL_27:
-            v23 = a1;
-            v24 = v4;
-            v25 = objc_opt_class();
-            v26 = v25;
-            v27 = [v3 bundleID];
-            v66 = 138412546;
-            v67 = v25;
-            v4 = v24;
-            v68 = 2112;
-            v69 = v27;
-            LODWORD(v47) = 22;
-            v46 = &v66;
-            v28 = _os_log_send_and_compose_impl();
-
-            if (v28)
-            {
-              v21 = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v66, v47}];
-              free(v28);
-              v46 = v21;
-              SSFileLog();
-              goto LABEL_30;
-            }
-
-LABEL_31:
-
-            a1 = v23;
-            v5 = v59;
-            goto LABEL_59;
+            v22 = a1;
+            v23 = v4;
+            v24 = objc_opt_class();
+            v25 = v24;
+            v26 = [v3 bundleID];
+            v69 = 138412546;
+            v70 = v24;
+            v4 = v23;
+            v71 = 2112;
+            v72 = v26;
+            LODWORD(v50) = 22;
+            v27 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_259CB8000, v21, 2, "[%@]: Complete job: Could not find state for job: %@", &v69, v50);
+            goto LABEL_31;
           }
 
-LABEL_29:
-          v23 = a1;
-LABEL_30:
+LABEL_33:
+          v22 = a1;
+LABEL_34:
 
-          goto LABEL_31;
+LABEL_35:
+          a1 = v22;
+          v5 = v62;
+          goto LABEL_64;
         }
 
         v8 = v7;
         v9 = [v6 state];
         if ((v9 & 0x23) == 0)
         {
-          v59 = v5;
+          v62 = v5;
           v19 = [MEMORY[0x277D69B38] sharedConfig];
-          v22 = [v19 shouldLog];
+          LODWORD(v28) = [v19 shouldLog];
           if ([v19 shouldLogToDisk])
           {
-            v22 |= 2u;
+            LODWORD(v28) = v28 | 2;
           }
 
           v21 = [v19 OSLogObject];
-          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            v22 &= 2u;
+            v28 = v28;
           }
 
-          if (v22)
+          else
           {
-            goto LABEL_27;
+            v28 &= 2u;
           }
 
-          goto LABEL_29;
+          if (!v28)
+          {
+            goto LABEL_33;
+          }
+
+          v22 = a1;
+          v29 = v4;
+          v30 = objc_opt_class();
+          v25 = v30;
+          v26 = [v3 bundleID];
+          v69 = 138412546;
+          v70 = v30;
+          v4 = v29;
+          v71 = 2112;
+          v72 = v26;
+          LODWORD(v50) = 22;
+          v27 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_259CB8000, v21, 2, "[%@]: Completed without any relevant state flags for job: %@", &v69, v50);
+LABEL_31:
+          v31 = v27;
+
+          if (v31)
+          {
+            v21 = [MEMORY[0x277CCACA8] stringWithCString:v31 encoding:4];
+            free(v31);
+            v49 = v21;
+            SSFileLog();
+            goto LABEL_34;
+          }
+
+          goto LABEL_35;
         }
 
         v10 = v9;
         if (!v8)
         {
-          v29 = [MEMORY[0x277D69B38] sharedConfig];
-          v30 = [v29 shouldLog];
-          if ([v29 shouldLogToDisk])
+          v32 = [MEMORY[0x277D69B38] sharedConfig];
+          LODWORD(v33) = [v32 shouldLog];
+          if ([v32 shouldLogToDisk])
           {
-            v30 |= 2u;
+            LODWORD(v33) = v33 | 2;
           }
 
-          v31 = [v29 OSLogObject];
-          if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v34 = [v32 OSLogObject];
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            v30 &= 2u;
+            v33 = v33;
           }
 
-          if (v30)
+          else
           {
-            v60 = v5;
-            v32 = a1;
-            v33 = v4;
-            v34 = objc_opt_class();
-            v55 = v34;
-            v35 = [v3 bundleID];
-            v66 = 138412546;
-            v67 = v34;
-            v4 = v33;
-            a1 = v32;
-            v5 = v60;
-            v68 = 2112;
-            v69 = v35;
-            LODWORD(v47) = 22;
-            v46 = &v66;
-            v36 = _os_log_send_and_compose_impl();
+            v33 &= 2u;
+          }
 
-            if (v36)
+          if (v33)
+          {
+            v63 = v5;
+            v35 = a1;
+            v36 = v4;
+            v37 = objc_opt_class();
+            v58 = v37;
+            v38 = [v3 bundleID];
+            v69 = 138412546;
+            v70 = v37;
+            v4 = v36;
+            a1 = v35;
+            v5 = v63;
+            v71 = 2112;
+            v72 = v38;
+            LODWORD(v50) = 22;
+            v39 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_259CB8000, v34, 2, "[%@]: Complete job: Canceled job: %@", &v69, v50);
+
+            if (v39)
             {
-              v31 = [MEMORY[0x277CCACA8] stringWithCString:v36 encoding:{4, &v66, v47}];
-              free(v36);
-              v46 = v31;
+              v34 = [MEMORY[0x277CCACA8] stringWithCString:v39 encoding:4];
+              free(v39);
+              v49 = v34;
               SSFileLog();
-              goto LABEL_39;
+              goto LABEL_44;
             }
           }
 
           else
           {
-LABEL_39:
+LABEL_44:
           }
 
-          v37 = v10 & 0xFFFFFFFFFFFFFFFCLL;
-          goto LABEL_58;
+          v40 = v10 & 0xFFFFFFFFFFFFFFFCLL;
+          goto LABEL_63;
         }
 
-        v53 = v4;
-        v51 = v9;
+        v56 = v4;
+        v54 = v9;
         v11 = v9 & 0xFFFFFFFFFFFFFFDCLL;
         v12 = [MEMORY[0x277D69B38] sharedConfig];
-        v13 = [v12 shouldLog];
+        LODWORD(v13) = [v12 shouldLog];
         if ([v12 shouldLogToDisk])
         {
-          v13 |= 2u;
+          LODWORD(v13) = v13 | 2;
         }
 
         v14 = [v12 OSLogObject];
-        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          v13 = v13;
+        }
+
+        else
         {
           v13 &= 2u;
         }
 
-        v54 = v11;
+        v57 = v11;
         if (!v13)
         {
-          v18 = v51;
-          goto LABEL_42;
+          v18 = v54;
+          goto LABEL_47;
         }
 
         v15 = objc_opt_class();
-        v49 = v15;
+        v52 = v15;
         [v3 bundleID];
-        v16 = v58 = v5;
-        v66 = 138413058;
-        v67 = v15;
-        v68 = 2112;
-        v69 = v16;
-        v70 = 2048;
-        v71 = v8;
-        v72 = 2048;
-        v73 = v11;
-        LODWORD(v47) = 42;
-        v46 = &v66;
-        v17 = _os_log_send_and_compose_impl();
+        v16 = v61 = v5;
+        v69 = 138413058;
+        v70 = v15;
+        v71 = 2112;
+        v72 = v16;
+        v73 = 2048;
+        v74 = v8;
+        v75 = 2048;
+        v76 = v11;
+        LODWORD(v50) = 42;
+        v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_259CB8000, v14, 2, "[%@]: Complete job: %@ phase: %ld state: %ld", &v69, v50);
 
-        v5 = v58;
-        v18 = v51;
+        v5 = v61;
+        v18 = v54;
         if (v17)
         {
-          v14 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, &v66, v47}];
+          v14 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
           free(v17);
-          v46 = v14;
+          v49 = v14;
           SSFileLog();
-LABEL_42:
+LABEL_47:
         }
 
         if (v8 != 4)
         {
-          a1 = v48;
-          v4 = v53;
-          goto LABEL_57;
+          a1 = v51;
+          v4 = v56;
+          goto LABEL_62;
         }
 
-        a1 = v48;
-        v4 = v53;
-        v37 = v54;
+        a1 = v51;
+        v4 = v56;
+        v40 = v57;
         if ((v18 & 4) == 0)
         {
-          v38 = v54 | 4;
-          v39 = [MEMORY[0x277D69B38] sharedConfig];
-          v40 = [v39 shouldLog];
-          if ([v39 shouldLogToDisk])
+          v41 = v57 | 4;
+          v42 = [MEMORY[0x277D69B38] sharedConfig];
+          v43 = [v42 shouldLog];
+          if ([v42 shouldLogToDisk])
           {
-            v40 |= 2u;
+            v43 |= 2u;
           }
 
-          v41 = [v39 OSLogObject];
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          v44 = [v42 OSLogObject];
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
-            v42 = v40;
+            v45 = v43;
           }
 
           else
           {
-            v42 = v40 & 2;
+            v45 = v43 & 2;
           }
 
-          v54 |= 4uLL;
-          if (v42)
+          v57 |= 4uLL;
+          if (v45)
           {
-            v43 = objc_opt_class();
-            v61 = v43;
-            v44 = [v3 bundleID];
-            v66 = 138413058;
-            v67 = v43;
-            v68 = 2112;
-            v69 = v44;
-            v70 = 2048;
-            v71 = 4;
-            v72 = 2048;
-            v73 = v38;
-            LODWORD(v47) = 42;
-            v46 = &v66;
-            v45 = _os_log_send_and_compose_impl();
+            v46 = objc_opt_class();
+            v64 = v46;
+            v47 = [v3 bundleID];
+            v69 = 138413058;
+            v70 = v46;
+            v71 = 2112;
+            v72 = v47;
+            v73 = 2048;
+            v74 = 4;
+            v75 = 2048;
+            v76 = v41;
+            LODWORD(v50) = 42;
+            v48 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &dword_259CB8000, v44, 2, "[%@]: Adding installed state following finished job: %@ phase: %ld state: %ld", &v69, v50);
 
-            v4 = v53;
-            if (v45)
+            v4 = v56;
+            if (v48)
             {
-              v41 = [MEMORY[0x277CCACA8] stringWithCString:v45 encoding:{4, &v66, v47}];
-              free(v45);
-              v46 = v41;
+              v44 = [MEMORY[0x277CCACA8] stringWithCString:v48 encoding:4];
+              free(v48);
+              v49 = v44;
               SSFileLog();
-              goto LABEL_55;
+              goto LABEL_60;
             }
           }
 
           else
           {
-            v4 = v53;
-LABEL_55:
+            v4 = v56;
+LABEL_60:
           }
 
-LABEL_57:
-          v37 = v54;
+LABEL_62:
+          v40 = v57;
         }
 
-LABEL_58:
-        [v6 setDownloadProgress:{0.0, v46}];
-        [v6 setState:v37];
-        [v50 addObject:v6];
-LABEL_59:
+LABEL_63:
+        [v6 setDownloadProgress:{0.0, v49}];
+        [v6 setState:v40];
+        [v53 addObject:v6];
+LABEL_64:
       }
 
-      v57 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v60 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
     }
 
-    while (v57);
+    while (v60);
   }
 
-  if ([v50 count])
+  if ([v53 count])
   {
-    [*(a1 + 40) _notifyObserversOfStateChanges:v50];
+    [*(a1 + 40) _notifyObserversOfStateChanges:v53];
   }
 }
 
@@ -2930,13 +2962,12 @@ void __53__SUUIItemStateCenter_jobManager_updatedStateOfJobs___block_invoke(uint
               v45 = 2048;
               v46 = v21;
               LODWORD(v27) = 42;
-              v26 = &v39;
-              v23 = _os_log_send_and_compose_impl();
+              v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_259CB8000, v17, 2, "[%@]: State job: %@ phase: %ld state: %ld", &v39, v27);
 
               v5 = v28;
               if (v23)
               {
-                v17 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:{4, &v39, v27}];
+                v17 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
                 free(v23);
                 v26 = v17;
                 SSFileLog();
@@ -2995,114 +3026,112 @@ LABEL_22:
 
 void __63__SUUIItemStateCenter_downloadManager_downloadStatesDidChange___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v38 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v47 = *MEMORY[0x277D85DE8];
+  v37 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v42 = 0u;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v3)
   {
     v4 = v3;
-    v34 = 0;
-    v5 = *v45;
+    v33 = 0;
+    v5 = *v43;
     v6 = *MEMORY[0x277D6A018];
-    v7 = *MEMORY[0x277D69EA8];
-    v40 = *MEMORY[0x277D6A080];
-    v33 = *MEMORY[0x277D69F30];
-    v41 = *MEMORY[0x277D69EA8];
-    v42 = a1;
-    v39 = v2;
+    v39 = *MEMORY[0x277D6A080];
+    v32 = *MEMORY[0x277D69F30];
+    v40 = a1;
+    v38 = v2;
     while (1)
     {
-      v8 = 0;
-      v43 = v4;
+      v7 = 0;
+      v41 = v4;
       do
       {
-        if (*v45 != v5)
+        if (*v43 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * v8);
-        v10 = [v9 valueForProperty:{v6, v33}];
-        v11 = [v10 isEqualToString:v7];
+        v8 = *(*(&v42 + 1) + 8 * v7);
+        v9 = [v8 valueForProperty:{v6, v32}];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if ((v11 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
-          v12 = v6;
-          v13 = [v9 valueForProperty:v40];
-          if (v13)
+          v11 = v6;
+          v12 = [v8 valueForProperty:v39];
+          if (v12)
           {
-            v14 = [[SUUIStoreIdentifier alloc] initWithNumber:v13];
-            if (v14)
+            v13 = [[SUUIStoreIdentifier alloc] initWithNumber:v12];
+            if (v13)
             {
-              [*(*(a1 + 40) + 88) objectForKey:v14];
-              v16 = v15 = a1;
-              if (v16 && ([v9 downloadPhaseIdentifier], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "setDownloadPhase:", v17), v17, objc_msgSend(v16, "downloadProgress"), v19 = v18, objc_msgSend(v9, "percentComplete"), *&v20 = v20, objc_msgSend(v16, "setDownloadProgress:", v20), objc_msgSend(v38, "addObject:", v16), objc_msgSend(*(*(v15 + 40) + 152), "itemHasParent:", v14)))
+              [*(*(a1 + 40) + 88) objectForKey:v13];
+              v15 = v14 = a1;
+              if (v15 && ([v8 downloadPhaseIdentifier], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "setDownloadPhase:", v16), v16, objc_msgSend(v15, "downloadProgress"), v18 = v17, objc_msgSend(v8, "percentComplete"), *&v19 = v19, objc_msgSend(v15, "setDownloadProgress:", v19), objc_msgSend(v37, "addObject:", v15), objc_msgSend(*(*(v14 + 40) + 152), "itemHasParent:", v13)))
               {
-                v21 = [*(*(v15 + 40) + 152) parentItemForItem:v14];
-                v22 = [*(*(v15 + 40) + 88) objectForKey:v21];
-                if (!v22)
+                v20 = [*(*(v14 + 40) + 152) parentItemForItem:v13];
+                v21 = [*(*(v14 + 40) + 88) objectForKey:v20];
+                if (!v21)
                 {
-                  v22 = objc_alloc_init(SUUIItemState);
-                  [v21 itemIdentifier];
-                  v23 = v36 = v21;
-                  [(SUUIItemState *)v22 setItemIdentifier:v23];
+                  v21 = objc_alloc_init(SUUIItemState);
+                  [v20 itemIdentifier];
+                  v22 = v35 = v20;
+                  [(SUUIItemState *)v21 setItemIdentifier:v22];
 
-                  [(SUUIItemState *)v22 setStoreIdentifier:v36];
-                  v24 = [v16 downloadPhase];
-                  [(SUUIItemState *)v22 setDownloadPhase:v24];
+                  [(SUUIItemState *)v21 setStoreIdentifier:v35];
+                  v23 = [v15 downloadPhase];
+                  [(SUUIItemState *)v21 setDownloadPhase:v23];
 
-                  v21 = v36;
-                  -[SUUIItemState setDownloadContentFlags:](v22, "setDownloadContentFlags:", [v16 downloadContentFlags]);
-                  [*(*(v15 + 40) + 88) setObject:v22 forKey:v36];
+                  v20 = v35;
+                  -[SUUIItemState setDownloadContentFlags:](v21, "setDownloadContentFlags:", [v15 downloadContentFlags]);
+                  [*(*(v14 + 40) + 88) setObject:v21 forKey:v35];
                 }
 
-                v25 = [*(*(v15 + 40) + 152) siblingItemsForItem:v14];
-                [(SUUIItemState *)v22 downloadProgress];
-                v27 = v26;
-                v35 = v25;
-                v28 = [v25 count];
-                if ((v27 - (v19 / v28)) >= 0.0)
+                v24 = [*(*(v14 + 40) + 152) siblingItemsForItem:v13];
+                [(SUUIItemState *)v21 downloadProgress];
+                v26 = v25;
+                v34 = v24;
+                v27 = [v24 count];
+                if ((v26 - (v18 / v27)) >= 0.0)
                 {
-                  v29 = v27 - (v19 / v28);
+                  v28 = v26 - (v18 / v27);
                 }
 
                 else
                 {
-                  v29 = (v19 / v28) + (v27 - (v19 / v28));
+                  v28 = (v18 / v27) + (v26 - (v18 / v27));
                 }
 
-                [v16 downloadProgress];
-                *&v30 = (*&v30 / v28) + v29;
-                if (*&v30 > 1.0)
+                [v15 downloadProgress];
+                *&v29 = (*&v29 / v27) + v28;
+                if (*&v29 > 1.0)
                 {
-                  *&v30 = 1.0;
+                  *&v29 = 1.0;
                 }
 
-                [(SUUIItemState *)v22 setDownloadProgress:v30];
-                if (([v34 isEqual:v33] & 1) == 0)
+                [(SUUIItemState *)v21 setDownloadProgress:v29];
+                if (([v33 isEqual:v32] & 1) == 0)
                 {
-                  [v9 downloadPhaseIdentifier];
-                  v31 = v37 = v21;
-                  [(SUUIItemState *)v22 setDownloadPhase:v31];
+                  [v8 downloadPhaseIdentifier];
+                  v30 = v36 = v20;
+                  [(SUUIItemState *)v21 setDownloadPhase:v30];
 
-                  v21 = v37;
-                  v32 = [v9 downloadPhaseIdentifier];
+                  v20 = v36;
+                  v31 = [v8 downloadPhaseIdentifier];
 
-                  v34 = v32;
+                  v33 = v31;
                 }
 
-                v2 = v39;
-                [v38 addObject:v22];
+                v2 = v38;
+                [v37 addObject:v21];
               }
 
               else
               {
-                v2 = v39;
+                v2 = v38;
               }
 
               goto LABEL_24;
@@ -3111,23 +3140,22 @@ void __63__SUUIItemStateCenter_downloadManager_downloadStatesDidChange___block_i
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
 
-          v16 = 0;
+          v15 = 0;
 LABEL_24:
 
-          v6 = v12;
-          a1 = v42;
-          v4 = v43;
-          v7 = v41;
+          v6 = v11;
+          a1 = v40;
+          v4 = v41;
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v4 != v8);
-      v4 = [v2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      while (v4 != v7);
+      v4 = [v2 countByEnumeratingWithState:&v42 objects:v46 count:16];
       if (!v4)
       {
         goto LABEL_29;
@@ -3135,10 +3163,10 @@ LABEL_24:
     }
   }
 
-  v34 = 0;
+  v33 = 0;
 LABEL_29:
 
-  [*(a1 + 40) _notifyObserversOfStateChanges:v38];
+  [*(a1 + 40) _notifyObserversOfStateChanges:v37];
 }
 
 - (void)downloadQueue:(id)queue downloadStatesDidChange:(id)change
@@ -3210,7 +3238,7 @@ LABEL_13:
           v7 = v11;
           if (!v6)
           {
-            goto LABEL_31;
+            goto LABEL_32;
           }
 
           goto LABEL_15;
@@ -3218,7 +3246,7 @@ LABEL_13:
 
         if (!v6)
         {
-          goto LABEL_31;
+          goto LABEL_32;
         }
 
 LABEL_15:
@@ -3228,27 +3256,32 @@ LABEL_15:
           v13 = [*(*(a1 + 40) + 88) objectForKey:v12];
           if (v13)
           {
-            goto LABEL_26;
+            goto LABEL_27;
           }
         }
 
         v28 = v12;
         v14 = [MEMORY[0x277D69B38] sharedConfig];
-        v15 = [v14 shouldLog];
+        LODWORD(v15) = [v14 shouldLog];
         if ([v14 shouldLogToDisk])
         {
-          v15 |= 2u;
+          LODWORD(v15) = v15 | 2;
         }
 
         v16 = [v14 OSLogObject];
-        if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          v15 = v15;
+        }
+
+        else
         {
           v15 &= 2u;
         }
 
         if (!v15)
         {
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v17 = objc_opt_class();
@@ -3258,8 +3291,7 @@ LABEL_15:
         v19 = a1;
         v20 = v17;
         LODWORD(v24) = 12;
-        v23 = &v35;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_259CB8000, v16, 16, "[%@]: Skipped download without identifier.", &v35, v24);
 
         a1 = v19;
         v2 = v18;
@@ -3267,16 +3299,16 @@ LABEL_15:
 
         if (v21)
         {
-          v16 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, &v35, v24}];
+          v16 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
           free(v21);
           v23 = v16;
           SSFileLog();
-LABEL_24:
+LABEL_25:
         }
 
         v12 = v28;
         v13 = [*(a1 + 40) _addState:2 forItemIdentifier:v28];
-LABEL_26:
+LABEL_27:
         [v13 setMediaCategory:{3, v23}];
         [v13 setDownloadPhase:v27];
         if ([v5 downloadPhase] == 8)
@@ -3297,7 +3329,7 @@ LABEL_26:
 
         [v2 addObject:v13];
 
-LABEL_31:
+LABEL_32:
       }
 
       v30 = [v3 countByEnumeratingWithState:&v31 objects:v37 count:16];
@@ -3483,14 +3515,19 @@ LABEL_29:
 
 LABEL_38:
         v27 = [MEMORY[0x277D69B38] sharedConfig];
-        v28 = [v27 shouldLog];
+        LODWORD(v28) = [v27 shouldLog];
         if ([v27 shouldLogToDisk])
         {
-          v28 |= 2u;
+          LODWORD(v28) = v28 | 2;
         }
 
         v10 = [v27 OSLogObject];
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          v28 = v28;
+        }
+
+        else
         {
           v28 &= 2u;
         }
@@ -3506,12 +3543,11 @@ LABEL_38:
         v30 = v10;
         v31 = v29;
         LODWORD(v35) = 12;
-        v34 = &v56;
-        v32 = _os_log_send_and_compose_impl();
+        v32 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_259CB8000, v30, 16, "[%@]: Skipped download without identifier.", &v56, v35);
 
         if (v32)
         {
-          v10 = [MEMORY[0x277CCACA8] stringWithCString:v32 encoding:{4, &v56, v35}];
+          v10 = [MEMORY[0x277CCACA8] stringWithCString:v32 encoding:4];
           free(v32);
           v34 = v10;
           SSFileLog();
@@ -3888,9 +3924,9 @@ LABEL_14:
   dispatch_async(accessQueue, block);
 }
 
-uint64_t __56__SUUIItemStateCenter__restrictionsChangedNotification___block_invoke(uint64_t result)
+void *__56__SUUIItemStateCenter__restrictionsChangedNotification___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 16) == 255)
   {
     v4 = *(v1 + 136);
@@ -3904,7 +3940,7 @@ uint64_t __56__SUUIItemStateCenter__restrictionsChangedNotification___block_invo
   else
   {
     *(v1 + 16) = -1;
-    v2 = *(result + 32);
+    v2 = result[4];
     v3 = v2 + 17;
     if (v2[17] == -1)
     {
@@ -3913,7 +3949,7 @@ uint64_t __56__SUUIItemStateCenter__restrictionsChangedNotification___block_invo
   }
 
   *v3 = -1;
-  v2 = *(result + 32);
+  v2 = result[4];
   return [v2 _notifyObserversOfRestrictionsChange];
 }
 
@@ -3951,10 +3987,10 @@ uint64_t __56__SUUIItemStateCenter__storefrontDidChangeNotification___block_invo
     if ((state & state) == 0)
     {
       [(SUUIItemState *)mEMORY[0x277D69B38] setState:state | state];
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   if (identifierCopy)
@@ -3966,50 +4002,54 @@ uint64_t __56__SUUIItemStateCenter__storefrontDidChangeNotification___block_invo
     [(SUUIItemState *)mEMORY[0x277D69B38] setStoreIdentifier:identifierCopy];
     [(SUUIItemState *)mEMORY[0x277D69B38] setState:state];
     [(NSMutableDictionary *)self->_itemStates setObject:mEMORY[0x277D69B38] forKey:identifierCopy];
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
   shouldLog = [(SUUIItemState *)mEMORY[0x277D69B38] shouldLog];
   if ([(SUUIItemState *)mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
   oSLogObject = [(SUUIItemState *)mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (!v12)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  LODWORD(v18) = 138412290;
-  *(&v18 + 4) = objc_opt_class();
-  v14 = *(&v18 + 4);
-  LODWORD(v17) = 12;
-  v15 = _os_log_send_and_compose_impl();
+  v17 = 138412290;
+  v18 = objc_opt_class();
+  v14 = v18;
+  v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_259CB8000, oSLogObject, 16, "[%@]: _addState:forItemIdentifier: Tried to add a state for nil itemID.", &v17, 12);
 
   if (v15)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v18, v17, v18}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_14:
+LABEL_15:
   }
 
-LABEL_15:
+LABEL_16:
 
   mEMORY[0x277D69B38] = 0;
-LABEL_16:
+LABEL_17:
 
   return mEMORY[0x277D69B38];
 }
@@ -4335,9 +4375,9 @@ void __55__SUUIItemStateCenter__fireFinishLoadBlocksIfNecessary__block_invoke(ui
   }
 
   variantIdentifier = [offerCopy variantIdentifier];
-  v19 = [variantIdentifier isEqualToString:@"HD"];
+  isEqualToString = objc_msgSend_isEqualToString_(variantIdentifier);
 
-  if (v19)
+  if (isEqualToString)
   {
     [v10 setValue:MEMORY[0x277CBEC38] forDownloadProperty:*MEMORY[0x277D69FE0]];
   }
@@ -4508,27 +4548,26 @@ LABEL_39:
             v24 = shouldLog;
           }
 
-          v30 = v24;
+          v29 = v24;
           oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
           v25 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG);
-          v26 = v30 & 2;
+          v26 = v29 & 2;
           if (v25)
           {
-            v26 = v30;
+            v26 = v29;
           }
 
           if (v26)
           {
+            v30 = v26;
             v36 = 138412290;
             v37 = objc_opt_class();
-            v29 = v37;
-            LODWORD(v28) = 12;
-            v27 = &v36;
-            v31 = _os_log_send_and_compose_impl();
+            v28 = v37;
+            v31 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_259CB8000, oSLogObject, 2, "[%@]: Ignoring non-app gratis purchase request.", &v36, 12);
 
             if (v31)
             {
-              v34 = [MEMORY[0x277CCACA8] stringWithCString:v31 encoding:{4, &v36, v28}];
+              v34 = [MEMORY[0x277CCACA8] stringWithCString:v31 encoding:4];
               free(v31);
               v27 = v34;
               SSFileLog();
@@ -6497,13 +6536,12 @@ void __83__SUUIItemStateCenter__setAvailableAppstoredUpdatesWithUpdates_decremen
             v43 = 2048;
             v44 = v14;
             LODWORD(v26) = 42;
-            v25 = &v37;
-            v24 = _os_log_send_and_compose_impl();
+            v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_259CB8000, v19, 2, "[%@]: Update item: %@ updateState: %ld state: %ld", &v37, v26);
 
             v2 = v28;
             if (v24)
             {
-              v19 = [MEMORY[0x277CCACA8] stringWithCString:v24 encoding:{4, &v37, v26}];
+              v19 = [MEMORY[0x277CCACA8] stringWithCString:v24 encoding:4];
               free(v24);
               v25 = v19;
               SSFileLog();
@@ -6557,202 +6595,200 @@ LABEL_33:
 void __37__SUUIItemStateCenter__setDownloads___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v98 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   --*(*(a1 + 32) + 80);
   v2 = [*(*(a1 + 32) + 88) mutableCopy];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v63 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v62 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v88 = 0u;
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
   obj = *(v1 + 40);
-  v4 = [obj countByEnumeratingWithState:&v90 objects:v97 count:16];
+  v4 = [obj countByEnumeratingWithState:&v88 objects:v95 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v91;
+    v6 = *v89;
     v7 = *MEMORY[0x277D6A018];
-    v8 = *MEMORY[0x277D69EA8];
-    v72 = *MEMORY[0x277D6A080];
-    v67 = *MEMORY[0x277D6A008];
-    v65 = *MEMORY[0x277D69FF8];
-    v66 = *MEMORY[0x277D69FE0];
-    v64 = v2;
-    v68 = *MEMORY[0x277D69EA8];
-    v69 = *MEMORY[0x277D6A018];
-    v60 = v3;
-    v61 = v1;
-    v70 = *v91;
+    v70 = *MEMORY[0x277D6A080];
+    v66 = *MEMORY[0x277D6A008];
+    v64 = *MEMORY[0x277D69FF8];
+    v65 = *MEMORY[0x277D69FE0];
+    v63 = v2;
+    v67 = *MEMORY[0x277D6A018];
+    v59 = v3;
+    v60 = v1;
+    v68 = *v89;
     do
     {
-      v9 = 0;
-      v71 = v5;
+      v8 = 0;
+      v69 = v5;
       do
       {
-        if (*v91 != v6)
+        if (*v89 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v77 = v9;
-        v10 = *(*(&v90 + 1) + 8 * v9);
-        v11 = [v10 valueForProperty:{v7, v60}];
-        v12 = [v11 isEqualToString:v8];
+        v75 = v8;
+        v9 = *(*(&v88 + 1) + 8 * v8);
+        v10 = [v9 valueForProperty:{v7, v59}];
+        isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-        if ((v12 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
-          v13 = [v10 valueForProperty:v72];
-          if (v13)
+          v12 = [v9 valueForProperty:v70];
+          if (v12)
           {
-            v14 = [[SUUIStoreIdentifier alloc] initWithNumber:v13];
-            v15 = [v2 objectForKey:v14];
-            if (!v15)
+            v13 = [[SUUIStoreIdentifier alloc] initWithNumber:v12];
+            v14 = [v2 objectForKey:v13];
+            if (!v14)
             {
-              v15 = objc_alloc_init(SUUIItemState);
-              [(SUUIItemState *)v15 setItemIdentifier:v13];
-              [(SUUIItemState *)v15 setStoreIdentifier:v14];
-              [*(*(v1 + 32) + 88) setObject:v15 forKey:v14];
+              v14 = objc_alloc_init(SUUIItemState);
+              [(SUUIItemState *)v14 setItemIdentifier:v12];
+              [(SUUIItemState *)v14 setStoreIdentifier:v13];
+              [*(*(v1 + 32) + 88) setObject:v14 forKey:v13];
             }
 
-            v16 = [(SUUIItemState *)v15 state];
-            if ((v16 & 2) == 0)
+            v15 = [(SUUIItemState *)v14 state];
+            if ((v15 & 2) == 0)
             {
-              [(SUUIItemState *)v15 setState:v16 | 2];
-              [v3 addObject:v15];
+              [(SUUIItemState *)v14 setState:v15 | 2];
+              [v3 addObject:v14];
             }
 
-            v17 = v15;
-            v18 = [(SUUIItemState *)v15 downloadContentFlags];
-            v19 = [v10 valueForProperty:v67];
-            v20 = [v19 BOOLValue];
+            v16 = v14;
+            v17 = [(SUUIItemState *)v14 downloadContentFlags];
+            v18 = [v9 valueForProperty:v66];
+            v19 = [v18 BOOLValue];
 
-            if ((v18 & 2) != v20)
+            if ((v17 & 2) != v19)
             {
-              [(SUUIItemState *)v17 setDownloadContentFlags:v18 | v20];
-              [v3 addObject:v17];
+              [(SUUIItemState *)v16 setDownloadContentFlags:v17 | v19];
+              [v3 addObject:v16];
             }
 
-            v21 = v10;
-            v22 = [v21 valueForProperty:v66];
-            v23 = [v22 BOOLValue];
+            v20 = v9;
+            v21 = [v20 valueForProperty:v65];
+            v22 = [v21 BOOLValue];
 
-            v24 = [v21 valueForProperty:v65];
+            v23 = [v20 valueForProperty:v64];
 
-            v25 = [v24 BOOLValue];
-            v26 = @"buy";
-            if (v25)
+            v24 = [v23 BOOLValue];
+            v25 = @"buy";
+            if (v24)
             {
-              v26 = @"rent";
+              v25 = @"rent";
             }
 
-            v27 = @"buy_HD";
-            if (v25)
+            v26 = @"buy_HD";
+            if (v24)
             {
-              v27 = @"rent_HD";
+              v26 = @"rent_HD";
             }
 
-            if (v23)
+            if (v22)
             {
-              v26 = v27;
+              v25 = v26;
             }
 
-            v28 = v26;
-            v76 = v17;
-            v29 = [(SUUIItemState *)v17 variantIdentifier];
-            v75 = v28;
-            v30 = [v29 isEqualToString:v28];
+            v27 = v25;
+            v74 = v16;
+            v28 = [(SUUIItemState *)v16 variantIdentifier];
+            v73 = v27;
+            v29 = objc_msgSend_isEqualToString_(v28);
 
-            if ((v30 & 1) == 0)
+            if ((v29 & 1) == 0)
             {
-              [(SUUIItemState *)v17 setVariantIdentifier:v28];
-              [v3 addObject:v17];
+              [(SUUIItemState *)v16 setVariantIdentifier:v27];
+              [v3 addObject:v16];
             }
 
-            [v2 removeObjectForKey:v14];
-            v74 = v14;
-            if ([*(*(v1 + 32) + 152) itemHasParent:v14])
+            [v2 removeObjectForKey:v13];
+            v72 = v13;
+            if ([*(*(v1 + 32) + 152) itemHasParent:v13])
             {
-              v31 = [*(*(v1 + 32) + 152) parentItemForItem:v14];
-              v32 = [v2 objectForKey:v31];
-              if (!v32)
+              v30 = [*(*(v1 + 32) + 152) parentItemForItem:v13];
+              v31 = [v2 objectForKey:v30];
+              if (!v31)
               {
-                v32 = objc_alloc_init(SUUIItemState);
-                v33 = [v31 itemIdentifier];
-                [(SUUIItemState *)v32 setItemIdentifier:v33];
+                v31 = objc_alloc_init(SUUIItemState);
+                v32 = [v30 itemIdentifier];
+                [(SUUIItemState *)v31 setItemIdentifier:v32];
 
-                [(SUUIItemState *)v32 setStoreIdentifier:v31];
-                v34 = [(SUUIItemState *)v17 downloadPhase];
-                [(SUUIItemState *)v32 setDownloadPhase:v34];
+                [(SUUIItemState *)v31 setStoreIdentifier:v30];
+                v33 = [(SUUIItemState *)v16 downloadPhase];
+                [(SUUIItemState *)v31 setDownloadPhase:v33];
 
-                [*(*(v1 + 32) + 88) setObject:v32 forKey:v31];
+                [*(*(v1 + 32) + 88) setObject:v31 forKey:v30];
               }
 
-              v35 = [(SUUIItemState *)v32 state];
-              if ((v35 & 2) == 0)
+              v34 = [(SUUIItemState *)v31 state];
+              if ((v34 & 2) == 0)
               {
-                [(SUUIItemState *)v32 setState:v35 | 2];
-                [v3 addObject:v32];
+                [(SUUIItemState *)v31 setState:v34 | 2];
+                [v3 addObject:v31];
               }
 
-              v36 = v31;
+              v35 = v30;
 LABEL_41:
-              v44 = v76;
-              [v63 addObject:v31];
+              v43 = v74;
+              [v62 addObject:v30];
 
-              v2 = v64;
+              v2 = v63;
             }
 
             else
             {
-              v88 = 0u;
-              v89 = 0u;
               v86 = 0u;
               v87 = 0u;
-              v36 = v2;
-              v37 = [v36 countByEnumeratingWithState:&v86 objects:v96 count:16];
-              if (v37)
+              v84 = 0u;
+              v85 = 0u;
+              v35 = v2;
+              v36 = [v35 countByEnumeratingWithState:&v84 objects:v94 count:16];
+              if (v36)
               {
-                v38 = v37;
-                v62 = v13;
-                v39 = *v87;
+                v37 = v36;
+                v61 = v12;
+                v38 = *v85;
                 while (2)
                 {
-                  for (i = 0; i != v38; ++i)
+                  for (i = 0; i != v37; ++i)
                   {
-                    if (*v87 != v39)
+                    if (*v85 != v38)
                     {
-                      objc_enumerationMutation(v36);
+                      objc_enumerationMutation(v35);
                     }
 
-                    v31 = *(*(&v86 + 1) + 8 * i);
-                    v32 = [v36 objectForKey:v31];
-                    v41 = [(SUUIItemState *)v32 downloadIdentifiers];
-                    v42 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v21, "persistentIdentifier")}];
-                    v43 = [v41 containsObject:v42];
+                    v30 = *(*(&v84 + 1) + 8 * i);
+                    v31 = [v35 objectForKey:v30];
+                    v40 = [(SUUIItemState *)v31 downloadIdentifiers];
+                    v41 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v20, "persistentIdentifier")}];
+                    v42 = [v40 containsObject:v41];
 
-                    if (v43)
+                    if (v42)
                     {
-                      v45 = [(SUUIItemState *)v32 state];
-                      v3 = v60;
-                      if ((v45 & 2) == 0)
+                      v44 = [(SUUIItemState *)v31 state];
+                      v3 = v59;
+                      if ((v44 & 2) == 0)
                       {
-                        [(SUUIItemState *)v32 setState:v45 | 2];
-                        [v60 addObject:v32];
+                        [(SUUIItemState *)v31 setState:v44 | 2];
+                        [v59 addObject:v31];
                       }
 
-                      v1 = v61;
-                      v46 = *(*(v61 + 32) + 152);
-                      v47 = [MEMORY[0x277CBEB98] setWithObject:v74];
-                      [v46 addChildren:v47 forParent:v31];
+                      v1 = v60;
+                      v45 = *(*(v60 + 32) + 152);
+                      v46 = [MEMORY[0x277CBEB98] setWithObject:v72];
+                      [v45 addChildren:v46 forParent:v30];
 
-                      v13 = v62;
+                      v12 = v61;
                       goto LABEL_41;
                     }
                   }
 
-                  v38 = [v36 countByEnumeratingWithState:&v86 objects:v96 count:16];
-                  if (v38)
+                  v37 = [v35 countByEnumeratingWithState:&v84 objects:v94 count:16];
+                  if (v37)
                   {
                     continue;
                   }
@@ -6760,93 +6796,92 @@ LABEL_41:
                   break;
                 }
 
-                v3 = v60;
-                v1 = v61;
-                v2 = v64;
-                v13 = v62;
+                v3 = v59;
+                v1 = v60;
+                v2 = v63;
+                v12 = v61;
               }
 
-              v44 = v76;
+              v43 = v74;
             }
 
-            v7 = v69;
-            v6 = v70;
-            v5 = v71;
-            v8 = v68;
+            v7 = v67;
+            v6 = v68;
+            v5 = v69;
           }
         }
 
-        v9 = v77 + 1;
+        v8 = v75 + 1;
       }
 
-      while (v77 + 1 != v5);
-      v5 = [obj countByEnumeratingWithState:&v90 objects:v97 count:16];
+      while (v75 + 1 != v5);
+      v5 = [obj countByEnumeratingWithState:&v88 objects:v95 count:16];
     }
 
     while (v5);
   }
 
-  v84 = 0u;
-  v85 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v48 = v63;
-  v49 = [v48 countByEnumeratingWithState:&v82 objects:v95 count:16];
-  if (v49)
-  {
-    v50 = v49;
-    v51 = *v83;
-    do
-    {
-      for (j = 0; j != v50; ++j)
-      {
-        if (*v83 != v51)
-        {
-          objc_enumerationMutation(v48);
-        }
-
-        [v2 removeObjectForKey:*(*(&v82 + 1) + 8 * j)];
-      }
-
-      v50 = [v48 countByEnumeratingWithState:&v82 objects:v95 count:16];
-    }
-
-    while (v50);
-  }
-
   v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v53 = v2;
-  v54 = [v53 countByEnumeratingWithState:&v78 objects:v94 count:16];
-  if (v54)
+  v47 = v62;
+  v48 = [v47 countByEnumeratingWithState:&v80 objects:v93 count:16];
+  if (v48)
   {
-    v55 = v54;
-    v56 = *v79;
+    v49 = v48;
+    v50 = *v81;
     do
     {
-      for (k = 0; k != v55; ++k)
+      for (j = 0; j != v49; ++j)
       {
-        if (*v79 != v56)
+        if (*v81 != v50)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v47);
         }
 
-        v58 = [*(v1 + 32) _removeState:2 forItemIdentifier:*(*(&v78 + 1) + 8 * k)];
-        v59 = v58;
-        if (v58)
+        [v2 removeObjectForKey:*(*(&v80 + 1) + 8 * j)];
+      }
+
+      v49 = [v47 countByEnumeratingWithState:&v80 objects:v93 count:16];
+    }
+
+    while (v49);
+  }
+
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v52 = v2;
+  v53 = [v52 countByEnumeratingWithState:&v76 objects:v92 count:16];
+  if (v53)
+  {
+    v54 = v53;
+    v55 = *v77;
+    do
+    {
+      for (k = 0; k != v54; ++k)
+      {
+        if (*v77 != v55)
         {
-          [v58 setDownloadContentFlags:0];
-          [v59 setVariantIdentifier:0];
-          [v3 addObject:v59];
+          objc_enumerationMutation(v52);
+        }
+
+        v57 = [*(v1 + 32) _removeState:2 forItemIdentifier:*(*(&v76 + 1) + 8 * k)];
+        v58 = v57;
+        if (v57)
+        {
+          [v57 setDownloadContentFlags:0];
+          [v58 setVariantIdentifier:0];
+          [v3 addObject:v58];
         }
       }
 
-      v55 = [v53 countByEnumeratingWithState:&v78 objects:v94 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v76 objects:v92 count:16];
     }
 
-    while (v55);
+    while (v54);
   }
 
   if ([v3 count])
@@ -6898,7 +6933,7 @@ void __32__SUUIItemStateCenter__setJobs___block_invoke(uint64_t a1)
         }
 
         v4 = *(*(&v32 + 1) + 8 * i);
-        v5 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v4, "storeItemID", v22, v23)}];
+        v5 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v4, "storeItemID", v22)}];
         if (v5)
         {
           v6 = [[SUUIStoreIdentifier alloc] initWithNumber:v5];
@@ -6943,14 +6978,19 @@ void __32__SUUIItemStateCenter__setJobs___block_invoke(uint64_t a1)
           }
 
           v15 = [MEMORY[0x277D69B38] sharedConfig];
-          v16 = [v15 shouldLog];
+          LODWORD(v16) = [v15 shouldLog];
           if ([v15 shouldLogToDisk])
           {
-            v16 |= 2u;
+            LODWORD(v16) = v16 | 2;
           }
 
           v17 = [v15 OSLogObject];
-          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          {
+            v16 = v16;
+          }
+
+          else
           {
             v16 &= 2u;
           }
@@ -6971,22 +7011,21 @@ void __32__SUUIItemStateCenter__setJobs___block_invoke(uint64_t a1)
             v42 = 2048;
             v43 = v11;
             LODWORD(v23) = 42;
-            v22 = &v36;
-            v21 = _os_log_send_and_compose_impl();
+            v21 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_259CB8000, v17, 2, "[%@]: Set job: %@ phase: %ld state: %ld", &v36, v23);
 
             if (v21)
             {
-              v17 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, &v36, v23}];
+              v17 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
               free(v21);
               v22 = v17;
               SSFileLog();
-              goto LABEL_26;
+              goto LABEL_27;
             }
           }
 
           else
           {
-LABEL_26:
+LABEL_27:
           }
 
           v1 = v26;

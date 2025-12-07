@@ -434,11 +434,11 @@ LABEL_9:
   [(PKFamilyMemberTransactionsViewController *)self _fetchDataWithCompletion:v3];
 }
 
-uint64_t __64__PKFamilyMemberTransactionsViewController_transactionsChanged___block_invoke(uint64_t result, int a2)
+id *__64__PKFamilyMemberTransactionsViewController_transactionsChanged___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) updateSectionVisibilityAndReloadIfNecessaryForSections:&unk_1F3CC8690];
+    return [result[4] updateSectionVisibilityAndReloadIfNecessaryForSections:&unk_1F3CC8690];
   }
 
   return result;

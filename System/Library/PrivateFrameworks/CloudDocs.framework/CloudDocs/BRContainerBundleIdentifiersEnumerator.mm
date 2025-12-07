@@ -23,12 +23,12 @@
 
 - (id)nextObject
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   nextObject = [(NSEnumerator *)self->_enumerator nextObject];
   if (nextObject)
   {
     *&v4 = 138412290;
-    v10 = v4;
+    v9 = v4;
     do
     {
       objc_opt_class();
@@ -43,8 +43,8 @@
         v6 = brc_default_log(1, 0);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v10;
-          v12 = v5;
+          *buf = v9;
+          v11 = v5;
           _os_log_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] ignoring bundle com.apple.bird%@", buf, 0xCu);
         }
       }
@@ -56,8 +56,6 @@
 
     while (nextObject2);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return nextObject;
 }

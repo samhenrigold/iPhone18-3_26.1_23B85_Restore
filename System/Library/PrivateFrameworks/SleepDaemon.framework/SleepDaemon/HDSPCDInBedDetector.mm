@@ -15,32 +15,32 @@
 
 + (double)hoursOfSleepForResult:(id)result
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   resultCopy = result;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [resultCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [resultCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(resultCopy);
         }
 
-        [*(*(&v12 + 1) + 8 * i) duration];
+        [*(*(&v11 + 1) + 8 * i) duration];
         v7 = v7 + v9 / 3600.0;
       }
 
-      v5 = [resultCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [resultCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -51,22 +51,21 @@
     v7 = 0.0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)detectInBedTimesDuringInterval:(id)interval
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CFE0A0];
   intervalCopy = interval;
   inBedDetector = [v3 inBedDetector];
   startDate = [intervalCopy startDate];
   endDate = [intervalCopy endDate];
 
-  v19 = 0;
-  v8 = [inBedDetector detectInBedBetweenBedtimeDate:startDate wakupDate:endDate error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [inBedDetector detectInBedBetweenBedtimeDate:startDate wakupDate:endDate error:&v18];
+  v9 = v18;
 
   v10 = [v8 hk_map:&__block_literal_global_10];
   if (v9)
@@ -83,9 +82,9 @@
       v14 = v13;
       [objc_opt_class() hoursOfSleepForResult:v10];
       *buf = 138543618;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v15;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v15;
       _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] calculated time in bed hours: %f", buf, 0x16u);
     }
 
@@ -93,8 +92,6 @@
   }
 
   v16 = v11;
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

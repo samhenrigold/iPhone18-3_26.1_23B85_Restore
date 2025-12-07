@@ -11,28 +11,26 @@
 {
   v4 = sub_14628(&qword_7C338, qword_54370);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v16[-1] - v7;
-  v9 = sub_4A99C();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v16[-1] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v14[-1] - v6;
+  v8 = sub_4A99C();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v14[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_4A98C();
   sub_461A4();
   selfCopy = self;
   sub_4AF0C();
   sub_4AFFC();
-  v16[3] = v4;
-  v16[4] = sub_2C958(&qword_7C340, &qword_7C338, qword_54370);
-  sub_2B2C0(v16);
+  v14[3] = v4;
+  v14[4] = sub_2C958(&qword_7C340, &qword_7C338, qword_54370, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
+  sub_2B2C0(v14);
   sub_4AEFC();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_4B81C();
   [(CRSettingsHeaderCell *)selfCopy setSelectionStyle:0];
 
-  (*(v10 + 8))(v13, v9);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (_TtC14CarKitSettings20CRSettingsHeaderCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier

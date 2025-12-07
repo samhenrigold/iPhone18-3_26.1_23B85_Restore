@@ -21,49 +21,45 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)indicesWithBehavior:(id)behavior
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D10B40]);
   v4 = objc_opt_class();
-  v21 = @"medication_identifier";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v20 = @"medication_identifier";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
   v6 = [v3 initWithEntity:v4 name:@"medication_identifiers" columns:v5];
-  v22[0] = v6;
+  v21[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D10B40]);
   v8 = objc_opt_class();
-  v20 = @"medication_uuid";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v19 = @"medication_uuid";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v10 = [v7 initWithEntity:v8 name:@"medication_uuids" columns:v9];
-  v22[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
 
   v12 = objc_alloc(MEMORY[0x277D10B40]);
   v13 = objc_opt_class();
-  v19 = @"hashed_medication_identifier";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v18 = @"hashed_medication_identifier";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
   v15 = [v12 initWithEntity:v13 name:@"hashed_medication_identifiers" columns:v14];
   v16 = [v11 arrayByAddingObject:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (int64_t)shouldInsertObject:(id)object sourceID:(id)d profile:(id)profile transaction:(id)transaction objectToReplace:(id *)replace objectID:(id *)iD error:(id *)error
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   profileCopy = profile;
@@ -78,9 +74,9 @@
     v22 = [v19 compoundPredicateWithPredicate:v20 otherPredicate:v21];
 
     protectedDatabase = [transactionCopy protectedDatabase];
-    v71 = 0;
-    v24 = [(HDSQLiteEntity *)HDUserDomainConceptEntity anyInDatabase:protectedDatabase predicate:v22 error:&v71];
-    v25 = v71;
+    v70 = 0;
+    v24 = [(HDSQLiteEntity *)HDUserDomainConceptEntity anyInDatabase:protectedDatabase predicate:v22 error:&v70];
+    v25 = v70;
 
     if (!v24)
     {
@@ -109,10 +105,10 @@
         hk_shortRepresentation = [uUID hk_shortRepresentation];
         *buf = 138543874;
         *&buf[4] = self;
-        v74 = 2114;
-        v75 = hk_shortRepresentation;
-        v76 = 2114;
-        v77 = v18;
+        v73 = 2114;
+        v74 = hk_shortRepresentation;
+        v75 = 2114;
+        v76 = v18;
         _os_log_impl(&dword_228986000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore insert of %{public}@, because medication with UUID %{public}@ is deleted", buf, 0x20u);
       }
 
@@ -125,9 +121,9 @@ LABEL_36:
     }
 
 LABEL_31:
-    v70.receiver = self;
-    v70.super_class = &OBJC_METACLASS___HDMedicationDoseEventEntity;
-    v53 = objc_msgSendSuper2(&v70, sel_shouldInsertObject_sourceID_profile_transaction_objectToReplace_objectID_error_, objectCopy, dCopy, profileCopy, transactionCopy, replace, iD, error);
+    v69.receiver = self;
+    v69.super_class = &OBJC_METACLASS___HDMedicationDoseEventEntity;
+    v53 = objc_msgSendSuper2(&v69, sel_shouldInsertObject_sourceID_profile_transaction_objectToReplace_objectID_error_, objectCopy, dCopy, profileCopy, transactionCopy, replace, iD, error);
     if (v53 != 1)
     {
       v35 = v53;
@@ -150,12 +146,12 @@ LABEL_31:
       v60 = hk_shortRepresentation2;
       *buf = 138544130;
       *&buf[4] = selfCopy;
-      v74 = 2114;
-      v75 = hk_shortRepresentation2;
-      v76 = 2114;
-      v77 = v25;
-      v78 = 2114;
-      v79 = v22;
+      v73 = 2114;
+      v74 = hk_shortRepresentation2;
+      v75 = 2114;
+      v76 = v25;
+      v77 = 2114;
+      v78 = v22;
       _os_log_impl(&dword_228986000, v56, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore insert of %{public}@, because of dedupe logic for (%{public}@, %{public}@)", buf, 0x2Au);
     }
 
@@ -164,18 +160,18 @@ LABEL_31:
 
   selfCopy2 = self;
   v27 = objectCopy;
-  v66 = profileCopy;
+  v65 = profileCopy;
   v28 = profileCopy;
-  v65 = transactionCopy;
+  v64 = transactionCopy;
   v29 = transactionCopy;
-  v64 = selfCopy2;
+  v63 = selfCopy2;
   v30 = objc_opt_self();
   medicationIdentifier = [v27 medicationIdentifier];
-  v72 = 0;
-  v32 = [HDUserDomainConceptEntity userDomainConceptUUIDForCanonicalConceptWithSemanticIdentifierString:medicationIdentifier profile:v28 transaction:v29 error:&v72];
-  v33 = v72;
+  v71 = 0;
+  v32 = [HDUserDomainConceptEntity userDomainConceptUUIDForCanonicalConceptWithSemanticIdentifierString:medicationIdentifier profile:v28 transaction:v29 error:&v71];
+  v33 = v71;
 
-  v67 = dCopy;
+  v66 = dCopy;
   if (v32)
   {
     [v27 _setMedicationUUID:v32];
@@ -195,7 +191,7 @@ LABEL_31:
     }
 
 LABEL_22:
-    transactionCopy = v65;
+    transactionCopy = v64;
     goto LABEL_25;
   }
 
@@ -210,10 +206,10 @@ LABEL_22:
       medicationIdentifier2 = [v27 medicationIdentifier];
       *buf = 138543874;
       *&buf[4] = v30;
-      v74 = 2114;
-      v75 = hk_shortRepresentation3;
-      v76 = 2112;
-      v77 = medicationIdentifier2;
+      v73 = 2114;
+      v74 = hk_shortRepresentation3;
+      v75 = 2112;
+      v76 = medicationIdentifier2;
       _os_log_impl(&dword_228986000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore insert of %{public}@, because medicationUUID is nil for %@", buf, 0x20u);
     }
 
@@ -223,7 +219,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  transactionCopy = v65;
+  transactionCopy = v64;
   if (error)
   {
     v39 = v33;
@@ -249,15 +245,15 @@ LABEL_25:
     v18 = v18;
     v47 = v28;
     v48 = v29;
-    self = v64;
+    self = v63;
     objc_opt_self();
     doseUnitString = [v46 doseUnitString];
 
-    dCopy = v67;
+    dCopy = v66;
     if (doseUnitString)
     {
 
-      profileCopy = v66;
+      profileCopy = v65;
     }
 
     else
@@ -266,7 +262,7 @@ LABEL_25:
       v50 = [HDUserDomainConceptEntity cannonicalDoseUnitStringForUserDomainConceptWithUUID:v18 profile:v47 transaction:v48 canonicalDoseUnitStringOut:buf error:error];
       v51 = *buf;
       v52 = v51;
-      profileCopy = v66;
+      profileCopy = v65;
       if (!v50)
       {
 
@@ -276,23 +272,22 @@ LABEL_25:
 
       [v46 _setDoseUnitString:v51];
 
-      self = v64;
+      self = v63;
     }
 
     goto LABEL_31;
   }
 
-  profileCopy = v66;
-  dCopy = v67;
+  profileCopy = v65;
+  dCopy = v66;
 LABEL_38:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 + (id)mergeDataObject:(id)object provenance:(id)provenance profile:(id)profile transaction:(id)transaction error:(id *)error insertHandler:(id)handler
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   transactionCopy = transaction;
   objc_opt_class();
@@ -302,8 +297,8 @@ LABEL_38:
     goto LABEL_22;
   }
 
-  v36 = 0;
-  v13 = [self dataEntityForObject:objectCopy transaction:transactionCopy error:&v36];
+  v35 = 0;
+  v13 = [self dataEntityForObject:objectCopy transaction:transactionCopy error:&v35];
   if (v13)
   {
     doseUnitString = [objectCopy doseUnitString];
@@ -316,53 +311,53 @@ LABEL_20:
     }
 
     v15 = v13;
-    v34 = doseUnitString;
-    v35 = transactionCopy;
-    v16 = [v35 databaseForEntityClass:objc_opt_self()];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__109;
-    v42 = __Block_byref_object_dispose__109;
-    v43 = 0;
-    v44 = @"unit_string";
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __107__HDMedicationDoseEventEntity__lookupExistingPropertyAndMergeIfNeeded_newDoseUnitString_transaction_error___block_invoke;
-    v37[3] = &unk_278618B98;
-    v37[4] = &v38;
-    v18 = [v15 getValuesForProperties:v17 database:v16 error:error handler:v37];
+    v33 = doseUnitString;
+    v34 = transactionCopy;
+    v16 = [v34 databaseForEntityClass:objc_opt_self()];
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__109;
+    v41 = __Block_byref_object_dispose__109;
+    v42 = 0;
+    v43 = @"unit_string";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __107__HDMedicationDoseEventEntity__lookupExistingPropertyAndMergeIfNeeded_newDoseUnitString_transaction_error___block_invoke;
+    v36[3] = &unk_278618B98;
+    v36[4] = &v37;
+    v18 = [v15 getValuesForProperties:v17 database:v16 error:error handler:v36];
 
     if ((v18 & 1) == 0)
     {
       v27 = 0;
 LABEL_19:
-      _Block_object_dispose(&v38, 8);
+      _Block_object_dispose(&v37, 8);
 
       goto LABEL_20;
     }
 
-    v19 = v39[5];
+    v19 = v38[5];
     v20 = v15;
     v21 = v19;
     v22 = v20;
     v23 = v21;
-    v33 = v34;
-    v32 = v16;
+    v32 = v33;
+    v31 = v16;
     v24 = objc_opt_self();
-    if (!v23 || v23 == v33)
+    if (!v23 || v23 == v32)
     {
       if (!v23)
       {
-        v48[0] = @"unit_string";
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+        v47[0] = @"unit_string";
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __109__HDMedicationDoseEventEntity__updateEntityIfNeeded_existingDoseUnitString_newDoseUnitString_database_error___block_invoke;
-        v46 = &unk_278614508;
-        v47 = v33;
-        v29 = [v22 updateProperties:v28 database:v32 error:error bindingHandler:buf];
+        v45 = &unk_278614508;
+        v46 = v32;
+        v29 = [v22 updateProperties:v28 database:v31 error:error bindingHandler:buf];
 
         if (!v29)
         {
@@ -375,7 +370,7 @@ LABEL_19:
     else
     {
       v25 = v24;
-      if (([v23 isEqualToString:v33] & 1) == 0)
+      if (([v23 isEqualToString:v32] & 1) == 0)
       {
         _HKInitializeLogging();
         v26 = HKLogMedication();
@@ -386,7 +381,7 @@ LABEL_19:
           *&buf[12] = 2114;
           *&buf[14] = v23;
           *&buf[22] = 2114;
-          v46 = v33;
+          v45 = v32;
           _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "%{public}@: Attempting to merge a dose event, where the existingDoseUnitString: %{public}@ is not the same as the new dose unit string  %{public}@.", buf, 0x20u);
         }
       }
@@ -402,19 +397,18 @@ LABEL_18:
 LABEL_21:
 
 LABEL_22:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
-uint64_t __107__HDMedicationDoseEventEntity__lookupExistingPropertyAndMergeIfNeeded_newDoseUnitString_transaction_error___block_invoke(uint64_t a1)
+uint64_t __107__HDMedicationDoseEventEntity__lookupExistingPropertyAndMergeIfNeeded_newDoseUnitString_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8](v2, v4);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
@@ -567,9 +561,9 @@ void __93__HDMedicationDoseEventEntity_insertDataObject_withProvenance_inDatabas
 
 void __93__HDMedicationDoseEventEntity__logPersistedDoseEventOnCommitDatabase_doseEvent_persistentID___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&_MergedGlobals_205);
-  v2 = [qword_280D67C68 copy];
+  v2 = objc_msgSend_copy(qword_280D67C68);
   v3 = qword_280D67C68;
   qword_280D67C68 = 0;
 
@@ -581,16 +575,14 @@ void __93__HDMedicationDoseEventEntity__logPersistedDoseEventOnCommitDatabase_do
     v5 = *(a1 + 32);
     v6 = [v2 count];
     v7 = [v2 componentsJoinedByString:{@", "}];
-    v9 = 138543874;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v7;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: persisted %ld [%{public}@]", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: persisted %ld [%{public}@]", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HDMedicationDoseEventEntity__logPersistedDoseEventOnCommitDatabase_doseEvent_persistentID___block_invoke_387()

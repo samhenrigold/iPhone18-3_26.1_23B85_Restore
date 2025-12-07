@@ -32,13 +32,13 @@
   os_unfair_lock_lock(&self->_mutex);
   if (self->_saveError.__engaged_)
   {
-    v5 = _LSInstallLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _LSInstallLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       uuid = self->_uuid;
       v13 = 138412290;
       v14 = uuid;
-      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "save for operation %@ is already complete", &v13, 0xCu);
+      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "save for operation %@ is already complete", &v13, 0xCu);
     }
 
     resultCopy[2](resultCopy, self->_saveError.var0.__val_ == 0);
@@ -46,101 +46,97 @@
 
   else
   {
-    v7 = _LSInstallLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _LSInstallLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = self->_uuid;
+      v9 = self->_uuid;
       v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "waiting for save for operation %@", &v13, 0xCu);
+      v14 = v9;
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_INFO, "waiting for save for operation %@", &v13, 0xCu);
     }
 
     waiters = self->_waiters;
-    v10 = [resultCopy copy];
-    v11 = MEMORY[0x1865D71B0]();
-    [(NSMutableArray *)waiters addObject:v11];
+    v11 = [resultCopy copy];
+    v12 = MEMORY[0x1865D71B0]();
+    [(NSMutableArray *)waiters addObject:v12];
   }
 
   os_unfair_lock_unlock(&self->_mutex);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveDidHappen:(BOOL)happen error:(id)error
 {
   happenCopy = happen;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   os_unfair_lock_lock(&self->_mutex);
   if (self->_saveError.__engaged_)
   {
-    v6 = _LSInstallLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = _LSInstallLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [_LSDModificationPendingSaveToken saveDidHappen:v6 error:?];
+      [_LSDModificationPendingSaveToken saveDidHappen:v7 error:?];
     }
   }
 
   else
   {
-    std::optional<NSError * {__strong}>::operator=[abi:nn200100]<NSError * {__strong}&,void>(&self->_saveError, &errorCopy);
-    v7 = _LSInstallLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = std::optional<NSError * {__strong}>::operator=[abi:nn200100]<NSError * {__strong}&,void>(&self->_saveError, &errorCopy);
+    v9 = _LSInstallLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = errorCopy;
+      v10 = errorCopy;
       uuid = self->_uuid;
-      v10 = [(NSMutableArray *)self->_waiters count];
+      v12 = [(NSMutableArray *)self->_waiters count];
       *buf = 67109890;
-      v25 = happenCopy;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = uuid;
-      v30 = 2048;
-      v31 = v10;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save happened (%d %@) for operation %@, save token calling %zu handler(s)", buf, 0x26u);
+      v26 = happenCopy;
+      v27 = 2112;
+      v28 = v10;
+      v29 = 2112;
+      v30 = uuid;
+      v31 = 2048;
+      v32 = v12;
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Save happened (%d %@) for operation %@, save token calling %zu handler(s)", buf, 0x26u);
     }
 
-    v11 = objc_autoreleasePoolPush();
-    v20 = 0u;
+    v13 = objc_autoreleasePoolPush();
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v12 = self->_waiters;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
-    if (v13)
+    v20 = 0u;
+    v14 = self->_waiters;
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v15)
     {
-      v14 = *v19;
+      v16 = *v20;
       do
       {
-        v15 = 0;
+        v17 = 0;
         do
         {
-          if (*v19 != v14)
+          if (*v20 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v14);
           }
 
-          (*(*(*(&v18 + 1) + 8 * v15) + 16))(*(*(&v18 + 1) + 8 * v15), errorCopy == 0);
-          ++v15;
+          (*(*(*(&v19 + 1) + 8 * v17) + 16))(*(*(&v19 + 1) + 8 * v17), errorCopy == 0);
+          ++v17;
         }
 
-        while (v13 != v15);
-        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        while (v15 != v17);
+        v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
-      while (v13);
+      while (v15);
     }
 
     waiters = self->_waiters;
     self->_waiters = 0;
 
-    objc_autoreleasePoolPop(v11);
+    objc_autoreleasePoolPop(v13);
   }
 
   os_unfair_lock_unlock(&self->_mutex);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct
@@ -153,12 +149,11 @@
 
 - (void)saveDidHappen:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "Got multiple save callbacks for pending save token (op %@)! That's a bug!", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "Got multiple save callbacks for pending save token (op %@)! That's a bug!", &v3, 0xCu);
 }
 
 @end

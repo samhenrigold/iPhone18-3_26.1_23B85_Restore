@@ -1,18 +1,18 @@
-uint64_t _citrus_EUC_stdenc_init(uint64_t a1, unsigned __int8 *a2)
+uint64_t _citrus_EUC_stdenc_init(uint64_t a1, unsigned __int8 *a2, uint64_t a3, void *a4)
 {
-  v3 = malloc_type_calloc(1uLL, 0x28uLL, 0x10000400A747E1EuLL);
-  if (!v3)
+  v5 = malloc_type_calloc(1uLL, 0x28uLL, 0x10000400A747E1EuLL);
+  if (!v5)
   {
     return *__error();
   }
 
-  v4 = v3;
+  v6 = v5;
   if (a2)
   {
     while (1)
     {
-      v5 = *a2;
-      if (v5 != 32 && v5 != 9)
+      v7 = *a2;
+      if (v7 != 32 && v7 != 9)
       {
         break;
       }
@@ -20,11 +20,11 @@ uint64_t _citrus_EUC_stdenc_init(uint64_t a1, unsigned __int8 *a2)
       ++a2;
     }
 
-    *(v3 + 9) = 1;
-    *(v3 + 5) = _citrus_bcs_strtol();
+    *(v5 + 9) = 1;
+    *(v5 + 5) = _citrus_bcs_strtol();
   }
 
-  free(v4);
+  free(v6);
   return 79;
 }
 
@@ -36,7 +36,7 @@ void _citrus_EUC_stdenc_uninit(uint64_t a1)
   }
 }
 
-uint64_t _citrus_EUC_stdenc_mbtocs(uint64_t a1, int *a2, int *a3, unsigned __int8 **a4, uint64_t a5, int *a6, void *a7, uint64_t a8)
+uint64_t _citrus_EUC_stdenc_mbtocs(uint64_t a1, int *a2, unsigned int *a3, unsigned __int8 **a4, uint64_t a5, int *a6, void *a7, uint64_t a8)
 {
   v17 = 0;
   v12 = *(a1 + 8);
@@ -60,7 +60,7 @@ uint64_t _citrus_EUC_stdenc_mbtocs(uint64_t a1, int *a2, int *a3, unsigned __int
   return v13;
 }
 
-uint64_t _citrus_EUC_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, int a4, int a5, uint64_t a6, uint64_t *a7)
+uint64_t _citrus_EUC_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, unsigned int a4, int a5, uint64_t a6, uint64_t *a7)
 {
   v7 = *(a1 + 8);
   if (a4 == -1)
@@ -81,7 +81,7 @@ uint64_t _citrus_EUC_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, int a4, 
   return _citrus_EUC_wcrtomb_priv(v7, a2, a3, v9, a7);
 }
 
-uint64_t _citrus_EUC_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
+uint64_t _citrus_EUC_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
 {
   v9 = _citrus_EUC_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -180,7 +180,7 @@ LABEL_31:
     v8 = *a5;
   }
 
-  v11 = (a5 + 1);
+  v11 = a5 + 1;
   v12 = *(a5 + 4);
   if (v12 == 142)
   {
@@ -226,7 +226,7 @@ LABEL_31:
     }
 
     v16 = *v6++;
-    v11[v8] = v16;
+    *(v11 + v8) = v16;
     v8 = *a5 + 1;
     *a5 = v8;
     --a4;
@@ -253,13 +253,14 @@ LABEL_31:
     v18 = 0;
     if (v14 > 1)
     {
-      v11 = a5 + 5;
+      v11 = (a5 + 5);
     }
 
     v19 = v15 + v17 + 1;
     do
     {
-      v20 = *v11++;
+      v20 = *v11;
+      v11 = (v11 + 1);
       v18 = v20 | (v18 << 8);
       --v19;
     }

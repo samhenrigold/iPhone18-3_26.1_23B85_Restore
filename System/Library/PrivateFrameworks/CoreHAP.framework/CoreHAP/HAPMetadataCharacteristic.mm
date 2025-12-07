@@ -181,7 +181,7 @@ LABEL_38:
 
 - (void)dump
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -193,25 +193,24 @@ LABEL_38:
     format = [(HAPMetadataCharacteristic *)self format];
     properties = [(HAPMetadataCharacteristic *)self properties];
     units = [(HAPMetadataCharacteristic *)self units];
-    v13 = 138544898;
-    v14 = v5;
-    v15 = 2112;
-    v16 = name;
-    v17 = 2112;
-    v18 = uuidStr;
-    v19 = 2112;
-    v20 = chrDescription;
-    v21 = 2112;
-    v22 = format;
-    v23 = 2112;
-    v24 = properties;
-    v25 = 2112;
-    v26 = units;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataCharacteristic %@(%@):  description: %@  format: %@  properties: %@  units:%@", &v13, 0x48u);
+    v12 = 138544898;
+    v13 = v5;
+    v14 = 2112;
+    v15 = name;
+    v16 = 2112;
+    v17 = uuidStr;
+    v18 = 2112;
+    v19 = chrDescription;
+    v20 = 2112;
+    v21 = format;
+    v22 = 2112;
+    v23 = properties;
+    v24 = 2112;
+    v25 = units;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataCharacteristic %@(%@):  description: %@  format: %@  properties: %@  units:%@", &v12, 0x48u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

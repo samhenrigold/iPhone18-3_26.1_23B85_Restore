@@ -24,15 +24,15 @@
   return v3;
 }
 
-void __59__SBSystemStatusStatusBarOverridesArchiver__archiveFileURL__block_invoke()
+void __59__SBSystemStatusStatusBarOverridesArchiver__archiveFileURL__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEBC0];
-  v5 = SBHomeDirectory();
-  v1 = [v5 stringByAppendingPathComponent:@"StatusBarOverrides"];
-  v2 = [v1 stringByAppendingPathExtension:@"archive"];
-  v3 = [v0 fileURLWithPath:v2];
-  v4 = _archiveFileURL_sArchiveURL;
-  _archiveFileURL_sArchiveURL = v3;
+  v2 = MEMORY[0x277CBEBC0];
+  v7 = SBHomeDirectory(a1);
+  v3 = [v7 stringByAppendingPathComponent:@"StatusBarOverrides"];
+  v4 = [v3 stringByAppendingPathExtension:@"archive"];
+  v5 = [v2 fileURLWithPath:v4];
+  v6 = _archiveFileURL_sArchiveURL;
+  _archiveFileURL_sArchiveURL = v5;
 }
 
 - (SBSystemStatusStatusBarOverridesArchiver)init
@@ -250,7 +250,7 @@ LABEL_12:
         p_super = SBLogStatusBarish();
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          [SBSystemStatusStatusBarOverridesArchiver _queue_writeOutArchiveRecord:v12];
+          [(SBSystemStatusStatusBarOverridesArchiver *)v12 _queue_writeOutArchiveRecord:recordCopy];
         }
 
         v8 = v12;
@@ -386,24 +386,28 @@ LABEL_16:
   [currentHandler handleFailureInMethod:a2 object:self file:@"SBSystemStatusStatusBarOverridesArchiver.m" lineNumber:61 description:{@"don't initialize %@ before the server handle exists!", objc_opt_class()}];
 }
 
-- (void)_queue_writeOutArchiveRecord:(void *)a1 .cold.1(void *a1)
+- (void)_queue_writeOutArchiveRecord:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "Error archiving status bar overrides archive: %@'\ndata: %@", v4, v5, v6, v7, 2u);
+  v3 = [a1 localizedDescription];
+  *v10 = 138412546;
+  *&v10[4] = v3;
+  *&v10[12] = 2112;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v4, v5, "Error archiving status bar overrides archive: %@'\ndata: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_queue_writeOutArchiveRecord:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_1_22();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v3, v4, "Error clearing status bar overrides archive at %@: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v3, v4, "Error clearing status bar overrides archive at %@: %@", v5, v6, v7, v8);
 }
 
 - (void)_queue_readStatusBarOverridesArchiveRecord
 {
   localizedDescription = [a2 localizedDescription];
   OUTLINED_FUNCTION_1_22();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v3, v4, "Error reading status bar overrides data at %@: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v3, v4, "Error reading status bar overrides data at %@: %@", v5, v6, v7, v8);
 }
 
 @end

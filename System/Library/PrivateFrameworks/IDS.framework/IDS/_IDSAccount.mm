@@ -60,6 +60,7 @@
 - (void)_connect;
 - (void)_loadCachedDevices;
 - (void)_reloadCachedDevices;
+- (void)_reregisterAndReidentify:(BOOL)reidentify;
 - (void)_setIsEnabled:(BOOL)enabled;
 - (void)_setObject:(id)object forKey:(id)key;
 - (void)_updateDependentDevicesWithDevicesInfo:(id)info;
@@ -113,7 +114,7 @@
 
 - (BOOL)canSend
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -126,67 +127,60 @@
     }
   }
 
-  if ([(_IDSAccount *)self isActive])
+  if (![(_IDSAccount *)self isActive])
   {
-    if ([(_IDSAccount *)self accountType]== 2)
-    {
-      v6 = 1;
-    }
+    return 0;
+  }
 
-    else
+  if ([(_IDSAccount *)self accountType]== 2)
+  {
+    return 1;
+  }
+
+  [(_IDSAccount *)self handles];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v7 = v19 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v17;
+    v11 = *MEMORY[0x1E69A5630];
+    while (2)
     {
-      [(_IDSAccount *)self handles];
-      v17 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v7 = v20 = 0u;
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v8)
+      for (i = 0; i != v9; ++i)
       {
-        v9 = v8;
-        v10 = *v18;
-        v11 = *MEMORY[0x1E69A5630];
-        while (2)
+        if (*v17 != v10)
         {
-          for (i = 0; i != v9; ++i)
-          {
-            if (*v18 != v10)
-            {
-              objc_enumerationMutation(v7);
-            }
+          objc_enumerationMutation(v7);
+        }
 
-            v13 = [*(*(&v17 + 1) + 8 * i) URI];
-            unprefixedURI = [v13 unprefixedURI];
+        v13 = [*(*(&v16 + 1) + 8 * i) URI];
+        unprefixedURI = [v13 unprefixedURI];
 
-            if (unprefixedURI && ![unprefixedURI isEqualToIgnoringCase:v11])
-            {
+        if (unprefixedURI && ![unprefixedURI isEqualToIgnoringCase:v11])
+        {
 
-              v6 = 1;
-              goto LABEL_20;
-            }
-          }
-
-          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-          if (v9)
-          {
-            continue;
-          }
-
-          break;
+          v6 = 1;
+          goto LABEL_20;
         }
       }
 
-      v6 = 0;
-LABEL_20:
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
     }
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v6 = 0;
+LABEL_20:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -558,7 +552,7 @@ LABEL_20:
     v12 = +[IDSLogging Accounts];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_195B36C0C(self, &self->_accountConfig);
+      sub_195B36C0C();
     }
 
     goto LABEL_12;
@@ -579,7 +573,7 @@ LABEL_20:
       v12 = +[IDSLogging Accounts];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_195B2F684(self, &self->_serviceToken);
+        sub_195B2F684();
       }
 
 LABEL_12:
@@ -945,13 +939,13 @@ LABEL_12:
 
 - (void)_callDelegatesRespondingToSelector:(SEL)selector withPreCallbacksBlock:(id)block callbackBlock:(id)callbackBlock postCallbacksBlock:(id)callbacksBlock group:(id)group
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   callbackBlockCopy = callbackBlock;
   callbacksBlockCopy = callbacksBlock;
   groupCopy = group;
   groupCopy6 = groupCopy;
-  v51 = callbackBlockCopy;
+  v50 = callbackBlockCopy;
   if (callbackBlockCopy)
   {
     group = groupCopy;
@@ -970,26 +964,26 @@ LABEL_12:
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
     context = objc_autoreleasePoolPush();
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v20 = self->_delegateToInfo;
-    v21 = [(NSMapTable *)v20 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v21 = [(NSMapTable *)v20 countByEnumeratingWithState:&v61 objects:v65 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v63;
+      v23 = *v62;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v63 != v23)
+          if (*v62 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v62 + 1) + 8 * i);
+          v25 = *(*(&v61 + 1) + 8 * i);
           v26 = [(NSMapTable *)self->_delegateToInfo objectForKey:v25];
           v27 = v26;
           if (v25)
@@ -1009,7 +1003,7 @@ LABEL_12:
           }
         }
 
-        v22 = [(NSMapTable *)v20 countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v22 = [(NSMapTable *)v20 countByEnumeratingWithState:&v61 objects:v65 count:16];
       }
 
       while (v22);
@@ -1048,7 +1042,7 @@ LABEL_12:
               blockCopy[2](blockCopy, 1);
             }
 
-            (v51)[2](v51, v31);
+            (v50)[2](v50, v31);
             if (callbacksBlockCopy && !v33)
             {
               callbacksBlockCopy[2](callbacksBlockCopy, 1);
@@ -1057,7 +1051,7 @@ LABEL_12:
 
           else
           {
-            (v51)[2](v51, v31);
+            (v50)[2](v50, v31);
             groupCopy6 = group;
           }
 
@@ -1071,19 +1065,19 @@ LABEL_12:
 
         else if (queue)
         {
-          v53[0] = MEMORY[0x1E69E9820];
-          v53[1] = 3221225472;
-          v53[2] = sub_195AA34E8;
-          v53[3] = &unk_1E7440E10;
+          v52[0] = MEMORY[0x1E69E9820];
+          v52[1] = 3221225472;
+          v52[2] = sub_195AA34E8;
+          v52[3] = &unk_1E7440E10;
           selectorCopy = selector;
-          v60 = v29 & 1;
-          v56 = blockCopy;
-          v57 = v51;
-          v54 = v31;
-          v61 = v33 == 0;
-          v58 = callbacksBlockCopy;
-          v55 = v32;
-          v37 = MEMORY[0x19A8BBEF0](v53);
+          v59 = v29 & 1;
+          v55 = blockCopy;
+          v56 = v50;
+          v53 = v31;
+          v60 = v33 == 0;
+          v57 = callbacksBlockCopy;
+          v54 = v32;
+          v37 = MEMORY[0x19A8BBEF0](v52);
           v38 = v37;
           if (queue == MEMORY[0x1E69E96A0])
           {
@@ -1137,8 +1131,6 @@ LABEL_42:
     v45 = objc_opt_self();
     v46 = objc_opt_self();
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRegistrationDelegate:(id)delegate queue:(id)queue
@@ -1208,7 +1200,7 @@ LABEL_42:
 
 - (void)_callRegistrationDelegatesWithBlock:(id)block
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1224,49 +1216,47 @@ LABEL_42:
 
   if (blockCopy)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = self->_registrationDelegateToInfo;
-    v9 = [(NSMapTable *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [(NSMapTable *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = [(NSMapTable *)self->_registrationDelegateToInfo objectForKey:v13];
           queue = [v14 queue];
           if (queue)
           {
-            v18[0] = MEMORY[0x1E69E9820];
-            v18[1] = 3221225472;
-            v18[2] = sub_195AA3960;
-            v18[3] = &unk_1E743F110;
+            v17[0] = MEMORY[0x1E69E9820];
+            v17[1] = 3221225472;
+            v17[2] = sub_195AA3960;
+            v17[3] = &unk_1E743F110;
             v16 = blockCopy;
-            v18[4] = v13;
-            v19 = v16;
-            dispatch_async(queue, v18);
+            v17[4] = v13;
+            v18 = v16;
+            dispatch_async(queue, v17);
           }
         }
 
-        v10 = [(NSMapTable *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [(NSMapTable *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_objectForKey:(id)key
@@ -1317,7 +1307,7 @@ LABEL_42:
 
 - (void)setAccountInfo:(id)info
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v6 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v6 assertQueueIsCurrent];
@@ -1337,15 +1327,13 @@ LABEL_42:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
-      v12 = infoCopy;
-      v13 = 2112;
+      v10 = 138412546;
+      v11 = infoCopy;
+      v12 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_INFO, "New account info %@ for %@", &v11, 0x16u);
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_INFO, "New account info %@ for %@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAccountWithAccountInfo:(id)info
@@ -1385,79 +1373,75 @@ LABEL_42:
 
 - (BOOL)isUsableForOuterMessaging
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if ([(_IDSAccount *)self registrationStatus]== 5)
+  v21 = *MEMORY[0x1E69E9840];
+  if ([(_IDSAccount *)self registrationStatus]!= 5)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    handles = [(_IDSAccount *)self handles];
-    v4 = [handles countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v4)
+    return 0;
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  handles = [(_IDSAccount *)self handles];
+  v4 = [handles countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v17;
+    v7 = *MEMORY[0x1E69A5630];
+    while (2)
     {
-      v5 = v4;
-      v6 = *v18;
-      v7 = *MEMORY[0x1E69A5630];
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v17 != v6)
         {
-          if (*v18 != v6)
-          {
-            objc_enumerationMutation(handles);
-          }
-
-          v9 = *(*(&v17 + 1) + 8 * i);
-          if ([(_IDSAccount *)self accountType]== 2)
-          {
-            v10 = 0;
-          }
-
-          else
-          {
-            v11 = [v9 URI];
-            unprefixedURI = [v11 unprefixedURI];
-            v10 = [unprefixedURI isEqualToIgnoringCase:v7];
-          }
-
-          if ([v9 isUserVisible])
-          {
-            v13 = v10 == 0;
-          }
-
-          else
-          {
-            v13 = 0;
-          }
-
-          if (v13)
-          {
-            v14 = 1;
-            goto LABEL_19;
-          }
+          objc_enumerationMutation(handles);
         }
 
-        v5 = [handles countByEnumeratingWithState:&v17 objects:v21 count:16];
-        if (v5)
+        v9 = *(*(&v16 + 1) + 8 * i);
+        if ([(_IDSAccount *)self accountType]== 2)
         {
-          continue;
+          v10 = 0;
         }
 
-        break;
+        else
+        {
+          v11 = [v9 URI];
+          unprefixedURI = [v11 unprefixedURI];
+          v10 = [unprefixedURI isEqualToIgnoringCase:v7];
+        }
+
+        if ([v9 isUserVisible])
+        {
+          v13 = v10 == 0;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        if (v13)
+        {
+          v14 = 1;
+          goto LABEL_19;
+        }
       }
+
+      v5 = [handles countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v14 = 0;
+  v14 = 0;
 LABEL_19:
-  }
 
-  else
-  {
-    v14 = 0;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1501,55 +1485,55 @@ LABEL_19:
 
 - (NSDictionary)pseudonymURIMap
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = [(_IDSAccount *)self _objectForKey:*MEMORY[0x1E69A5600]];
-  v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v3;
-  v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v29)
   {
-    v29 = *v41;
+    v28 = *v40;
     v4 = *MEMORY[0x1E69A55F8];
-    v35 = *MEMORY[0x1E69A5648];
+    v34 = *MEMORY[0x1E69A5648];
     do
     {
       v5 = 0;
       do
       {
-        if (*v41 != v29)
+        if (*v40 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v5;
-        v6 = *(*(&v40 + 1) + 8 * v5);
-        v7 = [obj objectForKeyedSubscript:{v6, v28}];
-        v34 = [MEMORY[0x1E69A5428] URIWithPrefixedURI:v6];
+        v31 = v5;
+        v6 = *(*(&v39 + 1) + 8 * v5);
+        v7 = [obj objectForKeyedSubscript:{v6, v27}];
+        v33 = [MEMORY[0x1E69A5428] URIWithPrefixedURI:v6];
         array = [MEMORY[0x1E695DF70] array];
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v37;
+          v11 = *v36;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v37 != v11)
+              if (*v36 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v36 + 1) + 8 * i);
+              v13 = *(*(&v35 + 1) + 8 * i);
               v14 = objc_alloc(MEMORY[0x1E69A5398]);
               v15 = [v13 objectForKeyedSubscript:v4];
               v16 = [v14 initWithDictionaryRepresentation:v15];
@@ -1560,7 +1544,7 @@ LABEL_19:
               if (v18)
               {
                 v19 = MEMORY[0x1E69A5428];
-                v20 = [v13 objectForKeyedSubscript:v35];
+                v20 = [v13 objectForKeyedSubscript:v34];
                 v21 = [v19 URIWithPrefixedURI:v20];
 
                 if (v21)
@@ -1575,13 +1559,13 @@ LABEL_19:
 
                 if (!v22)
                 {
-                  v23 = [objc_alloc(MEMORY[0x1E69A5390]) initWithURI:v21 maskedURI:v34 properties:v16];
+                  v23 = [objc_alloc(MEMORY[0x1E69A5390]) initWithURI:v21 maskedURI:v33 properties:v16];
                   [array addObject:v23];
                 }
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
           }
 
           while (v10);
@@ -1590,77 +1574,76 @@ LABEL_19:
         if ([array count])
         {
           v24 = [array copy];
-          [v28 setObject:v24 forKeyedSubscript:v34];
+          [v27 setObject:v24 forKeyedSubscript:v33];
         }
 
-        v5 = v32 + 1;
+        v5 = v31 + 1;
       }
 
-      while (v32 + 1 != v30);
-      v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      while (v31 + 1 != v29);
+      v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
-  v25 = [v28 copy];
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [v27 copy];
 
   return v25;
 }
 
 - (NSArray)pseudonyms
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v44 = *MEMORY[0x1E69E9840];
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
   accountInfo = [(_IDSAccount *)self accountInfo];
   v4 = [accountInfo objectForKey:*MEMORY[0x1E69A5600]];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = v4;
-  v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  if (v28)
   {
-    v28 = *v40;
+    v27 = *v39;
     v5 = *MEMORY[0x1E69A55F8];
-    v34 = *MEMORY[0x1E69A5648];
+    v33 = *MEMORY[0x1E69A5648];
     do
     {
       v6 = 0;
       do
       {
-        if (*v40 != v28)
+        if (*v39 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = v6;
-        v7 = *(*(&v39 + 1) + 8 * v6);
+        v30 = v6;
+        v7 = *(*(&v38 + 1) + 8 * v6);
         v8 = [obj objectForKeyedSubscript:v7];
-        v33 = [MEMORY[0x1E69A5428] URIWithPrefixedURI:v7];
+        v32 = [MEMORY[0x1E69A5428] URIWithPrefixedURI:v7];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v36;
+          v12 = *v35;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v36 != v12)
+              if (*v35 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v35 + 1) + 8 * i);
+              v14 = *(*(&v34 + 1) + 8 * i);
               v15 = objc_alloc(MEMORY[0x1E69A5398]);
               v16 = [v14 objectForKeyedSubscript:v5];
               v17 = [v15 initWithDictionaryRepresentation:v16];
@@ -1671,7 +1654,7 @@ LABEL_19:
               if (v19)
               {
                 v20 = MEMORY[0x1E69A5428];
-                v21 = [v14 objectForKeyedSubscript:v34];
+                v21 = [v14 objectForKeyedSubscript:v33];
                 v22 = [v20 URIWithPrefixedURI:v21];
 
                 if (v22)
@@ -1686,30 +1669,29 @@ LABEL_19:
 
                 if (!v23)
                 {
-                  v24 = [objc_alloc(MEMORY[0x1E69A5390]) initWithURI:v22 maskedURI:v33 properties:v17];
-                  [v32 addObject:v24];
+                  v24 = [objc_alloc(MEMORY[0x1E69A5390]) initWithURI:v22 maskedURI:v32 properties:v17];
+                  [v31 addObject:v24];
                 }
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v34 objects:v42 count:16];
           }
 
           while (v11);
         }
 
-        v6 = v31 + 1;
+        v6 = v30 + 1;
       }
 
-      while (v31 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      while (v30 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v25 = [v32 copy];
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [v31 copy];
 
   return v25;
 }
@@ -1831,7 +1813,7 @@ LABEL_19:
 
 - (void)setRegionID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1851,8 +1833,8 @@ LABEL_19:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = dCopy;
-      v21 = 2112;
+      v19 = dCopy;
+      v20 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account setting regionID {regionID: %@, account: %@}", buf, 0x16u);
     }
@@ -1874,13 +1856,11 @@ LABEL_19:
 
     [v13 setObject:dCopy forKey:*MEMORY[0x1E69A55D8]];
     v14 = [v13 copy];
-    v18 = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
     [(_IDSAccount *)self updateAccountWithAccountInfo:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)regionBasePhoneNumber
@@ -1893,7 +1873,7 @@ LABEL_19:
 
 - (void)setRegionBasePhoneNumber:(id)number
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1913,8 +1893,8 @@ LABEL_19:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = numberCopy;
-      v21 = 2112;
+      v19 = numberCopy;
+      v20 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account setting regionBasePhoneNumber {regionBasePhoneNumber: %@, account: %@}", buf, 0x16u);
     }
@@ -1936,18 +1916,16 @@ LABEL_19:
 
     [v13 setObject:numberCopy forKey:*MEMORY[0x1E69A55C8]];
     v14 = [v13 copy];
-    v18 = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
     [(_IDSAccount *)self updateAccountWithAccountInfo:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplayName:(id)name
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1972,17 +1950,15 @@ LABEL_19:
   }
 
   v9 = null;
-  v12 = *MEMORY[0x1E69A5598];
-  v13[0] = null;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E69A5598];
+  v12[0] = null;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [(_IDSAccount *)self updateAccountWithAccountInfo:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateDependentDevicesWithDevicesInfo:(id)info
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -2005,27 +1981,27 @@ LABEL_19:
   suppressedDevices = self->_suppressedDevices;
   self->_suppressedDevices = v10;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v12 = infoCopy;
-  v13 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       v16 = 0;
       do
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [[IDSDevice alloc] _initWithDictionary:*(*(&v28 + 1) + 8 * v16)];
+        v17 = [[IDSDevice alloc] _initWithDictionary:*(*(&v27 + 1) + 8 * v16)];
         object = [self->_delegateContext object];
         [v17 _setAccount:object];
 
@@ -2064,7 +2040,7 @@ LABEL_19:
         registration = [MEMORY[0x1E69A6138] registration];
         if (os_log_type_enabled(registration, OS_LOG_TYPE_DEBUG))
         {
-          sub_195B35C48(v32, v17, &v33, registration);
+          sub_195B35C48(v31, v17, &v32, registration);
         }
 
         p_suppressedDevices = &self->_devices;
@@ -2075,7 +2051,7 @@ LABEL_20:
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v14);
@@ -2086,13 +2062,11 @@ LABEL_20:
   {
     sub_195B35CC0(p_devices);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reloadCachedDevices
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -2109,9 +2083,9 @@ LABEL_20:
   if (os_log_type_enabled(reloadAccounts, OS_LOG_TYPE_DEFAULT))
   {
     devices = [(_IDSAccount *)self devices];
-    v11 = 138412290;
-    v12 = devices;
-    _os_log_impl(&dword_1959FF000, reloadAccounts, OS_LOG_TYPE_DEFAULT, "Devices before %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = devices;
+    _os_log_impl(&dword_1959FF000, reloadAccounts, OS_LOG_TYPE_DEFAULT, "Devices before %@", &v10, 0xCu);
   }
 
   self->_devicesLoaded = 0;
@@ -2120,12 +2094,10 @@ LABEL_20:
   if (os_log_type_enabled(reloadAccounts2, OS_LOG_TYPE_DEFAULT))
   {
     devices2 = [(_IDSAccount *)self devices];
-    v11 = 138412290;
-    v12 = devices2;
-    _os_log_impl(&dword_1959FF000, reloadAccounts2, OS_LOG_TYPE_DEFAULT, "Devices after %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = devices2;
+    _os_log_impl(&dword_1959FF000, reloadAccounts2, OS_LOG_TYPE_DEFAULT, "Devices after %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)suppressedDevices
@@ -2150,7 +2122,7 @@ LABEL_20:
 
 - (NSArray)nearbyDevices
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -2166,26 +2138,26 @@ LABEL_20:
   [(_IDSAccount *)self _loadCachedDevices];
   _copyForEnumerating = [(NSMutableArray *)self->_devices _copyForEnumerating];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = _copyForEnumerating;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         _internal = [v13 _internal];
         isNearby = [_internal isNearby];
 
@@ -2195,20 +2167,18 @@ LABEL_20:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (NSArray)connectedDevices
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -2224,26 +2194,26 @@ LABEL_20:
   [(_IDSAccount *)self _loadCachedDevices];
   _copyForEnumerating = [(NSMutableArray *)self->_devices _copyForEnumerating];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = _copyForEnumerating;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         _internal = [v13 _internal];
         isConnected = [_internal isConnected];
 
@@ -2253,13 +2223,11 @@ LABEL_20:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2933,7 +2901,7 @@ LABEL_12:
 
 - (void)account:(id)account pseudonymsChanged:(id)changed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   changedCopy = changed;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -2954,9 +2922,9 @@ LABEL_12:
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v23 = accountCopy;
-      v24 = 2112;
-      v25 = changedCopy;
+      v22 = accountCopy;
+      v23 = 2112;
+      v24 = changedCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account %@ received pseudonyms changed: %@", buf, 0x16u);
     }
 
@@ -2977,17 +2945,15 @@ LABEL_12:
     v15 = v13;
 
     uniqueID = [(_IDSAccount *)self uniqueID];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_195AA771C;
-    v19[3] = &unk_1E74418E8;
-    v20 = uniqueID;
-    v21 = changedCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_195AA771C;
+    v18[3] = &unk_1E74418E8;
+    v19 = uniqueID;
+    v20 = changedCopy;
     v17 = uniqueID;
-    [(_IDSAccount *)self _callRegistrationDelegatesWithBlock:v19];
+    [(_IDSAccount *)self _callRegistrationDelegatesWithBlock:v18];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)account:(id)account dependentDevicesUpdated:(id)updated
@@ -3022,7 +2988,7 @@ LABEL_12:
 
 - (void)account:(id)account dependentDevicesUpdatedUponReconnect:(id)reconnect
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   reconnectCopy = reconnect;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -3043,24 +3009,22 @@ LABEL_12:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(reconnectCopy, "count")}];
-      v14 = 138412546;
-      v15 = accountCopy;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Account received %@ dependentDevicesUpdatedUponReconnect (devices count: %@)", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = accountCopy;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Account received %@ dependentDevicesUpdatedUponReconnect (devices count: %@)", &v13, 0x16u);
     }
 
     self->_devicesLoaded = 1;
     [(_IDSAccount *)self _updateDependentDevicesWithDevicesInfo:reconnectCopy];
     [(_IDSAccount *)self _callDevicesChanged];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)account:(id)account localDeviceAdded:(id)added
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   addedCopy = added;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -3080,11 +3044,11 @@ LABEL_12:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = accountCopy;
-      v21 = 2112;
-      v22 = addedCopy;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account received %@ localDeviceAdded %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = accountCopy;
+      v20 = 2112;
+      v21 = addedCopy;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account received %@ localDeviceAdded %@", &v18, 0x16u);
     }
 
     v12 = +[IDSDaemonController sharedInstance];
@@ -3098,18 +3062,16 @@ LABEL_12:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [(NSMutableArray *)self->_devices __imArrayByApplyingBlock:&unk_1F09E6980];
-      v19 = 138412290;
-      v20 = v17;
-      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "Devices updated %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v17;
+      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "Devices updated %@", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)account:(id)account localDeviceRemoved:(id)removed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   removedCopy = removed;
   if ([accountCopy isEqualToString:self->_uniqueID])
@@ -3117,11 +3079,11 @@ LABEL_12:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = accountCopy;
-      v18 = 2112;
-      v19 = removedCopy;
-      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account received %@ localDeviceRemoved %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = accountCopy;
+      v17 = 2112;
+      v18 = removedCopy;
+      _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Account received %@ localDeviceRemoved %@", &v15, 0x16u);
     }
 
     v9 = +[IDSDaemonController sharedInstance];
@@ -3135,13 +3097,11 @@ LABEL_12:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [(NSMutableArray *)self->_devices __imArrayByApplyingBlock:&unk_1F09E69A0];
-      v16 = 138412290;
-      v17 = v14;
-      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "Devices updated %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "Devices updated %@", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshRegistrationForAccount:(id)account
@@ -3271,6 +3231,15 @@ LABEL_12:
       sub_195B37664();
     }
   }
+}
+
+- (void)_reregisterAndReidentify:(BOOL)reidentify
+{
+  reidentifyCopy = reidentify;
+  v7 = +[IDSDaemonController sharedInstance];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:reidentifyCopy];
+  uniqueID = [(_IDSAccount *)self uniqueID];
+  [v7 _reregisterAndReidentify:v5 account:uniqueID];
 }
 
 - (void)deactivateAndPurgeIdentify

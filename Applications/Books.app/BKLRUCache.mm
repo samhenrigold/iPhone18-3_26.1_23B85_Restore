@@ -18,7 +18,7 @@
   v4 = sub_1007969D4();
   v6 = v5;
 
-  v7 = _s5Books10BKLRUCacheC9unarchive4fromACSg10Foundation4DataV_tFZ_0();
+  v7 = _s5Books10BKLRUCacheC9unarchive4fromACSg10Foundation4DataV_tFZ_0(v4, v6);
   sub_10000ADCC(v4, v6);
 
   return v7;
@@ -59,9 +59,9 @@
   }
 
   selfCopy = self;
-  v8 = BKLRUCache.object(forKey:)(v4, v6);
+  v9 = BKLRUCache.object(forKey:)(v4, v6, v8);
 
-  return v8;
+  return v9;
 }
 
 - (void)removeObjectForKey:(id)key

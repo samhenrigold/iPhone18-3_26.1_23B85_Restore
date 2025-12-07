@@ -16,7 +16,7 @@
 
 - (id)addTransactionForHome:(id)home
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   uuid = [(HMDUnassociatedAccessory *)self uuid];
   uuid2 = [homeCopy uuid];
@@ -54,26 +54,26 @@
 
         if ((v22 & 1) == 0)
         {
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
           v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
           rooms = [homeCopy rooms];
-          v24 = [rooms countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v24 = [rooms countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v43;
+            v26 = *v42;
 LABEL_7:
             v27 = 0;
             while (1)
             {
-              if (*v43 != v26)
+              if (*v42 != v26)
               {
                 objc_enumerationMutation(rooms);
               }
 
-              name2 = [*(*(&v42 + 1) + 8 * v27) name];
+              name2 = [*(*(&v41 + 1) + 8 * v27) name];
               providedName3 = [v7 providedName];
               v30 = [name2 caseInsensitiveCompare:providedName3];
 
@@ -84,7 +84,7 @@ LABEL_7:
 
               if (v25 == ++v27)
               {
-                v25 = [rooms countByEnumeratingWithState:&v42 objects:v50 count:16];
+                v25 = [rooms countByEnumeratingWithState:&v41 objects:v49 count:16];
                 if (v25)
                 {
                   goto LABEL_7;
@@ -117,9 +117,9 @@ LABEL_13:
               v38 = HMFGetLogIdentifier();
               providedName5 = [v7 providedName];
               *buf = 138543618;
-              v47 = v38;
-              v48 = 2112;
-              v49 = providedName5;
+              v46 = v38;
+              v47 = 2112;
+              v48 = providedName5;
               _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Populating configuredName with providedName: %@", buf, 0x16u);
             }
 
@@ -133,8 +133,6 @@ LABEL_13:
   }
 
 LABEL_18:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -321,10 +319,9 @@ LABEL_18:
 
 void __44__HMDUnassociatedMediaAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_77042;
-  logCategory__hmf_once_v5_77042 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_77042;
+  logCategory__hmf_once_v5_77042 = v0;
 }
 
 @end

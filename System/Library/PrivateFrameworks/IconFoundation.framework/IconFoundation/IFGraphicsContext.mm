@@ -216,7 +216,7 @@ LABEL_41:
   width = size.width;
   if (preset == 8)
   {
-    v8 = IFDefaultLog();
+    v8 = IFDefaultLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [IFGraphicsContext bitmapContextWithSize:v8 scale:? preset:?];
@@ -450,7 +450,7 @@ LABEL_41:
   y = rect.origin.y;
   x = rect.origin.x;
   Image = CGBitmapContextCreateImage(self->_cgContext);
-  if (Image && (v9 = Image, [(IFGraphicsContext *)self transform], v16.origin.x = x, v16.origin.y = y, v16.size.width = width, v16.size.height = height, v17 = CGRectApplyAffineTransform(v16, &v14), v10 = CGImageCreateWithImageInRect(v9, v17), CFRelease(v9), v10))
+  if (Image && (v9 = Image, objc_msgSend_transform(self), v16.origin.x = x, v16.origin.y = y, v16.size.width = width, v16.size.height = height, v17 = CGRectApplyAffineTransform(v16, &v14), v10 = CGImageCreateWithImageInRect(v9, v17), CFRelease(v9), v10))
   {
     v11 = [IFImage alloc];
     [(IFGraphicsContext *)self scale];

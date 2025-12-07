@@ -59,7 +59,7 @@
   *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC30NTKParmesanFaceBundleCompanion29ParmesanExpandableDescription_expanded) = (*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC30NTKParmesanFaceBundleCompanion29ParmesanExpandableDescription_expanded) & 1) == 0;
   sub_23BF9D998();
 
-  sub_23BF4A9A4(&v5);
+  sub_23BF4A9A4(v5);
 }
 
 @end

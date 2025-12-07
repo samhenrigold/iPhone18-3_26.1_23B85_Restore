@@ -38,7 +38,7 @@
 - (void)layoutSubviews
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for PKDashboardFinanceKitTransactionCollectionViewCell();
+  v13.super_class = type metadata accessor for PKDashboardFinanceKitTransactionCollectionViewCell(0);
   v2 = v13.receiver;
   [(PKDashboardCollectionViewCell *)&v13 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC9PassKitUI50PKDashboardFinanceKitTransactionCollectionViewCell_transactionView];
@@ -55,7 +55,7 @@
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for PKDashboardFinanceKitTransactionCollectionViewCell();
+  v10.super_class = type metadata accessor for PKDashboardFinanceKitTransactionCollectionViewCell(0);
   attributesCopy = attributes;
   v5 = v10.receiver;
   v6 = [(PKDashboardFinanceKitTransactionCollectionViewCell *)&v10 preferredLayoutAttributesFittingAttributes:attributesCopy];

@@ -20,20 +20,20 @@
 
 + (id)stringByComposingInput:(id)input
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   inputCopy = input;
   v4 = [inputCopy length];
   v5 = MEMORY[0x2A1C7C4A8]();
-  v7 = &v22 - v6;
+  v7 = &v21 - v6;
   if (v5)
   {
-    v22 = &v22;
+    v21 = &v21;
     v8 = 0;
     v9 = 0;
     v10 = 0;
     while (1)
     {
-      v11 = [inputCopy characterAtIndex:{v9, v22, v23}];
+      v11 = [inputCopy characterAtIndex:{v9, v21, v22}];
       if (v4 - 1 > v9)
       {
         break;
@@ -174,8 +174,6 @@ LABEL_35:
 LABEL_45:
   v19 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v7 length:v18];
 
-  v20 = *MEMORY[0x29EDCA608];
-
   return v19;
 }
 
@@ -199,7 +197,7 @@ LABEL_45:
 
 - (id)externalStringToInternal:(id)internal
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   internalCopy = internal;
   if ([(TIKeyboardInputManager_chr *)self inHardwareKeyboardMode])
   {
@@ -210,7 +208,7 @@ LABEL_45:
   {
     [internalCopy length];
     MEMORY[0x2A1C7C4A8]();
-    v7 = v17 - v6;
+    v7 = v16 - v6;
     if ([internalCopy length])
     {
       v8 = 0;
@@ -459,14 +457,12 @@ LABEL_80:
     v5 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v7 length:v14];
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-
   return v5;
 }
 
 - (id)contextualDisplayKeys
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   keyboardState = [(TIKeyboardInputManager_chr *)self keyboardState];
   documentState = [keyboardState documentState];
@@ -475,25 +471,25 @@ LABEL_80:
   whitespaceAndNewlineCharacterSet = [MEMORY[0x29EDB9F50] whitespaceAndNewlineCharacterSet];
   v9 = [_lastGrapheme stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v10 = [&unk_2A2523BC0 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v10 = [&unk_2A2523BC0 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(&unk_2A2523BC0);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         if ([v9 length])
         {
           v15 = objc_opt_class();
@@ -514,13 +510,11 @@ LABEL_80:
         }
       }
 
-      v11 = [&unk_2A2523BC0 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [&unk_2A2523BC0 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return dictionary;
 }

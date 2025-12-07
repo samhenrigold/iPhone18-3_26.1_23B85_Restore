@@ -308,7 +308,7 @@
 - (NSDictionary)scriptRatioThresholds
 {
   swift_beginAccess();
-  sub_1B40E27B4(0, &qword_1ED95EE90);
+  sub_1B40E27B4(0, &qword_1ED95EE90, 0x1E696AD98);
 
   v2 = sub_1B429FAE8();
 
@@ -317,7 +317,7 @@
 
 - (void)setScriptRatioThresholds:(id)thresholds
 {
-  sub_1B40E27B4(0, &qword_1ED95EE90);
+  sub_1B40E27B4(0, &qword_1ED95EE90, 0x1E696AD98);
   v4 = sub_1B429FAF8();
   v5 = OBJC_IVAR___CRDetectorConfiguration_scriptRatioThresholds;
   swift_beginAccess();

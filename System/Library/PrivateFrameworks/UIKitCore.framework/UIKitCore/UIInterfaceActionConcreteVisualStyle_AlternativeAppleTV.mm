@@ -108,7 +108,7 @@ LABEL_5:
 
   if (userInterfaceStyle == 1)
   {
-    v8 = +[UIColor blackColor];
+    v8 = objc_msgSend_blackColor(UIColor);
     v10 = 0.35;
     v9 = 0.1;
   }

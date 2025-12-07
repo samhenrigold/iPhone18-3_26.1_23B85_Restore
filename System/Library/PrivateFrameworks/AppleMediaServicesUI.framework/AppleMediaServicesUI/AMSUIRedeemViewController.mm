@@ -13,6 +13,7 @@
 - (void)setClientInfo:(id)info;
 - (void)setClientOptions:(id)options;
 - (void)setMetricsOverlay:(id)overlay;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -147,6 +148,17 @@
   [(AMSUICommonViewController *)self setChildViewController:v7];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = AMSUIRedeemViewController;
+  [(AMSUIRedeemViewController *)&v8 viewWillAppear:appear];
+  webViewController = [(AMSUIRedeemViewController *)self webViewController];
+  initialCode = [(AMSUIRedeemViewController *)self initialCode];
+  v6 = [(AMSUIRedeemViewController *)self _redeemURLWithInitialCode:initialCode];
+  v7 = [webViewController loadBagValue:v6];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v17.receiver = self;
@@ -196,18 +208,16 @@
 
 id __55__AMSUIRedeemViewController__redeemURLWithInitialCode___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v10 = @"code";
-  v11[0] = v2;
+  v9 = @"code";
+  v10[0] = v2;
   v3 = MEMORY[0x1E695DF20];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v6 = [v4 ams_URLByAppendingQueryParameters:v5];
 
   v7 = [MEMORY[0x1E698CAD0] promiseWithResult:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

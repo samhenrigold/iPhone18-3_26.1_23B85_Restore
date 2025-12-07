@@ -36,8 +36,18 @@
 - (void)downloadingItemViewControllerDidFinishLoadingPreviewItem:(id)item withContents:(id)contents;
 - (void)isReadyForDisplayWithCompletionHandler:(id)handler;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
+- (void)setIsContentManaged:(BOOL)managed;
 - (void)showErrorViewController;
 - (void)showPreviewProviderViewController;
+- (void)showPreviewViewController:(id)controller animatingWithCrossfade:(BOOL)crossfade updatingIsReadyForDisplay:(BOOL)display;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
+- (void)transitionDidStart:(BOOL)start;
+- (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)updatePreviewItemDisplayState:(id)state;
 @end
 
@@ -156,7 +166,7 @@ void __90__QLItemPresenterViewController__showReadyToDisplayPreviewViewControlle
 
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   contextCopy = context;
   handlerCopy = handler;
@@ -179,7 +189,7 @@ void __90__QLItemPresenterViewController__showReadyToDisplayPreviewViewControlle
     {
       previewItem = self->_previewItem;
       *buf = 138412290;
-      v42 = previewItem;
+      v41 = previewItem;
       _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_DEBUG, "Will show error view controller because can't preview item: %@. #PreviewController", buf, 0xCu);
     }
 
@@ -197,24 +207,24 @@ void __90__QLItemPresenterViewController__showReadyToDisplayPreviewViewControlle
   if (fetcher)
   {
     objc_initWeak(buf, self);
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke;
-    v38[3] = &unk_278B57740;
-    v39 = handlerCopy;
-    objc_copyWeak(&v40, buf);
-    [(QLItemPresenterViewController *)self setLoadingCompletionHandler:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke;
+    v37[3] = &unk_278B57740;
+    v38 = handlerCopy;
+    objc_copyWeak(&v39, buf);
+    [(QLItemPresenterViewController *)self setLoadingCompletionHandler:v37];
     date = [MEMORY[0x277CBEAA8] date];
     previewProvider = [(QLItemPresenterViewController *)self previewProvider];
     v21 = self->_previewItem;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_2;
-    v36[3] = &unk_278B56E50;
-    v36[4] = self;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_2;
+    v35[3] = &unk_278B56E50;
+    v35[4] = self;
     v22 = date;
-    v37 = v22;
-    self->_shouldHandleLoadingView = [previewProvider presenterShouldHandleLoadingView:v21 readyToDisplay:v36];
+    v36 = v22;
+    self->_shouldHandleLoadingView = [previewProvider presenterShouldHandleLoadingView:v21 readyToDisplay:v35];
 
     fetcher2 = [(QLItem *)self->_previewItem fetcher];
     if ([fetcher2 isLongFetchOperation])
@@ -227,7 +237,7 @@ void __90__QLItemPresenterViewController__showReadyToDisplayPreviewViewControlle
         [(QLItemPresenterViewController *)self showPreviewViewController:downloadingController];
 LABEL_25:
 
-        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v39);
         objc_destroyWeak(buf);
         goto LABEL_26;
       }
@@ -271,14 +281,14 @@ LABEL_25:
 
     fetcher3 = [(QLItem *)self->_previewItem fetcher];
     v32 = objc_opt_new();
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_3;
-    v34[3] = &unk_278B57768;
-    objc_copyWeak(&v35, buf);
-    [fetcher3 fetchContentWithAllowedOutputClasses:downloadingController inQueue:v32 updateBlock:0 completionBlock:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_3;
+    v33[3] = &unk_278B57768;
+    objc_copyWeak(&v34, buf);
+    [fetcher3 fetchContentWithAllowedOutputClasses:downloadingController inQueue:v32 updateBlock:0 completionBlock:v33];
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v34);
     goto LABEL_25;
   }
 
@@ -291,8 +301,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -302,7 +310,7 @@ uint64_t __93__QLItemPresenterViewController_loadPreviewControllerWithContents_c
   v7 = v3;
   if (v4)
   {
-    (*(v4 + 16))(v4, v3);
+    v4 = (*(v4 + 16))(v4, v3);
     v3 = v7;
   }
 
@@ -310,9 +318,11 @@ uint64_t __93__QLItemPresenterViewController_loadPreviewControllerWithContents_c
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained _setupScreenTimeHandling];
+
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v3);
 }
 
 void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -373,7 +383,7 @@ void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_conte
 
 void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_5(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -393,13 +403,13 @@ void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_conte
         v6 = [WeakRetained previewItem];
         v7 = *(a1 + 32);
         v8 = *(a1 + 40);
-        v16 = 138412802;
-        v17 = v6;
-        v18 = 2112;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v8;
-        _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Will show error view because presenter could not successfully fetch content of preview item: %@, contents: %@, error: %@. #PreviewController", &v16, 0x20u);
+        v15 = 138412802;
+        v16 = v6;
+        v17 = 2112;
+        v18 = v7;
+        v19 = 2112;
+        v20 = v8;
+        _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Will show error view because presenter could not successfully fetch content of preview item: %@, contents: %@, error: %@. #PreviewController", &v15, 0x20u);
       }
 
       v9 = [WeakRetained errorViewController];
@@ -421,18 +431,16 @@ void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_conte
         v12 = v11;
         v13 = [WeakRetained previewItem];
         v14 = *(a1 + 40);
-        v16 = 138412546;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v14;
-        _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_DEBUG, "Will _startLoadingPreviewWithContents because presenter successfully fetched content of preview item: %@, contents: %@. #PreviewController", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v14;
+        _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_DEBUG, "Will _startLoadingPreviewWithContents because presenter successfully fetched content of preview item: %@, contents: %@. #PreviewController", &v15, 0x16u);
       }
 
       [WeakRetained _startLoadingPreviewWithContents:*(a1 + 40)];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __93__QLItemPresenterViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke_17(uint64_t a1, void *a2, void *a3)
@@ -568,6 +576,19 @@ LABEL_10:
   [(QLItemPresenterViewController *)self showPreviewViewController:previewProvider];
 }
 
+- (void)showPreviewViewController:(id)controller animatingWithCrossfade:(BOOL)crossfade updatingIsReadyForDisplay:(BOOL)display
+{
+  displayCopy = display;
+  v7.receiver = self;
+  v7.super_class = QLItemPresenterViewController;
+  [(QLItemAggregatedViewController *)&v7 showPreviewViewController:controller animatingWithCrossfade:crossfade];
+  if (displayCopy)
+  {
+    self->_isReadyForDisplay = 1;
+    [(QLItemPresenterViewController *)self _performReadyBlockIfNedded];
+  }
+}
+
 - (void)isReadyForDisplayWithCompletionHandler:(id)handler
 {
   aBlock = handler;
@@ -604,7 +625,7 @@ LABEL_10:
 
 void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[152])
   {
@@ -619,12 +640,12 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
     v4 = 0;
   }
 
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy__1;
-  v40[4] = __Block_byref_object_dispose__1;
-  v41 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = __Block_byref_object_copy__1;
+  v37[4] = __Block_byref_object_dispose__1;
+  v38 = 0;
   objc_initWeak(&location, v2[152]);
   objc_initWeak(&from, *(a1 + 32));
   v5 = maxLoadingItemForItem(*(*(a1 + 32) + 1240));
@@ -636,13 +657,13 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
     block[1] = 3221225472;
     block[2] = __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_29;
     block[3] = &unk_278B577B8;
-    v37 = v4;
-    objc_copyWeak(&v35, &from);
-    objc_copyWeak(&v36, &location);
-    block[4] = v40;
+    v34 = v4;
+    objc_copyWeak(&v32, &from);
+    objc_copyWeak(&v33, &location);
+    block[4] = v37;
     dispatch_after(v7, MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v36);
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     v6 = *(a1 + 32);
   }
 
@@ -650,27 +671,26 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
   v8 = objc_opt_new();
   v9 = [*(*(a1 + 32) + 1240) createPreviewContext];
   [v9 setViewDynamicRange:*(a1 + 48)];
-  v10 = *(a1 + 40);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v12 = *(a1 + 40);
+  v11 = *(a1 + 40);
   if (isKindOfClass)
   {
-    v33 = 0;
-    v13 = &v33;
-    v14 = [v8 transformedContentsFromData:v12 context:v9 error:&v33];
+    v30 = 0;
+    v12 = &v30;
+    v13 = [v8 transformedContentsFromData:v11 context:v9 error:&v30];
   }
 
   else
   {
     objc_opt_class();
-    v15 = objc_opt_isKindOfClass();
-    v16 = *(a1 + 40);
-    if (v15)
+    v14 = objc_opt_isKindOfClass();
+    v15 = *(a1 + 40);
+    if (v14)
     {
-      v32 = 0;
-      v13 = &v32;
-      v14 = [v8 transformedContentsFromURL:v16 context:v9 error:&v32];
+      v29 = 0;
+      v12 = &v29;
+      v13 = [v8 transformedContentsFromURL:v15 context:v9 error:&v29];
     }
 
     else
@@ -681,89 +701,86 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
         goto LABEL_20;
       }
 
-      v17 = *(a1 + 40);
-      v31 = 0;
-      v13 = &v31;
-      v14 = [v8 transformedContentsFromSpotlightSearchableItemInfo:v17 context:v9 error:&v31];
+      v16 = *(a1 + 40);
+      v28 = 0;
+      v12 = &v28;
+      v13 = [v8 transformedContentsFromSpotlightSearchableItemInfo:v16 context:v9 error:&v28];
     }
   }
 
-  v18 = v14;
-  v19 = *v13;
-  if (!v19)
+  v17 = v13;
+  v18 = *v12;
+  if (!v18)
   {
-    if (v18)
+    if (v17)
     {
-      v27 = *(a1 + 32);
-      v18 = v18;
-      v28 = v9;
-      objc_copyWeak(&v29, &location);
-      objc_copyWeak(v30, &from);
+      v17 = v17;
+      v25 = v9;
+      objc_copyWeak(&v26, &location);
+      objc_copyWeak(v27, &from);
       QLRunInMainThread();
-      objc_destroyWeak(v30);
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(v27);
+      objc_destroyWeak(&v26);
 
 LABEL_25:
-      v20 = 0;
+      v19 = 0;
       goto LABEL_26;
     }
 
 LABEL_20:
-    v23 = MEMORY[0x277D43EF8];
-    v24 = *MEMORY[0x277D43EF8];
+    v22 = MEMORY[0x277D43EF8];
+    v23 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v24 = *v23;
+      v23 = *v22;
     }
 
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(*(a1 + 32) + 1240);
+      v24 = *(*(a1 + 32) + 1240);
       *buf = 138412290;
-      v43 = v25;
-      _os_log_impl(&dword_23A714000, v24, OS_LOG_TYPE_ERROR, "Cancelled loading view controller because transformedContent is nil for item: %@. #ItemPresenter", buf, 0xCu);
+      v40 = v24;
+      _os_log_impl(&dword_23A714000, v23, OS_LOG_TYPE_ERROR, "Cancelled loading view controller because transformedContent is nil for item: %@. #ItemPresenter", buf, 0xCu);
     }
 
-    v30[1] = MEMORY[0x277D85DD0];
-    v30[2] = 3221225472;
-    v30[3] = __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_31;
-    v30[4] = &unk_278B57190;
-    v30[5] = *(a1 + 32);
+    v27[1] = MEMORY[0x277D85DD0];
+    v27[2] = 3221225472;
+    v27[3] = __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_31;
+    v27[4] = &unk_278B57190;
+    v27[5] = *(a1 + 32);
     QLRunInMainThread();
-    v18 = 0;
+    v17 = 0;
     goto LABEL_25;
   }
 
-  v20 = v19;
-  v21 = MEMORY[0x277D43EF8];
-  v22 = *MEMORY[0x277D43EF8];
+  v19 = v18;
+  v20 = MEMORY[0x277D43EF8];
+  v21 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
     QLSInitLogging();
-    v22 = *v21;
+    v21 = *v20;
   }
 
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v43 = v20;
-    _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_ERROR, "Error while attempting to load preview item: %@ #ItemPresenter", buf, 0xCu);
+    v40 = v19;
+    _os_log_impl(&dword_23A714000, v21, OS_LOG_TYPE_ERROR, "Error while attempting to load preview item: %@ #ItemPresenter", buf, 0xCu);
   }
 
-  v30[6] = MEMORY[0x277D85DD0];
-  v30[7] = 3221225472;
-  v30[8] = __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_30;
-  v30[9] = &unk_278B57190;
-  v30[10] = *(a1 + 32);
+  v27[6] = MEMORY[0x277D85DD0];
+  v27[7] = 3221225472;
+  v27[8] = __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_30;
+  v27[9] = &unk_278B57190;
+  v27[10] = *(a1 + 32);
   QLRunInMainThread();
 LABEL_26:
 
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-  _Block_object_dispose(v40, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v37, 8);
 }
 
 void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_29(uint64_t a1)
@@ -771,25 +788,31 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
   if (*(a1 + 56) == 1)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    if (([WeakRetained isLoaded] & 1) == 0)
+    v2 = [WeakRetained isLoaded];
+    if (v2)
     {
-      v2 = objc_loadWeakRetained((a1 + 48));
+      v3 = WeakRetained;
+    }
 
-      if (!v2)
+    else
+    {
+      v4 = objc_loadWeakRetained((a1 + 48));
+
+      if (!v4)
       {
         return;
       }
 
-      v3 = objc_loadWeakRetained((a1 + 48));
-      [v3 setShowsLoadingPreviewSpinner:1];
+      v5 = objc_loadWeakRetained((a1 + 48));
+      [v5 setShowsLoadingPreviewSpinner:1];
 
-      v4 = [MEMORY[0x277CBEAA8] date];
-      v5 = *(*(a1 + 32) + 8);
-      v6 = *(v5 + 40);
-      *(v5 + 40) = v4;
+      v2 = [MEMORY[0x277CBEAA8] date];
+      v6 = *(*(a1 + 32) + 8);
+      v3 = *(v6 + 40);
+      *(v6 + 40) = v2;
     }
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -860,7 +883,7 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
 
 void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___block_invoke_4(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -880,9 +903,9 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v5;
-      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Error while attempting to load preview item: %@ #ItemPresenter", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v5;
+      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Error while attempting to load preview item: %@ #ItemPresenter", &v13, 0xCu);
     }
 
     v6 = objc_loadWeakRetained((a1 + 64));
@@ -905,8 +928,6 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
 
   v12 = objc_loadWeakRetained((a1 + 64));
   [v12 _performLoadingCompletionHandlerWithError:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadingItemViewControllerDidFinishLoadingPreviewItem:(id)item withContents:(id)contents
@@ -923,6 +944,21 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
   LOBYTE(selfCopy) = [delegate itemPresenterViewControllerShouldForceAutodownloadFile:selfCopy];
 
   return selfCopy;
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  v7.receiver = self;
+  v7.super_class = QLItemPresenterViewController;
+  [(QLItemAggregatedViewController *)&v7 setAppearance:appearance animated:animated];
+  appearance = [(QLItemAggregatedViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  if (presentationMode == 4)
+  {
+    self->_isPeekingSession = 1;
+    self->_shouldDeferAppearanceUpdates = 0;
+  }
 }
 
 - (BOOL)isLoaded
@@ -1072,13 +1108,9 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
     v8 = self->_previewProvider;
     self->_previewProvider = v7;
 
-    if (self->_previewControllerMissedTransitionDidStart)
+    if (self->_previewControllerMissedTransitionDidStart && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v9 = self->_previewProvider;
-      if (objc_opt_respondsToSelector())
-      {
-        [(QLItemViewController *)self->_previewProvider transitionDidStart:1];
-      }
+      [(QLItemViewController *)self->_previewProvider transitionDidStart:1];
     }
 
     presentingDelegate = [(QLItemViewController *)self presentingDelegate];
@@ -1091,9 +1123,214 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
     previewProvider = self->_previewProvider;
   }
 
-  v12 = previewProvider;
+  v11 = previewProvider;
 
-  return v12;
+  return v11;
+}
+
+- (void)setIsContentManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v5.receiver = self;
+  v5.super_class = QLItemPresenterViewController;
+  [(QLItemViewController *)&v5 setIsContentManaged:?];
+  [(QLItemViewController *)self->_errorViewController setIsContentManaged:managedCopy];
+  [(QLItemViewController *)self->_loadingViewController setIsContentManaged:managedCopy];
+  [(QLItemViewController *)self->_downloadingController setIsContentManaged:managedCopy];
+  [(QLItemViewController *)self->_previewProvider setIsContentManaged:managedCopy];
+  [(QLItemViewController *)self->_screenTimeController setIsContentManaged:managedCopy];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(QLItemPresenterViewController *)self _cancelAllDeferredApperanceUpdates];
+  if (self->_shouldDeferAppearanceUpdates)
+  {
+    if (appearCopy)
+    {
+      v6 = MEMORY[0x277CBEC38];
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    [(QLItemPresenterViewController *)self performSelector:a2 withObject:v6 afterDelay:0.1];
+  }
+
+  else
+  {
+    v7.receiver = self;
+    v7.super_class = QLItemPresenterViewController;
+    [(QLItemAggregatedViewController *)&v7 previewWillAppear:appearCopy];
+  }
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  if (self->_shouldDeferAppearanceUpdates)
+  {
+    if (appear)
+    {
+      v4 = MEMORY[0x277CBEC38];
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    [(QLItemPresenterViewController *)self performSelector:a2 withObject:v4 afterDelay:0.1];
+  }
+
+  else
+  {
+    v5.receiver = self;
+    v5.super_class = QLItemPresenterViewController;
+    [(QLItemAggregatedViewController *)&v5 previewDidAppear:appear];
+  }
+
+  [(QLItemPresenterViewController *)self _cancelAllDeferredApperanceUpdates];
+  self->_shouldDeferAppearanceUpdates = 0;
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (!self->_isPeekingSession)
+  {
+    self->_shouldDeferAppearanceUpdates = 0;
+LABEL_16:
+    v12.receiver = self;
+    v12.super_class = QLItemPresenterViewController;
+    [(QLItemAggregatedViewController *)&v12 previewWillDisappear:disappearCopy];
+    return;
+  }
+
+  currentPreviewViewController = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+  if (currentPreviewViewController)
+  {
+    currentPreviewViewController2 = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+    previewProvider = [(QLItemPresenterViewController *)self previewProvider];
+    if (currentPreviewViewController2 == previewProvider)
+    {
+      p_shouldDeferAppearanceUpdates = &self->_shouldDeferAppearanceUpdates;
+      self->_shouldDeferAppearanceUpdates = 1;
+    }
+
+    else
+    {
+      currentPreviewViewController3 = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+      p_shouldDeferAppearanceUpdates = &self->_shouldDeferAppearanceUpdates;
+      self->_shouldDeferAppearanceUpdates = currentPreviewViewController3 == self->_downloadingController;
+    }
+  }
+
+  else
+  {
+    p_shouldDeferAppearanceUpdates = &self->_shouldDeferAppearanceUpdates;
+    self->_shouldDeferAppearanceUpdates = 0;
+  }
+
+  if (!*p_shouldDeferAppearanceUpdates)
+  {
+    goto LABEL_16;
+  }
+
+  if (disappearCopy)
+  {
+    v11 = MEMORY[0x277CBEC38];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  [(QLItemPresenterViewController *)self performSelector:a2 withObject:v11 afterDelay:0.1];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  self->_isPeekingSession = 0;
+  if (self->_shouldDeferAppearanceUpdates)
+  {
+    if (disappear)
+    {
+      v5 = MEMORY[0x277CBEC38];
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    [(QLItemPresenterViewController *)self performSelector:a2 withObject:v5 afterDelay:0.1];
+  }
+
+  else
+  {
+    v7 = v3;
+    v8 = v4;
+    v6.receiver = self;
+    v6.super_class = QLItemPresenterViewController;
+    [(QLItemAggregatedViewController *)&v6 previewDidDisappear:disappear];
+  }
+}
+
+- (void)transitionDidStart:(BOOL)start
+{
+  startCopy = start;
+  previewProvider = self->_previewProvider;
+  if (previewProvider || (self->_previewControllerMissedTransitionDidStart = 1, (previewProvider = self->_previewProvider) != 0))
+  {
+
+    [(QLItemViewController *)previewProvider transitionDidStart:?];
+  }
+
+  else
+  {
+    currentPreviewViewController = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+    [currentPreviewViewController transitionDidStart:startCopy];
+  }
+}
+
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  finishCopy = finish;
+  if (self->_previewProvider)
+  {
+    previewProvider = self->_previewProvider;
+
+    [QLItemViewController transitionDidFinish:"transitionDidFinish:didComplete:" didComplete:?];
+  }
+
+  else
+  {
+    currentPreviewViewController = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+    [currentPreviewViewController transitionDidFinish:finishCopy didComplete:completeCopy];
+  }
+}
+
+- (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  finishCopy = finish;
+  if (self->_previewProvider)
+  {
+    previewProvider = self->_previewProvider;
+
+    [QLItemViewController transitionWillFinish:"transitionWillFinish:didComplete:" didComplete:?];
+  }
+
+  else
+  {
+    currentPreviewViewController = [(QLItemAggregatedViewController *)self currentPreviewViewController];
+    [currentPreviewViewController transitionWillFinish:finishCopy didComplete:completeCopy];
+  }
 }
 
 - (id)additionalItemViewControllerDescription
@@ -1122,46 +1359,48 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
 
 - (void)_setupScreenTimeHandling
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (![(QLItemPresenterViewController *)self _processIsEntitledToCheckScreenTimePolicy])
   {
-    v6 = MEMORY[0x277D43EF8];
-    v7 = *MEMORY[0x277D43EF8];
+    v5 = MEMORY[0x277D43EF8];
+    v6 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v7 = *v6;
+      v6 = *v5;
     }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_16;
+      return;
     }
 
-    v14 = 138412290;
+    v11 = 138412290;
     selfCopy3 = self;
-    v8 = "Can't set up screen time management because process is not entitled to check screen time policy. %@ #PreviewController";
-    goto LABEL_15;
+    v7 = "Can't set up screen time management because process is not entitled to check screen time policy. %@ #PreviewController";
+LABEL_15:
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, v7, &v11, 0xCu);
+    return;
   }
 
   if (![(QLItemPresenterViewController *)self _processIsEntitledToConfigureScreenTime])
   {
-    v9 = MEMORY[0x277D43EF8];
-    v7 = *MEMORY[0x277D43EF8];
+    v8 = MEMORY[0x277D43EF8];
+    v6 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v7 = *v9;
+      v6 = *v8;
     }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_16;
+      return;
     }
 
-    v14 = 138412290;
+    v11 = 138412290;
     selfCopy3 = self;
-    v8 = "Can't set up screen time management because process is not entitled to configure screen time. %@ #PreviewController";
+    v7 = "Can't set up screen time management because process is not entitled to configure screen time. %@ #PreviewController";
     goto LABEL_15;
   }
 
@@ -1170,7 +1409,6 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
 
   if (v4)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     [(QLItemPresenterViewController *)self _setupScreenTimeCategoryHandling];
     return;
@@ -1178,34 +1416,28 @@ void __66__QLItemPresenterViewController__startLoadingPreviewWithContents___bloc
 
   screenTimePolicyBundleIdentifier = [(QLItemPresenterViewController *)self screenTimePolicyBundleIdentifier];
 
-  if (!screenTimePolicyBundleIdentifier)
+  if (screenTimePolicyBundleIdentifier)
   {
-    v13 = MEMORY[0x277D43EF8];
-    v7 = *MEMORY[0x277D43EF8];
-    if (!*MEMORY[0x277D43EF8])
-    {
-      QLSInitLogging();
-      v7 = *v13;
-    }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_16;
-    }
-
-    v14 = 138412290;
-    selfCopy3 = self;
-    v8 = "No need to set up screen time management for preview controller: %@. #PreviewController";
-LABEL_15:
-    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_INFO, v8, &v14, 0xCu);
-LABEL_16:
-    v10 = *MEMORY[0x277D85DE8];
+    [(QLItemPresenterViewController *)self _setupScreenTimeApplicationHandling];
     return;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = MEMORY[0x277D43EF8];
+  v6 = *MEMORY[0x277D43EF8];
+  if (!*MEMORY[0x277D43EF8])
+  {
+    QLSInitLogging();
+    v6 = *v10;
+  }
 
-  [(QLItemPresenterViewController *)self _setupScreenTimeApplicationHandling];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v11 = 138412290;
+    selfCopy3 = self;
+    v7 = "No need to set up screen time management for preview controller: %@. #PreviewController";
+    goto LABEL_15;
+  }
 }
 
 - (void)_setupScreenTimeCategoryHandling
@@ -1260,23 +1492,21 @@ void __68__QLItemPresenterViewController__setupScreenTimeApplicationHandling__bl
 
 - (void)_queryScreenTimePolicyForBundleIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   objc_initWeak(&location, self);
   screenTimeApplicationMonitor = self->_screenTimeApplicationMonitor;
-  v11[0] = identifierCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __75__QLItemPresenterViewController__queryScreenTimePolicyForBundleIdentifier___block_invoke;
-  v8[3] = &unk_278B57880;
-  objc_copyWeak(&v9, &location);
-  [(DMFApplicationPolicyMonitor *)screenTimeApplicationMonitor requestPoliciesForBundleIdentifiers:v6 completionHandler:v8];
+  v10[0] = identifierCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __75__QLItemPresenterViewController__queryScreenTimePolicyForBundleIdentifier___block_invoke;
+  v7[3] = &unk_278B57880;
+  objc_copyWeak(&v8, &location);
+  [(DMFApplicationPolicyMonitor *)screenTimeApplicationMonitor requestPoliciesForBundleIdentifiers:v6 completionHandler:v7];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __75__QLItemPresenterViewController__queryScreenTimePolicyForBundleIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1299,21 +1529,20 @@ void __75__QLItemPresenterViewController__queryScreenTimePolicyForBundleIdentifi
 
 - (void)_queryScreenTimeCategoryPolicy
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   screenTimeCategoryMonitor = self->_screenTimeCategoryMonitor;
-  v9[0] = *MEMORY[0x277CF95D0];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __63__QLItemPresenterViewController__queryScreenTimeCategoryPolicy__block_invoke;
-  v6[3] = &unk_278B57880;
-  objc_copyWeak(&v7, &location);
-  [(DMFCategoryPolicyMonitor *)screenTimeCategoryMonitor requestPoliciesForCategoryIdentifiers:v4 completionHandler:v6];
+  v8[0] = *MEMORY[0x277CF95D0];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __63__QLItemPresenterViewController__queryScreenTimeCategoryPolicy__block_invoke;
+  v5[3] = &unk_278B57880;
+  objc_copyWeak(&v6, &location);
+  [(DMFCategoryPolicyMonitor *)screenTimeCategoryMonitor requestPoliciesForCategoryIdentifiers:v4 completionHandler:v5];
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__QLItemPresenterViewController__queryScreenTimeCategoryPolicy__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1410,7 +1639,7 @@ void __70__QLItemPresenterViewController__hideScreenTimeViewControllerIfNeeded__
 
 - (QLScreenTimeItemViewController)screenTimeController
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   screenTimeController = self->_screenTimeController;
   if (!screenTimeController)
   {
@@ -1450,9 +1679,9 @@ void __70__QLItemPresenterViewController__hideScreenTimeViewControllerIfNeeded__
 
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v21 = 138412290;
+          v20 = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_23A714000, v15, OS_LOG_TYPE_ERROR, "Cannot set up screen time preview controller: %@. #PreviewController", &v21, 0xCu);
+          _os_log_impl(&dword_23A714000, v15, OS_LOG_TYPE_ERROR, "Cannot set up screen time preview controller: %@. #PreviewController", &v20, 0xCu);
         }
       }
     }
@@ -1466,7 +1695,6 @@ void __70__QLItemPresenterViewController__hideScreenTimeViewControllerIfNeeded__
   }
 
   v18 = screenTimeController;
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

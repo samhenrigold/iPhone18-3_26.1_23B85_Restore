@@ -13,6 +13,7 @@
 - (void)retainECPOption:(unint64_t)option;
 - (void)start;
 - (void)stop;
+- (void)touchSystemReady:(BOOL)ready;
 @end
 
 @implementation NFBackgroundTagReadingManager
@@ -565,31 +566,31 @@ LABEL_52:
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "handleDetectedTags", &unk_1002E8B7A, buf, 2u);
   }
 
+  v150 = 0;
+  v151 = &v150;
+  v152 = 0x2020000000;
   v153 = 0;
-  v154 = &v153;
-  v155 = 0x2020000000;
-  v156 = 0;
   if (self->_backgroundTagDetectState == 1)
   {
-    v151 = 0u;
-    v152 = 0u;
+    v148 = 0u;
     v149 = 0u;
-    v150 = 0u;
+    v146 = 0u;
+    v147 = 0u;
     v10 = tagsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v149 objects:v161 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v146 objects:v158 count:16];
     if (v11)
     {
-      v6 = *v150;
+      v6 = *v147;
       while (2)
       {
         for (i = 0; i != v11; i = (i + 1))
         {
-          if (*v150 != v6)
+          if (*v147 != v6)
           {
             objc_enumerationMutation(v10);
           }
 
-          v12 = *(*(&v149 + 1) + 8 * i);
+          v12 = *(*(&v146 + 1) + 8 * i);
           if ([v12 type] != 10 && objc_msgSend(v12, "type"))
           {
             v11 = v12;
@@ -597,7 +598,7 @@ LABEL_52:
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v149 objects:v161 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v146 objects:v158 count:16];
         if (v11)
         {
           continue;
@@ -608,7 +609,7 @@ LABEL_52:
     }
 
 LABEL_17:
-    v137 = a2;
+    v134 = a2;
 
     v13 = v11;
     if ([v13 type] == 5)
@@ -632,7 +633,7 @@ LABEL_17:
             Class = object_getClass(self);
             isMetaClass = class_isMetaClass(Class);
             ClassName = object_getClassName(self);
-            Name = sel_getName(v137);
+            Name = sel_getName(v134);
             v24 = 45;
             if (isMetaClass)
             {
@@ -658,15 +659,15 @@ LABEL_17:
             }
 
             v28 = object_getClassName(self);
-            v29 = sel_getName(v137);
+            v29 = sel_getName(v134);
             *buf = 67109890;
             *&buf[4] = v27;
-            v163 = 2082;
-            v164 = v28;
-            v165 = 2082;
-            v166 = v29;
-            v167 = 1024;
-            v168 = 447;
+            v160 = 2082;
+            v161 = v28;
+            v162 = 2082;
+            v163 = v29;
+            v164 = 1024;
+            v165 = 447;
             _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Timer has already started", buf, 0x22u);
           }
         }
@@ -675,74 +676,74 @@ LABEL_17:
         {
           if (Logger)
           {
-            v103 = object_getClass(self);
-            v104 = class_isMetaClass(v103);
-            v132 = object_getClassName(self);
-            v136 = sel_getName(v137);
-            v105 = 45;
-            if (v104)
+            v100 = object_getClass(self);
+            v101 = class_isMetaClass(v100);
+            v129 = object_getClassName(self);
+            v133 = sel_getName(v134);
+            v102 = 45;
+            if (v101)
+            {
+              v102 = 43;
+            }
+
+            v20(6, "%c[%{public}s %{public}s]:%i Ignore non-compliant tag; suspend tag detect for %f", v102, v129, v133, 432, 0x3FF8000000000000);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v103 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+          {
+            v104 = object_getClass(self);
+            if (class_isMetaClass(v104))
             {
               v105 = 43;
             }
 
-            v20(6, "%c[%{public}s %{public}s]:%i Ignore non-compliant tag; suspend tag detect for %f", v105, v132, v136, 432, 0x3FF8000000000000);
-          }
-
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v106 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
-          {
-            v107 = object_getClass(self);
-            if (class_isMetaClass(v107))
-            {
-              v108 = 43;
-            }
-
             else
             {
-              v108 = 45;
+              v105 = 45;
             }
 
-            v109 = object_getClassName(self);
-            v110 = sel_getName(v137);
+            v106 = object_getClassName(self);
+            v107 = sel_getName(v134);
             *buf = 67110146;
-            *&buf[4] = v108;
-            v163 = 2082;
-            v164 = v109;
-            v165 = 2082;
-            v166 = v110;
-            v167 = 1024;
-            v168 = 432;
-            v169 = 2048;
-            v170 = 0x3FF8000000000000;
-            _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Ignore non-compliant tag; suspend tag detect for %f", buf, 0x2Cu);
+            *&buf[4] = v105;
+            v160 = 2082;
+            v161 = v106;
+            v162 = 2082;
+            v163 = v107;
+            v164 = 1024;
+            v165 = 432;
+            v166 = 2048;
+            v167 = 0x3FF8000000000000;
+            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Ignore non-compliant tag; suspend tag detect for %f", buf, 0x2Cu);
           }
 
           objc_initWeak(buf, self);
           [(NFBackgroundTagReadingManager *)self suspend];
-          v111 = [NFTimer alloc];
-          v147[0] = _NSConcreteStackBlock;
-          v147[1] = 3221225472;
-          v147[2] = sub_1001F2698;
-          v147[3] = &unk_100316610;
-          objc_copyWeak(v148, buf);
-          v148[1] = v137;
-          v112 = [v111 initWithCallback:v147 queue:self->_workQueue];
-          v113 = self->_suspendTimer;
-          self->_suspendTimer = v112;
+          v108 = [NFTimer alloc];
+          v144[0] = _NSConcreteStackBlock;
+          v144[1] = 3221225472;
+          v144[2] = sub_1001F2698;
+          v144[3] = &unk_100316610;
+          objc_copyWeak(v145, buf);
+          v145[1] = v134;
+          v109 = [v108 initWithCallback:v144 queue:self->_workQueue];
+          v110 = self->_suspendTimer;
+          self->_suspendTimer = v109;
 
           [(NFTimer *)self->_suspendTimer startTimer:1.5];
-          objc_destroyWeak(v148);
+          objc_destroyWeak(v145);
           objc_destroyWeak(buf);
         }
 
-        v114 = NFSharedSignpostLog();
-        if (os_signpost_enabled(v114))
+        v111 = NFSharedSignpostLog();
+        if (os_signpost_enabled(v111))
         {
-          v115 = *(v154 + 24);
+          v112 = *(v151 + 24);
           *buf = 67240192;
-          *&buf[4] = v115;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v114, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "handleDetectedTags", "tagProcessed=%{public, signpost.description:attribute}u", buf, 8u);
+          *&buf[4] = v112;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v111, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "handleDetectedTags", "tagProcessed=%{public, signpost.description:attribute}u", buf, 8u);
         }
 
         goto LABEL_133;
@@ -759,111 +760,109 @@ LABEL_17:
       tagID = [v13 tagID];
       nF_asHexString = [tagID NF_asHexString];
       sub_10027EB14(v32);
-      v33 = *(v6 + 31);
-      if (objc_opt_class() && (sub_10027EAF0(v34), v35 = i[30], objc_opt_class()))
+      if (objc_opt_class() && (sub_10027EAF0(v33), objc_opt_class()))
       {
         keyPathForNFCTagIdentifiers = [*(v6 + 31) keyPathForNFCTagIdentifiers];
         if (keyPathForNFCTagIdentifiers)
         {
           userContext = [i[30] userContext];
           *buf = nF_asHexString;
-          v38 = [NSArray arrayWithObjects:buf count:1];
-          [userContext setObject:v38 forKeyedSubscript:keyPathForNFCTagIdentifiers];
+          v36 = [NSArray arrayWithObjects:buf count:1];
+          [userContext setObject:v36 forKeyedSubscript:keyPathForNFCTagIdentifiers];
         }
       }
 
       else
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v39 = NFLogGetLogger();
-        if (v39)
+        v37 = NFLogGetLogger();
+        if (v37)
         {
-          v40 = v39;
-          v41 = object_getClass(self);
-          v42 = class_isMetaClass(v41);
+          v38 = v37;
+          v39 = object_getClass(self);
+          v40 = class_isMetaClass(v39);
           v6 = object_getClassName(self);
-          v134 = sel_getName("_updateLastNFCTag:");
-          v43 = 45;
-          if (v42)
+          v131 = sel_getName("_updateLastNFCTag:");
+          v41 = 45;
+          if (v40)
           {
-            v43 = 43;
+            v41 = 43;
           }
 
-          v40(3, "%c[%{public}s %{public}s]:%i No Core Duet context", v43, v6, v134, 361);
+          v38(3, "%c[%{public}s %{public}s]:%i No Core Duet context", v41, v6, v131, 361);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
         keyPathForNFCTagIdentifiers = NFSharedLogGetLogger();
         if (os_log_type_enabled(keyPathForNFCTagIdentifiers, OS_LOG_TYPE_ERROR))
         {
-          v44 = object_getClass(self);
-          if (class_isMetaClass(v44))
+          v42 = object_getClass(self);
+          if (class_isMetaClass(v42))
           {
-            v45 = 43;
+            v43 = 43;
           }
 
           else
           {
-            v45 = 45;
+            v43 = 45;
           }
 
           v6 = object_getClassName(self);
-          v46 = sel_getName("_updateLastNFCTag:");
+          v44 = sel_getName("_updateLastNFCTag:");
           *buf = 67109890;
-          *&buf[4] = v45;
-          v163 = 2082;
-          v164 = v6;
-          v165 = 2082;
-          v166 = v46;
-          v167 = 1024;
-          v168 = 361;
+          *&buf[4] = v43;
+          v160 = 2082;
+          v161 = v6;
+          v162 = 2082;
+          v163 = v44;
+          v164 = 1024;
+          v165 = 361;
           _os_log_impl(&_mh_execute_header, keyPathForNFCTagIdentifiers, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i No Core Duet context", buf, 0x22u);
         }
       }
 
-      sub_10027E748(v47);
-      v48 = *(v6 + 33);
+      sub_10027E748(v45);
       objc_opt_class();
-      sub_10027E694(v49);
-      if (*(v51 + 256) && v50)
+      sub_10027E694(v46);
+      if (*(v48 + 256) && v47)
       {
-        v52 = [objc_alloc(*(v6 + 33)) initWithTagID:nF_asHexString];
-        if (v52)
+        v49 = [objc_alloc(*(v6 + 33)) initWithTagID:nF_asHexString];
+        if (v49)
         {
-          v54 = sub_10027E458(v53);
-          device = [v54 Device];
+          v51 = sub_10027E458(v50);
+          device = [v51 Device];
           wireless = [device Wireless];
           nFCTag = [wireless NFCTag];
 
           source = [nFCTag source];
-          [source sendEvent:v52];
+          [source sendEvent:v49];
         }
       }
     }
 
-    v59 = sub_10024DC10();
-    sub_10024DCA4(v59, self->_backgroundNDEFTag);
+    v56 = sub_10024DC10(NFTagReadCALogger);
+    sub_10024DCA4(v56, self->_backgroundNDEFTag);
 
-    v143 = 0;
-    v144 = &v143;
-    v145 = 0x2020000000;
-    v146 = 3;
-    v60 = self->_backgroundNDEFTag;
-    if (!v60)
+    v140 = 0;
+    v141 = &v140;
+    v142 = 0x2020000000;
+    v143 = 3;
+    v57 = self->_backgroundNDEFTag;
+    if (!v57)
     {
       goto LABEL_93;
     }
 
-    v61 = +[_NFHardwareManager sharedHardwareManager];
-    [v61 notifyReaderModeActivityStart];
+    v58 = +[_NFHardwareManager sharedHardwareManager];
+    [v58 notifyReaderModeActivityStart];
 
     driverWrapper = self->_driverWrapper;
     if (driverWrapper)
     {
-      v63 = sub_100190BD0(driverWrapper, v60, 0);
-      if (v63)
+      v60 = sub_100190BD0(driverWrapper, v57, 0);
+      if (v60)
       {
-        if (v63 == 51)
+        if (v60 == 51)
         {
           sub_10021E364(self->_driverWrapper);
         }
@@ -873,305 +872,305 @@ LABEL_17:
           sub_100220F6C(self->_driverWrapper);
         }
 
-        v95 = +[_NFHardwareManager sharedHardwareManager];
-        [v95 notifyReaderModeActivityEnd];
+        v92 = +[_NFHardwareManager sharedHardwareManager];
+        [v92 notifyReaderModeActivityEnd];
 
-        v146 = 5;
+        v143 = 5;
 LABEL_93:
 
 LABEL_94:
-        v96 = sub_10024DC10();
-        sub_10024E378(v96, *(v144 + 6));
+        v93 = sub_10024DC10(NFTagReadCALogger);
+        sub_10024E378(v93, *(v141 + 6));
 
-        v97 = *(v144 + 6);
-        if (v97 <= 5)
+        v94 = *(v141 + 6);
+        if (v94 <= 5)
         {
-          [NFGeneralStatisticsCALogger updateDailyTagStatistic:off_10031B908[v97]];
+          [NFGeneralStatisticsCALogger updateDailyTagStatistic:off_10031B908[v94]];
         }
 
-        v98 = sub_10024DC10();
-        sub_10024DD78(v98, self->_backgroundNDEFTag, [(NFTag *)self->_backgroundNDEFTag type]);
+        v95 = sub_10024DC10(NFTagReadCALogger);
+        sub_10024DD78(v95, self->_backgroundNDEFTag, [(NFTag *)self->_backgroundNDEFTag type]);
 
-        _Block_object_dispose(&v143, 8);
+        _Block_object_dispose(&v140, 8);
         goto LABEL_97;
       }
     }
 
-    v64 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v64))
+    v61 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v61))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v64, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "start", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v61, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "start", buf, 2u);
     }
 
-    v159[0] = 0;
-    v159[1] = 0;
-    v160 = 0;
-    v65 = self->_driverWrapper;
-    v158 = 0;
-    v66 = sub_1001916A4(v65, v60, v159, &v158);
-    v67 = v158;
-    if (v66)
+    v156[0] = 0;
+    v156[1] = 0;
+    v157 = 0;
+    v62 = self->_driverWrapper;
+    v155 = 0;
+    v63 = sub_1001916A4(v62, v57, v156, &v155);
+    v64 = v155;
+    if (v63)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v68 = NFLogGetLogger();
-      if (v68)
+      v65 = NFLogGetLogger();
+      if (v65)
       {
-        v69 = v68;
-        v70 = object_getClass(self);
-        v71 = class_isMetaClass(v70);
-        v72 = object_getClassName(self);
-        v73 = sel_getName("_readNDEFFromTag:readResult:");
-        if (v160)
+        v66 = v65;
+        v67 = object_getClass(self);
+        v68 = class_isMetaClass(v67);
+        v69 = object_getClassName(self);
+        v70 = sel_getName("_readNDEFFromTag:readResult:");
+        if (v157)
         {
-          v74 = @"readable";
+          v71 = @"readable";
         }
 
         else
         {
-          v74 = @"not readable";
+          v71 = @"not readable";
         }
 
-        v75 = 45;
-        if (v71)
+        v72 = 45;
+        if (v68)
+        {
+          v72 = 43;
+        }
+
+        v66(6, "%c[%{public}s %{public}s]:%i NDEF tag %{public}@", v72, v69, v70, 791, v71);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v73 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+      {
+        v74 = object_getClass(self);
+        if (class_isMetaClass(v74))
         {
           v75 = 43;
         }
 
-        v69(6, "%c[%{public}s %{public}s]:%i NDEF tag %{public}@", v75, v72, v73, 791, v74);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v76 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
-      {
-        v77 = object_getClass(self);
-        if (class_isMetaClass(v77))
-        {
-          v78 = 43;
-        }
-
         else
         {
-          v78 = 45;
+          v75 = 45;
         }
 
-        v79 = object_getClassName(self);
-        v80 = sel_getName("_readNDEFFromTag:readResult:");
-        v81 = @"not readable";
-        if (v160)
+        v76 = object_getClassName(self);
+        v77 = sel_getName("_readNDEFFromTag:readResult:");
+        v78 = @"not readable";
+        if (v157)
         {
-          v81 = @"readable";
+          v78 = @"readable";
         }
 
         *buf = 67110146;
-        *&buf[4] = v78;
-        v163 = 2082;
-        v164 = v79;
-        v165 = 2082;
-        v166 = v80;
-        v167 = 1024;
-        v168 = 791;
-        v169 = 2114;
-        v170 = v81;
-        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NDEF tag %{public}@", buf, 0x2Cu);
+        *&buf[4] = v75;
+        v160 = 2082;
+        v161 = v76;
+        v162 = 2082;
+        v163 = v77;
+        v164 = 1024;
+        v165 = 791;
+        v166 = 2114;
+        v167 = v78;
+        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NDEF tag %{public}@", buf, 0x2Cu);
       }
     }
 
-    if (v67)
+    if (v64)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v82 = NFLogGetLogger();
-      if (v82)
+      v79 = NFLogGetLogger();
+      if (v79)
       {
-        v83 = v82;
-        v84 = object_getClass(self);
-        v85 = class_isMetaClass(v84);
-        v131 = object_getClassName(self);
-        v135 = sel_getName("_readNDEFFromTag:readResult:");
-        v86 = 45;
-        if (v85)
+        v80 = v79;
+        v81 = object_getClass(self);
+        v82 = class_isMetaClass(v81);
+        v128 = object_getClassName(self);
+        v132 = sel_getName("_readNDEFFromTag:readResult:");
+        v83 = 45;
+        if (v82)
+        {
+          v83 = 43;
+        }
+
+        v80(6, "%c[%{public}s %{public}s]:%i Tag does not contain NDEF, status=%{public}@", v83, v128, v132, 795, v64);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v84 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+      {
+        v85 = object_getClass(self);
+        if (class_isMetaClass(v85))
         {
           v86 = 43;
         }
 
-        v83(6, "%c[%{public}s %{public}s]:%i Tag does not contain NDEF, status=%{public}@", v86, v131, v135, 795, v67);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v87 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
-      {
-        v88 = object_getClass(self);
-        if (class_isMetaClass(v88))
-        {
-          v89 = 43;
-        }
-
         else
         {
-          v89 = 45;
+          v86 = 45;
         }
 
-        v90 = object_getClassName(self);
-        v91 = sel_getName("_readNDEFFromTag:readResult:");
+        v87 = object_getClassName(self);
+        v88 = sel_getName("_readNDEFFromTag:readResult:");
         *buf = 67110146;
-        *&buf[4] = v89;
-        v163 = 2082;
-        v164 = v90;
-        v165 = 2082;
-        v166 = v91;
-        v167 = 1024;
-        v168 = 795;
-        v169 = 2114;
-        v170 = v67;
-        _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Tag does not contain NDEF, status=%{public}@", buf, 0x2Cu);
+        *&buf[4] = v86;
+        v160 = 2082;
+        v161 = v87;
+        v162 = 2082;
+        v163 = v88;
+        v164 = 1024;
+        v165 = 795;
+        v166 = 2114;
+        v167 = v64;
+        _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Tag does not contain NDEF, status=%{public}@", buf, 0x2Cu);
       }
 
-      if ([v67 code] == 51 || objc_msgSend(v67, "code") == 15)
+      if ([v64 code] == 51 || objc_msgSend(v64, "code") == 15)
       {
         sub_10021E364(self->_driverWrapper);
       }
 
       else
       {
-        if ([v67 code] != 28)
+        if ([v64 code] != 28)
         {
-          if ([v67 code] == 37)
+          if ([v64 code] == 37)
           {
-            sub_10019117C(self->_driverWrapper, v60, 1);
+            sub_10019117C(self->_driverWrapper, v57, 1);
             [NFLPCDStatisticsCALogger postAnalyticsLPCDStatistic:&off_100339D78];
-            v92 = 2;
+            v89 = 2;
           }
 
           else
           {
-            if ([v67 code] != 64)
+            if ([v64 code] != 64)
             {
 LABEL_89:
-              v93 = +[_NFHardwareManager sharedHardwareManager];
-              [v93 notifyReaderModeActivityEnd];
+              v90 = +[_NFHardwareManager sharedHardwareManager];
+              [v90 notifyReaderModeActivityEnd];
 
-              v94 = NFSharedSignpostLog();
-              if (os_signpost_enabled(v94))
+              v91 = NFSharedSignpostLog();
+              if (os_signpost_enabled(v91))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&_mh_execute_header, v94, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "done", buf, 2u);
+                _os_signpost_emit_with_name_impl(&_mh_execute_header, v91, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "done", buf, 2u);
               }
 
               goto LABEL_130;
             }
 
-            v92 = 4;
+            v89 = 4;
           }
 
 LABEL_88:
-          v146 = v92;
+          v143 = v89;
           goto LABEL_89;
         }
 
         sub_100220F6C(self->_driverWrapper);
       }
 
-      v92 = 5;
+      v89 = 5;
       goto LABEL_88;
     }
 
-    if (v160 == 1)
+    if (v157 == 1)
     {
-      v116 = self->_driverWrapper;
-      v157 = 0;
-      v94 = sub_100193EC8(v116, v60, v159[0], &v157);
-      v67 = v157;
+      v113 = self->_driverWrapper;
+      v154 = 0;
+      v91 = sub_100193EC8(v113, v57, v156[0], &v154);
+      v64 = v154;
     }
 
     else
     {
-      v94 = 0;
-      v67 = 0;
+      v91 = 0;
+      v64 = 0;
     }
 
-    v117 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v117))
+    v114 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v114))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v117, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "tag read", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v114, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "tag read", buf, 2u);
     }
 
-    v118 = +[_NFHardwareManager sharedHardwareManager];
-    [v118 notifyReaderModeActivityEnd];
+    v115 = +[_NFHardwareManager sharedHardwareManager];
+    [v115 notifyReaderModeActivityEnd];
 
-    v119 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v119))
+    v116 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v116))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v119, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "done", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v116, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LPCD_READ_NDEF", "done", buf, 2u);
     }
 
-    asData = [v94 asData];
-    v121 = [asData length];
+    asData = [v91 asData];
+    v118 = [asData length];
 
-    v122 = sub_10024DC10();
-    sub_10024E250(v122, v121);
+    v119 = sub_10024DC10(NFTagReadCALogger);
+    sub_10024E250(v119, v118);
 
-    if (v67)
+    if (v64)
     {
-      if ([v67 code] == 51)
+      if ([v64 code] == 51)
       {
         sub_10021E364(self->_driverWrapper);
 LABEL_130:
-        v125 = 0;
+        v122 = 0;
         goto LABEL_131;
       }
 
-      code = [v67 code];
-      v123 = self->_driverWrapper;
+      code = [v64 code];
+      v120 = self->_driverWrapper;
       if (code == 21)
       {
-        sub_100220F6C(v123);
+        sub_100220F6C(v120);
         goto LABEL_130;
       }
     }
 
     else
     {
-      v123 = self->_driverWrapper;
+      v120 = self->_driverWrapper;
     }
 
-    sub_10019117C(v123, v60, 1);
-    v94 = v94;
-    v125 = v94;
+    sub_10019117C(v120, v57, 1);
+    v91 = v91;
+    v122 = v91;
 LABEL_131:
 
-    if (v125)
+    if (v122)
     {
-      asData2 = [v125 asData];
-      v127 = [asData2 length];
+      asData2 = [v122 asData];
+      v124 = [asData2 length];
 
-      v142[0] = _NSConcreteStackBlock;
-      v142[1] = 3221225472;
-      v142[2] = sub_1001F2878;
-      v142[3] = &unk_10031B858;
-      v142[4] = self;
-      v142[5] = &v153;
-      v142[6] = &v143;
-      v142[7] = v137;
-      v142[8] = v127;
-      v128 = objc_retainBlock(v142);
-      v138[0] = _NSConcreteStackBlock;
-      v138[1] = 3221225472;
-      v138[2] = sub_1001F2DA4;
-      v138[3] = &unk_10031B880;
-      v138[4] = self;
-      v129 = v125;
-      v139 = v129;
+      v139[0] = _NSConcreteStackBlock;
+      v139[1] = 3221225472;
+      v139[2] = sub_1001F2878;
+      v139[3] = &unk_10031B858;
+      v139[4] = self;
+      v139[5] = &v150;
+      v139[6] = &v140;
+      v139[7] = v134;
+      v139[8] = v124;
+      v125 = objc_retainBlock(v139);
+      v135[0] = _NSConcreteStackBlock;
+      v135[1] = 3221225472;
+      v135[2] = sub_1001F2DA4;
+      v135[3] = &unk_10031B880;
+      v135[4] = self;
+      v126 = v122;
+      v136 = v126;
       v13 = v13;
-      v140 = v13;
-      v141 = v128;
-      v130 = v128;
-      sub_1001F12E8(self, v129, v13, v138);
+      v137 = v13;
+      v138 = v125;
+      v127 = v125;
+      sub_1001F12E8(self, v126, v13, v135);
 
-      _Block_object_dispose(&v143, 8);
+      _Block_object_dispose(&v140, 8);
       goto LABEL_133;
     }
 
@@ -1179,22 +1178,22 @@ LABEL_131:
   }
 
 LABEL_97:
-  v99 = NFSharedSignpostLog();
-  if (os_signpost_enabled(v99))
+  v96 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v96))
   {
-    v100 = *(v154 + 24);
+    v97 = *(v151 + 24);
     *buf = 67240192;
-    *&buf[4] = v100;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v99, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "handleDetectedTags", "tagProcessed=%{public, signpost.description:attribute}u", buf, 8u);
+    *&buf[4] = v97;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v96, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "handleDetectedTags", "tagProcessed=%{public, signpost.description:attribute}u", buf, 8u);
   }
 
   sub_1001F2BF0(self);
   if (NFIsInternalBuild())
   {
-    v101 = +[NSUserDefaults standardUserDefaults];
-    v102 = [v101 BOOLForKey:@"postBackgroundTagEvents"];
+    v98 = +[NSUserDefaults standardUserDefaults];
+    v99 = [v98 BOOLForKey:@"postBackgroundTagEvents"];
 
-    if (v102)
+    if (v99)
     {
       v13 = +[NSDistributedNotificationCenter defaultCenter];
       [v13 postNotificationName:@"com.apple.nfcd.backgroundTag.detect.event" object:0 userInfo:0 options:1];
@@ -1202,7 +1201,7 @@ LABEL_133:
     }
   }
 
-  _Block_object_dispose(&v153, 8);
+  _Block_object_dispose(&v150, 8);
 }
 
 - (void)handleMessage:(id)message
@@ -1499,6 +1498,66 @@ LABEL_6:
   block[2] = sub_1001F3930;
   block[3] = &unk_10031B8E8;
   changeCopy = change;
+  dispatch_async(workQueue, block);
+}
+
+- (void)touchSystemReady:(BOOL)ready
+{
+  readyCopy = ready;
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v7 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v10 = 45;
+    if (isMetaClass)
+    {
+      v10 = 43;
+    }
+
+    v7(6, "%c[%{public}s %{public}s]:%i Ready=%d", v10, ClassName, Name, 965, readyCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v11 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = object_getClass(self);
+    if (class_isMetaClass(v12))
+    {
+      v13 = 43;
+    }
+
+    else
+    {
+      v13 = 45;
+    }
+
+    *buf = 67110146;
+    v20 = v13;
+    v21 = 2082;
+    v22 = object_getClassName(self);
+    v23 = 2082;
+    v24 = sel_getName(a2);
+    v25 = 1024;
+    v26 = 965;
+    v27 = 1024;
+    v28 = readyCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Ready=%d", buf, 0x28u);
+  }
+
+  dispatch_assert_queue_V2(self->_eventProcessingQueue);
+  workQueue = self->_workQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1001F3B88;
+  block[3] = &unk_100315EB8;
+  block[4] = self;
+  v18 = readyCopy;
   dispatch_async(workQueue, block);
 }
 

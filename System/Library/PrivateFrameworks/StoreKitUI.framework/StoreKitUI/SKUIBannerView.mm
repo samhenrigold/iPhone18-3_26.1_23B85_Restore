@@ -138,7 +138,7 @@
 {
   nameCopy = name;
   artistName = [(SKUIBannerView *)self artistName];
-  if (artistName != nameCopy && ([nameCopy isEqualToString:artistName] & 1) == 0)
+  if (artistName != nameCopy && (objc_msgSend_isEqualToString_(nameCopy) & 1) == 0)
   {
     artistNameLabel = self->_artistNameLabel;
     if (nameCopy)
@@ -336,7 +336,7 @@
 {
   titleCopy = title;
   title = [(SKUIBannerView *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -998,10 +998,10 @@ LABEL_58:
     }
 
     subscriptionType = [(SSLookupItemOffer *)self->_itemOffer subscriptionType];
-    v16 = [subscriptionType isEqualToString:*MEMORY[0x277D6A2B8]];
+    isEqualToString = objc_msgSend_isEqualToString_(subscriptionType);
 
     clientContext = self->_clientContext;
-    if (v16)
+    if (isEqualToString)
     {
       if (clientContext)
       {

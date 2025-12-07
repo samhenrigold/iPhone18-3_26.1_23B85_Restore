@@ -65,7 +65,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit9PKDrawingVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit9PKDrawingVSgMd, &_s9PencilKit9PKDrawingVSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v16 - v10;
   if (drawing)

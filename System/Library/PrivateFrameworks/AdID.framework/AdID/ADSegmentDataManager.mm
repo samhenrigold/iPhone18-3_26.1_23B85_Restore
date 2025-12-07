@@ -14,6 +14,7 @@
 - (void)handleSegmentUpdateResponse:(id)response error:(id)error completionHandler:(id)handler;
 - (void)handleSuccessfulJingleSegmentResponse:(id)response dsidRecord:(id)record completionHandler:(id)handler;
 - (void)populateAccountTypeFields:(id)fields;
+- (void)retrieveSegmentData:(id)data forceSegments:(BOOL)segments ignoreTimestamps:(BOOL)timestamps completionHandler:(id)handler;
 - (void)sendSegmentDataToAdPlatforms:(id)platforms completionHandler:(id)handler;
 @end
 
@@ -38,7 +39,6 @@
 
 uint64_t __38__ADSegmentDataManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_3 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -176,6 +176,97 @@ LABEL_7:
 LABEL_7:
 
   return v12;
+}
+
+- (void)retrieveSegmentData:(id)data forceSegments:(BOOL)segments ignoreTimestamps:(BOOL)timestamps completionHandler:(id)handler
+{
+  timestampsCopy = timestamps;
+  dataCopy = data;
+  handlerCopy = handler;
+  mEMORY[0x277CE9658] = [MEMORY[0x277CE9658] sharedInstance];
+  activeDSIDRecord = [mEMORY[0x277CE9658] activeDSIDRecord];
+
+  mEMORY[0x277CE9630] = [MEMORY[0x277CE9630] sharedInstance];
+  if ([mEMORY[0x277CE9630] BOOLForKey:@"ForceSegmentDataRetrieval"])
+  {
+    v14 = [dataCopy isEqualToString:@"0"];
+
+    if ((v14 & 1) == 0)
+    {
+      v15 = @"[%@]: The Force Segment Data Retrieval switch is enabled - overriding forceSegments parameter.";
+LABEL_7:
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:v15, objc_opt_class()];
+      _ADLog();
+
+      v17 = +[ADJingleRequestManager sharedInstance];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __93__ADSegmentDataManager_retrieveSegmentData_forceSegments_ignoreTimestamps_completionHandler___block_invoke;
+      v29[3] = &unk_278C58700;
+      v29[4] = self;
+      v30 = activeDSIDRecord;
+      v31 = handlerCopy;
+      v18 = [v17 makeSegmentRequest:dataCopy forceSegments:1 withCompletion:v29];
+      pendingJingleRequestToken = self->_pendingJingleRequestToken;
+      self->_pendingJingleRequestToken = v18;
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  if ([(ADSegmentDataManager *)self shouldSendSegmentRequest:dataCopy ignoreTimestamps:timestampsCopy])
+  {
+    v15 = @"[%@ retrieveSegmentData]: Forcing 'ioflag = 1'.";
+    goto LABEL_7;
+  }
+
+  v27 = dataCopy;
+  mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
+  isRestrictedByApple = [activeDSIDRecord isRestrictedByApple];
+  accountAgeUnknown = [activeDSIDRecord accountAgeUnknown];
+  [activeDSIDRecord setIsProtoU13:{objc_msgSend(mEMORY[0x277CE9638], "isProtoU13state")}];
+  [activeDSIDRecord setIsProtoTeen:{objc_msgSend(mEMORY[0x277CE9638], "isProtoTeenState")}];
+  v26 = accountAgeUnknown;
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: The current account is: EDU: %d. Managed: %d. U13: %d. T13: %d. U18: %d. Unknown Age: %d. Proto U13: %d. Proto Teen: %d", objc_opt_class(), objc_msgSend(mEMORY[0x277CE9638], "educationModeEnabled"), objc_msgSend(mEMORY[0x277CE9638], "isManagedAppleID"), objc_msgSend(activeDSIDRecord, "accountIsU13"), objc_msgSend(activeDSIDRecord, "accountIsT13"), objc_msgSend(activeDSIDRecord, "accountIsU18"), accountAgeUnknown, objc_msgSend(activeDSIDRecord, "isProtoU13"), objc_msgSend(activeDSIDRecord, "isProtoTeen")];
+  _ADLog();
+
+  mEMORY[0x277CE9658]2 = [MEMORY[0x277CE9658] sharedInstance];
+  saveAndNotifyIfNecessary = [mEMORY[0x277CE9658]2 saveAndNotifyIfNecessary];
+
+  v25 = 0;
+  if (isRestrictedByApple)
+  {
+    dataCopy = v27;
+  }
+
+  else
+  {
+    dataCopy = v27;
+    if ((v26 & 1) == 0)
+    {
+      if ([activeDSIDRecord isProtoU13])
+      {
+        v25 = 0;
+      }
+
+      else
+      {
+        v25 = [activeDSIDRecord isProtoTeen] ^ 1;
+      }
+    }
+  }
+
+  [mEMORY[0x277CE9638] setIdentifierForAdvertisingAllowed:v25];
+  if (handlerCopy)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0);
+  }
+
+LABEL_17:
 }
 
 - (void)handleJingleSegmentResponse:(id)response activeRecord:(id)record completionHandler:(id)handler
@@ -449,7 +540,7 @@ LABEL_22:
 
 - (void)handleSuccessfulJingleSegmentResponse:(id)response dsidRecord:(id)record completionHandler:(id)handler
 {
-  v108[2] = *MEMORY[0x277D85DE8];
+  v107[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   recordCopy = record;
   handlerCopy = handler;
@@ -470,8 +561,8 @@ LABEL_22:
   mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
   v17 = mEMORY[0x277CE9638];
   selfCopy = self;
-  v99 = v15;
-  v101 = handlerCopy;
+  v98 = v15;
+  v100 = handlerCopy;
   if ((v15 & 1) == 0)
   {
     if (([mEMORY[0x277CE9638] isManagedAppleID] & 1) == 0)
@@ -489,7 +580,7 @@ LABEL_10:
     date = [MEMORY[0x277CBEAA8] date];
     [recordCopy setSegmentDataTimestamp:{objc_msgSend(date, "AD_toServerTime")}];
 
-    v96 = v17;
+    v95 = v17;
     if ([v17 isPersonalizedAdsEnabled])
     {
       [recordCopy setLastSegmentServedTimestamp:{objc_msgSend(recordCopy, "segmentDataTimestamp")}];
@@ -498,7 +589,7 @@ LABEL_10:
 
     else
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Ignoring segment change for opted-out user.", objc_opt_class(), v95];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Ignoring segment change for opted-out user.", objc_opt_class(), v94];
     }
     v27 = ;
     v28 = v11;
@@ -509,16 +600,16 @@ LABEL_10:
     {
       if ([(ADSegmentDataManager *)self verifyGenderInSegmentData:v29])
       {
-        v104 = 0;
-        v30 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v29 options:0 error:&v104];
-        v31 = v104;
+        v103 = 0;
+        v30 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v29 options:0 error:&v103];
+        v31 = v103;
         v32 = MEMORY[0x277CCACA8];
         if (v31)
         {
           v33 = objc_opt_class();
           code = [v31 code];
           [v31 localizedDescription];
-          v35 = v97 = v30;
+          v35 = v96 = v30;
           v36 = [v32 stringWithFormat:@"[%@ retrieveSegmentData]: Error %ld decoding segment dictionary %@: %@", v33, code, v29, v35];
           _ADLog();
 
@@ -528,7 +619,7 @@ LABEL_10:
           localizedDescription = [v31 localizedDescription];
           v41 = [v37 stringWithFormat:@"[%@ retrieveSegmentData]: Error %ld decoding segment dictionary %@: %@", v38, code2, v29, localizedDescription];
 
-          v42 = v97;
+          v42 = v96;
           ADSimulateCrash();
         }
 
@@ -565,7 +656,7 @@ LABEL_10:
 
     v11 = v28;
 LABEL_23:
-    v17 = v96;
+    v17 = v95;
 
     goto LABEL_24;
   }
@@ -583,19 +674,19 @@ LABEL_23:
     _ADLog();
 
     dSID4 = [recordCopy DSID];
-    v105[0] = MEMORY[0x277D85DD0];
-    v105[1] = 3221225472;
-    v105[2] = __91__ADSegmentDataManager_handleSuccessfulJingleSegmentResponse_dsidRecord_completionHandler___block_invoke;
-    v105[3] = &unk_278C58728;
-    v106 = handlerCopy;
-    [(ADSegmentDataManager *)self retrieveSegmentData:dSID4 forceSegments:1 completionHandler:v105];
+    v104[0] = MEMORY[0x277D85DD0];
+    v104[1] = 3221225472;
+    v104[2] = __91__ADSegmentDataManager_handleSuccessfulJingleSegmentResponse_dsidRecord_completionHandler___block_invoke;
+    v104[3] = &unk_278C58728;
+    v105 = handlerCopy;
+    [(ADSegmentDataManager *)self retrieveSegmentData:dSID4 forceSegments:1 completionHandler:v104];
 
-    v21 = v106;
+    v21 = v105;
     goto LABEL_51;
   }
 
 LABEL_24:
-  v98 = v11;
+  v97 = v11;
   if (v14)
   {
     [recordCopy setAccountIsU13:0];
@@ -626,7 +717,7 @@ LABEL_24:
   v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: The current account is: EDU: %d. Managed: %d. U13: %d. T13: %d. U18: %d. Unknown Age: %d. Proto U13: %d. Proto Teen: %d", objc_opt_class(), objc_msgSend(v17, "educationModeEnabled"), objc_msgSend(v17, "isManagedAppleID"), objc_msgSend(recordCopy, "accountIsU13"), objc_msgSend(recordCopy, "accountIsT13"), objc_msgSend(recordCopy, "accountIsU18"), objc_msgSend(recordCopy, "accountAgeUnknown"), objc_msgSend(v17, "isProtoU13state"), objc_msgSend(v17, "isProtoTeenState")];
   _ADLog();
 
-  if (v99)
+  if (v98)
   {
     v57 = selfCopy;
     v58 = 0x277CBE000;
@@ -694,11 +785,11 @@ LABEL_45:
   {
     if ([recordCopy noiseAppliedVersion] == 10)
     {
-      v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Personalized Ads is OFF and we have already applied noise before. Checking if basel year is younger than noised.", objc_opt_class()];
+      v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Personalized Ads is OFF and we have already applied noise before. Checking if basel year is younger than noised.", objc_opt_class()];
       _ADLog();
 
-      LODWORD(v75) = [v63 intValue];
-      if (v75 <= [recordCopy effectiveBirthYear])
+      LODWORD(v74) = [v63 intValue];
+      if (v74 <= [recordCopy effectiveBirthYear])
       {
         goto LABEL_44;
       }
@@ -707,16 +798,16 @@ LABEL_45:
     }
 
     noiseAppliedVersion = [recordCopy noiseAppliedVersion];
-    v77 = MEMORY[0x277CCACA8];
-    v78 = objc_opt_class();
+    v76 = MEMORY[0x277CCACA8];
+    v77 = objc_opt_class();
     if (noiseAppliedVersion != 20)
     {
-      v79 = [v77 stringWithFormat:@"[%@]: Personalized Ads is OFF and we have not applied noise before. Running noise calculation now.", v78];
+      v78 = [v76 stringWithFormat:@"[%@]: Personalized Ads is OFF and we have not applied noise before. Running noise calculation now.", v77];
       _ADLog();
 
       if (v61 - [v63 integerValue] < 21)
       {
-        v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: User INELIGIBLE to be treated with noise.", objc_opt_class()];
+        v86 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: User INELIGIBLE to be treated with noise.", objc_opt_class()];
         _ADLog();
 
         [recordCopy setEffectiveBirthYear:{objc_msgSend(v63, "intValue")}];
@@ -725,55 +816,55 @@ LABEL_45:
 
       else
       {
-        v80 = [(ADSegmentDataManager *)v57 noiseAppliedBirthYearFromActual:v63];
-        v81 = [v63 isEqualToNumber:v80];
-        v82 = MEMORY[0x277CCACA8];
-        v83 = objc_opt_class();
-        if (v81)
+        v79 = [(ADSegmentDataManager *)v57 noiseAppliedBirthYearFromActual:v63];
+        v80 = [v63 isEqualToNumber:v79];
+        v81 = MEMORY[0x277CCACA8];
+        v82 = objc_opt_class();
+        if (v80)
         {
-          v84 = [v82 stringWithFormat:@"[%@]: User IS NOT being treated with noise.", v83];
+          v83 = [v81 stringWithFormat:@"[%@]: User IS NOT being treated with noise.", v82];
           _ADLog();
 
           intValue = [v63 intValue];
-          v86 = 20;
+          v85 = 20;
         }
 
         else
         {
-          v88 = [v82 stringWithFormat:@"[%@]: User IS being treated with noise.", v83];
+          v87 = [v81 stringWithFormat:@"[%@]: User IS being treated with noise.", v82];
           _ADLog();
 
-          intValue = [v80 intValue];
-          v86 = 10;
+          intValue = [v79 intValue];
+          v85 = 10;
         }
 
         [recordCopy setEffectiveBirthYear:intValue];
-        [recordCopy setNoiseAppliedVersion:v86];
+        [recordCopy setNoiseAppliedVersion:v85];
         mEMORY[0x277CE9638]3 = [MEMORY[0x277CE9638] sharedInstance];
         iTunesStorefront = [mEMORY[0x277CE9638]3 iTunesStorefront];
 
-        v100 = v80;
+        v99 = v79;
         if (iTunesStorefront && [iTunesStorefront length] >= 6)
         {
-          v91 = [iTunesStorefront substringToIndex:6];
+          v90 = [iTunesStorefront substringToIndex:6];
 
-          iTunesStorefront = v91;
+          iTunesStorefront = v90;
         }
 
         effectiveBirthYear = [recordCopy effectiveBirthYear];
-        v107[0] = @"EffectiveAge";
-        v93 = [MEMORY[0x277CCABB0] numberWithInteger:v61 + ~effectiveBirthYear];
-        v107[1] = @"Storefront";
-        v108[0] = v93;
-        v108[1] = iTunesStorefront;
-        v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:v107 count:2];
+        v106[0] = @"EffectiveAge";
+        v92 = [MEMORY[0x277CCABB0] numberWithInteger:v61 + ~effectiveBirthYear];
+        v106[1] = @"Storefront";
+        v107[0] = v92;
+        v107[1] = iTunesStorefront;
+        v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v107 forKeys:v106 count:2];
         AnalyticsSendEvent();
       }
 
       goto LABEL_44;
     }
 
-    [v77 stringWithFormat:@"[%@]: Personalized Ads is OFF and we have already calculated noise before. No noise applied and basel year is honored.", v78];
+    [v76 stringWithFormat:@"[%@]: Personalized Ads is OFF and we have already calculated noise before. No noise applied and basel year is honored.", v77];
   }
   v67 = ;
   _ADLog();
@@ -783,7 +874,7 @@ LABEL_43:
 LABEL_44:
   v68 = -[ADSegmentDataManager isEligibleForSensitiveContent:](v57, "isEligibleForSensitiveContent:", [recordCopy effectiveBirthYear]);
 LABEL_46:
-  handlerCopy = v101;
+  handlerCopy = v100;
   [recordCopy setSensitiveContentEligible:v68];
   v69 = MEMORY[0x277CCACA8];
   v70 = objc_opt_class();
@@ -797,16 +888,15 @@ LABEL_46:
   v73 = [v69 stringWithFormat:@"[%@]: This user is %@ for sensitive content.", v70, v72];
   _ADLog();
 
-  if (v101)
+  if (v100)
   {
-    (*(v101 + 2))(v101, 0, 1);
+    (*(v100 + 2))(v100, 0, 1);
   }
 
-  v11 = v98;
+  v11 = v97;
 LABEL_51:
 
   objc_autoreleasePoolPop(context);
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __91__ADSegmentDataManager_handleSuccessfulJingleSegmentResponse_dsidRecord_completionHandler___block_invoke(uint64_t a1)
@@ -933,7 +1023,7 @@ uint64_t __91__ADSegmentDataManager_handleSuccessfulJingleSegmentResponse_dsidRe
 
 void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(uint64_t a1, void *a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v3 = [a2 lowerAgeLimits];
   if (!v3)
   {
@@ -941,14 +1031,14 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
     _ADLog();
 
     v5 = [@"{noiseRange:{startAge:18 endAge:{adolescentNoise:0, noise:[{age:18, percentage:0.78}, {age:19, percentage:0.97}, {age:20, percentage:1.15}]}", "dataUsingEncoding:", 4}20}];
-    v77 = 0;
-    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v77];
+    v76 = 0;
+    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v76];
   }
 
   v6 = [v3 objectForKey:@"noiseRange"];
   v7 = [v6 objectForKey:@"startAge"];
   v8 = [v6 objectForKey:@"endAge"];
-  v62 = v6;
+  v61 = v6;
   if ([v7 intValue] <= 12)
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInt:13];
@@ -963,7 +1053,7 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
     v7 = v10;
   }
 
-  v65 = a1;
+  v64 = a1;
   if ([v8 intValue] <= 19)
   {
     v11 = [MEMORY[0x277CCABB0] numberWithInt:20];
@@ -972,7 +1062,7 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
   }
 
   v12 = [MEMORY[0x277CBEB18] array];
-  v64 = v7;
+  v63 = v7;
   v13 = [v7 intValue];
   if (v13 <= [v8 intValue])
   {
@@ -988,76 +1078,76 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
     while (v15);
   }
 
-  v63 = v8;
-  v66 = v3;
+  v62 = v8;
+  v65 = v3;
   v16 = [v3 objectForKey:@"noise"];
   v17 = [v16 mutableCopy];
 
-  v67 = v17;
+  v66 = v17;
   v18 = [v17 valueForKey:@"age"];
   v19 = [v18 mutableCopy];
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   obj = v12;
-  v20 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+  v20 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v74;
+    v22 = *v73;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v74 != v22)
+        if (*v73 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v73 + 1) + 8 * i);
+        v24 = *(*(&v72 + 1) + 8 * i);
         if (([v19 containsObject:v24] & 1) == 0)
         {
           v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"There is a broken config for age noise where (%d) is missing.", objc_msgSend(v24, "intValue")];
           _ADLog();
 
-          v81[0] = @"age";
-          v81[1] = @"percentage";
-          v82[0] = v24;
-          v82[1] = &unk_28510BE40;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
-          [v67 addObject:v26];
+          v80[0] = @"age";
+          v80[1] = @"percentage";
+          v81[0] = v24;
+          v81[1] = &unk_28510BE40;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:2];
+          [v66 addObject:v26];
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+      v21 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
     }
 
     while (v21);
   }
 
-  v27 = [v66 objectForKey:@"adolescentNoise"];
+  v27 = [v65 objectForKey:@"adolescentNoise"];
   [v27 floatValue];
-  v28 = v64;
+  v28 = v63;
   if (v29 > 0.0)
   {
-    v30 = [v64 intValue];
+    v30 = [v63 intValue];
     v31 = [MEMORY[0x277CCABB0] numberWithInt:(v30 - 1)];
-    v79[0] = @"age";
-    v79[1] = @"percentage";
-    v80[0] = v31;
-    v80[1] = v27;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
-    [v67 addObject:v32];
+    v78[0] = @"age";
+    v78[1] = @"percentage";
+    v79[0] = v31;
+    v79[1] = v27;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:2];
+    [v66 addObject:v32];
   }
 
   v33 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
   v34 = [MEMORY[0x277CBEAA8] date];
   v35 = [v33 component:4 fromDate:v34];
 
-  v36 = v65;
-  v37 = v35 + ~[*(v65 + 32) integerValue];
+  v36 = v64;
+  v37 = v35 + ~[*(v64 + 32) integerValue];
   if (v37 <= [v8 integerValue])
   {
     v44 = v37;
@@ -1065,47 +1155,47 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
 
   else
   {
-    v60 = v35;
+    v59 = v35;
     if (MGGetBoolAnswer())
     {
       v38 = v37;
-      v39 = [*(v65 + 40) _ageDistributionOverrides];
+      v39 = [*(v64 + 40) _ageDistributionOverrides];
       v40 = v39;
       if (v39)
       {
         v41 = v39;
 
-        v67 = v41;
+        v66 = v41;
       }
 
       v37 = v38;
     }
 
     v42 = arc4random_uniform(0x2710u);
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
-    v67 = v67;
-    v43 = [v67 countByEnumeratingWithState:&v69 objects:v78 count:16];
-    v61 = v37;
+    v66 = v66;
+    v43 = [v66 countByEnumeratingWithState:&v68 objects:v77 count:16];
+    v60 = v37;
     v44 = v37;
     if (v43)
     {
       v45 = v43;
-      v59 = v33;
+      v58 = v33;
       v46 = 0;
-      v47 = *v70;
+      v47 = *v69;
       while (2)
       {
         for (j = 0; j != v45; ++j)
         {
-          if (*v70 != v47)
+          if (*v69 != v47)
           {
-            objc_enumerationMutation(v67);
+            objc_enumerationMutation(v66);
           }
 
-          v49 = *(*(&v69 + 1) + 8 * j);
+          v49 = *(*(&v68 + 1) + 8 * j);
           v50 = [v49 objectForKey:@"percentage"];
           v51 = [v49 objectForKey:@"age"];
           [v50 floatValue];
@@ -1124,7 +1214,7 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
           }
         }
 
-        v45 = [v67 countByEnumeratingWithState:&v69 objects:v78 count:16];
+        v45 = [v66 countByEnumeratingWithState:&v68 objects:v77 count:16];
         if (v45)
         {
           continue;
@@ -1133,16 +1223,16 @@ void __56__ADSegmentDataManager_noiseAppliedBirthYearFromActual___block_invoke(u
         break;
       }
 
-      v44 = v61;
+      v44 = v60;
 LABEL_40:
-      v28 = v64;
-      v36 = v65;
-      v8 = v63;
-      v33 = v59;
+      v28 = v63;
+      v36 = v64;
+      v8 = v62;
+      v33 = v58;
     }
 
-    v35 = v60;
-    v37 = v61;
+    v35 = v59;
+    v37 = v60;
   }
 
   v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"User with age %ld being treated with effective age of %ld.", v37, v44];
@@ -1157,8 +1247,6 @@ LABEL_40:
   }
 
   dispatch_group_leave(*(v36 + 48));
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEligibleForSensitiveContent:(int64_t)content
@@ -1257,7 +1345,7 @@ void __54__ADSegmentDataManager_isEligibleForSensitiveContent___block_invoke(uin
 
 - (id)_ageDistributionOverrides
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEBD0]);
   v3 = [v2 initWithSuiteName:*MEMORY[0x277CE95C8]];
   v4 = [v3 objectForKey:@"enableAgeDistributionOverrides"];
@@ -1275,40 +1363,40 @@ void __54__ADSegmentDataManager_isEligibleForSensitiveContent___block_invoke(uin
   if ([v5 BOOLValue])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v23 = [v3 objectForKey:@"ageDistribution18"];
+    v22 = [v3 objectForKey:@"ageDistribution18"];
     v7 = [v3 objectForKey:@"ageDistribution19"];
-    v22 = [v3 objectForKey:@"ageDistribution20"];
-    v28[0] = @"age";
+    v21 = [v3 objectForKey:@"ageDistribution20"];
+    v27[0] = @"age";
     v8 = [MEMORY[0x277CCABB0] numberWithInt:18];
-    v28[1] = @"percentage";
-    v29[0] = v8;
+    v27[1] = @"percentage";
+    v28[0] = v8;
     v9 = MEMORY[0x277CCABB0];
-    [v23 floatValue];
+    [v22 floatValue];
     v10 = [v9 numberWithFloat:?];
-    v29[1] = v10;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = v10;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
-    [array addObject:v21];
-    v26[0] = @"age";
+    [array addObject:v20];
+    v25[0] = @"age";
     v11 = [MEMORY[0x277CCABB0] numberWithInt:19];
-    v26[1] = @"percentage";
-    v27[0] = v11;
+    v25[1] = @"percentage";
+    v26[0] = v11;
     v12 = MEMORY[0x277CCABB0];
     [v7 floatValue];
     v13 = [v12 numberWithFloat:?];
-    v27[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[1] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
     [array addObject:v14];
-    v24[0] = @"age";
+    v23[0] = @"age";
     v15 = [MEMORY[0x277CCABB0] numberWithInt:20];
-    v24[1] = @"percentage";
-    v25[0] = v15;
+    v23[1] = @"percentage";
+    v24[0] = v15;
     v16 = MEMORY[0x277CCABB0];
-    [v22 floatValue];
+    [v21 floatValue];
     v17 = [v16 numberWithFloat:?];
-    v25[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
     [array addObject:v18];
   }
@@ -1317,8 +1405,6 @@ void __54__ADSegmentDataManager_isEligibleForSensitiveContent___block_invoke(uin
   {
     array = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1685,15 +1771,15 @@ LABEL_23:
 void __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CE9638] sharedInstance];
-  v50 = [MEMORY[0x277CE96B8] sharedInstance];
+  v47 = [MEMORY[0x277CE96B8] sharedInstance];
   v3 = [MEMORY[0x277CE9658] sharedInstance];
   v4 = objc_alloc_init(MEMORY[0x277CE96A8]);
   v5 = [v3 activeDSIDRecord];
-  v48 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  v6 = [v48 UUIDString];
+  v45 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
+  v6 = [v45 UUIDString];
   [v4 setAdvertisingIdentifier:v6];
 
-  v49 = v3;
+  v46 = v3;
   v7 = [v3 monthlyResetArray];
   [v4 setAdvertisingIdentifierMonthResetCount:{objc_msgSend(v7, "count")}];
 
@@ -1704,8 +1790,8 @@ void __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler__
   [v4 setDPID:v9];
 
   v10 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v47 = [v10 initWithSuiteName:*MEMORY[0x277CE95C8]];
-  v11 = [v47 objectForKey:@"acknowledgedPersonalizedAdsVersion"];
+  v44 = [v10 initWithSuiteName:*MEMORY[0x277CE95C8]];
+  v11 = [v44 objectForKey:@"acknowledgedPersonalizedAdsVersion"];
 
   if (([v5 isRestrictedByApple] & 1) != 0 || !objc_msgSend(v2, "isPersonalizedAdsEnabled"))
   {
@@ -1720,8 +1806,8 @@ void __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler__
       if ([v5 lastJingleAccountStatus] != 1)
       {
 LABEL_24:
-        v22 = [v5 segmentData];
-        [v4 setSegmentInfo:v22];
+        v20 = [v5 segmentData];
+        [v4 setSegmentInfo:v20];
         goto LABEL_25;
       }
 
@@ -1729,11 +1815,20 @@ LABEL_24:
     }
   }
 
-  v46 = v12;
+  v43 = v12;
   v13 = MEMORY[0x277CCACA8];
-  v14 = *(a1 + 32);
-  v15 = objc_opt_class();
+  v14 = objc_opt_class();
   if ([v5 isRestrictedByApple])
+  {
+    v15 = @"YES";
+  }
+
+  else
+  {
+    v15 = @"NO";
+  }
+
+  if ([v2 isPersonalizedAdsEnabled])
   {
     v16 = @"YES";
   }
@@ -1743,7 +1838,7 @@ LABEL_24:
     v16 = @"NO";
   }
 
-  if ([v2 isPersonalizedAdsEnabled])
+  if ([v5 isPlaceholderAccount])
   {
     v17 = @"YES";
   }
@@ -1753,7 +1848,7 @@ LABEL_24:
     v17 = @"NO";
   }
 
-  if ([v5 isPlaceholderAccount])
+  if (v11)
   {
     v18 = @"YES";
   }
@@ -1763,22 +1858,12 @@ LABEL_24:
     v18 = @"NO";
   }
 
-  if (v11)
-  {
-    v19 = @"YES";
-  }
-
-  else
-  {
-    v19 = @"NO";
-  }
-
-  v20 = [v13 stringWithFormat:@"[%@ sendSegmentDataToAdPlatforms]: NOT including segment data in ADSegmentUpdateRequest because -\nisRestrictedByApple: %@\npersonalizedAdsEnabled: %@\nisPlaceholderAccount: %@\nconsentedToPA: %@", v15, v16, v17, v18, v19];
+  v19 = [v13 stringWithFormat:@"[%@ sendSegmentDataToAdPlatforms]: NOT including segment data in ADSegmentUpdateRequest because -\nisRestrictedByApple: %@\npersonalizedAdsEnabled: %@\nisPlaceholderAccount: %@\nconsentedToPA: %@", v14, v15, v16, v17, v18];
   _ADLog();
 
   if ([v5 lastJingleAccountStatus] != 1)
   {
-    if (v46)
+    if (v43)
     {
       [v4 setSegmentInfo:0];
       goto LABEL_26;
@@ -1789,94 +1874,92 @@ LABEL_24:
 
 LABEL_21:
   [v4 setSegmentInfo:{@"{t:6, o:0}"}];
-  v21 = *(a1 + 32);
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ sendSegmentDataToAdPlatforms]: Forcing segment data to %@", objc_opt_class(), @"{t:6, o:0}"];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ sendSegmentDataToAdPlatforms]: Forcing segment data to %@", objc_opt_class(), @"{t:6, o:0}"];
   _ADLog();
 LABEL_25:
 
 LABEL_26:
-  v23 = [MEMORY[0x277CE9630] sharedInstance];
-  v24 = [v23 BOOLForKey:@"EnableCustomPayload"];
+  v21 = [MEMORY[0x277CE9630] sharedInstance];
+  v22 = [v21 BOOLForKey:@"EnableCustomPayload"];
 
-  if (v24)
+  if (v22)
   {
-    v25 = [v2 customJinglePayload];
-    v26 = [v2 isPersonalizedAdsEnabled];
-    v27 = MEMORY[0x277CCACA8];
-    v28 = *(a1 + 32);
-    v29 = objc_opt_class();
-    v30 = @"nil (LAT Enabled)";
-    if (v26)
+    v23 = [v2 customJinglePayload];
+    v24 = [v2 isPersonalizedAdsEnabled];
+    v25 = MEMORY[0x277CCACA8];
+    v26 = objc_opt_class();
+    v27 = @"nil (LAT Enabled)";
+    if (v24)
     {
-      v30 = v25;
-      v31 = v25;
+      v27 = v23;
+      v28 = v23;
     }
 
     else
     {
-      v31 = 0;
+      v28 = 0;
     }
 
-    v32 = [v27 stringWithFormat:@"[%@] Using Custom Segment Payload from Internal Settings: %@", v29, v30];
+    v29 = [v25 stringWithFormat:@"[%@] Using Custom Segment Payload from Internal Settings: %@", v26, v27];
     _ADLog();
 
-    [v4 setSegmentInfo:v31];
-    [v5 setSegmentData:v25];
-    v33 = MEMORY[0x277CCACA8];
-    v34 = [v5 segmentData];
-    v35 = [v33 stringWithFormat:@"Active DSID record segments set to: %@", v34];
+    [v4 setSegmentInfo:v28];
+    [v5 setSegmentData:v23];
+    v30 = MEMORY[0x277CCACA8];
+    v31 = [v5 segmentData];
+    v32 = [v30 stringWithFormat:@"Active DSID record segments set to: %@", v31];
     _ADLog();
   }
 
   [v4 setIsFirstPartyIdentifier:0];
   [v4 setITunesRefreshTime:{objc_msgSend(v5, "segmentDataTimestamp")}];
-  v36 = [MEMORY[0x277CBEAA8] date];
-  [v4 setUpdateSentTime:{objc_msgSend(v36, "AD_toServerTime")}];
+  v33 = [MEMORY[0x277CBEAA8] date];
+  [v4 setUpdateSentTime:{objc_msgSend(v33, "AD_toServerTime")}];
 
   [v2 timezone];
   [v4 setTimezone:?];
-  v37 = [v2 osVersionAndBuild];
-  [v4 setOsVersionAndBuild:v37];
+  v34 = [v2 osVersionAndBuild];
+  [v4 setOsVersionAndBuild:v34];
 
-  v38 = [v2 localeIdentifier];
-  [v4 setLocaleIdentifier:v38];
+  v35 = [v2 localeIdentifier];
+  [v4 setLocaleIdentifier:v35];
 
   [v4 addDeviceMode:{objc_msgSend(v2, "educationModeEnabled")}];
   [*(a1 + 32) populateAccountTypeFields:v4];
-  v39 = [v2 iCloudDSID];
+  v36 = [v2 iCloudDSID];
 
-  if (v39)
+  if (v36)
   {
-    v40 = [v2 iCloudDSID];
-    v41 = [v2 iTunesAccountDSID];
-    v42 = [v40 isEqualToString:v41];
+    v37 = [v2 iCloudDSID];
+    v38 = [v2 iTunesAccountDSID];
+    v39 = [v37 isEqualToString:v38];
 
-    if (v42)
+    if (v39)
     {
-      v43 = 1;
+      v40 = 1;
     }
 
     else
     {
-      v43 = 2;
+      v40 = 2;
     }
   }
 
   else
   {
-    v43 = 0;
+    v40 = 0;
   }
 
-  [v4 addAccountState:v43];
-  v44 = [v2 defaultServerURL];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler___block_invoke_2;
-  v51[3] = &unk_278C587C8;
-  v45 = *(a1 + 40);
-  v51[4] = *(a1 + 32);
-  v52 = v45;
-  [v50 handleRequest:v4 serverURL:v44 responseHandler:v51];
+  [v4 addAccountState:v40];
+  v41 = [v2 defaultServerURL];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler___block_invoke_2;
+  v48[3] = &unk_278C587C8;
+  v42 = *(a1 + 40);
+  v48[4] = *(a1 + 32);
+  v49 = v42;
+  [v47 handleRequest:v4 serverURL:v41 responseHandler:v48];
 }
 
 void __71__ADSegmentDataManager_sendSegmentDataToAdPlatforms_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)

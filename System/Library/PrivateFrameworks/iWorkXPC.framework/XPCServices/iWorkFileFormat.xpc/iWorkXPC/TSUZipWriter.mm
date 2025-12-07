@@ -15,6 +15,7 @@
 - (void)addExistingEntry:(id)entry;
 - (void)addExistingEntryImpl:(id)impl;
 - (void)beginEntryWithName:(id)name force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
+- (void)beginEntryWithNameImpl:(id)impl force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (void)closeWithQueue:(id)queue completion:(id)completion;
 - (void)enumerateEntriesUsingBlock:(id)block;
 - (void)finishEntry;
@@ -31,6 +32,7 @@
 - (void)writeCentralFileHeaderDataForEntry:(id)entry;
 - (void)writeData:(id)data queue:(id)queue completion:(id)completion;
 - (void)writeEndOfCentralDirectoryDataWithOffset:(int64_t)offset size:(int64_t)size entryCount:(unint64_t)count;
+- (void)writeEntryWithName:(id)name force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c fromReadChannel:(id)channel completion:(id)completion;
 - (void)writeEntryWithName:(id)name force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c fromReadChannel:(id)channel writeHandler:(id)handler;
 - (void)writeZip64EndOfCentralDirectoryLocatorWithOffset:(int64_t)offset;
 - (void)writeZip64EndOfCentralDirectoryWithOffset:(int64_t)offset size:(int64_t)size entryCount:(unint64_t)count;
@@ -110,12 +112,12 @@
         sub_10016002C();
       }
 
-      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Write channel semaphore should not be initialized.", v9, v10, v11, v12, v13, v14, v15, "[TSUZipWriter p_writeChannel]");
-      v16 = [NSString stringWithUTF8String:"[TSUZipWriter p_writeChannel]"];
-      v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
-      [TSUAssertionHandler handleFailureInFunction:v16 file:v17 lineNumber:110 isFatal:1 description:"Write channel semaphore should not be initialized."];
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Write channel semaphore should not be initialized.", "[TSUZipWriter p_writeChannel]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m", 110);
+      v9 = [NSString stringWithUTF8String:"[TSUZipWriter p_writeChannel]"];
+      v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
+      [TSUAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:110 isFatal:1 description:"Write channel semaphore should not be initialized."];
 
-      TSUCrashBreakpoint(v18);
+      TSUCrashBreakpoint();
       abort();
     }
 
@@ -124,16 +126,16 @@
     self->_writeChannelCompletionSemaphore = v4;
 
     objc_initWeak(&location, self);
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000A4540;
-    v19[3] = &unk_1001CE3E8;
-    objc_copyWeak(&v20, &location);
-    v6 = [(TSUZipWriter *)self prepareWriteChannelWithCloseCompletionHandler:v19];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000A4540;
+    v11[3] = &unk_1001CE3E8;
+    objc_copyWeak(&v12, &location);
+    v6 = [(TSUZipWriter *)self prepareWriteChannelWithCloseCompletionHandler:v11];
     v7 = self->_writeChannel;
     self->_writeChannel = v6;
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
     writeChannel = self->_writeChannel;
   }
@@ -160,6 +162,159 @@
   v17 = dateCopy;
   v18 = nameCopy;
   dispatch_async(writeQueue, block);
+}
+
+- (void)beginEntryWithNameImpl:(id)impl force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate
+{
+  modificationDateCopy = modificationDate;
+  v9 = *&c;
+  implCopy = impl;
+  dateCopy = date;
+  if (self->_isClosed)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10016018C();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001601A0();
+    }
+
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", "[TSUZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m", 157);
+    v35 = [NSString stringWithUTF8String:"[TSUZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]"];
+    v36 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
+    [TSUAssertionHandler handleFailureInFunction:v35 file:v36 lineNumber:157 isFatal:1 description:"Already closed."];
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  v16 = dateCopy;
+  if (!self->_error)
+  {
+    [(TSUZipWriter *)self finishEntry];
+    v17 = [(NSMutableDictionary *)self->_entriesMap objectForKeyedSubscript:implCopy];
+
+    if (v17)
+    {
+      v18 = +[TSUAssertionHandler _atomicIncrementAssertCount];
+      if (TSUAssertCat_init_token != -1)
+      {
+        sub_1001600BC();
+      }
+
+      v19 = TSUAssertCat_log_t;
+      if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+      {
+        sub_1001600D0(implCopy, v18, v19);
+      }
+
+      v20 = [NSString stringWithUTF8String:"[TSUZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]"];
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
+      [TSUAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:166 isFatal:0 description:"Already have an entry with name: %@", implCopy];
+
+      +[TSUAssertionHandler logBacktraceThrottled];
+    }
+
+    else
+    {
+      v22 = objc_alloc_init(TSUZipWriterEntry);
+      currentEntry = self->_currentEntry;
+      self->_currentEntry = v22;
+
+      [(TSUZipWriterEntry *)self->_currentEntry setName:implCopy];
+      [(TSUZipWriterEntry *)self->_currentEntry setOffset:self->_currentOffset];
+      if (a6)
+      {
+        v24 = modificationDateCopy;
+      }
+
+      else
+      {
+        v24 = 1;
+      }
+
+      self->_calculateSize = v24;
+      if (modificationDateCopy)
+      {
+        v25 = 0;
+      }
+
+      else
+      {
+        v25 = a6;
+      }
+
+      [(TSUZipWriterEntry *)self->_currentEntry setSize:v25];
+      self->_force32BitSize = self->_calculateSize && size;
+      if (v9)
+      {
+        v26 = modificationDateCopy;
+      }
+
+      else
+      {
+        v26 = 1;
+      }
+
+      self->_calculateCRC = v26;
+      v27 = v9;
+      if (v26)
+      {
+        v27 = crc32(0, 0, 0);
+      }
+
+      [(TSUZipWriterEntry *)self->_currentEntry setCRC:v27];
+      if (modificationDateCopy)
+      {
+        [(TSUZipWriterEntry *)self->_currentEntry setLastModificationDate:self->_newEntryLastModificationDate];
+        self->_sizeToMatch = a6;
+        self->_CRCToMatch = v9;
+        v28 = v16;
+        lastModificationDateIfSizeAndCRCMatches = self->_lastModificationDateIfSizeAndCRCMatches;
+        self->_lastModificationDateIfSizeAndCRCMatches = v28;
+      }
+
+      else
+      {
+        newEntryLastModificationDate = v16;
+        if (!v16)
+        {
+          newEntryLastModificationDate = self->_newEntryLastModificationDate;
+        }
+
+        [(TSUZipWriterEntry *)self->_currentEntry setLastModificationDate:newEntryLastModificationDate];
+        self->_sizeToMatch = 0;
+        self->_CRCToMatch = 0;
+        lastModificationDateIfSizeAndCRCMatches = self->_lastModificationDateIfSizeAndCRCMatches;
+        self->_lastModificationDateIfSizeAndCRCMatches = 0;
+      }
+
+      v31 = [(TSUZipWriter *)self localFileHeaderDataForEntry:self->_currentEntry];
+      if ((self->_calculateSize || self->_calculateCRC) && (self->_options & 8) == 0)
+      {
+        objc_storeStrong(&self->_localFileHeaderData, v31);
+        v32 = objc_alloc_init(NSMutableArray);
+      }
+
+      else
+      {
+        [(TSUZipWriter *)self writeData:v31];
+        localFileHeaderData = self->_localFileHeaderData;
+        self->_localFileHeaderData = 0;
+
+        v32 = 0;
+      }
+
+      entryDatas = self->_entryDatas;
+      self->_entryDatas = v32;
+
+      self->_entryDataSize = 0;
+    }
+  }
 }
 
 - (void)addData:(id)data queue:(id)queue completion:(id)completion
@@ -200,12 +355,12 @@
       sub_100160244();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", v17, v18, v19, v20, v21, v22, v23, "[TSUZipWriter addDataImpl:queue:completion:]");
-    v24 = [NSString stringWithUTF8String:"[TSUZipWriter addDataImpl:queue:completion:]"];
-    v25 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
-    [TSUAssertionHandler handleFailureInFunction:v24 file:v25 lineNumber:233 isFatal:1 description:"Already closed."];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", "[TSUZipWriter addDataImpl:queue:completion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m", 233);
+    v17 = [NSString stringWithUTF8String:"[TSUZipWriter addDataImpl:queue:completion:]"];
+    v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipWriter.m"];
+    [TSUAssertionHandler handleFailureInFunction:v17 file:v18 lineNumber:233 isFatal:1 description:"Already closed."];
 
-    TSUCrashBreakpoint(v26);
+    TSUCrashBreakpoint();
     abort();
   }
 
@@ -221,8 +376,8 @@
         block[1] = 3221225472;
         block[2] = sub_1000A4F84;
         block[3] = &unk_1001CC3D8;
-        v32 = v11;
-        v31 = v12;
+        v24 = v11;
+        v23 = v12;
         dispatch_async(queueCopy, block);
       }
 
@@ -248,12 +403,12 @@
       {
         if (queueCopy)
         {
-          v28[0] = _NSConcreteStackBlock;
-          v28[1] = 3221225472;
-          v28[2] = sub_1000A4F98;
-          v28[3] = &unk_1001C6968;
-          v29 = v11;
-          dispatch_async(queueCopy, v28);
+          v20[0] = _NSConcreteStackBlock;
+          v20[1] = 3221225472;
+          v20[2] = sub_1000A4F98;
+          v20[3] = &unk_1001C6968;
+          v21 = v11;
+          dispatch_async(queueCopy, v20);
         }
 
         else
@@ -426,6 +581,19 @@ LABEL_15:
 
   v13 = self->_currentEntry;
   self->_currentEntry = 0;
+}
+
+- (void)writeEntryWithName:(id)name force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c fromReadChannel:(id)channel completion:(id)completion
+{
+  v10 = *&c;
+  sizeCopy = size;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000A5998;
+  v17[3] = &unk_1001CE598;
+  completionCopy = completion;
+  v16 = completionCopy;
+  [(TSUZipWriter *)self writeEntryWithName:name force32BitSize:sizeCopy lastModificationDate:date size:a6 CRC:v10 fromReadChannel:channel writeHandler:v17];
 }
 
 - (void)writeEntryWithName:(id)name force32BitSize:(BOOL)size lastModificationDate:(id)date size:(unint64_t)a6 CRC:(unsigned int)c fromReadChannel:(id)channel writeHandler:(id)handler
@@ -830,8 +998,17 @@ LABEL_23:
   countCopy = count;
   sizeCopy = size;
   offsetCopy = offset;
-  v9 = (LOBYTE(self->_options) >> 2) & 1;
   if (count > 0xFFFE)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = (LOBYTE(self->_options) >> 2) & 1;
+  }
+
+  if (size > 4294967294)
   {
     v10 = 1;
   }
@@ -841,7 +1018,7 @@ LABEL_23:
     v10 = (LOBYTE(self->_options) >> 2) & 1;
   }
 
-  if (size > 4294967294)
+  if (offset > 4294967294)
   {
     v11 = 1;
   }
@@ -851,25 +1028,27 @@ LABEL_23:
     v11 = (LOBYTE(self->_options) >> 2) & 1;
   }
 
-  if (offset > 4294967294)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    v12 = (LOBYTE(self->_options) >> 2) & 1;
-  }
-
-  if ((v10 & 1) != 0 || (v11 & 1) != 0 || v12)
+  if ((v9 & 1) != 0 || (v10 & 1) != 0 || v11)
   {
     currentOffset = self->_currentOffset;
     [(TSUZipWriter *)self writeZip64EndOfCentralDirectoryWithOffset:offset size:size entryCount:count];
     [(TSUZipWriter *)self writeZip64EndOfCentralDirectoryLocatorWithOffset:currentOffset];
   }
 
-  v14 = malloc_type_malloc(0x16uLL, 0x1497331BuLL);
-  *v14 = 101010256;
+  v13 = malloc_type_malloc(0x16uLL, 0x1497331BuLL);
+  *v13 = 101010256;
+  if (v9)
+  {
+    v14 = -1;
+  }
+
+  else
+  {
+    v14 = countCopy;
+  }
+
+  v13[4] = v14;
+  v13[5] = v14;
   if (v10)
   {
     v15 = -1;
@@ -877,11 +1056,9 @@ LABEL_23:
 
   else
   {
-    v15 = countCopy;
+    v15 = sizeCopy;
   }
 
-  v14[4] = v15;
-  v14[5] = v15;
   if (v11)
   {
     v16 = -1;
@@ -889,24 +1066,14 @@ LABEL_23:
 
   else
   {
-    v16 = sizeCopy;
+    v16 = offsetCopy;
   }
 
-  if (v12)
-  {
-    v17 = -1;
-  }
-
-  else
-  {
-    v17 = offsetCopy;
-  }
-
-  *(v14 + 3) = v16;
-  *(v14 + 4) = v17;
-  v14[10] = 0;
-  v18 = dispatch_data_create(v14, 0x16uLL, 0, _dispatch_data_destructor_free);
-  [(TSUZipWriter *)self writeData:v18];
+  *(v13 + 3) = v15;
+  *(v13 + 4) = v16;
+  v13[10] = 0;
+  v17 = dispatch_data_create(v13, 0x16uLL, 0, _dispatch_data_destructor_free);
+  [(TSUZipWriter *)self writeData:v17];
 }
 
 - (void)writeZip64EndOfCentralDirectoryWithOffset:(int64_t)offset size:(int64_t)size entryCount:(unint64_t)count

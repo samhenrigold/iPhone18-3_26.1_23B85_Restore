@@ -173,7 +173,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v15 = 1;
+    isEqual = 1;
   }
 
   else
@@ -188,55 +188,55 @@
       {
         topLeft = [(_UICornerMaskingProviderMux *)v5 topLeft];
         WeakRetained = objc_loadWeakRetained(&self->_topLeft);
-        if ([topLeft isEqual:WeakRetained])
+        if (objc_msgSend_isEqual_(topLeft))
         {
           topRight = [(_UICornerMaskingProviderMux *)v6 topRight];
           v10 = objc_loadWeakRetained(&self->_topRight);
-          if ([topRight isEqual:v10])
+          if (objc_msgSend_isEqual_(topRight))
           {
             bottomLeft = [(_UICornerMaskingProviderMux *)v6 bottomLeft];
             v12 = objc_loadWeakRetained(&self->_bottomLeft);
-            if ([bottomLeft isEqual:v12])
+            if (objc_msgSend_isEqual_(bottomLeft))
             {
               [(_UICornerMaskingProviderMux *)v6 bottomRight];
               v13 = v17 = bottomLeft;
               v14 = objc_loadWeakRetained(&self->_bottomRight);
-              v15 = [v13 isEqual:v14];
+              isEqual = objc_msgSend_isEqual_(v13);
 
               bottomLeft = v17;
             }
 
             else
             {
-              v15 = 0;
+              isEqual = 0;
             }
           }
 
           else
           {
-            v15 = 0;
+            isEqual = 0;
           }
         }
 
         else
         {
-          v15 = 0;
+          isEqual = 0;
         }
       }
 
       else
       {
-        v15 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v15 = 0;
+      isEqual = 0;
     }
   }
 
-  return v15;
+  return isEqual;
 }
 
 @end

@@ -85,34 +85,30 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  versionNumber = self->_versionNumber;
-  v11 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_hyperparameterIndices.count)
   {
-    v6 = 0;
+    v4 = 0;
     do
     {
-      v7 = self->_hyperparameterIndices.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v4;
     }
 
-    while (v6 < self->_hyperparameterIndices.count);
+    while (v4 < self->_hyperparameterIndices.count);
   }
 
   p_hyperparameterValues = &self->_hyperparameterValues;
   if (p_hyperparameterValues->count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = p_hyperparameterValues->list[v9];
       PBDataWriterWriteFloatField();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < p_hyperparameterValues->count);
+    while (v6 < p_hyperparameterValues->count);
   }
 }
 

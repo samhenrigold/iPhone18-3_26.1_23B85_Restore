@@ -21,7 +21,7 @@
 
 - (BOOL)_runBasicConfigStart
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   clientConfig = [(SKStepBasicConfigClient *)self clientConfig];
   if (!clientConfig)
   {
@@ -36,7 +36,7 @@
 
     else if (gLogCategory_SKStepBasicConfigClient <= 90 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _runBasicConfigStart]", 90, "### No language code");
     }
 
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
@@ -49,7 +49,7 @@
 
     else if (gLogCategory_SKStepBasicConfigClient <= 90 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _runBasicConfigStart]", 90, "### No locale identifier");
     }
   }
 
@@ -58,43 +58,41 @@
   {
     if (gLogCategory_SKStepBasicConfigClient <= 30 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      v13 = CUPrintNSObjectOneLine();
-      LogPrintF_safe();
+      v9 = CUPrintNSObjectOneLine();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _runBasicConfigStart]", 30, "BasicConfig send: %@", v9);
     }
 
-    v15 = @"timeoutSeconds";
-    v16[0] = &unk_28776E210;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:{1, v13}];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __47__SKStepBasicConfigClient__runBasicConfigStart__block_invoke;
-    v14[3] = &unk_279BB86A0;
-    v14[4] = self;
-    [(CUMessaging *)v8 sendRequestID:@"_bsCf" requestMessage:clientConfig options:v9 responseHandler:v14];
+    v13 = @"timeoutSeconds";
+    v14[0] = &unk_28776E210;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __47__SKStepBasicConfigClient__runBasicConfigStart__block_invoke;
+    v12[3] = &unk_279BB86A0;
+    v12[4] = self;
+    [(CUMessaging *)v8 sendRequestID:@"_bsCf" requestMessage:clientConfig options:v10 responseHandler:v12];
   }
 
   else
   {
-    v12 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF_safe();
-    [(SKStepBasicConfigClient *)self _completeWithError:v9];
+    v10 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960534, "No messaging");
+    [(SKStepBasicConfigClient *)self _completeWithError:v10];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
 void __47__SKStepBasicConfigClient__runBasicConfigStart__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = a2;
+  v15 = a2;
   v7 = a3;
   v8 = a4;
   v9 = v8;
   v10 = *(a1 + 32);
   if ((v10[8] & 1) == 0)
   {
-    v11 = v16;
-    if (!v16 || v8)
+    v11 = v15;
+    if (!v15 || v8)
     {
       if (v8)
       {
@@ -103,8 +101,7 @@ void __47__SKStepBasicConfigClient__runBasicConfigStart__block_invoke(uint64_t a
 
       else
       {
-        v12 = *MEMORY[0x277CCA590];
-        v13 = NSErrorF_safe();
+        v13 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No response, no error");
         [v10 _completeWithError:v13];
       }
     }
@@ -113,17 +110,17 @@ void __47__SKStepBasicConfigClient__runBasicConfigStart__block_invoke(uint64_t a
     {
       if (gLogCategory_SKStepBasicConfigClient <= 30)
       {
-        if (gLogCategory_SKStepBasicConfigClient != -1 || (v14 = _LogCategory_Initialize(), v11 = v16, v14))
+        if (gLogCategory_SKStepBasicConfigClient != -1 || (v14 = _LogCategory_Initialize(), v11 = v15, v14))
         {
-          v15 = CUPrintNSObjectOneLine();
-          LogPrintF_safe();
+          v12 = CUPrintNSObjectOneLine();
+          LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _runBasicConfigStart]_block_invoke", 30, "BasicConfig response: %@", v12);
 
-          v11 = v16;
+          v11 = v15;
         }
       }
 
       *(*(a1 + 32) + 10) = 1;
-      [*(a1 + 32) setOutServerConfig:{v11, v15}];
+      [*(a1 + 32) setOutServerConfig:v11];
       [*(a1 + 32) _run];
     }
   }
@@ -204,12 +201,32 @@ LABEL_17:
             v6 = off_279BB81A0[runState];
           }
 
+          else if (runState <= 9)
+          {
+            v6 = "?";
+          }
+
+          else
+          {
+            v6 = "User";
+          }
+
           if (v5 < 0xF && ((0x78FFu >> v5) & 1) != 0)
           {
             v7 = off_279BB81A0[v5];
           }
 
-          LogPrintF_safe();
+          else if (v5 <= 9)
+          {
+            v7 = "?";
+          }
+
+          else
+          {
+            v7 = "User";
+          }
+
+          LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _run]", 30, "State: %s -> %s", v6, v7);
         }
       }
     }
@@ -235,23 +252,23 @@ LABEL_17:
   {
     if (gLogCategory_SKStepBasicConfigClient <= 60 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      v8 = CUPrintNSError();
-      LogPrintF_safe();
+      v6 = CUPrintNSError();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _completeWithError:]", 60, "### BasicConfig failed: %@", v6);
     }
   }
 
   else if (gLogCategory_SKStepBasicConfigClient <= 30 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _completeWithError:]", 30, "BasicConfig Succeeded");
   }
 
-  v6 = MEMORY[0x26676A4C0](self->_skCompletionHandler);
+  v7 = MEMORY[0x26676A4C0](self->_skCompletionHandler);
   skCompletionHandler = self->_skCompletionHandler;
   self->_skCompletionHandler = 0;
 
-  if (v6)
+  if (v7)
   {
-    (v6)[2](v6, v9);
+    (v7)[2](v7, v9);
   }
 }
 
@@ -259,21 +276,20 @@ LABEL_17:
 {
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
-    v6 = MEMORY[0x26676A4C0](self->_skCompletionHandler, a2);
+    v5 = MEMORY[0x26676A4C0](self->_skCompletionHandler, a2);
     skCompletionHandler = self->_skCompletionHandler;
     self->_skCompletionHandler = 0;
 
-    if (v6)
+    if (v5)
     {
-      v4 = *MEMORY[0x277CCA590];
-      v5 = NSErrorF_safe();
-      v6[2](v6, v5);
+      v4 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated");
+      v5[2](v5, v4);
     }
 
     self->_invalidateDone = 1;
     if (gLogCategory_SKStepBasicConfigClient <= 30 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient _invalidated]", 30, "Invalidated");
     }
   }
 }
@@ -289,21 +305,22 @@ LABEL_17:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SKStepBasicConfigClient_invalidate__block_invoke(uint64_t result)
+void *__37__SKStepBasicConfigClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 8) & 1) == 0)
+  v5 = result[4];
+  if ((*(v5 + 8) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 8) = 1;
+    v8 = v1;
+    v6 = result;
+    *(v5 + 8) = 1;
     if (gLogCategory_SKStepBasicConfigClient <= 30 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient invalidate]_block_invoke", 30, "Invalidating", v2, v8, v3);
     }
 
-    v4 = *(v3 + 32);
+    v7 = v6[4];
 
-    return [v4 _invalidated];
+    return [v7 _invalidated];
   }
 
   return result;
@@ -324,7 +341,7 @@ uint64_t __35__SKStepBasicConfigClient_activate__block_invoke(uint64_t a1)
 {
   if (gLogCategory_SKStepBasicConfigClient <= 30 && (gLogCategory_SKStepBasicConfigClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_SKStepBasicConfigClient, "[SKStepBasicConfigClient activate]_block_invoke", 30, "Activate");
   }
 
   v2 = *(a1 + 32);
@@ -334,10 +351,10 @@ uint64_t __35__SKStepBasicConfigClient_activate__block_invoke(uint64_t a1)
 
 - (NSString)description
 {
-  v4 = [objc_opt_class() description];
-  v2 = NSPrintF();
+  v2 = [objc_opt_class() description];
+  v3 = NSPrintF("%@", v2);
 
-  return v2;
+  return v3;
 }
 
 - (SKStepBasicConfigClient)init

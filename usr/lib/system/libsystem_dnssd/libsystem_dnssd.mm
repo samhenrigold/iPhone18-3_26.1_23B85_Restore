@@ -1,37 +1,35 @@
-_DWORD *ConnectToServer(uint64_t *a1, __int16 a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t ConnectToServer(uint64_t **a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v57 = *MEMORY[0x29EDCA608];
-  v55 = 0u;
-  memset(v56, 0, sizeof(v56));
-  v53 = 0u;
-  v54 = 0u;
+  v53 = *MEMORY[0x29EDCA608];
   v51 = 0u;
-  v52 = 0u;
+  memset(v52, 0, sizeof(v52));
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   if (!a1)
   {
-    v19 = 4294901756;
-    syslog(4, "dnssd_clientstub DNSService operation with NULL DNSServiceRef");
-LABEL_32:
-    v28 = *MEMORY[0x29EDCA608];
-    return v19;
+    v18 = 4294901756;
+    syslog(4, "dnssd_clientstub DNSService operation with NULL DNSServiceRef", a3, a4, a5, a6);
+    return v18;
   }
 
+  v9 = a3;
   if ((a2 & 0x4000) != 0)
   {
-    v20 = *a1;
+    v19 = *a1;
     if (!*a1)
     {
-      v19 = 4294901756;
-      syslog(4, "dnssd_clientstub kDNSServiceFlagsShareConnection used with NULL DNSServiceRef");
-      goto LABEL_32;
+      v18 = 4294901756;
+      syslog(4, "dnssd_clientstub kDNSServiceFlagsShareConnection used with NULL DNSServiceRef", a3, a4, a5, a6);
+      return v18;
     }
 
-    if ((v21 = *(v20 + 4), v22 = *(v20 + 8), v21 < 0) || (*(v20 + 5) ^ v21) != 0x12345678 || (v22 != 19 ? (v23 = v22 == 1) : (v23 = 1), !v23 || v20[1]))
+    if ((v20 = v19[4], v21 = v19[8], v20 < 0) || (v19[5] ^ v20) != 0x12345678 || (v21 != 19 ? (v22 = v21 == 1) : (v22 = 1), !v22 || *(v19 + 1)))
     {
-      syslog(4, "dnssd_clientstub kDNSServiceFlagsShareConnection used with invalid DNSServiceRef %p %08X %08X op %u", v20, v21, *(v20 + 5), v22);
+      syslog(4, "dnssd_clientstub kDNSServiceFlagsShareConnection used with invalid DNSServiceRef %p %08X %08X op %u", v19, v20, v19[5], v21);
       *a1 = 0;
-      v19 = 4294901755;
-      goto LABEL_32;
+      return 4294901755;
     }
   }
 
@@ -40,48 +38,48 @@ LABEL_32:
   {
     v13 = result;
     *result = 0;
-    *(result + 1) = 0;
-    result[9] = 0;
-    result[10] = 0;
-    result[8] = a3;
-    *(result + 1) = xmmword_299DED200;
-    *(result + 6) = 0;
-    *(result + 7) = a4;
-    *(result + 8) = a5;
-    *(result + 9) = a6;
-    *(result + 5) = 0u;
-    *(result + 6) = 0u;
-    *(result + 7) = 0u;
-    *(result + 8) = 0u;
+    *(result + 8) = 0;
+    *(result + 36) = 0;
+    *(result + 40) = 0;
+    *(result + 32) = v9;
+    *(result + 16) = xmmword_299DED200;
+    *(result + 48) = 0;
+    *(result + 56) = a4;
+    *(result + 64) = a5;
+    *(result + 72) = a6;
+    *(result + 80) = 0u;
+    *(result + 96) = 0u;
+    *(result + 112) = 0u;
+    *(result + 128) = 0u;
     if ((a2 & 0x4000) != 0)
     {
-      v24 = *a1;
+      v23 = *a1;
       do
       {
-        v25 = v24;
-        v24 = *v24;
+        v24 = v23;
+        v23 = *v23;
       }
 
-      while (v24);
-      *v25 = result;
-      v26 = *(*a1 + 24);
-      *(*a1 + 24) = v26 + 1;
-      if (v26 == -1)
+      while (v23);
+      *v24 = result;
+      v25 = *(*a1 + 6);
+      *(*a1 + 6) = v25 + 1;
+      if (v25 == -1)
       {
-        ++*(*a1 + 28);
+        ++*(*a1 + 7);
       }
 
-      v27 = *a1;
-      *(result + 1) = *a1;
-      *(result + 2) = *(v27 + 16);
-      *(result + 3) = *(v27 + 24);
+      v26 = *a1;
+      *(result + 8) = *a1;
+      *(result + 16) = *(v26 + 2);
+      *(result + 24) = *(v26 + 3);
 LABEL_30:
-      v19 = 0;
+      v18 = 0;
       *a1 = v13;
-      goto LABEL_32;
+      return v18;
     }
 
-    v50 = 1;
+    v46 = 1;
     if (issetugid())
     {
       v14 = getenv("DNSSD_UDS_PATH");
@@ -101,52 +99,50 @@ LABEL_30:
 LABEL_10:
     *a1 = 0;
     v16 = socket(1, 1, 0);
-    v13[4] = v16;
-    v13[5] = v16 ^ 0x12345678;
+    *(v13 + 16) = v16;
+    *(v13 + 20) = v16 ^ 0x12345678;
     if (v16 < 0)
     {
-      v29 = *__error();
-      v30 = __error();
-      v31 = strerror(*v30);
-      syslog(4, "dnssd_clientstub ConnectToServer: socket failed %d %s", v29, v31);
+      v27 = *__error();
+      v28 = __error();
+      v29 = strerror(*v28);
+      syslog(4, "dnssd_clientstub ConnectToServer: socket failed %d %s", v27, v29);
       FreeDNSServiceOp(v13);
-      v19 = 4294901757;
-      goto LABEL_32;
+      return 4294901757;
     }
 
     if (fcntl_NOCANCEL() == -1)
     {
-      v18 = "dnssd_clientstub ConnectToServer: Failed to get the file descriptor flags of socket %d %s";
+      v17 = "dnssd_clientstub ConnectToServer: Failed to get the file descriptor flags of socket %d %s";
     }
 
     else
     {
-      v17 = v13[4];
       if (fcntl_NOCANCEL() != -1)
       {
         goto LABEL_36;
       }
 
-      v18 = "dnssd_clientstub ConnectToServer: Failed to set FD_CLOEXEC on socket %d %s";
+      v17 = "dnssd_clientstub ConnectToServer: Failed to set FD_CLOEXEC on socket %d %s";
     }
 
-    v32 = *__error();
-    v33 = __error();
-    v34 = strerror(*v33);
-    syslog(4, v18, v32, v34);
+    v30 = *__error();
+    v31 = __error();
+    v32 = strerror(*v31);
+    syslog(4, v17, v30, v32);
 LABEL_36:
-    if (setsockopt(v13[4], 0xFFFF, 4130, &v50, 8u) < 0)
+    if (setsockopt(*(v13 + 16), 0xFFFF, 4130, &v46, 8u) < 0)
     {
-      v35 = *__error();
-      v36 = __error();
-      v37 = strerror(*v36);
-      syslog(4, "dnssd_clientstub ConnectToServer: SO_NOSIGPIPE failed %d %s", v35, v37);
+      v33 = *__error();
+      v34 = __error();
+      v35 = strerror(*v34);
+      syslog(4, "dnssd_clientstub ConnectToServer: SO_NOSIGPIPE failed %d %s", v33, v35);
     }
 
-    BYTE1(v51) = 1;
+    BYTE1(v47) = 1;
     if (strlen(v15) > 0x67)
     {
-      BYTE2(v51) = 0;
+      BYTE2(v47) = 0;
     }
 
     else
@@ -154,30 +150,27 @@ LABEL_36:
       __memcpy_chk();
     }
 
-    v49 = 1;
-    if (setsockopt(v13[4], 0xFFFF, 4352, &v49, 4u) < 0)
+    v45 = 1;
+    if (setsockopt(*(v13 + 16), 0xFFFF, 4352, &v45, 4u) < 0)
     {
-      v38 = *__error();
-      v39 = __error();
-      v40 = strerror(*v39);
-      syslog(4, "dnssd_clientstub ConnectToServer: SO_DEFUNCTOK failed %d %s", v38, v40);
+      v36 = *__error();
+      v37 = __error();
+      v38 = strerror(*v37);
+      syslog(4, "dnssd_clientstub ConnectToServer: SO_DEFUNCTOK failed %d %s", v36, v38);
     }
 
-    v41 = v13[4];
-    v42 = connect_NOCANCEL();
-    if (v42)
+    v39 = connect_NOCANCEL();
+    if (v39)
     {
-      v43 = v42;
-      v44 = v13[4];
-      v45 = *__error();
-      v46 = __error();
-      v47 = strerror(*v46);
-      syslog(4, "dnssd_clientstub ConnectToServer: connect() failed path:%s Socket:%d Err:%d Errno:%d %s", v15, v44, v43, v45, v47);
-      v48 = v13[4];
+      v40 = v39;
+      v41 = *(v13 + 16);
+      v42 = *__error();
+      v43 = __error();
+      v44 = strerror(*v43);
+      syslog(4, "dnssd_clientstub ConnectToServer: connect() failed path:%s Socket:%d Err:%d Errno:%d %s", v15, v41, v40, v42, v44);
       close_NOCANCEL();
       FreeDNSServiceOp(v13);
-      v19 = 4294901733;
-      goto LABEL_32;
+      return 4294901733;
     }
 
     goto LABEL_30;
@@ -213,8 +206,8 @@ DNSServiceErrorType DNSServiceCreateConnection(DNSServiceRef *sdRef)
 
 _DWORD *create_hdr(int a1, size_t *a2, void *a3, int a4, uint64_t a5)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  memset(v16, 0, sizeof(v16));
+  v16 = *MEMORY[0x29EDCA608];
+  memset(v15, 0, sizeof(v15));
   if (a4)
   {
     v6 = *a2 + 1;
@@ -242,18 +235,17 @@ _DWORD *create_hdr(int a1, size_t *a2, void *a3, int a4, uint64_t a5)
   *a3 = v12 + 7;
   if (a4)
   {
-    v13 = strlen(v16) + 1;
-    memcpy(v12 + 7, v16, v13);
+    v13 = strlen(v15) + 1;
+    memcpy(v12 + 7, v15, v13);
     *a3 += v13;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t deliver_request(int8x16_t *a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   if (*(a2 + 8))
   {
     v4 = 1;
@@ -265,90 +257,90 @@ uint64_t deliver_request(int8x16_t *a1, uint64_t a2)
   }
 
   v5 = *(a2 + 16);
-  if ((v5 & 0x80000000) == 0 && (*(a2 + 20) ^ v5) == 0x12345678)
+  if (v5 < 0 || (*(a2 + 20) ^ v5) != 0x12345678)
   {
-    v6 = a1->i32[1];
+    free(a1);
+    syslog(4, "dnssd_clientstub deliver_request: invalid DNSServiceRef %p %08X %08X", a2, *(a2 + 16), *(a2 + 20));
+    return 4294901755;
+  }
+
+  v6 = a1->i32[1];
+  if (v4)
+  {
+    if (socketpair(1, 1, 0, v31) < 0)
+    {
+      v19 = *__error();
+      if (-v19 > 0xFFFEFFFF)
+      {
+        v20 = -v19;
+      }
+
+      else
+      {
+        v20 = -65537;
+      }
+
+      v28 = v20;
+      v21 = *__error();
+      v22 = __error();
+      v23 = strerror(*v22);
+      syslog(3, "dnssd_clientstub deliver_request: %s failed %d (%s)", "socketpair", v21, v23);
+      goto LABEL_37;
+    }
+
+    v7 = v31[0];
+    v8 = v31[1];
+    LODWORD(v29) = 1;
+    if (setsockopt(v31[0], 0xFFFF, 4352, &v29, 4u) < 0)
+    {
+      v9 = *__error();
+      v10 = __error();
+      v11 = strerror(*v10);
+      syslog(4, "dnssd_clientstub deliver_request: SO_DEFUNCTOK failed %d %s", v9, v11);
+    }
+  }
+
+  else
+  {
+    v8 = -1;
+    v7 = 0xFFFFFFFFLL;
+  }
+
+  v13 = (v6 - v4);
+  *a1 = vrev32q_s8(*a1);
+  a1[1].i32[2] = bswap32(a1[1].u32[2]);
+  v14 = write_all(*(a2 + 16), a1, v13 + 28);
+  if (v14 < 0)
+  {
+    v15 = v14;
+    syslog(6, "dnssd_clientstub deliver_request ERROR: write_all(%d, %lu bytes) failed", *(a2 + 16), v13 + 28);
+    v16 = v15 == -2;
+  }
+
+  else
+  {
     if (v4)
     {
-      if (socketpair(1, 1, 0, v33) < 0)
+      v27[0] = a1 + v13 + 28;
+      v27[1] = 1;
+      *v31 = 0u;
+      v31[2] = 0;
+      *&v32 = v27;
+      *(&v32 + 1) = 1;
+      *&v33 = &v29;
+      *(&v33 + 1) = 16;
+      v29 = 0xFFFF00000010;
+      LODWORD(v30) = 1;
+      HIDWORD(v30) = v8;
+      if (sendmsg_NOCANCEL() < 0)
       {
-        v20 = *__error();
-        if (-v20 > 0xFFFEFFFF)
+        v24 = *__error();
+        v25 = __error();
+        v26 = strerror(*v25);
+        syslog(4, "dnssd_clientstub deliver_request ERROR: sendmsg failed read sd=%d write sd=%d errno %d (%s)", v7, v8, v24, v26);
+        v28 = -65551;
+        if (v8 < 0)
         {
-          v21 = -v20;
-        }
-
-        else
-        {
-          v21 = -65537;
-        }
-
-        v30 = v21;
-        v22 = *__error();
-        v23 = __error();
-        v24 = strerror(*v23);
-        syslog(3, "dnssd_clientstub deliver_request: %s failed %d (%s)", "socketpair", v22, v24);
-        goto LABEL_37;
-      }
-
-      v7 = v33[0];
-      v8 = v33[1];
-      LODWORD(v31) = 1;
-      if (setsockopt(v33[0], 0xFFFF, 4352, &v31, 4u) < 0)
-      {
-        v9 = *__error();
-        v10 = __error();
-        v11 = strerror(*v10);
-        syslog(4, "dnssd_clientstub deliver_request: SO_DEFUNCTOK failed %d %s", v9, v11);
-      }
-    }
-
-    else
-    {
-      v8 = -1;
-      v7 = -1;
-    }
-
-    v13 = (v6 - v4);
-    *a1 = vrev32q_s8(*a1);
-    a1[1].i32[2] = bswap32(a1[1].u32[2]);
-    v14 = write_all(*(a2 + 16), a1, v13 + 28);
-    if (v14 < 0)
-    {
-      v16 = v14;
-      syslog(6, "dnssd_clientstub deliver_request ERROR: write_all(%d, %lu bytes) failed", *(a2 + 16), v13 + 28);
-      v17 = v16 == -2;
-    }
-
-    else
-    {
-      if (v4)
-      {
-        v29[0] = a1 + v13 + 28;
-        v29[1] = 1;
-        *v33 = 0u;
-        v33[2] = 0;
-        *&v34 = v29;
-        *(&v34 + 1) = 1;
-        *&v35 = &v31;
-        *(&v35 + 1) = 16;
-        v31 = 0xFFFF00000010;
-        LODWORD(v32) = 1;
-        HIDWORD(v32) = v8;
-        v15 = *(a2 + 16);
-        if (sendmsg_NOCANCEL() < 0)
-        {
-          v26 = *__error();
-          v27 = __error();
-          v28 = strerror(*v27);
-          syslog(4, "dnssd_clientstub deliver_request ERROR: sendmsg failed read sd=%d write sd=%d errno %d (%s)", v7, v8, v26, v28);
-          v30 = -65551;
-          if ((v8 & 0x80000000) == 0)
-          {
-LABEL_34:
-            close_NOCANCEL();
-          }
-
 LABEL_35:
           if ((v7 & 0x80000000) == 0)
           {
@@ -358,88 +350,84 @@ LABEL_35:
           goto LABEL_37;
         }
 
+LABEL_34:
         close_NOCANCEL();
-        v8 = -1;
+        goto LABEL_35;
       }
 
-      else
-      {
-        v7 = *(a2 + 16);
-      }
-
-      if (v7 <= 1023)
-      {
-        v32 = 0;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        *v33 = 0u;
-        if (__darwin_check_fd_set_overflow(v7, v33, 0))
-        {
-          *(v33 + ((v7 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v7;
-        }
-
-        v31 = 60;
-        if (!select_NOCANCEL())
-        {
-          syslog(4, "dnssd_clientstub set_waitlimit:_daemon timed out (%d secs) without any response: Socket %d", 60, v7);
-          v19 = -65568;
-          goto LABEL_32;
-        }
-      }
-
-      v30 = 0;
-      all = read_all(v7, &v30, 4uLL);
-      if ((all & 0x80000000) == 0)
-      {
-        v19 = bswap32(v30);
-        goto LABEL_32;
-      }
-
-      v17 = all == -3;
-    }
-
-    if (v17)
-    {
-      v19 = -65569;
+      close_NOCANCEL();
+      v8 = -1;
     }
 
     else
     {
-      v19 = -65563;
+      v7 = *(a2 + 16);
     }
 
-LABEL_32:
-    v30 = v19;
-    if (!v4)
+    if (v7 <= 1023)
     {
-LABEL_37:
-      free(a1);
-      result = v30;
-      goto LABEL_38;
+      v30 = 0;
+      v37 = 0u;
+      v38 = 0u;
+      v36 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      *v31 = 0u;
+      if (__darwin_check_fd_set_overflow(v7, v31, 0))
+      {
+        *(v31 + ((v7 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v7;
+      }
+
+      v29 = 60;
+      if (!select_NOCANCEL())
+      {
+        syslog(4, "dnssd_clientstub set_waitlimit:_daemon timed out (%d secs) without any response: Socket %d", 60, v7);
+        v18 = -65568;
+        goto LABEL_32;
+      }
     }
 
-    if ((v8 & 0x80000000) == 0)
+    v28 = 0;
+    all = read_all(v7, &v28, 4uLL);
+    if ((all & 0x80000000) == 0)
     {
-      goto LABEL_34;
+      v18 = bswap32(v28);
+      goto LABEL_32;
     }
 
-    goto LABEL_35;
+    v16 = all == -3;
   }
 
+  if (v16)
+  {
+    v18 = -65569;
+  }
+
+  else
+  {
+    v18 = -65563;
+  }
+
+LABEL_32:
+  v28 = v18;
+  if (v4)
+  {
+    if (v8 < 0)
+    {
+      goto LABEL_35;
+    }
+
+    goto LABEL_34;
+  }
+
+LABEL_37:
   free(a1);
-  syslog(4, "dnssd_clientstub deliver_request: invalid DNSServiceRef %p %08X %08X", a2, *(a2 + 16), *(a2 + 20));
-  result = 4294901755;
-LABEL_38:
-  v25 = *MEMORY[0x29EDCA608];
-  return result;
+  return v28;
 }
 
-uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
+uint64_t write_all(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -447,6 +435,7 @@ uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
   }
 
   v3 = a3;
+  v5 = a1;
   while (1)
   {
     v6 = send_NOCANCEL();
@@ -470,9 +459,9 @@ uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
     }
   }
 
-  v16 = 0;
-  v15 = 4;
-  if (getsockopt(a1, 0xFFFF, 4353, &v16, &v15) < 0)
+  v15 = 0;
+  v14 = 4;
+  if (getsockopt(v5, 0xFFFF, 4353, &v15, &v14) < 0)
   {
     v10 = *__error();
     v11 = __error();
@@ -480,7 +469,7 @@ uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
     syslog(4, "dnssd_clientstub write_all: SO_ISDEFUNCT failed %d %s", v10, v12);
   }
 
-  if (v16)
+  if (v15)
   {
     syslog(6, "dnssd_clientstub write_all(%d) DEFUNCT");
   }
@@ -489,15 +478,15 @@ uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
   {
     if ((v7 & 0x8000000000000000) != 0)
     {
-      v13 = *__error();
-      v14 = __error();
-      strerror(*v14);
+      __error();
+      v13 = __error();
+      strerror(*v13);
     }
 
     syslog(4, "dnssd_clientstub write_all(%d) failed %ld/%ld %d %s");
   }
 
-  if (v16)
+  if (v15)
   {
     return 4294967294;
   }
@@ -508,7 +497,7 @@ uint64_t write_all(int a1, uint64_t a2, unint64_t a3)
   }
 }
 
-uint64_t read_all(int a1, uint64_t a2, unint64_t a3)
+uint64_t read_all(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -516,6 +505,7 @@ uint64_t read_all(int a1, uint64_t a2, unint64_t a3)
   }
 
   v3 = a3;
+  v5 = a1;
   while (1)
   {
     while (1)
@@ -549,9 +539,9 @@ uint64_t read_all(int a1, uint64_t a2, unint64_t a3)
   }
 
 LABEL_10:
-  v14 = 4;
-  v15 = 0;
-  if (getsockopt(a1, 0xFFFF, 4353, &v15, &v14) < 0)
+  v13 = 4;
+  v14 = 0;
+  if (getsockopt(v5, 0xFFFF, 4353, &v14, &v13) < 0)
   {
     v9 = *__error();
     v10 = __error();
@@ -559,7 +549,7 @@ LABEL_10:
     syslog(4, "dnssd_clientstub read_all: SO_ISDEFUNCT failed %d %s", v9, v11);
   }
 
-  if (v15)
+  if (v14)
   {
     syslog(6, "dnssd_clientstub read_all(%d) DEFUNCT");
   }
@@ -568,9 +558,9 @@ LABEL_10:
   {
     if (v7 < 0)
     {
-      v12 = *__error();
-      v13 = __error();
-      strerror(*v13);
+      __error();
+      v12 = __error();
+      strerror(*v12);
     }
 
     syslog(4, "dnssd_clientstub read_all(%d) failed %ld/%ld %d %s");
@@ -581,7 +571,7 @@ LABEL_10:
     return 4294967294;
   }
 
-  if (v15)
+  if (v14)
   {
     return 4294967293;
   }
@@ -678,7 +668,7 @@ dnssd_sock_t DNSServiceRefSockFD(DNSServiceRef sdRef)
   return -1;
 }
 
-uint64_t DNSServiceBrowseInternal(uint64_t *a1, int a2, int a3, const char *a4, const char *a5, void *a6, uint64_t a7, uint64_t a8)
+uint64_t DNSServiceBrowseInternal(uint64_t **a1, int a2, int a3, const char *a4, const char *a5, void *a6, uint64_t a7, uint64_t a8)
 {
   v8 = 4294901756;
   if (a1)
@@ -715,7 +705,7 @@ uint64_t DNSServiceBrowseInternal(uint64_t *a1, int a2, int a3, const char *a4, 
           }
 
           v28 = 0;
-          v19 = create_hdr(6, &v27, &v28, *(*a1 + 8) != 0, *a1);
+          v19 = create_hdr(6, &v27, &v28, (*a1)[1] != 0, *a1);
           v21 = v27;
           v20 = v28;
           *v28 = HIBYTE(a2);
@@ -779,7 +769,6 @@ void DNSServiceRefDeallocate(DNSServiceRef sdRef)
     v2 = *(sdRef + 4);
     if (v2 < 0 || (*(sdRef + 5) ^ v2) != 0x12345678)
     {
-      v12 = *(sdRef + 4);
       syslog(4, "dnssd_clientstub DNSServiceRefDeallocate called with invalid DNSServiceRef %p %08X %08X");
     }
 
@@ -812,12 +801,12 @@ void DNSServiceRefDeallocate(DNSServiceRef sdRef)
         while (!v6);
         if (v4)
         {
-          v13 = 0;
-          v14 = 0;
-          v7 = create_hdr(63, &v13, &v14, 0, sdRef);
+          v11 = 0;
+          v12 = 0;
+          v7 = create_hdr(63, &v11, &v12, 0, sdRef);
           *v7 = vrev32q_s8(*v7);
           v7[1].i32[2] = bswap32(v7[1].u32[2]);
-          write_all(*(v1 + 4), v7, v13);
+          write_all(*(v1 + 4), v7, v11);
           free(v7);
           *v5 = *v1;
           FreeDNSServiceOp(v1);
@@ -841,24 +830,23 @@ void DNSServiceRefDeallocate(DNSServiceRef sdRef)
 
         else if (!*(sdRef + 12))
         {
-          v9 = *(sdRef + 4);
           close_NOCANCEL();
         }
 
         do
         {
-          v10 = *v1;
-          v11 = *(v1 + 6);
-          if (v11)
+          v9 = *v1;
+          v10 = *(v1 + 6);
+          if (v10)
           {
-            *v11 = 0;
+            *v10 = 0;
           }
 
           FreeDNSServiceOp(v1);
-          v1 = v10;
+          v1 = v9;
         }
 
-        while (v10);
+        while (v9);
       }
     }
   }
@@ -1165,7 +1153,6 @@ LABEL_7:
 
         else
         {
-          v16 = v5[6];
           syslog(4, "dnssd_clientstub ConnectionResponse: Record sdr mismatch: rec %p sdr %p");
         }
       }
@@ -1204,7 +1191,7 @@ LABEL_11:
 
 void handle_browse_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (*(a2 + 36) != -65570)
   {
     goto LABEL_5;
@@ -1220,12 +1207,12 @@ void handle_browse_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unin
 LABEL_5:
     if (a3)
     {
-      v8 = v17;
+      v8 = v16;
       do
       {
-        if (a3 >= a4 || v8 >= &v18)
+        if (a3 >= a4 || v8 >= &v17)
         {
-          *(v8 - (v8 == &v18)) = 0;
+          *(v8 - (v8 == &v17)) = 0;
           goto LABEL_23;
         }
 
@@ -1241,12 +1228,12 @@ LABEL_5:
         goto LABEL_23;
       }
 
-      v10 = v16;
+      v10 = v15;
       do
       {
-        if (a3 >= a4 || v10 >= v17)
+        if (a3 >= a4 || v10 >= v16)
         {
-          v10[-(v10 == v17)] = 0;
+          v10[-(v10 == v16)] = 0;
           goto LABEL_24;
         }
 
@@ -1261,8 +1248,8 @@ LABEL_5:
         goto LABEL_24;
       }
 
-      v12 = v15;
-      while (a3 < a4 && v12 < v16)
+      v12 = v14;
+      while (a3 < a4 && v12 < v15)
       {
         v13 = *a3;
         a3 = (a3 + 1);
@@ -1274,17 +1261,17 @@ LABEL_5:
       }
 
       a3 = 0;
-      v12[-(v12 == v16)] = 0;
+      v12[-(v12 == v15)] = 0;
     }
 
     else
     {
-      v17[0] = 0;
-LABEL_23:
       v16[0] = 0;
+LABEL_23:
+      v15[0] = 0;
 LABEL_24:
       a3 = 0;
-      v15[0] = 0;
+      v14[0] = 0;
     }
 
 LABEL_25:
@@ -1297,7 +1284,7 @@ LABEL_25:
 
     if (a3)
     {
-      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v17, v16, v15, *(a1 + 72));
+      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v16, v15, v14, *(a1 + 72));
     }
 
     else
@@ -1305,8 +1292,6 @@ LABEL_25:
       syslog(4, "dnssd_clientstub handle_browse_response: error reading result from daemon");
     }
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 DNSServiceErrorType DNSServiceConstructFullName(char *const fullName, const char *const service, const char *const regtype, const char *const domain)
@@ -1518,7 +1503,7 @@ BOOL DomainEndsInDot(unsigned __int8 *a1)
   return v1 == 46;
 }
 
-uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char *a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t DNSServiceQueryRecordInternal(uint64_t **a1, int a2, int a3, const char *a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = 4294901756;
   if (a1 && a8)
@@ -1560,7 +1545,7 @@ uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char 
       }
 
       v23 = strlen(v22) + 13;
-      v43 = v23;
+      v42 = v23;
       if (a7)
       {
         v24 = 36;
@@ -1586,7 +1571,7 @@ uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char 
         }
 
         v23 += v25 + v24;
-        v43 = v23;
+        v42 = v23;
       }
 
       RetainedResolverDefaults = DNSServiceGetRetainedResolverDefaults();
@@ -1602,19 +1587,19 @@ uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char 
         }
 
         v23 += v29;
-        v43 = v23;
+        v42 = v23;
       }
 
-      v42 = should_save_stacktrace;
+      v41 = should_save_stacktrace;
       if (should_save_stacktrace)
       {
-        v43 = v23 + 5;
+        v42 = v23 + 5;
       }
 
       length = 0;
-      v30 = create_hdr(8, &v43, &length, *(*a1 + 8) != 0, *a1);
+      v30 = create_hdr(8, &v42, &length, (*a1)[1] != 0, *a1);
       v31 = length;
-      v32 = length + v43;
+      v32 = length + v42;
       *length = HIBYTE(a2);
       v31[1] = BYTE2(a2);
       v31[2] = BYTE1(a2);
@@ -1644,7 +1629,7 @@ uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char 
         xpc_release(v27);
       }
 
-      if (v42)
+      if (v41)
       {
         v36 = length;
         if (length && v32 >= length && v32 - length >= 5)
@@ -1661,7 +1646,7 @@ uint64_t DNSServiceQueryRecordInternal(uint64_t *a1, int a2, int a3, const char 
       v37 = MEMORY[0x2A1C7C4E0];
       v38 = deliver_request(v30, *a1);
       v9 = v38;
-      if (!v37 || v38 || ((v42 ^ 1) & 1) != 0)
+      if (!v37 || v38 || ((v41 ^ 1) & 1) != 0)
       {
         if (v38)
         {
@@ -1691,16 +1676,15 @@ LABEL_59:
 
       else
       {
-        v39 = *(*a1 + 120);
+        v39 = (*a1)[15];
         if (v39)
         {
           free(v39);
-          *(*a1 + 120) = 0;
-          v40 = *a1;
+          (*a1)[15] = 0;
         }
 
         v9 = 0;
-        *(*a1 + 120) = ne_tracker_copy_current_stacktrace();
+        (*a1)[15] = ne_tracker_copy_current_stacktrace();
       }
     }
   }
@@ -1727,7 +1711,7 @@ xpc_object_t DNSServiceGetRetainedResolverDefaults()
 
 DNSServiceErrorType DNSServiceProcessResult(DNSServiceRef sdRef)
 {
-  v29 = 0;
+  v28 = 0;
   if (!sdRef)
   {
     syslog(4, "dnssd_clientstub DNSServiceProcessResult called with NULL DNSServiceRef");
@@ -1739,7 +1723,6 @@ DNSServiceErrorType DNSServiceProcessResult(DNSServiceRef sdRef)
   if (v2 < 0 || (*(sdRef + 5) ^ v2) != 0x12345678)
   {
     LODWORD(v3) = -65541;
-    v25 = *(sdRef + 4);
     syslog(4, "dnssd_clientstub DNSServiceProcessResult called with invalid DNSServiceRef %p %08X %08X");
     goto LABEL_8;
   }
@@ -1771,10 +1754,10 @@ DNSServiceErrorType DNSServiceProcessResult(DNSServiceRef sdRef)
 
     while (1)
     {
-      v28 = 0;
+      v27 = 0;
+      v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      all = read_all(*(sdRef + 4), &v26, 0x1CuLL);
+      all = read_all(*(sdRef + 4), &v25, 0x1CuLL);
       switch(all)
       {
         case -1:
@@ -1806,7 +1789,7 @@ LABEL_50:
 
           goto LABEL_8;
         case -2:
-          if (v29)
+          if (v28)
           {
             v21 = *(sdRef + 10);
             if (v21 <= 0x63)
@@ -1822,9 +1805,9 @@ LABEL_50:
           goto LABEL_50;
       }
 
-      v6 = vrev32q_s8(v26);
-      v26 = v6;
-      DWORD2(v27) = bswap32(DWORD2(v27));
+      v6 = vrev32q_s8(v25);
+      v25 = v6;
+      DWORD2(v26) = bswap32(DWORD2(v26));
       if (v6.i32[0] != 1)
       {
         syslog(4, "dnssd_clientstub DNSServiceProcessResult daemon version %u does not match client version %d", v6.i32[0], 1);
@@ -1842,7 +1825,7 @@ LABEL_71:
       }
 
       v7 = v4;
-      v8 = read_all(*(sdRef + 4), v4, v26.u32[1]);
+      v8 = read_all(*(sdRef + 4), v4, v25.u32[1]);
       if (v8 < 0)
       {
         if (v8 == -3)
@@ -1874,19 +1857,19 @@ LABEL_71:
         goto LABEL_8;
       }
 
-      v9 = v7 + v26.u32[1];
+      v9 = v7 + v25.u32[1];
       if ((v7 + 1) > v9)
       {
         break;
       }
 
-      HIDWORD(v27) = bswap32(*v7);
+      HIDWORD(v26) = bswap32(*v7);
       if (v7 == -4 || (v7 + 2) > v9)
       {
         goto LABEL_24;
       }
 
-      LODWORD(v28) = bswap32(v7[1]);
+      LODWORD(v27) = bswap32(v7[1]);
       v11 = v7 + 3;
       if (v7 == -8 || v11 > v9)
       {
@@ -1900,10 +1883,10 @@ LABEL_71:
       }
 
 LABEL_25:
-      HIDWORD(v28) = v12;
+      HIDWORD(v27) = v12;
       v13 = *(sdRef + 4);
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
       if (v13 >= 1024)
       {
         v4 = malloc_type_calloc((v13 >> 5) + 1, 4uLL, 0xA570E751uLL);
@@ -1916,33 +1899,33 @@ LABEL_25:
 
       else
       {
-        v14 = v30;
+        v14 = v29;
       }
 
-      memset(v30, 0, sizeof(v30));
+      memset(v29, 0, sizeof(v29));
       if (__darwin_check_fd_set_overflow(v13, v14, 0))
       {
         *(v14 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v13;
       }
 
       v15 = select_NOCANCEL();
-      if (v14 != v30)
+      if (v14 != v29)
       {
         free(v14);
       }
 
       v16 = v15 > 0;
-      v29 = v16;
+      v28 = v16;
       if (v15 >= 1)
       {
-        HIDWORD(v27) |= 1u;
-        *(sdRef + 6) = &v29;
+        HIDWORD(v26) |= 1u;
+        *(sdRef + 6) = &v28;
       }
 
       if (v11)
       {
-        (*(sdRef + 7))(sdRef, &v26, v11, v7 + v26.u32[1]);
-        v16 = v29;
+        (*(sdRef + 7))(sdRef, &v25, v11, v7 + v25.u32[1]);
+        v16 = v28;
       }
 
       if (v16)
@@ -1952,17 +1935,17 @@ LABEL_25:
 
       free(v7);
       LODWORD(v3) = 0;
-      if (!v29)
+      if (!v28)
       {
         goto LABEL_8;
       }
     }
 
-    HIDWORD(v27) = 0;
+    HIDWORD(v26) = 0;
 LABEL_24:
     v11 = 0;
     v12 = 0;
-    LODWORD(v28) = 0;
+    LODWORD(v27) = 0;
     goto LABEL_25;
   }
 
@@ -1975,7 +1958,7 @@ LABEL_8:
 
 void handle_query_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
 {
-  v25[0] = *MEMORY[0x29EDCA608];
+  v23[0] = *MEMORY[0x29EDCA608];
   if (*(a2 + 36) != -65570)
   {
     goto LABEL_5;
@@ -1991,16 +1974,16 @@ void handle_query_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint
 LABEL_5:
     if (a3)
     {
-      v8 = v24;
+      v8 = v22;
       do
       {
-        if (a3 >= a4 || v8 >= v25)
+        if (a3 >= a4 || v8 >= v23)
         {
           v11 = 0;
           v12 = 0;
           v10 = 0;
           v13 = 0;
-          v8[-(v8 == v25)] = 0;
+          v8[-(v8 == v23)] = 0;
           goto LABEL_21;
         }
 
@@ -2053,7 +2036,7 @@ LABEL_5:
       v12 = 0;
       v10 = 0;
       v13 = 0;
-      v24[0] = 0;
+      v22[0] = 0;
     }
 
 LABEL_21:
@@ -2100,7 +2083,7 @@ LABEL_21:
         v21 = *(a1 + 120);
         if (v21)
         {
-          if ((*(a2 + 8) & 2) == 0 || !get_tracker_hostname_from_tlvs(v15, a4) || (v22 = *(a1 + 128), ne_tracker_create_xcode_issue(), (v21 = *(a1 + 120)) != 0))
+          if ((*(a2 + 8) & 2) == 0 || !get_tracker_hostname_from_tlvs(v15, a4) || (ne_tracker_create_xcode_issue(), (v21 = *(a1 + 120)) != 0))
           {
             free(v21);
             *(a1 + 120) = 0;
@@ -2113,7 +2096,7 @@ LABEL_21:
 
     if (v15)
     {
-      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v24, v12, v11, v13, v17, v14, *(a1 + 72));
+      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v22, v12, v11, v13, v17, v14, *(a1 + 72));
     }
 
     else
@@ -2121,8 +2104,6 @@ LABEL_21:
       syslog(4, "dnssd_clientstub handle_query_response: error reading result from daemon");
     }
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 const char *DNSServiceErrorCodeToString(int a1)
@@ -2367,7 +2348,7 @@ const char *get_tracker_hostname_from_tlvs(unsigned __int16 *a1, uint64_t a2)
     }
 
     v2 = 0;
-    v3 = (a1 + 2);
+    v3 = a1 + 2;
     if (a1 == -4)
     {
       break;
@@ -2381,7 +2362,7 @@ const char *get_tracker_hostname_from_tlvs(unsigned __int16 *a1, uint64_t a2)
     }
 
     v6 = __rev16(*a1);
-    a1 = &v3[v4];
+    a1 = (v3 + v4);
     if (v6 == 9)
     {
       v2 = v4;
@@ -2846,31 +2827,30 @@ DNSServiceErrorType DNSServiceSendQueuedRequests(DNSServiceRef sdRef)
         while (v8);
       }
 
-      v13 = *(sdRef + 4);
-      v14 = writev_NOCANCEL();
-      v15 = *(sdRef + 4);
-      if (v14 == v3)
+      v13 = writev_NOCANCEL();
+      v14 = *(sdRef + 4);
+      if (v13 == v3)
       {
-        syslog(6, "DNSServiceSendQueuedRequestsInternal: writev(fd:%d, numMsg:%u, %zd bytes) succeed", v15, v4, v3);
-        v16 = 0;
+        syslog(6, "DNSServiceSendQueuedRequestsInternal: writev(fd:%d, numMsg:%u, %zd bytes) succeed", v14, v4, v3);
+        v15 = 0;
       }
 
       else
       {
-        v17 = v14;
-        v18 = *__error();
-        v19 = __error();
-        v20 = strerror(*v19);
-        syslog(4, "DNSServiceSendQueuedRequestsInternal ERROR: writev(fd:%d, written:%zd, total:%zd bytes) failed, errno[%d]:%s", v15, v17, v3, v18, v20);
-        v16 = -65537;
+        v16 = v13;
+        v17 = *__error();
+        v18 = __error();
+        v19 = strerror(*v18);
+        syslog(4, "DNSServiceSendQueuedRequestsInternal ERROR: writev(fd:%d, written:%zd, total:%zd bytes) failed, errno[%d]:%s", v14, v16, v3, v17, v19);
+        v15 = -65537;
       }
 
       for (i = *(sdRef + 10); i; i = *i)
       {
-        v22 = i[7];
-        if (v22)
+        v21 = i[7];
+        if (v21)
         {
-          free(v22);
+          free(v21);
           i[7] = 0;
         }
       }
@@ -2881,7 +2861,7 @@ DNSServiceErrorType DNSServiceSendQueuedRequests(DNSServiceRef sdRef)
     else
     {
 LABEL_16:
-      v16 = -65549;
+      v15 = -65549;
       syslog(6, "DNSServiceSendQueuedRequestsInternal: numMsg is 0");
     }
   }
@@ -2889,10 +2869,10 @@ LABEL_16:
   else
   {
     syslog(4, "DNSServiceSendQueuedRequestsInternal: !sdr");
-    v16 = -65540;
+    v15 = -65540;
   }
 
-  LODWORD(v6) = v16;
+  LODWORD(v6) = v15;
   return v6;
 }
 
@@ -3299,7 +3279,7 @@ uint64_t DNSServiceGetPID(unsigned int a1, uint64_t a2)
   return v4;
 }
 
-uint64_t DNSServiceResolveInternal(uint64_t *a1, int a2, int a3, const char *a4, const char *a5, const char *a6, void *a7, uint64_t a8, uint64_t a9)
+uint64_t DNSServiceResolveInternal(uint64_t **a1, int a2, int a3, const char *a4, const char *a5, const char *a6, void *a7, uint64_t a8, uint64_t a9)
 {
   v9 = 4294901756;
   if (a1 && a4 && a5 && a6 && a8 && ((a2 & 0x40000) == 0 || (a3 + 4) >= 5))
@@ -3323,7 +3303,7 @@ uint64_t DNSServiceResolveInternal(uint64_t *a1, int a2, int a3, const char *a4,
       }
 
       v32 = 0;
-      v21 = create_hdr(7, &v31, &v32, *(*a1 + 8) != 0, *a1);
+      v21 = create_hdr(7, &v31, &v32, (*a1)[1] != 0, *a1);
       v23 = v31;
       v22 = v32;
       *v32 = HIBYTE(a2);
@@ -3382,15 +3362,15 @@ LABEL_20:
 
 void handle_resolve_response(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if (a3)
   {
-    v6 = v22;
+    v6 = v21;
     do
     {
-      if (a3 >= a4 || v6 >= &v23)
+      if (a3 >= a4 || v6 >= &v22)
       {
-        *(v6 - (v6 == &v23)) = 0;
+        *(v6 - (v6 == &v22)) = 0;
         goto LABEL_31;
       }
 
@@ -3408,15 +3388,15 @@ void handle_resolve_response(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unin
     v8 = 0;
     do
     {
-      v9 = &v21[v8];
-      if (&a3[v8] >= a4 || v9 >= v22)
+      v9 = &v20[v8];
+      if (&a3[v8] >= a4 || v9 >= v21)
       {
-        v9[-(v9 == v22)] = 0;
+        v9[-(v9 == v21)] = 0;
         goto LABEL_32;
       }
 
       v10 = a3[v8];
-      v21[v8++] = v10;
+      v20[v8++] = v10;
     }
 
     while (v10);
@@ -3446,26 +3426,24 @@ void handle_resolve_response(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unin
 
       if (v19)
       {
-        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v22, v21, v14 | (v15 << 8), v12, v17, *(a1 + 72));
-        goto LABEL_33;
+        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), *(a2 + 36), v21, v20, v14 | (v15 << 8), v12, v17, *(a1 + 72));
+        return;
       }
     }
   }
 
   else
   {
-    v22[0] = 0;
-LABEL_31:
     v21[0] = 0;
+LABEL_31:
+    v20[0] = 0;
   }
 
 LABEL_32:
   syslog(4, "dnssd_clientstub handle_resolve_response: error reading result from daemon");
-LABEL_33:
-  v20 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t DNSServiceGetAddrInfoInternal(uint64_t *a1, int a2, int a3, int a4, const char *a5, void *a6, uint64_t a7, uint64_t a8)
+uint64_t DNSServiceGetAddrInfoInternal(uint64_t **a1, int a2, int a3, int a4, const char *a5, void *a6, uint64_t a7, uint64_t a8)
 {
   v8 = 4294901756;
   if (a1 && a5 && a7)
@@ -3490,7 +3468,7 @@ uint64_t DNSServiceGetAddrInfoInternal(uint64_t *a1, int a2, int a3, int a4, con
     if (!v8)
     {
       v18 = strlen(a5) + 13;
-      v35 = v18;
+      v34 = v18;
       if (a6)
       {
         v19 = 8;
@@ -3500,7 +3478,7 @@ uint64_t DNSServiceGetAddrInfoInternal(uint64_t *a1, int a2, int a3, int a4, con
         }
 
         v18 += v19;
-        v35 = v18;
+        v34 = v18;
       }
 
       RetainedResolverDefaults = DNSServiceGetRetainedResolverDefaults();
@@ -3516,18 +3494,18 @@ uint64_t DNSServiceGetAddrInfoInternal(uint64_t *a1, int a2, int a3, int a4, con
         }
 
         v18 += v23;
-        v35 = v18;
+        v34 = v18;
       }
 
       if (should_save_stacktrace)
       {
-        v35 = v18 + 5;
+        v34 = v18 + 5;
       }
 
       length = 0;
-      v24 = create_hdr(15, &v35, &length, *(*a1 + 8) != 0, *a1);
+      v24 = create_hdr(15, &v34, &length, (*a1)[1] != 0, *a1);
       v25 = length;
-      v26 = length + v35;
+      v26 = length + v34;
       *length = HIBYTE(a2);
       v25[1] = BYTE2(a2);
       v25[2] = BYTE1(a2);
@@ -3602,16 +3580,15 @@ LABEL_40:
 
       else
       {
-        v32 = *(*a1 + 120);
+        v32 = (*a1)[15];
         if (v32)
         {
           free(v32);
-          *(*a1 + 120) = 0;
-          v33 = *a1;
+          (*a1)[15] = 0;
         }
 
         v8 = 0;
-        *(*a1 + 120) = ne_tracker_copy_current_stacktrace();
+        (*a1)[15] = ne_tracker_copy_current_stacktrace();
       }
     }
   }
@@ -3621,7 +3598,7 @@ LABEL_40:
 
 void handle_addrinfo_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (*(a2 + 36) != -65570)
   {
     goto LABEL_5;
@@ -3637,15 +3614,15 @@ void handle_addrinfo_response(uint64_t a1, uint64_t a2, unsigned __int16 *a3, un
 LABEL_5:
     if (a3)
     {
-      v8 = v29;
+      v8 = v27;
       do
       {
-        if (a3 >= a4 || v8 >= &v30)
+        if (a3 >= a4 || v8 >= &v28)
         {
           v11 = 0;
           v10 = 0;
           v12 = 0;
-          *(v8 - (v8 == &v30)) = 0;
+          *(v8 - (v8 == &v28)) = 0;
           goto LABEL_19;
         }
 
@@ -3690,7 +3667,7 @@ LABEL_5:
       v11 = 0;
       v10 = 0;
       v12 = 0;
-      v29[0] = 0;
+      v27[0] = 0;
     }
 
 LABEL_19:
@@ -3739,7 +3716,7 @@ LABEL_19:
           v19 = *(a1 + 120);
           if (v19)
           {
-            if ((*(a2 + 8) & 2) == 0 || !get_tracker_hostname_from_tlvs(v14, a4) || (v20 = *(a1 + 128), ne_tracker_create_xcode_issue(), (v19 = *(a1 + 120)) != 0))
+            if ((*(a2 + 8) & 2) == 0 || !get_tracker_hostname_from_tlvs(v14, a4) || (ne_tracker_create_xcode_issue(), (v19 = *(a1 + 120)) != 0))
             {
               free(v19);
               *(a1 + 120) = 0;
@@ -3749,58 +3726,58 @@ LABEL_19:
           }
         }
 
-        v27 = 0;
-        v28 = 0;
-        v24 = 0;
-        v25 = 0uLL;
+        v25 = 0;
         v26 = 0;
+        v22 = 0;
+        v23 = 0uLL;
+        v24 = 0;
         if (v11 == 1)
         {
-          v21 = &v27;
+          v20 = &v25;
         }
 
         else
         {
-          v21 = &v24;
+          v20 = &v22;
         }
 
         if (v11 == 1)
         {
-          v28 = 0;
-          v27 = 528;
-          v22 = *(a2 + 36);
-          if (v12 == 4 && !v22)
+          v26 = 0;
+          v25 = 528;
+          v21 = *(a2 + 36);
+          if (v12 == 4 && !v21)
           {
-            HIDWORD(v27) = *v16;
+            HIDWORD(v25) = *v16;
           }
         }
 
         else
         {
-          LOWORD(v24) = 7708;
-          v22 = *(a2 + 36);
-          if (v12 == 16 && !v22)
+          LOWORD(v22) = 7708;
+          v21 = *(a2 + 36);
+          if (v12 == 16 && !v21)
           {
-            v25 = *v16;
-            if (v25 == 254 && (BYTE1(v25) & 0xC0) == 0x80)
+            v23 = *v16;
+            if (v23 == 254 && (BYTE1(v23) & 0xC0) == 0x80)
             {
-              v22 = 0;
-              v26 = *(a2 + 32);
+              v21 = 0;
+              v24 = *(a2 + 32);
             }
 
             else
             {
-              v22 = 0;
+              v21 = 0;
             }
           }
         }
 
-        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), v22, v29, v21, v13, *(a1 + 72), v24);
+        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), v21, v27, v20, v13, *(a1 + 72), v22);
       }
 
       else if (*(a2 + 36) == -65570)
       {
-        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), 4294901726, v29, 0, v13, *(a1 + 72), v24);
+        (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 32), 4294901726, v27, 0, v13, *(a1 + 72), v22);
       }
     }
 
@@ -3809,8 +3786,6 @@ LABEL_19:
       syslog(4, "dnssd_clientstub handle_addrinfo_response: error reading result from daemon");
     }
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t DNSServiceSetDefaultDomainForUser(unsigned int a1, char *__s)
@@ -3838,7 +3813,7 @@ uint64_t DNSServiceSetDefaultDomainForUser(unsigned int a1, char *__s)
   return v4;
 }
 
-uint64_t DNSServiceRegisterInternal(uint64_t *a1, int a2, int a3, const char *a4, const char *a5, char *a6, const char *a7, __int16 a8, unsigned __int16 a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13)
+uint64_t DNSServiceRegisterInternal(uint64_t **a1, int a2, int a3, const char *a4, const char *a5, char *a6, const char *a7, __int16 a8, unsigned __int16 a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   v13 = 4294901756;
   if (a1 && a5)
@@ -3954,7 +3929,7 @@ uint64_t DNSServiceRegisterInternal(uint64_t *a1, int a2, int a3, const char *a4
       }
 
       v51 = 0;
-      v33 = create_hdr(5, &v50, &v51, *(*a1 + 8) != 0, *a1);
+      v33 = create_hdr(5, &v50, &v51, (*a1)[1] != 0, *a1);
       v34 = v33;
       if (!a12)
       {
@@ -4027,7 +4002,7 @@ LABEL_43:
 
 void handle_regservice_response(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (*(a2 + 36) != -65570)
   {
     goto LABEL_5;
@@ -4043,12 +4018,12 @@ void handle_regservice_response(uint64_t a1, uint64_t a2, unsigned __int8 *a3, u
 LABEL_5:
     if (a3)
     {
-      v8 = v19;
+      v8 = v18;
       do
       {
-        if (a3 >= a4 || v8 >= &v20)
+        if (a3 >= a4 || v8 >= &v19)
         {
-          *(v8 - (v8 == &v20)) = 0;
+          *(v8 - (v8 == &v19)) = 0;
           goto LABEL_24;
         }
 
@@ -4066,15 +4041,15 @@ LABEL_5:
       v10 = 0;
       do
       {
-        v11 = &v18[v10];
-        if (&a3[v10] >= a4 || v11 >= v19)
+        v11 = &v17[v10];
+        if (&a3[v10] >= a4 || v11 >= v18)
         {
-          v11[-(v11 == v19)] = 0;
+          v11[-(v11 == v18)] = 0;
           goto LABEL_25;
         }
 
         v12 = a3[v10];
-        v18[v10++] = v12;
+        v17[v10++] = v12;
       }
 
       while (v12);
@@ -4084,12 +4059,12 @@ LABEL_5:
         goto LABEL_25;
       }
 
-      v14 = v17;
+      v14 = v16;
       do
       {
-        if (v13 >= a4 || v14 >= v18)
+        if (v13 >= a4 || v14 >= v17)
         {
-          v14[-(v14 == v18)] = 0;
+          v14[-(v14 == v17)] = 0;
           goto LABEL_26;
         }
 
@@ -4103,22 +4078,20 @@ LABEL_5:
         goto LABEL_26;
       }
 
-      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 36), v19, v18, v17, *(a1 + 72));
+      (*(a1 + 64))(a1, *(a2 + 28), *(a2 + 36), v18, v17, v16, *(a1 + 72));
     }
 
     else
     {
-      v19[0] = 0;
-LABEL_24:
       v18[0] = 0;
-LABEL_25:
+LABEL_24:
       v17[0] = 0;
+LABEL_25:
+      v16[0] = 0;
 LABEL_26:
       syslog(4, "dnssd_clientstub handle_regservice_response: error reading result from daemon");
     }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 DNSServiceErrorType DNSServiceEnumerateDomains(DNSServiceRef *sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceDomainEnumReply callBack, void *context)
@@ -4161,15 +4134,15 @@ DNSServiceErrorType DNSServiceEnumerateDomains(DNSServiceRef *sdRef, DNSServiceF
 
 void handle_enumeration_response(uint64_t a1, unsigned int *a2, unsigned __int8 *a3, unint64_t a4)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (a3)
   {
-    v4 = v7;
+    v4 = v6;
     do
     {
-      if (a3 >= a4 || v4 >= &v8)
+      if (a3 >= a4 || v4 >= &v7)
       {
-        *(v4 - (v4 == &v8)) = 0;
+        *(v4 - (v4 == &v7)) = 0;
         goto LABEL_10;
       }
 
@@ -4184,23 +4157,21 @@ void handle_enumeration_response(uint64_t a1, unsigned int *a2, unsigned __int8 
       goto LABEL_10;
     }
 
-    (*(a1 + 64))(a1, a2[7], a2[8], a2[9], v7, *(a1 + 72));
+    (*(a1 + 64))(a1, a2[7], a2[8], a2[9], v6, *(a1 + 72));
   }
 
   else
   {
-    v7[0] = 0;
+    v6[0] = 0;
 LABEL_10:
     syslog(4, "dnssd_clientstub handle_enumeration_response: error reading result from daemon");
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t DNSServiceCreateDelegateConnection(uint64_t *a1, unsigned int a2, const void *a3)
+uint64_t DNSServiceCreateDelegateConnection(uint64_t **a1, unsigned int a2, const void *a3)
 {
   v3 = 4294901741;
-  v17 = a2;
+  v15 = a2;
   if (!a1)
   {
     return 4294901756;
@@ -4212,42 +4183,42 @@ uint64_t DNSServiceCreateDelegateConnection(uint64_t *a1, unsigned int a2, const
     return result;
   }
 
-  v15 = 4;
-  v16 = 0;
-  v8 = create_hdr(19, &v15, &v16, 0, *a1);
+  v13 = 4;
+  v14 = 0;
+  v8 = create_hdr(19, &v13, &v14, 0, *a1);
   if (a2)
   {
-    v9 = setsockopt(*(*a1 + 16), 0xFFFF, 4359, &v17, 4u);
-    v10 = v17;
+    v9 = setsockopt(*(*a1 + 4), 0xFFFF, 4359, &v15, 4u);
+    v10 = v15;
     if (v9 == -1)
     {
-      v11 = *__error();
-      v12 = __error();
-      strerror(*v12);
+      __error();
+      v11 = __error();
+      strerror(*v11);
       syslog(4, "dnssd_clientstub DNSServiceCreateDelegateConnection: Could not setsockopt() for PID[%d], no entitlements or process(pid) invalid errno:%d (%s)");
 LABEL_13:
       free(v8);
       goto LABEL_14;
     }
 
-    if (v17)
+    if (v15)
     {
       goto LABEL_8;
     }
   }
 
-  if (setsockopt(*(*a1 + 16), 0xFFFF, 4360, a3, 0x10u) == -1)
+  if (setsockopt(*(*a1 + 4), 0xFFFF, 4360, a3, 0x10u) == -1)
   {
-    v13 = *__error();
-    v14 = __error();
-    strerror(*v14);
+    __error();
+    v12 = __error();
+    strerror(*v12);
     syslog(4, "dnssd_clientstub DNSServiceCreateDelegateConnection: Could not setsockopt() for UUID, no entitlements or process(uuid) invalid errno:%d (%s) ");
     goto LABEL_13;
   }
 
-  v10 = v17;
+  v10 = v15;
 LABEL_8:
-  *v16 = bswap32(v10);
+  *v14 = bswap32(v10);
   result = deliver_request(v8, *a1);
   v3 = result;
   if (result)
@@ -4269,7 +4240,7 @@ uint64_t DNSServiceRegisterRecordInternal(_DWORD *a1, void *a2, unsigned int a3,
     return v13;
   }
 
-  v44 = 0;
+  v43 = 0;
   if (!a1 || !a2 || !__s || (!a9 ? (v18 = a8 == 0) : (v18 = 1), v18 ? (v19 = a12 == 0) : (v19 = 1), v19))
   {
     syslog(4, "dnssd_clientstub DNSServiceRegisterRecord called with NULL parameter");
@@ -4279,7 +4250,6 @@ uint64_t DNSServiceRegisterRecordInternal(_DWORD *a1, void *a2, unsigned int a3,
   v21 = a1[4];
   if (v21 < 0 || (a1[5] ^ v21) != 0x12345678)
   {
-    v40 = a1[4];
     syslog(4, "dnssd_clientstub DNSServiceRegisterRecord called with invalid DNSServiceRef %p %08X %08X");
     return 4294901755;
   }
@@ -4293,7 +4263,7 @@ uint64_t DNSServiceRegisterRecordInternal(_DWORD *a1, void *a2, unsigned int a3,
 
   *a2 = 0;
   v27 = strlen(__s);
-  v43 = v27 + a8 + 19;
+  v42 = v27 + a8 + 19;
   if (!a11)
   {
     goto LABEL_36;
@@ -4341,7 +4311,7 @@ LABEL_27:
     v30 = v29;
   }
 
-  v43 = v30 + v27 + a8 + 19;
+  v42 = v30 + v27 + a8 + 19;
 LABEL_36:
   v31 = a1[6];
   a1[6] = v31 + 1;
@@ -4350,11 +4320,11 @@ LABEL_36:
     ++a1[7];
   }
 
-  v32 = create_hdr(2, &v43, &v44, !(a3 & 1), a1);
-  v33 = v44;
-  v41 = v43;
-  v42 = v32;
-  *v44 = HIBYTE(a3);
+  v32 = create_hdr(2, &v42, &v43, !(a3 & 1), a1);
+  v33 = v43;
+  v40 = v42;
+  v41 = v32;
+  *v43 = HIBYTE(a3);
   v33[1] = BYTE2(a3);
   v33[2] = BYTE1(a3);
   v33[3] = a3;
@@ -4374,15 +4344,15 @@ LABEL_36:
   memcpy(v35 + 6, a9, a8);
   v36 = &v33[v34 + 14 + a8];
   *v36 = bswap32(a10);
-  v44 = v36 + 1;
+  v43 = v36 + 1;
   if (a11)
   {
-    put_attribute_tlvs(a11, v42, &v44, &v33[v41]);
+    put_attribute_tlvs(a11, v41, &v43, &v33[v40]);
   }
 
   if (a3)
   {
-    v42->i32[2] |= 4u;
+    v41->i32[2] |= 4u;
   }
 
   result = malloc_type_calloc(1uLL, 0x40uLL, 0x4012CDBDuLL);
@@ -4396,7 +4366,7 @@ LABEL_36:
     *(result + 48) = a1;
     *a2 = result;
     *(result + 36) = *(a1 + 3);
-    v42[1].i32[2] = v37;
+    v41[1].i32[2] = v37;
     v38 = a1 + 20;
     do
     {
@@ -4409,12 +4379,12 @@ LABEL_36:
     if (a3)
     {
       v13 = 0;
-      *(result + 56) = v42;
+      *(result + 56) = v41;
     }
 
     else
     {
-      v13 = deliver_request(v42, a1);
+      v13 = deliver_request(v41, a1);
       if (v13 == -65555)
       {
         if (_should_return_noauth_error_s_once != -1)
@@ -4441,10 +4411,82 @@ LABEL_36:
   return result;
 }
 
-uint64_t DNSServiceUpdateRecordInternal(uint64_t a1, uint64_t a2, int a3, unsigned int a4, const void *a5, unsigned int a6, uint64_t a7)
+DNSServiceErrorType DNSServiceAddRecord(DNSServiceRef sdRef, DNSRecordRef *RecordRef, DNSServiceFlags flags, uint16_t rrtype, uint16_t rdlen, const void *rdata, uint32_t ttl)
+{
+  if (!sdRef || !RecordRef || (v10 = rdlen) != 0 && !rdata)
+  {
+    syslog(4, "dnssd_clientstub DNSServiceAddRecord called with NULL parameter", *&flags, rrtype, rdlen, rdata, *&ttl);
+    v14 = -65540;
+LABEL_6:
+    LODWORD(v15) = v14;
+    return v15;
+  }
+
+  if (*(sdRef + 8) != 5)
+  {
+    v14 = -65541;
+    syslog(4, "dnssd_clientstub DNSServiceAddRecord called with non-DNSServiceRegister DNSServiceRef %p %u");
+    goto LABEL_6;
+  }
+
+  v16 = *(sdRef + 4);
+  if (v16 < 0 || (*(sdRef + 5) ^ v16) != 0x12345678)
+  {
+    v14 = -65541;
+    syslog(4, "dnssd_clientstub DNSServiceAddRecord called with invalid DNSServiceRef %p %08X %08X");
+    goto LABEL_6;
+  }
+
+  *RecordRef = 0;
+  v24 = 0;
+  v25 = rdlen + 12;
+  v17 = create_hdr(10, &v25, &v24, 1, sdRef);
+  v18 = v24;
+  *v24 = HIBYTE(flags);
+  v18[1] = BYTE2(flags);
+  v18[2] = BYTE1(flags);
+  v18[3] = flags;
+  v18[4] = HIBYTE(rrtype);
+  v18[5] = rrtype;
+  v18[6] = BYTE1(v10);
+  v19 = v18 + 8;
+  v18[7] = v10;
+  memcpy(v18 + 8, rdata, v10);
+  *&v19[v10] = bswap32(ttl);
+  v15 = malloc_type_calloc(1uLL, 0x40uLL, 0x89DC213EuLL);
+  if (v15)
+  {
+    v20 = *(sdRef + 9);
+    *(sdRef + 9) = v20 + 1;
+    v15[8] = v20;
+    *(v15 + 6) = sdRef;
+    *RecordRef = v15;
+    v17[1].i32[2] = v20;
+    v21 = (sdRef + 80);
+    do
+    {
+      v22 = v21;
+      v21 = *v21;
+    }
+
+    while (v21);
+    *v22 = v15;
+
+    LODWORD(v15) = deliver_request(v17, sdRef);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return v15;
+}
+
+uint64_t DNSServiceUpdateRecordInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, uint64_t a7)
 {
   v26 = 0;
-  if (a1 && (!a4 || a5))
+  if (a1 && ((v8 = a6, v10 = a4, v11 = a3, !a4) || a5))
   {
     v16 = *(a1 + 16);
     v17 = *(a1 + 20);
@@ -4520,15 +4562,15 @@ uint64_t DNSServiceUpdateRecordInternal(uint64_t a1, uint64_t a2, int a3, unsign
     v21[1].i32[2] = v23;
     v24 = v26;
     v25 = v27;
-    *v26 = HIBYTE(a3);
-    v24[1] = BYTE2(a3);
-    v24[2] = BYTE1(a3);
-    v24[3] = a3;
-    v24[4] = BYTE1(a4);
-    v24[5] = a4;
-    memcpy(v24 + 6, a5, a4);
-    *&v24[a4 + 6] = bswap32(a6);
-    v26 = &v24[a4 + 10];
+    *v26 = HIBYTE(v11);
+    v24[1] = BYTE2(v11);
+    v24[2] = BYTE1(v11);
+    v24[3] = v11;
+    v24[4] = BYTE1(v10);
+    v24[5] = v10;
+    memcpy(v24 + 6, a5, v10);
+    *&v24[v10 + 6] = bswap32(v8);
+    v26 = &v24[v10 + 10];
     if (a7)
     {
       put_attribute_tlvs(a7, v22, &v26, &v24[v25]);
@@ -4540,10 +4582,96 @@ uint64_t DNSServiceUpdateRecordInternal(uint64_t a1, uint64_t a2, int a3, unsign
   else
   {
     v14 = 4294901756;
-    syslog(4, "dnssd_clientstub DNSServiceUpdateRecord called with NULL parameter");
+    syslog(4, "dnssd_clientstub DNSServiceUpdateRecord called with NULL parameter", a3, a4, a5, a6, a7);
   }
 
   return v14;
+}
+
+DNSServiceErrorType DNSServiceRemoveRecord(DNSServiceRef sdRef, DNSRecordRef RecordRef, DNSServiceFlags flags)
+{
+  if (!sdRef)
+  {
+    syslog(4, "dnssd_clientstub DNSServiceRemoveRecord called with NULL DNSServiceRef", *&flags);
+    return -65540;
+  }
+
+  if (!RecordRef)
+  {
+    syslog(4, "dnssd_clientstub DNSServiceRemoveRecord called with NULL DNSRecordRef", *&flags);
+    return -65540;
+  }
+
+  if (*(sdRef + 9))
+  {
+    v5 = *(sdRef + 4);
+    if (v5 < 0 || (*(sdRef + 5) ^ v5) != 0x12345678)
+    {
+      v12 = -65541;
+      syslog(4, "dnssd_clientstub DNSServiceRemoveRecord called with invalid DNSServiceRef %p %08X %08X", *&flags);
+    }
+
+    else
+    {
+      v7 = (sdRef + 80);
+      do
+      {
+        v8 = v7;
+        v7 = *v7;
+        if (v7)
+        {
+          v9 = v7 == RecordRef;
+        }
+
+        else
+        {
+          v9 = 1;
+        }
+      }
+
+      while (!v9);
+      if (v7)
+      {
+        v15 = 0;
+        v16 = 4;
+        v10 = create_hdr(3, &v16, &v15, 1, sdRef);
+        if (!*(sdRef + 1))
+        {
+          v10[1].i64[0] = 0;
+        }
+
+        v10[1].i32[2] = *(RecordRef + 8);
+        *v15 = bswap32(flags);
+        v11 = deliver_request(v10, sdRef);
+        if (!v11 || (v12 = v11, v11 == -65541))
+        {
+          *v8 = *RecordRef;
+          v13 = *(RecordRef + 7);
+          if (v13)
+          {
+            free(v13);
+          }
+
+          free(RecordRef);
+          return 0;
+        }
+      }
+
+      else
+      {
+        v12 = -65541;
+        syslog(4, "dnssd_clientstub DNSServiceRemoveRecord called with invalid DNSRecordRef %p %08X %08X", *&flags);
+      }
+    }
+  }
+
+  else
+  {
+    v12 = -65541;
+    syslog(4, "dnssd_clientstub DNSServiceRemoveRecord called with bad DNSServiceRef", *&flags);
+  }
+
+  return v12;
 }
 
 DNSServiceErrorType DNSServiceReconfirmRecord(DNSServiceFlags flags, uint32_t interfaceIndex, const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen, const void *rdata)
@@ -4679,14 +4807,67 @@ void handle_port_mapping_response(uint64_t a1, unsigned int *a2, unsigned int *a
   }
 }
 
-void *_DNSServiceSleepKeepalive_sockaddr(DNSServiceRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+DNSServiceErrorType DNSServiceSleepKeepalive(DNSServiceRef *sdRef, DNSServiceFlags flags, int fd, unsigned int timeout, DNSServiceSleepKeepaliveReply callBack, void *context)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v8 = *&timeout;
+  v31 = *MEMORY[0x29EDCA608];
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0;
+  v16 = 0u;
+  v14 = 128;
+  if (getsockname(fd, &v23, &v14) < 0)
+  {
+    v11 = -65540;
+    __error();
+    syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive: getsockname %d\n");
+  }
+
+  else
+  {
+    v13 = 128;
+    if (getpeername(fd, &v15, &v13) < 0)
+    {
+      v11 = -65540;
+      __error();
+      syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive: getpeername %d\n");
+    }
+
+    else if (v14 == v13)
+    {
+      return _DNSServiceSleepKeepalive_sockaddr(sdRef, &v23, &v15, v8, callBack, context);
+    }
+
+    else
+    {
+      syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive local/remote info not same");
+      return -65537;
+    }
+  }
+
+  return v11;
+}
+
+uint64_t _DNSServiceSleepKeepalive_sockaddr(DNSServiceRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v35 = *MEMORY[0x29EDCA608];
   v6 = 4294901756;
-  v33 = 0;
+  v28 = 0;
   if (!a4)
   {
-    goto LABEL_23;
+    return v6;
   }
 
   v13 = *(a2 + 1);
@@ -4694,21 +4875,21 @@ void *_DNSServiceSleepKeepalive_sockaddr(DNSServiceRef *a1, uint64_t a2, uint64_
   {
     if (*(a3 + 1) != 30)
     {
-      goto LABEL_23;
+      return v6;
     }
 
-    if (!inet_ntop(30, (a3 + 8), v38, 0x2Eu))
+    if (!inet_ntop(30, (a3 + 8), v33, 0x2Eu))
     {
-      v24 = *__error();
+      __error();
       syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive remote6 info failed %d");
-      goto LABEL_22;
+      return 4294901759;
     }
 
-    if (!inet_ntop(30, (a2 + 8), v39, 0x2Eu))
+    if (!inet_ntop(30, (a2 + 8), v34, 0x2Eu))
     {
-      v26 = *__error();
+      __error();
       syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive local6 info failed %d");
-      goto LABEL_22;
+      return 4294901759;
     }
 
     v17 = *(a2 + 8);
@@ -4722,21 +4903,21 @@ void *_DNSServiceSleepKeepalive_sockaddr(DNSServiceRef *a1, uint64_t a2, uint64_
   {
     if (v13 != 2 || *(a3 + 1) != 2)
     {
-      goto LABEL_23;
+      return v6;
     }
 
-    if (!inet_ntop(2, (a3 + 4), v38, 0x2Eu))
+    if (!inet_ntop(2, (a3 + 4), v33, 0x2Eu))
     {
-      v23 = *__error();
+      __error();
       syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive remote info failed %d");
-      goto LABEL_22;
+      return 4294901759;
     }
 
-    if (!inet_ntop(2, (a2 + 4), v39, 0x2Eu))
+    if (!inet_ntop(2, (a2 + 4), v34, 0x2Eu))
     {
-      v25 = *__error();
+      __error();
       syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive local info failed %d");
-      goto LABEL_22;
+      return 4294901759;
     }
 
     v14.i32[0] = *(a2 + 4);
@@ -4745,35 +4926,33 @@ void *_DNSServiceSleepKeepalive_sockaddr(DNSServiceRef *a1, uint64_t a2, uint64_
   }
 
   v20 = *(a2 + 2);
-  v21 = snprintf(v37, 0xFFuLL, v16, a4, v39, v38, __rev16(v20), bswap32(*(a3 + 2)) >> 16, v33);
+  v21 = snprintf(v32, 0xFFuLL, v16, a4, v34, v33, __rev16(v20), bswap32(*(a3 + 2)) >> 16, v28);
   if (v21 >= 0xFF)
   {
-    syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive could not fit local/remote info", v31);
-LABEL_22:
-    v6 = 4294901759;
-    goto LABEL_23;
+    syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive could not fit local/remote info", v26);
+    return 4294901759;
   }
 
   v22 = v21;
-  v36 = v21 + 1;
+  v31 = v21 + 1;
   if (snprintf(__str, 0xAuLL, "%u", v15 + v20) >= 0xA)
   {
-    syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive could not fit unique", v32);
-    goto LABEL_22;
+    syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive could not fit unique", v27);
+    return 4294901759;
   }
 
   if (snprintf(__s, 0x80uLL, "%s.%s", __str, "_keepalive._dns-sd._udp.local") >= 0x80)
   {
     syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive could not fit name");
-    goto LABEL_22;
+    return 4294901759;
   }
 
   result = malloc_type_malloc(0x10uLL, 0xFEF413CAuLL);
   if (result)
   {
-    v29 = result;
+    v24 = result;
     *result = a5;
-    result[1] = a6;
+    *(result + 8) = a6;
     Connection = DNSServiceCreateConnection(a1);
     if (Connection)
     {
@@ -4782,18 +4961,16 @@ LABEL_22:
 
     else
     {
-      v6 = DNSServiceRegisterRecordInternal(*a1, &v33, 0x20u, 0, __s, 10, 1, (v22 + 2), &v36, 0, 0, SleepKeepaliveCallback, v29);
+      v6 = DNSServiceRegisterRecordInternal(*a1, &v28, 0x20u, 0, __s, 10, 1, (v22 + 2), &v31, 0, 0, SleepKeepaliveCallback, v24);
       if (!v6)
       {
-        *(*a1 + 17) = v29;
-        goto LABEL_23;
+        *(*a1 + 17) = v24;
+        return v6;
       }
     }
 
     syslog(4, "dnssd_clientstub DNSServiceSleepKeepalive cannot create connection");
-    free(v29);
-LABEL_23:
-    v27 = *MEMORY[0x29EDCA608];
+    free(v24);
     return v6;
   }
 
@@ -4805,7 +4982,7 @@ void SleepKeepaliveCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 {
   if (*(a1 + 136) != a5)
   {
-    syslog(4, "dnssd_clientstub SleepKeepaliveCallback context mismatch");
+    syslog(4, "dnssd_clientstub SleepKeepaliveCallback context mismatch", a3);
   }
 
   v8 = *a5;

@@ -376,29 +376,27 @@
     v17 = -(v13 - v6);
   }
 
-  v18 = v16 / v17;
-  EKUIScaleFactor();
-  [(ScrollSpringFactory *)self->_springFactory setInitialVelocity:v19 * v18 * 1000.0];
+  [(ScrollSpringFactory *)self->_springFactory setInitialVelocity:EKUIScaleFactor() * (v16 / v17) * 1000.0];
   [deceleratingCopy stopScrollingAndZooming];
   [deceleratingCopy setContentOffset:0 animated:{v13, v15}];
   springAnimationDuration();
-  v21 = v20;
+  v19 = v18;
   springFactory = self->_springFactory;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10010EFC8;
-  v26[3] = &unk_10020EDD8;
-  v26[4] = self;
-  *&v26[5] = v6;
-  v26[6] = v8;
   v24[0] = _NSConcreteStackBlock;
   v24[1] = 3221225472;
-  v24[2] = sub_10010EFE4;
-  v24[3] = &unk_10020F7A8;
+  v24[2] = sub_10010EFC8;
+  v24[3] = &unk_10020EDD8;
   v24[4] = self;
-  v25 = deceleratingCopy;
+  *&v24[5] = v6;
+  v24[6] = v8;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10010EFE4;
+  v22[3] = &unk_10020F7A8;
+  v22[4] = self;
   v23 = deceleratingCopy;
-  [UIView _animateWithDuration:393222 delay:springFactory options:v26 factory:v24 animations:v21 completion:0.0];
+  v21 = deceleratingCopy;
+  [UIView _animateWithDuration:393222 delay:springFactory options:v24 factory:v22 animations:v19 completion:0.0];
 }
 
 - (void)scrollViewDidEndDecelerating:(id)decelerating

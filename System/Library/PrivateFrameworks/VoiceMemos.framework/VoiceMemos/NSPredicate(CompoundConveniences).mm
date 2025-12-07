@@ -8,32 +8,28 @@
 
 - (id)rc_and:()CompoundConveniences
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA920];
-  v10[0] = self;
-  v10[1] = a3;
+  v9[0] = self;
+  v9[1] = a3;
   v4 = MEMORY[0x277CBEA60];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:v10 count:2];
+  v6 = [v4 arrayWithObjects:v9 count:2];
   v7 = [v3 andPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)rc_or:()CompoundConveniences
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA920];
-  v10[0] = self;
-  v10[1] = a3;
+  v9[0] = self;
+  v9[1] = a3;
   v4 = MEMORY[0x277CBEA60];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:v10 count:2];
+  v6 = [v4 arrayWithObjects:v9 count:2];
   v7 = [v3 orPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

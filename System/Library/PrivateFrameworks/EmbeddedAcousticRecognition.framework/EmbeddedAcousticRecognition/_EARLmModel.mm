@@ -60,12 +60,12 @@
 
 - (_EARLmModel)initWithConfiguration:(id)configuration root:(id)root
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   rootCopy = root;
-  v14.receiver = self;
-  v14.super_class = _EARLmModel;
-  v8 = [(_EARLmModel *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = _EARLmModel;
+  v8 = [(_EARLmModel *)&v15 init];
   if (v8)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -75,7 +75,7 @@
     {
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
         if (!rootCopy)
         {
           goto LABEL_10;
@@ -85,44 +85,44 @@
       else
       {
         buf = 0uLL;
-        v16 = 0;
+        v17 = 0;
         if (!rootCopy)
         {
 LABEL_10:
-          quasar::makeLmBuildConfig();
+          quasar::makeLmBuildConfig(&buf);
         }
       }
 
-      [rootCopy ear_toString];
+      objc_msgSend_ear_toString(rootCopy);
       goto LABEL_10;
     }
 
-    v11 = EarLmLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = EarLmLogger(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = configurationCopy;
-      _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B501D000, v12, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)initFromDirectory:(id)directory
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
-  v15.receiver = self;
-  v15.super_class = _EARLmModel;
-  v5 = [(_EARLmModel *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = _EARLmModel;
+  v5 = [(_EARLmModel *)&v16 init];
   if (v5)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -131,40 +131,40 @@ LABEL_10:
     if (v7)
     {
       buf = 0uLL;
-      v17 = 0;
-      LOBYTE(v13) = 0;
-      v14 = 0;
+      v18 = 0;
+      LOBYTE(v14) = 0;
+      v15 = 0;
       if (directoryCopy)
       {
-        [directoryCopy ear_toString];
+        objc_msgSend_ear_toString(directoryCopy);
       }
 
       else
       {
-        memset(v12, 0, sizeof(v12));
+        memset(v13, 0, sizeof(v13));
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&__p, "");
-      quasar::loadLmFromDirectory(v12);
+      std::string::basic_string[abi:ne200100]<0>(__p, "");
+      quasar::loadLmFromDirectory(v13, __p, &buf, &v14);
     }
 
-    v8 = EarLmLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = EarLmLogger(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = directoryCopy;
-      _os_log_impl(&dword_1B501D000, v8, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B501D000, v9, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)handle
@@ -214,7 +214,7 @@ LABEL_10:
   v5 = dataCopy;
   if (dataCopy)
   {
-    [dataCopy data];
+    objc_msgSend_data(dataCopy);
     v6 = v11;
   }
 
@@ -225,7 +225,7 @@ LABEL_10:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  quasar::buildLm(v6, &self->_buildConfig.__ptr_, &v13);
+  quasar::buildLm(&v13, v6, &self->_buildConfig);
   v7 = v13;
   v13 = 0;
   cntrl = self->_model.__cntrl_;
@@ -272,7 +272,7 @@ LABEL_10:
   {
     if (directoryCopy)
     {
-      [directoryCopy ear_toString];
+      objc_msgSend_ear_toString(directoryCopy);
     }
 
     else
@@ -292,7 +292,7 @@ LABEL_10:
   directoryCopy = directory;
   if (directoryCopy)
   {
-    [directoryCopy ear_toString];
+    objc_msgSend_ear_toString(directoryCopy);
   }
 
   else
@@ -352,7 +352,7 @@ LABEL_10:
 
 - (id)serializedModelWithLanguage:(id)language modelData:(id)data oovs:(id)oovs
 {
-  v25[5] = *MEMORY[0x1E69E9840];
+  v26[5] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   dataCopy = data;
   oovsCopy = oovs;
@@ -372,29 +372,30 @@ LABEL_10:
     v16 = _ear_sha256;
     if (oovsCopy && v11 && v14 && _ear_sha256)
     {
-      v24[0] = @"language";
-      v24[1] = @"assetVersion";
-      v25[0] = v11;
-      v25[1] = v14;
-      v24[2] = @"modelTrainingData";
-      v24[3] = @"dataHash";
-      v25[2] = dataCopy;
-      v25[3] = _ear_sha256;
-      v24[4] = @"oovs";
-      v25[4] = oovsCopy;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:5];
-      v23 = 0;
-      v18 = [MEMORY[0x1E696AE40] dataWithPropertyList:v17 format:200 options:0 error:&v23];
-      v19 = v23;
+      v25[0] = @"language";
+      v25[1] = @"assetVersion";
+      v26[0] = v11;
+      v26[1] = v14;
+      v25[2] = @"modelTrainingData";
+      v25[3] = @"dataHash";
+      v26[2] = dataCopy;
+      v26[3] = _ear_sha256;
+      v25[4] = @"oovs";
+      v26[4] = oovsCopy;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:5];
+      v24 = 0;
+      v18 = [MEMORY[0x1E696AE40] dataWithPropertyList:v17 format:200 options:0 error:&v24];
+      v19 = v24;
+      v20 = v19;
       if (v18)
       {
-        v20 = v18;
+        v21 = v18;
       }
 
       else
       {
-        v21 = EarLmLogger();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = EarLmLogger(v19);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [_EARLmModel serializedModelWithLanguage:modelData:oovs:];
         }
@@ -403,13 +404,13 @@ LABEL_10:
 
     else
     {
-      v17 = EarLmLogger();
+      v17 = EarLmLogger(_ear_sha256);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [_EARLmModel serializedModelWithLanguage:modelData:oovs:];
       }
 
-      v19 = 0;
+      v20 = 0;
       v18 = 0;
     }
   }
@@ -424,18 +425,19 @@ LABEL_10:
 
 - (id)deserializeModelData:(id)data
 {
-  v8 = 0;
-  v3 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v3)
   {
-    v5 = v3;
+    v6 = v3;
   }
 
   else
   {
-    v6 = EarLmLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = EarLmLogger(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_EARLmModel deserializeModelData:];
     }

@@ -31,32 +31,32 @@
 
 - (void)migrateWorkflow
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v9 = [v7 objectForKeyedSubscript:actionIdentifierKey];
 
-        if ([v9 isEqualToString:@"com.apple.VoiceMemos.PlayRecording"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
           v10 = @"com.apple.VoiceMemos.PlaybackVoiceMemoIntent";
           v11 = @"PlaybackVoiceMemoIntent";
@@ -64,7 +64,7 @@
 
         else
         {
-          if (![v9 isEqualToString:@"com.apple.VoiceMemos.CreateRecording"])
+          if (!objc_msgSend_isEqualToString_(v9))
           {
             goto LABEL_11;
           }
@@ -86,14 +86,13 @@ LABEL_11:
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

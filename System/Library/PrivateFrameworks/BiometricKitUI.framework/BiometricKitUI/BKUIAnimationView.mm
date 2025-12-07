@@ -51,8 +51,8 @@
 
     else
     {
-      v21 = +[BKUIDevice sharedInstance];
-      isMini2 = [v21 isMini];
+      v22 = +[BKUIDevice sharedInstance];
+      isMini2 = [v22 isMini];
 
       if (isMini2)
       {
@@ -64,24 +64,24 @@
         v6 = 0.753499985;
       }
 
-      v23 = +[BKUIDevice sharedInstance];
-      isPad7 = [v23 isPad7];
+      v24 = +[BKUIDevice sharedInstance];
+      isPad7 = [v24 isPad7];
 
       if (isPad7)
       {
         v6 = v6 + 0.025;
       }
 
-      v25 = +[BKUIDevice sharedInstance];
-      isIPad22 = [v25 isIPad2];
+      v26 = +[BKUIDevice sharedInstance];
+      isIPad22 = [v26 isIPad2];
 
       if (isIPad22)
       {
         v6 = v6 + 0.051;
       }
 
-      v27 = +[BKUIDevice sharedInstance];
-      isiPad21 = [v27 isiPad21];
+      v28 = +[BKUIDevice sharedInstance];
+      isiPad21 = [v28 isiPad21];
 
       v13 = 0.0324;
     }
@@ -99,26 +99,26 @@
 
     else
     {
-      v16 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = _BKUILoggingFacility(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v28 = 0;
-        _os_log_impl(&dword_241B0A000, v16, OS_LOG_TYPE_DEFAULT, "Unable to determine displayzoom as DisplayAndBrightnessSettings is not available", v28, 2u);
+        *v29 = 0;
+        _os_log_impl(&dword_241B0A000, v17, OS_LOG_TYPE_DEFAULT, "Unable to determine displayzoom as DisplayAndBrightnessSettings is not available", v29, 2u);
       }
 
       v6 = 0.61500001;
     }
 
-    v17 = +[BKUIDevice sharedInstance];
-    isN69 = [v17 isN69];
+    v18 = +[BKUIDevice sharedInstance];
+    isN69 = [v18 isN69];
 
     if (isN69)
     {
       v6 = v6 + -0.0419999994;
     }
 
-    v19 = +[BKUIDevice sharedInstance];
-    isiPad21 = [v19 isD10];
+    v20 = +[BKUIDevice sharedInstance];
+    isiPad21 = [v20 isD10];
 
     v13 = -0.0199999996;
   }
@@ -159,7 +159,7 @@
       if (firstObject)
       {
 LABEL_6:
-        [firstObject contentsTransform];
+        objc_msgSend_contentsTransform(firstObject);
 LABEL_12:
         v16 = v13;
         v17 = v13;
@@ -194,7 +194,7 @@ LABEL_12:
 
   if (firstObject)
   {
-    [firstObject contentsTransform];
+    objc_msgSend_contentsTransform(firstObject);
   }
 
   else

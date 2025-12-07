@@ -9,16 +9,14 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = message;
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = message;
   v6 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorPHAssetAttributes" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -107,13 +105,12 @@ LABEL_7:
 
 - (id)featureNames
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"StandardAspectRatioFourByThree";
-  v5[1] = @"StandardAspectRatioThreeByTwo";
-  v5[2] = @"StandardAspectRatioSixteenByNine";
-  v5[3] = @"StandardAspectRatioOthers";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"StandardAspectRatioFourByThree";
+  v4[1] = @"StandardAspectRatioThreeByTwo";
+  v4[2] = @"StandardAspectRatioSixteenByNine";
+  v4[3] = @"StandardAspectRatioOthers";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

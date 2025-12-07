@@ -140,7 +140,7 @@ LABEL_23:
             CGContextRelease(v28);
             if (mipmapCopy)
             {
-              _CLKUIRawImageGenerateMipmapsSRGB8(mutableBytes, v36.i32[0]);
+              _CLKUIRawImageGenerateMipmapsSRGB8(mutableBytes, v36.u32[0]);
             }
 
             v29 = [CLKUIAtlasBacking alloc];

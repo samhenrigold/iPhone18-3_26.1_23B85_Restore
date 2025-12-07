@@ -215,10 +215,7 @@ void __39__AEAssetPackage__sidecarObjectForKey___block_invoke(uint64_t a1)
 
 uint64_t __36__AEAssetPackage_currentURLForType___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -313,37 +310,37 @@ void __33__AEAssetPackage_sidecarSnapshot__block_invoke(uint64_t a1)
 
 void __57__AEAssetPackage_durableURLsSnapshotApplyingSuppression___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _contentQueue_finalURLs];
   v3 = [v2 mutableCopy];
 
   if (*(a1 + 48) == 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = [*(a1 + 32) _contentQueue_suppressedTypes];
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           v10 = [@"com.apple.asset-explorer-package.suppressed." stringByAppendingString:v9];
           [(NSMutableDictionary *)v3 ae_moveObjectFromKey:v9 toKey:v10];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -354,8 +351,6 @@ void __57__AEAssetPackage_durableURLsSnapshotApplyingSuppression___block_invoke(
   v12 = *(*(a1 + 40) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -928,7 +923,7 @@ LABEL_5:
 
 - (id)browserItemPayload
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   identifier = [(AEAssetPackage *)self identifier];
   v3 = objc_alloc_init(MEMORY[0x277CF9790]);
   v4 = [(AEAssetPackage *)self durableURLsSnapshotApplyingSuppression:1];
@@ -936,32 +931,32 @@ LABEL_5:
   v6 = [v4 objectForKeyedSubscript:identifier2];
 
   identifier3 = [*MEMORY[0x277CE1E00] identifier];
-  v25 = [v4 objectForKeyedSubscript:identifier3];
+  v24 = [v4 objectForKeyedSubscript:identifier3];
 
-  v24 = v6;
+  v23 = v6;
   if (v6)
   {
     [v3 setFileURL:v6];
-    [v3 setVideoComplementFileURL:v25];
+    [v3 setVideoComplementFileURL:v24];
   }
 
   else
   {
-    [v3 setFileURL:v25];
+    [v3 setFileURL:v24];
   }
 
   v8 = [v4 objectForKeyedSubscript:@"com.apple.assetexplorer.alasset.url"];
   v9 = [(AEAssetPackage *)self sidecarPropertyListForKey:@"com.apple.video.slomo"];
-  v26 = [(AEAssetPackage *)self sidecarNumberForKey:*MEMORY[0x277D774A8]];
+  v25 = [(AEAssetPackage *)self sidecarNumberForKey:*MEMORY[0x277D774A8]];
   v10 = [(AEAssetPackage *)self sidecarNumberForKey:*MEMORY[0x277D774A0]];
   v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v8)
   {
     v12 = v10;
-    v31 = *MEMORY[0x277CF9748];
+    v30 = *MEMORY[0x277CF9748];
     absoluteString = [v8 absoluteString];
-    v32[0] = absoluteString;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v31[0] = absoluteString;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     [v11 addEntriesFromDictionary:v14];
 
 LABEL_8:
@@ -972,22 +967,22 @@ LABEL_8:
   if (v9)
   {
     v12 = v10;
-    v29 = *MEMORY[0x277CF9758];
-    v30 = v9;
-    absoluteString = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CF9758];
+    v29 = v9;
+    absoluteString = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     [v11 addEntriesFromDictionary:absoluteString];
     goto LABEL_8;
   }
 
 LABEL_9:
-  if (v26 && v10)
+  if (v25 && v10)
   {
     v15 = *MEMORY[0x277CF9750];
-    v27[0] = *MEMORY[0x277CF9760];
-    v27[1] = v15;
-    v28[0] = v26;
-    v28[1] = v10;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[0] = *MEMORY[0x277CF9760];
+    v26[1] = v15;
+    v27[0] = v25;
+    v27[1] = v10;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
     [v11 addEntriesFromDictionary:v16];
   }
 
@@ -1001,8 +996,6 @@ LABEL_9:
 
   v20 = [v11 copy];
   [v3 setUserInfo:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

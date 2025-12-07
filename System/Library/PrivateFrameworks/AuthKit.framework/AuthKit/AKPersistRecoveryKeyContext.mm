@@ -9,45 +9,44 @@
 
 - (AKPersistRecoveryKeyContext)initWithCoder:(id)coder
 {
-  v20 = &selfCopy;
+  v19 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v22.receiver = v3;
-  v22.super_class = AKPersistRecoveryKeyContext;
-  v21 = [(AKPersistRecoveryKeyContext *)&v22 init];
-  selfCopy = v21;
-  objc_storeStrong(&selfCopy, v21);
-  if (v21)
+  v21.receiver = v3;
+  v21.super_class = AKPersistRecoveryKeyContext;
+  v20 = [(AKPersistRecoveryKeyContext *)&v21 init];
+  selfCopy = v20;
+  objc_storeStrong(&selfCopy, v20);
+  if (v20)
   {
-    v14 = location[0];
-    v13 = MEMORY[0x1E695DFD8];
-    v12 = objc_opt_class();
-    v10 = objc_opt_class();
+    v13 = location[0];
+    v12 = MEMORY[0x1E695DFD8];
     v11 = objc_opt_class();
-    v17 = 0x1E696A000uLL;
-    v16 = [v13 setWithObjects:{v12, v10, v11, objc_opt_class(), 0}];
-    v15 = [v14 decodeObjectOfClasses:? forKey:?];
+    v9 = objc_opt_class();
+    v10 = objc_opt_class();
+    v16 = 0x1E696A000uLL;
+    v15 = [v12 setWithObjects:{v11, v9, v10, objc_opt_class(), 0}];
+    v14 = [v13 decodeObjectOfClasses:? forKey:?];
     [(AKPersistRecoveryKeyContext *)selfCopy setVerifier:?];
+    MEMORY[0x1E69E5920](v14);
     MEMORY[0x1E69E5920](v15);
-    MEMORY[0x1E69E5920](v16);
-    v18 = location[0];
-    v4 = *(v17 + 3480);
-    v19 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_keyType"];
-    unsignedIntegerValue = [v19 unsignedIntegerValue];
+    v17 = location[0];
+    v18 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_keyType"];
+    unsignedIntegerValue = [v18 unsignedIntegerValue];
     [(AKPersistRecoveryKeyContext *)selfCopy setKeyType:unsignedIntegerValue];
-    MEMORY[0x1E69E5920](v19);
+    MEMORY[0x1E69E5920](v18);
   }
 
-  v7 = &selfCopy;
-  v9 = MEMORY[0x1E69E5928](selfCopy);
+  v6 = &selfCopy;
+  v8 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v7, obj);
-  return v9;
+  objc_storeStrong(v6, obj);
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -39,10 +39,9 @@ double MailTableCellImageCenterForLevel(uint64_t a1)
   return v1 + v2 * 0.5;
 }
 
-uint64_t __ScheduleSettingsDataclassIsFetchy_block_invoke()
+void *__ScheduleSettingsDataclassIsFetchy_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v1 = *MEMORY[0x277CB9108];
   result = [v0 initWithObjects:{*MEMORY[0x277CB9150], *MEMORY[0x277CB9108], *MEMORY[0x277CB90F0], *MEMORY[0x277CB9190], *MEMORY[0x277CB90D0], *MEMORY[0x277CB9178], 0}];
   ScheduleSettingsDataclassIsFetchy_fetchyDataclassSet = result;
   return result;

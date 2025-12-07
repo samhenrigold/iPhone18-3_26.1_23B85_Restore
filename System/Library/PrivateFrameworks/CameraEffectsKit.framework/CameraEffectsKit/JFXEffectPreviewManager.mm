@@ -1308,7 +1308,7 @@ void __64__JFXEffectPreviewManager_JFX_prepareEffectForContinousPreview___block_
     memset(&v19, 0, sizeof(v19));
     if (v4)
     {
-      [v4 effectAnimationDuration];
+      objc_msgSend_effectAnimationDuration(v4);
     }
 
     memset(&v18, 0, sizeof(v18));
@@ -1508,31 +1508,31 @@ uint64_t __68__JFXEffectPreviewManager_continousPreviewsForEffectIDs_completion_
 
 void __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke(uint64_t a1)
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v85 = *(a1 + 56);
-  v86 = *(a1 + 72);
-  v83 = 0uLL;
-  v84 = 0;
+  v85 = *MEMORY[0x277D85DE8];
+  v82 = *(a1 + 56);
+  v83 = *(a1 + 72);
+  v80 = 0uLL;
+  v81 = 0;
   v2 = [*(a1 + 32) continousPreviewOptions];
   v3 = v2;
   if (v2)
   {
-    [v2 effectAnimationDuration];
+    objc_msgSend_effectAnimationDuration(v2);
   }
 
   else
   {
-    v83 = 0uLL;
-    v84 = 0;
+    v80 = 0uLL;
+    v81 = 0;
   }
 
   v4 = [*(a1 + 32) continousPreviewOptions];
-  if ([v4 loopAnimation] && (BYTE12(v83) & 0x11) == 1)
+  if ([v4 loopAnimation] && (BYTE12(v80) & 0x11) == 1)
   {
     *time1 = *(a1 + 56);
     *&time1[16] = *(a1 + 72);
-    *time2 = v83;
-    *&time2[16] = v84;
+    *time2 = v80;
+    *&time2[16] = v81;
     v5 = CMTimeCompare(time1, time2);
 
     if (v5 >= 1)
@@ -1540,8 +1540,8 @@ void __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke(uint64
       v6 = [*(a1 + 32) continousPreviewPlayer];
       [v6 resetRenderTime];
 
-      v85 = *MEMORY[0x277CC08F0];
-      v86 = *(MEMORY[0x277CC08F0] + 16);
+      v82 = *MEMORY[0x277CC08F0];
+      v83 = *(MEMORY[0x277CC08F0] + 16);
     }
   }
 
@@ -1558,14 +1558,14 @@ void __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke(uint64
     v11 = v10;
     v13 = v12;
     v14 = [*(a1 + 32) continousPreviewOptions];
-    v73 = [v14 effectsToApplyToBackground];
+    v70 = [v14 effectsToApplyToBackground];
 
     v15 = *(MEMORY[0x277CBF2C0] + 16);
     *time1 = *MEMORY[0x277CBF2C0];
     *&time1[16] = v15;
-    v82 = *(MEMORY[0x277CBF2C0] + 32);
+    v79 = *(MEMORY[0x277CBF2C0] + 32);
     v16 = [*(a1 + 32) continousPreviewOptions];
-    v72 = v8;
+    v69 = v8;
     if ([v16 backgroundType] == 1)
     {
       v17 = [*(a1 + 32) continousPreviewOptions];
@@ -1574,14 +1574,14 @@ void __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke(uint64
       if (v18)
       {
         v19 = +[JFXVideoCameraController sharedInstance];
-        v20 = [v19 cameraPosition];
+        [v19 cameraPosition];
 
-        v21 = +[JFXVideoCameraController sharedInstance];
-        v22 = [v21 captureVideoOrientation];
+        v20 = +[JFXVideoCameraController sharedInstance];
+        [v20 captureVideoOrientation];
 
-        v23 = +[JFXOrientationMonitor interfaceOrientation];
+        +[JFXOrientationMonitor interfaceOrientation];
         [v9 size];
-        [JFXRotationTransforms transformFromTopLeftCaptureDevicePivotPosition:v20 captureVideoOrientation:v22 toInterfaceOrientation:v23 size:?];
+        objc_msgSend_transformFromTopLeftCaptureDevicePivotPosition_captureVideoOrientation_toInterfaceOrientation_size_(JFXRotationTransforms);
       }
     }
 
@@ -1589,163 +1589,163 @@ void __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke(uint64
     {
     }
 
-    v26 = [MEMORY[0x277D415E0] jfx_getColorSpaceFromImageBuffer:v9];
+    v23 = [MEMORY[0x277D415E0] jfx_getColorSpaceFromImageBuffer:v9];
     if ([*(a1 + 32) JFX_rendersDefaultContinousPreviewImage])
     {
-      if ([v73 count] && (objc_msgSend(v73, "firstObject"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isNone"), v27, !v28) || (objc_msgSend(v26, "isHDRSpace") & 1) != 0)
+      if ([v70 count] && (objc_msgSend(v70, "firstObject"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isNone"), v24, !v25) || (objc_msgSend(v23, "isHDRSpace") & 1) != 0)
       {
-        v29 = [JFXEffectsPreviewGenerationRequest alloc];
+        v26 = [JFXEffectsPreviewGenerationRequest alloc];
         *time2 = kDefaultEffectPreviewRenderTime;
         *&time2[16] = 0;
-        v30 = [(JFXEffectsPreviewGenerationRequest *)v29 initWithInput:v9 effectStack:v73 outputSize:time2 renderTime:v11, v13];
-        v31 = [*(a1 + 32) continousPreviewOptions];
-        v32 = [v31 parentCode];
+        v27 = [(JFXEffectsPreviewGenerationRequest *)v26 initWithInput:v9 effectStack:v70 outputSize:time2 renderTime:v11, v13];
+        v28 = [*(a1 + 32) continousPreviewOptions];
+        v29 = [v28 parentCode];
 
-        if (v32 != -1)
+        if (v29 != -1)
         {
-          v33 = [*(a1 + 32) continousPreviewOptions];
-          -[JTImage setParentCode:](v30, "setParentCode:", [v33 parentCode]);
+          v30 = [*(a1 + 32) continousPreviewOptions];
+          -[JTImage setParentCode:](v27, "setParentCode:", [v30 parentCode]);
         }
 
         *time2 = *time1;
         *&time2[16] = *&time1[16];
-        v80 = v82;
-        [(JTImage *)v30 setUserSourceTransform:time2];
-        [(JTImage *)v30 centerAnimationInfo];
-        v34 = [*(a1 + 32) continousPreviewOptions];
-        -[JTImage setHighQuality:](v30, "setHighQuality:", [v34 quality] == 2);
+        v77 = v79;
+        [(JTImage *)v27 setUserSourceTransform:time2];
+        [(JTImage *)v27 centerAnimationInfo];
+        v31 = [*(a1 + 32) continousPreviewOptions];
+        -[JTImage setHighQuality:](v27, "setHighQuality:", [v31 quality] == 2);
 
-        -[JTImage setPriority:](v30, "setPriority:", [*(a1 + 32) JFX_lowPriorityScheduling] ^ 1);
-        v35 = [*(a1 + 32) staticPreviewGenerator];
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke_2;
-        v78[3] = &unk_278D7B490;
-        v78[4] = *(a1 + 32);
-        [v35 generatePreviewRequest:v30 completionHandler:v78];
+        -[JTImage setPriority:](v27, "setPriority:", [*(a1 + 32) JFX_lowPriorityScheduling] ^ 1);
+        v32 = [*(a1 + 32) staticPreviewGenerator];
+        v75[0] = MEMORY[0x277D85DD0];
+        v75[1] = 3221225472;
+        v75[2] = __51__JFXEffectPreviewManager_buildRenderRequest_time___block_invoke_2;
+        v75[3] = &unk_278D7B490;
+        v75[4] = *(a1 + 32);
+        [v32 generatePreviewRequest:v27 completionHandler:v75];
       }
 
       else
       {
-        v36 = *(a1 + 32);
-        v30 = [[JTImage alloc] initWithPVImage:v9];
+        v33 = *(a1 + 32);
+        v27 = [[JTImage alloc] initWithPVImage:v9];
         *time2 = *time1;
         *&time2[16] = *&time1[16];
-        v80 = v82;
-        v37 = [MEMORY[0x277CCAE60] valueWithCGAffineTransform:time2];
-        [v36 setDefaultPreviewImage:v30 transformValue:v37];
+        v77 = v79;
+        v34 = [MEMORY[0x277CCAE60] valueWithCGAffineTransform:time2];
+        [v33 setDefaultPreviewImage:v27 transformValue:v34];
       }
     }
 
-    v71 = v9;
-    v76 = 0u;
-    v77 = 0u;
+    v68 = v9;
+    v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
-    v38 = [*(a1 + 32) currentContinousPreviewEffects];
-    v39 = [v38 countByEnumeratingWithState:&v74 objects:v87 count:16];
-    if (v39)
+    v71 = 0u;
+    v72 = 0u;
+    v35 = [*(a1 + 32) currentContinousPreviewEffects];
+    v36 = [v35 countByEnumeratingWithState:&v71 objects:v84 count:16];
+    if (v36)
     {
-      v40 = v39;
-      v41 = *v75;
+      v37 = v36;
+      v38 = *v72;
       do
       {
-        for (i = 0; i != v40; ++i)
+        for (i = 0; i != v37; ++i)
         {
-          if (*v75 != v41)
+          if (*v72 != v38)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v35);
           }
 
-          v43 = *(*(&v74 + 1) + 8 * i);
-          if ([v43 type] == 1)
+          v40 = *(*(&v71 + 1) + 8 * i);
+          if ([v40 type] == 1)
           {
-            v44 = [*(a1 + 32) delegate];
-            v45 = objc_opt_respondsToSelector();
+            v41 = [*(a1 + 32) delegate];
+            v42 = objc_opt_respondsToSelector();
 
-            if (v45)
+            if (v42)
             {
-              v46 = [*(a1 + 32) delegate];
-              v47 = [v46 previewIsHDR];
+              v43 = [*(a1 + 32) delegate];
+              v44 = [v43 previewIsHDR];
             }
 
             else
             {
-              v47 = 0;
+              v44 = 0;
             }
 
-            [v43 setHDR:{(objc_msgSend(v26, "isHDRSpace") | v47) & 1}];
+            [v40 setHDR:{(objc_msgSend(v23, "isHDRSpace") | v44) & 1}];
           }
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v74 objects:v87 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v71 objects:v84 count:16];
       }
 
-      while (v40);
+      while (v37);
     }
 
-    v48 = MEMORY[0x277CBEB58];
-    v49 = [*(a1 + 32) currentContinousPreviewEffects];
-    v50 = [v49 allObjects];
-    v51 = [v48 setWithArray:v50];
+    v45 = MEMORY[0x277CBEB58];
+    v46 = [*(a1 + 32) currentContinousPreviewEffects];
+    v47 = [v46 allObjects];
+    v48 = [v45 setWithArray:v47];
 
-    v52 = MEMORY[0x277CBEB98];
-    v53 = [*(a1 + 32) preparedContinousPreviewEffects];
-    v54 = [v53 allObjects];
-    v55 = [v52 setWithArray:v54];
+    v49 = MEMORY[0x277CBEB98];
+    v50 = [*(a1 + 32) preparedContinousPreviewEffects];
+    v51 = [v50 allObjects];
+    v52 = [v49 setWithArray:v51];
 
-    [v51 intersectSet:v55];
-    v56 = [JFXEffectsPreviewGenerationRequest alloc];
-    *time2 = v85;
-    *&time2[16] = v86;
-    v25 = v71;
-    v57 = [(JFXEffectsPreviewGenerationRequest *)v56 initWithInput:v71 effectStack:v73 outputSize:time2 renderTime:v11, v13];
-    v58 = [*(a1 + 32) continousPreviewOptions];
-    v59 = [v58 backgroundType];
+    [v48 intersectSet:v52];
+    v53 = [JFXEffectsPreviewGenerationRequest alloc];
+    *time2 = v82;
+    *&time2[16] = v83;
+    v22 = v68;
+    v54 = [(JFXEffectsPreviewGenerationRequest *)v53 initWithInput:v68 effectStack:v70 outputSize:time2 renderTime:v11, v13];
+    v55 = [*(a1 + 32) continousPreviewOptions];
+    v56 = [v55 backgroundType];
 
-    if (v59 == 1)
+    if (v56 == 1)
     {
       *time2 = *time1;
       *&time2[16] = *&time1[16];
-      v80 = v82;
-      [(JFXEffectsPreviewGenerationRequest *)v57 setUserSourceTransform:time2];
+      v77 = v79;
+      [(JFXEffectsPreviewGenerationRequest *)v54 setUserSourceTransform:time2];
     }
 
-    [(JFXEffectsPreviewGenerationRequest *)v57 centerAnimationInfo];
-    v60 = [*(a1 + 32) continousPreviewOptions];
-    v61 = [v60 parentCode];
+    [(JFXEffectsPreviewGenerationRequest *)v54 centerAnimationInfo];
+    v57 = [*(a1 + 32) continousPreviewOptions];
+    v58 = [v57 parentCode];
 
-    if (v61 != -1)
+    if (v58 != -1)
     {
-      v62 = [*(a1 + 32) continousPreviewOptions];
-      -[JFXEffectsPreviewGenerationRequest setParentCode:](v57, "setParentCode:", [v62 parentCode]);
+      v59 = [*(a1 + 32) continousPreviewOptions];
+      -[JFXEffectsPreviewGenerationRequest setParentCode:](v54, "setParentCode:", [v59 parentCode]);
     }
 
+    v60 = [*(a1 + 32) continousPreviewOptions];
+    -[JFXEffectsPreviewGenerationRequest setHighQuality:](v54, "setHighQuality:", [v60 quality] == 2);
+
+    -[JFXEffectsPreviewGenerationRequest setPriority:](v54, "setPriority:", [*(a1 + 32) JFX_lowPriorityScheduling] ^ 1);
+    v61 = [v48 allObjects];
+    [(JFXEffectsPreviewGenerationRequest *)v54 setPickerPreviewEffectList:v61];
+
+    v62 = [[JFXEffectsPreviewRequestHandler alloc] initWithRequest:v54];
     v63 = [*(a1 + 32) continousPreviewOptions];
-    -[JFXEffectsPreviewGenerationRequest setHighQuality:](v57, "setHighQuality:", [v63 quality] == 2);
+    v64 = [v63 outputColorSpace];
 
-    -[JFXEffectsPreviewGenerationRequest setPriority:](v57, "setPriority:", [*(a1 + 32) JFX_lowPriorityScheduling] ^ 1);
-    v64 = [v51 allObjects];
-    [(JFXEffectsPreviewGenerationRequest *)v57 setPickerPreviewEffectList:v64];
+    v65 = [(JFXEffectsPreviewRequestHandler *)v62 buildPVRenderRequestWithOutputColorSpace:v64];
+    v66 = *(*(a1 + 48) + 8);
+    v67 = *(v66 + 40);
+    *(v66 + 40) = v65;
 
-    v65 = [[JFXEffectsPreviewRequestHandler alloc] initWithRequest:v57];
-    v66 = [*(a1 + 32) continousPreviewOptions];
-    v67 = [v66 outputColorSpace];
-
-    v68 = [(JFXEffectsPreviewRequestHandler *)v65 buildPVRenderRequestWithOutputColorSpace:v67];
-    v69 = *(*(a1 + 48) + 8);
-    v70 = *(v69 + 40);
-    *(v69 + 40) = v68;
-
-    [*(*(*(a1 + 48) + 8) + 40) setUserContext:v65];
-    v8 = v72;
+    [*(*(*(a1 + 48) + 8) + 40) setUserContext:v62];
+    v8 = v69;
   }
 
   else
   {
-    v24 = *(*(a1 + 48) + 8);
-    v25 = *(v24 + 40);
-    *(v24 + 40) = 0;
+    v21 = *(*(a1 + 48) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = 0;
   }
 }
 
@@ -2108,7 +2108,7 @@ void __70__JFXEffectPreviewManager_previewForEffect_atSize_options_completion___
 
   if (optionsCopy)
   {
-    [optionsCopy renderRange];
+    objc_msgSend_renderRange(optionsCopy);
   }
 
   else
@@ -2147,9 +2147,9 @@ void __70__JFXEffectPreviewManager_previewForEffect_atSize_options_completion___
   {
     location = 0uLL;
     v50 = 0;
-    if (optionsCopy && ([optionsCopy renderTime], (v48 & 1) != 0))
+    if (optionsCopy && (objc_msgSend_renderTime(optionsCopy), (v48 & 1) != 0))
     {
-      [optionsCopy renderTime];
+      objc_msgSend_renderTime(optionsCopy);
     }
 
     else
@@ -2173,7 +2173,7 @@ void __70__JFXEffectPreviewManager_previewForEffect_atSize_options_completion___
     v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
     if (optionsCopy)
     {
-      [optionsCopy renderTime];
+      objc_msgSend_renderTime(optionsCopy);
     }
 
     else

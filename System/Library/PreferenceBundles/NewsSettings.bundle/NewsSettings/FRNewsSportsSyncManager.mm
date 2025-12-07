@@ -38,7 +38,7 @@
 - (void)prepareWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = FRNewsSettingsLog();
+  v5 = FRNewsSettingsLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -75,22 +75,22 @@
   v8 = +[NSDate now];
   v9 = [(FRNewsSportsSyncSetting *)v6 initWithSource:0 enabled:bOOLValue dateModified:v8];
 
-  v10 = FRNewsSettingsLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = FRNewsSettingsLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v9;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Settings sports sync switch toggled to %{public}@", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Settings sports sync switch toggled to %{public}@", buf, 0xCu);
   }
 
   [FRNewsSportsSyncSetting updateUserDefaultsSyncSetting:v9];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_2170;
-  v12[3] = &unk_107D0;
-  v13 = v9;
-  v11 = v9;
-  [(FRNewsSportsSyncManager *)self sportsFavoritesService:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_2170;
+  v13[3] = &unk_107D0;
+  v14 = v9;
+  v12 = v9;
+  [(FRNewsSportsSyncManager *)self sportsFavoritesService:v13];
 }
 
 - (BOOL)isEnabled
@@ -110,28 +110,28 @@
   v5 = +[FCAppleAccount sharedAccount];
   isUserSignedIntoiTunes = [v5 isUserSignedIntoiTunes];
 
-  v7 = FRNewsSettingsLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = FRNewsSettingsLog(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (isUserSignedIntoiTunes)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Settings sports sync has access to watchlist", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Settings sports sync has access to watchlist", buf, 2u);
     }
 
-    v9 = objc_alloc_init(FRSportsSyncFavoritesService);
-    serviceCopy[2](serviceCopy, v9);
+    v10 = objc_alloc_init(FRSportsSyncFavoritesService);
+    serviceCopy[2](serviceCopy, v10);
 
-    serviceCopy = v9;
+    serviceCopy = v10;
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v10[0] = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Settings sports sync has no access to watchlist, ignoring propagating", v10, 2u);
+      v11[0] = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Settings sports sync has no access to watchlist, ignoring propagating", v11, 2u);
     }
 
     serviceCopy[2](serviceCopy, 0);
@@ -159,7 +159,7 @@
 {
   completionCopy = completion;
   serviceCopy = service;
-  v7 = FRNewsSettingsLog();
+  v7 = FRNewsSettingsLog(serviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

@@ -169,41 +169,36 @@ LABEL_29:
           v11 = *(*(&v22 + 1) + 8 * i);
           v12 = [v11 isEqualToString:@"emails"];
           v13 = CNContactEmailAddressesKey;
-          if (v12)
+          if ((v12 & 1) == 0)
           {
-            goto LABEL_13;
-          }
-
-          v14 = [v11 isEqualToString:@"phones"];
-          v13 = CNContactPhoneNumbersKey;
-          if (v14)
-          {
-            goto LABEL_13;
-          }
-
-          v15 = [v11 isEqualToString:@"addresses"];
-          v13 = CNContactPostalAddressesKey;
-          if ((v15 & 1) == 0)
-          {
-            v16 = [v11 isEqualToString:@"birthday"];
-            v13 = v21;
-            if ((v16 & 1) == 0)
+            v14 = [v11 isEqualToString:@"phones"];
+            v13 = CNContactPhoneNumbersKey;
+            if ((v14 & 1) == 0)
             {
-              v17 = [v11 isEqualToString:@"relatedNames"];
-              v13 = CNContactRelationsKey;
-              if ((v17 & 1) == 0)
+              v15 = [v11 isEqualToString:@"addresses"];
+              v13 = CNContactPostalAddressesKey;
+              if ((v15 & 1) == 0)
               {
-                v18 = [v11 isEqualToString:@"socialProfiles"];
-                v13 = CNContactSocialProfilesKey;
-                if (!v18)
+                v16 = [v11 isEqualToString:@"birthday"];
+                v13 = v21;
+                if ((v16 & 1) == 0)
                 {
-                  continue;
+                  v17 = [v11 isEqualToString:@"relatedNames"];
+                  v13 = CNContactRelationsKey;
+                  if ((v17 & 1) == 0)
+                  {
+                    v18 = [v11 isEqualToString:@"socialProfiles"];
+                    v13 = CNContactSocialProfilesKey;
+                    if (!v18)
+                    {
+                      continue;
+                    }
+                  }
                 }
               }
             }
           }
 
-LABEL_13:
           [v5 addObject:v13];
         }
 

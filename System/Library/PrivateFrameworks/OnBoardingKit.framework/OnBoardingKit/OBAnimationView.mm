@@ -118,7 +118,7 @@
   v15 = packageLayer4;
   if (packageLayer4)
   {
-    [packageLayer4 contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer4);
   }
 
   else
@@ -156,7 +156,7 @@
   v15 = packageLayer3;
   if (packageLayer3)
   {
-    [packageLayer3 contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer3);
   }
 
   else

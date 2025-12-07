@@ -222,7 +222,7 @@ LABEL_31:
 
 void __41__OAXStroke_Private__compoundLineEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __41__OAXStroke_Private__compoundLineEnumMap__block_invoke_cold_1();
   }
@@ -234,7 +234,7 @@ void __41__OAXStroke_Private__compoundLineEnumMap__block_invoke()
 
 void __36__OAXStroke_Private__lineCapEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __36__OAXStroke_Private__lineCapEnumMap__block_invoke_cold_1();
   }
@@ -246,7 +246,7 @@ void __36__OAXStroke_Private__lineCapEnumMap__block_invoke()
 
 void __41__OAXStroke_Private__penAlignmentEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __41__OAXStroke_Private__penAlignmentEnumMap__block_invoke_cold_1();
   }
@@ -258,7 +258,7 @@ void __41__OAXStroke_Private__penAlignmentEnumMap__block_invoke()
 
 void __40__OAXStroke_Private__lineEndTypeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __40__OAXStroke_Private__lineEndTypeEnumMap__block_invoke_cold_1();
   }
@@ -270,7 +270,7 @@ void __40__OAXStroke_Private__lineEndTypeEnumMap__block_invoke()
 
 void __41__OAXStroke_Private__lineEndWidthEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __41__OAXStroke_Private__lineEndWidthEnumMap__block_invoke_cold_1();
   }
@@ -282,7 +282,7 @@ void __41__OAXStroke_Private__lineEndWidthEnumMap__block_invoke()
 
 void __42__OAXStroke_Private__lineEndLengthEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __42__OAXStroke_Private__lineEndLengthEnumMap__block_invoke_cold_1();
   }
@@ -294,7 +294,7 @@ void __42__OAXStroke_Private__lineEndLengthEnumMap__block_invoke()
 
 void __39__OAXStroke_Private__presetDashEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __39__OAXStroke_Private__presetDashEnumMap__block_invoke_cold_1();
   }
@@ -397,78 +397,78 @@ void __39__OAXStroke_Private__presetDashEnumMap__block_invoke()
 
 void __41__OAXStroke_Private__compoundLineEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs);
+    __cxa_guard_release(_ZGVZZ41__OAXStroke_Private__compoundLineEnumMap_EUb_E23compoundLineEnumStructs);
   }
 }
 
 void __36__OAXStroke_Private__lineCapEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs);
+    __cxa_guard_release(_ZGVZZ36__OAXStroke_Private__lineCapEnumMap_EUb0_E18lineCapEnumStructs);
   }
 }
 
 void __41__OAXStroke_Private__penAlignmentEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs);
+    __cxa_guard_release(_ZGVZZ41__OAXStroke_Private__penAlignmentEnumMap_EUb1_E23penAlignmentEnumStructs);
   }
 }
 
 void __40__OAXStroke_Private__lineEndTypeEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs);
+    __cxa_guard_release(_ZGVZZ40__OAXStroke_Private__lineEndTypeEnumMap_EUb2_E22lineEndTypeEnumStructs);
   }
 }
 
 void __41__OAXStroke_Private__lineEndWidthEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs);
+    __cxa_guard_release(_ZGVZZ41__OAXStroke_Private__lineEndWidthEnumMap_EUb3_E23lineEndWidthEnumStructs);
   }
 }
 
 void __42__OAXStroke_Private__lineEndLengthEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs);
+    __cxa_guard_release(_ZGVZZ42__OAXStroke_Private__lineEndLengthEnumMap_EUb4_E24lineEndLengthEnumStructs);
   }
 }
 
 void __39__OAXStroke_Private__presetDashEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs);
+    __cxa_guard_release(_ZGVZZ39__OAXStroke_Private__presetDashEnumMap_EUb5_E21presetDashEnumStructs);
   }
 }
 

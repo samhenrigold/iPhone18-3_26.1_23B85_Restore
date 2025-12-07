@@ -50,7 +50,7 @@
 
   sub_215A383BC(bookmark);
 
-  sub_21583F14C(v10, &qword_27CA7E2E0);
+  sub_21583F14C(v10, &qword_27CA7E2E0, &unk_215A969A0);
 }
 
 - (void)deleteBookmark:(id)bookmark userInfo:(id)info
@@ -73,7 +73,7 @@
 
   sub_215A38734(bookmark, v10);
 
-  sub_21583F14C(v10, &qword_27CA7E2E0);
+  sub_21583F14C(v10, &qword_27CA7E2E0, &unk_215A969A0);
 }
 
 - (void)bookmark:(id)bookmark didProduceNavigationIntent:(id)intent userInfo:(id)info
@@ -106,7 +106,7 @@
   {
   }
 
-  sub_21583F14C(v12, &qword_27CA7E2E0);
+  sub_21583F14C(v12, &qword_27CA7E2E0, &unk_215A969A0);
 }
 
 - (void)addBookmarkNavController:(id)controller didFinishWithResult:(BOOL)result bookmark:(id)bookmark

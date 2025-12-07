@@ -99,10 +99,10 @@
     [(NTKChronoFaceView *)v9 setComplicationFactory:v9->_complicationFactory];
     device = [(NTKChronoFaceView *)v9 device];
     sub_EF68(device, v32);
-    v15 = v32[0];
+    receiver = v32[0].receiver;
 
-    [(NTKUtilityComplicationFactory *)v9->_complicationFactory setNormalSidePadding:v15];
-    [(NTKUtilityComplicationFactory *)v9->_complicationFactory setNormalVerticalPadding:v15];
+    [(NTKUtilityComplicationFactory *)v9->_complicationFactory setNormalSidePadding:*&receiver];
+    [(NTKUtilityComplicationFactory *)v9->_complicationFactory setNormalVerticalPadding:*&receiver];
     device2 = [(NTKChronoFaceView *)v9 device];
     sub_EF68(device2, &v31);
     v17 = *(&v31 + 1);

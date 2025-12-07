@@ -297,9 +297,9 @@ LABEL_21:
       {
         v28 = [CCToolKitToolDisplayRepresentationImageStaticSymbol alloc];
         v29 = CCPBReaderReadDataNoCopy();
-        v47 = 0;
-        v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v47];
-        v10 = v47;
+        v45 = 0;
+        v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v45];
+        v10 = v45;
         v31 = self->_symbol;
         self->_symbol = v30;
 
@@ -341,7 +341,6 @@ LABEL_29:
 
         v38 = objc_opt_class();
         v39 = NSStringFromClass(v38);
-        v40 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -365,23 +364,22 @@ LABEL_34:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v45 = 1;
+    v43 = 1;
     goto LABEL_38;
   }
 
 LABEL_35:
-  v41 = objc_opt_class();
-  v42 = NSStringFromClass(v41);
-  v43 = *&v6[*v9];
-  v44 = CCInvalidBufferErrorForMessage();
+  v40 = objc_opt_class();
+  v41 = NSStringFromClass(v40);
+  v42 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_36:
-  v45 = 0;
+  v43 = 0;
 LABEL_38:
 
-  return v45;
+  return v43;
 }
 
 - (CCToolKitToolDisplayRepresentationImageStatic)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

@@ -35,26 +35,26 @@
 
 - (void)removePersonsModelWithRetryOnError:(BOOL)error
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = +[HMITaskService taskServiceClient];
-  v26[0] = HMITaskTypeRemovePersonsModelTask;
-  v25[0] = @"taskType";
-  v25[1] = @"homeUUID";
+  v31 = HMITaskTypeRemovePersonsModelTask;
+  v28 = @"taskType";
+  v29 = @"homeUUID";
   homeUUID = [(HMIRemovePersonsModelOperation *)self homeUUID];
-  v26[1] = homeUUID;
-  v25[2] = @"sourceUUID";
+  v32 = homeUUID;
+  v30 = @"sourceUUID";
   sourceUUID = [(HMIRemovePersonsModelOperation *)self sourceUUID];
-  v26[2] = sourceUUID;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v33 = sourceUUID;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
   objc_initWeak(&location, self);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___block_invoke;
-  v15[3] = &unk_278754F08;
-  objc_copyWeak(&v16, &location);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___block_invoke;
+  v18 = &unk_278754F08;
+  objc_copyWeak(&v19, &location);
   errorCopy = error;
-  v9 = [v5 submitTaskWithOptions:v8 progressHandler:0 completionHandler:v15];
+  v9 = [v5 submitTaskWithOptions:? progressHandler:? completionHandler:?];
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
   v12 = HMFGetOSLogHandle();
@@ -63,16 +63,16 @@
     v13 = HMFGetLogIdentifier();
     v14 = HMFBooleanToString();
     *buf = 138543874;
-    v20 = v13;
-    v21 = 1024;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v14;
+    v23 = v13;
+    v24 = 1024;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v14;
     _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_INFO, "%{public}@Submitted persons model remove task, taskID:%u, retryOnError:%@", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v10);
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -84,9 +84,9 @@ void __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___b
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v8 = [v5 objectForKeyedSubscript:@"resultCode"];
+    v8 = [v5 objectForKeyedSubscript:?];
     v9 = HMITaskResultCodeAsString(0);
-    v10 = [v8 isEqualToString:v9];
+    v10 = [v8 isEqualToString:?];
 
     if (v10)
     {
@@ -125,7 +125,7 @@ void __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___b
         }
 
         objc_autoreleasePoolPop(v16);
-        [v17 removePersonsModelWithRetryOnError:0];
+        [v17 removePersonsModelWithRetryOnError:?];
       }
 
       else
@@ -141,7 +141,7 @@ void __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___b
         }
 
         objc_autoreleasePoolPop(v16);
-        [v17 cancelWithError:v6];
+        [v17 cancelWithError:?];
       }
     }
   }
@@ -158,7 +158,7 @@ void __69__HMIRemovePersonsModelOperation_removePersonsModelWithRetryOnError___b
     v6 = @"external";
   }
 
-  v7 = [v3 stringWithFormat:@"%@ (%@)", sourceUUID, v6];
+  v7 = [v3 stringWithFormat:sourceUUID, v6];
 
   return v7;
 }

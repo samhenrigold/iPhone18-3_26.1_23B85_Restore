@@ -933,8 +933,8 @@ LABEL_6:
 
   [(UISUIActivityViewControllerConfiguration *)v3 setNumberOfVisibleSharingActivities:[(SHSheetSession *)self numberOfVisibleSharingActivities]];
   [(UISUIActivityViewControllerConfiguration *)v3 setNumberOfVisibleActionActivities:[(SHSheetSession *)self numberOfVisibleActionActivities]];
-  v73 = v6;
-  v72 = _NSExtensionItemsFromActivityItemValues(v6);
+  v75 = v6;
+  v74 = _NSExtensionItemsFromActivityItemValues(v6);
   v32 = [_UIActivityApplicationExtensionDiscovery extensionMatchingDictionariesForExtensionItems:?];
   [(UISUIActivityViewControllerConfiguration *)v3 setActivityItemValueExtensionMatchingDictionaries:v32];
 
@@ -968,8 +968,8 @@ LABEL_6:
   activityTypeOrder = [(SHSheetSession *)self activityTypeOrder];
   [(UISUIActivityViewControllerConfiguration *)v3 setActivityTypeOrder:activityTypeOrder];
 
-  [(UISUIActivityViewControllerConfiguration *)v3 setExcludedActivityCategories:[(SHSheetSession *)self excludedActivityCategories]];
-  [(UISUIActivityViewControllerConfiguration *)v3 setCanExcludeExtensionActivities:_UICanExcludeExtensionActivities()];
+  v42 = [(UISUIActivityViewControllerConfiguration *)v3 setExcludedActivityCategories:[(SHSheetSession *)self excludedActivityCategories]];
+  [(UISUIActivityViewControllerConfiguration *)v3 setCanExcludeExtensionActivities:_UICanExcludeExtensionActivities(v42, v43)];
   [(UISUIActivityViewControllerConfiguration *)v3 setSharingStyle:[(SHSheetSession *)self sharingStyle]];
   [(UISUIActivityViewControllerConfiguration *)v3 setCanShowShareSheetPlugIns:1];
   selectedAssetIdentifiers = [(SHSheetSession *)self selectedAssetIdentifiers];
@@ -978,9 +978,9 @@ LABEL_6:
 
   if ([suggestionAssetIdentifiers count])
   {
-    v45 = [MEMORY[0x1E695DFA8] setWithArray:suggestionAssetIdentifiers];
-    [v45 addObjectsFromArray:selectedAssetIdentifiers];
-    allObjects = [v45 allObjects];
+    v47 = [MEMORY[0x1E695DFA8] setWithArray:suggestionAssetIdentifiers];
+    [v47 addObjectsFromArray:selectedAssetIdentifiers];
+    allObjects = [v47 allObjects];
 
     selectedAssetIdentifiers = allObjects;
   }
@@ -991,19 +991,19 @@ LABEL_6:
   preferredContentSizeCategory = [traitCollection2 preferredContentSizeCategory];
 
   [UIActivity imageWidthForContentSizeCategory:preferredContentSizeCategory];
-  v51 = round(v50 * 0.75);
-  [(UISUIActivityViewControllerConfiguration *)v3 setIconSize:v51, v51];
+  v53 = round(v52 * 0.75);
+  [(UISUIActivityViewControllerConfiguration *)v3 setIconSize:v53, v53];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen scale];
   [(UISUIActivityViewControllerConfiguration *)v3 setIconScale:?];
 
   if ([(SHSheetSession *)self supportsCollaboration]&& ![(SHSheetSession *)self supportsSendCopy])
   {
-    v53 = share_sheet_log();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v55 = share_sheet_log();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18B359000, v53, OS_LOG_TYPE_DEFAULT, "Excluding AirDrop for collaboration only mode", buf, 2u);
+      _os_log_impl(&dword_18B359000, v55, OS_LOG_TYPE_DEFAULT, "Excluding AirDrop for collaboration only mode", buf, 2u);
     }
 
     excludedActivityTypes2 = [(UISUIActivityViewControllerConfiguration *)v3 excludedActivityTypes];
@@ -1019,8 +1019,8 @@ LABEL_6:
     }
 
     [array addObject:@"com.apple.UIKit.activity.AirDrop"];
-    v57 = [array copy];
-    [(UISUIActivityViewControllerConfiguration *)v3 setExcludedActivityTypes:v57];
+    v59 = [array copy];
+    [(UISUIActivityViewControllerConfiguration *)v3 setExcludedActivityTypes:v59];
   }
 
   if ([(SHSheetSession *)self _isHeroCollaborationOnly])
@@ -1033,10 +1033,10 @@ LABEL_6:
   collaborationItem = [(SHSheetSession *)self collaborationItem];
   if (collaborationItem)
   {
-    v59 = MEMORY[0x1E696AD98];
+    v61 = MEMORY[0x1E696AD98];
     collaborationItem2 = [(SHSheetSession *)self collaborationItem];
-    v61 = [v59 numberWithInteger:{objc_msgSend(collaborationItem2, "type")}];
-    [(UISUIActivityViewControllerConfiguration *)v3 setCollaborationType:v61];
+    v63 = [v61 numberWithInteger:{objc_msgSend(collaborationItem2, "type")}];
+    [(UISUIActivityViewControllerConfiguration *)v3 setCollaborationType:v63];
   }
 
   else
@@ -1047,10 +1047,10 @@ LABEL_6:
   collaborationItem3 = [(SHSheetSession *)self collaborationItem];
   if (collaborationItem3)
   {
-    v63 = MEMORY[0x1E696AD98];
+    v65 = MEMORY[0x1E696AD98];
     collaborationItem4 = [(SHSheetSession *)self collaborationItem];
-    v65 = [v63 numberWithBool:{objc_msgSend(collaborationItem4, "isPostShare")}];
-    [(UISUIActivityViewControllerConfiguration *)v3 setCollaborationIsPostShare:v65];
+    v67 = [v65 numberWithBool:{objc_msgSend(collaborationItem4, "isPostShare")}];
+    [(UISUIActivityViewControllerConfiguration *)v3 setCollaborationIsPostShare:v67];
   }
 
   else
@@ -1061,10 +1061,10 @@ LABEL_6:
   if ([(SHSheetSession *)self isCollaborative])
   {
     activityTypesToCreateInShareService2 = [(SHSheetSession *)self activityTypesToCreateInShareService];
-    v67 = [activityTypesToCreateInShareService2 mutableCopy];
+    v69 = [activityTypesToCreateInShareService2 mutableCopy];
 
-    [v67 removeObject:@"com.apple.UIKit.activity.RemoteOpenInApplication"];
-    [(UISUIActivityViewControllerConfiguration *)v3 setActivityTypesToCreateInShareService:v67];
+    [v69 removeObject:@"com.apple.UIKit.activity.RemoteOpenInApplication"];
+    [(UISUIActivityViewControllerConfiguration *)v3 setActivityTypesToCreateInShareService:v69];
   }
 
   if (_os_feature_enabled_impl())

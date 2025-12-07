@@ -29,18 +29,16 @@
 
 void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = @"00000073-0000-1000-8000-0026BB765291";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = @"00000073-0000-1000-8000-0026BB765291";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = shouldNotCacheCharacteristicOfType__noCacheCharacteristicTypes;
   shouldNotCacheCharacteristicOfType__noCacheCharacteristicTypes = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)applyProtoBufData:(id)data
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   context = objc_autoreleasePoolPush();
   v4 = objc_autoreleasePoolPush();
@@ -51,18 +49,18 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
     v6 = HMFGetLogIdentifier();
     v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
     *buf = 138543618;
-    v73 = v6;
-    v74 = 2112;
-    v75 = v7;
+    v72 = v6;
+    v73 = 2112;
+    v74 = v7;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Unpacking [%@] bytes of metadata", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v53 = [[HMPBMetadata alloc] initWithData:dataCopy];
-  if (v53)
+  v52 = [[HMPBMetadata alloc] initWithData:dataCopy];
+  if (v52)
   {
     os_unfair_lock_lock_with_options();
-    if ([(NSNumber *)selfCopy->_version integerValue]>= v53->_version)
+    if ([(NSNumber *)selfCopy->_version integerValue]>= v52->_version)
     {
       os_unfair_lock_unlock(&selfCopy->_lock);
     }
@@ -74,27 +72,27 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
       selfCopy->_version = v8;
 
       os_unfair_lock_unlock(&selfCopy->_lock);
-      v56 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v53->_hapCharacteristics, "count")}];
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
+      v55 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v52->_hapCharacteristics, "count")}];
       v66 = 0u;
-      v10 = v53->_hapCharacteristics;
-      v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v65 objects:v71 count:16];
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v10 = v52->_hapCharacteristics;
+      v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v64 objects:v70 count:16];
       if (v11)
       {
-        v12 = *v66;
+        v12 = *v65;
         do
         {
           v13 = 0;
           do
           {
-            if (*v66 != v12)
+            if (*v65 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v65 + 1) + 8 * v13);
+            v14 = *(*(&v64 + 1) + 8 * v13);
             v15 = objc_alloc_init(HMHAPMetadataCharacteristic);
             v16 = v15;
             if (v14)
@@ -115,41 +113,41 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
             [(HMHAPMetadataCharacteristic *)v16 setChrDescription:v19];
 
             uuidStr = [(HMHAPMetadataCharacteristic *)v16 uuidStr];
-            [v56 setObject:v16 forKey:uuidStr];
+            [v55 setObject:v16 forKey:uuidStr];
 
             ++v13;
           }
 
           while (v11 != v13);
-          v21 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v65 objects:v71 count:16];
+          v21 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v64 objects:v70 count:16];
           v11 = v21;
         }
 
         while (v21);
       }
 
-      [(HMHAPMetadata *)selfCopy setHapChrMap:v56];
-      v55 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v53->_hapServices, "count")}];
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
+      [(HMHAPMetadata *)selfCopy setHapChrMap:v55];
+      v54 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v52->_hapServices, "count")}];
       v62 = 0u;
-      v22 = v53->_hapServices;
-      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v22 = v52->_hapServices;
+      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v60 objects:v69 count:16];
       if (v23)
       {
-        v24 = *v62;
+        v24 = *v61;
         do
         {
           v25 = 0;
           do
           {
-            if (*v62 != v24)
+            if (*v61 != v24)
             {
               objc_enumerationMutation(v22);
             }
 
-            v26 = *(*(&v61 + 1) + 8 * v25);
+            v26 = *(*(&v60 + 1) + 8 * v25);
             v27 = objc_alloc_init(HMHAPMetadataService);
             v28 = v27;
             if (v26)
@@ -170,41 +168,41 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
             [(HMHAPMetadataService *)v28 setSvcDescription:v31];
 
             uuidStr2 = [(HMHAPMetadataService *)v28 uuidStr];
-            [v55 setObject:v28 forKey:uuidStr2];
+            [v54 setObject:v28 forKey:uuidStr2];
 
             ++v25;
           }
 
           while (v23 != v25);
-          v33 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v61 objects:v70 count:16];
+          v33 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v60 objects:v69 count:16];
           v23 = v33;
         }
 
         while (v33);
       }
 
-      [(HMHAPMetadata *)selfCopy setHapSvcMap:v55];
-      v34 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v53->_hapCategories, "count")}];
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
+      [(HMHAPMetadata *)selfCopy setHapSvcMap:v54];
+      v34 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableArray count](v52->_hapCategories, "count")}];
       v58 = 0u;
-      obj = v53->_hapCategories;
-      v35 = [(NSMutableArray *)obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      obj = v52->_hapCategories;
+      v35 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v68 count:16];
       if (v35)
       {
-        v36 = *v58;
+        v36 = *v57;
         do
         {
           v37 = 0;
           do
           {
-            if (*v58 != v36)
+            if (*v57 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v38 = *(*(&v57 + 1) + 8 * v37);
+            v38 = *(*(&v56 + 1) + 8 * v37);
             v39 = objc_alloc_init(HMHAPMetadataCategory);
             if (v38)
             {
@@ -245,7 +243,7 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
           }
 
           while (v35 != v37);
-          v47 = [(NSMutableArray *)obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+          v47 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v68 count:16];
           v35 = v47;
         }
 
@@ -257,35 +255,34 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
   }
 
   objc_autoreleasePoolPop(context);
-  v48 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)categoryForCategoryUUIDString:(id)string
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stringCopy = string;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   hapCategoryMap = [(HMHAPMetadata *)self hapCategoryMap];
   allValues = [hapCategoryMap allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         uuidStr = [v10 uuidStr];
         v12 = [uuidStr isEqual:stringCopy];
 
@@ -302,7 +299,7 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -313,8 +310,6 @@ void __52__HMHAPMetadata_shouldNotCacheCharacteristicOfType___block_invoke()
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -407,13 +402,13 @@ LABEL_11:
 
 + (id)encodeProtobufWithVersion:(id)version characteristics:(id)characteristics services:(id)services categories:(id)categories
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   characteristicsCopy = characteristics;
   servicesCopy = services;
   categoriesCopy = categories;
   v11 = objc_alloc_init(HMPBMetadata);
-  v42 = versionCopy;
+  v41 = versionCopy;
   intValue = [versionCopy intValue];
   if (v11)
   {
@@ -421,26 +416,26 @@ LABEL_11:
     v11->_version = intValue;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = characteristicsCopy;
-  v13 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v13 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v57;
+    v15 = *v56;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v57 != v15)
+        if (*v56 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v56 + 1) + 8 * i);
+        v17 = *(*(&v55 + 1) + 8 * i);
         v18 = objc_alloc_init(HMPBMetadataCharacteristic);
         uuidStr = [v17 uuidStr];
         if (v18)
@@ -457,32 +452,32 @@ LABEL_11:
         [(HMPBMetadata *)v11 addHapCharacteristics:v18];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v14 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v14);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v46 = servicesCopy;
-  v21 = [v46 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v45 = servicesCopy;
+  v21 = [v45 countByEnumeratingWithState:&v51 objects:v60 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v53;
+    v23 = *v52;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v53 != v23)
+        if (*v52 != v23)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v45);
         }
 
-        v25 = *(*(&v52 + 1) + 8 * j);
+        v25 = *(*(&v51 + 1) + 8 * j);
         v26 = objc_alloc_init(HMPBMetadataService);
         uuidStr2 = [v25 uuidStr];
         if (v26)
@@ -499,32 +494,32 @@ LABEL_11:
         [(HMPBMetadata *)v11 addHapServices:v26];
       }
 
-      v22 = [v46 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v22 = [v45 countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
     while (v22);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v44 = categoriesCopy;
-  v29 = [v44 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v43 = categoriesCopy;
+  v29 = [v43 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v49;
+    v31 = *v48;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v49 != v31)
+        if (*v48 != v31)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v43);
         }
 
-        v33 = *(*(&v48 + 1) + 8 * k);
+        v33 = *(*(&v47 + 1) + 8 * k);
         v34 = objc_alloc_init(HMPBMetadataCategory);
         uuidStr3 = [v33 uuidStr];
         if (v34)
@@ -549,15 +544,13 @@ LABEL_11:
         [(HMPBMetadata *)v11 addHapCategories:v34];
       }
 
-      v30 = [v44 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v30 = [v43 countByEnumeratingWithState:&v47 objects:v59 count:16];
     }
 
     while (v30);
   }
 
   data = [(HMPBMetadata *)v11 data];
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return data;
 }

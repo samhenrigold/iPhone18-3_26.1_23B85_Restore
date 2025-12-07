@@ -11,14 +11,12 @@
 
 + (NSSet)allowedResponseKeys
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Identifier";
-  v7[1] = @"ServerToken";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"Identifier";
+  v6[1] = @"ServerToken";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -49,7 +47,7 @@
 
 - (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v8 = MEMORY[0x277CBEB58];
   allKeys = [dictionaryCopy allKeys];
@@ -64,8 +62,8 @@
     {
       v12 = MEMORY[0x277CCA9B8];
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected payload keys: %@", v10, *MEMORY[0x277CCA450]];
-      v18[0] = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v17[0] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       *error = [v12 errorWithDomain:@"error" code:1 userInfo:v14];
 
 LABEL_6:
@@ -83,7 +81,6 @@ LABEL_6:
     LOBYTE(error) = [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"ServerToken" forKeyPath:@"responseServerToken" isRequired:1 defaultValue:0 error:error];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return error;
 }
 

@@ -49,12 +49,12 @@
 
   if (!self->_isRender)
   {
-    [MTLDebugIndirectCommandBuffer indirectRenderCommandAtIndex:?];
+    [(MTLDebugIndirectCommandBuffer *)self indirectRenderCommandAtIndex:?];
   }
 
   if ([-[MTLToolsObject baseObject](self "baseObject")] <= index)
   {
-    [MTLDebugIndirectCommandBuffer indirectRenderCommandAtIndex:?];
+    [(MTLDebugIndirectCommandBuffer *)self indirectRenderCommandAtIndex:?];
   }
 
   _MTLMessageContextEnd();
@@ -85,12 +85,12 @@
 
   if (self->_isRender)
   {
-    [MTLDebugIndirectCommandBuffer indirectComputeCommandAtIndex:?];
+    [(MTLDebugIndirectCommandBuffer *)self indirectComputeCommandAtIndex:?];
   }
 
   if ([-[MTLToolsObject baseObject](self "baseObject")] <= index)
   {
-    [MTLDebugIndirectCommandBuffer indirectRenderCommandAtIndex:?];
+    [(MTLDebugIndirectCommandBuffer *)self indirectRenderCommandAtIndex:?];
   }
 
   _MTLMessageContextEnd();

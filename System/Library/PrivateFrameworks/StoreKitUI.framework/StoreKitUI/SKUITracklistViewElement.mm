@@ -5,6 +5,10 @@
 - (id)applyUpdatesWithElement:(id)element;
 - (int64_t)pageComponentType;
 - (void)enumerateTracksUsingBlock:(id)block;
+- (void)header;
+- (void)pageComponentType;
+- (void)sections;
+- (void)tracks;
 @end
 
 @implementation SKUITracklistViewElement
@@ -243,6 +247,42 @@ void __34__SKUITracklistViewElement_tracks__block_invoke(uint64_t a1, void *a2)
   }
 
   return 23;
+}
+
+- (void)enumerateTracksUsingBlock:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement enumerateTracksUsingBlock:]";
+}
+
+- (void)header
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement header]";
+}
+
+- (void)sections
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement sections]";
+}
+
+- (void)tracks
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement tracks]";
+}
+
+- (void)applyUpdatesWithElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement applyUpdatesWithElement:]";
+}
+
+- (void)pageComponentType
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistViewElement pageComponentType]";
 }
 
 @end

@@ -25,7 +25,7 @@
   return [PAEColorBalance properties]::sPropertiesDict;
 }
 
-uint64_t __29__PAEColorBalance_properties__block_invoke()
+void *__29__PAEColorBalance_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -186,7 +186,7 @@ uint64_t __29__PAEColorBalance_properties__block_invoke()
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
         if (versionAtCreation)
         {
 LABEL_16:

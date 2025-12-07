@@ -161,44 +161,43 @@
     v7 = 1;
   }
 
-  if (v7)
+  if (!v7)
   {
-    if (amount != v6)
+    if (([(NSDecimalNumber *)amount isEqual:?]& 1) != 0)
     {
+      goto LABEL_10;
+    }
+
 LABEL_21:
-      v14 = 0;
-      goto LABEL_22;
-    }
+    v13 = 0;
+    goto LABEL_22;
   }
 
-  else
+  if (amount != v6)
   {
-    v8 = [(NSDecimalNumber *)amount isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_21;
-    }
+    goto LABEL_21;
   }
 
-  v9 = configurationCopy[2];
-  v10 = self->_currency;
-  v11 = v9;
-  v12 = v11;
-  if (v10 == v11)
+LABEL_10:
+  v8 = configurationCopy[2];
+  v9 = self->_currency;
+  v10 = v8;
+  v11 = v10;
+  if (v9 == v10)
   {
 
     goto LABEL_16;
   }
 
-  if (!v10 || !v11)
+  if (!v9 || !v10)
   {
 
     goto LABEL_21;
   }
 
-  v13 = [(NSString *)v10 isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (!v13)
+  if (!isEqualToString)
   {
     goto LABEL_21;
   }
@@ -209,10 +208,10 @@ LABEL_16:
     goto LABEL_21;
   }
 
-  v14 = self->_environmentType == configurationCopy[5];
+  v13 = self->_environmentType == configurationCopy[5];
 LABEL_22:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

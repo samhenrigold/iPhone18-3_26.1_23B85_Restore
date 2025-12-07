@@ -1,5 +1,6 @@
 uint64_t vt_Copy_420vf_rgb_l64r(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -25,7 +26,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -161,7 +162,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -174,7 +175,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -524,6 +525,7 @@ unsigned __int8 *vt_Copy_420vf_rgb_l64r_GCD(unsigned __int8 *result, uint64_t a2
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_b64a(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -549,7 +551,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -685,7 +687,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -698,7 +700,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -1365,6 +1367,7 @@ unsigned __int8 *vt_Copy_420vf_TRC_Tone_Mat_TRC_b64a_GCD(unsigned __int8 *result
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_b64a(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -1390,7 +1393,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -1526,7 +1529,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -1539,7 +1542,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -2137,6 +2140,7 @@ unsigned __int8 *vt_Copy_420vf_TRC_Mat_TRC_b64a_GCD(unsigned __int8 *result, uin
 
 uint64_t vt_Copy_420vf_rgb_b64a(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -2162,7 +2166,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -2298,7 +2302,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -2311,7 +2315,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -2665,6 +2669,7 @@ unsigned __int8 *vt_Copy_420vf_rgb_b64a_GCD(unsigned __int8 *result, uint64_t a2
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_RGhA_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -2690,7 +2695,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -2826,7 +2831,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -2839,7 +2844,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -3626,6 +3631,7 @@ char *vt_Copy_420vf_TRC_Tone_Mat_TRC_RGhA_neon_fp16_GCD(char *result, uint64_t a
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_RGhA(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -3651,7 +3657,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -3787,7 +3793,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -3800,7 +3806,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -4312,6 +4318,7 @@ unsigned __int8 *vt_Copy_420vf_TRC_Tone_Mat_TRC_RGhA_GCD(unsigned __int8 *result
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_RGhA_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -4337,7 +4344,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -4473,7 +4480,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -4486,7 +4493,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -5161,6 +5168,7 @@ char *vt_Copy_420vf_TRC_Mat_TRC_RGhA_neon_fp16_GCD(char *result, uint64_t a2)
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_RGhA(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -5186,7 +5194,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -5322,7 +5330,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -5335,7 +5343,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -5772,6 +5780,7 @@ unsigned __int8 *vt_Copy_420vf_TRC_Mat_TRC_RGhA_GCD(unsigned __int8 *result, uin
 
 uint64_t vt_Copy_420vf_rgb_RGhA_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -5797,7 +5806,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -5933,7 +5942,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -5946,7 +5955,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -6274,6 +6283,7 @@ unsigned __int8 *vt_Copy_420vf_rgb_RGhA_neon_fp16_GCD(unsigned __int8 *result, u
 
 uint64_t vt_Copy_420vf_rgb_RGhA(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -6299,7 +6309,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -6435,7 +6445,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 8 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -6448,7 +6458,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -6695,6 +6705,7 @@ unsigned __int8 *vt_Copy_420vf_rgb_RGhA_GCD(unsigned __int8 *result, uint64_t a2
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_RGfA_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -6720,7 +6731,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -6856,7 +6867,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -6869,7 +6880,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -7708,6 +7719,7 @@ unint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_RGfA_neon_fp16_GCD(unint64_t result, ui
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_RGfA(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -7733,7 +7745,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -7869,7 +7881,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -7882,7 +7894,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -8416,6 +8428,7 @@ unsigned __int8 *vt_Copy_420vf_TRC_Tone_Mat_TRC_RGfA_GCD(unsigned __int8 *result
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_RGfA_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -8441,7 +8454,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -8577,7 +8590,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -8590,7 +8603,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
@@ -9327,6 +9340,7 @@ uint64_t vt_Copy_420vf_TRC_Mat_TRC_RGfA_neon_fp16_GCD(uint64_t result, uint64_t 
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_RGfA(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v61 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -9352,7 +9366,7 @@ LABEL_60:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v49 - v21);
     bzero(&v49 - v21, v22);
   }
@@ -9488,7 +9502,7 @@ LABEL_60:
 
   v42 = v41 + v35 - 1;
   v43 = v40 + v27;
-  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(a3 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(a3 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = a3, fig_log_get_emitter(), v20 = FigSignalErrorAtGM(), a3 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
+  if (v40 + v27 + v42 * *a4 <= *a5 && (!*(v13 + 8) || ((v43 + 1 + ((v43 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v41 + v35 + 1) / 2 - 1) <= a5[1]) && (!*(v13 + 16) || v43 + a4[2] * v42 <= a5[2]) && (*a8 * (v36 + v41 - 1) + 16 * (v40 + v28)) <= *a9 || (v50 = v38, v51 = v37, v52 = v35, v53 = v36, v55.i64[0] = v30, v56.i64[0] = v27, v57.i64[0] = v28, v58.i64[0] = v29, v59.i64[0] = a9, v60.i64[0] = v13, fig_log_get_emitter(), v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v50, v51), v13 = v60.i64[0], v23 = v59.i64[0], v29 = v58.i64[0], v28 = v57.i64[0], v27 = v56.i64[0], v30 = v55.i64[0], v35 = v52, v36 = v53, v38 = v50, v37 = v51, !v20))
   {
     *v19 = v15;
     *(v19 + 4) = v30;
@@ -9501,7 +9515,7 @@ LABEL_60:
     v19[12] = v40;
     v19[13] = v41;
     v19[14] = v28;
-    v19[7] = a3;
+    v19[7] = v13;
     v19[8] = a4;
     v19[9] = a5;
     v19[10] = v29;
